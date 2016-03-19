@@ -42,4 +42,12 @@
 	# endif
 # endif
 
-# include "Siv3D/Memory.hpp"
+
+//
+// ユーティリティ
+//
+	// 型
+	# include "Siv3D/Types.hpp"
+	// メモリ
+	# include "Siv3D/Memory.hpp"
+

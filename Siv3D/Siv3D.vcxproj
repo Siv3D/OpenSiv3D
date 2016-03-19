@@ -127,6 +127,7 @@
     <ClInclude Include="Include\EASTL\weak_ptr.h" />
     <ClInclude Include="Include\Siv3D.hpp" />
     <ClInclude Include="Include\Siv3D\Memory.hpp" />
+    <ClInclude Include="Include\Siv3D\Types.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\EASTL\allocator_eastl.cpp" />

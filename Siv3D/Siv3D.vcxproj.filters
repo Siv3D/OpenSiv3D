@@ -361,6 +361,9 @@
     <ClInclude Include="Include\Siv3D\Memory.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Siv3D\Types.hpp">
+      <Filter>Include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Siv3DMain.cpp">
