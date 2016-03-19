@@ -73,29 +73,29 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)$(ProjectName)\Debug-x86\</OutDir>
     <IntDir>Intermediate\Debug-x86\</IntDir>
-    <IncludePath>C:\Users\Ryo\Siv3D\OpenSiv3D\Siv3D\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Ryo\Siv3D\OpenSiv3D\Siv3D\Lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Siv3D\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Siv3D\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)$(ProjectName)\Debug-x64\</OutDir>
     <IntDir>Intermediate\Debug-x64\</IntDir>
-    <IncludePath>C:\Users\Ryo\Siv3D\OpenSiv3D\Siv3D\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Ryo\Siv3D\OpenSiv3D\Siv3D\Lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Siv3D\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Siv3D\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)$(ProjectName)\Release-x86\</OutDir>
     <IntDir>Intermediate\Release-x86\</IntDir>
-    <IncludePath>C:\Users\Ryo\Siv3D\OpenSiv3D\Siv3D\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Ryo\Siv3D\OpenSiv3D\Siv3D\Lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Siv3D\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Siv3D\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)$(ProjectName)\Release-x64\</OutDir>
     <IntDir>Intermediate\Release-x64\</IntDir>
-    <IncludePath>C:\Users\Ryo\Siv3D\OpenSiv3D\Siv3D\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Ryo\Siv3D\OpenSiv3D\Siv3D\Lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Siv3D\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\Siv3D\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
