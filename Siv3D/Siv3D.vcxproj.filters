@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{433d1e95-8ecc-4194-9dd1-f010588c6d10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{0d013b61-7bf2-402c-8c39-075c19b6d4e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D">
+      <UniqueIdentifier>{94ac9d68-7185-46c0-9118-9ce2f1b058c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\EASTL">
+      <UniqueIdentifier>{b95b4aad-4f90-4cda-815e-eed5fdcd348d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Siv3D">
+      <UniqueIdentifier>{0eacb51c-6b79-4b38-913d-08e8c0eb5409}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\EASTL">
+      <UniqueIdentifier>{e26b0773-84fb-4fba-80ae-2a03c22f22a1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Include\Siv3D.hpp">
+      <Filter>Include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Siv3DMain.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

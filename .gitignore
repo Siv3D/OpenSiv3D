@@ -21,6 +21,12 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
+[Ii]ntermediate/
+[Dd]ebug-x64/
+[Dd]ebug-x86/
+[Rr]elease-x64/
+[Rr]elease-x86/
+
 
 # Visual Studio 2015 cache/options directory
 .vs/
@@ -279,3 +285,5 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+*.opendb
