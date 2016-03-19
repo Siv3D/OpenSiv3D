@@ -47,6 +47,8 @@
 //
 	// 型
 	# include "Siv3D/Types.hpp"
+	// ユーティリティ
+	# include "Siv3D/Utility.hpp"
 	// アロケータ
 	# include "Siv3D/Allocator.hpp"
 	// 動的配列
