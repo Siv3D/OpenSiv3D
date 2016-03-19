@@ -19,9 +19,125 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\EABase\config\eacompiler.h" />
+    <ClInclude Include="Include\EABase\config\eacompilertraits.h" />
+    <ClInclude Include="Include\EABase\config\eaplatform.h" />
+    <ClInclude Include="Include\EABase\eabase.h" />
+    <ClInclude Include="Include\EABase\eahave.h" />
+    <ClInclude Include="Include\EABase\earesult.h" />
+    <ClInclude Include="Include\EABase\eastdarg.h" />
+    <ClInclude Include="Include\EABase\nullptr.h" />
+    <ClInclude Include="Include\EABase\version.h" />
+    <ClInclude Include="Include\EASTL\algorithm.h" />
+    <ClInclude Include="Include\EASTL\allocator.h" />
+    <ClInclude Include="Include\EASTL\allocator_malloc.h" />
+    <ClInclude Include="Include\EASTL\array.h" />
+    <ClInclude Include="Include\EASTL\bitset.h" />
+    <ClInclude Include="Include\EASTL\bitvector.h" />
+    <ClInclude Include="Include\EASTL\bonus\call_traits.h" />
+    <ClInclude Include="Include\EASTL\bonus\compressed_pair.h" />
+    <ClInclude Include="Include\EASTL\bonus\fixed_string_abstract.h" />
+    <ClInclude Include="Include\EASTL\bonus\intrusive_sdlist.h" />
+    <ClInclude Include="Include\EASTL\bonus\intrusive_slist.h" />
+    <ClInclude Include="Include\EASTL\bonus\list_map.h" />
+    <ClInclude Include="Include\EASTL\bonus\ring_buffer.h" />
+    <ClInclude Include="Include\EASTL\bonus\sort_extra.h" />
+    <ClInclude Include="Include\EASTL\bonus\sparse_matrix.h" />
+    <ClInclude Include="Include\EASTL\bonus\string_abstract.h" />
+    <ClInclude Include="Include\EASTL\chrono.h" />
+    <ClInclude Include="Include\EASTL\core_allocator.h" />
+    <ClInclude Include="Include\EASTL\core_allocator_adapter.h" />
+    <ClInclude Include="Include\EASTL\deque.h" />
+    <ClInclude Include="Include\EASTL\fixed_allocator.h" />
+    <ClInclude Include="Include\EASTL\fixed_hash_map.h" />
+    <ClInclude Include="Include\EASTL\fixed_hash_set.h" />
+    <ClInclude Include="Include\EASTL\fixed_list.h" />
+    <ClInclude Include="Include\EASTL\fixed_map.h" />
+    <ClInclude Include="Include\EASTL\fixed_set.h" />
+    <ClInclude Include="Include\EASTL\fixed_slist.h" />
+    <ClInclude Include="Include\EASTL\fixed_string.h" />
+    <ClInclude Include="Include\EASTL\fixed_substring.h" />
+    <ClInclude Include="Include\EASTL\fixed_vector.h" />
+    <ClInclude Include="Include\EASTL\functional.h" />
+    <ClInclude Include="Include\EASTL\hash_map.h" />
+    <ClInclude Include="Include\EASTL\hash_set.h" />
+    <ClInclude Include="Include\EASTL\heap.h" />
+    <ClInclude Include="Include\EASTL\initializer_list.h" />
+    <ClInclude Include="Include\EASTL\internal\allocator_traits.h" />
+    <ClInclude Include="Include\EASTL\internal\allocator_traits_fwd_decls.h" />
+    <ClInclude Include="Include\EASTL\internal\config.h" />
+    <ClInclude Include="Include\EASTL\internal\copy_help.h" />
+    <ClInclude Include="Include\EASTL\internal\enable_shared.h" />
+    <ClInclude Include="Include\EASTL\internal\fill_help.h" />
+    <ClInclude Include="Include\EASTL\internal\fixed_pool.h" />
+    <ClInclude Include="Include\EASTL\internal\function.h" />
+    <ClInclude Include="Include\EASTL\internal\functional_base.h" />
+    <ClInclude Include="Include\EASTL\internal\generic_iterator.h" />
+    <ClInclude Include="Include\EASTL\internal\hashtable.h" />
+    <ClInclude Include="Include\EASTL\internal\integer_sequence.h" />
+    <ClInclude Include="Include\EASTL\internal\intrusive_hashtable.h" />
+    <ClInclude Include="Include\EASTL\internal\mem_fn.h" />
+    <ClInclude Include="Include\EASTL\internal\move_help.h" />
+    <ClInclude Include="Include\EASTL\internal\pair_fwd_decls.h" />
+    <ClInclude Include="Include\EASTL\internal\red_black_tree.h" />
+    <ClInclude Include="Include\EASTL\internal\smart_ptr.h" />
+    <ClInclude Include="Include\EASTL\internal\thread_support.h" />
+    <ClInclude Include="Include\EASTL\internal\tuple_fwd_decls.h" />
+    <ClInclude Include="Include\EASTL\internal\type_compound.h" />
+    <ClInclude Include="Include\EASTL\internal\type_fundamental.h" />
+    <ClInclude Include="Include\EASTL\internal\type_pod.h" />
+    <ClInclude Include="Include\EASTL\internal\type_properties.h" />
+    <ClInclude Include="Include\EASTL\internal\type_transformations.h" />
+    <ClInclude Include="Include\EASTL\intrusive_hash_map.h" />
+    <ClInclude Include="Include\EASTL\intrusive_hash_set.h" />
+    <ClInclude Include="Include\EASTL\intrusive_list.h" />
+    <ClInclude Include="Include\EASTL\intrusive_ptr.h" />
+    <ClInclude Include="Include\EASTL\iterator.h" />
+    <ClInclude Include="Include\EASTL\linked_array.h" />
+    <ClInclude Include="Include\EASTL\linked_ptr.h" />
+    <ClInclude Include="Include\EASTL\list.h" />
+    <ClInclude Include="Include\EASTL\map.h" />
+    <ClInclude Include="Include\EASTL\memory.h" />
+    <ClInclude Include="Include\EASTL\numeric.h" />
+    <ClInclude Include="Include\EASTL\numeric_limits.h" />
+    <ClInclude Include="Include\EASTL\priority_queue.h" />
+    <ClInclude Include="Include\EASTL\queue.h" />
+    <ClInclude Include="Include\EASTL\random.h" />
+    <ClInclude Include="Include\EASTL\ratio.h" />
+    <ClInclude Include="Include\EASTL\safe_ptr.h" />
+    <ClInclude Include="Include\EASTL\scoped_array.h" />
+    <ClInclude Include="Include\EASTL\scoped_ptr.h" />
+    <ClInclude Include="Include\EASTL\set.h" />
+    <ClInclude Include="Include\EASTL\shared_array.h" />
+    <ClInclude Include="Include\EASTL\shared_ptr.h" />
+    <ClInclude Include="Include\EASTL\slist.h" />
+    <ClInclude Include="Include\EASTL\sort.h" />
+    <ClInclude Include="Include\EASTL\stack.h" />
+    <ClInclude Include="Include\EASTL\string.h" />
+    <ClInclude Include="Include\EASTL\tuple.h" />
+    <ClInclude Include="Include\EASTL\type_traits.h" />
+    <ClInclude Include="Include\EASTL\unique_ptr.h" />
+    <ClInclude Include="Include\EASTL\utility.h" />
+    <ClInclude Include="Include\EASTL\vector.h" />
+    <ClInclude Include="Include\EASTL\vector_map.h" />
+    <ClInclude Include="Include\EASTL\vector_multimap.h" />
+    <ClInclude Include="Include\EASTL\vector_multiset.h" />
+    <ClInclude Include="Include\EASTL\vector_set.h" />
+    <ClInclude Include="Include\EASTL\version.h" />
+    <ClInclude Include="Include\EASTL\weak_ptr.h" />
     <ClInclude Include="Include\Siv3D.hpp" />
+    <ClInclude Include="Include\Siv3D\Memory.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\EASTL\allocator_eastl.cpp" />
+    <ClCompile Include="Source\EASTL\assert.cpp" />
+    <ClCompile Include="Source\EASTL\fixed_pool.cpp" />
+    <ClCompile Include="Source\EASTL\hashtable.cpp" />
+    <ClCompile Include="Source\EASTL\intrusive_list.cpp" />
+    <ClCompile Include="Source\EASTL\numeric_limits.cpp" />
+    <ClCompile Include="Source\EASTL\red_black_tree.cpp" />
+    <ClCompile Include="Source\EASTL\string.cpp" />
+    <ClCompile Include="Source\EASTL\thread_support.cpp" />
     <ClCompile Include="Source\Siv3DMain.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -79,19 +195,23 @@
     <OutDir>Lib\x64\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
     <IntDir>Intermediate\Debug-x64\</IntDir>
+    <IncludePath>$(SolutionDir)\Siv3D\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IntDir>Intermediate\Release-x64\</IntDir>
     <OutDir>Lib\x64\</OutDir>
+    <IncludePath>$(SolutionDir)\Siv3D\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>Lib\x86\</OutDir>
     <IntDir>Intermediate\Release-x86\</IntDir>
+    <IncludePath>$(SolutionDir)\Siv3D\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>Lib\x86\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
     <IntDir>Intermediate\Debug-x86\</IntDir>
+    <IncludePath>$(SolutionDir)\Siv3D\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

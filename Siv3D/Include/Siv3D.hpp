@@ -41,3 +41,5 @@
 		# pragma comment (lib, "x86/Siv3D")
 	# endif
 # endif
+
+# include "Siv3D/Memory.hpp"
