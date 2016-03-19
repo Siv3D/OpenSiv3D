@@ -107,12 +107,6 @@ namespace s3d
 		return !(a < b);
 	}
 
-	template <class Type, class Allocator>
-	inline void swap(Array<Type, Allocator>& a, Array<Type, Allocator>& b)
-	{
-		a.swap(b);
-	}
-
 	template <>
 	class Array<bool> : protected std::basic_string<bool>
 	{
@@ -199,4 +193,13 @@ namespace s3d
 			push_back(tmp);
 		}
 	};
+}
+
+namespace std
+{
+	template <class Type, class Allocator>
+	inline void swap(s3d::Array<Type, Allocator>& a, s3d::Array<Type, Allocator>& b) noexcept(noexcept(x.swap(y)))
+	{
+		a.swap(b);
+	}
 }
