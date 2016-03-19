@@ -11,6 +11,5 @@
 void Main()
 {
 	TestAll();
-
 	::OutputDebugStringW(L"Siv3D!\n");
 }

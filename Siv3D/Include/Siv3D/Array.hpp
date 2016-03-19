@@ -11,10 +11,11 @@
 
 # pragma once
 # include <vector>
+# include "Allocator.hpp"
 
 namespace s3d
 {
-	template <class Type, class Allocator = std::allocator<Type>>
+	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
 	class Array : protected std::vector<Type, Allocator>
 	{
 	private:

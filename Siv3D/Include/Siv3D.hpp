@@ -42,11 +42,12 @@
 	# endif
 # endif
 
-
 //
 // ユーティリティ
 //
 	// 型
 	# include "Siv3D/Types.hpp"
+	// アロケータ
+	# include "Siv3D/Allocator.hpp"
 	// 動的配列
 	# include "Siv3D/Array.hpp"

@@ -18,7 +18,6 @@
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
 
-
 class RDTSC
 {
 private:
@@ -42,7 +41,6 @@ inline void InitTest()
 {
 	__rdtsc();
 }
-
 
 void TestTypes();
 void TestArray();

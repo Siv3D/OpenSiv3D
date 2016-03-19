@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Siv3D.hpp" />
+    <ClInclude Include="Include\Siv3D\Allocator.hpp" />
     <ClInclude Include="Include\Siv3D\Array.hpp" />
     <ClInclude Include="Include\Siv3D\Types.hpp" />
   </ItemGroup>
