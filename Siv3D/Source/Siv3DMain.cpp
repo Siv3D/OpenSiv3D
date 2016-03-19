@@ -9,6 +9,7 @@
 //
 //-----------------------------------------------
 
+# include <crtdbg.h>
 # define  NOMINMAX
 # define  STRICT
 # define  WIN32_LEAN_AND_MEAN
@@ -20,5 +21,7 @@ void Main();
 
 int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 {
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
 	Main();
 }

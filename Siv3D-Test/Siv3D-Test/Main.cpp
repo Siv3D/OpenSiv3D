@@ -6,8 +6,11 @@
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
 # include <Siv3D.hpp>
+# include "Test/Siv3DTest.hpp"
 
 void Main()
 {
+	TestAll();
+
 	::OutputDebugStringW(L"Siv3D!\n");
 }

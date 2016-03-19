@@ -48,6 +48,5 @@
 //
 	// 型
 	# include "Siv3D/Types.hpp"
-	// メモリ
-	# include "Siv3D/Memory.hpp"
-
+	// 動的配列
+	# include "Siv3D/Array.hpp"
