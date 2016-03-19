@@ -34,6 +34,9 @@
     <ClInclude Include="Include\Siv3D\String.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Siv3D\Utility.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Siv3DMain.cpp">

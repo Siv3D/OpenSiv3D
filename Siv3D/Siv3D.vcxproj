@@ -24,6 +24,7 @@
     <ClInclude Include="Include\Siv3D\Array.hpp" />
     <ClInclude Include="Include\Siv3D\String.hpp" />
     <ClInclude Include="Include\Siv3D\Types.hpp" />
+    <ClInclude Include="Include\Siv3D\Utility.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Siv3DMain.cpp" />
