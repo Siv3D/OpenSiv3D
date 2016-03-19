@@ -9,15 +9,16 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D.hpp>
 # include "Siv3DTest.hpp"
 
 void TestArray()
 {
-	{
-		static_assert(sizeof(s3d::Array<s3d::int32>) == sizeof(std::vector<s3d::int32>), "");
+	using namespace s3d;
 
-		s3d::Array<s3d::int32> vi = { 10, 20, 30, 40, 50 };
+	{
+		static_assert(sizeof(Array<int32>) == sizeof(std::vector<s3d::int32>), "");
+
+		Array<int32> vi = { 10, 20, 30, 40, 50 };
 
 		for (int i = 0; i < 3; ++i)
 		{
@@ -28,15 +29,31 @@ void TestArray()
 
 			{
 				RDTSC r;
-				s3d::Array<int> v(100000, 123);
+				Array<int> v(100000, 123);
 			}
 		}
 	}
 
 	{
-		static_assert(sizeof(s3d::Array<bool>) == sizeof(std::basic_string<bool>), "");
+		const Array<int32> v = { 1,2,3,4,5 };
 
-		s3d::Array<bool> vb = { true, true, false, false, true };
+		Println(L"[operator <<]---");
+		Println((Array<int32>{100, 200, 300} << 1 << 2 << 3).join(L", "));
+
+		Println(L"[all]---");
+		Println(Array<int32>{}.all());
+		Println(v.all());
+		Println(Array<bool>{false, false, false}.all());
+		Println(Array<double>{-0.4, 0.5, 1.2}.all([](auto v) { return v > 0.0; }));
+	}
+
+
+
+
+	{
+		static_assert(sizeof(Array<bool>) == sizeof(std::basic_string<bool>), "");
+
+		Array<bool> vb = { true, true, false, false, true };
 
 		for (int i = 0; i < 3; ++i)
 		{
@@ -47,7 +64,7 @@ void TestArray()
 
 			{
 				RDTSC r;
-				s3d::Array<bool> v(100000, true);
+				Array<bool> v(100000, true);
 			}
 		}
 	}

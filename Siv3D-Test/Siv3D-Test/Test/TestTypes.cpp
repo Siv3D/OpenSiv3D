@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D.hpp>
+# include "Siv3DTest.hpp"
 
 void TestTypes()
 {

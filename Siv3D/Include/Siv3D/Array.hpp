@@ -12,6 +12,7 @@
 # pragma once
 # include <vector>
 # include <string>
+# include <sstream>
 # include <algorithm>
 # include <functional>
 # include "Allocator.hpp"
@@ -821,6 +822,632 @@ namespace s3d
 		{
 			bool tmp(std::forward<Args>(args)...);
 			push_back(tmp);
+		}
+
+		Array& operator <<(const bool& value)
+		{
+			push_back(value);
+
+			return *this;
+		}
+
+		Array& operator <<(bool&& value)
+		{
+			push_back(std::move(value));
+
+			return *this;
+		}
+
+		bool all(std::function<bool(const bool&)> f = AsBool) const
+		{
+			for (const auto& v : *this)
+			{
+				if (!f(v))
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		bool any(std::function<bool(const bool&)> f = AsBool) const
+		{
+			for (const auto& v : *this)
+			{
+				if (f(v))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		Array& append(const Array& other_array)
+		{
+			insert(end(), other_array.begin(), other_array.end());
+
+			return *this;
+		}
+
+		const bool& choice() const
+		{
+			return choice(GetDefaultRNG());
+		}
+
+		template <class URNG, class Dummy = std::enable_if_t<!std::is_scalar<URNG>::value>>
+		const bool& choice(URNG&& rng) const
+		{
+			if (empty())
+			{
+				throw std::out_of_range("Array::choice() choice from empty Array");
+			}
+
+			const size_t index = std::uniform_int_distribution<size_t>(0, size() - 1)(rng);
+
+			return operator[](index);
+		}
+
+		template <class Size_t, class Dummy = std::enable_if_t<std::is_scalar<Size_t>::value>>
+		Array choice(Size_t n) const
+		{
+			return choice(n, GetDefaultRNG());
+		}
+
+		template <class URNG>
+		Array choice(size_t n, URNG&& rng) const
+		{
+			return shuffled(rng).taken(n);
+		}
+
+		size_t count(const bool& value) const
+		{
+			size_t result = 0;
+
+			for (const auto& v : *this)
+			{
+				if (v == value)
+				{
+					++result;
+				}
+			}
+
+			return result;
+		}
+
+		size_t count_if(std::function<bool(const bool&)> f) const
+		{
+			size_t result = 0;
+
+			for (const auto& v : *this)
+			{
+				if (f(v))
+				{
+					++result;
+				}
+			}
+
+			return result;
+		}
+
+		Array& drop(size_t n)
+		{
+			if (n >= size())
+			{
+				clear();
+			}
+			else
+			{
+				erase(begin(), begin() + n);
+			}
+
+			return *this;
+		}
+
+		Array dropped(size_t n) const
+		{
+			if (n >= size())
+			{
+				return Array();
+			}
+
+			return Array(begin() + n, end());
+		}
+
+		Array& drop_while(std::function<bool(const bool&)> f)
+		{
+			erase(begin(), std::find_if_not(begin(), end(), f));
+
+			return *this;
+		}
+
+		Array dropped_while(std::function<bool(const bool&)> f) const
+		{
+			return Array(std::find_if_not(begin(), end(), f), end());
+		}
+
+		Array& each(std::function<void(bool&)> f)
+		{
+			for (auto& v : *this)
+			{
+				f(v);
+			}
+
+			return *this;
+		}
+
+		const Array& each(std::function<void(const bool&)> f) const
+		{
+			for (const auto& v : *this)
+			{
+				f(v);
+			}
+
+			return *this;
+		}
+
+		Array& each_index(std::function<void(size_t, bool&)> f)
+		{
+			size_t i = 0;
+
+			for (auto& v : *this)
+			{
+				f(i++, v);
+			}
+
+			return *this;
+		}
+
+		const Array& each_index(std::function<void(size_t, const bool&)> f) const
+		{
+			size_t i = 0;
+
+			for (const auto& v : *this)
+			{
+				f(i++, v);
+			}
+
+			return *this;
+		}
+
+		const bool& fetch(size_t index, const bool& defaultValue) const
+		{
+			if (index >= size())
+			{
+				return defaultValue;
+			}
+
+			return operator[](index);
+		}
+
+		Array& fill(const bool& value)
+		{
+			std::fill(begin(), end(), value);
+
+			return *this;
+		}
+
+		Array filter(std::function<bool(const bool&)> f) const
+		{
+			Array new_array;
+
+			for (const auto& v : *this)
+			{
+				if (f(v))
+				{
+					new_array.push_back(v);
+				}
+			}
+
+			return new_array;
+		}
+
+		bool include(const bool& value) const
+		{
+			for (const auto& v : *this)
+			{
+				if (v == value)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		bool include_if(std::function<bool(const bool&)> f) const
+		{
+			return any(f);
+		}
+
+		std::string join(const std::string& sep) const
+		{
+			std::string s;
+
+			bool isFirst = true;
+
+			for (const auto& v : *this)
+			{
+				if (isFirst)
+				{
+					isFirst = false;
+				}
+				else
+				{
+					s.append(sep);
+				}
+
+				std::ostringstream os;
+
+				os << v;
+
+				s.append(os.str());
+			}
+
+			return s;
+		}
+
+		String join(const String& sep) const
+		{
+			String s;
+
+			bool isFirst = true;
+
+			for (const auto& v : *this)
+			{
+				if (isFirst)
+				{
+					isFirst = false;
+				}
+				else
+				{
+					s.append(sep);
+				}
+
+				std::wostringstream os;
+
+				os << v;
+
+				s.append(os.str());
+			}
+
+			return s;
+		}
+
+		Array& keep_if(std::function<bool(const bool&)> f)
+		{
+			erase(std::remove_if(begin(), end(), std::not1(f)), end());
+
+			return *this;
+		}
+
+		template <class Fty>
+		auto map(Fty f) const
+		{
+			Array<decltype(std::declval<Fty>()(std::declval<bool>()))> new_array;
+
+			new_array.reserve(size());
+
+			for (const auto& v : *this)
+			{
+				new_array.push_back(f(v));
+			}
+
+			return new_array;
+		}
+
+		bool none(std::function<bool(const bool&)> f = AsBool) const
+		{
+			for (const auto& v : *this)
+			{
+				if (f(v))
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		template <class Fty>
+		auto reduce(Fty f, decltype(std::declval<Fty>()(std::declval<bool>(), std::declval<bool>())) init) const
+		{
+			decltype(init) value = init;
+
+			for (const auto& v : *this)
+			{
+				value = f(value, v);
+			}
+
+			return value;
+		}
+
+		template <class Fty>
+		auto reduce1(Fty f) const
+		{
+			if (empty())
+			{
+				throw std::out_of_range("Array::reduce1() reduce from empty Array");
+			}
+
+			auto it = begin();
+			const auto itEnd = end();
+
+			decltype(std::declval<Fty>()(std::declval<bool>(), std::declval<bool>())) value = *it++;
+
+			while (it != itEnd)
+			{
+				value = f(value, *it++);
+			}
+
+			return value;
+		}
+
+		Array& remove(const bool& value)
+		{
+			erase(std::remove(begin(), end(), value), end());
+
+			return *this;
+		}
+
+		Array removed(const bool& value) const
+		{
+			Array new_array;
+
+			for (const auto& v : *this)
+			{
+				if (v != value)
+				{
+					new_array.push_back(v);
+				}
+			}
+
+			return new_array;
+		}
+
+		Array& remove_at(size_t index)
+		{
+			if (index >= size())
+			{
+				throw std::out_of_range("Array::remove_at() index out of range");
+			}
+
+			erase(begin() + index);
+
+			return *this;
+		}
+
+		Array removed_at(size_t index) const
+		{
+			if (index >= size())
+			{
+				throw std::out_of_range("Array::removed_at() index out of range");
+			}
+
+			Array new_array;
+
+			new_array.reserve(size() - 1);
+
+			new_array.insert(new_array.end(), begin(), begin() + index);
+
+			new_array.insert(new_array.end(), begin() + index + 1, end());
+
+			return new_array;
+		}
+
+		Array& remove_if(std::function<bool(const bool&)> f)
+		{
+			erase(std::remove_if(begin(), end(), f), end());
+
+			return *this;
+		}
+
+		Array removed_if(std::function<bool(const bool&)> f) const
+		{
+			Array new_array;
+
+			for (const auto& v : *this)
+			{
+				if (!f(v))
+				{
+					new_array.push_back(v);
+				}
+			}
+
+			return new_array;
+		}
+
+		Array& reverse()
+		{
+			std::reverse(begin(), end());
+
+			return *this;
+		}
+
+		Array reversed() const
+		{
+			return Array(rbegin(), rend());
+		}
+
+		Array& reverse_each(std::function<void(bool&)> f)
+		{
+			for (auto it = rbegin(); it != rend(); ++it)
+			{
+				f(*it);
+			}
+
+			return *this;
+		}
+
+		const Array& reverse_each(std::function<void(const bool&)> f) const
+		{
+			for (auto it = rbegin(); it != rend(); ++it)
+			{
+				f(*it);
+			}
+
+			return *this;
+		}
+
+		Array& rotate(std::ptrdiff_t count = 1)
+		{
+			if (empty())
+			{
+				;
+			}
+			else if (count > 0) // rotation to the left
+			{
+				if (static_cast<size_t>(count) > size())
+				{
+					count %= size();
+				}
+
+				std::rotate(begin(), begin() + count, end());
+			}
+			else if (count < 0) // rotation to the right
+			{
+				count = -count;
+
+				if (static_cast<size_t>(count) > size())
+				{
+					count %= size();
+				}
+
+				std::rotate(rbegin(), rbegin() + count, rend());
+			}
+
+			return *this;
+		}
+
+		Array rotated(std::ptrdiff_t count = 1) const
+		{
+			return Array(*this).rotate(count);
+		}
+
+		Array& shuffle()
+		{
+			return shuffle(GetDefaultRNG());
+		}
+
+		template <class URNG>
+		Array& shuffle(URNG&& rng)
+		{
+			std::shuffle(begin(), end(), rng);
+
+			return *this;
+		}
+
+		Array shuffled() const
+		{
+			return shuffled(GetDefaultRNG());
+		}
+
+		template <class URNG>
+		Array shuffled(URNG&& rng) const
+		{
+			return Array(*this).shuffle(rng);
+		}
+
+		Array slice(size_t index) const
+		{
+			if (index >= size())
+			{
+				return Array();
+			}
+
+			return Array(begin() + index, end());
+		}
+
+		Array slice(size_t index, size_t length) const
+		{
+			if (index >= size())
+			{
+				return Array();
+			}
+
+			return Array(begin() + index, begin() + std::min(index + length, size()));
+		}
+
+		Array& sort()
+		{
+			std::sort(begin(), end());
+
+			return *this;
+		}
+
+		Array& sort_by(std::function<bool(const bool& a, const bool& b)> f)
+		{
+			std::sort(begin(), end(), f);
+
+			return *this;
+		}
+
+		Array sorted() const
+		{
+			return Array(*this).sort();
+		}
+
+		Array sorted_by(std::function<bool(const bool& a, const bool& b)> f) const
+		{
+			return Array(*this).sort_by(f);
+		}
+
+		Array& take(size_t n)
+		{
+			erase(begin() + std::min(n, size()), end());
+
+			return *this;
+		}
+
+		Array taken(size_t n) const
+		{
+			return Array(begin(), begin() + std::min(n, size()));
+		}
+
+		Array& take_while(std::function<bool(const bool&)> f)
+		{
+			erase(std::find_if_not(begin(), end(), f), end());
+
+			return *this;
+		}
+
+		Array taken_while(std::function<bool(const bool&)> f) const
+		{
+			return Array(begin(), std::find_if_not(begin(), end(), f));
+		}
+
+		Array& unique()
+		{
+			sort();
+
+			erase(std::unique(begin(), end()), end());
+
+			return *this;
+		}
+
+		Array uniqued() const
+		{
+			return Array(*this).unique();
+		}
+
+		Array values_at(std::initializer_list<size_t> indices) const
+		{
+			Array new_array;
+
+			new_array.reserve(indices.size());
+
+			for (auto index : indices)
+			{
+				if (index >= size())
+				{
+					throw std::out_of_range("Array::values_at() index out of range");
+				}
+
+				new_array.push_back(operator[](index));
+			}
+
+			return new_array;
 		}
 	};
 }
