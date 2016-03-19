@@ -312,34 +312,7 @@ namespace s3d
 			return any(f);
 		}
 
-		std::string join(const std::string& sep) const
-		{
-			std::string s;
-
-			bool isFirst = true;
-
-			for (const auto& v : *this)
-			{
-				if (isFirst)
-				{
-					isFirst = false;
-				}
-				else
-				{
-					s.append(sep);
-				}
-
-				std::ostringstream os;
-
-				os << v;
-
-				s.append(os.str());
-			}
-
-			return s;
-		}
-
-		String join(const String& sep) const
+		String join(const String& sep = L", ") const
 		{
 			String s;
 
@@ -1061,34 +1034,7 @@ namespace s3d
 			return any(f);
 		}
 
-		std::string join(const std::string& sep) const
-		{
-			std::string s;
-
-			bool isFirst = true;
-
-			for (const auto& v : *this)
-			{
-				if (isFirst)
-				{
-					isFirst = false;
-				}
-				else
-				{
-					s.append(sep);
-				}
-
-				std::ostringstream os;
-
-				os << v;
-
-				s.append(os.str());
-			}
-
-			return s;
-		}
-
-		String join(const String& sep) const
+		String join(const String& sep = L", ") const
 		{
 			String s;
 
