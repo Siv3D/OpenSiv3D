@@ -173,6 +173,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Test\TestTypes.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Test\Siv3DTest.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
