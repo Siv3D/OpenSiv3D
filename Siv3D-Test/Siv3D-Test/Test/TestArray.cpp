@@ -14,5 +14,7 @@
 
 void TestArray()
 {
+	static_assert(sizeof(std::vector<int>) == sizeof(s3d::Array<int>), "");
+
 	s3d::Array<s3d::int32> v = { 10,20,30,40,50 };
 }
