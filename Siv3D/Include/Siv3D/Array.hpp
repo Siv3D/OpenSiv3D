@@ -15,6 +15,7 @@
 # include <sstream>
 # include <algorithm>
 # include <functional>
+# include "Fwd.hpp"
 # include "Allocator.hpp"
 # include "String.hpp"
 # include "Utility.hpp"

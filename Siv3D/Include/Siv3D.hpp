@@ -59,6 +59,8 @@
 //
 	// 型
 	# include "Siv3D/Types.hpp"
+	// 前方宣言
+	# include "Siv3D/Fwd.hpp"
 	// ユーティリティ
 	# include "Siv3D/Utility.hpp"
 	// アロケータ

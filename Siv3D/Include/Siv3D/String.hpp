@@ -11,7 +11,7 @@
 
 # pragma once
 # include <string>
-# include "Types.hpp"
+# include "Fwd.hpp"
 
 namespace s3d
 {

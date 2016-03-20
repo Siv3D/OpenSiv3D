@@ -11,6 +11,7 @@
 
 # pragma once
 # include <random>
+# include "Fwd.hpp"
 
 namespace s3d
 {

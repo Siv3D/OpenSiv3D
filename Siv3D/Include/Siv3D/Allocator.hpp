@@ -13,7 +13,7 @@
 # include <memory>
 # include <limits>
 # include <type_traits>
-# include "Platform.hpp"
+# include "Fwd.hpp"
 
 namespace s3d
 {
