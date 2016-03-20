@@ -26,9 +26,17 @@
 //----------------------------------------------------------------------------------------
 
 # pragma once
+
+# ifndef SIV3D_INCLUDED
+#	define SIV3D_INCLUDED
+# endif
+
 # include "Siv3D/Platform.hpp"
 
 # if defined(SIV3D_TARGET_WINDOWS)
+	# if(_MSC_FULL_VER < 190023506)
+		# error Visual Studio 2015 Update 1 以降が必要です | Visual Studio 2015 Update 1 or later is required
+	# endif
 	# pragma comment (linker, "/entry:\"wWinMainCRTStartup\"")
 # endif
 
