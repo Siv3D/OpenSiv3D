@@ -69,3 +69,5 @@
 	# include "Siv3D/Array.hpp"
 	// 文字列
 	# include "Siv3D/String.hpp"
+	// Optional
+	# include "Siv3D/Optional.hpp"
