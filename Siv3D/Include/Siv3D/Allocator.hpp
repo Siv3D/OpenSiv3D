@@ -13,14 +13,7 @@
 # include <memory>
 # include <limits>
 # include <type_traits>
-
-# ifdef _WIN64
-	# define SIV3D_PLATFORM_PTR_SIZE		8
-	# define SIV3D_ALLOCATOR_MIN_ALIGNMENT	16
-# else
-	# define SIV3D_PLATFORM_PTR_SIZE		4
-	# define SIV3D_ALLOCATOR_MIN_ALIGNMENT	8
-# endif
+# include "Platform.hpp"
 
 namespace s3d
 {
@@ -29,9 +22,7 @@ namespace s3d
 	{
 	public:
 
-		static_assert(!std::is_const<Type>::value,
-			"The C++ Standard forbids containers of const elements "
-			"because allocator<const T> is ill-formed.");
+		static_assert(!std::is_const<Type>::value, "AlignedAllocator<const Type> is ill-formed.");
 
 		using value_type		= Type;
 		using pointer			= Type*;
@@ -65,12 +56,22 @@ namespace s3d
 
 		pointer allocate(size_type n, const void* = nullptr)
 		{
-			return static_cast<pointer>(::_aligned_malloc(n * sizeof(Type), alignment));
+			# if defined(SIV3D_TARGET_WINDOWS)
+				return static_cast<pointer>(::_aligned_malloc(n * sizeof(Type), alignment));
+			# else
+				pointer p;
+				::posix_memalign(&p, alignment, n * sizeof(Type));
+				return p;
+			# endif
 		}
 
 		void deallocate(pointer p, size_type)
 		{
-			::_aligned_free(p);
+			# if defined(SIV3D_TARGET_WINDOWS)
+				::_aligned_free(p);
+			# else
+				::free(p);
+			# endif
 		}
 
 		size_t max_size() const noexcept
