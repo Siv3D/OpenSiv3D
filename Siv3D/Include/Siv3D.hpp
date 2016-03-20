@@ -26,15 +26,19 @@
 //----------------------------------------------------------------------------------------
 
 # pragma once
-# pragma comment (linker, "/entry:\"wWinMainCRTStartup\"")
+# include "Siv3D/Platform.hpp"
 
-# ifdef _WIN64
+# if defined(SIV3D_TARGET_WINDOWS)
+	# pragma comment (linker, "/entry:\"wWinMainCRTStartup\"")
+# endif
+
+# if defined(SIV3D_TARGET_WINDOWS_X64)
 	# ifdef _DEBUG
 		# pragma comment (lib, "x64/Siv3D_d")
 	# else
 		# pragma comment (lib, "x64/Siv3D")
 	# endif
-# else
+# elif defined(SIV3D_TARGET_WINDOWS_X86)
 	# ifdef _DEBUG
 		# pragma comment (lib, "x86/Siv3D_d")
 	# else
