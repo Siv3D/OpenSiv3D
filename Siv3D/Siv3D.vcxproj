@@ -28,7 +28,8 @@
     <ClInclude Include="Include\Siv3D\Utility.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Siv3DMain.cpp" />
+    <ClCompile Include="Source\Siv3DMain_OSX.cpp" />
+    <ClCompile Include="Source\Siv3DMain_Windows.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5EC743E4-1657-41A6-BBE5-A0E2B135885C}</ProjectGuid>

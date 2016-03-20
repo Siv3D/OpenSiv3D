@@ -42,7 +42,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Siv3DMain.cpp">
+    <ClCompile Include="Source\Siv3DMain_Windows.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Siv3DMain_OSX.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>

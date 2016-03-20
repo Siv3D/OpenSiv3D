@@ -9,6 +9,9 @@
 //
 //-----------------------------------------------
 
+# include "Siv3D/Platform.hpp"
+# if defined(SIV3D_TARGET_WINDOWS)
+
 # include <crtdbg.h>
 # define  NOMINMAX
 # define  STRICT
@@ -23,5 +26,9 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
+	::OutputDebugStringW(L"Siv3D for Windows\n");
+
 	Main();
 }
+
+# endif
