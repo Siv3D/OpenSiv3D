@@ -1401,7 +1401,7 @@ namespace s3d
 namespace std
 {
 	template <class Type, class Allocator>
-	inline void swap(s3d::Array<Type, Allocator>& a, s3d::Array<Type, Allocator>& b) noexcept(noexcept(x.swap(y)))
+	inline void swap(s3d::Array<Type, Allocator>& a, s3d::Array<Type, Allocator>& b) noexcept(noexcept(a.swap(b)))
 	{
 		a.swap(b);
 	}

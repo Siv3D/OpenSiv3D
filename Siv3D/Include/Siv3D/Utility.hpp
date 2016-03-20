@@ -14,9 +14,10 @@
 
 namespace s3d
 {
+	// 仮の実装
 	inline auto& GetDefaultRNG()
 	{
-		static thread_local std::mt19937_64 rng;
+		static std::mt19937_64 rng;
 		return rng;
 	}
 
