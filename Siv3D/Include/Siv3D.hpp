@@ -59,7 +59,11 @@
 //
 	// 文字列
 	# include "Siv3D/String.hpp"
+	// 基数
+	# include "Siv3D/Radix.hpp"
 	// 整数のフォーマット
 	# include "Siv3D/FormatInt.hpp"
 	// 浮動小数点数のフォーマット
 	# include "Siv3D/FormatFloat.hpp"
+	// データ -> 文字列 の変換
+	# include "Siv3D/Format.hpp"

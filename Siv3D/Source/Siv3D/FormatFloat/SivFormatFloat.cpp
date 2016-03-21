@@ -14,45 +14,105 @@
 
 namespace s3d
 {
-	String FormatFloat(const double value, const int32 decimalPlace, const bool fixed)
+	namespace detail
 	{
-		using namespace double_conversion;
-	
-		const int flags = DoubleToStringConverter::UNIQUE_ZERO |
-			DoubleToStringConverter::EMIT_POSITIVE_EXPONENT_SIGN;
-		DoubleToStringConverter conv(flags, "inf", "nan", 'e', -324, 309, 0, 0);
-	
-		const int bufferSize = 384;
-		char buffer[bufferSize];
-		StringBuilder builder(buffer, bufferSize);
-	
-		if (conv.ToFixed(value, decimalPlace, &builder))
+		String FormatFloat(const double value, const int32 decimalPlace, const bool fixed)
 		{
-			const int length = builder.position();
-			const char* p = builder.Finalize();
-			const char* end = p + length;
-	
-			if (!fixed && decimalPlace != 0)
+			using namespace double_conversion;
+
+			const int flags = DoubleToStringConverter::UNIQUE_ZERO |
+				DoubleToStringConverter::EMIT_POSITIVE_EXPONENT_SIGN;
+			DoubleToStringConverter conv(flags, "inf", "nan", 'e', -324, 309, 0, 0);
+
+			const int bufferSize = 384;
+			char buffer[bufferSize];
+			StringBuilder builder(buffer, bufferSize);
+
+			if (conv.ToFixed(value, decimalPlace, &builder))
 			{
-				while (*(end - 1) == '0')
+				const int length = builder.position();
+				const char* p = builder.Finalize();
+				const char* end = p + length;
+
+				if (!fixed && decimalPlace != 0)
 				{
-					--end;
+					while (*(end - 1) == '0')
+					{
+						--end;
+					}
+
+					if (*(end - 1) == '.')
+					{
+						--end;
+					}
 				}
-	
-				if (*(end - 1) == '.')
-				{
-					--end;
-				}
+
+				return String(p, end);
 			}
-	
-			return String(p, end);
+			else
+			{
+				conv.ToShortest(value, &builder);
+				const int length = builder.position();
+				const char* p = builder.Finalize();
+				return String(p, p + length);
+			}
 		}
-		else
+
+		size_t FormatFloat(wchar(&dst)[384], double value, int32 decimalPlace, bool fixed)
 		{
-			conv.ToShortest(value, &builder);
-			const int length = builder.position();
-			const char* p = builder.Finalize();
-			return String(p, p + length);
+			using namespace double_conversion;
+
+			const int flags = DoubleToStringConverter::UNIQUE_ZERO |
+				DoubleToStringConverter::EMIT_POSITIVE_EXPONENT_SIGN;
+			DoubleToStringConverter conv(flags, "inf", "nan", 'e', -324, 309, 0, 0);
+
+			const int bufferSize = 384;
+			char buffer[bufferSize];
+			StringBuilder builder(buffer, bufferSize);
+
+			if (conv.ToFixed(value, decimalPlace, &builder))
+			{
+				const int length = builder.position();
+				const char* p = builder.Finalize();
+				const char* end = p + length;
+
+				if (!fixed && decimalPlace != 0)
+				{
+					while (*(end - 1) == '0')
+					{
+						--end;
+					}
+
+					if (*(end - 1) == '.')
+					{
+						--end;
+					}
+				}
+
+				size_t ret = end - p;
+				wchar* pDst = dst;
+				while (p != end)
+				{
+					*(pDst++) = *(p++);
+				}
+				*pDst = L'\0';
+				return ret;
+			}
+			else
+			{
+				conv.ToShortest(value, &builder);
+				const int length = builder.position();
+				const char* p = builder.Finalize();
+
+				wchar* pDst = dst;
+				const char* end = p + length;
+				while (p != end)
+				{
+					*(pDst++) = *(p++);
+				}
+				*pDst = L'\0';
+				return length;
+			}
 		}
 	}
 }

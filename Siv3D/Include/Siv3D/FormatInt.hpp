@@ -13,6 +13,7 @@
 # include <cstdint>
 # include <limits>
 # include "String.hpp"
+# include "Radix.hpp"
 
 namespace s3d
 {
@@ -276,49 +277,48 @@ namespace s3d
 		return detail::FormatInt(value).str();
 	}
 
-
-	inline String ToString(const char value, const int32 radix, const bool upperCase = false)
+	inline String ToString(const char value, const Radix& radix, const bool upperCase = false)
 	{
-		return detail::ItoW(static_cast<int8>(value), radix, (radix == 10 && value < 0), upperCase);
+		return detail::ItoW(static_cast<int8>(value), radix.value(), (radix.is10() && value < 0), upperCase);
 	}
 
-	inline String ToString(const int8 value, const int32 radix, const bool upperCase = false)
+	inline String ToString(const int8 value, const Radix& radix, const bool upperCase = false)
 	{
-		return detail::ItoW(static_cast<uint8>(value), radix, (radix == 10 && value < 0), upperCase);
+		return detail::ItoW(static_cast<uint8>(value), radix.value(), (radix.is10() && value < 0), upperCase);
 	}
 
-	inline String ToString(const uint8 value, const int32 radix, const bool upperCase = false)
+	inline String ToString(const uint8 value, const Radix& radix, const bool upperCase = false)
 	{
-		return detail::ItoW(value, radix, false, upperCase);
+		return detail::ItoW(value, radix.value(), false, upperCase);
 	}
 
-	inline String ToString(const int16 value, const int32 radix, const bool upperCase = false)
+	inline String ToString(const int16 value, const Radix& radix, const bool upperCase = false)
 	{
-		return detail::ItoW(static_cast<uint16>(value), radix, (radix == 10 && value < 0), upperCase);
+		return detail::ItoW(static_cast<uint16>(value), radix.value(), (radix.is10() && value < 0), upperCase);
 	}
 
-	inline String ToString(const uint16 value, const int32 radix, const bool upperCase = false)
+	inline String ToString(const uint16 value, const Radix& radix, const bool upperCase = false)
 	{
-		return detail::ItoW(value, radix, false, upperCase);
+		return detail::ItoW(value, radix.value(), false, upperCase);
 	}
 
-	inline String ToString(const int32 value, const int32 radix, const bool upperCase = false)
+	inline String ToString(const int32 value, const Radix& radix, const bool upperCase = false)
 	{
-		return detail::ItoW(static_cast<uint32>(value), radix, (radix == 10 && value < 0), upperCase);
+		return detail::ItoW(static_cast<uint32>(value), radix.value(), (radix.is10() && value < 0), upperCase);
 	}
 
-	inline String ToString(const uint32 value, const int32 radix, const bool upperCase = false)
+	inline String ToString(const uint32 value, const Radix& radix, const bool upperCase = false)
 	{
-		return detail::ItoW(value, radix, false, upperCase);
+		return detail::ItoW(value, radix.value(), false, upperCase);
 	}
 
-	inline String ToString(const int64 value, const int32 radix, const bool upperCase = false)
+	inline String ToString(const int64 value, const Radix& radix, const bool upperCase = false)
 	{
-		return detail::ItoW(static_cast<uint64>(value), radix, (radix == 10 && value < 0), upperCase);
+		return detail::ItoW(static_cast<uint64>(value), radix.value(), (radix.is10() && value < 0), upperCase);
 	}
 
-	inline String ToString(const uint64 value, const int32 radix, const bool upperCase = false)
+	inline String ToString(const uint64 value, const Radix& radix, const bool upperCase = false)
 	{
-		return detail::ItoW(value, radix, false, upperCase);
+		return detail::ItoW(value, radix.value(), false, upperCase);
 	}
 }
