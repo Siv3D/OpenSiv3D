@@ -58,3 +58,5 @@
 //
 	// 文字列
 	# include "Siv3D/String.hpp"
+	// 整数のフォーマット
+	# include "Siv3D/FormatInt.hpp"

@@ -1,0 +1,123 @@
+﻿//-----------------------------------------------
+//
+//	This file is part of the Siv3D Engine.
+//
+//	Copyright (C) 2008-2016 Ryo Suzuki
+//	Copyright (C) 2016 OpenSiv3D Project
+//
+//	Licensed under the MIT License.
+//
+//-----------------------------------------------
+
+# pragma once
+# include <cstdint>
+# include <limits>
+# include "String.hpp"
+
+namespace s3d
+{
+	namespace detail
+	{
+		//////////////////////////////////////////////////////////////////////////////
+		//
+		//	Formatting library for C++
+		//	Copyright (c) 2012 - 2015, Victor Zverovich
+		//	All rights reserved.
+		//	Redistribution and use in source and binary forms, with or without
+		//	modification, are permitted provided that the following conditions are met:
+		//	1. Redistributions of source code must retain the above copyright notice, this
+		//	  list of conditions and the following disclaimer.
+		//	2. Redistributions in binary form must reproduce the above copyright notice,
+		//	  this list of conditions and the following disclaimer in the documentation
+		//	  and/or other materials provided with the distribution.
+		//	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+		//	ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+		//	WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+		//	DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+		//	ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+		//	(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+		//	LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+		//	ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+		//	(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+		//	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+		//
+
+		class FormatInt
+		{
+		private:
+
+			static constexpr const char DIGITS[] =
+				"0001020304050607080910111213141516171819"
+				"2021222324252627282930313233343536373839"
+				"4041424344454647484950515253545556575859"
+				"6061626364656667686970717273747576777879"
+				"8081828384858687888990919293949596979899";
+
+			enum { BUFFER_SIZE = std::numeric_limits<std::uint64_t>::digits10 + 3 };
+
+			mutable wchar_t buffer_[BUFFER_SIZE];
+
+			wchar_t* str_;
+
+			wchar_t* format_decimal(std::uint64_t value)
+			{
+				wchar_t *buffer_end = buffer_ + BUFFER_SIZE - 1;
+
+				while (value >= 100)
+				{
+					unsigned index = (value % 100) * 2;
+					value /= 100;
+					*--buffer_end = DIGITS[index + 1];
+					*--buffer_end = DIGITS[index];
+				}
+
+				if (value < 10)
+				{
+					*--buffer_end = static_cast<char>('0' + value);
+					return buffer_end;
+				}
+
+				unsigned index = static_cast<unsigned>(value * 2);
+				*--buffer_end = DIGITS[index + 1];
+				*--buffer_end = DIGITS[index];
+				return buffer_end;
+			}
+
+			void formatSigned(std::int64_t value)
+			{
+				std::uint64_t abs_value = static_cast<std::uint64_t>(value);
+				bool negative = value < 0;
+				if (negative)
+					abs_value = 0 - abs_value;
+				str_ = format_decimal(abs_value);
+				if (negative)
+					*--str_ = '-';
+			}
+
+		public:
+
+			explicit FormatInt(std::int32_t value) { formatSigned(value); }
+
+			explicit FormatInt(std::int64_t value) { formatSigned(value); }
+
+			explicit FormatInt(std::uint32_t value) : str_(format_decimal(value)) {}
+
+			explicit FormatInt(std::uint64_t value) : str_(format_decimal(value)) {}
+
+			std::size_t size() const { return buffer_ - str_ + BUFFER_SIZE - 1; }
+
+			const wchar_t *data() const { return str_; }
+
+			const wchar_t *c_str() const
+			{
+				buffer_[BUFFER_SIZE - 1] = '\0';
+				return str_;
+			}
+
+			String str() const { return String(str_, size()); }
+		};
+
+		//
+		//////////////////////////////////////////////////////////////////////////////
+	}
+}
