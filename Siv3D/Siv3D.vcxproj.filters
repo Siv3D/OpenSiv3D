@@ -17,6 +17,15 @@
     <Filter Include="Include\Siv3D">
       <UniqueIdentifier>{0eacb51c-6b79-4b38-913d-08e8c0eb5409}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\ThirdParty">
+      <UniqueIdentifier>{4280aafe-62a6-4cfa-8384-fa94757be709}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ThirdParty\double-conversion">
+      <UniqueIdentifier>{e93bb45d-27a6-45f3-a432-93708ee8cdd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\FormatFloat">
+      <UniqueIdentifier>{b28052d3-ec67-462d-85c6-a49e0da7faeb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Siv3D.hpp">
@@ -58,6 +67,39 @@
     <ClInclude Include="Include\Siv3D\FormatInt.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ThirdParty\double-conversion\bignum-dtoa.h">
+      <Filter>Source\ThirdParty\double-conversion</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ThirdParty\double-conversion\cached-powers.h">
+      <Filter>Source\ThirdParty\double-conversion</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ThirdParty\double-conversion\diy-fp.h">
+      <Filter>Source\ThirdParty\double-conversion</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ThirdParty\double-conversion\double-conversion.h">
+      <Filter>Source\ThirdParty\double-conversion</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ThirdParty\double-conversion\fast-dtoa.h">
+      <Filter>Source\ThirdParty\double-conversion</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ThirdParty\double-conversion\fixed-dtoa.h">
+      <Filter>Source\ThirdParty\double-conversion</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ThirdParty\double-conversion\ieee.h">
+      <Filter>Source\ThirdParty\double-conversion</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ThirdParty\double-conversion\strtod.h">
+      <Filter>Source\ThirdParty\double-conversion</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ThirdParty\double-conversion\utils.h">
+      <Filter>Source\ThirdParty\double-conversion</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ThirdParty\double-conversion\bignum.h">
+      <Filter>Source\ThirdParty\double-conversion</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Siv3D\FormatFloat.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Siv3DMain_Windows.cpp">
@@ -66,5 +108,37 @@
     <ClCompile Include="Source\Siv3DMain_OSX.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ThirdParty\double-conversion\bignum-dtoa.cc">
+      <Filter>Source\ThirdParty\double-conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ThirdParty\double-conversion\cached-powers.cc">
+      <Filter>Source\ThirdParty\double-conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ThirdParty\double-conversion\diy-fp.cc">
+      <Filter>Source\ThirdParty\double-conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ThirdParty\double-conversion\double-conversion.cc">
+      <Filter>Source\ThirdParty\double-conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ThirdParty\double-conversion\fast-dtoa.cc">
+      <Filter>Source\ThirdParty\double-conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ThirdParty\double-conversion\fixed-dtoa.cc">
+      <Filter>Source\ThirdParty\double-conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ThirdParty\double-conversion\strtod.cc">
+      <Filter>Source\ThirdParty\double-conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ThirdParty\double-conversion\bignum.cc">
+      <Filter>Source\ThirdParty\double-conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Siv3D\FormatFloat\SivFormatFloat.cpp">
+      <Filter>Source\Siv3D\FormatFloat</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source\ThirdParty\double-conversion\LICENSE">
+      <Filter>Source\ThirdParty\double-conversion</Filter>
+    </None>
   </ItemGroup>
 </Project>

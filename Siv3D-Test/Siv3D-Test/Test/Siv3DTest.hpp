@@ -63,10 +63,13 @@ inline void InitTest()
 void TestTypes();
 void TestArray();
 //void TestString();
+void TestFormatFloat();
 
 inline void TestAll()
 {
 	InitTest();
 	TestTypes();
 	TestArray();
+
+	TestFormatFloat();
 }

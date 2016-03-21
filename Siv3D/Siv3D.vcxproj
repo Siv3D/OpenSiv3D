@@ -24,6 +24,7 @@
     <ClInclude Include="Include\Siv3D\Array.hpp" />
     <ClInclude Include="Include\Siv3D\FormatInt.hpp" />
     <ClInclude Include="Include\Siv3D\Fwd.hpp" />
+    <ClInclude Include="Include\Siv3D\FormatFloat.hpp" />
     <ClInclude Include="Include\Siv3D\Optional.hpp" />
     <ClInclude Include="Include\Siv3D\Platform.hpp" />
     <ClInclude Include="Include\Siv3D\PlatformWindows.hpp" />
@@ -32,10 +33,32 @@
     <ClInclude Include="Include\Siv3D\Uncopyable.hpp" />
     <ClInclude Include="Include\Siv3D\Unspecified.hpp" />
     <ClInclude Include="Include\Siv3D\Utility.hpp" />
+    <ClInclude Include="Source\ThirdParty\double-conversion\bignum-dtoa.h" />
+    <ClInclude Include="Source\ThirdParty\double-conversion\bignum.h" />
+    <ClInclude Include="Source\ThirdParty\double-conversion\cached-powers.h" />
+    <ClInclude Include="Source\ThirdParty\double-conversion\diy-fp.h" />
+    <ClInclude Include="Source\ThirdParty\double-conversion\double-conversion.h" />
+    <ClInclude Include="Source\ThirdParty\double-conversion\fast-dtoa.h" />
+    <ClInclude Include="Source\ThirdParty\double-conversion\fixed-dtoa.h" />
+    <ClInclude Include="Source\ThirdParty\double-conversion\ieee.h" />
+    <ClInclude Include="Source\ThirdParty\double-conversion\strtod.h" />
+    <ClInclude Include="Source\ThirdParty\double-conversion\utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Siv3DMain_OSX.cpp" />
     <ClCompile Include="Source\Siv3DMain_Windows.cpp" />
+    <ClCompile Include="Source\Siv3D\FormatFloat\SivFormatFloat.cpp" />
+    <ClCompile Include="Source\ThirdParty\double-conversion\bignum-dtoa.cc" />
+    <ClCompile Include="Source\ThirdParty\double-conversion\bignum.cc" />
+    <ClCompile Include="Source\ThirdParty\double-conversion\cached-powers.cc" />
+    <ClCompile Include="Source\ThirdParty\double-conversion\diy-fp.cc" />
+    <ClCompile Include="Source\ThirdParty\double-conversion\double-conversion.cc" />
+    <ClCompile Include="Source\ThirdParty\double-conversion\fast-dtoa.cc" />
+    <ClCompile Include="Source\ThirdParty\double-conversion\fixed-dtoa.cc" />
+    <ClCompile Include="Source\ThirdParty\double-conversion\strtod.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source\ThirdParty\double-conversion\LICENSE" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5EC743E4-1657-41A6-BBE5-A0E2B135885C}</ProjectGuid>

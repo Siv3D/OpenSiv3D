@@ -27,6 +27,9 @@
     <ClCompile Include="Test\TestArray.cpp">
       <Filter>Test</Filter>
     </ClCompile>
+    <ClCompile Include="Test\TestFormatFloat.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test\Siv3DTest.hpp">

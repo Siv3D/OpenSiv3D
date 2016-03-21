@@ -60,3 +60,5 @@
 	# include "Siv3D/String.hpp"
 	// 整数のフォーマット
 	# include "Siv3D/FormatInt.hpp"
+	// 浮動小数点数のフォーマット
+	# include "Siv3D/FormatFloat.hpp"
