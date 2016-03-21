@@ -30,6 +30,15 @@
     <ClCompile Include="Test\TestFormatFloat.cpp">
       <Filter>Test</Filter>
     </ClCompile>
+    <ClCompile Include="Test\TestOptional.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\TestString.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\TestFormatInt.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test\Siv3DTest.hpp">
