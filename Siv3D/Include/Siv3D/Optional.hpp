@@ -147,34 +147,34 @@ namespace s3d
 	};
 
 	template <class Type>
-	struct Optional_base
+	struct optional_base
 	{
 		bool init_;
 		
 		storage_t<Type> storage_;
 
-		constexpr Optional_base() noexcept
+		constexpr optional_base() noexcept
 			: init_(false)
 			, storage_(trivial_init) {};
 
-		explicit constexpr Optional_base(const Type& v)
+		explicit constexpr optional_base(const Type& v)
 			: init_(true)
 			, storage_(v) {}
 
-		explicit constexpr Optional_base(Type&& v)
+		explicit constexpr optional_base(Type&& v)
 			: init_(true)
 			, storage_(constexpr_move(v)) {}
 
-		template <class... Args> explicit Optional_base(in_place_t, Args&&... args)
+		template <class... Args> explicit optional_base(in_place_t, Args&&... args)
 			: init_(true)
 			, storage_(constexpr_forward<Args>(args)...) {}
 
 		template <class U, class... Args, OPTIONAL_REQUIRES(std::is_constructible<Type, std::initializer_list<U>>)>
-		explicit Optional_base(in_place_t, std::initializer_list<U> il, Args&&... args)
+		explicit optional_base(in_place_t, std::initializer_list<U> il, Args&&... args)
 			: init_(true)
 			, storage_(il, std::forward<Args>(args)...) {}
 
-		~Optional_base()
+		~optional_base()
 		{
 			if (init_)
 			{
@@ -184,38 +184,47 @@ namespace s3d
 	};
 
 	template <class Type>
-	struct constexpr_Optional_base
+	struct constexpr_optional_base
 	{
 		bool init_;
 
 		constexpr_storage_t<Type> storage_;
 
-		constexpr constexpr_Optional_base() noexcept
+		constexpr constexpr_optional_base() noexcept
 			: init_(false)
 			, storage_(trivial_init) {};
 
-		explicit constexpr constexpr_Optional_base(const Type& v)
+		explicit constexpr constexpr_optional_base(const Type& v)
 			: init_(true)
 			, storage_(v) {}
 
-		explicit constexpr constexpr_Optional_base(Type&& v)
+		explicit constexpr constexpr_optional_base(Type&& v)
 			: init_(true)
 			, storage_(constexpr_move(v)) {}
 
-		template <class... Args> explicit constexpr constexpr_Optional_base(in_place_t, Args&&... args)
+		template <class... Args> explicit constexpr constexpr_optional_base(in_place_t, Args&&... args)
 			: init_(true)
 			, storage_(constexpr_forward<Args>(args)...) {}
 
 		template <class U, class... Args, OPTIONAL_REQUIRES(std::is_constructible<Type, std::initializer_list<U>>)>
-		constexpr explicit constexpr_Optional_base(in_place_t, std::initializer_list<U> il, Args&&... args)
+		constexpr explicit constexpr_optional_base(in_place_t, std::initializer_list<U> il, Args&&... args)
 			: init_(true)
 			, storage_(il, std::forward<Args>(args)...) {}
 
-		~constexpr_Optional_base() = default;
+		~constexpr_optional_base() = default;
 	};
 
 	template <class Type>
-	using OptionalBase = typename std::conditional<std::is_trivially_destructible<Type>::value, constexpr_Optional_base<Type>, Optional_base<Type>>::type;
+	using OptionalBase = typename std::conditional_t<std::is_trivially_destructible<Type>::value, constexpr_optional_base<Type>, optional_base<Type>>;
+
+	template <class Type>
+	struct is_Optional : std::false_type {};
+
+	template <class Type>
+	struct is_Optional<Optional<Type>> : std::true_type {};
+
+	template <>
+	struct is_Optional<nullopt_t> : std::true_type {};
 
 	/// <summary>
 	/// Optional
@@ -225,11 +234,6 @@ namespace s3d
 	{
 		static_assert(!std::is_same<typename std::decay<Type>::type, nullopt_t>::value, "bad T");
 		static_assert(!std::is_same<typename std::decay<Type>::type, in_place_t>::value, "bad T");
-
-		constexpr bool initialized() const noexcept
-		{
-			return OptionalBase<Type>::init_;
-		}
 
 		Type* dataptr()
 		{
@@ -258,7 +262,7 @@ namespace s3d
 
 		void clear() noexcept
 		{
-			if (initialized())
+			if (has_value())
 			{
 				dataptr()->~Type();
 			}
@@ -304,13 +308,13 @@ namespace s3d
 		/// <summary>
 		/// コピーコンストラクタ
 		/// </summary>
-		/// <param="rhs">
+		/// <param name="rhs">
 		/// 他の Optional オブジェクト
 		/// </param>
 		Optional(const Optional& rhs)
 			: OptionalBase<Type>()
 		{
-			if (rhs.initialized()) {
+			if (rhs.has_value()) {
 				::new (static_cast<void*>(dataptr())) Type(*rhs);
 				OptionalBase<Type>::init_ = true;
 			}
@@ -319,13 +323,13 @@ namespace s3d
 		/// <summary>
 		/// ムーブコンストラクタ
 		/// </summary>
-		/// <param="rhs">
+		/// <param name="rhs">
 		/// 他の Optional オブジェクト
 		/// </param>
 		Optional(Optional&& rhs) noexcept(std::is_nothrow_move_constructible<Type>::value)
 			: OptionalBase<Type>()
 		{
-			if (rhs.initialized())
+			if (rhs.has_value())
 			{
 				::new (static_cast<void*>(dataptr())) Type(std::move(*rhs));
 				OptionalBase<Type>::init_ = true;
@@ -335,7 +339,7 @@ namespace s3d
 		/// <summary>
 		/// コピーコンストラクタ
 		/// </summary>
-		/// <param="rhs">
+		/// <param name="rhs">
 		/// 他の Optional オブジェクト
 		/// </param>
 		constexpr Optional(const Type& v)
@@ -344,7 +348,7 @@ namespace s3d
 		/// <summary>
 		/// ムーブコンストラクタ
 		/// </summary>
-		/// <param="rhs">
+		/// <param name="rhs">
 		/// 他の Optional オブジェクト
 		/// </param>
 		constexpr Optional(Type&& v)
@@ -353,7 +357,7 @@ namespace s3d
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		/// <param="args">
+		/// <param name="args">
 		/// 値のコンストラクタ引数
 		/// </param>
 		template <class... Args>
@@ -363,7 +367,7 @@ namespace s3d
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		/// <param="args">
+		/// <param name="args">
 		/// 値のコンストラクタ引数
 		/// </param>
 		template <class U, class... Args, OPTIONAL_REQUIRES(std::is_constructible<Type, std::initializer_list<U>>)>
@@ -390,7 +394,7 @@ namespace s3d
 		/// <summary>
 		/// 代入演算子
 		/// </summary>
-		/// <param="rhs">
+		/// <param name="rhs">
 		/// 他の Optional オブジェクト
 		/// </param>
 		/// <returns>
@@ -398,16 +402,16 @@ namespace s3d
 		/// </returns>
 		Optional& operator = (const Optional& rhs)
 		{
-			if (initialized() == true && rhs.initialized() == false) clear();
-			else if (initialized() == false && rhs.initialized() == true)  initialize(*rhs);
-			else if (initialized() == true && rhs.initialized() == true)  contained_val() = *rhs;
+			if (has_value() == true && rhs.has_value() == false) clear();
+			else if (has_value() == false && rhs.has_value() == true) initialize(*rhs);
+			else if (has_value() == true && rhs.has_value() == true) contained_val() = *rhs;
 			return *this;
 		}
 
 		/// <summary>
 		/// ムーブ代入演算子
 		/// </summary>
-		/// <param="rhs">
+		/// <param name="rhs">
 		/// 他の Optional オブジェクト
 		/// </param>
 		/// <returns>
@@ -416,16 +420,16 @@ namespace s3d
 		Optional& operator = (Optional&& rhs)
 			noexcept(std::is_nothrow_move_assignable<Type>::value && std::is_nothrow_move_constructible<Type>::value)
 		{
-			if (initialized() == true && rhs.initialized() == false) clear();
-			else if (initialized() == false && rhs.initialized() == true)  initialize(std::move(*rhs));
-			else if (initialized() == true && rhs.initialized() == true)  contained_val() = std::move(*rhs);
+			if (has_value() == true && rhs.has_value() == false) clear();
+			else if (has_value() == false && rhs.has_value() == true) initialize(std::move(*rhs));
+			else if (has_value() == true && rhs.has_value() == true) contained_val() = std::move(*rhs);
 			return *this;
 		}
 
 		/// <summary>
 		/// ムーブ代入演算子
 		/// </summary>
-		/// <param="v">
+		/// <param name="v">
 		/// 他のオブジェクト
 		/// </param>
 		/// <returns>
@@ -435,7 +439,7 @@ namespace s3d
 		auto operator = (U&& v)
 			-> typename std::enable_if<std::is_same<typename std::decay<U>::type, Type>::value, Optional&>::type
 		{
-			if (initialized()) { contained_val() = std::forward<U>(v); }
+			if (has_value()) { contained_val() = std::forward<U>(v); }
 			else { initialize(std::forward<U>(v)); }
 			return *this;
 		}
@@ -443,7 +447,7 @@ namespace s3d
 		/// <summary>
 		/// Optional オブジェクトを初期化します。
 		/// </summary>
-		/// <param="args">
+		/// <param name="args">
 		/// 値のコンストラクタ引数
 		/// </param>
 		/// <returns>
@@ -459,10 +463,10 @@ namespace s3d
 		/// <summary>
 		/// Optional オブジェクトを初期化します。
 		/// </summary>
-		/// <param="il">
+		/// <param name="il">
 		/// 値のコンストラクタ引数
 		/// </param>
-		/// <param="args">
+		/// <param name="args">
 		/// 値のコンストラクタ引数
 		/// </param>
 		/// <returns>
@@ -486,9 +490,9 @@ namespace s3d
 		/// </returns>
 		void swap(Optional<Type>& rhs) noexcept(std::is_nothrow_move_constructible<Type>::value && noexcept(std::swap(std::declval<Type&>(), std::declval<Type&>())))
 		{
-			if (initialized() == true && rhs.initialized() == false) { rhs.initialize(std::move(**this)); clear(); }
-			else if (initialized() == false && rhs.initialized() == true) { initialize(std::move(*rhs)); rhs.clear(); }
-			else if (initialized() == true && rhs.initialized() == true) { using std::swap; swap(**this, *rhs); }
+			if (has_value() == true && rhs.has_value() == false) { rhs.initialize(std::move(**this)); clear(); }
+			else if (has_value() == false && rhs.has_value() == true) { initialize(std::move(*rhs)); rhs.clear(); }
+			else if (has_value() == true && rhs.has_value() == true) { using std::swap; swap(**this, *rhs); }
 		}
 
 		/// <summary>
@@ -499,7 +503,7 @@ namespace s3d
 		/// </returns>
 		constexpr explicit operator bool() const noexcept
 		{
-			return initialized();
+			return has_value();
 		}
 
 		/// <summary>
@@ -510,7 +514,7 @@ namespace s3d
 		/// </returns>
 		constexpr bool has_value() const noexcept
 		{
-			return initialized();
+			return OptionalBase<Type>::init_;
 		}
 
 		/// <summary>
@@ -524,7 +528,7 @@ namespace s3d
 		/// </returns>
 		constexpr Type const* operator -> () const
 		{
-			assert(initialized());
+			assert(has_value());
 			return dataptr();
 		}
 
@@ -539,7 +543,7 @@ namespace s3d
 		/// </returns>
 		Type* operator -> ()
 		{
-			assert(initialized());
+			assert(has_value());
 			return dataptr();
 		}
 
@@ -554,7 +558,7 @@ namespace s3d
 		/// </returns>
 		constexpr Type const& operator * () const
 		{
-			assert(initialized());
+			assert(has_value());
 			return contained_val();
 		}
 
@@ -569,7 +573,7 @@ namespace s3d
 		/// </returns>
 		Type& operator * ()
 		{
-			assert(initialized());
+			assert(has_value());
 			return contained_val();
 		}
 
@@ -584,7 +588,7 @@ namespace s3d
 		/// </returns>
 		constexpr Type const& value() const
 		{
-			if (!initialized())
+			if (!has_value())
 			{
 				throw bad_optional_access("bad Optional access");
 			}
@@ -603,7 +607,7 @@ namespace s3d
 		/// </returns>
 		Type& value()
 		{
-			if (!initialized())
+			if (!has_value())
 			{
 				throw bad_optional_access("bad Optional access");
 			}
@@ -673,11 +677,36 @@ namespace s3d
 		/// 中身の値と同じ型を引数にとる関数
 		/// </param>
 		/// <returns>
+		/// 中身がある場合は関数 f の戻り値の Optional, それ以外の場合は none
+		/// </returns>
+		template <class Fty, class Dummy = std::enable_if_t<is_Optional<decltype(std::declval<Fty>()(std::declval<Type>()))>::value>>
+		decltype(std::declval<Fty>()(std::declval<Type>())) then(Fty f)
+		{
+			if (has_value())
+			{
+				return f(value());
+			}
+			else
+			{
+				return none;
+			}
+		}
+
+		/// <summary>
+		/// 中身がある場合に、その値を引数に関数 f を呼びます。
+		/// </summary>
+		/// <param name="f">
+		/// 中身の値と同じ型を引数にとる関数
+		/// </param>
+		/// <returns>
 		/// なし
 		/// </returns>
-		void then(std::function<void(Type&)> f)
+		template <class Fty, class Dummy = std::enable_if_t<
+			!is_Optional<decltype(std::declval<Fty>()(std::declval<Type>()))>::value &&
+			std::is_void<decltype(std::declval<Fty>()(std::declval<Type>()))>::value>>
+		void then(Fty f)
 		{
-			if (initialized())
+			if (has_value())
 			{
 				f(value());
 			}
@@ -687,16 +716,89 @@ namespace s3d
 		/// 中身がある場合に、その値を引数に関数 f を呼びます。
 		/// </summary>
 		/// <param name="f">
-		/// 中身があるときに呼び出す関数
+		/// 中身の値と同じ型を引数にとる関数
+		/// </param>
+		/// <returns>
+		/// 中身がある場合は関数 f の戻り値の Optional, それ以外の場合は none
+		/// </returns>
+		template <class Fty, class Dummy = std::enable_if_t<
+			!is_Optional<decltype(std::declval<Fty>()(std::declval<Type>()))>::value &&
+			!std::is_void<decltype(std::declval<Fty>()(std::declval<Type>()))>::value>>
+		Optional<decltype(std::declval<Fty>()(std::declval<Type>()))> then(Fty f)
+		{
+			if (has_value())
+			{
+				return make_Optional(f(value()));
+			}
+			else
+			{
+				return none;
+			}
+		}
+
+		/// <summary>
+		/// 中身がある場合に、その値を引数に関数 f を呼びます。
+		/// </summary>
+		/// <param name="f">
+		/// 中身の値と同じ型を引数にとる関数
+		/// </param>
+		/// <returns>
+		/// 中身がある場合は関数 f の戻り値, それ以外の場合は none
+		/// </returns>
+		template <class Fty, class Dummy = std::enable_if_t<is_Optional<decltype(std::declval<Fty>()(std::declval<Type>()))>::value>>
+		decltype(std::declval<Fty>()(std::declval<Type>())) then(Fty f) const
+		{
+			if (has_value())
+			{
+				return f(value());
+			}
+			else
+			{
+				return none;
+			}
+		}
+
+		/// <summary>
+		/// 中身がある場合に、その値を引数に関数 f を呼びます。
+		/// </summary>
+		/// <param name="f">
+		/// 中身の値と同じ型を引数にとる関数
 		/// </param>
 		/// <returns>
 		/// なし
 		/// </returns>
-		void then(std::function<void(const Type&)> f) const
+		template <class Fty, class Dummy = std::enable_if_t<
+			!is_Optional<decltype(std::declval<Fty>()(std::declval<Type>()))>::value &&
+			std::is_void<decltype(std::declval<Fty>()(std::declval<Type>()))>::value>>
+		void then(Fty f) const
 		{
-			if (initialized())
+			if (has_value())
 			{
 				f(value());
+			}
+		}
+
+		/// <summary>
+		/// 中身がある場合に、その値を引数に関数 f を呼びます。
+		/// </summary>
+		/// <param name="f">
+		/// 中身の値と同じ型を引数にとる関数
+		/// </param>
+		/// <returns>
+		/// 中身がある場合は関数 f の戻り値の Optional, それ以外の場合は none
+		/// </returns>
+		template <class Fty, class Dummy = std::enable_if_t<
+			!is_Optional<decltype(std::declval<Fty>()(std::declval<Type>()))>::value &&
+			!std::is_void<decltype(std::declval<Fty>()(std::declval<Type>()))>::value>>
+		Optional<decltype(std::declval<Fty>()(std::declval<Type>()))> then(Fty f) const
+		{
+			if (has_value())
+			{
+				return make_Optional(f(value()));
+			}
+			else
+			{
+				return none;
 			}
 		}
 
@@ -715,7 +817,7 @@ namespace s3d
 		/// </returns>
 		void then(std::function<void(Type&)> f1, std::function<void()> f2)
 		{
-			if (initialized())
+			if (has_value())
 			{
 				f1(value());
 			}
@@ -740,7 +842,7 @@ namespace s3d
 		/// </returns>
 		void then(std::function<void(const Type&)> f1, std::function<void()> f2) const
 		{
-			if (initialized())
+			if (has_value())
 			{
 				f1(value());
 			}
@@ -782,7 +884,7 @@ namespace s3d
 		/// <summary>
 		/// コピーコンストラクタ
 		/// </summary>
-		/// <param="rhs">
+		/// <param name="rhs">
 		/// 他の Optional オブジェクト
 		/// </param>
 		constexpr Optional(Type& v) noexcept
@@ -793,7 +895,7 @@ namespace s3d
 		/// <summary>
 		/// コピーコンストラクタ
 		/// </summary>
-		/// <param="rhs">
+		/// <param name="rhs">
 		/// 他の Optional オブジェクト
 		/// </param>
 		constexpr Optional(const Optional& rhs) noexcept
@@ -802,7 +904,7 @@ namespace s3d
 		/// <summary>
 		/// コピーコンストラクタ
 		/// </summary>
-		/// <param="rhs">
+		/// <param name="rhs">
 		/// 他の Optional オブジェクト
 		/// </param>
 		explicit constexpr Optional(in_place_t, Type& v) noexcept
@@ -842,7 +944,7 @@ namespace s3d
 		/// <summary>
 		/// 代入演算子
 		/// </summary>
-		/// <param="rhs">
+		/// <param name="rhs">
 		/// 他の Optional オブジェクト
 		/// </param>
 		/// <returns>
@@ -859,7 +961,7 @@ namespace s3d
 		/// <summary>
 		/// ムーブ代入演算子
 		/// </summary>
-		/// <param="rhs">
+		/// <param name="rhs">
 		/// 他の Optional オブジェクト
 		/// </param>
 		/// <returns>
@@ -872,7 +974,7 @@ namespace s3d
 		/// <summary>
 		/// Optional オブジェクトを初期化します。
 		/// </summary>
-		/// <param="v">
+		/// <param name="v">
 		/// 新しい値
 		/// </param>
 		/// <returns>
@@ -907,7 +1009,7 @@ namespace s3d
 		/// </returns>
 		explicit constexpr operator bool() const noexcept
 		{
-			return ref != nullptr;
+			return has_value();
 		}
 
 		/// <summary>
@@ -1017,11 +1119,36 @@ namespace s3d
 		/// 中身の値と同じ型を引数にとる関数
 		/// </param>
 		/// <returns>
+		/// 中身がある場合は関数 f の戻り値の Optional, それ以外の場合は none
+		/// </returns>
+		template <class Fty, class Dummy = std::enable_if_t<is_Optional<decltype(std::declval<Fty>()(std::declval<Type&>()))>::value>>
+		decltype(std::declval<Fty>()(std::declval<Type&>())) then(Fty f)
+		{
+			if (has_value())
+			{
+				return f(value());
+			}
+			else
+			{
+				return none;
+			}
+		}
+
+		/// <summary>
+		/// 中身がある場合に、その値を引数に関数 f を呼びます。
+		/// </summary>
+		/// <param name="f">
+		/// 中身の値と同じ型を引数にとる関数
+		/// </param>
+		/// <returns>
 		/// なし
 		/// </returns>
-		void then(std::function<void(Type&)> f)
+		template <class Fty, class Dummy = std::enable_if_t<
+			!is_Optional<decltype(std::declval<Fty>()(std::declval<Type&>()))>::value &&
+			std::is_void<decltype(std::declval<Fty>()(std::declval<Type&>()))>::value>>
+		void then(Fty f)
 		{
-			if (static_cast<bool>(*this))
+			if (has_value())
 			{
 				f(value());
 			}
@@ -1031,16 +1158,89 @@ namespace s3d
 		/// 中身がある場合に、その値を引数に関数 f を呼びます。
 		/// </summary>
 		/// <param name="f">
-		/// 中身があるときに呼び出す関数
+		/// 中身の値と同じ型を引数にとる関数
+		/// </param>
+		/// <returns>
+		/// 中身がある場合は関数 f の戻り値の Optional, それ以外の場合は none
+		/// </returns>
+		template <class Fty, class Dummy = std::enable_if_t<
+			!is_Optional<decltype(std::declval<Fty>()(std::declval<Type&>()))>::value &&
+			!std::is_void<decltype(std::declval<Fty>()(std::declval<Type&>()))>::value>>
+		Optional<decltype(std::declval<Fty>()(std::declval<Type&>()))> then(Fty f)
+		{
+			if (has_value())
+			{
+				return make_Optional(f(value()));
+			}
+			else
+			{
+				return none;
+			}
+		}
+
+		/// <summary>
+		/// 中身がある場合に、その値を引数に関数 f を呼びます。
+		/// </summary>
+		/// <param name="f">
+		/// 中身の値と同じ型を引数にとる関数
+		/// </param>
+		/// <returns>
+		/// 中身がある場合は関数 f の戻り値, それ以外の場合は none
+		/// </returns>
+		template <class Fty, class Dummy = std::enable_if_t<is_Optional<decltype(std::declval<Fty>()(std::declval<Type&>()))>::value>>
+		decltype(std::declval<Fty>()(std::declval<Type&>())) then(Fty f) const
+		{
+			if (has_value())
+			{
+				return f(value());
+			}
+			else
+			{
+				return none;
+			}
+		}
+
+		/// <summary>
+		/// 中身がある場合に、その値を引数に関数 f を呼びます。
+		/// </summary>
+		/// <param name="f">
+		/// 中身の値と同じ型を引数にとる関数
 		/// </param>
 		/// <returns>
 		/// なし
 		/// </returns>
-		void then(std::function<void(const Type&)> f) const
+		template <class Fty, class Dummy = std::enable_if_t<
+			!is_Optional<decltype(std::declval<Fty>()(std::declval<Type&>()))>::value &&
+			std::is_void<decltype(std::declval<Fty>()(std::declval<Type&>()))>::value>>
+		void then(Fty f) const
 		{
-			if (static_cast<bool>(*this))
+			if (has_value())
 			{
 				f(value());
+			}
+		}
+
+		/// <summary>
+		/// 中身がある場合に、その値を引数に関数 f を呼びます。
+		/// </summary>
+		/// <param name="f">
+		/// 中身の値と同じ型を引数にとる関数
+		/// </param>
+		/// <returns>
+		/// 中身がある場合は関数 f の戻り値の Optional, それ以外の場合は none
+		/// </returns>
+		template <class Fty, class Dummy = std::enable_if_t<
+			!is_Optional<decltype(std::declval<Fty>()(std::declval<Type&>()))>::value &&
+			!std::is_void<decltype(std::declval<Fty>()(std::declval<Type&>()))>::value>>
+		Optional<decltype(std::declval<Fty>()(std::declval<Type&>()))> then(Fty f) const
+		{
+			if (has_value())
+			{
+				return make_Optional(f(value()));
+			}
+			else
+			{
+				return none;
 			}
 		}
 
@@ -1059,7 +1259,7 @@ namespace s3d
 		/// </returns>
 		void then(std::function<void(Type&)> f1, std::function<void()> f2)
 		{
-			if (static_cast<bool>(*this))
+			if (has_value())
 			{
 				f1(value());
 			}
@@ -1084,7 +1284,7 @@ namespace s3d
 		/// </returns>
 		void then(std::function<void(const Type&)> f1, std::function<void()> f2) const
 		{
-			if (static_cast<bool>(*this))
+			if (has_value())
 			{
 				f1(value());
 			}
