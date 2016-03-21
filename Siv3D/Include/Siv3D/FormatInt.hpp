@@ -168,11 +168,11 @@ namespace s3d
 	/// 整数を文字列で表します。
 	/// </summary>
 	/// <param name="value">
-	///	整数
-	///	</param>
+	/// 整数
+	/// </param>
 	/// <returns>
-	///	変換した文字列
-	///	</returns>
+	/// 変換した文字列
+	/// </returns>
 	inline String ToString(const int8 value)
 	{
 		return detail::FormatInt(static_cast<int32>(value)).str();
@@ -182,11 +182,11 @@ namespace s3d
 	/// 整数を文字列で表します。
 	/// </summary>
 	/// <param name="value">
-	///	整数
-	///	</param>
+	/// 整数
+	/// </param>
 	/// <returns>
-	///	変換した文字列
-	///	</returns>
+	/// 変換した文字列
+	/// </returns>
 	inline String ToString(const uint8 value)
 	{
 		return detail::FormatInt(static_cast<uint32>(value)).str();
@@ -196,11 +196,11 @@ namespace s3d
 	/// 整数を文字列で表します。
 	/// </summary>
 	/// <param name="value">
-	///	整数
-	///	</param>
+	/// 整数
+	/// </param>
 	/// <returns>
-	///	変換した文字列
-	///	</returns>
+	/// 変換した文字列
+	/// </returns>
 	inline String ToString(const int16 value)
 	{
 		return detail::FormatInt(static_cast<int32>(value)).str();
@@ -210,11 +210,11 @@ namespace s3d
 	/// 整数を文字列で表します。
 	/// </summary>
 	/// <param name="value">
-	///	整数
-	///	</param>
+	/// 整数
+	/// </param>
 	/// <returns>
-	///	変換した文字列
-	///	</returns>
+	/// 変換した文字列
+	/// </returns>
 	inline String ToString(const uint16 value)
 	{
 		return detail::FormatInt(static_cast<uint32>(value)).str();
@@ -224,11 +224,11 @@ namespace s3d
 	/// 整数を文字列で表します。
 	/// </summary>
 	/// <param name="value">
-	///	整数
-	///	</param>
+	/// 整数
+	/// </param>
 	/// <returns>
-	///	変換した文字列
-	///	</returns>
+	/// 変換した文字列
+	/// </returns>
 	inline String ToString(const int32 value)
 	{
 		return detail::FormatInt(value).str();
@@ -238,11 +238,11 @@ namespace s3d
 	/// 整数を文字列で表します。
 	/// </summary>
 	/// <param name="value">
-	///	整数
-	///	</param>
+	/// 整数
+	/// </param>
 	/// <returns>
-	///	変換した文字列
-	///	</returns>
+	/// 変換した文字列
+	/// </returns>
 	inline String ToString(const uint32 value)
 	{
 		return detail::FormatInt(value).str();
@@ -252,11 +252,11 @@ namespace s3d
 	/// 整数を文字列で表します。
 	/// </summary>
 	/// <param name="value">
-	///	整数
-	///	</param>
+	/// 整数
+	/// </param>
 	/// <returns>
-	///	変換した文字列
-	///	</returns>
+	/// 変換した文字列
+	/// </returns>
 	inline String ToString(const int64 value)
 	{
 		return detail::FormatInt(value).str();
@@ -266,11 +266,11 @@ namespace s3d
 	/// 整数を文字列で表します。
 	/// </summary>
 	/// <param name="value">
-	///	整数
-	///	</param>
+	/// 整数
+	/// </param>
 	/// <returns>
-	///	変換した文字列
-	///	</returns>
+	/// 変換した文字列
+	/// </returns>
 	inline String ToString(const uint64 value)
 	{
 		return detail::FormatInt(value).str();
