@@ -96,12 +96,10 @@ namespace s3d
 		constexpr explicit nullopt_t(init) {}
 	};
 
-	constexpr nullopt_t nullopt{ nullopt_t::init() };
-
 	/// <summary>
 	/// 無効値
 	/// </summary>
-	constexpr nullopt_t none{ nullopt };
+	constexpr nullopt_t none{ nullopt_t::init() };
 
 	class bad_optional_access : public std::logic_error
 	{

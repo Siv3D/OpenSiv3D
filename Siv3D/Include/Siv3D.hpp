@@ -63,6 +63,8 @@
 	# include "Siv3D/Fwd.hpp"
 	// ユーティリティ
 	# include "Siv3D/Utility.hpp"
+	// コピー禁止クラス
+	# include "Siv3D/Uncopyable.hpp"
 	// アロケータ
 	# include "Siv3D/Allocator.hpp"
 	// 動的配列
@@ -71,3 +73,5 @@
 	# include "Siv3D/String.hpp"
 	// Optional
 	# include "Siv3D/Optional.hpp"
+	// unspecified
+	# include "Siv3D/Unspecified.hpp"
