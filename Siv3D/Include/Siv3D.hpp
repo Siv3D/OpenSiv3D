@@ -32,27 +32,7 @@
 # endif
 
 # include "Siv3D/Platform.hpp"
-
-# if defined(SIV3D_TARGET_WINDOWS)
-	# if(_MSC_FULL_VER < 190023506)
-		# error Visual Studio 2015 Update 1 以降が必要です | Visual Studio 2015 Update 1 or later is required
-	# endif
-	# pragma comment (linker, "/entry:\"wWinMainCRTStartup\"")
-# endif
-
-# if defined(SIV3D_TARGET_WINDOWS_X64)
-	# ifdef _DEBUG
-		# pragma comment (lib, "x64/Siv3D_d")
-	# else
-		# pragma comment (lib, "x64/Siv3D")
-	# endif
-# elif defined(SIV3D_TARGET_WINDOWS_X86)
-	# ifdef _DEBUG
-		# pragma comment (lib, "x86/Siv3D_d")
-	# else
-		# pragma comment (lib, "x86/Siv3D")
-	# endif
-# endif
+# include "Siv3D/PlatformWindows.hpp"
 
 //
 // ユーティリティ
