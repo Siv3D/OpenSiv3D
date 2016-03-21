@@ -3,6 +3,7 @@
 //	This file is part of the Siv3D Engine.
 //
 //	Copyright (C) 2008-2016 Ryo Suzuki
+//	Copyright (C) 2016 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -728,7 +729,7 @@ namespace s3d
 		{
 			if (has_value())
 			{
-				return make_Optional(f(value()));
+				return f(value());
 			}
 			else
 			{
@@ -794,7 +795,7 @@ namespace s3d
 		{
 			if (has_value())
 			{
-				return make_Optional(f(value()));
+				return f(value());
 			}
 			else
 			{
@@ -1170,7 +1171,7 @@ namespace s3d
 		{
 			if (has_value())
 			{
-				return make_Optional(f(value()));
+				return f(value());
 			}
 			else
 			{
@@ -1236,7 +1237,7 @@ namespace s3d
 		{
 			if (has_value())
 			{
-				return make_Optional(f(value()));
+				return f(value());
 			}
 			else
 			{
