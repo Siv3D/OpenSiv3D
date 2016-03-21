@@ -1094,7 +1094,7 @@ namespace s3d
 		/// </returns>
 		void reset() noexcept
 		{
-			*this = nullopt;
+			*this = none;
 		}
 
 		/// <summary>
