@@ -22,6 +22,7 @@
     <ClInclude Include="Include\Siv3D.hpp" />
     <ClInclude Include="Include\Siv3D\Allocator.hpp" />
     <ClInclude Include="Include\Siv3D\Array.hpp" />
+    <ClInclude Include="Include\Siv3D\Format.hpp" />
     <ClInclude Include="Include\Siv3D\FormatInt.hpp" />
     <ClInclude Include="Include\Siv3D\Fwd.hpp" />
     <ClInclude Include="Include\Siv3D\FormatFloat.hpp" />
@@ -29,6 +30,7 @@
     <ClInclude Include="Include\Siv3D\Optional.hpp" />
     <ClInclude Include="Include\Siv3D\Platform.hpp" />
     <ClInclude Include="Include\Siv3D\PlatformWindows.hpp" />
+    <ClInclude Include="Include\Siv3D\Radix.hpp" />
     <ClInclude Include="Include\Siv3D\String.hpp" />
     <ClInclude Include="Include\Siv3D\Types.hpp" />
     <ClInclude Include="Include\Siv3D\Uncopyable.hpp" />
