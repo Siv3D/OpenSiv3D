@@ -31,9 +31,6 @@
     <ClInclude Include="Include\Siv3D.hpp">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Siv3D\Types.hpp">
-      <Filter>Include</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Siv3D\Array.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
@@ -98,6 +95,9 @@
       <Filter>Source\ThirdParty\double-conversion</Filter>
     </ClInclude>
     <ClInclude Include="Include\Siv3D\FormatFloat.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Siv3D\Types.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
