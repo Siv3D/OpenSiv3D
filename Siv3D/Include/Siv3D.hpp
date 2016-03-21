@@ -26,7 +26,6 @@
 //----------------------------------------------------------------------------------------
 
 # pragma once
-
 # ifndef SIV3D_INCLUDED
 #	define SIV3D_INCLUDED
 # endif
@@ -49,6 +48,8 @@
 	# include "Siv3D/Allocator.hpp"
 	// 動的配列
 	# include "Siv3D/Array.hpp"
+	// 二次元配列
+	# include "Siv3D/Grid.hpp"
 	// Optional
 	# include "Siv3D/Optional.hpp"
 	// unspecified
