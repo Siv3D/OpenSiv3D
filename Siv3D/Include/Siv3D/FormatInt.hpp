@@ -96,13 +96,13 @@ namespace s3d
 
 		public:
 
-			explicit FormatInt(std::int32_t value) { formatSigned(value); }
+			explicit FormatInt(const std::int32_t value) { formatSigned(value); }
 
-			explicit FormatInt(std::int64_t value) { formatSigned(value); }
+			explicit FormatInt(const std::int64_t value) { formatSigned(value); }
 
-			explicit FormatInt(std::uint32_t value) : str_(format_decimal(value)) {}
+			explicit FormatInt(const std::uint32_t value) : str_(format_decimal(value)) {}
 
-			explicit FormatInt(std::uint64_t value) : str_(format_decimal(value)) {}
+			explicit FormatInt(const std::uint64_t value) : str_(format_decimal(value)) {}
 
 			std::size_t size() const { return buffer_ - str_ + BUFFER_SIZE - 1; }
 
@@ -173,7 +173,7 @@ namespace s3d
 	/// <returns>
 	///	変換した文字列
 	///	</returns>
-	inline String ToString(int8 value)
+	inline String ToString(const int8 value)
 	{
 		return detail::FormatInt(static_cast<int32>(value)).str();
 	}
@@ -187,7 +187,7 @@ namespace s3d
 	/// <returns>
 	///	変換した文字列
 	///	</returns>
-	inline String ToString(uint8 value)
+	inline String ToString(const uint8 value)
 	{
 		return detail::FormatInt(static_cast<uint32>(value)).str();
 	}
@@ -201,7 +201,7 @@ namespace s3d
 	/// <returns>
 	///	変換した文字列
 	///	</returns>
-	inline String ToString(int16 value)
+	inline String ToString(const int16 value)
 	{
 		return detail::FormatInt(static_cast<int32>(value)).str();
 	}
@@ -215,7 +215,7 @@ namespace s3d
 	/// <returns>
 	///	変換した文字列
 	///	</returns>
-	inline String ToString(uint16 value)
+	inline String ToString(const uint16 value)
 	{
 		return detail::FormatInt(static_cast<uint32>(value)).str();
 	}
@@ -229,7 +229,7 @@ namespace s3d
 	/// <returns>
 	///	変換した文字列
 	///	</returns>
-	inline String ToString(int32 value)
+	inline String ToString(const int32 value)
 	{
 		return detail::FormatInt(value).str();
 	}
@@ -243,7 +243,7 @@ namespace s3d
 	/// <returns>
 	///	変換した文字列
 	///	</returns>
-	inline String ToString(uint32 value)
+	inline String ToString(const uint32 value)
 	{
 		return detail::FormatInt(value).str();
 	}
@@ -257,7 +257,7 @@ namespace s3d
 	/// <returns>
 	///	変換した文字列
 	///	</returns>
-	inline String ToString(int64 value)
+	inline String ToString(const int64 value)
 	{
 		return detail::FormatInt(value).str();
 	}
@@ -271,7 +271,7 @@ namespace s3d
 	/// <returns>
 	///	変換した文字列
 	///	</returns>
-	inline String ToString(uint64 value)
+	inline String ToString(const uint64 value)
 	{
 		return detail::FormatInt(value).str();
 	}

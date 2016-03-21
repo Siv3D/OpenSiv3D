@@ -14,7 +14,7 @@
 
 namespace s3d
 {
-	String FormatFloat(double value, int32 decimalPlace, bool fixed)
+	String FormatFloat(const double value, const int32 decimalPlace, const bool fixed)
 	{
 		using namespace double_conversion;
 	
