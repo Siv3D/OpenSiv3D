@@ -17,9 +17,9 @@ namespace s3d
 {
 	namespace detail
 	{
-		String FormatFloat(double value, int32 decimalPlace, bool fixed = false);
+		String FormatFloat(double value, int32 decimalPlace, bool fixed);
 
-		size_t FormatFloat(wchar(&dst)[384], double value, int32 decimalPlace, bool fixed = false);
+		size_t FormatFloat(wchar(&dst)[384], double value, int32 decimalPlace, bool fixed);
 	}
 
 	/// <summary>
@@ -36,7 +36,7 @@ namespace s3d
 	///	</returns>
 	inline String ToString(float value, int32 decimalPlace = 3)
 	{
-		return detail::FormatFloat(value, decimalPlace);
+		return detail::FormatFloat(value, decimalPlace, false);
 	}
 
 	/// <summary>
@@ -53,7 +53,7 @@ namespace s3d
 	///	</returns>
 	inline String ToString(double value, int32 decimalPlace = 3)
 	{
-		return detail::FormatFloat(value, decimalPlace);
+		return detail::FormatFloat(value, decimalPlace, false);
 	}
 
 	/// <summary>
@@ -70,7 +70,7 @@ namespace s3d
 	///	</returns>
 	inline String ToString(long double value, int32 decimalPlace = 3)
 	{
-		return detail::FormatFloat(static_cast<double>(value), decimalPlace);
+		return detail::FormatFloat(static_cast<double>(value), decimalPlace, false);
 	}
 
 	/// <summary>

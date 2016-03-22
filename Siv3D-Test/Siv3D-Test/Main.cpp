@@ -14,6 +14,12 @@ void Main()
 {
 	//TestAll();
 	//::OutputDebugStringW(L"Siv3D!\n");
+	Println(ToString(true, LetterCase::Lower));
+	Println(ToString(true, LetterCase::Upper));
+	Println(ToString(true, LetterCase::Capitalized));
+	Println(ToString(false, LetterCase::Lower));
+	Println(ToString(false, LetterCase::Upper));
+	Println(ToString(false, LetterCase::Capitalized));
 }
 
 

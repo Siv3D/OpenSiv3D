@@ -23,6 +23,7 @@
     <ClInclude Include="Include\Siv3D\Allocator.hpp" />
     <ClInclude Include="Include\Siv3D\Array.hpp" />
     <ClInclude Include="Include\Siv3D\Format.hpp" />
+    <ClInclude Include="Include\Siv3D\FormatBool.hpp" />
     <ClInclude Include="Include\Siv3D\FormatInt.hpp" />
     <ClInclude Include="Include\Siv3D\Fwd.hpp" />
     <ClInclude Include="Include\Siv3D\FormatFloat.hpp" />
