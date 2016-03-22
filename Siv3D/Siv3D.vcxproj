@@ -27,6 +27,7 @@
     <ClInclude Include="Include\Siv3D\Fwd.hpp" />
     <ClInclude Include="Include\Siv3D\FormatFloat.hpp" />
     <ClInclude Include="Include\Siv3D\Grid.hpp" />
+    <ClInclude Include="Include\Siv3D\LetterCase.hpp" />
     <ClInclude Include="Include\Siv3D\Optional.hpp" />
     <ClInclude Include="Include\Siv3D\Platform.hpp" />
     <ClInclude Include="Include\Siv3D\PlatformWindows.hpp" />

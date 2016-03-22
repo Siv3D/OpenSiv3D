@@ -108,6 +108,6 @@ namespace s3d
 	template <class Type>
 	struct DefaultAllocator
 	{
-		using type = std::conditional_t<(alignof(Type) > SIV3D_ALLOCATOR_MIN_ALIGNMENT), AlignedAllocator<Type>, std::allocator<Type>>;
+		using type = std::conditional_t<(alignof(Type)> SIV3D_ALLOCATOR_MIN_ALIGNMENT), AlignedAllocator<Type>, std::allocator<Type>>;
 	};
 }
