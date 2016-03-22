@@ -25,8 +25,8 @@ void TestFormatFloat()
 	Log(ToString(10000000000.0, 4));
 	Log(ToString(5500.00030, 4));
 	Log(ToString(3123412341325.0, 4));
-	Log(ToString(DBL_MAX, 4));
-	Log(ToString(DBL_TRUE_MIN, 4));
+	Log(ToString(std::numeric_limits<double>::max(), 4));
+	Log(ToString((4.9406564584124654e-324), 4));
 	Log(ToString(std::sqrt(-1), 4));
 	Log(ToString(std::numeric_limits<double>::infinity(), 4));
 	Log(ToString(-std::numeric_limits<double>::infinity(), 4));
@@ -40,8 +40,8 @@ void TestFormatFloat()
 	Log(ToFixed(10000000000.0, 4));
 	Log(ToFixed(5500.00030, 4));
 	Log(ToFixed(3123412341325.0, 4));
-	Log(ToFixed(DBL_MAX, 4));
-	Log(ToFixed(DBL_TRUE_MIN, 325));
+	Log(ToFixed(std::numeric_limits<double>::max(), 4));
+	Log(ToFixed((4.9406564584124654e-324), 325));
 	Log(ToFixed(std::sqrt(-1), 4));
 	Log(ToFixed(std::numeric_limits<double>::infinity(), 4));
 	Log(ToFixed(-std::numeric_limits<double>::infinity(), 4));

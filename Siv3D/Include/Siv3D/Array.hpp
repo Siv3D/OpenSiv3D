@@ -31,18 +31,18 @@ namespace s3d
 
 	public:
 
-		using base_type::value_type;
-		using base_type::pointer;
-		using base_type::const_pointer;
-		using base_type::reference;
-		using base_type::const_reference;
-		using base_type::iterator;
-		using base_type::const_iterator;
-		using base_type::reverse_iterator;
-		using base_type::const_reverse_iterator;
-		using base_type::size_type;
-		using base_type::difference_type;
-		using base_type::allocator_type;
+		using typename base_type::value_type;
+		using typename base_type::pointer;
+		using typename base_type::const_pointer;
+		using typename base_type::reference;
+		using typename base_type::const_reference;
+		using typename base_type::iterator;
+		using typename base_type::const_iterator;
+		using typename base_type::reverse_iterator;
+		using typename base_type::const_reverse_iterator;
+		using typename base_type::size_type;
+		using typename base_type::difference_type;
+		using typename base_type::allocator_type;
 
 		using base_type::vector;
 		using base_type::operator=;
