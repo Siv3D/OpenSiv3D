@@ -12,12 +12,12 @@
 # pragma once
 # include <vector>
 # include <string>
-# include <sstream>
 # include <algorithm>
 # include <functional>
 # include "Fwd.hpp"
 # include "Allocator.hpp"
 # include "String.hpp"
+# include "Format.hpp"
 # include "Utility.hpp"
 
 namespace s3d
@@ -330,11 +330,7 @@ namespace s3d
 					s.append(sep);
 				}
 
-				std::wostringstream os;
-
-				os << v;
-
-				s.append(os.str());
+				s.append(Format(v));
 			}
 
 			return s;
@@ -721,18 +717,18 @@ namespace s3d
 
 	public:
 
-		using base_type::value_type;
-		using base_type::pointer;
-		using base_type::const_pointer;
-		using base_type::reference;
-		using base_type::const_reference;
-		using base_type::iterator;
-		using base_type::const_iterator;
-		using base_type::reverse_iterator;
-		using base_type::const_reverse_iterator;
-		using base_type::size_type;
-		using base_type::difference_type;
-		using base_type::allocator_type;
+		using typename base_type::value_type;
+		using typename base_type::pointer;
+		using typename base_type::const_pointer;
+		using typename base_type::reference;
+		using typename base_type::const_reference;
+		using typename base_type::iterator;
+		using typename base_type::const_iterator;
+		using typename base_type::reverse_iterator;
+		using typename base_type::const_reverse_iterator;
+		using typename base_type::size_type;
+		using typename base_type::difference_type;
+		using typename base_type::allocator_type;
 
 		using base_type::operator=;
 		using base_type::assign;
@@ -1052,11 +1048,7 @@ namespace s3d
 					s.append(sep);
 				}
 
-				std::wostringstream os;
-
-				os << v;
-
-				s.append(os.str());
+				s.append(ToString(v));
 			}
 
 			return s;
