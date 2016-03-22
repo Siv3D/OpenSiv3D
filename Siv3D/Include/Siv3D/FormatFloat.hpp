@@ -26,14 +26,14 @@ namespace s3d
 	/// 数値を文字列で表します。
 	/// </summary>
 	/// <param name="value">
-	///	数値
-	///	</param>
+	/// 数値
+	/// </param>
 	/// <param name="decimalPlace">
 	/// 小数点以下の最大桁数
 	/// </param>
 	/// <returns>
-	///	変換した文字列
-	///	</returns>
+	/// 変換した文字列
+	/// </returns>
 	inline String ToString(float value, int32 decimalPlace = 3)
 	{
 		return detail::FormatFloat(value, decimalPlace, false);
@@ -43,14 +43,14 @@ namespace s3d
 	/// 数値を文字列で表します。
 	/// </summary>
 	/// <param name="value">
-	///	数値
-	///	</param>
+	/// 数値
+	/// </param>
 	/// <param name="decimalPlace">
 	/// 小数点以下の最大桁数
 	/// </param>
 	/// <returns>
-	///	変換した文字列
-	///	</returns>
+	/// 変換した文字列
+	/// </returns>
 	inline String ToString(double value, int32 decimalPlace = 3)
 	{
 		return detail::FormatFloat(value, decimalPlace, false);
@@ -60,14 +60,14 @@ namespace s3d
 	/// 数値を文字列で表します。
 	/// </summary>
 	/// <param name="value">
-	///	数値
-	///	</param>
+	/// 数値
+	/// </param>
 	/// <param name="decimalPlace">
 	/// 小数点以下の最大桁数
 	/// </param>
 	/// <returns>
-	///	変換した文字列
-	///	</returns>
+	/// 変換した文字列
+	/// </returns>
 	inline String ToString(long double value, int32 decimalPlace = 3)
 	{
 		return detail::FormatFloat(static_cast<double>(value), decimalPlace, false);
@@ -77,14 +77,14 @@ namespace s3d
 	/// 数値を文字列で表します。
 	/// </summary>
 	/// <param name="value">
-	///	数値
-	///	</param>
+	/// 数値
+	/// </param>
 	/// <param name="decimalPlace">
 	/// 小数点以下の最大桁数
 	/// </param>
 	/// <returns>
-	///	変換した文字列
-	///	</returns>
+	/// 変換した文字列
+	/// </returns>
 	inline String ToFixed(float value, int32 decimalPlace = 3)
 	{
 		return detail::FormatFloat(value, decimalPlace, true);
@@ -94,14 +94,14 @@ namespace s3d
 	/// 数値を文字列で表します。
 	/// </summary>
 	/// <param name="value">
-	///	数値
-	///	</param>
+	/// 数値
+	/// </param>
 	/// <param name="decimalPlace">
 	/// 小数点以下の最大桁数
 	/// </param>
 	/// <returns>
-	///	変換した文字列
-	///	</returns>
+	/// 変換した文字列
+	/// </returns>
 	inline String ToFixed(double value, int32 decimalPlace = 3)
 	{
 		return detail::FormatFloat(value, decimalPlace, true);
@@ -111,14 +111,14 @@ namespace s3d
 	/// 数値を文字列で表します。
 	/// </summary>
 	/// <param name="value">
-	///	数値
-	///	</param>
+	/// 数値
+	/// </param>
 	/// <param name="decimalPlace">
 	/// 小数点以下の最大桁数
 	/// </param>
 	/// <returns>
-	///	変換した文字列
-	///	</returns>
+	/// 変換した文字列
+	/// </returns>
 	inline String ToFixed(long double value, int32 decimalPlace = 3)
 	{
 		return detail::FormatFloat(static_cast<double>(value), decimalPlace, true);

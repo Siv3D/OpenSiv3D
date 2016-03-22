@@ -58,7 +58,7 @@ namespace s3d
 			}
 		}
 
-		size_t FormatFloat(wchar(&dst)[384], double value, int32 decimalPlace, bool fixed)
+		size_t FormatFloat(wchar(&dst)[384], const double value, const int32 decimalPlace, const bool fixed)
 		{
 			using namespace double_conversion;
 
@@ -89,7 +89,7 @@ namespace s3d
 					}
 				}
 
-				size_t ret = end - p;
+				const size_t ret = end - p;
 				wchar* pDst = dst;
 				while (p != end)
 				{
