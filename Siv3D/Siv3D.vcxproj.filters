@@ -109,6 +109,12 @@
     <ClInclude Include="Include\Siv3D\Radix.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Siv3D\LetterCase.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Siv3D\FormatBool.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Siv3DMain_Windows.cpp">

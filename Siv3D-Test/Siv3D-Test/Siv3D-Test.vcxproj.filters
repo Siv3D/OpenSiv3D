@@ -39,6 +39,9 @@
     <ClCompile Include="Test\TestFormatInt.cpp">
       <Filter>Test</Filter>
     </ClCompile>
+    <ClCompile Include="Test\TestFormatBool.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test\Siv3DTest.hpp">

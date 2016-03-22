@@ -122,7 +122,7 @@ namespace s3d
 		//////////////////////////////////////////////////////////////////////////////
 
 		template <class UnsignedInteger>
-		inline String ItoW(const UnsignedInteger value, const unsigned radix, const bool isNegative, const bool upperCase = false)
+		inline String ItoW(const UnsignedInteger value, const unsigned radix, const bool isNegative, const bool upperCase)
 		{
 			if (radix < 2 || 36 < radix)
 			{

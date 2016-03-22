@@ -57,8 +57,8 @@ namespace s3d
 		/// <summary>
 		/// Format の内部で使用する関数
 		/// </summary>
-		template <class Type, class ... Args>
-		inline void Format(FormatData& formatData, const Type& value, const Args& ... args)
+		template <class Type, class... Args>
+		inline void Format(FormatData& formatData, const Type& value, const Args&... args)
 		{
 			Formatter(formatData, value);
 			Format(formatData, args...);
@@ -166,7 +166,7 @@ namespace s3d
 	inline void Formatter(FormatData& formatData, double value)
 	{
 		wchar buf[384];
-		const size_t len = detail::FormatFloat(buf, value, formatData.decimalPlace.value);
+		const size_t len = detail::FormatFloat(buf, value, formatData.decimalPlace.value, false);
 		formatData.string.append(buf, len);
 	}
 
