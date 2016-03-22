@@ -17,7 +17,7 @@
 
 namespace s3d
 {
-	template <class Type>
+	template <class Type, size_t Alignment = alignof(Type)>
 	class AlignedAllocator
 	{
 	public:
@@ -35,7 +35,7 @@ namespace s3d
 		using is_always_equal							= std::true_type;
 		template <class Other> struct rebind { using other = AlignedAllocator<Other>; };
 
-		static constexpr size_t alignment = alignof(Type);
+		static constexpr size_t alignment = Alignment;
 
 		AlignedAllocator() noexcept {}
 
@@ -57,10 +57,10 @@ namespace s3d
 		pointer allocate(size_type n, const void* = nullptr)
 		{
 			# if defined(SIV3D_TARGET_WINDOWS)
-				return static_cast<pointer>(::_aligned_malloc(n * sizeof(Type), alignment));
+				return static_cast<pointer>(::_aligned_malloc(n * sizeof(Type), Alignment));
 			# else
 				pointer p;
-				::posix_memalign(&p, alignment, n * sizeof(Type));
+				::posix_memalign(&p, Alignment, n * sizeof(Type));
 				return p;
 			# endif
 		}

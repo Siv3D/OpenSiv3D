@@ -24,7 +24,7 @@ namespace s3d
 	//
 	//	Allocator.hpp
 	//
-	template <class Type> class AlignedAllocator;
+	template <class Type, size_t Alignment> class AlignedAllocator;
 	template <class Type> struct DefaultAllocator;
 
 	//////////////////////////////////////////////////////

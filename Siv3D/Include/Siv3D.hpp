@@ -69,3 +69,4 @@
 	# include "Siv3D/FormatFloat.hpp"
 	// データ -> 文字列 の変換
 	# include "Siv3D/Format.hpp"
+

@@ -14,18 +14,6 @@ void Main()
 {
 	//TestAll();
 	//::OutputDebugStringW(L"Siv3D!\n");
-
-	///*
-	Println(Format(2.34, 100, uint8(23), 5.f, true, String(L"aaa")));
-	Println(Format(100, uint8(23), 5.f, true, String(L"aaa"), 2.34));
-	Println(Format(100, uint16(23), 5.f, true, String(L"aaa"), 2.34));
-	//*/
-
-	/*
-	Println(Format2(2.34, 100, uint8(23), 5.f, true, L"aaa"));
-	Println(Format2(100, uint8(23), 5.f, true, L"aaa", 2.34));
-	Println(Format2(100, uint16(23), 5.f, true, L"aaa", 2.34));
-	//*/
 }
 
 
