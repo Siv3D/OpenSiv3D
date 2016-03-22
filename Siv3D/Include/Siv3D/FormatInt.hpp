@@ -138,7 +138,7 @@ namespace s3d
 			{
 				*p++ = '-';
 				++length;
-				remaining = static_cast<UnsignedInteger>(-static_cast<std::make_signed<UnsignedInteger>::type>(remaining));
+				remaining = static_cast<UnsignedInteger>(-static_cast<typename std::make_signed<UnsignedInteger>::type>(remaining));
 			}
 
 			wchar_t* first_digit = p;
