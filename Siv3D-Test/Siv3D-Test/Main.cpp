@@ -9,5 +9,3 @@ void Main()
 	TestAll();
 	Log(L"Siv3D!");
 }
-
-

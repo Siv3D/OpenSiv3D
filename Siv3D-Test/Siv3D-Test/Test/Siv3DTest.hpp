@@ -19,8 +19,6 @@
 	# define  _WIN32_WINNT _WIN32_WINNT_WIN7
 	# define  NTDDI_VERSION NTDDI_WIN7
 	# include <Windows.h>
-# elif defined(SIV3D_TARGET_OSX)
-	# include <iostream>
 # endif
 
 namespace s3d
