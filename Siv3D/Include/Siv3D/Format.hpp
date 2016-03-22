@@ -57,8 +57,8 @@ namespace s3d
 		/// <summary>
 		/// Format の内部で使用する関数
 		/// </summary>
-		template <class Type, class ... Args>
-		inline void Format(FormatData& formatData, const Type& value, const Args& ... args)
+		template <class Type, class... Args>
+		inline void Format(FormatData& formatData, const Type& value, const Args&... args)
 		{
 			Formatter(formatData, value);
 			Format(formatData, args...);

@@ -10,54 +10,63 @@
 //-----------------------------------------------
 
 # pragma once
-# include <string>
-# define  NOMINMAX
-# define  STRICT
-# define  WIN32_LEAN_AND_MEAN
-# define  _WIN32_WINNT _WIN32_WINNT_WIN7
-# define  NTDDI_VERSION NTDDI_WIN7
-# include <Windows.h>
 # include <Siv3D.hpp>
 
-class RDTSC
+# if defined(SIV3D_TARGET_WINDOWS)
+	# define  NOMINMAX
+	# define  STRICT
+	# define  WIN32_LEAN_AND_MEAN
+	# define  _WIN32_WINNT _WIN32_WINNT_WIN7
+	# define  NTDDI_VERSION NTDDI_WIN7
+	# include <Windows.h>
+# elif defined(SIV3D_TARGET_OSX)
+	# include <iostream>
+# endif
+
+namespace s3d
 {
-private:
-
-	s3d::uint64 begin;
-
-public:
-
-	RDTSC()
-		: begin(__rdtsc()) {}
-
-	~RDTSC()
+# if defined(SIV3D_TARGET_WINDOWS)
+	class RDTSC
 	{
-		const auto result = __rdtsc() - begin;
+	private:
 
-		::OutputDebugStringW((std::to_wstring(result) + L" cycles\n").c_str());
+		uint64 begin;
+
+	public:
+
+		RDTSC()
+			: begin(__rdtsc()) {}
+
+		~RDTSC()
+		{
+			const auto result = __rdtsc() - begin;
+
+			::OutputDebugStringW((std::to_wstring(result) + L" cycles\n").c_str());
+		}
+	};
+# endif
+
+	inline void Log(const String& text)
+	{
+		# if defined(SIV3D_TARGET_WINDOWS)
+			::OutputDebugStringW((text + L"\n").c_str());
+		# else
+			std::wcout << text << L'\n';
+		# endif
 	}
-};
 
-inline void Println(const s3d::String& s)
-{
-	::OutputDebugStringW((s + L"\n").c_str());
-}
-
-inline void Println(const s3d::wchar* s)
-{
-	::OutputDebugStringW(s);
-	::OutputDebugStringW(L"\n");
-}
-
-
-inline void Println(bool b)
-{
-	::OutputDebugStringW(b ? L"true\n" : L"false\n");
+	template <class... Args>
+	inline void Log(const Args&... args)
+	{
+		Log(Format(args...));
+	}
 }
 
 inline void InitTest()
 {
-	__rdtsc();
+	# if defined(SIV3D_TARGET_WINDOWS)
+		__rdtsc();
+	# endif
 }
 
 void TestTypes();
@@ -66,12 +75,16 @@ void TestOptional();
 void TestString();
 void TestFormatFloat();
 void TestFormatInt();
+void TestFormatBool();
 
 inline void TestAll()
 {
 	InitTest();
 	TestTypes();
 	TestArray();
-
+	TestOptional();
+	TestString();
 	TestFormatFloat();
+	TestFormatInt();
+	TestFormatBool();
 }
