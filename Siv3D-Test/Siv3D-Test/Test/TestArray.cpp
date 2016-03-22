@@ -19,6 +19,7 @@ void TestArrayInt32()
 
 	static_assert(sizeof(Array<int32>) == sizeof(std::vector<s3d::int32>), "");
 
+# if defined(SIV3D_TARGET_WINDOWS)
 	for (int i = 0; i < 3; ++i)
 	{
 		{
@@ -31,6 +32,7 @@ void TestArrayInt32()
 			Array<int32> v(100000, 123);
 		}
 	}
+# endif
 
 	const Array<int32> v = { 1, 2, 3, 4, 5 };
 
@@ -55,6 +57,7 @@ void TestArrayBool()
 
 	static_assert(sizeof(Array<bool>) == sizeof(std::basic_string<bool>), "");
 
+# if defined(SIV3D_TARGET_WINDOWS)
 	for (int i = 0; i < 3; ++i)
 	{
 		{
@@ -67,6 +70,7 @@ void TestArrayBool()
 			Array<bool> v(100000, true);
 		}
 	}
+# endif
 
 	const Array<bool> v = { true, true, false, false, true };
 }

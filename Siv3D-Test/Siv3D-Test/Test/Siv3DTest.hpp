@@ -60,13 +60,6 @@ namespace s3d
 	}
 }
 
-inline void InitTest()
-{
-	# if defined(SIV3D_TARGET_WINDOWS)
-		__rdtsc();
-	# endif
-}
-
 void TestTypes();
 void TestArray();
 void TestOptional();
@@ -77,7 +70,6 @@ void TestFormatBool();
 
 inline void TestAll()
 {
-	InitTest();
 	TestTypes();
 	TestArray();
 	TestOptional();
