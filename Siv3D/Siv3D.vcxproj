@@ -53,6 +53,7 @@
     <ClCompile Include="Source\Siv3DMain_OSX.cpp" />
     <ClCompile Include="Source\Siv3DMain_Windows.cpp" />
     <ClCompile Include="Source\Siv3D\FormatFloat\SivFormatFloat.cpp" />
+    <ClCompile Include="Source\Siv3D\FormatInt\SivFormatInt.cpp" />
     <ClCompile Include="Source\ThirdParty\double-conversion\bignum-dtoa.cc" />
     <ClCompile Include="Source\ThirdParty\double-conversion\bignum.cc" />
     <ClCompile Include="Source\ThirdParty\double-conversion\cached-powers.cc" />

@@ -26,6 +26,9 @@
     <Filter Include="Source\Siv3D\FormatFloat">
       <UniqueIdentifier>{b28052d3-ec67-462d-85c6-a49e0da7faeb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\FormatInt">
+      <UniqueIdentifier>{bb7966c0-8acf-4af4-8e8d-3f83b8651adc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Siv3D.hpp">
@@ -149,6 +152,9 @@
     </ClCompile>
     <ClCompile Include="Source\Siv3D\FormatFloat\SivFormatFloat.cpp">
       <Filter>Source\Siv3D\FormatFloat</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Siv3D\FormatInt\SivFormatInt.cpp">
+      <Filter>Source\Siv3D\FormatInt</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
