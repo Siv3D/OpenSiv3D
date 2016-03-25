@@ -179,7 +179,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		String& operator = (String && str) noexcept { return assign(std::move(str)); }
+		String& operator = (String&& str) noexcept { return assign(std::move(str)); }
 
 		/// <summary>
 		/// 新しい文字列を代入します。

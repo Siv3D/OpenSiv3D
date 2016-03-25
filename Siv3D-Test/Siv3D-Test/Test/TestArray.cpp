@@ -75,7 +75,7 @@ void TestArrayBool()
 	const Array<bool> v = { true, true, false, false, true };
 }
 
-void TestArray__m128()
+void TestArrayM128()
 {
 	Log(L"###### Array<__m128>");
 }
@@ -86,5 +86,5 @@ void TestArray()
 	TestArrayInt32();
 	TestArrayString();
 	TestArrayBool();
-	TestArray__m128();
+	TestArrayM128();
 }
