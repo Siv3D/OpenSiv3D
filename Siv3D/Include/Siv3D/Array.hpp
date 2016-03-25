@@ -313,9 +313,11 @@ namespace s3d
 			return any(f);
 		}
 
-		String join(const String& sep = L", ") const
+		String join(const String& sep = L", ", const String& begin = L"", const String& end = L"") const
 		{
 			String s;
+
+			s.append(begin);
 
 			bool isFirst = true;
 
@@ -332,6 +334,8 @@ namespace s3d
 
 				s.append(Format(v));
 			}
+
+			s.append(end);
 
 			return s;
 		}
@@ -1031,9 +1035,11 @@ namespace s3d
 			return any(f);
 		}
 
-		String join(const String& sep = L", ") const
+		String join(const String& sep = L", ", const String& begin = L"", const String& end = L"") const
 		{
 			String s;
+
+			s.append(begin);
 
 			bool isFirst = true;
 
@@ -1050,6 +1056,8 @@ namespace s3d
 
 				s.append(ToString(v));
 			}
+
+			s.append(end);
 
 			return s;
 		}
