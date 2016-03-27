@@ -47,6 +47,11 @@ namespace s3d
 					}
 				}
 
+				if ((end - p) == 2 && p[0] == L'-' && p[1] == L'0')
+				{
+					++p;
+				}
+
 				return String(p, end);
 			}
 			else
@@ -87,6 +92,11 @@ namespace s3d
 					{
 						--end;
 					}
+				}
+
+				if ((end - p) == 2 && p[0] == L'-' && p[1] == L'0')
+				{
+					++p;
 				}
 
 				const size_t ret = end - p;
