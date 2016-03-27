@@ -19,75 +19,72 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\gtest\gtest-death-test.h" />
-    <ClInclude Include="Include\gtest\gtest-message.h" />
-    <ClInclude Include="Include\gtest\gtest-param-test.h" />
-    <ClInclude Include="Include\gtest\gtest-printers.h" />
-    <ClInclude Include="Include\gtest\gtest-spi.h" />
-    <ClInclude Include="Include\gtest\gtest-test-part.h" />
-    <ClInclude Include="Include\gtest\gtest-typed-test.h" />
-    <ClInclude Include="Include\gtest\gtest.h" />
-    <ClInclude Include="Include\gtest\gtest_pred_impl.h" />
-    <ClInclude Include="Include\gtest\gtest_prod.h" />
-    <ClInclude Include="Include\gtest\internal\custom\gtest-port.h" />
-    <ClInclude Include="Include\gtest\internal\custom\gtest-printers.h" />
-    <ClInclude Include="Include\gtest\internal\custom\gtest.h" />
-    <ClInclude Include="Include\gtest\internal\gtest-death-test-internal.h" />
-    <ClInclude Include="Include\gtest\internal\gtest-filepath.h" />
-    <ClInclude Include="Include\gtest\internal\gtest-internal.h" />
-    <ClInclude Include="Include\gtest\internal\gtest-linked_ptr.h" />
-    <ClInclude Include="Include\gtest\internal\gtest-param-util-generated.h" />
-    <ClInclude Include="Include\gtest\internal\gtest-param-util.h" />
-    <ClInclude Include="Include\gtest\internal\gtest-port-arch.h" />
-    <ClInclude Include="Include\gtest\internal\gtest-port.h" />
-    <ClInclude Include="Include\gtest\internal\gtest-string.h" />
-    <ClInclude Include="Include\gtest\internal\gtest-type-util.h" />
-    <ClInclude Include="Include\Siv3D.hpp" />
-    <ClInclude Include="Include\Siv3D\Allocator.hpp" />
-    <ClInclude Include="Include\Siv3D\Array.hpp" />
-    <ClInclude Include="Include\Siv3D\Format.hpp" />
-    <ClInclude Include="Include\Siv3D\FormatBool.hpp" />
-    <ClInclude Include="Include\Siv3D\FormatInt.hpp" />
-    <ClInclude Include="Include\Siv3D\Fwd.hpp" />
-    <ClInclude Include="Include\Siv3D\FormatFloat.hpp" />
-    <ClInclude Include="Include\Siv3D\Grid.hpp" />
-    <ClInclude Include="Include\Siv3D\LetterCase.hpp" />
-    <ClInclude Include="Include\Siv3D\Optional.hpp" />
-    <ClInclude Include="Include\Siv3D\Platform.hpp" />
-    <ClInclude Include="Include\Siv3D\PlatformWindows.hpp" />
-    <ClInclude Include="Include\Siv3D\Radix.hpp" />
-    <ClInclude Include="Include\Siv3D\String.hpp" />
-    <ClInclude Include="Include\Siv3D\Types.hpp" />
-    <ClInclude Include="Include\Siv3D\Uncopyable.hpp" />
-    <ClInclude Include="Include\Siv3D\Unspecified.hpp" />
-    <ClInclude Include="Include\Siv3D\Utility.hpp" />
-    <ClInclude Include="Source\ThirdParty\double-conversion\bignum-dtoa.h" />
-    <ClInclude Include="Source\ThirdParty\double-conversion\bignum.h" />
-    <ClInclude Include="Source\ThirdParty\double-conversion\cached-powers.h" />
-    <ClInclude Include="Source\ThirdParty\double-conversion\diy-fp.h" />
-    <ClInclude Include="Source\ThirdParty\double-conversion\double-conversion.h" />
-    <ClInclude Include="Source\ThirdParty\double-conversion\fast-dtoa.h" />
-    <ClInclude Include="Source\ThirdParty\double-conversion\fixed-dtoa.h" />
-    <ClInclude Include="Source\ThirdParty\double-conversion\ieee.h" />
-    <ClInclude Include="Source\ThirdParty\double-conversion\strtod.h" />
-    <ClInclude Include="Source\ThirdParty\double-conversion\utils.h" />
+    <ClInclude Include="..\Siv3D\Include\gtest\gtest-death-test.h" />
+    <ClInclude Include="..\Siv3D\Include\gtest\gtest-message.h" />
+    <ClInclude Include="..\Siv3D\Include\gtest\gtest-param-test.h" />
+    <ClInclude Include="..\Siv3D\Include\gtest\gtest-printers.h" />
+    <ClInclude Include="..\Siv3D\Include\gtest\gtest-spi.h" />
+    <ClInclude Include="..\Siv3D\Include\gtest\gtest-test-part.h" />
+    <ClInclude Include="..\Siv3D\Include\gtest\gtest-typed-test.h" />
+    <ClInclude Include="..\Siv3D\Include\gtest\gtest.h" />
+    <ClInclude Include="..\Siv3D\Include\gtest\gtest_pred_impl.h" />
+    <ClInclude Include="..\Siv3D\Include\gtest\gtest_prod.h" />
+    <ClInclude Include="..\Siv3D\Include\gtest\internal\custom\gtest-port.h" />
+    <ClInclude Include="..\Siv3D\Include\gtest\internal\custom\gtest-printers.h" />
+    <ClInclude Include="..\Siv3D\Include\gtest\internal\custom\gtest.h" />
+    <ClInclude Include="..\Siv3D\Include\gtest\internal\gtest-death-test-internal.h" />
+    <ClInclude Include="..\Siv3D\Include\gtest\internal\gtest-filepath.h" />
+    <ClInclude Include="..\Siv3D\Include\gtest\internal\gtest-internal.h" />
+    <ClInclude Include="..\Siv3D\Include\gtest\internal\gtest-linked_ptr.h" />
+    <ClInclude Include="..\Siv3D\Include\gtest\internal\gtest-param-util-generated.h" />
+    <ClInclude Include="..\Siv3D\Include\gtest\internal\gtest-param-util.h" />
+    <ClInclude Include="..\Siv3D\Include\gtest\internal\gtest-port-arch.h" />
+    <ClInclude Include="..\Siv3D\Include\gtest\internal\gtest-port.h" />
+    <ClInclude Include="..\Siv3D\Include\gtest\internal\gtest-string.h" />
+    <ClInclude Include="..\Siv3D\Include\gtest\internal\gtest-type-util.h" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Allocator.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Array.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Format.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\FormatBool.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\FormatFloat.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\FormatInt.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Fwd.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Grid.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\LetterCase.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Optional.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Platform.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\PlatformWindows.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Radix.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\String.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Types.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Uncopyable.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Unspecified.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Utility.hpp" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum-dtoa.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\cached-powers.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\double-conversion.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\fast-dtoa.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\fixed-dtoa.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\ieee.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\strtod.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Siv3DMain_OSX.cpp" />
-    <ClCompile Include="Source\Siv3DMain_Windows.cpp" />
-    <ClCompile Include="Source\Siv3D\FormatFloat\SivFormatFloat.cpp" />
-    <ClCompile Include="Source\Siv3D\FormatInt\SivFormatInt.cpp" />
-    <ClCompile Include="Source\ThirdParty\double-conversion\bignum-dtoa.cc" />
-    <ClCompile Include="Source\ThirdParty\double-conversion\bignum.cc" />
-    <ClCompile Include="Source\ThirdParty\double-conversion\cached-powers.cc" />
-    <ClCompile Include="Source\ThirdParty\double-conversion\diy-fp.cc" />
-    <ClCompile Include="Source\ThirdParty\double-conversion\double-conversion.cc" />
-    <ClCompile Include="Source\ThirdParty\double-conversion\fast-dtoa.cc" />
-    <ClCompile Include="Source\ThirdParty\double-conversion\fixed-dtoa.cc" />
-    <ClCompile Include="Source\ThirdParty\double-conversion\strtod.cc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Source\ThirdParty\double-conversion\LICENSE" />
+    <ClCompile Include="..\Siv3D\Source\Siv3DMain_OSX.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3DMain_Windows.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\FormatFloat\SivFormatFloat.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\FormatInt\SivFormatInt.cpp" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum-dtoa.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\cached-powers.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\double-conversion.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\fast-dtoa.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\fixed-dtoa.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\strtod.cc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5EC743E4-1657-41A6-BBE5-A0E2B135885C}</ProjectGuid>
@@ -141,26 +138,26 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>Lib\Windows(x64)\</OutDir>
+    <OutDir>..\Siv3D\Lib\Windows(x64)\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
-    <IntDir>Intermediate\Debug-x64\</IntDir>
-    <IncludePath>$(SolutionDir)\Siv3D\Include;$(IncludePath)</IncludePath>
+    <IntDir>$(ProjectName)\Intermediate\Debug-x64\</IntDir>
+    <IncludePath>..\Siv3D\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IntDir>Intermediate\Release-x64\</IntDir>
-    <OutDir>Lib\Windows(x64)\</OutDir>
-    <IncludePath>$(SolutionDir)\Siv3D\Include;$(IncludePath)</IncludePath>
+    <IntDir>$(ProjectName)\Intermediate\Release-x64\</IntDir>
+    <OutDir>..\Siv3D\Lib\Windows(x64)\</OutDir>
+    <IncludePath>..\Siv3D\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>Lib\Windows(x86)\</OutDir>
-    <IntDir>Intermediate\Release-x86\</IntDir>
-    <IncludePath>$(SolutionDir)\Siv3D\Include;$(IncludePath)</IncludePath>
+    <OutDir>..\Siv3D\Lib\Windows(x86)\</OutDir>
+    <IntDir>$(ProjectName)\Intermediate\Release-x86\</IntDir>
+    <IncludePath>..\Siv3D\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>Lib\Windows(x86)\</OutDir>
+    <OutDir>..\Siv3D\Lib\Windows(x86)\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
-    <IntDir>Intermediate\Debug-x86\</IntDir>
-    <IncludePath>$(SolutionDir)\Siv3D\Include;$(IncludePath)</IncludePath>
+    <IntDir>$(ProjectName)\Intermediate\Debug-x86\</IntDir>
+    <IncludePath>..\Siv3D\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

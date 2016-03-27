@@ -18,6 +18,21 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Siv3D-Test\Main.cpp" />
+    <ClCompile Include="..\Siv3D-Test\Test\Siv3DTest_OSX.cpp" />
+    <ClCompile Include="..\Siv3D-Test\Test\Siv3DTest_Windows.cpp" />
+    <ClCompile Include="..\Siv3D-Test\Test\TestArray.cpp" />
+    <ClCompile Include="..\Siv3D-Test\Test\TestFormatBool.cpp" />
+    <ClCompile Include="..\Siv3D-Test\Test\TestFormatFloat.cpp" />
+    <ClCompile Include="..\Siv3D-Test\Test\TestFormatInt.cpp" />
+    <ClCompile Include="..\Siv3D-Test\Test\TestOptional.cpp" />
+    <ClCompile Include="..\Siv3D-Test\Test\TestString.cpp" />
+    <ClCompile Include="..\Siv3D-Test\Test\TestTypes.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Siv3D-Test\Test\Siv3DTest.hpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{160BF0EC-EEAE-497B-8AA5-CB2941E393B2}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -72,30 +87,30 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)$(ProjectName)\Debug-x86\</OutDir>
-    <IntDir>Intermediate\Debug-x86\</IntDir>
-    <IncludePath>$(SolutionDir)\Siv3D\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\Siv3D\Lib;$(LibraryPath)</LibraryPath>
+    <IntDir>$(SolutionDir)$(ProjectName)\Intermediate\Debug-x86\</IntDir>
+    <IncludePath>$(SolutionDir)\..\Siv3D\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\..\Siv3D\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)$(ProjectName)\Debug-x64\</OutDir>
-    <IntDir>Intermediate\Debug-x64\</IntDir>
-    <IncludePath>$(SolutionDir)\Siv3D\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\Siv3D\Lib;$(LibraryPath)</LibraryPath>
+    <IntDir>$(SolutionDir)$(ProjectName)\Intermediate\Debug-x64\</IntDir>
+    <IncludePath>$(SolutionDir)\..\Siv3D\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\..\Siv3D\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)$(ProjectName)\Release-x86\</OutDir>
-    <IntDir>Intermediate\Release-x86\</IntDir>
-    <IncludePath>$(SolutionDir)\Siv3D\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\Siv3D\Lib;$(LibraryPath)</LibraryPath>
+    <IntDir>$(SolutionDir)$(ProjectName)\Intermediate\Release-x86\</IntDir>
+    <IncludePath>$(SolutionDir)\..\Siv3D\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\..\Siv3D\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)$(ProjectName)\Release-x64\</OutDir>
-    <IntDir>Intermediate\Release-x64\</IntDir>
-    <IncludePath>$(SolutionDir)\Siv3D\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\Siv3D\Lib;$(LibraryPath)</LibraryPath>
+    <IntDir>$(SolutionDir)$(ProjectName)\Intermediate\Release-x64\</IntDir>
+    <IncludePath>$(SolutionDir)\..\Siv3D\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\..\Siv3D\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -175,21 +190,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Test\Siv3DTest_OSX.cpp" />
-    <ClCompile Include="Test\Siv3DTest_Windows.cpp" />
-    <ClCompile Include="Test\TestArray.cpp" />
-    <ClCompile Include="Test\TestFormatBool.cpp" />
-    <ClCompile Include="Test\TestFormatFloat.cpp" />
-    <ClCompile Include="Test\TestFormatInt.cpp" />
-    <ClCompile Include="Test\TestOptional.cpp" />
-    <ClCompile Include="Test\TestString.cpp" />
-    <ClCompile Include="Test\TestTypes.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Test\Siv3DTest.hpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
