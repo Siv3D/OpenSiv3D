@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include "Siv3D/Platform.hpp"
+# include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_WINDOWS)
 
 # include <conio.h>
