@@ -12,6 +12,8 @@
 # include "Siv3D/Platform.hpp"
 # if defined(SIV3D_TARGET_OSX)
 
+# include <Siv3D.hpp>
+
 namespace s3d
 {
 	void RunTest()
@@ -21,12 +23,12 @@ namespace s3d
 		wchar_t* pUnused = &unused;
 
 		testing::InitGoogleTest(&nArgs, &pUnused);
-		RUN_ALL_TESTS();
+		(void)RUN_ALL_TESTS();
 	}
 
 	void Log(const String& text)
 	{
-		std::wcout << text << L'\n';
+		std::wcout << text.str() << L'\n';
 	}
 }
 
