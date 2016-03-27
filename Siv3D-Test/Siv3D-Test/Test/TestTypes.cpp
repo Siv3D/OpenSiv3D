@@ -23,4 +23,6 @@ TEST(Types, size)
 	ASSERT_EQ(sizeof(s3d::uint16), 2);
 	ASSERT_EQ(sizeof(s3d::uint32), 4);
 	ASSERT_EQ(sizeof(s3d::uint64), 8);
+
+	ASSERT_EQ(sizeof(s3d::wchar), sizeof(wchar_t));
 }

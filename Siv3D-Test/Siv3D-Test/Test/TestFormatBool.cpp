@@ -12,24 +12,17 @@
 # include <Siv3D.hpp>
 # include <gtest/gtest.h>
 
-TEST(FormatBool, null)
+using namespace s3d;
+
+TEST(FormatBool, ToString)
 {
+	EXPECT_EQ(ToString(true),							L"true");
+	EXPECT_EQ(ToString(true, LetterCase::Lower),		L"true");
+	EXPECT_EQ(ToString(true, LetterCase::Upper),		L"TRUE");
+	EXPECT_EQ(ToString(true, LetterCase::Capitalized),	L"True");
 
+	EXPECT_EQ(ToString(false),							L"false");
+	EXPECT_EQ(ToString(false, LetterCase::Lower),		L"false");
+	EXPECT_EQ(ToString(false, LetterCase::Upper),		L"FALSE");
+	EXPECT_EQ(ToString(false, LetterCase::Capitalized),	L"False");
 }
-
-
-//# include "Siv3DTest.hpp"
-//
-//using namespace s3d;
-//
-//void TestFormatBool()
-//{
-//	Log(L"### FormatBool");
-//	Log(L"###### ToString");
-//	Log(ToString(true, LetterCase::Lower));
-//	Log(ToString(true, LetterCase::Upper));
-//	Log(ToString(true, LetterCase::Capitalized));
-//	Log(ToString(false, LetterCase::Lower));
-//	Log(ToString(false, LetterCase::Upper));
-//	Log(ToString(false, LetterCase::Capitalized));
-//}
