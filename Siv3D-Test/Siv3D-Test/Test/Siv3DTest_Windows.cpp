@@ -39,7 +39,6 @@ namespace s3d
 		wchar_t* pUnused = &unused;
 
 		testing::InitGoogleTest(&nArgs, &pUnused);
-
 		RUN_ALL_TESTS();
 
 		std::wcout << "Press Any Key to Exit.\n";

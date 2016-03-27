@@ -16,15 +16,6 @@ namespace s3d
 {
 	void RunTest();
 
-	//inline void Log(const String& text)
-	//{
-	//	# if defined(SIV3D_TARGET_WINDOWS)
-	//		::OutputDebugStringW((text + L"\n").c_str());
-	//	# else
-	//		std::wcout << text << L'\n';
-	//	# endif
-	//}
-
 	void Log(const String& text);
 
 	template <class... Args>
@@ -33,43 +24,24 @@ namespace s3d
 		Log(Format(args...));
 	}
 
-# if defined(SIV3D_TARGET_WINDOWS)
-	class RDTSC
-	{
-	private:
-
-		uint64 begin;
-
-	public:
-
-		RDTSC()
-			: begin(__rdtsc()) {}
-
-		~RDTSC()
-		{
-			const auto result = __rdtsc() - begin;
-
-			Log(result, L" cycles");
-		}
-	};
-# endif
-}
-
-//void TestTypes();
-//void TestArray();
-//void TestOptional();
-//void TestString();
-//void TestFormatFloat();
-//void TestFormatInt();
-//void TestFormatBool();
+//# if defined(SIV3D_TARGET_WINDOWS)
+//	class RDTSC
+//	{
+//	private:
 //
-//inline void TestAll()
-//{
-//	TestTypes();
-//	TestArray();
-//	TestOptional();
-//	TestString();
-//	TestFormatFloat();
-//	TestFormatInt();
-//	TestFormatBool();
-//}
+//		uint64 begin;
+//
+//	public:
+//
+//		RDTSC()
+//			: begin(__rdtsc()) {}
+//
+//		~RDTSC()
+//		{
+//			const auto result = __rdtsc() - begin;
+//
+//			Log(result, L" cycles");
+//		}
+//	};
+//# endif
+}
