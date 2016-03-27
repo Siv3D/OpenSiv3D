@@ -9,9 +9,10 @@
 //
 //-----------------------------------------------
 
-# include "Siv3DTest.hpp"
+# include <Siv3D.hpp>
+# include <gtest/gtest.h>
 
-void TestOptional()
+TEST(Optional, null)
 {
 
 }

@@ -19,6 +19,29 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\gtest\gtest-death-test.h" />
+    <ClInclude Include="Include\gtest\gtest-message.h" />
+    <ClInclude Include="Include\gtest\gtest-param-test.h" />
+    <ClInclude Include="Include\gtest\gtest-printers.h" />
+    <ClInclude Include="Include\gtest\gtest-spi.h" />
+    <ClInclude Include="Include\gtest\gtest-test-part.h" />
+    <ClInclude Include="Include\gtest\gtest-typed-test.h" />
+    <ClInclude Include="Include\gtest\gtest.h" />
+    <ClInclude Include="Include\gtest\gtest_pred_impl.h" />
+    <ClInclude Include="Include\gtest\gtest_prod.h" />
+    <ClInclude Include="Include\gtest\internal\custom\gtest-port.h" />
+    <ClInclude Include="Include\gtest\internal\custom\gtest-printers.h" />
+    <ClInclude Include="Include\gtest\internal\custom\gtest.h" />
+    <ClInclude Include="Include\gtest\internal\gtest-death-test-internal.h" />
+    <ClInclude Include="Include\gtest\internal\gtest-filepath.h" />
+    <ClInclude Include="Include\gtest\internal\gtest-internal.h" />
+    <ClInclude Include="Include\gtest\internal\gtest-linked_ptr.h" />
+    <ClInclude Include="Include\gtest\internal\gtest-param-util-generated.h" />
+    <ClInclude Include="Include\gtest\internal\gtest-param-util.h" />
+    <ClInclude Include="Include\gtest\internal\gtest-port-arch.h" />
+    <ClInclude Include="Include\gtest\internal\gtest-port.h" />
+    <ClInclude Include="Include\gtest\internal\gtest-string.h" />
+    <ClInclude Include="Include\gtest\internal\gtest-type-util.h" />
     <ClInclude Include="Include\Siv3D.hpp" />
     <ClInclude Include="Include\Siv3D\Allocator.hpp" />
     <ClInclude Include="Include\Siv3D\Array.hpp" />

@@ -6,6 +6,7 @@ using namespace s3d;
 
 void Main()
 {
-	TestAll();
+	RunTest();
+
 	Log(L"Siv3D!");
 }

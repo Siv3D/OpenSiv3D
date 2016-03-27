@@ -9,17 +9,18 @@
 //
 //-----------------------------------------------
 
-# include "Siv3DTest.hpp"
+# include <Siv3D.hpp>
+# include <gtest/gtest.h>
 
-void TestTypes()
+TEST(Types, size)
 {
-	static_assert(sizeof(s3d::int8 ) == 1, "");
-	static_assert(sizeof(s3d::int16) == 2, "");
-	static_assert(sizeof(s3d::int32) == 4, "");
-	static_assert(sizeof(s3d::int64) == 8, "");
+	ASSERT_EQ(sizeof(s3d::int8 ), 1);
+	ASSERT_EQ(sizeof(s3d::int16), 2);
+	ASSERT_EQ(sizeof(s3d::int32), 4);
+	ASSERT_EQ(sizeof(s3d::int64), 8);
 
-	static_assert(sizeof(s3d::uint8 ) == 1, "");
-	static_assert(sizeof(s3d::uint16) == 2, "");
-	static_assert(sizeof(s3d::uint32) == 4, "");
-	static_assert(sizeof(s3d::uint64) == 8, "");
+	ASSERT_EQ(sizeof(s3d::uint8 ), 1);
+	ASSERT_EQ(sizeof(s3d::uint16), 2);
+	ASSERT_EQ(sizeof(s3d::uint32), 4);
+	ASSERT_EQ(sizeof(s3d::uint64), 8);
 }

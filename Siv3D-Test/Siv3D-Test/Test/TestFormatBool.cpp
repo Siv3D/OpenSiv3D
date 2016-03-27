@@ -9,18 +9,27 @@
 //
 //-----------------------------------------------
 
-# include "Siv3DTest.hpp"
+# include <Siv3D.hpp>
+# include <gtest/gtest.h>
 
-using namespace s3d;
-
-void TestFormatBool()
+TEST(FormatBool, null)
 {
-	Log(L"### FormatBool");
-	Log(L"###### ToString");
-	Log(ToString(true, LetterCase::Lower));
-	Log(ToString(true, LetterCase::Upper));
-	Log(ToString(true, LetterCase::Capitalized));
-	Log(ToString(false, LetterCase::Lower));
-	Log(ToString(false, LetterCase::Upper));
-	Log(ToString(false, LetterCase::Capitalized));
+
 }
+
+
+//# include "Siv3DTest.hpp"
+//
+//using namespace s3d;
+//
+//void TestFormatBool()
+//{
+//	Log(L"### FormatBool");
+//	Log(L"###### ToString");
+//	Log(ToString(true, LetterCase::Lower));
+//	Log(ToString(true, LetterCase::Upper));
+//	Log(ToString(true, LetterCase::Capitalized));
+//	Log(ToString(false, LetterCase::Lower));
+//	Log(ToString(false, LetterCase::Upper));
+//	Log(ToString(false, LetterCase::Capitalized));
+//}

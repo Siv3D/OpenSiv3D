@@ -29,6 +29,15 @@
     <Filter Include="Source\Siv3D\FormatInt">
       <UniqueIdentifier>{bb7966c0-8acf-4af4-8e8d-3f83b8651adc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Include\gtest">
+      <UniqueIdentifier>{1039189b-93d5-4cdc-aa5a-db7f0b6d11e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\gtest\internal">
+      <UniqueIdentifier>{390d40a3-66cf-4be3-8cef-80b5bd27c622}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\gtest\internal\custom">
+      <UniqueIdentifier>{0ff48c01-9d9a-48df-aef7-15c606a63936}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Siv3D.hpp">
@@ -117,6 +126,75 @@
     </ClInclude>
     <ClInclude Include="Include\Siv3D\FormatBool.hpp">
       <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\gtest\gtest_prod.h">
+      <Filter>Include\gtest</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\gtest\gtest-death-test.h">
+      <Filter>Include\gtest</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\gtest\gtest-message.h">
+      <Filter>Include\gtest</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\gtest\gtest-param-test.h">
+      <Filter>Include\gtest</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\gtest\gtest-printers.h">
+      <Filter>Include\gtest</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\gtest\gtest-spi.h">
+      <Filter>Include\gtest</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\gtest\gtest-test-part.h">
+      <Filter>Include\gtest</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\gtest\gtest-typed-test.h">
+      <Filter>Include\gtest</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\gtest\gtest.h">
+      <Filter>Include\gtest</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\gtest\internal\gtest-port.h">
+      <Filter>Include\gtest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\gtest\internal\gtest-port-arch.h">
+      <Filter>Include\gtest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\gtest\internal\gtest-string.h">
+      <Filter>Include\gtest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\gtest\internal\gtest-internal.h">
+      <Filter>Include\gtest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\gtest\internal\custom\gtest.h">
+      <Filter>Include\gtest\internal\custom</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\gtest\internal\custom\gtest-port.h">
+      <Filter>Include\gtest\internal\custom</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\gtest\internal\gtest-filepath.h">
+      <Filter>Include\gtest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\gtest\internal\gtest-type-util.h">
+      <Filter>Include\gtest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\gtest\internal\gtest-death-test-internal.h">
+      <Filter>Include\gtest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\gtest\internal\gtest-param-util.h">
+      <Filter>Include\gtest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\gtest\internal\gtest-linked_ptr.h">
+      <Filter>Include\gtest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\gtest\internal\custom\gtest-printers.h">
+      <Filter>Include\gtest\internal\custom</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\gtest\internal\gtest-param-util-generated.h">
+      <Filter>Include\gtest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\gtest\gtest_pred_impl.h">
+      <Filter>Include\gtest</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
