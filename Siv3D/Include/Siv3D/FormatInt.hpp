@@ -316,4 +316,143 @@ namespace s3d
 	{
 		return detail::ItoW(value, radix.value(), false, upperCase);
 	}
+
+
+
+	inline String ToBinary(const char value)
+	{
+		return ToString(value, Radix(2));
+	}
+
+	inline String ToBinary(const int8 value)
+	{
+		return ToString(value, Radix(2));
+	}
+
+	inline String ToBinary(const uint8 value)
+	{
+		return ToString(value, Radix(2));
+	}
+
+	inline String ToBinary(const int16 value)
+	{
+		return ToString(value, Radix(2));
+	}
+
+	inline String ToBinary(const uint16 value)
+	{
+		return ToString(value, Radix(2));
+	}
+
+	inline String ToBinary(const int32 value)
+	{
+		return ToString(value, Radix(2));
+	}
+
+	inline String ToBinary(const uint32 value)
+	{
+		return ToString(value, Radix(2));
+	}
+
+	inline String ToBinary(const int64 value)
+	{
+		return ToString(value, Radix(2));
+	}
+
+	inline String ToBinary(const uint64 value)
+	{
+		return ToString(value, Radix(2));
+	}
+
+
+	inline String ToOctal(const char value)
+	{
+		return ToString(value, Radix(8));
+	}
+
+	inline String ToOctal(const int8 value)
+	{
+		return ToString(value, Radix(8));
+	}
+
+	inline String ToOctal(const uint8 value)
+	{
+		return ToString(value, Radix(8));
+	}
+
+	inline String ToOctal(const int16 value)
+	{
+		return ToString(value, Radix(8));
+	}
+
+	inline String ToOctal(const uint16 value)
+	{
+		return ToString(value, Radix(8));
+	}
+
+	inline String ToOctal(const int32 value)
+	{
+		return ToString(value, Radix(8));
+	}
+
+	inline String ToOctal(const uint32 value)
+	{
+		return ToString(value, Radix(8));
+	}
+
+	inline String ToOctal(const int64 value)
+	{
+		return ToString(value, Radix(8));
+	}
+
+	inline String ToOctal(const uint64 value)
+	{
+		return ToString(value, Radix(8));
+	}
+
+
+	inline String ToHex(const char value, const bool upperCase = false)
+	{
+		return ToString(value, Radix(16), upperCase);
+	}
+
+	inline String ToHex(const int8 value, const bool upperCase = false)
+	{
+		return ToString(value, Radix(16), upperCase);
+	}
+
+	inline String ToHex(const uint8 value, const bool upperCase = false)
+	{
+		return ToString(value, Radix(16), upperCase);
+	}
+
+	inline String ToHex(const int16 value, const bool upperCase = false)
+	{
+		return ToString(value, Radix(16), upperCase);
+	}
+
+	inline String ToHex(const uint16 value, const bool upperCase = false)
+	{
+		return ToString(value, Radix(16), upperCase);
+	}
+
+	inline String ToHex(const int32 value, const bool upperCase = false)
+	{
+		return ToString(value, Radix(16), upperCase);
+	}
+
+	inline String ToHex(const uint32 value, const bool upperCase = false)
+	{
+		return ToString(value, Radix(16), upperCase);
+	}
+
+	inline String ToHex(const int64 value, const bool upperCase = false)
+	{
+		return ToString(value, Radix(16), upperCase);
+	}
+
+	inline String ToHex(const uint64 value, const bool upperCase = false)
+	{
+		return ToString(value, Radix(16), upperCase);
+	}
 }
