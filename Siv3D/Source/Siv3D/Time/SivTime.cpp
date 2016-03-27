@@ -98,8 +98,10 @@ namespace s3d
 
 # elif defined(SIV3D_TARGET_OSX)
 
-# include <mac/mach_time.h>
+# include <mach/mach_time.h>
 # include <sys/time.h>
+# include "../../../Include/Siv3D/Fwd.hpp"
+# include "../../../Include/Siv3D/Time.hpp"
 
 namespace s3d
 {
@@ -124,40 +126,40 @@ namespace s3d
 
 		uint64 GetSec()
 		{
-			return GetNanosec() / 1'000'000'000;
+			return GetNanosec() / (1000*1000*1000);
 		}
 
 		uint64 GetMillisec()
 		{
-			return GetNanosec() / 1'000'000;
+			return GetNanosec() / (1000*1000);
 		}
 
 		uint64 GetMicrosec()
 		{
-			return GetNanosec() / 1'000;
+			return GetNanosec() / (1000);
 		}
 
 		uint64 GetNanosec()
 		{
-			const static auto SteadyClock = InitSteadyClock();
+            const static auto SteadyClock = detail::InitSteadyClock();
 			return SteadyClock();
 		}
 
 		uint64 GetSecSinceEpoch()
 		{
-			return GetMicrosecSinceEpoch() / 1'000'000;
+			return GetMicrosecSinceEpoch() / (1000*1000);
 		}
 
 		uint64 GetMillisecSinceEpoch()
 		{
-			return GetMicrosecSinceEpoch() / 1'000;
+			return GetMicrosecSinceEpoch() / (1000);
 		}
 
 		uint64 GetMicrosecSinceEpoch()
 		{
 			struct timeval tv;
 			::gettimeofday(&tv, nullptr);
-			return tv.tv_sec * 1'000'000ULL + tv.tv_usec;
+			return tv.tv_sec * (1000*1000ULL) + tv.tv_usec;
 		}
 
 		int32 UtcOffsetMinutes()
