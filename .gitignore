@@ -288,3 +288,6 @@ $RECYCLE.BIN/
 
 *.db
 *.opendb
+
+Siv3D_d.lib
+Siv3D.lib

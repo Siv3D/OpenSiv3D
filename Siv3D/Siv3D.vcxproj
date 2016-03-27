@@ -141,23 +141,23 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>Lib\x64\</OutDir>
+    <OutDir>Lib\Windows(x64)\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
     <IntDir>Intermediate\Debug-x64\</IntDir>
     <IncludePath>$(SolutionDir)\Siv3D\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IntDir>Intermediate\Release-x64\</IntDir>
-    <OutDir>Lib\x64\</OutDir>
+    <OutDir>Lib\Windows(x64)\</OutDir>
     <IncludePath>$(SolutionDir)\Siv3D\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>Lib\x86\</OutDir>
+    <OutDir>Lib\Windows(x86)\</OutDir>
     <IntDir>Intermediate\Release-x86\</IntDir>
     <IncludePath>$(SolutionDir)\Siv3D\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>Lib\x86\</OutDir>
+    <OutDir>Lib\Windows(x86)\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
     <IntDir>Intermediate\Debug-x86\</IntDir>
     <IncludePath>$(SolutionDir)\Siv3D\Include;$(IncludePath)</IncludePath>

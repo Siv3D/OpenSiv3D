@@ -21,18 +21,18 @@
 
 # if defined(SIV3D_TARGET_WINDOWS_X64)
 	# ifdef _DEBUG
-		# pragma comment (lib, "x64/Siv3D_d")
-		# pragma comment (lib, "x64/gtest_d")
+		# pragma comment (lib, "Windows(x64)/Siv3D_d")
+		# pragma comment (lib, "Windows(x64)/gtest/gtest_d")
 	# else
-		# pragma comment (lib, "x64/Siv3D")
-		# pragma comment (lib, "x64/gtest")
+		# pragma comment (lib, "Windows(x64)/Siv3D")
+		# pragma comment (lib, "Windows(x64)/gtest/gtest")
 	# endif
 # elif defined(SIV3D_TARGET_WINDOWS_X86)
 	# ifdef _DEBUG
-		# pragma comment (lib, "x86/Siv3D_d")
-		# pragma comment (lib, "x86/gtest_d")
+		# pragma comment (lib, "Windows(x86)/Siv3D_d")
+		# pragma comment (lib, "Windows(x86)/gtest/gtest_d")
 	# else
-		# pragma comment (lib, "x86/Siv3D")
-		# pragma comment (lib, "x86/gtest")
+		# pragma comment (lib, "Windows(x86)/Siv3D")
+		# pragma comment (lib, "Windows(x86)/gtest/gtest")
 	# endif
 # endif
