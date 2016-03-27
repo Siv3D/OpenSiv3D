@@ -293,6 +293,6 @@ Siv3D_d.lib
 Siv3D.lib
 
 # Xcode
-*.xcodeproj/*
-!*.xcodeproj/project.pbxproj
-!*.xcworkspace/contents.xcworkspacedata
+**/*.xcodeproj/*
+!**/*.xcodeproj/project.pbxproj
+!**/*.xcodeproj/project.xcworkspace/contents.xcoworkspacedata
