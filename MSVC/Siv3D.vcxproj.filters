@@ -38,6 +38,9 @@
     <Filter Include="Include\gtest\internal\custom">
       <UniqueIdentifier>{0ff48c01-9d9a-48df-aef7-15c606a63936}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Time">
+      <UniqueIdentifier>{ba8c7271-d9a1-41d8-81ab-71395daf4df9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -196,6 +199,9 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum-dtoa.h">
       <Filter>Source\ThirdParty\double-conversion</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Time.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\Siv3DMain_OSX.cpp">
@@ -233,6 +239,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatInt\SivFormatInt.cpp">
       <Filter>Source\Siv3D\FormatInt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Time\SivTime.cpp">
+      <Filter>Source\Siv3D\Time</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
