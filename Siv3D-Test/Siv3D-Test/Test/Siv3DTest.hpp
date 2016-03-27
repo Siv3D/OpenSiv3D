@@ -12,17 +12,27 @@
 # pragma once
 # include <Siv3D.hpp>
 
-# if defined(SIV3D_TARGET_WINDOWS)
-	# define  NOMINMAX
-	# define  STRICT
-	# define  WIN32_LEAN_AND_MEAN
-	# define  _WIN32_WINNT _WIN32_WINNT_WIN7
-	# define  NTDDI_VERSION NTDDI_WIN7
-	# include <Windows.h>
-# endif
-
 namespace s3d
 {
+	void RunTest();
+
+	//inline void Log(const String& text)
+	//{
+	//	# if defined(SIV3D_TARGET_WINDOWS)
+	//		::OutputDebugStringW((text + L"\n").c_str());
+	//	# else
+	//		std::wcout << text << L'\n';
+	//	# endif
+	//}
+
+	void Log(const String& text);
+
+	template <class... Args>
+	inline void Log(const Args&... args)
+	{
+		Log(Format(args...));
+	}
+
 # if defined(SIV3D_TARGET_WINDOWS)
 	class RDTSC
 	{
@@ -39,42 +49,27 @@ namespace s3d
 		{
 			const auto result = __rdtsc() - begin;
 
-			::OutputDebugStringW((std::to_wstring(result) + L" cycles\n").c_str());
+			Log(result, L" cycles");
 		}
 	};
 # endif
-
-	inline void Log(const String& text)
-	{
-		# if defined(SIV3D_TARGET_WINDOWS)
-			::OutputDebugStringW((text + L"\n").c_str());
-		# else
-			std::wcout << text << L'\n';
-		# endif
-	}
-
-	template <class... Args>
-	inline void Log(const Args&... args)
-	{
-		Log(Format(args...));
-	}
 }
 
-void TestTypes();
-void TestArray();
-void TestOptional();
-void TestString();
-void TestFormatFloat();
-void TestFormatInt();
-void TestFormatBool();
-
-inline void TestAll()
-{
-	TestTypes();
-	TestArray();
-	TestOptional();
-	TestString();
-	TestFormatFloat();
-	TestFormatInt();
-	TestFormatBool();
-}
+//void TestTypes();
+//void TestArray();
+//void TestOptional();
+//void TestString();
+//void TestFormatFloat();
+//void TestFormatInt();
+//void TestFormatBool();
+//
+//inline void TestAll()
+//{
+//	TestTypes();
+//	TestArray();
+//	TestOptional();
+//	TestString();
+//	TestFormatFloat();
+//	TestFormatInt();
+//	TestFormatBool();
+//}
