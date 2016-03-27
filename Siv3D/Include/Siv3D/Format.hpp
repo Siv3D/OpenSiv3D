@@ -218,12 +218,12 @@ namespace s3d
 
 	inline void Formatter(FormatData& formatData, long value)
 	{
-		Formatter(formatData, static_cast<int32>(value));
+		Formatter(formatData, static_cast<int64>(value));
 	}
 
 	inline void Formatter(FormatData& formatData, unsigned long value)
 	{
-		Formatter(formatData, static_cast<uint32>(value));
+		Formatter(formatData, static_cast<uint64>(value));
 	}
 
 	inline void Formatter(FormatData& formatData, wchar value)

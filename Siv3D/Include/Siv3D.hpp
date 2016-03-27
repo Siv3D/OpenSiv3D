@@ -72,3 +72,6 @@
 	// データ -> 文字列 の変換
 	# include "Siv3D/Format.hpp"
 
+
+
+	# include "Siv3D/Time.hpp"

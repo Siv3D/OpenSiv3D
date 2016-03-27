@@ -24,24 +24,24 @@ namespace s3d
 		Log(Format(args...));
 	}
 
-//# if defined(SIV3D_TARGET_WINDOWS)
-//	class RDTSC
-//	{
-//	private:
-//
-//		uint64 begin;
-//
-//	public:
-//
-//		RDTSC()
-//			: begin(__rdtsc()) {}
-//
-//		~RDTSC()
-//		{
-//			const auto result = __rdtsc() - begin;
-//
-//			Log(result, L" cycles");
-//		}
-//	};
-//# endif
+# if defined(SIV3D_TARGET_WINDOWS)
+	class RDTSC
+	{
+	private:
+
+		uint64 begin;
+
+	public:
+
+		RDTSC()
+			: begin(__rdtsc()) {}
+
+		~RDTSC()
+		{
+			const auto result = __rdtsc() - begin;
+
+			Log(result, L" cycles");
+		}
+	};
+# endif
 }

@@ -57,6 +57,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\PlatformWindows.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Radix.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\String.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Time.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Types.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Uncopyable.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Unspecified.hpp" />
@@ -77,6 +78,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3DMain_Windows.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatFloat\SivFormatFloat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatInt\SivFormatInt.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Time\SivTime.cpp" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum-dtoa.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\cached-powers.cc" />
