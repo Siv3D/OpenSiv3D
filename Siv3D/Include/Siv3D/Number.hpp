@@ -28,6 +28,7 @@ namespace s3d
 	/// <returns>
 	/// ビット列を整数として解釈した値
 	/// </returns>
+	inline uint32 AsUint(const float value)
 	{
 		static_assert(sizeof(uint32) == sizeof(float), "");
 		return *static_cast<const uint32*>(static_cast<const void*>(&value));
@@ -42,6 +43,7 @@ namespace s3d
 	/// <returns>
 	/// ビット列を整数として解釈した値
 	/// </returns>
+	inline uint64 AsUint(const double value)
 	{
 		static_assert(sizeof(uint64) == sizeof(double), "");
 		return *static_cast<const uint64*>(static_cast<const void*>(&value));
@@ -56,6 +58,7 @@ namespace s3d
 	/// <returns>
 	/// ビット列を整数として解釈した値
 	/// </returns>
+	inline uint64 AsUint(const long double value)
 	{
 		static_assert(sizeof(uint64) == sizeof(long double), "");
 		return *static_cast<const uint64*>(static_cast<const void*>(&value));
