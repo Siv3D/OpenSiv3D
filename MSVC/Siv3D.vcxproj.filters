@@ -41,6 +41,9 @@
     <Filter Include="Source\Siv3D\Time">
       <UniqueIdentifier>{ba8c7271-d9a1-41d8-81ab-71395daf4df9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\BigInt">
+      <UniqueIdentifier>{bcd979d0-545d-449f-88a4-5cbea9ae9e4f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -205,6 +208,9 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Number.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\BigInt.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\Siv3DMain_OSX.cpp">
@@ -245,6 +251,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Time\SivTime.cpp">
       <Filter>Source\Siv3D\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\BigInt\SivBigInt.cpp">
+      <Filter>Source\Siv3D\BigInt</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

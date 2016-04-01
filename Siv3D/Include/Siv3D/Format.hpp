@@ -10,8 +10,10 @@
 //-----------------------------------------------
 
 # pragma once
+# include <sstream>
 # include "Fwd.hpp"
 # include "String.hpp"
+# include "Optional.hpp"
 # include "FormatInt.hpp"
 # include "FormatFloat.hpp"
 
@@ -250,4 +252,118 @@ namespace s3d
 	{
 		formatData.string.append(str);
 	}
+
+	template <class Type>
+	inline void Formatter(FormatData& formatData, const Optional<Type>& opt)
+	{
+		if (opt)
+		{
+			formatData.string.append(L"Optional ");
+
+			Formatter(formatData, static_cast<Type>(opt.value()));
+		}
+		else
+		{
+			formatData.string.append(L"none");
+		}
+	}
+
+	inline void Formatter(FormatData& formatData, nullopt_t)
+	{
+		formatData.string.append(L"none");
+	}
+
+	template <class Iterator>
+	inline void Formatter(FormatData& formatData, Iterator begin, Iterator end)
+	{
+		formatData.string.push_back(L'{');
+
+		bool isFirst = true;
+
+		while (begin != end)
+		{
+			if (isFirst)
+			{
+				isFirst = false;
+			}
+			else
+			{
+				formatData.string.push_back(L',');
+			}
+
+			Formatter(formatData, *begin);
+
+			++begin;
+		}
+
+		formatData.string.push_back(L'}');
+	}
+
+	template <class Type, size_t N>
+	inline void Formatter(FormatData& formatData, const Type(&values)[N])
+	{
+		Formatter(formatData, std::begin(values), std::end(values));
+	}
+
+	template <class Type, size_t N>
+	inline void Formatter(FormatData& formatData, const std::array<Type, N>& v)
+	{
+		Formatter(formatData, v.begin(), v.end());
+	}
+
+	template <class Type, class Allocator = std::allocator<Type>>
+	inline void Formatter(FormatData& formatData, const std::vector<Type, Allocator>& v)
+	{
+		Formatter(formatData, v.begin(), v.end());
+	}
+
+	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
+	inline void Formatter(FormatData& formatData, const Array<Type, Allocator>& v)
+	{
+		Formatter(formatData, v.begin(), v.end());
+	}
+
+	template <class Type>
+	inline void Formatter(FormatData& formatData, const std::initializer_list<Type>& ilist)
+	{
+		Formatter(formatData, ilist.begin(), ilist.end());
+	}
+
+	template <class Type>
+	inline void Formatter(FormatData& formatData, const Type& value)
+	{
+		std::wostringstream wos;
+
+		wos << value;
+
+		formatData.string.append(wos.str());
+	}
+
+	/*
+	void Formatter(FormatData& formatData, const Color& value);
+	void Formatter(FormatData& formatData, const ColorF& value);
+	void Formatter(FormatData& formatData, const HSV& value);
+	void Formatter(FormatData& formatData, const Point& value);
+	void Formatter(FormatData& formatData, const Float2& value);
+	void Formatter(FormatData& formatData, const Vec2& value);
+	void Formatter(FormatData& formatData, const Float3& value);
+	void Formatter(FormatData& formatData, const Vec3& value);
+	void Formatter(FormatData& formatData, const Float4& value);
+	void Formatter(FormatData& formatData, const Vec4& value);
+	void Formatter(FormatData& formatData, const __m128& value);
+	void Formatter(FormatData& formatData, const Circular& value);
+	void Formatter(FormatData& formatData, const LineInt& value);
+	void Formatter(FormatData& formatData, const Line& value);
+	void Formatter(FormatData& formatData, const Rect& value);
+	void Formatter(FormatData& formatData, const RectF& value);
+	void Formatter(FormatData& formatData, const Circle& value);
+	void Formatter(FormatData& formatData, const Ellipse& value);
+	void Formatter(FormatData& formatData, const Triangle& value);
+	void Formatter(FormatData& formatData, const Quad& value);
+	void Formatter(FormatData& formatData, const RoundRect& value);
+	void Formatter(FormatData& formatData, const Mat3x2& value);
+	void Formatter(FormatData& formatData, const Quaternion& value);
+	void Formatter(FormatData& formatData, const Mat4x4& value);
+	void Formatter(FormatData& formatData, const Ray& value);
+	*/
 }

@@ -75,4 +75,7 @@
 	// 数値
 	# include "Siv3D/Number.hpp"
 
+	// 多倍長整数
+	# include "Siv3D/BigInt.hpp"
+	
 	# include "Siv3D/Time.hpp"
