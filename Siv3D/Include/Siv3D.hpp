@@ -72,6 +72,10 @@
 	// データ -> 文字列 の変換
 	# include "Siv3D/Format.hpp"
 
+	// 数値
+	# include "Siv3D/Number.hpp"
 
-
+	// 多倍長整数
+	# include "Siv3D/BigInt.hpp"
+	
 	# include "Siv3D/Time.hpp"

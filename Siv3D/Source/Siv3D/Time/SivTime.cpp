@@ -28,14 +28,14 @@ namespace s3d
 		{
 			inline double GetPerformanceFrequency()
 			{
-				LARGE_INTEGER frequency;
+				::LARGE_INTEGER frequency;
 				::QueryPerformanceFrequency(&frequency);
 				return static_cast<double>(frequency.QuadPart);
 			}
 
 			inline int64 GetPerformanceCount()
 			{
-				LARGE_INTEGER counter;
+				::LARGE_INTEGER counter;
 				::QueryPerformanceCounter(&counter);
 				return counter.QuadPart;
 			}
@@ -44,7 +44,7 @@ namespace s3d
 			{
 				::FILETIME fileTime;
 				::GetSystemTimeAsFileTime(&fileTime);
-				return (static_cast<uint64>(fileTime.dwHighDateTime) << 32) + fileTime.dwLowDateTime - 11644473600 * 10'000'000;
+				return (static_cast<uint64>(fileTime.dwHighDateTime) << 32) + fileTime.dwLowDateTime - (11'644'473'600 * 10'000'000);
 			}
 		}
 

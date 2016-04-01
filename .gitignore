@@ -291,6 +291,7 @@ $RECYCLE.BIN/
 
 Siv3D_d.lib
 Siv3D.lib
+[Dd]ependencies/
 
 # Xcode
 **/*.xcodeproj/*
