@@ -36,6 +36,8 @@
 //
 // ユーティリティ
 //
+	// ライブラリのバージョン
+	# include "Siv3D/Version.hpp"
 	// 型
 	# include "Siv3D/Types.hpp"
 	// 前方宣言
@@ -55,7 +57,7 @@
 	// unspecified
 	# include "Siv3D/Unspecified.hpp"
 //
-// 文字と文字列
+// 文字列と数値
 //
 	// 文字列
 	# include "Siv3D/String.hpp"
@@ -63,6 +65,10 @@
 	# include "Siv3D/Radix.hpp"
 	// 大文字小文字
 	# include "Siv3D/LetterCase.hpp"	
+	// 数値
+	# include "Siv3D/Number.hpp"
+	// 多倍長整数
+	# include "Siv3D/BigInt.hpp"
 	// 整数のフォーマット
 	# include "Siv3D/FormatInt.hpp"
 	// 浮動小数点数のフォーマット
@@ -72,10 +78,6 @@
 	// データ -> 文字列 の変換
 	# include "Siv3D/Format.hpp"
 
-	// 数値
-	# include "Siv3D/Number.hpp"
 
-	// 多倍長整数
-	# include "Siv3D/BigInt.hpp"
 	
 	# include "Siv3D/Time.hpp"
