@@ -50,21 +50,6 @@ namespace s3d
 	}
 
 	/// <summary>
-	/// 浮動小数点数値のビット列を整数として解釈します。
-	/// </summary>
-	/// <param name="value">
-	///	浮動小数点数値
-	/// </param>
-	/// <returns>
-	/// ビット列を整数として解釈した値
-	/// </returns>
-	inline uint64 AsUint(const long double value)
-	{
-		static_assert(sizeof(uint64) == sizeof(long double), "");
-		return *static_cast<const uint64*>(static_cast<const void*>(&value));
-	}
-
-	/// <summary>
 	/// 表現できる最大の数値を返します。
 	/// </summary>
 	/// <returns>
