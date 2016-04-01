@@ -2,14 +2,14 @@
 
 ## Platforms ##
 
-  * Windows
+  * Windows Desktop
   * Mac OS X
 
 ## Requirements ##
 
 ### Windows Requirements ###
 
-  * Windows 7 / 8 / 8.1 / 10
+  * Windows 7 SP1 / 8 / 8.1 / 10
   * Microsoft Visual C++ 2015 Update 1 or newer
   
 ### Mac OS X Requirements ###
