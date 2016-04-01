@@ -18,6 +18,10 @@
   * Mac OS X v10.11 El Capitan or newer
   * Xcode 7.3 or newer
  
+## Dependencies ##
+
+  * [See Dependencies](Dependencies/README.md)
+
 ## Discussion ##
 
   * Slack (Japanese) https://siv3d-slackin.herokuapp.com/ #open-siv3d channel
