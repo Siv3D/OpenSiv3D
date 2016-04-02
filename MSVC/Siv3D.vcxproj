@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Siv3D\Include\cppformat\format.h" />
     <ClInclude Include="..\Siv3D\Include\gtest\gtest-death-test.h" />
     <ClInclude Include="..\Siv3D\Include\gtest\gtest-message.h" />
     <ClInclude Include="..\Siv3D\Include\gtest\gtest-param-test.h" />
@@ -50,6 +51,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\FormatBool.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\FormatFloat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\FormatInt.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\FormatLiteral.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Fwd.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Grid.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\LetterCase.hpp" />
@@ -64,6 +66,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Uncopyable.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Unspecified.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Utility.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Version.hpp" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum-dtoa.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\cached-powers.h" />
@@ -82,6 +85,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatFloat\SivFormatFloat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatInt\SivFormatInt.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Time\SivTime.cpp" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\cppformat\format.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum-dtoa.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\cached-powers.cc" />

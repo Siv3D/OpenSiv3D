@@ -19,7 +19,7 @@
 	# pragma comment (linker, "/entry:\"wWinMainCRTStartup\"")
 # endif
 
-# if defined(SIV3D_TARGET_WINDOWS_X64)
+# if defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64)
 	# ifdef _DEBUG
 		# pragma comment (lib, "Windows(x64)/Siv3D_d")
 		# pragma comment (lib, "Windows(x64)/gtest/gtest_d")
@@ -27,7 +27,7 @@
 		# pragma comment (lib, "Windows(x64)/Siv3D")
 		# pragma comment (lib, "Windows(x64)/gtest/gtest")
 	# endif
-# elif defined(SIV3D_TARGET_WINDOWS_X86)
+# elif defined(SIV3D_TARGET_WINDOWS_DESKTOP_X86)
 	# ifdef _DEBUG
 		# pragma comment (lib, "Windows(x86)/Siv3D_d")
 		# pragma comment (lib, "Windows(x86)/gtest/gtest_d")
