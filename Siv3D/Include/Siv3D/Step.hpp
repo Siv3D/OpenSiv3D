@@ -393,7 +393,7 @@ namespace s3d
 		static_assert(std::is_integral<StartType>::value, "step_to requires integral parameters");
 		CounterType  n = 0;
 
-		if (s == 0 || b != a && (b < a) != (s < 0))
+		if (s == 0 || (b != a && (b < a) != (s < 0)))
 		{
 			n = 0;
 		}
