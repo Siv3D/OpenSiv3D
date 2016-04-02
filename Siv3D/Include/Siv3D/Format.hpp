@@ -287,19 +287,19 @@ namespace s3d
 	{
 		if (opt)
 		{
-			formatData.string.append(L"Optional ");
+			formatData.string.append(L"Optional ", 9);
 
-			Formatter(formatData, static_cast<Type>(opt.value()));
+			Formatter(formatData, opt.value());
 		}
 		else
 		{
-			formatData.string.append(L"none");
+			formatData.string.append(L"none", 4);
 		}
 	}
 
 	inline void Formatter(FormatData& formatData, nullopt_t)
 	{
-		formatData.string.append(L"none");
+		formatData.string.append(L"none", 4);
 	}
 
 	template <class Iterator>
