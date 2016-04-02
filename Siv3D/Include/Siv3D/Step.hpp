@@ -250,7 +250,7 @@ namespace s3d
 
 			constexpr bool operator !=(const steps_iterator& other) const { return !(m_count == other.m_count); }
 
-			constexpr T currentValue() const { return m_currentValue; }
+			T currentValue() const { return m_currentValue; }
 
 			constexpr N count() const { return m_count; }
 
