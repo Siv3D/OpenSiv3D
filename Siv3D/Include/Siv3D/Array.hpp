@@ -128,7 +128,7 @@ namespace s3d
 			return choice(GetDefaultRNG());
 		}
 
-		template <class URNG, typename std::enable_if_t<!std::is_scalar<URNG>::value>* = nullptr>
+		template <class URNG, std::enable_if_t<!std::is_scalar<URNG>::value>* = nullptr>
 		const Type& choice(URNG&& rng) const
 		{
 			if (empty())
@@ -141,7 +141,7 @@ namespace s3d
 			return operator[](index);
 		}
 
-		template <class Size_t, typename std::enable_if_t<std::is_scalar<Size_t>::value>* = nullptr>
+		template <class Size_t, std::enable_if_t<std::is_scalar<Size_t>::value>* = nullptr>
 		Array choice(Size_t n) const
 		{
 			return choice(n, GetDefaultRNG());
@@ -920,7 +920,7 @@ namespace s3d
 			return choice(GetDefaultRNG());
 		}
 
-		template <class URNG, typename std::enable_if_t<!std::is_scalar<URNG>::value>* = nullptr>
+		template <class URNG, std::enable_if_t<!std::is_scalar<URNG>::value>* = nullptr>
 		const bool& choice(URNG&& rng) const
 		{
 			if (empty())
@@ -933,7 +933,7 @@ namespace s3d
 			return operator[](index);
 		}
 
-		template <class Size_t, typename std::enable_if_t<std::is_scalar<Size_t>::value>* = nullptr>
+		template <class Size_t, std::enable_if_t<std::is_scalar<Size_t>::value>* = nullptr>
 		Array choice(Size_t n) const
 		{
 			return choice(n, GetDefaultRNG());
