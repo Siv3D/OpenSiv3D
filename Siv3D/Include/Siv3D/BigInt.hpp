@@ -388,6 +388,27 @@ namespace s3d
 	BigInt GCD(const BigInt& a, const BigInt& b);
 
 	BigInt LCM(const BigInt& a, const BigInt& b);
+
+	namespace literals
+	{
+		inline namespace bigint_literals
+		{
+			inline BigInt operator ""_big(unsigned long long int i)
+			{
+				return BigInt(i);
+			}
+
+			inline BigInt operator ""_big(const char* number, size_t)
+			{
+				return BigInt(number);
+			}
+
+			inline BigInt operator ""_big(const wchar* number, size_t)
+			{
+				return BigInt(number);
+			}
+		}
+	}
 }
 
 namespace std
