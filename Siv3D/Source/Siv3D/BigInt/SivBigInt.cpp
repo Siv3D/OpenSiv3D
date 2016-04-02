@@ -533,6 +533,11 @@ namespace s3d
 		return this->pImpl->data.compare(i);
 	}
 
+	int32 BigInt::compare(long double f) const
+	{
+		return this->pImpl->data.compare(f);
+	}
+
 	int32 BigInt::compare(const BigInt& i) const
 	{
 		return this->pImpl->data.compare(i.pImpl->data);
