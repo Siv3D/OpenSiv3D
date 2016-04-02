@@ -77,7 +77,8 @@
 	# include "Siv3D/FormatBool.hpp"
 	// データ -> 文字列 の変換
 	# include "Siv3D/Format.hpp"
-
+	// フォーマットリテラル
+	# include "Siv3D/FormatLiteral.hpp"
 
 	
 	# include "Siv3D/Time.hpp"
