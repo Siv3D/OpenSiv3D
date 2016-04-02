@@ -27,9 +27,9 @@ namespace s3d
 	public:
 
 		BigInt() : BigInt(0) {}
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		BigInt(Integer i) : BigInt(static_cast<int64>(i)) {}
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigInt(Integer i) : BigInt(static_cast<uint64>(i)) {}
 		BigInt(int64 i);
 		BigInt(uint64 i);
@@ -43,9 +43,9 @@ namespace s3d
 
 		BigInt& assign(int64 i);
 		BigInt& assign(uint64 i);
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		BigInt& assign(Integer i) { return assign(static_cast<int64>(i)); }
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigInt& assign(Integer i) { return assign(static_cast<uint64>(i)); }
 		BigInt& assign(const char* number);
 		BigInt& assign(const wchar* number);
@@ -56,9 +56,9 @@ namespace s3d
 
 		BigInt& operator =(int64 i) { return assign(i); }
 		BigInt& operator =(uint64 i) { return assign(i); }
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		BigInt& operator =(Integer i) { return assign(i); }
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigInt& operator =(Integer i) { return assign(i); }
 		BigInt& operator =(const char* number) { return assign(number); }
 		BigInt& operator =(const wchar* number) { return assign(number); }
@@ -72,16 +72,16 @@ namespace s3d
 		BigInt operator ++(int);
 		BigInt operator +(int64 i) const;
 		BigInt operator +(uint64 i) const;
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		BigInt operator +(Integer i) const { return operator +(static_cast<int64>(i)); }
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigInt operator +(Integer i) const { return operator +(static_cast<uint64>(i)); }
 		BigInt operator +(const BigInt& i) const;
 		BigInt& operator +=(int64 i);
 		BigInt& operator +=(uint64 i);
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		BigInt& operator +=(Integer i) { return operator +=(static_cast<int64>(i)); }
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigInt& operator +=(Integer i) { return operator +=(static_cast<uint64>(i)); }
 		BigInt& operator +=(const BigInt& i);
 
@@ -91,143 +91,143 @@ namespace s3d
 		BigInt operator --(int);
 		BigInt operator -(int64 i) const;
 		BigInt operator -(uint64 i) const;
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		BigInt operator -(Integer i) const { return operator -(static_cast<int64>(i)); }
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigInt operator -(Integer i) const { return operator -(static_cast<uint64>(i)); }
 		BigInt operator -(const BigInt& i) const;
 		BigInt& operator -=(int64 i);
 		BigInt& operator -=(uint64 i);
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		BigInt& operator -=(Integer i) { return operator -=(static_cast<int64>(i)); }
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigInt& operator -=(Integer i) { return operator -=(static_cast<uint64>(i)); }
 		BigInt& operator -=(const BigInt& i);
 
 		BigInt operator *(int64 i) const;
 		BigInt operator *(uint64 i) const;
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		BigInt operator *(Integer i) const { return operator *(static_cast<int64>(i)); }
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigInt operator *(Integer i) const { return operator *(static_cast<uint64>(i)); }
 		BigInt operator *(const BigInt& i) const;
 		BigInt& operator *=(int64 i);
 		BigInt& operator *=(uint64 i);
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		BigInt& operator *=(Integer i) { return operator *=(static_cast<int64>(i)); }
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigInt& operator *=(Integer i) { return operator *=(static_cast<uint64>(i)); }
 		BigInt& operator *=(const BigInt& i);
 
 		BigInt operator /(int64 i) const;
 		BigInt operator /(uint64 i) const;
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		BigInt operator /(Integer i) const { return operator /(static_cast<int64>(i)); }
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigInt operator /(Integer i) const { return operator /(static_cast<uint64>(i)); }
 		BigInt operator /(const BigInt& i) const;
 		BigInt& operator /=(int64 i);
 		BigInt& operator /=(uint64 i);
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		BigInt& operator /=(Integer i) { return operator /=(static_cast<int64>(i)); }
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigInt& operator /=(Integer i) { return operator /=(static_cast<uint64>(i)); }
 		BigInt& operator /=(const BigInt& i);
 
 		BigInt operator %(int64 i) const;
 		BigInt operator %(uint64 i) const;
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		BigInt operator %(Integer i) const { return operator %(static_cast<int64>(i)); }
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigInt operator %(Integer i) const { return operator %(static_cast<uint64>(i)); }
 		BigInt operator %(const BigInt& i) const;
 		BigInt& operator %=(int64 i);
 		BigInt& operator %=(uint64 i);
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		BigInt& operator %=(Integer i) { return operator %=(static_cast<int64>(i)); }
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigInt& operator %=(Integer i) { return operator %=(static_cast<uint64>(i)); }
 		BigInt& operator %=(const BigInt& i);
 
 		BigInt operator &(int64 i) const;
 		BigInt operator &(uint64 i) const;
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		BigInt operator &(Integer i) const { return operator &(static_cast<int64>(i)); }
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigInt operator &(Integer i) const { return operator &(static_cast<uint64>(i)); }
 		BigInt operator &(const BigInt& i) const;
 		BigInt& operator &=(int64 i);
 		BigInt& operator &=(uint64 i);
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		BigInt& operator &=(Integer i) { return operator &=(static_cast<int64>(i)); }
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigInt& operator &=(Integer i) { return operator &=(static_cast<uint64>(i)); }
 		BigInt& operator &=(const BigInt& i);
 
 		BigInt operator |(int64 i) const;
 		BigInt operator |(uint64 i) const;
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		BigInt operator |(Integer i) const { return operator |(static_cast<int64>(i)); }
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigInt operator |(Integer i) const { return operator |(static_cast<uint64>(i)); }
 		BigInt operator |(const BigInt& i) const;
 		BigInt& operator |=(int64 i);
 		BigInt& operator |=(uint64 i);
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		BigInt& operator |=(Integer i) { return operator |=(static_cast<int64>(i)); }
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigInt& operator |=(Integer i) { return operator |=(static_cast<uint64>(i)); }
 		BigInt& operator |=(const BigInt& i);
 
 		BigInt operator ^(int64 i) const;
 		BigInt operator ^(uint64 i) const;
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		BigInt operator ^(Integer i) const { return operator ^(static_cast<int64>(i)); }
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigInt operator ^(Integer i) const { return operator ^(static_cast<uint64>(i)); }
 		BigInt operator ^(const BigInt& i) const;
 		BigInt& operator ^=(int64 i);
 		BigInt& operator ^=(uint64 i);
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		BigInt& operator ^=(Integer i) { return operator ^=(static_cast<int64>(i)); }
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigInt& operator ^=(Integer i) { return operator ^=(static_cast<uint64>(i)); }
 		BigInt& operator ^=(const BigInt& i);
 
 		BigInt operator <<(int64 i) const;
 		BigInt operator <<(uint64 i) const;
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		BigInt operator <<(Integer i) const { return operator <<(static_cast<int64>(i)); }
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigInt operator <<(Integer i) const { return operator <<(static_cast<uint64>(i)); }
 		BigInt& operator <<=(int64 i);
 		BigInt& operator <<=(uint64 i);
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		BigInt& operator <<=(Integer i) { return operator <<=(static_cast<int64>(i)); }
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigInt& operator <<=(Integer i) { return operator <<=(static_cast<uint64>(i)); }
 
 		BigInt operator >>(int64 i) const;
 		BigInt operator >>(uint64 i) const;
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		BigInt operator >>(Integer i) const { return operator >> (static_cast<int64>(i)); }
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigInt operator >>(Integer i) const { return operator >> (static_cast<uint64>(i)); }
 		BigInt& operator >>=(int64 i);
 		BigInt& operator >>=(uint64 i);
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		BigInt& operator >>=(Integer i) { return operator >>=(static_cast<int64>(i)); }
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigInt& operator >>=(Integer i) { return operator >>=(static_cast<uint64>(i)); }
 
 		int32 compare(int64 i) const;
 		int32 compare(uint64 i) const;
 		int32 compare(long double f) const;
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		int32 compare(Integer i) const { return compare(static_cast<int64>(i)); }
-		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		int32 compare(Integer i) const { return compare(static_cast<uint64>(i)); }
-		template <class Float, typename std::enable_if_t<std::is_floating_point<Float>::value>* = nullptr>
+		template <class Float, std::enable_if_t<std::is_floating_point<Float>::value>* = nullptr>
 		int32 compare(Float f) const { return compare(static_cast<long double>(f)); }
 		int32 compare(const BigInt& i) const;
 
@@ -262,13 +262,13 @@ namespace s3d
 		return a.compare(b) == 0;
 	}
 
-	template <class Number, typename std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
+	template <class Number, std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
 	inline bool operator ==(const BigInt& a, Number b)
 	{
 		return a.compare(b) == 0;
 	}
 
-	template <class Number, typename std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
+	template <class Number, std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
 	inline bool operator ==(Number a, const BigInt& b)
 	{
 		return b.compare(a) == 0;
@@ -279,13 +279,13 @@ namespace s3d
 		return a.compare(b) != 0;
 	}
 
-	template <class Number, typename std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
+	template <class Number, std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
 	inline bool operator !=(const BigInt& a, Number b)
 	{
 		return a.compare(b) != 0;
 	}
 
-	template <class Number, typename std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
+	template <class Number, std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
 	inline bool operator !=(Number a, const BigInt& b)
 	{
 		return b.compare(a) != 0;
@@ -296,13 +296,13 @@ namespace s3d
 		return a.compare(b) < 0;
 	}
 
-	template <class Number, typename std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
+	template <class Number, std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
 	inline bool operator <(const BigInt& a, Number b)
 	{
 		return a.compare(b) < 0;
 	}
 
-	template <class Number, typename std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
+	template <class Number, std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
 	inline bool operator <(Number a, const BigInt& b)
 	{
 		return b.compare(a) < 0;
@@ -313,13 +313,13 @@ namespace s3d
 		return a.compare(b) <= 0;
 	}
 
-	template <class Number, typename std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
+	template <class Number, std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
 	inline bool operator <=(const BigInt& a, Number b)
 	{
 		return a.compare(b) <= 0;
 	}
 
-	template <class Number, typename std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
+	template <class Number, std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
 	inline bool operator <=(Number a, const BigInt& b)
 	{
 		return b.compare(a) <= 0;
@@ -330,13 +330,13 @@ namespace s3d
 		return a.compare(b) > 0;
 	}
 
-	template <class Number, typename std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
+	template <class Number, std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
 	inline bool operator >(const BigInt& a, Number b)
 	{
 		return a.compare(b) > 0;
 	}
 
-	template <class Number, typename std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
+	template <class Number, std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
 	inline bool operator >(Number a, const BigInt& b)
 	{
 		return b.compare(a) > 0;
@@ -347,13 +347,13 @@ namespace s3d
 		return a.compare(b) >= 0;
 	}
 
-	template <class Number, typename std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
+	template <class Number, std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
 	inline bool operator >=(const BigInt& a, Number b)
 	{
 		return a.compare(b) >= 0;
 	}
 
-	template <class Number, typename std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
+	template <class Number, std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
 	inline bool operator >=(Number a, const BigInt& b)
 	{
 		return b.compare(a) >= 0;
@@ -388,6 +388,27 @@ namespace s3d
 	BigInt GCD(const BigInt& a, const BigInt& b);
 
 	BigInt LCM(const BigInt& a, const BigInt& b);
+
+	namespace literals
+	{
+		inline namespace bigint_literals
+		{
+			inline BigInt operator ""_big(unsigned long long int i)
+			{
+				return BigInt(i);
+			}
+
+			inline BigInt operator ""_big(const char* number, size_t)
+			{
+				return BigInt(number);
+			}
+
+			inline BigInt operator ""_big(const wchar* number, size_t)
+			{
+				return BigInt(number);
+			}
+		}
+	}
 }
 
 namespace std
