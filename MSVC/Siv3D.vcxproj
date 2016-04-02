@@ -54,6 +54,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\FormatLiteral.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Fwd.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Grid.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Step.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\LetterCase.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Number.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Optional.hpp" />

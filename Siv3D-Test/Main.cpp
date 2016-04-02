@@ -5,28 +5,14 @@
 using namespace s3d;
 using namespace s3d::literals;
 
-Array<int> Gen()
-{
-	Array<int> v(10);
-
-	for (size_t i = 0; i < v.size(); ++i)
-	{
-		v[i] = i;
-	}
-
-	return v;
-}
-
 void Main()
 {
-	//RunTest();
+	// 0 ~ 9 をログ出力
+	Iota(10).each(Log<int>);
 
-	for (int i = 0; i < 10; ++i)
-	{
-		RDTSC r;
+	// 1 + 2 + 3 + ... + 100
+	Log(Iota(1, 101).reduce1(std::plus<>()));
 
-		Log(Gen().shuffled());
-	}
-
-	Log(L"Siv3D!");
+	// 100!
+	Log(Iota(1, 101).reduce1(std::multiplies<BigInt>()));
 }
