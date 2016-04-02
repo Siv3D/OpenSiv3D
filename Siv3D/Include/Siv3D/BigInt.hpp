@@ -222,10 +222,13 @@ namespace s3d
 
 		int32 compare(int64 i) const;
 		int32 compare(uint64 i) const;
+		int32 compare(long double f) const;
 		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
 		int32 compare(Integer i) const { return compare(static_cast<int64>(i)); }
 		template <class Integer, typename std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		int32 compare(Integer i) const { return compare(static_cast<uint64>(i)); }
+		template <class Float, typename std::enable_if_t<std::is_floating_point<Float>::value>* = nullptr>
+		int32 compare(Float f) const { return compare(static_cast<long double>(f)); }
 		int32 compare(const BigInt& i) const;
 
 		explicit operator bool() const;
@@ -259,14 +262,14 @@ namespace s3d
 		return a.compare(b) == 0;
 	}
 
-	template <class Integer, typename std::enable_if_t<std::is_integral<Integer>::value>* = nullptr>
-	inline bool operator ==(const BigInt& a, Integer b)
+	template <class Number, typename std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
+	inline bool operator ==(const BigInt& a, Number b)
 	{
 		return a.compare(b) == 0;
 	}
 
-	template <class Integer, typename std::enable_if_t<std::is_integral<Integer>::value>* = nullptr>
-	inline bool operator ==(Integer a, const BigInt& b)
+	template <class Number, typename std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
+	inline bool operator ==(Number a, const BigInt& b)
 	{
 		return b.compare(a) == 0;
 	}
@@ -276,14 +279,14 @@ namespace s3d
 		return a.compare(b) != 0;
 	}
 
-	template <class Integer, typename std::enable_if_t<std::is_integral<Integer>::value>* = nullptr>
-	inline bool operator !=(const BigInt& a, Integer b)
+	template <class Number, typename std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
+	inline bool operator !=(const BigInt& a, Number b)
 	{
 		return a.compare(b) != 0;
 	}
 
-	template <class Integer, typename std::enable_if_t<std::is_integral<Integer>::value>* = nullptr>
-	inline bool operator !=(Integer a, const BigInt& b)
+	template <class Number, typename std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
+	inline bool operator !=(Number a, const BigInt& b)
 	{
 		return b.compare(a) != 0;
 	}
@@ -293,14 +296,14 @@ namespace s3d
 		return a.compare(b) < 0;
 	}
 
-	template <class Integer, typename std::enable_if_t<std::is_integral<Integer>::value>* = nullptr>
-	inline bool operator <(const BigInt& a, Integer b)
+	template <class Number, typename std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
+	inline bool operator <(const BigInt& a, Number b)
 	{
 		return a.compare(b) < 0;
 	}
 
-	template <class Integer, typename std::enable_if_t<std::is_integral<Integer>::value>* = nullptr>
-	inline bool operator <(Integer a, const BigInt& b)
+	template <class Number, typename std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
+	inline bool operator <(Number a, const BigInt& b)
 	{
 		return b.compare(a) < 0;
 	}
@@ -310,14 +313,14 @@ namespace s3d
 		return a.compare(b) <= 0;
 	}
 
-	template <class Integer, typename std::enable_if_t<std::is_integral<Integer>::value>* = nullptr>
-	inline bool operator <=(const BigInt& a, Integer b)
+	template <class Number, typename std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
+	inline bool operator <=(const BigInt& a, Number b)
 	{
 		return a.compare(b) <= 0;
 	}
 
-	template <class Integer, typename std::enable_if_t<std::is_integral<Integer>::value>* = nullptr>
-	inline bool operator <=(Integer a, const BigInt& b)
+	template <class Number, typename std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
+	inline bool operator <=(Number a, const BigInt& b)
 	{
 		return b.compare(a) <= 0;
 	}
@@ -327,14 +330,14 @@ namespace s3d
 		return a.compare(b) > 0;
 	}
 
-	template <class Integer, typename std::enable_if_t<std::is_integral<Integer>::value>* = nullptr>
-	inline bool operator >(const BigInt& a, Integer b)
+	template <class Number, typename std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
+	inline bool operator >(const BigInt& a, Number b)
 	{
 		return a.compare(b) > 0;
 	}
 
-	template <class Integer, typename std::enable_if_t<std::is_integral<Integer>::value>* = nullptr>
-	inline bool operator >(Integer a, const BigInt& b)
+	template <class Number, typename std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
+	inline bool operator >(Number a, const BigInt& b)
 	{
 		return b.compare(a) > 0;
 	}
@@ -344,14 +347,14 @@ namespace s3d
 		return a.compare(b) >= 0;
 	}
 
-	template <class Integer, typename std::enable_if_t<std::is_integral<Integer>::value>* = nullptr>
-	inline bool operator >=(const BigInt& a, Integer b)
+	template <class Number, typename std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
+	inline bool operator >=(const BigInt& a, Number b)
 	{
 		return a.compare(b) >= 0;
 	}
 
-	template <class Integer, typename std::enable_if_t<std::is_integral<Integer>::value>* = nullptr>
-	inline bool operator >=(Integer a, const BigInt& b)
+	template <class Number, typename std::enable_if_t<std::is_arithmetic<Number>::value>* = nullptr>
+	inline bool operator >=(Number a, const BigInt& b)
 	{
 		return b.compare(a) >= 0;
 	}

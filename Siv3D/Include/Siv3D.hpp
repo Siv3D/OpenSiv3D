@@ -50,6 +50,8 @@
 	# include "Siv3D/Allocator.hpp"
 	// 動的配列
 	# include "Siv3D/Array.hpp"
+	// 範囲
+	# include "Siv3D/Step.hpp"
 	// 二次元配列
 	# include "Siv3D/Grid.hpp"
 	// Optional

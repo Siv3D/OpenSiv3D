@@ -22,11 +22,27 @@ namespace s3d
 			const wchar* str;
 
 			template <class... Args>
-			String operator()(Args&& ...args) const
+			String operator ()(Args&& ...args) const
 			{
 				return fmt::format(str, std::forward<Args>(args)...);
 			}
+
+			template <class... Args>
+			String args(Args&& ...args) const
+			{
+				return operator ()(std::forward<Args>(args)...);
+			}
 		};
+	}
+
+	inline detail::FormatHelper Fmt(const String& s)
+	{
+		return detail::FormatHelper{ s.c_str() };
+	}
+
+	inline detail::FormatHelper Fmt(const wchar* s)
+	{
+		return detail::FormatHelper{ s };
 	}
 
 	namespace literals

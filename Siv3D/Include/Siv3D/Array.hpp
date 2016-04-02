@@ -128,7 +128,7 @@ namespace s3d
 			return choice(GetDefaultRNG());
 		}
 
-		template <class URNG, class Dummy = std::enable_if_t<!std::is_scalar<URNG>::value>>
+		template <class URNG, typename std::enable_if_t<!std::is_scalar<URNG>::value>* = nullptr>
 		const Type& choice(URNG&& rng) const
 		{
 			if (empty())
@@ -141,7 +141,7 @@ namespace s3d
 			return operator[](index);
 		}
 
-		template <class Size_t, class Dummy = std::enable_if_t<std::is_scalar<Size_t>::value>>
+		template <class Size_t, typename std::enable_if_t<std::is_scalar<Size_t>::value>* = nullptr>
 		Array choice(Size_t n) const
 		{
 			return choice(n, GetDefaultRNG());
@@ -416,7 +416,7 @@ namespace s3d
 			return *this;
 		}
 
-		Array removed(const Type& value) const
+		Array removed(const Type& value) const &
 		{
 			Array new_array;
 
@@ -429,6 +429,15 @@ namespace s3d
 			}
 
 			return new_array;
+		}
+
+		Array removed(const Type& value) &&
+		{
+			erase(std::remove(begin(), end(), value), end());
+
+			shrink_to_fit();
+
+			return std::move(*this);
 		}
 
 		Array& remove_at(size_t index)
@@ -468,7 +477,7 @@ namespace s3d
 			return *this;
 		}
 
-		Array removed_if(std::function<bool(const Type&)> f) const
+		Array removed_if(std::function<bool(const Type&)> f) const &
 		{
 			Array new_array;
 
@@ -483,6 +492,15 @@ namespace s3d
 			return new_array;
 		}
 
+		Array removed_if(std::function<bool(const Type&)> f) &&
+		{
+			erase(std::remove_if(begin(), end(), f), end());
+
+			shrink_to_fit();
+
+			return std::move(*this);
+		}
+
 		Array& reverse()
 		{
 			std::reverse(begin(), end());
@@ -490,9 +508,16 @@ namespace s3d
 			return *this;
 		}
 
-		Array reversed() const
+		Array reversed() const &
 		{
 			return Array(rbegin(), rend());
+		}
+
+		Array reversed() &&
+		{
+			std::reverse(begin(), end());
+
+			return std::move(*this);
 		}
 
 		Array& reverse_each(std::function<void(Type&)> f)
@@ -545,9 +570,16 @@ namespace s3d
 			return *this;
 		}
 
-		Array rotated(std::ptrdiff_t count = 1) const
+		Array rotated(std::ptrdiff_t count = 1) const &
 		{
 			return Array(*this).rotate(count);
+		}
+
+		Array rotated(std::ptrdiff_t count = 1) &&
+		{
+			rotate(count);
+
+			return std::move(*this);
 		}
 
 		Array& shuffle()
@@ -563,15 +595,28 @@ namespace s3d
 			return *this;
 		}
 
-		Array shuffled() const
+		Array shuffled() const &
+		{
+			return shuffled(GetDefaultRNG());
+		}
+
+		Array shuffled() &&
 		{
 			return shuffled(GetDefaultRNG());
 		}
 
 		template <class URNG>
-		Array shuffled(URNG&& rng) const
+		Array shuffled(URNG&& rng) const &
 		{
 			return Array(*this).shuffle(rng);
+		}
+
+		template <class URNG>
+		Array shuffled(URNG&& rng) &&
+		{
+			std::shuffle(begin(), end(), rng);
+
+			return std::move(*this);
 		}
 
 		Array slice(size_t index) const
@@ -608,14 +653,28 @@ namespace s3d
 			return *this;
 		}
 
-		Array sorted() const
+		Array sorted() const &
 		{
 			return Array(*this).sort();
 		}
 
-		Array sorted_by(std::function<bool(const Type& a, const Type& b)> f) const
+		Array sorted() &&
+		{
+			std::sort(begin(), end());
+
+			return std::move(*this);
+		}
+
+		Array sorted_by(std::function<bool(const Type& a, const Type& b)> f) const &
 		{
 			return Array(*this).sort_by(f);
+		}
+
+		Array sorted_by(std::function<bool(const Type& a, const Type& b)> f) &&
+		{
+			std::sort(begin(), end(), f);
+
+			return std::move(*this);
 		}
 
 		Array& take(size_t n)
@@ -651,9 +710,20 @@ namespace s3d
 			return *this;
 		}
 
-		Array uniqued() const
+		Array uniqued() const &
 		{
 			return Array(*this).unique();
+		}
+
+		Array uniqued() &&
+		{
+			sort();
+
+			erase(std::unique(begin(), end()), end());
+
+			shrink_to_fit();
+
+			return std::move(*this);
 		}
 
 		Array values_at(std::initializer_list<size_t> indices) const
@@ -850,7 +920,7 @@ namespace s3d
 			return choice(GetDefaultRNG());
 		}
 
-		template <class URNG, class Dummy = std::enable_if_t<!std::is_scalar<URNG>::value>>
+		template <class URNG, typename std::enable_if_t<!std::is_scalar<URNG>::value>* = nullptr>
 		const bool& choice(URNG&& rng) const
 		{
 			if (empty())
@@ -863,7 +933,7 @@ namespace s3d
 			return operator[](index);
 		}
 
-		template <class Size_t, class Dummy = std::enable_if_t<std::is_scalar<Size_t>::value>>
+		template <class Size_t, typename std::enable_if_t<std::is_scalar<Size_t>::value>* = nullptr>
 		Array choice(Size_t n) const
 		{
 			return choice(n, GetDefaultRNG());

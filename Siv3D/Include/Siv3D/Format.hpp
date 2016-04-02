@@ -33,6 +33,35 @@ namespace s3d
 		} decimalPlace;
 	};
 
+	/// <summary>
+	/// 浮動小数点数を変換する際の小数点以下の最大桁数を指定するマニピュレータを返します。
+	/// </summary>
+	/// <param name="width">
+	/// 小数点以下の最大桁数
+	/// </param>
+	/// <remarks>
+	/// この関数が返すマニピュレータを Format の引数にすると、
+	/// 該当 Format() 内のそれ以降の浮動小数点数の変換に適用されます。
+	/// </remarks>
+	/// <returns>
+	/// Format に渡すマニピュレータ
+	/// </returns>
+	inline constexpr FormatData::DecimalPlace DecimalPlace(int32 width)
+	{
+		return FormatData::DecimalPlace(width);
+	}
+
+	namespace literals
+	{
+		inline namespace formatting_literals
+		{
+			inline constexpr FormatData::DecimalPlace operator ""_dp(unsigned long long width)
+			{
+				return DecimalPlace(static_cast<int32>(width));
+			}
+		}
+	}
+
 	namespace detail
 	{
 		/// <summary>
@@ -258,19 +287,19 @@ namespace s3d
 	{
 		if (opt)
 		{
-			formatData.string.append(L"Optional ");
+			formatData.string.append(L"Optional ", 9);
 
-			Formatter(formatData, static_cast<Type>(opt.value()));
+			Formatter(formatData, opt.value());
 		}
 		else
 		{
-			formatData.string.append(L"none");
+			formatData.string.append(L"none", 4);
 		}
 	}
 
 	inline void Formatter(FormatData& formatData, nullopt_t)
 	{
-		formatData.string.append(L"none");
+		formatData.string.append(L"none", 4);
 	}
 
 	template <class Iterator>

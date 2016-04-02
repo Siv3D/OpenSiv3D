@@ -10,8 +10,8 @@
 
 #### Windows Requirements ###
 
-  * Windows 7 SP1 / 8 / 8.1 / 10
-  * Microsoft Visual C++ 2015 Update 1 or newer
+  * Windows 7 SP1 / 8.1 / 10
+  * Microsoft Visual C++ 2015 Update 2 or newer
   
 #### Mac OS X Requirements ###
 
@@ -24,4 +24,4 @@
 
 ## Discussion ##
 
-  * Slack (Japanese) https://siv3d-slackin.herokuapp.com/ #open-siv3d channel
+  * [![Slack Status](https://siv3d-slackin.herokuapp.com/badge.svg)](https://siv3d-slackin.herokuapp.com/) [#open-siv3d](https://siv3d.slack.com/archives/open-siv3d)  (Japanese)
