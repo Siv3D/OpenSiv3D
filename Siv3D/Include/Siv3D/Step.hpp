@@ -428,33 +428,10 @@ namespace s3d
 			}
 		}
 
-		Array<T> filter(std::function<bool(const T&)> f) const
-		{
-			Array<T> new_array;
+		auto filter(std::function<bool(const T&)> f) const;
 
-			auto count_ = count();
-			auto value = startValue();
-			const auto step_ = step();
-
-			for (;;)
-			{
-				if (f(value))
-				{
-					new_array.push_back(value);
-				}
-
-				if (--count_)
-				{
-					value += step_;
-				}
-				else
-				{
-					break;
-				}
-			}
-
-			return new_array;
-		}
+		template <class Fty>
+		auto map(Fty f) const;
 
 		template <class Fty>
 		auto reduce(Fty f, decltype(std::declval<Fty>()(std::declval<T>(), std::declval<T>())) init) const
@@ -833,6 +810,41 @@ namespace s3d
 		return F_Step<steps_class<T, N, S
         # if defined(SIV3D_TARGET_WINDOWS) // constexpr workaround for MSVC2015
         , isScalar
+        # endif
+        >, Ret, decltype(_f)>(*this, _f);
+	}
+
+	template <class T, class N, class S
+            >
+	inline auto steps_class<T, N, S
+        # if defined(SIV3D_TARGET_WINDOWS) // constexpr workaround for MSVC2015
+            , false
+        # endif
+            >::filter(std::function<bool(const T&)> f) const
+	{
+		using Fty = std::function<bool(const T&)>;
+		std::tuple<FilterFunction<Fty>> _f{f};
+		return F_Step<steps_class<T, N, S
+        # if defined(SIV3D_TARGET_WINDOWS) // constexpr workaround for MSVC2015
+        , false
+        # endif
+        >, T, decltype(_f)>(*this, _f);
+	}
+
+    template <class T, class N, class S
+            >
+    template <class Fty>
+    inline auto steps_class<T, N, S
+        # if defined(SIV3D_TARGET_WINDOWS) // constexpr workaround for MSVC2015
+            , false
+        # endif
+            >::map(Fty f) const
+	{
+		using Ret = decltype(std::declval<Fty>()(std::declval<T>()));
+		std::tuple<MapFunction<Fty>> _f{ f };
+		return F_Step<steps_class<T, N, S
+        # if defined(SIV3D_TARGET_WINDOWS) // constexpr workaround for MSVC2015
+        , false
         # endif
         >, Ret, decltype(_f)>(*this, _f);
 	}

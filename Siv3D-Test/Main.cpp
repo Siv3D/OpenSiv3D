@@ -3,13 +3,15 @@
 # include "Test/Siv3DTest.hpp"
 
 using namespace s3d;
+using namespace s3d::literals;
 
 void Main()
 {
-	const auto v = Range(5'000'000, 1'000'000'000)
-					.filter([](auto n) { return n % 3333 == 0; })
-					.take(500)
-					.map([](auto n) { return n / 123.4; });
+	const auto v = Range("1000000000000000000000000000000"_big,
+						 "2000000000000000000000000000000"_big)
+						.filter([](auto n) {return n % 33333 == 0; })
+						.map([](auto n) { return n /= 345; })
+						.take(20);
 	Log(v);
 }
 
