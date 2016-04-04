@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 //
-// `steps_class` and `step` are based on
+// `steps_class` and `step` functions are based on
 // http://www.codeproject.com/Articles/876156/Convenient-Constructs-For-Stepping-Through-a-Range
 //
 // <author>Mikhail Semenov</author>
@@ -26,6 +26,7 @@
 # include <type_traits>
 # include "Platform.hpp"
 # include "Types.hpp"
+# include "BigInt.hpp"
 # include "String.hpp"
 
 namespace s3d
@@ -91,6 +92,7 @@ namespace s3d
 			constexpr S step() const { return m_step; }
 		};
 
+		using value_type = T;
 		using iterator = steps_iterator;
 
 		constexpr steps_class(T startValue, N count, S step)
@@ -107,6 +109,38 @@ namespace s3d
 		constexpr S step() const { return m_start_iterator.step(); }
 
 		constexpr bool isEmpty() const { return count() == 0; }
+
+		N count_if(std::function<bool(const T&)> f) const
+		{
+			if (isEmpty())
+			{
+				return 0;
+			}
+
+			N result = 0;
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				if (f(value))
+				{
+					++result;
+				}
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return result;
+		}
 
 		template <class Fty>
 		void each(Fty f) const
@@ -134,6 +168,39 @@ namespace s3d
 				}
 			}
 		}
+
+		template <class Fty>
+		void each_index(Fty f) const
+		{
+			if (isEmpty())
+			{
+				return;
+			}
+
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+			size_t index = 0;
+
+			for (;;)
+			{
+				f(index++, value);
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+		}
+
+		auto filter(std::function<bool(const T&)> f) const;
+
+		template <class Fty>
+		auto map(Fty f) const;
 
 		template <class Fty>
 		auto reduce(Fty f, decltype(std::declval<Fty>()(std::declval<T>(), std::declval<T>())) init) const
@@ -217,7 +284,7 @@ namespace s3d
 
 		public:
 
-			constexpr steps_iterator()
+			steps_iterator()
 				: m_currentValue(T())
 				, m_count(N())
 				, m_step(S()) {}
@@ -242,37 +309,69 @@ namespace s3d
 				return tmp;
 			}
 
-			constexpr const T& operator *() const { return m_currentValue; }
+			const T& operator *() const { return m_currentValue; }
 
-			constexpr const T* operator ->() const { return &m_currentValue; }
+			const T* operator ->() const { return &m_currentValue; }
 
-			constexpr bool operator ==(const steps_iterator& other) const { return m_count == other.m_count; }
+			bool operator ==(const steps_iterator& other) const { return m_count == other.m_count; }
 
-			constexpr bool operator !=(const steps_iterator& other) const { return !(m_count == other.m_count); }
+			bool operator !=(const steps_iterator& other) const { return !(m_count == other.m_count); }
 
 			T currentValue() const { return m_currentValue; }
 
-			constexpr N count() const { return m_count; }
+			N count() const { return m_count; }
 
-			constexpr S step() const { return m_step; }
+			S step() const { return m_step; }
 		};
 
 		using iterator = steps_iterator;
 
-		constexpr steps_class(T startValue, N count, S step)
+		steps_class(T startValue, N count, S step)
 			: m_start_iterator(startValue, count, step) {}
 
-		constexpr iterator begin() const { return m_start_iterator; }
+		iterator begin() const { return m_start_iterator; }
 
-		constexpr iterator end() const { return m_end_iterator; }
+		iterator end() const { return m_end_iterator; }
 
-		constexpr T startValue() const { return m_start_iterator.currentValue(); }
+		T startValue() const { return m_start_iterator.currentValue(); }
 
-		constexpr N count() const { return m_start_iterator.count(); }
+		N count() const { return m_start_iterator.count(); }
 
-		constexpr S step() const { return m_start_iterator.step(); }
+		S step() const { return m_start_iterator.step(); }
 
-		constexpr bool isEmpty() const { return count() == 0; }
+		bool isEmpty() const { return count() == 0; }
+
+		N count_if(std::function<bool(const T&)> f) const
+		{
+			if (isEmpty())
+			{
+				return 0;
+			}
+
+			N result = 0;
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				if (f(value))
+				{
+					++result;
+				}
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return result;
+		}
 
 		template <class Fty>
 		void each(Fty f) const
@@ -299,6 +398,62 @@ namespace s3d
 					break;
 				}
 			}
+		}
+
+		template <class Fty>
+		void each_index(Fty f) const
+		{
+			if (isEmpty())
+			{
+				return;
+			}
+
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+			size_t index = 0;
+
+			for (;;)
+			{
+				f(index++, value);
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+		}
+
+		Array<T> filter(std::function<bool(const T&)> f) const
+		{
+			Array<T> new_array;
+
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				if (f(value))
+				{
+					new_array.push_back(value);
+				}
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return new_array;
 		}
 
 		template <class Fty>
@@ -390,8 +545,9 @@ namespace s3d
 	template <class T, class U, class S = int32, class StartType = std::common_type_t<T, U>, class CounterType = std::common_type_t<std::size_t, StartType>>
 	inline auto step_to(T a, U b, S s = 1)
 	{
-		static_assert(std::is_integral<StartType>::value, "step_to requires integral parameters");
+		static_assert(std::is_integral<StartType>::value || std::is_same<StartType, BigInt>::value, "step_to requires integral parameters");
 		CounterType  n = 0;
+		using DiffType = std::common_type_t<int64, StartType>;
 
 		if (s == 0 || (b != a && (b < a) != (s < 0)))
 		{
@@ -400,7 +556,7 @@ namespace s3d
 		else
 		{
 			S abs_s = s > 0 ? s : -s;
-			CounterType diff = b > a ? (int64)b - (int64)a : (int64)a - (int64)b;
+			CounterType diff = b > a ? DiffType(b) - DiffType(a) : DiffType(a) - DiffType(b);
 
 			if (abs_s == 1)
 				n = diff;
@@ -416,8 +572,9 @@ namespace s3d
 	template<class T, class U, class S = int32, class StartType = std::common_type_t<T, U>, class CounterType = std::common_type_t<std::size_t, StartType>>
 	inline auto step_until(T a, U b, S s = 1)
 	{
-		static_assert(std::is_integral<StartType>::value, "step_until requires integral parameters");
+		static_assert(std::is_integral<StartType>::value || std::is_same<StartType, BigInt>::value, "step_until requires integral parameters");
 		CounterType  n;
+		using DiffType = std::common_type_t<int64, StartType>;
 
 		if (b == a || s == 0 || (b < a) != (s < 0))
 		{
@@ -426,7 +583,7 @@ namespace s3d
 		else
 		{
 			S abs_s = s > 0 ? s : -s;
-			CounterType diff = b > a ? (int64)b - (int64)a : (int64)a - (int64)b;
+			CounterType diff = b > a ? DiffType(b) - DiffType(a) : DiffType(a) - DiffType(b);
 
 			if (abs_s == 1)
 				n = diff;
@@ -443,16 +600,240 @@ namespace s3d
 		return steps_class<StartType, CounterType, S>(a, n, s);
 	}
 
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	//               Iota [beg, end)
+	//
+
 	template <class N>
-	inline constexpr auto Iota(N n)
+	inline constexpr auto Iota(N end)
 	{
-		static_assert(std::is_integral<N>::value, "step: parameter should be of integral type");
-		return steps_class<N, N, int32>(N(0), n, 1);
+		static_assert(std::is_integral<N>::value, "Iota: parameter should be of integral type");
+		return steps_class<N, N, int32>(N(0), end, 1);
 	}
 
 	template<class T, class U, class S = int32, class StartType = std::common_type_t<T, U>, class CounterType = std::common_type_t<std::size_t, StartType>>
-	inline auto Iota(T a, U b, S s = 1)
+	inline auto Iota(T beg, U end, S step = 1)
 	{
-		return step_until(a, b, s);
+		return step_until(beg, end, step);
+	}
+
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	//               Range [beg, end]
+	//
+
+	template<class T, class U, class S = int32, class StartType = std::common_type_t<T, U>, class CounterType = std::common_type_t<std::size_t, StartType>>
+	inline auto Range(T beg, U end, S step = 1)
+	{
+		return step_to(beg, end, step);
+	}
+
+	template <class Fty>
+	struct FilterFunction
+	{
+		using isMap = std::false_type;
+
+		Fty function;
+
+		FilterFunction(Fty f)
+			: function(f) {}
+
+		template <class T>
+		auto operator() (const T& value) const
+		{
+			return function(value);
+		}
+	};
+
+	template <class Fty>
+	struct MapFunction
+	{
+		using isMap = std::true_type;
+
+		Fty function;
+
+		MapFunction(Fty f)
+			: function(f) {}
+
+		template <class T>
+		auto operator() (const T& value) const
+		{
+			return function(value);
+		}
+	};
+
+	template <class F>
+	struct IsMap : std::conditional_t<F::isMap::value, std::true_type, std::false_type> {};
+
+	template <class Fty, class ValueType, size_t Index, class Tuple,
+		class Next, std::enable_if_t<!IsMap<Next>::value && (Index + 1 == std::tuple_size<Tuple>::value)>* = nullptr>
+		void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
+	{
+		if (std::get<Index>(tuple)(value))
+		{
+			f(value);
+		}
+	}
+
+	template <class Fty, class ValueType, size_t Index, class Tuple,
+		class Next, std::enable_if_t<!IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
+		void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
+	{
+		if (std::get<Index>(tuple)(value))
+		{
+			Apply_impl<Fty, ValueType, Index + 1, Tuple, typename std::decay<decltype(std::get<Index + 1>(std::declval<Tuple>()))>::type>(f, value, tuple);
+		}
+	}
+
+	template <class Fty, class ValueType, size_t Index, class Tuple,
+		class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 == std::tuple_size<Tuple>::value)>* = nullptr>
+	void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
+	{
+		f(std::get<Index>(tuple)(value));
+	}
+
+	template <class Fty, class ValueType, size_t Index, class Tuple,
+		class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
+		void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
+	{
+		Apply_impl<Fty, decltype(std::get<Index>(tuple)(value)), Index + 1, Tuple, typename std::decay<decltype(std::get<Index + 1>(std::declval<Tuple>()))>::type>(f, std::get<Index>(tuple)(value), tuple);
+	}
+
+	template <class Fty, class ValueType, class Tuple>
+	void Apply(Fty f, const ValueType& value, const Tuple& tuple)
+	{
+		Apply_impl<Fty, ValueType, 0, Tuple, typename std::decay<decltype(std::get<0>(std::declval<Tuple>()))>::type>(f, value, tuple);
+	}
+
+	template <class StepClass, class ValueType, class Tuple>
+	class F_Step
+	{
+	private:
+
+		StepClass m_base;
+
+		Tuple m_functions;
+
+	public:
+
+		using value_type = ValueType;
+
+		F_Step(StepClass stepClass, Tuple functions)
+			: m_base(stepClass)
+			, m_functions(functions) {}
+
+		auto filter(std::function<bool(const ValueType&)> f) const
+		{
+			using Fty = std::function<bool(const ValueType&)>;
+			const auto functions = std::tuple_cat(m_functions, std::tuple<FilterFunction<Fty>>{ f });
+			return F_Step<StepClass, ValueType, decltype(functions)>(m_base, functions);
+		}
+
+		template <class Fty>
+		auto map(Fty f) const
+		{
+			using Ret = decltype(std::declval<Fty>()(std::declval<value_type>()));
+			const auto functions = std::tuple_cat(m_functions, std::tuple<MapFunction<Fty>>{ f });
+			return F_Step<StepClass, Ret, decltype(functions)>(m_base, functions);
+		}
+
+		template <class Fty>
+		void each(Fty f) const
+		{
+			m_base.each([f, functions = m_functions](const auto& value)
+			{
+				Apply(f, value, functions);
+			});
+		}
+
+		size_t count() const
+		{
+			size_t sum = 0;
+			const auto countFunc = [&sum](const auto) { ++sum; };
+			each(countFunc);
+			return sum;
+		}
+
+		Array<value_type> asArray() const
+		{
+			Array<value_type> new_array;
+			const auto pushFunc = [&new_array](const auto& value) { new_array.push_back(value); };
+			each(pushFunc);
+			return new_array;
+		}
+
+		Array<value_type> take(size_t n) const
+		{
+			Array<value_type> new_array;
+
+			if (m_base.isEmpty() || n == 0)
+			{
+				return new_array;
+			}
+
+			auto count_ = m_base.count();
+			auto value = m_base.startValue();
+			const auto step_ = m_base.step();
+			const auto pushFunc = [&new_array](const auto& value) { new_array.push_back(value); };
+			const auto functions = m_functions;
+
+			for (;;)
+			{
+				Apply(pushFunc, value, functions);
+
+				if (--count_ && new_array.size() < n)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return new_array;
+		}
+	};
+
+	template <class T, class N, class S
+        # if defined(SIV3D_TARGET_WINDOWS) // constexpr workaround for MSVC2015
+            , bool isScalar
+        # endif
+            >
+	inline auto steps_class<T, N, S
+        # if defined(SIV3D_TARGET_WINDOWS) // constexpr workaround for MSVC2015
+            , isScalar
+        # endif
+            >::filter(std::function<bool(const T&)> f) const
+	{
+		using Fty = std::function<bool(const T&)>;
+		std::tuple<FilterFunction<Fty>> _f{f};
+		return F_Step<steps_class<T, N, S
+        # if defined(SIV3D_TARGET_WINDOWS) // constexpr workaround for MSVC2015
+        , isScalar
+        # endif
+        >, T, decltype(_f)>(*this, _f);
+	}
+
+    template <class T, class N, class S
+        # if defined(SIV3D_TARGET_WINDOWS) // constexpr workaround for MSVC2015
+            , bool isScalar
+        # endif
+            >
+    template <class Fty>
+    inline auto steps_class<T, N, S
+        # if defined(SIV3D_TARGET_WINDOWS) // constexpr workaround for MSVC2015
+            , isScalar
+        # endif
+            >::map(Fty f) const
+	{
+		using Ret = decltype(std::declval<Fty>()(std::declval<T>()));
+		std::tuple<MapFunction<Fty>> _f{ f };
+		return F_Step<steps_class<T, N, S
+        # if defined(SIV3D_TARGET_WINDOWS) // constexpr workaround for MSVC2015
+        , isScalar
+        # endif
+        >, Ret, decltype(_f)>(*this, _f);
 	}
 }
