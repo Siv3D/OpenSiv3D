@@ -48,6 +48,9 @@
     <ClCompile Include="..\Siv3D-Test\Main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D-Test\Test\TestStep.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D-Test\Test\Siv3DTest.hpp">

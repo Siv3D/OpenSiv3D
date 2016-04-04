@@ -27,6 +27,7 @@
     <ClCompile Include="..\Siv3D-Test\Test\TestFormatFloat.cpp" />
     <ClCompile Include="..\Siv3D-Test\Test\TestFormatInt.cpp" />
     <ClCompile Include="..\Siv3D-Test\Test\TestOptional.cpp" />
+    <ClCompile Include="..\Siv3D-Test\Test\TestStep.cpp" />
     <ClCompile Include="..\Siv3D-Test\Test\TestString.cpp" />
     <ClCompile Include="..\Siv3D-Test\Test\TestTypes.cpp" />
   </ItemGroup>
