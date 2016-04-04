@@ -814,38 +814,22 @@ namespace s3d
         >, Ret, decltype(_f)>(*this, _f);
 	}
 
-	template <class T, class N, class S
-            >
-	inline auto steps_class<T, N, S
-        # if defined(SIV3D_TARGET_WINDOWS) // constexpr workaround for MSVC2015
-            , false
-        # endif
-            >::filter(std::function<bool(const T&)> f) const
+# if defined(SIV3D_TARGET_WINDOWS) // constexpr workaround for MSVC2015
+	template <class T, class N, class S>
+	inline auto steps_class<T, N, S, false>::filter(std::function<bool(const T&)> f) const
 	{
 		using Fty = std::function<bool(const T&)>;
 		std::tuple<FilterFunction<Fty>> _f{f};
-		return F_Step<steps_class<T, N, S
-        # if defined(SIV3D_TARGET_WINDOWS) // constexpr workaround for MSVC2015
-        , false
-        # endif
-        >, T, decltype(_f)>(*this, _f);
+		return F_Step<steps_class<T, N, S, false>, T, decltype(_f)>(*this, _f);
 	}
 
-    template <class T, class N, class S
-            >
+    template <class T, class N, class S>
     template <class Fty>
-    inline auto steps_class<T, N, S
-        # if defined(SIV3D_TARGET_WINDOWS) // constexpr workaround for MSVC2015
-            , false
-        # endif
-            >::map(Fty f) const
+    inline auto steps_class<T, N, S, false>::map(Fty f) const
 	{
 		using Ret = decltype(std::declval<Fty>()(std::declval<T>()));
 		std::tuple<MapFunction<Fty>> _f{ f };
-		return F_Step<steps_class<T, N, S
-        # if defined(SIV3D_TARGET_WINDOWS) // constexpr workaround for MSVC2015
-        , false
-        # endif
-        >, Ret, decltype(_f)>(*this, _f);
+		return F_Step<steps_class<T, N, S, false>, Ret, decltype(_f)>(*this, _f);
 	}
+# endif
 }
