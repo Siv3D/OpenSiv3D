@@ -682,7 +682,7 @@ namespace s3d
 	{
 		if (std::get<Index>(tuple)(value))
 		{
-			Apply_impl<Fty, ValueType, Index + 1, Tuple, std::decay<decltype(std::get<Index + 1>(std::declval<Tuple>()))>::type>(f, value, tuple);
+			Apply_impl<Fty, ValueType, Index + 1, Tuple, typename std::decay<decltype(std::get<Index + 1>(std::declval<Tuple>()))>::type>(f, value, tuple);
 		}
 	}
 
@@ -697,13 +697,13 @@ namespace s3d
 		class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
 		void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
 	{
-		Apply_impl<Fty, decltype(std::get<Index>(tuple)(value)), Index + 1, Tuple, std::decay<decltype(std::get<Index + 1>(std::declval<Tuple>()))>::type>(f, std::get<Index>(tuple)(value), tuple);
+		Apply_impl<Fty, decltype(std::get<Index>(tuple)(value)), Index + 1, Tuple, typename std::decay<decltype(std::get<Index + 1>(std::declval<Tuple>()))>::type>(f, std::get<Index>(tuple)(value), tuple);
 	}
 
 	template <class Fty, class ValueType, class Tuple>
 	void Apply(Fty f, const ValueType& value, const Tuple& tuple)
 	{
-		Apply_impl<Fty, ValueType, 0, Tuple, std::decay<decltype(std::get<0>(std::declval<Tuple>()))>::type>(f, value, tuple);
+		Apply_impl<Fty, ValueType, 0, Tuple, typename std::decay<decltype(std::get<0>(std::declval<Tuple>()))>::type>(f, value, tuple);
 	}
 
 	template <class StepClass, class ValueType, class Tuple>
@@ -796,20 +796,44 @@ namespace s3d
 		}
 	};
 
-	template <class T, class N, class S, bool isScalar>
-	inline auto steps_class<T, N, S, isScalar>::filter(std::function<bool(const T&)> f) const
+	template <class T, class N, class S
+        # if defined(SIV3D_TARGET_WINDOWS) // constexpr workaround for MSVC2015
+            , bool isScalar
+        # endif
+            >
+	inline auto steps_class<T, N, S
+        # if defined(SIV3D_TARGET_WINDOWS) // constexpr workaround for MSVC2015
+            , isScalar
+        # endif
+            >::filter(std::function<bool(const T&)> f) const
 	{
 		using Fty = std::function<bool(const T&)>;
 		std::tuple<FilterFunction<Fty>> _f{f};
-		return F_Step<steps_class<T, N, S, isScalar>, T, decltype(_f)>(*this, _f);
+		return F_Step<steps_class<T, N, S
+        # if defined(SIV3D_TARGET_WINDOWS) // constexpr workaround for MSVC2015
+        , isScalar
+        # endif
+        >, T, decltype(_f)>(*this, _f);
 	}
 
-	template <class T, class N, class S, bool isScalar>
-	template <class Fty>
-	inline auto steps_class<T, N, S, isScalar>::map(Fty f) const
+    template <class T, class N, class S
+        # if defined(SIV3D_TARGET_WINDOWS) // constexpr workaround for MSVC2015
+            , bool isScalar
+        # endif
+            >
+    template <class Fty>
+    inline auto steps_class<T, N, S
+        # if defined(SIV3D_TARGET_WINDOWS) // constexpr workaround for MSVC2015
+            , isScalar
+        # endif
+            >::map(Fty f) const
 	{
 		using Ret = decltype(std::declval<Fty>()(std::declval<T>()));
 		std::tuple<MapFunction<Fty>> _f{ f };
-		return F_Step<steps_class<T, N, S, isScalar>, Ret, decltype(_f)>(*this, _f);
+		return F_Step<steps_class<T, N, S
+        # if defined(SIV3D_TARGET_WINDOWS) // constexpr workaround for MSVC2015
+        , isScalar
+        # endif
+        >, Ret, decltype(_f)>(*this, _f);
 	}
 }
