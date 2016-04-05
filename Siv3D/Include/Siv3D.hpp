@@ -27,7 +27,7 @@
 
 # pragma once
 # ifndef SIV3D_INCLUDED
-#	define SIV3D_INCLUDED
+	# define SIV3D_INCLUDED
 # endif
 
 # include "Siv3D/Platform.hpp"

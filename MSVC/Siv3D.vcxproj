@@ -61,6 +61,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Platform.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\PlatformWindows.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Radix.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Step_MSVC.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\String.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Time.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Types.hpp" />
