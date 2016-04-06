@@ -449,6 +449,47 @@ namespace s3d
 	{
 		Apply_impl<Fty, ValueType, 0, Tuple, typename std::decay<decltype(std::get<0>(std::declval<Tuple>()))>::type>(f, value, tuple);
 	}
+    
+    
+    template <class Fty, class ResultType, class ValueType, size_t Index, class Tuple,
+    class Next, std::enable_if_t<!IsMap<Next>::value && (Index + 1 == std::tuple_size<Tuple>::value)>* = nullptr>
+    void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
+    {
+        if (std::get<Index>(tuple)(value))
+        {
+            result = f(result, value);
+        }
+    }
+    
+    template <class Fty, class ResultType, class ValueType, size_t Index, class Tuple,
+    class Next, std::enable_if_t<!IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
+    void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
+    {
+        if (std::get<Index>(tuple)(value))
+        {
+            Reduce_impl<Fty, ResultType, ValueType, Index + 1, Tuple, typename std::decay<decltype(std::get<Index + 1>(std::declval<Tuple>()))>::type>(f, result, value, tuple);
+        }
+    }
+    
+    template <class Fty, class ResultType, class ValueType, size_t Index, class Tuple,
+    class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 == std::tuple_size<Tuple>::value)>* = nullptr>
+    void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
+    {
+        result = f(result, std::get<Index>(tuple)(value));
+    }
+    
+    template <class Fty, class ResultType, class ValueType, size_t Index, class Tuple,
+    class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
+    void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
+    {
+        Reduce_impl<Fty, ResultType, decltype(std::get<Index>(tuple)(value)), Index + 1, Tuple, typename std::decay<decltype(std::get<Index + 1>(std::declval<Tuple>()))>::type>(f, result, std::get<Index>(tuple)(value), tuple);
+    }
+    
+    template <class Fty, class ResultType, class ValueType, class Tuple>
+    void Reduce(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
+    {
+        Reduce_impl<Fty, ResultType, ValueType, 0, Tuple, typename std::decay<decltype(std::get<0>(std::declval<Tuple>()))>::type>(f, result, value, tuple);
+    }
 
 	template <class StepClass, class ValueType, class Tuple>
 	class F_Step
@@ -536,6 +577,38 @@ namespace s3d
 
 			return new_array;
 		}
+        
+        template <class Fty>
+        auto reduce(Fty f, decltype(std::declval<Fty>()(std::declval<value_type>(), std::declval<value_type>())) init) const
+        {
+            decltype(init) result = init;
+            
+            if (m_base.isEmpty())
+            {
+                return result;
+            }
+            
+            auto count_ = m_base.count();
+            auto value = m_base.startValue();
+            const auto step_ = m_base.step();
+            const auto functions = m_functions;
+            
+            for (;;)
+            {
+                Reduce(f, result, value, functions);
+                
+                if (--count_)
+                {
+                    value += step_;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            
+            return result;
+        }
 	};
 
 	template <class T, class N, class S>

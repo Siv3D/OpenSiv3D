@@ -708,7 +708,7 @@ namespace s3d
 		class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
 	void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
 	{
-		Reduce_impl<Fty, ResultType. decltype(std::get<Index>(tuple)(value)), Index + 1, Tuple, typename std::decay<decltype(std::get<Index + 1>(std::declval<Tuple>()))>::type>(f, result, std::get<Index>(tuple)(value), tuple);
+		Reduce_impl<Fty, ResultType, decltype(std::get<Index>(tuple)(value)), Index + 1, Tuple, typename std::decay<decltype(std::get<Index + 1>(std::declval<Tuple>()))>::type>(f, result, std::get<Index>(tuple)(value), tuple);
 	}
 
 	template <class Fty, class ResultType, class ValueType, class Tuple>

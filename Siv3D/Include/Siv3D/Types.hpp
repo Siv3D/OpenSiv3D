@@ -11,6 +11,7 @@
 
 # pragma once
 # include <cstdint>
+# include <cstddef>
 # include "Platform.hpp"
 
 namespace s3d
