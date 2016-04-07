@@ -1,4 +1,4 @@
-﻿//----------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------
 //
 //	Copyright (C) 2008-2016 Ryo Suzuki
 //	Copyright (C) 2016 OpenSiv3D Project
@@ -27,7 +27,7 @@
 
 # pragma once
 # ifndef SIV3D_INCLUDED
-#	define SIV3D_INCLUDED
+	# define SIV3D_INCLUDED
 # endif
 
 # include "Siv3D/Platform.hpp"
