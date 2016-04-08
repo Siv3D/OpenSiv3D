@@ -52,6 +52,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\FormatFloat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\FormatInt.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\FormatLiteral.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Functor.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Fwd.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Grid.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Step.hpp" />

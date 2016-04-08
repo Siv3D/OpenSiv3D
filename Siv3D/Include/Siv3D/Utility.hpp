@@ -21,6 +21,4 @@ namespace s3d
 		static std::mt19937_64 rng;
 		return rng;
 	}
-
-	static auto AsBool = [](const auto& v) { return !!v; };
 }
