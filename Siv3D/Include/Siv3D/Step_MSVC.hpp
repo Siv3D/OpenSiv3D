@@ -291,7 +291,7 @@ namespace s3d
 			return false;
 		}
 
-		String join(const String& sep = L", ", const String& begin = L"", const String& end = L"") const
+		String join(const String& sep = L",", const String& begin = L"{", const String& end = L"}") const
 		{
 			String s;
 
@@ -733,7 +733,7 @@ namespace s3d
 			return false;
 		}
 
-		String join(const String& sep = L", ", const String& begin = L"", const String& end = L"") const
+		String join(const String& sep = L",", const String& begin = L"{", const String& end = L"}") const
 		{
 			String s;
 
@@ -1176,6 +1176,13 @@ namespace s3d
 			return sum;
 		}
 
+		size_t count_if(std::function<bool(const value_type&)> f) const
+		{
+			size_t sum = 0;
+			each([&sum, f = f](const auto& value) { sum += f(value); });
+			return sum;
+		}
+
 		template <class Fty>
 		void each(Fty f) const
 		{
@@ -1264,7 +1271,7 @@ namespace s3d
 			return false;
 		}
 
-		String join(const String& sep = L", ", const String& begin = L"", const String& end = L"") const
+		String join(const String& sep = L",", const String& begin = L"{", const String& end = L"}") const
 		{
 			String s;
 			s.append(begin);

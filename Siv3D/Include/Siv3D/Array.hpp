@@ -319,7 +319,7 @@ namespace s3d
 			return any(f);
 		}
 
-		String join(const String& sep = L", ", const String& begin = L"", const String& end = L"") const
+		String join(const String& sep = L",", const String& begin = L"{", const String& end = L"}") const
 		{
 			String s;
 
@@ -1116,7 +1116,7 @@ namespace s3d
 			return any(f);
 		}
 
-		String join(const String& sep = L", ", const String& begin = L"", const String& end = L"") const
+		String join(const String& sep = L",", const String& begin = L"{", const String& end = L"}") const
 		{
 			String s;
 
