@@ -888,6 +888,46 @@ namespace s3d
 			return result;
 		}
 
+		template <class Fty>
+		auto reduce1(Fty f) const
+		{
+			if (m_base.isEmpty())
+			{
+				throw std::out_of_range("F_Step::reduce1() reduce from empty range");
+			}
+
+			auto count_ = m_base.count();
+			auto value = m_base.startValue();
+			const auto step_ = m_base.step();
+			const auto functions = m_functions;
+			decltype(std::declval<Fty>()(std::declval<value_type>(), std::declval<value_type>())) result;
+
+			Apply([&result](const auto& v) { result = v; }, value, functions);
+
+			if (--count_ == 0)
+			{
+				return result;
+			}
+
+			value += step_;
+
+			for (;;)
+			{
+				Reduce(f, result, value, functions);
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return result;
+		}
+
 		Array<value_type> take(size_t n) const
 		{
 			Array<value_type> new_array;
