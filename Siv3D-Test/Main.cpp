@@ -26,7 +26,6 @@ void Main()
 						.map([](auto n) { return n /= 345; })
 						.take(20);
 
-
 	Log(v);
 	/*
 	filter

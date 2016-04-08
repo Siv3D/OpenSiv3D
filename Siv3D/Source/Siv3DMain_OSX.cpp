@@ -18,7 +18,7 @@ void Main();
 
 int main()
 {
-	std::wcout << L"Siv3D for Mac\n";
+	std::cout << "Siv3D for Mac\n";
 
 	Main();
 }
