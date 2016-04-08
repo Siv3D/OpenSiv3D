@@ -13,42 +13,6 @@
 
 namespace s3d
 {
-	////////////////////////////////////////////////////////////////
-	//
-	//		AsUint
-	//
-	////////////////////////////////////////////////////////////////
-
-	/// <summary>
-	/// 浮動小数点数値のビット列を整数として解釈します。
-	/// </summary>
-	/// <param name="value">
-	///	浮動小数点数値
-	/// </param>
-	/// <returns>
-	/// ビット列を整数として解釈した値
-	/// </returns>
-	inline uint32 AsUint(const float value)
-	{
-		static_assert(sizeof(uint32) == sizeof(float), "");
-		return *static_cast<const uint32*>(static_cast<const void*>(&value));
-	}
-
-	/// <summary>
-	/// 浮動小数点数値のビット列を整数として解釈します。
-	/// </summary>
-	/// <param name="value">
-	///	浮動小数点数値
-	/// </param>
-	/// <returns>
-	/// ビット列を整数として解釈した値
-	/// </returns>
-	inline uint64 AsUint(const double value)
-	{
-		static_assert(sizeof(uint64) == sizeof(double), "");
-		return *static_cast<const uint64*>(static_cast<const void*>(&value));
-	}
-
 	/// <summary>
 	/// 表現できる最大の数値を返します。
 	/// </summary>
@@ -79,9 +43,54 @@ namespace s3d
 	/// <returns>
 	/// 正の無限大
 	/// </returns>
-	template<class Type>
+	template <class Type>
 	inline constexpr Type Infinity()
 	{
 		return std::numeric_limits<Type>::infinity();
 	}
+    
+    /// <summary>
+    /// 数値が非数 (NaN) であるかを示します。
+    /// </summary>
+    /// <param name="value">
+    /// 数値
+    /// </param>
+    /// <returns>
+    /// 数値が非数 (NaN) である場合 true, それ以外の場合は false
+    /// </returns>
+    template <class Type>
+    inline bool IsNaN(const Type value)
+    {
+        return std::isnan(value);
+    }
+    
+    /// <summary>
+    /// 数値が有限値であるかを示します。
+    /// </summary>
+    /// <param name="value">
+    /// 数値
+    /// </param>
+    /// <returns>
+    /// 数値が有限値である場合 true, それ以外の場合は false
+    /// </returns>
+    template <class Type>
+    inline bool IsFinite(const Type value)
+    {
+        return std::isfinite(value);
+    }
+    
+    /// <summary>
+    /// 数値が無限であるかを示します。
+    /// </summary>
+    /// <param name="value">
+    /// 数値
+    /// </param>
+    /// <returns>
+    /// 数値が無限である場合 true, それ以外の場合は false
+    /// </returns>
+    template <class Type>
+    inline bool IsInfinity(const Type value)
+    {
+        return std::isinf(value);
+    }
 }

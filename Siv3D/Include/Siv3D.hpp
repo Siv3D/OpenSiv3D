@@ -115,3 +115,6 @@
 //
 // ファイル I/O と暗号化
 //
+
+
+# include "Logger.hpp"
