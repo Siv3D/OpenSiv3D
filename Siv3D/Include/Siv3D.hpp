@@ -44,7 +44,7 @@
 	# include "Siv3D/Fwd.hpp"
 	// ユーティリティ
 	# include "Siv3D/Utility.hpp"
-	// ファンクター
+	// ファンクタ
 	# include "Siv3D/Functor.hpp"
 	// コピー禁止クラス
 	# include "Siv3D/Uncopyable.hpp"

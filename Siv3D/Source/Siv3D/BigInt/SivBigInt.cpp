@@ -632,10 +632,10 @@ namespace s3d
 		return pImpl->data.str();
 	}
 
-	std::wstring BigInt::str() const
+	String BigInt::str() const
 	{
 		const std::string t = pImpl->data.str();
-		return std::wstring(t.begin(), t.end());
+		return String(t.begin(), t.end());
 	}
 
 	void BigInt::swap(BigInt& other)

@@ -12,8 +12,8 @@
 # pragma once
 # include <memory>
 # include <iostream>
-# include <string>
 # include "Fwd.hpp"
+# include "String.hpp"
 
 namespace s3d
 {
@@ -249,7 +249,7 @@ namespace s3d
 		uint64 asUint64() const;
 
 		std::string stdStr() const;
-		std::wstring str() const;
+		String str() const;
 
 		void swap(BigInt& other);
 

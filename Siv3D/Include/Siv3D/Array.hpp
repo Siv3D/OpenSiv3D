@@ -154,6 +154,11 @@ namespace s3d
 			return shuffled(rng).taken(n);
 		}
 
+		size_t count() const
+		{
+			return size();
+		}
+
 		size_t count(const Type& value) const
 		{
 			size_t result = 0;
@@ -944,6 +949,11 @@ namespace s3d
 		Array choice(size_t n, URNG&& rng) const
 		{
 			return shuffled(rng).taken(n);
+		}
+
+		size_t count() const
+		{
+			return size();
 		}
 
 		size_t count(const bool& value) const

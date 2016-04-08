@@ -110,6 +110,42 @@ namespace s3d
 
 		constexpr bool isEmpty() const { return count() == 0; }
 
+		operator Array<T>() const
+		{
+			return asArray();
+		}
+
+		Array<T> asArray() const
+		{
+			Array<T> new_array;
+
+			if (isEmpty())
+			{
+				return new_array;
+			}
+
+			new_array.reserve(count());
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				new_array.push_back(value);
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return new_array;
+		}
+
 		N count_if(std::function<bool(const T&)> f) const
 		{
 			if (isEmpty())
@@ -508,6 +544,34 @@ namespace s3d
 			: m_base(stepClass)
 			, m_functions(functions) {}
 
+		operator Array<value_type>() const
+		{
+			return asArray();
+		}
+
+		Array<value_type> asArray() const
+		{
+			Array<value_type> new_array;
+			each([&new_array](const auto& value) { new_array.push_back(value); });
+			return new_array;
+		}
+
+		size_t count() const
+		{
+			size_t sum = 0;
+			each([&sum](const auto) { ++sum; });
+			return sum;
+		}
+
+		template <class Fty>
+		void each(Fty f) const
+		{
+			m_base.each([f, functions = m_functions](const auto& value)
+			{
+				Apply(f, value, functions);
+			});
+		}
+
 		auto filter(std::function<bool(const ValueType&)> f) const
 		{
 			using Fty = std::function<bool(const ValueType&)>;
@@ -524,26 +588,35 @@ namespace s3d
 		}
 
 		template <class Fty>
-		void each(Fty f) const
+		auto reduce(Fty f, decltype(std::declval<Fty>()(std::declval<value_type>(), std::declval<value_type>())) init) const
 		{
-			m_base.each([f, functions = m_functions](const auto& value)
+			decltype(init) result = init;
+
+			if (m_base.isEmpty())
 			{
-				Apply(f, value, functions);
-			});
-		}
+				return result;
+			}
 
-		size_t count() const
-		{
-			size_t sum = 0;
-			each([&sum](const auto) { ++sum; });
-			return sum;
-		}
+			auto count_ = m_base.count();
+			auto value = m_base.startValue();
+			const auto step_ = m_base.step();
+			const auto functions = m_functions;
 
-		Array<value_type> asArray() const
-		{
-			Array<value_type> new_array;
-			each([&new_array](const auto& value) { new_array.push_back(value); });
-			return new_array;
+			for (;;)
+			{
+				Reduce(f, result, value, functions);
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return result;
 		}
 
 		Array<value_type> take(size_t n) const
@@ -577,46 +650,14 @@ namespace s3d
 
 			return new_array;
 		}
-        
-        template <class Fty>
-        auto reduce(Fty f, decltype(std::declval<Fty>()(std::declval<value_type>(), std::declval<value_type>())) init) const
-        {
-            decltype(init) result = init;
-            
-            if (m_base.isEmpty())
-            {
-                return result;
-            }
-            
-            auto count_ = m_base.count();
-            auto value = m_base.startValue();
-            const auto step_ = m_base.step();
-            const auto functions = m_functions;
-            
-            for (;;)
-            {
-                Reduce(f, result, value, functions);
-                
-                if (--count_)
-                {
-                    value += step_;
-                }
-                else
-                {
-                    break;
-                }
-            }
-            
-            return result;
-        }
 	};
 
 	template <class T, class N, class S>
 	inline auto steps_class<T, N, S>::filter(std::function<bool(const T&)> f) const
 	{
 		using Fty = std::function<bool(const T&)>;
-		const auto _f = std::make_tuple(FilterFunction<Fty>{ f });
-		return F_Step<steps_class, T, decltype(_f)>(*this, _f);
+		const auto tuple = std::make_tuple(FilterFunction<Fty>{ f });
+		return F_Step<steps_class, T, decltype(tuple)>(*this, tuple);
 	}
 
     template <class T, class N, class S>
@@ -624,8 +665,8 @@ namespace s3d
     inline auto steps_class<T, N, S>::map(Fty f) const
 	{
 		using Ret = decltype(std::declval<Fty>()(std::declval<T>()));
-		const auto _f = std::make_tuple(MapFunction<Fty>{ f });
-		return F_Step<steps_class, Ret, decltype(_f)>(*this, _f);
+		const auto tuple = std::make_tuple(MapFunction<Fty>{ f });
+		return F_Step<steps_class, Ret, decltype(tuple)>(*this, tuple);
 	}
 }
 
