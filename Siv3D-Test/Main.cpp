@@ -5,28 +5,51 @@
 using namespace s3d;
 using namespace s3d::literals;
 
+
+
 void Main()
 {
-	Log(Range(0, 100)
-		.filter([](auto n) {return n % 2 == 0; })
-		.count());
+	size_t x = 0;
 
-	Log(Range(0, 100)
-		.filter([](auto n) {return n < 1000; })
-		.reduce(std::plus<>(), 0));
+	constexpr bool k = InRange(0, 100)(20);
 
-	Log(Range(0, 100)
-		.filter([](auto n) {return n % 2 == 0; })
-		.map([](auto n) { return n * 0.1; })
-		.take(20).join(L", "));
+	{
+		RDTSC t;
+		x = Range(0, 1000000)
+			.filter([](auto n) { return n%2!=0; })
+			.count();
+	}
 
-	const auto v = Range("1000000000000000000000000000000"_big,
-						 "2000000000000000000000000000000"_big)
-						.filter([](auto n) {return n % 33333 == 0; })
-						.map([](auto n) { return n /= 345; })
-						.take(20);
+	Log(x);
 
-	Log(v);
+	{
+		RDTSC t;
+		x = Range(0, 1000000)
+			.filter(Odd())
+			.count();
+	}
+
+	Log(x);
+	//Log(Range(0, 100)
+	//	.filter([](auto n) { return n % 2 == 0; })
+	//	.count());
+
+	//Log(Range(0, 100)
+	//	.filter([](auto n) { return n < 1000; })
+	//	.reduce(std::plus<>(), 0));
+
+	//Log(Range(0, 100)
+	//	.filter([](auto n) {return n % 2 == 0; })
+	//	.map([](auto n) { return n * 0.1; })
+	//	.take(20).join(L", "));
+
+	//const auto v = Range("1000000000000000000000000000000"_big,
+	//					 "2000000000000000000000000000000"_big)
+	//					.filter([](auto n) {return n % 33333 == 0; })
+	//					.map([](auto n) { return n /= 345; })
+	//					.take(20);
+
+	//Log(v);
 	/*
 	filter
 	asArray()

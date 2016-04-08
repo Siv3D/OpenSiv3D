@@ -17,6 +17,7 @@
 # include "Fwd.hpp"
 # include "Allocator.hpp"
 # include "String.hpp"
+# include "Functor.hpp"
 # include "Format.hpp"
 # include "Utility.hpp"
 
@@ -90,7 +91,7 @@ namespace s3d
 			return *this;
 		}
 
-		bool all(std::function<bool(const Type&)> f = AsBool) const
+		bool all(std::function<bool(const Type&)> f = NotNot()) const
 		{
 			for (const auto& v : *this)
 			{
@@ -103,7 +104,7 @@ namespace s3d
 			return true;
 		}
 
-		bool any(std::function<bool(const Type&)> f = AsBool) const
+		bool any(std::function<bool(const Type&)> f = NotNot()) const
 		{
 			for (const auto& v : *this)
 			{
@@ -362,7 +363,7 @@ namespace s3d
 			return new_array;
 		}
 
-		bool none(std::function<bool(const Type&)> f = AsBool) const
+		bool none(std::function<bool(const Type&)> f = NotNot()) const
 		{
 			for (const auto& v : *this)
 			{
@@ -882,7 +883,7 @@ namespace s3d
 			return *this;
 		}
 
-		bool all(std::function<bool(const bool&)> f = AsBool) const
+		bool all(std::function<bool(const bool&)> f = NotNot()) const
 		{
 			for (const auto& v : *this)
 			{
@@ -895,7 +896,7 @@ namespace s3d
 			return true;
 		}
 
-		bool any(std::function<bool(const bool&)> f = AsBool) const
+		bool any(std::function<bool(const bool&)> f = NotNot()) const
 		{
 			for (const auto& v : *this)
 			{
@@ -1154,7 +1155,7 @@ namespace s3d
 			return new_array;
 		}
 
-		bool none(std::function<bool(const bool&)> f = AsBool) const
+		bool none(std::function<bool(const bool&)> f = NotNot()) const
 		{
 			for (const auto& v : *this)
 			{
