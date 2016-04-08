@@ -229,6 +229,114 @@ namespace s3d
 
 		auto filter(std::function<bool(const T&)> f) const;
 
+		bool include(const T& x) const
+		{
+			if (isEmpty())
+			{
+				return false;
+			}
+
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				if (x == value)
+				{
+					return true;
+				}
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return false;
+		}
+
+		bool include_if(std::function<bool(const T&)> f) const
+		{
+			if (isEmpty())
+			{
+				return false;
+			}
+
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				if (f(value))
+				{
+					return true;
+				}
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return false;
+		}
+
+		String join(const String& sep = L", ", const String& begin = L"", const String& end = L"") const
+		{
+			String s;
+
+			s.append(begin);
+
+			if (isEmpty())
+			{
+				s.append(end);
+
+				return s;
+			}
+
+			bool isFirst = true;
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				if (isFirst)
+				{
+					isFirst = false;
+				}
+				else
+				{
+					s.append(sep);
+				}
+
+				s.append(Format(value));
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			s.append(end);
+
+			return s;
+		}
+
 		template <class Fty>
 		auto map(Fty f) const;
 
@@ -287,6 +395,36 @@ namespace s3d
 			}
 
 			return result;
+		}
+
+		Array<value_type> take(size_t n) const
+		{
+			Array<value_type> new_array;
+
+			if (m_base.isEmpty() || n == 0)
+			{
+				return new_array;
+			}
+
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				new_array.push_back(value);
+
+				if (--count_ && new_array.size() < n)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return new_array;
 		}
 
 	private:
@@ -494,6 +632,114 @@ namespace s3d
 		}
 
 		auto filter(std::function<bool(const T&)> f) const;
+
+		bool include(const T& x) const
+		{
+			if (isEmpty())
+			{
+				return false;
+			}
+
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				if (x == value)
+				{
+					return true;
+				}
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return false;
+		}
+
+		bool include_if(std::function<bool(const bool&)> f) const
+		{
+			if (isEmpty())
+			{
+				return false;
+			}
+
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				if (f(value))
+				{
+					return true;
+				}
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return false;
+		}
+
+		String join(const String& sep = L", ", const String& begin = L"", const String& end = L"") const
+		{
+			String s;
+
+			s.append(begin);
+
+			if (isEmpty())
+			{
+				s.append(end);
+
+				return s;
+			}
+
+			bool isFirst = true;
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				if (isFirst)
+				{
+					isFirst = false;
+				}
+				else
+				{
+					s.append(sep);
+				}
+
+				s.append(Format(value));
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			s.append(end);
+
+			return s;
+		}
 
 		template <class Fty>
 		auto map(Fty f) const;
@@ -839,6 +1085,100 @@ namespace s3d
 			using Fty = std::function<bool(const ValueType&)>;
 			const auto functions = std::tuple_cat(m_functions, std::make_tuple(FilterFunction<Fty>{ f }));
 			return F_Step<StepClass, ValueType, decltype(functions)>(m_base, functions);
+		}
+
+		bool include(const ValueType& x) const
+		{
+			if (m_base.isEmpty())
+			{
+				return false;
+			}
+
+			bool hasValue = false;
+			auto count_ = m_base.count();
+			auto value = m_base.startValue();
+			const auto step_ = m_base.step();
+			const auto includeFunc = [&hasValue, x](const auto& value) { hasValue = (value == x); };
+			const auto functions = m_functions;
+
+			for (;;)
+			{
+				Apply(includeFunc, value, functions);
+
+				if (hasValue)
+				{
+					return true;
+				}
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return false;
+		}
+
+		bool include_if(std::function<bool(const ValueType&)> f) const
+		{
+			if (m_base.isEmpty())
+			{
+				return false;
+			}
+
+			bool hasValue = false;
+			auto count_ = m_base.count();
+			auto value = m_base.startValue();
+			const auto step_ = m_base.step();
+			const auto includeFunc = [&hasValue, f](const auto& value) { hasValue = f(value); };
+			const auto functions = m_functions;
+
+			for (;;)
+			{
+				Apply(includeFunc, value, functions);
+
+				if (hasValue)
+				{
+					return true;
+				}
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return false;
+		}
+
+		String join(const String& sep = L", ", const String& begin = L"", const String& end = L"") const
+		{
+			String s;
+			s.append(begin);
+			bool isFirst = true;
+			each([&s, &isFirst, sep = sep](const auto& value)
+			{
+				if (isFirst)
+				{
+					isFirst = false;
+				}
+				else
+				{
+					s.append(sep);
+				}
+
+				s.append(Format(value));
+			});
+			s.append(end);
+			return s;
 		}
 
 		template <class Fty>
