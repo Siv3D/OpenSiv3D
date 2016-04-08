@@ -401,7 +401,7 @@ namespace s3d
 		{
 			Array<value_type> new_array;
 
-			if (m_base.isEmpty() || n == 0)
+			if (isEmpty() || n == 0)
 			{
 				return new_array;
 			}
@@ -415,6 +415,43 @@ namespace s3d
 				new_array.push_back(value);
 
 				if (--count_ && new_array.size() < n)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return new_array;
+		}
+
+		Array<value_type> take_while(std::function<bool(const value_type&)> f) const
+		{
+			Array<value_type> new_array;
+
+			if (isEmpty())
+			{
+				return new_array;
+			}
+
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				if (f(value))
+				{
+					new_array.push_back(value);
+				}
+				else
+				{
+					break;
+				}
+
+				if (--count_)
 				{
 					value += step_;
 				}
@@ -491,6 +528,7 @@ namespace s3d
 			S step() const { return m_step; }
 		};
 
+		using value_type = T;
 		using iterator = steps_iterator;
 
 		steps_class(T startValue, N count, S step)
@@ -799,6 +837,73 @@ namespace s3d
 			}
 
 			return result;
+		}
+
+		Array<value_type> take(size_t n) const
+		{
+			Array<value_type> new_array;
+
+			if (isEmpty() || n == 0)
+			{
+				return new_array;
+			}
+
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				new_array.push_back(value);
+
+				if (--count_ && new_array.size() < n)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return new_array;
+		}
+
+		Array<value_type> take_while(std::function<bool(const value_type&)> f) const
+		{
+			Array<value_type> new_array;
+
+			if (isEmpty())
+			{
+				return new_array;
+			}
+
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				if (f(value))
+				{
+					new_array.push_back(value);
+				}
+				else
+				{
+					break;
+				}
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return new_array;
 		}
 
 	private:
