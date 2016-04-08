@@ -96,6 +96,7 @@
 		2CC2B1231CB5554500BB42D0 /* TestStep.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B1191CB5554500BB42D0 /* TestStep.cpp */; };
 		2CC2B1241CB5554500BB42D0 /* TestString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B11A1CB5554500BB42D0 /* TestString.cpp */; };
 		2CC2B1251CB5554500BB42D0 /* TestTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B11B1CB5554500BB42D0 /* TestTypes.cpp */; };
+		2CD3585F1CB7A34100BB16A0 /* Functor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CD3585E1CB7A34100BB16A0 /* Functor.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -207,6 +208,7 @@
 		2CC2B1191CB5554500BB42D0 /* TestStep.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestStep.cpp; sourceTree = "<group>"; };
 		2CC2B11A1CB5554500BB42D0 /* TestString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestString.cpp; sourceTree = "<group>"; };
 		2CC2B11B1CB5554500BB42D0 /* TestTypes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestTypes.cpp; sourceTree = "<group>"; };
+		2CD3585E1CB7A34100BB16A0 /* Functor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Functor.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -338,6 +340,7 @@
 		2CC2B06F1CB5552200BB42D0 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2CD3585E1CB7A34100BB16A0 /* Functor.hpp */,
 				2CC2B0701CB5552200BB42D0 /* _TEMPLATE.hpp */,
 				2CC2B0711CB5552200BB42D0 /* Allocator.hpp */,
 				2CC2B0721CB5552200BB42D0 /* Array.hpp */,
@@ -560,6 +563,7 @@
 				2CC2B0EF1CB5552200BB42D0 /* Version.hpp in Headers */,
 				2CC2B0C11CB5552200BB42D0 /* gtest-param-test.h in Headers */,
 				2CC2B0D51CB5552200BB42D0 /* gtest-type-util.h in Headers */,
+				2CD3585F1CB7A34100BB16A0 /* Functor.hpp in Headers */,
 				2CC2B0C81CB5552200BB42D0 /* gtest_prod.h in Headers */,
 				2CC2B1021CB5552300BB42D0 /* cached-powers.h in Headers */,
 				2CC2B0DD1CB5552200BB42D0 /* FormatInt.hpp in Headers */,

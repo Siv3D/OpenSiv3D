@@ -96,7 +96,7 @@ namespace s3d
 
 		constexpr iterator end() const { return m_end_iterator; }
 
-		constexpr T startValue() const { return m_start_iterator.currentValue(); }
+		constexpr value_type startValue() const { return m_start_iterator.currentValue(); }
 
 		constexpr N count() const { return m_start_iterator.count(); }
 
@@ -104,7 +104,43 @@ namespace s3d
 
 		constexpr bool isEmpty() const { return count() == 0; }
 
-		N count_if(std::function<bool(const T&)> f) const
+		operator Array<value_type>() const
+		{
+			return asArray();
+		}
+
+		Array<value_type> asArray() const
+		{
+			Array<value_type> new_array;
+
+			if (isEmpty())
+			{
+				return new_array;
+			}
+
+			new_array.reserve(count());
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				new_array.push_back(value);
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return new_array;
+		}
+
+		N count_if(std::function<bool(const value_type&)> f) const
 		{
 			if (isEmpty())
 			{
@@ -191,13 +227,121 @@ namespace s3d
 			}
 		}
 
-		auto filter(std::function<bool(const T&)> f) const;
+		auto filter(std::function<bool(const value_type&)> f) const;
+
+		bool include(const value_type& x) const
+		{
+			if (isEmpty())
+			{
+				return false;
+			}
+
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				if (x == value)
+				{
+					return true;
+				}
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return false;
+		}
+
+		bool include_if(std::function<bool(const value_type&)> f) const
+		{
+			if (isEmpty())
+			{
+				return false;
+			}
+
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				if (f(value))
+				{
+					return true;
+				}
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return false;
+		}
+
+		String join(const String& sep = L", ", const String& begin = L"", const String& end = L"") const
+		{
+			String s;
+
+			s.append(begin);
+
+			if (isEmpty())
+			{
+				s.append(end);
+
+				return s;
+			}
+
+			bool isFirst = true;
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				if (isFirst)
+				{
+					isFirst = false;
+				}
+				else
+				{
+					s.append(sep);
+				}
+
+				s.append(Format(value));
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			s.append(end);
+
+			return s;
+		}
 
 		template <class Fty>
 		auto map(Fty f) const;
 
 		template <class Fty>
-		auto reduce(Fty f, decltype(std::declval<Fty>()(std::declval<T>(), std::declval<T>())) init) const
+		auto reduce(Fty f, decltype(std::declval<Fty>()(std::declval<value_type>(), std::declval<value_type>())) init) const
 		{
 			if (isEmpty())
 			{
@@ -234,7 +378,7 @@ namespace s3d
 			auto count_ = count();
 			auto value = startValue();
 			const auto step_ = step();
-			decltype(std::declval<Fty>()(std::declval<T>(), std::declval<T>())) result = value;
+			decltype(std::declval<Fty>()(std::declval<value_type>(), std::declval<value_type>())) result = value;
 
 			for (;;)
 			{
@@ -251,6 +395,73 @@ namespace s3d
 			}
 
 			return result;
+		}
+
+		Array<value_type> take(size_t n) const
+		{
+			Array<value_type> new_array;
+
+			if (isEmpty() || n == 0)
+			{
+				return new_array;
+			}
+
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				new_array.push_back(value);
+
+				if (--count_ && new_array.size() < n)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return new_array;
+		}
+
+		Array<value_type> take_while(std::function<bool(const value_type&)> f) const
+		{
+			Array<value_type> new_array;
+
+			if (isEmpty())
+			{
+				return new_array;
+			}
+
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				if (f(value))
+				{
+					new_array.push_back(value);
+				}
+				else
+				{
+					break;
+				}
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return new_array;
 		}
 
 	private:
@@ -317,6 +528,7 @@ namespace s3d
 			S step() const { return m_step; }
 		};
 
+		using value_type = T;
 		using iterator = steps_iterator;
 
 		steps_class(T startValue, N count, S step)
@@ -326,7 +538,7 @@ namespace s3d
 
 		iterator end() const { return m_end_iterator; }
 
-		T startValue() const { return m_start_iterator.currentValue(); }
+		value_type startValue() const { return m_start_iterator.currentValue(); }
 
 		N count() const { return m_start_iterator.count(); }
 
@@ -334,7 +546,43 @@ namespace s3d
 
 		bool isEmpty() const { return count() == 0; }
 
-		N count_if(std::function<bool(const T&)> f) const
+		operator Array<value_type>() const
+		{
+			return asArray();
+		}
+
+		Array<value_type> asArray() const
+		{
+			Array<value_type> new_array;
+
+			if (isEmpty())
+			{
+				return new_array;
+			}
+
+			new_array.reserve(count());
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				new_array.push_back(value);
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return new_array;
+		}
+
+		N count_if(std::function<bool(const value_type&)> f) const
 		{
 			if (isEmpty())
 			{
@@ -421,13 +669,121 @@ namespace s3d
 			}
 		}
 
-		auto filter(std::function<bool(const T&)> f) const;
+		auto filter(std::function<bool(const value_type&)> f) const;
+
+		bool include(const value_type& x) const
+		{
+			if (isEmpty())
+			{
+				return false;
+			}
+
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				if (x == value)
+				{
+					return true;
+				}
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return false;
+		}
+
+		bool include_if(std::function<bool(const bool&)> f) const
+		{
+			if (isEmpty())
+			{
+				return false;
+			}
+
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				if (f(value))
+				{
+					return true;
+				}
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return false;
+		}
+
+		String join(const String& sep = L", ", const String& begin = L"", const String& end = L"") const
+		{
+			String s;
+
+			s.append(begin);
+
+			if (isEmpty())
+			{
+				s.append(end);
+
+				return s;
+			}
+
+			bool isFirst = true;
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				if (isFirst)
+				{
+					isFirst = false;
+				}
+				else
+				{
+					s.append(sep);
+				}
+
+				s.append(Format(value));
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			s.append(end);
+
+			return s;
+		}
 
 		template <class Fty>
 		auto map(Fty f) const;
 
 		template <class Fty>
-		auto reduce(Fty f, decltype(std::declval<Fty>()(std::declval<T>(), std::declval<T>())) init) const
+		auto reduce(Fty f, decltype(std::declval<Fty>()(std::declval<value_type>(), std::declval<value_type>())) init) const
 		{
 			if (isEmpty())
 			{
@@ -464,7 +820,7 @@ namespace s3d
 			auto count_ = count();
 			auto value = startValue();
 			const auto step_ = step();
-			decltype(std::declval<Fty>()(std::declval<T>(), std::declval<T>())) result = value;
+			decltype(std::declval<Fty>()(std::declval<value_type>(), std::declval<value_type>())) result = value;
 
 			for (;;)
 			{
@@ -481,6 +837,73 @@ namespace s3d
 			}
 
 			return result;
+		}
+
+		Array<value_type> take(size_t n) const
+		{
+			Array<value_type> new_array;
+
+			if (isEmpty() || n == 0)
+			{
+				return new_array;
+			}
+
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				new_array.push_back(value);
+
+				if (--count_ && new_array.size() < n)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return new_array;
+		}
+
+		Array<value_type> take_while(std::function<bool(const value_type&)> f) const
+		{
+			Array<value_type> new_array;
+
+			if (isEmpty())
+			{
+				return new_array;
+			}
+
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				if (f(value))
+				{
+					new_array.push_back(value);
+				}
+				else
+				{
+					break;
+				}
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return new_array;
 		}
 
 	private:
@@ -734,19 +1157,23 @@ namespace s3d
 			: m_base(stepClass)
 			, m_functions(functions) {}
 
-		auto filter(std::function<bool(const ValueType&)> f) const
+		operator Array<value_type>() const
 		{
-			using Fty = std::function<bool(const ValueType&)>;
-			const auto functions = std::tuple_cat(m_functions, std::make_tuple(FilterFunction<Fty>{ f }));
-			return F_Step<StepClass, ValueType, decltype(functions)>(m_base, functions);
+			return asArray();
 		}
 
-		template <class Fty>
-		auto map(Fty f) const
+		Array<value_type> asArray() const
 		{
-			using Ret = decltype(std::declval<Fty>()(std::declval<value_type>()));
-			const auto functions = std::tuple_cat(m_functions, std::make_tuple(MapFunction<Fty>{ f }));
-			return F_Step<StepClass, Ret, decltype(functions)>(m_base, functions);
+			Array<value_type> new_array;
+			each([&new_array](const auto& value) { new_array.push_back(value); });
+			return new_array;
+		}
+
+		size_t count() const
+		{
+			size_t sum = 0;
+			each([&sum](const auto) { ++sum; });
+			return sum;
 		}
 
 		template <class Fty>
@@ -758,18 +1185,185 @@ namespace s3d
 			});
 		}
 
-		size_t count() const
+		auto filter(std::function<bool(const value_type&)> f) const
 		{
-			size_t sum = 0;
-			each([&sum](const auto) { ++sum; });
-			return sum;
+			using Fty = std::function<bool(const value_type&)>;
+			const auto functions = std::tuple_cat(m_functions, std::make_tuple(FilterFunction<Fty>{ f }));
+			return F_Step<StepClass, value_type, decltype(functions)>(m_base, functions);
 		}
 
-		Array<value_type> asArray() const
+		bool include(const value_type& x) const
 		{
-			Array<value_type> new_array;
-			each([&new_array](const auto& value) { new_array.push_back(value); });
-			return new_array;
+			if (m_base.isEmpty())
+			{
+				return false;
+			}
+
+			bool hasValue = false;
+			auto count_ = m_base.count();
+			auto value = m_base.startValue();
+			const auto step_ = m_base.step();
+			const auto includeFunc = [&hasValue, x](const auto& value) { hasValue = (value == x); };
+			const auto functions = m_functions;
+
+			for (;;)
+			{
+				Apply(includeFunc, value, functions);
+
+				if (hasValue)
+				{
+					return true;
+				}
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return false;
+		}
+
+		bool include_if(std::function<bool(const value_type&)> f) const
+		{
+			if (m_base.isEmpty())
+			{
+				return false;
+			}
+
+			bool hasValue = false;
+			auto count_ = m_base.count();
+			auto value = m_base.startValue();
+			const auto step_ = m_base.step();
+			const auto includeFunc = [&hasValue, f](const auto& value) { hasValue = f(value); };
+			const auto functions = m_functions;
+
+			for (;;)
+			{
+				Apply(includeFunc, value, functions);
+
+				if (hasValue)
+				{
+					return true;
+				}
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return false;
+		}
+
+		String join(const String& sep = L", ", const String& begin = L"", const String& end = L"") const
+		{
+			String s;
+			s.append(begin);
+			bool isFirst = true;
+			each([&s, &isFirst, sep = sep](const auto& value)
+			{
+				if (isFirst)
+				{
+					isFirst = false;
+				}
+				else
+				{
+					s.append(sep);
+				}
+
+				s.append(Format(value));
+			});
+			s.append(end);
+			return s;
+		}
+
+		template <class Fty>
+		auto map(Fty f) const
+		{
+			using Ret = decltype(std::declval<Fty>()(std::declval<value_type>()));
+			const auto functions = std::tuple_cat(m_functions, std::make_tuple(MapFunction<Fty>{ f }));
+			return F_Step<StepClass, Ret, decltype(functions)>(m_base, functions);
+		}
+
+		template <class Fty>
+		auto reduce(Fty f, decltype(std::declval<Fty>()(std::declval<value_type>(), std::declval<value_type>())) init) const
+		{
+			decltype(init) result = init;
+
+			if (m_base.isEmpty())
+			{
+				return result;
+			}
+
+			auto count_ = m_base.count();
+			auto value = m_base.startValue();
+			const auto step_ = m_base.step();
+			const auto functions = m_functions;
+
+			for (;;)
+			{
+				Reduce(f, result, value, functions);
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return result;
+		}
+
+		template <class Fty>
+		auto reduce1(Fty f) const
+		{
+			if (m_base.isEmpty())
+			{
+				throw std::out_of_range("F_Step::reduce1() reduce from empty range");
+			}
+
+			auto count_ = m_base.count();
+			auto value = m_base.startValue();
+			const auto step_ = m_base.step();
+			const auto functions = m_functions;
+			decltype(std::declval<Fty>()(std::declval<value_type>(), std::declval<value_type>())) result;
+
+			Apply([&result](const auto& v) { result = v; }, value, functions);
+
+			if (--count_ == 0)
+			{
+				return result;
+			}
+
+			value += step_;
+
+			for (;;)
+			{
+				Reduce(f, result, value, functions);
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return result;
 		}
 
 		Array<value_type> take(size_t n) const
@@ -804,26 +1398,37 @@ namespace s3d
 			return new_array;
 		}
 
-		template <class Fty>
-		auto reduce(Fty f, decltype(std::declval<Fty>()(std::declval<value_type>(), std::declval<value_type>())) init) const
+		Array<value_type> take_while(std::function<bool(const value_type&)> f) const
 		{
-			decltype(init) result = init;
+			Array<value_type> new_array;
 
 			if (m_base.isEmpty())
 			{
-				return result;
+				return new_array;
 			}
 
+			bool finished = false;
 			auto count_ = m_base.count();
 			auto value = m_base.startValue();
 			const auto step_ = m_base.step();
+			const auto pushFunc = [&new_array, &finished, f = f](const auto& value)
+			{
+				if (f(value))
+				{
+					new_array.push_back(value);
+				}
+				else
+				{
+					finished = true;
+				}
+			};
 			const auto functions = m_functions;
 
 			for (;;)
 			{
-				Reduce(f, result, value, functions);
+				Apply(pushFunc, value, functions);
 
-				if (--count_)
+				if (--count_ && !finished)
 				{
 					value += step_;
 				}
@@ -833,42 +1438,42 @@ namespace s3d
 				}
 			}
 
-			return result;
+			return new_array;
 		}
 	};
 
 	template <class T, class N, class S, bool isScalar>
-	inline auto steps_class<T, N, S, isScalar>::filter(std::function<bool(const T&)> f) const
+	inline auto steps_class<T, N, S, isScalar>::filter(std::function<bool(const value_type&)> f) const
 	{
-		using Fty = std::function<bool(const T&)>;
-		const auto _f = std::make_tuple(FilterFunction<Fty>{ f });
-		return F_Step<steps_class, T, decltype(_f)>(*this, _f);
+		using Fty = std::function<bool(const value_type&)>;
+		const auto tuple = std::make_tuple(FilterFunction<Fty>{ f });
+		return F_Step<steps_class, value_type, decltype(tuple)>(*this, tuple);
 	}
 
     template <class T, class N, class S, bool isScalar>
     template <class Fty>
     inline auto steps_class<T, N, S, isScalar>::map(Fty f) const
 	{
-		using Ret = decltype(std::declval<Fty>()(std::declval<T>()));
+		using Ret = decltype(std::declval<Fty>()(std::declval<value_type>()));
 		std::tuple<MapFunction<Fty>> _f{ { f } };
-		const auto _f = std::make_tuple(MapFunction<Fty>{ f });
-		return F_Step<steps_class, Ret, decltype(_f)>(*this, _f);
+		const auto tuple = std::make_tuple(MapFunction<Fty>{ f });
+		return F_Step<steps_class, Ret, decltype(tuple)>(*this, tuple);
 	}
 
 	template <class T, class N, class S>
-	inline auto steps_class<T, N, S, false>::filter(std::function<bool(const T&)> f) const
+	inline auto steps_class<T, N, S, false>::filter(std::function<bool(const value_type&)> f) const
 	{
 		using Fty = std::function<bool(const T&)>;
-		const auto _f = std::make_tuple(FilterFunction<Fty>{ f });
-		return F_Step<steps_class, T, decltype(_f)>(*this, _f);
+		const auto tuple = std::make_tuple(FilterFunction<Fty>{ f });
+		return F_Step<steps_class, value_type, decltype(tuple)>(*this, tuple);
 	}
 
     template <class T, class N, class S>
     template <class Fty>
     inline auto steps_class<T, N, S, false>::map(Fty f) const
 	{
-		using Ret = decltype(std::declval<Fty>()(std::declval<T>()));
-		const auto _f = std::make_tuple(MapFunction<Fty>{ f });
-		return F_Step<steps_class, Ret, decltype(_f)>(*this, _f);
+		using Ret = decltype(std::declval<Fty>()(std::declval<value_type()));
+		const auto tuple = std::make_tuple(MapFunction<Fty>{ f });
+		return F_Step<steps_class, Ret, decltype(tuple)>(*this, tuple);
 	}
 }
