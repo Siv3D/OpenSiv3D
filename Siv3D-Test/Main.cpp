@@ -10,7 +10,6 @@ void Main()
 	
 	Log(IsInfinity(Infinity<double>()));
 
-
 	Log(IsInfinity(0));
 }
 

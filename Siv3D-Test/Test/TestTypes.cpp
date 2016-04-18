@@ -14,15 +14,27 @@
 
 TEST(Types, size)
 {
-	ASSERT_EQ(sizeof(s3d::int8 ), 1);
-	ASSERT_EQ(sizeof(s3d::int16), 2);
-	ASSERT_EQ(sizeof(s3d::int32), 4);
-	ASSERT_EQ(sizeof(s3d::int64), 8);
+	using namespace s3d;
 
-	ASSERT_EQ(sizeof(s3d::uint8 ), 1);
-	ASSERT_EQ(sizeof(s3d::uint16), 2);
-	ASSERT_EQ(sizeof(s3d::uint32), 4);
-	ASSERT_EQ(sizeof(s3d::uint64), 8);
+	ASSERT_EQ(sizeof(int8 ), 1);
+	ASSERT_EQ(sizeof(int16), 2);
+	ASSERT_EQ(sizeof(int32), 4);
+	ASSERT_EQ(sizeof(int64), 8);
 
-	ASSERT_EQ(sizeof(s3d::wchar), sizeof(wchar_t));
+	ASSERT_EQ(sizeof(uint8 ), 1);
+	ASSERT_EQ(sizeof(uint16), 2);
+	ASSERT_EQ(sizeof(uint32), 4);
+	ASSERT_EQ(sizeof(uint64), 8);
+
+	ASSERT_EQ(sizeof(wchar), sizeof(wchar_t));
+
+	# if   defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64)
+		ASSERT_EQ(sizeof(size_t), 8);
+	# elif defined(SIV3D_TARGET_WINDOWS_DESKTOP_X86)
+		ASSERT_EQ(sizeof(size_t), 4);
+	# elif defined(SIV3D_TARGET_OSX)
+		ASSERT_EQ(sizeof(size_t), 8);
+	# else
+	# error	
+	# endif
 }
