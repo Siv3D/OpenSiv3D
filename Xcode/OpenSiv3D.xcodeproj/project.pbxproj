@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2CA7F75A1CA7F43D00495647 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2CA7F8091CA7F5A700495647 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
+		2CBB0C261CC4C3A300A7BA9B /* Logger.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CBB0C251CC4C3A300A7BA9B /* Logger.hpp */; };
+		2CBB0C291CC4C3C800A7BA9B /* SivLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBB0C281CC4C3C800A7BA9B /* SivLogger.cpp */; };
 		2CC2B0BE1CB5552200BB42D0 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC2B0521CB5552200BB42D0 /* format.h */; };
 		2CC2B0BF1CB5552200BB42D0 /* gtest-death-test.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC2B0551CB5552200BB42D0 /* gtest-death-test.h */; };
 		2CC2B0C01CB5552200BB42D0 /* gtest-message.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC2B0561CB5552200BB42D0 /* gtest-message.h */; };
@@ -98,7 +100,6 @@
 		2CC2B1251CB5554500BB42D0 /* TestTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B11B1CB5554500BB42D0 /* TestTypes.cpp */; };
 		2CD3585F1CB7A34100BB16A0 /* Functor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CD3585E1CB7A34100BB16A0 /* Functor.hpp */; };
 		2CD358611CB8018B00BB16A0 /* ProfilerUtility.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CD358601CB8018B00BB16A0 /* ProfilerUtility.hpp */; };
-		2CD358631CB801E800BB16A0 /* Logger.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CD358621CB801E800BB16A0 /* Logger.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -117,6 +118,8 @@
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F7461CA7F40600495647 /* Siv3D-Test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Siv3D-Test"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
+		2CBB0C251CC4C3A300A7BA9B /* Logger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Logger.hpp; sourceTree = "<group>"; };
+		2CBB0C281CC4C3C800A7BA9B /* SivLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivLogger.cpp; sourceTree = "<group>"; };
 		2CC2B0521CB5552200BB42D0 /* format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
 		2CC2B0531CB5552200BB42D0 /* LICENSE.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.rst; sourceTree = "<group>"; };
 		2CC2B0551CB5552200BB42D0 /* gtest-death-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-death-test.h"; sourceTree = "<group>"; };
@@ -212,7 +215,6 @@
 		2CC2B11B1CB5554500BB42D0 /* TestTypes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestTypes.cpp; sourceTree = "<group>"; };
 		2CD3585E1CB7A34100BB16A0 /* Functor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Functor.hpp; sourceTree = "<group>"; };
 		2CD358601CB8018B00BB16A0 /* ProfilerUtility.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ProfilerUtility.hpp; sourceTree = "<group>"; };
-		2CD358621CB801E800BB16A0 /* Logger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Logger.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -272,6 +274,14 @@
 			);
 			name = Siv3D;
 			path = ../Siv3D;
+			sourceTree = "<group>";
+		};
+		2CBB0C271CC4C3C800A7BA9B /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				2CBB0C281CC4C3C800A7BA9B /* SivLogger.cpp */,
+			);
+			path = Logger;
 			sourceTree = "<group>";
 		};
 		2CC2B0501CB5552200BB42D0 /* Include */ = {
@@ -344,7 +354,7 @@
 		2CC2B06F1CB5552200BB42D0 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
-				2CD358621CB801E800BB16A0 /* Logger.hpp */,
+				2CBB0C251CC4C3A300A7BA9B /* Logger.hpp */,
 				2CD358601CB8018B00BB16A0 /* ProfilerUtility.hpp */,
 				2CD3585E1CB7A34100BB16A0 /* Functor.hpp */,
 				2CC2B0701CB5552200BB42D0 /* _TEMPLATE.hpp */,
@@ -416,6 +426,7 @@
 		2CC2B09B1CB5552200BB42D0 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2CBB0C271CC4C3C800A7BA9B /* Logger */,
 				2CC2B09C1CB5552200BB42D0 /* BigInt */,
 				2CC2B09E1CB5552200BB42D0 /* FormatFloat */,
 				2CC2B0A01CB5552200BB42D0 /* FormatInt */,
@@ -546,6 +557,7 @@
 				2CC2B0CE1CB5552200BB42D0 /* gtest-internal.h in Headers */,
 				2CC2B1041CB5552300BB42D0 /* diy-fp.h in Headers */,
 				2CC2B1081CB5552300BB42D0 /* fast-dtoa.h in Headers */,
+				2CBB0C261CC4C3A300A7BA9B /* Logger.hpp in Headers */,
 				2CC2B0E91CB5552200BB42D0 /* String.hpp in Headers */,
 				2CC2B0E81CB5552200BB42D0 /* Step_MSVC.hpp in Headers */,
 				2CC2B0F01CB5552200BB42D0 /* Siv3D.hpp in Headers */,
@@ -557,7 +569,6 @@
 				2CC2B0E01CB5552200BB42D0 /* Grid.hpp in Headers */,
 				2CC2B0DA1CB5552200BB42D0 /* Format.hpp in Headers */,
 				2CC2B0CD1CB5552200BB42D0 /* gtest-filepath.h in Headers */,
-				2CD358631CB801E800BB16A0 /* Logger.hpp in Headers */,
 				2CC2B10A1CB5552300BB42D0 /* fixed-dtoa.h in Headers */,
 				2CC2B1001CB5552300BB42D0 /* bignum.h in Headers */,
 				2CC2B10E1CB5552300BB42D0 /* utils.h in Headers */,
@@ -668,6 +679,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CBB0C291CC4C3C800A7BA9B /* SivLogger.cpp in Sources */,
 				2CC2B1091CB5552300BB42D0 /* fixed-dtoa.cc in Sources */,
 				2CC2B0F71CB5552300BB42D0 /* SivFormatFloat.cpp in Sources */,
 				2CC2B0FD1CB5552300BB42D0 /* bignum-dtoa.cc in Sources */,
