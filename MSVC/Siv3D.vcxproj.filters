@@ -50,6 +50,9 @@
     <Filter Include="Include\cppformat">
       <UniqueIdentifier>{b5ca706f-04e8-44a1-a8da-0ef12bb96279}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Logger">
+      <UniqueIdentifier>{810a7cd0-c98a-4b1b-a723-da7463e7a8cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -235,6 +238,9 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Functor.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Logger.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\Siv3DMain_OSX.cpp">
@@ -281,6 +287,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\cppformat\format.cc">
       <Filter>Source\ThirdParty\cppformat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\SivLogger.cpp">
+      <Filter>Source\Siv3D\Logger</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

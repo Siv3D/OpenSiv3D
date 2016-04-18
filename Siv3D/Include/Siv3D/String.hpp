@@ -25,19 +25,19 @@ namespace s3d
 	public:
 
 		using string_type				= std::wstring;
-		using traits_type				= string_type::traits_type;
-		using allocator_type			= string_type::allocator_type;
-		using value_type				= string_type::value_type;
-		using size_type					= string_type::size_type;
-		using difference_type			= string_type::difference_type;
-		using pointer					= string_type::pointer;
-		using const_pointer				= string_type::const_pointer;
-		using reference					= string_type::reference;
-		using const_reference			= string_type::const_reference;
-		using iterator					= string_type::iterator;
-		using const_iterator			= string_type::const_iterator;
-		using reverse_iterator			= string_type::reverse_iterator;
-		using const_reverse_iterator	= string_type::const_reverse_iterator;
+		using traits_type				= typename string_type::traits_type;
+		using allocator_type			= typename string_type::allocator_type;
+		using value_type				= typename string_type::value_type;
+		using size_type					= typename string_type::size_type;
+		using difference_type			= typename string_type::difference_type;
+		using pointer					= typename string_type::pointer;
+		using const_pointer				= typename string_type::const_pointer;
+		using reference					= typename string_type::reference;
+		using const_reference			= typename string_type::const_reference;
+		using iterator					= typename string_type::iterator;
+		using const_iterator			= typename string_type::const_iterator;
+		using reverse_iterator			= typename string_type::reverse_iterator;
+		using const_reverse_iterator	= typename string_type::const_reverse_iterator;
 
 		/// <summary>
 		/// 特別な値。用途によって意味が異なります。
@@ -227,6 +227,13 @@ namespace s3d
 		/// *this
 		/// </returns>
 		String& operator = (std::initializer_list<value_type> ilist) { return assign(ilist); }
+
+		String& operator <<(const wchar ch)
+		{
+			push_back(ch);
+
+			return *this;
+		}
 
 		/// <summary>
 		/// 新しい文字列を代入します。

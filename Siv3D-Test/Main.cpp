@@ -7,6 +7,10 @@ using namespace s3d;
 void Main()
 {
 	RunTest();
+	
+	Log(IsInfinity(Infinity<double>()));
+
+	Log(IsInfinity(0));
 }
 
 

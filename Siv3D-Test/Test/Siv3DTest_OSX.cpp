@@ -12,7 +12,6 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_OSX)
 
-# include <codecvt>
 # include <Siv3D.hpp>
 # include <gtest/gtest.h>
 
@@ -26,11 +25,6 @@ namespace s3d
 
 		testing::InitGoogleTest(&nArgs, &pUnused);
 		(void)RUN_ALL_TESTS();
-	}
-    
-	void Log(const String& text)
-	{
-		std::cout << std::wstring_convert<std::codecvt_utf8<wchar_t>>().to_bytes(text.str()) << '\n';
 	}
 }
 

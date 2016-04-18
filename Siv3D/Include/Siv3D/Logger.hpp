@@ -10,9 +10,16 @@
 //-----------------------------------------------
 
 # pragma once
-# include <Siv3D.hpp>
+# include "Fwd.hpp"
+# include "Format.hpp"
 
 namespace s3d
 {
-	void RunTest();
+    void Log(const String& text);
+    
+    template <class... Args>
+    inline void Log(const Args&... args)
+    {
+        Log(Format(args...));
+    }
 }

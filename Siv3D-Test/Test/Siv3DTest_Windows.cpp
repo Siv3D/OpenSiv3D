@@ -58,11 +58,6 @@ namespace s3d
 
 		::FreeConsole();
 	}
-
-	void Log(const String& text)
-	{
-		::OutputDebugStringW((text + L"\n").c_str());
-	}
 }
 
 # endif
