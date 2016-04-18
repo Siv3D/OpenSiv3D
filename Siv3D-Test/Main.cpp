@@ -8,7 +8,10 @@ void Main()
 {
 	RunTest();
 	
-	Log(IsInfinity(Infinity<int>()));
+	Log(IsInfinity(Infinity<double>()));
+
+
+	Log(IsInfinity(0));
 }
 
 

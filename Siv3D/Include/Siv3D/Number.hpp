@@ -10,6 +10,8 @@
 //-----------------------------------------------
 
 # pragma once
+# include <type_traits>
+# include <limits>
 
 namespace s3d
 {
@@ -43,7 +45,7 @@ namespace s3d
 	/// <returns>
 	/// 正の無限大
 	/// </returns>
-	template <class Type>
+	template <class Type, std::enable_if_t<std::is_floating_point<Type>::value>* = nullptr>
 	inline constexpr Type Infinity()
 	{
 		return std::numeric_limits<Type>::infinity();
@@ -58,7 +60,7 @@ namespace s3d
     /// <returns>
     /// 数値が非数 (NaN) である場合 true, それ以外の場合は false
     /// </returns>
-    template <class Type>
+    template <class Type, std::enable_if_t<std::is_floating_point<Type>::value>* = nullptr>
     inline bool IsNaN(const Type value)
     {
         return std::isnan(value);
@@ -73,11 +75,17 @@ namespace s3d
     /// <returns>
     /// 数値が有限値である場合 true, それ以外の場合は false
     /// </returns>
-    template <class Type>
+    template <class Type, std::enable_if_t<std::is_floating_point<Type>::value>* = nullptr>
     inline bool IsFinite(const Type value)
     {
         return std::isfinite(value);
     }
+
+	template <class Type, std::enable_if_t<!std::is_floating_point<Type>::value>* = nullptr>
+	inline bool IsFinite(const Type)
+	{
+		return true;
+	}
     
     /// <summary>
     /// 数値が無限であるかを示します。
@@ -88,9 +96,15 @@ namespace s3d
     /// <returns>
     /// 数値が無限である場合 true, それ以外の場合は false
     /// </returns>
-    template <class Type>
+    template <class Type, std::enable_if_t<std::is_floating_point<Type>::value>* = nullptr>
     inline bool IsInfinity(const Type value)
     {
         return std::isinf(value);
     }
+
+	template <class Type, std::enable_if_t<!std::is_floating_point<Type>::value>* = nullptr>
+	inline bool IsInfinity(const Type)
+	{
+		return false;
+	}
 }
