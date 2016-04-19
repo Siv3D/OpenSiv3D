@@ -12,7 +12,12 @@
 # pragma once
 # include <string>
 # include <iostream>
+# include <functional>
+# include <algorithm>
 # include "Fwd.hpp"
+# include "Allocator.hpp"
+# include "Functor.hpp"
+# include "Utility.hpp"
 
 namespace s3d
 {
@@ -247,6 +252,7 @@ namespace s3d
 		String& assign(const String& str)
 		{
 			m_string.assign(str.m_string);
+
 			return *this;
 		}
 
@@ -262,6 +268,7 @@ namespace s3d
 		String& assign(const string_type& str)
 		{
 			m_string.assign(str);
+
 			return *this;
 		}
 
@@ -280,6 +287,7 @@ namespace s3d
 		String& assign(const wchar* str)
 		{
 			m_string.assign(str);
+
 			return *this;
 		}
 
@@ -298,6 +306,7 @@ namespace s3d
 		String& assign(size_t count, wchar ch)
 		{
 			m_string.assign(count, ch);
+
 			return *this;
 		}
 
@@ -313,6 +322,7 @@ namespace s3d
 		String& assign(String&& str) noexcept
 		{
 			m_string.assign(std::move(str.m_string));
+
 			return *this;
 		}
 
@@ -328,6 +338,7 @@ namespace s3d
 		String& assign(string_type&& str) noexcept
 		{
 			m_string.assign(std::move(str));
+
 			return *this;
 		}
 
@@ -343,6 +354,7 @@ namespace s3d
 		String& assign(std::initializer_list<value_type> ilist)
 		{
 			m_string.assign(ilist);
+
 			return *this;
 		}
 
@@ -362,6 +374,7 @@ namespace s3d
 		String& assign(Iterator first, Iterator last)
 		{
 			m_string.assign(first, last);
+
 			return *this;
 		}
 
@@ -435,6 +448,7 @@ namespace s3d
 		String& append(const String& str)
 		{
 			m_string.append(str.m_string);
+
 			return *this;
 		}
 
@@ -450,6 +464,7 @@ namespace s3d
 		String& append(const string_type& str)
 		{
 			m_string.append(str);
+
 			return *this;
 		}
 
@@ -468,6 +483,7 @@ namespace s3d
 		String& append(const wchar* str)
 		{
 			m_string.append(str);
+
 			return *this;
 		}
 
@@ -486,6 +502,7 @@ namespace s3d
 		String& append(const wchar* str, size_t count)
 		{
 			m_string.append(str, count);
+
 			return *this;
 		}
 
@@ -501,6 +518,7 @@ namespace s3d
 		String& append(std::initializer_list<value_type> ilist)
 		{
 			m_string.append(ilist);
+
 			return *this;
 		}
 
@@ -519,6 +537,7 @@ namespace s3d
 		String& append(size_t count, wchar ch)
 		{
 			m_string.append(count, ch);
+
 			return *this;
 		}
 
@@ -538,6 +557,7 @@ namespace s3d
 		String& append(Iterator first, Iterator last)
 		{
 			m_string.append(first, last);
+
 			return *this;
 		}
 
@@ -556,6 +576,7 @@ namespace s3d
 		String& insert(size_t offset, const String& str)
 		{
 			m_string.insert(offset, str.m_string);
+
 			return *this;
 		}
 
@@ -574,6 +595,7 @@ namespace s3d
 		String& insert(size_t offset, std::initializer_list<value_type> ilist)
 		{
 			m_string.insert(offset, ilist);
+
 			return *this;
 		}
 
@@ -595,6 +617,7 @@ namespace s3d
 		String& insert(size_t offset, const wchar* str)
 		{
 			m_string.insert(offset, str);
+
 			return *this;
 		}
 
@@ -616,6 +639,7 @@ namespace s3d
 		String& insert(size_t offset, size_t count, wchar ch)
 		{
 			m_string.insert(offset, count, ch);
+
 			return *this;
 		}
 
@@ -699,6 +723,7 @@ namespace s3d
 		String& insert(const_iterator first1, const_iterator last1, Iterator first2, Iterator last2)
 		{
 			m_string.insert(first1, last1, first2, last2);
+
 			return *this;
 		}
 
@@ -717,6 +742,7 @@ namespace s3d
 		String& erase(size_t offset = 0, size_t count = npos)
 		{
 			m_string.erase(offset, count);
+
 			return *this;
 		}
 
@@ -1014,6 +1040,14 @@ namespace s3d
 		/// 終端の L'\0' を含みません。
 		/// </remarks>
 		size_t length() const noexcept { return m_string.length(); }
+
+		/// <summary>
+		/// 文字列の長さを示します。
+		/// </summary>
+		/// <remarks>
+		/// 終端の L'\0' を含みません。
+		/// </remarks>
+		size_t size() const noexcept { return m_string.size(); }
 
 		/// <summary>
 		/// 空の文字列であるかを示します。
@@ -1498,6 +1532,770 @@ namespace s3d
 		{
 			return m_string >= str.m_string;
 		}
+
+
+
+
+
+
+
+
+
+		bool all(std::function<bool(wchar)> f = NotNot()) const
+		{
+			for (const auto& v : *this)
+			{
+				if (!f(v))
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		bool any(std::function<bool(wchar)> f = NotNot()) const
+		{
+			for (const auto& v : *this)
+			{
+				if (f(v))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		String& capitalize();
+
+		/// <summary>
+		/// 最初に登場する英字を大文字にした文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
+		String capitalized() const;
+
+		String& center(size_t length, wchar fillChar = L' ');
+
+		String centered(size_t length, wchar fillChar = L' ') const;
+
+		size_t count() const noexcept
+		{
+			return length();
+		}
+
+		/// <summary>
+		/// 指定した文字の個数を数えます。
+		/// </summary>
+		/// <param name="ch">
+		/// 検索する文字
+		/// </param>
+		/// <returns>
+		/// 見つかった文字の個数
+		/// </returns>
+		size_t count(wchar ch) const
+		{
+			return std::count(begin(), end(), ch);
+		}
+
+		/// <summary>
+		/// 指定した文字列の個数を数えます。
+		/// </summary>
+		/// <param name="str">
+		/// 検索する文字列
+		/// </param>
+		/// <remarks>
+		/// L"aaa" から L"aa" を検索する場合の結果は 2 です。
+		/// </remarks>
+		/// <returns>
+		/// 見つかった文字列の個数
+		/// </returns>
+		size_t count(const StringView& str) const;
+
+		/// <summary>
+		/// 条件に合う文字の個数を数えます。
+		/// </summary>
+		/// <param name="f">
+		/// 条件を記述した関数
+		/// </param>
+		/// <returns>
+		/// 見つかった文字の個数
+		/// </returns>
+		size_t count_if(std::function<bool(wchar)> f) const
+		{
+			size_t result = 0;
+
+			for (const auto& ch : *this)
+			{
+				if (f(ch))
+				{
+					++result;
+				}
+			}
+
+			return result;
+		}
+
+		String& drop(size_t n)
+		{
+			if (n >= size())
+			{
+				clear();
+			}
+			else
+			{
+				erase(begin(), begin() + n);
+			}
+
+			return *this;
+		}
+
+		String dropped(size_t n) const
+		{
+			if (n >= size())
+			{
+				return String();
+			}
+
+			return String(begin() + n, end());
+		}
+
+		String& drop_while(std::function<bool(wchar)> f)
+		{
+			erase(begin(), std::find_if_not(begin(), end(), f));
+
+			return *this;
+		}
+
+		String dropped_while(std::function<bool(wchar)> f) const
+		{
+			return String(std::find_if_not(begin(), end(), f), end());
+		}
+
+		String& each(std::function<void(wchar&)> f)
+		{
+			for (auto& v : *this)
+			{
+				f(v);
+			}
+
+			return *this;
+		}
+
+		const String& each(std::function<void(const wchar&)> f) const
+		{
+			for (const auto& v : *this)
+			{
+				f(v);
+			}
+
+			return *this;
+		}
+
+		String& each_index(std::function<void(size_t, wchar&)> f)
+		{
+			size_t i = 0;
+
+			for (auto& v : *this)
+			{
+				f(i++, v);
+			}
+
+			return *this;
+		}
+
+		const String& each_index(std::function<void(size_t, const wchar&)> f) const
+		{
+			size_t i = 0;
+
+			for (const auto& v : *this)
+			{
+				f(i++, v);
+			}
+
+			return *this;
+		}
+
+		/// <summary>
+		/// 指定した文字で終わるかを調べます。
+		/// </summary>
+		/// <param name="ch">
+		/// 検索する文字
+		/// </param>
+		/// <returns>
+		/// 指定した文字で終わる場合 true, それ以外の場合は false
+		/// </returns>
+		bool ends_with(wchar ch) const
+		{
+			return !isEmpty() && back() == ch;
+		}
+
+		/// <summary>
+		/// 指定した文字列で終わるかを調べます。
+		/// </summary>
+		/// <param name="str">
+		/// 検索する文字列
+		/// </param>
+		/// <returns>
+		/// 指定した文字列で終わる場合 true, それ以外の場合は false
+		/// </returns>
+		bool ends_with(const StringView& str) const;
+
+		/// <summary>
+		/// タブ文字を半角空白に置換した文字列を返します。
+		/// </summary>
+		/// <param name="tabSize">
+		/// タブ置換後の半角空白の数
+		/// </param>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
+		String expand_tabs(size_t tabSize = 4) const;
+
+		const wchar& fetch(size_t index, const wchar& defaultValue) const
+		{
+			if (index >= size())
+			{
+				return defaultValue;
+			}
+
+			return operator[](index);
+		}
+
+		String& fill(wchar value)
+		{
+			std::fill(begin(), end(), value);
+
+			return *this;
+		}
+
+		String filter(std::function<bool(wchar)> f) const
+		{
+			String new_array;
+
+			for (const auto& v : *this)
+			{
+				if (f(v))
+				{
+					new_array.push_back(v);
+				}
+			}
+
+			return new_array;
+		}
+
+		/// <summary>
+		/// 指定した文字が含まれているかを調べます。
+		/// </summary>
+		/// <param name="ch">
+		/// 検索する文字
+		/// </param>
+		/// <returns>
+		/// 検索した文字が見つかった場合 true, それ以外の場合は false
+		/// </returns>
+		bool includes(wchar ch) const
+		{
+			return indexOf(ch) != String::npos;
+		}
+
+		/// <summary>
+		/// 指定した文字列が含まれているかを調べます。
+		/// </summary>
+		/// <param name="str">
+		/// 検索する文字列
+		/// </param>
+		/// <remarks>
+		/// str は NULL 終端されている必要があります。
+		/// </remarks>
+		/// <returns>
+		/// 検索した文字列が見つかった場合 true, それ以外の場合は false
+		/// </returns>
+		bool includes(const wchar* str) const
+		{
+			return indexOf(str) != String::npos;
+		}
+
+		/// <summary>
+		/// 指定した文字列が含まれているかを調べます。
+		/// </summary>
+		/// <param name="str">
+		/// 検索する文字列
+		/// </param>
+		/// <returns>
+		/// 検索した文字列が見つかった場合 true, それ以外の場合は false
+		/// </returns>
+		bool includes(const String& str) const
+		{
+			return indexOf(str) != String::npos;
+		}
+
+		/// <summary>
+		/// 指定した条件に合う文字が含まれているかを調べます。
+		/// </summary>
+		/// <param name="f">
+		/// 条件を記述した関数
+		/// </param>
+		/// <returns>
+		/// 検索した文字が見つかった場合 true, それ以外の場合は false
+		/// </returns>
+		bool includes_if(std::function<bool(wchar)> f) const
+		{
+			return any(f);
+		}
+
+		String& keep_if(std::function<bool(wchar)> f)
+		{
+			erase(std::remove_if(begin(), end(), std::not1(f)), end());
+
+			return *this;
+		}
+
+		/// <summary>
+		/// 指定した 1 行の文字数で改行するようにした文字列を返します。
+		/// </summary>
+		/// <param name="width">
+		/// 1 行の文字数
+		/// </param>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
+		String layout(size_t width) const;
+
+		String& lowercase() const;
+
+		/// <summary>
+		/// 英字をすべて小文字にした文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
+		String lowercased() const;
+		
+		String& lpad(size_t length, wchar fillChar = L' ');
+
+		String lpadded(size_t length, wchar fillChar = L' ') const;
+
+		String& ltrim();
+
+		String ltrimmed() const;
+
+		template <class Fty>
+		auto map(Fty f) const
+		{
+			Array<decltype(std::declval<Fty>()(std::declval<Type>()))> new_array;
+
+			new_array.reserve(size());
+
+			for (const auto& v : *this)
+			{
+				new_array.push_back(f(v));
+			}
+
+			return new_array;
+		}
+
+		/// <summary>
+		/// マルチバイト文字列に変換します。
+		/// </summary>
+		/// <returns>
+		/// 変換されたマルチバイト文字列
+		/// </returns>
+		std::string narrow() const;
+
+		bool none(std::function<bool(wchar)> f = NotNot()) const
+		{
+			for (const auto& v : *this)
+			{
+				if (f(v))
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		String& remove(wchar ch);
+
+		/// <summary>
+		/// 指定した文字を除去した文字列を返します。
+		/// </summary>
+		/// <param name="ch">
+		/// 除去対象の文字
+		/// </param>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
+		String removed(wchar ch) const;
+
+		String& remove(const StringView& str);
+
+		/// <summary>
+		/// 指定した文字列を除去した文字列を返します。
+		/// </summary>
+		/// <param name="str">
+		/// 除去対象の文字列
+		/// </param>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
+		String removed(const StringView& str) const;
+
+		String& remove_at(size_t index);
+
+		String removed_at(size_t index) const;
+
+		String& remove_if(std::function<bool(wchar)> function);
+
+		/// <summary>
+		/// 条件に合う文字を除去した文字列を返します。
+		/// </summary>
+		/// <param name="function">
+		/// 条件を記述した関数
+		/// </param>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
+		String removed_if(std::function<bool(wchar)> function) const;
+
+		String& replace(wchar oldChar, wchar newChar);
+
+		String& replace(const String& oldStr, const String& newStr);
+
+		/// <summary>
+		/// 指定した文字を置換した文字列を返します。
+		/// </summary>
+		/// <param name="oldChar">
+		/// 置換対象の文字
+		/// </param>
+		/// <param name="newChar">
+		/// 置換後の文字
+		/// </param>
+		/// <returns>
+		/// 置換後の文字列
+		/// </returns>
+		String replaced(wchar oldChar, wchar newChar) const;
+
+		/// <summary>
+		/// 指定した文字列を置換した文字列を返します。
+		/// </summary>
+		/// <param name="oldStr">
+		/// 置換対象の文字列
+		/// </param>
+		/// <param name="newStr">
+		/// 置換後の文字列
+		/// </param>
+		/// <returns>
+		/// 置換後の文字列
+		/// </returns>
+		String replaced(const String& oldStr, const String& newStr) const;
+
+		String& replace_if(std::function<bool(wchar)> f, wchar newChar);
+
+		String replaced_if(std::function<bool(wchar)> f, wchar newChar) const;
+
+		String& reverse();
+
+		/// <summary>
+		/// 反転した文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
+		String reversed() const
+		{
+			return String(rbegin(), rend());
+		}
+
+		String& reverse_each(std::function<void(wchar&)> f)
+		{
+			for (auto it = rbegin(); it != rend(); ++it)
+			{
+				f(*it);
+			}
+
+			return *this;
+		}
+
+		const String& reverse_each(std::function<void(const wchar&)> f) const
+		{
+			for (auto it = rbegin(); it != rend(); ++it)
+			{
+				f(*it);
+			}
+
+			return *this;
+		}
+
+		String& rotate(std::ptrdiff_t count = 1)
+		{
+			if (isEmpty())
+			{
+				;
+			}
+			else if (count > 0) // rotation to the left
+			{
+				if (static_cast<size_t>(count) > size())
+				{
+					count %= size();
+				}
+
+				std::rotate(begin(), begin() + count, end());
+			}
+			else if (count < 0) // rotation to the right
+			{
+				count = -count;
+
+				if (static_cast<size_t>(count) > size())
+				{
+					count %= size();
+				}
+
+				std::rotate(rbegin(), rbegin() + count, rend());
+			}
+
+			return *this;
+		}
+
+		String rotated(std::ptrdiff_t count = 1) const &
+		{
+			return String(*this).rotate(count);
+		}
+
+		String rotated(std::ptrdiff_t count = 1) &&
+		{
+			rotate(count);
+
+			return std::move(*this);
+		}
+
+		String& rpad(size_t length, wchar fillChar = L' ');
+
+		String rpadded(size_t length, wchar fillChar = L' ') const;
+
+		String& rtrim();
+
+		String rtrimmed() const;
+
+		String& shuffle()
+		{
+			return shuffle(GetDefaultRNG());
+		}
+
+		template <class URNG>
+		String& shuffle(URNG&& rng)
+		{
+			std::shuffle(begin(), end(), rng);
+
+			return *this;
+		}
+
+		String shuffled() const &
+		{
+			return shuffled(GetDefaultRNG());
+		}
+
+		String shuffled() &&
+		{
+			return shuffled(GetDefaultRNG());
+		}
+
+		template <class URNG>
+		String shuffled(URNG&& rng) const &
+		{
+			return String(*this).shuffle(rng);
+		}
+
+		template <class URNG>
+		String shuffled(URNG&& rng) &&
+		{
+			std::shuffle(begin(), end(), rng);
+
+			return std::move(*this);
+		}
+
+		/// <summary>
+		/// 指定した区切り文字で文字列を分割します。
+		/// </summary>
+		/// <param name="ch">
+		/// 区切り文字
+		/// </param>
+		/// <returns>
+		/// 分割された文字列
+		/// </returns>
+		Array<String, std::allocator<String>> split(wchar ch) const;
+
+		Array<String, std::allocator<String>> splitlines() const;
+
+		/// <summary>
+		/// 指定した文字から始まるかを調べます。
+		/// </summary>
+		/// <param name="ch">
+		/// 検索する文字
+		/// </param>
+		/// <returns>
+		/// 指定した文字から始まる場合 true, それ以外の場合は false
+		/// </returns>
+		bool starts_with(wchar ch) const
+		{
+			return !isEmpty() && front() == ch;
+		}
+
+		/// <summary>
+		/// 指定した文字列から始まるかを調べます。
+		/// </summary>
+		/// <param name="str">
+		/// 検索する文字列
+		/// </param>
+		/// <returns>
+		/// 指定した文字列から始まる場合 true, それ以外の場合は false
+		/// </returns>
+		bool starts_with(const StringView& str) const;
+
+		String& swapcase();
+
+		/// <summary>
+		/// 英字の大文字と小文字を入れ替えた文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
+		String swapcased() const;
+
+		String& trim();
+
+		String trimmed() const;
+
+		String& uppercase();
+
+		/// <summary>
+		/// 英字をすべて大文字にした文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
+		String uppercased() const;
+
+		String& sort()
+		{
+			std::sort(begin(), end());
+
+			return *this;
+		}
+
+		String& sort_by(std::function<bool(const wchar& a, const wchar& b)> f)
+		{
+			std::sort(begin(), end(), f);
+
+			return *this;
+		}
+
+		String sorted() const &
+		{
+			return String(*this).sort();
+		}
+
+		String sorted() &&
+		{
+			std::sort(begin(), end());
+
+			return std::move(*this);
+		}
+
+		String sorted_by(std::function<bool(const wchar& a, const wchar& b)> f) const &
+		{
+			return String(*this).sort_by(f);
+		}
+
+		String sorted_by(std::function<bool(const wchar& a, const wchar& b)> f) &&
+		{
+			std::sort(begin(), end(), f);
+
+			return std::move(*this);
+		}
+
+		String& take(size_t n)
+		{
+			erase(begin() + std::min(n, size()), end());
+
+			return *this;
+		}
+
+		String taken(size_t n) const
+		{
+			return String(begin(), begin() + std::min(n, size()));
+		}
+
+		String& take_while(std::function<bool(const wchar&)> f)
+		{
+			erase(std::find_if_not(begin(), end(), f), end());
+
+			return *this;
+		}
+
+		String taken_while(std::function<bool(const wchar&)> f) const
+		{
+			return String(begin(), std::find_if_not(begin(), end(), f));
+		}
+
+		String& unique()
+		{
+			sort();
+
+			erase(std::unique(begin(), end()), end());
+
+			return *this;
+		}
+
+		String uniqued() const &
+		{
+			return String(*this).unique();
+		}
+
+		String uniqued() &&
+		{
+			sort();
+
+			erase(std::unique(begin(), end()), end());
+
+			shrink_to_fit();
+
+			return std::move(*this);
+		}
+
+		String values_at(std::initializer_list<size_t> indices) const
+		{
+			String new_array;
+
+			new_array.reserve(indices.size());
+
+			for (auto index : indices)
+			{
+				if (index >= size())
+				{
+					throw std::out_of_range("String::values_at() index out of range");
+				}
+
+				new_array.push_back(operator[](index));
+			}
+
+			return new_array;
+		}
+
+		String& xml_escape();
+
+		/// <summary>
+		/// XML エスケープした文字列を返します。
+		/// </summary>
+		/// <remarks>
+		/// &quot;, \, &amp;, &gt;, &lt; をエスケープ文字に置換します
+		/// </remarks>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
+		String xml_escaped() const;
 	};
 
 	/// <summary>

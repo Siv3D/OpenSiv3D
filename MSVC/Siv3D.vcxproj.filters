@@ -53,6 +53,9 @@
     <Filter Include="Source\Siv3D\Logger">
       <UniqueIdentifier>{810a7cd0-c98a-4b1b-a723-da7463e7a8cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\String">
+      <UniqueIdentifier>{5f6266ca-1d86-4074-8dfa-a34b755e6005}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -290,6 +293,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\SivLogger.cpp">
       <Filter>Source\Siv3D\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\String\SivString.cpp">
+      <Filter>Source\Siv3D\String</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -507,6 +507,100 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		Array& replace(const Type& oldValue, const Type& newValue)
+		{
+			for (auto& v : *this)
+			{
+				if (v == oldValue)
+				{
+					v = newValue;
+				}
+			}
+
+			return *this;
+		}
+
+		Array replaced(const Type& oldValue, const Type& newValue) const &
+		{
+			Array new_array;
+
+			new_array.reserve(size());
+
+			for (const auto& v : *this)
+			{
+				if (v == oldValue)
+				{
+					new_array.push_back(newValue);
+				}
+				else
+				{
+					new_array.push_back(v);
+				}
+			}
+
+			return new_array;
+		}
+
+		Array replaced(const Type& oldValue, const Type& newValue) &&
+		{
+			for (auto& v : *this)
+			{
+				if (v == oldValue)
+				{
+					v = newValue;
+				}
+			}
+
+			return std::move(*this);
+		}
+
+		Array& replace_if(std::function<bool(const Type&)> f, const Type& newValue)
+		{
+			for (auto& v : *this)
+			{
+				if (f(v))
+				{
+					v = newValue;
+				}
+			}
+
+			return *this;
+		}
+
+		Array replaced_if(std::function<bool(const Type&)> f, const Type& newValue) const &
+		{
+			Array new_array;
+
+			new_array.reserve(size());
+
+			for (const auto& v : *this)
+			{
+				if (f(v))
+				{
+					new_array.push_back(newValue);		
+				}
+				else
+				{
+					new_array.push_back(v);
+				}
+			}
+
+			return new_array;
+		}
+
+		Array replaced_if(std::function<bool(const Type&)> f, const Type& newValue) &&
+		{
+			for (auto& v : *this)
+			{
+				if (f(v))
+				{
+					v = newValue;
+				}
+			}
+
+			return std::move(*this);
+		}
+
 		Array& reverse()
 		{
 			std::reverse(begin(), end());
@@ -1210,6 +1304,100 @@ namespace s3d
 			}
 
 			return value;
+		}
+
+		Array& replace(const bool& oldValue, const bool& newValue)
+		{
+			for (auto& v : *this)
+			{
+				if (v == oldValue)
+				{
+					v = newValue;
+				}
+			}
+
+			return *this;
+		}
+
+		Array replaced(const bool& oldValue, const bool& newValue) const &
+		{
+			Array new_array;
+
+			new_array.reserve(size());
+
+			for (const auto& v : *this)
+			{
+				if (v == oldValue)
+				{
+					new_array.push_back(newValue);
+				}
+				else
+				{
+					new_array.push_back(v);
+				}
+			}
+
+			return new_array;
+		}
+
+		Array replaced(const bool& oldValue, const bool& newValue) &&
+		{
+			for (auto& v : *this)
+			{
+				if (v == oldValue)
+				{
+					v = newValue;
+				}
+			}
+
+			return std::move(*this);
+		}
+
+		Array& replace_if(std::function<bool(const bool&)> f, const bool& newValue)
+		{
+			for (auto& v : *this)
+			{
+				if (f(v))
+				{
+					v = newValue;
+				}
+			}
+
+			return *this;
+		}
+
+		Array replaced_if(std::function<bool(const bool&)> f, const bool& newValue) const &
+		{
+			Array new_array;
+
+			new_array.reserve(size());
+
+			for (const auto& v : *this)
+			{
+				if (f(v))
+				{
+					new_array.push_back(newValue);
+				}
+				else
+				{
+					new_array.push_back(v);
+				}
+			}
+
+			return new_array;
+		}
+
+		Array replaced_if(std::function<bool(const bool&)> f, const bool& newValue) &&
+		{
+			for (auto& v : *this)
+			{
+				if (f(v))
+				{
+					v = newValue;
+				}
+			}
+
+			return std::move(*this);
 		}
 
 		Array& remove(const bool& value)
