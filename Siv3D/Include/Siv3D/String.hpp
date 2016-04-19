@@ -1936,7 +1936,9 @@ namespace s3d
 		template <class Fty>
 		auto map(Fty f) const
 		{
-			Array<decltype(std::declval<Fty>()(std::declval<Type>()))> new_array;
+            using ValueType = decltype(std::declval<Fty>()(std::declval<wchar>()));
+            
+            Array<ValueType, typename DefaultAllocator<ValueType>::type> new_array;
 
 			new_array.reserve(size());
 
