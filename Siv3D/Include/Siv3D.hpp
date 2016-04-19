@@ -64,7 +64,7 @@
 // 文字列と数値
 //
 	// 文字
-	//# include "Siv3D/Char.hpp"
+	# include "Siv3D/Char.hpp"
 	// 文字列
 	# include "Siv3D/String.hpp"
 	// 文字列ビュー

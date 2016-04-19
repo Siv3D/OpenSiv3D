@@ -15,7 +15,7 @@
 # include <functional>
 # include <algorithm>
 # include "Fwd.hpp"
-# include "Allocator.hpp"
+# include "Char.hpp"
 # include "Functor.hpp"
 # include "Utility.hpp"
 
@@ -1430,6 +1430,58 @@ namespace s3d
 		int32 compare(const String& str) const noexcept
 		{
 			return m_string.compare(str.m_string);
+		}
+
+		int32 case_compare(const String& str) const noexcept
+		{
+			auto first1 = begin(), last1 = end();
+			auto first2 = str.begin(), last2 = str.end();
+
+			for (; (first1 != last1) && (first2 != last2); ++first1, ++first2)
+			{
+				const int32 c = CaseCompare(*first1, *first2);
+
+				if (c != 0)
+				{
+					return c;
+				}
+			}
+
+			if ((first1 == last1) && (first2 != last2))
+			{
+				return -1;
+			}
+			else if ((first1 != last1) && (first2 == last2))
+			{
+				return 1;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+
+		bool case_equals(const String& str) const noexcept
+		{
+			if (length() != str.length())
+			{
+				return false;
+			}
+
+			auto first1 = begin(), last1 = end();
+			auto first2 = str.begin(), last2 = str.end();
+
+			for (; (first1 != last1) && (first2 != last2); ++first1, ++first2)
+			{
+				const int32 c = CaseCompare(*first1, *first2);
+
+				if (c != 0)
+				{
+					return false;
+				}
+			}
+
+			return true;
 		}
 
 		/// <summary>
