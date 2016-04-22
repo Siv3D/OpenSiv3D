@@ -68,7 +68,7 @@
 	// 文字列
 	# include "Siv3D/String.hpp"
 	// 文字列ビュー
-	//# include "Siv3D/StringView.hpp"
+	# include "Siv3D/StringView.hpp"
 	// 文字コード変換
 	//# include "Siv3D/CharacterSet.hpp"
 	// 基数

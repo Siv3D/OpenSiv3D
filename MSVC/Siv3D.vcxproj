@@ -66,6 +66,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Radix.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Step_MSVC.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\String.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\StringView.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Time.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Types.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Uncopyable.hpp" />

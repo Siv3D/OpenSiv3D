@@ -37,3 +37,9 @@
 # else
 	# error	
 # endif
+
+# if defined(SIV3D_TARGET_WINDOWS)
+	# define S3D_CONSTEXPR_CPP14			
+# else
+	# define S3D_CONSTEXPR_CPP14			constexpr
+# endif
