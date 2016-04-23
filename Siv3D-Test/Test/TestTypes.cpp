@@ -28,11 +28,11 @@ TEST(Types, size)
 
 	ASSERT_EQ(sizeof(wchar), sizeof(wchar_t));
 
-	# if   defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64)
+	# if   defined (SIV3D_TARGET_WINDOWS_DESKTOP_X64)
 		ASSERT_EQ(sizeof(size_t), 8);
-	# elif defined(SIV3D_TARGET_WINDOWS_DESKTOP_X86)
+	# elif defined (SIV3D_TARGET_WINDOWS_DESKTOP_X86)
 		ASSERT_EQ(sizeof(size_t), 4);
-	# elif defined(SIV3D_TARGET_OSX)
+	# elif defined (SIV3D_TARGET_OSX)
 		ASSERT_EQ(sizeof(size_t), 8);
 	# else
 	# error	

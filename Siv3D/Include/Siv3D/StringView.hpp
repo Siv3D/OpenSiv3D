@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <cassert>
 # include "Fwd.hpp"
 # include "String.hpp"
 

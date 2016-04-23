@@ -2488,3 +2488,5 @@ namespace std
 		}
 	};
 }
+
+# include "StringView.hpp"
