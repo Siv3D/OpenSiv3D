@@ -64,17 +64,11 @@ namespace s3d
 			: m_ptr(str)
 			, m_length(length) {}
 
-		template <size_t N>
-		constexpr StringView(const value_type(&arr)[N]) noexcept
-			: m_ptr(&arr[0])
-			, m_length((arr[N-1] == L'\0') ? N-1 : N) {}
+        StringView(const value_type* str)
+            : m_ptr(str)
+            , m_length(traits_type::length(str)) {}
 
-		template <class ConstCharPtr, std::enable_if_t<std::is_same<ConstCharPtr, const_pointer>::value>* = nullptr>
-		StringView(ConstCharPtr str)
-			: m_ptr(str)
-			, m_length(traits_type::length(str)) {}
-
-		constexpr StringView(std::nullptr_t) noexcept {}
+        constexpr StringView(std::nullptr_t) noexcept {}
 
 		constexpr StringView(std::nullptr_t, size_type) noexcept {}
 
@@ -142,10 +136,15 @@ namespace s3d
 			m_length -= n;
 		}
 
-		void swap(StringView& other) noexcept
+		S3D_CONSTEXPR_CPP14 void swap(StringView& other) noexcept
 		{
-             std::swap(m_ptr, other.m_ptr);
-			 std::swap(m_length, other.m_length);
+            const value_type* ptr = m_ptr;
+            m_ptr = other.m_ptr;
+            other.m_ptr = ptr;
+            
+            const size_type length = m_length;
+            m_length = other.m_length;
+            other.m_length = length;
 		}
 
 		template <class Allocator>
@@ -183,7 +182,7 @@ namespace s3d
 				: StringView(data() + pos, std::min(n, size() - pos));
 		}
 
-		S3D_CONSTEXPR_CPP14 int32 compare(StringView sv) const noexcept
+        int32 compare(StringView sv) const noexcept
 		{
 			int32 result = traits_type::compare(data(), sv.data(), std::min(size(), sv.size()));
 			
@@ -195,27 +194,27 @@ namespace s3d
 			return result;
 		}
 
-		S3D_CONSTEXPR_CPP14 int32 compare(size_type pos1, size_type n1, StringView sv) const
+        int32 compare(size_type pos1, size_type n1, StringView sv) const
 		{
 			return substr(pos1, n1).compare(sv);
 		}
 
-		S3D_CONSTEXPR_CPP14 int32 compare(size_type pos1, size_type n1,	StringView sv, size_type pos2, size_type n2) const
+        int32 compare(size_type pos1, size_type n1,	StringView sv, size_type pos2, size_type n2) const
 		{
 			return substr(pos1, n1).compare(sv.substr(pos2, n2));
 		}
 
-		S3D_CONSTEXPR_CPP14 int32 compare(const value_type* str) const
+        int32 compare(const value_type* str) const
 		{
 			return compare(StringView(str));
 		}
 
-		S3D_CONSTEXPR_CPP14 int32 compare(size_type pos1, size_type n1, const value_type* str) const
+        int32 compare(size_type pos1, size_type n1, const value_type* str) const
 		{
 			return substr(pos1, n1).compare(StringView(str));
 		}
 
-		S3D_CONSTEXPR_CPP14 int32 compare(size_type pos1, size_type n1, const value_type* str, size_type n2) const
+        int32 compare(size_type pos1, size_type n1, const value_type* str, size_type n2) const
 		{
 			return substr(pos1, n1).compare(StringView(str, n2));
 		}

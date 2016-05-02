@@ -194,7 +194,7 @@ namespace s3d
 		
 		# elif defined (SIV3D_TARGET_OSX)
 
-			if (const auto length = CountCodePoints(str.c_str()))
+			if (const auto length = detail::CountCodePoints(str.c_str()))
 			{
 				String result(length.value(), L'\0');				
 				uint32 codepoint;
@@ -209,6 +209,8 @@ namespace s3d
 						*(dst++) = static_cast<wchar>(codepoint);
 					}
 				}
+                
+                return result;
 			}
 			else
 			{

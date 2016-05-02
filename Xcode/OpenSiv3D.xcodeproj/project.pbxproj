@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		2CA7F75A1CA7F43D00495647 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2CA7F8091CA7F5A700495647 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
+		2CB1EFD11CD7153B004DA6E3 /* CharacterSet.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB1EFCF1CD7153B004DA6E3 /* CharacterSet.hpp */; };
+		2CB1EFD21CD7153B004DA6E3 /* StringView.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB1EFD01CD7153B004DA6E3 /* StringView.hpp */; };
+		2CB1EFD51CD7156C004DA6E3 /* SivCharacterSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB1EFD41CD7156C004DA6E3 /* SivCharacterSet.cpp */; };
 		2CBB0C261CC4C3A300A7BA9B /* Logger.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CBB0C251CC4C3A300A7BA9B /* Logger.hpp */; };
 		2CBB0C291CC4C3C800A7BA9B /* SivLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBB0C281CC4C3C800A7BA9B /* SivLogger.cpp */; };
 		2CBB0C2C1CC5FCB400A7BA9B /* SivString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBB0C2B1CC5FCB400A7BA9B /* SivString.cpp */; };
@@ -120,6 +123,9 @@
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F7461CA7F40600495647 /* Siv3D-Test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Siv3D-Test"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
+		2CB1EFCF1CD7153B004DA6E3 /* CharacterSet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CharacterSet.hpp; sourceTree = "<group>"; };
+		2CB1EFD01CD7153B004DA6E3 /* StringView.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StringView.hpp; sourceTree = "<group>"; };
+		2CB1EFD41CD7156C004DA6E3 /* SivCharacterSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCharacterSet.cpp; sourceTree = "<group>"; };
 		2CBB0C251CC4C3A300A7BA9B /* Logger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Logger.hpp; sourceTree = "<group>"; };
 		2CBB0C281CC4C3C800A7BA9B /* SivLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivLogger.cpp; sourceTree = "<group>"; };
 		2CBB0C2B1CC5FCB400A7BA9B /* SivString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivString.cpp; sourceTree = "<group>"; };
@@ -280,6 +286,14 @@
 			path = ../Siv3D;
 			sourceTree = "<group>";
 		};
+		2CB1EFD31CD7156C004DA6E3 /* CharacterSet */ = {
+			isa = PBXGroup;
+			children = (
+				2CB1EFD41CD7156C004DA6E3 /* SivCharacterSet.cpp */,
+			);
+			path = CharacterSet;
+			sourceTree = "<group>";
+		};
 		2CBB0C271CC4C3C800A7BA9B /* Logger */ = {
 			isa = PBXGroup;
 			children = (
@@ -366,30 +380,32 @@
 		2CC2B06F1CB5552200BB42D0 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
-				2CBB0C2D1CC5FCCF00A7BA9B /* Char.hpp */,
-				2CBB0C251CC4C3A300A7BA9B /* Logger.hpp */,
-				2CD358601CB8018B00BB16A0 /* ProfilerUtility.hpp */,
-				2CD3585E1CB7A34100BB16A0 /* Functor.hpp */,
 				2CC2B0701CB5552200BB42D0 /* _TEMPLATE.hpp */,
 				2CC2B0711CB5552200BB42D0 /* Allocator.hpp */,
 				2CC2B0721CB5552200BB42D0 /* Array.hpp */,
 				2CC2B0731CB5552200BB42D0 /* BigInt.hpp */,
+				2CBB0C2D1CC5FCCF00A7BA9B /* Char.hpp */,
+				2CB1EFCF1CD7153B004DA6E3 /* CharacterSet.hpp */,
 				2CC2B0741CB5552200BB42D0 /* Format.hpp */,
 				2CC2B0751CB5552200BB42D0 /* FormatBool.hpp */,
 				2CC2B0761CB5552200BB42D0 /* FormatFloat.hpp */,
 				2CC2B0771CB5552200BB42D0 /* FormatInt.hpp */,
 				2CC2B0781CB5552200BB42D0 /* FormatLiteral.hpp */,
+				2CD3585E1CB7A34100BB16A0 /* Functor.hpp */,
 				2CC2B0791CB5552200BB42D0 /* Fwd.hpp */,
 				2CC2B07A1CB5552200BB42D0 /* Grid.hpp */,
 				2CC2B07B1CB5552200BB42D0 /* LetterCase.hpp */,
+				2CBB0C251CC4C3A300A7BA9B /* Logger.hpp */,
 				2CC2B07C1CB5552200BB42D0 /* Number.hpp */,
 				2CC2B07D1CB5552200BB42D0 /* Optional.hpp */,
 				2CC2B07E1CB5552200BB42D0 /* Platform.hpp */,
 				2CC2B07F1CB5552200BB42D0 /* PlatformWindows.hpp */,
+				2CD358601CB8018B00BB16A0 /* ProfilerUtility.hpp */,
 				2CC2B0801CB5552200BB42D0 /* Radix.hpp */,
 				2CC2B0811CB5552200BB42D0 /* Step.hpp */,
 				2CC2B0821CB5552200BB42D0 /* Step_MSVC.hpp */,
 				2CC2B0831CB5552200BB42D0 /* String.hpp */,
+				2CB1EFD01CD7153B004DA6E3 /* StringView.hpp */,
 				2CC2B0841CB5552200BB42D0 /* Time.hpp */,
 				2CC2B0851CB5552200BB42D0 /* Types.hpp */,
 				2CC2B0861CB5552200BB42D0 /* Uncopyable.hpp */,
@@ -439,10 +455,11 @@
 		2CC2B09B1CB5552200BB42D0 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2CC2B09E1CB5552200BB42D0 /* FormatFloat */,
+				2CC2B09C1CB5552200BB42D0 /* BigInt */,
+				2CB1EFD31CD7156C004DA6E3 /* CharacterSet */,
 				2CBB0C2A1CC5FCB400A7BA9B /* String */,
 				2CBB0C271CC4C3C800A7BA9B /* Logger */,
-				2CC2B09C1CB5552200BB42D0 /* BigInt */,
-				2CC2B09E1CB5552200BB42D0 /* FormatFloat */,
 				2CC2B0A01CB5552200BB42D0 /* FormatInt */,
 				2CC2B0A21CB5552200BB42D0 /* Time */,
 			);
@@ -552,6 +569,7 @@
 			files = (
 				2CC2B0CA1CB5552200BB42D0 /* gtest-printers.h in Headers */,
 				2CC2B0C61CB5552200BB42D0 /* gtest.h in Headers */,
+				2CB1EFD21CD7153B004DA6E3 /* StringView.hpp in Headers */,
 				2CC2B0E41CB5552200BB42D0 /* Platform.hpp in Headers */,
 				2CC2B0BE1CB5552200BB42D0 /* format.h in Headers */,
 				2CC2B0ED1CB5552200BB42D0 /* Unspecified.hpp in Headers */,
@@ -563,6 +581,7 @@
 				2CC2B0CB1CB5552200BB42D0 /* gtest.h in Headers */,
 				2CC2B0EB1CB5552200BB42D0 /* Types.hpp in Headers */,
 				2CC2B0C91CB5552200BB42D0 /* gtest-port.h in Headers */,
+				2CB1EFD11CD7153B004DA6E3 /* CharacterSet.hpp in Headers */,
 				2CC2B0E61CB5552200BB42D0 /* Radix.hpp in Headers */,
 				2CC2B0D21CB5552200BB42D0 /* gtest-port-arch.h in Headers */,
 				2CC2B1061CB5552300BB42D0 /* double-conversion.h in Headers */,
@@ -701,6 +720,7 @@
 				2CC2B1071CB5552300BB42D0 /* fast-dtoa.cc in Sources */,
 				2CC2B1051CB5552300BB42D0 /* double-conversion.cc in Sources */,
 				2CC2B0FF1CB5552300BB42D0 /* bignum.cc in Sources */,
+				2CB1EFD51CD7156C004DA6E3 /* SivCharacterSet.cpp in Sources */,
 				2CC2B1011CB5552300BB42D0 /* cached-powers.cc in Sources */,
 				2CC2B0F91CB5552300BB42D0 /* SivTime.cpp in Sources */,
 				2CBB0C2C1CC5FCB400A7BA9B /* SivString.cpp in Sources */,
