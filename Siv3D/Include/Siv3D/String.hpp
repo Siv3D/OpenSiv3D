@@ -1049,6 +1049,8 @@ namespace s3d
 		/// </remarks>
 		size_t size() const noexcept { return m_string.size(); }
 
+		size_t size_bytes() const noexcept { return m_string.size() * sizeof(value_type); }
+
 		/// <summary>
 		/// 空の文字列であるかを示します。
 		/// </summary>
@@ -1585,17 +1587,9 @@ namespace s3d
 			return m_string >= str.m_string;
 		}
 
-
-
-
-
-
-
-
-
 		bool all(std::function<bool(wchar)> f = NotNot()) const
 		{
-			for (const auto& v : *this)
+			for (const auto v : m_string)
 			{
 				if (!f(v))
 				{
@@ -1608,7 +1602,7 @@ namespace s3d
 
 		bool any(std::function<bool(wchar)> f = NotNot()) const
 		{
-			for (const auto& v : *this)
+			for (const auto v : m_string)
 			{
 				if (f(v))
 				{
@@ -1619,7 +1613,23 @@ namespace s3d
 			return false;
 		}
 
-		String& capitalize();
+		String& capitalize()
+		{
+			for (auto& v : m_string)
+			{
+				if (IsAlpha(v))
+				{
+					if (IsLower(v))
+					{
+						v -= 32;
+					}
+
+					break;
+				}
+			}
+
+			return *this;
+		}
 
 		/// <summary>
 		/// 最初に登場する英字を大文字にした文字列を返します。
@@ -1627,11 +1637,32 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String capitalized() const;
+		String capitalized() const &
+		{
+			String new_sring(*this);
 
-		String& center(size_t length, wchar fillChar = L' ');
+			for (auto& v : new_sring)
+			{
+				if (IsAlpha(v))
+				{
+					if (IsLower(v))
+					{
+						v -= 32;
+					}
 
-		String centered(size_t length, wchar fillChar = L' ') const;
+					break;
+				}
+			}
+
+			return new_sring;
+		}
+
+		String capitalized() &&
+		{
+			capitalize();
+
+			return std::move(*this);
+		}
 
 		size_t count() const noexcept
 		{
@@ -1649,7 +1680,17 @@ namespace s3d
 		/// </returns>
 		size_t count(wchar ch) const
 		{
-			return std::count(begin(), end(), ch);
+			size_t count = 0;
+
+			for (const auto v : m_string)
+			{
+				if (v == ch)
+				{
+					++count;
+				}
+			}
+
+			return count;
 		}
 
 		/// <summary>
@@ -1679,9 +1720,9 @@ namespace s3d
 		{
 			size_t result = 0;
 
-			for (const auto& ch : *this)
+			for (const auto v : m_string)
 			{
-				if (f(ch))
+				if (f(v))
 				{
 					++result;
 				}
@@ -1728,7 +1769,7 @@ namespace s3d
 
 		String& each(std::function<void(wchar&)> f)
 		{
-			for (auto& v : *this)
+			for (auto& v : m_string)
 			{
 				f(v);
 			}
@@ -1736,9 +1777,9 @@ namespace s3d
 			return *this;
 		}
 
-		const String& each(std::function<void(const wchar&)> f) const
+		const String& each(std::function<void(wchar)> f) const
 		{
-			for (const auto& v : *this)
+			for (const auto v : m_string)
 			{
 				f(v);
 			}
@@ -1750,7 +1791,7 @@ namespace s3d
 		{
 			size_t i = 0;
 
-			for (auto& v : *this)
+			for (auto& v : m_string)
 			{
 				f(i++, v);
 			}
@@ -1758,11 +1799,11 @@ namespace s3d
 			return *this;
 		}
 
-		const String& each_index(std::function<void(size_t, const wchar&)> f) const
+		const String& each_index(std::function<void(size_t, wchar)> f) const
 		{
 			size_t i = 0;
 
-			for (const auto& v : *this)
+			for (const auto v : m_string)
 			{
 				f(i++, v);
 			}
@@ -1781,7 +1822,7 @@ namespace s3d
 		/// </returns>
 		bool ends_with(wchar ch) const
 		{
-			return !isEmpty() && back() == ch;
+			return !isEmpty() && (m_string[m_string.size() - 1] == ch);
 		}
 
 		/// <summary>
@@ -1827,7 +1868,7 @@ namespace s3d
 		{
 			String new_array;
 
-			for (const auto& v : *this)
+			for (const auto& v : m_string)
 			{
 				if (f(v))
 				{
