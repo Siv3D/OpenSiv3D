@@ -56,6 +56,9 @@
     <Filter Include="Source\Siv3D\CharacterSet">
       <UniqueIdentifier>{1cbefa13-9ce3-4cb5-8f8f-614e8ba7ff77}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\String">
+      <UniqueIdentifier>{5a2dcd92-1e34-4ecf-851e-7c730e1120ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -305,6 +308,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\CharacterSet\SivCharacterSet.cpp">
       <Filter>Source\Siv3D\CharacterSet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\String\SivString.cpp">
+      <Filter>Source\Siv3D\String</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

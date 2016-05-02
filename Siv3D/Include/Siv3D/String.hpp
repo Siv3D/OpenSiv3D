@@ -1647,22 +1647,7 @@ namespace s3d
 		/// </returns>
 		String capitalized() const &
 		{
-			String new_sring(*this);
-
-			for (auto& v : new_sring)
-			{
-				if (IsAlpha(v))
-				{
-					if (IsLower(v))
-					{
-						v -= 32;
-					}
-
-					break;
-				}
-			}
-
-			return new_sring;
+			return String(*this).capitalize();
 		}
 
 		String capitalized() &&
@@ -1830,7 +1815,7 @@ namespace s3d
 		/// </returns>
 		bool ends_with(wchar ch) const
 		{
-			return !isEmpty() && (m_string[m_string.size() - 1] == ch);
+			return !m_string.empty() && (m_string[m_string.size() - 1] == ch);
 		}
 
 		/// <summary>
@@ -1886,7 +1871,7 @@ namespace s3d
 				return defaultValue;
 			}
 
-			return operator[](index);
+			return m_string[index];
 		}
 
 		String& fill(wchar value)
@@ -1989,7 +1974,8 @@ namespace s3d
 		String layout(size_t width) const
 		{
 			String result;
-			result.reserve(length());
+
+			result.reserve(m_string.length());
 
 			size_t count = 0;
 
@@ -2001,11 +1987,7 @@ namespace s3d
 					
 					count = 0;
 				}
-				else if (v == L'\r')
-				{
-					continue;
-				}
-				else
+				else if (v != L'\r')
 				{
 					if (width <= count)
 					{
@@ -2044,17 +2026,7 @@ namespace s3d
 		/// </returns>
 		String lowercased() const &
 		{
-			String new_sring(*this);
-
-			for (auto& v : new_sring)
-			{
-				if (IsUpper(v))
-				{
-					v += 32;
-				}
-			}
-
-			return new_sring;
+			return String(*this).lowercase();
 		}
 
 		String lowercased() &&
@@ -2087,7 +2059,7 @@ namespace s3d
 
 			new_string.reserve(length);
 
-			new_string.append(length - m_string.length(), fillChar);
+			new_string.assign(length - m_string.length(), fillChar);
 
 			new_string.append(m_string);
 
@@ -2491,15 +2463,49 @@ namespace s3d
 			return *this;
 		}
 
-		String rpadded(size_t length, wchar fillChar = L' ') const &;
+		String rpadded(size_t length, wchar fillChar = L' ') const &
+		{
+			if (length <= m_string.length())
+			{
+				return *this;
+			}
 
-		String rpadded(size_t length, wchar fillChar = L' ') &&;
+			String new_string;
 
-		String& rtrim();
+			new_string.reserve(length);
 
-		String rtrimmed() const &;
+			new_string.assign(m_string);
 
-		String rtrimmed() &&;
+			new_string.append(length - m_string.length(), fillChar);
+
+			return new_string;
+		}
+
+		String rpadded(size_t length, wchar fillChar = L' ') &&
+		{
+			rpad(length, fillChar);
+
+			return std::move(*this);
+		}
+
+		String& rtrim()
+		{
+			m_string.erase(std::find_if_not(m_string.rbegin(), m_string.rend(), detail::IsTrimmable).base(), m_string.end());
+
+			return *this;
+		}
+
+		String rtrimmed() const &
+		{
+			return String(m_string.begin(), std::find_if_not(m_string.rbegin(), m_string.rend(), detail::IsTrimmable).base());
+		}
+
+		String rtrimmed() &&
+		{
+			rtrim();
+
+			return std::move(*this);
+		}
 
 		String& shuffle()
 		{
@@ -2509,7 +2515,7 @@ namespace s3d
 		template <class URNG>
 		String& shuffle(URNG&& rng)
 		{
-			std::shuffle(begin(), end(), rng);
+			std::shuffle(m_string.begin(), m_string.end(), rng);
 
 			return *this;
 		}
@@ -2533,7 +2539,7 @@ namespace s3d
 		template <class URNG>
 		String shuffled(URNG&& rng) &&
 		{
-			std::shuffle(begin(), end(), rng);
+			std::shuffle(m_string.begin(), m_string.end(), rng);
 
 			return std::move(*this);
 		}
@@ -2562,7 +2568,7 @@ namespace s3d
 		/// </returns>
 		bool starts_with(wchar ch) const
 		{
-			return !isEmpty() && front() == ch;
+			return !m_string.empty() && (m_string[0] == ch);
 		}
 
 		/// <summary>
@@ -2576,7 +2582,22 @@ namespace s3d
 		/// </returns>
 		bool starts_with(const StringView& str) const;
 
-		String& swapcase();
+		String& swapcase()
+		{
+			for (auto& v : m_string)
+			{
+				if (IsLower(v))
+				{
+					v -= 32;
+				}
+				else if (IsUpper(v))
+				{
+					v += 32;
+				}
+			}
+
+			return *this;
+		}
 
 		/// <summary>
 		/// 英字の大文字と小文字を入れ替えた文字列を返します。
@@ -2584,17 +2605,51 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String swapcased() const &;
+		String swapcased() const &
+		{
+			return String(*this).swapcase();
+		}
 
-		String swapcased() &&;
+		String swapcased() &&
+		{
+			swapcase();
 
-		String& trim();
+			return std::move(*this);
+		}
 
-		String trimmed() const &;
+		String& trim()
+		{
+			m_string.erase(m_string.begin(), std::find_if_not(m_string.begin(), m_string.end(), detail::IsTrimmable));
 
-		String trimmed() &&;
+			m_string.erase(std::find_if_not(m_string.rbegin(), m_string.rend(), detail::IsTrimmable).base(), m_string.end());
 
-		String& uppercase();
+			return *this;
+		}
+
+		String trimmed() const &
+		{
+			return String(std::find_if_not(m_string.begin(), m_string.end(), detail::IsTrimmable), std::find_if_not(m_string.rbegin(), m_string.rend(), detail::IsTrimmable).base());
+		}
+
+		String trimmed() &&
+		{
+			trim();
+
+			return std::move(*this);
+		}
+
+		String& uppercase()
+		{
+			for (auto& v : m_string)
+			{
+				if (IsLower(v))
+				{
+					v -= 32;
+				}
+			}
+
+			return *this;
+		}
 
 		/// <summary>
 		/// 英字をすべて大文字にした文字列を返します。
@@ -2602,20 +2657,28 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String uppercased() const &;
+		String uppercased() const &
+		{
+			return String(*this).uppercase();
+		}
 
-		String uppercased() &&;
+		String uppercased() &&
+		{
+			uppercase();
+
+			return std::move(*this);
+		}
 
 		String& sort()
 		{
-			std::sort(begin(), end());
+			std::sort(m_string.begin(), m_string.end());
 
 			return *this;
 		}
 
 		String& sort_by(std::function<bool(const wchar& a, const wchar& b)> f)
 		{
-			std::sort(begin(), end(), f);
+			std::sort(m_string.begin(), m_string.end(), f);
 
 			return *this;
 		}
@@ -2627,7 +2690,7 @@ namespace s3d
 
 		String sorted() &&
 		{
-			std::sort(begin(), end());
+			std::sort(m_string.begin(), m_string.end());
 
 			return std::move(*this);
 		}
@@ -2639,40 +2702,40 @@ namespace s3d
 
 		String sorted_by(std::function<bool(const wchar& a, const wchar& b)> f) &&
 		{
-			std::sort(begin(), end(), f);
+			std::sort(m_string.begin(), m_string.end(), f);
 
 			return std::move(*this);
 		}
 
 		String& take(size_t n)
 		{
-			erase(begin() + std::min(n, size()), end());
+			m_string.erase(m_string.begin() + std::min(n, m_string.size()), m_string.end());
 
 			return *this;
 		}
 
 		String taken(size_t n) const
 		{
-			return String(begin(), begin() + std::min(n, size()));
+			return String(m_string.begin(), m_string.begin() + std::min(n, m_string.size()));
 		}
 
 		String& take_while(std::function<bool(const wchar&)> f)
 		{
-			erase(std::find_if_not(begin(), end(), f), end());
+			m_string.erase(std::find_if_not(m_string.begin(), m_string.end(), f), m_string.end());
 
 			return *this;
 		}
 
 		String taken_while(std::function<bool(const wchar&)> f) const
 		{
-			return String(begin(), std::find_if_not(begin(), end(), f));
+			return String(m_string.begin(), std::find_if_not(m_string.begin(), m_string.end(), f));
 		}
 
 		String& unique()
 		{
 			sort();
 
-			erase(std::unique(begin(), end()), end());
+			m_string.erase(std::unique(m_string.begin(), m_string.end()), m_string.end());
 
 			return *this;
 		}
@@ -2686,9 +2749,9 @@ namespace s3d
 		{
 			sort();
 
-			erase(std::unique(begin(), end()), end());
+			m_string.erase(std::unique(m_string.begin(), m_string.end()), m_string.end());
 
-			shrink_to_fit();
+			m_string.shrink_to_fit();
 
 			return std::move(*this);
 		}
@@ -2701,12 +2764,12 @@ namespace s3d
 
 			for (auto index : indices)
 			{
-				if (index >= size())
+				if (index >= m_string.size())
 				{
 					throw std::out_of_range("String::values_at() index out of range");
 				}
 
-				new_array.push_back(operator[](index));
+				new_array.push_back(m_string[index]);
 			}
 
 			return new_array;
@@ -2945,5 +3008,10 @@ namespace s3d
 		}
 
 		return new_string;
+	}
+
+	inline bool String::starts_with(const StringView& str) const
+	{
+		return (m_string.length() >= str.length()) && std::equal(str.begin(), str.end(), m_string.begin());
 	}
 }
