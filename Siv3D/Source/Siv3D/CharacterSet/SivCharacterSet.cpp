@@ -93,6 +93,11 @@ namespace s3d
 	{
 		static std::string FromString(const StringView str, uint32 code)
 		{
+			if (str.empty())
+			{
+				return std::string();
+			}
+
 			const int length = ::WideCharToMultiByte(
 				code,
 				0,
@@ -125,6 +130,11 @@ namespace s3d
 
 		static String ToString(const std::string& str, uint32 code)
 		{
+			if (str.empty())
+			{
+				return String();
+			}
+
 			const int length = ::MultiByteToWideChar(
 				code,
 				0,
@@ -155,6 +165,47 @@ namespace s3d
 
 # elif defined (SIV3D_TARGET_OSX)
 
+namespace s3d
+{
+	namespace detail
+	{
+		String UTF8ToString(const std::string& str)
+		{
+			if (str.empty())
+			{
+				return String();
+			}
+
+			if (const auto length = detail::CountCodePoints(str.c_str()))
+			{
+				String result(length.value(), L'\0');
+				uint32 codepoint;
+				uint32 state = 0;
+				const char* src = &str[0];
+				wchar* dst = &result[0];
+
+				while (*src)
+				{
+					if (!decode(&state, &codepoint, *(src++)))
+					{
+						*(dst++) = static_cast<wchar>(codepoint);
+					}
+				}
+
+				return result;
+			}
+			else
+			{
+				return String();
+			}
+		}
+
+		std::string StringToUTF8(StringView str)
+		{
+			return std::wstring_convert<std::codecvt_utf8<wchar>>().to_bytes(str.begin(), str.end());
+		}
+	}
+}
 
 # endif
 
@@ -179,73 +230,85 @@ namespace s3d
 
 			return result;
 		}
-	}
 
-	String Widen(const std::string& str)
-	{
-		if (str.empty())
+		String Widen(const std::string& str)
 		{
-			return String();
-		}
-
-		# if defined (SIV3D_TARGET_WINDOWS)
+			# if defined (SIV3D_TARGET_WINDOWS)
 			
-			return detail::ToString(str, CP_ACP);
+				return detail::ToString(str, CP_ACP);
 		
-		# elif defined (SIV3D_TARGET_OSX)
+			# elif defined (SIV3D_TARGET_OSX)
 
-			if (const auto length = detail::CountCodePoints(str.c_str()))
-			{
-				String result(length.value(), L'\0');				
-				uint32 codepoint;
-				uint32 state = 0;
-				const char* src = &str[0];
-				wchar* dst = &result[0];
+				return detail::UTF8ToString(str);
 
-				while (*src)
-				{
-					if (!decode(&state, &codepoint, *(src++)))
-					{
-						*(dst++) = static_cast<wchar>(codepoint);
-					}
-				}
-                
-                return result;
-			}
-			else
-			{
-				return String();
-			}
-
-		# endif
-	}
-
-	std::string NarrowAscii(StringView asciiStr)
-	{
-		const size_t length = asciiStr.length();
-
-		std::string result(length, L'\0');
-
-		char* dst = &result[0];
-
-		const wchar* src = asciiStr.data();
-
-		while (*src)
-		{
-			*(dst++) = static_cast<char>(*(src++));
+			# endif
 		}
 
-		return result;
+		std::string NarrowAscii(StringView asciiStr)
+		{
+			const size_t length = asciiStr.length();
+
+			std::string result(length, L'\0');
+
+			char* dst = &result[0];
+
+			const wchar* src = asciiStr.data();
+
+			while (*src)
+			{
+				*(dst++) = static_cast<char>(*(src++));
+			}
+
+			return result;
+		}
+
+		std::string Narrow(StringView str)
+		{
+			# if defined (SIV3D_TARGET_WINDOWS)
+
+				return detail::FromString(str, CP_THREAD_ACP);
+
+			# elif defined (SIV3D_TARGET_OSX)
+
+				return detail::StringToUTF8(str);
+
+			# endif
+		}
+
+		String FromUTF8(const std::string& str)
+		{
+			# if defined (SIV3D_TARGET_WINDOWS)
+
+				return detail::ToString(str, CP_UTF8);
+
+			# elif defined (SIV3D_TARGET_OSX)
+
+				return detail::UTF8ToString(str);
+
+			# endif
+		}
+
+		std::string ToUTF8(StringView str)
+		{
+			# if defined (SIV3D_TARGET_WINDOWS)
+
+				return detail::FromString(str, CP_UTF8);
+
+			# elif defined (SIV3D_TARGET_OSX)
+
+				return detail::StringToUTF8(str);
+
+			# endif
+		}
+
+		//String FromUTF16(const std::u16string& str);
+
+		//std::u16string ToUTF16(StringView str);
+
+		//String FromUTF32(const std::u32string& str);
+
+		//std::u32string ToUTF32(StringView str);
+
+		//String PercentEncode(StringView str, bool upperCase = true);
 	}
-
-	//std::string Narrow(StringView str)
-	//{
-	//	# if defined (SIV3D_TARGET_WINDOWS)
-
-	//		return FromString(str, CP_THREAD_ACP);
-
-	//	# elif defined (SIV3D_TARGET_OSX)
-
-	//	# endif
-	//}
 }
