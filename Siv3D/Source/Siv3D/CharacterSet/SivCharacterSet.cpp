@@ -117,7 +117,7 @@ namespace s3d
 				else if (IsUTF16HighSurrogate(ch) && begin < end && IsUTF16LowSurrogate(*begin))
 				{
 					++count;
-					*begin++;
+					++begin;
 				}
 				else
 				{
