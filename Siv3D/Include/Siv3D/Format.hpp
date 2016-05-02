@@ -20,6 +20,24 @@
 namespace s3d
 {
 	/// <summary>
+	/// 値を指定した文字数の文字列に変換します。
+	/// </summary>
+	/// <param name="value">
+	/// 変換する値
+	/// </param>
+	/// <param name="padding">
+	/// 文字数と詰め文字のペア
+	/// </param>
+	/// <returns>
+	/// 変換した文字列
+	/// </returns>
+	template <class Type>
+	inline String Pad(const Type& value, const std::pair<int32, wchar>& padding)
+	{
+		return Format(value).lpadded(padding.first, padding.second);
+	}
+
+	/// <summary>
 	/// Format の内部で使用するデータ
 	/// </summary>
 	struct FormatData
@@ -201,7 +219,18 @@ namespace s3d
 		formatData.string.append(buf, len);
 	}
 
-	//void Formatter(FormatData& formatData, const void* value);
+	inline void Formatter(FormatData& formatData, const void* value)
+	{
+		# if (SIV3D_PLATFORM_PTR_SIZE == 4)
+
+			formatData.string.append(ToHex(reinterpret_cast<uint32>(value)).lpad(8, L'0'));
+
+		# elif (SIV3D_PLATFORM_PTR_SIZE == 8)
+
+			formatData.string.append(ToHex(reinterpret_cast<uint64>(value)).lpad(16, L'0'));
+
+		# endif
+	}
 
 	void Formatter(FormatData& formatData, const char* const str) = delete;
 
