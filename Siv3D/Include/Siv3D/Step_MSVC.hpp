@@ -983,7 +983,7 @@ namespace s3d
 				n = diff / abs_s;
 
 			CounterType finish = a + n*s;
-			if (finish != b)
+			if (finish != static_cast<CounterType>(b))
 			{
 				n++;
 			}

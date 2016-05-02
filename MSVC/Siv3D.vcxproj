@@ -47,6 +47,8 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Allocator.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Array.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\BigInt.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Char.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\CharacterSet.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Format.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\FormatBool.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\FormatFloat.hpp" />
@@ -65,6 +67,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Radix.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Step_MSVC.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\String.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\StringView.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Time.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Types.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Uncopyable.hpp" />
@@ -86,9 +89,11 @@
     <ClCompile Include="..\Siv3D\Source\Siv3DMain_OSX.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3DMain_Windows.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\BigInt\SivBigInt.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\CharacterSet\SivCharacterSet.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatFloat\SivFormatFloat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatInt\SivFormatInt.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\SivLogger.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\String\SivString.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Time\SivTime.cpp" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\cppformat\format.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum-dtoa.cc" />

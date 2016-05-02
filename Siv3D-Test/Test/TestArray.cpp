@@ -12,9 +12,17 @@
 # include <Siv3D.hpp>
 # include <gtest/gtest.h>
 
-TEST(Array, null)
-{
+using namespace s3d;
 
+TEST(Array, int32)
+{
+	const Array<int32> v{1, 2, 3, 4};
+	EXPECT_EQ(v[0], 1);
+	EXPECT_EQ(v[1], 2);
+	EXPECT_EQ(v[2], 3);
+	EXPECT_EQ(v[3], 4);
+	EXPECT_EQ(v.size(), 4);
+	EXPECT_EQ(v.count(), 4);
 }
 
 //# include "Siv3DTest.hpp"

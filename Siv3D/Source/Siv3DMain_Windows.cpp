@@ -29,6 +29,8 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 	::OutputDebugStringW(L"Siv3D for Windows\n");
 
 	Main();
+
+	return 0;
 }
 
 # endif

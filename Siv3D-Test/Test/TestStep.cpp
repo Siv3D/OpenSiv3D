@@ -17,7 +17,7 @@ using namespace s3d::literals;
 
 TEST(Step, Iota)
 {
-	// 1 + 2 + 3 + ... + 100
+	//// 1 + 2 + 3 + ... + 100
 	EXPECT_EQ(
 		Iota(1, 101).reduce1(std::plus<>()),
 		5050);

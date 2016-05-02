@@ -53,6 +53,12 @@
     <Filter Include="Source\Siv3D\Logger">
       <UniqueIdentifier>{810a7cd0-c98a-4b1b-a723-da7463e7a8cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\String">
+      <UniqueIdentifier>{5f6266ca-1d86-4074-8dfa-a34b755e6005}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\CharacterSet">
+      <UniqueIdentifier>{1cbefa13-9ce3-4cb5-8f8f-614e8ba7ff77}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -241,6 +247,15 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Logger.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Char.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\StringView.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\CharacterSet.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\Siv3DMain_OSX.cpp">
@@ -290,6 +305,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\SivLogger.cpp">
       <Filter>Source\Siv3D\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\String\SivString.cpp">
+      <Filter>Source\Siv3D\String</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\CharacterSet\SivCharacterSet.cpp">
+      <Filter>Source\Siv3D\CharacterSet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

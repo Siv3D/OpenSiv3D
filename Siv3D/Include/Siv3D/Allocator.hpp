@@ -56,7 +56,7 @@ namespace s3d
 
 		pointer allocate(size_type n, const void* = nullptr)
 		{
-			# if defined(SIV3D_TARGET_WINDOWS)
+			# if defined (SIV3D_TARGET_WINDOWS)
 				return static_cast<pointer>(::_aligned_malloc(n * sizeof(Type), Alignment));
 			# else
 				pointer p;
@@ -67,7 +67,7 @@ namespace s3d
 
 		void deallocate(pointer p, size_type)
 		{
-			# if defined(SIV3D_TARGET_WINDOWS)
+			# if defined (SIV3D_TARGET_WINDOWS)
 				::_aligned_free(p);
 			# else
 				::free(p);
