@@ -8,7 +8,7 @@
 //
 //-----------------------------------------------
 
-# include "../../../Include/Siv3D/CharacterSet.hpp"
+# include "../../../Include/Siv3D/String.hpp"
 # include "../../../Include/Siv3D/Optional.hpp"
 
 //////////////////////////////////////////////////////////////////////////////

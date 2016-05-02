@@ -21,6 +21,14 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		inline constexpr bool IsTrimmable(const uint32 ch)
+		{
+			return (ch <= 0x20u) || ((ch - 0x7Fu) <= (0x9Fu - 0x7Fu));
+		};
+	}
+
 	class String
 	{
 	private:
@@ -1666,7 +1674,7 @@ namespace s3d
 
 		size_t count() const noexcept
 		{
-			return length();
+			return m_string.length();
 		}
 
 		/// <summary>
@@ -1705,7 +1713,7 @@ namespace s3d
 		/// <returns>
 		/// 見つかった文字列の個数
 		/// </returns>
-		size_t count(const StringView& str) const;
+		size_t count(StringView str) const;
 
 		/// <summary>
 		/// 条件に合う文字の個数を数えます。
@@ -1735,11 +1743,11 @@ namespace s3d
 		{
 			if (n >= size())
 			{
-				clear();
+				m_string.clear();
 			}
 			else
 			{
-				erase(begin(), begin() + n);
+				m_string.erase(m_string.begin(), m_string.begin() + n);
 			}
 
 			return *this;
@@ -1747,24 +1755,24 @@ namespace s3d
 
 		String dropped(size_t n) const
 		{
-			if (n >= size())
+			if (n >= m_string.size())
 			{
 				return String();
 			}
 
-			return String(begin() + n, end());
+			return String(m_string.begin() + n, m_string.end());
 		}
 
 		String& drop_while(std::function<bool(wchar)> f)
 		{
-			erase(begin(), std::find_if_not(begin(), end(), f));
+			m_string.erase(m_string.begin(), std::find_if_not(m_string.begin(), m_string.end(), f));
 
 			return *this;
 		}
 
 		String dropped_while(std::function<bool(wchar)> f) const
 		{
-			return String(std::find_if_not(begin(), end(), f), end());
+			return String(std::find_if_not(m_string.begin(), m_string.end(), f), m_string.end());
 		}
 
 		String& each(std::function<void(wchar&)> f)
@@ -1834,7 +1842,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した文字列で終わる場合 true, それ以外の場合は false
 		/// </returns>
-		bool ends_with(const StringView& str) const;
+		bool ends_with(StringView str) const;
 
 		/// <summary>
 		/// タブ文字を半角空白に置換した文字列を返します。
@@ -1845,7 +1853,31 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String expand_tabs(size_t tabSize = 4) const;
+		String expand_tabs(size_t tabSize = 4) const
+		{
+			const size_t new_size = m_string.length() + (count(L'\t') * tabSize);
+
+			String result(new_size, L'\0');
+
+			wchar* dst = &result[0];
+
+			for (const auto v : m_string)
+			{
+				if (v == L'\t')
+				{
+					for (size_t i = 0; i < tabSize; ++i)
+					{
+						*dst++ = L' ';
+					}
+				}
+				else
+				{
+					*dst++ = v;
+				}
+			}
+
+			return result;
+		}
 
 		const wchar& fetch(size_t index, const wchar& defaultValue) const
 		{
@@ -1859,7 +1891,7 @@ namespace s3d
 
 		String& fill(wchar value)
 		{
-			std::fill(begin(), end(), value);
+			std::fill(m_string.begin(), m_string.end(), value);
 
 			return *this;
 		}
@@ -1940,7 +1972,7 @@ namespace s3d
 
 		String& keep_if(std::function<bool(wchar)> f)
 		{
-			erase(std::remove_if(begin(), end(), std::not1(f)), end());
+			m_string.erase(std::remove_if(m_string.begin(), m_string.end(), std::not1(f)), m_string.end());
 
 			return *this;
 		}
@@ -1954,9 +1986,55 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String layout(size_t width) const;
+		String layout(size_t width) const
+		{
+			String result;
+			result.reserve(length());
 
-		String& lowercase() const;
+			size_t count = 0;
+
+			for (const auto v : m_string)
+			{
+				if (v == L'\n')
+				{
+					result.push_back(L'\n');
+					
+					count = 0;
+				}
+				else if (v == L'\r')
+				{
+					continue;
+				}
+				else
+				{
+					if (width <= count)
+					{
+						result.push_back(L'\n');
+						
+						count = 0;
+					}
+
+					result.push_back(v);
+					
+					++count;
+				}
+			}
+
+			return result;
+		}
+
+		String& lowercase()
+		{
+			for (auto& v : m_string)
+			{
+				if (IsUpper(v))
+				{
+					v += 32;
+				}
+			}
+
+			return *this;
+		}
 
 		/// <summary>
 		/// 英字をすべて小文字にした文字列を返します。
@@ -1964,15 +2042,83 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String lowercased() const;
-		
-		String& lpad(size_t length, wchar fillChar = L' ');
+		String lowercased() const &
+		{
+			String new_sring(*this);
 
-		String lpadded(size_t length, wchar fillChar = L' ') const;
+			for (auto& v : new_sring)
+			{
+				if (IsUpper(v))
+				{
+					v += 32;
+				}
+			}
 
-		String& ltrim();
+			return new_sring;
+		}
 
-		String ltrimmed() const;
+		String lowercased() &&
+		{
+			lowercase();
+
+			return std::move(*this);
+		}
+
+		String& lpad(size_t length, wchar fillChar = L' ')
+		{
+			if (length <= m_string.length())
+			{
+				return *this;
+			}
+
+			m_string.insert(m_string.begin(), length - m_string.length(), fillChar);
+
+			return *this;
+		}
+
+		String lpadded(size_t length, wchar fillChar = L' ') const &
+		{
+			if (length <= m_string.length())
+			{
+				return *this;
+			}
+
+			String new_string;
+
+			new_string.reserve(length);
+
+			new_string.append(length - m_string.length(), fillChar);
+
+			new_string.append(m_string);
+
+			return new_string;
+		}
+
+		String lpadded(size_t length, wchar fillChar = L' ') &&
+		{
+			lpad(length, fillChar);
+
+			return std::move(*this);
+		}
+
+		String& ltrim()
+		{
+			m_string.erase(m_string.begin(), std::find_if_not(m_string.begin(), m_string.end(), detail::IsTrimmable));
+
+			return *this;
+		}
+
+		String ltrimmed() const &
+		{
+			return String(std::find_if_not(m_string.begin(), m_string.end(), detail::IsTrimmable), m_string.end());
+		}
+
+		String ltrimmed() &&
+		{
+			ltrim();
+
+			return std::move(*this);
+		}
 
 		template <class Fty>
 		auto map(Fty f) const
@@ -1983,7 +2129,7 @@ namespace s3d
 
 			new_array.reserve(size());
 
-			for (const auto& v : *this)
+			for (const auto v : m_string)
 			{
 				new_array.push_back(f(v));
 			}
@@ -2001,7 +2147,7 @@ namespace s3d
 
 		bool none(std::function<bool(wchar)> f = NotNot()) const
 		{
-			for (const auto& v : *this)
+			for (const auto v : m_string)
 			{
 				if (f(v))
 				{
@@ -2012,7 +2158,12 @@ namespace s3d
 			return true;
 		}
 
-		String& remove(wchar ch);
+		String& remove(wchar ch)
+		{
+			m_string.erase(std::remove(m_string.begin(), m_string.end(), ch), m_string.end());
+			
+			return *this;
+		}
 
 		/// <summary>
 		/// 指定した文字を除去した文字列を返します。
@@ -2023,9 +2174,32 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String removed(wchar ch) const;
+		String removed(wchar ch) const &
+		{
+			String new_string;
 
-		String& remove(const StringView& str);
+			for (const auto v : m_string)
+			{
+				if (v != ch)
+				{
+					new_string.push_back(v);
+				}
+			}
+
+			return new_string;
+		}
+
+		String removed(wchar ch) &&
+		{
+			remove(ch);
+
+			return std::move(*this);
+		}
+
+		String& remove(const StringView& str)
+		{
+			return *this = removed(str);
+		}
 
 		/// <summary>
 		/// 指定した文字列を除去した文字列を返します。
@@ -2038,11 +2212,49 @@ namespace s3d
 		/// </returns>
 		String removed(const StringView& str) const;
 
-		String& remove_at(size_t index);
+		String& remove_at(size_t index)
+		{
+			if (m_string.size() <= index)
+			{
+				throw std::out_of_range("String::remove_at() index out of range");
+			}
 
-		String removed_at(size_t index) const;
+			m_string.erase(m_string.begin() + index);
 
-		String& remove_if(std::function<bool(wchar)> function);
+			return *this;
+		}
+
+		String removed_at(size_t index) const &
+		{
+			if (m_string.size() <= index)
+			{
+				throw std::out_of_range("String::removed_at() index out of range");
+			}
+
+			String new_string;
+
+			new_string.reserve(m_string.length() - 1);
+
+			new_string.assign(m_string.begin(), m_string.begin() + index);
+
+			new_string.append(m_string.begin() + index + 1, m_string.end());
+
+			return new_string;
+		}
+
+		String removed_at(size_t index) &&
+		{
+			remove_at(index);
+
+			return std::move(*this);
+		}
+
+		String& remove_if(std::function<bool(wchar)> f)
+		{
+			m_string.erase(std::remove_if(m_string.begin(), m_string.end(), f), m_string.end());
+
+			return *this;
+		}
 
 		/// <summary>
 		/// 条件に合う文字を除去した文字列を返します。
@@ -2053,11 +2265,45 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String removed_if(std::function<bool(wchar)> function) const;
+		String removed_if(std::function<bool(wchar)> f) const &
+		{
+			String new_string;
 
-		String& replace(wchar oldChar, wchar newChar);
+			for (const auto v : m_string)
+			{
+				if (!f(v))
+				{
+					new_string.push_back(v);
+				}
+			}
 
-		String& replace(const String& oldStr, const String& newStr);
+			return new_string;
+		}
+
+		String removed_if(std::function<bool(wchar)> f) &&
+		{
+			remove_if(f);
+
+			return std::move(*this);
+		}
+
+		String& replace(wchar oldChar, wchar newChar)
+		{
+			for (auto& v : m_string)
+			{
+				if (v == oldChar)
+				{
+					v = newChar;
+				}
+			}
+
+			return *this;
+		}
+
+		String& replace(const String& oldStr, const String& newStr)
+		{
+			return *this = replaced(oldStr, newStr);
+		}
 
 		/// <summary>
 		/// 指定した文字を置換した文字列を返します。
@@ -2071,7 +2317,17 @@ namespace s3d
 		/// <returns>
 		/// 置換後の文字列
 		/// </returns>
-		String replaced(wchar oldChar, wchar newChar) const;
+		String replaced(wchar oldChar, wchar newChar) const &
+		{
+			return String(*this).replace(oldChar, newChar);
+		}
+
+		String replaced(wchar oldChar, wchar newChar) &&
+		{
+			replace(oldChar, newChar);
+
+			return std::move(*this);
+		}
 
 		/// <summary>
 		/// 指定した文字列を置換した文字列を返します。
@@ -2085,13 +2341,63 @@ namespace s3d
 		/// <returns>
 		/// 置換後の文字列
 		/// </returns>
-		String replaced(const String& oldStr, const String& newStr) const;
+		String replaced(const String& oldStr, const String& newStr) const
+		{
+			String new_string;
 
-		String& replace_if(std::function<bool(wchar)> f, wchar newChar);
+			if (newStr.length() >= oldStr.length())
+			{
+				new_string.reserve(m_string.length());
+			}
 
-		String replaced_if(std::function<bool(wchar)> f, wchar newChar) const;
+			const auto itEnd = m_string.end();
+			auto itCurrent = m_string.begin();
+			auto itNext = std::search(itCurrent, itEnd, oldStr.begin(), oldStr.end());
 
-		String& reverse();
+			while (itNext != itEnd)
+			{
+				new_string.append(itCurrent, itNext);
+				new_string.append(newStr);
+				itCurrent = itNext + oldStr.length();
+				itNext = std::search(itCurrent, itEnd, oldStr.begin(), oldStr.end());
+			}
+
+			new_string.append(itCurrent, itNext);
+
+			return new_string;
+		}
+
+		String& replace_if(std::function<bool(wchar)> f, wchar newChar)
+		{
+			for (auto& v : m_string)
+			{
+				if (f(v))
+				{
+					v = newChar;
+				}
+			}
+
+			return *this;
+		}
+
+		String replaced_if(std::function<bool(wchar)> f, wchar newChar) const &&
+		{
+			return String(*this).replace_if(f, newChar);
+		}
+
+		String replaced_if(std::function<bool(wchar)> f, wchar newChar) &
+		{
+			replace_if(f, newChar);
+
+			return std::move(*this);
+		}
+
+		String& reverse()
+		{
+			std::reverse(m_string.begin(), m_string.end());
+
+			return *this;
+		}
 
 		/// <summary>
 		/// 反転した文字列を返します。
@@ -2099,14 +2405,21 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String reversed() const
+		String reversed() const &
 		{
-			return String(rbegin(), rend());
+			return String(m_string.rbegin(), m_string.rend());
+		}
+
+		String reversed() &&
+		{
+			reverse();
+
+			return *this;
 		}
 
 		String& reverse_each(std::function<void(wchar&)> f)
 		{
-			for (auto it = rbegin(); it != rend(); ++it)
+			for (auto it = m_string.rbegin(); it != m_string.rend(); ++it)
 			{
 				f(*it);
 			}
@@ -2116,7 +2429,7 @@ namespace s3d
 
 		const String& reverse_each(std::function<void(const wchar&)> f) const
 		{
-			for (auto it = rbegin(); it != rend(); ++it)
+			for (auto it = m_string.rbegin(); it != m_string.rend(); ++it)
 			{
 				f(*it);
 			}
@@ -2126,29 +2439,29 @@ namespace s3d
 
 		String& rotate(std::ptrdiff_t count = 1)
 		{
-			if (isEmpty())
+			if (m_string.empty())
 			{
 				;
 			}
 			else if (count > 0) // rotation to the left
 			{
-				if (static_cast<size_t>(count) > size())
+				if (static_cast<size_t>(count) > m_string.size())
 				{
-					count %= size();
+					count %= m_string.size();
 				}
 
-				std::rotate(begin(), begin() + count, end());
+				std::rotate(m_string.begin(), m_string.begin() + count, m_string.end());
 			}
 			else if (count < 0) // rotation to the right
 			{
 				count = -count;
 
-				if (static_cast<size_t>(count) > size())
+				if (static_cast<size_t>(count) > m_string.size())
 				{
-					count %= size();
+					count %= m_string.size();
 				}
 
-				std::rotate(rbegin(), rbegin() + count, rend());
+				std::rotate(m_string.rbegin(), m_string.rbegin() + count, m_string.rend());
 			}
 
 			return *this;
@@ -2168,11 +2481,15 @@ namespace s3d
 
 		String& rpad(size_t length, wchar fillChar = L' ');
 
-		String rpadded(size_t length, wchar fillChar = L' ') const;
+		String rpadded(size_t length, wchar fillChar = L' ') const &;
+
+		String rpadded(size_t length, wchar fillChar = L' ') &&;
 
 		String& rtrim();
 
-		String rtrimmed() const;
+		String rtrimmed() const &;
+
+		String rtrimmed() &&;
 
 		String& shuffle()
 		{
@@ -2222,7 +2539,7 @@ namespace s3d
 		/// </returns>
 		Array<String, std::allocator<String>> split(wchar ch) const;
 
-		Array<String, std::allocator<String>> splitlines() const;
+		Array<String, std::allocator<String>> split_lines() const;
 
 		/// <summary>
 		/// 指定した文字から始まるかを調べます。
@@ -2257,11 +2574,15 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String swapcased() const;
+		String swapcased() const &;
+
+		String swapcased() &&;
 
 		String& trim();
 
-		String trimmed() const;
+		String trimmed() const &;
+
+		String trimmed() &&;
 
 		String& uppercase();
 
@@ -2271,7 +2592,9 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String uppercased() const;
+		String uppercased() const &;
+
+		String uppercased() &&;
 
 		String& sort()
 		{
@@ -2379,7 +2702,10 @@ namespace s3d
 			return new_array;
 		}
 
-		String& xml_escape();
+		String& xml_escape()
+		{
+			return *this = xml_escaped();
+		}
 
 		/// <summary>
 		/// XML エスケープした文字列を返します。
@@ -2390,7 +2716,39 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String xml_escaped() const;
+		String xml_escaped() const
+		{
+			String new_string;
+
+			new_string.reserve(m_string.length());
+
+			for (const auto v : m_string)
+			{
+				switch (v)
+				{
+				case L'\"':
+					new_string.append(L"&quot;", 6);
+					break;
+				case L'&':
+					new_string.append(L"&amp;", 5);
+					break;
+				case L'\'':
+					new_string.append(L"&apos;", 6);
+					break;
+				case L'<':
+					new_string.append(L"&lt;", 4);
+					break;
+				case L'>':
+					new_string.append(L"&gt;", 4);
+					break;
+				default:
+					new_string.push_back(v);
+					break;
+				}
+			}
+
+			return new_string;
+		}
 	};
 
 	/// <summary>
@@ -2531,3 +2889,51 @@ namespace std
 }
 
 # include "StringView.hpp"
+# include "CharacterSet.hpp"
+
+namespace s3d
+{
+	inline size_t String::count(const StringView str) const
+	{
+		size_t count = 0;
+
+		for (auto it = m_string.begin();; ++it, ++count)
+		{
+			it = std::search(it, m_string.end(), str.begin(), str.end());
+
+			if (it == m_string.end())
+			{
+				return count;
+			}
+		}
+	}
+
+	inline bool String::ends_with(const StringView str) const
+	{
+		return (length() >= str.length()) && std::equal(str.begin(), str.end(), m_string.end() - str.length());
+	}
+
+	inline std::string String::narrow() const
+	{
+		return CharacterSet::Narrow(*this);
+	}
+
+	inline String String::removed(const StringView& str) const
+	{
+		String new_string;
+
+		for (auto it = m_string.begin(); it != m_string.end();)
+		{
+			const auto it2 = it;
+			
+			new_string.append(it2, it = std::search(it, m_string.end(), str.begin(), str.end()));
+
+			if (it != m_string.end())
+			{
+				it += str.length();
+			}
+		}
+
+		return new_string;
+	}
+}
