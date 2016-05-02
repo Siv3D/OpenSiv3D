@@ -165,6 +165,8 @@ namespace s3d
 
 # elif defined (SIV3D_TARGET_OSX)
 
+# include <codecvt>
+
 namespace s3d
 {
 	namespace detail

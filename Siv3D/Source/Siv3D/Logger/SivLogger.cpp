@@ -37,7 +37,7 @@ namespace s3d
 {
 	void Log(const String& text)
 	{
-		std::cout << std::wstring_convert<std::codecvt_utf8<wchar_t>>().to_bytes(text.begin(), text.end()) << '\n';
+		std::cout << std::wstring_convert<std::codecvt_utf8<wchar_t>>().to_bytes(text.str()) << '\n';
 	}
 }
 
