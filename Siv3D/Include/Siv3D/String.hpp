@@ -2479,7 +2479,17 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		String& rpad(size_t length, wchar fillChar = L' ');
+		String& rpad(size_t length, wchar fillChar = L' ')
+		{
+			if (length <= m_string.length())
+			{
+				return *this;
+			}
+
+			m_string.append(length - m_string.length(), fillChar);
+
+			return *this;
+		}
 
 		String rpadded(size_t length, wchar fillChar = L' ') const &;
 

@@ -219,7 +219,18 @@ namespace s3d
 		formatData.string.append(buf, len);
 	}
 
-	//void Formatter(FormatData& formatData, const void* value);
+	inline void Formatter(FormatData& formatData, const void* value)
+	{
+		# if (SIV3D_PLATFORM_PTR_SIZE == 4)
+
+			formatData.string.append(ToHex(reinterpret_cast<uint32>(value)).lpad(8, L'0'));
+
+		# elif (SIV3D_PLATFORM_PTR_SIZE == 8)
+
+			formatData.string.append(ToHex(reinterpret_cast<uint64>(value)).lpad(16, L'0'));
+
+		# endif
+	}
 
 	void Formatter(FormatData& formatData, const char* const str) = delete;
 

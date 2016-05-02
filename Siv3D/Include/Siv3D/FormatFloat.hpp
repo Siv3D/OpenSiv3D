@@ -11,7 +11,6 @@
 
 # pragma once
 # include "Fwd.hpp"
-# include "String.hpp"
 # include "FormatInt.hpp"
 
 namespace s3d

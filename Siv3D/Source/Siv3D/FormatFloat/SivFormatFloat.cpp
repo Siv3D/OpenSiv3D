@@ -9,7 +9,8 @@
 //
 //-----------------------------------------------
 
-# include "../../../Include/Siv3D/FormatFloat.hpp"
+# include "../../../Include/Siv3D/Fwd.hpp"
+# include "../../../Include/Siv3D/String.hpp"
 # include "../../ThirdParty/double-conversion/double-conversion.h"
 
 namespace s3d
