@@ -57,21 +57,24 @@ inline uint32_t decode(uint32_t* state, uint32_t* codep, uint32_t byte)
 
 namespace s3d
 {
-	inline Optional<size_t> CountCodePoints(const char* s)
+	namespace detail
 	{
-		size_t count = 0;
-		uint32_t state = 0;
-		uint32_t codepoint;
-
-		for (; *s; ++s)
+		inline Optional<size_t> CountCodePoints(const char* s)
 		{
-			if (!decode(&state, &codepoint, *s))
-			{
-				++count;
-			}
-		}
+			size_t count = 0;
+			uint32_t state = 0;
+			uint32_t codepoint;
 
-		return state == UTF8_ACCEPT ? Optional<size_t>(count) : none;
+			for (; *s; ++s)
+			{
+				if (!decode(&state, &codepoint, *s))
+				{
+					++count;
+				}
+			}
+
+			return state == UTF8_ACCEPT ? Optional<size_t>(count) : none;
+		}
 	}
 }
 
@@ -86,64 +89,67 @@ namespace s3d
 
 namespace s3d
 {
-	static std::string FromString(const StringView str, uint32 code)
+	namespace detail
 	{
-		const int length = ::WideCharToMultiByte(
-			code,
-			0,
-			str.data(),
-			static_cast<int>(str.length()),
-			nullptr,
-			0,
-			nullptr,
-			nullptr
-		);
-
-		std::string output(length, '\0');
-
-		if (length != ::WideCharToMultiByte(
-			code,
-			0,
-			str.data(),
-			static_cast<int>(str.length()),
-			&output[0],
-			length,
-			nullptr,
-			nullptr
-		))
+		static std::string FromString(const StringView str, uint32 code)
 		{
-			output.clear();
+			const int length = ::WideCharToMultiByte(
+				code,
+				0,
+				str.data(),
+				static_cast<int>(str.length()),
+				nullptr,
+				0,
+				nullptr,
+				nullptr
+			);
+
+			std::string output(length, '\0');
+
+			if (length != ::WideCharToMultiByte(
+				code,
+				0,
+				str.data(),
+				static_cast<int>(str.length()),
+				&output[0],
+				length,
+				nullptr,
+				nullptr
+			))
+			{
+				output.clear();
+			}
+
+			return output;
 		}
 
-		return output;
-	}
-
-	static String ToString(const std::string& str, uint32 code)
-	{
-		const int length = ::MultiByteToWideChar(
-			code,
-			0,
-			str.data(),
-			static_cast<int>(str.length() + 1),
-			nullptr,
-			0
-		);
-
-		String output(length ? length - 1 : 0, '\0');
-
-		if (length != ::MultiByteToWideChar(
-			code,
-			0,
-			str.data(),
-			static_cast<int>(str.length() + 1),
-			&output[0],
-			length
-		))
+		static String ToString(const std::string& str, uint32 code)
 		{
-			output.clear();
-		}
+			const int length = ::MultiByteToWideChar(
+				code,
+				0,
+				str.data(),
+				static_cast<int>(str.length() + 1),
+				nullptr,
+				0
+			);
 
-		return output;
+			String output(length ? length - 1 : 0, '\0');
+
+			if (length != ::MultiByteToWideChar(
+				code,
+				0,
+				str.data(),
+				static_cast<int>(str.length() + 1),
+				&output[0],
+				length
+			))
+			{
+				output.clear();
+			}
+
+			return output;
+		}
 	}
 }
 
@@ -184,7 +190,7 @@ namespace s3d
 
 		# if defined (SIV3D_TARGET_WINDOWS)
 			
-			return ToString(str, CP_ACP);
+			return detail::ToString(str, CP_ACP);
 		
 		# elif defined (SIV3D_TARGET_OSX)
 
