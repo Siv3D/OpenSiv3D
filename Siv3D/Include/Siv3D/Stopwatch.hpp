@@ -12,18 +12,16 @@
 # pragma once
 # include "Fwd.hpp"
 # include "Time.hpp"
+# include "Duration.hpp"
 
 namespace s3d
 {
 	/// <summary>
 	/// ストップウォッチ
 	/// </summary>
-	template <class ResultType>
-	class StopwatchBase
+	class Stopwatch
 	{
 	private:
-
-		using InternalType = std::conditional_t<std::is_floating_point<ResultType>::value, double, int64>;
 
 		uint64 m_startTimeMicrosec = 0;
 
@@ -41,7 +39,7 @@ namespace s3d
 		/// <param name="startImmediately">
 		/// 即座に計測を開始する場合は true
 		/// </param>
-		explicit StopwatchBase(bool startImmediately = false)
+		explicit Stopwatch(bool startImmediately = false)
 		{
 			if (startImmediately)
 			{
@@ -70,12 +68,28 @@ namespace s3d
 		}
 
 		/// <summary>
+		/// ストップウォッチの経過時間を[日]で返します。
+		/// </summary>
+		/// <returns>
+		/// ストップウォッチの経過時間[日]
+		/// </returns>
+		int32 d() const { return static_cast<int32>(d64()); }
+
+		int64 d64() const { return static_cast<int64>(us() / (1000LL * 1000LL * 60LL * 60LL * 24LL)); }
+
+		double dF() const { return static_cast<double>(us() / static_cast<double>(1000LL * 1000LL * 60LL * 60LL * 24LL)); }
+
+		/// <summary>
 		/// ストップウォッチの経過時間を[時]で返します。
 		/// </summary>
 		/// <returns>
 		/// ストップウォッチの経過時間[時]
 		/// </returns>
-		ResultType h() const { return static_cast<ResultType>(us() / static_cast<InternalType>(1000LL * 1000LL * 60LL * 60LL)); }
+		int32 h() const { return static_cast<int32>(h64()); }
+
+		int64 h64() const { return static_cast<int64>(us() / (1000LL * 1000LL * 60LL * 60LL)); }
+
+		double hF() const { return static_cast<double>(us() / static_cast<double>(1000LL * 1000LL * 60LL * 60LL)); }
 
 		/// <summary>
 		/// ストップウォッチの経過時間を[分]で返します。
@@ -83,7 +97,11 @@ namespace s3d
 		/// <returns>
 		/// ストップウォッチの経過時間[分]
 		/// </returns>
-		ResultType min() const { return static_cast<ResultType>(us() / static_cast<InternalType>(1000LL * 1000LL * 60LL)); }
+		int32 min() const { return static_cast<int32>(min64()); }
+
+		int64 min64() const { return static_cast<int64>(us() / (1000LL * 1000LL * 60LL)); }
+
+		double minF() const { return static_cast<double>(us() / static_cast<double>(1000LL * 1000LL * 60LL)); }
 
 		/// <summary>
 		/// ストップウォッチの経過時間を[秒]で返します。
@@ -91,7 +109,11 @@ namespace s3d
 		/// <returns>
 		/// ストップウォッチの経過時間[秒]
 		/// </returns>
-		ResultType s() const { return static_cast<ResultType>(us() / static_cast<InternalType>(1000LL * 1000LL)); }
+		int32 s() const { return static_cast<int32>(s64()); }
+
+		int64 s64() const { return static_cast<int64>(us() / (1000LL * 1000LL)); }
+
+		double sF() const { return static_cast<double>(us() / static_cast<double>(1000LL * 1000LL)); }
 
 		/// <summary>
 		/// ストップウォッチの経過時間を[ミリ秒]で返します。
@@ -99,7 +121,11 @@ namespace s3d
 		/// <returns>
 		/// ストップウォッチの経過時間[ミリ秒]
 		/// </returns>
-		ResultType ms() const { return static_cast<ResultType>(us() / static_cast<InternalType>(1000LL)); }
+		int32 ms() const { return static_cast<int32>(ms64()); }
+
+		int64 ms64() const { return static_cast<int64>(us() / (1000LL)); }
+
+		double msF() const { return static_cast<double>(us() / static_cast<double>(1000LL)); }
 
 		/// <summary>
 		/// ストップウォッチの経過時間を[マイクロ秒]で返します。
@@ -123,6 +149,8 @@ namespace s3d
 
 			return m_accumulationMicrosec + (t - m_startTimeMicrosec);
 		}
+
+		double usF() const { return static_cast<double>(us()); }
 
 		/// <summary>
 		/// ストップウォッチの経過時間を返します。
@@ -227,11 +255,40 @@ namespace s3d
 
 			m_startTimeMicrosec = Time::GetMicrosec();
 		}
+
+		/// <summary>
+		/// DD		日 (00-)
+		/// D		日 (0-)
+		/// dd		日 (00-)
+		/// d		日 (0-)
+		/// HH		時 (00-)
+		/// H		時 (0-)
+		/// hh		時 (00-24)
+		/// h		時 (0-24)
+		/// MM		分 (00-)
+		/// M		分 (0-)
+		/// mm		分 (00-59)
+		/// m		分 (0-59)
+		/// SS		秒 (00-)
+		/// S		秒 (0-)
+		/// ss		秒 (00-59)
+		/// s		秒 (0-59)
+		/// X		ミリ秒 (0-)
+		/// x		小数点以下 1 桁秒 (0-9)
+		/// xx		小数点以下 2 桁秒 (00-99)
+		/// xxx		小数点以下 3 桁秒 (000-999)
+		/// </summary>
+		/// <param name="format">
+		/// フォーマット指定
+		/// </param>
+		/// <returns>
+		/// フォーマットされた経過時間
+		/// </returns>
+		String format(const String& pattern = L"hh:mm:ss.xx") const;
 	};
 
-	using Stopwatch = StopwatchBase<int32>;
-
-	using StopwatchF = StopwatchBase<double>;
-
-	using Stopwatch64 = StopwatchBase<int64>;
+	inline void Formatter(FormatData& formatData, const Stopwatch& stopwatch)
+	{
+		formatData.string.append(stopwatch.format());
+	}
 }

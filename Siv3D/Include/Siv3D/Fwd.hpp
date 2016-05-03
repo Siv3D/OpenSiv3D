@@ -99,8 +99,17 @@ namespace s3d
 	//
 	//	Stopwatch.hpp
 	//
-	template <class ResultType> class StopwatchBase;
-	using Stopwatch		= StopwatchBase<int32>;
-	using StopwatchF	= StopwatchBase<double>;
-	using Stopwatch64	= StopwatchBase<int64>;
+	class Stopwatch;
+
+	//////////////////////////////////////////////////////
+	//
+	//	SpeedStopwatch.hpp
+	//
+	class SpeedStopwatch;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Timer.hpp
+	//
+	class Timer;
 }
