@@ -83,7 +83,7 @@ namespace s3d
 		case 18: // xx		小数点以下 2 桁秒 (00-99)
 			return Pad(us / (1000LL * 10LL) % 100, { 2, L'0' });
 		case 19: // xxx		小数点以下 3 桁秒 (000-999)
-			return Pad(us / (1000LL) % 1000, { 2, L'0' });
+			return Pad(us / (1000LL) % 1000, { 3, L'0' });
 		default:
 			return String();
 		}
