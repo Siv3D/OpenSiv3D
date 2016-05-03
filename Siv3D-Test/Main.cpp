@@ -13,5 +13,5 @@ void Main()
 
 	Log(s);
 
-	Log(s.format(L"hh 時間 mm 分 ss 秒 xxx"));
+	Log(s.format(L"H 時間 mm 分 ss 秒 xxx"));
 }

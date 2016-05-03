@@ -75,7 +75,7 @@ namespace s3d
 		/// </returns>
 		int32 d() const { return static_cast<int32>(d64()); }
 
-		int64 d64() const { return static_cast<int64>(us() / (1000LL * 1000LL * 60LL * 60LL * 24LL)); }
+		int64 d64() const { return us() / (1000LL * 1000LL * 60LL * 60LL * 24LL); }
 
 		double dF() const { return static_cast<double>(us() / static_cast<double>(1000LL * 1000LL * 60LL * 60LL * 24LL)); }
 
@@ -87,7 +87,7 @@ namespace s3d
 		/// </returns>
 		int32 h() const { return static_cast<int32>(h64()); }
 
-		int64 h64() const { return static_cast<int64>(us() / (1000LL * 1000LL * 60LL * 60LL)); }
+		int64 h64() const { return us() / (1000LL * 1000LL * 60LL * 60LL); }
 
 		double hF() const { return static_cast<double>(us() / static_cast<double>(1000LL * 1000LL * 60LL * 60LL)); }
 
@@ -99,7 +99,7 @@ namespace s3d
 		/// </returns>
 		int32 min() const { return static_cast<int32>(min64()); }
 
-		int64 min64() const { return static_cast<int64>(us() / (1000LL * 1000LL * 60LL)); }
+		int64 min64() const { return us() / (1000LL * 1000LL * 60LL); }
 
 		double minF() const { return static_cast<double>(us() / static_cast<double>(1000LL * 1000LL * 60LL)); }
 
@@ -111,7 +111,7 @@ namespace s3d
 		/// </returns>
 		int32 s() const { return static_cast<int32>(s64()); }
 
-		int64 s64() const { return static_cast<int64>(us() / (1000LL * 1000LL)); }
+		int64 s64() const { return us() / (1000LL * 1000LL); }
 
 		double sF() const { return static_cast<double>(us() / static_cast<double>(1000LL * 1000LL)); }
 
@@ -123,7 +123,7 @@ namespace s3d
 		/// </returns>
 		int32 ms() const { return static_cast<int32>(ms64()); }
 
-		int64 ms64() const { return static_cast<int64>(us() / (1000LL)); }
+		int64 ms64() const { return us() / (1000LL); }
 
 		double msF() const { return static_cast<double>(us() / static_cast<double>(1000LL)); }
 
@@ -284,7 +284,7 @@ namespace s3d
 		/// <returns>
 		/// フォーマットされた経過時間
 		/// </returns>
-		String format(const String& pattern = L"hh:mm:ss.xx") const;
+		String format(const String& pattern = L"H:mm:ss.xx") const;
 	};
 
 	inline void Formatter(FormatData& formatData, const Stopwatch& stopwatch)
