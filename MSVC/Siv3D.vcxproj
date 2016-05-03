@@ -77,6 +77,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\String.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\StringView.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Time.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Timer.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Types.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Uncopyable.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Unspecified.hpp" />
@@ -102,6 +103,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatInt\SivFormatInt.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\SivLogger.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ParseFloat\SivParseFloat.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Stopwatch\SivStopwatch.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\String\SivString.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Time\SivTime.cpp" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\cppformat\format.cc" />
