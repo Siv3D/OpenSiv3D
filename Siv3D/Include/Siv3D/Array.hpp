@@ -319,6 +319,11 @@ namespace s3d
 			return any(f);
 		}
 
+		bool isEmpty() const noexcept
+		{
+			return empty();
+		}
+
 		String join(const String& sep = L",", const String& begin = L"{", const String& end = L"}") const
 		{
 			String s;
@@ -717,6 +722,13 @@ namespace s3d
 			std::shuffle(begin(), end(), rng);
 
 			return std::move(*this);
+		}
+
+		size_t size_bytes() const noexcept
+		{
+			static_assert(std::is_trivially_copyable<Type>::value, "Array::size_bytes() Type must be trivially copyable.");
+
+			return size() * sizeof(value_type);
 		}
 
 		Array slice(size_t index) const
@@ -1210,6 +1222,11 @@ namespace s3d
 			return any(f);
 		}
 
+		bool isEmpty() const noexcept
+		{
+			return empty();
+		}
+
 		String join(const String& sep = L",", const String& begin = L"{", const String& end = L"}") const
 		{
 			String s;
@@ -1563,6 +1580,11 @@ namespace s3d
 		Array shuffled(URNG&& rng) const
 		{
 			return Array(*this).shuffle(rng);
+		}
+
+		size_t size_bytes() const noexcept
+		{
+			return size() * sizeof(bool);
 		}
 
 		Array slice(size_t index) const

@@ -89,8 +89,14 @@
 	# include "Siv3D/Format.hpp"
 	// フォーマットリテラル
 	# include "Siv3D/FormatLiteral.hpp"
+	// 文字列 -> 整数 の変換
+	# include "Siv3D/ParseInt.hpp"
+	// 文字列 -> 浮動小数点数 の変換
+	# include "Siv3D/ParseFloat.hpp"
+	// 文字列 -> ブール値 の変換
+	# include "Siv3D/ParseBool.hpp"
 	// 文字列 -> データ の変換
-	//# include "Siv3D/Parse.hpp"
+	# include "Siv3D/Parse.hpp"
 	// 正規表現
 	//# include "Siv3D/Regex.hpp"
 //

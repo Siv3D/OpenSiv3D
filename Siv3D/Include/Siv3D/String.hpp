@@ -1062,6 +1062,11 @@ namespace s3d
 		/// <summary>
 		/// 空の文字列であるかを示します。
 		/// </summary>
+		bool empty() const noexcept { return m_string.empty(); }
+
+		/// <summary>
+		/// 空の文字列であるかを示します。
+		/// </summary>
 		bool isEmpty() const noexcept { return m_string.empty(); }
 
 		/// <summary>
@@ -2095,9 +2100,9 @@ namespace s3d
 		template <class Fty>
 		auto map(Fty f) const
 		{
-            using ValueType = decltype(std::declval<Fty>()(std::declval<wchar>()));
+			using ValueType = decltype(std::declval<Fty>()(std::declval<wchar>()));
             
-            Array<ValueType, typename DefaultAllocator<ValueType>::type> new_array;
+			Array<ValueType, typename DefaultAllocator<ValueType>::type> new_array;
 
 			new_array.reserve(size());
 
