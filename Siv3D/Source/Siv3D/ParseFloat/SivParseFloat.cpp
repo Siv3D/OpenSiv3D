@@ -57,7 +57,7 @@ namespace s3d
 	}
 
 	template <>
-	Optional<float> ParseFloatOpr<float>(const String& str)
+	Optional<float> ParseFloatOpt<float>(const String& str)
 	{
 		const float result = detail::ParseFloat(str);
 
@@ -72,7 +72,7 @@ namespace s3d
 	}
 
 	template <>
-	Optional<double> ParseFloatOpr<double>(const String& str)
+	Optional<double> ParseFloatOpt<double>(const String& str)
 	{
 		const double result = detail::ParseDouble(str);
 
@@ -87,7 +87,7 @@ namespace s3d
 	}
 
 	template <>
-	Optional<long double> ParseFloatOpr<long double>(const String& str)
+	Optional<long double> ParseFloatOpt<long double>(const String& str)
 	{
 		const long double result = detail::ParseDouble(str);
 

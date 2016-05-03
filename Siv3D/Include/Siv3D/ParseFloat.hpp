@@ -30,14 +30,14 @@ namespace s3d
 	}
 
 	template <class FloatType>
-	Optional<FloatType> ParseFloatOpr(const String& str);
+	Optional<FloatType> ParseFloatOpt(const String& str);
 
 	template <>
-	Optional<float> ParseFloatOpr<float>(const String& str);
+	Optional<float> ParseFloatOpt<float>(const String& str);
 
 	template <>
-	Optional<double> ParseFloatOpr<double>(const String& str);
+	Optional<double> ParseFloatOpt<double>(const String& str);
 
 	template <>
-	Optional<long double> ParseFloatOpr<long double>(const String& str);
+	Optional<long double> ParseFloatOpt<long double>(const String& str);
 }
