@@ -49,6 +49,8 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\BigInt.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Char.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\CharacterSet.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Date.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Duration.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Format.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\FormatBool.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\FormatFloat.hpp" />
@@ -71,6 +73,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\PlatformWindows.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Radix.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Step_MSVC.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Stopwatch.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\String.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\StringView.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Time.hpp" />

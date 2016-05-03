@@ -311,6 +311,11 @@ namespace s3d
 		formatData.string.append(str);
 	}
 
+	inline void Formatter(FormatData& formatData, const StringView str)
+	{
+		formatData.string.append(str.begin(), str.end());
+	}
+
 	template <class Type>
 	inline void Formatter(FormatData& formatData, const Optional<Type>& opt)
 	{
