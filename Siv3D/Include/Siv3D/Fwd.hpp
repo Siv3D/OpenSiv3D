@@ -82,4 +82,25 @@ namespace s3d
 	//	Format.hpp
 	//
 	struct FormatData;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Date.hpp
+	//
+	struct Date;
+
+	//////////////////////////////////////////////////////
+	//
+	//	DateTime.hpp
+	//
+	struct DateTime;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Stopwatch.hpp
+	//
+	template <class ResultType> class StopwatchBase;
+	using Stopwatch		= StopwatchBase<int32>;
+	using StopwatchF	= StopwatchBase<double>;
+	using Stopwatch64	= StopwatchBase<int64>;
 }

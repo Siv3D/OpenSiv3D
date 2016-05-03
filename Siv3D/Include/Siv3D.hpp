@@ -103,17 +103,15 @@
 // 時刻と時間
 //
 	// 時間の単位
-	//# include "Siv3D/Duration.hpp"
+	# include "Siv3D/Duration.hpp"
 	// 日付
-	//# include "Siv3D/Date.hpp"
+	# include "Siv3D/Date.hpp"
 	// 日付と時刻
 	//# include "Siv3D/DateTime.hpp"
 	// 時間
 	# include "Siv3D/Time.hpp"
 	// ストップウォッチ
-	//# include "Siv3D/Stopwatch.hpp"
-	// イベント付きストップウォッチ
-	//# include "Siv3D/EventTimer.hpp"
+	# include "Siv3D/Stopwatch.hpp"
 	// スピードを変更可能なストップウォッチ
 	//# include "Siv3D/VariableSpeedStopwatch.hpp"
 	// 処理にかかった時間の測定
@@ -121,6 +119,133 @@
 //
 // ファイル I/O と暗号化
 //
-
-
-# include "Siv3D/Logger.hpp"
+	//// ファイルとディレクトリ
+	//# include "Siv3D/FileSystem.hpp"
+	//// ファイルとディレクトリの変更の監視
+	//# include "Siv3D/FileMonitor.hpp"
+	//// IReader インタフェース
+	//# include "Siv3D/IReader.hpp"
+	//// 読み込み用バッファ
+	//# include "Siv3D/ByteArray.hpp"
+	//// バイナリファイルの読み込み
+	//# include "Siv3D/BinaryReader.hpp"
+	//// IWriter インタフェース
+	//# include "Siv3D/IWriter.hpp"
+	//// 書き込み用バッファ
+	//# include "Siv3D/MemoryWriter.hpp"
+	//// バイナリファイルの書き込み
+	//# include "Siv3D/BinaryWriter.hpp"
+	//// テキストファイルの読み込み
+	//# include "Siv3D/TextReader.hpp"
+	//// テキストファイルの書き込み
+	//# include "Siv3D/TextWriter.hpp"
+	//// Base64
+	//# include "Siv3D/Base64.hpp"
+	//// MD5
+	//# include "Siv3D/MD5.hpp"
+	// ログファイル
+	# include "Siv3D/Logger.hpp"
+	//// AES128 による暗号化
+	//# include "Siv3D/Crypto.hpp"
+	//// Deflate によるデータの圧縮・展開
+	//# include "Siv3D/Compression.hpp"
+	//// アーカイブファイルからの読み込み
+	//# include "Siv3D/ArchivedFileReader.hpp"
+	//// アーカイブファイル
+	//# include "Siv3D/FileArchive.hpp"
+	//// CSV ファイルの読み込み
+	//# include "Siv3D/CSVReader.hpp"
+	//// CSV ファイルの書き出し
+	//# include "Siv3D/CSVWriter.hpp"
+	//// INI ファイルの読み込み
+	//# include "Siv3D/INIReader.hpp"
+	//// INI ファイルの書き出し
+	//# include "Siv3D/INIWriter.hpp"
+	//// XML ファイルの読み込み
+	//# include "Siv3D/XMLReader.hpp"
+	//// JSON ファイルの読み込み
+	//# include "Siv3D/JSONReader.hpp"
+	//// JSON ファイルの書き出し
+	//# include "Siv3D/JSONWriter.hpp"
+	//// ZIP 圧縮ファイルの読み込み
+	//# include "Siv3D/ZIPReader.hpp"
+	//// ZIP 圧縮ファイルの書き出し
+	//# include "Siv3D/ZIPWriter.hpp"
+//
+// 色と二次元図形
+//
+	//// RGB カラー
+	//# include "Siv3D/Color.hpp"
+	//// HSV カラー
+	//# include "Siv3D/HSV.hpp"
+	//// ベクトル
+	//# include "Siv3D/PointVector.hpp"
+	//// 円座標
+	//# include "Siv3D/Circular.hpp"
+	//// 円柱座標
+	//# include "Siv3D/Cylindrical.hpp"
+	//// 球面座標
+	//# include "Siv3D/Spherical.hpp"
+	//// 3x2 行列
+	//# include "Siv3D/Mat3x2.hpp"
+	//// 線分
+	//# include "Siv3D/Line.hpp"
+	//// 長方形
+	//# include "Siv3D/Rectangle.hpp"
+	//// 円
+	//# include "Siv3D/Circle.hpp"
+	//// 楕円
+	//# include "Siv3D/Ellipse.hpp"
+	//// 三角形
+	//# include "Siv3D/Triangle.hpp"
+	//// 四角形
+	//# include "Siv3D/Quad.hpp"
+	//// 角丸長方形
+	//# include "Siv3D/RoundRect.hpp"
+	//// 連続した複数の線分
+	//# include "Siv3D/LineString.hpp"
+	//// 多角形
+	//# include "Siv3D/Polygon.hpp"
+	//// 多角形の集合
+	//# include "Siv3D/MultiPolygon.hpp"
+	//// 矢印形
+	//# include "Siv3D/Arrow.hpp"
+	//// 2D 図形の Variant
+	//# include "Siv3D/Shape.hpp"
+	//// レンダリング用形状
+	//# include "Siv3D/FloatShape.hpp"
+//
+// 数学
+//
+	//// 数学定数
+	//# include "Siv3D/MathConstants.hpp"
+	//// 乱数生成エンジン
+	//# include "Siv3D/RNG.hpp"
+	//// 乱数の分布
+	//# include "Siv3D/Distribution.hpp"
+	//// 乱数ユーティリティ
+	//# include "Siv3D/Random.hpp"
+	//// 数学関数
+	//# include "Siv3D/Math.hpp"
+	//// 線形補間
+	//# include "Siv3D/Lerp.hpp"
+	//// イージング関数
+	//# include "Siv3D/Easing.hpp"
+	//// イージング ユーティリティ
+	//# include "Siv3D/EasingController.hpp"
+	//// 2D 幾何
+	//# include "Siv3D/Geometry2D.hpp"
+	//// Perlin Noise
+	//# include "Siv3D/PerlinNoise.hpp"
+	//// スプライン
+	//# include "Siv3D/Spline.hpp"
+	//// 2 次ベジェ曲線
+	//# include "Siv3D/QuadraticBezier.hpp"
+	//// 3 次ベジェ曲線
+	//# include "Siv3D/CubicBezier.hpp"
+	//// SIMD
+	//# include "Siv3D/SIMD.hpp"
+	//// 半精度浮動小数点数
+	//# include "Siv3D/HalfFloat.hpp"
+	//// 数式パーサー
+	//# include "Siv3D/ExpressionParser.hpp"

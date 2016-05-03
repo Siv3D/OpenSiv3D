@@ -763,6 +763,18 @@ namespace s3d
 	}
 
 	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
+	inline std::ostream & operator << (std::ostream& os, const Grid<Type>& grid)
+	{
+		return os << Format(grid).narrow();
+	}
+
+	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
+	inline std::wostream & operator << (std::wostream& os, const Grid<Type>& grid)
+	{
+		return os << Format(grid);
+	}
+
+	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
 	inline void Formatter(FormatData& formatData, const Grid<Type>& grid)
 	{
 		formatData.string.push_back(L'{');
@@ -778,6 +790,8 @@ namespace s3d
 			else
 			{
 				formatData.string.push_back(L',');
+
+				formatData.string.push_back(L'\n');
 			}
 
 			Formatter(formatData, grid[y], grid[y] + grid.width());

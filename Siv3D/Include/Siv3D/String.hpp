@@ -2829,21 +2829,9 @@ namespace s3d
 		}
 	};
 
-	/// <summary>
-	/// 入力ストリームに文字列を渡します。
-	/// </summary>
-	/// <param name="input">
-	/// 入力ストリーム
-	/// </param>
-	/// <param name="str">
-	/// 文字列
-	/// </param>
-	/// <returns>
-	/// 渡した後の入力ストリーム
-	/// </returns>
-	inline std::wistream& operator >> (std::wistream& input, String& str)
+	inline std::ostream& operator <<(std::ostream& output, const String& str)
 	{
-		return input >> str.str();
+		return output << str.narrow();
 	}
 
 	/// <summary>
@@ -2858,92 +2846,111 @@ namespace s3d
 	/// <returns>
 	/// 渡した後の出力ストリーム
 	/// </returns>
-	inline std::wostream& operator << (std::wostream& output, const String& str)
+	inline std::wostream& operator <<(std::wostream& output, const String& str)
 	{
 		return output << str.str();
 	}
 
-	inline String operator + (const String& lhs, const String& rhs)
+	/// <summary>
+	/// 入力ストリームに文字列を渡します。
+	/// </summary>
+	/// <param name="input">
+	/// 入力ストリーム
+	/// </param>
+	/// <param name="str">
+	/// 文字列
+	/// </param>
+	/// <returns>
+	/// 渡した後の入力ストリーム
+	/// </returns>
+	inline std::wistream& operator >>(std::wistream& input, String& str)
+	{
+		return input >> str.str();
+	}
+
+
+
+	inline String operator +(const String& lhs, const String& rhs)
 	{
 		return lhs.str() + rhs.str();
 	}
 
-	inline String operator + (const wchar* lhs, const String& rhs)
+	inline String operator +(const wchar* lhs, const String& rhs)
 	{
 		return lhs + rhs.str();
 	}
 
-	inline String operator + (const wchar lhs, const String& rhs)
+	inline String operator +(const wchar lhs, const String& rhs)
 	{
 		return lhs + rhs.str();
 	}
 
-	inline String operator + (const String& lhs, const wchar* rhs)
+	inline String operator +(const String& lhs, const wchar* rhs)
 	{
 		return lhs.str() + rhs;
 	}
 
-	inline String operator + (const String& lhs, const wchar rhs)
+	inline String operator +(const String& lhs, const wchar rhs)
 	{
 		return lhs.str() + rhs;
 	}
 
-	inline bool operator == (const wchar* lhs, const String& rhs)
+	inline bool operator ==(const wchar* lhs, const String& rhs)
 	{
 		return lhs == rhs.str();
 	}
 
-	inline bool operator == (const String& lhs, const wchar* rhs)
+	inline bool operator ==(const String& lhs, const wchar* rhs)
 	{
 		return lhs.str() == rhs;
 	}
 
-	inline bool operator != (const wchar* lhs, const String& rhs)
+	inline bool operator !=(const wchar* lhs, const String& rhs)
 	{
 		return lhs != rhs.str();
 	}
 
-	inline bool operator != (const String& lhs, const wchar* rhs)
+	inline bool operator !=(const String& lhs, const wchar* rhs)
 	{
 		return lhs.str() != rhs;
 	}
 
-	inline bool operator < (const wchar* lhs, const String& rhs)
+	inline bool operator <(const wchar* lhs, const String& rhs)
 	{
 		return lhs < rhs.str();
 	}
 
-	inline bool operator < (const String& lhs, const wchar* rhs)
+	inline bool operator <(const String& lhs, const wchar* rhs)
 	{
 		return lhs.str() < rhs;
 	}
 
-	inline bool operator > (const wchar* lhs, const String& rhs)
+	inline bool operator >(const wchar* lhs, const String& rhs)
 	{
 		return lhs > rhs.str();
 	}
 
-	inline bool operator > (const String& lhs, const wchar* rhs)
+	inline bool operator >(const String& lhs, const wchar* rhs)
 	{
 		return lhs.str() > rhs;
 	}
 
-	inline bool operator <= (const wchar* lhs, const String& rhs)
+	inline bool operator <=(const wchar* lhs, const String& rhs)
 	{
 		return lhs <= rhs.str();
 	}
 
-	inline bool operator <= (const String& lhs, const wchar* rhs)
+	inline bool operator <=(const String& lhs, const wchar* rhs)
 	{
 		return lhs.str() <= rhs;
 	}
 
-	inline bool operator >= (const wchar* lhs, const String& rhs)
+	inline bool operator >=(const wchar* lhs, const String& rhs)
 	{
 		return lhs >= rhs.str();
 	}
 
-	inline bool operator >= (const String& lhs, const wchar* rhs)
+	inline bool operator >=(const String& lhs, const wchar* rhs)
 	{
 		return lhs.str() >= rhs;
 	}
@@ -3018,5 +3025,18 @@ namespace s3d
 	inline bool String::starts_with(const StringView& str) const
 	{
 		return (m_string.length() >= str.length()) && std::equal(str.begin(), str.end(), m_string.begin());
+	}
+
+	inline std::istream& operator >> (std::istream& input, String& str)
+	{
+		std::string t;
+		input >> t;
+		str = CharacterSet::Widen(t);
+		return input;
+	}
+
+	inline std::ostream& operator << (std::ostream& os, const StringView& str)
+	{
+		return os << CharacterSet::Narrow(str);
 	}
 }
