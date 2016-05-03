@@ -32,11 +32,11 @@ void Main()
 
 		for (const auto& s : vs)
 		{
-			::_wtof(s.data());
+			::wcstod(s.data(), nullptr);
 		}
 
 		Log(Time::GetMicrosec() - b);
 	}
-
+	
 	//RunTest();
 }

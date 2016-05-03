@@ -31,7 +31,7 @@ namespace s3d
 		explicit constexpr Radix(uint32 value)
 			: m_value(value) {}
 
-		explicit constexpr Radix(unspecified_t)
+        constexpr Radix(unspecified_t)
 			: m_value(0) {}
 
 		constexpr uint32 value() const
