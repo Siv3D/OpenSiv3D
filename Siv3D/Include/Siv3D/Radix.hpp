@@ -20,12 +20,19 @@ namespace s3d
 
 		uint32 m_value = 10;
 
+		struct unspecified_t {};
+
 	public:
 
-		Radix() = default;
+		static constexpr unspecified_t Unspecified{};
+
+		constexpr Radix() = default;
 
 		explicit constexpr Radix(uint32 value)
 			: m_value(value) {}
+
+		explicit constexpr Radix(unspecified_t)
+			: m_value(0) {}
 
 		constexpr uint32 value() const
 		{

@@ -59,6 +59,9 @@
     <Filter Include="Source\Siv3D\String">
       <UniqueIdentifier>{5a2dcd92-1e34-4ecf-851e-7c730e1120ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\ParseFloat">
+      <UniqueIdentifier>{c82b2a90-bae3-4a65-a5cf-020a4ad81b4a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -256,6 +259,18 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\CharacterSet.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Parse.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\ParseInt.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\ParseFloat.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\ParseBool.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\Siv3DMain_OSX.cpp">
@@ -311,6 +326,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\String\SivString.cpp">
       <Filter>Source\Siv3D\String</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ParseFloat\SivParseFloat.cpp">
+      <Filter>Source\Siv3D\ParseFloat</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -719,6 +719,13 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		size_t size_bytes() const noexcept
+		{
+			static_assert(std::is_trivially_copyable<Type>::value, "Array::size_bytes() Type must be trivially copyable.");
+
+			return size() * sizeof(value_type);
+		}
+
 		Array slice(size_t index) const
 		{
 			if (index >= size())
@@ -1563,6 +1570,11 @@ namespace s3d
 		Array shuffled(URNG&& rng) const
 		{
 			return Array(*this).shuffle(rng);
+		}
+
+		size_t size_bytes() const noexcept
+		{
+			return size() * sizeof(bool);
 		}
 
 		Array slice(size_t index) const

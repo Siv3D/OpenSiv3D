@@ -979,4 +979,13 @@ float StringToDoubleConverter::StringToFloat(
                                          processed_characters_count));
 }
 
+double StringToDoubleConverter::Siv3D_StringToIeee(const wchar_t* start_pointer,
+	int length,
+	bool read_as_double,
+	int* processed_characters_count) const
+{
+	return StringToIeee(start_pointer, length, read_as_double,
+		processed_characters_count);
+}
+
 }  // namespace double_conversion

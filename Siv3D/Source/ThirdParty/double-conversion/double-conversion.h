@@ -522,18 +522,22 @@ class StringToDoubleConverter {
                       int length,
                       int* processed_characters_count) const;
 
+  double Siv3D_StringToIeee(const wchar_t* start_pointer,
+	  int length,
+	  bool read_as_double,
+	  int* processed_characters_count) const;
+
  private:
   const int flags_;
   const double empty_string_value_;
   const double junk_string_value_;
   const char* const infinity_symbol_;
   const char* const nan_symbol_;
-
   template <class Iterator>
   double StringToIeee(Iterator start_pointer,
-                      int length,
-                      bool read_as_double,
-                      int* processed_characters_count) const;
+	  int length,
+	  bool read_as_double,
+	  int* processed_characters_count) const;
 
   DISALLOW_IMPLICIT_CONSTRUCTORS(StringToDoubleConverter);
 };

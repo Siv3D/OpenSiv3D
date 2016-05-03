@@ -3,12 +3,40 @@
 # include "Test/Siv3DTest.hpp"
 
 using namespace s3d;
+using namespace s3d::literals;
 
 void Main()
 {
-	RunTest();
-}
+	Array<String> vs(10000);
 
-/*
-Pad
-*/
+	int i = 0;
+
+	for (auto& s : vs)
+	{
+		s = Format(1.2345 * i++);
+	}
+
+	{
+		auto b = Time::GetMicrosec();
+
+		for (const auto& s : vs)
+		{
+			ParseFloat<double>(s);
+		}
+
+		Log(Time::GetMicrosec() - b);
+	}
+
+	{
+		auto b = Time::GetMicrosec();
+
+		for (const auto& s : vs)
+		{
+			::_wtof(s.data());
+		}
+
+		Log(Time::GetMicrosec() - b);
+	}
+
+	//RunTest();
+}
