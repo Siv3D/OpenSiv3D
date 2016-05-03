@@ -12,6 +12,8 @@
 # pragma once
 # include "Fwd.hpp"
 # include "ParseInt.hpp"
+# include "ParseFloat.hpp"
+# include "ParseBool.hpp"
 
 namespace s3d
 {
@@ -31,7 +33,7 @@ namespace s3d
 	/// 文字列から変換されたデータ
 	/// </returns>
 	template <class Type, std::enable_if_t<!std::is_arithmetic<Type>::value>* = nullptr>
-	Type Parse(const String& str)
+	inline Type Parse(const String& str)
 	{
 		Type to;
 
@@ -41,5 +43,55 @@ namespace s3d
 		}
 
 		return to;
+	}
+
+	template <class IntegerType, std::enable_if_t<std::is_integral<IntegerType>::value>* = nullptr>
+	inline IntegerType Parse(const String& str)
+	{
+		return ParseInt<IntegerType>(str);
+	}
+
+	template <class FloatType, std::enable_if_t<std::is_floating_point<FloatType>::value>* = nullptr>
+	inline FloatType Parse(const String& str)
+	{
+		return ParseFloat<FloatType>(str);
+	}
+
+	template <>
+	inline bool Parse<bool>(const String& str)
+	{
+		return ParseBool(str);
+	}
+
+	template <>
+	inline char Parse<char>(const String& str)
+	{
+		const String t = str.trimmed();
+
+		if (t.isEmpty())
+		{
+			return 0;
+		}
+
+		return static_cast<char>(t[0]);
+	}
+
+	template <>
+	inline wchar Parse<wchar>(const String& str)
+	{
+		const String t = str.trimmed();
+
+		if (t.isEmpty())
+		{
+			return 0;
+		}
+
+		return t[0];
+	}
+
+	template <>
+	inline String Parse<String>(const String& str)
+	{
+		return str.trimmed();
 	}
 }

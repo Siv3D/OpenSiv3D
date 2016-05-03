@@ -10,8 +10,13 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Fwd.hpp"
+# include "String.hpp"
 
 namespace s3d
 {
-
+	inline bool ParseBool(const String& str)
+	{
+		return str.trimmed().lowercase().compare(L"true") == 0;
+	}
 }

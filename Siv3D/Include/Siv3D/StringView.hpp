@@ -96,6 +96,8 @@ namespace s3d
 
 		constexpr bool empty() const noexcept { return m_length == 0; }
 
+		constexpr bool isEmpty() const noexcept { return m_length == 0; }
+
 		constexpr const_reference operator[] (size_type index) const { return m_ptr[index]; }
 
 		constexpr const_reference at(size_type index) const

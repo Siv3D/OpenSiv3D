@@ -1062,6 +1062,11 @@ namespace s3d
 		/// <summary>
 		/// 空の文字列であるかを示します。
 		/// </summary>
+		bool empty() const noexcept { return m_string.empty(); }
+
+		/// <summary>
+		/// 空の文字列であるかを示します。
+		/// </summary>
 		bool isEmpty() const noexcept { return m_string.empty(); }
 
 		/// <summary>

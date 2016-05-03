@@ -319,6 +319,11 @@ namespace s3d
 			return any(f);
 		}
 
+		bool isEmpty() const noexcept
+		{
+			return empty();
+		}
+
 		String join(const String& sep = L",", const String& begin = L"{", const String& end = L"}") const
 		{
 			String s;
@@ -1215,6 +1220,11 @@ namespace s3d
 		bool include_if(std::function<bool(const bool&)> f) const
 		{
 			return any(f);
+		}
+
+		bool isEmpty() const noexcept
+		{
+			return empty();
 		}
 
 		String join(const String& sep = L",", const String& begin = L"{", const String& end = L"}") const
