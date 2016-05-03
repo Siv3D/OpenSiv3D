@@ -13,6 +13,9 @@
 		2C38B0901CD86744007A7E9F /* ParseInt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B08C1CD86744007A7E9F /* ParseInt.hpp */; };
 		2C38B0931CD86760007A7E9F /* SivParseFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C38B0921CD86760007A7E9F /* SivParseFloat.cpp */; };
 		2C38B0951CD8C36F007A7E9F /* Point.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B0941CD8C36F007A7E9F /* Point.hpp */; };
+		2C38B0991CD8E170007A7E9F /* Date.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B0961CD8E170007A7E9F /* Date.hpp */; };
+		2C38B09A1CD8E170007A7E9F /* Duration.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B0971CD8E170007A7E9F /* Duration.hpp */; };
+		2C38B09B1CD8E170007A7E9F /* Stopwatch.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B0981CD8E170007A7E9F /* Stopwatch.hpp */; };
 		2CA7F75A1CA7F43D00495647 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2CA7F8091CA7F5A700495647 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
 		2CB1EFD11CD7153B004DA6E3 /* CharacterSet.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB1EFCF1CD7153B004DA6E3 /* CharacterSet.hpp */; };
@@ -132,6 +135,9 @@
 		2C38B08C1CD86744007A7E9F /* ParseInt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ParseInt.hpp; sourceTree = "<group>"; };
 		2C38B0921CD86760007A7E9F /* SivParseFloat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivParseFloat.cpp; sourceTree = "<group>"; };
 		2C38B0941CD8C36F007A7E9F /* Point.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Point.hpp; sourceTree = "<group>"; };
+		2C38B0961CD8E170007A7E9F /* Date.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Date.hpp; sourceTree = "<group>"; };
+		2C38B0971CD8E170007A7E9F /* Duration.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Duration.hpp; sourceTree = "<group>"; };
+		2C38B0981CD8E170007A7E9F /* Stopwatch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Stopwatch.hpp; sourceTree = "<group>"; };
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F7461CA7F40600495647 /* Siv3D-Test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Siv3D-Test"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
@@ -400,6 +406,9 @@
 		2CC2B06F1CB5552200BB42D0 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C38B0961CD8E170007A7E9F /* Date.hpp */,
+				2C38B0971CD8E170007A7E9F /* Duration.hpp */,
+				2C38B0981CD8E170007A7E9F /* Stopwatch.hpp */,
 				2C38B0941CD8C36F007A7E9F /* Point.hpp */,
 				2C38B0891CD86744007A7E9F /* Parse.hpp */,
 				2C38B08A1CD86744007A7E9F /* ParseBool.hpp */,
@@ -623,6 +632,8 @@
 				2CC2B0E81CB5552200BB42D0 /* Step_MSVC.hpp in Headers */,
 				2CC2B0F01CB5552200BB42D0 /* Siv3D.hpp in Headers */,
 				2CC2B0D61CB5552200BB42D0 /* _TEMPLATE.hpp in Headers */,
+				2C38B09B1CD8E170007A7E9F /* Stopwatch.hpp in Headers */,
+				2C38B09A1CD8E170007A7E9F /* Duration.hpp in Headers */,
 				2CC2B0FE1CB5552300BB42D0 /* bignum-dtoa.h in Headers */,
 				2CC2B10D1CB5552300BB42D0 /* strtod.h in Headers */,
 				2CC2B0D81CB5552200BB42D0 /* Array.hpp in Headers */,
@@ -636,6 +647,7 @@
 				2CC2B10E1CB5552300BB42D0 /* utils.h in Headers */,
 				2CC2B0DB1CB5552200BB42D0 /* FormatBool.hpp in Headers */,
 				2CC2B0E71CB5552200BB42D0 /* Step.hpp in Headers */,
+				2C38B0991CD8E170007A7E9F /* Date.hpp in Headers */,
 				2CC2B0C71CB5552200BB42D0 /* gtest_pred_impl.h in Headers */,
 				2CC2B0C01CB5552200BB42D0 /* gtest-message.h in Headers */,
 				2CC2B10B1CB5552300BB42D0 /* ieee.h in Headers */,
