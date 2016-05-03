@@ -17,6 +17,10 @@ namespace s3d
 {
 	class Timer
 	{
+	private:
+
+
+	public:
 
 	};
 }
