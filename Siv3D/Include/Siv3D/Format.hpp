@@ -375,12 +375,6 @@ namespace s3d
 		Formatter(formatData, v.begin(), v.end());
 	}
 
-	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
-	inline void Formatter(FormatData& formatData, const Array<Type, Allocator>& v)
-	{
-		Formatter(formatData, v.begin(), v.end());
-	}
-
 	template <class Type>
 	inline void Formatter(FormatData& formatData, const std::initializer_list<Type>& ilist)
 	{

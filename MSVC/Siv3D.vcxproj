@@ -62,6 +62,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\ParseBool.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ParseFloat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ParseInt.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Point.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Step.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\LetterCase.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Number.hpp" />
