@@ -498,7 +498,7 @@ namespace s3d
 
 		Size size() const noexcept { return Size{ m_width, m_height }; }
 
-		size_type count() const noexcept { return m_data.size(): }
+		size_type count() const noexcept { return m_data.size(); }
 
 		size_type size_bytes() const noexcept
 		{
@@ -555,7 +555,7 @@ namespace s3d
 			
 			std::swap(m_width, other.m_width);
 
-			std::swap(m_height, other.m_height)
+			std::swap(m_height, other.m_height);
 		}
 
 		/// <summary>
@@ -769,7 +769,7 @@ namespace s3d
 
 		bool isFirst = true;
 
-		for (Grid<Type>::size_type y = 0; y < grid.height(); ++y)
+		for (typename Grid<Type>::size_type y = 0; y < grid.height(); ++y)
 		{
 			if (isFirst)
 			{
