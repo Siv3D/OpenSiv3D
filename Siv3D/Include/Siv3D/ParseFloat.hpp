@@ -28,4 +28,16 @@ namespace s3d
 	{
 		return ParseFloat<double>(str);
 	}
+
+	template <class FloatType>
+	Optional<FloatType> ParseFloatOpt(const String& str);
+
+	template <>
+	Optional<float> ParseFloatOpt<float>(const String& str);
+
+	template <>
+	Optional<double> ParseFloatOpt<double>(const String& str);
+
+	template <>
+	Optional<long double> ParseFloatOpt<long double>(const String& str);
 }

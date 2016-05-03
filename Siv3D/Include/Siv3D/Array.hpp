@@ -77,6 +77,23 @@ namespace s3d
 		using base_type::resize;
 		using base_type::swap;
 
+		size_t count() const
+		{
+			return size();
+		}
+
+		bool isEmpty() const noexcept
+		{
+			return empty();
+		}
+
+		void release()
+		{
+			clear();
+
+			shrink_to_fit();
+		}
+
 		Array& operator <<(const Type& value)
 		{
 			push_back(value);
@@ -152,11 +169,6 @@ namespace s3d
 		Array choice(size_t n, URNG&& rng) const
 		{
 			return shuffled(rng).taken(n);
-		}
-
-		size_t count() const
-		{
-			return size();
 		}
 
 		size_t count(const Type& value) const
@@ -317,11 +329,6 @@ namespace s3d
 		bool include_if(std::function<bool(const Type&)> f) const
 		{
 			return any(f);
-		}
-
-		bool isEmpty() const noexcept
-		{
-			return empty();
 		}
 
 		String join(const String& sep = L",", const String& begin = L"{", const String& end = L"}") const
@@ -858,42 +865,6 @@ namespace s3d
 		}
 	};
 
-	template <class Type, class Allocator>
-	inline bool operator ==(const Array<Type, Allocator>& a, const Array<Type, Allocator>& b)
-	{
-		return ((a.size() == b.size()) && std::equal(a.begin(), a.end(), b.begin()));
-	}
-
-	template <class Type, class Allocator>
-	inline bool operator !=(const Array<Type, Allocator>& a, const Array<Type, Allocator>& b)
-	{
-		return ((a.size() != b.size()) || !std::equal(a.begin(), a.end(), b.begin()));
-	}
-
-	template <class Type, class Allocator>
-	inline bool operator <(const Array<Type, Allocator>& a, const Array<Type, Allocator>& b)
-	{
-		return std::lexicographical_compare(a.begin(), a.end(), b.begin(), b.end());
-	}
-
-	template <class Type, class Allocator>
-	inline bool operator >(const Array<Type, Allocator>& a, const Array<Type, Allocator>& b)
-	{
-		return b < a;
-	}
-
-	template <class Type, class Allocator>
-	inline bool operator <=(const Array<Type, Allocator>& a, const Array<Type, Allocator>& b)
-	{
-		return !(b < a);
-	}
-
-	template <class Type, class Allocator>
-	inline bool operator >=(const Array<Type, Allocator>& a, const Array<Type, Allocator>& b)
-	{
-		return !(a < b);
-	}
-
 	template <>
 	class Array<bool> : protected std::basic_string<bool>
 	{
@@ -916,7 +887,6 @@ namespace s3d
 		using typename base_type::difference_type;
 		using typename base_type::allocator_type;
 
-		using base_type::operator=;
 		using base_type::assign;
 		using base_type::get_allocator;
 		using base_type::at;
@@ -966,6 +936,10 @@ namespace s3d
 		Array(std::initializer_list<bool> init)
 			: base_type(init.begin(), init.end()) {}
 
+		Array& operator =(const Array& other) = default;
+
+		Array& operator =(Array&& other) = default;
+
 		template<class... Args>
 		iterator emplace(const_iterator pos, Args&&... args)
 		{
@@ -978,6 +952,23 @@ namespace s3d
 		{
 			bool tmp(std::forward<Args>(args)...);
 			push_back(tmp);
+		}
+
+		size_t count() const
+		{
+			return size();
+		}
+
+		bool isEmpty() const noexcept
+		{
+			return empty();
+		}
+
+		void release()
+		{
+			clear();
+
+			shrink_to_fit();
 		}
 
 		Array& operator <<(const bool& value)
@@ -1055,11 +1046,6 @@ namespace s3d
 		Array choice(size_t n, URNG&& rng) const
 		{
 			return shuffled(rng).taken(n);
-		}
-
-		size_t count() const
-		{
-			return size();
 		}
 
 		size_t count(const bool& value) const
@@ -1220,11 +1206,6 @@ namespace s3d
 		bool include_if(std::function<bool(const bool&)> f) const
 		{
 			return any(f);
-		}
-
-		bool isEmpty() const noexcept
-		{
-			return empty();
 		}
 
 		String join(const String& sep = L",", const String& begin = L"{", const String& end = L"}") const
@@ -1688,6 +1669,48 @@ namespace s3d
 			return new_array;
 		}
 	};
+
+	template <class Type, class Allocator>
+	inline bool operator ==(const Array<Type, Allocator>& a, const Array<Type, Allocator>& b)
+	{
+		return ((a.size() == b.size()) && std::equal(a.begin(), a.end(), b.begin()));
+	}
+
+	template <class Type, class Allocator>
+	inline bool operator !=(const Array<Type, Allocator>& a, const Array<Type, Allocator>& b)
+	{
+		return ((a.size() != b.size()) || !std::equal(a.begin(), a.end(), b.begin()));
+	}
+
+	template <class Type, class Allocator>
+	inline bool operator <(const Array<Type, Allocator>& a, const Array<Type, Allocator>& b)
+	{
+		return std::lexicographical_compare(a.begin(), a.end(), b.begin(), b.end());
+	}
+
+	template <class Type, class Allocator>
+	inline bool operator >(const Array<Type, Allocator>& a, const Array<Type, Allocator>& b)
+	{
+		return b < a;
+	}
+
+	template <class Type, class Allocator>
+	inline bool operator <=(const Array<Type, Allocator>& a, const Array<Type, Allocator>& b)
+	{
+		return !(b < a);
+	}
+
+	template <class Type, class Allocator>
+	inline bool operator >=(const Array<Type, Allocator>& a, const Array<Type, Allocator>& b)
+	{
+		return !(a < b);
+	}
+
+	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
+	inline void Formatter(FormatData& formatData, const Array<Type, Allocator>& v)
+	{
+		Formatter(formatData, v.begin(), v.end());
+	}
 }
 
 namespace std

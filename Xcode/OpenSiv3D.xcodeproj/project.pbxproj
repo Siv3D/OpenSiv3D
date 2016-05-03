@@ -12,6 +12,7 @@
 		2C38B08F1CD86744007A7E9F /* ParseFloat.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B08B1CD86744007A7E9F /* ParseFloat.hpp */; };
 		2C38B0901CD86744007A7E9F /* ParseInt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B08C1CD86744007A7E9F /* ParseInt.hpp */; };
 		2C38B0931CD86760007A7E9F /* SivParseFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C38B0921CD86760007A7E9F /* SivParseFloat.cpp */; };
+		2C38B0951CD8C36F007A7E9F /* Point.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B0941CD8C36F007A7E9F /* Point.hpp */; };
 		2CA7F75A1CA7F43D00495647 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2CA7F8091CA7F5A700495647 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
 		2CB1EFD11CD7153B004DA6E3 /* CharacterSet.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB1EFCF1CD7153B004DA6E3 /* CharacterSet.hpp */; };
@@ -130,6 +131,7 @@
 		2C38B08B1CD86744007A7E9F /* ParseFloat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ParseFloat.hpp; sourceTree = "<group>"; };
 		2C38B08C1CD86744007A7E9F /* ParseInt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ParseInt.hpp; sourceTree = "<group>"; };
 		2C38B0921CD86760007A7E9F /* SivParseFloat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivParseFloat.cpp; sourceTree = "<group>"; };
+		2C38B0941CD8C36F007A7E9F /* Point.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Point.hpp; sourceTree = "<group>"; };
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F7461CA7F40600495647 /* Siv3D-Test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Siv3D-Test"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
@@ -398,6 +400,7 @@
 		2CC2B06F1CB5552200BB42D0 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C38B0941CD8C36F007A7E9F /* Point.hpp */,
 				2C38B0891CD86744007A7E9F /* Parse.hpp */,
 				2C38B08A1CD86744007A7E9F /* ParseBool.hpp */,
 				2C38B08B1CD86744007A7E9F /* ParseFloat.hpp */,
@@ -647,6 +650,7 @@
 				2CBB0C2E1CC5FCCF00A7BA9B /* Char.hpp in Headers */,
 				2CC2B0DF1CB5552200BB42D0 /* Fwd.hpp in Headers */,
 				2CC2B0CF1CB5552200BB42D0 /* gtest-linked_ptr.h in Headers */,
+				2C38B0951CD8C36F007A7E9F /* Point.hpp in Headers */,
 				2C38B0901CD86744007A7E9F /* ParseInt.hpp in Headers */,
 				2CC2B0D91CB5552200BB42D0 /* BigInt.hpp in Headers */,
 				2CD358611CB8018B00BB16A0 /* ProfilerUtility.hpp in Headers */,
