@@ -30,4 +30,4 @@
 
 ## Discussion ##
 
-[![Slack Status](https://siv3d-slackin.herokuapp.com/badge.svg)](https://siv3d-slackin.herokuapp.com/) [#open-siv3d](https://siv3d.slack.com/archives/open-siv3d)  (Japanese)
+[![Slack Status](https://siv3d-slackin.herokuapp.com/badge.svg)](https://siv3d-slackin.herokuapp.com/) [#open-siv3d](https://siv3d.slack.com/messages/open-siv3d/details/)  (Japanese)
