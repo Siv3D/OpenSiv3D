@@ -18,6 +18,8 @@
 		2C38B09B1CD8E170007A7E9F /* Stopwatch.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B0981CD8E170007A7E9F /* Stopwatch.hpp */; };
 		2C38B09E1CD8EFA6007A7E9F /* SivStopwatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C38B09D1CD8EFA6007A7E9F /* SivStopwatch.cpp */; };
 		2C38B0A01CD8EFB6007A7E9F /* Timer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B09F1CD8EFB6007A7E9F /* Timer.hpp */; };
+		2C38B0A31CD9E8BD007A7E9F /* Random.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B0A11CD9E8BD007A7E9F /* Random.hpp */; };
+		2C38B0A41CD9E8BD007A7E9F /* SpeedStopwatch.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B0A21CD9E8BD007A7E9F /* SpeedStopwatch.hpp */; };
 		2CA7F75A1CA7F43D00495647 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2CA7F8091CA7F5A700495647 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
 		2CB1EFD11CD7153B004DA6E3 /* CharacterSet.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CB1EFCF1CD7153B004DA6E3 /* CharacterSet.hpp */; };
@@ -142,6 +144,8 @@
 		2C38B0981CD8E170007A7E9F /* Stopwatch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Stopwatch.hpp; sourceTree = "<group>"; };
 		2C38B09D1CD8EFA6007A7E9F /* SivStopwatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivStopwatch.cpp; sourceTree = "<group>"; };
 		2C38B09F1CD8EFB6007A7E9F /* Timer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Timer.hpp; sourceTree = "<group>"; };
+		2C38B0A11CD9E8BD007A7E9F /* Random.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Random.hpp; sourceTree = "<group>"; };
+		2C38B0A21CD9E8BD007A7E9F /* SpeedStopwatch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SpeedStopwatch.hpp; sourceTree = "<group>"; };
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F7461CA7F40600495647 /* Siv3D-Test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Siv3D-Test"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
@@ -418,6 +422,8 @@
 		2CC2B06F1CB5552200BB42D0 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C38B0A11CD9E8BD007A7E9F /* Random.hpp */,
+				2C38B0A21CD9E8BD007A7E9F /* SpeedStopwatch.hpp */,
 				2C38B09F1CD8EFB6007A7E9F /* Timer.hpp */,
 				2C38B0961CD8E170007A7E9F /* Date.hpp */,
 				2C38B0971CD8E170007A7E9F /* Duration.hpp */,
@@ -622,6 +628,7 @@
 				2CC2B0E41CB5552200BB42D0 /* Platform.hpp in Headers */,
 				2CC2B0BE1CB5552200BB42D0 /* format.h in Headers */,
 				2CC2B0ED1CB5552200BB42D0 /* Unspecified.hpp in Headers */,
+				2C38B0A41CD9E8BD007A7E9F /* SpeedStopwatch.hpp in Headers */,
 				2CC2B0EA1CB5552200BB42D0 /* Time.hpp in Headers */,
 				2CC2B0D31CB5552200BB42D0 /* gtest-port.h in Headers */,
 				2CC2B0DC1CB5552200BB42D0 /* FormatFloat.hpp in Headers */,
@@ -640,6 +647,7 @@
 				2CC2B0E21CB5552200BB42D0 /* Number.hpp in Headers */,
 				2CC2B0CE1CB5552200BB42D0 /* gtest-internal.h in Headers */,
 				2CC2B1041CB5552300BB42D0 /* diy-fp.h in Headers */,
+				2C38B0A31CD9E8BD007A7E9F /* Random.hpp in Headers */,
 				2CC2B1081CB5552300BB42D0 /* fast-dtoa.h in Headers */,
 				2CBB0C261CC4C3A300A7BA9B /* Logger.hpp in Headers */,
 				2CC2B0E91CB5552200BB42D0 /* String.hpp in Headers */,

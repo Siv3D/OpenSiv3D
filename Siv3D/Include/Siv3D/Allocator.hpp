@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <cstdlib>
 # include <memory>
 # include <limits>
 # include <type_traits>
