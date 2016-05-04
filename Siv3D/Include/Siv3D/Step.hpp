@@ -624,7 +624,7 @@ namespace s3d
 
 		template <class Fty, class ValueType, size_t Index, class Tuple,
 			class Next, std::enable_if_t<!IsMap<Next>::value && (Index + 1 == std::tuple_size<Tuple>::value)>* = nullptr>
-        void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
+		void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
 		{
 			if (std::get<Index>(tuple)(value))
 			{
@@ -634,7 +634,7 @@ namespace s3d
 
 		template <class Fty, class ValueType, size_t Index, class Tuple,
 			class Next, std::enable_if_t<!IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
-        void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
+		void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
 		{
 			if (std::get<Index>(tuple)(value))
 			{
@@ -644,14 +644,14 @@ namespace s3d
 
 		template <class Fty, class ValueType, size_t Index, class Tuple,
 			class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 == std::tuple_size<Tuple>::value)>* = nullptr>
-        void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
+		void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
 		{
 			f(std::get<Index>(tuple)(value));
 		}
 
 		template <class Fty, class ValueType, size_t Index, class Tuple,
 			class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
-        void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
+		void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
 		{
 			Apply_impl<Fty, decltype(std::get<Index>(tuple)(value)), Index + 1, Tuple, typename std::decay<decltype(std::get<Index + 1>(std::declval<Tuple>()))>::type>(f, std::get<Index>(tuple)(value), tuple);
 		}
@@ -665,7 +665,7 @@ namespace s3d
 
 		template <class Fty, class ResultType, class ValueType, size_t Index, class Tuple,
 			class Next, std::enable_if_t<!IsMap<Next>::value && (Index + 1 == std::tuple_size<Tuple>::value)>* = nullptr>
-        void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
+		void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
 		{
 			if (std::get<Index>(tuple)(value))
 			{
@@ -675,7 +675,7 @@ namespace s3d
 
 		template <class Fty, class ResultType, class ValueType, size_t Index, class Tuple,
 			class Next, std::enable_if_t<!IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
-        void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
+		void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
 		{
 			if (std::get<Index>(tuple)(value))
 			{
@@ -685,14 +685,14 @@ namespace s3d
 
 		template <class Fty, class ResultType, class ValueType, size_t Index, class Tuple,
 			class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 == std::tuple_size<Tuple>::value)>* = nullptr>
-        void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
+		void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
 		{
 			result = f(result, std::get<Index>(tuple)(value));
 		}
 
 		template <class Fty, class ResultType, class ValueType, size_t Index, class Tuple,
 			class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
-        void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
+		void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
 		{
 			Reduce_impl<Fty, ResultType, decltype(std::get<Index>(tuple)(value)), Index + 1, Tuple, typename std::decay<decltype(std::get<Index + 1>(std::declval<Tuple>()))>::type>(f, result, std::get<Index>(tuple)(value), tuple);
 		}
@@ -1021,9 +1021,9 @@ namespace s3d
 		return detail::F_Step<steps_class, value_type, decltype(tuple)>(*this, tuple);
 	}
 
-    template <class T, class N, class S>
-    template <class Fty>
-    inline auto steps_class<T, N, S>::map(Fty f) const
+	template <class T, class N, class S>
+	template <class Fty>
+	inline auto steps_class<T, N, S>::map(Fty f) const
 	{
 		using Ret = decltype(std::declval<Fty>()(std::declval<value_type>()));
 		const auto tuple = std::make_tuple(detail::MapFunction<Fty>{ f });
