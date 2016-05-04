@@ -808,7 +808,7 @@ namespace s3d
 		{
 			if (!m_data.empty())
 			{
-				pointer p = data();
+				pointer p = m_data.data();
 
 				for (int32 y = 0; y < m_height; ++y)
 				{
@@ -826,7 +826,7 @@ namespace s3d
 		{
 			if (!m_data.empty())
 			{
-				const_pointer p = data();
+				const_pointer p = m_data.data();
 
 				for (int32 y = 0; y < m_height; ++y)
 				{
@@ -940,14 +940,14 @@ namespace s3d
 			return new_grid;
 		}
 
-		Array replaced(const Type& oldValue, const Type& newValue) &&
+		Grid replaced(const Type& oldValue, const Type& newValue) &&
 		{
 			replace(oldValue, newValue);
 
 			return std::move(*this);
 		}
 
-		Array& replace_if(std::function<bool(const Type&)> f, const Type& newValue)
+		Grid& replace_if(std::function<bool(const Type&)> f, const Type& newValue)
 		{
 			m_data.replace_if(f, newValue);
 
@@ -978,11 +978,241 @@ namespace s3d
 			return new_grid;
 		}
 
-		Array replaced_if(std::function<bool(const Type&)> f, const Type& newValue) &&
+		Grid replaced_if(std::function<bool(const Type&)> f, const Type& newValue) &&
 		{
 			replace_if(f, newValue);
 
 			return std::move(*this);
+		}
+
+		Grid& reverse()
+		{
+			std::reverse(m_data.begin(), m_data.end());
+
+			return *this;
+		}
+
+		Grid reversed() const &
+		{
+			Grid new_grid;
+
+			new_grid.m_data.assign(m_data.rbegin(), m_data.rend());
+
+			new_grid.m_width = m_width;
+
+			new_grid.m_height = m_height;
+
+			return new_grid;
+		}
+
+		Grid reversed() &&
+		{
+			reverse();
+
+			return std::move(*this);
+		}
+
+		Grid& reverse_each(std::function<void(Type&)> f)
+		{
+			for (auto it = m_data.rbegin(); it != m_data.rend(); ++it)
+			{
+				f(*it);
+			}
+
+			return *this;
+		}
+
+		const Grid& reverse_each(std::function<void(const Type&)> f) const
+		{
+			for (auto it = m_data.rbegin(); it != m_data.rend(); ++it)
+			{
+				f(*it);
+			}
+
+			return *this;
+		}
+
+		Grid& rotate(std::ptrdiff_t count = 1)
+		{
+			if (empty())
+			{
+				;
+			}
+			else if (count > 0) // rotation to the left
+			{
+				if (static_cast<size_t>(count) > m_data.size())
+				{
+					count %= m_data.size();
+				}
+
+				std::rotate(m_data.begin(), m_data.begin() + count, m_data.end());
+			}
+			else if (count < 0) // rotation to the right
+			{
+				count = -count;
+
+				if (static_cast<size_t>(count) > m_data.size())
+				{
+					count %= m_data.size();
+				}
+
+				std::rotate(m_data.rbegin(), m_data.rbegin() + count, m_data.rend());
+			}
+
+			return *this;
+		}
+
+		Grid rotated(std::ptrdiff_t count = 1) const &
+		{
+			return Grid(*this).rotate(count);
+		}
+
+		Grid rotated(std::ptrdiff_t count = 1) &&
+		{
+			rotate(count);
+
+			return std::move(*this);
+		}
+
+		Grid& rotate_rows(std::ptrdiff_t count = 1)
+		{
+			return rotate(count * static_cast<std::ptrdiff_t>(m_width));
+		}
+
+		Grid rotated_rows(std::ptrdiff_t count = 1) const &
+		{
+			return rotated(count * static_cast<std::ptrdiff_t>(m_width));
+		}
+
+		Grid rotated_rows(std::ptrdiff_t count = 1) &&
+		{
+			return rotated(count * static_cast<std::ptrdiff_t>(m_width));
+		}
+
+		Grid& shuffle()
+		{
+			return shuffle(GetDefaultRNG());
+		}
+
+		template <class URNG>
+		Grid& shuffle(URNG&& rng)
+		{
+			std::shuffle(begin(), end(), std::move(rng));
+
+			return *this;
+		}
+
+		Grid shuffled() const &
+		{
+			return shuffled(GetDefaultRNG());
+		}
+
+		Grid shuffled() &&
+		{
+			return shuffled(GetDefaultRNG());
+		}
+
+		template <class URNG>
+		Grid shuffled(URNG&& rng) const &
+		{
+			return Grid(*this).shuffle(std::move(rng));
+		}
+
+		template <class URNG>
+		Grid shuffled(URNG&& rng) &&
+		{
+			shuffle(std::move(rng));
+
+			return std::move(*this);
+		}
+
+		Array<Type> slice(size_type y, size_type x) const
+		{
+			if (!inBounds(y, x))
+			{
+				return Array<Type>();
+			}
+
+			return Array<Type>(m_data.begin() + (y * m_width + x), m_data.end());
+		}
+
+		Array<Type> slice(const Point& pos) const
+		{
+			return slice(pos.y, pos.x);
+		}
+
+		Array<Type> slice(size_type y, size_type x, size_t length) const
+		{
+			if (!inBounds(y, x))
+			{
+				return Array<Type>();
+			}
+
+			const size_type index = (y * m_width + x);
+
+			return Array<Type>(m_data.begin() + index, m_data.begin() + std::min(index + length, m_data.size()));
+		}
+
+		Array<Type> slice(const Point& pos, size_t length) const
+		{
+			return slice(pos.y, pos.x, length);
+		}
+
+		Grid& sort()
+		{
+			std::sort(m_data.begin(), m_data.end());
+
+			return *this;
+		}
+
+		Grid& sort_by(std::function<bool(const Type& a, const Type& b)> f)
+		{
+			std::sort(m_data.begin(), m_data.end(), f);
+
+			return *this;
+		}
+
+		Grid sorted() const &
+		{
+			return Grid(*this).sort();
+		}
+
+		Grid sorted() &&
+		{
+			sort();
+
+			return std::move(*this);
+		}
+
+		Grid sorted_by(std::function<bool(const Type& a, const Type& b)> f) const &
+		{
+			return Array(*this).sort_by(f);
+		}
+
+		Grid sorted_by(std::function<bool(const Type& a, const Type& b)> f) &&
+		{
+			sort_by(f);
+
+			return std::move(*this);
+		}
+
+		Array<Type> values_at(std::initializer_list<Point> indices) const
+		{
+			Array<Type> new_array;
+
+			new_array.reserve(indices.size());
+
+			for (auto index : indices)
+			{
+				if (index >= size())
+				{
+					throw std::out_of_range("Array::values_at() index out of range");
+				}
+
+				new_array.push_back(operator[](index));
+			}
+
+			return new_array;
 		}
 	};
 
