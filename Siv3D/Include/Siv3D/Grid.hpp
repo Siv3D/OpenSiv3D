@@ -746,6 +746,244 @@ namespace s3d
 		{
 			resize(size.x, size.y, val);
 		}
+
+		bool all(std::function<bool(const Type&)> f = NotNot()) const
+		{
+			return m_data.all(f);
+		}
+
+		bool any(std::function<bool(const Type&)> f = NotNot()) const
+		{
+			return m_data.any(f);
+		}
+
+		const Type& choice() const
+		{
+			return m_data.choice();
+		}
+
+		template <class URNG, std::enable_if_t<!std::is_scalar<URNG>::value>* = nullptr>
+		const Type& choice(URNG&& rng) const
+		{
+			return m_data.choice(std::move(rng));
+		}
+
+		template <class Size_t, std::enable_if_t<std::is_scalar<Size_t>::value>* = nullptr>
+		Array<Type> choice(Size_t n) const
+		{
+			return m_data.choice(n);
+		}
+
+		template <class URNG>
+		Array<Type> choice(size_t n, URNG&& rng) const
+		{
+			return m_data.choice(n, std::move(rng));
+		}
+
+		size_t count(const Type& value) const
+		{
+			return m_data.count(value);
+		}
+
+		size_t count_if(std::function<bool(const Type&)> f) const
+		{
+			return m_data.count_if(f);
+		}
+
+		Grid& each(std::function<void(Type&)> f)
+		{
+			m_data.each(f);
+
+			return *this;
+		}
+
+		const Grid& each(std::function<void(const Type&)> f) const
+		{
+			m_data.each(f);
+
+			return *this;
+		}
+
+		Grid& each_index(std::function<void(Point, Type&)> f)
+		{
+			if (!m_data.empty())
+			{
+				pointer p = data();
+
+				for (int32 y = 0; y < m_height; ++y)
+				{
+					for (int32 x = 0; x < m_width; ++x)
+					{
+						f({ x,y }, *p++);
+					}
+				}
+			}
+
+			return *this;
+		}
+
+		const Grid& each_index(std::function<void(size_t, const Type&)> f) const
+		{
+			if (!m_data.empty())
+			{
+				const_pointer p = data();
+
+				for (int32 y = 0; y < m_height; ++y)
+				{
+					for (int32 x = 0; x < m_width; ++x)
+					{
+						f({ x,y }, *p++);
+					}
+				}
+			}
+
+			return *this;
+		}
+
+		const Type& fetch(size_type y, size_type x, const Type& defaultValue) const
+		{
+			if (!inBounds(y, x))
+			{
+				return defaultValue;
+			}
+
+			return m_data[y * m_width + x];
+		}
+
+		const Type& fetch(const Point& pos, const Type& defaultValue) const
+		{
+			return fetch(pos.y, pos.x, defaultValue);
+		}
+
+		Grid& fill(const Type& value)
+		{
+			m_data.fill(value);
+
+			return *this;
+		}
+
+		bool include(const Type& value) const
+		{
+			return m_data.include(value);
+		}
+
+		bool include_if(std::function<bool(const Type&)> f) const
+		{
+			return m_data.include_if(f);
+		}
+
+		template <class Fty>
+		auto map(Fty f) const
+		{
+			Grid<decltype(std::declval<Fty>()(std::declval<Type>()))> new_grid;
+
+			new_grid.reserve(m_width, m_height);
+
+			for (const auto& v : m_data)
+			{
+				new_grid.m_data.push_back(f(v));
+			}
+
+			new_grid.m_width = m_width;
+			new_grid.m_height = m_height;
+
+			return new_grid;
+		}
+
+		bool none(std::function<bool(const Type&)> f = NotNot()) const
+		{
+			return m_data.none(f);
+		}
+
+		template <class Fty>
+		auto reduce(Fty f, decltype(std::declval<Fty>()(std::declval<Type>(), std::declval<Type>())) init) const
+		{
+			return m_data.reduce(f, init);
+		}
+
+		template <class Fty>
+		auto reduce1(Fty f) const
+		{
+			if (m_data.empty())
+			{
+				throw std::out_of_range("Grid::reduce1() reduce from empty Grid");
+			}
+
+			return m_data.reduce1(f);
+		}
+
+		Grid& replace(const Type& oldValue, const Type& newValue)
+		{
+			m_data.replace(oldValue, newValue);
+
+			return *this;
+		}
+
+		Grid replaced(const Type& oldValue, const Type& newValue) const &
+		{
+			Grid new_grid;
+
+			new_grid.reserve(m_width, m_hright);
+
+			for (const auto& v : m_data)
+			{
+				if (v == oldValue)
+				{
+					new_grid.push_back(newValue);
+				}
+				else
+				{
+					new_grid.push_back(v);
+				}
+			}
+
+			return new_grid;
+		}
+
+		Array replaced(const Type& oldValue, const Type& newValue) &&
+		{
+			replace(oldValue, newValue);
+
+			return std::move(*this);
+		}
+
+		Array& replace_if(std::function<bool(const Type&)> f, const Type& newValue)
+		{
+			m_data.replace_if(f, newValue);
+
+			return *this;
+		}
+
+		Grid replaced_if(std::function<bool(const Type&)> f, const Type& newValue) const &
+		{
+			Grid new_grid;
+
+			new_grid.reserve(m_width, m_height);
+
+			for (const auto& v : m_data)
+			{
+				if (f(v))
+				{
+					new_grid.push_back(newValue);
+				}
+				else
+				{
+					new_grid.push_back(v);
+				}
+			}
+
+			new_grid.m_width = m_width;
+			new_grid.m_height = m_height;
+
+			return new_grid;
+		}
+
+		Array replaced_if(std::function<bool(const Type&)> f, const Type& newValue) &&
+		{
+			replace_if(f, newValue);
+
+			return std::move(*this);
+		}
 	};
 
 	template <class Type>

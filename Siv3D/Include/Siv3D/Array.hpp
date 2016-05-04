@@ -77,7 +77,7 @@ namespace s3d
 		using base_type::resize;
 		using base_type::swap;
 
-		size_t count() const
+		size_t count() const noexcept
 		{
 			return size();
 		}
@@ -92,6 +92,13 @@ namespace s3d
 			clear();
 
 			shrink_to_fit();
+		}
+
+		size_t size_bytes() const noexcept
+		{
+			static_assert(std::is_trivially_copyable<Type>::value, "Array::size_bytes() Type must be trivially copyable.");
+
+			return size() * sizeof(value_type);
 		}
 
 		Array& operator <<(const Type& value)
@@ -555,13 +562,7 @@ namespace s3d
 
 		Array replaced(const Type& oldValue, const Type& newValue) &&
 		{
-			for (auto& v : *this)
-			{
-				if (v == oldValue)
-				{
-					v = newValue;
-				}
-			}
+			replace(oldValue, newValue);
 
 			return std::move(*this);
 		}
@@ -602,13 +603,7 @@ namespace s3d
 
 		Array replaced_if(std::function<bool(const Type&)> f, const Type& newValue) &&
 		{
-			for (auto& v : *this)
-			{
-				if (f(v))
-				{
-					v = newValue;
-				}
-			}
+			replace_if(f, newValue);
 
 			return std::move(*this);
 		}
@@ -627,7 +622,7 @@ namespace s3d
 
 		Array reversed() &&
 		{
-			std::reverse(begin(), end());
+			reverse();
 
 			return std::move(*this);
 		}
@@ -702,7 +697,7 @@ namespace s3d
 		template <class URNG>
 		Array& shuffle(URNG&& rng)
 		{
-			std::shuffle(begin(), end(), rng);
+			std::shuffle(begin(), end(), std::move(rng));
 
 			return *this;
 		}
@@ -720,22 +715,15 @@ namespace s3d
 		template <class URNG>
 		Array shuffled(URNG&& rng) const &
 		{
-			return Array(*this).shuffle(rng);
+			return Array(*this).shuffle(std::move(rng));
 		}
 
 		template <class URNG>
 		Array shuffled(URNG&& rng) &&
 		{
-			std::shuffle(begin(), end(), rng);
+			shuffle(std::move(rng));
 
 			return std::move(*this);
-		}
-
-		size_t size_bytes() const noexcept
-		{
-			static_assert(std::is_trivially_copyable<Type>::value, "Array::size_bytes() Type must be trivially copyable.");
-
-			return size() * sizeof(value_type);
 		}
 
 		Array slice(size_t index) const
@@ -779,7 +767,7 @@ namespace s3d
 
 		Array sorted() &&
 		{
-			std::sort(begin(), end());
+			sort();
 
 			return std::move(*this);
 		}
@@ -791,7 +779,7 @@ namespace s3d
 
 		Array sorted_by(std::function<bool(const Type& a, const Type& b)> f) &&
 		{
-			std::sort(begin(), end(), f);
+			sort_by(f);
 
 			return std::move(*this);
 		}
@@ -954,7 +942,7 @@ namespace s3d
 			push_back(tmp);
 		}
 
-		size_t count() const
+		size_t count() const noexcept
 		{
 			return size();
 		}
@@ -969,6 +957,11 @@ namespace s3d
 			clear();
 
 			shrink_to_fit();
+		}
+
+		size_t size_bytes() const noexcept
+		{
+			return size() * sizeof(bool);
 		}
 
 		Array& operator <<(const bool& value)
@@ -1304,6 +1297,98 @@ namespace s3d
 			return value;
 		}
 
+		Array& remove(const bool& value)
+		{
+			erase(std::remove(begin(), end(), value), end());
+
+			return *this;
+		}
+
+		Array removed(const bool& value) const &
+		{
+			Array new_array;
+
+			for (const auto& v : *this)
+			{
+				if (v != value)
+				{
+					new_array.push_back(v);
+				}
+			}
+
+			return new_array;
+		}
+
+		Array removed(const bool& value) &&
+		{
+			erase(std::remove(begin(), end(), value), end());
+
+			shrink_to_fit();
+
+			return std::move(*this);
+		}
+
+		Array& remove_at(size_t index)
+		{
+			if (index >= size())
+			{
+				throw std::out_of_range("Array::remove_at() index out of range");
+			}
+
+			erase(begin() + index);
+
+			return *this;
+		}
+
+		Array removed_at(size_t index) const
+		{
+			if (index >= size())
+			{
+				throw std::out_of_range("Array::removed_at() index out of range");
+			}
+
+			Array new_array;
+
+			new_array.reserve(size() - 1);
+
+			new_array.insert(new_array.end(), begin(), begin() + index);
+
+			new_array.insert(new_array.end(), begin() + index + 1, end());
+
+			return new_array;
+		}
+
+		Array& remove_if(std::function<bool(const bool&)> f)
+		{
+			erase(std::remove_if(begin(), end(), f), end());
+
+			return *this;
+		}
+
+		Array removed_if(std::function<bool(const bool&)> f) const &
+		{
+			Array new_array;
+
+			for (const auto& v : *this)
+			{
+				if (!f(v))
+				{
+					new_array.push_back(v);
+				}
+			}
+
+			return new_array;
+		}
+
+		Array removed_if(std::function<bool(const bool&)> f) &&
+		{
+			erase(std::remove_if(begin(), end(), f), end());
+
+			shrink_to_fit();
+
+			return std::move(*this);
+		}
+
 		Array& replace(const bool& oldValue, const bool& newValue)
 		{
 			for (auto& v : *this)
@@ -1340,13 +1425,7 @@ namespace s3d
 
 		Array replaced(const bool& oldValue, const bool& newValue) &&
 		{
-			for (auto& v : *this)
-			{
-				if (v == oldValue)
-				{
-					v = newValue;
-				}
-			}
+			replace(oldValue, newValue);
 
 			return std::move(*this);
 		}
@@ -1387,89 +1466,9 @@ namespace s3d
 
 		Array replaced_if(std::function<bool(const bool&)> f, const bool& newValue) &&
 		{
-			for (auto& v : *this)
-			{
-				if (f(v))
-				{
-					v = newValue;
-				}
-			}
+			replace_if(f, newValue);
 
 			return std::move(*this);
-		}
-
-		Array& remove(const bool& value)
-		{
-			erase(std::remove(begin(), end(), value), end());
-
-			return *this;
-		}
-
-		Array removed(const bool& value) const
-		{
-			Array new_array;
-
-			for (const auto& v : *this)
-			{
-				if (v != value)
-				{
-					new_array.push_back(v);
-				}
-			}
-
-			return new_array;
-		}
-
-		Array& remove_at(size_t index)
-		{
-			if (index >= size())
-			{
-				throw std::out_of_range("Array::remove_at() index out of range");
-			}
-
-			erase(begin() + index);
-
-			return *this;
-		}
-
-		Array removed_at(size_t index) const
-		{
-			if (index >= size())
-			{
-				throw std::out_of_range("Array::removed_at() index out of range");
-			}
-
-			Array new_array;
-
-			new_array.reserve(size() - 1);
-
-			new_array.insert(new_array.end(), begin(), begin() + index);
-
-			new_array.insert(new_array.end(), begin() + index + 1, end());
-
-			return new_array;
-		}
-
-		Array& remove_if(std::function<bool(const bool&)> f)
-		{
-			erase(std::remove_if(begin(), end(), f), end());
-
-			return *this;
-		}
-
-		Array removed_if(std::function<bool(const bool&)> f) const
-		{
-			Array new_array;
-
-			for (const auto& v : *this)
-			{
-				if (!f(v))
-				{
-					new_array.push_back(v);
-				}
-			}
-
-			return new_array;
 		}
 
 		Array& reverse()
@@ -1479,9 +1478,16 @@ namespace s3d
 			return *this;
 		}
 
-		Array reversed() const
+		Array reversed() const &
 		{
 			return Array(rbegin(), rend());
+		}
+
+		Array reversed() &&
+		{
+			reverse();
+
+			return std::move(*this);
 		}
 
 		Array& reverse_each(std::function<void(bool&)> f)
@@ -1534,9 +1540,16 @@ namespace s3d
 			return *this;
 		}
 
-		Array rotated(std::ptrdiff_t count = 1) const
+		Array rotated(std::ptrdiff_t count = 1) const &
 		{
 			return Array(*this).rotate(count);
+		}
+
+		Array rotated(std::ptrdiff_t count = 1) &&
+		{
+			rotate(count);
+
+			return std::move(*this);
 		}
 
 		Array& shuffle()
@@ -1547,25 +1560,33 @@ namespace s3d
 		template <class URNG>
 		Array& shuffle(URNG&& rng)
 		{
-			std::shuffle(begin(), end(), rng);
+			std::shuffle(begin(), end(), std::move(rng));
 
 			return *this;
 		}
 
-		Array shuffled() const
+		Array shuffled() const &
+		{
+			return shuffled(GetDefaultRNG());
+		}
+
+		Array shuffled() &&
 		{
 			return shuffled(GetDefaultRNG());
 		}
 
 		template <class URNG>
-		Array shuffled(URNG&& rng) const
+		Array shuffled(URNG&& rng) const &
 		{
-			return Array(*this).shuffle(rng);
+			return Array(*this).shuffle(std::move(rng));
 		}
 
-		size_t size_bytes() const noexcept
+		template <class URNG>
+		Array shuffled(URNG&& rng) &&
 		{
-			return size() * sizeof(bool);
+			shuffle(std::move(rng));
+
+			return std::move(*this);
 		}
 
 		Array slice(size_t index) const
@@ -1602,14 +1623,28 @@ namespace s3d
 			return *this;
 		}
 
-		Array sorted() const
+		Array sorted() const &
 		{
 			return Array(*this).sort();
 		}
 
-		Array sorted_by(std::function<bool(const bool& a, const bool& b)> f) const
+		Array sorted() &&
+		{
+			sort();
+
+			return std::move(*this);
+		}
+
+		Array sorted_by(std::function<bool(const bool& a, const bool& b)> f) const &
 		{
 			return Array(*this).sort_by(f);
+		}
+
+		Array sorted_by(std::function<bool(const bool& a, const bool& b)> f) &&
+		{
+			sort_by(f);
+
+			return std::move(*this);
 		}
 
 		Array& take(size_t n)
@@ -1645,9 +1680,20 @@ namespace s3d
 			return *this;
 		}
 
-		Array uniqued() const
+		Array uniqued() const &
 		{
 			return Array(*this).unique();
+		}
+
+		Array uniqued() &&
+		{
+			sort();
+
+			erase(std::unique(begin(), end()), end());
+
+			shrink_to_fit();
+
+			return std::move(*this);
 		}
 
 		Array values_at(std::initializer_list<size_t> indices) const
