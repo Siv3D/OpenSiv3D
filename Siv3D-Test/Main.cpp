@@ -2,10 +2,7 @@
 # include <Siv3D.hpp>
 # include "Test/Siv3DTest.hpp"
 using namespace s3d;
-using namespace s3d::literals;
-using namespace std::chrono_literals;
 
-int ga, gb;
 void FunctionA();
 void FunctionB();
 
@@ -13,7 +10,7 @@ void Main()
 {
 	TimeProfiler tp;
 
-	for (int n = 0; n < 1000; ++n)
+	for (int n = 0; n < 100; ++n)
 	{
 		tp.begin(L"FunctionA");
 		
@@ -22,7 +19,7 @@ void Main()
 		tp.end();
 	}
 
-	for (int n = 0; n < 1000; ++n)
+	for (int n = 0; n < 100; ++n)
 	{
 		tp.begin(L"FunctionB");
 		
@@ -30,26 +27,29 @@ void Main()
 		
 		tp.end();
 	}
-
-	Log(ga, L'\n', gb);
 }
 
 
 void FunctionA()
 {
-	int32 a = Range(0, 1000000).reduce1(std::plus<>());
-
-	ga = a;
+	double s = 0.0;
+	
+	for (auto i : step(1000))
+	{
+		s += sin(i * 0.001);
+	}
+	
+	volatile double result = s; result;
 }
 
 void FunctionB()
 {
-	int32 a = 0;
-
-	for (int i = 0; i <= 1000000; ++i)
+	double s = 0.0;
+	
+	for (auto i : step(1000))
 	{
-		a += i;
+		s += sqrt(i * 0.001);
 	}
-
-	gb = a;
+	
+	volatile double result = s; result;
 }
