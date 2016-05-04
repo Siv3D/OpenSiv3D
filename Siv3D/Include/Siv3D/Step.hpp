@@ -499,7 +499,7 @@ namespace s3d
 	}
 
 	template <class T, class U, class S = int32, class StartType = std::common_type_t<T, U>, class CounterType = std::common_type_t<std::size_t, StartType>>
-	inline auto step_to(T a, U b, S s = 1)
+	inline constexpr auto step_to(T a, U b, S s = 1)
 	{
 		static_assert(std::is_integral<StartType>::value || std::is_same<StartType, BigInt>::value, "step_to requires integral parameters");
 		CounterType  n = 0;
@@ -526,7 +526,7 @@ namespace s3d
 	}
 
 	template<class T, class U, class S = int32, class StartType = std::common_type_t<T, U>, class CounterType = std::common_type_t<std::size_t, StartType>>
-	inline auto step_until(T a, U b, S s = 1)
+	inline constexpr auto step_until(T a, U b, S s = 1)
 	{
 		static_assert(std::is_integral<StartType>::value || std::is_same<StartType, BigInt>::value, "step_until requires integral parameters");
 		CounterType  n;
@@ -569,7 +569,7 @@ namespace s3d
 	}
 
 	template<class T, class U, class S = int32, class StartType = std::common_type_t<T, U>, class CounterType = std::common_type_t<std::size_t, StartType>>
-	inline auto Iota(T beg, U end, S step = 1)
+	inline constexpr auto Iota(T beg, U end, S step = 1)
 	{
 		return step_until(beg, end, step);
 	}
@@ -580,7 +580,7 @@ namespace s3d
 	//
 
 	template<class T, class U, class S = int32, class StartType = std::common_type_t<T, U>, class CounterType = std::common_type_t<std::size_t, StartType>>
-	inline auto Range(T beg, U end, S step = 1)
+	inline constexpr auto Range(T beg, U end, S step = 1)
 	{
 		return step_to(beg, end, step);
 	}
@@ -624,7 +624,7 @@ namespace s3d
 
 		template <class Fty, class ValueType, size_t Index, class Tuple,
 			class Next, std::enable_if_t<!IsMap<Next>::value && (Index + 1 == std::tuple_size<Tuple>::value)>* = nullptr>
-			void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
+        void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
 		{
 			if (std::get<Index>(tuple)(value))
 			{
@@ -634,7 +634,7 @@ namespace s3d
 
 		template <class Fty, class ValueType, size_t Index, class Tuple,
 			class Next, std::enable_if_t<!IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
-			void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
+        void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
 		{
 			if (std::get<Index>(tuple)(value))
 			{
@@ -644,14 +644,14 @@ namespace s3d
 
 		template <class Fty, class ValueType, size_t Index, class Tuple,
 			class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 == std::tuple_size<Tuple>::value)>* = nullptr>
-			void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
+        void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
 		{
 			f(std::get<Index>(tuple)(value));
 		}
 
 		template <class Fty, class ValueType, size_t Index, class Tuple,
 			class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
-			void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
+        void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
 		{
 			Apply_impl<Fty, decltype(std::get<Index>(tuple)(value)), Index + 1, Tuple, typename std::decay<decltype(std::get<Index + 1>(std::declval<Tuple>()))>::type>(f, std::get<Index>(tuple)(value), tuple);
 		}
@@ -665,7 +665,7 @@ namespace s3d
 
 		template <class Fty, class ResultType, class ValueType, size_t Index, class Tuple,
 			class Next, std::enable_if_t<!IsMap<Next>::value && (Index + 1 == std::tuple_size<Tuple>::value)>* = nullptr>
-			void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
+        void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
 		{
 			if (std::get<Index>(tuple)(value))
 			{
@@ -675,7 +675,7 @@ namespace s3d
 
 		template <class Fty, class ResultType, class ValueType, size_t Index, class Tuple,
 			class Next, std::enable_if_t<!IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
-			void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
+        void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
 		{
 			if (std::get<Index>(tuple)(value))
 			{
@@ -685,14 +685,14 @@ namespace s3d
 
 		template <class Fty, class ResultType, class ValueType, size_t Index, class Tuple,
 			class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 == std::tuple_size<Tuple>::value)>* = nullptr>
-			void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
+        void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
 		{
 			result = f(result, std::get<Index>(tuple)(value));
 		}
 
 		template <class Fty, class ResultType, class ValueType, size_t Index, class Tuple,
 			class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
-			void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
+        void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
 		{
 			Reduce_impl<Fty, ResultType, decltype(std::get<Index>(tuple)(value)), Index + 1, Tuple, typename std::decay<decltype(std::get<Index + 1>(std::declval<Tuple>()))>::type>(f, result, std::get<Index>(tuple)(value), tuple);
 		}
