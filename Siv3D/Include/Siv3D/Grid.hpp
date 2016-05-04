@@ -923,7 +923,7 @@ namespace s3d
 		{
 			Grid new_grid;
 
-			new_grid.reserve(m_width, m_hright);
+			new_grid.reserve(m_width, m_height);
 
 			for (const auto& v : m_data)
 			{
@@ -1186,7 +1186,7 @@ namespace s3d
 
 		Grid sorted_by(std::function<bool(const Type& a, const Type& b)> f) const &
 		{
-			return Array(*this).sort_by(f);
+			return Grid(*this).sort_by(f);
 		}
 
 		Grid sorted_by(std::function<bool(const Type& a, const Type& b)> f) &&
