@@ -10,36 +10,63 @@
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
-# include "Time.hpp"
-# include "Duration.hpp"
+# include "Stopwatch.hpp"
 
 namespace s3d
 {
 	/// <summary>
-	/// ストップウォッチ
+	/// スピードが変更可能なストップウォッチ
 	/// </summary>
-	class Stopwatch
+	class SpeedStopwatch
 	{
 	private:
 
-		int64 m_startTimeMicrosec = 0;
+		double m_speed = 1.0;
 
-		int64 m_accumulationMicrosec = 0;
+		mutable int64 m_lastTimeNanosec = 0;
+
+		mutable int64 m_accumulationNanosec = 0;
 
 		bool m_isActive = false;
 
 		bool m_pausing = true;
+
+		int64 ns() const
+		{
+			const int64 t = Time::GetNanosec();
+
+			if (!m_isActive)
+			{
+				return 0;
+			}
+
+			if (m_pausing)
+			{
+				return m_accumulationNanosec;
+			}
+
+			const int64 delta = static_cast<int64>((t - m_lastTimeNanosec) * m_speed);
+
+			m_accumulationNanosec += delta;
+
+			m_lastTimeNanosec = t;
+
+			return m_accumulationNanosec;
+		}
 
 	public:
 
 		/// <summary>
 		/// ストップウォッチを作成します。
 		/// </summary>
+		/// <param name="speed">
+		/// 実際の時刻の進み方を 1.0 とした際のスピード
+		/// </param>
 		/// <param name="startImmediately">
 		/// 即座に計測を開始する場合は true
 		/// </param>
-		explicit Stopwatch(bool startImmediately = false)
+		explicit SpeedStopwatch(double speed = 1.0, bool startImmediately = false)
+			: m_speed(speed)
 		{
 			if (startImmediately)
 			{
@@ -47,13 +74,8 @@ namespace s3d
 			}
 		}
 
-		/// <summary>
-		/// ストップウォッチを作成します。
-		/// </summary>
-		/// <param name="startImmediately">
-		/// 即座に計測を開始する場合は true
-		/// </param>
-		explicit Stopwatch(const MicrosecondsF& time, bool startImmediately = false)
+		explicit SpeedStopwatch(const MicrosecondsF& time, double speed = 1.0, bool startImmediately = false)
+			: m_speed(speed)
 		{
 			set(time);
 
@@ -80,7 +102,7 @@ namespace s3d
 
 			m_pausing = false;
 
-			m_startTimeMicrosec = Time::GetMicrosec();
+			m_lastTimeNanosec = Time::GetNanosec();
 		}
 
 		/// <summary>
@@ -91,9 +113,9 @@ namespace s3d
 		/// </returns>
 		int32 d() const { return static_cast<int32>(d64()); }
 
-		int64 d64() const { return us() / (1000LL * 1000LL * 60LL * 60LL * 24LL); }
+		int64 d64() const { return ns() / (1000LL * 1000LL * 1000LL * 60LL * 60LL * 24LL); }
 
-		double dF() const { return static_cast<double>(us() / static_cast<double>(1000LL * 1000LL * 60LL * 60LL * 24LL)); }
+		double dF() const { return static_cast<double>(ns() / static_cast<double>(1000LL * 1000LL * 1000LL * 60LL * 60LL * 24LL)); }
 
 		/// <summary>
 		/// ストップウォッチの経過時間を[時]で返します。
@@ -103,9 +125,9 @@ namespace s3d
 		/// </returns>
 		int32 h() const { return static_cast<int32>(h64()); }
 
-		int64 h64() const { return us() / (1000LL * 1000LL * 60LL * 60LL); }
+		int64 h64() const { return ns() / (1000LL * 1000LL * 1000LL * 60LL * 60LL); }
 
-		double hF() const { return static_cast<double>(us() / static_cast<double>(1000LL * 1000LL * 60LL * 60LL)); }
+		double hF() const { return static_cast<double>(ns() / static_cast<double>(1000LL * 1000LL * 1000LL * 60LL * 60LL)); }
 
 		/// <summary>
 		/// ストップウォッチの経過時間を[分]で返します。
@@ -115,9 +137,9 @@ namespace s3d
 		/// </returns>
 		int32 min() const { return static_cast<int32>(min64()); }
 
-		int64 min64() const { return us() / (1000LL * 1000LL * 60LL); }
+		int64 min64() const { return ns() / (1000LL * 1000LL * 1000LL * 60LL); }
 
-		double minF() const { return static_cast<double>(us() / static_cast<double>(1000LL * 1000LL * 60LL)); }
+		double minF() const { return static_cast<double>(ns() / static_cast<double>(1000LL * 1000LL * 1000LL * 60LL)); }
 
 		/// <summary>
 		/// ストップウォッチの経過時間を[秒]で返します。
@@ -127,9 +149,9 @@ namespace s3d
 		/// </returns>
 		int32 s() const { return static_cast<int32>(s64()); }
 
-		int64 s64() const { return us() / (1000LL * 1000LL); }
+		int64 s64() const { return ns() / (1000LL * 1000LL * 1000LL); }
 
-		double sF() const { return static_cast<double>(us() / static_cast<double>(1000LL * 1000LL)); }
+		double sF() const { return static_cast<double>(ns() / static_cast<double>(1000LL * 1000LL * 1000LL)); }
 
 		/// <summary>
 		/// ストップウォッチの経過時間を[ミリ秒]で返します。
@@ -139,9 +161,9 @@ namespace s3d
 		/// </returns>
 		int32 ms() const { return static_cast<int32>(ms64()); }
 
-		int64 ms64() const { return us() / (1000LL); }
+		int64 ms64() const { return ns() / (1000LL * 1000LL); }
 
-		double msF() const { return static_cast<double>(us() / static_cast<double>(1000LL)); }
+		double msF() const { return static_cast<double>(ns() / static_cast<double>(1000LL * 1000LL)); }
 
 		/// <summary>
 		/// ストップウォッチの経過時間を[マイクロ秒]で返します。
@@ -149,29 +171,11 @@ namespace s3d
 		/// <returns>
 		/// ストップウォッチの経過時間[マイクロ秒]
 		/// </returns>
-		int64 us() const
-		{
-			const int64 t = Time::GetMicrosec();
+		int32 us() const { return static_cast<int32>(us64()); }
 
-			if (!m_isActive)
-			{
-				return 0;
-			}
+		int64 us64() const { return ns() / (1000LL); }
 
-			if (m_pausing)
-			{
-				return m_accumulationMicrosec;
-			}
-
-			return m_accumulationMicrosec + (t - m_startTimeMicrosec);
-		}
-
-		int64 us64() const
-		{
-			return us();
-		}
-
-		double usF() const { return static_cast<double>(us()); }
+		double usF() const { return static_cast<double>(ns() / static_cast<double>(1000LL)); }
 
 		/// <summary>
 		/// ストップウォッチの経過時間を返します。
@@ -213,7 +217,7 @@ namespace s3d
 		/// </returns>
 		void pause()
 		{
-			m_accumulationMicrosec = us();
+			m_accumulationNanosec = ns();
 
 			m_pausing = true;
 		}
@@ -242,7 +246,7 @@ namespace s3d
 		/// </returns>
 		void reset() noexcept
 		{
-			m_accumulationMicrosec = 0;
+			m_accumulationNanosec = 0;
 
 			m_isActive = false;
 
@@ -275,9 +279,41 @@ namespace s3d
 		{
 			m_isActive = true;
 
-			m_accumulationMicrosec = static_cast<int64>(time.count());
+			m_accumulationNanosec = static_cast<int64>(time.count() * 1000LL);
 
-			m_startTimeMicrosec = Time::GetMicrosec();
+			m_lastTimeNanosec = Time::GetNanosec();
+		}
+
+		/// <summary>
+		/// ストップウォッチのスピードを設定します。
+		/// </summary>
+		/// <param name="speed">
+		/// 新しく設定するスピード (1.0 が通常)
+		/// </param>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void setSpeed(double speed)
+		{
+			if (speed == m_speed)
+			{
+				return;
+			}
+
+			m_accumulationNanosec = ns();
+
+			m_speed = speed;
+		}
+
+		/// <summary>
+		/// ストップウォッチのスピードを返します。
+		/// </summary>
+		/// <returns>
+		/// ストップウォッチのスピード
+		/// </returns>
+		double getSpeed() const noexcept
+		{
+			return m_speed;
 		}
 
 		/// <summary>
@@ -308,10 +344,13 @@ namespace s3d
 		/// <returns>
 		/// フォーマットされた経過時間
 		/// </returns>
-		String format(const String& pattern = L"H:mm:ss.xx") const;
+		String format(const String& pattern = L"H:mm:ss.xx") const
+		{
+			return Stopwatch(elapsedF(), false).format(pattern);
+		}
 	};
 
-	inline void Formatter(FormatData& formatData, const Stopwatch& stopwatch)
+	inline void Formatter(FormatData& formatData, const SpeedStopwatch& stopwatch)
 	{
 		formatData.string.append(stopwatch.format());
 	}

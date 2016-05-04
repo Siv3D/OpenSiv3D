@@ -19,7 +19,7 @@
 # include "String.hpp"
 # include "Functor.hpp"
 # include "Format.hpp"
-# include "Utility.hpp"
+# include "Random.hpp"
 
 namespace s3d
 {
