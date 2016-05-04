@@ -8,5 +8,9 @@ using namespace std::chrono_literals;
 
 void Main()
 {
+	MillisecClock m;
+
 	RunTest();
+
+	m.log();
 }

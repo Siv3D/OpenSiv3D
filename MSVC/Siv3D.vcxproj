@@ -60,11 +60,13 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Fwd.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Grid.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Logger.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\MathConstants.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Parse.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ParseBool.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ParseFloat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ParseInt.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Point.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\ProfilerUtility.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Random.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\SpeedStopwatch.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Step.hpp" />
