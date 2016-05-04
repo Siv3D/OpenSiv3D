@@ -117,7 +117,9 @@
 	// タイマー
 	# include "Siv3D/Timer.hpp"
 	// 処理にかかった時間の測定
-	# include "Siv3D/ProfilerUtility.hpp"
+	# include "Siv3D/TimeProfiler.hpp"
+	// 処理にかかった CPU サイクル数の測定
+	# include "Siv3D/RDTSCProfiler.hpp"
 //
 // ファイル I/O と暗号化
 //

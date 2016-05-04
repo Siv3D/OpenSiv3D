@@ -66,8 +66,9 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\ParseFloat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ParseInt.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Point.hpp" />
-    <ClInclude Include="..\Siv3D\Include\Siv3D\ProfilerUtility.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\TimeProfiler.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Random.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\RDTSCProfiler.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\SpeedStopwatch.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Step.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\LetterCase.hpp" />
@@ -109,6 +110,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\ParseFloat\SivParseFloat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Stopwatch\SivStopwatch.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\String\SivString.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\TimeProfiler\SivTimeProfiler.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Time\SivTime.cpp" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\cppformat\format.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum-dtoa.cc" />
