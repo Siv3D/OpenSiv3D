@@ -595,6 +595,30 @@ namespace s3d
 			m_data.resize(m_data.size() - m_width);
 		}
 
+		void push_back_column(const Type& value)
+		{
+			reserve(m_width + 1, m_height);
+
+			const size_type w = m_width + 1;
+
+			for (size_type i = 0; i < m_height; ++i)
+			{
+				m_data.insert(m_data.begin() + i * w + (w - 1), value);
+			}
+
+			++m_width;
+		}
+
+		void pop_back_column()
+		{
+			if (m_width == 0)
+			{
+				throw std::out_of_range("Grid::pop_back_column() pop_back from empty Grid");
+			}
+
+			remove_column(m_width - 1);
+		}
+
 		/// <summary>
 		/// 指定した位置に行を挿入します。
 		/// </summary>
@@ -634,6 +658,37 @@ namespace s3d
 			m_height += rows;
 		}
 
+		void insert_column(size_type pos, const Type& value)
+		{
+			reserve(m_width + 1, m_height);
+
+			const size_type w = m_width + 1;
+
+			for (size_type i = 0; i < m_height; ++i)
+			{
+				m_data.insert(m_data.begin() + i * w + pos, value);
+			}
+
+			++m_width;
+		}
+
+		void insert_columns(size_type pos, size_type columns, const Type& value)
+		{
+			reserve(m_width + columns, m_height);
+
+			const size_type w = m_width + columns;
+
+			for (size_type i = 0; i < m_height; ++i)
+			{
+				for (size_type k = 0; k < columns; ++k)
+				{
+					m_data.insert(m_data.begin() + i * w + pos + k, value);
+				}
+			}
+
+			m_width += columns;
+		}
+
 		/// <summary>
 		/// 指定した位置の行を削除します。
 		/// </summary>
@@ -645,6 +700,11 @@ namespace s3d
 		/// </returns>
 		void remove_row(size_type pos)
 		{
+			if (m_height <= pos)
+			{
+				throw std::out_of_range("Grid::remove_row() index out of range");
+			}
+
 			remove_rows(pos, 1);
 		}
 
@@ -662,12 +722,62 @@ namespace s3d
 		/// </returns>
 		void remove_rows(size_type pos, size_type count)
 		{
+			if (m_height <= pos || m_height <= (pos + count))
+			{
+				throw std::out_of_range("Grid::remove_rows() index out of range");
+			}
+
 			const auto first = m_data.begin() + m_width * pos;
 			const auto last = first + m_width * count;
 
 			m_data.erase(first, last);
 
 			m_height -= count;
+		}
+
+		/// <summary>
+		/// 指定した位置の列を削除します。
+		/// </summary>
+		/// <param name="pos">
+		/// 削除する列の位置
+		/// </param>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void remove_column(size_type pos)
+		{
+			if (m_width <= pos)
+			{
+				throw std::out_of_range("Grid::remove_column() index out of range");
+			}
+
+			size_type index = 0;
+
+			m_data.remove_if([width = m_width, col = pos, &index](const Type&)
+			{
+				return ((index++) % width == col);
+			});
+
+			--m_width;
+		}
+
+		void remove_columns(size_type pos, size_type count)
+		{
+			if (m_width <= pos || m_width <= (pos + count))
+			{
+				throw std::out_of_range("Grid::remove_rows() index out of range");
+			}
+
+			size_type index = 0;
+
+			m_data.remove_if([width = m_width, a = pos, b = pos + count, &index](const Type&)
+			{
+				const size_type col = (index++) % width;
+
+				return a <= col && col < b;
+			});
+
+			m_width -= count;
 		}
 
 		/// <summary>
@@ -1206,7 +1316,7 @@ namespace s3d
 			{
 				if (index >= size())
 				{
-					throw std::out_of_range("Array::values_at() index out of range");
+					throw std::out_of_range("Grid::values_at() index out of range");
 				}
 
 				new_array.push_back(operator[](index));
