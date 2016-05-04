@@ -595,6 +595,30 @@ namespace s3d
 			m_data.resize(m_data.size() - m_width);
 		}
 
+		void push_back_column(const Type& value)
+		{
+			reserve(m_width + 1, m_height);
+
+			const size_type w = m_width + 1;
+
+			for (size_type i = 0; i < m_height; ++i)
+			{
+				m_data.insert(m_data.begin() + i * w + (w - 1), value);
+			}
+
+			++m_width;
+		}
+
+		void pop_back_column()
+		{
+			if (m_width == 0)
+			{
+				throw std::out_of_range("Grid::pop_back_column() pop_back from empty Grid");
+			}
+
+			remove_column(m_width - 1);
+		}
+
 		/// <summary>
 		/// 指定した位置に行を挿入します。
 		/// </summary>
@@ -634,6 +658,37 @@ namespace s3d
 			m_height += rows;
 		}
 
+		void insert_column(size_type pos, const Type& value)
+		{
+			reserve(m_width + 1, m_height);
+
+			const size_type w = m_width + 1;
+
+			for (size_type i = 0; i < m_height; ++i)
+			{
+				m_data.insert(m_data.begin() + i * w + pos, value);
+			}
+
+			++m_width;
+		}
+
+		void insert_columns(size_type pos, size_type columns, const Type& value)
+		{
+			reserve(m_width + columns, m_height);
+
+			const size_type w = m_width + columns;
+
+			for (size_type i = 0; i < m_height; ++i)
+			{
+				for (size_type k = 0; k < columns; ++k)
+				{
+					m_data.insert(m_data.begin() + i * w + pos + k, value);
+				}
+			}
+
+			m_width += columns;
+		}
+
 		/// <summary>
 		/// 指定した位置の行を削除します。
 		/// </summary>
@@ -645,6 +700,11 @@ namespace s3d
 		/// </returns>
 		void remove_row(size_type pos)
 		{
+			if (m_height <= pos)
+			{
+				throw std::out_of_range("Grid::remove_row() index out of range");
+			}
+
 			remove_rows(pos, 1);
 		}
 
@@ -662,12 +722,62 @@ namespace s3d
 		/// </returns>
 		void remove_rows(size_type pos, size_type count)
 		{
+			if (m_height <= pos || m_height <= (pos + count))
+			{
+				throw std::out_of_range("Grid::remove_rows() index out of range");
+			}
+
 			const auto first = m_data.begin() + m_width * pos;
 			const auto last = first + m_width * count;
 
 			m_data.erase(first, last);
 
 			m_height -= count;
+		}
+
+		/// <summary>
+		/// 指定した位置の列を削除します。
+		/// </summary>
+		/// <param name="pos">
+		/// 削除する列の位置
+		/// </param>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void remove_column(size_type pos)
+		{
+			if (m_width <= pos)
+			{
+				throw std::out_of_range("Grid::remove_column() index out of range");
+			}
+
+			size_type index = 0;
+
+			m_data.remove_if([width = m_width, col = pos, &index](const Type&)
+			{
+				return ((index++) % width == col);
+			});
+
+			--m_width;
+		}
+
+		void remove_columns(size_type pos, size_type count)
+		{
+			if (m_width <= pos || m_width <= (pos + count))
+			{
+				throw std::out_of_range("Grid::remove_rows() index out of range");
+			}
+
+			size_type index = 0;
+
+			m_data.remove_if([width = m_width, a = pos, b = pos + count, &index](const Type&)
+			{
+				const size_type col = (index++) % width;
+
+				return a <= col && col < b;
+			});
+
+			m_width -= count;
 		}
 
 		/// <summary>
@@ -745,6 +855,474 @@ namespace s3d
 		void resize(const Size& size, const Type& val)
 		{
 			resize(size.x, size.y, val);
+		}
+
+		bool all(std::function<bool(const Type&)> f = NotNot()) const
+		{
+			return m_data.all(f);
+		}
+
+		bool any(std::function<bool(const Type&)> f = NotNot()) const
+		{
+			return m_data.any(f);
+		}
+
+		const Type& choice() const
+		{
+			return m_data.choice();
+		}
+
+		template <class URNG, std::enable_if_t<!std::is_scalar<URNG>::value>* = nullptr>
+		const Type& choice(URNG&& rng) const
+		{
+			return m_data.choice(std::move(rng));
+		}
+
+		template <class Size_t, std::enable_if_t<std::is_scalar<Size_t>::value>* = nullptr>
+		Array<Type> choice(Size_t n) const
+		{
+			return m_data.choice(n);
+		}
+
+		template <class URNG>
+		Array<Type> choice(size_t n, URNG&& rng) const
+		{
+			return m_data.choice(n, std::move(rng));
+		}
+
+		size_t count(const Type& value) const
+		{
+			return m_data.count(value);
+		}
+
+		size_t count_if(std::function<bool(const Type&)> f) const
+		{
+			return m_data.count_if(f);
+		}
+
+		Grid& each(std::function<void(Type&)> f)
+		{
+			m_data.each(f);
+
+			return *this;
+		}
+
+		const Grid& each(std::function<void(const Type&)> f) const
+		{
+			m_data.each(f);
+
+			return *this;
+		}
+
+		Grid& each_index(std::function<void(Point, Type&)> f)
+		{
+			if (!m_data.empty())
+			{
+				pointer p = m_data.data();
+
+				for (int32 y = 0; y < m_height; ++y)
+				{
+					for (int32 x = 0; x < m_width; ++x)
+					{
+						f({ x,y }, *p++);
+					}
+				}
+			}
+
+			return *this;
+		}
+
+		const Grid& each_index(std::function<void(size_t, const Type&)> f) const
+		{
+			if (!m_data.empty())
+			{
+				const_pointer p = m_data.data();
+
+				for (int32 y = 0; y < m_height; ++y)
+				{
+					for (int32 x = 0; x < m_width; ++x)
+					{
+						f({ x,y }, *p++);
+					}
+				}
+			}
+
+			return *this;
+		}
+
+		const Type& fetch(size_type y, size_type x, const Type& defaultValue) const
+		{
+			if (!inBounds(y, x))
+			{
+				return defaultValue;
+			}
+
+			return m_data[y * m_width + x];
+		}
+
+		const Type& fetch(const Point& pos, const Type& defaultValue) const
+		{
+			return fetch(pos.y, pos.x, defaultValue);
+		}
+
+		Grid& fill(const Type& value)
+		{
+			m_data.fill(value);
+
+			return *this;
+		}
+
+		bool include(const Type& value) const
+		{
+			return m_data.include(value);
+		}
+
+		bool include_if(std::function<bool(const Type&)> f) const
+		{
+			return m_data.include_if(f);
+		}
+
+		template <class Fty>
+		auto map(Fty f) const
+		{
+			Grid<decltype(std::declval<Fty>()(std::declval<Type>()))> new_grid;
+
+			new_grid.reserve(m_width, m_height);
+
+			for (const auto& v : m_data)
+			{
+				new_grid.m_data.push_back(f(v));
+			}
+
+			new_grid.m_width = m_width;
+			new_grid.m_height = m_height;
+
+			return new_grid;
+		}
+
+		bool none(std::function<bool(const Type&)> f = NotNot()) const
+		{
+			return m_data.none(f);
+		}
+
+		template <class Fty>
+		auto reduce(Fty f, decltype(std::declval<Fty>()(std::declval<Type>(), std::declval<Type>())) init) const
+		{
+			return m_data.reduce(f, init);
+		}
+
+		template <class Fty>
+		auto reduce1(Fty f) const
+		{
+			if (m_data.empty())
+			{
+				throw std::out_of_range("Grid::reduce1() reduce from empty Grid");
+			}
+
+			return m_data.reduce1(f);
+		}
+
+		Grid& replace(const Type& oldValue, const Type& newValue)
+		{
+			m_data.replace(oldValue, newValue);
+
+			return *this;
+		}
+
+		Grid replaced(const Type& oldValue, const Type& newValue) const &
+		{
+			Grid new_grid;
+
+			new_grid.reserve(m_width, m_height);
+
+			for (const auto& v : m_data)
+			{
+				if (v == oldValue)
+				{
+					new_grid.push_back(newValue);
+				}
+				else
+				{
+					new_grid.push_back(v);
+				}
+			}
+
+			return new_grid;
+		}
+
+		Grid replaced(const Type& oldValue, const Type& newValue) &&
+		{
+			replace(oldValue, newValue);
+
+			return std::move(*this);
+		}
+
+		Grid& replace_if(std::function<bool(const Type&)> f, const Type& newValue)
+		{
+			m_data.replace_if(f, newValue);
+
+			return *this;
+		}
+
+		Grid replaced_if(std::function<bool(const Type&)> f, const Type& newValue) const &
+		{
+			Grid new_grid;
+
+			new_grid.reserve(m_width, m_height);
+
+			for (const auto& v : m_data)
+			{
+				if (f(v))
+				{
+					new_grid.push_back(newValue);
+				}
+				else
+				{
+					new_grid.push_back(v);
+				}
+			}
+
+			new_grid.m_width = m_width;
+			new_grid.m_height = m_height;
+
+			return new_grid;
+		}
+
+		Grid replaced_if(std::function<bool(const Type&)> f, const Type& newValue) &&
+		{
+			replace_if(f, newValue);
+
+			return std::move(*this);
+		}
+
+		Grid& reverse()
+		{
+			std::reverse(m_data.begin(), m_data.end());
+
+			return *this;
+		}
+
+		Grid reversed() const &
+		{
+			Grid new_grid;
+
+			new_grid.m_data.assign(m_data.rbegin(), m_data.rend());
+
+			new_grid.m_width = m_width;
+
+			new_grid.m_height = m_height;
+
+			return new_grid;
+		}
+
+		Grid reversed() &&
+		{
+			reverse();
+
+			return std::move(*this);
+		}
+
+		Grid& reverse_each(std::function<void(Type&)> f)
+		{
+			for (auto it = m_data.rbegin(); it != m_data.rend(); ++it)
+			{
+				f(*it);
+			}
+
+			return *this;
+		}
+
+		const Grid& reverse_each(std::function<void(const Type&)> f) const
+		{
+			for (auto it = m_data.rbegin(); it != m_data.rend(); ++it)
+			{
+				f(*it);
+			}
+
+			return *this;
+		}
+
+		Grid& rotate(std::ptrdiff_t count = 1)
+		{
+			if (empty())
+			{
+				;
+			}
+			else if (count > 0) // rotation to the left
+			{
+				if (static_cast<size_t>(count) > m_data.size())
+				{
+					count %= m_data.size();
+				}
+
+				std::rotate(m_data.begin(), m_data.begin() + count, m_data.end());
+			}
+			else if (count < 0) // rotation to the right
+			{
+				count = -count;
+
+				if (static_cast<size_t>(count) > m_data.size())
+				{
+					count %= m_data.size();
+				}
+
+				std::rotate(m_data.rbegin(), m_data.rbegin() + count, m_data.rend());
+			}
+
+			return *this;
+		}
+
+		Grid rotated(std::ptrdiff_t count = 1) const &
+		{
+			return Grid(*this).rotate(count);
+		}
+
+		Grid rotated(std::ptrdiff_t count = 1) &&
+		{
+			rotate(count);
+
+			return std::move(*this);
+		}
+
+		Grid& rotate_rows(std::ptrdiff_t count = 1)
+		{
+			return rotate(count * static_cast<std::ptrdiff_t>(m_width));
+		}
+
+		Grid rotated_rows(std::ptrdiff_t count = 1) const &
+		{
+			return rotated(count * static_cast<std::ptrdiff_t>(m_width));
+		}
+
+		Grid rotated_rows(std::ptrdiff_t count = 1) &&
+		{
+			return rotated(count * static_cast<std::ptrdiff_t>(m_width));
+		}
+
+		Grid& shuffle()
+		{
+			return shuffle(GetDefaultRNG());
+		}
+
+		template <class URNG>
+		Grid& shuffle(URNG&& rng)
+		{
+			std::shuffle(begin(), end(), std::move(rng));
+
+			return *this;
+		}
+
+		Grid shuffled() const &
+		{
+			return shuffled(GetDefaultRNG());
+		}
+
+		Grid shuffled() &&
+		{
+			return shuffled(GetDefaultRNG());
+		}
+
+		template <class URNG>
+		Grid shuffled(URNG&& rng) const &
+		{
+			return Grid(*this).shuffle(std::move(rng));
+		}
+
+		template <class URNG>
+		Grid shuffled(URNG&& rng) &&
+		{
+			shuffle(std::move(rng));
+
+			return std::move(*this);
+		}
+
+		Array<Type> slice(size_type y, size_type x) const
+		{
+			if (!inBounds(y, x))
+			{
+				return Array<Type>();
+			}
+
+			return Array<Type>(m_data.begin() + (y * m_width + x), m_data.end());
+		}
+
+		Array<Type> slice(const Point& pos) const
+		{
+			return slice(pos.y, pos.x);
+		}
+
+		Array<Type> slice(size_type y, size_type x, size_t length) const
+		{
+			if (!inBounds(y, x))
+			{
+				return Array<Type>();
+			}
+
+			const size_type index = (y * m_width + x);
+
+			return Array<Type>(m_data.begin() + index, m_data.begin() + std::min(index + length, m_data.size()));
+		}
+
+		Array<Type> slice(const Point& pos, size_t length) const
+		{
+			return slice(pos.y, pos.x, length);
+		}
+
+		Grid& sort()
+		{
+			std::sort(m_data.begin(), m_data.end());
+
+			return *this;
+		}
+
+		Grid& sort_by(std::function<bool(const Type& a, const Type& b)> f)
+		{
+			std::sort(m_data.begin(), m_data.end(), f);
+
+			return *this;
+		}
+
+		Grid sorted() const &
+		{
+			return Grid(*this).sort();
+		}
+
+		Grid sorted() &&
+		{
+			sort();
+
+			return std::move(*this);
+		}
+
+		Grid sorted_by(std::function<bool(const Type& a, const Type& b)> f) const &
+		{
+			return Grid(*this).sort_by(f);
+		}
+
+		Grid sorted_by(std::function<bool(const Type& a, const Type& b)> f) &&
+		{
+			sort_by(f);
+
+			return std::move(*this);
+		}
+
+		Array<Type> values_at(std::initializer_list<Point> indices) const
+		{
+			Array<Type> new_array;
+
+			new_array.reserve(indices.size());
+
+			for (auto index : indices)
+			{
+				if (index >= size())
+				{
+					throw std::out_of_range("Grid::values_at() index out of range");
+				}
+
+				new_array.push_back(operator[](index));
+			}
+
+			return new_array;
 		}
 	};
 

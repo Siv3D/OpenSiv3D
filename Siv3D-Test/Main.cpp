@@ -4,14 +4,9 @@
 
 using namespace s3d;
 using namespace s3d::literals;
+using namespace std::chrono_literals;
 
 void Main()
 {
-	Stopwatch s(true);
-
 	RunTest();
-
-	Log(s);
-
-	Log(s.format(L"H 時間 mm 分 ss 秒 xxx"));
 }

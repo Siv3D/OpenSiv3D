@@ -17,7 +17,7 @@
 # include "Fwd.hpp"
 # include "Char.hpp"
 # include "Functor.hpp"
-# include "Utility.hpp"
+# include "Random.hpp"
 
 namespace s3d
 {

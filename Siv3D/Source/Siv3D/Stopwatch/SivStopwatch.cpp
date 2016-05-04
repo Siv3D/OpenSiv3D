@@ -37,7 +37,7 @@ namespace s3d
 		L"xxx",
 	};
 
-	static String GetFormattedElement(const uint64 us, const String& format)
+	static String GetFormattedElement(const int64 us, const String& format)
 	{
 		const size_t formatIndex = std::distance(
 			std::begin(FormatPatterns),
@@ -89,9 +89,16 @@ namespace s3d
 		}
 	}
 
-	static String FormatStopwatch(const uint64 us, const String& format)
+	static String FormatStopwatch(int64 us, const String& format)
 	{
 		String result, keyPattern;
+
+		if (us < 0)
+		{
+			result.push_back(L'-');
+
+			us = -us;
+		}
 
 		bool inQuot = false;
 

@@ -113,7 +113,7 @@
 	// ストップウォッチ
 	# include "Siv3D/Stopwatch.hpp"
 	// スピードを変更可能なストップウォッチ
-	//# include "Siv3D/SpeedStopwatch.hpp"
+	# include "Siv3D/SpeedStopwatch.hpp"
 	// タイマー
 	# include "Siv3D/Timer.hpp"
 	// 処理にかかった時間の測定
