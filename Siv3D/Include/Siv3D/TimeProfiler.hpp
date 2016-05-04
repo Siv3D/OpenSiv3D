@@ -15,7 +15,6 @@
 # include "Time.hpp"
 # include "Array.hpp"
 # include "String.hpp"
-# include "Utility.hpp"
 
 namespace s3d
 {
