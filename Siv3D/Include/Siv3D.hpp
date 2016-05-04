@@ -253,3 +253,299 @@
 	//# include "Siv3D/HalfFloat.hpp"
 	//// 数式パーサー
 	//# include "Siv3D/ExpressionParser.hpp"
+//
+// 画像処理
+//
+	//// 画像処理
+	//# include "Siv3D/Image.hpp"
+	//// 画像のフォーマット
+	//# include "Siv3D/TextureFormat.hpp"
+	//// カスタムカラーフォーマット
+	//# include "Siv3D/CustomColor.hpp"
+	//// カスタムカラーフォーマットの画像
+	//# include "Siv3D/CustomImage.hpp"
+	//// QR コードの作成と認識
+	//# include "Siv3D/QR.hpp"
+	//// 手書き文字認識
+	//# include "Siv3D/HandwritingRecognizer.hpp"
+	//// 手書き文字認識用の学習データ作成
+	//# include "Siv3D/HandwritingTrainer.hpp"
+//
+// 音声処理
+//
+	//// 音声波形のサンプル
+	//# include "Siv3D/WaveSample.hpp"
+	//// 音声波形
+	//# include "Siv3D/Wave.hpp"
+	//// 音声波形のテンポ・ピッチ変更
+	//# include "Siv3D/WaveStretcher.hpp"
+	//// FFT
+	//# include "Siv3D/FFT.hpp"
+//
+// 動画ファイル
+//
+	//// GIF アニメーションの書き出し
+	//# include "Siv3D/AnimatedGIFWriter.hpp"
+	//// 動画ファイルの読み込み
+	//# include "Siv3D/VideoReader.hpp"
+	//// 動画ファイルの書き出し
+	//# include "Siv3D/VideoWriter.hpp"
+//
+// ネットワーク・通信
+//
+	//// シリアル通信
+	//# include "Siv3D/Serial.hpp"
+	//// パイプサーバー
+	//# include "Siv3D/PipeServer.hpp"
+	//// インターネット
+	//# include "Siv3D/Internet.hpp"
+	//// HTTP
+	//# include "Siv3D/HTTPClient.hpp"
+	//// Twitter
+	//# include "Siv3D/Twitter.hpp"
+	//// ネットワーク
+	//# include "Siv3D/Network.hpp"
+	//// TCP サーバー
+	//# include "Siv3D/TCPServer.hpp"
+	//// TCP クライアント
+	//# include "Siv3D/TCPClient.hpp"
+//
+// システム全般
+//
+	//// コマンドライン
+	//# include "Siv3D/CommandLine.hpp"
+	//// ユーザ固有 ID の取得
+	//# include "Siv3D/UID.hpp"
+	//// MIDI
+	//# include "Siv3D/Midi.hpp"
+	//// システム
+	//# include "Siv3D/System.hpp"
+	//// ウィンドウ
+	//# include "Siv3D/Window.hpp"
+	//// メッセージボックス
+	//# include "Siv3D/MessageBox.hpp"
+	//// クリップボード
+	//# include "Siv3D/Clipboard.hpp"
+	//// ドラッグ & ドロップ
+	//# include "Siv3D/Dragdrop.hpp"
+	//// ダイアログ
+	//# include "Siv3D/Dialog.hpp"
+	//// プロファイリング
+	//# include "Siv3D/Profiler.hpp"
+//
+// 入力デバイス
+//
+	//// マイク入力
+	//# include "Siv3D/Recorder.hpp"
+	//// キー入力
+	//# include "Siv3D/Key.hpp"
+	//// マウス
+	//# include "Siv3D/Mouse.hpp"
+	//// タッチ
+	//# include "Siv3D/Touch.hpp"
+	//// ペンタブレット
+	//# include "Siv3D/Pentablet.hpp"
+	//// ゲームパッド
+	//# include "Siv3D/Gamepad.hpp"
+	//// XInput 対応ゲームコントローラー
+	//# include "Siv3D/XInput.hpp"
+	//// 入力全般
+	//# include "Siv3D/Input.hpp"
+	//// Kinect V1
+	//# include "Siv3D/KinectV1.hpp"
+	//// Kinect V2
+	//# include "Siv3D/KinectV2.hpp"
+	//// Tobii EyeX
+	//# include "Siv3D/TobiiEyeX.hpp"
+//
+// サウンド
+//
+	//// サウンド
+	//# include "Siv3D/Sound.hpp"
+	//// サウンドの拍カウント
+	//# include "Siv3D/SoundBeat.hpp"
+//
+// グラフィックス
+//
+	//// ブレンドステート
+	//# include "Siv3D/BlendState.hpp"
+	//// ラスタライザーステート
+	//# include "Siv3D/RasterizerState.hpp"
+	//// デプスステートとステンシルステート
+	//# include "Siv3D/DepthStencilState.hpp"
+	//// サンプラーステート
+	//# include "Siv3D/SamplerState.hpp"
+	//// レンダーステート
+	//# include "Siv3D/RenderState.hpp"
+	//// シェーダ
+	//# include "Siv3D/Shader.hpp"
+	//// 頂点シェーダ
+	//# include "Siv3D/VertexShader.hpp"
+	//// ピクセルシェーダ
+	//# include "Siv3D/PixelShader.hpp"
+	//// 定数バッファ
+	//# include "Siv3D/ConstantBuffer.hpp"
+	//// 頂点レイアウト
+	//# include "Siv3D/InputLayout.hpp"
+	//// グラフィックス全般
+	//# include "Siv3D/Graphics.hpp"
+	//// スクリーンショット
+	//# include "Siv3D/ScreenCapture.hpp"
+	//// 2D グラフィックス設定
+	//# include "Siv3D/Graphics2D.hpp"
+	//// 2D スプライト
+	//# include "Siv3D/Sprite.hpp"
+//
+// テクスチャ
+//
+	//// テクスチャ
+	//# include "Siv3D/Texture.hpp"
+	//// 領域を指定したテクスチャ
+	//# include "Siv3D/TextureRegion.hpp"
+	//// 四角形に貼り付けたテクスチャ
+	//# include "Siv3D/TexturedQuad.hpp"
+	//// 動的テクスチャ
+	//# include "Siv3D/DynamicTexture.hpp"
+	//// レンダーテクスチャ
+	//# include "Siv3D/RenderTexture.hpp"
+//
+// フォント
+//
+	//// キネティックタイポグラフィ
+	//# include "Siv3D/KineticTypography.hpp"
+	//// フォント
+	//# include "Siv3D/Font.hpp"
+//
+// 標準 GUI
+//
+	//// ウィジェットのスタイル
+	//# include "Siv3D/WidgetStyle.hpp"
+	//// IWidget インタフェース
+	//# include "Siv3D/IWidget.hpp"
+	//// テキストウィジェット
+	//# include "Siv3D/GUIText.hpp"
+	//// 改行ウィジェット
+	//# include "Siv3D/GUINewLine.hpp"
+	//// テクスチャウィジェット
+	//# include "Siv3D/GUITexture.hpp"
+	//// 水平線ウィジェット
+	//# include "Siv3D/GUIHorizontalLine.hpp"
+	//// ボタンウィジェット
+	//# include "Siv3D/GUIButton.hpp"
+	//// トグルスイッチウィジェット
+	//# include "Siv3D/GUIToggleSwitch.hpp"
+	//// 水平スライダーウィジェット
+	//# include "Siv3D/GUISlider.hpp"
+	//// チェックボックスウィジェット
+	//# include "Siv3D/GUICheckBox.hpp"
+	//// ラジオボタンウィジェット
+	//# include "Siv3D/GUIRadioButton.hpp"
+	//// テキスト入力フィールドウィジェット
+	//# include "Siv3D/GUITextField.hpp"
+	//// テキスト入力エリアウィジェット
+	//# include "Siv3D/GUITextArea.hpp"
+	//// カラーパレットウィジェット
+	//# include "Siv3D/GUIColorPalette.hpp"
+	//// GUI
+	//# include "Siv3D/GUI.hpp"
+	//// カーソル
+	//# include "Siv3D/Cursor.hpp"
+//
+// ムービー
+//
+	//// ムービー (AVI, WMV 等に対応)
+	//# include "Siv3D/VideoPlayer.hpp"
+	//// メディアプレイヤー (AVI, WMV, MP4 等に対応)
+	//# include "Siv3D/MediaPlayer.hpp"
+//
+// Web カメラと AR
+//
+	//// Web カメラ
+	//# include "Siv3D/Webcam.hpp"
+	//// AR マーカー
+	//# include "Siv3D/AR.hpp"
+//
+// 3D 幾何
+//
+	//// DirectXMath ユーティリティ
+	//# include "Siv3D/DirectXMathUtility.hpp"
+	//// クォータニオン
+	//# include "Siv3D/Quaternion.hpp"
+	//// 4x4 行列
+	//# include "Siv3D/Mat4x4.hpp"
+	//// レイ
+	//# include "Siv3D/Ray.hpp"
+	//// 3D 線分
+	//# include "Siv3D/Line3D.hpp"
+	//// 3D 三角形
+	//# include "Siv3D/Triangle3D.hpp"
+	//// メッシュデータ
+	//# include "Siv3D/MeshData.hpp"
+	//// メッシュ
+	//# include "Siv3D/Mesh.hpp"
+	//// 動的メッシュ
+	//# include "Siv3D/DynamicMesh.hpp"
+	//// 変換情報を持ったメッシュ
+	//# include "Siv3D/TransformedMesh.hpp"
+	//// パーティクル
+	//# include "Siv3D/Particle.hpp"
+	//// 平面
+	//# include "Siv3D/Plane.hpp"
+	//// 球
+	//# include "Siv3D/Sphere.hpp"
+	//// ボックス
+	//# include "Siv3D/Box.hpp"
+	//// 円盤
+	//# include "Siv3D/Disc.hpp"
+	//// 円柱
+	//# include "Siv3D/Cylinder.hpp"
+	//// 円錐
+	//# include "Siv3D/Cone.hpp"
+	//// 3D 幾何
+	//# include "Siv3D/Geometry3D.hpp"
+	//// OBJ ファイル読み込み
+	//# include "Siv3D/ModelLoader.hpp"
+	//// 3D モデル
+	//# include "Siv3D/Model.hpp"
+	//// 3D カメラ
+	//# include "Siv3D/Camera.hpp"
+	//// フォグ
+	//# include "Siv3D/Fog.hpp"
+	//// ライト
+	//# include "Siv3D/Light.hpp"
+	//// 3D グラフィックス設定
+	//# include "Siv3D/Graphics3D.hpp"
+	//// ポストエフェクト
+	//# include "Siv3D/PostEffect.hpp"
+//
+// アセット
+//
+	//// アセット管理
+	//# include "Siv3D/Asset.hpp"
+	//// Sound アセット
+	//# include "Siv3D/SoundAsset.hpp"
+	//// Texture アセット
+	//# include "Siv3D/TextureAsset.hpp"
+	//// Font アセット
+	//# include "Siv3D/FontAsset.hpp"
+	//// GUI アセット
+	//# include "Siv3D/GUIAsset.hpp"
+//
+// ユーティリティ
+//
+	//// エフェクト
+	//# include "Siv3D/Effect.hpp"
+	//// コンソールウィンドウ
+	//# include "Siv3D/Console.hpp"
+	//// デバッグ出力
+	//# include "Siv3D/ApplicationUtility.hpp"
+	//// アドオン
+	//# include "Siv3D/Addon.hpp"
+	//// マルチスレッド
+	//# include "Siv3D/Threading.hpp"
+	//// シリアライゼーション
+	//# include "Siv3D/Serialization.hpp"
+	//// 名前空間の設定
+	//# include "Siv3D/Namespace.hpp"
+	//// GPU の使用
+	//# include "Siv3D/HighPerfoemanceGraphics.hpp"
