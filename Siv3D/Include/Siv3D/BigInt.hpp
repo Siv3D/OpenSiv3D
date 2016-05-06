@@ -252,7 +252,7 @@ namespace s3d
 		std::string stdStr() const;
 		String str() const;
 
-		void swap(BigInt& other);
+		void swap(BigInt& other) noexcept;
 
 		friend BigInt GCD(const BigInt&, const BigInt&);
 		friend BigInt LCM(const BigInt&, const BigInt&);

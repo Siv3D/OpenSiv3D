@@ -1155,7 +1155,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字列が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t indexOf(const String& str, size_t offset = 0) const
+		size_t indexOf(const String& str, size_t offset = 0) const noexcept
 		{
 			return m_string.find(str.data(), offset, str.length());
 		}

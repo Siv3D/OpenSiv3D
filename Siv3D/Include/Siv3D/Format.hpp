@@ -28,7 +28,7 @@ namespace s3d
 
 		struct DecimalPlace
 		{
-			explicit constexpr DecimalPlace(int32 v = 5) : value(v) {}
+			explicit constexpr DecimalPlace(int32 v = 5) noexcept : value(v) {}
 			int32 value;
 		} decimalPlace;
 	};
@@ -165,7 +165,7 @@ namespace s3d
 	/// <returns>
 	/// 引数を文字列に変換した文字列
 	/// </returns>
-	inline String Format(String&& str)
+	inline String Format(String&& str) noexcept
 	{
 		return std::move(str);
 	}

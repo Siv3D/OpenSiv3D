@@ -174,7 +174,7 @@ namespace s3d
 		/// <summary>
 		/// デフォルトコンストラクタ
 		/// </summary>
-		Date() = default;
+		Date() noexcept = default;
 
 		/// <summary>
 		/// 日付を作成します。
@@ -188,7 +188,7 @@ namespace s3d
 		/// <param name="_day">
 		/// 日
 		/// </param>
-		explicit constexpr Date(int32 _year, int32 _month = 1, int32 _day = 1)
+		explicit constexpr Date(int32 _year, int32 _month = 1, int32 _day = 1) noexcept
 			: year(_year)
 			, month(_month)
 			, day(_day) {}
@@ -334,9 +334,9 @@ namespace s3d
 	/// <returns>
 	/// 2 つの日付が等しい場合 true, それ以外の場合は false
 	/// </returns>
-	inline bool operator ==(const Date& a, const Date& b)
+	inline constexpr bool operator ==(const Date& a, const Date& b) noexcept
 	{
-		return ::memcmp(&a, &b, sizeof(Date)) == 0;
+		return a.year == b.year && a.month == b.month && a.day == b.day;
 	}
 
 	/// <summary>
@@ -351,7 +351,7 @@ namespace s3d
 	/// <returns>
 	/// 2 つの日付が異なる場合 true, それ以外の場合は false
 	/// </returns>
-	inline bool operator !=(const Date& a, const Date& b)
+	inline constexpr bool operator !=(const Date& a, const Date& b) noexcept
 	{
 		return !(a == b);
 	}

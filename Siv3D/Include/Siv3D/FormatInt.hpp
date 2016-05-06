@@ -100,11 +100,11 @@ namespace s3d
 
 			explicit FormatInt(const std::uint64_t value) : str_(format_decimal(value)) {}
 
-			std::size_t size() const { return buffer_ - str_ + BUFFER_SIZE - 1; }
+			std::size_t size() const noexcept { return buffer_ - str_ + BUFFER_SIZE - 1; }
 
-			const wchar_t *data() const { return str_; }
+			const wchar_t *data() const  noexcept { return str_; }
 
-			const wchar_t *c_str() const
+			const wchar_t *c_str() const noexcept
 			{
 				buffer_[BUFFER_SIZE - 1] = '\0';
 				return str_;

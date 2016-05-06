@@ -549,7 +549,7 @@ namespace s3d
 			shrink_to_fit();
 		}
 
-		void swap(Grid& other)
+		void swap(Grid& other) noexcept(noexcept(m_data.swap(other.m_data)))
 		{
 			m_data.swap(other.m_data);
 			
@@ -875,7 +875,7 @@ namespace s3d
 		template <class URNG, std::enable_if_t<!std::is_scalar<URNG>::value>* = nullptr>
 		const Type& choice(URNG&& rng) const
 		{
-			return m_data.choice(std::move(rng));
+			return m_data.choice(std::forward<URNG>(rng));
 		}
 
 		template <class Size_t, std::enable_if_t<std::is_scalar<Size_t>::value>* = nullptr>
@@ -887,7 +887,7 @@ namespace s3d
 		template <class URNG>
 		Array<Type> choice(size_t n, URNG&& rng) const
 		{
-			return m_data.choice(n, std::move(rng));
+			return m_data.choice(n, std::forward<URNG>(rng));
 		}
 
 		size_t count(const Type& value) const
@@ -1207,7 +1207,7 @@ namespace s3d
 		template <class URNG>
 		Grid& shuffle(URNG&& rng)
 		{
-			std::shuffle(begin(), end(), std::move(rng));
+			std::shuffle(begin(), end(), std::forward<URNG>(rng));
 
 			return *this;
 		}
@@ -1225,13 +1225,13 @@ namespace s3d
 		template <class URNG>
 		Grid shuffled(URNG&& rng) const &
 		{
-			return Grid(*this).shuffle(std::move(rng));
+			return Grid(*this).shuffle(std::forward<URNG>(rng));
 		}
 
 		template <class URNG>
 		Grid shuffled(URNG&& rng) &&
 		{
-			shuffle(std::move(rng));
+			shuffle(std::forward<URNG>(rng));
 
 			return std::move(*this);
 		}

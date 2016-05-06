@@ -154,7 +154,7 @@ namespace s3d
     /// <returns>
     /// ビット列を整数として解釈した値
     /// </returns>
-    inline uint64 AsUint(const double value)
+    inline uint64 AsUint(const double value) noexcept
     {
         static_assert(sizeof(uint64) == sizeof(double), "");
         return *static_cast<const uint64*>(static_cast<const void*>(&value));

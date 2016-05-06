@@ -110,7 +110,7 @@ namespace s3d
 
 		Array& operator <<(Type&& value)
 		{
-			push_back(std::move(value));
+			push_back(std::forward<Type>(value));
 
 			return *this;
 		}
@@ -175,7 +175,7 @@ namespace s3d
 		template <class URNG>
 		Array choice(size_t n, URNG&& rng) const
 		{
-			return shuffled(rng).taken(n);
+			return shuffled(std::forward<URNG>(rng)).taken(n);
 		}
 
 		size_t count(const Type& value) const
@@ -697,7 +697,7 @@ namespace s3d
 		template <class URNG>
 		Array& shuffle(URNG&& rng)
 		{
-			std::shuffle(begin(), end(), std::move(rng));
+			std::shuffle(begin(), end(), std::forward<URNG>(rng));
 
 			return *this;
 		}
@@ -715,13 +715,13 @@ namespace s3d
 		template <class URNG>
 		Array shuffled(URNG&& rng) const &
 		{
-			return Array(*this).shuffle(std::move(rng));
+			return Array(*this).shuffle(std::forward<URNG>(rng));
 		}
 
 		template <class URNG>
 		Array shuffled(URNG&& rng) &&
 		{
-			shuffle(std::move(rng));
+			shuffle(std::forward<URNG>(rng));
 
 			return std::move(*this);
 		}
@@ -964,16 +964,9 @@ namespace s3d
 			return size() * sizeof(bool);
 		}
 
-		Array& operator <<(const bool& value)
+		Array& operator <<(bool value)
 		{
 			push_back(value);
-
-			return *this;
-		}
-
-		Array& operator <<(bool&& value)
-		{
-			push_back(std::move(value));
 
 			return *this;
 		}
@@ -1038,7 +1031,7 @@ namespace s3d
 		template <class URNG>
 		Array choice(size_t n, URNG&& rng) const
 		{
-			return shuffled(rng).taken(n);
+			return shuffled(std::forward<URNG>(rng)).taken(n);
 		}
 
 		size_t count(const bool& value) const
@@ -1560,7 +1553,7 @@ namespace s3d
 		template <class URNG>
 		Array& shuffle(URNG&& rng)
 		{
-			std::shuffle(begin(), end(), std::move(rng));
+			std::shuffle(begin(), end(), std::forward<URNG>(rng));
 
 			return *this;
 		}
@@ -1578,13 +1571,13 @@ namespace s3d
 		template <class URNG>
 		Array shuffled(URNG&& rng) const &
 		{
-			return Array(*this).shuffle(std::move(rng));
+			return Array(*this).shuffle(std::forward<URNG>(rng));
 		}
 
 		template <class URNG>
 		Array shuffled(URNG&& rng) &&
 		{
-			shuffle(std::move(rng));
+			shuffle(std::forward<URNG>(rng));
 
 			return std::move(*this);
 		}

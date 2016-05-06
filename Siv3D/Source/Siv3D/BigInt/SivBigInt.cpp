@@ -638,7 +638,7 @@ namespace s3d
 		return String(t.begin(), t.end());
 	}
 
-	void BigInt::swap(BigInt& other)
+	void BigInt::swap(BigInt& other) noexcept
 	{
 		return this->pImpl->data.swap(other.pImpl->data);
 	}
