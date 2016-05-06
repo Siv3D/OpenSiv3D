@@ -76,6 +76,9 @@ namespace s3d
 		using base_type::pop_back;
 		using base_type::resize;
 
+        Array()
+            : base_type() {}
+
 		void swap(Array& other)
 		{
 			base_type::swap(other);
@@ -933,7 +936,8 @@ namespace s3d
 		using base_type::pop_back;
 		using base_type::resize;
 
-		Array() = default;
+		Array()
+            : base_type() {}
 
 		Array(size_type count, const bool& value)
 			: base_type(count, value) {}

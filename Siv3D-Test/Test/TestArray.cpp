@@ -29,8 +29,11 @@ TEST(Array, MemberTypes)
 	EXPECT_EQ(typeid(typename Array<int32>::difference_type),			typeid(typename std::vector<int32>::difference_type));
 	EXPECT_EQ(typeid(typename Array<int32>::allocator_type),			typeid(typename DefaultAllocator<int32>::type));
 	EXPECT_EQ(typeid(typename Array<double>::allocator_type),			typeid(typename DefaultAllocator<double>::type));
+    
+# if defined(SIV3D_TARGET_WINDOWS)
 	EXPECT_EQ(typeid(typename Array<__m128>::allocator_type),			typeid(typename DefaultAllocator<__m128>::type));
 	EXPECT_EQ(typeid(typename Array<__m256>::allocator_type),			typeid(typename DefaultAllocator<__m256>::type));
+# endif
 }
 
 TEST(Array, int32_Empty)
@@ -143,7 +146,12 @@ TEST(Array, m128_const)
 
 TEST(Array, bool)
 {
+    
+}
 
+TEST(Array, bool_empty)
+{
+    const Array<bool> v;
 }
 
 TEST(Array, bool_const)
