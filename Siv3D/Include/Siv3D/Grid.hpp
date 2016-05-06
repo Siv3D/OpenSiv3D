@@ -857,12 +857,14 @@ namespace s3d
 			resize(size.x, size.y, val);
 		}
 
-		bool all(std::function<bool(const Type&)> f = NotNot()) const
+		template <class Fty>
+		bool all(Fty f = NotNot()) const
 		{
 			return m_data.all(f);
 		}
 
-		bool any(std::function<bool(const Type&)> f = NotNot()) const
+		template <class Fty>
+		bool any(Fty f = NotNot()) const
 		{
 			return m_data.any(f);
 		}
@@ -895,26 +897,30 @@ namespace s3d
 			return m_data.count(value);
 		}
 
-		size_t count_if(std::function<bool(const Type&)> f) const
+		template <class Fty>
+		size_t count_if(Fty f) const
 		{
 			return m_data.count_if(f);
 		}
 
-		Grid& each(std::function<void(Type&)> f)
+		template <class Fty>
+		Grid& each(Fty f)
 		{
 			m_data.each(f);
 
 			return *this;
 		}
 
-		const Grid& each(std::function<void(const Type&)> f) const
+		template <class Fty>
+		const Grid& each(Fty f) const
 		{
 			m_data.each(f);
 
 			return *this;
 		}
 
-		Grid& each_index(std::function<void(Point, Type&)> f)
+		template <class Fty>
+		Grid& each_index(Fty f)
 		{
 			if (!m_data.empty())
 			{
@@ -932,7 +938,8 @@ namespace s3d
 			return *this;
 		}
 
-		const Grid& each_index(std::function<void(size_t, const Type&)> f) const
+		template <class Fty>
+		const Grid& each_index(Fty f) const
 		{
 			if (!m_data.empty())
 			{
@@ -977,7 +984,8 @@ namespace s3d
 			return m_data.include(value);
 		}
 
-		bool include_if(std::function<bool(const Type&)> f) const
+		template <class Fty>
+		bool include_if(Fty f) const
 		{
 			return m_data.include_if(f);
 		}
@@ -1000,7 +1008,8 @@ namespace s3d
 			return new_grid;
 		}
 
-		bool none(std::function<bool(const Type&)> f = NotNot()) const
+		template <class Fty>
+		bool none(Fty f = NotNot()) const
 		{
 			return m_data.none(f);
 		}
@@ -1057,14 +1066,16 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		Grid& replace_if(std::function<bool(const Type&)> f, const Type& newValue)
+		template <class Fty>
+		Grid& replace_if(Fty f, const Type& newValue)
 		{
 			m_data.replace_if(f, newValue);
 
 			return *this;
 		}
 
-		Grid replaced_if(std::function<bool(const Type&)> f, const Type& newValue) const &
+		template <class Fty>
+		Grid replaced_if(Fty f, const Type& newValue) const &
 		{
 			Grid new_grid;
 
@@ -1088,7 +1099,8 @@ namespace s3d
 			return new_grid;
 		}
 
-		Grid replaced_if(std::function<bool(const Type&)> f, const Type& newValue) &&
+		template <class Fty>
+		Grid replaced_if(Fty f, const Type& newValue) &&
 		{
 			replace_if(f, newValue);
 
@@ -1122,7 +1134,8 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		Grid& reverse_each(std::function<void(Type&)> f)
+		template <class Fty>
+		Grid& reverse_each(Fty f)
 		{
 			for (auto it = m_data.rbegin(); it != m_data.rend(); ++it)
 			{
@@ -1132,7 +1145,8 @@ namespace s3d
 			return *this;
 		}
 
-		const Grid& reverse_each(std::function<void(const Type&)> f) const
+		template <class Fty>
+		const Grid& reverse_each(Fty f) const
 		{
 			for (auto it = m_data.rbegin(); it != m_data.rend(); ++it)
 			{
@@ -1275,7 +1289,8 @@ namespace s3d
 			return *this;
 		}
 
-		Grid& sort_by(std::function<bool(const Type& a, const Type& b)> f)
+		template <class Fty>
+		Grid& sort_by(Fty f)
 		{
 			std::sort(m_data.begin(), m_data.end(), f);
 
@@ -1294,12 +1309,14 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		Grid sorted_by(std::function<bool(const Type& a, const Type& b)> f) const &
+		template <class Fty>
+		Grid sorted_by(Fty f) const &
 		{
 			return Grid(*this).sort_by(f);
 		}
 
-		Grid sorted_by(std::function<bool(const Type& a, const Type& b)> f) &&
+		template <class Fty>
+		Grid sorted_by(Fty f) &&
 		{
 			sort_by(f);
 

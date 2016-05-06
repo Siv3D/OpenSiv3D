@@ -436,7 +436,8 @@ namespace s3d
 			return new_array;
 		}
 
-		Array<value_type> take_while(std::function<bool(const value_type&)> f) const
+		template <class Fty>
+		Array<value_type> take_while(Fty f) const
 		{
 			Array<value_type> new_array;
 
@@ -742,7 +743,8 @@ namespace s3d
 				return sum;
 			}
 
-			size_t count_if(std::function<bool(const value_type&)> f) const
+			template <class Fty>
+			size_t count_if(Fty f) const
 			{
 				size_t sum = 0;
 				each([&sum, f = f](const auto& value) { sum += f(value); });
@@ -758,9 +760,9 @@ namespace s3d
 				});
 			}
 
-			constexpr auto filter(std::function<bool(const value_type&)> f) const
+			template <class Fty>
+			constexpr auto filter(Fty f) const
 			{
-				using Fty = std::function<bool(const value_type&)>;
 				const auto functions = std::tuple_cat(m_functions, std::make_tuple(FilterFunction<Fty>{ f }));
 				return F_Step<StepClass, value_type, decltype(functions)>(m_base, functions);
 			}
@@ -972,7 +974,8 @@ namespace s3d
 				return new_array;
 			}
 
-			Array<value_type> take_while(std::function<bool(const value_type&)> f) const
+			template <class Fty>
+			Array<value_type> take_while(Fty f) const
 			{
 				Array<value_type> new_array;
 

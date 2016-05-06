@@ -13,7 +13,6 @@
 # include <vector>
 # include <string>
 # include <algorithm>
-# include <functional>
 # include "Fwd.hpp"
 # include "Allocator.hpp"
 # include "String.hpp"
@@ -115,7 +114,8 @@ namespace s3d
 			return *this;
 		}
 
-		bool all(std::function<bool(const Type&)> f = NotNot()) const
+		template <class Fty>
+		bool all(Fty f = NotNot()) const
 		{
 			for (const auto& v : *this)
 			{
@@ -128,7 +128,8 @@ namespace s3d
 			return true;
 		}
 
-		bool any(std::function<bool(const Type&)> f = NotNot()) const
+		template <class Fty>
+		bool any(Fty f = NotNot()) const
 		{
 			for (const auto& v : *this)
 			{
@@ -193,7 +194,8 @@ namespace s3d
 			return result;
 		}
 
-		size_t count_if(std::function<bool(const Type&)> f) const
+		template <class Fty>
+		size_t count_if(Fty f) const
 		{
 			size_t result = 0;
 
@@ -232,19 +234,22 @@ namespace s3d
 			return Array(begin() + n, end());
 		}
 
-		Array& drop_while(std::function<bool(const Type&)> f)
+		template <class Fty>
+		Array& drop_while(Fty f)
 		{
 			erase(begin(), std::find_if_not(begin(), end(), f));
 
 			return *this;
 		}
 
-		Array dropped_while(std::function<bool(const Type&)> f) const
+		template <class Fty>
+		Array dropped_while(Fty f) const
 		{
 			return Array(std::find_if_not(begin(), end(), f), end());
 		}
 
-		Array& each(std::function<void(Type&)> f)
+		template <class Fty>
+		Array& each(Fty f)
 		{
 			for (auto& v : *this)
 			{
@@ -254,7 +259,8 @@ namespace s3d
 			return *this;
 		}
 
-		const Array& each(std::function<void(const Type&)> f) const
+		template <class Fty>
+		const Array& each(Fty f) const
 		{
 			for (const auto& v : *this)
 			{
@@ -264,7 +270,8 @@ namespace s3d
 			return *this;
 		}
 
-		Array& each_index(std::function<void(size_t, Type&)> f)
+		template <class Fty>
+		Array& each_index(Fty f)
 		{
 			size_t i = 0;
 
@@ -276,7 +283,8 @@ namespace s3d
 			return *this;
 		}
 
-		const Array& each_index(std::function<void(size_t, const Type&)> f) const
+		template <class Fty>
+		const Array& each_index(Fty f) const
 		{
 			size_t i = 0;
 
@@ -305,7 +313,8 @@ namespace s3d
 			return *this;
 		}
 
-		Array filter(std::function<bool(const Type&)> f) const
+		template <class Fty>
+		Array filter(Fty f) const
 		{
 			Array new_array;
 
@@ -333,7 +342,8 @@ namespace s3d
 			return false;
 		}
 
-		bool include_if(std::function<bool(const Type&)> f) const
+		template <class Fty>
+		bool include_if(Fty f) const
 		{
 			return any(f);
 		}
@@ -365,7 +375,8 @@ namespace s3d
 			return s;
 		}
 
-		Array& keep_if(std::function<bool(const Type&)> f)
+		template <class Fty>
+		Array& keep_if(Fty f)
 		{
 			erase(std::remove_if(begin(), end(), std::not1(f)), end());
 
@@ -387,7 +398,8 @@ namespace s3d
 			return new_array;
 		}
 
-		bool none(std::function<bool(const Type&)> f = NotNot()) const
+		template <class Fty>
+		bool none(Fty f = NotNot()) const
 		{
 			for (const auto& v : *this)
 			{
@@ -495,14 +507,16 @@ namespace s3d
 			return new_array;
 		}
 
-		Array& remove_if(std::function<bool(const Type&)> f)
+		template <class Fty>
+		Array& remove_if(Fty f)
 		{
 			erase(std::remove_if(begin(), end(), f), end());
 
 			return *this;
 		}
 
-		Array removed_if(std::function<bool(const Type&)> f) const &
+		template <class Fty>
+		Array removed_if(Fty f) const &
 		{
 			Array new_array;
 
@@ -517,7 +531,8 @@ namespace s3d
 			return new_array;
 		}
 
-		Array removed_if(std::function<bool(const Type&)> f) &&
+		template <class Fty>
+		Array removed_if(Fty f) &&
 		{
 			erase(std::remove_if(begin(), end(), f), end());
 
@@ -567,7 +582,8 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		Array& replace_if(std::function<bool(const Type&)> f, const Type& newValue)
+		template <class Fty>
+		Array& replace_if(Fty f, const Type& newValue)
 		{
 			for (auto& v : *this)
 			{
@@ -580,7 +596,8 @@ namespace s3d
 			return *this;
 		}
 
-		Array replaced_if(std::function<bool(const Type&)> f, const Type& newValue) const &
+		template <class Fty>
+		Array replaced_if(Fty f, const Type& newValue) const &
 		{
 			Array new_array;
 
@@ -601,7 +618,8 @@ namespace s3d
 			return new_array;
 		}
 
-		Array replaced_if(std::function<bool(const Type&)> f, const Type& newValue) &&
+		template <class Fty>
+		Array replaced_if(Fty f, const Type& newValue) &&
 		{
 			replace_if(f, newValue);
 
@@ -627,7 +645,8 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		Array& reverse_each(std::function<void(Type&)> f)
+		template <class Fty>
+		Array& reverse_each(Fty f)
 		{
 			for (auto it = rbegin(); it != rend(); ++it)
 			{
@@ -637,7 +656,8 @@ namespace s3d
 			return *this;
 		}
 
-		const Array& reverse_each(std::function<void(const Type&)> f) const
+		template <class Fty>
+		const Array& reverse_each(Fty f) const
 		{
 			for (auto it = rbegin(); it != rend(); ++it)
 			{
@@ -753,7 +773,8 @@ namespace s3d
 			return *this;
 		}
 
-		Array& sort_by(std::function<bool(const Type& a, const Type& b)> f)
+		template <class Fty>
+		Array& sort_by(Fty f)
 		{
 			std::sort(begin(), end(), f);
 
@@ -772,12 +793,14 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		Array sorted_by(std::function<bool(const Type& a, const Type& b)> f) const &
+		template <class Fty>
+		Array sorted_by(Fty f) const &
 		{
 			return Array(*this).sort_by(f);
 		}
 
-		Array sorted_by(std::function<bool(const Type& a, const Type& b)> f) &&
+		template <class Fty>
+		Array sorted_by(Fty f) &&
 		{
 			sort_by(f);
 
@@ -796,14 +819,16 @@ namespace s3d
 			return Array(begin(), begin() + std::min(n, size()));
 		}
 
-		Array& take_while(std::function<bool(const Type&)> f)
+		template <class Fty>
+		Array& take_while(Fty f)
 		{
 			erase(std::find_if_not(begin(), end(), f), end());
 
 			return *this;
 		}
 
-		Array taken_while(std::function<bool(const Type&)> f) const
+		template <class Fty>
+		Array taken_while(Fty f) const
 		{
 			return Array(begin(), std::find_if_not(begin(), end(), f));
 		}
@@ -971,7 +996,8 @@ namespace s3d
 			return *this;
 		}
 
-		bool all(std::function<bool(const bool&)> f = NotNot()) const
+		template <class Fty>
+		bool all(Fty f = NotNot()) const
 		{
 			for (const auto& v : *this)
 			{
@@ -984,7 +1010,8 @@ namespace s3d
 			return true;
 		}
 
-		bool any(std::function<bool(const bool&)> f = NotNot()) const
+		template <class Fty>
+		bool any(Fty f = NotNot()) const
 		{
 			for (const auto& v : *this)
 			{
@@ -1049,7 +1076,8 @@ namespace s3d
 			return result;
 		}
 
-		size_t count_if(std::function<bool(const bool&)> f) const
+		template <class Fty>
+		size_t count_if(Fty f) const
 		{
 			size_t result = 0;
 
@@ -1088,19 +1116,22 @@ namespace s3d
 			return Array(begin() + n, end());
 		}
 
-		Array& drop_while(std::function<bool(const bool&)> f)
+		template <class Fty>
+		Array& drop_while(Fty f)
 		{
 			erase(begin(), std::find_if_not(begin(), end(), f));
 
 			return *this;
 		}
 
-		Array dropped_while(std::function<bool(const bool&)> f) const
+		template <class Fty>
+		Array dropped_while(Fty f) const
 		{
 			return Array(std::find_if_not(begin(), end(), f), end());
 		}
 
-		Array& each(std::function<void(bool&)> f)
+		template <class Fty>
+		Array& each(Fty f)
 		{
 			for (auto& v : *this)
 			{
@@ -1110,7 +1141,8 @@ namespace s3d
 			return *this;
 		}
 
-		const Array& each(std::function<void(const bool&)> f) const
+		template <class Fty>
+		const Array& each(Fty f) const
 		{
 			for (const auto& v : *this)
 			{
@@ -1120,7 +1152,8 @@ namespace s3d
 			return *this;
 		}
 
-		Array& each_index(std::function<void(size_t, bool&)> f)
+		template <class Fty>
+		Array& each_index(Fty f)
 		{
 			size_t i = 0;
 
@@ -1132,7 +1165,8 @@ namespace s3d
 			return *this;
 		}
 
-		const Array& each_index(std::function<void(size_t, const bool&)> f) const
+		template <class Fty>
+		const Array& each_index(Fty f) const
 		{
 			size_t i = 0;
 
@@ -1161,7 +1195,8 @@ namespace s3d
 			return *this;
 		}
 
-		Array filter(std::function<bool(const bool&)> f) const
+		template <class Fty>
+		Array filter(Fty f) const
 		{
 			Array new_array;
 
@@ -1189,7 +1224,8 @@ namespace s3d
 			return false;
 		}
 
-		bool include_if(std::function<bool(const bool&)> f) const
+		template <class Fty>
+		bool include_if(Fty f) const
 		{
 			return any(f);
 		}
@@ -1221,7 +1257,8 @@ namespace s3d
 			return s;
 		}
 
-		Array& keep_if(std::function<bool(const bool&)> f)
+		template <class Fty>
+		Array& keep_if(Fty f)
 		{
 			erase(std::remove_if(begin(), end(), std::not1(f)), end());
 
@@ -1243,7 +1280,8 @@ namespace s3d
 			return new_array;
 		}
 
-		bool none(std::function<bool(const bool&)> f = NotNot()) const
+		template <class Fty>
+		bool none(Fty f = NotNot()) const
 		{
 			for (const auto& v : *this)
 			{
@@ -1351,14 +1389,16 @@ namespace s3d
 			return new_array;
 		}
 
-		Array& remove_if(std::function<bool(const bool&)> f)
+		template <class Fty>
+		Array& remove_if(Fty f)
 		{
 			erase(std::remove_if(begin(), end(), f), end());
 
 			return *this;
 		}
 
-		Array removed_if(std::function<bool(const bool&)> f) const &
+		template <class Fty>
+		Array removed_if(Fty f) const &
 		{
 			Array new_array;
 
@@ -1373,7 +1413,8 @@ namespace s3d
 			return new_array;
 		}
 
-		Array removed_if(std::function<bool(const bool&)> f) &&
+		template <class Fty>
+		Array removed_if(Fty f) &&
 		{
 			erase(std::remove_if(begin(), end(), f), end());
 
@@ -1423,7 +1464,8 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		Array& replace_if(std::function<bool(const bool&)> f, const bool& newValue)
+		template <class Fty>
+		Array& replace_if(Fty f, const bool& newValue)
 		{
 			for (auto& v : *this)
 			{
@@ -1436,7 +1478,8 @@ namespace s3d
 			return *this;
 		}
 
-		Array replaced_if(std::function<bool(const bool&)> f, const bool& newValue) const &
+		template <class Fty>
+		Array replaced_if(Fty f, const bool& newValue) const &
 		{
 			Array new_array;
 
@@ -1457,7 +1500,8 @@ namespace s3d
 			return new_array;
 		}
 
-		Array replaced_if(std::function<bool(const bool&)> f, const bool& newValue) &&
+		template <class Fty>
+		Array replaced_if(Fty f, const bool& newValue) &&
 		{
 			replace_if(f, newValue);
 
@@ -1483,7 +1527,8 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		Array& reverse_each(std::function<void(bool&)> f)
+		template <class Fty>
+		Array& reverse_each(Fty f)
 		{
 			for (auto it = rbegin(); it != rend(); ++it)
 			{
@@ -1493,7 +1538,8 @@ namespace s3d
 			return *this;
 		}
 
-		const Array& reverse_each(std::function<void(const bool&)> f) const
+		template <class Fty>
+		const Array& reverse_each(Fty f) const
 		{
 			for (auto it = rbegin(); it != rend(); ++it)
 			{
@@ -1609,7 +1655,8 @@ namespace s3d
 			return *this;
 		}
 
-		Array& sort_by(std::function<bool(const bool& a, const bool& b)> f)
+		template <class Fty>
+		Array& sort_by(Fty f)
 		{
 			std::sort(begin(), end(), f);
 
@@ -1628,12 +1675,14 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		Array sorted_by(std::function<bool(const bool& a, const bool& b)> f) const &
+		template <class Fty>
+		Array sorted_by(Fty f) const &
 		{
 			return Array(*this).sort_by(f);
 		}
 
-		Array sorted_by(std::function<bool(const bool& a, const bool& b)> f) &&
+		template <class Fty>
+		Array sorted_by(Fty f) &&
 		{
 			sort_by(f);
 
@@ -1652,14 +1701,16 @@ namespace s3d
 			return Array(begin(), begin() + std::min(n, size()));
 		}
 
-		Array& take_while(std::function<bool(const bool&)> f)
+		template <class Fty>
+		Array& take_while(Fty f)
 		{
 			erase(std::find_if_not(begin(), end(), f), end());
 
 			return *this;
 		}
 
-		Array taken_while(std::function<bool(const bool&)> f) const
+		template <class Fty>
+		Array taken_while(Fty f) const
 		{
 			return Array(begin(), std::find_if_not(begin(), end(), f));
 		}

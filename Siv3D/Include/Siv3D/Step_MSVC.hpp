@@ -140,7 +140,8 @@ namespace s3d
 			return new_array;
 		}
 
-		N count_if(std::function<bool(const value_type&)> f) const
+		template <class Fty>
+		N count_if(Fty f) const
 		{
 			if (isEmpty())
 			{
@@ -227,7 +228,8 @@ namespace s3d
 			}
 		}
 
-		auto filter(std::function<bool(const value_type&)> f) const;
+		template <class Fty>
+		auto filter(Fty f) const;
 
 		bool include(const value_type& x) const
 		{
@@ -260,7 +262,8 @@ namespace s3d
 			return false;
 		}
 
-		bool include_if(std::function<bool(const value_type&)> f) const
+		template <class Fty>
+		bool include_if(Fty f) const
 		{
 			if (isEmpty())
 			{
@@ -427,7 +430,8 @@ namespace s3d
 			return new_array;
 		}
 
-		Array<value_type> take_while(std::function<bool(const value_type&)> f) const
+		template <class Fty>
+		Array<value_type> take_while(Fty f) const
 		{
 			Array<value_type> new_array;
 
@@ -582,7 +586,8 @@ namespace s3d
 			return new_array;
 		}
 
-		N count_if(std::function<bool(const value_type&)> f) const
+		template <class Fty>
+		N count_if(Fty f) const
 		{
 			if (isEmpty())
 			{
@@ -669,7 +674,8 @@ namespace s3d
 			}
 		}
 
-		auto filter(std::function<bool(const value_type&)> f) const;
+		template <class Fty>
+		auto filter(Fty f) const;
 
 		bool include(const value_type& x) const
 		{
@@ -702,7 +708,8 @@ namespace s3d
 			return false;
 		}
 
-		bool include_if(std::function<bool(const bool&)> f) const
+		template <class Fty>
+		bool include_if(Fty f) const
 		{
 			if (isEmpty())
 			{
@@ -869,7 +876,8 @@ namespace s3d
 			return new_array;
 		}
 
-		Array<value_type> take_while(std::function<bool(const value_type&)> f) const
+		template <class Fty>
+		Array<value_type> take_while(Fty f) const
 		{
 			Array<value_type> new_array;
 
@@ -1177,7 +1185,8 @@ namespace s3d
 				return sum;
 			}
 
-			size_t count_if(std::function<bool(const value_type&)> f) const
+			template <class Fty>
+			size_t count_if(Fty f) const
 			{
 				size_t sum = 0;
 				each([&sum, f = f](const auto& value) { sum += f(value); });
@@ -1193,9 +1202,9 @@ namespace s3d
 				});
 			}
 
-			auto filter(std::function<bool(const value_type&)> f) const
+			template <class Fty>
+			auto filter(Fty f) const
 			{
-				using Fty = std::function<bool(const value_type&)>;
 				const auto functions = std::tuple_cat(m_functions, std::make_tuple(FilterFunction<Fty>{ f }));
 				return F_Step<StepClass, value_type, decltype(functions)>(m_base, functions);
 			}
@@ -1236,7 +1245,8 @@ namespace s3d
 				return false;
 			}
 
-			bool include_if(std::function<bool(const value_type&)> f) const
+			template <class Fty>
+			bool include_if(Fty f) const
 			{
 				if (m_base.isEmpty())
 				{
@@ -1406,7 +1416,8 @@ namespace s3d
 				return new_array;
 			}
 
-			Array<value_type> take_while(std::function<bool(const value_type&)> f) const
+			template <class Fty>
+			Array<value_type> take_while(Fty f) const
 			{
 				Array<value_type> new_array;
 
@@ -1452,9 +1463,9 @@ namespace s3d
 	}
 
 	template <class T, class N, class S, bool isScalar>
-	inline auto steps_class<T, N, S, isScalar>::filter(std::function<bool(const value_type&)> f) const
+	template <class Fty>
+	inline auto steps_class<T, N, S, isScalar>::filter(Fty f) const
 	{
-		using Fty = std::function<bool(const value_type&)>;
 		const auto tuple = std::make_tuple(detail::FilterFunction<Fty>{ f });
 		return detail::F_Step<steps_class, value_type, decltype(tuple)>(*this, tuple);
 	}
@@ -1470,9 +1481,9 @@ namespace s3d
 	}
 
 	template <class T, class N, class S>
-	inline auto steps_class<T, N, S, false>::filter(std::function<bool(const value_type&)> f) const
+	template <class Fty>
+	inline auto steps_class<T, N, S, false>::filter(Fty f) const
 	{
-		using Fty = std::function<bool(const T&)>;
 		const auto tuple = std::make_tuple(detail::FilterFunction<Fty>{ f });
 		return detail::F_Step<steps_class, value_type, decltype(tuple)>(*this, tuple);
 	}
