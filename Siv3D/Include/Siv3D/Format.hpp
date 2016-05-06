@@ -11,6 +11,7 @@
 
 # pragma once
 # include <sstream>
+# include <array>
 # include "Fwd.hpp"
 # include "String.hpp"
 # include "Optional.hpp"

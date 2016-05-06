@@ -62,14 +62,14 @@ namespace s3d
 				, m_count(count)
 				, m_step(step) {}
 
-			steps_iterator& operator ++()
+			constexpr steps_iterator& operator ++()
 			{
 				--m_count;
 				m_currentValue += m_step;
 				return *this;
 			}
 
-			steps_iterator operator ++(int)
+			constexpr steps_iterator operator ++(int)
 			{
 				steps_iterator tmp = *this;
 				--m_count;
@@ -145,38 +145,39 @@ namespace s3d
 
 			return new_array;
 		}
-
-		N count_if(std::function<bool(const value_type&)> f) const
-		{
-			if (isEmpty())
-			{
-				return 0;
-			}
-
-			N result = 0;
-			auto count_ = count();
-			auto value = startValue();
-			const auto step_ = step();
-
-			for (;;)
-			{
-				if (f(value))
-				{
-					++result;
-				}
-
-				if (--count_)
-				{
-					value += step_;
-				}
-				else
-				{
-					break;
-				}
-			}
-
-			return result;
-		}
+        
+        template <class Fty>
+        constexpr N count_if(Fty f) const
+        {
+            if (isEmpty())
+            {
+                return 0;
+            }
+            
+            N result = 0;
+            auto count_ = count();
+            auto value = startValue();
+            const auto step_ = step();
+            
+            for (;;)
+            {
+                if (f(value))
+                {
+                    ++result;
+                }
+                
+                if (--count_)
+                {
+                    value += step_;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            
+            return result;
+        }
 
 		template <class Fty>
 		void each(Fty f) const
@@ -233,9 +234,10 @@ namespace s3d
 			}
 		}
 
-		auto filter(std::function<bool(const value_type&)> f) const;
+        template <class Fty>
+		constexpr auto filter(Fty f) const;
 
-		bool include(const value_type& x) const
+		constexpr bool include(const value_type& x) const
 		{
 			if (isEmpty())
 			{
@@ -266,7 +268,8 @@ namespace s3d
 			return false;
 		}
 
-		bool include_if(std::function<bool(const value_type&)> f) const
+        template <class Fty>
+		constexpr bool include_if(Fty f) const
 		{
 			if (isEmpty())
 			{
@@ -344,10 +347,10 @@ namespace s3d
 		}
 
 		template <class Fty>
-		auto map(Fty f) const;
+        constexpr auto map(Fty f) const;
 
 		template <class Fty>
-		auto reduce(Fty f, decltype(std::declval<Fty>()(std::declval<value_type>(), std::declval<value_type>())) init) const
+		constexpr auto reduce(Fty f, decltype(std::declval<Fty>()(std::declval<value_type>(), std::declval<value_type>())) init) const
 		{
 			if (isEmpty())
 			{
@@ -374,7 +377,7 @@ namespace s3d
 		}
 
 		template <class Fty>
-		auto reduce1(Fty f) const
+		constexpr auto reduce1(Fty f) const
 		{
 			if (isEmpty())
 			{
@@ -599,7 +602,7 @@ namespace s3d
 			Fty function;
 
 			template <class T>
-			auto operator() (const T& value) const
+			constexpr auto operator() (const T& value) const
 			{
 				return function(value);
 			}
@@ -613,7 +616,7 @@ namespace s3d
 			Fty function;
 
 			template <class T>
-			auto operator() (const T& value) const
+			constexpr auto operator() (const T& value) const
 			{
 				return function(value);
 			}
@@ -624,7 +627,7 @@ namespace s3d
 
 		template <class Fty, class ValueType, size_t Index, class Tuple,
 			class Next, std::enable_if_t<!IsMap<Next>::value && (Index + 1 == std::tuple_size<Tuple>::value)>* = nullptr>
-		void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
+		constexpr void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
 		{
 			if (std::get<Index>(tuple)(value))
 			{
@@ -634,7 +637,7 @@ namespace s3d
 
 		template <class Fty, class ValueType, size_t Index, class Tuple,
 			class Next, std::enable_if_t<!IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
-		void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
+		constexpr void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
 		{
 			if (std::get<Index>(tuple)(value))
 			{
@@ -644,20 +647,20 @@ namespace s3d
 
 		template <class Fty, class ValueType, size_t Index, class Tuple,
 			class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 == std::tuple_size<Tuple>::value)>* = nullptr>
-		void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
+		constexpr void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
 		{
 			f(std::get<Index>(tuple)(value));
 		}
 
 		template <class Fty, class ValueType, size_t Index, class Tuple,
 			class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
-		void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
+		constexpr void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
 		{
 			Apply_impl<Fty, decltype(std::get<Index>(tuple)(value)), Index + 1, Tuple, typename std::decay<decltype(std::get<Index + 1>(std::declval<Tuple>()))>::type>(f, std::get<Index>(tuple)(value), tuple);
 		}
 
 		template <class Fty, class ValueType, class Tuple>
-		void Apply(Fty f, const ValueType& value, const Tuple& tuple)
+		constexpr void Apply(Fty f, const ValueType& value, const Tuple& tuple)
 		{
 			Apply_impl<Fty, ValueType, 0, Tuple, typename std::decay<decltype(std::get<0>(std::declval<Tuple>()))>::type>(f, value, tuple);
 		}
@@ -665,7 +668,7 @@ namespace s3d
 
 		template <class Fty, class ResultType, class ValueType, size_t Index, class Tuple,
 			class Next, std::enable_if_t<!IsMap<Next>::value && (Index + 1 == std::tuple_size<Tuple>::value)>* = nullptr>
-		void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
+		constexpr void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
 		{
 			if (std::get<Index>(tuple)(value))
 			{
@@ -675,7 +678,7 @@ namespace s3d
 
 		template <class Fty, class ResultType, class ValueType, size_t Index, class Tuple,
 			class Next, std::enable_if_t<!IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
-		void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
+		constexpr void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
 		{
 			if (std::get<Index>(tuple)(value))
 			{
@@ -685,20 +688,20 @@ namespace s3d
 
 		template <class Fty, class ResultType, class ValueType, size_t Index, class Tuple,
 			class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 == std::tuple_size<Tuple>::value)>* = nullptr>
-		void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
+		constexpr void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
 		{
 			result = f(result, std::get<Index>(tuple)(value));
 		}
 
 		template <class Fty, class ResultType, class ValueType, size_t Index, class Tuple,
 			class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
-		void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
+		constexpr void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
 		{
 			Reduce_impl<Fty, ResultType, decltype(std::get<Index>(tuple)(value)), Index + 1, Tuple, typename std::decay<decltype(std::get<Index + 1>(std::declval<Tuple>()))>::type>(f, result, std::get<Index>(tuple)(value), tuple);
 		}
 
 		template <class Fty, class ResultType, class ValueType, class Tuple>
-		void Reduce(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
+		constexpr void Reduce(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
 		{
 			Reduce_impl<Fty, ResultType, ValueType, 0, Tuple, typename std::decay<decltype(std::get<0>(std::declval<Tuple>()))>::type>(f, result, value, tuple);
 		}
@@ -732,7 +735,7 @@ namespace s3d
 				return new_array;
 			}
 
-			size_t count() const
+            size_t count() const
 			{
 				size_t sum = 0;
 				each([&sum](const auto) { ++sum; });
@@ -747,7 +750,7 @@ namespace s3d
 			}
 
 			template <class Fty>
-			void each(Fty f) const
+            void each(Fty f) const
 			{
 				m_base.each([f, functions = m_functions](const auto& value)
 				{
@@ -755,14 +758,14 @@ namespace s3d
 				});
 			}
 
-			auto filter(std::function<bool(const value_type&)> f) const
+			constexpr auto filter(std::function<bool(const value_type&)> f) const
 			{
 				using Fty = std::function<bool(const value_type&)>;
 				const auto functions = std::tuple_cat(m_functions, std::make_tuple(FilterFunction<Fty>{ f }));
 				return F_Step<StepClass, value_type, decltype(functions)>(m_base, functions);
 			}
 
-			bool include(const value_type& x) const
+            bool include(const value_type& x) const
 			{
 				if (m_base.isEmpty())
 				{
@@ -798,7 +801,8 @@ namespace s3d
 				return false;
 			}
 
-			bool include_if(std::function<bool(const value_type&)> f) const
+            template <class Fty>
+            bool include_if(Fty f) const
 			{
 				if (m_base.isEmpty())
 				{
@@ -857,7 +861,7 @@ namespace s3d
 			}
 
 			template <class Fty>
-			auto map(Fty f) const
+			constexpr auto map(Fty f) const
 			{
 				using Ret = decltype(std::declval<Fty>()(std::declval<value_type>()));
 				const auto functions = std::tuple_cat(m_functions, std::make_tuple(MapFunction<Fty>{ f }));
@@ -865,7 +869,7 @@ namespace s3d
 			}
 
 			template <class Fty>
-			auto reduce(Fty f, decltype(std::declval<Fty>()(std::declval<value_type>(), std::declval<value_type>())) init) const
+			constexpr auto reduce(Fty f, decltype(std::declval<Fty>()(std::declval<value_type>(), std::declval<value_type>())) init) const
 			{
 				decltype(init) result = init;
 
@@ -897,7 +901,7 @@ namespace s3d
 			}
 
 			template <class Fty>
-			auto reduce1(Fty f) const
+            auto reduce1(Fty f) const
 			{
 				if (m_base.isEmpty())
 				{
@@ -1014,16 +1018,16 @@ namespace s3d
 	}
 
 	template <class T, class N, class S>
-	inline auto steps_class<T, N, S>::filter(std::function<bool(const value_type&)> f) const
+    template <class Fty>
+	inline constexpr auto steps_class<T, N, S>::filter(Fty f) const
 	{
-		using Fty = std::function<bool(const value_type&)>;
 		const auto tuple = std::make_tuple(detail::FilterFunction<Fty>{ f });
 		return detail::F_Step<steps_class, value_type, decltype(tuple)>(*this, tuple);
 	}
 
 	template <class T, class N, class S>
 	template <class Fty>
-	inline auto steps_class<T, N, S>::map(Fty f) const
+	inline constexpr auto steps_class<T, N, S>::map(Fty f) const
 	{
 		using Ret = decltype(std::declval<Fty>()(std::declval<value_type>()));
 		const auto tuple = std::make_tuple(detail::MapFunction<Fty>{ f });
