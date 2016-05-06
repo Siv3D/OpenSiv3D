@@ -1599,7 +1599,7 @@ namespace s3d
 			return m_string >= str.m_string;
 		}
 
-		template <class Fty>
+		template <class Fty = decltype(NotNot())>
 		bool all(Fty f = NotNot()) const
 		{
 			for (const auto v : m_string)
@@ -1613,7 +1613,7 @@ namespace s3d
 			return true;
 		}
 
-		template <class Fty>
+		template <class Fty = decltype(NotNot())>
 		bool any(Fty f = NotNot()) const
 		{
 			for (const auto v : m_string)
@@ -2133,7 +2133,7 @@ namespace s3d
 		/// </returns>
 		std::string narrow() const;
 
-		template <class Fty>
+		template <class Fty = decltype(NotNot())>
 		bool none(Fty f = NotNot()) const
 		{
 			for (const auto v : m_string)

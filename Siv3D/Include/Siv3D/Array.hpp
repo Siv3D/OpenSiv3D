@@ -60,6 +60,7 @@ namespace s3d
 		using base_type::rbegin;
 		using base_type::crbegin;
 		using base_type::rend;
+		using base_type::crend;
 		using base_type::empty;
 		using base_type::size;
 		using base_type::max_size;
@@ -74,7 +75,11 @@ namespace s3d
 		using base_type::emplace_back;
 		using base_type::pop_back;
 		using base_type::resize;
-		using base_type::swap;
+
+		void swap(Array& other)
+		{
+			base_type::swap(other);
+		}
 
 		size_t count() const noexcept
 		{
@@ -114,7 +119,7 @@ namespace s3d
 			return *this;
 		}
 
-		template <class Fty>
+		template <class Fty = decltype(NotNot())>
 		bool all(Fty f = NotNot()) const
 		{
 			for (const auto& v : *this)
@@ -128,7 +133,7 @@ namespace s3d
 			return true;
 		}
 
-		template <class Fty>
+		template <class Fty = decltype(NotNot())>
 		bool any(Fty f = NotNot()) const
 		{
 			for (const auto& v : *this)
@@ -398,7 +403,7 @@ namespace s3d
 			return new_array;
 		}
 
-		template <class Fty>
+		template <class Fty = decltype(NotNot())>
 		bool none(Fty f = NotNot()) const
 		{
 			for (const auto& v : *this)
@@ -914,6 +919,7 @@ namespace s3d
 		using base_type::rbegin;
 		using base_type::crbegin;
 		using base_type::rend;
+		using base_type::crend;
 		using base_type::empty;
 		using base_type::size;
 		using base_type::max_size;
@@ -926,7 +932,6 @@ namespace s3d
 		using base_type::push_back;
 		using base_type::pop_back;
 		using base_type::resize;
-		using base_type::swap;
 
 		Array() = default;
 
@@ -967,6 +972,11 @@ namespace s3d
 			push_back(tmp);
 		}
 
+		void swap(Array& other)
+		{
+			base_type::swap(other);
+		}
+
 		size_t count() const noexcept
 		{
 			return size();
@@ -996,7 +1006,7 @@ namespace s3d
 			return *this;
 		}
 
-		template <class Fty>
+		template <class Fty = decltype(NotNot())>
 		bool all(Fty f = NotNot()) const
 		{
 			for (const auto& v : *this)
@@ -1010,7 +1020,7 @@ namespace s3d
 			return true;
 		}
 
-		template <class Fty>
+		template <class Fty = decltype(NotNot())>
 		bool any(Fty f = NotNot()) const
 		{
 			for (const auto& v : *this)
@@ -1280,7 +1290,7 @@ namespace s3d
 			return new_array;
 		}
 
-		template <class Fty>
+		template <class Fty = decltype(NotNot())>
 		bool none(Fty f = NotNot()) const
 		{
 			for (const auto& v : *this)
