@@ -130,8 +130,9 @@ namespace s3d
 		# elif defined(SIV3D_TARGET_OSX)
 
 			::time_t t = ::time(nullptr);
-			::tm* lt = ::localtime(&t);
-			return (day == lt->tm_mday && month == (lt->tm_mon + 1) && year == (1900 + lt->tm_year));
+            ::tm lt;
+            ::localtime_r(&t, &lt);
+			return (day == lt.tm_mday && month == (1 + lt.tm_mon) && year == (1900 + lt.tm_year));
 
 		# endif
 	}

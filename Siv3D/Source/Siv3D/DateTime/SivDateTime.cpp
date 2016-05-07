@@ -23,7 +23,7 @@
 
 # elif defined(SIV3D_TARGET_OSX)
 
-# include <ctime>
+# include <sys/time.h>
 
 # endif
 
@@ -252,7 +252,12 @@ namespace s3d
 
 		# elif defined(SIV3D_TARGET_OSX)
 
-
+            ::timeval tv;
+            ::tm lt;
+            ::gettimeofday(&tv, nullptr);
+            ::localtime_r(&tv.tv_sec, &lt);
+            return DateTime((1900 + lt.tm_year), (1 + lt.tm_mon), (lt.tm_mday),
+                lt.tm_hour, lt.tm_min, lt.tm_sec, tv.tv_usec / 1000);
 
 		# endif
 	}
@@ -267,7 +272,12 @@ namespace s3d
 
 		# elif defined(SIV3D_TARGET_OSX)
 
-
+            ::timeval tv;
+            ::tm gt;
+            ::gettimeofday(&tv, nullptr);
+            ::gmtime_r(&tv.tv_sec, &gt);
+            return DateTime((1900 + gt.tm_year), (1 + gt.tm_mon), (gt.tm_mday),
+                gt.tm_hour, gt.tm_min, gt.tm_sec, tv.tv_usec / 1000);
 
 		# endif
 	}
