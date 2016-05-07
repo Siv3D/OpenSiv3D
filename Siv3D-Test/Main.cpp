@@ -9,6 +9,15 @@ void Main()
 {
 	Log(L"Hello, Siv3D!");
 
+	//Log(Date::Today());
+
+	//Log(Date::Today().isToday());
+
+	//Log(Date::Today() + 5_d);
+
+	//Log(Date::Today() - 366_d);
+
+	/*
 	// 0～100 の範囲
 	Log(L"# Range(0, 100)");
 	Log(Range(0, 100));
@@ -175,4 +184,5 @@ void Main()
 		System::Sleep(20);
 		tp.end();
 	}
+	*/
 }

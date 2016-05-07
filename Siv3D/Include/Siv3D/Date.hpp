@@ -423,4 +423,30 @@ namespace s3d
 	{
 		return !(a < b);
 	}
+
+	inline std::ostream & operator << (std::ostream& os, const Date& date)
+	{
+		return os << date.format().narrow();
+	}
+
+	inline std::wostream & operator << (std::wostream& os, const Date& date)
+	{
+		return os << date.format();
+	}
+
+	inline void Formatter(FormatData& formatData, const Date& date)
+	{
+		formatData.string.append(date.format());
+	}
+}
+
+namespace std
+{
+	template <>
+	struct hash<s3d::Date>
+	{
+		using result_type = size_t;
+		using argument_type = s3d::Date;
+		result_type operator()(const argument_type& date) const;
+	};
 }

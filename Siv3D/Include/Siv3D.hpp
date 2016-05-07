@@ -109,7 +109,7 @@
 	// 日付
 	# include "Siv3D/Date.hpp"
 	// 日付と時刻
-	//# include "Siv3D/DateTime.hpp"
+	# include "Siv3D/DateTime.hpp"
 	// 時間
 	# include "Siv3D/Time.hpp"
 	// ストップウォッチ

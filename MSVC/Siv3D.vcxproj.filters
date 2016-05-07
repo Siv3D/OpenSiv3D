@@ -71,6 +71,12 @@
     <Filter Include="Source\Siv3D\System">
       <UniqueIdentifier>{a9ebc579-c489-4d52-9bef-c3cb07ca3550}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Date">
+      <UniqueIdentifier>{9f6c94c7-0755-4887-9de5-2d9af4c86000}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\DateTime">
+      <UniqueIdentifier>{ebfdacb5-f66c-4649-b646-9e2c5fabe2d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -313,6 +319,9 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\System.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\DateTime.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\Siv3DMain_OSX.cpp">
@@ -380,6 +389,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\System\SivSystem.cpp">
       <Filter>Source\Siv3D\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Date\SivDate.cpp">
+      <Filter>Source\Siv3D\Date</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\DateTime\SivDateTime.cpp">
+      <Filter>Source\Siv3D\DateTime</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
