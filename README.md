@@ -3,7 +3,7 @@
 ## SDK Downloads ##
 | Platform        | Version        | Date       | Requirements                  |
 |:---------------:|:---------------:|:-------------:|:------------------------------|
-| Windows Desktop | <a href="doc/Windows.md">**0.0.2**.236</a>     | 7 May 2016 | Windows 7 SP1 / 8.1 / 10<br>Microsoft Visual C++ 2015 Update 2 or newer |
+| Windows Desktop | <a href="doc/Windows.md">**0.0.2**.245</a>     | 7 May 2016 | Windows 7 SP1 / 8.1 / 10<br>Microsoft Visual C++ 2015 Update 2 or newer |
 | Mac OS X        | Coming soon     |               | Mac OS X v10.11 El Capitan or newer<br>Xcode 7.3 or newer |
 | Universal Windows Platform | TBA  |               | Windows 10<br>Microsoft Visual C++ 2015 Update 2 or newer |
 
