@@ -122,7 +122,7 @@ Licenced with the Code Project Open Licence (CPOL) http://www.codeproject.com/in
 
 		void OutputLicense()
 		{
-			std::wofstream ofs(L"Log.txt");
+			std::wofstream ofs("Log.txt");
 			ofs << license;
 		}
 	}
