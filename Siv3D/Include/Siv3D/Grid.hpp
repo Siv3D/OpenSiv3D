@@ -857,14 +857,14 @@ namespace s3d
 			resize(size.x, size.y, val);
 		}
 
-		template <class Fty = decltype(NotNot())>
-		bool all(Fty f = NotNot()) const
+		template <class Fty = decltype(Id())>
+		bool all(Fty f = Id()) const
 		{
 			return m_data.all(f);
 		}
 
-		template <class Fty = decltype(NotNot())>
-		bool any(Fty f = NotNot()) const
+		template <class Fty = decltype(Id())>
+		bool any(Fty f = Id()) const
 		{
 			return m_data.any(f);
 		}
@@ -1008,8 +1008,8 @@ namespace s3d
 			return new_grid;
 		}
 
-		template <class Fty = decltype(NotNot())>
-		bool none(Fty f = NotNot()) const
+		template <class Fty = decltype(Id())>
+		bool none(Fty f = Id()) const
 		{
 			return m_data.none(f);
 		}

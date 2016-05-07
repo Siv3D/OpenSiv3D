@@ -122,8 +122,8 @@ namespace s3d
 			return *this;
 		}
 
-		template <class Fty = decltype(NotNot())>
-		bool all(Fty f = NotNot()) const
+		template <class Fty = decltype(Id())>
+		bool all(Fty f = Id()) const
 		{
 			for (const auto& v : *this)
 			{
@@ -136,8 +136,8 @@ namespace s3d
 			return true;
 		}
 
-		template <class Fty = decltype(NotNot())>
-		bool any(Fty f = NotNot()) const
+		template <class Fty = decltype(Id())>
+		bool any(Fty f = Id()) const
 		{
 			for (const auto& v : *this)
 			{
@@ -406,8 +406,8 @@ namespace s3d
 			return new_array;
 		}
 
-		template <class Fty = decltype(NotNot())>
-		bool none(Fty f = NotNot()) const
+		template <class Fty = decltype(Id())>
+		bool none(Fty f = Id()) const
 		{
 			for (const auto& v : *this)
 			{
@@ -1010,8 +1010,8 @@ namespace s3d
 			return *this;
 		}
 
-		template <class Fty = decltype(NotNot())>
-		bool all(Fty f = NotNot()) const
+		template <class Fty = decltype(Id())>
+		bool all(Fty f = Id()) const
 		{
 			for (const auto& v : *this)
 			{
@@ -1024,8 +1024,8 @@ namespace s3d
 			return true;
 		}
 
-		template <class Fty = decltype(NotNot())>
-		bool any(Fty f = NotNot()) const
+		template <class Fty = decltype(Id())>
+		bool any(Fty f = Id()) const
 		{
 			for (const auto& v : *this)
 			{
@@ -1294,8 +1294,8 @@ namespace s3d
 			return new_array;
 		}
 
-		template <class Fty = decltype(NotNot())>
-		bool none(Fty f = NotNot()) const
+		template <class Fty = decltype(Id())>
+		bool none(Fty f = Id()) const
 		{
 			for (const auto& v : *this)
 			{

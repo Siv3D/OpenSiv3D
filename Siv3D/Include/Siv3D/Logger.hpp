@@ -15,11 +15,19 @@
 
 namespace s3d
 {
-    void Log(const String& text);
-    
-    template <class... Args>
-    inline void Log(const Args&... args)
-    {
-        Log(Format(args...));
-    }
+	namespace detail
+	{
+		struct Log_impl
+		{
+			void operator()(const String& text) const;
+
+			template <class... Args>
+			void operator()(const Args&... args) const
+			{
+				return operator()(s3d::Format(args...));
+			}
+		};
+	}
+
+	constexpr auto Log = detail::Log_impl();
 }

@@ -17,13 +17,17 @@
 # define  _WIN32_WINNT _WIN32_WINNT_WIN7
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
+# include "../../../Include/Siv3D/Logger.hpp"
 # include "../../../Include/Siv3D/String.hpp"
 
 namespace s3d
 {
-	void Log(const String& text)
+	namespace detail
 	{
-		::OutputDebugStringW((text + L'\n').c_str());
+		void Log_impl::operator()(const String& text) const
+		{
+			::OutputDebugStringW((text + L'\n').c_str());
+		}
 	}
 }
 
@@ -31,13 +35,17 @@ namespace s3d
 
 # include <iostream>
 # include <codecvt>
+# include "../../../Include/Siv3D/Logger.hpp"
 # include "../../../Include/Siv3D/String.hpp"
 
 namespace s3d
 {
-	void Log(const String& text)
+	namespace detail
 	{
-		std::cout << std::wstring_convert<std::codecvt_utf8<wchar_t>>().to_bytes(text.str()) << '\n';
+		void Log_impl::operator()(const String& text) const
+		{
+			std::cout << std::wstring_convert<std::codecvt_utf8<wchar_t>>().to_bytes(text.str()) << '\n';
+		}
 	}
 }
 
