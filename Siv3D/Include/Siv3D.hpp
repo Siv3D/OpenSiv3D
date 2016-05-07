@@ -31,7 +31,9 @@
 # endif
 
 # include "Siv3D/Platform.hpp"
-# include "Siv3D/PlatformWindows.hpp"
+# if defined(SIV3D_TARGET_WINDOWS)
+	# include "Siv3D/PlatformWindows.hpp"
+# endif
 
 //
 // ユーティリティ
@@ -319,7 +321,7 @@
 	//// MIDI
 	//# include "Siv3D/Midi.hpp"
 	//// システム
-	//# include "Siv3D/System.hpp"
+	# include "Siv3D/System.hpp"
 	//// ウィンドウ
 	//# include "Siv3D/Window.hpp"
 	//// メッセージボックス

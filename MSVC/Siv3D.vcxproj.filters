@@ -68,6 +68,9 @@
     <Filter Include="Source\Siv3D\TimeProfiler">
       <UniqueIdentifier>{9bbdb8c6-ed66-4302-a8a4-7dd1b344bb6f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\System">
+      <UniqueIdentifier>{a9ebc579-c489-4d52-9bef-c3cb07ca3550}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -307,6 +310,9 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\TimeProfiler.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\System.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\Siv3DMain_OSX.cpp">
@@ -371,6 +377,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\TimeProfiler\SivTimeProfiler.cpp">
       <Filter>Source\Siv3D\TimeProfiler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\System\SivSystem.cpp">
+      <Filter>Source\Siv3D\System</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

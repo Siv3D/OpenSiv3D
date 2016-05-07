@@ -7,8 +7,6 @@ using namespace std::chrono_literals;
 
 void Main()
 {
-
-	
 	Log(L"Hello, Siv3D!");
 
 	// 0～100 の範囲
@@ -18,6 +16,14 @@ void Main()
 	// 0～100 の合計
 	Log(L"# Range(0, 100).reduce1(Plus())");
 	Log(Range(0, 100).reduce1(Plus()));
+
+	// 1/1 + 1/2 + 1/3 + 1/4 + ... + 1/10000 の合計
+	Log(L"# Range(1, 10000).map(Divides(1.0, none)).reduce1(Plus())");
+	Log(16_dp, Range(1, 10000).map(Divides(1.0, none)).reduce1(Plus()));
+	Log(L"# Iota(10000, 1, -1).map(Divides(1.0, none)).reduce1(Plus())");
+	Log(16_dp, Iota(10000, 1, -1).map(Divides(1.0, none)).reduce1(Plus()));
+	Log(L"# Actual:");
+	Log(L"9.787606036044382264178...");
 
 	// 0～100 のうち 20 未満の個数
 	Log(L"# Range(0, 100).count_if(LessThan(20))");
@@ -95,12 +101,12 @@ void Main()
 	
 	// 小数点以下の桁数指定（0 も表示）
 	Log(L"# {:.Nf}_fmt(double)");
-//	Log(L"{:.0f}"_fmt(1.234));
-//	Log(L"{:.1f}"_fmt(1.234));
-//	Log(L"{:.2f}"_fmt(1.234));
-//	Log(L"{:.3f}"_fmt(1.234));
-//	Log(L"{:.4f}"_fmt(1.234));
-//	Log(L"{:.5f}"_fmt(1.234));
+	Log(L"{:.0f}"_fmt(1.234));
+	Log(L"{:.1f}"_fmt(1.234));
+	Log(L"{:.2f}"_fmt(1.234));
+	Log(L"{:.3f}"_fmt(1.234));
+	Log(L"{:.4f}"_fmt(1.234));
+	Log(L"{:.5f}"_fmt(1.234));
 	
 	// BigInt
 	Log(L"# BigInt");
@@ -120,17 +126,53 @@ void Main()
 	// Parse
 	Log(L"# Parse");
 	const int32 parsed0 = Parse<int32>(L"12345");
-	Log(parsed0);
 	const double parsed1 = Parse<double>(L" 3.1415 ");
-	Log(parsed1);
 	const int32 parsed2 = ParseOr<int32>(L"???", 42);
+	const double parsed3 = ParseOr<double>(L"5.55", 42);	
+	Log(parsed0);
+	Log(parsed1);
 	Log(parsed2);
-	const double parsed3 = ParseOr<double>(L"5.55", 42);
 	Log(parsed3);
-	
-	// Time
-	
-	
-	// Timer
-}
+	Log(ParseOpt<int32>(L"???"));
+	Log(ParseOpt<double>(L"7.77"));
 
+	// Time
+	Log(L"# Time");
+	Log(Time::GetSec());
+	Log(Time::GetMillisec());
+	Log(Time::GetMicrosec());
+	Log(Time::GetNanosec());
+	Log(Time::GetSecSinceEpoch());
+	Log(Time::GetMillisecSinceEpoch());
+	Log(Time::GetMicrosecSinceEpoch());
+
+	// Duration
+	Log(L"# Duration");
+	Log(1_d + 24h);
+	Log(DurationCast<HoursF>(60min + 30min));
+	Log(DurationCast<Seconds>(1_d));
+
+	// Stopwatch
+	Log(L"# Stopwatch");
+	Stopwatch stopwatch(true);
+	System::Sleep(1.5s);
+	Log(stopwatch);
+	Log(stopwatch.format(L"S.xxx'秒'"));
+
+	// Stopwatch
+	SpeedStopwatch countDown(3s, -1.0, true);
+	for (int32 i = 0; i <= 3; ++i)
+	{
+		Log(countDown);
+		System::Sleep(1s);
+	}
+
+	// TimeProfiler
+	TimeProfiler tp;
+	for (int32 i = 0; i < 50; ++i)
+	{
+		tp.begin(L"System::Sleep(20)");
+		System::Sleep(20);
+		tp.end();
+	}
+}
