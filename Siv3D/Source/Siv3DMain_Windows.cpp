@@ -22,6 +22,14 @@
 
 void Main();
 
+namespace s3d
+{
+	namespace detail
+	{
+		void OutputLicense();
+	}
+}
+
 int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
@@ -29,6 +37,8 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 	::OutputDebugStringW(L"Siv3D for Windows\n");
 
 	Main();
+
+	s3d::detail::OutputLicense();
 
 	return 0;
 }

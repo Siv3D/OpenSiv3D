@@ -16,11 +16,21 @@
 
 void Main();
 
+namespace s3d
+{
+	namespace detail
+	{
+		void OutputLicense();
+	}
+}
+
 int main()
 {
 	std::cout << "Siv3D for Mac\n";
 
 	Main();
+
+	s3d::detail::OutputLicense();
 }
 
 # endif
