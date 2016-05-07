@@ -18,7 +18,7 @@ namespace s3d
 	// 仮の実装
 	inline auto& GetDefaultRNG()
 	{
-		static std::mt19937_64 rng;
-		return rng;
+        static std::mt19937_64 rng{ std::random_device{}() };
+        return rng;
 	}
 }

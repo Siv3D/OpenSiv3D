@@ -24,6 +24,7 @@ namespace s3d
 			using namespace double_conversion;
 
 			const int flags = StringToDoubleConverter::ALLOW_TRAILING_SPACES |
+                StringToDoubleConverter::ALLOW_LEADING_SPACES |
 				StringToDoubleConverter::ALLOW_SPACES_AFTER_SIGN;
 			StringToDoubleConverter conv(flags, 0.0, 0.0, "inf", "nan");
 
@@ -35,8 +36,9 @@ namespace s3d
 		{
 			using namespace double_conversion;
 
-			const int flags = StringToDoubleConverter::ALLOW_TRAILING_SPACES |
-				StringToDoubleConverter::ALLOW_SPACES_AFTER_SIGN;
+            const int flags = StringToDoubleConverter::ALLOW_TRAILING_SPACES |
+                StringToDoubleConverter::ALLOW_LEADING_SPACES |
+                StringToDoubleConverter::ALLOW_SPACES_AFTER_SIGN;
 			StringToDoubleConverter conv(flags, 0.0, 0.0, "inf", "nan");
 
 			int unused;

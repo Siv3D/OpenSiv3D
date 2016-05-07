@@ -130,7 +130,7 @@ namespace s3d
 	}
 
 	template <class FloatType, std::enable_if_t<std::is_floating_point<FloatType>::value>* = nullptr>
-	inline Optional<FloatType> Parse(const String& str)
+	inline Optional<FloatType> ParseOpt(const String& str)
 	{
 		return ParseFloatOpt<FloatType>(str);
 	}

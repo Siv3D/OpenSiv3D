@@ -24,7 +24,7 @@ namespace s3d
 			template <class... Args>
 			String operator ()(Args&& ...args) const
 			{
-				return fmt::format(str, std::forward<Args>(args)...);
+                return fmt::format(str, std::forward<Args>(args)...);
 			}
 
 			template <class... Args>

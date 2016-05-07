@@ -35,9 +35,102 @@ void Main()
 									   : n %  3 == 0 ? L"Fizz"
 									   : n %  5 == 0 ? L"Buzz"
 									   : Format(n); }).each(Log);
+	
 	// フィボナッチ数列
 	Log(L"# Fibbonaci");
 	BigInt a = 0, b = 1;
 	Log(a, L'\n', b);
 	Range(1, 100).map([&a, &b](auto) { a = std::exchange(b, a + b); return b; }).each(Log);
+	
+	// 0〜9 の数をシャッフル
+	Log(L"# Range(0, 9).asArray().shuffle()");
+	Log(Range(0, 9).asArray().shuffle());
+	
+	// Grid
+	Log(L"# Grid");
+	const Grid<int32> g = {{10, 20, 30, 40}, {11, 22, 33, 44}, {50, 51, 52, 53}};
+	Log(g);
+	
+	// Grid from Range
+	Log(L"# Grid from Range");
+	Log(Grid<int32>(10, 10, Range(0, 99)));
+	
+	// Format
+	Log(L"# Format");
+	Log(2016, L'/', 5, L'/', 7);
+	Log(L"{}/{}/{}"_fmt(2016, 5, 17));
+//	Log(L"{2}/{1}/{0}"_fmt(2016, 5, 17));
+	Log(31415.9265358979);
+	Log(314.159265358979);
+	Log(3.14159265358979);
+
+	// 小数点以下の桁数指定（0 は省略）
+	Log(L"# ToString(double)");
+	Log(ToString(1.234, 0));
+	Log(ToString(1.234, 1));
+	Log(ToString(1.234, 2));
+	Log(ToString(1.234, 3));
+	Log(ToString(1.234, 4));
+	Log(ToString(1.234, 5));
+
+	// 小数点以下の桁数指定（0 は省略）
+	Log(L"# Format(DecimalPlace, double)");
+	Log(0_dp, 1.234);
+	Log(1_dp, 1.234);
+	Log(2_dp, 1.234);
+	Log(3_dp, 1.234);
+	Log(4_dp, 1.234);
+	Log(5_dp, 1.234);
+	
+	// 小数点以下の桁数指定（0 も表示）
+	Log(L"# ToFixed(double)");
+	Log(ToFixed(1.234, 0));
+	Log(ToFixed(1.234, 1));
+	Log(ToFixed(1.234, 2));
+	Log(ToFixed(1.234, 3));
+	Log(ToFixed(1.234, 4));
+	Log(ToFixed(1.234, 5));
+	
+	// 小数点以下の桁数指定（0 も表示）
+	Log(L"# {:.Nf}_fmt(double)");
+//	Log(L"{:.0f}"_fmt(1.234));
+//	Log(L"{:.1f}"_fmt(1.234));
+//	Log(L"{:.2f}"_fmt(1.234));
+//	Log(L"{:.3f}"_fmt(1.234));
+//	Log(L"{:.4f}"_fmt(1.234));
+//	Log(L"{:.5f}"_fmt(1.234));
+	
+	// BigInt
+	Log(L"# BigInt");
+	Log("100000000000000000000000000000000000000000000000000000000000000000000000000000001"_big * 1234567890);
+	
+	// String
+	Log(L"# String");
+	const String str(L"Siv3D");
+	Log(str);
+	Log(str.uppercased());
+	Log(str.lowercased());
+	Log(str.reversed());
+	Log(str.includes(L"3D"));
+	Log(str.starts_with(L"Si"));
+	Log(str.ends_with(L"v3D"));
+	
+	// Parse
+	Log(L"# Parse");
+	const int32 parsed0 = Parse<int32>(L"12345");
+	Log(parsed0);
+	const double parsed1 = Parse<double>(L" 3.1415 ");
+	Log(parsed1);
+	const int32 parsed2 = ParseOr<int32>(L"???", 42);
+	Log(parsed2);
+	const double parsed3 = ParseOr<double>(L"5.55", 42);
+	Log(parsed3);
+	
+	// Time
+	
+	
+	// Timer
+	
+	
+	
 }
