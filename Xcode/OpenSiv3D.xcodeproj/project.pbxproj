@@ -61,6 +61,8 @@
 		2C38B1221CDA352E007A7E9F /* SivString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C38B1161CDA352E007A7E9F /* SivString.cpp */; };
 		2C38B1231CDA352E007A7E9F /* SivTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C38B1181CDA352E007A7E9F /* SivTime.cpp */; };
 		2C38B1241CDA352E007A7E9F /* SivTimeProfiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C38B11A1CDA352E007A7E9F /* SivTimeProfiler.cpp */; };
+		2C38B1261CDDEC78007A7E9F /* System.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B1251CDDEC78007A7E9F /* System.hpp */; };
+		2C38B1291CDDEC92007A7E9F /* SivSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C38B1281CDDEC92007A7E9F /* SivSystem.cpp */; };
 		2CA7F75A1CA7F43D00495647 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2CA7F8091CA7F5A700495647 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
 		2CC2B0BE1CB5552200BB42D0 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC2B0521CB5552200BB42D0 /* format.h */; };
@@ -189,6 +191,8 @@
 		2C38B1161CDA352E007A7E9F /* SivString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivString.cpp; sourceTree = "<group>"; };
 		2C38B1181CDA352E007A7E9F /* SivTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTime.cpp; sourceTree = "<group>"; };
 		2C38B11A1CDA352E007A7E9F /* SivTimeProfiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTimeProfiler.cpp; sourceTree = "<group>"; };
+		2C38B1251CDDEC78007A7E9F /* System.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = System.hpp; sourceTree = "<group>"; };
+		2C38B1281CDDEC92007A7E9F /* SivSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSystem.cpp; sourceTree = "<group>"; };
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F7461CA7F40600495647 /* Siv3D-Test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Siv3D-Test"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
@@ -357,6 +361,14 @@
 			path = TimeProfiler;
 			sourceTree = "<group>";
 		};
+		2C38B1271CDDEC92007A7E9F /* System */ = {
+			isa = PBXGroup;
+			children = (
+				2C38B1281CDDEC92007A7E9F /* SivSystem.cpp */,
+			);
+			path = System;
+			sourceTree = "<group>";
+		};
 		2CA7F7321CA7F34200495647 = {
 			isa = PBXGroup;
 			children = (
@@ -502,6 +514,7 @@
 				2C38B0D01CDA3517007A7E9F /* Stopwatch.hpp */,
 				2C38B0D11CDA3517007A7E9F /* String.hpp */,
 				2C38B0D21CDA3517007A7E9F /* StringView.hpp */,
+				2C38B1251CDDEC78007A7E9F /* System.hpp */,
 				2C38B0D31CDA3517007A7E9F /* Time.hpp */,
 				2C38B0D41CDA3517007A7E9F /* TimeProfiler.hpp */,
 				2C38B0D51CDA3517007A7E9F /* Timer.hpp */,
@@ -553,6 +566,7 @@
 		2CC2B09B1CB5552200BB42D0 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C38B1271CDDEC92007A7E9F /* System */,
 				2C38B1071CDA352E007A7E9F /* BigInt */,
 				2C38B1091CDA352E007A7E9F /* CharacterSet */,
 				2C38B10B1CDA352E007A7E9F /* FormatFloat */,
@@ -641,6 +655,7 @@
 				2CC2B0C61CB5552200BB42D0 /* gtest.h in Headers */,
 				2C38B0F21CDA3517007A7E9F /* ParseInt.hpp in Headers */,
 				2C38B0E51CDA3517007A7E9F /* FormatInt.hpp in Headers */,
+				2C38B1261CDDEC78007A7E9F /* System.hpp in Headers */,
 				2CC2B0BE1CB5552200BB42D0 /* format.h in Headers */,
 				2CC2B0D31CB5552200BB42D0 /* gtest-port.h in Headers */,
 				2CC2B0C21CB5552200BB42D0 /* gtest-printers.h in Headers */,
@@ -801,6 +816,7 @@
 				2CC2B1071CB5552300BB42D0 /* fast-dtoa.cc in Sources */,
 				2C38B1211CDA352E007A7E9F /* SivStopwatch.cpp in Sources */,
 				2CC2B1051CB5552300BB42D0 /* double-conversion.cc in Sources */,
+				2C38B1291CDDEC92007A7E9F /* SivSystem.cpp in Sources */,
 				2CC2B0FF1CB5552300BB42D0 /* bignum.cc in Sources */,
 				2C38B1221CDA352E007A7E9F /* SivString.cpp in Sources */,
 				2C38B11B1CDA352E007A7E9F /* SivBigInt.cpp in Sources */,

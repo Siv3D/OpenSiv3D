@@ -19,9 +19,9 @@ void Main()
 
 	// 1/1 + 1/2 + 1/3 + 1/4 + ... + 1/10000 の合計
 	Log(L"# Range(1, 10000).map(Divides(1.0, none)).reduce1(Plus())");
-	Log(16_dp, Range(1, 10000).map(Divides(1.0, none)).reduce1(Plus()));
+	Log(18_dp, Range(1, 10000).map(Divides(1.0, none)).reduce1(Plus()));
 	Log(L"# Iota(10000, 1, -1).map(Divides(1.0, none)).reduce1(Plus())");
-	Log(16_dp, Iota(10000, 1, -1).map(Divides(1.0, none)).reduce1(Plus()));
+	Log(18_dp, Iota(10000, 0, -1).map(Divides(1.0, none)).reduce1(Plus()));
 	Log(L"# Actual:");
 	Log(L"9.787606036044382264178...");
 

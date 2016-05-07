@@ -278,6 +278,11 @@ namespace s3d
 	{
 		Formatter(formatData, static_cast<double>(value));
 	}
+    
+   	inline void Formatter(FormatData& formatData, long double value)
+    {
+        Formatter(formatData, static_cast<double>(value));
+    }
 
 	inline void Formatter(FormatData& formatData, const FormatData::DecimalPlace decimalPlace)
 	{
