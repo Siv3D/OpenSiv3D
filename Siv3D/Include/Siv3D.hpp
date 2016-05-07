@@ -1,7 +1,7 @@
 ﻿//----------------------------------------------------------------------------------------
 //
-//	Copyright (C) 2008-2016 Ryo Suzuki
-//	Copyright (C) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2016 Ryo Suzuki
+//	Copyright (c) 2016 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
