@@ -1,6 +1,4 @@
-# OpenSiv3D #
-
-[![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
+<h1> OpenSiv3D <a href="http://doge.mit-license.org"><img src="http://img.shields.io/:license-mit-blue.svg"></a></h1>
 
 ## OpenSiv3D SDK Downloads ##
 | Platform        | Download        | Version       | Requirements                  |
