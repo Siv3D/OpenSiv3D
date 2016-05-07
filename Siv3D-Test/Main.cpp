@@ -7,6 +7,8 @@ using namespace std::chrono_literals;
 
 void Main()
 {
+
+	
 	Log(L"Hello, Siv3D!");
 
 	// 0～100 の範囲
@@ -59,7 +61,7 @@ void Main()
 	Log(L"# Format");
 	Log(2016, L'/', 5, L'/', 7);
 	Log(L"{}/{}/{}"_fmt(2016, 5, 17));
-//	Log(L"{2}/{1}/{0}"_fmt(2016, 5, 17));
+	Log(L"{2}/{1}/{0}"_fmt(2016, 5, 17));
 	Log(31415.9265358979);
 	Log(314.159265358979);
 	Log(3.14159265358979);
@@ -130,7 +132,5 @@ void Main()
 	
 	
 	// Timer
-	
-	
-	
 }
+

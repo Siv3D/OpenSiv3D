@@ -532,11 +532,13 @@ typedef BasicCStringRef<wchar_t> WCStringRef;
 /**
   A formatting error such as invalid format string.
 */
+    /*
 class FormatError : public std::runtime_error {
  public:
   explicit FormatError(CStringRef message)
   : std::runtime_error(message.c_str()) {}
-};
+};*/
+    using FormatError = std::runtime_error;
 
 namespace internal {
 
