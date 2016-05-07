@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <cmath>
 # include <functional>
 # include "Optional.hpp"
 
@@ -810,19 +811,34 @@ namespace s3d
 				return std::fmod(x, y);
 			}
 		};
+        
+        struct ModulusF
+        {
+            template <class TypeX, class TypeY, std::enable_if_t<!std::is_floating_point<TypeX>::value && !std::is_floating_point<TypeY>::value>* = nullptr>
+            constexpr auto operator() (TypeX&& x, TypeY&& y) const noexcept(noexcept(x % y))
+            {
+                return x % y;
+            }
+            
+            template <class TypeX, class TypeY, std::enable_if_t<std::is_floating_point<TypeX>::value || std::is_floating_point<TypeY>::value>* = nullptr>
+            auto operator() (TypeX&& x, TypeY&& y) const
+            {
+                return std::fmod(x, y);
+            }
+        };
 	}
 
 	inline constexpr auto Modulus() noexcept
 	{
-		return std::modulus<>();
+        return detail::ModulusF();
 	}
 
-	template <class TypeX, class TypeY>
-	inline constexpr auto Modulus(TypeX&& x, TypeY&& y) noexcept(noexcept(std::forward<TypeX>(x) % std::forward<TypeY>(y)))
-	{
-		return std::forward<TypeX>(x) % std::forward<TypeY>(y);
-	}
-
+    template <class TypeX, class TypeY>
+    inline constexpr auto Modulus(TypeX&& x, TypeY&& y) noexcept(noexcept(detail::ModulusF()(std::forward<TypeX>(x), std::forward<TypeY>(y))))
+    {
+        return detail::ModulusF()(std::forward<TypeX>(x), std::forward<TypeY>(y));
+    }
+    
 	template <class TypeY>
 	inline constexpr auto Modulus(nullopt_t, TypeY&& y) noexcept
 	{
@@ -837,7 +853,7 @@ namespace s3d
 
 	inline constexpr auto Modulus(nullopt_t, nullopt_t) noexcept
 	{
-		return std::modulus<>();
+		return detail::ModulusF();
 	}
 
 	////////////////////////////////////////////////////////////////
