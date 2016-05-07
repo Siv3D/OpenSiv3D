@@ -24,7 +24,7 @@ namespace s3d
 			template <class... Args>
 			void operator()(const Args&... args) const
 			{
-				return operator()(s3d::Format(args...));
+				return operator()(Format(args...));
 			}
 		};
 	}

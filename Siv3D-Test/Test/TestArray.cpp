@@ -71,14 +71,14 @@ TEST(Array, int32)
 	EXPECT_EQ(v.count(),		4);
 	EXPECT_EQ(v.isEmpty(),		false);
 	EXPECT_EQ(v.size_bytes(),	sizeof(int32) * 4);
-	EXPECT_GE(v.capacity(),		4);
+	EXPECT_GE(v.capacity(),		(size_t)4);
 	
 	{
 		Array<int32> v2{ 1, 2, 3, 4 };
 		v2.reserve(2000);
-		EXPECT_GE(v2.capacity(),	2000);
+		EXPECT_GE(v2.capacity(),	(size_t)2000);
 		v2.shrink_to_fit();
-		EXPECT_LE(v2.capacity(),	2000);
+		EXPECT_LE(v2.capacity(),	(size_t)2000);
 		v2.clear();
 		EXPECT_EQ(v2.size(),		0);
 

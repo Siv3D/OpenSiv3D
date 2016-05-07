@@ -81,7 +81,7 @@ namespace s3d
 		/// <summary>
 		/// Format の内部で使用する関数
 		/// </summary>
-		inline void Format(const FormatData&)
+		inline void Format_impl(const FormatData&)
 		{
 			return;
 		}
@@ -90,10 +90,10 @@ namespace s3d
 		/// Format の内部で使用する関数
 		/// </summary>
 		template <class Type, class... Args>
-		inline void Format(FormatData& formatData, const Type& value, const Args&... args)
+		inline void Format_impl(FormatData& formatData, const Type& value, const Args&... args)
 		{
 			Formatter(formatData, value);
-			Format(formatData, args...);
+			Format_impl(formatData, args...);
 		}
 	}
 
@@ -111,7 +111,7 @@ namespace s3d
 	{
 		static_assert(detail::format_validation<Args...>::value, "type \"char*\" cannot be used in Format()");
 		FormatData formatData;
-		detail::Format(formatData, args...);
+		detail::Format_impl(formatData, args...);
 		return std::move(formatData.string);
 	}
 

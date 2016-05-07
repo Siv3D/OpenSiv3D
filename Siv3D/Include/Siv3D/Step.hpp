@@ -32,6 +32,7 @@
 # include <type_traits>
 # include "Types.hpp"
 # include "BigInt.hpp"
+# include "Format.hpp"
 
 namespace s3d
 {
@@ -1035,6 +1036,18 @@ namespace s3d
 		using Ret = decltype(std::declval<Fty>()(std::declval<value_type>()));
 		const auto tuple = std::make_tuple(detail::MapFunction<Fty>{ f });
 		return detail::F_Step<steps_class, Ret, decltype(tuple)>(*this, tuple);
+	}
+
+	template <class T, class N, class S>
+	inline void Formatter(FormatData& formatData, const steps_class<T, N, S>& s)
+	{
+		Formatter(formatData, s.join());
+	}
+
+	template <class StepClass, class ValueType, class Tuple>
+	inline void Formatter(FormatData& formatData, const detail::F_Step<StepClass, ValueType, Tuple>& s)
+	{
+		Formatter(formatData, s.join());
 	}
 }
 
