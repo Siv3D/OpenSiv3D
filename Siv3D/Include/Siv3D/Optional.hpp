@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (C) 2008-2016 Ryo Suzuki
-//	Copyright (C) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2016 Ryo Suzuki
+//	Copyright (c) 2016 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,7 +13,6 @@
 # include <type_traits>
 # include <stdexcept>
 # include <cassert>
-# include <functional>
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -814,7 +813,8 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void then(std::function<void(Type&)> f1, std::function<void()> f2)
+		template <class HasFty, class NoneFty>
+		void then(HasFty f1, NoneFty f2)
 		{
 			if (has_value())
 			{
@@ -839,7 +839,8 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void then(std::function<void(const Type&)> f1, std::function<void()> f2) const
+		template <class HasFty, class NoneFty>
+		void then(HasFty f1, NoneFty f2) const
 		{
 			if (has_value())
 			{
@@ -1256,7 +1257,8 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void then(std::function<void(Type&)> f1, std::function<void()> f2)
+		template <class HasFty, class NoneFty>
+		void then(HasFty f1, NoneFty f2)
 		{
 			if (has_value())
 			{
@@ -1281,7 +1283,8 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void then(std::function<void(const Type&)> f1, std::function<void()> f2) const
+		template <class HasFty, class NoneFty>
+		void then(HasFty f1, NoneFty f2) const
 		{
 			if (has_value())
 			{

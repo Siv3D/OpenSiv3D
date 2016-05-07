@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (C) 2008-2016 Ryo Suzuki
-//	Copyright (C) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2016 Ryo Suzuki
+//	Copyright (c) 2016 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -130,7 +130,7 @@ namespace s3d
 	}
 
 	template <class FloatType, std::enable_if_t<std::is_floating_point<FloatType>::value>* = nullptr>
-	inline Optional<FloatType> Parse(const String& str)
+	inline Optional<FloatType> ParseOpt(const String& str)
 	{
 		return ParseFloatOpt<FloatType>(str);
 	}

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (C) 2008-2016 Ryo Suzuki
-//	Copyright (C) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2016 Ryo Suzuki
+//	Copyright (c) 2016 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -26,35 +26,35 @@ namespace s3d
 
 		static constexpr unspecified_t Unspecified{};
 
-		constexpr Radix() = default;
+		constexpr Radix() noexcept = default;
 
-		explicit constexpr Radix(uint32 value)
+		explicit constexpr Radix(uint32 value) noexcept
 			: m_value(value) {}
 
-        constexpr Radix(unspecified_t)
+        constexpr Radix(unspecified_t) noexcept
 			: m_value(0) {}
 
-		constexpr uint32 value() const
+		constexpr uint32 value() const noexcept
 		{
 			return m_value;
 		}
 
-		constexpr bool is2() const
+		constexpr bool is2() const noexcept
 		{
 			return m_value == 2;
 		}
 
-		constexpr bool is8() const
+		constexpr bool is8() const noexcept
 		{
 			return m_value == 8;
 		}
 
-		constexpr bool is10() const
+		constexpr bool is10() const noexcept
 		{
 			return m_value == 10;
 		}
 
-		constexpr bool is16() const
+		constexpr bool is16() const noexcept
 		{
 			return m_value == 16;
 		}

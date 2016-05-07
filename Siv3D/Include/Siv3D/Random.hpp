@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (C) 2008-2016 Ryo Suzuki
-//	Copyright (C) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2016 Ryo Suzuki
+//	Copyright (c) 2016 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -18,7 +18,7 @@ namespace s3d
 	// 仮の実装
 	inline auto& GetDefaultRNG()
 	{
-		static std::mt19937_64 rng;
-		return rng;
+        static std::mt19937_64 rng{ std::random_device{}() };
+        return rng;
 	}
 }

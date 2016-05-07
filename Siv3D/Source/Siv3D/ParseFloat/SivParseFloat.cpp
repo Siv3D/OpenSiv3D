@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (C) 2008-2016 Ryo Suzuki
-//	Copyright (C) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2016 Ryo Suzuki
+//	Copyright (c) 2016 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -24,6 +24,7 @@ namespace s3d
 			using namespace double_conversion;
 
 			const int flags = StringToDoubleConverter::ALLOW_TRAILING_SPACES |
+                StringToDoubleConverter::ALLOW_LEADING_SPACES |
 				StringToDoubleConverter::ALLOW_SPACES_AFTER_SIGN;
 			StringToDoubleConverter conv(flags, 0.0, 0.0, "inf", "nan");
 
@@ -35,8 +36,9 @@ namespace s3d
 		{
 			using namespace double_conversion;
 
-			const int flags = StringToDoubleConverter::ALLOW_TRAILING_SPACES |
-				StringToDoubleConverter::ALLOW_SPACES_AFTER_SIGN;
+            const int flags = StringToDoubleConverter::ALLOW_TRAILING_SPACES |
+                StringToDoubleConverter::ALLOW_LEADING_SPACES |
+                StringToDoubleConverter::ALLOW_SPACES_AFTER_SIGN;
 			StringToDoubleConverter conv(flags, 0.0, 0.0, "inf", "nan");
 
 			int unused;

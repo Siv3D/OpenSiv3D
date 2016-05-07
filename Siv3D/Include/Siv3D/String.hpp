@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (C) 2008-2016 Ryo Suzuki
-//	Copyright (C) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2016 Ryo Suzuki
+//	Copyright (c) 2016 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -12,7 +12,6 @@
 # pragma once
 # include <string>
 # include <iostream>
-# include <functional>
 # include <algorithm>
 # include "Fwd.hpp"
 # include "Char.hpp"
@@ -1155,7 +1154,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字列が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t indexOf(const String& str, size_t offset = 0) const
+		size_t indexOf(const String& str, size_t offset = 0) const noexcept
 		{
 			return m_string.find(str.data(), offset, str.length());
 		}
@@ -1600,7 +1599,8 @@ namespace s3d
 			return m_string >= str.m_string;
 		}
 
-		bool all(std::function<bool(wchar)> f = NotNot()) const
+		template <class Fty = decltype(Id())>
+		bool all(Fty f = Id()) const
 		{
 			for (const auto v : m_string)
 			{
@@ -1613,7 +1613,8 @@ namespace s3d
 			return true;
 		}
 
-		bool any(std::function<bool(wchar)> f = NotNot()) const
+		template <class Fty = decltype(Id())>
+		bool any(Fty f = Id()) const
 		{
 			for (const auto v : m_string)
 			{
@@ -1714,7 +1715,8 @@ namespace s3d
 		/// <returns>
 		/// 見つかった文字の個数
 		/// </returns>
-		size_t count_if(std::function<bool(wchar)> f) const
+		template <class Fty>
+		size_t count_if(Fty f) const
 		{
 			size_t result = 0;
 
@@ -1753,19 +1755,22 @@ namespace s3d
 			return String(m_string.begin() + n, m_string.end());
 		}
 
-		String& drop_while(std::function<bool(wchar)> f)
+		template <class Fty>
+		String& drop_while(Fty f)
 		{
 			m_string.erase(m_string.begin(), std::find_if_not(m_string.begin(), m_string.end(), f));
 
 			return *this;
 		}
 
-		String dropped_while(std::function<bool(wchar)> f) const
+		template <class Fty>
+		String dropped_while(Fty f) const
 		{
 			return String(std::find_if_not(m_string.begin(), m_string.end(), f), m_string.end());
 		}
 
-		String& each(std::function<void(wchar&)> f)
+		template <class Fty>
+		String& each(Fty f)
 		{
 			for (auto& v : m_string)
 			{
@@ -1775,7 +1780,8 @@ namespace s3d
 			return *this;
 		}
 
-		const String& each(std::function<void(wchar)> f) const
+		template <class Fty>
+		const String& each(Fty f) const
 		{
 			for (const auto v : m_string)
 			{
@@ -1785,7 +1791,8 @@ namespace s3d
 			return *this;
 		}
 
-		String& each_index(std::function<void(size_t, wchar&)> f)
+		template <class Fty>
+		String& each_index(Fty f)
 		{
 			size_t i = 0;
 
@@ -1797,7 +1804,8 @@ namespace s3d
 			return *this;
 		}
 
-		const String& each_index(std::function<void(size_t, wchar)> f) const
+		template <class Fty>
+		const String& each_index(Fty f) const
 		{
 			size_t i = 0;
 
@@ -1886,7 +1894,8 @@ namespace s3d
 			return *this;
 		}
 
-		String filter(std::function<bool(wchar)> f) const
+		template <class Fty>
+		String filter(Fty f) const
 		{
 			String new_array;
 
@@ -1955,12 +1964,14 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字が見つかった場合 true, それ以外の場合は false
 		/// </returns>
-		bool includes_if(std::function<bool(wchar)> f) const
+		template <class Fty>
+		bool includes_if(Fty f) const
 		{
 			return any(f);
 		}
 
-		String& keep_if(std::function<bool(wchar)> f)
+		template <class Fty>
+		String& keep_if(Fty f)
 		{
 			m_string.erase(std::remove_if(m_string.begin(), m_string.end(), std::not1(f)), m_string.end());
 
@@ -2122,7 +2133,8 @@ namespace s3d
 		/// </returns>
 		std::string narrow() const;
 
-		bool none(std::function<bool(wchar)> f = NotNot()) const
+		template <class Fty = decltype(Id())>
+		bool none(Fty f = Id()) const
 		{
 			for (const auto v : m_string)
 			{
@@ -2226,7 +2238,8 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		String& remove_if(std::function<bool(wchar)> f)
+		template <class Fty>
+		String& remove_if(Fty f)
 		{
 			m_string.erase(std::remove_if(m_string.begin(), m_string.end(), f), m_string.end());
 
@@ -2242,7 +2255,8 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String removed_if(std::function<bool(wchar)> f) const &
+		template <class Fty>
+		String removed_if(Fty f) const &
 		{
 			String new_string;
 
@@ -2257,7 +2271,8 @@ namespace s3d
 			return new_string;
 		}
 
-		String removed_if(std::function<bool(wchar)> f) &&
+		template <class Fty>
+		String removed_if(Fty f) &&
 		{
 			remove_if(f);
 
@@ -2344,7 +2359,8 @@ namespace s3d
 			return new_string;
 		}
 
-		String& replace_if(std::function<bool(wchar)> f, wchar newChar)
+		template <class Fty>
+		String& replace_if(Fty f, wchar newChar)
 		{
 			for (auto& v : m_string)
 			{
@@ -2357,12 +2373,14 @@ namespace s3d
 			return *this;
 		}
 
-		String replaced_if(std::function<bool(wchar)> f, wchar newChar) const &&
+		template <class Fty>
+		String replaced_if(Fty f, wchar newChar) const &&
 		{
 			return String(*this).replace_if(f, newChar);
 		}
 
-		String replaced_if(std::function<bool(wchar)> f, wchar newChar) &
+		template <class Fty>
+		String replaced_if(Fty f, wchar newChar) &
 		{
 			replace_if(f, newChar);
 
@@ -2394,7 +2412,8 @@ namespace s3d
 			return *this;
 		}
 
-		String& reverse_each(std::function<void(wchar&)> f)
+		template <class Fty>
+		String& reverse_each(Fty f)
 		{
 			for (auto it = m_string.rbegin(); it != m_string.rend(); ++it)
 			{
@@ -2404,7 +2423,8 @@ namespace s3d
 			return *this;
 		}
 
-		const String& reverse_each(std::function<void(const wchar&)> f) const
+		template <class Fty>
+		const String& reverse_each(Fty f) const
 		{
 			for (auto it = m_string.rbegin(); it != m_string.rend(); ++it)
 			{
@@ -2681,7 +2701,8 @@ namespace s3d
 			return *this;
 		}
 
-		String& sort_by(std::function<bool(const wchar& a, const wchar& b)> f)
+		template <class Fty>
+		String& sort_by(Fty f)
 		{
 			std::sort(m_string.begin(), m_string.end(), f);
 
@@ -2700,12 +2721,14 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		String sorted_by(std::function<bool(const wchar& a, const wchar& b)> f) const &
+		template <class Fty>
+		String sorted_by(Fty f) const &
 		{
 			return String(*this).sort_by(f);
 		}
 
-		String sorted_by(std::function<bool(const wchar& a, const wchar& b)> f) &&
+		template <class Fty>
+		String sorted_by(Fty f) &&
 		{
 			std::sort(m_string.begin(), m_string.end(), f);
 
@@ -2724,14 +2747,16 @@ namespace s3d
 			return String(m_string.begin(), m_string.begin() + std::min(n, m_string.size()));
 		}
 
-		String& take_while(std::function<bool(const wchar&)> f)
+		template <class Fty>
+		String& take_while(Fty f)
 		{
 			m_string.erase(std::find_if_not(m_string.begin(), m_string.end(), f), m_string.end());
 
 			return *this;
 		}
 
-		String taken_while(std::function<bool(const wchar&)> f) const
+		template <class Fty>
+		String taken_while(Fty f) const
 		{
 			return String(m_string.begin(), std::find_if_not(m_string.begin(), m_string.end(), f));
 		}

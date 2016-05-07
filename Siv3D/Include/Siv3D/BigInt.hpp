@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (C) 2008-2016 Ryo Suzuki
-//	Copyright (C) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2016 Ryo Suzuki
+//	Copyright (c) 2016 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -252,7 +252,7 @@ namespace s3d
 		std::string stdStr() const;
 		String str() const;
 
-		void swap(BigInt& other);
+		void swap(BigInt& other) noexcept;
 
 		friend BigInt GCD(const BigInt&, const BigInt&);
 		friend BigInt LCM(const BigInt&, const BigInt&);

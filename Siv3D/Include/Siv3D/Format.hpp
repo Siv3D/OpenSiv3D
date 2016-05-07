@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (C) 2008-2016 Ryo Suzuki
-//	Copyright (C) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2016 Ryo Suzuki
+//	Copyright (c) 2016 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,6 +11,7 @@
 
 # pragma once
 # include <sstream>
+# include <array>
 # include "Fwd.hpp"
 # include "String.hpp"
 # include "Optional.hpp"
@@ -28,7 +29,7 @@ namespace s3d
 
 		struct DecimalPlace
 		{
-			explicit constexpr DecimalPlace(int32 v = 5) : value(v) {}
+			explicit constexpr DecimalPlace(int32 v = 5) noexcept : value(v) {}
 			int32 value;
 		} decimalPlace;
 	};
@@ -80,7 +81,7 @@ namespace s3d
 		/// <summary>
 		/// Format の内部で使用する関数
 		/// </summary>
-		inline void Format(const FormatData&)
+		inline void Format_impl(const FormatData&)
 		{
 			return;
 		}
@@ -89,10 +90,10 @@ namespace s3d
 		/// Format の内部で使用する関数
 		/// </summary>
 		template <class Type, class... Args>
-		inline void Format(FormatData& formatData, const Type& value, const Args&... args)
+		inline void Format_impl(FormatData& formatData, const Type& value, const Args&... args)
 		{
 			Formatter(formatData, value);
-			Format(formatData, args...);
+			Format_impl(formatData, args...);
 		}
 	}
 
@@ -110,7 +111,7 @@ namespace s3d
 	{
 		static_assert(detail::format_validation<Args...>::value, "type \"char*\" cannot be used in Format()");
 		FormatData formatData;
-		detail::Format(formatData, args...);
+		detail::Format_impl(formatData, args...);
 		return std::move(formatData.string);
 	}
 
@@ -165,7 +166,7 @@ namespace s3d
 	/// <returns>
 	/// 引数を文字列に変換した文字列
 	/// </returns>
-	inline String Format(String&& str)
+	inline String Format(String&& str) noexcept
 	{
 		return std::move(str);
 	}
@@ -277,6 +278,11 @@ namespace s3d
 	{
 		Formatter(formatData, static_cast<double>(value));
 	}
+    
+   	inline void Formatter(FormatData& formatData, long double value)
+    {
+        Formatter(formatData, static_cast<double>(value));
+    }
 
 	inline void Formatter(FormatData& formatData, const FormatData::DecimalPlace decimalPlace)
 	{
