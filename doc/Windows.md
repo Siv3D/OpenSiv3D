@@ -1,4 +1,4 @@
-<h1>OpenSiv3D SDK for Windows</h1>
+<h1>OpenSiv3D SDK for Windows Desktop</h1>
 
 ## 1. インストーラのダウンロードと実行 ##
 - <a href="http://siv3d.jp/downloads/Siv3D/OpenSiv3D(0.0.2)Installer.exe">インストーラー</a> をダウンロードして実行します
