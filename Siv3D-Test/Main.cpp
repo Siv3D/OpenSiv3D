@@ -9,7 +9,7 @@ void Main()
 {
 	Log(L"Hello, Siv3D!");
 	
-	RunTest();
+	//RunTest();
 
 //*
 	// 0～100 の範囲
@@ -161,12 +161,23 @@ void Main()
 	System::Sleep(1.5s);
 	Log(stopwatch);
 	Log(stopwatch.format(L"S.xxx秒"));
+	Log(stopwatch > 1.5s);
 
-	// Stopwatch
-	SpeedStopwatch countDown(3s, -1.0, true);
+	// SpeedStopwatch
+	Log(L"# SpeedStopwatch");
+	SpeedStopwatch speedStopwatch(10.0, true);
 	for (int32 i = 0; i <= 3; ++i)
 	{
-		Log(countDown);
+		Log(speedStopwatch);
+		System::Sleep(1s);
+	}
+
+	// Timer
+	Log(L"# Timer");
+	Timer timer(3s, true);
+	for (int32 i = 0; i <= 4; ++i)
+	{
+		Log(timer, L' ', timer.reachedZero());
 		System::Sleep(1s);
 	}
 

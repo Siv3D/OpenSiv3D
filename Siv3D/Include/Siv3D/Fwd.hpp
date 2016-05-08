@@ -125,4 +125,14 @@ namespace s3d
 	//
 	class RDTSCClock;
 
+
+
+
+
+	//////////////////////////////////////////////////////
+	//
+	//	RDTSCClock.hpp
+	//
+	struct Point;
+	using Size = Point;
 }
