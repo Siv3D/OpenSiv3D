@@ -9,7 +9,7 @@ void Main()
 {
 	Log(L"Hello, Siv3D!");
 	
-	//RunTest();
+	RunTest();
 
 //*
 	// 0～100 の範囲

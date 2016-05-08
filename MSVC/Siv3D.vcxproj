@@ -20,29 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\cppformat\format.h" />
-    <ClInclude Include="..\Siv3D\Include\gtest\gtest-death-test.h" />
-    <ClInclude Include="..\Siv3D\Include\gtest\gtest-message.h" />
-    <ClInclude Include="..\Siv3D\Include\gtest\gtest-param-test.h" />
-    <ClInclude Include="..\Siv3D\Include\gtest\gtest-printers.h" />
-    <ClInclude Include="..\Siv3D\Include\gtest\gtest-spi.h" />
-    <ClInclude Include="..\Siv3D\Include\gtest\gtest-test-part.h" />
-    <ClInclude Include="..\Siv3D\Include\gtest\gtest-typed-test.h" />
-    <ClInclude Include="..\Siv3D\Include\gtest\gtest.h" />
-    <ClInclude Include="..\Siv3D\Include\gtest\gtest_pred_impl.h" />
-    <ClInclude Include="..\Siv3D\Include\gtest\gtest_prod.h" />
-    <ClInclude Include="..\Siv3D\Include\gtest\internal\custom\gtest-port.h" />
-    <ClInclude Include="..\Siv3D\Include\gtest\internal\custom\gtest-printers.h" />
-    <ClInclude Include="..\Siv3D\Include\gtest\internal\custom\gtest.h" />
-    <ClInclude Include="..\Siv3D\Include\gtest\internal\gtest-death-test-internal.h" />
-    <ClInclude Include="..\Siv3D\Include\gtest\internal\gtest-filepath.h" />
-    <ClInclude Include="..\Siv3D\Include\gtest\internal\gtest-internal.h" />
-    <ClInclude Include="..\Siv3D\Include\gtest\internal\gtest-linked_ptr.h" />
-    <ClInclude Include="..\Siv3D\Include\gtest\internal\gtest-param-util-generated.h" />
-    <ClInclude Include="..\Siv3D\Include\gtest\internal\gtest-param-util.h" />
-    <ClInclude Include="..\Siv3D\Include\gtest\internal\gtest-port-arch.h" />
-    <ClInclude Include="..\Siv3D\Include\gtest\internal\gtest-port.h" />
-    <ClInclude Include="..\Siv3D\Include\gtest\internal\gtest-string.h" />
-    <ClInclude Include="..\Siv3D\Include\gtest\internal\gtest-type-util.h" />
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Allocator.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Array.hpp" />
