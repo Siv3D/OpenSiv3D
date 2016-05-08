@@ -52,6 +52,7 @@ namespace s3d
 	//	String.hpp
 	//
 	class String;
+	using FilePath = String;
 
 	//////////////////////////////////////////////////////
 	//
@@ -125,7 +126,18 @@ namespace s3d
 	//
 	class RDTSCClock;
 
+	//////////////////////////////////////////////////////
+	//
+	//	FileSystem.hpp
+	//
+	enum class OpenMode;
+	enum class CopyOption;
 
+	//////////////////////////////////////////////////////
+	//
+	//	TextEncoding.hpp
+	//
+	enum class TextEncoding;
 
 
 

@@ -9,9 +9,7 @@
 //
 //-----------------------------------------------
 
-# include "../../../Include/Siv3D/Date.hpp"
-# include "../../../Include/Siv3D/Utility.hpp"
-# include <boost/functional/hash.hpp>
+# include "../../../Include/Siv3D/Fwd.hpp"
 
 # if defined(SIV3D_TARGET_WINDOWS)
 
@@ -27,6 +25,10 @@
 # include <ctime>
 
 # endif
+
+# include <boost/functional/hash.hpp>
+# include "../../../Include/Siv3D/Date.hpp"
+# include "../../../Include/Siv3D/Utility.hpp"
 
 namespace s3d
 {

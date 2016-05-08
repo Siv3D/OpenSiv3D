@@ -8,8 +8,11 @@ using namespace std::chrono_literals;
 void Main()
 {
 	Log(L"Hello, Siv3D!");
-	
-	//RunTest();
+
+	Log(FileSystem::InitialPath());
+	Log(FileSystem::CurrentPath());
+
+	RunTest();
 
 /*
 	// 0～100 の範囲
