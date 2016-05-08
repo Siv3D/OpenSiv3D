@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		2C17775B1CDEE6AF00BB8AD0 /* FileSystem.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C17775A1CDEE6AF00BB8AD0 /* FileSystem.hpp */; };
 		2C17775E1CDEE6C100BB8AD0 /* SivFileSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C17775D1CDEE6C100BB8AD0 /* SivFileSystem.cpp */; };
+		2C1777A31CDF67FD00BB8AD0 /* TextEncoding.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C1777A21CDF67FD00BB8AD0 /* TextEncoding.hpp */; };
+		2C1777A51CDF682900BB8AD0 /* TestFileSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C1777A41CDF682900BB8AD0 /* TestFileSystem.cpp */; };
+		2C1777AC1CDF6F5200BB8AD0 /* boost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1777AB1CDF6F5200BB8AD0 /* boost_filesystem.a */; };
+		2C1777AE1CDF6F9300BB8AD0 /* boost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1777AD1CDF6F9300BB8AD0 /* boost_system.a */; };
 		2C38B0DB1CDA3517007A7E9F /* Allocator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B0AF1CDA3517007A7E9F /* Allocator.hpp */; };
 		2C38B0DC1CDA3517007A7E9F /* Array.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B0B01CDA3517007A7E9F /* Array.hpp */; };
 		2C38B0DD1CDA3517007A7E9F /* BigInt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B0B11CDA3517007A7E9F /* BigInt.hpp */; };
@@ -145,6 +149,10 @@
 		2C1777591CDEE5D500BB8AD0 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		2C17775A1CDEE6AF00BB8AD0 /* FileSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FileSystem.hpp; sourceTree = "<group>"; };
 		2C17775D1CDEE6C100BB8AD0 /* SivFileSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivFileSystem.cpp; sourceTree = "<group>"; };
+		2C1777A21CDF67FD00BB8AD0 /* TextEncoding.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextEncoding.hpp; sourceTree = "<group>"; };
+		2C1777A41CDF682900BB8AD0 /* TestFileSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestFileSystem.cpp; sourceTree = "<group>"; };
+		2C1777AB1CDF6F5200BB8AD0 /* boost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_filesystem.a; sourceTree = "<group>"; };
+		2C1777AD1CDF6F9300BB8AD0 /* boost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_system.a; sourceTree = "<group>"; };
 		2C38B0AF1CDA3517007A7E9F /* Allocator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Allocator.hpp; sourceTree = "<group>"; };
 		2C38B0B01CDA3517007A7E9F /* Array.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Array.hpp; sourceTree = "<group>"; };
 		2C38B0B11CDA3517007A7E9F /* BigInt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BigInt.hpp; sourceTree = "<group>"; };
@@ -252,6 +260,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C1777AE1CDF6F9300BB8AD0 /* boost_system.a in Frameworks */,
+				2C1777AC1CDF6F5200BB8AD0 /* boost_filesystem.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +338,31 @@
 				2C17775D1CDEE6C100BB8AD0 /* SivFileSystem.cpp */,
 			);
 			path = FileSystem;
+			sourceTree = "<group>";
+		};
+		2C1777A61CDF6EC600BB8AD0 /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				2C1777A71CDF6EC600BB8AD0 /* osx */,
+			);
+			path = Lib;
+			sourceTree = "<group>";
+		};
+		2C1777A71CDF6EC600BB8AD0 /* osx */ = {
+			isa = PBXGroup;
+			children = (
+				2C1777A81CDF6EC600BB8AD0 /* boost */,
+			);
+			path = osx;
+			sourceTree = "<group>";
+		};
+		2C1777A81CDF6EC600BB8AD0 /* boost */ = {
+			isa = PBXGroup;
+			children = (
+				2C1777AD1CDF6F9300BB8AD0 /* boost_system.a */,
+				2C1777AB1CDF6F5200BB8AD0 /* boost_filesystem.a */,
+			);
+			path = boost;
 			sourceTree = "<group>";
 		};
 		2C38B1071CDA352E007A7E9F /* BigInt */ = {
@@ -491,6 +526,7 @@
 		2CA7F7641CA7F44F00495647 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C1777A61CDF6EC600BB8AD0 /* Lib */,
 				2CC2B0501CB5552200BB42D0 /* Include */,
 				2CC2B09A1CB5552200BB42D0 /* Source */,
 			);
@@ -559,6 +595,7 @@
 				2C38B0D11CDA3517007A7E9F /* String.hpp */,
 				2C38B0D21CDA3517007A7E9F /* StringView.hpp */,
 				2C38B1251CDDEC78007A7E9F /* System.hpp */,
+				2C1777A21CDF67FD00BB8AD0 /* TextEncoding.hpp */,
 				2C38B0D31CDA3517007A7E9F /* Time.hpp */,
 				2C38B0D41CDA3517007A7E9F /* TimeProfiler.hpp */,
 				2C38B0D51CDA3517007A7E9F /* Timer.hpp */,
@@ -654,6 +691,7 @@
 				2CC2B1121CB5554500BB42D0 /* Siv3DTest_OSX.cpp */,
 				2CC2B1131CB5554500BB42D0 /* Siv3DTest_Windows.cpp */,
 				2CC2B1141CB5554500BB42D0 /* TestArray.cpp */,
+				2C1777A41CDF682900BB8AD0 /* TestFileSystem.cpp */,
 				2CC2B1151CB5554500BB42D0 /* TestFormatBool.cpp */,
 				2CC2B1161CB5554500BB42D0 /* TestFormatFloat.cpp */,
 				2CC2B1171CB5554500BB42D0 /* TestFormatInt.cpp */,
@@ -722,6 +760,7 @@
 				2C38B0EC1CDA3517007A7E9F /* MathConstants.hpp in Headers */,
 				2C38B0F91CDA3517007A7E9F /* SpeedStopwatch.hpp in Headers */,
 				2C38B0F61CDA3517007A7E9F /* Radix.hpp in Headers */,
+				2C1777A31CDF67FD00BB8AD0 /* TextEncoding.hpp in Headers */,
 				2C38B0F41CDA3517007A7E9F /* PlatformWindows.hpp in Headers */,
 				2C38B1031CDA3517007A7E9F /* Uncopyable.hpp in Headers */,
 				2C38B1021CDA3517007A7E9F /* Types.hpp in Headers */,
@@ -850,6 +889,7 @@
 				2CC2B11D1CB5554500BB42D0 /* Siv3DTest_Windows.cpp in Sources */,
 				2CA7F75A1CA7F43D00495647 /* Main.cpp in Sources */,
 				2CC2B1251CB5554500BB42D0 /* TestTypes.cpp in Sources */,
+				2C1777A51CDF682900BB8AD0 /* TestFileSystem.cpp in Sources */,
 				2CC2B1231CB5554500BB42D0 /* TestStep.cpp in Sources */,
 				2CC2B11F1CB5554500BB42D0 /* TestFormatBool.cpp in Sources */,
 				2CC2B1221CB5554500BB42D0 /* TestOptional.cpp in Sources */,
@@ -889,6 +929,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/../Siv3D/Lib/osx/";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -938,6 +979,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/../Siv3D/Lib/osx/";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -980,6 +1022,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1002,6 +1045,7 @@
 					../Siv3D/Include,
 					"../Siv3D-Test/Include",
 				);
+				LIBRARY_SEARCH_PATHS = ../Siv3D/Lib/osx;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1028,6 +1072,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1044,6 +1089,7 @@
 					../Siv3D/Include,
 					"../Siv3D-Test/Include",
 				);
+				LIBRARY_SEARCH_PATHS = ../Siv3D/Lib/osx;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
