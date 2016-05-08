@@ -29,6 +29,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Date.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\DateTime.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Duration.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\FileSystem.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Format.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\FormatBool.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\FormatFloat.hpp" />
@@ -85,6 +86,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\CharacterSet\SivCharacterSet.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\DateTime\SivDateTime.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Date\SivDate.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\FileSystem\SivFileSystem.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatFloat\SivFormatFloat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatInt\SivFormatInt.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\SivLogger.cpp" />

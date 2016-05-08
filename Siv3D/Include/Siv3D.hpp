@@ -125,8 +125,8 @@
 //
 // ファイル I/O と暗号化
 //
-	//// ファイルとディレクトリ
-	//# include "Siv3D/FileSystem.hpp"
+	// ファイルとディレクトリ
+	# include "Siv3D/FileSystem.hpp"
 	//// ファイルとディレクトリの変更の監視
 	//# include "Siv3D/FileMonitor.hpp"
 	//// IReader インタフェース

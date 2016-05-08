@@ -11,9 +11,9 @@
  https://github.com/Siv3D/OpenSiv3D/blob/master/Siv3D/Include/Siv3D.hpp
   
 #### 0.0.3
-- [ ] Date
-- [ ] DateTime
-- [ ] Timer
+- [x] Date
+- [x] DateTime
+- [x] Timer
 - [ ] FileSystem(Partial)
 
 #### 0.0.4

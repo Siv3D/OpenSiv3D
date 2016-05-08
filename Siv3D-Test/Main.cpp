@@ -9,9 +9,9 @@ void Main()
 {
 	Log(L"Hello, Siv3D!");
 	
-	RunTest();
+	//RunTest();
 
-//*
+/*
 	// 0～100 の範囲
 	Log(L"# Range(0, 100)");
 	Log(Range(0, 100));
