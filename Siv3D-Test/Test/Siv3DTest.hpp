@@ -14,15 +14,15 @@
 
 # if defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64)
 	# ifdef _DEBUG
-		# pragma comment (lib, "Windows(x64)/gtest/gtest_d")
+		# pragma comment (lib, "gtest/gtest_d")
 	# else
-		# pragma comment (lib, "Windows(x64)/gtest/gtest")
+		# pragma comment (lib, "gtest/gtest")
 	# endif
 # elif defined(SIV3D_TARGET_WINDOWS_DESKTOP_X86)
 	# ifdef _DEBUG
-		# pragma comment (lib, "Windows(x86)/gtest/gtest_d")
+		# pragma comment (lib, "gtest/gtest_d")
 	# else
-		# pragma comment (lib, "Windows(x86)/gtest/gtest")
+		# pragma comment (lib, "gtest/gtest")
 	# endif
 # endif
 

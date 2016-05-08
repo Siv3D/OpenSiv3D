@@ -90,28 +90,28 @@
     <OutDir>$(SolutionDir)$(ProjectName)\Debug-x86\</OutDir>
     <IntDir>$(SolutionDir)$(ProjectName)\Intermediate\Debug-x86\</IntDir>
     <IncludePath>$(SolutionDir)\..\Siv3D\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\..\Siv3D\Lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\..\Siv3D\Lib;$(SolutionDir)\..\Siv3D-Test\Lib\Windows(x86);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)$(ProjectName)\Debug-x64\</OutDir>
     <IntDir>$(SolutionDir)$(ProjectName)\Intermediate\Debug-x64\</IntDir>
     <IncludePath>$(SolutionDir)\..\Siv3D\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\..\Siv3D\Lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\..\Siv3D\Lib;$(SolutionDir)\..\Siv3D-Test\Lib\Windows(x64);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)$(ProjectName)\Release-x86\</OutDir>
     <IntDir>$(SolutionDir)$(ProjectName)\Intermediate\Release-x86\</IntDir>
     <IncludePath>$(SolutionDir)\..\Siv3D\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\..\Siv3D\Lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\..\Siv3D\Lib;$(SolutionDir)\..\Siv3D-Test\Lib\Windows(x86);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)$(ProjectName)\Release-x64\</OutDir>
     <IntDir>$(SolutionDir)$(ProjectName)\Intermediate\Release-x64\</IntDir>
     <IncludePath>$(SolutionDir)\..\Siv3D\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\..\Siv3D\Lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\..\Siv3D\Lib;$(SolutionDir)\..\Siv3D-Test\Lib\Windows(x64);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
