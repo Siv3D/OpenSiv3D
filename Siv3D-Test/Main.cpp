@@ -8,7 +8,10 @@ using namespace std::chrono_literals;
 void Main()
 {
 	Log(L"Hello, Siv3D!");
+	
+	//RunTest();
 
+/*
 	// 0～100 の範囲
 	Log(L"# Range(0, 100)");
 	Log(Range(0, 100));
@@ -157,16 +160,39 @@ void Main()
 	Stopwatch stopwatch(true);
 	System::Sleep(1.5s);
 	Log(stopwatch);
-	Log(stopwatch.format(L"S.xxx'秒'"));
+	Log(stopwatch.format(L"S.xxx秒"));
+	Log(stopwatch > 1.5s);
 
-	// Stopwatch
-	SpeedStopwatch countDown(3s, -1.0, true);
+	// SpeedStopwatch
+	Log(L"# SpeedStopwatch");
+	SpeedStopwatch speedStopwatch(10.0, true);
 	for (int32 i = 0; i <= 3; ++i)
 	{
-		Log(countDown);
+		Log(speedStopwatch);
 		System::Sleep(1s);
 	}
 
+	// Timer
+	Log(L"# Timer");
+	Timer timer(3s, true);
+	for (int32 i = 0; i <= 4; ++i)
+	{
+		Log(timer, L' ', timer.reachedZero());
+		System::Sleep(1s);
+	}
+
+	// Date
+	Log(L"# Date");
+	Log(Date::Today());
+	Log(Date::Today().format(L"yyyy年MM月dd日（E）"));
+	Log(Date(2016, 12, 25) + 7_d);
+ 
+	// DateTime
+	Log(L"# DateTIme");
+	Log(DateTime::Now());
+	Log(DateTime::Now() + 3min);
+	Log(DateTime::NowUTC());
+	
 	// TimeProfiler
 	TimeProfiler tp;
 	for (int32 i = 0; i < 50; ++i)
@@ -175,4 +201,5 @@ void Main()
 		System::Sleep(20);
 		tp.end();
 	}
+	//*/
 }

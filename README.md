@@ -1,6 +1,6 @@
 <h1>OpenSiv3D <a href="http://doge.mit-license.org"><img src="http://img.shields.io/:license-mit-blue.svg"></a> <a href="https://siv3d-slackin.herokuapp.com/"><img src="https://siv3d-slackin.herokuapp.com/badge.svg"></a></h1>
 
-## SDK Downloads ##
+<h2><a href="#-sdk-downloads"><img src="doc/siv3d_icon_48.png" align="absmiddle"></a> SDK Downloads</h2>
 | Platform        | Version        | Date       | Requirements                  |
 |:---------------:|:---------------:|:-------------:|:------------------------------|
 | Windows Desktop | <a href="doc/Windows.md">**0.0.2**.245</a>     | 7 May 2016 | Windows 7 SP1 / 8.1 / 10<br>Microsoft Visual C++ 2015 Update 2 or newer |
@@ -11,9 +11,9 @@
  https://github.com/Siv3D/OpenSiv3D/blob/master/Siv3D/Include/Siv3D.hpp
   
 #### 0.0.3
-- [ ] Date
-- [ ] DateTime
-- [ ] Timer
+- [x] Date
+- [x] DateTime
+- [x] Timer
 - [ ] FileSystem(Partial)
 
 #### 0.0.4

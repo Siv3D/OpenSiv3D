@@ -350,6 +350,47 @@ namespace s3d
 		}
 	};
 
+	inline bool operator <(const SpeedStopwatch& s, const MicrosecondsF& time)
+	{
+		return s.elapsedF() < time;
+	}
+
+	inline bool operator <=(const SpeedStopwatch& s, const MicrosecondsF& time)
+	{
+		return s.elapsedF() <= time;
+	}
+
+	inline bool operator >(const SpeedStopwatch& s, const MicrosecondsF& time)
+	{
+		return s.elapsedF() > time;
+	}
+
+	inline bool operator >=(const SpeedStopwatch& s, const MicrosecondsF& time)
+	{
+		return s.elapsedF() >= time;
+	}
+
+
+	inline bool operator <(const MicrosecondsF& time, const SpeedStopwatch& s)
+	{
+		return time < s.elapsedF();
+	}
+
+	inline bool operator <=(const MicrosecondsF& time, const SpeedStopwatch& s)
+	{
+		return time <= s.elapsedF();
+	}
+
+	inline bool operator >(const MicrosecondsF& time, const SpeedStopwatch& s)
+	{
+		return time > s.elapsedF();
+	}
+
+	inline bool operator >=(const MicrosecondsF& time, const SpeedStopwatch& s)
+	{
+		return time >= s.elapsedF();
+	}
+
 	inline void Formatter(FormatData& formatData, const SpeedStopwatch& stopwatch)
 	{
 		formatData.string.append(stopwatch.format());

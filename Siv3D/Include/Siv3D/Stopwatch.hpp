@@ -311,6 +311,48 @@ namespace s3d
 		String format(const String& pattern = L"H:mm:ss.xx") const;
 	};
 
+	inline bool operator <(const Stopwatch& s, const MicrosecondsF& time)
+	{
+		return s.elapsedF() < time;
+	}
+
+	inline bool operator <=(const Stopwatch& s, const MicrosecondsF& time)
+	{
+		return s.elapsedF() <= time;
+	}
+
+	inline bool operator >(const Stopwatch& s, const MicrosecondsF& time)
+	{
+		return s.elapsedF() > time;
+	}
+
+	inline bool operator >=(const Stopwatch& s, const MicrosecondsF& time)
+	{
+		return s.elapsedF() >= time;
+	}
+
+
+	inline bool operator <(const MicrosecondsF& time, const Stopwatch& s)
+	{
+		return time < s.elapsedF();
+	}
+
+	inline bool operator <=(const MicrosecondsF& time, const Stopwatch& s)
+	{
+		return time <= s.elapsedF();
+	}
+
+	inline bool operator >(const MicrosecondsF& time, const Stopwatch& s)
+	{
+		return time > s.elapsedF();
+	}
+
+	inline bool operator >=(const MicrosecondsF& time, const Stopwatch& s)
+	{
+		return time >= s.elapsedF();
+	}
+
+
 	inline void Formatter(FormatData& formatData, const Stopwatch& stopwatch)
 	{
 		formatData.string.append(stopwatch.format());

@@ -109,7 +109,7 @@
 	// 日付
 	# include "Siv3D/Date.hpp"
 	// 日付と時刻
-	//# include "Siv3D/DateTime.hpp"
+	# include "Siv3D/DateTime.hpp"
 	// 時間
 	# include "Siv3D/Time.hpp"
 	// ストップウォッチ
@@ -125,8 +125,8 @@
 //
 // ファイル I/O と暗号化
 //
-	//// ファイルとディレクトリ
-	//# include "Siv3D/FileSystem.hpp"
+	// ファイルとディレクトリ
+	# include "Siv3D/FileSystem.hpp"
 	//// ファイルとディレクトリの変更の監視
 	//# include "Siv3D/FileMonitor.hpp"
 	//// IReader インタフェース
