@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C17775B1CDEE6AF00BB8AD0 /* FileSystem.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C17775A1CDEE6AF00BB8AD0 /* FileSystem.hpp */; };
+		2C17775E1CDEE6C100BB8AD0 /* SivFileSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C17775D1CDEE6C100BB8AD0 /* SivFileSystem.cpp */; };
 		2C38B0DB1CDA3517007A7E9F /* Allocator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B0AF1CDA3517007A7E9F /* Allocator.hpp */; };
 		2C38B0DC1CDA3517007A7E9F /* Array.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B0B01CDA3517007A7E9F /* Array.hpp */; };
 		2C38B0DD1CDA3517007A7E9F /* BigInt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B0B11CDA3517007A7E9F /* BigInt.hpp */; };
@@ -141,6 +143,8 @@
 		2C1777571CDEE5D500BB8AD0 /* gtest-string.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-string.h"; sourceTree = "<group>"; };
 		2C1777581CDEE5D500BB8AD0 /* gtest-type-util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-type-util.h"; sourceTree = "<group>"; };
 		2C1777591CDEE5D500BB8AD0 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		2C17775A1CDEE6AF00BB8AD0 /* FileSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FileSystem.hpp; sourceTree = "<group>"; };
+		2C17775D1CDEE6C100BB8AD0 /* SivFileSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivFileSystem.cpp; sourceTree = "<group>"; };
 		2C38B0AF1CDA3517007A7E9F /* Allocator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Allocator.hpp; sourceTree = "<group>"; };
 		2C38B0B01CDA3517007A7E9F /* Array.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Array.hpp; sourceTree = "<group>"; };
 		2C38B0B11CDA3517007A7E9F /* BigInt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BigInt.hpp; sourceTree = "<group>"; };
@@ -316,6 +320,14 @@
 				2C17774E1CDEE5D500BB8AD0 /* gtest.h */,
 			);
 			path = custom;
+			sourceTree = "<group>";
+		};
+		2C17775C1CDEE6C100BB8AD0 /* FileSystem */ = {
+			isa = PBXGroup;
+			children = (
+				2C17775D1CDEE6C100BB8AD0 /* SivFileSystem.cpp */,
+			);
+			path = FileSystem;
 			sourceTree = "<group>";
 		};
 		2C38B1071CDA352E007A7E9F /* BigInt */ = {
@@ -516,6 +528,7 @@
 				2C38B0B41CDA3517007A7E9F /* Date.hpp */,
 				2C38B13F1CDE458A007A7E9F /* DateTime.hpp */,
 				2C38B0B51CDA3517007A7E9F /* Duration.hpp */,
+				2C17775A1CDEE6AF00BB8AD0 /* FileSystem.hpp */,
 				2C38B0B61CDA3517007A7E9F /* Format.hpp */,
 				2C38B0B71CDA3517007A7E9F /* FormatBool.hpp */,
 				2C38B0B81CDA3517007A7E9F /* FormatFloat.hpp */,
@@ -572,6 +585,7 @@
 		2CC2B09B1CB5552200BB42D0 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C17775C1CDEE6C100BB8AD0 /* FileSystem */,
 				2C38B1411CDE45A7007A7E9F /* Date */,
 				2C38B1431CDE45A7007A7E9F /* DateTime */,
 				2C38B1271CDDEC92007A7E9F /* System */,
@@ -683,6 +697,7 @@
 				2C38B0FD1CDA3517007A7E9F /* String.hpp in Headers */,
 				2C38B0FE1CDA3517007A7E9F /* StringView.hpp in Headers */,
 				2C38B0E71CDA3517007A7E9F /* Functor.hpp in Headers */,
+				2C17775B1CDEE6AF00BB8AD0 /* FileSystem.hpp in Headers */,
 				2CC2B0F01CB5552200BB42D0 /* Siv3D.hpp in Headers */,
 				2CC2B0FE1CB5552300BB42D0 /* bignum-dtoa.h in Headers */,
 				2CC2B10D1CB5552300BB42D0 /* strtod.h in Headers */,
@@ -795,6 +810,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C17775E1CDEE6C100BB8AD0 /* SivFileSystem.cpp in Sources */,
 				2C38B1451CDE45A7007A7E9F /* SivDate.cpp in Sources */,
 				2C38B1241CDA352E007A7E9F /* SivTimeProfiler.cpp in Sources */,
 				2C38B11F1CDA352E007A7E9F /* SivLogger.cpp in Sources */,
