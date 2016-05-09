@@ -267,19 +267,18 @@ namespace s3d
 # elif defined(SIV3D_TARGET_OSX)
 
 # include <sys/stat.h>
-//# include <boost/filesystem.hpp>
+# include <boost/filesystem.hpp>
 # include "../../../Include/Siv3D/FileSystem.hpp"
 
 namespace s3d
 {
-   // namespace fs = boost::filesystem;
+    namespace fs = boost::filesystem;
     
     namespace detail
     {
-        static bool IsResourcePath(const FilePath& path)
+        static bool IsResourcePath(const FilePath&)
         {
             // [Siv3D*TODO]
-            path;
             return false;
         }
 
@@ -370,10 +369,9 @@ namespace s3d
             return S_ISREG(s.st_mode);
         }
 
-        bool IsResource(const FilePath& path)
+        bool IsResource(const FilePath&)
         {
             // [Siv3D*TODO]
-            path;
             return false;
         }
 /*
