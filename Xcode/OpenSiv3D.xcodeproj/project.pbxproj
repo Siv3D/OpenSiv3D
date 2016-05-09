@@ -10,9 +10,22 @@
 		2C17775B1CDEE6AF00BB8AD0 /* FileSystem.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C17775A1CDEE6AF00BB8AD0 /* FileSystem.hpp */; };
 		2C17775E1CDEE6C100BB8AD0 /* SivFileSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C17775D1CDEE6C100BB8AD0 /* SivFileSystem.cpp */; };
 		2C1777A31CDF67FD00BB8AD0 /* TextEncoding.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C1777A21CDF67FD00BB8AD0 /* TextEncoding.hpp */; };
-		2C1777A51CDF682900BB8AD0 /* TestFileSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C1777A41CDF682900BB8AD0 /* TestFileSystem.cpp */; };
 		2C1777AC1CDF6F5200BB8AD0 /* boost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1777AB1CDF6F5200BB8AD0 /* boost_filesystem.a */; };
 		2C1777AE1CDF6F9300BB8AD0 /* boost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1777AD1CDF6F9300BB8AD0 /* boost_system.a */; };
+		2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
+		2C1778C41CE0D62E00BB8AD0 /* TestTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B11B1CB5554500BB42D0 /* TestTypes.cpp */; };
+		2C1778C51CE0D63200BB8AD0 /* TestString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B11A1CB5554500BB42D0 /* TestString.cpp */; };
+		2C1778C61CE0D63500BB8AD0 /* TestStep.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B1191CB5554500BB42D0 /* TestStep.cpp */; };
+		2C1778C71CE0D63800BB8AD0 /* TestOptional.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B1181CB5554500BB42D0 /* TestOptional.cpp */; };
+		2C1778C81CE0D63C00BB8AD0 /* TestFormatInt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B1171CB5554500BB42D0 /* TestFormatInt.cpp */; };
+		2C1778C91CE0D63F00BB8AD0 /* TestFormatFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B1161CB5554500BB42D0 /* TestFormatFloat.cpp */; };
+		2C1778CA1CE0D64200BB8AD0 /* TestFormatBool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B1151CB5554500BB42D0 /* TestFormatBool.cpp */; };
+		2C1778CB1CE0D64500BB8AD0 /* TestFileSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C1777A41CDF682900BB8AD0 /* TestFileSystem.cpp */; };
+		2C1778CC1CE0D64800BB8AD0 /* TestArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B1141CB5554500BB42D0 /* TestArray.cpp */; };
+		2C1778CD1CE0D64B00BB8AD0 /* Siv3DTest_Windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B1131CB5554500BB42D0 /* Siv3DTest_Windows.cpp */; };
+		2C1778CE1CE0D64E00BB8AD0 /* Siv3DTest_OSX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B1121CB5554500BB42D0 /* Siv3DTest_OSX.cpp */; };
+		2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C38B14A1CDEB45C007A7E9F /* gtest.a */; };
+		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
 		2C38B0DB1CDA3517007A7E9F /* Allocator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B0AF1CDA3517007A7E9F /* Allocator.hpp */; };
 		2C38B0DC1CDA3517007A7E9F /* Array.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B0B01CDA3517007A7E9F /* Array.hpp */; };
 		2C38B0DD1CDA3517007A7E9F /* BigInt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B0B11CDA3517007A7E9F /* BigInt.hpp */; };
@@ -72,9 +85,6 @@
 		2C38B1401CDE458A007A7E9F /* DateTime.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B13F1CDE458A007A7E9F /* DateTime.hpp */; };
 		2C38B1451CDE45A7007A7E9F /* SivDate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C38B1421CDE45A7007A7E9F /* SivDate.cpp */; };
 		2C38B1461CDE45A7007A7E9F /* SivDateTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C38B1441CDE45A7007A7E9F /* SivDateTime.cpp */; };
-		2C38B14C1CDEB45C007A7E9F /* gtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C38B14A1CDEB45C007A7E9F /* gtest.a */; };
-		2CA7F75A1CA7F43D00495647 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
-		2CA7F8091CA7F5A700495647 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
 		2CC2B0BE1CB5552200BB42D0 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC2B0521CB5552200BB42D0 /* format.h */; };
 		2CC2B0F01CB5552200BB42D0 /* Siv3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC2B08A1CB5552200BB42D0 /* Siv3D.hpp */; };
 		2CC2B0FA1CB5552300BB42D0 /* Siv3DMain_OSX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B0A41CB5552200BB42D0 /* Siv3DMain_OSX.cpp */; };
@@ -98,29 +108,7 @@
 		2CC2B10C1CB5552300BB42D0 /* strtod.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B0BB1CB5552200BB42D0 /* strtod.cc */; };
 		2CC2B10D1CB5552300BB42D0 /* strtod.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC2B0BC1CB5552200BB42D0 /* strtod.h */; };
 		2CC2B10E1CB5552300BB42D0 /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC2B0BD1CB5552200BB42D0 /* utils.h */; };
-		2CC2B11C1CB5554500BB42D0 /* Siv3DTest_OSX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B1121CB5554500BB42D0 /* Siv3DTest_OSX.cpp */; };
-		2CC2B11D1CB5554500BB42D0 /* Siv3DTest_Windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B1131CB5554500BB42D0 /* Siv3DTest_Windows.cpp */; };
-		2CC2B11E1CB5554500BB42D0 /* TestArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B1141CB5554500BB42D0 /* TestArray.cpp */; };
-		2CC2B11F1CB5554500BB42D0 /* TestFormatBool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B1151CB5554500BB42D0 /* TestFormatBool.cpp */; };
-		2CC2B1201CB5554500BB42D0 /* TestFormatFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B1161CB5554500BB42D0 /* TestFormatFloat.cpp */; };
-		2CC2B1211CB5554500BB42D0 /* TestFormatInt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B1171CB5554500BB42D0 /* TestFormatInt.cpp */; };
-		2CC2B1221CB5554500BB42D0 /* TestOptional.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B1181CB5554500BB42D0 /* TestOptional.cpp */; };
-		2CC2B1231CB5554500BB42D0 /* TestStep.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B1191CB5554500BB42D0 /* TestStep.cpp */; };
-		2CC2B1241CB5554500BB42D0 /* TestString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B11A1CB5554500BB42D0 /* TestString.cpp */; };
-		2CC2B1251CB5554500BB42D0 /* TestTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B11B1CB5554500BB42D0 /* TestTypes.cpp */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		2CA7F7441CA7F40600495647 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2C1777401CDEE5D500BB8AD0 /* gtest-death-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-death-test.h"; sourceTree = "<group>"; };
@@ -153,6 +141,8 @@
 		2C1777A41CDF682900BB8AD0 /* TestFileSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestFileSystem.cpp; sourceTree = "<group>"; };
 		2C1777AB1CDF6F5200BB8AD0 /* boost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_filesystem.a; sourceTree = "<group>"; };
 		2C1777AD1CDF6F9300BB8AD0 /* boost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_system.a; sourceTree = "<group>"; };
+		2C1778B21CE0D5DB00BB8AD0 /* SIv3D-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SIv3D-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C1778BF1CE0D5DB00BB8AD0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C38B0AF1CDA3517007A7E9F /* Allocator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Allocator.hpp; sourceTree = "<group>"; };
 		2C38B0B01CDA3517007A7E9F /* Array.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Array.hpp; sourceTree = "<group>"; };
 		2C38B0B11CDA3517007A7E9F /* BigInt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BigInt.hpp; sourceTree = "<group>"; };
@@ -214,7 +204,6 @@
 		2C38B1441CDE45A7007A7E9F /* SivDateTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDateTime.cpp; sourceTree = "<group>"; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		2CA7F7461CA7F40600495647 /* Siv3D-Test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Siv3D-Test"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
 		2CC2B0521CB5552200BB42D0 /* format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
 		2CC2B0531CB5552200BB42D0 /* LICENSE.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.rst; sourceTree = "<group>"; };
@@ -256,21 +245,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2C1778AF1CE0D5DB00BB8AD0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */,
+				2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2CA7F73A1CA7F3B100495647 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				2C1777AE1CDF6F9300BB8AD0 /* boost_system.a in Frameworks */,
 				2C1777AC1CDF6F5200BB8AD0 /* boost_filesystem.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2CA7F7431CA7F40600495647 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2C38B14C1CDEB45C007A7E9F /* gtest.a in Frameworks */,
-				2CA7F8091CA7F5A700495647 /* libSiv3D.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,6 +485,7 @@
 		2CA7F7321CA7F34200495647 = {
 			isa = PBXGroup;
 			children = (
+				2C1778BF1CE0D5DB00BB8AD0 /* Info.plist */,
 				2CA7F7641CA7F44F00495647 /* Siv3D */,
 				2CA7F74D1CA7F43D00495647 /* Siv3D-Test */,
 				2CA7F73E1CA7F3B100495647 /* Products */,
@@ -506,7 +496,7 @@
 			isa = PBXGroup;
 			children = (
 				2CA7F73D1CA7F3B100495647 /* libSiv3D.a */,
-				2CA7F7461CA7F40600495647 /* Siv3D-Test */,
+				2C1778B21CE0D5DB00BB8AD0 /* SIv3D-Test.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -776,6 +766,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		2C1778B11CE0D5DB00BB8AD0 /* SIv3D-Test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2C1778C01CE0D5DB00BB8AD0 /* Build configuration list for PBXNativeTarget "SIv3D-Test" */;
+			buildPhases = (
+				2C1778AE1CE0D5DB00BB8AD0 /* Sources */,
+				2C1778AF1CE0D5DB00BB8AD0 /* Frameworks */,
+				2C1778B01CE0D5DB00BB8AD0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SIv3D-Test";
+			productName = "SIv3D-Test";
+			productReference = 2C1778B21CE0D5DB00BB8AD0 /* SIv3D-Test.app */;
+			productType = "com.apple.product-type.application";
+		};
 		2CA7F73C1CA7F3B100495647 /* Siv3D */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2CA7F7411CA7F3B100495647 /* Build configuration list for PBXNativeTarget "Siv3D" */;
@@ -793,23 +800,6 @@
 			productReference = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		2CA7F7451CA7F40600495647 /* Siv3D-Test */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2CA7F74A1CA7F40600495647 /* Build configuration list for PBXNativeTarget "Siv3D-Test" */;
-			buildPhases = (
-				2CA7F7421CA7F40600495647 /* Sources */,
-				2CA7F7431CA7F40600495647 /* Frameworks */,
-				2CA7F7441CA7F40600495647 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Siv3D-Test";
-			productName = "Siv3D-Test";
-			productReference = 2CA7F7461CA7F40600495647 /* Siv3D-Test */;
-			productType = "com.apple.product-type.tool";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -818,10 +808,10 @@
 			attributes = {
 				LastUpgradeCheck = 0720;
 				TargetAttributes = {
-					2CA7F73C1CA7F3B100495647 = {
-						CreatedOnToolsVersion = 7.2.1;
+					2C1778B11CE0D5DB00BB8AD0 = {
+						CreatedOnToolsVersion = 7.3.1;
 					};
-					2CA7F7451CA7F40600495647 = {
+					2CA7F73C1CA7F3B100495647 = {
 						CreatedOnToolsVersion = 7.2.1;
 					};
 				};
@@ -832,6 +822,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 2CA7F7321CA7F34200495647;
 			productRefGroup = 2CA7F73E1CA7F3B100495647 /* Products */;
@@ -839,12 +830,41 @@
 			projectRoot = "";
 			targets = (
 				2CA7F73C1CA7F3B100495647 /* Siv3D */,
-				2CA7F7451CA7F40600495647 /* Siv3D-Test */,
+				2C1778B11CE0D5DB00BB8AD0 /* SIv3D-Test */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		2C1778B01CE0D5DB00BB8AD0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		2C1778AE1CE0D5DB00BB8AD0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C1778CA1CE0D64200BB8AD0 /* TestFormatBool.cpp in Sources */,
+				2C1778C51CE0D63200BB8AD0 /* TestString.cpp in Sources */,
+				2C1778C61CE0D63500BB8AD0 /* TestStep.cpp in Sources */,
+				2C1778C81CE0D63C00BB8AD0 /* TestFormatInt.cpp in Sources */,
+				2C1778C71CE0D63800BB8AD0 /* TestOptional.cpp in Sources */,
+				2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */,
+				2C1778C41CE0D62E00BB8AD0 /* TestTypes.cpp in Sources */,
+				2C1778C91CE0D63F00BB8AD0 /* TestFormatFloat.cpp in Sources */,
+				2C1778CE1CE0D64E00BB8AD0 /* Siv3DTest_OSX.cpp in Sources */,
+				2C1778CB1CE0D64500BB8AD0 /* TestFileSystem.cpp in Sources */,
+				2C1778CC1CE0D64800BB8AD0 /* TestArray.cpp in Sources */,
+				2C1778CD1CE0D64B00BB8AD0 /* Siv3DTest_Windows.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2CA7F7391CA7F3B100495647 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -877,37 +897,125 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2CA7F7421CA7F40600495647 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2CC2B11C1CB5554500BB42D0 /* Siv3DTest_OSX.cpp in Sources */,
-				2CC2B1201CB5554500BB42D0 /* TestFormatFloat.cpp in Sources */,
-				2CC2B1211CB5554500BB42D0 /* TestFormatInt.cpp in Sources */,
-				2CC2B11E1CB5554500BB42D0 /* TestArray.cpp in Sources */,
-				2CC2B1241CB5554500BB42D0 /* TestString.cpp in Sources */,
-				2CC2B11D1CB5554500BB42D0 /* Siv3DTest_Windows.cpp in Sources */,
-				2CA7F75A1CA7F43D00495647 /* Main.cpp in Sources */,
-				2CC2B1251CB5554500BB42D0 /* TestTypes.cpp in Sources */,
-				2C1777A51CDF682900BB8AD0 /* TestFileSystem.cpp in Sources */,
-				2CC2B1231CB5554500BB42D0 /* TestStep.cpp in Sources */,
-				2CC2B11F1CB5554500BB42D0 /* TestFormatBool.cpp in Sources */,
-				2CC2B1221CB5554500BB42D0 /* TestOptional.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		2C1778C11CE0D5DB00BB8AD0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					../Siv3D/Include,
+					"../Siv3D-Test/Include",
+				);
+				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = ../Siv3D/Lib/osx;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "siv3d.SIv3D-Test";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		2C1778C21CE0D5DB00BB8AD0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					../Siv3D/Include,
+					"../Siv3D-Test/Include",
+				);
+				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = ../Siv3D/Lib/osx;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "siv3d.SIv3D-Test";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		2CA7F7371CA7F34200495647 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 			};
 			name = Debug;
 		};
 		2CA7F7381CA7F34200495647 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 			};
 			name = Release;
 		};
@@ -1004,102 +1112,17 @@
 			};
 			name = Release;
 		};
-		2CA7F74B1CA7F40600495647 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
-				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					../Siv3D/Include,
-					"../Siv3D-Test/Include",
-				);
-				LIBRARY_SEARCH_PATHS = ../Siv3D/Lib/osx;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		2CA7F74C1CA7F40600495647 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
-				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					../Siv3D/Include,
-					"../Siv3D-Test/Include",
-				);
-				LIBRARY_SEARCH_PATHS = ../Siv3D/Lib/osx;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2C1778C01CE0D5DB00BB8AD0 /* Build configuration list for PBXNativeTarget "SIv3D-Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C1778C11CE0D5DB00BB8AD0 /* Debug */,
+				2C1778C21CE0D5DB00BB8AD0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		2CA7F7361CA7F34200495647 /* Build configuration list for PBXProject "OpenSiv3D" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1114,15 +1137,6 @@
 			buildConfigurations = (
 				2CA7F73F1CA7F3B100495647 /* Debug */,
 				2CA7F7401CA7F3B100495647 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		2CA7F74A1CA7F40600495647 /* Build configuration list for PBXNativeTarget "Siv3D-Test" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2CA7F74B1CA7F40600495647 /* Debug */,
-				2CA7F74C1CA7F40600495647 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -507,6 +507,7 @@ namespace s3d
             return String(fileName.begin(), fileName.begin() + dotPos);
         }
 */
+                
         FilePath InitialPath()
         {
             return detail::InitialPath;
