@@ -8,10 +8,9 @@ using namespace std::chrono_literals;
 void Main()
 {
 	Log(L"Hello, Siv3D!");
-	
-	//RunTest();
 
-/*
+	RunTest();
+
 	// 0～100 の範囲
 	Log(L"# Range(0, 100)");
 	Log(Range(0, 100));
@@ -23,7 +22,7 @@ void Main()
 	// 1/1 + 1/2 + 1/3 + 1/4 + ... + 1/10000 の合計
 	Log(L"# Range(1, 10000).map(Divides(1.0, none)).reduce1(Plus())");
 	Log(18_dp, Range(1, 10000).map(Divides(1.0, none)).reduce1(Plus()));
-	Log(L"# Iota(10000, 1, -1).map(Divides(1.0, none)).reduce1(Plus())");
+	Log(L"# Iota(10000, 0, -1).map(Divides(1.0, none)).reduce1(Plus())");
 	Log(18_dp, Iota(10000, 0, -1).map(Divides(1.0, none)).reduce1(Plus()));
 	Log(L"# Actual:");
 	Log(L"9.787606036044382264178...");
@@ -184,15 +183,23 @@ void Main()
 	// Date
 	Log(L"# Date");
 	Log(Date::Today());
-	Log(Date::Today().format(L"yyyy年MM月dd日（E）"));
+	Log(Date::Today().format(L"yyyy年MM月dd日(E)"));
 	Log(Date(2016, 12, 25) + 7_d);
  
 	// DateTime
-	Log(L"# DateTIme");
+	Log(L"# DateTime");
 	Log(DateTime::Now());
 	Log(DateTime::Now() + 3min);
 	Log(DateTime::NowUTC());
 	
+	// FileSystem
+	Log(L"# FileSystem");
+	Log(FileSystem::InitialPath());
+	Log(FileSystem::CurrentPath());
+	Log(FileSystem::Exists(L"example/siv3d-kun.png"));
+	Log(FileSystem::IsFile(L"example/siv3d-kun.png"));
+	Log(FileSystem::IsDirectory(L"example/siv3d-kun.png"));
+
 	// TimeProfiler
 	TimeProfiler tp;
 	for (int32 i = 0; i < 50; ++i)
@@ -201,5 +208,4 @@ void Main()
 		System::Sleep(20);
 		tp.end();
 	}
-	//*/
 }

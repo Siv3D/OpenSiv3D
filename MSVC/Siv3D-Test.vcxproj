@@ -23,6 +23,7 @@
     <ClCompile Include="..\Siv3D-Test\Test\Siv3DTest_OSX.cpp" />
     <ClCompile Include="..\Siv3D-Test\Test\Siv3DTest_Windows.cpp" />
     <ClCompile Include="..\Siv3D-Test\Test\TestArray.cpp" />
+    <ClCompile Include="..\Siv3D-Test\Test\TestFileSystem.cpp" />
     <ClCompile Include="..\Siv3D-Test\Test\TestFormatBool.cpp" />
     <ClCompile Include="..\Siv3D-Test\Test\TestFormatFloat.cpp" />
     <ClCompile Include="..\Siv3D-Test\Test\TestFormatInt.cpp" />

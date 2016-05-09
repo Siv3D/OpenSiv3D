@@ -3064,4 +3064,6 @@ namespace s3d
 	{
 		return os << CharacterSet::Narrow(str);
 	}
+
+	using FilePath = String;
 }

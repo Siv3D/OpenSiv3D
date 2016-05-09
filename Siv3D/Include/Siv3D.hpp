@@ -141,6 +141,8 @@
 	//# include "Siv3D/MemoryWriter.hpp"
 	//// バイナリファイルの書き込み
 	//# include "Siv3D/BinaryWriter.hpp"
+	// テキストのエンコード
+	# include "Siv3D/TextEncoding.hpp"
 	//// テキストファイルの読み込み
 	//# include "Siv3D/TextReader.hpp"
 	//// テキストファイルの書き込み

@@ -46,6 +46,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\ParseInt.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Point.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\System.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\TextEncoding.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TimeProfiler.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Random.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\RDTSCProfiler.hpp" />
