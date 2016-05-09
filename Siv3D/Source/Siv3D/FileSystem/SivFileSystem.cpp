@@ -52,7 +52,7 @@ namespace s3d
 				}
 			}
 
-			if (!path.ends_with(L'/') && (skipDirectoryCheck || DirectoryExists(path.str())))
+			if (!path.ends_with(L'/') && (skipDirectoryCheck || DirectoryExists(path)))
 			{
 				path.push_back(L'/');
 			}
@@ -133,7 +133,7 @@ namespace s3d
 
 			wchar result[1024];
 			wchar* pFilePart = nullptr;
-			const DWORD length = ::GetFullPathNameW(path.c_str(), std::size(result), result, &pFilePart);
+			const DWORD length = ::GetFullPathNameW(path.c_str(), _countof(result), result, &pFilePart);
 
 			if (length == 0)
 			{
@@ -267,12 +267,12 @@ namespace s3d
 # elif defined(SIV3D_TARGET_OSX)
 
 # include <sys/stat.h>
-# include <boost/filesystem.hpp>
+//# include <boost/filesystem.hpp>
 # include "../../../Include/Siv3D/FileSystem.hpp"
 
 namespace s3d
 {
-    namespace fs = boost::filesystem;
+   // namespace fs = boost::filesystem;
     
     namespace detail
     {
@@ -285,9 +285,13 @@ namespace s3d
 
         static bool DirectoryExists(const FilePath& path)
         {
-            return fs::is_directory(fs::path(path.str()));
-            //const DWORD attr = ::GetFileAttributesW(path.c_str());
-            //return (attr != -1) && (attr & FILE_ATTRIBUTE_DIRECTORY);
+			struct stat s;
+			if (::stat(path.replaced(L'\\', L'/').narrow().c_str(), &s) != 0)
+			{
+				return false;
+			}
+
+			return S_ISDIR(s.st_mode);
         }
         
         static FilePath NormalizePath(FilePath path, const bool skipDirectoryCheck = false)
@@ -300,7 +304,7 @@ namespace s3d
                 }
             }
             
-            if (!path.ends_with(L'/') && (skipDirectoryCheck || DirectoryExists(path.str())))
+            if (!path.ends_with(L'/') && (skipDirectoryCheck || DirectoryExists(path)))
             {
                 path.push_back(L'/');
             }
@@ -313,7 +317,6 @@ namespace s3d
     
     namespace FileSystem
     {
-
         bool Exists(const FilePath& path)
         {
             if (path.isEmpty())
@@ -343,13 +346,7 @@ namespace s3d
                 return false;
             }
             
-            struct stat s;
-            if(::stat(path.replaced(L'\\', L'/').narrow().c_str(), &s) != 0)
-            {
-                return false;
-            }
-            
-            return S_ISDIR(s.st_mode);
+			return detail::DirectoryExists(path);
         }
 
         bool IsFile(const FilePath& path)
