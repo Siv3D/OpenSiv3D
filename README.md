@@ -14,23 +14,31 @@
 - [x] Date
 - [x] DateTime
 - [x] Timer
-- [x] FileSystem(Partial)
+- [x] FileSystem (Partial)
 
 #### 0.0.4
+- [ ] FileSystem (Partial)
 - [ ] IReader
 - [ ] BinaryReader
 - [ ] IWriter
 - [ ] BinaryWriter
-
-#### 0.0.5
 - [ ] TextReader
 - [ ] TextWriter
 - [ ] Logger
 
-#### 0.0.6
+#### 0.0.5
 - [ ] CSVReader
 - [ ] CSVWriter
-- [ ] INI(Partial)
+- [ ] INI (Partial)
+
+#### 0.0.6
+- [ ] Base64
+- [ ] MD5
+- [ ] JSON (Partial)
+
+#### 0.0.7
+- [ ] Color
+- [ ] HSV
 
 ## Discussion ##
  [Siv3D Slack #open-siv3d](https://siv3d.slack.com/messages/open-siv3d/details/)  (Japanese)
