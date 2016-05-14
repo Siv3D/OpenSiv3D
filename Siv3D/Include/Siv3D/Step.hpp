@@ -659,7 +659,7 @@ namespace s3d
 			class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
 		constexpr void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
 		{
-			Apply_impl<Fty, decltype(std::get<Index>(tuple)(value)), Index + 1, Tuple, std::decay_t<decltype(std::get<Index + 1>(std::declval<Tuple>()))>(f, std::get<Index>(tuple)(value), tuple);
+			Apply_impl<Fty, decltype(std::get<Index>(tuple)(value)), Index + 1, Tuple, std::decay_t<decltype(std::get<Index + 1>(std::declval<Tuple>()))>>(f, std::get<Index>(tuple)(value), tuple);
 		}
 
 		template <class Fty, class ValueType, class Tuple>

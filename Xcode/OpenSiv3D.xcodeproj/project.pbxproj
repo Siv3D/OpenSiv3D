@@ -85,6 +85,8 @@
 		2C38B1401CDE458A007A7E9F /* DateTime.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B13F1CDE458A007A7E9F /* DateTime.hpp */; };
 		2C38B1451CDE45A7007A7E9F /* SivDate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C38B1421CDE45A7007A7E9F /* SivDate.cpp */; };
 		2C38B1461CDE45A7007A7E9F /* SivDateTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C38B1441CDE45A7007A7E9F /* SivDateTime.cpp */; };
+		2CA73B391CE6DC1900C83534 /* BigFloat.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CA73B381CE6DC1900C83534 /* BigFloat.hpp */; };
+		2CA73B3B1CE6DC2800C83534 /* TypeTraits.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CA73B3A1CE6DC2800C83534 /* TypeTraits.hpp */; };
 		2CC2B0BE1CB5552200BB42D0 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC2B0521CB5552200BB42D0 /* format.h */; };
 		2CC2B0F01CB5552200BB42D0 /* Siv3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC2B08A1CB5552200BB42D0 /* Siv3D.hpp */; };
 		2CC2B0FA1CB5552300BB42D0 /* Siv3DMain_OSX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B0A41CB5552200BB42D0 /* Siv3DMain_OSX.cpp */; };
@@ -203,6 +205,8 @@
 		2C38B1421CDE45A7007A7E9F /* SivDate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDate.cpp; sourceTree = "<group>"; };
 		2C38B1441CDE45A7007A7E9F /* SivDateTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDateTime.cpp; sourceTree = "<group>"; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
+		2CA73B381CE6DC1900C83534 /* BigFloat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BigFloat.hpp; sourceTree = "<group>"; };
+		2CA73B3A1CE6DC2800C83534 /* TypeTraits.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TypeTraits.hpp; sourceTree = "<group>"; };
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
 		2CC2B0521CB5552200BB42D0 /* format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
@@ -549,6 +553,7 @@
 				2C38B0AF1CDA3517007A7E9F /* Allocator.hpp */,
 				2C38B0B01CDA3517007A7E9F /* Array.hpp */,
 				2C38B0B11CDA3517007A7E9F /* BigInt.hpp */,
+				2CA73B381CE6DC1900C83534 /* BigFloat.hpp */,
 				2C38B0B21CDA3517007A7E9F /* Char.hpp */,
 				2C38B0B31CDA3517007A7E9F /* CharacterSet.hpp */,
 				2C38B0B41CDA3517007A7E9F /* Date.hpp */,
@@ -590,6 +595,7 @@
 				2C38B0D41CDA3517007A7E9F /* TimeProfiler.hpp */,
 				2C38B0D51CDA3517007A7E9F /* Timer.hpp */,
 				2C38B0D61CDA3517007A7E9F /* Types.hpp */,
+				2CA73B3A1CE6DC2800C83534 /* TypeTraits.hpp */,
 				2C38B0D71CDA3517007A7E9F /* Uncopyable.hpp */,
 				2C38B0D81CDA3517007A7E9F /* Unspecified.hpp */,
 				2C38B0D91CDA3517007A7E9F /* Utility.hpp */,
@@ -720,6 +726,7 @@
 				2CC2B1061CB5552300BB42D0 /* double-conversion.h in Headers */,
 				2C38B0EA1CDA3517007A7E9F /* LetterCase.hpp in Headers */,
 				2C38B0ED1CDA3517007A7E9F /* Number.hpp in Headers */,
+				2CA73B391CE6DC1900C83534 /* BigFloat.hpp in Headers */,
 				2CC2B1041CB5552300BB42D0 /* diy-fp.h in Headers */,
 				2CC2B1081CB5552300BB42D0 /* fast-dtoa.h in Headers */,
 				2C38B0FD1CDA3517007A7E9F /* String.hpp in Headers */,
@@ -748,6 +755,7 @@
 				2C38B1041CDA3517007A7E9F /* Unspecified.hpp in Headers */,
 				2C38B0FB1CDA3517007A7E9F /* Step.hpp in Headers */,
 				2C38B0EC1CDA3517007A7E9F /* MathConstants.hpp in Headers */,
+				2CA73B3B1CE6DC2800C83534 /* TypeTraits.hpp in Headers */,
 				2C38B0F91CDA3517007A7E9F /* SpeedStopwatch.hpp in Headers */,
 				2C38B0F61CDA3517007A7E9F /* Radix.hpp in Headers */,
 				2C1777A31CDF67FD00BB8AD0 /* TextEncoding.hpp in Headers */,
@@ -1122,6 +1130,7 @@
 				2C1778C21CE0D5DB00BB8AD0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2CA7F7361CA7F34200495647 /* Build configuration list for PBXProject "OpenSiv3D" */ = {
 			isa = XCConfigurationList;
