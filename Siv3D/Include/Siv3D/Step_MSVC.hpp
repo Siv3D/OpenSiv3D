@@ -22,10 +22,12 @@
 //
 
 # pragma once
+# pragma warning (disable: 4100)
 # include <iterator>
 # include <type_traits>
 # include "Types.hpp"
 # include "BigInt.hpp"
+# include "TypeTraits.hpp"
 # include "Format.hpp"
 
 namespace s3d
@@ -946,7 +948,7 @@ namespace s3d
 	template <class T, class U, class S = int32, class StartType = std::common_type_t<T, U>, class CounterType = std::common_type_t<std::size_t, StartType>>
 	inline auto step_to(T a, U b, S s = 1)
 	{
-		static_assert(std::is_integral<StartType>::value || std::is_same<StartType, BigInt>::value, "step_to requires integral parameters");
+		static_assert(std::is_integral<StartType>::value || IsBigInt<StartType>::value, "step_to requires integral parameters");
 		CounterType  n = 0;
 		using DiffType = std::common_type_t<int64, StartType>;
 
@@ -973,7 +975,7 @@ namespace s3d
 	template<class T, class U, class S = int32, class StartType = std::common_type_t<T, U>, class CounterType = std::common_type_t<std::size_t, StartType>>
 	inline auto step_until(T a, U b, S s = 1)
 	{
-		static_assert(std::is_integral<StartType>::value || std::is_same<StartType, BigInt>::value, "step_until requires integral parameters");
+		static_assert(std::is_integral<StartType>::value || IsBigInt<StartType>::value, "step_until requires integral parameters");
 		CounterType  n;
 		using DiffType = std::common_type_t<int64, StartType>;
 
@@ -1510,3 +1512,5 @@ namespace s3d
 		Formatter(formatData, s.join());
 	}
 }
+
+# pragma warning (default: 4100)
