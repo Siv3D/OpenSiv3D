@@ -85,6 +85,8 @@
 	# include "Siv3D/Number.hpp"
 	// 多倍長整数
 	# include "Siv3D/BigInt.hpp"
+	// 多倍長浮動小数点数
+	# include "Siv3D/BigFloat.hpp"
 	// 整数のフォーマット
 	# include "Siv3D/FormatInt.hpp"
 	// 浮動小数点数のフォーマット
