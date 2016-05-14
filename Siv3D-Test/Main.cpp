@@ -9,6 +9,7 @@ void Main()
 {
 	Log(L"Hello, Siv3D!");
 
+	/*
 	RunTest();
 
 	// 0～100 の範囲
@@ -21,9 +22,7 @@ void Main()
 
 	// 1/1 + 1/2 + 1/3 + 1/4 + ... + 1/10000 の合計
 	Log(L"# Range(1, 10000).map(Divides(1.0, none)).reduce1(Plus())");
-	Log(18_dp, Range(1, 10000).map(Divides(1.0, none)).reduce1(Plus()));
-	Log(L"# Iota(10000, 0, -1).map(Divides(1.0, none)).reduce1(Plus())");
-	Log(18_dp, Iota(10000, 0, -1).map(Divides(1.0, none)).reduce1(Plus()));
+	Log(18_dp, Range(10000, 1, -1).map(Divides(1.0, none)).reduce1(Plus()));
 	Log(L"# Actual:");
 	Log(L"9.787606036044382264178...");
 
@@ -52,6 +51,12 @@ void Main()
 	Log(a, L'\n', b);
 	Range(1, 100).map([&a, &b](auto) { a = std::exchange(b, a + b); return b; }).each(Log);
 	
+	// 無限リスト
+	Log(L"# InfiniteList");
+	InfiniteList().take(5).each(Log);
+	Log(InfiniteList(0, 0.01).take_while([](auto v){ return v * v < 0.1; }));
+	InfiniteList<BigInt>(L"1000000000000000000000000000000000000000000000000000000"_big, 100).take(5).each(Log);
+
 	// 0〜9 の数をシャッフル
 	Log(L"# Range(0, 9).asArray().shuffle()");
 	Log(Range(0, 9).asArray().shuffle());
@@ -208,4 +213,5 @@ void Main()
 		System::Sleep(20);
 		tp.end();
 	}
+	*/
 }

@@ -32,6 +32,7 @@
 # include <type_traits>
 # include "Types.hpp"
 # include "BigInt.hpp"
+# include "TypeTraits.hpp"
 # include "Format.hpp"
 
 namespace s3d
@@ -506,7 +507,7 @@ namespace s3d
 	template <class T, class U, class S = int32, class StartType = std::common_type_t<T, U>, class CounterType = std::common_type_t<std::size_t, StartType>>
 	inline constexpr auto step_to(T a, U b, S s = 1)
 	{
-		static_assert(std::is_integral<StartType>::value || std::is_same<StartType, BigInt>::value, "step_to requires integral parameters");
+		static_assert(std::is_integral<StartType>::value || IsBigInt<StartType>::value, "step_to requires integral parameters");
 		CounterType  n = 0;
 		using DiffType = std::common_type_t<int64, StartType>;
 
@@ -533,7 +534,7 @@ namespace s3d
 	template<class T, class U, class S = int32, class StartType = std::common_type_t<T, U>, class CounterType = std::common_type_t<std::size_t, StartType>>
 	inline constexpr auto step_until(T a, U b, S s = 1)
 	{
-		static_assert(std::is_integral<StartType>::value || std::is_same<StartType, BigInt>::value, "step_until requires integral parameters");
+		static_assert(std::is_integral<StartType>::value || IsBigInt<StartType>::value, "step_until requires integral parameters");
 		CounterType  n;
 		using DiffType = std::common_type_t<int64, StartType>;
 
@@ -643,7 +644,7 @@ namespace s3d
 		{
 			if (std::get<Index>(tuple)(value))
 			{
-				Apply_impl<Fty, ValueType, Index + 1, Tuple, typename std::decay<decltype(std::get<Index + 1>(std::declval<Tuple>()))>::type>(f, value, tuple);
+				Apply_impl<Fty, ValueType, Index + 1, Tuple, std::decay_t<decltype(std::get<Index + 1>(std::declval<Tuple>()))>>(f, value, tuple);
 			}
 		}
 
@@ -658,13 +659,13 @@ namespace s3d
 			class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
 		constexpr void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
 		{
-			Apply_impl<Fty, decltype(std::get<Index>(tuple)(value)), Index + 1, Tuple, typename std::decay<decltype(std::get<Index + 1>(std::declval<Tuple>()))>::type>(f, std::get<Index>(tuple)(value), tuple);
+			Apply_impl<Fty, decltype(std::get<Index>(tuple)(value)), Index + 1, Tuple, std::decay_t<decltype(std::get<Index + 1>(std::declval<Tuple>()))>(f, std::get<Index>(tuple)(value), tuple);
 		}
 
 		template <class Fty, class ValueType, class Tuple>
 		constexpr void Apply(Fty f, const ValueType& value, const Tuple& tuple)
 		{
-			Apply_impl<Fty, ValueType, 0, Tuple, typename std::decay<decltype(std::get<0>(std::declval<Tuple>()))>::type>(f, value, tuple);
+			Apply_impl<Fty, ValueType, 0, Tuple, std::decay_t<decltype(std::get<0>(std::declval<Tuple>()))>>(f, value, tuple);
 		}
 
 
@@ -684,7 +685,7 @@ namespace s3d
 		{
 			if (std::get<Index>(tuple)(value))
 			{
-				Reduce_impl<Fty, ResultType, ValueType, Index + 1, Tuple, typename std::decay<decltype(std::get<Index + 1>(std::declval<Tuple>()))>::type>(f, result, value, tuple);
+				Reduce_impl<Fty, ResultType, ValueType, Index + 1, Tuple, std::decay_t<decltype(std::get<Index + 1>(std::declval<Tuple>()))>>(f, result, value, tuple);
 			}
 		}
 
@@ -699,13 +700,13 @@ namespace s3d
 			class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
 		constexpr void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
 		{
-			Reduce_impl<Fty, ResultType, decltype(std::get<Index>(tuple)(value)), Index + 1, Tuple, typename std::decay<decltype(std::get<Index + 1>(std::declval<Tuple>()))>::type>(f, result, std::get<Index>(tuple)(value), tuple);
+			Reduce_impl<Fty, ResultType, decltype(std::get<Index>(tuple)(value)), Index + 1, Tuple, std::decay_t<decltype(std::get<Index + 1>(std::declval<Tuple>()))>>(f, result, std::get<Index>(tuple)(value), tuple);
 		}
 
 		template <class Fty, class ResultType, class ValueType, class Tuple>
 		constexpr void Reduce(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
 		{
-			Reduce_impl<Fty, ResultType, ValueType, 0, Tuple, typename std::decay<decltype(std::get<0>(std::declval<Tuple>()))>::type>(f, result, value, tuple);
+			Reduce_impl<Fty, ResultType, ValueType, 0, Tuple, std::decay_t<decltype(std::get<0>(std::declval<Tuple>()))>>(f, result, value, tuple);
 		}
 
 		template <class StepClass, class ValueType, class Tuple>

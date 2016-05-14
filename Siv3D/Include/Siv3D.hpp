@@ -56,12 +56,16 @@
 	# include "Siv3D/Array.hpp"
 	// 範囲
 	# include "Siv3D/Step.hpp"
+	// 無限リスト
+	# include "Siv3D/InfiniteList.hpp"
 	// 二次元配列
 	# include "Siv3D/Grid.hpp"
 	// Optional
 	# include "Siv3D/Optional.hpp"
 	// unspecified
 	# include "Siv3D/Unspecified.hpp"
+	// 型特性
+	# include "Siv3D/TypeTraits.hpp"
 //
 // 文字列と数値
 //
