@@ -87,6 +87,9 @@
 		2C38B1461CDE45A7007A7E9F /* SivDateTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C38B1441CDE45A7007A7E9F /* SivDateTime.cpp */; };
 		2CA73B391CE6DC1900C83534 /* BigFloat.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CA73B381CE6DC1900C83534 /* BigFloat.hpp */; };
 		2CA73B3B1CE6DC2800C83534 /* TypeTraits.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CA73B3A1CE6DC2800C83534 /* TypeTraits.hpp */; };
+		2CA73B3D1CE728CC00C83534 /* CBigInt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CA73B3C1CE728CC00C83534 /* CBigInt.hpp */; };
+		2CA73B411CE728DB00C83534 /* CBigFloat.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CA73B3F1CE728DB00C83534 /* CBigFloat.hpp */; };
+		2CA73B421CE728DB00C83534 /* SivBigFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA73B401CE728DB00C83534 /* SivBigFloat.cpp */; };
 		2CC2B0BE1CB5552200BB42D0 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC2B0521CB5552200BB42D0 /* format.h */; };
 		2CC2B0F01CB5552200BB42D0 /* Siv3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC2B08A1CB5552200BB42D0 /* Siv3D.hpp */; };
 		2CC2B0FA1CB5552300BB42D0 /* Siv3DMain_OSX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B0A41CB5552200BB42D0 /* Siv3DMain_OSX.cpp */; };
@@ -207,6 +210,9 @@
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2CA73B381CE6DC1900C83534 /* BigFloat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BigFloat.hpp; sourceTree = "<group>"; };
 		2CA73B3A1CE6DC2800C83534 /* TypeTraits.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TypeTraits.hpp; sourceTree = "<group>"; };
+		2CA73B3C1CE728CC00C83534 /* CBigInt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CBigInt.hpp; sourceTree = "<group>"; };
+		2CA73B3F1CE728DB00C83534 /* CBigFloat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CBigFloat.hpp; sourceTree = "<group>"; };
+		2CA73B401CE728DB00C83534 /* SivBigFloat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBigFloat.cpp; sourceTree = "<group>"; };
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
 		2CC2B0521CB5552200BB42D0 /* format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
@@ -361,6 +367,7 @@
 		2C38B1071CDA352E007A7E9F /* BigInt */ = {
 			isa = PBXGroup;
 			children = (
+				2CA73B3C1CE728CC00C83534 /* CBigInt.hpp */,
 				2C38B1081CDA352E007A7E9F /* SivBigInt.cpp */,
 			);
 			path = BigInt;
@@ -484,6 +491,15 @@
 				2C38B14A1CDEB45C007A7E9F /* gtest.a */,
 			);
 			path = gtest;
+			sourceTree = "<group>";
+		};
+		2CA73B3E1CE728DB00C83534 /* BigFloat */ = {
+			isa = PBXGroup;
+			children = (
+				2CA73B3F1CE728DB00C83534 /* CBigFloat.hpp */,
+				2CA73B401CE728DB00C83534 /* SivBigFloat.cpp */,
+			);
+			path = BigFloat;
 			sourceTree = "<group>";
 		};
 		2CA7F7321CA7F34200495647 = {
@@ -618,6 +634,7 @@
 		2CC2B09B1CB5552200BB42D0 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2CA73B3E1CE728DB00C83534 /* BigFloat */,
 				2C17775C1CDEE6C100BB8AD0 /* FileSystem */,
 				2C38B1411CDE45A7007A7E9F /* Date */,
 				2C38B1431CDE45A7007A7E9F /* DateTime */,
@@ -720,6 +737,7 @@
 				2C38B0EE1CDA3517007A7E9F /* Optional.hpp in Headers */,
 				2C38B1011CDA3517007A7E9F /* Timer.hpp in Headers */,
 				2C38B0DE1CDA3517007A7E9F /* Char.hpp in Headers */,
+				2CA73B411CE728DB00C83534 /* CBigFloat.hpp in Headers */,
 				2C38B0FA1CDA3517007A7E9F /* Step_MSVC.hpp in Headers */,
 				2C38B0F81CDA3517007A7E9F /* RDTSCProfiler.hpp in Headers */,
 				2C38B0E91CDA3517007A7E9F /* Grid.hpp in Headers */,
@@ -756,6 +774,7 @@
 				2C38B0FB1CDA3517007A7E9F /* Step.hpp in Headers */,
 				2C38B0EC1CDA3517007A7E9F /* MathConstants.hpp in Headers */,
 				2CA73B3B1CE6DC2800C83534 /* TypeTraits.hpp in Headers */,
+				2CA73B3D1CE728CC00C83534 /* CBigInt.hpp in Headers */,
 				2C38B0F91CDA3517007A7E9F /* SpeedStopwatch.hpp in Headers */,
 				2C38B0F61CDA3517007A7E9F /* Radix.hpp in Headers */,
 				2C1777A31CDF67FD00BB8AD0 /* TextEncoding.hpp in Headers */,
@@ -879,6 +898,7 @@
 			files = (
 				2C17775E1CDEE6C100BB8AD0 /* SivFileSystem.cpp in Sources */,
 				2C38B1451CDE45A7007A7E9F /* SivDate.cpp in Sources */,
+				2CA73B421CE728DB00C83534 /* SivBigFloat.cpp in Sources */,
 				2C38B1241CDA352E007A7E9F /* SivTimeProfiler.cpp in Sources */,
 				2C38B11F1CDA352E007A7E9F /* SivLogger.cpp in Sources */,
 				2CC2B1091CB5552300BB42D0 /* fixed-dtoa.cc in Sources */,

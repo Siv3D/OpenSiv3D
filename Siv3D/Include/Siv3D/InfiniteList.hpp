@@ -42,7 +42,6 @@ namespace s3d
 			{
 				if (m_currentValue > std::numeric_limits<Type>::max() - m_step)
 				{
-					Log(m_currentValue, L">", std::numeric_limits<Type>::max() - m_step);
 					throw std::overflow_error("infinite_iterator: integer overflow");
 				}
 			}
