@@ -9,16 +9,11 @@
 //
 //-----------------------------------------------
 
-# include <boost/multiprecision/cpp_int.hpp>
 # include "../../../Include/Siv3D/BigInt.hpp"
+# include "CBigInt.hpp"
 
 namespace s3d
 {
-	struct BigInt::CBigInt
-	{
-		boost::multiprecision::cpp_int data;
-	};
-
 	BigInt::BigInt(int64 i)
 		: pImpl(std::make_unique<CBigInt>())
 	{

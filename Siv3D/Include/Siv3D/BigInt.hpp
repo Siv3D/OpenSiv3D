@@ -24,6 +24,7 @@ namespace s3d
 
 		struct CBigInt;
 		std::unique_ptr<CBigInt> pImpl;
+		friend class BigFloat;
 
 	public:
 
@@ -34,10 +35,11 @@ namespace s3d
 		BigInt(Integer i) : BigInt(static_cast<uint64>(i)) {}
 		BigInt(int64 i);
 		BigInt(uint64 i);
-		BigInt(const char* number);
-		BigInt(const wchar* number);
-		BigInt(const std::string& number);
-		BigInt(const std::wstring& number);
+		explicit BigInt(const char* number);
+		explicit BigInt(const wchar* number);
+		explicit BigInt(const std::string& number);
+		explicit BigInt(const std::wstring& number);
+		explicit BigInt(const String& number) : BigInt(number.str()) {}
 		BigInt(const BigInt& other);
 		BigInt(BigInt&& other);
 		~BigInt();
@@ -52,6 +54,7 @@ namespace s3d
 		BigInt& assign(const wchar* number);
 		BigInt& assign(const std::string& number);
 		BigInt& assign(const std::wstring& number);
+		BigInt& assign(const String& number) { return assign(number.str()); }
 		BigInt& assign(const BigInt& other);
 		BigInt& assign(BigInt&& other);
 
@@ -65,6 +68,7 @@ namespace s3d
 		BigInt& operator =(const wchar* number) { return assign(number); }
 		BigInt& operator =(const std::string& number) { return assign(number); }
 		BigInt& operator =(const std::wstring& number) { return assign(number); }
+		BigInt& operator =(const String& number) { return assign(number); }
 		BigInt& operator =(const BigInt& other) { return assign(other); }
 		BigInt& operator =(BigInt&& other) { return assign(std::move(other)); }
 

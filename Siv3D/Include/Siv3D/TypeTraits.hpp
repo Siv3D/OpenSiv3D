@@ -12,6 +12,7 @@
 # pragma once
 # include "Optional.hpp"
 # include "BigInt.hpp"
+# include "BigFloat.hpp"
 
 namespace s3d
 {
@@ -30,4 +31,21 @@ namespace s3d
 
 	template <>
 	struct IsBigInt<BigInt> : std::true_type {};
+
+
+	template <class Type>
+	struct IsBigFloat : std::false_type {};
+
+	template <>
+	struct IsBigFloat<BigFloat> : std::true_type {};
+
+
+	template <class Type>
+	struct IsBigNumber : std::false_type {};
+
+	template <>
+	struct IsBigNumber<BigInt> : std::true_type {};
+
+	template <>
+	struct IsBigNumber<BigFloat> : std::true_type {};
 }

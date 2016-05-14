@@ -71,6 +71,9 @@
     <Filter Include="Source\Siv3D\FileSystem">
       <UniqueIdentifier>{d6eec534-5688-4f7c-9d6a-5aad45ed5dcf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\BigFloat">
+      <UniqueIdentifier>{5ae29ec2-23cd-4d25-afac-e21263b84199}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -262,6 +265,12 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\TypeTraits.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\BigFloat\CBigFloat.hpp">
+      <Filter>Source\Siv3D\BigFloat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\BigInt\CBigInt.hpp">
+      <Filter>Source\Siv3D\BigInt</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\Siv3DMain_OSX.cpp">
@@ -338,6 +347,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\FileSystem\SivFileSystem.cpp">
       <Filter>Source\Siv3D\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\BigFloat\SivBigFloat.cpp">
+      <Filter>Source\Siv3D\BigFloat</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

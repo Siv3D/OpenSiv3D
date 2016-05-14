@@ -9,6 +9,27 @@ void Main()
 {
 	Log(L"Hello, Siv3D!");
 
+
+	//Log(L"# Range(1, 10000).map(Divides(1.0, none)).reduce1(Plus())");
+	//Log(18_dp, Range(10000, 1, -1).map(Divides(1.0, none)).reduce1(Plus()));
+	Log(Range(10000, 1, -1).map(Divides<BigFloat>(1.0, none)).reduce1(Plus()));
+	//Log(L"# Actual:");
+	//Log(L"9.7876060360443822641784779048516053348592629455776917183894609566816020249431595068001251272900808825913597601839...");
+
+	//InfiniteList(0.0_bigF, 0.00001_bigF).take(123).each(Log);
+
+	int i = 0;
+
+	for (auto f : InfiniteList(0_bigF, L"0.00001"_bigF))
+	{
+		Log(f);
+
+		if (++i > 10)
+			break;
+	}
+
+	//Log(BigFloat(L"3.14159265358979323846264338327950288"));
+
 	/*
 	RunTest();
 

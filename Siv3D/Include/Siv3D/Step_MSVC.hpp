@@ -22,6 +22,7 @@
 //
 
 # pragma once
+# pragma warning (disable: 4100)
 # include <iterator>
 # include <type_traits>
 # include "Types.hpp"
@@ -1511,3 +1512,5 @@ namespace s3d
 		Formatter(formatData, s.join());
 	}
 }
+
+# pragma warning (default: 4100)

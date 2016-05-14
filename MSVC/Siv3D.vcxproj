@@ -72,6 +72,8 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Unspecified.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Utility.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Version.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\BigFloat\CBigFloat.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\BigInt\CBigInt.hpp" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum-dtoa.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\cached-powers.h" />
@@ -86,6 +88,7 @@
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\Siv3DMain_OSX.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3DMain_Windows.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\BigFloat\SivBigFloat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\BigInt\SivBigInt.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\CharacterSet\SivCharacterSet.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\DateTime\SivDateTime.cpp" />
