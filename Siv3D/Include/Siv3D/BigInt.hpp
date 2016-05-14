@@ -25,6 +25,10 @@ namespace s3d
 		struct CBigInt;
 		std::unique_ptr<CBigInt> pImpl;
 		friend class BigFloat;
+		friend BigInt operator /(int64 a, const BigInt& b);
+		friend BigInt operator /(uint64 a, const BigInt& b);
+		friend BigInt operator %(int64 a, const BigInt& b);
+		friend BigInt operator %(uint64 a, const BigInt& b);
 
 	public:
 
@@ -261,6 +265,73 @@ namespace s3d
 		friend BigInt GCD(const BigInt&, const BigInt&);
 		friend BigInt LCM(const BigInt&, const BigInt&);
 	};
+
+	template <class Type>
+	inline BigInt operator +(const Type& a, const BigInt& b)
+	{
+		return b + a;
+	}
+
+	template <class Type>
+	inline BigInt operator -(const Type& a, const BigInt& b)
+	{
+		return -b + a;
+	}
+
+	template <class Type>
+	inline BigInt operator *(const Type& a, const BigInt& b)
+	{
+		return b * a;
+	}
+
+	template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+	inline BigInt operator /(Integer a, const BigInt& b)
+	{
+		return static_cast<int64>(a) / b;
+	}
+
+	template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+	inline BigInt operator /(Integer a, const BigInt& b)
+	{
+		return static_cast<uint64>(a) / b;
+	}
+
+	BigInt operator /(int64 a, const BigInt& b);
+	BigInt operator /(uint64 a, const BigInt& b);
+
+	template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && std::is_signed<Integer>::value)>* = nullptr>
+	inline BigInt operator %(Integer a, const BigInt& b)
+	{
+		return static_cast<int64>(a) / b;
+	}
+
+	template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
+	inline BigInt operator %(Integer a, const BigInt& b)
+	{
+		return static_cast<uint64>(a) / b;
+	}
+
+	BigInt operator %(int64 a, const BigInt& b);
+	BigInt operator %(uint64 a, const BigInt& b);
+
+	template <class Type>
+	inline BigInt operator &(const Type& a, const BigInt& b)
+	{
+		return b & a;
+	}
+
+	template <class Type>
+	inline BigInt operator |(const Type& a, const BigInt& b)
+	{
+		return b | a;
+	}
+
+	template <class Type>
+	inline BigInt operator ^(const Type& a, const BigInt& b)
+	{
+		return b ^ a;
+	}
+
 
 	BigInt GCD(const BigInt& a, const BigInt& b);
 
