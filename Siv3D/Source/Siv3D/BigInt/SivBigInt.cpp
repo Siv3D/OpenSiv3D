@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include "../../../Include/Siv3D/BigInt.hpp"
+# include <Siv3D/BigInt.hpp>
 # include "CBigInt.hpp"
 
 namespace s3d

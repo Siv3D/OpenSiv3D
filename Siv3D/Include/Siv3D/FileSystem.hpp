@@ -166,7 +166,7 @@ namespace s3d
 		/// <returns>
 		/// 親ディレクトリ。失敗した場合は空の文字列
 		/// </returns>
-		FilePath ParentPath(const FilePath& path, size_t level = 0);
+		FilePath ParentPath(const FilePath& path, size_t level = 0, FilePath* baseFullPath = nullptr);
 
 		/// <summary>
 		/// 指定したファイルのドライブのパスを返します。（例: L"C:/"）
@@ -188,7 +188,10 @@ namespace s3d
 		/// <returns>
 		/// 正規化したパス
 		/// </returns>
-		FilePath NormalizedPath(const FilePath& path);
+		inline FilePath NormalizedPath(const FilePath& path)
+		{
+			return FullPath(path).lowercased();
+		}
 
 		/// <summary>
 		/// 指定したファイルかディレクトリが空であるかを返します。

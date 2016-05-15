@@ -19,15 +19,15 @@
 #### 0.0.4
 - [x] BigFloat
 - [x] FileSystem (Partial)
-- [ ] IReader
+- [x] IWriter
+- [x] BinaryWriter
+- [x] IReader
 - [ ] BinaryReader
-- [ ] IWriter
-- [ ] BinaryWriter
+
+#### 0.0.5
 - [ ] TextReader
 - [ ] TextWriter
 - [ ] Logger
-
-#### 0.0.5
 - [ ] CSVReader
 - [ ] CSVWriter
 - [ ] INI (Partial)

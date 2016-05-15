@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include "../../../Include/Siv3D/Fwd.hpp"
+# include <Siv3D/Fwd.hpp>
 
 # if defined(SIV3D_TARGET_WINDOWS)
 
@@ -19,7 +19,7 @@
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
 # include <filesystem>
-# include "../../../Include/Siv3D/FileSystem.hpp"
+# include <Siv3D/FileSystem.hpp>
 
 namespace s3d
 {
@@ -548,7 +548,7 @@ namespace s3d
 
 # include <sys/stat.h>
 # include <boost/filesystem.hpp>
-# include "../../../Include/Siv3D/FileSystem.hpp"
+# include <Siv3D/FileSystem.hpp>
 
 extern bool trashFile(const char* path, unsigned long pathLength, bool isDirectory);
 
@@ -694,7 +694,14 @@ namespace s3d
                 return path;
             }
             
-            return detail::NormalizePath(fs::canonical(fs::path(path.str())).wstring());
+            if (detail::IsNotFound(path))
+            {
+                return detail::NormalizePath(fs::weakly_canonical(fs::system_complete(fs::path(path.str()))).wstring());
+            }
+            else
+            {
+                return detail::NormalizePath(fs::canonical(fs::path(path.str())).wstring());
+            }
         }
         
         FilePath VolumePath(const FilePath& path)
@@ -1028,7 +1035,7 @@ namespace s3d
             return String(fileName.begin(), fileName.begin() + dotPos);
         }
         
-        FilePath ParentPath(const FilePath& path, size_t level)
+        FilePath ParentPath(const FilePath& path, size_t level, FilePath* baseFullPath)
         {
             if (path.isEmpty())
             {
@@ -1041,6 +1048,11 @@ namespace s3d
             }
             
             FilePath result = FullPath(path);
+
+			if (baseFullPath)
+			{
+				*baseFullPath = result;
+			}
             
             if (result.ends_with(L'/'))
             {
@@ -1062,11 +1074,6 @@ namespace s3d
             }
             
             return result;
-        }
-        
-        FilePath NormalizedPath(const FilePath& path)
-        {
-            return FileSystem::FullPath(path).lowercase();
         }
 
 		// http://stackoverflow.com/questions/5772992/get-relative-path-from-two-absolute-paths
