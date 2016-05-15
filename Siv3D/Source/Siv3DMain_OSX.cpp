@@ -15,6 +15,8 @@
 # include <iostream>
 # include <unistd.h>
 # include "Siv3D/String.hpp"
+# include "Siv3D/FileSystem.hpp"
+# include "Siv3D/CharacterSet.hpp"
 
 void Main();
 
@@ -23,28 +25,10 @@ namespace s3d
 	namespace detail
 	{
 		void OutputLicense();
-	
-        std::string ParentPath(std::string path)
+
+        namespace init
         {
-            if (path.empty())
-            {
-                return std::string();
-            }
-            
-            if (path.back() == '/')
-            {
-                path.pop_back();
-            }
-            
-            if (!path.empty())
-            {
-                do
-                {
-                    path.pop_back();
-                } while (path.back() != '/' && !path.empty());
-            }
-            
-            return path;
+            void SetModulePath(const FilePath& path);
         }
     }
 }
@@ -52,10 +36,18 @@ namespace s3d
 int main(int argc, char* argv[])
 {
 	std::cout << "Siv3D for Mac\n";
+    
+    const s3d::FilePath path = s3d::CharacterSet::Widen(argv[0]);
+    s3d::FilePath modulePath = s3d::FileSystem::ParentPath(path, 2);
 
-    const std::string appPath =
-    s3d::detail::ParentPath(s3d::detail::ParentPath(s3d::detail::ParentPath(s3d::detail::ParentPath(argv[0]))));
-    chdir(appPath.c_str());
+    if (modulePath.ends_with(L'/'))
+    {
+        modulePath.pop_back();
+    }
+    
+    s3d::detail::init::SetModulePath(modulePath);
+
+    chdir(s3d::FileSystem::ParentPath(path, 3).narrow().c_str());
     
 	Main();
 

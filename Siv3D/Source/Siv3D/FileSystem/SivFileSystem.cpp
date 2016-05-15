@@ -242,142 +242,6 @@ namespace s3d
 			return detail::NormalizePath(FilePath(result, length), isDirectory);
 		}
 
-		String Extension(const FilePath& path)
-		{
-			if (path.isEmpty())
-			{
-				return String();
-			}
-
-			if (detail::IsResourcePath(path))
-			{
-				return String();
-			}
-
-			const size_t dotPos = path.lastIndexOf(L'.');
-
-			if (dotPos == String::npos)
-			{
-				return String();
-			}
-
-			const size_t sepPos = path.lastIndexOfAny(L"/\\");
-
-			if (sepPos != String::npos && dotPos < sepPos)
-			{
-				return String();
-			}
-
-			return path.substr(dotPos + 1).lowercased();
-		}
-
-		String FileName(const FilePath& path)
-		{
-			if (path.isEmpty())
-			{
-				return String();
-			}
-
-			if (detail::IsResourcePath(path))
-			{
-				return path;
-			}
-
-			const FilePath fullPath = FullPath(path);
-
-			if (fullPath.isEmpty())
-			{
-				return String();
-			}
-
-			if (fullPath.ends_with(L'/'))
-			{
-				const size_t sepPos = fullPath.lastIndexOf(L'/', fullPath.length() - 2);
-
-				if (sepPos == String::npos)
-				{
-					return String(fullPath.begin(), fullPath.end() - 1);
-				}
-				else
-				{
-					return String(fullPath.begin() + sepPos + 1, fullPath.end() - 1);
-				}
-			}
-			else
-			{
-				const size_t sepPos = fullPath.lastIndexOf(L'/');
-
-				if (sepPos == String::npos)
-				{
-					return fullPath;
-				}
-				else
-				{
-					return String(fullPath.begin() + sepPos + 1, fullPath.end());
-				}
-			}
-		}
-
-		String BaseName(const FilePath& path)
-		{
-			if (path.isEmpty())
-			{
-				return String();
-			}
-
-			if (detail::IsResourcePath(path))
-			{
-				return path;
-			}
-
-			const FilePath fileName = FileName(path);
-
-			const size_t dotPos = fileName.lastIndexOf(L'.');
-
-			if (dotPos == String::npos)
-			{
-				return fileName;
-			}
-
-			return String(fileName.begin(), fileName.begin() + dotPos);
-		}
-
-		FilePath ParentPath(const FilePath& path, size_t level)
-		{
-			if (path.isEmpty())
-			{
-				return FilePath();
-			}
-
-			if (detail::IsResourcePath(path))
-			{
-				return FilePath();
-			}
-
-			FilePath result = FullPath(path);
-
-			if (result.ends_with(L'/'))
-			{
-				result.pop_back();
-			}
-
-			while (!result.isEmpty())
-			{
-				do
-				{
-					result.pop_back();
-				}
-				while (!result.isEmpty() && !result.ends_with(L'/'));
-
-				if (level-- == 0)
-				{
-					break;
-				}
-			}
-
-			return result;
-		}
-
 		FilePath VolumePath(const FilePath& path)
 		{
 			if (path.isEmpty())
@@ -399,11 +263,6 @@ namespace s3d
 			}
 
 			return FilePath(result).replaced(L'\\', L'/');
-		}
-
-		FilePath NormalizedPath(const FilePath& path)
-		{
-			return FileSystem::FullPath(path).lowercase();
 		}
 
 		bool IsEmpty(const FilePath& path)
@@ -672,14 +531,36 @@ namespace s3d
             // [Siv3D*TODO]
             return false;
         }
-
-        static bool DirectoryExists(const FilePath& path)
+        
+        static bool GetStat(const FilePath& path, struct stat& s)
         {
-			struct stat s;
-			if (::stat(path.replaced(L'\\', L'/').narrow().c_str(), &s) != 0)
-			{
-				return false;
-			}
+            return (::stat(path.replaced(L'\\', L'/').narrow().c_str(), &s) == 0);
+        }
+
+        static bool IsNotFound(const FilePath& path)
+        {
+            struct stat s;
+            return !GetStat(path, s);
+        }
+        
+        static bool IsRegular(const FilePath& path)
+        {
+            struct stat s;
+            if (!GetStat(path, s))
+            {
+                return false;
+            }
+            
+            return S_ISREG(s.st_mode);
+        }
+
+        static bool IsDirectory(const FilePath& path)
+        {
+            struct stat s;
+            if (!GetStat(path, s))
+            {
+                return false;
+            }
 
 			return S_ISDIR(s.st_mode);
         }
@@ -694,7 +575,7 @@ namespace s3d
                 }
             }
             
-            if (!path.ends_with(L'/') && (skipDirectoryCheck || DirectoryExists(path)))
+            if (!path.ends_with(L'/') && (skipDirectoryCheck || IsDirectory(path)))
             {
                 path.push_back(L'/');
             }
@@ -702,7 +583,17 @@ namespace s3d
             return path;
         }
         
-        const static FilePath InitialPath = NormalizePath(fs::current_path().wstring());
+        namespace init
+        {
+            const static FilePath g_initialPath = NormalizePath(fs::current_path().wstring());
+            
+            static FilePath g_modulePath;
+            
+            void SetModulePath(const FilePath& path)
+            {
+                g_modulePath = path;
+            }
+        }
     }
     
     namespace FileSystem
@@ -720,8 +611,7 @@ namespace s3d
                 return false;
             }
             
-            struct stat s;
-            return (::stat(path.replaced(L'\\', L'/').narrow().c_str(), &s) == 0);
+            return !detail::IsNotFound(path);
         }
 
         bool IsDirectory(const FilePath& path)
@@ -736,7 +626,7 @@ namespace s3d
                 return false;
             }
             
-			return detail::DirectoryExists(path);
+			return detail::IsDirectory(path);
         }
 
         bool IsFile(const FilePath& path)
@@ -751,13 +641,7 @@ namespace s3d
                 return false;
             }
             
-            struct stat s;
-            if(::stat(path.replaced(L'\\', L'/').narrow().c_str(), &s) != 0)
-            {
-                return false;
-            }
-            
-            return S_ISREG(s.st_mode);
+			return detail::IsRegular(path);
         }
 
         bool IsResource(const FilePath&)
@@ -766,8 +650,179 @@ namespace s3d
             return false;
         }
 
-
-
+        FilePath FullPath(const FilePath& path)
+        {
+            if (path.isEmpty())
+            {
+                return path;
+            }
+            
+            if (detail::IsResourcePath(path))
+            {
+                return path;
+            }
+            
+            return detail::NormalizePath(fs::canonical(fs::path(path.str())).wstring());
+        }
+        
+        FilePath VolumePath(const FilePath& path)
+        {
+            return FilePath(1, L'/');
+        }
+        
+        bool IsEmpty(const FilePath& path)
+        {
+            if (path.isEmpty())
+            {
+                return false;
+            }
+            
+            if (detail::IsResourcePath(path))
+            {
+                return false;
+            }
+            
+            struct stat s;
+            if (!detail::GetStat(path, s))
+            {
+                return false;
+            }
+            
+            if (S_ISREG(s.st_mode))
+            {
+                return s.st_size == 0;
+            }
+            else if (S_ISDIR(s.st_mode))
+            {
+                return fs::directory_iterator(fs::path(path.str())) == fs::directory_iterator();
+            }
+            else
+            {
+                // [Siv3D*TODO]
+                return false;
+            }
+        }
+        
+        int64 Size(const FilePath& path)
+        {
+            if (path.isEmpty())
+            {
+                return 0;
+            }
+            
+            if (detail::IsResourcePath(path))
+            {
+                return FileSize(path);
+            }
+            
+            struct stat s;
+            if (!detail::GetStat(path, s))
+            {
+                return 0;
+            }
+            
+            if (S_ISREG(s.st_mode))
+            {
+                return s.st_size;
+            }
+            else if (S_ISDIR(s.st_mode))
+            {
+                int64 result = 0;
+                
+                for (const auto& v : fs::recursive_directory_iterator(path.str()))
+                {
+                    struct stat s;
+                    
+                    if (::stat(v.path().c_str(), &s) != 0 || S_ISDIR(s.st_mode))
+                    {
+                        continue;
+                    }
+                    
+                    result += s.st_size;
+                }
+                
+                return result;
+            }
+            else
+            {
+                // [Siv3D*TODO]
+                return 0;
+            }
+        }
+        
+        int64 FileSize(const FilePath& path)
+        {
+            if (path.isEmpty())
+            {
+                return 0;
+            }
+            
+            if (detail::IsResourcePath(path))
+            {
+                // [Siv3D*TODO]
+                return 0;
+            }
+            
+            struct stat s;
+            if (!detail::GetStat(path, s))
+            {
+                return 0;
+            }
+            
+            if (!S_ISREG(s.st_mode))
+            {
+                return 0;
+            }
+            
+            return s.st_size;
+        }
+        
+        Optional<DateTime> CreationTime(const FilePath& path)
+        {
+            struct stat s;
+            if (!detail::GetStat(path, s))
+            {
+                return none;
+            }
+            
+            auto tv = s.st_birthtimespec;
+            ::tm lt;
+            ::localtime_r(&tv.tv_sec, &lt);
+            return DateTime((1900 + lt.tm_year), (1 + lt.tm_mon), (lt.tm_mday),
+                            lt.tm_hour, lt.tm_min, lt.tm_sec, static_cast<int32>(tv.tv_nsec / (1000 * 1000)));
+        }
+        
+        Optional<DateTime> WriteTime(const FilePath& path)
+        {
+            struct stat s;
+            if (!detail::GetStat(path, s))
+            {
+                return none;
+            }
+            
+            auto tv = s.st_mtimespec;
+            ::tm lt;
+            ::localtime_r(&tv.tv_sec, &lt);
+            return DateTime((1900 + lt.tm_year), (1 + lt.tm_mon), (lt.tm_mday),
+                            lt.tm_hour, lt.tm_min, lt.tm_sec, static_cast<int32>(tv.tv_nsec / (1000 * 1000)));
+            
+        }
+        
+        Optional<DateTime> AccessTime(const FilePath& path)
+        {
+            struct stat s;
+            if (!detail::GetStat(path, s))
+            {
+                return none;
+            }
+            
+            auto tv = s.st_atimespec;
+            ::tm lt;
+            ::localtime_r(&tv.tv_sec, &lt);
+            return DateTime((1900 + lt.tm_year), (1 + lt.tm_mon), (lt.tm_mday),
+                            lt.tm_hour, lt.tm_min, lt.tm_sec, static_cast<int32>(tv.tv_nsec / (1000 * 1000)));
+        }
+        
 		Array<FilePath> DirectoryContents(const FilePath& path, const bool recursive)
 		{
 			Array<FilePath> paths;
@@ -799,45 +854,30 @@ namespace s3d
 
 			return paths;
 		}
-
-
-		FilePath CurrentPath()
-		{
-			return detail::NormalizePath(fs::current_path().wstring(), true);
-		}
-/*
-        FilePath FullPath(const FilePath& path)
+               
+        FilePath InitialPath()
         {
-            if (path.isEmpty())
-            {
-                return FilePath();
-            }
-            
-            if (detail::IsResourcePath(path))
-            {
-                return path;
-            }
-            
-            wchar result[1024];
-            wchar* pFilePart = nullptr;
-            const DWORD length = ::GetFullPathNameW(path.c_str(), std::size(result), result, &pFilePart);
-            
-            if (length == 0)
-            {
-                // [Siv3D*TODO]
-                return FilePath();
-            }
-            else if (length > std::size(result))
-            {
-                // [Siv3D*TODO]
-                return FilePath();
-            }
-            
-            const bool isDirectory = (pFilePart == nullptr);
-            
-            return detail::NormalizePath(FilePath(result, length), isDirectory);
+            return detail::init::g_initialPath;
+        }
+   
+        FilePath CurrentPath()
+        {
+            return detail::NormalizePath(fs::current_path().wstring());
         }
         
+        FilePath ModulePath()
+        {
+            return detail::init::g_modulePath;
+        }
+    }
+}
+
+# endif
+
+namespace s3d
+{
+    namespace FileSystem
+    {
         String Extension(const FilePath& path)
         {
             if (path.isEmpty())
@@ -937,18 +977,49 @@ namespace s3d
             
             return String(fileName.begin(), fileName.begin() + dotPos);
         }
-*/
+        
+        FilePath ParentPath(const FilePath& path, size_t level)
+        {
+            if (path.isEmpty())
+            {
+                return FilePath();
+            }
+            
+            if (detail::IsResourcePath(path))
+            {
+                return FilePath();
+            }
+            
+            FilePath result = FullPath(path);
+            
+            if (result.ends_with(L'/'))
+            {
+                result.pop_back();
+            }
+            
+            while (!result.isEmpty())
+            {
+                do
+                {
+                    result.pop_back();
+                }
+                while (!result.isEmpty() && !result.ends_with(L'/'));
                 
-        FilePath InitialPath()
-        {
-            return detail::InitialPath;
+                if (level-- == 0)
+                {
+                    break;
+                }
+            }
+            
+            return result;
         }
-   
-        FilePath CurrentPath()
+        
+        FilePath NormalizedPath(const FilePath& path)
         {
-            return detail::NormalizePath(fs::current_path().wstring());
+            return FileSystem::FullPath(path).lowercase();
         }
     }
 }
 
-# endif
+
+

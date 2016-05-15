@@ -38,6 +38,7 @@
 #include <string>
 #include <vector>
 #include <utility>
+#include "../Siv3D/Platform.hpp"
 
 #ifndef FMT_USE_IOSTREAMS
 # define FMT_USE_IOSTREAMS 1
@@ -532,13 +533,11 @@ typedef BasicCStringRef<wchar_t> WCStringRef;
 /**
   A formatting error such as invalid format string.
 */
-    /*
-class FormatError : public std::runtime_error {
+class S3D_EXCEPTION_ABI FormatError : public std::runtime_error {
  public:
   explicit FormatError(CStringRef message)
   : std::runtime_error(message.c_str()) {}
-};*/
-    using FormatError = std::runtime_error;
+};
 
 namespace internal {
 

@@ -9,44 +9,51 @@ void Main()
 {
 	Log(L"Hello, Siv3D!");
 
+	Log(L"---");
+	Log(FileSystem::FullPath(L""));
+	Log(FileSystem::FullPath(L"Example/Windmill.png"));
+	Log(FileSystem::FullPath(L"Example/"));
+	Log(FileSystem::FullPath(L"./"));
+	Log(FileSystem::FullPath(L"./Example/../"));	
+
+	Log(L"---");
+	Log(FileSystem::ParentPath(L"Example/Windmill.png"));
+	Log(FileSystem::ParentPath(L"Example/"));
+	Log(FileSystem::ParentPath(L"./"));
+	Log(FileSystem::ParentPath(L"./Example/../"));
+	Log(FileSystem::ParentPath(L"Example/Windmill.png", 0));
+	Log(FileSystem::ParentPath(L"Example/Windmill.png", 1));
+	Log(FileSystem::ParentPath(L"Example/Windmill.png", 2));
+	Log(FileSystem::ParentPath(L"Example/Windmill.png", 3));
+	
+	Log(L"---");
+	Log(FileSystem::Extension(L"Example/Windmill.png"));
+	Log(FileSystem::FileName(L"Example/Windmill.png"));
+	Log(FileSystem::BaseName(L"Example/Windmill.png"));
+
+	Log(L"---");
+	Log(FileSystem::Size(L"./"));
+	Log(FileSystem::Size(L"Example"));
+	Log(FileSystem::Size(L"Example/Windmill.png"));
+	Log(FileSystem::Size(L"Example/nothing"));
+	Log(FileSystem::FileSize(L"./"));
+	Log(FileSystem::FileSize(L"Example"));
+	Log(FileSystem::FileSize(L"Example/Windmill.png"));
+	Log(FileSystem::FileSize(L"Example/nothing"));
+
+	Log(L"---");
+	Log(FileSystem::CreationTime(L"Example/Windmill.png"));
+	Log(FileSystem::WriteTime(L"Example/Windmill.png"));
+	Log(FileSystem::AccessTime(L"Example/Windmill.png"));
+	
+	Log(L"---");
+	FileSystem::DirectoryContents(L"./", true).each(Log);
+	
+	Log(L"---");
 	Log(FileSystem::InitialPath());
 	Log(FileSystem::CurrentPath());
 	Log(FileSystem::ModulePath());
-
-	//FileSystem::DirectoryContents(L"./", true).each(Log);
-	//FileSystem::DirectoryContents2(L"./", true).each(Log);
-	//Log(FileSystem::Size(L"./"));
-	//Log(FileSystem::Size(L"./"));
-	//Log(FileSystem::Size(L"./"));
-
-	TimeProfiler t;
-
-	{
-		for (int i = 0; i < 10; ++i)
-		{
-			t.begin(L"aaa");
-			t.end();
-		}
 	
-		for (int i = 0; i < 10; ++i)
-		{
-			t.begin(L"bbb");
-			t.end();
-		}
-	}
-
-	//Log(FileSystem::DirectoryContents(L"./"));
-
-	//Log(FileSystem::FullPath(L"Example/Windmill.png"));
-	//Log(FileSystem::FullPath(L"Example/"));
-	//Log(FileSystem::FullPath(L"../"));
-	//Log(FileSystem::FullPath(L"./"));
-
-	//Log(FileSystem::ParentPath(L"Example/Windmill.png", 0));
-	//Log(FileSystem::ParentPath(L"Example/Windmill.png", 1));
-	//Log(FileSystem::ParentPath(L"Example/Windmill.png", 2));
-	//Log(FileSystem::ParentPath(L"Example/Windmill.png", 3));
-
 	RunTest();
 
 	/*

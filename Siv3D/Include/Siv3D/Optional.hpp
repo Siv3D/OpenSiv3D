@@ -100,7 +100,7 @@ namespace s3d
 	/// </summary>
 	constexpr nullopt_t none{ nullopt_t::init() };
 
-	class bad_optional_access : public std::logic_error
+	class S3D_EXCEPTION_ABI bad_optional_access : public std::logic_error
 	{
 	public:
 		explicit bad_optional_access(const std::string& what_arg)

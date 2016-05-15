@@ -146,7 +146,7 @@
 		2C1777A41CDF682900BB8AD0 /* TestFileSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestFileSystem.cpp; sourceTree = "<group>"; };
 		2C1777AB1CDF6F5200BB8AD0 /* boost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_filesystem.a; sourceTree = "<group>"; };
 		2C1777AD1CDF6F9300BB8AD0 /* boost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_system.a; sourceTree = "<group>"; };
-		2C1778B21CE0D5DB00BB8AD0 /* SIv3D-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SIv3D-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C1778B21CE0D5DB00BB8AD0 /* Siv3D-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Siv3D-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C1778BF1CE0D5DB00BB8AD0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C38B0AF1CDA3517007A7E9F /* Allocator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Allocator.hpp; sourceTree = "<group>"; };
 		2C38B0B01CDA3517007A7E9F /* Array.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Array.hpp; sourceTree = "<group>"; };
@@ -516,7 +516,7 @@
 			isa = PBXGroup;
 			children = (
 				2CA7F73D1CA7F3B100495647 /* libSiv3D.a */,
-				2C1778B21CE0D5DB00BB8AD0 /* SIv3D-Test.app */,
+				2C1778B21CE0D5DB00BB8AD0 /* Siv3D-Test.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -793,9 +793,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		2C1778B11CE0D5DB00BB8AD0 /* SIv3D-Test */ = {
+		2C1778B11CE0D5DB00BB8AD0 /* Siv3D-Test */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2C1778C01CE0D5DB00BB8AD0 /* Build configuration list for PBXNativeTarget "SIv3D-Test" */;
+			buildConfigurationList = 2C1778C01CE0D5DB00BB8AD0 /* Build configuration list for PBXNativeTarget "Siv3D-Test" */;
 			buildPhases = (
 				2C1778AE1CE0D5DB00BB8AD0 /* Sources */,
 				2C1778AF1CE0D5DB00BB8AD0 /* Frameworks */,
@@ -805,9 +805,9 @@
 			);
 			dependencies = (
 			);
-			name = "SIv3D-Test";
+			name = "Siv3D-Test";
 			productName = "SIv3D-Test";
-			productReference = 2C1778B21CE0D5DB00BB8AD0 /* SIv3D-Test.app */;
+			productReference = 2C1778B21CE0D5DB00BB8AD0 /* Siv3D-Test.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2CA7F73C1CA7F3B100495647 /* Siv3D */ = {
@@ -857,7 +857,7 @@
 			projectRoot = "";
 			targets = (
 				2CA7F73C1CA7F3B100495647 /* Siv3D */,
-				2C1778B11CE0D5DB00BB8AD0 /* SIv3D-Test */,
+				2C1778B11CE0D5DB00BB8AD0 /* Siv3D-Test */,
 			);
 		};
 /* End PBXProject section */
@@ -971,6 +971,7 @@
 				HEADER_SEARCH_PATHS = (
 					../Siv3D/Include,
 					"../Siv3D-Test/Include",
+					../Dependencies/boost_1_60_0,
 				);
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -1021,6 +1022,7 @@
 				HEADER_SEARCH_PATHS = (
 					../Siv3D/Include,
 					"../Siv3D-Test/Include",
+					../Dependencies/boost_1_60_0,
 				);
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -1143,7 +1145,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2C1778C01CE0D5DB00BB8AD0 /* Build configuration list for PBXNativeTarget "SIv3D-Test" */ = {
+		2C1778C01CE0D5DB00BB8AD0 /* Build configuration list for PBXNativeTarget "Siv3D-Test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2C1778C11CE0D5DB00BB8AD0 /* Debug */,

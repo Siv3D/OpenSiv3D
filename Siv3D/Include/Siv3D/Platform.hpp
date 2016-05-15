@@ -43,3 +43,11 @@
 # else
 	# define S3D_CONSTEXPR_CPP14			constexpr
 # endif
+
+# if defined(SIV3D_TARGET_WINDOWS)
+    # define S3D_EXCEPTION_ABI
+# else
+    # define S3D_EXCEPTION_ABI              __attribute__ ((__visibility__("default")))
+# endif
+
+
