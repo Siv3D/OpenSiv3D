@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # include <boost/multiprecision/cpp_int.hpp>
-# include "../../../Include/Siv3D/BigInt.hpp"
+# include <Siv3D/BigInt.hpp>
 
 namespace s3d
 {

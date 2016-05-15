@@ -9,9 +9,9 @@
 //
 //-----------------------------------------------
 
-# include "../../../Include/Siv3D/TimeProfiler.hpp"
-# include "../../../Include/Siv3D/Logger.hpp"
-# include "../../../Include/Siv3D/Utility.hpp"
+# include <Siv3D/TimeProfiler.hpp>
+# include <Siv3D/Logger.hpp>
+# include <Siv3D/Utility.hpp>
 
 namespace s3d
 {

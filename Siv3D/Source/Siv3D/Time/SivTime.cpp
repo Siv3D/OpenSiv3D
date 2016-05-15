@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include "../../../Include/Siv3D/Platform.hpp"
+# include <Siv3D/Platform.hpp>
 # if defined (SIV3D_TARGET_WINDOWS)
 
 # include <ctime>
@@ -19,7 +19,7 @@
 # define  _WIN32_WINNT _WIN32_WINNT_WIN7
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
-# include "../../../Include/Siv3D/Fwd.hpp"
+# include <Siv3D/Fwd.hpp>
 
 namespace s3d
 {
@@ -101,8 +101,8 @@ namespace s3d
 
 # include <mach/mach_time.h>
 # include <sys/time.h>
-# include "../../../Include/Siv3D/Fwd.hpp"
-# include "../../../Include/Siv3D/Time.hpp"
+# include <Siv3D/Fwd.hpp>
+# include <Siv3D/Time.hpp>
 
 namespace s3d
 {

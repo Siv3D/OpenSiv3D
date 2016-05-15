@@ -9,14 +9,14 @@
 //
 //-----------------------------------------------
 
-# include "Siv3D/Platform.hpp"
+# include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_OSX)
 
 # include <iostream>
 # include <unistd.h>
-# include "Siv3D/String.hpp"
-# include "Siv3D/FileSystem.hpp"
-# include "Siv3D/CharacterSet.hpp"
+# include <Siv3D/String.hpp>
+# include <Siv3D/FileSystem.hpp>
+# include <Siv3D/CharacterSet.hpp>
 
 void Main();
 

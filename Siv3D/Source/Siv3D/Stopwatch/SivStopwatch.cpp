@@ -9,8 +9,8 @@
 //
 //-----------------------------------------------
 
-# include "../../../Include/Siv3D/Stopwatch.hpp"
-# include "../../../Include/Siv3D/String.hpp"
+# include <Siv3D/Stopwatch.hpp>
+# include <Siv3D/String.hpp>
 
 namespace s3d
 {

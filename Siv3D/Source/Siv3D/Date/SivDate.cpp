@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include "../../../Include/Siv3D/Fwd.hpp"
+# include <Siv3D/Fwd.hpp>
 
 # if defined(SIV3D_TARGET_WINDOWS)
 
@@ -27,8 +27,8 @@
 # endif
 
 # include <boost/functional/hash.hpp>
-# include "../../../Include/Siv3D/Date.hpp"
-# include "../../../Include/Siv3D/Utility.hpp"
+# include <Siv3D/Date.hpp>
+# include <Siv3D/Utility.hpp>
 
 namespace s3d
 {

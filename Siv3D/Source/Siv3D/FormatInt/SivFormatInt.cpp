@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include "../../../Include/Siv3D/FormatInt.hpp"
+# include <Siv3D/FormatInt.hpp>
 
 namespace s3d
 {

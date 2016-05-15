@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # include <boost/multiprecision/cpp_dec_float.hpp>
-# include "../../../Include/Siv3D/BigFloat.hpp"
+# include <Siv3D/BigFloat.hpp>
 
 namespace s3d
 {

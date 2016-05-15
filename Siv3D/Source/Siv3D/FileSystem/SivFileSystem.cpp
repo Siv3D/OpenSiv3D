@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include "../../../Include/Siv3D/Fwd.hpp"
+# include <Siv3D/Fwd.hpp>
 
 # if defined(SIV3D_TARGET_WINDOWS)
 
@@ -19,7 +19,7 @@
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
 # include <filesystem>
-# include "../../../Include/Siv3D/FileSystem.hpp"
+# include <Siv3D/FileSystem.hpp>
 
 namespace s3d
 {
@@ -548,7 +548,7 @@ namespace s3d
 
 # include <sys/stat.h>
 # include <boost/filesystem.hpp>
-# include "../../../Include/Siv3D/FileSystem.hpp"
+# include <Siv3D/FileSystem.hpp>
 
 extern bool trashFile(const char* path, unsigned long pathLength, bool isDirectory);
 

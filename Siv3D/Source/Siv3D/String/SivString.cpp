@@ -9,8 +9,8 @@
 //
 //-----------------------------------------------
 
-# include "../../../Include/Siv3D/String.hpp"
-# include "../../../Include/Siv3D/Array.hpp"
+# include <String.hpp>
+# include <Siv3D/Array.hpp>
 
 namespace s3d
 {

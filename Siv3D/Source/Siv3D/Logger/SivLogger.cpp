@@ -10,10 +10,10 @@
 //-----------------------------------------------
 
 # include <fstream>
-# include "../../../Include/Siv3D/Platform.hpp"
-# include "../../../Include/Siv3D/Logger.hpp"
-# include "../../../Include/Siv3D/String.hpp"
-# include "../../../Include/Siv3D/Version.hpp"
+# include <Siv3D/Platform.hpp>
+# include <Siv3D/Logger.hpp>
+# include <Siv3D/String.hpp>
+# include <Siv3D/Version.hpp>
 
 namespace s3d
 {

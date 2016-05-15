@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include "Siv3D/Platform.hpp"
+# include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_WINDOWS)
 
 # include <crtdbg.h>
@@ -18,9 +18,9 @@
 # define  _WIN32_WINNT _WIN32_WINNT_WIN7
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
-# include "../Include/Siv3D/Fwd.hpp"
-# include "../Include/Siv3D/String.hpp"
-# include "../Include/Siv3D/FileSystem.hpp"
+# include <Siv3D/Fwd.hpp>
+# include <Siv3D/String.hpp>
+# include <Siv3D/FileSystem.hpp>
 
 void Main();
 

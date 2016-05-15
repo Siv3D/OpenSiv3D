@@ -9,8 +9,8 @@
 //
 //-----------------------------------------------
 
-# include "../../../Include/Siv3D/String.hpp"
-# include "../../../Include/Siv3D/Optional.hpp"
+# include <Siv3D/String.hpp>
+# include <Siv3D/Optional.hpp>
 
 //////////////////////////////////////////////////////////////////////////////
 //

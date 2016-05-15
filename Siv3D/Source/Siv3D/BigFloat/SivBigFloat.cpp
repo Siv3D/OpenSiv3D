@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include "../../../Include/Siv3D/BigFloat.hpp"
+# include <Siv3D/BigFloat.hpp>
 # include "CBigFloat.hpp"
 # include "../BigInt/CBigInt.hpp"
 
