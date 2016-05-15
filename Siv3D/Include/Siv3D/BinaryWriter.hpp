@@ -109,7 +109,7 @@ namespace s3d
 		/// <returns>
 		/// バイナリファイルのサイズ（バイト）
 		/// </returns>
-		size_t size() const override;
+		int64 size() const override;
 
 		/// <summary>
 		/// 現在の書き込み位置を返します。
@@ -117,7 +117,7 @@ namespace s3d
 		/// <returns>
 		/// 現在の書き込み位置（バイト）
 		/// </returns>
-		size_t getPos() const override;
+		int64 getPos() const override;
 
 		/// <summary>
 		/// 書き込み位置を変更します。
@@ -150,7 +150,7 @@ namespace s3d
 		/// <returns>
 		/// 実際に書き込んだサイズ（バイト）
 		/// </returns>
-		size_t write(const void* buffer, size_t size) override;
+		int64 write(const void* buffer, size_t size) override;
 
 		/// <summary>
 		/// ファイルにデータを書き込みます。
@@ -162,7 +162,7 @@ namespace s3d
 		/// 実際に書き込んだサイズ（バイト）
 		/// </returns>
 		template <class Type, std::enable_if_t<std::is_trivially_copyable<Type>::value>* = nullptr>
-		size_t write(const Type& src)
+		int64 write(const Type& src)
 		{
 			return write(&src, sizeof(Type));
 		}
@@ -177,7 +177,7 @@ namespace s3d
 		/// 実際に書き込んだサイズ（バイト）
 		/// </returns>
 		template <class Type, std::enable_if_t<std::is_trivially_copyable<Type>::value>* = nullptr>
-		size_t write(std::initializer_list<Type> ilist)
+		int64 write(std::initializer_list<Type> ilist)
 		{
 			size_t result = 0;
 
@@ -199,7 +199,7 @@ namespace s3d
 		/// 実際に書き込んだサイズ（バイト）
 		/// </returns>
 		template <class Type, std::enable_if_t<std::is_trivially_copyable<Type>::value>* = nullptr>
-		size_t write(const std::vector<Type>& src)
+		int64 write(const Array<Type>& src)
 		{
 			return src.empty() ? 0 : write(src.data(), src.size_bytes());
 		}
@@ -213,7 +213,7 @@ namespace s3d
 		/// <returns>
 		/// 実際に書き込んだサイズ（バイト）
 		/// </returns>
-		//size_t write(const ByteArray& src)
+		//int64 write(const ByteArray& src)
 		//{
 		//	return src.size() ? write(src.data(), static_cast<size_t>(src.size())) : 0;
 		//}

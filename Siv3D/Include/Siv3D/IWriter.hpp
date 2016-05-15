@@ -41,7 +41,7 @@ namespace s3d
 		/// <returns>
 		/// Writer のサイズ（バイト）
 		/// </returns>
-		virtual size_t size() const = 0;
+		virtual int64 size() const = 0;
 
 		/// <summary>
 		/// Writer の現在の書き込み位置を返します。
@@ -49,7 +49,7 @@ namespace s3d
 		/// <returns>
 		/// 現在の書き込み位置（バイト）
 		/// </returns>
-		virtual size_t getPos() const = 0;
+		virtual int64 getPos() const = 0;
 
 		/// <summary>
 		/// Writer の書き込み位置を変更します。
@@ -74,7 +74,7 @@ namespace s3d
 		/// <returns>
 		/// 実際に書き込んだサイズ（バイト）
 		/// </returns>
-		virtual size_t write(const void* buffer, size_t size) = 0;
+		virtual int64 write(const void* buffer, size_t size) = 0;
 
 		/// <summary>
 		/// Writer にデータを書き込みます。
@@ -86,7 +86,7 @@ namespace s3d
 		/// 実際に書き込んだサイズ（バイト）
 		/// </returns>
 		template <class Type, std::enable_if_t<std::is_trivially_copyable<Type>::value>* = nullptr>
-		size_t write(const Type& src)
+		int64 write(const Type& src)
 		{
 			return write(std::addressof(src), sizeof(Type));
 		}
@@ -101,9 +101,9 @@ namespace s3d
 		/// 実際に書き込んだサイズ（バイト）
 		/// </returns>
 		template <class Type, std::enable_if_t<std::is_trivially_copyable<Type>::value>* = nullptr>
-		size_t write(std::initializer_list<Type> ilist)
+		int64 write(std::initializer_list<Type> ilist)
 		{
-			size_t result = 0;
+			int64 result = 0;
 
 			for (const auto& elem : ilist)
 			{
@@ -123,7 +123,7 @@ namespace s3d
 		/// 実際に書き込んだサイズ（バイト）
 		/// </returns>
 		template <class Type, std::enable_if_t<std::is_trivially_copyable<Type>::value>* = nullptr>
-		size_t write(const Array<Type>& src)
+		int64 write(const Array<Type>& src)
 		{
 			return src.empty() ? 0 : write(src.data(), src.size_bytes());
 		}

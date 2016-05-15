@@ -41,7 +41,7 @@ namespace s3d
 		/// <returns>
 		/// Reader のサイズ（バイト）
 		/// </returns>
-		virtual size_t size() const = 0;
+		virtual int64 size() const = 0;
 
 		/// <summary>
 		/// Reader の現在の読み込み位置を返します。
@@ -49,7 +49,7 @@ namespace s3d
 		/// <returns>
 		/// 現在の読み込み位置（バイト）
 		/// </returns>
-		virtual size_t getPos() const = 0;
+		virtual int64 getPos() const = 0;
 
 		/// <summary>
 		/// Reader の読み込み位置を変更します。
@@ -71,7 +71,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい読み込み位置（バイト）
 		/// </returns>
-		virtual size_t skip(int64 offset) = 0;
+		virtual int64 skip(int64 offset) = 0;
 
 		/// <summary>
 		/// Reader からデータを読み込みます。
@@ -85,7 +85,7 @@ namespace s3d
 		/// <returns>
 		/// 実際に読み込んだサイズ（バイト）
 		/// </returns>
-		virtual size_t read(void* buffer, int64 size) = 0;
+		virtual int64 read(void* buffer, int64 size) = 0;
 
 		/// <summary>
 		/// Reader からデータを読み込みます。
@@ -102,7 +102,7 @@ namespace s3d
 		/// <returns>
 		/// 実際に読み込んだサイズ（バイト）
 		/// </returns>
-		virtual size_t read(void* buffer, int64 pos, int64 size) = 0;
+		virtual int64 read(void* buffer, int64 pos, int64 size) = 0;
 
 		/// <summary>
 		/// Reader からデータを読み込みます。

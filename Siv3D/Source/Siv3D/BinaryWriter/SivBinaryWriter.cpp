@@ -9,7 +9,81 @@
 //
 //-----------------------------------------------
 
+# include <Siv3D/BinaryWriter.hpp>
+# include "CBinaryWriter_windows.hpp"
+# include "CBinaryWriter_osx.hpp"
+
 namespace s3d
 {
+	BinaryWriter::BinaryWriter()
+		: pImpl(std::make_shared<CBinaryWriter>())
+	{
 
+	}
+
+	BinaryWriter::BinaryWriter(const FilePath& path, const OpenMode openMode)
+		: BinaryWriter()
+	{
+		pImpl->open(path, openMode);
+	}
+
+	bool BinaryWriter::open(const FilePath& path, const OpenMode openMode)
+	{
+		return pImpl->open(path, openMode);
+	}
+
+	void BinaryWriter::flush()
+	{
+		pImpl->flush();
+	}
+
+	void BinaryWriter::close()
+	{
+		pImpl->close();
+	}
+
+	bool BinaryWriter::isOpened() const
+	{
+		return pImpl->isOpened();
+	}
+
+	void BinaryWriter::clear()
+	{
+		pImpl->clear();
+	}
+
+	int64 BinaryWriter::size() const
+	{
+		return pImpl->size();
+	}
+
+	int64 BinaryWriter::getPos() const
+	{
+		return pImpl->getPos();
+	}
+
+	bool BinaryWriter::setPos(int64 pos)
+	{
+		if (pos < 0 || pImpl->size() < pos)
+		{
+			return false;
+		}
+
+		return pImpl->setPos(pos) == pos;
+	}
+
+	int64 BinaryWriter::seekEnd()
+	{
+		return pImpl->setPos(pImpl->size());
+	}
+
+	int64 BinaryWriter::write(const void* const src, const size_t size)
+	{
+		return pImpl->write(src, size);
+	}
+
+	const FilePath& BinaryWriter::path() const
+	{
+		return pImpl->path();
+	}
 }

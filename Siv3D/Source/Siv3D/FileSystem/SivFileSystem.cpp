@@ -1028,7 +1028,7 @@ namespace s3d
             return String(fileName.begin(), fileName.begin() + dotPos);
         }
         
-        FilePath ParentPath(const FilePath& path, size_t level)
+        FilePath ParentPath(const FilePath& path, size_t level, FilePath* baseFullPath)
         {
             if (path.isEmpty())
             {
@@ -1041,6 +1041,11 @@ namespace s3d
             }
             
             FilePath result = FullPath(path);
+
+			if (baseFullPath)
+			{
+				*baseFullPath = result;
+			}
             
             if (result.ends_with(L'/'))
             {
