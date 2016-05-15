@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
-# include "Siv3D/Platform.hpp"
+# include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_OSX)
 
 namespace s3d
