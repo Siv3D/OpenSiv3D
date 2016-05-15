@@ -9,7 +9,7 @@ void Main()
 {
 	Log(L"Hello, Siv3D!");
 
-	///*
+	/*
 	RunTest();
 
 	// 0～100 の範囲
@@ -290,8 +290,7 @@ void Main()
 	Log(FileSystem::RelativePath(L"example/windmill.png", L"example/"));
 	Log(FileSystem::RelativePath(L"../../", L"example/"));
 	Log(FileSystem::RelativePath(L"./", L"./"));
-	
-	
+		
 	// TimeProfiler
 	TimeProfiler tp;
 	for (int32 i = 0; i < 50; ++i)

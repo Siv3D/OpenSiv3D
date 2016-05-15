@@ -327,27 +327,27 @@ namespace s3d
 		/// </returns>
 		//FilePath UniquePath();
 
-        /// <summary>
-        /// ディレクトリを作成します。
-        /// </summary>
-        /// <param name="path">
-        /// パス
-        /// </param>
-        /// <returns>
-        /// 成功した場合は true, それ以外の場合は false
-        /// </returns>
-        //bool CreateDirectories(const FilePath& path);
+		/// <summary>
+		/// ディレクトリを作成します。
+		/// </summary>
+		/// <param name="path">
+		/// パス
+		/// </param>
+		/// <returns>
+		/// 成功した場合は true, それ以外の場合は false
+		/// </returns>
+		bool CreateDirectories(const FilePath& path);
         
-        /// <summary>
-        /// 指定したパスまでの親ディレクトリを作成します。
-        /// </summary>
-        /// <param name="path">
-        /// パス
-        /// </param>
-        /// <returns>
-        /// 成功した場合は true, それ以外の場合は false
-        /// </returns>
-        //bool CreateParentDirectories(const FilePath& path);
+		/// <summary>
+		/// 指定したパスまでの親ディレクトリを作成します。
+		/// </summary>
+		/// <param name="path">
+		/// パス
+		/// </param>
+		/// <returns>
+		/// 成功した場合は true, それ以外の場合は false
+		/// </returns>
+		bool CreateParentDirectories(const FilePath& path);
         
 		/// <summary>
 		/// ファイルまたはディレクトリの中身をコピーします。
@@ -378,7 +378,7 @@ namespace s3d
 		/// <returns>
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
-		//bool Remove(const FilePath& path, bool allowUndo = false);
+		bool Remove(const FilePath& path, bool allowUndo = false);
 
 		/// <summary>
 		/// ディレクトリの中身を削除します。

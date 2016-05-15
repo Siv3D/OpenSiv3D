@@ -15,7 +15,6 @@
 
 # define  NOMINMAX
 # define  STRICT
-# define  WIN32_LEAN_AND_MEAN
 # define  _WIN32_WINNT _WIN32_WINNT_WIN7
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
@@ -146,6 +145,19 @@ namespace s3d
 			while (::FindNextFileW(sh, &data));
 
 			::FindClose(sh);
+		}
+
+		static bool Remove(const FilePath& path, const bool allowUndo)
+		{
+			const String from = (path + L'\0').replaced(L'/', L'\\');
+
+			SHFILEOPSTRUCTW fileOption{};
+			fileOption.wFunc	= FO_DELETE;
+			fileOption.pFrom	= from.c_str();
+			fileOption.fFlags	= FOF_NOERRORUI | FOF_SILENT | FOF_NOCONFIRMATION
+								  | (allowUndo ? FOF_ALLOWUNDO : 0);
+
+			return ::SHFileOperationW(&fileOption) == 0 && !fileOption.fAnyOperationsAborted;
 		}
 
 		namespace init
@@ -290,7 +302,7 @@ namespace s3d
 			{
 				::WIN32_FILE_ATTRIBUTE_DATA fad;
 
-				if (::GetFileAttributesExW(path.c_str(), ::GetFileExInfoStandard, &fad) != 0)
+				if (::GetFileAttributesExW(path.c_str(), ::GetFileExInfoStandard, &fad) == 0)
 				{
 					// [Siv3D*TODO]
 					return false;
@@ -366,6 +378,11 @@ namespace s3d
 			if (::GetFileAttributesExW(path.c_str(), ::GetFileExInfoStandard, &fad) == 0)
 			{
 				// [Siv3D*TODO]
+				return 0;
+			}
+
+			if (fad.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+			{
 				return 0;
 			}
 
@@ -508,6 +525,21 @@ namespace s3d
 		//FilePath TemporaryPath();
 
 		//FilePath UniquePath();
+
+		bool Remove(const FilePath& path, const bool allowUndo)
+		{
+			if (path.isEmpty())
+			{
+				return false;
+			}
+
+			if (detail::IsResourcePath(path))
+			{
+				return false;
+			}
+
+			return detail::Remove(path, allowUndo);
+		}
 	}
 }
 
@@ -1099,6 +1131,57 @@ namespace s3d
 			}
 
 			return CharacterSet::Widen(output.string()).replace(L'\\', L'/');
+		}
+
+		bool CreateDirectories(const FilePath& path)
+		{
+			if (path.isEmpty())
+			{
+				return false;
+			}
+
+			if (detail::IsResourcePath(path))
+			{
+				return false;
+			}
+
+			try
+			{
+				if (fs::create_directories(fs::path(path.str())))
+				{
+					return true;
+				}
+				else
+				{
+					return true;
+				}
+			}
+			catch (const fs::filesystem_error&)
+			{
+				return false;
+			}
+		}
+
+		bool CreateParentDirectories(const FilePath& path)
+		{
+			if (path.isEmpty())
+			{
+				return false;
+			}
+
+			if (detail::IsResourcePath(path))
+			{
+				return false;
+			}
+
+			const FilePath parentDirectory = ParentPath(FullPath(path));
+
+			if (!Exists(parentDirectory))
+			{
+				return CreateDirectories(parentDirectory);
+			}
+
+			return true;
 		}
     }
 }
