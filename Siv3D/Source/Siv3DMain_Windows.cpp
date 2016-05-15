@@ -15,10 +15,12 @@
 # include <crtdbg.h>
 # define  NOMINMAX
 # define  STRICT
-# define  WIN32_LEAN_AND_MEAN
 # define  _WIN32_WINNT _WIN32_WINNT_WIN7
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
+# include "../Include/Siv3D/Fwd.hpp"
+# include "../Include/Siv3D/String.hpp"
+# include "../Include/Siv3D/FileSystem.hpp"
 
 void Main();
 
@@ -33,6 +35,19 @@ namespace s3d
 int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
+	{
+		int nArgs = 0;
+
+		LPWSTR* szArglist = ::CommandLineToArgvW(::GetCommandLineW(), &nArgs);
+
+		if (nArgs >= 2 && s3d::FileSystem::Exists(szArglist[1]))
+		{
+			::SetCurrentDirectoryW(s3d::FileSystem::ParentPath(s3d::FileSystem::ModulePath()).c_str());
+		}
+
+		::LocalFree(szArglist);
+	}
 
 	::OutputDebugStringW(L"Siv3D for Windows\n");
 

@@ -266,19 +266,19 @@ namespace s3d
 		friend BigInt LCM(const BigInt&, const BigInt&);
 	};
 
-	template <class Type>
+	template <class Type, std::enable_if_t<std::is_integral<Type>::value>* = nullptr>
 	inline BigInt operator +(const Type& a, const BigInt& b)
 	{
 		return b + a;
 	}
 
-	template <class Type>
+	template <class Type, std::enable_if_t<std::is_integral<Type>::value>* = nullptr>
 	inline BigInt operator -(const Type& a, const BigInt& b)
 	{
 		return -b + a;
 	}
 
-	template <class Type>
+	template <class Type, std::enable_if_t<std::is_integral<Type>::value>* = nullptr>
 	inline BigInt operator *(const Type& a, const BigInt& b)
 	{
 		return b * a;
@@ -314,19 +314,19 @@ namespace s3d
 	BigInt operator %(int64 a, const BigInt& b);
 	BigInt operator %(uint64 a, const BigInt& b);
 
-	template <class Type>
+	template <class Type, std::enable_if_t<std::is_integral<Type>::value>* = nullptr>
 	inline BigInt operator &(const Type& a, const BigInt& b)
 	{
 		return b & a;
 	}
 
-	template <class Type>
+	template <class Type, std::enable_if_t<std::is_integral<Type>::value>* = nullptr>
 	inline BigInt operator |(const Type& a, const BigInt& b)
 	{
 		return b | a;
 	}
 
-	template <class Type>
+	template <class Type, std::enable_if_t<std::is_integral<Type>::value>* = nullptr>
 	inline BigInt operator ^(const Type& a, const BigInt& b)
 	{
 		return b ^ a;

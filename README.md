@@ -18,7 +18,7 @@
 
 #### 0.0.4
 - [x] BigFloat
-- [ ] FileSystem (Partial)
+- [x] FileSystem (Partial)
 - [ ] IReader
 - [ ] BinaryReader
 - [ ] IWriter

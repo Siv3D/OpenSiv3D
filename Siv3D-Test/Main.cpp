@@ -9,7 +9,7 @@ void Main()
 {
 	Log(L"Hello, Siv3D!");
 
-	///*
+	/*
 	RunTest();
 
 	// 0～100 の範囲
@@ -198,12 +198,99 @@ void Main()
 	
 	// FileSystem
 	Log(L"# FileSystem");
-	Log(FileSystem::InitialPath());
-	Log(FileSystem::CurrentPath());
-	Log(FileSystem::Exists(L"example/siv3d-kun.png"));
-	Log(FileSystem::IsFile(L"example/siv3d-kun.png"));
-	Log(FileSystem::IsDirectory(L"example/siv3d-kun.png"));
 
+	Log(L"## Exists");
+	Log(FileSystem::Exists(L"example/"));
+	Log(FileSystem::Exists(L"example/siv3d-kun.png"));
+	Log(FileSystem::Exists(L"example/aaa"));
+
+	Log(L"## IsDirectory");
+	Log(FileSystem::IsDirectory(L"example/"));
+	Log(FileSystem::IsDirectory(L"example/siv3d-kun.png"));
+	Log(FileSystem::IsDirectory(L"example/aaa"));
+	
+	Log(L"## IsFile");
+	Log(FileSystem::IsFile(L"example/"));
+	Log(FileSystem::IsFile(L"example/siv3d-kun.png"));
+	Log(FileSystem::IsFile(L"example/aaa"));
+	
+	Log(L"## FullPath");
+	Log(FileSystem::FullPath(L"example/windmill.png"));
+	Log(FileSystem::FullPath(L"example/"));
+	Log(FileSystem::FullPath(L"./"));
+	Log(FileSystem::FullPath(L"./example/../"));
+
+	Log(L"## Extension");
+	Log(FileSystem::Extension(L"example/windmill.png"));
+	
+	Log(L"## FileName");
+	Log(FileSystem::FileName(L"example/windmill.png"));
+	
+	Log(L"## BaseName");
+	Log(FileSystem::BaseName(L"example/windmill.png"));
+	
+	Log(L"## ParentPath");
+	Log(FileSystem::ParentPath(L"example/windmill.png"));
+	Log(FileSystem::ParentPath(L"example/windmill.png", 0));
+	Log(FileSystem::ParentPath(L"example/windmill.png", 1));
+	Log(FileSystem::ParentPath(L"example/windmill.png", 2));
+	Log(FileSystem::ParentPath(L"example/windmill.png", 3));
+	
+	Log(L"## VolumePath");
+	Log(FileSystem::VolumePath(L"example/windmill.png"));
+	
+	Log(L"## NormalizedPath");
+	Log(FileSystem::NormalizedPath(L"example/windmill.png"));
+	Log(FileSystem::NormalizedPath(L"EXAMPLE/WINDMILL.png"));
+	Log(FileSystem::NormalizedPath(L"example/../example/windmill.png"));
+
+	Log(L"## IsEmpty");
+	Log(FileSystem::IsEmpty(L"example/windmill.png"));
+	Log(FileSystem::IsEmpty(L"example/"));
+	Log(FileSystem::IsEmpty(L"example/empty/"));
+	Log(FileSystem::IsEmpty(L"example/empty.bin"));
+
+	Log(L"## Size");
+	Log(FileSystem::Size(L"./"));
+	Log(FileSystem::Size(L"example"));
+	Log(FileSystem::Size(L"example/windmill.png"));
+	Log(FileSystem::Size(L"example/aaa"));
+
+	Log(L"## FileSize");
+	Log(FileSystem::FileSize(L"./"));
+	Log(FileSystem::FileSize(L"example"));
+	Log(FileSystem::FileSize(L"example/windmill.png"));
+	Log(FileSystem::FileSize(L"example/aaa"));
+	
+	Log(L"## CreationTime");
+	Log(FileSystem::CreationTime(L"example/windmill.png"));
+
+	Log(L"## WriteTime");
+	Log(FileSystem::WriteTime(L"example/windmill.png"));
+	
+	Log(L"## AccessTime");
+	Log(FileSystem::AccessTime(L"example/windmill.png"));
+	
+	Log(L"## DirectoryContents");
+	FileSystem::DirectoryContents(L"Example", false).each(Log);
+	
+	Log(L"## DirectoryContents (recursive)");
+	FileSystem::DirectoryContents(L"Example", true).each(Log);
+
+	Log(L"## InitialPath");
+	Log(FileSystem::InitialPath());
+	
+	Log(L"## CurrentPath");
+	Log(FileSystem::CurrentPath());
+	
+	Log(L"## ModulePath");
+	Log(FileSystem::ModulePath());
+	
+	Log(L"## RelativePath");
+	Log(FileSystem::RelativePath(L"example/windmill.png", L"example/"));
+	Log(FileSystem::RelativePath(L"../../", L"example/"));
+	Log(FileSystem::RelativePath(L"./", L"./"));
+		
 	// TimeProfiler
 	TimeProfiler tp;
 	for (int32 i = 0; i < 50; ++i)

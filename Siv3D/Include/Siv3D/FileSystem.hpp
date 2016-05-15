@@ -13,6 +13,8 @@
 # include "Fwd.hpp"
 # include "Array.hpp"
 # include "String.hpp"
+# include "Optional.hpp"
+# include "DateTime.hpp"
 
 namespace s3d
 {
@@ -164,7 +166,7 @@ namespace s3d
 		/// <returns>
 		/// 親ディレクトリ。失敗した場合は空の文字列
 		/// </returns>
-		FilePath ParentPath(const FilePath& path);
+		FilePath ParentPath(const FilePath& path, size_t level = 0);
 
 		/// <summary>
 		/// 指定したファイルのドライブのパスを返します。（例: L"C:/"）
@@ -261,6 +263,93 @@ namespace s3d
 		Optional<DateTime> AccessTime(const FilePath& path);
 
 		/// <summary>
+		/// 指定したディレクトリにあるファイルとディレクトリの一覧を返します。
+		/// </summary>
+		/// <param name="path">
+		/// パス
+		/// </param>
+		/// <returns>
+		/// ファイルとディレクトリの一覧
+		/// </returns>
+		Array<FilePath> DirectoryContents(const FilePath& path, bool recursive = true);
+
+		/// <summary>
+		/// プログラムが起動したパスを返します。
+		/// </summary>
+		/// <returns>
+		/// プログラムが起動したパス
+		/// </returns>
+		FilePath InitialPath();
+
+		/// <summary>
+		/// カレントパスを返します。
+		/// </summary>
+		/// <returns>
+		/// カレントパス
+		/// </returns>
+		FilePath CurrentPath();
+
+		/// <summary>
+		/// 現在のアプリケーションの実行可能ファイル (.exe) の完全パスを返します。
+		/// </summary>
+		/// <returns>
+		/// 現在のアプリケーションの完全パス
+		/// </returns>
+		FilePath ModulePath();
+        
+        /// <summary>
+        /// 指定したパスを相対パスに変換します。
+        /// </summary>
+        /// <param name="path">
+        /// パス
+        /// </param>
+        /// <param name="start">
+        /// 相対パスの基準位置
+        /// </param>
+        /// <returns>
+        /// 相対パス
+        /// </returns>
+        FilePath RelativePath(const FilePath& path, const FilePath& start = FileSystem::CurrentPath());
+
+		/// <summary>
+		/// 一時ファイル用のディレクトリのパスを返します。パスの末尾には L'\\' が付きます。
+		/// </summary>
+		/// <returns>
+		/// 一時ファイル用のディレクトリのパス
+		/// </returns>
+		//FilePath TemporaryPath();
+
+		/// <summary>
+		/// 一時ファイル用の固有なファイルパスを返します。拡張子は L".tmp" です。
+		/// </summary>
+		/// <returns>
+		/// 一時ファイル用のファイルパス
+		/// </returns>
+		//FilePath UniquePath();
+
+		/// <summary>
+		/// ディレクトリを作成します。
+		/// </summary>
+		/// <param name="path">
+		/// パス
+		/// </param>
+		/// <returns>
+		/// 成功した場合は true, それ以外の場合は false
+		/// </returns>
+		bool CreateDirectories(const FilePath& path);
+        
+		/// <summary>
+		/// 指定したパスまでの親ディレクトリを作成します。
+		/// </summary>
+		/// <param name="path">
+		/// パス
+		/// </param>
+		/// <returns>
+		/// 成功した場合は true, それ以外の場合は false
+		/// </returns>
+		bool CreateParentDirectories(const FilePath& path);
+        
+		/// <summary>
 		/// ファイルまたはディレクトリの中身をコピーします。
 		/// </summary>
 		/// <param name="from">
@@ -275,29 +364,7 @@ namespace s3d
 		/// <returns>
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
-		bool Copy(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_exists);
-
-		/// <summary>
-		/// ディレクトリを作成します。
-		/// </summary>
-		/// <param name="path">
-		/// パス
-		/// </param>
-		/// <returns>
-		/// 成功した場合は true, それ以外の場合は false
-		/// </returns>
-		bool CreateDirectories(const FilePath& path);
-
-		/// <summary>
-		/// 指定したパスまでの親ディレクトリを作成します。
-		/// </summary>
-		/// <param name="path">
-		/// パス
-		/// </param>
-		/// <returns>
-		/// 成功した場合は true, それ以外の場合は false
-		/// </returns>
-		bool CreateParentDirectories(const FilePath& path);
+		//bool Copy(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_exists);
 
 		/// <summary>
 		/// ファイルまたはディレクトリを削除します。
@@ -325,7 +392,7 @@ namespace s3d
 		/// <returns>
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
-		bool RemoveContents(const FilePath& path, bool allowUndo = false);
+		//bool RemoveContents(const FilePath& path, bool allowUndo = false);
 
 		/// <summary>
 		/// ファイルまたはディレクトリの名前を変更します。
@@ -342,7 +409,7 @@ namespace s3d
 		/// <returns>
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
-		bool Rename(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_exists);
+		//bool Rename(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_exists);
 
 		/// <summary>
 		/// ファイルまたはディレクトリを移動します。
@@ -362,7 +429,7 @@ namespace s3d
 		/// <returns>
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
-		bool Move(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_exists);
+		//bool Move(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_exists);
 
 		/// <summary>
 		/// ディレクトリの中身を移動します。
@@ -379,71 +446,6 @@ namespace s3d
 		/// <returns>
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
-		bool MoveContents(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_exists);
-
-		/// <summary>
-		/// 指定したディレクトリにあるファイルとディレクトリの一覧を返します。
-		/// </summary>
-		/// <param name="path">
-		/// パス
-		/// </param>
-		/// <returns>
-		/// ファイルとディレクトリの一覧
-		/// </returns>
-		Array<FilePath> DirectoryContents(const FilePath& path);
-
-		/// <summary>
-		/// プログラムが起動したパスを返します。
-		/// </summary>
-		/// <returns>
-		/// プログラムが起動したパス
-		/// </returns>
-		FilePath InitialPath();
-
-		/// <summary>
-		/// カレントパスを返します。
-		/// </summary>
-		/// <returns>
-		/// カレントパス
-		/// </returns>
-		FilePath CurrentPath();
-
-		/// <summary>
-		/// 一時ファイル用のディレクトリのパスを返します。パスの末尾には L'\\' が付きます。
-		/// </summary>
-		/// <returns>
-		/// 一時ファイル用のディレクトリのパス
-		/// </returns>
-		FilePath TemporaryPath();
-
-		/// <summary>
-		/// 一時ファイル用の固有なファイルパスを返します。拡張子は L".tmp" です。
-		/// </summary>
-		/// <returns>
-		/// 一時ファイル用のファイルパス
-		/// </returns>
-		FilePath UniquePath();
-
-		/// <summary>
-		/// 現在のアプリケーションの実行可能ファイル (.exe) の完全パスを返します。
-		/// </summary>
-		/// <returns>
-		/// 現在のアプリケーションの完全パス
-		/// </returns>
-		FilePath ModulePath();
-
-		/// <summary>
-		/// 指定したパスを相対パスに変換します。
-		/// </summary>
-		/// <param name="path">
-		/// パス
-		/// </param>
-		/// <param name="start">
-		/// 相対パスの基準位置
-		/// </param>
-		/// <returns>
-		/// 相対パス
-		/// </returns>
-		FilePath Relative(const FilePath& path, const FilePath& start = FileSystem::CurrentPath());
+		//bool MoveContents(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_exists);
 	}
 }
