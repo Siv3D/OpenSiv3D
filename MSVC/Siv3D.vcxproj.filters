@@ -74,6 +74,12 @@
     <Filter Include="Source\Siv3D\BigFloat">
       <UniqueIdentifier>{5ae29ec2-23cd-4d25-afac-e21263b84199}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\BinaryReader">
+      <UniqueIdentifier>{32799cc0-11b6-4459-8be8-26a92fc11b34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\BinaryWriter">
+      <UniqueIdentifier>{2908b15e-5406-471e-8579-1f9b4a55b508}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -271,6 +277,21 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\BigInt\CBigInt.hpp">
       <Filter>Source\Siv3D\BigInt</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\IReader.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\IWriter.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\BinaryWriter.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryWriter\CBinaryWriter_windows.hpp">
+      <Filter>Source\Siv3D\BinaryWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryWriter\CBinaryWriter_osx.hpp">
+      <Filter>Source\Siv3D\BinaryWriter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\Siv3DMain_OSX.cpp">
@@ -350,6 +371,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\BigFloat\SivBigFloat.cpp">
       <Filter>Source\Siv3D\BigFloat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryWriter\SivBinaryWriter.cpp">
+      <Filter>Source\Siv3D\BinaryWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryWriter\CBinaryWriter_windows.cpp">
+      <Filter>Source\Siv3D\BinaryWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryWriter\CBinaryWriter_osx.cpp">
+      <Filter>Source\Siv3D\BinaryWriter</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

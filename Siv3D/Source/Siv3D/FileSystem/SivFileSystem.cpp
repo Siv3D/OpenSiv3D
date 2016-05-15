@@ -1063,11 +1063,6 @@ namespace s3d
             
             return result;
         }
-        
-        FilePath NormalizedPath(const FilePath& path)
-        {
-            return FileSystem::FullPath(path).lowercase();
-        }
 
 		// http://stackoverflow.com/questions/5772992/get-relative-path-from-two-absolute-paths
 		FilePath RelativePath(const FilePath& _path, const FilePath& _start)

@@ -188,7 +188,10 @@ namespace s3d
 		/// <returns>
 		/// 正規化したパス
 		/// </returns>
-		FilePath NormalizedPath(const FilePath& path);
+		inline FilePath NormalizedPath(const FilePath& path)
+		{
+			return FullPath(path).lowercased();
+		}
 
 		/// <summary>
 		/// 指定したファイルかディレクトリが空であるかを返します。
