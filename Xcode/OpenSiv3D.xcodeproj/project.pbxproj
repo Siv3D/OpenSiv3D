@@ -28,6 +28,14 @@
 		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
 		2C2CCF4D1CE86006001844FF /* SivFileSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C2CCF4C1CE86006001844FF /* SivFileSystem.mm */; };
 		2C2CCF511CE8698C001844FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2CCF501CE8698C001844FF /* Foundation.framework */; };
+		2C2CCF531CE89EF7001844FF /* BinaryWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C2CCF521CE89EF7001844FF /* BinaryWriter.hpp */; };
+		2C2CCF561CE89F08001844FF /* IReader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C2CCF541CE89F08001844FF /* IReader.hpp */; };
+		2C2CCF571CE89F08001844FF /* IWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C2CCF551CE89F08001844FF /* IWriter.hpp */; };
+		2C2CCF5E1CE89F1E001844FF /* CBinaryWriter_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2CCF591CE89F1E001844FF /* CBinaryWriter_osx.cpp */; };
+		2C2CCF5F1CE89F1E001844FF /* CBinaryWriter_osx.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C2CCF5A1CE89F1E001844FF /* CBinaryWriter_osx.hpp */; };
+		2C2CCF601CE89F1E001844FF /* CBinaryWriter_windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2CCF5B1CE89F1E001844FF /* CBinaryWriter_windows.cpp */; };
+		2C2CCF611CE89F1E001844FF /* CBinaryWriter_windows.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C2CCF5C1CE89F1E001844FF /* CBinaryWriter_windows.hpp */; };
+		2C2CCF621CE89F1E001844FF /* SivBinaryWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2CCF5D1CE89F1E001844FF /* SivBinaryWriter.cpp */; };
 		2C38B0DB1CDA3517007A7E9F /* Allocator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B0AF1CDA3517007A7E9F /* Allocator.hpp */; };
 		2C38B0DC1CDA3517007A7E9F /* Array.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B0B01CDA3517007A7E9F /* Array.hpp */; };
 		2C38B0DD1CDA3517007A7E9F /* BigInt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B0B11CDA3517007A7E9F /* BigInt.hpp */; };
@@ -152,6 +160,14 @@
 		2C1778BF1CE0D5DB00BB8AD0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C2CCF4C1CE86006001844FF /* SivFileSystem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SivFileSystem.mm; sourceTree = "<group>"; };
 		2C2CCF501CE8698C001844FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2C2CCF521CE89EF7001844FF /* BinaryWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BinaryWriter.hpp; sourceTree = "<group>"; };
+		2C2CCF541CE89F08001844FF /* IReader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IReader.hpp; sourceTree = "<group>"; };
+		2C2CCF551CE89F08001844FF /* IWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IWriter.hpp; sourceTree = "<group>"; };
+		2C2CCF591CE89F1E001844FF /* CBinaryWriter_osx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CBinaryWriter_osx.cpp; sourceTree = "<group>"; };
+		2C2CCF5A1CE89F1E001844FF /* CBinaryWriter_osx.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CBinaryWriter_osx.hpp; sourceTree = "<group>"; };
+		2C2CCF5B1CE89F1E001844FF /* CBinaryWriter_windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CBinaryWriter_windows.cpp; sourceTree = "<group>"; };
+		2C2CCF5C1CE89F1E001844FF /* CBinaryWriter_windows.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CBinaryWriter_windows.hpp; sourceTree = "<group>"; };
+		2C2CCF5D1CE89F1E001844FF /* SivBinaryWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBinaryWriter.cpp; sourceTree = "<group>"; };
 		2C38B0AF1CDA3517007A7E9F /* Allocator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Allocator.hpp; sourceTree = "<group>"; };
 		2C38B0B01CDA3517007A7E9F /* Array.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Array.hpp; sourceTree = "<group>"; };
 		2C38B0B11CDA3517007A7E9F /* BigInt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BigInt.hpp; sourceTree = "<group>"; };
@@ -370,6 +386,18 @@
 			path = boost;
 			sourceTree = "<group>";
 		};
+		2C2CCF581CE89F1E001844FF /* BinaryWriter */ = {
+			isa = PBXGroup;
+			children = (
+				2C2CCF591CE89F1E001844FF /* CBinaryWriter_osx.cpp */,
+				2C2CCF5A1CE89F1E001844FF /* CBinaryWriter_osx.hpp */,
+				2C2CCF5B1CE89F1E001844FF /* CBinaryWriter_windows.cpp */,
+				2C2CCF5C1CE89F1E001844FF /* CBinaryWriter_windows.hpp */,
+				2C2CCF5D1CE89F1E001844FF /* SivBinaryWriter.cpp */,
+			);
+			path = BinaryWriter;
+			sourceTree = "<group>";
+		};
 		2C38B1071CDA352E007A7E9F /* BigInt */ = {
 			isa = PBXGroup;
 			children = (
@@ -577,6 +605,7 @@
 				2C38B0B01CDA3517007A7E9F /* Array.hpp */,
 				2C38B0B11CDA3517007A7E9F /* BigInt.hpp */,
 				2CA73B381CE6DC1900C83534 /* BigFloat.hpp */,
+				2C2CCF521CE89EF7001844FF /* BinaryWriter.hpp */,
 				2C38B0B21CDA3517007A7E9F /* Char.hpp */,
 				2C38B0B31CDA3517007A7E9F /* CharacterSet.hpp */,
 				2C38B0B41CDA3517007A7E9F /* Date.hpp */,
@@ -591,6 +620,8 @@
 				2C38B0BB1CDA3517007A7E9F /* Functor.hpp */,
 				2C38B0BC1CDA3517007A7E9F /* Fwd.hpp */,
 				2C38B0BD1CDA3517007A7E9F /* Grid.hpp */,
+				2C2CCF541CE89F08001844FF /* IReader.hpp */,
+				2C2CCF551CE89F08001844FF /* IWriter.hpp */,
 				2C38B0BE1CDA3517007A7E9F /* LetterCase.hpp */,
 				2C38B0BF1CDA3517007A7E9F /* Logger.hpp */,
 				2C38B0C01CDA3517007A7E9F /* MathConstants.hpp */,
@@ -641,6 +672,7 @@
 		2CC2B09B1CB5552200BB42D0 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C2CCF581CE89F1E001844FF /* BinaryWriter */,
 				2CA73B3E1CE728DB00C83534 /* BigFloat */,
 				2C17775C1CDEE6C100BB8AD0 /* FileSystem */,
 				2C38B1411CDE45A7007A7E9F /* Date */,
@@ -748,14 +780,19 @@
 				2C38B0FA1CDA3517007A7E9F /* Step_MSVC.hpp in Headers */,
 				2C38B0F81CDA3517007A7E9F /* RDTSCProfiler.hpp in Headers */,
 				2C38B0E91CDA3517007A7E9F /* Grid.hpp in Headers */,
+				2C2CCF571CE89F08001844FF /* IWriter.hpp in Headers */,
 				2CC2B1061CB5552300BB42D0 /* double-conversion.h in Headers */,
+				2C2CCF531CE89EF7001844FF /* BinaryWriter.hpp in Headers */,
 				2C38B0EA1CDA3517007A7E9F /* LetterCase.hpp in Headers */,
+				2C2CCF561CE89F08001844FF /* IReader.hpp in Headers */,
 				2C38B0ED1CDA3517007A7E9F /* Number.hpp in Headers */,
 				2CA73B391CE6DC1900C83534 /* BigFloat.hpp in Headers */,
+				2C2CCF5F1CE89F1E001844FF /* CBinaryWriter_osx.hpp in Headers */,
 				2CC2B1041CB5552300BB42D0 /* diy-fp.h in Headers */,
 				2CC2B1081CB5552300BB42D0 /* fast-dtoa.h in Headers */,
 				2C38B0FD1CDA3517007A7E9F /* String.hpp in Headers */,
 				2C38B0FE1CDA3517007A7E9F /* StringView.hpp in Headers */,
+				2C2CCF611CE89F1E001844FF /* CBinaryWriter_windows.hpp in Headers */,
 				2C38B0E71CDA3517007A7E9F /* Functor.hpp in Headers */,
 				2C17775B1CDEE6AF00BB8AD0 /* FileSystem.hpp in Headers */,
 				2CC2B0F01CB5552200BB42D0 /* Siv3D.hpp in Headers */,
@@ -903,9 +940,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C2CCF5E1CE89F1E001844FF /* CBinaryWriter_osx.cpp in Sources */,
 				2C17775E1CDEE6C100BB8AD0 /* SivFileSystem.cpp in Sources */,
 				2C38B1451CDE45A7007A7E9F /* SivDate.cpp in Sources */,
 				2CA73B421CE728DB00C83534 /* SivBigFloat.cpp in Sources */,
+				2C2CCF621CE89F1E001844FF /* SivBinaryWriter.cpp in Sources */,
 				2C38B1241CDA352E007A7E9F /* SivTimeProfiler.cpp in Sources */,
 				2C38B11F1CDA352E007A7E9F /* SivLogger.cpp in Sources */,
 				2CC2B1091CB5552300BB42D0 /* fixed-dtoa.cc in Sources */,
@@ -925,6 +964,7 @@
 				2C38B1201CDA352E007A7E9F /* SivParseFloat.cpp in Sources */,
 				2CC2B0FA1CB5552300BB42D0 /* Siv3DMain_OSX.cpp in Sources */,
 				2C2CCF4D1CE86006001844FF /* SivFileSystem.mm in Sources */,
+				2C2CCF601CE89F1E001844FF /* CBinaryWriter_windows.cpp in Sources */,
 				2C38B11E1CDA352E007A7E9F /* SivFormatInt.cpp in Sources */,
 				2CC2B0FC1CB5552300BB42D0 /* format.cc in Sources */,
 				2CC2B1031CB5552300BB42D0 /* diy-fp.cc in Sources */,

@@ -131,6 +131,8 @@ namespace s3d
 		{
 			return;
 		}
+        
+        m_currentBufferPos = 0;
 
 		setPos(0);
 
@@ -139,6 +141,11 @@ namespace s3d
 
 	int64 BinaryWriter::CBinaryWriter::size()
 	{
+        if (!m_opened)
+        {
+            return 0;
+        }
+        
 		flush();
 
 		return FileSystem::Size(m_fullPath);
@@ -146,6 +153,11 @@ namespace s3d
 
 	int64 BinaryWriter::CBinaryWriter::setPos(int64 pos)
 	{
+        if (!m_opened)
+        {
+            return 0;
+        }
+        
 		flush();
 
 		LARGE_INTEGER distance, newPos;
@@ -159,6 +171,11 @@ namespace s3d
 
 	int64 BinaryWriter::CBinaryWriter::getPos()
 	{
+        if (!m_opened)
+        {
+            return 0;
+        }
+        
 		flush();
 
 		LARGE_INTEGER distance = { 0, 0 }, currentPos;
@@ -170,6 +187,11 @@ namespace s3d
 
 	int64 BinaryWriter::CBinaryWriter::write(const void* src, size_t size)
 	{
+        if (!m_opened)
+        {
+            return 0;
+        }
+        
 		assert(src || !size);
 
 		if (size < BufferSize)

@@ -7,8 +7,9 @@ using namespace std::chrono_literals;
 # include <fstream>
 void Main()
 {
+	/*
 	const size_t N = 1024;
-	Array<int> v = Range(0, 1024);
+	Array<int> v = Range(0, 1023);
 	BinaryWriter writer(L"test.bin");
 
 	TimeProfiler tp;
@@ -24,8 +25,7 @@ void Main()
 		writer.close();
 	}
 
-	FILE* pFile;	
-	fopen_s(&pFile, "test2.bin", "wb");
+	FILE* pFile = fopen("test2.bin", "wb");
 	{
 		for (int i = 0; i < N; ++i)
 		{
@@ -48,6 +48,7 @@ void Main()
 
 		ofs.close();
 	}
+	//*/
 
 	//Log(L"Hello, Siv3D!");
 

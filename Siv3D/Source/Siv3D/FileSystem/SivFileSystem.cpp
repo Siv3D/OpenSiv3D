@@ -694,7 +694,14 @@ namespace s3d
                 return path;
             }
             
-            return detail::NormalizePath(fs::canonical(fs::path(path.str())).wstring());
+            if (detail::IsNotFound(path))
+            {
+                return detail::NormalizePath(fs::weakly_canonical(fs::system_complete(fs::path(path.str()))).wstring());
+            }
+            else
+            {
+                return detail::NormalizePath(fs::canonical(fs::path(path.str())).wstring());
+            }
         }
         
         FilePath VolumePath(const FilePath& path)
