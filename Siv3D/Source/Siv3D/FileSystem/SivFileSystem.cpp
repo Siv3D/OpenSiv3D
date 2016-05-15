@@ -550,6 +550,8 @@ namespace s3d
 # include <boost/filesystem.hpp>
 # include "../../../Include/Siv3D/FileSystem.hpp"
 
+extern bool trashFile(const char* path, unsigned long pathLength, bool isDirectory);
+
 namespace s3d
 {
     namespace fs = boost::filesystem;
@@ -899,6 +901,23 @@ namespace s3d
         FilePath ModulePath()
         {
             return detail::init::g_modulePath;
+        }
+        
+        bool Remove(const FilePath& path, const bool allowUndo)
+        {
+            if (path.isEmpty())
+            {
+                return false;
+            }
+            
+            if (!allowUndo)
+            {
+                return std::remove(path.narrow().c_str()) == 0;
+            }
+            
+            const std::string utf8Path = path.narrow();
+            
+            return trashFile(utf8Path.c_str(), utf8Path.length(), IsDirectory(path));
         }
     }
 }

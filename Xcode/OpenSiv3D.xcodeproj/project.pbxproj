@@ -26,6 +26,8 @@
 		2C1778CE1CE0D64E00BB8AD0 /* Siv3DTest_OSX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B1121CB5554500BB42D0 /* Siv3DTest_OSX.cpp */; };
 		2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C38B14A1CDEB45C007A7E9F /* gtest.a */; };
 		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
+		2C2CCF4D1CE86006001844FF /* SivFileSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C2CCF4C1CE86006001844FF /* SivFileSystem.mm */; };
+		2C2CCF511CE8698C001844FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2CCF501CE8698C001844FF /* Foundation.framework */; };
 		2C38B0DB1CDA3517007A7E9F /* Allocator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B0AF1CDA3517007A7E9F /* Allocator.hpp */; };
 		2C38B0DC1CDA3517007A7E9F /* Array.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B0B01CDA3517007A7E9F /* Array.hpp */; };
 		2C38B0DD1CDA3517007A7E9F /* BigInt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B0B11CDA3517007A7E9F /* BigInt.hpp */; };
@@ -148,6 +150,8 @@
 		2C1777AD1CDF6F9300BB8AD0 /* boost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_system.a; sourceTree = "<group>"; };
 		2C1778B21CE0D5DB00BB8AD0 /* Siv3D-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Siv3D-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C1778BF1CE0D5DB00BB8AD0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2C2CCF4C1CE86006001844FF /* SivFileSystem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SivFileSystem.mm; sourceTree = "<group>"; };
+		2C2CCF501CE8698C001844FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2C38B0AF1CDA3517007A7E9F /* Allocator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Allocator.hpp; sourceTree = "<group>"; };
 		2C38B0B01CDA3517007A7E9F /* Array.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Array.hpp; sourceTree = "<group>"; };
 		2C38B0B11CDA3517007A7E9F /* BigInt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BigInt.hpp; sourceTree = "<group>"; };
@@ -259,6 +263,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C2CCF511CE8698C001844FF /* Foundation.framework in Frameworks */,
 				2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */,
 				2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */,
 			);
@@ -334,6 +339,7 @@
 		2C17775C1CDEE6C100BB8AD0 /* FileSystem */ = {
 			isa = PBXGroup;
 			children = (
+				2C2CCF4C1CE86006001844FF /* SivFileSystem.mm */,
 				2C17775D1CDEE6C100BB8AD0 /* SivFileSystem.cpp */,
 			);
 			path = FileSystem;
@@ -505,6 +511,7 @@
 		2CA7F7321CA7F34200495647 = {
 			isa = PBXGroup;
 			children = (
+				2C2CCF501CE8698C001844FF /* Foundation.framework */,
 				2C1778BF1CE0D5DB00BB8AD0 /* Info.plist */,
 				2CA7F7641CA7F44F00495647 /* Siv3D */,
 				2CA7F74D1CA7F43D00495647 /* Siv3D-Test */,
@@ -833,7 +840,7 @@
 		2CA7F7331CA7F34200495647 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0730;
 				TargetAttributes = {
 					2C1778B11CE0D5DB00BB8AD0 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -917,6 +924,7 @@
 				2CC2B0FB1CB5552300BB42D0 /* Siv3DMain_Windows.cpp in Sources */,
 				2C38B1201CDA352E007A7E9F /* SivParseFloat.cpp in Sources */,
 				2CC2B0FA1CB5552300BB42D0 /* Siv3DMain_OSX.cpp in Sources */,
+				2C2CCF4D1CE86006001844FF /* SivFileSystem.mm in Sources */,
 				2C38B11E1CDA352E007A7E9F /* SivFormatInt.cpp in Sources */,
 				2CC2B0FC1CB5552300BB42D0 /* format.cc in Sources */,
 				2CC2B1031CB5552300BB42D0 /* diy-fp.cc in Sources */,
@@ -1039,6 +1047,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				ENABLE_TESTABILITY = YES;
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};
@@ -1067,6 +1077,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/../Siv3D/Lib/osx/";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1117,6 +1128,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/../Siv3D/Lib/osx/";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
