@@ -11,49 +11,52 @@ void Main()
 
 	Log(L"---");
 	Log(FileSystem::FullPath(L""));
-	Log(FileSystem::FullPath(L"Example/Windmill.png"));
-	Log(FileSystem::FullPath(L"Example/"));
+	Log(FileSystem::FullPath(L"example/windmill.png"));
+	Log(FileSystem::FullPath(L"example/"));
 	Log(FileSystem::FullPath(L"./"));
-	Log(FileSystem::FullPath(L"./Example/../"));	
+	Log(FileSystem::FullPath(L"./example/../"));	
 
 	Log(L"---");
-	Log(FileSystem::ParentPath(L"Example/Windmill.png"));
-	Log(FileSystem::ParentPath(L"Example/"));
+	Log(FileSystem::ParentPath(L"example/windmill.png"));
+	Log(FileSystem::ParentPath(L"example/"));
 	Log(FileSystem::ParentPath(L"./"));
-	Log(FileSystem::ParentPath(L"./Example/../"));
-	Log(FileSystem::ParentPath(L"Example/Windmill.png", 0));
-	Log(FileSystem::ParentPath(L"Example/Windmill.png", 1));
-	Log(FileSystem::ParentPath(L"Example/Windmill.png", 2));
-	Log(FileSystem::ParentPath(L"Example/Windmill.png", 3));
+	Log(FileSystem::ParentPath(L"./example/../"));
+	Log(FileSystem::ParentPath(L"example/windmill.png", 0));
+	Log(FileSystem::ParentPath(L"example/windmill.png", 1));
+	Log(FileSystem::ParentPath(L"example/windmill.png", 2));
+	Log(FileSystem::ParentPath(L"example/windmill.png", 3));
 	
 	Log(L"---");
-	Log(FileSystem::Extension(L"Example/Windmill.png"));
-	Log(FileSystem::FileName(L"Example/Windmill.png"));
-	Log(FileSystem::BaseName(L"Example/Windmill.png"));
+	Log(FileSystem::Extension(L"example/windmill.png"));
+	Log(FileSystem::FileName(L"example/windmill.png"));
+	Log(FileSystem::BaseName(L"example/windmill.png"));
 
 	Log(L"---");
 	Log(FileSystem::Size(L"./"));
-	Log(FileSystem::Size(L"Example"));
-	Log(FileSystem::Size(L"Example/Windmill.png"));
-	Log(FileSystem::Size(L"Example/nothing"));
+	Log(FileSystem::Size(L"example"));
+	Log(FileSystem::Size(FileSystem::FullPath(L"example/windmill.png")));
+	Log(FileSystem::Size(L"example/nothing"));
 	Log(FileSystem::FileSize(L"./"));
-	Log(FileSystem::FileSize(L"Example"));
-	Log(FileSystem::FileSize(L"Example/Windmill.png"));
-	Log(FileSystem::FileSize(L"Example/nothing"));
+	Log(FileSystem::FileSize(L"example"));
+	Log(FileSystem::FileSize(L"example/windmill.png"));
+	Log(FileSystem::FileSize(L"example/nothing"));
 
 	Log(L"---");
-	Log(FileSystem::CreationTime(L"Example/Windmill.png"));
-	Log(FileSystem::WriteTime(L"Example/Windmill.png"));
-	Log(FileSystem::AccessTime(L"Example/Windmill.png"));
+	Log(FileSystem::CreationTime(L"example/windmill.png"));
+	Log(FileSystem::WriteTime(L"example/windmill.png"));
+	Log(FileSystem::AccessTime(L"example/windmill.png"));
 	
 	Log(L"---");
-	FileSystem::DirectoryContents(L"./", true).each(Log);
+	FileSystem::DirectoryContents(L"Example", true).each(Log);
 	
 	Log(L"---");
 	Log(FileSystem::InitialPath());
 	Log(FileSystem::CurrentPath());
 	Log(FileSystem::ModulePath());
-	
+	Log(FileSystem::Relative(L"example/windmill.png", L"example/"));
+	Log(FileSystem::Relative(L"../../", L"example/"));
+	Log(FileSystem::Relative(L"./", L"./"));
+
 	RunTest();
 
 	/*

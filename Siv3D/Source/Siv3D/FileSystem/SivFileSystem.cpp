@@ -329,10 +329,10 @@ namespace s3d
 			{
 				::WIN32_FILE_ATTRIBUTE_DATA fad;
 
-				if (::GetFileAttributesExW(path.c_str(), ::GetFileExInfoStandard, &fad) != 0)
+				if (::GetFileAttributesExW(path.replaced(L'/', L'\\').c_str(), ::GetFileExInfoStandard, &fad) == 0)
 				{
 					// [Siv3D*TODO]
-					return false;
+					return 0;
 				}
 
 				return (static_cast<uint64>(fad.nFileSizeHigh) << 32) + fad.nFileSizeLow;
@@ -363,7 +363,7 @@ namespace s3d
 
 			::WIN32_FILE_ATTRIBUTE_DATA fad;
 
-			if (::GetFileAttributesExW(path.c_str(), ::GetFileExInfoStandard, &fad) != 0)
+			if (::GetFileAttributesExW(path.c_str(), ::GetFileExInfoStandard, &fad) == 0)
 			{
 				// [Siv3D*TODO]
 				return 0;
@@ -386,7 +386,7 @@ namespace s3d
 
 			::WIN32_FILE_ATTRIBUTE_DATA fad;
 
-			if (::GetFileAttributesExW(path.c_str(), ::GetFileExInfoStandard, &fad) != 0)
+			if (::GetFileAttributesExW(path.c_str(), ::GetFileExInfoStandard, &fad) == 0)
 			{
 				return none;
 			}
@@ -408,7 +408,7 @@ namespace s3d
 
 			::WIN32_FILE_ATTRIBUTE_DATA fad;
 
-			if (::GetFileAttributesExW(path.c_str(), ::GetFileExInfoStandard, &fad) != 0)
+			if (::GetFileAttributesExW(path.c_str(), ::GetFileExInfoStandard, &fad) == 0)
 			{
 				return none;
 			}
@@ -430,7 +430,7 @@ namespace s3d
 
 			::WIN32_FILE_ATTRIBUTE_DATA fad;
 
-			if (::GetFileAttributesExW(path.c_str(), ::GetFileExInfoStandard, &fad) != 0)
+			if (::GetFileAttributesExW(path.c_str(), ::GetFileExInfoStandard, &fad) == 0)
 			{
 				return none;
 			}
@@ -508,8 +508,6 @@ namespace s3d
 		//FilePath TemporaryPath();
 
 		//FilePath UniquePath();
-
-		//FilePath Relative(const FilePath& path, const FilePath& start = FileSystem::CurrentPath());
 	}
 }
 
@@ -1018,6 +1016,87 @@ namespace s3d
         {
             return FileSystem::FullPath(path).lowercase();
         }
+
+		// http://stackoverflow.com/questions/5772992/get-relative-path-from-two-absolute-paths
+		FilePath Relative(const FilePath& _path, const FilePath& _start)
+		{
+			if (_path.isEmpty() || _start.isEmpty())
+			{
+				return FilePath();
+			}
+
+			const FilePath path = FullPath(_path);
+			const FilePath start = FullPath(_start);
+
+			if (!IsDirectory(start) || detail::IsResourcePath(path))
+			{
+				return path;
+			}
+
+			if (path == start)
+			{
+				return L"./";
+			}
+
+			fs::path p(path.str()), base(start.str());
+			fs::path from_path, from_base, output;
+			fs::path::iterator path_it = p.begin(), path_end = p.end();
+			fs::path::iterator base_it = base.begin(), base_end = base.end();
+
+			#ifdef WIN32
+				if (*path_it != *base_it)
+				{
+					return path;
+				}
+
+				++path_it, ++base_it;
+			#endif
+
+			const std::string _dot(1, '.');
+			const std::string _dots(2, '.');
+			const std::string _sep(1, '/');
+
+			for (;;)
+			{
+				if ((path_it == path_end) || (base_it == base_end) || (*path_it != *base_it))
+				{
+					for (; base_it != base_end; ++base_it)
+					{
+						if (*base_it == _dot)
+							continue;
+						else if (*base_it == _sep)
+							continue;
+
+						output /= "../";
+					}
+
+					fs::path::iterator path_it_start = path_it;
+
+					for (; path_it != path_end; ++path_it)
+					{
+						if (path_it != path_it_start)
+							output /= "/";
+
+						if (*path_it == _dot)
+							continue;
+
+						if (*path_it == _sep)
+							continue;
+
+						output /= *path_it;
+					}
+
+					break;
+				}
+
+				from_path /= fs::path(*path_it);
+				from_base /= fs::path(*base_it);
+
+				++path_it, ++base_it;
+			}
+
+			return CharacterSet::Widen(output.string()).replace(L'\\', L'/');
+		}
     }
 }
 
