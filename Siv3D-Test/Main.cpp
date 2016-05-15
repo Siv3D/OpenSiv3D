@@ -4,53 +4,10 @@
 using namespace s3d;
 using namespace s3d::literals;
 using namespace std::chrono_literals;
-# include <fstream>
+
 void Main()
 {
-	/*
-	const size_t N = 1024;
-	Array<int> v = Range(0, 1023);
-	BinaryWriter writer(L"test.bin");
-
-	TimeProfiler tp;
-
-	{
-		for (int i = 0; i < N; ++i)
-		{
-			tp.begin(L"BinaryWriter");
-			writer.write(v);
-			tp.end();
-		}
-
-		writer.close();
-	}
-
-	FILE* pFile = fopen("test2.bin", "wb");
-	{
-		for (int i = 0; i < N; ++i)
-		{
-			tp.begin(L"FILE");
-			fwrite(v.data(), 1, v.size_bytes(), pFile);
-			tp.end();
-		}
-
-		fclose(pFile);
-	}
-
-	std::ofstream ofs("test3.bin", std::ios::binary);
-	{
-		for (int i = 0; i < N; ++i)
-		{
-			tp.begin(L"ofstream");
-			ofs.write((const char*)v.data(), v.size_bytes());
-			tp.end();
-		}
-
-		ofs.close();
-	}
-	//*/
-
-	//Log(L"Hello, Siv3D!");
+	Log(L"Hello, Siv3D!");
 
 	/*
 	RunTest();
