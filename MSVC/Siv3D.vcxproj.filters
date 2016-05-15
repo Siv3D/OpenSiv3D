@@ -292,6 +292,15 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryWriter\CBinaryWriter_osx.hpp">
       <Filter>Source\Siv3D\BinaryWriter</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryReader\CBinaryReader_osx.hpp">
+      <Filter>Source\Siv3D\BinaryReader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryReader\CBinaryReader_windows.hpp">
+      <Filter>Source\Siv3D\BinaryReader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\BinaryReader.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\Siv3DMain_OSX.cpp">
@@ -380,6 +389,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryWriter\CBinaryWriter_osx.cpp">
       <Filter>Source\Siv3D\BinaryWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryReader\CBinaryReader_windows.cpp">
+      <Filter>Source\Siv3D\BinaryReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryReader\SivBinaryReader.cpp">
+      <Filter>Source\Siv3D\BinaryReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryReader\CBinaryReader_osx.cpp">
+      <Filter>Source\Siv3D\BinaryReader</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
