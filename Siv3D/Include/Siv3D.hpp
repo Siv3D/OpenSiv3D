@@ -135,16 +135,16 @@
 	# include "Siv3D/FileSystem.hpp"
 	//// ファイルとディレクトリの変更の監視
 	//# include "Siv3D/FileMonitor.hpp"
-	//// IReader インタフェース
+	// IReader インタフェース
 	# include "Siv3D/IReader.hpp"
+	// IWriter インタフェース
+	# include "Siv3D/IWriter.hpp"
 	//// 読み込み用バッファ
 	//# include "Siv3D/ByteArray.hpp"
-	//// バイナリファイルの読み込み
-	//# include "Siv3D/BinaryReader.hpp"
-	//// IWriter インタフェース
-	# include "Siv3D/IWriter.hpp"
 	//// 書き込み用バッファ
 	//# include "Siv3D/MemoryWriter.hpp"
+	// バイナリファイルの読み込み
+	# include "Siv3D/BinaryReader.hpp"
 	// バイナリファイルの書き込み
 	# include "Siv3D/BinaryWriter.hpp"
 	// テキストのエンコード
