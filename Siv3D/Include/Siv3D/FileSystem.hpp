@@ -296,6 +296,20 @@ namespace s3d
 		/// 現在のアプリケーションの完全パス
 		/// </returns>
 		FilePath ModulePath();
+        
+        /// <summary>
+        /// 指定したパスを相対パスに変換します。
+        /// </summary>
+        /// <param name="path">
+        /// パス
+        /// </param>
+        /// <param name="start">
+        /// 相対パスの基準位置
+        /// </param>
+        /// <returns>
+        /// 相対パス
+        /// </returns>
+        FilePath RelativePath(const FilePath& path, const FilePath& start = FileSystem::CurrentPath());
 
 		/// <summary>
 		/// 一時ファイル用のディレクトリのパスを返します。パスの末尾には L'\\' が付きます。
@@ -303,7 +317,7 @@ namespace s3d
 		/// <returns>
 		/// 一時ファイル用のディレクトリのパス
 		/// </returns>
-		FilePath TemporaryPath();
+		//FilePath TemporaryPath();
 
 		/// <summary>
 		/// 一時ファイル用の固有なファイルパスを返します。拡張子は L".tmp" です。
@@ -311,22 +325,30 @@ namespace s3d
 		/// <returns>
 		/// 一時ファイル用のファイルパス
 		/// </returns>
-		FilePath UniquePath();
+		//FilePath UniquePath();
 
-		/// <summary>
-		/// 指定したパスを相対パスに変換します。
-		/// </summary>
-		/// <param name="path">
-		/// パス
-		/// </param>
-		/// <param name="start">
-		/// 相対パスの基準位置
-		/// </param>
-		/// <returns>
-		/// 相対パス
-		/// </returns>
-		FilePath Relative(const FilePath& path, const FilePath& start = FileSystem::CurrentPath());
-
+        /// <summary>
+        /// ディレクトリを作成します。
+        /// </summary>
+        /// <param name="path">
+        /// パス
+        /// </param>
+        /// <returns>
+        /// 成功した場合は true, それ以外の場合は false
+        /// </returns>
+        //bool CreateDirectories(const FilePath& path);
+        
+        /// <summary>
+        /// 指定したパスまでの親ディレクトリを作成します。
+        /// </summary>
+        /// <param name="path">
+        /// パス
+        /// </param>
+        /// <returns>
+        /// 成功した場合は true, それ以外の場合は false
+        /// </returns>
+        //bool CreateParentDirectories(const FilePath& path);
+        
 		/// <summary>
 		/// ファイルまたはディレクトリの中身をコピーします。
 		/// </summary>
@@ -342,29 +364,7 @@ namespace s3d
 		/// <returns>
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
-		bool Copy(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_exists);
-
-		/// <summary>
-		/// ディレクトリを作成します。
-		/// </summary>
-		/// <param name="path">
-		/// パス
-		/// </param>
-		/// <returns>
-		/// 成功した場合は true, それ以外の場合は false
-		/// </returns>
-		bool CreateDirectories(const FilePath& path);
-
-		/// <summary>
-		/// 指定したパスまでの親ディレクトリを作成します。
-		/// </summary>
-		/// <param name="path">
-		/// パス
-		/// </param>
-		/// <returns>
-		/// 成功した場合は true, それ以外の場合は false
-		/// </returns>
-		bool CreateParentDirectories(const FilePath& path);
+		//bool Copy(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_exists);
 
 		/// <summary>
 		/// ファイルまたはディレクトリを削除します。
@@ -378,7 +378,7 @@ namespace s3d
 		/// <returns>
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
-		bool Remove(const FilePath& path, bool allowUndo = false);
+		//bool Remove(const FilePath& path, bool allowUndo = false);
 
 		/// <summary>
 		/// ディレクトリの中身を削除します。
@@ -392,7 +392,7 @@ namespace s3d
 		/// <returns>
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
-		bool RemoveContents(const FilePath& path, bool allowUndo = false);
+		//bool RemoveContents(const FilePath& path, bool allowUndo = false);
 
 		/// <summary>
 		/// ファイルまたはディレクトリの名前を変更します。
@@ -409,7 +409,7 @@ namespace s3d
 		/// <returns>
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
-		bool Rename(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_exists);
+		//bool Rename(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_exists);
 
 		/// <summary>
 		/// ファイルまたはディレクトリを移動します。
@@ -429,7 +429,7 @@ namespace s3d
 		/// <returns>
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
-		bool Move(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_exists);
+		//bool Move(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_exists);
 
 		/// <summary>
 		/// ディレクトリの中身を移動します。
@@ -446,6 +446,6 @@ namespace s3d
 		/// <returns>
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
-		bool MoveContents(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_exists);
+		//bool MoveContents(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_exists);
 	}
 }

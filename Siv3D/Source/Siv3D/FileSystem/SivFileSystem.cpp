@@ -665,6 +665,7 @@ namespace s3d
         
         FilePath VolumePath(const FilePath& path)
         {
+            // [Siv3D*TODO]
             return FilePath(1, L'/');
         }
         
@@ -1018,7 +1019,7 @@ namespace s3d
         }
 
 		// http://stackoverflow.com/questions/5772992/get-relative-path-from-two-absolute-paths
-		FilePath Relative(const FilePath& _path, const FilePath& _start)
+		FilePath RelativePath(const FilePath& _path, const FilePath& _start)
 		{
 			if (_path.isEmpty() || _start.isEmpty())
 			{
@@ -1043,14 +1044,16 @@ namespace s3d
 			fs::path::iterator path_it = p.begin(), path_end = p.end();
 			fs::path::iterator base_it = base.begin(), base_end = base.end();
 
-			#ifdef WIN32
+			# if defined(SIV3D_TARGET_WINDOWS)
+            
 				if (*path_it != *base_it)
 				{
 					return path;
 				}
 
 				++path_it, ++base_it;
-			#endif
+			
+            #endif
 
 			const std::string _dot(1, '.');
 			const std::string _dots(2, '.');
