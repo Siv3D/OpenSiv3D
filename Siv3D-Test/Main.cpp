@@ -9,7 +9,47 @@ void Main()
 {
 	Log(L"Hello, Siv3D!");
 
-	///*
+	Log(FileSystem::InitialPath());
+	Log(FileSystem::CurrentPath());
+	Log(FileSystem::ModulePath());
+
+	//FileSystem::DirectoryContents(L"./", true).each(Log);
+	//FileSystem::DirectoryContents2(L"./", true).each(Log);
+	//Log(FileSystem::Size(L"./"));
+	//Log(FileSystem::Size(L"./"));
+	//Log(FileSystem::Size(L"./"));
+
+	TimeProfiler t;
+
+	{
+		for (int i = 0; i < 10; ++i)
+		{
+			t.begin(L"aaa");
+			t.end();
+		}
+	
+		for (int i = 0; i < 10; ++i)
+		{
+			t.begin(L"bbb");
+			t.end();
+		}
+	}
+
+	//Log(FileSystem::DirectoryContents(L"./"));
+
+	//Log(FileSystem::FullPath(L"Example/Windmill.png"));
+	//Log(FileSystem::FullPath(L"Example/"));
+	//Log(FileSystem::FullPath(L"../"));
+	//Log(FileSystem::FullPath(L"./"));
+
+	//Log(FileSystem::ParentPath(L"Example/Windmill.png", 0));
+	//Log(FileSystem::ParentPath(L"Example/Windmill.png", 1));
+	//Log(FileSystem::ParentPath(L"Example/Windmill.png", 2));
+	//Log(FileSystem::ParentPath(L"Example/Windmill.png", 3));
+
+	RunTest();
+
+	/*
 	RunTest();
 
 	// 0～100 の範囲

@@ -43,11 +43,11 @@ namespace s3d
 		BigFloat(uint64 f);
 		BigFloat(long double f);
 		BigFloat(const BigInt& number);
-		BigFloat(const char* number);
-		BigFloat(const wchar* number);
-		BigFloat(const std::string& number);
-		BigFloat(const std::wstring& number);
-		BigFloat(const String& number) : BigFloat(number.str()) {}
+		explicit BigFloat(const char* number);
+		explicit BigFloat(const wchar* number);
+		explicit BigFloat(const std::string& number);
+		explicit BigFloat(const std::wstring& number);
+		explicit BigFloat(const String& number) : BigFloat(number.str()) {}
 		BigFloat(const BigFloat& other);
 		BigFloat(BigFloat&& other);
 		~BigFloat();
@@ -213,19 +213,19 @@ namespace s3d
 		void swap(BigFloat& other) noexcept;
 	};
 
-	template <class Type>
+	template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
 	inline BigFloat operator +(const Type& a, const BigFloat& b)
 	{
 		return b + a;
 	}
 
-	template <class Type>
+	template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
 	inline BigFloat operator -(const Type& a, const BigFloat& b)
 	{
 		return -b + a;
 	}
 
-	template <class Type>
+	template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
 	inline BigFloat operator *(const Type& a, const BigFloat& b)
 	{
 		return b * a;

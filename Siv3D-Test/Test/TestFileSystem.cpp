@@ -12,6 +12,14 @@
 # include <Siv3D.hpp>
 # include <gtest/gtest.h>
 
+# if defined(SIV3D_TARGET_WINDOWS)
+	# include <filesystem>
+	namespace fs = std::experimental::filesystem;
+# elif defined(SIV3D_TARGET_OSX)
+	# include <boost/filesystem.hpp>
+	namespace fs = boost::filesystem;
+# endif
+
 using namespace s3d;
 
 TEST(FileSystem, Exists)
@@ -173,4 +181,29 @@ TEST(FileSystem, FileName)
 TEST(FileSystem, BaseName)
 {
 
+}
+
+TEST(FileSystem, DirectoryContents)
+{
+	{
+		Array<FilePath> paths;
+
+		for (auto path : fs::directory_iterator(fs::path(L"./")))
+		{
+			paths.push_back(FileSystem::FullPath(path.path().wstring()));
+		}
+
+		EXPECT_EQ(FileSystem::DirectoryContents(L"./", false), paths);
+	}
+
+	{
+		Array<FilePath> paths;
+
+		for (auto path : fs::recursive_directory_iterator(fs::path(L"./")))
+		{
+			paths.push_back(FileSystem::FullPath(path.path().wstring()));
+		}
+
+		EXPECT_EQ(FileSystem::DirectoryContents(L"./", true), paths);
+	}
 }
