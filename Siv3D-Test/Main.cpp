@@ -9,6 +9,25 @@ void Main()
 {
 	Log(L"Hello, Siv3D!");
 
+	{
+		BinaryWriter writer(L"test.bin");
+		writer.write(123);
+		writer.write(4.5);
+		writer.write(678);
+	}
+
+	{
+		int a, c;
+		double b;
+
+		BinaryReader reader(L"test.bin");
+		reader.read(a);
+		reader.read(b);
+		reader.read(c);
+
+		Log(L"{},{},{}"_fmt(a, b, c));
+	}
+
 	/*
 	RunTest();
 
