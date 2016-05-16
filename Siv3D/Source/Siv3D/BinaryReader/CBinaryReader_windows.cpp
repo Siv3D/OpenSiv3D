@@ -16,6 +16,16 @@
 
 namespace s3d
 {
+	BinaryReader::CBinaryReader::CBinaryReader()
+	{
+
+	}
+
+	BinaryReader::CBinaryReader::~CBinaryReader()
+	{
+		close();
+	}
+
 
 }
 

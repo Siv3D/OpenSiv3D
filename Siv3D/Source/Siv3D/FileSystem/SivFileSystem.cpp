@@ -18,6 +18,7 @@
 # define  _WIN32_WINNT _WIN32_WINNT_WIN7
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
+# include <Shlobj.h>
 # include <filesystem>
 # include <Siv3D/FileSystem.hpp>
 
@@ -163,6 +164,21 @@ namespace s3d
 		namespace init
 		{
 			const static FilePath g_initialPath = NormalizePath(fs::current_path().wstring());
+
+			static FilePath g_modulePath = FilePath();
+
+			void SetModulePath()
+			{
+				wchar result[1024];
+				const DWORD length = ::GetModuleFileNameW(nullptr, result, _countof(result));
+
+				if (length == 0 || length >= _countof(result))
+				{
+					return;
+				}
+				
+				g_modulePath.assign(result, result + length).replace(L'\\', L'/');
+			}
 		}
 	}
 
@@ -479,9 +495,14 @@ namespace s3d
 			return paths;
 		}
 
-		FilePath InitialPath()
+		const FilePath& InitialPath()
 		{
 			return detail::init::g_initialPath;
+		}
+
+		const FilePath& ModulePath()
+		{
+			return detail::init::g_modulePath;
 		}
 
 		FilePath CurrentPath()
@@ -503,28 +524,72 @@ namespace s3d
 			return detail::NormalizePath(FilePath(result, result + length), true);
 		}
 
-		FilePath ModulePath()
+		FilePath SpecialFolderPath(const SpecialFolder folder)
 		{
-			wchar result[1024];
-			const DWORD length = ::GetModuleFileNameW(nullptr, result, _countof(result));
+			constexpr int ids[] = {
+				CSIDL_DESKTOP,
+				CSIDL_MYDOCUMENTS,
+				CSIDL_FONTS,
+				CSIDL_LOCAL_APPDATA,
+				CSIDL_MYPICTURES,
+				CSIDL_MYMUSIC,
+				CSIDL_MYVIDEO
+			};
 
-			if (length == 0)
+			assert(folder < _countof(ids));
+			
+			wchar path[MAX_PATH];
+
+			if (FAILED(::SHGetFolderPathW(nullptr, ids[static_cast<size_t>(folder)], nullptr, 0, path)))
 			{
-				// [Siv3D*TODO]
 				return FilePath();
 			}
-			else if (length > _countof(result))
-			{
-				// [Siv3D*TODO]
-				return FilePath();
-			}
 
-			return FilePath(result, result + length).replaced(L'\\', L'/');
+			return detail::NormalizePath(FilePath(path), true);
 		}
 
-		//FilePath TemporaryPath();
+		FilePath TempDirectoryPath()
+		{
+			wchar path[MAX_PATH];
 
-		//FilePath UniquePath();
+			if (const auto length = ::GetTempPathW(MAX_PATH, path))
+			{
+				return detail::NormalizePath(FilePath(path, path + length), true);
+			}
+			else
+			{
+				return FilePath();
+			}
+		}
+
+		//FilePath UniqueFilePath(const FilePath& directory)
+		//{
+		//	if (directory.isEmpty())
+		//	{
+		//		return FilePath();
+		//	}
+
+		//	if (!IsDirectory(directory))
+		//	{
+		//		return FilePath();
+		//	}
+
+		//	FilePath tempDirectory = FullPath(directory);
+
+		//	if (tempDirectory.ends_with(L'/'))
+		//	{
+		//		tempDirectory.pop_back();
+		//	}
+
+		//	wchar path[MAX_PATH];
+
+		//	if (::GetTempFileNameW(tempDirectory.c_str(), L"s3d", 0, path) == 0)
+		//	{
+		//		return FilePath();
+		//	}
+		//	
+		//	return detail::NormalizePath(FilePath(path));
+		//}
 
 		bool Remove(const FilePath& path, const bool allowUndo)
 		{
@@ -895,21 +960,21 @@ namespace s3d
 			return paths;
 		}
                
-        FilePath InitialPath()
+		const FilePath& InitialPath()
         {
             return detail::init::g_initialPath;
         }
-   
+        
+		const FilePath& ModulePath()
+        {
+            return detail::init::g_modulePath;
+        }
+           
         FilePath CurrentPath()
         {
             return detail::NormalizePath(fs::current_path().wstring());
         }
-        
-        FilePath ModulePath()
-        {
-            return detail::init::g_modulePath;
-        }
-        
+
         bool Remove(const FilePath& path, const bool allowUndo)
         {
             if (path.isEmpty())

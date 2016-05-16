@@ -138,6 +138,7 @@ namespace s3d
 	//
 	enum class OpenMode;
 	enum class CopyOption;
+	enum class SpecialFolder;
 
 	//////////////////////////////////////////////////////
 	//

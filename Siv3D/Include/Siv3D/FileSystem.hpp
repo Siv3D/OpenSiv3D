@@ -61,6 +61,23 @@ namespace s3d
 		Rename_if_exists,
 	};
 
+	enum class SpecialFolder
+	{
+		Desktop,
+
+		Documents,
+
+		Fonts,
+
+		LocalAppData,
+
+		Pictures,
+
+		Music,
+
+		Videos,
+	};
+
 	/// <summary>
 	/// ファイルとディレクトリ
 	/// </summary>
@@ -282,8 +299,16 @@ namespace s3d
 		/// <returns>
 		/// プログラムが起動したパス
 		/// </returns>
-		FilePath InitialPath();
+		const FilePath& InitialPath();
 
+		/// <summary>
+		/// 現在のアプリケーションの実行可能ファイル (.exe) の完全パスを返します。
+		/// </summary>
+		/// <returns>
+		/// 現在のアプリケーションの完全パス
+		/// </returns>
+		const FilePath& ModulePath();
+        
 		/// <summary>
 		/// カレントパスを返します。
 		/// </summary>
@@ -292,14 +317,8 @@ namespace s3d
 		/// </returns>
 		FilePath CurrentPath();
 
-		/// <summary>
-		/// 現在のアプリケーションの実行可能ファイル (.exe) の完全パスを返します。
-		/// </summary>
-		/// <returns>
-		/// 現在のアプリケーションの完全パス
-		/// </returns>
-		FilePath ModulePath();
-        
+		FilePath SpecialFolderPath(SpecialFolder folder);
+
         /// <summary>
         /// 指定したパスを相対パスに変換します。
         /// </summary>
@@ -320,7 +339,7 @@ namespace s3d
 		/// <returns>
 		/// 一時ファイル用のディレクトリのパス
 		/// </returns>
-		//FilePath TemporaryPath();
+		FilePath TempDirectoryPath();
 
 		/// <summary>
 		/// 一時ファイル用の固有なファイルパスを返します。拡張子は L".tmp" です。
@@ -328,7 +347,7 @@ namespace s3d
 		/// <returns>
 		/// 一時ファイル用のファイルパス
 		/// </returns>
-		//FilePath UniquePath();
+		//FilePath UniqueFilePath(const FilePath& directory = TempDirectoryPath());
 
 		/// <summary>
 		/// ディレクトリを作成します。

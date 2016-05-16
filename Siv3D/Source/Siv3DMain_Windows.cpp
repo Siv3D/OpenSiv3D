@@ -29,6 +29,11 @@ namespace s3d
 	namespace detail
 	{
 		void OutputLicense();
+
+		namespace init
+		{
+			void SetModulePath();
+		}
 	}
 }
 
@@ -36,6 +41,7 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
+	s3d::detail::init::SetModulePath();
 	{
 		int nArgs = 0;
 

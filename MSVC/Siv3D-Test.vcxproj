@@ -58,6 +58,12 @@
     <ClInclude Include="..\Siv3D-Test\Include\gtest\internal\gtest-type-util.h" />
     <ClInclude Include="..\Siv3D-Test\Test\Siv3DTest.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{160BF0EC-EEAE-497B-8AA5-CB2941E393B2}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

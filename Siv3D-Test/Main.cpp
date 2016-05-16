@@ -5,9 +5,42 @@ using namespace s3d;
 using namespace s3d::literals;
 using namespace std::chrono_literals;
 
+FilePath GetResourceDirectory()
+{
+	return L"Resources/";
+}
+
+constexpr struct ResourceDirectoryHelper
+{
+	FilePath operator /(const StringView& path) const
+	{
+		return GetResourceDirectory().append(path.begin(), path.end());
+	}
+} Resource;
+
+# include <thread>
+
 void Main()
 {
 	Log(L"Hello, Siv3D!");
+
+	Log(FileSystem::SpecialFolderPath(SpecialFolder::Desktop));
+	Log(FileSystem::SpecialFolderPath(SpecialFolder::Documents));
+	Log(FileSystem::SpecialFolderPath(SpecialFolder::Fonts));
+	Log(FileSystem::SpecialFolderPath(SpecialFolder::LocalAppData));
+	Log(FileSystem::SpecialFolderPath(SpecialFolder::Music));
+	Log(FileSystem::SpecialFolderPath(SpecialFolder::Pictures));
+	Log(FileSystem::SpecialFolderPath(SpecialFolder::Videos));
+	//Log(v1);
+	//Log(v2);
+
+	//Log(FileSystem::ModulePath());
+	//Log(FileSystem::TempDirectoryPath());
+	//Log(FileSystem::UniqueFilePath());
+	//Log(FileSystem::UniqueFilePath(L"./"));
+	//Log(Resource / L"img/test.png");
+
+	
 
 	/*
 	RunTest();
