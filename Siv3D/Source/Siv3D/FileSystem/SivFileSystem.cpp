@@ -730,11 +730,6 @@ namespace s3d
                 return false;
             }
             
-            if (detail::IsResourcePath(path))
-            {
-                return false;
-            }
-            
 			return detail::IsRegular(path);
         }
 
