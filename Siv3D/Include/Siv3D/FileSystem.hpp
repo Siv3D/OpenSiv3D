@@ -322,6 +322,14 @@ namespace s3d
 		FilePath SpecialFolderPath(SpecialFolder folder);
 
 		/// <summary>
+		/// 一時ファイル用のディレクトリのパスを返します。パスの末尾には L'/' が付きます。
+		/// </summary>
+		/// <returns>
+		/// 一時ファイル用のディレクトリのパス
+		/// </returns>
+		FilePath TempDirectoryPath();
+
+		/// <summary>
 		/// 指定したパスを相対パスに変換します。
 		/// </summary>
 		/// <param name="path">
@@ -334,14 +342,6 @@ namespace s3d
 		/// 相対パス
 		/// </returns>
 		FilePath RelativePath(const FilePath& path, const FilePath& start = FileSystem::CurrentPath());
-
-		/// <summary>
-		/// 一時ファイル用のディレクトリのパスを返します。パスの末尾には L'\\' が付きます。
-		/// </summary>
-		/// <returns>
-		/// 一時ファイル用のディレクトリのパス
-		/// </returns>
-		FilePath TempDirectoryPath();
 
 		/// <summary>
 		/// 一時ファイル用の固有なファイルパスを返します。拡張子は L".tmp" です。
