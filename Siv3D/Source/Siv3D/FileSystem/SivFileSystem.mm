@@ -9,6 +9,7 @@
 //
 //-----------------------------------------------
 
+#include <string>
 #import <Foundation/Foundation.h>
 
 bool trashFile(const char* path, const unsigned long pathLength, const bool isDirectory)
@@ -20,4 +21,22 @@ bool trashFile(const char* path, const unsigned long pathLength, const bool isDi
                                                                  error: nil];
 
     return result;
+}
+
+std::string specialFolder(const int folder)
+{
+    const NSSearchPathDirectory folders[] = {
+        NSDesktopDirectory,
+        NSDocumentDirectory,
+        NSCachesDirectory,
+        NSMusicDirectory,
+        NSPicturesDirectory,
+        NSMoviesDirectory
+    };
+
+    NSArray* paths = NSSearchPathForDirectoriesInDomains(folders[folder], NSUserDomainMask, YES);
+    
+    NSString* directory = [paths objectAtIndex:0];
+
+    return [directory UTF8String];
 }

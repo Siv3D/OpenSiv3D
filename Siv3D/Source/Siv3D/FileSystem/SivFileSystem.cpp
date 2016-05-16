@@ -529,7 +529,6 @@ namespace s3d
 			constexpr int ids[] = {
 				CSIDL_DESKTOP,
 				CSIDL_MYDOCUMENTS,
-				CSIDL_FONTS,
 				CSIDL_LOCAL_APPDATA,
 				CSIDL_MYPICTURES,
 				CSIDL_MYMUSIC,
@@ -615,7 +614,8 @@ namespace s3d
 # include <boost/filesystem.hpp>
 # include <Siv3D/FileSystem.hpp>
 
-extern bool trashFile(const char* path, unsigned long pathLength, bool isDirectory);
+bool trashFile(const char* path, unsigned long pathLength, bool isDirectory);
+std::string specialFolder(int folder);
 
 namespace s3d
 {
@@ -973,6 +973,16 @@ namespace s3d
         FilePath CurrentPath()
         {
             return detail::NormalizePath(fs::current_path().wstring());
+        }
+        
+        FilePath SpecialFolderPath(const SpecialFolder folder)
+        {
+            return CharacterSet::Widen(specialFolder(static_cast<int>(folder)));
+        }
+        
+        FilePath TempDirectoryPath()
+        {
+            return FilePath(fs::temp_directory_path().wstring());
         }
 
         bool Remove(const FilePath& path, const bool allowUndo)

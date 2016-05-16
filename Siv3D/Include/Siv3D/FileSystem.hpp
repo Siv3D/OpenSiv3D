@@ -67,8 +67,6 @@ namespace s3d
 
 		Documents,
 
-		Fonts,
-
 		LocalAppData,
 
 		Pictures,
@@ -76,6 +74,10 @@ namespace s3d
 		Music,
 
 		Videos,
+        
+        Caches = LocalAppData,
+        
+        Movies = Videos,
 	};
 
 	/// <summary>
