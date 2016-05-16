@@ -1051,7 +1051,7 @@
 				HEADER_SEARCH_PATHS = (
 					../Siv3D/Include,
 					"../Siv3D-Test/Include",
-					../Dependencies/boost_1_60_0,
+					../Dependencies/boost_1_61_0,
 				);
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -1102,7 +1102,7 @@
 				HEADER_SEARCH_PATHS = (
 					../Siv3D/Include,
 					"../Siv3D-Test/Include",
-					../Dependencies/boost_1_60_0,
+					../Dependencies/boost_1_61_0,
 				);
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -1171,7 +1171,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					../Dependencies/boost_1_60_0,
+					../Dependencies/boost_1_61_0,
 					../Siv3D/Include,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
@@ -1216,7 +1216,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					../Dependencies/boost_1_60_0,
+					../Dependencies/boost_1_61_0,
 					../Siv3D/Include,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
