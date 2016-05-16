@@ -74,10 +74,10 @@ namespace s3d
 		Music,
 
 		Videos,
-        
-        Caches = LocalAppData,
-        
-        Movies = Videos,
+
+		Caches = LocalAppData,
+
+		Movies = Videos,
 	};
 
 	/// <summary>
@@ -310,7 +310,7 @@ namespace s3d
 		/// 現在のアプリケーションの完全パス
 		/// </returns>
 		const FilePath& ModulePath();
-        
+
 		/// <summary>
 		/// カレントパスを返します。
 		/// </summary>
@@ -321,19 +321,19 @@ namespace s3d
 
 		FilePath SpecialFolderPath(SpecialFolder folder);
 
-        /// <summary>
-        /// 指定したパスを相対パスに変換します。
-        /// </summary>
-        /// <param name="path">
-        /// パス
-        /// </param>
-        /// <param name="start">
-        /// 相対パスの基準位置
-        /// </param>
-        /// <returns>
-        /// 相対パス
-        /// </returns>
-        FilePath RelativePath(const FilePath& path, const FilePath& start = FileSystem::CurrentPath());
+		/// <summary>
+		/// 指定したパスを相対パスに変換します。
+		/// </summary>
+		/// <param name="path">
+		/// パス
+		/// </param>
+		/// <param name="start">
+		/// 相対パスの基準位置
+		/// </param>
+		/// <returns>
+		/// 相対パス
+		/// </returns>
+		FilePath RelativePath(const FilePath& path, const FilePath& start = FileSystem::CurrentPath());
 
 		/// <summary>
 		/// 一時ファイル用のディレクトリのパスを返します。パスの末尾には L'\\' が付きます。
@@ -361,7 +361,7 @@ namespace s3d
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
 		bool CreateDirectories(const FilePath& path);
-        
+
 		/// <summary>
 		/// 指定したパスまでの親ディレクトリを作成します。
 		/// </summary>
@@ -372,7 +372,7 @@ namespace s3d
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
 		bool CreateParentDirectories(const FilePath& path);
-        
+
 		/// <summary>
 		/// ファイルまたはディレクトリの中身をコピーします。
 		/// </summary>
