@@ -17,17 +17,19 @@
 - [x] FileSystem (Partial)
 
 #### 0.0.4
+- [x] InfiniteList
 - [x] BigFloat
 - [x] FileSystem (Partial)
 - [x] IWriter
 - [x] BinaryWriter
 - [x] IReader
-- [ ] BinaryReader
+- [x] BinaryReader
+- [ ] TextWriter
+- [ ] Logger
+- [ ] Regex (Partial)
 
 #### 0.0.5
 - [ ] TextReader
-- [ ] TextWriter
-- [ ] Logger
 - [ ] CSVReader
 - [ ] CSVWriter
 - [ ] INI (Partial)
