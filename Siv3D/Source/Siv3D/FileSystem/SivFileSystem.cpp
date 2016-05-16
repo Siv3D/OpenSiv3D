@@ -18,6 +18,7 @@
 # define  _WIN32_WINNT _WIN32_WINNT_WIN7
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
+# include <Shlobj.h>
 # include <filesystem>
 # include <Siv3D/FileSystem.hpp>
 
@@ -29,9 +30,7 @@ namespace s3d
 	{
 		static bool IsResourcePath(const FilePath& path)
 		{	
-			// [Siv3D*TODO]
-			path;
-			return false;
+			return path.starts_with(L'/');
 		}
 
 		inline bool IsNotFound(const fs::file_status& status)
@@ -47,6 +46,11 @@ namespace s3d
 		inline bool IsDirectory(const fs::file_status& status)
 		{
 			return status.type() == fs::file_type::directory;
+		}
+
+		inline bool ResourceExists(const FilePath& path)
+		{
+			return ::FindResourceW(::GetModuleHandleW(nullptr), (L'#' + path.substr(1)).c_str(), L"FILE") != nullptr;
 		}
 
 		static FilePath NormalizePath(FilePath path, const bool skipDirectoryCheck = false)
@@ -163,6 +167,21 @@ namespace s3d
 		namespace init
 		{
 			const static FilePath g_initialPath = NormalizePath(fs::current_path().wstring());
+
+			static FilePath g_modulePath = FilePath();
+
+			void SetModulePath()
+			{
+				wchar result[1024];
+				const DWORD length = ::GetModuleFileNameW(nullptr, result, _countof(result));
+
+				if (length == 0 || length >= _countof(result))
+				{
+					return;
+				}
+				
+				g_modulePath.assign(result, result + length).replace(L'\\', L'/');
+			}
 		}
 	}
 
@@ -177,8 +196,7 @@ namespace s3d
 
 			if (detail::IsResourcePath(path))
 			{
-				// [Siv3D*TODO]
-				return false;
+				return detail::ResourceExists(path);
 			}
 
 			return !detail::IsNotFound(fs::status(fs::path(path.str())));
@@ -208,8 +226,7 @@ namespace s3d
 
 			if (detail::IsResourcePath(path))
 			{
-				// [Siv3D*TODO]
-				return false;
+				return detail::ResourceExists(path);
 			}
 
 			return detail::IsRegular(fs::status(fs::path(path.str())));
@@ -217,9 +234,7 @@ namespace s3d
 
 		bool IsResource(const FilePath& path)
 		{
-			// [Siv3D*TODO]
-			path;
-			return false;
+			return detail::IsResourcePath(path) && detail::ResourceExists(path);
 		}
 
 		FilePath FullPath(const FilePath& path)
@@ -286,8 +301,16 @@ namespace s3d
 
 			if (detail::IsResourcePath(path))
 			{
-				// [Siv3D*TODO]
-				return false;
+				HMODULE module = ::GetModuleHandleW(nullptr);
+
+				if (HRSRC hrs = ::FindResourceW(module, (L'#' + path.substr(1)).c_str(), L"FILE"))
+				{
+					return ::SizeofResource(module, hrs) == 0;
+				}
+				else
+				{
+					return false;
+				}
 			}
 
 			const auto fpath = fs::path(path.str());
@@ -330,7 +353,6 @@ namespace s3d
 
 			if (detail::IsResourcePath(path))
 			{
-				// [Siv3D*TODO]
 				return FileSize(path);
 			}
 
@@ -369,8 +391,16 @@ namespace s3d
 
 			if (detail::IsResourcePath(path))
 			{
-				// [Siv3D*TODO]
-				return 0;
+				HMODULE module = ::GetModuleHandleW(nullptr);
+
+				if (HRSRC hrs = ::FindResourceW(module, (L'#' + path.substr(1)).c_str(), L"FILE"))
+				{
+					return ::SizeofResource(module, hrs);
+				}
+				else
+				{
+					return 0;
+				}
 			}
 
 			::WIN32_FILE_ATTRIBUTE_DATA fad;
@@ -479,9 +509,14 @@ namespace s3d
 			return paths;
 		}
 
-		FilePath InitialPath()
+		const FilePath& InitialPath()
 		{
 			return detail::init::g_initialPath;
+		}
+
+		const FilePath& ModulePath()
+		{
+			return detail::init::g_modulePath;
 		}
 
 		FilePath CurrentPath()
@@ -503,28 +538,71 @@ namespace s3d
 			return detail::NormalizePath(FilePath(result, result + length), true);
 		}
 
-		FilePath ModulePath()
+		FilePath SpecialFolderPath(const SpecialFolder folder)
 		{
-			wchar result[1024];
-			const DWORD length = ::GetModuleFileNameW(nullptr, result, _countof(result));
+			constexpr int ids[] = {
+				CSIDL_DESKTOP,
+				CSIDL_MYDOCUMENTS,
+				CSIDL_LOCAL_APPDATA,
+				CSIDL_MYPICTURES,
+				CSIDL_MYMUSIC,
+				CSIDL_MYVIDEO
+			};
 
-			if (length == 0)
+			assert(folder < _countof(ids));
+			
+			wchar path[MAX_PATH];
+
+			if (FAILED(::SHGetFolderPathW(nullptr, ids[static_cast<size_t>(folder)], nullptr, 0, path)))
 			{
-				// [Siv3D*TODO]
 				return FilePath();
 			}
-			else if (length > _countof(result))
-			{
-				// [Siv3D*TODO]
-				return FilePath();
-			}
 
-			return FilePath(result, result + length).replaced(L'\\', L'/');
+			return detail::NormalizePath(FilePath(path), true);
 		}
 
-		//FilePath TemporaryPath();
+		FilePath TempDirectoryPath()
+		{
+			wchar path[MAX_PATH];
 
-		//FilePath UniquePath();
+			if (const auto length = ::GetTempPathW(MAX_PATH, path))
+			{
+				return detail::NormalizePath(FilePath(path, path + length), true);
+			}
+			else
+			{
+				return FilePath();
+			}
+		}
+
+		//FilePath UniqueFilePath(const FilePath& directory)
+		//{
+		//	if (directory.isEmpty())
+		//	{
+		//		return FilePath();
+		//	}
+
+		//	if (!IsDirectory(directory))
+		//	{
+		//		return FilePath();
+		//	}
+
+		//	FilePath tempDirectory = FullPath(directory);
+
+		//	if (tempDirectory.ends_with(L'/'))
+		//	{
+		//		tempDirectory.pop_back();
+		//	}
+
+		//	wchar path[MAX_PATH];
+
+		//	if (::GetTempFileNameW(tempDirectory.c_str(), L"s3d", 0, path) == 0)
+		//	{
+		//		return FilePath();
+		//	}
+		//	
+		//	return detail::NormalizePath(FilePath(path));
+		//}
 
 		bool Remove(const FilePath& path, const bool allowUndo)
 		{
@@ -550,20 +628,15 @@ namespace s3d
 # include <boost/filesystem.hpp>
 # include <Siv3D/FileSystem.hpp>
 
-extern bool trashFile(const char* path, unsigned long pathLength, bool isDirectory);
+bool trashFile(const char* path, unsigned long pathLength, bool isDirectory);
+std::string specialFolder(int folder);
 
 namespace s3d
 {
     namespace fs = boost::filesystem;
     
     namespace detail
-    {
-        static bool IsResourcePath(const FilePath&)
-        {
-            // [Siv3D*TODO]
-            return false;
-        }
-        
+    {  
         static bool GetStat(const FilePath& path, struct stat& s)
         {
             return (::stat(path.replaced(L'\\', L'/').narrow().c_str(), &s) == 0);
@@ -637,12 +710,6 @@ namespace s3d
                 return false;
             }
             
-            if (detail::IsResourcePath(path))
-            {
-                // [Siv3D*TODO]
-                return false;
-            }
-            
             return !detail::IsNotFound(path);
         }
 
@@ -652,12 +719,7 @@ namespace s3d
             {
                 return false;
             }
-            
-            if (detail::IsResourcePath(path))
-            {
-                return false;
-            }
-            
+
 			return detail::IsDirectory(path);
         }
 
@@ -668,17 +730,11 @@ namespace s3d
                 return false;
             }
             
-            if (detail::IsResourcePath(path))
-            {
-                return false;
-            }
-            
 			return detail::IsRegular(path);
         }
 
         bool IsResource(const FilePath&)
         {
-            // [Siv3D*TODO]
             return false;
         }
 
@@ -688,12 +744,7 @@ namespace s3d
             {
                 return path;
             }
-            
-            if (detail::IsResourcePath(path))
-            {
-                return path;
-            }
-            
+
             if (detail::IsNotFound(path))
             {
                 return detail::NormalizePath(fs::weakly_canonical(fs::system_complete(fs::path(path.str()))).wstring());
@@ -716,12 +767,7 @@ namespace s3d
             {
                 return false;
             }
-            
-            if (detail::IsResourcePath(path))
-            {
-                return false;
-            }
-            
+
             struct stat s;
             if (!detail::GetStat(path, s))
             {
@@ -749,12 +795,7 @@ namespace s3d
             {
                 return 0;
             }
-            
-            if (detail::IsResourcePath(path))
-            {
-                return FileSize(path);
-            }
-            
+
             struct stat s;
             if (!detail::GetStat(path, s))
             {
@@ -796,13 +837,7 @@ namespace s3d
             {
                 return 0;
             }
-            
-            if (detail::IsResourcePath(path))
-            {
-                // [Siv3D*TODO]
-                return 0;
-            }
-            
+
             struct stat s;
             if (!detail::GetStat(path, s))
             {
@@ -872,11 +907,6 @@ namespace s3d
 				return paths;
 			}
 
-			if (detail::IsResourcePath(path))
-			{
-				return paths;
-			}
-
 			if (recursive)
 			{
 				for (const auto& v : fs::recursive_directory_iterator(path.str()))
@@ -895,21 +925,31 @@ namespace s3d
 			return paths;
 		}
                
-        FilePath InitialPath()
+		const FilePath& InitialPath()
         {
             return detail::init::g_initialPath;
         }
-   
+        
+		const FilePath& ModulePath()
+        {
+            return detail::init::g_modulePath;
+        }
+           
         FilePath CurrentPath()
         {
             return detail::NormalizePath(fs::current_path().wstring());
         }
         
-        FilePath ModulePath()
+        FilePath SpecialFolderPath(const SpecialFolder folder)
         {
-            return detail::init::g_modulePath;
+            return CharacterSet::Widen(specialFolder(static_cast<int>(folder)));
         }
         
+        FilePath TempDirectoryPath()
+        {
+            return FilePath(fs::temp_directory_path().wstring());
+        }
+
         bool Remove(const FilePath& path, const bool allowUndo)
         {
             if (path.isEmpty())
@@ -942,10 +982,14 @@ namespace s3d
                 return String();
             }
             
-            if (detail::IsResourcePath(path))
-            {
-                return String();
-            }
+			# if defined(SIV3D_TARGET_WINDOWS)
+
+				if (detail::IsResourcePath(path))
+				{
+					return String();
+				}
+			
+			# endif
             
             const size_t dotPos = path.lastIndexOf(L'.');
             
@@ -971,10 +1015,14 @@ namespace s3d
                 return String();
             }
             
-            if (detail::IsResourcePath(path))
-            {
-                return path;
-            }
+			# if defined(SIV3D_TARGET_WINDOWS)
+
+				if (detail::IsResourcePath(path))
+				{
+					return String();
+				}
+			
+			# endif
             
             const FilePath fullPath = FullPath(path);
             
@@ -1018,10 +1066,14 @@ namespace s3d
                 return String();
             }
             
-            if (detail::IsResourcePath(path))
-            {
-                return path;
-            }
+			# if defined(SIV3D_TARGET_WINDOWS)
+
+				if (detail::IsResourcePath(path))
+				{
+					return String();
+				}
+			
+			# endif
             
             const FilePath fileName = FileName(path);
             
@@ -1042,10 +1094,14 @@ namespace s3d
                 return FilePath();
             }
             
-            if (detail::IsResourcePath(path))
-            {
-                return FilePath();
-            }
+			# if defined(SIV3D_TARGET_WINDOWS)
+
+				if (detail::IsResourcePath(path))
+				{
+					return FilePath();
+				}
+			
+			# endif
             
             FilePath result = FullPath(path);
 
@@ -1087,10 +1143,19 @@ namespace s3d
 			const FilePath path = FullPath(_path);
 			const FilePath start = FullPath(_start);
 
-			if (!IsDirectory(start) || detail::IsResourcePath(path))
+			if (!IsDirectory(start))
 			{
 				return path;
 			}
+
+			# if defined(SIV3D_TARGET_WINDOWS)
+
+				if (detail::IsResourcePath(path))
+				{
+					return path;
+				}
+			
+			# endif
 
 			if (path == start)
 			{
@@ -1166,10 +1231,14 @@ namespace s3d
 				return false;
 			}
 
-			if (detail::IsResourcePath(path))
-			{
-				return false;
-			}
+			# if defined(SIV3D_TARGET_WINDOWS)
+
+				if (detail::IsResourcePath(path))
+				{
+					return false;
+				}
+			
+			# endif
 
 			try
 			{
@@ -1195,10 +1264,14 @@ namespace s3d
 				return false;
 			}
 
-			if (detail::IsResourcePath(path))
-			{
-				return false;
-			}
+			# if defined(SIV3D_TARGET_WINDOWS)
+
+				if (detail::IsResourcePath(path))
+				{
+					return false;
+				}
+			
+			# endif
 
 			const FilePath parentDirectory = ParentPath(FullPath(path));
 

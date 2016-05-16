@@ -61,6 +61,25 @@ namespace s3d
 		Rename_if_exists,
 	};
 
+	enum class SpecialFolder
+	{
+		Desktop,
+
+		Documents,
+
+		LocalAppData,
+
+		Pictures,
+
+		Music,
+
+		Videos,
+
+		Caches = LocalAppData,
+
+		Movies = Videos,
+	};
+
 	/// <summary>
 	/// ファイルとディレクトリ
 	/// </summary>
@@ -282,7 +301,15 @@ namespace s3d
 		/// <returns>
 		/// プログラムが起動したパス
 		/// </returns>
-		FilePath InitialPath();
+		const FilePath& InitialPath();
+
+		/// <summary>
+		/// 現在のアプリケーションの実行可能ファイル (.exe) の完全パスを返します。
+		/// </summary>
+		/// <returns>
+		/// 現在のアプリケーションの完全パス
+		/// </returns>
+		const FilePath& ModulePath();
 
 		/// <summary>
 		/// カレントパスを返します。
@@ -292,35 +319,29 @@ namespace s3d
 		/// </returns>
 		FilePath CurrentPath();
 
-		/// <summary>
-		/// 現在のアプリケーションの実行可能ファイル (.exe) の完全パスを返します。
-		/// </summary>
-		/// <returns>
-		/// 現在のアプリケーションの完全パス
-		/// </returns>
-		FilePath ModulePath();
-        
-        /// <summary>
-        /// 指定したパスを相対パスに変換します。
-        /// </summary>
-        /// <param name="path">
-        /// パス
-        /// </param>
-        /// <param name="start">
-        /// 相対パスの基準位置
-        /// </param>
-        /// <returns>
-        /// 相対パス
-        /// </returns>
-        FilePath RelativePath(const FilePath& path, const FilePath& start = FileSystem::CurrentPath());
+		FilePath SpecialFolderPath(SpecialFolder folder);
 
 		/// <summary>
-		/// 一時ファイル用のディレクトリのパスを返します。パスの末尾には L'\\' が付きます。
+		/// 一時ファイル用のディレクトリのパスを返します。パスの末尾には L'/' が付きます。
 		/// </summary>
 		/// <returns>
 		/// 一時ファイル用のディレクトリのパス
 		/// </returns>
-		//FilePath TemporaryPath();
+		FilePath TempDirectoryPath();
+
+		/// <summary>
+		/// 指定したパスを相対パスに変換します。
+		/// </summary>
+		/// <param name="path">
+		/// パス
+		/// </param>
+		/// <param name="start">
+		/// 相対パスの基準位置
+		/// </param>
+		/// <returns>
+		/// 相対パス
+		/// </returns>
+		FilePath RelativePath(const FilePath& path, const FilePath& start = FileSystem::CurrentPath());
 
 		/// <summary>
 		/// 一時ファイル用の固有なファイルパスを返します。拡張子は L".tmp" です。
@@ -328,7 +349,7 @@ namespace s3d
 		/// <returns>
 		/// 一時ファイル用のファイルパス
 		/// </returns>
-		//FilePath UniquePath();
+		//FilePath UniqueFilePath(const FilePath& directory = TempDirectoryPath());
 
 		/// <summary>
 		/// ディレクトリを作成します。
@@ -340,7 +361,7 @@ namespace s3d
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
 		bool CreateDirectories(const FilePath& path);
-        
+
 		/// <summary>
 		/// 指定したパスまでの親ディレクトリを作成します。
 		/// </summary>
@@ -351,7 +372,7 @@ namespace s3d
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
 		bool CreateParentDirectories(const FilePath& path);
-        
+
 		/// <summary>
 		/// ファイルまたはディレクトリの中身をコピーします。
 		/// </summary>

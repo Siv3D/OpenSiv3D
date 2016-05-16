@@ -9,6 +9,25 @@ void Main()
 {
 	Log(L"Hello, Siv3D!");
 
+	{
+		BinaryWriter writer(L"test.bin");
+		writer.write(123);
+		writer.write(4.5);
+		writer.write(678);
+	}
+
+	{
+		int a, c;
+		double b;
+
+		BinaryReader reader(L"test.bin");
+		reader.read(a);
+		reader.read(b);
+		reader.read(c);
+
+		Log(L"{},{},{}"_fmt(a, b, c));
+	}
+
 	/*
 	RunTest();
 
@@ -285,7 +304,18 @@ void Main()
 	
 	Log(L"## ModulePath");
 	Log(FileSystem::ModulePath());
-	
+
+	Log(L"## SpecialFolderPath");
+	Log(FileSystem::SpecialFolderPath(SpecialFolder::Desktop));
+	Log(FileSystem::SpecialFolderPath(SpecialFolder::Documents));
+	Log(FileSystem::SpecialFolderPath(SpecialFolder::LocalAppData));
+	Log(FileSystem::SpecialFolderPath(SpecialFolder::Music));
+	Log(FileSystem::SpecialFolderPath(SpecialFolder::Pictures));
+	Log(FileSystem::SpecialFolderPath(SpecialFolder::Videos));
+
+	Log(L"## TempDirectoryPath");
+	Log(FileSystem::TempDirectoryPath());
+
 	Log(L"## RelativePath");
 	Log(FileSystem::RelativePath(L"example/windmill.png", L"example/"));
 	Log(FileSystem::RelativePath(L"../../", L"example/"));

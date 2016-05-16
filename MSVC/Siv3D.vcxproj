@@ -24,6 +24,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Allocator.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Array.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\BigInt.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\BinaryReader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\BinaryWriter.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Char.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\CharacterSet.hpp" />
@@ -77,6 +78,8 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Version.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BigFloat\CBigFloat.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BigInt\CBigInt.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryReader\CBinaryReader_osx.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryReader\CBinaryReader_windows.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryWriter\CBinaryWriter_osx.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryWriter\CBinaryWriter_windows.hpp" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum-dtoa.h" />
@@ -95,6 +98,9 @@
     <ClCompile Include="..\Siv3D\Source\Siv3DMain_Windows.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\BigFloat\SivBigFloat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\BigInt\SivBigInt.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryReader\CBinaryReader_osx.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryReader\CBinaryReader_windows.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryReader\SivBinaryReader.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryWriter\CBinaryWriter_osx.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryWriter\CBinaryWriter_windows.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryWriter\SivBinaryWriter.cpp" />
