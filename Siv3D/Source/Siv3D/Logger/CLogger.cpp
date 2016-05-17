@@ -74,7 +74,7 @@ namespace s3d
 		{
 			if (desc != LogDescription::App)
 			{
-				std::cout << logLevelStr;
+				std::cout << logLevelStr[static_cast<size_t>(desc)];
 			}
 
 			std::cout << std::wstring_convert<std::codecvt_utf8<wchar_t>>().to_bytes(str.str()) << '\n';
