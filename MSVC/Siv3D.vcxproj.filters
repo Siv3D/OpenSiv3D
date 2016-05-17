@@ -80,6 +80,12 @@
     <Filter Include="Source\Siv3D\BinaryWriter">
       <UniqueIdentifier>{2908b15e-5406-471e-8579-1f9b4a55b508}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\TextWriter">
+      <UniqueIdentifier>{016d29d1-aa5a-4f25-80e5-bac98a92c9cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\TextEncoding">
+      <UniqueIdentifier>{eddba81f-662c-4467-be22-40dfff6364dd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -301,6 +307,12 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\BinaryReader.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\TextWriter.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\TextWriter\CTextWriter.hpp">
+      <Filter>Source\Siv3D\TextWriter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\Siv3DMain_OSX.cpp">
@@ -398,6 +410,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryReader\CBinaryReader_osx.cpp">
       <Filter>Source\Siv3D\BinaryReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\TextWriter\CTextWriter.cpp">
+      <Filter>Source\Siv3D\TextWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\TextWriter\SivTextWriter.cpp">
+      <Filter>Source\Siv3D\TextWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\TextEncoding\SivTextEncoding.cpp">
+      <Filter>Source\Siv3D\TextEncoding</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

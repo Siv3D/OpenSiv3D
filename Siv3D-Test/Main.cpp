@@ -7,26 +7,17 @@ using namespace std::chrono_literals;
 
 void Main()
 {
-	Log(L"Hello, Siv3D!");
+	TextWriter writer1(L"testANSI.txt", TextEncoding::ANSI);
+	TextWriter writer2(L"testUTF8.txt", TextEncoding::UTF8);
+	TextWriter writer3(L"testUTF8noBOM.txt", TextEncoding::UTF8, false);
+	TextWriter writer4(L"testUTF16BE.txt", TextEncoding::UTF16BE);
+	TextWriter writer5(L"testUTF16LE.txt", TextEncoding::UTF16LE);
 
-	{
-		BinaryWriter writer(L"test.bin");
-		writer.write(123);
-		writer.write(4.5);
-		writer.write(678);
-	}
-
-	{
-		int a, c;
-		double b;
-
-		BinaryReader reader(L"test.bin");
-		reader.read(a);
-		reader.read(b);
-		reader.read(c);
-
-		Log(L"{},{},{}"_fmt(a, b, c));
-	}
+	writer1.writeln(L"Siv3D あいうえお　漢字\naaa\nbbb\nccc\n終わり");
+	writer2.writeln(L"Siv3D あいうえお　漢字\naaa\nbbb\nccc\n終わり");
+	writer3.writeln(L"Siv3D あいうえお　漢字\naaa\nbbb\nccc\n終わり");
+	writer4.writeln(L"Siv3D あいうえお　漢字\naaa\nbbb\nccc\n終わり");
+	writer5.writeln(L"Siv3D あいうえお　漢字\naaa\nbbb\nccc\n終わり");
 
 	/*
 	RunTest();

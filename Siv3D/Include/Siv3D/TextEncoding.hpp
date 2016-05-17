@@ -10,6 +10,8 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Fwd.hpp"
+# include "BinaryReader.hpp"
 
 namespace s3d
 {
@@ -46,4 +48,38 @@ namespace s3d
 		/// </summary>
 		Default = UTF8,
 	};
+
+	namespace CharacterSet
+	{
+		/// <summary>
+		/// ファイルがテキストファイルである場合、そのエンコーディング形式を返します。
+		/// </summary>
+		/// <param name="reader">
+		/// IReader
+		/// </param>
+		/// <param name="bomSize">
+		/// [out] テキストファイルに含まれている BOM のサイズ
+		/// </param>
+		/// <returns>
+		/// テキストファイルのエンコーディング形式
+		/// </returns>
+		TextEncoding GetEncoding(const IReader& reader, int32& bomSize);
+
+		/// <summary>
+		/// ファイルがテキストファイルである場合、そのエンコーディング形式を返します。
+		/// </summary>
+		/// <param name="path">
+		/// ファイルパス
+		/// </param>
+		/// <param name="bomSize">
+		/// [out] テキストファイルに含まれている BOM のサイズ
+		/// </param>
+		/// <returns>
+		/// テキストファイルのエンコーディング形式
+		/// </returns>
+		inline TextEncoding GetEncoding(const FilePath& path, int32& bomSize)
+		{
+			return GetEncoding(BinaryReader(path), bomSize);
+		}
+	}
 }
