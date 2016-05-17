@@ -9,17 +9,21 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/Logger.hpp>
-# include "../Siv3DEngine.hpp"
-# include "ILogger.hpp"
+# pragma once
+# include "IXxxx.hpp"
 
 namespace s3d
 {
-	namespace detail
+	class CXxxx : public ISiv3DXxxx
 	{
-		void Log_impl::operator()(const String& text) const
-		{
-			Siv3DEngine::GetLogger()->write(LogDescription::App, text);
-		}
-	}
+	private:
+
+	public:
+
+		CXxxx();
+
+		~CXxxx() override;
+
+		bool init() override;
+	};
 }

@@ -30,4 +30,15 @@ namespace s3d
 	}
 
 	constexpr auto Log = detail::Log_impl();
+
+	enum class LogDescription
+	{
+		Error,		// Less
+		Fail,		// Less
+		Warning,	// Less
+		Script,		// Less
+		App,		// Normal
+		Info,		// Normal
+		Debug,		// More
+	};
 }

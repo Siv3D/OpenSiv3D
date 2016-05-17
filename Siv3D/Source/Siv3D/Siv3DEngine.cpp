@@ -9,17 +9,22 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/Logger.hpp>
-# include "../Siv3DEngine.hpp"
-# include "ILogger.hpp"
+# include "Siv3DEngine.hpp"
+# include "Logger/ILogger.hpp"
 
 namespace s3d
 {
-	namespace detail
+	Siv3DEngine* Siv3DEngine::pEngine = nullptr;
+
+	Siv3DEngine::Siv3DEngine()
 	{
-		void Log_impl::operator()(const String& text) const
-		{
-			Siv3DEngine::GetLogger()->write(LogDescription::App, text);
-		}
+		pEngine = this;
+	}
+
+	Siv3DEngine::~Siv3DEngine()
+	{
+		m_logger.release();
+
+		pEngine = nullptr;
 	}
 }

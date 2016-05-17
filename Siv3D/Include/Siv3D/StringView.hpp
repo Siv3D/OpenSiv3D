@@ -90,6 +90,8 @@ namespace s3d
 
 		constexpr size_type size() const noexcept { return m_length; }
 
+		constexpr size_type size_bytes() const noexcept { return m_length * sizeof(value_type); }
+
 		constexpr size_type length() const noexcept { return m_length; }
 
 		constexpr size_type max_size() const noexcept { return std::numeric_limits<size_type>::max(); }

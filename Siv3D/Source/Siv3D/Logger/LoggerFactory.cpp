@@ -9,17 +9,12 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/Logger.hpp>
-# include "../Siv3DEngine.hpp"
-# include "ILogger.hpp"
+# include "CLogger.hpp"
 
 namespace s3d
 {
-	namespace detail
+	ISiv3DLogger* ISiv3DLogger::Create()
 	{
-		void Log_impl::operator()(const String& text) const
-		{
-			Siv3DEngine::GetLogger()->write(LogDescription::App, text);
-		}
+		return new CLogger;
 	}
 }
