@@ -18,6 +18,7 @@
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/CharacterSet.hpp>
 # include "Siv3DEngine.hpp"
+# include "Logger/ILogger.hpp"
 
 void Main();
 
@@ -25,8 +26,6 @@ namespace s3d
 {
 	namespace detail
 	{
-		void OutputLicense();
-
         namespace init
         {
             void SetModulePath(const FilePath& path);
@@ -54,9 +53,12 @@ int main(int argc, char* argv[])
     
 	Siv3DEngine engine;
 
-	Main();
+	if (!engine.GetLogger()->init())
+	{
+		return -1;
+	}
 
-	s3d::detail::OutputLicense();
+	Main();
 }
 
 # endif

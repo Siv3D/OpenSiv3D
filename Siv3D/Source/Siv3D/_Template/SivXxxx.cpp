@@ -9,22 +9,13 @@
 //
 //-----------------------------------------------
 
-# include "Siv3DEngine.hpp"
-# include "Logger/ILogger.hpp"
+# include "../Siv3DEngine.hpp"
+# include "IXxxx.hpp"
 
 namespace s3d
 {
-	Siv3DEngine* Siv3DEngine::pEngine = nullptr;
-
-	Siv3DEngine::Siv3DEngine()
+	namespace Xxxx
 	{
-		pEngine = this;
-	}
-
-	Siv3DEngine::~Siv3DEngine()
-	{
-		m_logger.release();
-
-		pEngine = nullptr;
+	
 	}
 }

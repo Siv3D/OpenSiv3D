@@ -22,6 +22,7 @@
 # include <Siv3D/String.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include "Siv3DEngine.hpp"
+# include "Logger/ILogger.hpp"
 
 void Main();
 
@@ -29,8 +30,6 @@ namespace s3d
 {
 	namespace detail
 	{
-		void OutputLicense();
-
 		namespace init
 		{
 			void SetModulePath();
@@ -62,9 +61,12 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 
 	Siv3DEngine engine;
 
-	Main();
+	if (!engine.GetLogger()->init())
+	{
+		return -1;
+	}
 
-	detail::OutputLicense();
+	Main();
 
 	return 0;
 }

@@ -9,22 +9,19 @@
 //
 //-----------------------------------------------
 
-# include "Siv3DEngine.hpp"
-# include "Logger/ILogger.hpp"
+# pragma once
+# include <Siv3D/Fwd.hpp>
 
 namespace s3d
 {
-	Siv3DEngine* Siv3DEngine::pEngine = nullptr;
-
-	Siv3DEngine::Siv3DEngine()
+	class ISiv3DXxxx
 	{
-		pEngine = this;
-	}
+	public:
 
-	Siv3DEngine::~Siv3DEngine()
-	{
-		m_logger.release();
+		static ISiv3DXxxx* Create();
 
-		pEngine = nullptr;
-	}
+		virtual ~ISiv3DXxxx() = default;
+
+		virtual bool init() = 0;
+	};
 }

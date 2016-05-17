@@ -316,6 +316,15 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Siv3DEngine.hpp">
       <Filter>Source\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\CLogger.hpp">
+      <Filter>Source\Siv3D\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\ILogger.hpp">
+      <Filter>Source\Siv3D\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\LogHeaderFotter.hpp">
+      <Filter>Source\Siv3D\Logger</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -356,9 +365,6 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\cppformat\format.cc">
       <Filter>Source\ThirdParty\cppformat</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\SivLogger.cpp">
-      <Filter>Source\Siv3D\Logger</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\CharacterSet\SivCharacterSet.cpp">
       <Filter>Source\Siv3D\CharacterSet</Filter>
@@ -425,6 +431,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DEngine.cpp">
       <Filter>Source\Siv3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\LoggerFactory.cpp">
+      <Filter>Source\Siv3D\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\SivLogger.cpp">
+      <Filter>Source\Siv3D\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\CLogger.cpp">
+      <Filter>Source\Siv3D\Logger</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
