@@ -24,8 +24,8 @@
 - [x] BinaryWriter
 - [x] IReader
 - [x] BinaryReader
-- [ ] TextWriter
-- [ ] Logger
+- [x] TextWriter
+- [x] Logger (Partial)
 - [ ] Regex (Partial)
 
 #### 0.0.5
