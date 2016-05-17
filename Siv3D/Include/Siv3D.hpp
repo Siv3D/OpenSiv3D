@@ -106,7 +106,7 @@
 	// 文字列 -> データ の変換
 	# include "Siv3D/Parse.hpp"
 	// 正規表現
-	//# include "Siv3D/Regex.hpp"
+	# include "Siv3D/Regex.hpp"
 //
 // 時刻と時間
 //
