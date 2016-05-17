@@ -7,18 +7,6 @@ using namespace std::chrono_literals;
 
 void Main()
 {
-	TextWriter writer1(L"testANSI.txt", TextEncoding::ANSI);
-	TextWriter writer2(L"testUTF8.txt", TextEncoding::UTF8);
-	TextWriter writer3(L"testUTF8noBOM.txt", TextEncoding::UTF8, false);
-	TextWriter writer4(L"testUTF16BE.txt", TextEncoding::UTF16BE);
-	TextWriter writer5(L"testUTF16LE.txt", TextEncoding::UTF16LE);
-
-	writer1.writeln(L"Siv3D あいうえお　漢字\naaa\nbbb\nccc\n終わり");
-	writer2.writeln(L"Siv3D あいうえお　漢字\naaa\nbbb\nccc\n終わり");
-	writer3.writeln(L"Siv3D あいうえお　漢字\naaa\nbbb\nccc\n終わり");
-	writer4.writeln(L"Siv3D あいうえお　漢字\naaa\nbbb\nccc\n終わり");
-	writer5.writeln(L"Siv3D あいうえお　漢字\naaa\nbbb\nccc\n終わり");
-
 	/*
 	RunTest();
 

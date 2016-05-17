@@ -315,12 +315,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Siv3D\Source\Siv3DMain_OSX.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\Siv3DMain_Windows.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
       <Filter>Source\ThirdParty\double-conversion</Filter>
     </ClCompile>
@@ -419,6 +413,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextEncoding\SivTextEncoding.cpp">
       <Filter>Source\Siv3D\TextEncoding</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_OSX.cpp">
+      <Filter>Source\Siv3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_Windows.cpp">
+      <Filter>Source\Siv3D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
