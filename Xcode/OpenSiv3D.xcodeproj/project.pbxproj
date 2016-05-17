@@ -129,6 +129,11 @@
 		2CC2B10C1CB5552300BB42D0 /* strtod.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CC2B0BB1CB5552200BB42D0 /* strtod.cc */; };
 		2CC2B10D1CB5552300BB42D0 /* strtod.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC2B0BC1CB5552200BB42D0 /* strtod.h */; };
 		2CC2B10E1CB5552300BB42D0 /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC2B0BD1CB5552200BB42D0 /* utils.h */; };
+		2CDA1A791CEACBBB00120F95 /* TextWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CDA1A781CEACBBB00120F95 /* TextWriter.hpp */; };
+		2CDA1A7C1CEACBD200120F95 /* SivTextEncoding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CDA1A7B1CEACBD200120F95 /* SivTextEncoding.cpp */; };
+		2CDA1A811CEACBDE00120F95 /* CTextWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CDA1A7E1CEACBDE00120F95 /* CTextWriter.cpp */; };
+		2CDA1A821CEACBDE00120F95 /* CTextWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CDA1A7F1CEACBDE00120F95 /* CTextWriter.hpp */; };
+		2CDA1A831CEACBDE00120F95 /* SivTextWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CDA1A801CEACBDE00120F95 /* SivTextWriter.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -284,6 +289,11 @@
 		2CC2B1191CB5554500BB42D0 /* TestStep.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestStep.cpp; sourceTree = "<group>"; };
 		2CC2B11A1CB5554500BB42D0 /* TestString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestString.cpp; sourceTree = "<group>"; };
 		2CC2B11B1CB5554500BB42D0 /* TestTypes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestTypes.cpp; sourceTree = "<group>"; };
+		2CDA1A781CEACBBB00120F95 /* TextWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextWriter.hpp; sourceTree = "<group>"; };
+		2CDA1A7B1CEACBD200120F95 /* SivTextEncoding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextEncoding.cpp; sourceTree = "<group>"; };
+		2CDA1A7E1CEACBDE00120F95 /* CTextWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTextWriter.cpp; sourceTree = "<group>"; };
+		2CDA1A7F1CEACBDE00120F95 /* CTextWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTextWriter.hpp; sourceTree = "<group>"; };
+		2CDA1A801CEACBDE00120F95 /* SivTextWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextWriter.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -670,6 +680,7 @@
 				2C38B0D21CDA3517007A7E9F /* StringView.hpp */,
 				2C38B1251CDDEC78007A7E9F /* System.hpp */,
 				2C1777A21CDF67FD00BB8AD0 /* TextEncoding.hpp */,
+				2CDA1A781CEACBBB00120F95 /* TextWriter.hpp */,
 				2C38B0D31CDA3517007A7E9F /* Time.hpp */,
 				2C38B0D41CDA3517007A7E9F /* TimeProfiler.hpp */,
 				2C38B0D51CDA3517007A7E9F /* Timer.hpp */,
@@ -697,6 +708,8 @@
 		2CC2B09B1CB5552200BB42D0 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2CDA1A7D1CEACBDE00120F95 /* TextWriter */,
+				2CDA1A7A1CEACBD200120F95 /* TextEncoding */,
 				2C2CCF651CE8B74F001844FF /* BinaryReader */,
 				2C2CCF581CE89F1E001844FF /* BinaryWriter */,
 				2CA73B3E1CE728DB00C83534 /* BigFloat */,
@@ -781,6 +794,24 @@
 			path = Test;
 			sourceTree = "<group>";
 		};
+		2CDA1A7A1CEACBD200120F95 /* TextEncoding */ = {
+			isa = PBXGroup;
+			children = (
+				2CDA1A7B1CEACBD200120F95 /* SivTextEncoding.cpp */,
+			);
+			path = TextEncoding;
+			sourceTree = "<group>";
+		};
+		2CDA1A7D1CEACBDE00120F95 /* TextWriter */ = {
+			isa = PBXGroup;
+			children = (
+				2CDA1A7E1CEACBDE00120F95 /* CTextWriter.cpp */,
+				2CDA1A7F1CEACBDE00120F95 /* CTextWriter.hpp */,
+				2CDA1A801CEACBDE00120F95 /* SivTextWriter.cpp */,
+			);
+			path = TextWriter;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -852,6 +883,7 @@
 				2C38B0F61CDA3517007A7E9F /* Radix.hpp in Headers */,
 				2C1777A31CDF67FD00BB8AD0 /* TextEncoding.hpp in Headers */,
 				2C38B0F41CDA3517007A7E9F /* PlatformWindows.hpp in Headers */,
+				2CDA1A821CEACBDE00120F95 /* CTextWriter.hpp in Headers */,
 				2C38B1031CDA3517007A7E9F /* Uncopyable.hpp in Headers */,
 				2C38B1021CDA3517007A7E9F /* Types.hpp in Headers */,
 				2C38B1051CDA3517007A7E9F /* Utility.hpp in Headers */,
@@ -860,6 +892,7 @@
 				2C38B0F51CDA3517007A7E9F /* Point.hpp in Headers */,
 				2C38B0F31CDA3517007A7E9F /* Platform.hpp in Headers */,
 				2C38B1061CDA3517007A7E9F /* Version.hpp in Headers */,
+				2CDA1A791CEACBBB00120F95 /* TextWriter.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -991,15 +1024,18 @@
 				2C38B11B1CDA352E007A7E9F /* SivBigInt.cpp in Sources */,
 				2C38B1231CDA352E007A7E9F /* SivTime.cpp in Sources */,
 				2CC2B1011CB5552300BB42D0 /* cached-powers.cc in Sources */,
+				2CDA1A831CEACBDE00120F95 /* SivTextWriter.cpp in Sources */,
 				2C38B11C1CDA352E007A7E9F /* SivCharacterSet.cpp in Sources */,
 				2CC2B0FB1CB5552300BB42D0 /* Siv3DMain_Windows.cpp in Sources */,
 				2C38B1201CDA352E007A7E9F /* SivParseFloat.cpp in Sources */,
 				2CC2B0FA1CB5552300BB42D0 /* Siv3DMain_OSX.cpp in Sources */,
 				2C2CCF4D1CE86006001844FF /* SivFileSystem.mm in Sources */,
 				2C2CCF601CE89F1E001844FF /* CBinaryWriter_windows.cpp in Sources */,
+				2CDA1A7C1CEACBD200120F95 /* SivTextEncoding.cpp in Sources */,
 				2C38B11E1CDA352E007A7E9F /* SivFormatInt.cpp in Sources */,
 				2CC2B0FC1CB5552300BB42D0 /* format.cc in Sources */,
 				2CC2B1031CB5552300BB42D0 /* diy-fp.cc in Sources */,
+				2CDA1A811CEACBDE00120F95 /* CTextWriter.cpp in Sources */,
 				2C38B11D1CDA352E007A7E9F /* SivFormatFloat.cpp in Sources */,
 				2CC2B10C1CB5552300BB42D0 /* strtod.cc in Sources */,
 			);

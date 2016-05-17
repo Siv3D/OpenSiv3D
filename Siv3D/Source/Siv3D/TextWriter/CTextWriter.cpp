@@ -35,6 +35,15 @@ namespace s3d
 			int32 unused = 0;
 
 			m_textEncoding = CharacterSet::GetEncoding(path, unused);
+            
+            # if defined(SIV3D_TARGET_OSX)
+            
+                if (m_textEncoding == TextEncoding::ANSI)
+                {
+                    return false;
+                }
+            
+            # endif
 		}
 		else
 		{
