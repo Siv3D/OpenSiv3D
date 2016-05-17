@@ -17,6 +17,7 @@
 # include <Siv3D/String.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/CharacterSet.hpp>
+# include "Siv3DEngine.hpp"
 
 void Main();
 
@@ -35,20 +36,24 @@ namespace s3d
 
 int main(int argc, char* argv[])
 {
+	using namespace s3d;
+
 	std::cout << "Siv3D for Mac\n";
     
-    const s3d::FilePath path = s3d::CharacterSet::Widen(argv[0]);
-    s3d::FilePath modulePath = s3d::FileSystem::ParentPath(path, 2);
+    const FilePath path = CharacterSet::Widen(argv[0]);
+    FilePath modulePath = FileSystem::ParentPath(path, 2);
 
     if (modulePath.ends_with(L'/'))
     {
         modulePath.pop_back();
     }
     
-    s3d::detail::init::SetModulePath(modulePath);
+    detail::init::SetModulePath(modulePath);
 
-    chdir(s3d::FileSystem::ParentPath(path, 3).narrow().c_str());
+    chdir(FileSystem::ParentPath(path, 3).narrow().c_str());
     
+	Siv3DEngine engine;
+
 	Main();
 
 	s3d::detail::OutputLicense();

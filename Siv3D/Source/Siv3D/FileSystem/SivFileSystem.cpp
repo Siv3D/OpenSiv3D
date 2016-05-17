@@ -549,7 +549,7 @@ namespace s3d
 				CSIDL_MYVIDEO
 			};
 
-			assert(folder < _countof(ids));
+			assert(static_cast<size_t>(folder) < _countof(ids));
 			
 			wchar path[MAX_PATH];
 

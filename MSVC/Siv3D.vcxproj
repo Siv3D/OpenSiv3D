@@ -83,6 +83,7 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryReader\CBinaryReader_windows.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryWriter\CBinaryWriter_osx.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryWriter\CBinaryWriter_windows.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Siv3DEngine.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\TextWriter\CTextWriter.hpp" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum-dtoa.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum.h" />
@@ -112,6 +113,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatInt\SivFormatInt.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\SivLogger.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ParseFloat\SivParseFloat.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DEngine.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_OSX.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_Windows.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Stopwatch\SivStopwatch.cpp" />

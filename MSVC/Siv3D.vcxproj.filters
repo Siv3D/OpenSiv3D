@@ -313,6 +313,9 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\TextWriter\CTextWriter.hpp">
       <Filter>Source\Siv3D\TextWriter</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Siv3DEngine.hpp">
+      <Filter>Source\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -418,6 +421,9 @@
       <Filter>Source\Siv3D</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_Windows.cpp">
+      <Filter>Source\Siv3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DEngine.cpp">
       <Filter>Source\Siv3D</Filter>
     </ClCompile>
   </ItemGroup>
