@@ -142,6 +142,10 @@ void Main()
 	Log(ParseOpt<int32>(L"???"));
 	Log(ParseOpt<double>(L"7.77"));
 
+	// Regex
+	Log(L"# Regex::Split");
+	Log(Regex::Split(L"C++03 C++98   C++11 C++14	C++17", L"\\s+"));
+
 	// Time
 	Log(L"# Time");
 	Log(Time::GetSec());

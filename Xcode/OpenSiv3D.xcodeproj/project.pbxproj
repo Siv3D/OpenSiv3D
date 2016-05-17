@@ -141,6 +141,7 @@
 		2CDA1A931CEB1B0300120F95 /* ILogger.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CDA1A8E1CEB1B0300120F95 /* ILogger.hpp */; };
 		2CDA1A941CEB1B0300120F95 /* LoggerFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CDA1A8F1CEB1B0300120F95 /* LoggerFactory.cpp */; };
 		2CDA1A951CEB1B0300120F95 /* LogHeaderFotter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CDA1A901CEB1B0300120F95 /* LogHeaderFotter.hpp */; };
+		2CDA1A971CEB2E8800120F95 /* Regex.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CDA1A961CEB2E8800120F95 /* Regex.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -308,6 +309,7 @@
 		2CDA1A8E1CEB1B0300120F95 /* ILogger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ILogger.hpp; sourceTree = "<group>"; };
 		2CDA1A8F1CEB1B0300120F95 /* LoggerFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoggerFactory.cpp; sourceTree = "<group>"; };
 		2CDA1A901CEB1B0300120F95 /* LogHeaderFotter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LogHeaderFotter.hpp; sourceTree = "<group>"; };
+		2CDA1A961CEB2E8800120F95 /* Regex.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Regex.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -691,6 +693,7 @@
 				2C38B0CA1CDA3517007A7E9F /* Radix.hpp */,
 				2C38B0CB1CDA3517007A7E9F /* Random.hpp */,
 				2C38B0CC1CDA3517007A7E9F /* RDTSCProfiler.hpp */,
+				2CDA1A961CEB2E8800120F95 /* Regex.hpp */,
 				2C38B0CD1CDA3517007A7E9F /* SpeedStopwatch.hpp */,
 				2C38B0CE1CDA3517007A7E9F /* Step_MSVC.hpp */,
 				2C38B0CF1CDA3517007A7E9F /* Step.hpp */,
@@ -880,6 +883,7 @@
 				2C38B0F11CDA3517007A7E9F /* ParseFloat.hpp in Headers */,
 				2C38B0FC1CDA3517007A7E9F /* Stopwatch.hpp in Headers */,
 				2C38B0E81CDA3517007A7E9F /* Fwd.hpp in Headers */,
+				2CDA1A971CEB2E8800120F95 /* Regex.hpp in Headers */,
 				2C38B0F71CDA3517007A7E9F /* Random.hpp in Headers */,
 				2CC2B10A1CB5552300BB42D0 /* fixed-dtoa.h in Headers */,
 				2CC2B1001CB5552300BB42D0 /* bignum.h in Headers */,
