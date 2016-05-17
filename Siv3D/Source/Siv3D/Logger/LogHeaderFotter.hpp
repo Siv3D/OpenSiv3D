@@ -24,7 +24,7 @@ LR"( Log</title>
 <style>
 body		{ background-color: #f9f9f9; font-family: 'Segoe UI','メイリオ','Meiryo','ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','Osaka','ＭＳ Ｐゴシック','MS PGothic','Arial',sans-serif; }
 h2			{ color: #333333; text-align: center; font-size: 28px; }
-h3			{ color: #555555; text-align: center; font-size: 24px; }
+h3			{ color: #333333; text-align: center; font-size: 24px; }
 div			{ font-size: 14px; line-height: 2; }
 div.error	{ padding-left: 14px; background: #f44336; color: #ffffff; }
 div.fail	{ padding-left: 14px; background: #ff9800; color: #ffffff; }
@@ -36,7 +36,7 @@ div.debug	{ padding-left: 14px; background: #f5f5f5; color: #333333; }
 div.c0		{ color: #333333; text-align: center; font-size: 20px; }
 div.c1		{ padding-bottom: 8px; color: #555555; text-align: center; font-size: 12px; }
 div.c2		{ padding-bottom: 24px; color: #888888; text-align: center; font-size: 9px; }
-div.messages { margin: 0 12% 28px; padding 0 0 28px; border: 1px solid; border-color: #cccccc; border-radius: 2px; box-shadow: 0 1px 1px rgba(0,0,0,.05); }
+div.messages { margin: 0 10% 28px; padding 0 0 28px; border: 1px solid; border-color: #dddddd; border-radius: 2px; box-shadow: 0 1px 1px rgba(0,0,0,.05); }
 </style>
 </head>
 <body>
