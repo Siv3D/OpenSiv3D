@@ -25,7 +25,7 @@ LR"( Log</title>
 body		{ background-color: #f9f9f9; font-family: 'Segoe UI','メイリオ','Meiryo','ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','Osaka','ＭＳ Ｐゴシック','MS PGothic','Arial',sans-serif; }
 h2			{ color: #333333; text-align: center; font-size: 28px; }
 h3			{ color: #333333; text-align: center; font-size: 24px; }
-div			{ font-size: 14px; line-height: 2; }
+div			{ font-size: 14px; line-height: 2; word-wrap: break-word; }
 div.error	{ padding-left: 14px; background: #f44336; color: #ffffff; }
 div.fail	{ padding-left: 14px; background: #ff9800; color: #ffffff; }
 div.warning	{ padding-left: 14px; background: #ff9800; color: #ffffff; }
