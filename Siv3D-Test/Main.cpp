@@ -7,7 +7,9 @@ using namespace std::chrono_literals;
 
 void Main()
 {
-	/*
+	Log(L"Hello, Siv3D!");
+
+	///*
 	RunTest();
 
 	// 0～100 の範囲

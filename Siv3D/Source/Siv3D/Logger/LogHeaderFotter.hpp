@@ -57,7 +57,7 @@ const static s3d::String logLevel[]{
 	LR"(<div class="debug">)",
 };
 
-const static s3d::String pEnd = L"</div>\n";
+const static s3d::String divEnd = L"</div>\n";
 
 const static s3d::String footer =
 LR"-(</div>
