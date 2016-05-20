@@ -21,12 +21,6 @@ namespace s3d
 
 	}
 
-	BinaryWriter::BinaryWriter(const FilePath& path, const OpenMode openMode)
-		: BinaryWriter()
-	{
-		pImpl->open(path, openMode);
-	}
-
 	bool BinaryWriter::open(const FilePath& path, const OpenMode openMode)
 	{
 		return pImpl->open(path, openMode);

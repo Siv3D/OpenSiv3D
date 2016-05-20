@@ -181,7 +181,7 @@ namespace s3d
 			return output;
 		}
 
-		static String ToString(const std::string& str, const uint32 code)
+		static String ToString(const CStringView str, const uint32 code)
 		{
 			if (str.empty())
 			{
@@ -308,7 +308,7 @@ namespace s3d
 {
 	namespace detail
 	{
-		String UTF8ToString(const std::string& str)
+		String UTF8ToString(const CStringView str)
 		{
 			if (str.empty())
 			{
@@ -410,7 +410,7 @@ namespace s3d
 {
 	namespace CharacterSet
 	{
-		String WidenAscii(const std::string& asciiStr)
+		String WidenAscii(const CStringView asciiStr)
 		{
 			const size_t length = asciiStr.length();
 
@@ -428,7 +428,7 @@ namespace s3d
 			return result;
 		}
 
-		String Widen(const std::string& str)
+		String Widen(const CStringView str)
 		{
 			# if defined (SIV3D_TARGET_WINDOWS)
 			
@@ -472,7 +472,7 @@ namespace s3d
 			# endif
 		}
 
-		String FromUTF8(const std::string& str)
+		String FromUTF8(const CStringView str)
 		{
 			# if defined (SIV3D_TARGET_WINDOWS)
 
@@ -511,6 +511,41 @@ namespace s3d
 			# endif
 		}
 
+		std::u16string UTF8ToUTF16(UTF8StringView str)
+		{
+			std::u16string result;
+
+			const char* s = str.data();
+			const char* end = str.data() + str.length();
+			uint32_t codepoint;
+			uint32_t state = 0;
+
+			while (s != end)
+			{
+				if (decode(&state, &codepoint, static_cast<uint8>(*s++)))
+				{
+					continue;
+				}
+
+				if (codepoint > 0xFFff)
+				{
+					result.push_back(static_cast<char16_t>(0xD7C0 + (codepoint >> 10)));
+					result.push_back(static_cast<char16_t>(0xDC00 + (codepoint & 0x03FF)));
+				}
+				else
+				{
+					result.push_back(static_cast<char16_t>(codepoint));
+				}
+			}
+
+			if (state != UTF8_ACCEPT)
+			{
+				return std::u16string();
+			}
+
+			return result;
+		}
+
 		std::u16string ToUTF16(const StringView str)
 		{
 			# if defined (SIV3D_TARGET_WINDOWS)
@@ -535,6 +570,28 @@ namespace s3d
 				return String(str.begin(), str.end());
 
 			# endif
+		}
+
+		std::u32string UTF8ToUTF32(UTF8StringView str)
+		{
+			std::u32string result;	
+			uint32_t codepoint;
+			uint32_t state = 0;
+
+			for (const char* s = str.data(); *s; ++s)
+			{
+				if (!decode(&state, &codepoint, static_cast<uint8>(*s)))
+				{
+					result.push_back(static_cast<char32_t>(codepoint));
+				}
+			}
+
+			if (state != UTF8_ACCEPT)
+			{
+				return std::u32string();
+			}
+
+			return result;
 		}
 
 		std::u32string ToUTF32(const StringView str)

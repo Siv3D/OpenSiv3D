@@ -25,23 +25,6 @@ namespace s3d
 
 	}
 
-	TextWriter::TextWriter(const FilePath& path, const TextEncoding encoding, const bool writeBOM)
-		: TextWriter()
-	{
-		open(path, OpenMode::Trunc, encoding, writeBOM);
-	}
-
-	TextWriter::TextWriter(const FilePath& path, const OpenMode openMode, const TextEncoding encoding, const bool writeBOM)
-		: TextWriter()
-	{
-		open(path, openMode, encoding, writeBOM);
-	}
-
-	bool TextWriter::open(const FilePath& path, const TextEncoding encoding, const bool writeBOM)
-	{
-		return open(path, OpenMode::Trunc, encoding, writeBOM);
-	}
-
 	bool TextWriter::open(const FilePath& path, const OpenMode openMode, const TextEncoding encoding, const bool writeBOM)
 	{
 		return pImpl->open(path, openMode, encoding, writeBOM);
@@ -62,52 +45,14 @@ namespace s3d
 		pImpl->clear();
 	}
 
-	void TextWriter::write(const wchar_t ch)
-	{
-		pImpl->write(StringView(&ch, 1));
-	}
-
-	void TextWriter::write(const String& str)
+	void TextWriter::write(const StringView str)
 	{
 		pImpl->write(str);
 	}
 
-	void TextWriter::write(const wchar* const str)
+	void TextWriter::writeUTF8(const CStringView str)
 	{
-		pImpl->write(str);
-	}
-
-	void TextWriter::write(const wchar* const str, const size_t length)
-	{
-		pImpl->write(StringView(str, length));
-	}
-
-	void TextWriter::writeln(const wchar ch)
-	{
-		pImpl->write(StringView(&ch, 1));
-
-		pImpl->write(L"\r\n");
-	}
-
-	void TextWriter::writeln(const String& str)
-	{
-		pImpl->write(str);
-
-		pImpl->write(L"\r\n");
-	}
-
-	void TextWriter::writeln(const wchar* const str)
-	{
-		pImpl->write(str);
-
-		pImpl->write(L"\r\n");
-	}
-
-	void TextWriter::writeln(const wchar* const str, const size_t length)
-	{
-		pImpl->write(StringView(str, length));
-
-		pImpl->write(L"\r\n");
+		pImpl->writeUTF8(str);
 	}
 
 	const FilePath& TextWriter::path() const

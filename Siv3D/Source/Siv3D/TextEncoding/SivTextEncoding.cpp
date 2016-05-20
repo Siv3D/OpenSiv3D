@@ -67,7 +67,7 @@ namespace s3d
 
 				pos += read;
 
-				for (size_t i = 0; i < read; ++i)
+				for (int64 i = 0; i < read; ++i)
 				{
 					const uint8 c = buffer[i];
 

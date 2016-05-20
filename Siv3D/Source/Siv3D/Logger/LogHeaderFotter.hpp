@@ -12,15 +12,15 @@
 # pragma once
 # include <Siv3D/String.hpp>
 
-const static s3d::String headerA =
-LR"(<!DOCTYPE html>
+const static char headerA[] =
+u8R"(<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8" />
 <title>)";
 
-const static s3d::String headerB =
-LR"( Log</title>
+const static char headerB[] =
+u8R"( Log</title>
 <style>
 body		{ background-color: #f9f9f9; font-family: 'Segoe UI','メイリオ','Meiryo','ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','Osaka','ＭＳ Ｐゴシック','MS PGothic','Arial',sans-serif; }
 h2			{ color: #333333; text-align: center; font-size: 28px; }
@@ -42,25 +42,25 @@ div.messages { margin: 0 10% 28px; padding 0 0 28px; border: 1px solid; border-c
 <body>
 <h2>)";
 
-const static s3d::String headerC =
-LR"( Log</h2>
+const static char headerC[] =
+u8R"( Log</h2>
 <div class="messages">
 )";
 
-const static s3d::String logLevel[]{
-	LR"(<div class="error">)",
-	LR"(<div class="fail">)",
-	LR"(<div class="warning">)",
-	LR"(<div class="script">)",
-	LR"(<div class="app">)",
-	LR"(<div class="info">)",
-	LR"(<div class="debug">)",
+const static std::string logLevel[]{
+	u8R"(<div class="error">)",
+	u8R"(<div class="fail">)",
+	u8R"(<div class="warning">)",
+	u8R"(<div class="script">)",
+	u8R"(<div class="app">)",
+	u8R"(<div class="info">)",
+	u8R"(<div class="debug">)",
 };
 
-const static s3d::String divEnd = L"</div>\n";
+const static char divEnd[] = u8"</div>\n";
 
-const static s3d::String footer =
-LR"-(</div>
+const static char footer[] =
+u8R"-(</div>
 <h3>Licenses</h3>
 <div class="c0">Siv3D Engine</div>
 <div class="c1">Copyright (c) 2008-2016 Ryo Suzuki<br>Copyright (c) 2016 OpenSiv3D Project</div>

@@ -49,7 +49,11 @@ namespace s3d
 		/// <param name="encoding">
 		/// エンコーディング形式
 		/// </param>
-		TextWriter(const FilePath& path, TextEncoding encoding, bool writeBOM = true);
+		TextWriter(const FilePath& path, TextEncoding encoding, bool writeBOM = true)
+			: TextWriter()
+		{
+			open(path, OpenMode::Trunc, encoding, writeBOM);
+		}
 
 		/// <summary>
 		/// テキストファイルを開きます。
@@ -63,7 +67,11 @@ namespace s3d
 		/// <param name="encoding">
 		/// エンコーディング形式
 		/// </param>
-		explicit TextWriter(const FilePath& path, OpenMode openMode = OpenMode::Trunc, TextEncoding encoding = TextEncoding::Default, bool writeBOM = true);
+		explicit TextWriter(const FilePath& path, OpenMode openMode = OpenMode::Trunc, TextEncoding encoding = TextEncoding::Default, bool writeBOM = true)
+			: TextWriter()
+		{
+			open(path, openMode, encoding, writeBOM);
+		}
 
 		/// <summary>
 		/// テキストファイルを開きます。
@@ -77,7 +85,10 @@ namespace s3d
 		/// <returns>
 		/// ファイルのオープンに成功した場合 true, それ以外の場合は false
 		/// </returns>
-		bool open(const FilePath& path, TextEncoding encoding, bool writeBOM = true);
+		bool open(const FilePath& path, TextEncoding encoding, bool writeBOM = true)
+		{
+			return open(path, OpenMode::Trunc, encoding, writeBOM);
+		}
 
 		/// <summary>
 		/// テキストファイルを開きます。
@@ -137,7 +148,21 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void write(wchar ch);
+		void write(StringView str);
+
+		/// <summary>
+		/// ファイルに文字を書き込みます。
+		/// </summary>
+		/// <param name="ch">
+		/// 書き込む文字
+		/// </param>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void write(wchar ch)
+		{
+			write(StringView(&ch, 1));
+		}
 
 		void write(char ch) = delete;
 
@@ -150,7 +175,10 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void write(const String& str);
+		void write(const String& str)
+		{
+			write(StringView(str));
+		}
 
 		/// <summary>
 		/// ファイルに文字列を書き込みます。
@@ -164,7 +192,10 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void write(const wchar* str);
+		void write(const wchar* str)
+		{
+			write(StringView(str));
+		}
 
 		/// <summary>
 		/// ファイルに文字列を書き込みます。
@@ -178,7 +209,10 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void write(const wchar* str, size_t length);
+		void write(const wchar* str, size_t length)
+		{
+			write(StringView(str, length));
+		}
 
 		/// <summary>
 		/// データを文字列に変換し、ファイルに書き込みます。
@@ -222,7 +256,12 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void writeln(wchar ch);
+		void writeln(wchar ch)
+		{
+			write(ch);
+
+			write(L"\r\n");
+		}
 
 		void writeln(char ch) = delete;
 
@@ -235,7 +274,12 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void writeln(const String& str);
+		void writeln(const String& str)
+		{
+			write(str);
+
+			write(L"\r\n");
+		}
 
 		/// <summary>
 		/// ファイルに文字列を書き込み、改行します。
@@ -249,7 +293,12 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void writeln(const wchar* const str);
+		void writeln(const wchar* const str)
+		{
+			write(str);
+
+			write(L"\r\n");
+		}
 
 		/// <summary>
 		/// ファイルに文字列を書き込み、改行します。
@@ -263,7 +312,12 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void writeln(const wchar* const str, size_t length);
+		void writeln(const wchar* const str, size_t length)
+		{
+			write(str, length);
+
+			write(L"\r\n");
+		}
 
 		/// <summary>
 		/// データを文字列に変換し、ファイルに書き込み、改行します。
@@ -297,6 +351,17 @@ namespace s3d
 				writeln(Format(elem));
 			}
 		}
+
+		/// <summary>
+		/// ファイルに UTF-8 文字列を書き込みます。
+		/// </summary>
+		/// <param name="str">
+		/// 書き込む文字列
+		/// </param>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void writeUTF8(CStringView str);
 
 		/// <summary>
 		/// オープンしているファイルのパスを返します。

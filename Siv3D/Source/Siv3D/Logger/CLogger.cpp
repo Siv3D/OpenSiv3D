@@ -95,7 +95,7 @@ namespace s3d
 	{
 		m_initialized = false;
 
-		m_writer.write(footer);
+		m_writer.writeUTF8(footer);
 
 		m_writer.close();
 	}
@@ -103,13 +103,14 @@ namespace s3d
 	bool CLogger::init()
 	{
 		const String fileName = FileSystem::BaseName(FileSystem::ModulePath()).xml_escaped();
-	
+		const std::string filenameUTF8 = CharacterSet::ToUTF8(fileName);
+
 		m_writer.open(fileName + L"_log.html", TextEncoding::UTF8);
-		m_writer.write(headerA);
-		m_writer.write(fileName);
-		m_writer.write(headerB);
-		m_writer.write(fileName);
-		m_writer.write(headerC);
+		m_writer.writeUTF8(headerA);
+		m_writer.writeUTF8(filenameUTF8);
+		m_writer.writeUTF8(headerB);
+		m_writer.writeUTF8(filenameUTF8);
+		m_writer.writeUTF8(headerC);
 
 		write(LogDescription::App, L"App Message");
 		write(LogDescription::Debug, L"Debug Message");
@@ -130,10 +131,10 @@ namespace s3d
 
 		detail::OutputDebug(desc, str);
 
-		m_writer.write(logLevel[static_cast<size_t>(desc)]);
+		m_writer.writeUTF8(logLevel[static_cast<size_t>(desc)]);
 
 		m_writer.write(str.xml_escaped());
 
-		m_writer.write(divEnd);
+		m_writer.writeUTF8(divEnd);
 	}
 }

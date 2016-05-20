@@ -39,10 +39,14 @@ namespace s3d
 		/// <param name="path">
 		/// ファイルパス
 		/// </param>
-		/// <param name="mode">
+		/// <param name="openMode">
 		/// オープンモード
 		/// </param>
-		explicit BinaryWriter(const FilePath& path, OpenMode mode = OpenMode::Trunc);
+		explicit BinaryWriter(const FilePath& path, OpenMode openMode = OpenMode::Trunc)
+			: BinaryWriter()
+		{
+			open(path, openMode);
+		}
 
 		/// <summary>
 		/// デストラクタ
@@ -55,13 +59,13 @@ namespace s3d
 		/// <param name="path">
 		/// ファイルパス
 		/// </param>
-		/// <param name="mode">
+		/// <param name="openMode">
 		/// オープンモード
 		/// </param>
 		/// <returns>
 		/// ファイルのオープンに成功した場合 true, それ以外の場合は false
 		/// </returns>
-		bool open(const FilePath& path, OpenMode mode = OpenMode::Trunc);
+		bool open(const FilePath& path, OpenMode openMode = OpenMode::Trunc);
 
 		/// <summary>
 		/// バイナリファイルの書き込みバッファをフラッシュします。

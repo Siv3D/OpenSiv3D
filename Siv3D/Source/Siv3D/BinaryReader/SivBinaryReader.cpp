@@ -21,12 +21,6 @@ namespace s3d
 
 	}
 
-	BinaryReader::BinaryReader(const FilePath& path)
-		: BinaryReader()
-	{
-		pImpl->open(path);
-	}
-
 	bool BinaryReader::open(const FilePath& path)
 	{
 		return pImpl->open(path);

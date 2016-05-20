@@ -26,9 +26,6 @@
     <Filter Include="Source\Siv3D\FormatFloat">
       <UniqueIdentifier>{b28052d3-ec67-462d-85c6-a49e0da7faeb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Siv3D\FormatInt">
-      <UniqueIdentifier>{bb7966c0-8acf-4af4-8e8d-3f83b8651adc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Siv3D\Time">
       <UniqueIdentifier>{ba8c7271-d9a1-41d8-81ab-71395daf4df9}</UniqueIdentifier>
     </Filter>
@@ -85,6 +82,9 @@
     </Filter>
     <Filter Include="Source\Siv3D\TextEncoding">
       <UniqueIdentifier>{eddba81f-662c-4467-be22-40dfff6364dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\FormatFloat\FormatInt">
+      <UniqueIdentifier>{bb7966c0-8acf-4af4-8e8d-3f83b8651adc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -358,7 +358,7 @@
       <Filter>Source\Siv3D\FormatFloat</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatInt\SivFormatInt.cpp">
-      <Filter>Source\Siv3D\FormatInt</Filter>
+      <Filter>Source\Siv3D\FormatFloat\FormatInt</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Time\SivTime.cpp">
       <Filter>Source\Siv3D\Time</Filter>

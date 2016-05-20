@@ -20,13 +20,13 @@ namespace s3d
 	//
 	////////////////////////////////////////////////////////////////
 
-	BigInt::BigInt(int64 i)
+	BigInt::BigInt(const int64 i)
 		: pImpl(std::make_unique<CBigInt>())
 	{
 		assign(i);
 	}
 
-	BigInt::BigInt(uint64 i)
+	BigInt::BigInt(const uint64 i)
 		: pImpl(std::make_unique<CBigInt>())
 	{
 		assign(i);
@@ -85,13 +85,13 @@ namespace s3d
 	//
 	////////////////////////////////////////////////////////////////
 
-	BigInt& BigInt::assign(int64 i)
+	BigInt& BigInt::assign(const int64 i)
 	{
 		this->pImpl->data.assign(i);
 		return *this;
 	}
 
-	BigInt& BigInt::assign(uint64 i)
+	BigInt& BigInt::assign(const uint64 i)
 	{
 		this->pImpl->data.assign(i);
 		return *this;
@@ -145,21 +145,21 @@ namespace s3d
 		return *this;
 	}
 
-	BigInt BigInt::operator ++(int)
+	BigInt BigInt::operator ++(const int)
 	{
 		BigInt tmp(*this);
 		++this->pImpl->data;
 		return tmp;
 	}
 
-	BigInt BigInt::operator +(int64 i) const
+	BigInt BigInt::operator +(const int64 i) const
 	{
 		BigInt tmp;
 		tmp.pImpl->data = this->pImpl->data + i;
 		return tmp;
 	}
 
-	BigInt BigInt::operator +(uint64 i) const
+	BigInt BigInt::operator +(const uint64 i) const
 	{
 		BigInt tmp;
 		tmp.pImpl->data = this->pImpl->data + i;
@@ -173,13 +173,13 @@ namespace s3d
 		return tmp;
 	}
 
-	BigInt& BigInt::operator +=(int64 i)
+	BigInt& BigInt::operator +=(const int64 i)
 	{
 		this->pImpl->data += i;
 		return *this;
 	}
 
-	BigInt& BigInt::operator +=(uint64 i)
+	BigInt& BigInt::operator +=(const uint64 i)
 	{
 		this->pImpl->data += i;
 		return *this;
@@ -216,21 +216,21 @@ namespace s3d
 		return *this;
 	}
 
-	BigInt BigInt::operator --(int)
+	BigInt BigInt::operator --(const int)
 	{
 		BigInt tmp(*this);
 		--this->pImpl->data;
 		return tmp;
 	}
 
-	BigInt BigInt::operator -(int64 i) const
+	BigInt BigInt::operator -(const int64 i) const
 	{
 		BigInt tmp;
 		tmp.pImpl->data = this->pImpl->data - i;
 		return tmp;
 	}
 
-	BigInt BigInt::operator -(uint64 i) const
+	BigInt BigInt::operator -(const uint64 i) const
 	{
 		BigInt tmp;
 		tmp.pImpl->data = this->pImpl->data - i;
@@ -244,13 +244,13 @@ namespace s3d
 		return tmp;
 	}
 
-	BigInt& BigInt::operator -=(int64 i)
+	BigInt& BigInt::operator -=(const int64 i)
 	{
 		this->pImpl->data -= i;
 		return *this;
 	}
 
-	BigInt& BigInt::operator -=(uint64 i)
+	BigInt& BigInt::operator -=(const uint64 i)
 	{
 		this->pImpl->data -= i;
 		return *this;
@@ -268,14 +268,14 @@ namespace s3d
 	//
 	////////////////////////////////////////////////////////////////
 
-	BigInt BigInt::operator *(int64 i) const
+	BigInt BigInt::operator *(const int64 i) const
 	{
 		BigInt tmp;
 		tmp.pImpl->data = this->pImpl->data * i;
 		return tmp;
 	}
 
-	BigInt BigInt::operator *(uint64 i) const
+	BigInt BigInt::operator *(const uint64 i) const
 	{
 		BigInt tmp;
 		tmp.pImpl->data = this->pImpl->data * i;
@@ -289,13 +289,13 @@ namespace s3d
 		return tmp;
 	}
 
-	BigInt& BigInt::operator *=(int64 i)
+	BigInt& BigInt::operator *=(const int64 i)
 	{
 		this->pImpl->data *= i;
 		return *this;
 	}
 
-	BigInt& BigInt::operator *=(uint64 i)
+	BigInt& BigInt::operator *=(const uint64 i)
 	{
 		this->pImpl->data *= i;
 		return *this;
@@ -313,14 +313,14 @@ namespace s3d
 	//
 	////////////////////////////////////////////////////////////////
 
-	BigInt BigInt::operator /(int64 i) const
+	BigInt BigInt::operator /(const int64 i) const
 	{
 		BigInt tmp;
 		tmp.pImpl->data = this->pImpl->data / i;
 		return tmp;
 	}
 
-	BigInt BigInt::operator /(uint64 i) const
+	BigInt BigInt::operator /(const uint64 i) const
 	{
 		BigInt tmp;
 		tmp.pImpl->data = this->pImpl->data / i;
@@ -334,13 +334,13 @@ namespace s3d
 		return tmp;
 	}
 
-	BigInt& BigInt::operator /=(int64 i)
+	BigInt& BigInt::operator /=(const int64 i)
 	{
 		this->pImpl->data /= i;
 		return *this;
 	}
 
-	BigInt& BigInt::operator /=(uint64 i)
+	BigInt& BigInt::operator /=(const uint64 i)
 	{
 		this->pImpl->data /= i;
 		return *this;
@@ -352,14 +352,14 @@ namespace s3d
 		return *this;
 	}
 
-	BigInt operator /(int64 a, const BigInt& b)
+	BigInt operator /(const int64 a, const BigInt& b)
 	{
 		BigInt tmp;
 		tmp.pImpl->data = a / b.pImpl->data;
 		return tmp;
 	}
 
-	BigInt operator /(uint64 a, const BigInt& b)
+	BigInt operator /(const uint64 a, const BigInt& b)
 	{
 		BigInt tmp;
 		tmp.pImpl->data = a / b.pImpl->data;
@@ -372,14 +372,14 @@ namespace s3d
 	//
 	////////////////////////////////////////////////////////////////
 
-	BigInt BigInt::operator %(int64 i) const
+	BigInt BigInt::operator %(const int64 i) const
 	{
 		BigInt tmp;
 		tmp.pImpl->data = this->pImpl->data % i;
 		return tmp;
 	}
 
-	BigInt BigInt::operator %(uint64 i) const
+	BigInt BigInt::operator %(const uint64 i) const
 	{
 		BigInt tmp;
 		tmp.pImpl->data = this->pImpl->data % i;
@@ -393,13 +393,13 @@ namespace s3d
 		return tmp;
 	}
 
-	BigInt& BigInt::operator %=(int64 i)
+	BigInt& BigInt::operator %=(const int64 i)
 	{
 		this->pImpl->data %= i;
 		return *this;
 	}
 
-	BigInt& BigInt::operator %=(uint64 i)
+	BigInt& BigInt::operator %=(const uint64 i)
 	{
 		this->pImpl->data %= i;
 		return *this;
@@ -411,14 +411,14 @@ namespace s3d
 		return *this;
 	}
 
-	BigInt operator %(int64 a, const BigInt& b)
+	BigInt operator %(const int64 a, const BigInt& b)
 	{
 		BigInt tmp;
 		tmp.pImpl->data = a % b.pImpl->data;
 		return tmp;
 	}
 
-	BigInt operator %(uint64 a, const BigInt& b)
+	BigInt operator %(const uint64 a, const BigInt& b)
 	{
 		BigInt tmp;
 		tmp.pImpl->data = a % b.pImpl->data;
@@ -431,14 +431,14 @@ namespace s3d
 	//
 	////////////////////////////////////////////////////////////////
 
-	BigInt BigInt::operator &(int64 i) const
+	BigInt BigInt::operator &(const int64 i) const
 	{
 		BigInt tmp;
 		tmp.pImpl->data = this->pImpl->data & i;
 		return tmp;
 	}
 
-	BigInt BigInt::operator &(uint64 i) const
+	BigInt BigInt::operator &(const uint64 i) const
 	{
 		BigInt tmp;
 		tmp.pImpl->data = this->pImpl->data & i;
@@ -452,13 +452,13 @@ namespace s3d
 		return tmp;
 	}
 
-	BigInt& BigInt::operator &=(int64 i)
+	BigInt& BigInt::operator &=(const int64 i)
 	{
 		this->pImpl->data &= i;
 		return *this;
 	}
 
-	BigInt& BigInt::operator &=(uint64 i)
+	BigInt& BigInt::operator &=(const uint64 i)
 	{
 		this->pImpl->data &= i;
 		return *this;
@@ -476,14 +476,14 @@ namespace s3d
 	//
 	////////////////////////////////////////////////////////////////
 
-	BigInt BigInt::operator |(int64 i) const
+	BigInt BigInt::operator |(const int64 i) const
 	{
 		BigInt tmp;
 		tmp.pImpl->data = this->pImpl->data | i;
 		return tmp;
 	}
 
-	BigInt BigInt::operator |(uint64 i) const
+	BigInt BigInt::operator |(const uint64 i) const
 	{
 		BigInt tmp;
 		tmp.pImpl->data = this->pImpl->data | i;
@@ -497,13 +497,13 @@ namespace s3d
 		return tmp;
 	}
 
-	BigInt& BigInt::operator |=(int64 i)
+	BigInt& BigInt::operator |=(const int64 i)
 	{
 		this->pImpl->data |= i;
 		return *this;
 	}
 
-	BigInt& BigInt::operator |=(uint64 i)
+	BigInt& BigInt::operator |=(const uint64 i)
 	{
 		this->pImpl->data |= i;
 		return *this;
@@ -515,7 +515,7 @@ namespace s3d
 		return *this;
 	}
 
-	BigInt BigInt::operator ^(int64 i) const
+	BigInt BigInt::operator ^(const int64 i) const
 	{
 		BigInt tmp;
 		tmp.pImpl->data = this->pImpl->data ^ i;
@@ -528,7 +528,7 @@ namespace s3d
 	//
 	////////////////////////////////////////////////////////////////
 
-	BigInt BigInt::operator ^(uint64 i) const
+	BigInt BigInt::operator ^(const uint64 i) const
 	{
 		BigInt tmp;
 		tmp.pImpl->data = this->pImpl->data ^ i;
@@ -542,13 +542,13 @@ namespace s3d
 		return tmp;
 	}
 
-	BigInt& BigInt::operator ^=(int64 i)
+	BigInt& BigInt::operator ^=(const int64 i)
 	{
 		this->pImpl->data ^= i;
 		return *this;
 	}
 
-	BigInt& BigInt::operator ^=(uint64 i)
+	BigInt& BigInt::operator ^=(const uint64 i)
 	{
 		this->pImpl->data ^= i;
 		return *this;
@@ -566,27 +566,27 @@ namespace s3d
 	//
 	////////////////////////////////////////////////////////////////
 
-	BigInt BigInt::operator <<(int64 i) const
+	BigInt BigInt::operator <<(const int64 i) const
 	{
 		BigInt tmp;
 		tmp.pImpl->data = this->pImpl->data << i;
 		return tmp;
 	}
 
-	BigInt BigInt::operator <<(uint64 i) const
+	BigInt BigInt::operator <<(const uint64 i) const
 	{
 		BigInt tmp;
 		tmp.pImpl->data = this->pImpl->data << i;
 		return tmp;
 	}
 
-	BigInt& BigInt::operator <<=(int64 i)
+	BigInt& BigInt::operator <<=(const int64 i)
 	{
 		this->pImpl->data <<= i;
 		return *this;
 	}
 
-	BigInt& BigInt::operator <<=(uint64 i)
+	BigInt& BigInt::operator <<=(const uint64 i)
 	{
 		this->pImpl->data <<= i;
 		return *this;
@@ -598,27 +598,27 @@ namespace s3d
 	//
 	////////////////////////////////////////////////////////////////
 
-	BigInt BigInt::operator >> (int64 i) const
+	BigInt BigInt::operator >>(const int64 i) const
 	{
 		BigInt tmp;
 		tmp.pImpl->data = this->pImpl->data >> i;
 		return tmp;
 	}
 
-	BigInt BigInt::operator >> (uint64 i) const
+	BigInt BigInt::operator >>(const uint64 i) const
 	{
 		BigInt tmp;
 		tmp.pImpl->data = this->pImpl->data >> i;
 		return tmp;
 	}
 
-	BigInt& BigInt::operator >>=(int64 i)
+	BigInt& BigInt::operator >>=(const int64 i)
 	{
 		this->pImpl->data >>= i;
 		return *this;
 	}
 
-	BigInt& BigInt::operator >>=(uint64 i)
+	BigInt& BigInt::operator >>=(const uint64 i)
 	{
 		this->pImpl->data >>= i;
 		return *this;
@@ -630,17 +630,17 @@ namespace s3d
 	//
 	////////////////////////////////////////////////////////////////
 
-	int32 BigInt::compare(int64 i) const
+	int32 BigInt::compare(const int64 i) const
 	{
 		return this->pImpl->data.compare(i);
 	}
 
-	int32 BigInt::compare(uint64 i) const
+	int32 BigInt::compare(const uint64 i) const
 	{
 		return this->pImpl->data.compare(i);
 	}
 
-	int32 BigInt::compare(long double f) const
+	int32 BigInt::compare(const long double f) const
 	{
 		return this->pImpl->data.compare(f);
 	}
@@ -678,7 +678,7 @@ namespace s3d
 		return tmp;
 	}
 
-	BigInt BigInt::pow(uint32 x) const
+	BigInt BigInt::pow(const uint32 x) const
 	{
 		BigInt tmp;
 		tmp.pImpl->data = boost::multiprecision::pow(this->pImpl->data, x);
@@ -701,12 +701,12 @@ namespace s3d
 	//
 	////////////////////////////////////////////////////////////////
 
-	bool BigInt::bitTest(uint32 index) const
+	bool BigInt::bitTest(const uint32 index) const
 	{
 		return boost::multiprecision::bit_test(this->pImpl->data, index);
 	}
 
-	BigInt& BigInt::bitSet(uint32 index, bool value)
+	BigInt& BigInt::bitSet(const uint32 index, bool value)
 	{
 		if (value)
 		{
@@ -720,7 +720,7 @@ namespace s3d
 		return *this;
 	}
 
-	BigInt& BigInt::bitFlip(uint32 index)
+	BigInt& BigInt::bitFlip(const uint32 index)
 	{
 		boost::multiprecision::bit_flip(this->pImpl->data, index);
 		return *this;
@@ -761,12 +761,6 @@ namespace s3d
 	std::string BigInt::stdStr() const
 	{
 		return pImpl->data.str();
-	}
-
-	String BigInt::str() const
-	{
-		const std::string t = pImpl->data.str();
-		return String(t.begin(), t.end());
 	}
 
 	////////////////////////////////////////////////////////////////
