@@ -170,7 +170,7 @@ namespace s3d
 		return *this;
 	}
 
-	BigFloat BigFloat::operator ++(int)
+	BigFloat BigFloat::operator ++(const int)
 	{
 		BigFloat tmp(*this);
 		++this->pImpl->data;
@@ -212,19 +212,19 @@ namespace s3d
 		return tmp;
 	}
 
-	BigFloat& BigFloat::operator +=(int64 i)
+	BigFloat& BigFloat::operator +=(const int64 i)
 	{
 		this->pImpl->data += i;
 		return *this;
 	}
 
-	BigFloat& BigFloat::operator +=(uint64 i)
+	BigFloat& BigFloat::operator +=(const uint64 i)
 	{
 		this->pImpl->data += i;
 		return *this;
 	}
 
-	BigFloat& BigFloat::operator +=(long double f)
+	BigFloat& BigFloat::operator +=(const long double f)
 	{
 		this->pImpl->data += f;
 		return *this;
@@ -254,7 +254,7 @@ namespace s3d
 		return *this;
 	}
 
-	BigFloat BigFloat::operator --(int)
+	BigFloat BigFloat::operator --(const int)
 	{
 		BigFloat tmp(*this);
 		--this->pImpl->data;
@@ -296,19 +296,19 @@ namespace s3d
 		return tmp;
 	}
 
-	BigFloat& BigFloat::operator -=(int64 i)
+	BigFloat& BigFloat::operator -=(const int64 i)
 	{
 		this->pImpl->data -= i;
 		return *this;
 	}
 
-	BigFloat& BigFloat::operator -=(uint64 i)
+	BigFloat& BigFloat::operator -=(const uint64 i)
 	{
 		this->pImpl->data -= i;
 		return *this;
 	}
 
-	BigFloat& BigFloat::operator -=(long double f)
+	BigFloat& BigFloat::operator -=(const long double f)
 	{
 		this->pImpl->data -= f;
 		return *this;
@@ -367,19 +367,19 @@ namespace s3d
 		return tmp;
 	}
 
-	BigFloat& BigFloat::operator *=(int64 i)
+	BigFloat& BigFloat::operator *=(const int64 i)
 	{
 		this->pImpl->data *= i;
 		return *this;
 	}
 
-	BigFloat& BigFloat::operator *=(uint64 i)
+	BigFloat& BigFloat::operator *=(const uint64 i)
 	{
 		this->pImpl->data *= i;
 		return *this;
 	}
 
-	BigFloat& BigFloat::operator *=(long double f)
+	BigFloat& BigFloat::operator *=(const long double f)
 	{
 		this->pImpl->data *= f;
 		return *this;
@@ -438,19 +438,19 @@ namespace s3d
 		return tmp;
 	}
 
-	BigFloat& BigFloat::operator /=(int64 i)
+	BigFloat& BigFloat::operator /=(const int64 i)
 	{
 		this->pImpl->data /= i;
 		return *this;
 	}
 
-	BigFloat& BigFloat::operator /=(uint64 i)
+	BigFloat& BigFloat::operator /=(const uint64 i)
 	{
 		this->pImpl->data /= i;
 		return *this;
 	}
 
-	BigFloat& BigFloat::operator /=(long double f)
+	BigFloat& BigFloat::operator /=(const long double f)
 	{
 		this->pImpl->data /= f;
 		return *this;
@@ -468,21 +468,21 @@ namespace s3d
 		return *this;
 	}
 
-	BigFloat operator /(int64 a, const BigFloat& b)
+	BigFloat operator /(const int64 a, const BigFloat& b)
 	{
 		BigFloat tmp;
 		tmp.pImpl->data = a / b.pImpl->data;
 		return tmp;
 	}
 
-	BigFloat operator /(uint64 a, const BigFloat& b)
+	BigFloat operator /(const uint64 a, const BigFloat& b)
 	{
 		BigFloat tmp;
 		tmp.pImpl->data = a / b.pImpl->data;
 		return tmp;
 	}
 	
-	BigFloat operator /(long double a, const BigFloat& b)
+	BigFloat operator /(const long double a, const BigFloat& b)
 	{
 		BigFloat tmp;
 		tmp.pImpl->data = a / b.pImpl->data;
@@ -495,17 +495,17 @@ namespace s3d
 	//
 	////////////////////////////////////////////////////////////////
 
-	int32 BigFloat::compare(int64 i) const
+	int32 BigFloat::compare(const int64 i) const
 	{
 		return this->pImpl->data.compare(i);
 	}
 
-	int32 BigFloat::compare(uint64 i) const
+	int32 BigFloat::compare(const uint64 i) const
 	{
 		return this->pImpl->data.compare(i);
 	}
 
-	int32 BigFloat::compare(long double f) const
+	int32 BigFloat::compare(const long double f) const
 	{
 		return this->pImpl->data.compare(f);
 	}
@@ -604,12 +604,6 @@ namespace s3d
 		}
 
 		return result;
-	}
-
-	String BigFloat::str() const
-	{
-		const std::string t = stdStr();
-		return String(t.begin(), t.end());
 	}
 
 	////////////////////////////////////////////////////////////////

@@ -54,6 +54,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Regex.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\System.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextEncoding.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\TextReader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextWriter.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TimeProfiler.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Random.hpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\ILogger.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\LogHeaderFotter.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Siv3DEngine.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\TextReader\CTextReader.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\TextWriter\CTextWriter.hpp" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum-dtoa.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum.h" />
@@ -126,6 +128,8 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\String\SivString.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\System\SivSystem.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextEncoding\SivTextEncoding.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\TextReader\CTextReader.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\TextReader\SivTextReader.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextWriter\CTextWriter.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextWriter\SivTextWriter.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TimeProfiler\SivTimeProfiler.cpp" />

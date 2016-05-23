@@ -39,7 +39,9 @@ namespace s3d
 
 		void clear();
 
-		void write(const StringView& str);
+		void write(StringView str);
+
+		void writeUTF8(UTF8StringView str);
 
 		const FilePath& path() const;
 	};

@@ -58,7 +58,10 @@ namespace s3d
 	//
 	//	StringView.hpp
 	//
-	class StringView;
+	template <class CharType> class BasicStringView;
+	using CStringView		= BasicStringView<char>;
+	using UTF8StringView	= BasicStringView<char>;
+	using StringView		= BasicStringView<wchar>;
 
 	//////////////////////////////////////////////////////
 	//

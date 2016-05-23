@@ -208,7 +208,12 @@ namespace s3d
 		long double asLongDouble() const;
 
 		std::string stdStr() const;
-		String str() const;
+		
+		String str() const
+		{
+			const std::string t = stdStr();
+			return String(t.begin(), t.end());
+		}
 
 		void swap(BigFloat& other) noexcept;
 	};

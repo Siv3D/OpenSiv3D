@@ -133,7 +133,7 @@ namespace s3d
 		open(path, OpenMode::Trunc, m_textEncoding, m_writeBOM);
 	}
 
-	void TextWriter::CTextWriter::write(const StringView& str)
+	void TextWriter::CTextWriter::write(const StringView str)
 	{
 		if (!isOpened())
 		{
@@ -271,6 +271,83 @@ namespace s3d
 					}
 
 				# endif
+
+				break;
+			}
+		}
+	}
+
+	void TextWriter::CTextWriter::writeUTF8(const UTF8StringView str)
+	{
+		if (!isOpened())
+		{
+			return;
+		}
+
+		switch (m_textEncoding)
+		{
+		case TextEncoding::ANSI:
+		case TextEncoding::UTF8:
+			{
+				char previous = '\0';
+
+				for (const char ch : str)
+				{
+					if (ch == '\n' && previous != '\r')
+					{
+						m_binaryWriter.write("\r\n", sizeof(char) * 2);
+					}
+					else
+					{
+						m_binaryWriter.write(ch);
+					}
+
+					previous = ch;
+				}
+
+				break;
+			}
+		case TextEncoding::UTF16LE:
+			{
+				char16_t previous = '\0';
+
+				for (const char16_t ch : CharacterSet::UTF8ToUTF16(str))
+				{
+					if (ch == '\n' && previous != '\r')
+					{
+						const uint8 newLine[] = { 0x0D, 0x00, 0x0A, 0x00 };
+
+						m_binaryWriter.write(newLine);
+					}
+					else
+					{
+						m_binaryWriter.write(ch);
+					}
+
+					previous = ch;
+				}
+
+				break;
+			}
+		case TextEncoding::UTF16BE:
+			{
+				char16_t previous = '\0';
+
+				for (const char16_t ch : CharacterSet::UTF8ToUTF16(str))
+				{
+					if (ch == '\n' && previous != '\r')
+					{
+						const uint8 newLine[] = { 0x00, 0x0D, 0x00, 0x0A };
+
+						m_binaryWriter.write(newLine);
+					}
+					else
+					{
+						m_binaryWriter.write(static_cast<char16_t>(((ch << 8) & 0xFF00) | ((ch >> 8) & 0xFF)));
+					}
+
+					previous = ch;
+				}
 
 				break;
 			}

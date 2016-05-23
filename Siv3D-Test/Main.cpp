@@ -5,11 +5,66 @@ using namespace s3d;
 using namespace s3d::literals;
 using namespace std::chrono_literals;
 
+static constexpr wchar hexTable[16] =
+{ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+
+void Dump(const void* data, size_t size)
+{
+	if (data == nullptr || size == 0)
+	{
+		return;
+	}
+
+	const uint8* ptr = static_cast<const uint8*>(data);
+
+	String result(size * 3 - 1, L'0');
+
+	wchar* dst = &result[0];
+
+	bool isFirst = true;
+
+	while (size--)
+	{
+		if (isFirst == true)
+		{
+			isFirst = false;
+		}
+		else
+		{
+			*dst++ = L' ';
+		}
+
+		*dst++ = hexTable[(*ptr) >> 4];
+		*dst++ = hexTable[(*ptr) & 0x0F];
+		++ptr;
+	}
+
+	Log(result);
+}
+
 void Main()
 {
-	Log(L"Hello, Siv3D!");
+	RunTest();
+	
+	//TimeProfiler tp;
 
-	///*
+	//for (int32 i = 0; i < 50; ++i)
+	//{
+	//	tp.begin(L"FromUTF8");
+	//	CharacterSet::FromUTF8(u8"あいうえおabc漢字あいうえおabc漢字あいうえおabc漢字あいうえおabc漢字あいうえおabc漢字あいうえおabc漢字あいうえおabc漢字");
+	//	tp.end();
+	//}
+
+	//for (int32 i = 0; i < 50; ++i)
+	//{
+	//	tp.begin(L"UTF8ToUTF16");
+	//	CharacterSet::UTF8ToUTF16(u8"あいうえおabc漢字あいうえおabc漢字あいうえおabc漢字あいうえおabc漢字あいうえおabc漢字あいうえおabc漢字あいうえおabc漢字");
+	//	tp.end();
+	//}
+
+	//Dump(CharacterSet::FromUTF8(u8"あいうえおabc漢字").c_str(), CharacterSet::FromUTF8(u8"あいうえおabc漢字").length()*2);
+	//Dump(CharacterSet::UTF8ToUTF16(u8"あいうえおabc漢字").c_str(), CharacterSet::UTF8ToUTF16(u8"あいうえおabc漢字").length()*2);
+	/*
 	RunTest();
 
 	// 0～100 の範囲

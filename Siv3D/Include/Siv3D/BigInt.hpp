@@ -258,7 +258,12 @@ namespace s3d
 		uint64 asUint64() const;
 
 		std::string stdStr() const;
-		String str() const;
+
+		String str() const
+		{
+			const std::string t =stdStr();
+			return String(t.begin(), t.end());
+		}
 
 		void swap(BigInt& other) noexcept;
 

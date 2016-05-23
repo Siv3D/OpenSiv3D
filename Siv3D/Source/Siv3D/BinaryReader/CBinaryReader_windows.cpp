@@ -128,9 +128,9 @@ namespace s3d
 
 		if (m_pResource)
 		{
-			const int64 readSize = std::min(size, m_size - m_resourcePos);
+			const int64 readSize = Clamp(size, 0LL, m_size - m_resourcePos);
 
-			::memcpy(buffer, static_cast<const uint8*>(m_pResource) + m_resourcePos, readSize);
+			::memcpy(buffer, static_cast<const uint8*>(m_pResource) + m_resourcePos, static_cast<size_t>(readSize));
 
 			m_resourcePos += readSize;
 
@@ -157,7 +157,7 @@ namespace s3d
 		{
 			const int64 readSize = Clamp(size, 0LL, m_size - pos);
 
-			::memcpy(buffer, static_cast<const uint8*>(m_pResource) + pos, readSize);
+			::memcpy(buffer, static_cast<const uint8*>(m_pResource) + pos, static_cast<size_t>(readSize));
 
 			m_resourcePos = pos + readSize;
 
@@ -218,9 +218,9 @@ namespace s3d
 
 		if (m_pResource)
 		{
-			const int64 readSize = std::min(size, m_size - m_resourcePos);
+			const int64 readSize = Clamp(size, 0LL, m_size - m_resourcePos);
 
-			::memcpy(buffer, static_cast<const uint8*>(m_pResource) + m_resourcePos, readSize);
+			::memcpy(buffer, static_cast<const uint8*>(m_pResource) + m_resourcePos, static_cast<size_t>(readSize));
 
 			return readSize;
 		}
@@ -249,7 +249,7 @@ namespace s3d
 		{
 			const int64 readSize = Clamp(size, 0LL, m_size - pos);
 
-			::memcpy(buffer, static_cast<const uint8*>(m_pResource) + pos, readSize);
+			::memcpy(buffer, static_cast<const uint8*>(m_pResource) + pos, static_cast<size_t>(readSize));
 
 			return readSize;
 		}

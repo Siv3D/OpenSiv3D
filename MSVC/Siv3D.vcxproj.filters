@@ -26,9 +26,6 @@
     <Filter Include="Source\Siv3D\FormatFloat">
       <UniqueIdentifier>{b28052d3-ec67-462d-85c6-a49e0da7faeb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Siv3D\FormatInt">
-      <UniqueIdentifier>{bb7966c0-8acf-4af4-8e8d-3f83b8651adc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Siv3D\Time">
       <UniqueIdentifier>{ba8c7271-d9a1-41d8-81ab-71395daf4df9}</UniqueIdentifier>
     </Filter>
@@ -85,6 +82,12 @@
     </Filter>
     <Filter Include="Source\Siv3D\TextEncoding">
       <UniqueIdentifier>{eddba81f-662c-4467-be22-40dfff6364dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\FormatFloat\FormatInt">
+      <UniqueIdentifier>{bb7966c0-8acf-4af4-8e8d-3f83b8651adc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\TextReader">
+      <UniqueIdentifier>{055a4ba3-6b89-4196-852c-69254c0ce92b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -328,6 +331,12 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Regex.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\TextReader.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\TextReader\CTextReader.hpp">
+      <Filter>Source\Siv3D\TextReader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -358,7 +367,7 @@
       <Filter>Source\Siv3D\FormatFloat</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatInt\SivFormatInt.cpp">
-      <Filter>Source\Siv3D\FormatInt</Filter>
+      <Filter>Source\Siv3D\FormatFloat\FormatInt</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Time\SivTime.cpp">
       <Filter>Source\Siv3D\Time</Filter>
@@ -443,6 +452,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\CLogger.cpp">
       <Filter>Source\Siv3D\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\TextReader\CTextReader.cpp">
+      <Filter>Source\Siv3D\TextReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\TextReader\SivTextReader.cpp">
+      <Filter>Source\Siv3D\TextReader</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -40,7 +40,11 @@ namespace s3d
 		/// <param name="path">
 		/// ファイルパス
 		/// </param>
-		explicit BinaryReader(const FilePath& path);
+		explicit BinaryReader(const FilePath& path)
+			: BinaryReader()
+		{
+			open(path);
+		}
 
 		/// <summary>
 		/// バイナリファイルを開きます。

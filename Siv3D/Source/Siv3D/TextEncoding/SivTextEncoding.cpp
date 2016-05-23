@@ -55,19 +55,19 @@ namespace s3d
 
 			uint8 buffer[bufferSize] = {};
 
-			size_t sizeToRead = reader.size(), pos = 0, count = 0;
+			int64 sizeToRead = reader.size(), pos = 0, count = 0;
 
 			bool head = true;
 
 			while (sizeToRead)
 			{
-				const size_t read = reader.lookahead(buffer, pos, sizeToRead > bufferSize ? bufferSize : sizeToRead);
+				const int64 read = reader.lookahead(buffer, pos, sizeToRead > bufferSize ? bufferSize : sizeToRead);
 
 				sizeToRead -= read;
 
 				pos += read;
 
-				for (size_t i = 0; i < read; ++i)
+				for (int64 i = 0; i < read; ++i)
 				{
 					const uint8 c = buffer[i];
 
