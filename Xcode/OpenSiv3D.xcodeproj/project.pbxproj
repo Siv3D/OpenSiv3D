@@ -101,6 +101,11 @@
 		2C38B1401CDE458A007A7E9F /* DateTime.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C38B13F1CDE458A007A7E9F /* DateTime.hpp */; };
 		2C38B1451CDE45A7007A7E9F /* SivDate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C38B1421CDE45A7007A7E9F /* SivDate.cpp */; };
 		2C38B1461CDE45A7007A7E9F /* SivDateTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C38B1441CDE45A7007A7E9F /* SivDateTime.cpp */; };
+		2C5617E91CF33F2C0086B88F /* TextReader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5617E81CF33F2C0086B88F /* TextReader.hpp */; };
+		2C5617EE1CF33F420086B88F /* CTextReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5617EB1CF33F420086B88F /* CTextReader.cpp */; };
+		2C5617EF1CF33F420086B88F /* CTextReader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5617EC1CF33F420086B88F /* CTextReader.hpp */; };
+		2C5617F01CF33F420086B88F /* SivTextReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5617ED1CF33F420086B88F /* SivTextReader.cpp */; };
+		2C5617F21CF33F7B0086B88F /* TestCharacterSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5617F11CF33F7B0086B88F /* TestCharacterSet.cpp */; };
 		2CA73B391CE6DC1900C83534 /* BigFloat.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CA73B381CE6DC1900C83534 /* BigFloat.hpp */; };
 		2CA73B3B1CE6DC2800C83534 /* TypeTraits.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CA73B3A1CE6DC2800C83534 /* TypeTraits.hpp */; };
 		2CA73B3D1CE728CC00C83534 /* CBigInt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CA73B3C1CE728CC00C83534 /* CBigInt.hpp */; };
@@ -253,6 +258,11 @@
 		2C38B1421CDE45A7007A7E9F /* SivDate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDate.cpp; sourceTree = "<group>"; };
 		2C38B1441CDE45A7007A7E9F /* SivDateTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDateTime.cpp; sourceTree = "<group>"; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
+		2C5617E81CF33F2C0086B88F /* TextReader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextReader.hpp; sourceTree = "<group>"; };
+		2C5617EB1CF33F420086B88F /* CTextReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTextReader.cpp; sourceTree = "<group>"; };
+		2C5617EC1CF33F420086B88F /* CTextReader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTextReader.hpp; sourceTree = "<group>"; };
+		2C5617ED1CF33F420086B88F /* SivTextReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextReader.cpp; sourceTree = "<group>"; };
+		2C5617F11CF33F7B0086B88F /* TestCharacterSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestCharacterSet.cpp; sourceTree = "<group>"; };
 		2CA73B381CE6DC1900C83534 /* BigFloat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BigFloat.hpp; sourceTree = "<group>"; };
 		2CA73B3A1CE6DC2800C83534 /* TypeTraits.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TypeTraits.hpp; sourceTree = "<group>"; };
 		2CA73B3C1CE728CC00C83534 /* CBigInt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CBigInt.hpp; sourceTree = "<group>"; };
@@ -582,6 +592,16 @@
 			path = gtest;
 			sourceTree = "<group>";
 		};
+		2C5617EA1CF33F420086B88F /* TextReader */ = {
+			isa = PBXGroup;
+			children = (
+				2C5617EB1CF33F420086B88F /* CTextReader.cpp */,
+				2C5617EC1CF33F420086B88F /* CTextReader.hpp */,
+				2C5617ED1CF33F420086B88F /* SivTextReader.cpp */,
+			);
+			path = TextReader;
+			sourceTree = "<group>";
+		};
 		2CA73B3E1CE728DB00C83534 /* BigFloat */ = {
 			isa = PBXGroup;
 			children = (
@@ -702,6 +722,7 @@
 				2C38B0D21CDA3517007A7E9F /* StringView.hpp */,
 				2C38B1251CDDEC78007A7E9F /* System.hpp */,
 				2C1777A21CDF67FD00BB8AD0 /* TextEncoding.hpp */,
+				2C5617E81CF33F2C0086B88F /* TextReader.hpp */,
 				2CDA1A781CEACBBB00120F95 /* TextWriter.hpp */,
 				2C38B0D31CDA3517007A7E9F /* Time.hpp */,
 				2C38B0D41CDA3517007A7E9F /* TimeProfiler.hpp */,
@@ -732,6 +753,7 @@
 				2CDA1A891CEB1AEE00120F95 /* Siv3DEngine.hpp */,
 				2CDA1A841CEAEF4A00120F95 /* Siv3DMain_OSX.cpp */,
 				2CDA1A851CEAEF4A00120F95 /* Siv3DMain_Windows.cpp */,
+				2C5617EA1CF33F420086B88F /* TextReader */,
 				2CDA1A7D1CEACBDE00120F95 /* TextWriter */,
 				2CDA1A7A1CEACBD200120F95 /* TextEncoding */,
 				2C2CCF651CE8B74F001844FF /* BinaryReader */,
@@ -806,6 +828,7 @@
 				2CC2B1121CB5554500BB42D0 /* Siv3DTest_OSX.cpp */,
 				2CC2B1131CB5554500BB42D0 /* Siv3DTest_Windows.cpp */,
 				2CC2B1141CB5554500BB42D0 /* TestArray.cpp */,
+				2C5617F11CF33F7B0086B88F /* TestCharacterSet.cpp */,
 				2C1777A41CDF682900BB8AD0 /* TestFileSystem.cpp */,
 				2CC2B1151CB5554500BB42D0 /* TestFormatBool.cpp */,
 				2CC2B1161CB5554500BB42D0 /* TestFormatFloat.cpp */,
@@ -899,10 +922,12 @@
 				2C2CCF641CE8B73B001844FF /* BinaryReader.hpp in Headers */,
 				2C38B0DF1CDA3517007A7E9F /* CharacterSet.hpp in Headers */,
 				2CC2B1021CB5552300BB42D0 /* cached-powers.h in Headers */,
+				2C5617EF1CF33F420086B88F /* CTextReader.hpp in Headers */,
 				2C38B1041CDA3517007A7E9F /* Unspecified.hpp in Headers */,
 				2CDA1A951CEB1B0300120F95 /* LogHeaderFotter.hpp in Headers */,
 				2C38B0FB1CDA3517007A7E9F /* Step.hpp in Headers */,
 				2C38B0EC1CDA3517007A7E9F /* MathConstants.hpp in Headers */,
+				2C5617E91CF33F2C0086B88F /* TextReader.hpp in Headers */,
 				2CA73B3B1CE6DC2800C83534 /* TypeTraits.hpp in Headers */,
 				2CA73B3D1CE728CC00C83534 /* CBigInt.hpp in Headers */,
 				2C38B0F91CDA3517007A7E9F /* SpeedStopwatch.hpp in Headers */,
@@ -1018,6 +1043,7 @@
 				2C1778C81CE0D63C00BB8AD0 /* TestFormatInt.cpp in Sources */,
 				2C1778C71CE0D63800BB8AD0 /* TestOptional.cpp in Sources */,
 				2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */,
+				2C5617F21CF33F7B0086B88F /* TestCharacterSet.cpp in Sources */,
 				2C1778C41CE0D62E00BB8AD0 /* TestTypes.cpp in Sources */,
 				2C1778C91CE0D63F00BB8AD0 /* TestFormatFloat.cpp in Sources */,
 				2C1778CE1CE0D64E00BB8AD0 /* Siv3DTest_OSX.cpp in Sources */,
@@ -1035,6 +1061,7 @@
 				2C17775E1CDEE6C100BB8AD0 /* SivFileSystem.cpp in Sources */,
 				2C38B1451CDE45A7007A7E9F /* SivDate.cpp in Sources */,
 				2CA73B421CE728DB00C83534 /* SivBigFloat.cpp in Sources */,
+				2C5617F01CF33F420086B88F /* SivTextReader.cpp in Sources */,
 				2C2CCF621CE89F1E001844FF /* SivBinaryWriter.cpp in Sources */,
 				2C38B1241CDA352E007A7E9F /* SivTimeProfiler.cpp in Sources */,
 				2C38B11F1CDA352E007A7E9F /* SivLogger.cpp in Sources */,
@@ -1058,6 +1085,7 @@
 				2CDA1A831CEACBDE00120F95 /* SivTextWriter.cpp in Sources */,
 				2C38B11C1CDA352E007A7E9F /* SivCharacterSet.cpp in Sources */,
 				2C38B1201CDA352E007A7E9F /* SivParseFloat.cpp in Sources */,
+				2C5617EE1CF33F420086B88F /* CTextReader.cpp in Sources */,
 				2C2CCF4D1CE86006001844FF /* SivFileSystem.mm in Sources */,
 				2C2CCF601CE89F1E001844FF /* CBinaryWriter_windows.cpp in Sources */,
 				2CDA1A911CEB1B0300120F95 /* CLogger.cpp in Sources */,
