@@ -28,7 +28,7 @@ namespace s3d
 
 	namespace detail
 	{
-		static bool IsResourcePath(const FilePath& path)
+		inline bool IsResourcePath(const FilePath& path)
 		{	
 			return path.starts_with(L'/');
 		}

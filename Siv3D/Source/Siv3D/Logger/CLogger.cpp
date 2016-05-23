@@ -37,7 +37,7 @@ namespace s3d
 			L"[debug]",
 		};
 
-		void OutputDebug(const LogDescription desc, const String& str)
+		static void OutputDebug(const LogDescription desc, const String& str)
 		{
 			String output;
 			output.reserve(logLevelStr[static_cast<size_t>(desc)].length() + str.length() + 1);
@@ -70,7 +70,7 @@ namespace s3d
 			"[debug]",
 		};
 
-		void OutputDebug(const LogDescription desc, const String& str)
+		static void OutputDebug(const LogDescription desc, const String& str)
 		{
 			if (desc != LogDescription::App)
 			{

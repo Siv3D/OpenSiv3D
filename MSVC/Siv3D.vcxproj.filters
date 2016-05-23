@@ -86,6 +86,9 @@
     <Filter Include="Source\Siv3D\FormatFloat\FormatInt">
       <UniqueIdentifier>{bb7966c0-8acf-4af4-8e8d-3f83b8651adc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\TextReader">
+      <UniqueIdentifier>{055a4ba3-6b89-4196-852c-69254c0ce92b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -328,6 +331,12 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Regex.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\TextReader.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\TextReader\CTextReader.hpp">
+      <Filter>Source\Siv3D\TextReader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -443,6 +452,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\CLogger.cpp">
       <Filter>Source\Siv3D\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\TextReader\CTextReader.cpp">
+      <Filter>Source\Siv3D\TextReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\TextReader\SivTextReader.cpp">
+      <Filter>Source\Siv3D\TextReader</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

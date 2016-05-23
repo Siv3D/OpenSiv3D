@@ -82,18 +82,7 @@ namespace s3d
 		/// <returns>
 		/// 変換されたワイド文字列
 		/// </returns>
-		String FromUTF8(const CStringView str);
-
-		/// <summary>
-		/// ワイド文字列を UTF-8 文字列に変換します。
-		/// </summary>
-		/// <param name="str">
-		/// ワイド文字列
-		/// </param>
-		/// <returns>
-		/// 変換された UTF-8 文字列
-		/// </returns>
-		std::string ToUTF8(StringView str);
+		String FromUTF8(const UTF8StringView str);
 
 		/// <summary>
 		/// UTF-16 文字列をワイド文字列に変換します。
@@ -107,15 +96,26 @@ namespace s3d
 		String FromUTF16(const std::u16string& str);
 
 		/// <summary>
-		/// UTF-8 文字列を UTF-16 文字列に変換します。
+		/// UTF-32 文字列をワイド文字列に変換します。
 		/// </summary>
 		/// <param name="str">
-		/// UTF-8 文字列
+		/// UTF-32 文字列
 		/// </param>
 		/// <returns>
-		/// 変換された UTF-16 文字列
+		/// 変換されたワイド文字列
 		/// </returns>
-		std::u16string UTF8ToUTF16(UTF8StringView str);
+		String FromUTF32(const std::u32string& str);
+
+		/// <summary>
+		/// ワイド文字列を UTF-8 文字列に変換します。
+		/// </summary>
+		/// <param name="str">
+		/// ワイド文字列
+		/// </param>
+		/// <returns>
+		/// 変換された UTF-8 文字列
+		/// </returns>
+		std::string ToUTF8(StringView str);
 
 		/// <summary>
 		/// ワイド文字列を UTF-16 文字列に変換します。
@@ -129,15 +129,26 @@ namespace s3d
 		std::u16string ToUTF16(StringView str);
 
 		/// <summary>
-		/// UTF-32 文字列をワイド文字列に変換します。
+		/// ワイド文字列を UTF-32 文字列に変換します。
 		/// </summary>
 		/// <param name="str">
-		/// UTF-32 文字列
+		/// ワイド文字列
 		/// </param>
 		/// <returns>
-		/// 変換されたワイド文字列
+		/// 変換された UTF-32 文字列
 		/// </returns>
-		String FromUTF32(const std::u32string& str);
+		std::u32string ToUTF32(StringView str);
+
+		/// <summary>
+		/// UTF-8 文字列を UTF-16 文字列に変換します。
+		/// </summary>
+		/// <param name="str">
+		/// UTF-8 文字列
+		/// </param>
+		/// <returns>
+		/// 変換された UTF-16 文字列
+		/// </returns>
+		std::u16string UTF8ToUTF16(UTF8StringView str);
 
 		/// <summary>
 		/// UTF-8 文字列を UTF-32 文字列に変換します。
@@ -151,15 +162,48 @@ namespace s3d
 		std::u32string UTF8ToUTF32(UTF8StringView str);
 
 		/// <summary>
-		/// ワイド文字列を UTF-32 文字列に変換します。
+		/// UTF-16 文字列を UTF-8 文字列に変換します。
 		/// </summary>
 		/// <param name="str">
-		/// ワイド文字列
+		/// UTF-16 文字列
+		/// </param>
+		/// <returns>
+		/// 変換された UTF-8 文字列
+		/// </returns>
+		std::string UTF16ToUTF8(const std::u16string& str);
+
+		/// <summary>
+		/// UTF-16 文字列を UTF-32 文字列に変換します。
+		/// </summary>
+		/// <param name="str">
+		/// UTF-16 文字列
 		/// </param>
 		/// <returns>
 		/// 変換された UTF-32 文字列
 		/// </returns>
-		std::u32string ToUTF32(StringView str);
+		std::u32string UTF16ToUTF32(const std::u16string& str);
+
+		/// <summary>
+		/// UTF-32 文字列を UTF-8 文字列に変換します。
+		/// </summary>
+		/// <param name="str">
+		/// UTF-16 文字列
+		/// </param>
+		/// <returns>
+		/// 変換された UTF-8 文字列
+		/// </returns>
+		std::string UTF32ToUTF8(const std::u32string& str);
+
+		/// <summary>
+		/// UTF-32 文字列を UTF-16 文字列に変換します。
+		/// </summary>
+		/// <param name="str">
+		/// UTF-16 文字列
+		/// </param>
+		/// <returns>
+		/// 変換された UTF-32 文字列
+		/// </returns>
+		std::u16string UTF32ToUTF16(const std::u32string& str);
 
 		/// <summary>
 		/// 文字列をパーセントエンコードします。

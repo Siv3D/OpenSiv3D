@@ -2694,6 +2694,12 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		std::string toUTF8() const;
+
+		std::u16string toUTF16() const;
+
+		std::u32string toUTF32() const;
+
 		String& sort()
 		{
 			std::sort(m_string.begin(), m_string.end());
@@ -3050,6 +3056,21 @@ namespace s3d
 	inline bool String::starts_with(const StringView& str) const
 	{
 		return (m_string.length() >= str.length()) && std::equal(str.begin(), str.end(), m_string.begin());
+	}
+
+	inline std::string String::toUTF8() const
+	{
+		return CharacterSet::ToUTF8(*this);
+	}
+
+	inline std::u16string String::toUTF16() const
+	{
+		return CharacterSet::ToUTF16(*this);
+	}
+
+	inline std::u32string String::toUTF32() const
+	{
+		return CharacterSet::ToUTF32(*this);
 	}
 
 	inline std::istream& operator >> (std::istream& input, String& str)
