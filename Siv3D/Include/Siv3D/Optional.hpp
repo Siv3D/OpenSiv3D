@@ -680,8 +680,8 @@ namespace s3d
 		/// <returns>
 		/// 中身がある場合は関数 f の戻り値の Optional, それ以外の場合は none
 		/// </returns>
-		template <class Fty, std::enable_if_t<detail::is_optional<decltype(std::declval<Fty>()(std::declval<Type>()))>::value>* = nullptr>
-		decltype(std::declval<Fty>()(std::declval<Type>())) then(Fty f)
+		template <class Fty, std::enable_if_t<detail::is_optional<std::result_of_t<Fty(Type)>>::value>* = nullptr>
+		std::result_of_t<Fty(Type)> then(Fty f)
 		{
 			if (has_value())
 			{
@@ -703,8 +703,8 @@ namespace s3d
 		/// なし
 		/// </returns>
 		template <class Fty, std::enable_if_t<
-			   !detail::is_optional<decltype(std::declval<Fty>()(std::declval<Type>()))>::value
-			&& std::is_void<decltype(std::declval<Fty>()(std::declval<Type>()))>::value>* = nullptr>
+			   !detail::is_optional<std::result_of_t<Fty(Type)>>::value
+			&& std::is_void<std::result_of_t<Fty(Type)>>::value>* = nullptr>
 		void then(Fty f)
 		{
 			if (has_value())
@@ -723,9 +723,9 @@ namespace s3d
 		/// 中身がある場合は関数 f の戻り値の Optional, それ以外の場合は none
 		/// </returns>
 		template <class Fty, std::enable_if_t<
-			   !detail::is_optional<decltype(std::declval<Fty>()(std::declval<Type>()))>::value
-			&& !std::is_void<decltype(std::declval<Fty>()(std::declval<Type>()))>::value>* = nullptr>
-		Optional<decltype(std::declval<Fty>()(std::declval<Type>()))> then(Fty f)
+			   !detail::is_optional<std::result_of_t<Fty(Type)>>::value
+			&& !std::is_void<std::result_of_t<Fty(Type)>>::value>* = nullptr>
+		Optional<std::result_of_t<Fty(Type)>> then(Fty f)
 		{
 			if (has_value())
 			{
@@ -746,8 +746,8 @@ namespace s3d
 		/// <returns>
 		/// 中身がある場合は関数 f の戻り値, それ以外の場合は none
 		/// </returns>
-		template <class Fty, std::enable_if_t<detail::is_optional<decltype(std::declval<Fty>()(std::declval<Type>()))>::value>* = nullptr>
-		decltype(std::declval<Fty>()(std::declval<Type>())) then(Fty f) const
+		template <class Fty, std::enable_if_t<detail::is_optional<std::result_of_t<Fty(Type)>>::value>* = nullptr>
+		std::result_of_t<Fty(Type)> then(Fty f) const
 		{
 			if (has_value())
 			{
@@ -769,8 +769,8 @@ namespace s3d
 		/// なし
 		/// </returns>
 		template <class Fty, std::enable_if_t<
-			   !detail::is_optional<decltype(std::declval<Fty>()(std::declval<Type>()))>::value
-			&& std::is_void<decltype(std::declval<Fty>()(std::declval<Type>()))>::value>* = nullptr>
+			   !detail::is_optional<std::result_of_t<Fty(Type)>>::value
+			&& std::is_void<std::result_of_t<Fty(Type)>>::value>* = nullptr>
 		void then(Fty f) const
 		{
 			if (has_value())
@@ -789,9 +789,9 @@ namespace s3d
 		/// 中身がある場合は関数 f の戻り値の Optional, それ以外の場合は none
 		/// </returns>
 		template <class Fty, std::enable_if_t<
-			   !detail::is_optional<decltype(std::declval<Fty>()(std::declval<Type>()))>::value
-			&& !std::is_void<decltype(std::declval<Fty>()(std::declval<Type>()))>::value>* = nullptr>
-		Optional<decltype(std::declval<Fty>()(std::declval<Type>()))> then(Fty f) const
+			   !detail::is_optional<std::result_of_t<Fty(Type)>>::value
+			&& !std::is_void<std::result_of_t<Fty(Type)>>::value>* = nullptr>
+		Optional<std::result_of_t<Fty(Type)>> then(Fty f) const
 		{
 			if (has_value())
 			{
@@ -1053,7 +1053,7 @@ namespace s3d
 		constexpr Type& operator * () const
 		{
 			assert(ref);
-			return ref;
+			return *ref;
 		}
 
 		/// <summary>
@@ -1124,8 +1124,8 @@ namespace s3d
 		/// <returns>
 		/// 中身がある場合は関数 f の戻り値の Optional, それ以外の場合は none
 		/// </returns>
-		template <class Fty, std::enable_if_t<detail::is_optional<decltype(std::declval<Fty>()(std::declval<Type&>()))>::value>* = nullptr>
-		decltype(std::declval<Fty>()(std::declval<Type&>())) then(Fty f)
+		template <class Fty, std::enable_if_t<detail::is_optional<std::result_of_t<Fty(Type&)>>::value>* = nullptr>
+		std::result_of_t<Fty(Type&)> then(Fty f)
 		{
 			if (has_value())
 			{
@@ -1147,8 +1147,8 @@ namespace s3d
 		/// なし
 		/// </returns>
 		template <class Fty, std::enable_if_t<
-			   !detail::is_optional<decltype(std::declval<Fty>()(std::declval<Type&>()))>::value
-			&& std::is_void<decltype(std::declval<Fty>()(std::declval<Type&>()))>::value>* = nullptr>
+			   !detail::is_optional<std::result_of_t<Fty(Type&)>>::value
+			&& std::is_void<std::result_of_t<Fty(Type&)>>::value>* = nullptr>
 		void then(Fty f)
 		{
 			if (has_value())
@@ -1167,9 +1167,9 @@ namespace s3d
 		/// 中身がある場合は関数 f の戻り値の Optional, それ以外の場合は none
 		/// </returns>
 		template <class Fty, std::enable_if_t<
-			   !detail::is_optional<decltype(std::declval<Fty>()(std::declval<Type&>()))>::value
-			&& !std::is_void<decltype(std::declval<Fty>()(std::declval<Type&>()))>::value>* = nullptr>
-		Optional<decltype(std::declval<Fty>()(std::declval<Type&>()))> then(Fty f)
+			   !detail::is_optional<std::result_of_t<Fty(Type&)>>::value
+			&& !std::is_void<std::result_of_t<Fty(Type&)>>::value>* = nullptr>
+		Optional<std::result_of_t<Fty(Type&)>> then(Fty f)
 		{
 			if (has_value())
 			{
@@ -1190,8 +1190,8 @@ namespace s3d
 		/// <returns>
 		/// 中身がある場合は関数 f の戻り値, それ以外の場合は none
 		/// </returns>
-		template <class Fty, std::enable_if_t<detail::is_optional<decltype(std::declval<Fty>()(std::declval<Type&>()))>::value>* = nullptr>
-		decltype(std::declval<Fty>()(std::declval<Type&>())) then(Fty f) const
+		template <class Fty, std::enable_if_t<detail::is_optional<std::result_of_t<Fty(Type&)>>::value>* = nullptr>
+		std::result_of_t<Fty(Type&)> then(Fty f) const
 		{
 			if (has_value())
 			{
@@ -1213,8 +1213,8 @@ namespace s3d
 		/// なし
 		/// </returns>
 		template <class Fty, std::enable_if_t<
-			   !detail::is_optional<decltype(std::declval<Fty>()(std::declval<Type&>()))>::value
-			&& std::is_void<decltype(std::declval<Fty>()(std::declval<Type&>()))>::value>* = nullptr>
+			   !detail::is_optional<std::result_of_t<Fty(Type&)>>::value
+			&& std::is_void<std::result_of_t<Fty(Type&)>>::value>* = nullptr>
 		void then(Fty f) const
 		{
 			if (has_value())
@@ -1233,9 +1233,9 @@ namespace s3d
 		/// 中身がある場合は関数 f の戻り値の Optional, それ以外の場合は none
 		/// </returns>
 		template <class Fty, std::enable_if_t<
-			   !detail::is_optional<decltype(std::declval<Fty>()(std::declval<Type&>()))>::value
-			&& !std::is_void<decltype(std::declval<Fty>()(std::declval<Type&>()))>::value>* = nullptr>
-		Optional<decltype(std::declval<Fty>()(std::declval<Type&>()))> then(Fty f) const
+			   !detail::is_optional<std::result_of_t<Fty(Type&)>>::value
+			&& !std::is_void<std::result_of_t<Fty(Type&)>>::value>* = nullptr>
+		Optional<std::result_of_t<Fty(Type&)>> then(Fty f) const
 		{
 			if (has_value())
 			{
