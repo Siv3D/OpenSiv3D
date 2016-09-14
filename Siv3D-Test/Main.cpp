@@ -42,11 +42,9 @@ void Dump(const void* data, size_t size)
 	Log(result);
 }
 
-#// include <allocators>
-
 void Main()
 {
-	RunTest();
+	//RunTest();
 
 	//TimeProfiler tp;
 

@@ -12,6 +12,7 @@
 # pragma once
 # include <initializer_list>
 # include <algorithm>
+# include <cassert>
 # include "Fwd.hpp"
 
 namespace s3d
@@ -212,5 +213,68 @@ namespace s3d
 	inline bool NoneOf(const Container& c, Fty f)
 	{
 		return std::none_of(std::begin(c), std::end(c), f);
+	}
+
+	namespace detail
+	{
+		template <class PopulationIterator, class SampleIterator, class Distance, class URNG>
+		inline SampleIterator Sample_impl(PopulationIterator first, PopulationIterator last, SampleIterator out, Distance n, URNG& rng, std::input_iterator_tag)
+		{
+			Distance k = 0;
+
+			for (; first != last && k < n; ++first, ++k)
+			{
+				out[k] = *first;
+			}
+
+			Distance sz = k;
+
+			for (; first != last; ++first, ++k)
+			{
+				Distance r = std::uniform_int_distribution<Distance>(0, k)(rng);
+
+				if (r < sz)
+				{
+					out[r] = *first;
+				}
+			}
+
+			return out + std::min(n, k);
+		}
+
+		template <class PopulationIterator, class SampleIterator, class Distance, class URNG>
+		inline SampleIterator Sample_impl(PopulationIterator first, PopulationIterator last, SampleIterator out, Distance n, URNG& rng, std::forward_iterator_tag)
+		{
+			Distance unsampled_sz = std::distance(first, last);
+
+			for (n = std::min(n, unsampled_sz); n != 0; ++first)
+			{
+				Distance r = std::uniform_int_distribution<Distance>(0, --unsampled_sz)(rng);
+
+				if (r < n)
+				{
+					*out++ = *first;
+					--n;
+				}
+			}
+
+			return out;
+		}
+
+		template <class PopulationIterator, class SampleIterator, class Distance, class URNG>
+		inline SampleIterator Sample_impl(PopulationIterator first, PopulationIterator last, SampleIterator out, Distance n, URNG& rng)
+		{
+			using PopCategory = typename std::iterator_traits<PopulationIterator>::iterator_category;
+			using Difference = typename std::iterator_traits<PopulationIterator>::difference_type;
+			using CommonType = typename std::common_type<Distance, Difference>::type;
+			assert(n >= 0);
+			return Sample_impl(first, last, out, CommonType(n), rng, PopCategory());
+		}
+	}
+
+	template <class PopulationIterator, class SampleIterator, class Distance, class URNG>
+	inline SampleIterator Sample(PopulationIterator first, PopulationIterator last, SampleIterator out, Distance n, URNG&& rng)
+	{
+		return detail::Sample_impl(first, last, out, n, rng);
 	}
 }

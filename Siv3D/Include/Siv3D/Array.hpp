@@ -184,7 +184,13 @@ namespace s3d
 		template <class URNG>
 		Array choice(size_t n, URNG&& rng) const
 		{
-			return shuffled(std::forward<URNG>(rng)).taken(n);
+			Array result;		
+
+			result.reserve(std::min(n, size()));
+
+			Sample(begin(), end(), std::back_inserter(result), n, std::forward<URNG>(rng));
+			
+			return result;
 		}
 
 		size_t count(const Type& value) const
@@ -1072,7 +1078,13 @@ namespace s3d
 		template <class URNG>
 		Array choice(size_t n, URNG&& rng) const
 		{
-			return shuffled(std::forward<URNG>(rng)).taken(n);
+			Array result;
+
+			result.reserve(std::min(n, size()));
+
+			Sample(begin(), end(), std::back_inserter(result), n, std::forward<URNG>(rng));
+
+			return result;
 		}
 
 		size_t count(const bool& value) const
