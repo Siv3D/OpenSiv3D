@@ -174,7 +174,7 @@ namespace s3d
 			template <class Fty>
 			auto map(Fty f) const
 			{
-				using Ret = decltype(std::declval<Fty>()(std::declval<value_type>()));
+				using Ret = std::result_of_t<Fty(value_type)>;
 				const auto functions = std::tuple_cat(m_functions, std::make_tuple(MapFunction<Fty>{ f }));
 				return F_InfStep<StepClass, Ret, decltype(functions)>(m_base, functions);
 			}
@@ -260,7 +260,7 @@ namespace s3d
 	template <class Fty>
 	inline auto infinite_list<Type>::map(Fty f) const
 	{
-		using Ret = decltype(std::declval<Fty>()(std::declval<value_type>()));
+		using Ret = std::result_of_t<Fty(value_type)>;
 		const auto tuple = std::make_tuple(detail::MapFunction<Fty>{ f });
 		return detail::F_InfStep<infinite_list, Ret, decltype(tuple)>(*this, tuple);
 	}

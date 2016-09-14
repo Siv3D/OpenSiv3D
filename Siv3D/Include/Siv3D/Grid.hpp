@@ -993,7 +993,7 @@ namespace s3d
 		template <class Fty>
 		auto map(Fty f) const
 		{
-			Grid<decltype(std::declval<Fty>()(std::declval<Type>()))> new_grid;
+			Grid<std::result_of_t<Fty(Type)>> new_grid;
 
 			new_grid.reserve(m_width, m_height);
 
@@ -1015,7 +1015,7 @@ namespace s3d
 		}
 
 		template <class Fty>
-		auto reduce(Fty f, decltype(std::declval<Fty>()(std::declval<Type>(), std::declval<Type>())) init) const
+		auto reduce(Fty f, std::result_of_t<Fty(Type, Type)> init) const
 		{
 			return m_data.reduce(f, init);
 		}

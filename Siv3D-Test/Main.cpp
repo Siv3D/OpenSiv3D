@@ -46,6 +46,8 @@ void Main()
 {
 	//RunTest();
 
+	Log(Range(0, 100).asArray().map(Multiplies<double>(none, 0.01)).reduce(Plus(none,none), 0.0));
+
 	//TimeProfiler tp;
 
 	//for (int32 i = 0; i < 50; ++i)
@@ -65,7 +67,7 @@ void Main()
 	//Dump(CharacterSet::FromUTF8(u8"あいうえおabc漢字").c_str(), CharacterSet::FromUTF8(u8"あいうえおabc漢字").length()*2);
 	//Dump(CharacterSet::UTF8ToUTF16(u8"あいうえおabc漢字").c_str(), CharacterSet::UTF8ToUTF16(u8"あいうえおabc漢字").length()*2);
 	/*
-	RunTest();
+	//RunTest();
 
 	// 0～100 の範囲
 	Log(L"# Range(0, 100)");

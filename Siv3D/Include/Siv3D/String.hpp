@@ -1970,8 +1970,7 @@ namespace s3d
 			return any(f);
 		}
 
-		template <class Fty>
-		String& keep_if(Fty f)
+		String& keep_if(std::function<bool(wchar)> f)
 		{
 			m_string.erase(std::remove_if(m_string.begin(), m_string.end(), std::not1(f)), m_string.end());
 
@@ -2111,7 +2110,7 @@ namespace s3d
 		template <class Fty>
 		auto map(Fty f) const
 		{
-			using ValueType = decltype(std::declval<Fty>()(std::declval<wchar>()));
+			using ValueType = std::result_of_t<Fty(wchar)>;
             
 			Array<ValueType, typename DefaultAllocator<ValueType>::type> new_array;
 
