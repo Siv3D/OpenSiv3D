@@ -136,7 +136,18 @@ TEST(Array, double_const)
 
 TEST(Array, m128)
 {
+# if defined(SIV3D_TARGET_WINDOWS)
 
+	Array<__m128> v(100);
+	EXPECT_EQ(size_t(&v[0]) % 16, 0);
+
+	v.resize(333);
+	EXPECT_EQ(size_t(&v[0]) % 16, 0);
+
+	v.resize(777);
+	EXPECT_EQ(size_t(&v[0]) % 16, 0);
+
+# endif
 }
 
 TEST(Array, m128_const)
