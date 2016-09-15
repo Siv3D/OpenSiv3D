@@ -33,22 +33,22 @@ namespace s3d
 
 	// workaround: std utility functions aren't constexpr yet
 	template <class Type>
-	inline constexpr Type&& constexpr_forward(typename std::remove_reference<Type>::type& t) noexcept
+	inline constexpr Type&& constexpr_forward(typename std::remove_reference_t<Type>& t) noexcept
 	{
 		return static_cast<Type&&>(t);
 	}
 
 	template <class Type>
-	inline constexpr Type&& constexpr_forward(typename std::remove_reference<Type>::type&& t) noexcept
+	inline constexpr Type&& constexpr_forward(typename std::remove_reference_t<Type>&& t) noexcept
 	{
 		static_assert(!std::is_lvalue_reference<Type>::value, "!!");
 		return static_cast<Type&&>(t);
 	}
 
 	template <class Type>
-	inline constexpr typename std::remove_reference<Type>::type&& constexpr_move(Type&& t) noexcept
+	inline constexpr typename std::remove_reference_t<Type>&& constexpr_move(Type&& t) noexcept
 	{
-		return static_cast<typename std::remove_reference<Type>::type&&>(t);
+		return static_cast<typename std::remove_reference_t<Type>&&>(t);
 	}
 
 	namespace detail
@@ -78,7 +78,7 @@ namespace s3d
 		}
 
 		template <class U>
-		U convert(U v)
+		constexpr U convert(U v)
 		{
 			return v;
 		}
@@ -213,7 +213,7 @@ namespace s3d
 	};
 
 	template <class Type>
-	using OptionalBase = std::conditional_t<std::is_trivially_destructible<Type>::value, constexpr_optional_base<Type>, optional_base<Type>>;
+	using OptionalBase = std::conditional_t<std::is_trivially_destructible<Type>::value, constexpr_optional_base<typename std::remove_const_t<Type>>, optional_base<typename std::remove_const_t<Type>>>;
 
 	namespace detail
 	{
@@ -438,7 +438,7 @@ namespace s3d
 		/// </returns>
 		template <class U>
 		auto operator = (U&& v)
-			-> typename std::enable_if<std::is_same<std::decay_t<U>, Type>::value, Optional&>::type
+			-> typename std::enable_if_t<std::is_same<std::decay_t<U>, Type>::value, Optional&>
 		{
 			if (has_value()) { contained_val() = std::forward<U>(v); }
 			else { initialize(std::forward<U>(v)); }
@@ -955,7 +955,7 @@ namespace s3d
 		/// </returns>
 		template <class U>
 		auto operator = (U&& rhs) noexcept
-			-> typename std::enable_if<std::is_same<std::decay_t<U>, Optional<Type&>>::value, Optional&>::type
+			-> typename std::enable_if_t<std::is_same<std::decay_t<U>, Optional<Type&>>::value, Optional&>
 		{
 			ref = rhs.ref;
 			return *this;
@@ -972,7 +972,7 @@ namespace s3d
 		/// </returns>
 		template <class U>
 		auto operator =(U&& rhs) noexcept
-			-> typename std::enable_if<!std::is_same<std::decay_t<U>, Optional<Type&>>::value, Optional&>::type = delete;
+			-> typename std::enable_if_t<!std::is_same<std::decay_t<U>, Optional<Type&>>::value, Optional&> = delete;
 
 		/// <summary>
 		/// Optional オブジェクトを初期化します。
