@@ -266,7 +266,7 @@ namespace s3d
 		{
 			using PopCategory = typename std::iterator_traits<PopulationIterator>::iterator_category;
 			using Difference = typename std::iterator_traits<PopulationIterator>::difference_type;
-			using CommonType = typename std::common_type<Distance, Difference>::type;
+			using CommonType = std::common_type_t<Distance, Difference>;
 			assert(n >= 0);
 			return Sample_impl(first, last, out, CommonType(n), rng, PopCategory());
 		}
