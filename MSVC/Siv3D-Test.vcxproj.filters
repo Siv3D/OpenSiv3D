@@ -69,6 +69,9 @@
     <ClCompile Include="..\Siv3D-Test\Test\TestCharacterSet.cpp">
       <Filter>Test</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D-Test\Test\TestConcept.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D-Test\Test\Siv3DTest.hpp">

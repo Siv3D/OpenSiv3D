@@ -337,6 +337,9 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\TextReader\CTextReader.hpp">
       <Filter>Source\Siv3D\TextReader</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Concept.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">

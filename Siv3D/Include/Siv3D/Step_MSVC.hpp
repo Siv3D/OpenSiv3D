@@ -403,6 +403,12 @@ namespace s3d
 			return result;
 		}
 
+		template <class Type = value_type>
+		Type sum() const
+		{
+			return reduce(Plus<Type>(), Type{});
+		}
+
 		Array<value_type> take(size_t n) const
 		{
 			Array<value_type> new_array;
@@ -847,6 +853,12 @@ namespace s3d
 			}
 
 			return result;
+		}
+
+		template <class Type = value_type>
+		Type sum() const
+		{
+			return reduce(Plus<Type>(), Type{});
 		}
 
 		Array<value_type> take(size_t n) const
@@ -1385,6 +1397,12 @@ namespace s3d
 				}
 
 				return result;
+			}
+
+			template <class Type = value_type>
+			Type sum() const
+			{
+				return reduce(Plus<Type>(), Type{});
 			}
 
 			Array<value_type> take(size_t n) const

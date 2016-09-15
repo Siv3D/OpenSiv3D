@@ -511,6 +511,12 @@ namespace s3d
 		return std::plus<Type>();
 	}
 
+	template <class TypeY>
+	inline constexpr auto Plus(TypeY&& y) noexcept
+	{
+		return detail::BinaryPlusX<TypeY>{y};
+	}
+
 	template <class TypeX, class TypeY>
 	inline constexpr auto Plus(TypeX&& x, TypeY&& y) noexcept(noexcept(std::forward<TypeX>(x) + std::forward<TypeY>(y)))
 	{
@@ -578,6 +584,12 @@ namespace s3d
 	inline constexpr auto Minus() noexcept
 	{
 		return std::minus<Type>();
+	}
+
+	template <class TypeY>
+	inline constexpr auto Minus(TypeY&& y) noexcept
+	{
+		return detail::BinaryMinusX<TypeY>{y};
 	}
 
 	template <class TypeX, class TypeY>
@@ -741,6 +753,12 @@ namespace s3d
 		return std::multiplies<Type>();
 	}
 
+	template <class TypeY>
+	inline constexpr auto Multiplies(TypeY&& y) noexcept
+	{
+		return detail::BinaryMultipliesX<TypeY>{y};
+	}
+
 	template <class TypeX, class TypeY>
 	inline constexpr auto Multiplies(TypeX&& x, TypeY&& y) noexcept(noexcept(std::forward<TypeX>(x) * std::forward<TypeY>(y)))
 	{
@@ -808,6 +826,12 @@ namespace s3d
 	inline constexpr auto Divides() noexcept
 	{
 		return std::divides<Type>();
+	}
+
+	template <class TypeY>
+	inline constexpr auto Divides(TypeY&& y) noexcept
+	{
+		return detail::BinaryDividesX<TypeY>{y};
 	}
 
 	template <class TypeX, class TypeY>
@@ -903,6 +927,12 @@ namespace s3d
 	inline constexpr auto Modulus() noexcept
 	{
         return detail::ModulusF();
+	}
+
+	template <class TypeY>
+	inline constexpr auto Modulus(TypeY&& y) noexcept
+	{
+		return detail::BinaryModulusX<TypeY>{y};
 	}
 
     template <class TypeX, class TypeY>

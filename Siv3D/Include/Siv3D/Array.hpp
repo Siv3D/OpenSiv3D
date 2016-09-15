@@ -15,6 +15,7 @@
 # include <algorithm>
 # include "Fwd.hpp"
 # include "Allocator.hpp"
+# include "Concept.hpp"
 # include "String.hpp"
 # include "Functor.hpp"
 # include "Format.hpp"
@@ -818,6 +819,38 @@ namespace s3d
 			sort_by(f);
 
 			return std::move(*this);
+		}
+
+		template <class T = Type, std::enable_if_t<Concept::HasPlus<T>::value && Concept::HasPlusAssign<T>::value>* = nullptr>
+		auto sum() const
+		{
+			decltype(std::declval<Type>() + std::declval<Type>()) result{};
+
+			for (const auto& v : *this)
+			{
+				result += v;
+			}
+
+			return result;
+		}
+
+		template <class T = Type, std::enable_if_t<Concept::HasPlus<T>::value && !Concept::HasPlusAssign<T>::value>* = nullptr>
+		auto sum() const
+		{
+			decltype(std::declval<Type>() + std::declval<Type>()) result{};
+
+			for (const auto& v : *this)
+			{
+				result = result + v;
+			}
+
+			return result;
+		}
+
+		template <class T = Type, std::enable_if_t<!Concept::HasPlus<T>::value>* = nullptr>
+		const Array& sum() const
+		{
+			return *this;
 		}
 
 		Array& take(size_t n)
@@ -1711,6 +1744,11 @@ namespace s3d
 			sort_by(f);
 
 			return std::move(*this);
+		}
+
+		size_t sum() const
+		{
+			return count(true);
 		}
 
 		Array& take(size_t n)
