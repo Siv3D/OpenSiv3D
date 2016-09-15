@@ -55,443 +55,209 @@ namespace s3d
 		template <class Type, class Arg> NotImplemented operator &&(const Type&, const Arg&);
 		template <class Type, class Arg> NotImplemented operator ||(const Type&, const Arg&);
 
+		namespace detail
+		{
+			template <class U>
+			inline auto HasOperatorBoolCheck(U v) -> decltype(!v, v ? 0 : 1, std::true_type());
+			inline auto HasOperatorBoolCheck(...) -> decltype(std::false_type());
+		}
+
 		template <class Type>
 		struct HasUnaryPlus
-		{
-			static const bool value = !std::is_same<decltype(+(*(Type*)(0))), NotImplemented>::value;
-		};
+			: std::bool_constant<!std::is_same<decltype(+(*(Type*)(0))), NotImplemented>::value> {};
 
 		template <class Type>
 		struct HasNegate
-		{
-			static const bool value = !std::is_same<decltype(-(*(Type*)(0))), NotImplemented>::value;
-		};
+			: std::bool_constant<!std::is_same<decltype(-(*(Type*)(0))), NotImplemented>::value> {};
 
 		template <class Type>
 		struct HasPreIncrement
-		{
-			static const bool value = !std::is_same<decltype(++(*(Type*)(0))), NotImplemented>::value;
-		};
+			: std::bool_constant<!std::is_same<decltype(++(*(Type*)(0))), NotImplemented>::value> {};
 
 		template <class Type>
 		struct HasPreDecrement
-		{
-			static const bool value = !std::is_same<decltype(--(*(Type*)(0))), NotImplemented>::value;
-		};
+			: std::bool_constant<!std::is_same<decltype(--(*(Type*)(0))), NotImplemented>::value> {};
 
 		template <class Type>
 		struct HasOperatorBool
-		{
-		private:
-
-			template <class U>
-			static auto check(U v) -> decltype(!v, v ? 0 : 1, std::true_type());
-			static auto check(...) -> decltype(std::false_type());
-
-		public:
-
-			static const bool value = decltype(check(std::declval<Type>()))::value;
-		};
+			: decltype(detail::HasOperatorBoolCheck(std::declval<Type>())) {};
 
 		template <class Type>
 		struct HasLogicalNot
-		{
-			static const bool value = !std::is_same<decltype(!(*(Type*)(0))), NotImplemented>::value;
-		};
+			: std::bool_constant<!std::is_same<decltype(!(*(Type*)(0))), NotImplemented>::value> {};
 
 		template <class Type>
 		struct HasComplement
-		{
-		private:
-
-			template <class T = Type, std::enable_if_t<std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return false;
-			}
-
-			template <class T = Type, std::enable_if_t<!std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return !std::is_same<decltype(~(*(Type*)(0))), NotImplemented>::value;
-			}
-
-		public:
-
-			static const bool value = getValue();
-		};
+			: std::conditional_t<std::is_floating_point<Type>::value, std::false_type,
+				std::bool_constant<!std::is_same<decltype(~(*(std::conditional_t<std::is_floating_point<Type>::value, int, Type>*)(0))), NotImplemented>::value>> {};
 
 		template <class Type>
 		struct HasPostIncrement
-		{
-			static const bool value = !std::is_same<decltype((*(Type*)(0))++), NotImplemented>::value;
-		};
+			: std::bool_constant<!std::is_same<decltype((*(Type*)(0))++), NotImplemented>::value> {};
 
 		template <class Type>
 		struct HasPostDecrement
-		{
-			static const bool value = !std::is_same<decltype((*(Type*)(0))--), NotImplemented>::value;
-		};
+			: std::bool_constant<!std::is_same<decltype((*(Type*)(0))--), NotImplemented>::value> {};
 
 		template <class Type, class Arg = Type>
 		struct HasPlus
-		{
-			static const bool value = !std::is_same<decltype(*(Type*)(0) + *(Arg*)(0)), NotImplemented>::value;
-		};
+			: std::bool_constant<!std::is_same<decltype(*(Type*)(0) + *(Arg*)(0)), NotImplemented>::value> {};
 
 		template <class Type, class Arg = Type>
 		struct HasMinus
-		{
-			static const bool value = !std::is_same<decltype(*(Type*)(0) - *(Arg*)(0)), NotImplemented>::value;
-		};
+			: std::bool_constant<!std::is_same<decltype(*(Type*)(0) - *(Arg*)(0)), NotImplemented>::value> {};
 
 		template <class Type, class Arg = Type>
 		struct HasMultiply
-		{
-			static const bool value = !std::is_same<decltype(*(Type*)(0) * *(Arg*)(0)), NotImplemented>::value;
-		};
+			: std::bool_constant<!std::is_same<decltype(*(Type*)(0) * *(Arg*)(0)), NotImplemented>::value> {};
 
 		template <class Type, class Arg = Type>
 		struct HasDivide
-		{
-			static const bool value = !std::is_same<decltype(*(Type*)(0) / *(Arg*)(0)), NotImplemented>::value;
-		};
+			: std::bool_constant<!std::is_same<decltype(*(Type*)(0) / *(Arg*)(0)), NotImplemented>::value> {};
 
 		template <class Type, class Arg = Type>
 		struct HasModulus
-		{
-		private:
-
-			template <class T = Type, std::enable_if_t<std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return false;
-			}
-
-			template <class T = Type, std::enable_if_t<!std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return !std::is_same<decltype(*(Type*)(0) % *(Arg*)(0)), NotImplemented>::value;
-			}
-
-		public:
-
-			static const bool value = getValue();
-		};
+			: std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, std::false_type,
+				std::bool_constant<!std::is_same<decltype(
+					*(std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, int, Type>*)(0) %
+					*(std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, int, Arg>*)(0)),
+				NotImplemented>::value>> {};
 
 		template <class Type, class Arg = Type>
 		struct HasPlusAssign
-		{
-			static const bool value = !std::is_same<decltype(*(Type*)(0) += *(Arg*)(0)), NotImplemented>::value;
-		};
+			: std::bool_constant<!std::is_same<decltype(*(Type*)(0) += *(Arg*)(0)), NotImplemented>::value> {};
 
 		template <class Type, class Arg = Type>
 		struct HasMinusAssign
-		{
-			static const bool value = !std::is_same<decltype(*(Type*)(0) -= *(Arg*)(0)), NotImplemented>::value;
-		};
+			: std::bool_constant<!std::is_same<decltype(*(Type*)(0) -= *(Arg*)(0)), NotImplemented>::value> {};
 
 		template <class Type, class Arg = Type>
 		struct HasMultiplyAssign
-		{
-			static const bool value = !std::is_same<decltype(*(Type*)(0) *= *(Arg*)(0)), NotImplemented>::value;
-		};
+			: std::bool_constant<!std::is_same<decltype(*(Type*)(0) *= *(Arg*)(0)), NotImplemented>::value> {};
 
 		template <class Type, class Arg = Type>
 		struct HasDivideAssign
-		{
-			static const bool value = !std::is_same<decltype(*(Type*)(0) /= *(Arg*)(0)), NotImplemented>::value;
-		};
+			: std::bool_constant<!std::is_same<decltype(*(Type*)(0) /= *(Arg*)(0)), NotImplemented>::value> {};
 
 		template <class Type, class Arg = Type>
 		struct HasModulusAssign
-		{
-		private:
-
-			template <class T = Type, std::enable_if_t<std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return false;
-			}
-
-			template <class T = Type, std::enable_if_t<!std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return !std::is_same<decltype(*(Type*)(0) %= *(Arg*)(0)), NotImplemented>::value;
-			}
-
-		public:
-
-			static const bool value = getValue();
-		};
+			: std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, std::false_type,
+				std::bool_constant<!std::is_same<decltype(
+					*(std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, int, Type>*)(0) %=
+					*(std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, int, Arg>*)(0)),
+				NotImplemented>::value>> {};
 
 		template <class Type, class Arg = Type>
 		struct HasEqualTo
-		{
-			static const bool value = !std::is_same<decltype(*(Type*)(0) == *(Arg*)(0)), NotImplemented>::value;
-		};
+			: std::bool_constant<!std::is_same<decltype(*(Type*)(0) == *(Arg*)(0)), NotImplemented>::value> {};
 
 		template <class Type, class Arg = Type>
 		struct HasNotEqualTo
-		{
-			static const bool value = !std::is_same<decltype(*(Type*)(0) != *(Arg*)(0)), NotImplemented>::value;
-		};
+			: std::bool_constant<!std::is_same<decltype(*(Type*)(0) != *(Arg*)(0)), NotImplemented>::value> {};
 
 		template <class Type, class Arg = Type>
 		struct HasLessThan
-		{
-			static const bool value = !std::is_same<decltype(*(Type*)(0) < *(Arg*)(0)), NotImplemented>::value;
-		};
+			: std::bool_constant<!std::is_same<decltype(*(Type*)(0) < *(Arg*)(0)), NotImplemented>::value> {};
 
 		template <class Type, class Arg = Type>
 		struct HasLessThanEqual
-		{
-			static const bool value = !std::is_same<decltype(*(Type*)(0) <= *(Arg*)(0)), NotImplemented>::value;
-		};
+			: std::bool_constant<!std::is_same<decltype(*(Type*)(0) <= *(Arg*)(0)), NotImplemented>::value> {};
 
 		template <class Type, class Arg = Type>
 		struct HasGreaterThan
-		{
-			static const bool value = !std::is_same<decltype(*(Type*)(0) > *(Arg*)(0)), NotImplemented>::value;
-		};
+			: std::bool_constant<!std::is_same<decltype(*(Type*)(0) > *(Arg*)(0)), NotImplemented>::value> {};
 
 		template <class Type, class Arg = Type>
 		struct HasGreaterThanEqual
-		{
-			static const bool value = !std::is_same<decltype(*(Type*)(0) >= *(Arg*)(0)), NotImplemented>::value;
-		};
+			: std::bool_constant<!std::is_same<decltype(*(Type*)(0) >= *(Arg*)(0)), NotImplemented>::value> {};
 
 		template <class Type, class Arg = Type>
 		struct HasBitwiseAnd
-		{
-		private:
-
-			template <class T = Type, std::enable_if_t<std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return false;
-			}
-
-			template <class T = Type, std::enable_if_t<!std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return !std::is_same<decltype(*(Type*)(0) & *(Arg*)(0)), NotImplemented>::value;
-			}
-
-		public:
-
-			static const bool value = getValue();
-		};
+			: std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, std::false_type,
+				std::bool_constant<!std::is_same<decltype(
+					*(std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, int, Type>*)(0) &
+					*(std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, int, Arg>*)(0)),
+				NotImplemented>::value>> {};
 
 		template <class Type, class Arg = Type>
 		struct HasBitwiseOr
-		{
-		private:
-
-			template <class T = Type, std::enable_if_t<std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return false;
-			}
-
-			template <class T = Type, std::enable_if_t<!std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return !std::is_same<decltype(*(Type*)(0) | *(Arg*)(0)), NotImplemented>::value;
-			}
-
-		public:
-
-			static const bool value = getValue();
-		};
+			: std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, std::false_type,
+				std::bool_constant<!std::is_same<decltype(
+					*(std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, int, Type>*)(0) |
+					*(std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, int, Arg>*)(0)),
+				NotImplemented>::value>> {};
 
 		template <class Type, class Arg = Type>
 		struct HasBitwiseXor
-		{
-		private:
-
-			template <class T = Type, std::enable_if_t<std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return false;
-			}
-
-			template <class T = Type, std::enable_if_t<!std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return !std::is_same<decltype(*(Type*)(0) ^ *(Arg*)(0)), NotImplemented>::value;
-			}
-
-		public:
-
-			static const bool value = getValue();
-		};
+			: std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, std::false_type,
+				std::bool_constant<!std::is_same<decltype(
+					*(std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, int, Type>*)(0) ^
+					*(std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, int, Arg>*)(0)),
+				NotImplemented>::value>> {};
 
 		template <class Type, class Arg = Type>
 		struct HasBitwiseAndAssign
-		{
-		private:
-
-			template <class T = Type, std::enable_if_t<std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return false;
-			}
-
-			template <class T = Type, std::enable_if_t<!std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return !std::is_same<decltype(*(Type*)(0) &= *(Arg*)(0)), NotImplemented>::value;
-			}
-
-		public:
-
-			static const bool value = getValue();
-		};
+			: std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, std::false_type,
+				std::bool_constant<!std::is_same<decltype(
+					*(std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, int, Type>*)(0) &=
+					*(std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, int, Arg>*)(0)),
+				NotImplemented>::value>> {};
 
 		template <class Type, class Arg = Type>
 		struct HasBitwiseOrAssign
-		{
-		private:
-
-			template <class T = Type, std::enable_if_t<std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return false;
-			}
-
-			template <class T = Type, std::enable_if_t<!std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return !std::is_same<decltype(*(Type*)(0) |= *(Arg*)(0)), NotImplemented>::value;
-			}
-
-		public:
-
-			static const bool value = getValue();
-		};
+			: std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, std::false_type,
+				std::bool_constant<!std::is_same<decltype(
+					*(std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, int, Type>*)(0) |=
+					*(std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, int, Arg>*)(0)),
+				NotImplemented>::value>> {};
 
 		template <class Type, class Arg = Type>
 		struct HasBitwiseXorAssign
-		{
-		private:
-
-			template <class T = Type, std::enable_if_t<std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return false;
-			}
-
-			template <class T = Type, std::enable_if_t<!std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return !std::is_same<decltype(*(Type*)(0) ^= *(Arg*)(0)), NotImplemented>::value;
-			}
-
-		public:
-
-			static const bool value = getValue();
-		};
+			: std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, std::false_type,
+				std::bool_constant<!std::is_same<decltype(
+					*(std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, int, Type>*)(0) ^=
+					*(std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, int, Arg>*)(0)),
+				NotImplemented>::value>> {};
 
 		template <class Type, class Arg = Type>
 		struct HasLeftShift
-		{
-		private:
-
-			template <class T = Type, std::enable_if_t<std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return false;
-			}
-
-			template <class T = Type, std::enable_if_t<!std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return !std::is_same<decltype(*(Type*)(0) << *(Arg*)(0)), NotImplemented>::value;
-			}
-
-		public:
-
-			static const bool value = getValue();
-		};
+			: std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, std::false_type,
+				std::bool_constant<!std::is_same<decltype(
+					*(std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, int, Type>*)(0) <<
+					*(std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, int, Arg>*)(0)),
+				NotImplemented>::value>> {};
 
 		template <class Type, class Arg = Type>
 		struct HasRightShift
-		{
-		private:
-
-			template <class T = Type, std::enable_if_t<std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return false;
-			}
-
-			template <class T = Type, std::enable_if_t<!std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return !std::is_same<decltype(*(Type*)(0) >> *(Arg*)(0)), NotImplemented>::value;
-			}
-
-		public:
-
-			static const bool value = getValue();
-		};
+			: std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, std::false_type,
+				std::bool_constant<!std::is_same<decltype(
+					*(std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, int, Type>*)(0) >>
+					*(std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, int, Arg>*)(0)),
+				NotImplemented>::value>> {};
 
 		template <class Type, class Arg = Type>
 		struct HasLeftShiftAssign
-		{
-		private:
-
-			template <class T = Type, std::enable_if_t<std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return false;
-			}
-
-			template <class T = Type, std::enable_if_t<!std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return !std::is_same<decltype(*(Type*)(0) <<= *(Arg*)(0)), NotImplemented>::value;
-			}
-
-		public:
-
-			static const bool value = getValue();
-		};
+			: std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, std::false_type,
+				std::bool_constant<!std::is_same<decltype(
+					*(std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, int, Type>*)(0) <<=
+					*(std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, int, Arg>*)(0)),
+				NotImplemented>::value>> {};
 
 		template <class Type, class Arg = Type>
 		struct HasRightShiftAssign
-		{
-		private:
-
-			template <class T = Type, std::enable_if_t<std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return false;
-			}
-
-			template <class T = Type, std::enable_if_t<!std::is_floating_point<T>::value>* = nullptr>
-			static constexpr bool getValue()
-			{
-				return !std::is_same<decltype(*(Type*)(0) >>= *(Arg*)(0)), NotImplemented>::value;
-			}
-
-		public:
-
-			static const bool value = getValue();
-		};
+			: std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, std::false_type,
+				std::bool_constant<!std::is_same<decltype(
+					*(std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, int, Type>*)(0) >>=
+					*(std::conditional_t<std::is_floating_point<Type>::value && std::is_floating_point<Arg>::value, int, Arg>*)(0)),
+				NotImplemented>::value>> {};
 
 		template <class Type, class Arg = Type>
 		struct HasLogicalAnd
-		{
-			static const bool value = !std::is_same<decltype(*(Type*)(0) && *(Arg*)(0)), NotImplemented>::value;
-		};
+			: std::bool_constant<!std::is_same<decltype(*(Type*)(0) && *(Arg*)(0)), NotImplemented>::value> {};
 
 		template <class Type, class Arg = Type>
 		struct HasLogicalOr
-		{
-			static const bool value = !std::is_same<decltype(*(Type*)(0) || *(Arg*)(0)), NotImplemented>::value;
-		};
+			: std::bool_constant<!std::is_same<decltype(*(Type*)(0) || *(Arg*)(0)), NotImplemented>::value> {};
 
 		/*
 		template <class Type> constexpr bool HasUnaryPlus_v		= HasUnaryPlus<Type>::value;

@@ -14,7 +14,6 @@
 
 using namespace s3d;
 
-/*
 TEST(Concept, HasUnaryPlus)
 {
 	EXPECT_EQ(Concept::HasUnaryPlus<int32>::value, true);
@@ -425,4 +424,3 @@ TEST(Concept, HasLogicalOr)
 	EXPECT_EQ(Concept::HasLogicalOr<Array<Date>>::value, false);
 	EXPECT_EQ(Concept::HasLogicalOr<BinaryReader>::value, false);
 }
-*/
