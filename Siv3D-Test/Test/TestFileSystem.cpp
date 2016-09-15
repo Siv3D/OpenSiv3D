@@ -15,7 +15,7 @@
 # if defined(SIV3D_TARGET_WINDOWS)
 	# include <filesystem>
 	namespace fs = std::experimental::filesystem;
-# elif defined(SIV3D_TARGET_OSX)
+# elif defined(SIV3D_TARGET_MACOS)
 	# include <boost/filesystem.hpp>
 	namespace fs = boost::filesystem;
 # endif

@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_OSX)
+# if defined(SIV3D_TARGET_MACOS)
 
 # include <Siv3D/FileSystem.hpp>
 # include "CBinaryReader_osx.hpp"

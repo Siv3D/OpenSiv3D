@@ -438,9 +438,6 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextEncoding\SivTextEncoding.cpp">
       <Filter>Source\Siv3D\TextEncoding</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_OSX.cpp">
-      <Filter>Source\Siv3D</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_Windows.cpp">
       <Filter>Source\Siv3D</Filter>
     </ClCompile>
@@ -461,6 +458,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextReader\SivTextReader.cpp">
       <Filter>Source\Siv3D\TextReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_macOS.cpp">
+      <Filter>Source\Siv3D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

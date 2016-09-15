@@ -687,7 +687,7 @@ namespace s3d
 			
 				return detail::ToString(str, CP_ACP);
 		
-			# elif defined (SIV3D_TARGET_OSX)
+			# elif defined (SIV3D_TARGET_MACOS)
 
 				return detail::UTF8ToUTF32<String>(str.begin(), str.end());
 
@@ -716,7 +716,7 @@ namespace s3d
 
 				return detail::FromString(str, CP_THREAD_ACP);
 
-			# elif defined (SIV3D_TARGET_OSX)
+			# elif defined (SIV3D_TARGET_MACOS)
 
 				return detail::UTF32ToUTF8<wchar>(str.begin(), str.end());
 
@@ -729,7 +729,7 @@ namespace s3d
 
 				return detail::UTF8ToUTF16<String>(str.begin(), str.end());
 
-			# elif defined (SIV3D_TARGET_OSX)
+			# elif defined (SIV3D_TARGET_MACOS)
 
 				return detail::UTF8ToUTF32<String>(str.begin(), str.end());
 
@@ -742,7 +742,7 @@ namespace s3d
 
 				return String(str.begin(), str.end());
 
-			# elif defined (SIV3D_TARGET_OSX)
+			# elif defined (SIV3D_TARGET_MACOS)
 
 				return detail::UTF16ToUTF32<char16_t, String>(str.data(), str.data() + str.length());
 
@@ -755,7 +755,7 @@ namespace s3d
 
 				return detail::UTF32ToUTF16<char32_t, String>(str.data(), str.data() + str.length());
 
-			# elif defined (SIV3D_TARGET_OSX)
+			# elif defined (SIV3D_TARGET_MACOS)
 
 				return String(str.data(), str.data() + str.length());
 
@@ -768,7 +768,7 @@ namespace s3d
 
 				return detail::UTF16ToUTF8<wchar>(str.begin(), str.end());
 
-			# elif defined (SIV3D_TARGET_OSX)
+			# elif defined (SIV3D_TARGET_MACOS)
 
 				return detail::UTF32ToUTF8<wchar>(str.begin(), str.end());
 
@@ -781,7 +781,7 @@ namespace s3d
 
 				return std::u16string(str.begin(), str.end());
 
-			# elif defined (SIV3D_TARGET_OSX)
+			# elif defined (SIV3D_TARGET_MACOS)
 
 				return detail::UTF32ToUTF16<wchar, std::u16string>(str.begin(), str.end());
 
@@ -794,7 +794,7 @@ namespace s3d
 
 				return detail::UTF16ToUTF32<wchar, std::u32string>(str.begin(), str.end());
 
-			# elif defined (SIV3D_TARGET_OSX)
+			# elif defined (SIV3D_TARGET_MACOS)
 
 				return std::u32string(str.begin(), str.end());
 

@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_OSX)
+# if defined(SIV3D_TARGET_MACOS)
 
 # include <iostream>
 # include <unistd.h>
@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
 {
 	using namespace s3d;
 
-	std::cout << "Siv3D for Mac\n";
+	std::cout << "Siv3D for macOS\n";
     
     const FilePath path = CharacterSet::Widen(argv[0]);
     FilePath modulePath = FileSystem::ParentPath(path, 2);

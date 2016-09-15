@@ -168,3 +168,6 @@ namespace s3d
 		return (a + IsUpper(a) * 32) < (b + IsUpper(b) * 32) ? -1 : (a + IsUpper(a) * 32) != (b + IsUpper(b) * 32);
 	}
 }
+
+# undef HalfWidthSpace
+# undef FullWidthSpace

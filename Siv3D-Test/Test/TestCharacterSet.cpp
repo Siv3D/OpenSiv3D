@@ -30,7 +30,7 @@ TEST(CharacterSet, Widen)
 	EXPECT_EQ(CharacterSet::Widen(CStringView()), L"");
 # if defined (SIV3D_TARGET_WINDOWS)
 	EXPECT_EQ(CharacterSet::Widen(CStringView("12345ABCDEあいうえお???", 20)), L"12345ABCDEあいうえお");
-# elif defined (SIV3D_TARGET_OSX)
+# elif defined (SIV3D_TARGET_MACOS)
 	EXPECT_EQ(CharacterSet::Widen(CStringView("12345ABCDEあいうえお???", 25)), L"12345ABCDEあいうえお");
 # endif
 	EXPECT_EQ(CharacterSet::Widen("噂浬欺榎掛弓"), L"噂浬欺榎掛弓");
