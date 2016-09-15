@@ -12,7 +12,7 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_MACOS)
 
-# include "CBinaryWriter_osx.hpp"
+# include "CBinaryWriter_macOS.hpp"
 
 namespace s3d
 {

@@ -13,7 +13,7 @@
 # if defined(SIV3D_TARGET_MACOS)
 
 # include <Siv3D/FileSystem.hpp>
-# include "CBinaryReader_osx.hpp"
+# include "CBinaryReader_macOS.hpp"
 
 namespace s3d
 {

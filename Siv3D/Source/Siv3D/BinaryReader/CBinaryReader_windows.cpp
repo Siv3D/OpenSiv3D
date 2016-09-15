@@ -14,7 +14,7 @@
 
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Utility.hpp>
-# include "CBinaryReader_windows.hpp"
+# include "CBinaryReader_Windows.hpp"
 
 namespace s3d
 {
