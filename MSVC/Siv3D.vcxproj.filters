@@ -32,12 +32,6 @@
     <Filter Include="Source\Siv3D\BigInt">
       <UniqueIdentifier>{bcd979d0-545d-449f-88a4-5cbea9ae9e4f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\ThirdParty\cppformat">
-      <UniqueIdentifier>{e8da486a-0218-4be3-b40c-bfb654d1bb0d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Include\cppformat">
-      <UniqueIdentifier>{b5ca706f-04e8-44a1-a8da-0ef12bb96279}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Siv3D\Logger">
       <UniqueIdentifier>{810a7cd0-c98a-4b1b-a723-da7463e7a8cd}</UniqueIdentifier>
     </Filter>
@@ -88,6 +82,12 @@
     </Filter>
     <Filter Include="Source\Siv3D\TextReader">
       <UniqueIdentifier>{055a4ba3-6b89-4196-852c-69254c0ce92b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ThirdParty\fmt">
+      <UniqueIdentifier>{99f0c82e-4c8e-43d4-802c-5939bbcd6a62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\fmt">
+      <UniqueIdentifier>{1e8e2427-6f55-4194-8bf1-353c2cb86810}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -192,9 +192,6 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\FormatLiteral.hpp">
       <Filter>Include\Siv3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\Include\cppformat\format.h">
-      <Filter>Include\cppformat</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\Step.hpp">
       <Filter>Include\Siv3D</Filter>
@@ -340,6 +337,15 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryReader\CBinaryReader_macOS.hpp">
       <Filter>Source\Siv3D\BinaryReader</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\fmt\format.h">
+      <Filter>Include\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\fmt\printf.h">
+      <Filter>Include\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\fmt\ostream.h">
+      <Filter>Include\fmt</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -377,9 +383,6 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\BigInt\SivBigInt.cpp">
       <Filter>Source\Siv3D\BigInt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\ThirdParty\cppformat\format.cc">
-      <Filter>Source\ThirdParty\cppformat</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\CharacterSet\SivCharacterSet.cpp">
       <Filter>Source\Siv3D\CharacterSet</Filter>
@@ -461,6 +464,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryReader\CBinaryReader_macOS.cpp">
       <Filter>Source\Siv3D\BinaryReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\fmt\format.cc">
+      <Filter>Source\ThirdParty\fmt</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

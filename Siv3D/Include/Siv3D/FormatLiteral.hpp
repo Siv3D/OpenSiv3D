@@ -11,7 +11,7 @@
 
 # pragma once
 # include "String.hpp"
-# include "../cppformat/format.h"
+# include "../fmt/format.h"
 
 namespace s3d
 {
