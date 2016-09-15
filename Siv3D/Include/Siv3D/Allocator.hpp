@@ -43,7 +43,7 @@ namespace s3d
 			# if defined (SIV3D_TARGET_WINDOWS)
 				return static_cast<Type*>(::_aligned_malloc(n * sizeof(Type), Alignment));
 			# else
-				pointer p;
+				Type* p;
 				::posix_memalign(&p, Alignment, n * sizeof(Type));
 				return p;
 			# endif
