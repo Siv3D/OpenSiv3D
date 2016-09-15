@@ -20,7 +20,7 @@
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
 
-# elif defined(SIV3D_TARGET_OSX)
+# elif defined(SIV3D_TARGET_MACOS)
 
 # include <sys/time.h>
 
@@ -252,7 +252,7 @@ namespace s3d
 			::GetLocalTime(&sysTime);
 			return detail::ToDateTime(sysTime);
 
-		# elif defined(SIV3D_TARGET_OSX)
+		# elif defined(SIV3D_TARGET_MACOS)
 
             ::timeval tv;
             ::tm lt;
@@ -272,7 +272,7 @@ namespace s3d
 			::GetSystemTime(&sysTime);
 			return detail::ToDateTime(sysTime);
 
-		# elif defined(SIV3D_TARGET_OSX)
+		# elif defined(SIV3D_TARGET_MACOS)
 
             ::timeval tv;
             ::tm gt;

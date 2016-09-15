@@ -10,8 +10,8 @@
 //-----------------------------------------------
 
 # include <Siv3D/BinaryWriter.hpp>
-# include "CBinaryWriter_windows.hpp"
-# include "CBinaryWriter_osx.hpp"
+# include "CBinaryWriter_Windows.hpp"
+# include "CBinaryWriter_macOS.hpp"
 
 namespace s3d
 {

@@ -347,7 +347,7 @@ namespace s3d
 		auto map(Fty f) const;
 
 		template <class Fty>
-		auto reduce(Fty f, decltype(std::declval<Fty>()(std::declval<value_type>(), std::declval<value_type>())) init) const
+		auto reduce(Fty f, std::result_of_t<Fty(value_type, value_type)> init) const
 		{
 			if (isEmpty())
 			{
@@ -384,7 +384,7 @@ namespace s3d
 			auto count_ = count();
 			auto value = startValue();
 			const auto step_ = step();
-			decltype(std::declval<Fty>()(std::declval<value_type>(), std::declval<value_type>())) result = value;
+			std::result_of_t<Fty(value_type, value_type)> result = value;
 
 			for (;;)
 			{
@@ -401,6 +401,15 @@ namespace s3d
 			}
 
 			return result;
+		}
+
+		template <class Type = std::common_type_t<T, S, N>>
+		Type sum() const
+		{
+			const auto n = count();
+			const Type a = startValue();
+			const Type d = step();
+			return n * (2 * a + (n - 1) * d) / 2;
 		}
 
 		Array<value_type> take(size_t n) const
@@ -793,7 +802,7 @@ namespace s3d
 		auto map(Fty f) const;
 
 		template <class Fty>
-		auto reduce(Fty f, decltype(std::declval<Fty>()(std::declval<value_type>(), std::declval<value_type>())) init) const
+		auto reduce(Fty f, std::result_of_t<Fty(value_type, value_type)> init) const
 		{
 			if (isEmpty())
 			{
@@ -830,7 +839,7 @@ namespace s3d
 			auto count_ = count();
 			auto value = startValue();
 			const auto step_ = step();
-			decltype(std::declval<Fty>()(std::declval<value_type>(), std::declval<value_type>())) result = value;
+			std::result_of_t<Fty(value_type, value_type)> result = value;
 
 			for (;;)
 			{
@@ -847,6 +856,12 @@ namespace s3d
 			}
 
 			return result;
+		}
+
+		template <class Type = value_type>
+		Type sum() const
+		{
+			return reduce(Plus<Type>(), Type{});
 		}
 
 		Array<value_type> take(size_t n) const
@@ -1310,15 +1325,15 @@ namespace s3d
 			template <class Fty>
 			auto map(Fty f) const
 			{
-				using Ret = decltype(std::declval<Fty>()(std::declval<value_type>()));
+				using Ret = std::result_of_t<Fty(value_type)>;
 				const auto functions = std::tuple_cat(m_functions, std::make_tuple(MapFunction<Fty>{ f }));
 				return F_Step<StepClass, Ret, decltype(functions)>(m_base, functions);
 			}
 
 			template <class Fty>
-			auto reduce(Fty f, decltype(std::declval<Fty>()(std::declval<value_type>(), std::declval<value_type>())) init) const
+			auto reduce(Fty f, std::result_of_t<Fty(value_type, value_type)> init) const
 			{
-				decltype(init) result = init;
+				auto result = init;
 
 				if (m_base.isEmpty())
 				{
@@ -1359,7 +1374,7 @@ namespace s3d
 				auto value = m_base.startValue();
 				const auto step_ = m_base.step();
 				const auto functions = m_functions;
-				decltype(std::declval<Fty>()(std::declval<value_type>(), std::declval<value_type>())) result;
+				std::result_of_t<Fty(value_type, value_type)> result;
 
 				Apply([&result](const auto& v) { result = v; }, value, functions);
 
@@ -1385,6 +1400,12 @@ namespace s3d
 				}
 
 				return result;
+			}
+
+			template <class Type = value_type>
+			Type sum() const
+			{
+				return reduce(Plus<Type>(), Type{});
 			}
 
 			Array<value_type> take(size_t n) const
@@ -1477,7 +1498,7 @@ namespace s3d
     template <class Fty>
     inline auto steps_class<T, N, S, isScalar>::map(Fty f) const
 	{
-		using Ret = decltype(std::declval<Fty>()(std::declval<value_type>()));
+		using Ret = std::result_of_t<Fty(value_type)>;
 		std::tuple<detail::MapFunction<Fty>> _f{ { f } };
 		const auto tuple = std::make_tuple(detail::MapFunction<Fty>{ f });
 		return detail::F_Step<steps_class, Ret, decltype(tuple)>(*this, tuple);
@@ -1495,7 +1516,7 @@ namespace s3d
     template <class Fty>
     inline auto steps_class<T, N, S, false>::map(Fty f) const
 	{
-		using Ret = decltype(std::declval<Fty>()(std::declval<value_type()));
+		using Ret = std::result_of_t<Fty(value_type)>;
 		const auto tuple = std::make_tuple(detail::MapFunction<Fty>{ f });
 		return detail::F_Step<steps_class, Ret, decltype(tuple)>(*this, tuple);
 	}

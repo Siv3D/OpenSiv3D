@@ -51,7 +51,7 @@ namespace s3d
 
 		constexpr BasicStringView(const BasicStringView&) noexcept = default;
 
-		BasicStringView& operator=(const BasicStringView&) noexcept = default;
+		BasicStringView& operator =(const BasicStringView&) noexcept = default;
 
 		template<class Allocator>
 		BasicStringView(const std::basic_string<value_type, traits_type, Allocator>& str) noexcept

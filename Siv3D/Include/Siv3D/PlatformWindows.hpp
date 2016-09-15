@@ -16,8 +16,8 @@
 	# error
 # endif
 
-# if(_MSC_FULL_VER < 190023918)
-	# error Visual Studio 2015 Update 2 以降が必要です | Visual Studio 2015 Update 2 or later is required
+# if(_MSC_FULL_VER < 190024210)
+	# error Visual Studio 2015 Update 3 以降が必要です | Visual Studio 2015 Update 3 or later is required
 # endif
 # pragma comment (linker, "/entry:\"wWinMainCRTStartup\"")
 

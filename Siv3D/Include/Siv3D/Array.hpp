@@ -15,6 +15,7 @@
 # include <algorithm>
 # include "Fwd.hpp"
 # include "Allocator.hpp"
+# include "Concept.hpp"
 # include "String.hpp"
 # include "Functor.hpp"
 # include "Format.hpp"
@@ -184,7 +185,13 @@ namespace s3d
 		template <class URNG>
 		Array choice(size_t n, URNG&& rng) const
 		{
-			return shuffled(std::forward<URNG>(rng)).taken(n);
+			Array result;		
+
+			result.reserve(std::min(n, size()));
+
+			Sample(begin(), end(), std::back_inserter(result), n, std::forward<URNG>(rng));
+			
+			return result;
 		}
 
 		size_t count(const Type& value) const
@@ -383,8 +390,7 @@ namespace s3d
 			return s;
 		}
 
-		template <class Fty>
-		Array& keep_if(Fty f)
+		Array& keep_if(std::function<bool(const Type&)> f)
 		{
 			erase(std::remove_if(begin(), end(), std::not1(f)), end());
 
@@ -394,7 +400,7 @@ namespace s3d
 		template <class Fty>
 		auto map(Fty f) const
 		{
-			Array<decltype(std::declval<Fty>()(std::declval<Type>()))> new_array;
+			Array<std::result_of_t<Fty(Type)>> new_array;
 
 			new_array.reserve(size());
 
@@ -421,9 +427,9 @@ namespace s3d
 		}
 
 		template <class Fty>
-		auto reduce(Fty f, decltype(std::declval<Fty>()(std::declval<Type>(), std::declval<Type>())) init) const
+		auto reduce(Fty f, std::result_of_t<Fty(Type, Type)> init) const
 		{
-			decltype(init) value = init;
+			auto value = init;
 
 			for (const auto& v : *this)
 			{
@@ -444,7 +450,7 @@ namespace s3d
 			auto it = begin();
 			const auto itEnd = end();
 
-			decltype(std::declval<Fty>()(std::declval<Type>(), std::declval<Type>())) value = *it++;
+			std::result_of_t<Fty(Type, Type)> value = *it++;
 
 			while (it != itEnd)
 			{
@@ -815,6 +821,38 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		template <class T = Type, std::enable_if_t<Concept::HasPlus<T>::value && Concept::HasPlusAssign<T>::value>* = nullptr>
+		auto sum() const
+		{
+			decltype(std::declval<Type>() + std::declval<Type>()) result{};
+
+			for (const auto& v : *this)
+			{
+				result += v;
+			}
+
+			return result;
+		}
+
+		template <class T = Type, std::enable_if_t<Concept::HasPlus<T>::value && !Concept::HasPlusAssign<T>::value>* = nullptr>
+		auto sum() const
+		{
+			decltype(std::declval<Type>() + std::declval<Type>()) result{};
+
+			for (const auto& v : *this)
+			{
+				result = result + v;
+			}
+
+			return result;
+		}
+
+		template <class T = Type, std::enable_if_t<!Concept::HasPlus<T>::value>* = nullptr>
+		const Array& sum() const
+		{
+			return *this;
+		}
+
 		Array& take(size_t n)
 		{
 			erase(begin() + std::min(n, size()), end());
@@ -1072,7 +1110,13 @@ namespace s3d
 		template <class URNG>
 		Array choice(size_t n, URNG&& rng) const
 		{
-			return shuffled(std::forward<URNG>(rng)).taken(n);
+			Array result;
+
+			result.reserve(std::min(n, size()));
+
+			Sample(begin(), end(), std::back_inserter(result), n, std::forward<URNG>(rng));
+
+			return result;
 		}
 
 		size_t count(const bool& value) const
@@ -1271,8 +1315,7 @@ namespace s3d
 			return s;
 		}
 
-		template <class Fty>
-		Array& keep_if(Fty f)
+		Array& keep_if(std::function<bool(bool)> f)
 		{
 			erase(std::remove_if(begin(), end(), std::not1(f)), end());
 
@@ -1282,7 +1325,7 @@ namespace s3d
 		template <class Fty>
 		auto map(Fty f) const
 		{
-			Array<decltype(std::declval<Fty>()(std::declval<bool>()))> new_array;
+			Array<std::result_of_t<Fty(bool)>> new_array;
 
 			new_array.reserve(size());
 
@@ -1309,9 +1352,9 @@ namespace s3d
 		}
 
 		template <class Fty>
-		auto reduce(Fty f, decltype(std::declval<Fty>()(std::declval<bool>(), std::declval<bool>())) init) const
+		auto reduce(Fty f, std::result_of_t<Fty(bool, bool)> init) const
 		{
-			decltype(init) value = init;
+			auto value = init;
 
 			for (const auto& v : *this)
 			{
@@ -1332,7 +1375,7 @@ namespace s3d
 			auto it = begin();
 			const auto itEnd = end();
 
-			decltype(std::declval<Fty>()(std::declval<bool>(), std::declval<bool>())) value = *it++;
+			std::result_of_t<Fty(bool, bool)> value = *it++;
 
 			while (it != itEnd)
 			{
@@ -1701,6 +1744,11 @@ namespace s3d
 			sort_by(f);
 
 			return std::move(*this);
+		}
+
+		size_t sum() const
+		{
+			return count(true);
 		}
 
 		Array& take(size_t n)

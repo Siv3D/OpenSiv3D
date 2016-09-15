@@ -54,7 +54,7 @@ namespace s3d
 
 			return ::wcstol(str.data(), nullptr, radix.value());
 
-		# elif defined (SIV3D_TARGET_OSX)
+		# elif defined (SIV3D_TARGET_MACOS)
 
 			const long result = ::wcstol(str.data(), nullptr, radix.value());
 			return (result < INT32_MIN || INT32_MAX < result) ? 0 : static_cast<int32>(result);
@@ -69,7 +69,7 @@ namespace s3d
 
 			return ::wcstoul(str.data(), nullptr, radix.value());
 
-		# elif defined (SIV3D_TARGET_OSX)
+		# elif defined (SIV3D_TARGET_MACOS)
 
 			const unsigned long result = ::wcstoul(str.data(), nullptr, radix.value());
 			return (UINT32_MAX < result) ? 0 : static_cast<uint32>(result);
@@ -176,7 +176,7 @@ namespace s3d
 
 			return result;
 
-		# elif defined (SIV3D_TARGET_OSX)
+		# elif defined (SIV3D_TARGET_MACOS)
 
 			wchar* p;
 			const long result = ::wcstol(str.data(), &p, radix.value());
@@ -206,7 +206,7 @@ namespace s3d
 
 			return result;
 
-		# elif defined (SIV3D_TARGET_OSX)
+		# elif defined (SIV3D_TARGET_MACOS)
 
 			wchar* p;
 			const unsigned long result = ::wcstoul(str.data(), &p, radix.value());

@@ -42,10 +42,10 @@ void Dump(const void* data, size_t size)
 	Log(result);
 }
 
+
 void Main()
 {
 	RunTest();
-	
 	//TimeProfiler tp;
 
 	//for (int32 i = 0; i < 50; ++i)
@@ -64,21 +64,21 @@ void Main()
 
 	//Dump(CharacterSet::FromUTF8(u8"あいうえおabc漢字").c_str(), CharacterSet::FromUTF8(u8"あいうえおabc漢字").length()*2);
 	//Dump(CharacterSet::UTF8ToUTF16(u8"あいうえおabc漢字").c_str(), CharacterSet::UTF8ToUTF16(u8"あいうえおabc漢字").length()*2);
-	/*
-	RunTest();
+	///*
+	//RunTest();
 
 	// 0～100 の範囲
 	Log(L"# Range(0, 100)");
 	Log(Range(0, 100));
 
 	// 0～100 の合計
-	Log(L"# Range(0, 100).reduce1(Plus())");
-	Log(Range(0, 100).reduce1(Plus()));
+	Log(L"# Range(0, 100).sum()");
+	Log(Range(0, 100).sum());
 
 	// 1/1 + 1/2 + 1/3 + 1/4 + ... + 1/10000 の合計
 	Log(L"# Range(1, 10000).map(Divides(1.0, none)).reduce1(Plus())");
-	Log(18_dp, Range(10000, 1, -1).map(Divides(1.0, none)).reduce1(Plus()));
-	Log(Range(10000, 1, -1).map(Divides<BigFloat>(1.0, none)).reduce1(Plus()));
+	Log(18_dp, Range(10000, 1, -1).map(Divides(1.0, none)).sum());
+	Log(Range(10000, 1, -1).map(Divides<BigFloat>(1.0, none)).sum());
 
 	// 0～100 のうち 20 未満の個数
 	Log(L"# Range(0, 100).count_if(LessThan(20))");

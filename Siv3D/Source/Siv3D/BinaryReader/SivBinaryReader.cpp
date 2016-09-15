@@ -10,8 +10,8 @@
 //-----------------------------------------------
 
 # include <Siv3D/BinaryReader.hpp>
-# include "CBinaryReader_windows.hpp"
-# include "CBinaryReader_osx.hpp"
+# include "CBinaryReader_Windows.hpp"
+# include "CBinaryReader_macOS.hpp"
 
 namespace s3d
 {

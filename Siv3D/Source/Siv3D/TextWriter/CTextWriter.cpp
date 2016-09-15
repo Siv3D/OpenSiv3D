@@ -36,7 +36,7 @@ namespace s3d
 
 			m_textEncoding = CharacterSet::GetEncoding(path, unused);
             
-            # if defined(SIV3D_TARGET_OSX)
+            # if defined(SIV3D_TARGET_MACOS)
             
                 if (m_textEncoding == TextEncoding::ANSI)
                 {
@@ -204,7 +204,7 @@ namespace s3d
 						previous = ch;
 					}
 
-				# elif defined(SIV3D_TARGET_OSX)
+				# elif defined(SIV3D_TARGET_MACOS)
 				
 					char16_t previous = '\0';
 
@@ -250,7 +250,7 @@ namespace s3d
 						previous = ch;
 					}
 
-				# elif defined(SIV3D_TARGET_OSX)
+				# elif defined(SIV3D_TARGET_MACOS)
 				
 					char16_t previous = '\0';
 

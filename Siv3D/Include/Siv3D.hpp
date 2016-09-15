@@ -48,6 +48,8 @@
 	# include "Siv3D/Utility.hpp"
 	// ファンクタ
 	# include "Siv3D/Functor.hpp"
+	// コンセプト
+	# include "Siv3D/Concept.hpp"
 	// コピー禁止クラス
 	# include "Siv3D/Uncopyable.hpp"
 	// アロケータ

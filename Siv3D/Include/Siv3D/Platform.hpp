@@ -14,7 +14,7 @@
 # if defined(_WIN32)
 	# define SIV3D_TARGET_WINDOWS
 # elif defined(__APPLE__) && defined(__MACH__)
-	# define SIV3D_TARGET_OSX
+	# define SIV3D_TARGET_MACOS
 # else
 	# error Unsupported platform
 # endif
@@ -31,7 +31,7 @@
 # elif defined(SIV3D_TARGET_WINDOWS_DESKTOP_X86)
 	# define SIV3D_PLATFORM_PTR_SIZE		4
 	# define SIV3D_ALLOCATOR_MIN_ALIGNMENT	8
-# elif defined(SIV3D_TARGET_OSX)
+# elif defined(SIV3D_TARGET_MACOS)
 	# define SIV3D_PLATFORM_PTR_SIZE		8
 	# define SIV3D_ALLOCATOR_MIN_ALIGNMENT	16
 # else

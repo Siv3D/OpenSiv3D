@@ -12,7 +12,7 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_WINDOWS)
 
-# include "CBinaryWriter_windows.hpp"
+# include "CBinaryWriter_Windows.hpp"
 
 namespace s3d
 {

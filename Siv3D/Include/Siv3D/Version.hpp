@@ -29,8 +29,8 @@
 	# define Siv3DPlatform	L"WindowsDesktop-x64"
 # elif defined(SIV3D_TARGET_WINDOWS_DESKTOP_X86)
 	# define Siv3DPlatform	L"WindowsDesktop-x86"
-# elif defined(SIV3D_TARGET_OSX)
-	# define Siv3DPlatform	L"OSX"
+# elif defined(SIV3D_TARGET_MACOS)
+	# define Siv3DPlatform	L"macOS"
 # else
 	# error	
 # endif

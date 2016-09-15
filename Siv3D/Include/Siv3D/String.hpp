@@ -1970,8 +1970,7 @@ namespace s3d
 			return any(f);
 		}
 
-		template <class Fty>
-		String& keep_if(Fty f)
+		String& keep_if(std::function<bool(wchar)> f)
 		{
 			m_string.erase(std::remove_if(m_string.begin(), m_string.end(), std::not1(f)), m_string.end());
 
@@ -2111,7 +2110,7 @@ namespace s3d
 		template <class Fty>
 		auto map(Fty f) const
 		{
-			using ValueType = decltype(std::declval<Fty>()(std::declval<wchar>()));
+			using ValueType = std::result_of_t<Fty(wchar)>;
             
 			Array<ValueType, typename DefaultAllocator<ValueType>::type> new_array;
 
@@ -2579,6 +2578,11 @@ namespace s3d
 		/// 分割された文字列
 		/// </returns>
 		Array<String, std::allocator<String>> split(wchar ch) const;
+
+		std::pair<String, String> split_at(size_t pos) const
+		{
+			return{ substr(0, pos), substr(pos) };
+		}
 
 		Array<String, std::allocator<String>> split_lines() const;
 
