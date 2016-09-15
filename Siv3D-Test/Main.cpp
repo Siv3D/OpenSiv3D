@@ -45,7 +45,7 @@ void Dump(const void* data, size_t size)
 
 void Main()
 {
-	RunTest();
+	//RunTest();
 
 	//TimeProfiler tp;
 
@@ -65,7 +65,7 @@ void Main()
 
 	//Dump(CharacterSet::FromUTF8(u8"あいうえおabc漢字").c_str(), CharacterSet::FromUTF8(u8"あいうえおabc漢字").length()*2);
 	//Dump(CharacterSet::UTF8ToUTF16(u8"あいうえおabc漢字").c_str(), CharacterSet::UTF8ToUTF16(u8"あいうえおabc漢字").length()*2);
-	///*
+	/*
 	//RunTest();
 
 	// 0～100 の範囲

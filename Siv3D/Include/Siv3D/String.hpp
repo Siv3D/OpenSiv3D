@@ -2579,6 +2579,11 @@ namespace s3d
 		/// </returns>
 		Array<String, std::allocator<String>> split(wchar ch) const;
 
+		std::pair<String, String> split_at(size_t pos) const
+		{
+			return{ substr(0, pos), substr(pos) };
+		}
+
 		Array<String, std::allocator<String>> split_lines() const;
 
 		/// <summary>
