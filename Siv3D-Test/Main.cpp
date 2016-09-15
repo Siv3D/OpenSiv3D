@@ -46,7 +46,6 @@ void Dump(const void* data, size_t size)
 void Main()
 {
 	//RunTest();
-
 	//TimeProfiler tp;
 
 	//for (int32 i = 0; i < 50; ++i)

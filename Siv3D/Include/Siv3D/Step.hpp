@@ -408,7 +408,16 @@ namespace s3d
 			return result;
 		}
 
-		template <class Type = value_type>
+		template <class Type = std::common_type_t<T, S, N>, std::enable_if_t<std::is_scalar<Type>::value>* = nullptr>
+		Type sum() const
+		{
+			const auto n = count();
+			const Type a = startValue();
+			const Type d = step();
+			return n * (2 * a + (n - 1) * d) / 2;
+		}
+
+		template <class Type = std::common_type_t<T, S, N>, std::enable_if_t<!std::is_scalar<Type>::value>* = nullptr>
 		Type sum() const
 		{
 			return reduce(Plus<Type>(), Type{});
