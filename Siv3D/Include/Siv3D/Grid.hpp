@@ -874,10 +874,10 @@ namespace s3d
 			return m_data.choice();
 		}
 
-		template <class URNG, std::enable_if_t<!std::is_scalar<URNG>::value>* = nullptr>
-		const Type& choice(URNG&& rng) const
+		template <class URBG, std::enable_if_t<!std::is_scalar<URBG>::value>* = nullptr>
+		const Type& choice(URBG&& rbg) const
 		{
-			return m_data.choice(std::forward<URNG>(rng));
+			return m_data.choice(std::forward<URBG>(rbg));
 		}
 
 		template <class Size_t, std::enable_if_t<std::is_scalar<Size_t>::value>* = nullptr>
@@ -886,10 +886,10 @@ namespace s3d
 			return m_data.choice(n);
 		}
 
-		template <class URNG>
-		Array<Type> choice(size_t n, URNG&& rng) const
+		template <class URBG>
+		Array<Type> choice(size_t n, URBG&& rbg) const
 		{
-			return m_data.choice(n, std::forward<URNG>(rng));
+			return m_data.choice(n, std::forward<URBG>(rbg));
 		}
 
 		size_t count(const Type& value) const
@@ -1215,37 +1215,37 @@ namespace s3d
 
 		Grid& shuffle()
 		{
-			return shuffle(GetDefaultRNG());
+			return shuffle(GetDefaultRBG());
 		}
 
-		template <class URNG>
-		Grid& shuffle(URNG&& rng)
+		template <class URBG>
+		Grid& shuffle(URBG&& rbg)
 		{
-			std::shuffle(begin(), end(), std::forward<URNG>(rng));
+			std::shuffle(begin(), end(), std::forward<URBG>(rbg));
 
 			return *this;
 		}
 
 		Grid shuffled() const &
 		{
-			return shuffled(GetDefaultRNG());
+			return shuffled(GetDefaultRBG());
 		}
 
 		Grid shuffled() &&
 		{
-			return shuffled(GetDefaultRNG());
+			return shuffled(GetDefaultRBG());
 		}
 
-		template <class URNG>
-		Grid shuffled(URNG&& rng) const &
+		template <class URBG>
+		Grid shuffled(URBG&& rbg) const &
 		{
-			return Grid(*this).shuffle(std::forward<URNG>(rng));
+			return Grid(*this).shuffle(std::forward<URBG>(rbg));
 		}
 
-		template <class URNG>
-		Grid shuffled(URNG&& rng) &&
+		template <class URBG>
+		Grid shuffled(URBG&& rbg) &&
 		{
-			shuffle(std::forward<URNG>(rng));
+			shuffle(std::forward<URBG>(rbg));
 
 			return std::move(*this);
 		}

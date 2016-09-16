@@ -2533,37 +2533,37 @@ namespace s3d
 
 		String& shuffle()
 		{
-			return shuffle(GetDefaultRNG());
+			return shuffle(GetDefaultRBG());
 		}
 
-		template <class URNG>
-		String& shuffle(URNG&& rng)
+		template <class URBG>
+		String& shuffle(URBG&& rbg)
 		{
-			std::shuffle(m_string.begin(), m_string.end(), rng);
+			std::shuffle(m_string.begin(), m_string.end(), std::forward<URBG>(rbg));
 
 			return *this;
 		}
 
 		String shuffled() const &
 		{
-			return shuffled(GetDefaultRNG());
+			return shuffled(GetDefaultRBG());
 		}
 
 		String shuffled() &&
 		{
-			return shuffled(GetDefaultRNG());
+			return shuffled(GetDefaultRBG());
 		}
 
-		template <class URNG>
-		String shuffled(URNG&& rng) const &
+		template <class URBG>
+		String shuffled(URBG&& rbg) const &
 		{
-			return String(*this).shuffle(rng);
+			return String(*this).shuffle(std::forward<URBG>(rbg));
 		}
 
-		template <class URNG>
-		String shuffled(URNG&& rng) &&
+		template <class URBG>
+		String shuffled(URBG&& rbg) &&
 		{
-			std::shuffle(m_string.begin(), m_string.end(), rng);
+			std::shuffle(m_string.begin(), m_string.end(), std::forward<URBG>(rbg));
 
 			return std::move(*this);
 		}

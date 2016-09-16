@@ -217,8 +217,8 @@ namespace s3d
 
 	namespace detail
 	{
-		template <class PopulationIterator, class SampleIterator, class Distance, class URNG>
-		inline SampleIterator Sample_impl(PopulationIterator first, PopulationIterator last, SampleIterator out, Distance n, URNG& rng, std::input_iterator_tag)
+		template <class PopulationIterator, class SampleIterator, class Distance, class URBG>
+		inline SampleIterator Sample_impl(PopulationIterator first, PopulationIterator last, SampleIterator out, Distance n, URBG& rbg, std::input_iterator_tag)
 		{
 			Distance k = 0;
 
@@ -231,7 +231,7 @@ namespace s3d
 
 			for (; first != last; ++first, ++k)
 			{
-				Distance r = std::uniform_int_distribution<Distance>(0, k)(rng);
+				Distance r = std::uniform_int_distribution<Distance>(0, k)(rbg);
 
 				if (r < sz)
 				{
@@ -242,14 +242,14 @@ namespace s3d
 			return out + std::min(n, k);
 		}
 
-		template <class PopulationIterator, class SampleIterator, class Distance, class URNG>
-		inline SampleIterator Sample_impl(PopulationIterator first, PopulationIterator last, SampleIterator out, Distance n, URNG& rng, std::forward_iterator_tag)
+		template <class PopulationIterator, class SampleIterator, class Distance, class URBG>
+		inline SampleIterator Sample_impl(PopulationIterator first, PopulationIterator last, SampleIterator out, Distance n, URBG& rbg, std::forward_iterator_tag)
 		{
 			Distance unsampled_sz = std::distance(first, last);
 
 			for (n = std::min(n, unsampled_sz); n != 0; ++first)
 			{
-				Distance r = std::uniform_int_distribution<Distance>(0, --unsampled_sz)(rng);
+				Distance r = std::uniform_int_distribution<Distance>(0, --unsampled_sz)(rbg);
 
 				if (r < n)
 				{
@@ -261,20 +261,20 @@ namespace s3d
 			return out;
 		}
 
-		template <class PopulationIterator, class SampleIterator, class Distance, class URNG>
-		inline SampleIterator Sample_impl(PopulationIterator first, PopulationIterator last, SampleIterator out, Distance n, URNG& rng)
+		template <class PopulationIterator, class SampleIterator, class Distance, class URBG>
+		inline SampleIterator Sample_impl(PopulationIterator first, PopulationIterator last, SampleIterator out, Distance n, URBG& rbg)
 		{
 			using PopCategory = typename std::iterator_traits<PopulationIterator>::iterator_category;
 			using Difference = typename std::iterator_traits<PopulationIterator>::difference_type;
 			using CommonType = std::common_type_t<Distance, Difference>;
 			assert(n >= 0);
-			return Sample_impl(first, last, out, CommonType(n), rng, PopCategory());
+			return Sample_impl(first, last, out, CommonType(n), rbg, PopCategory());
 		}
 	}
 
-	template <class PopulationIterator, class SampleIterator, class Distance, class URNG>
-	inline SampleIterator Sample(PopulationIterator first, PopulationIterator last, SampleIterator out, Distance n, URNG&& rng)
+	template <class PopulationIterator, class SampleIterator, class Distance, class URBG>
+	inline SampleIterator Sample(PopulationIterator first, PopulationIterator last, SampleIterator out, Distance n, URBG&& rbg)
 	{
-		return detail::Sample_impl(first, last, out, n, rng);
+		return detail::Sample_impl(first, last, out, n, rbg);
 	}
 }

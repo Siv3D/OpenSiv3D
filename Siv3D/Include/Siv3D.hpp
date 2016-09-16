@@ -190,10 +190,10 @@
 //
 // 色と二次元図形
 //
-	//// RGB カラー
-	//# include "Siv3D/Color.hpp"
-	//// HSV カラー
-	//# include "Siv3D/HSV.hpp"
+	// RGB カラー
+	# include "Siv3D/Color.hpp"
+	// HSV カラー
+	# include "Siv3D/HSV.hpp"
 	//// ベクトル
 	//# include "Siv3D/PointVector.hpp"
 	//// 円座標

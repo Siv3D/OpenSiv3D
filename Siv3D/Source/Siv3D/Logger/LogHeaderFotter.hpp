@@ -83,8 +83,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE<br>
 SOFTWARE.<br>
 </div>
-<div class="c0">Formatting library for C++</div>
-<div class="c1">Copyright (c) 2012 - 2015, Victor Zverovich</div>
+<div class="c0">fmt</div>
+<div class="c1">Copyright (c) 2012 - 2016, Victor Zverovich</div>
 <div class="c2">
  Redistribution and use in source and binary forms, with or without<br>
  modification, are permitted provided that the following conditions are met:<br>

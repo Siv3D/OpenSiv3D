@@ -89,7 +89,7 @@ namespace s3d
 	//ByteArray BinaryReader::readSubset(const int64 size)
 	//{
 	//	const int64 pos = getPos();
-	//	const int64 readBytes = Clamp<int64>(size, 0, Max(this->size() - pos, 0LL));
+	//	const int64 readBytes = Clamp<int64>(size, 0, std::max(this->size() - pos, 0LL));
 
 	//	return readSubset(pos, readBytes);
 	//}
@@ -101,7 +101,7 @@ namespace s3d
 	//		return ByteArray{};
 	//	}
 
-	//	const int64 readBytes = Clamp<int64>(size, 0, Max(this->size() - pos, 0LL));
+	//	const int64 readBytes = Clamp<int64>(size, 0, std::max(this->size() - pos, 0LL));
 
 	//	if (readBytes < 0 || pos < 0)
 	//	{

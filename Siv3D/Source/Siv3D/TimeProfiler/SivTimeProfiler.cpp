@@ -11,7 +11,6 @@
 
 # include <Siv3D/TimeProfiler.hpp>
 # include <Siv3D/Logger.hpp>
-# include <Siv3D/Utility.hpp>
 
 namespace s3d
 {
@@ -54,8 +53,8 @@ namespace s3d
 
 		t.open = false;
 		t.sum += time;
-		t.min = Min(t.min, time);
-		t.max = Max(t.max, time);
+		t.min = std::min(t.min, time);
+		t.max = std::max(t.max, time);
 		++t.count;
 
 		m_labels.pop_back();
@@ -150,7 +149,7 @@ namespace s3d
 		{
 			if (data.second.count)
 			{
-				maxLabelLength = Max(maxLabelLength, data.first.length());
+				maxLabelLength = std::max(maxLabelLength, data.first.length());
 			}
 		}
 
