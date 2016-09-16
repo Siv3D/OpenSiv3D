@@ -9,6 +9,7 @@
 //
 //-----------------------------------------------
 
+# include <cmath>
 # include <Siv3D/HSV.hpp>
 
 namespace s3d

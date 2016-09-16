@@ -46,9 +46,6 @@ void Dump(const void* data, size_t size)
 
 void Main()
 {
-	//Color c(259, 258, 257, 256);
-	//Log(Array<uint32>{ c.r, c.g, c.b, c.a });
-
 	TimeProfiler tp;
 
 	std::array<HSV, 10000> hs;

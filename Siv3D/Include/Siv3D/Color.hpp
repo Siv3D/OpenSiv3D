@@ -172,7 +172,7 @@ namespace s3d
 		/// </returns>
 		constexpr Color operator ~() const noexcept
 		{
-			return{ ~r,~g,~b, a };
+			return{ static_cast<uint8>(~r), static_cast<uint8>(~g), static_cast<uint8>(~b), a };
 		}
 
 		/// <summary>
