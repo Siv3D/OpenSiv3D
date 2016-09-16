@@ -29,17 +29,8 @@
 - [x] Regex (Partial)
 
 #### 0.0.5
-- [ ] TextReader
-- [ ] CSVReader
-- [ ] CSVWriter
-- [ ] INI (Partial)
-- [ ] Base64
-- [ ] MD5
-- [ ] JSON (Partial)
-
-#### 0.0.6
-- [ ] Color
-- [ ] HSV
+- [x] Color
+- [x] HSV
 - [ ] Point
 - [ ] Vector2D
 - [ ] Vector3D
@@ -47,15 +38,22 @@
 - [ ] Circular
 - [ ] Cylindrical
 - [ ] Spherical
-
-#### 0.0.7
 - [ ] RNG
 - [ ] Distribution
 - [ ] Random
 - [ ] Math (Partial)
 - [ ] Lerp
-- [ ] Easing
 - [ ] Image (Partial)
+
+#### 0.0.6
+- [ ] Easing
+- [ ] TextReader
+- [ ] CSVReader
+- [ ] CSVWriter
+- [ ] INI (Partial)
+- [ ] Base64
+- [ ] MD5
+- [ ] JSON (Partial)
 
 ## Discussion ##
  [Siv3D Slack #open-siv3d](https://siv3d.slack.com/messages/open-siv3d/details/)  (Japanese)
