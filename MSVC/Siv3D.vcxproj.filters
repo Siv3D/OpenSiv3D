@@ -89,6 +89,12 @@
     <Filter Include="Include\fmt">
       <UniqueIdentifier>{1e8e2427-6f55-4194-8bf1-353c2cb86810}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Color">
+      <UniqueIdentifier>{eb852a5a-e0f3-4294-9ae9-e2f9c05870bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\HSV">
+      <UniqueIdentifier>{215052c8-c0bd-4cb0-81dd-be08a96b499c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -346,6 +352,12 @@
     <ClInclude Include="..\Siv3D\Include\fmt\ostream.h">
       <Filter>Include\fmt</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Color.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\HSV.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -467,6 +479,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\fmt\format.cc">
       <Filter>Source\ThirdParty\fmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Color\SivColor.cpp">
+      <Filter>Source\Siv3D\Color</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\HSV\SivHSV.cpp">
+      <Filter>Source\Siv3D\HSV</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

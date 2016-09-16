@@ -42,10 +42,50 @@ void Dump(const void* data, size_t size)
 	Log(result);
 }
 
+#include <sstream>
 
 void Main()
 {
-	RunTest();
+	//Color c(259, 258, 257, 256);
+	//Log(Array<uint32>{ c.r, c.g, c.b, c.a });
+
+	TimeProfiler tp;
+
+	std::array<HSV, 10000> hs;
+	std::array<ColorF, 10000> c1s, c2s;
+
+	for (size_t i = 0; i < c1s.size(); ++i)
+	{
+		hs[i] = HSV(std::uniform_real_distribution<double>(-720, 720)(GetDefaultRBG()), std::uniform_real_distribution<double>(0.0, 1.0)(GetDefaultRBG()), std::uniform_real_distribution<double>(0.0, 1.0)(GetDefaultRBG()));
+	}
+	
+	for(int k : step(20))
+	{
+		tp.begin(L"t");
+
+		for (size_t i = 0; i < c1s.size(); ++i)
+		{
+			c1s[i] = hs[i].toColorF();
+		}
+		tp.end();
+	}
+
+	//for (int k : step(20))
+	//{
+	//	tp.begin(L"t");
+
+	//	size_t count = 0;
+
+	//	for (size_t i = 0; i < c1s.size(); ++i)
+	//	{
+	//		c2s[i] = hs[i].toColor();
+	//	}
+	//	tp.end();
+
+	//	Log(count);
+	//}
+
+	//RunTest();
 	//TimeProfiler tp;
 
 	//for (int32 i = 0; i < 50; ++i)
@@ -64,7 +104,7 @@ void Main()
 
 	//Dump(CharacterSet::FromUTF8(u8"あいうえおabc漢字").c_str(), CharacterSet::FromUTF8(u8"あいうえおabc漢字").length()*2);
 	//Dump(CharacterSet::UTF8ToUTF16(u8"あいうえおabc漢字").c_str(), CharacterSet::UTF8ToUTF16(u8"あいうえおabc漢字").length()*2);
-	///*
+	/*
 	//RunTest();
 
 	// 0～100 の範囲

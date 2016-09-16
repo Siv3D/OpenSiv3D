@@ -28,7 +28,6 @@
 
 # include <boost/functional/hash.hpp>
 # include <Siv3D/Date.hpp>
-# include <Siv3D/Utility.hpp>
 
 namespace s3d
 {
@@ -58,7 +57,7 @@ namespace s3d
 			L"null",
 		};
 
-		static constexpr bool IsLeapYear(const int year)
+		static constexpr bool IsLeapYear(const int32 year)
 		{
 			return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
 		}
@@ -80,9 +79,9 @@ namespace s3d
 			const int32 daysIn4Years = daysIn1Year * 4 + 1;
 			const int32 daysIn100Years = daysIn4Years * 25 - 1;
 			const int32 daysIn400Years = daysIn100Years * 4 + 1;
-			const int32 days400YearsPeriod = Min(days%daysIn400Years, daysIn100Years * 4 - 1);
+			const int32 days400YearsPeriod = std::min(days%daysIn400Years, daysIn100Years * 4 - 1);
 			const int32 days100YearsPeriod = days400YearsPeriod % daysIn100Years;
-			const int32 days4YearsPeriod = Min(days100YearsPeriod%daysIn4Years, daysIn1Year * 4 - 1);
+			const int32 days4YearsPeriod = std::min(days100YearsPeriod%daysIn4Years, daysIn1Year * 4 - 1);
 
 			return days / daysIn400Years * 400
 				+ days400YearsPeriod / daysIn100Years * 100

@@ -160,18 +160,18 @@ namespace s3d
 
 		const Type& choice() const
 		{
-			return choice(GetDefaultRNG());
+			return choice(GetDefaultRBG());
 		}
 
-		template <class URNG, std::enable_if_t<!std::is_scalar<URNG>::value>* = nullptr>
-		const Type& choice(URNG&& rng) const
+		template <class URBG, std::enable_if_t<!std::is_scalar<URBG>::value>* = nullptr>
+		const Type& choice(URBG&& rbg) const
 		{
 			if (empty())
 			{
 				throw std::out_of_range("Array::choice() choice from empty Array");
 			}
 
-			const size_t index = std::uniform_int_distribution<size_t>(0, size() - 1)(rng);
+			const size_t index = std::uniform_int_distribution<size_t>(0, size() - 1)(rbg);
 
 			return operator[](index);
 		}
@@ -179,17 +179,17 @@ namespace s3d
 		template <class Size_t, std::enable_if_t<std::is_scalar<Size_t>::value>* = nullptr>
 		Array choice(Size_t n) const
 		{
-			return choice(n, GetDefaultRNG());
+			return choice(n, GetDefaultRBG());
 		}
 
-		template <class URNG>
-		Array choice(size_t n, URNG&& rng) const
+		template <class URBG>
+		Array choice(size_t n, URBG&& rbg) const
 		{
 			Array result;		
 
 			result.reserve(std::min(n, size()));
 
-			Sample(begin(), end(), std::back_inserter(result), n, std::forward<URNG>(rng));
+			Sample(begin(), end(), std::back_inserter(result), n, std::forward<URBG>(rbg));
 			
 			return result;
 		}
@@ -725,37 +725,37 @@ namespace s3d
 
 		Array& shuffle()
 		{
-			return shuffle(GetDefaultRNG());
+			return shuffle(GetDefaultRBG());
 		}
 
-		template <class URNG>
-		Array& shuffle(URNG&& rng)
+		template <class URBG>
+		Array& shuffle(URBG&& rbg)
 		{
-			std::shuffle(begin(), end(), std::forward<URNG>(rng));
+			std::shuffle(begin(), end(), std::forward<URBG>(rbg));
 
 			return *this;
 		}
 
 		Array shuffled() const &
 		{
-			return shuffled(GetDefaultRNG());
+			return shuffled(GetDefaultRBG());
 		}
 
 		Array shuffled() &&
 		{
-			return shuffled(GetDefaultRNG());
+			return shuffled(GetDefaultRBG());
 		}
 
-		template <class URNG>
-		Array shuffled(URNG&& rng) const &
+		template <class URBG>
+		Array shuffled(URBG&& rbg) const &
 		{
-			return Array(*this).shuffle(std::forward<URNG>(rng));
+			return Array(*this).shuffle(std::forward<URBG>(rbg));
 		}
 
-		template <class URNG>
-		Array shuffled(URNG&& rng) &&
+		template <class URBG>
+		Array shuffled(URBG&& rbg) &&
 		{
-			shuffle(std::forward<URNG>(rng));
+			shuffle(std::forward<URBG>(rbg));
 
 			return std::move(*this);
 		}
@@ -1085,18 +1085,18 @@ namespace s3d
 
 		const bool& choice() const
 		{
-			return choice(GetDefaultRNG());
+			return choice(GetDefaultRBG());
 		}
 
-		template <class URNG, std::enable_if_t<!std::is_scalar<URNG>::value>* = nullptr>
-		const bool& choice(URNG&& rng) const
+		template <class URBG, std::enable_if_t<!std::is_scalar<URBG>::value>* = nullptr>
+		const bool& choice(URBG&& rbg) const
 		{
 			if (empty())
 			{
 				throw std::out_of_range("Array::choice() choice from empty Array");
 			}
 
-			const size_t index = std::uniform_int_distribution<size_t>(0, size() - 1)(rng);
+			const size_t index = std::uniform_int_distribution<size_t>(0, size() - 1)(rbg);
 
 			return operator[](index);
 		}
@@ -1104,17 +1104,17 @@ namespace s3d
 		template <class Size_t, std::enable_if_t<std::is_scalar<Size_t>::value>* = nullptr>
 		Array choice(Size_t n) const
 		{
-			return choice(n, GetDefaultRNG());
+			return choice(n, GetDefaultRBG());
 		}
 
-		template <class URNG>
-		Array choice(size_t n, URNG&& rng) const
+		template <class URBG>
+		Array choice(size_t n, URBG&& rbg) const
 		{
 			Array result;
 
 			result.reserve(std::min(n, size()));
 
-			Sample(begin(), end(), std::back_inserter(result), n, std::forward<URNG>(rng));
+			Sample(begin(), end(), std::back_inserter(result), n, std::forward<URBG>(rbg));
 
 			return result;
 		}
@@ -1650,37 +1650,37 @@ namespace s3d
 
 		Array& shuffle()
 		{
-			return shuffle(GetDefaultRNG());
+			return shuffle(GetDefaultRBG());
 		}
 
-		template <class URNG>
-		Array& shuffle(URNG&& rng)
+		template <class URBG>
+		Array& shuffle(URBG&& rbg)
 		{
-			std::shuffle(begin(), end(), std::forward<URNG>(rng));
+			std::shuffle(begin(), end(), std::forward<URBG>(rbg));
 
 			return *this;
 		}
 
 		Array shuffled() const &
 		{
-			return shuffled(GetDefaultRNG());
+			return shuffled(GetDefaultRBG());
 		}
 
 		Array shuffled() &&
 		{
-			return shuffled(GetDefaultRNG());
+			return shuffled(GetDefaultRBG());
 		}
 
-		template <class URNG>
-		Array shuffled(URNG&& rng) const &
+		template <class URBG>
+		Array shuffled(URBG&& rbg) const &
 		{
-			return Array(*this).shuffle(std::forward<URNG>(rng));
+			return Array(*this).shuffle(std::forward<URBG>(rbg));
 		}
 
-		template <class URNG>
-		Array shuffled(URNG&& rng) &&
+		template <class URBG>
+		Array shuffled(URBG&& rbg) &&
 		{
-			shuffle(std::forward<URNG>(rng));
+			shuffle(std::forward<URBG>(rbg));
 
 			return std::move(*this);
 		}
