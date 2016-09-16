@@ -31,7 +31,7 @@
 #### 0.0.5
 - [x] Color
 - [x] HSV
-- [ ] Point
+- [x] Point
 - [ ] Vector2D
 - [ ] Vector3D
 - [ ] Vector4D

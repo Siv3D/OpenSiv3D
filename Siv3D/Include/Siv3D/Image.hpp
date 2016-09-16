@@ -183,14 +183,24 @@ namespace s3d
 		//Image(const Color& rgb, const FilePath& alpha);
 
 		explicit Image(const Grid<Color>& grid)
-            : Image(grid.width(), grid.height())
+			: Image(grid.width(), grid.height())
 		{
+			if (m_data.empty())
+			{
+				return;
+			}
+
 			::memcpy(m_data.data(), grid.data(), grid.size_bytes());
 		}
 
 		explicit Image(const Grid<ColorF>& grid)
-            : Image(grid.width(), grid.height())
+			: Image(grid.width(), grid.height())
 		{
+			if (m_data.empty())
+			{
+				return;
+			}
+
 			const ColorF* pSrc = grid.data();
 			const ColorF* const pSrcEnd = pSrc + grid.size_elements();
 			Color* pDst = &m_data[0];
