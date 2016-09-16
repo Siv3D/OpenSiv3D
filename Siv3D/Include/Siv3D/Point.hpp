@@ -37,10 +37,13 @@ namespace s3d
 			: x(_x)
 			, y(_y) {}
 
-		template <class U, class V>
-		constexpr Point(U _x, V _y)
+		template <class U, class V, std::enable_if_t<std::is_integral<U>::value && std::is_integral<V>::value>* = nullptr>
+		constexpr Point(U _x, V _y) noexcept
 			: x(static_cast<value_type>(_x))
 			, y(static_cast<value_type>(_y)) {}
+
+		template <class U, class V, std::enable_if_t<!std::is_integral<U>::value || !std::is_integral<V>::value>* = nullptr>
+		constexpr Point(U _x, V _y) noexcept = delete;
 
 		/// <summary>
 		/// Point{ x, x }

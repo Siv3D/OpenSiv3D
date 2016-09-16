@@ -44,6 +44,185 @@ void Dump(const void* data, size_t size)
 
 void Main()
 {
+	///*
+	constexpr Point p0(1, 2);
+	//constexpr Point p1(1, 2.2);
+	//constexpr Point p2(1.1, 2.2);
+	constexpr Point p3(1, true);
+	constexpr Point p4(1, uint64(2));
+	constexpr Point p5(1, 'a');
+	constexpr Point p6(1, L'a');
+
+	constexpr Point p7(false, true);
+	constexpr Point p8(uint64(1), uint64(2));
+	constexpr Point p9('a', 'b');
+	constexpr Point p10(L'a', L'b');
+
+	constexpr Point p11{ false, true };
+	constexpr Point p12{ uint64(1), uint64(2) };
+	constexpr Point p13{ 'a', 'b' };
+	constexpr Point p14{ L'a', L'b' };
+
+	constexpr Vec3 v0(1, 2, 3);
+	constexpr Vec3 v1(1, 2, 3.3);
+	constexpr Vec3 v2(1, 2, 3.3f);
+
+	constexpr Vec3 v3(1.2, 2.2, 3);
+	constexpr Vec3 v4(1.2, 2.2, 3.3);
+	constexpr Vec3 v5(1.2, 2.2, 3.3f);
+
+	constexpr Vec3 v6(Point(1, 2), 3);
+	constexpr Vec3 v7(Point(1, 2), 3.3);
+	constexpr Vec3 v8(Point(1, 2), 3.3f);
+
+	constexpr Vec3 v9({ 1, 2 }, 3);
+	constexpr Vec3 v10({ 1, 2 }, 3.3);
+	constexpr Vec3 v11({ 1, 2 }, 3.3f);
+
+	constexpr Vec3 v12({ 1.1, 2 }, 3);
+	constexpr Vec3 v13({ 1.1, 2 }, 3.3);
+	constexpr Vec3 v14({ 1.1, 2 }, 3.3f);
+
+	constexpr Vec3 v15({ 1.1, 2.2 }, 3);
+	constexpr Vec3 v16({ 1.1, 2.2 }, 3.3);
+	constexpr Vec3 v17({ 1.1, 2.2 }, 3.3f);
+
+	constexpr Vec3 v18(Vec2(1.1, 2.2), 3);
+	constexpr Vec3 v19(Vec2(1.1, 2.2), 3.3);
+	constexpr Vec3 v20(Vec2(1.1, 2.2), 3.3f);
+
+	constexpr Vec3 v21(Float2(1.1f, 2.2f), 3);
+	constexpr Vec3 v22(Float2(1.1f, 2.2f), 3.3);
+	constexpr Vec3 v23(Float2(1.1f, 2.2f), 3.3f);
+
+	constexpr Vec3 v24(1, Point(1, 2));
+	constexpr Vec3 v25(1.1, Point(1, 2));
+	constexpr Vec3 v26(1.1f, Point(1, 2));
+
+	constexpr Vec3 v27(1, { 2, 3 });
+	constexpr Vec3 v28(1.1, { 2, 3 });
+	constexpr Vec3 v29(1.1f, { 2, 3 });
+
+	constexpr Vec3 v30(1, { 2.2, 3 });
+	constexpr Vec3 v31(1.1, { 2.2, 3 });
+	constexpr Vec3 v32(1.1f, { 2.2, 3 });
+
+	constexpr Vec3 v33(1, { 2.2, 3.3 });
+	constexpr Vec3 v34(1.1, { 2.2, 3.3 });
+	constexpr Vec3 v35(1.1f, { 2.2, 3.3 });
+
+	constexpr Vec3 v36(1, Vec2(2.2, 3.3));
+	constexpr Vec3 v37(1.1, Vec2(2.2, 3.3));
+	constexpr Vec3 v38(1.1f, Vec2(2.2, 3.3));
+
+	constexpr Vec3 v39(1, Float2(2.2f, 3.3f));
+	constexpr Vec3 v40(1.1, Float2(2.2f, 3.3f));
+	constexpr Vec3 v41(1.1f, Float2(2.2f, 3.3f));
+
+	constexpr Vec3 v42({ 1, 2, 3 });
+	constexpr Vec3 v43({ 1, 2, 3.3 });
+	constexpr Vec3 v44({ 1, 2, 3.3f });
+	constexpr Vec3 v45({ 1.1, 2.2, 3 });
+	constexpr Vec3 v46({ 1.1, 2.2, 3.3});
+	constexpr Vec3 v47({ 1.1, 2.2, 3.3f });
+	constexpr Vec3 v48({ 1.1f, 2.2f, 3 });
+	constexpr Vec3 v49({ 1.1f, 2.2f, 3.3 });
+	constexpr Vec3 v50({ 1.1f, 2.2f, 3.3f });
+
+	constexpr Vec3 v51(Vec3(1.1, 2.2, 3.3));
+	constexpr Vec3 v52(Float3(1.1f, 2.2f, 3.3f));
+
+	constexpr Vec3 v53{ 1, 2, 3 };
+	constexpr Vec3 v54{ 1, 2, 3.3 };
+	constexpr Vec3 v55{ 1, 2, 3.3f };
+	constexpr Vec3 v56{ 1.1, 2.2, 3 };
+	constexpr Vec3 v57{ 1.1, 2.2, 3.3 };
+	constexpr Vec3 v58{ 1.1, 2.2, 3.3f };
+	constexpr Vec3 v59{ 1.1f, 2.2f, 3 };
+	constexpr Vec3 v60{ 1.1f, 2.2f, 3.3 };
+	constexpr Vec3 v61{ 1.1f, 2.2f, 3.3f };
+	//*/
+	constexpr Float3 w0(1, 2, 3);
+	constexpr Float3 w1(1, 2, 3.3);
+	constexpr Float3 w2(1, 2, 3.3f);
+
+	constexpr Float3 w3(1.2, 2.2, 3);
+	constexpr Float3 w4(1.2, 2.2, 3.3);
+	constexpr Float3 w5(1.2, 2.2, 3.3f);
+
+	constexpr Float3 w6(Point(1, 2), 3);
+	constexpr Float3 w7(Point(1, 2), 3.3);
+	constexpr Float3 w8(Point(1, 2), 3.3f);
+
+	constexpr Float3 w9({ 1, 2 }, 3);
+	constexpr Float3 w10({ 1, 2 }, 3.3);
+	constexpr Float3 w11({ 1, 2 }, 3.3f);
+
+	constexpr Float3 w12({ 1.1, 2 }, 3);
+	constexpr Float3 w13({ 1.1, 2 }, 3.3);
+	constexpr Float3 w14({ 1.1, 2 }, 3.3f);
+
+	constexpr Float3 w15({ 1.1, 2.2 }, 3);
+	constexpr Float3 w16({ 1.1, 2.2 }, 3.3);
+	constexpr Float3 w17({ 1.1, 2.2 }, 3.3f);
+
+	constexpr Float3 w18(Vec2(1.1, 2.2), 3);
+	constexpr Float3 w19(Vec2(1.1, 2.2), 3.3);
+	constexpr Float3 w20(Vec2(1.1, 2.2), 3.3f);
+
+	constexpr Float3 w21(Float2(1.1f, 2.2f), 3);
+	constexpr Float3 w22(Float2(1.1f, 2.2f), 3.3);
+	constexpr Float3 w23(Float2(1.1f, 2.2f), 3.3f);
+
+	constexpr Float3 w24(1, Point(1, 2));
+	constexpr Float3 w25(1.1, Point(1, 2));
+	constexpr Float3 w26(1.1f, Point(1, 2));
+
+	constexpr Float3 w27(1, { 2, 3 });
+	constexpr Float3 w28(1.1, { 2, 3 });
+	constexpr Float3 w29(1.1f, { 2, 3 });
+
+	constexpr Float3 w30(1, { 2.2, 3 });
+	constexpr Float3 w31(1.1, { 2.2, 3 });
+	constexpr Float3 w32(1.1f, { 2.2, 3 });
+
+	constexpr Float3 w33(1, { 2.2, 3.3 });
+	constexpr Float3 w34(1.1, { 2.2, 3.3 });
+	constexpr Float3 w35(1.1f, { 2.2, 3.3 });
+
+	constexpr Float3 w36(1, Vec2(2.2, 3.3));
+	constexpr Float3 w37(1.1, Vec2(2.2, 3.3));
+	constexpr Float3 w38(1.1f, Vec2(2.2, 3.3));
+
+	constexpr Float3 w39(1, Float2(2.2f, 3.3f));
+	constexpr Float3 w40(1.1, Float2(2.2f, 3.3f));
+	constexpr Float3 w41(1.1f, Float2(2.2f, 3.3f));
+
+	constexpr Float3 w42({ 1, 2, 3 });
+	constexpr Float3 w43({ 1, 2, 3.3 });
+	constexpr Float3 w44({ 1, 2, 3.3f });
+	constexpr Float3 w45({ 1.1, 2.2, 3 });
+	constexpr Float3 w46({ 1.1, 2.2, 3.3 });
+	constexpr Float3 w47({ 1.1, 2.2, 3.3f });
+	constexpr Float3 w48({ 1.1f, 2.2f, 3 });
+	constexpr Float3 w49({ 1.1f, 2.2f, 3.3 });
+	constexpr Float3 w50({ 1.1f, 2.2f, 3.3f });
+
+	constexpr Float3 w51(Vec3(1.1, 2.2, 3.3));
+	constexpr Float3 w52(Float3(1.1f, 2.2f, 3.3f));
+
+	constexpr Float3 w53{ 1, 2, 3 };
+	constexpr Float3 w54{ 1, 2, 3.3 };
+	constexpr Float3 w55{ 1, 2, 3.3f };
+	constexpr Float3 w56{ 1.1, 2.2, 3 };
+	constexpr Float3 w57{ 1.1, 2.2, 3.3 };
+	constexpr Float3 w58{ 1.1, 2.2, 3.3f };
+	constexpr Float3 w59{ 1.1f, 2.2f, 3 };
+	constexpr Float3 w60{ 1.1f, 2.2f, 3.3 };
+	constexpr Float3 w61{ 1.1f, 2.2f, 3.3f };
+
+	//constexpr Point p1((uint64)43, true);
+	//const Point p2(3.5, true);
 	//Image(Grid<int32>(100, 100, Range(0, 9999).map(Modulus(256))), [](int32 v) { return Color(v); })._saveBMP(L"img.bmp");
 
 	//Image(Grid<Color>(100, 100, Range(0, 9999).map([](int32 v) { return Color(v % 64); })))._saveBMP(L"img2.bmp");
@@ -51,10 +230,6 @@ void Main()
 	//Image(Grid<ColorF>(100, 100, Range(0, 9999).map([](int32 v) { return ColorF(v / 10000.0); })))._saveBMP(L"img3.bmp");
 
 	//Image(256, 256, Palette::Seagreen)._saveBMP(L"img.bmp");
-
-	//TimeProfiler tp;
-
-
 
 	//for (int k : step(20))
 	//{
