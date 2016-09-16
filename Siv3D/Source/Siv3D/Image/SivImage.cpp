@@ -65,7 +65,7 @@ namespace s3d
 		const BMPHeader hed =
 		{
 			0x4d42,
-			bmpsize + sizeof(BMPHeader),
+			static_cast<uint32>(bmpsize + sizeof(BMPHeader)),
 			0,
 			0,
 			sizeof(BMPHeader),

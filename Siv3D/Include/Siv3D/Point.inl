@@ -44,7 +44,7 @@ namespace s3d
 	template <class Type>
 	constexpr Vector2D<Type> Point::operator /(const Vector2D<Type>& v) const noexcept
 	{
-		return{ x / p.x, y / p.y };
+		return{ x / v.x, y / v.y };
 	}
 
 	constexpr Float2 Point::operator /(const float s) const noexcept
