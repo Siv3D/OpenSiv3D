@@ -416,18 +416,6 @@ namespace s3d
 		/// <param name="rgb">
 		/// グレースケール [0.0, 1.0]
 		/// </param>
-		explicit constexpr ColorF(double rgb) noexcept
-			: r(rgb)
-			, g(rgb)
-			, b(rgb)
-			, a(1.0) {}
-
-		/// <summary>
-		/// 色を作成します。
-		/// </summary>
-		/// <param name="rgb">
-		/// グレースケール [0.0, 1.0]
-		/// </param>
 		/// <param name="_a">
 		/// アルファ [0.0, 1.0]
 		/// </param>

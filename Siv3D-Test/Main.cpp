@@ -42,30 +42,19 @@ void Dump(const void* data, size_t size)
 	Log(result);
 }
 
-#include <sstream>
-
 void Main()
 {
-	TimeProfiler tp;
+	Image(Grid<int32>(100, 100, Range(0, 9999).map(Modulus(256))), [](int32 v) { return Color(v); })._saveBMP(L"img.bmp");
 
-	std::array<HSV, 10000> hs;
-	std::array<Color, 10000> c1s, c2s;
+	Image(Grid<Color>(100, 100, Range(0, 9999).map([](int32 v) { return Color(v % 64); })))._saveBMP(L"img2.bmp");
 
-	for (size_t i = 0; i < c1s.size(); ++i)
-	{
-		hs[i] = HSV(std::uniform_real_distribution<double>(-720, 720)(GetDefaultRBG()), std::uniform_real_distribution<double>(0.0, 1.0)(GetDefaultRBG()), std::uniform_real_distribution<double>(0.0, 1.0)(GetDefaultRBG()));
-	}
-	
-	for(int k : step(20))
-	{
-		tp.begin(L"t");
+	Image(Grid<ColorF>(100, 100, Range(0, 9999).map([](int32 v) { return ColorF(v / 10000.0); })))._saveBMP(L"img3.bmp");
 
-		for (size_t i = 0; i < c1s.size(); ++i)
-		{
-			c1s[i] = hs[i];
-		}
-		tp.end();
-	}
+	//Image(256, 256, Palette::Seagreen)._saveBMP(L"img.bmp");
+
+	//TimeProfiler tp;
+
+
 
 	//for (int k : step(20))
 	//{

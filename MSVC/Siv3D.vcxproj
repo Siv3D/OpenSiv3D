@@ -46,6 +46,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Fwd.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Grid.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\HSV.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Image.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\InfiniteList.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\IReader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\IWriter.hpp" />
@@ -56,6 +57,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\ParseFloat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ParseInt.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Point.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\PointVector.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Regex.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\System.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextEncoding.hpp" />
@@ -83,6 +85,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Uncopyable.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Unspecified.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Utility.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Vector2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Version.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BigFloat\CBigFloat.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BigInt\CBigInt.hpp" />
@@ -124,6 +127,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatFloat\SivFormatFloat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatInt\SivFormatInt.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\HSV\SivHSV.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Image\SivImage.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\CLogger.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\LoggerFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\SivLogger.cpp" />
@@ -150,6 +154,9 @@
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\fixed-dtoa.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\strtod.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\fmt\format.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Siv3D\Include\Siv3D\Point.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5EC743E4-1657-41A6-BBE5-A0E2B135885C}</ProjectGuid>

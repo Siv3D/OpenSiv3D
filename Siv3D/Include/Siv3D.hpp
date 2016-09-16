@@ -194,8 +194,8 @@
 	# include "Siv3D/Color.hpp"
 	// HSV カラー
 	# include "Siv3D/HSV.hpp"
-	//// ベクトル
-	//# include "Siv3D/PointVector.hpp"
+	// ベクトル
+	# include "Siv3D/PointVector.hpp"
 	//// 円座標
 	//# include "Siv3D/Circular.hpp"
 	//// 円柱座標
@@ -268,8 +268,8 @@
 //
 // 画像処理
 //
-	//// 画像処理
-	//# include "Siv3D/Image.hpp"
+	// 画像処理
+	# include "Siv3D/Image.hpp"
 	//// 画像のフォーマット
 	//# include "Siv3D/TextureFormat.hpp"
 	//// カスタムカラーフォーマット
