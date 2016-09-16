@@ -110,7 +110,7 @@ namespace s3d
 		a = _a;
 	}
 
-	Color HueToColor(const double hue)
+	Color HueToColor(const double hue) noexcept
 	{
 		const double hue01 = detail::Fraction(hue / 360.0);
 		const double hueF = hue01 * 6.0;
@@ -130,7 +130,7 @@ namespace s3d
 					 255);
 	}
 
-	ColorF HueToColorF(const double hue)
+	ColorF HueToColorF(const double hue) noexcept
 	{
 		const double hue01 = detail::Fraction(hue / 360.0);
 		const double hueF = hue01 * 6.0;

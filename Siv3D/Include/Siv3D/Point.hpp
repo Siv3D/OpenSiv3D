@@ -10,6 +10,8 @@
 //-----------------------------------------------
 
 # pragma once
+# include <utility>
+# include <cassert>
 # include "Fwd.hpp"
 
 namespace s3d
@@ -27,6 +29,8 @@ namespace s3d
 		/// デフォルトコンストラクタ
 		/// </summary>
 		Point() noexcept = default;
+
+		constexpr Point(const Point&) noexcept = default;
 
 		constexpr Point(int32 _x, int32 _y) noexcept
 			: x(_x)
@@ -333,11 +337,11 @@ namespace s3d
 					>> v.y >> unused;
 	}
 
-	inline constexpr Point operator *(int32 s, const Point& p);
+	inline constexpr Point operator *(int32 s, const Point& p) noexcept;
 
-	inline constexpr Float2 operator *(float s, const Point& p);
+	inline constexpr Float2 operator *(float s, const Point& p) noexcept;
 
-	inline constexpr Vec2 operator *(double s, const Point& p);
+	inline constexpr Vec2 operator *(double s, const Point& p) noexcept;
 
 	using Size = Point;
 }
@@ -347,7 +351,7 @@ namespace std
 	template <>
 	struct hash<s3d::Point>
 	{
-		size_t operator () (const s3d::Point& keyVal) const
+		size_t operator ()(const s3d::Point& keyVal) const
 		{
 			return hash<s3d::uint64>()(*((s3d::uint64*)&keyVal));
 		}

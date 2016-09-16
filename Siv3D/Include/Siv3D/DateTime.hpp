@@ -463,8 +463,6 @@ namespace std
 	template <>
 	struct hash<s3d::DateTime>
 	{
-		using result_type = size_t;
-		using argument_type = s3d::DateTime;
-		result_type operator()(const argument_type& date) const;
+		size_t operator ()(const s3d::DateTime& date) const;
 	};
 }

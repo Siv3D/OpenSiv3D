@@ -93,17 +93,17 @@ namespace s3d
 		return Vector2D<Type>(x + (other.x - x) * f, y + (other.y - y) * f);
 	}
 
-	inline constexpr Point operator *(int32 s, const Point& p)
+	inline constexpr Point operator *(int32 s, const Point& p) noexcept
 	{
 		return{ s * p.x, s * p.y };
 	}
 
-	inline constexpr Float2 operator *(float s, const Point& p)
+	inline constexpr Float2 operator *(float s, const Point& p) noexcept
 	{
 		return{ s * p.x, s * p.y };
 	}
 
-	inline constexpr Vec2 operator *(double s, const Point& p)
+	inline constexpr Vec2 operator *(double s, const Point& p) noexcept
 	{
 		return{ s * p.x, s * p.y };
 	}

@@ -46,6 +46,8 @@
 	# include "Siv3D/Fwd.hpp"
 	// ユーティリティ
 	# include "Siv3D/Utility.hpp"
+	// ハッシュ
+	# include "Siv3D/Hash.hpp"
 	// ファンクタ
 	# include "Siv3D/Functor.hpp"
 	// コンセプト
