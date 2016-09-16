@@ -95,6 +95,12 @@
     <Filter Include="Source\Siv3D\HSV">
       <UniqueIdentifier>{215052c8-c0bd-4cb0-81dd-be08a96b499c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Image">
+      <UniqueIdentifier>{660c8f94-d504-41ed-ab51-71f10f01321a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Format">
+      <UniqueIdentifier>{157c6312-ab79-4b15-a5b1-f85433db299b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -358,6 +364,15 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\HSV.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Image.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\PointVector.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Vector2D.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -486,5 +501,16 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\HSV\SivHSV.cpp">
       <Filter>Source\Siv3D\HSV</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Image\SivImage.cpp">
+      <Filter>Source\Siv3D\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Format\SivFormat.cpp">
+      <Filter>Source\Siv3D\Format</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Siv3D\Include\Siv3D\Point.inl">
+      <Filter>Include\Siv3D</Filter>
+    </None>
   </ItemGroup>
 </Project>

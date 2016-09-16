@@ -416,18 +416,6 @@ namespace s3d
 		/// <param name="rgb">
 		/// グレースケール [0.0, 1.0]
 		/// </param>
-		explicit constexpr ColorF(double rgb) noexcept
-			: r(rgb)
-			, g(rgb)
-			, b(rgb)
-			, a(1.0) {}
-
-		/// <summary>
-		/// 色を作成します。
-		/// </summary>
-		/// <param name="rgb">
-		/// グレースケール [0.0, 1.0]
-		/// </param>
 		/// <param name="_a">
 		/// アルファ [0.0, 1.0]
 		/// </param>
@@ -1055,5 +1043,17 @@ namespace s3d
 		constexpr Color Mediumpurple{ 147,112,219 };
 		constexpr Color Slateblue{ 106,90,205 };
 		constexpr Color Mediumslateblue{ 123,104,238 };
+	};
+}
+
+namespace std
+{
+	template <>
+	struct hash<s3d::Color>
+	{
+		size_t operator () (const s3d::Color& keyVal) const
+		{
+			return hash<s3d::uint32>()(*((s3d::uint32*)&keyVal));
+		}
 	};
 }

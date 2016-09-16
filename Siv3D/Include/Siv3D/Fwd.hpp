@@ -199,12 +199,20 @@ namespace s3d
 	//
 	struct HSV;
 
-
-
 	//////////////////////////////////////////////////////
 	//
-	//	Point.hpp
+	//	PointVector.hpp
 	//
 	struct Point;
 	using Size = Point;
+	template <class Type> struct Vector2D;
+	template <class Type> struct Vector3D;
+	template <class Type> struct Vector4D;
+	using Float2	= Vector2D<float>;
+	using Vec2		= Vector2D<double>;
+	using Float3	= Vector3D<float>;
+	using Vec3		= Vector3D<double>;
+	using Float4	= Vector4D<float>;
+	using Vec4		= Vector4D<double>;
+
 }

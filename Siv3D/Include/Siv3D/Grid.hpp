@@ -12,7 +12,7 @@
 # pragma once
 # include "Fwd.hpp"
 # include "Array.hpp"
-# include "Point.hpp"
+# include "PointVector.hpp"
 # include "Format.hpp"
 
 namespace s3d
@@ -499,6 +499,8 @@ namespace s3d
 		Size size() const noexcept { return Size{ m_width, m_height }; }
 
 		size_type count() const noexcept { return m_data.size(); }
+
+		size_type size_elements() const noexcept { return m_data.size(); }
 
 		size_type size_bytes() const noexcept
 		{
