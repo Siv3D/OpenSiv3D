@@ -250,4 +250,26 @@ namespace s3d
 					>> hsv.s >> unused
 					>> hsv.v >> unused;
 	}
+
+	/// <summary>
+	/// 色相から Color を作成します。
+	/// </summary>
+	/// <param name="hue">
+	/// 色相 [0.0, 360.0)
+	/// </param>
+	/// <returns>
+	/// 作成したカラー
+	/// </returns>
+	Color HueToColor(double hue);
+
+	/// <summary>
+	/// 色相から ColorF を作成します。
+	/// </summary>
+	/// <param name="hue">
+	/// 色相 [0.0, 360.0)
+	/// </param>
+	/// <returns>
+	/// 作成したカラー
+	/// </returns>
+	ColorF HueToColorF(double hue);
 }

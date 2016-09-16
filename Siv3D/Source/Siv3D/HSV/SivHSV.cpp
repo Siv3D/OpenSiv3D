@@ -15,12 +15,12 @@ namespace s3d
 {
 	namespace detail
 	{
-		inline static double Fraction(double x)
+		inline static double Fraction(const double x)
 		{
 			return (x - std::floor(x));
 		}
 
-		static constexpr size_t conversionIndices[6][3] =
+		static constexpr size_t conversionTable[6][3] =
 		{
 			{ 3, 2, 0 },
 			{ 1, 3, 0 },
@@ -55,9 +55,9 @@ namespace s3d
 			static_cast<uint8>(v * 255.0 + 0.5)
 		};
 
-		return Color(vals[detail::conversionIndices[hueI][0]],
-					 vals[detail::conversionIndices[hueI][1]],
-					 vals[detail::conversionIndices[hueI][2]],
+		return Color(vals[detail::conversionTable[hueI][0]],
+					 vals[detail::conversionTable[hueI][1]],
+					 vals[detail::conversionTable[hueI][2]],
 					 a >= 1.0 ? 255 : a <= 0.0 ? 0 : static_cast<uint8>(a * 255.0 + 0.5));
 	}
 
@@ -75,9 +75,9 @@ namespace s3d
 			v
 		};
 
-		return ColorF(vals[detail::conversionIndices[hueI][0]],
-					  vals[detail::conversionIndices[hueI][1]],
-					  vals[detail::conversionIndices[hueI][2]],
+		return ColorF(vals[detail::conversionTable[hueI][0]],
+					  vals[detail::conversionTable[hueI][1]],
+					  vals[detail::conversionTable[hueI][2]],
 					  a);
 	}
 
@@ -107,5 +107,45 @@ namespace s3d
 		s = chroma / (r + 1e-20);
 		v = r;
 		a = _a;
+	}
+
+	Color HueToColor(const double hue)
+	{
+		const double hue01 = detail::Fraction(hue / 360.0);
+		const double hueF = hue01 * 6.0;
+		const int32 hueI = static_cast<int32>(hueF);
+		const double fr = hueF - hueI;
+		const uint8 vals[4] =
+		{
+			0,
+			static_cast<uint8>((1.0 - fr)* 255.0 + 0.5),
+			static_cast<uint8>((1.0 - (1.0 - fr))* 255.0 + 0.5),
+			255
+		};
+
+		return Color(vals[detail::conversionTable[hueI][0]],
+					 vals[detail::conversionTable[hueI][1]],
+					 vals[detail::conversionTable[hueI][2]],
+					 255);
+	}
+
+	ColorF HueToColorF(const double hue)
+	{
+		const double hue01 = detail::Fraction(hue / 360.0);
+		const double hueF = hue01 * 6.0;
+		const int32 hueI = static_cast<int32>(hueF);
+		const double fr = hueF - hueI;
+		const double vals[4] =
+		{
+			0.0,
+			1.0 - fr,
+			1.0 - (1.0 - fr),
+			1.0
+		};
+
+		return ColorF(vals[detail::conversionTable[hueI][0]],
+					  vals[detail::conversionTable[hueI][1]],
+					  vals[detail::conversionTable[hueI][2]],
+					  1.0);
 	}
 }
