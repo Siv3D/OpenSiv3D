@@ -1044,7 +1044,7 @@ namespace s3d
 	}
 
 	template <class T, class N, class S>
-    template <class Fty>
+	template <class Fty>
 	inline constexpr auto steps_class<T, N, S>::filter(Fty f) const
 	{
 		const auto tuple = std::make_tuple(detail::FilterFunction<Fty>{ f });
