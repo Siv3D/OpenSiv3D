@@ -28,6 +28,11 @@ namespace s3d
 		*this = hsv.toColor();
 	}
 
+	Color& Color::operator =(const HSV& hsv) noexcept
+	{
+		return *this = hsv.toColor();
+	}
+
 	Color::Color(const StringView& code) noexcept
 	{
 		if (code.length() == 4)
@@ -68,6 +73,11 @@ namespace s3d
 	ColorF::ColorF(const HSV& hsv) noexcept
 	{
 		*this = hsv.toColorF();
+	}
+
+	ColorF& ColorF::operator =(const HSV& hsv) noexcept
+	{
+		return *this = hsv.toColorF();
 	}
 
 	ColorF ColorF::gamma(const double gamma) const noexcept

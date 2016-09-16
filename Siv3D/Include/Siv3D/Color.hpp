@@ -154,6 +154,17 @@ namespace s3d
 		S3D_CONSTEXPR_CPP14 Color& operator =(const ColorF& color) noexcept;
 
 		/// <summary>
+		/// 新しい色を代入します。
+		/// </summary>
+		/// <param name="hsv">
+		/// 新しい色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		Color& operator =(const HSV& hsv) noexcept;
+
+		/// <summary>
 		/// 反転させた色を返します。
 		/// </summary>
 		/// <returns>
@@ -530,6 +541,17 @@ namespace s3d
 			a = color.a / 255.0;
 			return *this;
 		}
+
+		/// <summary>
+		/// 新しい色を代入します。
+		/// </summary>
+		/// <param name="hsv">
+		/// 新しい色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		ColorF& operator =(const HSV& hsv) noexcept;
 
 		/// <summary>
 		/// 色の成分を加算します
