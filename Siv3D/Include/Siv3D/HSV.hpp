@@ -260,7 +260,7 @@ namespace s3d
 	/// <returns>
 	/// 作成したカラー
 	/// </returns>
-	Color HueToColor(double hue);
+	Color HueToColor(double hue) noexcept;
 
 	/// <summary>
 	/// 色相から ColorF を作成します。
@@ -271,5 +271,5 @@ namespace s3d
 	/// <returns>
 	/// 作成したカラー
 	/// </returns>
-	ColorF HueToColorF(double hue);
+	ColorF HueToColorF(double hue) noexcept;
 }

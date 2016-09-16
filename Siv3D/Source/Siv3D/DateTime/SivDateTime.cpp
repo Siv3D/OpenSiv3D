@@ -332,7 +332,7 @@ namespace s3d
 
 namespace std
 {
-	hash<s3d::DateTime>::result_type hash<s3d::DateTime>::operator()(const hash<s3d::DateTime>::argument_type& dateTime) const
+	size_t hash<s3d::DateTime>::operator ()(const s3d::DateTime& dateTime) const
 	{
 		size_t h = 0;
 		boost::hash_combine(h, dateTime.year);

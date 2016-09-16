@@ -32,7 +32,7 @@
 - [x] Color
 - [x] HSV
 - [x] Point
-- [ ] Vector2D
+- [x] Vector2D
 - [ ] Vector3D
 - [ ] Vector4D
 - [ ] Circular

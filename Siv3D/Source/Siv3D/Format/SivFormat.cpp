@@ -100,10 +100,10 @@ namespace s3d
 		formatData.string.append(buf, p - buf);
 	}
 
-	//void Formatter(FormatData& formatData, const Float2& value)
-	//{
-	//	Formatter(formatData, Vec2(value));
-	//}
+	void Formatter(FormatData& formatData, const Float2& value)
+	{
+		Formatter(formatData, Vec2(value));
+	}
 
 	void Formatter(FormatData& formatData, const Vec2& value)
 	{
