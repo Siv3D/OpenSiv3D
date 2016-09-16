@@ -98,6 +98,9 @@
     <Filter Include="Source\Siv3D\Image">
       <UniqueIdentifier>{660c8f94-d504-41ed-ab51-71f10f01321a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Format">
+      <UniqueIdentifier>{157c6312-ab79-4b15-a5b1-f85433db299b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -500,6 +503,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Image\SivImage.cpp">
       <Filter>Source\Siv3D\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Format\SivFormat.cpp">
+      <Filter>Source\Siv3D\Format</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

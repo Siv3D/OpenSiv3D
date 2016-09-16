@@ -47,13 +47,64 @@ namespace s3d
 		return{ x / p.x, y / p.y };
 	}
 
-	constexpr Float2 Point::operator /(float s) const noexcept
+	constexpr Float2 Point::operator /(const float s) const noexcept
 	{
 		return{ x / s, y / s };
 	}
 
-	constexpr Vec2 Point::operator /(double s) const noexcept
+	constexpr Vec2 Point::operator /(const double s) const noexcept
 	{
 		return{ x / s, y / s };
+	}
+
+	template <class Type>
+	constexpr Vector2D<Type> Point::movedBy(const Vector2D<Type>& v) const noexcept
+	{
+		return{ x + v.x, y + v.y };
+	}
+
+	template <class Type>
+	Type Point::distanceFrom(const Vector2D<Type>& p) const noexcept
+	{
+		return std::sqrt(distanceFromSq(p));
+	}
+
+	template <class Type>
+	constexpr Type Point::distanceFromSq(const Vector2D<Type>& p) const noexcept
+	{
+		return (p.x - x) * (p.x - x) + (p.y - y) * (p.y - y);
+	}
+
+	template <class Type>
+	Type Point::length() const noexcept
+	{
+		return static_cast<Type>(std::sqrt(lengthSq()));
+	}
+
+	template <class Type>
+	constexpr Type Point::lengthSq() const noexcept
+	{
+		return static_cast<Type>(x * x + y * y);
+	}
+
+	template <class Type>
+	constexpr Vector2D<Type> Point::lerp(const Vector2D<Type>& other, const double f) const noexcept
+	{
+		return Vector2D<Type>(x + (other.x - x) * f, y + (other.y - y) * f);
+	}
+
+	inline constexpr Point operator *(int32 s, const Point& p)
+	{
+		return{ s * p.x, s * p.y };
+	}
+
+	inline constexpr Float2 operator *(float s, const Point& p)
+	{
+		return{ s * p.x, s * p.y };
+	}
+
+	inline constexpr Vec2 operator *(double s, const Point& p)
+	{
+		return{ s * p.x, s * p.y };
 	}
 }

@@ -134,12 +134,12 @@ namespace s3d
 			return{ h - hsv.h, Clamp(s - hsv.s, 0.0, 1.0), Clamp(v - hsv.v, 0.0, 1.0), a };
 		}
 
-		constexpr HSV lerp(const HSV& hsv, double f) const noexcept
+		constexpr HSV lerp(const HSV& other, double f) const noexcept
 		{
-			return{ h + (hsv.h - h) * f,
-					s + (hsv.s - s) * f,
-					v + (hsv.v - v) * f,
-					a + (hsv.a - a) * f };
+			return{ h + (other.h - h) * f,
+					s + (other.s - s) * f,
+					v + (other.v - v) * f,
+					a + (other.a - a) * f };
 		}
 
 		/// <summary>

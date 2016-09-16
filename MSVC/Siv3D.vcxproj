@@ -126,6 +126,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\FileSystem\SivFileSystem.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatFloat\SivFormatFloat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatInt\SivFormatInt.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Format\SivFormat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\HSV\SivHSV.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Image\SivImage.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\CLogger.cpp" />

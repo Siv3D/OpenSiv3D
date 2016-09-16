@@ -1045,3 +1045,15 @@ namespace s3d
 		constexpr Color Mediumslateblue{ 123,104,238 };
 	};
 }
+
+namespace std
+{
+	template <>
+	struct hash<s3d::Color>
+	{
+		size_t operator () (const s3d::Color& keyVal) const
+		{
+			return hash<s3d::uint32>()(*((s3d::uint32*)&keyVal));
+		}
+	};
+}

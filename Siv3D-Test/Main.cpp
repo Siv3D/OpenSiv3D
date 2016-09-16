@@ -44,11 +44,13 @@ void Dump(const void* data, size_t size)
 
 void Main()
 {
-	Image(Grid<int32>(100, 100, Range(0, 9999).map(Modulus(256))), [](int32 v) { return Color(v); })._saveBMP(L"img.bmp");
+	Log(Point::All(2).length());
 
-	Image(Grid<Color>(100, 100, Range(0, 9999).map([](int32 v) { return Color(v % 64); })))._saveBMP(L"img2.bmp");
+	//Image(Grid<int32>(100, 100, Range(0, 9999).map(Modulus(256))), [](int32 v) { return Color(v); })._saveBMP(L"img.bmp");
 
-	Image(Grid<ColorF>(100, 100, Range(0, 9999).map([](int32 v) { return ColorF(v / 10000.0); })))._saveBMP(L"img3.bmp");
+	//Image(Grid<Color>(100, 100, Range(0, 9999).map([](int32 v) { return Color(v % 64); })))._saveBMP(L"img2.bmp");
+
+	//Image(Grid<ColorF>(100, 100, Range(0, 9999).map([](int32 v) { return ColorF(v / 10000.0); })))._saveBMP(L"img3.bmp");
 
 	//Image(256, 256, Palette::Seagreen)._saveBMP(L"img.bmp");
 

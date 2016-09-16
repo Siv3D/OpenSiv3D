@@ -398,13 +398,14 @@ namespace s3d
 		formatData.string.append(wos.str());
 	}
 
-	/*
 	void Formatter(FormatData& formatData, const Color& value);
 	void Formatter(FormatData& formatData, const ColorF& value);
 	void Formatter(FormatData& formatData, const HSV& value);
 	void Formatter(FormatData& formatData, const Point& value);
 	void Formatter(FormatData& formatData, const Float2& value);
 	void Formatter(FormatData& formatData, const Vec2& value);
+
+	/*
 	void Formatter(FormatData& formatData, const Float3& value);
 	void Formatter(FormatData& formatData, const Vec3& value);
 	void Formatter(FormatData& formatData, const Float4& value);
