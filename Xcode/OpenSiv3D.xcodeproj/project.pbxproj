@@ -27,147 +27,150 @@
 		2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C38B14A1CDEB45C007A7E9F /* gtest.a */; };
 		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
 		2C2CCF511CE8698C001844FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2CCF501CE8698C001844FF /* Foundation.framework */; };
-		2CC439441D8C13B600543A5B /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC438FC1D8C13B600543A5B /* format.h */; };
-		2CC439451D8C13B600543A5B /* ostream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC438FE1D8C13B600543A5B /* ostream.h */; };
-		2CC439461D8C13B600543A5B /* printf.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC438FF1D8C13B600543A5B /* printf.h */; };
-		2CC439471D8C13B600543A5B /* _TEMPLATE.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439011D8C13B600543A5B /* _TEMPLATE.hpp */; };
-		2CC439481D8C13B600543A5B /* Allocator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439021D8C13B600543A5B /* Allocator.hpp */; };
-		2CC439491D8C13B600543A5B /* Array.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439031D8C13B600543A5B /* Array.hpp */; };
-		2CC4394A1D8C13B600543A5B /* BigFloat.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439041D8C13B600543A5B /* BigFloat.hpp */; };
-		2CC4394B1D8C13B600543A5B /* BigInt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439051D8C13B600543A5B /* BigInt.hpp */; };
-		2CC4394C1D8C13B600543A5B /* BinaryReader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439061D8C13B600543A5B /* BinaryReader.hpp */; };
-		2CC4394D1D8C13B600543A5B /* BinaryWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439071D8C13B600543A5B /* BinaryWriter.hpp */; };
-		2CC4394E1D8C13B600543A5B /* Char.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439081D8C13B600543A5B /* Char.hpp */; };
-		2CC4394F1D8C13B600543A5B /* CharacterSet.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439091D8C13B600543A5B /* CharacterSet.hpp */; };
-		2CC439501D8C13B600543A5B /* Color.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4390A1D8C13B600543A5B /* Color.hpp */; };
-		2CC439511D8C13B600543A5B /* Concept.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4390B1D8C13B600543A5B /* Concept.hpp */; };
-		2CC439521D8C13B600543A5B /* Date.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4390C1D8C13B600543A5B /* Date.hpp */; };
-		2CC439531D8C13B600543A5B /* DateTime.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4390D1D8C13B600543A5B /* DateTime.hpp */; };
-		2CC439541D8C13B600543A5B /* Duration.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4390E1D8C13B600543A5B /* Duration.hpp */; };
-		2CC439551D8C13B600543A5B /* FileSystem.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4390F1D8C13B600543A5B /* FileSystem.hpp */; };
-		2CC439561D8C13B600543A5B /* Format.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439101D8C13B600543A5B /* Format.hpp */; };
-		2CC439571D8C13B600543A5B /* FormatBool.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439111D8C13B600543A5B /* FormatBool.hpp */; };
-		2CC439581D8C13B600543A5B /* FormatFloat.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439121D8C13B600543A5B /* FormatFloat.hpp */; };
-		2CC439591D8C13B600543A5B /* FormatInt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439131D8C13B600543A5B /* FormatInt.hpp */; };
-		2CC4395A1D8C13B600543A5B /* FormatLiteral.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439141D8C13B600543A5B /* FormatLiteral.hpp */; };
-		2CC4395B1D8C13B600543A5B /* Functor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439151D8C13B600543A5B /* Functor.hpp */; };
-		2CC4395C1D8C13B600543A5B /* Fwd.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439161D8C13B600543A5B /* Fwd.hpp */; };
-		2CC4395D1D8C13B600543A5B /* Grid.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439171D8C13B600543A5B /* Grid.hpp */; };
-		2CC4395E1D8C13B600543A5B /* HSV.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439181D8C13B600543A5B /* HSV.hpp */; };
-		2CC4395F1D8C13B600543A5B /* Image.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439191D8C13B600543A5B /* Image.hpp */; };
-		2CC439601D8C13B600543A5B /* InfiniteList.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4391A1D8C13B600543A5B /* InfiniteList.hpp */; };
-		2CC439611D8C13B600543A5B /* IReader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4391B1D8C13B600543A5B /* IReader.hpp */; };
-		2CC439621D8C13B600543A5B /* IWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4391C1D8C13B600543A5B /* IWriter.hpp */; };
-		2CC439631D8C13B600543A5B /* LetterCase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4391D1D8C13B600543A5B /* LetterCase.hpp */; };
-		2CC439641D8C13B600543A5B /* Logger.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4391E1D8C13B600543A5B /* Logger.hpp */; };
-		2CC439651D8C13B600543A5B /* MathConstants.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4391F1D8C13B600543A5B /* MathConstants.hpp */; };
-		2CC439661D8C13B600543A5B /* Number.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439201D8C13B600543A5B /* Number.hpp */; };
-		2CC439671D8C13B600543A5B /* Optional.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439211D8C13B600543A5B /* Optional.hpp */; };
-		2CC439681D8C13B600543A5B /* Parse.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439221D8C13B600543A5B /* Parse.hpp */; };
-		2CC439691D8C13B600543A5B /* ParseBool.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439231D8C13B600543A5B /* ParseBool.hpp */; };
-		2CC4396A1D8C13B600543A5B /* ParseFloat.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439241D8C13B600543A5B /* ParseFloat.hpp */; };
-		2CC4396B1D8C13B600543A5B /* ParseInt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439251D8C13B600543A5B /* ParseInt.hpp */; };
-		2CC4396C1D8C13B600543A5B /* Platform.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439261D8C13B600543A5B /* Platform.hpp */; };
-		2CC4396D1D8C13B600543A5B /* PlatformWindows.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439271D8C13B600543A5B /* PlatformWindows.hpp */; };
-		2CC4396E1D8C13B600543A5B /* Point.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439281D8C13B600543A5B /* Point.hpp */; };
-		2CC4396F1D8C13B600543A5B /* PointVector.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4392A1D8C13B600543A5B /* PointVector.hpp */; };
-		2CC439701D8C13B600543A5B /* Radix.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4392B1D8C13B600543A5B /* Radix.hpp */; };
-		2CC439711D8C13B600543A5B /* Random.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4392C1D8C13B600543A5B /* Random.hpp */; };
-		2CC439721D8C13B600543A5B /* RDTSCProfiler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4392D1D8C13B600543A5B /* RDTSCProfiler.hpp */; };
-		2CC439731D8C13B600543A5B /* Regex.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4392E1D8C13B600543A5B /* Regex.hpp */; };
-		2CC439741D8C13B600543A5B /* SpeedStopwatch.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4392F1D8C13B600543A5B /* SpeedStopwatch.hpp */; };
-		2CC439751D8C13B600543A5B /* Step.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439301D8C13B600543A5B /* Step.hpp */; };
-		2CC439761D8C13B600543A5B /* Step_MSVC.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439311D8C13B600543A5B /* Step_MSVC.hpp */; };
-		2CC439771D8C13B600543A5B /* Stopwatch.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439321D8C13B600543A5B /* Stopwatch.hpp */; };
-		2CC439781D8C13B600543A5B /* String.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439331D8C13B600543A5B /* String.hpp */; };
-		2CC439791D8C13B600543A5B /* StringView.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439341D8C13B600543A5B /* StringView.hpp */; };
-		2CC4397A1D8C13B600543A5B /* System.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439351D8C13B600543A5B /* System.hpp */; };
-		2CC4397B1D8C13B600543A5B /* TextEncoding.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439361D8C13B600543A5B /* TextEncoding.hpp */; };
-		2CC4397C1D8C13B600543A5B /* TextReader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439371D8C13B600543A5B /* TextReader.hpp */; };
-		2CC4397D1D8C13B600543A5B /* TextWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439381D8C13B600543A5B /* TextWriter.hpp */; };
-		2CC4397E1D8C13B600543A5B /* Time.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439391D8C13B600543A5B /* Time.hpp */; };
-		2CC4397F1D8C13B600543A5B /* TimeProfiler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4393A1D8C13B600543A5B /* TimeProfiler.hpp */; };
-		2CC439801D8C13B600543A5B /* Timer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4393B1D8C13B600543A5B /* Timer.hpp */; };
-		2CC439811D8C13B600543A5B /* Types.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4393C1D8C13B600543A5B /* Types.hpp */; };
-		2CC439821D8C13B600543A5B /* TypeTraits.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4393D1D8C13B600543A5B /* TypeTraits.hpp */; };
-		2CC439831D8C13B600543A5B /* Uncopyable.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4393E1D8C13B600543A5B /* Uncopyable.hpp */; };
-		2CC439841D8C13B600543A5B /* Unspecified.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4393F1D8C13B600543A5B /* Unspecified.hpp */; };
-		2CC439851D8C13B600543A5B /* Utility.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439401D8C13B600543A5B /* Utility.hpp */; };
-		2CC439861D8C13B600543A5B /* Vector2D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439411D8C13B600543A5B /* Vector2D.hpp */; };
-		2CC439871D8C13B600543A5B /* Version.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439421D8C13B600543A5B /* Version.hpp */; };
-		2CC439881D8C13B600543A5B /* Siv3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439431D8C13B600543A5B /* Siv3D.hpp */; };
-		2CC439F11D8C13C000543A5B /* CXxxx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4398C1D8C13C000543A5B /* CXxxx.cpp */; };
-		2CC439F21D8C13C000543A5B /* CXxxx.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4398D1D8C13C000543A5B /* CXxxx.hpp */; };
-		2CC439F31D8C13C000543A5B /* IXxxx.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4398E1D8C13C000543A5B /* IXxxx.hpp */; };
-		2CC439F41D8C13C000543A5B /* SivXxxx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4398F1D8C13C000543A5B /* SivXxxx.cpp */; };
-		2CC439F51D8C13C000543A5B /* XxxxFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439901D8C13C000543A5B /* XxxxFactory.cpp */; };
-		2CC439F61D8C13C000543A5B /* CBigFloat.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439921D8C13C000543A5B /* CBigFloat.hpp */; };
-		2CC439F71D8C13C000543A5B /* SivBigFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439931D8C13C000543A5B /* SivBigFloat.cpp */; };
-		2CC439F81D8C13C000543A5B /* CBigInt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439951D8C13C000543A5B /* CBigInt.hpp */; };
-		2CC439F91D8C13C000543A5B /* SivBigInt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439961D8C13C000543A5B /* SivBigInt.cpp */; };
-		2CC439FA1D8C13C000543A5B /* CBinaryReader_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439981D8C13C000543A5B /* CBinaryReader_macOS.cpp */; };
-		2CC439FB1D8C13C000543A5B /* CBinaryReader_macOS.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439991D8C13C000543A5B /* CBinaryReader_macOS.hpp */; };
-		2CC439FC1D8C13C000543A5B /* CBinaryReader_windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4399A1D8C13C000543A5B /* CBinaryReader_windows.cpp */; };
-		2CC439FD1D8C13C000543A5B /* CBinaryReader_windows.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4399B1D8C13C000543A5B /* CBinaryReader_windows.hpp */; };
-		2CC439FE1D8C13C000543A5B /* SivBinaryReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4399C1D8C13C000543A5B /* SivBinaryReader.cpp */; };
-		2CC439FF1D8C13C000543A5B /* CBinaryWriter_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4399E1D8C13C000543A5B /* CBinaryWriter_macOS.cpp */; };
-		2CC43A001D8C13C000543A5B /* CBinaryWriter_macOS.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC4399F1D8C13C000543A5B /* CBinaryWriter_macOS.hpp */; };
-		2CC43A011D8C13C000543A5B /* CBinaryWriter_windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439A01D8C13C000543A5B /* CBinaryWriter_windows.cpp */; };
-		2CC43A021D8C13C000543A5B /* CBinaryWriter_windows.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439A11D8C13C000543A5B /* CBinaryWriter_windows.hpp */; };
-		2CC43A031D8C13C000543A5B /* SivBinaryWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439A21D8C13C000543A5B /* SivBinaryWriter.cpp */; };
-		2CC43A041D8C13C000543A5B /* SivCharacterSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439A41D8C13C000543A5B /* SivCharacterSet.cpp */; };
-		2CC43A051D8C13C000543A5B /* SivColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439A61D8C13C000543A5B /* SivColor.cpp */; };
-		2CC43A061D8C13C000543A5B /* SivDate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439A81D8C13C000543A5B /* SivDate.cpp */; };
-		2CC43A071D8C13C000543A5B /* SivDateTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439AA1D8C13C000543A5B /* SivDateTime.cpp */; };
-		2CC43A081D8C13C000543A5B /* SivFileSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439AC1D8C13C000543A5B /* SivFileSystem.cpp */; };
-		2CC43A091D8C13C000543A5B /* SivFileSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439AD1D8C13C000543A5B /* SivFileSystem.mm */; };
-		2CC43A0A1D8C13C000543A5B /* SivFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439AF1D8C13C000543A5B /* SivFormat.cpp */; };
-		2CC43A0B1D8C13C000543A5B /* SivFormatFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439B11D8C13C000543A5B /* SivFormatFloat.cpp */; };
-		2CC43A0C1D8C13C000543A5B /* SivFormatInt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439B31D8C13C000543A5B /* SivFormatInt.cpp */; };
-		2CC43A0D1D8C13C000543A5B /* SivHSV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439B51D8C13C000543A5B /* SivHSV.cpp */; };
-		2CC43A0E1D8C13C000543A5B /* SivImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439B71D8C13C000543A5B /* SivImage.cpp */; };
-		2CC43A0F1D8C13C000543A5B /* CLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439B91D8C13C000543A5B /* CLogger.cpp */; };
-		2CC43A101D8C13C000543A5B /* CLogger.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439BA1D8C13C000543A5B /* CLogger.hpp */; };
-		2CC43A111D8C13C000543A5B /* ILogger.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439BB1D8C13C000543A5B /* ILogger.hpp */; };
-		2CC43A121D8C13C000543A5B /* LoggerFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439BC1D8C13C000543A5B /* LoggerFactory.cpp */; };
-		2CC43A131D8C13C000543A5B /* LogHeaderFotter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439BD1D8C13C000543A5B /* LogHeaderFotter.hpp */; };
-		2CC43A141D8C13C000543A5B /* SivLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439BE1D8C13C000543A5B /* SivLogger.cpp */; };
-		2CC43A151D8C13C000543A5B /* SivParseFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439C01D8C13C000543A5B /* SivParseFloat.cpp */; };
-		2CC43A161D8C13C000543A5B /* Siv3DEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439C11D8C13C000543A5B /* Siv3DEngine.cpp */; };
-		2CC43A171D8C13C000543A5B /* Siv3DEngine.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439C21D8C13C000543A5B /* Siv3DEngine.hpp */; };
-		2CC43A181D8C13C000543A5B /* Siv3DMain_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439C31D8C13C000543A5B /* Siv3DMain_macOS.cpp */; };
-		2CC43A191D8C13C000543A5B /* Siv3DMain_Windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439C41D8C13C000543A5B /* Siv3DMain_Windows.cpp */; };
-		2CC43A1A1D8C13C000543A5B /* SivStopwatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439C61D8C13C000543A5B /* SivStopwatch.cpp */; };
-		2CC43A1B1D8C13C000543A5B /* SivString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439C81D8C13C000543A5B /* SivString.cpp */; };
-		2CC43A1C1D8C13C000543A5B /* SivSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439CA1D8C13C000543A5B /* SivSystem.cpp */; };
-		2CC43A1D1D8C13C000543A5B /* SivTextEncoding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439CC1D8C13C000543A5B /* SivTextEncoding.cpp */; };
-		2CC43A1E1D8C13C000543A5B /* CTextReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439CE1D8C13C000543A5B /* CTextReader.cpp */; };
-		2CC43A1F1D8C13C000543A5B /* CTextReader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439CF1D8C13C000543A5B /* CTextReader.hpp */; };
-		2CC43A201D8C13C000543A5B /* SivTextReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439D01D8C13C000543A5B /* SivTextReader.cpp */; };
-		2CC43A211D8C13C000543A5B /* CTextWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439D21D8C13C000543A5B /* CTextWriter.cpp */; };
-		2CC43A221D8C13C000543A5B /* CTextWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439D31D8C13C000543A5B /* CTextWriter.hpp */; };
-		2CC43A231D8C13C000543A5B /* SivTextWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439D41D8C13C000543A5B /* SivTextWriter.cpp */; };
-		2CC43A241D8C13C000543A5B /* SivTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439D61D8C13C000543A5B /* SivTime.cpp */; };
-		2CC43A251D8C13C000543A5B /* SivTimeProfiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439D81D8C13C000543A5B /* SivTimeProfiler.cpp */; };
-		2CC43A261D8C13C000543A5B /* bignum-dtoa.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439DB1D8C13C000543A5B /* bignum-dtoa.cc */; };
-		2CC43A271D8C13C000543A5B /* bignum-dtoa.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439DC1D8C13C000543A5B /* bignum-dtoa.h */; };
-		2CC43A281D8C13C000543A5B /* bignum.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439DD1D8C13C000543A5B /* bignum.cc */; };
-		2CC43A291D8C13C000543A5B /* bignum.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439DE1D8C13C000543A5B /* bignum.h */; };
-		2CC43A2A1D8C13C000543A5B /* cached-powers.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439DF1D8C13C000543A5B /* cached-powers.cc */; };
-		2CC43A2B1D8C13C000543A5B /* cached-powers.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439E01D8C13C000543A5B /* cached-powers.h */; };
-		2CC43A2C1D8C13C000543A5B /* diy-fp.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439E11D8C13C000543A5B /* diy-fp.cc */; };
-		2CC43A2D1D8C13C000543A5B /* diy-fp.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439E21D8C13C000543A5B /* diy-fp.h */; };
-		2CC43A2E1D8C13C000543A5B /* double-conversion.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439E31D8C13C000543A5B /* double-conversion.cc */; };
-		2CC43A2F1D8C13C000543A5B /* double-conversion.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439E41D8C13C000543A5B /* double-conversion.h */; };
-		2CC43A301D8C13C000543A5B /* fast-dtoa.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439E51D8C13C000543A5B /* fast-dtoa.cc */; };
-		2CC43A311D8C13C000543A5B /* fast-dtoa.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439E61D8C13C000543A5B /* fast-dtoa.h */; };
-		2CC43A321D8C13C000543A5B /* fixed-dtoa.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439E71D8C13C000543A5B /* fixed-dtoa.cc */; };
-		2CC43A331D8C13C000543A5B /* fixed-dtoa.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439E81D8C13C000543A5B /* fixed-dtoa.h */; };
-		2CC43A341D8C13C000543A5B /* ieee.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439E91D8C13C000543A5B /* ieee.h */; };
-		2CC43A351D8C13C000543A5B /* strtod.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439EB1D8C13C000543A5B /* strtod.cc */; };
-		2CC43A361D8C13C000543A5B /* strtod.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439EC1D8C13C000543A5B /* strtod.h */; };
-		2CC43A371D8C13C000543A5B /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC439ED1D8C13C000543A5B /* utils.h */; };
-		2CC43A381D8C13C000543A5B /* format.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CC439EF1D8C13C000543A5B /* format.cc */; };
+		2CC43A841D8C348300543A5B /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A3B1D8C348300543A5B /* format.h */; };
+		2CC43A851D8C348300543A5B /* ostream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A3D1D8C348300543A5B /* ostream.h */; };
+		2CC43A861D8C348300543A5B /* printf.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A3E1D8C348300543A5B /* printf.h */; };
+		2CC43A871D8C348300543A5B /* _TEMPLATE.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A401D8C348300543A5B /* _TEMPLATE.hpp */; };
+		2CC43A881D8C348300543A5B /* Allocator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A411D8C348300543A5B /* Allocator.hpp */; };
+		2CC43A891D8C348300543A5B /* Array.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A421D8C348300543A5B /* Array.hpp */; };
+		2CC43A8A1D8C348300543A5B /* BigFloat.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A431D8C348300543A5B /* BigFloat.hpp */; };
+		2CC43A8B1D8C348300543A5B /* BigInt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A441D8C348300543A5B /* BigInt.hpp */; };
+		2CC43A8C1D8C348300543A5B /* BinaryReader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A451D8C348300543A5B /* BinaryReader.hpp */; };
+		2CC43A8D1D8C348300543A5B /* BinaryWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A461D8C348300543A5B /* BinaryWriter.hpp */; };
+		2CC43A8E1D8C348300543A5B /* Char.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A471D8C348300543A5B /* Char.hpp */; };
+		2CC43A8F1D8C348300543A5B /* CharacterSet.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A481D8C348300543A5B /* CharacterSet.hpp */; };
+		2CC43A901D8C348300543A5B /* Color.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A491D8C348300543A5B /* Color.hpp */; };
+		2CC43A911D8C348300543A5B /* Concept.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A4A1D8C348300543A5B /* Concept.hpp */; };
+		2CC43A921D8C348300543A5B /* Date.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A4B1D8C348300543A5B /* Date.hpp */; };
+		2CC43A931D8C348300543A5B /* DateTime.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A4C1D8C348300543A5B /* DateTime.hpp */; };
+		2CC43A941D8C348300543A5B /* Duration.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A4D1D8C348300543A5B /* Duration.hpp */; };
+		2CC43A951D8C348300543A5B /* FileSystem.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A4E1D8C348300543A5B /* FileSystem.hpp */; };
+		2CC43A961D8C348300543A5B /* Format.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A4F1D8C348300543A5B /* Format.hpp */; };
+		2CC43A971D8C348300543A5B /* FormatBool.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A501D8C348300543A5B /* FormatBool.hpp */; };
+		2CC43A981D8C348300543A5B /* FormatFloat.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A511D8C348300543A5B /* FormatFloat.hpp */; };
+		2CC43A991D8C348300543A5B /* FormatInt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A521D8C348300543A5B /* FormatInt.hpp */; };
+		2CC43A9A1D8C348300543A5B /* FormatLiteral.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A531D8C348300543A5B /* FormatLiteral.hpp */; };
+		2CC43A9B1D8C348300543A5B /* Functor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A541D8C348300543A5B /* Functor.hpp */; };
+		2CC43A9C1D8C348300543A5B /* Fwd.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A551D8C348300543A5B /* Fwd.hpp */; };
+		2CC43A9D1D8C348300543A5B /* Grid.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A561D8C348300543A5B /* Grid.hpp */; };
+		2CC43A9E1D8C348300543A5B /* Hash.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A571D8C348300543A5B /* Hash.hpp */; };
+		2CC43A9F1D8C348300543A5B /* HSV.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A581D8C348300543A5B /* HSV.hpp */; };
+		2CC43AA01D8C348300543A5B /* Image.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A591D8C348300543A5B /* Image.hpp */; };
+		2CC43AA11D8C348300543A5B /* InfiniteList.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A5A1D8C348300543A5B /* InfiniteList.hpp */; };
+		2CC43AA21D8C348300543A5B /* IReader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A5B1D8C348300543A5B /* IReader.hpp */; };
+		2CC43AA31D8C348300543A5B /* IWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A5C1D8C348300543A5B /* IWriter.hpp */; };
+		2CC43AA41D8C348300543A5B /* LetterCase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A5D1D8C348300543A5B /* LetterCase.hpp */; };
+		2CC43AA51D8C348300543A5B /* Logger.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A5E1D8C348300543A5B /* Logger.hpp */; };
+		2CC43AA61D8C348300543A5B /* MathConstants.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A5F1D8C348300543A5B /* MathConstants.hpp */; };
+		2CC43AA71D8C348300543A5B /* Number.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A601D8C348300543A5B /* Number.hpp */; };
+		2CC43AA81D8C348300543A5B /* Optional.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A611D8C348300543A5B /* Optional.hpp */; };
+		2CC43AA91D8C348300543A5B /* Parse.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A621D8C348300543A5B /* Parse.hpp */; };
+		2CC43AAA1D8C348300543A5B /* ParseBool.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A631D8C348300543A5B /* ParseBool.hpp */; };
+		2CC43AAB1D8C348300543A5B /* ParseFloat.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A641D8C348300543A5B /* ParseFloat.hpp */; };
+		2CC43AAC1D8C348300543A5B /* ParseInt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A651D8C348300543A5B /* ParseInt.hpp */; };
+		2CC43AAD1D8C348300543A5B /* Platform.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A661D8C348300543A5B /* Platform.hpp */; };
+		2CC43AAE1D8C348300543A5B /* PlatformWindows.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A671D8C348300543A5B /* PlatformWindows.hpp */; };
+		2CC43AAF1D8C348300543A5B /* Point.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A681D8C348300543A5B /* Point.hpp */; };
+		2CC43AB01D8C348300543A5B /* PointVector.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A6A1D8C348300543A5B /* PointVector.hpp */; };
+		2CC43AB11D8C348300543A5B /* Radix.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A6B1D8C348300543A5B /* Radix.hpp */; };
+		2CC43AB21D8C348300543A5B /* Random.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A6C1D8C348300543A5B /* Random.hpp */; };
+		2CC43AB31D8C348300543A5B /* RDTSCProfiler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A6D1D8C348300543A5B /* RDTSCProfiler.hpp */; };
+		2CC43AB41D8C348300543A5B /* Regex.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A6E1D8C348300543A5B /* Regex.hpp */; };
+		2CC43AB51D8C348300543A5B /* SpeedStopwatch.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A6F1D8C348300543A5B /* SpeedStopwatch.hpp */; };
+		2CC43AB61D8C348300543A5B /* Step.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A701D8C348300543A5B /* Step.hpp */; };
+		2CC43AB71D8C348300543A5B /* Step_MSVC.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A711D8C348300543A5B /* Step_MSVC.hpp */; };
+		2CC43AB81D8C348300543A5B /* Stopwatch.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A721D8C348300543A5B /* Stopwatch.hpp */; };
+		2CC43AB91D8C348300543A5B /* String.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A731D8C348300543A5B /* String.hpp */; };
+		2CC43ABA1D8C348300543A5B /* StringView.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A741D8C348300543A5B /* StringView.hpp */; };
+		2CC43ABB1D8C348300543A5B /* System.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A751D8C348300543A5B /* System.hpp */; };
+		2CC43ABC1D8C348300543A5B /* TextEncoding.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A761D8C348300543A5B /* TextEncoding.hpp */; };
+		2CC43ABD1D8C348300543A5B /* TextReader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A771D8C348300543A5B /* TextReader.hpp */; };
+		2CC43ABE1D8C348300543A5B /* TextWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A781D8C348300543A5B /* TextWriter.hpp */; };
+		2CC43ABF1D8C348300543A5B /* Time.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A791D8C348300543A5B /* Time.hpp */; };
+		2CC43AC01D8C348300543A5B /* TimeProfiler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A7A1D8C348300543A5B /* TimeProfiler.hpp */; };
+		2CC43AC11D8C348300543A5B /* Timer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A7B1D8C348300543A5B /* Timer.hpp */; };
+		2CC43AC21D8C348300543A5B /* Types.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A7C1D8C348300543A5B /* Types.hpp */; };
+		2CC43AC31D8C348300543A5B /* TypeTraits.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A7D1D8C348300543A5B /* TypeTraits.hpp */; };
+		2CC43AC41D8C348300543A5B /* Uncopyable.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A7E1D8C348300543A5B /* Uncopyable.hpp */; };
+		2CC43AC51D8C348300543A5B /* Unspecified.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A7F1D8C348300543A5B /* Unspecified.hpp */; };
+		2CC43AC61D8C348300543A5B /* Utility.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A801D8C348300543A5B /* Utility.hpp */; };
+		2CC43AC71D8C348300543A5B /* Vector2D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A811D8C348300543A5B /* Vector2D.hpp */; };
+		2CC43AC81D8C348300543A5B /* Version.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A821D8C348300543A5B /* Version.hpp */; };
+		2CC43AC91D8C348300543A5B /* Siv3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43A831D8C348300543A5B /* Siv3D.hpp */; };
+		2CC43B361D8C348C00543A5B /* CXxxx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43ACD1D8C348C00543A5B /* CXxxx.cpp */; };
+		2CC43B371D8C348C00543A5B /* CXxxx.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43ACE1D8C348C00543A5B /* CXxxx.hpp */; };
+		2CC43B381D8C348C00543A5B /* IXxxx.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43ACF1D8C348C00543A5B /* IXxxx.hpp */; };
+		2CC43B391D8C348C00543A5B /* SivXxxx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43AD01D8C348C00543A5B /* SivXxxx.cpp */; };
+		2CC43B3A1D8C348C00543A5B /* XxxxFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43AD11D8C348C00543A5B /* XxxxFactory.cpp */; };
+		2CC43B3B1D8C348C00543A5B /* CBigFloat.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43AD31D8C348C00543A5B /* CBigFloat.hpp */; };
+		2CC43B3C1D8C348C00543A5B /* SivBigFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43AD41D8C348C00543A5B /* SivBigFloat.cpp */; };
+		2CC43B3D1D8C348C00543A5B /* CBigInt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43AD61D8C348C00543A5B /* CBigInt.hpp */; };
+		2CC43B3E1D8C348C00543A5B /* SivBigInt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43AD71D8C348C00543A5B /* SivBigInt.cpp */; };
+		2CC43B3F1D8C348C00543A5B /* CBinaryReader_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43AD91D8C348C00543A5B /* CBinaryReader_macOS.cpp */; };
+		2CC43B401D8C348C00543A5B /* CBinaryReader_macOS.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43ADA1D8C348C00543A5B /* CBinaryReader_macOS.hpp */; };
+		2CC43B411D8C348C00543A5B /* CBinaryReader_windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43ADB1D8C348C00543A5B /* CBinaryReader_windows.cpp */; };
+		2CC43B421D8C348C00543A5B /* CBinaryReader_windows.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43ADC1D8C348C00543A5B /* CBinaryReader_windows.hpp */; };
+		2CC43B431D8C348C00543A5B /* SivBinaryReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43ADD1D8C348C00543A5B /* SivBinaryReader.cpp */; };
+		2CC43B441D8C348C00543A5B /* CBinaryWriter_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43ADF1D8C348C00543A5B /* CBinaryWriter_macOS.cpp */; };
+		2CC43B451D8C348C00543A5B /* CBinaryWriter_macOS.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43AE01D8C348C00543A5B /* CBinaryWriter_macOS.hpp */; };
+		2CC43B461D8C348C00543A5B /* CBinaryWriter_windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43AE11D8C348C00543A5B /* CBinaryWriter_windows.cpp */; };
+		2CC43B471D8C348C00543A5B /* CBinaryWriter_windows.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43AE21D8C348C00543A5B /* CBinaryWriter_windows.hpp */; };
+		2CC43B481D8C348C00543A5B /* SivBinaryWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43AE31D8C348C00543A5B /* SivBinaryWriter.cpp */; };
+		2CC43B491D8C348C00543A5B /* SivCharacterSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43AE51D8C348C00543A5B /* SivCharacterSet.cpp */; };
+		2CC43B4A1D8C348C00543A5B /* SivColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43AE71D8C348C00543A5B /* SivColor.cpp */; };
+		2CC43B4B1D8C348C00543A5B /* SivDate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43AE91D8C348C00543A5B /* SivDate.cpp */; };
+		2CC43B4C1D8C348C00543A5B /* SivDateTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43AEB1D8C348C00543A5B /* SivDateTime.cpp */; };
+		2CC43B4D1D8C348C00543A5B /* SivFileSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43AED1D8C348C00543A5B /* SivFileSystem.cpp */; };
+		2CC43B4E1D8C348C00543A5B /* SivFileSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43AEE1D8C348C00543A5B /* SivFileSystem.mm */; };
+		2CC43B4F1D8C348C00543A5B /* SivFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43AF01D8C348C00543A5B /* SivFormat.cpp */; };
+		2CC43B501D8C348C00543A5B /* SivFormatFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43AF21D8C348C00543A5B /* SivFormatFloat.cpp */; };
+		2CC43B511D8C348C00543A5B /* SivFormatInt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43AF41D8C348C00543A5B /* SivFormatInt.cpp */; };
+		2CC43B521D8C348C00543A5B /* SivHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43AF61D8C348C00543A5B /* SivHash.cpp */; };
+		2CC43B531D8C348C00543A5B /* SivHSV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43AF81D8C348C00543A5B /* SivHSV.cpp */; };
+		2CC43B541D8C348C00543A5B /* SivImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43AFA1D8C348C00543A5B /* SivImage.cpp */; };
+		2CC43B551D8C348C00543A5B /* CLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43AFC1D8C348C00543A5B /* CLogger.cpp */; };
+		2CC43B561D8C348C00543A5B /* CLogger.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43AFD1D8C348C00543A5B /* CLogger.hpp */; };
+		2CC43B571D8C348C00543A5B /* ILogger.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43AFE1D8C348C00543A5B /* ILogger.hpp */; };
+		2CC43B581D8C348C00543A5B /* LoggerFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43AFF1D8C348C00543A5B /* LoggerFactory.cpp */; };
+		2CC43B591D8C348C00543A5B /* LogHeaderFotter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43B001D8C348C00543A5B /* LogHeaderFotter.hpp */; };
+		2CC43B5A1D8C348C00543A5B /* SivLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B011D8C348C00543A5B /* SivLogger.cpp */; };
+		2CC43B5B1D8C348C00543A5B /* SivParseFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B031D8C348C00543A5B /* SivParseFloat.cpp */; };
+		2CC43B5C1D8C348C00543A5B /* Siv3DEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B041D8C348C00543A5B /* Siv3DEngine.cpp */; };
+		2CC43B5D1D8C348C00543A5B /* Siv3DEngine.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43B051D8C348C00543A5B /* Siv3DEngine.hpp */; };
+		2CC43B5E1D8C348C00543A5B /* Siv3DMain_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B061D8C348C00543A5B /* Siv3DMain_macOS.cpp */; };
+		2CC43B5F1D8C348C00543A5B /* Siv3DMain_Windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B071D8C348C00543A5B /* Siv3DMain_Windows.cpp */; };
+		2CC43B601D8C348C00543A5B /* SivStopwatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B091D8C348C00543A5B /* SivStopwatch.cpp */; };
+		2CC43B611D8C348C00543A5B /* SivString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B0B1D8C348C00543A5B /* SivString.cpp */; };
+		2CC43B621D8C348C00543A5B /* SivSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B0D1D8C348C00543A5B /* SivSystem.cpp */; };
+		2CC43B631D8C348C00543A5B /* SivTextEncoding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B0F1D8C348C00543A5B /* SivTextEncoding.cpp */; };
+		2CC43B641D8C348C00543A5B /* CTextReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B111D8C348C00543A5B /* CTextReader.cpp */; };
+		2CC43B651D8C348C00543A5B /* CTextReader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43B121D8C348C00543A5B /* CTextReader.hpp */; };
+		2CC43B661D8C348C00543A5B /* SivTextReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B131D8C348C00543A5B /* SivTextReader.cpp */; };
+		2CC43B671D8C348C00543A5B /* CTextWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B151D8C348C00543A5B /* CTextWriter.cpp */; };
+		2CC43B681D8C348C00543A5B /* CTextWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43B161D8C348C00543A5B /* CTextWriter.hpp */; };
+		2CC43B691D8C348C00543A5B /* SivTextWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B171D8C348C00543A5B /* SivTextWriter.cpp */; };
+		2CC43B6A1D8C348C00543A5B /* SivTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B191D8C348C00543A5B /* SivTime.cpp */; };
+		2CC43B6B1D8C348C00543A5B /* SivTimeProfiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B1B1D8C348C00543A5B /* SivTimeProfiler.cpp */; };
+		2CC43B6C1D8C348C00543A5B /* SivVector2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B1D1D8C348C00543A5B /* SivVector2D.cpp */; };
+		2CC43B6D1D8C348C00543A5B /* bignum-dtoa.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B201D8C348C00543A5B /* bignum-dtoa.cc */; };
+		2CC43B6E1D8C348C00543A5B /* bignum-dtoa.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43B211D8C348C00543A5B /* bignum-dtoa.h */; };
+		2CC43B6F1D8C348C00543A5B /* bignum.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B221D8C348C00543A5B /* bignum.cc */; };
+		2CC43B701D8C348C00543A5B /* bignum.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43B231D8C348C00543A5B /* bignum.h */; };
+		2CC43B711D8C348C00543A5B /* cached-powers.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B241D8C348C00543A5B /* cached-powers.cc */; };
+		2CC43B721D8C348C00543A5B /* cached-powers.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43B251D8C348C00543A5B /* cached-powers.h */; };
+		2CC43B731D8C348C00543A5B /* diy-fp.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B261D8C348C00543A5B /* diy-fp.cc */; };
+		2CC43B741D8C348C00543A5B /* diy-fp.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43B271D8C348C00543A5B /* diy-fp.h */; };
+		2CC43B751D8C348C00543A5B /* double-conversion.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B281D8C348C00543A5B /* double-conversion.cc */; };
+		2CC43B761D8C348C00543A5B /* double-conversion.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43B291D8C348C00543A5B /* double-conversion.h */; };
+		2CC43B771D8C348C00543A5B /* fast-dtoa.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B2A1D8C348C00543A5B /* fast-dtoa.cc */; };
+		2CC43B781D8C348C00543A5B /* fast-dtoa.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43B2B1D8C348C00543A5B /* fast-dtoa.h */; };
+		2CC43B791D8C348C00543A5B /* fixed-dtoa.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B2C1D8C348C00543A5B /* fixed-dtoa.cc */; };
+		2CC43B7A1D8C348C00543A5B /* fixed-dtoa.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43B2D1D8C348C00543A5B /* fixed-dtoa.h */; };
+		2CC43B7B1D8C348C00543A5B /* ieee.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43B2E1D8C348C00543A5B /* ieee.h */; };
+		2CC43B7C1D8C348C00543A5B /* strtod.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B301D8C348C00543A5B /* strtod.cc */; };
+		2CC43B7D1D8C348C00543A5B /* strtod.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43B311D8C348C00543A5B /* strtod.h */; };
+		2CC43B7E1D8C348C00543A5B /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CC43B321D8C348C00543A5B /* utils.h */; };
+		2CC43B7F1D8C348C00543A5B /* format.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CC43B341D8C348C00543A5B /* format.cc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -218,151 +221,154 @@
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
-		2CC438FC1D8C13B600543A5B /* format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
-		2CC438FD1D8C13B600543A5B /* LICENSE.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.rst; sourceTree = "<group>"; };
-		2CC438FE1D8C13B600543A5B /* ostream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ostream.h; sourceTree = "<group>"; };
-		2CC438FF1D8C13B600543A5B /* printf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = printf.h; sourceTree = "<group>"; };
-		2CC439011D8C13B600543A5B /* _TEMPLATE.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = _TEMPLATE.hpp; sourceTree = "<group>"; };
-		2CC439021D8C13B600543A5B /* Allocator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Allocator.hpp; sourceTree = "<group>"; };
-		2CC439031D8C13B600543A5B /* Array.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Array.hpp; sourceTree = "<group>"; };
-		2CC439041D8C13B600543A5B /* BigFloat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BigFloat.hpp; sourceTree = "<group>"; };
-		2CC439051D8C13B600543A5B /* BigInt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BigInt.hpp; sourceTree = "<group>"; };
-		2CC439061D8C13B600543A5B /* BinaryReader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BinaryReader.hpp; sourceTree = "<group>"; };
-		2CC439071D8C13B600543A5B /* BinaryWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BinaryWriter.hpp; sourceTree = "<group>"; };
-		2CC439081D8C13B600543A5B /* Char.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Char.hpp; sourceTree = "<group>"; };
-		2CC439091D8C13B600543A5B /* CharacterSet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CharacterSet.hpp; sourceTree = "<group>"; };
-		2CC4390A1D8C13B600543A5B /* Color.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Color.hpp; sourceTree = "<group>"; };
-		2CC4390B1D8C13B600543A5B /* Concept.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Concept.hpp; sourceTree = "<group>"; };
-		2CC4390C1D8C13B600543A5B /* Date.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Date.hpp; sourceTree = "<group>"; };
-		2CC4390D1D8C13B600543A5B /* DateTime.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DateTime.hpp; sourceTree = "<group>"; };
-		2CC4390E1D8C13B600543A5B /* Duration.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Duration.hpp; sourceTree = "<group>"; };
-		2CC4390F1D8C13B600543A5B /* FileSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FileSystem.hpp; sourceTree = "<group>"; };
-		2CC439101D8C13B600543A5B /* Format.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Format.hpp; sourceTree = "<group>"; };
-		2CC439111D8C13B600543A5B /* FormatBool.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FormatBool.hpp; sourceTree = "<group>"; };
-		2CC439121D8C13B600543A5B /* FormatFloat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FormatFloat.hpp; sourceTree = "<group>"; };
-		2CC439131D8C13B600543A5B /* FormatInt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FormatInt.hpp; sourceTree = "<group>"; };
-		2CC439141D8C13B600543A5B /* FormatLiteral.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FormatLiteral.hpp; sourceTree = "<group>"; };
-		2CC439151D8C13B600543A5B /* Functor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Functor.hpp; sourceTree = "<group>"; };
-		2CC439161D8C13B600543A5B /* Fwd.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Fwd.hpp; sourceTree = "<group>"; };
-		2CC439171D8C13B600543A5B /* Grid.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Grid.hpp; sourceTree = "<group>"; };
-		2CC439181D8C13B600543A5B /* HSV.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HSV.hpp; sourceTree = "<group>"; };
-		2CC439191D8C13B600543A5B /* Image.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Image.hpp; sourceTree = "<group>"; };
-		2CC4391A1D8C13B600543A5B /* InfiniteList.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InfiniteList.hpp; sourceTree = "<group>"; };
-		2CC4391B1D8C13B600543A5B /* IReader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IReader.hpp; sourceTree = "<group>"; };
-		2CC4391C1D8C13B600543A5B /* IWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IWriter.hpp; sourceTree = "<group>"; };
-		2CC4391D1D8C13B600543A5B /* LetterCase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LetterCase.hpp; sourceTree = "<group>"; };
-		2CC4391E1D8C13B600543A5B /* Logger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Logger.hpp; sourceTree = "<group>"; };
-		2CC4391F1D8C13B600543A5B /* MathConstants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MathConstants.hpp; sourceTree = "<group>"; };
-		2CC439201D8C13B600543A5B /* Number.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Number.hpp; sourceTree = "<group>"; };
-		2CC439211D8C13B600543A5B /* Optional.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Optional.hpp; sourceTree = "<group>"; };
-		2CC439221D8C13B600543A5B /* Parse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Parse.hpp; sourceTree = "<group>"; };
-		2CC439231D8C13B600543A5B /* ParseBool.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ParseBool.hpp; sourceTree = "<group>"; };
-		2CC439241D8C13B600543A5B /* ParseFloat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ParseFloat.hpp; sourceTree = "<group>"; };
-		2CC439251D8C13B600543A5B /* ParseInt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ParseInt.hpp; sourceTree = "<group>"; };
-		2CC439261D8C13B600543A5B /* Platform.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Platform.hpp; sourceTree = "<group>"; };
-		2CC439271D8C13B600543A5B /* PlatformWindows.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PlatformWindows.hpp; sourceTree = "<group>"; };
-		2CC439281D8C13B600543A5B /* Point.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Point.hpp; sourceTree = "<group>"; };
-		2CC439291D8C13B600543A5B /* Point.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Point.inl; sourceTree = "<group>"; };
-		2CC4392A1D8C13B600543A5B /* PointVector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PointVector.hpp; sourceTree = "<group>"; };
-		2CC4392B1D8C13B600543A5B /* Radix.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Radix.hpp; sourceTree = "<group>"; };
-		2CC4392C1D8C13B600543A5B /* Random.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Random.hpp; sourceTree = "<group>"; };
-		2CC4392D1D8C13B600543A5B /* RDTSCProfiler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RDTSCProfiler.hpp; sourceTree = "<group>"; };
-		2CC4392E1D8C13B600543A5B /* Regex.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Regex.hpp; sourceTree = "<group>"; };
-		2CC4392F1D8C13B600543A5B /* SpeedStopwatch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SpeedStopwatch.hpp; sourceTree = "<group>"; };
-		2CC439301D8C13B600543A5B /* Step.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Step.hpp; sourceTree = "<group>"; };
-		2CC439311D8C13B600543A5B /* Step_MSVC.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Step_MSVC.hpp; sourceTree = "<group>"; };
-		2CC439321D8C13B600543A5B /* Stopwatch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Stopwatch.hpp; sourceTree = "<group>"; };
-		2CC439331D8C13B600543A5B /* String.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = String.hpp; sourceTree = "<group>"; };
-		2CC439341D8C13B600543A5B /* StringView.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StringView.hpp; sourceTree = "<group>"; };
-		2CC439351D8C13B600543A5B /* System.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = System.hpp; sourceTree = "<group>"; };
-		2CC439361D8C13B600543A5B /* TextEncoding.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextEncoding.hpp; sourceTree = "<group>"; };
-		2CC439371D8C13B600543A5B /* TextReader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextReader.hpp; sourceTree = "<group>"; };
-		2CC439381D8C13B600543A5B /* TextWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextWriter.hpp; sourceTree = "<group>"; };
-		2CC439391D8C13B600543A5B /* Time.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Time.hpp; sourceTree = "<group>"; };
-		2CC4393A1D8C13B600543A5B /* TimeProfiler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TimeProfiler.hpp; sourceTree = "<group>"; };
-		2CC4393B1D8C13B600543A5B /* Timer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Timer.hpp; sourceTree = "<group>"; };
-		2CC4393C1D8C13B600543A5B /* Types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Types.hpp; sourceTree = "<group>"; };
-		2CC4393D1D8C13B600543A5B /* TypeTraits.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TypeTraits.hpp; sourceTree = "<group>"; };
-		2CC4393E1D8C13B600543A5B /* Uncopyable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Uncopyable.hpp; sourceTree = "<group>"; };
-		2CC4393F1D8C13B600543A5B /* Unspecified.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Unspecified.hpp; sourceTree = "<group>"; };
-		2CC439401D8C13B600543A5B /* Utility.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Utility.hpp; sourceTree = "<group>"; };
-		2CC439411D8C13B600543A5B /* Vector2D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Vector2D.hpp; sourceTree = "<group>"; };
-		2CC439421D8C13B600543A5B /* Version.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Version.hpp; sourceTree = "<group>"; };
-		2CC439431D8C13B600543A5B /* Siv3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Siv3D.hpp; sourceTree = "<group>"; };
-		2CC4398C1D8C13C000543A5B /* CXxxx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CXxxx.cpp; sourceTree = "<group>"; };
-		2CC4398D1D8C13C000543A5B /* CXxxx.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CXxxx.hpp; sourceTree = "<group>"; };
-		2CC4398E1D8C13C000543A5B /* IXxxx.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IXxxx.hpp; sourceTree = "<group>"; };
-		2CC4398F1D8C13C000543A5B /* SivXxxx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivXxxx.cpp; sourceTree = "<group>"; };
-		2CC439901D8C13C000543A5B /* XxxxFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XxxxFactory.cpp; sourceTree = "<group>"; };
-		2CC439921D8C13C000543A5B /* CBigFloat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CBigFloat.hpp; sourceTree = "<group>"; };
-		2CC439931D8C13C000543A5B /* SivBigFloat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBigFloat.cpp; sourceTree = "<group>"; };
-		2CC439951D8C13C000543A5B /* CBigInt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CBigInt.hpp; sourceTree = "<group>"; };
-		2CC439961D8C13C000543A5B /* SivBigInt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBigInt.cpp; sourceTree = "<group>"; };
-		2CC439981D8C13C000543A5B /* CBinaryReader_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CBinaryReader_macOS.cpp; sourceTree = "<group>"; };
-		2CC439991D8C13C000543A5B /* CBinaryReader_macOS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CBinaryReader_macOS.hpp; sourceTree = "<group>"; };
-		2CC4399A1D8C13C000543A5B /* CBinaryReader_windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CBinaryReader_windows.cpp; sourceTree = "<group>"; };
-		2CC4399B1D8C13C000543A5B /* CBinaryReader_windows.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CBinaryReader_windows.hpp; sourceTree = "<group>"; };
-		2CC4399C1D8C13C000543A5B /* SivBinaryReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBinaryReader.cpp; sourceTree = "<group>"; };
-		2CC4399E1D8C13C000543A5B /* CBinaryWriter_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CBinaryWriter_macOS.cpp; sourceTree = "<group>"; };
-		2CC4399F1D8C13C000543A5B /* CBinaryWriter_macOS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CBinaryWriter_macOS.hpp; sourceTree = "<group>"; };
-		2CC439A01D8C13C000543A5B /* CBinaryWriter_windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CBinaryWriter_windows.cpp; sourceTree = "<group>"; };
-		2CC439A11D8C13C000543A5B /* CBinaryWriter_windows.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CBinaryWriter_windows.hpp; sourceTree = "<group>"; };
-		2CC439A21D8C13C000543A5B /* SivBinaryWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBinaryWriter.cpp; sourceTree = "<group>"; };
-		2CC439A41D8C13C000543A5B /* SivCharacterSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCharacterSet.cpp; sourceTree = "<group>"; };
-		2CC439A61D8C13C000543A5B /* SivColor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivColor.cpp; sourceTree = "<group>"; };
-		2CC439A81D8C13C000543A5B /* SivDate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDate.cpp; sourceTree = "<group>"; };
-		2CC439AA1D8C13C000543A5B /* SivDateTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDateTime.cpp; sourceTree = "<group>"; };
-		2CC439AC1D8C13C000543A5B /* SivFileSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivFileSystem.cpp; sourceTree = "<group>"; };
-		2CC439AD1D8C13C000543A5B /* SivFileSystem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SivFileSystem.mm; sourceTree = "<group>"; };
-		2CC439AF1D8C13C000543A5B /* SivFormat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivFormat.cpp; sourceTree = "<group>"; };
-		2CC439B11D8C13C000543A5B /* SivFormatFloat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivFormatFloat.cpp; sourceTree = "<group>"; };
-		2CC439B31D8C13C000543A5B /* SivFormatInt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivFormatInt.cpp; sourceTree = "<group>"; };
-		2CC439B51D8C13C000543A5B /* SivHSV.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivHSV.cpp; sourceTree = "<group>"; };
-		2CC439B71D8C13C000543A5B /* SivImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivImage.cpp; sourceTree = "<group>"; };
-		2CC439B91D8C13C000543A5B /* CLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CLogger.cpp; sourceTree = "<group>"; };
-		2CC439BA1D8C13C000543A5B /* CLogger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CLogger.hpp; sourceTree = "<group>"; };
-		2CC439BB1D8C13C000543A5B /* ILogger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ILogger.hpp; sourceTree = "<group>"; };
-		2CC439BC1D8C13C000543A5B /* LoggerFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoggerFactory.cpp; sourceTree = "<group>"; };
-		2CC439BD1D8C13C000543A5B /* LogHeaderFotter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LogHeaderFotter.hpp; sourceTree = "<group>"; };
-		2CC439BE1D8C13C000543A5B /* SivLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivLogger.cpp; sourceTree = "<group>"; };
-		2CC439C01D8C13C000543A5B /* SivParseFloat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivParseFloat.cpp; sourceTree = "<group>"; };
-		2CC439C11D8C13C000543A5B /* Siv3DEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DEngine.cpp; sourceTree = "<group>"; };
-		2CC439C21D8C13C000543A5B /* Siv3DEngine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Siv3DEngine.hpp; sourceTree = "<group>"; };
-		2CC439C31D8C13C000543A5B /* Siv3DMain_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DMain_macOS.cpp; sourceTree = "<group>"; };
-		2CC439C41D8C13C000543A5B /* Siv3DMain_Windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DMain_Windows.cpp; sourceTree = "<group>"; };
-		2CC439C61D8C13C000543A5B /* SivStopwatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivStopwatch.cpp; sourceTree = "<group>"; };
-		2CC439C81D8C13C000543A5B /* SivString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivString.cpp; sourceTree = "<group>"; };
-		2CC439CA1D8C13C000543A5B /* SivSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSystem.cpp; sourceTree = "<group>"; };
-		2CC439CC1D8C13C000543A5B /* SivTextEncoding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextEncoding.cpp; sourceTree = "<group>"; };
-		2CC439CE1D8C13C000543A5B /* CTextReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTextReader.cpp; sourceTree = "<group>"; };
-		2CC439CF1D8C13C000543A5B /* CTextReader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTextReader.hpp; sourceTree = "<group>"; };
-		2CC439D01D8C13C000543A5B /* SivTextReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextReader.cpp; sourceTree = "<group>"; };
-		2CC439D21D8C13C000543A5B /* CTextWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTextWriter.cpp; sourceTree = "<group>"; };
-		2CC439D31D8C13C000543A5B /* CTextWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTextWriter.hpp; sourceTree = "<group>"; };
-		2CC439D41D8C13C000543A5B /* SivTextWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextWriter.cpp; sourceTree = "<group>"; };
-		2CC439D61D8C13C000543A5B /* SivTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTime.cpp; sourceTree = "<group>"; };
-		2CC439D81D8C13C000543A5B /* SivTimeProfiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTimeProfiler.cpp; sourceTree = "<group>"; };
-		2CC439DB1D8C13C000543A5B /* bignum-dtoa.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "bignum-dtoa.cc"; sourceTree = "<group>"; };
-		2CC439DC1D8C13C000543A5B /* bignum-dtoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "bignum-dtoa.h"; sourceTree = "<group>"; };
-		2CC439DD1D8C13C000543A5B /* bignum.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bignum.cc; sourceTree = "<group>"; };
-		2CC439DE1D8C13C000543A5B /* bignum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bignum.h; sourceTree = "<group>"; };
-		2CC439DF1D8C13C000543A5B /* cached-powers.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "cached-powers.cc"; sourceTree = "<group>"; };
-		2CC439E01D8C13C000543A5B /* cached-powers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cached-powers.h"; sourceTree = "<group>"; };
-		2CC439E11D8C13C000543A5B /* diy-fp.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "diy-fp.cc"; sourceTree = "<group>"; };
-		2CC439E21D8C13C000543A5B /* diy-fp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "diy-fp.h"; sourceTree = "<group>"; };
-		2CC439E31D8C13C000543A5B /* double-conversion.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "double-conversion.cc"; sourceTree = "<group>"; };
-		2CC439E41D8C13C000543A5B /* double-conversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "double-conversion.h"; sourceTree = "<group>"; };
-		2CC439E51D8C13C000543A5B /* fast-dtoa.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "fast-dtoa.cc"; sourceTree = "<group>"; };
-		2CC439E61D8C13C000543A5B /* fast-dtoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "fast-dtoa.h"; sourceTree = "<group>"; };
-		2CC439E71D8C13C000543A5B /* fixed-dtoa.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "fixed-dtoa.cc"; sourceTree = "<group>"; };
-		2CC439E81D8C13C000543A5B /* fixed-dtoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "fixed-dtoa.h"; sourceTree = "<group>"; };
-		2CC439E91D8C13C000543A5B /* ieee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ieee.h; sourceTree = "<group>"; };
-		2CC439EA1D8C13C000543A5B /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		2CC439EB1D8C13C000543A5B /* strtod.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = strtod.cc; sourceTree = "<group>"; };
-		2CC439EC1D8C13C000543A5B /* strtod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strtod.h; sourceTree = "<group>"; };
-		2CC439ED1D8C13C000543A5B /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
-		2CC439EF1D8C13C000543A5B /* format.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = format.cc; sourceTree = "<group>"; };
-		2CC439F01D8C13C000543A5B /* LICENSE.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.rst; sourceTree = "<group>"; };
+		2CC43A3B1D8C348300543A5B /* format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
+		2CC43A3C1D8C348300543A5B /* LICENSE.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.rst; sourceTree = "<group>"; };
+		2CC43A3D1D8C348300543A5B /* ostream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ostream.h; sourceTree = "<group>"; };
+		2CC43A3E1D8C348300543A5B /* printf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = printf.h; sourceTree = "<group>"; };
+		2CC43A401D8C348300543A5B /* _TEMPLATE.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = _TEMPLATE.hpp; sourceTree = "<group>"; };
+		2CC43A411D8C348300543A5B /* Allocator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Allocator.hpp; sourceTree = "<group>"; };
+		2CC43A421D8C348300543A5B /* Array.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Array.hpp; sourceTree = "<group>"; };
+		2CC43A431D8C348300543A5B /* BigFloat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BigFloat.hpp; sourceTree = "<group>"; };
+		2CC43A441D8C348300543A5B /* BigInt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BigInt.hpp; sourceTree = "<group>"; };
+		2CC43A451D8C348300543A5B /* BinaryReader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BinaryReader.hpp; sourceTree = "<group>"; };
+		2CC43A461D8C348300543A5B /* BinaryWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BinaryWriter.hpp; sourceTree = "<group>"; };
+		2CC43A471D8C348300543A5B /* Char.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Char.hpp; sourceTree = "<group>"; };
+		2CC43A481D8C348300543A5B /* CharacterSet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CharacterSet.hpp; sourceTree = "<group>"; };
+		2CC43A491D8C348300543A5B /* Color.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Color.hpp; sourceTree = "<group>"; };
+		2CC43A4A1D8C348300543A5B /* Concept.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Concept.hpp; sourceTree = "<group>"; };
+		2CC43A4B1D8C348300543A5B /* Date.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Date.hpp; sourceTree = "<group>"; };
+		2CC43A4C1D8C348300543A5B /* DateTime.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DateTime.hpp; sourceTree = "<group>"; };
+		2CC43A4D1D8C348300543A5B /* Duration.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Duration.hpp; sourceTree = "<group>"; };
+		2CC43A4E1D8C348300543A5B /* FileSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FileSystem.hpp; sourceTree = "<group>"; };
+		2CC43A4F1D8C348300543A5B /* Format.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Format.hpp; sourceTree = "<group>"; };
+		2CC43A501D8C348300543A5B /* FormatBool.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FormatBool.hpp; sourceTree = "<group>"; };
+		2CC43A511D8C348300543A5B /* FormatFloat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FormatFloat.hpp; sourceTree = "<group>"; };
+		2CC43A521D8C348300543A5B /* FormatInt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FormatInt.hpp; sourceTree = "<group>"; };
+		2CC43A531D8C348300543A5B /* FormatLiteral.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FormatLiteral.hpp; sourceTree = "<group>"; };
+		2CC43A541D8C348300543A5B /* Functor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Functor.hpp; sourceTree = "<group>"; };
+		2CC43A551D8C348300543A5B /* Fwd.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Fwd.hpp; sourceTree = "<group>"; };
+		2CC43A561D8C348300543A5B /* Grid.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Grid.hpp; sourceTree = "<group>"; };
+		2CC43A571D8C348300543A5B /* Hash.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Hash.hpp; sourceTree = "<group>"; };
+		2CC43A581D8C348300543A5B /* HSV.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HSV.hpp; sourceTree = "<group>"; };
+		2CC43A591D8C348300543A5B /* Image.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Image.hpp; sourceTree = "<group>"; };
+		2CC43A5A1D8C348300543A5B /* InfiniteList.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InfiniteList.hpp; sourceTree = "<group>"; };
+		2CC43A5B1D8C348300543A5B /* IReader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IReader.hpp; sourceTree = "<group>"; };
+		2CC43A5C1D8C348300543A5B /* IWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IWriter.hpp; sourceTree = "<group>"; };
+		2CC43A5D1D8C348300543A5B /* LetterCase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LetterCase.hpp; sourceTree = "<group>"; };
+		2CC43A5E1D8C348300543A5B /* Logger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Logger.hpp; sourceTree = "<group>"; };
+		2CC43A5F1D8C348300543A5B /* MathConstants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MathConstants.hpp; sourceTree = "<group>"; };
+		2CC43A601D8C348300543A5B /* Number.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Number.hpp; sourceTree = "<group>"; };
+		2CC43A611D8C348300543A5B /* Optional.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Optional.hpp; sourceTree = "<group>"; };
+		2CC43A621D8C348300543A5B /* Parse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Parse.hpp; sourceTree = "<group>"; };
+		2CC43A631D8C348300543A5B /* ParseBool.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ParseBool.hpp; sourceTree = "<group>"; };
+		2CC43A641D8C348300543A5B /* ParseFloat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ParseFloat.hpp; sourceTree = "<group>"; };
+		2CC43A651D8C348300543A5B /* ParseInt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ParseInt.hpp; sourceTree = "<group>"; };
+		2CC43A661D8C348300543A5B /* Platform.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Platform.hpp; sourceTree = "<group>"; };
+		2CC43A671D8C348300543A5B /* PlatformWindows.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PlatformWindows.hpp; sourceTree = "<group>"; };
+		2CC43A681D8C348300543A5B /* Point.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Point.hpp; sourceTree = "<group>"; };
+		2CC43A691D8C348300543A5B /* Point.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Point.inl; sourceTree = "<group>"; };
+		2CC43A6A1D8C348300543A5B /* PointVector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PointVector.hpp; sourceTree = "<group>"; };
+		2CC43A6B1D8C348300543A5B /* Radix.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Radix.hpp; sourceTree = "<group>"; };
+		2CC43A6C1D8C348300543A5B /* Random.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Random.hpp; sourceTree = "<group>"; };
+		2CC43A6D1D8C348300543A5B /* RDTSCProfiler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RDTSCProfiler.hpp; sourceTree = "<group>"; };
+		2CC43A6E1D8C348300543A5B /* Regex.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Regex.hpp; sourceTree = "<group>"; };
+		2CC43A6F1D8C348300543A5B /* SpeedStopwatch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SpeedStopwatch.hpp; sourceTree = "<group>"; };
+		2CC43A701D8C348300543A5B /* Step.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Step.hpp; sourceTree = "<group>"; };
+		2CC43A711D8C348300543A5B /* Step_MSVC.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Step_MSVC.hpp; sourceTree = "<group>"; };
+		2CC43A721D8C348300543A5B /* Stopwatch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Stopwatch.hpp; sourceTree = "<group>"; };
+		2CC43A731D8C348300543A5B /* String.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = String.hpp; sourceTree = "<group>"; };
+		2CC43A741D8C348300543A5B /* StringView.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StringView.hpp; sourceTree = "<group>"; };
+		2CC43A751D8C348300543A5B /* System.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = System.hpp; sourceTree = "<group>"; };
+		2CC43A761D8C348300543A5B /* TextEncoding.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextEncoding.hpp; sourceTree = "<group>"; };
+		2CC43A771D8C348300543A5B /* TextReader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextReader.hpp; sourceTree = "<group>"; };
+		2CC43A781D8C348300543A5B /* TextWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextWriter.hpp; sourceTree = "<group>"; };
+		2CC43A791D8C348300543A5B /* Time.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Time.hpp; sourceTree = "<group>"; };
+		2CC43A7A1D8C348300543A5B /* TimeProfiler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TimeProfiler.hpp; sourceTree = "<group>"; };
+		2CC43A7B1D8C348300543A5B /* Timer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Timer.hpp; sourceTree = "<group>"; };
+		2CC43A7C1D8C348300543A5B /* Types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Types.hpp; sourceTree = "<group>"; };
+		2CC43A7D1D8C348300543A5B /* TypeTraits.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TypeTraits.hpp; sourceTree = "<group>"; };
+		2CC43A7E1D8C348300543A5B /* Uncopyable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Uncopyable.hpp; sourceTree = "<group>"; };
+		2CC43A7F1D8C348300543A5B /* Unspecified.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Unspecified.hpp; sourceTree = "<group>"; };
+		2CC43A801D8C348300543A5B /* Utility.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Utility.hpp; sourceTree = "<group>"; };
+		2CC43A811D8C348300543A5B /* Vector2D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Vector2D.hpp; sourceTree = "<group>"; };
+		2CC43A821D8C348300543A5B /* Version.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Version.hpp; sourceTree = "<group>"; };
+		2CC43A831D8C348300543A5B /* Siv3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Siv3D.hpp; sourceTree = "<group>"; };
+		2CC43ACD1D8C348C00543A5B /* CXxxx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CXxxx.cpp; sourceTree = "<group>"; };
+		2CC43ACE1D8C348C00543A5B /* CXxxx.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CXxxx.hpp; sourceTree = "<group>"; };
+		2CC43ACF1D8C348C00543A5B /* IXxxx.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IXxxx.hpp; sourceTree = "<group>"; };
+		2CC43AD01D8C348C00543A5B /* SivXxxx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivXxxx.cpp; sourceTree = "<group>"; };
+		2CC43AD11D8C348C00543A5B /* XxxxFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XxxxFactory.cpp; sourceTree = "<group>"; };
+		2CC43AD31D8C348C00543A5B /* CBigFloat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CBigFloat.hpp; sourceTree = "<group>"; };
+		2CC43AD41D8C348C00543A5B /* SivBigFloat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBigFloat.cpp; sourceTree = "<group>"; };
+		2CC43AD61D8C348C00543A5B /* CBigInt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CBigInt.hpp; sourceTree = "<group>"; };
+		2CC43AD71D8C348C00543A5B /* SivBigInt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBigInt.cpp; sourceTree = "<group>"; };
+		2CC43AD91D8C348C00543A5B /* CBinaryReader_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CBinaryReader_macOS.cpp; sourceTree = "<group>"; };
+		2CC43ADA1D8C348C00543A5B /* CBinaryReader_macOS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CBinaryReader_macOS.hpp; sourceTree = "<group>"; };
+		2CC43ADB1D8C348C00543A5B /* CBinaryReader_windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CBinaryReader_windows.cpp; sourceTree = "<group>"; };
+		2CC43ADC1D8C348C00543A5B /* CBinaryReader_windows.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CBinaryReader_windows.hpp; sourceTree = "<group>"; };
+		2CC43ADD1D8C348C00543A5B /* SivBinaryReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBinaryReader.cpp; sourceTree = "<group>"; };
+		2CC43ADF1D8C348C00543A5B /* CBinaryWriter_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CBinaryWriter_macOS.cpp; sourceTree = "<group>"; };
+		2CC43AE01D8C348C00543A5B /* CBinaryWriter_macOS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CBinaryWriter_macOS.hpp; sourceTree = "<group>"; };
+		2CC43AE11D8C348C00543A5B /* CBinaryWriter_windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CBinaryWriter_windows.cpp; sourceTree = "<group>"; };
+		2CC43AE21D8C348C00543A5B /* CBinaryWriter_windows.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CBinaryWriter_windows.hpp; sourceTree = "<group>"; };
+		2CC43AE31D8C348C00543A5B /* SivBinaryWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBinaryWriter.cpp; sourceTree = "<group>"; };
+		2CC43AE51D8C348C00543A5B /* SivCharacterSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCharacterSet.cpp; sourceTree = "<group>"; };
+		2CC43AE71D8C348C00543A5B /* SivColor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivColor.cpp; sourceTree = "<group>"; };
+		2CC43AE91D8C348C00543A5B /* SivDate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDate.cpp; sourceTree = "<group>"; };
+		2CC43AEB1D8C348C00543A5B /* SivDateTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDateTime.cpp; sourceTree = "<group>"; };
+		2CC43AED1D8C348C00543A5B /* SivFileSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivFileSystem.cpp; sourceTree = "<group>"; };
+		2CC43AEE1D8C348C00543A5B /* SivFileSystem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SivFileSystem.mm; sourceTree = "<group>"; };
+		2CC43AF01D8C348C00543A5B /* SivFormat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivFormat.cpp; sourceTree = "<group>"; };
+		2CC43AF21D8C348C00543A5B /* SivFormatFloat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivFormatFloat.cpp; sourceTree = "<group>"; };
+		2CC43AF41D8C348C00543A5B /* SivFormatInt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivFormatInt.cpp; sourceTree = "<group>"; };
+		2CC43AF61D8C348C00543A5B /* SivHash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivHash.cpp; sourceTree = "<group>"; };
+		2CC43AF81D8C348C00543A5B /* SivHSV.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivHSV.cpp; sourceTree = "<group>"; };
+		2CC43AFA1D8C348C00543A5B /* SivImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivImage.cpp; sourceTree = "<group>"; };
+		2CC43AFC1D8C348C00543A5B /* CLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CLogger.cpp; sourceTree = "<group>"; };
+		2CC43AFD1D8C348C00543A5B /* CLogger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CLogger.hpp; sourceTree = "<group>"; };
+		2CC43AFE1D8C348C00543A5B /* ILogger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ILogger.hpp; sourceTree = "<group>"; };
+		2CC43AFF1D8C348C00543A5B /* LoggerFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoggerFactory.cpp; sourceTree = "<group>"; };
+		2CC43B001D8C348C00543A5B /* LogHeaderFotter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LogHeaderFotter.hpp; sourceTree = "<group>"; };
+		2CC43B011D8C348C00543A5B /* SivLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivLogger.cpp; sourceTree = "<group>"; };
+		2CC43B031D8C348C00543A5B /* SivParseFloat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivParseFloat.cpp; sourceTree = "<group>"; };
+		2CC43B041D8C348C00543A5B /* Siv3DEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DEngine.cpp; sourceTree = "<group>"; };
+		2CC43B051D8C348C00543A5B /* Siv3DEngine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Siv3DEngine.hpp; sourceTree = "<group>"; };
+		2CC43B061D8C348C00543A5B /* Siv3DMain_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DMain_macOS.cpp; sourceTree = "<group>"; };
+		2CC43B071D8C348C00543A5B /* Siv3DMain_Windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DMain_Windows.cpp; sourceTree = "<group>"; };
+		2CC43B091D8C348C00543A5B /* SivStopwatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivStopwatch.cpp; sourceTree = "<group>"; };
+		2CC43B0B1D8C348C00543A5B /* SivString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivString.cpp; sourceTree = "<group>"; };
+		2CC43B0D1D8C348C00543A5B /* SivSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSystem.cpp; sourceTree = "<group>"; };
+		2CC43B0F1D8C348C00543A5B /* SivTextEncoding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextEncoding.cpp; sourceTree = "<group>"; };
+		2CC43B111D8C348C00543A5B /* CTextReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTextReader.cpp; sourceTree = "<group>"; };
+		2CC43B121D8C348C00543A5B /* CTextReader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTextReader.hpp; sourceTree = "<group>"; };
+		2CC43B131D8C348C00543A5B /* SivTextReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextReader.cpp; sourceTree = "<group>"; };
+		2CC43B151D8C348C00543A5B /* CTextWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTextWriter.cpp; sourceTree = "<group>"; };
+		2CC43B161D8C348C00543A5B /* CTextWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTextWriter.hpp; sourceTree = "<group>"; };
+		2CC43B171D8C348C00543A5B /* SivTextWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextWriter.cpp; sourceTree = "<group>"; };
+		2CC43B191D8C348C00543A5B /* SivTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTime.cpp; sourceTree = "<group>"; };
+		2CC43B1B1D8C348C00543A5B /* SivTimeProfiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTimeProfiler.cpp; sourceTree = "<group>"; };
+		2CC43B1D1D8C348C00543A5B /* SivVector2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivVector2D.cpp; sourceTree = "<group>"; };
+		2CC43B201D8C348C00543A5B /* bignum-dtoa.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "bignum-dtoa.cc"; sourceTree = "<group>"; };
+		2CC43B211D8C348C00543A5B /* bignum-dtoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "bignum-dtoa.h"; sourceTree = "<group>"; };
+		2CC43B221D8C348C00543A5B /* bignum.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bignum.cc; sourceTree = "<group>"; };
+		2CC43B231D8C348C00543A5B /* bignum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bignum.h; sourceTree = "<group>"; };
+		2CC43B241D8C348C00543A5B /* cached-powers.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "cached-powers.cc"; sourceTree = "<group>"; };
+		2CC43B251D8C348C00543A5B /* cached-powers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cached-powers.h"; sourceTree = "<group>"; };
+		2CC43B261D8C348C00543A5B /* diy-fp.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "diy-fp.cc"; sourceTree = "<group>"; };
+		2CC43B271D8C348C00543A5B /* diy-fp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "diy-fp.h"; sourceTree = "<group>"; };
+		2CC43B281D8C348C00543A5B /* double-conversion.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "double-conversion.cc"; sourceTree = "<group>"; };
+		2CC43B291D8C348C00543A5B /* double-conversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "double-conversion.h"; sourceTree = "<group>"; };
+		2CC43B2A1D8C348C00543A5B /* fast-dtoa.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "fast-dtoa.cc"; sourceTree = "<group>"; };
+		2CC43B2B1D8C348C00543A5B /* fast-dtoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "fast-dtoa.h"; sourceTree = "<group>"; };
+		2CC43B2C1D8C348C00543A5B /* fixed-dtoa.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "fixed-dtoa.cc"; sourceTree = "<group>"; };
+		2CC43B2D1D8C348C00543A5B /* fixed-dtoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "fixed-dtoa.h"; sourceTree = "<group>"; };
+		2CC43B2E1D8C348C00543A5B /* ieee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ieee.h; sourceTree = "<group>"; };
+		2CC43B2F1D8C348C00543A5B /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		2CC43B301D8C348C00543A5B /* strtod.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = strtod.cc; sourceTree = "<group>"; };
+		2CC43B311D8C348C00543A5B /* strtod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strtod.h; sourceTree = "<group>"; };
+		2CC43B321D8C348C00543A5B /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
+		2CC43B341D8C348C00543A5B /* format.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = format.cc; sourceTree = "<group>"; };
+		2CC43B351D8C348C00543A5B /* LICENSE.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.rst; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -529,8 +535,8 @@
 		2CA7F7641CA7F44F00495647 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439891D8C13C000543A5B /* Source */,
-				2CC438FA1D8C13B600543A5B /* Include */,
+				2CC43ACA1D8C348C00543A5B /* Source */,
+				2CC43A391D8C348300543A5B /* Include */,
 				2C1777A61CDF6EC600BB8AD0 /* Lib */,
 			);
 			name = Siv3D;
@@ -558,409 +564,428 @@
 			path = Test;
 			sourceTree = "<group>";
 		};
-		2CC438FA1D8C13B600543A5B /* Include */ = {
+		2CC43A391D8C348300543A5B /* Include */ = {
 			isa = PBXGroup;
 			children = (
-				2CC438FB1D8C13B600543A5B /* fmt */,
-				2CC439001D8C13B600543A5B /* Siv3D */,
-				2CC439431D8C13B600543A5B /* Siv3D.hpp */,
+				2CC43A3A1D8C348300543A5B /* fmt */,
+				2CC43A3F1D8C348300543A5B /* Siv3D */,
+				2CC43A831D8C348300543A5B /* Siv3D.hpp */,
 			);
 			path = Include;
 			sourceTree = "<group>";
 		};
-		2CC438FB1D8C13B600543A5B /* fmt */ = {
+		2CC43A3A1D8C348300543A5B /* fmt */ = {
 			isa = PBXGroup;
 			children = (
-				2CC438FC1D8C13B600543A5B /* format.h */,
-				2CC438FD1D8C13B600543A5B /* LICENSE.rst */,
-				2CC438FE1D8C13B600543A5B /* ostream.h */,
-				2CC438FF1D8C13B600543A5B /* printf.h */,
+				2CC43A3B1D8C348300543A5B /* format.h */,
+				2CC43A3C1D8C348300543A5B /* LICENSE.rst */,
+				2CC43A3D1D8C348300543A5B /* ostream.h */,
+				2CC43A3E1D8C348300543A5B /* printf.h */,
 			);
 			path = fmt;
 			sourceTree = "<group>";
 		};
-		2CC439001D8C13B600543A5B /* Siv3D */ = {
+		2CC43A3F1D8C348300543A5B /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439011D8C13B600543A5B /* _TEMPLATE.hpp */,
-				2CC439021D8C13B600543A5B /* Allocator.hpp */,
-				2CC439031D8C13B600543A5B /* Array.hpp */,
-				2CC439041D8C13B600543A5B /* BigFloat.hpp */,
-				2CC439051D8C13B600543A5B /* BigInt.hpp */,
-				2CC439061D8C13B600543A5B /* BinaryReader.hpp */,
-				2CC439071D8C13B600543A5B /* BinaryWriter.hpp */,
-				2CC439081D8C13B600543A5B /* Char.hpp */,
-				2CC439091D8C13B600543A5B /* CharacterSet.hpp */,
-				2CC4390A1D8C13B600543A5B /* Color.hpp */,
-				2CC4390B1D8C13B600543A5B /* Concept.hpp */,
-				2CC4390C1D8C13B600543A5B /* Date.hpp */,
-				2CC4390D1D8C13B600543A5B /* DateTime.hpp */,
-				2CC4390E1D8C13B600543A5B /* Duration.hpp */,
-				2CC4390F1D8C13B600543A5B /* FileSystem.hpp */,
-				2CC439101D8C13B600543A5B /* Format.hpp */,
-				2CC439111D8C13B600543A5B /* FormatBool.hpp */,
-				2CC439121D8C13B600543A5B /* FormatFloat.hpp */,
-				2CC439131D8C13B600543A5B /* FormatInt.hpp */,
-				2CC439141D8C13B600543A5B /* FormatLiteral.hpp */,
-				2CC439151D8C13B600543A5B /* Functor.hpp */,
-				2CC439161D8C13B600543A5B /* Fwd.hpp */,
-				2CC439171D8C13B600543A5B /* Grid.hpp */,
-				2CC439181D8C13B600543A5B /* HSV.hpp */,
-				2CC439191D8C13B600543A5B /* Image.hpp */,
-				2CC4391A1D8C13B600543A5B /* InfiniteList.hpp */,
-				2CC4391B1D8C13B600543A5B /* IReader.hpp */,
-				2CC4391C1D8C13B600543A5B /* IWriter.hpp */,
-				2CC4391D1D8C13B600543A5B /* LetterCase.hpp */,
-				2CC4391E1D8C13B600543A5B /* Logger.hpp */,
-				2CC4391F1D8C13B600543A5B /* MathConstants.hpp */,
-				2CC439201D8C13B600543A5B /* Number.hpp */,
-				2CC439211D8C13B600543A5B /* Optional.hpp */,
-				2CC439221D8C13B600543A5B /* Parse.hpp */,
-				2CC439231D8C13B600543A5B /* ParseBool.hpp */,
-				2CC439241D8C13B600543A5B /* ParseFloat.hpp */,
-				2CC439251D8C13B600543A5B /* ParseInt.hpp */,
-				2CC439261D8C13B600543A5B /* Platform.hpp */,
-				2CC439271D8C13B600543A5B /* PlatformWindows.hpp */,
-				2CC439281D8C13B600543A5B /* Point.hpp */,
-				2CC439291D8C13B600543A5B /* Point.inl */,
-				2CC4392A1D8C13B600543A5B /* PointVector.hpp */,
-				2CC4392B1D8C13B600543A5B /* Radix.hpp */,
-				2CC4392C1D8C13B600543A5B /* Random.hpp */,
-				2CC4392D1D8C13B600543A5B /* RDTSCProfiler.hpp */,
-				2CC4392E1D8C13B600543A5B /* Regex.hpp */,
-				2CC4392F1D8C13B600543A5B /* SpeedStopwatch.hpp */,
-				2CC439301D8C13B600543A5B /* Step.hpp */,
-				2CC439311D8C13B600543A5B /* Step_MSVC.hpp */,
-				2CC439321D8C13B600543A5B /* Stopwatch.hpp */,
-				2CC439331D8C13B600543A5B /* String.hpp */,
-				2CC439341D8C13B600543A5B /* StringView.hpp */,
-				2CC439351D8C13B600543A5B /* System.hpp */,
-				2CC439361D8C13B600543A5B /* TextEncoding.hpp */,
-				2CC439371D8C13B600543A5B /* TextReader.hpp */,
-				2CC439381D8C13B600543A5B /* TextWriter.hpp */,
-				2CC439391D8C13B600543A5B /* Time.hpp */,
-				2CC4393A1D8C13B600543A5B /* TimeProfiler.hpp */,
-				2CC4393B1D8C13B600543A5B /* Timer.hpp */,
-				2CC4393C1D8C13B600543A5B /* Types.hpp */,
-				2CC4393D1D8C13B600543A5B /* TypeTraits.hpp */,
-				2CC4393E1D8C13B600543A5B /* Uncopyable.hpp */,
-				2CC4393F1D8C13B600543A5B /* Unspecified.hpp */,
-				2CC439401D8C13B600543A5B /* Utility.hpp */,
-				2CC439411D8C13B600543A5B /* Vector2D.hpp */,
-				2CC439421D8C13B600543A5B /* Version.hpp */,
+				2CC43A401D8C348300543A5B /* _TEMPLATE.hpp */,
+				2CC43A411D8C348300543A5B /* Allocator.hpp */,
+				2CC43A421D8C348300543A5B /* Array.hpp */,
+				2CC43A431D8C348300543A5B /* BigFloat.hpp */,
+				2CC43A441D8C348300543A5B /* BigInt.hpp */,
+				2CC43A451D8C348300543A5B /* BinaryReader.hpp */,
+				2CC43A461D8C348300543A5B /* BinaryWriter.hpp */,
+				2CC43A471D8C348300543A5B /* Char.hpp */,
+				2CC43A481D8C348300543A5B /* CharacterSet.hpp */,
+				2CC43A491D8C348300543A5B /* Color.hpp */,
+				2CC43A4A1D8C348300543A5B /* Concept.hpp */,
+				2CC43A4B1D8C348300543A5B /* Date.hpp */,
+				2CC43A4C1D8C348300543A5B /* DateTime.hpp */,
+				2CC43A4D1D8C348300543A5B /* Duration.hpp */,
+				2CC43A4E1D8C348300543A5B /* FileSystem.hpp */,
+				2CC43A4F1D8C348300543A5B /* Format.hpp */,
+				2CC43A501D8C348300543A5B /* FormatBool.hpp */,
+				2CC43A511D8C348300543A5B /* FormatFloat.hpp */,
+				2CC43A521D8C348300543A5B /* FormatInt.hpp */,
+				2CC43A531D8C348300543A5B /* FormatLiteral.hpp */,
+				2CC43A541D8C348300543A5B /* Functor.hpp */,
+				2CC43A551D8C348300543A5B /* Fwd.hpp */,
+				2CC43A561D8C348300543A5B /* Grid.hpp */,
+				2CC43A571D8C348300543A5B /* Hash.hpp */,
+				2CC43A581D8C348300543A5B /* HSV.hpp */,
+				2CC43A591D8C348300543A5B /* Image.hpp */,
+				2CC43A5A1D8C348300543A5B /* InfiniteList.hpp */,
+				2CC43A5B1D8C348300543A5B /* IReader.hpp */,
+				2CC43A5C1D8C348300543A5B /* IWriter.hpp */,
+				2CC43A5D1D8C348300543A5B /* LetterCase.hpp */,
+				2CC43A5E1D8C348300543A5B /* Logger.hpp */,
+				2CC43A5F1D8C348300543A5B /* MathConstants.hpp */,
+				2CC43A601D8C348300543A5B /* Number.hpp */,
+				2CC43A611D8C348300543A5B /* Optional.hpp */,
+				2CC43A621D8C348300543A5B /* Parse.hpp */,
+				2CC43A631D8C348300543A5B /* ParseBool.hpp */,
+				2CC43A641D8C348300543A5B /* ParseFloat.hpp */,
+				2CC43A651D8C348300543A5B /* ParseInt.hpp */,
+				2CC43A661D8C348300543A5B /* Platform.hpp */,
+				2CC43A671D8C348300543A5B /* PlatformWindows.hpp */,
+				2CC43A681D8C348300543A5B /* Point.hpp */,
+				2CC43A691D8C348300543A5B /* Point.inl */,
+				2CC43A6A1D8C348300543A5B /* PointVector.hpp */,
+				2CC43A6B1D8C348300543A5B /* Radix.hpp */,
+				2CC43A6C1D8C348300543A5B /* Random.hpp */,
+				2CC43A6D1D8C348300543A5B /* RDTSCProfiler.hpp */,
+				2CC43A6E1D8C348300543A5B /* Regex.hpp */,
+				2CC43A6F1D8C348300543A5B /* SpeedStopwatch.hpp */,
+				2CC43A701D8C348300543A5B /* Step.hpp */,
+				2CC43A711D8C348300543A5B /* Step_MSVC.hpp */,
+				2CC43A721D8C348300543A5B /* Stopwatch.hpp */,
+				2CC43A731D8C348300543A5B /* String.hpp */,
+				2CC43A741D8C348300543A5B /* StringView.hpp */,
+				2CC43A751D8C348300543A5B /* System.hpp */,
+				2CC43A761D8C348300543A5B /* TextEncoding.hpp */,
+				2CC43A771D8C348300543A5B /* TextReader.hpp */,
+				2CC43A781D8C348300543A5B /* TextWriter.hpp */,
+				2CC43A791D8C348300543A5B /* Time.hpp */,
+				2CC43A7A1D8C348300543A5B /* TimeProfiler.hpp */,
+				2CC43A7B1D8C348300543A5B /* Timer.hpp */,
+				2CC43A7C1D8C348300543A5B /* Types.hpp */,
+				2CC43A7D1D8C348300543A5B /* TypeTraits.hpp */,
+				2CC43A7E1D8C348300543A5B /* Uncopyable.hpp */,
+				2CC43A7F1D8C348300543A5B /* Unspecified.hpp */,
+				2CC43A801D8C348300543A5B /* Utility.hpp */,
+				2CC43A811D8C348300543A5B /* Vector2D.hpp */,
+				2CC43A821D8C348300543A5B /* Version.hpp */,
 			);
 			path = Siv3D;
 			sourceTree = "<group>";
 		};
-		2CC439891D8C13C000543A5B /* Source */ = {
+		2CC43ACA1D8C348C00543A5B /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				2CC4398A1D8C13C000543A5B /* Siv3D */,
-				2CC439D91D8C13C000543A5B /* ThirdParty */,
+				2CC43ACB1D8C348C00543A5B /* Siv3D */,
+				2CC43B1E1D8C348C00543A5B /* ThirdParty */,
 			);
 			path = Source;
 			sourceTree = "<group>";
 		};
-		2CC4398A1D8C13C000543A5B /* Siv3D */ = {
+		2CC43ACB1D8C348C00543A5B /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
-				2CC4398B1D8C13C000543A5B /* _Template */,
-				2CC439911D8C13C000543A5B /* BigFloat */,
-				2CC439941D8C13C000543A5B /* BigInt */,
-				2CC439971D8C13C000543A5B /* BinaryReader */,
-				2CC4399D1D8C13C000543A5B /* BinaryWriter */,
-				2CC439A31D8C13C000543A5B /* CharacterSet */,
-				2CC439A51D8C13C000543A5B /* Color */,
-				2CC439A71D8C13C000543A5B /* Date */,
-				2CC439A91D8C13C000543A5B /* DateTime */,
-				2CC439AB1D8C13C000543A5B /* FileSystem */,
-				2CC439AE1D8C13C000543A5B /* Format */,
-				2CC439B01D8C13C000543A5B /* FormatFloat */,
-				2CC439B21D8C13C000543A5B /* FormatInt */,
-				2CC439B41D8C13C000543A5B /* HSV */,
-				2CC439B61D8C13C000543A5B /* Image */,
-				2CC439B81D8C13C000543A5B /* Logger */,
-				2CC439BF1D8C13C000543A5B /* ParseFloat */,
-				2CC439C11D8C13C000543A5B /* Siv3DEngine.cpp */,
-				2CC439C21D8C13C000543A5B /* Siv3DEngine.hpp */,
-				2CC439C31D8C13C000543A5B /* Siv3DMain_macOS.cpp */,
-				2CC439C41D8C13C000543A5B /* Siv3DMain_Windows.cpp */,
-				2CC439C51D8C13C000543A5B /* Stopwatch */,
-				2CC439C71D8C13C000543A5B /* String */,
-				2CC439C91D8C13C000543A5B /* System */,
-				2CC439CB1D8C13C000543A5B /* TextEncoding */,
-				2CC439CD1D8C13C000543A5B /* TextReader */,
-				2CC439D11D8C13C000543A5B /* TextWriter */,
-				2CC439D51D8C13C000543A5B /* Time */,
-				2CC439D71D8C13C000543A5B /* TimeProfiler */,
+				2CC43ACC1D8C348C00543A5B /* _Template */,
+				2CC43AD21D8C348C00543A5B /* BigFloat */,
+				2CC43AD51D8C348C00543A5B /* BigInt */,
+				2CC43AD81D8C348C00543A5B /* BinaryReader */,
+				2CC43ADE1D8C348C00543A5B /* BinaryWriter */,
+				2CC43AE41D8C348C00543A5B /* CharacterSet */,
+				2CC43AE61D8C348C00543A5B /* Color */,
+				2CC43AE81D8C348C00543A5B /* Date */,
+				2CC43AEA1D8C348C00543A5B /* DateTime */,
+				2CC43AEC1D8C348C00543A5B /* FileSystem */,
+				2CC43AEF1D8C348C00543A5B /* Format */,
+				2CC43AF11D8C348C00543A5B /* FormatFloat */,
+				2CC43AF31D8C348C00543A5B /* FormatInt */,
+				2CC43AF51D8C348C00543A5B /* Hash */,
+				2CC43AF71D8C348C00543A5B /* HSV */,
+				2CC43AF91D8C348C00543A5B /* Image */,
+				2CC43AFB1D8C348C00543A5B /* Logger */,
+				2CC43B021D8C348C00543A5B /* ParseFloat */,
+				2CC43B041D8C348C00543A5B /* Siv3DEngine.cpp */,
+				2CC43B051D8C348C00543A5B /* Siv3DEngine.hpp */,
+				2CC43B061D8C348C00543A5B /* Siv3DMain_macOS.cpp */,
+				2CC43B071D8C348C00543A5B /* Siv3DMain_Windows.cpp */,
+				2CC43B081D8C348C00543A5B /* Stopwatch */,
+				2CC43B0A1D8C348C00543A5B /* String */,
+				2CC43B0C1D8C348C00543A5B /* System */,
+				2CC43B0E1D8C348C00543A5B /* TextEncoding */,
+				2CC43B101D8C348C00543A5B /* TextReader */,
+				2CC43B141D8C348C00543A5B /* TextWriter */,
+				2CC43B181D8C348C00543A5B /* Time */,
+				2CC43B1A1D8C348C00543A5B /* TimeProfiler */,
+				2CC43B1C1D8C348C00543A5B /* Vector2D */,
 			);
 			path = Siv3D;
 			sourceTree = "<group>";
 		};
-		2CC4398B1D8C13C000543A5B /* _Template */ = {
+		2CC43ACC1D8C348C00543A5B /* _Template */ = {
 			isa = PBXGroup;
 			children = (
-				2CC4398C1D8C13C000543A5B /* CXxxx.cpp */,
-				2CC4398D1D8C13C000543A5B /* CXxxx.hpp */,
-				2CC4398E1D8C13C000543A5B /* IXxxx.hpp */,
-				2CC4398F1D8C13C000543A5B /* SivXxxx.cpp */,
-				2CC439901D8C13C000543A5B /* XxxxFactory.cpp */,
+				2CC43ACD1D8C348C00543A5B /* CXxxx.cpp */,
+				2CC43ACE1D8C348C00543A5B /* CXxxx.hpp */,
+				2CC43ACF1D8C348C00543A5B /* IXxxx.hpp */,
+				2CC43AD01D8C348C00543A5B /* SivXxxx.cpp */,
+				2CC43AD11D8C348C00543A5B /* XxxxFactory.cpp */,
 			);
 			path = _Template;
 			sourceTree = "<group>";
 		};
-		2CC439911D8C13C000543A5B /* BigFloat */ = {
+		2CC43AD21D8C348C00543A5B /* BigFloat */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439921D8C13C000543A5B /* CBigFloat.hpp */,
-				2CC439931D8C13C000543A5B /* SivBigFloat.cpp */,
+				2CC43AD31D8C348C00543A5B /* CBigFloat.hpp */,
+				2CC43AD41D8C348C00543A5B /* SivBigFloat.cpp */,
 			);
 			path = BigFloat;
 			sourceTree = "<group>";
 		};
-		2CC439941D8C13C000543A5B /* BigInt */ = {
+		2CC43AD51D8C348C00543A5B /* BigInt */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439951D8C13C000543A5B /* CBigInt.hpp */,
-				2CC439961D8C13C000543A5B /* SivBigInt.cpp */,
+				2CC43AD61D8C348C00543A5B /* CBigInt.hpp */,
+				2CC43AD71D8C348C00543A5B /* SivBigInt.cpp */,
 			);
 			path = BigInt;
 			sourceTree = "<group>";
 		};
-		2CC439971D8C13C000543A5B /* BinaryReader */ = {
+		2CC43AD81D8C348C00543A5B /* BinaryReader */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439981D8C13C000543A5B /* CBinaryReader_macOS.cpp */,
-				2CC439991D8C13C000543A5B /* CBinaryReader_macOS.hpp */,
-				2CC4399A1D8C13C000543A5B /* CBinaryReader_windows.cpp */,
-				2CC4399B1D8C13C000543A5B /* CBinaryReader_windows.hpp */,
-				2CC4399C1D8C13C000543A5B /* SivBinaryReader.cpp */,
+				2CC43AD91D8C348C00543A5B /* CBinaryReader_macOS.cpp */,
+				2CC43ADA1D8C348C00543A5B /* CBinaryReader_macOS.hpp */,
+				2CC43ADB1D8C348C00543A5B /* CBinaryReader_windows.cpp */,
+				2CC43ADC1D8C348C00543A5B /* CBinaryReader_windows.hpp */,
+				2CC43ADD1D8C348C00543A5B /* SivBinaryReader.cpp */,
 			);
 			path = BinaryReader;
 			sourceTree = "<group>";
 		};
-		2CC4399D1D8C13C000543A5B /* BinaryWriter */ = {
+		2CC43ADE1D8C348C00543A5B /* BinaryWriter */ = {
 			isa = PBXGroup;
 			children = (
-				2CC4399E1D8C13C000543A5B /* CBinaryWriter_macOS.cpp */,
-				2CC4399F1D8C13C000543A5B /* CBinaryWriter_macOS.hpp */,
-				2CC439A01D8C13C000543A5B /* CBinaryWriter_windows.cpp */,
-				2CC439A11D8C13C000543A5B /* CBinaryWriter_windows.hpp */,
-				2CC439A21D8C13C000543A5B /* SivBinaryWriter.cpp */,
+				2CC43ADF1D8C348C00543A5B /* CBinaryWriter_macOS.cpp */,
+				2CC43AE01D8C348C00543A5B /* CBinaryWriter_macOS.hpp */,
+				2CC43AE11D8C348C00543A5B /* CBinaryWriter_windows.cpp */,
+				2CC43AE21D8C348C00543A5B /* CBinaryWriter_windows.hpp */,
+				2CC43AE31D8C348C00543A5B /* SivBinaryWriter.cpp */,
 			);
 			path = BinaryWriter;
 			sourceTree = "<group>";
 		};
-		2CC439A31D8C13C000543A5B /* CharacterSet */ = {
+		2CC43AE41D8C348C00543A5B /* CharacterSet */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439A41D8C13C000543A5B /* SivCharacterSet.cpp */,
+				2CC43AE51D8C348C00543A5B /* SivCharacterSet.cpp */,
 			);
 			path = CharacterSet;
 			sourceTree = "<group>";
 		};
-		2CC439A51D8C13C000543A5B /* Color */ = {
+		2CC43AE61D8C348C00543A5B /* Color */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439A61D8C13C000543A5B /* SivColor.cpp */,
+				2CC43AE71D8C348C00543A5B /* SivColor.cpp */,
 			);
 			path = Color;
 			sourceTree = "<group>";
 		};
-		2CC439A71D8C13C000543A5B /* Date */ = {
+		2CC43AE81D8C348C00543A5B /* Date */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439A81D8C13C000543A5B /* SivDate.cpp */,
+				2CC43AE91D8C348C00543A5B /* SivDate.cpp */,
 			);
 			path = Date;
 			sourceTree = "<group>";
 		};
-		2CC439A91D8C13C000543A5B /* DateTime */ = {
+		2CC43AEA1D8C348C00543A5B /* DateTime */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439AA1D8C13C000543A5B /* SivDateTime.cpp */,
+				2CC43AEB1D8C348C00543A5B /* SivDateTime.cpp */,
 			);
 			path = DateTime;
 			sourceTree = "<group>";
 		};
-		2CC439AB1D8C13C000543A5B /* FileSystem */ = {
+		2CC43AEC1D8C348C00543A5B /* FileSystem */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439AC1D8C13C000543A5B /* SivFileSystem.cpp */,
-				2CC439AD1D8C13C000543A5B /* SivFileSystem.mm */,
+				2CC43AED1D8C348C00543A5B /* SivFileSystem.cpp */,
+				2CC43AEE1D8C348C00543A5B /* SivFileSystem.mm */,
 			);
 			path = FileSystem;
 			sourceTree = "<group>";
 		};
-		2CC439AE1D8C13C000543A5B /* Format */ = {
+		2CC43AEF1D8C348C00543A5B /* Format */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439AF1D8C13C000543A5B /* SivFormat.cpp */,
+				2CC43AF01D8C348C00543A5B /* SivFormat.cpp */,
 			);
 			path = Format;
 			sourceTree = "<group>";
 		};
-		2CC439B01D8C13C000543A5B /* FormatFloat */ = {
+		2CC43AF11D8C348C00543A5B /* FormatFloat */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439B11D8C13C000543A5B /* SivFormatFloat.cpp */,
+				2CC43AF21D8C348C00543A5B /* SivFormatFloat.cpp */,
 			);
 			path = FormatFloat;
 			sourceTree = "<group>";
 		};
-		2CC439B21D8C13C000543A5B /* FormatInt */ = {
+		2CC43AF31D8C348C00543A5B /* FormatInt */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439B31D8C13C000543A5B /* SivFormatInt.cpp */,
+				2CC43AF41D8C348C00543A5B /* SivFormatInt.cpp */,
 			);
 			path = FormatInt;
 			sourceTree = "<group>";
 		};
-		2CC439B41D8C13C000543A5B /* HSV */ = {
+		2CC43AF51D8C348C00543A5B /* Hash */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439B51D8C13C000543A5B /* SivHSV.cpp */,
+				2CC43AF61D8C348C00543A5B /* SivHash.cpp */,
+			);
+			path = Hash;
+			sourceTree = "<group>";
+		};
+		2CC43AF71D8C348C00543A5B /* HSV */ = {
+			isa = PBXGroup;
+			children = (
+				2CC43AF81D8C348C00543A5B /* SivHSV.cpp */,
 			);
 			path = HSV;
 			sourceTree = "<group>";
 		};
-		2CC439B61D8C13C000543A5B /* Image */ = {
+		2CC43AF91D8C348C00543A5B /* Image */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439B71D8C13C000543A5B /* SivImage.cpp */,
+				2CC43AFA1D8C348C00543A5B /* SivImage.cpp */,
 			);
 			path = Image;
 			sourceTree = "<group>";
 		};
-		2CC439B81D8C13C000543A5B /* Logger */ = {
+		2CC43AFB1D8C348C00543A5B /* Logger */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439B91D8C13C000543A5B /* CLogger.cpp */,
-				2CC439BA1D8C13C000543A5B /* CLogger.hpp */,
-				2CC439BB1D8C13C000543A5B /* ILogger.hpp */,
-				2CC439BC1D8C13C000543A5B /* LoggerFactory.cpp */,
-				2CC439BD1D8C13C000543A5B /* LogHeaderFotter.hpp */,
-				2CC439BE1D8C13C000543A5B /* SivLogger.cpp */,
+				2CC43AFC1D8C348C00543A5B /* CLogger.cpp */,
+				2CC43AFD1D8C348C00543A5B /* CLogger.hpp */,
+				2CC43AFE1D8C348C00543A5B /* ILogger.hpp */,
+				2CC43AFF1D8C348C00543A5B /* LoggerFactory.cpp */,
+				2CC43B001D8C348C00543A5B /* LogHeaderFotter.hpp */,
+				2CC43B011D8C348C00543A5B /* SivLogger.cpp */,
 			);
 			path = Logger;
 			sourceTree = "<group>";
 		};
-		2CC439BF1D8C13C000543A5B /* ParseFloat */ = {
+		2CC43B021D8C348C00543A5B /* ParseFloat */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439C01D8C13C000543A5B /* SivParseFloat.cpp */,
+				2CC43B031D8C348C00543A5B /* SivParseFloat.cpp */,
 			);
 			path = ParseFloat;
 			sourceTree = "<group>";
 		};
-		2CC439C51D8C13C000543A5B /* Stopwatch */ = {
+		2CC43B081D8C348C00543A5B /* Stopwatch */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439C61D8C13C000543A5B /* SivStopwatch.cpp */,
+				2CC43B091D8C348C00543A5B /* SivStopwatch.cpp */,
 			);
 			path = Stopwatch;
 			sourceTree = "<group>";
 		};
-		2CC439C71D8C13C000543A5B /* String */ = {
+		2CC43B0A1D8C348C00543A5B /* String */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439C81D8C13C000543A5B /* SivString.cpp */,
+				2CC43B0B1D8C348C00543A5B /* SivString.cpp */,
 			);
 			path = String;
 			sourceTree = "<group>";
 		};
-		2CC439C91D8C13C000543A5B /* System */ = {
+		2CC43B0C1D8C348C00543A5B /* System */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439CA1D8C13C000543A5B /* SivSystem.cpp */,
+				2CC43B0D1D8C348C00543A5B /* SivSystem.cpp */,
 			);
 			path = System;
 			sourceTree = "<group>";
 		};
-		2CC439CB1D8C13C000543A5B /* TextEncoding */ = {
+		2CC43B0E1D8C348C00543A5B /* TextEncoding */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439CC1D8C13C000543A5B /* SivTextEncoding.cpp */,
+				2CC43B0F1D8C348C00543A5B /* SivTextEncoding.cpp */,
 			);
 			path = TextEncoding;
 			sourceTree = "<group>";
 		};
-		2CC439CD1D8C13C000543A5B /* TextReader */ = {
+		2CC43B101D8C348C00543A5B /* TextReader */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439CE1D8C13C000543A5B /* CTextReader.cpp */,
-				2CC439CF1D8C13C000543A5B /* CTextReader.hpp */,
-				2CC439D01D8C13C000543A5B /* SivTextReader.cpp */,
+				2CC43B111D8C348C00543A5B /* CTextReader.cpp */,
+				2CC43B121D8C348C00543A5B /* CTextReader.hpp */,
+				2CC43B131D8C348C00543A5B /* SivTextReader.cpp */,
 			);
 			path = TextReader;
 			sourceTree = "<group>";
 		};
-		2CC439D11D8C13C000543A5B /* TextWriter */ = {
+		2CC43B141D8C348C00543A5B /* TextWriter */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439D21D8C13C000543A5B /* CTextWriter.cpp */,
-				2CC439D31D8C13C000543A5B /* CTextWriter.hpp */,
-				2CC439D41D8C13C000543A5B /* SivTextWriter.cpp */,
+				2CC43B151D8C348C00543A5B /* CTextWriter.cpp */,
+				2CC43B161D8C348C00543A5B /* CTextWriter.hpp */,
+				2CC43B171D8C348C00543A5B /* SivTextWriter.cpp */,
 			);
 			path = TextWriter;
 			sourceTree = "<group>";
 		};
-		2CC439D51D8C13C000543A5B /* Time */ = {
+		2CC43B181D8C348C00543A5B /* Time */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439D61D8C13C000543A5B /* SivTime.cpp */,
+				2CC43B191D8C348C00543A5B /* SivTime.cpp */,
 			);
 			path = Time;
 			sourceTree = "<group>";
 		};
-		2CC439D71D8C13C000543A5B /* TimeProfiler */ = {
+		2CC43B1A1D8C348C00543A5B /* TimeProfiler */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439D81D8C13C000543A5B /* SivTimeProfiler.cpp */,
+				2CC43B1B1D8C348C00543A5B /* SivTimeProfiler.cpp */,
 			);
 			path = TimeProfiler;
 			sourceTree = "<group>";
 		};
-		2CC439D91D8C13C000543A5B /* ThirdParty */ = {
+		2CC43B1C1D8C348C00543A5B /* Vector2D */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439DA1D8C13C000543A5B /* double-conversion */,
-				2CC439EE1D8C13C000543A5B /* fmt */,
+				2CC43B1D1D8C348C00543A5B /* SivVector2D.cpp */,
+			);
+			path = Vector2D;
+			sourceTree = "<group>";
+		};
+		2CC43B1E1D8C348C00543A5B /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				2CC43B1F1D8C348C00543A5B /* double-conversion */,
+				2CC43B331D8C348C00543A5B /* fmt */,
 			);
 			path = ThirdParty;
 			sourceTree = "<group>";
 		};
-		2CC439DA1D8C13C000543A5B /* double-conversion */ = {
+		2CC43B1F1D8C348C00543A5B /* double-conversion */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439DB1D8C13C000543A5B /* bignum-dtoa.cc */,
-				2CC439DC1D8C13C000543A5B /* bignum-dtoa.h */,
-				2CC439DD1D8C13C000543A5B /* bignum.cc */,
-				2CC439DE1D8C13C000543A5B /* bignum.h */,
-				2CC439DF1D8C13C000543A5B /* cached-powers.cc */,
-				2CC439E01D8C13C000543A5B /* cached-powers.h */,
-				2CC439E11D8C13C000543A5B /* diy-fp.cc */,
-				2CC439E21D8C13C000543A5B /* diy-fp.h */,
-				2CC439E31D8C13C000543A5B /* double-conversion.cc */,
-				2CC439E41D8C13C000543A5B /* double-conversion.h */,
-				2CC439E51D8C13C000543A5B /* fast-dtoa.cc */,
-				2CC439E61D8C13C000543A5B /* fast-dtoa.h */,
-				2CC439E71D8C13C000543A5B /* fixed-dtoa.cc */,
-				2CC439E81D8C13C000543A5B /* fixed-dtoa.h */,
-				2CC439E91D8C13C000543A5B /* ieee.h */,
-				2CC439EA1D8C13C000543A5B /* LICENSE */,
-				2CC439EB1D8C13C000543A5B /* strtod.cc */,
-				2CC439EC1D8C13C000543A5B /* strtod.h */,
-				2CC439ED1D8C13C000543A5B /* utils.h */,
+				2CC43B201D8C348C00543A5B /* bignum-dtoa.cc */,
+				2CC43B211D8C348C00543A5B /* bignum-dtoa.h */,
+				2CC43B221D8C348C00543A5B /* bignum.cc */,
+				2CC43B231D8C348C00543A5B /* bignum.h */,
+				2CC43B241D8C348C00543A5B /* cached-powers.cc */,
+				2CC43B251D8C348C00543A5B /* cached-powers.h */,
+				2CC43B261D8C348C00543A5B /* diy-fp.cc */,
+				2CC43B271D8C348C00543A5B /* diy-fp.h */,
+				2CC43B281D8C348C00543A5B /* double-conversion.cc */,
+				2CC43B291D8C348C00543A5B /* double-conversion.h */,
+				2CC43B2A1D8C348C00543A5B /* fast-dtoa.cc */,
+				2CC43B2B1D8C348C00543A5B /* fast-dtoa.h */,
+				2CC43B2C1D8C348C00543A5B /* fixed-dtoa.cc */,
+				2CC43B2D1D8C348C00543A5B /* fixed-dtoa.h */,
+				2CC43B2E1D8C348C00543A5B /* ieee.h */,
+				2CC43B2F1D8C348C00543A5B /* LICENSE */,
+				2CC43B301D8C348C00543A5B /* strtod.cc */,
+				2CC43B311D8C348C00543A5B /* strtod.h */,
+				2CC43B321D8C348C00543A5B /* utils.h */,
 			);
 			path = "double-conversion";
 			sourceTree = "<group>";
 		};
-		2CC439EE1D8C13C000543A5B /* fmt */ = {
+		2CC43B331D8C348C00543A5B /* fmt */ = {
 			isa = PBXGroup;
 			children = (
-				2CC439EF1D8C13C000543A5B /* format.cc */,
-				2CC439F01D8C13C000543A5B /* LICENSE.rst */,
+				2CC43B341D8C348C00543A5B /* format.cc */,
+				2CC43B351D8C348C00543A5B /* LICENSE.rst */,
 			);
 			path = fmt;
 			sourceTree = "<group>";
@@ -972,99 +997,100 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CC43A341D8C13C000543A5B /* ieee.h in Headers */,
-				2CC439541D8C13B600543A5B /* Duration.hpp in Headers */,
-				2CC439681D8C13B600543A5B /* Parse.hpp in Headers */,
-				2CC439781D8C13B600543A5B /* String.hpp in Headers */,
-				2CC439591D8C13B600543A5B /* FormatInt.hpp in Headers */,
-				2CC4397F1D8C13B600543A5B /* TimeProfiler.hpp in Headers */,
-				2CC4395F1D8C13B600543A5B /* Image.hpp in Headers */,
-				2CC439621D8C13B600543A5B /* IWriter.hpp in Headers */,
-				2CC4396D1D8C13B600543A5B /* PlatformWindows.hpp in Headers */,
-				2CC43A101D8C13C000543A5B /* CLogger.hpp in Headers */,
-				2CC4395C1D8C13B600543A5B /* Fwd.hpp in Headers */,
-				2CC4397C1D8C13B600543A5B /* TextReader.hpp in Headers */,
-				2CC439711D8C13B600543A5B /* Random.hpp in Headers */,
-				2CC439451D8C13B600543A5B /* ostream.h in Headers */,
-				2CC439701D8C13B600543A5B /* Radix.hpp in Headers */,
-				2CC43A021D8C13C000543A5B /* CBinaryWriter_windows.hpp in Headers */,
-				2CC439511D8C13B600543A5B /* Concept.hpp in Headers */,
-				2CC439FD1D8C13C000543A5B /* CBinaryReader_windows.hpp in Headers */,
-				2CC4396B1D8C13B600543A5B /* ParseInt.hpp in Headers */,
-				2CC439821D8C13B600543A5B /* TypeTraits.hpp in Headers */,
-				2CC43A171D8C13C000543A5B /* Siv3DEngine.hpp in Headers */,
-				2CC43A2D1D8C13C000543A5B /* diy-fp.h in Headers */,
-				2CC439861D8C13B600543A5B /* Vector2D.hpp in Headers */,
-				2CC439561D8C13B600543A5B /* Format.hpp in Headers */,
-				2CC43A2F1D8C13C000543A5B /* double-conversion.h in Headers */,
-				2CC439481D8C13B600543A5B /* Allocator.hpp in Headers */,
-				2CC4397A1D8C13B600543A5B /* System.hpp in Headers */,
-				2CC439F81D8C13C000543A5B /* CBigInt.hpp in Headers */,
-				2CC439691D8C13B600543A5B /* ParseBool.hpp in Headers */,
-				2CC4395A1D8C13B600543A5B /* FormatLiteral.hpp in Headers */,
-				2CC4397B1D8C13B600543A5B /* TextEncoding.hpp in Headers */,
-				2CC439831D8C13B600543A5B /* Uncopyable.hpp in Headers */,
-				2CC439651D8C13B600543A5B /* MathConstants.hpp in Headers */,
-				2CC43A1F1D8C13C000543A5B /* CTextReader.hpp in Headers */,
-				2CC439581D8C13B600543A5B /* FormatFloat.hpp in Headers */,
-				2CC4397E1D8C13B600543A5B /* Time.hpp in Headers */,
-				2CC439571D8C13B600543A5B /* FormatBool.hpp in Headers */,
-				2CC439851D8C13B600543A5B /* Utility.hpp in Headers */,
-				2CC43A361D8C13C000543A5B /* strtod.h in Headers */,
-				2CC43A221D8C13C000543A5B /* CTextWriter.hpp in Headers */,
-				2CC439491D8C13B600543A5B /* Array.hpp in Headers */,
-				2CC439521D8C13B600543A5B /* Date.hpp in Headers */,
-				2CC439641D8C13B600543A5B /* Logger.hpp in Headers */,
-				2CC439811D8C13B600543A5B /* Types.hpp in Headers */,
-				2CC439441D8C13B600543A5B /* format.h in Headers */,
-				2CC439661D8C13B600543A5B /* Number.hpp in Headers */,
-				2CC439871D8C13B600543A5B /* Version.hpp in Headers */,
-				2CC439F21D8C13C000543A5B /* CXxxx.hpp in Headers */,
-				2CC4394D1D8C13B600543A5B /* BinaryWriter.hpp in Headers */,
-				2CC43A001D8C13C000543A5B /* CBinaryWriter_macOS.hpp in Headers */,
-				2CC439631D8C13B600543A5B /* LetterCase.hpp in Headers */,
-				2CC439731D8C13B600543A5B /* Regex.hpp in Headers */,
-				2CC439611D8C13B600543A5B /* IReader.hpp in Headers */,
-				2CC439801D8C13B600543A5B /* Timer.hpp in Headers */,
-				2CC439771D8C13B600543A5B /* Stopwatch.hpp in Headers */,
-				2CC439791D8C13B600543A5B /* StringView.hpp in Headers */,
-				2CC4394A1D8C13B600543A5B /* BigFloat.hpp in Headers */,
-				2CC439F31D8C13C000543A5B /* IXxxx.hpp in Headers */,
-				2CC43A2B1D8C13C000543A5B /* cached-powers.h in Headers */,
-				2CC4394B1D8C13B600543A5B /* BigInt.hpp in Headers */,
-				2CC4396C1D8C13B600543A5B /* Platform.hpp in Headers */,
-				2CC439601D8C13B600543A5B /* InfiniteList.hpp in Headers */,
-				2CC439671D8C13B600543A5B /* Optional.hpp in Headers */,
-				2CC4396E1D8C13B600543A5B /* Point.hpp in Headers */,
-				2CC43A291D8C13C000543A5B /* bignum.h in Headers */,
-				2CC43A131D8C13C000543A5B /* LogHeaderFotter.hpp in Headers */,
-				2CC43A371D8C13C000543A5B /* utils.h in Headers */,
-				2CC4397D1D8C13B600543A5B /* TextWriter.hpp in Headers */,
-				2CC4395D1D8C13B600543A5B /* Grid.hpp in Headers */,
-				2CC439761D8C13B600543A5B /* Step_MSVC.hpp in Headers */,
-				2CC4394F1D8C13B600543A5B /* CharacterSet.hpp in Headers */,
-				2CC439471D8C13B600543A5B /* _TEMPLATE.hpp in Headers */,
-				2CC43A311D8C13C000543A5B /* fast-dtoa.h in Headers */,
-				2CC439841D8C13B600543A5B /* Unspecified.hpp in Headers */,
-				2CC43A111D8C13C000543A5B /* ILogger.hpp in Headers */,
-				2CC439FB1D8C13C000543A5B /* CBinaryReader_macOS.hpp in Headers */,
-				2CC439721D8C13B600543A5B /* RDTSCProfiler.hpp in Headers */,
-				2CC4396A1D8C13B600543A5B /* ParseFloat.hpp in Headers */,
-				2CC4394C1D8C13B600543A5B /* BinaryReader.hpp in Headers */,
-				2CC4395B1D8C13B600543A5B /* Functor.hpp in Headers */,
-				2CC439881D8C13B600543A5B /* Siv3D.hpp in Headers */,
-				2CC4395E1D8C13B600543A5B /* HSV.hpp in Headers */,
-				2CC4394E1D8C13B600543A5B /* Char.hpp in Headers */,
-				2CC439501D8C13B600543A5B /* Color.hpp in Headers */,
-				2CC439751D8C13B600543A5B /* Step.hpp in Headers */,
-				2CC439461D8C13B600543A5B /* printf.h in Headers */,
-				2CC43A271D8C13C000543A5B /* bignum-dtoa.h in Headers */,
-				2CC439531D8C13B600543A5B /* DateTime.hpp in Headers */,
-				2CC4396F1D8C13B600543A5B /* PointVector.hpp in Headers */,
-				2CC439741D8C13B600543A5B /* SpeedStopwatch.hpp in Headers */,
-				2CC43A331D8C13C000543A5B /* fixed-dtoa.h in Headers */,
-				2CC439F61D8C13C000543A5B /* CBigFloat.hpp in Headers */,
-				2CC439551D8C13B600543A5B /* FileSystem.hpp in Headers */,
+				2CC43AA01D8C348300543A5B /* Image.hpp in Headers */,
+				2CC43B761D8C348C00543A5B /* double-conversion.h in Headers */,
+				2CC43AAA1D8C348300543A5B /* ParseBool.hpp in Headers */,
+				2CC43ABC1D8C348300543A5B /* TextEncoding.hpp in Headers */,
+				2CC43AA71D8C348300543A5B /* Number.hpp in Headers */,
+				2CC43AC51D8C348300543A5B /* Unspecified.hpp in Headers */,
+				2CC43AA91D8C348300543A5B /* Parse.hpp in Headers */,
+				2CC43B561D8C348C00543A5B /* CLogger.hpp in Headers */,
+				2CC43B741D8C348C00543A5B /* diy-fp.h in Headers */,
+				2CC43A941D8C348300543A5B /* Duration.hpp in Headers */,
+				2CC43B7E1D8C348C00543A5B /* utils.h in Headers */,
+				2CC43B3B1D8C348C00543A5B /* CBigFloat.hpp in Headers */,
+				2CC43B421D8C348C00543A5B /* CBinaryReader_windows.hpp in Headers */,
+				2CC43AAE1D8C348300543A5B /* PlatformWindows.hpp in Headers */,
+				2CC43AAD1D8C348300543A5B /* Platform.hpp in Headers */,
+				2CC43A991D8C348300543A5B /* FormatInt.hpp in Headers */,
+				2CC43AAC1D8C348300543A5B /* ParseInt.hpp in Headers */,
+				2CC43A9C1D8C348300543A5B /* Fwd.hpp in Headers */,
+				2CC43AC61D8C348300543A5B /* Utility.hpp in Headers */,
+				2CC43A851D8C348300543A5B /* ostream.h in Headers */,
+				2CC43B651D8C348C00543A5B /* CTextReader.hpp in Headers */,
+				2CC43A9E1D8C348300543A5B /* Hash.hpp in Headers */,
+				2CC43AB01D8C348300543A5B /* PointVector.hpp in Headers */,
+				2CC43B471D8C348C00543A5B /* CBinaryWriter_windows.hpp in Headers */,
+				2CC43A911D8C348300543A5B /* Concept.hpp in Headers */,
+				2CC43B7A1D8C348C00543A5B /* fixed-dtoa.h in Headers */,
+				2CC43AA81D8C348300543A5B /* Optional.hpp in Headers */,
+				2CC43AA31D8C348300543A5B /* IWriter.hpp in Headers */,
+				2CC43AB51D8C348300543A5B /* SpeedStopwatch.hpp in Headers */,
+				2CC43A9F1D8C348300543A5B /* HSV.hpp in Headers */,
+				2CC43AAB1D8C348300543A5B /* ParseFloat.hpp in Headers */,
+				2CC43A961D8C348300543A5B /* Format.hpp in Headers */,
+				2CC43AC71D8C348300543A5B /* Vector2D.hpp in Headers */,
+				2CC43A881D8C348300543A5B /* Allocator.hpp in Headers */,
+				2CC43B681D8C348C00543A5B /* CTextWriter.hpp in Headers */,
+				2CC43ABE1D8C348300543A5B /* TextWriter.hpp in Headers */,
+				2CC43B721D8C348C00543A5B /* cached-powers.h in Headers */,
+				2CC43A9A1D8C348300543A5B /* FormatLiteral.hpp in Headers */,
+				2CC43A981D8C348300543A5B /* FormatFloat.hpp in Headers */,
+				2CC43A971D8C348300543A5B /* FormatBool.hpp in Headers */,
+				2CC43AA51D8C348300543A5B /* Logger.hpp in Headers */,
+				2CC43AC41D8C348300543A5B /* Uncopyable.hpp in Headers */,
+				2CC43AB41D8C348300543A5B /* Regex.hpp in Headers */,
+				2CC43AA61D8C348300543A5B /* MathConstants.hpp in Headers */,
+				2CC43AC31D8C348300543A5B /* TypeTraits.hpp in Headers */,
+				2CC43B451D8C348C00543A5B /* CBinaryWriter_macOS.hpp in Headers */,
+				2CC43A891D8C348300543A5B /* Array.hpp in Headers */,
+				2CC43AAF1D8C348300543A5B /* Point.hpp in Headers */,
+				2CC43A921D8C348300543A5B /* Date.hpp in Headers */,
+				2CC43A841D8C348300543A5B /* format.h in Headers */,
+				2CC43ABD1D8C348300543A5B /* TextReader.hpp in Headers */,
+				2CC43AB11D8C348300543A5B /* Radix.hpp in Headers */,
+				2CC43B781D8C348C00543A5B /* fast-dtoa.h in Headers */,
+				2CC43B381D8C348C00543A5B /* IXxxx.hpp in Headers */,
+				2CC43AB21D8C348300543A5B /* Random.hpp in Headers */,
+				2CC43A8D1D8C348300543A5B /* BinaryWriter.hpp in Headers */,
+				2CC43B6E1D8C348C00543A5B /* bignum-dtoa.h in Headers */,
+				2CC43A8A1D8C348300543A5B /* BigFloat.hpp in Headers */,
+				2CC43AB91D8C348300543A5B /* String.hpp in Headers */,
+				2CC43ABA1D8C348300543A5B /* StringView.hpp in Headers */,
+				2CC43B3D1D8C348C00543A5B /* CBigInt.hpp in Headers */,
+				2CC43A8B1D8C348300543A5B /* BigInt.hpp in Headers */,
+				2CC43A9D1D8C348300543A5B /* Grid.hpp in Headers */,
+				2CC43AB61D8C348300543A5B /* Step.hpp in Headers */,
+				2CC43AC91D8C348300543A5B /* Siv3D.hpp in Headers */,
+				2CC43A8F1D8C348300543A5B /* CharacterSet.hpp in Headers */,
+				2CC43A871D8C348300543A5B /* _TEMPLATE.hpp in Headers */,
+				2CC43AA21D8C348300543A5B /* IReader.hpp in Headers */,
+				2CC43A8C1D8C348300543A5B /* BinaryReader.hpp in Headers */,
+				2CC43A9B1D8C348300543A5B /* Functor.hpp in Headers */,
+				2CC43AB71D8C348300543A5B /* Step_MSVC.hpp in Headers */,
+				2CC43ABF1D8C348300543A5B /* Time.hpp in Headers */,
+				2CC43AC11D8C348300543A5B /* Timer.hpp in Headers */,
+				2CC43B7B1D8C348C00543A5B /* ieee.h in Headers */,
+				2CC43AC21D8C348300543A5B /* Types.hpp in Headers */,
+				2CC43B591D8C348C00543A5B /* LogHeaderFotter.hpp in Headers */,
+				2CC43A8E1D8C348300543A5B /* Char.hpp in Headers */,
+				2CC43A901D8C348300543A5B /* Color.hpp in Headers */,
+				2CC43AB31D8C348300543A5B /* RDTSCProfiler.hpp in Headers */,
+				2CC43AC01D8C348300543A5B /* TimeProfiler.hpp in Headers */,
+				2CC43B371D8C348C00543A5B /* CXxxx.hpp in Headers */,
+				2CC43A861D8C348300543A5B /* printf.h in Headers */,
+				2CC43AA41D8C348300543A5B /* LetterCase.hpp in Headers */,
+				2CC43A931D8C348300543A5B /* DateTime.hpp in Headers */,
+				2CC43AA11D8C348300543A5B /* InfiniteList.hpp in Headers */,
+				2CC43B571D8C348C00543A5B /* ILogger.hpp in Headers */,
+				2CC43ABB1D8C348300543A5B /* System.hpp in Headers */,
+				2CC43A951D8C348300543A5B /* FileSystem.hpp in Headers */,
+				2CC43B5D1D8C348C00543A5B /* Siv3DEngine.hpp in Headers */,
+				2CC43B401D8C348C00543A5B /* CBinaryReader_macOS.hpp in Headers */,
+				2CC43AB81D8C348300543A5B /* Stopwatch.hpp in Headers */,
+				2CC43B701D8C348C00543A5B /* bignum.h in Headers */,
+				2CC43AC81D8C348300543A5B /* Version.hpp in Headers */,
+				2CC43B7D1D8C348C00543A5B /* strtod.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1176,54 +1202,56 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CC43A181D8C13C000543A5B /* Siv3DMain_macOS.cpp in Sources */,
-				2CC43A1B1D8C13C000543A5B /* SivString.cpp in Sources */,
-				2CC43A281D8C13C000543A5B /* bignum.cc in Sources */,
-				2CC43A061D8C13C000543A5B /* SivDate.cpp in Sources */,
-				2CC439F41D8C13C000543A5B /* SivXxxx.cpp in Sources */,
-				2CC43A201D8C13C000543A5B /* SivTextReader.cpp in Sources */,
-				2CC43A381D8C13C000543A5B /* format.cc in Sources */,
-				2CC43A121D8C13C000543A5B /* LoggerFactory.cpp in Sources */,
-				2CC43A031D8C13C000543A5B /* SivBinaryWriter.cpp in Sources */,
-				2CC439F91D8C13C000543A5B /* SivBigInt.cpp in Sources */,
-				2CC43A151D8C13C000543A5B /* SivParseFloat.cpp in Sources */,
-				2CC43A351D8C13C000543A5B /* strtod.cc in Sources */,
-				2CC43A211D8C13C000543A5B /* CTextWriter.cpp in Sources */,
-				2CC43A0E1D8C13C000543A5B /* SivImage.cpp in Sources */,
-				2CC43A1E1D8C13C000543A5B /* CTextReader.cpp in Sources */,
-				2CC43A071D8C13C000543A5B /* SivDateTime.cpp in Sources */,
-				2CC439F11D8C13C000543A5B /* CXxxx.cpp in Sources */,
-				2CC43A1A1D8C13C000543A5B /* SivStopwatch.cpp in Sources */,
-				2CC439FA1D8C13C000543A5B /* CBinaryReader_macOS.cpp in Sources */,
-				2CC43A161D8C13C000543A5B /* Siv3DEngine.cpp in Sources */,
-				2CC439FC1D8C13C000543A5B /* CBinaryReader_windows.cpp in Sources */,
-				2CC43A251D8C13C000543A5B /* SivTimeProfiler.cpp in Sources */,
-				2CC43A011D8C13C000543A5B /* CBinaryWriter_windows.cpp in Sources */,
-				2CC43A081D8C13C000543A5B /* SivFileSystem.cpp in Sources */,
-				2CC43A0F1D8C13C000543A5B /* CLogger.cpp in Sources */,
-				2CC43A241D8C13C000543A5B /* SivTime.cpp in Sources */,
-				2CC43A091D8C13C000543A5B /* SivFileSystem.mm in Sources */,
-				2CC43A141D8C13C000543A5B /* SivLogger.cpp in Sources */,
-				2CC43A0D1D8C13C000543A5B /* SivHSV.cpp in Sources */,
-				2CC43A1C1D8C13C000543A5B /* SivSystem.cpp in Sources */,
-				2CC43A321D8C13C000543A5B /* fixed-dtoa.cc in Sources */,
-				2CC43A0A1D8C13C000543A5B /* SivFormat.cpp in Sources */,
-				2CC43A041D8C13C000543A5B /* SivCharacterSet.cpp in Sources */,
-				2CC43A2E1D8C13C000543A5B /* double-conversion.cc in Sources */,
-				2CC43A051D8C13C000543A5B /* SivColor.cpp in Sources */,
-				2CC43A0B1D8C13C000543A5B /* SivFormatFloat.cpp in Sources */,
-				2CC43A0C1D8C13C000543A5B /* SivFormatInt.cpp in Sources */,
-				2CC43A2A1D8C13C000543A5B /* cached-powers.cc in Sources */,
-				2CC439F71D8C13C000543A5B /* SivBigFloat.cpp in Sources */,
-				2CC43A261D8C13C000543A5B /* bignum-dtoa.cc in Sources */,
-				2CC43A231D8C13C000543A5B /* SivTextWriter.cpp in Sources */,
-				2CC439FE1D8C13C000543A5B /* SivBinaryReader.cpp in Sources */,
-				2CC43A1D1D8C13C000543A5B /* SivTextEncoding.cpp in Sources */,
-				2CC43A301D8C13C000543A5B /* fast-dtoa.cc in Sources */,
-				2CC439F51D8C13C000543A5B /* XxxxFactory.cpp in Sources */,
-				2CC43A2C1D8C13C000543A5B /* diy-fp.cc in Sources */,
-				2CC439FF1D8C13C000543A5B /* CBinaryWriter_macOS.cpp in Sources */,
-				2CC43A191D8C13C000543A5B /* Siv3DMain_Windows.cpp in Sources */,
+				2CC43B771D8C348C00543A5B /* fast-dtoa.cc in Sources */,
+				2CC43B4B1D8C348C00543A5B /* SivDate.cpp in Sources */,
+				2CC43B391D8C348C00543A5B /* SivXxxx.cpp in Sources */,
+				2CC43B481D8C348C00543A5B /* SivBinaryWriter.cpp in Sources */,
+				2CC43B5C1D8C348C00543A5B /* Siv3DEngine.cpp in Sources */,
+				2CC43B7C1D8C348C00543A5B /* strtod.cc in Sources */,
+				2CC43B691D8C348C00543A5B /* SivTextWriter.cpp in Sources */,
+				2CC43B3E1D8C348C00543A5B /* SivBigInt.cpp in Sources */,
+				2CC43B5B1D8C348C00543A5B /* SivParseFloat.cpp in Sources */,
+				2CC43B731D8C348C00543A5B /* diy-fp.cc in Sources */,
+				2CC43B541D8C348C00543A5B /* SivImage.cpp in Sources */,
+				2CC43B611D8C348C00543A5B /* SivString.cpp in Sources */,
+				2CC43B4C1D8C348C00543A5B /* SivDateTime.cpp in Sources */,
+				2CC43B361D8C348C00543A5B /* CXxxx.cpp in Sources */,
+				2CC43B3F1D8C348C00543A5B /* CBinaryReader_macOS.cpp in Sources */,
+				2CC43B5A1D8C348C00543A5B /* SivLogger.cpp in Sources */,
+				2CC43B641D8C348C00543A5B /* CTextReader.cpp in Sources */,
+				2CC43B411D8C348C00543A5B /* CBinaryReader_windows.cpp in Sources */,
+				2CC43B461D8C348C00543A5B /* CBinaryWriter_windows.cpp in Sources */,
+				2CC43B4D1D8C348C00543A5B /* SivFileSystem.cpp in Sources */,
+				2CC43B5F1D8C348C00543A5B /* Siv3DMain_Windows.cpp in Sources */,
+				2CC43B601D8C348C00543A5B /* SivStopwatch.cpp in Sources */,
+				2CC43B6A1D8C348C00543A5B /* SivTime.cpp in Sources */,
+				2CC43B4E1D8C348C00543A5B /* SivFileSystem.mm in Sources */,
+				2CC43B4F1D8C348C00543A5B /* SivFormat.cpp in Sources */,
+				2CC43B491D8C348C00543A5B /* SivCharacterSet.cpp in Sources */,
+				2CC43B4A1D8C348C00543A5B /* SivColor.cpp in Sources */,
+				2CC43B501D8C348C00543A5B /* SivFormatFloat.cpp in Sources */,
+				2CC43B511D8C348C00543A5B /* SivFormatInt.cpp in Sources */,
+				2CC43B531D8C348C00543A5B /* SivHSV.cpp in Sources */,
+				2CC43B3C1D8C348C00543A5B /* SivBigFloat.cpp in Sources */,
+				2CC43B431D8C348C00543A5B /* SivBinaryReader.cpp in Sources */,
+				2CC43B521D8C348C00543A5B /* SivHash.cpp in Sources */,
+				2CC43B671D8C348C00543A5B /* CTextWriter.cpp in Sources */,
+				2CC43B3A1D8C348C00543A5B /* XxxxFactory.cpp in Sources */,
+				2CC43B6B1D8C348C00543A5B /* SivTimeProfiler.cpp in Sources */,
+				2CC43B6C1D8C348C00543A5B /* SivVector2D.cpp in Sources */,
+				2CC43B631D8C348C00543A5B /* SivTextEncoding.cpp in Sources */,
+				2CC43B751D8C348C00543A5B /* double-conversion.cc in Sources */,
+				2CC43B791D8C348C00543A5B /* fixed-dtoa.cc in Sources */,
+				2CC43B6D1D8C348C00543A5B /* bignum-dtoa.cc in Sources */,
+				2CC43B441D8C348C00543A5B /* CBinaryWriter_macOS.cpp in Sources */,
+				2CC43B7F1D8C348C00543A5B /* format.cc in Sources */,
+				2CC43B711D8C348C00543A5B /* cached-powers.cc in Sources */,
+				2CC43B621D8C348C00543A5B /* SivSystem.cpp in Sources */,
+				2CC43B661D8C348C00543A5B /* SivTextReader.cpp in Sources */,
+				2CC43B581D8C348C00543A5B /* LoggerFactory.cpp in Sources */,
+				2CC43B5E1D8C348C00543A5B /* Siv3DMain_macOS.cpp in Sources */,
+				2CC43B551D8C348C00543A5B /* CLogger.cpp in Sources */,
+				2CC43B6F1D8C348C00543A5B /* bignum.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

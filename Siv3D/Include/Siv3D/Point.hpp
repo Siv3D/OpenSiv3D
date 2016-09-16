@@ -12,6 +12,7 @@
 # pragma once
 # include <utility>
 # include <cassert>
+# include <iostream>
 # include "Fwd.hpp"
 
 namespace s3d
