@@ -52,7 +52,7 @@ void Main()
 	TimeProfiler tp;
 
 	std::array<HSV, 10000> hs;
-	std::array<ColorF, 10000> c1s, c2s;
+	std::array<Color, 10000> c1s, c2s;
 
 	for (size_t i = 0; i < c1s.size(); ++i)
 	{
@@ -65,7 +65,7 @@ void Main()
 
 		for (size_t i = 0; i < c1s.size(); ++i)
 		{
-			c1s[i] = hs[i].toColorF();
+			c1s[i] = hs[i];
 		}
 		tp.end();
 	}

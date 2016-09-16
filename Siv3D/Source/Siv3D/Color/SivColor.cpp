@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Color.hpp>
+# include <Siv3D/HSV.hpp>
 # include <Siv3D/String.hpp>
 
 namespace s3d
@@ -20,6 +21,11 @@ namespace s3d
 		{
 			return (c & 0xF) + ((c & 0x40) >> 6) * 9;
 		}
+	}
+
+	Color::Color(const HSV& hsv) noexcept
+	{
+		*this = hsv.toColor();
 	}
 
 	Color::Color(const StringView& code) noexcept
@@ -57,6 +63,11 @@ namespace s3d
 				static_cast<uint32>(std::pow(g / 255.0, ig)),
 				static_cast<uint32>(std::pow(b / 255.0, ig)),
 				a };
+	}
+
+	ColorF::ColorF(const HSV& hsv) noexcept
+	{
+		*this = hsv.toColorF();
 	}
 
 	ColorF ColorF::gamma(const double gamma) const noexcept
