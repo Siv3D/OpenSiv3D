@@ -314,7 +314,7 @@ namespace s3d
 
 				do
 				{
-					if (traits_type::compare(m_ptr + pos, __str, count) == 0)
+					if (traits_type::compare(m_ptr + pos, s, count) == 0)
 					{
 						return pos;
 					}
