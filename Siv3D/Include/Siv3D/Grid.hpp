@@ -995,19 +995,16 @@ namespace s3d
 		template <class Fty>
 		auto map(Fty f) const
 		{
-			Grid<std::result_of_t<Fty(Type)>> new_grid;
+			Array<std::result_of_t<Fty(Type)>> data;
 
-			new_grid.reserve(m_width, m_height);
+			data.reserve(m_width * m_height);
 
 			for (const auto& v : m_data)
 			{
-				new_grid.m_data.push_back(f(v));
+				data.push_back(f(v));
 			}
 
-			new_grid.m_width = m_width;
-			new_grid.m_height = m_height;
-
-			return new_grid;
+			return Grid<std::result_of_t<Fty(Type)>>(m_width, m_height, std::move(data));
 		}
 
 		template <class Fty = decltype(Id())>

@@ -10,8 +10,13 @@
 //-----------------------------------------------
 
 # pragma once
+# include <cmath>
+# include <utility>
+# include "Fwd.hpp"
 # include "Point.hpp"
-# include "Vector2D.hpp"
-# include "Point.inl"
-# include "Vector3D.hpp"
-# include "Vector4D.hpp"
+# include "Hash.hpp"
+
+namespace s3d
+{
+
+}

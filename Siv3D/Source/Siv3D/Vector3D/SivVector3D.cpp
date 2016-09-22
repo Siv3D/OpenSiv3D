@@ -9,9 +9,10 @@
 //
 //-----------------------------------------------
 
-# pragma once
-# include "Point.hpp"
-# include "Vector2D.hpp"
-# include "Point.inl"
-# include "Vector3D.hpp"
-# include "Vector4D.hpp"
+# include <Siv3D/Vector3D.hpp>
+
+namespace s3d
+{
+	template Float3;
+	template Vec3;
+}

@@ -147,39 +147,39 @@ namespace s3d
 
 			return new_array;
 		}
-        
-        template <class Fty>
-        constexpr N count_if(Fty f) const
-        {
-            if (isEmpty())
-            {
-                return 0;
-            }
-            
-            N result = 0;
-            auto count_ = count();
-            auto value = startValue();
-            const auto step_ = step();
-            
-            for (;;)
-            {
-                if (f(value))
-                {
-                    ++result;
-                }
-                
-                if (--count_)
-                {
-                    value += step_;
-                }
-                else
-                {
-                    break;
-                }
-            }
-            
-            return result;
-        }
+
+		template <class Fty>
+		constexpr N count_if(Fty f) const
+		{
+			if (isEmpty())
+			{
+				return 0;
+			}
+
+			N result = 0;
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			for (;;)
+			{
+				if (f(value))
+				{
+					++result;
+				}
+
+				if (--count_)
+				{
+					value += step_;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return result;
+		}
 
 		template <class Fty>
 		void each(Fty f) const
@@ -236,7 +236,7 @@ namespace s3d
 			}
 		}
 
-        template <class Fty>
+		template <class Fty>
 		constexpr auto filter(Fty f) const;
 
 		constexpr bool include(const value_type& x) const
@@ -270,7 +270,7 @@ namespace s3d
 			return false;
 		}
 
-        template <class Fty>
+		template <class Fty>
 		constexpr bool include_if(Fty f) const
 		{
 			if (isEmpty())
@@ -349,7 +349,7 @@ namespace s3d
 		}
 
 		template <class Fty>
-        constexpr auto map(Fty f) const;
+		constexpr auto map(Fty f) const;
 
 		template <class Fty>
 		constexpr auto reduce(Fty f, std::result_of_t<Fty(value_type, value_type)> init) const
@@ -753,7 +753,7 @@ namespace s3d
 				return new_array;
 			}
 
-            size_t count() const
+		size_t count() const
 			{
 				size_t sum = 0;
 				each([&sum](const auto) { ++sum; });
@@ -769,7 +769,7 @@ namespace s3d
 			}
 
 			template <class Fty>
-            void each(Fty f) const
+			void each(Fty f) const
 			{
 				m_base.each([f, functions = m_functions](const auto& value)
 				{
@@ -784,7 +784,7 @@ namespace s3d
 				return F_Step<StepClass, value_type, decltype(functions)>(m_base, functions);
 			}
 
-            bool include(const value_type& x) const
+			bool include(const value_type& x) const
 			{
 				if (m_base.isEmpty())
 				{
@@ -820,8 +820,8 @@ namespace s3d
 				return false;
 			}
 
-            template <class Fty>
-            bool include_if(Fty f) const
+			template <class Fty>
+			bool include_if(Fty f) const
 			{
 				if (m_base.isEmpty())
 				{
@@ -920,7 +920,7 @@ namespace s3d
 			}
 
 			template <class Fty>
-            auto reduce1(Fty f) const
+			auto reduce1(Fty f) const
 			{
 				if (m_base.isEmpty())
 				{
@@ -1044,7 +1044,7 @@ namespace s3d
 	}
 
 	template <class T, class N, class S>
-    template <class Fty>
+	template <class Fty>
 	inline constexpr auto steps_class<T, N, S>::filter(Fty f) const
 	{
 		const auto tuple = std::make_tuple(detail::FilterFunction<Fty>{ f });
