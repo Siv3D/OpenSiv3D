@@ -181,7 +181,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		String& operator = (const String& str) { return assign(str); }
+		String& operator =(const String& str) { return assign(str); }
 
 		/// <summary>
 		/// 新しい文字列を代入します。
@@ -192,7 +192,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		String& operator = (const string_type& str) { return assign(str); }
+		String& operator =(const string_type& str) { return assign(str); }
 
 		/// <summary>
 		/// 新しい文字列を代入します。
@@ -203,7 +203,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		String& operator = (String&& str) noexcept { return assign(std::move(str)); }
+		String& operator =(String&& str) noexcept { return assign(std::move(str)); }
 
 		/// <summary>
 		/// 新しい文字列を代入します。
@@ -214,7 +214,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		String& operator = (string_type&& str) noexcept { return assign(std::move(str)); }
+		String& operator =(string_type&& str) noexcept { return assign(std::move(str)); }
 
 		/// <summary>
 		/// 新しい文字列を代入します。
@@ -228,7 +228,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		String& operator = (const wchar* str) { return assign(str); }
+		String& operator =(const wchar* str) { return assign(str); }
 
 		/// <summary>
 		/// 新しい文字列を代入します。
@@ -239,7 +239,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		String& operator = (wchar ch) { return assign(1, ch); }
+		String& operator =(wchar ch) { return assign(1, ch); }
 
 		/// <summary>
 		/// 新しい文字列を代入します。
@@ -250,7 +250,9 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		String& operator = (std::initializer_list<value_type> ilist) { return assign(ilist); }
+		String& operator =(std::initializer_list<value_type> ilist) { return assign(ilist); }
+
+		String& operator =(StringView sv) { return assign(sv); }
 
 		String& operator <<(const wchar ch)
 		{
@@ -377,6 +379,13 @@ namespace s3d
 			return *this;
 		}
 
+		String& assign(StringView sv)
+		{
+			m_string.assign(sv.begin(), sv.end());
+
+			return *this;
+		}
+
 		/// <summary>
 		/// 指定した範囲の文字列を代入します。
 		/// </summary>
@@ -454,6 +463,8 @@ namespace s3d
 		/// *this
 		/// </returns>
 		String& operator += (wchar ch) { return append(1, ch); }
+
+		String& operator += (StringView sv) { return append(sv); }
 
 		/// <summary>
 		/// 文字列を終端に追加します。
@@ -556,6 +567,13 @@ namespace s3d
 		String& append(size_t count, wchar ch)
 		{
 			m_string.append(count, ch);
+
+			return *this;
+		}
+
+		String& append(StringView sv)
+		{
+			m_string.append(sv.begin(), sv.end());
 
 			return *this;
 		}
