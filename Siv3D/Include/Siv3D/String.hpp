@@ -17,6 +17,7 @@
 # include "Char.hpp"
 # include "Functor.hpp"
 # include "Random.hpp"
+# include "StringView.hpp"
 
 namespace s3d
 {
@@ -79,6 +80,12 @@ namespace s3d
 		String(const string_type& str)
 			: m_string(str) {}
 
+		String(const String& other, size_type pos)
+			: m_string(other.m_string, pos) {}
+		
+		String(const String& other, size_type pos, size_type count)
+			: m_string(other.m_string, pos, count) {}
+
 		/// <summary>
 		/// 文字列をコピーして新しい文字列を作成します。
 		/// </summary>
@@ -97,11 +104,11 @@ namespace s3d
 		/// <param name="str">
 		/// コピーする文字列の先頭ポインタ
 		/// </param>
-		/// <param name="length">
+		/// <param name="count">
 		/// コピーする文字数
 		/// </param>
-		String(const wchar* str, size_type length)
-			: m_string(str, length) {}
+		String(const wchar* str, size_type count)
+			: m_string(str, count) {}
 
 		/// <summary>
 		/// 初期化リストから新しい文字列を作成します。
@@ -159,6 +166,11 @@ namespace s3d
 		/// デストラクタ
 		/// </summary>
 		~String() = default;
+
+		operator StringView() const noexcept
+		{
+			return StringView(m_string.data(), m_string.size());
+		}
 
 		/// <summary>
 		/// 新しい文字列を代入します。
