@@ -3088,7 +3088,7 @@ namespace s3d
 		return CharacterSet::ToUTF32(*this);
 	}
 
-	inline std::istream& operator >> (std::istream& input, String& str)
+	inline std::istream& operator >>(std::istream& input, String& str)
 	{
 		std::string t;
 		input >> t;
@@ -3096,7 +3096,7 @@ namespace s3d
 		return input;
 	}
 
-	inline std::ostream& operator << (std::ostream& os, const StringView& str)
+	inline std::ostream& operator <<(std::ostream& os, const StringView& str)
 	{
 		return os << CharacterSet::Narrow(str);
 	}

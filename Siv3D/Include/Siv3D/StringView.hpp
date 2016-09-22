@@ -21,12 +21,12 @@ namespace s3d
 	{
 	public:
 
+		using traits_type				= std::char_traits<CharType>;
 		using value_type				= CharType;
-		using traits_type				= std::char_traits<value_type>;
-		using pointer					= const value_type*;
-		using const_pointer				= const value_type*;
-		using reference					= const value_type&;
-		using const_reference			= const value_type&;
+		using pointer					= const CharType*;
+		using const_pointer				= const CharType*;
+		using reference					= const CharType&;
+		using const_reference			= const CharType&;
 		using const_iterator			= const_pointer;
 		using iterator					= const_iterator;
 		using const_reverse_iterator	= std::reverse_iterator<const_iterator>;
@@ -215,14 +215,20 @@ namespace s3d
 			return substr(pos1, n1).compare(BasicStringView(str, n2));
 		}
 
-		constexpr bool starts_with(CharType ch) const { return !empty() && front() == ch; }
+		constexpr bool starts_with(CharType ch) const
+		{
+			return !empty() && front() == ch;
+		}
 
 		S3D_CONSTEXPR_CPP14 bool starts_with(BasicStringView str) const
 		{
 			return m_length >= str.m_length && traits_type::compare(m_ptr, str.m_ptr, str.m_length) == 0;
 		}
 
-		constexpr bool ends_with(CharType ch) const { return !empty() && back() == ch; }
+		constexpr bool ends_with(CharType ch) const
+		{
+			return !empty() && back() == ch;
+		}
 
 		S3D_CONSTEXPR_CPP14 bool ends_with(BasicStringView str) const
 		{
@@ -278,12 +284,12 @@ namespace s3d
 			return indexOf(s, pos, traits_type::length(s));
 		}
 
-		constexpr size_type lastIndexOf(BasicStringView str, size_type pos = npos) const noexcept
+		S3D_CONSTEXPR_CPP14 size_type lastIndexOf(BasicStringView str, size_type pos = npos) const noexcept
 		{
 			return lastIndexOf(str.m_ptr, pos, str.m_length);
 		}
 
-		constexpr size_type lastIndexOf(CharType ch, size_type pos = npos) const noexcept
+		S3D_CONSTEXPR_CPP14 size_type lastIndexOf(CharType ch, size_type pos = npos) const noexcept
 		{
 			size_type size = m_length;
 
@@ -306,7 +312,7 @@ namespace s3d
 			return npos;
 		}
 		
-		constexpr size_type lastIndexOf(const CharType* s, size_type pos, size_type count) const noexcept
+		S3D_CONSTEXPR_CPP14 size_type lastIndexOf(const CharType* s, size_type pos, size_type count) const noexcept
 		{
 			if (count <= m_length)
 			{
@@ -325,7 +331,7 @@ namespace s3d
 			return npos;
 		}
 
-		constexpr size_type lastIndexOf(const CharType* s, size_type pos = npos) const noexcept
+		S3D_CONSTEXPR_CPP14 size_type lastIndexOf(const CharType* s, size_type pos = npos) const noexcept
 		{
 			return lastIndexOf(s, pos, traits_type::length(s));
 		}
@@ -340,37 +346,37 @@ namespace s3d
 	};
 
 	template <class CharType>
-	inline bool operator == (BasicStringView<CharType> x, BasicStringView<CharType> y) noexcept
+	inline S3D_CONSTEXPR_CPP14 bool operator == (BasicStringView<CharType> x, BasicStringView<CharType> y) noexcept
 	{
 		return x.compare(y) == 0;
 	}
 
 	template <class CharType>
-	inline bool operator != (BasicStringView<CharType> x, BasicStringView<CharType> y) noexcept
+	inline S3D_CONSTEXPR_CPP14 bool operator != (BasicStringView<CharType> x, BasicStringView<CharType> y) noexcept
 	{
 		return !(x == y);
 	}
 
 	template <class CharType>
-	inline bool operator < (BasicStringView<CharType> x, BasicStringView<CharType> y) noexcept
+	inline S3D_CONSTEXPR_CPP14 bool operator < (BasicStringView<CharType> x, BasicStringView<CharType> y) noexcept
 	{
 		return x.compare(y) < 0;
 	}
 
 	template <class CharType>
-	inline bool operator <=(BasicStringView<CharType> x, BasicStringView<CharType> y) noexcept
+	inline S3D_CONSTEXPR_CPP14 bool operator <=(BasicStringView<CharType> x, BasicStringView<CharType> y) noexcept
 	{
 		return x.compare(y) <= 0;
 	}
 
 	template <class CharType>
-	inline bool operator > (BasicStringView<CharType> x, BasicStringView<CharType> y) noexcept
+	inline S3D_CONSTEXPR_CPP14 bool operator > (BasicStringView<CharType> x, BasicStringView<CharType> y) noexcept
 	{
 		return x.compare(y) > 0;
 	}
 
 	template <class CharType>
-	inline bool operator >= (BasicStringView<CharType> x, BasicStringView<CharType> y) noexcept
+	inline S3D_CONSTEXPR_CPP14 bool operator >= (BasicStringView<CharType> x, BasicStringView<CharType> y) noexcept
 	{
 		return x.compare(y) >= 0;
 	}
@@ -389,7 +395,6 @@ namespace s3d
 	using UTF8StringView	= BasicStringView<char>;
 	using StringView		= BasicStringView<wchar>;
 }
-
 
 namespace std
 {
