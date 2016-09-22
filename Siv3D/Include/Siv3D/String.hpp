@@ -3013,14 +3013,13 @@ namespace std
 	template <>
 	struct hash<s3d::String>
 	{
-		size_t operator () (const s3d::String& keyVal) const
+		size_t operator ()(const s3d::String& keyVal) const
 		{
 			return hash<s3d::String::string_type>()(keyVal.str());
 		}
 	};
 }
 
-# include "StringView.hpp"
 # include "CharacterSet.hpp"
 
 namespace s3d

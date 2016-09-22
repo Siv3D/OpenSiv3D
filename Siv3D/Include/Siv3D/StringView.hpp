@@ -12,6 +12,7 @@
 # pragma once
 # include <cassert>
 # include "Fwd.hpp"
+# include "Hash.hpp"
 
 namespace s3d
 {
@@ -328,6 +329,14 @@ namespace s3d
 		{
 			return lastIndexOf(s, pos, traits_type::length(s));
 		}
+
+		// indexOfAny
+
+		// lastIndexOfAny
+
+		// indexNotOfAny
+
+		// lastIndexNotOfAny
 	};
 
 	template <class CharType>
@@ -381,23 +390,15 @@ namespace s3d
 	using StringView		= BasicStringView<wchar>;
 }
 
-//namespace std
-//{
-//	template <>
-//	struct hash<s3d::CStringView>
-//	{
-//		size_t operator () (const s3d::CStringView& keyVal) const
-//		{
-//			return hash<std::string>()(keyVal.str());
-//		}
-//	};
-//
-//	template <>
-//	struct hash<s3d::StringView>
-//	{
-//		size_t operator () (const s3d::StringView& keyVal) const
-//		{
-//			return hash<s3d::String>()(keyVal.str());
-//		}
-//	};
-//}
+
+namespace std
+{
+	template <class CharType>
+	struct hash<s3d::BasicStringView<CharType>>
+	{
+		size_t operator ()(const s3d::BasicStringView<CharType>& keyVal) const
+		{
+			return s3d::Hash::FNV1a(keyVal.data(), keyVal.length() * sizeof(CharType));
+		}
+	};
+}
