@@ -35,24 +35,25 @@ namespace s3d
 
 	Color::Color(const StringView& code) noexcept
 	{
-		if (code.length() == 4)
+		if (code.length() == 4 || code.length() == 5)
 		{
 			r = detail::HexToDecimal(code[1]) * 17;
 			g = detail::HexToDecimal(code[2]) * 17;
-			b = detail::HexToDecimal(code[3]) * 17;		
+			b = detail::HexToDecimal(code[3]) * 17;
+			a = code.length() == 5 ? detail::HexToDecimal(code[4]) * 17 : 255;
 		}
-		else if (code.length() == 7)
+		else if (code.length() == 7 || code.length() == 9)
 		{
 			r = detail::HexToDecimal(code[1]) * 16 + detail::HexToDecimal(code[2]);
 			g = detail::HexToDecimal(code[3]) * 16 + detail::HexToDecimal(code[4]);
 			b = detail::HexToDecimal(code[5]) * 16 + detail::HexToDecimal(code[6]);
+			a = code.length() == 9 ? (detail::HexToDecimal(code[7]) * 16 + detail::HexToDecimal(code[8])) : 255;
 		}
 		else
 		{
 			r = g = b = 0;
+			a = 255;
 		}
-
-		a = 255;
 	}
 
 	Color Color::gamma(const double gamma) const noexcept
