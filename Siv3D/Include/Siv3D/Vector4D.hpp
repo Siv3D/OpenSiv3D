@@ -89,6 +89,13 @@ namespace s3d
 			, z(static_cast<value_type>(xyz.w))
 			, w(static_cast<value_type>(_z)) {}
 
+		template <class U>
+		constexpr Vector4D(const Vector4D<U>& v) noexcept
+			: x(static_cast<value_type>(v.x))
+			, y(static_cast<value_type>(v.y))
+			, z(static_cast<value_type>(v.z))
+			, w(static_cast<value_type>(v.w)) {}
+
 		constexpr Vector4D operator +() const noexcept
 		{
 			return *this;

@@ -75,15 +75,15 @@ namespace s3d
 		formatData.string.append(buf, p - buf);
 	}
 
-	//void Formatter(FormatData& formatData, const ColorF& value)
-	//{
-	//	Formatter(formatData, value.rgba());
-	//}
+	void Formatter(FormatData& formatData, const ColorF& value)
+	{
+		Formatter(formatData, value.rgba());
+	}
 
-	//void Formatter(FormatData& formatData, const HSV& value)
-	//{
-	//	Formatter(formatData, value.asVec3());
-	//}
+	void Formatter(FormatData& formatData, const HSV& value)
+	{
+		Formatter(formatData, value.hsva());
+	}
 
 	void Formatter(FormatData& formatData, const Point& value)
 	{
@@ -111,6 +111,40 @@ namespace s3d
 		formatData.string.append(ToString(value.x, formatData.decimalPlace.value));
 		formatData.string.push_back(L',');
 		formatData.string.append(ToString(value.y, formatData.decimalPlace.value));
+		formatData.string.push_back(L')');
+	}
+
+	void Formatter(FormatData& formatData, const Float3& value)
+	{
+		Formatter(formatData, Vec3(value));
+	}
+
+	void Formatter(FormatData& formatData, const Vec3& value)
+	{
+		formatData.string.push_back(L'(');
+		formatData.string.append(ToString(value.x, formatData.decimalPlace.value));
+		formatData.string.push_back(L',');
+		formatData.string.append(ToString(value.y, formatData.decimalPlace.value));
+		formatData.string.push_back(L',');
+		formatData.string.append(ToString(value.z, formatData.decimalPlace.value));
+		formatData.string.push_back(L')');
+	}
+
+	void Formatter(FormatData& formatData, const Float4& value)
+	{
+		Formatter(formatData, Vec4(value));
+	}
+
+	void Formatter(FormatData& formatData, const Vec4& value)
+	{
+		formatData.string.push_back(L'(');
+		formatData.string.append(ToString(value.x, formatData.decimalPlace.value));
+		formatData.string.push_back(L',');
+		formatData.string.append(ToString(value.y, formatData.decimalPlace.value));
+		formatData.string.push_back(L',');
+		formatData.string.append(ToString(value.z, formatData.decimalPlace.value));
+		formatData.string.push_back(L',');
+		formatData.string.append(ToString(value.w, formatData.decimalPlace.value));
 		formatData.string.push_back(L')');
 	}
 }

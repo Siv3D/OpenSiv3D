@@ -211,6 +211,16 @@ namespace s3d
 		{
 			return toColorF().setA(alpha);
 		}
+
+		/// <summary>
+		/// Vector3D{ h, s, v }
+		/// </summary>
+		Vec3 hsv() const noexcept;
+
+		/// <summary>
+		/// Vector4D{ h, s, v, a }
+		/// </summary>
+		Vec4 hsva() const noexcept;
 	};
 
 	/// <summary>
@@ -231,7 +241,8 @@ namespace s3d
 		return os	<< CharType('(')
 					<< hsv.h << CharType(',')
 					<< hsv.s << CharType(',')
-					<< hsv.v << CharType(')');
+					<< hsv.v << CharType(')')
+					<< hsv.a << CharType(')');
 	}
 
 	/// <summary>
@@ -251,10 +262,21 @@ namespace s3d
 	{
 		CharType unused;
 
-		return is	>> unused
-					>> hsv.h >> unused
-					>> hsv.s >> unused
-					>> hsv.v >> unused;
+		is	>> unused
+			>> hsv.h >> unused
+			>> hsv.s >> unused
+			>> hsv.v >> unused;
+
+		if (unused == CharType(','))
+		{
+			is >> hsv.a >> unused;
+		}
+		else
+		{
+			hsv.a = 1.0;
+		}
+
+		return is;
 	}
 
 	/// <summary>

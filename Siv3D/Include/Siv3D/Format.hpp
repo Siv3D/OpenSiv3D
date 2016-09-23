@@ -404,12 +404,12 @@ namespace s3d
 	void Formatter(FormatData& formatData, const Point& value);
 	void Formatter(FormatData& formatData, const Float2& value);
 	void Formatter(FormatData& formatData, const Vec2& value);
-
-	/*
 	void Formatter(FormatData& formatData, const Float3& value);
 	void Formatter(FormatData& formatData, const Vec3& value);
 	void Formatter(FormatData& formatData, const Float4& value);
 	void Formatter(FormatData& formatData, const Vec4& value);
+
+	/*
 	void Formatter(FormatData& formatData, const __m128& value);
 	void Formatter(FormatData& formatData, const Circular& value);
 	void Formatter(FormatData& formatData, const LineInt& value);

@@ -11,6 +11,7 @@
 
 # include <cmath>
 # include <Siv3D/HSV.hpp>
+# include <Siv3D/PointVector.hpp>
 
 namespace s3d
 {
@@ -138,5 +139,15 @@ namespace s3d
 					  vals[detail::conversionTable[hueI][1]],
 					  vals[detail::conversionTable[hueI][2]],
 					  1.0);
+	}
+
+	Vec3 HSV::hsv() const noexcept
+	{
+		return{ h, s, v };
+	}
+
+	Vec4 HSV::hsva() const noexcept
+	{
+		return{ h, s, v, a };
 	}
 }
