@@ -110,6 +110,9 @@
     <Filter Include="Source\Siv3D\Vector3D">
       <UniqueIdentifier>{a66885dc-9bf8-4522-991b-70465e843e76}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Vector4D">
+      <UniqueIdentifier>{3e15ae0a-af1a-4f5c-99de-175828ba5a9a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
