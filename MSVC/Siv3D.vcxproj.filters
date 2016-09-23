@@ -537,6 +537,9 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Vector3D\SivVector3D.cpp">
       <Filter>Source\Siv3D\Vector3D</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Vector4D\SivVector4D.cpp">
+      <Filter>Source\Siv3D\Vector4D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\Include\Siv3D\Point.inl">

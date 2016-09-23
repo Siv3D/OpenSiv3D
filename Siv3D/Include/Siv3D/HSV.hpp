@@ -96,7 +96,10 @@ namespace s3d
 		/// <param name="color">
 		/// RGB カラー
 		/// </param>
-		HSV(const Color& color) noexcept;
+		HSV(const Color& color) noexcept
+		{
+			convertFrom(color.r / 255.0, color.g / 255.0, color.b / 255.0, color.a / 255.0);
+		}
 
 		/// <summary>
 		/// 色を作成します。
@@ -104,7 +107,10 @@ namespace s3d
 		/// <param name="col">
 		/// RGB カラー
 		/// </param>
-		HSV(const ColorF& col) noexcept;
+		HSV(const ColorF& color) noexcept
+		{
+			convertFrom(color.r, color.g, color.b, color.a);
+		}
 
 		/// <summary>
 		/// HSV の値を加算します。

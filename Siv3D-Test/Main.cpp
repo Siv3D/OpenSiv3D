@@ -63,6 +63,7 @@ struct alignas(16) Vector
 
 void Main()
 {
+
 	auto pv = MakeUnique<Vector>(0.1f, 0.2f, 0.3f, 0.4f);
 
 	auto p = MakeShared<Vector>(0.1f, 0.2f, 0.3f, 0.4f);

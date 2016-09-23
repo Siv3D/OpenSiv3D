@@ -35,8 +35,8 @@ namespace s3d
 
 		constexpr Vector2D(const Vector2D&) noexcept = default;
 
-		template <class U, class V>
-		constexpr Vector2D(U _x, V _y) noexcept
+		template <class X, class Y>
+		constexpr Vector2D(X _x, Y _y) noexcept
 			: x(static_cast<value_type>(_x))
 			, y(static_cast<value_type>(_y)) {}
 
@@ -216,11 +216,6 @@ namespace s3d
 		constexpr value_type dot(const Vector2D& v) const noexcept
 		{
 			return x * v.x + y * v.y;
-		}
-
-		constexpr value_type cross(const Vector2D& v) const noexcept
-		{
-			return x * v.y - y * v.x;
 		}
 
 		value_type length() const noexcept

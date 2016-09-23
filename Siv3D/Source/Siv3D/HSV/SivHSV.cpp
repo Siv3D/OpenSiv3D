@@ -32,16 +32,6 @@ namespace s3d
 		};
 	}
 
-	HSV::HSV(const Color& color) noexcept
-	{
-		convertFrom(color.r / 255.0, color.g / 255.0, color.b / 255.0, color.a / 255.0);
-	}
-
-	HSV::HSV(const ColorF& color) noexcept
-	{
-		convertFrom(color.r, color.g, color.b, color.a);
-	}
-
 	Color HSV::toColor() const noexcept
 	{
 		const double hue01 = detail::Fraction(h / 360.0);
