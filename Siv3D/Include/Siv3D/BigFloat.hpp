@@ -411,6 +411,21 @@ namespace s3d
 	{
 		formatData.string.append(f.str());
 	}
+
+	template <class Type>
+	struct IsBigFloat : std::false_type {};
+
+	template <>
+	struct IsBigFloat<BigFloat> : std::true_type {};
+
+	template <class Type>
+	struct IsBigNumber : std::false_type {};
+
+	template <>
+	struct IsBigNumber<BigInt> : std::true_type {};
+
+	template <>
+	struct IsBigNumber<BigFloat> : std::true_type {};
 }
 
 namespace std

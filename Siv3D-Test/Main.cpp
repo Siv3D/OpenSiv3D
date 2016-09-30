@@ -43,35 +43,39 @@ void Dump(const void* data, size_t size)
 }
 
 
-struct alignas(16) Vector
-{
-	Vector() = default;
-
-	Vector(float _x, float _y, float _z, float _w)
-		: x(_x)
-		, y(_y)
-		, z(_z)
-		, w(_w) {}
-
-	~Vector()
-	{
-		Log(L"~Vector");
-	}
-
-	float x, y, z, w;
-};
-
 void Main()
 {
-	auto pv = MakeUnique<Vector>(0.1f, 0.2f, 0.3f, 0.4f);
+	const auto a = Math::Fraction(10.3f);
+	const auto b = Math::Fraction(10.3);
+	const auto c = Math::Fraction(10);
+	const auto d = Math::Fraction(Float2{ 10.3, 10.5 });
+	constexpr auto e = Math::Fraction(Point{ 10, 10 });
 
-	auto p = MakeShared<Vector>(0.1f, 0.2f, 0.3f, 0.4f);
+	const auto d1 = Math::Fmod(2, 2);
+	const auto d2 = Math::Fmod(2, 2.0f);
+	const auto d3 = Math::Fmod(2, 2.0);
 
-	Log(p->x, L"\n", p->y, L"\n", p->z, L"\n", p->w);
+	const auto d4 = Math::Fmod(2.2f, 2);
+	const auto d5 = Math::Fmod(2.2f, 2.0f);
+	const auto d6 = Math::Fmod(2.2f, 2.0);
 
-	auto p2 = MakeShared<String>(20, L'a');
+	const auto d7 = Math::Fmod(2.2, 2);
+	const auto d8 = Math::Fmod(2.2, 2.0f);
+	const auto d9 = Math::Fmod(2.2, 2.0);
 
-	Log(*p2);
+	const auto d10 = Math::Fmod(Point(2, 3), Point(2, 3));
+	const auto d11 = Math::Fmod(Point(2, 3), Float2(2.2f, 3.3f));
+	const auto d12 = Math::Fmod(Point(2, 3), Vec2(2.2, 3.3));
+
+	const auto d13 = Math::Fmod(Float2(2, 3), Point(2, 3));
+	const auto d14 = Math::Fmod(Float2(2, 3), Float2(2.2f, 3.3f));
+	const auto d15 = Math::Fmod(Float2(2, 3), Vec2(2.2, 3.3));
+
+	const auto d16 = Math::Fmod(Vec2(2, 3), Point(2, 3));
+	const auto d17 = Math::Fmod(Vec2(2, 3), Float2(2.2f, 3.3f));
+	const auto d18 = Math::Fmod(Vec2(2, 3), Vec2(2.2, 3.3));
+
+	const int k = sizeof(CommonVector_t<Vec2, Point>);
 
 	RunTest();
 

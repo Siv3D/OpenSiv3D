@@ -491,10 +491,17 @@ namespace s3d
 		return is;
 	}
 
+
 	inline void Formatter(FormatData& formatData, const BigInt& i)
 	{
 		formatData.string.append(i.str());
 	}
+
+	template <class Type>
+	struct IsBigInt : std::false_type {};
+
+	template <>
+	struct IsBigInt<BigInt> : std::true_type {};
 }
 
 namespace std

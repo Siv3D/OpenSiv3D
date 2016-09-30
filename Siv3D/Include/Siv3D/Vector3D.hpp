@@ -14,6 +14,7 @@
 # include <utility>
 # include "Fwd.hpp"
 # include "PointVector.hpp"
+# include "Format.hpp"
 # include "Hash.hpp"
 
 namespace s3d
@@ -24,6 +25,9 @@ namespace s3d
 	template <class Type>
 	struct Vector3D
 	{
+		template <class U>
+		using vector_type = Vector3D<U>;
+
 		using value_type = Type;
 
 		value_type x, y, z;
@@ -504,7 +508,7 @@ namespace s3d
 	};
 
 	/// <summary>
-	/// 出力ストリームに 2 次元ベクトルを渡します。
+	/// 出力ストリームに 3 次元ベクトルを渡します。
 	/// </summary>
 	/// <param name="os">
 	/// 出力ストリーム
@@ -525,7 +529,7 @@ namespace s3d
 	}
 
 	/// <summary>
-	/// 入力ストリームに 2 次元ベクトルを渡します。
+	/// 入力ストリームに 3 次元ベクトルを渡します。
 	/// </summary>
 	/// <param name="is">
 	/// 入力ストリーム
@@ -551,6 +555,9 @@ namespace s3d
 	{
 		return v * s;
 	}
+
+	void Formatter(FormatData& formatData, const Float3& value);
+	void Formatter(FormatData& formatData, const Vec3& value);
 	
 	using Float3	= Vector3D<float>;
 	using Vec3		= Vector3D<double>;

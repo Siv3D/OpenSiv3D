@@ -14,6 +14,7 @@
 # include <cassert>
 # include <iostream>
 # include "Fwd.hpp"
+# include "Format.hpp"
 
 namespace s3d
 {
@@ -22,6 +23,9 @@ namespace s3d
 	/// </summary>
 	struct Point
 	{
+		template <class U>
+		using vector_type = Vector2D<U>;
+
 		using value_type = int32;
 
 		value_type x, y;
@@ -346,6 +350,8 @@ namespace s3d
 	inline constexpr Float2 operator *(float s, const Point& p) noexcept;
 
 	inline constexpr Vec2 operator *(double s, const Point& p) noexcept;
+
+	void Formatter(FormatData& formatData, const Point& value);
 
 	using Size = Point;
 }

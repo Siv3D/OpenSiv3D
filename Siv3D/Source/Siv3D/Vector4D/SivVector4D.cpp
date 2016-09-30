@@ -15,4 +15,22 @@ namespace s3d
 {
 	template Float4;
 	template Vec4;
+	
+	void Formatter(FormatData& formatData, const Float4& value)
+	{
+		Formatter(formatData, Vec4(value));
+	}
+
+	void Formatter(FormatData& formatData, const Vec4& value)
+	{
+		formatData.string.push_back(L'(');
+		formatData.string.append(ToString(value.x, formatData.decimalPlace.value));
+		formatData.string.push_back(L',');
+		formatData.string.append(ToString(value.y, formatData.decimalPlace.value));
+		formatData.string.push_back(L',');
+		formatData.string.append(ToString(value.z, formatData.decimalPlace.value));
+		formatData.string.push_back(L',');
+		formatData.string.append(ToString(value.w, formatData.decimalPlace.value));
+		formatData.string.push_back(L')');
+	}
 }

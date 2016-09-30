@@ -101,6 +101,11 @@ namespace s3d
 		a = _a;
 	}
 
+	void Formatter(FormatData& formatData, const HSV& value)
+	{
+		Formatter(formatData, value.hsva());
+	}
+
 	Color HueToColor(const double hue) noexcept
 	{
 		const double hue01 = detail::Fraction(hue / 360.0);

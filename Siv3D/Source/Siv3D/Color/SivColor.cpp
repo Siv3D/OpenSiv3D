@@ -72,6 +72,25 @@ namespace s3d
 				a };
 	}
 
+	void Formatter(FormatData& formatData, const Color& value)
+	{
+		const size_t bufferSize = 12 * 4 + 6;
+		wchar buf[bufferSize];
+		wchar* p = buf;
+
+		*(p++) = L'(';
+		detail::AppendInt(&p, value.r);
+		*(p++) = L',';
+		detail::AppendInt(&p, value.g);
+		*(p++) = L',';
+		detail::AppendInt(&p, value.b);
+		*(p++) = L',';
+		detail::AppendInt(&p, value.a);
+		*(p++) = L')';
+
+		formatData.string.append(buf, p - buf);
+	}
+
 	ColorF::ColorF(const Vec3& rgb, const double _a) noexcept
 		: ColorF(rgb.x, rgb.y, rgb.z, _a)
 	{
@@ -143,5 +162,10 @@ namespace s3d
 	Vec4 ColorF::abgr() const noexcept
 	{
 		return{ a, b, g, r };
+	}
+
+	void Formatter(FormatData& formatData, const ColorF& value)
+	{
+		Formatter(formatData, value.rgba());
 	}
 }

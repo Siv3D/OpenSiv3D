@@ -27,7 +27,6 @@
 # include <type_traits>
 # include "Types.hpp"
 # include "BigInt.hpp"
-# include "TypeTraits.hpp"
 # include "Format.hpp"
 
 namespace s3d

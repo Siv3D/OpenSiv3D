@@ -14,6 +14,7 @@
 # include <utility>
 # include "Fwd.hpp"
 # include "Point.hpp"
+# include "Format.hpp"
 # include "Hash.hpp"
 
 namespace s3d
@@ -24,6 +25,9 @@ namespace s3d
 	template <class Type>
 	struct Vector2D
 	{
+		template <class U>
+		using vector_type = Vector2D<U>;
+
 		using value_type = Type;
 
 		value_type x, y;
@@ -406,6 +410,9 @@ namespace s3d
 	{
 		return v * s;
 	}
+
+	void Formatter(FormatData& formatData, const Float2& value);
+	void Formatter(FormatData& formatData, const Vec2& value);
 
 	using Float2	= Vector2D<float>;
 	using Vec2		= Vector2D<double>;

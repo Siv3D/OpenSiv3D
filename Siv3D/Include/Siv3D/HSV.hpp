@@ -279,6 +279,8 @@ namespace s3d
 		return is;
 	}
 
+	void Formatter(FormatData& formatData, const HSV& value);
+
 	/// <summary>
 	/// 色相から Color を作成します。
 	/// </summary>

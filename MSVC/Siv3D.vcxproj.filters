@@ -113,6 +113,9 @@
     <Filter Include="Source\Siv3D\Vector4D">
       <UniqueIdentifier>{3e15ae0a-af1a-4f5c-99de-175828ba5a9a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Point">
+      <UniqueIdentifier>{033bb555-eb6b-44f0-a175-5fa500b14f78}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -394,6 +397,9 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Vector3D.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Math.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -539,6 +545,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Vector4D\SivVector4D.cpp">
       <Filter>Source\Siv3D\Vector4D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Point\SivPoint.cpp">
+      <Filter>Source\Siv3D\Point</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

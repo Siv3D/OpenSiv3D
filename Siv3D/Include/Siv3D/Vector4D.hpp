@@ -14,6 +14,7 @@
 # include <utility>
 # include "Fwd.hpp"
 # include "PointVector.hpp"
+# include "Format.hpp"
 # include "Hash.hpp"
 
 namespace s3d
@@ -24,6 +25,9 @@ namespace s3d
 	template <class Type>
 	struct Vector4D
 	{
+		template <class U>
+		using vector_type = Vector4D<U>;
+
 		using value_type = Type;
 
 		value_type x, y, z, w;
@@ -626,6 +630,75 @@ namespace s3d
 		static constexpr Vector4D UnitW()
 		{
 			return{ 0, 0, 0, 1 };
+		}
+	};
+
+	/// <summary>
+	/// 出力ストリームに 4 次元ベクトルを渡します。
+	/// </summary>
+	/// <param name="os">
+	/// 出力ストリーム
+	/// </param>
+	/// <param name="v">
+	/// 4 次元ベクトル
+	/// </param>
+	/// <returns>
+	/// 渡した後の出力ストリーム
+	/// </returns>
+	template <class CharType, class Type>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const Vector4D<Type>& v)
+	{
+		return os << CharType('(')
+			<< v.x << CharType(',')
+			<< v.y << CharType(',')
+			<< v.z << CharType(',')
+			<< v.w << CharType(')');
+	}
+
+	/// <summary>
+	/// 入力ストリームに 4 次元ベクトルを渡します。
+	/// </summary>
+	/// <param name="is">
+	/// 入力ストリーム
+	/// </param>
+	/// <param name="v">
+	/// 4 次元ベクトル
+	/// </param>
+	/// <returns>
+	/// 渡した後の入力ストリーム
+	/// </returns>
+	template <class CharType, class Type>
+	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& is, Vector4D<Type>& v)
+	{
+		CharType unused;
+		return is >> unused
+			>> v.x >> unused
+			>> v.y >> unused
+			>> v.z >> unused;
+			>> v.w >> unused;
+	}
+
+	template <class Type, class U>
+	inline constexpr Vector3D<Type> operator *(U s, const Vector4D<Type>& v) noexcept
+	{
+		return v * s;
+	}
+
+	void Formatter(FormatData& formatData, const Float4& value);
+	void Formatter(FormatData& formatData, const Vec4& value);
+
+	using Float4	= Vector4D<float>;
+	using Vec4		= Vector4D<double>;
+}
+
+namespace std
+{
+	template <class Type>
+	struct hash<s3d::Vector4D<Type>>
+	{
+		size_t operator ()(const s3d::Vector4D<Type>& keyVal) const
+		{
+			return s3d::Hash::FNV1a(keyVal);
 		}
 	};
 }

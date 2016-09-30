@@ -12,6 +12,7 @@
 # pragma once
 # include <iostream>
 # include "Fwd.hpp"
+# include "Format.hpp"
 
 namespace s3d
 {
@@ -368,6 +369,8 @@ namespace s3d
 
 		return is;
 	}
+
+	void Formatter(FormatData& formatData, const Color& value);
 
 	/// <summary>
 	/// カラー
@@ -888,6 +891,8 @@ namespace s3d
 
 		return is;
 	}
+
+	void Formatter(FormatData& formatData, const ColorF& value);
 
 	/// <summary>
 	/// Color(255, 255, 255, alpha) を返します。

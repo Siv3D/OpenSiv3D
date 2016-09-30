@@ -243,8 +243,8 @@
 	//# include "Siv3D/Distribution.hpp"
 	//// 乱数ユーティリティ
 	//# include "Siv3D/Random.hpp"
-	//// 数学関数
-	//# include "Siv3D/Math.hpp"
+	// 数学関数
+	# include "Siv3D/Math.hpp"
 	//// 線形補間
 	//# include "Siv3D/Lerp.hpp"
 	//// イージング関数
