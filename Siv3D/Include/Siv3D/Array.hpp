@@ -2057,7 +2057,7 @@ namespace s3d
 			auto it = begin();
 			const auto last = end();
 
-			for (; it < last - group; it += n)
+			for (; it < last - n; it += n)
 			{
 				futures.emplace_back(std::async(std::launch::async, [=, &f]()
 				{
