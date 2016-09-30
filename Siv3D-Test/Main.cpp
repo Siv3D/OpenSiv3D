@@ -98,7 +98,7 @@ void Main()
 	Array<BigInt> t1 = Range(0_big, N);
 	Array<BigInt> t2 = Range(0_big, N);
 	t1.parallel_eachA([](BigInt& n) { n = LCM(n, 123); });
-	t2.parallel_each2([](BigInt& n) { n = LCM(n, 123); });
+	t2.parallel_each([](BigInt& n) { n = LCM(n, 123); });
 
 	Array<BigInt> m5 = Range(0_big, N);
 	for (int i = 0; i<10; ++i)

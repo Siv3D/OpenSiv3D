@@ -316,36 +316,6 @@ namespace s3d
 		}
 
 		template <class Fty>
-		Array& parallel_each2(Fty f, size_t numThreads = Threading::GetConcurrency())
-		{
-			if (isEmpty())
-			{
-				return *this;
-			}
-
-			const size_t group = std::max<size_t>(1, size() / std::max<size_t>(1, numThreads));
-
-			Array<Concurrency::task<void>> tasks;
-
-			auto it = begin();
-			const auto last = end();
-
-			for (; it < last - group; it += group)
-			{
-				tasks.emplace_back(Concurrency::create_task([=, &f]()
-				{
-					std::for_each(it, it + group, f);
-				}));
-			}
-
-			std::for_each(it, last, f);
-
-			Concurrency::when_all(std::begin(tasks), std::end(tasks)).wait();
-
-			return *this;
-		}
-
-		template <class Fty>
 		Array& parallel_eachA(Fty f, size_t numThreads = Threading::GetConcurrency())
 		{
 			if (isEmpty())

@@ -674,7 +674,7 @@ namespace s3d
 		return is >> unused
 			>> v.x >> unused
 			>> v.y >> unused
-			>> v.z >> unused;
+			>> v.z >> unused
 			>> v.w >> unused;
 	}
 
