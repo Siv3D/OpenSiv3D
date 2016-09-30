@@ -283,72 +283,6 @@ namespace s3d
 		}
 
 		template <class Fty>
-		Array& parallel_each(Fty f, size_t numThreads = Threading::GetConcurrency())
-		{
-			if (isEmpty())
-			{
-				return *this;
-			}
-
-			const size_t group = std::max<size_t>(1, size() / std::max<size_t>(1, numThreads));
-
-			Array<std::thread> threads;
-
-			auto it = begin();
-			const auto last = end();
-			
-			for (; it < last - group; it += group)
-			{
-				threads.push_back(std::thread([=, &f]()
-				{
-					std::for_each(it, it + group, f);
-				}));
-			}
-
-			std::for_each(it, last, f);
-
-			for (auto& thread : threads)
-			{
-				thread.join();
-			}
-
-			return *this;
-		}
-
-		template <class Fty>
-		Array& parallel_eachA(Fty f, size_t numThreads = Threading::GetConcurrency())
-		{
-			if (isEmpty())
-			{
-				return *this;
-			}
-
-			const size_t group = std::max<size_t>(1, size() / std::max<size_t>(1, numThreads));
-
-			Array<std::future<void>> futures;
-
-			auto it = begin();
-			const auto last = end();
-
-			for (; it < last - group; it += group)
-			{
-				futures.emplace_back(std::async(std::launch::async, [=, &f]()
-				{
-					std::for_each(it, it + group, f);
-				}));
-			}
-
-			std::for_each(it, last, f);
-
-			for (auto& future : futures)
-			{
-				future.wait();
-			}
-
-			return *this;
-		}
-
-		template <class Fty>
 		const Array& each(Fty f) const
 		{
 			for (const auto& v : *this)
@@ -992,6 +926,153 @@ namespace s3d
 				}
 
 				new_array.push_back(operator[](index));
+			}
+
+			return new_array;
+		}
+
+		template <class Fty>
+		size_t parallel_count_if(Fty f, size_t numThreads = Threading::GetConcurrency()) const
+		{
+			if (isEmpty())
+			{
+				return 0;
+			}
+
+			const size_t n = std::max<size_t>(1, size() / std::max<size_t>(1, numThreads));
+
+			Array<std::future<std::ptrdiff_t>> futures;
+
+			auto it = begin();
+			const auto last = end();
+
+			for (; it < last - n; it += n)
+			{
+				futures.emplace_back(std::async(std::launch::async, [=, &f]()
+				{
+					return std::count_if(it, it + n, f);
+				}));
+			}
+
+			std::for_each(it, last, f);
+
+			size_t result = 0;
+
+			for (auto& future : futures)
+			{
+				result += future.get();
+			}
+
+			return result;
+		}
+
+		template <class Fty>
+		Array& parallel_each(Fty f, size_t numThreads = Threading::GetConcurrency())
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			const size_t n = std::max<size_t>(1, size() / std::max<size_t>(1, numThreads));
+
+			Array<std::future<void>> futures;
+
+			auto it = begin();
+			const auto last = end();
+
+			for (; it < last - n; it += n)
+			{
+				futures.emplace_back(std::async(std::launch::async, [=, &f]()
+				{
+					std::for_each(it, it + n, f);
+				}));
+			}
+
+			std::for_each(it, last, f);
+
+			for (auto& future : futures)
+			{
+				future.wait();
+			}
+
+			return *this;
+		}
+
+		template <class Fty>
+		const Array& parallel_each(Fty f, size_t numThreads = Threading::GetConcurrency()) const
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			const size_t n = std::max<size_t>(1, size() / std::max<size_t>(1, numThreads));
+
+			Array<std::future<void>> futures;
+
+			auto it = begin();
+			const auto last = end();
+
+			for (; it < last - n; it += n)
+			{
+				futures.emplace_back(std::async(std::launch::async, [=, &f]()
+				{
+					std::for_each(it, it + n, f);
+				}));
+			}
+
+			std::for_each(it, last, f);
+
+			for (auto& future : futures)
+			{
+				future.wait();
+			}
+
+			return *this;
+		}
+
+		template <class Fty>
+		auto parallel_map(Fty f, size_t numThreads = Threading::GetConcurrency()) const
+		{
+			Array<std::result_of_t<Fty(Type)>> new_array;
+
+			if (isEmpty())
+			{
+				return new_array;
+			}
+
+			new_array.resize(size());
+
+			const size_t n = std::max<size_t>(1, size() / std::max<size_t>(1, numThreads));
+
+			Array<std::future<void>> futures;
+
+			auto itSrc = begin();
+			const auto itSrcEnd = end();
+			auto itDst = new_array.begin();
+
+			for (; itSrc < itSrcEnd - n; itSrc += n, itDst += n)
+			{
+				futures.emplace_back(std::async(std::launch::async, [=, &f]() mutable
+				{
+					const auto itSrcEnd = itSrc + n;
+
+					while (itSrc != itSrcEnd)
+					{
+						*itDst++ = f(*itSrc++);
+					}
+				}));
+			}
+
+			while (itSrc != itSrcEnd)
+			{
+				*itDst++ = f(*itSrc++);
+			}
+
+			for (auto& future : futures)
+			{
+				future.wait();
 			}
 
 			return new_array;
@@ -1893,6 +1974,105 @@ namespace s3d
 			}
 
 			return new_array;
+		}
+
+		template <class Fty>
+		Array& parallel_each(Fty f, size_t numThreads = Threading::GetConcurrency())
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			const size_t n = std::max<size_t>(1, size() / std::max<size_t>(1, numThreads));
+
+			Array<std::future<void>> futures;
+
+			auto it = begin();
+			const auto last = end();
+
+			for (; it < last - n; it += n)
+			{
+				futures.emplace_back(std::async(std::launch::async, [=, &f]()
+				{
+					std::for_each(it, it + n, f);
+				}));
+			}
+
+			std::for_each(it, last, f);
+
+			for (auto& future : futures)
+			{
+				future.wait();
+			}
+
+			return *this;
+		}
+
+				template <class Fty>
+		const Array& parallel_each(Fty f, size_t numThreads = Threading::GetConcurrency())
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			const size_t n = std::max<size_t>(1, size() / std::max<size_t>(1, numThreads));
+
+			Array<std::future<void>> futures;
+
+			auto it = begin();
+			const auto last = end();
+
+			for (; it < last - n; it += n)
+			{
+				futures.emplace_back(std::async(std::launch::async, [=, &f]()
+				{
+					std::for_each(it, it + n, f);
+				}));
+			}
+
+			std::for_each(it, last, f);
+
+			for (auto& future : futures)
+			{
+				future.wait();
+			}
+
+			return *this;
+		}
+
+		template <class Fty>
+		const Array& parallel_each(Fty f, size_t numThreads = Threading::GetConcurrency()) const
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			const size_t n = std::max<size_t>(1, size() / std::max<size_t>(1, numThreads));
+
+			Array<std::future<void>> futures;
+
+			auto it = begin();
+			const auto last = end();
+
+			for (; it < last - group; it += n)
+			{
+				futures.emplace_back(std::async(std::launch::async, [=, &f]()
+				{
+					std::for_each(it, it + n, f);
+				}));
+			}
+
+			std::for_each(it, last, f);
+
+			for (auto& future : futures)
+			{
+				future.wait();
+			}
+
+			return *this;
 		}
 	};
 
