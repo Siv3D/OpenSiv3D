@@ -13,6 +13,7 @@
 # include <vector>
 # include <string>
 # include <algorithm>
+# include <thread>
 # include "Fwd.hpp"
 # include "Allocator.hpp"
 # include "Concept.hpp"
@@ -20,6 +21,13 @@
 # include "Functor.hpp"
 # include "Format.hpp"
 # include "Random.hpp"
+
+# ifdef SIV3D_TARGET_WINDOWS
+#	include <ppl.h>
+#	include <ppltasks.h>
+# endif
+# include <future>
+# include "Threading.hpp"
 
 namespace s3d
 {
@@ -269,6 +277,102 @@ namespace s3d
 			for (auto& v : *this)
 			{
 				f(v);
+			}
+
+			return *this;
+		}
+
+		template <class Fty>
+		Array& parallel_each(Fty f, size_t numThreads = Threading::GetConcurrency())
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			const size_t group = std::max<size_t>(1, size() / std::max<size_t>(1, numThreads));
+
+			Array<std::thread> threads;
+
+			auto it = begin();
+			const auto last = end();
+			
+			for (; it < last - group; it += group)
+			{
+				threads.push_back(std::thread([=, &f]()
+				{
+					std::for_each(it, it + group, f);
+				}));
+			}
+
+			std::for_each(it, last, f);
+
+			for (auto& thread : threads)
+			{
+				thread.join();
+			}
+
+			return *this;
+		}
+
+		template <class Fty>
+		Array& parallel_each2(Fty f, size_t numThreads = Threading::GetConcurrency())
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			const size_t group = std::max<size_t>(1, size() / std::max<size_t>(1, numThreads));
+
+			Array<Concurrency::task<void>> tasks;
+
+			auto it = begin();
+			const auto last = end();
+
+			for (; it < last - group; it += group)
+			{
+				tasks.emplace_back(Concurrency::create_task([=, &f]()
+				{
+					std::for_each(it, it + group, f);
+				}));
+			}
+
+			std::for_each(it, last, f);
+
+			Concurrency::when_all(std::begin(tasks), std::end(tasks)).wait();
+
+			return *this;
+		}
+
+		template <class Fty>
+		Array& parallel_eachA(Fty f, size_t numThreads = Threading::GetConcurrency())
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			const size_t group = std::max<size_t>(1, size() / std::max<size_t>(1, numThreads));
+
+			Array<std::future<void>> futures;
+
+			auto it = begin();
+			const auto last = end();
+
+			for (; it < last - group; it += group)
+			{
+				futures.emplace_back(std::async(std::launch::async, [=, &f]()
+				{
+					std::for_each(it, it + group, f);
+				}));
+			}
+
+			std::for_each(it, last, f);
+
+			for (auto& future : futures)
+			{
+				future.wait();
 			}
 
 			return *this;

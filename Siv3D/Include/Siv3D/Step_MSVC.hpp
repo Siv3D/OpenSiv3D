@@ -575,7 +575,7 @@ namespace s3d
 				return new_array;
 			}
 
-			new_array.reserve(count());
+			new_array.reserve(size_t(count()));
 			auto count_ = count();
 			auto value = startValue();
 			const auto step_ = step();

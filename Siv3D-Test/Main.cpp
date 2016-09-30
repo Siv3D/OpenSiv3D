@@ -43,8 +43,87 @@ void Dump(const void* data, size_t size)
 }
 
 
+template <class Fty>
+void Do(int32* begin, int32*end, Fty f)
+{
+	while (begin != end)
+	{
+		f(*begin);
+
+		++begin;
+	}
+}
+
+# include <thread>
+
 void Main()
 {
+	TimeProfiler tp;
+
+	Range(0, 10).asArray().parallel_each([](int n){ n; });
+
+	const auto N = 5000_big;
+
+	Array<BigInt> m0 = Range(0_big, N);
+	for (int i = 0; i<10; ++i)
+	{
+		tp.begin(L"each");
+
+		m0.each([](BigInt& n) { n = LCM(n, 123); });
+
+		tp.end();
+	}
+
+	Array<BigInt> m1 = Range(0_big, N);
+	for (int i = 0; i<10; ++i)
+	{
+		tp.begin(L"parallel_each x2");
+
+		m1.parallel_each([](BigInt& n) { n = LCM(n, 123); }, 2);
+
+		tp.end();
+	}
+
+	Array<BigInt> m2 = Range(0_big, N);
+	for (int i = 0; i<10; ++i)
+	{
+		tp.begin(L"parallel_each x8");
+
+		m2.parallel_each([](BigInt& n) { n = LCM(n, 123); });
+
+		tp.end();
+	}
+
+
+	Array<BigInt> t1 = Range(0_big, N);
+	Array<BigInt> t2 = Range(0_big, N);
+	t1.parallel_eachA([](BigInt& n) { n = LCM(n, 123); });
+	t2.parallel_each2([](BigInt& n) { n = LCM(n, 123); });
+
+	Array<BigInt> m5 = Range(0_big, N);
+	for (int i = 0; i<10; ++i)
+	{
+		tp.begin(L"parallel_eachA x2");
+
+		m5.parallel_eachA([](BigInt& n) { n = LCM(n, 123); }, 2);
+
+		tp.end();
+	}
+
+	Array<BigInt> m6 = Range(0_big, N);
+	for (int i = 0; i<10; ++i)
+	{
+		tp.begin(L"parallel_eachA x8");
+
+		m6.parallel_eachA([](BigInt& n) { n = LCM(n, 123); });
+
+		tp.end();
+	}
+
+	Log(m0 == m1 && m1 == m2 && m2 == m5 && m5 == m6);
+
+	//Log(m);
+
 	const auto a = Math::Fraction(10.3f);
 	const auto b = Math::Fraction(10.3);
 	const auto c = Math::Fraction(10);
@@ -77,7 +156,7 @@ void Main()
 
 	const int k = sizeof(CommonVector_t<Vec2, Point>);
 
-	RunTest();
+	//RunTest();
 
 	//Image(Grid<int>(100, 100, Range(0, 9999)).map([](int n) { return Color(n % 256); }))._saveBMP(L"img.bmp");
 }

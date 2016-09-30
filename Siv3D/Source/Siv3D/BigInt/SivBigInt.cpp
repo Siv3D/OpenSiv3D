@@ -752,6 +752,11 @@ namespace s3d
 		return this->pImpl->data.convert_to<uint64>();
 	}
 
+	size_t BigInt::asSize_t() const
+	{
+		return this->pImpl->data.convert_to<size_t>();
+	}
+
 	////////////////////////////////////////////////////////////////
 	//
 	//		string

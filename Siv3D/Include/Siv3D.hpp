@@ -54,6 +54,8 @@
 	# include "Siv3D/Concept.hpp"
 	// コピー禁止クラス
 	# include "Siv3D/Uncopyable.hpp"
+	// スレッド
+	# include "Siv3D/Threading.hpp"
 	// アロケータ
 	# include "Siv3D/Allocator.hpp"
 	// 動的配列

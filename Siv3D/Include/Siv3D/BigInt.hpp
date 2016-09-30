@@ -256,6 +256,12 @@ namespace s3d
 		int64 asInt64() const;
 		uint32 asUint32() const;
 		uint64 asUint64() const;
+		size_t asSize_t() const;
+
+		explicit operator size_t() const
+		{
+			return asSize_t();
+		}
 
 		std::string stdStr() const;
 
