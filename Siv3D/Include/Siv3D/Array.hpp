@@ -979,7 +979,7 @@ namespace s3d
 
 			for (; it < last - n; it += n)
 			{
-				Log(L"###", n);
+				//Log(L"###", n);
 
 				futures.emplace_back(std::async(std::launch::async, [=, &f]()
 				{
@@ -987,7 +987,7 @@ namespace s3d
 				}));
 			}
 
-			Log(L"##", last - it);
+			//Log(L"##", last - it);
 
 			std::for_each(it, last, f);
 
@@ -2080,7 +2080,7 @@ namespace s3d
 		template <class Fty>
 		auto parallel_map(Fty f, size_t numThreads = Threading::GetConcurrency()) const
 		{
-			Array<std::result_of_t<Fty(Type)>> new_array;
+			Array<std::result_of_t<Fty(bool)>> new_array;
 
 			if (isEmpty())
 			{
