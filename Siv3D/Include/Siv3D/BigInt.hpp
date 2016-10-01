@@ -343,10 +343,11 @@ namespace s3d
 		return b ^ a;
 	}
 
-
 	BigInt GCD(const BigInt& a, const BigInt& b);
 
 	BigInt LCM(const BigInt& a, const BigInt& b);
+
+	bool IsPrime(uint64 n);
 
 	namespace literals
 	{
@@ -496,7 +497,6 @@ namespace s3d
 		i.assign(s);
 		return is;
 	}
-
 
 	inline void Formatter(FormatData& formatData, const BigInt& i)
 	{

@@ -13,21 +13,15 @@
 # include <vector>
 # include <string>
 # include <algorithm>
-# include <thread>
+# include <future>
 # include "Fwd.hpp"
 # include "Allocator.hpp"
 # include "Concept.hpp"
+# include "Threading.hpp"
 # include "String.hpp"
 # include "Functor.hpp"
 # include "Format.hpp"
 # include "Random.hpp"
-
-# ifdef SIV3D_TARGET_WINDOWS
-#	include <ppl.h>
-#	include <ppltasks.h>
-# endif
-# include <future>
-# include "Threading.hpp"
 
 namespace s3d
 {
@@ -974,7 +968,9 @@ namespace s3d
 				return *this;
 			}
 
-			const size_t n = std::max<size_t>(1, size() / std::max<size_t>(1, numThreads));
+			numThreads = std::max<size_t>(1, numThreads);
+
+			const size_t n = std::max<size_t>(1, size() / numThreads);
 
 			Array<std::future<void>> futures;
 
@@ -983,11 +979,15 @@ namespace s3d
 
 			for (; it < last - n; it += n)
 			{
+				Log(L"###", n);
+
 				futures.emplace_back(std::async(std::launch::async, [=, &f]()
 				{
 					std::for_each(it, it + n, f);
 				}));
 			}
+
+			Log(L"##", last - it);
 
 			std::for_each(it, last, f);
 
@@ -1977,16 +1977,16 @@ namespace s3d
 		}
 
 		template <class Fty>
-		Array& parallel_each(Fty f, size_t numThreads = Threading::GetConcurrency())
+		size_t parallel_count_if(Fty f, size_t numThreads = Threading::GetConcurrency()) const
 		{
 			if (isEmpty())
 			{
-				return *this;
+				return 0;
 			}
 
 			const size_t n = std::max<size_t>(1, size() / std::max<size_t>(1, numThreads));
 
-			Array<std::future<void>> futures;
+			Array<std::future<std::ptrdiff_t>> futures;
 
 			auto it = begin();
 			const auto last = end();
@@ -1995,22 +1995,24 @@ namespace s3d
 			{
 				futures.emplace_back(std::async(std::launch::async, [=, &f]()
 				{
-					std::for_each(it, it + n, f);
+					return std::count_if(it, it + n, f);
 				}));
 			}
 
 			std::for_each(it, last, f);
 
+			size_t result = 0;
+
 			for (auto& future : futures)
 			{
-				future.wait();
+				result += future.get();
 			}
 
-			return *this;
+			return result;
 		}
 
-				template <class Fty>
-		const Array& parallel_each(Fty f, size_t numThreads = Threading::GetConcurrency())
+		template <class Fty>
+		Array& parallel_each(Fty f, size_t numThreads = Threading::GetConcurrency())
 		{
 			if (isEmpty())
 			{
@@ -2073,6 +2075,52 @@ namespace s3d
 			}
 
 			return *this;
+		}
+
+		template <class Fty>
+		auto parallel_map(Fty f, size_t numThreads = Threading::GetConcurrency()) const
+		{
+			Array<std::result_of_t<Fty(Type)>> new_array;
+
+			if (isEmpty())
+			{
+				return new_array;
+			}
+
+			new_array.resize(size());
+
+			const size_t n = std::max<size_t>(1, size() / std::max<size_t>(1, numThreads));
+
+			Array<std::future<void>> futures;
+
+			auto itSrc = begin();
+			const auto itSrcEnd = end();
+			auto itDst = new_array.begin();
+
+			for (; itSrc < itSrcEnd - n; itSrc += n, itDst += n)
+			{
+				futures.emplace_back(std::async(std::launch::async, [=, &f]() mutable
+				{
+					const auto itSrcEnd = itSrc + n;
+
+					while (itSrc != itSrcEnd)
+					{
+						*itDst++ = f(*itSrc++);
+					}
+				}));
+			}
+
+			while (itSrc != itSrcEnd)
+			{
+				*itDst++ = f(*itSrc++);
+			}
+
+			for (auto& future : futures)
+			{
+				future.wait();
+			}
+
+			return new_array;
 		}
 	};
 
