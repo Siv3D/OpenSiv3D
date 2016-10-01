@@ -33,8 +33,8 @@
 - [x] HSV
 - [x] Point
 - [x] Vector2D
-- [ ] Vector3D
-- [ ] Vector4D
+- [x] Vector3D
+- [x] Vector4D
 - [ ] Circular
 - [ ] Cylindrical
 - [ ] Spherical
