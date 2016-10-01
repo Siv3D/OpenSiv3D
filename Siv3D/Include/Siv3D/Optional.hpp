@@ -1658,6 +1658,15 @@ namespace s3d
 			return os << no;
 		}
 	}
+
+	template <class Type>
+	struct IsOptional : std::false_type {};
+
+	template <class Type>
+	struct IsOptional<Optional<Type>> : std::true_type {};
+
+	template <>
+	struct IsOptional<nullopt_t> : std::true_type {};
 }
 
 namespace std

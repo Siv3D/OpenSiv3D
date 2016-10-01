@@ -256,6 +256,12 @@ namespace s3d
 		int64 asInt64() const;
 		uint32 asUint32() const;
 		uint64 asUint64() const;
+		size_t asSize_t() const;
+
+		explicit operator size_t() const
+		{
+			return asSize_t();
+		}
 
 		std::string stdStr() const;
 
@@ -337,10 +343,11 @@ namespace s3d
 		return b ^ a;
 	}
 
-
 	BigInt GCD(const BigInt& a, const BigInt& b);
 
 	BigInt LCM(const BigInt& a, const BigInt& b);
+
+	bool IsPrime(uint64 n);
 
 	namespace literals
 	{
@@ -495,6 +502,12 @@ namespace s3d
 	{
 		formatData.string.append(i.str());
 	}
+
+	template <class Type>
+	struct IsBigInt : std::false_type {};
+
+	template <>
+	struct IsBigInt<BigInt> : std::true_type {};
 }
 
 namespace std

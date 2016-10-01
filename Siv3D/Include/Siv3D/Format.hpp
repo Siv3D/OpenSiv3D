@@ -95,6 +95,8 @@ namespace s3d
 			Formatter(formatData, value);
 			Format_impl(formatData, args...);
 		}
+
+		void AppendInt(wchar** p, const long value);
 	}
 
 	/// <summary>
@@ -374,8 +376,8 @@ namespace s3d
 		Formatter(formatData, ilist.begin(), ilist.end());
 	}
 
-	template <class TypeFitrst, class TypeSecond>
-	inline void Formatter(FormatData& formatData, const std::pair<TypeFitrst, TypeSecond>& pair)
+	template <class Fitrst, class Second>
+	inline void Formatter(FormatData& formatData, const std::pair<Fitrst, Second>& pair)
 	{
 		formatData.string.push_back(L'{');
 
@@ -398,18 +400,7 @@ namespace s3d
 		formatData.string.append(wos.str());
 	}
 
-	void Formatter(FormatData& formatData, const Color& value);
-	void Formatter(FormatData& formatData, const ColorF& value);
-	void Formatter(FormatData& formatData, const HSV& value);
-	void Formatter(FormatData& formatData, const Point& value);
-	void Formatter(FormatData& formatData, const Float2& value);
-	void Formatter(FormatData& formatData, const Vec2& value);
-
 	/*
-	void Formatter(FormatData& formatData, const Float3& value);
-	void Formatter(FormatData& formatData, const Vec3& value);
-	void Formatter(FormatData& formatData, const Float4& value);
-	void Formatter(FormatData& formatData, const Vec4& value);
 	void Formatter(FormatData& formatData, const __m128& value);
 	void Formatter(FormatData& formatData, const Circular& value);
 	void Formatter(FormatData& formatData, const LineInt& value);

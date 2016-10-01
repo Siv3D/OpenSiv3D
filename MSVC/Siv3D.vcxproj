@@ -52,6 +52,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\IReader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\IWriter.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Logger.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Math.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\MathConstants.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Parse.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ParseBool.hpp" />
@@ -64,6 +65,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextEncoding.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextReader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextWriter.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Threading.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TimeProfiler.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Random.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\RDTSCProfiler.hpp" />
@@ -137,6 +139,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\LoggerFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\SivLogger.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ParseFloat\SivParseFloat.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Point\SivPoint.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DEngine.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_macOS.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_Windows.cpp" />
@@ -148,10 +151,12 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextReader\SivTextReader.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextWriter\CTextWriter.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextWriter\SivTextWriter.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Thread\SivThread.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TimeProfiler\SivTimeProfiler.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Time\SivTime.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Vector2D\SivVector2D.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Vector3D\SivVector3D.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Vector4D\SivVector4D.cpp" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum-dtoa.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\cached-powers.cc" />

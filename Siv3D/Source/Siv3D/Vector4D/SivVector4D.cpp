@@ -9,19 +9,19 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/Vector3D.hpp>
+# include <Siv3D/Vector4D.hpp>
 
 namespace s3d
 {
-	template Float3;
-	template Vec3;
-
-	void Formatter(FormatData& formatData, const Float3& value)
+	template Float4;
+	template Vec4;
+	
+	void Formatter(FormatData& formatData, const Float4& value)
 	{
-		Formatter(formatData, Vec3(value));
+		Formatter(formatData, Vec4(value));
 	}
 
-	void Formatter(FormatData& formatData, const Vec3& value)
+	void Formatter(FormatData& formatData, const Vec4& value)
 	{
 		formatData.string.push_back(L'(');
 		formatData.string.append(ToString(value.x, formatData.decimalPlace.value));
@@ -29,6 +29,8 @@ namespace s3d
 		formatData.string.append(ToString(value.y, formatData.decimalPlace.value));
 		formatData.string.push_back(L',');
 		formatData.string.append(ToString(value.z, formatData.decimalPlace.value));
+		formatData.string.push_back(L',');
+		formatData.string.append(ToString(value.w, formatData.decimalPlace.value));
 		formatData.string.push_back(L')');
 	}
 }

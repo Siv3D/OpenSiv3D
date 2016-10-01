@@ -12,6 +12,7 @@
 # pragma once
 # include <iostream>
 # include "Fwd.hpp"
+# include "Format.hpp"
 
 namespace s3d
 {
@@ -369,6 +370,8 @@ namespace s3d
 		return is;
 	}
 
+	void Formatter(FormatData& formatData, const Color& value);
+
 	/// <summary>
 	/// カラー
 	/// </summary>
@@ -470,7 +473,7 @@ namespace s3d
 		/// <param name="_a">
 		/// アルファ [0.0, 1.0]
 		/// </param>
-		//explicit ColorF(const Vec3& rgb, double _a = 1.0) noexcept;
+		explicit ColorF(const Vec3& rgb, double _a = 1.0) noexcept;
 
 		/// <summary>
 		/// 色をコピーします。
@@ -769,6 +772,51 @@ namespace s3d
 					b + (other.b - b) * f,
 					a + (other.a - a) * f };
 		}
+
+		/// <summary>
+		/// Vec2(r, g)
+		/// </summary>
+		Vec2 rg() const noexcept;
+
+		/// <summary>
+		/// Vec2(g, b)
+		/// </summary>
+		Vec2 gb() const noexcept;
+
+		/// <summary>
+		/// Vec2(b, a)
+		/// </summary>
+		Vec2 ba() const noexcept;
+
+		/// <summary>
+		/// Vec3(r, g, b)
+		/// </summary>
+		Vec3 rgb() const noexcept;
+
+		/// <summary>
+		/// Vec3(g, b, a)
+		/// </summary>
+		Vec3 gba() const noexcept;
+
+		/// <summary>
+		/// Vec3(b, g, r)
+		/// </summary>
+		Vec3 bgr() const noexcept;
+
+		/// <summary>
+		/// Vec4(r, g, b, a)
+		/// </summary>
+		Vec4 rgba() const noexcept;
+
+		/// <summary>
+		/// Vec4(a, r, g, b)
+		/// </summary>
+		Vec4 argb() const noexcept;
+
+		/// <summary>
+		/// Vec4(a, b, g, r)
+		/// </summary>
+		Vec4 abgr() const noexcept;
 	};
 
 	/// <summary>
@@ -843,6 +891,8 @@ namespace s3d
 
 		return is;
 	}
+
+	void Formatter(FormatData& formatData, const ColorF& value);
 
 	/// <summary>
 	/// Color(255, 255, 255, alpha) を返します。

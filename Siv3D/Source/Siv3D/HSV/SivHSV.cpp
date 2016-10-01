@@ -11,6 +11,7 @@
 
 # include <cmath>
 # include <Siv3D/HSV.hpp>
+# include <Siv3D/PointVector.hpp>
 
 namespace s3d
 {
@@ -30,16 +31,6 @@ namespace s3d
 			{ 2, 0, 3 },
 			{ 3, 0, 1 },
 		};
-	}
-
-	HSV::HSV(const Color& color) noexcept
-	{
-		convertFrom(color.r / 255.0, color.g / 255.0, color.b / 255.0, color.a / 255.0);
-	}
-
-	HSV::HSV(const ColorF& color) noexcept
-	{
-		convertFrom(color.r, color.g, color.b, color.a);
 	}
 
 	Color HSV::toColor() const noexcept
@@ -110,6 +101,11 @@ namespace s3d
 		a = _a;
 	}
 
+	void Formatter(FormatData& formatData, const HSV& value)
+	{
+		Formatter(formatData, value.hsva());
+	}
+
 	Color HueToColor(const double hue) noexcept
 	{
 		const double hue01 = detail::Fraction(hue / 360.0);
@@ -148,5 +144,15 @@ namespace s3d
 					  vals[detail::conversionTable[hueI][1]],
 					  vals[detail::conversionTable[hueI][2]],
 					  1.0);
+	}
+
+	Vec3 HSV::hsv() const noexcept
+	{
+		return{ h, s, v };
+	}
+
+	Vec4 HSV::hsva() const noexcept
+	{
+		return{ h, s, v, a };
 	}
 }

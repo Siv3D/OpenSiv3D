@@ -14,6 +14,7 @@
 # include <utility>
 # include "Fwd.hpp"
 # include "Point.hpp"
+# include "Format.hpp"
 # include "Hash.hpp"
 
 namespace s3d
@@ -24,6 +25,9 @@ namespace s3d
 	template <class Type>
 	struct Vector2D
 	{
+		template <class U>
+		using vector_type = Vector2D<U>;
+
 		using value_type = Type;
 
 		value_type x, y;
@@ -35,8 +39,8 @@ namespace s3d
 
 		constexpr Vector2D(const Vector2D&) noexcept = default;
 
-		template <class U, class V>
-		constexpr Vector2D(U _x, V _y) noexcept
+		template <class X, class Y>
+		constexpr Vector2D(X _x, Y _y) noexcept
 			: x(static_cast<value_type>(_x))
 			, y(static_cast<value_type>(_y)) {}
 
@@ -85,7 +89,7 @@ namespace s3d
 
 		constexpr Vector2D operator /(value_type s) const noexcept
 		{
-			return{ x / s, y / s };
+			return *this * (static_cast<value_type>(1.0) / s);
 		}
 
 		constexpr Vector2D operator /(const Vector2D& v) const noexcept
@@ -119,7 +123,7 @@ namespace s3d
 
 		S3D_CONSTEXPR_CPP14 Vector2D& operator /=(value_type s) noexcept
 		{
-			return *this *= static_cast<value_type>(1.0) / s;
+			return *this *= (static_cast<value_type>(1.0) / s);
 		}
 
 		S3D_CONSTEXPR_CPP14 Vector2D& operator /=(const Vector2D& v) noexcept
@@ -216,11 +220,6 @@ namespace s3d
 		constexpr value_type dot(const Vector2D& v) const noexcept
 		{
 			return x * v.x + y * v.y;
-		}
-
-		constexpr value_type cross(const Vector2D& v) const noexcept
-		{
-			return x * v.y - y * v.x;
 		}
 
 		value_type length() const noexcept
@@ -333,7 +332,7 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// Vector2D{ -value, 0 }
+		/// Vector2D{ -length, 0 }
 		/// </summary>
 		static constexpr Vector2D Left(value_type length = 1)
 		{
@@ -341,7 +340,7 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// Vector2D{ value, 0 }
+		/// Vector2D{ length, 0 }
 		/// </summary>
 		static constexpr Vector2D Right(value_type length = 1)
 		{
@@ -349,7 +348,7 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// Vector2D{ 0, -value }
+		/// Vector2D{ 0, -length }
 		/// </summary>
 		static constexpr Vector2D Up(value_type length = 1)
 		{
@@ -357,7 +356,7 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// Vector2D{ 0, value }
+		/// Vector2D{ 0, length }
 		/// </summary>
 		static constexpr Vector2D Down(value_type length = 1)
 		{
@@ -412,25 +411,19 @@ namespace s3d
 		return v * s;
 	}
 
+	void Formatter(FormatData& formatData, const Float2& value);
+	void Formatter(FormatData& formatData, const Vec2& value);
+
 	using Float2	= Vector2D<float>;
 	using Vec2		= Vector2D<double>;
 }
 
 namespace std
 {
-	template <>
-	struct hash<s3d::Float2>
+	template <class Type>
+	struct hash<s3d::Vector2D<Type>>
 	{
-		size_t operator ()(const s3d::Float2& keyVal) const
-		{
-			return s3d::Hash::FNV1a(keyVal);
-		}
-	};
-
-	template <>
-	struct hash<s3d::Vec2>
-	{
-		size_t operator ()(const s3d::Vec2& keyVal) const
+		size_t operator ()(const s3d::Vector2D<Type>& keyVal) const
 		{
 			return s3d::Hash::FNV1a(keyVal);
 		}

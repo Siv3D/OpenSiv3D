@@ -54,6 +54,8 @@
 	# include "Siv3D/Concept.hpp"
 	// コピー禁止クラス
 	# include "Siv3D/Uncopyable.hpp"
+	// スレッド
+	# include "Siv3D/Threading.hpp"
 	// アロケータ
 	# include "Siv3D/Allocator.hpp"
 	// 動的配列
@@ -243,8 +245,8 @@
 	//# include "Siv3D/Distribution.hpp"
 	//// 乱数ユーティリティ
 	//# include "Siv3D/Random.hpp"
-	//// 数学関数
-	//# include "Siv3D/Math.hpp"
+	// 数学関数
+	# include "Siv3D/Math.hpp"
 	//// 線形補間
 	//# include "Siv3D/Lerp.hpp"
 	//// イージング関数

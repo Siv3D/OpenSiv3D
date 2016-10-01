@@ -112,13 +112,13 @@ namespace s3d
 		m_writer.writeUTF8(filenameUTF8);
 		m_writer.writeUTF8(headerC);
 
-		write(LogDescription::App, L"App Message");
-		write(LogDescription::Debug, L"Debug Message");
-		write(LogDescription::Error , L"Error Message");
-		write(LogDescription::Fail, L"Fail Message");
-		write(LogDescription::Info, L"Info Message");
-		write(LogDescription::Script, L"Script Message");
-		write(LogDescription::Warning, L"Warning Message");
+		//write(LogDescription::App, L"App Message");
+		//write(LogDescription::Debug, L"Debug Message");
+		//write(LogDescription::Error , L"Error Message");
+		//write(LogDescription::Fail, L"Fail Message");
+		//write(LogDescription::Info, L"Info Message");
+		//write(LogDescription::Script, L"Script Message");
+		//write(LogDescription::Warning, L"Warning Message");
 
 		m_initialized = true;
 

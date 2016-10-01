@@ -14,6 +14,7 @@
 # include <cassert>
 # include <iostream>
 # include "Fwd.hpp"
+# include "Format.hpp"
 
 namespace s3d
 {
@@ -22,6 +23,9 @@ namespace s3d
 	/// </summary>
 	struct Point
 	{
+		template <class U>
+		using vector_type = Vector2D<U>;
+
 		using value_type = int32;
 
 		value_type x, y;
@@ -37,13 +41,13 @@ namespace s3d
 			: x(_x)
 			, y(_y) {}
 
-		template <class U, class V, std::enable_if_t<std::is_integral<U>::value && std::is_integral<V>::value>* = nullptr>
-		constexpr Point(U _x, V _y) noexcept
+		template <class X, class Y, std::enable_if_t<std::is_integral<X>::value && std::is_integral<Y>::value>* = nullptr>
+		constexpr Point(X _x, Y _y) noexcept
 			: x(static_cast<value_type>(_x))
 			, y(static_cast<value_type>(_y)) {}
 
-		template <class U, class V, std::enable_if_t<!std::is_integral<U>::value || !std::is_integral<V>::value>* = nullptr>
-		constexpr Point(U _x, V _y) noexcept = delete;
+		template <class X, class Y, std::enable_if_t<!std::is_integral<X>::value || !std::is_integral<Y>::value>* = nullptr>
+		constexpr Point(X _x, Y _y) noexcept = delete;
 
 		/// <summary>
 		/// Point{ x, x }
@@ -346,6 +350,8 @@ namespace s3d
 	inline constexpr Float2 operator *(float s, const Point& p) noexcept;
 
 	inline constexpr Vec2 operator *(double s, const Point& p) noexcept;
+
+	void Formatter(FormatData& formatData, const Point& value);
 
 	using Size = Point;
 }

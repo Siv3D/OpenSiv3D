@@ -10,42 +10,15 @@
 //-----------------------------------------------
 
 # pragma once
-# include "Optional.hpp"
-# include "BigInt.hpp"
-# include "BigFloat.hpp"
 
 namespace s3d
 {
-	template <class Type>
-	struct IsOptional : std::false_type {};
+	template <class T, class U, std::enable_if_t<std::is_arithmetic<T>::value && std::is_arithmetic<U>::value>* = nullptr>
+	struct CommonFloat
+	{
+		using type = std::conditional_t<!std::is_floating_point<T>::value && !std::is_floating_point<U>::value, double, std::common_type_t<T, U>>;
+	};
 
-	template <class Type>
-	struct IsOptional<Optional<Type>> : std::true_type {};
-
-	template <>
-	struct IsOptional<nullopt_t> : std::true_type {};
-
-
-	template <class Type>
-	struct IsBigInt : std::false_type {};
-
-	template <>
-	struct IsBigInt<BigInt> : std::true_type {};
-
-
-	template <class Type>
-	struct IsBigFloat : std::false_type {};
-
-	template <>
-	struct IsBigFloat<BigFloat> : std::true_type {};
-
-
-	template <class Type>
-	struct IsBigNumber : std::false_type {};
-
-	template <>
-	struct IsBigNumber<BigInt> : std::true_type {};
-
-	template <>
-	struct IsBigNumber<BigFloat> : std::true_type {};
+	template <class T, class U, std::enable_if_t<std::is_arithmetic<T>::value && std::is_arithmetic<U>::value>* = nullptr>
+	using CommonFloat_t = typename CommonFloat<T, U>::type;
 }

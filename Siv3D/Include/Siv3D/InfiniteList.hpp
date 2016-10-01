@@ -14,7 +14,7 @@
 # include "Fwd.hpp"
 # include "Array.hpp"
 # include "Step.hpp"
-# include "TypeTraits.hpp"
+# include "BigInt.hpp"
 
 namespace s3d
 {
@@ -37,7 +37,7 @@ namespace s3d
 
 			Type m_step;
 
-			template <class IntegerType, std::enable_if_t<!IsBigNumber<IntegerType>::value>* = nullptr>
+			template <class IntegerType, std::enable_if_t<!IsBigInt<IntegerType>::value>* = nullptr>
 			void checkOverflow() const
 			{
 				if (m_currentValue > std::numeric_limits<Type>::max() - m_step)
@@ -46,7 +46,7 @@ namespace s3d
 				}
 			}
 
-			template <class IntegerType, std::enable_if_t<IsBigNumber<IntegerType>::value>* = nullptr>
+			template <class IntegerType, std::enable_if_t<IsBigInt<IntegerType>::value>* = nullptr>
 			void checkOverflow() const {}
 
 		public:
