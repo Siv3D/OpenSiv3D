@@ -44,7 +44,7 @@ namespace s3d
 	//
 	//	Optional.hpp
 	//
-	struct nullopt_t;
+	struct None_t;
 	template <class Type> class Optional;
 
 	//////////////////////////////////////////////////////

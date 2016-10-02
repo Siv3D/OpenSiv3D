@@ -125,8 +125,8 @@ namespace s3d
 			return *this;
 		}
 
-		template <class Fty = decltype(Id())>
-		bool all(Fty f = Id()) const
+		template <class Fty = decltype(Id)>
+		bool all(Fty f = Id) const
 		{
 			for (const auto& v : *this)
 			{

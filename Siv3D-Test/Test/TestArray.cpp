@@ -114,7 +114,7 @@ TEST(Array, int32)
 	}
 
 	EXPECT_EQ(v.all(), true);
-	EXPECT_EQ(v.all(Odd()), false);
+	EXPECT_EQ(v.all(IsOdd), false);
 	const auto f = [](int n) { return n - 4; };
 	EXPECT_EQ(v.all(f), false);
 }

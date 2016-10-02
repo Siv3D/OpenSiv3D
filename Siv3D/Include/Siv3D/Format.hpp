@@ -321,7 +321,7 @@ namespace s3d
 		}
 	}
 
-	inline void Formatter(FormatData& formatData, nullopt_t)
+	inline void Formatter(FormatData& formatData, None_t)
 	{
 		formatData.string.append(L"none", 4);
 	}

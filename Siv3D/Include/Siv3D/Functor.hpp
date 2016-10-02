@@ -74,19 +74,19 @@ namespace s3d
 	}
 
 	template <class TypeY>
-	inline constexpr auto Equal(nullopt_t, TypeY&& y) noexcept
+	inline constexpr auto Equal(None_t, TypeY&& y) noexcept
 	{
 		return detail::BinaryEqualX<TypeY>{y};
 	}
 
 	template <class TypeX>
-	inline constexpr auto Equal(TypeX&& x, nullopt_t) noexcept
+	inline constexpr auto Equal(TypeX&& x, None_t) noexcept
 	{
 		return detail::BinaryEqualY<TypeX>{x};
 	}
 
 	template <class Type = void>
-	inline constexpr auto Equal(nullopt_t, nullopt_t) noexcept
+	inline constexpr auto Equal(None_t, None_t) noexcept
 	{
 		return std::equal_to<Type>();
 	}
@@ -149,19 +149,19 @@ namespace s3d
 	}
 
 	template <class TypeY>
-	inline constexpr auto NotEqual(nullopt_t, TypeY&& y) noexcept
+	inline constexpr auto NotEqual(None_t, TypeY&& y) noexcept
 	{
 		return detail::BinaryNotEqualX<TypeY>{y};
 	}
 
 	template <class TypeX>
-	inline constexpr auto NotEqual(TypeX&& x, nullopt_t) noexcept
+	inline constexpr auto NotEqual(TypeX&& x, None_t) noexcept
 	{
 		return detail::BinaryNotEqualY<TypeX>{x};
 	}
 
 	template <class Type = void>
-	inline constexpr auto NotEqual(nullopt_t, nullopt_t) noexcept
+	inline constexpr auto NotEqual(None_t, None_t) noexcept
 	{
 		return std::not_equal_to<Type>();
 	}
@@ -224,19 +224,19 @@ namespace s3d
 	}
 
 	template <class TypeY>
-	inline constexpr auto LessThan(nullopt_t, TypeY&& y) noexcept
+	inline constexpr auto LessThan(None_t, TypeY&& y) noexcept
 	{
 		return detail::BinaryLessThanX<TypeY>{y};
 	}
 
 	template <class TypeX>
-	inline constexpr auto LessThan(TypeX&& x, nullopt_t) noexcept
+	inline constexpr auto LessThan(TypeX&& x, None_t) noexcept
 	{
 		return detail::BinaryLessThanY<TypeX>{x};
 	}
 
 	template <class Type = void>
-	inline constexpr auto LessThan(nullopt_t, nullopt_t) noexcept
+	inline constexpr auto LessThan(None_t, None_t) noexcept
 	{
 		return std::less<Type>();
 	}
@@ -299,19 +299,19 @@ namespace s3d
 	}
 
 	template <class TypeY>
-	inline constexpr auto LessThanEqual(nullopt_t, TypeY&& y) noexcept
+	inline constexpr auto LessThanEqual(None_t, TypeY&& y) noexcept
 	{
 		return detail::BinaryLessThanEqualX<TypeY>{y};
 	}
 
 	template <class TypeX>
-	inline constexpr auto LessThanEqual(TypeX&& x, nullopt_t) noexcept
+	inline constexpr auto LessThanEqual(TypeX&& x, None_t) noexcept
 	{
 		return detail::BinaryLessThanEqualY<TypeX>{x};
 	}
 
 	template <class Type = void>
-	inline constexpr auto LessThanEqual(nullopt_t, nullopt_t) noexcept
+	inline constexpr auto LessThanEqual(None_t, None_t) noexcept
 	{
 		return std::less_equal<Type>();
 	}
@@ -374,19 +374,19 @@ namespace s3d
 	}
 
 	template <class TypeY>
-	inline constexpr auto GreaterThan(nullopt_t, TypeY&& y) noexcept
+	inline constexpr auto GreaterThan(None_t, TypeY&& y) noexcept
 	{
 		return detail::BinaryGreaterThanX<TypeY>{y};
 	}
 
 	template <class TypeX>
-	inline constexpr auto GreaterThan(TypeX&& x, nullopt_t) noexcept
+	inline constexpr auto GreaterThan(TypeX&& x, None_t) noexcept
 	{
 		return detail::BinaryGreaterThanY<TypeX>{x};
 	}
 
 	template <class Type = void>
-	inline constexpr auto GreaterThan(nullopt_t, nullopt_t) noexcept
+	inline constexpr auto GreaterThan(None_t, None_t) noexcept
 	{
 		return std::greater<Type>();
 	}
@@ -449,19 +449,19 @@ namespace s3d
 	}
 
 	template <class TypeY>
-	inline constexpr auto GreaterThanEqual(nullopt_t, TypeY&& y) noexcept
+	inline constexpr auto GreaterThanEqual(None_t, TypeY&& y) noexcept
 	{
 		return detail::BinaryGreaterThanEqualX<TypeY>{y};
 	}
 
 	template <class TypeX>
-	inline constexpr auto GreaterThanEqual(TypeX&& x, nullopt_t) noexcept
+	inline constexpr auto GreaterThanEqual(TypeX&& x, None_t) noexcept
 	{
 		return detail::BinaryGreaterThanEqualY<TypeX>{x};
 	}
 
 	template <class Type = void>
-	inline constexpr auto GreaterThanEqual(nullopt_t, nullopt_t) noexcept
+	inline constexpr auto GreaterThanEqual(None_t, None_t) noexcept
 	{
 		return std::greater_equal<Type>();
 	}
@@ -524,19 +524,19 @@ namespace s3d
 	}
 
 	template <class TypeY>
-	inline constexpr auto Plus(nullopt_t, TypeY&& y) noexcept
+	inline constexpr auto Plus(None_t, TypeY&& y) noexcept
 	{
 		return detail::BinaryPlusX<TypeY>{y};
 	}
 
 	template <class TypeX>
-	inline constexpr auto Plus(TypeX&& x, nullopt_t) noexcept
+	inline constexpr auto Plus(TypeX&& x, None_t) noexcept
 	{
 		return detail::BinaryPlusY<TypeX>{x};
 	}
 
 	template <class Type = void>
-	inline constexpr auto Plus(nullopt_t, nullopt_t) noexcept
+	inline constexpr auto Plus(None_t, None_t) noexcept
 	{
 		return std::plus<Type>();
 	}
@@ -599,19 +599,19 @@ namespace s3d
 	}
 
 	template <class TypeY>
-	inline constexpr auto Minus(nullopt_t, TypeY&& y) noexcept
+	inline constexpr auto Minus(None_t, TypeY&& y) noexcept
 	{
 		return detail::BinaryMinusX<TypeY>{y};
 	}
 
 	template <class TypeX>
-	inline constexpr auto Minus(TypeX&& x, nullopt_t) noexcept
+	inline constexpr auto Minus(TypeX&& x, None_t) noexcept
 	{
 		return detail::BinaryMinusY<TypeX>{x};
 	}
 
 	template <class Type = void>
-	inline constexpr auto Minus(nullopt_t, nullopt_t) noexcept
+	inline constexpr auto Minus(None_t, None_t) noexcept
 	{
 		return std::minus<Type>();
 	}
@@ -651,7 +651,7 @@ namespace s3d
 	}
 
 	template <class Type = void>
-	inline constexpr auto UnaryPlus(nullopt_t) noexcept
+	inline constexpr auto UnaryPlus(None_t) noexcept
 	{
 		return detail::UnaryPlusX<Type>();
 	}
@@ -697,7 +697,7 @@ namespace s3d
 	}
 
 	template <class Type = void>
-	inline constexpr auto Negate(nullopt_t) noexcept
+	inline constexpr auto Negate(None_t) noexcept
 	{
 		return detail::UnaryMinusX<Type>();
 	}
@@ -766,19 +766,19 @@ namespace s3d
 	}
 
 	template <class TypeY>
-	inline constexpr auto Multiplies(nullopt_t, TypeY&& y) noexcept
+	inline constexpr auto Multiplies(None_t, TypeY&& y) noexcept
 	{
 		return detail::BinaryMultipliesX<TypeY>{y};
 	}
 
 	template <class TypeX>
-	inline constexpr auto Multiplies(TypeX&& x, nullopt_t) noexcept
+	inline constexpr auto Multiplies(TypeX&& x, None_t) noexcept
 	{
 		return detail::BinaryMultipliesY<TypeX>{x};
 	}
 
 	template <class Type = void>
-	inline constexpr auto Multiplies(nullopt_t, nullopt_t) noexcept
+	inline constexpr auto Multiplies(None_t, None_t) noexcept
 	{
 		return std::multiplies<Type>();
 	}
@@ -841,19 +841,19 @@ namespace s3d
 	}
 
 	template <class TypeY>
-	inline constexpr auto Divides(nullopt_t, TypeY&& y) noexcept
+	inline constexpr auto Divides(None_t, TypeY&& y) noexcept
 	{
 		return detail::BinaryDividesX<TypeY>{y};
 	}
 
 	template <class TypeX>
-	inline constexpr auto Divides(TypeX&& x, nullopt_t) noexcept
+	inline constexpr auto Divides(TypeX&& x, None_t) noexcept
 	{
 		return detail::BinaryDividesY<TypeX>{x};
 	}
 
 	template <class Type = void>
-	inline constexpr auto Divides(nullopt_t, nullopt_t) noexcept
+	inline constexpr auto Divides(None_t, None_t) noexcept
 	{
 		return std::divides<Type>();
 	}
@@ -942,18 +942,18 @@ namespace s3d
     }
     
 	template <class TypeY>
-	inline constexpr auto Modulus(nullopt_t, TypeY&& y) noexcept
+	inline constexpr auto Modulus(None_t, TypeY&& y) noexcept
 	{
 		return detail::BinaryModulusX<TypeY>{y};
 	}
 
 	template <class TypeX>
-	inline constexpr auto Modulus(TypeX&& x, nullopt_t) noexcept
+	inline constexpr auto Modulus(TypeX&& x, None_t) noexcept
 	{
 		return detail::BinaryModulusY<TypeX>{x};
 	}
 
-	inline constexpr auto Modulus(nullopt_t, nullopt_t) noexcept
+	inline constexpr auto Modulus(None_t, None_t) noexcept
 	{
 		return detail::ModulusF();
 	}
@@ -999,7 +999,7 @@ namespace s3d
 		return !(std::forward<TypeX>(x));
 	}
 
-	inline constexpr auto Not(nullopt_t) noexcept
+	inline constexpr auto Not(None_t) noexcept
 	{
 		return detail::UnaryNotX();
 	}
@@ -1088,18 +1088,17 @@ namespace s3d
 			{
 				return (x % 2) != 0;
 			}
+
+# pragma warning (disable: 4100)
+			constexpr auto operator()(None_t) const
+			{
+				return Odd_impl();
+			}
+# pragma warning (default: 4100)
 		};
 	}
 
-	inline constexpr auto Odd()
-	{
-		return detail::Odd_impl();
-	}
-
-	inline constexpr auto Odd(nullopt_t)
-	{
-		return detail::Odd_impl();
-	}
+	constexpr auto IsOdd = detail::Odd_impl();
 
 	////////////////////////////////////////////////////////////////
 	//
@@ -1116,18 +1115,17 @@ namespace s3d
 			{
 				return (x % 2) == 0;
 			}
+
+# pragma warning (disable: 4100)
+			constexpr auto operator()(None_t) const
+			{
+				return Even_impl();
+			}
+# pragma warning (default: 4100)
 		};
 	}
 
-	inline constexpr auto Even()
-	{
-		return detail::Even_impl();
-	}
-
-	inline constexpr auto Even(nullopt_t)
-	{
-		return detail::Even_impl();
-	}
+	constexpr auto IsEven = detail::Even_impl();
 
 	////////////////////////////////////////////////////////////////
 	//
@@ -1144,16 +1142,14 @@ namespace s3d
 			{
 				return std::forward<Type>(x);
 			}
+# pragma warning (disable: 4100)
+			constexpr auto operator()(None_t) const
+			{
+				return Id_impl();
+			}
+# pragma warning (default: 4100)
 		};
 	}
 
-	inline constexpr auto Id()
-	{
-		return detail::Id_impl();
-	}
-
-	inline constexpr auto Id(nullopt_t)
-	{
-		return detail::Id_impl();
-	}
+	constexpr auto Id = detail::Id_impl();
 }
