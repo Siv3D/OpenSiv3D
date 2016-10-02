@@ -22,7 +22,7 @@ namespace s3d
 			void operator()(const String& text) const;
 
 			template <class... Args>
-			void operator()(const Args&... args) const
+			void operator ()(const Args&... args) const
 			{
 				return operator()(Format(args...));
 			}
