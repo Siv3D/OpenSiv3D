@@ -277,4 +277,7 @@ namespace s3d
 	{
 		return detail::Sample_impl(first, last, out, n, rbg);
 	}
+
+	template <class...>
+	using Void_t = void;
 }

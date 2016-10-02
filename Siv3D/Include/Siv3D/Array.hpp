@@ -79,8 +79,8 @@ namespace s3d
 		using base_type::pop_back;
 		using base_type::resize;
 
-        Array()
-            : base_type() {}
+		Array()
+			: base_type() {}
 
 		void swap(Array& other)
 		{
@@ -125,8 +125,8 @@ namespace s3d
 			return *this;
 		}
 
-		template <class Fty = decltype(Id())>
-		bool all(Fty f = Id()) const
+		template <class Fty = decltype(Id)>
+		bool all(Fty f = Id) const
 		{
 			for (const auto& v : *this)
 			{
@@ -139,8 +139,8 @@ namespace s3d
 			return true;
 		}
 
-		template <class Fty = decltype(Id())>
-		bool any(Fty f = Id()) const
+		template <class Fty = decltype(Id)>
+		bool any(Fty f = Id) const
 		{
 			for (const auto& v : *this)
 			{
@@ -414,8 +414,8 @@ namespace s3d
 			return new_array;
 		}
 
-		template <class Fty = decltype(Id())>
-		bool none(Fty f = Id()) const
+		template <class Fty = decltype(Id)>
+		bool none(Fty f = Id) const
 		{
 			for (const auto& v : *this)
 			{
@@ -1130,7 +1130,7 @@ namespace s3d
 		using base_type::resize;
 
 		Array()
-            : base_type() {}
+			: base_type() {}
 
 		Array(size_type count, const bool& value)
 			: base_type(count, value) {}
@@ -1203,8 +1203,8 @@ namespace s3d
 			return *this;
 		}
 
-		template <class Fty = decltype(Id())>
-		bool all(Fty f = Id()) const
+		template <class Fty = decltype(Id)>
+		bool all(Fty f = Id) const
 		{
 			for (const auto& v : *this)
 			{
@@ -1217,8 +1217,8 @@ namespace s3d
 			return true;
 		}
 
-		template <class Fty = decltype(Id())>
-		bool any(Fty f = Id()) const
+		template <class Fty = decltype(Id)>
+		bool any(Fty f = Id) const
 		{
 			for (const auto& v : *this)
 			{
@@ -1492,8 +1492,8 @@ namespace s3d
 			return new_array;
 		}
 
-		template <class Fty = decltype(Id())>
-		bool none(Fty f = Id()) const
+		template <class Fty = decltype(Id)>
+		bool none(Fty f = Id) const
 		{
 			for (const auto& v : *this)
 			{

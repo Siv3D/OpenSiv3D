@@ -859,14 +859,14 @@ namespace s3d
 			resize(size.x, size.y, val);
 		}
 
-		template <class Fty = decltype(Id())>
-		bool all(Fty f = Id()) const
+		template <class Fty = decltype(Id)>
+		bool all(Fty f = Id) const
 		{
 			return m_data.all(f);
 		}
 
-		template <class Fty = decltype(Id())>
-		bool any(Fty f = Id()) const
+		template <class Fty = decltype(Id)>
+		bool any(Fty f = Id) const
 		{
 			return m_data.any(f);
 		}
@@ -1007,8 +1007,8 @@ namespace s3d
 			return Grid<std::result_of_t<Fty(Type)>>(m_width, m_height, std::move(data));
 		}
 
-		template <class Fty = decltype(Id())>
-		bool none(Fty f = Id()) const
+		template <class Fty = decltype(Id)>
+		bool none(Fty f = Id) const
 		{
 			return m_data.none(f);
 		}

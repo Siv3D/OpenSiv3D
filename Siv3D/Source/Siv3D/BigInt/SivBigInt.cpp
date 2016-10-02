@@ -757,6 +757,16 @@ namespace s3d
 		return this->pImpl->data.convert_to<size_t>();
 	}
 
+	float BigInt::asFloat() const
+	{
+		return this->pImpl->data.convert_to<float>();
+	}
+
+	double BigInt::asDouble() const
+	{
+		return this->pImpl->data.convert_to<double>();
+	}
+
 	////////////////////////////////////////////////////////////////
 	//
 	//		string

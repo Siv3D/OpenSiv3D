@@ -49,5 +49,3 @@
 # else
     # define S3D_EXCEPTION_ABI              __attribute__ ((__visibility__("default")))
 # endif
-
-

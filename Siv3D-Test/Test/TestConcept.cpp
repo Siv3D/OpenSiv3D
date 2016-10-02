@@ -85,10 +85,10 @@ TEST(Concept, HasLogicalNot)
 	EXPECT_EQ(Concept::HasLogicalNot<int32>::value, true);
 	EXPECT_EQ(Concept::HasLogicalNot<float>::value, true);
 	EXPECT_EQ(Concept::HasLogicalNot<String>::value, false);
-	EXPECT_EQ(Concept::HasLogicalNot<BigInt>::value, false);
-	EXPECT_EQ(Concept::HasLogicalNot<Optional<double>>::value, false);
+	EXPECT_EQ(Concept::HasLogicalNot<BigInt>::value, true);
+	EXPECT_EQ(Concept::HasLogicalNot<Optional<double>>::value, true);
 	EXPECT_EQ(Concept::HasLogicalNot<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasLogicalNot<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasLogicalNot<BinaryReader>::value, true);
 }
 
 TEST(Concept, HasComplement)
@@ -408,10 +408,10 @@ TEST(Concept, HasLogicalAnd)
 	EXPECT_EQ(Concept::HasLogicalAnd<int32>::value, true);
 	EXPECT_EQ(Concept::HasLogicalAnd<float>::value, true);
 	EXPECT_EQ(Concept::HasLogicalAnd<String>::value, false);
-	EXPECT_EQ(Concept::HasLogicalAnd<BigInt>::value, false);
-	EXPECT_EQ(Concept::HasLogicalAnd<Optional<double>>::value, false);
+	EXPECT_EQ(Concept::HasLogicalAnd<BigInt>::value, true);
+	EXPECT_EQ(Concept::HasLogicalAnd<Optional<double>>::value, true);
 	EXPECT_EQ(Concept::HasLogicalAnd<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasLogicalAnd<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasLogicalAnd<BinaryReader>::value, true);
 }
 
 TEST(Concept, HasLogicalOr)
@@ -419,8 +419,8 @@ TEST(Concept, HasLogicalOr)
 	EXPECT_EQ(Concept::HasLogicalOr<int32>::value, true);
 	EXPECT_EQ(Concept::HasLogicalOr<float>::value, true);
 	EXPECT_EQ(Concept::HasLogicalOr<String>::value, false);
-	EXPECT_EQ(Concept::HasLogicalOr<BigInt>::value, false);
-	EXPECT_EQ(Concept::HasLogicalOr<Optional<double>>::value, false);
+	EXPECT_EQ(Concept::HasLogicalOr<BigInt>::value, true);
+	EXPECT_EQ(Concept::HasLogicalOr<Optional<double>>::value, true);
 	EXPECT_EQ(Concept::HasLogicalOr<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasLogicalOr<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasLogicalOr<BinaryReader>::value, true);
 }

@@ -88,17 +88,17 @@ namespace s3d
 
 	constexpr struct in_place_t {} in_place{};
 
-	struct nullopt_t
+	struct None_t
 	{
 		struct init {};
 
-		constexpr explicit nullopt_t(init) {}
+		constexpr explicit None_t(init) {}
 	};
 
 	/// <summary>
 	/// 無効値
 	/// </summary>
-	constexpr nullopt_t none{ nullopt_t::init() };
+	constexpr None_t none{ None_t::init() };
 
 	class S3D_EXCEPTION_ABI bad_optional_access : public std::logic_error
 	{
@@ -224,7 +224,7 @@ namespace s3d
 		struct is_optional<Optional<Type>> : std::true_type {};
 
 		template <>
-		struct is_optional<nullopt_t> : std::true_type {};
+		struct is_optional<None_t> : std::true_type {};
 	}
 
 	/// <summary>
@@ -233,7 +233,7 @@ namespace s3d
 	template <class Type>
 	class Optional : private OptionalBase<Type>
 	{
-		static_assert(!std::is_same<std::decay_t<Type>, nullopt_t>::value, "bad T");
+		static_assert(!std::is_same<std::decay_t<Type>, None_t>::value, "bad T");
 		static_assert(!std::is_same<std::decay_t<Type>, in_place_t>::value, "bad T");
 
 		Type* dataptr()
@@ -303,7 +303,7 @@ namespace s3d
 		/// <param>
 		/// 無効値
 		/// </param>
-		constexpr Optional(nullopt_t) noexcept
+		constexpr Optional(None_t) noexcept
 			: OptionalBase<Type>() {};
 
 		/// <summary>
@@ -386,7 +386,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		Optional& operator = (nullopt_t) noexcept
+		Optional& operator = (None_t) noexcept
 		{
 			clear();
 			return *this;
@@ -862,7 +862,7 @@ namespace s3d
 	template <class Type>
 	class Optional<Type&>
 	{
-		static_assert(!std::is_same<Type, nullopt_t>::value, "bad Type");
+		static_assert(!std::is_same<Type, None_t>::value, "bad Type");
 		static_assert(!std::is_same<Type, in_place_t>::value, "bad Type");
 			
 		Type* ref;
@@ -881,7 +881,7 @@ namespace s3d
 		/// <param>
 		/// 無効値
 		/// </param>
-		constexpr Optional(nullopt_t) noexcept
+		constexpr Optional(None_t) noexcept
 			: ref(nullptr) {}
 
 		/// <summary>
@@ -926,7 +926,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		Optional& operator = (nullopt_t) noexcept
+		Optional& operator = (None_t) noexcept
 		{
 			ref = nullptr;
 			return *this;
@@ -1343,73 +1343,73 @@ namespace s3d
 	}
 
 	template <class Type>
-	constexpr bool operator == (const Optional<Type>& x, nullopt_t) noexcept
+	constexpr bool operator == (const Optional<Type>& x, None_t) noexcept
 	{
 		return (!x);
 	}
 
 	template <class Type>
-	constexpr bool operator == (nullopt_t, const Optional<Type>& x) noexcept
+	constexpr bool operator == (None_t, const Optional<Type>& x) noexcept
 	{
 		return (!x);
 	}
 
 	template <class Type>
-	constexpr bool operator != (const Optional<Type>& x, nullopt_t) noexcept
+	constexpr bool operator != (const Optional<Type>& x, None_t) noexcept
 	{
 		return static_cast<bool>(x);
 	}
 
 	template <class Type>
-	constexpr bool operator != (nullopt_t, const Optional<Type>& x) noexcept
+	constexpr bool operator != (None_t, const Optional<Type>& x) noexcept
 	{
 		return static_cast<bool>(x);
 	}
 
 	template <class Type>
-	constexpr bool operator < (const Optional<Type>&, nullopt_t) noexcept
+	constexpr bool operator < (const Optional<Type>&, None_t) noexcept
 	{
 		return false;
 	}
 
 	template <class Type>
-	constexpr bool operator < (nullopt_t, const Optional<Type>& x) noexcept
+	constexpr bool operator < (None_t, const Optional<Type>& x) noexcept
 	{
 		return static_cast<bool>(x);
 	}
 
 	template <class Type>
-	constexpr bool operator <= (const Optional<Type>& x, nullopt_t) noexcept
+	constexpr bool operator <= (const Optional<Type>& x, None_t) noexcept
 	{
 		return (!x);
 	}
 
 	template <class Type>
-	constexpr bool operator <= (nullopt_t, const Optional<Type>&) noexcept
+	constexpr bool operator <= (None_t, const Optional<Type>&) noexcept
 	{
 		return true;
 	}
 
 	template <class Type>
-	constexpr bool operator > (const Optional<Type>& x, nullopt_t) noexcept
+	constexpr bool operator > (const Optional<Type>& x, None_t) noexcept
 	{
 		return static_cast<bool>(x);
 	}
 
 	template <class Type>
-	constexpr bool operator > (nullopt_t, const Optional<Type>&) noexcept
+	constexpr bool operator > (None_t, const Optional<Type>&) noexcept
 	{
 		return false;
 	}
 
 	template <class Type>
-	constexpr bool operator >= (const Optional<Type>&, nullopt_t) noexcept
+	constexpr bool operator >= (const Optional<Type>&, None_t) noexcept
 	{
 		return true;
 	}
 
 	template <class Type>
-	constexpr bool operator >= (nullopt_t, const Optional<Type>& x) noexcept
+	constexpr bool operator >= (None_t, const Optional<Type>& x) noexcept
 	{
 		return (!x);
 	}
@@ -1666,7 +1666,7 @@ namespace s3d
 	struct IsOptional<Optional<Type>> : std::true_type {};
 
 	template <>
-	struct IsOptional<nullopt_t> : std::true_type {};
+	struct IsOptional<None_t> : std::true_type {};
 }
 
 namespace std
