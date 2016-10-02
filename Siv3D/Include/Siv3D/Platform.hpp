@@ -50,4 +50,7 @@
     # define S3D_EXCEPTION_ABI              __attribute__ ((__visibility__("default")))
 # endif
 
-
+# if defined(SIV3D_TARGET_MACOS)
+	template <class...>
+	using void_t = void;
+# endif

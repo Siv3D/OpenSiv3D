@@ -257,10 +257,22 @@ namespace s3d
 		uint32 asUint32() const;
 		uint64 asUint64() const;
 		size_t asSize_t() const;
+		float asFloat() const;
+		double asDouble() const;
 
 		explicit operator size_t() const
 		{
 			return asSize_t();
+		}
+
+		explicit operator float() const
+		{
+			return asFloat();
+		}
+
+		explicit operator double() const
+		{
+			return asDouble();
 		}
 
 		std::string stdStr() const;
