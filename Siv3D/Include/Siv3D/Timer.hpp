@@ -30,7 +30,7 @@ namespace s3d
 
 		int64 m_accumulationMicrosec = 0;
 
-		bool m_isActive = false;
+		bool m_isStarted = false;
 
 		bool m_pausing = true;
 
@@ -65,7 +65,7 @@ namespace s3d
 				return;
 			}
 
-			m_isActive = true;
+			m_isStarted = true;
 
 			m_pausing = false;
 
@@ -142,7 +142,7 @@ namespace s3d
 		{
 			const int64 t = Time::GetMicrosec();
 
-			if (!m_isActive)
+			if (!m_isStarted)
 			{
 				return 0;
 			}
@@ -189,7 +189,7 @@ namespace s3d
 		/// <remarks>
 		/// タイマーが開始されている、または開始後一時停止中である場合 true, それ以外の場合は false
 		/// </remarks>
-		bool isActive() const { return m_isActive; }
+		bool isStarted() const { return m_isStarted; }
 
 		/// <summary>
 		/// タイマーが一時停止中であるかを示します。
@@ -197,7 +197,15 @@ namespace s3d
 		/// <remarks>
 		/// タイマーが開始後一時停止中である場合 true, それ以外の場合は false
 		/// </remarks>
-		bool isPaused() const { return m_isActive && m_pausing; }
+		bool isPaused() const { return m_isStarted && m_pausing; }
+
+		/// <summary>
+		/// タイマーが時間を計測中であるかを示します。
+		/// </summary>
+		/// <remarks>
+		/// タイマーが開始されていて、なおかつ一時停止中でない場合 true, それ以外の場合は false
+		/// </remarks>
+		bool isRunning() const { return m_isStarted && !m_pausing; }
 
 		/// <summary>
 		/// タイマーを一時停止します。
@@ -252,7 +260,7 @@ namespace s3d
 		/// </returns>
 		void set(const MicrosecondsF& time)
 		{
-			m_isActive = true;
+			m_isStarted = true;
 
 			m_accumulationMicrosec = static_cast<int64>(time.count());
 
