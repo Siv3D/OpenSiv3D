@@ -26,6 +26,14 @@ namespace s3d
 			{
 				return operator()(Format(args...));
 			}
+
+			template <class Type>
+			auto operator <<(const Type& value) const
+			{
+				operator()(Format(value));
+
+				return *this;
+			}
 		};
 	}
 

@@ -227,21 +227,7 @@ namespace s3d
 			return result;
 		}
 
-		Array& drop(size_t n)
-		{
-			if (n >= size())
-			{
-				clear();
-			}
-			else
-			{
-				erase(begin(), begin() + n);
-			}
-
-			return *this;
-		}
-
-		Array dropped(size_t n) const
+		Array drop(size_t n) const
 		{
 			if (n >= size())
 			{
@@ -252,15 +238,7 @@ namespace s3d
 		}
 
 		template <class Fty>
-		Array& drop_while(Fty f)
-		{
-			erase(begin(), std::find_if_not(begin(), end(), f));
-
-			return *this;
-		}
-
-		template <class Fty>
-		Array dropped_while(Fty f) const
+		Array drop_while(Fty f) const
 		{
 			return Array(std::find_if_not(begin(), end(), f), end());
 		}
@@ -855,28 +833,13 @@ namespace s3d
 			return *this;
 		}
 
-		Array& take(size_t n)
-		{
-			erase(begin() + std::min(n, size()), end());
-
-			return *this;
-		}
-
-		Array taken(size_t n) const
+		Array take(size_t n) const
 		{
 			return Array(begin(), begin() + std::min(n, size()));
 		}
 
 		template <class Fty>
-		Array& take_while(Fty f)
-		{
-			erase(std::find_if_not(begin(), end(), f), end());
-
-			return *this;
-		}
-
-		template <class Fty>
-		Array taken_while(Fty f) const
+		Array take_while(Fty f) const
 		{
 			return Array(begin(), std::find_if_not(begin(), end(), f));
 		}
@@ -979,15 +942,11 @@ namespace s3d
 
 			for (; it < last - n; it += n)
 			{
-				//Log(L"###", n);
-
 				futures.emplace_back(std::async(std::launch::async, [=, &f]()
 				{
 					std::for_each(it, it + n, f);
 				}));
 			}
-
-			//Log(L"##", last - it);
 
 			std::for_each(it, last, f);
 
@@ -1305,21 +1264,7 @@ namespace s3d
 			return result;
 		}
 
-		Array& drop(size_t n)
-		{
-			if (n >= size())
-			{
-				clear();
-			}
-			else
-			{
-				erase(begin(), begin() + n);
-			}
-
-			return *this;
-		}
-
-		Array dropped(size_t n) const
+		Array drop(size_t n) const
 		{
 			if (n >= size())
 			{
@@ -1330,15 +1275,7 @@ namespace s3d
 		}
 
 		template <class Fty>
-		Array& drop_while(Fty f)
-		{
-			erase(begin(), std::find_if_not(begin(), end(), f));
-
-			return *this;
-		}
-
-		template <class Fty>
-		Array dropped_while(Fty f) const
+		Array drop_while(Fty f) const
 		{
 			return Array(std::find_if_not(begin(), end(), f), end());
 		}
@@ -1906,28 +1843,13 @@ namespace s3d
 			return count(true);
 		}
 
-		Array& take(size_t n)
-		{
-			erase(begin() + std::min(n, size()), end());
-
-			return *this;
-		}
-
-		Array taken(size_t n) const
+		Array take(size_t n) const
 		{
 			return Array(begin(), begin() + std::min(n, size()));
 		}
 
 		template <class Fty>
-		Array& take_while(Fty f)
-		{
-			erase(std::find_if_not(begin(), end(), f), end());
-
-			return *this;
-		}
-
-		template <class Fty>
-		Array taken_while(Fty f) const
+		Array take_while(Fty f) const
 		{
 			return Array(begin(), std::find_if_not(begin(), end(), f));
 		}

@@ -6,5 +6,7 @@ using namespace s3d::literals;
 
 void Main()
 {
+	Log << InfiniteList(0, 3).take(100).sum();
+
 	RunTest();
 }
