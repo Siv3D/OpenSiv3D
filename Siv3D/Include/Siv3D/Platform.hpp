@@ -51,6 +51,9 @@
 # endif
 
 # if defined(SIV3D_TARGET_MACOS)
-	template <class...>
-	using void_t = void;
+    namespace std
+    {
+        template <class...>
+        using void_t = void;
+    }
 # endif

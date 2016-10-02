@@ -1629,8 +1629,8 @@ namespace s3d
 			return m_string >= str.m_string;
 		}
 
-		template <class Fty = decltype(Id())>
-		bool all(Fty f = Id()) const
+		template <class Fty = decltype(Id)>
+		bool all(Fty f = Id) const
 		{
 			for (const auto v : m_string)
 			{
@@ -1643,8 +1643,8 @@ namespace s3d
 			return true;
 		}
 
-		template <class Fty = decltype(Id())>
-		bool any(Fty f = Id()) const
+		template <class Fty = decltype(Id)>
+		bool any(Fty f = Id) const
 		{
 			for (const auto v : m_string)
 			{
@@ -2162,8 +2162,8 @@ namespace s3d
 		/// </returns>
 		std::string narrow() const;
 
-		template <class Fty = decltype(Id())>
-		bool none(Fty f = Id()) const
+		template <class Fty = decltype(Id)>
+		bool none(Fty f = Id) const
 		{
 			for (const auto v : m_string)
 			{
