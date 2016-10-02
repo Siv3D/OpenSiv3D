@@ -728,5 +728,38 @@ namespace s3d
 		{
 			return std::pow(x, y);
 		}
+
+		/// <summary>
+		/// べき乗を計算します。
+		/// </summary>
+		template <class T, class U, std::enable_if_t<std::is_arithmetic<U>::value>* = nullptr>
+		inline Vector2D<T> Pow(const Vector2D<T>& x, U y)
+		{
+			return{ Pow(x.x, y), Pow(x.y, y) };
+		}
+
+		/// <summary>
+		/// べき乗を計算します。
+		/// </summary>
+		template <class T, class U, std::enable_if_t<std::is_arithmetic<U>::value>* = nullptr>
+		inline Vector3D<T> Pow(const Vector3D<T>& x, U y)
+		{
+			return{ Pow(x.x, y), Pow(x.y, y), Pow(x.z, y) };
+		}
+
+		/// <summary>
+		/// べき乗を計算します。
+		/// </summary>
+		template <class T, class U, std::enable_if_t<std::is_arithmetic<U>::value>* = nullptr>
+		inline Vector4D<T> Pow(const Vector4D<T>& x, U y)
+		{
+			return{ Pow(x.x, y), Pow(x.y, y), Pow(x.z, y), Pow(x.w, y) };
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+
 	}
 }

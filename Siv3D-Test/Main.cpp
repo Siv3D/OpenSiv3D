@@ -6,7 +6,7 @@ using namespace s3d::literals;
 
 void Main()
 {
-	Log << 100;
+	Log << Math::Pow(Vec4(0.2,0.4,0.5,1.0), 2.2);
 
 	//RunTest();
 }

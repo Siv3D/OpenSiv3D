@@ -190,7 +190,7 @@ namespace s3d
 		MillisecondsF elapsedF() const { return MillisecondsF(msF()); }
 
 		/// <summary>
-		/// ストップウォッチが動作中であるかを示します。
+		/// ストップウォッチが動作中であるかを示します（一時停止していることもあります）。
 		/// </summary>
 		/// <remarks>
 		/// ストップウォッチが開始されている、または開始後一時停止中である場合 true, それ以外の場合は false
@@ -204,6 +204,14 @@ namespace s3d
 		/// ストップウォッチが開始後一時停止中である場合 true, それ以外の場合は false
 		/// </remarks>
 		bool isPaused() const { return m_isActive && m_pausing; }
+
+		/// <summary>
+		/// ストップウォッチが時間を計測中であるかを示します。
+		/// </summary>
+		/// <remarks>
+		/// ストップウォッチが開始されていて、なおかつ一時停止中でない場合 true, それ以外の場合は false
+		/// </remarks>
+		bool isRunning() const { return m_isActive && !m_pausing; }
 
 		/// <summary>
 		/// ストップウォッチを一時停止します。
