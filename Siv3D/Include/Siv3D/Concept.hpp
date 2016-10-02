@@ -11,271 +11,270 @@
 
 # pragma once
 # include <type_traits>
-# include "Platform.hpp"
+# include "Utility.hpp"
 
 namespace s3d
 {
 	namespace Concept
 	{
-		template <class, class = std::void_t<>>
+		template <class, class = Void_t<>>
 		struct HasUnaryPlus : std::false_type {};
 
 		template <class Type>
-		struct HasUnaryPlus<Type, std::void_t<decltype(+std::declval<Type&>())>> : std::true_type {};
+		struct HasUnaryPlus<Type, Void_t<decltype(+std::declval<Type&>())>> : std::true_type {};
 
 
-		template <class, class = std::void_t<>>
+		template <class, class = Void_t<>>
 		struct HasNegate : std::false_type {};
 
 		template <class Type>
-		struct HasNegate<Type, std::void_t<decltype(-std::declval<Type&>())>> : std::true_type {};
+		struct HasNegate<Type, Void_t<decltype(-std::declval<Type&>())>> : std::true_type {};
 
 
-		template <class, class = std::void_t<>>
+		template <class, class = Void_t<>>
 		struct HasPreIncrement : std::false_type {};
 
 		template <class Type>
-		struct HasPreIncrement<Type, std::void_t<decltype(++std::declval<Type&>())>> : std::true_type {};
+		struct HasPreIncrement<Type, Void_t<decltype(++std::declval<Type&>())>> : std::true_type {};
 
 
-		template <class, class = std::void_t<>>
+		template <class, class = Void_t<>>
 		struct HasPreDecrement : std::false_type {};
 
 		template <class Type>
-		struct HasPreDecrement<Type, std::void_t<decltype(--std::declval<Type&>())>> : std::true_type {};
+		struct HasPreDecrement<Type, Void_t<decltype(--std::declval<Type&>())>> : std::true_type {};
 
 
-		template <class, class = std::void_t<>>
+		template <class, class = Void_t<>>
 		struct HasOperatorBool : std::false_type {};
 
 		template <class Type>
-		struct HasOperatorBool<Type, std::void_t<decltype(!std::declval<Type&>(), std::declval<Type&>() ? 0 : 0)>> : std::true_type {};
+		struct HasOperatorBool<Type, Void_t<decltype(!std::declval<Type&>(), std::declval<Type&>() ? 0 : 0)>> : std::true_type {};
 
 
-		template <class, class = std::void_t<>>
+		template <class, class = Void_t<>>
 		struct HasLogicalNot : std::false_type {};
 
 		template <class Type>
-		struct HasLogicalNot<Type, std::void_t<decltype(!std::declval<Type&>())>> : std::true_type {};
+		struct HasLogicalNot<Type, Void_t<decltype(!std::declval<Type&>())>> : std::true_type {};
 
 
-		template <class, class = std::void_t<>>
+		template <class, class = Void_t<>>
 		struct HasComplement : std::false_type {};
 
 		template <class Type>
-		struct HasComplement<Type, std::void_t<decltype(~std::declval<Type&>())>> : std::true_type {};
+		struct HasComplement<Type, Void_t<decltype(~std::declval<Type&>())>> : std::true_type {};
 
 
-		template <class, class = std::void_t<>>
+		template <class, class = Void_t<>>
 		struct HasPostIncrement : std::false_type {};
 
 		template <class Type>
-		struct HasPostIncrement<Type, std::void_t<decltype(std::declval<Type&>()++)>> : std::true_type {};
+		struct HasPostIncrement<Type, Void_t<decltype(std::declval<Type&>()++)>> : std::true_type {};
 
 
-		template <class, class = std::void_t<>>
+		template <class, class = Void_t<>>
 		struct HasPostDecrement : std::false_type {};
 
 		template <class Type>
-		struct HasPostDecrement<Type, std::void_t<decltype(std::declval<Type&>()--)>> : std::true_type {};
+		struct HasPostDecrement<Type, Void_t<decltype(std::declval<Type&>()--)>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasPlus : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasPlus<Type, Arg, std::void_t<decltype(std::declval<Type&>() + std::declval<Arg&>())>> : std::true_type {};
+		struct HasPlus<Type, Arg, Void_t<decltype(std::declval<Type&>() + std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasMinus : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasMinus<Type, Arg, std::void_t<decltype(std::declval<Type&>() - std::declval<Arg&>())>> : std::true_type {};
+		struct HasMinus<Type, Arg, Void_t<decltype(std::declval<Type&>() - std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasMultiply : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasMultiply<Type, Arg, std::void_t<decltype(std::declval<Type&>() * std::declval<Arg&>())>> : std::true_type {};
+		struct HasMultiply<Type, Arg, Void_t<decltype(std::declval<Type&>() * std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasDivide : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasDivide<Type, Arg, std::void_t<decltype(std::declval<Type&>() / std::declval<Arg&>())>> : std::true_type {};
+		struct HasDivide<Type, Arg, Void_t<decltype(std::declval<Type&>() / std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasModulus : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasModulus<Type, Arg, std::void_t<decltype(std::declval<Type&>() % std::declval<Arg&>())>> : std::true_type {};
+		struct HasModulus<Type, Arg, Void_t<decltype(std::declval<Type&>() % std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasPlusAssign : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasPlusAssign<Type, Arg, std::void_t<decltype(std::declval<Type&>() += std::declval<Arg&>())>> : std::true_type {};
+		struct HasPlusAssign<Type, Arg, Void_t<decltype(std::declval<Type&>() += std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasMinusAssign : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasMinusAssign<Type, Arg, std::void_t<decltype(std::declval<Type&>() -= std::declval<Arg&>())>> : std::true_type {};
+		struct HasMinusAssign<Type, Arg, Void_t<decltype(std::declval<Type&>() -= std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasMultiplyAssign : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasMultiplyAssign<Type, Arg, std::void_t<decltype(std::declval<Type&>() *= std::declval<Arg&>())>> : std::true_type {};
+		struct HasMultiplyAssign<Type, Arg, Void_t<decltype(std::declval<Type&>() *= std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasDivideAssign : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasDivideAssign<Type, Arg, std::void_t<decltype(std::declval<Type&>() /= std::declval<Arg&>())>> : std::true_type {};
+		struct HasDivideAssign<Type, Arg, Void_t<decltype(std::declval<Type&>() /= std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasModulusAssign : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasModulusAssign<Type, Arg, std::void_t<decltype(std::declval<Type&>() %= std::declval<Arg&>())>> : std::true_type {};
+		struct HasModulusAssign<Type, Arg, Void_t<decltype(std::declval<Type&>() %= std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasEqualTo : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasEqualTo<Type, Arg, std::void_t<decltype(std::declval<Type&>() == std::declval<Arg&>())>> : std::true_type {};
+		struct HasEqualTo<Type, Arg, Void_t<decltype(std::declval<Type&>() == std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasNotEqualTo : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasNotEqualTo<Type, Arg, std::void_t<decltype(std::declval<Type&>() != std::declval<Arg&>())>> : std::true_type {};
+		struct HasNotEqualTo<Type, Arg, Void_t<decltype(std::declval<Type&>() != std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasLessThan : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasLessThan<Type, Arg, std::void_t<decltype(std::declval<Type&>() < std::declval<Arg&>())>> : std::true_type {};
+		struct HasLessThan<Type, Arg, Void_t<decltype(std::declval<Type&>() < std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasLessThanEqual : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasLessThanEqual<Type, Arg, std::void_t<decltype(std::declval<Type&>() <= std::declval<Arg&>())>> : std::true_type {};
+		struct HasLessThanEqual<Type, Arg, Void_t<decltype(std::declval<Type&>() <= std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasGreaterThan : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasGreaterThan<Type, Arg, std::void_t<decltype(std::declval<Type&>() > std::declval<Arg&>())>> : std::true_type {};
+		struct HasGreaterThan<Type, Arg, Void_t<decltype(std::declval<Type&>() > std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasGreaterThanEqual : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasGreaterThanEqual<Type, Arg, std::void_t<decltype(std::declval<Type&>() >= std::declval<Arg&>())>> : std::true_type {};
+		struct HasGreaterThanEqual<Type, Arg, Void_t<decltype(std::declval<Type&>() >= std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasBitwiseAnd : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasBitwiseAnd<Type, Arg, std::void_t<decltype(std::declval<Type&>() & std::declval<Arg&>())>> : std::true_type {};
+		struct HasBitwiseAnd<Type, Arg, Void_t<decltype(std::declval<Type&>() & std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasBitwiseOr : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasBitwiseOr<Type, Arg, std::void_t<decltype(std::declval<Type&>() | std::declval<Arg&>())>> : std::true_type {};
+		struct HasBitwiseOr<Type, Arg, Void_t<decltype(std::declval<Type&>() | std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasBitwiseXor : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasBitwiseXor<Type, Arg, std::void_t<decltype(std::declval<Type&>() ^ std::declval<Arg&>())>> : std::true_type {};
+		struct HasBitwiseXor<Type, Arg, Void_t<decltype(std::declval<Type&>() ^ std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasBitwiseAndAssign : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasBitwiseAndAssign<Type, Arg, std::void_t<decltype(std::declval<Type&>() &= std::declval<Arg&>())>> : std::true_type {};
+		struct HasBitwiseAndAssign<Type, Arg, Void_t<decltype(std::declval<Type&>() &= std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasBitwiseOrAssign : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasBitwiseOrAssign<Type, Arg, std::void_t<decltype(std::declval<Type&>() |= std::declval<Arg&>())>> : std::true_type {};
+		struct HasBitwiseOrAssign<Type, Arg, Void_t<decltype(std::declval<Type&>() |= std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasBitwiseXorAssign : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasBitwiseXorAssign<Type, Arg, std::void_t<decltype(std::declval<Type&>() ^= std::declval<Arg&>())>> : std::true_type {};
+		struct HasBitwiseXorAssign<Type, Arg, Void_t<decltype(std::declval<Type&>() ^= std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasLeftShift : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasLeftShift<Type, Arg, std::void_t<decltype(std::declval<Type&>() << std::declval<Arg&>())>> : std::true_type {};
+		struct HasLeftShift<Type, Arg, Void_t<decltype(std::declval<Type&>() << std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasRightShift : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasRightShift<Type, Arg, std::void_t<decltype(std::declval<Type&>() >> std::declval<Arg&>())>> : std::true_type {};
+		struct HasRightShift<Type, Arg, Void_t<decltype(std::declval<Type&>() >> std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasLeftShiftAssign : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasLeftShiftAssign<Type, Arg, std::void_t<decltype(std::declval<Type&>() <<= std::declval<Arg&>())>> : std::true_type {};
+		struct HasLeftShiftAssign<Type, Arg, Void_t<decltype(std::declval<Type&>() <<= std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasRightShiftAssign : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasRightShiftAssign<Type, Arg, std::void_t<decltype(std::declval<Type&>() >>= std::declval<Arg&>())>> : std::true_type {};
+		struct HasRightShiftAssign<Type, Arg, Void_t<decltype(std::declval<Type&>() >>= std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasLogicalAnd : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasLogicalAnd<Type, Arg, std::void_t<decltype(std::declval<Type&>() && std::declval<Arg&>())>> : std::true_type {};
+		struct HasLogicalAnd<Type, Arg, Void_t<decltype(std::declval<Type&>() && std::declval<Arg&>())>> : std::true_type {};
 
 
-		template <class Type, class Arg = Type, class = std::void_t<>>
+		template <class Type, class Arg = Type, class = Void_t<>>
 		struct HasLogicalOr : std::false_type {};
 
 		template <class Type, class Arg>
-		struct HasLogicalOr<Type, Arg, std::void_t<decltype(std::declval<Type&>() || std::declval<Arg&>())>> : std::true_type {};
-	}
-
+		struct HasLogicalOr<Type, Arg, Void_t<decltype(std::declval<Type&>() || std::declval<Arg&>())>> : std::true_type {};
+	
 		/*
 		template <class Type> constexpr bool HasUnaryPlus_v		= HasUnaryPlus<Type>::value;
 		template <class Type> constexpr bool HasNegate_v		= HasNegate<Type>::value;
@@ -315,4 +314,5 @@ namespace s3d
 		template <class Type, class Arg = Type> constexpr bool HasLogicalAnd_v			= HasLogicalAnd<Type, Arg>::value;
 		template <class Type, class Arg = Type> constexpr bool HasLogicalOr_v			= HasLogicalOr<Type, Arg>::value;
 		*/
+	}
 }
