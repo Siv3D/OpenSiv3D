@@ -24,6 +24,7 @@ namespace s3d
 			constexpr NamedParameter()
 				: value() {}
 
+			// *TODO* explicit は必要？
 			explicit constexpr NamedParameter(ValueType _val)
 				: value(_val) {}
 
@@ -41,56 +42,34 @@ namespace s3d
 		//
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		//
-		
-		template <class Type>
-		struct r_ : NamedParameter<Type, r_<Type>>
-		{
-			using base = NamedParameter<Type, r_<Type>>;
-			using base::base;
-			using base::operator=;
 
-			template <class U, std::enable_if_t<std::is_convertible<U, Type>::value>* = nullptr>
-			constexpr r_(const r_<U>& other)
-				: r_(static_cast<Type>(other.value)) {}
-        };
-
-		constexpr struct r_conv
-		{
-			template <class Type>
-			constexpr r_<Type> operator =(Type val) const
-			{
-				return r_<Type>{ val };
-			}
-		} r{};
-
-		//
-		/////////////////////////////////////////////////////////////////////////////////////////////////////
-		//
-
-		template <class Type>
-		struct theta_ : NamedParameter<Type, theta_<Type>>
-		{
-			using base = NamedParameter<Type, theta_<Type>>;
-			using base::base;
-			using base::operator=;
-
-			template <class U, std::enable_if_t<std::is_convertible<U, Type>::value>* = nullptr>
-			constexpr theta_(const theta_<U>& other)
-				: theta_(static_cast<Type>(other.value)) {}
-		};
-
-		constexpr struct theta_conv
-		{
-			template <class Type>
-			constexpr theta_<Type> operator =(Type val) const
-			{
-				return theta_<Type>{ val };
-			}
-		} theta{};
+# define SIV3D_DECLEAR_NAMED_ARGUMENT(name)	template <class Type>\
+struct name##_ : NamedParameter<Type, name##_<Type>>\
+{\
+	using base = NamedParameter<Type, name##_<Type>>;\
+	using base::base;\
+	using base::operator=;\
+	template <class U, std::enable_if_t<std::is_convertible<U, Type>::value>* = nullptr>\
+	constexpr name##_(const name##_<U>& other)\
+		: name##_(static_cast<Type>(other.value)) {}\
+};\
+\
+constexpr struct name##_conv\
+{\
+	template <class Type>\
+	constexpr name##_<Type> operator =(Type val) const\
+	{\
+		return name##_<Type>{ val };\
+	}\
+} name{}\
 
 		//
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		//
+
+		SIV3D_DECLEAR_NAMED_ARGUMENT(r);
+		SIV3D_DECLEAR_NAMED_ARGUMENT(theta);
+		SIV3D_DECLEAR_NAMED_ARGUMENT(center);
 	}
 }
 

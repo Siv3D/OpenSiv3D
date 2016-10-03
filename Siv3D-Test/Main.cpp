@@ -6,13 +6,23 @@ using namespace s3d::literals;
 
 void Main()
 {
-	const Vec2 a = Circular(4.0, 45_deg);
+	const Vec2 a = Circular(4, 0);
 
-	const Vec2 b = Circular(Arg::r = 4.0, Arg::theta = 45_deg);
+	const Vec2 b = Circular(Arg::r = 4, Arg::theta = 0);
 
-	const Vec2 c = Circular(Arg::theta = 45_deg, Arg::r = 4.0);
+	const Vec2 c = Circular(Arg::theta = 0, Arg::r = 4);
 
 	Log(a == b && b == c);
+
+
+	Rect rect;
+	rect.x = 20;
+	rect.y = 30;
+	rect.w = 40;
+	rect.h = 50;
+
+	Log(rect.pos);
+	Log(rect.size);
 }
 
 

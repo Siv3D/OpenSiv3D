@@ -212,8 +212,8 @@
 	//# include "Siv3D/Mat3x2.hpp"
 	//// 線分
 	//# include "Siv3D/Line.hpp"
-	//// 長方形
-	//# include "Siv3D/Rectangle.hpp"
+	// 長方形
+	# include "Siv3D/Rectangle.hpp"
 	//// 円
 	//# include "Siv3D/Circle.hpp"
 	//// 楕円
