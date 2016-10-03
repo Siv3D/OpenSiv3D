@@ -55,6 +55,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Logger.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Math.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\MathConstants.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\MersenneTwister.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\NamedParameter.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Parse.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ParseBool.hpp" />
@@ -64,6 +65,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\PointVector.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Rectangle.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Regex.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Xorshift.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\System.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextEncoding.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextReader.hpp" />

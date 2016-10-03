@@ -415,6 +415,12 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Rectangle.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Xorshift.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\MersenneTwister.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">

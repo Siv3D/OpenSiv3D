@@ -157,13 +157,13 @@ namespace s3d
 	};
 
 	template <class Type, class Other>
-	inline bool operator ==(const AlignedAllocator<Type>&, const AlignedAllocator<Other>&) noexcept
+	inline constexpr bool operator ==(const AlignedAllocator<Type>&, const AlignedAllocator<Other>&) noexcept
 	{
 		return true;
 	}
 
 	template <class Type, class Other>
-	inline bool operator !=(const AlignedAllocator<Type>&, const AlignedAllocator<Other>&) noexcept
+	inline constexpr bool operator !=(const AlignedAllocator<Type>&, const AlignedAllocator<Other>&) noexcept
 	{
 		return false;
 	}

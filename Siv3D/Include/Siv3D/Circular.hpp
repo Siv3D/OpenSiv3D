@@ -64,8 +64,8 @@ namespace s3d
 			: r(_r)
 			, theta(_theta) {}
 
-		CircularBase(const Vec2& pos) noexcept
-			: r(pos.length()), theta(Offset(std::atan2(pos.x, -pos.y))) {}
+		CircularBase(const Vec2& v) noexcept
+			: r(v.length()), theta(Offset(std::atan2(v.x, -v.y))) {}
 
 		constexpr CircularBase operator +() const noexcept
 		{
@@ -89,7 +89,7 @@ namespace s3d
 
 		Vec2 toVec2() const noexcept
 		{
-			return{ std::sin(theta + offset())*r, -std::cos(theta + offset())*r };
+			return{ std::sin(theta + offset()) * r, -std::cos(theta + offset()) * r };
 		}
 
 		operator Vec2() const noexcept

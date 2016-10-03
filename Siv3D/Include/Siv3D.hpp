@@ -241,8 +241,10 @@
 //
 	// 数学定数
 	# include "Siv3D/MathConstants.hpp"
-	//// 乱数生成エンジン
-	//# include "Siv3D/RNG.hpp"
+	// 乱数生成エンジン (Xorshift)
+	# include "Siv3D/Xorshift.hpp"
+	// 乱数生成エンジン (Mersenne Twister)
+	# include "Siv3D/MersenneTwister.hpp"
 	//// 乱数の分布
 	//# include "Siv3D/Distribution.hpp"
 	//// 乱数ユーティリティ
