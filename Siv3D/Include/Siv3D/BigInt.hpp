@@ -364,7 +364,7 @@ namespace s3d
 
 	bool IsPrime(uint64 n);
 
-	namespace literals
+	inline namespace literals
 	{
 		inline namespace bigint_literals
 		{

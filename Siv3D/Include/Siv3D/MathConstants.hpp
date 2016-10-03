@@ -70,7 +70,7 @@ namespace s3d
 		constexpr float QuarterPiF = PiF / 4.0f;
 	}
 
-	namespace literals
+	inline namespace literals
 	{
 		inline namespace math_literals
 		{

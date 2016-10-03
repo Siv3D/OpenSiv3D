@@ -52,7 +52,7 @@ namespace s3d
 		return FormatData::DecimalPlace(width);
 	}
 
-	namespace literals
+	inline namespace literals
 	{
 		inline namespace formatting_literals
 		{

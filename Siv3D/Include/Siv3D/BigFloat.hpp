@@ -258,7 +258,7 @@ namespace s3d
 	BigFloat operator /(uint64 a, const BigFloat& b);
 	BigFloat operator /(long double a, const BigFloat& b);
 
-	namespace literals
+	inline namespace literals
 	{
 		inline namespace bigfloat_literals
 		{

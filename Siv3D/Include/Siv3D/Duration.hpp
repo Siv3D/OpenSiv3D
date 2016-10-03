@@ -108,7 +108,7 @@ namespace s3d
 		return std::chrono::duration_cast<DurationTo>(duration);
 	}
 
-	namespace literals
+	inline namespace literals
 	{
 		inline namespace chrono_literals
 		{

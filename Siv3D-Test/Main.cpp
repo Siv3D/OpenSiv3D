@@ -6,11 +6,11 @@ using namespace s3d::literals;
 
 void Main()
 {
-	const Vec2 a = Circular(4.0, Math::Pi);
+	const Vec2 a = Circular(4.0, 45_deg);
 
-	const Vec2 b = Circular(Arg::r = 4.0, Arg::theta = Math::Pi);
+	const Vec2 b = Circular(Arg::r = 4.0, Arg::theta = 45_deg);
 
-	const Vec2 c = Circular(Arg::theta = Math::Pi, Arg::r = 4.0);
+	const Vec2 c = Circular(Arg::theta = 45_deg, Arg::r = 4.0);
 
 	Log(a == b && b == c);
 }
