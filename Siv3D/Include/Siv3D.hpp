@@ -54,6 +54,8 @@
 	# include "Siv3D/Concept.hpp"
 	// コピー禁止クラス
 	# include "Siv3D/Uncopyable.hpp"
+	// 名前付き引数
+	# include "Siv3D/NamedParameter.hpp"
 	// スレッド
 	# include "Siv3D/Threading.hpp"
 	// アロケータ
@@ -200,8 +202,8 @@
 	# include "Siv3D/HSV.hpp"
 	// ベクトル
 	# include "Siv3D/PointVector.hpp"
-	//// 円座標
-	//# include "Siv3D/Circular.hpp"
+	// 円座標
+	# include "Siv3D/Circular.hpp"
 	//// 円柱座標
 	//# include "Siv3D/Cylindrical.hpp"
 	//// 球面座標

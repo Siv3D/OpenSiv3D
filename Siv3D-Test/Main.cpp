@@ -6,7 +6,23 @@ using namespace s3d::literals;
 
 void Main()
 {
-	Log << Math::Pow(Vec4(0.2,0.4,0.5,1.0), 2.2);
+	Array<Circular> circulars(10000);
+
+	TimeProfiler tp;
+
+	for(auto i : step(100))
+	{
+		tp.begin(L"a");
+		circulars.each_index([](size_t i, Circular& c) { c = Circular(i, i); });
+		tp.end();
+	}
+
+	for (auto i : step(100))
+	{
+		tp.begin(L"na");
+		circulars.each_index([](size_t i, Circular& c) { c = Circular(Arg::theta = i, Arg::r = i); });
+		tp.end();
+	}
 
 	//RunTest();
 }

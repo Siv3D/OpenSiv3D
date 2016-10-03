@@ -30,6 +30,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\BinaryWriter.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Char.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\CharacterSet.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Circular.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Color.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Concept.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Date.hpp" />
@@ -54,6 +55,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Logger.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Math.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\MathConstants.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\NamedParameter.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Parse.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ParseBool.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ParseFloat.hpp" />
