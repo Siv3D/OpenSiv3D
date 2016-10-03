@@ -16,7 +16,7 @@
 # include "Fwd.hpp"
 # include "Char.hpp"
 # include "Functor.hpp"
-# include "Random.hpp"
+# include "DefaultRNG.hpp"
 # include "StringView.hpp"
 
 namespace s3d
@@ -2541,7 +2541,7 @@ namespace s3d
 
 		String& shuffle()
 		{
-			return shuffle(GetDefaultRBG());
+			return shuffle(GetDefaultRNG());
 		}
 
 		template <class URBG>
@@ -2554,12 +2554,12 @@ namespace s3d
 
 		String shuffled() const &
 		{
-			return shuffled(GetDefaultRBG());
+			return shuffled(GetDefaultRNG());
 		}
 
 		String shuffled() &&
 		{
-			return shuffled(GetDefaultRBG());
+			return shuffled(GetDefaultRNG());
 		}
 
 		template <class URBG>

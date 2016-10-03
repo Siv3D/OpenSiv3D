@@ -249,8 +249,10 @@
 	# include "Siv3D/Xorshift.hpp"
 	// 乱数生成エンジン (Mersenne Twister)
 	# include "Siv3D/MersenneTwister.hpp"
-	//// 乱数ユーティリティ
-	//# include "Siv3D/Random.hpp"
+	// デフォルトの乱数生成エンジン
+	# include "Siv3D/DefaultRNG.hpp"
+	// 乱数ユーティリティ
+	# include "Siv3D/Random.hpp"
 	// 数学関数
 	# include "Siv3D/Math.hpp"
 	//// 線形補間

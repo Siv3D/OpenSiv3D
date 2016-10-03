@@ -65,6 +65,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\ParseInt.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Point.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\PointVector.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Random.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Rectangle.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Regex.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Xorshift.hpp" />
@@ -74,7 +75,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextWriter.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Threading.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TimeProfiler.hpp" />
-    <ClInclude Include="..\Siv3D\Include\Siv3D\Random.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\DefaultRNG.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\RDTSCProfiler.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\SpeedStopwatch.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Step.hpp" />

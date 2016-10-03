@@ -21,7 +21,7 @@
 # include "String.hpp"
 # include "Functor.hpp"
 # include "Format.hpp"
-# include "Random.hpp"
+# include "DefaultRNG.hpp"
 
 namespace s3d
 {
@@ -162,7 +162,7 @@ namespace s3d
 
 		const Type& choice() const
 		{
-			return choice(GetDefaultRBG());
+			return choice(GetDefaultRNG());
 		}
 
 		template <class URBG, std::enable_if_t<!std::is_scalar<URBG>::value>* = nullptr>
@@ -181,7 +181,7 @@ namespace s3d
 		template <class Size_t, std::enable_if_t<std::is_scalar<Size_t>::value>* = nullptr>
 		Array choice(Size_t n) const
 		{
-			return choice(n, GetDefaultRBG());
+			return choice(n, GetDefaultRNG());
 		}
 
 		template <class URBG>
@@ -705,7 +705,7 @@ namespace s3d
 
 		Array& shuffle()
 		{
-			return shuffle(GetDefaultRBG());
+			return shuffle(GetDefaultRNG());
 		}
 
 		template <class URBG>
@@ -718,12 +718,12 @@ namespace s3d
 
 		Array shuffled() const &
 		{
-			return shuffled(GetDefaultRBG());
+			return shuffled(GetDefaultRNG());
 		}
 
 		Array shuffled() &&
 		{
-			return shuffled(GetDefaultRBG());
+			return shuffled(GetDefaultRNG());
 		}
 
 		template <class URBG>
@@ -1199,7 +1199,7 @@ namespace s3d
 
 		const bool& choice() const
 		{
-			return choice(GetDefaultRBG());
+			return choice(GetDefaultRNG());
 		}
 
 		template <class URBG, std::enable_if_t<!std::is_scalar<URBG>::value>* = nullptr>
@@ -1218,7 +1218,7 @@ namespace s3d
 		template <class Size_t, std::enable_if_t<std::is_scalar<Size_t>::value>* = nullptr>
 		Array choice(Size_t n) const
 		{
-			return choice(n, GetDefaultRBG());
+			return choice(n, GetDefaultRNG());
 		}
 
 		template <class URBG>
@@ -1742,7 +1742,7 @@ namespace s3d
 
 		Array& shuffle()
 		{
-			return shuffle(GetDefaultRBG());
+			return shuffle(GetDefaultRNG());
 		}
 
 		template <class URBG>
@@ -1755,12 +1755,12 @@ namespace s3d
 
 		Array shuffled() const &
 		{
-			return shuffled(GetDefaultRBG());
+			return shuffled(GetDefaultRNG());
 		}
 
 		Array shuffled() &&
 		{
-			return shuffled(GetDefaultRBG());
+			return shuffled(GetDefaultRNG());
 		}
 
 		template <class URBG>

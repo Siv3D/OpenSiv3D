@@ -11,7 +11,7 @@ void Main()
 		
 		for (int i = 0; i < 4; ++i)
 		{
-			Log(n, L":", DefaultRNG()());
+			Log(n, L":", GetDefaultRNG()());
 		}
 	});
 }
