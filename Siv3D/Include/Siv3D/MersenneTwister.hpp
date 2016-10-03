@@ -10,7 +10,9 @@
 //-----------------------------------------------
 
 # pragma once
+# include <sstream>
 # include <random>
+# include <array>
 # include "Fwd.hpp"
 # include "HardwareRNG.hpp"
 
@@ -62,7 +64,7 @@ namespace s3d
 		/// <param name="seeds">
 		/// シード
 		/// </param>
-		explicit MT11213b(const Array<uint32>& seeds)
+		explicit MT11213b(const std::array<uint32, 8>& seeds)
 		{
 			seed(seeds);
 		}
@@ -90,7 +92,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void seed(const Array<uint32>& seeds)
+		void seed(const std::array<uint32, 8>& seeds)
 		{
 			std::seed_seq seq(std::begin(seeds), std::end(seeds));
 
@@ -188,7 +190,7 @@ namespace s3d
 		/// <param name="seeds">
 		/// シード
 		/// </param>
-		explicit MT19937(const Array<uint32>& seeds)
+		explicit MT19937(const std::array<uint32, 8>& seeds)
 		{
 			seed(seeds);
 		}
@@ -216,7 +218,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void seed(const Array<uint32>& seeds)
+		void seed(const std::array<uint32, 8>& seeds)
 		{
 			std::seed_seq seq(std::begin(seeds), std::end(seeds));
 
@@ -321,7 +323,7 @@ namespace s3d
 		/// <param name="seeds">
 		/// シード
 		/// </param>
-		explicit MT19937_64(const Array<uint64>& seeds)
+		explicit MT19937_64(const std::array<uint64, 8>& seeds)
 		{
 			seed(seeds);
 		}
@@ -349,7 +351,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void seed(const Array<uint64>& seeds)
+		void seed(const std::array<uint64, 8>& seeds)
 		{
 			std::seed_seq seq(std::begin(seeds), std::end(seeds));
 

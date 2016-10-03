@@ -12,6 +12,8 @@
 # pragma once
 # include <random>
 # include "Fwd.hpp"
+# include "Distribution.hpp"
+# include "MersenneTwister.hpp"
 
 namespace s3d
 {
@@ -20,5 +22,19 @@ namespace s3d
 	{
         static std::mt19937_64 rng{ std::random_device{}() };
         return rng;
+	}
+
+	using DefaultRNGType = MT11213b;
+
+	inline DefaultRNGType& DefaultRNG()
+	{
+		static thread_local DefaultRNGType rng;
+
+		return rng;
+	}
+
+	inline void Reseed(uint32 seed)
+	{
+		DefaultRNG().seed(seed);
 	}
 }
