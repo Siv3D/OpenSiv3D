@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <type_traits>
 
 namespace s3d
 {
@@ -25,7 +26,7 @@ namespace s3d
 			constexpr NamedParameter()
 				: value() {}
 
-			constexpr NamedParameter(ValueType _val)
+			explicit constexpr NamedParameter(ValueType _val)
 				: value(_val) {}
 
 			constexpr ArgType operator =(ValueType val) const
@@ -33,22 +34,64 @@ namespace s3d
 				return ArgType{ val };
 			}
 
-			operator ValueType() const
+			explicit constexpr operator ValueType() const
 			{
 				return value;
 			}
 		};
 
-		constexpr struct r_ : NamedParameter<double, r_>
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+		
+		template <class Type>
+		struct r_ : NamedParameter<Type, r_<Type>>
 		{
 			using base::base;
 			using base::operator=;
-        } r{};
 
-		constexpr struct theta_ : NamedParameter<double, theta_>
+			template <class U, std::enable_if_t<std::is_convertible<U, Type>::value>* = nullptr>
+			constexpr r_(const r_<U>& other)
+				: r_(static_cast<Type>(other.value)) {}
+        };
+
+		constexpr struct r_conv
+		{
+			template <class Type>
+			constexpr r_<Type> operator =(Type val) const
+			{
+				return r_<Type>{ val };
+			}
+		} r;
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		template <class Type>
+		struct theta_ : NamedParameter<Type, theta_<Type>>
 		{
 			using base::base;
 			using base::operator=;
-        } theta{};
+
+			template <class U, std::enable_if_t<std::is_convertible<U, Type>::value>* = nullptr>
+			constexpr theta_(const theta_<U>& other)
+				: theta_(static_cast<Type>(other.value)) {}
+		};
+
+		constexpr struct theta_conv
+		{
+			template <class Type>
+			constexpr theta_<Type> operator =(Type val) const
+			{
+				return theta_<Type>{ val };
+			}
+		} theta;
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
 	}
 }
+
+

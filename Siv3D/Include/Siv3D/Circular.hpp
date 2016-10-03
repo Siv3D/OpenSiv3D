@@ -51,11 +51,11 @@ namespace s3d
 			: r(_r)
 			, theta(_theta) {}
 
-		constexpr CircularBase(Arg::r_ _r, Arg::theta_ _theta) noexcept
+		constexpr CircularBase(Arg::r_<double> _r, Arg::theta_<double> _theta) noexcept
 			: r(_r)
 			, theta(_theta) {}
 
-		constexpr CircularBase(Arg::theta_ _theta, Arg::r_ _r) noexcept
+		constexpr CircularBase(Arg::theta_<double> _theta, Arg::r_<double> _r) noexcept
 			: r(_r)
 			, theta(_theta) {}
 

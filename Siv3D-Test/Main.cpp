@@ -6,23 +6,37 @@ using namespace s3d::literals;
 
 void Main()
 {
-	Array<Circular> circulars(10000);
+	const Vec2 a = Circular(4.0, Math::Pi);
 
-	TimeProfiler tp;
+	const Vec2 b = Circular(Arg::r = 4.0, Arg::theta = Math::Pi);
 
-	for(auto i : step(100))
-	{
-		tp.begin(L"a");
-		circulars.each_index([](size_t i, Circular& c) { c = Circular(i, i); });
-		tp.end();
-	}
+	const Vec2 c = Circular(Arg::theta = Math::Pi, Arg::r = 4.0);
 
-	for (auto i : step(100))
-	{
-		tp.begin(L"na");
-		circulars.each_index([](size_t i, Circular& c) { c = Circular(Arg::theta = i, Arg::r = i); });
-		tp.end();
-	}
-
-	//RunTest();
+	Log(a == b && b == c);
 }
+
+
+
+
+/*
+
+
+void F1(Arg::theta_<double> t)
+{
+Log(t.value);
+}
+
+void F2(Arg::theta_<Vec2> t)
+{
+Log(t.value.x);
+}
+//F1(Arg::theta = 0.5);
+
+//F2(Arg::theta = Vec2(2,2));
+
+//const Point pos(0, 0);
+
+//F2(Arg::theta = pos);
+
+////F2(Arg::theta = 4.5);
+*/
