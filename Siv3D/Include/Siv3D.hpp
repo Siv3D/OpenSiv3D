@@ -54,6 +54,8 @@
 	# include "Siv3D/Concept.hpp"
 	// コピー禁止クラス
 	# include "Siv3D/Uncopyable.hpp"
+	// 名前付き引数
+	# include "Siv3D/NamedParameter.hpp"
 	// スレッド
 	# include "Siv3D/Threading.hpp"
 	// アロケータ
@@ -200,8 +202,8 @@
 	# include "Siv3D/HSV.hpp"
 	// ベクトル
 	# include "Siv3D/PointVector.hpp"
-	//// 円座標
-	//# include "Siv3D/Circular.hpp"
+	// 円座標
+	# include "Siv3D/Circular.hpp"
 	//// 円柱座標
 	//# include "Siv3D/Cylindrical.hpp"
 	//// 球面座標
@@ -210,8 +212,8 @@
 	//# include "Siv3D/Mat3x2.hpp"
 	//// 線分
 	//# include "Siv3D/Line.hpp"
-	//// 長方形
-	//# include "Siv3D/Rectangle.hpp"
+	// 長方形
+	# include "Siv3D/Rectangle.hpp"
 	//// 円
 	//# include "Siv3D/Circle.hpp"
 	//// 楕円
@@ -239,12 +241,18 @@
 //
 	// 数学定数
 	# include "Siv3D/MathConstants.hpp"
-	//// 乱数生成エンジン
-	//# include "Siv3D/RNG.hpp"
-	//// 乱数の分布
-	//# include "Siv3D/Distribution.hpp"
-	//// 乱数ユーティリティ
-	//# include "Siv3D/Random.hpp"
+	// 乱数の分布
+	# include "Siv3D/Distribution.hpp"
+	// 乱数生成エンジン (ハードウェア RNG)
+	# include "Siv3D/HardwareRNG.hpp"
+	// 乱数生成エンジン (Xorshift)
+	# include "Siv3D/Xorshift.hpp"
+	// 乱数生成エンジン (Mersenne Twister)
+	# include "Siv3D/MersenneTwister.hpp"
+	// デフォルトの乱数生成エンジン
+	# include "Siv3D/DefaultRNG.hpp"
+	// 乱数ユーティリティ
+	# include "Siv3D/Random.hpp"
 	// 数学関数
 	# include "Siv3D/Math.hpp"
 	//// 線形補間

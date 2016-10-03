@@ -215,4 +215,15 @@ namespace s3d
 	using Float4	= Vector4D<float>;
 	using Vec4		= Vector4D<double>;
 
+	//////////////////////////////////////////////////////
+	//
+	//	Circular.hpp
+	//
+	template <int32 Oclock> struct CircularBase;
+	using Circular	= CircularBase<0>;
+	using Circular0	= CircularBase<0>;
+	using Circular3	= CircularBase<3>;
+	using Circular6	= CircularBase<6>;
+	using Circular9	= CircularBase<9>;
+
 }

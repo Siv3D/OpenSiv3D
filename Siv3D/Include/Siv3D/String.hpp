@@ -16,7 +16,7 @@
 # include "Fwd.hpp"
 # include "Char.hpp"
 # include "Functor.hpp"
-# include "Random.hpp"
+# include "DefaultRNG.hpp"
 # include "StringView.hpp"
 
 namespace s3d
@@ -1761,21 +1761,7 @@ namespace s3d
 			return result;
 		}
 
-		String& drop(size_t n)
-		{
-			if (n >= size())
-			{
-				m_string.clear();
-			}
-			else
-			{
-				m_string.erase(m_string.begin(), m_string.begin() + n);
-			}
-
-			return *this;
-		}
-
-		String dropped(size_t n) const
+		String drop(size_t n) const
 		{
 			if (n >= m_string.size())
 			{
@@ -1786,15 +1772,7 @@ namespace s3d
 		}
 
 		template <class Fty>
-		String& drop_while(Fty f)
-		{
-			m_string.erase(m_string.begin(), std::find_if_not(m_string.begin(), m_string.end(), f));
-
-			return *this;
-		}
-
-		template <class Fty>
-		String dropped_while(Fty f) const
+		String drop_while(Fty f) const
 		{
 			return String(std::find_if_not(m_string.begin(), m_string.end(), f), m_string.end());
 		}
@@ -2563,7 +2541,7 @@ namespace s3d
 
 		String& shuffle()
 		{
-			return shuffle(GetDefaultRBG());
+			return shuffle(GetDefaultRNG());
 		}
 
 		template <class URBG>
@@ -2576,12 +2554,12 @@ namespace s3d
 
 		String shuffled() const &
 		{
-			return shuffled(GetDefaultRBG());
+			return shuffled(GetDefaultRNG());
 		}
 
 		String shuffled() &&
 		{
-			return shuffled(GetDefaultRBG());
+			return shuffled(GetDefaultRNG());
 		}
 
 		template <class URBG>
@@ -2775,28 +2753,13 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		String& take(size_t n)
-		{
-			m_string.erase(m_string.begin() + std::min(n, m_string.size()), m_string.end());
-
-			return *this;
-		}
-
-		String taken(size_t n) const
+		String take(size_t n) const
 		{
 			return String(m_string.begin(), m_string.begin() + std::min(n, m_string.size()));
 		}
 
 		template <class Fty>
-		String& take_while(Fty f)
-		{
-			m_string.erase(std::find_if_not(m_string.begin(), m_string.end(), f), m_string.end());
-
-			return *this;
-		}
-
-		template <class Fty>
-		String taken_while(Fty f) const
+		String take_while(Fty f) const
 		{
 			return String(m_string.begin(), std::find_if_not(m_string.begin(), m_string.end(), f));
 		}

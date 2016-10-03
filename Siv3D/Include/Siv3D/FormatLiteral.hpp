@@ -45,7 +45,7 @@ namespace s3d
 		return detail::FormatHelper{ s };
 	}
 
-	namespace literals
+	inline namespace literals
 	{
 		inline namespace formatting_literals
 		{

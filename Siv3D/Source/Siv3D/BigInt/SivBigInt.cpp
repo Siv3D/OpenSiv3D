@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/BigInt.hpp>
+# include <Siv3D/BigFloat.hpp>
 # include "CBigInt.hpp"
 
 namespace s3d
@@ -765,6 +766,16 @@ namespace s3d
 	double BigInt::asDouble() const
 	{
 		return this->pImpl->data.convert_to<double>();
+	}
+
+	BigFloat BigInt::asBigFloat() const
+	{
+		return BigFloat(pImpl->data.str());
+	}
+
+	BigInt::operator BigFloat() const
+	{
+		return asBigFloat();
 	}
 
 	////////////////////////////////////////////////////////////////

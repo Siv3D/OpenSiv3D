@@ -1214,7 +1214,7 @@ namespace s3d
 
 		Grid& shuffle()
 		{
-			return shuffle(GetDefaultRBG());
+			return shuffle(GetDefaultRNG());
 		}
 
 		template <class URBG>
@@ -1227,12 +1227,12 @@ namespace s3d
 
 		Grid shuffled() const &
 		{
-			return shuffled(GetDefaultRBG());
+			return shuffled(GetDefaultRNG());
 		}
 
 		Grid shuffled() &&
 		{
-			return shuffled(GetDefaultRBG());
+			return shuffled(GetDefaultRNG());
 		}
 
 		template <class URBG>

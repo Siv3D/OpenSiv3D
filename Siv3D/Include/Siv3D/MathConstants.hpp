@@ -68,25 +68,34 @@ namespace s3d
 		/// (1/4)π (float)
 		/// </summary>
 		constexpr float QuarterPiF = PiF / 4.0f;
+	}
 
-		constexpr double operator ""_pi(long double x)
+	inline namespace literals
+	{
+		inline namespace math_literals
 		{
-			return static_cast<double>(x * Pi);
+			constexpr double operator ""_pi(long double x)
+			{
+				return static_cast<double>(x * Math::Pi);
+			}
+
+			constexpr double operator ""_pi(unsigned long long x)
+			{
+				return static_cast<double>(x * Math::Pi);
+			}
 		}
 
-		constexpr double operator ""_pi(unsigned long long x)
+		inline namespace angle_literals
 		{
-			return static_cast<double>(x * Pi);
-		}
+			constexpr double operator ""_deg(long double deg)
+			{
+				return static_cast<double>(deg * Math::Pi / 180);
+			}
 
-		constexpr double operator ""_deg(long double deg)
-		{
-			return static_cast<double>(deg * Pi / 180);
-		}
-
-		constexpr double operator ""_deg(unsigned long long deg)
-		{
-			return static_cast<double>(deg * Pi / 180);
+			constexpr double operator ""_deg(unsigned long long deg)
+			{
+				return static_cast<double>(deg * Math::Pi / 180);
+			}
 		}
 	}
 }

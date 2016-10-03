@@ -274,9 +274,6 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\SpeedStopwatch.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\Include\Siv3D\Random.hpp">
-      <Filter>Include\Siv3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\MathConstants.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
@@ -404,6 +401,33 @@
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\Threading.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Circular.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\NamedParameter.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Rectangle.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Xorshift.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\MersenneTwister.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\HardwareRNG.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Distribution.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\DefaultRNG.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Random.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>

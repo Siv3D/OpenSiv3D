@@ -180,66 +180,6 @@ namespace s3d
 			return result;
 		}
 
-        template <class Fty>
-        N parallel_count_if(Fty f, size_t numThreads = Threading::GetConcurrency()) const
-        {
-            if (isEmpty())
-            {
-                return 0;
-            }
-            
-            N result = 0;
-            auto count_ = count();
-            auto value = startValue();
-            const auto step_ = step();
-            
-            numThreads = std::max<size_t>(1, numThreads);
-            
-            const auto n = std::max<N>(1, count_ / numThreads);
-            
-            N num_processed = 0;
-            const N num_all = count_;
-            
-            Array<std::future<std::size_t>> futures;
-            
-            for (; num_processed < num_all - n; num_processed += n)
-            {
-                //Log(L"###", n);
-                
-                futures.emplace_back(std::async(std::launch::async, [=, &f]() mutable
-                                                {
-                                                    size_t t_result = 0;
-                                                    
-                                                    for (N i = 0; i < n; ++i)
-                                                    {
-                                                        t_result += f(value);
-                                                        
-                                                        value += step_;
-                                                    }
-                                                    
-                                                    return t_result;
-                                                }));
-                
-                value += static_cast<T>(n * step_);
-            }
-            
-            //Log(L"##", num_all - num_processed);
-            
-            for (; num_processed < num_all; ++num_processed)
-            {
-                result += f(value);
-                
-                value += step_;
-            }
-            
-            for (auto& future : futures)
-            {
-                result += future.get();
-            }
-            
-            return result;
-        }
-        
 		template <class Fty>
 		void each(Fty f) const
 		{
@@ -549,6 +489,113 @@ namespace s3d
 
 			return new_array;
 		}
+
+		template <class Fty>
+		N parallel_count_if(Fty f, size_t numThreads = Threading::GetConcurrency()) const
+		{
+			if (isEmpty())
+			{
+				return 0;
+			}
+
+			N result = 0;
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			numThreads = std::max<size_t>(1, numThreads);
+
+			const auto n = std::max<N>(1, count_ / numThreads);
+
+			N num_processed = 0;
+			const N num_all = count_;
+
+			Array<std::future<std::size_t>> futures;
+
+			for (; num_processed < num_all - n; num_processed += n)
+			{
+				futures.emplace_back(std::async(std::launch::async, [=, &f]() mutable
+				{
+					size_t t_result = 0;
+
+					for (N i = 0; i < n; ++i)
+					{
+						t_result += f(value);
+
+						value += step_;
+					}
+
+					return t_result;
+				}));
+
+				value += static_cast<T>(n * step_);
+			}
+
+			for (; num_processed < num_all; ++num_processed)
+			{
+				result += f(value);
+
+				value += step_;
+			}
+
+			for (auto& future : futures)
+			{
+				result += future.get();
+			}
+
+			return result;
+		}
+
+		template <class Fty>
+		void parallel_each(Fty f, size_t numThreads = Threading::GetConcurrency()) const
+		{
+			if (isEmpty())
+			{
+				return;
+			}
+
+			auto count_ = count();
+			auto value = startValue();
+			const auto step_ = step();
+
+			numThreads = std::max<size_t>(1, numThreads);
+
+			const auto n = std::max<N>(1, count_ / numThreads);
+
+			N num_processed = 0;
+			const N num_all = count_;
+
+			Array<std::future<void>> futures;
+
+			for (; num_processed < num_all - n; num_processed += n)
+			{
+				futures.emplace_back(std::async(std::launch::async, [=, &f]() mutable
+				{
+					for (N i = 0; i < n; ++i)
+					{
+						f(value);
+
+						value += step_;
+					}
+				}));
+
+				value += static_cast<T>(n * step_);
+			}
+
+			for (; num_processed < num_all; ++num_processed)
+			{
+				f(value);
+
+				value += step_;
+			}
+
+			for (auto& future : futures)
+			{
+				future.wait();
+			}
+		}
+
+		// parallel_map
 
 	private:
 

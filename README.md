@@ -35,11 +35,9 @@
 - [x] Vector2D
 - [x] Vector3D
 - [x] Vector4D
-- [ ] Circular
-- [ ] Cylindrical
-- [ ] Spherical
-- [ ] RNG
-- [ ] Distribution
+- [x] Circular
+- [x] RNG
+- [x] Distribution
 - [ ] Random
 - [ ] Math (Partial)
 - [ ] Lerp
@@ -54,6 +52,8 @@
 - [ ] Base64
 - [ ] MD5
 - [ ] JSON (Partial)
+- [ ] Cylindrical
+- [ ] Spherical
 
 ## Discussion ##
  [Siv3D Slack #open-siv3d](https://siv3d.slack.com/messages/open-siv3d/details/)  (Japanese)

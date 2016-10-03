@@ -259,6 +259,7 @@ namespace s3d
 		size_t asSize_t() const;
 		float asFloat() const;
 		double asDouble() const;
+		BigFloat asBigFloat() const;
 
 		explicit operator size_t() const
 		{
@@ -274,6 +275,8 @@ namespace s3d
 		{
 			return asDouble();
 		}
+
+		explicit operator BigFloat() const;
 
 		std::string stdStr() const;
 
@@ -361,7 +364,7 @@ namespace s3d
 
 	bool IsPrime(uint64 n);
 
-	namespace literals
+	inline namespace literals
 	{
 		inline namespace bigint_literals
 		{

@@ -96,7 +96,7 @@ namespace s3d
 		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigFloat operator +(Integer i) const { return operator +(static_cast<uint64>(i)); }
 		template <class Float, std::enable_if_t<(std::is_floating_point<Float>::value)>* = nullptr>
-		BigFloat& operator +(Float f) { return operator +(static_cast<long double>(f)); }	
+		BigFloat operator +(Float f) const { return operator +(static_cast<long double>(f)); }	
 		BigFloat operator +(int64 i) const;
 		BigFloat operator +(uint64 i) const;
 		BigFloat operator +(long double f) const;
@@ -122,7 +122,7 @@ namespace s3d
 		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigFloat operator -(Integer i) const { return operator -(static_cast<uint64>(i)); }
 		template <class Float, std::enable_if_t<(std::is_floating_point<Float>::value)>* = nullptr>
-		BigFloat& operator -(Float f) { return operator -(static_cast<long double>(f)); }
+		BigFloat operator -(Float f) const { return operator -(static_cast<long double>(f)); }
 		BigFloat operator -(int64 i) const;
 		BigFloat operator -(uint64 i) const;
 		BigFloat operator -(long double f) const;
@@ -145,7 +145,7 @@ namespace s3d
 		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigFloat operator *(Integer i) const { return operator *(static_cast<uint64>(i)); }
 		template <class Float, std::enable_if_t<(std::is_floating_point<Float>::value)>* = nullptr>
-		BigFloat& operator *(Float f) { return operator *(static_cast<long double>(f)); }
+		BigFloat operator *(Float f) const { return operator *(static_cast<long double>(f)); }
 		BigFloat operator *(int64 i) const;
 		BigFloat operator *(uint64 i) const;
 		BigFloat operator *(long double f) const;
@@ -168,7 +168,7 @@ namespace s3d
 		template <class Integer, std::enable_if_t<(std::is_integral<Integer>::value && !std::is_signed<Integer>::value)>* = nullptr>
 		BigFloat operator /(Integer i) const { return operator /(static_cast<uint64>(i)); }
 		template <class Float, std::enable_if_t<(std::is_floating_point<Float>::value)>* = nullptr>
-		BigFloat& operator /(Float f) { return operator /(static_cast<long double>(f)); }
+		BigFloat operator /(Float f) const { return operator /(static_cast<long double>(f)); }
 		BigFloat operator /(int64 i) const;
 		BigFloat operator /(uint64 i) const;
 		BigFloat operator /(long double f) const;
@@ -258,7 +258,7 @@ namespace s3d
 	BigFloat operator /(uint64 a, const BigFloat& b);
 	BigFloat operator /(long double a, const BigFloat& b);
 
-	namespace literals
+	inline namespace literals
 	{
 		inline namespace bigfloat_literals
 		{
@@ -426,6 +426,69 @@ namespace s3d
 
 	template <>
 	struct IsBigNumber<BigFloat> : std::true_type {};
+
+	namespace Math
+	{
+		//BigFloat Abs(const BigFloat& x);
+
+		//BigFloat Sqrt(const BigFloat& x);
+
+		//BigFloat Floor(const BigFloat& x);
+
+		//BigFloat Ceil(const BigFloat& x);
+
+		//BigFloat Round(const BigFloat& x);
+		//
+		//BigFloat Exp(const BigFloat& x);
+
+		//BigFloat Exp2(const BigFloat& x);
+
+		//BigFloat Log(const BigFloat& x);
+
+		//BigFloat Log2(const BigFloat& x);
+
+		//BigFloat Log10(const BigFloat& x);
+
+		//BigFloat Cos(const BigFloat& x);
+
+		//BigFloat Sin(const BigFloat& x);
+
+		//BigFloat Tan(const BigFloat& x);
+
+		//BigFloat Acos(const BigFloat& x);
+
+		//BigFloat Asin(const BigFloat& x);
+
+		//BigFloat Atan(const BigFloat& x);
+
+		//BigFloat Cosh(const BigFloat& x);
+
+		//BigFloat Sinh(const BigFloat& x);
+
+		//BigFloat Tanh(const BigFloat& x);
+
+		//BigFloat Ldexp(const BigFloat& x, const BigFloat& y);
+
+		//BigFloat Frexp(const BigFloat& x, BigFloat& y);
+
+		//BigFloat Pow(const BigFloat& x, const BigFloat& y);
+
+		//BigFloat Fmod(const BigFloat& x, const BigFloat& y);
+
+		//BigFloat Atan2(const BigFloat& x, const BigFloat& y);
+
+		//BigFloat Sign(const BigFloat& x);
+
+		//BigFloat Radians(const BigFloat& x);
+
+		//BigFloat Degrees(const BigFloat& x);
+
+		//BigFloat Square(const BigFloat& x);
+
+		//BigFloat Rsqrt(const BigFloat& x);
+
+		//BigFloat Saturate(const BigFloat& x);
+	}
 }
 
 namespace std
