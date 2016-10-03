@@ -35,6 +35,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Concept.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Date.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\DateTime.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Distribution.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Duration.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\FileSystem.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\BigFloat.hpp" />
@@ -46,6 +47,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Functor.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Fwd.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Grid.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\HardwareRNG.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Hash.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\HSV.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Image.hpp" />

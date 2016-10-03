@@ -5,7 +5,57 @@ using namespace s3d;
 
 void Main()
 {
+	//const Array<uint32> v = InfiniteList().take(5).map([](auto){ return HardwareRNG{}(); });
 
+	TimeProfiler tp;
+
+	{
+		MT19937_64 rng;
+
+		for (auto i : step(100))
+		{
+			tp.begin(L"64");
+
+			for (auto k : step(100000))
+			{
+				rng();
+			}
+
+			tp.end();
+		}
+	}
+
+	{
+		MT19937 rng;
+
+		for (auto i : step(100))
+		{
+			tp.begin(L"32");
+
+			for (auto k : step(100000))
+			{
+				rng();
+			}
+
+			tp.end();
+		}
+	}
+
+	{
+		HardwareRNG rng;
+
+		for (auto i : step(100))
+		{
+			tp.begin(L"hw");
+
+			for (auto k : step(100000))
+			{
+				rng();
+			}
+
+			tp.end();
+		}
+	}
 }
 
 
