@@ -26,10 +26,10 @@ namespace s3d
 	{
 	private:
 
-		using diftribution_type = std::conditional_t<std::is_floating_point<Type>::value,
+		using distribution_type = std::conditional_t<std::is_floating_point<Type>::value,
 			std::uniform_real_distribution<Type>, std::uniform_int_distribution<Type>>;
 
-		diftribution_type m_distribution;
+		distribution_type m_distribution;
 
 	public:
 
@@ -48,7 +48,7 @@ namespace s3d
 		{
 			assert(min <= max);
 
-			m_distribution.param(diftribution_type::param_type{ min, max });
+			m_distribution.param(typename distribution_type::param_type{ min, max });
 		}
 
 		/// <summary>
@@ -90,7 +90,7 @@ namespace s3d
 		/// </summary>
 		result_type min() const
 		{
-			return distribution.min();
+			return m_distribution.min();
 		}
 
 		/// <summary>
@@ -98,7 +98,7 @@ namespace s3d
 		/// </summary>
 		result_type max() const
 		{
-			return distribution.max();
+			return m_distribution.max();
 		}
 	};
 
@@ -113,9 +113,9 @@ namespace s3d
 	{
 	private:
 
-		using diftribution_type = std::normal_distribution<Type>;
+		using distribution_type = std::normal_distribution<Type>;
 
-		diftribution_type m_distribution;
+		distribution_type m_distribution;
 
 	public:
 
@@ -162,7 +162,7 @@ namespace s3d
 		/// </returns>
 		void set(result_type mean, result_type sigma)
 		{
-			m_distribution.param(diftribution_type::param_type{ mean, sigma });
+			m_distribution.param(typename distribution_type::param_type{ mean, sigma });
 		}
 
 		/// <summary>

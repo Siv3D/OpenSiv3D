@@ -29,10 +29,15 @@ namespace s3d
 		{
 			return theta <= -Math::Pi ? theta + Math::TwoPi : theta;
 		}
+        
+        static constexpr double Clock() noexcept
+        {
+            return Oclock * (Math::TwoPi / 12);
+        }
 
 		static constexpr double Offset(double theta) noexcept
 		{
-			return Clamp(theta - Oclock * (Math::TwoPi / 12));
+			return Clamp(theta - Clock());
 		}
 
 	public:
@@ -89,7 +94,7 @@ namespace s3d
 
 		Vec2 toVec2() const noexcept
 		{
-			return{ std::sin(theta + offset()) * r, -std::cos(theta + offset()) * r };
+			return{ std::sin(theta + Clock()) * r, -std::cos(theta + Clock()) * r };
 		}
 
 		operator Vec2() const noexcept
