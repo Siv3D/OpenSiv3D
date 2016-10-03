@@ -19,8 +19,6 @@ namespace s3d
 		template <class ValueType, class ArgType>
 		struct NamedParameter
 		{
-			using base = NamedParameter;
-
 			ValueType value;
 
 			constexpr NamedParameter()
@@ -47,6 +45,7 @@ namespace s3d
 		template <class Type>
 		struct r_ : NamedParameter<Type, r_<Type>>
 		{
+			using base = NamedParameter<Type, r_<Type>>;
 			using base::base;
 			using base::operator=;
 
@@ -62,7 +61,7 @@ namespace s3d
 			{
 				return r_<Type>{ val };
 			}
-		} r;
+		} r{};
 
 		//
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -71,6 +70,7 @@ namespace s3d
 		template <class Type>
 		struct theta_ : NamedParameter<Type, theta_<Type>>
 		{
+			using base = NamedParameter<Type, theta_<Type>>;
 			using base::base;
 			using base::operator=;
 
@@ -86,7 +86,7 @@ namespace s3d
 			{
 				return theta_<Type>{ val };
 			}
-		} theta;
+		} theta{};
 
 		//
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
