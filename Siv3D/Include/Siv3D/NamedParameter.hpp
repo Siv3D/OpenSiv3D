@@ -43,12 +43,12 @@ namespace s3d
 		{
 			using base::base;
 			using base::operator=;
-		} r;
+        } r{};
 
 		constexpr struct theta_ : NamedParameter<double, theta_>
 		{
 			using base::base;
 			using base::operator=;
-		} theta;
+        } theta{};
 	}
 }
