@@ -25,9 +25,14 @@ namespace s3d
 	{
 	private:
 
-		constexpr double offset() const noexcept
+		static constexpr double Clamp(double theta) noexcept
 		{
-			return Oclock * (Math::TwoPi / 12);
+			return theta <= -Math::Pi ? theta + Math::TwoPi : theta;
+		}
+
+		static constexpr double Offset(double theta) noexcept
+		{
+			return Clamp(theta - Oclock * (Math::TwoPi / 12));
 		}
 
 	public:
@@ -60,7 +65,7 @@ namespace s3d
 			, theta(_theta) {}
 
 		CircularBase(const Vec2& pos) noexcept
-			: r(pos.length()), theta(std::atan2(pos.x, -pos.y) - offset()) {}
+			: r(pos.length()), theta(Offset(std::atan2(pos.x, -pos.y))) {}
 
 		constexpr CircularBase operator +() const noexcept
 		{
@@ -69,7 +74,7 @@ namespace s3d
 
 		constexpr CircularBase operator -() const noexcept
 		{
-			return{ r, theta + Math::Pi };
+			return{ r, Clamp(theta - Math::Pi) };
 		}
 
 		Vec2 operator + (const Vec2& v) const noexcept

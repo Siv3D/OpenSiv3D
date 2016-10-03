@@ -5,23 +5,7 @@ using namespace s3d;
 
 void Main()
 {
-	const Vec2 a = Circular(4, 0);
 
-	// new
-	const Vec2 b = Circular(Arg::r = 4, Arg::theta = 0);
-
-	// new
-	const Vec2 c = Circular(Arg::theta = 0, Arg::r = 4);
-
-	Log(a == b && b == c);
-
-
-	const Rect d = Rect(80, 40).setCenter(320, 240);
-
-	// new
-	const Rect e(Arg::center = Point(320, 240), 80, 40);
-	
-	Log(d == e);
 }
 
 
@@ -48,4 +32,20 @@ Log(t.value.x);
 //F2(Arg::theta = pos);
 
 ////F2(Arg::theta = 4.5);
+
+
+	int i = 0;
+
+	Range(0, 36).map([](int32 d)
+	{
+		return Vec2(-1, 0).rotate(d * 10 / 360.0 * 2_pi);
+	})
+	.map([](const Vec2& v)
+	{
+		return -Circular9(v);
+	})
+	.each([&](const auto& c)
+	{
+		Log(i++*10 ,L":\t", (c.theta /2_pi * 360));
+	});
 */
