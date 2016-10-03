@@ -36,8 +36,8 @@
 - [x] Vector3D
 - [x] Vector4D
 - [x] Circular
-- [ ] RNG
-- [ ] Distribution
+- [x] RNG
+- [x] Distribution
 - [ ] Random
 - [ ] Math (Partial)
 - [ ] Lerp
