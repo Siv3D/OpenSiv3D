@@ -43,7 +43,7 @@ namespace s3d
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		//
 
-# define SIV3D_DECLEAR_NAMED_ARGUMENT(name)	template <class Type>\
+# define SIV3D_MAKE_NAMED_PARAMETER(name)	template <class Type>\
 struct name##_ : NamedParameter<Type, name##_<Type>>\
 {\
 	using base = NamedParameter<Type, name##_<Type>>;\
@@ -61,15 +61,21 @@ constexpr struct name##_conv\
 	{\
 		return name##_<Type>{ val };\
 	}\
+\
+	template <class Type>\
+	constexpr name##_<Type> operator ()(Type val) const\
+	{\
+		return name##_<Type>{ val };\
+	}\
 } name{}\
 
 		//
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		//
 
-		SIV3D_DECLEAR_NAMED_ARGUMENT(r);
-		SIV3D_DECLEAR_NAMED_ARGUMENT(theta);
-		SIV3D_DECLEAR_NAMED_ARGUMENT(center);
+		SIV3D_MAKE_NAMED_PARAMETER(r);
+		SIV3D_MAKE_NAMED_PARAMETER(theta);
+		SIV3D_MAKE_NAMED_PARAMETER(center);
 	}
 }
 

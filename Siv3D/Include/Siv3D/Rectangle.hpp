@@ -279,6 +279,33 @@ namespace s3d
 
 
 
+		/// <summary>
+		/// 中心位置を指定して長方形を移動させます。
+		/// </summary>
+		/// <param name="_x">
+		/// 長方形の中心の新しい X 座標
+		/// </param>
+		/// <param name="_y">
+		/// 長方形の中心の新しい Y 座標
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		Rectangle& setCenter(value_type _x, value_type _y) { pos.set(_x - w / 2, _y - h / 2); return *this; }
+
+		/// <summary>
+		/// 中心位置を指定して長方形を移動させます。
+		/// </summary>
+		/// <param name="_x">
+		/// 長方形の中心の新しい位置
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		Rectangle& setCenter(const SizeType& _pos) { pos.set(_pos - size / 2); return *this; }
+
+
+
 		constexpr bool operator == (const Rectangle& r) const
 		{
 			return pos == r.pos

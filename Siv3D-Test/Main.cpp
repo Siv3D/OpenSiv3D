@@ -7,16 +7,19 @@ void Main()
 {
 	const Vec2 a = Circular(4, 0);
 
+	// new
 	const Vec2 b = Circular(Arg::r = 4, Arg::theta = 0);
 
+	// new
 	const Vec2 c = Circular(Arg::theta = 0, Arg::r = 4);
 
 	Log(a == b && b == c);
 
 
-	const Rect d(-64, -64, 128);
+	const Rect d = Rect(80, 40).setCenter(320, 240);
 
-	const Rect e(Arg::center = Point(0, 0), 128);
+	// new
+	const Rect e(Arg::center = Point(320, 240), 80, 40);
 	
 	Log(d == e);
 }
