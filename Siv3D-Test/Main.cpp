@@ -2,7 +2,6 @@
 # include <Siv3D.hpp>
 # include "Test/Siv3DTest.hpp"
 using namespace s3d;
-using namespace s3d::literals;
 
 void Main()
 {
@@ -15,14 +14,11 @@ void Main()
 	Log(a == b && b == c);
 
 
-	Rect rect;
-	rect.x = 20;
-	rect.y = 30;
-	rect.w = 40;
-	rect.h = 50;
+	const Rect d(-64, -64, 128);
 
-	Log(rect.pos);
-	Log(rect.size);
+	const Rect e(Arg::center = Point(0, 0), 128);
+	
+	Log(d == e);
 }
 
 
