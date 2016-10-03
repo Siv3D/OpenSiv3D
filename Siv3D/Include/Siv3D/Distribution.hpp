@@ -61,7 +61,7 @@ namespace s3d
 		/// 乱数
 		/// </returns>
 		template <class Engine>
-		result_type operator ()(Engine& engine) const
+		result_type operator ()(Engine& engine)
 		{
 			return m_distribution(engine);
 		}
