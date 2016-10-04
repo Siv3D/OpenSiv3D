@@ -28,7 +28,7 @@ namespace s3d
 	constexpr Type MakeFromTuple(Tuple&& t)
 	{
 		return detail::MakeFromTuple_impl<Type>(std::forward<Tuple>(t),
-			std::make_index_sequence<std::tuple_size_v<std::decay_t<Tuple>>>{});
+			std::make_index_sequence<std::tuple_size<std::decay_t<Tuple>>::value>{});
 	}
 
 	template <class Type>
