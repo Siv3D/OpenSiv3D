@@ -5,8 +5,8 @@ using namespace s3d;
 
 void Main()
 {
-	// Array<int32>{ 2, 3, 6, 2, 5, 2 }
-	const Array<int32> v(10, Arg::generator = RNG(1, 6));
+	// Array<int32>{ 2, 3, 6, 2, 5 }
+	const Array<int32> v(5, Arg::generator = RNG(1, 6));
 
 	// Circular(3.5, 20.5)
 	constexpr Circular c(Arg::theta = 20.5, Arg::r = 3.5);
