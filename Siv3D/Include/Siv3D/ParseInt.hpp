@@ -18,7 +18,7 @@
 namespace s3d
 {
 	template <class IntegerType>
-	inline IntegerType ParseInt(const String& str, Arg::radix_<Radix> radix = Radix::Unspecified);
+	inline IntegerType ParseInt(const String& str, Arg::radix_<Radix> radix = (Arg::radix = Radix::Unspecified));
 
 	template <>
 	inline int8 ParseInt<int8>(const String& str, Arg::radix_<Radix> radix)
@@ -104,7 +104,7 @@ namespace s3d
 
 
 	template <class IntegerType>
-	inline Optional<IntegerType> ParseIntOpt(const String& str, Arg::radix_<Radix> radix = Radix::Unspecified);
+	inline Optional<IntegerType> ParseIntOpt(const String& str, Arg::radix_<Radix> radix = (Arg::radix = Radix::Unspecified));
 
 	template <>
 	inline Optional<int8> ParseIntOpt<int8>(const String& str, Arg::radix_<Radix> radix)
