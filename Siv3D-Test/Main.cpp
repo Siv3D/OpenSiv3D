@@ -1,11 +1,14 @@
 ﻿
 # include <Siv3D.hpp>
+# include <tuple>
 # include "Test/Siv3DTest.hpp"
 using namespace s3d;
 using namespace std::literals;
 
 void Main()
 {
+	const auto k = std::tuple<>{};
+
 	// Array<int32>{ 2, 3, 6, 2, 5, 2 }
 	const Array<int32> v(10, Arg::generator = RNG(1, 6));
 
@@ -13,10 +16,12 @@ void Main()
 	constexpr Circular c(Arg::theta = 20.5, Arg::r = 3.5);
 
 	// L"FF"
-	Log << ToString(255, Arg::radix = 16, Arg::upperCase = true);
+	Log << ToString(255, Arg::radix = 16, Arg::upperCase());
 
 	// Rect(80, 80, 40, 40)
-	constexpr Rect rect(Arg::center = Point(100, 100), 40);
+	constexpr Rect rect(Arg::center(100, 100), 40);
+
+	RunTest();
 }
 
 
