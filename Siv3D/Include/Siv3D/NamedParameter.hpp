@@ -58,7 +58,7 @@ namespace s3d
 
 				template <class U, class V = ValueType, std::enable_if_t<std::is_convertible<U, V>::value>* = nullptr>
 				constexpr NamedParameter(const NamedParameter<Tag, U>& other)
-					: NamedParameter(static_cast<ValueType>(*other)) {}
+					: NamedParameter(static_cast<ValueType>(other.value())) {}
 
 				template <class... Args, class V = ValueType, std::enable_if_t<std::is_constructible<V, Args...>::value>* = nullptr>
 				constexpr NamedParameter(const NamedParameter<Tag, std::tuple<Args...>>& tuple)
