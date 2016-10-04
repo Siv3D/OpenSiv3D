@@ -170,4 +170,28 @@ namespace s3d
 	{
 		std::shuffle(first, last, GetDefaultRNG());
 	}
+
+	namespace detail
+	{
+		template <class Type>
+		struct RNG_impl
+		{
+			const Type m_min, m_max;
+
+			constexpr RNG_impl(Type min, Type max)
+				: m_min(min)
+				, m_max(max) {}
+
+			Type operator ()() const
+			{
+				return Random<Type>(m_min, m_max);
+			}
+		};
+	}
+
+	template <class Type>
+	inline constexpr auto RNG(const Type& min, const Type& max)
+	{
+		return detail::RNG_impl<Type>(min, max);
+	}
 }

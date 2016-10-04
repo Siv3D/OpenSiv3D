@@ -17,6 +17,7 @@
 # include "Fwd.hpp"
 # include "Allocator.hpp"
 # include "Concept.hpp"
+# include "NamedParameter.hpp"
 # include "Threading.hpp"
 # include "String.hpp"
 # include "Functor.hpp"
@@ -81,6 +82,23 @@ namespace s3d
 
 		Array()
 			: base_type() {}
+
+		template <class Fty>
+		Array(size_type size, Arg::generator_<Fty> generator)
+			: Array(Generate<Fty>(size, generator.value)) {}
+
+		template <class Fty>
+		static Array Generate(size_type size, Fty generator)
+		{
+			Array new_array(size);
+
+			for (auto& value : new_array)
+			{
+				value = generator();
+			}
+
+			return new_array;
+		}
 
 		void swap(Array& other)
 		{

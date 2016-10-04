@@ -73,6 +73,7 @@ constexpr struct name##_conv\
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		//
 
+		SIV3D_MAKE_NAMED_PARAMETER(generator);
 		SIV3D_MAKE_NAMED_PARAMETER(r);
 		SIV3D_MAKE_NAMED_PARAMETER(theta);
 		SIV3D_MAKE_NAMED_PARAMETER(center);
