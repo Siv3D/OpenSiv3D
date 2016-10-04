@@ -8,6 +8,7 @@ void Main()
 {
 	// Array<int32>{ 2, 3, 6, 2, 5, 2 }
 	const Array<int32> v(10, Arg::generator = RNG(1, 6));
+<<<<<<< HEAD
 
 	// Circular(3.5, 20.5)
 	constexpr Circular c(Arg::theta = 20.5, Arg::r = 3.5);
@@ -17,6 +18,12 @@ void Main()
 
 	// Rect(80, 80, 40, 40)
 	constexpr Rect rect(Arg::center = Point(100, 100), 40);
+=======
+	
+	Log << v;
+	
+	//RunTest();
+>>>>>>> origin/develop2
 }
 
 
