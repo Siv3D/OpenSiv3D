@@ -16,42 +16,43 @@ namespace s3d
 {
 	namespace Arg
 	{
-		template <class ValueType, class ArgType>
-		struct NamedParameter
-		{
-			ValueType value;
-
-			constexpr NamedParameter()
-				: value() {}
-
-			// *TODO* explicit は必要？
-			explicit constexpr NamedParameter(ValueType _val)
-				: value(_val) {}
-
-			constexpr ArgType operator =(ValueType val) const
-			{
-				return ArgType{ val };
-			}
-
-			explicit constexpr operator ValueType() const
-			{
-				return value;
-			}
-		};
-
-		//
-		/////////////////////////////////////////////////////////////////////////////////////////////////////
-		//
-
-# define SIV3D_MAKE_NAMED_PARAMETER(name)	template <class Type>\
-struct name##_ : NamedParameter<Type, name##_<Type>>\
+# define SIV3D_MAKE_NAMED_PARAMETER(name)	template <class ValueType>\
+struct name##_\
 {\
-	using base = NamedParameter<Type, name##_<Type>>;\
-	using base::base;\
-	using base::operator=;\
-	template <class U, std::enable_if_t<std::is_convertible<U, Type>::value>* = nullptr>\
+private:\
+	ValueType m_value;\
+\
+public:\
+\
+	constexpr name##_()\
+		: m_value() {}\
+\
+	explicit constexpr name##_(ValueType _val)\
+		: m_value(_val) {}\
+\
+	template <class U, class V = ValueType, std::enable_if_t<std::is_convertible<U, V>::value>* = nullptr>\
 	constexpr name##_(const name##_<U>& other)\
-		: name##_(static_cast<Type>(other.value)) {}\
+		: name##_(static_cast<ValueType>(*other)) {}\
+\
+	constexpr name##_ operator =(ValueType val) const\
+	{\
+		return name##_{ val };\
+	}\
+\
+	constexpr ValueType const* operator ->() const\
+	{\
+		return &m_value;\
+	}\
+\
+	constexpr ValueType const& operator *() const\
+	{\
+		return m_value;\
+	}\
+\
+	constexpr ValueType const& value() const\
+	{\
+		return m_value;\
+	}\
 };\
 \
 constexpr struct name##_conv\
@@ -74,6 +75,8 @@ constexpr struct name##_conv\
 		//
 
 		SIV3D_MAKE_NAMED_PARAMETER(generator);
+		SIV3D_MAKE_NAMED_PARAMETER(radix);
+		SIV3D_MAKE_NAMED_PARAMETER(upperCase);
 		SIV3D_MAKE_NAMED_PARAMETER(r);
 		SIV3D_MAKE_NAMED_PARAMETER(theta);
 		SIV3D_MAKE_NAMED_PARAMETER(center);

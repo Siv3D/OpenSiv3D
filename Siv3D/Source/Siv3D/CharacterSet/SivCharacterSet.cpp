@@ -831,7 +831,7 @@ namespace s3d
 			return detail::UTF32ToUTF16<char32_t, std::u16string>(str.data(), str.data() + str.length());
 		}
 
-		String PercentEncode(const StringView str, const bool upperCase)
+		String PercentEncode(const StringView str, const Arg::upperCase_<bool> upperCase)
 		{
 			const std::string utf8 = ToUTF8(str);
 
@@ -849,7 +849,7 @@ namespace s3d
 				}
 			}
 
-			const char* const table = detail::hexTable[upperCase];
+			const char* const table = detail::hexTable[*upperCase];
 
 			String result(length, L'\0');
 			wchar* dst = &result[0];

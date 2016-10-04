@@ -238,8 +238,8 @@ namespace s3d
 		/// 長方形の大きさ
 		/// </param>
 		constexpr Rectangle(Arg::center_<SizeType> _center, value_type _size) noexcept
-			: x(_center.value.x - _size / 2)
-			, y(_center.value.y - _size / 2)
+			: x(_center->x - _size / 2)
+			, y(_center->y - _size / 2)
 			, w(_size)
 			, h(_size) {}
 
@@ -256,8 +256,8 @@ namespace s3d
 		/// 長方形の高さ
 		/// </param>
 		constexpr Rectangle(Arg::center_<SizeType> _center, value_type _w, value_type _h) noexcept
-			: x(_center.value.x - _w / 2)
-			, y(_center.value.y - _h / 2)
+			: x(_center->x - _w / 2)
+			, y(_center->y - _h / 2)
 			, w(_w)
 			, h(_h) {}
 
@@ -271,8 +271,8 @@ namespace s3d
 		/// 長方形の大きさ
 		/// </param>
 		constexpr Rectangle(Arg::center_<SizeType> _center, SizeType _size) noexcept
-			: x(_center.value.x - _size.x / 2)
-			, y(_center.value.y - _size.y / 2)
+			: x(_center->x - _size.x / 2)
+			, y(_center->y - _size.y / 2)
 			, w(_size.x)
 			, h(_size.y) {}
 

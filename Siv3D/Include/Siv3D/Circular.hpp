@@ -63,12 +63,12 @@ namespace s3d
 			, theta(_theta) {}
 
 		constexpr CircularBase(Arg::r_<double> _r, Arg::theta_<double> _theta) noexcept
-			: r(_r)
-			, theta(_theta) {}
+			: r(*_r)
+			, theta(*_theta) {}
 
 		constexpr CircularBase(Arg::theta_<double> _theta, Arg::r_<double> _r) noexcept
-			: r(_r)
-			, theta(_theta) {}
+			: r(*_r)
+			, theta(*_theta) {}
 
 		CircularBase(const Vec2& v) noexcept
 			: r(v.length()), theta(Offset(std::atan2(v.x, -v.y))) {}

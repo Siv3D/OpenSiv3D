@@ -23,12 +23,6 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
-	//	NamedParameter.hpp
-	//
-	template <class ValueType, class ArgType> struct NamedParameter;
-
-	//////////////////////////////////////////////////////
-	//
 	//	Allocator.hpp
 	//
 	template <class Type, size_t Alignment> class AlignedAllocator;

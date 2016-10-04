@@ -6,7 +6,17 @@ using namespace std::literals;
 
 void Main()
 {
+	// Array<int32>{ 2, 3, 6, 2, 5, 2 }
 	const Array<int32> v(10, Arg::generator = RNG(1, 6));
+
+	// Circular(3.5, 20.5)
+	constexpr Circular c(Arg::theta = 20.5, Arg::r = 3.5);
+
+	// L"FF"
+	Log << ToString(255, Arg::radix = 16, Arg::upperCase = true);
+
+	// Rect(80, 80, 40, 40)
+	constexpr Rect rect(Arg::center = Point(100, 100), 40);
 }
 
 

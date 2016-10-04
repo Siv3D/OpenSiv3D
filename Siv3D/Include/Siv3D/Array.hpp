@@ -85,7 +85,7 @@ namespace s3d
 
 		template <class Fty, class R = Type, std::enable_if_t<std::is_convertible<std::result_of_t<Fty()>, R>::value>* = nullptr>
 		Array(const size_type size, Arg::generator_<Fty> generator)
-			: Array(Generate<Fty>(size, generator.value)) {}
+			: Array(Generate<Fty>(size, *generator)) {}
 
 		template <class Fty, class R = Type, std::enable_if_t<std::is_convertible<std::result_of_t<Fty()>, R>::value>* = nullptr>
 		static Array Generate(const size_type size, Fty generator)
@@ -1156,7 +1156,7 @@ namespace s3d
 
 		template <class Fty, std::enable_if_t<std::is_convertible<std::result_of_t<Fty()>, bool>::value>* = nullptr>
 		Array(const size_type size, Arg::generator_<Fty> generator)
-			: Array(Generate<Fty>(size, generator.value)) {}
+			: Array(Generate<Fty>(size, *generator)) {}
 
 		template <class Fty, std::enable_if_t<std::is_convertible<std::result_of_t<Fty()>, bool>::value>* = nullptr>
 		static Array Generate(const size_type size, Fty generator)

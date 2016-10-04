@@ -17,7 +17,7 @@ namespace s3d
 {
 	namespace detail
 	{
-		void Log_impl::write(const String& text) const
+		void Log_impl::writeln(const String& text) const
 		{
 			Siv3DEngine::GetLogger()->write(LogDescription::App, text);
 		}

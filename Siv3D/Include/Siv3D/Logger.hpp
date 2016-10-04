@@ -19,12 +19,7 @@ namespace s3d
 	{
 		struct Log_impl
 		{
-			void write(const String& text) const;
-
-			void writeln(const String& text) const
-			{
-				write(text + L'\n');
-			}
+			void writeln(const String& text) const;
 
 			void operator()(const String& text) const
 			{
@@ -40,7 +35,7 @@ namespace s3d
 			template <class Type>
 			auto operator <<(const Type& value) const
 			{
-				write(Format(value));
+				writeln(Format(value));
 
 				return *this;
 			}
