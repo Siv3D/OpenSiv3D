@@ -82,7 +82,7 @@ namespace s3d
 		/// <returns>
 		/// 変換されたワイド文字列
 		/// </returns>
-		String FromUTF8(const UTF8StringView str);
+		String FromUTF8(UTF8StringView str);
 
 		/// <summary>
 		/// UTF-16 文字列をワイド文字列に変換します。

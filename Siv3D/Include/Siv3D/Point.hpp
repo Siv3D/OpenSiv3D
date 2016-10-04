@@ -107,7 +107,7 @@ namespace s3d
 		template <class Type>
 		constexpr Vector2D<Type> operator -(const Vector2D<Type>& v) const noexcept;
 
-		constexpr Point operator *(int32 s) const noexcept
+		constexpr Point operator *(const int32 s) const noexcept
 		{
 			return{ x * s, y * s };
 		}
@@ -124,7 +124,7 @@ namespace s3d
 		template <class Type>
 		constexpr Vector2D<Type> operator *(const Vector2D<Type>& v) const noexcept;
 
-		constexpr Point operator /(int32 s) const noexcept
+		constexpr Point operator /(const int32 s) const noexcept
 		{
 			return{ x / s, y / s };
 		}
@@ -153,13 +153,13 @@ namespace s3d
 			return *this;
 		}
 
-		S3D_CONSTEXPR_CPP14 Point& operator *=(int32 s) noexcept
+		S3D_CONSTEXPR_CPP14 Point& operator *=(const int32 s) noexcept
 		{
 			x *= s; y *= s;
 			return *this;
 		}
 
-		S3D_CONSTEXPR_CPP14 Point& operator /=(int32 s) noexcept
+		S3D_CONSTEXPR_CPP14 Point& operator /=(const int32 s) noexcept
 		{
 			assert(s != 0);
 			x /= s; y /= s;
@@ -176,7 +176,7 @@ namespace s3d
 			return x != p.x || y != p.y;
 		}
 
-		S3D_CONSTEXPR_CPP14 Point& set(int32 _x, int32 _y) noexcept
+		S3D_CONSTEXPR_CPP14 Point& set(const int32 _x, const int32 _y) noexcept
 		{
 			x = _x; y = _y;
 			return *this;
@@ -187,7 +187,7 @@ namespace s3d
 			return *this = p;
 		}
 
-		constexpr Point movedBy(int32 _x, int32 _y) const noexcept
+		constexpr Point movedBy(const int32 _x, const int32 _y) const noexcept
 		{
 			return{ x + _x, y + _y };
 		}
@@ -229,7 +229,7 @@ namespace s3d
 		constexpr Type lengthSq() const noexcept;
 
 		template <class Type>
-		constexpr Vector2D<Type> lerp(const Vector2D<Type>& other, double f) const noexcept;
+		constexpr Vector2D<Type> lerp(const Vector2D<Type>& other, const double f) const noexcept;
 
 		/// <summary>
 		/// Point{ 0, 0 }
@@ -250,7 +250,7 @@ namespace s3d
 		/// <summary>
 		/// Point{ value, value }
 		/// </summary>
-		static constexpr Point All(value_type value = 1)
+		static constexpr Point All(const value_type value = 1)
 		{
 			return{ value, value };
 		}
@@ -274,7 +274,7 @@ namespace s3d
 		/// <summary>
 		/// Point{ -length, 0 }
 		/// </summary>
-		static constexpr Point Left(value_type length = 1)
+		static constexpr Point Left(const value_type length = 1)
 		{
 			return{ -length, 0 };
 		}
@@ -282,7 +282,7 @@ namespace s3d
 		/// <summary>
 		/// Point{ length, 0 }
 		/// </summary>
-		static constexpr Point Right(value_type length = 1)
+		static constexpr Point Right(const value_type length = 1)
 		{
 			return{ length, 0 };
 		}
@@ -290,7 +290,7 @@ namespace s3d
 		/// <summary>
 		/// Point{ 0, -length }
 		/// </summary>
-		static constexpr Point Up(value_type length = 1)
+		static constexpr Point Up(const value_type length = 1)
 		{
 			return{ 0, -length };
 		}
@@ -298,7 +298,7 @@ namespace s3d
 		/// <summary>
 		/// Point{ 0, length }
 		/// </summary>
-		static constexpr Point Down(value_type length = 1)
+		static constexpr Point Down(const value_type length = 1)
 		{
 			return{ 0, length };
 		}
@@ -361,7 +361,7 @@ namespace std
 	template <>
 	struct hash<s3d::Point>
 	{
-		size_t operator ()(const s3d::Point& keyVal) const
+		size_t operator()(const s3d::Point& keyVal) const
 		{
 			return hash<s3d::uint64>()(*((s3d::uint64*)&keyVal));
 		}

@@ -33,18 +33,30 @@ namespace s3d
 				std::cout << text;
 			}
 
+			template <class... Args>
+			void write(const Args&... args) const
+			{
+				return write(Format(args...));
+			}
+
 			void writeln(const String& text) const
 			{
 				write(text + L'\n');
 			}
 
-			void operator ()(const String& text) const
+			template <class... Args>
+			void writeln(const Args&... args) const
+			{
+				return write(Format(args..., L'\n'));
+			}
+
+			void operator()(const String& text) const
 			{
 				writeln(text);
 			}
 
 			template <class... Args>
-			void operator ()(const Args&... args) const
+			void operator()(const Args&... args) const
 			{
 				return write(Format(args..., L'\n'));
 			}

@@ -11,10 +11,6 @@
 
 # pragma once
 
-# ifndef S3D_MATH_DEFINED
-#	define S3D_MATH_DEFINED
-# endif
-
 namespace s3d
 {
 	namespace Math

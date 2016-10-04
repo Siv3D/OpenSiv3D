@@ -81,7 +81,7 @@ namespace s3d
 
 		constexpr const_reverse_iterator crend() const noexcept { return const_reverse_iterator(cbegin()); }
 
-		constexpr const_reference operator[] (size_type index) const { return m_ptr[index]; }
+		constexpr const_reference operator[](size_type index) const { return m_ptr[index]; }
 
 		constexpr const_reference at(size_type index) const
 		{
@@ -346,19 +346,19 @@ namespace s3d
 	};
 
 	template <class CharType>
-	inline S3D_CONSTEXPR_CPP14 bool operator == (BasicStringView<CharType> x, BasicStringView<CharType> y) noexcept
+	inline S3D_CONSTEXPR_CPP14 bool operator ==(BasicStringView<CharType> x, BasicStringView<CharType> y) noexcept
 	{
 		return x.compare(y) == 0;
 	}
 
 	template <class CharType>
-	inline S3D_CONSTEXPR_CPP14 bool operator != (BasicStringView<CharType> x, BasicStringView<CharType> y) noexcept
+	inline S3D_CONSTEXPR_CPP14 bool operator !=(BasicStringView<CharType> x, BasicStringView<CharType> y) noexcept
 	{
 		return !(x == y);
 	}
 
 	template <class CharType>
-	inline S3D_CONSTEXPR_CPP14 bool operator < (BasicStringView<CharType> x, BasicStringView<CharType> y) noexcept
+	inline S3D_CONSTEXPR_CPP14 bool operator <(BasicStringView<CharType> x, BasicStringView<CharType> y) noexcept
 	{
 		return x.compare(y) < 0;
 	}
@@ -370,23 +370,23 @@ namespace s3d
 	}
 
 	template <class CharType>
-	inline S3D_CONSTEXPR_CPP14 bool operator > (BasicStringView<CharType> x, BasicStringView<CharType> y) noexcept
+	inline S3D_CONSTEXPR_CPP14 bool operator >(BasicStringView<CharType> x, BasicStringView<CharType> y) noexcept
 	{
 		return x.compare(y) > 0;
 	}
 
 	template <class CharType>
-	inline S3D_CONSTEXPR_CPP14 bool operator >= (BasicStringView<CharType> x, BasicStringView<CharType> y) noexcept
+	inline S3D_CONSTEXPR_CPP14 bool operator >=(BasicStringView<CharType> x, BasicStringView<CharType> y) noexcept
 	{
 		return x.compare(y) >= 0;
 	}
 
-	inline std::ostream& operator << (std::ostream& os, const BasicStringView<char>& str)
+	inline std::ostream& operator <<(std::ostream& os, const BasicStringView<char>& str)
 	{
 		return os.write(str.data(), str.length());
 	}
 
-	inline std::wostream& operator << (std::wostream& os, const BasicStringView<wchar>& str)
+	inline std::wostream& operator <<(std::wostream& os, const BasicStringView<wchar>& str)
 	{
 		return os.write(str.data(), str.length());
 	}
@@ -401,7 +401,7 @@ namespace std
 	template <class CharType>
 	struct hash<s3d::BasicStringView<CharType>>
 	{
-		size_t operator ()(const s3d::BasicStringView<CharType>& keyVal) const
+		size_t operator()(const s3d::BasicStringView<CharType>& keyVal) const
 		{
 			return s3d::Hash::FNV1a(keyVal.data(), keyVal.length() * sizeof(CharType));
 		}

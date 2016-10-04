@@ -280,9 +280,6 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\MathConstants.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\Include\Siv3D\RDTSCProfiler.hpp">
-      <Filter>Include\Siv3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\TimeProfiler.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
@@ -441,6 +438,9 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\Source\Siv3D\Console\IConsole.hpp">
       <Filter>Source\Siv3D\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\RDTSCClock.hpp">
+      <Filter>Include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -7,8 +7,6 @@ using namespace std::literals;
 void Main()
 {
 	const Array<int32> v(10, Arg::generator = RNG(1, 6));
-
-	Log << v;
 }
 
 

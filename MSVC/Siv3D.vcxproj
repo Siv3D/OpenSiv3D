@@ -77,7 +77,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Threading.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TimeProfiler.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\DefaultRNG.hpp" />
-    <ClInclude Include="..\Siv3D\Include\Siv3D\RDTSCProfiler.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\RDTSCClock.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\SpeedStopwatch.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Step.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\LetterCase.hpp" />

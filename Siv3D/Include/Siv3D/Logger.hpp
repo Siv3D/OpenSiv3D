@@ -26,13 +26,13 @@ namespace s3d
 				write(text + L'\n');
 			}
 
-			void operator ()(const String& text) const
+			void operator()(const String& text) const
 			{
 				writeln(text);
 			}
 
 			template <class... Args>
-			void operator ()(const Args&... args) const
+			void operator()(const Args&... args) const
 			{
 				writeln(Format(args...));
 			}

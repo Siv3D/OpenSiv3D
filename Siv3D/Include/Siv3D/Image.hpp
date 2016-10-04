@@ -242,12 +242,12 @@ namespace s3d
 		/// <returns>
 		/// 指定した行の先頭ポインタ
 		/// </returns>
-		Color* operator [](uint32 y)
+		Color* operator[](uint32 y)
 		{
 			return &m_data[m_width * y];
 		}
 
-		Color& operator [](const Point& pos)
+		Color& operator[](const Point& pos)
 		{
 			return m_data[m_width * pos.y + pos.x];
 		}
@@ -264,12 +264,12 @@ namespace s3d
 		/// <returns>
 		/// 指定した行の先頭ポインタ
 		/// </returns>
-		const Color* operator [](uint32 y) const
+		const Color* operator[](uint32 y) const
 		{
 			return &m_data[m_width * y];
 		}
 
-		const Color& operator [](const Point& pos) const
+		const Color& operator[](const Point& pos) const
 		{
 			return m_data[m_width * pos.y + pos.x];
 		}

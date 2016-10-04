@@ -140,7 +140,7 @@ namespace s3d
 			return{ h - hsv.h, Clamp(s - hsv.s, 0.0, 1.0), Clamp(v - hsv.v, 0.0, 1.0), a };
 		}
 
-		constexpr HSV lerp(const HSV& other, double f) const noexcept
+		constexpr HSV lerp(const HSV& other, const double f) const noexcept
 		{
 			return{ h + (other.h - h) * f,
 					s + (other.s - s) * f,
@@ -185,7 +185,7 @@ namespace s3d
 		/// <returns>
 		/// 変換した値
 		/// </returns>
-		Color toColor(uint32 alpha) const noexcept
+		Color toColor(const uint32 alpha) const noexcept
 		{
 			return toColor().setA(alpha);
 		}
@@ -207,7 +207,7 @@ namespace s3d
 		/// <returns>
 		/// 変換した値
 		/// </returns>
-		ColorF toColorF(double alpha) const noexcept
+		ColorF toColorF(const double alpha) const noexcept
 		{
 			return toColorF().setA(alpha);
 		}

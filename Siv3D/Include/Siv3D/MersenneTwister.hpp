@@ -78,7 +78,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void seed(uint32 seed)
+		void seed(const uint32 seed)
 		{
 			m_engine.seed(seed);
 		}
@@ -127,7 +127,7 @@ namespace s3d
 		/// <returns>
 		/// 乱数
 		/// </returns>
-		result_type operator ()()
+		result_type operator()()
 		{
 			return m_engine();
 		}
@@ -204,7 +204,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void seed(uint32 seed)
+		void seed(const uint32 seed)
 		{
 			m_engine.seed(seed);
 		}
@@ -253,7 +253,7 @@ namespace s3d
 		/// <returns>
 		/// 乱数
 		/// </returns>
-		result_type operator ()()
+		result_type operator()()
 		{
 			return m_engine();
 		}
@@ -314,7 +314,7 @@ namespace s3d
 		/// <param name="seed">
 		/// シード
 		/// </param>
-		explicit MT19937_64(uint64 seed)
+		explicit MT19937_64(const uint64 seed)
 			: m_engine(seed) {}
 
 		/// <summary>
@@ -386,7 +386,7 @@ namespace s3d
 		/// <returns>
 		/// 乱数
 		/// </returns>
-		result_type operator ()()
+		result_type operator()()
 		{
 			return m_engine();
 		}

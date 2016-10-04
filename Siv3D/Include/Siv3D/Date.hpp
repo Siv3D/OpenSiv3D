@@ -165,7 +165,7 @@ namespace s3d
 		/// <returns>
 		/// 日付が正しい範囲の値であれば true, それ以外の場合は false
 		/// </returns>
-		bool constexpr isValid() const noexcept
+		constexpr bool isValid() const noexcept
 		{
 			return (1 <= month && month <= 12)
 				&& (1 <= day && day <= daysInMonth());
@@ -424,12 +424,8 @@ namespace s3d
 		return !(a < b);
 	}
 
-	inline std::ostream & operator << (std::ostream& os, const Date& date)
-	{
-		return os << date.format().narrow();
-	}
-
-	inline std::wostream & operator << (std::wostream& os, const Date& date)
+	template <class CharType>
+	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> os, const Date& date)
 	{
 		return os << date.format();
 	}
@@ -445,6 +441,6 @@ namespace std
 	template <>
 	struct hash<s3d::Date>
 	{
-		size_t operator ()(const s3d::Date& date) const;
+		size_t operator()(const s3d::Date& date) const;
 	};
 }

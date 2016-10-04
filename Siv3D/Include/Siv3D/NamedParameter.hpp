@@ -63,7 +63,7 @@ constexpr struct name##_conv\
 	}\
 \
 	template <class Type>\
-	constexpr name##_<Type> operator ()(Type val) const\
+	constexpr name##_<Type> operator()(Type val) const\
 	{\
 		return name##_<Type>{ val };\
 	}\

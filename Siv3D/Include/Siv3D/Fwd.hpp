@@ -23,6 +23,12 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	NamedParameter.hpp
+	//
+	template <class ValueType, class ArgType> struct NamedParameter;
+
+	//////////////////////////////////////////////////////
+	//
 	//	Allocator.hpp
 	//
 	template <class Type, size_t Alignment> class AlignedAllocator;
@@ -36,7 +42,7 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
-	//	Array.hpp
+	//	Grid.hpp
 	//
 	template <class Type, class Allocator> class Grid;
 
@@ -226,4 +232,52 @@ namespace s3d
 	using Circular6	= CircularBase<6>;
 	using Circular9	= CircularBase<9>;
 
+
+
+
+
+
+	//////////////////////////////////////////////////////
+	//
+	//	Distribution.hpp
+	//
+	template <class Type> class UniformDistribution;
+	template <class Type> class NormalDistribution;
+
+	//////////////////////////////////////////////////////
+	//
+	//	HardwareRNG.hpp
+	//
+	class HardwareRNG;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Xorshift.hpp
+	//
+	class Xorshift64Star;
+	class Xorshift128Plus;
+	class Xorshift1024Star;
+
+	//////////////////////////////////////////////////////
+	//
+	//	MersenneTwister.hpp
+	//
+	class MT11213b;
+	class MT19937;
+	class MT19937_64;
+
+	//////////////////////////////////////////////////////
+	//
+	//	DefaultRNG.hpp
+	//
+	using DefaultRNGType = MT11213b;
+
+
+
+
+	//////////////////////////////////////////////////////
+	//
+	//	Image.hpp
+	//
+	class Image;
 }

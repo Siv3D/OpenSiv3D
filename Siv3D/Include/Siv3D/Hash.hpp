@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <type_traits>
 # include "Fwd.hpp"
 
 namespace s3d
@@ -18,10 +19,10 @@ namespace s3d
 	{
 		size_t FNV1a(const uint8* p, size_t size);
 
-		template <class KeyType>
-		size_t FNV1a(const KeyType& keyValue)
+		template <class Type, std::enable_if_t<std::is_trivially_copyable<Type>::value>* = nullptr>
+		size_t FNV1a(const Type& keyValue)
 		{
-			return FNV1a(static_cast<const uint8*>(static_cast<const void*>(&keyValue)), sizeof(keyValue));
+			return FNV1a(static_cast<const uint8*>(static_cast<const void*>(std::addressof(keyValue))), sizeof(keyValue));
 		}
 	}
 }

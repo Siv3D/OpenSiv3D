@@ -135,7 +135,7 @@
 	// 処理にかかった時間の測定
 	# include "Siv3D/TimeProfiler.hpp"
 	// 処理にかかった CPU サイクル数の測定
-	# include "Siv3D/RDTSCProfiler.hpp"
+	# include "Siv3D/RDTSCClock.hpp"
 //
 // ファイル I/O と暗号化
 //

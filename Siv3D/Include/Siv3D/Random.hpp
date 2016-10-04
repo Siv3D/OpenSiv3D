@@ -182,7 +182,7 @@ namespace s3d
 				: m_min(min)
 				, m_max(max) {}
 
-			Type operator ()() const
+			Type operator()() const
 			{
 				return Random<Type>(m_min, m_max);
 			}

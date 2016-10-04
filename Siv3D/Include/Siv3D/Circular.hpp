@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <iostream>
 # include "Fwd.hpp"
 # include "NamedParameter.hpp"
 # include "PointVector.hpp"
@@ -82,12 +83,12 @@ namespace s3d
 			return{ r, Clamp(theta - Math::Pi) };
 		}
 
-		Vec2 operator + (const Vec2& v) const noexcept
+		Vec2 operator +(const Vec2& v) const noexcept
 		{
 			return toVec2() + v;
 		}
 
-		Vec2 operator - (const Vec2& v) const noexcept
+		Vec2 operator -(const Vec2& v) const noexcept
 		{
 			return toVec2() - v;
 		}
@@ -102,4 +103,51 @@ namespace s3d
 			return toVec2();
 		}
 	};
+
+	/// <summary>
+	/// 出力ストリームに点を渡します。
+	/// </summary>
+	/// <param name="os">
+	/// 出力ストリーム
+	/// </param>
+	/// <param name="v">
+	/// 点
+	/// </param>
+	/// <returns>
+	/// 渡した後の出力ストリーム
+	/// </returns>
+	template <class CharType, int32 Oclock>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const CircularBase<Oclock>& c)
+	{
+		return os	<< CharType('(')
+					<< c.r << CharType(',')
+					<< c.theta << CharType(')');
+	}
+
+	/// <summary>
+	/// 入力ストリームに点を渡します。
+	/// </summary>
+	/// <param name="is">
+	/// 入力ストリーム
+	/// </param>
+	/// <param name="v">
+	/// 点
+	/// </param>
+	/// <returns>
+	/// 渡した後の入力ストリーム
+	/// </returns>
+	template <class CharType, int32 Oclock>
+	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& is, CircularBase<Oclock>& v)
+	{
+		CharType unused;
+		return is	>> unused
+					>> v.r >> unused
+					>> v.theta >> unused;
+	}
+
+	template <int32 Oclock>
+	inline void Formatter(FormatData& formatData, const CircularBase<Oclock>& value)
+	{
+		Formatter(formatData, Vec2(value.r, value.theta));
+	}
 }
