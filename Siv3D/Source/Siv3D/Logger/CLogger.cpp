@@ -53,7 +53,7 @@ namespace s3d
 # elif defined(SIV3D_TARGET_MACOS)
 
 # include <iostream>
-# include <codecvt>
+# include <Siv3D/CharacterSet.hpp>
 
 namespace s3d
 {
@@ -77,7 +77,7 @@ namespace s3d
 				std::cout << logLevelStr[static_cast<size_t>(desc)];
 			}
 
-			std::cout << std::wstring_convert<std::codecvt_utf8<wchar_t>>().to_bytes(str.str()) << '\n';
+			std::cout << CharacterSet::ToUTF8(str) << '\n';
 		}
 	}
 }
