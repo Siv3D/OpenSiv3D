@@ -11,6 +11,7 @@
 
 # pragma once
 # include <type_traits>
+# include <memory>
 # include "Fwd.hpp"
 
 namespace s3d
