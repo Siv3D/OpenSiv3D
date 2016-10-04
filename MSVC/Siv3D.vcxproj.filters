@@ -119,6 +119,9 @@
     <Filter Include="Source\Siv3D\Thread">
       <UniqueIdentifier>{6c9d88d3-71fd-41dd-aa24-cc9d1e471e6a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Console">
+      <UniqueIdentifier>{6d89462c-bf88-4b39-b9d3-d40abb8dbf6e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -430,6 +433,15 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Random.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Console.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Console\CConsole.hpp">
+      <Filter>Source\Siv3D\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Console\IConsole.hpp">
+      <Filter>Source\Siv3D\Console</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -581,6 +593,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Thread\SivThread.cpp">
       <Filter>Source\Siv3D\Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Console\ConsoleFactory.cpp">
+      <Filter>Source\Siv3D\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Console\SivConsole.cpp">
+      <Filter>Source\Siv3D\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Console\CConsole.cpp">
+      <Filter>Source\Siv3D\Console</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

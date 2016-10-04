@@ -343,6 +343,29 @@ namespace s3d
 			return any(f);
 		}
 
+		template <class T = Type, std::enable_if_t<Concept::HasLessThan<T>::value>* = nullptr>
+		bool isSorted() const
+		{
+			const size_t size_ = size();
+
+			if (size_ <= 1)
+			{
+				return true;
+			}
+
+			const Type* p = data();
+
+			for (size_t i = 0; i < size_ - 1; ++i)
+			{
+				if (p[i] > p[i + 1])
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
 		String join(const String& sep = L",", const String& begin = L"{", const String& end = L"}") const
 		{
 			String s;
@@ -760,6 +783,7 @@ namespace s3d
 			return Array(begin() + index, begin() + std::min(index + length, size()));
 		}
 
+		template <class T = Type, std::enable_if_t<Concept::HasLessThan<T>::value>* = nullptr>
 		Array& sort()
 		{
 			std::sort(begin(), end());
@@ -775,11 +799,13 @@ namespace s3d
 			return *this;
 		}
 
+		template <class T = Type, std::enable_if_t<Concept::HasLessThan<T>::value>* = nullptr>
 		Array sorted() const &
 		{
 			return Array(*this).sort();
 		}
 
+		template <class T = Type, std::enable_if_t<Concept::HasLessThan<T>::value>* = nullptr>
 		Array sorted() &&
 		{
 			sort();
@@ -1378,6 +1404,28 @@ namespace s3d
 		bool include_if(Fty f) const
 		{
 			return any(f);
+		}
+
+		bool isSorted() const
+		{
+			const size_t size_ = size();
+
+			if (size_ <= 1)
+			{
+				return true;
+			}
+
+			const bool* p = data();
+
+			for (size_t i = 0; i < size_ - 1; ++i)
+			{
+				if (p[i] > p[i + 1])
+				{
+					return false;
+				}
+			}
+
+			return true;
 		}
 
 		String join(const String& sep = L",", const String& begin = L"{", const String& end = L"}") const

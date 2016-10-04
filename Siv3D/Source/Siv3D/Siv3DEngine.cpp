@@ -11,6 +11,7 @@
 
 # include "Siv3DEngine.hpp"
 # include "Logger/ILogger.hpp"
+# include "Console/IConsole.hpp"
 
 namespace s3d
 {
@@ -23,6 +24,7 @@ namespace s3d
 
 	Siv3DEngine::~Siv3DEngine()
 	{
+		m_console.release();
 		m_logger.release();
 
 		pEngine = nullptr;

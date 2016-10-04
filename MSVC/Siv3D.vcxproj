@@ -33,6 +33,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Circular.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Color.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Concept.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Console.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Date.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\DateTime.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Distribution.hpp" />
@@ -106,6 +107,8 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryReader\CBinaryReader_Windows.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryWriter\CBinaryWriter_macOS.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryWriter\CBinaryWriter_Windows.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Console\CConsole.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Console\IConsole.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\CLogger.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\ILogger.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\LogHeaderFotter.hpp" />
@@ -134,6 +137,9 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryWriter\SivBinaryWriter.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\CharacterSet\SivCharacterSet.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Color\SivColor.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Console\CConsole.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Console\ConsoleFactory.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Console\SivConsole.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\DateTime\SivDateTime.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Date\SivDate.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FileSystem\SivFileSystem.cpp" />

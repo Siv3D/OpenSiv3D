@@ -30,10 +30,10 @@ namespace s3d
 			return theta <= -Math::Pi ? theta + Math::TwoPi : theta;
 		}
         
-        static constexpr double Clock() noexcept
-        {
-            return Oclock * (Math::TwoPi / 12);
-        }
+		static constexpr double Clock() noexcept
+		{
+			return Oclock * (Math::TwoPi / 12);
+		}
 
 		static constexpr double Offset(double theta) noexcept
 		{

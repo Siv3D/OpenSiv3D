@@ -2,18 +2,11 @@
 # include <Siv3D.hpp>
 # include "Test/Siv3DTest.hpp"
 using namespace s3d;
+using namespace std::literals;
 
 void Main()
 {
-	Range(0, 3).parallel_each([](int n)
-	{
-		Reseed(123);
-		
-		for (int i = 0; i < 4; ++i)
-		{
-			Log(n, L":", GetDefaultRNG()());
-		}
-	});
+
 }
 
 

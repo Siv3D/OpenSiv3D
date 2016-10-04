@@ -19,18 +19,28 @@ namespace s3d
 	{
 		struct Log_impl
 		{
-			void operator()(const String& text) const;
+			void write(const String& text) const;
+
+			void writeln(const String& text) const
+			{
+				write(text + L'\n');
+			}
+
+			void operator ()(const String& text) const
+			{
+				writeln(text);
+			}
 
 			template <class... Args>
 			void operator ()(const Args&... args) const
 			{
-				return operator()(Format(args...));
+				writeln(Format(args...));
 			}
 
 			template <class Type>
 			auto operator <<(const Type& value) const
 			{
-				operator()(Format(value));
+				write(Format(value));
 
 				return *this;
 			}

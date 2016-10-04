@@ -9,17 +9,21 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/Logger.hpp>
-# include "../Siv3DEngine.hpp"
-# include "ILogger.hpp"
+# pragma once
+# include <Siv3D/Fwd.hpp>
 
 namespace s3d
 {
-	namespace detail
+	class ISiv3DConsole
 	{
-		void Log_impl::write(const String& text) const
-		{
-			Siv3DEngine::GetLogger()->write(LogDescription::App, text);
-		}
-	}
+	public:
+
+		static ISiv3DConsole* Create();
+
+		virtual ~ISiv3DConsole() = default;
+
+		virtual void open() = 0;
+
+		virtual void close() = 0;
+	};
 }

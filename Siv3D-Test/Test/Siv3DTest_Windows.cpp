@@ -26,13 +26,15 @@ namespace s3d
 {
 	void RunTest()
 	{
-		FILE* out = nullptr;
-		FILE* in = nullptr;
-		::AllocConsole();
-		::freopen_s(&out, "CONOUT$", "w", stdout);
-		::freopen_s(&in, "CONIN$", "r", stdin);
-		std::wcout.imbue(std::locale(""));
-		std::wcin.imbue(std::locale(""));
+		Console << L"TEST\n";
+
+		//FILE* out = nullptr;
+		//FILE* in = nullptr;
+		//::AllocConsole();
+		//::freopen_s(&out, "CONOUT$", "w", stdout);
+		//::freopen_s(&in, "CONIN$", "r", stdin);
+		//std::wcout.imbue(std::locale(""));
+		//std::wcin.imbue(std::locale(""));
 
 		int nArgs = 1;
 		wchar_t unused = L'\0';
@@ -44,19 +46,19 @@ namespace s3d
 		std::wcout << "Press Any Key to Exit.\n";
 		_getch();
 
-		if (out)
-		{
-			::fclose(out);
-			out = nullptr;
-		}
+		//if (out)
+		//{
+		//	::fclose(out);
+		//	out = nullptr;
+		//}
 
-		if (in)
-		{
-			::fclose(in);
-			in = nullptr;
-		}
+		//if (in)
+		//{
+		//	::fclose(in);
+		//	in = nullptr;
+		//}
 
-		::FreeConsole();
+		//::FreeConsole();
 	}
 }
 
