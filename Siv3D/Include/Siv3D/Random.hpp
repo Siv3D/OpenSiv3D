@@ -190,6 +190,12 @@ namespace s3d
 	}
 
 	template <class Type>
+	inline constexpr auto RNG(const Type& max)
+	{
+		return detail::RNG_impl<Type>(0, max);
+	}
+
+	template <class Type>
 	inline constexpr auto RNG(const Type& min, const Type& max)
 	{
 		return detail::RNG_impl<Type>(min, max);

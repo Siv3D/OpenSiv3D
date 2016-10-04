@@ -83,7 +83,7 @@ namespace s3d
 		Array()
 			: base_type() {}
 
-		template <class Fty>
+		template <class Fty, class R = Type, std::enable_if_t<std::is_convertible<std::result_of_t<Fty()>, R>::value>* = nullptr>
 		Array(size_type size, Arg::generator_<Fty> generator)
 			: Array(Generate<Fty>(size, generator.value)) {}
 
