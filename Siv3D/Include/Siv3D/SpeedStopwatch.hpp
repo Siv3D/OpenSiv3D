@@ -65,7 +65,25 @@ namespace s3d
 		/// <param name="startImmediately">
 		/// 即座に計測を開始する場合は true
 		/// </param>
-		explicit SpeedStopwatch(double speed = 1.0, bool startImmediately = false)
+		explicit SpeedStopwatch(bool startImmediately = false)
+			: SpeedStopwatch(1.0, startImmediately)
+		{
+			if (startImmediately)
+			{
+				start();
+			}
+		}
+
+		/// <summary>
+		/// ストップウォッチを作成します。
+		/// </summary>
+		/// <param name="speed">
+		/// 実際の時刻の進み方を 1.0 とした際のスピード
+		/// </param>
+		/// <param name="startImmediately">
+		/// 即座に計測を開始する場合は true
+		/// </param>
+		explicit SpeedStopwatch(double speed, bool startImmediately = false)
 			: m_speed(speed)
 		{
 			if (startImmediately)
@@ -301,7 +319,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void setSpeed(double speed)
+		void setSpeed(const double speed)
 		{
 			if (speed == m_speed)
 			{
