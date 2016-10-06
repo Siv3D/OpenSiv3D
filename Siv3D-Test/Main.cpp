@@ -306,6 +306,8 @@ void Main()
 
 	// Rect(80, 80, 40, 40)
 	const Rect rect(Arg::center(100, 100), 40);
+
+	RunTest();
 }
 
 
