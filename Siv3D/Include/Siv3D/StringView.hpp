@@ -258,7 +258,7 @@ namespace s3d
 			return result;
 		}
 
-		S3D_CONSTEXPR_CPP14 size_type indexOf(const CharType* s, const size_type pos, const size_type count) const noexcept
+		S3D_CONSTEXPR_CPP14 size_type indexOf(const CharType* s, size_type pos, const size_type count) const noexcept
 		{
 			if (count == 0)
 			{
@@ -312,7 +312,7 @@ namespace s3d
 			return npos;
 		}
 		
-		S3D_CONSTEXPR_CPP14 size_type lastIndexOf(const CharType* s, const size_type pos, const size_type count) const noexcept
+		S3D_CONSTEXPR_CPP14 size_type lastIndexOf(const CharType* s, size_type pos, const size_type count) const noexcept
 		{
 			if (count <= m_length)
 			{

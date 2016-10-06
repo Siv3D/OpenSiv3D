@@ -43,6 +43,7 @@ namespace s3d
 		/// 即座に計測を開始する場合は true
 		/// </param>
 		explicit Timer(const MicrosecondsF& time, bool startImmediately = false)
+			: m_initialTimeMicrosec(static_cast<int64>(time.count()))
 		{
 			set(time);
 
@@ -236,6 +237,13 @@ namespace s3d
 			start();
 		}
 
+		void restart()
+		{
+			set(MicrosecondsF(m_initialTimeMicrosec));
+			
+			start();
+		}
+		
 		/// <summary>
 		/// タイマーの残り時間を変更して、タイマーを開始します。
 		/// </summary>

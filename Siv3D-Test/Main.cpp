@@ -21,7 +21,7 @@ struct W
 	}
 
 	W(const String& s)
-		: x(s.length() * 25)
+		: x(int(s.length()) * 25)
 	{
 		//Log(L"###CS");
 	}
