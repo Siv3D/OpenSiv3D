@@ -12,6 +12,7 @@
 # pragma once
 # include <type_traits>
 # include <tuple>
+# include "Utility.hpp"
 
 namespace s3d
 {
@@ -62,7 +63,7 @@ namespace s3d
 
 		constexpr const ValueType* operator-> () const
 		{
-			return &m_value;
+			return AddressOf(m_value);
 		}
 
 		constexpr const ValueType& operator* () const
@@ -89,7 +90,7 @@ namespace s3d
 			: m_ref(nullptr) {}
 
 		constexpr NamedParameter(ValueType& value) noexcept
-			: m_ref(&value) {}
+			: m_ref(AddressOf(value)) {}
 
 		constexpr ValueType* operator-> () const
 		{

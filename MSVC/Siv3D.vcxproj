@@ -69,6 +69,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Random.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Rectangle.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Regex.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Void_t.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Xorshift.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\System.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextEncoding.hpp" />
