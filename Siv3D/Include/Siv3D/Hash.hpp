@@ -13,12 +13,13 @@
 # include <type_traits>
 # include <memory>
 # include "Fwd.hpp"
+# include "Utility.hpp"
 
 namespace s3d
 {
 	namespace Hash
 	{
-		inline S3D_CONSTEXPR_CPP14 size_t FNV1a(const void* data_, size_t size)
+		inline size_t FNV1a(const void* data_, size_t size)
 		{
 			const uint8* data = static_cast<const uint8*>(data_);
 
@@ -44,7 +45,7 @@ namespace s3d
 		template <class Type, std::enable_if_t<std::is_trivially_copyable<Type>::value>* = nullptr>
 		S3D_CONSTEXPR_CPP14 size_t FNV1a(const Type& keyValue)
 		{
-			return FNV1a(static_cast<const uint8*>(static_cast<const void*>(std::addressof(keyValue))), sizeof(keyValue));
+			return FNV1a(static_cast<const uint8*>(static_cast<const void*>(AddressOf(keyValue))), sizeof(keyValue));
 		}
 
 		namespace detail
@@ -56,7 +57,7 @@ namespace s3d
 
 			# if defined (SIV3D_TARGET_X86)
 
-				inline S3D_CONSTEXPR_CPP14 uint32 MurmurHash2(const void* key, int32 len, uint32 seed)
+				inline uint32 MurmurHash2(const void* key, int32 len, uint32 seed)
 				{
 					// 'm' and 'r' are mixing constants generated offline.
 					// They're not really 'magic', they just happen to work well.
@@ -109,7 +110,7 @@ namespace s3d
 
 			# else
 
-				inline S3D_CONSTEXPR_CPP14 uint64 MurmurHash64A(const void* key, int32 len, uint64 seed)
+				inline uint64 MurmurHash64A(const void* key, int32 len, uint64 seed)
 				{
 					const uint64 m = 0xc6a4a7935bd1e995ULL;
 					const int r = 47;
@@ -155,7 +156,7 @@ namespace s3d
 			# endif
 		}
 
-		inline S3D_CONSTEXPR_CPP14 size_t Murmur2(const void* p, size_t size)
+		inline size_t Murmur2(const void* p, size_t size)
 		{
 			constexpr uint32 seed = 11111111;
 
@@ -171,9 +172,9 @@ namespace s3d
 		}
 
 		template <class Type, std::enable_if_t<std::is_trivially_copyable<Type>::value>* = nullptr>
-		S3D_CONSTEXPR_CPP14 size_t Murmur2(const Type& keyValue)
+        size_t Murmur2(const Type& keyValue)
 		{
-			return Murmur2(static_cast<const uint8*>(static_cast<const void*>(std::addressof(keyValue))), sizeof(keyValue));
+			return Murmur2(static_cast<const uint8*>(static_cast<const void*>(AddressOf(keyValue))), sizeof(keyValue));
 		}
 	}
 

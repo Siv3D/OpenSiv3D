@@ -153,7 +153,7 @@ void Main()
 		}
 	}
 
-	RunTest();
+	//RunTest();
 }
 
 
