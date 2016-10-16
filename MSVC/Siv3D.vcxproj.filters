@@ -104,9 +104,6 @@
     <Filter Include="Source\Siv3D\Vector2D">
       <UniqueIdentifier>{35d0c125-94cc-401c-bc0e-29bc8eee33a7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Siv3D\Hash">
-      <UniqueIdentifier>{ec7ab2bb-d890-47f6-a8bf-8f8ec59ddba8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Siv3D\Vector3D">
       <UniqueIdentifier>{a66885dc-9bf8-4522-991b-70465e843e76}</UniqueIdentifier>
     </Filter>
@@ -121,9 +118,6 @@
     </Filter>
     <Filter Include="Source\Siv3D\Console">
       <UniqueIdentifier>{6d89462c-bf88-4b39-b9d3-d40abb8dbf6e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\ThirdParty\MurmurHash3">
-      <UniqueIdentifier>{0425e4f8-1d71-4014-bc2f-cb5cafe7434f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -448,9 +442,6 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Void_t.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\Source\ThirdParty\MurmurHash3\MurmurHash3.h">
-      <Filter>Source\ThirdParty\MurmurHash3</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -588,9 +579,6 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Vector2D\SivVector2D.cpp">
       <Filter>Source\Siv3D\Vector2D</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\Siv3D\Hash\SivHash.cpp">
-      <Filter>Source\Siv3D\Hash</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Vector3D\SivVector3D.cpp">
       <Filter>Source\Siv3D\Vector3D</Filter>
     </ClCompile>
@@ -611,9 +599,6 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Console\CConsole.cpp">
       <Filter>Source\Siv3D\Console</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\ThirdParty\MurmurHash3\MurmurHash3.cpp">
-      <Filter>Source\ThirdParty\MurmurHash3</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

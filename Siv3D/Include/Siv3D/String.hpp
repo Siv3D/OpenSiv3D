@@ -18,6 +18,7 @@
 # include "Functor.hpp"
 # include "DefaultRNG.hpp"
 # include "StringView.hpp"
+# include "Hash.hpp"
 
 namespace s3d
 {
@@ -3081,6 +3082,24 @@ namespace s3d
 	{
 		return os << CharacterSet::Narrow(str);
 	}
+
+	template <>
+	struct FNV1aHash<String>
+	{
+		size_t operator()(const String& keyVal) const
+		{
+			return Hash::FNV1a(keyVal.data(), keyVal.size_bytes());
+		}
+	};
+
+	template <>
+	struct Murmur2Hash<String>
+	{
+		size_t operator()(const String& keyVal) const
+		{
+			return Hash::Murmur2(keyVal.data(), keyVal.size_bytes());
+		}
+	};
 
 	using FilePath = String;
 }

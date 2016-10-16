@@ -3,8 +3,74 @@
 # include "Test/Siv3DTest.hpp"
 using namespace s3d;
 
+
 void Main()
 {
+	{
+		std::unordered_map<String, uint32> m1;
+		std::unordered_map<String, uint32, FNV1aHash<String>> m2;
+		std::unordered_map<String, uint32, Murmur2Hash<String>> m3;
+
+		TimeProfiler tp;
+
+		{				tp.begin(L"A1");
+			for (auto i : Range(9991000, 9999000))
+			{
+				m1.emplace(Format(i), i);
+			}
+
+			for (auto n : step(2))
+			{
+
+
+				for (auto i : Range(9991000, 9999000))
+				{
+					m1[Format(i)];
+				}
+
+				tp.end();
+			}
+		}
+
+		{				tp.begin(L"A2");
+			for (auto i : Range(9991000, 9999000))
+			{
+				m2.emplace(Format(i), i);
+			}
+
+			for (auto n : step(2))
+			{
+
+
+				for (auto i : Range(9991000, 9999000))
+				{
+					m2[Format(i)];
+				}
+
+				tp.end();
+			}
+		}
+
+		{				tp.begin(L"A3");
+			for (auto i : Range(9991000, 9999000))
+			{
+				m3.emplace(Format(i), i);
+			}
+
+			for (auto n : step(2))
+			{
+
+
+				for (auto i : Range(9991000, 9999000))
+				{
+					m3[Format(i)];
+				}
+
+				tp.end();
+			}
+		}
+	}
+
 	{
 		Array<String> strings;
 
@@ -87,7 +153,7 @@ void Main()
 		}
 	}
 
-	//RunTest();
+	RunTest();
 }
 
 
