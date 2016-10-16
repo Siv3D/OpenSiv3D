@@ -38,71 +38,71 @@ namespace s3d
 		}
 	}
 
-	template <class Tag, class ValueType>
-	struct NamedParameter
+	template <class Tag, class Type>
+	class NamedParameter
 	{
 	private:
 
-		ValueType m_value;
+		Type m_value;
 
 	public:
 
 		constexpr NamedParameter()
 			: m_value() {}
 
-		explicit constexpr NamedParameter(ValueType value)
+		explicit constexpr NamedParameter(Type value)
 			: m_value(value) {}
 
-		template <class U, class V = ValueType, std::enable_if_t<std::is_convertible<U, V>::value>* = nullptr>
+		template <class U, class V = Type, std::enable_if_t<std::is_convertible<U, V>::value>* = nullptr>
 		constexpr NamedParameter(const NamedParameter<Tag, U>& other)
 			: m_value(other.value()) {}
 
-		template <class... Args, class V = ValueType, std::enable_if_t<std::is_constructible<V, Args...>::value>* = nullptr>
+		template <class... Args, class V = Type, std::enable_if_t<std::is_constructible<V, Args...>::value>* = nullptr>
 		constexpr NamedParameter(const NamedParameter<Tag, std::tuple<Args...>>& tuple)
-			: m_value(detail::MakeFromTuple<ValueType>(tuple.value())) {}
+			: m_value(detail::MakeFromTuple<Type>(tuple.value())) {}
 
-		constexpr const ValueType* operator-> () const
+		constexpr const Type* operator-> () const
 		{
 			return AddressOf(m_value);
 		}
 
-		constexpr const ValueType& operator* () const
+		constexpr const Type& operator* () const
 		{
 			return m_value;
 		}
 
-		constexpr const ValueType& value() const
+		constexpr const Type& value() const
 		{
 			return m_value;
 		}
 	};
 
-	template <class Tag, class ValueType>
-	struct NamedParameter<Tag, ValueType&>
+	template <class Tag, class Type>
+	class NamedParameter<Tag, Type&>
 	{
 	private:
 
-		ValueType* m_ref;
+		Type* m_ref;
 
 	public:
 
 		constexpr NamedParameter() noexcept
 			: m_ref(nullptr) {}
 
-		constexpr NamedParameter(ValueType& value) noexcept
+		constexpr NamedParameter(Type& value) noexcept
 			: m_ref(AddressOf(value)) {}
 
-		constexpr ValueType* operator-> () const
+		constexpr Type* operator-> () const
 		{
 			return m_ref;
 		}
 
-		constexpr ValueType& operator* () const
+		constexpr Type& operator* () const
 		{
 			return *m_ref;
 		}
 
-		constexpr ValueType& value() const
+		constexpr Type& value() const
 		{
 			return *m_ref;
 		}
@@ -111,13 +111,13 @@ namespace s3d
 	template <class Tag>
 	struct NamedParameterHelper
 	{
-		template <class ValueType>
-		using named_argument_type = NamedParameter<Tag, ValueType>;
+		template <class Type>
+		using named_argument_type = NamedParameter<Tag, Type>;
 
-		template <class ValueType>
-		constexpr NamedParameter<Tag, std::decay_t<ValueType>> operator= (ValueType&& value) const
+		template <class Type>
+		constexpr NamedParameter<Tag, std::decay_t<Type>> operator= (Type&& value) const
 		{
-			return NamedParameter<Tag, std::decay_t<ValueType>>(std::forward<ValueType>(value));
+			return NamedParameter<Tag, std::decay_t<Type>>(std::forward<Type>(value));
 		}
 
 		template <class... Args>
@@ -126,22 +126,22 @@ namespace s3d
 			return NamedParameter<Tag, std::tuple<Args...>>(std::make_tuple(args...));
 		}
 
-		template <class ValueType>
-		constexpr NamedParameter<Tag, ValueType&> operator= (std::reference_wrapper<ValueType> value) const
+		template <class Type>
+		constexpr NamedParameter<Tag, Type&> operator= (std::reference_wrapper<Type> value) const
 		{
-			return NamedParameter<Tag, ValueType&>(value.get());
+			return NamedParameter<Tag, Type&>(value.get());
 		}
 
-		template <class ValueType>
-		constexpr NamedParameter<Tag, ValueType&> operator() (std::reference_wrapper<ValueType> value) const
+		template <class Type>
+		constexpr NamedParameter<Tag, Type&> operator() (std::reference_wrapper<Type> value) const
 		{
-			return NamedParameter<Tag, ValueType&>(value.get());
+			return NamedParameter<Tag, Type&>(value.get());
 		}
 	};
 
 	# define SIV3D_MAKE_NAMED_PARAMETER(name) \
 	constexpr auto name = NamedParameterHelper<struct name##_tag>{};\
-	template <class ValueType> using name##_ = NamedParameterHelper<struct name##_tag>::named_argument_type<ValueType>
+	template <class Type> using name##_ = NamedParameterHelper<struct name##_tag>::named_argument_type<Type>
 }
 
 namespace s3d
