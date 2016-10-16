@@ -5,9 +5,89 @@ using namespace s3d;
 
 void Main()
 {
+	{
+		Array<String> strings;
 
+		for (auto i : Range(99910000, 99990000))
+		{
+			strings.push_back(Format(i));
+		}
 
-	RunTest();
+		TimeProfiler tp;
+
+		for (auto i : step(100))
+		{
+			tp.begin(L"string FNV1a");
+
+			for (const auto& string : strings)
+			{
+				Hash::FNV1a(string.data(), string.size() * sizeof(wchar_t));
+			}
+
+			tp.end();
+		}
+
+		for (auto i : step(100))
+		{
+			tp.begin(L"string Murmur2");
+
+			for (const auto& string : strings)
+			{
+				Hash::Murmur2(string.data(), string.size() * sizeof(wchar_t));
+			}
+
+			tp.end();
+		}
+	}
+
+	{
+		Array<size_t> values;
+
+		for (auto i : Range(0, 1000))
+		{
+			values.push_back(i);
+		}
+
+		TimeProfiler tp;
+
+		for (auto i : step(100))
+		{
+			tp.begin(L"size_t FNV1a");
+
+			for (const auto& value : values)
+			{
+				Hash::FNV1a(value);
+			}
+
+			tp.end();
+		}
+
+		for (auto i : step(100))
+		{
+			tp.begin(L"size_t Murmur2");
+
+			for (const auto& value : values)
+			{
+				Hash::Murmur2(value);
+			}
+
+			tp.end();
+		}
+
+		for (auto i : step(100))
+		{
+			tp.begin(L"size_t std::hash");
+
+			for (const auto& value : values)
+			{
+				std::hash<size_t>()(value);
+			}
+
+			tp.end();
+		}
+	}
+
+	//RunTest();
 }
 
 

@@ -18,12 +18,20 @@ namespace s3d
 {
 	namespace Hash
 	{
-		size_t FNV1a(const uint8* p, size_t size);
+		size_t FNV1a(const void* p, size_t size);
 
 		template <class Type, std::enable_if_t<std::is_trivially_copyable<Type>::value>* = nullptr>
 		size_t FNV1a(const Type& keyValue)
 		{
 			return FNV1a(static_cast<const uint8*>(static_cast<const void*>(std::addressof(keyValue))), sizeof(keyValue));
+		}
+
+		size_t Murmur2(const void* p, size_t size);
+
+		template <class Type, std::enable_if_t<std::is_trivially_copyable<Type>::value>* = nullptr>
+		size_t Murmur2(const Type& keyValue)
+		{
+			return Murmur2(static_cast<const uint8*>(static_cast<const void*>(std::addressof(keyValue))), sizeof(keyValue));
 		}
 	}
 }
