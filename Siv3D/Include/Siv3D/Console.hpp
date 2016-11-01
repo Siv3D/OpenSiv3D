@@ -20,11 +20,7 @@ namespace s3d
 	{
 		struct Console_impl
 		{
-		private:
-
 			void open() const;
-
-		public:
 
 			void write(const String& text) const
 			{
