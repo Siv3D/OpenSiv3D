@@ -55,7 +55,7 @@ namespace s3d
 
 			uint8 buffer[bufferSize] = {};
 
-			int64 sizeToRead = reader.size(), pos = 0, count = 0;
+			uint64 sizeToRead = reader.size(), pos = 0, count = 0;
 
 			bool head = true;
 

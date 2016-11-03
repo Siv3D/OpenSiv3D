@@ -1089,12 +1089,10 @@ namespace s3d
 				return (x % 2) != 0;
 			}
 
-# pragma warning (disable: 4100)
-			constexpr auto operator()(None_t) const
+			constexpr Odd_impl operator()(None_t) const
 			{
 				return Odd_impl();
 			}
-# pragma warning (default: 4100)
 		};
 	}
 
@@ -1116,12 +1114,10 @@ namespace s3d
 				return (x % 2) == 0;
 			}
 
-# pragma warning (disable: 4100)
-			constexpr auto operator()(None_t) const
+			constexpr Even_impl operator()(None_t) const
 			{
 				return Even_impl();
 			}
-# pragma warning (default: 4100)
 		};
 	}
 
@@ -1142,12 +1138,10 @@ namespace s3d
 			{
 				return std::forward<Type>(x);
 			}
-# pragma warning (disable: 4100)
-			constexpr auto operator()(None_t) const
+			constexpr Id_impl operator()(None_t) const
 			{
 				return Id_impl();
 			}
-# pragma warning (default: 4100)
 		};
 	}
 

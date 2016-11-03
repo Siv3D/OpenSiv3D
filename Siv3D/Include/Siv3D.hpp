@@ -161,6 +161,10 @@
 	# include "Siv3D/BinaryReader.hpp"
 	// バイナリファイルの書き込み
 	# include "Siv3D/BinaryWriter.hpp"
+	// メモリマップトファイル
+	# include "Siv3D/MemoryMapping.hpp"
+	// 書き込み可能なメモリマップトファイル
+	# include "Siv3D/WritableMemoryMapping.hpp"
 	// テキストのエンコード
 	# include "Siv3D/TextEncoding.hpp"
 	//// テキストファイルの読み込み

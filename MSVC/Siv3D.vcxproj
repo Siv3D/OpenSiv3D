@@ -58,6 +58,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Logger.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Math.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\MathConstants.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\MemoryMapping.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\MersenneTwister.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\NamedParameter.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Parse.hpp" />
@@ -70,6 +71,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Rectangle.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Regex.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Void_t.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\WritableMemoryMapping.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Xorshift.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\System.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextEncoding.hpp" />
@@ -113,9 +115,11 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\CLogger.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\ILogger.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\LogHeaderFotter.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\MemoryMapping\CMemoryMapping.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Siv3DEngine.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\TextReader\CTextReader.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\TextWriter\CTextWriter.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\WritableMemoryMapping\CWritableMemoryMapping.hpp" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum-dtoa.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\cached-powers.h" />
@@ -152,6 +156,8 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\CLogger.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\LoggerFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\SivLogger.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MemoryMapping\CMemoryMapping.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MemoryMapping\SivMemoryMapping.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ParseFloat\SivParseFloat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Point\SivPoint.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DEngine.cpp" />
@@ -171,6 +177,8 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Vector2D\SivVector2D.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Vector3D\SivVector3D.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Vector4D\SivVector4D.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\WritableMemoryMapping\CWritableMemoryMapping.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\WritableMemoryMapping\SivWritableMemoryMapping.cpp" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum-dtoa.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\cached-powers.cc" />

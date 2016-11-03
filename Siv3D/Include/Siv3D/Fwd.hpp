@@ -169,6 +169,20 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	MemoryMapping.hpp
+	//
+	class MemoryMapping;
+
+	//////////////////////////////////////////////////////
+	//
+	//	WritableMemoryMapping.hpp
+	//
+	class WritableMemoryMapping;
+	enum class MMFOpenMode_IfExists;
+	enum class MMFOpenMode_IfNotFound;
+
+	//////////////////////////////////////////////////////
+	//
 	//	TextEncoding.hpp
 	//
 	enum class TextEncoding;
