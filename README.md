@@ -45,6 +45,7 @@
 - [x] Hash
 - [ ] Random
 - [ ] Math (Partial)
+- [x] PerlinNoise
 - [ ] Lerp
 - [ ] Image (Partial)
 

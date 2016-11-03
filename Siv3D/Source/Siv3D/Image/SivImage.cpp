@@ -19,6 +19,7 @@ namespace s3d
 
 //
 # include <Siv3D/BinaryWriter.hpp>
+# include <Siv3D/WritableMemoryMapping.hpp>
 
 namespace s3d
 {
@@ -48,7 +49,7 @@ namespace s3d
 	};
 # pragma pack ( pop )
 
-	bool Image::_saveBMP(const FilePath& path) const
+	bool Image::saveBMP(const FilePath& path) const
 	{
 		BinaryWriter writer(path);
 
@@ -107,6 +108,73 @@ namespace s3d
 		}
 
 		::free(line);
+
+		return true;
+	}
+
+	bool Image::saveBMP2(const FilePath& path) const
+	{
+		WritableMemoryMapping mmap(path);
+
+		if (!mmap)
+		{
+			return false;
+		}
+
+		const int32 width = m_width;
+		const int32 height = m_height;
+		const int32 rowSize = width * 3 + width % 4;
+		const uint32 bmpsize = rowSize * height;
+
+		const BMPHeader hed =
+		{
+			0x4d42,
+			static_cast<uint32>(bmpsize + sizeof(BMPHeader)),
+			0,
+			0,
+			sizeof(BMPHeader),
+			40,
+			width,
+			height,
+			1,
+			24,
+			0,
+			bmpsize,
+			0,
+			0,
+			0,
+			0
+		};
+
+		mmap.map(0, sizeof(hed) + (rowSize * height));
+
+		uint8* pDst = mmap.data();
+
+		::memcpy(pDst, &hed, sizeof(hed));
+
+		pDst += sizeof(hed);
+
+		const Color* pSrcLine = operator[](height - 1);
+
+		for (int32 y = 0; y < height; ++y)
+		{
+			const Color* pSrc = pSrcLine;
+
+			for (int32 x = 0; x < width; ++x)
+			{
+				*pDst++ = pSrc->b;
+				*pDst++ = pSrc->g;
+				*pDst++ = pSrc->r;
+				++pSrc;
+			}
+
+			for (int32 i = 0; i < width % 4; ++i)
+			{
+				*pDst++ = 0;
+			}
+
+			pSrcLine -= width;
+		}
 
 		return true;
 	}
