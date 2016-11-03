@@ -119,6 +119,12 @@
     <Filter Include="Source\Siv3D\Console">
       <UniqueIdentifier>{6d89462c-bf88-4b39-b9d3-d40abb8dbf6e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\MemoryMapping">
+      <UniqueIdentifier>{e19376f1-8d26-4d65-804e-e6c6e269f428}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\WritableMemoryMapping">
+      <UniqueIdentifier>{8021b92b-e873-4f5d-ac3e-bd691c30557b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -442,6 +448,15 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Void_t.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\MemoryMapping.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\WritableMemoryMapping.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\MemoryMapping\CMemoryMapping.hpp">
+      <Filter>Source\Siv3D\MemoryMapping</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -599,6 +614,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Console\CConsole.cpp">
       <Filter>Source\Siv3D\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MemoryMapping\SivMemoryMapping.cpp">
+      <Filter>Source\Siv3D\MemoryMapping</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MemoryMapping\CMemoryMapping.cpp">
+      <Filter>Source\Siv3D\MemoryMapping</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
