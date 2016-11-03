@@ -38,6 +38,11 @@
 - [x] Circular
 - [x] RNG
 - [x] Distribution
+- [x] NamedParameter
+- [x] MemoryMapping
+- [x] WritableMemoryMapping
+- [x] Concept
+- [x] Hash
 - [ ] Random
 - [ ] Math (Partial)
 - [ ] Lerp
