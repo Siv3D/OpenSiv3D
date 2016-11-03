@@ -16,7 +16,7 @@ namespace s3d
 {
 	namespace detail
 	{
-		uint32 GetGranularity();
+		size_t GetGranularity();
 	}
 
 	int64 WritableMemoryMapping::CWritableMemoryMapping::getFileSize() const
@@ -114,7 +114,7 @@ namespace s3d
 		default:
 			if (ifNotFound == MMFOpenMode_IfNotFound::Create)
 			{
-				posix_open_mode |= O_EXCL | O_CREAT;
+				openMode |= O_EXCL | O_CREAT;
 			}
 			else
 			{

@@ -16,7 +16,7 @@ namespace s3d
 {
 	namespace detail
 	{
-		static uint32 GetGranularity_impl()
+		static size_t GetGranularity_impl()
 		{
 		# if defined (SIV3D_TARGET_WINDOWS)	
 
@@ -31,7 +31,7 @@ namespace s3d
 		# endif
 		}
 
-		uint32 GetGranularity()
+		size_t GetGranularity()
 		{
 			static const uint32 granularity = detail::GetGranularity_impl();
 			return granularity;
