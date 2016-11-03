@@ -16,6 +16,7 @@ void Main()
 	{
 		tp.begin(L"MMF");
 		
+		{
 		MemoryMapping mm(L"example/windmill.png");
 	
 		size_t count = 0;
@@ -29,6 +30,7 @@ void Main()
 		}
 		
 		a += count;
+		}
 		
 		tp.end();
 	}
@@ -37,6 +39,7 @@ void Main()
 	{
 		tp.begin(L"BR");
 		
+		{
 		BinaryReader mm(L"example/windmill.png");
 
 		size_t count = 0;
@@ -50,6 +53,7 @@ void Main()
 		count = data.count_if(Equal(255));
 		
 		b += count;
+		}
 		
 		tp.end();
 	}
