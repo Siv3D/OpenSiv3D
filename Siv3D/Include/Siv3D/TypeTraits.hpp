@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <type_traits>
 
 namespace s3d
 {

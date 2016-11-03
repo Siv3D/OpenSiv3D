@@ -279,8 +279,8 @@
 	//# include "Siv3D/EasingController.hpp"
 	//// 2D 幾何
 	//# include "Siv3D/Geometry2D.hpp"
-	//// Perlin Noise
-	//# include "Siv3D/PerlinNoise.hpp"
+	// Perlin Noise
+	# include "Siv3D/PerlinNoise.hpp"
 	//// スプライン
 	//# include "Siv3D/Spline.hpp"
 	//// 2 次ベジェ曲線

@@ -125,6 +125,9 @@
     <Filter Include="Source\Siv3D\WritableMemoryMapping">
       <UniqueIdentifier>{8021b92b-e873-4f5d-ac3e-bd691c30557b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\PerlinNoise">
+      <UniqueIdentifier>{4348dc3d-7805-48fe-85b2-0a06d07e0c06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -460,6 +463,9 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\WritableMemoryMapping\CWritableMemoryMapping.hpp">
       <Filter>Source\Siv3D\WritableMemoryMapping</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\PerlinNoise.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -629,6 +635,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\WritableMemoryMapping\SivWritableMemoryMapping.cpp">
       <Filter>Source\Siv3D\WritableMemoryMapping</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\PerlinNoise\SivPerlinNoise.cpp">
+      <Filter>Source\Siv3D\PerlinNoise</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
