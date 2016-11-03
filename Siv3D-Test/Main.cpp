@@ -17,19 +17,19 @@ void Main()
 		tp.begin(L"MMF");
 		
 		{
-		MemoryMapping mm(L"example/windmill.png");
+			MemoryMapping mm(L"example/windmill.png");
 	
-		size_t count = 0;
+			size_t count = 0;
 	
-		const uint8* p = mm.data();
-		const size_t size = mm.fileSize();
+			const uint8* p = mm.data();
+			const size_t size = mm.fileSize();
 	
-		for(size_t i = 0; i < size; ++i)
-		{
-			count += (p[i] == 255);
-		}
+			for(size_t i = 0; i < size; ++i)
+			{
+				count += (p[i] == 255);
+			}
 		
-		a += count;
+			a += count;
 		}
 		
 		tp.end();
@@ -40,19 +40,21 @@ void Main()
 		tp.begin(L"BR");
 		
 		{
-		BinaryReader mm(L"example/windmill.png");
+			BinaryReader mm(L"example/windmill.png");
 
-		size_t count = 0;
+			size_t count = 0;
 		
-		const size_t size = mm.size();
+			const size_t size = mm.size();
 		
-		Array<uint8> data(size);
+			Array<uint8> data(size);
 		
-		mm.read(data.data(), size);
-		
-		count = data.count_if(Equal(255));
-		
-		b += count;
+			mm.read(data.data(), size);
+			const uint8* p = data.data();
+
+			for(size_t i=0;i<size; ++i)
+				count += (p[i] == 255);
+
+			b += count;
 		}
 		
 		tp.end();

@@ -41,7 +41,7 @@ namespace s3d
             return false;
         }
         
-        m_size = FileSystem::FileSize(path);
+		m_size = FileSystem::FileSize(path);
         
         m_fullPath = FileSystem::FullPath(path);
         
