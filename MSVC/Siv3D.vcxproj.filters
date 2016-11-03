@@ -457,6 +457,9 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\MemoryMapping\CMemoryMapping.hpp">
       <Filter>Source\Siv3D\MemoryMapping</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\WritableMemoryMapping\CWritableMemoryMapping.hpp">
+      <Filter>Source\Siv3D\WritableMemoryMapping</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -620,6 +623,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\MemoryMapping\CMemoryMapping.cpp">
       <Filter>Source\Siv3D\MemoryMapping</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\WritableMemoryMapping\CWritableMemoryMapping.cpp">
+      <Filter>Source\Siv3D\WritableMemoryMapping</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\WritableMemoryMapping\SivWritableMemoryMapping.cpp">
+      <Filter>Source\Siv3D\WritableMemoryMapping</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

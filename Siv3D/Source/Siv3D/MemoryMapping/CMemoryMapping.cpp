@@ -16,7 +16,7 @@ namespace s3d
 {
 	namespace detail
 	{
-		uint32 GetGranularity_impl()
+		static uint32 GetGranularity_impl()
 		{
 		# if defined (SIV3D_TARGET_WINDOWS)	
 
@@ -169,7 +169,7 @@ namespace s3d
 			return;
 		}
 
-		const size_t offsetInternal = offset / detail::GetGranularity() * detail::GetGranularity();
+		const size_t internalOffset = offset / detail::GetGranularity() * detail::GetGranularity();
 
 	# if defined (SIV3D_TARGET_WINDOWS)
 
@@ -183,8 +183,8 @@ namespace s3d
 		}
 
 		uint8* const pData = static_cast<uint8*>(::MapViewOfFile(
-			m_mapHandle, FILE_MAP_READ, static_cast<uint64>(offsetInternal) >> 32,
-			offsetInternal & 0xffFFffFF, offset - offsetInternal + mappingSize));
+			m_mapHandle, FILE_MAP_READ, static_cast<uint64>(internalOffset) >> 32,
+			internalOffset & 0xffFFffFF, offset - internalOffset + mappingSize));
 			
 		if (!pData)
 		{
@@ -194,7 +194,7 @@ namespace s3d
 	# else
 
 		uint8* const pData = static_cast<uint8*>(
-			::mmap(0, offset - offsetInternal + mappingSize, PROT_READ, MAP_SHARED, m_fileHandle, offsetInternal));
+			::mmap(0, offset - internalOffset + mappingSize, PROT_READ, MAP_SHARED, m_fileHandle, internalOffset));
 
 		if (pData == MAP_FAILED)
 		{
@@ -207,7 +207,7 @@ namespace s3d
 			
 		m_mapOffset = offset;
 
-		m_mapView = pData + (offset - offsetInternal);
+		m_mapView = pData + (offset - internalOffset);
 	}
 
 	void MemoryMapping::CMemoryMapping::unmap()
