@@ -12,40 +12,81 @@
 # pragma once
 
 # if defined(_WIN32)
+
 	# define SIV3D_TARGET_WINDOWS
+
 # elif defined(__APPLE__) && defined(__MACH__)
+
 	# define SIV3D_TARGET_MACOS
+
 # else
+
 	# error Unsupported platform
+
 # endif
+
 
 # if defined(SIV3D_TARGET_WINDOWS) && defined(_WIN64)
+
 	# define SIV3D_TARGET_WINDOWS_DESKTOP_X64
+
 # elif defined(SIV3D_TARGET_WINDOWS) && !defined(_WIN64)
+
 	# define SIV3D_TARGET_WINDOWS_DESKTOP_X86
+
 # endif
+
+
+# if defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64) || defined(SIV3D_TARGET_MACOS)
+
+	# define SIV3D_TARGET_X64
+
+# else
+
+	# define SIV3D_TARGET_X86
+
+# endif
+
 
 # if defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64)
+
 	# define SIV3D_PLATFORM_PTR_SIZE		8
 	# define SIV3D_ALLOCATOR_MIN_ALIGNMENT	16
+
 # elif defined(SIV3D_TARGET_WINDOWS_DESKTOP_X86)
+
 	# define SIV3D_PLATFORM_PTR_SIZE		4
 	# define SIV3D_ALLOCATOR_MIN_ALIGNMENT	8
+
 # elif defined(SIV3D_TARGET_MACOS)
+
 	# define SIV3D_PLATFORM_PTR_SIZE		8
 	# define SIV3D_ALLOCATOR_MIN_ALIGNMENT	16
+
 # else
+
 	# error	
+
 # endif
 
+
 # if defined(SIV3D_TARGET_WINDOWS)
-	# define S3D_CONSTEXPR_CPP14			
+
+	# define S3D_CONSTEXPR_CPP14	
+
 # else
-	# define S3D_CONSTEXPR_CPP14			constexpr
+
+	# define S3D_CONSTEXPR_CPP14	constexpr
+
 # endif
 
+
 # if defined(SIV3D_TARGET_WINDOWS)
+
     # define S3D_EXCEPTION_ABI
+
 # else
-    # define S3D_EXCEPTION_ABI              __attribute__ ((__visibility__("default")))
+
+    # define S3D_EXCEPTION_ABI		__attribute__ ((__visibility__("default")))
+
 # endif

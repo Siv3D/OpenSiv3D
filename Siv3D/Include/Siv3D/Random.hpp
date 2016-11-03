@@ -45,7 +45,7 @@ namespace s3d
 	/// 指定した型と範囲の乱数
 	/// </returns>
 	template <class Type>
-	inline Type Random(Type min, Type max)
+	inline Type Random(const Type& min, const Type& max)
 	{
 		return UniformDistribution<Type>(min, max)(GetDefaultRNG());
 	}
@@ -63,7 +63,7 @@ namespace s3d
 	/// 0 以上 max 以下の乱数
 	/// </returns>
 	template <class Type>
-	inline Type Random(Type max)
+	inline Type Random(const Type& max)
 	{
 		return Random<Type>(0, max);
 	}
@@ -84,7 +84,7 @@ namespace s3d
 	/// 指定した型と範囲の乱数
 	/// </returns>
 	template <>
-	inline wchar Random<wchar>(wchar min, wchar max)
+	inline wchar Random<wchar>(const wchar& min, const wchar& max)
 	{
 		return static_cast<wchar>(UniformDistribution<uint32>(min, max)(GetDefaultRNG()));
 	}
@@ -101,7 +101,7 @@ namespace s3d
 	/// <returns>
 	/// 確率 p でtrue, 確率 (1-p) で false
 	/// </returns>
-	inline bool RandomBool(double p = 0.5)
+	inline bool RandomBool(const double p = 0.5)
 	{
 		return std::bernoulli_distribution(p)(GetDefaultRNG());
 	}
@@ -169,5 +169,35 @@ namespace s3d
 	inline void Shuffle(RandomIt first, RandomIt last)
 	{
 		std::shuffle(first, last, GetDefaultRNG());
+	}
+
+	namespace detail
+	{
+		template <class Type>
+		struct RNG_impl
+		{
+			const Type m_min, m_max;
+
+			constexpr RNG_impl(Type min, Type max)
+				: m_min(min)
+				, m_max(max) {}
+
+			Type operator()() const
+			{
+				return Random<Type>(m_min, m_max);
+			}
+		};
+	}
+
+	template <class Type>
+	inline constexpr auto RNG(const Type& max)
+	{
+		return detail::RNG_impl<Type>(0, max);
+	}
+
+	template <class Type>
+	inline constexpr auto RNG(const Type& min, const Type& max)
+	{
+		return detail::RNG_impl<Type>(min, max);
 	}
 }

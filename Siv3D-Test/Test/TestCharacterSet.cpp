@@ -9,8 +9,10 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D.hpp>
-# include <gtest/gtest.h>
+# include "Siv3DTest.hpp"
+
+# if defined(SIV3D_DO_TEST)
+
 # pragma warning (disable: 4566)
 
 using namespace s3d;
@@ -28,9 +30,9 @@ TEST(CharacterSet, Widen)
 	EXPECT_EQ(CharacterSet::Widen(""), L"");
 	EXPECT_EQ(CharacterSet::Widen("12345ABCDEあいうえお"), L"12345ABCDEあいうえお");
 	EXPECT_EQ(CharacterSet::Widen(CStringView()), L"");
-# if defined (SIV3D_TARGET_WINDOWS)
+# if defined(SIV3D_TARGET_WINDOWS)
 	EXPECT_EQ(CharacterSet::Widen(CStringView("12345ABCDEあいうえお???", 20)), L"12345ABCDEあいうえお");
-# elif defined (SIV3D_TARGET_MACOS)
+# elif defined(SIV3D_TARGET_MACOS)
 	EXPECT_EQ(CharacterSet::Widen(CStringView("12345ABCDEあいうえお???", 25)), L"12345ABCDEあいうえお");
 # endif
 	EXPECT_EQ(CharacterSet::Widen("噂浬欺榎掛弓"), L"噂浬欺榎掛弓");
@@ -154,3 +156,4 @@ TEST(CharacterSet, PercentEncode)
 
 }
 
+# endif

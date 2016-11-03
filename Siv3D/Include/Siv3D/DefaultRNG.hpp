@@ -23,7 +23,7 @@ namespace s3d
 		return rng;
 	}
 
-	inline void Reseed(DefaultRNGType::result_type seed)
+	inline void Reseed(const DefaultRNGType::result_type seed)
 	{
 		GetDefaultRNG().seed(seed);
 	}

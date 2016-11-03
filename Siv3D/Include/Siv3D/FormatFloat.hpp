@@ -34,7 +34,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToString(float value, int32 decimalPlace = 3)
+	inline String ToString(const float value, const int32 decimalPlace = 3)
 	{
 		return detail::FormatFloat(value, decimalPlace, false);
 	}
@@ -51,7 +51,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToString(double value, int32 decimalPlace = 3)
+	inline String ToString(const double value, const int32 decimalPlace = 3)
 	{
 		return detail::FormatFloat(value, decimalPlace, false);
 	}
@@ -68,7 +68,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToString(long double value, int32 decimalPlace = 3)
+	inline String ToString(const long double value, const int32 decimalPlace = 3)
 	{
 		return detail::FormatFloat(static_cast<double>(value), decimalPlace, false);
 	}
@@ -85,7 +85,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToFixed(float value, int32 decimalPlace = 3)
+	inline String ToFixed(const float value, const int32 decimalPlace = 3)
 	{
 		return detail::FormatFloat(value, decimalPlace, true);
 	}
@@ -102,7 +102,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToFixed(double value, int32 decimalPlace = 3)
+	inline String ToFixed(const double value, const int32 decimalPlace = 3)
 	{
 		return detail::FormatFloat(value, decimalPlace, true);
 	}
@@ -119,7 +119,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToFixed(long double value, int32 decimalPlace = 3)
+	inline String ToFixed(const long double value, const int32 decimalPlace = 3)
 	{
 		return detail::FormatFloat(static_cast<double>(value), decimalPlace, true);
 	}
@@ -139,7 +139,7 @@ namespace s3d
     /// <returns>
     /// ビット列を整数として解釈した値
     /// </returns>
-    inline uint32 AsUint(const float value)
+    inline uint32 AsUint(const float value) noexcept
     {
         static_assert(sizeof(uint32) == sizeof(float), "");
         return *static_cast<const uint32*>(static_cast<const void*>(&value));

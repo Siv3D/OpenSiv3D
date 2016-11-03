@@ -14,6 +14,7 @@
 # include <algorithm>
 # include <cassert>
 # include "Fwd.hpp"
+# include "Concept.hpp"
 
 namespace s3d
 {
@@ -278,6 +279,15 @@ namespace s3d
 		return detail::Sample_impl(first, last, out, n, rbg);
 	}
 
-	template <class...>
-	using Void_t = void;
+	template <class Type, std::enable_if_t<!Concept::HasOverloadedAddressOf<Type>::value>* = nullptr>
+	constexpr Type* AddressOf(Type& ref)
+	{
+		return &ref;
+	}
+
+	template <class Type, std::enable_if_t<Concept::HasOverloadedAddressOf<Type>::value>* = nullptr>
+	Type* AddressOf(Type& ref)
+	{
+		return std::addressof(ref);
+	}
 }

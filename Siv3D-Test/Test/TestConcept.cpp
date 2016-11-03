@@ -9,10 +9,21 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D.hpp>
-# include <gtest/gtest.h>
+# include "Siv3DTest.hpp"
+
+# if defined(SIV3D_DO_TEST)
 
 using namespace s3d;
+
+struct CustomAddressOf
+{
+	int n[2];
+
+	const int* operator& () const
+	{
+		return &n[1];
+	}
+};
 
 TEST(Concept, HasUnaryPlus)
 {
@@ -100,6 +111,32 @@ TEST(Concept, HasComplement)
 	EXPECT_EQ(Concept::HasComplement<Optional<double>>::value, false);
 	EXPECT_EQ(Concept::HasComplement<Array<Date>>::value, false);
 	EXPECT_EQ(Concept::HasComplement<BinaryReader>::value, false);
+}
+
+TEST(Concept, HasAddressOf)
+{
+	EXPECT_EQ(Concept::HasAddressOf<int32>::value, true);
+	EXPECT_EQ(Concept::HasAddressOf<float>::value, true);
+	EXPECT_EQ(Concept::HasAddressOf<String>::value, true);
+	EXPECT_EQ(Concept::HasAddressOf<BigInt>::value, true);
+	EXPECT_EQ(Concept::HasAddressOf<Optional<double>>::value, true);
+	EXPECT_EQ(Concept::HasAddressOf<Array<Date>>::value, true);
+	EXPECT_EQ(Concept::HasAddressOf<BinaryReader>::value, true);
+
+	EXPECT_EQ(Concept::HasAddressOf<CustomAddressOf>::value, true);
+}
+
+TEST(Concept, HasOverloadedAddressOf)
+{
+	EXPECT_EQ(Concept::HasOverloadedAddressOf<int32>::value, false);
+	EXPECT_EQ(Concept::HasOverloadedAddressOf<float>::value, false);
+	EXPECT_EQ(Concept::HasOverloadedAddressOf<String>::value, false);
+	EXPECT_EQ(Concept::HasOverloadedAddressOf<BigInt>::value, false);
+	EXPECT_EQ(Concept::HasOverloadedAddressOf<Optional<double>>::value, false);
+	EXPECT_EQ(Concept::HasOverloadedAddressOf<Array<Date>>::value, false);
+	EXPECT_EQ(Concept::HasOverloadedAddressOf<BinaryReader>::value, false);
+
+	EXPECT_EQ(Concept::HasOverloadedAddressOf<CustomAddressOf>::value, true);
 }
 
 TEST(Concept, HasPostDecrement)
@@ -424,3 +461,5 @@ TEST(Concept, HasLogicalOr)
 	EXPECT_EQ(Concept::HasLogicalOr<Array<Date>>::value, false);
 	EXPECT_EQ(Concept::HasLogicalOr<BinaryReader>::value, true);
 }
+
+# endif

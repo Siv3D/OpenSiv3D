@@ -26,13 +26,19 @@
 //----------------------------------------------------------------------------------------
 
 # pragma once
+
 # ifndef SIV3D_INCLUDED
+
 	# define SIV3D_INCLUDED
+
 # endif
 
 # include "Siv3D/Platform.hpp"
+
 # if defined(SIV3D_TARGET_WINDOWS)
+
 	# include "Siv3D/PlatformWindows.hpp"
+
 # endif
 
 //
@@ -135,7 +141,7 @@
 	// 処理にかかった時間の測定
 	# include "Siv3D/TimeProfiler.hpp"
 	// 処理にかかった CPU サイクル数の測定
-	# include "Siv3D/RDTSCProfiler.hpp"
+	# include "Siv3D/RDTSCClock.hpp"
 //
 // ファイル I/O と暗号化
 //
@@ -194,12 +200,15 @@
 	//// ZIP 圧縮ファイルの書き出し
 	//# include "Siv3D/ZIPWriter.hpp"
 //
-// 色と二次元図形
+// 色
 //
 	// RGB カラー
 	# include "Siv3D/Color.hpp"
 	// HSV カラー
 	# include "Siv3D/HSV.hpp"
+//
+// 二次元図形
+//
 	// ベクトル
 	# include "Siv3D/PointVector.hpp"
 	// 円座標
@@ -237,10 +246,8 @@
 	//// レンダリング用形状
 	//# include "Siv3D/FloatShape.hpp"
 //
-// 数学
+// 乱数
 //
-	// 数学定数
-	# include "Siv3D/MathConstants.hpp"
 	// 乱数の分布
 	# include "Siv3D/Distribution.hpp"
 	// 乱数生成エンジン (ハードウェア RNG)
@@ -253,6 +260,11 @@
 	# include "Siv3D/DefaultRNG.hpp"
 	// 乱数ユーティリティ
 	# include "Siv3D/Random.hpp"
+//
+// 数学
+//
+	// 数学定数
+	# include "Siv3D/MathConstants.hpp"
 	// 数学関数
 	# include "Siv3D/Math.hpp"
 	//// 線形補間
@@ -559,8 +571,8 @@
 //
 	//// エフェクト
 	//# include "Siv3D/Effect.hpp"
-	//// コンソールウィンドウ
-	//# include "Siv3D/Console.hpp"
+	// コンソールウィンドウ
+	# include "Siv3D/Console.hpp"
 	//// デバッグ出力
 	//# include "Siv3D/ApplicationUtility.hpp"
 	//// アドオン

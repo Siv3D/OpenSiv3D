@@ -47,7 +47,7 @@ namespace s3d
 	/// <returns>
 	/// Format に渡すマニピュレータ
 	/// </returns>
-	inline constexpr FormatData::DecimalPlace DecimalPlace(int32 width)
+	inline constexpr FormatData::DecimalPlace DecimalPlace(const int32 width)
 	{
 		return FormatData::DecimalPlace(width);
 	}
@@ -69,7 +69,8 @@ namespace s3d
 		/// Format の内部で使用するクラス
 		/// </summary>
 		template <class...>
-		struct format_validation : std::true_type {};
+		struct format_validation
+			: std::true_type {};
 
 		/// <summary>
 		/// Format の内部で使用するクラス
@@ -126,7 +127,7 @@ namespace s3d
 	/// <returns>
 	/// 引数を文字列に変換した文字列
 	/// </returns>
-	inline String Format(wchar ch)
+	inline String Format(const wchar ch)
 	{
 		return String(1, ch);
 	}
@@ -173,31 +174,31 @@ namespace s3d
 		return std::move(str);
 	}
 
-	inline void Formatter(FormatData& formatData, int32 value)
+	inline void Formatter(FormatData& formatData, const int32 value)
 	{
 		const detail::FormatInt buffer(value);
 		formatData.string.append(buffer.c_str(), buffer.size());
 	}
 
-	inline void Formatter(FormatData& formatData, uint32 value)
+	inline void Formatter(FormatData& formatData, const uint32 value)
 	{
 		const detail::FormatInt buffer(value);
 		formatData.string.append(buffer.c_str(), buffer.size());
 	}
 
-	inline void Formatter(FormatData& formatData, int64 value)
+	inline void Formatter(FormatData& formatData, const int64 value)
 	{
 		const detail::FormatInt buffer(value);
 		formatData.string.append(buffer.c_str(), buffer.size());
 	}
 
-	inline void Formatter(FormatData& formatData, uint64 value)
+	inline void Formatter(FormatData& formatData, const uint64 value)
 	{
 		const detail::FormatInt buffer(value);
 		formatData.string.append(buffer.c_str(), buffer.size());
 	}
 
-	inline void Formatter(FormatData& formatData, double value)
+	inline void Formatter(FormatData& formatData, const double value)
 	{
 		wchar buf[384];
 		const size_t len = detail::FormatFloat(buf, value, formatData.decimalPlace.value, false);
@@ -206,15 +207,15 @@ namespace s3d
 
 	inline void Formatter(FormatData& formatData, const void* value)
 	{
-		# if (SIV3D_PLATFORM_PTR_SIZE == 4)
+	# if (SIV3D_PLATFORM_PTR_SIZE == 4)
 
-			formatData.string.append(ToHex(reinterpret_cast<uint32>(value)).lpad(8, L'0'));
+		formatData.string.append(ToHex(reinterpret_cast<uint32>(value)).lpad(8, L'0'));
 
-		# elif (SIV3D_PLATFORM_PTR_SIZE == 8)
+	# elif (SIV3D_PLATFORM_PTR_SIZE == 8)
 
-			formatData.string.append(ToHex(reinterpret_cast<uint64>(value)).lpad(16, L'0'));
+		formatData.string.append(ToHex(reinterpret_cast<uint64>(value)).lpad(16, L'0'));
 
-		# endif
+	# endif
 	}
 
 	void Formatter(FormatData& formatData, const char* const str) = delete;
@@ -224,7 +225,7 @@ namespace s3d
 		formatData.string.append(L"null", 4);
 	}
 
-	inline void Formatter(FormatData& formatData, bool value)
+	inline void Formatter(FormatData& formatData, const bool value)
 	{
 		if (value)
 		{
@@ -236,52 +237,52 @@ namespace s3d
 		}
 	}
 
-	inline void Formatter(FormatData& formatData, char value)
+	inline void Formatter(FormatData& formatData, const char value)
 	{
 		Formatter(formatData, static_cast<int32>(value));
 	}
 
-	inline void Formatter(FormatData& formatData, int8 value)
+	inline void Formatter(FormatData& formatData, const int8 value)
 	{
 		Formatter(formatData, static_cast<int32>(value));
 	}
 
-	inline void Formatter(FormatData& formatData, uint8 value)
+	inline void Formatter(FormatData& formatData, const uint8 value)
 	{
 		Formatter(formatData, static_cast<uint32>(value));
 	}
 
-	inline void Formatter(FormatData& formatData, int16 value)
+	inline void Formatter(FormatData& formatData, const int16 value)
 	{
 		Formatter(formatData, static_cast<int32>(value));
 	}
 
-	inline void Formatter(FormatData& formatData, uint16 value)
+	inline void Formatter(FormatData& formatData, const uint16 value)
 	{
 		Formatter(formatData, static_cast<uint32>(value));
 	}
 
-	inline void Formatter(FormatData& formatData, long value)
+	inline void Formatter(FormatData& formatData, const long value)
 	{
 		Formatter(formatData, static_cast<int64>(value));
 	}
 
-	inline void Formatter(FormatData& formatData, unsigned long value)
+	inline void Formatter(FormatData& formatData, const unsigned long value)
 	{
 		Formatter(formatData, static_cast<uint64>(value));
 	}
 
-	inline void Formatter(FormatData& formatData, wchar value)
+	inline void Formatter(FormatData& formatData, const wchar value)
 	{
 		formatData.string.push_back(value);
 	}
 
-	inline void Formatter(FormatData& formatData, float value)
+	inline void Formatter(FormatData& formatData, const float value)
 	{
 		Formatter(formatData, static_cast<double>(value));
 	}
     
-   	inline void Formatter(FormatData& formatData, long double value)
+   	inline void Formatter(FormatData& formatData, const long double value)
     {
         Formatter(formatData, static_cast<double>(value));
     }

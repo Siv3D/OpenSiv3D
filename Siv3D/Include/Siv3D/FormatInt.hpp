@@ -12,6 +12,7 @@
 # pragma once
 # include <cstdint>
 # include <limits>
+# include "NamedParameter.hpp"
 # include "String.hpp"
 # include "Radix.hpp"
 
@@ -272,187 +273,187 @@ namespace s3d
 		return detail::FormatInt(value).str();
 	}
 
-	inline String ToString(const char value, const Radix& radix, const bool upperCase = false)
+	inline String ToString(const char value, Arg::radix_<Radix> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return detail::ItoW(static_cast<int8>(value), radix.value(), (radix.is10() && value < 0), upperCase);
+		return detail::ItoW(static_cast<int8>(value), radix->value(), (radix->is10() && value < 0), *upperCase);
 	}
 
-	inline String ToString(const int8 value, const Radix& radix, const bool upperCase = false)
+	inline String ToString(const int8 value, Arg::radix_<Radix> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return detail::ItoW(static_cast<uint8>(value), radix.value(), (radix.is10() && value < 0), upperCase);
+		return detail::ItoW(static_cast<uint8>(value), radix->value(), (radix->is10() && value < 0), *upperCase);
 	}
 
-	inline String ToString(const uint8 value, const Radix& radix, const bool upperCase = false)
+	inline String ToString(const uint8 value, Arg::radix_<Radix> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return detail::ItoW(value, radix.value(), false, upperCase);
+		return detail::ItoW(value, radix->value(), false, *upperCase);
 	}
 
-	inline String ToString(const int16 value, const Radix& radix, const bool upperCase = false)
+	inline String ToString(const int16 value, Arg::radix_<Radix> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return detail::ItoW(static_cast<uint16>(value), radix.value(), (radix.is10() && value < 0), upperCase);
+		return detail::ItoW(static_cast<uint16>(value), radix->value(), (radix->is10() && value < 0), *upperCase);
 	}
 
-	inline String ToString(const uint16 value, const Radix& radix, const bool upperCase = false)
+	inline String ToString(const uint16 value, Arg::radix_<Radix> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return detail::ItoW(value, radix.value(), false, upperCase);
+		return detail::ItoW(value, radix->value(), false, *upperCase);
 	}
 
-	inline String ToString(const int32 value, const Radix& radix, const bool upperCase = false)
+	inline String ToString(const int32 value, Arg::radix_<Radix> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return detail::ItoW(static_cast<uint32>(value), radix.value(), (radix.is10() && value < 0), upperCase);
+		return detail::ItoW(static_cast<uint32>(value), radix->value(), (radix->is10() && value < 0), *upperCase);
 	}
 
-	inline String ToString(const uint32 value, const Radix& radix, const bool upperCase = false)
+	inline String ToString(const uint32 value, Arg::radix_<Radix> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return detail::ItoW(value, radix.value(), false, upperCase);
+		return detail::ItoW(value, radix->value(), false, *upperCase);
 	}
 
-	inline String ToString(const int64 value, const Radix& radix, const bool upperCase = false)
+	inline String ToString(const int64 value, Arg::radix_<Radix> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return detail::ItoW(static_cast<uint64>(value), radix.value(), (radix.is10() && value < 0), upperCase);
+		return detail::ItoW(static_cast<uint64>(value), radix->value(), (radix->is10() && value < 0), *upperCase);
 	}
 
-	inline String ToString(const uint64 value, const Radix& radix, const bool upperCase = false)
+	inline String ToString(const uint64 value, Arg::radix_<Radix> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return detail::ItoW(value, radix.value(), false, upperCase);
+		return detail::ItoW(value, radix->value(), false, *upperCase);
 	}
 
 
 
 	inline String ToBinary(const char value)
 	{
-		return ToString(value, Radix(2));
+		return ToString(value, Arg::radix = 2);
 	}
 
 	inline String ToBinary(const int8 value)
 	{
-		return ToString(value, Radix(2));
+		return ToString(value, Arg::radix = 2);
 	}
 
 	inline String ToBinary(const uint8 value)
 	{
-		return ToString(value, Radix(2));
+		return ToString(value, Arg::radix = 2);
 	}
 
 	inline String ToBinary(const int16 value)
 	{
-		return ToString(value, Radix(2));
+		return ToString(value, Arg::radix = 2);
 	}
 
 	inline String ToBinary(const uint16 value)
 	{
-		return ToString(value, Radix(2));
+		return ToString(value, Arg::radix = 2);
 	}
 
 	inline String ToBinary(const int32 value)
 	{
-		return ToString(value, Radix(2));
+		return ToString(value, Arg::radix = 2);
 	}
 
 	inline String ToBinary(const uint32 value)
 	{
-		return ToString(value, Radix(2));
+		return ToString(value, Arg::radix = 2);
 	}
 
 	inline String ToBinary(const int64 value)
 	{
-		return ToString(value, Radix(2));
+		return ToString(value, Arg::radix = 2);
 	}
 
 	inline String ToBinary(const uint64 value)
 	{
-		return ToString(value, Radix(2));
+		return ToString(value, Arg::radix = 2);
 	}
 
 
 	inline String ToOctal(const char value)
 	{
-		return ToString(value, Radix(8));
+		return ToString(value, Arg::radix = 8);
 	}
 
 	inline String ToOctal(const int8 value)
 	{
-		return ToString(value, Radix(8));
+		return ToString(value, Arg::radix = 8);
 	}
 
 	inline String ToOctal(const uint8 value)
 	{
-		return ToString(value, Radix(8));
+		return ToString(value, Arg::radix = 8);
 	}
 
 	inline String ToOctal(const int16 value)
 	{
-		return ToString(value, Radix(8));
+		return ToString(value, Arg::radix = 8);
 	}
 
 	inline String ToOctal(const uint16 value)
 	{
-		return ToString(value, Radix(8));
+		return ToString(value, Arg::radix = 8);
 	}
 
 	inline String ToOctal(const int32 value)
 	{
-		return ToString(value, Radix(8));
+		return ToString(value, Arg::radix = 8);
 	}
 
 	inline String ToOctal(const uint32 value)
 	{
-		return ToString(value, Radix(8));
+		return ToString(value, Arg::radix = 8);
 	}
 
 	inline String ToOctal(const int64 value)
 	{
-		return ToString(value, Radix(8));
+		return ToString(value, Arg::radix = 8);
 	}
 
 	inline String ToOctal(const uint64 value)
 	{
-		return ToString(value, Radix(8));
+		return ToString(value, Arg::radix = 8);
 	}
 
 
-	inline String ToHex(const char value, const bool upperCase = false)
+	inline String ToHex(const char value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return ToString(value, Radix(16), upperCase);
+		return ToString(value, Arg::radix = 16, upperCase);
 	}
 
-	inline String ToHex(const int8 value, const bool upperCase = false)
+	inline String ToHex(const int8 value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return ToString(value, Radix(16), upperCase);
+		return ToString(value, Arg::radix = 16, upperCase);
 	}
 
-	inline String ToHex(const uint8 value, const bool upperCase = false)
+	inline String ToHex(const uint8 value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return ToString(value, Radix(16), upperCase);
+		return ToString(value, Arg::radix = 16, upperCase);
 	}
 
-	inline String ToHex(const int16 value, const bool upperCase = false)
+	inline String ToHex(const int16 value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return ToString(value, Radix(16), upperCase);
+		return ToString(value, Arg::radix = 16, upperCase);
 	}
 
-	inline String ToHex(const uint16 value, const bool upperCase = false)
+	inline String ToHex(const uint16 value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return ToString(value, Radix(16), upperCase);
+		return ToString(value, Arg::radix = 16, upperCase);
 	}
 
-	inline String ToHex(const int32 value, const bool upperCase = false)
+	inline String ToHex(const int32 value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return ToString(value, Radix(16), upperCase);
+		return ToString(value, Arg::radix = 16, upperCase);
 	}
 
-	inline String ToHex(const uint32 value, const bool upperCase = false)
+	inline String ToHex(const uint32 value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return ToString(value, Radix(16), upperCase);
+		return ToString(value, Arg::radix = 16, upperCase);
 	}
 
-	inline String ToHex(const int64 value, const bool upperCase = false)
+	inline String ToHex(const int64 value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return ToString(value, Radix(16), upperCase);
+		return ToString(value, Arg::radix = 16, upperCase);
 	}
 
-	inline String ToHex(const uint64 value, const bool upperCase = false)
+	inline String ToHex(const uint64 value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return ToString(value, Radix(16), upperCase);
+		return ToString(value, Arg::radix = 16, upperCase);
 	}
 }

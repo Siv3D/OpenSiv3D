@@ -9,24 +9,21 @@
 //
 //-----------------------------------------------
 
-# include "Siv3DEngine.hpp"
-# include "Logger/ILogger.hpp"
-# include "Console/IConsole.hpp"
+# pragma once
+# include <Siv3D/Fwd.hpp>
 
 namespace s3d
 {
-	Siv3DEngine* Siv3DEngine::pEngine = nullptr;
-
-	Siv3DEngine::Siv3DEngine()
+	class ISiv3DConsole
 	{
-		pEngine = this;
-	}
+	public:
 
-	Siv3DEngine::~Siv3DEngine()
-	{
-		m_console.release();
-		m_logger.release();
+		static ISiv3DConsole* Create();
 
-		pEngine = nullptr;
-	}
+		virtual ~ISiv3DConsole() = default;
+
+		virtual void open() = 0;
+
+		virtual void close() = 0;
+	};
 }

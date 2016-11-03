@@ -35,7 +35,7 @@ namespace s3d
 			seed(_seed);
 		}
 
-		void seed(uint64 _seed)
+		void seed(const uint64 _seed)
 		{
 			assert(_seed != 0);
 
@@ -101,13 +101,13 @@ namespace s3d
 			seed(seed0, seed1);
 		}
 
-		void seed(uint64 _seed)
+		void seed(const uint64 _seed)
 		{
 			m_seeds[0] = _seed;
 			m_seeds[1] = 1;
 		}
 
-		void seed(uint64 seed0, uint64 seed1)
+		void seed(const uint64 seed0, const uint64 seed1)
 		{
 			assert(seed0 != 0 || seed1 != 0);
 			m_seeds[0] = seed0;
@@ -182,7 +182,7 @@ namespace s3d
 			seed(seeds);
 		}
 
-		void seed(uint64 _seed)
+		void seed(const uint64 _seed)
 		{
 			assert(_seed != 0);
 

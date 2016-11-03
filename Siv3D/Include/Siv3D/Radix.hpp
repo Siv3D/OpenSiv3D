@@ -26,9 +26,7 @@ namespace s3d
 
 		static constexpr unspecified_t Unspecified{};
 
-		constexpr Radix() noexcept = default;
-
-		explicit constexpr Radix(uint32 value) noexcept
+		constexpr Radix(uint32 value = 10) noexcept
 			: m_value(value) {}
 
         constexpr Radix(unspecified_t) noexcept

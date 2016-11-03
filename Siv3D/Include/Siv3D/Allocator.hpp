@@ -18,24 +18,32 @@
 namespace s3d
 {
 	template <class Type, size_t Alignment = alignof(Type)>
-	inline Type* AlignedMalloc(size_t n = 1)
+	inline Type* AlignedMalloc(const size_t n = 1)
 	{
-		# if defined (SIV3D_TARGET_WINDOWS)
-			return static_cast<Type*>(::_aligned_malloc(sizeof(Type) * n, Alignment));
-		# else
-			Type* p;
-			::posix_memalign(&p, Alignment, sizeof(Type) * n);
-			return p;
-		# endif	
+	# if defined(SIV3D_TARGET_WINDOWS)
+
+		return static_cast<Type*>(::_aligned_malloc(sizeof(Type) * n, Alignment));
+
+	# else
+
+		Type* p;
+		::posix_memalign(&p, Alignment, sizeof(Type) * n);
+		return p;
+	
+	# endif	
 	}
 
 	inline void AlignedFree(void* p)
 	{
-		# if defined (SIV3D_TARGET_WINDOWS)
-			::_aligned_free(p);
-		# else
-			::free(p);
-		# endif
+	# if defined(SIV3D_TARGET_WINDOWS)
+
+		::_aligned_free(p);
+
+	# else
+
+		::free(p);
+
+	# endif
 	}
 
 	template <class Type>
@@ -82,7 +90,7 @@ namespace s3d
 	template <class Type>
 	struct AlignedDeleter
 	{
-		void operator ()(Type* p)
+		void operator()(Type* p)
 		{
 			AlignedDelete(p);
 		}

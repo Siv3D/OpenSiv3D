@@ -15,7 +15,8 @@
 
 namespace s3d
 {
-# if defined (SIV3D_TARGET_MACOS)
+# if defined(SIV3D_TARGET_MACOS)
+
 	namespace detail
 	{
 		static __inline__ uint64 rdtsc()
@@ -25,6 +26,7 @@ namespace s3d
 			return static_cast<uint64>(lo) | (static_cast<uint64>(hi) << 32);
 		}
 	}
+
 # endif
 
 	/// <summary>
@@ -37,15 +39,15 @@ namespace s3d
 	{
 	private:
 	
-		# if defined (SIV3D_TARGET_WINDOWS)
+	# if defined(SIV3D_TARGET_WINDOWS)
 
-			const uint64 m_start = ::__rdtsc();
+		const uint64 m_start = ::__rdtsc();
 
-		# elif defined (SIV3D_TARGET_MACOS)
+	# elif defined(SIV3D_TARGET_MACOS)
 
-			const uint64 m_start = detail::rdtsc();
+		const uint64 m_start = detail::rdtsc();
 
-		# endif
+	# endif
 
 	public:
 
@@ -54,15 +56,15 @@ namespace s3d
 		/// </summary>
 		uint64 cycles() const
 		{
-			# if defined (SIV3D_TARGET_WINDOWS)
+		# if defined(SIV3D_TARGET_WINDOWS)
 
-				return ::__rdtsc() - m_start;
+			return ::__rdtsc() - m_start;
 
-			# elif defined (SIV3D_TARGET_MACOS)
+		# elif defined(SIV3D_TARGET_MACOS)
 
-				return detail::rdtsc() - m_start;
+			return detail::rdtsc() - m_start;
 
-			# endif
+		# endif
 		}
 
 		/// <summary>

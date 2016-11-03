@@ -9,15 +9,20 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D.hpp>
-# include <gtest/gtest.h>
+# include "Siv3DTest.hpp"
+
+# if defined(SIV3D_DO_TEST)
 
 # if defined(SIV3D_TARGET_WINDOWS)
+
 	# include <filesystem>
 	namespace fs = std::experimental::filesystem;
+
 # elif defined(SIV3D_TARGET_MACOS)
+
 	# include <boost/filesystem.hpp>
 	namespace fs = boost::filesystem;
+
 # endif
 
 using namespace s3d;
@@ -207,3 +212,5 @@ TEST(FileSystem, DirectoryContents)
 		EXPECT_EQ(FileSystem::DirectoryContents(L"./", true), paths);
 	}
 }
+
+# endif

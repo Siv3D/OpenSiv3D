@@ -2,20 +2,17 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2016 Ryo Suzuki
-//	Copyright (c) 2016 OpenSiv3D Project
+//	Copyright (C) 2008-2016 Ryo Suzuki
+//	Copyright (C) 2016 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include "Siv3DTest.hpp"
+# pragma once
 
-# if defined(SIV3D_DO_TEST)
-
-TEST(FormatInt, null)
+namespace s3d
 {
-
+	template <class...>
+	using Void_t = void;
 }
-
-# endif

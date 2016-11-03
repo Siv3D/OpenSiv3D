@@ -63,7 +63,7 @@ namespace s3d
 		/// <returns>
 		/// 乱数
 		/// </returns>
-		result_type operator ()()
+		result_type operator()()
 		{
 			return m_engine();
 		}

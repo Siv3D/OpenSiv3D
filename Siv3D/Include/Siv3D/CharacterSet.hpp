@@ -12,6 +12,7 @@
 # pragma once
 # include <string>
 # include "Fwd.hpp"
+# include "NamedParameter.hpp"
 
 namespace s3d
 {
@@ -82,7 +83,7 @@ namespace s3d
 		/// <returns>
 		/// 変換されたワイド文字列
 		/// </returns>
-		String FromUTF8(const UTF8StringView str);
+		String FromUTF8(UTF8StringView str);
 
 		/// <summary>
 		/// UTF-16 文字列をワイド文字列に変換します。
@@ -214,6 +215,6 @@ namespace s3d
 		/// <returns>
 		/// 変換された文字列
 		/// </returns>
-		String PercentEncode(StringView str, bool upperCase = true);
+		String PercentEncode(StringView str, Arg::upperCase_<bool> upperCase = (Arg::upperCase = true));
 	}
 }

@@ -61,7 +61,7 @@ namespace s3d
 		/// 乱数
 		/// </returns>
 		template <class Engine>
-		result_type operator ()(Engine& engine)
+		result_type operator()(Engine& engine)
 		{
 			return m_distribution(engine);
 		}
@@ -78,7 +78,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void set(result_type min, result_type max)
+		void set(const result_type min, const result_type max)
 		{
 			assert(min <= max);
 
@@ -143,7 +143,7 @@ namespace s3d
 		/// 乱数
 		/// </returns>
 		template <class Engine>
-		result_type operator ()(Engine& engine)
+		result_type operator()(Engine& engine)
 		{
 			return m_distribution(engine);
 		}
@@ -160,7 +160,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void set(result_type mean, result_type sigma)
+		void set(const result_type mean, const result_type sigma)
 		{
 			m_distribution.param(typename distribution_type::param_type{ mean, sigma });
 		}

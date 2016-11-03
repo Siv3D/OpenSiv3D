@@ -34,7 +34,7 @@ namespace s3d
 		return *this = hsv.toColor();
 	}
 
-	Color::Color(const StringView& code) noexcept
+	Color::Color(const StringView code) noexcept
 	{
 		if (code.length() == 4 || code.length() == 5)
 		{

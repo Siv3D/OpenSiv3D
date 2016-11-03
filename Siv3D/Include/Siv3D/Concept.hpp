@@ -11,7 +11,7 @@
 
 # pragma once
 # include <type_traits>
-# include "Utility.hpp"
+# include "Void_t.hpp"
 
 namespace s3d
 {
@@ -64,6 +64,20 @@ namespace s3d
 
 		template <class Type>
 		struct HasComplement<Type, Void_t<decltype(~std::declval<Type&>())>> : std::true_type {};
+
+
+		template <class, class = Void_t<>>
+		struct HasAddressOf : std::false_type {};
+
+		template <class Type>
+		struct HasAddressOf<Type, Void_t<decltype(&std::declval<Type&>())>> : std::true_type {};
+
+
+		template <class, class = Void_t<>>
+		struct HasOverloadedAddressOf : std::false_type {};
+
+		template <class Type>
+		struct HasOverloadedAddressOf<Type, Void_t<decltype(std::declval<Type&>().operator&())>> : std::true_type {};
 
 
 		template <class, class = Void_t<>>
@@ -276,15 +290,17 @@ namespace s3d
 		struct HasLogicalOr<Type, Arg, Void_t<decltype(std::declval<Type&>() || std::declval<Arg&>())>> : std::true_type {};
 	
 		/*
-		template <class Type> constexpr bool HasUnaryPlus_v		= HasUnaryPlus<Type>::value;
-		template <class Type> constexpr bool HasNegate_v		= HasNegate<Type>::value;
-		template <class Type> constexpr bool HasPreIncrement_v	= HasPreIncrement<Type>::value;
-		template <class Type> constexpr bool HasPreDecrement_v	= HasPreDecrement<Type>::value;
-		template <class Type> constexpr bool HasOperatorBool_v	= HasOperatorBool<Type>::value;
-		template <class Type> constexpr bool HasLogicalNot_v	= HasLogicalNot<Type>::value;
-		template <class Type> constexpr bool HasComplement_v	= HasComplement<Type>::value;
-		template <class Type> constexpr bool HasPostIncrement_v	= HasPostIncrement<Type>::value;
-		template <class Type> constexpr bool HasPostDecrement_v	= HasPostDecrement<Type>::value;
+		template <class Type> constexpr bool HasUnaryPlus_v				= HasUnaryPlus<Type>::value;
+		template <class Type> constexpr bool HasNegate_v				= HasNegate<Type>::value;
+		template <class Type> constexpr bool HasPreIncrement_v			= HasPreIncrement<Type>::value;
+		template <class Type> constexpr bool HasPreDecrement_v			= HasPreDecrement<Type>::value;
+		template <class Type> constexpr bool HasOperatorBool_v			= HasOperatorBool<Type>::value;
+		template <class Type> constexpr bool HasLogicalNot_v			= HasLogicalNot<Type>::value;
+		template <class Type> constexpr bool HasComplement_v			= HasComplement<Type>::value;
+		template <class Type> constexpr bool HasAddressOf_v				= HasAddressOf<Type>::value;
+		template <class Type> constexpr bool HasOverloadedAddressOf_v	= HasOverloadedAddressOf<Type>::value;
+		template <class Type> constexpr bool HasPostIncrement_v			= HasPostIncrement<Type>::value;
+		template <class Type> constexpr bool HasPostDecrement_v			= HasPostDecrement<Type>::value;
 		template <class Type, class Arg = Type> constexpr bool HasPlus_v				= HasPlus<Type, Arg>::value;
 		template <class Type, class Arg = Type> constexpr bool HasMinus_v				= HasMinus<Type, Arg>::value;
 		template <class Type, class Arg = Type> constexpr bool HasMultiply_v			= HasMultiply<Type, Arg>::value;

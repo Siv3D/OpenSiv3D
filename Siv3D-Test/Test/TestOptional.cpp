@@ -9,8 +9,9 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D.hpp>
-# include <gtest/gtest.h>
+# include "Siv3DTest.hpp"
+
+# if defined(SIV3D_DO_TEST)
 
 TEST(Optional, null)
 {
@@ -27,3 +28,5 @@ TEST(Optional, ref)
 	EXPECT_EQ(*opt, 43);
 	EXPECT_EQ(i, 43);
 }
+
+# endif

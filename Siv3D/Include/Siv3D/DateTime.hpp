@@ -427,11 +427,6 @@ namespace s3d
 		return !(a < b);
 	}
 
-	inline std::ostream & operator <<(std::ostream& os, const DateTime& dateTime)
-	{
-		return os << dateTime.format().narrow();
-	}
-
 	/// <summary>
 	/// 出力ストリームに日付と時刻を渡します。
 	/// </summary>
@@ -447,7 +442,8 @@ namespace s3d
 	/// <returns>
 	/// 渡した後の出力ストリーム
 	/// </returns>
-	inline std::wostream & operator <<(std::wostream& os, const DateTime& dateTime)
+	template <class CharType>
+	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> os, const DateTime& dateTime)
 	{
 		return os << dateTime.format();
 	}
@@ -463,6 +459,6 @@ namespace std
 	template <>
 	struct hash<s3d::DateTime>
 	{
-		size_t operator ()(const s3d::DateTime& date) const;
+		size_t operator()(const s3d::DateTime& date) const;
 	};
 }

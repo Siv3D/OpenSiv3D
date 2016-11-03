@@ -22,7 +22,7 @@ namespace s3d
 			const wchar* str;
 
 			template <class... Args>
-			String operator ()(Args&& ...args) const
+			String operator()(Args&& ...args) const
 			{
                 return fmt::format(str, std::forward<Args>(args)...);
 			}
@@ -30,7 +30,7 @@ namespace s3d
 			template <class... Args>
 			String args(Args&& ...args) const
 			{
-				return operator ()(std::forward<Args>(args)...);
+				return operator()(std::forward<Args>(args)...);
 			}
 		};
 	}

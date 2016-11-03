@@ -202,7 +202,7 @@ namespace s3d
 			return m_data.get_allocator();
 		}
 
-		void assign(size_type w, size_type h, const Type& value)
+		void assign(const size_type w, const size_type h, const Type& value)
 		{
 			m_data.assign(w * h, value);
 		}
@@ -243,7 +243,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の要素への参照
 		/// </returns>
-		Type& at(size_type y, size_type x)
+		Type& at(const size_type y, const size_type x)
 		{
 			// See "Avoid Duplication in const and Non-const Member Function," on pp. 23,
 			// in Item 3 "Use const whenever possible," in Effective C++ 3rd edition, by Scott Meyers.
@@ -265,7 +265,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の要素への参照
 		/// </returns>
-		const Type& at(size_type y, size_type x) const
+		const Type& at(const size_type y, const size_type x) const
 		{
 			if (!inBounds(y, x))
 			{
@@ -321,7 +321,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した行の先頭ポインタ
 		/// </returns>
-		Type* operator[] (size_t index)
+		Type* operator[](const size_t index)
 		{
 			return const_cast<Type&>(static_cast<const Grid&>(*this)[index]);
 		}
@@ -338,7 +338,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した行の先頭ポインタ
 		/// </returns>
-		const Type* operator[] (size_t index) const
+		const Type* operator[](const size_t index) const
 		{
 			return &m_data[index * m_width];
 		}
@@ -352,7 +352,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の要素への参照
 		/// </returns>
-		Type& operator[] (const Point& pos)
+		Type& operator[](const Point& pos)
 		{
 			return const_cast<Type&>(static_cast<const Grid&>(*this)[pos]);
 		}
@@ -366,12 +366,12 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の要素への参照
 		/// </returns>
-		const Type& operator[] (const Point& pos) const
+		const Type& operator[](const Point& pos) const
 		{
 			return m_data[pos.y * m_width + pos.x];
 		}
 
-		bool inBounds(int64 y, int64 x) const noexcept
+		bool inBounds(const int64 y, const int64 x) const noexcept
 		{
 			return (0 <= y) && (y < static_cast<int64>(m_height)) && (0 <= x) && (x < static_cast<int64>(m_width));
 		}
@@ -529,7 +529,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void reserve(size_type w, size_type h) { m_data.reserve(w * h); }
+		void reserve(const size_type w, const size_type h) { m_data.reserve(w * h); }
 
 		void reserve(const Size& size) { reserve(size.x, size.y); }
 
@@ -633,7 +633,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void insert_row(size_type pos, const Type& value)
+		void insert_row(const size_type pos, const Type& value)
 		{
 			insert_rows(pos, 1, value);
 		}
@@ -653,14 +653,14 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void insert_rows(size_type pos, size_type rows, const Type& value)
+		void insert_rows(const size_type pos, const size_type rows, const Type& value)
 		{
 			m_data.insert(m_data.begin() + m_width * pos, m_width * rows, value);
 
 			m_height += rows;
 		}
 
-		void insert_column(size_type pos, const Type& value)
+		void insert_column(const size_type pos, const Type& value)
 		{
 			reserve(m_width + 1, m_height);
 
@@ -674,7 +674,7 @@ namespace s3d
 			++m_width;
 		}
 
-		void insert_columns(size_type pos, size_type columns, const Type& value)
+		void insert_columns(const size_type pos, const size_type columns, const Type& value)
 		{
 			reserve(m_width + columns, m_height);
 
@@ -700,7 +700,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void remove_row(size_type pos)
+		void remove_row(const size_type pos)
 		{
 			if (m_height <= pos)
 			{
@@ -722,7 +722,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void remove_rows(size_type pos, size_type count)
+		void remove_rows(const size_type pos, const size_type count)
 		{
 			if (m_height <= pos || m_height <= (pos + count))
 			{
@@ -746,7 +746,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void remove_column(size_type pos)
+		void remove_column(const size_type pos)
 		{
 			if (m_width <= pos)
 			{
@@ -763,7 +763,7 @@ namespace s3d
 			--m_width;
 		}
 
-		void remove_columns(size_type pos, size_type count)
+		void remove_columns(const size_type pos, const size_type count)
 		{
 			if (m_width <= pos || m_width <= (pos + count))
 			{
@@ -794,7 +794,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void resize(size_type w, size_type h)
+		void resize(const size_type w, const size_type h)
 		{
 			resize(w, h, Type());
 		}
@@ -828,7 +828,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void resize(size_type w, size_type h, const Type& val)
+		void resize(const size_type w, const size_type h, const Type& val)
 		{
 			if (w == m_width && h == m_height)
 			{
@@ -883,13 +883,13 @@ namespace s3d
 		}
 
 		template <class Size_t, std::enable_if_t<std::is_scalar<Size_t>::value>* = nullptr>
-		Array<Type> choice(Size_t n) const
+		Array<Type> choice(const Size_t n) const
 		{
 			return m_data.choice(n);
 		}
 
 		template <class URBG>
-		Array<Type> choice(size_t n, URBG&& rbg) const
+		Array<Type> choice(const size_t n, URBG&& rbg) const
 		{
 			return m_data.choice(n, std::forward<URBG>(rbg));
 		}
@@ -1185,29 +1185,29 @@ namespace s3d
 			return *this;
 		}
 
-		Grid rotated(std::ptrdiff_t count = 1) const &
+		Grid rotated(const std::ptrdiff_t count = 1) const &
 		{
 			return Grid(*this).rotate(count);
 		}
 
-		Grid rotated(std::ptrdiff_t count = 1) &&
+		Grid rotated(const std::ptrdiff_t count = 1) &&
 		{
 			rotate(count);
 
 			return std::move(*this);
 		}
 
-		Grid& rotate_rows(std::ptrdiff_t count = 1)
+		Grid& rotate_rows(const std::ptrdiff_t count = 1)
 		{
 			return rotate(count * static_cast<std::ptrdiff_t>(m_width));
 		}
 
-		Grid rotated_rows(std::ptrdiff_t count = 1) const &
+		Grid rotated_rows(const std::ptrdiff_t count = 1) const &
 		{
 			return rotated(count * static_cast<std::ptrdiff_t>(m_width));
 		}
 
-		Grid rotated_rows(std::ptrdiff_t count = 1) &&
+		Grid rotated_rows(const std::ptrdiff_t count = 1) &&
 		{
 			return rotated(count * static_cast<std::ptrdiff_t>(m_width));
 		}
@@ -1249,7 +1249,7 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		Array<Type> slice(size_type y, size_type x) const
+		Array<Type> slice(const size_type y, const size_type x) const
 		{
 			if (!inBounds(y, x))
 			{
@@ -1264,7 +1264,7 @@ namespace s3d
 			return slice(pos.y, pos.x);
 		}
 
-		Array<Type> slice(size_type y, size_type x, size_t length) const
+		Array<Type> slice(const size_type y, const size_type x, const size_t length) const
 		{
 			if (!inBounds(y, x))
 			{
@@ -1276,7 +1276,7 @@ namespace s3d
 			return Array<Type>(m_data.begin() + index, m_data.begin() + std::min(index + length, m_data.size()));
 		}
 
-		Array<Type> slice(const Point& pos, size_t length) const
+		Array<Type> slice(const Point& pos, const size_t length) const
 		{
 			return slice(pos.y, pos.x, length);
 		}

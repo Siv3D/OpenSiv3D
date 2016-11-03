@@ -568,7 +568,7 @@ namespace std
 	template <class Type>
 	struct hash<s3d::Vector3D<Type>>
 	{
-		size_t operator ()(const s3d::Vector3D<Type>& keyVal) const
+		size_t operator()(const s3d::Vector3D<Type>& keyVal) const
 		{
 			return s3d::Hash::FNV1a(keyVal);
 		}

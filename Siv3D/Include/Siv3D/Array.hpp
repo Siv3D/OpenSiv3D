@@ -17,6 +17,7 @@
 # include "Fwd.hpp"
 # include "Allocator.hpp"
 # include "Concept.hpp"
+# include "NamedParameter.hpp"
 # include "Threading.hpp"
 # include "String.hpp"
 # include "Functor.hpp"
@@ -81,6 +82,23 @@ namespace s3d
 
 		Array()
 			: base_type() {}
+
+		template <class Fty, class R = Type, std::enable_if_t<std::is_convertible<std::result_of_t<Fty()>, R>::value>* = nullptr>
+		Array(const size_type size, Arg::generator_<Fty> generator)
+			: Array(Generate<Fty>(size, *generator)) {}
+
+		template <class Fty, class R = Type, std::enable_if_t<std::is_convertible<std::result_of_t<Fty()>, R>::value>* = nullptr>
+		static Array Generate(const size_type size, Fty generator)
+		{
+			Array new_array(size);
+
+			for (auto& value : new_array)
+			{
+				value = generator();
+			}
+
+			return new_array;
+		}
 
 		void swap(Array& other)
 		{
@@ -179,13 +197,13 @@ namespace s3d
 		}
 
 		template <class Size_t, std::enable_if_t<std::is_scalar<Size_t>::value>* = nullptr>
-		Array choice(Size_t n) const
+		Array choice(const Size_t n) const
 		{
 			return choice(n, GetDefaultRNG());
 		}
 
 		template <class URBG>
-		Array choice(size_t n, URBG&& rbg) const
+		Array choice(const size_t n, URBG&& rbg) const
 		{
 			Array result;		
 
@@ -227,7 +245,7 @@ namespace s3d
 			return result;
 		}
 
-		Array drop(size_t n) const
+		Array drop(const size_t n) const
 		{
 			if (n >= size())
 			{
@@ -291,7 +309,7 @@ namespace s3d
 			return *this;
 		}
 
-		const Type& fetch(size_t index, const Type& defaultValue) const
+		const Type& fetch(const size_t index, const Type& defaultValue) const
 		{
 			if (index >= size())
 			{
@@ -341,6 +359,29 @@ namespace s3d
 		bool include_if(Fty f) const
 		{
 			return any(f);
+		}
+
+		template <class T = Type, std::enable_if_t<Concept::HasLessThan<T>::value>* = nullptr>
+		bool isSorted() const
+		{
+			const size_t size_ = size();
+
+			if (size_ <= 1)
+			{
+				return true;
+			}
+
+			const Type* p = data();
+
+			for (size_t i = 0; i < size_ - 1; ++i)
+			{
+				if (p[i] > p[i + 1])
+				{
+					return false;
+				}
+			}
+
+			return true;
 		}
 
 		String join(const String& sep = L",", const String& begin = L"{", const String& end = L"}") const
@@ -471,7 +512,7 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		Array& remove_at(size_t index)
+		Array& remove_at(const size_t index)
 		{
 			if (index >= size())
 			{
@@ -483,7 +524,7 @@ namespace s3d
 			return *this;
 		}
 
-		Array removed_at(size_t index) const
+		Array removed_at(const size_t index) const
 		{
 			if (index >= size())
 			{
@@ -691,12 +732,12 @@ namespace s3d
 			return *this;
 		}
 
-		Array rotated(std::ptrdiff_t count = 1) const &
+		Array rotated(const std::ptrdiff_t count = 1) const &
 		{
 			return Array(*this).rotate(count);
 		}
 
-		Array rotated(std::ptrdiff_t count = 1) &&
+		Array rotated(const std::ptrdiff_t count = 1) &&
 		{
 			rotate(count);
 
@@ -740,7 +781,7 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		Array slice(size_t index) const
+		Array slice(const size_t index) const
 		{
 			if (index >= size())
 			{
@@ -750,7 +791,7 @@ namespace s3d
 			return Array(begin() + index, end());
 		}
 
-		Array slice(size_t index, size_t length) const
+		Array slice(const size_t index, const size_t length) const
 		{
 			if (index >= size())
 			{
@@ -760,6 +801,7 @@ namespace s3d
 			return Array(begin() + index, begin() + std::min(index + length, size()));
 		}
 
+		template <class T = Type, std::enable_if_t<Concept::HasLessThan<T>::value>* = nullptr>
 		Array& sort()
 		{
 			std::sort(begin(), end());
@@ -775,11 +817,13 @@ namespace s3d
 			return *this;
 		}
 
+		template <class T = Type, std::enable_if_t<Concept::HasLessThan<T>::value>* = nullptr>
 		Array sorted() const &
 		{
 			return Array(*this).sort();
 		}
 
+		template <class T = Type, std::enable_if_t<Concept::HasLessThan<T>::value>* = nullptr>
 		Array sorted() &&
 		{
 			sort();
@@ -833,7 +877,7 @@ namespace s3d
 			return *this;
 		}
 
-		Array take(size_t n) const
+		Array take(const size_t n) const
 		{
 			return Array(begin(), begin() + std::min(n, size()));
 		}
@@ -1091,10 +1135,10 @@ namespace s3d
 		Array()
 			: base_type() {}
 
-		Array(size_type count, const bool& value)
+		Array(const size_type count, const bool& value)
 			: base_type(count, value) {}
 
-		explicit Array(size_type count)
+		explicit Array(const size_type count)
 			: base_type(count, false) {}
 
 		template <class InputIt>
@@ -1109,6 +1153,23 @@ namespace s3d
 
 		Array(std::initializer_list<bool> init)
 			: base_type(init.begin(), init.end()) {}
+
+		template <class Fty, std::enable_if_t<std::is_convertible<std::result_of_t<Fty()>, bool>::value>* = nullptr>
+		Array(const size_type size, Arg::generator_<Fty> generator)
+			: Array(Generate<Fty>(size, *generator)) {}
+
+		template <class Fty, std::enable_if_t<std::is_convertible<std::result_of_t<Fty()>, bool>::value>* = nullptr>
+		static Array Generate(const size_type size, Fty generator)
+		{
+			Array new_array(size);
+
+			for (auto& value : new_array)
+			{
+				value = generator();
+			}
+
+			return new_array;
+		}
 
 		Array& operator =(const Array& other) = default;
 
@@ -1155,7 +1216,7 @@ namespace s3d
 			return size() * sizeof(bool);
 		}
 
-		Array& operator <<(bool value)
+		Array& operator <<(const bool value)
 		{
 			push_back(value);
 
@@ -1216,13 +1277,13 @@ namespace s3d
 		}
 
 		template <class Size_t, std::enable_if_t<std::is_scalar<Size_t>::value>* = nullptr>
-		Array choice(Size_t n) const
+		Array choice(const Size_t n) const
 		{
 			return choice(n, GetDefaultRNG());
 		}
 
 		template <class URBG>
-		Array choice(size_t n, URBG&& rbg) const
+		Array choice(const size_t n, URBG&& rbg) const
 		{
 			Array result;
 
@@ -1264,7 +1325,7 @@ namespace s3d
 			return result;
 		}
 
-		Array drop(size_t n) const
+		Array drop(const size_t n) const
 		{
 			if (n >= size())
 			{
@@ -1328,7 +1389,7 @@ namespace s3d
 			return *this;
 		}
 
-		const bool& fetch(size_t index, const bool& defaultValue) const
+		const bool& fetch(const size_t index, const bool& defaultValue) const
 		{
 			if (index >= size())
 			{
@@ -1378,6 +1439,28 @@ namespace s3d
 		bool include_if(Fty f) const
 		{
 			return any(f);
+		}
+
+		bool isSorted() const
+		{
+			const size_t size_ = size();
+
+			if (size_ <= 1)
+			{
+				return true;
+			}
+
+			const bool* p = data();
+
+			for (size_t i = 0; i < size_ - 1; ++i)
+			{
+				if (p[i] > p[i + 1])
+				{
+					return false;
+				}
+			}
+
+			return true;
 		}
 
 		String join(const String& sep = L",", const String& begin = L"{", const String& end = L"}") const
@@ -1508,7 +1591,7 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		Array& remove_at(size_t index)
+		Array& remove_at(const size_t index)
 		{
 			if (index >= size())
 			{
@@ -1520,7 +1603,7 @@ namespace s3d
 			return *this;
 		}
 
-		Array removed_at(size_t index) const
+		Array removed_at(const size_t index) const
 		{
 			if (index >= size())
 			{
@@ -1728,12 +1811,12 @@ namespace s3d
 			return *this;
 		}
 
-		Array rotated(std::ptrdiff_t count = 1) const &
+		Array rotated(const std::ptrdiff_t count = 1) const &
 		{
 			return Array(*this).rotate(count);
 		}
 
-		Array rotated(std::ptrdiff_t count = 1) &&
+		Array rotated(const std::ptrdiff_t count = 1) &&
 		{
 			rotate(count);
 
@@ -1777,7 +1860,7 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		Array slice(size_t index) const
+		Array slice(const size_t index) const
 		{
 			if (index >= size())
 			{
@@ -1787,7 +1870,7 @@ namespace s3d
 			return Array(begin() + index, end());
 		}
 
-		Array slice(size_t index, size_t length) const
+		Array slice(const size_t index, const size_t length) const
 		{
 			if (index >= size())
 			{
@@ -1843,7 +1926,7 @@ namespace s3d
 			return count(true);
 		}
 
-		Array take(size_t n) const
+		Array take(const size_t n) const
 		{
 			return Array(begin(), begin() + std::min(n, size()));
 		}

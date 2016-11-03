@@ -130,7 +130,7 @@ namespace s3d
 		/// <param name="code">
 		/// L"#FFF" または L"#FFFFFF" のように # から始まるカラーコード
 		/// </param>
-		explicit Color(const StringView& code) noexcept;
+		explicit Color(StringView code) noexcept;
 
 		/// <summary>
 		/// 新しい色を代入します。
@@ -222,7 +222,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Color& set(uint32 _r, uint32 _g, uint32 _b, uint32 _a = 255) noexcept
+		S3D_CONSTEXPR_CPP14 Color& set(const uint32 _r, const uint32 _g, const uint32 _b, const uint32 _a = 255) noexcept
 		{
 			r = _r;
 			g = _g;
@@ -255,7 +255,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Color& setA(uint32 _a) noexcept
+		S3D_CONSTEXPR_CPP14 Color& setA(const uint32 _a) noexcept
 		{
 			a = _a;
 			return *this;
@@ -288,7 +288,7 @@ namespace s3d
 			return *static_cast<const uint32*>(static_cast<const void*>(this));
 		}
 
-		constexpr Color lerp(const Color& other, double f) const noexcept
+		constexpr Color lerp(const Color& other, const double f) const noexcept
 		{
 			return{ static_cast<uint32>(int32(r) + (int32(other.r) - int32(r)) * f),
 					static_cast<uint32>(int32(g) + (int32(other.g) - int32(g)) * f),
@@ -501,7 +501,7 @@ namespace s3d
 		/// <param name="code">
 		/// L"#FFF" または L"#FFFFFF" のように # から始まるカラーコード
 		/// </param>
-		explicit ColorF(const StringView& code) noexcept
+		explicit ColorF(StringView code) noexcept
 			: ColorF(Color(code)) {}
 
 		/// <summary>
@@ -615,7 +615,7 @@ namespace s3d
 		/// <returns>
 		/// 乗算した結果
 		/// </returns>
-		constexpr ColorF operator *(double s) const noexcept
+		constexpr ColorF operator *(const double s) const noexcept
 		{
 			return{ r * s, g * s, b * s, a };
 		}
@@ -629,7 +629,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 ColorF& operator *=(double s) noexcept
+		S3D_CONSTEXPR_CPP14 ColorF& operator *=(const double s) noexcept
 		{
 			r *= s;
 			g *= s;
@@ -687,7 +687,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 ColorF& set(double _r, double _g, double _b, double _a = 1.0) noexcept
+		S3D_CONSTEXPR_CPP14 ColorF& set(const double _r, const double _g, const double _b, const double _a = 1.0) noexcept
 		{
 			r = _r;
 			g = _g;
@@ -705,7 +705,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 ColorF& setRGB(double rgb) noexcept
+		S3D_CONSTEXPR_CPP14 ColorF& setRGB(const double rgb) noexcept
 		{
 			r = g = b = rgb;
 			return *this;
@@ -720,7 +720,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 ColorF& setA(double _a) noexcept
+		S3D_CONSTEXPR_CPP14 ColorF& setA(const double _a) noexcept
 		{
 			a = _a;
 			return *this;
@@ -765,7 +765,7 @@ namespace s3d
 			return 0.299 * r + 0.587 * g + 0.114 * b;
 		}
 
-		constexpr ColorF lerp(const ColorF& other, double f) const noexcept
+		constexpr ColorF lerp(const ColorF& other, const double f) const noexcept
 		{
 			return{ r + (other.r - r) * f,
 					g + (other.g - g) * f,
@@ -831,7 +831,7 @@ namespace s3d
 	/// <returns>
 	/// 乗算した結果
 	/// </returns>
-	inline constexpr ColorF operator *(double s, const ColorF& color)
+	inline constexpr ColorF operator *(const double s, const ColorF& color) noexcept
 	{
 		return{ s * color.r, s * color.g, s * color.b, color.a };
 	}
@@ -903,7 +903,7 @@ namespace s3d
 	/// <returns>
 	/// Color(255, 255, 255, alpha)
 	/// </returns>
-	inline constexpr Color Alpha(uint32 alpha)
+	inline constexpr Color Alpha(const uint32 alpha) noexcept
 	{
 		return Color(255, alpha);
 	}
@@ -917,7 +917,7 @@ namespace s3d
 	/// <returns>
 	/// ColorF(1.0, 1.0, 1.0, alpha)
 	/// </returns>
-	inline constexpr ColorF AlphaF(double alpha)
+	inline constexpr ColorF AlphaF(const double alpha) noexcept
 	{
 		return ColorF(1.0, alpha);
 	}
@@ -1101,7 +1101,7 @@ namespace std
 	template <>
 	struct hash<s3d::Color>
 	{
-		size_t operator ()(const s3d::Color& keyVal) const
+		size_t operator()(const s3d::Color& keyVal) const
 		{
 			return hash<s3d::uint32>()(*((s3d::uint32*)&keyVal));
 		}

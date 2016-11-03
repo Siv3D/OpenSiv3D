@@ -569,7 +569,7 @@ namespace s3d
 	}
 }
 
-# if defined (SIV3D_TARGET_WINDOWS)
+# if defined(SIV3D_TARGET_WINDOWS)
 
 # define  NOMINMAX
 # define  STRICT
@@ -683,15 +683,15 @@ namespace s3d
 
 		String Widen(const CStringView str)
 		{
-			# if defined (SIV3D_TARGET_WINDOWS)
+		# if defined(SIV3D_TARGET_WINDOWS)
 			
-				return detail::ToString(str, CP_ACP);
+			return detail::ToString(str, CP_ACP);
 		
-			# elif defined (SIV3D_TARGET_MACOS)
+		# elif defined(SIV3D_TARGET_MACOS)
 
-				return detail::UTF8ToUTF32<String>(str.begin(), str.end());
+			return detail::UTF8ToUTF32<String>(str.begin(), str.end());
 
-			# endif
+		# endif
 		}
 
 		std::string NarrowAscii(const StringView asciiStr)
@@ -712,93 +712,93 @@ namespace s3d
 
 		std::string Narrow(const StringView str)
 		{
-			# if defined (SIV3D_TARGET_WINDOWS)
+		# if defined(SIV3D_TARGET_WINDOWS)
 
-				return detail::FromString(str, CP_THREAD_ACP);
+			return detail::FromString(str, CP_THREAD_ACP);
 
-			# elif defined (SIV3D_TARGET_MACOS)
+		# elif defined(SIV3D_TARGET_MACOS)
 
-				return detail::UTF32ToUTF8<wchar>(str.begin(), str.end());
+			return detail::UTF32ToUTF8<wchar>(str.begin(), str.end());
 
-			# endif
+		# endif
 		}
 
 		String FromUTF8(const UTF8StringView str)
 		{
-			# if defined (SIV3D_TARGET_WINDOWS)
+		# if defined(SIV3D_TARGET_WINDOWS)
 
-				return detail::UTF8ToUTF16<String>(str.begin(), str.end());
+			return detail::UTF8ToUTF16<String>(str.begin(), str.end());
 
-			# elif defined (SIV3D_TARGET_MACOS)
+		# elif defined(SIV3D_TARGET_MACOS)
 
-				return detail::UTF8ToUTF32<String>(str.begin(), str.end());
+			return detail::UTF8ToUTF32<String>(str.begin(), str.end());
 
-			# endif
+		# endif
 		}
 		
 		String FromUTF16(const std::u16string& str)
 		{
-			# if defined (SIV3D_TARGET_WINDOWS)
+		# if defined(SIV3D_TARGET_WINDOWS)
 
-				return String(str.begin(), str.end());
+			return String(str.begin(), str.end());
 
-			# elif defined (SIV3D_TARGET_MACOS)
+		# elif defined(SIV3D_TARGET_MACOS)
 
-				return detail::UTF16ToUTF32<char16_t, String>(str.data(), str.data() + str.length());
+			return detail::UTF16ToUTF32<char16_t, String>(str.data(), str.data() + str.length());
 
-			# endif
+		# endif
 		}
 
 		String FromUTF32(const std::u32string& str)
 		{
-			# if defined (SIV3D_TARGET_WINDOWS)
+		# if defined(SIV3D_TARGET_WINDOWS)
 
-				return detail::UTF32ToUTF16<char32_t, String>(str.data(), str.data() + str.length());
+			return detail::UTF32ToUTF16<char32_t, String>(str.data(), str.data() + str.length());
 
-			# elif defined (SIV3D_TARGET_MACOS)
+		# elif defined(SIV3D_TARGET_MACOS)
 
-				return String(str.data(), str.data() + str.length());
+			return String(str.data(), str.data() + str.length());
 
-			# endif
+		# endif
 		}
 
 		std::string ToUTF8(const StringView str)
 		{
-			# if defined (SIV3D_TARGET_WINDOWS)
+		# if defined(SIV3D_TARGET_WINDOWS)
 
-				return detail::UTF16ToUTF8<wchar>(str.begin(), str.end());
+			return detail::UTF16ToUTF8<wchar>(str.begin(), str.end());
 
-			# elif defined (SIV3D_TARGET_MACOS)
+		# elif defined(SIV3D_TARGET_MACOS)
 
-				return detail::UTF32ToUTF8<wchar>(str.begin(), str.end());
+			return detail::UTF32ToUTF8<wchar>(str.begin(), str.end());
 
-			# endif
+		# endif
 		}
 
 		std::u16string ToUTF16(const StringView str)
 		{
-			# if defined (SIV3D_TARGET_WINDOWS)
+		# if defined(SIV3D_TARGET_WINDOWS)
 
-				return std::u16string(str.begin(), str.end());
+			return std::u16string(str.begin(), str.end());
 
-			# elif defined (SIV3D_TARGET_MACOS)
+		# elif defined(SIV3D_TARGET_MACOS)
 
-				return detail::UTF32ToUTF16<wchar, std::u16string>(str.begin(), str.end());
+			return detail::UTF32ToUTF16<wchar, std::u16string>(str.begin(), str.end());
 
-			# endif
+		# endif
 		}
 
 		std::u32string ToUTF32(const StringView str)
 		{
-			# if defined (SIV3D_TARGET_WINDOWS)
+		# if defined(SIV3D_TARGET_WINDOWS)
 
-				return detail::UTF16ToUTF32<wchar, std::u32string>(str.begin(), str.end());
+			return detail::UTF16ToUTF32<wchar, std::u32string>(str.begin(), str.end());
 
-			# elif defined (SIV3D_TARGET_MACOS)
+		# elif defined(SIV3D_TARGET_MACOS)
 
-				return std::u32string(str.begin(), str.end());
+			return std::u32string(str.begin(), str.end());
 
-			# endif
+		# endif
 		}
 
 		std::u16string UTF8ToUTF16(UTF8StringView str)
@@ -831,7 +831,7 @@ namespace s3d
 			return detail::UTF32ToUTF16<char32_t, std::u16string>(str.data(), str.data() + str.length());
 		}
 
-		String PercentEncode(const StringView str, const bool upperCase)
+		String PercentEncode(const StringView str, const Arg::upperCase_<bool> upperCase)
 		{
 			const std::string utf8 = ToUTF8(str);
 
@@ -849,7 +849,7 @@ namespace s3d
 				}
 			}
 
-			const char* const table = detail::hexTable[upperCase];
+			const char* const table = detail::hexTable[*upperCase];
 
 			String result(length, L'\0');
 			wchar* dst = &result[0];

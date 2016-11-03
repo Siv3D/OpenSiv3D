@@ -9,8 +9,9 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D.hpp>
-# include <gtest/gtest.h>
+# include "Siv3DTest.hpp"
+
+# if defined(SIV3D_DO_TEST)
 
 using namespace s3d;
 
@@ -117,6 +118,10 @@ TEST(Array, int32)
 	EXPECT_EQ(v.all(IsOdd), false);
 	const auto f = [](int n) { return n - 4; };
 	EXPECT_EQ(v.all(f), false);
+
+
+
+	const Array<int32> vg(10, Arg::generator = RNG(1, 6));
 }
 
 TEST(Array, int32_const)
@@ -179,3 +184,5 @@ TEST(Array, Point_const)
 {
 
 }
+
+# endif

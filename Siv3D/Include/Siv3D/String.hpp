@@ -18,6 +18,7 @@
 # include "Functor.hpp"
 # include "DefaultRNG.hpp"
 # include "StringView.hpp"
+# include "Hash.hpp"
 
 namespace s3d
 {
@@ -239,7 +240,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		String& operator =(wchar ch) { return assign(1, ch); }
+		String& operator =(const wchar ch) { return assign(1, ch); }
 
 		/// <summary>
 		/// 新しい文字列を代入します。
@@ -252,7 +253,7 @@ namespace s3d
 		/// </returns>
 		String& operator =(std::initializer_list<value_type> ilist) { return assign(ilist); }
 
-		String& operator =(StringView sv) { return assign(sv); }
+		String& operator =(const StringView sv) { return assign(sv); }
 
 		String& operator <<(const wchar ch)
 		{
@@ -324,7 +325,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		String& assign(size_t count, wchar ch)
+		String& assign(const size_t count, const wchar ch)
 		{
 			m_string.assign(count, ch);
 
@@ -379,7 +380,7 @@ namespace s3d
 			return *this;
 		}
 
-		String& assign(StringView sv)
+		String& assign(const StringView sv)
 		{
 			m_string.assign(sv.begin(), sv.end());
 
@@ -462,9 +463,9 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		String& operator += (wchar ch) { return append(1, ch); }
+		String& operator += (const wchar ch) { return append(1, ch); }
 
-		String& operator += (StringView sv) { return append(sv); }
+		String& operator += (const StringView sv) { return append(sv); }
 
 		/// <summary>
 		/// 文字列を終端に追加します。
@@ -529,7 +530,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		String& append(const wchar* str, size_t count)
+		String& append(const wchar* str, const size_t count)
 		{
 			m_string.append(str, count);
 
@@ -564,14 +565,14 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		String& append(size_t count, wchar ch)
+		String& append(const size_t count, const wchar ch)
 		{
 			m_string.append(count, ch);
 
 			return *this;
 		}
 
-		String& append(StringView sv)
+		String& append(const StringView sv)
 		{
 			m_string.append(sv.begin(), sv.end());
 
@@ -610,7 +611,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		String& insert(size_t offset, const String& str)
+		String& insert(const size_t offset, const String& str)
 		{
 			m_string.insert(offset, str.m_string);
 
@@ -629,7 +630,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		String& insert(size_t offset, std::initializer_list<value_type> ilist)
+		String& insert(const size_t offset, std::initializer_list<value_type> ilist)
 		{
 			m_string.insert(offset, ilist);
 
@@ -651,7 +652,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		String& insert(size_t offset, const wchar* str)
+		String& insert(const size_t offset, const wchar* str)
 		{
 			m_string.insert(offset, str);
 
@@ -673,7 +674,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		String& insert(size_t offset, size_t count, wchar ch)
+		String& insert(const size_t offset, const size_t count, const wchar ch)
 		{
 			m_string.insert(offset, count, ch);
 
@@ -692,7 +693,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		iterator insert(const_iterator where, wchar ch)
+		iterator insert(const_iterator where, const wchar ch)
 		{
 			return m_string.insert(where, ch);
 		}
@@ -712,7 +713,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		void insert(const_iterator where, size_t count, wchar ch)
+		void insert(const_iterator where, const size_t count, const wchar ch)
 		{
 			m_string.insert(where, count, ch);
 		}
@@ -776,7 +777,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		String& erase(size_t offset = 0, size_t count = npos)
+		String& erase(const size_t offset = 0, const size_t count = npos)
 		{
 			m_string.erase(offset, count);
 
@@ -949,7 +950,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の文字への参照
 		/// </returns>
-		wchar& at(size_t offset) { return m_string.at(offset); }
+		wchar& at(const size_t offset) { return m_string.at(offset); }
 
 		/// <summary>
 		/// 指定した位置の文字への参照を返します。
@@ -963,7 +964,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の文字への参照
 		/// </returns>
-		const wchar& at(size_t offset) const { return m_string.at(offset); }
+		const wchar& at(const size_t offset) const { return m_string.at(offset); }
 
 		/// <summary>
 		/// 指定した位置の文字への参照を返します。
@@ -974,7 +975,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の文字への参照
 		/// </returns>
-		wchar& operator[](size_t offset) { return m_string[offset]; }
+		wchar& operator[](const size_t offset) { return m_string[offset]; }
 
 		/// <summary>
 		/// 指定した位置の文字への参照を返します。
@@ -985,7 +986,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の文字への参照
 		/// </returns>
-		const wchar& operator[](size_t offset) const { return m_string[offset]; }
+		const wchar& operator[](const size_t offset) const { return m_string[offset]; }
 
 		/// <summary>
 		/// 末尾に文字を追加します。
@@ -996,7 +997,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void push_back(wchar ch) { m_string.push_back(ch); }
+		void push_back(const wchar ch) { m_string.push_back(ch); }
 
 		/// <summary>
 		/// 末尾の文字を削除します。
@@ -1117,7 +1118,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void resize(size_t newSize) { m_string.resize(newSize); }
+		void resize(const size_t newSize) { m_string.resize(newSize); }
 
 		/// <summary>
 		/// 文字列のサイズを変更します。
@@ -1131,7 +1132,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void resize(size_t newSize, wchar ch) { m_string.resize(newSize, ch); }
+		void resize(const size_t newSize, const wchar ch) { m_string.resize(newSize, ch); }
 
 		/// <summary>
 		/// 文字列用のメモリを指定したサイズで確保します。
@@ -1142,7 +1143,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void reserve(size_t newCapacity) { m_string.reserve(newCapacity); }
+		void reserve(const size_t newCapacity) { m_string.reserve(newCapacity); }
 
 		/// <summary>
 		/// 文字列を別の文字列と交換します。
@@ -1167,7 +1168,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した範囲の文字列
 		/// </returns>
-		String substr(size_t offset = 0, size_t count = npos) const
+		String substr(const size_t offset = 0, const size_t count = npos) const
 		{
 			return m_string.substr(offset, count);
 		}
@@ -1184,7 +1185,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字列が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t indexOf(const String& str, size_t offset = 0) const noexcept
+		size_t indexOf(const String& str, const size_t offset = 0) const noexcept
 		{
 			return m_string.find(str.data(), offset, str.length());
 		}
@@ -1204,7 +1205,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字列が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t indexOf(const wchar* str, size_t offset = 0) const
+		size_t indexOf(const wchar* str, const size_t offset = 0) const
 		{
 			return m_string.find(str, offset, traits_type::length(str));
 		}
@@ -1221,7 +1222,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t indexOf(wchar ch, size_t offset = 0) const
+		size_t indexOf(const wchar ch, const size_t offset = 0) const
 		{
 			return m_string.find(ch, offset);
 		}
@@ -1238,7 +1239,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字とは異なる文字が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t indexOfNot(wchar ch, size_t offset = 0) const
+		size_t indexOfNot(const wchar ch, const size_t offset = 0) const
 		{
 			return m_string.find_first_not_of(ch, offset);
 		}
@@ -1255,7 +1256,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字列が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t lastIndexOf(const String& str, size_t offset = npos) const
+		size_t lastIndexOf(const String& str, const size_t offset = npos) const
 		{
 			return m_string.rfind(str.data(), offset, str.length());
 		}
@@ -1275,7 +1276,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字列が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t lastIndexOf(const wchar* str, size_t offset = npos) const
+		size_t lastIndexOf(const wchar* str, const size_t offset = npos) const
 		{
 			return m_string.rfind(str, offset, traits_type::length(str));
 		}
@@ -1292,7 +1293,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t lastIndexOf(wchar ch, size_t offset = npos) const
+		size_t lastIndexOf(const wchar ch, const size_t offset = npos) const
 		{
 			return m_string.rfind(ch, offset);
 		}
@@ -1309,7 +1310,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字とは異なる文字が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t lastIndexNotOf(wchar ch, size_t offset = npos) const
+		size_t lastIndexNotOf(const wchar ch, const size_t offset = npos) const
 		{
 			return m_string.find_last_not_of(ch, offset);
 		}
@@ -1326,7 +1327,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t indexOfAny(const String& anyof, size_t offset = 0) const
+		size_t indexOfAny(const String& anyof, const size_t offset = 0) const
 		{
 			return m_string.find_first_of(anyof.data(), offset, anyof.length());
 		}
@@ -1346,7 +1347,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t indexOfAny(const wchar* anyof, size_t offset = 0) const
+		size_t indexOfAny(const wchar* anyof, const size_t offset = 0) const
 		{
 			return m_string.find_first_of(anyof, offset, traits_type::length(anyof));
 		}
@@ -1363,7 +1364,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t lastIndexOfAny(const String& anyof, size_t offset = npos) const
+		size_t lastIndexOfAny(const String& anyof, const size_t offset = npos) const
 		{
 			return m_string.find_last_of(anyof.data(), offset, anyof.length());
 		}
@@ -1383,7 +1384,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t lastIndexOfAny(const wchar* anyof, size_t offset = npos) const
+		size_t lastIndexOfAny(const wchar* anyof, const size_t offset = npos) const
 		{
 			return m_string.find_last_of(anyof, offset, traits_type::length(anyof));
 		}
@@ -1400,7 +1401,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字とは異なる文字が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t indexNotOfAny(const String& anyof, size_t offset = 0) const
+		size_t indexNotOfAny(const String& anyof, const size_t offset = 0) const
 		{
 			return m_string.find_first_not_of(anyof.data(), offset, anyof.length());
 		}
@@ -1420,7 +1421,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字とは異なる文字が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t indexNotOfAny(const wchar* anyof, size_t offset = 0) const
+		size_t indexNotOfAny(const wchar* anyof, const size_t offset = 0) const
 		{
 			return m_string.find_first_not_of(anyof, offset, traits_type::length(anyof));
 		}
@@ -1437,7 +1438,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字とは異なる文字が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t lastIndexNotOfAny(const String& anyof, size_t offset = npos) const
+		size_t lastIndexNotOfAny(const String& anyof, const size_t offset = npos) const
 		{
 			return m_string.find_last_not_of(anyof.data(), offset, anyof.length());
 		}
@@ -1457,7 +1458,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字とは異なる文字が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t lastIndexNotOfAny(const wchar* anyof, size_t offset = npos) const
+		size_t lastIndexNotOfAny(const wchar* anyof, const size_t offset = npos) const
 		{
 			return m_string.find_last_not_of(anyof, offset, traits_type::length(anyof));
 		}
@@ -1707,7 +1708,7 @@ namespace s3d
 		/// <returns>
 		/// 見つかった文字の個数
 		/// </returns>
-		size_t count(wchar ch) const
+		size_t count(const wchar ch) const
 		{
 			size_t count = 0;
 
@@ -1761,7 +1762,7 @@ namespace s3d
 			return result;
 		}
 
-		String drop(size_t n) const
+		String drop(const size_t n) const
 		{
 			if (n >= m_string.size())
 			{
@@ -1834,7 +1835,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した文字で終わる場合 true, それ以外の場合は false
 		/// </returns>
-		bool ends_with(wchar ch) const
+		bool ends_with(const wchar ch) const
 		{
 			return !m_string.empty() && (m_string[m_string.size() - 1] == ch);
 		}
@@ -1859,7 +1860,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String expand_tabs(size_t tabSize = 4) const
+		String expand_tabs(const size_t tabSize = 4) const
 		{
 			const size_t new_size = m_string.length() + (count(L'\t') * tabSize);
 
@@ -1885,7 +1886,7 @@ namespace s3d
 			return result;
 		}
 
-		const wchar& fetch(size_t index, const wchar& defaultValue) const
+		const wchar& fetch(const size_t index, const wchar& defaultValue) const
 		{
 			if (index >= size())
 			{
@@ -1895,7 +1896,7 @@ namespace s3d
 			return m_string[index];
 		}
 
-		String& fill(wchar value)
+		String& fill(const wchar value)
 		{
 			std::fill(m_string.begin(), m_string.end(), value);
 
@@ -1927,7 +1928,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字が見つかった場合 true, それ以外の場合は false
 		/// </returns>
-		bool includes(wchar ch) const
+		bool includes(const wchar ch) const
 		{
 			return indexOf(ch) != String::npos;
 		}
@@ -1994,7 +1995,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String layout(size_t width) const
+		String layout(const size_t width) const
 		{
 			String result;
 
@@ -2059,7 +2060,7 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		String& lpad(size_t length, wchar fillChar = L' ')
+		String& lpad(const size_t length, const wchar fillChar = L' ')
 		{
 			if (length <= m_string.length())
 			{
@@ -2071,7 +2072,7 @@ namespace s3d
 			return *this;
 		}
 
-		String lpadded(size_t length, wchar fillChar = L' ') const &
+		String lpadded(const size_t length, const wchar fillChar = L' ') const &
 		{
 			if (length <= m_string.length())
 			{
@@ -2089,7 +2090,7 @@ namespace s3d
 			return new_string;
 		}
 
-		String lpadded(size_t length, wchar fillChar = L' ') &&
+		String lpadded(const size_t length, const wchar fillChar = L' ') &&
 		{
 			lpad(length, fillChar);
 
@@ -2154,7 +2155,7 @@ namespace s3d
 			return true;
 		}
 
-		String& remove(wchar ch)
+		String& remove(const wchar ch)
 		{
 			m_string.erase(std::remove(m_string.begin(), m_string.end(), ch), m_string.end());
 			
@@ -2170,7 +2171,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String removed(wchar ch) const &
+		String removed(const wchar ch) const &
 		{
 			String new_string;
 
@@ -2185,14 +2186,14 @@ namespace s3d
 			return new_string;
 		}
 
-		String removed(wchar ch) &&
+		String removed(const wchar ch) &&
 		{
 			remove(ch);
 
 			return std::move(*this);
 		}
 
-		String& remove(const StringView& str)
+		String& remove(const StringView str)
 		{
 			return *this = removed(str);
 		}
@@ -2206,9 +2207,9 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String removed(const StringView& str) const;
+		String removed(const StringView str) const;
 
-		String& remove_at(size_t index)
+		String& remove_at(const size_t index)
 		{
 			if (m_string.size() <= index)
 			{
@@ -2220,7 +2221,7 @@ namespace s3d
 			return *this;
 		}
 
-		String removed_at(size_t index) const &
+		String removed_at(const size_t index) const &
 		{
 			if (m_string.size() <= index)
 			{
@@ -2238,7 +2239,7 @@ namespace s3d
 			return new_string;
 		}
 
-		String removed_at(size_t index) &&
+		String removed_at(const size_t index) &&
 		{
 			remove_at(index);
 
@@ -2286,7 +2287,7 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		String& replace(wchar oldChar, wchar newChar)
+		String& replace(const wchar oldChar, const wchar newChar)
 		{
 			for (auto& v : m_string)
 			{
@@ -2316,12 +2317,12 @@ namespace s3d
 		/// <returns>
 		/// 置換後の文字列
 		/// </returns>
-		String replaced(wchar oldChar, wchar newChar) const &
+		String replaced(const wchar oldChar, const wchar newChar) const &
 		{
 			return String(*this).replace(oldChar, newChar);
 		}
 
-		String replaced(wchar oldChar, wchar newChar) &&
+		String replaced(const wchar oldChar, const wchar newChar) &&
 		{
 			replace(oldChar, newChar);
 
@@ -2367,7 +2368,7 @@ namespace s3d
 		}
 
 		template <class Fty>
-		String& replace_if(Fty f, wchar newChar)
+		String& replace_if(Fty f, const wchar newChar)
 		{
 			for (auto& v : m_string)
 			{
@@ -2381,13 +2382,13 @@ namespace s3d
 		}
 
 		template <class Fty>
-		String replaced_if(Fty f, wchar newChar) const &&
+		String replaced_if(Fty f, const wchar newChar) const &&
 		{
 			return String(*this).replace_if(f, newChar);
 		}
 
 		template <class Fty>
-		String replaced_if(Fty f, wchar newChar) &
+		String replaced_if(Fty f, const wchar newChar) &
 		{
 			replace_if(f, newChar);
 
@@ -2471,19 +2472,19 @@ namespace s3d
 			return *this;
 		}
 
-		String rotated(std::ptrdiff_t count = 1) const &
+		String rotated(const std::ptrdiff_t count = 1) const &
 		{
 			return String(*this).rotate(count);
 		}
 
-		String rotated(std::ptrdiff_t count = 1) &&
+		String rotated(const std::ptrdiff_t count = 1) &&
 		{
 			rotate(count);
 
 			return std::move(*this);
 		}
 
-		String& rpad(size_t length, wchar fillChar = L' ')
+		String& rpad(const size_t length, const wchar fillChar = L' ')
 		{
 			if (length <= m_string.length())
 			{
@@ -2495,7 +2496,7 @@ namespace s3d
 			return *this;
 		}
 
-		String rpadded(size_t length, wchar fillChar = L' ') const &
+		String rpadded(const size_t length, const wchar fillChar = L' ') const &
 		{
 			if (length <= m_string.length())
 			{
@@ -2513,7 +2514,7 @@ namespace s3d
 			return new_string;
 		}
 
-		String rpadded(size_t length, wchar fillChar = L' ') &&
+		String rpadded(const size_t length, const wchar fillChar = L' ') &&
 		{
 			rpad(length, fillChar);
 
@@ -2587,7 +2588,7 @@ namespace s3d
 		/// </returns>
 		Array<String, std::allocator<String>> split(wchar ch) const;
 
-		std::pair<String, String> split_at(size_t pos) const
+		std::pair<String, String> split_at(const size_t pos) const
 		{
 			return{ substr(0, pos), substr(pos) };
 		}
@@ -2603,7 +2604,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した文字から始まる場合 true, それ以外の場合は false
 		/// </returns>
-		bool starts_with(wchar ch) const
+		bool starts_with(const wchar ch) const
 		{
 			return !m_string.empty() && (m_string[0] == ch);
 		}
@@ -2617,7 +2618,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した文字列から始まる場合 true, それ以外の場合は false
 		/// </returns>
-		bool starts_with(const StringView& str) const;
+		bool starts_with(const StringView str) const;
 
 		String& swapcase()
 		{
@@ -2994,7 +2995,7 @@ namespace std
 	template <>
 	struct hash<s3d::String>
 	{
-		size_t operator ()(const s3d::String& keyVal) const
+		size_t operator()(const s3d::String& keyVal) const
 		{
 			return hash<s3d::String::string_type>()(keyVal.str());
 		}
@@ -3030,7 +3031,7 @@ namespace s3d
 		return CharacterSet::Narrow(*this);
 	}
 
-	inline String String::removed(const StringView& str) const
+	inline String String::removed(const StringView str) const
 	{
 		String new_string;
 
@@ -3049,7 +3050,7 @@ namespace s3d
 		return new_string;
 	}
 
-	inline bool String::starts_with(const StringView& str) const
+	inline bool String::starts_with(const StringView str) const
 	{
 		return (m_string.length() >= str.length()) && std::equal(str.begin(), str.end(), m_string.begin());
 	}
@@ -3077,10 +3078,28 @@ namespace s3d
 		return input;
 	}
 
-	inline std::ostream& operator <<(std::ostream& os, const StringView& str)
+	inline std::ostream& operator <<(std::ostream& os, const StringView str)
 	{
 		return os << CharacterSet::Narrow(str);
 	}
+
+	template <>
+	struct FNV1aHash<String>
+	{
+		size_t operator()(const String& keyVal) const
+		{
+			return Hash::FNV1a(keyVal.data(), keyVal.size_bytes());
+		}
+	};
+
+	template <>
+	struct Murmur2Hash<String>
+	{
+		size_t operator()(const String& keyVal) const
+		{
+			return Hash::Murmur2(keyVal.data(), keyVal.size_bytes());
+		}
+	};
 
 	using FilePath = String;
 }
