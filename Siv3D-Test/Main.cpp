@@ -6,8 +6,7 @@ using namespace s3d::literals;
 using namespace std::literals;
 
 void Main()
-{
-	
+{	
 	TimeProfiler tp;
 	
 	size_t a= 0,b = 0;
@@ -35,6 +34,8 @@ void Main()
 		tp.end();
 	}
 	
+	Array<uint8> data(FileSystem::FileSize(L"example/windmill.png"));
+	
 	for(auto n : step(5))
 	{
 		tp.begin(L"BR");
@@ -45,9 +46,7 @@ void Main()
 			size_t count = 0;
 		
 			const size_t size = mm.size();
-		
-			Array<uint8> data(size);
-		
+
 			mm.read(data.data(), size);
 			const uint8* p = data.data();
 
