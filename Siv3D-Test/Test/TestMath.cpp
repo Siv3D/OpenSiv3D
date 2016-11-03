@@ -9,8 +9,10 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D.hpp>
-# include <gtest/gtest.h>
+# include "Siv3DTest.hpp"
+
+# if defined(SIV3D_DO_TEST)
+
 using namespace s3d;
 using namespace s3d::Math;
 
@@ -40,3 +42,5 @@ TEST(Fmod, Fmod)
 	EXPECT_EQ(Math::Fmod(Vec2(2, 3), Float2(2.2f, 3.3f)), Float2(2.0f, 3.0f));
 	EXPECT_EQ(Math::Fmod(Vec2(2, 3), Vec2(2.2, 3.3)), Vec2(2.0f, 3.0f));
 }
+
+# endif

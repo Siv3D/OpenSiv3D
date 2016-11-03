@@ -26,13 +26,19 @@
 //----------------------------------------------------------------------------------------
 
 # pragma once
+
 # ifndef SIV3D_INCLUDED
+
 	# define SIV3D_INCLUDED
+
 # endif
 
 # include "Siv3D/Platform.hpp"
+
 # if defined(SIV3D_TARGET_WINDOWS)
+
 	# include "Siv3D/PlatformWindows.hpp"
+
 # endif
 
 //

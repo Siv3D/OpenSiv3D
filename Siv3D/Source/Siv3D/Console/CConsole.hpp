@@ -12,15 +12,17 @@
 # pragma once
 # include "IConsole.hpp"
 
-# if defined (SIV3D_TARGET_WINDOWS)
-#	include <cstdio>
-#	include <iostream>
-#	define  NOMINMAX
-#	define  STRICT
-#	define  WIN32_LEAN_AND_MEAN
-#	define  _WIN32_WINNT _WIN32_WINNT_WIN7
-#	define  NTDDI_VERSION NTDDI_WIN7
-#	include <Windows.h>
+# if defined(SIV3D_TARGET_WINDOWS)
+
+	# include <cstdio>
+	# include <iostream>
+	# define  NOMINMAX
+	# define  STRICT
+	# define  WIN32_LEAN_AND_MEAN
+	# define  _WIN32_WINNT _WIN32_WINNT_WIN7
+	# define  NTDDI_VERSION NTDDI_WIN7
+	# include <Windows.h>
+
 # endif
 
 namespace s3d
@@ -29,10 +31,12 @@ namespace s3d
 	{
 	private:
 
-# if defined (SIV3D_TARGET_WINDOWS)
+# if defined(SIV3D_TARGET_WINDOWS)
+
 		FILE* m_out = nullptr;
 
 		FILE* m_in = nullptr;
+
 # endif
 
 	public:

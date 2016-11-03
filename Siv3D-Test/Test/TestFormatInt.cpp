@@ -9,10 +9,13 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D.hpp>
-# include <gtest/gtest.h>
+# include "Siv3DTest.hpp"
+
+# if defined(SIV3D_DO_TEST)
 
 TEST(FormatInt, null)
 {
 
 }
+
+# endif

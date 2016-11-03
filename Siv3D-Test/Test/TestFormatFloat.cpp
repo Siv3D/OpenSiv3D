@@ -9,8 +9,9 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D.hpp>
-# include <gtest/gtest.h>
+# include "Siv3DTest.hpp"
+
+# if defined(SIV3D_DO_TEST)
 
 using namespace s3d;
 
@@ -146,3 +147,5 @@ TEST(FormatFloat, ToFixed)
 	EXPECT_EQ(ToFixed(std::numeric_limits<double>::infinity()), L"inf");
 	EXPECT_EQ(ToFixed(-std::numeric_limits<double>::infinity()), L"-inf");
 }
+
+# endif

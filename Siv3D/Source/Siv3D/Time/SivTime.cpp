@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Platform.hpp>
-# if defined (SIV3D_TARGET_WINDOWS)
+# if defined(SIV3D_TARGET_WINDOWS)
 
 # include <ctime>
 # define  NOMINMAX
@@ -97,7 +97,7 @@ namespace s3d
 	}
 }
 
-# elif defined (SIV3D_TARGET_MACOS)
+# elif defined(SIV3D_TARGET_MACOS)
 
 # include <mach/mach_time.h>
 # include <sys/time.h>

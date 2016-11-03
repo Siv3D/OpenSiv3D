@@ -9,18 +9,17 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/Platform.hpp>
-# if defined (SIV3D_TARGET_WINDOWS)
+# include "Siv3DTest.hpp"
+
+# if defined(SIV3D_DO_TEST) && defined(SIV3D_TARGET_WINDOWS)
 
 # include <conio.h>
-# include <gtest/gtest.h>
 # define  NOMINMAX
 # define  STRICT
 # define  WIN32_LEAN_AND_MEAN
 # define  _WIN32_WINNT _WIN32_WINNT_WIN7
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
-# include <Siv3D.hpp>
 
 namespace s3d
 {
@@ -36,7 +35,7 @@ namespace s3d
 		RUN_ALL_TESTS();
 
 		Console(L"Press Any Key to Exit.");
-		_getch();
+		::_getch();
 	}
 }
 

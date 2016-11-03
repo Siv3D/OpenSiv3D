@@ -25,7 +25,8 @@ namespace s3d
 
 	void CConsole::open()
 	{
-# if defined (SIV3D_TARGET_WINDOWS)
+	# if defined(SIV3D_TARGET_WINDOWS)
+
 		if (!m_out)
 		{
 			::AllocConsole();
@@ -34,12 +35,14 @@ namespace s3d
 
 			::freopen_s(&m_in, "CONIN$", "r", stdin);
 		}
-# endif
+
+	# endif
 	}
 
 	void CConsole::close()
 	{
-# if defined (SIV3D_TARGET_WINDOWS)
+	# if defined(SIV3D_TARGET_WINDOWS)
+
 		if (m_out)
 		{
 			::fclose(m_out);
@@ -55,6 +58,7 @@ namespace s3d
 		}
 
 		::FreeConsole();
-# endif
+
+	# endif
 	}
 }

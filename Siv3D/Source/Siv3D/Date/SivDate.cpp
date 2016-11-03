@@ -122,37 +122,37 @@ namespace s3d
 
 	bool Date::isToday() const
 	{
-		# if defined(SIV3D_TARGET_WINDOWS)
+	# if defined(SIV3D_TARGET_WINDOWS)
 
-			SYSTEMTIME sysTime;
-			::GetLocalTime(&sysTime);
-			return (day == sysTime.wDay && month == sysTime.wMonth && year == sysTime.wYear);
+		SYSTEMTIME sysTime;
+		::GetLocalTime(&sysTime);
+		return (day == sysTime.wDay && month == sysTime.wMonth && year == sysTime.wYear);
 
-		# elif defined(SIV3D_TARGET_MACOS)
+	# elif defined(SIV3D_TARGET_MACOS)
 
-			::time_t t = ::time(nullptr);
-            ::tm lt;
-            ::localtime_r(&t, &lt);
-			return (day == lt.tm_mday && month == (1 + lt.tm_mon) && year == (1900 + lt.tm_year));
+		::time_t t = ::time(nullptr);
+        ::tm lt;
+        ::localtime_r(&t, &lt);
+		return (day == lt.tm_mday && month == (1 + lt.tm_mon) && year == (1900 + lt.tm_year));
 
-		# endif
+	# endif
 	}
 
 	Date Date::Today()
 	{
-		# if defined(SIV3D_TARGET_WINDOWS)
+	# if defined(SIV3D_TARGET_WINDOWS)
 
-			SYSTEMTIME sysTime;
-			::GetLocalTime(&sysTime);
-			return Date(sysTime.wYear, sysTime.wMonth, sysTime.wDay);
+		SYSTEMTIME sysTime;
+		::GetLocalTime(&sysTime);
+		return Date(sysTime.wYear, sysTime.wMonth, sysTime.wDay);
 
-		# elif defined(SIV3D_TARGET_MACOS)
+	# elif defined(SIV3D_TARGET_MACOS)
 
-			::time_t t = ::time(nullptr);
-			::tm* lt = ::localtime(&t);
-			return Date(1900 + lt->tm_year, lt->tm_mon + 1, lt->tm_mday);
+		::time_t t = ::time(nullptr);
+		::tm* lt = ::localtime(&t);
+		return Date(1900 + lt->tm_year, lt->tm_mon + 1, lt->tm_mday);
 
-		# endif
+	# endif
 	}
 
 	Date& Date::operator +=(const Days& days)

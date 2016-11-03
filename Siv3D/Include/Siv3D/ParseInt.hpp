@@ -51,31 +51,31 @@ namespace s3d
 	template <>
 	inline int32 ParseInt<int32>(const String& str, Arg::radix_<Radix> radix)
 	{
-		# if defined (SIV3D_TARGET_WINDOWS)
+	# if defined(SIV3D_TARGET_WINDOWS)
 
-			return ::wcstol(str.data(), nullptr, radix->value());
+		return ::wcstol(str.data(), nullptr, radix->value());
 
-		# elif defined (SIV3D_TARGET_MACOS)
+	# elif defined(SIV3D_TARGET_MACOS)
 
-			const long result = ::wcstol(str.data(), nullptr, radix->value());
-			return (result < INT32_MIN || INT32_MAX < result) ? 0 : static_cast<int32>(result);
+		const long result = ::wcstol(str.data(), nullptr, radix->value());
+		return (result < INT32_MIN || INT32_MAX < result) ? 0 : static_cast<int32>(result);
 
-		# endif
+	# endif
 	}
 
 	template <>
 	inline uint32 ParseInt<uint32>(const String& str, Arg::radix_<Radix> radix)
 	{
-		# if defined (SIV3D_TARGET_WINDOWS)
+	# if defined(SIV3D_TARGET_WINDOWS)
 
-			return ::wcstoul(str.data(), nullptr, radix->value());
+		return ::wcstoul(str.data(), nullptr, radix->value());
 
-		# elif defined (SIV3D_TARGET_MACOS)
+	# elif defined(SIV3D_TARGET_MACOS)
 
-			const unsigned long result = ::wcstoul(str.data(), nullptr, radix->value());
-			return (UINT32_MAX < result) ? 0 : static_cast<uint32>(result);
+		const unsigned long result = ::wcstoul(str.data(), nullptr, radix->value());
+		return (UINT32_MAX < result) ? 0 : static_cast<uint32>(result);
 
-		# endif
+	# endif
 	}
 
 	template <>
@@ -165,61 +165,61 @@ namespace s3d
 	template <>
 	inline Optional<int32> ParseIntOpt<int32>(const String& str, Arg::radix_<Radix> radix)
 	{
-		# if defined (SIV3D_TARGET_WINDOWS)
+	# if defined(SIV3D_TARGET_WINDOWS)
 			
-			wchar* p;
-			const long result = ::wcstol(str.data(), &p, radix->value());
+		wchar* p;
+		const long result = ::wcstol(str.data(), &p, radix->value());
 
-			if (str.data() == p)
-			{
-				return none;
-			}
+		if (str.data() == p)
+		{
+			return none;
+		}
 
-			return result;
+		return result;
 
-		# elif defined (SIV3D_TARGET_MACOS)
+	# elif defined(SIV3D_TARGET_MACOS)
 
-			wchar* p;
-			const long result = ::wcstol(str.data(), &p, radix->value());
+		wchar* p;
+		const long result = ::wcstol(str.data(), &p, radix->value());
 
-			if (str.data() == p || result < INT32_MIN || INT32_MAX < result)
-			{
-				return none;
-			}
+		if (str.data() == p || result < INT32_MIN || INT32_MAX < result)
+		{
+			return none;
+		}
 
-			return static_cast<int32>(result);
+		return static_cast<int32>(result);
 
-		# endif
+	# endif
 	}
 
 	template <>
 	inline Optional<uint32> ParseIntOpt<uint32>(const String& str, Arg::radix_<Radix> radix)
 	{
-		# if defined (SIV3D_TARGET_WINDOWS)
+	# if defined(SIV3D_TARGET_WINDOWS)
 
-			wchar* p;
-			const unsigned long result = ::wcstoul(str.data(), &p, radix->value());
+		wchar* p;
+		const unsigned long result = ::wcstoul(str.data(), &p, radix->value());
 
-			if (str.data() == p)
-			{
-				return none;
-			}
+		if (str.data() == p)
+		{
+			return none;
+		}
 
-			return result;
+		return result;
 
-		# elif defined (SIV3D_TARGET_MACOS)
+	# elif defined(SIV3D_TARGET_MACOS)
 
-			wchar* p;
-			const unsigned long result = ::wcstoul(str.data(), &p, radix->value());
+		wchar* p;
+		const unsigned long result = ::wcstoul(str.data(), &p, radix->value());
 
-			if (str.data() == p || UINT32_MAX < result)
-			{
-				return none;
-			}
+		if (str.data() == p || UINT32_MAX < result)
+		{
+			return none;
+		}
 
-			return static_cast<uint32>(result);
+		return static_cast<uint32>(result);
 
-		# endif
+	# endif
 	}
 
 	template <>

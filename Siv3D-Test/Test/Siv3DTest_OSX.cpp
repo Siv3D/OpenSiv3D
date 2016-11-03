@@ -9,11 +9,9 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/Platform.hpp>
-# if defined (SIV3D_TARGET_MACOS)
+# include "Siv3DTest.hpp"
 
-# include <Siv3D.hpp>
-# include <gtest/gtest.h>
+# if defined(SIV3D_DO_TEST) && defined(SIV3D_TARGET_MACOS)
 
 namespace s3d
 {
