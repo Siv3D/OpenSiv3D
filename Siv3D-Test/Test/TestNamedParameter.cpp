@@ -115,7 +115,7 @@ TEST(NamedParameter, NamedParameter)
 	//Test1(Arg::r = n); //err
 	//Test1(Arg::r = cn); //err
 	//Test1(Arg::r = un); //err
-	Test1(Arg::r = std::ref(n)); Log << n;
+	Test1(Arg::r = std::ref(n));
 	//Test1(Arg::r = std::ref(cn)); //err
 	//Test1(Arg::r = std::ref(un)); //err
 	//Test1(Arg::r = std::cref(n)); //err
@@ -127,7 +127,7 @@ TEST(NamedParameter, NamedParameter)
 	//Test1(Arg::r(n)); //err
 	//Test1(Arg::r(cn)); //err
 	//Test1(Arg::r(un)); //err
-	Test1(Arg::r(std::ref(n))); Log << n;
+	Test1(Arg::r(std::ref(n)));
 	//Test1(Arg::r(std::ref(cn))); //err
 	//Test1(Arg::r(std::ref(un))); //err
 	//Test1(Arg::r(std::cref(n))); //err
@@ -219,7 +219,7 @@ TEST(NamedParameter, NamedParameter)
 	//Test4(Arg::r = W(100)); //err
 	//Test4(Arg::r = String(L"abcd")); //err
 	//Test4(Arg::r = L"abcd"); //err
-	Test4(Arg::r = std::ref(w)); Log << w.x;
+	Test4(Arg::r = std::ref(w));
 	//Test4(Arg::r = std::ref(cw)); //err
 	//Test4(Arg::r = std::ref(n)); //err
 	//Test4(Arg::r = std::cref(w)); //err
@@ -234,7 +234,7 @@ TEST(NamedParameter, NamedParameter)
 	//Test4(Arg::r(W(100))); //err
 	//Test4(Arg::r(String(L"abcd"))); //err
 	//Test4(Arg::r(L"abcd")); //err
-	Test4(Arg::r(std::ref(w))); Log << w.x;
+	Test4(Arg::r(std::ref(w)));
 	//Test4(Arg::r(std::ref(cw))); //err
 	//Test4(Arg::r(std::ref(n))); //err
 	//Test4(Arg::r(std::cref(w))); //err
