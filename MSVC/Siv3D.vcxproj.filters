@@ -128,6 +128,9 @@
     <Filter Include="Source\Siv3D\PerlinNoise">
       <UniqueIdentifier>{4348dc3d-7805-48fe-85b2-0a06d07e0c06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\ByteArray">
+      <UniqueIdentifier>{bee52b70-97ee-4875-99c1-eccb2eb86b47}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -466,6 +469,12 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\PerlinNoise.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\ByteArray.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\ByteArray\CByteArray.hpp">
+      <Filter>Source\Siv3D\ByteArray</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -638,6 +647,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\PerlinNoise\SivPerlinNoise.cpp">
       <Filter>Source\Siv3D\PerlinNoise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ByteArray\SivByteArray.cpp">
+      <Filter>Source\Siv3D\ByteArray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ByteArray\CByteArray.cpp">
+      <Filter>Source\Siv3D\ByteArray</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -153,18 +153,18 @@
 	# include "Siv3D/IReader.hpp"
 	// IWriter インタフェース
 	# include "Siv3D/IWriter.hpp"
-	//// 読み込み用バッファ
-	//# include "Siv3D/ByteArray.hpp"
+	// メモリマップトファイル
+	# include "Siv3D/MemoryMapping.hpp"
+	// 書き込み可能なメモリマップトファイル
+	# include "Siv3D/WritableMemoryMapping.hpp"
+	// 読み込み用バッファ
+	# include "Siv3D/ByteArray.hpp"
 	//// 書き込み用バッファ
 	//# include "Siv3D/MemoryWriter.hpp"
 	// バイナリファイルの読み込み
 	# include "Siv3D/BinaryReader.hpp"
 	// バイナリファイルの書き込み
 	# include "Siv3D/BinaryWriter.hpp"
-	// メモリマップトファイル
-	# include "Siv3D/MemoryMapping.hpp"
-	// 書き込み可能なメモリマップトファイル
-	# include "Siv3D/WritableMemoryMapping.hpp"
 	// テキストのエンコード
 	# include "Siv3D/TextEncoding.hpp"
 	//// テキストファイルの読み込み

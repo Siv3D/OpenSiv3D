@@ -35,6 +35,7 @@
     <ClCompile Include="..\Siv3D-Test\Test\TestStep.cpp" />
     <ClCompile Include="..\Siv3D-Test\Test\TestString.cpp" />
     <ClCompile Include="..\Siv3D-Test\Test\TestTypes.cpp" />
+    <ClCompile Include="..\Siv3D-Test\Test\TestUtility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D-Test\Include\gtest\gtest-death-test.h" />
