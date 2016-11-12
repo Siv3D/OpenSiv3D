@@ -37,6 +37,10 @@
 
 	# define Siv3DPlatform	L"macOS"
 
+# elif defined(SIV3D_TARGET_LINUX)
+
+	# define Siv3DPlatform	L"Linux"
+
 # else
 
 	# error	
