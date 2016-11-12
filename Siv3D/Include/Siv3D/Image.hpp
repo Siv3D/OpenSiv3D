@@ -16,6 +16,10 @@
 # include "PointVector.hpp"
 # include "Grid.hpp"
 
+# if defined(SIV3D_TARGET_LINUX)
+# include <memory.h>
+# endif
+
 namespace s3d
 {
 	/// <summary>
