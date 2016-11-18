@@ -39,7 +39,7 @@ namespace s3d
 	}
 }
 
-# elif defined(SIV3D_TARGET_MACOS)
+# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 # include <unistd.h>
 # include <Siv3D/Fwd.hpp>

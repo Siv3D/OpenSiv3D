@@ -172,4 +172,72 @@ namespace s3d
 	}
 }
 
+# elif defined (SIV3D_TARGET_LINUX)
+
+# include <time.h>
+# include <sys/time.h>
+# include <Siv3D/Fwd.hpp>
+# include <Siv3D/Time.hpp>
+
+namespace s3d
+{
+	namespace Time
+	{
+		namespace detail
+		{
+			uint64 clock_gettime_ns()
+			{
+				timespec ts;
+				clock_gettime(CLOCK_MONOTONIC, &ts);
+				return static_cast<uint64>(ts.tv_sec << 32 | ts.tv_nsec);
+			}
+		}
+
+		uint64 GetSec()
+		{
+			return GetNanosec() / 1'000'000'000;
+		}
+
+		uint64 GetMillisec()
+		{
+			return GetNanosec() / 1'000'000;
+		}
+
+		uint64 GetMicrosec()
+		{
+			return GetNanosec() / 1'000;
+		}
+
+		uint64 GetNanosec()
+		{
+			return detail::clock_gettime_ns();
+		}
+
+		uint64 GetSecSinceEpoch()
+		{
+			return GetMicrosecSinceEpoch() / 1'000'000;
+		}
+
+		uint64 GetMillisecSinceEpoch()
+		{
+			return GetMicrosecSinceEpoch() / 1'000;
+		}
+
+		uint64 GetMicrosecSinceEpoch()
+		{
+            ::timeval tv;
+			::gettimeofday(&tv, nullptr);
+			return tv.tv_sec * 1'000'000ULL + tv.tv_usec;
+		}
+
+		int32 UtcOffsetMinutes()
+		{
+			struct timeval tv;
+			struct timezone tz;
+			::gettimeofday(&tv, &tz);
+			return -tz.tz_minuteswest;
+		}
+	}
+}
+
 # endif
