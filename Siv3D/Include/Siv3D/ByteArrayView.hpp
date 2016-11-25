@@ -68,7 +68,8 @@ namespace s3d
 		constexpr ByteArrayView(const std::array<Type, N>& arr)
 			: ByteArrayView(AddressOf(arr[0]), N) {}
 
-		template <class Container, std::enable_if_t<std::is_convertible<typename Container::pointer, decltype(std::declval<Container>().data())>::value>* = nullptr>
+		template <class Container, std::enable_if_t<std::is_trivially_copyable<typename Container::value_type>::value &&
+			std::is_convertible<typename Container::pointer, decltype(std::declval<Container>().data())>::value>* = nullptr>
 		constexpr ByteArrayView(const Container& c)
 			: ByteArrayView(c.data(), c.size()) {}
 
@@ -104,17 +105,5 @@ namespace s3d
 
 		const_reverse_iterator crbegin() const noexcept { return const_reverse_iterator{ cend() }; }
 		const_reverse_iterator crend() const noexcept { return const_reverse_iterator{ cbegin() }; }
-	};
-}
-
-namespace std
-{
-	template <>
-	struct hash<s3d::ByteArrayView>
-	{
-		size_t operator()(const s3d::ByteArrayView& keyVal) const
-		{
-			return s3d::Hash::FNV1a(keyVal.data(), keyVal.size_bytes());
-		}
 	};
 }

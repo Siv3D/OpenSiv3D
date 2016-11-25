@@ -107,6 +107,6 @@ namespace s3d
 	{
 		const int64 size = pImpl->size();
 
-		return (BinaryWriter(path).write(pImpl->data(), size) == size);
+		return (BinaryWriter(path).write(pImpl->data(), static_cast<size_t>(size)) == size);
 	}
 }

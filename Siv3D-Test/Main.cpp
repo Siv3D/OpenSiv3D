@@ -15,6 +15,16 @@ void F(ByteArrayView view)
 	}
 }
 
+void F2(ByteArrayView view)
+{
+	Log(L"a");
+}
+
+void F2(const FilePath& path)
+{
+	Log(L"b");
+}
+
 void Main()
 {	
 	const int32 n = 100;
@@ -27,6 +37,9 @@ void Main()
 	F(s);
 	F(Vec2(20, 20));
 	F(Date::Today());
+
+	std::hash<String>()(String(L"333"));
+	F2(FilePath(L"ABC"));
 }
 
 

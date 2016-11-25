@@ -14,14 +14,15 @@
 # include <memory>
 # include "Fwd.hpp"
 # include "Utility.hpp"
+# include "ByteArrayView.hpp"
 
 namespace s3d
 {
 	namespace Hash
 	{
-		inline size_t FNV1a(const void* data_, size_t size)
+		inline S3D_CONSTEXPR_CPP14 size_t FNV1a(const ByteArrayView view)
 		{
-			const uint8* data = static_cast<const uint8*>(data_);
+			const uint8* data = view.data();
 
 		# if (SIV3D_PLATFORM_PTR_SIZE == 4)
 
@@ -37,19 +38,13 @@ namespace s3d
 
 			size_t result = offset_basis;
 			
-			for (size_t next = 0; next < size; ++next)
+			for (size_t next = 0; next < view.size(); ++next)
 			{
 				result ^= static_cast<size_t>(data[next]);
 				result *= FNV_prime;
 			}
 			
 			return result;
-		}
-
-		template <class Type, std::enable_if_t<std::is_trivially_copyable<Type>::value>* = nullptr>
-		S3D_CONSTEXPR_CPP14 size_t FNV1a(const Type& keyValue)
-		{
-			return FNV1a(static_cast<const uint8*>(static_cast<const void*>(AddressOf(keyValue))), sizeof(keyValue));
 		}
 
 		namespace detail
@@ -160,25 +155,19 @@ namespace s3d
 		# endif
 		}
 
-		inline size_t Murmur2(const void* p, size_t size)
+		inline size_t Murmur2(const ByteArrayView view)
 		{
 			constexpr uint32 seed = 11111111;
 
 		# if defined(SIV3D_TARGET_X86)
 
-			return detail::MurmurHash2(p, static_cast<int32>(size), seed);
+			return detail::MurmurHash2(view.data(), static_cast<int32>(view.size()), seed);
 
 		# else
 
 			return detail::MurmurHash64A(p, static_cast<int32>(size), seed);
 
 		# endif
-		}
-
-		template <class Type, std::enable_if_t<std::is_trivially_copyable<Type>::value>* = nullptr>
-        size_t Murmur2(const Type& keyValue)
-		{
-			return Murmur2(static_cast<const uint8*>(static_cast<const void*>(AddressOf(keyValue))), sizeof(keyValue));
 		}
 	}
 
@@ -200,3 +189,16 @@ namespace s3d
 		}
 	};
 }
+
+namespace std
+{
+	template <>
+	struct hash<s3d::ByteArrayView>
+	{
+		size_t operator()(const s3d::ByteArrayView& keyVal) const
+		{
+			return s3d::Hash::FNV1a(keyVal);
+		}
+	};
+}
+
