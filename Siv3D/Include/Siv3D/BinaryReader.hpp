@@ -220,39 +220,6 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// 現在の読み込み位置以降のすべてのデータを読み込み、ByteArray として返します。
-		/// </summary>
-		/// <returns>
-		/// 現在の読み込み位置以降のすべてのデータ
-		/// </returns>
-		//ByteArray readWhole();
-
-		/// <summary>
-		/// 現在の読み込み位置から指定したサイズのデータを読み込み、ByteArray として返します。
-		/// </summary>
-		/// <param name="size">
-		/// 読み込むサイズ（バイト）
-		/// </param>
-		/// <returns>
-		/// 読み込んだデータ
-		/// </returns>
-		//ByteArray readSubset(int64 size);
-
-		/// <summary>
-		/// 読み込み範囲を指定してデータを読み込み、ByteArray として返します。
-		/// </summary>
-		/// <param name="pos">
-		/// 先頭から数えた読み込み開始位置（バイト）
-		/// </param>
-		/// <param name="size">
-		/// 読み込むサイズ（バイト）
-		/// </param>
-		/// <returns>
-		/// 読み込んだデータ
-		/// </returns>
-		//ByteArray readSubset(int64 pos, int64 size);
-
-		/// <summary>
 		/// オープンしているファイルのパスを返します。
 		/// </summary>
 		/// <remarks>

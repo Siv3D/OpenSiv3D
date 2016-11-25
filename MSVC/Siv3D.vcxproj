@@ -25,6 +25,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Allocator.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Array.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\ByteArrayView.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\BigInt.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\BinaryReader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\BinaryWriter.hpp" />
@@ -33,6 +34,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\CharacterSet.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Circular.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Color.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Compression.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Concept.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Console.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Date.hpp" />

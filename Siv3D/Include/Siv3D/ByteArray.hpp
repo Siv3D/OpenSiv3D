@@ -14,6 +14,7 @@
 # include "Fwd.hpp"
 # include "Array.hpp"
 # include "IReader.hpp"
+# include "ByteArrayView.hpp"
 
 namespace s3d
 {
@@ -289,6 +290,11 @@ namespace s3d
 		bool lookahead(Type& to)
 		{
 			return IReader::lookahead(to);
+		}
+
+		ByteArrayView getView() const noexcept
+		{
+			return{ data(), static_cast<size_t>(size()) };
 		}
 
 		/// <summary>

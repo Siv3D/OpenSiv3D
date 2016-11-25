@@ -68,6 +68,8 @@
 	# include "Siv3D/Allocator.hpp"
 	// 動的配列
 	# include "Siv3D/Array.hpp"
+	// バイナリ配列ビュー
+	# include "Siv3D/ByteArrayView.hpp"
 	// 範囲
 	# include "Siv3D/Step.hpp"
 	// 無限リスト
@@ -179,8 +181,8 @@
 	# include "Siv3D/Logger.hpp"
 	//// AES128 による暗号化
 	//# include "Siv3D/Crypto.hpp"
-	//// Deflate によるデータの圧縮・展開
-	//# include "Siv3D/Compression.hpp"
+	// Zstandard によるデータの圧縮・展開
+	# include "Siv3D/Compression.hpp"
 	//// アーカイブファイルからの読み込み
 	//# include "Siv3D/ArchivedFileReader.hpp"
 	//// アーカイブファイル
