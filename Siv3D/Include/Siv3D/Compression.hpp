@@ -34,21 +34,27 @@ namespace s3d
 		ByteArray CompressFile(const FilePath& path, int32 compressionLevel = DefaultCompressionLevel);
 
 
-		bool SaveCompressed(ByteArrayView view, const FilePath& outputPath, int32 compressionLevel = DefaultCompressionLevel);
+		bool CompressToFile(ByteArrayView view, const FilePath& outputPath, int32 compressionLevel = DefaultCompressionLevel);
 
-		inline bool SaveCompressed(const ByteArray& data, const FilePath& outputPath, int32 compressionLevel = DefaultCompressionLevel)
+		inline bool CompressToFile(const ByteArray& data, const FilePath& outputPath, int32 compressionLevel = DefaultCompressionLevel)
 		{
-			return SaveCompressed(data.getView(), outputPath, compressionLevel);
+			return CompressToFile(data.getView(), outputPath, compressionLevel);
 		}
 
-		bool SaveCompressed(const FilePath& inputPath, const FilePath& outputPath, int32 compressionLevel = DefaultCompressionLevel);
+		bool CompressFileToFile(const FilePath& inputPath, const FilePath& outputPath, int32 compressionLevel = DefaultCompressionLevel);
 
 
+		ByteArray Decompress(ByteArrayView view);
 
+		inline ByteArray Decompress(const ByteArray& data)
+		{
+			return Decompress(data.getView());
+		}
 
+		ByteArray DecompressFile(const FilePath& path);
 
+		bool DecompressToFile(ByteArrayView view, const FilePath& outputPath);
 
-
-
+		bool DecompressFileToFile(const FilePath& inputPath, const FilePath& outputPath);
 	}
 }

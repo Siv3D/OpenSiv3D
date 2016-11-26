@@ -46,6 +46,7 @@ void Main()
 {	
 	Compression::Compress(ByteArray(L"Example/LICENSE.txt").getView()).save(L"c1.zst");
 	Compression::CompressFile(L"Example/LICENSE.txt").save(L"c2.zst");
+	Compression::CompressFileToFile(L"Example/LICENSE.txt", L"c4.zst");
 }
 
 
