@@ -10,6 +10,8 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Fwd.hpp"
+# include "ByteArray.hpp"
 
 namespace s3d
 {
@@ -22,7 +24,7 @@ namespace s3d
 		constexpr int32 MaxCompressionLevel = 22;
 
 
-		ByteArray Compress(ByteArrayView data, int32 compressionLevel = DefaultCompressionLevel);
+		ByteArray Compress(ByteArrayView view, int32 compressionLevel = DefaultCompressionLevel);
 
 		inline ByteArray Compress(const ByteArray& data, int32 compressionLevel = DefaultCompressionLevel)
 		{
@@ -32,7 +34,7 @@ namespace s3d
 		ByteArray CompressFile(const FilePath& path, int32 compressionLevel = DefaultCompressionLevel);
 
 
-		bool SaveCompressed(ByteArrayView data, const FilePath& outputPath, int32 compressionLevel = DefaultCompressionLevel);
+		bool SaveCompressed(ByteArrayView view, const FilePath& outputPath, int32 compressionLevel = DefaultCompressionLevel);
 
 		inline bool SaveCompressed(const ByteArray& data, const FilePath& outputPath, int32 compressionLevel = DefaultCompressionLevel)
 		{
@@ -40,5 +42,13 @@ namespace s3d
 		}
 
 		bool SaveCompressed(const FilePath& inputPath, const FilePath& outputPath, int32 compressionLevel = DefaultCompressionLevel);
+
+
+
+
+
+
+
+
 	}
 }

@@ -135,6 +135,27 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\ieee.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\strtod.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\utils.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\bitstream.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\error_private.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\fse.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\huf.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\mem.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\xxhash.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\zbuff.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\zstd_errors.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\zstd_internal.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\compress\zstd_opt.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\dictBuilder\divsufsort.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\dictBuilder\zdict.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_legacy.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v01.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v02.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v03.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v04.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v05.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v06.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v07.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\zstd.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\Siv3D\BigFloat\SivBigFloat.cpp" />
@@ -149,6 +170,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\ByteArray\SivByteArray.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\CharacterSet\SivCharacterSet.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Color\SivColor.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Compression\SivCompression.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Console\CConsole.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Console\ConsoleFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Console\SivConsole.cpp" />
@@ -196,6 +218,27 @@
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\fixed-dtoa.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\strtod.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\fmt\format.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\common\entropy_common.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\common\error_private.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\common\fse_decompress.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\common\xxhash.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\common\zstd_common.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\compress\fse_compress.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\compress\huf_compress.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\compress\zbuff_compress.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\compress\zstd_compress.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\decompress\huf_decompress.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\decompress\zbuff_decompress.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\decompress\zstd_decompress.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\dictBuilder\divsufsort.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\dictBuilder\zdict.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v01.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v02.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v03.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v04.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v05.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v06.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v07.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\Include\Siv3D\Point.inl" />
@@ -255,23 +298,23 @@
     <OutDir>..\Siv3D\Lib\Windows(x64)\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
     <IntDir>$(ProjectName)\Intermediate\Debug-x64\</IntDir>
-    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_62_0;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_62_0;..\Siv3D\Source\ThirdParty\zstd;..\Siv3D\Source\ThirdParty\zstd\common;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IntDir>$(ProjectName)\Intermediate\Release-x64\</IntDir>
     <OutDir>..\Siv3D\Lib\Windows(x64)\</OutDir>
-    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_62_0;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_62_0;..\Siv3D\Source\ThirdParty\zstd;..\Siv3D\Source\ThirdParty\zstd\common;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>..\Siv3D\Lib\Windows(x86)\</OutDir>
     <IntDir>$(ProjectName)\Intermediate\Release-x86\</IntDir>
-    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_62_0;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_62_0;..\Siv3D\Source\ThirdParty\zstd;..\Siv3D\Source\ThirdParty\zstd\common;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\Siv3D\Lib\Windows(x86)\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
     <IntDir>$(ProjectName)\Intermediate\Debug-x86\</IntDir>
-    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_62_0;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_62_0;..\Siv3D\Source\ThirdParty\zstd;..\Siv3D\Source\ThirdParty\zstd\common;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

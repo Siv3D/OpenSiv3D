@@ -25,8 +25,9 @@ void F2(const FilePath& path)
 	Log(L"b");
 }
 
-void Main()
-{	
+
+void K()
+{
 	const int32 n = 100;
 	int32 na[5] = { 11,22,33 };
 	const Array<int32> v = { 111,222,333 };
@@ -38,8 +39,13 @@ void Main()
 	F(Vec2(20, 20));
 	F(Date::Today());
 
-	std::hash<String>()(String(L"333"));
 	F2(FilePath(L"ABC"));
+}
+
+void Main()
+{	
+	Compression::Compress(ByteArray(L"Example/LICENSE.txt").getView()).save(L"c1.zst");
+	Compression::CompressFile(L"Example/LICENSE.txt").save(L"c2.zst");
 }
 
 

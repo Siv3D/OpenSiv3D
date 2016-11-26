@@ -43,13 +43,15 @@
 - [x] WritableMemoryMapping
 - [x] Concept
 - [x] Hash
+- [x] ByteArrayView
 - [ ] Random
-- [ ] Math (Partial)
 - [x] PerlinNoise
-- [ ] Lerp
 - [ ] Image (Partial)
+- [ ] Compression
 
 #### 0.0.6
+- [ ] Math (Partial)
+- [ ] Lerp
 - [ ] Easing
 - [ ] TextReader
 - [ ] CSVReader

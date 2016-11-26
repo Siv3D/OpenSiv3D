@@ -156,6 +156,34 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT<br>
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE<br>
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<br>
 </div>
+<div class="c0">Zstandard</div>
+<div class="c1">Copyright (c) 2016-present, Facebook, Inc. All rights reserved.</div>
+<div class="c2">
+Redistribution and use in source and binary forms, with or without modification,<br>
+are permitted provided that the following conditions are met:<br>
+<br>
+ * Redistributions of source code must retain the above copyright notice, this<br>
+   list of conditions and the following disclaimer.<br>
+<br>
+ * Redistributions in binary form must reproduce the above copyright notice,<br>
+   this list of conditions and the following disclaimer in the documentation<br>
+   and/or other materials provided with the distribution.<br>
+<br>
+ * Neither the name Facebook nor the names of its contributors may be used to<br>
+   endorse or promote products derived from this software without specific<br>
+   prior written permission.<br>
+<br>
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND<br>
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED<br>
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE<br>
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR<br>
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES<br>
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;<br>
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON<br>
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT<br>
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS<br>
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<br>
+</div>
 <div class="c0">Convenient Constructs For Stepping Through a Range of Values</div>
 <div class="c1">Copyright (c) Mikhail Semenov</div>
 <div class="c2">Licenced with the Code Project Open Licence (CPOL) http://www.codeproject.com/info/cpol10.aspx </div>

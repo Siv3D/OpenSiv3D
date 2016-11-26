@@ -45,7 +45,8 @@ namespace s3d
 			: m_ptr(nullptr)
 			, m_size(0) {}
 
-		constexpr ByteArrayView(std::nullptr_t) noexcept : ByteArrayView() {}
+		constexpr ByteArrayView(std::nullptr_t) noexcept
+			: ByteArrayView() {}
 
 		template <class Type, std::enable_if_t<std::is_trivially_copyable<Type>::value>* = nullptr>
 		constexpr ByteArrayView(const Type* ptr, size_type count) noexcept
