@@ -25,6 +25,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Allocator.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Array.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\ArrayBool.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ByteArrayView.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\BigInt.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\BinaryReader.hpp" />

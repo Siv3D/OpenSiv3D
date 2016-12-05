@@ -44,9 +44,9 @@ void K()
 
 void Main()
 {	
-	Compression::Compress(ByteArray(L"Example/LICENSE.txt").getView()).save(L"c1.zst");
-	Compression::CompressFile(L"Example/LICENSE.txt").save(L"c2.zst");
-	Compression::CompressFileToFile(L"Example/LICENSE.txt", L"c4.zst");
+	//Compression::Compress(ByteArray(L"Example/LICENSE.txt").getView()).save(L"c1.zst");
+	Compression::CompressToFile(BinaryReader(L"Example/LICENSE.txt").readAll(), L"c51.zst");
+	Compression::CompressFileToFile(L"Example/LICENSE.txt", L"c52.zst");
 }
 
 

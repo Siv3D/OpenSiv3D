@@ -10,28 +10,16 @@
 //-----------------------------------------------
 
 # pragma once
-# include <vector>
-# include <string>
-# include <algorithm>
-# include <future>
-# include "Fwd.hpp"
-# include "Allocator.hpp"
-# include "Concept.hpp"
-# include "NamedParameter.hpp"
-# include "Threading.hpp"
-# include "String.hpp"
-# include "Functor.hpp"
-# include "Format.hpp"
-# include "DefaultRNG.hpp"
+# include "Array.hpp"
 
 namespace s3d
 {
-	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
-	class Array : protected std::vector<Type, Allocator>
+	template <>
+	class Array<bool> : protected std::basic_string<bool>
 	{
 	private:
 
-		using base_type = std::vector<Type, Allocator>;
+		using base_type = std::basic_string<bool>;
 
 	public:
 
@@ -48,8 +36,6 @@ namespace s3d
 		using typename base_type::difference_type;
 		using typename base_type::allocator_type;
 
-		using base_type::vector;
-		using base_type::operator=;
 		using base_type::assign;
 		using base_type::get_allocator;
 		using base_type::at;
@@ -73,21 +59,38 @@ namespace s3d
 		using base_type::shrink_to_fit;
 		using base_type::clear;
 		using base_type::insert;
-		using base_type::emplace;
 		using base_type::erase;
 		using base_type::push_back;
-		using base_type::emplace_back;
 		using base_type::pop_back;
 		using base_type::resize;
 
 		Array()
 			: base_type() {}
 
-		template <class Fty, class R = Type, std::enable_if_t<std::is_convertible<std::result_of_t<Fty()>, R>::value>* = nullptr>
+		Array(const size_type count, const bool& value)
+			: base_type(count, value) {}
+
+		explicit Array(const size_type count)
+			: base_type(count, false) {}
+
+		template <class InputIt>
+		Array(InputIt first, InputIt last)
+			: base_type(first, last) {}
+
+		Array(const Array& other)
+			: base_type(other) {}
+
+		Array(Array&& other) noexcept
+			: base_type(std::move(other)) {}
+
+		Array(std::initializer_list<bool> init)
+			: base_type(init.begin(), init.end()) {}
+
+		template <class Fty, std::enable_if_t<std::is_convertible<std::result_of_t<Fty()>, bool>::value>* = nullptr>
 		Array(const size_type size, Arg::generator_<Fty> generator)
 			: Array(Generate<Fty>(size, *generator)) {}
 
-		template <class Fty, class R = Type, std::enable_if_t<std::is_convertible<std::result_of_t<Fty()>, R>::value>* = nullptr>
+		template <class Fty, std::enable_if_t<std::is_convertible<std::result_of_t<Fty()>, bool>::value>* = nullptr>
 		static Array Generate(const size_type size, Fty generator)
 		{
 			Array new_array(size);
@@ -98,6 +101,24 @@ namespace s3d
 			}
 
 			return new_array;
+		}
+
+		Array& operator =(const Array& other) = default;
+
+		Array& operator =(Array&& other) = default;
+
+		template<class... Args>
+		iterator emplace(const_iterator pos, Args&&... args)
+		{
+			bool tmp(std::forward<Args>(args)...);
+			return (insert(pos, tmp));
+		}
+
+		template<class... Args>
+		void emplace_back(Args&&... args)
+		{
+			bool tmp(std::forward<Args>(args)...);
+			push_back(tmp);
 		}
 
 		void swap(Array& other)
@@ -124,21 +145,12 @@ namespace s3d
 
 		size_t size_bytes() const noexcept
 		{
-			static_assert(std::is_trivially_copyable<Type>::value, "Array::size_bytes() Type must be trivially copyable.");
-
-			return size() * sizeof(value_type);
+			return size() * sizeof(bool);
 		}
 
-		Array& operator <<(const Type& value)
+		Array& operator <<(const bool value)
 		{
 			push_back(value);
-
-			return *this;
-		}
-
-		Array& operator <<(Type&& value)
-		{
-			push_back(std::forward<Type>(value));
 
 			return *this;
 		}
@@ -178,13 +190,13 @@ namespace s3d
 			return *this;
 		}
 
-		const Type& choice() const
+		const bool& choice() const
 		{
 			return choice(GetDefaultRNG());
 		}
 
 		template <class URBG, std::enable_if_t<!std::is_scalar<URBG>::value>* = nullptr>
-		const Type& choice(URBG&& rbg) const
+		const bool& choice(URBG&& rbg) const
 		{
 			if (empty())
 			{
@@ -205,16 +217,16 @@ namespace s3d
 		template <class URBG>
 		Array choice(const size_t n, URBG&& rbg) const
 		{
-			Array result;		
+			Array result;
 
 			result.reserve(std::min(n, size()));
 
 			Sample(begin(), end(), std::back_inserter(result), n, std::forward<URBG>(rbg));
-			
+
 			return result;
 		}
 
-		size_t count(const Type& value) const
+		size_t count(const bool& value) const
 		{
 			size_t result = 0;
 
@@ -309,7 +321,7 @@ namespace s3d
 			return *this;
 		}
 
-		const Type& fetch(const size_t index, const Type& defaultValue) const
+		const bool& fetch(const size_t index, const bool& defaultValue) const
 		{
 			if (index >= size())
 			{
@@ -319,7 +331,7 @@ namespace s3d
 			return operator[](index);
 		}
 
-		Array& fill(const Type& value)
+		Array& fill(const bool& value)
 		{
 			std::fill(begin(), end(), value);
 
@@ -342,7 +354,7 @@ namespace s3d
 			return new_array;
 		}
 
-		bool include(const Type& value) const
+		bool include(const bool& value) const
 		{
 			for (const auto& v : *this)
 			{
@@ -361,7 +373,6 @@ namespace s3d
 			return any(f);
 		}
 
-		template <class T = Type, std::enable_if_t<Concept::HasLessThan<T>::value>* = nullptr>
 		bool isSorted() const
 		{
 			const size_t size_ = size();
@@ -371,7 +382,7 @@ namespace s3d
 				return true;
 			}
 
-			const Type* p = data();
+			const bool* p = data();
 
 			for (size_t i = 0; i < size_ - 1; ++i)
 			{
@@ -403,7 +414,7 @@ namespace s3d
 					s.append(sep);
 				}
 
-				s.append(Format(v));
+				s.append(ToString(v));
 			}
 
 			s.append(end);
@@ -411,7 +422,7 @@ namespace s3d
 			return s;
 		}
 
-		Array& keep_if(std::function<bool(const Type&)> f)
+		Array& keep_if(std::function<bool(bool)> f)
 		{
 			erase(std::remove_if(begin(), end(), std::not1(f)), end());
 
@@ -421,7 +432,7 @@ namespace s3d
 		template <class Fty>
 		auto map(Fty f) const
 		{
-			Array<std::result_of_t<Fty(Type)>> new_array;
+			Array<std::result_of_t<Fty(bool)>> new_array;
 
 			new_array.reserve(size());
 
@@ -448,7 +459,7 @@ namespace s3d
 		}
 
 		template <class Fty>
-		auto reduce(Fty f, std::result_of_t<Fty(Type, Type)> init) const
+		auto reduce(Fty f, std::result_of_t<Fty(bool, bool)> init) const
 		{
 			auto value = init;
 
@@ -471,7 +482,7 @@ namespace s3d
 			auto it = begin();
 			const auto itEnd = end();
 
-			std::result_of_t<Fty(Type, Type)> value = *it++;
+			std::result_of_t<Fty(bool, bool)> value = *it++;
 
 			while (it != itEnd)
 			{
@@ -481,14 +492,14 @@ namespace s3d
 			return value;
 		}
 
-		Array& remove(const Type& value)
+		Array& remove(const bool& value)
 		{
 			erase(std::remove(begin(), end(), value), end());
 
 			return *this;
 		}
 
-		Array removed(const Type& value) const &
+		Array removed(const bool& value) const &
 		{
 			Array new_array;
 
@@ -503,7 +514,7 @@ namespace s3d
 			return new_array;
 		}
 
-		Array removed(const Type& value) &&
+		Array removed(const bool& value) &&
 		{
 			erase(std::remove(begin(), end(), value), end());
 
@@ -576,7 +587,7 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		Array& replace(const Type& oldValue, const Type& newValue)
+		Array& replace(const bool& oldValue, const bool& newValue)
 		{
 			for (auto& v : *this)
 			{
@@ -589,7 +600,7 @@ namespace s3d
 			return *this;
 		}
 
-		Array replaced(const Type& oldValue, const Type& newValue) const &
+		Array replaced(const bool& oldValue, const bool& newValue) const &
 		{
 			Array new_array;
 
@@ -610,7 +621,7 @@ namespace s3d
 			return new_array;
 		}
 
-		Array replaced(const Type& oldValue, const Type& newValue) &&
+		Array replaced(const bool& oldValue, const bool& newValue) &&
 		{
 			replace(oldValue, newValue);
 
@@ -618,7 +629,7 @@ namespace s3d
 		}
 
 		template <class Fty>
-		Array& replace_if(Fty f, const Type& newValue)
+		Array& replace_if(Fty f, const bool& newValue)
 		{
 			for (auto& v : *this)
 			{
@@ -632,7 +643,7 @@ namespace s3d
 		}
 
 		template <class Fty>
-		Array replaced_if(Fty f, const Type& newValue) const &
+		Array replaced_if(Fty f, const bool& newValue) const &
 		{
 			Array new_array;
 
@@ -642,7 +653,7 @@ namespace s3d
 			{
 				if (f(v))
 				{
-					new_array.push_back(newValue);		
+					new_array.push_back(newValue);
 				}
 				else
 				{
@@ -654,7 +665,7 @@ namespace s3d
 		}
 
 		template <class Fty>
-		Array replaced_if(Fty f, const Type& newValue) &&
+		Array replaced_if(Fty f, const bool& newValue) &&
 		{
 			replace_if(f, newValue);
 
@@ -801,7 +812,6 @@ namespace s3d
 			return Array(begin() + index, begin() + std::min(index + length, size()));
 		}
 
-		template <class T = Type, std::enable_if_t<Concept::HasLessThan<T>::value>* = nullptr>
 		Array& sort()
 		{
 			std::sort(begin(), end());
@@ -817,13 +827,11 @@ namespace s3d
 			return *this;
 		}
 
-		template <class T = Type, std::enable_if_t<Concept::HasLessThan<T>::value>* = nullptr>
 		Array sorted() const &
 		{
 			return Array(*this).sort();
 		}
 
-		template <class T = Type, std::enable_if_t<Concept::HasLessThan<T>::value>* = nullptr>
 		Array sorted() &&
 		{
 			sort();
@@ -845,36 +853,9 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		template <class T = Type, std::enable_if_t<Concept::HasPlus<T>::value && Concept::HasPlusAssign<T>::value>* = nullptr>
-		auto sum() const
+		size_t sum() const
 		{
-			decltype(std::declval<Type>() + std::declval<Type>()) result{};
-
-			for (const auto& v : *this)
-			{
-				result += v;
-			}
-
-			return result;
-		}
-
-		template <class T = Type, std::enable_if_t<Concept::HasPlus<T>::value && !Concept::HasPlusAssign<T>::value>* = nullptr>
-		auto sum() const
-		{
-			decltype(std::declval<Type>() + std::declval<Type>()) result{};
-
-			for (const auto& v : *this)
-			{
-				result = result + v;
-			}
-
-			return result;
-		}
-
-		template <class T = Type, std::enable_if_t<!Concept::HasPlus<T>::value>* = nullptr>
-		const Array& sum() const
-		{
-			return *this;
+			return count(true);
 		}
 
 		Array take(const size_t n) const
@@ -975,9 +956,7 @@ namespace s3d
 				return *this;
 			}
 
-			numThreads = std::max<size_t>(1, numThreads);
-
-			const size_t n = std::max<size_t>(1, size() / numThreads);
+			const size_t n = std::max<size_t>(1, size() / std::max<size_t>(1, numThreads));
 
 			Array<std::future<void>> futures;
 
@@ -1038,7 +1017,7 @@ namespace s3d
 		template <class Fty>
 		auto parallel_map(Fty f, size_t numThreads = Threading::GetConcurrency()) const
 		{
-			Array<std::result_of_t<Fty(Type)>> new_array;
+			Array<std::result_of_t<Fty(bool)>> new_array;
 
 			if (isEmpty())
 			{
@@ -1081,69 +1060,4 @@ namespace s3d
 			return new_array;
 		}
 	};
-
-	template <class Type, class Allocator>
-	inline bool operator ==(const Array<Type, Allocator>& a, const Array<Type, Allocator>& b)
-	{
-		return ((a.size() == b.size()) && std::equal(a.begin(), a.end(), b.begin()));
-	}
-
-	template <class Type, class Allocator>
-	inline bool operator !=(const Array<Type, Allocator>& a, const Array<Type, Allocator>& b)
-	{
-		return ((a.size() != b.size()) || !std::equal(a.begin(), a.end(), b.begin()));
-	}
-
-	template <class Type, class Allocator>
-	inline bool operator <(const Array<Type, Allocator>& a, const Array<Type, Allocator>& b)
-	{
-		return std::lexicographical_compare(a.begin(), a.end(), b.begin(), b.end());
-	}
-
-	template <class Type, class Allocator>
-	inline bool operator >(const Array<Type, Allocator>& a, const Array<Type, Allocator>& b)
-	{
-		return b < a;
-	}
-
-	template <class Type, class Allocator>
-	inline bool operator <=(const Array<Type, Allocator>& a, const Array<Type, Allocator>& b)
-	{
-		return !(b < a);
-	}
-
-	template <class Type, class Allocator>
-	inline bool operator >=(const Array<Type, Allocator>& a, const Array<Type, Allocator>& b)
-	{
-		return !(a < b);
-	}
-
-	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
-	inline std::ostream & operator << (std::ostream& os, const Array<Type, Allocator>& v)
-	{
-		return os << Format(v).narrow();
-	}
-
-	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
-	inline std::wostream & operator << (std::wostream& os, const Array<Type, Allocator>& v)
-	{
-		return os << Format(v);
-	}
-
-	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
-	inline void Formatter(FormatData& formatData, const Array<Type, Allocator>& v)
-	{
-		Formatter(formatData, v.begin(), v.end());
-	}
 }
-
-namespace std
-{
-	template <class Type, class Allocator>
-	inline void swap(s3d::Array<Type, Allocator>& a, s3d::Array<Type, Allocator>& b) noexcept(noexcept(a.swap(b)))
-	{
-		a.swap(b);
-	}
-}
-
-# include "ArrayBool.hpp"

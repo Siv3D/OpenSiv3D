@@ -13,6 +13,7 @@
 # include <memory>
 # include "Fwd.hpp"
 # include "IReader.hpp"
+# include "ByteArray.hpp"
 
 namespace s3d
 {
@@ -162,7 +163,7 @@ namespace s3d
 		template <class Type, std::enable_if_t<std::is_trivially_copyable<Type>::value>* = nullptr>
 		bool read(Type& to)
 		{
-			return IReader::read(to);
+			return read(std::addressof(to), sizeof(Type)) == sizeof(Type);
 		}
 
 		/// <summary>
@@ -216,7 +217,7 @@ namespace s3d
 		template <class Type, std::enable_if_t<std::is_trivially_copyable<Type>::value>* = nullptr>
 		bool lookahead(Type& to)
 		{
-			return IReader::lookahead(to);
+			return lookahead(std::addressof(to), sizeof(Type)) == sizeof(Type);
 		}
 
 		/// <summary>
@@ -226,5 +227,14 @@ namespace s3d
 		/// クローズしている場合は空の文字列です。
 		/// </remarks>
 		const FilePath& path() const;
+
+		ByteArray readAll()
+		{
+			Array<uint8> data(static_cast<size_t>(size()));
+
+			read(data.data(), 0, size());
+
+			return ByteArray(std::move(data));
+		}
 	};
 }
