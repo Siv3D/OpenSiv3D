@@ -274,5 +274,26 @@ namespace s3d
 
 			return true;
 		}
+
+		ByteArray Decompress(const ByteArrayView view)
+		{
+			const uint64 originalSize = ZSTD_getDecompressedSize(view.data(), view.size());
+
+			if (originalSize == 0)
+			{
+				return ByteArray();
+			}
+
+			Array<uint8> outputBuffer(static_cast<size_t>(originalSize));
+
+			const size_t decompressedSize = ZSTD_decompress(outputBuffer.data(), outputBuffer.size(), view.data(), view.size());
+
+			if (originalSize != decompressedSize)
+			{
+				return ByteArray();
+			}
+
+			return ByteArray(std::move(outputBuffer));
+		}
 	}
 }
