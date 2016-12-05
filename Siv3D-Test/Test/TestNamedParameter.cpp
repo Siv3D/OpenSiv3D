@@ -37,9 +37,9 @@ struct W
 		: x(w.x) {}
 };
 
-void Test0(Arg::r_<int32> n)
+void Test0(Arg::r_<int32>)
 {
-	n;
+	
 }
 
 void Test1(Arg::r_<int32&> n)
@@ -47,14 +47,14 @@ void Test1(Arg::r_<int32&> n)
 	++n.value();
 }
 
-void Test2(Arg::r_<const int32&> n)
+void Test2(Arg::r_<const int32&>)
 {
-	n;
+
 }
 
-void Test3(Arg::r_<W> w)
+void Test3(Arg::r_<W>)
 {
-	w;
+
 }
 
 void Test4(Arg::r_<W&> w)
@@ -62,9 +62,9 @@ void Test4(Arg::r_<W&> w)
 	++w->x;
 }
 
-void Test5(Arg::r_<const W&> w)
+void Test5(Arg::r_<const W&>)
 {
-	w;
+
 }
 
 TEST(NamedParameter, NamedParameter)

@@ -165,7 +165,7 @@ namespace s3d
 
 		# else
 
-			return detail::MurmurHash64A(p, static_cast<int32>(size), seed);
+			return detail::MurmurHash64A(view.data(), static_cast<int32>(view.size()), seed);
 
 		# endif
 		}

@@ -33,7 +33,7 @@ namespace s3d
     }
 }
 
-int main(int argc, char* argv[])
+int main(int, char* argv[])
 {
 	using namespace s3d;
 

@@ -6,8 +6,8 @@ using namespace s3d::literals;
 using namespace std::literals;
 
 void Main()
-{	
-
+{
+	RunTest();
 }
 
 

@@ -13,7 +13,11 @@
 
 # if defined(SIV3D_DO_TEST)
 
-# pragma warning (disable: 4566)
+# if defined(SIV3D_TARGET_WINDOWS)
+
+	# pragma warning (disable: 4566)
+
+# endif
 
 using namespace s3d;
 
