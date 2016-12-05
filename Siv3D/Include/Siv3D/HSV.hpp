@@ -42,7 +42,7 @@ namespace s3d
 		/// <summary>
 		/// アルファ | Alpha [0.0, 1.0]
 		/// </summary>
-		double a;
+		double a = 1.0;
 
 		/// <summary>
 		/// デフォルトコンストラクタ

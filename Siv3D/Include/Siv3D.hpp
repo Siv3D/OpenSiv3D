@@ -266,6 +266,16 @@
 	# include "Siv3D/DefaultRNG.hpp"
 	// 乱数ユーティリティ
 	# include "Siv3D/Random.hpp"
+	// ランダムな Point の作成
+	# include "Siv3D/RandomPoint.hpp"
+	// ランダムな Vec2 の作成
+	# include "Siv3D/RandomVec2.hpp"
+	// ランダムな Vec3 の作成
+	# include "Siv3D/RandomVec3.hpp"
+	// ランダムな Vec4 の作成
+	# include "Siv3D/RandomVec4.hpp"
+	// ランダムな色の作成
+	# include "Siv3D/RandomColor.hpp"
 //
 // 数学
 //

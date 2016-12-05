@@ -44,10 +44,10 @@
 - [x] Concept
 - [x] Hash
 - [x] ByteArrayView
-- [ ] Random
+- [x] Random
 - [x] PerlinNoise
-- [ ] Image (Partial)
-- [ ] Compression
+- [x] Image (Partial)
+- [x] Compression
 
 #### 0.0.6
 - [ ] Math (Partial)

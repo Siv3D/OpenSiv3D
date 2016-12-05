@@ -399,7 +399,5 @@ namespace s3d
 
 
 		bool saveBMP(const FilePath&) const;
-
-		bool saveBMP2(const FilePath&) const;
 	};
 }
