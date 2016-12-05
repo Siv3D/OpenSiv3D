@@ -296,9 +296,132 @@ namespace s3d
 			return ByteArray(std::move(outputBuffer));
 		}
 
-		//ByteArray DecompressFile(const FilePath& path);
+		ByteArray DecompressFile(const FilePath& path)
+		{
+			BinaryReader reader(path);
 
-		//bool DecompressToFile(const ByteArrayView view, const FilePath& outputPath);
+			if (!reader)
+			{
+				return ByteArray();
+			}
+
+			const size_t inputBufferSize = ZSTD_DStreamInSize();
+			const auto pInputBuffer = std::make_unique<uint8[]>(inputBufferSize);
+
+			const size_t outputBufferSize = ZSTD_DStreamOutSize();
+			const auto pOutputBuffer = std::make_unique<uint8[]>(outputBufferSize);
+
+			ZSTD_DStream* const dStream = ZSTD_createDStream();
+
+			if (!dStream)
+			{
+				return ByteArray();
+			}
+
+			const size_t initResult = ZSTD_initDStream(dStream);
+
+			if (ZSTD_isError(initResult))
+			{
+				return ByteArray();
+			}
+
+			size_t toRead = initResult;
+
+			Array<uint8> buffer;
+
+			while (const size_t read = static_cast<size_t>(reader.read(pInputBuffer.get(), toRead)))
+			{
+				ZSTD_inBuffer input = { pInputBuffer.get(), read, 0 };
+
+				while (input.pos < input.size)
+				{
+					ZSTD_outBuffer output = { pOutputBuffer.get(), outputBufferSize, 0 };
+
+					toRead = ZSTD_decompressStream(dStream, &output, &input);
+
+					if (ZSTD_isError(toRead))
+					{
+						return ByteArray();
+					}
+
+					buffer.insert(buffer.end(), pOutputBuffer.get(), pOutputBuffer.get() + output.pos);
+				}
+			}
+
+			ZSTD_freeDStream(dStream);
+
+			return ByteArray(std::move(buffer));
+		}
+
+		bool DecompressToFile(const ByteArrayView view, const FilePath& outputPath)
+		{
+			const size_t inputBufferSize = ZSTD_DStreamInSize();
+			const auto pInputBuffer = std::make_unique<uint8[]>(inputBufferSize);
+
+			const size_t outputBufferSize = ZSTD_DStreamOutSize();
+			const auto pOutputBuffer = std::make_unique<uint8[]>(outputBufferSize);
+
+			ZSTD_DStream* const dStream = ZSTD_createDStream();
+
+			if (!dStream)
+			{
+				return false;
+			}
+
+			const size_t initResult = ZSTD_initDStream(dStream);
+
+			if (ZSTD_isError(initResult))
+			{
+				return false;
+			}
+
+			size_t toRead = initResult;
+
+			BinaryWriter writer(outputPath);
+
+			if (!writer)
+			{
+				return false;
+			}
+
+			size_t readPos = 0;
+
+			for (;;)
+			{
+				const size_t read = std::min(toRead, view.size() - readPos);
+
+				if (read == 0)
+				{
+					break;
+				}
+
+				::memcpy(pInputBuffer.get(), view.data() + readPos, read);
+
+				readPos += read;
+
+				ZSTD_inBuffer input = { pInputBuffer.get(), read, 0 };
+
+				while (input.pos < input.size)
+				{
+					ZSTD_outBuffer output = { pOutputBuffer.get(), outputBufferSize, 0 };
+
+					toRead = ZSTD_decompressStream(dStream, &output, &input);
+
+					if (ZSTD_isError(toRead))
+					{
+						writer.clear();
+
+						return false;
+					}
+
+					writer.write(pOutputBuffer.get(), output.pos);
+				}
+			}
+
+			ZSTD_freeDStream(dStream);
+
+			return true;
+		}
 
 		bool DecompressFileToFile(const FilePath& inputPath, const FilePath& outputPath)
 		{
@@ -360,6 +483,8 @@ namespace s3d
 			}
 
 			ZSTD_freeDStream(dStream);
+
+			return true;
 		}
 	}
 }
