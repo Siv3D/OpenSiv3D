@@ -381,37 +381,6 @@ namespace s3d
 		return b.compare(a) >= 0;
 	}
 
-	inline std::ostream& operator <<(std::ostream& os, const BigFloat& f)
-	{
-		return os << f.stdStr();
-	}
-
-	inline std::wostream& operator <<(std::wostream& os, const BigFloat& f)
-	{
-		return os << f.str();
-	}
-
-	inline std::istream& operator >> (std::istream& is, BigFloat& f)
-	{
-		std::string s;
-		is >> s;
-		f.assign(s);
-		return is;
-	}
-
-	inline std::wistream& operator >> (std::wistream& is, BigFloat& f)
-	{
-		std::wstring s;
-		is >> s;
-		f.assign(s);
-		return is;
-	}
-
-	inline void Formatter(FormatData& formatData, const BigFloat& f)
-	{
-		formatData.string.append(f.str());
-	}
-
 	template <class Type>
 	struct IsBigFloat : std::false_type {};
 
@@ -498,3 +467,63 @@ namespace std
 		a.swap(b);
 	}
 }
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting BigFloat
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[x] istream
+//	[x] wistream
+//	[p] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
+	inline void Formatter(FormatData& formatData, const BigFloat& f)
+	{
+		formatData.string.append(f.str());
+	}
+
+	inline std::ostream& operator <<(std::ostream& os, const BigFloat& f)
+	{
+		return os << f.stdStr();
+	}
+
+	inline std::wostream& operator <<(std::wostream& os, const BigFloat& f)
+	{
+		return os << f.str();
+	}
+
+	inline std::istream& operator >>(std::istream& is, BigFloat& f)
+	{
+		std::string s;
+		is >> s;
+		f.assign(s);
+		return is;
+	}
+
+	inline std::wistream& operator >>(std::wistream& is, BigFloat& f)
+	{
+		std::wstring s;
+		is >> s;
+		f.assign(s);
+		return is;
+	}
+}
+
+namespace fmt
+{
+	template <class ArgFormatter>
+	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::BigFloat& value)
+	{
+		const auto tag = s3d::detail::GetTag(format_str);
+
+		const auto fmt = L"{" + tag + L"}";
+
+		f.writer().write(fmt, value.str().str());
+	}
+}
+//
+//////////////////////////////////////////////////////////////////////////////

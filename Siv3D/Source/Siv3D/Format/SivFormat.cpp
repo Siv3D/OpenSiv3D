@@ -58,8 +58,4 @@ namespace s3d
 			*p += length;
 		}
 	}
-
-
-
-
 }

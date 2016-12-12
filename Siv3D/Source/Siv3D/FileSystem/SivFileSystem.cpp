@@ -283,9 +283,8 @@ namespace s3d
 
 			wchar result[MAX_PATH];
 
-			if (::GetVolumePathNameW(path.c_str(), result, _countof(result)) != 0)
+			if (::GetVolumePathNameW(path.c_str(), result, _countof(result)) == 0)
 			{
-				// [Siv3D*TODO]
 				return FilePath();
 			}
 

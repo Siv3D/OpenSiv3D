@@ -48,7 +48,7 @@ namespace s3d
 	};
 # pragma pack ( pop )
 
-	bool Image::_saveBMP(const FilePath& path) const
+	bool Image::saveBMP(const FilePath& path) const
 	{
 		BinaryWriter writer(path);
 

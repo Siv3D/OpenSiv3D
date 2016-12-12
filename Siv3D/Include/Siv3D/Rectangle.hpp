@@ -24,8 +24,13 @@ namespace s3d
 	{
 		using value_type = typename SizeType::value_type;
 
-#pragma warning(disable:4201)
-		union
+# if defined(SIV3D_TARGET_WINDOWS)
+		
+	# pragma warning(disable:4201)
+
+# endif
+		
+        union
 		{
 			struct
 			{
@@ -64,7 +69,11 @@ namespace s3d
 			};
 		};
 
-#pragma warning(default:4201)
+# if defined(SIV3D_TARGET_WINDOWS)
+	
+	# pragma warning(default:4201)
+
+# endif
 
 		/// <summary>
 		/// デフォルトコンストラクタ

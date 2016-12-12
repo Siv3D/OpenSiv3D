@@ -12,6 +12,7 @@
 # pragma once
 # include "Fwd.hpp"
 # include "Array.hpp"
+# include "ByteArrayView.hpp"
 
 namespace s3d
 {
@@ -79,53 +80,15 @@ namespace s3d
 		/// <summary>
 		/// Writer にデータを書き込みます。
 		/// </summary>
-		/// <param name="src">
+		/// <param name="view">
 		/// 書き込むデータ
 		/// </param>
 		/// <returns>
 		/// 実際に書き込んだサイズ（バイト）
 		/// </returns>
-		template <class Type, std::enable_if_t<std::is_trivially_copyable<Type>::value>* = nullptr>
-		int64 write(const Type& src)
+		int64 write(ByteArrayView view)
 		{
-			return write(std::addressof(src), sizeof(Type));
-		}
-
-		/// <summary>
-		/// Writer にデータを書き込みます。
-		/// </summary>
-		/// <param name="ilist">
-		/// 書き込むデータ
-		/// </param>
-		/// <returns>
-		/// 実際に書き込んだサイズ（バイト）
-		/// </returns>
-		template <class Type, std::enable_if_t<std::is_trivially_copyable<Type>::value>* = nullptr>
-		int64 write(std::initializer_list<Type> ilist)
-		{
-			int64 result = 0;
-
-			for (const auto& elem : ilist)
-			{
-				result += write(elem);
-			}
-
-			return result;
-		}
-
-		/// <summary>
-		/// Writer にデータを書き込みます。
-		/// </summary>
-		/// <param name="src">
-		/// 書き込むデータ
-		/// </param>
-		/// <returns>
-		/// 実際に書き込んだサイズ（バイト）
-		/// </returns>
-		template <class Type, std::enable_if_t<std::is_trivially_copyable<Type>::value>* = nullptr>
-		int64 write(const Array<Type>& src)
-		{
-			return src.empty() ? 0 : write(src.data(), src.size_bytes());
+			return write(view.data(), view.size());
 		}
 	};
 }

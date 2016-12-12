@@ -3088,7 +3088,7 @@ namespace s3d
 	{
 		size_t operator()(const String& keyVal) const
 		{
-			return Hash::FNV1a(keyVal.data(), keyVal.size_bytes());
+			return Hash::FNV1a(keyVal);
 		}
 	};
 
@@ -3097,7 +3097,7 @@ namespace s3d
 	{
 		size_t operator()(const String& keyVal) const
 		{
-			return Hash::Murmur2(keyVal.data(), keyVal.size_bytes());
+			return Hash::Murmur2(keyVal);
 		}
 	};
 

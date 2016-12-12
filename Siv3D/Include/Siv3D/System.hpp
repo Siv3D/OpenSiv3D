@@ -41,5 +41,7 @@ namespace s3d
 		{
 			Sleep(static_cast<int32>(milliseconds.count()));
 		}
+		
+		bool Update();
 	}
 }

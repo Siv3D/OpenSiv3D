@@ -126,10 +126,10 @@ namespace s3d
 		return *begin;
 	}
 
-	template <class Range>
-	inline auto RandomSelect(Range&& range)
+	template <class Container>
+	inline auto RandomSelect(const Container& c)
 	{
-		return RandomSelect(std::begin(std::forward<Range>(range)), std::end(std::forward<Range>(range)));
+		return RandomSelect(std::begin(c), std::end(c));
 	}
 
 	template <class Type>

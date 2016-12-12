@@ -133,6 +133,8 @@ namespace s3d
 
 		m_fileSize = getFileSize();
 
+		m_fullPath = FileSystem::FullPath(path);
+
 		if (ifExists == MMFOpenMode_IfExists::MapAll && m_fileSize)
 		{
 			map(0, 0);

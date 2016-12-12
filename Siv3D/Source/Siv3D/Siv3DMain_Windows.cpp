@@ -65,7 +65,7 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 	{
 		return -1;
 	}
-
+	
 	Main();
 
 	return 0;

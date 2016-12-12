@@ -33,7 +33,7 @@ namespace s3d
 
 		size_t GetGranularity()
 		{
-			static const uint32 granularity = detail::GetGranularity_impl();
+			static const size_t granularity = detail::GetGranularity_impl();
 			return granularity;
 		}
 	}

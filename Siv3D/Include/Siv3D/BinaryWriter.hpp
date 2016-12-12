@@ -159,68 +159,16 @@ namespace s3d
 		/// <summary>
 		/// ファイルにデータを書き込みます。
 		/// </summary>
-		/// <param name="src">
+		/// <param name="view">
 		/// 書き込むデータ
 		/// </param>
 		/// <returns>
 		/// 実際に書き込んだサイズ（バイト）
 		/// </returns>
-		template <class Type, std::enable_if_t<std::is_trivially_copyable<Type>::value>* = nullptr>
-		int64 write(const Type& src)
+		int64 write(ByteArrayView view)
 		{
-			return write(&src, sizeof(Type));
+			return write(view.data(), view.size());
 		}
-
-		/// <summary>
-		/// ファイルにデータを書き込みます。
-		/// </summary>
-		/// <param name="ilist">
-		/// 書き込むデータ
-		/// </param>
-		/// <returns>
-		/// 実際に書き込んだサイズ（バイト）
-		/// </returns>
-		template <class Type, std::enable_if_t<std::is_trivially_copyable<Type>::value>* = nullptr>
-		int64 write(std::initializer_list<Type> ilist)
-		{
-			size_t result = 0;
-
-			for (const auto& elem : ilist)
-			{
-				result += write(elem);
-			}
-
-			return result;
-		}
-
-		/// <summary>
-		/// ファイルにデータを書き込みます。
-		/// </summary>
-		/// <param name="src">
-		/// 書き込むデータ
-		/// </param>
-		/// <returns>
-		/// 実際に書き込んだサイズ（バイト）
-		/// </returns>
-		template <class Type, std::enable_if_t<std::is_trivially_copyable<Type>::value>* = nullptr>
-		int64 write(const Array<Type>& src)
-		{
-			return src.empty() ? 0 : write(src.data(), src.size_bytes());
-		}
-
-		/// <summary>
-		/// ファイルにデータを書き込みます。
-		/// </summary>
-		/// <param name="src">
-		/// 書き込むデータ
-		/// </param>
-		/// <returns>
-		/// 実際に書き込んだサイズ（バイト）
-		/// </returns>
-		//int64 write(const ByteArray& src)
-		//{
-		//	return src.size() ? write(src.data(), static_cast<size_t>(src.size())) : 0;
-		//}
 
 		/// <summary>
 		/// オープンしているファイルのパスを返します。

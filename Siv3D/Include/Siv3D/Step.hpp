@@ -656,7 +656,7 @@ namespace s3d
 	inline constexpr auto step_until(T a, U b, S s = 1)
 	{
 		static_assert(std::is_integral<StartType>::value || IsBigInt<StartType>::value, "step_until requires integral parameters");
-		CounterType  n;
+		CounterType n;
 		using DiffType = std::common_type_t<int64, StartType>;
 
 		if (b == a || s == 0 || (b < a) != (s < 0))
@@ -674,7 +674,7 @@ namespace s3d
 				n = diff / abs_s;
 
 			CounterType finish = a + n*s;
-			if (finish != b)
+			if (finish != static_cast<CounterType>(b))
 			{
 				n++;
 			}

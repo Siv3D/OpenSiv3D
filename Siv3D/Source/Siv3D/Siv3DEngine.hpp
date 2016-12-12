@@ -16,6 +16,7 @@ namespace s3d
 {
 	class ISiv3DLogger;
 	class ISiv3DConsole;
+	class ISiv3DWindow;
 
 	template <class Interface>
 	class Siv3DComponent
@@ -57,6 +58,8 @@ namespace s3d
 
 		Siv3DComponent<ISiv3DConsole> m_console;
 
+		Siv3DComponent<ISiv3DWindow> m_window;
+		
 	public:
 
 		Siv3DEngine();
@@ -76,6 +79,11 @@ namespace s3d
 		static ISiv3DConsole* GetConsole()
 		{
 			return pEngine->m_console.get();
+		}
+		
+		static ISiv3DWindow* GetWindow()
+		{
+			return pEngine->m_window.get();
 		}
 	};
 }

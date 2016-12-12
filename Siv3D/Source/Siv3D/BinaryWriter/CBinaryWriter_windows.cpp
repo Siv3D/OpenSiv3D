@@ -187,12 +187,12 @@ namespace s3d
 
 	int64 BinaryWriter::CBinaryWriter::write(const void* src, size_t size)
 	{
-        if (!m_opened)
+        if (!m_opened || size == 0)
         {
             return 0;
         }
         
-		assert(src || !size);
+		assert(src != nullptr);
 
 		if (size < BufferSize)
 		{
