@@ -8,4 +8,9 @@ using namespace std::literals;
 void Main()
 {
 	RunTest();
+	
+	while(System::Update())
+	{
+		
+	}
 }

@@ -43,6 +43,8 @@ namespace s3d
 
 # include <unistd.h>
 # include <Siv3D/Fwd.hpp>
+# include "../Siv3DEngine.hpp"
+# include "../Window/IWindow.hpp"
 
 namespace s3d
 {
@@ -57,6 +59,11 @@ namespace s3d
 
             ::usleep(static_cast<uint32>(milliseconds) * 1000);
         }
+		
+		bool Update()
+		{
+			return Siv3DEngine::GetWindow()->update();
+		}
 	}
 }
 

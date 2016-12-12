@@ -104,11 +104,6 @@
 		2CA79A0F1DF55A0D0028D11D /* Siv3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CA798F41DF55A0D0028D11D /* Siv3D.hpp */; };
 		2CA79A101DF55A0D0028D11D /* boost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F81DF55A0D0028D11D /* boost_filesystem.a */; };
 		2CA79A111DF55A0D0028D11D /* boost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F91DF55A0D0028D11D /* boost_system.a */; };
-		2CA79A141DF55A0D0028D11D /* CXxxx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA798FF1DF55A0D0028D11D /* CXxxx.cpp */; };
-		2CA79A151DF55A0D0028D11D /* CXxxx.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CA799001DF55A0D0028D11D /* CXxxx.hpp */; };
-		2CA79A161DF55A0D0028D11D /* IXxxx.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CA799011DF55A0D0028D11D /* IXxxx.hpp */; };
-		2CA79A171DF55A0D0028D11D /* SivXxxx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA799021DF55A0D0028D11D /* SivXxxx.cpp */; };
-		2CA79A181DF55A0D0028D11D /* XxxxFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA799031DF55A0D0028D11D /* XxxxFactory.cpp */; };
 		2CA79A191DF55A0D0028D11D /* CBigFloat.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CA799051DF55A0D0028D11D /* CBigFloat.hpp */; };
 		2CA79A1A1DF55A0D0028D11D /* SivBigFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA799061DF55A0D0028D11D /* SivBigFloat.cpp */; };
 		2CA79A1B1DF55A0D0028D11D /* CBigInt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CA799081DF55A0D0028D11D /* CBigInt.hpp */; };
@@ -255,6 +250,38 @@
 		2CA79ABA1DF55A410028D11D /* TestString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79AAA1DF55A410028D11D /* TestString.cpp */; };
 		2CA79ABB1DF55A410028D11D /* TestTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79AAB1DF55A410028D11D /* TestTypes.cpp */; };
 		2CA79ABC1DF55A410028D11D /* TestUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79AAC1DF55A410028D11D /* TestUtility.cpp */; };
+		2CCE6DE81DFDDD250085BA33 /* glfw3.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE6DAF1DFDDD250085BA33 /* glfw3.h */; };
+		2CCE6DE91DFDDD250085BA33 /* glfw3native.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE6DB01DFDDD250085BA33 /* glfw3native.h */; };
+		2CCE6DEA1DFDDD250085BA33 /* cocoa_init.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE6DB31DFDDD250085BA33 /* cocoa_init.m */; };
+		2CCE6DEB1DFDDD250085BA33 /* cocoa_joystick.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE6DB41DFDDD250085BA33 /* cocoa_joystick.h */; };
+		2CCE6DEC1DFDDD250085BA33 /* cocoa_joystick.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE6DB51DFDDD250085BA33 /* cocoa_joystick.m */; };
+		2CCE6DED1DFDDD250085BA33 /* cocoa_monitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE6DB61DFDDD250085BA33 /* cocoa_monitor.m */; };
+		2CCE6DEE1DFDDD250085BA33 /* cocoa_platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE6DB71DFDDD250085BA33 /* cocoa_platform.h */; };
+		2CCE6DEF1DFDDD250085BA33 /* cocoa_time.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE6DB81DFDDD250085BA33 /* cocoa_time.c */; };
+		2CCE6DF01DFDDD250085BA33 /* cocoa_window.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE6DB91DFDDD250085BA33 /* cocoa_window.m */; };
+		2CCE6DF11DFDDD250085BA33 /* context.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE6DBA1DFDDD250085BA33 /* context.c */; };
+		2CCE6DF61DFDDD250085BA33 /* init.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE6DC21DFDDD250085BA33 /* init.c */; };
+		2CCE6DF71DFDDD250085BA33 /* input.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE6DC31DFDDD250085BA33 /* input.c */; };
+		2CCE6DF81DFDDD250085BA33 /* internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE6DC41DFDDD250085BA33 /* internal.h */; };
+		2CCE6DFF1DFDDD250085BA33 /* monitor.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE6DCB1DFDDD250085BA33 /* monitor.c */; };
+		2CCE6E001DFDDD250085BA33 /* nsgl_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE6DCC1DFDDD250085BA33 /* nsgl_context.h */; };
+		2CCE6E011DFDDD250085BA33 /* nsgl_context.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE6DCD1DFDDD250085BA33 /* nsgl_context.m */; };
+		2CCE6E041DFDDD250085BA33 /* posix_tls.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE6DD01DFDDD250085BA33 /* posix_tls.c */; };
+		2CCE6E051DFDDD250085BA33 /* posix_tls.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE6DD11DFDDD250085BA33 /* posix_tls.h */; };
+		2CCE6E111DFDDD250085BA33 /* window.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE6DDD1DFDDD250085BA33 /* window.c */; };
+		2CCE6E1A1DFDDD250085BA33 /* xkb_unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE6DE61DFDDD250085BA33 /* xkb_unicode.c */; };
+		2CCE6E1B1DFDDD250085BA33 /* xkb_unicode.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE6DE71DFDDD250085BA33 /* xkb_unicode.h */; };
+		2CCE6E1E1DFE6C850085BA33 /* glfw_config.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE6E1D1DFE6C850085BA33 /* glfw_config.h */; };
+		2CCE6E231DFE79A80085BA33 /* glad.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE6E201DFE79A80085BA33 /* glad.c */; };
+		2CCE6E241DFE79A80085BA33 /* glad.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE6E211DFE79A80085BA33 /* glad.h */; };
+		2CCE6E251DFE79A80085BA33 /* linmath.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE6E221DFE79A80085BA33 /* linmath.h */; };
+		2CCE6E271DFE79F60085BA33 /* khrplatform.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE6E261DFE79F60085BA33 /* khrplatform.h */; };
+		2CCE6E2E1DFE7E760085BA33 /* CWindow_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE6E291DFE7E760085BA33 /* CWindow_macOS.cpp */; };
+		2CCE6E2F1DFE7E760085BA33 /* CWindow_macOS.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE6E2A1DFE7E760085BA33 /* CWindow_macOS.hpp */; };
+		2CCE6E301DFE7E760085BA33 /* IWindow.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE6E2B1DFE7E760085BA33 /* IWindow.hpp */; };
+		2CCE6E311DFE7E760085BA33 /* SivWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE6E2C1DFE7E760085BA33 /* SivWindow.cpp */; };
+		2CCE6E321DFE7E760085BA33 /* WindowFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE6E2D1DFE7E760085BA33 /* WindowFactory.cpp */; };
+		2CCE6E341DFE82630085BA33 /* vulkan.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE6E331DFE82630085BA33 /* vulkan.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -382,11 +409,6 @@
 		2CA798F81DF55A0D0028D11D /* boost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_filesystem.a; sourceTree = "<group>"; };
 		2CA798F91DF55A0D0028D11D /* boost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_system.a; sourceTree = "<group>"; };
 		2CA798FA1DF55A0D0028D11D /* libSiv3D.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSiv3D.a; sourceTree = "<group>"; };
-		2CA798FF1DF55A0D0028D11D /* CXxxx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CXxxx.cpp; sourceTree = "<group>"; };
-		2CA799001DF55A0D0028D11D /* CXxxx.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CXxxx.hpp; sourceTree = "<group>"; };
-		2CA799011DF55A0D0028D11D /* IXxxx.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IXxxx.hpp; sourceTree = "<group>"; };
-		2CA799021DF55A0D0028D11D /* SivXxxx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivXxxx.cpp; sourceTree = "<group>"; };
-		2CA799031DF55A0D0028D11D /* XxxxFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XxxxFactory.cpp; sourceTree = "<group>"; };
 		2CA799051DF55A0D0028D11D /* CBigFloat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CBigFloat.hpp; sourceTree = "<group>"; };
 		2CA799061DF55A0D0028D11D /* SivBigFloat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBigFloat.cpp; sourceTree = "<group>"; };
 		2CA799081DF55A0D0028D11D /* CBigInt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CBigInt.hpp; sourceTree = "<group>"; };
@@ -539,6 +561,38 @@
 		2CA79AAC1DF55A410028D11D /* TestUtility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestUtility.cpp; sourceTree = "<group>"; };
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
+		2CCE6DAF1DFDDD250085BA33 /* glfw3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glfw3.h; sourceTree = "<group>"; };
+		2CCE6DB01DFDDD250085BA33 /* glfw3native.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glfw3native.h; sourceTree = "<group>"; };
+		2CCE6DB31DFDDD250085BA33 /* cocoa_init.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cocoa_init.m; sourceTree = "<group>"; };
+		2CCE6DB41DFDDD250085BA33 /* cocoa_joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocoa_joystick.h; sourceTree = "<group>"; };
+		2CCE6DB51DFDDD250085BA33 /* cocoa_joystick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cocoa_joystick.m; sourceTree = "<group>"; };
+		2CCE6DB61DFDDD250085BA33 /* cocoa_monitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cocoa_monitor.m; sourceTree = "<group>"; };
+		2CCE6DB71DFDDD250085BA33 /* cocoa_platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocoa_platform.h; sourceTree = "<group>"; };
+		2CCE6DB81DFDDD250085BA33 /* cocoa_time.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cocoa_time.c; sourceTree = "<group>"; };
+		2CCE6DB91DFDDD250085BA33 /* cocoa_window.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cocoa_window.m; sourceTree = "<group>"; };
+		2CCE6DBA1DFDDD250085BA33 /* context.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = context.c; sourceTree = "<group>"; };
+		2CCE6DC21DFDDD250085BA33 /* init.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = init.c; sourceTree = "<group>"; };
+		2CCE6DC31DFDDD250085BA33 /* input.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = input.c; sourceTree = "<group>"; };
+		2CCE6DC41DFDDD250085BA33 /* internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = internal.h; sourceTree = "<group>"; };
+		2CCE6DCB1DFDDD250085BA33 /* monitor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = monitor.c; sourceTree = "<group>"; };
+		2CCE6DCC1DFDDD250085BA33 /* nsgl_context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nsgl_context.h; sourceTree = "<group>"; };
+		2CCE6DCD1DFDDD250085BA33 /* nsgl_context.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nsgl_context.m; sourceTree = "<group>"; };
+		2CCE6DD01DFDDD250085BA33 /* posix_tls.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = posix_tls.c; sourceTree = "<group>"; };
+		2CCE6DD11DFDDD250085BA33 /* posix_tls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = posix_tls.h; sourceTree = "<group>"; };
+		2CCE6DDD1DFDDD250085BA33 /* window.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = window.c; sourceTree = "<group>"; };
+		2CCE6DE61DFDDD250085BA33 /* xkb_unicode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xkb_unicode.c; sourceTree = "<group>"; };
+		2CCE6DE71DFDDD250085BA33 /* xkb_unicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xkb_unicode.h; sourceTree = "<group>"; };
+		2CCE6E1D1DFE6C850085BA33 /* glfw_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glfw_config.h; sourceTree = "<group>"; };
+		2CCE6E201DFE79A80085BA33 /* glad.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glad.c; sourceTree = "<group>"; };
+		2CCE6E211DFE79A80085BA33 /* glad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glad.h; sourceTree = "<group>"; };
+		2CCE6E221DFE79A80085BA33 /* linmath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = linmath.h; sourceTree = "<group>"; };
+		2CCE6E261DFE79F60085BA33 /* khrplatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = khrplatform.h; sourceTree = "<group>"; };
+		2CCE6E291DFE7E760085BA33 /* CWindow_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CWindow_macOS.cpp; sourceTree = "<group>"; };
+		2CCE6E2A1DFE7E760085BA33 /* CWindow_macOS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CWindow_macOS.hpp; sourceTree = "<group>"; };
+		2CCE6E2B1DFE7E760085BA33 /* IWindow.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IWindow.hpp; sourceTree = "<group>"; };
+		2CCE6E2C1DFE7E760085BA33 /* SivWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivWindow.cpp; sourceTree = "<group>"; };
+		2CCE6E2D1DFE7E760085BA33 /* WindowFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WindowFactory.cpp; sourceTree = "<group>"; };
+		2CCE6E331DFE82630085BA33 /* vulkan.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vulkan.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -797,7 +851,7 @@
 		2CA798FD1DF55A0D0028D11D /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
-				2CA798FE1DF55A0D0028D11D /* _Template */,
+				2CCE6E281DFE7E760085BA33 /* Window */,
 				2CA799041DF55A0D0028D11D /* BigFloat */,
 				2CA799071DF55A0D0028D11D /* BigInt */,
 				2CA7990A1DF55A0D0028D11D /* BinaryReader */,
@@ -839,18 +893,6 @@
 				2CA799681DF55A0D0028D11D /* WritableMemoryMapping */,
 			);
 			path = Siv3D;
-			sourceTree = "<group>";
-		};
-		2CA798FE1DF55A0D0028D11D /* _Template */ = {
-			isa = PBXGroup;
-			children = (
-				2CA798FF1DF55A0D0028D11D /* CXxxx.cpp */,
-				2CA799001DF55A0D0028D11D /* CXxxx.hpp */,
-				2CA799011DF55A0D0028D11D /* IXxxx.hpp */,
-				2CA799021DF55A0D0028D11D /* SivXxxx.cpp */,
-				2CA799031DF55A0D0028D11D /* XxxxFactory.cpp */,
-			);
-			path = _Template;
 			sourceTree = "<group>";
 		};
 		2CA799041DF55A0D0028D11D /* BigFloat */ = {
@@ -1166,6 +1208,7 @@
 		2CA7996C1DF55A0D0028D11D /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				2CCE6DAC1DFDDD250085BA33 /* GLFW */,
 				2CA7996D1DF55A0D0028D11D /* double-conversion */,
 				2CA799811DF55A0D0028D11D /* fmt */,
 				2CA799841DF55A0D0028D11D /* zstd */,
@@ -1365,6 +1408,84 @@
 			path = ../Siv3D;
 			sourceTree = "<group>";
 		};
+		2CCE6DAC1DFDDD250085BA33 /* GLFW */ = {
+			isa = PBXGroup;
+			children = (
+				2CCE6E1F1DFE79A80085BA33 /* deps */,
+				2CCE6DAD1DFDDD250085BA33 /* include */,
+				2CCE6DB11DFDDD250085BA33 /* src */,
+			);
+			path = GLFW;
+			sourceTree = "<group>";
+		};
+		2CCE6DAD1DFDDD250085BA33 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				2CCE6DAE1DFDDD250085BA33 /* GLFW */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		2CCE6DAE1DFDDD250085BA33 /* GLFW */ = {
+			isa = PBXGroup;
+			children = (
+				2CCE6DAF1DFDDD250085BA33 /* glfw3.h */,
+				2CCE6DB01DFDDD250085BA33 /* glfw3native.h */,
+			);
+			path = GLFW;
+			sourceTree = "<group>";
+		};
+		2CCE6DB11DFDDD250085BA33 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				2CCE6E1D1DFE6C850085BA33 /* glfw_config.h */,
+				2CCE6DB31DFDDD250085BA33 /* cocoa_init.m */,
+				2CCE6DB41DFDDD250085BA33 /* cocoa_joystick.h */,
+				2CCE6DB51DFDDD250085BA33 /* cocoa_joystick.m */,
+				2CCE6DB61DFDDD250085BA33 /* cocoa_monitor.m */,
+				2CCE6DB71DFDDD250085BA33 /* cocoa_platform.h */,
+				2CCE6DB81DFDDD250085BA33 /* cocoa_time.c */,
+				2CCE6DB91DFDDD250085BA33 /* cocoa_window.m */,
+				2CCE6DBA1DFDDD250085BA33 /* context.c */,
+				2CCE6DC21DFDDD250085BA33 /* init.c */,
+				2CCE6DC31DFDDD250085BA33 /* input.c */,
+				2CCE6DC41DFDDD250085BA33 /* internal.h */,
+				2CCE6DCB1DFDDD250085BA33 /* monitor.c */,
+				2CCE6DCC1DFDDD250085BA33 /* nsgl_context.h */,
+				2CCE6DCD1DFDDD250085BA33 /* nsgl_context.m */,
+				2CCE6DD01DFDDD250085BA33 /* posix_tls.c */,
+				2CCE6DD11DFDDD250085BA33 /* posix_tls.h */,
+				2CCE6E331DFE82630085BA33 /* vulkan.c */,
+				2CCE6DDD1DFDDD250085BA33 /* window.c */,
+				2CCE6DE61DFDDD250085BA33 /* xkb_unicode.c */,
+				2CCE6DE71DFDDD250085BA33 /* xkb_unicode.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		2CCE6E1F1DFE79A80085BA33 /* deps */ = {
+			isa = PBXGroup;
+			children = (
+				2CCE6E261DFE79F60085BA33 /* khrplatform.h */,
+				2CCE6E201DFE79A80085BA33 /* glad.c */,
+				2CCE6E211DFE79A80085BA33 /* glad.h */,
+				2CCE6E221DFE79A80085BA33 /* linmath.h */,
+			);
+			path = deps;
+			sourceTree = "<group>";
+		};
+		2CCE6E281DFE7E760085BA33 /* Window */ = {
+			isa = PBXGroup;
+			children = (
+				2CCE6E291DFE7E760085BA33 /* CWindow_macOS.cpp */,
+				2CCE6E2A1DFE7E760085BA33 /* CWindow_macOS.hpp */,
+				2CCE6E2B1DFE7E760085BA33 /* IWindow.hpp */,
+				2CCE6E2C1DFE7E760085BA33 /* SivWindow.cpp */,
+				2CCE6E2D1DFE7E760085BA33 /* WindowFactory.cpp */,
+			);
+			path = Window;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1376,6 +1497,7 @@
 				2CA799BF1DF55A0D0028D11D /* BinaryWriter.hpp in Headers */,
 				2CA799CA1DF55A0D0028D11D /* DateTime.hpp in Headers */,
 				2CA799FC1DF55A0D0028D11D /* TextEncoding.hpp in Headers */,
+				2CCE6E251DFE79A80085BA33 /* linmath.h in Headers */,
 				2CA799DA1DF55A0D0028D11D /* Image.hpp in Headers */,
 				2CA799D41DF55A0D0028D11D /* Functor.hpp in Headers */,
 				2CA799EA1DF55A0D0028D11D /* ParseInt.hpp in Headers */,
@@ -1391,6 +1513,7 @@
 				2CA79A5F1DF55A0D0028D11D /* bignum-dtoa.h in Headers */,
 				2CA79A021DF55A0D0028D11D /* Timer.hpp in Headers */,
 				2CA799BE1DF55A0D0028D11D /* BinaryReader.hpp in Headers */,
+				2CCE6DEE1DFDDD250085BA33 /* cocoa_platform.h in Headers */,
 				2CA799B61DF55A0D0028D11D /* ostream.h in Headers */,
 				2CA799CE1DF55A0D0028D11D /* FileSystem.hpp in Headers */,
 				2CA799B91DF55A0D0028D11D /* Allocator.hpp in Headers */,
@@ -1398,6 +1521,7 @@
 				2CA79A051DF55A0D0028D11D /* Uncopyable.hpp in Headers */,
 				2CA79A751DF55A0D0028D11D /* fse.h in Headers */,
 				2CA79A6B1DF55A0D0028D11D /* fixed-dtoa.h in Headers */,
+				2CCE6E051DFDDD250085BA33 /* posix_tls.h in Headers */,
 				2CA799EB1DF55A0D0028D11D /* PerlinNoise.hpp in Headers */,
 				2CA79A831DF55A0D0028D11D /* zstd_opt.h in Headers */,
 				2CA79A0C1DF55A0D0028D11D /* Void_t.hpp in Headers */,
@@ -1410,16 +1534,17 @@
 				2CA79A951DF55A0D0028D11D /* zstd_v05.h in Headers */,
 				2CA799D71DF55A0D0028D11D /* HardwareRNG.hpp in Headers */,
 				2CA79A481DF55A0D0028D11D /* Siv3DEngine.hpp in Headers */,
+				2CCE6DE81DFDDD250085BA33 /* glfw3.h in Headers */,
 				2CA799F71DF55A0D0028D11D /* Step_MSVC.hpp in Headers */,
 				2CA799D61DF55A0D0028D11D /* Grid.hpp in Headers */,
 				2CA79A971DF55A0D0028D11D /* zstd_v06.h in Headers */,
 				2CA799F81DF55A0D0028D11D /* Stopwatch.hpp in Headers */,
+				2CCE6DE91DFDDD250085BA33 /* glfw3native.h in Headers */,
 				2CA799E81DF55A0D0028D11D /* ParseBool.hpp in Headers */,
 				2CA799C21DF55A0D0028D11D /* Char.hpp in Headers */,
 				2CA799BC1DF55A0D0028D11D /* BigFloat.hpp in Headers */,
 				2CA799D51DF55A0D0028D11D /* Fwd.hpp in Headers */,
 				2CA79A071DF55A0D0028D11D /* Utility.hpp in Headers */,
-				2CA79A151DF55A0D0028D11D /* CXxxx.hpp in Headers */,
 				2CA799C61DF55A0D0028D11D /* Compression.hpp in Headers */,
 				2CA799F01DF55A0D0028D11D /* Radix.hpp in Headers */,
 				2CA79A2E1DF55A0D0028D11D /* CConsole.hpp in Headers */,
@@ -1437,6 +1562,7 @@
 				2CA79A0E1DF55A0D0028D11D /* Xorshift.hpp in Headers */,
 				2CA799FE1DF55A0D0028D11D /* TextWriter.hpp in Headers */,
 				2CA79A771DF55A0D0028D11D /* huf.h in Headers */,
+				2CCE6E301DFE7E760085BA33 /* IWindow.hpp in Headers */,
 				2CA799BA1DF55A0D0028D11D /* Array.hpp in Headers */,
 				2CA799E11DF55A0D0028D11D /* MathConstants.hpp in Headers */,
 				2CA79A0A1DF55A0D0028D11D /* Vector4D.hpp in Headers */,
@@ -1444,9 +1570,9 @@
 				2CA799CF1DF55A0D0028D11D /* Format.hpp in Headers */,
 				2CA79A0F1DF55A0D0028D11D /* Siv3D.hpp in Headers */,
 				2CA79A501DF55A0D0028D11D /* CTextReader.hpp in Headers */,
+				2CCE6DEB1DFDDD250085BA33 /* cocoa_joystick.h in Headers */,
 				2CA799C71DF55A0D0028D11D /* Concept.hpp in Headers */,
 				2CA79A0D1DF55A0D0028D11D /* WritableMemoryMapping.hpp in Headers */,
-				2CA79A161DF55A0D0028D11D /* IXxxx.hpp in Headers */,
 				2CA799E51DF55A0D0028D11D /* Number.hpp in Headers */,
 				2CA799CD1DF55A0D0028D11D /* Duration.hpp in Headers */,
 				2CA79A301DF55A0D0028D11D /* IConsole.hpp in Headers */,
@@ -1455,7 +1581,9 @@
 				2CA79A931DF55A0D0028D11D /* zstd_v04.h in Headers */,
 				2CA79A011DF55A0D0028D11D /* TimeProfiler.hpp in Headers */,
 				2CA79A7E1DF55A0D0028D11D /* zstd_internal.h in Headers */,
+				2CCE6E1B1DFDDD250085BA33 /* xkb_unicode.h in Headers */,
 				2CA799CB1DF55A0D0028D11D /* DefaultRNG.hpp in Headers */,
+				2CCE6E271DFE79F60085BA33 /* khrplatform.h in Headers */,
 				2CA799E31DF55A0D0028D11D /* MersenneTwister.hpp in Headers */,
 				2CA799D81DF55A0D0028D11D /* Hash.hpp in Headers */,
 				2CA79A781DF55A0D0028D11D /* mem.h in Headers */,
@@ -1485,6 +1613,7 @@
 				2CA799B51DF55A0D0028D11D /* format.h in Headers */,
 				2CA79A6E1DF55A0D0028D11D /* strtod.h in Headers */,
 				2CA79A6C1DF55A0D0028D11D /* ieee.h in Headers */,
+				2CCE6E001DFDDD250085BA33 /* nsgl_context.h in Headers */,
 				2CA79A8B1DF55A0D0028D11D /* zstd_legacy.h in Headers */,
 				2CA79A031DF55A0D0028D11D /* Types.hpp in Headers */,
 				2CA799E91DF55A0D0028D11D /* ParseFloat.hpp in Headers */,
@@ -1492,9 +1621,12 @@
 				2CA79A991DF55A0D0028D11D /* zstd_v07.h in Headers */,
 				2CA79A9A1DF55A0D0028D11D /* zstd.h in Headers */,
 				2CA799DD1DF55A0D0028D11D /* IWriter.hpp in Headers */,
+				2CCE6E1E1DFE6C850085BA33 /* glfw_config.h in Headers */,
+				2CCE6DF81DFDDD250085BA33 /* internal.h in Headers */,
 				2CA799C11DF55A0D0028D11D /* ByteArrayView.hpp in Headers */,
 				2CA79A741DF55A0D0028D11D /* error_private.h in Headers */,
 				2CA799EC1DF55A0D0028D11D /* Platform.hpp in Headers */,
+				2CCE6E2F1DFE7E760085BA33 /* CWindow_macOS.hpp in Headers */,
 				2CA799EF1DF55A0D0028D11D /* PointVector.hpp in Headers */,
 				2CA799B81DF55A0D0028D11D /* _TEMPLATE.hpp in Headers */,
 				2CA79A081DF55A0D0028D11D /* Vector2D.hpp in Headers */,
@@ -1505,6 +1637,7 @@
 				2CA79A191DF55A0D0028D11D /* CBigFloat.hpp in Headers */,
 				2CA79A8A1DF55A0D0028D11D /* zdict.h in Headers */,
 				2CA79A1E1DF55A0D0028D11D /* CBinaryReader_macOS.hpp in Headers */,
+				2CCE6E241DFE79A80085BA33 /* glad.h in Headers */,
 				2CA79A531DF55A0D0028D11D /* CTextWriter.hpp in Headers */,
 				2CA799B71DF55A0D0028D11D /* printf.h in Headers */,
 				2CA799DB1DF55A0D0028D11D /* InfiniteList.hpp in Headers */,
@@ -1628,17 +1761,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CA79A431DF55A0D0028D11D /* SivMemoryMapping.cpp in Sources */,
+				2CCE6DEA1DFDDD250085BA33 /* cocoa_init.m in Sources */,
 				2CA79A8E1DF55A0D0028D11D /* zstd_v02.c in Sources */,
 				2CA79A901DF55A0D0028D11D /* zstd_v03.c in Sources */,
+				2CCE6DF11DFDDD250085BA33 /* context.c in Sources */,
 				2CA79A361DF55A0D0028D11D /* SivFormat.cpp in Sources */,
 				2CA79A821DF55A0D0028D11D /* zstd_compress.c in Sources */,
 				2CA79A701DF55A0D0028D11D /* format.cc in Sources */,
 				2CA79A4F1DF55A0D0028D11D /* CTextReader.cpp in Sources */,
 				2CA79A2F1DF55A0D0028D11D /* ConsoleFactory.cpp in Sources */,
-				2CA79A181DF55A0D0028D11D /* XxxxFactory.cpp in Sources */,
+				2CCE6DEC1DFDDD250085BA33 /* cocoa_joystick.m in Sources */,
 				2CA79A1D1DF55A0D0028D11D /* CBinaryReader_macOS.cpp in Sources */,
 				2CA79A851DF55A0D0028D11D /* zbuff_decompress.c in Sources */,
+				2CCE6E231DFE79A80085BA33 /* glad.c in Sources */,
+				2CCE6E111DFDDD250085BA33 /* window.c in Sources */,
 				2CA79A5D1DF55A0D0028D11D /* SivWritableMemoryMapping.cpp in Sources */,
+				2CCE6E2E1DFE7E760085BA33 /* CWindow_macOS.cpp in Sources */,
 				2CA79A4C1DF55A0D0028D11D /* SivString.cpp in Sources */,
 				2CA79A461DF55A0D0028D11D /* SivPoint.cpp in Sources */,
 				2CA79A601DF55A0D0028D11D /* bignum.cc in Sources */,
@@ -1647,19 +1785,25 @@
 				2CA79A521DF55A0D0028D11D /* CTextWriter.cpp in Sources */,
 				2CA79A331DF55A0D0028D11D /* SivDateTime.cpp in Sources */,
 				2CA79A551DF55A0D0028D11D /* SivThread.cpp in Sources */,
+				2CCE6DED1DFDDD250085BA33 /* cocoa_monitor.m in Sources */,
 				2CA79A241DF55A0D0028D11D /* CBinaryWriter_windows.cpp in Sources */,
 				2CA79A2D1DF55A0D0028D11D /* CConsole.cpp in Sources */,
 				2CA79A941DF55A0D0028D11D /* zstd_v05.c in Sources */,
 				2CA79A581DF55A0D0028D11D /* SivVector2D.cpp in Sources */,
 				2CA79A981DF55A0D0028D11D /* zstd_v07.c in Sources */,
 				2CA79A451DF55A0D0028D11D /* SivPerlinNoise.cpp in Sources */,
+				2CCE6DF61DFDDD250085BA33 /* init.c in Sources */,
 				2CA79A8C1DF55A0D0028D11D /* zstd_v01.c in Sources */,
 				2CA79A1A1DF55A0D0028D11D /* SivBigFloat.cpp in Sources */,
 				2CA79A4D1DF55A0D0028D11D /* SivSystem.cpp in Sources */,
 				2CA79A351DF55A0D0028D11D /* SivFileSystem.mm in Sources */,
 				2CA79A641DF55A0D0028D11D /* diy-fp.cc in Sources */,
+				2CCE6E311DFE7E760085BA33 /* SivWindow.cpp in Sources */,
 				2CA79A561DF55A0D0028D11D /* SivTime.cpp in Sources */,
 				2CA79A731DF55A0D0028D11D /* error_private.c in Sources */,
+				2CCE6E011DFDDD250085BA33 /* nsgl_context.m in Sources */,
+				2CCE6E341DFE82630085BA33 /* vulkan.c in Sources */,
+				2CCE6E321DFE7E760085BA33 /* WindowFactory.cpp in Sources */,
 				2CA79A961DF55A0D0028D11D /* zstd_v06.c in Sources */,
 				2CA79A2C1DF55A0D0028D11D /* SivCompression.cpp in Sources */,
 				2CA79A921DF55A0D0028D11D /* zstd_v04.c in Sources */,
@@ -1673,6 +1817,7 @@
 				2CA79A381DF55A0D0028D11D /* SivFormatInt.cpp in Sources */,
 				2CA79A321DF55A0D0028D11D /* SivDate.cpp in Sources */,
 				2CA79A681DF55A0D0028D11D /* fast-dtoa.cc in Sources */,
+				2CCE6DFF1DFDDD250085BA33 /* monitor.c in Sources */,
 				2CA79A571DF55A0D0028D11D /* SivTimeProfiler.cpp in Sources */,
 				2CA79A841DF55A0D0028D11D /* huf_decompress.c in Sources */,
 				2CA79A2A1DF55A0D0028D11D /* SivCharacterSet.cpp in Sources */,
@@ -1681,11 +1826,13 @@
 				2CA79A791DF55A0D0028D11D /* xxhash.c in Sources */,
 				2CA79A411DF55A0D0028D11D /* CMemoryMapping.cpp in Sources */,
 				2CA79A471DF55A0D0028D11D /* Siv3DEngine.cpp in Sources */,
+				2CCE6E041DFDDD250085BA33 /* posix_tls.c in Sources */,
 				2CA79A261DF55A0D0028D11D /* SivBinaryWriter.cpp in Sources */,
 				2CA79A401DF55A0D0028D11D /* SivLogger.cpp in Sources */,
 				2CA79A211DF55A0D0028D11D /* SivBinaryReader.cpp in Sources */,
-				2CA79A171DF55A0D0028D11D /* SivXxxx.cpp in Sources */,
+				2CCE6DF01DFDDD250085BA33 /* cocoa_window.m in Sources */,
 				2CA79A861DF55A0D0028D11D /* zstd_decompress.c in Sources */,
+				2CCE6DF71DFDDD250085BA33 /* input.c in Sources */,
 				2CA79A5B1DF55A0D0028D11D /* CWritableMemoryMapping.cpp in Sources */,
 				2CA79A621DF55A0D0028D11D /* cached-powers.cc in Sources */,
 				2CA79A311DF55A0D0028D11D /* SivConsole.cpp in Sources */,
@@ -1695,12 +1842,12 @@
 				2CA79A341DF55A0D0028D11D /* SivFileSystem.cpp in Sources */,
 				2CA79A891DF55A0D0028D11D /* zdict.c in Sources */,
 				2CA79A5A1DF55A0D0028D11D /* SivVector4D.cpp in Sources */,
-				2CA79A141DF55A0D0028D11D /* CXxxx.cpp in Sources */,
 				2CA79A221DF55A0D0028D11D /* CBinaryWriter_macOS.cpp in Sources */,
 				2CA79A1C1DF55A0D0028D11D /* SivBigInt.cpp in Sources */,
 				2CA79A871DF55A0D0028D11D /* divsufsort.c in Sources */,
 				2CA79A1F1DF55A0D0028D11D /* CBinaryReader_windows.cpp in Sources */,
 				2CA79A811DF55A0D0028D11D /* zbuff_compress.c in Sources */,
+				2CCE6E1A1DFDDD250085BA33 /* xkb_unicode.c in Sources */,
 				2CA79A2B1DF55A0D0028D11D /* SivColor.cpp in Sources */,
 				2CA79A371DF55A0D0028D11D /* SivFormatFloat.cpp in Sources */,
 				2CA79A441DF55A0D0028D11D /* SivParseFloat.cpp in Sources */,
@@ -1708,6 +1855,7 @@
 				2CA79A491DF55A0D0028D11D /* Siv3DMain_macOS.cpp in Sources */,
 				2CA79A591DF55A0D0028D11D /* SivVector3D.cpp in Sources */,
 				2CA79A5E1DF55A0D0028D11D /* bignum-dtoa.cc in Sources */,
+				2CCE6DEF1DFDDD250085BA33 /* cocoa_time.c in Sources */,
 				2CA79A3E1DF55A0D0028D11D /* LoggerFactory.cpp in Sources */,
 				2CA79A801DF55A0D0028D11D /* huf_compress.c in Sources */,
 				2CA79A271DF55A0D0028D11D /* CByteArray.cpp in Sources */,
@@ -1890,7 +2038,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -1945,7 +2093,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
