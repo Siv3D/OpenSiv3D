@@ -9,6 +9,9 @@
 //
 //-----------------------------------------------
 
+# include <Siv3D/Platform.hpp>
+# if defined(SIV3D_TARGET_MACOS)
+
 # include "CWindow_macOS.hpp"
 
 namespace s3d
@@ -67,3 +70,5 @@ namespace s3d
 		return true;
 	}
 }
+
+# endif

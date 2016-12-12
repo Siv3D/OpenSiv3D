@@ -9,13 +9,18 @@
 //
 //-----------------------------------------------
 
+# include "CWindow_Windows.hpp"
 # include "CWindow_macOS.hpp"
 
 namespace s3d
 {
 	ISiv3DWindow* ISiv3DWindow::Create()
 	{
-		# if defined(SIV3D_TARGET_MACOS)
+		# if defined(SIV3D_TARGET_WINDOWS)
+
+			return new CWindow_Windows;
+
+		# elif defined(SIV3D_TARGET_MACOS)
 		
 			return new CWindow_macOS;
 		

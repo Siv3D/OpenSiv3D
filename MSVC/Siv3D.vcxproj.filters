@@ -152,6 +152,9 @@
     <Filter Include="Source\ThirdParty\zstd\legacy">
       <UniqueIdentifier>{6ac892e9-7e56-41b6-b2ad-0e75dec97738}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Window">
+      <UniqueIdentifier>{97f8d5e2-00d2-4954-93fe-d5d6454f1e99}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -583,6 +586,15 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\RandomColor.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Window\CWindow_macOS.hpp">
+      <Filter>Source\Siv3D\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Window\CWindow_Windows.hpp">
+      <Filter>Source\Siv3D\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Window\IWindow.hpp">
+      <Filter>Source\Siv3D\Window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -666,9 +678,6 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextEncoding\SivTextEncoding.cpp">
       <Filter>Source\Siv3D\TextEncoding</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_Windows.cpp">
-      <Filter>Source\Siv3D</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DEngine.cpp">
       <Filter>Source\Siv3D</Filter>
     </ClCompile>
@@ -686,9 +695,6 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextReader\SivTextReader.cpp">
       <Filter>Source\Siv3D\TextReader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_macOS.cpp">
-      <Filter>Source\Siv3D</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryWriter\CBinaryWriter_Windows.cpp">
       <Filter>Source\Siv3D\BinaryWriter</Filter>
@@ -827,6 +833,24 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v07.c">
       <Filter>Source\ThirdParty\zstd\legacy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Window\CWindow_Windows.cpp">
+      <Filter>Source\Siv3D\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Window\SivWindow.cpp">
+      <Filter>Source\Siv3D\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Window\WindowFactory.cpp">
+      <Filter>Source\Siv3D\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Window\CWindow_macOS.cpp">
+      <Filter>Source\Siv3D\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_macOS.cpp">
+      <Filter>Source\Siv3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_Windows.cpp">
+      <Filter>Source\Siv3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

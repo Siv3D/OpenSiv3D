@@ -9,7 +9,21 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/Platform.hpp>
+# include <Siv3D/Fwd.hpp>
+# include "../Siv3DEngine.hpp"
+# include "../Window/IWindow.hpp"
+
+namespace s3d
+{
+	namespace System
+	{
+		bool Update()
+		{
+			return Siv3DEngine::GetWindow()->update();
+		}
+	}
+}
+
 # if defined(SIV3D_TARGET_WINDOWS)
 
 # define  NOMINMAX
@@ -42,9 +56,6 @@ namespace s3d
 # elif defined(SIV3D_TARGET_MACOS)
 
 # include <unistd.h>
-# include <Siv3D/Fwd.hpp>
-# include "../Siv3DEngine.hpp"
-# include "../Window/IWindow.hpp"
 
 namespace s3d
 {
@@ -59,11 +70,6 @@ namespace s3d
 
             ::usleep(static_cast<uint32>(milliseconds) * 1000);
         }
-		
-		bool Update()
-		{
-			return Siv3DEngine::GetWindow()->update();
-		}
 	}
 }
 

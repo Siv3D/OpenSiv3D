@@ -9,31 +9,32 @@
 //
 //-----------------------------------------------
 
-# pragma once
 # include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_MACOS)
+# if defined(SIV3D_TARGET_WINDOWS)
 
-# include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
-# include "IWindow.hpp"
+# include "CWindow_Windows.hpp"
 
 namespace s3d
 {
-	class CWindow_macOS : public ISiv3DWindow
+	CWindow_Windows::CWindow_Windows()
 	{
-	private:
 
-		GLFWwindow* m_glfwWindow;
-		
-	public:
+	}
 
-		CWindow_macOS();
+	CWindow_Windows::~CWindow_Windows()
+	{
 
-		~CWindow_macOS() override;
+	}
 
-		bool init() override;
-		
-		bool update() override;
-	};
+	bool CWindow_Windows::init()
+	{
+		return true;
+	}
+	
+	bool CWindow_Windows::update()
+	{
+		return false;
+	}
 }
 
 # endif
