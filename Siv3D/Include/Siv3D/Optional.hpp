@@ -1642,23 +1642,6 @@ namespace s3d
 		return Optional<U&>(v.get());
 	}
 
-	template <class CharType, class Type>
-	inline std::basic_ostream<CharType>& operator << (std::basic_ostream<CharType>& os, const Optional<Type>& x)
-	{
-		if (x)
-		{
-			const CharType opt[] = { 'O','p','t','i','o','n','a','l', ' ', '\0' };
-
-			return os << opt << x.value();
-		}
-		else
-		{
-			const CharType no[] = { 'n','o','n','e','\0' };
-
-			return os << no;
-		}
-	}
-
 	template <class Type>
 	struct IsOptional : std::false_type {};
 

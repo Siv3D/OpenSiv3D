@@ -13,11 +13,33 @@
 # include <iostream>
 # include "Fwd.hpp"
 # include "String.hpp"
+# include "Format.hpp"
 
 namespace s3d
 {
 	namespace detail
 	{
+		struct ConsoleBuffer
+		{
+			std::unique_ptr<FormatData> formatData;
+
+			ConsoleBuffer()
+				: formatData(std::make_unique<FormatData>()) {}
+
+			ConsoleBuffer(ConsoleBuffer&& other)
+				: formatData(std::move(other.formatData)) {}
+
+			~ConsoleBuffer();
+
+			template <class Type>
+			ConsoleBuffer& operator <<(const Type& value)
+			{
+				Formatter(*formatData, value);
+
+				return *this;
+			}
+		};
+
 		struct Console_impl
 		{
 			void open() const;
@@ -58,11 +80,13 @@ namespace s3d
 			}
 
 			template <class Type>
-			auto operator <<(const Type& value) const
+			ConsoleBuffer operator <<(const Type& value) const
 			{
-				write(Format(value));
+				ConsoleBuffer buf;
 
-				return *this;
+				Formatter(*buf.formatData, value);
+
+				return buf;
 			}
 
 			template <class Type>
@@ -94,4 +118,15 @@ namespace s3d
 	}
 
 	constexpr auto Console = detail::Console_impl();
+
+	namespace detail
+	{
+		inline ConsoleBuffer::~ConsoleBuffer()
+		{
+			if (formatData)
+			{
+				Console.writeln(formatData->string);
+			}
+		}
+	}
 }

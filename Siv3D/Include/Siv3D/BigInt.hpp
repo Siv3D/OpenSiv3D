@@ -487,6 +487,39 @@ namespace s3d
 		return b.compare(a) >= 0;
 	}
 
+	template <class Type>
+	struct IsBigInt : std::false_type {};
+
+	template <>
+	struct IsBigInt<BigInt> : std::true_type {};
+}
+
+namespace std
+{
+	void inline swap(s3d::BigInt& a, s3d::BigInt& b) noexcept(noexcept(a.swap(b)))
+	{
+		a.swap(b);
+	}
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting BigInt
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[x] istream
+//	[x] wistream
+//	[p] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
+	inline void Formatter(FormatData& formatData, const BigInt& i)
+	{
+		formatData.string.append(i.str());
+	}
+
 	inline std::ostream& operator <<(std::ostream& os, const BigInt& i)
 	{
 		return os << i.stdStr();
@@ -512,23 +545,19 @@ namespace s3d
 		i.assign(s);
 		return is;
 	}
-
-	inline void Formatter(FormatData& formatData, const BigInt& i)
-	{
-		formatData.string.append(i.str());
-	}
-
-	template <class Type>
-	struct IsBigInt : std::false_type {};
-
-	template <>
-	struct IsBigInt<BigInt> : std::true_type {};
 }
 
-namespace std
+namespace fmt
 {
-	void inline swap(s3d::BigInt& a, s3d::BigInt& b) noexcept(noexcept(a.swap(b)))
+	template <class ArgFormatter>
+	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::BigInt& i)
 	{
-		a.swap(b);
+		const auto tag = s3d::detail::GetTag(format_str);
+
+		const auto fmt = L"{" + tag + L"}";
+
+		f.writer().write(fmt, i.str().str());
 	}
 }
+//
+//////////////////////////////////////////////////////////////////////////////

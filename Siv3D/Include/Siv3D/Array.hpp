@@ -1117,24 +1117,6 @@ namespace s3d
 	{
 		return !(a < b);
 	}
-
-	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
-	inline std::ostream & operator << (std::ostream& os, const Array<Type, Allocator>& v)
-	{
-		return os << Format(v).narrow();
-	}
-
-	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
-	inline std::wostream & operator << (std::wostream& os, const Array<Type, Allocator>& v)
-	{
-		return os << Format(v);
-	}
-
-	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
-	inline void Formatter(FormatData& formatData, const Array<Type, Allocator>& v)
-	{
-		Formatter(formatData, v.begin(), v.end());
-	}
 }
 
 namespace std
@@ -1147,3 +1129,37 @@ namespace std
 }
 
 # include "ArrayBool.hpp"
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting Array
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[ ] istream
+//	[ ] wistream
+//	[p] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
+	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
+	inline void Formatter(FormatData& formatData, const Array<Type, Allocator>& v)
+	{
+		Formatter(formatData, v.begin(), v.end());
+	}
+
+	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
+	inline std::ostream & operator <<(std::ostream& os, const Array<Type, Allocator>& v)
+	{
+		return os << Format(v).narrow();
+	}
+
+	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
+	inline std::wostream & operator <<(std::wostream& os, const Array<Type, Allocator>& v)
+	{
+		return os << Format(v);
+	}
+}
+//
+//////////////////////////////////////////////////////////////////////////////

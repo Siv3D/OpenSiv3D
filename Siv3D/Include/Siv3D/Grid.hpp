@@ -1355,21 +1355,32 @@ namespace s3d
 	{
 		return !(x == y);
 	}
+}
 
-	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
-	inline std::ostream & operator << (std::ostream& os, const Grid<Type>& grid)
+namespace std
+{
+	template <class Type>
+	inline void swap(s3d::Grid<Type>& a, s3d::Grid<Type>& b) noexcept(noexcept(a.swap(b)))
 	{
-		return os << Format(grid).narrow();
+		a.swap(b);
 	}
+}
 
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting Grid
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[ ] istream
+//	[ ] wistream
+//	[p] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
 	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
-	inline std::wostream & operator << (std::wostream& os, const Grid<Type>& grid)
-	{
-		return os << Format(grid);
-	}
-
-	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
-	inline void Formatter(FormatData& formatData, const Grid<Type>& grid)
+	inline void Formatter(FormatData& formatData, const Grid<Type, Allocator>& grid)
 	{
 		formatData.string.push_back(L'{');
 
@@ -1393,13 +1404,18 @@ namespace s3d
 
 		formatData.string.push_back(L'}');
 	}
-}
 
-namespace std
-{
-	template <class Type>
-	inline void swap(s3d::Grid<Type>& a, s3d::Grid<Type>& b) noexcept(noexcept(a.swap(b)))
+	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
+	inline std::ostream & operator <<(std::ostream& os, const Grid<Type, Allocator>& grid)
 	{
-		a.swap(b);
+		return os << Format(grid).narrow();
+	}
+
+	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
+	inline std::wostream & operator <<(std::wostream& os, const Grid<Type, Allocator>& grid)
+	{
+		return os << Format(grid);
 	}
 }
+//
+//////////////////////////////////////////////////////////////////////////////

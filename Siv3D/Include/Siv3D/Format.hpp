@@ -17,6 +17,7 @@
 # include "Optional.hpp"
 # include "FormatInt.hpp"
 # include "FormatFloat.hpp"
+# include "FormatLiteral.hpp"
 
 namespace s3d
 {
@@ -297,36 +298,6 @@ namespace s3d
 		formatData.string.append(str);
 	}
 
-	inline void Formatter(FormatData& formatData, const String& str)
-	{
-		formatData.string.append(str);
-	}
-
-	inline void Formatter(FormatData& formatData, const StringView str)
-	{
-		formatData.string.append(str.begin(), str.end());
-	}
-
-	template <class Type>
-	inline void Formatter(FormatData& formatData, const Optional<Type>& opt)
-	{
-		if (opt)
-		{
-			formatData.string.append(L"Optional ", 9);
-
-			Formatter(formatData, opt.value());
-		}
-		else
-		{
-			formatData.string.append(L"none", 4);
-		}
-	}
-
-	inline void Formatter(FormatData& formatData, None_t)
-	{
-		formatData.string.append(L"none", 4);
-	}
-
 	template <class Iterator>
 	inline void Formatter(FormatData& formatData, Iterator begin, Iterator end)
 	{
@@ -437,3 +408,148 @@ namespace s3d
         return Format(value).lpadded(padding.first, padding.second);
     }
 }
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting None_t
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[ ] istream
+//	[x] wostream
+//	[ ] wistream
+//	[p] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
+	inline void Formatter(FormatData& formatData, None_t)
+	{
+		formatData.string.append(L"none", 4);
+	}
+
+	template <class CharType>
+	inline std::basic_ostream<CharType>& operator << (std::basic_ostream<CharType>& os, None_t)
+	{
+		const CharType no[] = { 'n','o','n','e','\0' };
+
+		return os << no;
+	}
+}
+//
+//////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting Optional
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[ ] istream
+//	[ ] wistream
+//	[p] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
+	template <class Type>
+	inline void Formatter(FormatData& formatData, const Optional<Type>& opt)
+	{
+		if (opt)
+		{
+			formatData.string.append(L"Optional ", 9);
+
+			Formatter(formatData, opt.value());
+		}
+		else
+		{
+			formatData.string.append(L"none", 4);
+		}
+	}
+
+	template <class CharType, class Type>
+	inline std::basic_ostream<CharType>& operator << (std::basic_ostream<CharType>& os, const Optional<Type>& x)
+	{
+		if (x)
+		{
+			const CharType opt[] = { 'O','p','t','i','o','n','a','l', ' ', '\0' };
+
+			return os << opt << x.value();
+		}
+		else
+		{
+			const CharType no[] = { 'n','o','n','e','\0' };
+
+			return os << no;
+		}
+	}
+}
+//
+//////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting String
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[x] istream
+//	[x] wistream
+//	[x] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
+	inline void Formatter(FormatData& formatData, const String& str)
+	{
+		formatData.string.append(str);
+	}
+}
+
+namespace fmt
+{
+	template <class ArgFormatter>
+	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::String& str)
+	{
+		const auto tag = s3d::detail::GetTag(format_str);
+
+		const auto fmt = L"{" + tag + L"}";
+				
+		f.writer().write(fmt, str.str());
+	}
+}
+//
+//////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting StringView
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[-] istream
+//	[-] wistream
+//	[x] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
+	inline void Formatter(FormatData& formatData, const StringView str)
+	{
+		formatData.string.append(str.begin(), str.end());
+	}
+}
+
+namespace fmt
+{
+	template <class ArgFormatter>
+	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::StringView str)
+	{
+		const auto tag = s3d::detail::GetTag(format_str);
+
+		const auto fmt = L"{" + tag + L"}";
+
+		f.writer().write(fmt, std::wstring(str.begin(), str.end()));
+	}
+}
+//
+//////////////////////////////////////////////////////////////////////////////
