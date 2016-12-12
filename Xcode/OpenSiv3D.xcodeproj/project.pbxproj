@@ -11,6 +11,8 @@
 		2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C38B14A1CDEB45C007A7E9F /* gtest.a */; };
 		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
 		2C2CCF511CE8698C001844FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2CCF501CE8698C001844FF /* Foundation.framework */; };
+		2C4970361DFF14AB00EFBB07 /* CWindow_Windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4970341DFF14AB00EFBB07 /* CWindow_Windows.cpp */; };
+		2C4970371DFF14AB00EFBB07 /* CWindow_Windows.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4970351DFF14AB00EFBB07 /* CWindow_Windows.hpp */; };
 		2CA799B51DF55A0D0028D11D /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CA798971DF55A0D0028D11D /* format.h */; };
 		2CA799B61DF55A0D0028D11D /* ostream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CA798991DF55A0D0028D11D /* ostream.h */; };
 		2CA799B71DF55A0D0028D11D /* printf.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CA7989A1DF55A0D0028D11D /* printf.h */; };
@@ -313,6 +315,8 @@
 		2C1778BF1CE0D5DB00BB8AD0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C2CCF501CE8698C001844FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
+		2C4970341DFF14AB00EFBB07 /* CWindow_Windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CWindow_Windows.cpp; sourceTree = "<group>"; };
+		2C4970351DFF14AB00EFBB07 /* CWindow_Windows.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CWindow_Windows.hpp; sourceTree = "<group>"; };
 		2CA798971DF55A0D0028D11D /* format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
 		2CA798981DF55A0D0028D11D /* LICENSE.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.rst; sourceTree = "<group>"; };
 		2CA798991DF55A0D0028D11D /* ostream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ostream.h; sourceTree = "<group>"; };
@@ -1479,6 +1483,8 @@
 			children = (
 				2CCE6E291DFE7E760085BA33 /* CWindow_macOS.cpp */,
 				2CCE6E2A1DFE7E760085BA33 /* CWindow_macOS.hpp */,
+				2C4970341DFF14AB00EFBB07 /* CWindow_Windows.cpp */,
+				2C4970351DFF14AB00EFBB07 /* CWindow_Windows.hpp */,
 				2CCE6E2B1DFE7E760085BA33 /* IWindow.hpp */,
 				2CCE6E2C1DFE7E760085BA33 /* SivWindow.cpp */,
 				2CCE6E2D1DFE7E760085BA33 /* WindowFactory.cpp */,
@@ -1581,6 +1587,7 @@
 				2CA79A931DF55A0D0028D11D /* zstd_v04.h in Headers */,
 				2CA79A011DF55A0D0028D11D /* TimeProfiler.hpp in Headers */,
 				2CA79A7E1DF55A0D0028D11D /* zstd_internal.h in Headers */,
+				2C4970371DFF14AB00EFBB07 /* CWindow_Windows.hpp in Headers */,
 				2CCE6E1B1DFDDD250085BA33 /* xkb_unicode.h in Headers */,
 				2CA799CB1DF55A0D0028D11D /* DefaultRNG.hpp in Headers */,
 				2CCE6E271DFE79F60085BA33 /* khrplatform.h in Headers */,
@@ -1761,6 +1768,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CA79A431DF55A0D0028D11D /* SivMemoryMapping.cpp in Sources */,
+				2C4970361DFF14AB00EFBB07 /* CWindow_Windows.cpp in Sources */,
 				2CCE6DEA1DFDDD250085BA33 /* cocoa_init.m in Sources */,
 				2CA79A8E1DF55A0D0028D11D /* zstd_v02.c in Sources */,
 				2CA79A901DF55A0D0028D11D /* zstd_v03.c in Sources */,

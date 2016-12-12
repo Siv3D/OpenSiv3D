@@ -84,13 +84,3 @@ namespace s3d
 	}
 }
 
-namespace fmt
-{
-	template <class ArgFormatter, class Type>
-	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const Type& value)
-	{
-		s3d::detail::GetTag(format_str);
-
-		f.writer() << s3d::Format(value).str();
-	}
-}
