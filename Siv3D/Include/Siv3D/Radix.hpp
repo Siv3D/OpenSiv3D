@@ -20,17 +20,12 @@ namespace s3d
 
 		uint32 m_value = 10;
 
-		struct unspecified_t {};
-
 	public:
 
-		static constexpr unspecified_t Unspecified{};
+		static constexpr uint32 Unspecified = 0;
 
 		constexpr Radix(uint32 value = 10) noexcept
 			: m_value(value) {}
-
-        constexpr Radix(unspecified_t) noexcept
-			: m_value(0) {}
 
 		constexpr uint32 value() const noexcept
 		{
