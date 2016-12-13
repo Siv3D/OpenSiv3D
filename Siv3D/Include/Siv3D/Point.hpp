@@ -304,54 +304,11 @@ namespace s3d
 		}
 	};
 
-	/// <summary>
-	/// 出力ストリームに点を渡します。
-	/// </summary>
-	/// <param name="os">
-	/// 出力ストリーム
-	/// </param>
-	/// <param name="v">
-	/// 点
-	/// </param>
-	/// <returns>
-	/// 渡した後の出力ストリーム
-	/// </returns>
-	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const Point& v)
-	{
-		return os	<< CharType('(')
-					<< v.x << CharType(',')
-					<< v.y << CharType(')');
-	}
-
-	/// <summary>
-	/// 入力ストリームに点を渡します。
-	/// </summary>
-	/// <param name="is">
-	/// 入力ストリーム
-	/// </param>
-	/// <param name="v">
-	/// 点
-	/// </param>
-	/// <returns>
-	/// 渡した後の入力ストリーム
-	/// </returns>
-	template <class CharType>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& is, Point& v)
-	{
-		CharType unused;
-		return is	>> unused
-					>> v.x >> unused
-					>> v.y >> unused;
-	}
-
 	inline constexpr Point operator *(int32 s, const Point& p) noexcept;
 
 	inline constexpr Float2 operator *(float s, const Point& p) noexcept;
 
 	inline constexpr Vec2 operator *(double s, const Point& p) noexcept;
-
-	void Formatter(FormatData& formatData, const Point& value);
 
 	using Size = Point;
 }
@@ -367,3 +324,62 @@ namespace std
 		}
 	};
 }
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting Point
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[x] istream
+//	[x] wistream
+//	[p] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
+	void Formatter(FormatData& formatData, const Point& value);
+
+	/// <summary>
+	/// 出力ストリームに点を渡します。
+	/// </summary>
+	/// <param name="os">
+	/// 出力ストリーム
+	/// </param>
+	/// <param name="v">
+	/// 点
+	/// </param>
+	/// <returns>
+	/// 渡した後の出力ストリーム
+	/// </returns>
+	template <class CharType>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const Point& v)
+	{
+		return os << CharType('(')
+			<< v.x << CharType(',')
+			<< v.y << CharType(')');
+	}
+
+	/// <summary>
+	/// 入力ストリームに点を渡します。
+	/// </summary>
+	/// <param name="is">
+	/// 入力ストリーム
+	/// </param>
+	/// <param name="v">
+	/// 点
+	/// </param>
+	/// <returns>
+	/// 渡した後の入力ストリーム
+	/// </returns>
+	template <class CharType>
+	inline std::basic_istream<CharType>& operator >> (std::basic_istream<CharType>& is, Point& v)
+	{
+		CharType unused;
+		return is >> unused
+			>> v.x >> unused
+			>> v.y >> unused;
+	}
+}
+//
+//////////////////////////////////////////////////////////////////////////////

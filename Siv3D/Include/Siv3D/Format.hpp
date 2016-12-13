@@ -409,6 +409,39 @@ namespace s3d
     }
 }
 
+namespace s3d
+{
+	namespace detail
+	{
+		template <class Char>
+		std::basic_string<Char> GetTag(const Char*& format_str)
+		{
+			const Char* beg = format_str;
+
+			if (*format_str == Char(':'))
+			{
+				++format_str;
+			}
+
+			const Char *end = format_str;
+
+			while (*end && *end != Char('}'))
+			{
+				++end;
+			}
+
+			if (*end != L'}')
+			{
+				FMT_THROW(fmt::FormatError("missing '}' in format string"));
+			}
+
+			format_str = end + 1;
+
+			return std::basic_string<Char>(beg, end);
+		}
+	}
+}
+
 namespace fmt
 {
 	template <class ArgFormatter, class Type>
@@ -439,7 +472,7 @@ namespace s3d
 	}
 
 	template <class CharType>
-	inline std::basic_ostream<CharType>& operator << (std::basic_ostream<CharType>& os, None_t)
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, None_t)
 	{
 		const CharType no[] = { 'n','o','n','e','\0' };
 

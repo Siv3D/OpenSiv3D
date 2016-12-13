@@ -35,6 +35,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\CharacterSet.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Circular.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Color.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\ColorPalette.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Compression.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Concept.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Console.hpp" />
@@ -98,7 +99,6 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Optional.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Platform.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\PlatformWindows.hpp" />
-    <ClInclude Include="..\Siv3D\Include\Siv3D\Radix.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Step_MSVC.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Stopwatch.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\String.hpp" />
@@ -128,6 +128,8 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\LogHeaderFotter.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\MemoryMapping\CMemoryMapping.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Siv3DEngine.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\System\CSystem.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\System\ISystem.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\TextReader\CTextReader.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\TextWriter\CTextWriter.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Window\CWindow_macOS.hpp" />
@@ -204,7 +206,9 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_Windows.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Stopwatch\SivStopwatch.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\String\SivString.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\System\CSystem.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\System\SivSystem.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\System\SystemFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextEncoding\SivTextEncoding.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextReader\CTextReader.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextReader\SivTextReader.cpp" />

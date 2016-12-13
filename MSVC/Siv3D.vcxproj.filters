@@ -196,9 +196,6 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\PlatformWindows.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\Include\Siv3D\Radix.hpp">
-      <Filter>Include\Siv3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\String.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
@@ -400,12 +397,6 @@
     <ClInclude Include="..\Siv3D\Include\fmt\format.h">
       <Filter>Include\fmt</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\Include\fmt\printf.h">
-      <Filter>Include\fmt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\Include\fmt\ostream.h">
-      <Filter>Include\fmt</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\Color.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
@@ -594,6 +585,21 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\Source\Siv3D\Window\IWindow.hpp">
       <Filter>Source\Siv3D\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\fmt\printf.h">
+      <Filter>Include\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\fmt\ostream.h">
+      <Filter>Include\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\ColorPalette.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\System\CSystem.hpp">
+      <Filter>Source\Siv3D\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\System\ISystem.hpp">
+      <Filter>Source\Siv3D\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -851,6 +857,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_Windows.cpp">
       <Filter>Source\Siv3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\System\CSystem.cpp">
+      <Filter>Source\Siv3D\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\System\SystemFactory.cpp">
+      <Filter>Source\Siv3D\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

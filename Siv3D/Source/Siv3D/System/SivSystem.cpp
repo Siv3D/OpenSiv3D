@@ -11,7 +11,7 @@
 
 # include <Siv3D/Fwd.hpp>
 # include "../Siv3DEngine.hpp"
-# include "../Window/IWindow.hpp"
+# include "../System/ISystem.hpp"
 
 namespace s3d
 {
@@ -19,7 +19,7 @@ namespace s3d
 	{
 		bool Update()
 		{
-			return Siv3DEngine::GetWindow()->update();
+			return Siv3DEngine::GetSystem()->update();
 		}
 	}
 }

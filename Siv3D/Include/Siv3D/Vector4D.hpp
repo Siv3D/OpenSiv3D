@@ -633,6 +633,44 @@ namespace s3d
 		}
 	};
 
+	template <class Type, class U>
+	inline constexpr Vector3D<Type> operator *(U s, const Vector4D<Type>& v) noexcept
+	{
+		return v * s;
+	}
+
+	using Float4	= Vector4D<float>;
+	using Vec4		= Vector4D<double>;
+}
+
+namespace std
+{
+	template <class Type>
+	struct hash<s3d::Vector4D<Type>>
+	{
+		size_t operator()(const s3d::Vector4D<Type>& keyVal) const
+		{
+			return s3d::Hash::FNV1a(keyVal);
+		}
+	};
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting Vector4D
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[x] istream
+//	[x] wistream
+//	[x] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
+	void Formatter(FormatData& formatData, const Float4& value);
+	void Formatter(FormatData& formatData, const Vec4& value);
+
 	/// <summary>
 	/// 出力ストリームに 4 次元ベクトルを渡します。
 	/// </summary>
@@ -668,7 +706,7 @@ namespace s3d
 	/// 渡した後の入力ストリーム
 	/// </returns>
 	template <class CharType, class Type>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& is, Vector4D<Type>& v)
+	inline std::basic_istream<CharType>& operator >> (std::basic_istream<CharType>& is, Vector4D<Type>& v)
 	{
 		CharType unused;
 		return is >> unused
@@ -677,28 +715,19 @@ namespace s3d
 			>> v.z >> unused
 			>> v.w >> unused;
 	}
-
-	template <class Type, class U>
-	inline constexpr Vector3D<Type> operator *(U s, const Vector4D<Type>& v) noexcept
-	{
-		return v * s;
-	}
-
-	void Formatter(FormatData& formatData, const Float4& value);
-	void Formatter(FormatData& formatData, const Vec4& value);
-
-	using Float4	= Vector4D<float>;
-	using Vec4		= Vector4D<double>;
 }
 
-namespace std
+namespace fmt
 {
-	template <class Type>
-	struct hash<s3d::Vector4D<Type>>
+	template <class ArgFormatter, class Type>
+	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::Vector4D<Type>& v)
 	{
-		size_t operator()(const s3d::Vector4D<Type>& keyVal) const
-		{
-			return s3d::Hash::FNV1a(keyVal);
-		}
-	};
+		const auto tag = s3d::detail::GetTag(format_str);
+
+		const auto fmt = L"({" + tag + L"},{" + tag + L"},{" + tag + L"},{" + tag + L"})";
+
+		f.writer().write(fmt, v.x, v.y, v.z, v.w);
+	}
 }
+//
+//////////////////////////////////////////////////////////////////////////////

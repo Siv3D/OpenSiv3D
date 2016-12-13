@@ -13,7 +13,12 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_WINDOWS)
 
-# include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
+# define  NOMINMAX
+# define  STRICT
+# define  _WIN32_WINNT _WIN32_WINNT_WIN7
+# define  NTDDI_VERSION NTDDI_WIN7
+# include <Windows.h>
+# include <Siv3D/String.hpp>
 # include "IWindow.hpp"
 
 namespace s3d
@@ -21,6 +26,14 @@ namespace s3d
 	class CWindow_Windows : public ISiv3DWindow
 	{
 	private:
+
+		HWND m_hWnd = nullptr;
+
+		String m_windowClassName;
+
+		bool registerWindowClass();
+
+		bool createWindow();
 
 	public:
 
@@ -31,6 +44,8 @@ namespace s3d
 		bool init() override;
 		
 		bool update() override;
+
+		void destroy() override;
 	};
 }
 

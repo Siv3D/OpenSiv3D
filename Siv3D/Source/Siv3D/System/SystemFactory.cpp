@@ -9,23 +9,13 @@
 //
 //-----------------------------------------------
 
-# pragma once
-# include <Siv3D/Fwd.hpp>
+# include "CSystem.hpp"
 
 namespace s3d
 {
-	class ISiv3DWindow
+	ISiv3DSystem* ISiv3DSystem::Create()
 	{
-	public:
-
-		static ISiv3DWindow* Create();
-
-		virtual ~ISiv3DWindow() = default;
-
-		virtual bool init() = 0;
-		
-		virtual bool update() = 0;
-
-		virtual void destroy() = 0;
-	};
+		return new CSystem;
+	}
 }
+

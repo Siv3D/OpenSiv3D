@@ -7,7 +7,9 @@ using namespace std::literals;
 
 void Main()
 {
-	RunTest();
+	//RunTest();
+
+# if(1)
 
 	/////////////////////////////////////////////////
 	//
@@ -286,14 +288,14 @@ void Main()
 	//	Stopwatch
 	//
 	/////////////////////////////////////////////////
-	/*
-	// Stopwatch
-	Log(L"# Stopwatch");
-	Stopwatch stopwatch(true);
-	System::Sleep(1.5s);
-	Log(stopwatch);
-	Log(stopwatch.format(L"S.xxx秒"));
-	Log(stopwatch > 1.5s);
+
+	//// Stopwatch
+	//Log << L"# Stopwatch";
+	//Stopwatch stopwatch(true);
+	//System::Sleep(1.5s);
+	//Log << stopwatch;
+	//Log << stopwatch.format(L"S.xxx秒");
+	//Log << (stopwatch > 1.5s);
 
 	/////////////////////////////////////////////////
 	//
@@ -301,23 +303,23 @@ void Main()
 	//
 	/////////////////////////////////////////////////
 
-	// SpeedStopwatch
-	Log(L"# SpeedStopwatch");
-	SpeedStopwatch speedStopwatch(10.0, true);
-	for (int32 i = 0; i <= 3; ++i)
-	{
-	Log(speedStopwatch);
-	System::Sleep(1s);
-	}
-	// Timer
-	Log(L"# Timer");
-	Timer timer(3s, true);
-	for (int32 i = 0; i <= 4; ++i)
-	{
-	Log(timer, L' ', timer.reachedZero());
-	System::Sleep(1s);
-	}
-	*/
+	//// SpeedStopwatch
+	//Log << L"# SpeedStopwatch";
+	//SpeedStopwatch speedStopwatch(10.0, true);
+	//for (int32 i = 0; i <= 3; ++i)
+	//{
+	//	Log << speedStopwatch;
+	//	System::Sleep(1s);
+	//}
+
+	//// Timer
+	//Log << L"# Timer";
+	//Timer timer(3s, true);
+	//for (int32 i = 0; i <= 4; ++i)
+	//{
+	//	Log << timer << L' ' << timer.reachedZero();
+	//	System::Sleep(1s);
+	//}
 
 	// Date
 	Log << L"# Date";
@@ -426,21 +428,37 @@ void Main()
 	Log << FileSystem::RelativePath(L"../../", L"example/");
 	Log << FileSystem::RelativePath(L"./", L"./");
 
+	//// TimeProfiler
+	//{
+	//	TimeProfiler tp;
+	//
+	//	for (int32 i = 0; i < 20; ++i)
+	//	{
+	//		tp.begin(L"System::Sleep(20)");
+	//		System::Sleep(20);
+	//		tp.end();
+	//	}
+	//}
 
-	/*
-	// TimeProfiler
-	TimeProfiler tp;
-	for (int32 i = 0; i < 50; ++i)
-	{
-	tp.begin(L"System::Sleep(20)");
-	System::Sleep(20);
-	tp.end();
-	}
+	/////////////////////////////////////////////////
+	//
+	//	Rectangle
+	//
+	/////////////////////////////////////////////////
 
-	*/
-	
-	while(System::Update())
+	// Rect
+	Log << L"# Rect";
+	Log << AreEqual(
+		Rect(0, 0, 100),
+		Rect(Arg::center(50, 50), 100),
+		Rect(Arg::topLeft(0, 0), 100),
+		Rect(Arg::topRight(100, 0), 100),
+		Rect(Arg::bottomLeft(0, 100), 100),
+		Rect(Arg::bottomRight(100, 100), 100));
+# endif
+
+	while (System::Update())
 	{
-		
+
 	}
 }
