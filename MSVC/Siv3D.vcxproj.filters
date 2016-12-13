@@ -598,6 +598,12 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\ColorPalette.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\System\CSystem.hpp">
+      <Filter>Source\Siv3D\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\System\ISystem.hpp">
+      <Filter>Source\Siv3D\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -854,6 +860,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_Windows.cpp">
       <Filter>Source\Siv3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\System\CSystem.cpp">
+      <Filter>Source\Siv3D\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\System\SystemFactory.cpp">
+      <Filter>Source\Siv3D\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

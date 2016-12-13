@@ -7,7 +7,12 @@ using namespace std::literals;
 
 void Main()
 {
-# if(1)
+	while (System::Update())
+	{
+
+	}
+
+# if(0)
 
 	RunTest();
 

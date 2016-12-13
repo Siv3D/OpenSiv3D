@@ -23,6 +23,10 @@
 # include <Siv3D/FileSystem.hpp>
 # include "Siv3DEngine.hpp"
 # include "Logger/ILogger.hpp"
+# include "Window/IWindow.hpp"
+
+
+# include <Siv3D/TimeProfiler.hpp>
 
 void Main();
 
@@ -33,6 +37,55 @@ namespace s3d
 		namespace init
 		{
 			void SetModulePath();
+		}
+
+		static void MainThread()
+		{
+			Main();
+		}
+
+		enum class MessageResult
+		{
+			Quit,
+
+			Dispatched,
+
+			NoMessage,
+		};
+
+		static MessageResult HandleMessage()
+		{
+			MSG message;
+
+			if (::PeekMessageW(&message, 0, 0, 0, PM_REMOVE))
+			{
+				if (message.message == WM_QUIT)
+				{
+					return MessageResult::Quit;
+				}
+				else
+				{
+					::TranslateMessage(&message);
+					::DispatchMessageW(&message);
+				}
+
+				return MessageResult::Dispatched;
+			}
+
+			return MessageResult::NoMessage;
+		}
+
+		static void CloseWindow()
+		{
+			Siv3DEngine::GetWindow()->destroy();
+
+			for (int wait = 0; wait < 16; ++wait)
+			{
+				if (HandleMessage() == MessageResult::Quit)
+				{
+					break;
+				}
+			}
 		}
 	}
 }
@@ -65,8 +118,41 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 	{
 		return -1;
 	}
-	
-	Main();
+
+	if (!engine.GetWindow()->init())
+	{
+		return -1;
+	}
+
+	const std::future<void> f = std::async(std::launch::async, detail::MainThread);
+
+	for (;;)
+	{
+		bool quit = f._Is_ready();
+
+		for (int32 i = 0; !quit && i < 100; ++i)
+		{
+			const auto result = detail::HandleMessage();
+
+			if (result == detail::MessageResult::Quit)
+			{
+				quit = true;
+			}
+			else if (result == detail::MessageResult::NoMessage)
+			{
+				break;
+			}
+		}
+
+		if (quit)
+		{
+			break;
+		}
+
+		::Sleep(1);
+	}
+
+	detail::CloseWindow();
 
 	return 0;
 }

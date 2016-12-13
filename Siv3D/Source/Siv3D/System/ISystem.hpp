@@ -14,18 +14,20 @@
 
 namespace s3d
 {
-	class ISiv3DWindow
+	class ISiv3DSystem
 	{
 	public:
 
-		static ISiv3DWindow* Create();
+		static ISiv3DSystem* Create();
 
-		virtual ~ISiv3DWindow() = default;
+		virtual ~ISiv3DSystem() = default;
 
 		virtual bool init() = 0;
-		
+
+		virtual void exit() = 0;
+
 		virtual bool update() = 0;
 
-		virtual void destroy() = 0;
+		virtual void reportEvent(uint32 windowEventFlag) = 0;
 	};
 }

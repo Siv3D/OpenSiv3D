@@ -10,32 +10,34 @@
 //-----------------------------------------------
 
 # pragma once
-# include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_MACOS)
-
-# include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
-# include "IWindow.hpp"
+# include <atomic>
+# include <Siv3D/System.hpp>
+# include "ISystem.hpp"
 
 namespace s3d
 {
-	class CWindow_macOS : public ISiv3DWindow
+	class CSystem : public ISiv3DSystem
 	{
 	private:
 
-		GLFWwindow* m_glfwWindow;
-		
+		std::atomic_uint32_t m_event = 0;
+
+		uint32 m_previousEvent = 0;
+
+		uint32 m_exitEvent = WindowEvent::Default;
+
 	public:
 
-		CWindow_macOS();
+		CSystem();
 
-		~CWindow_macOS() override;
+		~CSystem() override;
 
 		bool init() override;
-		
+
+		void exit() override;
+
 		bool update() override;
 
-		void destroy() override {}
+		void reportEvent(uint32 windowEventFlag) override;
 	};
 }
-
-# endif
