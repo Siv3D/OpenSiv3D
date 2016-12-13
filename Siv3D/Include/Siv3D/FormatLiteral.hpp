@@ -17,33 +17,6 @@ namespace s3d
 {
 	namespace detail
 	{
-		template <class Char>
-		std::basic_string<Char> GetTag(const Char*& format_str)
-		{
-			const Char* beg = format_str;
-
-			if (*format_str == Char(':'))
-			{
-				++format_str;
-			}
-
-			const Char *end = format_str;
-
-			while (*end && *end != Char('}'))
-			{
-				++end;
-			}
-
-			if (*end != L'}')
-			{
-				FMT_THROW(fmt::FormatError("missing '}' in format string"));
-			}
-
-			format_str = end + 1;
-
-			return std::basic_string<Char>(beg, end);
-		}
-
 		struct FormatHelper
 		{
 			const wchar* str;

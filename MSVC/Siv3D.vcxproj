@@ -35,6 +35,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\CharacterSet.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Circular.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Color.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\ColorPalette.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Compression.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Concept.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Console.hpp" />

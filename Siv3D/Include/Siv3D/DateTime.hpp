@@ -426,6 +426,34 @@ namespace s3d
 	{
 		return !(a < b);
 	}
+}
+
+namespace std
+{
+	template <>
+	struct hash<s3d::DateTime>
+	{
+		size_t operator()(const s3d::DateTime& date) const;
+	};
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting DateTime
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[ ] istream
+//	[ ] wistream
+//	[p] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
+	inline void Formatter(FormatData& formatData, const DateTime& dateTime)
+	{
+		formatData.string.append(dateTime.format());
+	}
 
 	/// <summary>
 	/// 出力ストリームに日付と時刻を渡します。
@@ -447,18 +475,6 @@ namespace s3d
 	{
 		return os << dateTime.format();
 	}
-
-	inline void Formatter(FormatData& formatData, const DateTime& dateTime)
-	{
-		formatData.string.append(dateTime.format());
-	}
 }
-
-namespace std
-{
-	template <>
-	struct hash<s3d::DateTime>
-	{
-		size_t operator()(const s3d::DateTime& date) const;
-	};
-}
+//
+//////////////////////////////////////////////////////////////////////////////

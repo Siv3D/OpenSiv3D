@@ -308,4 +308,16 @@ namespace s3d
 	{
 		return std::addressof(ref);
 	}
+
+	template <class T0>
+	constexpr bool AreEqual(const T0&)
+	{
+		return true;
+	}
+
+	template <class T0, class T1, class... Args>
+	constexpr bool AreEqual(const T0& t0, const T1& t1, const Args&... args)
+	{
+		return t0 == t1 && AreEqual(t1, args...);
+	}
 }

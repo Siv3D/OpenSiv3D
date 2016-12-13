@@ -400,12 +400,6 @@
     <ClInclude Include="..\Siv3D\Include\fmt\format.h">
       <Filter>Include\fmt</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\Include\fmt\printf.h">
-      <Filter>Include\fmt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\Include\fmt\ostream.h">
-      <Filter>Include\fmt</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\Color.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
@@ -594,6 +588,15 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\Source\Siv3D\Window\IWindow.hpp">
       <Filter>Source\Siv3D\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\fmt\printf.h">
+      <Filter>Include\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\fmt\ostream.h">
+      <Filter>Include\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\ColorPalette.hpp">
+      <Filter>Include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
