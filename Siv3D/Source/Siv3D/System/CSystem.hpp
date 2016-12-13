@@ -20,7 +20,7 @@ namespace s3d
 	{
 	private:
 
-		std::atomic_uint32_t m_event = 0;
+		std::atomic<uint32> m_event = {0};
 
 		uint32 m_previousEvent = 0;
 
