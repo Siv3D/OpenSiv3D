@@ -25,9 +25,6 @@
 # include "Logger/ILogger.hpp"
 # include "Window/IWindow.hpp"
 
-
-# include <Siv3D/TimeProfiler.hpp>
-
 void Main();
 
 namespace s3d
@@ -41,7 +38,15 @@ namespace s3d
 
 		static void MainThread()
 		{
-			Main();
+			PEXCEPTION_POINTERS ex = nullptr;
+
+			__try
+			{
+				Main();
+			}
+			__except (ex = GetExceptionInformation(), EXCEPTION_EXECUTE_HANDLER)
+			{
+			}
 		}
 
 		enum class MessageResult

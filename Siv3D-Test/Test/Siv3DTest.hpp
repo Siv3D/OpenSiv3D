@@ -11,7 +11,7 @@
 
 # pragma once
 
-/*
+//*
 # define SIV3D_DO_TEST
 //*/
 
