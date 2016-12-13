@@ -196,9 +196,6 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\PlatformWindows.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\Include\Siv3D\Radix.hpp">
-      <Filter>Include\Siv3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\String.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>

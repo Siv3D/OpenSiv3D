@@ -93,8 +93,6 @@
 	# include "Siv3D/StringView.hpp"
 	// 文字コード変換
 	# include "Siv3D/CharacterSet.hpp"
-	// 基数
-	# include "Siv3D/Radix.hpp"
 	// 大文字小文字
 	# include "Siv3D/LetterCase.hpp"	
 	// 数値
