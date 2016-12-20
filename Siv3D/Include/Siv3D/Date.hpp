@@ -429,17 +429,6 @@ namespace s3d
 	{
 		return !(a < b);
 	}
-
-	template <class CharType>
-	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> os, const Date& date)
-	{
-		return os << date.format();
-	}
-
-	inline void Formatter(FormatData& formatData, const Date& date)
-	{
-		formatData.string.append(date.format());
-	}
 }
 
 namespace std
@@ -450,3 +439,30 @@ namespace std
 		size_t operator()(const s3d::Date& date) const;
 	};
 }
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting Date
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[ ] istream
+//	[ ] wistream
+//	[p] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
+	inline void Formatter(FormatData& formatData, const Date& date)
+	{
+		formatData.string.append(date.format());
+	}
+
+	template <class CharType>
+	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> os, const Date& date)
+	{
+		return os << date.format();
+	}
+}
+//
+//////////////////////////////////////////////////////////////////////////////

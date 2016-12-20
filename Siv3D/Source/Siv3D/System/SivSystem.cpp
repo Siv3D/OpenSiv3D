@@ -9,7 +9,21 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/Platform.hpp>
+# include <Siv3D/Fwd.hpp>
+# include "../Siv3DEngine.hpp"
+# include "../System/ISystem.hpp"
+
+namespace s3d
+{
+	namespace System
+	{
+		bool Update()
+		{
+			return Siv3DEngine::GetSystem()->update();
+		}
+	}
+}
+
 # if defined(SIV3D_TARGET_WINDOWS)
 
 # define  NOMINMAX
@@ -42,7 +56,6 @@ namespace s3d
 # elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 # include <unistd.h>
-# include <Siv3D/Fwd.hpp>
 
 namespace s3d
 {

@@ -127,6 +127,24 @@ namespace s3d
 	}
 
 	/// <summary>
+	/// コンテナにある値が含まれているかを返します。
+	/// </summary>
+	/// <param name="c">
+	/// コンテナ
+	/// </param>
+	/// <param name="e">
+	/// 調べる値
+	/// </param>
+	/// <returns>
+	/// コンテナに値がある場合 true, それ以外の場合は false
+	/// </returns>
+	template <class Container, class Element>
+	bool Contains(Container&& c, Element&& e)
+	{
+		return c.find(e) != c.end();
+	}
+
+	/// <summary>
 	/// コンテナから条件を満たす要素を削除します。
 	/// </summary>
 	/// <param name="c">
@@ -156,10 +174,10 @@ namespace s3d
 	/// <returns>
 	/// なし
 	/// </returns>
-	template <class Container, class Type>
-	inline void Erase(Container& c, const Type& val)
+	template <class Container, class Element>
+	inline void Erase(Container& c, const Element& e)
 	{
-		c.erase(std::remove(std::begin(c), std::end(c), val), std::end(c));
+		c.erase(std::remove(std::begin(c), std::end(c), e), std::end(c));
 	}
 
 	/// <summary>
@@ -289,5 +307,17 @@ namespace s3d
 	Type* AddressOf(Type& ref)
 	{
 		return std::addressof(ref);
+	}
+
+	template <class T0>
+	constexpr bool AreEqual(const T0&)
+	{
+		return true;
+	}
+
+	template <class T0, class T1, class... Args>
+	constexpr bool AreEqual(const T0& t0, const T1& t1, const Args&... args)
+	{
+		return t0 == t1 && AreEqual(t1, args...);
 	}
 }

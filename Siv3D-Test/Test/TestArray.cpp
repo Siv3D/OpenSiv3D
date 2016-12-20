@@ -68,8 +68,8 @@ TEST(Array, int32)
 	EXPECT_EQ(*v.crbegin(),		4);
 	EXPECT_EQ(*(v.crend() - 1),	1);
 	EXPECT_EQ(v.empty(),		false);
-	EXPECT_EQ(v.size(),			4);
-	EXPECT_EQ(v.count(),		4);
+	EXPECT_EQ(v.size(),			(size_t)4);
+	EXPECT_EQ(v.count(),		(size_t)4);
 	EXPECT_EQ(v.isEmpty(),		false);
 	EXPECT_EQ(v.size_bytes(),	sizeof(int32) * 4);
 	EXPECT_GE(v.capacity(),		(size_t)4);
@@ -81,7 +81,7 @@ TEST(Array, int32)
 		v2.shrink_to_fit();
 		EXPECT_LE(v2.capacity(),	(size_t)2000);
 		v2.clear();
-		EXPECT_EQ(v2.size(),		0);
+		EXPECT_EQ(v2.size(),		(size_t)0);
 
 		v2.insert(v2.end(), 2);
 		v2.insert(v2.begin(), 1);
@@ -103,10 +103,10 @@ TEST(Array, int32)
 		EXPECT_EQ(v4,	v3);
 
 		v2.resize(50);
-		EXPECT_EQ(v2.size(),	50);
+		EXPECT_EQ(v2.size(),	(size_t)50);
 
 		v2.resize(100, 123);
-		EXPECT_EQ(v2.size(),	100);
+		EXPECT_EQ(v2.size(),	(size_t)100);
 		EXPECT_EQ(v2[99],		123);
 
 		v2 << 234 << 345;
@@ -144,13 +144,13 @@ TEST(Array, m128)
 # if defined(SIV3D_TARGET_WINDOWS)
 
 	Array<__m128> v(100);
-	EXPECT_EQ(size_t(&v[0]) % 16, 0);
+	EXPECT_EQ(size_t(&v[0]) % 16, (size_t)0);
 
 	v.resize(333);
-	EXPECT_EQ(size_t(&v[0]) % 16, 0);
+	EXPECT_EQ(size_t(&v[0]) % 16, (size_t)0);
 
 	v.resize(777);
-	EXPECT_EQ(size_t(&v[0]) % 16, 0);
+	EXPECT_EQ(size_t(&v[0]) % 16, (size_t)0);
 
 # endif
 }

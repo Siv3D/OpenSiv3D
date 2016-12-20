@@ -1627,18 +1627,74 @@ namespace s3d
 		const auto tuple = std::make_tuple(detail::MapFunction<Fty>{ f });
 		return detail::F_Step<steps_class, Ret, decltype(tuple)>(*this, tuple);
 	}
+}
 
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting steps_class
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[ ] istream
+//	[ ] wistream
+//	[p] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
 	template <class T, class N, class S, bool isScalar>
 	inline void Formatter(FormatData& formatData, const steps_class<T, N, S, isScalar>& s)
 	{
 		Formatter(formatData, s.join());
 	}
 
+	template <class T, class N, class S, bool isScalar>
+	inline std::ostream& operator <<(std::ostream& os, const steps_class<T, N, S, isScalar>& s)
+	{
+		return os << s.join().narrow();
+	}
+
+	template <class T, class N, class S, bool isScalar>
+	inline std::wostream& operator <<(std::wostream& os, const steps_class<T, N, S, isScalar>& s)
+	{
+		return os << s.join();
+	}
+}
+//
+//////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting F_Step
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[ ] istream
+//	[ ] wistream
+//	[p] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
 	template <class StepClass, class ValueType, class Tuple>
 	inline void Formatter(FormatData& formatData, const detail::F_Step<StepClass, ValueType, Tuple>& s)
 	{
 		Formatter(formatData, s.join());
 	}
+
+	template <class StepClass, class ValueType, class Tuple>
+	inline std::ostream& operator <<(std::ostream& os, const detail::F_Step<StepClass, ValueType, Tuple>& s)
+	{
+		return os << s.join().narrow();
+	}
+
+	template <class StepClass, class ValueType, class Tuple>
+	inline std::wostream& operator <<(std::wostream& os, const detail::F_Step<StepClass, ValueType, Tuple>& s)
+	{
+		return os << s.join();
+	}
 }
+//
+//////////////////////////////////////////////////////////////////////////////
 
 # pragma warning (default: 4100)

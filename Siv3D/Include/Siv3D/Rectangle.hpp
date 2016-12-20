@@ -22,10 +22,19 @@ namespace s3d
 	template <class SizeType>
 	struct Rectangle
 	{
+		using position_type = SizeType;
+
+		using size_type = SizeType;
+
 		using value_type = typename SizeType::value_type;
 
-#pragma warning(disable:4201)
-		union
+# if defined(SIV3D_TARGET_WINDOWS)
+		
+	# pragma warning(disable:4201)
+
+# endif
+		
+        union
 		{
 			struct
 			{
@@ -55,16 +64,20 @@ namespace s3d
 				/// <summary>
 				/// 長方形の左上の点の位置
 				/// </summary>
-				SizeType pos;
+				position_type pos;
 
 				/// <summary>
 				/// 長方形のサイズ
 				/// </summary>
-				SizeType size;
+				size_type size;
 			};
 		};
 
-#pragma warning(default:4201)
+# if defined(SIV3D_TARGET_WINDOWS)
+	
+	# pragma warning(default:4201)
+
+# endif
 
 		/// <summary>
 		/// デフォルトコンストラクタ
@@ -104,7 +117,7 @@ namespace s3d
 		/// <param name="_size">
 		/// 長方形の大きさ
 		/// </param>
-		explicit constexpr Rectangle(SizeType _size) noexcept
+		explicit constexpr Rectangle(size_type _size) noexcept
 			: x(0)
 			, y(0)
 			, w(_size.x)
@@ -161,7 +174,7 @@ namespace s3d
 		/// <param name="_size">
 		/// 長方形の大きさ
 		/// </param>
-		constexpr Rectangle(value_type _x, value_type _y, SizeType _size) noexcept
+		constexpr Rectangle(value_type _x, value_type _y, size_type _size) noexcept
 			: x(_x)
 			, y(_y)
 			, w(_size.x)
@@ -176,7 +189,7 @@ namespace s3d
 		/// <param name="_size">
 		/// 長方形の大きさ
 		/// </param>
-		constexpr Rectangle(SizeType _pos, value_type _size) noexcept
+		constexpr Rectangle(position_type _pos, value_type _size) noexcept
 			: x(_pos.x)
 			, y(_pos.y)
 			, w(_size)
@@ -194,7 +207,7 @@ namespace s3d
 		/// <param name="_h">
 		/// 長方形の高さ
 		/// </param>
-		constexpr Rectangle(SizeType _pos, value_type _w, value_type _h) noexcept
+		constexpr Rectangle(position_type _pos, value_type _w, value_type _h) noexcept
 			: x(_pos.x)
 			, y(_pos.y)
 			, w(_w)
@@ -209,7 +222,7 @@ namespace s3d
 		/// <param name="_size">
 		/// 長方形の大きさ
 		/// </param>
-		constexpr Rectangle(SizeType _pos, SizeType _size) noexcept
+		constexpr Rectangle(position_type _pos, size_type _size) noexcept
 			: x(_pos.x)
 			, y(_pos.y)
 			, w(_size.x)
@@ -231,13 +244,13 @@ namespace s3d
 		/// <summary>
 		/// 長方形を作成します。
 		/// </summary>
-		/// <param name="_pos">
-		/// 長方形の左上の点の座標
+		/// <param name="_center">
+		/// 長方形の中心の座標
 		/// </param>
 		/// <param name="_size">
 		/// 長方形の大きさ
 		/// </param>
-		constexpr Rectangle(Arg::center_<SizeType> _center, value_type _size) noexcept
+		constexpr Rectangle(Arg::center_<position_type> _center, value_type _size) noexcept
 			: x(_center->x - _size / 2)
 			, y(_center->y - _size / 2)
 			, w(_size)
@@ -246,8 +259,8 @@ namespace s3d
 		/// <summary>
 		/// 長方形を作成します。
 		/// </summary>
-		/// <param name="_pos">
-		/// 長方形の左上の点の座標
+		/// <param name="_center">
+		/// 長方形の中心の座標
 		/// </param>
 		/// <param name="_w">
 		/// 長方形の幅
@@ -255,7 +268,7 @@ namespace s3d
 		/// <param name="_h">
 		/// 長方形の高さ
 		/// </param>
-		constexpr Rectangle(Arg::center_<SizeType> _center, value_type _w, value_type _h) noexcept
+		constexpr Rectangle(Arg::center_<position_type> _center, value_type _w, value_type _h) noexcept
 			: x(_center->x - _w / 2)
 			, y(_center->y - _h / 2)
 			, w(_w)
@@ -264,18 +277,219 @@ namespace s3d
 		/// <summary>
 		/// 長方形を作成します。
 		/// </summary>
-		/// <param name="_pos">
-		/// 長方形の左上の点の座標
+		/// <param name="_center">
+		/// 長方形の中心の座標
 		/// </param>
 		/// <param name="_size">
 		/// 長方形の大きさ
 		/// </param>
-		constexpr Rectangle(Arg::center_<SizeType> _center, SizeType _size) noexcept
+		constexpr Rectangle(Arg::center_<position_type> _center, size_type _size) noexcept
 			: x(_center->x - _size.x / 2)
 			, y(_center->y - _size.y / 2)
 			, w(_size.x)
 			, h(_size.y) {}
 
+
+
+
+
+		/// <summary>
+		/// 長方形を作成します。
+		/// </summary>
+		/// <param name="topLeft">
+		/// 長方形の左上の座標
+		/// </param>
+		/// <param name="_size">
+		/// 長方形の大きさ
+		/// </param>
+		constexpr Rectangle(Arg::topLeft_<position_type> topLeft, value_type _size) noexcept
+			: x(topLeft->x)
+			, y(topLeft->y)
+			, w(_size)
+			, h(_size) {}
+
+		/// <summary>
+		/// 長方形を作成します。
+		/// </summary>
+		/// <param name="topLeft">
+		/// 長方形の左上の座標
+		/// </param>
+		/// <param name="_w">
+		/// 長方形の幅
+		/// </param>
+		/// <param name="_h">
+		/// 長方形の高さ
+		/// </param>
+		constexpr Rectangle(Arg::topLeft_<position_type> topLeft, value_type _w, value_type _h) noexcept
+			: x(topLeft->x)
+			, y(topLeft->y)
+			, w(_w)
+			, h(_h) {}
+
+		/// <summary>
+		/// 長方形を作成します。
+		/// </summary>
+		/// <param name="topLeft">
+		/// 長方形の左上の座標
+		/// </param>
+		/// <param name="_size">
+		/// 長方形の大きさ
+		/// </param>
+		constexpr Rectangle(Arg::topLeft_<position_type> topLeft, size_type _size) noexcept
+			: x(topLeft->x)
+			, y(topLeft->y)
+			, w(_size.x)
+			, h(_size.y) {}
+
+
+
+		/// <summary>
+		/// 長方形を作成します。
+		/// </summary>
+		/// <param name="topLeft">
+		/// 長方形の右上の座標
+		/// </param>
+		/// <param name="_size">
+		/// 長方形の大きさ
+		/// </param>
+		constexpr Rectangle(Arg::topRight_<position_type> topRight, value_type _size) noexcept
+			: x(topRight->x - _size)
+			, y(topRight->y)
+			, w(_size)
+			, h(_size) {}
+
+		/// <summary>
+		/// 長方形を作成します。
+		/// </summary>
+		/// <param name="topLeft">
+		/// 長方形の右上の座標
+		/// </param>
+		/// <param name="_w">
+		/// 長方形の幅
+		/// </param>
+		/// <param name="_h">
+		/// 長方形の高さ
+		/// </param>
+		constexpr Rectangle(Arg::topRight_<position_type> topRight, value_type _w, value_type _h) noexcept
+			: x(topRight->x - _w)
+			, y(topRight->y)
+			, w(_w)
+			, h(_h) {}
+
+		/// <summary>
+		/// 長方形を作成します。
+		/// </summary>
+		/// <param name="topLeft">
+		/// 長方形の右上の座標
+		/// </param>
+		/// <param name="_size">
+		/// 長方形の大きさ
+		/// </param>
+		constexpr Rectangle(Arg::topRight_<position_type> topRight, size_type _size) noexcept
+			: x(topRight->x - _size.x)
+			, y(topRight->y)
+			, w(_size.x)
+			, h(_size.y) {}
+
+
+
+		/// <summary>
+		/// 長方形を作成します。
+		/// </summary>
+		/// <param name="bottomLeft">
+		/// 長方形の左下の座標
+		/// </param>
+		/// <param name="_size">
+		/// 長方形の大きさ
+		/// </param>
+		constexpr Rectangle(Arg::bottomLeft_<position_type> bottomLeft, value_type _size) noexcept
+			: x(bottomLeft->x)
+			, y(bottomLeft->y - _size)
+			, w(_size)
+			, h(_size) {}
+
+		/// <summary>
+		/// 長方形を作成します。
+		/// </summary>
+		/// <param name="bottomLeft">
+		/// 長方形の左下の座標
+		/// </param>
+		/// <param name="_w">
+		/// 長方形の幅
+		/// </param>
+		/// <param name="_h">
+		/// 長方形の高さ
+		/// </param>
+		constexpr Rectangle(Arg::bottomLeft_<position_type> bottomLeft, value_type _w, value_type _h) noexcept
+			: x(bottomLeft->x)
+			, y(bottomLeft->y - _h)
+			, w(_w)
+			, h(_h) {}
+
+		/// <summary>
+		/// 長方形を作成します。
+		/// </summary>
+		/// <param name="bottomLeft">
+		/// 長方形の左下の座標
+		/// </param>
+		/// <param name="_size">
+		/// 長方形の大きさ
+		/// </param>
+		constexpr Rectangle(Arg::bottomLeft_<position_type> bottomLeft, size_type _size) noexcept
+			: x(bottomLeft->x)
+			, y(bottomLeft->y - _size.y)
+			, w(_size.x)
+			, h(_size.y) {}
+
+
+
+		/// <summary>
+		/// 長方形を作成します。
+		/// </summary>
+		/// <param name="bottomRight">
+		/// 長方形の右下の座標
+		/// </param>
+		/// <param name="_size">
+		/// 長方形の大きさ
+		/// </param>
+		constexpr Rectangle(Arg::bottomRight_<position_type> bottomRight, value_type _size) noexcept
+			: x(bottomRight->x - _size)
+			, y(bottomRight->y - _size)
+			, w(_size)
+			, h(_size) {}
+
+		/// <summary>
+		/// 長方形を作成します。
+		/// </summary>
+		/// <param name="bottomRight">
+		/// 長方形の右下の座標
+		/// </param>
+		/// <param name="_w">
+		/// 長方形の幅
+		/// </param>
+		/// <param name="_h">
+		/// 長方形の高さ
+		/// </param>
+		constexpr Rectangle(Arg::bottomRight_<position_type> bottomRight, value_type _w, value_type _h) noexcept
+			: x(bottomRight->x - _w)
+			, y(bottomRight->y - _h)
+			, w(_w)
+			, h(_h) {}
+
+		/// <summary>
+		/// 長方形を作成します。
+		/// </summary>
+		/// <param name="bottomRight">
+		/// 長方形の右下の座標
+		/// </param>
+		/// <param name="_size">
+		/// 長方形の大きさ
+		/// </param>
+		constexpr Rectangle(Arg::bottomRight_<position_type> bottomRight, size_type _size) noexcept
+			: x(bottomRight->x - _size.x)
+			, y(bottomRight->y - _size.y)
+			, w(_size.x)
+			, h(_size.y) {}
 
 
 
@@ -302,7 +516,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		Rectangle& setCenter(const SizeType& _pos) { pos.set(_pos - size / 2); return *this; }
+		Rectangle& setCenter(const position_type& _pos) { pos.set(_pos - size / 2); return *this; }
 
 
 

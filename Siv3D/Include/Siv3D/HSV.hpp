@@ -42,7 +42,7 @@ namespace s3d
 		/// <summary>
 		/// アルファ | Alpha [0.0, 1.0]
 		/// </summary>
-		double a;
+		double a = 1.0;
 
 		/// <summary>
 		/// デフォルトコンストラクタ
@@ -224,64 +224,6 @@ namespace s3d
 	};
 
 	/// <summary>
-	/// 出力ストリームに色を渡します。
-	/// </summary>
-	/// <param name="os">
-	/// 出力ストリーム
-	/// </param>
-	/// <param name="hsv">
-	/// 色
-	/// </param>
-	/// <returns>
-	/// 渡した後の出力ストリーム
-	/// </returns>
-	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const HSV& hsv)
-	{
-		return os	<< CharType('(')
-					<< hsv.h << CharType(',')
-					<< hsv.s << CharType(',')
-					<< hsv.v << CharType(')')
-					<< hsv.a << CharType(')');
-	}
-
-	/// <summary>
-	/// 入力ストリームに色を渡します。
-	/// </summary>
-	/// <param name="is">
-	/// 入力ストリーム
-	/// </param>
-	/// <param name="hsv">
-	/// 色
-	/// </param>
-	/// <returns>
-	/// 渡した後の入力ストリーム
-	/// </returns>
-	template <class CharType>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& is, HSV& hsv)
-	{
-		CharType unused;
-
-		is	>> unused
-			>> hsv.h >> unused
-			>> hsv.s >> unused
-			>> hsv.v >> unused;
-
-		if (unused == CharType(','))
-		{
-			is >> hsv.a >> unused;
-		}
-		else
-		{
-			hsv.a = 1.0;
-		}
-
-		return is;
-	}
-
-	void Formatter(FormatData& formatData, const HSV& value);
-
-	/// <summary>
 	/// 色相から Color を作成します。
 	/// </summary>
 	/// <param name="hue">
@@ -303,3 +245,90 @@ namespace s3d
 	/// </returns>
 	ColorF HueToColorF(double hue) noexcept;
 }
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting HSV
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[x] istream
+//	[x] wistream
+//	[x] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
+	void Formatter(FormatData& formatData, const HSV& value);
+
+	/// <summary>
+	/// 出力ストリームに色を渡します。
+	/// </summary>
+	/// <param name="os">
+	/// 出力ストリーム
+	/// </param>
+	/// <param name="hsv">
+	/// 色
+	/// </param>
+	/// <returns>
+	/// 渡した後の出力ストリーム
+	/// </returns>
+	template <class CharType>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const HSV& hsv)
+	{
+		return os << CharType('(')
+			<< hsv.h << CharType(',')
+			<< hsv.s << CharType(',')
+			<< hsv.v << CharType(')')
+			<< hsv.a << CharType(')');
+	}
+
+	/// <summary>
+	/// 入力ストリームに色を渡します。
+	/// </summary>
+	/// <param name="is">
+	/// 入力ストリーム
+	/// </param>
+	/// <param name="hsv">
+	/// 色
+	/// </param>
+	/// <returns>
+	/// 渡した後の入力ストリーム
+	/// </returns>
+	template <class CharType>
+	inline std::basic_istream<CharType>& operator >> (std::basic_istream<CharType>& is, HSV& hsv)
+	{
+		CharType unused;
+
+		is >> unused
+			>> hsv.h >> unused
+			>> hsv.s >> unused
+			>> hsv.v >> unused;
+
+		if (unused == CharType(','))
+		{
+			is >> hsv.a >> unused;
+		}
+		else
+		{
+			hsv.a = 1.0;
+		}
+
+		return is;
+	}
+}
+
+namespace fmt
+{
+	template <class ArgFormatter>
+	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::HSV& hsv)
+	{
+		const auto tag = s3d::detail::GetTag(format_str);
+
+		const auto fmt = L"({" + tag + L"},{" + tag + L"},{" + tag + L"},{" + tag + L"})";
+
+		f.writer().write(fmt, hsv.h, hsv.s, hsv.v, hsv.a);
+	}
+}
+//
+//////////////////////////////////////////////////////////////////////////////

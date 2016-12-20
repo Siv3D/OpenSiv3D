@@ -68,6 +68,8 @@
 	# include "Siv3D/Allocator.hpp"
 	// 動的配列
 	# include "Siv3D/Array.hpp"
+	// バイナリ配列ビュー
+	# include "Siv3D/ByteArrayView.hpp"
 	// 範囲
 	# include "Siv3D/Step.hpp"
 	// 無限リスト
@@ -91,8 +93,6 @@
 	# include "Siv3D/StringView.hpp"
 	// 文字コード変換
 	# include "Siv3D/CharacterSet.hpp"
-	// 基数
-	# include "Siv3D/Radix.hpp"
 	// 大文字小文字
 	# include "Siv3D/LetterCase.hpp"	
 	// 数値
@@ -153,18 +153,18 @@
 	# include "Siv3D/IReader.hpp"
 	// IWriter インタフェース
 	# include "Siv3D/IWriter.hpp"
-	//// 読み込み用バッファ
-	//# include "Siv3D/ByteArray.hpp"
+	// メモリマップトファイル
+	# include "Siv3D/MemoryMapping.hpp"
+	// 書き込み可能なメモリマップトファイル
+	# include "Siv3D/WritableMemoryMapping.hpp"
+	// 読み込み用バッファ
+	# include "Siv3D/ByteArray.hpp"
 	//// 書き込み用バッファ
 	//# include "Siv3D/MemoryWriter.hpp"
 	// バイナリファイルの読み込み
 	# include "Siv3D/BinaryReader.hpp"
 	// バイナリファイルの書き込み
 	# include "Siv3D/BinaryWriter.hpp"
-	// メモリマップトファイル
-	# include "Siv3D/MemoryMapping.hpp"
-	// 書き込み可能なメモリマップトファイル
-	# include "Siv3D/WritableMemoryMapping.hpp"
 	// テキストのエンコード
 	# include "Siv3D/TextEncoding.hpp"
 	//// テキストファイルの読み込み
@@ -179,8 +179,8 @@
 	# include "Siv3D/Logger.hpp"
 	//// AES128 による暗号化
 	//# include "Siv3D/Crypto.hpp"
-	//// Deflate によるデータの圧縮・展開
-	//# include "Siv3D/Compression.hpp"
+	// Zstandard によるデータの圧縮・展開
+	# include "Siv3D/Compression.hpp"
 	//// アーカイブファイルからの読み込み
 	//# include "Siv3D/ArchivedFileReader.hpp"
 	//// アーカイブファイル
@@ -264,6 +264,16 @@
 	# include "Siv3D/DefaultRNG.hpp"
 	// 乱数ユーティリティ
 	# include "Siv3D/Random.hpp"
+	// ランダムな Point の作成
+	# include "Siv3D/RandomPoint.hpp"
+	// ランダムな Vec2 の作成
+	# include "Siv3D/RandomVec2.hpp"
+	// ランダムな Vec3 の作成
+	# include "Siv3D/RandomVec3.hpp"
+	// ランダムな Vec4 の作成
+	# include "Siv3D/RandomVec4.hpp"
+	// ランダムな色の作成
+	# include "Siv3D/RandomColor.hpp"
 //
 // 数学
 //
@@ -279,8 +289,8 @@
 	//# include "Siv3D/EasingController.hpp"
 	//// 2D 幾何
 	//# include "Siv3D/Geometry2D.hpp"
-	//// Perlin Noise
-	//# include "Siv3D/PerlinNoise.hpp"
+	// Perlin Noise
+	# include "Siv3D/PerlinNoise.hpp"
 	//// スプライン
 	//# include "Siv3D/Spline.hpp"
 	//// 2 次ベジェ曲線

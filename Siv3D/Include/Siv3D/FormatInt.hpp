@@ -14,7 +14,6 @@
 # include <limits>
 # include "NamedParameter.hpp"
 # include "String.hpp"
-# include "Radix.hpp"
 
 namespace s3d
 {
@@ -273,49 +272,49 @@ namespace s3d
 		return detail::FormatInt(value).str();
 	}
 
-	inline String ToString(const char value, Arg::radix_<Radix> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	inline String ToString(const char value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return detail::ItoW(static_cast<int8>(value), radix->value(), (radix->is10() && value < 0), *upperCase);
+		return detail::ItoW(static_cast<int8>(value), radix.value(), (radix.value() == 10 && value < 0), *upperCase);
 	}
 
-	inline String ToString(const int8 value, Arg::radix_<Radix> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	inline String ToString(const int8 value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return detail::ItoW(static_cast<uint8>(value), radix->value(), (radix->is10() && value < 0), *upperCase);
+		return detail::ItoW(static_cast<uint8>(value), radix.value(), (radix.value() == 10 && value < 0), *upperCase);
 	}
 
-	inline String ToString(const uint8 value, Arg::radix_<Radix> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	inline String ToString(const uint8 value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return detail::ItoW(value, radix->value(), false, *upperCase);
+		return detail::ItoW(value, radix.value(), false, *upperCase);
 	}
 
-	inline String ToString(const int16 value, Arg::radix_<Radix> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	inline String ToString(const int16 value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return detail::ItoW(static_cast<uint16>(value), radix->value(), (radix->is10() && value < 0), *upperCase);
+		return detail::ItoW(static_cast<uint16>(value), radix.value(), (radix.value() == 10 && value < 0), *upperCase);
 	}
 
-	inline String ToString(const uint16 value, Arg::radix_<Radix> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	inline String ToString(const uint16 value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return detail::ItoW(value, radix->value(), false, *upperCase);
+		return detail::ItoW(value, radix.value(), false, *upperCase);
 	}
 
-	inline String ToString(const int32 value, Arg::radix_<Radix> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	inline String ToString(const int32 value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return detail::ItoW(static_cast<uint32>(value), radix->value(), (radix->is10() && value < 0), *upperCase);
+		return detail::ItoW(static_cast<uint32>(value), radix.value(), (radix.value() == 10 && value < 0), *upperCase);
 	}
 
-	inline String ToString(const uint32 value, Arg::radix_<Radix> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	inline String ToString(const uint32 value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return detail::ItoW(value, radix->value(), false, *upperCase);
+		return detail::ItoW(value, radix.value(), false, *upperCase);
 	}
 
-	inline String ToString(const int64 value, Arg::radix_<Radix> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	inline String ToString(const int64 value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return detail::ItoW(static_cast<uint64>(value), radix->value(), (radix->is10() && value < 0), *upperCase);
+		return detail::ItoW(static_cast<uint64>(value), radix.value(), (radix.value() == 10 && value < 0), *upperCase);
 	}
 
-	inline String ToString(const uint64 value, Arg::radix_<Radix> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	inline String ToString(const uint64 value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
-		return detail::ItoW(value, radix->value(), false, *upperCase);
+		return detail::ItoW(value, radix.value(), false, *upperCase);
 	}
 
 

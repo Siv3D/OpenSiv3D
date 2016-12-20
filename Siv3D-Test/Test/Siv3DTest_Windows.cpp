@@ -33,9 +33,6 @@ namespace s3d
 
 		testing::InitGoogleTest(&nArgs, &pUnused);
 		RUN_ALL_TESTS();
-
-		Console(L"Press Any Key to Exit.");
-		::_getch();
 	}
 }
 

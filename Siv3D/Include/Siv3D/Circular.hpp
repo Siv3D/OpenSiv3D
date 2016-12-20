@@ -93,6 +93,11 @@ namespace s3d
 			return toVec2() - v;
 		}
 
+		Float2 toFloat2() const noexcept
+		{
+			return{ std::sin(theta + Clock()) * r, -std::cos(theta + Clock()) * r };
+		}
+
 		Vec2 toVec2() const noexcept
 		{
 			return{ std::sin(theta + Clock()) * r, -std::cos(theta + Clock()) * r };
@@ -103,6 +108,26 @@ namespace s3d
 			return toVec2();
 		}
 	};
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting CircularBase
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[x] istream
+//	[x] wistream
+//	[x] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
+	template <int32 Oclock>
+	inline void Formatter(FormatData& formatData, const CircularBase<Oclock>& value)
+	{
+		Formatter(formatData, Vec2(value.r, value.theta));
+	}
 
 	/// <summary>
 	/// 出力ストリームに点を渡します。
@@ -119,9 +144,9 @@ namespace s3d
 	template <class CharType, int32 Oclock>
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const CircularBase<Oclock>& c)
 	{
-		return os	<< CharType('(')
-					<< c.r << CharType(',')
-					<< c.theta << CharType(')');
+		return os << CharType('(')
+			<< c.r << CharType(',')
+			<< c.theta << CharType(')');
 	}
 
 	/// <summary>
@@ -137,17 +162,26 @@ namespace s3d
 	/// 渡した後の入力ストリーム
 	/// </returns>
 	template <class CharType, int32 Oclock>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& is, CircularBase<Oclock>& v)
+	inline std::basic_istream<CharType>& operator >> (std::basic_istream<CharType>& is, CircularBase<Oclock>& v)
 	{
 		CharType unused;
-		return is	>> unused
-					>> v.r >> unused
-					>> v.theta >> unused;
-	}
-
-	template <int32 Oclock>
-	inline void Formatter(FormatData& formatData, const CircularBase<Oclock>& value)
-	{
-		Formatter(formatData, Vec2(value.r, value.theta));
+		return is >> unused
+			>> v.r >> unused
+			>> v.theta >> unused;
 	}
 }
+
+namespace fmt
+{
+	template <class ArgFormatter, s3d::int32 Oclock>
+	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::CircularBase<Oclock>& value)
+	{
+		const auto tag = s3d::detail::GetTag(format_str);
+
+		const auto fmt = L"({" + tag + L"},{" + tag + L"})";
+
+		f.writer().write(fmt, value.r, value.theta);
+	}
+}
+//
+//////////////////////////////////////////////////////////////////////////////

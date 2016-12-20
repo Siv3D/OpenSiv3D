@@ -507,58 +507,12 @@ namespace s3d
 		}
 	};
 
-	/// <summary>
-	/// 出力ストリームに 3 次元ベクトルを渡します。
-	/// </summary>
-	/// <param name="os">
-	/// 出力ストリーム
-	/// </param>
-	/// <param name="v">
-	/// 3 次元ベクトル
-	/// </param>
-	/// <returns>
-	/// 渡した後の出力ストリーム
-	/// </returns>
-	template <class CharType, class Type>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const Vector3D<Type>& v)
-	{
-		return os	<< CharType('(')
-					<< v.x << CharType(',')
-					<< v.y << CharType(',')
-					<< v.z << CharType(')');
-	}
-
-	/// <summary>
-	/// 入力ストリームに 3 次元ベクトルを渡します。
-	/// </summary>
-	/// <param name="is">
-	/// 入力ストリーム
-	/// </param>
-	/// <param name="v">
-	/// 3 次元ベクトル
-	/// </param>
-	/// <returns>
-	/// 渡した後の入力ストリーム
-	/// </returns>
-	template <class CharType, class Type>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& is, Vector3D<Type>& v)
-	{
-		CharType unused;
-		return is	>> unused
-					>> v.x >> unused
-					>> v.y >> unused
-					>> v.z >> unused;
-	}
-
 	template <class Type, class U>
 	inline constexpr Vector3D<Type> operator *(U s, const Vector3D<Type>& v) noexcept
 	{
 		return v * s;
 	}
 
-	void Formatter(FormatData& formatData, const Float3& value);
-	void Formatter(FormatData& formatData, const Vec3& value);
-	
 	using Float3	= Vector3D<float>;
 	using Vec3		= Vector3D<double>;
 }
@@ -574,3 +528,78 @@ namespace std
 		}
 	};
 }
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting Vector3D
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[x] istream
+//	[x] wistream
+//	[x] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
+	void Formatter(FormatData& formatData, const Float3& value);
+	void Formatter(FormatData& formatData, const Vec3& value);
+
+	/// <summary>
+	/// 出力ストリームに 3 次元ベクトルを渡します。
+	/// </summary>
+	/// <param name="os">
+	/// 出力ストリーム
+	/// </param>
+	/// <param name="v">
+	/// 3 次元ベクトル
+	/// </param>
+	/// <returns>
+	/// 渡した後の出力ストリーム
+	/// </returns>
+	template <class CharType, class Type>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const Vector3D<Type>& v)
+	{
+		return os << CharType('(')
+			<< v.x << CharType(',')
+			<< v.y << CharType(',')
+			<< v.z << CharType(')');
+	}
+
+	/// <summary>
+	/// 入力ストリームに 3 次元ベクトルを渡します。
+	/// </summary>
+	/// <param name="is">
+	/// 入力ストリーム
+	/// </param>
+	/// <param name="v">
+	/// 3 次元ベクトル
+	/// </param>
+	/// <returns>
+	/// 渡した後の入力ストリーム
+	/// </returns>
+	template <class CharType, class Type>
+	inline std::basic_istream<CharType>& operator >> (std::basic_istream<CharType>& is, Vector3D<Type>& v)
+	{
+		CharType unused;
+		return is >> unused
+			>> v.x >> unused
+			>> v.y >> unused
+			>> v.z >> unused;
+	}
+}
+
+namespace fmt
+{
+	template <class ArgFormatter, class Type>
+	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::Vector3D<Type>& v)
+	{
+		const auto tag = s3d::detail::GetTag(format_str);
+
+		const auto fmt = L"({" + tag + L"},{" + tag + L"},{"+ tag + L"})";
+
+		f.writer().write(fmt, v.x, v.y, v.z);
+	}
+}
+//
+//////////////////////////////////////////////////////////////////////////////
