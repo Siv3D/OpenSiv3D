@@ -21,5 +21,5 @@ cmakeコマンドを実行するときに`-DCMAKE_BUILD_TYPE=Debug`もしくは`
 
 「libsiv3d.a」をリンクしてSiv3Dを使ったプログラムをコンパイルする時には、
 その他リンクするライブラリとして、
-`-lboost_filesystem -lboost_system -lglib-2.0 -lpthread`を指定する必要があります。
+`-lboost_filesystem -lboost_system -lglib-2.0 -lpthread -lglfw -lGL`を指定する必要があります。
 
