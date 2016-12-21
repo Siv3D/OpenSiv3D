@@ -19,6 +19,7 @@
 # include <Siv3D/CharacterSet.hpp>
 # include "Siv3DEngine.hpp"
 # include "Logger/ILogger.hpp"
+# include "Window/IWindow.hpp"
 
 void Main();
 
@@ -33,7 +34,7 @@ namespace s3d
     }
 }
 
-int main(int argc, char* argv[])
+int main(int, char* argv[])
 {
 	using namespace s3d;
 
@@ -48,11 +49,17 @@ int main(int argc, char* argv[])
     }
 
     detail::init::SetModulePath(modulePath);
+
     chdir(FileSystem::ParentPath(path, 0).narrow().c_str());
     
 	Siv3DEngine engine;
 
 	if (!engine.GetLogger()->init())
+	{
+		return -1;
+	}
+
+	if (!engine.GetWindow()->init())
 	{
 		return -1;
 	}

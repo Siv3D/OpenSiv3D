@@ -11,6 +11,7 @@
 
 # include "CWindow_Windows.hpp"
 # include "CWindow_macOS.hpp"
+# include "CWindow_Linux.hpp"
 
 namespace s3d
 {
@@ -24,6 +25,10 @@ namespace s3d
 		
 			return new CWindow_macOS;
 		
+		# elif defined(SIV3D_TARGET_LINUX)
+
+			return new CWindow_Linux;
+
 		# endif
 	}
 }
