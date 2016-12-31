@@ -10,13 +10,16 @@
 //-----------------------------------------------
 
 # pragma once
+# include <Siv3D/Platform.hpp>
+# if defined(SIV3D_TARGET_WINDOWS)
+
 # include <atomic>
 # include <Siv3D/System.hpp>
 # include "ISystem.hpp"
 
 namespace s3d
 {
-	class CSystem : public ISiv3DSystem
+	class CSystem_Windows : public ISiv3DSystem
 	{
 	private:
 
@@ -28,9 +31,9 @@ namespace s3d
 
 	public:
 
-		CSystem();
+		CSystem_Windows();
 
-		~CSystem() override;
+		~CSystem_Windows() override;
 
 		bool init() override;
 
@@ -41,3 +44,5 @@ namespace s3d
 		void reportEvent(uint32 windowEventFlag) override;
 	};
 }
+
+# endif

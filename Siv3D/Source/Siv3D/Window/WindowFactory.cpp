@@ -16,15 +16,15 @@ namespace s3d
 {
 	ISiv3DWindow* ISiv3DWindow::Create()
 	{
-		# if defined(SIV3D_TARGET_WINDOWS)
+	# if defined(SIV3D_TARGET_WINDOWS)
 
-			return new CWindow_Windows;
+		return new CWindow_Windows;
 
-		# elif defined(SIV3D_TARGET_MACOS)
-		
-			return new CWindow_macOS;
-		
-		# endif
+	# elif defined(SIV3D_TARGET_MACOS)
+
+		return new CWindow_macOS;
+
+	# endif
 	}
 }
 

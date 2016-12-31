@@ -23,8 +23,8 @@
 # include <Siv3D/FileSystem.hpp>
 # include "Siv3DEngine.hpp"
 # include "Logger/ILogger.hpp"
+# include "System/ISystem.hpp"
 # include "Window/IWindow.hpp"
-# include "DragDrop/IDragDrop.hpp"
 
 void Main();
 
@@ -73,6 +73,7 @@ namespace s3d
 				else
 				{
 					::TranslateMessage(&message);
+
 					::DispatchMessageW(&message);
 				}
 
@@ -121,19 +122,9 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 
 	Siv3DEngine engine;
 
-	if (!engine.GetLogger()->init())
+	if (!Siv3DEngine::GetSystem()->init())
 	{
-		return -1;
-	}
-
-	if (!engine.GetWindow()->init())
-	{
-		return -1;
-	}
-
-	if (!engine.GetDragDrop()->init())
-	{
-		return -1;
+		return false;
 	}
 
 	const std::future<void> f = std::async(std::launch::async, detail::MainThread);

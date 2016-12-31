@@ -9,13 +9,21 @@
 //
 //-----------------------------------------------
 
-# include "CSystem.hpp"
+# include "CSystem_Windows.hpp"
+# include "CSystem_macOS.hpp"
 
 namespace s3d
 {
 	ISiv3DSystem* ISiv3DSystem::Create()
 	{
-		return new CSystem;
+	# if defined(SIV3D_TARGET_WINDOWS)
+
+		return new CSystem_Windows;
+
+	# elif defined(SIV3D_TARGET_MACOS)
+
+		return new CSystem_macOS;
+
+	# endif
 	}
 }
-
