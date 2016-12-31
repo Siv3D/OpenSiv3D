@@ -5,16 +5,21 @@
 |:---------------:|:---------------:|:-------------:|:------------------------------|
 | Windows Desktop | <a href="doc/Windows.md">**0.0.5**.520</a>     | 17 May 2016 | Windows 7 SP1 / 8.1 / 10<br>Microsoft Visual C++ 2015 Update 3 or newer |
 | macOS           | <a href="http://siv3d.jp/downloads/Siv3D/siv3d_v0.0.5_macOS.zip">**0.0.5**.520</a>     | 17 May 2016 | macOS Sierra v10.12 or newer<br>Xcode 8.1 or newer |
+| Linux           | <a href="https://github.com/wynd2608/OpenSiv3D">**0.0.5**</a> (unofficial)  |               | |
 | Universal Windows Platform | TBA  |               | Windows 10<br>Microsoft Visual C++ 2015 Update 3 or newer |
 
 ## Roadmap ##
  https://github.com/Siv3D/OpenSiv3D/blob/master/Siv3D/Include/Siv3D.hpp
   
+---------------------------
+
 #### 0.0.3
 - [x] Date
 - [x] DateTime
 - [x] Timer
 - [x] FileSystem (Partial)
+
+---------------------------
 
 #### 0.0.4
 - [x] InfiniteList
@@ -27,6 +32,8 @@
 - [x] TextWriter
 - [x] Logger (Partial)
 - [x] Regex (Partial)
+
+---------------------------
 
 #### 0.0.5
 - [x] Color
@@ -49,19 +56,27 @@
 - [x] Image (Partial)
 - [x] Compression
 
+---------------------------
+
 #### 0.0.6
-- [ ] Math (Partial)
+- [ ] Drag and Drop
+- [ ] Linux Support (Partial)
 - [ ] Lerp
 - [ ] Easing
+- [ ] Base64
+- [ ] MD5
+- [ ] Cylindrical
+- [ ] Spherical
+
+---------------------------
+
+#### 0.0.7
+- [ ] Math (Partial)
 - [ ] TextReader
 - [ ] CSVReader
 - [ ] CSVWriter
 - [ ] INI (Partial)
-- [ ] Base64
-- [ ] MD5
 - [ ] JSON (Partial)
-- [ ] Cylindrical
-- [ ] Spherical
 
 ## Discussion ##
  [Siv3D Slack #open-siv3d](https://siv3d.slack.com/messages/open-siv3d/details/)  (Japanese)
