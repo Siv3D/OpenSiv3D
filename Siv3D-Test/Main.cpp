@@ -4,11 +4,7 @@
 
 void Main()
 {
-	RunTest();
-
-	const Vec2 s = Console.readLine<Vec2>();
-
-	Log << s;
+	Log << Math::Lerp(Vec2(1.0, 1.5), Vec2(11.0, 3.0), 0.2);
 
 	/*
 	DragDrop::AcceptText(true);

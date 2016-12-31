@@ -281,10 +281,10 @@
 	# include "Siv3D/MathConstants.hpp"
 	// 数学関数
 	# include "Siv3D/Math.hpp"
-	//// 線形補間
-	//# include "Siv3D/Lerp.hpp"
-	//// イージング関数
-	//# include "Siv3D/Easing.hpp"
+	// 線形補間
+	# include "Siv3D/Lerp.hpp"
+	// イージング関数
+	# include "Siv3D/Easing.hpp"
 	//// イージング ユーティリティ
 	//# include "Siv3D/EasingController.hpp"
 	//// 2D 幾何

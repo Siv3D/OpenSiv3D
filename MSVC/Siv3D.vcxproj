@@ -44,6 +44,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Distribution.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\DragDrop.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Duration.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Easing.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\FileSystem.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\BigFloat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Format.hpp" />
@@ -61,6 +62,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\InfiniteList.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\IReader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\IWriter.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Lerp.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Logger.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Math.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\MathConstants.hpp" />
