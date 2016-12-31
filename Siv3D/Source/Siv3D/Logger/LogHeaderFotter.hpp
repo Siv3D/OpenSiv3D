@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (C) 2008-2016 Ryo Suzuki
-//	Copyright (C) 2016 OpenSiv3D Project
+//	Copyright (C) 2008-2017 Ryo Suzuki
+//	Copyright (C) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -63,7 +63,7 @@ const static char footer[] =
 u8R"-(</div>
 <h3>Licenses</h3>
 <div class="c0">Siv3D Engine</div>
-<div class="c1">Copyright (c) 2008-2016 Ryo Suzuki<br>Copyright (c) 2016 OpenSiv3D Project</div>
+<div class="c1">Copyright (c) 2008-2017 Ryo Suzuki<br>Copyright (c) 2016-2017 OpenSiv3D Project</div>
 <div class="c2">
 Permission is hereby granted, free of charge, to any person obtaining a copy<br>
 of this software and associated documentation files (the “Software”), to deal<br>
