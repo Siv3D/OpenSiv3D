@@ -15,7 +15,7 @@
 
 namespace s3d
 {
-	enum class MMFOpenMode_IfExists
+	enum class MMFOpenMode_if_Exists
 	{
 		Fail,
 
@@ -26,7 +26,7 @@ namespace s3d
 		Truncate,
 	};
 
-	enum class MMFOpenMode_IfNotFound
+	enum class MMFOpenMode_if_NotFound
 	{
 		Fail,
 
@@ -49,16 +49,16 @@ namespace s3d
 		WritableMemoryMapping();
 
 		explicit WritableMemoryMapping(const FilePath& path,
-			MMFOpenMode_IfExists ifExists = MMFOpenMode_IfExists::Truncate,
-			MMFOpenMode_IfNotFound ifNotFound = MMFOpenMode_IfNotFound::Create)
+			MMFOpenMode_if_Exists ifExists = MMFOpenMode_if_Exists::Truncate,
+			MMFOpenMode_if_NotFound ifNotFound = MMFOpenMode_if_NotFound::Create)
 			: WritableMemoryMapping()
 		{
 			open(path, ifExists, ifNotFound);
 		}
 
 		bool open(const FilePath& path,
-			MMFOpenMode_IfExists ifExists = MMFOpenMode_IfExists::Truncate,
-			MMFOpenMode_IfNotFound ifNotFound = MMFOpenMode_IfNotFound::Create);
+			MMFOpenMode_if_Exists ifExists = MMFOpenMode_if_Exists::Truncate,
+			MMFOpenMode_if_NotFound ifNotFound = MMFOpenMode_if_NotFound::Create);
 
 		void close();
 

@@ -91,6 +91,11 @@ namespace s3d
 		::DestroyWindow(m_hWnd);
 	}
 
+	WindowHandle CWindow_Windows::getHandle() const
+	{
+		return m_hWnd;
+	}
+
 	bool CWindow_Windows::registerWindowClass()
 	{
 		m_windowClassName = FileSystem::ModulePath();
@@ -116,7 +121,7 @@ namespace s3d
 	bool CWindow_Windows::createWindow()
 	{
 		const DWORD style = WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
-		const DWORD exStyle = WS_EX_ACCEPTFILES;
+		const DWORD exStyle = 0;
 
 		RECT windowRect = { 0, 0, 640, 480 };
 		::AdjustWindowRectEx(&windowRect, style, FALSE, exStyle);

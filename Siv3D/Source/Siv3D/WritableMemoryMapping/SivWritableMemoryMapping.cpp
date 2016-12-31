@@ -20,7 +20,7 @@ namespace s3d
 
 	}
 
-	bool WritableMemoryMapping::open(const FilePath& path, const MMFOpenMode_IfExists ifExists, const MMFOpenMode_IfNotFound ifNotFound)
+	bool WritableMemoryMapping::open(const FilePath& path, const MMFOpenMode_if_Exists ifExists, const MMFOpenMode_if_NotFound ifNotFound)
 	{
 		return pImpl->open(path, ifExists, ifNotFound);
 	}

@@ -12,8 +12,29 @@
 # pragma once
 # include <Siv3D/Fwd.hpp>
 
+# if defined(SIV3D_TARGET_WINDOWS)
+
+	# define  NOMINMAX
+	# define  STRICT
+	# define  WIN32_LEAN_AND_MEAN
+	# define  _WIN32_WINNT _WIN32_WINNT_WIN7
+	# define  NTDDI_VERSION NTDDI_WIN7
+	# include <Windows.h>
+
+# endif
+
 namespace s3d
 {
+	# if defined(SIV3D_TARGET_WINDOWS)
+
+		using WindowHandle = HWND;
+
+	# else
+
+		using WindowHandle = void*;
+
+	# endif
+
 	class ISiv3DWindow
 	{
 	public:
@@ -27,5 +48,7 @@ namespace s3d
 		virtual bool update() = 0;
 
 		virtual void destroy() = 0;
+
+		virtual WindowHandle getHandle() const = 0;
 	};
 }

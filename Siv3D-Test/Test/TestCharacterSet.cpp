@@ -13,11 +13,7 @@
 
 # if defined(SIV3D_DO_TEST)
 
-# if defined(SIV3D_TARGET_WINDOWS)
-
-	# pragma warning (disable: 4566)
-
-# endif
+S3D_DISABLE_MSC_WARNINGS_PUSH(4566)
 
 using namespace s3d;
 
@@ -159,5 +155,7 @@ TEST(CharacterSet, PercentEncode)
 {
 
 }
+
+S3D_DISABLE_MSVC_WARNINGS_POP()
 
 # endif

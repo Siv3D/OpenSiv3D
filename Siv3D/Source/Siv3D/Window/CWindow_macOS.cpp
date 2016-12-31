@@ -69,6 +69,11 @@ namespace s3d
 		
 		return true;
 	}
+
+	WindowHandle CWindow_macOS::getHandle() const
+	{
+		return nullptr;
+	}
 }
 
 # endif

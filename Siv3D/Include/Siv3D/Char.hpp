@@ -80,7 +80,7 @@ namespace s3d
 	/// 文字
 	/// </param>
 	/// <returns>
-	/// 1アルファベットもしくは数字である場合 true, それ以外の場合は false
+	/// アルファベットもしくは数字である場合 true, それ以外の場合は false
 	/// </returns>
 	inline constexpr bool IsAlnum(const uint32 ch) noexcept
 	{

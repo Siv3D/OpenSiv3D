@@ -166,8 +166,8 @@ namespace s3d
 	//	WritableMemoryMapping.hpp
 	//
 	class WritableMemoryMapping;
-	enum class MMFOpenMode_IfExists;
-	enum class MMFOpenMode_IfNotFound;
+	enum class MMFOpenMode_if_Exists;
+	enum class MMFOpenMode_if_NotFound;
 
 	//////////////////////////////////////////////////////
 	//

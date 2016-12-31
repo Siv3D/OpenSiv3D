@@ -48,17 +48,17 @@ namespace s3d
 		/// <summary>
 		/// ファイル名が既に使われていた場合、コピーを失敗させる。
 		/// </summary>
-		Fail_if_exists,
+		Fail_if_Exists,
 
 		/// <summary>
 		/// ファイル名が既に使われていた場合、ファイルを上書きする。
 		/// </summary>
-		Overwrite_if_exists,
+		Overwrite_if_Exists,
 
 		/// <summary>
 		/// ファイル名が既に使われていた場合、別名でコピーする。
 		/// </summary>
-		Rename_if_exists,
+		Rename_if_Exists,
 	};
 
 	enum class SpecialFolder
@@ -388,7 +388,7 @@ namespace s3d
 		/// <returns>
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
-		//bool Copy(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_exists);
+		//bool Copy(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_Exists);
 
 		/// <summary>
 		/// ファイルまたはディレクトリを削除します。
@@ -433,7 +433,7 @@ namespace s3d
 		/// <returns>
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
-		//bool Rename(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_exists);
+		//bool Rename(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_Exists);
 
 		/// <summary>
 		/// ファイルまたはディレクトリを移動します。
@@ -453,7 +453,7 @@ namespace s3d
 		/// <returns>
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
-		//bool Move(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_exists);
+		//bool Move(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_Exists);
 
 		/// <summary>
 		/// ディレクトリの中身を移動します。
@@ -470,6 +470,6 @@ namespace s3d
 		/// <returns>
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
-		//bool MoveContents(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_exists);
+		//bool MoveContents(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_Exists);
 	}
 }

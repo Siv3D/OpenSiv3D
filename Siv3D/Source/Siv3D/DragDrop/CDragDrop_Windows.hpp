@@ -15,40 +15,29 @@
 
 # define  NOMINMAX
 # define  STRICT
-# define  WIN32_LEAN_AND_MEAN
 # define  _WIN32_WINNT _WIN32_WINNT_WIN7
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
 # include <Siv3D/String.hpp>
-# include "IWindow.hpp"
+# include "IDragDrop.hpp"
 
 namespace s3d
 {
-	class CWindow_Windows : public ISiv3DWindow
+	class CDragDrop_Windows : public ISiv3DDragDrop
 	{
 	private:
 
-		HWND m_hWnd = nullptr;
-
-		String m_windowClassName;
-
-		bool registerWindowClass();
-
-		bool createWindow();
+		IDropTarget* m_pDropTarget = nullptr;
 
 	public:
 
-		CWindow_Windows();
+		CDragDrop_Windows();
 
-		~CWindow_Windows() override;
+		~CDragDrop_Windows() override;
 
 		bool init() override;
 		
 		bool update() override;
-
-		void destroy() override;
-
-		WindowHandle getHandle() const override;
 	};
 }
 

@@ -90,3 +90,25 @@
     # define S3D_EXCEPTION_ABI		__attribute__ ((__visibility__("default")))
 
 # endif
+
+
+# if defined(SIV3D_TARGET_WINDOWS)
+
+    # define S3D_DISABLE_MSVC_WARNINGS_PUSH(warnings)	\
+			 __pragma(warning(push))					\
+			 __pragma(warning(disable: warnings))
+
+	# define S3D_DISABLE_MSVC_WARNINGS_POP()			\
+			 __pragma(warning(pop))
+
+# else
+
+	# define S3D_DISABLE_MSVC_WARNINGS_PUSH(warnings)
+
+	# define S3D_DISABLE_MSVC_WARNINGS_POP()
+
+# endif
+
+
+
+

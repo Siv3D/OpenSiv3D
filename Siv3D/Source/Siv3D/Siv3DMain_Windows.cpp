@@ -24,6 +24,7 @@
 # include "Siv3DEngine.hpp"
 # include "Logger/ILogger.hpp"
 # include "Window/IWindow.hpp"
+# include "DragDrop/IDragDrop.hpp"
 
 void Main();
 
@@ -46,6 +47,7 @@ namespace s3d
 			}
 			__except (ex = GetExceptionInformation(), EXCEPTION_EXECUTE_HANDLER)
 			{
+
 			}
 		}
 
@@ -125,6 +127,11 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 	}
 
 	if (!engine.GetWindow()->init())
+	{
+		return -1;
+	}
+
+	if (!engine.GetDragDrop()->init())
 	{
 		return -1;
 	}

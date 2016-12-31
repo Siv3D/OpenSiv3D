@@ -53,7 +53,7 @@ namespace s3d
 		close();
 	}
 
-	bool WritableMemoryMapping::CWritableMemoryMapping::open(const FilePath& path, const MMFOpenMode_IfExists ifExists, const MMFOpenMode_IfNotFound ifNotFound)
+	bool WritableMemoryMapping::CWritableMemoryMapping::open(const FilePath& path, const MMFOpenMode_if_Exists ifExists, const MMFOpenMode_if_NotFound ifNotFound)
 	{
 		if (path.isEmpty())
 		{
@@ -71,15 +71,15 @@ namespace s3d
 
 		switch (ifExists)
 		{
-		case MMFOpenMode_IfExists::JustOpen:
-		case MMFOpenMode_IfExists::MapAll:
-			openMode = (ifNotFound == MMFOpenMode_IfNotFound::Create) ? OPEN_ALWAYS : OPEN_EXISTING;
+		case MMFOpenMode_if_Exists::JustOpen:
+		case MMFOpenMode_if_Exists::MapAll:
+			openMode = (ifNotFound == MMFOpenMode_if_NotFound::Create) ? OPEN_ALWAYS : OPEN_EXISTING;
 			break;
-		case MMFOpenMode_IfExists::Truncate:
-			openMode = (ifNotFound == MMFOpenMode_IfNotFound::Create) ? CREATE_ALWAYS : TRUNCATE_EXISTING;
+		case MMFOpenMode_if_Exists::Truncate:
+			openMode = (ifNotFound == MMFOpenMode_if_NotFound::Create) ? CREATE_ALWAYS : TRUNCATE_EXISTING;
 			break;
 		default:
-			if (ifNotFound == MMFOpenMode_IfNotFound::Create)
+			if (ifNotFound == MMFOpenMode_if_NotFound::Create)
 			{
 				openMode = CREATE_NEW;
 			}
@@ -104,15 +104,15 @@ namespace s3d
 
 		switch (ifExists)
 		{
-		case MMFOpenMode_IfExists::JustOpen:
-		case MMFOpenMode_IfExists::MapAll:
-			openMode |= (ifNotFound == MMFOpenMode_IfNotFound::Create) ? O_CREAT : 0;
+		case MMFOpenMode_if_Exists::JustOpen:
+		case MMFOpenMode_if_Exists::MapAll:
+			openMode |= (ifNotFound == MMFOpenMode_if_NotFound::Create) ? O_CREAT : 0;
 			break;
-		case MMFOpenMode_IfExists::Truncate:
-			openMode |= (ifNotFound == MMFOpenMode_IfNotFound::Create) ? (O_TRUNC | O_CREAT) : O_TRUNC;
+		case MMFOpenMode_if_Exists::Truncate:
+			openMode |= (ifNotFound == MMFOpenMode_if_NotFound::Create) ? (O_TRUNC | O_CREAT) : O_TRUNC;
 			break;
 		default:
-			if (ifNotFound == MMFOpenMode_IfNotFound::Create)
+			if (ifNotFound == MMFOpenMode_if_NotFound::Create)
 			{
 				openMode |= O_EXCL | O_CREAT;
 			}
@@ -135,7 +135,7 @@ namespace s3d
 
 		m_fullPath = FileSystem::FullPath(path);
 
-		if (ifExists == MMFOpenMode_IfExists::MapAll && m_fileSize)
+		if (ifExists == MMFOpenMode_if_Exists::MapAll && m_fileSize)
 		{
 			map(0, 0);
 		}

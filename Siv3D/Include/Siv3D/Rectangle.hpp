@@ -27,12 +27,8 @@ namespace s3d
 		using size_type = SizeType;
 
 		using value_type = typename SizeType::value_type;
-
-# if defined(SIV3D_TARGET_WINDOWS)
 		
-	# pragma warning(disable:4201)
-
-# endif
+		S3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
 		
         union
 		{
@@ -73,11 +69,7 @@ namespace s3d
 			};
 		};
 
-# if defined(SIV3D_TARGET_WINDOWS)
-	
-	# pragma warning(default:4201)
-
-# endif
+		S3D_DISABLE_MSVC_WARNINGS_POP()
 
 		/// <summary>
 		/// デフォルトコンストラクタ

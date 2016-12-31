@@ -14,6 +14,7 @@
 # include "System/ISystem.hpp"
 # include "Console/IConsole.hpp"
 # include "Window/IWindow.hpp"
+# include "DragDrop/IDragDrop.hpp"
 
 namespace s3d
 {
@@ -26,6 +27,7 @@ namespace s3d
 
 	Siv3DEngine::~Siv3DEngine()
 	{
+		m_dragdrop.release();
 		m_window.release();
 		m_console.release();
 		m_system.release();
