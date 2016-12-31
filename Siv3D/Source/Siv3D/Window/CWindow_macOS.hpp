@@ -33,6 +33,8 @@ namespace s3d
 		bool init() override;
 		
 		bool update() override;
+		
+		WindowHandle getHandle() const override;
 	};
 }
 

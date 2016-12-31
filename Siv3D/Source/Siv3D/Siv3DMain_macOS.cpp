@@ -19,7 +19,7 @@
 # include <Siv3D/CharacterSet.hpp>
 # include "Siv3DEngine.hpp"
 # include "Logger/ILogger.hpp"
-# include "Window/IWindow.hpp"
+# include "System/ISystem.hpp"
 
 void Main();
 
