@@ -19,6 +19,10 @@
 
 	# define SIV3D_TARGET_MACOS
 
+# elif defined(__linux__)
+
+	# define SIV3D_TARGET_LINUX
+
 # else
 
 	# error Unsupported platform
@@ -59,6 +63,11 @@
 	# define SIV3D_ALLOCATOR_MIN_ALIGNMENT	8
 
 # elif defined(SIV3D_TARGET_MACOS)
+
+	# define SIV3D_PLATFORM_PTR_SIZE		8
+	# define SIV3D_ALLOCATOR_MIN_ALIGNMENT	16
+
+# elif defined(SIV3D_TARGET_LINUX)
 
 	# define SIV3D_PLATFORM_PTR_SIZE		8
 	# define SIV3D_ALLOCATOR_MIN_ALIGNMENT	16
@@ -108,7 +117,3 @@
 	# define S3D_DISABLE_MSVC_WARNINGS_POP()
 
 # endif
-
-
-
-
