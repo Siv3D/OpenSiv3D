@@ -14,6 +14,8 @@
 # include "Fwd.hpp"
 # include "String.hpp"
 # include "Format.hpp"
+# include "Parse.hpp"
+# include "CharacterSet.hpp"
 
 namespace s3d
 {
@@ -99,6 +101,18 @@ namespace s3d
 				std::cin >> t;
 
 				return t;
+			}
+
+			template <class Type>
+			Type readLine() const
+			{
+				open();
+
+				std::string s;
+
+				std::getline(std::cin, s);
+
+				return Parse<Type>(CharacterSet::Widen(s));
 			}
 
 			template <class Type>

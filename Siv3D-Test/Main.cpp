@@ -7,6 +7,11 @@ using namespace std::literals;
 
 void Main()
 {
+	const Vec2 s = Console.readLine<Vec2>();
+
+	Log << s;
+
+	/*
 	DragDrop::AcceptText(true);
 
 	while (System::Update())
@@ -36,4 +41,5 @@ void Main()
 			}
 		}
 	}
+	*/
 }
