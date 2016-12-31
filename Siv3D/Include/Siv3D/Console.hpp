@@ -122,12 +122,6 @@ namespace s3d
 
 				return *this;
 			}
-
-			template <class Type>
-			operator Type() const
-			{
-				return read<Type>();
-			}
 		};
 	}
 

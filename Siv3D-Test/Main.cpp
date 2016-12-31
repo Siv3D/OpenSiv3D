@@ -1,12 +1,11 @@
 ﻿
 # include <Siv3D.hpp>
 # include "Test/Siv3DTest.hpp"
-using namespace s3d;
-using namespace s3d::literals;
-using namespace std::literals;
 
 void Main()
 {
+	RunTest();
+
 	const Vec2 s = Console.readLine<Vec2>();
 
 	Log << s;

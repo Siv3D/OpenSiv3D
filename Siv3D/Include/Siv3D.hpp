@@ -599,3 +599,11 @@
 	//# include "Siv3D/Namespace.hpp"
 	//// GPU の使用
 	//# include "Siv3D/HighPerfoemanceGraphics.hpp"
+
+# ifndef NO_S3D_USING
+
+	using namespace s3d;
+	using namespace s3d::literals;
+	using namespace std::literals;
+
+# endif
