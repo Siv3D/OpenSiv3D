@@ -46,8 +46,6 @@ namespace s3d
 		
 		bool update() override;
 
-		void destroy() override;
-
 		WindowHandle getHandle() const override;
 	};
 }

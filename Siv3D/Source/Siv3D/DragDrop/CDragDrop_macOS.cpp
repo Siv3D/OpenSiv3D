@@ -23,7 +23,7 @@ namespace s3d
 
 	CDragDrop_macOS::~CDragDrop_macOS()
 	{
-		glfwTerminate();
+
 	}
 
 	bool CDragDrop_macOS::init()

@@ -302,4 +302,17 @@ namespace s3d
 	//	Image.hpp
 	//
 	class Image;
+
+
+
+
+
+	//////////////////////////////////////////////////////
+	//
+	//	DragDrop.hpp
+	//
+	enum class DragItemType;
+	struct DragStatus;
+	struct DroppedFilePath;
+	struct DroppedText;
 }

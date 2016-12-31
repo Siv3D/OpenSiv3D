@@ -33,8 +33,6 @@ namespace s3d
 		bool init() override;
 		
 		bool update() override;
-
-		void destroy() override {}
 	};
 }
 

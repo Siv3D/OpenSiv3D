@@ -63,6 +63,32 @@ namespace s3d
 
 	CWindow_Windows::~CWindow_Windows()
 	{
+		if (!m_hWnd)
+		{
+			return;
+		}
+
+		::DestroyWindow(m_hWnd);
+
+		for (int32 i = 0; i < 16; ++i)
+		{
+			MSG message;
+
+			if (::PeekMessageW(&message, 0, 0, 0, PM_REMOVE))
+			{
+				if (message.message == WM_QUIT)
+				{
+					break;
+				}
+				else
+				{
+					::TranslateMessage(&message);
+
+					::DispatchMessageW(&message);
+				}
+			}
+		}
+
 		::UnregisterClassW(m_windowClassName.c_str(), ::GetModuleHandleW(nullptr));
 	}
 
@@ -84,11 +110,6 @@ namespace s3d
 	bool CWindow_Windows::update()
 	{
 		return true;
-	}
-
-	void CWindow_Windows::destroy()
-	{
-		::DestroyWindow(m_hWnd);
 	}
 
 	WindowHandle CWindow_Windows::getHandle() const

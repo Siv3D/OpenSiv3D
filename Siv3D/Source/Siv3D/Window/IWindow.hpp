@@ -47,8 +47,6 @@ namespace s3d
 		
 		virtual bool update() = 0;
 
-		virtual void destroy() = 0;
-
 		virtual WindowHandle getHandle() const = 0;
 	};
 }

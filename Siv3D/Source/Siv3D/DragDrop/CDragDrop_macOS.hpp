@@ -31,6 +31,22 @@ namespace s3d
 		bool init() override;
 		
 		bool update() override;
+
+		void acceptFilePaths(bool accept) override {}
+
+		void acceptText(bool accept) override {}
+
+		Optional<DragStatus> dragOver() const override { return none; }
+
+		bool hasNewFilePaths() const override { return false; }
+
+		bool hasNewText() const override { return false; }
+
+		void clear() override {}
+
+		Array<DroppedFilePath> getDroppedFilePaths() override { return{}; }
+
+		Array<DroppedText> getDroppedTexts() override { return{}; }
 	};
 }
 

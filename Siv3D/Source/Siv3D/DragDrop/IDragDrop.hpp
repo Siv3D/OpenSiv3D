@@ -11,6 +11,7 @@
 
 # pragma once
 # include <Siv3D/Fwd.hpp>
+# include <Siv3D/DragDrop.hpp>
 
 namespace s3d
 {
@@ -25,5 +26,21 @@ namespace s3d
 		virtual bool init() = 0;
 		
 		virtual bool update() = 0;
+
+		virtual void acceptFilePaths(bool accept) = 0;
+
+		virtual void acceptText(bool accept) = 0;
+
+		virtual Optional<DragStatus> dragOver() const = 0;
+
+		virtual bool hasNewFilePaths() const = 0;
+
+		virtual bool hasNewText() const = 0;
+
+		virtual void clear() = 0;
+
+		virtual Array<DroppedFilePath> getDroppedFilePaths() = 0;
+
+		virtual Array<DroppedText> getDroppedTexts() = 0;
 	};
 }

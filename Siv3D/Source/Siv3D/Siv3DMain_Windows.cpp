@@ -82,19 +82,6 @@ namespace s3d
 
 			return MessageResult::NoMessage;
 		}
-
-		static void CloseWindow()
-		{
-			Siv3DEngine::GetWindow()->destroy();
-
-			for (int wait = 0; wait < 16; ++wait)
-			{
-				if (HandleMessage() == MessageResult::Quit)
-				{
-					break;
-				}
-			}
-		}
 	}
 }
 
@@ -154,8 +141,6 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 
 		::Sleep(1);
 	}
-
-	detail::CloseWindow();
 
 	return 0;
 }

@@ -76,6 +76,8 @@ namespace s3d
 
 		System::Sleep(MillisecondsF(16.66));
 
+		Siv3DEngine::GetDragDrop()->update();
+
 		return true;
 	}
 

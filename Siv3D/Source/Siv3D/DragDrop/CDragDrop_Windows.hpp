@@ -18,16 +18,30 @@
 # define  _WIN32_WINNT _WIN32_WINNT_WIN7
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
-# include <Siv3D/String.hpp>
 # include "IDragDrop.hpp"
 
 namespace s3d
 {
+	namespace detail
+	{
+		class DropTarget;
+	}
+
 	class CDragDrop_Windows : public ISiv3DDragDrop
 	{
 	private:
 
-		IDropTarget* m_pDropTarget = nullptr;
+		detail::DropTarget* m_pDropTarget = nullptr;
+
+		Array<DroppedFilePath> m_droppedFilePaths;
+
+		Array<DroppedText> m_droppedTexts;
+
+		DragItemType m_itemType = DragItemType::FilePaths;
+
+		Point m_dragOverPos = Point::Zero();
+
+		bool m_dragOver = false;
 
 	public:
 
@@ -38,6 +52,22 @@ namespace s3d
 		bool init() override;
 		
 		bool update() override;
+
+		void acceptFilePaths(bool accept) override;
+
+		void acceptText(bool accept) override;
+
+		Optional<DragStatus> dragOver() const override;
+
+		bool hasNewFilePaths() const override;
+
+		bool hasNewText() const override;
+
+		void clear() override;
+
+		Array<DroppedFilePath> getDroppedFilePaths() override;
+
+		Array<DroppedText> getDroppedTexts() override;
 	};
 }
 
