@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2016 Ryo Suzuki
-//	Copyright (c) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2017 Ryo Suzuki
+//	Copyright (c) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -23,6 +23,7 @@
 # include <Siv3D/FileSystem.hpp>
 # include "Siv3DEngine.hpp"
 # include "Logger/ILogger.hpp"
+# include "System/ISystem.hpp"
 # include "Window/IWindow.hpp"
 
 void Main();
@@ -46,6 +47,7 @@ namespace s3d
 			}
 			__except (ex = GetExceptionInformation(), EXCEPTION_EXECUTE_HANDLER)
 			{
+
 			}
 		}
 
@@ -71,6 +73,7 @@ namespace s3d
 				else
 				{
 					::TranslateMessage(&message);
+
 					::DispatchMessageW(&message);
 				}
 
@@ -78,19 +81,6 @@ namespace s3d
 			}
 
 			return MessageResult::NoMessage;
-		}
-
-		static void CloseWindow()
-		{
-			Siv3DEngine::GetWindow()->destroy();
-
-			for (int wait = 0; wait < 16; ++wait)
-			{
-				if (HandleMessage() == MessageResult::Quit)
-				{
-					break;
-				}
-			}
 		}
 	}
 }
@@ -119,14 +109,9 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 
 	Siv3DEngine engine;
 
-	if (!engine.GetLogger()->init())
+	if (!Siv3DEngine::GetSystem()->init())
 	{
-		return -1;
-	}
-
-	if (!engine.GetWindow()->init())
-	{
-		return -1;
+		return false;
 	}
 
 	const std::future<void> f = std::async(std::launch::async, detail::MainThread);
@@ -156,8 +141,6 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 
 		::Sleep(1);
 	}
-
-	detail::CloseWindow();
 
 	return 0;
 }

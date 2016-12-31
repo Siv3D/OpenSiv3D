@@ -155,6 +155,9 @@
     <Filter Include="Source\Siv3D\Window">
       <UniqueIdentifier>{97f8d5e2-00d2-4954-93fe-d5d6454f1e99}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\DragDrop">
+      <UniqueIdentifier>{b418e073-88e3-42ad-a4ff-055d9ca2437b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -595,10 +598,25 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\ColorPalette.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\Source\Siv3D\System\CSystem.hpp">
+    <ClInclude Include="..\Siv3D\Source\Siv3D\System\ISystem.hpp">
       <Filter>Source\Siv3D\System</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\Source\Siv3D\System\ISystem.hpp">
+    <ClInclude Include="..\Siv3D\Include\Siv3D\DragDrop.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\DragDrop\CDragDrop_macOS.hpp">
+      <Filter>Source\Siv3D\DragDrop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\DragDrop\CDragDrop_Windows.hpp">
+      <Filter>Source\Siv3D\DragDrop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\DragDrop\IDragDrop.hpp">
+      <Filter>Source\Siv3D\DragDrop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\System\CSystem_macOS.hpp">
+      <Filter>Source\Siv3D\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\System\CSystem_Windows.hpp">
       <Filter>Source\Siv3D\System</Filter>
     </ClInclude>
   </ItemGroup>
@@ -858,10 +876,25 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_Windows.cpp">
       <Filter>Source\Siv3D</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\Siv3D\System\CSystem.cpp">
+    <ClCompile Include="..\Siv3D\Source\Siv3D\System\SystemFactory.cpp">
       <Filter>Source\Siv3D\System</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\Siv3D\System\SystemFactory.cpp">
+    <ClCompile Include="..\Siv3D\Source\Siv3D\DragDrop\CDragDrop_Windows.cpp">
+      <Filter>Source\Siv3D\DragDrop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\DragDrop\DragDropFactory.cpp">
+      <Filter>Source\Siv3D\DragDrop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\DragDrop\SivDragDrop.cpp">
+      <Filter>Source\Siv3D\DragDrop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\DragDrop\CDragDrop_macOS.cpp">
+      <Filter>Source\Siv3D\DragDrop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\System\CSystem_Windows.cpp">
+      <Filter>Source\Siv3D\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\System\CSystem_macOS.cpp">
       <Filter>Source\Siv3D\System</Filter>
     </ClCompile>
   </ItemGroup>

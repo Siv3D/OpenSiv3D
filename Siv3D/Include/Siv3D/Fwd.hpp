@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2016 Ryo Suzuki
-//	Copyright (c) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2017 Ryo Suzuki
+//	Copyright (c) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -166,8 +166,8 @@ namespace s3d
 	//	WritableMemoryMapping.hpp
 	//
 	class WritableMemoryMapping;
-	enum class MMFOpenMode_IfExists;
-	enum class MMFOpenMode_IfNotFound;
+	enum class MMFOpenMode_if_Exists;
+	enum class MMFOpenMode_if_NotFound;
 
 	//////////////////////////////////////////////////////
 	//
@@ -302,4 +302,17 @@ namespace s3d
 	//	Image.hpp
 	//
 	class Image;
+
+
+
+
+
+	//////////////////////////////////////////////////////
+	//
+	//	DragDrop.hpp
+	//
+	enum class DragItemType;
+	struct DragStatus;
+	struct DroppedFilePath;
+	struct DroppedText;
 }

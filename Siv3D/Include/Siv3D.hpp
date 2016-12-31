@@ -1,7 +1,7 @@
 ﻿//----------------------------------------------------------------------------------------
 //
-//	Copyright (c) 2008-2016 Ryo Suzuki
-//	Copyright (c) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2017 Ryo Suzuki
+//	Copyright (c) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -376,8 +376,8 @@
 	//# include "Siv3D/MessageBox.hpp"
 	//// クリップボード
 	//# include "Siv3D/Clipboard.hpp"
-	//// ドラッグ & ドロップ
-	//# include "Siv3D/Dragdrop.hpp"
+	// ドラッグ & ドロップ
+	# include "Siv3D/DragDrop.hpp"
 	//// ダイアログ
 	//# include "Siv3D/Dialog.hpp"
 	//// プロファイリング

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (C) 2008-2016 Ryo Suzuki
-//	Copyright (C) 2016 OpenSiv3D Project
+//	Copyright (C) 2008-2017 Ryo Suzuki
+//	Copyright (C) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -14,6 +14,7 @@
 # include "System/ISystem.hpp"
 # include "Console/IConsole.hpp"
 # include "Window/IWindow.hpp"
+# include "DragDrop/IDragDrop.hpp"
 
 namespace s3d
 {
@@ -26,6 +27,7 @@ namespace s3d
 
 	Siv3DEngine::~Siv3DEngine()
 	{
+		m_dragdrop.release();
 		m_window.release();
 		m_console.release();
 		m_system.release();

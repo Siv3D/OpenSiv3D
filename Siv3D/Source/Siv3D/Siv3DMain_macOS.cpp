@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2016 Ryo Suzuki
-//	Copyright (c) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2017 Ryo Suzuki
+//	Copyright (c) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -19,7 +19,7 @@
 # include <Siv3D/CharacterSet.hpp>
 # include "Siv3DEngine.hpp"
 # include "Logger/ILogger.hpp"
-# include "Window/IWindow.hpp"
+# include "System/ISystem.hpp"
 
 void Main();
 
@@ -54,12 +54,7 @@ int main(int, char* argv[])
     
 	Siv3DEngine engine;
 
-	if (!engine.GetLogger()->init())
-	{
-		return -1;
-	}
-	
-	if (!engine.GetWindow()->init())
+	if (!Siv3DEngine::GetSystem()->init())
 	{
 		return -1;
 	}

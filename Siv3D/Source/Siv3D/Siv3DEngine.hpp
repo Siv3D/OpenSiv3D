@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (C) 2008-2016 Ryo Suzuki
-//	Copyright (C) 2016 OpenSiv3D Project
+//	Copyright (C) 2008-2017 Ryo Suzuki
+//	Copyright (C) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -18,6 +18,7 @@ namespace s3d
 	class ISiv3DSystem;
 	class ISiv3DConsole;
 	class ISiv3DWindow;
+	class ISiv3DDragDrop;
 
 	template <class Interface>
 	class Siv3DComponent
@@ -62,6 +63,8 @@ namespace s3d
 		Siv3DComponent<ISiv3DConsole> m_console;
 
 		Siv3DComponent<ISiv3DWindow> m_window;
+
+		Siv3DComponent<ISiv3DDragDrop> m_dragdrop;
 		
 	public:
 
@@ -92,6 +95,11 @@ namespace s3d
 		static ISiv3DWindow* GetWindow()
 		{
 			return pEngine->m_window.get();
+		}
+
+		static ISiv3DDragDrop* GetDragDrop()
+		{
+			return pEngine->m_dragdrop.get();
 		}
 	};
 }

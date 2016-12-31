@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2016 Ryo Suzuki
-//	Copyright (c) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2017 Ryo Suzuki
+//	Copyright (c) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -80,7 +80,7 @@ namespace s3d
 	/// 文字
 	/// </param>
 	/// <returns>
-	/// 1アルファベットもしくは数字である場合 true, それ以外の場合は false
+	/// アルファベットもしくは数字である場合 true, それ以外の場合は false
 	/// </returns>
 	inline constexpr bool IsAlnum(const uint32 ch) noexcept
 	{

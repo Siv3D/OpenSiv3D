@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2016 Ryo Suzuki
-//	Copyright (c) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2017 Ryo Suzuki
+//	Copyright (c) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -18,6 +18,10 @@
 # elif defined(__APPLE__) && defined(__MACH__)
 
 	# define SIV3D_TARGET_MACOS
+
+# elif defined(__linux__)
+
+	# define SIV3D_TARGET_LINUX
 
 # else
 
@@ -63,6 +67,11 @@
 	# define SIV3D_PLATFORM_PTR_SIZE		8
 	# define SIV3D_ALLOCATOR_MIN_ALIGNMENT	16
 
+# elif defined(SIV3D_TARGET_LINUX)
+
+	# define SIV3D_PLATFORM_PTR_SIZE		8
+	# define SIV3D_ALLOCATOR_MIN_ALIGNMENT	16
+
 # else
 
 	# error	
@@ -88,5 +97,23 @@
 # else
 
     # define S3D_EXCEPTION_ABI		__attribute__ ((__visibility__("default")))
+
+# endif
+
+
+# if defined(SIV3D_TARGET_WINDOWS)
+
+    # define S3D_DISABLE_MSVC_WARNINGS_PUSH(warnings)	\
+			 __pragma(warning(push))					\
+			 __pragma(warning(disable: warnings))
+
+	# define S3D_DISABLE_MSVC_WARNINGS_POP()			\
+			 __pragma(warning(pop))
+
+# else
+
+	# define S3D_DISABLE_MSVC_WARNINGS_PUSH(warnings)
+
+	# define S3D_DISABLE_MSVC_WARNINGS_POP()
 
 # endif
