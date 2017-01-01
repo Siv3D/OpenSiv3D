@@ -171,10 +171,10 @@
 	//# include "Siv3D/TextReader.hpp"
 	// テキストファイルの書き込み
 	# include "Siv3D/TextWriter.hpp"
-	//// Base64
-	//# include "Siv3D/Base64.hpp"
-	//// MD5
-	//# include "Siv3D/MD5.hpp"
+	// Base64
+	# include "Siv3D/Base64.hpp"
+	// MD5
+	# include "Siv3D/MD5.hpp"
 	// ログファイル
 	# include "Siv3D/Logger.hpp"
 	//// AES128 による暗号化

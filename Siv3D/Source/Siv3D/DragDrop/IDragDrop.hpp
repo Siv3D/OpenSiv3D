@@ -41,6 +41,6 @@ namespace s3d
 
 		virtual Array<DroppedFilePath> getDroppedFilePaths() = 0;
 
-		virtual Array<DroppedText> getDroppedTexts() = 0;
+		virtual Array<DroppedText> getDroppedText() = 0;
 	};
 }

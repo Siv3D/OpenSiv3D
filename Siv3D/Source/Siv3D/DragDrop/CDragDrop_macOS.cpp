@@ -165,7 +165,7 @@ namespace s3d
 		return dropped;
 	}
 	
-	Array<DroppedText> CDragDrop_macOS::getDroppedTexts()
+	Array<DroppedText> CDragDrop_macOS::getDroppedText()
 	{
 		Array<DroppedText> dropped(std::move(m_droppedTexts));
 		

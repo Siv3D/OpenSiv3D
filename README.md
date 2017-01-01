@@ -59,12 +59,12 @@
 ---------------------------
 
 #### 0.0.6
-- [ ] Drag and Drop
-- [ ] Linux Support (Partial)
-- [ ] Lerp
-- [ ] Easing
+- [x] Drag and Drop
+- [x] Lerp
+- [x] Easing
 - [ ] Base64
 - [ ] MD5
+- [ ] Math Parser
 - [ ] Cylindrical
 - [ ] Spherical
 

@@ -67,7 +67,7 @@ namespace s3d
 
 		Array<DroppedFilePath> getDroppedFilePaths() override;
 
-		Array<DroppedText> getDroppedTexts() override;
+		Array<DroppedText> getDroppedText() override;
 	};
 }
 

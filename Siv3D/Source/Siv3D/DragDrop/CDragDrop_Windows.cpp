@@ -357,7 +357,7 @@ namespace s3d
 		return dropped;
 	}
 
-	Array<DroppedText> CDragDrop_Windows::getDroppedTexts()
+	Array<DroppedText> CDragDrop_Windows::getDroppedText()
 	{
 		Array<DroppedText> dropped(std::move(m_droppedTexts));
 
