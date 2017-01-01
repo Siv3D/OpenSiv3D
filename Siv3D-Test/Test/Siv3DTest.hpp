@@ -17,6 +17,7 @@
 
 # ifdef SIV3D_DO_TEST
 
+# define NO_S3D_USING
 # include <Siv3D.hpp>
 # include <gtest/gtest.h>
 

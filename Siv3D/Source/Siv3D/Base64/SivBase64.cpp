@@ -9,9 +9,12 @@
 //
 //-----------------------------------------------
 
-# pragma once
+# include <Siv3D/Base64.hpp>
 
 namespace s3d
 {
-
+	namespace Base64
+	{
+	
+	}
 }

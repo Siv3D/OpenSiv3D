@@ -21,6 +21,10 @@
 	# define  NTDDI_VERSION NTDDI_WIN7
 	# include <Windows.h>
 
+# elif defined(SIV3D_TARGET_MACOS)
+
+	# include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
+
 # endif
 
 namespace s3d
@@ -31,7 +35,7 @@ namespace s3d
 
 	# else
 
-		using WindowHandle = void*;
+		using WindowHandle = GLFWwindow*;
 
 	# endif
 

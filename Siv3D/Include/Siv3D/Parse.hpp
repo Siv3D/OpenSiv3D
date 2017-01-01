@@ -37,7 +37,9 @@ namespace s3d
 	{
 		Type to;
 
-		if (std::wistringstream(str.str()).operator >> (to))
+		std::wistringstream ws(str.str());
+
+		if (ws >> to)
 		{
 			return to;
 		}

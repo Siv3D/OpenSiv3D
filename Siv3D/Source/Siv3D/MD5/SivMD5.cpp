@@ -9,9 +9,12 @@
 //
 //-----------------------------------------------
 
-# pragma once
+# include <Siv3D/MD5.hpp>
 
 namespace s3d
 {
-
+	namespace MD5
+	{
+	
+	}
 }

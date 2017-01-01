@@ -14,6 +14,8 @@
 # include "Fwd.hpp"
 # include "String.hpp"
 # include "Format.hpp"
+# include "Parse.hpp"
+# include "CharacterSet.hpp"
 
 namespace s3d
 {
@@ -102,17 +104,23 @@ namespace s3d
 			}
 
 			template <class Type>
+			Type readLine() const
+			{
+				open();
+
+				std::string s;
+
+				std::getline(std::cin, s);
+
+				return Parse<Type>(CharacterSet::Widen(s));
+			}
+
+			template <class Type>
 			auto operator >>(Type& value) const
 			{
 				value = read<Type>();
 
 				return *this;
-			}
-
-			template <class Type>
-			operator Type() const
-			{
-				return read<Type>();
 			}
 		};
 	}

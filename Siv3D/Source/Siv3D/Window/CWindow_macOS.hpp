@@ -22,7 +22,7 @@ namespace s3d
 	{
 	private:
 
-		GLFWwindow* m_glfwWindow;
+		WindowHandle m_glfwWindow = nullptr;
 		
 	public:
 

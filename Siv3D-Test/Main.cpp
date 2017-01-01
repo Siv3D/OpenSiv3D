@@ -1,9 +1,5 @@
 ﻿
 # include <Siv3D.hpp>
-# include "Test/Siv3DTest.hpp"
-using namespace s3d;
-using namespace s3d::literals;
-using namespace std::literals;
 
 void Main()
 {
@@ -13,7 +9,7 @@ void Main()
 	{
 		if (const auto dragOver = DragDrop::DragOver())
 		{
-			Log(L"DragOver:") << (int)dragOver->itemType << dragOver->pos;
+			Log(L"DragOver:") << (int32)dragOver->itemType << dragOver->pos;
 		}
 
 		if (DragDrop::HasNewFilePaths())
@@ -30,7 +26,7 @@ void Main()
 		{
 			Log(L"Text:");
 
-			for (const auto& dropped : DragDrop::GetDroppedTexts())
+			for (const auto& dropped : DragDrop::GetDroppedText())
 			{
 				Log << dropped.text << dropped.pos << dropped.timeMillisec;
 			}

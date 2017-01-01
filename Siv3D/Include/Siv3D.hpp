@@ -171,10 +171,10 @@
 	//# include "Siv3D/TextReader.hpp"
 	// テキストファイルの書き込み
 	# include "Siv3D/TextWriter.hpp"
-	//// Base64
-	//# include "Siv3D/Base64.hpp"
-	//// MD5
-	//# include "Siv3D/MD5.hpp"
+	// Base64
+	# include "Siv3D/Base64.hpp"
+	// MD5
+	# include "Siv3D/MD5.hpp"
 	// ログファイル
 	# include "Siv3D/Logger.hpp"
 	//// AES128 による暗号化
@@ -281,10 +281,10 @@
 	# include "Siv3D/MathConstants.hpp"
 	// 数学関数
 	# include "Siv3D/Math.hpp"
-	//// 線形補間
-	//# include "Siv3D/Lerp.hpp"
-	//// イージング関数
-	//# include "Siv3D/Easing.hpp"
+	// 線形補間
+	# include "Siv3D/Lerp.hpp"
+	// イージング関数
+	# include "Siv3D/Easing.hpp"
 	//// イージング ユーティリティ
 	//# include "Siv3D/EasingController.hpp"
 	//// 2D 幾何
@@ -599,3 +599,11 @@
 	//# include "Siv3D/Namespace.hpp"
 	//// GPU の使用
 	//# include "Siv3D/HighPerfoemanceGraphics.hpp"
+
+# ifndef NO_S3D_USING
+
+	using namespace s3d;
+	using namespace s3d::literals;
+	using namespace std::literals;
+
+# endif
