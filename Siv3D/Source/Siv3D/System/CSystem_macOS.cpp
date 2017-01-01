@@ -16,6 +16,7 @@
 # include "CSystem_macOS.hpp"
 # include "../Logger/ILogger.hpp"
 # include "../Window/IWindow.hpp"
+# include "../DragDrop/IDragDrop.hpp"
 
 namespace s3d
 {
@@ -46,6 +47,11 @@ namespace s3d
 			return false;
 		}
 
+		if (!Siv3DEngine::GetDragDrop()->init())
+		{
+			return false;
+		}
+		
 		return true;
 	}
 
@@ -70,6 +76,11 @@ namespace s3d
 
 		System::Sleep(MillisecondsF(16.66));
 
+		if (!Siv3DEngine::GetDragDrop()->update())
+		{
+			return false;
+		}
+		
 		return true;
 	}
 

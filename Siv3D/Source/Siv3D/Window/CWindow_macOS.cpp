@@ -72,7 +72,7 @@ namespace s3d
 
 	WindowHandle CWindow_macOS::getHandle() const
 	{
-		return nullptr;
+		return m_glfwWindow;
 	}
 }
 
