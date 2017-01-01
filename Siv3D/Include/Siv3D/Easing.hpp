@@ -151,57 +151,21 @@ namespace s3d
 		return (t < 0.5) ? f(2.0 * t) * 0.5 : 0.5 + EaseOut(f, 2.0 * t - 1.0) * 0.5;
 	}
 
-	template <double Func(double)>
-	inline constexpr double EaseIn(const double t)
-	{
-		return Func(t);
-	}
-
-	template <double Func(double)>
-	inline constexpr double EaseOut(const double t)
-	{
-		return 1.0 - Func(1.0 - t);
-	}
-
-	template <double Func(double)>
-	inline constexpr double EaseInOut(const double t)
-	{
-		return (t < 0.5) ? Func(2.0 * t) * 0.5 : 0.5 + EaseOut<Func>(2.0 * t - 1.0) * 0.5;
-	}
-
 	template <class Type>
-	inline constexpr Type EaseIn(const Type& start, const Type& end, double f(double), const double t)
+	inline constexpr Type EaseIn(double f(double), const Type& start, const Type& end, const double t)
 	{
 		return Math::Lerp(start, end, f(t));
 	}
 
 	template <class Type>
-	inline constexpr Type EaseOut(const Type& start, const Type& end, double f(double), const double t)
+	inline constexpr Type EaseOut(double f(double), const Type& start, const Type& end, const double t)
 	{
 		return Math::Lerp(start, end, EaseOut(f, t));
 	}
 
 	template <class Type>
-	inline constexpr Type EaseInOut(const Type& start, const Type& end, double f(double), const double t)
+	inline constexpr Type EaseInOut(double f(double), const Type& start, const Type& end, const double t)
 	{
 		return Math::Lerp(start, end, EaseInOut(f, t));
-	}
-
-	template <double Func(double), class Type>
-	inline constexpr Type EaseIn(const Type& start, const Type& end, const double t)
-	{
-		return Math::Lerp(start, end, Func(t));
-	}
-
-	template <double Func(double), class Type>
-	inline constexpr Type EaseOut(const Type& start, const Type& end, const double t)
-	{
-		return Math::Lerp(start, end, EaseOut<Func>(t));
-	}
-
-	template <double Func(double), class Type>
-	inline constexpr Type EaseInOut(const Type& start, const Type& end, const double t)
-	{
-		return Math::Lerp(start, end, EaseInOut<Func>(t));
 	}
 }
