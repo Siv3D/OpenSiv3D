@@ -4,11 +4,6 @@
 
 void Main()
 {
-	//Log << Math::Lerp(Vec2(1.0, 1.5), Vec2(11.0, 3.0), 0.2);
-
-	constexpr double a = EaseInOut(Easing::Quad, 0.1);
-
-	/*
 	DragDrop::AcceptText(true);
 
 	while (System::Update())
@@ -38,5 +33,4 @@ void Main()
 			}
 		}
 	}
-	*/
 }

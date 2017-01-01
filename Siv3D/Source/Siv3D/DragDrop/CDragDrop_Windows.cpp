@@ -35,6 +35,8 @@ namespace s3d
 		{
 		private:
 
+			HWND m_hWnd = nullptr;
+
 			std::atomic<uint32> m_refCount = { 0 };
 
 			std::mutex m_mutex;
@@ -54,6 +56,10 @@ namespace s3d
 			bool m_acceptText = false;
 
 		public:
+
+			explicit DropTarget(HWND hWnd)
+				: IDropTarget()
+				, m_hWnd(hWnd) {}
 
 			HRESULT __stdcall QueryInterface(const IID& iid, void** ppv) override
 			{
@@ -132,7 +138,11 @@ namespace s3d
 			{
 				std::lock_guard<std::mutex> resourceGuard(m_mutex);
 
-				m_dragOverPos.set(pt.x, pt.y);
+				POINT pos{ pt.x, pt.y };
+
+				::ScreenToClient(m_hWnd, &pos);
+
+				m_dragOverPos.set(pos.x, pos.y);
 
 				return S_OK;
 			}
@@ -150,7 +160,11 @@ namespace s3d
 			{
 				std::lock_guard<std::mutex> resourceGuard(m_mutex);
 
-				m_dragOverPos.set(pt.x, pt.y);
+				POINT pos{ pt.x, pt.y };
+
+				::ScreenToClient(m_hWnd, &pos);
+
+				m_dragOverPos.set(pos.x, pos.y);
 
 				m_dragOver = false;
 
@@ -259,14 +273,16 @@ namespace s3d
 	{
 		::OleInitialize(nullptr);
 
-		detail::DropTarget* p = new detail::DropTarget;
+		HWND hWnd = Siv3DEngine::GetWindow()->getHandle();
+
+		detail::DropTarget* p = new detail::DropTarget(hWnd);
 
 		if (FAILED(p->QueryInterface(IID_IDropTarget, (void**)&m_pDropTarget)))
 		{
 			return false;
 		}
 
-		if (FAILED(::RegisterDragDrop(Siv3DEngine::GetWindow()->getHandle(), m_pDropTarget)))
+		if (FAILED(::RegisterDragDrop(hWnd, m_pDropTarget)))
 		{
 			return false;
 		}
