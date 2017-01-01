@@ -52,9 +52,9 @@ namespace s3d
 			return Siv3DEngine::GetDragDrop()->getDroppedFilePaths();
 		}
 
-		Array<DroppedText> GetDroppedTexts()
+		Array<DroppedText> GetDroppedText()
 		{
-			return Siv3DEngine::GetDragDrop()->getDroppedTexts();
+			return Siv3DEngine::GetDragDrop()->getDroppedText();
 		}
 	}
 }
