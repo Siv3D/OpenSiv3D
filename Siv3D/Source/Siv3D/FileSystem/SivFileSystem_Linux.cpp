@@ -1,4 +1,5 @@
 #include <glib-2.0/glib.h>
+#include <glib-2.0/gio/gio.h>
 #include <stdlib.h>
 #include <string>
 
@@ -37,8 +38,19 @@ std::string specialFolder(const int folder)
 
 bool trashFile(const char* path)
 {
-	/* TODO */
-	//実装する
-	return false;
+	gboolean ret;
+	GFile* gf = g_file_new_for_path(path);
+	GError* ge;
+
+	ret = g_file_trash(gf, nullptr, &ge);
+
+	if(ge)
+		g_error_free(ge);
+	g_object_unref(gf);
+
+	if(!ret)
+		return false;
+
+	return true;
 }
 
