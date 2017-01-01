@@ -3,6 +3,7 @@
 
 void Main()
 {
+	/*
 	DragDrop::AcceptText(true);
 
 	while (System::Update())
@@ -32,4 +33,5 @@ void Main()
 			}
 		}
 	}
+	*/
 }

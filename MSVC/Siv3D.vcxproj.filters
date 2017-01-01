@@ -158,6 +158,12 @@
     <Filter Include="Source\Siv3D\DragDrop">
       <UniqueIdentifier>{b418e073-88e3-42ad-a4ff-055d9ca2437b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Base64">
+      <UniqueIdentifier>{de3297b2-02ef-45b4-bf95-3718ae0d7d6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\MD5">
+      <UniqueIdentifier>{5f9cd762-b6b6-4034-ad69-8fdd369b212b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -625,6 +631,12 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Easing.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\MD5.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Base64.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -902,6 +914,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\System\CSystem_macOS.cpp">
       <Filter>Source\Siv3D\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MD5\SivMD5.cpp">
+      <Filter>Source\Siv3D\MD5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Base64\SivBase64.cpp">
+      <Filter>Source\Siv3D\Base64</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
