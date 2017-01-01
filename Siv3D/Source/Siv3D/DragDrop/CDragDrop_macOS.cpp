@@ -94,11 +94,17 @@ namespace s3d
 	{
 		std::lock_guard<std::mutex> resourceGuard(m_mutex);
 		
-		m_droppedFilePaths.insert(m_droppedFilePaths.end(), m_internal.droppedFilePaths.begin(), m_internal.droppedFilePaths.end());
+		if (m_acceptFilePath)
+		{
+			m_droppedFilePaths.insert(m_droppedFilePaths.end(), m_internal.droppedFilePaths.begin(), m_internal.droppedFilePaths.end());
+		}
 		
 		m_internal.droppedFilePaths.clear();
 		
-		m_droppedTexts.insert(m_droppedTexts.end(), m_internal.droppedTexts.begin(), m_internal.droppedTexts.end());
+		if (m_acceptText)
+		{
+			m_droppedTexts.insert(m_droppedTexts.end(), m_internal.droppedTexts.begin(), m_internal.droppedTexts.end());
+		}
 		
 		m_internal.droppedTexts.clear();
 		
