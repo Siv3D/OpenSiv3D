@@ -22,6 +22,18 @@
   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
 */
+
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+//	This file is modified for the Siv3D Engine.
+//
+//	Copyright (C) 2008-2017 Ryo Suzuki
+//	Copyright (C) 2016-2017 OpenSiv3D Project
+//
+//-----------------------------------------------
+
 #ifndef MUP_DEF_H
 #define MUP_DEF_H
 
@@ -57,9 +69,15 @@
 */
 //#define MUP_USE_OPENMP
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
 # ifndef _UNICODE
 	# define _UNICODE
 # endif
+//
+//-----------------------------------------------
 
 #if defined(_UNICODE)
   /** \brief Definition of the basic parser string type. */

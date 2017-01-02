@@ -168,7 +168,6 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserInt.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserStack.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserTemplateMagic.h" />
-    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserTest.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserToken.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserTokenReader.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\bitstream.h" />

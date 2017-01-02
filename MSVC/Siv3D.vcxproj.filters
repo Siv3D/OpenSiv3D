@@ -667,9 +667,6 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserTemplateMagic.h">
       <Filter>Source\ThirdParty\muparser</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserTest.h">
-      <Filter>Source\ThirdParty\muparser</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserToken.h">
       <Filter>Source\ThirdParty\muparser</Filter>
     </ClInclude>
