@@ -164,6 +164,12 @@
     <Filter Include="Source\Siv3D\MD5">
       <UniqueIdentifier>{5f9cd762-b6b6-4034-ad69-8fdd369b212b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\MathParser">
+      <UniqueIdentifier>{659a2b59-630e-4e32-9007-82cbead90980}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ThirdParty\muparser">
+      <UniqueIdentifier>{824580c7-e548-44b7-b7d3-3a9939070cac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -637,6 +643,48 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Base64.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserCallback.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserDef.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserDLL.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserError.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserFixes.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserInt.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserStack.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserTemplateMagic.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserTest.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserToken.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserTokenReader.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParser.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserBase.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserBytecode.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -920,6 +968,30 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Base64\SivBase64.cpp">
       <Filter>Source\Siv3D\Base64</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserCallback.cpp">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserDLL.cpp">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserError.cpp">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserInt.cpp">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserTokenReader.cpp">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParser.cpp">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserBase.cpp">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserBytecode.cpp">
+      <Filter>Source\ThirdParty\muparser</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
