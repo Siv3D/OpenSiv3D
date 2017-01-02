@@ -24,8 +24,26 @@
 //
 //========================================================================
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+//	This file is modified for the Siv3D Engine.
+//
+//	Copyright (C) 2008-2017 Ryo Suzuki
+//	Copyright (C) 2016-2017 OpenSiv3D Project
+//
+//-----------------------------------------------
+
 #include "internal.h"
+
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
 #include "../../../Siv3D/Siv3D_macOS.h"
+//
+//-----------------------------------------------
 
 #include <float.h>
 #include <string.h>
@@ -348,8 +366,14 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
     NSMutableAttributedString* markedText;
 }
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
 //- (id)initWithGlfwWindow:(_GLFWwindow *)initWindow;
 - (id)initSiv3D:(_GLFWwindow *)initWindow;
+//
+//-----------------------------------------------
 
 @end
 
@@ -369,6 +393,10 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
     }
 }
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
 /*
 - (id)initWithGlfwWindow:(_GLFWwindow *)initWindow
 {
@@ -405,6 +433,8 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
 	
 	return self;
 }
+//
+//-----------------------------------------------
 
 - (void)dealloc
 {
@@ -622,6 +652,10 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
         _glfwInputScroll(window, deltaX, deltaY);
 }
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender
 {
 	//NSLog(@"draggingEntered");
@@ -733,6 +767,8 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
 	
     return YES;
 }
+//
+//-----------------------------------------------
 
 - (void)concludeDragOperation:(id <NSDraggingInfo>)sender
 {
@@ -1084,8 +1120,14 @@ static GLFWbool createNativeWindow(_GLFWwindow* window,
             [window->ns.object zoom:nil];
     }
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
     //window->ns.view = [[GLFWContentView alloc] initWithGlfwWindow:window];
 	window->ns.view = [[GLFWContentView alloc] initSiv3D:window];
+//
+//-----------------------------------------------
 	
 #if defined(_GLFW_USE_RETINA)
     [window->ns.view setWantsBestResolutionOpenGLSurface:YES];

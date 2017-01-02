@@ -301,8 +301,8 @@
 	//# include "Siv3D/SIMD.hpp"
 	//// 半精度浮動小数点数
 	//# include "Siv3D/HalfFloat.hpp"
-	//// 数式パーサー
-	//# include "Siv3D/ExpressionParser.hpp"
+	// 数式パーサ
+	# include "Siv3D/MathParser.hpp"
 //
 // 画像処理
 //

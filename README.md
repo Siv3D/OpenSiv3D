@@ -62,9 +62,9 @@
 - [x] Drag and Drop
 - [x] Lerp
 - [x] Easing
+- [x] Math Parser
 - [ ] Base64
 - [ ] MD5
-- [ ] Math Parser
 - [ ] Cylindrical
 - [ ] Spherical
 

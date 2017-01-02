@@ -64,6 +64,21 @@ namespace s3d
 		/// (1/4)π (float)
 		/// </summary>
 		constexpr float QuarterPiF = PiF / 4.0f;
+
+		/// <summary>
+		/// Quiet NaN
+		/// </summary>
+		constexpr double QNaN = std::numeric_limits<double>::quiet_NaN();
+
+		/// <summary>
+		/// Signaling NaN
+		/// </summary>
+		constexpr double NaN = std::numeric_limits<double>::signaling_NaN();
+
+		/// <summary>
+		/// +Inf
+		/// </summary>
+		constexpr double Inf = std::numeric_limits<double>::infinity();
 	}
 
 	inline namespace literals

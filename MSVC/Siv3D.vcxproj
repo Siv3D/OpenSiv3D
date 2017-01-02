@@ -26,6 +26,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Allocator.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Array.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ArrayBool.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Base64.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ByteArrayView.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\BigInt.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\BinaryReader.hpp" />
@@ -66,6 +67,8 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Logger.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Math.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\MathConstants.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\MathParser.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\MD5.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\MemoryMapping.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\MersenneTwister.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\NamedParameter.hpp" />
@@ -132,6 +135,7 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\CLogger.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\ILogger.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\LogHeaderFotter.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\MathParser\CMathParser.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\MemoryMapping\CMemoryMapping.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Siv3DEngine.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\System\CSystem_macOS.hpp" />
@@ -153,6 +157,19 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\ieee.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\strtod.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\utils.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParser.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserBase.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserBytecode.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserCallback.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserDef.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserDLL.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserError.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserFixes.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserInt.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserStack.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserTemplateMagic.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserToken.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserTokenReader.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\bitstream.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\error_private.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\fse.h" />
@@ -176,6 +193,7 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\zstd.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Base64\SivBase64.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\BigFloat\SivBigFloat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\BigInt\SivBigInt.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryReader\CBinaryReader_macOS.cpp" />
@@ -207,6 +225,9 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\CLogger.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\LoggerFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\SivLogger.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MathParser\CMathParser.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MathParser\SivMathParser.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MD5\SivMD5.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\MemoryMapping\CMemoryMapping.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\MemoryMapping\SivMemoryMapping.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ParseFloat\SivParseFloat.cpp" />
@@ -247,6 +268,14 @@
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\fixed-dtoa.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\strtod.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\fmt\format.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParser.cpp" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserBase.cpp" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserBytecode.cpp" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserCallback.cpp" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserDLL.cpp" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserError.cpp" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserInt.cpp" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserTokenReader.cpp" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\common\entropy_common.c" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\common\error_private.c" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\common\fse_decompress.c" />
