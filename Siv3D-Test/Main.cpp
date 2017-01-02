@@ -3,6 +3,22 @@
 
 void Main()
 {
+	MathParser parser(L"x^2 + sin(pi/2)");
+	parser.setConstant(L"pi", Math::Pi);
+	
+	double x = 0;
+	parser.setVaribale(L"x", &x);
+
+	Log << parser.eval();
+
+	x = 10.0;
+	Log << parser.eval();
+
+	while (System::Update())
+	{
+
+	}
+
 	/*
 	DragDrop::AcceptText(true);
 
