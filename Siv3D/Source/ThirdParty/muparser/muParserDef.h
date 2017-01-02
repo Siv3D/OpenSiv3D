@@ -57,6 +57,10 @@
 */
 //#define MUP_USE_OPENMP
 
+# ifndef _UNICODE
+	# define _UNICODE
+# endif
+
 #if defined(_UNICODE)
   /** \brief Definition of the basic parser string type. */
   #define MUP_STRING_TYPE std::wstring
