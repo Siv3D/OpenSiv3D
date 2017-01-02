@@ -67,6 +67,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Logger.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Math.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\MathConstants.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\MathParser.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\MD5.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\MemoryMapping.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\MersenneTwister.hpp" />
@@ -134,6 +135,7 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\CLogger.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\ILogger.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\LogHeaderFotter.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\MathParser\CMathParser.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\MemoryMapping\CMemoryMapping.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Siv3DEngine.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\System\CSystem_macOS.hpp" />
@@ -224,6 +226,8 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\CLogger.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\LoggerFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\SivLogger.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MathParser\CMathParser.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MathParser\SivMathParser.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\MD5\SivMD5.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\MemoryMapping\CMemoryMapping.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\MemoryMapping\SivMemoryMapping.cpp" />

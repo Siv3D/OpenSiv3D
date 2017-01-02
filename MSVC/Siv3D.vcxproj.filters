@@ -685,6 +685,12 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserBytecode.h">
       <Filter>Source\ThirdParty\muparser</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\MathParser.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\MathParser\CMathParser.hpp">
+      <Filter>Source\Siv3D\MathParser</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -992,6 +998,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserBytecode.cpp">
       <Filter>Source\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MathParser\SivMathParser.cpp">
+      <Filter>Source\Siv3D\MathParser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MathParser\CMathParser.cpp">
+      <Filter>Source\Siv3D\MathParser</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
