@@ -89,7 +89,7 @@ namespace s3d
 		/// <returns>
 		/// MD5 ハッシュ値
 		/// </returns>
-		MD5 MD5HashFromString(const std::string& str)
+		inline MD5 MD5HashFromString(const std::string& str)
 		{
 			return MD5Hash(str.data(), str.size());
 		}
