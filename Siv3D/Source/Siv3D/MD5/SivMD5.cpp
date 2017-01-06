@@ -13,7 +13,7 @@
 
 namespace s3d
 {
-	namespace MD5
+	namespace Crypto
 	{
 	
 	}

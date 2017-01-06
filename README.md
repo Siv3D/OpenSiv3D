@@ -63,7 +63,7 @@
 - [x] Lerp
 - [x] Easing
 - [x] Math Parser
-- [ ] Base64
+- [x] Base64
 - [ ] MD5
 - [ ] Cylindrical
 - [ ] Spherical
