@@ -201,6 +201,8 @@
 		2C00B9931E29E3D200112198 /* CWritableMemoryMapping.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C00B92D1E29E3D100112198 /* CWritableMemoryMapping.hpp */; };
 		2C00B9941E29E3D200112198 /* SivWritableMemoryMapping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C00B92E1E29E3D100112198 /* SivWritableMemoryMapping.cpp */; };
 		2C00B9951E29E3D200112198 /* SivXXHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C00B9301E29E3D100112198 /* SivXXHash.cpp */; };
+		2C00B9991E29EA9E00112198 /* md5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C00B9971E29EA9E00112198 /* md5.cpp */; };
+		2C00B99A1E29EA9E00112198 /* md5.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C00B9981E29EA9E00112198 /* md5.h */; };
 		2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C38B14A1CDEB45C007A7E9F /* gtest.a */; };
 		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
@@ -534,6 +536,8 @@
 		2C00B92D1E29E3D100112198 /* CWritableMemoryMapping.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CWritableMemoryMapping.hpp; sourceTree = "<group>"; };
 		2C00B92E1E29E3D100112198 /* SivWritableMemoryMapping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivWritableMemoryMapping.cpp; sourceTree = "<group>"; };
 		2C00B9301E29E3D100112198 /* SivXXHash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivXXHash.cpp; sourceTree = "<group>"; };
+		2C00B9971E29EA9E00112198 /* md5.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = md5.cpp; sourceTree = "<group>"; };
+		2C00B9981E29EA9E00112198 /* md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = md5.h; sourceTree = "<group>"; };
 		2C1777401CDEE5D500BB8AD0 /* gtest-death-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-death-test.h"; sourceTree = "<group>"; };
 		2C1777411CDEE5D500BB8AD0 /* gtest-message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-message.h"; sourceTree = "<group>"; };
 		2C1777421CDEE5D500BB8AD0 /* gtest-param-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-param-test.h"; sourceTree = "<group>"; };
@@ -1263,6 +1267,15 @@
 			path = XXHash;
 			sourceTree = "<group>";
 		};
+		2C00B9961E29EA9E00112198 /* md5 */ = {
+			isa = PBXGroup;
+			children = (
+				2C00B9971E29EA9E00112198 /* md5.cpp */,
+				2C00B9981E29EA9E00112198 /* md5.h */,
+			);
+			path = md5;
+			sourceTree = "<group>";
+		};
 		2C17773E1CDEE5D500BB8AD0 /* Include */ = {
 			isa = PBXGroup;
 			children = (
@@ -1475,6 +1488,7 @@
 		2CFD976B1E18047B0046CE64 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				2C00B9961E29EA9E00112198 /* md5 */,
 				2C80B3CC1E1A1C2400769732 /* muparser */,
 				2CFD976C1E18047B0046CE64 /* double-conversion */,
 				2CFD97801E18047B0046CE64 /* fmt */,
@@ -1780,6 +1794,7 @@
 				2CFD98EE1E18047B0046CE64 /* zstd_v05.h in Headers */,
 				2C00B9391E29E3D100112198 /* CBigInt.hpp in Headers */,
 				2C00B8811E29E3C500112198 /* RandomVec3.hpp in Headers */,
+				2C00B99A1E29EA9E00112198 /* md5.h in Headers */,
 				2C00B93C1E29E3D100112198 /* CBinaryReader_macOS.hpp in Headers */,
 				2CFD989F1E18047B0046CE64 /* diy-fp.h in Headers */,
 				2CFD98A61E18047B0046CE64 /* ieee.h in Headers */,
@@ -2109,6 +2124,7 @@
 				2CFD989A1E18047B0046CE64 /* bignum.cc in Sources */,
 				2C00B9421E29E3D200112198 /* CBinaryWriter_Windows.cpp in Sources */,
 				2C00B9901E29E3D200112198 /* SivWindow.cpp in Sources */,
+				2C00B9991E29EA9E00112198 /* md5.cpp in Sources */,
 				2C00B9811E29E3D200112198 /* SivTextReader.cpp in Sources */,
 				2CFD98DB1E18047B0046CE64 /* zstd_compress.c in Sources */,
 				2C80B3E71E1A1C2400769732 /* muParserBytecode.cpp in Sources */,
