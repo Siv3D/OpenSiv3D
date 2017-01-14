@@ -173,6 +173,9 @@
     <Filter Include="Source\Siv3D\XXHash">
       <UniqueIdentifier>{832bf1c0-48e3-427c-9a7d-dde9e408afb8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\ThirdParty\md5">
+      <UniqueIdentifier>{f5564f8d-c34e-4961-a32c-c010401dfb6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -694,6 +697,9 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\XXHash.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\MD5\md5.h">
+      <Filter>Source\ThirdParty\md5</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1010,6 +1016,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\XXHash\SivXXHash.cpp">
       <Filter>Source\Siv3D\XXHash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\MD5\md5.cpp">
+      <Filter>Source\ThirdParty\md5</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

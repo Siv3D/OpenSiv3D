@@ -3,14 +3,36 @@
 
 void Main()
 {
+	TimeProfiler tp;
+
+	for(auto i :step(100))
+	{
+		tp.begin(L"XXH");
+		Hash::XXHashFromFile(L"example/siv3d-kun.png");
+		tp.end();
+	}
+
+	for (auto i : step(100))
+	{
+		tp.begin(L"MD5");
+		Hash::MD5FromFile(L"example/siv3d-kun.png");
+		tp.end();
+	}
+
+	/*
 	Log << Hash::XXHashFromFile(L"example/siv3d-kun.png");
 	Log << Hash::XXHashFromFile(L"example/siv3d-kun2.png");
 	Log << Hash::XXHashFromFile(L"example/siv3d-kun3.png");
 
-	while (System::Update())
-	{
+	Log << Hash::MD5FromFile(L"example/siv3d-kun.png").asString();
+	Log << Hash::MD5FromFile(L"example/siv3d-kun2.png").asString();
+	Log << Hash::MD5FromFile(L"example/siv3d-kun3.png").asString();
+	*/
 
-	}
+	//while (System::Update())
+	//{
+
+	//}
 
 	/*
 	DragDrop::AcceptText(true);

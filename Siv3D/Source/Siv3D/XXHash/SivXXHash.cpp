@@ -26,6 +26,8 @@ namespace s3d
 
 		uint64 XXHashFromFile(const FilePath& path, const uint64 seed)
 		{
+			constexpr size_t bufferSize = 4096;
+
 			BinaryReader reader(path);
 
 			XXH64_state_t state;
@@ -34,11 +36,11 @@ namespace s3d
 
 			if (size_t sizeToRead = reader.size())
 			{
-				uint8* const buffer = static_cast<uint8*>(::malloc(4096));
+				uint8* const buffer = static_cast<uint8*>(::malloc(bufferSize));
 
 				while (sizeToRead)
 				{
-					const size_t readSize = reader.read(buffer, 4096);
+					const size_t readSize = reader.read(buffer, bufferSize);
 
 					XXH64_update(&state, buffer, readSize);
 
