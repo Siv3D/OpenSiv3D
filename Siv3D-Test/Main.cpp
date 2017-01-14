@@ -3,16 +3,9 @@
 
 void Main()
 {
-	MathParser parser(L"x^2 + sin(pi/2)");
-	parser.setConstant(L"pi", Math::Pi);
-	
-	double x = 0;
-	parser.setVaribale(L"x", &x);
-
-	Log << parser.eval();
-
-	x = 10.0;
-	Log << parser.eval();
+	Log << Hash::XXHashFromFile(L"example/siv3d-kun.png");
+	Log << Hash::XXHashFromFile(L"example/siv3d-kun2.png");
+	Log << Hash::XXHashFromFile(L"example/siv3d-kun3.png");
 
 	while (System::Update())
 	{

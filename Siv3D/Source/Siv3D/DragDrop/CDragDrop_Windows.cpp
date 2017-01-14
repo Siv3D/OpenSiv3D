@@ -212,7 +212,7 @@ namespace s3d
 
 							wchar tmpFilePath[MAX_PATH];
 
-							for (size_t i = 0; i < num_drops; ++i)
+							for (uint32 i = 0; i < num_drops; ++i)
 							{
 								::DragQueryFileW(hDrop, i, tmpFilePath, MAX_PATH);
 

@@ -19,24 +19,24 @@ namespace s3d
 	/// <summary>
 	/// MD5 ハッシュ値
 	/// </summary>
-	struct MD5
+	struct MD5Hash
 	{
 		uint8 value[16];
 
 		String asString() const;
 
-		bool operator ==(const MD5& md5) const noexcept
+		bool operator ==(const MD5Hash& md5) const noexcept
 		{
 			return ::memcmp(value, md5.value, sizeof(value)) == 0;
 		}
 
-		bool operator !=(const MD5& md5) const noexcept
+		bool operator !=(const MD5Hash& md5) const noexcept
 		{
 			return !(*this == md5);
 		}
 	};
 
-	namespace Crypto
+	namespace Hash
 	{
 		/// <summary>
 		/// データから MD5 ハッシュ値を計算します。
@@ -50,7 +50,7 @@ namespace s3d
 		/// <returns>
 		/// MD5 ハッシュ値
 		/// </returns>
-		MD5 MD5Hash(const void* data, size_t size);
+		MD5Hash MD5(const void* data, size_t size);
 
 		/// <summary>
 		/// データから MD5 ハッシュ値を計算します。
@@ -61,9 +61,9 @@ namespace s3d
 		/// <returns>
 		/// MD5 ハッシュ値
 		/// </returns>
-		inline MD5 MD5Hash(const ByteArrayView view)
+		inline MD5Hash MD5(const ByteArrayView view)
 		{
-			return MD5Hash(view.data(), view.size());
+			return MD5(view.data(), view.size());
 		}
 
 		/// <summary>
@@ -75,9 +75,9 @@ namespace s3d
 		/// <returns>
 		/// MD5 ハッシュ値
 		/// </returns>
-		inline MD5 MD5HashFromString(StringView str)
+		inline MD5Hash MD5FromString(StringView str)
 		{
-			return MD5Hash(str.data(), str.size_bytes());
+			return MD5(str.data(), str.size_bytes());
 		}
 
 		/// <summary>
@@ -89,9 +89,9 @@ namespace s3d
 		/// <returns>
 		/// MD5 ハッシュ値
 		/// </returns>
-		inline MD5 MD5HashFromString(const std::string& str)
+		inline MD5Hash MD5FromString(const std::string& str)
 		{
-			return MD5Hash(str.data(), str.size());
+			return MD5(str.data(), str.size());
 		}
 
 		/// <summary>
@@ -103,6 +103,6 @@ namespace s3d
 		/// <returns>
 		/// MD5 ハッシュ値
 		/// </returns>
-		MD5 MD5HashFromFromFile(const FilePath& path);
+		MD5Hash MD5FromFile(const FilePath& path);
 	}
 }

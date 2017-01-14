@@ -170,6 +170,9 @@
     <Filter Include="Source\ThirdParty\muparser">
       <UniqueIdentifier>{824580c7-e548-44b7-b7d3-3a9939070cac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\XXHash">
+      <UniqueIdentifier>{832bf1c0-48e3-427c-9a7d-dde9e408afb8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -688,6 +691,9 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\MathParser\CMathParser.hpp">
       <Filter>Source\Siv3D\MathParser</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\XXHash.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1001,6 +1007,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\MathParser\CMathParser.cpp">
       <Filter>Source\Siv3D\MathParser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\XXHash\SivXXHash.cpp">
+      <Filter>Source\Siv3D\XXHash</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

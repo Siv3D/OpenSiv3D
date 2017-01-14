@@ -13,7 +13,6 @@
 # include <type_traits>
 # include <iterator>
 # include "Fwd.hpp"
-# include "Hash.hpp"
 
 namespace s3d
 {

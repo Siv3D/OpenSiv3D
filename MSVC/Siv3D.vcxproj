@@ -120,6 +120,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Vector3D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Vector4D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Version.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\XXHash.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BigFloat\CBigFloat.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BigInt\CBigInt.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryReader\CBinaryReader_macOS.hpp" />
@@ -259,6 +260,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Window\WindowFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\WritableMemoryMapping\CWritableMemoryMapping.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\WritableMemoryMapping\SivWritableMemoryMapping.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\XXHash\SivXXHash.cpp" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum-dtoa.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\cached-powers.cc" />
