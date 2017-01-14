@@ -3,62 +3,18 @@
 
 void Main()
 {
-	TimeProfiler tp;
-
-	for(auto i :step(100))
-	{
-		tp.begin(L"XXH");
-		Hash::XXHashFromFile(L"example/siv3d-kun.png");
-		tp.end();
-	}
-
-	for (auto i : step(100))
-	{
-		tp.begin(L"MD5");
-		Hash::MD5FromFile(L"example/siv3d-kun.png");
-		tp.end();
-	}
-
-	Log << Hash::XXHashFromFile(L"example/siv3d-kun.png");
-	Log << Hash::XXHashFromFile(L"example/windmill.png");
-
-	Log << Hash::MD5FromFile(L"example/siv3d-kun.png");
-	Log << Hash::MD5FromFile(L"example/windmill.png");
-
-	//while (System::Update())
-	//{
-
-	//}
-
-	/*
-	DragDrop::AcceptText(true);
-
 	while (System::Update())
 	{
 		if (const auto dragOver = DragDrop::DragOver())
 		{
-			Log(L"DragOver:") << (int32)dragOver->itemType << dragOver->pos;
+			Window::SetTitle(L"");
 		}
 
 		if (DragDrop::HasNewFilePaths())
 		{
-			Log(L"FilePaths:");
+			const FilePath path = DragDrop::GetDroppedFilePaths().back().path;
 
-			for (const auto& dropped : DragDrop::GetDroppedFilePaths())
-			{
-				Log << dropped.path << dropped.pos << dropped.timeMillisec;
-			}
-		}
-
-		if (DragDrop::HasNewText())
-		{
-			Log(L"Text:");
-
-			for (const auto& dropped : DragDrop::GetDroppedText())
-			{
-				Log << dropped.text << dropped.pos << dropped.timeMillisec;
-			}
+			Window::SetTitle(L"{} > [{}]"_fmt(FileSystem::FileName(path), Hash::MD5FromFile(path)));
 		}
 	}
-	*/
 }

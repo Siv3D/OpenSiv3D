@@ -52,5 +52,7 @@ namespace s3d
 		virtual bool update() = 0;
 
 		virtual WindowHandle getHandle() const = 0;
+
+		virtual void setTitle(const String& title) = 0;
 	};
 }

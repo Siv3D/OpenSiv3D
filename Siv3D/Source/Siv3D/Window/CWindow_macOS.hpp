@@ -23,6 +23,8 @@ namespace s3d
 	private:
 
 		WindowHandle m_glfwWindow = nullptr;
+
+		String m_currentTitle = L"Siv3D App";
 		
 	public:
 
@@ -35,6 +37,8 @@ namespace s3d
 		bool update() override;
 		
 		WindowHandle getHandle() const override;
+
+		void setTitle(const String& title) override;
 	};
 }
 

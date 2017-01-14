@@ -372,8 +372,8 @@
 	//# include "Siv3D/Midi.hpp"
 	//// システム
 	# include "Siv3D/System.hpp"
-	//// ウィンドウ
-	//# include "Siv3D/Window.hpp"
+	// ウィンドウ
+	# include "Siv3D/Window.hpp"
 	//// メッセージボックス
 	//# include "Siv3D/MessageBox.hpp"
 	//// クリップボード

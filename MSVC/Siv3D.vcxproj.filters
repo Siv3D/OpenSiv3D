@@ -700,6 +700,9 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\MD5\md5.h">
       <Filter>Source\ThirdParty\md5</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Window.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">

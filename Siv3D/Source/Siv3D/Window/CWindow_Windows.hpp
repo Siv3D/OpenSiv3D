@@ -32,6 +32,8 @@ namespace s3d
 
 		String m_windowClassName;
 
+		String m_currentTitle = L"Siv3D App";
+
 		bool registerWindowClass();
 
 		bool createWindow();
@@ -47,6 +49,8 @@ namespace s3d
 		bool update() override;
 
 		WindowHandle getHandle() const override;
+
+		void setTitle(const String& title) override;
 	};
 }
 
