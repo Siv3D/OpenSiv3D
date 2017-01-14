@@ -12,6 +12,7 @@
 # pragma once
 # include <type_traits>
 # include <iterator>
+# include <array>
 # include "Fwd.hpp"
 
 namespace s3d
