@@ -13,6 +13,7 @@
 # include "Fwd.hpp"
 # include "String.hpp"
 # include "ByteArrayView.hpp"
+# include "Format.hpp"
 
 namespace s3d
 {
@@ -106,3 +107,30 @@ namespace s3d
 		MD5Hash MD5FromFile(const FilePath& path);
 	}
 }
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting MD5Hash
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[ ] istream
+//	[ ] wistream
+//	[p] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
+	inline void Formatter(FormatData& formatData, const MD5Hash& md5)
+	{
+		formatData.string.append(md5.asString());
+	}
+
+	template <class CharType>
+	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> os, const MD5Hash& md5)
+	{
+		return os << md5.asString();
+	}
+}
+//
+//////////////////////////////////////////////////////////////////////////////

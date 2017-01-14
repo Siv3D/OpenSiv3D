@@ -64,7 +64,8 @@
 - [x] Easing
 - [x] Math Parser
 - [x] Base64
-- [ ] MD5
+- [x] MD5
+- [x] xxHash
 - [ ] Cylindrical
 - [ ] Spherical
 
