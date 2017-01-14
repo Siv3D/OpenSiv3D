@@ -9,48 +9,30 @@
 //
 //-----------------------------------------------
 
-# include "../../ThirdParty/md5/md5.h"
-# include <Siv3D/MD5.hpp>
+# define XXH_STATIC_LINKING_ONLY
+# define XXH_PRIVATE_API
+# include "../../ThirdParty/zstd/common/xxhash.h"
+# include <Siv3D/XXHash.hpp>
 # include <Siv3D/BinaryReader.hpp>
 
 namespace s3d
 {
-	String MD5Hash::asString() const
-	{
-		String s;
-		s.reserve(32);
-
-		for (const auto& v : value)
-		{
-			s.append(Pad(ToHex(v), { 2, L'0' }));
-		}
-
-		return s;
-	}
-
 	namespace Hash
 	{
-		MD5Hash MD5(const void* data, size_t size)
+		uint64 XXHash(const void* data, const size_t size, const uint64 seed)
 		{
-			MD5_CTX ctx;
-			MD5_Init(&ctx);
-
-			MD5_Update(&ctx, data, static_cast<unsigned long>(size));
-
-			MD5Hash result;
-			MD5_Final(result.value, &ctx);
-
-			return result;
+			return XXH64(data, size, seed);
 		}
-	
-		MD5Hash MD5FromFile(const FilePath& path)
+
+		uint64 XXHashFromFile(const FilePath& path, const uint64 seed)
 		{
 			constexpr size_t bufferSize = 4096;
 
 			BinaryReader reader(path);
 
-			MD5_CTX ctx;
-			MD5_Init(&ctx);
+			XXH64_state_t state;
+
+			XXH64_reset(&state, seed);
 
 			if (size_t sizeToRead = reader.size())
 			{
@@ -60,7 +42,7 @@ namespace s3d
 				{
 					const size_t readSize = reader.read(buffer, bufferSize);
 
-					MD5_Update(&ctx, buffer, static_cast<unsigned long>(readSize));
+					XXH64_update(&state, buffer, readSize);
 
 					sizeToRead -= readSize;
 				}
@@ -68,10 +50,7 @@ namespace s3d
 				::free(buffer);
 			}
 
-			MD5Hash result;
-			MD5_Final(result.value, &ctx);
-
-			return result;
+			return XXH64_digest(&state);
 		}
 	}
 }

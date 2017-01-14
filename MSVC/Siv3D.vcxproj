@@ -120,6 +120,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Vector3D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Vector4D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Version.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\XXHash.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BigFloat\CBigFloat.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BigInt\CBigInt.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryReader\CBinaryReader_macOS.hpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\ieee.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\strtod.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\utils.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\MD5\md5.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParser.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserBase.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserBytecode.h" />
@@ -259,6 +261,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Window\WindowFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\WritableMemoryMapping\CWritableMemoryMapping.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\WritableMemoryMapping\SivWritableMemoryMapping.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\XXHash\SivXXHash.cpp" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum-dtoa.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\cached-powers.cc" />
@@ -268,6 +271,7 @@
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\fixed-dtoa.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\strtod.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\fmt\format.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\MD5\md5.cpp" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParser.cpp" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserBase.cpp" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserBytecode.cpp" />

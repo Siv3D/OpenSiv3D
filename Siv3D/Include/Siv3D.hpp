@@ -175,6 +175,8 @@
 	# include "Siv3D/Base64.hpp"
 	// MD5
 	# include "Siv3D/MD5.hpp"
+	// xxHash
+	# include "Siv3D/XXHash.hpp"
 	// ログファイル
 	# include "Siv3D/Logger.hpp"
 	//// AES128 による暗号化

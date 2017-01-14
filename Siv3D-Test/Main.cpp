@@ -3,21 +3,32 @@
 
 void Main()
 {
-	MathParser parser(L"x^2 + sin(pi/2)");
-	parser.setConstant(L"pi", Math::Pi);
-	
-	double x = 0;
-	parser.setVaribale(L"x", &x);
+	TimeProfiler tp;
 
-	Log << parser.eval();
-
-	x = 10.0;
-	Log << parser.eval();
-
-	while (System::Update())
+	for(auto i :step(100))
 	{
-
+		tp.begin(L"XXH");
+		Hash::XXHashFromFile(L"example/siv3d-kun.png");
+		tp.end();
 	}
+
+	for (auto i : step(100))
+	{
+		tp.begin(L"MD5");
+		Hash::MD5FromFile(L"example/siv3d-kun.png");
+		tp.end();
+	}
+
+	Log << Hash::XXHashFromFile(L"example/siv3d-kun.png");
+	Log << Hash::XXHashFromFile(L"example/windmill.png");
+
+	Log << Hash::MD5FromFile(L"example/siv3d-kun.png");
+	Log << Hash::MD5FromFile(L"example/windmill.png");
+
+	//while (System::Update())
+	//{
+
+	//}
 
 	/*
 	DragDrop::AcceptText(true);
