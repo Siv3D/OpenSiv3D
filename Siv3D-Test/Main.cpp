@@ -19,15 +19,11 @@ void Main()
 		tp.end();
 	}
 
-	/*
 	Log << Hash::XXHashFromFile(L"example/siv3d-kun.png");
-	Log << Hash::XXHashFromFile(L"example/siv3d-kun2.png");
-	Log << Hash::XXHashFromFile(L"example/siv3d-kun3.png");
+	Log << Hash::XXHashFromFile(L"example/windmill.png");
 
-	Log << Hash::MD5FromFile(L"example/siv3d-kun.png").asString();
-	Log << Hash::MD5FromFile(L"example/siv3d-kun2.png").asString();
-	Log << Hash::MD5FromFile(L"example/siv3d-kun3.png").asString();
-	*/
+	Log << Hash::MD5FromFile(L"example/siv3d-kun.png");
+	Log << Hash::MD5FromFile(L"example/windmill.png");
 
 	//while (System::Update())
 	//{
