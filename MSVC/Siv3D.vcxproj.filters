@@ -74,9 +74,6 @@
     <Filter Include="Source\Siv3D\TextWriter">
       <UniqueIdentifier>{016d29d1-aa5a-4f25-80e5-bac98a92c9cf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Siv3D\TextEncoding">
-      <UniqueIdentifier>{eddba81f-662c-4467-be22-40dfff6364dd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Siv3D\FormatFloat\FormatInt">
       <UniqueIdentifier>{bb7966c0-8acf-4af4-8e8d-3f83b8651adc}</UniqueIdentifier>
     </Filter>
@@ -175,6 +172,9 @@
     </Filter>
     <Filter Include="Source\ThirdParty\md5">
       <UniqueIdentifier>{f5564f8d-c34e-4961-a32c-c010401dfb6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\CharacterEncoding">
+      <UniqueIdentifier>{eddba81f-662c-4467-be22-40dfff6364dd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -703,6 +703,9 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Window.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\CharacterEncoding.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -782,9 +785,6 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextWriter\SivTextWriter.cpp">
       <Filter>Source\Siv3D\TextWriter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\Siv3D\TextEncoding\SivTextEncoding.cpp">
-      <Filter>Source\Siv3D\TextEncoding</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DEngine.cpp">
       <Filter>Source\Siv3D</Filter>
@@ -1022,6 +1022,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\MD5\md5.cpp">
       <Filter>Source\ThirdParty\md5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\CharacterEncoding\SivCharacterEncoding.cpp">
+      <Filter>Source\Siv3D\CharacterEncoding</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

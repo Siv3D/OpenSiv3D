@@ -21,9 +21,7 @@ namespace s3d
 
 		BinaryWriter m_binaryWriter;
 
-		TextEncoding m_textEncoding = TextEncoding::Default;
-
-		bool m_writeBOM = true;
+		CharacterEncoding m_encoding = CharacterEncoding::Default;
 
 	public:
 
@@ -31,7 +29,7 @@ namespace s3d
 
 		~CTextWriter();
 
-		bool open(const FilePath& path, OpenMode openMode, TextEncoding encoding, bool writeBOM);
+		bool open(const FilePath& path, OpenMode openMode, CharacterEncoding encoding);
 
 		void close();
 

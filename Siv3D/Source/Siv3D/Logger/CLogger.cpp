@@ -105,7 +105,7 @@ namespace s3d
 		const String fileName = FileSystem::BaseName(FileSystem::ModulePath()).xml_escaped();
 		const std::string filenameUTF8 = CharacterSet::ToUTF8(fileName);
 
-		m_writer.open(fileName + L"_log.html", TextEncoding::UTF8);
+		m_writer.open(fileName + L"_log.html", CharacterEncoding::UTF8_BOM);
 		m_writer.writeUTF8(headerA);
 		m_writer.writeUTF8(filenameUTF8);
 		m_writer.writeUTF8(headerB);

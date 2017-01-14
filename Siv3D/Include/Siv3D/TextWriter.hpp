@@ -13,7 +13,7 @@
 # include <memory>
 # include "Fwd.hpp"
 # include "FileSystem.hpp"
-# include "TextEncoding.hpp"
+# include "CharacterEncoding.hpp"
 
 namespace s3d
 {
@@ -49,10 +49,10 @@ namespace s3d
 		/// <param name="encoding">
 		/// エンコーディング形式
 		/// </param>
-		TextWriter(const FilePath& path, TextEncoding encoding, bool writeBOM = true)
+		TextWriter(const FilePath& path, CharacterEncoding encoding)
 			: TextWriter()
 		{
-			open(path, OpenMode::Trunc, encoding, writeBOM);
+			open(path, OpenMode::Trunc, encoding);
 		}
 
 		/// <summary>
@@ -67,10 +67,10 @@ namespace s3d
 		/// <param name="encoding">
 		/// エンコーディング形式
 		/// </param>
-		explicit TextWriter(const FilePath& path, OpenMode openMode = OpenMode::Trunc, TextEncoding encoding = TextEncoding::Default, bool writeBOM = true)
+		explicit TextWriter(const FilePath& path, OpenMode openMode = OpenMode::Trunc, CharacterEncoding encoding = CharacterEncoding::Default)
 			: TextWriter()
 		{
-			open(path, openMode, encoding, writeBOM);
+			open(path, openMode, encoding);
 		}
 
 		/// <summary>
@@ -85,9 +85,9 @@ namespace s3d
 		/// <returns>
 		/// ファイルのオープンに成功した場合 true, それ以外の場合は false
 		/// </returns>
-		bool open(const FilePath& path, TextEncoding encoding, bool writeBOM = true)
+		bool open(const FilePath& path, CharacterEncoding encoding)
 		{
-			return open(path, OpenMode::Trunc, encoding, writeBOM);
+			return open(path, OpenMode::Trunc, encoding);
 		}
 
 		/// <summary>
@@ -105,7 +105,7 @@ namespace s3d
 		/// <returns>
 		/// ファイルのオープンに成功した場合 true, それ以外の場合は false
 		/// </returns>
-		bool open(const FilePath& path, OpenMode openMode = OpenMode::Trunc, TextEncoding encoding = TextEncoding::Default, bool writeBOM = true);
+		bool open(const FilePath& path, OpenMode openMode = OpenMode::Trunc, CharacterEncoding encoding = CharacterEncoding::Default);
 
 		/// <summary>
 		/// テキストファイルをクローズします。
