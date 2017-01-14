@@ -14,6 +14,7 @@
 # if defined(SIV3D_TARGET_MACOS)
 
 # include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
+# include <Siv3D/String.hpp>
 # include "IWindow.hpp"
 
 namespace s3d
