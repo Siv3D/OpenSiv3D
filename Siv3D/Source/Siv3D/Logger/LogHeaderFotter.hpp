@@ -193,6 +193,7 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT<br>
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<br>
 </div>)-"
 
+# if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 u8R"-(<div class="c0">GLFW</div>
 <div class="c1">Copyright(c) 2002 - 2006 Marcus Geelnard</div>
@@ -218,6 +219,7 @@ be misrepresented as being the original software.<br>
 distribution.<br>
 </div>)-"
 
+# endif
 
 u8R"-(<div class="c0">muparser</div>
 <div class="c1">Copyright(C) 2011 Ingo Berg</div>

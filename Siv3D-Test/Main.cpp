@@ -12,9 +12,21 @@ void Main()
 
 		if (DragDrop::HasNewFilePaths())
 		{
-			const FilePath path = DragDrop::GetDroppedFilePaths().back().path;
+			for (const auto& drop : DragDrop::GetDroppedFilePaths())
+			{
+				if (!FileSystem::IsFile(drop.path))
+				{
+					continue;
+				}
 
-			Window::SetTitle(L"{} > [{}]"_fmt(FileSystem::FileName(path), Hash::MD5FromFile(path)));
+				const String output = L"[{}] < {}"_fmt(
+					Hash::MD5FromFile(drop.path),
+					FileSystem::FileName(drop.path));
+
+				Window::SetTitle(output);
+
+				Console << output;
+			}
 		}
 	}
 }
