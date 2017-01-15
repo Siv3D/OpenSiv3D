@@ -3,13 +3,7 @@
 
 void Main()
 {
-	Log << FileSystem::UniqueFilePath();
 
-	Log << FileSystem::UniqueFilePath(L"");
-
-	Log << FileSystem::UniqueFilePath(L"example/");
-
-	Log << FileSystem::UniqueFilePath(L"example");
 }
 
 

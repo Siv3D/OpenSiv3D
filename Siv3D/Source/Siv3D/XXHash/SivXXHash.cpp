@@ -34,15 +34,15 @@ namespace s3d
 
 			XXH64_reset(&state, seed);
 
-			if (size_t sizeToRead = reader.size())
+			if (int64 sizeToRead = reader.size())
 			{
 				uint8* const buffer = static_cast<uint8*>(::malloc(bufferSize));
 
 				while (sizeToRead)
 				{
-					const size_t readSize = reader.read(buffer, bufferSize);
+					const int64 readSize = reader.read(buffer, bufferSize);
 
-					XXH64_update(&state, buffer, readSize);
+					XXH64_update(&state, buffer, static_cast<size_t>(readSize));
 
 					sizeToRead -= readSize;
 				}
