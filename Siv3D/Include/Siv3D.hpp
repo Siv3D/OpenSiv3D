@@ -191,8 +191,8 @@
 	//# include "Siv3D/CSVReader.hpp"
 	//// CSV ファイルの書き出し
 	//# include "Siv3D/CSVWriter.hpp"
-	//// INI ファイルの読み込み
-	//# include "Siv3D/INIReader.hpp"
+	// INI ファイルの読み込み
+	# include "Siv3D/INIReader.hpp"
 	//// INI ファイルの書き出し
 	//# include "Siv3D/INIWriter.hpp"
 	//// XML ファイルの読み込み

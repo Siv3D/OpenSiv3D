@@ -62,6 +62,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\HSV.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Image.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\InfiniteList.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\INIReader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\IReader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\IWriter.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Lerp.hpp" />
