@@ -164,6 +164,30 @@ namespace s3d
 			write(StringView(&ch, 1));
 		}
 
+		void write(char32_t ch)
+		{
+		# if defined(SIV3D_TARGET_WINDOWS)
+
+			const auto c = CharacterSet::GetUTF16CodePoint(ch);
+
+			if (!c[1])
+			{
+				const wchar value = c[0];
+				write(StringView(&value, 1));
+			}
+			else
+			{
+				const wchar values[2] = { c[0], c[1] };
+				write(StringView(values, 2));
+			}
+
+		# else
+
+			write(StringView(static_cast<const wchar*>(static_cast<const void*>(&ch)), 1));
+
+		# endif
+		}
+
 		void write(char ch) = delete;
 
 		/// <summary>
@@ -257,6 +281,13 @@ namespace s3d
 		/// なし
 		/// </returns>
 		void writeln(wchar ch)
+		{
+			write(ch);
+
+			write(L"\r\n");
+		}
+
+		void writeln(char32_t ch)
 		{
 			write(ch);
 

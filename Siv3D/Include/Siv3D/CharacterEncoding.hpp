@@ -77,5 +77,11 @@ namespace s3d
 		{
 			return GetEncoding(BinaryReader(path));
 		}
+
+		inline constexpr int32 GetBOMSize(CharacterEncoding encoding)
+		{
+			return encoding == CharacterEncoding::UTF8_BOM ? 3
+				: (encoding == CharacterEncoding::UTF16LE_BOM || encoding == CharacterEncoding::UTF16BE_BOM) ? 2 : 0;
+		}
 	}
 }

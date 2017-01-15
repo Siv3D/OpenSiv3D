@@ -349,7 +349,7 @@ namespace s3d
 		/// <returns>
 		/// 一時ファイル用のファイルパス
 		/// </returns>
-		//FilePath UniqueFilePath(const FilePath& directory = TempDirectoryPath());
+		FilePath UniqueFilePath(const FilePath& directory = TempDirectoryPath());
 
 		/// <summary>
 		/// ディレクトリを作成します。

@@ -167,8 +167,8 @@
 	# include "Siv3D/BinaryWriter.hpp"
 	// テキストのエンコード
 	# include "Siv3D/CharacterEncoding.hpp"
-	//// テキストファイルの読み込み
-	//# include "Siv3D/TextReader.hpp"
+	// テキストファイルの読み込み
+	# include "Siv3D/TextReader.hpp"
 	// テキストファイルの書き込み
 	# include "Siv3D/TextWriter.hpp"
 	// Base64

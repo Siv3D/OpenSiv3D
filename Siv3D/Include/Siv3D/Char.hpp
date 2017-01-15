@@ -167,6 +167,16 @@ namespace s3d
 	{
 		return (a + IsUpper(a) * 32) < (b + IsUpper(b) * 32) ? -1 : (a + IsUpper(a) * 32) != (b + IsUpper(b) * 32);
 	}
+
+	inline constexpr bool IsHighSurrogate(const char16_t c)
+	{
+		return (0xD800 <= c) && (c < 0xDC00);
+	}
+
+	inline constexpr bool IsLowSurrogate(const char16_t c)
+	{
+		return (0xDC00 <= c) && (c < 0xE000);
+	}
 }
 
 # undef HalfWidthSpace

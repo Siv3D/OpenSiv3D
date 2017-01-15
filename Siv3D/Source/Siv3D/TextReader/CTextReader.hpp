@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <fstream>
 # include <Siv3D/TextReader.hpp>
 # include <Siv3D/BinaryReader.hpp>
 
@@ -21,15 +22,19 @@ namespace s3d
 
 		std::shared_ptr<IReader> m_reader;
 
+		std::wifstream m_wifReader;
+
 		FilePath m_fullPath;
 
 		int64 m_size = 0;
 
-		int32 m_bomSize = 0;
-
 		CharacterEncoding m_encoding = CharacterEncoding::Default;
 
+		Optional<FilePath> m_temporaryFile;
+
 		bool m_opened = false;
+
+		char32_t readCodePoint();
 
 	public:
 
@@ -45,11 +50,11 @@ namespace s3d
 
 		bool isOpened() const;
 
-		bool readAll(String& out);
+		void readAll(String& out);
 
 		void readLine(String& str);
 
-		wchar readChar();
+		char32_t readChar();
 
 		bool eof();
 

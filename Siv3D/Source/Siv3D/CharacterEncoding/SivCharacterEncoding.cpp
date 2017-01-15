@@ -46,7 +46,7 @@ namespace s3d
 				}
 			}
 
-			constexpr size_t bufferSize = 64 * 1024;
+			constexpr size_t bufferSize = 4096;
 
 			uint8 buffer[bufferSize] = {};
 

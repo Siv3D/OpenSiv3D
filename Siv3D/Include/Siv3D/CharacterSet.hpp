@@ -206,6 +206,10 @@ namespace s3d
 		/// </returns>
 		std::u16string UTF32ToUTF16(const std::u32string& str);
 
+		std::pair<char32_t, int32> GetUTF32CodePoint(const char* utf8, size_t length);
+
+		std::array<char16_t, 2> GetUTF16CodePoint(char32_t ch);
+
 		/// <summary>
 		/// 文字列をパーセントエンコードします。
 		/// </summary>
