@@ -3,16 +3,13 @@
 
 void Main()
 {
-	{
-		TextWriter(L"test.txt").write(L"𩸽に感謝🙏🙏🙏");
-	}
-	
-	TextReader reader(L"test.txt");
+	Log << FileSystem::UniqueFilePath();
 
-	while(const auto ch = reader.readChar())
-	{
-		Log << ch.value();
-	}
+	Log << FileSystem::UniqueFilePath(L"");
+
+	Log << FileSystem::UniqueFilePath(L"example/");
+
+	Log << FileSystem::UniqueFilePath(L"example");
 }
 
 

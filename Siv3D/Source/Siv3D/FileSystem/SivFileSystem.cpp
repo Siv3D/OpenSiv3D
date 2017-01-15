@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Fwd.hpp>
+# include <Siv3D/Random.hpp>
 
 # if defined(SIV3D_TARGET_WINDOWS)
 
@@ -562,46 +563,8 @@ namespace s3d
 
 		FilePath TempDirectoryPath()
 		{
-			wchar path[MAX_PATH];
-
-			if (const auto length = ::GetTempPathW(MAX_PATH, path))
-			{
-				return detail::NormalizePath(FilePath(path, path + length), true);
-			}
-			else
-			{
-				return FilePath();
-			}
+			return FileSystem::SpecialFolderPath(SpecialFolder::LocalAppData) + L"Temp/";
 		}
-
-		//FilePath UniqueFilePath(const FilePath& directory)
-		//{
-		//	if (directory.isEmpty())
-		//	{
-		//		return FilePath();
-		//	}
-
-		//	if (!IsDirectory(directory))
-		//	{
-		//		return FilePath();
-		//	}
-
-		//	FilePath tempDirectory = FullPath(directory);
-
-		//	if (tempDirectory.ends_with(L'/'))
-		//	{
-		//		tempDirectory.pop_back();
-		//	}
-
-		//	wchar path[MAX_PATH];
-
-		//	if (::GetTempFileNameW(tempDirectory.c_str(), L"s3d", 0, path) == 0)
-		//	{
-		//		return FilePath();
-		//	}
-		//	
-		//	return detail::NormalizePath(FilePath(path));
-		//}
 
 		bool Remove(const FilePath& path, const bool allowUndo)
 		{
@@ -972,6 +935,23 @@ namespace s3d
 
 namespace s3d
 {
+	namespace detail
+	{
+		static String ToUniqueFileName(const uint64 value)
+		{
+			constexpr wchar hex[] = L"0123456789abcdef";
+
+			String name(19, L'-');
+
+			for (size_t i = 0; i < 16; ++i)
+			{
+				name[i + (i / 4)] = hex[(value >> (i * 4)) & 0xF];
+			}
+
+			return name;
+		}
+	}
+
     namespace FileSystem
     {
         String Extension(const FilePath& path)
@@ -1280,6 +1260,29 @@ namespace s3d
 			}
 
 			return true;
+		}
+
+		FilePath UniqueFilePath(const FilePath& directory)
+		{
+			HardwareRNG rng;
+			UniformDistribution<uint64> ud(0, UINT64_MAX);
+
+			FilePath directoryPath = directory;
+
+			if (!directoryPath.isEmpty() && !directoryPath.ends_with(L'/'))
+			{
+				directoryPath.push_back(L'/');
+			}
+
+			for (uint64 n = ud(rng);; ++n)
+			{
+				const FilePath path = directoryPath + detail::ToUniqueFileName(n) + L".tmp";
+
+				if (!Exists(path))
+				{
+					return path;
+				}
+			}
 		}
     }
 }
