@@ -176,6 +176,9 @@
     <Filter Include="Source\Siv3D\CharacterEncoding">
       <UniqueIdentifier>{eddba81f-662c-4467-be22-40dfff6364dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\INIReader">
+      <UniqueIdentifier>{3dbc872b-3264-4df4-bf41-03d21c7c4fc2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -709,6 +712,9 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\INIReader.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\INIReader\CINIReader.hpp">
+      <Filter>Source\Siv3D\INIReader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1028,6 +1034,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\CharacterEncoding\SivCharacterEncoding.cpp">
       <Filter>Source\Siv3D\CharacterEncoding</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\INIReader\CINIReader.cpp">
+      <Filter>Source\Siv3D\INIReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\INIReader\SivINIReader.cpp">
+      <Filter>Source\Siv3D\INIReader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

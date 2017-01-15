@@ -12,9 +12,18 @@
 # pragma once
 # include <memory>
 # include "Fwd.hpp"
+# include "Array.hpp"
+# include "String.hpp"
 
 namespace s3d
 {
+	struct INIKey
+	{
+		String name;
+
+		String value;
+	};
+
 	class INIReader
 	{
 	private:
@@ -24,6 +33,8 @@ namespace s3d
 		std::shared_ptr<CINIReader> pImpl;
 
 	public:
+
+		using Section = String;
 
 		/// <summary>
 		/// デフォルトコンストラクタ
@@ -36,7 +47,11 @@ namespace s3d
 		/// <param name="path">
 		/// ファイルパス
 		/// </param>
-		explicit INIReader(const FilePath& path, bool trackFile = true);
+		explicit INIReader(const FilePath& path, bool trackFile = true)
+			: INIReader()
+		{
+			open(path, trackFile);
+		}
 
 		/// <summary>
 		/// INI ファイルを開きます。
@@ -57,7 +72,11 @@ namespace s3d
 		/// <param name="reader">
 		/// IReader
 		/// </param>
-		explicit INIReader(const std::shared_ptr<IReader>& reader);
+		explicit INIReader(const std::shared_ptr<IReader>& reader)
+			: INIReader()
+		{
+			open(reader);
+		}
 
 		/// <summary>
 		/// デストラクタ
@@ -148,5 +167,9 @@ namespace s3d
 		/// INI ファイルのパスを返します。
 		/// </summary>
 		const FilePath& path() const;
+
+		CharacterEncoding encoding() const;
+
+		const Array<std::pair<Section, INIKey>>& getData() const;
 	};
 }

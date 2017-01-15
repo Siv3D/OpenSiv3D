@@ -219,6 +219,7 @@ namespace s3d
 	//
 	//	INIReader.hpp
 	//
+	struct INIKey;
 	class INIReader;
 
 
