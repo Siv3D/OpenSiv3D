@@ -38,9 +38,9 @@ namespace s3d
 
 				while (sizeToRead)
 				{
-					const size_t readSize = reader.read(buffer, bufferSize);
+					const int64 readSize = reader.read(buffer, bufferSize);
 
-					writer.write(buffer, readSize);
+					writer.write(buffer, static_cast<size_t>(readSize));
 
 					sizeToRead -= readSize;
 				}
@@ -128,7 +128,7 @@ namespace s3d
 
 		# if defined(SIV3D_TARGET_WINDOWS)
 			
-			m_wifReader.open(path.str());
+			m_ifs.open(path.str());
 
 		# else
 			
@@ -257,7 +257,7 @@ namespace s3d
 		{
 			const size_t bomSize = CharacterSet::GetBOMSize(m_encoding);
 
-			Array<uint8> tmp(m_reader->size() - bomSize);
+			Array<uint8> tmp(static_cast<size_t>(m_reader->size()) - bomSize);
 			
 			if (tmp.empty())
 			{
@@ -310,7 +310,7 @@ namespace s3d
 				else // UTF8, UTF8_BOM
 				{
 					char buffer[6] = {};
-					const size_t readSize = reader.lookahead(buffer, sizeof(buffer));
+					const size_t readSize = static_cast<size_t>(reader.lookahead(buffer, sizeof(buffer)));
 					const auto r = CharacterSet::GetUTF32CodePoint(buffer, readSize);
 					reader.skip(r.second);
 					codePoint = r.first;
@@ -517,7 +517,7 @@ namespace s3d
 		else // UTF-8
 		{
 			char buffer[6] = {};
-			const size_t readSize = m_reader->lookahead(buffer, sizeof(buffer));
+			const size_t readSize = static_cast<size_t>(m_reader->lookahead(buffer, sizeof(buffer)));
 			const auto r = CharacterSet::GetUTF32CodePoint(buffer, readSize);
 			m_reader->skip(r.second);
 			return r.first;
