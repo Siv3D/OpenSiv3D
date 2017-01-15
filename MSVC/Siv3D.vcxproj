@@ -33,6 +33,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\BinaryWriter.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ByteArray.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Char.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\CharacterEncoding.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\CharacterSet.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Circular.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Color.hpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Rectangle.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Regex.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Void_t.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Window.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\WritableMemoryMapping.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Xorshift.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\System.hpp" />
@@ -206,6 +208,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryWriter\SivBinaryWriter.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ByteArray\CByteArray.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ByteArray\SivByteArray.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\CharacterEncoding\SivCharacterEncoding.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\CharacterSet\SivCharacterSet.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Color\SivColor.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Compression\SivCompression.cpp" />
@@ -244,7 +247,6 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\System\CSystem_Windows.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\System\SivSystem.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\System\SystemFactory.cpp" />
-    <ClCompile Include="..\Siv3D\Source\Siv3D\TextEncoding\SivTextEncoding.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextReader\CTextReader.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextReader\SivTextReader.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextWriter\CTextWriter.cpp" />

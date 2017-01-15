@@ -117,6 +117,18 @@ namespace s3d
 		return m_hWnd;
 	}
 
+	void CWindow_Windows::setTitle(const String& title)
+	{
+		if (title == m_currentTitle)
+		{
+			return;
+		}
+
+		m_currentTitle = title;
+
+		::SetWindowTextW(m_hWnd, m_currentTitle.c_str());
+	}
+
 	bool CWindow_Windows::registerWindowClass()
 	{
 		m_windowClassName = FileSystem::ModulePath();
@@ -150,7 +162,7 @@ namespace s3d
 		m_hWnd = ::CreateWindowExW(
 			exStyle,
 			m_windowClassName.c_str(),
-			L"Siv3D App",
+			m_currentTitle.c_str(),
 			style,
 			CW_USEDEFAULT,
 			CW_USEDEFAULT,

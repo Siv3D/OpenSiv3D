@@ -831,6 +831,39 @@ namespace s3d
 			return detail::UTF32ToUTF16<char32_t, std::u16string>(str.data(), str.data() + str.length());
 		}
 
+		std::pair<char32_t, int32> GetUTF32CodePoint(const char* utf8, const size_t length)
+		{
+			if (!utf8 || length == 0)
+			{
+				return{ 0, 0 };
+			}
+
+			int32 offset;
+
+			const char32_t codePoint = detail::utf8_decode(utf8, length, offset);
+
+			return{ codePoint, offset };
+		}
+
+		std::array<char16_t, 2> GetUTF16CodePoint(const char32_t codePoint)
+		{
+			if (codePoint < 0x10000)
+			{
+				return{ static_cast<char16_t>(codePoint), 0 };
+			}
+			else if (codePoint < 0x110000)
+			{
+				return{
+					static_cast<char16_t>(((codePoint - 0x10000) >> 10) + 0xD800),
+					static_cast<char16_t>((codePoint & 0x3FF) + 0xDC00)
+				};
+			}
+			else
+			{
+				return{ static_cast<char16_t>(0xFFFD), 0 };
+			}
+		}
+
 		String PercentEncode(const StringView str, const Arg::upperCase_<bool> upperCase)
 		{
 			const std::string utf8 = ToUTF8(str);

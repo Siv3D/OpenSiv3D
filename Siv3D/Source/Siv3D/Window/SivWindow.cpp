@@ -16,6 +16,9 @@ namespace s3d
 {
 	namespace Window
 	{
-	
+		void SetTitle(const String& title)
+		{
+			Siv3DEngine::GetWindow()->setTitle(title);
+		}
 	}
 }

@@ -66,18 +66,18 @@
 - [x] Base64
 - [x] MD5
 - [x] xxHash
-- [ ] Cylindrical
-- [ ] Spherical
+- [x] TextReader
 
 ---------------------------
 
 #### 0.0.7
-- [ ] Math (Partial)
-- [ ] TextReader
 - [ ] CSVReader
 - [ ] CSVWriter
 - [ ] INI (Partial)
 - [ ] JSON (Partial)
+- [ ] Cylindrical
+- [ ] Spherical
+- [ ] Math (Partial)
 
 ## Discussion ##
  [Siv3D Slack #open-siv3d](https://siv3d.slack.com/messages/open-siv3d/details/)  (Japanese)

@@ -21,12 +21,9 @@ namespace s3d
 	/// <remarks>
 	/// テキストファイルの文字エンコーディング形式を示します。
 	/// </remarks>
-	enum class TextEncoding
+	enum class CharacterEncoding
 	{
-		/// <summary>
-		/// ANSI
-		/// </summary>
-		ANSI,
+		Unknown,
 
 		/// <summary>
 		/// UTF-8
@@ -34,19 +31,24 @@ namespace s3d
 		UTF8,
 
 		/// <summary>
-		/// UTF-16 リトルエンディアン
+		/// UTF-8 with BOM
 		/// </summary>
-		UTF16LE,
+		UTF8_BOM,
 
 		/// <summary>
-		/// UTF-16 ビッグエンディアン
+		/// UTF-16(LE) with BOM
 		/// </summary>
-		UTF16BE,
+		UTF16LE_BOM,
+
+		/// <summary>
+		/// UTF-16(BE) with BOM
+		/// </summary>
+		UTF16BE_BOM,
 
 		/// <summary>
 		/// デフォルト [UTF-8]
 		/// </summary>
-		Default = UTF8,
+		Default = UTF8_BOM,		
 	};
 
 	namespace CharacterSet
@@ -57,13 +59,10 @@ namespace s3d
 		/// <param name="reader">
 		/// IReader
 		/// </param>
-		/// <param name="bomSize">
-		/// [out] テキストファイルに含まれている BOM のサイズ
-		/// </param>
 		/// <returns>
 		/// テキストファイルのエンコーディング形式
 		/// </returns>
-		TextEncoding GetEncoding(const IReader& reader, int32& bomSize);
+		CharacterEncoding GetEncoding(const IReader& reader);
 
 		/// <summary>
 		/// ファイルがテキストファイルである場合、そのエンコーディング形式を返します。
@@ -71,15 +70,18 @@ namespace s3d
 		/// <param name="path">
 		/// ファイルパス
 		/// </param>
-		/// <param name="bomSize">
-		/// [out] テキストファイルに含まれている BOM のサイズ
-		/// </param>
 		/// <returns>
 		/// テキストファイルのエンコーディング形式
 		/// </returns>
-		inline TextEncoding GetEncoding(const FilePath& path, int32& bomSize)
+		inline CharacterEncoding GetEncoding(const FilePath& path)
 		{
-			return GetEncoding(BinaryReader(path), bomSize);
+			return GetEncoding(BinaryReader(path));
+		}
+
+		inline constexpr int32 GetBOMSize(CharacterEncoding encoding)
+		{
+			return encoding == CharacterEncoding::UTF8_BOM ? 3
+				: (encoding == CharacterEncoding::UTF16LE_BOM || encoding == CharacterEncoding::UTF16BE_BOM) ? 2 : 0;
 		}
 	}
 }

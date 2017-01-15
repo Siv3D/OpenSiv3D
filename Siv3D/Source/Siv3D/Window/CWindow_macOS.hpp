@@ -14,6 +14,7 @@
 # if defined(SIV3D_TARGET_MACOS)
 
 # include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
+# include <Siv3D/String.hpp>
 # include "IWindow.hpp"
 
 namespace s3d
@@ -23,6 +24,8 @@ namespace s3d
 	private:
 
 		WindowHandle m_glfwWindow = nullptr;
+
+		String m_currentTitle = L"Siv3D App";
 		
 	public:
 
@@ -35,6 +38,8 @@ namespace s3d
 		bool update() override;
 		
 		WindowHandle getHandle() const override;
+
+		void setTitle(const String& title) override;
 	};
 }
 

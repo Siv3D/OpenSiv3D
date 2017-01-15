@@ -3,62 +3,75 @@
 
 void Main()
 {
-	TimeProfiler tp;
-
-	for(auto i :step(100))
 	{
-		tp.begin(L"XXH");
-		Hash::XXHashFromFile(L"example/siv3d-kun.png");
-		tp.end();
+		TextWriter(L"test.txt").write(L"𩸽に感謝🙏🙏🙏");
 	}
+	
+	TextReader reader(L"test.txt");
 
-	for (auto i : step(100))
+	while(const auto ch = reader.readChar())
 	{
-		tp.begin(L"MD5");
-		Hash::MD5FromFile(L"example/siv3d-kun.png");
-		tp.end();
+		Log << ch.value();
 	}
+}
 
-	Log << Hash::XXHashFromFile(L"example/siv3d-kun.png");
-	Log << Hash::XXHashFromFile(L"example/windmill.png");
 
-	Log << Hash::MD5FromFile(L"example/siv3d-kun.png");
-	Log << Hash::MD5FromFile(L"example/windmill.png");
 
-	//while (System::Update())
-	//{
 
-	//}
+/*
+//TextReader reader(L"test/text/cp932.txt");
+TextReader reader(L"test/text/UTF8.txt");
+//TextReader reader(L"test/text/UTF16LE_BOM.txt");
+//TextReader reader(L"test/text/hokke.txt");
 
-	/*
-	DragDrop::AcceptText(true);
+//Console << reader.isOpened();
+//Console << reader.readAll();
+//std::wifstream wifs("test/text/cp932.txt");
 
+TextWriter writer(L"out.txt");
+
+String line;// = reader.readAll();
+
+char32_t ch;
+
+while (reader.readChar(ch))
+{
+	Console << ch;
+	//Console << line.length();
+	//Console << (int)ch.value();
+	//writer.writeln(ch);
+	}
+	
 	while (System::Update())
 	{
-		if (const auto dragOver = DragDrop::DragOver())
-		{
-			Log(L"DragOver:") << (int32)dragOver->itemType << dragOver->pos;
-		}
-
-		if (DragDrop::HasNewFilePaths())
-		{
-			Log(L"FilePaths:");
-
-			for (const auto& dropped : DragDrop::GetDroppedFilePaths())
-			{
-				Log << dropped.path << dropped.pos << dropped.timeMillisec;
-			}
-		}
-
-		if (DragDrop::HasNewText())
-		{
-			Log(L"Text:");
-
-			for (const auto& dropped : DragDrop::GetDroppedText())
-			{
-				Log << dropped.text << dropped.pos << dropped.timeMillisec;
-			}
-		}
+		
 	}
 	*/
-}
+	/*
+	 while (System::Update())
+	 {
+		if (const auto dragOver = DragDrop::DragOver())
+		{
+	 Window::SetTitle(L"");
+		}
+	 
+		if (DragDrop::HasNewFilePaths())
+		{
+	 for (const auto& drop : DragDrop::GetDroppedFilePaths())
+	 {
+	 if (!FileSystem::IsFile(drop.path))
+	 {
+	 continue;
+	 }
+	 
+	 const String output = L"[{}] < {}"_fmt(
+	 Hash::MD5FromFile(drop.path),
+	 FileSystem::FileName(drop.path));
+	 
+	 Window::SetTitle(output);
+	 
+	 Console << output;
+	 }
+		}
+	 }
+	 */

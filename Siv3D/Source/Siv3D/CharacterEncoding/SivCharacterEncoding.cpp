@@ -9,25 +9,23 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/TextEncoding.hpp>
+# include <Siv3D/CharacterEncoding.hpp>
 # include <Siv3D/Utility.hpp>
 
 namespace s3d
 {
 	namespace CharacterSet
 	{
-		TextEncoding GetEncoding(const IReader& reader, int32& bomSize)
+		CharacterEncoding GetEncoding(const IReader& reader)
 		{
-			bomSize = 0;
-
 			if (!reader.isOpened())
 			{
-				return TextEncoding::UTF8;
+				return CharacterEncoding::UTF8;
 			}
 
 			if (reader.size() == 0)
 			{
-				return TextEncoding::Default;
+				return CharacterEncoding::UTF8;
 			}
 
 			{
@@ -36,22 +34,19 @@ namespace s3d
 
 				if (bom[0] == 0xEF && bom[1] == 0xBB && bom[2] == 0xBF)
 				{
-					bomSize = 3;
-					return TextEncoding::UTF8;
+					return CharacterEncoding::UTF8_BOM;
 				}
 				else if (bom[0] == 0xFF && bom[1] == 0xFE)
 				{
-					bomSize = 2;
-					return TextEncoding::UTF16LE;
+					return CharacterEncoding::UTF16LE_BOM;
 				}
 				else if (bom[0] == 0xFE && bom[1] == 0xFF)
 				{
-					bomSize = 2;
-					return TextEncoding::UTF16BE;
+					return CharacterEncoding::UTF16BE_BOM;
 				}
 			}
 
-			constexpr size_t bufferSize = 64 * 1024;
+			constexpr size_t bufferSize = 4096;
 
 			uint8 buffer[bufferSize] = {};
 
@@ -81,7 +76,7 @@ namespace s3d
 						}
 						else if (c < 0xC2)
 						{
-							return TextEncoding::ANSI;
+							return CharacterEncoding::Unknown;
 						}
 						else if (c <= 0xDF)
 						{
@@ -105,14 +100,14 @@ namespace s3d
 						}
 						else
 						{
-							return TextEncoding::ANSI;
+							return CharacterEncoding::Unknown;
 						}
 					}
 					else
 					{
 						if (!InRange<uint8>(c, 0x80, 0xBF))
 						{
-							return TextEncoding::ANSI;
+							return CharacterEncoding::Unknown;
 						}
 
 						--count;
@@ -125,7 +120,7 @@ namespace s3d
 				}
 			}
 
-			return TextEncoding::UTF8;
+			return CharacterEncoding::UTF8;
 		}
 	}
 }

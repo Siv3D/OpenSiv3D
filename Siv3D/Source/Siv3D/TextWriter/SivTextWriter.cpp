@@ -25,9 +25,9 @@ namespace s3d
 
 	}
 
-	bool TextWriter::open(const FilePath& path, const OpenMode openMode, const TextEncoding encoding, const bool writeBOM)
+	bool TextWriter::open(const FilePath& path, const OpenMode openMode, const CharacterEncoding encoding)
 	{
-		return pImpl->open(path, openMode, encoding, writeBOM);
+		return pImpl->open(path, openMode, encoding);
 	}
 
 	void TextWriter::close()

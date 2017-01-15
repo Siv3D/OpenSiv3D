@@ -166,9 +166,9 @@
 	// バイナリファイルの書き込み
 	# include "Siv3D/BinaryWriter.hpp"
 	// テキストのエンコード
-	# include "Siv3D/TextEncoding.hpp"
-	//// テキストファイルの読み込み
-	//# include "Siv3D/TextReader.hpp"
+	# include "Siv3D/CharacterEncoding.hpp"
+	// テキストファイルの読み込み
+	# include "Siv3D/TextReader.hpp"
 	// テキストファイルの書き込み
 	# include "Siv3D/TextWriter.hpp"
 	// Base64
@@ -372,8 +372,8 @@
 	//# include "Siv3D/Midi.hpp"
 	//// システム
 	# include "Siv3D/System.hpp"
-	//// ウィンドウ
-	//# include "Siv3D/Window.hpp"
+	// ウィンドウ
+	# include "Siv3D/Window.hpp"
 	//// メッセージボックス
 	//# include "Siv3D/MessageBox.hpp"
 	//// クリップボード

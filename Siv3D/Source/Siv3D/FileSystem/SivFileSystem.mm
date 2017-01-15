@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # include <string>
-# import <Foundation/Foundation.h>
+# import  <Foundation/Foundation.h>
 
 bool trashFile(const char* path, const unsigned long pathLength, const bool isDirectory)
 {

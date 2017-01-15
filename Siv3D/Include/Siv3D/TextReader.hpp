@@ -14,7 +14,7 @@
 # include "Fwd.hpp"
 # include "String.hpp"
 # include "Unspecified.hpp"
-# include "TextEncoding.hpp"
+# include "CharacterEncoding.hpp"
 
 namespace s3d
 {
@@ -50,7 +50,11 @@ namespace s3d
 		/// <param name="encoding">
 		/// エンコーディング形式、自動で設定する場合は unspecified
 		/// </param>
-		explicit TextReader(const FilePath& path, const Optional<TextEncoding>& encoding = unspecified);
+		explicit TextReader(const FilePath& path, const Optional<CharacterEncoding>& encoding = unspecified)
+			: TextReader()
+		{
+			open(path, encoding);
+		}
 
 		/// <summary>
 		/// テキストファイルを開きます。
@@ -62,7 +66,7 @@ namespace s3d
 		/// エンコーディング形式、自動で設定する場合は unspecified
 		/// </param>
 		template <class Reader, std::enable_if_t<std::is_base_of<IReader, Reader>::value && !std::is_lvalue_reference<Reader>::value>* = nullptr>
-		explicit TextReader(Reader&& reader, const Optional<TextEncoding>& encoding = unspecified)
+		explicit TextReader(Reader&& reader, const Optional<CharacterEncoding>& encoding = unspecified)
 			: TextReader()
 		{
 			open(std::forward<Reader>(reader), encoding);
@@ -77,7 +81,11 @@ namespace s3d
 		/// <param name="encoding">
 		/// エンコーディング形式、自動で設定する場合は unspecified
 		/// </param>
-		explicit TextReader(const std::shared_ptr<IReader>& reader, const Optional<TextEncoding>& encoding = unspecified);
+		explicit TextReader(const std::shared_ptr<IReader>& reader, const Optional<CharacterEncoding>& encoding = unspecified)
+			: TextReader()
+		{
+			open(reader, encoding);
+		}
 
 		/// <summary>
 		/// テキストファイルを開きます。
@@ -91,7 +99,7 @@ namespace s3d
 		/// <returns>
 		/// ファイルのオープンに成功した場合 true, それ以外の場合は false
 		/// </returns>
-		bool open(const FilePath& path, const Optional<TextEncoding>& encoding = unspecified);
+		bool open(const FilePath& path, const Optional<CharacterEncoding>& encoding = unspecified);
 
 		/// <summary>
 		/// テキストファイルを開きます。
@@ -103,7 +111,7 @@ namespace s3d
 		/// エンコーディング形式、自動で設定する場合は unspecified
 		/// </param>
 		template <class Reader, std::enable_if_t<std::is_base_of<IReader, Reader>::value && !std::is_lvalue_reference<Reader>::value>* = nullptr>
-		bool open(Reader&& reader, const Optional<TextEncoding>& encoding = unspecified)
+		bool open(Reader&& reader, const Optional<CharacterEncoding>& encoding = unspecified)
 		{
 			return open(std::make_shared<Reader>(std::forward<Reader>(reader)), encoding);
 		}
@@ -117,7 +125,7 @@ namespace s3d
 		/// <param name="encoding">
 		/// エンコーディング形式、自動で設定する場合は unspecified
 		/// </param>
-		bool open(const std::shared_ptr<IReader>& reader, const Optional<TextEncoding>& encoding = unspecified);
+		bool open(const std::shared_ptr<IReader>& reader, const Optional<CharacterEncoding>& encoding = unspecified);
 
 		/// <summary>
 		/// テキストファイルをクローズします。
@@ -149,7 +157,7 @@ namespace s3d
 		/// <returns>
 		/// 読み込みに成功した場合はその文字の Optional, ファイルの終端や失敗の場合は none
 		/// </returns>
-		Optional<wchar> readChar();
+		Optional<char32_t> readChar();
 
 		/// <summary>
 		/// テキストファイルから 1 行読み込みます。
@@ -176,7 +184,7 @@ namespace s3d
 		/// <returns>
 		/// 読み込みに成功した場合 true, ファイルの終端や失敗の場合は false
 		/// </returns>
-		bool readChar(wchar& ch);
+		bool readChar(char32_t& ch);
 
 		/// <summary>
 		/// テキストファイルから 1 行読み込みます。
@@ -190,15 +198,12 @@ namespace s3d
 		bool readLine(String& str);
 
 		/// <summary>
-		/// テキストファイルの現在の読み込み位置以降の内容をすべて読み込みます。
+		/// テキストファイルの内容をすべて読み込みます。
 		/// </summary>
 		/// <param name="str">
 		/// 読み込み先
 		/// </param>
-		/// <returns>
-		/// 読み込みに成功した場合 true, ファイルの終端や失敗の場合は false
-		/// </returns>
-		bool readAll(String& str);
+		void readAll(String& str);
 
 		/// <summary>
 		/// オープンしているファイルのパスを返します。
@@ -211,6 +216,6 @@ namespace s3d
 		/// <summary>
 		/// オープンしているテキストファイルのエンコーディング形式を返します。
 		/// </summary>
-		TextEncoding encoding() const;
+		CharacterEncoding encoding() const;
 	};
 }

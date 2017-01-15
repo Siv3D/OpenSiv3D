@@ -33,7 +33,7 @@ namespace s3d
 			return false;
 		}
 		
-		m_glfwWindow = glfwCreateWindow(640, 480, "Siv3D App", nullptr, nullptr);
+		m_glfwWindow = glfwCreateWindow(640, 480, m_currentTitle.narrow().c_str(), nullptr, nullptr);
 		
 		if (!m_glfwWindow)
 		{
@@ -73,6 +73,18 @@ namespace s3d
 	WindowHandle CWindow_macOS::getHandle() const
 	{
 		return m_glfwWindow;
+	}
+
+	void CWindow_macOS::setTitle(const String& title)
+	{
+		if (title == m_currentTitle)
+		{
+			return;
+		}
+
+		m_currentTitle = title;
+
+		glfwSetWindowTitle(m_glfwWindow, m_currentTitle.narrow().c_str());
 	}
 }
 
