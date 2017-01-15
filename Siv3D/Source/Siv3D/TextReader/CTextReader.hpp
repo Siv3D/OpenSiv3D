@@ -22,8 +22,16 @@ namespace s3d
 
 		std::shared_ptr<IReader> m_reader;
 
-		std::wifstream m_wifReader;
+	# if defined(SIV3D_TARGET_WINDOWS)
+		
+		std::wifstream m_ifs;
 
+	# else
+
+		std::ifstream m_ifs;
+		
+	# endif
+		
 		FilePath m_fullPath;
 
 		int64 m_size = 0;

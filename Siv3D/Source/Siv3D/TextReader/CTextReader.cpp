@@ -14,6 +14,12 @@
 # include <Siv3D/ByteArray.hpp>
 # include "CTextReader.hpp"
 
+# if defined(SIV3D_TARGET_MACOS)
+
+std::string ConvertLine(const std::string& line);
+
+# endif
+
 namespace s3d
 {
 	namespace detail
@@ -118,11 +124,19 @@ namespace s3d
 		}
 		else
 		{
-			tmpIReader->~IReader();
+			tmpIReader.reset();
 
+		# if defined(SIV3D_TARGET_WINDOWS)
+			
 			m_wifReader.open(path.str());
 
-			m_opened = m_wifReader.is_open();
+		# else
+			
+			m_ifs.open(path.narrow());
+			
+		# endif
+
+			m_opened = m_ifs.is_open();
 		}
 
 		if (!m_opened)
@@ -172,10 +186,18 @@ namespace s3d
 		else
 		{
 			m_temporaryFile = detail::CreateTemporaryCopy(*reader);
-
-			m_wifReader.open(m_temporaryFile->str());
-
-			m_opened = m_wifReader.is_open();
+			
+		# if defined(SIV3D_TARGET_WINDOWS)
+			
+			m_ifs.open(m_temporaryFile->str());
+			
+		# else
+			
+			m_ifs.open(m_temporaryFile->narrow());
+			
+		# endif
+			
+			m_opened = m_ifs.is_open();
 		}
 
 		m_size = m_reader ? m_reader->size() : reader->size();
@@ -198,7 +220,7 @@ namespace s3d
 		}
 		else
 		{
-			m_wifReader.close();
+			m_ifs.close();
 		}
 
 		if (m_temporaryFile)
@@ -302,15 +324,17 @@ namespace s3d
 		}
 		else
 		{
+		# if defined(SIV3D_TARGET_WINDOWS)
+			
 			std::wstring line;
 
-			m_wifReader.seekg(0);
+			m_ifs.seekg(0);
 
 			for (;;)
 			{
-				if (std::getline(m_wifReader, line).eof())
+				if (std::getline(m_ifs, line).eof())
 				{
-					m_wifReader.seekg(0, std::ios_base::end);
+					m_ifs.seekg(0, std::ios_base::end);
 				}
 
 				out.append(line);
@@ -324,6 +348,33 @@ namespace s3d
 					out.push_back(L'\n');
 				}
 			}
+			
+		# else
+
+			std::string line;
+			
+			m_ifs.seekg(0);
+
+			for (;;)
+			{
+				if (std::getline(m_ifs, line).eof())
+				{
+					m_ifs.seekg(0, std::ios_base::end);
+				}
+				
+				out.append(CharacterSet::Widen(ConvertLine(line)));
+
+				if (eof())
+				{
+					break;
+				}
+				else
+				{
+					out.push_back(L'\n');
+				}
+			}
+
+		# endif
 		}
 	}
 
@@ -354,10 +405,25 @@ namespace s3d
 		}
 		else
 		{
-			if (std::getline(m_wifReader, str.str()).eof())
+		# if defined(SIV3D_TARGET_WINDOWS)
+			
+			if (std::getline(m_ifs, str.str()).eof())
 			{
-				m_wifReader.seekg(0, std::ios_base::end);
+				m_ifs.seekg(0, std::ios_base::end);
 			}
+			
+		# else
+			
+			std::string line;
+	
+			if (std::getline(m_ifs, line).eof())
+			{
+				m_ifs.seekg(0, std::ios_base::end);
+			}
+				
+			str = CharacterSet::Widen(ConvertLine(line));
+			
+		# endif
 		}
 	}
 
@@ -387,7 +453,7 @@ namespace s3d
 		}
 		else
 		{
-			return m_wifReader.tellg() == m_size;
+			return !m_ifs || m_ifs.tellg() == m_size;
 		}
 	}
 
@@ -434,9 +500,19 @@ namespace s3d
 		}
 		else if (m_encoding == CharacterEncoding::Unknown)
 		{
+		# if defined(SIV3D_TARGET_WINDOWS)
+			
 			wchar ch;
-			m_wifReader.get(ch);
+			m_ifs.get(ch);
 			return ch;
+			
+		# else
+			
+			char ch;
+			m_ifs.get(ch);
+			return ch; // [Siv3D TODO]
+			
+		# endif
 		}
 		else // UTF-8
 		{
