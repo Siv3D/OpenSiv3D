@@ -26,6 +26,9 @@
 
 namespace s3d
 {
+	/// <summary>
+	/// 動的配列
+	/// </summary>
 	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
 	class Array : protected std::vector<Type, Allocator>
 	{

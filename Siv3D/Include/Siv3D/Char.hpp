@@ -26,7 +26,7 @@ namespace s3d
 	/// <returns>
 	/// 10 進数の数字である場合 true, それ以外の場合は false
 	/// </returns>
-	inline constexpr bool IsDigit(const uint32 ch) noexcept
+	inline constexpr bool IsDigit(const char32_t ch) noexcept
 	{
 		return (ch - L'0') <= (L'9' - L'0');
 	}
@@ -40,7 +40,7 @@ namespace s3d
 	/// <returns>
 	/// アルファベットの小文字である場合 true, それ以外の場合は false
 	/// </returns>
-	inline constexpr bool IsLower(const uint32 ch) noexcept
+	inline constexpr bool IsLower(const char32_t ch) noexcept
 	{
 		return (ch - L'a') <= (L'z' - L'a');
 	}
@@ -54,7 +54,7 @@ namespace s3d
 	/// <returns>
 	/// アルファベットの大文字である場合 true, それ以外の場合は false
 	/// </returns>
-	inline constexpr bool IsUpper(const uint32 ch) noexcept
+	inline constexpr bool IsUpper(const char32_t ch) noexcept
 	{
 		return (ch - L'A') <= (L'Z' - L'A');
 	}
@@ -68,7 +68,7 @@ namespace s3d
 	/// <returns>
 	/// アルファベットである場合 true, それ以外の場合は false
 	/// </returns>
-	inline constexpr bool IsAlpha(const uint32 ch) noexcept
+	inline constexpr bool IsAlpha(const char32_t ch) noexcept
 	{
 		return IsLower(ch) || IsUpper(ch);
 	}
@@ -82,7 +82,7 @@ namespace s3d
 	/// <returns>
 	/// アルファベットもしくは数字である場合 true, それ以外の場合は false
 	/// </returns>
-	inline constexpr bool IsAlnum(const uint32 ch) noexcept
+	inline constexpr bool IsAlnum(const char32_t ch) noexcept
 	{
 		return IsDigit(ch) || IsAlpha(ch);
 	}
@@ -96,7 +96,7 @@ namespace s3d
 	/// <returns>
 	/// 16 進数の数字である場合 true, それ以外の場合は false
 	/// </returns>
-	inline constexpr bool IsXdigit(const uint32 ch) noexcept
+	inline constexpr bool IsXdigit(const char32_t ch) noexcept
 	{
 		return IsDigit(ch) || ((ch - L'A') <= (L'F' - L'A')) || ((ch - L'a') <= (L'f' - L'a'));
 	}
@@ -110,7 +110,7 @@ namespace s3d
 	/// <returns>
 	/// 制御文字である場合 true, それ以外の場合は false
 	/// </returns>
-	inline constexpr bool IsControl(const uint32 ch) noexcept
+	inline constexpr bool IsControl(const char32_t ch) noexcept
 	{
 		return (ch <= 0x1F) || ((ch - 0x7F) <= (0x9F - 0x7F));
 	}
@@ -127,7 +127,7 @@ namespace s3d
 	/// <returns>
 	/// 空白文字である場合 true, それ以外の場合は false
 	/// </returns>
-	inline constexpr bool IsBlank(const uint32 ch) noexcept
+	inline constexpr bool IsBlank(const char32_t ch) noexcept
 	{
 		return (ch == HalfWidthSpace) || (ch == L'\t') || (ch == FullWidthSpace);
 	}
@@ -144,7 +144,7 @@ namespace s3d
 	/// <returns>
 	/// 空白類文字である場合 true, それ以外の場合は false
 	/// </returns>
-	inline constexpr bool IsSpace(const uint32 ch) noexcept
+	inline constexpr bool IsSpace(const char32_t ch) noexcept
 	{
 		return ((ch - L'\t') <= (L'\r' - L'\t')) || (ch == HalfWidthSpace) || (ch == FullWidthSpace);
 	}
@@ -158,7 +158,7 @@ namespace s3d
 	/// <returns>
 	/// 印字可能文字である場合 true, それ以外の場合は false
 	/// </returns>
-	inline bool IsPrint(const uint32 ch)
+	inline bool IsPrint(const char32_t ch)
 	{
 		return !!::iswprint(static_cast<wchar_t>(ch));
 	}
