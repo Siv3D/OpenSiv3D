@@ -43,7 +43,7 @@ namespace s3d
 			return AlignedMalloc<Type, Alignment>(n);
 		}
 
-		void deallocate(Type const* p, const size_t)
+		void deallocate(Type* const p, const size_t)
 		{
 			AlignedFree(p);
 		}
