@@ -181,4 +181,9 @@ namespace s3d
 	{
 		using type = std::conditional_t<HasAlignment<Type>::value, AlignedAllocator<Type>, std::allocator<Type>>;
 	};
+
+	inline bool IsAligned(const void* const p, const size_t alignment) noexcept
+	{
+		return (reinterpret_cast<size_t>(p) % alignment) == 0;
+	}
 }
