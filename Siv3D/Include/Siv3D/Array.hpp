@@ -15,7 +15,7 @@
 # include <algorithm>
 # include <future>
 # include "Fwd.hpp"
-# include "Allocator.hpp"
+# include "AlignedAllocator.hpp"
 # include "Concept.hpp"
 # include "NamedParameter.hpp"
 # include "Threading.hpp"

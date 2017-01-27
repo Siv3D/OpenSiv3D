@@ -64,8 +64,10 @@
 	# include "Siv3D/NamedParameter.hpp"
 	// スレッド
 	# include "Siv3D/Threading.hpp"
-	// アロケータ
-	# include "Siv3D/Allocator.hpp"
+	// メモリアライメント
+	# include "Siv3D/AlignedMemory.hpp"	
+	// アライメント対応アロケータ
+	# include "Siv3D/AlignedAllocator.hpp"
 	// 動的配列
 	# include "Siv3D/Array.hpp"
 	// バイナリ配列ビュー

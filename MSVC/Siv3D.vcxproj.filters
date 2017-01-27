@@ -181,9 +181,6 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\Include\Siv3D\Allocator.hpp">
-      <Filter>Include\Siv3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\Array.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
@@ -678,6 +675,12 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\dictBuilder\zdict.h">
       <Filter>Source\ThirdParty\zstd\dictBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\AlignedAllocator.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\AlignedMemory.hpp">
+      <Filter>Include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
