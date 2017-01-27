@@ -74,9 +74,6 @@
     <Filter Include="Source\Siv3D\TextWriter">
       <UniqueIdentifier>{016d29d1-aa5a-4f25-80e5-bac98a92c9cf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Siv3D\FormatFloat\FormatInt">
-      <UniqueIdentifier>{bb7966c0-8acf-4af4-8e8d-3f83b8651adc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Siv3D\TextReader">
       <UniqueIdentifier>{055a4ba3-6b89-4196-852c-69254c0ce92b}</UniqueIdentifier>
     </Filter>
@@ -146,9 +143,6 @@
     <Filter Include="Source\ThirdParty\zstd\dictBuilder">
       <UniqueIdentifier>{82823fc1-9979-4780-9ea7-5254b39c4101}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\ThirdParty\zstd\legacy">
-      <UniqueIdentifier>{6ac892e9-7e56-41b6-b2ad-0e75dec97738}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Siv3D\Window">
       <UniqueIdentifier>{97f8d5e2-00d2-4954-93fe-d5d6454f1e99}</UniqueIdentifier>
     </Filter>
@@ -178,6 +172,9 @@
     </Filter>
     <Filter Include="Source\Siv3D\INIReader">
       <UniqueIdentifier>{3dbc872b-3264-4df4-bf41-03d21c7c4fc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\FormatInt">
+      <UniqueIdentifier>{bb7966c0-8acf-4af4-8e8d-3f83b8651adc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -712,7 +709,7 @@
       <Filter>Source\Siv3D\FormatFloat</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatInt\SivFormatInt.cpp">
-      <Filter>Source\Siv3D\FormatFloat\FormatInt</Filter>
+      <Filter>Source\Siv3D\FormatInt</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Time\SivTime.cpp">
       <Filter>Source\Siv3D\Time</Filter>
