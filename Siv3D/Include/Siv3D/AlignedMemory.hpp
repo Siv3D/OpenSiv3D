@@ -17,6 +17,18 @@
 
 namespace s3d
 {
+	/// <summary>
+	/// アライメントを考慮して、指定した型のためのメモリを確保します。
+	/// </summary>
+	/// <param name="n">
+	/// 要素数。デフォルトは 1
+	/// </param>
+	/// <remarks>
+	/// 確保したポインタは AlignedFree() で解放する必要があります。
+	/// </remarks>
+	/// <returns>
+	/// 確保したメモリ領域の先頭ポインタ
+	/// </returns>
 	template <class Type, size_t Alignment = alignof(Type)>
 	inline Type* AlignedMalloc(const size_t n = 1)
 	{
@@ -33,7 +45,19 @@ namespace s3d
 	# endif	
 	}
 
-	inline void AlignedFree(void* p)
+	/// <summary>
+	/// AlignedMalloc() で確保したメモリを解放します。
+	/// </summary>
+	/// <param name="p">
+	/// 解放するメモリ領域の先頭ポインタ
+	/// </param>
+	/// <remarks>
+	/// p が nullptr の場合は何も起こりません。
+	/// </remarks>
+	/// <returns>
+	/// なし
+	/// </returns>
+	inline void AlignedFree(void* const p)
 	{
 	# if defined(SIV3D_TARGET_WINDOWS)
 
@@ -46,6 +70,9 @@ namespace s3d
 	# endif
 	}
 
+	/// <summary>
+	/// 明示的なアライメントの指定が必要な型であるかを判定します。
+	/// </summary>
 	template <class Type>
 	struct HasAlignment
 		: std::integral_constant<bool, (alignof(Type) > SIV3D_ALLOCATOR_MIN_ALIGNMENT)> {};

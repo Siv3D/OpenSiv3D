@@ -14,6 +14,9 @@
 
 namespace s3d
 {
+	/// <summary>
+	/// メモリアライメント対応アロケータ
+	/// </summary>
 	template <class Type, size_t Alignment = alignof(Type)>
 	class AlignedAllocator
 	{
@@ -35,12 +38,12 @@ namespace s3d
 		template <class Other>
 		AlignedAllocator(const AlignedAllocator<Other>&) noexcept {}
 
-		Type* allocate(size_t n, const void* = nullptr)
+		Type* allocate(const size_t n, const void* = nullptr)
 		{
 			return AlignedMalloc<Type, Alignment>(n);
 		}
 
-		void deallocate(Type* p, size_t)
+		void deallocate(Type const* p, const size_t)
 		{
 			AlignedFree(p);
 		}
@@ -58,6 +61,9 @@ namespace s3d
 		return false;
 	}
 	
+	/// <summary>
+	/// メモリアライメントを考慮したデフォルトのアロケータ
+	/// </summary>
 	template <class Type>
 	struct DefaultAllocator
 	{
