@@ -1,6 +1,6 @@
 - Boost 1.62.0 http://www.boost.org/users/history/version_1_62_0.html
 - double-conversion https://github.com/google/double-conversion 
-- fmt 3.0.0+ https://github.com/fmtlib/fmt
+- fmt 3.0.1 https://github.com/fmtlib/fmt/releases/tag/3.0.1
 - miniutf https://github.com/dropbox/miniutf
 - Zstandard v1.1.1 https://github.com/facebook/zstd/releases/tag/v1.1.1
 - Convenient Constructs For Stepping Through a Range of Values https://www.codeproject.com/articles/876156/convenient-constructs-for-stepping-through-a-range

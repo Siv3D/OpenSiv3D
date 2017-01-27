@@ -21,7 +21,6 @@
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\fmt\format.h" />
     <ClInclude Include="..\Siv3D\Include\fmt\ostream.h" />
-    <ClInclude Include="..\Siv3D\Include\fmt\printf.h" />
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Allocator.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Array.hpp" />

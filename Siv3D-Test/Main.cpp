@@ -1,13 +1,21 @@
 ﻿
 # include <Siv3D.hpp>
+# include "Test/Siv3DTest.hpp"
 
 void Main()
 {
+	RunTest();
+
 	INIReader ini(L"example/test.ini");
 
 	for (const auto& key : ini.getData())
 	{
 		Log << key.first << L"." << key.second.name << L"=" << key.second.value;
+	}
+
+	while (System::Update())
+	{
+
 	}
 }
 
