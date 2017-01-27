@@ -13,6 +13,9 @@ void Main()
 		Log << key.first << L"." << key.second.name << L"=" << key.second.value;
 	}
 
+	Compression::CompressFileToFile(L"example/LICENSE.txt", L"comp.zst");
+	Compression::DecompressFileToFile(L"comp.zst", L"comp.txt");
+
 	while (System::Update())
 	{
 
