@@ -17,6 +17,38 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		inline double ElasticAP(double t, double a, const double p)
+		{
+			if (t == 0)
+			{
+				return 0.0;
+			}
+			else if (t == 1)
+			{
+				return 1.0;
+			}
+
+			double s;
+
+			if (a < 1.0)
+			{
+				a = 1.0;
+
+				s = p / 4.0f;
+			}
+			else
+			{
+				s = p / Math::TwoPi * std::asin(1.0 / a);
+			}
+
+			t -= 1.0;
+
+			return -(a * std::exp2(10.0 * t) * std::sin((t - s) * Math::TwoPi / p));
+		}
+	}
+
 	/// <summary>
 	/// イージング
 	/// </summary>
@@ -25,38 +57,6 @@ namespace s3d
 	/// </remarks>
 	namespace Easing
 	{
-		namespace detail
-		{
-			inline double ElasticAP(double t, double a, const double p)
-			{
-				if (t == 0)
-				{
-					return 0.0;
-				}
-				else if (t == 1)
-				{
-					return 1.0;
-				}
-
-				double s;
-
-				if (a < 1.0)
-				{
-					a = 1.0;
-
-					s = p / 4.0f;
-				}
-				else
-				{
-					s = p / Math::TwoPi * std::asin(1.0 / a);
-				}
-
-				t -= 1.0;
-
-				return -(a * std::exp2(10.0 * t) * std::sin((t - s) * Math::TwoPi / p));
-			}
-		}
-
 		inline constexpr double Linear(const double t)
 		{
 			return t;
