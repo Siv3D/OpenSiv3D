@@ -180,7 +180,7 @@ namespace s3d
 	/// <returns>
 	/// 絵文字である場合 true, それ以外の場合は false
 	/// </returns>
-	inline bool IsEmoji(const char32_t ch)
+	inline constexpr bool IsEmoji(const char32_t ch) noexcept
 	{
 		return InRange<char32_t>(ch, 0x2600, 0x27BF)
 			|| InRange<char32_t>(ch, 0x1F300, 0x1F6FF)
@@ -192,12 +192,12 @@ namespace s3d
 		return (a + IsUpper(a) * 32) < (b + IsUpper(b) * 32) ? -1 : (a + IsUpper(a) * 32) != (b + IsUpper(b) * 32);
 	}
 
-	inline constexpr bool IsHighSurrogate(const char16_t ch)
+	inline constexpr bool IsHighSurrogate(const char16_t ch) noexcept
 	{
 		return InRange<char16_t>(ch, 0xD800, 0xDBFF);
 	}
 
-	inline constexpr bool IsLowSurrogate(const char16_t ch)
+	inline constexpr bool IsLowSurrogate(const char16_t ch) noexcept
 	{
 		return InRange<char16_t>(ch, 0xDC00, 0xDFFF);
 	}

@@ -28,6 +28,7 @@
 
 # include <boost/functional/hash.hpp>
 # include <Siv3D/DateTime.hpp>
+# include <Siv3D/FormatUtility.hpp>
 
 namespace s3d
 {

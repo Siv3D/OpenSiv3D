@@ -418,24 +418,6 @@ namespace s3d
 	void Formatter(FormatData& formatData, const Mat4x4& value);
 	void Formatter(FormatData& formatData, const Ray& value);
 	*/
-    
-   	/// <summary>
-    /// 値を指定した文字数の文字列に変換します。
-    /// </summary>
-    /// <param name="value">
-    /// 変換する値
-    /// </param>
-    /// <param name="padding">
-    /// 文字数と詰め文字のペア
-    /// </param>
-    /// <returns>
-    /// 変換した文字列
-    /// </returns>
-    template <class Type>
-    inline String Pad(const Type& value, const std::pair<int32, wchar>& padding)
-    {
-        return Format(value).lpadded(padding.first, padding.second);
-    }
 }
 
 namespace s3d
