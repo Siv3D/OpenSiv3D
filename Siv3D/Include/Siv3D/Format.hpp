@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2016 Ryo Suzuki
-//	Copyright (c) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2017 Ryo Suzuki
+//	Copyright (c) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -132,7 +132,7 @@ namespace s3d
 	{
 		return String(1, ch);
 	}
-
+	
 	/// <summary>
 	/// 引数を文字列に変換します。
 	/// </summary>
@@ -221,6 +221,35 @@ namespace s3d
 
 	void Formatter(FormatData& formatData, const char* const str) = delete;
 
+	inline void Formatter(FormatData& formatData, const char16_t ch)
+	{
+		formatData.string.push_back(static_cast<wchar>(ch));
+	}
+	
+	inline void Formatter(FormatData& formatData, const char32_t ch)
+	{
+	# if defined(SIV3D_TARGET_WINDOWS)
+		
+		const auto c = CharacterSet::GetUTF16CodePoint(ch);
+		
+		if (!c[1])
+		{
+			formatData.string.push_back(static_cast<wchar>(c[0]));
+		}
+		else
+		{
+			formatData.string.push_back(static_cast<wchar>(c[0]));
+		
+			formatData.string.push_back(static_cast<wchar>(c[1]));
+		}
+		
+	# else
+		
+		formatData.string.push_back(ch);
+		
+	# endif
+	}
+	
 	inline void Formatter(FormatData& formatData, std::nullptr_t)
 	{
 		formatData.string.append(L"null", 4);

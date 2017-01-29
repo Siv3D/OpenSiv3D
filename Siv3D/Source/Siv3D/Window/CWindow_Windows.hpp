@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (C) 2008-2016 Ryo Suzuki
-//	Copyright (C) 2016 OpenSiv3D Project
+//	Copyright (C) 2008-2017 Ryo Suzuki
+//	Copyright (C) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -15,6 +15,7 @@
 
 # define  NOMINMAX
 # define  STRICT
+# define  WIN32_LEAN_AND_MEAN
 # define  _WIN32_WINNT _WIN32_WINNT_WIN7
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
@@ -31,6 +32,8 @@ namespace s3d
 
 		String m_windowClassName;
 
+		String m_currentTitle = L"Siv3D App";
+
 		bool registerWindowClass();
 
 		bool createWindow();
@@ -45,7 +48,9 @@ namespace s3d
 		
 		bool update() override;
 
-		void destroy() override;
+		WindowHandle getHandle() const override;
+
+		void setTitle(const String& title) override;
 	};
 }
 

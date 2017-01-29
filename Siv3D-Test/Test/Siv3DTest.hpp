@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2016 Ryo Suzuki
-//	Copyright (c) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2017 Ryo Suzuki
+//	Copyright (c) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,12 +11,13 @@
 
 # pragma once
 
-//*
+/*
 # define SIV3D_DO_TEST
 //*/
 
 # ifdef SIV3D_DO_TEST
 
+# define NO_S3D_USING
 # include <Siv3D.hpp>
 # include <gtest/gtest.h>
 

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (C) 2008-2016 Ryo Suzuki
-//	Copyright (C) 2016 OpenSiv3D Project
+//	Copyright (C) 2008-2017 Ryo Suzuki
+//	Copyright (C) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -14,6 +14,7 @@
 # if defined(SIV3D_TARGET_MACOS)
 
 # include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
+# include <Siv3D/String.hpp>
 # include "IWindow.hpp"
 
 namespace s3d
@@ -22,7 +23,9 @@ namespace s3d
 	{
 	private:
 
-		GLFWwindow* m_glfwWindow;
+		WindowHandle m_glfwWindow = nullptr;
+
+		String m_currentTitle = L"Siv3D App";
 		
 	public:
 
@@ -33,8 +36,10 @@ namespace s3d
 		bool init() override;
 		
 		bool update() override;
+		
+		WindowHandle getHandle() const override;
 
-		void destroy() override {}
+		void setTitle(const String& title) override;
 	};
 }
 

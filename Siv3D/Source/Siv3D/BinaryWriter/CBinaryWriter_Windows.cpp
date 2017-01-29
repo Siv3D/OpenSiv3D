@@ -2,17 +2,17 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (C) 2008-2016 Ryo Suzuki
-//	Copyright (C) 2016 OpenSiv3D Project
+//	Copyright (C) 2008-2017 Ryo Suzuki
+//	Copyright (C) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_LINUX)
+# if defined(SIV3D_TARGET_WINDOWS)
 
-# include "CBinaryWriter_linux.hpp"
+# include "CBinaryWriter_Windows.hpp"
 
 namespace s3d
 {
@@ -42,7 +42,7 @@ namespace s3d
 
 	bool BinaryWriter::CBinaryWriter::open(const FilePath& path, const OpenMode openMode)
 	{
-		if (!m_pFile)
+		if (m_opened)
 		{
 			close();
 		}
@@ -61,18 +61,22 @@ namespace s3d
 			return false;
 		}
 
-		const bool append = (openMode == OpenMode::Append && FileSystem::Exists(fullPath));
+		m_handle = ::CreateFileW(path.c_str(), GENERIC_WRITE, 0, nullptr,
+			((openMode == OpenMode::Append) ? OPEN_ALWAYS : CREATE_ALWAYS),
+			FILE_ATTRIBUTE_NORMAL, nullptr);
 
-		m_pFile = std::fopen(fullPath.narrow().c_str(), (append ? "r+" : "w"));
+		m_opened = (m_handle != INVALID_HANDLE_VALUE);
 
-		if (!m_pFile)
+		if (!m_opened)
 		{
 			return false;
 		}
 
-		if (append)
+		if (openMode == OpenMode::Append)
 		{
-			std::fseek(m_pFile, 0, SEEK_END);
+			LARGE_INTEGER distance = { 0, 0 };
+
+			::SetFilePointerEx(m_handle, distance, nullptr, FILE_END);
 		}
 
 		m_fullPath = fullPath;
@@ -87,14 +91,16 @@ namespace s3d
 			return;
 		}
 
-		std::fwrite(m_pBuffer, 1, m_currentBufferPos, m_pFile);
+		DWORD written = 0;
+
+		::WriteFile(m_handle, m_pBuffer, static_cast<uint32>(m_currentBufferPos), &written, nullptr);
 
 		m_currentBufferPos = 0;
 	}
 
 	void BinaryWriter::CBinaryWriter::close()
 	{
-		if (!m_pFile)
+		if (!m_opened)
 		{
 			return;
 		}
@@ -105,44 +111,41 @@ namespace s3d
 
 		m_pBuffer = nullptr;
 
-		std::fclose(m_pFile);
+		::CloseHandle(m_handle);
 
-		m_pFile = nullptr;
+		m_handle = INVALID_HANDLE_VALUE;
+
+		m_opened = false;
 
 		m_fullPath.clear();
 	}
 
 	bool BinaryWriter::CBinaryWriter::isOpened() const noexcept
 	{
-		return m_pFile != nullptr;
+		return m_opened;
 	}
 
 	void BinaryWriter::CBinaryWriter::clear()
 	{
-		if (!m_pFile)
+		if (!m_opened)
 		{
 			return;
 		}
+        
+        m_currentBufferPos = 0;
 
-		m_currentBufferPos = 0;
+		setPos(0);
 
-		std::fclose(m_pFile);
-
-		m_pFile = std::fopen(m_fullPath.narrow().c_str(), "w");
-
-		if (!m_pFile)
-		{
-			m_fullPath.clear();
-		}
+		::SetEndOfFile(m_handle);
 	}
 
 	int64 BinaryWriter::CBinaryWriter::size()
 	{
-		if (!m_pFile)
-		{
-			return 0;
-		}
-
+        if (!m_opened)
+        {
+            return 0;
+        }
+        
 		flush();
 
 		return FileSystem::Size(m_fullPath);
@@ -150,38 +153,46 @@ namespace s3d
 
 	int64 BinaryWriter::CBinaryWriter::setPos(int64 pos)
 	{
-		if (!m_pFile)
-		{
-			return 0;
-		}
-
+        if (!m_opened)
+        {
+            return 0;
+        }
+        
 		flush();
 
-		std::fseek(m_pFile, pos, SEEK_SET);
+		LARGE_INTEGER distance, newPos;
 
-		return std::ftell(m_pFile);
+		distance.QuadPart = pos;
+
+		::SetFilePointerEx(m_handle, distance, &newPos, FILE_BEGIN);
+
+		return newPos.QuadPart;
 	}
 
 	int64 BinaryWriter::CBinaryWriter::getPos()
 	{
-		if (!m_pFile)
-		{
-			return 0;
-		}
-
+        if (!m_opened)
+        {
+            return 0;
+        }
+        
 		flush();
 
-		return std::ftell(m_pFile);
+		LARGE_INTEGER distance = { 0, 0 }, currentPos;
+
+		::SetFilePointerEx(m_handle, distance, &currentPos, FILE_CURRENT);
+
+		return currentPos.QuadPart;
 	}
 
 	int64 BinaryWriter::CBinaryWriter::write(const void* src, size_t size)
 	{
-		if (!m_pFile)
-		{
-			return 0;
-		}
-
-		assert(src || !size);
+        if (!m_opened || size == 0)
+        {
+            return 0;
+        }
+        
+		assert(src != nullptr);
 
 		if (size < BufferSize)
 		{
@@ -197,7 +208,11 @@ namespace s3d
 			flush();
 		}
 
-		return std::fwrite(src, 1, size, m_pFile);
+		DWORD writtenBytes;
+
+		::WriteFile(m_handle, src, static_cast<uint32>(size), &writtenBytes, nullptr);
+
+		return writtenBytes;
 	}
 
 	const FilePath& BinaryWriter::CBinaryWriter::path() const

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (C) 2008-2016 Ryo Suzuki
-//	Copyright (C) 2016 OpenSiv3D Project
+//	Copyright (C) 2008-2017 Ryo Suzuki
+//	Copyright (C) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -23,7 +23,7 @@ namespace s3d
 		close();
 	}
 
-	bool TextWriter::CTextWriter::open(const FilePath& path, const OpenMode openMode, const TextEncoding encoding, const bool writeBOM)
+	bool TextWriter::CTextWriter::open(const FilePath& path, const OpenMode openMode, const CharacterEncoding encoding)
 	{
 		if (isOpened())
 		{
@@ -32,13 +32,11 @@ namespace s3d
 
 		if (openMode == OpenMode::Append)
 		{
-			int32 unused = 0;
-
-			m_textEncoding = CharacterSet::GetEncoding(path, unused);
+			m_encoding = CharacterSet::GetEncoding(path);
             
             # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
             
-                if (m_textEncoding == TextEncoding::ANSI)
+                if (m_encoding == CharacterEncoding::Unknown)
                 {
                     return false;
                 }
@@ -47,7 +45,7 @@ namespace s3d
 		}
 		else
 		{
-			m_textEncoding = encoding;
+			m_encoding = encoding;
 		}
 
 		FilePath fullPath;
@@ -64,20 +62,18 @@ namespace s3d
 			return false;
 		}
 
-		m_writeBOM = writeBOM;
+		const bool addBOM = (m_encoding == CharacterEncoding::UTF8_BOM)
+			|| (m_encoding == CharacterEncoding::UTF16LE_BOM)
+			|| (m_encoding == CharacterEncoding::UTF16BE_BOM);
 
-		if (!m_writeBOM || m_binaryWriter.size() != 0)
+		if (!addBOM || m_binaryWriter.size() != 0)
 		{
 			return true;
 		}
 
-		switch (m_textEncoding)
+		switch (m_encoding)
 		{
-		case TextEncoding::ANSI:
-			{
-				break;
-			}
-		case TextEncoding::UTF8:
+		case CharacterEncoding::UTF8_BOM:
 			{
 				const uint8 utf8BOM[] = { 0xEF, 0xBB, 0xBF };
 
@@ -85,7 +81,7 @@ namespace s3d
 
 				break;
 			}
-		case TextEncoding::UTF16LE:
+		case CharacterEncoding::UTF16LE_BOM:
 			{
 				const uint8 utf16LEBOM[] = { 0xFF, 0xFE };
 
@@ -93,7 +89,7 @@ namespace s3d
 
 				break;
 			}
-		case TextEncoding::UTF16BE:
+		case CharacterEncoding::UTF16BE_BOM:
 			{
 				const uint8 utf16BEBOM[] = { 0xFE, 0xFF };
 
@@ -130,7 +126,7 @@ namespace s3d
 
 		const FilePath path = m_binaryWriter.path();
 
-		open(path, OpenMode::Trunc, m_textEncoding, m_writeBOM);
+		open(path, OpenMode::Trunc, m_encoding);
 	}
 
 	void TextWriter::CTextWriter::write(const StringView str)
@@ -140,9 +136,9 @@ namespace s3d
 			return;
 		}
 
-		switch (m_textEncoding)
+		switch (m_encoding)
 		{
-		case TextEncoding::ANSI:
+		case CharacterEncoding::Unknown:
 			{
 				char previous = '\0';
 
@@ -162,7 +158,8 @@ namespace s3d
 
 				break;
 			}
-		case TextEncoding::UTF8:
+		case CharacterEncoding::UTF8:
+		case CharacterEncoding::UTF8_BOM:
 			{
 				char previous = '\0';
 
@@ -182,7 +179,7 @@ namespace s3d
 
 				break;
 			}
-		case TextEncoding::UTF16LE:
+		case CharacterEncoding::UTF16LE_BOM:
 			{
 				# if defined(SIV3D_TARGET_WINDOWS)
 
@@ -228,7 +225,7 @@ namespace s3d
 
 				break;
 			}
-		case TextEncoding::UTF16BE:
+		case CharacterEncoding::UTF16BE_BOM:
 			{
 				# if defined(SIV3D_TARGET_WINDOWS)
 
@@ -284,10 +281,11 @@ namespace s3d
 			return;
 		}
 
-		switch (m_textEncoding)
+		switch (m_encoding)
 		{
-		case TextEncoding::ANSI:
-		case TextEncoding::UTF8:
+		case CharacterEncoding::Unknown:
+		case CharacterEncoding::UTF8:
+		case CharacterEncoding::UTF8_BOM:
 			{
 				char previous = '\0';
 
@@ -307,7 +305,7 @@ namespace s3d
 
 				break;
 			}
-		case TextEncoding::UTF16LE:
+		case CharacterEncoding::UTF16LE_BOM:
 			{
 				char16_t previous = '\0';
 
@@ -329,7 +327,7 @@ namespace s3d
 
 				break;
 			}
-		case TextEncoding::UTF16BE:
+		case CharacterEncoding::UTF16BE_BOM:
 			{
 				char16_t previous = '\0';
 

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2016 Ryo Suzuki
-//	Copyright (c) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2017 Ryo Suzuki
+//	Copyright (c) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -22,13 +22,14 @@
 //
 
 # pragma once
-# pragma warning (disable: 4100)
 # include <iterator>
 # include <type_traits>
 # include "Types.hpp"
 # include "Threading.hpp"
 # include "BigInt.hpp"
 # include "Format.hpp"
+
+S3D_DISABLE_MSVC_WARNINGS_PUSH(4100)
 
 namespace s3d
 {
@@ -1697,4 +1698,4 @@ namespace s3d
 //
 //////////////////////////////////////////////////////////////////////////////
 
-# pragma warning (default: 4100)
+S3D_DISABLE_MSVC_WARNINGS_POP()

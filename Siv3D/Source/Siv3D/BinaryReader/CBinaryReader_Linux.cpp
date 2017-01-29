@@ -13,7 +13,7 @@
 # if defined(SIV3D_TARGET_LINUX)
 
 # include <Siv3D/FileSystem.hpp>
-# include "CBinaryReader_linux.hpp"
+# include "CBinaryReader_Linux.hpp"
 
 namespace s3d
 {

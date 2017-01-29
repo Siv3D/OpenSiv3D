@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (C) 2008-2016 Ryo Suzuki
-//	Copyright (C) 2016 OpenSiv3D Project
+//	Copyright (C) 2008-2017 Ryo Suzuki
+//	Copyright (C) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -62,7 +62,7 @@ namespace s3d
 
 		~CWritableMemoryMapping();
 
-		bool open(const FilePath& path, const MMFOpenMode_IfExists ifExists, const MMFOpenMode_IfNotFound ifNotFound);
+		bool open(const FilePath& path, const MMFOpenMode_if_Exists ifExists, const MMFOpenMode_if_NotFound ifNotFound);
 
 		void close();
 

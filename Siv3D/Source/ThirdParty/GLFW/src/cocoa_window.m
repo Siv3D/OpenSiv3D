@@ -24,7 +24,26 @@
 //
 //========================================================================
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+//	This file is modified for the Siv3D Engine.
+//
+//	Copyright (C) 2008-2017 Ryo Suzuki
+//	Copyright (C) 2016-2017 OpenSiv3D Project
+//
+//-----------------------------------------------
+
 #include "internal.h"
+
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+#include "../../../Siv3D/Siv3D_macOS.h"
+//
+//-----------------------------------------------
 
 #include <float.h>
 #include <string.h>
@@ -347,7 +366,14 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
     NSMutableAttributedString* markedText;
 }
 
-- (id)initWithGlfwWindow:(_GLFWwindow *)initWindow;
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+//- (id)initWithGlfwWindow:(_GLFWwindow *)initWindow;
+- (id)initSiv3D:(_GLFWwindow *)initWindow;
+//
+//-----------------------------------------------
 
 @end
 
@@ -367,6 +393,11 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
     }
 }
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+/*
 - (id)initWithGlfwWindow:(_GLFWwindow *)initWindow
 {
     self = [super init];
@@ -383,6 +414,27 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
 
     return self;
 }
+*/
+
+- (id)initSiv3D:(_GLFWwindow *)initWindow
+{
+	self = [super init];
+	if (self != nil)
+	{
+		window = initWindow;
+		trackingArea = nil;
+		markedText = [[NSMutableAttributedString alloc] init];
+		
+		[self updateTrackingAreas];
+		[self registerForDraggedTypes:[NSArray arrayWithObjects:
+									   NSFilenamesPboardType,
+									   NSPasteboardTypeString, nil]];
+	}
+	
+	return self;
+}
+//
+//-----------------------------------------------
 
 - (void)dealloc
 {
@@ -600,8 +652,29 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
         _glfwInputScroll(window, deltaX, deltaY);
 }
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender
 {
+	//NSLog(@"draggingEntered");
+	
+	NSPasteboard* pasteboard = [sender draggingPasteboard];
+	
+	bool isFilePath = false;
+	
+	if ([[pasteboard types] containsObject:NSFilenamesPboardType])
+	{
+		isFilePath = true;
+	}
+	
+	const NSRect contentRect = [window->ns.view frame];
+	const int xPos = [sender draggingLocation].x;
+	const int yPos = contentRect.size.height - [sender draggingLocation].y;
+	
+	s3d_DraggingEntered(isFilePath, xPos, yPos);
+	
     if ((NSDragOperationGeneric & [sender draggingSourceOperationMask])
         == NSDragOperationGeneric)
     {
@@ -612,41 +685,90 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
     return NSDragOperationNone;
 }
 
+- (NSDragOperation)draggingUpdated:(id <NSDraggingInfo>)sender
+{
+	//NSLog(@"draggingUpdated");
+	
+	const NSRect contentRect = [window->ns.view frame];
+	const int xPos = [sender draggingLocation].x;
+	const int yPos = contentRect.size.height - [sender draggingLocation].y;
+	
+	s3d_DraggingUpdated(xPos, yPos);
+	
+	return NSDragOperationGeneric;
+}
+
+- (void)draggingExited:(nullable id <NSDraggingInfo>)sender
+{
+	//NSLog(@"draggingExited");
+	
+	s3d_DraggingExited();
+}
+
 - (BOOL)prepareForDragOperation:(id <NSDraggingInfo>)sender
 {
+	//NSLog(@"prepareForDragOperation");
+	
     [self setNeedsDisplay:YES];
     return YES;
 }
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender
 {
+	//NSLog(@"performDragOperation");
+	
     NSPasteboard* pasteboard = [sender draggingPasteboard];
-    NSArray* files = [pasteboard propertyListForType:NSFilenamesPboardType];
+	
+	const NSRect contentRect = [window->ns.view frame];
+	
+	//_glfwInputCursorPos(window,
+	//					[sender draggingLocation].x,
+	//					contentRect.size.height - [sender draggingLocation].y);
+	
+	const int xPos = [sender draggingLocation].x;
+	const int yPos = contentRect.size.height - [sender draggingLocation].y;
+	
+	if ([[pasteboard types] containsObject:NSFilenamesPboardType])
+	{
+		//NSLog(@"Files");
+		
+		NSArray* files = [pasteboard propertyListForType:NSFilenamesPboardType];
 
-    const NSRect contentRect = [window->ns.view frame];
-    _glfwInputCursorPos(window,
-                        [sender draggingLocation].x,
-                        contentRect.size.height - [sender draggingLocation].y);
-
-    const int count = [files count];
-    if (count)
-    {
-        NSEnumerator* e = [files objectEnumerator];
-        char** paths = calloc(count, sizeof(char*));
-        int i;
-
-        for (i = 0;  i < count;  i++)
-            paths[i] = strdup([[e nextObject] UTF8String]);
-
-        _glfwInputDrop(window, count, (const char**) paths);
-
-        for (i = 0;  i < count;  i++)
-            free(paths[i]);
-        free(paths);
-    }
-
+		const int count = [files count];
+		if (count)
+		{
+			NSEnumerator* e = [files objectEnumerator];
+			char** paths = calloc(count, sizeof(char*));
+			int i;
+			
+			for (i = 0;  i < count;  i++)
+				paths[i] = strdup([[e nextObject] UTF8String]);
+			
+			//_glfwInputDrop(window, count, (const char**) paths);
+			
+			s3d_FilePathsDropped(count, (const char**) paths, xPos, yPos);
+			
+			for (i = 0;  i < count;  i++)
+				free(paths[i]);
+			free(paths);
+		}
+	}
+	else if ([[pasteboard types] containsObject:NSPasteboardTypeString])
+	{
+		//NSLog(@"String");
+		
+		NSString* content = [pasteboard stringForType:NSPasteboardTypeString];
+		
+		if(content)
+		{
+			s3d_TextDropped([content cStringUsingEncoding:NSUTF8StringEncoding], xPos, yPos);
+		}
+	}
+	
     return YES;
 }
+//
+//-----------------------------------------------
 
 - (void)concludeDragOperation:(id <NSDraggingInfo>)sender
 {
@@ -998,8 +1120,15 @@ static GLFWbool createNativeWindow(_GLFWwindow* window,
             [window->ns.object zoom:nil];
     }
 
-    window->ns.view = [[GLFWContentView alloc] initWithGlfwWindow:window];
-
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+    //window->ns.view = [[GLFWContentView alloc] initWithGlfwWindow:window];
+	window->ns.view = [[GLFWContentView alloc] initSiv3D:window];
+//
+//-----------------------------------------------
+	
 #if defined(_GLFW_USE_RETINA)
     [window->ns.view setWantsBestResolutionOpenGLSurface:YES];
 #endif /*_GLFW_USE_RETINA*/

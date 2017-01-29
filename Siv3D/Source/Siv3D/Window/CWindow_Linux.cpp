@@ -69,6 +69,22 @@ namespace s3d
 		
 		return true;
 	}
+	WindowHandle CWindow_Linux::getHandle() const
+	{
+		return m_glfwWindow;
+	}
+
+	void CWindow_Linux::setTitle(const String& title)
+	{
+		if (title == m_currentTitle)
+		{
+			return;
+		}
+
+		m_currentTitle = title;
+
+		glfwSetWindowTitle(m_glfwWindow, m_currentTitle.narrow().c_str());
+	}
 }
 
 # endif

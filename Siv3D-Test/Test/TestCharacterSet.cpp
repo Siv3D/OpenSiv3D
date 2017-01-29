@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2016 Ryo Suzuki
-//	Copyright (c) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2017 Ryo Suzuki
+//	Copyright (c) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,11 +13,7 @@
 
 # if defined(SIV3D_DO_TEST)
 
-# if defined(SIV3D_TARGET_WINDOWS)
-
-	# pragma warning (disable: 4566)
-
-# endif
+S3D_DISABLE_MSVC_WARNINGS_PUSH(4566)
 
 using namespace s3d;
 
@@ -159,5 +155,7 @@ TEST(CharacterSet, PercentEncode)
 {
 
 }
+
+S3D_DISABLE_MSVC_WARNINGS_POP()
 
 # endif
