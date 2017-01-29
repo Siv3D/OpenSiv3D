@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2016 Ryo Suzuki
-//	Copyright (c) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2017 Ryo Suzuki
+//	Copyright (c) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -64,6 +64,21 @@ namespace s3d
 		/// (1/4)π (float)
 		/// </summary>
 		constexpr float QuarterPiF = PiF / 4.0f;
+
+		/// <summary>
+		/// Quiet NaN
+		/// </summary>
+		constexpr double QNaN = std::numeric_limits<double>::quiet_NaN();
+
+		/// <summary>
+		/// Signaling NaN
+		/// </summary>
+		constexpr double NaN = std::numeric_limits<double>::signaling_NaN();
+
+		/// <summary>
+		/// +Inf
+		/// </summary>
+		constexpr double Inf = std::numeric_limits<double>::infinity();
 	}
 
 	inline namespace literals

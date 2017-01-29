@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (C) 2008-2016 Ryo Suzuki
-//	Copyright (C) 2016 OpenSiv3D Project
+//	Copyright (C) 2008-2017 Ryo Suzuki
+//	Copyright (C) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,7 +13,7 @@
 # include <memory>
 # include "Fwd.hpp"
 # include "FileSystem.hpp"
-# include "TextEncoding.hpp"
+# include "CharacterEncoding.hpp"
 
 namespace s3d
 {
@@ -49,10 +49,10 @@ namespace s3d
 		/// <param name="encoding">
 		/// エンコーディング形式
 		/// </param>
-		TextWriter(const FilePath& path, TextEncoding encoding, bool writeBOM = true)
+		TextWriter(const FilePath& path, CharacterEncoding encoding)
 			: TextWriter()
 		{
-			open(path, OpenMode::Trunc, encoding, writeBOM);
+			open(path, OpenMode::Trunc, encoding);
 		}
 
 		/// <summary>
@@ -67,10 +67,10 @@ namespace s3d
 		/// <param name="encoding">
 		/// エンコーディング形式
 		/// </param>
-		explicit TextWriter(const FilePath& path, OpenMode openMode = OpenMode::Trunc, TextEncoding encoding = TextEncoding::Default, bool writeBOM = true)
+		explicit TextWriter(const FilePath& path, OpenMode openMode = OpenMode::Trunc, CharacterEncoding encoding = CharacterEncoding::Default)
 			: TextWriter()
 		{
-			open(path, openMode, encoding, writeBOM);
+			open(path, openMode, encoding);
 		}
 
 		/// <summary>
@@ -85,9 +85,9 @@ namespace s3d
 		/// <returns>
 		/// ファイルのオープンに成功した場合 true, それ以外の場合は false
 		/// </returns>
-		bool open(const FilePath& path, TextEncoding encoding, bool writeBOM = true)
+		bool open(const FilePath& path, CharacterEncoding encoding)
 		{
-			return open(path, OpenMode::Trunc, encoding, writeBOM);
+			return open(path, OpenMode::Trunc, encoding);
 		}
 
 		/// <summary>
@@ -105,7 +105,7 @@ namespace s3d
 		/// <returns>
 		/// ファイルのオープンに成功した場合 true, それ以外の場合は false
 		/// </returns>
-		bool open(const FilePath& path, OpenMode openMode = OpenMode::Trunc, TextEncoding encoding = TextEncoding::Default, bool writeBOM = true);
+		bool open(const FilePath& path, OpenMode openMode = OpenMode::Trunc, CharacterEncoding encoding = CharacterEncoding::Default);
 
 		/// <summary>
 		/// テキストファイルをクローズします。
@@ -162,6 +162,30 @@ namespace s3d
 		void write(wchar ch)
 		{
 			write(StringView(&ch, 1));
+		}
+
+		void write(char32_t ch)
+		{
+		# if defined(SIV3D_TARGET_WINDOWS)
+
+			const auto c = CharacterSet::GetUTF16CodePoint(ch);
+
+			if (!c[1])
+			{
+				const wchar value = c[0];
+				write(StringView(&value, 1));
+			}
+			else
+			{
+				const wchar values[2] = { c[0], c[1] };
+				write(StringView(values, 2));
+			}
+
+		# else
+
+			write(StringView(static_cast<const wchar*>(static_cast<const void*>(&ch)), 1));
+
+		# endif
 		}
 
 		void write(char ch) = delete;
@@ -257,6 +281,13 @@ namespace s3d
 		/// なし
 		/// </returns>
 		void writeln(wchar ch)
+		{
+			write(ch);
+
+			write(L"\r\n");
+		}
+
+		void writeln(char32_t ch)
 		{
 			write(ch);
 

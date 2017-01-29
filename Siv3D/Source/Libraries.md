@@ -5,3 +5,4 @@
 - Zstandard v1.1.1 https://github.com/facebook/zstd/releases/tag/v1.1.1
 - Convenient Constructs For Stepping Through a Range of Values https://www.codeproject.com/articles/876156/convenient-constructs-for-stepping-through-a-range
 - GLWF 3.2.1 http://www.glfw.org
+- muparser V2.2.5 https://github.com/beltoforion/muparser/releases/tag/v2.2.5

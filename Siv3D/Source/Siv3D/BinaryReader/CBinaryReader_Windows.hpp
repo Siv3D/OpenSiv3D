@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (C) 2008-2016 Ryo Suzuki
-//	Copyright (C) 2016 OpenSiv3D Project
+//	Copyright (C) 2008-2017 Ryo Suzuki
+//	Copyright (C) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -20,51 +20,51 @@
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
 # include <Siv3D/String.hpp>
-# include <Siv3D/BinaryWriter.hpp>
+# include <Siv3D/BinaryReader.hpp>
 
 namespace s3d
 {
-	class BinaryWriter::CBinaryWriter
+	class BinaryReader::CBinaryReader
 	{
 	private:
 
-		constexpr static size_t BufferSize = 64 * 1024;
+		HANDLE m_handle = INVALID_HANDLE_VALUE;
 
-		::HANDLE m_handle = INVALID_HANDLE_VALUE;
+		int64 m_size = 0;
 
 		FilePath m_fullPath;
 
-		uint8* m_pBuffer = nullptr;
+		const void* m_pResource = false;
 
-		size_t m_currentBufferPos = 0;
+		int64 m_resourcePos = 0;
 
 		bool m_opened = false;
 
-		int64 fillBuffer(const void* src, size_t size);
-
 	public:
 
-		CBinaryWriter();
+		CBinaryReader();
 
-		~CBinaryWriter();
+		~CBinaryReader();
 
-		bool open(const FilePath& path, OpenMode openMode);
-
-		void flush();
+		bool open(const FilePath& path);
 
 		void close();
 
 		bool isOpened() const noexcept;
 
-		void clear();
-
-		int64 size();
+		int64 size() const noexcept;
 
 		int64 setPos(int64 pos);
 
 		int64 getPos();
 
-		int64 write(const void* src, size_t size);
+		int64 read(void* buffer, int64 size);
+
+		int64 read(void* buffer, int64 pos, int64 size);
+
+		int64 lookahead(void* buffer, int64 size);
+
+		int64 lookahead(void* buffer, int64 pos, int64 size);
 
 		const FilePath& path() const;
 	};

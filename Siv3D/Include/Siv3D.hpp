@@ -1,7 +1,7 @@
 ﻿//----------------------------------------------------------------------------------------
 //
-//	Copyright (c) 2008-2016 Ryo Suzuki
-//	Copyright (c) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2017 Ryo Suzuki
+//	Copyright (c) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -166,15 +166,17 @@
 	// バイナリファイルの書き込み
 	# include "Siv3D/BinaryWriter.hpp"
 	// テキストのエンコード
-	# include "Siv3D/TextEncoding.hpp"
-	//// テキストファイルの読み込み
-	//# include "Siv3D/TextReader.hpp"
+	# include "Siv3D/CharacterEncoding.hpp"
+	// テキストファイルの読み込み
+	# include "Siv3D/TextReader.hpp"
 	// テキストファイルの書き込み
 	# include "Siv3D/TextWriter.hpp"
-	//// Base64
-	//# include "Siv3D/Base64.hpp"
-	//// MD5
-	//# include "Siv3D/MD5.hpp"
+	// Base64
+	# include "Siv3D/Base64.hpp"
+	// MD5
+	# include "Siv3D/MD5.hpp"
+	// xxHash
+	# include "Siv3D/XXHash.hpp"
 	// ログファイル
 	# include "Siv3D/Logger.hpp"
 	//// AES128 による暗号化
@@ -281,10 +283,10 @@
 	# include "Siv3D/MathConstants.hpp"
 	// 数学関数
 	# include "Siv3D/Math.hpp"
-	//// 線形補間
-	//# include "Siv3D/Lerp.hpp"
-	//// イージング関数
-	//# include "Siv3D/Easing.hpp"
+	// 線形補間
+	# include "Siv3D/Lerp.hpp"
+	// イージング関数
+	# include "Siv3D/Easing.hpp"
 	//// イージング ユーティリティ
 	//# include "Siv3D/EasingController.hpp"
 	//// 2D 幾何
@@ -301,8 +303,8 @@
 	//# include "Siv3D/SIMD.hpp"
 	//// 半精度浮動小数点数
 	//# include "Siv3D/HalfFloat.hpp"
-	//// 数式パーサー
-	//# include "Siv3D/ExpressionParser.hpp"
+	// 数式パーサ
+	# include "Siv3D/MathParser.hpp"
 //
 // 画像処理
 //
@@ -370,14 +372,14 @@
 	//# include "Siv3D/Midi.hpp"
 	//// システム
 	# include "Siv3D/System.hpp"
-	//// ウィンドウ
-	//# include "Siv3D/Window.hpp"
+	// ウィンドウ
+	# include "Siv3D/Window.hpp"
 	//// メッセージボックス
 	//# include "Siv3D/MessageBox.hpp"
 	//// クリップボード
 	//# include "Siv3D/Clipboard.hpp"
-	//// ドラッグ & ドロップ
-	//# include "Siv3D/Dragdrop.hpp"
+	// ドラッグ & ドロップ
+	# include "Siv3D/DragDrop.hpp"
 	//// ダイアログ
 	//# include "Siv3D/Dialog.hpp"
 	//// プロファイリング
@@ -599,3 +601,11 @@
 	//# include "Siv3D/Namespace.hpp"
 	//// GPU の使用
 	//# include "Siv3D/HighPerfoemanceGraphics.hpp"
+
+# ifndef NO_S3D_USING
+
+	using namespace s3d;
+	using namespace s3d::literals;
+	using namespace std::literals;
+
+# endif

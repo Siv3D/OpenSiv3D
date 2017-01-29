@@ -10,9 +10,9 @@
 //-----------------------------------------------
 
 # include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_WINDOWS)
+# if defined(SIV3D_TARGET_LINUX)
 
-# include "CBinaryWriter_Windows.hpp"
+# include "CBinaryWriter_Linux.hpp"
 
 namespace s3d
 {
@@ -42,7 +42,7 @@ namespace s3d
 
 	bool BinaryWriter::CBinaryWriter::open(const FilePath& path, const OpenMode openMode)
 	{
-		if (m_opened)
+		if (!m_pFile)
 		{
 			close();
 		}
@@ -61,22 +61,18 @@ namespace s3d
 			return false;
 		}
 
-		m_handle = ::CreateFileW(path.c_str(), GENERIC_WRITE, 0, nullptr,
-			((openMode == OpenMode::Append) ? OPEN_ALWAYS : CREATE_ALWAYS),
-			FILE_ATTRIBUTE_NORMAL, nullptr);
+		const bool append = (openMode == OpenMode::Append && FileSystem::Exists(fullPath));
 
-		m_opened = (m_handle != INVALID_HANDLE_VALUE);
+		m_pFile = std::fopen(fullPath.narrow().c_str(), (append ? "r+" : "w"));
 
-		if (!m_opened)
+		if (!m_pFile)
 		{
 			return false;
 		}
 
-		if (openMode == OpenMode::Append)
+		if (append)
 		{
-			LARGE_INTEGER distance = { 0, 0 };
-
-			::SetFilePointerEx(m_handle, distance, nullptr, FILE_END);
+			std::fseek(m_pFile, 0, SEEK_END);
 		}
 
 		m_fullPath = fullPath;
@@ -91,16 +87,14 @@ namespace s3d
 			return;
 		}
 
-		DWORD written = 0;
-
-		::WriteFile(m_handle, m_pBuffer, static_cast<uint32>(m_currentBufferPos), &written, nullptr);
+		std::fwrite(m_pBuffer, 1, m_currentBufferPos, m_pFile);
 
 		m_currentBufferPos = 0;
 	}
 
 	void BinaryWriter::CBinaryWriter::close()
 	{
-		if (!m_opened)
+		if (!m_pFile)
 		{
 			return;
 		}
@@ -111,41 +105,44 @@ namespace s3d
 
 		m_pBuffer = nullptr;
 
-		::CloseHandle(m_handle);
+		std::fclose(m_pFile);
 
-		m_handle = INVALID_HANDLE_VALUE;
-
-		m_opened = false;
+		m_pFile = nullptr;
 
 		m_fullPath.clear();
 	}
 
 	bool BinaryWriter::CBinaryWriter::isOpened() const noexcept
 	{
-		return m_opened;
+		return m_pFile != nullptr;
 	}
 
 	void BinaryWriter::CBinaryWriter::clear()
 	{
-		if (!m_opened)
+		if (!m_pFile)
 		{
 			return;
 		}
-        
-        m_currentBufferPos = 0;
 
-		setPos(0);
+		m_currentBufferPos = 0;
 
-		::SetEndOfFile(m_handle);
+		std::fclose(m_pFile);
+
+		m_pFile = std::fopen(m_fullPath.narrow().c_str(), "w");
+
+		if (!m_pFile)
+		{
+			m_fullPath.clear();
+		}
 	}
 
 	int64 BinaryWriter::CBinaryWriter::size()
 	{
-        if (!m_opened)
-        {
-            return 0;
-        }
-        
+		if (!m_pFile)
+		{
+			return 0;
+		}
+
 		flush();
 
 		return FileSystem::Size(m_fullPath);
@@ -153,46 +150,38 @@ namespace s3d
 
 	int64 BinaryWriter::CBinaryWriter::setPos(int64 pos)
 	{
-        if (!m_opened)
-        {
-            return 0;
-        }
-        
+		if (!m_pFile)
+		{
+			return 0;
+		}
+
 		flush();
 
-		LARGE_INTEGER distance, newPos;
+		std::fseek(m_pFile, pos, SEEK_SET);
 
-		distance.QuadPart = pos;
-
-		::SetFilePointerEx(m_handle, distance, &newPos, FILE_BEGIN);
-
-		return newPos.QuadPart;
+		return std::ftell(m_pFile);
 	}
 
 	int64 BinaryWriter::CBinaryWriter::getPos()
 	{
-        if (!m_opened)
-        {
-            return 0;
-        }
-        
+		if (!m_pFile)
+		{
+			return 0;
+		}
+
 		flush();
 
-		LARGE_INTEGER distance = { 0, 0 }, currentPos;
-
-		::SetFilePointerEx(m_handle, distance, &currentPos, FILE_CURRENT);
-
-		return currentPos.QuadPart;
+		return std::ftell(m_pFile);
 	}
 
 	int64 BinaryWriter::CBinaryWriter::write(const void* src, size_t size)
 	{
-        if (!m_opened || size == 0)
-        {
-            return 0;
-        }
-        
-		assert(src != nullptr);
+		if (!m_pFile)
+		{
+			return 0;
+		}
+
+		assert(src || !size);
 
 		if (size < BufferSize)
 		{
@@ -208,11 +197,7 @@ namespace s3d
 			flush();
 		}
 
-		DWORD writtenBytes;
-
-		::WriteFile(m_handle, src, static_cast<uint32>(size), &writtenBytes, nullptr);
-
-		return writtenBytes;
+		return std::fwrite(src, 1, size, m_pFile);
 	}
 
 	const FilePath& BinaryWriter::CBinaryWriter::path() const

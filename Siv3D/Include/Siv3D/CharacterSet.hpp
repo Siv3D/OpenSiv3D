@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2016 Ryo Suzuki
-//	Copyright (c) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2017 Ryo Suzuki
+//	Copyright (c) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -205,6 +205,10 @@ namespace s3d
 		/// 変換された UTF-32 文字列
 		/// </returns>
 		std::u16string UTF32ToUTF16(const std::u32string& str);
+
+		std::pair<char32_t, int32> GetUTF32CodePoint(const char* utf8, size_t length);
+
+		std::array<char16_t, 2> GetUTF16CodePoint(char32_t ch);
 
 		/// <summary>
 		/// 文字列をパーセントエンコードします。

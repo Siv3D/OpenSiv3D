@@ -74,9 +74,6 @@
     <Filter Include="Source\Siv3D\TextWriter">
       <UniqueIdentifier>{016d29d1-aa5a-4f25-80e5-bac98a92c9cf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Siv3D\TextEncoding">
-      <UniqueIdentifier>{eddba81f-662c-4467-be22-40dfff6364dd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Siv3D\FormatFloat\FormatInt">
       <UniqueIdentifier>{bb7966c0-8acf-4af4-8e8d-3f83b8651adc}</UniqueIdentifier>
     </Filter>
@@ -154,6 +151,30 @@
     </Filter>
     <Filter Include="Source\Siv3D\Window">
       <UniqueIdentifier>{97f8d5e2-00d2-4954-93fe-d5d6454f1e99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\DragDrop">
+      <UniqueIdentifier>{b418e073-88e3-42ad-a4ff-055d9ca2437b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Base64">
+      <UniqueIdentifier>{de3297b2-02ef-45b4-bf95-3718ae0d7d6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\MD5">
+      <UniqueIdentifier>{5f9cd762-b6b6-4034-ad69-8fdd369b212b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\MathParser">
+      <UniqueIdentifier>{659a2b59-630e-4e32-9007-82cbead90980}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ThirdParty\muparser">
+      <UniqueIdentifier>{824580c7-e548-44b7-b7d3-3a9939070cac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\XXHash">
+      <UniqueIdentifier>{832bf1c0-48e3-427c-9a7d-dde9e408afb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ThirdParty\md5">
+      <UniqueIdentifier>{f5564f8d-c34e-4961-a32c-c010401dfb6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\CharacterEncoding">
+      <UniqueIdentifier>{eddba81f-662c-4467-be22-40dfff6364dd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -595,11 +616,95 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\ColorPalette.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\Source\Siv3D\System\CSystem.hpp">
-      <Filter>Source\Siv3D\System</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\Source\Siv3D\System\ISystem.hpp">
       <Filter>Source\Siv3D\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\DragDrop.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\DragDrop\CDragDrop_macOS.hpp">
+      <Filter>Source\Siv3D\DragDrop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\DragDrop\CDragDrop_Windows.hpp">
+      <Filter>Source\Siv3D\DragDrop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\DragDrop\IDragDrop.hpp">
+      <Filter>Source\Siv3D\DragDrop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\System\CSystem_macOS.hpp">
+      <Filter>Source\Siv3D\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\System\CSystem_Windows.hpp">
+      <Filter>Source\Siv3D\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Lerp.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Easing.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\MD5.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Base64.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserCallback.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserDef.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserDLL.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserError.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserFixes.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserInt.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserStack.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserTemplateMagic.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserToken.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserTokenReader.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParser.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserBase.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\muparser\muParserBytecode.h">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\MathParser.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\MathParser\CMathParser.hpp">
+      <Filter>Source\Siv3D\MathParser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\XXHash.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\MD5\md5.h">
+      <Filter>Source\ThirdParty\md5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Window.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\CharacterEncoding.hpp">
+      <Filter>Include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -680,9 +785,6 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextWriter\SivTextWriter.cpp">
       <Filter>Source\Siv3D\TextWriter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\Siv3D\TextEncoding\SivTextEncoding.cpp">
-      <Filter>Source\Siv3D\TextEncoding</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DEngine.cpp">
       <Filter>Source\Siv3D</Filter>
@@ -858,11 +960,71 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_Windows.cpp">
       <Filter>Source\Siv3D</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\Siv3D\System\CSystem.cpp">
-      <Filter>Source\Siv3D\System</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\System\SystemFactory.cpp">
       <Filter>Source\Siv3D\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\DragDrop\CDragDrop_Windows.cpp">
+      <Filter>Source\Siv3D\DragDrop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\DragDrop\DragDropFactory.cpp">
+      <Filter>Source\Siv3D\DragDrop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\DragDrop\SivDragDrop.cpp">
+      <Filter>Source\Siv3D\DragDrop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\DragDrop\CDragDrop_macOS.cpp">
+      <Filter>Source\Siv3D\DragDrop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\System\CSystem_Windows.cpp">
+      <Filter>Source\Siv3D\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\System\CSystem_macOS.cpp">
+      <Filter>Source\Siv3D\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MD5\SivMD5.cpp">
+      <Filter>Source\Siv3D\MD5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Base64\SivBase64.cpp">
+      <Filter>Source\Siv3D\Base64</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserCallback.cpp">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserDLL.cpp">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserError.cpp">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserInt.cpp">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserTokenReader.cpp">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParser.cpp">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserBase.cpp">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserBytecode.cpp">
+      <Filter>Source\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MathParser\SivMathParser.cpp">
+      <Filter>Source\Siv3D\MathParser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MathParser\CMathParser.cpp">
+      <Filter>Source\Siv3D\MathParser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\XXHash\SivXXHash.cpp">
+      <Filter>Source\Siv3D\XXHash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\MD5\md5.cpp">
+      <Filter>Source\ThirdParty\md5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\CharacterEncoding\SivCharacterEncoding.cpp">
+      <Filter>Source\Siv3D\CharacterEncoding</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

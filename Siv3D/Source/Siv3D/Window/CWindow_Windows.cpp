@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (C) 2008-2016 Ryo Suzuki
-//	Copyright (C) 2016 OpenSiv3D Project
+//	Copyright (C) 2008-2017 Ryo Suzuki
+//	Copyright (C) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -63,6 +63,32 @@ namespace s3d
 
 	CWindow_Windows::~CWindow_Windows()
 	{
+		if (!m_hWnd)
+		{
+			return;
+		}
+
+		::DestroyWindow(m_hWnd);
+
+		for (int32 i = 0; i < 16; ++i)
+		{
+			MSG message;
+
+			if (::PeekMessageW(&message, 0, 0, 0, PM_REMOVE))
+			{
+				if (message.message == WM_QUIT)
+				{
+					break;
+				}
+				else
+				{
+					::TranslateMessage(&message);
+
+					::DispatchMessageW(&message);
+				}
+			}
+		}
+
 		::UnregisterClassW(m_windowClassName.c_str(), ::GetModuleHandleW(nullptr));
 	}
 
@@ -86,9 +112,21 @@ namespace s3d
 		return true;
 	}
 
-	void CWindow_Windows::destroy()
+	WindowHandle CWindow_Windows::getHandle() const
 	{
-		::DestroyWindow(m_hWnd);
+		return m_hWnd;
+	}
+
+	void CWindow_Windows::setTitle(const String& title)
+	{
+		if (title == m_currentTitle)
+		{
+			return;
+		}
+
+		m_currentTitle = title;
+
+		::SetWindowTextW(m_hWnd, m_currentTitle.c_str());
 	}
 
 	bool CWindow_Windows::registerWindowClass()
@@ -116,7 +154,7 @@ namespace s3d
 	bool CWindow_Windows::createWindow()
 	{
 		const DWORD style = WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
-		const DWORD exStyle = WS_EX_ACCEPTFILES;
+		const DWORD exStyle = 0;
 
 		RECT windowRect = { 0, 0, 640, 480 };
 		::AdjustWindowRectEx(&windowRect, style, FALSE, exStyle);
@@ -124,7 +162,7 @@ namespace s3d
 		m_hWnd = ::CreateWindowExW(
 			exStyle,
 			m_windowClassName.c_str(),
-			L"Siv3D App",
+			m_currentTitle.c_str(),
 			style,
 			CW_USEDEFAULT,
 			CW_USEDEFAULT,

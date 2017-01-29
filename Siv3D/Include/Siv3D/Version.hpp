@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2016 Ryo Suzuki
-//	Copyright (c) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2017 Ryo Suzuki
+//	Copyright (c) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -15,17 +15,17 @@
 /// <summary>
 /// Siv3D のバージョン | Version of Siv3D
 /// </summary>
-# define Siv3DVersion L"0.0.4"
+# define Siv3DVersion L"0.0.6"
 
 /// <summary>
 /// Siv3D のバージョン ID | Version ID of Siv3D
 /// </summary>
-# define Siv3DVersionID 200'000'004
+# define Siv3DVersionID 200'000'006
 
 /// <summary>
 /// ターゲットプラットフォーム | Platform target
 /// </summary>
-# if   defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64)
+# if defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64)
 
 	# define Siv3DPlatform	L"WindowsDesktop-x64"
 

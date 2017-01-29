@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2016 Ryo Suzuki
-//	Copyright (c) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2017 Ryo Suzuki
+//	Copyright (c) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -37,7 +37,9 @@ namespace s3d
 	{
 		Type to;
 
-		if (std::wistringstream(str.str()).operator >> (to))
+		std::wistringstream ws(str.str());
+
+		if (ws >> to)
 		{
 			return to;
 		}

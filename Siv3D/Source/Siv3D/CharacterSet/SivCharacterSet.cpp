@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2016 Ryo Suzuki
-//	Copyright (c) 2016 OpenSiv3D Project
+//	Copyright (c) 2008-2017 Ryo Suzuki
+//	Copyright (c) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -829,6 +829,39 @@ namespace s3d
 		std::u16string UTF32ToUTF16(const std::u32string& str)
 		{
 			return detail::UTF32ToUTF16<char32_t, std::u16string>(str.data(), str.data() + str.length());
+		}
+
+		std::pair<char32_t, int32> GetUTF32CodePoint(const char* utf8, const size_t length)
+		{
+			if (!utf8 || length == 0)
+			{
+				return{ 0, 0 };
+			}
+
+			int32 offset;
+
+			const char32_t codePoint = detail::utf8_decode(utf8, length, offset);
+
+			return{ codePoint, offset };
+		}
+
+		std::array<char16_t, 2> GetUTF16CodePoint(const char32_t codePoint)
+		{
+			if (codePoint < 0x10000)
+			{
+				return{ static_cast<char16_t>(codePoint), 0 };
+			}
+			else if (codePoint < 0x110000)
+			{
+				return{
+					static_cast<char16_t>(((codePoint - 0x10000) >> 10) + 0xD800),
+					static_cast<char16_t>((codePoint & 0x3FF) + 0xDC00)
+				};
+			}
+			else
+			{
+				return{ static_cast<char16_t>(0xFFFD), 0 };
+			}
 		}
 
 		String PercentEncode(const StringView str, const Arg::upperCase_<bool> upperCase)
