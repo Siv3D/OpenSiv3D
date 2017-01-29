@@ -69,6 +69,7 @@
 - [x] TextReader
 - [ ] INIReader
 - [ ] INIWriter
+
 ---------------------------
 
 #### 0.0.7
