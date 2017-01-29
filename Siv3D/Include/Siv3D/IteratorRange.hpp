@@ -51,7 +51,7 @@ namespace s3d
 
 		constexpr bool empty() const
 		{
-			return m_Begin == m_End;
+			return m_begin == m_end;
 		}
 
 		constexpr explicit operator bool() const

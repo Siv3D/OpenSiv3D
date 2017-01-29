@@ -194,7 +194,7 @@ namespace s3d
 	template <class Type, class ...Args, std::enable_if_t<HasAlignment<Type>::value>* = nullptr>
 	std::unique_ptr<Type, AlignedDeleter<Type>> MakeUnique(Args&&... args)
 	{
-		return std::unique_ptr<Type, AlignedDeleter<Type>>(AlignedNew<Type>(std::forward<Args>(args)...))
+		return std::unique_ptr<Type, AlignedDeleter<Type>>(AlignedNew<Type>(std::forward<Args>(args)...));
 	}
 
 	/// <summary>

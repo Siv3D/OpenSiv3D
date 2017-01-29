@@ -14,6 +14,7 @@
 # include "Fwd.hpp"
 # include "Array.hpp"
 # include "String.hpp"
+# include "Parse.hpp"
 # include "IteratorRange.hpp"
 
 namespace s3d
