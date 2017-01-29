@@ -21,9 +21,9 @@
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\fmt\format.h" />
     <ClInclude Include="..\Siv3D\Include\fmt\ostream.h" />
-    <ClInclude Include="..\Siv3D\Include\fmt\printf.h" />
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp" />
-    <ClInclude Include="..\Siv3D\Include\Siv3D\Allocator.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\AlignedAllocator.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\AlignedMemory.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Array.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ArrayBool.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Base64.hpp" />
@@ -54,6 +54,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\FormatFloat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\FormatInt.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\FormatLiteral.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\FormatUtility.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Functor.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Fwd.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Grid.hpp" />
@@ -62,7 +63,9 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\HSV.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Image.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\InfiniteList.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\INIReader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\IReader.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\IteratorRange.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\IWriter.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Lerp.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Logger.hpp" />
@@ -135,6 +138,7 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\DragDrop\CDragDrop_macOS.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\DragDrop\CDragDrop_Windows.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\DragDrop\IDragDrop.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\INIReader\CINIReader.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\CLogger.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\ILogger.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\LogHeaderFotter.hpp" />
@@ -180,21 +184,11 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\huf.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\mem.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\xxhash.h" />
-    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\zbuff.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\zstd_errors.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\zstd_internal.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\compress\zstd_opt.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\dictBuilder\divsufsort.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\dictBuilder\zdict.h" />
-    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_legacy.h" />
-    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v01.h" />
-    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v02.h" />
-    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v03.h" />
-    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v04.h" />
-    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v05.h" />
-    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v06.h" />
-    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v07.h" />
-    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\zstd.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Base64\SivBase64.cpp" />
@@ -227,6 +221,8 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Format\SivFormat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\HSV\SivHSV.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Image\SivImage.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\INIReader\CINIReader.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\INIReader\SivINIReader.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\CLogger.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\LoggerFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\SivLogger.cpp" />
@@ -289,20 +285,11 @@
     <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\common\zstd_common.c" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\compress\fse_compress.c" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\compress\huf_compress.c" />
-    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\compress\zbuff_compress.c" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\compress\zstd_compress.c" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\decompress\huf_decompress.c" />
-    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\decompress\zbuff_decompress.c" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\decompress\zstd_decompress.c" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\dictBuilder\divsufsort.c" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\dictBuilder\zdict.c" />
-    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v01.c" />
-    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v02.c" />
-    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v03.c" />
-    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v04.c" />
-    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v05.c" />
-    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v06.c" />
-    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\legacy\zstd_v07.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\Include\Siv3D\Point.inl" />

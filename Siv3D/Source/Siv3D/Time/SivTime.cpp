@@ -23,32 +23,32 @@
 
 namespace s3d
 {
-	namespace Time
+	namespace detail
 	{
-		namespace detail
+		inline double GetPerformanceFrequency()
 		{
-			inline double GetPerformanceFrequency()
-			{
-				::LARGE_INTEGER frequency;
-				::QueryPerformanceFrequency(&frequency);
-				return static_cast<double>(frequency.QuadPart);
-			}
-
-			inline int64 GetPerformanceCount()
-			{
-				::LARGE_INTEGER counter;
-				::QueryPerformanceCounter(&counter);
-				return counter.QuadPart;
-			}
-
-			inline uint64 Get100NanosecSinceEpoch()
-			{
-				::FILETIME fileTime;
-				::GetSystemTimeAsFileTime(&fileTime);
-				return (static_cast<uint64>(fileTime.dwHighDateTime) << 32) + fileTime.dwLowDateTime - (11'644'473'600 * 10'000'000);
-			}
+			::LARGE_INTEGER frequency;
+			::QueryPerformanceFrequency(&frequency);
+			return static_cast<double>(frequency.QuadPart);
 		}
 
+		inline int64 GetPerformanceCount()
+		{
+			::LARGE_INTEGER counter;
+			::QueryPerformanceCounter(&counter);
+			return counter.QuadPart;
+		}
+
+		inline uint64 Get100NanosecSinceEpoch()
+		{
+			::FILETIME fileTime;
+			::GetSystemTimeAsFileTime(&fileTime);
+			return (static_cast<uint64>(fileTime.dwHighDateTime) << 32) + fileTime.dwLowDateTime - (11'644'473'600 * 10'000'000);
+		}
+	}
+
+	namespace Time
+	{
 		uint64 GetSec()
 		{
 			static const double scale = 1 / detail::GetPerformanceFrequency();
@@ -106,25 +106,25 @@ namespace s3d
 
 namespace s3d
 {
-	namespace Time
+	namespace detail
 	{
-		namespace detail
+		static uint64 SteadyFull()
 		{
-			static uint64 SteadyFull()
-			{
-				::mach_timebase_info_data_t base;
-				::mach_timebase_info(&base);
-				return static_cast<uint64>(::mach_absolute_time() * static_cast<double>(base.numer) / base.denom);
-			}
-
-			inline decltype(::mach_absolute_time)* InitSteadyClock()
-			{
-				::mach_timebase_info_data_t base;
-				::mach_timebase_info(&base);
-				return (base.numer == base.denom) ? ::mach_absolute_time : SteadyFull;
-			}
+			::mach_timebase_info_data_t base;
+			::mach_timebase_info(&base);
+			return static_cast<uint64>(::mach_absolute_time() * static_cast<double>(base.numer) / base.denom);
 		}
 
+		inline decltype(::mach_absolute_time)* InitSteadyClock()
+		{
+			::mach_timebase_info_data_t base;
+			::mach_timebase_info(&base);
+			return (base.numer == base.denom) ? ::mach_absolute_time : SteadyFull;
+		}
+	}
+
+	namespace Time
+	{
 		uint64 GetSec()
 		{
 			return GetNanosec() / 1'000'000'000;

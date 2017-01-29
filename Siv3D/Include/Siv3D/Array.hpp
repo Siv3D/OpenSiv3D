@@ -15,7 +15,7 @@
 # include <algorithm>
 # include <future>
 # include "Fwd.hpp"
-# include "Allocator.hpp"
+# include "AlignedAllocator.hpp"
 # include "Concept.hpp"
 # include "NamedParameter.hpp"
 # include "Threading.hpp"
@@ -26,6 +26,9 @@
 
 namespace s3d
 {
+	/// <summary>
+	/// 動的配列
+	/// </summary>
 	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
 	class Array : protected std::vector<Type, Allocator>
 	{

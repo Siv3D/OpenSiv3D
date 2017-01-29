@@ -23,7 +23,7 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
-	//	Allocator.hpp
+	//	AlignedAllocator.hpp
 	//
 	template <class Type, size_t Alignment> class AlignedAllocator;
 	template <class Type> struct DefaultAllocator;
@@ -52,6 +52,12 @@ namespace s3d
 	//
 	struct None_t;
 	template <class Type> class Optional;
+
+	//////////////////////////////////////////////////////
+	//
+	//	IteratorRange.hpp
+	//
+	template <class IteratorType> class IteratorRange;
 
 	//////////////////////////////////////////////////////
 	//
@@ -213,6 +219,14 @@ namespace s3d
 	enum class LogDescription;
 
 
+
+
+	//////////////////////////////////////////////////////
+	//
+	//	INIReader.hpp
+	//
+	struct INIKey;
+	class INIReader;
 
 
 

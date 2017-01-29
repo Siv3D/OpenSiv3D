@@ -19,6 +19,9 @@
 
 namespace s3d
 {
+	/// <summary>
+	/// 100 桁の有効桁数を持つ浮動小数点数型
+	/// </summary>
 	class BigFloat
 	{
 	private:

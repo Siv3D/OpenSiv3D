@@ -64,8 +64,10 @@
 	# include "Siv3D/NamedParameter.hpp"
 	// スレッド
 	# include "Siv3D/Threading.hpp"
-	// アロケータ
-	# include "Siv3D/Allocator.hpp"
+	// メモリアライメント
+	# include "Siv3D/AlignedMemory.hpp"	
+	// アライメント対応アロケータ
+	# include "Siv3D/AlignedAllocator.hpp"
 	// 動的配列
 	# include "Siv3D/Array.hpp"
 	// バイナリ配列ビュー
@@ -82,6 +84,8 @@
 	# include "Siv3D/Unspecified.hpp"
 	// 型特性
 	# include "Siv3D/TypeTraits.hpp"
+	// イテレータによる範囲の表現
+	# include "Siv3D/IteratorRange.hpp"
 //
 // 文字列と数値
 //
@@ -111,6 +115,8 @@
 	# include "Siv3D/Format.hpp"
 	// フォーマットリテラル
 	# include "Siv3D/FormatLiteral.hpp"
+	// データ -> 文字列 変換のユーティリティ
+	# include "Siv3D/FormatUtility.hpp"
 	// 文字列 -> 整数 の変換
 	# include "Siv3D/ParseInt.hpp"
 	// 文字列 -> 浮動小数点数 の変換
@@ -191,8 +197,8 @@
 	//# include "Siv3D/CSVReader.hpp"
 	//// CSV ファイルの書き出し
 	//# include "Siv3D/CSVWriter.hpp"
-	//// INI ファイルの読み込み
-	//# include "Siv3D/INIReader.hpp"
+	// INI ファイルの読み込み
+	# include "Siv3D/INIReader.hpp"
 	//// INI ファイルの書き出し
 	//# include "Siv3D/INIWriter.hpp"
 	//// XML ファイルの読み込み

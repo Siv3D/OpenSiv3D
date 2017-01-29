@@ -67,13 +67,13 @@
 - [x] MD5
 - [x] xxHash
 - [x] TextReader
-
+- [ ] INIReader
+- [ ] INIWriter
 ---------------------------
 
 #### 0.0.7
 - [ ] CSVReader
 - [ ] CSVWriter
-- [ ] INI (Partial)
 - [ ] JSON (Partial)
 - [ ] Cylindrical
 - [ ] Spherical
