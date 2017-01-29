@@ -40,6 +40,8 @@ namespace s3d
 
 	void INIReader::CINIReader::close()
 	{
+		m_sections.clear();
+
 		m_keys.clear();
 
 		m_path.clear();
@@ -62,7 +64,12 @@ namespace s3d
 		return m_encoding;
 	}
 
-	const Array<std::pair<INIReader::Section, INIKey>>& INIReader::CINIReader::getData() const
+	const Array<INIReader::Section>& INIReader::CINIReader::getSections() const
+	{
+		return m_sections;
+	}
+
+	const Array<INIKey>& INIReader::CINIReader::getKeys() const
 	{
 		return m_keys;
 	}
@@ -78,12 +85,9 @@ namespace s3d
 		const wchar lbracket = L'[';
 		const wchar rbracket = L']';
 
-		String currentSection;
-
-		Array<String> sections;
-
 		Array<String> namesInCurrentSection;
 
+		String currentSection;
 		String line;
 
 		for (size_t currentLine = 1; reader.readLine(line); ++currentLine)
@@ -113,7 +117,7 @@ namespace s3d
 
 				String section = line.substr(1, end - 1).trim();
 
-				if (std::find(sections.begin(), sections.end(), section) != sections.end())
+				if (std::find(m_sections.begin(), m_sections.end(), section) != m_sections.end())
 				{
 					// duplicate section name
 					return false;
@@ -121,7 +125,7 @@ namespace s3d
 
 				currentSection = section;
 
-				sections.push_back(std::move(section));
+				m_sections.push_back(std::move(section));
 
 				namesInCurrentSection.clear();
 			}
@@ -155,18 +159,20 @@ namespace s3d
 
 				if (currentSection.isEmpty())
 				{
-					m_keys.push_back(std::make_pair(String(), INIKey{ std::move(name), std::move(value) }));
+					m_keys.push_back(INIKey{ String(), std::move(name), std::move(value) });
 				}
 				else
 				{
-					m_keys.push_back(std::make_pair(currentSection, INIKey{ std::move(name), std::move(value) }));
+					m_keys.push_back(INIKey{ currentSection, std::move(name), std::move(value) });
 				}
 			}
 		}
 
-		std::sort(m_keys.begin(), m_keys.end(), [](const std::pair<Section, INIKey>& a, const std::pair<Section, INIKey>& b)
+		std::sort(m_sections.begin(), m_sections.end());
+
+		std::sort(m_keys.begin(), m_keys.end(), [](const INIKey& a, const INIKey& b)
 		{
-			const int32 cs = a.first.compare(b.first);
+			const int32 cs = a.section.compare(b.section);
 
 			if (cs < 0)
 			{
@@ -178,7 +184,7 @@ namespace s3d
 			}
 			else
 			{
-				return a.second.name.compare(b.second.name) < 0;
+				return a.name.compare(b.name) < 0;
 			}
 		});
 

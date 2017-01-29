@@ -84,6 +84,8 @@
 	# include "Siv3D/Unspecified.hpp"
 	// 型特性
 	# include "Siv3D/TypeTraits.hpp"
+	// イテレータによる範囲の表現
+	# include "Siv3D/IteratorRange.hpp"
 //
 // 文字列と数値
 //

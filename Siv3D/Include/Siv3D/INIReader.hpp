@@ -14,11 +14,14 @@
 # include "Fwd.hpp"
 # include "Array.hpp"
 # include "String.hpp"
+# include "IteratorRange.hpp"
 
 namespace s3d
 {
 	struct INIKey
 	{
+		String section;
+
 		String name;
 
 		String value;
@@ -26,15 +29,23 @@ namespace s3d
 
 	class INIReader
 	{
+	public:
+
+		using Section = String;
+
+		using Name = String;
+
 	private:
 
 		class CINIReader;
 
 		std::shared_ptr<CINIReader> pImpl;
 
-	public:
+		std::pair<Section, Name> split(const String& section_and_name) const;
 
-		using Section = String;
+		Optional<String> getValue(const Section& section, const Name& name) const;
+
+	public:
 
 		/// <summary>
 		/// デフォルトコンストラクタ
@@ -170,6 +181,88 @@ namespace s3d
 
 		CharacterEncoding encoding() const;
 
-		const Array<std::pair<Section, INIKey>>& getData() const;
+		Array<INIKey>::const_iterator begin() const
+		{
+			return keys().begin();
+		}
+
+		Array<INIKey>::const_iterator end() const
+		{
+			return keys().end();
+		}
+
+		const Array<INIKey>& keys() const;
+
+		const Array<Section>& sections() const;
+
+		bool hasSection(const Section& section) const;
+
+		IteratorRange<Array<INIKey>::const_iterator> getSectionKeys(const Section& section) const;
+
+		IteratorRange<Array<INIKey>::const_iterator> operator [](const Section& section) const
+		{
+			return getSectionKeys(section);
+		}
+
+		bool hasKey(const Section& section, const Name& name) const;
+
+		bool hasKey(const String& section_and_name) const
+		{
+			const auto sn = split(section_and_name);
+
+			return hasKey(sn.first, sn.second);
+		}
+
+		template <class Type>
+		Type get(const Section& section, const Name& name) const
+		{
+			if (const auto opt = getOpt<Type>(section, name))
+			{
+				return opt.value();
+			}
+
+			return Type();
+		}
+
+		template <class Type>
+		Type get(const String& section_and_name) const
+		{
+			const auto sn = split(section_and_name);
+
+			return get<Type>(sn.first, sn.second);
+		}
+
+		template <class Type>
+		Type getOr(const Section& section, const Name& name, Type&& defaultValue) const
+		{
+			return getOpt<Type>(section, name).value_or(std::forward<Type>(defaultValue));
+		}
+
+		template <class Type>
+		Type getOr(const String& section_and_name, Type&& defaultValue) const
+		{
+			const auto sn = split(section_and_name);
+
+			return getOr<Type>(sn.first, sn.second, std::forward<Type>(defaultValue));
+		}
+
+		template <class Type>
+		Optional<Type> getOpt(const Section& section, const Name& name) const
+		{
+			if (const auto value = getValue(section, name))
+			{
+				return ParseOpt<Type>(value.value());
+			}
+
+			return none;
+		}
+
+		template <class Type>
+		Optional<Type> getOpt(const String& section_and_name) const
+		{
+			const auto sn = split(section_and_name);
+
+			return getOpt<Type>(sn.first, sn.second);
+		}
 	};
 }

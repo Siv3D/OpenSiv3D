@@ -20,7 +20,9 @@ namespace s3d
 	{
 	private:
 
-		Array<std::pair<Section, INIKey>> m_keys;
+		Array<String> m_sections;
+
+		Array<INIKey> m_keys;
 
 		FilePath m_path;
 
@@ -46,6 +48,8 @@ namespace s3d
 
 		CharacterEncoding encoding() const;
 
-		const Array<std::pair<Section, INIKey>>& getData() const;
+		const Array<Section>& getSections() const;
+
+		const Array<INIKey>& getKeys() const;
 	};
 }
