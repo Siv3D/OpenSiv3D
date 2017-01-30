@@ -395,6 +395,8 @@
 //
 // 入力デバイス
 //
+	// カーソル
+	# include "Siv3D/Cursor.hpp"
 	//// マイク入力
 	//# include "Siv3D/Recorder.hpp"
 	//// キー入力

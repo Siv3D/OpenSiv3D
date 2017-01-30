@@ -18,6 +18,7 @@
 # include "../ImageFormat/IImageFormat.hpp"
 # include "../Window/IWindow.hpp"
 # include "../DragDrop/IDragDrop.hpp"
+# include "../Cursor/ICursor.hpp"
 
 namespace s3d
 {
@@ -57,7 +58,12 @@ namespace s3d
 		{
 			return false;
 		}
-		
+
+		if (!Siv3DEngine::GetCursor()->init())
+		{
+			return false;
+		}
+
 		return true;
 	}
 
@@ -86,6 +92,8 @@ namespace s3d
 		{
 			return false;
 		}
+
+		Siv3DEngine::GetCursor()->update();
 		
 		return true;
 	}

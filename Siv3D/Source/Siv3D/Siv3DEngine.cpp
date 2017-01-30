@@ -16,6 +16,7 @@
 # include "ImageFormat/IImageFormat.hpp"
 # include "Window/IWindow.hpp"
 # include "DragDrop/IDragDrop.hpp"
+# include "Cursor/ICursor.hpp"
 
 namespace s3d
 {
@@ -28,6 +29,7 @@ namespace s3d
 
 	Siv3DEngine::~Siv3DEngine()
 	{
+		m_cursor.release();
 		m_dragdrop.release();
 		m_window.release();
 		m_imageFormat.release();
