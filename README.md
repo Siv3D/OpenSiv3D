@@ -76,12 +76,21 @@
 ---------------------------
 
 #### 0.0.7
+- [ ] Cursor (Partial)
+- [ ] Mouse (Partial)
+- [ ] Key (Partial)
+- [ ] Image (Partial)
+- [ ] Rect
+- [ ] Cylindrical
+- [ ] Spherical
+
+---------------------------
+
+#### 0.0.8
 - [ ] INIWriter
 - [ ] CSVReader
 - [ ] CSVWriter
 - [ ] JSON (Partial)
-- [ ] Cylindrical
-- [ ] Spherical
 - [ ] Math (Partial)
 
 ## Discussion ##

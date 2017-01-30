@@ -742,6 +742,9 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_macOS.hpp">
       <Filter>Source\Siv3D\Cursor</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Key.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">

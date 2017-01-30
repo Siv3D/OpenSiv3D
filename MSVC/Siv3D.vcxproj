@@ -69,6 +69,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\IReader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\IteratorRange.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\IWriter.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Key.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Lerp.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Logger.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Math.hpp" />
