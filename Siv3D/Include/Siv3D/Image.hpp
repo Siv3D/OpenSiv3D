@@ -63,11 +63,6 @@ namespace s3d
 
 		static Image Generate0_1(const size_t width, const size_t height, std::function<Color(Vec2)> generator);
 
-		static constexpr bool IsValidSize(const size_t width, const size_t height)
-		{
-			return width <= MaxSize && height <= MaxSize;
-		}
-
 	public:
 
 		using iterator					= Array<Color>::iterator;
@@ -99,13 +94,7 @@ namespace s3d
 		/// <param name="image">
 		/// ムーブする画像
 		/// </param>
-		Image(Image&& image) noexcept
-			: m_data(std::move(image.m_data))
-			, m_width(image.m_width)
-			, m_height(image.m_height)
-		{
-			image.m_width = image.m_height = 0;
-		}
+		Image(Image&& image) noexcept;
 
 		/// <summary>
 		/// 指定したサイズの画像を作成します。
@@ -149,10 +138,7 @@ namespace s3d
 		/// <param name="height">
 		/// 画像の高さ（ピクセル）
 		/// </param>
-		Image(size_t width, size_t height)
-			: m_data(IsValidSize(width, height) ? width * height : 0)
-			, m_width(IsValidSize(width, height) ? static_cast<uint32>(width) : 0)
-			, m_height(IsValidSize(width, height) ? static_cast<uint32>(height) : 0) {}
+		Image(size_t width, size_t height);
 
 		Image(uint32 width, uint32 height, Arg::generator_<std::function<Color(void)>> generator)
 			: Image(Generate(width, height, *generator)) {}
@@ -178,10 +164,7 @@ namespace s3d
 		/// <param name="color">
 		/// 塗りつぶしの色
 		/// </param>
-		Image(size_t width, size_t height, const Color& color)
-			: m_data(IsValidSize(width, height) ? width * height : 0, color)
-			, m_width(IsValidSize(width, height) ? static_cast<uint32>(width) : 0)
-			, m_height(IsValidSize(width, height) ? static_cast<uint32>(height) : 0) {}
+		Image(size_t width, size_t height, const Color& color);
 
 		/// <summary>
 		/// 画像ファイルから画像を作成します。
@@ -211,7 +194,7 @@ namespace s3d
 		/// <param name="alpha">
 		/// アルファ値を読み込む画像ファイルのパス
 		/// </param>
-		//Image(const FilePath& rgb, const FilePath& alpha);
+		Image(const FilePath& rgb, const FilePath& alpha);
 
 		/// <summary>
 		/// 画像ファイルからアルファ値を作成し、画像を作成します。
@@ -226,7 +209,7 @@ namespace s3d
 		/// alpha の画像の R 成分を、テクスチャのアルファ値に設定します。
 		/// 画像ファイルの読み込みに失敗した場合、空のテクスチャを作成します。
 		/// </remarks>
-		//Image(const Color& rgb, const FilePath& alpha);
+		Image(const Color& rgb, const FilePath& alpha);
 
 		explicit Image(const Grid<Color>& grid);
 
@@ -271,7 +254,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		Image& operator =(Image&& image) = default;
+		Image& operator =(Image&& image);
 
 		Image& assign(const Image& image)
 		{
@@ -340,6 +323,17 @@ namespace s3d
 		}
 
 		/// <summary>
+		/// 画像が空ではないかを返します。
+		/// </summary>
+		/// <returns>
+		/// 画像が空ではない場合 true, それ以外の場合は false
+		/// </returns>
+		explicit operator bool() const
+		{
+			return !isEmpty();
+		}
+
+		/// <summary>
 		/// 画像の不要なメモリ消費を削除します。
 		/// </summary>
 		/// <returns>
@@ -389,7 +383,6 @@ namespace s3d
 				pixel = color;
 			}
 		}
-
 
 		/// <summary>
 		/// 指定した行の先頭ポインタを返します。
@@ -561,6 +554,8 @@ namespace s3d
 
 		void resize(size_t width, size_t height);
 
+
+		bool applyAlphaFromRChannel(const FilePath& alpha);
 
 		bool save(const FilePath& path, ImageFormat format = ImageFormat::Unspecified) const;
 	};

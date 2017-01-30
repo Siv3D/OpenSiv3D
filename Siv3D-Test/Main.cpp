@@ -1,21 +1,22 @@
 ﻿
 # include <Siv3D.hpp>
-# include "Test/Siv3DTest.hpp"
 
 void Main()
 {
-	RunTest();
-
-	//Image image(Size(100, 100), Arg::generator = ([](Point) {return HSV(0.2, 0.5, 1.0); }));
-
-	//Log << (int)Imaging::GetFormat(L"siv3d-kun.bmp");
-	//Log << (int)Imaging::GetFormatFromFilePath(L"siv3d-kun.bmp");
-	//Log << Imaging::GetSize(L"siv3d-kun.bmp");
-	
-	while (System::Update())
+	Image(1000, 1000, Arg::generator0_1 = ([](Vec2 pos)
 	{
+		pos = pos * 2 - Vec2(1, 1);
 
-	}
+		double c = 0.0;
+
+		for (int32 i = 0; i < 20; ++i)
+		{
+			c += 0.02 / pos.distanceFrom(0.8 * Vec2(cos(Math::Pi * i / 10), sin(Math::Pi * i / 10)));
+		}
+
+		return ColorF(c);
+	}))
+		.save(L"result.bmp");
 }
 
 
