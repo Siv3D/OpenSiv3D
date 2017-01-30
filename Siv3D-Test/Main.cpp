@@ -13,5 +13,9 @@ void Main()
 		{
 			++count;
 		}
+		else if (MouseR.up())
+		{
+			--count;
+		}
 	}
 }
