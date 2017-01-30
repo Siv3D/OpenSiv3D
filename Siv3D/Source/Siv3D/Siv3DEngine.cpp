@@ -17,6 +17,7 @@
 # include "Window/IWindow.hpp"
 # include "DragDrop/IDragDrop.hpp"
 # include "Cursor/ICursor.hpp"
+# include "Mouse/IMouse.hpp"
 
 namespace s3d
 {
@@ -29,6 +30,7 @@ namespace s3d
 
 	Siv3DEngine::~Siv3DEngine()
 	{
+		m_mouse.release();
 		m_cursor.release();
 		m_dragdrop.release();
 		m_window.release();

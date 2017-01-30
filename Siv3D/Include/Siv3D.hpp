@@ -399,8 +399,8 @@
 	# include "Siv3D/Cursor.hpp"
 	// キー入力
 	# include "Siv3D/Key.hpp"
-	//// マウス
-	//# include "Siv3D/Mouse.hpp"
+	// マウス
+	# include "Siv3D/Mouse.hpp"
 	//// マイク入力
 	//# include "Siv3D/Recorder.hpp"
 	//// タッチ

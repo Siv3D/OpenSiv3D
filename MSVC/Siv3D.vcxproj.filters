@@ -194,6 +194,12 @@
     <Filter Include="Source\Siv3D\Cursor">
       <UniqueIdentifier>{7583d778-9baf-4517-a050-e7e1085188fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Mouse">
+      <UniqueIdentifier>{0f17527b-c764-41e1-a4a7-318d8a66ba18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Key">
+      <UniqueIdentifier>{f5ea15f2-b03e-4a9d-a828-38df65909b76}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -745,6 +751,18 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Key.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Mouse.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Mouse\IMouse.hpp">
+      <Filter>Source\Siv3D\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Mouse\CMouse_macOS.hpp">
+      <Filter>Source\Siv3D\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Mouse\CMouse_Windows.hpp">
+      <Filter>Source\Siv3D\Mouse</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1073,6 +1091,21 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_macOS.cpp">
       <Filter>Source\Siv3D\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Mouse\MouseFactory.cpp">
+      <Filter>Source\Siv3D\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Mouse\SivMouse.cpp">
+      <Filter>Source\Siv3D\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Mouse\CMouse_macOS.cpp">
+      <Filter>Source\Siv3D\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Mouse\CMouse_Windows.cpp">
+      <Filter>Source\Siv3D\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Key\SivKey.cpp">
+      <Filter>Source\Siv3D\Key</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

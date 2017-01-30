@@ -30,8 +30,8 @@ namespace s3d
 
 	bool CImageFormat::init()
 	{
-		m_imageFormats.push_back(std::make_unique<detail::ImageFormat_BMP>());
-		m_imageFormats.push_back(std::make_unique<detail::ImageFormat_PNG>());
+		m_imageFormats.push_back(std::make_unique<ImageFormat_BMP>());
+		m_imageFormats.push_back(std::make_unique<ImageFormat_PNG>());
 
 		return true;
 	}

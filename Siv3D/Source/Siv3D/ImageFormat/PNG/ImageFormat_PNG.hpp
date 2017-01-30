@@ -15,27 +15,24 @@
 
 namespace s3d
 {
-	namespace detail
+	class ImageFormat_PNG : public IImageFormat
 	{
-		class ImageFormat_PNG : public IImageFormat
-		{
-		public:
+	public:
 
-			ImageFormat format() const override;
+		ImageFormat format() const override;
 
-			const Array<String>& possibleExtexsions() const override;
+		const Array<String>& possibleExtexsions() const override;
 
-			bool isHeader(const uint8(&bytes)[16]) const override;
+		bool isHeader(const uint8(&bytes)[16]) const override;
 
-			Size getSize(const IReader& reader) const override;
+		Size getSize(const IReader& reader) const override;
 
-			Image decode(IReader& reader) const override;
+		Image decode(IReader& reader) const override;
 
-			bool encode(const Image& image, IWriter& writer) const override;
+		bool encode(const Image& image, IWriter& writer) const override;
 
-			bool encode(const Image& image, IWriter& writer, uint32 filterFlag) const;
+		bool encode(const Image& image, IWriter& writer, uint32 filterFlag) const;
 
-			bool save(const Image& image, const FilePath& path) const override;
-		};
-	}
+		bool save(const Image& image, const FilePath& path) const override;
+	};
 }

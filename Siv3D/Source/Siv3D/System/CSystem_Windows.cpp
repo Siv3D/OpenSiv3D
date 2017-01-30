@@ -19,6 +19,7 @@
 # include "../Window/IWindow.hpp"
 # include "../DragDrop/IDragDrop.hpp"
 # include "../Cursor/ICursor.hpp"
+# include "../Mouse/IMouse.hpp"
 
 namespace s3d
 {
@@ -64,6 +65,11 @@ namespace s3d
 			return false;
 		}
 
+		if (!Siv3DEngine::GetMouse()->init())
+		{
+			return false;
+		}
+
 		return true;
 	}
 
@@ -91,6 +97,8 @@ namespace s3d
 		Siv3DEngine::GetDragDrop()->update();
 
 		Siv3DEngine::GetCursor()->update();
+
+		Siv3DEngine::GetMouse()->update();
 
 		return true;
 	}
