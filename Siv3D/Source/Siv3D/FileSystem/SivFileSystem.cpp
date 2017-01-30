@@ -590,8 +590,8 @@ namespace s3d
 # include <boost/filesystem.hpp>
 # include <Siv3D/FileSystem.hpp>
 
-bool trashFile(const char* path, unsigned long pathLength, bool isDirectory);
-std::string specialFolder(int folder);
+bool macOS_TrashFile(const char* path, unsigned long pathLength, bool isDirectory);
+std::string macOS_SpecialFolder(int folder);
 
 namespace s3d
 {
@@ -904,7 +904,7 @@ namespace s3d
         
         FilePath SpecialFolderPath(const SpecialFolder folder)
         {
-            return CharacterSet::Widen(specialFolder(static_cast<int>(folder)));
+            return CharacterSet::Widen(macOS_SpecialFolder(static_cast<int>(folder)));
         }
         
         FilePath TempDirectoryPath()
@@ -926,7 +926,7 @@ namespace s3d
             
             const std::string utf8Path = path.narrow();
             
-            return trashFile(utf8Path.c_str(), utf8Path.length(), IsDirectory(path));
+            return macOS_TrashFile(utf8Path.c_str(), utf8Path.length(), IsDirectory(path));
         }
     }
 }

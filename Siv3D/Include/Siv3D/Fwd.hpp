@@ -360,4 +360,14 @@ namespace s3d
 	struct DragStatus;
 	struct DroppedFilePath;
 	struct DroppedText;
+
+
+
+
+	//////////////////////////////////////////////////////
+	//
+	//	Key.hpp
+	//
+	enum class InputDevice : uint8;
+	class Key;
 }
