@@ -54,7 +54,7 @@ namespace s3d
 	}
 
 	template <class Type, std::enable_if_t<std::is_floating_point<Type>::value>* = nullptr>
-	inline String ThousandsSeparate(const Type& value, const int32 decimalPlace = 9, bool fixed = true, const String& separator = L",")
+	inline String ThousandsSeparate(const Type& value, const int32 decimalPlace = 3, bool fixed = false, const String& separator = L",")
 	{
 		String result = fixed ? ToFixed(value, decimalPlace) : ToString(value, decimalPlace);
 
