@@ -97,8 +97,8 @@ namespace s3d
 			const int32 width	= hed.biWidth;
 			const int32 height	= reverse ? hed.biHeight : -hed.biHeight;
 
-			if (!InRange<int32>(width,  1, Image::MaxSize)
-			 || !InRange<int32>(height, 1, Image::MaxSize))
+			if (!InRange<int32>(width,  1, MaxImageSize)
+			 || !InRange<int32>(height, 1, MaxImageSize))
 			{
 				return image;
 			}

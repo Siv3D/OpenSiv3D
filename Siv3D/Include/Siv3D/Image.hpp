@@ -21,6 +21,11 @@
 namespace s3d
 {
 	/// <summary>
+	/// 画像の最大サイズ
+	/// </summary>
+	constexpr int32 MaxImageSize = 8192;
+	
+	/// <summary>
 	/// 画像
 	/// </summary>
 	/// <remarks>
@@ -69,11 +74,6 @@ namespace s3d
 		using const_iterator			= Array<Color>::const_iterator;
 		using reverse_iterator			= Array<Color>::reverse_iterator;
 		using const_reverse_iterator	= Array<Color>::const_reverse_iterator;
-
-		/// <summary>
-		/// 画像の最大サイズ
-		/// </summary>
-		static constexpr int32 MaxSize = 8192;
 
 		/// <summary>
 		/// デフォルトコンストラクタ
