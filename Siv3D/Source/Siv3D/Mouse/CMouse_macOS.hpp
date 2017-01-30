@@ -25,6 +25,12 @@ namespace s3d
 
 		WindowHandle m_glfwWindow = nullptr;
 
+		std::array<bool, MouseButtonCount> m_down;
+		
+		std::array<bool, MouseButtonCount> m_pressed;
+		
+		std::array<bool, MouseButtonCount> m_up;
+		
 	public:
 
 		CMouse_macOS();
@@ -34,6 +40,12 @@ namespace s3d
 		bool init() override;
 
 		void update() override;
+		
+		bool down(uint32 index) const override;
+		
+		bool pressed(uint32 index) const override;
+		
+		bool up(uint32 index) const override;
 	};
 }
 

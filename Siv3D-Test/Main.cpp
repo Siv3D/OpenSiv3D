@@ -17,5 +17,9 @@ void Main()
 		{
 			--count;
 		}
+		else if(MouseM.pressed())
+		{
+			count += 100;
+		}
 	}
 }
