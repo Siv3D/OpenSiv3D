@@ -76,7 +76,7 @@
 ---------------------------
 
 #### 0.0.7
-- [ ] Cursor (Partial)
+- [x] Cursor (Partial)
 - [ ] Mouse (Partial)
 - [ ] Key (Partial)
 - [ ] Image (Partial)
