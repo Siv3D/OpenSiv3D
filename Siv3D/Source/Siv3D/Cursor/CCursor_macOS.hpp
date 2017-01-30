@@ -15,6 +15,7 @@
 
 # include "ICursor.hpp"
 # include <Siv3D/PointVector.hpp>
+# include "../Window/IWindow.hpp"
 
 namespace s3d
 {

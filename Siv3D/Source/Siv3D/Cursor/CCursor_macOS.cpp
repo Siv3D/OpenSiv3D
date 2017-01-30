@@ -12,9 +12,11 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_MACOS)
 
+# include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 # include "../Siv3DEngine.hpp"
-# include "../Window/IWindow.hpp"
 # include "CCursor_macOS.hpp"
+
+void macOS_GetScreenCursorPos(double* xpos, double* ypos);
 
 namespace s3d
 {
@@ -44,10 +46,14 @@ namespace s3d
 
 	void CCursor_macOS::update()
 	{
-
+		double screenX, screenY;
+		macOS_GetScreenCursorPos(&screenX, &screenY);
+		m_screenPos.set(static_cast<int32>(screenX), static_cast<int32>(screenY));
 		m_previousScreenPos = m_screenPos;
 
-
+		double clientX, clientY;
+		::glfwGetCursorPos(m_glfwWindow, &clientX, &clientY);
+		m_clientPos.set(static_cast<int32>(clientX), static_cast<int32>(clientY));
 		m_previousClientPos = m_clientPos;
 	}
 
