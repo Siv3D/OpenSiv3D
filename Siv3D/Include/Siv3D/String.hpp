@@ -1056,6 +1056,14 @@ namespace s3d
 		const wchar* data() const noexcept { return m_string.data(); }
 
 		/// <summary>
+		/// 文字列の先頭のポインタを返します。
+		/// </summary>
+		/// <returns>
+		/// 文字列の先頭へのポインタ
+		/// </returns>
+		wchar* data() noexcept { return &m_string[0]; }
+
+		/// <summary>
 		/// wstring 型の内部データの参照を返します。
 		/// </summary>
 		/// <returns>
