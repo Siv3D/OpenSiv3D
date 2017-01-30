@@ -3,40 +3,24 @@
 
 void Main()
 {
-	const INIReader ini(L"example/test.ini");
+	Image(L"example/siv3d-kun.png").save(L"test.png");
 
-	// すべてのデータを列挙
-	for (const auto& key : ini)
+	/*
+	Image(1000, 1000, Arg::generator0_1 = ([](Vec2 pos)
 	{
-		Log << key.section << L"." << key.name << L"=" << key.value;
-	}
+		pos = pos * 2 - Vec2(1, 1);
 
-	// Section を列挙
-	for (const auto& section : ini.sections())
-	{
-		Log << section;
-	}
+		double c = 0.0;
 
-	// 指定した Section のキーを列挙
-	for (const auto& key : ini[L"Window"])
-	{
-		Log << key.name << L"=" << key.value;
-	}
+		for (int32 i = 0; i < 20; ++i)
+		{
+			c += 0.02 / pos.distanceFrom(0.8 * Vec2(cos(Math::Pi * i / 10), sin(Math::Pi * i / 10)));
+		}
 
-	// 指定した Section が存在するか調べる
-	Log << ini.hasSection(L"Window");
-
-	// 指定した Section と Name が存在するか調べる
-	Log << ini.hasKey(L"Window.width");
-
-	int32 a = ini.get<int32>(L"Window.width");
-	int32 b = ini.getOr<int32>(L"Window.aaa", 640);
-	Optional<int32> c = ini.getOpt<int32>(L"Window.aaa");
-	
-	while (System::Update())
-	{
-
-	}
+		return ColorF(c);
+	}))
+		.save(L"result.bmp");
+		*/
 }
 
 
@@ -99,3 +83,36 @@ while (reader.readChar(ch))
 		}
 	 }
 	 */
+
+
+/*
+	const INIReader ini(L"example/test.ini");
+
+	// すべてのデータを列挙
+	for (const auto& key : ini)
+	{
+		Log << key.section << L"." << key.name << L"=" << key.value;
+	}
+
+	// Section を列挙
+	for (const auto& section : ini.sections())
+	{
+		Log << section;
+	}
+
+	// 指定した Section のキーを列挙
+	for (const auto& key : ini[L"Window"])
+	{
+		Log << key.name << L"=" << key.value;
+	}
+
+	// 指定した Section が存在するか調べる
+	Log << ini.hasSection(L"Window");
+
+	// 指定した Section と Name が存在するか調べる
+	Log << ini.hasKey(L"Window.width");
+
+	int32 a = ini.get<int32>(L"Window.width");
+	int32 b = ini.getOr<int32>(L"Window.aaa", 640);
+	Optional<int32> c = ini.getOpt<int32>(L"Window.aaa");
+*/

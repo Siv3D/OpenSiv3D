@@ -42,7 +42,7 @@ namespace s3d
 
 		std::shared_ptr<CINIReader> pImpl;
 
-		std::pair<Section, Name> split(const String& section_and_name) const;
+		static std::pair<Section, Name> Split(const String& section_and_name);
 
 		Optional<String> getValue(const Section& section, const Name& name) const;
 
@@ -209,7 +209,7 @@ namespace s3d
 
 		bool hasKey(const String& section_and_name) const
 		{
-			const auto sn = split(section_and_name);
+			const auto sn = Split(section_and_name);
 
 			return hasKey(sn.first, sn.second);
 		}
@@ -228,7 +228,7 @@ namespace s3d
 		template <class Type>
 		Type get(const String& section_and_name) const
 		{
-			const auto sn = split(section_and_name);
+			const auto sn = Split(section_and_name);
 
 			return get<Type>(sn.first, sn.second);
 		}
@@ -242,7 +242,7 @@ namespace s3d
 		template <class Type>
 		Type getOr(const String& section_and_name, Type&& defaultValue) const
 		{
-			const auto sn = split(section_and_name);
+			const auto sn = Split(section_and_name);
 
 			return getOr<Type>(sn.first, sn.second, std::forward<Type>(defaultValue));
 		}
@@ -261,7 +261,7 @@ namespace s3d
 		template <class Type>
 		Optional<Type> getOpt(const String& section_and_name) const
 		{
-			const auto sn = split(section_and_name);
+			const auto sn = Split(section_and_name);
 
 			return getOpt<Type>(sn.first, sn.second);
 		}

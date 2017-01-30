@@ -139,7 +139,7 @@ namespace s3d
 		return std::binary_search(keys.begin(), keys.end(), INIKey{ section, name, String() });
 	}
 
-	std::pair<INIReader::Section, INIReader::Name> INIReader::split(const String& section_and_name) const
+	std::pair<INIReader::Section, INIReader::Name> INIReader::Split(const String& section_and_name)
 	{
 		const size_t dot = section_and_name.indexOf(L'.');
 

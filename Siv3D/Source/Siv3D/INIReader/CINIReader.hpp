@@ -28,7 +28,7 @@ namespace s3d
 
 		CharacterEncoding m_encoding = CharacterEncoding::Default;
 
-		bool init(const FilePath& path);
+		bool load(TextReader& reader);
 
 	public:
 

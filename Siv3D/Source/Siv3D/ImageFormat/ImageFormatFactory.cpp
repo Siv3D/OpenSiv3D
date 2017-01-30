@@ -9,11 +9,13 @@
 //
 //-----------------------------------------------
 
-# pragma once
-# include "Fwd.hpp"
-# include "LetterCase.hpp"
+# include "CImageFormat.hpp"
 
 namespace s3d
 {
-	String ToString(bool value, LetterCase letterCase = LetterCase::Lower);
+	ISiv3DImageFormat* ISiv3DImageFormat::Create()
+	{
+		return new CImageFormat;
+	}
 }
+

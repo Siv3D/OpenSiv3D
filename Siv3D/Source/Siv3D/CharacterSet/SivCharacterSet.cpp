@@ -849,18 +849,18 @@ namespace s3d
 		{
 			if (codePoint < 0x10000)
 			{
-				return{ static_cast<char16_t>(codePoint), 0 };
+				return{ { static_cast<char16_t>(codePoint), 0 } };
 			}
 			else if (codePoint < 0x110000)
 			{
-				return{
+				return{{
 					static_cast<char16_t>(((codePoint - 0x10000) >> 10) + 0xD800),
 					static_cast<char16_t>((codePoint & 0x3FF) + 0xDC00)
-				};
+				}};
 			}
 			else
 			{
-				return{ static_cast<char16_t>(0xFFFD), 0 };
+				return{ { static_cast<char16_t>(0xFFFD), 0 } };
 			}
 		}
 

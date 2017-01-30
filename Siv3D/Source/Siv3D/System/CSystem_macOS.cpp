@@ -15,6 +15,7 @@
 # include "../Siv3DEngine.hpp"
 # include "CSystem_macOS.hpp"
 # include "../Logger/ILogger.hpp"
+# include "../ImageFormat/IImageFormat.hpp"
 # include "../Window/IWindow.hpp"
 # include "../DragDrop/IDragDrop.hpp"
 
@@ -38,6 +39,11 @@ namespace s3d
 	bool CSystem_macOS::init()
 	{
 		if (!Siv3DEngine::GetLogger()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetImageFormat()->init())
 		{
 			return false;
 		}

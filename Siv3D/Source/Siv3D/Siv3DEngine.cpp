@@ -13,6 +13,7 @@
 # include "Logger/ILogger.hpp"
 # include "System/ISystem.hpp"
 # include "Console/IConsole.hpp"
+# include "ImageFormat/IImageFormat.hpp"
 # include "Window/IWindow.hpp"
 # include "DragDrop/IDragDrop.hpp"
 
@@ -29,6 +30,7 @@ namespace s3d
 	{
 		m_dragdrop.release();
 		m_window.release();
+		m_imageFormat.release();
 		m_console.release();
 		m_system.release();
 		m_logger.release();

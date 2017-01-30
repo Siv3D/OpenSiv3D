@@ -28,14 +28,20 @@ namespace s3d
 	{
 		trackFile;
 
-		return init(path);
+		close();
+
+		TextReader textReader(path);
+
+		return load(textReader);
 	}
 
 	bool INIReader::CINIReader::open(const std::shared_ptr<IReader>& reader)
 	{
-		reader;
+		close();
 
-		return false;
+		TextReader textReader(reader);
+
+		return load(textReader);
 	}
 
 	void INIReader::CINIReader::close()
@@ -74,12 +80,8 @@ namespace s3d
 		return m_keys;
 	}
 
-	bool INIReader::CINIReader::init(const FilePath& path)
+	bool INIReader::CINIReader::load(TextReader& reader)
 	{
-		close();
-
-		TextReader reader(path);
-
 		const wchar semicolon = L';';
 		const wchar hash = L'#';
 		const wchar lbracket = L'[';
@@ -187,6 +189,10 @@ namespace s3d
 				return a.name.compare(b.name) < 0;
 			}
 		});
+
+		m_path = reader.path();
+
+		m_encoding = reader.encoding();
 
 		return true;
 	}
