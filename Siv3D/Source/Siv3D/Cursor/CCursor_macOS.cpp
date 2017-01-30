@@ -30,7 +30,8 @@ namespace s3d
 
 	bool CCursor_macOS::init()
 	{
-	
+		m_glfwWindow = Siv3DEngine::GetWindow()->getHandle();
+
 		update();
 
 		m_previousScreenPos = m_screenPos;

@@ -5,6 +5,6 @@ void Main()
 {
 	while (System::Update())
 	{
-		Window::SetTitle(Cursor::Pos());
+		Window::SetTitle(Cursor::Pos(), L" ", Cursor::ScreenPos());
 	}
 }

@@ -22,6 +22,8 @@ namespace s3d
 	{
 	private:
 
+		WindowHandle m_glfwWindow = nullptr;
+
 		Point m_previousScreenPos{ 0, 0 };
 
 		Point m_screenPos{ 0, 0 };
