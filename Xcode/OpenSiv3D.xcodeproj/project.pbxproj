@@ -319,6 +319,13 @@
 		2C58690F1E3EF4A60028B9F0 /* WritableMemoryMapping.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5868A61E3EF4A60028B9F0 /* WritableMemoryMapping.hpp */; };
 		2C5869101E3EF4A60028B9F0 /* Xorshift.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5868A71E3EF4A60028B9F0 /* Xorshift.hpp */; };
 		2C5869111E3EF4A60028B9F0 /* XXHash.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5868A81E3EF4A60028B9F0 /* XXHash.hpp */; };
+		2C5869161E3F0B030028B9F0 /* png.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5869131E3F0B030028B9F0 /* png.h */; };
+		2C5869171E3F0B030028B9F0 /* pngconf.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5869141E3F0B030028B9F0 /* pngconf.h */; };
+		2C5869181E3F0B030028B9F0 /* pnglibconf.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5869151E3F0B030028B9F0 /* pnglibconf.h */; };
+		2C58691C1E3F0B1D0028B9F0 /* ImageFormat_PNG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C58691A1E3F0B1D0028B9F0 /* ImageFormat_PNG.cpp */; };
+		2C58691D1E3F0B1D0028B9F0 /* ImageFormat_PNG.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C58691B1E3F0B1D0028B9F0 /* ImageFormat_PNG.hpp */; };
+		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
+		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
 		2CA79A101DF55A0D0028D11D /* boost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F81DF55A0D0028D11D /* boost_filesystem.a */; };
 		2CA79A111DF55A0D0028D11D /* boost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F91DF55A0D0028D11D /* boost_system.a */; };
 		2CA79AAD1DF55A410028D11D /* Siv3DTest_OSX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79A9D1DF55A410028D11D /* Siv3DTest_OSX.cpp */; };
@@ -681,6 +688,13 @@
 		2C5868A61E3EF4A60028B9F0 /* WritableMemoryMapping.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = WritableMemoryMapping.hpp; sourceTree = "<group>"; };
 		2C5868A71E3EF4A60028B9F0 /* Xorshift.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Xorshift.hpp; sourceTree = "<group>"; };
 		2C5868A81E3EF4A60028B9F0 /* XXHash.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = XXHash.hpp; sourceTree = "<group>"; };
+		2C5869131E3F0B030028B9F0 /* png.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = png.h; sourceTree = "<group>"; };
+		2C5869141E3F0B030028B9F0 /* pngconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pngconf.h; sourceTree = "<group>"; };
+		2C5869151E3F0B030028B9F0 /* pnglibconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pnglibconf.h; sourceTree = "<group>"; };
+		2C58691A1E3F0B1D0028B9F0 /* ImageFormat_PNG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageFormat_PNG.cpp; sourceTree = "<group>"; };
+		2C58691B1E3F0B1D0028B9F0 /* ImageFormat_PNG.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageFormat_PNG.hpp; sourceTree = "<group>"; };
+		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
+		2C5869261E3F0C620028B9F0 /* lpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lpng.a; sourceTree = "<group>"; };
 		2CA798F81DF55A0D0028D11D /* boost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_filesystem.a; sourceTree = "<group>"; };
 		2CA798F91DF55A0D0028D11D /* boost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_system.a; sourceTree = "<group>"; };
 		2CA798FA1DF55A0D0028D11D /* libSiv3D.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSiv3D.a; sourceTree = "<group>"; };
@@ -710,6 +724,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */,
+				2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */,
 				2C2CCF511CE8698C001844FF /* Foundation.framework in Frameworks */,
 				2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */,
 				2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */,
@@ -820,6 +836,7 @@
 		2C5865F01E3DDB7D0028B9F0 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				2C5869121E3F0B030028B9F0 /* libpng */,
 				2C5865F11E3DDB7D0028B9F0 /* double-conversion */,
 				2C5866051E3DDB7D0028B9F0 /* fmt */,
 				2C5866081E3DDB7D0028B9F0 /* GLFW */,
@@ -1282,6 +1299,7 @@
 		2C5867751E3EF49C0028B9F0 /* ImageFormat */ = {
 			isa = PBXGroup;
 			children = (
+				2C5869191E3F0B1D0028B9F0 /* PNG */,
 				2C5867761E3EF49C0028B9F0 /* BMP */,
 				2C5867791E3EF49C0028B9F0 /* CImageFormat.cpp */,
 				2C58677A1E3EF49C0028B9F0 /* CImageFormat.hpp */,
@@ -1619,6 +1637,41 @@
 			path = Siv3D;
 			sourceTree = "<group>";
 		};
+		2C5869121E3F0B030028B9F0 /* libpng */ = {
+			isa = PBXGroup;
+			children = (
+				2C5869131E3F0B030028B9F0 /* png.h */,
+				2C5869141E3F0B030028B9F0 /* pngconf.h */,
+				2C5869151E3F0B030028B9F0 /* pnglibconf.h */,
+			);
+			path = libpng;
+			sourceTree = "<group>";
+		};
+		2C5869191E3F0B1D0028B9F0 /* PNG */ = {
+			isa = PBXGroup;
+			children = (
+				2C58691A1E3F0B1D0028B9F0 /* ImageFormat_PNG.cpp */,
+				2C58691B1E3F0B1D0028B9F0 /* ImageFormat_PNG.hpp */,
+			);
+			path = PNG;
+			sourceTree = "<group>";
+		};
+		2C58691E1E3F0B900028B9F0 /* libpng */ = {
+			isa = PBXGroup;
+			children = (
+				2C5869261E3F0C620028B9F0 /* lpng.a */,
+			);
+			path = libpng;
+			sourceTree = "<group>";
+		};
+		2C5869211E3F0B980028B9F0 /* zlib */ = {
+			isa = PBXGroup;
+			children = (
+				2C5869221E3F0B980028B9F0 /* libz.a */,
+			);
+			path = zlib;
+			sourceTree = "<group>";
+		};
 		2CA798F51DF55A0D0028D11D /* Lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -1630,6 +1683,8 @@
 		2CA798F61DF55A0D0028D11D /* macOS */ = {
 			isa = PBXGroup;
 			children = (
+				2C5869211E3F0B980028B9F0 /* zlib */,
+				2C58691E1E3F0B900028B9F0 /* libpng */,
 				2CA798F71DF55A0D0028D11D /* boost */,
 				2CA798FA1DF55A0D0028D11D /* libSiv3D.a */,
 			);
@@ -1760,6 +1815,7 @@
 				2C5868FF1E3EF4A60028B9F0 /* TextWriter.hpp in Headers */,
 				2C5868AA1E3EF4A60028B9F0 /* AlignedAllocator.hpp in Headers */,
 				2C5866E11E3DDB7D0028B9F0 /* khrplatform.h in Headers */,
+				2C5869181E3F0B030028B9F0 /* pnglibconf.h in Headers */,
 				2C5868EA1E3EF4A60028B9F0 /* Platform.hpp in Headers */,
 				2C5867D81E3EF49C0028B9F0 /* CBinaryReader_macOS.hpp in Headers */,
 				2C5867181E3DDB7E0028B9F0 /* error_private.h in Headers */,
@@ -1798,6 +1854,7 @@
 				2C5868C71E3EF4A60028B9F0 /* FormatBool.hpp in Headers */,
 				2C5868AF1E3EF4A60028B9F0 /* BigFloat.hpp in Headers */,
 				2C5868FA1E3EF4A60028B9F0 /* Stopwatch.hpp in Headers */,
+				2C5869161E3F0B030028B9F0 /* png.h in Headers */,
 				2C5867D51E3EF49C0028B9F0 /* CBigInt.hpp in Headers */,
 				2C5868D21E3EF4A60028B9F0 /* Image.hpp in Headers */,
 				2C5869091E3EF4A60028B9F0 /* Vector2D.hpp in Headers */,
@@ -1846,6 +1903,7 @@
 				2C5866D91E3DDB7D0028B9F0 /* fixed-dtoa.h in Headers */,
 				2C5868C11E3EF4A60028B9F0 /* Distribution.hpp in Headers */,
 				2C5868D41E3EF4A60028B9F0 /* InfiniteList.hpp in Headers */,
+				2C58691D1E3F0B1D0028B9F0 /* ImageFormat_PNG.hpp in Headers */,
 				2C5868021E3EF49C0028B9F0 /* IImageFormat.hpp in Headers */,
 				2C5868F81E3EF4A60028B9F0 /* Step.hpp in Headers */,
 				2C5868E81E3EF4A60028B9F0 /* ParseInt.hpp in Headers */,
@@ -1922,6 +1980,7 @@
 				2C5869001E3EF4A60028B9F0 /* Threading.hpp in Headers */,
 				2C58690E1E3EF4A60028B9F0 /* Window.hpp in Headers */,
 				2C5868CF1E3EF4A60028B9F0 /* HardwareRNG.hpp in Headers */,
+				2C5869171E3F0B030028B9F0 /* pngconf.h in Headers */,
 				2C5868ED1E3EF4A60028B9F0 /* PointVector.hpp in Headers */,
 				2C5867071E3DDB7E0028B9F0 /* muParserCallback.h in Headers */,
 				2C5868FB1E3EF4A60028B9F0 /* String.hpp in Headers */,
@@ -2099,6 +2158,7 @@
 				2C5868301E3EF49C0028B9F0 /* SivVector2D.cpp in Sources */,
 				2C5866D61E3DDB7D0028B9F0 /* fast-dtoa.cc in Sources */,
 				2C5867231E3DDB7E0028B9F0 /* huf_compress.c in Sources */,
+				2C58691C1E3F0B1D0028B9F0 /* ImageFormat_PNG.cpp in Sources */,
 				2C5866D41E3DDB7D0028B9F0 /* double-conversion.cc in Sources */,
 				2C5866F31E3DDB7D0028B9F0 /* nsgl_context.m in Sources */,
 				2C58680B1E3EF49C0028B9F0 /* LoggerFactory.cpp in Sources */,
