@@ -44,14 +44,14 @@ namespace s3d
 
 	void CCursor_Windows::update()
 	{
-		POINT screenPos, clientPos;
+		POINT screenPos;
 
 		::GetCursorPos(&screenPos);
 		m_screenPos.set(screenPos.x, screenPos.y);
 		m_screenDelta = m_screenPos - m_previousScreenPos;
 		m_previousScreenPos = m_screenPos;
 
-		clientPos = screenPos;
+		POINT clientPos = screenPos;
 		::ScreenToClient(m_hWnd, &clientPos);
 		m_clientPos.set(clientPos.x, clientPos.y);
 		m_clientDelta = m_clientPos - m_previousClientPos;

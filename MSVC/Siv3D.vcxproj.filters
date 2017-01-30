@@ -739,6 +739,9 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_Windows.hpp">
       <Filter>Source\Siv3D\Cursor</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_macOS.hpp">
+      <Filter>Source\Siv3D\Cursor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1063,6 +1066,9 @@
       <Filter>Source\Siv3D\Cursor</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_Windows.cpp">
+      <Filter>Source\Siv3D\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_macOS.cpp">
       <Filter>Source\Siv3D\Cursor</Filter>
     </ClCompile>
   </ItemGroup>
