@@ -170,7 +170,26 @@ namespace s3d
 			return;
 		}
 
-		m_data.resize(width*height);
+		m_data.resize(width * height);
+
+		m_width = static_cast<uint32>(width);
+
+		m_height = static_cast<uint32>(height);
+	}
+
+	void Image::resize(const size_t width, const size_t height, const Color& fillColor)
+	{
+		if (!detail::IsValidSize(width, height))
+		{
+			return clear();
+		}
+
+		if (width == m_width && height == m_height)
+		{
+			return;
+		}
+
+		m_data.assign(width * height, fillColor);
 
 		m_width = static_cast<uint32>(width);
 

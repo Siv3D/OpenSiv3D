@@ -368,20 +368,32 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// 画像を指定した色で塗りつぶします。
+		/// 画像を別の画像と交換します。
 		/// </summary>
-		/// <param name="color">
-		/// 塗りつぶしの色
+		/// <param name="image">
+		/// 交換する画像
 		/// </param>
 		/// <returns>
 		/// なし
 		/// </returns>
-		void fill(const Color& color)
+		void swap(Image& image)
 		{
-			for (auto& pixel : m_data)
-			{
-				pixel = color;
-			}
+			m_data.swap(image.m_data);
+
+			std::swap(m_width, image.m_width);
+
+			std::swap(m_height, image.m_height);
+		}
+
+		/// <summary>
+		/// 画像をコピーした新しい画像を返します。
+		/// </summary>
+		/// <returns>
+		/// コピーした新しい画像
+		/// </returns>
+		Image cloned() const
+		{
+			return *this;
 		}
 
 		/// <summary>
@@ -547,16 +559,116 @@ namespace s3d
 		const_reverse_iterator crend() const noexcept { return m_data.crend(); }
 
 
+		/// <summary>
+		/// 画像を指定した色で塗りつぶします。
+		/// </summary>
+		/// <param name="color">
+		/// 塗りつぶしの色
+		/// </param>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void fill(const Color& color)
+		{
+			for (auto& pixel : m_data)
+			{
+				pixel = color;
+			}
+		}
 
-
-
-
-
+		/// <summary>
+		/// 画像のサイズを変更します。
+		/// </summary>
+		/// <param name="width">
+		/// 新しい幅(ピクセル)
+		/// </param>
+		/// <param name="height">
+		/// 新しい高さ(ピクセル)
+		/// </param>
+		/// <remarks>
+		/// サイズの変更が必要ないときは何もしません。
+		/// サイズが変更された場合、すべての要素の値が不定になります。
+		/// 画像を拡大縮小する場合は scale() を使ってください。
+		/// </remarks>
+		/// <returns>
+		/// なし
+		/// </returns>
 		void resize(size_t width, size_t height);
+
+		/// <summary>
+		/// 画像のサイズを変更します。
+		/// </summary>
+		/// <param name="size">
+		/// 新しいサイズ(ピクセル)
+		/// </param>
+		/// <remarks>
+		/// サイズの変更が必要ないときは何もしません。
+		/// サイズが変更された場合、すべての要素の値が不定になります。
+		/// 画像を拡大縮小する場合は scale() を使ってください。
+		/// </remarks>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void resize(const Size& size)
+		{
+			resize(size.x, size.y);
+		}
+
+		/// <summary>
+		/// 画像のサイズを変更します。
+		/// </summary>
+		/// <param name="width">
+		/// 新しい幅(ピクセル)
+		/// </param>
+		/// <param name="height">
+		/// 新しい高さ(ピクセル)
+		/// </param>
+		/// <param name="fillColor">
+		/// 塗りつぶしの色
+		/// </param>
+		/// <remarks>
+		/// サイズの変更が必要ないときは何もしません。
+		/// サイズが変更された場合、すべての要素が fillColor で塗りつぶされます。
+		/// 画像を拡大縮小する場合は scale() を使ってください。
+		/// </remarks>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void resize(size_t width, size_t height, const Color& fillColor);
+
+		/// <summary>
+		/// 画像のサイズを変更します。
+		/// </summary>
+		/// <param name="size">
+		/// 新しいサイズ(ピクセル)
+		/// </param>
+		/// <param name="fillColor">
+		/// 塗りつぶしの色
+		/// </param>
+		/// <remarks>
+		/// サイズの変更が必要ないときは何もしません。
+		/// サイズが変更された場合、すべての要素が fillColor で塗りつぶされます。
+		/// 画像を拡大縮小する場合は scale() を使ってください。
+		/// </remarks>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void resize(const Size& size, const Color& fillColor)
+		{
+			resize(size.x, size.y, fillColor);
+		}
 
 
 		bool applyAlphaFromRChannel(const FilePath& alpha);
 
 		bool save(const FilePath& path, ImageFormat format = ImageFormat::Unspecified) const;
 	};
+}
+
+namespace std
+{
+	inline void swap(s3d::Image& a, s3d::Image& b)
+	{
+		a.swap(b);
+	}
 }

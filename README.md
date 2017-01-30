@@ -69,7 +69,9 @@
 - [x] TextReader
 - [x] INIReader
 - [x] IImageFormat
-- [ ] Image (Partial)
+- [x] Image (Partial)
+- [x] BMP
+- [x] PNG
 
 ---------------------------
 
