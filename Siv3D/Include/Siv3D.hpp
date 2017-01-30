@@ -316,6 +316,8 @@
 //
 	// 画像処理
 	# include "Siv3D/Image.hpp"
+	// 画像デコーダ・エンコーダインタフェース
+	# include "Siv3D/ImageFormat.hpp"
 	//// 画像のフォーマット
 	//# include "Siv3D/TextureFormat.hpp"
 	//// カスタムカラーフォーマット

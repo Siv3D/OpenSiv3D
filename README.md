@@ -67,12 +67,14 @@
 - [x] MD5
 - [x] xxHash
 - [x] TextReader
-- [ ] INIReader
-- [ ] INIWriter
+- [x] INIReader
+- [x] IImageFormat
+- [ ] Image (Partial)
 
 ---------------------------
 
 #### 0.0.7
+- [ ] INIWriter
 - [ ] CSVReader
 - [ ] CSVWriter
 - [ ] JSON (Partial)

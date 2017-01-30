@@ -176,6 +176,12 @@
     <Filter Include="Source\Siv3D\FormatInt">
       <UniqueIdentifier>{bb7966c0-8acf-4af4-8e8d-3f83b8651adc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\ImageFormat">
+      <UniqueIdentifier>{cf7a174c-cc6c-4bc7-8e56-fa1c639d9092}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\ImageFormat\BMP">
+      <UniqueIdentifier>{753858f3-9298-4e37-97ac-a783f15cd1fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -688,6 +694,18 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\IteratorRange.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\BMP\ImageFormat_BMP.hpp">
+      <Filter>Source\Siv3D\ImageFormat\BMP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\CImageFormat.hpp">
+      <Filter>Source\Siv3D\ImageFormat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\IImageFormat.hpp">
+      <Filter>Source\Siv3D\ImageFormat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\ImageFormat.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -986,6 +1004,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\dictBuilder\zdict.c">
       <Filter>Source\ThirdParty\zstd\dictBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\BMP\ImageFormat_BMP.cpp">
+      <Filter>Source\Siv3D\ImageFormat\BMP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\ImageFormatFactory.cpp">
+      <Filter>Source\Siv3D\ImageFormat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\CImageFormat.cpp">
+      <Filter>Source\Siv3D\ImageFormat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\SivImageFormat.cpp">
+      <Filter>Source\Siv3D\ImageFormat</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
