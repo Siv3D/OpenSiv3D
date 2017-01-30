@@ -185,6 +185,12 @@
     <Filter Include="Source\Siv3D\FormatBool">
       <UniqueIdentifier>{fb969275-0f2c-47c6-a151-f2741e7c4d2f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\ImageFormat\PNG">
+      <UniqueIdentifier>{02d48c45-e6d5-4c7d-ad77-17781c36ed6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ThirdParty\libpng">
+      <UniqueIdentifier>{1b4fc6fc-a47c-4d8e-bfc7-7607440dd7ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -709,6 +715,18 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\ImageFormat.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\PNG\ImageFormat_PNG.hpp">
+      <Filter>Source\Siv3D\ImageFormat\PNG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\libpng\pngconf.h">
+      <Filter>Source\ThirdParty\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\libpng\pnglibconf.h">
+      <Filter>Source\ThirdParty\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\libpng\png.h">
+      <Filter>Source\ThirdParty\libpng</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1022,6 +1040,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatBool\SivFormatBool.cpp">
       <Filter>Source\Siv3D\FormatBool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\PNG\ImageFormat_PNG.cpp">
+      <Filter>Source\Siv3D\ImageFormat\PNG</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

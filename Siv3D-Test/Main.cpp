@@ -3,6 +3,9 @@
 
 void Main()
 {
+	Image(L"example/siv3d-kun.png").save(L"png.bmp");
+
+	/*
 	Image(1000, 1000, Arg::generator0_1 = ([](Vec2 pos)
 	{
 		pos = pos * 2 - Vec2(1, 1);
@@ -17,6 +20,7 @@ void Main()
 		return ColorF(c);
 	}))
 		.save(L"result.bmp");
+		*/
 }
 
 
