@@ -81,6 +81,45 @@ namespace s3d
 		Unspecified = Unknown,
 	};
 
+	/// <summary>
+	/// PNG フィルタ
+	/// </summary>
+	namespace PNGFilter
+	{
+		enum Flag : uint32
+		{
+			/// <summary>
+			/// 
+			/// </summary>
+			None = 0x08,
+
+			/// <summary>
+			/// 
+			/// </summary>
+			Sub = 0x10,
+
+			/// <summary>
+			/// 
+			/// </summary>
+			Up = 0x20,
+
+			/// <summary>
+			/// 
+			/// </summary>
+			Avg = 0x40,
+
+			/// <summary>
+			/// 
+			/// </summary>
+			Paeth = 0x80,
+
+			/// <summary>
+			/// 
+			/// </summary>
+			Default = None | Sub | Up | Avg | Paeth,
+		};
+	};
+
 	class IImageFormat
 	{
 	public:

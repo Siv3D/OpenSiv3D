@@ -33,6 +33,8 @@ namespace s3d
 
 			bool encode(const Image& image, IWriter& writer) const override;
 
+			bool encode(const Image& image, IWriter& writer, uint32 filterFlag) const;
+
 			bool save(const Image& image, const FilePath& path) const override;
 		};
 	}

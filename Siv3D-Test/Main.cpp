@@ -3,7 +3,7 @@
 
 void Main()
 {
-	Image(L"example/siv3d-kun.png").save(L"png.bmp");
+	Image(L"example/siv3d-kun.png").save(L"test.png");
 
 	/*
 	Image(1000, 1000, Arg::generator0_1 = ([](Vec2 pos)
