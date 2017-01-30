@@ -182,6 +182,9 @@
     <Filter Include="Source\Siv3D\ImageFormat\BMP">
       <UniqueIdentifier>{753858f3-9298-4e37-97ac-a783f15cd1fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\FormatBool">
+      <UniqueIdentifier>{fb969275-0f2c-47c6-a151-f2741e7c4d2f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1016,6 +1019,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\SivImageFormat.cpp">
       <Filter>Source\Siv3D\ImageFormat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\FormatBool\SivFormatBool.cpp">
+      <Filter>Source\Siv3D\FormatBool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

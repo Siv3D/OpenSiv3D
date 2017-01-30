@@ -1,8 +1,11 @@
 ﻿
 # include <Siv3D.hpp>
+# include "Test/Siv3DTest.hpp"
 
 void Main()
 {
+	RunTest();
+
 	//Image image(Size(100, 100), Arg::generator = ([](Point) {return HSV(0.2, 0.5, 1.0); }));
 
 	//Log << (int)Imaging::GetFormat(L"siv3d-kun.bmp");
