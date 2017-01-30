@@ -403,9 +403,11 @@ void Main()
 	/////////////////////////////////////////////////
 
 	// CPU サイクルカウンター
+	Log << L"# RDTSCClock";
+
 	RDTSCClock rdtsc;
 	{
-		System::Sleep(0.01ms);
+		System::Sleep(100ms);
 	}
 	rdtsc.log();
 
@@ -652,11 +654,47 @@ void Main()
 
 	/////////////////////////////////////////////////
 	//
+	//	MathParser
+	//
+	/////////////////////////////////////////////////
+
+	Log << L"# MathParser";
+
+	Log << L"## Eval";
+	Log << Eval(L"2 + 10 * 4");
+	Log << Eval(L"2 + 10 * 4 +");
+
+	Log << L"## EvalOpt";
+	Log << EvalOpt(L"2 + 10 * 4");
+	Log << EvalOpt(L"2 + 10 * 4 +");
+
+	Log << L"## MathParser";
+	{
+		double x = 14.0, y = -6.0;
+		MathParser math(L"x + abs(y) + Pi");
+		math.setConstant(L"Pi", Math::Pi);
+		math.setVaribale(L"x", &x);
+		math.setVaribale(L"y", &y);
+
+		Log << math.getExpression();
+		Log << math.eval();
+		y = -16.0;
+		Log << math.eval();
+
+		math.setFunction(L"f", [](double x) { return 2 * x; });
+		math.setExpression(L"f(x + y)");
+
+		Log << math.getExpression();
+		Log << math.eval();
+	}
+
+	/////////////////////////////////////////////////
+	//
 	//	Image
 	//
 	/////////////////////////////////////////////////
 
-	Image(L"example/siv3d-kun.png").save(L"test1.png");
+	Image(L"example/siv3d-kun.png").save(L"test/output1.png");
 
 	Image(800, 800, Arg::generator0_1 = ([](Vec2 pos)
 	{
@@ -671,7 +709,7 @@ void Main()
 
 		return ColorF(c);
 	}))
-		.save(L"test2.png");
+		.save(L"test/output2.png");
 
 	while (System::Update())
 	{

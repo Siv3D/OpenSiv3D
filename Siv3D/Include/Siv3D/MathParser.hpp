@@ -124,4 +124,14 @@ namespace s3d
 
 		HSV evalHSV() const;
 	};
+
+	inline double Eval(const String& expression)
+	{
+		return MathParser(expression).eval();
+	}
+
+	inline Optional<double> EvalOpt(const String& expression)
+	{
+		return MathParser(expression).evalOpt();
+	}
 }
