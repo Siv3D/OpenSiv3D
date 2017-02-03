@@ -11,6 +11,11 @@
 
 # pragma once
 
+# if defined(__linux__)
+# define SIV3D_DO_TEST
+# define SIV3D_TARGET_LINUX
+# endif
+
 /*
 # define SIV3D_DO_TEST
 //*/
