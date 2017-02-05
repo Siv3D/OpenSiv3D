@@ -9,6 +9,7 @@ constexpr size_t bufferLength = 1024;
 
 std::string ConvertLine(const std::string& line)
 {
+	/*
 	char sourceBuffer[bufferLength] = { '\0' };
 	UChar utf16Buffer[bufferLength*2] = { '\0' };
 	char utf8Buffer[bufferLength*2] = { '\0' };
@@ -53,4 +54,6 @@ std::string ConvertLine(const std::string& line)
 	ucsdet_close(csd);
 
 	return out;
+	*/
+	return std::string(line);
 }
