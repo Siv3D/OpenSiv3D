@@ -3,19 +3,14 @@
 
 void Main()
 {
-	Array<float> v;
+	Array<double> v;
 
 	for (auto i : step(10000))
 	{
-		v << 1.0f << 1'000'000.0f;
+		v << 0.1 << 1'000'000;
 	}
 
 	Log << v.sum();
-	Log << v.sumF();
-	Log << v.sum<BigFloat>();
 
-	while (System::Update())
-	{
-
-	}
+	Log << v.sumF(); // Kahan summation
 }
