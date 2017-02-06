@@ -200,6 +200,12 @@
     <Filter Include="Source\Siv3D\Key">
       <UniqueIdentifier>{f5ea15f2-b03e-4a9d-a828-38df65909b76}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\ImageFormat\JPEG">
+      <UniqueIdentifier>{06b5731d-8f1c-4c13-b9f8-baa9fe58ddea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ThirdParty\libjpeg-turbo">
+      <UniqueIdentifier>{34bdde9d-666c-4757-b4ac-c807b2b38af1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -763,6 +769,12 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Mouse\CMouse_Windows.hpp">
       <Filter>Source\Siv3D\Mouse</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\JPEG\ImageFormat_JPEG.hpp">
+      <Filter>Source\Siv3D\ImageFormat\JPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\libjpeg-turbo\turbojpeg.h">
+      <Filter>Source\ThirdParty\libjpeg-turbo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1106,6 +1118,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Key\SivKey.cpp">
       <Filter>Source\Siv3D\Key</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\JPEG\ImageFormat_JPEG.cpp">
+      <Filter>Source\Siv3D\ImageFormat\JPEG</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
