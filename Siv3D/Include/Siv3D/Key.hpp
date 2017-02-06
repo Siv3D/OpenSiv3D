@@ -11,6 +11,7 @@
 
 # pragma once
 # include "Fwd.hpp"
+# include "Duration.hpp"
 
 namespace s3d
 {
@@ -50,7 +51,7 @@ namespace s3d
 
 		bool up() const;
 
-		int32 pressedDuration() const;
+		MillisecondsF pressedDuration() const;
 
 		constexpr InputDevice device() const noexcept
 		{

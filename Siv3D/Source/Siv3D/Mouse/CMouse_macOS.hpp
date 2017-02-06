@@ -25,11 +25,7 @@ namespace s3d
 
 		WindowHandle m_glfwWindow = nullptr;
 
-		std::array<bool, MouseButtonCount> m_down;
-		
-		std::array<bool, MouseButtonCount> m_pressed;
-		
-		std::array<bool, MouseButtonCount> m_up;
+		std::array<InputState, MouseButtonCount> m_states;
 		
 	public:
 
@@ -46,6 +42,8 @@ namespace s3d
 		bool pressed(uint32 index) const override;
 		
 		bool up(uint32 index) const override;
+
+		MillisecondsF pressedDuration(uint32 index) const override;
 	};
 }
 

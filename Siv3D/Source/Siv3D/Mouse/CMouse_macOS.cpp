@@ -32,10 +32,6 @@ namespace s3d
 	{
 		m_glfwWindow = Siv3DEngine::GetWindow()->getHandle();
 
-		m_down.fill(false);
-		m_pressed.fill(false);
-		m_up.fill(false);
-		
 		return true;
 	}
 
@@ -43,29 +39,30 @@ namespace s3d
 	{
 		for (uint32 i = 0; i < MouseButtonCount; ++i)
 		{
-			const bool previousPressed = m_pressed[i];
-			
-			m_pressed[i] = (::glfwGetMouseButton(m_glfwWindow, i) == GLFW_PRESS);
-			
-			m_down[i] = !previousPressed && m_pressed[i];
-			
-			m_up[i] = previousPressed && !m_pressed[i];
+			const bool pressed = (::glfwGetMouseButton(m_glfwWindow, i) == GLFW_PRESS);
+	
+			m_states[i].update(pressed);
 		}
 	}
 	
 	bool CMouse_macOS::down(const uint32 index) const
 	{
-		return m_down[index];
+		return m_states[index].down;
 	}
 	
 	bool CMouse_macOS::pressed(const uint32 index) const
 	{
-		return m_pressed[index];
+		return m_states[index].pressed;
 	}
 	
 	bool CMouse_macOS::up(const uint32 index) const
 	{
-		return m_up[index];
+		return m_states[index].up
+	}
+
+	MillisecondsF CMouse_macOS::pressedDuration(const uint32 index) const
+	{
+		return m_states[index].pressedDuration;
 	}
 }
 

@@ -17,9 +17,15 @@ void Main()
 		{
 			--count;
 		}
-		else if(MouseM.pressed())
+		else if (MouseM.pressed())
 		{
 			count += 100;
 		}
+
+		if (MouseL.up())
+		{
+			Log << MouseL.pressedDuration();
+		}
 	}
 }
+

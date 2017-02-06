@@ -45,8 +45,13 @@ namespace s3d
 		return false;
 	}
 
-	int32 Key::pressedDuration() const
+	MillisecondsF Key::pressedDuration() const
 	{
-		return 0;
+		if (m_device == InputDevice::Mouse)
+		{
+			return Siv3DEngine::GetMouse()->pressedDuration(m_code);
+		}
+
+		return MillisecondsF(0);
 	}
 }

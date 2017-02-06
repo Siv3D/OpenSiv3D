@@ -37,10 +37,6 @@ namespace s3d
 	{
 		m_hWnd = Siv3DEngine::GetWindow()->getHandle();
 
-		m_down.fill(false);
-		m_pressed.fill(false);
-		m_up.fill(false);
-
 		return true;
 	}
 
@@ -59,30 +55,31 @@ namespace s3d
 		{
 			for (size_t i = 0; i < std::size(detail::buttonIndex); ++i)
 			{
-				const bool previousPressed = m_pressed[i];
+				const bool pressed = (buf[detail::buttonIndex[i]] >> 7) & 0x1;
 
-				m_pressed[i] = (buf[detail::buttonIndex[i]] >> 7) & 0x1;
-
-				m_down[i] = !previousPressed && m_pressed[i];
-
-				m_up[i] = previousPressed && !m_pressed[i];
+				m_states[i].update(pressed);
 			}
 		}
 	}
 
 	bool CMouse_Windows::down(const uint32 index) const
 	{
-		return m_down[index];
+		return m_states[index].down;
 	}
 
 	bool CMouse_Windows::pressed(const uint32 index) const
 	{
-		return m_pressed[index];
+		return m_states[index].pressed;
 	}
 
 	bool CMouse_Windows::up(const uint32 index) const
 	{
-		return m_up[index];
+		return m_states[index].up;
+	}
+
+	MillisecondsF CMouse_Windows::pressedDuration(const uint32 index) const
+	{
+		return m_states[index].pressedDuration;
 	}
 }
 
