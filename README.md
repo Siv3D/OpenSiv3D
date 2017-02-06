@@ -3,7 +3,7 @@
 <h2><a href="#-sdk-downloads"><img src="doc/siv3d_icon_48.png" align="absmiddle"></a> SDK Downloads</h2>
 | Platform        | Version        | Date       | Requirements                  |
 |:---------------:|:---------------:|:-------------:|:------------------------------|
-| Windows Desktop | <a href="doc/Windows.md">**0.0.6**.614</a>     | 30 January 2016 | Windows 7 SP1 / 8.1 / 10<br>Microsoft Visual C++ 2015 Update 3 or newer |
+| Windows Desktop | <a href="doc/Windows.md">**0.0.6**.614</a>     | 30 January 2016 | Windows 7 SP1 / 8.1 / 10<br>Microsoft Visual C++ 2015 Update 3 |
 | macOS           | <a href="http://siv3d.jp/downloads/Siv3D/siv3d_v0.0.6_macOS.zip">**0.0.6**.614</a>     | 30 January 2016 | macOS Sierra v10.12 or newer<br>Xcode 8.1 or newer |
 | Linux           | <a href="https://github.com/wynd2608/OpenSiv3D">**0.0.5**</a> (unofficial)  |               | |
 | Universal Windows Platform | TBA  |               | Windows 10<br>Microsoft Visual C++ 2015 Update 3 or newer |

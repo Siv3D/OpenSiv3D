@@ -851,7 +851,7 @@ namespace s3d
 		template <class T = Type, std::enable_if_t<Concept::HasPlus<T>::value && Concept::HasPlusAssign<T>::value>* = nullptr>
 		auto sum() const
 		{
-			decltype(std::declval<Type>() + std::declval<Type>()) result{};
+			decltype(std::declval<T>() + std::declval<T>()) result{};
 
 			for (const auto& v : *this)
 			{
@@ -864,7 +864,7 @@ namespace s3d
 		template <class T = Type, std::enable_if_t<Concept::HasPlus<T>::value && !Concept::HasPlusAssign<T>::value>* = nullptr>
 		auto sum() const
 		{
-			decltype(std::declval<Type>() + std::declval<Type>()) result{};
+			decltype(std::declval<T>() + std::declval<T>()) result{};
 
 			for (const auto& v : *this)
 			{
@@ -878,6 +878,23 @@ namespace s3d
 		const Array& sum() const
 		{
 			return *this;
+		}
+
+		template <class T = Type, std::enable_if_t<std::is_floating_point<T>::value>* = nullptr>
+		auto sumF() const &
+		{
+			T s = 0.0;
+			T err = 0.0;
+
+			for (const auto& v : *this)
+			{
+				const T y = v - err;
+				const T t = s + y;
+				err = (t - s) - y;
+				s = t;
+			}
+
+			return static_cast<T>(s);
 		}
 
 		Array take(const size_t n) const

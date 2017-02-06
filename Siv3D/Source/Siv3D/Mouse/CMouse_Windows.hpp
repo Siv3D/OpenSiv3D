@@ -30,11 +30,7 @@ namespace s3d
 
 		HWND m_hWnd = nullptr;
 
-		std::array<bool, MouseButtonCount> m_down;
-
-		std::array<bool, MouseButtonCount> m_pressed;
-
-		std::array<bool, MouseButtonCount> m_up;
+		std::array<InputState, MouseButtonCount> m_states;
 
 		bool m_inputAttached = false;
 
@@ -53,6 +49,8 @@ namespace s3d
 		bool pressed(uint32 index) const override;
 
 		bool up(uint32 index) const override;
+
+		MillisecondsF pressedDuration(uint32 index) const override;
 	};
 }
 

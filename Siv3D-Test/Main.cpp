@@ -3,23 +3,14 @@
 
 void Main()
 {
-	int32 count = 0;
+	Array<double> v;
 
-	while (System::Update())
+	for (auto i : step(10000))
 	{
-		Window::SetTitle(Cursor::Pos(), L" ", Cursor::ScreenPos(), L" ", count);
-
-		if (MouseL.down())
-		{
-			++count;
-		}
-		else if (MouseR.up())
-		{
-			--count;
-		}
-		else if(MouseM.pressed())
-		{
-			count += 100;
-		}
+		v << 0.1 << 1'000'000;
 	}
+
+	Log << v.sum();
+
+	Log << v.sumF(); // Kahan summation
 }
