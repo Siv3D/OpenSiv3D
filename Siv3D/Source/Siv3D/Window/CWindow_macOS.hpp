@@ -15,6 +15,7 @@
 
 # include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 # include <Siv3D/String.hpp>
+# include <Siv3D/Window.hpp>
 # include "IWindow.hpp"
 
 namespace s3d

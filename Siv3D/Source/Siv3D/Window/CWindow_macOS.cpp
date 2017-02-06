@@ -33,7 +33,7 @@ namespace s3d
 			return false;
 		}
 		
-		m_glfwWindow = glfwCreateWindow(640, 480, m_currentTitle.narrow().c_str(), nullptr, nullptr);
+		m_glfwWindow = glfwCreateWindow(Window::DefaultClientSize.x, Window::DefaultClientSize.y, m_currentTitle.narrow().c_str(), nullptr, nullptr);
 		
 		if (!m_glfwWindow)
 		{

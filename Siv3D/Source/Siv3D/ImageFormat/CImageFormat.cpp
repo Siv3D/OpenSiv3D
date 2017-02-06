@@ -12,6 +12,7 @@
 # include "CImageFormat.hpp"
 # include "BMP/ImageFormat_BMP.hpp"
 # include "PNG/ImageFormat_PNG.hpp"
+# include "JPEG/ImageFormat_JPEG.hpp"
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/FileSystem.hpp>
@@ -32,6 +33,7 @@ namespace s3d
 	{
 		m_imageFormats.push_back(std::make_unique<ImageFormat_BMP>());
 		m_imageFormats.push_back(std::make_unique<ImageFormat_PNG>());
+		m_imageFormats.push_back(std::make_unique<ImageFormat_JPEG>());
 
 		return true;
 	}

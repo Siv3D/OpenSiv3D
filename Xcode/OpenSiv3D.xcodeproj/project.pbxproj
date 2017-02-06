@@ -243,6 +243,10 @@
 		2C177FFF1E3F8EF300B2A3D6 /* CWritableMemoryMapping.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C177F7B1E3F8EF300B2A3D6 /* CWritableMemoryMapping.hpp */; };
 		2C1780001E3F8EF300B2A3D6 /* SivWritableMemoryMapping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C177F7C1E3F8EF300B2A3D6 /* SivWritableMemoryMapping.cpp */; };
 		2C1780011E3F8EF300B2A3D6 /* SivXXHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C177F7E1E3F8EF300B2A3D6 /* SivXXHash.cpp */; };
+		2C1780041E48C84B00B2A3D6 /* turbojpeg.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1780031E48C84B00B2A3D6 /* turbojpeg.h */; };
+		2C1780081E48C86400B2A3D6 /* ImageFormat_JPEG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C1780061E48C86400B2A3D6 /* ImageFormat_JPEG.cpp */; };
+		2C1780091E48C86400B2A3D6 /* ImageFormat_JPEG.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C1780071E48C86400B2A3D6 /* ImageFormat_JPEG.hpp */; };
+		2C17800E1E48CC4F00B2A3D6 /* lturbojpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C17800D1E48CC4F00B2A3D6 /* lturbojpeg.a */; };
 		2C2CCF511CE8698C001844FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2CCF501CE8698C001844FF /* Foundation.framework */; };
 		2C5864F01E3DDB670028B9F0 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5864821E3DDB670028B9F0 /* format.h */; };
 		2C5864F11E3DDB670028B9F0 /* ostream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5864841E3DDB670028B9F0 /* ostream.h */; };
@@ -626,6 +630,10 @@
 		2C177F7B1E3F8EF300B2A3D6 /* CWritableMemoryMapping.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CWritableMemoryMapping.hpp; sourceTree = "<group>"; };
 		2C177F7C1E3F8EF300B2A3D6 /* SivWritableMemoryMapping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivWritableMemoryMapping.cpp; sourceTree = "<group>"; };
 		2C177F7E1E3F8EF300B2A3D6 /* SivXXHash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivXXHash.cpp; sourceTree = "<group>"; };
+		2C1780031E48C84B00B2A3D6 /* turbojpeg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = turbojpeg.h; sourceTree = "<group>"; };
+		2C1780061E48C86400B2A3D6 /* ImageFormat_JPEG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageFormat_JPEG.cpp; sourceTree = "<group>"; };
+		2C1780071E48C86400B2A3D6 /* ImageFormat_JPEG.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageFormat_JPEG.hpp; sourceTree = "<group>"; };
+		2C17800D1E48CC4F00B2A3D6 /* lturbojpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lturbojpeg.a; sourceTree = "<group>"; };
 		2C2CCF501CE8698C001844FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5864821E3DDB670028B9F0 /* format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
@@ -767,6 +775,7 @@
 				2C2CCF511CE8698C001844FF /* Foundation.framework in Frameworks */,
 				2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */,
 				2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */,
+				2C17800E1E48CC4F00B2A3D6 /* lturbojpeg.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1220,6 +1229,7 @@
 		2C177F1A1E3F8EF300B2A3D6 /* ImageFormat */ = {
 			isa = PBXGroup;
 			children = (
+				2C1780051E48C86400B2A3D6 /* JPEG */,
 				2C177F1B1E3F8EF300B2A3D6 /* BMP */,
 				2C177F1E1E3F8EF300B2A3D6 /* CImageFormat.cpp */,
 				2C177F1F1E3F8EF300B2A3D6 /* CImageFormat.hpp */,
@@ -1477,6 +1487,31 @@
 			path = XXHash;
 			sourceTree = "<group>";
 		};
+		2C1780021E48C84B00B2A3D6 /* libjpeg-turbo */ = {
+			isa = PBXGroup;
+			children = (
+				2C1780031E48C84B00B2A3D6 /* turbojpeg.h */,
+			);
+			path = "libjpeg-turbo";
+			sourceTree = "<group>";
+		};
+		2C1780051E48C86400B2A3D6 /* JPEG */ = {
+			isa = PBXGroup;
+			children = (
+				2C1780061E48C86400B2A3D6 /* ImageFormat_JPEG.cpp */,
+				2C1780071E48C86400B2A3D6 /* ImageFormat_JPEG.hpp */,
+			);
+			path = JPEG;
+			sourceTree = "<group>";
+		};
+		2C17800A1E48CBF300B2A3D6 /* libjpeg-turbo */ = {
+			isa = PBXGroup;
+			children = (
+				2C17800D1E48CC4F00B2A3D6 /* lturbojpeg.a */,
+			);
+			path = "libjpeg-turbo";
+			sourceTree = "<group>";
+		};
 		2C38B1471CDEB45C007A7E9F /* Lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -1514,6 +1549,7 @@
 		2C5865F01E3DDB7D0028B9F0 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				2C1780021E48C84B00B2A3D6 /* libjpeg-turbo */,
 				2C5869121E3F0B030028B9F0 /* libpng */,
 				2C5865F11E3DDB7D0028B9F0 /* double-conversion */,
 				2C5866051E3DDB7D0028B9F0 /* fmt */,
@@ -1764,6 +1800,7 @@
 		2CA798F61DF55A0D0028D11D /* macOS */ = {
 			isa = PBXGroup;
 			children = (
+				2C17800A1E48CBF300B2A3D6 /* libjpeg-turbo */,
 				2C5869211E3F0B980028B9F0 /* zlib */,
 				2C58691E1E3F0B900028B9F0 /* libpng */,
 				2CA798F71DF55A0D0028D11D /* boost */,
@@ -1955,6 +1992,7 @@
 				2C58670A1E3DDB7E0028B9F0 /* muParserDLL.h in Headers */,
 				2C58671B1E3DDB7E0028B9F0 /* huf.h in Headers */,
 				2C58655A1E3DDB670028B9F0 /* Siv3D.hpp in Headers */,
+				2C1780091E48C86400B2A3D6 /* ImageFormat_JPEG.hpp in Headers */,
 				2C5866D51E3DDB7D0028B9F0 /* double-conversion.h in Headers */,
 				2C5867191E3DDB7E0028B9F0 /* fse.h in Headers */,
 				2C177FA51E3F8EF300B2A3D6 /* ICursor.hpp in Headers */,
@@ -1997,6 +2035,7 @@
 				2C177EB11E3F8EE800B2A3D6 /* Stopwatch.hpp in Headers */,
 				2C5867111E3DDB7E0028B9F0 /* muParserTemplateMagic.h in Headers */,
 				2C177F871E3F8EF300B2A3D6 /* CBigInt.hpp in Headers */,
+				2C1780041E48C84B00B2A3D6 /* turbojpeg.h in Headers */,
 				2C177EBA1E3F8EE800B2A3D6 /* Timer.hpp in Headers */,
 				2C177E821E3F8EE800B2A3D6 /* Fwd.hpp in Headers */,
 				2C177E731E3F8EE800B2A3D6 /* Date.hpp in Headers */,
@@ -2193,6 +2232,7 @@
 				2C177F951E3F8EF300B2A3D6 /* SivByteArray.cpp in Sources */,
 				2C177FD71E3F8EF300B2A3D6 /* MouseFactory.cpp in Sources */,
 				2C5867091E3DDB7E0028B9F0 /* muParserDLL.cpp in Sources */,
+				2C1780081E48C86400B2A3D6 /* ImageFormat_JPEG.cpp in Sources */,
 				2C5867271E3DDB7E0028B9F0 /* zstd_decompress.c in Sources */,
 				2C177FE21E3F8EF300B2A3D6 /* SivString.cpp in Sources */,
 				2C5867131E3DDB7E0028B9F0 /* muParserTokenReader.cpp in Sources */,

@@ -8,3 +8,4 @@
 - muparser V2.2.5 https://github.com/beltoforion/muparser/releases
 - zlib 1.2.11 http://www.zlib.net/
 - libpng 1.6.28 http://www.libpng.org/pub/png/libpng.html
+- libjpeg-turbo 1.5.1 https://sourceforge.net/projects/libjpeg-turbo/files/

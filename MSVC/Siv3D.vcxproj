@@ -148,6 +148,7 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\BMP\ImageFormat_BMP.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\CImageFormat.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\IImageFormat.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\JPEG\ImageFormat_JPEG.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\PNG\ImageFormat_PNG.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\INIReader\CINIReader.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\CLogger.hpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\ieee.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\strtod.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\utils.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\libjpeg-turbo\turbojpeg.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\libpng\png.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\libpng\pngconf.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\libpng\pnglibconf.h" />
@@ -245,6 +247,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\BMP\ImageFormat_BMP.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\CImageFormat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\ImageFormatFactory.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\JPEG\ImageFormat_JPEG.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\PNG\ImageFormat_PNG.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\SivImageFormat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Image\SivImage.cpp" />
