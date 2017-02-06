@@ -370,4 +370,12 @@ namespace s3d
 	//
 	enum class InputDevice : uint8;
 	class Key;
+
+
+
+	//////////////////////////////////////////////////////
+	//
+	//	Window.hpp
+	//
+	struct WindowState;
 }

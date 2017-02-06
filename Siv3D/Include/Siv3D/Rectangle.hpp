@@ -485,6 +485,57 @@ namespace s3d
 
 
 
+
+		/// <summary>
+		/// 長方形を移動させます。
+		/// </summary>
+		/// <param name="_x">
+		/// 左上の点の新しい X 座標
+		/// </param>
+		/// <param name="_y">
+		/// 左上の点の新しい Y 座標
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		S3D_CONSTEXPR_CPP14 Rectangle& setPos(value_type _x, value_type _y) { pos.set(_x, _y); return *this; }
+
+		/// <summary>
+		/// 長方形を移動させます。
+		/// </summary>
+		/// <param name="_x">
+		/// 左上の点の新しい位置
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		S3D_CONSTEXPR_CPP14 Rectangle& setPos(const position_type& _pos) { pos.set(_pos); return *this; }
+
+		/// <summary>
+		/// 長方形の大きさを変更します。
+		/// </summary>
+		/// <param name="_w">
+		/// 新しい幅
+		/// </param>
+		/// <param name="_h">
+		/// 新しい高さ
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		S3D_CONSTEXPR_CPP14 Rectangle& setSize(value_type _w, value_type _h) { size.set(_w, _h); return *this; }
+
+		/// <summary>
+		/// 長方形の大きさを変更します。
+		/// </summary>
+		/// <param name="_size">
+		/// 新しい大きさ
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		S3D_CONSTEXPR_CPP14 Rectangle& setSize(const size_type& _size) { size.set(_size); return *this; }
+
 		/// <summary>
 		/// 中心位置を指定して長方形を移動させます。
 		/// </summary>
@@ -497,7 +548,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		Rectangle& setCenter(value_type _x, value_type _y) { pos.set(_x - w / 2, _y - h / 2); return *this; }
+		S3D_CONSTEXPR_CPP14 Rectangle& setCenter(value_type _x, value_type _y) { pos.set(_x - w / 2, _y - h / 2); return *this; }
 
 		/// <summary>
 		/// 中心位置を指定して長方形を移動させます。
@@ -508,7 +559,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		Rectangle& setCenter(const position_type& _pos) { pos.set(_pos - size / 2); return *this; }
+		S3D_CONSTEXPR_CPP14 Rectangle& setCenter(const position_type& _pos) { pos.set(_pos - size / 2); return *this; }
 
 
 
