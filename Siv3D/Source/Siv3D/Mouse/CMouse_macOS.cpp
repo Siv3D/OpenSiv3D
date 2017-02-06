@@ -57,7 +57,7 @@ namespace s3d
 	
 	bool CMouse_macOS::up(const uint32 index) const
 	{
-		return m_states[index].up
+		return m_states[index].up;
 	}
 
 	MillisecondsF CMouse_macOS::pressedDuration(const uint32 index) const
