@@ -2,6 +2,7 @@
 
 ## 1. Installing OpenSiv3D SDK ##
 - Run <a href="http://siv3d.jp/downloads/Siv3D/OpenSiv3D(0.0.6)Installer.exe">**OpenSiv3D SDK Installer**</a>.
+ - Use the Control Panel to uninstall OpenSiv3D SDK
 
 ## 2. Creating a C++/OpenSiv3D Project
 1. Lanuch Visual Studio 2015 and create a project by pointing to **New** on the **File** menu, and then clicking **Project**.
