@@ -3,29 +3,19 @@
 
 void Main()
 {
-	int32 count = 0;
+	Array<float> v;
+
+	for (auto i : step(10000))
+	{
+		v << 1.0f << 1'000'000.0f;
+	}
+
+	Log << v.sum();
+	Log << v.sumF();
+	Log << v.sum<BigFloat>();
 
 	while (System::Update())
 	{
-		Window::SetTitle(Cursor::Pos(), L" ", Cursor::ScreenPos(), L" ", count);
 
-		if (MouseL.down())
-		{
-			++count;
-		}
-		else if (MouseR.up())
-		{
-			--count;
-		}
-		else if (MouseM.pressed())
-		{
-			count += 100;
-		}
-
-		if (MouseL.up())
-		{
-			Log << MouseL.pressedDuration();
-		}
 	}
 }
-
