@@ -15,11 +15,11 @@
 
 # define  NOMINMAX
 # define  STRICT
-# define  WIN32_LEAN_AND_MEAN
 # define  _WIN32_WINNT _WIN32_WINNT_WIN7
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
 # include <Siv3D/String.hpp>
+# include <Siv3D/Window.hpp>
 # include "IWindow.hpp"
 
 namespace s3d
@@ -32,7 +32,13 @@ namespace s3d
 
 		String m_windowClassName;
 
-		String m_currentTitle = L"Siv3D App";
+		uint32 m_style = 0;
+		
+		WindowState m_state;
+
+		void initState();
+
+		void updateTaskbarState();
 
 		bool registerWindowClass();
 

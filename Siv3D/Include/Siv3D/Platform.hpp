@@ -41,7 +41,7 @@
 # endif
 
 
-# if defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64) || defined(SIV3D_TARGET_MACOS)
+# if defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64) || defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 	# define SIV3D_TARGET_X64
 

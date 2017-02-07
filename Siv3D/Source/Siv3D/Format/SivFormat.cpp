@@ -63,4 +63,94 @@ namespace s3d
 			*p += length;
 		}
 	}
+
+	void Formatter(FormatData& formatData, const int32 value)
+	{
+		const detail::FormatInt buffer(value);
+		formatData.string.append(buffer.c_str(), buffer.size());
+	}
+
+	void Formatter(FormatData& formatData, const uint32 value)
+	{
+		const detail::FormatInt buffer(value);
+		formatData.string.append(buffer.c_str(), buffer.size());
+	}
+
+	void Formatter(FormatData& formatData, const int64 value)
+	{
+		const detail::FormatInt buffer(value);
+		formatData.string.append(buffer.c_str(), buffer.size());
+	}
+
+	void Formatter(FormatData& formatData, const uint64 value)
+	{
+		const detail::FormatInt buffer(value);
+		formatData.string.append(buffer.c_str(), buffer.size());
+	}
+
+	void Formatter(FormatData& formatData, const double value)
+	{
+		wchar buf[384];
+		const size_t len = detail::FormatFloat(buf, value, formatData.decimalPlace.value, false);
+		formatData.string.append(buf, len);
+	}
+
+	void Formatter(FormatData& formatData, const void* value)
+	{
+	# if (SIV3D_PLATFORM_PTR_SIZE == 4)
+
+		formatData.string.append(ToHex(reinterpret_cast<uint32>(value)).lpad(8, L'0'));
+
+	# elif (SIV3D_PLATFORM_PTR_SIZE == 8)
+
+		formatData.string.append(ToHex(reinterpret_cast<uint64>(value)).lpad(16, L'0'));
+
+	# endif
+	}
+
+	void Formatter(FormatData& formatData, const char16_t ch)
+	{
+		formatData.string.push_back(static_cast<wchar>(ch));
+	}
+	
+	void Formatter(FormatData& formatData, const char32_t ch)
+	{
+	# if defined(SIV3D_TARGET_WINDOWS)
+		
+		const auto c = CharacterSet::GetUTF16CodePoint(ch);
+		
+		if (!c[1])
+		{
+			formatData.string.push_back(static_cast<wchar>(c[0]));
+		}
+		else
+		{
+			formatData.string.push_back(static_cast<wchar>(c[0]));
+		
+			formatData.string.push_back(static_cast<wchar>(c[1]));
+		}
+		
+	# else
+		
+		formatData.string.push_back(ch);
+		
+	# endif
+	}
+	
+	void Formatter(FormatData& formatData, std::nullptr_t)
+	{
+		formatData.string.append(L"null", 4);
+	}
+
+	void Formatter(FormatData& formatData, const bool value)
+	{
+		if (value)
+		{
+			formatData.string.append(L"true", 4);
+		}
+		else
+		{
+			formatData.string.append(L"false", 5);
+		}
+	}
 }

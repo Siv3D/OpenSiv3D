@@ -12,11 +12,16 @@
 # pragma once
 # include <wchar.h>
 # include "Types.hpp"
-# define HalfWidthSpace L' '
-# define FullWidthSpace L'　'
+# include "Utility.hpp"
 
 namespace s3d
 {
+	namespace detail
+	{
+		constexpr wchar halfWidthSpace = L' ';
+		constexpr wchar fullWidthSpace = L'　';
+	}
+
 	/// <summary>
 	/// 10 進数の数字であるかを返します。
 	/// </summary>
@@ -26,7 +31,7 @@ namespace s3d
 	/// <returns>
 	/// 10 進数の数字である場合 true, それ以外の場合は false
 	/// </returns>
-	inline constexpr bool IsDigit(const uint32 ch) noexcept
+	inline constexpr bool IsDigit(const char32_t ch) noexcept
 	{
 		return (ch - L'0') <= (L'9' - L'0');
 	}
@@ -40,7 +45,7 @@ namespace s3d
 	/// <returns>
 	/// アルファベットの小文字である場合 true, それ以外の場合は false
 	/// </returns>
-	inline constexpr bool IsLower(const uint32 ch) noexcept
+	inline constexpr bool IsLower(const char32_t ch) noexcept
 	{
 		return (ch - L'a') <= (L'z' - L'a');
 	}
@@ -54,7 +59,7 @@ namespace s3d
 	/// <returns>
 	/// アルファベットの大文字である場合 true, それ以外の場合は false
 	/// </returns>
-	inline constexpr bool IsUpper(const uint32 ch) noexcept
+	inline constexpr bool IsUpper(const char32_t ch) noexcept
 	{
 		return (ch - L'A') <= (L'Z' - L'A');
 	}
@@ -68,7 +73,7 @@ namespace s3d
 	/// <returns>
 	/// アルファベットである場合 true, それ以外の場合は false
 	/// </returns>
-	inline constexpr bool IsAlpha(const uint32 ch) noexcept
+	inline constexpr bool IsAlpha(const char32_t ch) noexcept
 	{
 		return IsLower(ch) || IsUpper(ch);
 	}
@@ -82,7 +87,7 @@ namespace s3d
 	/// <returns>
 	/// アルファベットもしくは数字である場合 true, それ以外の場合は false
 	/// </returns>
-	inline constexpr bool IsAlnum(const uint32 ch) noexcept
+	inline constexpr bool IsAlnum(const char32_t ch) noexcept
 	{
 		return IsDigit(ch) || IsAlpha(ch);
 	}
@@ -96,7 +101,7 @@ namespace s3d
 	/// <returns>
 	/// 16 進数の数字である場合 true, それ以外の場合は false
 	/// </returns>
-	inline constexpr bool IsXdigit(const uint32 ch) noexcept
+	inline constexpr bool IsXdigit(const char32_t ch) noexcept
 	{
 		return IsDigit(ch) || ((ch - L'A') <= (L'F' - L'A')) || ((ch - L'a') <= (L'f' - L'a'));
 	}
@@ -110,7 +115,7 @@ namespace s3d
 	/// <returns>
 	/// 制御文字である場合 true, それ以外の場合は false
 	/// </returns>
-	inline constexpr bool IsControl(const uint32 ch) noexcept
+	inline constexpr bool IsControl(const char32_t ch) noexcept
 	{
 		return (ch <= 0x1F) || ((ch - 0x7F) <= (0x9F - 0x7F));
 	}
@@ -127,9 +132,9 @@ namespace s3d
 	/// <returns>
 	/// 空白文字である場合 true, それ以外の場合は false
 	/// </returns>
-	inline constexpr bool IsBlank(const uint32 ch) noexcept
+	inline constexpr bool IsBlank(const char32_t ch) noexcept
 	{
-		return (ch == HalfWidthSpace) || (ch == L'\t') || (ch == FullWidthSpace);
+		return (ch == detail::halfWidthSpace) || (ch == L'\t') || (ch == detail::fullWidthSpace);
 	}
 
 	/// <summary>
@@ -144,9 +149,9 @@ namespace s3d
 	/// <returns>
 	/// 空白類文字である場合 true, それ以外の場合は false
 	/// </returns>
-	inline constexpr bool IsSpace(const uint32 ch) noexcept
+	inline constexpr bool IsSpace(const char32_t ch) noexcept
 	{
-		return ((ch - L'\t') <= (L'\r' - L'\t')) || (ch == HalfWidthSpace) || (ch == FullWidthSpace);
+		return ((ch - L'\t') <= (L'\r' - L'\t')) || (ch == detail::halfWidthSpace) || (ch == detail::fullWidthSpace);
 	}
 
 	/// <summary>
@@ -158,9 +163,28 @@ namespace s3d
 	/// <returns>
 	/// 印字可能文字である場合 true, それ以外の場合は false
 	/// </returns>
-	inline bool IsPrint(const uint32 ch)
+	inline bool IsPrint(const char32_t ch)
 	{
 		return !!::iswprint(static_cast<wchar_t>(ch));
+	}
+
+	/// <summary>
+	/// 絵文字であるかを返します。
+	/// </summary>
+	/// <param name="ch">
+	/// 文字
+	/// </param>
+	/// <remarks>
+	/// 参考: http://www.asahi-net.or.jp/~ax2s-kmtn/ref/unicode/emoji.html
+	/// </remarks>
+	/// <returns>
+	/// 絵文字である場合 true, それ以外の場合は false
+	/// </returns>
+	inline constexpr bool IsEmoji(const char32_t ch) noexcept
+	{
+		return InRange<char32_t>(ch, 0x2600, 0x27BF)
+			|| InRange<char32_t>(ch, 0x1F300, 0x1F6FF)
+			|| InRange<char32_t>(ch, 0x1F900, 0x1F9FF);
 	}
 
 	inline constexpr int32 CaseCompare(const wchar a, const wchar b) noexcept
@@ -168,16 +192,13 @@ namespace s3d
 		return (a + IsUpper(a) * 32) < (b + IsUpper(b) * 32) ? -1 : (a + IsUpper(a) * 32) != (b + IsUpper(b) * 32);
 	}
 
-	inline constexpr bool IsHighSurrogate(const char16_t c)
+	inline constexpr bool IsHighSurrogate(const char16_t ch) noexcept
 	{
-		return (0xD800 <= c) && (c < 0xDC00);
+		return InRange<char16_t>(ch, 0xD800, 0xDBFF);
 	}
 
-	inline constexpr bool IsLowSurrogate(const char16_t c)
+	inline constexpr bool IsLowSurrogate(const char16_t ch) noexcept
 	{
-		return (0xDC00 <= c) && (c < 0xE000);
+		return InRange<char16_t>(ch, 0xDC00, 0xDFFF);
 	}
 }
-
-# undef HalfWidthSpace
-# undef FullWidthSpace

@@ -1,8 +1,11 @@
 - Boost 1.62.0 http://www.boost.org/users/history/version_1_62_0.html
 - double-conversion https://github.com/google/double-conversion 
-- fmt 3.0.0+ https://github.com/fmtlib/fmt
+- fmt 3.0.1 https://github.com/fmtlib/fmt/releases
 - miniutf https://github.com/dropbox/miniutf
-- Zstandard v1.1.1 https://github.com/facebook/zstd/releases/tag/v1.1.1
+- Zstandard v1.1.2 https://github.com/facebook/zstd/releases
 - Convenient Constructs For Stepping Through a Range of Values https://www.codeproject.com/articles/876156/convenient-constructs-for-stepping-through-a-range
 - GLWF 3.2.1 http://www.glfw.org
-- muparser V2.2.5 https://github.com/beltoforion/muparser/releases/tag/v2.2.5
+- muparser V2.2.5 https://github.com/beltoforion/muparser/releases
+- zlib 1.2.11 http://www.zlib.net/
+- libpng 1.6.28 http://www.libpng.org/pub/png/libpng.html
+- libjpeg-turbo 1.5.1 https://sourceforge.net/projects/libjpeg-turbo/files/

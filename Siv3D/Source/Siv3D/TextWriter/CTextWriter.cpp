@@ -97,6 +97,8 @@ namespace s3d
 
 				break;
 			}
+		default:
+			break;
 		}
 
 		return true;

@@ -94,6 +94,8 @@ namespace s3d
 
 	bool CWindow_Windows::init()
 	{
+		initState();
+
 		if (!registerWindowClass())
 		{
 			return false;
@@ -119,20 +121,108 @@ namespace s3d
 
 	void CWindow_Windows::setTitle(const String& title)
 	{
-		if (title == m_currentTitle)
+		if (title == m_state.title)
 		{
 			return;
 		}
 
-		m_currentTitle = title;
+		m_state.title = title;
 
-		::SetWindowTextW(m_hWnd, m_currentTitle.c_str());
+		::SetWindowTextW(m_hWnd, m_state.title.c_str());
+	}
+
+	void CWindow_Windows::initState()
+	{
+		m_windowClassName = FileSystem::ModulePath();
+
+		m_style = WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
+
+		m_state.clientSize.set(Window::DefaultClientSize.x, Window::DefaultClientSize.y);
+		m_state.screenSize.set(::GetSystemMetrics(SM_CXSCREEN), ::GetSystemMetrics(SM_CYSCREEN));
+		m_state.title = L"Siv3D App";
+
+		RECT windowRect = { 0, 0, m_state.clientSize.x, m_state.clientSize.y };
+		::AdjustWindowRectEx(&windowRect, m_style, FALSE, 0);
+
+		m_state.windowSize.set(windowRect.right - windowRect.left, windowRect.bottom - windowRect.top);
+
+		if (const int addedBorder = ::GetSystemMetrics(SM_CXPADDEDBORDER))
+		{
+			m_state.frameSize.x = ::GetSystemMetrics(SM_CXFRAME) + addedBorder;
+			m_state.frameSize.y = ::GetSystemMetrics(SM_CYFRAME) + addedBorder;
+		}
+		else
+		{
+			m_state.frameSize.x = ::GetSystemMetrics(SM_CXFIXEDFRAME);
+			m_state.frameSize.y = ::GetSystemMetrics(SM_CYFIXEDFRAME);
+		}
+
+		m_state.titleBarHeight = ::GetSystemMetrics(SM_CYCAPTION) + m_state.frameSize.y;
+
+		updateTaskbarState();
+		{
+			Point offset{ 0, 0 }, size{ 0, 0 };
+
+			if (m_state.taskbarPos % 2)
+			{
+				size.x = m_state.taskbarRect.w;
+			}
+			else
+			{
+				size.y = m_state.taskbarRect.h;
+			}
+
+			if (m_state.taskbarPos == 2)
+			{
+				offset.y = m_state.taskbarRect.h;
+			}
+			else if (m_state.taskbarPos == 1)
+			{
+				offset.x = m_state.taskbarRect.w;
+			}
+
+			const Point pos = ((m_state.screenSize - size) - m_state.windowSize) / 2 + offset;
+
+			m_state.pos.set(std::max(pos.x, 0), std::max(pos.y, 0));
+		}
+	}
+	
+	void CWindow_Windows::updateTaskbarState()
+	{
+		APPBARDATA barData{};
+		barData.cbSize = sizeof(APPBARDATA);
+		barData.hWnd = m_hWnd;
+		::SHAppBarMessage(ABM_GETTASKBARPOS, &barData);
+
+		m_state.taskbarRect.setPos(barData.rc.left, barData.rc.top);
+		m_state.taskbarRect.setSize(barData.rc.right - barData.rc.left, barData.rc.bottom - barData.rc.top);
+
+		if (m_state.screenSize.x <= m_state.taskbarRect.w) // 上か下
+		{
+			if (m_state.taskbarRect.y <= 0) // 上
+			{
+				m_state.taskbarPos = 2;
+			}
+			else
+			{
+				m_state.taskbarPos = 0;
+			}
+		}
+		else // 左か右
+		{
+			if (m_state.taskbarRect.x <= 0) // 左
+			{
+				m_state.taskbarPos = 1;
+			}
+			else
+			{
+				m_state.taskbarPos = 3;
+			}
+		}
 	}
 
 	bool CWindow_Windows::registerWindowClass()
 	{
-		m_windowClassName = FileSystem::ModulePath();
-
 		WNDCLASSEXW windowClass{};
 		windowClass.cbSize			= sizeof(WNDCLASSEXW);
 		windowClass.style			= CS_HREDRAW | CS_VREDRAW;
@@ -153,21 +243,15 @@ namespace s3d
 
 	bool CWindow_Windows::createWindow()
 	{
-		const DWORD style = WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
-		const DWORD exStyle = 0;
-
-		RECT windowRect = { 0, 0, 640, 480 };
-		::AdjustWindowRectEx(&windowRect, style, FALSE, exStyle);
-
 		m_hWnd = ::CreateWindowExW(
-			exStyle,
+			0,
 			m_windowClassName.c_str(),
-			m_currentTitle.c_str(),
-			style,
-			CW_USEDEFAULT,
-			CW_USEDEFAULT,
-			windowRect.right - windowRect.left,
-			windowRect.bottom - windowRect.top,
+			m_state.title.c_str(),
+			m_style,
+			m_state.pos.x,
+			m_state.pos.y,
+			m_state.windowSize.x,
+			m_state.windowSize.y,
 			nullptr,
 			nullptr,
 			::GetModuleHandleW(nullptr),

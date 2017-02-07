@@ -175,97 +175,27 @@ namespace s3d
 		return std::move(str);
 	}
 
-	inline void Formatter(FormatData& formatData, const int32 value)
-	{
-		const detail::FormatInt buffer(value);
-		formatData.string.append(buffer.c_str(), buffer.size());
-	}
+	void Formatter(FormatData& formatData, int32 value);
 
-	inline void Formatter(FormatData& formatData, const uint32 value)
-	{
-		const detail::FormatInt buffer(value);
-		formatData.string.append(buffer.c_str(), buffer.size());
-	}
+	void Formatter(FormatData& formatData, uint32 value);
 
-	inline void Formatter(FormatData& formatData, const int64 value)
-	{
-		const detail::FormatInt buffer(value);
-		formatData.string.append(buffer.c_str(), buffer.size());
-	}
+	void Formatter(FormatData& formatData, int64 value);
 
-	inline void Formatter(FormatData& formatData, const uint64 value)
-	{
-		const detail::FormatInt buffer(value);
-		formatData.string.append(buffer.c_str(), buffer.size());
-	}
+	void Formatter(FormatData& formatData, uint64 value);
 
-	inline void Formatter(FormatData& formatData, const double value)
-	{
-		wchar buf[384];
-		const size_t len = detail::FormatFloat(buf, value, formatData.decimalPlace.value, false);
-		formatData.string.append(buf, len);
-	}
+	void Formatter(FormatData& formatData, double value);
 
-	inline void Formatter(FormatData& formatData, const void* value)
-	{
-	# if (SIV3D_PLATFORM_PTR_SIZE == 4)
+	void Formatter(FormatData& formatData, const void* value);
 
-		formatData.string.append(ToHex(reinterpret_cast<uint32>(value)).lpad(8, L'0'));
+	void Formatter(FormatData& formatData, const char* str) = delete;
 
-	# elif (SIV3D_PLATFORM_PTR_SIZE == 8)
+	void Formatter(FormatData& formatData, char16_t ch);
 
-		formatData.string.append(ToHex(reinterpret_cast<uint64>(value)).lpad(16, L'0'));
-
-	# endif
-	}
-
-	void Formatter(FormatData& formatData, const char* const str) = delete;
-
-	inline void Formatter(FormatData& formatData, const char16_t ch)
-	{
-		formatData.string.push_back(static_cast<wchar>(ch));
-	}
+	void Formatter(FormatData& formatData, char32_t ch);
 	
-	inline void Formatter(FormatData& formatData, const char32_t ch)
-	{
-	# if defined(SIV3D_TARGET_WINDOWS)
-		
-		const auto c = CharacterSet::GetUTF16CodePoint(ch);
-		
-		if (!c[1])
-		{
-			formatData.string.push_back(static_cast<wchar>(c[0]));
-		}
-		else
-		{
-			formatData.string.push_back(static_cast<wchar>(c[0]));
-		
-			formatData.string.push_back(static_cast<wchar>(c[1]));
-		}
-		
-	# else
-		
-		formatData.string.push_back(ch);
-		
-	# endif
-	}
-	
-	inline void Formatter(FormatData& formatData, std::nullptr_t)
-	{
-		formatData.string.append(L"null", 4);
-	}
+	void Formatter(FormatData& formatData, std::nullptr_t);
 
-	inline void Formatter(FormatData& formatData, const bool value)
-	{
-		if (value)
-		{
-			formatData.string.append(L"true", 4);
-		}
-		else
-		{
-			formatData.string.append(L"false", 5);
-		}
-	}
+	void Formatter(FormatData& formatData, bool value);
 
 	inline void Formatter(FormatData& formatData, const char value)
 	{
@@ -420,24 +350,6 @@ namespace s3d
 	void Formatter(FormatData& formatData, const Mat4x4& value);
 	void Formatter(FormatData& formatData, const Ray& value);
 	*/
-    
-   	/// <summary>
-    /// 値を指定した文字数の文字列に変換します。
-    /// </summary>
-    /// <param name="value">
-    /// 変換する値
-    /// </param>
-    /// <param name="padding">
-    /// 文字数と詰め文字のペア
-    /// </param>
-    /// <returns>
-    /// 変換した文字列
-    /// </returns>
-    template <class Type>
-    inline String Pad(const Type& value, const std::pair<int32, wchar>& padding)
-    {
-        return Format(value).lpadded(padding.first, padding.second);
-    }
 }
 
 namespace s3d

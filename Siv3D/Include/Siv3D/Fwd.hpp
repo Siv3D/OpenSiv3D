@@ -23,7 +23,7 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
-	//	Allocator.hpp
+	//	AlignedAllocator.hpp
 	//
 	template <class Type, size_t Alignment> class AlignedAllocator;
 	template <class Type> struct DefaultAllocator;
@@ -52,6 +52,12 @@ namespace s3d
 	//
 	struct None_t;
 	template <class Type> class Optional;
+
+	//////////////////////////////////////////////////////
+	//
+	//	IteratorRange.hpp
+	//
+	template <class IteratorType> class IteratorRange;
 
 	//////////////////////////////////////////////////////
 	//
@@ -195,6 +201,12 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	TextReader.hpp
+	//
+	class TextReader;
+
+	//////////////////////////////////////////////////////
+	//
 	//	TextWriter.hpp
 	//
 	class TextWriter;
@@ -213,6 +225,14 @@ namespace s3d
 	enum class LogDescription;
 
 
+
+
+	//////////////////////////////////////////////////////
+	//
+	//	INIReader.hpp
+	//
+	struct INIKey;
+	class INIReader;
 
 
 
@@ -317,14 +337,19 @@ namespace s3d
 
 
 
+
 	//////////////////////////////////////////////////////
 	//
 	//	Image.hpp
 	//
 	class Image;
 
-
-
+	//////////////////////////////////////////////////////
+	//
+	//	ImageFormat.hpp
+	//
+	enum class ImageFormat;
+	class IImageFormat;
 
 
 	//////////////////////////////////////////////////////
@@ -335,4 +360,22 @@ namespace s3d
 	struct DragStatus;
 	struct DroppedFilePath;
 	struct DroppedText;
+
+
+
+
+	//////////////////////////////////////////////////////
+	//
+	//	Key.hpp
+	//
+	enum class InputDevice : uint8;
+	class Key;
+
+
+
+	//////////////////////////////////////////////////////
+	//
+	//	Window.hpp
+	//
+	struct WindowState;
 }

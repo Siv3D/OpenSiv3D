@@ -17,8 +17,11 @@ namespace s3d
 	class ISiv3DLogger;
 	class ISiv3DSystem;
 	class ISiv3DConsole;
+	class ISiv3DImageFormat;
 	class ISiv3DWindow;
 	class ISiv3DDragDrop;
+	class ISiv3DCursor;
+	class ISiv3DMouse;
 
 	template <class Interface>
 	class Siv3DComponent
@@ -62,10 +65,16 @@ namespace s3d
 
 		Siv3DComponent<ISiv3DConsole> m_console;
 
+		Siv3DComponent<ISiv3DImageFormat> m_imageFormat;
+
 		Siv3DComponent<ISiv3DWindow> m_window;
 
 		Siv3DComponent<ISiv3DDragDrop> m_dragdrop;
-		
+
+		Siv3DComponent<ISiv3DCursor> m_cursor;
+
+		Siv3DComponent<ISiv3DMouse> m_mouse;
+
 	public:
 
 		Siv3DEngine();
@@ -91,6 +100,11 @@ namespace s3d
 		{
 			return pEngine->m_console.get();
 		}
+
+		static ISiv3DImageFormat* GetImageFormat()
+		{
+			return pEngine->m_imageFormat.get();
+		}
 		
 		static ISiv3DWindow* GetWindow()
 		{
@@ -100,6 +114,16 @@ namespace s3d
 		static ISiv3DDragDrop* GetDragDrop()
 		{
 			return pEngine->m_dragdrop.get();
+		}
+
+		static ISiv3DCursor* GetCursor()
+		{
+			return pEngine->m_cursor.get();
+		}
+
+		static ISiv3DMouse* GetMouse()
+		{
+			return pEngine->m_mouse.get();
 		}
 	};
 }

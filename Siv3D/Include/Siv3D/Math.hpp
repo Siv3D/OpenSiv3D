@@ -17,22 +17,18 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		constexpr double cRadians = Math::TwoPi / 360.0;
+		constexpr double cDegrees = 360.0 / Math::TwoPi;
+		constexpr __m128d cV0{ 0.0, 0.0 };
+		constexpr __m128d cV0_5{ 0.5, 0.5 };
+		constexpr __m128d cV1{ 1.0, 1.0 };
+		constexpr __m128d cV3{ 3.0, 3.0 };
+	}
+
 	namespace Math
 	{
-		namespace detail
-		{
-			constexpr double cRadians = Math::TwoPi / 360.0;
-			constexpr double cDegrees = 360.0 / Math::TwoPi;
-			constexpr __m128d cV0{ 0.0, 0.0 };
-			constexpr __m128d cV0_5{ 0.5, 0.5 };
-			constexpr __m128d cV1{ 1.0, 1.0 };
-			constexpr __m128d cV3{ 3.0, 3.0 };
-		}
-
-		//
-		/////////////////////////////////////////////////////////////////////////////////////////////////////
-		//
-
 		/// <summary>
 		/// 剰余を計算します。
 		/// </summary>

@@ -14,6 +14,9 @@
 
 namespace s3d
 {
+	/// <summary>
+	/// 動的配列
+	/// </summary>
 	template <>
 	class Array<bool> : protected std::basic_string<bool>
 	{

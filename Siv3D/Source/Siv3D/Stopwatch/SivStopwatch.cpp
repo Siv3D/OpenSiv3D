@@ -11,6 +11,7 @@
 
 # include <Siv3D/Stopwatch.hpp>
 # include <Siv3D/String.hpp>
+# include <Siv3D/FormatUtility.hpp>
 
 namespace s3d
 {

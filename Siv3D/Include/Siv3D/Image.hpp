@@ -13,8 +13,10 @@
 # include "Fwd.hpp"
 # include "Array.hpp"
 # include "Color.hpp"
+# include "NamedParameter.hpp"
 # include "PointVector.hpp"
 # include "Grid.hpp"
+# include "ImageFormat.hpp"
 
 # if defined(SIV3D_TARGET_LINUX)
 # include <memory.h>
@@ -22,6 +24,11 @@
 
 namespace s3d
 {
+	/// <summary>
+	/// 画像の最大サイズ
+	/// </summary>
+	constexpr int32 MaxImageSize = 8192;
+	
 	/// <summary>
 	/// 画像
 	/// </summary>
@@ -40,10 +47,30 @@ namespace s3d
 
 		uint32 m_height = 0;
 
-		static constexpr bool IsValidSize(size_t width, size_t height)
+		static Image Generate(const size_t width, const size_t height, std::function<Color(void)> generator);
+
+		template <class Fty>
+		static Image Generate(const size_t width, const size_t height, Fty generator)
 		{
-			return width <= MaxSize && height <= MaxSize;
+			Image new_image(width, height);
+
+			if (!new_image.isEmpty())
+			{
+				Color* pDst = new_image[0];
+
+				for (uint32 y = 0; y < height; ++y)
+				{
+					for (uint32 x = 0; x < width; ++x)
+					{
+						(*pDst++) = generator({ x, y });
+					}
+				}
+			}
+
+			return new_image;
 		}
+
+		static Image Generate0_1(const size_t width, const size_t height, std::function<Color(Vec2)> generator);
 
 	public:
 
@@ -51,11 +78,6 @@ namespace s3d
 		using const_iterator			= Array<Color>::const_iterator;
 		using reverse_iterator			= Array<Color>::reverse_iterator;
 		using const_reverse_iterator	= Array<Color>::const_reverse_iterator;
-
-		/// <summary>
-		/// 画像の最大サイズ
-		/// </summary>
-		static constexpr int32 MaxSize = 8192;
 
 		/// <summary>
 		/// デフォルトコンストラクタ
@@ -76,13 +98,7 @@ namespace s3d
 		/// <param name="image">
 		/// ムーブする画像
 		/// </param>
-		Image(Image&& image) noexcept
-			: m_data(std::move(image.m_data))
-			, m_width(image.m_width)
-			, m_height(image.m_height)
-		{
-			image.m_width = image.m_height = 0;
-		}
+		Image(Image&& image) noexcept;
 
 		/// <summary>
 		/// 指定したサイズの画像を作成します。
@@ -105,8 +121,17 @@ namespace s3d
 		Image(const Size& size, const Color& color)
 			: Image(size.x, size.y, color) {}
 
-		//Image(const Size& size, std::function<Color(Point)> generator)
-		//	: Image(size.x, size.y, generator) {}
+		Image(const Size& size, Arg::generator_<std::function<Color(void)>> generator)
+			: Image(size.x, size.y, generator) {}
+
+		Image(const Size& size, Arg::generator_<std::function<Color(Point)>> generator)
+			: Image(size.x, size.y, generator) {}
+
+		Image(const Size& size, Arg::generator_<std::function<Color(Vec2)>> generator)
+			: Image(size.x, size.y, generator) {}
+
+		Image(const Size& size, Arg::generator0_1_<std::function<Color(Vec2)>> generator)
+			: Image(size.x, size.y, generator) {}
 
 		/// <summary>
 		/// 指定したサイズの画像を作成します。
@@ -117,12 +142,19 @@ namespace s3d
 		/// <param name="height">
 		/// 画像の高さ（ピクセル）
 		/// </param>
-		Image(size_t width, size_t height)
-			: m_data(IsValidSize(width, height) ? width*height : 0)
-			, m_width(IsValidSize(width, height) ? static_cast<uint32>(width) : 0)
-			, m_height(IsValidSize(width, height) ? static_cast<uint32>(height) : 0) {}
+		Image(size_t width, size_t height);
 
-		//Image(uint32 width, uint32 height, std::function<Color(Point)> generator);
+		Image(uint32 width, uint32 height, Arg::generator_<std::function<Color(void)>> generator)
+			: Image(Generate(width, height, *generator)) {}
+
+		Image(uint32 width, uint32 height, Arg::generator_<std::function<Color(Point)>> generator)
+			: Image(Generate(width, height, *generator)) {}
+
+		Image(uint32 width, uint32 height, Arg::generator_<std::function<Color(Vec2)>> generator)
+			: Image(Generate(width, height, *generator)) {}
+
+		Image(uint32 width, uint32 height, Arg::generator0_1_<std::function<Color(Vec2)>> generator)
+			: Image(Generate0_1(width, height, *generator)) {}
 
 		/// <summary>
 		/// 指定した色、サイズで塗りつぶされた画像を作成します。
@@ -136,10 +168,7 @@ namespace s3d
 		/// <param name="color">
 		/// 塗りつぶしの色
 		/// </param>
-		Image(size_t width, size_t height, const Color& color)
-			: m_data(IsValidSize(width, height) ? width * height : 0, color)
-			, m_width(IsValidSize(width, height) ? static_cast<uint32>(width) : 0)
-			, m_height(IsValidSize(width, height) ? static_cast<uint32>(height) : 0) {}
+		Image(size_t width, size_t height, const Color& color);
 
 		/// <summary>
 		/// 画像ファイルから画像を作成します。
@@ -147,7 +176,7 @@ namespace s3d
 		/// <param name="path">
 		/// 画像ファイルのパス
 		/// </param>
-		//explicit Image(const FilePath& path);
+		explicit Image(const FilePath& path);
 
 		/// <summary>
 		/// Reader から画像を作成します。
@@ -158,7 +187,7 @@ namespace s3d
 		/// <param name="format">
 		/// 画像のフォーマット
 		/// </param>
-		//explicit Image(IReader&& reader, ImageFormat format = ImageFormat::Unspecified);
+		explicit Image(IReader&& reader, ImageFormat format = ImageFormat::Unspecified);
 
 		/// <summary>
 		/// 2 つの画像ファイルから画像を作成します。
@@ -169,7 +198,7 @@ namespace s3d
 		/// <param name="alpha">
 		/// アルファ値を読み込む画像ファイルのパス
 		/// </param>
-		//Image(const FilePath& rgb, const FilePath& alpha);
+		Image(const FilePath& rgb, const FilePath& alpha);
 
 		/// <summary>
 		/// 画像ファイルからアルファ値を作成し、画像を作成します。
@@ -184,36 +213,11 @@ namespace s3d
 		/// alpha の画像の R 成分を、テクスチャのアルファ値に設定します。
 		/// 画像ファイルの読み込みに失敗した場合、空のテクスチャを作成します。
 		/// </remarks>
-		//Image(const Color& rgb, const FilePath& alpha);
+		Image(const Color& rgb, const FilePath& alpha);
 
-		explicit Image(const Grid<Color>& grid)
-			: Image(grid.width(), grid.height())
-		{
-			if (m_data.empty())
-			{
-				return;
-			}
+		explicit Image(const Grid<Color>& grid);
 
-			::memcpy(m_data.data(), grid.data(), grid.size_bytes());
-		}
-
-		explicit Image(const Grid<ColorF>& grid)
-			: Image(grid.width(), grid.height())
-		{
-			if (m_data.empty())
-			{
-				return;
-			}
-
-			const ColorF* pSrc = grid.data();
-			const ColorF* const pSrcEnd = pSrc + grid.size_elements();
-			Color* pDst = &m_data[0];
-
-			while (pSrc != pSrcEnd)
-			{
-				*pDst++ = *pSrc++;
-			}
-		}
+		explicit Image(const Grid<ColorF>& grid);
 
 		template <class Type, class Fty>
 		explicit Image(const Grid<Type>& grid, Fty converter)
@@ -232,6 +236,168 @@ namespace s3d
 			{
 				*pDst++ = converter(*pSrc++);
 			}
+		}
+
+		/// <summary>
+		/// 新しい画像を代入します。
+		/// </summary>
+		/// <param name="str">
+		/// 新しい画像
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		Image& operator =(const Image& image) = default;
+
+		/// <summary>
+		/// 新しい画像を代入します。
+		/// </summary>
+		/// <param name="str">
+		/// 新しい画像
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		Image& operator =(Image&& image);
+
+		Image& assign(const Image& image)
+		{
+			return operator =(image);
+		}
+
+		Image& assign(Image&& image)
+		{
+			return operator =(std::move(image));
+		}
+
+		/// <summary>
+		/// 画像の幅（ピクセル）
+		/// </summary>
+		int32 width() const noexcept
+		{
+			return m_width;
+		}
+
+		/// <summary>
+		/// 画像の高さ（ピクセル）
+		/// </summary>
+		int32 height() const noexcept
+		{
+			return m_height;
+		}
+
+		/// <summary>
+		/// 画像の幅と高さ（ピクセル）
+		/// </summary>
+		Size size() const noexcept
+		{
+			return{ m_width, m_height };
+		}
+
+		/// <summary>
+		/// 画像の各行のデータサイズ
+		/// </summary>
+		uint32 stride() const noexcept
+		{
+			return m_width * sizeof(Color);
+		}
+
+		/// <summary>
+		/// 画像のピクセル数
+		/// </summary>
+		uint32 num_pixels() const noexcept
+		{
+			return m_width * m_height;
+		}
+
+		/// <summary>
+		/// 画像のデータサイズ
+		/// </summary>
+		uint32 memorySize() const
+		{
+			return stride() * m_height;
+		}
+
+		/// <summary>
+		/// 画像が空かどうかを示します。
+		/// </summary>
+		bool isEmpty() const
+		{
+			return m_data.empty();
+		}
+
+		/// <summary>
+		/// 画像が空ではないかを返します。
+		/// </summary>
+		/// <returns>
+		/// 画像が空ではない場合 true, それ以外の場合は false
+		/// </returns>
+		explicit operator bool() const
+		{
+			return !isEmpty();
+		}
+
+		/// <summary>
+		/// 画像の不要なメモリ消費を削除します。
+		/// </summary>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void shrink_to_fit()
+		{
+			m_data.shrink_to_fit();
+		}
+
+		/// <summary>
+		/// 画像を消去し、空の画像にします。
+		/// </summary>
+		/// <remarks>
+		/// メモリを解放したい場合は shrink_to_fit() を呼びます。
+		/// </remarks>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void clear()
+		{
+			m_data.clear();
+
+			m_width = m_height = 0;
+		}
+
+		void release()
+		{
+			clear();
+
+			shrink_to_fit();
+		}
+
+		/// <summary>
+		/// 画像を別の画像と交換します。
+		/// </summary>
+		/// <param name="image">
+		/// 交換する画像
+		/// </param>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void swap(Image& image)
+		{
+			m_data.swap(image.m_data);
+
+			std::swap(m_width, image.m_width);
+
+			std::swap(m_height, image.m_height);
+		}
+
+		/// <summary>
+		/// 画像をコピーした新しい画像を返します。
+		/// </summary>
+		/// <returns>
+		/// コピーした新しい画像
+		/// </returns>
+		Image cloned() const
+		{
+			return *this;
 		}
 
 		/// <summary>
@@ -397,11 +563,116 @@ namespace s3d
 		const_reverse_iterator crend() const noexcept { return m_data.crend(); }
 
 
+		/// <summary>
+		/// 画像を指定した色で塗りつぶします。
+		/// </summary>
+		/// <param name="color">
+		/// 塗りつぶしの色
+		/// </param>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void fill(const Color& color)
+		{
+			for (auto& pixel : m_data)
+			{
+				pixel = color;
+			}
+		}
+
+		/// <summary>
+		/// 画像のサイズを変更します。
+		/// </summary>
+		/// <param name="width">
+		/// 新しい幅(ピクセル)
+		/// </param>
+		/// <param name="height">
+		/// 新しい高さ(ピクセル)
+		/// </param>
+		/// <remarks>
+		/// サイズの変更が必要ないときは何もしません。
+		/// サイズが変更された場合、すべての要素の値が不定になります。
+		/// 画像を拡大縮小する場合は scale() を使ってください。
+		/// </remarks>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void resize(size_t width, size_t height);
+
+		/// <summary>
+		/// 画像のサイズを変更します。
+		/// </summary>
+		/// <param name="size">
+		/// 新しいサイズ(ピクセル)
+		/// </param>
+		/// <remarks>
+		/// サイズの変更が必要ないときは何もしません。
+		/// サイズが変更された場合、すべての要素の値が不定になります。
+		/// 画像を拡大縮小する場合は scale() を使ってください。
+		/// </remarks>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void resize(const Size& size)
+		{
+			resize(size.x, size.y);
+		}
+
+		/// <summary>
+		/// 画像のサイズを変更します。
+		/// </summary>
+		/// <param name="width">
+		/// 新しい幅(ピクセル)
+		/// </param>
+		/// <param name="height">
+		/// 新しい高さ(ピクセル)
+		/// </param>
+		/// <param name="fillColor">
+		/// 塗りつぶしの色
+		/// </param>
+		/// <remarks>
+		/// サイズの変更が必要ないときは何もしません。
+		/// サイズが変更された場合、すべての要素が fillColor で塗りつぶされます。
+		/// 画像を拡大縮小する場合は scale() を使ってください。
+		/// </remarks>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void resize(size_t width, size_t height, const Color& fillColor);
+
+		/// <summary>
+		/// 画像のサイズを変更します。
+		/// </summary>
+		/// <param name="size">
+		/// 新しいサイズ(ピクセル)
+		/// </param>
+		/// <param name="fillColor">
+		/// 塗りつぶしの色
+		/// </param>
+		/// <remarks>
+		/// サイズの変更が必要ないときは何もしません。
+		/// サイズが変更された場合、すべての要素が fillColor で塗りつぶされます。
+		/// 画像を拡大縮小する場合は scale() を使ってください。
+		/// </remarks>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void resize(const Size& size, const Color& fillColor)
+		{
+			resize(size.x, size.y, fillColor);
+		}
 
 
+		bool applyAlphaFromRChannel(const FilePath& alpha);
 
-
-
-		bool saveBMP(const FilePath&) const;
+		bool save(const FilePath& path, ImageFormat format = ImageFormat::Unspecified) const;
 	};
+}
+
+namespace std
+{
+	inline void swap(s3d::Image& a, s3d::Image& b)
+	{
+		a.swap(b);
+	}
 }

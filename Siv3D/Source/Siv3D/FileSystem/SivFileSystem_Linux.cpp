@@ -7,7 +7,7 @@
 
 using namespace s3d;
 
-std::string specialFolder(const int folder)
+std::string Linux_SpecialFolder(const int folder)
 {
 	const GUserDirectory folders[] = {
 		G_USER_DIRECTORY_DESKTOP,
@@ -36,7 +36,7 @@ std::string specialFolder(const int folder)
 	return sf_path;
 } 
 
-bool trashFile(const char* path)
+bool Linux_TrashFile(const char* path)
 {
 	gboolean ret;
 	GFile* gf = g_file_new_for_path(path);

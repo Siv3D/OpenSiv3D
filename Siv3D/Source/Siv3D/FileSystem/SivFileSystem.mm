@@ -12,7 +12,7 @@
 # include <string>
 # import  <Foundation/Foundation.h>
 
-bool trashFile(const char* path, const unsigned long pathLength, const bool isDirectory)
+bool macOS_TrashFile(const char* path, const unsigned long pathLength, const bool isDirectory)
 {
 	NSURL* url = (CFBridgingRelease(CFURLCreateFromFileSystemRepresentation(NULL, (const UInt8*)path, pathLength, isDirectory)));
     
@@ -23,7 +23,7 @@ bool trashFile(const char* path, const unsigned long pathLength, const bool isDi
 	return result;
 }
 
-std::string specialFolder(const int folder)
+std::string macOS_SpecialFolder(const int folder)
 {
 	const NSSearchPathDirectory folders[] = {
 		NSDesktopDirectory,

@@ -41,7 +41,7 @@ namespace s3d
 		/// <summary>
 		/// データを Base64 エンコードします。
 		/// </summary>
-		/// <param name="data">
+		/// <param name="view">
 		/// エンコードするデータ
 		/// </param>
 		/// <returns>
@@ -55,7 +55,7 @@ namespace s3d
 		/// <summary>
 		/// テキストを Base64 でデコードします。
 		/// </summary>
-		/// <param name="src">
+		/// <param name="base64">
 		/// デコードするテキスト
 		/// </param>
 		/// <returns>
