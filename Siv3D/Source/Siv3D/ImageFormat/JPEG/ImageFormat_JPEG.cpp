@@ -9,7 +9,13 @@
 //
 //-----------------------------------------------
 
+# include <Siv3D/Platform.hpp>
+# if defined(SIV3D_TARGET_LINUX)
+# include <turbojpeg.h>
+# else
 # include "../../../ThirdParty/libjpeg-turbo/turbojpeg.h"
+# endif
+
 # include "ImageFormat_JPEG.hpp"
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/IWriter.hpp>
