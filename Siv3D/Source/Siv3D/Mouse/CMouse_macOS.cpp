@@ -87,9 +87,9 @@ namespace s3d
 		m_scrollInternal.moveBy(v, h);
 	}
 	
-	void CMouse_macOS::OnScroll(WindowHandle, double v, double h)
+	void CMouse_macOS::OnScroll(const WindowHandle, const double h, const double v)
 	{
-		Siv3DEngine::GetMouse()->onScroll(static_cast<int32>(v * 10), static_cast<int32>(h * 10));
+		Siv3DEngine::GetMouse()->onScroll(h, -v);
 	}
 }
 

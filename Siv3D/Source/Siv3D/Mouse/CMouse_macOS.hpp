@@ -34,7 +34,7 @@ namespace s3d
 
 		Vec2 m_scroll{ 0.0, 0.0 };
 		
-		static void OnScroll(WindowHandle, double v, double h);
+		static void OnScroll(WindowHandle, double h, double v);
 		
 	public:
 
@@ -56,7 +56,7 @@ namespace s3d
 		
 		const Vec2& wheel() const override;
 		
-		void onScroll(int32 v, int32 h) override;
+		void onScroll(double v, double h) override;
 	};
 }
 
