@@ -32,6 +32,8 @@ namespace s3d
 	{
 		m_glfwWindow = Siv3DEngine::GetWindow()->getHandle();
 
+		::glfwSetScrollCallback(m_glfwWindow, OnScroll);
+		
 		return true;
 	}
 
@@ -42,6 +44,14 @@ namespace s3d
 			const bool pressed = (::glfwGetMouseButton(m_glfwWindow, i) == GLFW_PRESS);
 	
 			m_states[i].update(pressed);
+		}
+		
+		{
+			std::lock_guard<std::mutex> lock(m_scrollMutex);
+		
+			m_scroll = m_scrollInternal;
+			
+			m_scrollInternal.set(0, 0);
 		}
 	}
 	
@@ -63,6 +73,23 @@ namespace s3d
 	MillisecondsF CMouse_macOS::pressedDuration(const uint32 index) const
 	{
 		return m_states[index].pressedDuration;
+	}
+	
+	const Point& CMouse_macOS::wheel() const
+	{
+		return m_scroll;
+	}
+	
+	void CMouse_macOS::onScroll(const int32 v, const int32 h)
+	{
+		std::lock_guard<std::mutex> lock(m_scrollMutex);
+		
+		m_scrollInternal.moveBy(v, h);
+	}
+	
+	void CMouse_macOS::OnScroll(WindowHandle, double v, double h)
+	{
+		Siv3DEngine::GetMouse()->onScroll(static_cast<int32>(v * 10), static_cast<int32>(h * 10));
 	}
 }
 

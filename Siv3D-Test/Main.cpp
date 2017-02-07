@@ -5,6 +5,6 @@ void Main()
 {
 	while (System::Update())
 	{
-
+		Log << Point(Mouse::Wheel(), Mouse::WheelH());
 	}
 }

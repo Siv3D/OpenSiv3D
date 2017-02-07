@@ -32,6 +32,8 @@ namespace s3d
 
 		std::array<InputState, MouseButtonCount> m_states;
 
+		Point m_scroll{ 0, 0 };
+		
 		bool m_inputAttached = false;
 
 	public:
@@ -51,6 +53,10 @@ namespace s3d
 		bool up(uint32 index) const override;
 
 		MillisecondsF pressedDuration(uint32 index) const override;
+		
+		const Point& wheel() const override;
+		
+		void onScroll(int32 v, int32 h) override;
 	};
 }
 

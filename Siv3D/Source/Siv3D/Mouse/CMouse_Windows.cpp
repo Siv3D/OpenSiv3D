@@ -81,6 +81,18 @@ namespace s3d
 	{
 		return m_states[index].pressedDuration;
 	}
+	
+	const Point& CMouse_Windows::wheel() const
+	{
+		return m_scroll;
+	}
+	
+	void CMouse_Windows::onScroll(const int32 v, const int32 h)
+	{
+		std::lock_guard<std::mutex> lock(m_scrollMutex);
+		
+		m_scrollInternal.moveBy(v, h);
+	}
 }
 
 # endif

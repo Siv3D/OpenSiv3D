@@ -13,6 +13,7 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_MACOS)
 
+# include <mutex>
 # include "IMouse.hpp"
 # include <Siv3D/PointVector.hpp>
 # include "../Window/IWindow.hpp"
@@ -26,6 +27,14 @@ namespace s3d
 		WindowHandle m_glfwWindow = nullptr;
 
 		std::array<InputState, MouseButtonCount> m_states;
+		
+		std::mutex m_scrollMutex;
+		
+		Point m_scrollInternal{ 0, 0 };
+		
+		Point m_scroll{ 0, 0 };
+		
+		static void OnScroll(WindowHandle, double v, double h);
 		
 	public:
 
@@ -44,6 +53,10 @@ namespace s3d
 		bool up(uint32 index) const override;
 
 		MillisecondsF pressedDuration(uint32 index) const override;
+		
+		const Point& wheel() const override;
+		
+		void onScroll(int32 v, int32 h) override;
 	};
 }
 

@@ -80,5 +80,9 @@ namespace s3d
 		virtual bool up(uint32 index) const = 0;
 
 		virtual MillisecondsF pressedDuration(uint32 index) const = 0;
+		
+		virtual const Point& wheel() const = 0;
+		
+		virtual void onScroll(int32 x, int32 y) = 0;
 	};
 }
