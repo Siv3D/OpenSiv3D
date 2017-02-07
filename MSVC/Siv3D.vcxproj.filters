@@ -206,6 +206,9 @@
     <Filter Include="Source\ThirdParty\libjpeg-turbo">
       <UniqueIdentifier>{34bdde9d-666c-4757-b4ac-c807b2b38af1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Keyboard">
+      <UniqueIdentifier>{f033f84d-edc6-49b4-af16-c1e14e65c579}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -774,6 +777,9 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\Source\ThirdParty\libjpeg-turbo\turbojpeg.h">
       <Filter>Source\ThirdParty\libjpeg-turbo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Key\InputState.hpp">
+      <Filter>Source\Siv3D\Key</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
