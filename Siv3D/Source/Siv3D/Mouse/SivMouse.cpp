@@ -17,6 +17,14 @@ namespace s3d
 {
 	namespace Mouse
 	{
-
+		int32 Wheel()
+		{
+			return 0;
+		}
+		
+		int32 WheelH()
+		{
+			return 0;
+		}
 	}
 }
