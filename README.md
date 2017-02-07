@@ -78,7 +78,7 @@
 #### 0.0.7
 - [x] JPEG
 - [x] Cursor (Partial)
-- [ ] Mouse (Partial)
+- [x] Mouse
 - [ ] Key (Partial)
 - [ ] Image (Partial)
 - [ ] Rect
