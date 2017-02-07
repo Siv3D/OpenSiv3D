@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <cassert>
 # include <random>
 # include <type_traits>
 

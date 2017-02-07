@@ -891,7 +891,7 @@ namespace s3d
 	/// 渡した後の入力ストリーム
 	/// </returns>
 	template <class CharType>
-	inline std::basic_istream<CharType>& operator >> (std::basic_istream<CharType>& is, Color& color)
+	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& is, Color& color)
 	{
 		uint32 cols[4];
 		CharType unused;

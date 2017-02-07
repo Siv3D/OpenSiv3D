@@ -31,10 +31,16 @@
 	# ifdef _DEBUG
 
 		# pragma comment (lib, "Windows(x64)/Siv3D_d")
+		# pragma comment (lib, "Windows(x64)/zlib/zlib_d")
+		# pragma comment (lib, "Windows(x64)/libpng/libpng16_d")
+		# pragma comment (lib, "Windows(x64)/libjpeg-turbo/turbojpeg-static_d")
 
 	# else
 
 		# pragma comment (lib, "Windows(x64)/Siv3D")
+		# pragma comment (lib, "Windows(x64)/zlib/zlib")
+		# pragma comment (lib, "Windows(x64)/libpng/libpng16")
+		# pragma comment (lib, "Windows(x64)/libjpeg-turbo/turbojpeg-static")
 
 	# endif
 
@@ -43,10 +49,16 @@
 	# ifdef _DEBUG
 
 		# pragma comment (lib, "Windows(x86)/Siv3D_d")
+		# pragma comment (lib, "Windows(x86)/zlib/zlib_d")
+		# pragma comment (lib, "Windows(x86)/libpng/libpng16_d")
+		# pragma comment (lib, "Windows(x86)/libjpeg-turbo/turbojpeg-static_d")
 
 	# else
 
 		# pragma comment (lib, "Windows(x86)/Siv3D")
+		# pragma comment (lib, "Windows(x86)/zlib/zlib")
+		# pragma comment (lib, "Windows(x86)/libpng/libpng16")
+		# pragma comment (lib, "Windows(x86)/libjpeg-turbo/turbojpeg-static")
 
 	# endif
 

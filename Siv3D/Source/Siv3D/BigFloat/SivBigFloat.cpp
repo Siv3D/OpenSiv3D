@@ -602,6 +602,11 @@ namespace s3d
 				result.pop_back();
 			}
 		}
+		
+		if(result.back() == '.')
+		{
+			result.pop_back();
+		}
 
 		return result;
 	}

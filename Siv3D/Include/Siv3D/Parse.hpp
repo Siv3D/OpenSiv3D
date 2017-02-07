@@ -117,7 +117,7 @@ namespace s3d
 	{
 		Type to;
 
-		if (std::wistringstream(str.str()).operator >> (to))
+		if (std::wistringstream{ str.str() } >> to)
 		{
 			return Optional<Type>(std::move(to));
 		}

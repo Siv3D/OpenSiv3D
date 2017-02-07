@@ -12,6 +12,7 @@
 # include "../../ThirdParty/md5/md5.h"
 # include <Siv3D/MD5.hpp>
 # include <Siv3D/BinaryReader.hpp>
+# include <Siv3D/FormatUtility.hpp>
 
 namespace s3d
 {

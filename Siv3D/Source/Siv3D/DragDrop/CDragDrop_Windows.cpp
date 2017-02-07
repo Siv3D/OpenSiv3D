@@ -25,8 +25,6 @@
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Time.hpp>
 
-#include <Siv3D/Logger.hpp>
-
 namespace s3d
 {
 	namespace detail

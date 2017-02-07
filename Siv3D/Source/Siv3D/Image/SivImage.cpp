@@ -9,105 +9,245 @@
 //
 //-----------------------------------------------
 
+# include "../Siv3DEngine.hpp"
+# include "../ImageFormat/IImageFormat.hpp"
 # include <Siv3D/Image.hpp>
 
 namespace s3d
 {
-
-}
-
-
-//
-# include <Siv3D/BinaryWriter.hpp>
-
-namespace s3d
-{
-
-
-//
-
-# pragma pack ( push, 1 )
-	struct BMPHeader
+	namespace detail
 	{
-		uint16 bfType;
-		uint32 bfSize;
-		uint16 bfReserved1;
-		uint16 bfReserved2;
-		uint32 bfOffBits;
-		uint32 biSize;
-		int32  biWidth;
-		int32  biHeight;
-		uint16 biPlanes;
-		uint16 biBitCount;
-		uint32 biCompression;
-		uint32 biSizeImage;
-		int32  biXPelsPerMeter;
-		int32  biYPelsPerMeter;
-		uint32 biClrUsed;
-		uint32 biClrImportant;
-	};
-# pragma pack ( pop )
+		static constexpr bool IsValidSize(const size_t width, const size_t height)
+		{
+			return width <= MaxImageSize && height <= MaxImageSize;
+		}
+	}
 
-	bool Image::saveBMP(const FilePath& path) const
+	Image Image::Generate(const size_t width, const size_t height, std::function<Color(void)> generator)
 	{
-		BinaryWriter writer(path);
+		Image new_image(width, height);
 
-		if (!writer)
+		if (!new_image.isEmpty())
+		{
+			Color* pDst = new_image[0];
+			const Color* pDstEnd = pDst + new_image.num_pixels();
+
+			while (pDst != pDstEnd)
+			{
+				(*pDst++) = generator();
+			}
+		}
+
+		return new_image;
+	}
+
+	Image Image::Generate0_1(const size_t width, const size_t height, std::function<Color(Vec2)> generator)
+	{
+		Image new_image(width, height);
+
+		if (!new_image.isEmpty())
+		{
+			const double sx = 1.0 / (width - 1);
+			const double sy = 1.0 / (height - 1);
+
+			Color* pDst = new_image[0];
+
+			for (uint32 y = 0; y < height; ++y)
+			{
+				for (uint32 x = 0; x < width; ++x)
+				{
+					(*pDst++) = generator({ sx * x, sy * y });
+				}
+			}
+		}
+
+		return new_image;
+	}
+
+	Image::Image(Image&& image) noexcept
+		: m_data(std::move(image.m_data))
+		, m_width(image.m_width)
+		, m_height(image.m_height)
+	{
+		image.m_width = image.m_height = 0;
+	}
+
+	Image::Image(size_t width, size_t height)
+		: m_data(detail::IsValidSize(width, height) ? width * height : 0)
+		, m_width(detail::IsValidSize(width, height) ? static_cast<uint32>(width) : 0)
+		, m_height(detail::IsValidSize(width, height) ? static_cast<uint32>(height) : 0)
+	{
+	
+	}
+
+	Image::Image(size_t width, size_t height, const Color& color)
+		: m_data(detail::IsValidSize(width, height) ? width * height : 0, color)
+		, m_width(detail::IsValidSize(width, height) ? static_cast<uint32>(width) : 0)
+		, m_height(detail::IsValidSize(width, height) ? static_cast<uint32>(height) : 0)
+	{
+	
+	}
+
+	Image::Image(const FilePath& path)
+		: Image(Siv3DEngine::GetImageFormat()->load(path))
+	{
+
+	}
+
+	Image::Image(IReader&& reader, ImageFormat format)
+		: Image(Siv3DEngine::GetImageFormat()->decode(std::move(reader), format))
+	{
+
+	}
+
+	Image::Image(const FilePath& rgb, const FilePath& alpha)
+		: Image(rgb)
+	{
+		applyAlphaFromRChannel(alpha);
+	}
+
+	Image::Image(const Color& rgb, const FilePath& alpha)
+		: Image(alpha)
+	{
+		for (auto& pixel : *this)
+		{
+			pixel.a = pixel.r;
+			pixel.r = rgb.r;
+			pixel.g = rgb.g;
+			pixel.b = rgb.b;
+		}
+	}
+
+	Image::Image(const Grid<Color>& grid)
+		: Image(grid.width(), grid.height())
+	{
+		if (m_data.empty())
+		{
+			return;
+		}
+
+		::memcpy(m_data.data(), grid.data(), grid.size_bytes());
+	}
+
+	Image::Image(const Grid<ColorF>& grid)
+		: Image(grid.width(), grid.height())
+	{
+		if (m_data.empty())
+		{
+			return;
+		}
+
+		const ColorF* pSrc = grid.data();
+		const ColorF* const pSrcEnd = pSrc + grid.size_elements();
+		Color* pDst = &m_data[0];
+
+		while (pSrc != pSrcEnd)
+		{
+			*pDst++ = *pSrc++;
+		}
+	}
+
+	Image& Image::operator =(Image&& image)
+	{
+		m_data = std::move(image.m_data);
+		m_width = image.m_width;
+		m_height = image.m_height;
+
+		image.m_width = image.m_height = 0;
+
+		return *this;
+	}
+
+	void Image::resize(const size_t width, const size_t height)
+	{
+		if (!detail::IsValidSize(width, height))
+		{
+			return clear();
+		}
+
+		if (width == m_width && height == m_height)
+		{
+			return;
+		}
+
+		m_data.resize(width * height);
+
+		m_width = static_cast<uint32>(width);
+
+		m_height = static_cast<uint32>(height);
+	}
+
+	void Image::resize(const size_t width, const size_t height, const Color& fillColor)
+	{
+		if (!detail::IsValidSize(width, height))
+		{
+			return clear();
+		}
+
+		if (width == m_width && height == m_height)
+		{
+			return;
+		}
+
+		m_data.assign(width * height, fillColor);
+
+		m_width = static_cast<uint32>(width);
+
+		m_height = static_cast<uint32>(height);
+	}
+
+	bool Image::applyAlphaFromRChannel(const FilePath& alpha)
+	{
+		if (isEmpty())
 		{
 			return false;
 		}
 
-		const int32 width = m_width;
-		const int32 height = m_height;
-		const uint32 rowSize = width * 3 + width % 4;
-		const uint32 bmpsize = rowSize * height;
+		const Image alphaImage(alpha);
 
-		const BMPHeader hed =
+		if (alphaImage.isEmpty())
 		{
-			0x4d42,
-			static_cast<uint32>(bmpsize + sizeof(BMPHeader)),
-			0,
-			0,
-			sizeof(BMPHeader),
-			40,
-			width,
-			height,
-			1,
-			24,
-			0,
-			bmpsize,
-			0,
-			0,
-			0,
-			0
-		};
-
-		writer.write(hed);
-
-		const Color* pSrcLine = operator[](height - 1);
-
-		uint8* const line = static_cast<uint8*>(::calloc(rowSize, sizeof(uint8)));
-
-		for (int32 y = 0; y < height; ++y)
-		{
-			uint8* pDst = line;
-			const Color* pSrc = pSrcLine;
-
-			for (int32 x = 0; x < width; ++x)
-			{
-				*pDst++ = pSrc->b;
-				*pDst++ = pSrc->g;
-				*pDst++ = pSrc->r;
-				++pSrc;
-			}
-
-			writer.write(line, rowSize);
-
-			pSrcLine -= width;
+			return false;
 		}
 
-		::free(line);
+		Color* pDst = (*this)[0];
+		const size_t dstStep = m_width;
+
+		const Color* pSrc = alphaImage[0];
+		const size_t srcStep = alphaImage.m_width;
+
+		const uint32 w = std::min(m_width, alphaImage.m_width);
+		const uint32 h = std::min(m_height, alphaImage.m_height);
+
+		for (uint32 y = 0; y < h; ++y)
+		{
+			Color* pDstLine = pDst;
+			const Color* pSrcLine = pSrc;
+
+			for (uint32 x = 0; x < w; ++x)
+			{
+				(*pDstLine++).a = (*pSrcLine++).r;
+			}
+
+			pSrc += srcStep;
+			pDst += dstStep;
+		}
 
 		return true;
+	}
+
+	bool Image::save(const FilePath& path, ImageFormat format) const
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		if (format == ImageFormat::Unspecified)
+		{
+			format = Siv3DEngine::GetImageFormat()->getFormatFromFilePath(path);
+		}
+
+		return Siv3DEngine::GetImageFormat()->save(*this, format, path);
 	}
 }

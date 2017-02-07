@@ -1,13 +1,15 @@
 <h1>OpenSiv3D SDK for Windows Desktop</h1>
 
-## 1. インストーラのダウンロードと実行 ##
-- <a href="http://siv3d.jp/downloads/Siv3D/OpenSiv3D(0.0.5)Installer.exe">インストーラー</a> をダウンロードして実行します
+## 1. Installing OpenSiv3D SDK ##
+- Run <a href="http://siv3d.jp/downloads/Siv3D/OpenSiv3D(0.0.6)Installer.exe">**OpenSiv3D SDK Installer**</a>.
+ - Use the Control Panel to uninstall OpenSiv3D SDK
 
-## 2. プロジェクトの作成
-- Visual Studio 2015 を起動し、メニューから | ファイル | → | 新規作成 | → | プロジェクト | を選択します
-
-- | ▼テンプレート | → | ▼Visual C++ | の一覧にある | OpenSiv3D(バージョン番号) | を選択します
-
--  プロジェクト名を入力して | OK | を押します
-
-- Main.cpp にサンプルコードか用意されているので、ビルド・実行します
+## 2. Creating a C++/OpenSiv3D Project
+1. Lanuch Visual Studio 2015 and create a project by pointing to **New** on the **File** menu, and then clicking **Project**.
+1. Click **Visual C++** project types pane and then click **OpenSiv3D(x.x.x)**.
+1. Type a name for the project.
+1. Click **OK** to create the project.
+1. **Main.cpp** which contains a sample code is added in the **Source Files** folder in **Solution Explorer**.
+1. Click **Main.cpp** and then the file is opened in the Visual Studio editor. 
+1. On the **Build** menu, click **Build Solution**.
+1. On the **Debug** menu, click **Start Debugging**.

@@ -86,7 +86,7 @@ SOFTWARE.<br>
 
 
 u8R"-(<div class="c0">double-conversion</div>
-<div class="c1">Copyright 2006-2011, the V8 project authors. All rights reserved.</div>
+<div class="c1">Copyright (c) 2006-2011, the V8 project authors. All rights reserved.</div>
 <div class="c2">
 Redistribution and use in source and binary forms, with or without<br>
 modification, are permitted provided that the following conditions are<br>
@@ -196,8 +196,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<br>
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 u8R"-(<div class="c0">GLFW</div>
-<div class="c1">Copyright(c) 2002 - 2006 Marcus Geelnard</div>
-<div class="c1">Copyright(c) 2006 - 2016 Camilla Löwy &lt;elmindreda@glfw.org&gt;</div>
+<div class="c1">Copyright (c) 2002 - 2006 Marcus Geelnard</div>
+<div class="c1">Copyright (c) 2006 - 2016 Camilla Löwy &lt;elmindreda@glfw.org&gt;</div>
 <div class="c2">
 This software is provided 'as-is', without any express or implied<br>
 warranty.In no event will the authors be held liable for any damages<br>
@@ -222,7 +222,7 @@ distribution.<br>
 # endif
 
 u8R"-(<div class="c0">muparser</div>
-<div class="c1">Copyright(C) 2011 Ingo Berg</div>
+<div class="c1">Copyright (c) 2011 Ingo Berg</div>
 <div class="c2">
 Permission is hereby granted, free of charge, to any person obtaining a copy of this<br>
 software and associated documentation files(the "Software"), to deal in the Software<br>
@@ -243,7 +243,7 @@ OR OTHER DEALINGS IN THE SOFTWARE.<br>
 
 
 u8R"-(<div class="c0">xxHash</div>
-<div class="c1">Copyright(C) 2012-2016, Yann Collet.</div>
+<div class="c1">Copyright (c) 2012-2016, Yann Collet.</div>
 <div class="c2">
 Redistribution and use in source and binary forms, with or without<br>
 modification, are permitted provided that the following conditions are<br>
@@ -269,6 +269,49 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT<br>
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<br>
 </div>)-"
 
+u8R"-(<div class="c0">zlib</div>
+<div class="c1">Copyright (c) 1995 - 2017 Jean - loup Gailly and Mark Adler</div>
+<div class="c2">
+This software is provided 'as-is', without any express or implied<br>
+warranty.In no event will the authors be held liable for any damages<br>
+arising from the use of this software.<br>
+<br>
+Permission is granted to anyone to use this software for any purpose,<br>
+including commercial applications, and to alter it and redistribute it<br>
+freely, subject to the following restrictions :<br>
+<br>
+1. The origin of this software must not be misrepresented; you must not<br>
+claim that you wrote the original software.If you use this software<br>
+in a product, an acknowledgment in the product documentation would be<br>
+appreciated but is not required.<br>
+2. Altered source versions must be plainly marked as such, and must not be<br>
+misrepresented as being the original software.<br>
+3. This notice may not be removed or altered from any source distribution.<br>
+</div>)-"
+
+u8R"-(<div class="c0">libpng</div>
+<div class="c1">Copyright (c) 1998-2002,2004,2006-2017 Glenn Randers-Pehrson</div>
+<div class="c2">
+The PNG Reference Library is supplied "AS IS".  The Contributing Authors<br>
+and Group 42, Inc. disclaim all warranties, expressed or implied,<br>
+including, without limitation, the warranties of merchantability and of<br>
+fitness for any purpose.  The Contributing Authors and Group 42, Inc.<br>
+assume no liability for direct, indirect, incidental, special, exemplary,<br>
+or consequential damages, which may result from the use of the PNG<br>
+Reference Library, even if advised of the possibility of such damage.<br>
+<br>
+Permission is hereby granted to use, copy, modify, and distribute this<br>
+source code, or portions hereof, for any purpose, without fee, subject<br>
+to the following restrictions:<br>
+<br>
+  1. The origin of this source code must not be misrepresented.<br>
+<br>
+  2. Altered versions must be plainly marked as such and must not<br>
+     be misrepresented as being the original source.<br>
+<br>
+  3. This Copyright notice may not be removed or altered from any<br>
+     source or altered source distribution.<br>
+</div>)-"
 
 u8R"-(<div class="c0">Convenient Constructs For Stepping Through a Range of Values</div>
 <div class="c1">Copyright (c) Mikhail Semenov</div>

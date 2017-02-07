@@ -18,6 +18,9 @@
 
 namespace s3d
 {
+	/// <summary>
+	/// 多倍長整数型
+	/// </summary>
 	class BigInt
 	{
 	private:
