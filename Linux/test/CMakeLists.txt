@@ -66,5 +66,7 @@ target_link_libraries(siv3d_test
 	icui18n
 	icuuc
 	icudata
+	png
+	turbojpeg
 )
 
