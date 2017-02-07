@@ -11,6 +11,7 @@
 
 # include "CCursor_Windows.hpp"
 # include "CCursor_macOS.hpp"
+# include "CCursor_Linux.hpp"
 
 namespace s3d
 {
@@ -23,7 +24,11 @@ namespace s3d
 	# elif defined(SIV3D_TARGET_MACOS)
 		
 		return new CCursor_macOS;
-		
+
+	# elif defined(SIV3D_TARGET_LINUX)
+
+		return new CCursor_Linux;
+
 	# endif
 	}
 }
