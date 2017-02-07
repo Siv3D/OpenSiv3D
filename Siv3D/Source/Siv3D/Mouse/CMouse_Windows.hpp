@@ -14,6 +14,7 @@
 # if defined(SIV3D_TARGET_WINDOWS)
 
 # include <array>
+# include <mutex>
 # define  NOMINMAX
 # define  STRICT
 # define  WIN32_LEAN_AND_MEAN
@@ -21,6 +22,7 @@
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
 # include "IMouse.hpp"
+# include <Siv3D/PointVector.hpp>
 
 namespace s3d
 {
@@ -32,7 +34,11 @@ namespace s3d
 
 		std::array<InputState, MouseButtonCount> m_states;
 
-		Point m_scroll{ 0, 0 };
+		std::mutex m_scrollMutex;
+
+		Vec2 m_scrollInternal{ 0.0, 0.0 };
+
+		Vec2 m_scroll{ 0.0, 0.0 };
 		
 		bool m_inputAttached = false;
 
@@ -54,9 +60,9 @@ namespace s3d
 
 		MillisecondsF pressedDuration(uint32 index) const override;
 		
-		const Point& wheel() const override;
+		const Vec2& wheel() const override;
 		
-		void onScroll(int32 v, int32 h) override;
+		void onScroll(double v, double h) override;
 	};
 }
 

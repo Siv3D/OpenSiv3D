@@ -30,9 +30,9 @@ namespace s3d
 		
 		std::mutex m_scrollMutex;
 		
-		Point m_scrollInternal{ 0, 0 };
-		
-		Point m_scroll{ 0, 0 };
+		Vec2 m_scrollInternal{ 0.0, 0.0 };
+
+		Vec2 m_scroll{ 0.0, 0.0 };
 		
 		static void OnScroll(WindowHandle, double v, double h);
 		
@@ -54,7 +54,7 @@ namespace s3d
 
 		MillisecondsF pressedDuration(uint32 index) const override;
 		
-		const Point& wheel() const override;
+		const Vec2& wheel() const override;
 		
 		void onScroll(int32 v, int32 h) override;
 	};

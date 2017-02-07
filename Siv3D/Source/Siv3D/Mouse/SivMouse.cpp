@@ -18,12 +18,12 @@ namespace s3d
 {
 	namespace Mouse
 	{
-		int32 Wheel()
+		double Wheel()
 		{
 			return Siv3DEngine::GetMouse()->wheel().y;
 		}
 		
-		int32 WheelH()
+		double WheelH()
 		{
 			return Siv3DEngine::GetMouse()->wheel().x;
 		}

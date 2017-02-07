@@ -57,8 +57,8 @@ namespace s3d
 	
 	namespace Mouse
 	{
-		int32 Wheel();
+		double Wheel();
 		
-		int32 WheelH();
+		double WheelH();
 	}
 }

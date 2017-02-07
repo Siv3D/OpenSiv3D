@@ -5,6 +5,14 @@ void Main()
 {
 	while (System::Update())
 	{
-		Log << Point(Mouse::Wheel(), Mouse::WheelH());
+		if (Mouse::Wheel())
+		{
+			Log << L"V: " << Mouse::Wheel();
+		}
+
+		if (Mouse::WheelH())
+		{
+			Log << L"H: " << Mouse::WheelH();
+		}
 	}
 }
