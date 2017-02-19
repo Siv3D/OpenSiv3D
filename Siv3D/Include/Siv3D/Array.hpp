@@ -438,12 +438,30 @@ namespace s3d
 			return Array(begin() + n, end());
 		}
 
+		/// <summary>
+		///	指定した条件が真になる要素を先頭から除いた残りの要素で新しい配列を作成します。
+		/// </summary>
+		/// <param name="f">
+		/// 先頭から取り除く要素の条件
+		/// </param>
+		/// <returns>
+		/// 指定した条件が真になる要素を先頭から除いた新しい配列
+		/// </returns>
 		template <class Fty>
 		Array drop_while(Fty f) const
 		{
 			return Array(std::find_if_not(begin(), end(), f), end());
 		}
-
+		
+		///	<summary>
+		///	配列の各要素への参照を引数に、先頭の要素から順に関数を呼び出します
+		/// </summary>
+		/// <param name="f">
+		/// 各要素への参照を引数にとる関数
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		template <class Fty>
 		Array& each(Fty f)
 		{
@@ -455,6 +473,15 @@ namespace s3d
 			return *this;
 		}
 
+		///	<summary>
+		///	配列の各要素への参照を引数に、先頭の要素から順に関数を呼び出します
+		/// </summary>
+		/// <param name="f">
+		/// 各要素への参照を引数にとる関数
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		template <class Fty>
 		const Array& each(Fty f) const
 		{
@@ -466,6 +493,15 @@ namespace s3d
 			return *this;
 		}
 
+		///	<summary>
+		///	インデックスと、配列の各要素への参照を引数に、先頭の要素から順に関数を呼び出します
+		/// </summary>
+		/// <param name="f">
+		/// 第一引数にインデックス、第二引数に各要素への参照をとる関数
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		template <class Fty>
 		Array& each_index(Fty f)
 		{
@@ -479,6 +515,15 @@ namespace s3d
 			return *this;
 		}
 
+		///	<summary>
+		///	インデックスと、配列の各要素への参照を引数に、先頭の要素から順に関数を呼び出します
+		/// </summary>
+		/// <param name="f">
+		/// 第一引数にインデックス、第二引数に各要素への参照をとる関数
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		template <class Fty>
 		const Array& each_index(Fty f) const
 		{
@@ -492,6 +537,18 @@ namespace s3d
 			return *this;
 		}
 
+		///	<summary>
+		///	配列の指定したインデックスの要素を取得します。インデックスが範囲外の場合は defaultValue を返します。
+		/// </summary>
+		/// <param name="index">
+		/// 要素のインデックス
+		/// </param>
+		/// <param name="defaultValue">
+		/// インデックスが範囲外だった場合に返す値
+		/// </param>
+		/// <returns>
+		/// 指定したインデックスの要素か、インデックスが範囲外の場合は defaultValue
+		/// </returns>
 		const Type& fetch(const size_t index, const Type& defaultValue) const
 		{
 			if (index >= size())
@@ -502,6 +559,15 @@ namespace s3d
 			return operator[](index);
 		}
 
+		///	<summary>
+		///	配列のすべての要素に同じ値を代入します
+		/// </summary>
+		/// <param name="value">
+		/// すべての要素に代入する値
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		Array& fill(const Type& value)
 		{
 			std::fill(begin(), end(), value);
@@ -509,6 +575,15 @@ namespace s3d
 			return *this;
 		}
 
+		///	<summary>
+		///	条件を満たす要素のみからなる新しい配列を返します
+		/// </summary>
+		/// <param name="f">
+		/// 新しい配列に含む要素の条件
+		/// </param>
+		/// <returns>
+		/// 条件を満たす要素のみからなる新しい配列
+		/// </returns>
 		template <class Fty>
 		Array filter(Fty f) const
 		{
@@ -525,6 +600,15 @@ namespace s3d
 			return new_array;
 		}
 
+		///	<summary>
+		///	指定した要素が配列に含まれているかを返します。
+		/// </summary>
+		/// <param name="value">
+		/// 検索する要素
+		/// </param>
+		/// <returns>
+		/// 指定した要素を含む場合は true, それ以外の場合は false
+		/// </returns>
 		bool include(const Type& value) const
 		{
 			for (const auto& v : *this)
@@ -538,12 +622,27 @@ namespace s3d
 			return false;
 		}
 
+		///	<summary>
+		///	指定した条件を満たす要素が配列に含まれているかを返します。
+		/// </summary>
+		/// <param name="f">
+		///	検索する条件
+		/// </param>
+		/// <returns>
+		///	指定した条件を満たす要素が含まれる場合は true, それ以外の場合は false
+		/// </returns>
 		template <class Fty>
 		bool include_if(Fty f) const
 		{
 			return any(f);
 		}
 
+		///	<summary>
+		///	配列が昇順にソートされているかを返します。
+		/// </summary>
+		/// <returns>
+		/// 配列が昇順にソートされている場合 true, それ以外の場合 false
+		/// </returns>
 		template <class T = Type, std::enable_if_t<Concept::HasLessThan<T>::value>* = nullptr>
 		bool isSorted() const
 		{
@@ -567,6 +666,21 @@ namespace s3d
 			return true;
 		}
 
+		///	<summary>
+		///	配列の各要素を指定した文字列で連結し、その文字列を返します。
+		/// </summary>
+		/// <param name="sep">
+		///	連結する際に使う文字列
+		/// </param>
+		/// <param name="begin">
+		///	先頭に挿入する文字列
+		/// </param>
+		/// <param name="end">
+		///	末尾に挿入する文字列
+		/// </param>
+		/// <returns>
+		/// 要素を指定した文字列で連結した結果の文字列
+		/// </returns>
 		String join(const String& sep = L",", const String& begin = L"{", const String& end = L"}") const
 		{
 			String s;
@@ -594,6 +708,15 @@ namespace s3d
 			return s;
 		}
 
+		///	<summary>
+		///	条件を満たさない要素を削除します
+		/// </summary>
+		/// <param name="f">
+		///	削除しない要素の条件
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		Array& keep_if(std::function<bool(const Type&)> f)
 		{
 			erase(std::remove_if(begin(), end(), std::not1(f)), end());
@@ -601,10 +724,20 @@ namespace s3d
 			return *this;
 		}
 
+		///	<summary>
+		///	配列の各要素に関数を適用した戻り値からなる配列を返します
+		/// </summary>
+		/// <param name="f">
+		/// 各要素に適用する関数
+		/// </param>
+		/// <returns>
+		/// 配列の各要素に関数を適用した戻り値からなる配列
+		/// </returns>
 		template <class Fty>
 		auto map(Fty f) const
+			-> Array<decltype(f(std::declval<value_type>()))>
 		{
-			Array<std::result_of_t<Fty(Type)>> new_array;
+			Array<decltype(f(std::declval<value_type>()))> new_array;
 
 			new_array.reserve(size());
 
@@ -639,6 +772,18 @@ namespace s3d
 			return true;
 		}
 
+		/// <summary>
+		/// 配列の要素を、初期値を用いて左畳み込みし、単一の値を得ます。
+		/// </summary>
+		/// <param name="f">
+		/// 関数
+		/// </param>
+		/// <param name="init">
+		/// 初期値
+		/// </param>
+		/// <returns>
+		/// 最終的に得られた単一の値
+		/// </returns>
 		template <class Fty>
 		auto reduce(Fty f, std::result_of_t<Fty(Type, Type)> init) const
 		{
@@ -652,6 +797,15 @@ namespace s3d
 			return value;
 		}
 
+		/// <summary>
+		/// 配列の要素を左畳み込みし、単一の値を得ます。
+		/// </summary>
+		/// <param name="f">
+		/// 関数
+		/// </param>
+		/// <returns>
+		/// 最終的に得られた単一の値
+		/// </returns>
 		template <class Fty>
 		auto reduce1(Fty f) const
 		{
@@ -673,6 +827,15 @@ namespace s3d
 			return value;
 		}
 
+		/// <summary>
+		/// 指定した値を持つ要素を配列から削除します。
+		/// </summary>
+		/// <param name="value">
+		/// 検索する値
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		Array& remove(const Type& value)
 		{
 			erase(std::remove(begin(), end(), value), end());
@@ -680,6 +843,15 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 指定した値を持つ要素を削除した新しい配列を返します。
+		/// </summary>
+		/// <param name="value">
+		/// 検索する値
+		/// </param>
+		/// <returns>
+		/// 指定した値を持つ要素を配列から削除した新しい配列
+		/// </returns>
 		Array removed(const Type& value) const &
 		{
 			Array new_array;
@@ -695,6 +867,15 @@ namespace s3d
 			return new_array;
 		}
 
+		/// <summary>
+		/// 指定した値を持つ要素を削除した新しい配列を返します。
+		/// </summary>
+		/// <param name="value">
+		/// 検索する値
+		/// </param>
+		/// <returns>
+		/// 指定した値を持つ要素を配列から削除した新しい配列
+		/// </returns>
 		Array removed(const Type& value) &&
 		{
 			erase(std::remove(begin(), end(), value), end());
@@ -704,6 +885,15 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 指定したインデックスの要素を配列から削除します。
+		/// </summary>
+		/// <param name="index">
+		/// インデックス
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		Array& remove_at(const size_t index)
 		{
 			if (index >= size())
@@ -716,6 +906,15 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 指定したインデックスの要素を削除した新しい配列を返します。
+		/// </summary>
+		/// <param name="index">
+		/// インデックス
+		/// </param>
+		/// <returns>
+		/// 指定したインデックスの要素を削除した新しい配列
+		/// </returns>
 		Array removed_at(const size_t index) const
 		{
 			if (index >= size())
@@ -734,6 +933,15 @@ namespace s3d
 			return new_array;
 		}
 
+		/// <summary>
+		/// 指定した条件を満たす要素を削除します。
+		/// </summary>
+		/// <param name="f">
+		/// 検索する条件
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		template <class Fty>
 		Array& remove_if(Fty f)
 		{
@@ -742,6 +950,15 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 指定した条件を満たす要素を削除した新しい配列を返します。
+		/// </summary>
+		/// <param name="f">
+		/// 検索する条件
+		/// </param>
+		/// <returns>
+		///	指定した条件を満たす要素を削除した新しい配列
+		/// </returns>
 		template <class Fty>
 		Array removed_if(Fty f) const &
 		{
@@ -758,6 +975,15 @@ namespace s3d
 			return new_array;
 		}
 
+		/// <summary>
+		/// 指定した条件を満たす要素を削除した新しい配列を返します。
+		/// </summary>
+		/// <param name="f">
+		/// 検索する条件
+		/// </param>
+		/// <returns>
+		///	指定した条件を満たす要素を削除した新しい配列
+		/// </returns>
 		template <class Fty>
 		Array removed_if(Fty f) &&
 		{
@@ -768,6 +994,18 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 指定した値を持つ要素を別の値に置き換えます。
+		/// </summary>
+		/// <param name="oldValue">
+		/// 置換前の値
+		/// </param>
+		/// <param name="newValue">
+		/// 置換後の値
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		Array& replace(const Type& oldValue, const Type& newValue)
 		{
 			for (auto& v : *this)
@@ -781,6 +1019,18 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 指定した値を持つ要素を別の値に置き換えた新しい配列を返します。
+		/// </summary>
+		/// <param name="oldValue">
+		/// 置換前の値
+		/// </param>
+		/// <param name="newValue">
+		/// 置換後の値
+		/// </param>
+		/// <returns>
+		///	指定した値を持つ要素を別の値に置き換えた新しい配列
+		/// </returns>
 		Array replaced(const Type& oldValue, const Type& newValue) const &
 		{
 			Array new_array;
@@ -802,6 +1052,18 @@ namespace s3d
 			return new_array;
 		}
 
+		/// <summary>
+		/// 指定した値を持つ要素を別の値に置き換えた新しい配列を返します。
+		/// </summary>
+		/// <param name="oldValue">
+		/// 置換前の値
+		/// </param>
+		/// <param name="newValue">
+		/// 置換後の値
+		/// </param>
+		/// <returns>
+		///	指定した値を持つ要素を別の値に置き換えた新しい配列
+		/// </returns>
 		Array replaced(const Type& oldValue, const Type& newValue) &&
 		{
 			replace(oldValue, newValue);
@@ -809,6 +1071,18 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 指定した条件を満たす要素を別の値に置き換えます。
+		/// </summary>
+		/// <param name="f">
+		/// 検索する条件
+		/// </param>
+		/// <param name="newValue">
+		/// 置換後の値
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		template <class Fty>
 		Array& replace_if(Fty f, const Type& newValue)
 		{
@@ -823,6 +1097,18 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 指定した条件を満たす要素を別の値に置き換えた新しい配列を返します。
+		/// </summary>
+		/// <param name="f">
+		/// 検索する条件
+		/// </param>
+		/// <param name="newValue">
+		/// 置換後の値
+		/// </param>
+		/// <returns>
+		///	指定した条件を満たす要素を別の値に置き換えた新しい配列
+		/// </returns>
 		template <class Fty>
 		Array replaced_if(Fty f, const Type& newValue) const &
 		{
@@ -845,6 +1131,18 @@ namespace s3d
 			return new_array;
 		}
 
+		/// <summary>
+		/// 指定した条件を満たす要素を別の値に置き換えた新しい配列を返します。
+		/// </summary>
+		/// <param name="f">
+		/// 検索する条件
+		/// </param>
+		/// <param name="newValue">
+		/// 置換後の値
+		/// </param>
+		/// <returns>
+		///	指定した条件を満たす要素を別の値に置き換えた新しい配列
+		/// </returns>
 		template <class Fty>
 		Array replaced_if(Fty f, const Type& newValue) &&
 		{
@@ -853,6 +1151,12 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 配列の要素の順番を反転させます。
+		/// </summary>
+		/// <returns>
+		/// *this
+		/// </returns>
 		Array& reverse()
 		{
 			std::reverse(begin(), end());
@@ -860,11 +1164,23 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 要素の順番を反転させた新しい配列を返します。
+		/// </summary>
+		/// <returns>
+		/// 要素の順番を反転させた新しい配列
+		/// </returns>
 		Array reversed() const &
 		{
 			return Array(rbegin(), rend());
 		}
 
+		/// <summary>
+		/// 要素の順番を反転させた新しい配列を返します。
+		/// </summary>
+		/// <returns>
+		/// 要素の順番を反転させた新しい配列
+		/// </returns>
 		Array reversed() &&
 		{
 			reverse();
@@ -872,6 +1188,15 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		///	<summary>
+		///	配列の各要素への参照を引数に、末尾の要素から順に関数を呼び出します
+		/// </summary>
+		/// <param name="f">
+		/// 各要素への参照を引数にとる関数
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		template <class Fty>
 		Array& reverse_each(Fty f)
 		{
@@ -883,6 +1208,15 @@ namespace s3d
 			return *this;
 		}
 
+		///	<summary>
+		///	配列の各要素への参照を引数に、末尾の要素から順に関数を呼び出します
+		/// </summary>
+		/// <param name="f">
+		/// 各要素への参照を引数にとる関数
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		template <class Fty>
 		const Array& reverse_each(Fty f) const
 		{
@@ -894,6 +1228,12 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 配列の要素の位置をシフトさせ、はみ出た要素は反対側に挿入します。
+		/// </summary>
+		/// <returns>
+		/// *this
+		/// </returns>
 		Array& rotate(std::ptrdiff_t count = 1)
 		{
 			if (empty())
@@ -1246,8 +1586,9 @@ namespace s3d
 
 		template <class Fty>
 		auto parallel_map(Fty f, size_t numThreads = Threading::GetConcurrency()) const
+			-> Array<decltype(f(std::declval<value_type>()))>
 		{
-			Array<std::result_of_t<Fty(Type)>> new_array;
+			Array<decltype(f(std::declval<value_type>()))> new_array;
 
 			if (isEmpty())
 			{

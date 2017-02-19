@@ -5,7 +5,7 @@
 void Main()
 {
 	RunTest();
-	
+
 	while (System::Update())
 	{
 

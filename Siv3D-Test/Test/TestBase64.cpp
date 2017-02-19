@@ -14,10 +14,11 @@
 # if defined(SIV3D_DO_TEST)
 
 using namespace s3d;
+using namespace std::literals;
 
 TEST(Base64, Encode)
 {
-	
+	EXPECT_EQ(Base64::Encode("ABCDEF"s), L"QUJDREVG");
 }
 
 # endif
