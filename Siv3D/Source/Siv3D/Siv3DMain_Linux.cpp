@@ -54,12 +54,7 @@ int main(int, char* argv[])
     
 	Siv3DEngine engine;
 
-	if (!engine.GetLogger()->init())
-	{
-		return -1;
-	}
-
-	if (!engine.GetWindow()->init())
+	if (!Siv3DEngine::GetSystem()->init())
 	{
 		return -1;
 	}
