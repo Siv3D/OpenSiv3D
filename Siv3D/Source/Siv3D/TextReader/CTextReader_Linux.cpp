@@ -5,7 +5,7 @@
 #include <unicode/ucnv.h>
 #include <unicode/ucsdet.h>
 
-constexpr size_t bufferLength = 1024;
+//constexpr size_t bufferLength = 1024;
 
 std::string ConvertLine(const std::string& line)
 {
