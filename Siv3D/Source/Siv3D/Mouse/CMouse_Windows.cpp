@@ -60,6 +60,14 @@ namespace s3d
 				m_states[i].update(pressed);
 			}
 		}
+
+		{
+			std::lock_guard<std::mutex> lock(m_scrollMutex);
+
+			m_scroll = m_scrollInternal;
+
+			m_scrollInternal.set(0.0, 0.0);
+		}
 	}
 
 	bool CMouse_Windows::down(const uint32 index) const
@@ -80,6 +88,18 @@ namespace s3d
 	MillisecondsF CMouse_Windows::pressedDuration(const uint32 index) const
 	{
 		return m_states[index].pressedDuration;
+	}
+	
+	const Vec2& CMouse_Windows::wheel() const
+	{
+		return m_scroll;
+	}
+	
+	void CMouse_Windows::onScroll(const double v, const double h)
+	{
+		std::lock_guard<std::mutex> lock(m_scrollMutex);
+		
+		m_scrollInternal.moveBy(v, h);
 	}
 }
 

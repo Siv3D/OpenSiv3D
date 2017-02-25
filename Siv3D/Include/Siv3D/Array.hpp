@@ -83,13 +83,43 @@ namespace s3d
 		using base_type::pop_back;
 		using base_type::resize;
 
+		/// <summary>
+		/// デフォルトコンストラクタ
+		/// </summary>
 		Array()
 			: base_type() {}
 
+		/// <summary>
+		/// ジェネレータを用いて配列を作成します。
+		/// </summary>
+		/// <param name="size">
+		/// 配列の要素数
+		/// </param>
+		/// <param name="generator">
+		/// ジェネレータ
+		/// </param>
+		/// <remarks>
+		/// 各要素の値をジェネレータ関数により初期化します。
+		/// </remarks>
 		template <class Fty, class R = Type, std::enable_if_t<std::is_convertible<std::result_of_t<Fty()>, R>::value>* = nullptr>
 		Array(const size_type size, Arg::generator_<Fty> generator)
 			: Array(Generate<Fty>(size, *generator)) {}
 
+		/// <summary>
+		/// ジェネレータを用いて配列を作成します。
+		/// </summary>
+		/// <param name="size">
+		/// 配列の要素数
+		/// </param>
+		/// <param name="generator">
+		/// ジェネレータ
+		/// </param>
+		/// <remarks>
+		/// 各要素の値をジェネレータ関数により初期化します。
+		/// </remarks>
+		/// <returns>
+		/// 作成した配列
+		/// </returns>
 		template <class Fty, class R = Type, std::enable_if_t<std::is_convertible<std::result_of_t<Fty()>, R>::value>* = nullptr>
 		static Array Generate(const size_type size, Fty generator)
 		{
@@ -103,21 +133,48 @@ namespace s3d
 			return new_array;
 		}
 
+		/// <summary>
+		/// 他の配列と要素を入れ替えます。
+		/// </summary>
+		/// <param name="other">
+		/// 入れ替える配列
+		/// </param>
+		/// <returns>
+		/// なし
+		/// </returns>
 		void swap(Array& other)
 		{
 			base_type::swap(other);
 		}
 
+		/// <summary>
+		/// 配列の要素数を返します。
+		/// </summary>
+		/// <returns>
+		/// 配列の要素数
+		/// </returns>
 		size_t count() const noexcept
 		{
 			return size();
 		}
 
+		/// <summary>
+		/// 配列の要素数が 0 であるかを返します。
+		/// </summary>
+		/// <returns>
+		/// 配列の要素数が 0 である場合 true, それ以外の場合は false
+		/// </returns>
 		bool isEmpty() const noexcept
 		{
 			return empty();
 		}
 
+		/// <summary>
+		/// 配列の要素を全て消去し、メモリも解放します。
+		/// </summary>
+		/// <returns>
+		/// なし
+		/// </returns>
 		void release()
 		{
 			clear();
@@ -125,6 +182,12 @@ namespace s3d
 			shrink_to_fit();
 		}
 
+		/// <summary>
+		/// 配列の要素の合計サイズ（バイト）を返します。
+		/// </summary>
+		/// <returns>
+		/// 配列の要素の合計サイズ（バイト）
+		/// </returns>
 		size_t size_bytes() const noexcept
 		{
 			static_assert(std::is_trivially_copyable<Type>::value, "Array::size_bytes() Type must be trivially copyable.");
@@ -132,6 +195,15 @@ namespace s3d
 			return size() * sizeof(value_type);
 		}
 
+		/// <summary>
+		/// 配列の末尾に要素を追加します。
+		/// </summary>
+		/// <param name="value">
+		/// 追加する値
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		Array& operator <<(const Type& value)
 		{
 			push_back(value);
@@ -139,6 +211,15 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 配列の末尾に要素を追加します。
+		/// </summary>
+		/// <param name="value">
+		/// 追加する値
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		Array& operator <<(Type&& value)
 		{
 			push_back(std::forward<Type>(value));
@@ -146,6 +227,15 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 全ての要素が条件を満たすかを返します。
+		/// </summary>
+		/// <param name="f">
+		/// 条件を記述した関数
+		/// </param>
+		/// <returns>
+		/// 条件を満たさない要素が 1 つでもあれば false, それ以外の場合は true
+		/// </returns>
 		template <class Fty = decltype(Id)>
 		bool all(Fty f = Id) const
 		{
@@ -160,6 +250,15 @@ namespace s3d
 			return true;
 		}
 
+		/// <summary>
+		/// 少なくとも 1 つの要素が条件を満たすかを返します。
+		/// </summary>
+		/// <param name="f">
+		/// 条件を記述した関数
+		/// </param>
+		/// <returns>
+		/// 条件を満たす要素が 1 つでもあれば true, それ以外の場合は false
+		/// </returns>
 		template <class Fty = decltype(Id)>
 		bool any(Fty f = Id) const
 		{
@@ -174,6 +273,15 @@ namespace s3d
 			return false;
 		}
 
+		/// <summary>
+		/// 配列の末尾に別の配列を追加します。
+		/// </summary>
+		/// <param name="other_array">
+		/// 追加する配列
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		Array& append(const Array& other_array)
 		{
 			insert(end(), other_array.begin(), other_array.end());
@@ -181,11 +289,26 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 配列の要素をランダムに 1 つ選択します。
+		/// </summary>
+		/// <returns>
+		/// ランダムに選択された要素への参照
+		/// </returns>
 		const Type& choice() const
 		{
 			return choice(GetDefaultRNG());
 		}
 
+		/// <summary>
+		/// 配列の要素をランダムに 1 つ選択します。
+		/// </summary>
+		/// <param name="rbg">
+		/// 選択に用いるランダムビット列生成エンジン
+		/// </param>
+		/// <returns>
+		/// ランダムに選択された要素への参照
+		/// </returns>
 		template <class URBG, std::enable_if_t<!std::is_scalar<URBG>::value>* = nullptr>
 		const Type& choice(URBG&& rbg) const
 		{
@@ -199,12 +322,39 @@ namespace s3d
 			return operator[](index);
 		}
 
+		/// <summary>
+		/// 指定した個数の要素を重複しないようランダムに選択します。
+		/// </summary>
+		/// <param name="n">
+		/// 選択する要素の個数
+		/// </param>
+		/// <remarks>
+		/// 要素の順序は保存されます。n が配列の要素数より少ない場合、全ての要素を返します。
+		/// </remarks>
+		/// <returns>
+		/// ランダムに選択された要素
+		/// </returns>
 		template <class Size_t, std::enable_if_t<std::is_scalar<Size_t>::value>* = nullptr>
 		Array choice(const Size_t n) const
 		{
 			return choice(n, GetDefaultRNG());
 		}
 
+		/// <summary>
+		/// 指定した個数の要素を重複しないようランダムに選択します。
+		/// </summary>
+		/// <param name="n">
+		/// 選択する要素の個数
+		/// </param>
+		/// <param name="rbg">
+		/// 選択に用いるランダムビット列生成エンジン
+		/// </param>
+		/// <remarks>
+		/// 要素の順序は保存されます。n が配列の要素数より少ない場合は、全ての要素を返します。
+		/// </remarks>
+		/// <returns>
+		/// ランダムに選択された要素
+		/// </returns>
 		template <class URBG>
 		Array choice(const size_t n, URBG&& rbg) const
 		{
@@ -217,6 +367,15 @@ namespace s3d
 			return result;
 		}
 
+		/// <summary>
+		///	指定した値を持つ要素の個数を返します。
+		/// </summary>
+		/// <param name="value">
+		/// 検索する値
+		/// </param>
+		/// <returns>
+		/// 指定した値を持つ要素の個数
+		/// </returns>
 		size_t count(const Type& value) const
 		{
 			size_t result = 0;
@@ -232,6 +391,15 @@ namespace s3d
 			return result;
 		}
 
+		/// <summary>
+		///	指定した条件を満たす要素の個数を返します。
+		/// </summary>
+		/// <param name="f">
+		/// 検索する条件
+		/// </param>
+		/// <returns>
+		/// 指定した条件を満たす要素の個数
+		/// </returns>
 		template <class Fty>
 		size_t count_if(Fty f) const
 		{
@@ -248,6 +416,18 @@ namespace s3d
 			return result;
 		}
 
+		/// <summary>
+		///	指定した個数だけ先頭から要素を除いた新しい配列を作成します。
+		/// </summary>
+		/// <param name="n">
+		/// 新しい配列に含めない先頭からの要素の個数
+		/// </param>
+		/// <remarks>
+		/// n が配列の要素数より少ない場合、要素数が 0 の配列を返します。
+		/// </remarks>
+		/// <returns>
+		/// 指定した個数だけ先頭から要素を除いた新しい配列
+		/// </returns>
 		Array drop(const size_t n) const
 		{
 			if (n >= size())
@@ -436,6 +616,15 @@ namespace s3d
 			return new_array;
 		}
 
+		/// <summary>
+		/// 全ての要素が条件を満たさないかを返します。
+		/// </summary>
+		/// <param name="f">
+		/// 条件を記述した関数
+		/// </param>
+		/// <returns>
+		/// 条件を満たす要素が 1 つでもあれば false, それ以外の場合は true
+		/// </returns>
 		template <class Fty = decltype(Id)>
 		bool none(Fty f = Id) const
 		{

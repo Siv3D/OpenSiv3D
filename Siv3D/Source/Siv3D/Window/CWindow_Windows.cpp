@@ -17,6 +17,7 @@
 # include "../Siv3DEngine.hpp"
 # include "CWindow_Windows.hpp"
 # include "../System/ISystem.hpp"
+# include "../Mouse/IMouse.hpp"
 
 namespace s3d
 {
@@ -50,6 +51,18 @@ namespace s3d
 				}
 
 				break;
+
+			case WM_MOUSEWHEEL:
+
+				Siv3DEngine::GetMouse()->onScroll(static_cast<short>(HIWORD(wParam)) / -double(WHEEL_DELTA), 0);
+
+				return 0;
+
+			case WM_MOUSEHWHEEL:
+
+				Siv3DEngine::GetMouse()->onScroll(0, static_cast<short>(HIWORD(wParam)) / double(WHEEL_DELTA));
+
+				return 0;
 			}
 
 			return ::DefWindowProcW(hWnd, message, wParam, lParam);
