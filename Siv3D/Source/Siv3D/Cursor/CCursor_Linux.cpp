@@ -17,11 +17,7 @@
 # include "CCursor_Linux.hpp"
 
 // TODO : implemantation
-void Linux_GetScreenCursorPos(double* xpos, double* ypos)
-{
-	*xpos = 0.0;
-	*ypos = 0.0;
-}
+void Linux_GetScreenCursorPos(double* xpos, double* ypos);
 
 namespace s3d
 {
@@ -51,15 +47,13 @@ namespace s3d
 
 	void CCursor_Linux::update()
 	{
-		double screenX, screenY;
-		Linux_GetScreenCursorPos(&screenX, &screenY);
-		m_screenPos.set(static_cast<int32>(screenX), static_cast<int32>(screenY));
-		m_previousScreenPos = m_screenPos;
-
 		double clientX, clientY;
 		::glfwGetCursorPos(m_glfwWindow, &clientX, &clientY);
 		m_clientPos.set(static_cast<int32>(clientX), static_cast<int32>(clientY));
 		m_previousClientPos = m_clientPos;
+
+		m_screenPos.set(static_cast<int32>(clientX), static_cast<int32>(clientY));
+		m_previousScreenPos = m_screenPos;
 	}
 
 	const Point& CCursor_Linux::previousScreenPos() const

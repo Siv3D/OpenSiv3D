@@ -12,11 +12,20 @@
 # include "../Siv3DEngine.hpp"
 # include "IMouse.hpp"
 # include <Siv3D/Mouse.hpp>
+# include <Siv3D/PointVector.hpp>
 
 namespace s3d
 {
 	namespace Mouse
 	{
-
+		double Wheel()
+		{
+			return Siv3DEngine::GetMouse()->wheel().y;
+		}
+		
+		double WheelH()
+		{
+			return Siv3DEngine::GetMouse()->wheel().x;
+		}
 	}
 }

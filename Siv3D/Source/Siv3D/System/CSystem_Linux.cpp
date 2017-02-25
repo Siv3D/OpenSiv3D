@@ -15,8 +15,11 @@
 # include "../Siv3DEngine.hpp"
 # include "CSystem_Linux.hpp"
 # include "../Logger/ILogger.hpp"
+# include "../ImageFormat/IImageFormat.hpp"
 # include "../Window/IWindow.hpp"
 # include "../DragDrop/IDragDrop.hpp"
+# include "../Cursor/ICursor.hpp"
+# include "../Mouse/IMouse.hpp"
 
 namespace s3d
 {
@@ -42,6 +45,11 @@ namespace s3d
 			return false;
 		}
 
+		if (!Siv3DEngine::GetImageFormat()->init())
+		{
+			return false;
+		}
+
 		if (!Siv3DEngine::GetWindow()->init())
 		{
 			return false;
@@ -52,6 +60,16 @@ namespace s3d
 			return false;
 		}
 		
+		if (!Siv3DEngine::GetCursor()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetMouse()->init())
+		{
+			return false;
+		}
+
 		return true;
 	}
 
@@ -80,6 +98,10 @@ namespace s3d
 		{
 			return false;
 		}
+
+		Siv3DEngine::GetCursor()->update();
+
+		Siv3DEngine::GetMouse()->update();
 		
 		return true;
 	}

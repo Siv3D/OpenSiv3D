@@ -54,4 +54,11 @@ namespace s3d
 	/// マウス X5 ボタン
 	/// </summary>
 	constexpr Key MouseX5{ InputDevice::Mouse, 7 };
+	
+	namespace Mouse
+	{
+		double Wheel();
+		
+		double WheelH();
+	}
 }

@@ -19,7 +19,7 @@
 # include <Siv3D/CharacterSet.hpp>
 # include "Siv3DEngine.hpp"
 # include "Logger/ILogger.hpp"
-# include "Window/IWindow.hpp"
+# include "System/ISystem.hpp"
 
 void Main();
 
@@ -54,12 +54,7 @@ int main(int, char* argv[])
     
 	Siv3DEngine engine;
 
-	if (!engine.GetLogger()->init())
-	{
-		return -1;
-	}
-
-	if (!engine.GetWindow()->init())
+	if (!Siv3DEngine::GetSystem()->init())
 	{
 		return -1;
 	}
