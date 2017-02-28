@@ -196,6 +196,45 @@ namespace s3d
 		}
 
 		/// <summary>
+		/// 配列の先頭に要素を追加します。
+		/// </summary>
+		/// <param name="value">
+		/// 追加する値
+		/// </param>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void push_front(const Type& value)
+		{
+			insert(begin(), value);
+		}
+
+		/// <summary>
+		/// 配列の先頭に要素を追加します。
+		/// </summary>
+		/// <param name="value">
+		/// 追加する値
+		/// </param>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void push_front(Type&& value)
+		{
+			insert(begin(), std::move(value));
+		}
+
+		/// <summary>
+		/// 配列の先頭から要素を削除します。
+		/// </summary>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void pop_front()
+		{
+			erase(begin());
+		}
+
+		/// <summary>
 		/// 配列の末尾に要素を追加します。
 		/// </summary>
 		/// <param name="value">
