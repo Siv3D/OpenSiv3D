@@ -77,22 +77,24 @@
 
 #### 0.0.7
 - [x] JPEG
+- [x] HashMap
 - [x] Cursor (Partial)
 - [x] Mouse
-- [ ] Key (Partial)
-- [ ] Image (Partial)
+- [x] Key (Partial)
+- [ ] KeyCombination
 - [ ] Rect
 - [ ] Cylindrical
 - [ ] Spherical
+- [ ] Linux Support
 
 ---------------------------
 
 #### 0.0.8
-- [ ] INIWriter
-- [ ] CSVReader
-- [ ] CSVWriter
-- [ ] JSON (Partial)
+- [ ] Circle
+- [ ] Line
+- [ ] Triangle
 - [ ] Math (Partial)
+- [ ] Graphics (Partial)
 
 ## Discussion ##
  [Siv3D Slack #open-siv3d](https://siv3d.slack.com/messages/open-siv3d/details/)  (Japanese)
