@@ -22,6 +22,7 @@
     <ClCompile Include="..\Siv3D-Test\Main.cpp" />
     <ClCompile Include="..\Siv3D-Test\Test\Siv3DTest_OSX.cpp" />
     <ClCompile Include="..\Siv3D-Test\Test\Siv3DTest_Windows.cpp" />
+    <ClCompile Include="..\Siv3D-Test\Test\TestAlignedMemory.cpp" />
     <ClCompile Include="..\Siv3D-Test\Test\TestArray.cpp" />
     <ClCompile Include="..\Siv3D-Test\Test\TestCharacterSet.cpp" />
     <ClCompile Include="..\Siv3D-Test\Test\TestConcept.cpp" />

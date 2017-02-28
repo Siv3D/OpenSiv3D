@@ -28,7 +28,7 @@ struct alignas(32) Data32
 
 struct alignas(64) Data64
 {
-	float v[4];
+	float v[16];
 };
 
 TEST(AlignedMemory, AlignedMalloc_0)
@@ -84,21 +84,21 @@ TEST(AlignedMemory, AlignedMalloc_1)
 	{
 		uint8* p = AlignedMalloc<uint8>();
 		EXPECT_NE(p, nullptr);
-		EXPECT_TRUE(IsAligned(p, SIV3D_ALLOCATOR_MIN_ALIGNMENT));
+		EXPECT_TRUE(IsAligned(p, 1));
 		AlignedFree(p);
 	}
 	
 	{
 		uint16* p = AlignedMalloc<uint16>();
 		EXPECT_NE(p, nullptr);
-		EXPECT_TRUE(IsAligned(p, SIV3D_ALLOCATOR_MIN_ALIGNMENT));
+		EXPECT_TRUE(IsAligned(p, 2));
 		AlignedFree(p);
 	}
 
 	{
 		uint32* p = AlignedMalloc<uint32>();
 		EXPECT_NE(p, nullptr);
-		EXPECT_TRUE(IsAligned(p, SIV3D_ALLOCATOR_MIN_ALIGNMENT));
+		EXPECT_TRUE(IsAligned(p, 4));
 		AlignedFree(p);
 	}
 
@@ -112,7 +112,7 @@ TEST(AlignedMemory, AlignedMalloc_1)
 	{
 		float* p = AlignedMalloc<float>();
 		EXPECT_NE(p, nullptr);
-		EXPECT_TRUE(IsAligned(p, SIV3D_ALLOCATOR_MIN_ALIGNMENT));
+		EXPECT_TRUE(IsAligned(p, 4));
 		AlignedFree(p);
 	}
 
@@ -150,21 +150,21 @@ TEST(AlignedMemory, AlignedMalloc_3)
 	{
 		uint8* p = AlignedMalloc<uint8>(3);
 		EXPECT_NE(p, nullptr);
-		EXPECT_TRUE(IsAligned(p, SIV3D_ALLOCATOR_MIN_ALIGNMENT));
+		EXPECT_TRUE(IsAligned(p, 1));
 		AlignedFree(p);
 	}
 	
 	{
 		uint16* p = AlignedMalloc<uint16>(3);
 		EXPECT_NE(p, nullptr);
-		EXPECT_TRUE(IsAligned(p, SIV3D_ALLOCATOR_MIN_ALIGNMENT));
+		EXPECT_TRUE(IsAligned(p, 2));
 		AlignedFree(p);
 	}
 	
 	{
 		uint32* p = AlignedMalloc<uint32>(3);
 		EXPECT_NE(p, nullptr);
-		EXPECT_TRUE(IsAligned(p, SIV3D_ALLOCATOR_MIN_ALIGNMENT));
+		EXPECT_TRUE(IsAligned(p, 4));
 		AlignedFree(p);
 	}
 	
@@ -178,7 +178,7 @@ TEST(AlignedMemory, AlignedMalloc_3)
 	{
 		float* p = AlignedMalloc<float>(3);
 		EXPECT_NE(p, nullptr);
-		EXPECT_TRUE(IsAligned(p, SIV3D_ALLOCATOR_MIN_ALIGNMENT));
+		EXPECT_TRUE(IsAligned(p, 4));
 		AlignedFree(p);
 	}
 	
@@ -214,23 +214,23 @@ TEST(AlignedMemory, AlignedMalloc_3)
 TEST(AlignedMemory, AlignedNew)
 {
 	{
-		uint8* p = AlignedNew<uint8>(0);
+		uint8* p = AlignedNew<uint8>(uint8(0));
 		EXPECT_NE(p, nullptr);
-		EXPECT_TRUE(IsAligned(p, SIV3D_ALLOCATOR_MIN_ALIGNMENT));
+		EXPECT_TRUE(IsAligned(p, 1));
 		AlignedDelete(p);
 	}
 	
 	{
-		uint16* p = AlignedNew<uint16>(0);
+		uint16* p = AlignedNew<uint16>(uint16(0));
 		EXPECT_NE(p, nullptr);
-		EXPECT_TRUE(IsAligned(p, SIV3D_ALLOCATOR_MIN_ALIGNMENT));
+		EXPECT_TRUE(IsAligned(p, 2));
 		AlignedDelete(p);
 	}
 	
 	{
 		uint32* p = AlignedNew<uint32>(0);
 		EXPECT_NE(p, nullptr);
-		EXPECT_TRUE(IsAligned(p, SIV3D_ALLOCATOR_MIN_ALIGNMENT));
+		EXPECT_TRUE(IsAligned(p, 4));
 		AlignedDelete(p);
 	}
 	
@@ -242,14 +242,14 @@ TEST(AlignedMemory, AlignedNew)
 	}
 	
 	{
-		float* p = AlignedNew<float>(0);
+		float* p = AlignedNew<float>(0.0f);
 		EXPECT_NE(p, nullptr);
-		EXPECT_TRUE(IsAligned(p, SIV3D_ALLOCATOR_MIN_ALIGNMENT));
+		EXPECT_TRUE(IsAligned(p, 4));
 		AlignedDelete(p);
 	}
 	
 	{
-		double* p = AlignedNew<double>(0);
+		double* p = AlignedNew<double>(0.0);
 		EXPECT_NE(p, nullptr);
 		EXPECT_TRUE(IsAligned(p, 8));
 		AlignedDelete(p);
@@ -291,55 +291,55 @@ TEST(AlignedMemory, MakeUnique)
 	{
 		auto p = MakeUnique<uint8>(0);
 		EXPECT_NE(p.get(), nullptr);
-		EXPECT_TRUE(IsAligned(p.get(), SIV3D_ALLOCATOR_MIN_ALIGNMENT));
+		EXPECT_TRUE(IsAligned(p.get(), 1));
 	}
 	
 	{
 		auto p = MakeUnique<uint16>(0);
 		EXPECT_NE(p.get(), nullptr);
-		EXPECT_TRUE(IsAligned(p.get(), SIV3D_ALLOCATOR_MIN_ALIGNMENT));
+		EXPECT_TRUE(IsAligned(p.get(), 2));
 	}
 	
 	{
 		auto p = MakeUnique<uint32>(0);
 		EXPECT_NE(p.get(), nullptr);
-		EXPECT_TRUE(IsAligned(p.get(), SIV3D_ALLOCATOR_MIN_ALIGNMENT));
+		EXPECT_TRUE(IsAligned(p.get(), 4));
 	}
 	
 	{
 		auto p = MakeUnique<uint64>(0);
 		EXPECT_NE(p.get(), nullptr);
-		EXPECT_TRUE(IsAligned(p.get(), SIV3D_ALLOCATOR_MIN_ALIGNMENT));
+		EXPECT_TRUE(IsAligned(p.get(), 8));
 	}
 	
 	{
-		auto p = MakeUnique<float>(0);
+		auto p = MakeUnique<float>(0.0f);
 		EXPECT_NE(p.get(), nullptr);
-		EXPECT_TRUE(IsAligned(p.get(), SIV3D_ALLOCATOR_MIN_ALIGNMENT));
+		EXPECT_TRUE(IsAligned(p.get(), 4));
 	}
 	
 	{
-		auto p = MakeUnique<double>(0);
+		auto p = MakeUnique<double>(0.0);
 		EXPECT_NE(p.get(), nullptr);
-		EXPECT_TRUE(IsAligned(p.get(), SIV3D_ALLOCATOR_MIN_ALIGNMENT));
+		EXPECT_TRUE(IsAligned(p.get(), 8));
 	}
 	
 	{
 		auto p = MakeUnique<Data16>();
 		EXPECT_NE(p.get(), nullptr);
-		EXPECT_TRUE(IsAligned(p.get(), SIV3D_ALLOCATOR_MIN_ALIGNMENT));
+		EXPECT_TRUE(IsAligned(p.get(), 16));
 	}
 	
 	{
 		auto p = MakeUnique<Data32>();
 		EXPECT_NE(p.get(), nullptr);
-		EXPECT_TRUE(IsAligned(p.get(), SIV3D_ALLOCATOR_MIN_ALIGNMENT));
+		EXPECT_TRUE(IsAligned(p.get(), 32));
 	}
 	
 	{
 		auto p = MakeUnique<Data64>();
 		EXPECT_NE(p.get(), nullptr);
-		EXPECT_TRUE(IsAligned(p.get(), SIV3D_ALLOCATOR_MIN_ALIGNMENT));
+		EXPECT_TRUE(IsAligned(p.get(), 64));
 	}
 }
 
@@ -370,13 +370,13 @@ TEST(AlignedMemory, MakeShared)
 	}
 	
 	{
-		auto p = MakeShared<float>(0);
+		auto p = MakeShared<float>(0.0f);
 		EXPECT_NE(p.get(), nullptr);
 		EXPECT_TRUE(IsAligned(p.get(), 4));
 	}
 	
 	{
-		auto p = MakeShared<double>(0);
+		auto p = MakeShared<double>(0.0);
 		EXPECT_NE(p.get(), nullptr);
 		EXPECT_TRUE(IsAligned(p.get(), 8));
 	}

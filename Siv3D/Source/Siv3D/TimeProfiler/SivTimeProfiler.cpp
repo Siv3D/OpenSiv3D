@@ -27,7 +27,7 @@ namespace s3d
 
 			it = m_data.emplace(label, Detail{}).first;
 
-			it->second.index = m_index++;
+			it.value().index = m_index++;
 		}
 
 		if (it->second.open)
@@ -37,7 +37,7 @@ namespace s3d
 
 		m_labels.push_back(label);
 
-		return &(it->second.begin);
+		return &(it.value().begin);
 	}
 
 	void TimeProfiler::end_impl(const uint64 end)

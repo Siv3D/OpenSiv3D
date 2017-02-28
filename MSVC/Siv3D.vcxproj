@@ -61,6 +61,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Grid.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\HardwareRNG.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Hash.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\HashMap.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\HSV.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ImageFormat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Image.hpp" />
