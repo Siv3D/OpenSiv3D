@@ -82,7 +82,7 @@
 - [x] Mouse
 - [x] Key (Partial)
 - [x] KeyConjunction
-- [ ] KeyGroup
+- [x] KeyGroup
 - [ ] Rect
 - [ ] Cylindrical
 - [ ] Spherical
