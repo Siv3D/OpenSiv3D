@@ -486,6 +486,66 @@ namespace s3d
 	constexpr Key KeyF12{ InputDevice::Keyboard, 0x7B };
 
 	/// <summary>
+	/// F13 キー
+	/// </summary>
+	constexpr Key KeyF13{ InputDevice::Keyboard, 0x7C };
+
+	/// <summary>
+	/// F14 キー
+	/// </summary>
+	constexpr Key KeyF14{ InputDevice::Keyboard, 0x7D };
+
+	/// <summary>
+	/// F15 キー
+	/// </summary>
+	constexpr Key KeyF15{ InputDevice::Keyboard, 0x7E };
+
+	/// <summary>
+	/// F16 キー
+	/// </summary>
+	constexpr Key KeyF16{ InputDevice::Keyboard, 0x7F };
+
+	/// <summary>
+	/// F17 キー
+	/// </summary>
+	constexpr Key KeyF17{ InputDevice::Keyboard, 0x80 };
+
+	/// <summary>
+	/// F18 キー
+	/// </summary>
+	constexpr Key KeyF18{ InputDevice::Keyboard, 0x81 };
+
+	/// <summary>
+	/// F19 キー
+	/// </summary>
+	constexpr Key KeyF19{ InputDevice::Keyboard, 0x82 };
+
+	/// <summary>
+	/// F20 キー
+	/// </summary>
+	constexpr Key KeyF20{ InputDevice::Keyboard, 0x83 };
+
+	/// <summary>
+	/// F21 キー
+	/// </summary>
+	constexpr Key KeyF21{ InputDevice::Keyboard, 0x84 };
+
+	/// <summary>
+	/// F22 キー
+	/// </summary>
+	constexpr Key KeyF22{ InputDevice::Keyboard, 0x85 };
+
+	/// <summary>
+	/// F23 キー
+	/// </summary>
+	constexpr Key KeyF23{ InputDevice::Keyboard, 0x86 };
+
+	/// <summary>
+	/// F24 キー
+	/// </summary>
+	constexpr Key KeyF24{ InputDevice::Keyboard, 0x87 };
+
+	/// <summary>
 	/// : キー
 	/// </summary>
 	constexpr Key KeyColon{ InputDevice::Keyboard, 0xBA };
