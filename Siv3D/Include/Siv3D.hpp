@@ -399,20 +399,22 @@
 //
 	// カーソル
 	# include "Siv3D/Cursor.hpp"
-	// キー入力
+	// 入力状態
 	# include "Siv3D/Key.hpp"
+	// キーボード
+	# include "Siv3D/Keyboard.hpp"
 	// マウス
 	# include "Siv3D/Mouse.hpp"
+	//// ゲームパッド
+	//# include "Siv3D/Gamepad.hpp"
+	//// XInput 対応ゲームコントローラー
+	//# include "Siv3D/XInput.hpp"
 	//// マイク入力
 	//# include "Siv3D/Recorder.hpp"
 	//// タッチ
 	//# include "Siv3D/Touch.hpp"
 	//// ペンタブレット
 	//# include "Siv3D/Pentablet.hpp"
-	//// ゲームパッド
-	//# include "Siv3D/Gamepad.hpp"
-	//// XInput 対応ゲームコントローラー
-	//# include "Siv3D/XInput.hpp"
 	//// 入力全般
 	//# include "Siv3D/Input.hpp"
 	//// Kinect V1

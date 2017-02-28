@@ -8,6 +8,9 @@ void Main()
 
 	while (System::Update())
 	{
-
+		if (Key0.down())
+		{
+			Log << L"Hi";
+		}
 	}
 }
