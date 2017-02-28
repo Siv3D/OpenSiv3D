@@ -588,7 +588,7 @@ namespace s3d
 		S3D_CONSTEXPR_CPP14 Rectangle& setPos(Arg::bottomRight_<position_type> bottomRight)
 		{
 			x = bottomRight->x - w;
-			y = bottomLeft->y - h;
+			y = bottomRight->y - h;
 			return *this;
 		}
 	
