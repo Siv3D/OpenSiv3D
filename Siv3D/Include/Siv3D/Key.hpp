@@ -51,7 +51,7 @@ namespace s3d
 
 		bool up() const;
 
-		constexpr InputDevice device() const noexcept
+		constexpr InputDevice inputDevice() const noexcept
 		{
 			return m_device;
 		}
@@ -85,7 +85,7 @@ namespace s3d
 	/// </returns>
 	constexpr inline bool operator ==(const Key& key1, const Key& key2) noexcept
 	{
-		return key1.device() == key2.device()
+		return key1.inputDevice() == key2.inputDevice()
 			&& key1.code() == key2.code()
 			&& key1.userIndex() == key2.userIndex();
 	}

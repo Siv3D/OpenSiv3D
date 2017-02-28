@@ -8,52 +8,19 @@ void Main()
 
 	while (System::Update())
 	{
-		if (KeyColon_JP.down())
-			Console << L"a-j";
+		if (KeyA.down())
+			Console << L"A";
 
-		if (KeySemicolon_US.down())
-			Console << L"a-u";
-
-		if (KeySemicolon_JP.down())
-			Console << L"b-j";
-
-		if (KeyEqual_US.down())
-			Console << L"b-u";
-
-		if (KeyComma.down())
-			Console << L"c";
-
-		if (KeyMinus.down())
-			Console << L"d";
-
-		if (KeyPeriod.down())
-			Console << L"e";
-
-		if (KeySlash.down())
-			Console << L"f";
-
-		if (KeyGraveAccent.down())
-			Console << L"g";
-
-		if (KeyLBracket.down())
-			Console << L"h";
-
-		if (KeyYen_JP.down())
-			Console << L"i-j";
-
-		if (KeyBackslash_US.down())
-			Console << L"i-u";
-
-		if (KeyRBracket.down())
-			Console << L"j";
-
-		if (KeyCaret_JP.down())
-			Console << L"k-j";
-
-		if (KeyApostrophe_US.down())
-			Console << L"k-u";
-
-		if (KeyBackslash_JP.down())
-			Console << L"l-j";
+		if (Key0.down())
+			Console << L"0";
+		
+		if (KeyEnter.down())
+			Console << L"Enter";
+		
+		if (KeySpace.down())
+			Console << L"Space";
+		
+		if (KeyDown.down())
+			Console << L"↓";
 	}
 }

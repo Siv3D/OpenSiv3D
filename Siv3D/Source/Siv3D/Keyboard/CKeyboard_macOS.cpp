@@ -131,18 +131,18 @@ namespace s3d
 			{ 0xB1, 0 }, // media previous track
 			{ 0xB2, 0 }, // media stop
 			{ 0xB3, 0 }, // media play/pause
-			{ 0xBA, 0 }, // :GLFW_KEY_SEMICOLON?
-			{ 0xBB, 0 }, // ;
+			{ 0xBA, GLFW_KEY_APOSTROPHE }, // ? [Siv3D TODO]
+			{ 0xBB, GLFW_KEY_SEMICOLON }, // ? [Siv3D TODO]
 			{ 0xBC, GLFW_KEY_COMMA },
 			{ 0xBD, GLFW_KEY_MINUS },
 			{ 0xBE, GLFW_KEY_PERIOD },
 			{ 0xBF, GLFW_KEY_SLASH },
-			{ 0xC0, GLFW_KEY_GRAVE_ACCENT },
-			{ 0xDB, GLFW_KEY_LEFT_BRACKET },			
-			{ 0xDC, GLFW_KEY_BACKSLASH }, //?
-			{ 0xDD, GLFW_KEY_RIGHT_BRACKET },
-			{ 0xDE, 0 }, // ^
-			{ 0xE2, 0 }, // \ //
+			{ 0xC0, GLFW_KEY_GRAVE_ACCENT }, // ? [Siv3D TODO]
+			{ 0xDB, GLFW_KEY_LEFT_BRACKET }, // ? [Siv3D TODO]
+			{ 0xDC, GLFW_KEY_BACKSLASH }, // ? [Siv3D TODO]
+			{ 0xDD, GLFW_KEY_RIGHT_BRACKET }, // ? [Siv3D TODO]
+			{ 0xDE, 0 }, // ? [Siv3D TODO]
+			{ 0xE2, 0 }, // ? [Siv3D TODO]
 		};
 	}
 	
