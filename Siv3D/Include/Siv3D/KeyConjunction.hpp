@@ -93,6 +93,11 @@ namespace s3d
 			return m_key2;
 		}
 
+		constexpr uint64 asUint64() const noexcept
+		{
+			return (uint64(m_key1.asUint32()) << 32) | uint64(m_key2.asUint32());
+		}
+
 		String name() const
 		{
 			return m_key1.name() + L"+" + m_key2.name();
@@ -128,9 +133,9 @@ namespace s3d
 	/// <returns>
 	/// 2 つのキーが同じキーを示している場合 true, それ以外の場合は false
 	/// </returns>
-	inline bool operator ==(const KeyConjunction& conjunction1, const KeyConjunction& conjunction2) noexcept
+	inline constexpr bool operator ==(const KeyConjunction& conjunction1, const KeyConjunction& conjunction2) noexcept
 	{
-		return conjunction1.key1() == conjunction2.key1() && conjunction1.key2() == conjunction2.key2();
+		return conjunction1.asUint64() == conjunction2.asUint64();
 	}
 
 	/// <summary>
@@ -145,9 +150,29 @@ namespace s3d
 	/// <returns>
 	/// 2 つのキーが異なるキーを示している場合 true, それ以外の場合は false
 	/// </returns>
-	inline bool operator !=(const KeyConjunction& conjunction1, const KeyConjunction& conjunction2) noexcept
+	inline constexpr bool operator !=(const KeyConjunction& conjunction1, const KeyConjunction& conjunction2) noexcept
 	{
-		return !(conjunction1 == conjunction2);
+		return conjunction1.asUint64() != conjunction2.asUint64();
+	}
+
+	inline constexpr bool operator <(const KeyConjunction& conjunction1, const KeyConjunction& conjunction2) noexcept
+	{
+		return conjunction1.asUint64() < conjunction2.asUint64();
+	}
+
+	inline constexpr bool operator <=(const KeyConjunction& conjunction1, const KeyConjunction& conjunction2) noexcept
+	{
+		return conjunction1.asUint64() <= conjunction2.asUint64();
+	}
+
+	inline constexpr bool operator >(const KeyConjunction& conjunction1, const KeyConjunction& conjunction2) noexcept
+	{
+		return conjunction1.asUint64() > conjunction2.asUint64();
+	}
+
+	inline constexpr bool operator >=(const KeyConjunction& conjunction1, const KeyConjunction& conjunction2) noexcept
+	{
+		return conjunction1.asUint64() >= conjunction2.asUint64();
 	}
 }
 
