@@ -21,7 +21,7 @@ namespace s3d
 {
 	namespace detail
 	{
-		constexpr size_t buttonIndex[6] = { 1, 2, 4, 5, 6 };
+		constexpr uint32 buttonIndex[6] = { 1, 2, 4, 5, 6 };
 	}
 
 	CMouse_Windows::CMouse_Windows()
