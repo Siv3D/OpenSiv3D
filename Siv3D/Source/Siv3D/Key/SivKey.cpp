@@ -54,4 +54,32 @@ namespace s3d
 
 		return MillisecondsF(0);
 	}
+
+	String Key::name() const
+	{
+		if (m_device == InputDevice::Mouse)
+		{
+			switch (m_code)
+			{
+			case 0:
+				return L"MouseLeft";
+			case 1:
+				return L"MouseRight";
+			case 2:
+				return L"MouseMiddle";
+			case 3:
+				return L"MouseX1";
+			case 4:
+				return L"MouseX2";
+			case 5:
+				return L"MouseX3";
+			case 6:
+				return L"MouseX4";
+			case 7:
+				return L"MouseX5";
+			}
+		}
+
+		return String(L"Unknown");
+	}
 }

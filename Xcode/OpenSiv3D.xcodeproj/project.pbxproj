@@ -247,7 +247,11 @@
 		2C1780081E48C86400B2A3D6 /* ImageFormat_JPEG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C1780061E48C86400B2A3D6 /* ImageFormat_JPEG.cpp */; };
 		2C1780091E48C86400B2A3D6 /* ImageFormat_JPEG.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C1780071E48C86400B2A3D6 /* ImageFormat_JPEG.hpp */; };
 		2C17800E1E48CC4F00B2A3D6 /* lturbojpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C17800D1E48CC4F00B2A3D6 /* lturbojpeg.a */; };
+		2C1780101E4A1CE500B2A3D6 /* TestBase64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C17800F1E4A1CE500B2A3D6 /* TestBase64.cpp */; };
+		2C1780121E4A1CEE00B2A3D6 /* TestAlignedMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C1780111E4A1CEE00B2A3D6 /* TestAlignedMemory.cpp */; };
 		2C2CCF511CE8698C001844FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2CCF501CE8698C001844FF /* Foundation.framework */; };
+		2C3A1E6A1E650E34007266FB /* hopscotch_map.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C3A1E681E650E34007266FB /* hopscotch_map.h */; };
+		2C3A1E6C1E650E50007266FB /* HashMap.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3A1E6B1E650E50007266FB /* HashMap.hpp */; };
 		2C5864F01E3DDB670028B9F0 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5864821E3DDB670028B9F0 /* format.h */; };
 		2C5864F11E3DDB670028B9F0 /* ostream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5864841E3DDB670028B9F0 /* ostream.h */; };
 		2C58655A1E3DDB670028B9F0 /* Siv3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5864EF1E3DDB670028B9F0 /* Siv3D.hpp */; };
@@ -634,8 +638,13 @@
 		2C1780061E48C86400B2A3D6 /* ImageFormat_JPEG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageFormat_JPEG.cpp; sourceTree = "<group>"; };
 		2C1780071E48C86400B2A3D6 /* ImageFormat_JPEG.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageFormat_JPEG.hpp; sourceTree = "<group>"; };
 		2C17800D1E48CC4F00B2A3D6 /* lturbojpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lturbojpeg.a; sourceTree = "<group>"; };
+		2C17800F1E4A1CE500B2A3D6 /* TestBase64.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestBase64.cpp; sourceTree = "<group>"; };
+		2C1780111E4A1CEE00B2A3D6 /* TestAlignedMemory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestAlignedMemory.cpp; sourceTree = "<group>"; };
 		2C2CCF501CE8698C001844FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
+		2C3A1E681E650E34007266FB /* hopscotch_map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hopscotch_map.h; sourceTree = "<group>"; };
+		2C3A1E691E650E34007266FB /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		2C3A1E6B1E650E50007266FB /* HashMap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HashMap.hpp; sourceTree = "<group>"; };
 		2C5864821E3DDB670028B9F0 /* format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
 		2C5864831E3DDB670028B9F0 /* LICENSE.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.rst; sourceTree = "<group>"; };
 		2C5864841E3DDB670028B9F0 /* ostream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ostream.h; sourceTree = "<group>"; };
@@ -849,6 +858,7 @@
 		2C177DEF1E3F8EE800B2A3D6 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C3A1E6B1E650E50007266FB /* HashMap.hpp */,
 				2C177DF11E3F8EE800B2A3D6 /* AlignedAllocator.hpp */,
 				2C177DF21E3F8EE800B2A3D6 /* AlignedMemory.hpp */,
 				2C177DF31E3F8EE800B2A3D6 /* Array.hpp */,
@@ -1536,6 +1546,15 @@
 			path = gtest;
 			sourceTree = "<group>";
 		};
+		2C3A1E671E650E34007266FB /* hopscotch_map */ = {
+			isa = PBXGroup;
+			children = (
+				2C3A1E681E650E34007266FB /* hopscotch_map.h */,
+				2C3A1E691E650E34007266FB /* LICENSE */,
+			);
+			path = hopscotch_map;
+			sourceTree = "<group>";
+		};
 		2C5864811E3DDB670028B9F0 /* fmt */ = {
 			isa = PBXGroup;
 			children = (
@@ -1824,7 +1843,9 @@
 				2CA79A9C1DF55A410028D11D /* Siv3DTest.hpp */,
 				2CA79A9D1DF55A410028D11D /* Siv3DTest_OSX.cpp */,
 				2CA79A9E1DF55A410028D11D /* Siv3DTest_Windows.cpp */,
+				2C1780111E4A1CEE00B2A3D6 /* TestAlignedMemory.cpp */,
 				2CA79A9F1DF55A410028D11D /* TestArray.cpp */,
+				2C17800F1E4A1CE500B2A3D6 /* TestBase64.cpp */,
 				2CA79AA01DF55A410028D11D /* TestCharacterSet.cpp */,
 				2CA79AA11DF55A410028D11D /* TestConcept.cpp */,
 				2CA79AA21DF55A410028D11D /* TestFileSystem.cpp */,
@@ -1897,6 +1918,7 @@
 		2CFD98F41E18C7C70046CE64 /* Include */ = {
 			isa = PBXGroup;
 			children = (
+				2C3A1E671E650E34007266FB /* hopscotch_map */,
 				2C177DEF1E3F8EE800B2A3D6 /* Siv3D */,
 				2C5864811E3DDB670028B9F0 /* fmt */,
 				2C5864EF1E3DDB670028B9F0 /* Siv3D.hpp */,
@@ -1962,6 +1984,7 @@
 				2C177FD51E3F8EF300B2A3D6 /* CMouse_Windows.hpp in Headers */,
 				2C5867291E3DDB7E0028B9F0 /* divsufsort.h in Headers */,
 				2C177E7E1E3F8EE800B2A3D6 /* FormatInt.hpp in Headers */,
+				2C3A1E6C1E650E50007266FB /* HashMap.hpp in Headers */,
 				2C177F9B1E3F8EF300B2A3D6 /* CConsole.hpp in Headers */,
 				2C177FDC1E3F8EF300B2A3D6 /* Siv3D_macOS.h in Headers */,
 				2C177E981E3F8EE800B2A3D6 /* Mouse.hpp in Headers */,
@@ -2011,6 +2034,7 @@
 				2C177EC41E3F8EE800B2A3D6 /* Void_t.hpp in Headers */,
 				2C177E961E3F8EE800B2A3D6 /* MemoryMapping.hpp in Headers */,
 				2C177FC21E3F8EF300B2A3D6 /* CINIReader.hpp in Headers */,
+				2C3A1E6A1E650E34007266FB /* hopscotch_map.h in Headers */,
 				2C177E721E3F8EE800B2A3D6 /* Cursor.hpp in Headers */,
 				2C5866FF1E3DDB7E0028B9F0 /* md5.h in Headers */,
 				2C177EAF1E3F8EE800B2A3D6 /* Step.hpp in Headers */,
@@ -2204,6 +2228,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CA79AB31DF55A410028D11D /* TestFormatBool.cpp in Sources */,
+				2C1780121E4A1CEE00B2A3D6 /* TestAlignedMemory.cpp in Sources */,
 				2CA79AB91DF55A410028D11D /* TestStep.cpp in Sources */,
 				2CA79AB81DF55A410028D11D /* TestOptional.cpp in Sources */,
 				2CA79ABC1DF55A410028D11D /* TestUtility.cpp in Sources */,
@@ -2219,6 +2244,7 @@
 				2CA79AB41DF55A410028D11D /* TestFormatFloat.cpp in Sources */,
 				2CA79AB71DF55A410028D11D /* TestNamedParameter.cpp in Sources */,
 				2CA79AB51DF55A410028D11D /* TestFormatInt.cpp in Sources */,
+				2C1780101E4A1CE500B2A3D6 /* TestBase64.cpp in Sources */,
 				2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

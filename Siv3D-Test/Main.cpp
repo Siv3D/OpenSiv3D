@@ -1,18 +1,13 @@
 ﻿
 # include <Siv3D.hpp>
+# include "Test/Siv3DTest.hpp"
 
 void Main()
 {
+	RunTest();
+
 	while (System::Update())
 	{
-		if (Mouse::Wheel())
-		{
-			Log << L"V: " << Mouse::Wheel();
-		}
 
-		if (Mouse::WheelH())
-		{
-			Log << L"H: " << Mouse::WheelH();
-		}
 	}
 }

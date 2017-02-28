@@ -29,7 +29,9 @@ add_executable(siv3d_test
 	"../../Siv3D-Test/Main.cpp"
 
 	"../../Siv3D-Test/Test/Siv3DTest.hpp"
+	"../../Siv3D-Test/Test/TestAlignedMemory.cpp"
 	"../../Siv3D-Test/Test/TestArray.cpp"
+	"../../Siv3D-Test/Test/TestBase64.cpp"
 	"../../Siv3D-Test/Test/TestCharacterSet.cpp"
 	"../../Siv3D-Test/Test/TestConcept.cpp"
 	"../../Siv3D-Test/Test/TestFileSystem.cpp"

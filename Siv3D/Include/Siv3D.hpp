@@ -72,6 +72,8 @@
 	# include "Siv3D/Array.hpp"
 	// バイナリ配列ビュー
 	# include "Siv3D/ByteArrayView.hpp"
+	// ハッシュマップ
+	# include "Siv3D/HashMap.hpp"
 	// 範囲
 	# include "Siv3D/Step.hpp"
 	// 無限リスト
