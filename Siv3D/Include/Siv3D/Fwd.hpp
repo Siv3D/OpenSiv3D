@@ -278,6 +278,18 @@ namespace s3d
 	using Circular6	= CircularBase<6>;
 	using Circular9	= CircularBase<9>;
 
+	//////////////////////////////////////////////////////
+	//
+	//	Cylindrical.hpp
+	//
+	struct Cylindrical;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Spherical.hpp
+	//
+	struct Spherical;
+
 
 
 

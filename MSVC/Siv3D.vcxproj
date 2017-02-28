@@ -42,6 +42,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Concept.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Console.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Cursor.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Cylindrical.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Date.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\DateTime.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Distribution.hpp" />
@@ -99,6 +100,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\RandomVec4.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Rectangle.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Regex.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Spherical.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Void_t.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Window.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\WritableMemoryMapping.hpp" />
