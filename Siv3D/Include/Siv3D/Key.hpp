@@ -107,3 +107,30 @@ namespace s3d
 		return !(key1 == key2);
 	}
 }
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting Key
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[ ] istream
+//	[ ] wistream
+//	[p] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
+	inline void Formatter(FormatData& formatData, const Key& key)
+	{
+		formatData.string.append(key.name());
+	}
+
+	template <class CharType>
+	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> os, const Key& key)
+	{
+		return os << key.name();
+	}
+}
+//
+//////////////////////////////////////////////////////////////////////////////
