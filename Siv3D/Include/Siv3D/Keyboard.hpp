@@ -561,14 +561,24 @@ namespace s3d
 	constexpr Key KeyPlayPauseMedia{ InputDevice::Keyboard, 0xB3 };
 
 	/// <summary>
-	/// : キー
+	/// JP : キー
 	/// </summary>
-	constexpr Key KeyColon{ InputDevice::Keyboard, 0xBA };
+	constexpr Key KeyColon_JP{ InputDevice::Keyboard, 0xBA };
 
 	/// <summary>
-	/// ; キー
+	/// US ; キー
 	/// </summary>
-	constexpr Key KeySemicolon{ InputDevice::Keyboard, 0xBB };
+	constexpr Key KeySemicolon_US{ InputDevice::Keyboard, 0xBA };
+
+	/// <summary>
+	/// JP ; キー
+	/// </summary>
+	constexpr Key KeySemicolon_JP{ InputDevice::Keyboard, 0xBB };
+
+	/// <summary>
+	/// US = キー
+	/// </summary>
+	constexpr Key KeyEqual_US{ InputDevice::Keyboard, 0xBB };
 
 	/// <summary>
 	/// , キー
@@ -601,13 +611,14 @@ namespace s3d
 	constexpr Key KeyLBracket{ InputDevice::Keyboard, 0xDB };
 
 	/// <summary>
-	/// \ キー
+	/// JP ￥ キー
 	/// </summary>
+	constexpr Key KeyYen_JP{ InputDevice::Keyboard, 0xDC };
+
+	/// <summary>
+	/// US \ キー
 	/// </summary>
-	/// <remarks>
-	/// キーボードにより異なります。
-	/// </remarks>
-	constexpr Key KeyYen{ InputDevice::Keyboard, 0xDC };
+	constexpr Key KeyBackslash_US{ InputDevice::Keyboard, 0xDC };
 
 	/// <summary>
 	/// ] キー
@@ -615,15 +626,17 @@ namespace s3d
 	constexpr Key KeyRBracket{ InputDevice::Keyboard, 0xDD };
 
 	/// <summary>
-	/// ^ キー
+	/// JP ^ キー
 	/// </summary>
-	constexpr Key KeyCaret{ InputDevice::Keyboard, 0xDE };
+	constexpr Key KeyCaret_JP{ InputDevice::Keyboard, 0xDE };
 
 	/// <summary>
-	/// バックスラッシュキー
+	/// US ' キー
 	/// </summary>
-	/// <remarks>
-	/// キーボードにより異なります。
-	/// </remarks>
-	constexpr Key KeyBackslash{ InputDevice::Keyboard, 0xE2 };
+	constexpr Key KeyApostrophe_US{ InputDevice::Keyboard, 0xDE };
+
+	/// <summary>
+	/// JP \ キー
+	/// </summary>
+	constexpr Key KeyBackslash_JP{ InputDevice::Keyboard, 0xE2 };
 }
