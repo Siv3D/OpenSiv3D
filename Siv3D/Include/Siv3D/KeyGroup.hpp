@@ -16,6 +16,13 @@ namespace s3d
 {
 	class KeyGroup
 	{
+	private:
+
+		Array<Key> m_keys;
+
+		Array<KeyConjunction> m_keyConjunctions;
+
+	public:
 
 	};
 }

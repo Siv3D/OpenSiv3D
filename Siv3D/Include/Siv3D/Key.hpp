@@ -68,6 +68,11 @@ namespace s3d
 			return m_userIndex;
 		}
 
+		constexpr uint32 asUint32() const noexcept
+		{
+			return (uint32(m_device) << 24) | (uint32(m_userIndex) << 16) | (uint32(m_code) << 8);
+		}
+
 		String name() const;
 	};
 
@@ -85,9 +90,7 @@ namespace s3d
 	/// </returns>
 	constexpr inline bool operator ==(const Key& key1, const Key& key2) noexcept
 	{
-		return key1.inputDevice() == key2.inputDevice()
-			&& key1.code() == key2.code()
-			&& key1.userIndex() == key2.userIndex();
+		return key1.asUint32() == key2.asUint32();
 	}
 
 	/// <summary>
@@ -104,7 +107,27 @@ namespace s3d
 	/// </returns>
 	constexpr inline bool operator !=(const Key& key1, const Key& key2) noexcept
 	{
-		return !(key1 == key2);
+		return key1.asUint32() != key2.asUint32();
+	}
+
+	constexpr inline bool operator <(const Key& key1, const Key& key2) noexcept
+	{
+		return key1.asUint32() < key2.asUint32();
+	}
+
+	constexpr inline bool operator <=(const Key& key1, const Key& key2) noexcept
+	{
+		return key1.asUint32() <= key2.asUint32();
+	}
+
+	constexpr inline bool operator >(const Key& key1, const Key& key2) noexcept
+	{
+		return key1.asUint32() > key2.asUint32();
+	}
+
+	constexpr inline bool operator >=(const Key& key1, const Key& key2) noexcept
+	{
+		return key1.asUint32() >= key2.asUint32();
 	}
 }
 
