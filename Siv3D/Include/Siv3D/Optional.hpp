@@ -1098,7 +1098,7 @@ namespace s3d
 		/// </returns>
 		void reset() noexcept
 		{
-			*this = none;
+			ref = nullptr;
 		}
 
 		/// <summary>
