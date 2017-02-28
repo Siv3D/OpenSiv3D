@@ -12,52 +12,77 @@
 # include <Siv3D/Key.hpp>
 # include "../Siv3DEngine.hpp"
 # include "../Mouse/IMouse.hpp"
+# include "../Keyboard/IKeyboard.hpp"
 
 namespace s3d
 {
 	bool Key::down() const
 	{
-		if (m_device == InputDevice::Mouse)
+		switch (m_device)
 		{
+		case InputDevice::Keyboard:
+			return Siv3DEngine::GetKeyboard()->down(m_code);
+		case InputDevice::Mouse:
 			return Siv3DEngine::GetMouse()->down(m_code);
+		case InputDevice::Gamepad:
+			return false;
+		default: // InputDevice::XInput
+			return false;
 		}
-
-		return false;
 	}
 
 	bool Key::pressed() const
 	{
-		if (m_device == InputDevice::Mouse)
+		switch (m_device)
 		{
+		case InputDevice::Keyboard:
+			return Siv3DEngine::GetKeyboard()->pressed(m_code);
+		case InputDevice::Mouse:
 			return Siv3DEngine::GetMouse()->pressed(m_code);
+		case InputDevice::Gamepad:
+			return false;
+		default: // InputDevice::XInput
+			return false;
 		}
-
-		return false;
 	}
 
 	bool Key::up() const
 	{
-		if (m_device == InputDevice::Mouse)
+		switch (m_device)
 		{
+		case InputDevice::Keyboard:
+			return Siv3DEngine::GetKeyboard()->up(m_code);
+		case InputDevice::Mouse:
 			return Siv3DEngine::GetMouse()->up(m_code);
+		case InputDevice::Gamepad:
+			return false;
+		default: // InputDevice::XInput
+			return false;
 		}
-
-		return false;
 	}
 
 	MillisecondsF Key::pressedDuration() const
 	{
-		if (m_device == InputDevice::Mouse)
+		switch (m_device)
 		{
+		case InputDevice::Keyboard:
+			return Siv3DEngine::GetKeyboard()->pressedDuration(m_code);
+		case InputDevice::Mouse:
 			return Siv3DEngine::GetMouse()->pressedDuration(m_code);
+		case InputDevice::Gamepad:
+			return MillisecondsF(0);
+		default: // InputDevice::XInput
+			return MillisecondsF(0);
 		}
-
-		return MillisecondsF(0);
 	}
 
 	String Key::name() const
 	{
-		if (m_device == InputDevice::Mouse)
+		if (m_device == InputDevice::Keyboard)
+		{
+			return L"Key";
+		}
+		else if (m_device == InputDevice::Mouse)
 		{
 			switch (m_code)
 			{

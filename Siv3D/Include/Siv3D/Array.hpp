@@ -368,7 +368,7 @@ namespace s3d
 		}
 
 		/// <summary>
-		///	指定した値を持つ要素の個数を返します。
+		/// 指定した値を持つ要素の個数を返します。
 		/// </summary>
 		/// <param name="value">
 		/// 検索する値
@@ -392,7 +392,7 @@ namespace s3d
 		}
 
 		/// <summary>
-		///	指定した条件を満たす要素の個数を返します。
+		/// 指定した条件を満たす要素の個数を返します。
 		/// </summary>
 		/// <param name="f">
 		/// 検索する条件
@@ -417,7 +417,7 @@ namespace s3d
 		}
 
 		/// <summary>
-		///	指定した個数だけ先頭から要素を除いた新しい配列を作成します。
+		/// 指定した個数だけ先頭から要素を除いた新しい配列を作成します。
 		/// </summary>
 		/// <param name="n">
 		/// 新しい配列に含めない先頭からの要素の個数
@@ -439,7 +439,7 @@ namespace s3d
 		}
 
 		/// <summary>
-		///	指定した条件が真になる要素を先頭から除いた残りの要素で新しい配列を作成します。
+		/// 指定した条件が真になる要素を先頭から除いた残りの要素で新しい配列を作成します。
 		/// </summary>
 		/// <param name="f">
 		/// 先頭から取り除く要素の条件
@@ -453,8 +453,8 @@ namespace s3d
 			return Array(std::find_if_not(begin(), end(), f), end());
 		}
 		
-		///	<summary>
-		///	配列の各要素への参照を引数に、先頭の要素から順に関数を呼び出します
+		/// <summary>
+		/// 配列の各要素への参照を引数に、先頭の要素から順に関数を呼び出します
 		/// </summary>
 		/// <param name="f">
 		/// 各要素への参照を引数にとる関数
@@ -473,8 +473,8 @@ namespace s3d
 			return *this;
 		}
 
-		///	<summary>
-		///	配列の各要素への参照を引数に、先頭の要素から順に関数を呼び出します
+		/// <summary>
+		/// 配列の各要素への参照を引数に、先頭の要素から順に関数を呼び出します
 		/// </summary>
 		/// <param name="f">
 		/// 各要素への参照を引数にとる関数
@@ -493,8 +493,8 @@ namespace s3d
 			return *this;
 		}
 
-		///	<summary>
-		///	インデックスと、配列の各要素への参照を引数に、先頭の要素から順に関数を呼び出します
+		/// <summary>
+		/// インデックスと、配列の各要素への参照を引数に、先頭の要素から順に関数を呼び出します
 		/// </summary>
 		/// <param name="f">
 		/// 第一引数にインデックス、第二引数に各要素への参照をとる関数
@@ -515,8 +515,8 @@ namespace s3d
 			return *this;
 		}
 
-		///	<summary>
-		///	インデックスと、配列の各要素への参照を引数に、先頭の要素から順に関数を呼び出します
+		/// <summary>
+		/// インデックスと、配列の各要素への参照を引数に、先頭の要素から順に関数を呼び出します
 		/// </summary>
 		/// <param name="f">
 		/// 第一引数にインデックス、第二引数に各要素への参照をとる関数
@@ -537,8 +537,8 @@ namespace s3d
 			return *this;
 		}
 
-		///	<summary>
-		///	配列の指定したインデックスの要素を取得します。インデックスが範囲外の場合は defaultValue を返します。
+		/// <summary>
+		/// 配列の指定したインデックスの要素を取得します。インデックスが範囲外の場合は defaultValue を返します。
 		/// </summary>
 		/// <param name="index">
 		/// 要素のインデックス
@@ -559,8 +559,8 @@ namespace s3d
 			return operator[](index);
 		}
 
-		///	<summary>
-		///	配列のすべての要素に同じ値を代入します
+		/// <summary>
+		/// 配列のすべての要素に同じ値を代入します
 		/// </summary>
 		/// <param name="value">
 		/// すべての要素に代入する値
@@ -575,8 +575,8 @@ namespace s3d
 			return *this;
 		}
 
-		///	<summary>
-		///	条件を満たす要素のみからなる新しい配列を返します
+		/// <summary>
+		/// 条件を満たす要素のみからなる新しい配列を返します
 		/// </summary>
 		/// <param name="f">
 		/// 新しい配列に含む要素の条件
@@ -600,8 +600,8 @@ namespace s3d
 			return new_array;
 		}
 
-		///	<summary>
-		///	指定した要素が配列に含まれているかを返します。
+		/// <summary>
+		/// 指定した要素が配列に含まれているかを返します。
 		/// </summary>
 		/// <param name="value">
 		/// 検索する要素
@@ -622,14 +622,14 @@ namespace s3d
 			return false;
 		}
 
-		///	<summary>
-		///	指定した条件を満たす要素が配列に含まれているかを返します。
+		/// <summary>
+		/// 指定した条件を満たす要素が配列に含まれているかを返します。
 		/// </summary>
 		/// <param name="f">
-		///	検索する条件
+		/// 検索する条件
 		/// </param>
 		/// <returns>
-		///	指定した条件を満たす要素が含まれる場合は true, それ以外の場合は false
+		/// 指定した条件を満たす要素が含まれる場合は true, それ以外の場合は false
 		/// </returns>
 		template <class Fty>
 		bool include_if(Fty f) const
@@ -637,8 +637,8 @@ namespace s3d
 			return any(f);
 		}
 
-		///	<summary>
-		///	配列が昇順にソートされているかを返します。
+		/// <summary>
+		/// 配列が昇順にソートされているかを返します。
 		/// </summary>
 		/// <returns>
 		/// 配列が昇順にソートされている場合 true, それ以外の場合 false
@@ -666,17 +666,17 @@ namespace s3d
 			return true;
 		}
 
-		///	<summary>
-		///	配列の各要素を指定した文字列で連結し、その文字列を返します。
+		/// <summary>
+		/// 配列の各要素を指定した文字列で連結し、その文字列を返します。
 		/// </summary>
 		/// <param name="sep">
-		///	連結する際に使う文字列
+		/// 連結する際に使う文字列
 		/// </param>
 		/// <param name="begin">
-		///	先頭に挿入する文字列
+		/// 先頭に挿入する文字列
 		/// </param>
 		/// <param name="end">
-		///	末尾に挿入する文字列
+		/// 末尾に挿入する文字列
 		/// </param>
 		/// <returns>
 		/// 要素を指定した文字列で連結した結果の文字列
@@ -708,11 +708,11 @@ namespace s3d
 			return s;
 		}
 
-		///	<summary>
-		///	条件を満たさない要素を削除します
+		/// <summary>
+		/// 条件を満たさない要素を削除します
 		/// </summary>
 		/// <param name="f">
-		///	削除しない要素の条件
+		/// 削除しない要素の条件
 		/// </param>
 		/// <returns>
 		/// *this
@@ -724,8 +724,8 @@ namespace s3d
 			return *this;
 		}
 
-		///	<summary>
-		///	配列の各要素に関数を適用した戻り値からなる配列を返します
+		/// <summary>
+		/// 配列の各要素に関数を適用した戻り値からなる配列を返します
 		/// </summary>
 		/// <param name="f">
 		/// 各要素に適用する関数
@@ -957,7 +957,7 @@ namespace s3d
 		/// 検索する条件
 		/// </param>
 		/// <returns>
-		///	指定した条件を満たす要素を削除した新しい配列
+		/// 指定した条件を満たす要素を削除した新しい配列
 		/// </returns>
 		template <class Fty>
 		Array removed_if(Fty f) const &
@@ -982,7 +982,7 @@ namespace s3d
 		/// 検索する条件
 		/// </param>
 		/// <returns>
-		///	指定した条件を満たす要素を削除した新しい配列
+		/// 指定した条件を満たす要素を削除した新しい配列
 		/// </returns>
 		template <class Fty>
 		Array removed_if(Fty f) &&
@@ -1029,7 +1029,7 @@ namespace s3d
 		/// 置換後の値
 		/// </param>
 		/// <returns>
-		///	指定した値を持つ要素を別の値に置き換えた新しい配列
+		/// 指定した値を持つ要素を別の値に置き換えた新しい配列
 		/// </returns>
 		Array replaced(const Type& oldValue, const Type& newValue) const &
 		{
@@ -1062,7 +1062,7 @@ namespace s3d
 		/// 置換後の値
 		/// </param>
 		/// <returns>
-		///	指定した値を持つ要素を別の値に置き換えた新しい配列
+		/// 指定した値を持つ要素を別の値に置き換えた新しい配列
 		/// </returns>
 		Array replaced(const Type& oldValue, const Type& newValue) &&
 		{
@@ -1107,7 +1107,7 @@ namespace s3d
 		/// 置換後の値
 		/// </param>
 		/// <returns>
-		///	指定した条件を満たす要素を別の値に置き換えた新しい配列
+		/// 指定した条件を満たす要素を別の値に置き換えた新しい配列
 		/// </returns>
 		template <class Fty>
 		Array replaced_if(Fty f, const Type& newValue) const &
@@ -1141,7 +1141,7 @@ namespace s3d
 		/// 置換後の値
 		/// </param>
 		/// <returns>
-		///	指定した条件を満たす要素を別の値に置き換えた新しい配列
+		/// 指定した条件を満たす要素を別の値に置き換えた新しい配列
 		/// </returns>
 		template <class Fty>
 		Array replaced_if(Fty f, const Type& newValue) &&
@@ -1188,8 +1188,8 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		///	<summary>
-		///	配列の各要素への参照を引数に、末尾の要素から順に関数を呼び出します
+		/// <summary>
+		/// 配列の各要素への参照を引数に、末尾の要素から順に関数を呼び出します
 		/// </summary>
 		/// <param name="f">
 		/// 各要素への参照を引数にとる関数
@@ -1208,8 +1208,8 @@ namespace s3d
 			return *this;
 		}
 
-		///	<summary>
-		///	配列の各要素への参照を引数に、末尾の要素から順に関数を呼び出します
+		/// <summary>
+		/// 配列の各要素への参照を引数に、末尾の要素から順に関数を呼び出します
 		/// </summary>
 		/// <param name="f">
 		/// 各要素への参照を引数にとる関数

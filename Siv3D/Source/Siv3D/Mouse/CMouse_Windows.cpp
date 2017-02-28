@@ -14,6 +14,7 @@
 
 # include "../Siv3DEngine.hpp"
 # include "../Window/IWindow.hpp"
+# include "../Keyboard/IKeyboard.hpp"
 # include "CMouse_Windows.hpp"
 
 namespace s3d
@@ -42,23 +43,13 @@ namespace s3d
 
 	void CMouse_Windows::update()
 	{
-		if (!m_inputAttached)
+		const auto keyboard = Siv3DEngine::GetKeyboard();
+
+		for (size_t i = 0; i < std::size(detail::buttonIndex); ++i)
 		{
-			::AttachThreadInput(::GetWindowThreadProcessId(m_hWnd, nullptr), ::GetCurrentThreadId(), TRUE);
+			const bool pressed = keyboard->pressed(i);
 
-			m_inputAttached = true;
-		}
-
-		uint8 buf[256] = {};
-
-		if (::GetKeyboardState(buf))
-		{
-			for (size_t i = 0; i < std::size(detail::buttonIndex); ++i)
-			{
-				const bool pressed = (buf[detail::buttonIndex[i]] >> 7) & 0x1;
-
-				m_states[i].update(pressed);
-			}
+			m_states[i].update(pressed);
 		}
 
 		{

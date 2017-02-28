@@ -784,6 +784,18 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\HashMap.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Keyboard\CKeyboard_Windows.hpp">
+      <Filter>Source\Siv3D\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Keyboard\IKeyboard.hpp">
+      <Filter>Source\Siv3D\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Keyboard\CKeyboard_macOS.hpp">
+      <Filter>Source\Siv3D\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Keyboard.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1130,6 +1142,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\JPEG\ImageFormat_JPEG.cpp">
       <Filter>Source\Siv3D\ImageFormat\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Keyboard\CKeyboard_Windows.cpp">
+      <Filter>Source\Siv3D\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Keyboard\KeyboardFactory.cpp">
+      <Filter>Source\Siv3D\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Keyboard\CKeyboard_macOS.cpp">
+      <Filter>Source\Siv3D\Keyboard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

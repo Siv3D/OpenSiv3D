@@ -14,37 +14,31 @@
 # if defined(SIV3D_TARGET_WINDOWS)
 
 # include <array>
-# include <mutex>
 # define  NOMINMAX
 # define  STRICT
 # define  WIN32_LEAN_AND_MEAN
 # define  _WIN32_WINNT _WIN32_WINNT_WIN7
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
-# include "IMouse.hpp"
-# include <Siv3D/PointVector.hpp>
+# include "IKeyboard.hpp"
 
 namespace s3d
 {
-	class CMouse_Windows : public ISiv3DMouse
+	class CKeyboard_Windows : public ISiv3DKeyboard
 	{
 	private:
 
 		HWND m_hWnd = nullptr;
 
-		std::array<InputState, MouseButtonCount> m_states;
+		std::array<InputState, KeyboardButtonCount> m_states;
 
-		std::mutex m_scrollMutex;
-
-		Vec2 m_scrollInternal{ 0.0, 0.0 };
-
-		Vec2 m_scroll{ 0.0, 0.0 };
+		bool m_inputAttached = false;
 
 	public:
 
-		CMouse_Windows();
+		CKeyboard_Windows();
 
-		~CMouse_Windows() override;
+		~CKeyboard_Windows() override;
 
 		bool init() override;
 
@@ -57,10 +51,6 @@ namespace s3d
 		bool up(uint32 index) const override;
 
 		MillisecondsF pressedDuration(uint32 index) const override;
-		
-		const Vec2& wheel() const override;
-		
-		void onScroll(double v, double h) override;
 	};
 }
 
