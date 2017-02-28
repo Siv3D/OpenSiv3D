@@ -38,7 +38,7 @@ namespace s3d
 	/// <summary>
 	/// Enter キー
 	/// </summary>
-	constexpr Key KeyEnte{ InputDevice::Keyboard, 0x0D };
+	constexpr Key KeyEnter{ InputDevice::Keyboard, 0x0D };
 
 	/// <summary>
 	/// Shift キー
@@ -401,9 +401,9 @@ namespace s3d
 	constexpr Key KeyNumAdd{ InputDevice::Keyboard, 0x6B };
 
 	/// <summary>
-	/// Separator キー
+	/// Numpad Enter キー
 	/// </summary>
-	constexpr Key KeyNumSeparator{ InputDevice::Keyboard, 0x6C};
+	constexpr Key KeyNumEnter{ InputDevice::Keyboard, 0x6C};
 
 	/// <summary>
 	/// Numpad - キー
@@ -576,9 +576,9 @@ namespace s3d
 	constexpr Key KeySlash{ InputDevice::Keyboard, 0xBF };
 
 	/// <summary>
-	/// @ キー
+	/// ` キー
 	/// </summary>
-	constexpr Key KeyAt{ InputDevice::Keyboard, 0xC0 };
+	constexpr Key KeyGraveAccent{ InputDevice::Keyboard, 0xC0 };
 
 	/// <summary>
 	/// [ キー

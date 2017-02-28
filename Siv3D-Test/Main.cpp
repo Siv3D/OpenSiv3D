@@ -8,7 +8,7 @@ void Main()
 
 	while (System::Update())
 	{
-		if (Key0.down())
+		if (KeyEnter.down())
 		{
 			Log << L"Hi";
 		}
