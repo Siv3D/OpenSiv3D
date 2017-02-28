@@ -12,5 +12,10 @@ void Main()
 		{
 			Log << (KeyControl + KeyC);
 		}
+		
+		if ((KeyCommand + KeyC).down())
+		{
+			Log << (KeyCommand + KeyC);
+		}
 	}
 }

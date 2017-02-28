@@ -138,6 +138,9 @@ namespace s3d
 			{ 0xBE, GLFW_KEY_PERIOD },
 			{ 0xBF, GLFW_KEY_SLASH },
 			{ 0xC0, GLFW_KEY_GRAVE_ACCENT }, // ? [Siv3D TODO]
+			{ 0xD8, 0 }, // command
+			{ 0xD9, GLFW_KEY_LEFT_SUPER },
+			{ 0xDA, GLFW_KEY_RIGHT_SUPER },
 			{ 0xDB, GLFW_KEY_LEFT_BRACKET }, // ? [Siv3D TODO]
 			{ 0xDC, GLFW_KEY_BACKSLASH }, // ? [Siv3D TODO]
 			{ 0xDD, GLFW_KEY_RIGHT_BRACKET }, // ? [Siv3D TODO]
@@ -182,12 +185,17 @@ namespace s3d
 		const bool controlPressed =
 			(keys[GLFW_KEY_LEFT_CONTROL] == GLFW_PRESS) || (keys[GLFW_KEY_RIGHT_CONTROL] == GLFW_PRESS);
 
-		m_states[0x11].update(shiftPressed);
+		m_states[0x11].update(controlPressed);
 		
 		const bool altPressed =
 			(keys[GLFW_KEY_LEFT_ALT] == GLFW_PRESS) || (keys[GLFW_KEY_RIGHT_ALT] == GLFW_PRESS);
 		
-		m_states[0x12].update(shiftPressed);		
+		m_states[0x12].update(altPressed);
+		
+		const bool commandPressed =
+			(keys[GLFW_KEY_LEFT_SUPER] == GLFW_PRESS) || (keys[GLFW_KEY_RIGHT_SUPER] == GLFW_PRESS);
+		
+		m_states[0xD8].update(commandPressed);
 	}
 	
 	bool CKeyboard_macOS::down(const uint32 index) const

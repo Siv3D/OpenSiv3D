@@ -259,6 +259,8 @@
 		2C3A1E791E659D4A007266FB /* CKeyboard_Windows.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3A1E731E659D4A007266FB /* CKeyboard_Windows.hpp */; };
 		2C3A1E7A1E659D4A007266FB /* IKeyboard.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3A1E741E659D4A007266FB /* IKeyboard.hpp */; };
 		2C3A1E7B1E659D4A007266FB /* KeyboardFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C3A1E751E659D4A007266FB /* KeyboardFactory.cpp */; };
+		2C3A1E7E1E65D48C007266FB /* KeyConjunction.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3A1E7C1E65D48C007266FB /* KeyConjunction.hpp */; };
+		2C3A1E7F1E65D48C007266FB /* KeyGroup.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3A1E7D1E65D48C007266FB /* KeyGroup.hpp */; };
 		2C5864F01E3DDB670028B9F0 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5864821E3DDB670028B9F0 /* format.h */; };
 		2C5864F11E3DDB670028B9F0 /* ostream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5864841E3DDB670028B9F0 /* ostream.h */; };
 		2C58655A1E3DDB670028B9F0 /* Siv3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5864EF1E3DDB670028B9F0 /* Siv3D.hpp */; };
@@ -659,6 +661,8 @@
 		2C3A1E731E659D4A007266FB /* CKeyboard_Windows.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CKeyboard_Windows.hpp; sourceTree = "<group>"; };
 		2C3A1E741E659D4A007266FB /* IKeyboard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IKeyboard.hpp; sourceTree = "<group>"; };
 		2C3A1E751E659D4A007266FB /* KeyboardFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyboardFactory.cpp; sourceTree = "<group>"; };
+		2C3A1E7C1E65D48C007266FB /* KeyConjunction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = KeyConjunction.hpp; sourceTree = "<group>"; };
+		2C3A1E7D1E65D48C007266FB /* KeyGroup.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = KeyGroup.hpp; sourceTree = "<group>"; };
 		2C5864821E3DDB670028B9F0 /* format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
 		2C5864831E3DDB670028B9F0 /* LICENSE.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.rst; sourceTree = "<group>"; };
 		2C5864841E3DDB670028B9F0 /* ostream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ostream.h; sourceTree = "<group>"; };
@@ -872,6 +876,8 @@
 		2C177DEF1E3F8EE800B2A3D6 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C3A1E7C1E65D48C007266FB /* KeyConjunction.hpp */,
+				2C3A1E7D1E65D48C007266FB /* KeyGroup.hpp */,
 				2C3A1E6D1E659D35007266FB /* Keyboard.hpp */,
 				2C3A1E6B1E650E50007266FB /* HashMap.hpp */,
 				2C177DF11E3F8EE800B2A3D6 /* AlignedAllocator.hpp */,
@@ -2078,6 +2084,7 @@
 				2C177E681E3F8EE800B2A3D6 /* ByteArrayView.hpp in Headers */,
 				2C177E931E3F8EE800B2A3D6 /* MathConstants.hpp in Headers */,
 				2C177EB91E3F8EE800B2A3D6 /* TimeProfiler.hpp in Headers */,
+				2C3A1E7F1E65D48C007266FB /* KeyGroup.hpp in Headers */,
 				2C177E8E1E3F8EE800B2A3D6 /* Key.hpp in Headers */,
 				2C177E9D1E3F8EE800B2A3D6 /* ParseBool.hpp in Headers */,
 				2C177EBB1E3F8EE800B2A3D6 /* Types.hpp in Headers */,
@@ -2118,6 +2125,7 @@
 				2C5864F01E3DDB670028B9F0 /* format.h in Headers */,
 				2C177F8A1E3F8EF300B2A3D6 /* CBinaryReader_macOS.hpp in Headers */,
 				2C177FF81E3F8EF300B2A3D6 /* CWindow_macOS.hpp in Headers */,
+				2C3A1E7E1E65D48C007266FB /* KeyConjunction.hpp in Headers */,
 				2C5867031E3DDB7E0028B9F0 /* muParserBase.h in Headers */,
 				2C177E711E3F8EE800B2A3D6 /* Console.hpp in Headers */,
 				2C177EC01E3F8EE800B2A3D6 /* Vector2D.hpp in Headers */,
