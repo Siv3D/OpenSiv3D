@@ -281,10 +281,6 @@ namespace s3d
 			, w(_size.x)
 			, h(_size.y) {}
 
-
-
-
-
 		/// <summary>
 		/// 長方形を作成します。
 		/// </summary>
@@ -332,8 +328,6 @@ namespace s3d
 			, y(topLeft->y)
 			, w(_size.x)
 			, h(_size.y) {}
-
-
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -383,8 +377,6 @@ namespace s3d
 			, w(_size.x)
 			, h(_size.y) {}
 
-
-
 		/// <summary>
 		/// 長方形を作成します。
 		/// </summary>
@@ -432,8 +424,6 @@ namespace s3d
 			, y(bottomLeft->y - _size.y)
 			, w(_size.x)
 			, h(_size.y) {}
-
-
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -483,8 +473,16 @@ namespace s3d
 			, w(_size.x)
 			, h(_size.y) {}
 
+		constexpr bool operator ==(const Rectangle& r) const noexcept
+		{
+			return pos == r.pos
+				&& size == r.size;
+		}
 
-
+		constexpr bool operator !=(const Rectangle& r) const noexcept
+		{
+			return !(*this == r);
+		}
 
 		/// <summary>
 		/// 長方形を移動させます。
@@ -498,7 +496,11 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setPos(value_type _x, value_type _y) { pos.set(_x, _y); return *this; }
+		S3D_CONSTEXPR_CPP14 Rectangle& setPos(value_type _x, value_type _y)
+		{
+			pos.set(_x, _y);
+			return *this;
+		}
 
 		/// <summary>
 		/// 長方形を移動させます。
@@ -509,7 +511,118 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setPos(const position_type& _pos) { pos.set(_pos); return *this; }
+		S3D_CONSTEXPR_CPP14 Rectangle& setPos(const position_type& _pos)
+		{
+			return setPos(_pos.x, _pos.y);
+		}
+
+		/// <summary>
+		/// 長方形を移動させます。
+		/// </summary>
+		/// <param name="_x">
+		/// 中心の点の新しい位置
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		S3D_CONSTEXPR_CPP14 Rectangle& setPos(Arg::center_<position_type> _center)
+		{
+			return setCenter(_center.value());
+		}
+
+		/// <summary>
+		/// 長方形を移動させます。
+		/// </summary>
+		/// <param name="_x">
+		/// 左上の点の新しい位置
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		S3D_CONSTEXPR_CPP14 Rectangle& setPos(Arg::topLeft_<position_type> topLeft)
+		{
+			return setPos(topLeft.value());
+		}
+
+		/// <summary>
+		/// 長方形を移動させます。
+		/// </summary>
+		/// <param name="_x">
+		/// 右上の点の新しい位置
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		S3D_CONSTEXPR_CPP14 Rectangle& setPos(Arg::topRight_<position_type> topRight)
+		{
+			x = topRight->x - w;
+			y = topRight->y;
+			return *this;
+		}
+
+		/// <summary>
+		/// 長方形を移動させます。
+		/// </summary>
+		/// <param name="_x">
+		/// 左下の点の新しい位置
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		S3D_CONSTEXPR_CPP14 Rectangle& setPos(Arg::bottomLeft_<position_type> bottomLeft)
+		{
+			x = bottomLeft->x;
+			y = bottomLeft->y - h;
+			return *this;
+		}
+
+		/// <summary>
+		/// 長方形を移動させます。
+		/// </summary>
+		/// <param name="_x">
+		/// 右下の点の新しい位置
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		S3D_CONSTEXPR_CPP14 Rectangle& setPos(Arg::bottomRight_<position_type> bottomRight)
+		{
+			x = bottomRight->x - w;
+			y = bottomLeft->y - h;
+			return *this;
+		}
+	
+		/// <summary>
+		/// 中心位置を指定して長方形を移動させます。
+		/// </summary>
+		/// <param name="_x">
+		/// 長方形の中心の新しい X 座標
+		/// </param>
+		/// <param name="_y">
+		/// 長方形の中心の新しい Y 座標
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		S3D_CONSTEXPR_CPP14 Rectangle& setCenter(value_type _x, value_type _y)
+		{
+			pos.set(_x - w / 2, _y - h / 2);
+			return *this;
+		}
+
+		/// <summary>
+		/// 中心位置を指定して長方形を移動させます。
+		/// </summary>
+		/// <param name="_x">
+		/// 長方形の中心の新しい位置
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		S3D_CONSTEXPR_CPP14 Rectangle& setCenter(const position_type& _pos)
+		{
+			return setCenter(_pos.x, _pos.y);
+		}
 
 		/// <summary>
 		/// 長方形の大きさを変更します。
@@ -523,7 +636,11 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setSize(value_type _w, value_type _h) { size.set(_w, _h); return *this; }
+		S3D_CONSTEXPR_CPP14 Rectangle& setSize(value_type _w, value_type _h)
+		{
+			size.set(_w, _h);
+			return *this;
+		}
 
 		/// <summary>
 		/// 長方形の大きさを変更します。
@@ -534,67 +651,111 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setSize(const size_type& _size) { size.set(_size); return *this; }
-
-		/// <summary>
-		/// 中心位置を指定して長方形を移動させます。
-		/// </summary>
-		/// <param name="_x">
-		/// 長方形の中心の新しい X 座標
-		/// </param>
-		/// <param name="_y">
-		/// 長方形の中心の新しい Y 座標
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setCenter(value_type _x, value_type _y) { pos.set(_x - w / 2, _y - h / 2); return *this; }
-
-		/// <summary>
-		/// 中心位置を指定して長方形を移動させます。
-		/// </summary>
-		/// <param name="_x">
-		/// 長方形の中心の新しい位置
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setCenter(const position_type& _pos) { pos.set(_pos - size / 2); return *this; }
-
-
-
-		constexpr bool operator == (const Rectangle& r) const
+		S3D_CONSTEXPR_CPP14 Rectangle& setSize(const size_type& _size)
 		{
-			return pos == r.pos
-				&& size == r.size;
+			return setSize(_size.x, _size.y);
 		}
 
-		constexpr bool operator != (const Rectangle& r) const
+
+		// set
+
+		// movedBy
+
+		// moveBy
+
+		// stretched
+
+		// scaled
+
+		// +
+
+		// -
+
+		// tl() tr() bl() br() center()
+
+		// top() right() bottom() left()
+
+		/// <summary>
+		/// 長方形の面積を返します。
+		/// </summary>
+		/// <returns>
+		/// 長方形の面積
+		/// </returns>
+		constexpr value_type area() const
 		{
-			return !(*this == r);
+			return w * h;
 		}
+
+		/// <summary>
+		/// 長方形の周の長さを返します。
+		/// </summary>
+		/// <returns>
+		/// 長方形の周の長さ
+		/// </returns>
+		constexpr value_type perimeter() const
+		{
+			return (w + h) * 2;
+		}
+
+		// intersects
+
+		// contains
+
+		// leftClicked() leftPressed() leftReleased()
+
+		// rightClicked() rightPressed() rightReleased()
+
+		// mouseOver()
+
+		// paint
+
+		// overpaint
+
+		// paintFrame
+
+		// overpaintFrame
+
+		// draw
+
+		// drawFrame
+
+		// drawShadow
+
+		// rotated
+
+		// rotatedAt
+
+		// shearedX
+
+		// shearedY
+
+		// TexturedQuad operator()(const Texture& texture) const;
+
+		// TexturedQuad operator()(const TextureRegion& textureRegion) const;
+
+		// Polygon asPolygon() const;
 	};
 
-	template <class CharType, class SizeType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const Rectangle<SizeType>& r)
-	{
-		return	os << CharType('(')
-			<< r.x << CharType(',')
-			<< r.y << CharType(',')
-			<< r.w << CharType(',')
-			<< r.h << CharType(')');
-	}
+	//template <class CharType, class SizeType>
+	//inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const Rectangle<SizeType>& r)
+	//{
+	//	return	os << CharType('(')
+	//		<< r.x << CharType(',')
+	//		<< r.y << CharType(',')
+	//		<< r.w << CharType(',')
+	//		<< r.h << CharType(')');
+	//}
 
-	template <class CharType, class SizeType>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& is, Rectangle<SizeType>& r)
-	{
-		CharType unused;
-		return	is >> unused
-			>> r.x >> unused
-			>> r.y >> unused
-			>> r.w >> unused
-			>> r.h >> unused;
-	}
+	//template <class CharType, class SizeType>
+	//inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& is, Rectangle<SizeType>& r)
+	//{
+	//	CharType unused;
+	//	return	is >> unused
+	//		>> r.x >> unused
+	//		>> r.y >> unused
+	//		>> r.w >> unused
+	//		>> r.h >> unused;
+	//}
 
 	/// <summary>
 	/// 長方形（要素が int 型）
@@ -606,3 +767,92 @@ namespace s3d
 	/// </summary>
 	using RectF = Rectangle<Vec2>;
 }
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting Rectangle
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[x] istream
+//	[x] wistream
+//	[x] fmtlib BasicFormatter<wchar>
+//
+/*
+namespace s3d
+{
+	void Formatter(FormatData& formatData, const HSV& value);
+
+	/// <summary>
+	/// 出力ストリームに色を渡します。
+	/// </summary>
+	/// <param name="os">
+	/// 出力ストリーム
+	/// </param>
+	/// <param name="hsv">
+	/// 色
+	/// </param>
+	/// <returns>
+	/// 渡した後の出力ストリーム
+	/// </returns>
+	template <class CharType>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const HSV& hsv)
+	{
+		return os << CharType('(')
+			<< hsv.h << CharType(',')
+			<< hsv.s << CharType(',')
+			<< hsv.v << CharType(')')
+			<< hsv.a << CharType(')');
+	}
+
+	/// <summary>
+	/// 入力ストリームに色を渡します。
+	/// </summary>
+	/// <param name="is">
+	/// 入力ストリーム
+	/// </param>
+	/// <param name="hsv">
+	/// 色
+	/// </param>
+	/// <returns>
+	/// 渡した後の入力ストリーム
+	/// </returns>
+	template <class CharType>
+	inline std::basic_istream<CharType>& operator >> (std::basic_istream<CharType>& is, HSV& hsv)
+	{
+		CharType unused;
+
+		is >> unused
+			>> hsv.h >> unused
+			>> hsv.s >> unused
+			>> hsv.v >> unused;
+
+		if (unused == CharType(','))
+		{
+			is >> hsv.a >> unused;
+		}
+		else
+		{
+			hsv.a = 1.0;
+		}
+
+		return is;
+	}
+}
+
+namespace fmt
+{
+	template <class ArgFormatter>
+	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::HSV& hsv)
+	{
+		const auto tag = s3d::detail::GetTag(format_str);
+
+		const auto fmt = L"({" + tag + L"},{" + tag + L"},{" + tag + L"},{" + tag + L"})";
+
+		f.writer().write(fmt, hsv.h, hsv.s, hsv.v, hsv.a);
+	}
+}
+*/
+//
+//////////////////////////////////////////////////////////////////////////////
