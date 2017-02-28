@@ -126,41 +126,6 @@ namespace s3d
 	constexpr Key KeyDelete{ InputDevice::Keyboard, 0x2E };
 
 	/// <summary>
-	/// 左 Shift キー
-	/// </summary>
-	constexpr Key KeyLShift{ InputDevice::Keyboard, 0xA0 };
-
-	/// <summary>
-	/// 右 Shift キー
-	/// </summary>
-	constexpr Key KeyRShift{ InputDevice::Keyboard, 0xA1 };
-
-	/// <summary>
-	/// 左 Ctrl キー
-	/// </summary>
-	constexpr Key KeyLControl{ InputDevice::Keyboard, 0xA2 };
-
-	/// <summary>
-	/// 右 Ctrl キー
-	/// </summary>
-	constexpr Key KeyRControl{ InputDevice::Keyboard, 0xA3 };
-
-	/// <summary>
-	/// 左 Alt キー
-	/// </summary>
-	constexpr Key KeyLAlt{ InputDevice::Keyboard, 0xA4 };
-
-	/// <summary>
-	/// 右 Alt キー
-	/// </summary>
-	constexpr Key KeyRAlt{ InputDevice::Keyboard, 0xA5 };
-
-
-
-
-
-
-	/// <summary>
 	/// 0 キー
 	/// </summary>
 	constexpr Key Key0{ InputDevice::Keyboard, 0x30 };
@@ -421,11 +386,6 @@ namespace s3d
 	constexpr Key KeyNumDivide{ InputDevice::Keyboard, 0x6F };
 
 	/// <summary>
-	/// NumLock キー
-	/// </summary>
-	constexpr Key KeyNumLock{ InputDevice::Keyboard, 0x90 };
-
-	/// <summary>
 	/// F1 キー
 	/// </summary>
 	constexpr Key KeyF1{ InputDevice::Keyboard, 0x70 };
@@ -546,6 +506,61 @@ namespace s3d
 	constexpr Key KeyF24{ InputDevice::Keyboard, 0x87 };
 
 	/// <summary>
+	/// NumLock キー
+	/// </summary>
+	constexpr Key KeyNumLock{ InputDevice::Keyboard, 0x90 };
+
+	/// <summary>
+	/// 左 Shift キー
+	/// </summary>
+	constexpr Key KeyLShift{ InputDevice::Keyboard, 0xA0 };
+
+	/// <summary>
+	/// 右 Shift キー
+	/// </summary>
+	constexpr Key KeyRShift{ InputDevice::Keyboard, 0xA1 };
+
+	/// <summary>
+	/// 左 Ctrl キー
+	/// </summary>
+	constexpr Key KeyLControl{ InputDevice::Keyboard, 0xA2 };
+
+	/// <summary>
+	/// 右 Ctrl キー
+	/// </summary>
+	constexpr Key KeyRControl{ InputDevice::Keyboard, 0xA3 };
+
+	/// <summary>
+	/// 左 Alt キー
+	/// </summary>
+	constexpr Key KeyLAlt{ InputDevice::Keyboard, 0xA4 };
+
+	/// <summary>
+	/// 右 Alt キー
+	/// </summary>
+	constexpr Key KeyRAlt{ InputDevice::Keyboard, 0xA5 };
+
+	/// <summary>
+	/// メディア 	Next Track ボタン
+	/// </summary>
+	constexpr Key KeyNextTrack{ InputDevice::Keyboard, 0xB0 };
+
+	/// <summary>
+	/// メディア 	Previous Track ボタン
+	/// </summary>
+	constexpr Key KeyPreviousTrack{ InputDevice::Keyboard, 0xB1 };
+
+	/// <summary>
+	/// メディア Stop ボタン
+	/// </summary>
+	constexpr Key KeyStopMedia{ InputDevice::Keyboard, 0xB2 };
+
+	/// <summary>
+	/// メディア Play / Pause ボタン
+	/// </summary>
+	constexpr Key KeyPlayPauseMedia{ InputDevice::Keyboard, 0xB3 };
+
+	/// <summary>
 	/// : キー
 	/// </summary>
 	constexpr Key KeyColon{ InputDevice::Keyboard, 0xBA };
@@ -611,24 +626,4 @@ namespace s3d
 	/// キーボードにより異なります。
 	/// </remarks>
 	constexpr Key KeyBackslash{ InputDevice::Keyboard, 0xE2 };
-
-	/// <summary>
-	/// メディア 	Next Track ボタン
-	/// </summary>
-	constexpr Key KeyNextTrack{ InputDevice::Keyboard, 0xB0 };
-
-	/// <summary>
-	/// メディア 	Previous Track ボタン
-	/// </summary>
-	constexpr Key KeyPreviousTrack{ InputDevice::Keyboard, 0xB1 };
-
-	/// <summary>
-	/// メディア Stop ボタン
-	/// </summary>
-	constexpr Key KeyStopMedia{ InputDevice::Keyboard, 0xB2 };
-
-	/// <summary>
-	/// メディア Play / Pause ボタン
-	/// </summary>
-	constexpr Key KeyPlayPauseMedia{ InputDevice::Keyboard, 0xB3 };
 }
