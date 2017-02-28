@@ -81,7 +81,8 @@
 - [x] Cursor (Partial)
 - [x] Mouse
 - [x] Key (Partial)
-- [ ] KeyCombination
+- [x] KeyConjunction
+- [ ] KeyGroup
 - [ ] Rect
 - [ ] Cylindrical
 - [ ] Spherical

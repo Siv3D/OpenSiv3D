@@ -51,6 +51,8 @@ namespace s3d
 
 		bool up() const;
 
+		MillisecondsF pressedDuration() const;
+
 		constexpr InputDevice inputDevice() const noexcept
 		{
 			return m_device;
@@ -65,8 +67,6 @@ namespace s3d
 		{
 			return m_userIndex;
 		}
-
-		MillisecondsF pressedDuration() const;
 
 		String name() const;
 	};

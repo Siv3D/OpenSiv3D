@@ -8,6 +8,9 @@ void Main()
 
 	while (System::Update())
 	{
-
+		if ((KeyControl + KeyC).down())
+		{
+			Log << (KeyControl + KeyC);
+		}
 	}
 }
