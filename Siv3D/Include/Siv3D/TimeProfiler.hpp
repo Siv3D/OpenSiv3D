@@ -10,11 +10,11 @@
 //-----------------------------------------------
 
 # pragma once
-# include <unordered_map>
 # include "Fwd.hpp"
 # include "Time.hpp"
 # include "Array.hpp"
 # include "String.hpp"
+# include "HashMap.hpp"
 
 namespace s3d
 {
@@ -39,7 +39,7 @@ namespace s3d
 			bool open = false;
 		};
 
-		std::unordered_map<String, Detail> m_data;
+		HashMap<String, Detail> m_data;
 
 		Array<String> m_labels;
 

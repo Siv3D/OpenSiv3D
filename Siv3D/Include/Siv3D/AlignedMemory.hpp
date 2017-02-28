@@ -29,7 +29,7 @@ namespace s3d
 	/// <returns>
 	/// 確保したメモリ領域の先頭ポインタ
 	/// </returns>
-	template <class Type, size_t Alignment = alignof(Type)>
+	template <class Type, size_t Alignment = alignof(Type), std::enable_if_t<(Alignment > SIV3D_PLATFORM_PTR_SIZE)>* = nullptr>
 	inline Type* AlignedMalloc(const size_t n = 1)
 	{
 	# if defined(SIV3D_TARGET_WINDOWS)
@@ -38,11 +38,37 @@ namespace s3d
 
 	# else
 
-		Type* p;
+		void* p;
 		::posix_memalign(&p, Alignment, sizeof(Type) * n);
-		return p;
+		return static_cast<Type*>(p);
 	
 	# endif	
+	}
+	
+	/// <summary>
+	/// アライメントを考慮して、指定した型のためのメモリ領域を確保します。
+	/// </summary>
+	/// <param name="n">
+	/// 要素数。デフォルトは 1
+	/// </param>
+	/// <remarks>
+	/// 確保したポインタは AlignedFree() で解放する必要があります。
+	/// </remarks>
+	/// <returns>
+	/// 確保したメモリ領域の先頭ポインタ
+	/// </returns>
+	template <class Type, size_t Alignment = alignof(Type), std::enable_if_t<(Alignment <= SIV3D_PLATFORM_PTR_SIZE)>* = nullptr>
+	inline Type* AlignedMalloc(const size_t n = 1)
+	{
+	# if defined(SIV3D_TARGET_WINDOWS)
+		
+		return static_cast<Type*>(::_aligned_malloc(sizeof(Type) * n, Alignment));
+		
+	# else
+		
+		return static_cast<Type*>(::malloc(sizeof(Type) * n));
+		
+	# endif
 	}
 
 	/// <summary>
