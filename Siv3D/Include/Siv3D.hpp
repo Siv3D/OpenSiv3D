@@ -401,6 +401,10 @@
 	# include "Siv3D/Cursor.hpp"
 	// 入力状態
 	# include "Siv3D/Key.hpp"
+	// 2 つのキーの組み合わせ
+	# include "Siv3D/KeyConjunction.hpp"
+	// 2 つ以上のキーの組み合わせ
+	# include "Siv3D/KeyGroup.hpp"
 	// キーボード
 	# include "Siv3D/Keyboard.hpp"
 	// マウス

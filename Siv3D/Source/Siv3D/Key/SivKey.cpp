@@ -316,6 +316,12 @@ namespace s3d
 				return L"/";
 			case 0xC0:
 				return L"`";
+			case 0xD8:
+				return L"Command";
+			case 0xD9:
+				return L"LeftCommand";
+			case 0xDA:
+				return L"RightCommand";
 			case 0xDB:
 				return L"[";
 			case 0xDC:

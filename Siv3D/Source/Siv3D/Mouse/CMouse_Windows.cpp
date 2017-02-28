@@ -47,7 +47,7 @@ namespace s3d
 
 		for (size_t i = 0; i < std::size(detail::buttonIndex); ++i)
 		{
-			const bool pressed = keyboard->pressed(i);
+			const bool pressed = keyboard->pressed(detail::buttonIndex[i]);
 
 			m_states[i].update(pressed);
 		}

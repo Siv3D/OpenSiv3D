@@ -72,6 +72,8 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\IWriter.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Key.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Keyboard.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\KeyConjunction.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\KeyGroup.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Lerp.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Logger.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Math.hpp" />

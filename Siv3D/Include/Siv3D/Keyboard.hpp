@@ -604,7 +604,22 @@ namespace s3d
 	/// ` キー
 	/// </summary>
 	constexpr Key KeyGraveAccent{ InputDevice::Keyboard, 0xC0 };
-
+	
+	/// <summary>
+	/// Command キー
+	/// </summary>
+	constexpr Key KeyCommand{ InputDevice::Keyboard, 0xD8 };
+	
+	/// <summary>
+	/// 左 Command キー
+	/// </summary>
+	constexpr Key KeyLeftCommand{ InputDevice::Keyboard, 0xD9 };
+	
+	/// <summary>
+	/// 右 Command キー
+	/// </summary>
+	constexpr Key KeyRightCommand{ InputDevice::Keyboard, 0xDA };
+	
 	/// <summary>
 	/// [ キー
 	/// </summary>
