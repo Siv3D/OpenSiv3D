@@ -8,14 +8,9 @@ void Main()
 
 	while (System::Update())
 	{
-		if ((KeyControl + KeyC).down())
+		if (((KeyControl + KeyC) | KeyS | MouseR).down())
 		{
-			Log << (KeyControl + KeyC);
-		}
-		
-		if ((KeyCommand + KeyC).down())
-		{
-			Log << (KeyCommand + KeyC);
+			Log << L"Hi";
 		}
 	}
 }
