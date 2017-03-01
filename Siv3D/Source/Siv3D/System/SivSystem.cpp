@@ -97,8 +97,10 @@ namespace s3d
             ::usleep(static_cast<uint32>(milliseconds) * 1000);
         }
 
-		bool LaunchBrowser(const FilePath& url)
+		bool LaunchBrowser(const FilePath& _url)
 		{
+			FilePath url = _url;
+			
 			if (!url.starts_with(L"http://") && !url.starts_with(L"https://"))
 			{
 				const String extension = FileSystem::Extension(url);
@@ -107,6 +109,8 @@ namespace s3d
 				{
 					return false;
 				}
+				
+				url.insert(0, L"file://");
 			}
 			
 			return macOS_LaunchBrowser(url.narrow().c_str());
