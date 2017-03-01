@@ -32,6 +32,8 @@ namespace s3d
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
 # include <Siv3D/Fwd.hpp>
+# include <Siv3D/String.hpp>
+# include <Siv3D/FileSystem.hpp>
 
 namespace s3d
 {
@@ -49,6 +51,21 @@ namespace s3d
 			::Sleep(milliseconds);
 
 			::timeEndPeriod(1);
+		}
+
+		bool LaunchBrowser(const FilePath& url)
+		{
+			if (!url.starts_with(L"http://") && !url.starts_with(L"https://"))
+			{
+				const String extension = FileSystem::Extension(url);
+
+				if (extension != L"html" && extension != L"htm")
+				{
+					return false;
+				}		
+			}
+
+			return reinterpret_cast<size_t>(::ShellExecuteW(nullptr, L"open", url.c_str(), nullptr, nullptr, SW_SHOWNORMAL)) > 32;
 		}
 	}
 }
@@ -70,6 +87,12 @@ namespace s3d
 
             ::usleep(static_cast<uint32>(milliseconds) * 1000);
         }
+
+		bool LaunchBrowser(const FilePath& url)
+		{
+
+			return false;
+		}
 	}
 }
 
