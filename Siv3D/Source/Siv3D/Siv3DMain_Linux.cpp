@@ -27,11 +27,11 @@ namespace s3d
 {
 	namespace detail
 	{
-        namespace init
-        {
-            void SetModulePath(const FilePath& path);
-        }
-    }
+		namespace init
+		{
+			void SetModulePath(const FilePath& path);
+		}
+	}
 }
 
 int main(int, char* argv[])
@@ -39,19 +39,19 @@ int main(int, char* argv[])
 	using namespace s3d;
 
 	std::cout << "Siv3D for Linux\n";
-    
-    const FilePath path = CharacterSet::Widen(argv[0]);
-    FilePath modulePath = FileSystem::ParentPath(path, 0);
 
-    if (modulePath.ends_with(L'/'))
-    {
-        modulePath.pop_back();
-    }
+	const FilePath path = CharacterSet::Widen(argv[0]);
+	FilePath modulePath = FileSystem::ParentPath(path, 0);
 
-    detail::init::SetModulePath(modulePath);
+	if (modulePath.ends_with(L'/'))
+	{
+		modulePath.pop_back();
+	}
 
-    chdir(FileSystem::ParentPath(path, 0).narrow().c_str());
-    
+	detail::init::SetModulePath(modulePath);
+
+	chdir(FileSystem::ParentPath(path, 0).narrow().c_str());
+
 	Siv3DEngine engine;
 
 	if (!Siv3DEngine::GetSystem()->init())
