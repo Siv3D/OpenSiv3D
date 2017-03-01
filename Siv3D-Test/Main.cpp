@@ -6,10 +6,11 @@ void Main()
 {
 	RunTest();
 
-	Log << FileSystem::SpecialFolderPath(SpecialFolder::LocalAppData);
-	
 	while (System::Update())
 	{
-
+		if (KeyO.down())
+		{
+			System::OepnLicense();
+		}
 	}
 }

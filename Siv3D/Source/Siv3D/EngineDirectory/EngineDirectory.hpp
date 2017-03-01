@@ -17,5 +17,7 @@ namespace s3d
 	namespace EngineDirectory
 	{
 		FilePath CurrectVersionCommon();
+
+		FilePath LicensePath();
 	}
 }

@@ -12,6 +12,7 @@
 # include <Siv3D/Logger.hpp>
 # include "CLogger.hpp"
 # include "LogHeaderFotter.hpp"
+# include "../EngineDirectory/EngineDirectory.hpp"
 
 # if defined(SIV3D_TARGET_WINDOWS)
 
@@ -102,14 +103,16 @@ namespace s3d
 
 	bool CLogger::init()
 	{
+		outputLicense();
+
 		const String fileName = FileSystem::BaseName(FileSystem::ModulePath()).xml_escaped();
-		const std::string filenameUTF8 = CharacterSet::ToUTF8(fileName);
+		const std::string titleUTF8 = CharacterSet::ToUTF8(fileName) + " Log";
 
 		m_writer.open(fileName + L"_log.html", CharacterEncoding::UTF8_BOM);
 		m_writer.writeUTF8(headerA);
-		m_writer.writeUTF8(filenameUTF8);
+		m_writer.writeUTF8(titleUTF8);
 		m_writer.writeUTF8(headerB);
-		m_writer.writeUTF8(filenameUTF8);
+		m_writer.writeUTF8(titleUTF8);
 		m_writer.writeUTF8(headerC);
 
 		//write(LogDescription::App, L"App Message");
@@ -136,5 +139,13 @@ namespace s3d
 		m_writer.write(str.xml_escaped());
 
 		m_writer.writeUTF8(divEnd);
+	}
+
+	void CLogger::outputLicense()
+	{
+		TextWriter writer(EngineDirectory::LicensePath());
+		writer.writeUTF8(headerA);
+		writer.writeUTF8(headerD);
+		writer.writeUTF8(footer);
 	}
 }

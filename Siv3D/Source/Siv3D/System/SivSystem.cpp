@@ -10,8 +10,11 @@
 //-----------------------------------------------
 
 # include <Siv3D/Fwd.hpp>
+# include <Siv3D/String.hpp>
+# include <Siv3D/System.hpp>
 # include "../Siv3DEngine.hpp"
 # include "../System/ISystem.hpp"
+# include "../EngineDirectory/EngineDirectory.hpp"
 
 namespace s3d
 {
@@ -20,6 +23,11 @@ namespace s3d
 		bool Update()
 		{
 			return Siv3DEngine::GetSystem()->update();
+		}
+
+		void OepnLicense()
+		{
+			LaunchBrowser(EngineDirectory::LicensePath());
 		}
 	}
 }
@@ -31,8 +39,6 @@ namespace s3d
 # define  _WIN32_WINNT _WIN32_WINNT_WIN7
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
-# include <Siv3D/Fwd.hpp>
-# include <Siv3D/String.hpp>
 # include <Siv3D/FileSystem.hpp>
 
 namespace s3d
@@ -73,7 +79,6 @@ namespace s3d
 # elif defined(SIV3D_TARGET_MACOS)
 
 # include <unistd.h>
-# include <Siv3D/String.hpp>
 # include <Siv3D/FileSystem.hpp>
 
 bool macOS_LaunchBrowser(const char* url);

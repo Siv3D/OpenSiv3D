@@ -21,5 +21,10 @@ namespace s3d
 		{
 			return FileSystem::SpecialFolderPath(SpecialFolder::LocalAppData) + L"Siv3D/OpenSiv3D" Siv3DVersion L"/";
 		}
+
+		FilePath LicensePath()
+		{
+			return CurrectVersionCommon() + L"License.html";
+		}
 	}
 }

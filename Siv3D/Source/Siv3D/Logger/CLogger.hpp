@@ -26,6 +26,8 @@ namespace s3d
 
 		bool m_initialized = false;
 
+		void outputLicense();
+
 	public:
 
 		CLogger();
