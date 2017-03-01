@@ -124,19 +124,19 @@ namespace s3d
 namespace s3d
 {
 	template <int32 Oclock>
-	inline void Formatter(FormatData& formatData, const CircularBase<Oclock>& value)
+	inline void Formatter(FormatData& formatData, const CircularBase<Oclock>& c)
 	{
-		Formatter(formatData, Vec2(value.r, value.theta));
+		Formatter(formatData, Vec2(c.r, c.theta));
 	}
 
 	/// <summary>
-	/// 出力ストリームに点を渡します。
+	/// 出力ストリームに円座標を渡します。
 	/// </summary>
 	/// <param name="os">
 	/// 出力ストリーム
 	/// </param>
-	/// <param name="v">
-	/// 点
+	/// <param name="c">
+	/// 円座標
 	/// </param>
 	/// <returns>
 	/// 渡した後の出力ストリーム
@@ -150,37 +150,37 @@ namespace s3d
 	}
 
 	/// <summary>
-	/// 入力ストリームに点を渡します。
+	/// 入力ストリームに円座標を渡します。
 	/// </summary>
 	/// <param name="is">
 	/// 入力ストリーム
 	/// </param>
-	/// <param name="v">
-	/// 点
+	/// <param name="c">
+	/// 円座標
 	/// </param>
 	/// <returns>
 	/// 渡した後の入力ストリーム
 	/// </returns>
 	template <class CharType, int32 Oclock>
-	inline std::basic_istream<CharType>& operator >> (std::basic_istream<CharType>& is, CircularBase<Oclock>& v)
+	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& is, CircularBase<Oclock>& c)
 	{
 		CharType unused;
 		return is >> unused
-			>> v.r >> unused
-			>> v.theta >> unused;
+			>> c.r >> unused
+			>> c.theta >> unused;
 	}
 }
 
 namespace fmt
 {
 	template <class ArgFormatter, s3d::int32 Oclock>
-	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::CircularBase<Oclock>& value)
+	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::CircularBase<Oclock>& c)
 	{
 		const auto tag = s3d::detail::GetTag(format_str);
 
 		const auto fmt = L"({" + tag + L"},{" + tag + L"})";
 
-		f.writer().write(fmt, value.r, value.theta);
+		f.writer().write(fmt, c.r, c.theta);
 	}
 }
 //
