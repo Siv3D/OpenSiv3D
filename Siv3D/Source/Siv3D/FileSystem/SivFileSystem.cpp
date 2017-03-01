@@ -904,7 +904,7 @@ namespace s3d
         
         FilePath SpecialFolderPath(const SpecialFolder folder)
         {
-            return CharacterSet::Widen(macOS_SpecialFolder(static_cast<int>(folder)));
+            return CharacterSet::Widen(macOS_SpecialFolder(static_cast<int>(folder))) << L'/';
         }
         
         FilePath TempDirectoryPath()
