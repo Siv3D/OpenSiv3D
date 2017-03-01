@@ -264,6 +264,7 @@
 		2C3A1E811E65EE00007266FB /* Cylindrical.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3A1E801E65EE00007266FB /* Cylindrical.hpp */; };
 		2C3A1E831E65EE0D007266FB /* Spherical.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3A1E821E65EE0D007266FB /* Spherical.hpp */; };
 		2C3A1E861E66798B007266FB /* SivRectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C3A1E851E66798B007266FB /* SivRectangle.cpp */; };
+		2C3A1E881E668587007266FB /* SivSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C3A1E871E668587007266FB /* SivSystem.mm */; };
 		2C5864F01E3DDB670028B9F0 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5864821E3DDB670028B9F0 /* format.h */; };
 		2C5864F11E3DDB670028B9F0 /* ostream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5864841E3DDB670028B9F0 /* ostream.h */; };
 		2C58655A1E3DDB670028B9F0 /* Siv3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5864EF1E3DDB670028B9F0 /* Siv3D.hpp */; };
@@ -669,6 +670,7 @@
 		2C3A1E801E65EE00007266FB /* Cylindrical.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Cylindrical.hpp; sourceTree = "<group>"; };
 		2C3A1E821E65EE0D007266FB /* Spherical.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Spherical.hpp; sourceTree = "<group>"; };
 		2C3A1E851E66798B007266FB /* SivRectangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRectangle.cpp; sourceTree = "<group>"; };
+		2C3A1E871E668587007266FB /* SivSystem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SivSystem.mm; sourceTree = "<group>"; };
 		2C5864821E3DDB670028B9F0 /* format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
 		2C5864831E3DDB670028B9F0 /* LICENSE.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.rst; sourceTree = "<group>"; };
 		2C5864841E3DDB670028B9F0 /* ostream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ostream.h; sourceTree = "<group>"; };
@@ -1416,6 +1418,7 @@
 		2C177F541E3F8EF300B2A3D6 /* System */ = {
 			isa = PBXGroup;
 			children = (
+				2C3A1E871E668587007266FB /* SivSystem.mm */,
 				2C177F551E3F8EF300B2A3D6 /* CSystem_macOS.cpp */,
 				2C177F561E3F8EF300B2A3D6 /* CSystem_macOS.hpp */,
 				2C177F571E3F8EF300B2A3D6 /* CSystem_Windows.cpp */,
@@ -2430,6 +2433,7 @@
 				2C177FF11E3F8EF300B2A3D6 /* SivThread.cpp in Sources */,
 				2C5866F71E3DDB7D0028B9F0 /* window.c in Sources */,
 				2C177FA11E3F8EF300B2A3D6 /* CCursor_Windows.cpp in Sources */,
+				2C3A1E881E668587007266FB /* SivSystem.mm in Sources */,
 				2C177F971E3F8EF300B2A3D6 /* SivCharacterSet.cpp in Sources */,
 				2C5866EF1E3DDB7D0028B9F0 /* input.c in Sources */,
 				2C177FBD1E3F8EF300B2A3D6 /* ImageFormatFactory.cpp in Sources */,

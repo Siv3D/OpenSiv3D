@@ -6,8 +6,10 @@ void Main()
 {
 	RunTest();
 
+	Log << FileSystem::SpecialFolderPath(SpecialFolder::LocalAppData);
+	
 	while (System::Update())
 	{
-		
+
 	}
 }

@@ -73,6 +73,10 @@ namespace s3d
 # elif defined(SIV3D_TARGET_MACOS)
 
 # include <unistd.h>
+# include <Siv3D/String.hpp>
+# include <Siv3D/FileSystem.hpp>
+
+bool macOS_LaunchBrowser(const char* url);
 
 namespace s3d
 {
@@ -90,8 +94,17 @@ namespace s3d
 
 		bool LaunchBrowser(const FilePath& url)
 		{
-
-			return false;
+			if (!url.starts_with(L"http://") && !url.starts_with(L"https://"))
+			{
+				const String extension = FileSystem::Extension(url);
+				
+				if (extension != L"html" && extension != L"htm")
+				{
+					return false;
+				}
+			}
+			
+			return macOS_LaunchBrowser(url.narrow().c_str());
 		}
 	}
 }
