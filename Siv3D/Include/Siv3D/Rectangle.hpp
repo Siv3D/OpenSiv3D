@@ -779,80 +779,69 @@ namespace s3d
 //	[x] wistream
 //	[x] fmtlib BasicFormatter<wchar>
 //
-/*
 namespace s3d
 {
-	void Formatter(FormatData& formatData, const HSV& value);
+	void Formatter(FormatData& formatData, const Rect& value);
+
+	void Formatter(FormatData& formatData, const RectF& value);
 
 	/// <summary>
-	/// 出力ストリームに色を渡します。
+	/// 出力ストリームに長方形を渡します。
 	/// </summary>
 	/// <param name="os">
 	/// 出力ストリーム
 	/// </param>
-	/// <param name="hsv">
-	/// 色
+	/// <param name="rect">
+	/// 長方形
 	/// </param>
 	/// <returns>
 	/// 渡した後の出力ストリーム
 	/// </returns>
-	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const HSV& hsv)
+	template <class CharType, class SizeType>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const Rectangle<SizeType>& rect)
 	{
-		return os << CharType('(')
-			<< hsv.h << CharType(',')
-			<< hsv.s << CharType(',')
-			<< hsv.v << CharType(')')
-			<< hsv.a << CharType(')');
+		return	os << CharType('(')
+			<< rect.x << CharType(',')
+			<< rect.y << CharType(',')
+			<< rect.w << CharType(',')
+			<< rect.h << CharType(')');
 	}
 
 	/// <summary>
-	/// 入力ストリームに色を渡します。
+	/// 入力ストリームに長方形を渡します。
 	/// </summary>
 	/// <param name="is">
 	/// 入力ストリーム
 	/// </param>
-	/// <param name="hsv">
-	/// 色
+	/// <param name="rect">
+	/// 長方形
 	/// </param>
 	/// <returns>
 	/// 渡した後の入力ストリーム
 	/// </returns>
-	template <class CharType>
-	inline std::basic_istream<CharType>& operator >> (std::basic_istream<CharType>& is, HSV& hsv)
+	template <class CharType, class SizeType>
+	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& is, Rectangle<SizeType>& rect)
 	{
 		CharType unused;
-
-		is >> unused
-			>> hsv.h >> unused
-			>> hsv.s >> unused
-			>> hsv.v >> unused;
-
-		if (unused == CharType(','))
-		{
-			is >> hsv.a >> unused;
-		}
-		else
-		{
-			hsv.a = 1.0;
-		}
-
-		return is;
+		return	is >> unused
+			>> rect.x >> unused
+			>> rect.y >> unused
+			>> rect.w >> unused
+			>> rect.h >> unused;
 	}
 }
 
 namespace fmt
 {
 	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::HSV& hsv)
+	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::Rect& rect)
 	{
 		const auto tag = s3d::detail::GetTag(format_str);
 
 		const auto fmt = L"({" + tag + L"},{" + tag + L"},{" + tag + L"},{" + tag + L"})";
 
-		f.writer().write(fmt, hsv.h, hsv.s, hsv.v, hsv.a);
+		f.writer().write(fmt, rect.x, rect.y, rect.w, rect.h);
 	}
 }
-*/
 //
 //////////////////////////////////////////////////////////////////////////////
