@@ -334,7 +334,7 @@ namespace std
 //	[x] wostream
 //	[x] istream
 //	[x] wistream
-//	[p] fmtlib BasicFormatter<wchar>
+//	[x] fmtlib BasicFormatter<wchar>
 //
 namespace s3d
 {
@@ -373,12 +373,25 @@ namespace s3d
 	/// 渡した後の入力ストリーム
 	/// </returns>
 	template <class CharType>
-	inline std::basic_istream<CharType>& operator >> (std::basic_istream<CharType>& is, Point& v)
+	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& is, Point& v)
 	{
 		CharType unused;
 		return is >> unused
 			>> v.x >> unused
 			>> v.y >> unused;
+	}
+}
+
+namespace fmt
+{
+	template <class ArgFormatter>
+	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::Point& v)
+	{
+		const auto tag = s3d::detail::GetTag(format_str);
+
+		const auto fmt = L"({" + tag + L"},{" + tag + L"})";
+
+		f.writer().write(fmt, v.x, v.y);
 	}
 }
 //

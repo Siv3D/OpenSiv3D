@@ -90,7 +90,7 @@ namespace s3d
 	{
 		std::lock_guard<std::mutex> lock(m_scrollMutex);
 		
-		m_scrollInternal.moveBy(v, h);
+		m_scrollInternal.moveBy(h, v);
 	}
 }
 
