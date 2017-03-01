@@ -80,17 +80,17 @@
 - [x] HashMap
 - [x] Cursor (Partial)
 - [x] Mouse
-- [x] Key (Partial)
+- [x] Key
 - [x] KeyConjunction
 - [x] KeyGroup
-- [ ] Rect
-- [ ] Cylindrical
-- [ ] Spherical
-- [ ] Linux Support
+- [x] Rectangle (Partial)
+- [x] Cylindrical
+- [x] Spherical
 
 ---------------------------
 
 #### 0.0.8
+- [ ] Linux Support
 - [ ] Circle
 - [ ] Line
 - [ ] Triangle

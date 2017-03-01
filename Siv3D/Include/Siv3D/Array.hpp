@@ -1270,6 +1270,9 @@ namespace s3d
 		/// <summary>
 		/// 配列の要素の位置をシフトさせ、はみ出た要素は反対側に挿入します。
 		/// </summary>
+		/// <param name="count">
+		/// 要素をシフトする数
+		/// </param>
 		/// <returns>
 		/// *this
 		/// </returns>

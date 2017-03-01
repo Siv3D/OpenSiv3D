@@ -261,6 +261,9 @@
 		2C3A1E7B1E659D4A007266FB /* KeyboardFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C3A1E751E659D4A007266FB /* KeyboardFactory.cpp */; };
 		2C3A1E7E1E65D48C007266FB /* KeyConjunction.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3A1E7C1E65D48C007266FB /* KeyConjunction.hpp */; };
 		2C3A1E7F1E65D48C007266FB /* KeyGroup.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3A1E7D1E65D48C007266FB /* KeyGroup.hpp */; };
+		2C3A1E811E65EE00007266FB /* Cylindrical.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3A1E801E65EE00007266FB /* Cylindrical.hpp */; };
+		2C3A1E831E65EE0D007266FB /* Spherical.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3A1E821E65EE0D007266FB /* Spherical.hpp */; };
+		2C3A1E861E66798B007266FB /* SivRectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C3A1E851E66798B007266FB /* SivRectangle.cpp */; };
 		2C5864F01E3DDB670028B9F0 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5864821E3DDB670028B9F0 /* format.h */; };
 		2C5864F11E3DDB670028B9F0 /* ostream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5864841E3DDB670028B9F0 /* ostream.h */; };
 		2C58655A1E3DDB670028B9F0 /* Siv3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5864EF1E3DDB670028B9F0 /* Siv3D.hpp */; };
@@ -663,6 +666,9 @@
 		2C3A1E751E659D4A007266FB /* KeyboardFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyboardFactory.cpp; sourceTree = "<group>"; };
 		2C3A1E7C1E65D48C007266FB /* KeyConjunction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = KeyConjunction.hpp; sourceTree = "<group>"; };
 		2C3A1E7D1E65D48C007266FB /* KeyGroup.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = KeyGroup.hpp; sourceTree = "<group>"; };
+		2C3A1E801E65EE00007266FB /* Cylindrical.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Cylindrical.hpp; sourceTree = "<group>"; };
+		2C3A1E821E65EE0D007266FB /* Spherical.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Spherical.hpp; sourceTree = "<group>"; };
+		2C3A1E851E66798B007266FB /* SivRectangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRectangle.cpp; sourceTree = "<group>"; };
 		2C5864821E3DDB670028B9F0 /* format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
 		2C5864831E3DDB670028B9F0 /* LICENSE.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.rst; sourceTree = "<group>"; };
 		2C5864841E3DDB670028B9F0 /* ostream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ostream.h; sourceTree = "<group>"; };
@@ -876,6 +882,8 @@
 		2C177DEF1E3F8EE800B2A3D6 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C3A1E821E65EE0D007266FB /* Spherical.hpp */,
+				2C3A1E801E65EE00007266FB /* Cylindrical.hpp */,
 				2C3A1E7C1E65D48C007266FB /* KeyConjunction.hpp */,
 				2C3A1E7D1E65D48C007266FB /* KeyGroup.hpp */,
 				2C3A1E6D1E659D35007266FB /* Keyboard.hpp */,
@@ -995,6 +1003,7 @@
 		2C177EC91E3F8EF300B2A3D6 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C3A1E841E66798B007266FB /* Rectangle */,
 				2C3A1E6F1E659D4A007266FB /* Keyboard */,
 				2C177ED01E3F8EF300B2A3D6 /* Base64 */,
 				2C177ED21E3F8EF300B2A3D6 /* BigFloat */,
@@ -1590,6 +1599,14 @@
 			path = Keyboard;
 			sourceTree = "<group>";
 		};
+		2C3A1E841E66798B007266FB /* Rectangle */ = {
+			isa = PBXGroup;
+			children = (
+				2C3A1E851E66798B007266FB /* SivRectangle.cpp */,
+			);
+			path = Rectangle;
+			sourceTree = "<group>";
+		};
 		2C5864811E3DDB670028B9F0 /* fmt */ = {
 			isa = PBXGroup;
 			children = (
@@ -2018,6 +2035,7 @@
 				2C177EB61E3F8EE800B2A3D6 /* TextWriter.hpp in Headers */,
 				2C177FD51E3F8EF300B2A3D6 /* CMouse_Windows.hpp in Headers */,
 				2C5867291E3DDB7E0028B9F0 /* divsufsort.h in Headers */,
+				2C3A1E831E65EE0D007266FB /* Spherical.hpp in Headers */,
 				2C177E7E1E3F8EE800B2A3D6 /* FormatInt.hpp in Headers */,
 				2C3A1E6C1E650E50007266FB /* HashMap.hpp in Headers */,
 				2C177F9B1E3F8EF300B2A3D6 /* CConsole.hpp in Headers */,
@@ -2033,6 +2051,7 @@
 				2C177E801E3F8EE800B2A3D6 /* FormatUtility.hpp in Headers */,
 				2C177FBF1E3F8EF300B2A3D6 /* ImageFormat_PNG.hpp in Headers */,
 				2C5866E91E3DDB7D0028B9F0 /* cocoa_platform.h in Headers */,
+				2C3A1E811E65EE00007266FB /* Cylindrical.hpp in Headers */,
 				2C177E771E3F8EE800B2A3D6 /* DragDrop.hpp in Headers */,
 				2C177EBC1E3F8EE800B2A3D6 /* TypeTraits.hpp in Headers */,
 				2C5866D31E3DDB7D0028B9F0 /* diy-fp.h in Headers */,
@@ -2390,6 +2409,7 @@
 				2C5867061E3DDB7E0028B9F0 /* muParserCallback.cpp in Sources */,
 				2C177FE31E3F8EF300B2A3D6 /* CSystem_macOS.cpp in Sources */,
 				2C5866FE1E3DDB7E0028B9F0 /* md5.cpp in Sources */,
+				2C3A1E861E66798B007266FB /* SivRectangle.cpp in Sources */,
 				2C5866F41E3DDB7D0028B9F0 /* posix_tls.c in Sources */,
 				2C177FCE1E3F8EF300B2A3D6 /* SivMD5.cpp in Sources */,
 				2C5866D21E3DDB7D0028B9F0 /* diy-fp.cc in Sources */,
