@@ -153,7 +153,7 @@ namespace s3d
 	/// <returns>
 	/// 渡した後の入力ストリーム
 	/// </returns>
-	template <class CharType, int32 Oclock>
+	template <class CharType>
 	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& is, Cylindrical& c)
 	{
 		CharType unused;

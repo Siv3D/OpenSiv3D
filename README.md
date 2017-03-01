@@ -84,8 +84,8 @@
 - [x] KeyConjunction
 - [x] KeyGroup
 - [x] Rectangle (Partial)
-- [ ] Cylindrical
-- [ ] Spherical
+- [x] Cylindrical
+- [x] Spherical
 
 ---------------------------
 
