@@ -98,12 +98,19 @@ namespace s3d
 
 		m_writer.writeUTF8(footer);
 
+		const FilePath path = m_writer.path();
+
 		m_writer.close();
+
+		if (m_removeFileOnExit && !m_hasImportantLog)
+		{
+			FileSystem::Remove(path);
+		}
 	}
 
 	bool CLogger::init()
 	{
-		outputLicense();
+		outputLicenses();
 
 		const String fileName = FileSystem::BaseName(FileSystem::ModulePath()).xml_escaped();
 		const std::string titleUTF8 = CharacterSet::ToUTF8(fileName) + " Log";
@@ -139,9 +146,19 @@ namespace s3d
 		m_writer.write(str.xml_escaped());
 
 		m_writer.writeUTF8(divEnd);
+
+		if (desc == LogDescription::Error)
+		{
+			m_hasImportantLog = true;
+		}
 	}
 
-	void CLogger::outputLicense()
+	void CLogger::removeLogOnExit()
+	{
+		m_removeFileOnExit = true;
+	}
+
+	void CLogger::outputLicenses()
 	{
 		TextWriter writer(EngineDirectory::LicensePath());
 		writer.writeUTF8(headerA);

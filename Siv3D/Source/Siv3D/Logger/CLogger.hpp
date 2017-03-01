@@ -26,7 +26,11 @@ namespace s3d
 
 		bool m_initialized = false;
 
-		void outputLicense();
+		bool m_hasImportantLog = false;
+
+		bool m_removeFileOnExit = false;
+
+		void outputLicenses();
 
 	public:
 
@@ -37,5 +41,7 @@ namespace s3d
 		bool init() override;
 
 		void write(LogDescription desc, const String& str) override;
+
+		void removeLogOnExit() override;
 	};
 }

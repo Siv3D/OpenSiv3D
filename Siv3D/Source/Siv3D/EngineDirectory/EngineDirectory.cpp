@@ -24,7 +24,7 @@ namespace s3d
 
 		FilePath LicensePath()
 		{
-			return CurrectVersionCommon() + L"License.html";
+			return CurrectVersionCommon() + L"Licenses.html";
 		}
 	}
 }

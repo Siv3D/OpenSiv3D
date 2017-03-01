@@ -25,7 +25,7 @@ namespace s3d
 			return Siv3DEngine::GetSystem()->update();
 		}
 
-		void OepnLicense()
+		void OepnLicenses()
 		{
 			LaunchBrowser(EngineDirectory::LicensePath());
 		}

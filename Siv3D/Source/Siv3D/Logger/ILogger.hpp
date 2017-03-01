@@ -35,5 +35,7 @@ namespace s3d
 		//virtual void writeOnce(LogDescription desc, const Image& image, const String& str, int32 id) = 0;
 
 		//virtual const wchar* getMessage(uint32 index) const = 0;
+
+		virtual void removeLogOnExit() = 0;
 	};
 }

@@ -48,7 +48,7 @@ u8R"(</h2>
 )";
 
 const static char headerD[] =
-u8R"(License</title>
+u8R"(Licenses</title>
 <style>
 body		{ background-color: #f9f9f9; font-family: 'Segoe UI','メイリオ','Meiryo','ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','Osaka','ＭＳ Ｐゴシック','MS PGothic','Arial',sans-serif; }
 h3			{ color: #333333; text-align: center; font-size: 28px; }
