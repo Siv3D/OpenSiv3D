@@ -138,9 +138,9 @@ namespace s3d
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const Spherical& s)
 	{
 		return os		<< CharType('(')
-			<< c.r		<< CharType(',')
-			<< c.theta	<< CharType(',')
-			<< c.phi	<< CharType(')');
+			<< s.r		<< CharType(',')
+			<< s.theta	<< CharType(',')
+			<< s.phi	<< CharType(')');
 	}
 
 	/// <summary>
