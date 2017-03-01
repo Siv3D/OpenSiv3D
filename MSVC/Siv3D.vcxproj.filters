@@ -212,6 +212,9 @@
     <Filter Include="Source\Siv3D\Rectangle">
       <UniqueIdentifier>{3e3267ba-f30e-4680-8973-961293fd4abf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\EngineDirectory">
+      <UniqueIdentifier>{986bd51c-c0b6-4287-8d9e-e6876e22fc8e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -811,6 +814,9 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Spherical.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\EngineDirectory\EngineDirectory.hpp">
+      <Filter>Source\Siv3D\EngineDirectory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1169,6 +1175,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Rectangle\SivRectangle.cpp">
       <Filter>Source\Siv3D\Rectangle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\EngineDirectory\EngineDirectory.cpp">
+      <Filter>Source\Siv3D\EngineDirectory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
