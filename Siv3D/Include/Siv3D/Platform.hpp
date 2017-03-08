@@ -81,7 +81,7 @@
 
 # if defined(SIV3D_TARGET_WINDOWS)
 
-	# define S3D_CONSTEXPR_CPP14	
+	# define S3D_CONSTEXPR_CPP14	constexpr
 
 # else
 
