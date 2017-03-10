@@ -17,7 +17,7 @@
 # include "CCursor_Linux.hpp"
 
 // TODO : implemantation
-void Linux_GetScreenCursorPos(double* xpos, double* ypos);
+void Linux_GetScreenCursorPos(double* xpos, double* ypos) { }
 
 namespace s3d
 {
