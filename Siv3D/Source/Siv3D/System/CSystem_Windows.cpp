@@ -21,6 +21,7 @@
 # include "../Cursor/ICursor.hpp"
 # include "../Keyboard/IKeyboard.hpp"
 # include "../Mouse/IMouse.hpp"
+# include "../Graphics/IGraphics.hpp"
 
 namespace s3d
 {
@@ -72,6 +73,11 @@ namespace s3d
 		}
 
 		if (!Siv3DEngine::GetMouse()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetGraphics()->init())
 		{
 			return false;
 		}

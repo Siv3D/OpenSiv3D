@@ -23,6 +23,7 @@ namespace s3d
 	class ISiv3DCursor;
 	class ISiv3DKeyboard;
 	class ISiv3DMouse;
+	class ISiv3DGraphics;
 
 	template <class Interface>
 	class Siv3DComponent
@@ -78,6 +79,8 @@ namespace s3d
 
 		Siv3DComponent<ISiv3DMouse> m_mouse;
 
+		Siv3DComponent<ISiv3DGraphics> m_graphics;
+
 	public:
 
 		Siv3DEngine();
@@ -132,6 +135,11 @@ namespace s3d
 		static ISiv3DMouse* GetMouse()
 		{
 			return pEngine->m_mouse.get();
+		}
+
+		static ISiv3DGraphics* GetGraphics()
+		{
+			return pEngine->m_graphics.get();
 		}
 	};
 }

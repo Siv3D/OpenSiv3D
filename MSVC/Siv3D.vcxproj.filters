@@ -218,6 +218,18 @@
     <Filter Include="Source\Siv3D\Monitor">
       <UniqueIdentifier>{8f71a555-9aa8-471a-9930-ac73e3e5f559}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Graphics">
+      <UniqueIdentifier>{4550aa33-0cc9-4ab7-8337-d7170f10ba19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Graphics\D3D11">
+      <UniqueIdentifier>{25d4afa7-b406-4387-8d42-56fc155fc739}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Graphics\GL">
+      <UniqueIdentifier>{633f080b-8d67-4bd5-9702-7545538a7164}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Graphics\D3D11\Device">
+      <UniqueIdentifier>{439e5706-c11e-4348-9b59-0ec10b803529}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -823,6 +835,18 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Monitor.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Graphics.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\IGraphics.hpp">
+      <Filter>Source\Siv3D\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\CGraphics_D3D11.hpp">
+      <Filter>Source\Siv3D\Graphics\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\Device\D3D11Device.hpp">
+      <Filter>Source\Siv3D\Graphics\D3D11\Device</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1187,6 +1211,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Monitor\SivMonitor.cpp">
       <Filter>Source\Siv3D\Monitor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\SivGraphics.cpp">
+      <Filter>Source\Siv3D\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\GraphicsFactory.cpp">
+      <Filter>Source\Siv3D\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\CGraphics_D3D11.cpp">
+      <Filter>Source\Siv3D\Graphics\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\Device\D3D11Device.cpp">
+      <Filter>Source\Siv3D\Graphics\D3D11\Device</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

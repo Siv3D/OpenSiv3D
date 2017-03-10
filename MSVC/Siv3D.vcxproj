@@ -59,6 +59,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\FormatUtility.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Functor.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Fwd.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Graphics.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Grid.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\HardwareRNG.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Hash.hpp" />
@@ -153,6 +154,9 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\DragDrop\CDragDrop_Windows.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\DragDrop\IDragDrop.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\EngineDirectory\EngineDirectory.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\CGraphics_D3D11.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\Device\D3D11Device.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\IGraphics.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\BMP\ImageFormat_BMP.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\CImageFormat.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\IImageFormat.hpp" />
@@ -256,6 +260,10 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatFloat\SivFormatFloat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatInt\SivFormatInt.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Format\SivFormat.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\CGraphics_D3D11.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\Device\D3D11Device.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\GraphicsFactory.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\SivGraphics.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\HSV\SivHSV.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\BMP\ImageFormat_BMP.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\CImageFormat.cpp" />

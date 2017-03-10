@@ -459,8 +459,8 @@
 	//# include "Siv3D/ConstantBuffer.hpp"
 	//// 頂点レイアウト
 	//# include "Siv3D/InputLayout.hpp"
-	//// グラフィックス全般
-	//# include "Siv3D/Graphics.hpp"
+	// グラフィックス全般
+	# include "Siv3D/Graphics.hpp"
 	//// スクリーンショット
 	//# include "Siv3D/ScreenCapture.hpp"
 	//// 2D グラフィックス設定
