@@ -215,6 +215,9 @@
     <Filter Include="Source\Siv3D\EngineDirectory">
       <UniqueIdentifier>{986bd51c-c0b6-4287-8d9e-e6876e22fc8e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Monitor">
+      <UniqueIdentifier>{8f71a555-9aa8-471a-9930-ac73e3e5f559}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -817,6 +820,9 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\EngineDirectory\EngineDirectory.hpp">
       <Filter>Source\Siv3D\EngineDirectory</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Monitor.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1178,6 +1184,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\EngineDirectory\EngineDirectory.cpp">
       <Filter>Source\Siv3D\EngineDirectory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Monitor\SivMonitor.cpp">
+      <Filter>Source\Siv3D\Monitor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

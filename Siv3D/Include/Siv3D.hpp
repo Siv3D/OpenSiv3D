@@ -382,6 +382,8 @@
 	//# include "Siv3D/Midi.hpp"
 	//// システム
 	# include "Siv3D/System.hpp"
+	// 接続されているモニタの情報
+	# include "Siv3D/Monitor.hpp"
 	// ウィンドウ
 	# include "Siv3D/Window.hpp"
 	//// メッセージボックス
