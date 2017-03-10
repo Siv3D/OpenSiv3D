@@ -368,6 +368,8 @@
 		2C5869181E3F0B030028B9F0 /* pnglibconf.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C5869151E3F0B030028B9F0 /* pnglibconf.h */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
+		2C80EB2A1E730C0600EFEF01 /* Monitor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C80EB291E730C0600EFEF01 /* Monitor.hpp */; };
+		2C80EB2D1E730C1E00EFEF01 /* SivMonitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C80EB2C1E730C1E00EFEF01 /* SivMonitor.cpp */; };
 		2CA79A101DF55A0D0028D11D /* boost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F81DF55A0D0028D11D /* boost_filesystem.a */; };
 		2CA79A111DF55A0D0028D11D /* boost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F91DF55A0D0028D11D /* boost_system.a */; };
 		2CA79AAD1DF55A410028D11D /* Siv3DTest_OSX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79A9D1DF55A410028D11D /* Siv3DTest_OSX.cpp */; };
@@ -780,6 +782,8 @@
 		2C5869151E3F0B030028B9F0 /* pnglibconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pnglibconf.h; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
 		2C5869261E3F0C620028B9F0 /* lpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lpng.a; sourceTree = "<group>"; };
+		2C80EB291E730C0600EFEF01 /* Monitor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Monitor.hpp; sourceTree = "<group>"; };
+		2C80EB2C1E730C1E00EFEF01 /* SivMonitor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMonitor.cpp; sourceTree = "<group>"; };
 		2CA798F81DF55A0D0028D11D /* boost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_filesystem.a; sourceTree = "<group>"; };
 		2CA798F91DF55A0D0028D11D /* boost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_system.a; sourceTree = "<group>"; };
 		2CA798FA1DF55A0D0028D11D /* libSiv3D.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSiv3D.a; sourceTree = "<group>"; };
@@ -888,6 +892,7 @@
 		2C177DEF1E3F8EE800B2A3D6 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C80EB291E730C0600EFEF01 /* Monitor.hpp */,
 				2C3A1E821E65EE0D007266FB /* Spherical.hpp */,
 				2C3A1E801E65EE00007266FB /* Cylindrical.hpp */,
 				2C3A1E7C1E65D48C007266FB /* KeyConjunction.hpp */,
@@ -1009,6 +1014,7 @@
 		2C177EC91E3F8EF300B2A3D6 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C80EB2B1E730C1E00EFEF01 /* Monitor */,
 				2C3A1E891E669F71007266FB /* EngineDirectory */,
 				2C3A1E841E66798B007266FB /* Rectangle */,
 				2C3A1E6F1E659D4A007266FB /* Keyboard */,
@@ -1877,6 +1883,14 @@
 			path = zlib;
 			sourceTree = "<group>";
 		};
+		2C80EB2B1E730C1E00EFEF01 /* Monitor */ = {
+			isa = PBXGroup;
+			children = (
+				2C80EB2C1E730C1E00EFEF01 /* SivMonitor.cpp */,
+			);
+			path = Monitor;
+			sourceTree = "<group>";
+		};
 		2CA798F51DF55A0D0028D11D /* Lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -2193,6 +2207,7 @@
 				2C5866FD1E3DDB7E0028B9F0 /* xkb_unicode.h in Headers */,
 				2C177E5E1E3F8EE800B2A3D6 /* AlignedAllocator.hpp in Headers */,
 				2C5867141E3DDB7E0028B9F0 /* muParserTokenReader.h in Headers */,
+				2C80EB2A1E730C0600EFEF01 /* Monitor.hpp in Headers */,
 				2C177FEF1E3F8EF300B2A3D6 /* CTextWriter.hpp in Headers */,
 				2C177FFF1E3F8EF300B2A3D6 /* CWritableMemoryMapping.hpp in Headers */,
 				2C177E7D1E3F8EE800B2A3D6 /* FormatFloat.hpp in Headers */,
@@ -2388,6 +2403,7 @@
 				2C177FCD1E3F8EF300B2A3D6 /* SivMathParser.cpp in Sources */,
 				2C177F901E3F8EF300B2A3D6 /* CBinaryWriter_Windows.cpp in Sources */,
 				2C177FE91E3F8EF300B2A3D6 /* SystemFactory.cpp in Sources */,
+				2C80EB2D1E730C1E00EFEF01 /* SivMonitor.cpp in Sources */,
 				2C177FFE1E3F8EF300B2A3D6 /* CWritableMemoryMapping.cpp in Sources */,
 				2C58672A1E3DDB7E0028B9F0 /* zdict.c in Sources */,
 				2C177FBA1E3F8EF300B2A3D6 /* CImageFormat.cpp in Sources */,
