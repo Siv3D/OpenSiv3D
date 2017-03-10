@@ -42,6 +42,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Concept.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Console.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Cursor.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Cylindrical.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Date.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\DateTime.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Distribution.hpp" />
@@ -71,6 +72,9 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\IteratorRange.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\IWriter.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Key.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Keyboard.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\KeyConjunction.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\KeyGroup.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Lerp.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Logger.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Math.hpp" />
@@ -96,6 +100,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\RandomVec4.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Rectangle.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Regex.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Spherical.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Void_t.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Window.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\WritableMemoryMapping.hpp" />
@@ -146,12 +151,16 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\DragDrop\CDragDrop_macOS.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\DragDrop\CDragDrop_Windows.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\DragDrop\IDragDrop.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\EngineDirectory\EngineDirectory.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\BMP\ImageFormat_BMP.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\CImageFormat.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\IImageFormat.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\JPEG\ImageFormat_JPEG.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\PNG\ImageFormat_PNG.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\INIReader\CINIReader.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Keyboard\CKeyboard_macOS.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Keyboard\CKeyboard_Windows.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Keyboard\IKeyboard.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Key\InputState.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\CLogger.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\ILogger.hpp" />
@@ -240,6 +249,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\DragDrop\CDragDrop_Windows.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\DragDrop\DragDropFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\DragDrop\SivDragDrop.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\EngineDirectory\EngineDirectory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FileSystem\SivFileSystem.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatBool\SivFormatBool.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatFloat\SivFormatFloat.cpp" />
@@ -255,6 +265,9 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Image\SivImage.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\INIReader\CINIReader.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\INIReader\SivINIReader.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Keyboard\CKeyboard_macOS.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Keyboard\CKeyboard_Windows.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Keyboard\KeyboardFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Key\SivKey.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\CLogger.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\LoggerFactory.cpp" />
@@ -271,6 +284,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\ParseFloat\SivParseFloat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\PerlinNoise\SivPerlinNoise.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Point\SivPoint.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Rectangle\SivRectangle.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DEngine.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_macOS.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_Windows.cpp" />

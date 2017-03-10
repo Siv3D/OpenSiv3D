@@ -92,4 +92,9 @@ namespace s3d
 		Info,		// Normal
 		Debug,		// More
 	};
+
+	namespace Logger
+	{
+		void RemoveLogOnExit();
+	}
 }

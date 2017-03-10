@@ -22,4 +22,12 @@ namespace s3d
 			Siv3DEngine::GetLogger()->write(LogDescription::App, text);
 		}
 	}
+
+	namespace Logger
+	{
+		void RemoveLogOnExit()
+		{
+			Siv3DEngine::GetLogger()->removeLogOnExit();
+		}
+	}
 }

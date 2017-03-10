@@ -23,7 +23,7 @@ namespace s3d
 {
 	namespace detail
 	{
-		void AppendInt(wchar** p, const long value)
+		void AppendInt(wchar** const p, const long value)
 		{
 			bool negative;
 			unsigned long val;

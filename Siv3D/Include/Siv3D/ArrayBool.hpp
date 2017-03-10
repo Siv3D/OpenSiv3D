@@ -151,7 +151,17 @@ namespace s3d
 			return size() * sizeof(bool);
 		}
 
-		Array& operator <<(const bool value)
+		void push_front(const bool& value)
+		{
+			insert(begin(), value);
+		}
+
+		void pop_front()
+		{
+			erase(begin());
+		}
+
+		Array& operator <<(const bool& value)
 		{
 			push_back(value);
 
