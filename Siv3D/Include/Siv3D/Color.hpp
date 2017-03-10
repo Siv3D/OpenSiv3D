@@ -141,7 +141,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Color& operator =(const Color& color) noexcept = default;
+		constexpr Color& operator =(const Color& color) noexcept = default;
 
 		/// <summary>
 		/// 新しい色を代入します。
@@ -152,7 +152,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Color& operator =(const ColorF& color) noexcept;
+		constexpr Color& operator =(const ColorF& color) noexcept;
 
 		/// <summary>
 		/// 新しい色を代入します。
@@ -222,7 +222,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Color& set(const uint32 _r, const uint32 _g, const uint32 _b, const uint32 _a = 255) noexcept
+		constexpr Color& set(const uint32 _r, const uint32 _g, const uint32 _b, const uint32 _a = 255) noexcept
 		{
 			r = _r;
 			g = _g;
@@ -240,7 +240,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Color& setRGB(uint32 rgb) noexcept
+		constexpr Color& setRGB(uint32 rgb) noexcept
 		{
 			r = g = b = rgb;
 			return *this;
@@ -255,7 +255,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Color& setA(const uint32 _a) noexcept
+		constexpr Color& setA(const uint32 _a) noexcept
 		{
 			a = _a;
 			return *this;
@@ -449,7 +449,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 ColorF& operator =(const ColorF& color) noexcept = default;
+		constexpr ColorF& operator =(const ColorF& color) noexcept = default;
 
 		/// <summary>
 		/// 新しい色を代入します。
@@ -460,7 +460,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 ColorF& operator =(const Color& color) noexcept
+		constexpr ColorF& operator =(const Color& color) noexcept
 		{
 			r = color.r / 255.0;
 			g = color.g / 255.0;
@@ -503,7 +503,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 ColorF& operator +=(const ColorF& color) noexcept
+		constexpr ColorF& operator +=(const ColorF& color) noexcept
 		{
 			r += color.r;
 			g += color.g;
@@ -534,7 +534,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 ColorF& operator -=(const ColorF& color) noexcept
+		constexpr ColorF& operator -=(const ColorF& color) noexcept
 		{
 			r -= color.r;
 			g -= color.g;
@@ -565,7 +565,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 ColorF& operator *=(const double s) noexcept
+		constexpr ColorF& operator *=(const double s) noexcept
 		{
 			r *= s;
 			g *= s;
@@ -596,7 +596,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 ColorF& operator *=(const ColorF& color) noexcept
+		constexpr ColorF& operator *=(const ColorF& color) noexcept
 		{
 			r *= color.r;
 			g *= color.g;
@@ -623,7 +623,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 ColorF& set(const double _r, const double _g, const double _b, const double _a = 1.0) noexcept
+		constexpr ColorF& set(const double _r, const double _g, const double _b, const double _a = 1.0) noexcept
 		{
 			r = _r;
 			g = _g;
@@ -641,7 +641,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 ColorF& setRGB(const double rgb) noexcept
+		constexpr ColorF& setRGB(const double rgb) noexcept
 		{
 			r = g = b = rgb;
 			return *this;
@@ -656,7 +656,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 ColorF& setA(const double _a) noexcept
+		constexpr ColorF& setA(const double _a) noexcept
 		{
 			a = _a;
 			return *this;
@@ -821,7 +821,7 @@ namespace s3d
 	/// <returns>
 	/// *this
 	/// </returns>
-	inline S3D_CONSTEXPR_CPP14 Color& Color::operator =(const ColorF& color) noexcept
+	inline constexpr Color& Color::operator =(const ColorF& color) noexcept
 	{
 		return *this = color.toColor();
 	}

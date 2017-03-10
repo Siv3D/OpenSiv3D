@@ -26,7 +26,7 @@ namespace s3d
 			return a + t * (b - a);
 		}
 
-		static S3D_CONSTEXPR_CPP14 double Grad(int32 hash, double x, double y, double z)
+		static constexpr double Grad(int32 hash, double x, double y, double z)
 		{
 			const int32 h = hash & 15;
 			const double u = h < 8 ? x : y;

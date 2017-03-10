@@ -446,7 +446,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setPos(value_type _x, value_type _y)
+		constexpr Rectangle& setPos(value_type _x, value_type _y)
 		{
 			pos.set(_x, _y);
 			return *this;
@@ -461,7 +461,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setPos(const position_type& _pos)
+		constexpr Rectangle& setPos(const position_type& _pos)
 		{
 			return setPos(_pos.x, _pos.y);
 		}
@@ -475,7 +475,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setPos(Arg::center_<position_type> _center)
+		constexpr Rectangle& setPos(Arg::center_<position_type> _center)
 		{
 			return setCenter(_center.value());
 		}
@@ -489,7 +489,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setPos(Arg::topLeft_<position_type> topLeft)
+		constexpr Rectangle& setPos(Arg::topLeft_<position_type> topLeft)
 		{
 			return setPos(topLeft.value());
 		}
@@ -503,7 +503,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setPos(Arg::topRight_<position_type> topRight)
+		constexpr Rectangle& setPos(Arg::topRight_<position_type> topRight)
 		{
 			pos.set(topRight->x - w, topRight->y);
 			return *this;
@@ -518,7 +518,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setPos(Arg::bottomLeft_<position_type> bottomLeft)
+		constexpr Rectangle& setPos(Arg::bottomLeft_<position_type> bottomLeft)
 		{
 			pos.set(bottomLeft->x, bottomLeft->y - h);
 			return *this;
@@ -533,7 +533,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setPos(Arg::bottomRight_<position_type> bottomRight)
+		constexpr Rectangle& setPos(Arg::bottomRight_<position_type> bottomRight)
 		{
 			pos.set(bottomRight->x - w, bottomRight->y - h);
 			return *this;
@@ -551,7 +551,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setCenter(value_type _x, value_type _y)
+		constexpr Rectangle& setCenter(value_type _x, value_type _y)
 		{
 			pos.set(_x - w / 2, _y - h / 2);
 			return *this;
@@ -566,7 +566,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setCenter(const position_type& _pos)
+		constexpr Rectangle& setCenter(const position_type& _pos)
 		{
 			return setCenter(_pos.x, _pos.y);
 		}
@@ -583,7 +583,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setSize(value_type _w, value_type _h)
+		constexpr Rectangle& setSize(value_type _w, value_type _h)
 		{
 			size.set(_w, _h);
 			return *this;
@@ -598,7 +598,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setSize(const size_type& _size)
+		constexpr Rectangle& setSize(const size_type& _size)
 		{
 			return setSize(_size.x, _size.y);
 		}
@@ -624,7 +624,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(value_type _x, value_type _y, value_type _w, value_type _h) noexcept
+		constexpr Rectangle& set(value_type _x, value_type _y, value_type _w, value_type _h) noexcept
 		{
 			pos.set(_x, _y);
 			size.set(_w, _h);
@@ -646,7 +646,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(value_type _x, value_type _y, value_type _size) noexcept
+		constexpr Rectangle& set(value_type _x, value_type _y, value_type _size) noexcept
 		{
 			return set(_x, _y, _size, _size);
 		}
@@ -666,7 +666,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(value_type _x, value_type _y, size_type _size) noexcept
+		constexpr Rectangle& set(value_type _x, value_type _y, size_type _size) noexcept
 		{
 			return set(_x, _y, _size.x, _size.y);
 		}
@@ -683,7 +683,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(position_type _pos, value_type _size) noexcept
+		constexpr Rectangle& set(position_type _pos, value_type _size) noexcept
 		{
 			return set(_pos.x, _pos.y, _size, _size);
 		}
@@ -703,7 +703,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(position_type _pos, value_type _w, value_type _h) noexcept
+		constexpr Rectangle& set(position_type _pos, value_type _w, value_type _h) noexcept
 		{
 			return set(_pos.x, _pos.y, _w, _h);
 		}
@@ -720,7 +720,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(position_type _pos, size_type _size) noexcept
+		constexpr Rectangle& set(position_type _pos, size_type _size) noexcept
 		{
 			return set(_pos.x, _pos.y, _size.x, _size.y);
 		}
@@ -735,7 +735,7 @@ namespace s3d
 		/// *this
 		/// </returns>
 		template <class Type>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(const Rectangle<Type>& r) noexcept
+		constexpr Rectangle& set(const Rectangle<Type>& r) noexcept
 		{
 			return set(static_cast<value_type>(r.x), static_cast<value_type>(r.y),
 				static_cast<value_type>(r.w), static_cast<value_type>(r.h));
@@ -753,7 +753,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::center_<position_type> _center, value_type _size) noexcept
+		constexpr Rectangle& set(Arg::center_<position_type> _center, value_type _size) noexcept
 		{
 			return set(_center->x - _size / 2, _center->y - _size / 2, _size, _size);
 		}
@@ -773,7 +773,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::center_<position_type> _center, value_type _w, value_type _h) noexcept
+		constexpr Rectangle& set(Arg::center_<position_type> _center, value_type _w, value_type _h) noexcept
 		{
 			return set(_center->x - _w / 2, _center->y - _h / 2, _w, _h);
 		}
@@ -790,7 +790,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::center_<position_type> _center, size_type _size) noexcept
+		constexpr Rectangle& set(Arg::center_<position_type> _center, size_type _size) noexcept
 		{
 			return set(_center->x - _size.x / 2, _center->y - _size.y / 2, _size.x, _size.y);
 		}
@@ -807,7 +807,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::topLeft_<position_type> topLeft, value_type _size) noexcept
+		constexpr Rectangle& set(Arg::topLeft_<position_type> topLeft, value_type _size) noexcept
 		{
 			return set(topLeft->x, topLeft->y, _size, _size);
 		}
@@ -827,7 +827,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::topLeft_<position_type> topLeft, value_type _w, value_type _h) noexcept
+		constexpr Rectangle& set(Arg::topLeft_<position_type> topLeft, value_type _w, value_type _h) noexcept
 		{
 			return set(topLeft->x, topLeft->y, _w, _h);
 		}
@@ -844,7 +844,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::topLeft_<position_type> topLeft, size_type _size) noexcept
+		constexpr Rectangle& set(Arg::topLeft_<position_type> topLeft, size_type _size) noexcept
 		{
 			return set(topLeft->x, topLeft->y, _size.x, _size.y);
 		}
@@ -861,7 +861,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::topRight_<position_type> topRight, value_type _size) noexcept
+		constexpr Rectangle& set(Arg::topRight_<position_type> topRight, value_type _size) noexcept
 		{
 			return set(topRight->x - _size, topRight->y, _size, _size);
 		}
@@ -881,7 +881,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::topRight_<position_type> topRight, value_type _w, value_type _h) noexcept
+		constexpr Rectangle& set(Arg::topRight_<position_type> topRight, value_type _w, value_type _h) noexcept
 		{
 			return set(topRight->x - _w, topRight->y, _w, _h);
 		}
@@ -898,7 +898,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::topRight_<position_type> topRight, size_type _size) noexcept
+		constexpr Rectangle& set(Arg::topRight_<position_type> topRight, size_type _size) noexcept
 		{
 			return set(topRight->x - _size.x, topRight->y, _size.x, _size.y);
 		}
@@ -915,7 +915,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::bottomLeft_<position_type> bottomLeft, value_type _size) noexcept
+		constexpr Rectangle& set(Arg::bottomLeft_<position_type> bottomLeft, value_type _size) noexcept
 		{
 			return set(bottomLeft->x, bottomLeft->y - _size, _size, _size);
 		}
@@ -935,7 +935,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::bottomLeft_<position_type> bottomLeft, value_type _w, value_type _h) noexcept
+		constexpr Rectangle& set(Arg::bottomLeft_<position_type> bottomLeft, value_type _w, value_type _h) noexcept
 		{
 			return set(bottomLeft->x, bottomLeft->y - _h, _w, _h);
 		}
@@ -952,7 +952,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::bottomLeft_<position_type> bottomLeft, size_type _size) noexcept
+		constexpr Rectangle& set(Arg::bottomLeft_<position_type> bottomLeft, size_type _size) noexcept
 		{
 			return set(bottomLeft->x, bottomLeft->y - _size.y, _size.x, _size.y);
 		}
@@ -969,7 +969,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::bottomRight_<position_type> bottomRight, value_type _size) noexcept
+		constexpr Rectangle& set(Arg::bottomRight_<position_type> bottomRight, value_type _size) noexcept
 		{
 			return set(bottomRight->x - _size, bottomRight->y - _size, _size, _size);
 		}
@@ -989,7 +989,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::bottomRight_<position_type> bottomRight, value_type _w, value_type _h) noexcept
+		constexpr Rectangle& set(Arg::bottomRight_<position_type> bottomRight, value_type _w, value_type _h) noexcept
 		{
 			return set(bottomRight->x - _w, bottomRight->y - _h, _w, _h);
 		}
@@ -1006,7 +1006,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::bottomRight_<position_type> bottomRight, size_type _size) noexcept
+		constexpr Rectangle& set(Arg::bottomRight_<position_type> bottomRight, size_type _size) noexcept
 		{
 			return set(bottomRight->x - _size.x, bottomRight->y - _size.y, _size.x, _size.y);
 		}
@@ -1054,7 +1054,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& moveBy(value_type _x, value_type _y) noexcept
+		constexpr Rectangle& moveBy(value_type _x, value_type _y) noexcept
 		{
 			pos.moveBy(_x, _y);
 			return *this;
@@ -1069,7 +1069,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& moveBy(const size_type& v) noexcept
+		constexpr Rectangle& moveBy(const size_type& v) noexcept
 		{
 			pos.moveBy(v);
 			return *this;

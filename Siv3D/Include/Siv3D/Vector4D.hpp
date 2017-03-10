@@ -140,36 +140,36 @@ namespace s3d
 			return{ x / v.x, y / v.y, z / v.z, w / v.w };
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector4D& operator +=(const Vector4D& v) noexcept
+		constexpr Vector4D& operator +=(const Vector4D& v) noexcept
 		{
 			x += v.x; y += v.y; z += v.z; w += v.w;
 			return *this;
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector4D& operator -=(const Vector4D& v) noexcept
+		constexpr Vector4D& operator -=(const Vector4D& v) noexcept
 		{
 			x -= v.x; y -= v.y; z -= v.z; w -= v.w;
 			return *this;
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector4D& operator *=(value_type s) noexcept
+		constexpr Vector4D& operator *=(value_type s) noexcept
 		{
 			x *= s; y *= s; z *= s; w *= s;
 			return *this;
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector4D& operator *=(const Vector4D& v) noexcept
+		constexpr Vector4D& operator *=(const Vector4D& v) noexcept
 		{
 			x *= v.x; y *= v.y; z *= v.z; w *= v.w;
 			return *this;
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector4D& operator /=(value_type s) noexcept
+		constexpr Vector4D& operator /=(value_type s) noexcept
 		{
 			return *this *= (static_cast<value_type>(1.0) / s);
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector4D& operator /=(const Vector4D& v) noexcept
+		constexpr Vector4D& operator /=(const Vector4D& v) noexcept
 		{
 			x /= v.x; y /= v.y; z /= v.z; w /= v.w;
 			return *this;
@@ -449,42 +449,42 @@ namespace s3d
 			return{ w, z, y, x };
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector4D& set(value_type _x, value_type _y, value_type _z, value_type _w) noexcept
+		constexpr Vector4D& set(value_type _x, value_type _y, value_type _z, value_type _w) noexcept
 		{
 			x = _x; y = _y; z = _z; w = _w;
 			return *this;
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector4D& set(const Vector4D& v) noexcept
+		constexpr Vector4D& set(const Vector4D& v) noexcept
 		{
 			return *this = v;
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector4D& set(const Vector2D<value_type>& xy, value_type _z, value_type _w) noexcept
+		constexpr Vector4D& set(const Vector2D<value_type>& xy, value_type _z, value_type _w) noexcept
 		{
 			x = xy.x; y = xy.y; z = _z; w = _w;
 			return *this;
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector4D& set(value_type _x, const Vector2D<value_type>& yz, value_type _w) noexcept
+		constexpr Vector4D& set(value_type _x, const Vector2D<value_type>& yz, value_type _w) noexcept
 		{
 			x = _x; y = yz.x; z = yz.y; w = _w;
 			return *this;
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector4D& set(value_type _x, value_type _y, const Vector2D<value_type>& zw) noexcept
+		constexpr Vector4D& set(value_type _x, value_type _y, const Vector2D<value_type>& zw) noexcept
 		{
 			x = _x; y = _y; z = zw.x; w = zw.y;
 			return *this;
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector4D& set(const Vector3D<value_type>& xyz, value_type _w) noexcept
+		constexpr Vector4D& set(const Vector3D<value_type>& xyz, value_type _w) noexcept
 		{
 			x = xyz.x; y = xyz.y; z = xyz.z; w = _w;
 			return *this;
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector4D& set(value_type _x, const Vector3D<value_type>& yzw) noexcept
+		constexpr Vector4D& set(value_type _x, const Vector3D<value_type>& yzw) noexcept
 		{
 			x = _x; y = yzw.x; z = yzw.y; w = yzw.z;
 			return *this;
@@ -500,13 +500,13 @@ namespace s3d
 			return{ x + v.x, y + v.y, z + v.z, w + v.w };
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector4D& moveBy(value_type _x, value_type _y, value_type _z, value_type _w) noexcept
+		constexpr Vector4D& moveBy(value_type _x, value_type _y, value_type _z, value_type _w) noexcept
 		{
 			x += _x; y += _y; z += _z; w += _w;
 			return *this;
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector4D& moveBy(const Vector4D& v) noexcept
+		constexpr Vector4D& moveBy(const Vector4D& v) noexcept
 		{
 			return *this += v;
 		}
