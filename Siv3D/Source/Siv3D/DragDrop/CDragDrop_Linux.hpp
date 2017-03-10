@@ -13,7 +13,7 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_LINUX)
 
-# include <GLFW/glfw3.h>
+# include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 # include "IDragDrop.hpp"
 
 namespace s3d
