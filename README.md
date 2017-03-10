@@ -90,6 +90,7 @@
 ---------------------------
 
 #### 0.0.8
+- [ ] VS2017 Support
 - [ ] Linux Support
 - [ ] Circle
 - [ ] Line

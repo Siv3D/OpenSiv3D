@@ -98,6 +98,6 @@ namespace s3d
 
 		bool LaunchBrowser(const FilePath& url);
 
-		void OepnLicenses();
+		void OpenLicenses();
 	}
 }
