@@ -128,7 +128,7 @@ namespace s3d
 
 	namespace Hash
 	{
-		inline S3D_CONSTEXPR_CPP14 size_t FNV1a(const ByteArrayView view)
+		inline constexpr size_t FNV1a(const ByteArrayView view)
 		{
 			const uint8* data = view.data();
 

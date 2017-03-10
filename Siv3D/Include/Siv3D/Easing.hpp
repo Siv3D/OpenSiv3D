@@ -107,7 +107,7 @@ namespace s3d
 			return detail::ElasticAP(t, 1.0, 0.3);
 		}
 
-		inline S3D_CONSTEXPR_CPP14 double Bounce(double t)
+		inline constexpr double Bounce(double t)
 		{
 			t = 1.0 - t;
 
