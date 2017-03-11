@@ -16,6 +16,19 @@ namespace s3d
 {
 	namespace Graphics
 	{
-	
+		void SetSetBackground(const ColorF& color)
+		{
+			color;
+		}
+
+		Array<DisplayOutput> EnumOutputs()
+		{
+			return Siv3DEngine::GetGraphics()->enumOutputs();
+		}
+
+		bool SetFullScreen(const bool fullScreen, const Size& size, const size_t displayIndex, const double refreshRateHz)
+		{
+			return Siv3DEngine::GetGraphics()->setFullScreen(fullScreen, size, displayIndex, refreshRateHz);
+		}
 	}
 }

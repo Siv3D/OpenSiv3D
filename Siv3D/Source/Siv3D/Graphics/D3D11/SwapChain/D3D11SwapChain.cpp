@@ -12,94 +12,334 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_WINDOWS)
 
+# define  NOMINMAX
+# define  STRICT
+# define  _WIN32_WINNT _WIN32_WINNT_WINBLUE
+# define  NTDDI_VERSION NTDDI_WINBLUE
+# include <Windows.h>
+# include <ShellScalingApi.h>
+# undef _WIN32_WINNT
+# undef	NTDDI_VERSION
 # include "D3D11SwapChain.hpp"
 # include "../../../Siv3DEngine.hpp"
+# include "../../../EngineUtility.hpp"
 # include "../../../Window/IWindow.hpp"
+# include <Siv3D/Monitor.hpp>
 
-# include <Siv3D/Array.hpp>
 # include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
 	namespace detail
 	{
-	
+		// 高 DPI ディスプレイで、フルスクリーン使用時に High DPI Aware を有効にしないと、
+		// Windows の互換性マネージャーによって
+		// HKEY_CURRENT_USER/Software/Microsoft/Windows NT/CurrentVersion/AppCompatFlags/Layers
+		// に高 DPI が既定の設定として登録されてしまう。
+		static void SetHighDPI()
+		{
+			if (HINSTANCE shcore = ::LoadLibraryW(L"shcore.dll"))
+			{
+				decltype(SetProcessDpiAwareness)* p_SetProcessDpiAwareness = FunctionPointer(shcore, "SetProcessDpiAwareness");
+
+				p_SetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE);
+
+				::FreeLibrary(shcore);
+			}
+			else
+			{
+				::SetProcessDPIAware();
+			}
+		}
 	}
 
-	D3D11SwapChain::D3D11SwapChain(ID3D11Device* device, ID3D11DeviceContext* context)
+	D3D11SwapChain::D3D11SwapChain(ID3D11Device* device, ID3D11DeviceContext* context, IDXGIAdapter* adapter)
 		: m_device(device)
 		, m_context(context)
+		, m_adapter(adapter)
 	{
 
 	}
 
 	D3D11SwapChain::~D3D11SwapChain()
 	{
-
+		if (m_swapChain && m_fullScreen)
+		{
+			setFullScreen(false, m_size, 0, 60.0);
+		}
 	}
 
 	bool D3D11SwapChain::init()
 	{
-		ComPtr<IDXGIDevice1> pDXGI;
+		checkDPIAwareness();
 
-		if (FAILED(m_device->QueryInterface(__uuidof(IDXGIDevice1), &pDXGI)))
+		m_hWnd = Siv3DEngine::GetWindow()->getHandle();
+
+		m_desc.BufferDesc.Width						= m_size.x;
+		m_desc.BufferDesc.Height					= m_size.y;
+		m_desc.BufferDesc.RefreshRate.Numerator		= 0;
+		m_desc.BufferDesc.RefreshRate.Denominator	= 0;
+		m_desc.BufferDesc.Format					= DXGI_FORMAT_R8G8B8A8_UNORM;
+		m_desc.BufferDesc.ScanlineOrdering			= DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+		m_desc.BufferDesc.Scaling					= DXGI_MODE_SCALING_UNSPECIFIED;
+		m_desc.SampleDesc.Count						= 1;
+		m_desc.SampleDesc.Quality					= 0;
+		m_desc.BufferUsage							= DXGI_USAGE_RENDER_TARGET_OUTPUT | DXGI_USAGE_SHADER_INPUT;
+		m_desc.BufferCount							= 1;
+		m_desc.OutputWindow							= m_hWnd;
+		m_desc.Windowed								= true;
+		m_desc.SwapEffect							= DXGI_SWAP_EFFECT_DISCARD;
+		m_desc.Flags								= DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
+
+		if (!m_adapter)
 		{
 			return false;
 		}
 
-		ComPtr<IDXGIAdapter> pAdapter;
+		ComPtr<IDXGIFactory> dxgiFactory;
 
-		if (FAILED(pDXGI->GetAdapter(&pAdapter)))
+		if (FAILED(m_adapter->GetParent(__uuidof(IDXGIFactory), &dxgiFactory)))
 		{
 			return false;
 		}
 
-		DXGI_ADAPTER_DESC adapterDesc;
-
-		if (SUCCEEDED(pAdapter->GetDesc(&adapterDesc)))
+		if (FAILED(dxgiFactory->CreateSwapChain(m_device, &m_desc, &m_swapChain)))
 		{
-			Log(L"Graphics adapter:\n", adapterDesc.Description);
+			return false;
 		}
 
-		ComPtr<IDXGIOutput> pOutput;
-		Array<DXGI_MODE_DESC> displayModeList;
-
-		if (SUCCEEDED(pAdapter->EnumOutputs(0, &pOutput)))
+		if (FAILED(dxgiFactory->MakeWindowAssociation(m_hWnd, DXGI_MWA_NO_WINDOW_CHANGES | DXGI_MWA_NO_ALT_ENTER)))
 		{
-			uint32 numModes;
+			return false;
+		}
+	
+		return true;
+	}
 
-			if (SUCCEEDED(pOutput->GetDisplayModeList(DXGI_FORMAT_R8G8B8A8_UNORM, 0, &numModes, nullptr)))
+	Array<DisplayOutput> D3D11SwapChain::enumOutputs()
+	{
+		Array<DisplayOutput> outputs;
+
+		for(uint32 i = 0;; ++i)
+		{
+			ComPtr<IDXGIOutput> pOutput;
+			
+			if (SUCCEEDED(m_adapter->EnumOutputs(i, &pOutput)))
 			{
-				displayModeList.resize(numModes);
+				DisplayOutput output;
 
-				if (FAILED(pOutput->GetDisplayModeList(DXGI_FORMAT_R8G8B8A8_UNORM, 0, &numModes, displayModeList.data())))
 				{
-					return false;
+					DXGI_OUTPUT_DESC desc;
+
+					if (FAILED(pOutput->GetDesc(&desc)))
+					{
+						continue;
+					}
+
+					output.name = desc.DeviceName;
+					output.desktopRect.x = desc.DesktopCoordinates.left;
+					output.desktopRect.y = desc.DesktopCoordinates.top;
+					output.desktopRect.w = desc.DesktopCoordinates.right - desc.DesktopCoordinates.left;
+					output.desktopRect.h = desc.DesktopCoordinates.bottom - desc.DesktopCoordinates.top;
+					output.rotation = desc.Rotation ? 0 : (static_cast<int32>(desc.Rotation) - 1) * 90;
+				}
+
+				Array<DXGI_MODE_DESC> displayModeList;
+
+				uint32 numModes;
+
+				if (SUCCEEDED(pOutput->GetDisplayModeList(DXGI_FORMAT_R8G8B8A8_UNORM, 0, &numModes, nullptr)))
+				{
+					displayModeList.resize(numModes);
+
+					if (FAILED(pOutput->GetDisplayModeList(DXGI_FORMAT_R8G8B8A8_UNORM, 0, &numModes, displayModeList.data())))
+					{
+						continue;
+					}
+				}
+
+				for (auto const& desc : displayModeList)
+				{
+					if (desc.Scaling == DXGI_MODE_SCALING_CENTERED)
+					{
+						continue;
+					}
+
+					DisplayMode mode;
+					mode.size.set(desc.Width, desc.Height);
+					mode.refreshRateHz = static_cast<double>(desc.RefreshRate.Numerator) / desc.RefreshRate.Denominator;
+					output.displayModes.push_back(mode);
+				}
+
+				outputs.push_back(output);
+			}
+			else
+			{
+				break;
+			}
+		}
+
+		const auto monitors = System::EnumActiveMonitors();
+
+		for (auto& output : outputs)
+		{
+			for (const auto& monitor : monitors)
+			{
+				if (output.name == monitor.displayDeviceName)
+				{
+					output.name = monitor.name;
+					break;
 				}
 			}
+		}
 
-# ifdef _DEBUG
-			const String DXGI_MODE_SCALINGstr[3] =
-			{
-				L"",
-				L"Centered",
-				L"Stretched",
-			};
+		return outputs;
+	}
 
-			for (auto const& desc : displayModeList)
+	bool D3D11SwapChain::setFullScreen(const bool fullScreen, const Size& size, const size_t displayIndex, const double refreshRateHz)
+	{
+		if (fullScreen == m_fullScreen
+			&& size == m_size
+			&& displayIndex == m_currentDisplayIndex)
+		{
+			return true;
+		}
+
+		if (fullScreen)
+		{
+			if (m_fullScreen)
 			{
-				Log(desc.Width, L'x', desc.Height,
-					L'(', (1.0*desc.RefreshRate.Numerator / desc.RefreshRate.Denominator),
-					L" Hz [", desc.RefreshRate.Numerator, L'/', desc.RefreshRate.Denominator, L"])",
-					DXGI_MODE_SCALINGstr[desc.Scaling]
-				);
+				setFullScreen(false, size, displayIndex, refreshRateHz);
 			}
-# endif
+
+			if (!setBestFullScreenMode(size, displayIndex, refreshRateHz))
+			{
+				return false;
+			}
 		}
 		else
 		{
-			Log(L"failed: EnumOutputs");
+			m_swapChain->SetFullscreenState(false, nullptr);
+
+			auto targetDesc = m_desc.BufferDesc;
+			targetDesc.Width = size.x;
+			targetDesc.Height = size.y;
+			m_swapChain->ResizeTarget(&targetDesc);
+			m_swapChain->ResizeBuffers(1, size.x, size.y, DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
 		}
+
+		m_fullScreen = fullScreen;
+		m_size = size;
+		m_currentDisplayIndex = displayIndex;
+
+		return true;
+	}
+
+	void D3D11SwapChain::checkDPIAwareness()
+	{
+		if (HINSTANCE shcore = ::LoadLibraryW(L"shcore.dll"))
+		{
+			decltype(GetProcessDpiAwareness)* p_GetProcessDpiAwareness = FunctionPointer(shcore, "GetProcessDpiAwareness");
+
+			PROCESS_DPI_AWARENESS awareness;
+
+			p_GetProcessDpiAwareness(nullptr, &awareness);
+
+			m_highDPIAwareness = (awareness != PROCESS_DPI_UNAWARE);
+
+			::FreeLibrary(shcore);
+		}
+		else
+		{
+			m_highDPIAwareness = IsProcessDPIAware();
+		}
+
+		Log(L"m_highDPIAwareness:", m_highDPIAwareness);
+	}
+
+	bool D3D11SwapChain::setBestFullScreenMode(const Size& size, const size_t displayIndex, const double refreshRateHz)
+	{
+		assert(!m_fullScreen);
+
+		ComPtr<IDXGIOutput> pOutput;
+		
+		if (FAILED(m_adapter->EnumOutputs(static_cast<uint32>(displayIndex), &pOutput)))
+		{
+			if (FAILED(m_adapter->EnumOutputs(0, &pOutput)))
+			{
+				return false;
+			}
+		}
+
+		Array<DXGI_MODE_DESC> displayModeList;
+
+		uint32 numModes;
+
+		if (SUCCEEDED(pOutput->GetDisplayModeList(DXGI_FORMAT_R8G8B8A8_UNORM, 0, &numModes, nullptr)))
+		{
+			displayModeList.resize(numModes);
+
+			if (FAILED(pOutput->GetDisplayModeList(DXGI_FORMAT_R8G8B8A8_UNORM, 0, &numModes, displayModeList.data())))
+			{
+				return false;
+			}
+		}
+
+		if (numModes == 0)
+		{
+			return false;
+		}
+
+		{
+			DXGI_OUTPUT_DESC desc;
+
+			if (SUCCEEDED(pOutput->GetDesc(&desc)))
+			{
+				::SetWindowPos(
+					m_hWnd,
+					nullptr,
+					desc.DesktopCoordinates.left,
+					desc.DesktopCoordinates.top,
+					0,
+					0,
+					SWP_DEFERERASE | SWP_NOOWNERZORDER | SWP_NOZORDER | SWP_NOSIZE
+				);
+			}
+		}
+
+		size_t bestIndex = 0;
+		double bestDiff = 999999.9;
+
+		for (size_t i = 0; i < displayModeList.size(); ++i)
+		{
+			const auto& desc = displayModeList[i];
+
+			if (int32(desc.Width) == size.x && int32(desc.Height) == size.y)
+			{
+				const double rate = static_cast<double>(desc.RefreshRate.Numerator) / desc.RefreshRate.Denominator;
+				const double diff = ::abs(refreshRateHz - rate) + (desc.Scaling == DXGI_MODE_SCALING_STRETCHED ? 0.0 : desc.Scaling == DXGI_MODE_SCALING_UNSPECIFIED ? 0.0001 : 0.0002);
+
+				if (diff < bestDiff)
+				{
+					bestDiff = diff;
+					bestIndex = i;
+				}
+			}
+		}
+
+		//Log << displayModeList[bestIndex].Width;
+		//Log << displayModeList[bestIndex].Height;
+		//Log << static_cast<double>(displayModeList[bestIndex].RefreshRate.Numerator) / displayModeList[bestIndex].RefreshRate.Denominator;
+		//Log << (int32)displayModeList[bestIndex].Scaling;
+
+		if (!m_highDPIAwareness)
+		{
+			detail::SetHighDPI();
+		}
+
+		m_swapChain->ResizeTarget(&displayModeList[bestIndex]);
+		m_swapChain->ResizeBuffers(1, displayModeList[bestIndex].Width, displayModeList[bestIndex].Height, DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
+		m_swapChain->SetFullscreenState(true, pOutput.Get());
 
 		return true;
 	}

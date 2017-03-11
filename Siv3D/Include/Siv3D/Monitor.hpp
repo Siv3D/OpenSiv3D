@@ -21,6 +21,7 @@ namespace s3d
 	{
 		String name;
 		String id;
+		String displayDeviceName;
 		Rect displayRect;
 		Rect workArea;
 		bool isPrimary;
@@ -28,6 +29,6 @@ namespace s3d
 
 	namespace System
 	{
-		Array<Monitor> EnumMonitors();
+		Array<Monitor> EnumActiveMonitors();
 	}
 }

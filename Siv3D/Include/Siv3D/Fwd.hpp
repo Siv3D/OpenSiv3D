@@ -408,4 +408,13 @@ namespace s3d
 	//	Window.hpp
 	//
 	struct WindowState;
+
+
+
+	//////////////////////////////////////////////////////
+	//
+	//	Graphics.hpp
+	//
+	struct DisplayMode;
+	struct DisplayOutput;
 }
