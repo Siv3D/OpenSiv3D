@@ -36,7 +36,7 @@ namespace s3d
 
 	namespace Graphics
 	{
-		// [ ] Windows | [ ] macOS | [ ] Linux
+		// [x] Windows | [ ] macOS | [ ] Linux
 		void SetBackground(const ColorF& color);
 
 		// [x] Windows | [ ] macOS | [ ] Linux
