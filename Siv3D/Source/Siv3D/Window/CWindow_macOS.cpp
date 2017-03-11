@@ -46,17 +46,13 @@ namespace s3d
 
 		glfwMakeContextCurrent(m_glfwWindow);
 
+		glfwSwapInterval(1);
+		
 		return true;
 	}
 	
 	bool CWindow_macOS::update()
-	{
-		glClearColor(11/255.0f, 22/255.0f, 33/255.0f, 1.0f);
-		
-		glClear(GL_COLOR_BUFFER_BIT);
-		
-		glfwSwapBuffers(m_glfwWindow);
-		
+	{		
 		glfwPollEvents();
 		
 		if(glfwGetKey(m_glfwWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)

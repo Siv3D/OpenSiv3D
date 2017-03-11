@@ -35,5 +35,9 @@ namespace s3d
 		virtual bool present() = 0;
 
 		virtual void clear() = 0;
+
+		virtual void beginResize() = 0;
+
+		virtual bool endResize(const Size& size) = 0;
 	};
 }

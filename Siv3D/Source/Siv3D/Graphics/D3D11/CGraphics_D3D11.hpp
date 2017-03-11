@@ -48,6 +48,10 @@ namespace s3d
 		bool present() override;
 
 		void clear() override;
+
+		void beginResize() override;
+
+		bool endResize(const Size& size) override;
 	};
 }
 

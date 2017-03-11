@@ -13,13 +13,20 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
+# include "../../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 # include "../IGraphics.hpp"
+# include "../../Window/IWindow.hpp"
+# include <Siv3D/Color.hpp>
 
 namespace s3d
 {
 	class CGraphics_GL : public ISiv3DGraphics
 	{
 	private:
+		
+		WindowHandle m_glfwWindow = nullptr;
+		
+		ColorF m_clearColor = Color(11, 22, 33);
 
 	public:
 
@@ -34,24 +41,25 @@ namespace s3d
 			return{};
 		}
 
-		void setClearColor(const ColorF& color) override
-		{
-
-		}
+		void setClearColor(const ColorF& color) override;
 
 		bool setFullScreen(bool fullScreen, const Size& size, size_t displayIndex, double refreshRateHz) override
 		{
 			return false;
 		}
 
-		bool present() override
+		bool present() override;
+
+		void clear() override;
+
+		void beginResize() override
 		{
-			return true;
+
 		}
 
-		void clear() override
+		bool endResize(const Size& size) override
 		{
-
+			return true;
 		}
 	};
 }
