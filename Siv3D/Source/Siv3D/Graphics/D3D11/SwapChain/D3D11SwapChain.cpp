@@ -233,6 +233,29 @@ namespace s3d
 		return true;
 	}
 
+	IDXGISwapChain* D3D11SwapChain::getSwapChain() const
+	{
+		return m_swapChain.Get();
+	}
+
+	bool D3D11SwapChain::present()
+	{
+		const bool vSyncEnabled = true;
+
+		const HRESULT hr = m_swapChain->Present(vSyncEnabled, 0);
+
+		if (FAILED(hr))
+		{
+			return false;
+		}
+		else if (hr == DXGI_STATUS_OCCLUDED)
+		{
+			::Sleep(13);
+		}
+
+		return true;
+	}
+
 	bool D3D11SwapChain::setBestFullScreenMode(const Size& size, const size_t displayIndex, const double refreshRateHz)
 	{
 		assert(!m_fullScreen);

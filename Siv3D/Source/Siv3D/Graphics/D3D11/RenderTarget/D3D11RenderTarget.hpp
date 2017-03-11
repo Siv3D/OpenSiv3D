@@ -22,12 +22,11 @@
 # include <wrl.h>
 using namespace Microsoft::WRL;
 # include <d3d11.h>
-# include <Siv3D/Array.hpp>
-# include <Siv3D/Graphics.hpp>
+# include <Siv3D/Color.hpp>
 
 namespace s3d
 {
-	class D3D11SwapChain
+	class D3D11RenderTarget
 	{
 	private:
 
@@ -35,37 +34,32 @@ namespace s3d
 
 		ID3D11DeviceContext* m_context = nullptr;
 
-		IDXGIAdapter* m_adapter = nullptr;
+		IDXGISwapChain* m_swapChain = nullptr;
 
-		HWND m_hWnd = nullptr;
+		//////
+		//
+		//	Graphics::SetBackground() 早期実装のための仮実装
+		//
+		ColorF m_clearColor = Color(11, 22, 33);
 
-		DXGI_SWAP_CHAIN_DESC m_desc{};
+		ComPtr<ID3D11Texture2D> m_backBufferTexture;
 
-		ComPtr<IDXGISwapChain> m_swapChain;
+		ComPtr<ID3D11RenderTargetView> m_backBufferRenderTargetView;
 
-		Size m_size{ 640, 480 };
-
-		size_t m_currentDisplayIndex = 0;
-
-		bool m_fullScreen = false;
-
-		bool setBestFullScreenMode(const Size& size, size_t displayIndex, double refreshRateHz);
-
+		//
+		//////
+		
 	public:
 
-		D3D11SwapChain(ID3D11Device* device, ID3D11DeviceContext* context, IDXGIAdapter* adapter);
+		D3D11RenderTarget(ID3D11Device* device, ID3D11DeviceContext* context, IDXGISwapChain* swapChain);
 
-		~D3D11SwapChain();
+		~D3D11RenderTarget();
 
 		bool init();
 
-		Array<DisplayOutput> enumOutputs();
+		void setClearColor(const ColorF& color);
 
-		bool setFullScreen(bool fullScreen, const Size& size, size_t displayIndex, double refreshRateHz);
-
-		IDXGISwapChain* getSwapChain() const;
-
-		bool present();
+		void clear();
 	};
 }
 

@@ -34,9 +34,24 @@ namespace s3d
 			return{};
 		}
 
+		void setClearColor(const ColorF& color) override
+		{
+
+		}
+
 		bool setFullScreen(bool fullScreen, const Size& size, size_t displayIndex, double refreshRateHz) override
 		{
 			return false;
+		}
+
+		bool present() override
+		{
+			return true;
+		}
+
+		void clear() override
+		{
+
 		}
 	};
 }

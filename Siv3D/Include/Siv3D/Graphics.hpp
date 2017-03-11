@@ -37,7 +37,7 @@ namespace s3d
 	namespace Graphics
 	{
 		// [ ] Windows | [ ] macOS | [ ] Linux
-		void SetSetBackground(const ColorF& color);
+		void SetBackground(const ColorF& color);
 
 		// [x] Windows | [ ] macOS | [ ] Linux
 		Array<DisplayOutput> EnumOutputs();

@@ -28,6 +28,12 @@ namespace s3d
 
 		virtual Array<DisplayOutput> enumOutputs() = 0;
 
+		virtual void setClearColor(const ColorF& color) = 0;
+
 		virtual bool setFullScreen(bool fullScreen, const Size& size, size_t displayIndex, double refreshRateHz) = 0;
+
+		virtual bool present() = 0;
+
+		virtual void clear() = 0;
 	};
 }
