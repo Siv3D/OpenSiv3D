@@ -36,6 +36,8 @@ namespace s3d
 
 		ComPtr<ID3D11DeviceContext> m_context;
 
+		ComPtr<IDXGIAdapter> m_adapter;
+
 		D3D_FEATURE_LEVEL m_featureLevel;
 
 		D3D_DRIVER_TYPE m_driverType = D3D_DRIVER_TYPE_UNKNOWN;
@@ -53,6 +55,8 @@ namespace s3d
 		ID3D11Device* getDevice() const;
 
 		ID3D11DeviceContext* getContext() const;
+
+		IDXGIAdapter* getAdapter() const;
 
 		D3D_DRIVER_TYPE getDriverType() const;
 
