@@ -18,9 +18,9 @@
 
 # endif
 
-# if(_MSC_FULL_VER < 190024210)
+# if(_MSC_FULL_VER < 191025017)
 
-	# error Visual Studio 2015 Update 3 以降が必要です | Visual Studio 2015 Update 3 or later is required
+	# error Visual Studio 2017 が必要です | Visual Studio 2017 or later is required
 
 # endif
 
