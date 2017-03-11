@@ -34,7 +34,7 @@ namespace s3d
 			return{};
 		}
 
-		bool SetFullScreen(bool fullScreen, const Size& size, size_t displayIndex, double refreshRateHz) override
+		bool setFullScreen(bool fullScreen, const Size& size, size_t displayIndex, double refreshRateHz) override
 		{
 			return false;
 		}
