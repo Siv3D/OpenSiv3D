@@ -13,7 +13,6 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_WINDOWS)
 
-# include <Siv3D/HashMap.hpp>
 # define  NOMINMAX
 # define  STRICT
 # define  WIN32_LEAN_AND_MEAN
@@ -26,37 +25,22 @@ using namespace Microsoft::WRL;
 
 namespace s3d
 {
-	class D3D11Device
+	class D3D11SwapChain
 	{
 	private:
 
-		HINSTANCE m_d3d11 = nullptr;
+		ID3D11Device* m_device = nullptr;
 
-		ComPtr<ID3D11Device> m_device;
-
-		ComPtr<ID3D11DeviceContext> m_context;
-
-		D3D_FEATURE_LEVEL m_featureLevel;
-
-		D3D_DRIVER_TYPE m_driverType = D3D_DRIVER_TYPE_UNKNOWN;
-
-		HashMap<DXGI_FORMAT, DXGI_SAMPLE_DESC> m_bestMSAAs;
-
-		bool initDevice();
-
+		ID3D11DeviceContext* m_context = nullptr;
+	
 	public:
 
-		~D3D11Device();
+		D3D11SwapChain(ID3D11Device* device, ID3D11DeviceContext* context);
+
+		~D3D11SwapChain();
 
 		bool init();
 
-		ID3D11Device* getDevice() const;
-
-		ID3D11DeviceContext* getContext() const;
-
-		D3D_DRIVER_TYPE getDriverType() const;
-
-		DXGI_SAMPLE_DESC getBestMSAA(DXGI_FORMAT format);
 	};
 }
 

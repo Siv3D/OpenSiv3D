@@ -64,6 +64,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\HardwareRNG.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Hash.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\HashMap.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\HighPerfoemanceGPU.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\HSV.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ImageFormat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Image.hpp" />
@@ -154,8 +155,10 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\DragDrop\CDragDrop_Windows.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\DragDrop\IDragDrop.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\EngineDirectory\EngineDirectory.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\EngineUtility.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\CGraphics_D3D11.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\Device\D3D11Device.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\SwapChain\D3D11SwapChain.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\IGraphics.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\BMP\ImageFormat_BMP.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\CImageFormat.hpp" />
@@ -262,6 +265,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Format\SivFormat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\CGraphics_D3D11.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\Device\D3D11Device.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\SwapChain\D3D11SwapChain.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\GraphicsFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\SivGraphics.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\HSV\SivHSV.cpp" />

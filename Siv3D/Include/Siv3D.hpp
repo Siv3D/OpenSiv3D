@@ -619,8 +619,8 @@
 	//# include "Siv3D/Serialization.hpp"
 	//// 名前空間の設定
 	//# include "Siv3D/Namespace.hpp"
-	//// GPU の使用
-	//# include "Siv3D/HighPerfoemanceGraphics.hpp"
+	// GPU の使用
+	# include "Siv3D/HighPerfoemanceGPU.hpp"
 
 # ifndef NO_S3D_USING
 

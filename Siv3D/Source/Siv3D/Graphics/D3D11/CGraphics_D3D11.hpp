@@ -10,13 +10,23 @@
 //-----------------------------------------------
 
 # pragma once
+# include <Siv3D/Platform.hpp>
+# if defined(SIV3D_TARGET_WINDOWS)
+
+# include <memory>
 # include "../IGraphics.hpp"
+# include "Device/D3D11Device.hpp"
+# include "SwapChain/D3D11SwapChain.hpp"
 
 namespace s3d
 {
 	class CGraphics_D3D11 : public ISiv3DGraphics
 	{
 	private:
+
+		std::unique_ptr<D3D11Device> m_device;
+
+		std::unique_ptr<D3D11SwapChain> m_swapChain;
 
 	public:
 
@@ -27,3 +37,5 @@ namespace s3d
 		bool init() override;
 	};
 }
+
+# endif

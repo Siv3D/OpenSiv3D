@@ -9,6 +9,9 @@
 //
 //-----------------------------------------------
 
+# include <Siv3D/Platform.hpp>
+# if defined(SIV3D_TARGET_WINDOWS)
+
 # include "CGraphics_D3D11.hpp"
 
 namespace s3d
@@ -25,7 +28,30 @@ namespace s3d
 
 	bool CGraphics_D3D11::init()
 	{
+		//////////////////////////////////////////////////////
+		//
+		//	 D3D11Device
+		//
+		m_device = std::make_unique<D3D11Device>();
+
+		if (!m_device->init())
+		{
+			return false;
+		}
+
+		//////////////////////////////////////////////////////
+		//
+		//	 D3D11SwapChain
+		//
+		m_swapChain = std::make_unique<D3D11SwapChain>(m_device->getDevice(), m_device->getContext());
+
+		if (!m_swapChain->init())
+		{
+			return false;
+		}
 
 		return true;
 	}
 }
+
+# endif

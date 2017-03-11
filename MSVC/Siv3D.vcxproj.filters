@@ -230,6 +230,9 @@
     <Filter Include="Source\Siv3D\Graphics\D3D11\Device">
       <UniqueIdentifier>{439e5706-c11e-4348-9b59-0ec10b803529}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Graphics\D3D11\SwapChain">
+      <UniqueIdentifier>{744ea05b-ef91-449a-bfcc-58eaf3e7376e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -847,6 +850,15 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\Device\D3D11Device.hpp">
       <Filter>Source\Siv3D\Graphics\D3D11\Device</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\EngineUtility.hpp">
+      <Filter>Source\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\SwapChain\D3D11SwapChain.hpp">
+      <Filter>Source\Siv3D\Graphics\D3D11\SwapChain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\HighPerfoemanceGPU.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1223,6 +1235,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\Device\D3D11Device.cpp">
       <Filter>Source\Siv3D\Graphics\D3D11\Device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\SwapChain\D3D11SwapChain.cpp">
+      <Filter>Source\Siv3D\Graphics\D3D11\SwapChain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
