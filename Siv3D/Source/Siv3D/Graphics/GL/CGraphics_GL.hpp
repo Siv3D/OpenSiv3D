@@ -28,6 +28,16 @@ namespace s3d
 		~CGraphics_GL() override;
 
 		bool init() override;
+
+		Array<DisplayOutput> enumOutputs() override
+		{
+			return{};
+		}
+
+		bool SetFullScreen(bool fullScreen, const Size& size, size_t displayIndex, double refreshRateHz) override
+		{
+			return false;
+		}
 	};
 }
 

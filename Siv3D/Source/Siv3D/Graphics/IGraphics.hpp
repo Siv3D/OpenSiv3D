@@ -11,6 +11,8 @@
 
 # pragma once
 # include <Siv3D/Fwd.hpp>
+# include <Siv3D/Array.hpp>
+# include <Siv3D/Graphics.hpp>
 
 namespace s3d
 {
@@ -23,5 +25,9 @@ namespace s3d
 		virtual ~ISiv3DGraphics() = default;
 
 		virtual bool init() = 0;
+
+		virtual Array<DisplayOutput> enumOutputs() = 0;
+
+		virtual bool setFullScreen(bool fullScreen, const Size& size, size_t displayIndex, double refreshRateHz) = 0;
 	};
 }

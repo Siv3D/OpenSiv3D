@@ -35,6 +35,10 @@ namespace s3d
 		~CGraphics_D3D11() override;
 
 		bool init() override;
+
+		Array<DisplayOutput> enumOutputs() override;
+
+		bool setFullScreen(bool fullScreen, const Size& size, size_t displayIndex, double refreshRateHz) override;
 	};
 }
 
