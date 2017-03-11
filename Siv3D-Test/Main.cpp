@@ -3,7 +3,7 @@
 
 void Main()
 {
-	//Graphics::SetFullScreen(false, Size(1280, 720));
+	Graphics::SetFullScreen(false, Size(1280, 720));
 
 	while (System::Update())
 	{

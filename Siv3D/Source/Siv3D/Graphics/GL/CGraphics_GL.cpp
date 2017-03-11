@@ -39,6 +39,13 @@ namespace s3d
 		m_clearColor = color;
 	}
 	
+	bool CGraphics_GL::setFullScreen(bool fullScreen, const Size& size, size_t displayIndex, double refreshRateHz)
+	{
+		glfwSetWindowSize(m_glfwWindow, size.x, size.y);
+		
+		return false;
+	}
+	
 	bool CGraphics_GL::present()
 	{
 		glfwSwapBuffers(m_glfwWindow);

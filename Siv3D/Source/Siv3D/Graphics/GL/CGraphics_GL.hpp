@@ -43,10 +43,7 @@ namespace s3d
 
 		void setClearColor(const ColorF& color) override;
 
-		bool setFullScreen(bool fullScreen, const Size& size, size_t displayIndex, double refreshRateHz) override
-		{
-			return false;
-		}
+		bool setFullScreen(bool fullScreen, const Size& size, size_t displayIndex, double refreshRateHz);
 
 		bool present() override;
 
