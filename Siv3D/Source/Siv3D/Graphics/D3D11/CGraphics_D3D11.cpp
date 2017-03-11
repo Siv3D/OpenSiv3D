@@ -43,7 +43,7 @@ namespace s3d
 		//
 		//	 D3D11SwapChain
 		//
-		m_swapChain = std::make_unique<D3D11SwapChain>(m_device->getDevice(), m_device->getContext(), m_device->getAdapter());
+		m_swapChain = std::make_unique<D3D11SwapChain>(m_device->getDevice(), m_device->getContext());
 
 		if (!m_swapChain->init())
 		{

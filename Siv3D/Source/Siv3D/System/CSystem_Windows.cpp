@@ -77,10 +77,10 @@ namespace s3d
 			return false;
 		}
 
-		//if (!Siv3DEngine::GetGraphics()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetGraphics()->init())
+		{
+			return false;
+		}
 
 		return true;
 	}

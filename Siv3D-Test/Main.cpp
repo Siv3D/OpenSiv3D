@@ -16,8 +16,6 @@ void Main()
 		Log << monitor.workArea;
 	}
 
-	int i = 0;
-
 	while (System::Update())
 	{
 
