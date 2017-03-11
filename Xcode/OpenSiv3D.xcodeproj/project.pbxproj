@@ -385,6 +385,8 @@
 		2C80ED8B1E73D1E400EFEF01 /* XXHash.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C80ED161E73D1E400EFEF01 /* XXHash.hpp */; };
 		2C80ED8F1E73D26C00EFEF01 /* CGraphics_GL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C80ED8D1E73D26C00EFEF01 /* CGraphics_GL.cpp */; };
 		2C80ED901E73D26C00EFEF01 /* CGraphics_GL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C80ED8E1E73D26C00EFEF01 /* CGraphics_GL.hpp */; };
+		2C80ED941E74447E00EFEF01 /* D3D11RenderTarget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C80ED921E74447E00EFEF01 /* D3D11RenderTarget.cpp */; };
+		2C80ED951E74447E00EFEF01 /* D3D11RenderTarget.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C80ED931E74447E00EFEF01 /* D3D11RenderTarget.hpp */; };
 		2CA79A101DF55A0D0028D11D /* boost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F81DF55A0D0028D11D /* boost_filesystem.a */; };
 		2CA79A111DF55A0D0028D11D /* boost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F91DF55A0D0028D11D /* boost_system.a */; };
 		2CA79AAD1DF55A410028D11D /* Siv3DTest_OSX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79A9D1DF55A410028D11D /* Siv3DTest_OSX.cpp */; };
@@ -814,6 +816,8 @@
 		2C80ED161E73D1E400EFEF01 /* XXHash.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = XXHash.hpp; sourceTree = "<group>"; };
 		2C80ED8D1E73D26C00EFEF01 /* CGraphics_GL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CGraphics_GL.cpp; sourceTree = "<group>"; };
 		2C80ED8E1E73D26C00EFEF01 /* CGraphics_GL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CGraphics_GL.hpp; sourceTree = "<group>"; };
+		2C80ED921E74447E00EFEF01 /* D3D11RenderTarget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = D3D11RenderTarget.cpp; sourceTree = "<group>"; };
+		2C80ED931E74447E00EFEF01 /* D3D11RenderTarget.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = D3D11RenderTarget.hpp; sourceTree = "<group>"; };
 		2CA798F81DF55A0D0028D11D /* boost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_filesystem.a; sourceTree = "<group>"; };
 		2CA798F91DF55A0D0028D11D /* boost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_system.a; sourceTree = "<group>"; };
 		2CA798FA1DF55A0D0028D11D /* libSiv3D.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSiv3D.a; sourceTree = "<group>"; };
@@ -1500,6 +1504,7 @@
 		2C80EB801E73D1D200EFEF01 /* D3D11 */ = {
 			isa = PBXGroup;
 			children = (
+				2C80ED911E74447E00EFEF01 /* RenderTarget */,
 				2C80EB811E73D1D200EFEF01 /* CGraphics_D3D11.cpp */,
 				2C80EB821E73D1D200EFEF01 /* CGraphics_D3D11.hpp */,
 				2C80EB831E73D1D200EFEF01 /* Device */,
@@ -1976,6 +1981,15 @@
 			path = GL;
 			sourceTree = "<group>";
 		};
+		2C80ED911E74447E00EFEF01 /* RenderTarget */ = {
+			isa = PBXGroup;
+			children = (
+				2C80ED921E74447E00EFEF01 /* D3D11RenderTarget.cpp */,
+				2C80ED931E74447E00EFEF01 /* D3D11RenderTarget.hpp */,
+			);
+			path = RenderTarget;
+			sourceTree = "<group>";
+		};
 		2CA798F51DF55A0D0028D11D /* Lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -2308,6 +2322,7 @@
 				2C5867101E3DDB7E0028B9F0 /* muParserStack.h in Headers */,
 				2C58670D1E3DDB7E0028B9F0 /* muParserFixes.h in Headers */,
 				2C80ED301E73D1E400EFEF01 /* DefaultRNG.hpp in Headers */,
+				2C80ED951E74447E00EFEF01 /* D3D11RenderTarget.hpp in Headers */,
 				2C80ED451E73D1E400EFEF01 /* Image.hpp in Headers */,
 				2C80ED621E73D1E400EFEF01 /* PerlinNoise.hpp in Headers */,
 				2C80EC791E73D1D200EFEF01 /* Siv3D_macOS.h in Headers */,
@@ -2453,6 +2468,7 @@
 				2C80EC111E73D1D200EFEF01 /* CBinaryReader_Windows.cpp in Sources */,
 				2C80EC391E73D1D200EFEF01 /* SivFileSystem.cpp in Sources */,
 				2C5866F61E3DDB7D0028B9F0 /* vulkan.c in Sources */,
+				2C80ED941E74447E00EFEF01 /* D3D11RenderTarget.cpp in Sources */,
 				2C80EC431E73D1D200EFEF01 /* D3D11SwapChain.cpp in Sources */,
 				2C80EC741E73D1D200EFEF01 /* SivMouse.cpp in Sources */,
 				2C80ED8F1E73D26C00EFEF01 /* CGraphics_GL.cpp in Sources */,
