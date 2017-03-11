@@ -12,8 +12,17 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_WINDOWS)
 
+# define  NOMINMAX
+# define  STRICT
+# define  _WIN32_WINNT _WIN32_WINNT_WINBLUE
+# define  NTDDI_VERSION NTDDI_WINBLUE
+# include <Windows.h>
+# include <ShellScalingApi.h>
+# undef _WIN32_WINNT
+# undef	NTDDI_VERSION
 # include "D3D11SwapChain.hpp"
 # include "../../../Siv3DEngine.hpp"
+# include "../../../EngineUtility.hpp"
 # include "../../../Window/IWindow.hpp"
 
 # include <Siv3D/PointVector.hpp>
@@ -23,7 +32,25 @@ namespace s3d
 {
 	namespace detail
 	{
-	
+		// 高 DPI ディスプレイで、フルスクリーン使用時に High DPI Aware を有効にしないと、
+		// Windows の互換性マネージャーによって
+		// HKEY_CURRENT_USER/Software/Microsoft/Windows NT/CurrentVersion/AppCompatFlags/Layers
+		// に高 DPI が既定の設定として登録されてしまう。
+		static void SetHighDPI(const bool enable)
+		{
+			if (HINSTANCE shcore = ::LoadLibraryW(L"shcore.dll"))
+			{
+				decltype(SetProcessDpiAwareness)* p_SetProcessDpiAwareness = FunctionPointer(shcore, "SetProcessDpiAwareness");
+
+				p_SetProcessDpiAwareness(enable ? PROCESS_PER_MONITOR_DPI_AWARE : PROCESS_DPI_UNAWARE);
+
+				::FreeLibrary(shcore);
+			}
+			else if(enable)
+			{
+				::SetProcessDPIAware();
+			}
+		}
 	}
 
 	D3D11SwapChain::D3D11SwapChain(ID3D11Device* device, ID3D11DeviceContext* context, IDXGIAdapter* adapter)
@@ -36,12 +63,15 @@ namespace s3d
 
 	D3D11SwapChain::~D3D11SwapChain()
 	{
-		//m_swapChain->SetFullscreenState(false, nullptr);
+		if (m_swapChain && m_fullScreen)
+		{
+			setFullScreen(false);
+		}
 	}
 
 	bool D3D11SwapChain::init()
 	{
-		return true;
+		checkDPIAwareness();
 
 		const Size resolution(640, 480);
 		const HWND hWnd = Siv3DEngine::GetWindow()->getHandle();
@@ -64,6 +94,11 @@ namespace s3d
 
 		ComPtr<IDXGIFactory> pDXGIFactory;
 
+		if (!m_adapter)
+		{
+			return false;
+		}
+
 		if (FAILED(m_adapter->GetParent(__uuidof(IDXGIFactory), &pDXGIFactory)))
 		{
 			return false;
@@ -72,19 +107,13 @@ namespace s3d
 		// スワップチェーンを作成
 		if (FAILED(pDXGIFactory->CreateSwapChain(m_device, &m_desc, &m_swapChain)))
 		{
-			Log(L"スワップチェーンの作成に失敗しました。");
-
 			return false;
 		}
 
-		//m_swapChain->SetFullscreenState(true, nullptr);
-
-		//if (FAILED(pDXGIFactory->MakeWindowAssociation(hWnd, DXGI_MWA_NO_WINDOW_CHANGES | DXGI_MWA_NO_ALT_ENTER)))
-		//{
-		//	Log(L"failed: MakeWindowAssociation");
-
-		//	return false;
-		//}
+		if (FAILED(pDXGIFactory->MakeWindowAssociation(hWnd, DXGI_MWA_NO_WINDOW_CHANGES | DXGI_MWA_NO_ALT_ENTER)))
+		{
+			return false;
+		}
 
 		return true;
 	}
@@ -142,6 +171,53 @@ namespace s3d
 		*/
 
 		return outputs;
+	}
+
+	void D3D11SwapChain::checkDPIAwareness()
+	{
+		if (HINSTANCE shcore = ::LoadLibraryW(L"shcore.dll"))
+		{
+			decltype(GetProcessDpiAwareness)* p_GetProcessDpiAwareness = FunctionPointer(shcore, "GetProcessDpiAwareness");
+
+			PROCESS_DPI_AWARENESS awareness;
+
+			p_GetProcessDpiAwareness(nullptr, &awareness);
+
+			m_highDPIAwareness = (awareness != PROCESS_DPI_UNAWARE);
+
+			::FreeLibrary(shcore);
+		}
+		else
+		{
+			m_highDPIAwareness = IsProcessDPIAware();
+		}
+	}
+
+	void D3D11SwapChain::setFullScreen(const bool fullScreen)
+	{
+		if (fullScreen == m_fullScreen)
+		{
+			return;
+		}
+
+		if (fullScreen)
+		{
+			if (!m_highDPIAwareness)
+			{
+				detail::SetHighDPI(true);
+			}
+
+			m_swapChain->SetFullscreenState(true, nullptr);
+		}
+		else
+		{
+			if (!m_highDPIAwareness)
+			{
+				detail::SetHighDPI(false);
+			}
+
+			m_swapChain->SetFullscreenState(false, nullptr);
+		}
 	}
 }
 

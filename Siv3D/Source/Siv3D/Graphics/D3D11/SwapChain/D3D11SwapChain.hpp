@@ -40,7 +40,15 @@ namespace s3d
 
 		ComPtr<IDXGISwapChain> m_swapChain;
 
+		bool m_highDPIAwareness = false;
+
+		bool m_fullScreen = false;
+
 		Array<ComPtr<IDXGIOutput>> enumOutputs();
+
+		void checkDPIAwareness();
+
+		void setFullScreen(bool fullScreen);
 
 	public:
 
@@ -49,7 +57,6 @@ namespace s3d
 		~D3D11SwapChain();
 
 		bool init();
-
 	};
 }
 
