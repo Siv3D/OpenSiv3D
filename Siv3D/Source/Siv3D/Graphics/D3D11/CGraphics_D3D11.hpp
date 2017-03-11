@@ -17,6 +17,7 @@
 # include "../IGraphics.hpp"
 # include "Device/D3D11Device.hpp"
 # include "SwapChain/D3D11SwapChain.hpp"
+# include "RenderTarget/D3D11RenderTarget.hpp"
 
 namespace s3d
 {
@@ -28,6 +29,8 @@ namespace s3d
 
 		std::unique_ptr<D3D11SwapChain> m_swapChain;
 
+		std::unique_ptr<D3D11RenderTarget> m_renderTarget;
+
 	public:
 
 		CGraphics_D3D11();
@@ -36,9 +39,15 @@ namespace s3d
 
 		bool init() override;
 
+		void setClearColor(const ColorF& color) override;
+
 		Array<DisplayOutput> enumOutputs() override;
 
 		bool setFullScreen(bool fullScreen, const Size& size, size_t displayIndex, double refreshRateHz) override;
+
+		bool present() override;
+
+		void clear() override;
 	};
 }
 
