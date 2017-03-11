@@ -60,6 +60,10 @@ namespace s3d
 		void setClearColor(const ColorF& color);
 
 		void clear();
+
+		void beginResize();
+
+		bool endResize(const Size& size);
 	};
 }
 

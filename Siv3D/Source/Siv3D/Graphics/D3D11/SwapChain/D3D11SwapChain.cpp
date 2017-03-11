@@ -24,6 +24,7 @@
 # include "../../../Siv3DEngine.hpp"
 # include "../../../EngineUtility.hpp"
 # include "../../../Window/IWindow.hpp"
+# include "../../../Graphics/IGraphics.hpp"
 # include <Siv3D/Monitor.hpp>
 
 # include <Siv3D/Logger.hpp>
@@ -219,11 +220,15 @@ namespace s3d
 		{
 			m_swapChain->SetFullscreenState(false, nullptr);
 
+			Siv3DEngine::GetGraphics()->beginResize();
+
 			auto targetDesc = m_desc.BufferDesc;
 			targetDesc.Width = size.x;
 			targetDesc.Height = size.y;
 			m_swapChain->ResizeTarget(&targetDesc);
 			m_swapChain->ResizeBuffers(1, size.x, size.y, DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
+
+			Siv3DEngine::GetGraphics()->endResize(size);
 		}
 
 		m_fullScreen = fullScreen;
@@ -333,8 +338,13 @@ namespace s3d
 
 		detail::SetHighDPI();
 
+		Siv3DEngine::GetGraphics()->beginResize();
+
 		m_swapChain->ResizeTarget(&displayModeList[bestIndex]);
 		m_swapChain->ResizeBuffers(1, displayModeList[bestIndex].Width, displayModeList[bestIndex].Height, DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
+		
+		Siv3DEngine::GetGraphics()->endResize(size);
+		
 		m_swapChain->SetFullscreenState(true, pOutput.Get());
 
 		return true;

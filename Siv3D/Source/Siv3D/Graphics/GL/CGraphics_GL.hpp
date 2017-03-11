@@ -53,6 +53,16 @@ namespace s3d
 		{
 
 		}
+
+		void beginResize() override
+		{
+
+		}
+
+		bool endResize(const Size& size) override
+		{
+			return true;
+		}
 	};
 }
 

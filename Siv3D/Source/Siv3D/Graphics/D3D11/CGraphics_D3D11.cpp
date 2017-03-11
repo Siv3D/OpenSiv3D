@@ -88,6 +88,16 @@ namespace s3d
 	{
 		m_renderTarget->clear();
 	}
+
+	void CGraphics_D3D11::beginResize()
+	{
+		m_renderTarget->beginResize();
+	}
+
+	bool CGraphics_D3D11::endResize(const Size& size)
+	{
+		return m_renderTarget->endResize(size);
+	}
 }
 
 # endif
