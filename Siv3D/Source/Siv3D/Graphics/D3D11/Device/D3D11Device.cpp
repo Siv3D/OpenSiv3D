@@ -157,6 +157,25 @@ namespace s3d
 			return false;
 		}
 
+		ComPtr<IDXGIDevice1> pDXGI;
+
+		if (FAILED(m_device.Get()->QueryInterface(__uuidof(IDXGIDevice1), &pDXGI)))
+		{
+			return false;
+		}
+
+		if (FAILED(pDXGI->GetAdapter(&m_adapter)))
+		{
+			return false;
+		}
+
+		DXGI_ADAPTER_DESC adapterDesc;
+
+		if (SUCCEEDED(m_adapter->GetDesc(&adapterDesc)))
+		{
+			Log(L"Graphics adapter:\n", adapterDesc.Description);
+		}
+
 		return true;
 	}
 
@@ -168,6 +187,11 @@ namespace s3d
 	ID3D11DeviceContext* D3D11Device::getContext() const
 	{
 		return m_context.Get();
+	}
+
+	IDXGIAdapter* D3D11Device::getAdapter() const
+	{
+		return m_adapter.Get();
 	}
 
 	D3D_DRIVER_TYPE D3D11Device::getDriverType() const

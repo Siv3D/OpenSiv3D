@@ -22,6 +22,8 @@
 # include <wrl.h>
 using namespace Microsoft::WRL;
 # include <d3d11.h>
+# include <Siv3D/Array.hpp>
+# include <Siv3D/Graphics.hpp>
 
 namespace s3d
 {
@@ -32,15 +34,38 @@ namespace s3d
 		ID3D11Device* m_device = nullptr;
 
 		ID3D11DeviceContext* m_context = nullptr;
-	
+
+		IDXGIAdapter* m_adapter = nullptr;
+
+		HWND m_hWnd = nullptr;
+
+		DXGI_SWAP_CHAIN_DESC m_desc{};
+
+		ComPtr<IDXGISwapChain> m_swapChain;
+
+		Size m_size{ 640, 480 };
+
+		size_t m_currentDisplayIndex = 0;
+
+		bool m_highDPIAwareness = false;
+
+		bool m_fullScreen = false;
+
+		void checkDPIAwareness();
+
+		bool setBestFullScreenMode(const Size& size, size_t displayIndex, double refreshRateHz);
+
 	public:
 
-		D3D11SwapChain(ID3D11Device* device, ID3D11DeviceContext* context);
+		D3D11SwapChain(ID3D11Device* device, ID3D11DeviceContext* context, IDXGIAdapter* adapter);
 
 		~D3D11SwapChain();
 
 		bool init();
 
+		Array<DisplayOutput> enumOutputs();
+
+		bool setFullScreen(bool fullScreen, const Size& size, size_t displayIndex, double refreshRateHz);
 	};
 }
 

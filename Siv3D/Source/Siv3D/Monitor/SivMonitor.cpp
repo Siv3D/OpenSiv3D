@@ -31,7 +31,7 @@ namespace s3d
 
 			Monitor* monitor = (Monitor*)userData;
 
-			if (monitor->name == monitorInfo.szDevice)
+			if (monitor->displayDeviceName == monitorInfo.szDevice)
 			{
 				monitor->displayRect.x = monitorInfo.rcMonitor.left;
 				monitor->displayRect.y = monitorInfo.rcMonitor.top;
@@ -52,7 +52,7 @@ namespace s3d
 
 	namespace System
 	{
-		Array<Monitor> EnumMonitors()
+		Array<Monitor> EnumActiveMonitors()
 		{
 			Array<Monitor> monitors;
 			DISPLAY_DEVICE displayDevice;
@@ -72,7 +72,7 @@ namespace s3d
 							!(monitor.StateFlags & DISPLAY_DEVICE_MIRRORING_DRIVER))
 						{
 							Monitor monitorInfo;
-							monitorInfo.name = displayDevice.DeviceName;
+							monitorInfo.displayDeviceName = displayDevice.DeviceName;
 							::EnumDisplayMonitors(nullptr, nullptr, detail::MonitorEnumProc, (LPARAM)&monitorInfo);
 							monitorInfo.id = monitor.DeviceID;
 							monitorInfo.name = monitor.DeviceString;
