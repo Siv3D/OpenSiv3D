@@ -71,8 +71,6 @@ namespace s3d
 
 	bool D3D11SwapChain::init()
 	{
-		checkDPIAwareness();
-
 		m_hWnd = Siv3DEngine::GetWindow()->getHandle();
 
 		m_desc.BufferDesc.Width						= m_size.x;
@@ -235,28 +233,6 @@ namespace s3d
 		return true;
 	}
 
-	void D3D11SwapChain::checkDPIAwareness()
-	{
-		if (HINSTANCE shcore = ::LoadLibraryW(L"shcore.dll"))
-		{
-			decltype(GetProcessDpiAwareness)* p_GetProcessDpiAwareness = FunctionPointer(shcore, "GetProcessDpiAwareness");
-
-			PROCESS_DPI_AWARENESS awareness;
-
-			p_GetProcessDpiAwareness(nullptr, &awareness);
-
-			m_highDPIAwareness = (awareness != PROCESS_DPI_UNAWARE);
-
-			::FreeLibrary(shcore);
-		}
-		else
-		{
-			m_highDPIAwareness = IsProcessDPIAware();
-		}
-
-		Log(L"m_highDPIAwareness:", m_highDPIAwareness);
-	}
-
 	bool D3D11SwapChain::setBestFullScreenMode(const Size& size, const size_t displayIndex, const double refreshRateHz)
 	{
 		assert(!m_fullScreen);
@@ -332,10 +308,7 @@ namespace s3d
 		//Log << static_cast<double>(displayModeList[bestIndex].RefreshRate.Numerator) / displayModeList[bestIndex].RefreshRate.Denominator;
 		//Log << (int32)displayModeList[bestIndex].Scaling;
 
-		if (!m_highDPIAwareness)
-		{
-			detail::SetHighDPI();
-		}
+		detail::SetHighDPI();
 
 		m_swapChain->ResizeTarget(&displayModeList[bestIndex]);
 		m_swapChain->ResizeBuffers(1, displayModeList[bestIndex].Width, displayModeList[bestIndex].Height, DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
