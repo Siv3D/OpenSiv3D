@@ -90,13 +90,13 @@
 ---------------------------
 
 #### 0.0.8
-- [ ] VS2017 Support
+- [x] VS2017 Support
+- [ ] Graphics (Partial)
 - [ ] Linux Support
 - [ ] Circle
 - [ ] Line
 - [ ] Triangle
 - [ ] Math (Partial)
-- [ ] Graphics (Partial)
 
 ## Discussion ##
  [Siv3D Slack #open-siv3d](https://siv3d.slack.com/messages/open-siv3d/details/)  (Japanese)

@@ -159,6 +159,7 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\CGraphics_D3D11.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\Device\D3D11Device.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\SwapChain\D3D11SwapChain.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\GL\CGraphics_GL.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\IGraphics.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\BMP\ImageFormat_BMP.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\CImageFormat.hpp" />
@@ -266,6 +267,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\CGraphics_D3D11.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\Device\D3D11Device.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\SwapChain\D3D11SwapChain.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\GL\CGraphics_GL.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\GraphicsFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\SivGraphics.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\HSV\SivHSV.cpp" />
