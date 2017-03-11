@@ -33,6 +33,8 @@ namespace s3d
 			return false;
 		}
 		
+		glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+		
 		m_glfwWindow = glfwCreateWindow(Window::DefaultClientSize.x, Window::DefaultClientSize.y, m_currentTitle.narrow().c_str(), nullptr, nullptr);
 		
 		if (!m_glfwWindow)

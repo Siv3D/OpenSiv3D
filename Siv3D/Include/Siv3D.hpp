@@ -382,6 +382,8 @@
 	//# include "Siv3D/Midi.hpp"
 	//// システム
 	# include "Siv3D/System.hpp"
+	// 接続されているモニタの情報
+	# include "Siv3D/Monitor.hpp"
 	// ウィンドウ
 	# include "Siv3D/Window.hpp"
 	//// メッセージボックス
@@ -457,8 +459,8 @@
 	//# include "Siv3D/ConstantBuffer.hpp"
 	//// 頂点レイアウト
 	//# include "Siv3D/InputLayout.hpp"
-	//// グラフィックス全般
-	//# include "Siv3D/Graphics.hpp"
+	// グラフィックス全般
+	# include "Siv3D/Graphics.hpp"
 	//// スクリーンショット
 	//# include "Siv3D/ScreenCapture.hpp"
 	//// 2D グラフィックス設定
@@ -617,8 +619,8 @@
 	//# include "Siv3D/Serialization.hpp"
 	//// 名前空間の設定
 	//# include "Siv3D/Namespace.hpp"
-	//// GPU の使用
-	//# include "Siv3D/HighPerfoemanceGraphics.hpp"
+	// GPU の使用
+	# include "Siv3D/HighPerfoemanceGPU.hpp"
 
 # ifndef NO_S3D_USING
 
