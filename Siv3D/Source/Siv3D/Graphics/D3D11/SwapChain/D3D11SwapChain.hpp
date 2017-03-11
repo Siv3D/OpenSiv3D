@@ -22,6 +22,7 @@
 # include <wrl.h>
 using namespace Microsoft::WRL;
 # include <d3d11.h>
+# include <Siv3D/Array.hpp>
 
 namespace s3d
 {
@@ -32,10 +33,18 @@ namespace s3d
 		ID3D11Device* m_device = nullptr;
 
 		ID3D11DeviceContext* m_context = nullptr;
-	
+
+		IDXGIAdapter* m_adapter = nullptr;
+
+		DXGI_SWAP_CHAIN_DESC m_desc{};
+
+		ComPtr<IDXGISwapChain> m_swapChain;
+
+		Array<ComPtr<IDXGIOutput>> enumOutputs();
+
 	public:
 
-		D3D11SwapChain(ID3D11Device* device, ID3D11DeviceContext* context);
+		D3D11SwapChain(ID3D11Device* device, ID3D11DeviceContext* context, IDXGIAdapter* adapter);
 
 		~D3D11SwapChain();
 
