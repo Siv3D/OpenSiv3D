@@ -25,6 +25,17 @@
 //
 //========================================================================
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+//	This file is modified for the Siv3D Engine.
+//
+//	Copyright (C) 2008-2017 Ryo Suzuki
+//	Copyright (C) 2016-2017 OpenSiv3D Project
+//
+//-----------------------------------------------
+
 #include "internal.h"
 
 #include <stdlib.h>
@@ -297,6 +308,32 @@ void _glfwPlatformGetMonitorPos(_GLFWmonitor* monitor, int* xpos, int* ypos)
     if (ypos)
         *ypos = (int) bounds.origin.y;
 }
+
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+GLFWAPI void glfwGetMonitorRect_Siv3D(GLFWmonitor* handle, int* xpos, int* ypos, int* w, int* h)
+{
+	_GLFWmonitor* monitor = (_GLFWmonitor*) handle;
+	assert(monitor != NULL);
+	
+	_GLFW_REQUIRE_INIT();
+	
+	const CGRect bounds = CGDisplayBounds(monitor->ns.displayID);
+	
+	if (xpos)
+		*xpos = (int) bounds.origin.x;
+	if (ypos)
+		*ypos = (int) bounds.origin.y;
+	if (w)
+		*w = (int) bounds.size.width;
+	if (h)
+		*h = (int) bounds.size.height;
+}
+//
+//-----------------------------------------------
+
 
 GLFWvidmode* _glfwPlatformGetVideoModes(_GLFWmonitor* monitor, int* count)
 {

@@ -78,5 +78,7 @@ namespace s3d
 		{
 			SetTitle(Format(args...));
 		}
+		
+		const WindowState& GetState();
 	}
 }
