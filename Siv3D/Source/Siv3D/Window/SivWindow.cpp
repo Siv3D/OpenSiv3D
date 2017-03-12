@@ -20,5 +20,10 @@ namespace s3d
 		{
 			Siv3DEngine::GetWindow()->setTitle(title);
 		}
+		
+		const WindowState& GetState()
+		{
+			return Siv3DEngine::GetWindow()->getState();
+		}
 	}
 }

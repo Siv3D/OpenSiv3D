@@ -13,7 +13,9 @@
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 # include "../../Siv3DEngine.hpp"
+# include "../../Window/IWindow.hpp"
 # include "CGraphics_GL.hpp"
+# include <Siv3D/Window.hpp>
 # include <Siv3D/CharacterSet.hpp>
 
 namespace s3d
@@ -91,6 +93,8 @@ namespace s3d
 		if (!fullScreen)
 		{
 			::glfwSetWindowMonitor(m_glfwWindow, nullptr, 100, 100, size.x, size.y, GLFW_DONT_CARE);
+			
+			Siv3DEngine::GetWindow()->setTitle(Siv3DEngine::GetWindow()->getState().title, true);
 		}
 		else
 		{

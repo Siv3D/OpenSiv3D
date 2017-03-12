@@ -53,6 +53,8 @@ namespace s3d
 
 		virtual WindowHandle getHandle() const = 0;
 
-		virtual void setTitle(const String& title) = 0;
+		virtual void setTitle(const String& title, bool forceUpdate = false) = 0;
+		
+		virtual const WindowState& getState() const = 0;
 	};
 }

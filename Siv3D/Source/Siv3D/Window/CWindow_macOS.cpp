@@ -35,7 +35,9 @@ namespace s3d
 		
 		::glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 		
-		m_glfwWindow = ::glfwCreateWindow(Window::DefaultClientSize.x, Window::DefaultClientSize.y, m_currentTitle.narrow().c_str(), nullptr, nullptr);
+		m_state.title = L"Siv3D App";
+		
+		m_glfwWindow = ::glfwCreateWindow(Window::DefaultClientSize.x, Window::DefaultClientSize.y, m_state.title.narrow().c_str(), nullptr, nullptr);
 		
 		if (!m_glfwWindow)
 		{
@@ -73,16 +75,21 @@ namespace s3d
 		return m_glfwWindow;
 	}
 
-	void CWindow_macOS::setTitle(const String& title)
+	void CWindow_macOS::setTitle(const String& title, bool forceUpdate)
 	{
-		if (title == m_currentTitle)
+		if (!forceUpdate && title == m_state.title)
 		{
 			return;
 		}
 
-		m_currentTitle = title;
+		m_state.title = title;
 
-		::glfwSetWindowTitle(m_glfwWindow, m_currentTitle.narrow().c_str());
+		::glfwSetWindowTitle(m_glfwWindow, m_state.title.narrow().c_str());
+	}
+	
+	const WindowState& CWindow_macOS::getState() const
+	{
+		return m_state;
 	}
 }
 
