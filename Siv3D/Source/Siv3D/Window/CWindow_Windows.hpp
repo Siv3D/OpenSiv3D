@@ -56,7 +56,9 @@ namespace s3d
 
 		WindowHandle getHandle() const override;
 
-		void setTitle(const String& title) override;
+		void setTitle(const String& title, bool forceUpdate) override;
+		
+		const WindowState& getState() const override;
 	};
 }
 

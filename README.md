@@ -91,12 +91,15 @@
 
 #### 0.0.8
 - [x] VS2017 Support
-- [ ] Graphics (Partial)
-- [ ] Linux Support
+- [x] Monitor
+- [x] Graphics::SetBackground()
+- [x] Graphics::EnumOutputs()
+- [x] Graphics::SetFullScreen()
 - [ ] Circle
 - [ ] Line
 - [ ] Triangle
 - [ ] Math (Partial)
+- [ ] Linux Support
 
 ## Discussion ##
  [Siv3D Slack #open-siv3d](https://siv3d.slack.com/messages/open-siv3d/details/)  (Japanese)

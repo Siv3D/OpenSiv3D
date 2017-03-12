@@ -81,6 +81,8 @@ namespace s3d
 		{
 			return false;
 		}
+		
+		Siv3DEngine::GetGraphics()->clear();
 
 		return true;
 	}

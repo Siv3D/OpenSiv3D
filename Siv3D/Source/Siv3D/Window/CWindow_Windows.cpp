@@ -132,9 +132,9 @@ namespace s3d
 		return m_hWnd;
 	}
 
-	void CWindow_Windows::setTitle(const String& title)
+	void CWindow_Windows::setTitle(const String& title, const bool forceUpdate)
 	{
-		if (title == m_state.title)
+		if (!forceUpdate && title == m_state.title)
 		{
 			return;
 		}
@@ -142,6 +142,11 @@ namespace s3d
 		m_state.title = title;
 
 		::SetWindowTextW(m_hWnd, m_state.title.c_str());
+	}
+	
+	const WindowState& CWindow_Windows::getState() const
+	{
+		return m_state;
 	}
 
 	void CWindow_Windows::initState()

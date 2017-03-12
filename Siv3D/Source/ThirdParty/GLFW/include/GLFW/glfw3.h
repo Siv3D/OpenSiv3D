@@ -1454,7 +1454,15 @@ GLFWAPI GLFWmonitor* glfwGetPrimaryMonitor(void);
  *  @ingroup monitor
  */
 GLFWAPI void glfwGetMonitorPos(GLFWmonitor* monitor, int* xpos, int* ypos);
-
+	
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+GLFWAPI void glfwGetMonitorRect_Siv3D(GLFWmonitor* handle, int* xpos, int* ypos, int* w, int* h);
+//
+//-----------------------------------------------
+		
 /*! @brief Returns the physical size of the monitor.
  *
  *  This function returns the size, in millimetres, of the display area of the
