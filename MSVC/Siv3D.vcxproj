@@ -35,6 +35,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Char.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\CharacterEncoding.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\CharacterSet.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Circle.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Circular.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Color.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ColorPalette.hpp" />
@@ -78,6 +79,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\KeyConjunction.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\KeyGroup.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Lerp.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Line.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Logger.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Math.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\MathConstants.hpp" />

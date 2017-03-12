@@ -233,12 +233,12 @@
 	# include "Siv3D/Spherical.hpp"
 	//// 3x2 行列
 	//# include "Siv3D/Mat3x2.hpp"
-	//// 線分
-	//# include "Siv3D/Line.hpp"
+	// 線分
+	# include "Siv3D/Line.hpp"
 	// 長方形
 	# include "Siv3D/Rectangle.hpp"
-	//// 円
-	//# include "Siv3D/Circle.hpp"
+	// 円
+	# include "Siv3D/Circle.hpp"
 	//// 楕円
 	//# include "Siv3D/Ellipse.hpp"
 	//// 三角形
