@@ -39,10 +39,10 @@ namespace s3d
 		// [x] Windows | [x] macOS | [ ] Linux
 		void SetBackground(const ColorF& color);
 
-		// [x] Windows | [ ] macOS | [ ] Linux
+		// [x] Windows | [x] macOS | [ ] Linux
 		Array<DisplayOutput> EnumOutputs();
 
-		// [x] Windows | [ ] macOS | [ ] Linux
+		// [x] Windows | [x] macOS | [ ] Linux
 		bool SetFullScreen(bool fullScreen, const Size& size, size_t displayIndex = 0, double refreshRateHz = 60.0);
 	}
 }
