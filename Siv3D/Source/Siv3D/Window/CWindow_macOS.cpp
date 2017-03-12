@@ -23,7 +23,7 @@ namespace s3d
 
 	CWindow_macOS::~CWindow_macOS()
 	{
-		glfwTerminate();
+		::glfwTerminate();
 	}
 
 	bool CWindow_macOS::init()
@@ -33,34 +33,34 @@ namespace s3d
 			return false;
 		}
 		
-		glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+		::glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 		
-		m_glfwWindow = glfwCreateWindow(Window::DefaultClientSize.x, Window::DefaultClientSize.y, m_currentTitle.narrow().c_str(), nullptr, nullptr);
+		m_glfwWindow = ::glfwCreateWindow(Window::DefaultClientSize.x, Window::DefaultClientSize.y, m_currentTitle.narrow().c_str(), nullptr, nullptr);
 		
 		if (!m_glfwWindow)
 		{
-			glfwTerminate();
+			::glfwTerminate();
 			
 			return false;
 		}
 
-		glfwMakeContextCurrent(m_glfwWindow);
+		::glfwMakeContextCurrent(m_glfwWindow);
 
-		glfwSwapInterval(1);
+		::glfwSwapInterval(1);
 		
 		return true;
 	}
 	
 	bool CWindow_macOS::update()
 	{		
-		glfwPollEvents();
+		::glfwPollEvents();
 		
-		if(glfwGetKey(m_glfwWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		if(::glfwGetKey(m_glfwWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		{
-			glfwSetWindowShouldClose(m_glfwWindow, GL_TRUE);
+			::glfwSetWindowShouldClose(m_glfwWindow, GL_TRUE);
 		}
 		   
-		if(glfwWindowShouldClose(m_glfwWindow))
+		if(::glfwWindowShouldClose(m_glfwWindow))
 		{
 			return false;
 		}
@@ -82,7 +82,7 @@ namespace s3d
 
 		m_currentTitle = title;
 
-		glfwSetWindowTitle(m_glfwWindow, m_currentTitle.narrow().c_str());
+		::glfwSetWindowTitle(m_glfwWindow, m_currentTitle.narrow().c_str());
 	}
 }
 

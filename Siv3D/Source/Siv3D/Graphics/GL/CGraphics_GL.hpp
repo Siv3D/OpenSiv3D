@@ -36,14 +36,11 @@ namespace s3d
 
 		bool init() override;
 
-		Array<DisplayOutput> enumOutputs() override
-		{
-			return{};
-		}
+		Array<DisplayOutput> enumOutputs() override;
 
 		void setClearColor(const ColorF& color) override;
 
-		bool setFullScreen(bool fullScreen, const Size& size, size_t displayIndex, double refreshRateHz);
+		bool setFullScreen(bool fullScreen, const Size& size, size_t displayIndex, double refreshRateHz) override;
 
 		bool present() override;
 

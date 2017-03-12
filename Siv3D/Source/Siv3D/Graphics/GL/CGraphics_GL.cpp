@@ -14,6 +14,7 @@
 
 # include "../../Siv3DEngine.hpp"
 # include "CGraphics_GL.hpp"
+# include <Siv3D/CharacterSet.hpp>
 
 namespace s3d
 {
@@ -34,34 +35,95 @@ namespace s3d
 		return true;
 	}
 	
+	Array<DisplayOutput> CGraphics_GL::enumOutputs()
+	{
+		Array<DisplayOutput> outputs;
+		
+		int32 numMonitors;
+		GLFWmonitor** monitors = ::glfwGetMonitors(&numMonitors);
+
+		for (int32 i = 0; i < numMonitors; ++i)
+		{
+			GLFWmonitor* monitor = monitors[i];
+			
+			DisplayOutput output;
+			
+			output.name = CharacterSet::Widen(glfwGetMonitorName(monitor));
+			
+			int32 xPos, yPos, width, height;
+			
+			glfwGetMonitorRect_Siv3D(monitor, &xPos, &yPos, &width, &height);
+			output.desktopRect.x = xPos;
+			output.desktopRect.y = yPos;
+			output.desktopRect.w = width;
+			output.desktopRect.h = height;
+			output.rotation = 0; // [Siv3D ToDo]
+			
+			int32 numModes;
+			const GLFWvidmode* videoModes = glfwGetVideoModes(monitor, &numModes);
+			
+			for (int32 i = 0; i < numModes; ++i)
+			{
+				const GLFWvidmode& videoMode = videoModes[i];
+				
+				DisplayMode mode;
+				
+				mode.size.set(videoMode.width, videoMode.height);
+				
+				mode.refreshRateHz = videoMode.refreshRate;
+				
+				output.displayModes.push_back(mode);
+			}
+			
+			outputs.push_back(output);
+		}
+		
+		return outputs;
+	}
+	
 	void CGraphics_GL::setClearColor(const ColorF& color)
 	{
 		m_clearColor = color;
 	}
 	
-	bool CGraphics_GL::setFullScreen(bool fullScreen, const Size& size, size_t displayIndex, double refreshRateHz)
+	bool CGraphics_GL::setFullScreen(const bool fullScreen, const Size& size, const size_t displayIndex, const double refreshRateHz)
 	{
-		glfwSetWindowSize(m_glfwWindow, size.x, size.y);
+		if (!fullScreen)
+		{
+			::glfwSetWindowMonitor(m_glfwWindow, nullptr, 100, 100, size.x, size.y, GLFW_DONT_CARE);
+		}
+		else
+		{
+			int32 numMonitors;
+			GLFWmonitor** monitors = ::glfwGetMonitors(&numMonitors);
+			
+			if (displayIndex > numMonitors)
+			{
+				return false;
+			}
+			
+			::glfwSetWindowMonitor(m_glfwWindow, monitors[displayIndex], 0, 0, size.x, size.y, refreshRateHz);
+		}
 		
 		return false;
 	}
 	
 	bool CGraphics_GL::present()
 	{
-		glfwSwapBuffers(m_glfwWindow);
+		::glfwSwapBuffers(m_glfwWindow);
 		
 		return true;
 	}
 	
 	void CGraphics_GL::clear()
 	{
-		glClearColor(
+		::glClearColor(
 					 static_cast<float>(m_clearColor.r),
 					 static_cast<float>(m_clearColor.g),
 					 static_cast<float>(m_clearColor.b),
 					 1.0f);
 		
-		glClear(GL_COLOR_BUFFER_BIT);
+		::glClear(GL_COLOR_BUFFER_BIT);
 	}
 }
 
