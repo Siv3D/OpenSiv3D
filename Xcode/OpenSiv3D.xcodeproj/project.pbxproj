@@ -387,6 +387,9 @@
 		2C80ED901E73D26C00EFEF01 /* CGraphics_GL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C80ED8E1E73D26C00EFEF01 /* CGraphics_GL.hpp */; };
 		2C80ED941E74447E00EFEF01 /* D3D11RenderTarget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C80ED921E74447E00EFEF01 /* D3D11RenderTarget.cpp */; };
 		2C80ED951E74447E00EFEF01 /* D3D11RenderTarget.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C80ED931E74447E00EFEF01 /* D3D11RenderTarget.hpp */; };
+		2C80ED971E773AF500EFEF01 /* Line.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C80ED961E773AF500EFEF01 /* Line.hpp */; };
+		2C80ED991E773B0900EFEF01 /* Circle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C80ED981E773B0900EFEF01 /* Circle.hpp */; };
+		2C80ED9C1E774DF400EFEF01 /* SivLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C80ED9B1E774DF400EFEF01 /* SivLine.cpp */; };
 		2CA79A101DF55A0D0028D11D /* boost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F81DF55A0D0028D11D /* boost_filesystem.a */; };
 		2CA79A111DF55A0D0028D11D /* boost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F91DF55A0D0028D11D /* boost_system.a */; };
 		2CA79AAD1DF55A410028D11D /* Siv3DTest_OSX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79A9D1DF55A410028D11D /* Siv3DTest_OSX.cpp */; };
@@ -818,6 +821,9 @@
 		2C80ED8E1E73D26C00EFEF01 /* CGraphics_GL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CGraphics_GL.hpp; sourceTree = "<group>"; };
 		2C80ED921E74447E00EFEF01 /* D3D11RenderTarget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = D3D11RenderTarget.cpp; sourceTree = "<group>"; };
 		2C80ED931E74447E00EFEF01 /* D3D11RenderTarget.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = D3D11RenderTarget.hpp; sourceTree = "<group>"; };
+		2C80ED961E773AF500EFEF01 /* Line.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Line.hpp; sourceTree = "<group>"; };
+		2C80ED981E773B0900EFEF01 /* Circle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Circle.hpp; sourceTree = "<group>"; };
+		2C80ED9B1E774DF400EFEF01 /* SivLine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivLine.cpp; sourceTree = "<group>"; };
 		2CA798F81DF55A0D0028D11D /* boost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_filesystem.a; sourceTree = "<group>"; };
 		2CA798F91DF55A0D0028D11D /* boost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_system.a; sourceTree = "<group>"; };
 		2CA798FA1DF55A0D0028D11D /* libSiv3D.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSiv3D.a; sourceTree = "<group>"; };
@@ -1228,6 +1234,7 @@
 		2C80EB2E1E73D1D100EFEF01 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C80ED9A1E774DF400EFEF01 /* Line */,
 				2C80EB351E73D1D100EFEF01 /* Base64 */,
 				2C80EB371E73D1D100EFEF01 /* BigFloat */,
 				2C80EB3A1E73D1D100EFEF01 /* BigInt */,
@@ -1865,6 +1872,7 @@
 				2C80ECAD1E73D1E400EFEF01 /* Char.hpp */,
 				2C80ECAE1E73D1E400EFEF01 /* CharacterEncoding.hpp */,
 				2C80ECAF1E73D1E400EFEF01 /* CharacterSet.hpp */,
+				2C80ED981E773B0900EFEF01 /* Circle.hpp */,
 				2C80ECB01E73D1E400EFEF01 /* Circular.hpp */,
 				2C80ECB11E73D1E400EFEF01 /* Color.hpp */,
 				2C80ECB21E73D1E400EFEF01 /* ColorPalette.hpp */,
@@ -1909,6 +1917,7 @@
 				2C80ECD91E73D1E400EFEF01 /* KeyGroup.hpp */,
 				2C80ECDA1E73D1E400EFEF01 /* Lerp.hpp */,
 				2C80ECDB1E73D1E400EFEF01 /* LetterCase.hpp */,
+				2C80ED961E773AF500EFEF01 /* Line.hpp */,
 				2C80ECDC1E73D1E400EFEF01 /* Logger.hpp */,
 				2C80ECDD1E73D1E400EFEF01 /* Math.hpp */,
 				2C80ECDE1E73D1E400EFEF01 /* MathConstants.hpp */,
@@ -1988,6 +1997,14 @@
 				2C80ED931E74447E00EFEF01 /* D3D11RenderTarget.hpp */,
 			);
 			path = RenderTarget;
+			sourceTree = "<group>";
+		};
+		2C80ED9A1E774DF400EFEF01 /* Line */ = {
+			isa = PBXGroup;
+			children = (
+				2C80ED9B1E774DF400EFEF01 /* SivLine.cpp */,
+			);
+			path = Line;
 			sourceTree = "<group>";
 		};
 		2CA798F51DF55A0D0028D11D /* Lib */ = {
@@ -2254,8 +2271,10 @@
 				2C80ED591E73D1E400EFEF01 /* Monitor.hpp in Headers */,
 				2C58670F1E3DDB7E0028B9F0 /* muParserInt.h in Headers */,
 				2C80ED461E73D1E400EFEF01 /* ImageFormat.hpp in Headers */,
+				2C80ED971E773AF500EFEF01 /* Line.hpp in Headers */,
 				2C80EC401E73D1D200EFEF01 /* CGraphics_D3D11.hpp in Headers */,
 				2C80ED4A1E73D1E400EFEF01 /* IteratorRange.hpp in Headers */,
+				2C80ED991E773B0900EFEF01 /* Circle.hpp in Headers */,
 				2C80ED671E73D1E400EFEF01 /* Random.hpp in Headers */,
 				2C58671E1E3DDB7E0028B9F0 /* xxhash.h in Headers */,
 				2C80ED581E73D1E400EFEF01 /* MersenneTwister.hpp in Headers */,
@@ -2525,6 +2544,7 @@
 				2C80EC451E73D1D200EFEF01 /* GraphicsFactory.cpp in Sources */,
 				2C80EC901E73D1D200EFEF01 /* SivTime.cpp in Sources */,
 				2C80EC0A1E73D1D200EFEF01 /* SivBase64.cpp in Sources */,
+				2C80ED9C1E774DF400EFEF01 /* SivLine.cpp in Sources */,
 				2C5866D61E3DDB7D0028B9F0 /* fast-dtoa.cc in Sources */,
 				2C5867231E3DDB7E0028B9F0 /* huf_compress.c in Sources */,
 				2C5866D41E3DDB7D0028B9F0 /* double-conversion.cc in Sources */,
