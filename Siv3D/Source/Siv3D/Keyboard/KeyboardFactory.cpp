@@ -11,6 +11,7 @@
 
 # include "CKeyboard_Windows.hpp"
 # include "CKeyboard_macOS.hpp"
+# include "CKeyboard_Linux.hpp"
 
 namespace s3d
 {
@@ -24,6 +25,10 @@ namespace s3d
 		
 		return new CKeyboard_macOS;
 		
+	# elif defined(SIV3D_TARGET_LINUX)
+
+		return new CKeyboard_Linux;
+
 	# endif
 	}
 }
