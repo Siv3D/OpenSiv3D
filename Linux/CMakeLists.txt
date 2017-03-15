@@ -12,6 +12,10 @@ set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -DNDEBUG -march=native")
 
 #set(CMAKE_BUILD_TYPE Release)
 
+set (_SIV3D_GLFW_X11 "Use X11 for window creation" ON)
+set (_SIV3D_GLFW_WAYLAND "Use Wayland for window creation" OFF)
+set (_SIV3D_GLFW_MIR "Use Mir for window creation" OFF)
+
 include_directories(
 	"/usr/include"
 	"../Siv3D/Include"
@@ -19,7 +23,7 @@ include_directories(
 	"/usr/lib/glib-2.0/include"
 )
 
-add_library(siv3d STATIC
+set (SOURCE_FILES
 	"../Siv3D/Source/Siv3D/Base64/SivBase64.cpp"
 	"../Siv3D/Source/Siv3D/BigFloat/SivBigFloat.cpp"
 	"../Siv3D/Source/Siv3D/BigInt/SivBigInt.cpp"
@@ -103,6 +107,8 @@ add_library(siv3d STATIC
 	"../Siv3D/Source/Siv3D/WritableMemoryMapping/SivWritableMemoryMapping.cpp"
 	"../Siv3D/Source/Siv3D/XXHash/SivXXHash.cpp"
 
+	"../Siv3D/Source/Siv3D/Siv3DMain_Linux.cpp"
+
 	"../Siv3D/Source/ThirdParty/double-conversion/bignum-dtoa.cc"
 	"../Siv3D/Source/ThirdParty/double-conversion/bignum.cc"
 	"../Siv3D/Source/ThirdParty/double-conversion/cached-powers.cc"
@@ -134,8 +140,49 @@ add_library(siv3d STATIC
 	"../Siv3D/Source/ThirdParty/zstd/dictBuilder/divsufsort.c"
 	"../Siv3D/Source/ThirdParty/zstd/dictBuilder/zdict.c"
 
-	"../Siv3D/Source/Siv3D/Siv3DMain_Linux.cpp"
+	# GLFW
+	# common files
+	"../Siv3D/Source/ThirdParty/GLFW/deps/glad.c"
+
+	"../Siv3D/Source/ThirdParty/GLFW/src/context.c"
+	"../Siv3D/Source/ThirdParty/GLFW/src/init.c"
+	"../Siv3D/Source/ThirdParty/GLFW/src/input.c"
+	"../Siv3D/Source/ThirdParty/GLFW/src/monitor.c"
+	"../Siv3D/Source/ThirdParty/GLFW/src/vulkan.c"
+	"../Siv3D/Source/ThirdParty/GLFW/src/window.c"
+
+	"../Siv3D/Source/ThirdParty/GLFW/src/linux_joystick.c"
+	"../Siv3D/Source/ThirdParty/GLFW/src/posix_time.c"
+	"../Siv3D/Source/ThirdParty/GLFW/src/posix_tls.c"
+	"../Siv3D/Source/ThirdParty/GLFW/src/xkb_unicode.c"
+	"../Siv3D/Source/ThirdParty/GLFW/src/egl_context.c"
 )
+
+if (_SIV3D_GLFW_X11)
+	set (SOURCE_FILES
+		${SOURCE_FILES}
+		"../Siv3D/Source/ThirdParty/GLFW/src/x11_init.c"
+		"../Siv3D/Source/ThirdParty/GLFW/src/x11_monitor.c"
+		"../Siv3D/Source/ThirdParty/GLFW/src/x11_window.c"
+		"../Siv3D/Source/ThirdParty/GLFW/src/glx_context.c"
+	)
+elseif (_SIV3D_GLFW_WAYLAND)
+	set (SOURCE_FILES
+		${SOURCE_FILES}
+		"../Siv3D/Source/ThirdParty/GLFW/src/wl_init.c"
+		"../Siv3D/Source/ThirdParty/GLFW/src/wl_monitor.c"
+		"../Siv3D/Source/ThirdParty/GLFW/src/wl_window.c"
+	)
+elseif (_SIV3D_GLFW_MIR)
+	set (SOURCE_FILES
+		${SOURCE_FILES}
+		"../Siv3D/Source/ThirdParty/GLFW/src/mir_init.c"
+		"../Siv3D/Source/ThirdParty/GLFW/src/mir_monitor.c"
+		"../Siv3D/Source/ThirdParty/GLFW/src/mir_window.c"
+	)
+endif()
+
+add_library(siv3d STATIC ${SOURCE_FILES})
 
 target_link_libraries(siv3d
 )

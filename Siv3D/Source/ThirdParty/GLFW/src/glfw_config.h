@@ -1,7 +1,10 @@
 
 # include <Siv3D/Platform.hpp>
 
+# if defined(SIV3D_TARGET_MACOS)
 # define _GLFW_COCOA
+# endif
+
 # define _GLFW_USE_HYBRID_HPG
 # define _GLFW_USE_MENUBAR
 
