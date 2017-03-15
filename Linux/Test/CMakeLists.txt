@@ -59,12 +59,17 @@ target_link_libraries(siv3d_test
 	boost_filesystem
 	boost_system
 	pthread
-	glfw
 	GL
 	glib-2.0
 	gobject-2.0
 	gio-2.0
 	png
 	turbojpeg
+	X11
+	Xi
+	Xrandr
+	Xinerama
+	Xcursor
+	dl
 )
 
