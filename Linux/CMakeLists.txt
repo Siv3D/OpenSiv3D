@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 
 project(open_siv3d_linux CXX)
+enable_language(C)
 
 set(CMAKE_CXX_COMPILER "clang++")
 #set(CMAKE_CXX_COMPILER "g++")
@@ -18,7 +19,11 @@ set (_SIV3D_GLFW_MIR "Use Mir for window creation" OFF)
 
 include_directories(
 	"/usr/include"
+
 	"../Siv3D/Include"
+	"../Siv3D/Source/ThirdParty/zstd"
+	"../Siv3D/Source/ThirdParty/zstd/common"
+
 	"/usr/include/glib-2.0"
 	"/usr/lib/glib-2.0/include"
 )
