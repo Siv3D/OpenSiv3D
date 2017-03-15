@@ -95,5 +95,9 @@ namespace s3d
 		}
 		
 		bool Update();
+
+		bool LaunchBrowser(const FilePath& url);
+
+		void OepnLicenses();
 	}
 }

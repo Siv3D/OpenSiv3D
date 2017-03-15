@@ -18,44 +18,44 @@
 
 namespace s3d
 {
-    class BinaryReader::CBinaryReader
-    {
-    private:
+	class BinaryReader::CBinaryReader
+	{
+	private:
 
-        FILE* m_pFile = nullptr;
-        
-        int64 m_size = 0;
-        
-        FilePath m_fullPath;
+		FILE* m_pFile = nullptr;
 
-    public:
-        
-        CBinaryReader();
-        
-        ~CBinaryReader();
-        
-        bool open(const FilePath& path);
-        
-        void close();
-        
-        bool isOpened() const noexcept;
-        
-        int64 size() const noexcept;
-        
-        int64 setPos(int64 pos);
-        
-        int64 getPos();
-        
-        int64 read(void* buffer, int64 size);
-        
-        int64 read(void* buffer, int64 pos, int64 size);
-        
-        int64 lookahead(void* buffer, int64 size);
-        
-        int64 lookahead(void* buffer, int64 pos, int64 size);
-        
-        const FilePath& path() const;
-    };
+		int64 m_size = 0;
+
+		FilePath m_fullPath;
+
+	public:
+
+		CBinaryReader();
+
+		~CBinaryReader();
+
+		bool open(const FilePath& path);
+
+		void close();
+
+		bool isOpened() const noexcept;
+
+		int64 size() const noexcept;
+
+		int64 setPos(int64 pos);
+
+		int64 getPos();
+
+		int64 read(void* buffer, int64 size);
+
+		int64 read(void* buffer, int64 pos, int64 size);
+
+		int64 lookahead(void* buffer, int64 size);
+
+		int64 lookahead(void* buffer, int64 pos, int64 size);
+
+		const FilePath& path() const;
+	};
 }
 
 # endif

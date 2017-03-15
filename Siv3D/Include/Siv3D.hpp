@@ -227,10 +227,10 @@
 	# include "Siv3D/PointVector.hpp"
 	// 円座標
 	# include "Siv3D/Circular.hpp"
-	//// 円柱座標
-	//# include "Siv3D/Cylindrical.hpp"
-	//// 球面座標
-	//# include "Siv3D/Spherical.hpp"
+	// 円柱座標
+	# include "Siv3D/Cylindrical.hpp"
+	// 球面座標
+	# include "Siv3D/Spherical.hpp"
 	//// 3x2 行列
 	//# include "Siv3D/Mat3x2.hpp"
 	//// 線分
@@ -399,20 +399,26 @@
 //
 	// カーソル
 	# include "Siv3D/Cursor.hpp"
-	// キー入力
+	// 入力状態
 	# include "Siv3D/Key.hpp"
+	// 2 つのキーの組み合わせ
+	# include "Siv3D/KeyConjunction.hpp"
+	// 2 つ以上のキーの組み合わせ
+	# include "Siv3D/KeyGroup.hpp"
+	// キーボード
+	# include "Siv3D/Keyboard.hpp"
 	// マウス
 	# include "Siv3D/Mouse.hpp"
+	//// ゲームパッド
+	//# include "Siv3D/Gamepad.hpp"
+	//// XInput 対応ゲームコントローラー
+	//# include "Siv3D/XInput.hpp"
 	//// マイク入力
 	//# include "Siv3D/Recorder.hpp"
 	//// タッチ
 	//# include "Siv3D/Touch.hpp"
 	//// ペンタブレット
 	//# include "Siv3D/Pentablet.hpp"
-	//// ゲームパッド
-	//# include "Siv3D/Gamepad.hpp"
-	//// XInput 対応ゲームコントローラー
-	//# include "Siv3D/XInput.hpp"
 	//// 入力全般
 	//# include "Siv3D/Input.hpp"
 	//// Kinect V1

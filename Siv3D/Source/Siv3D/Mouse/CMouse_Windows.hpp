@@ -39,8 +39,6 @@ namespace s3d
 		Vec2 m_scrollInternal{ 0.0, 0.0 };
 
 		Vec2 m_scroll{ 0.0, 0.0 };
-		
-		bool m_inputAttached = false;
 
 	public:
 

@@ -12,12 +12,12 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_LINUX)
 
-# include <GLFW/glfw3.h>
+# include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 # include "../Siv3DEngine.hpp"
 # include "CCursor_Linux.hpp"
 
 // TODO : implemantation
-void Linux_GetScreenCursorPos(double* xpos, double* ypos);
+void Linux_GetScreenCursorPos(double* xpos, double* ypos) { }
 
 namespace s3d
 {

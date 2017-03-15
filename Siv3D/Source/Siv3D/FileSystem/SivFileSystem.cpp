@@ -922,9 +922,9 @@ namespace s3d
         FilePath SpecialFolderPath(const SpecialFolder folder)
         {
 # if defined(SIV3D_TARGET_MACOS)
-            return CharacterSet::Widen(macOS_SpecialFolder(static_cast<int>(folder)));
+            return CharacterSet::Widen(macOS_SpecialFolder(static_cast<int>(folder))) << L'/';
 # elif defined(SIV3D_TARGET_LINUX)
-            return CharacterSet::Widen(Linux_SpecialFolder(static_cast<int>(folder)));
+            return CharacterSet::Widen(Linux_SpecialFolder(static_cast<int>(folder))) << L'/';
 # endif
         }
         

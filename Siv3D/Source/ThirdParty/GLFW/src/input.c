@@ -25,6 +25,17 @@
 //
 //========================================================================
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+//	This file is modified for the Siv3D Engine.
+//
+//	Copyright (C) 2008-2017 Ryo Suzuki
+//	Copyright (C) 2016-2017 OpenSiv3D Project
+//
+//-----------------------------------------------
+
 #include "internal.h"
 
 #include <assert.h>
@@ -278,6 +289,20 @@ GLFWAPI int glfwGetKey(GLFWwindow* handle, int key)
 
     return (int) window->keys[key];
 }
+
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+GLFWAPI const char* glfwGetKeysSiv3D(GLFWwindow* handle)
+{
+	_GLFWwindow* window = (_GLFWwindow*) handle;
+	assert(window != NULL);
+
+	return window->keys;
+}
+//
+//-----------------------------------------------
 
 GLFWAPI int glfwGetMouseButton(GLFWwindow* handle, int button)
 {

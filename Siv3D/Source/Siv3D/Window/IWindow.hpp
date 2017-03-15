@@ -27,7 +27,7 @@
 
 # elif defined(SIV3D_TARGET_LINUX)
 
-	# include <GLFW/glfw3.h>
+	# include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 
 # endif
 

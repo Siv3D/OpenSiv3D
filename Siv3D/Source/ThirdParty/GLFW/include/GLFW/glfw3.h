@@ -26,6 +26,17 @@
  *
  *************************************************************************/
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+//	This file is modified for the Siv3D Engine.
+//
+//	Copyright (C) 2008-2017 Ryo Suzuki
+//	Copyright (C) 2016-2017 OpenSiv3D Project
+//
+//-----------------------------------------------
+
 #ifndef _glfw3_h_
 #define _glfw3_h_
 
@@ -3042,6 +3053,15 @@ GLFWAPI const char* glfwGetKeyName(int key, int scancode);
  *  @ingroup input
  */
 GLFWAPI int glfwGetKey(GLFWwindow* window, int key);
+	
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+GLFWAPI const char* glfwGetKeysSiv3D(GLFWwindow* window);
+//
+//-----------------------------------------------
+
 
 /*! @brief Returns the last reported state of a mouse button for the specified
  *  window.
