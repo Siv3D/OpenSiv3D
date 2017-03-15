@@ -13,13 +13,29 @@ set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -DNDEBUG -march=native")
 
 #set(CMAKE_BUILD_TYPE Release)
 
-set (_SIV3D_GLFW_X11 "Use X11 for window creation" ON)
-set (_SIV3D_GLFW_WAYLAND "Use Wayland for window creation" OFF)
-set (_SIV3D_GLFW_MIR "Use Mir for window creation" OFF)
+set(_SIV3D_LINUX_WINDOW_API_X11 "Use X11 for window creation" ON)
+set(_SIV3D_LINUX_WINDOW_API_WAYLAND "Use Wayland for window creation" OFF)
+set(_SIV3D_LINUX_WINDOW_API_MIR "Use Mir for window creation" OFF)
+
+if (_SIV3D_LINUX_WINDOW_API_X11)
+	option(_SIV3D_LINUX_WINDOW_API_X11 "Use X11 for window creation" ON)
+	option(_SIV3D_LINUX_WINDOW_API_WAYLAND "Use Wayland for window creation" OFF)
+	option(_SIV3D_LINUX_WINDOW_API_MIR "Use Mir for window creation" OFF)
+elseif (_SIV3D_LINUX_WINDOW_API_WAYLAND)
+	option(_SIV3D_LINUX_WINDOW_API_X11 "Use X11 for window creation" OFF)
+	option(_SIV3D_LINUX_WINDOW_API_WAYLAND "Use Wayland for window creation" ON)
+	option(_SIV3D_LINUX_WINDOW_API_MIR "Use Mir for window creation" OFF)
+elseif (_SIV3D_LINUX_WINDOW_API_MIR)
+	option(_SIV3D_LINUX_WINDOW_API_X11 "Use X11 for window creation" OFF)
+	option(_SIV3D_LINUX_WINDOW_API_WAYLAND "Use Wayland for window creation" OFF)
+	option(_SIV3D_LINUX_WINDOW_API_MIR "Use Mir for window creation" ON)
+endif()
+configure_file(./Siv3D_Linux_GLFW_Window_API.h.in ${CMAKE_CURRENT_SOURCE_DIR}/Siv3D_Linux_GLFW_Window_API.h)
 
 include_directories(
 	"/usr/include"
 
+	"."
 	"../Siv3D/Include"
 	"../Siv3D/Source/ThirdParty/zstd"
 	"../Siv3D/Source/ThirdParty/zstd/common"
@@ -28,7 +44,7 @@ include_directories(
 	"/usr/lib/glib-2.0/include"
 )
 
-set (SOURCE_FILES
+set(SOURCE_FILES
 	"../Siv3D/Source/Siv3D/Base64/SivBase64.cpp"
 	"../Siv3D/Source/Siv3D/BigFloat/SivBigFloat.cpp"
 	"../Siv3D/Source/Siv3D/BigInt/SivBigInt.cpp"
@@ -163,7 +179,7 @@ set (SOURCE_FILES
 	"../Siv3D/Source/ThirdParty/GLFW/src/egl_context.c"
 )
 
-if (_SIV3D_GLFW_X11)
+if (_SIV3D_LINUX_WINDOW_API_X11)
 	set (SOURCE_FILES
 		${SOURCE_FILES}
 		"../Siv3D/Source/ThirdParty/GLFW/src/x11_init.c"
@@ -171,14 +187,14 @@ if (_SIV3D_GLFW_X11)
 		"../Siv3D/Source/ThirdParty/GLFW/src/x11_window.c"
 		"../Siv3D/Source/ThirdParty/GLFW/src/glx_context.c"
 	)
-elseif (_SIV3D_GLFW_WAYLAND)
+elseif (_SIV3D_LINUX_WINDOW_API_WAYLAND)
 	set (SOURCE_FILES
 		${SOURCE_FILES}
 		"../Siv3D/Source/ThirdParty/GLFW/src/wl_init.c"
 		"../Siv3D/Source/ThirdParty/GLFW/src/wl_monitor.c"
 		"../Siv3D/Source/ThirdParty/GLFW/src/wl_window.c"
 	)
-elseif (_SIV3D_GLFW_MIR)
+elseif (_SIV3D_LINUX_WINDOW_API_MIR)
 	set (SOURCE_FILES
 		${SOURCE_FILES}
 		"../Siv3D/Source/ThirdParty/GLFW/src/mir_init.c"
