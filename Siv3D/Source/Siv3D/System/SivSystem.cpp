@@ -76,7 +76,7 @@ namespace s3d
 	}
 }
 
-# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
+# elif defined(SIV3D_TARGET_MACOS)
 
 # include <unistd.h>
 # include <Siv3D/FileSystem.hpp>
@@ -114,6 +114,31 @@ namespace s3d
 			}
 			
 			return macOS_LaunchBrowser(url.narrow().c_str());
+		}
+	}
+}
+
+# elif defined(SIV3D_TARGET_LINUX)
+
+# include <unistd.h>
+
+namespace s3d
+{
+	namespace System
+	{
+        void Sleep(int32 milliseconds)
+        {
+            if (milliseconds < 0)
+            {
+                return;
+            }
+
+            ::usleep(static_cast<uint32>(milliseconds) * 1000);
+        }
+
+		bool LaunchBrowser(const FilePath& _url)
+		{
+			return false;
 		}
 	}
 }
