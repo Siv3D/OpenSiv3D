@@ -13,9 +13,10 @@ set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -DNDEBUG -march=native")
 
 #set(CMAKE_BUILD_TYPE Release)
 
+# In current version, Wayland and Mir are not supported.
 set(_SIV3D_LINUX_WINDOW_API_X11 "Use X11 for window creation" ON)
-set(_SIV3D_LINUX_WINDOW_API_WAYLAND "Use Wayland for window creation" OFF)
-set(_SIV3D_LINUX_WINDOW_API_MIR "Use Mir for window creation" OFF)
+# set(_SIV3D_LINUX_WINDOW_API_WAYLAND "Use Wayland for window creation" OFF)
+# set(_SIV3D_LINUX_WINDOW_API_MIR "Use Mir for window creation" OFF)
 
 if (_SIV3D_LINUX_WINDOW_API_X11)
 	option(_SIV3D_LINUX_WINDOW_API_X11 "Use X11 for window creation" ON)
