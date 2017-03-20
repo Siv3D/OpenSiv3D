@@ -689,6 +689,11 @@ namespace s3d
 
 		bool savePerceptualJPEG(const FilePath& path, double butteraugliTarget = 1.0) const;
 	};
+
+	namespace Imaging
+	{
+		double PerceivedDifferences(const Image& a, const Image& b);
+	}
 }
 
 namespace std
