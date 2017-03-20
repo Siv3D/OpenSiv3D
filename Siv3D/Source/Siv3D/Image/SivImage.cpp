@@ -11,12 +11,11 @@
 
 # include "../Siv3DEngine.hpp"
 # include "../ImageFormat/IImageFormat.hpp"
-# include <Siv3D/Image.hpp>
-
-
 # include "../../ThirdParty/guetzli/processor.h"
+# include "../../ThirdParty/butteraugli/butteraugli.h"
+# include <Siv3D/Image.hpp>
 # include <Siv3D/BinaryWriter.hpp>
-# include "../ImageFormat/JPEG/ImageFormat_JPEG.hpp"
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -46,6 +45,53 @@ namespace s3d
 				*pDst++ = pSrc->g;
 				*pDst++ = pSrc->b;
 				++pSrc;
+			}
+
+			return rgb;
+		}
+
+		static std::vector<butteraugli::ImageF> ToImageFVector(const Image& image)
+		{
+			if (image.isEmpty())
+			{
+				return{};
+			}
+
+			std::vector<butteraugli::ImageF> rgb;			
+			rgb.emplace_back(image.width(), image.height());
+			rgb.emplace_back(image.width(), image.height());
+			rgb.emplace_back(image.width(), image.height());
+
+			//Log << L"bp" << rgb[0].bytes_per_row();
+
+			double table[256];
+			for (int i = 0; i < 256; ++i) {
+				const double srgb = i / 255.0;
+				table[i] =
+					255.0 * (srgb <= 0.04045 ? srgb / 12.92
+						: std::pow((srgb + 0.055) / 1.055, 2.4));
+			}
+		
+
+			for (int32 y = 0; y < image.height(); ++y)
+			{
+				const Color* pSrc = image[y];
+				const Color* const pSrcEnd = pSrc + image.width();
+				float* pDstR = rgb[0].Row(y);
+				float* pDstG = rgb[1].Row(y);
+				float* pDstB = rgb[2].Row(y);
+
+				while (pSrc != pSrcEnd)
+				{
+					//*pDstR++ = static_cast<float>(pSrc->r / 255.0);
+					//*pDstG++ = static_cast<float>(pSrc->g / 255.0);
+					//*pDstB++ = static_cast<float>(pSrc->b / 255.0);
+
+					*pDstR++ = static_cast<float>(table[pSrc->r]);
+					*pDstG++ = static_cast<float>(table[pSrc->g]);
+					*pDstB++ = static_cast<float>(table[pSrc->b]);
+					++pSrc;
+				}
 			}
 
 			return rgb;
@@ -311,15 +357,13 @@ namespace s3d
 			return false;
 		}
 
-		const std::vector<uint8> rgb = detail::ToRGBVector(*this);
-
 		guetzli::Params params;
 		params.butteraugli_target = static_cast<float>(butteraugliTarget);
 
 		guetzli::ProcessStats stats;
 		std::string out_data;
 
-		if (!guetzli::Process(params, &stats, rgb, m_width, m_height, &out_data))
+		if (!guetzli::Process(params, &stats, detail::ToRGBVector(*this), m_width, m_height, &out_data))
 		{
 			return false;
 		}
@@ -327,5 +371,17 @@ namespace s3d
 		writer.write(out_data.data(), out_data.length());
 
 		return true;
+	}
+
+	namespace Imaging
+	{
+		double PerceivedDifferences(const Image& a, const Image& b)
+		{
+			butteraugli::ImageF diffMap;
+			double diffValue;
+			butteraugli::ButteraugliInterface(detail::ToImageFVector(a), detail::ToImageFVector(b), diffMap, diffValue);
+
+			return diffValue;
+		}
 	}
 }
