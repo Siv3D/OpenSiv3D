@@ -235,7 +235,7 @@ distribution.<br>
 
 # endif
 
-u8R"-(<div class="c0">EASING EQUATIONS</div>
+u8R"-(<div class="c0">Easing Equations</div>
 <div class="c1">Copyright (c) 2001 Robert Penner</div>
 <div class="c2">
 Redistribution and use in source and binary forms, with or without<br>
