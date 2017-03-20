@@ -139,8 +139,33 @@ namespace s3d
 			return begin.distanceFromSq(end);
 		}
 		
+		constexpr position_type center() const noexcept
+		{
+			return (begin + end) * 0.5;
+		}
+		
 		position_type closest(const position_type& pos) const;
 
+		// intersects
 		
+		Optional<Vec2> intersectsAt(const Line& line) const;
+		
+		// rotated
+		
+		// rotatedAt
+		
+		// paint
+		
+		// paintArrow
+		
+		// overpaint
+		
+		// overpaintArrow
+		
+		// draw
+		
+		// drawArrow
+		
+		// asPolygon;
 	};
 }

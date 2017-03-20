@@ -1208,12 +1208,7 @@ namespace s3d
 			return{ x + w, y + h };
 		}
 
-		constexpr size_type center() const noexcept
-		{
-			return{ x + w / 2, y + h / 2 };
-		}
-
-		constexpr Vec2 centerF() const noexcept
+		constexpr Vec2 center() const noexcept
 		{
 			return{ x + w * 0.5, y + h * 0.5 };
 		}

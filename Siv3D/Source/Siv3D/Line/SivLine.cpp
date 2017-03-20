@@ -13,7 +13,7 @@
 
 namespace s3d
 {
-	Line::position_type Line::closest(const Line::position_type& pos) const
+	Line::position_type Line::closest(const position_type& pos) const
 	{
 		Vec2 v = end - begin;
 		const double d = v.length();
@@ -38,4 +38,9 @@ namespace s3d
 		
 		return begin + v * t;
 	}
+	
+	//Optional<Line::position_type> Line::intersectsAt(const Line& line) const
+	//{
+	//
+	//}
 }
