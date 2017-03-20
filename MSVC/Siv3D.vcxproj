@@ -192,6 +192,7 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Window\CWindow_Windows.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Window\IWindow.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\WritableMemoryMapping\CWritableMemoryMapping.hpp" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\butteraugli\butteraugli.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum-dtoa.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\cached-powers.h" />
@@ -202,6 +203,31 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\ieee.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\strtod.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\utils.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\butteraugli_comparator.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\color_transform.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\comparator.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\dct_double.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\debug_print.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\entropy_encode.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\fast_log.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\fdct.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\gamma_correct.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\idct.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_bit_writer.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_data.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_data_decoder.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_data_encoder.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_data_reader.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_data_writer.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_error.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_huffman_decode.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\output_image.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\preprocess_downsample.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\processor.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\quality.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\quantize.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\score.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\stats.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\libjpeg-turbo\turbojpeg.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\libpng\png.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\libpng\pngconf.h" />
@@ -331,6 +357,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\WritableMemoryMapping\CWritableMemoryMapping.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\WritableMemoryMapping\SivWritableMemoryMapping.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\XXHash\SivXXHash.cpp" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\butteraugli\butteraugli.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum-dtoa.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\bignum.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\cached-powers.cc" />
@@ -340,6 +367,25 @@
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\fixed-dtoa.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\strtod.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\fmt\format.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\butteraugli_comparator.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\dct_double.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\debug_print.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\entropy_encode.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\fdct.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\gamma_correct.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\idct.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_data.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_data_decoder.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_data_encoder.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_data_reader.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_data_writer.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_huffman_decode.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\output_image.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\preprocess_downsample.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\processor.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\quality.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\quantize.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\score.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\MD5\md5.cpp" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParser.cpp" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\muparser\muParserBase.cpp" />
@@ -364,6 +410,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\Include\Siv3D\Point.inl" />
+    <None Include="..\Siv3D\Source\ThirdParty\guetzli\order.inc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5EC743E4-1657-41A6-BBE5-A0E2B135885C}</ProjectGuid>
@@ -430,13 +477,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>..\Siv3D\Lib\Windows(x86)\</OutDir>
     <IntDir>$(ProjectName)\Intermediate\Release-x86\</IntDir>
-    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_62_0;..\Siv3D\Source\ThirdParty\zstd;..\Siv3D\Source\ThirdParty\zstd\common;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_62_0;..\Siv3D\Source\ThirdParty\zstd;..\Siv3D\Source\ThirdParty\zstd\common;..\Siv3D\Source\ThirdParty;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\Siv3D\Lib\Windows(x86)\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
     <IntDir>$(ProjectName)\Intermediate\Debug-x86\</IntDir>
-    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_62_0;..\Siv3D\Source\ThirdParty\zstd;..\Siv3D\Source\ThirdParty\zstd\common;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_62_0;..\Siv3D\Source\ThirdParty\zstd;..\Siv3D\Source\ThirdParty\zstd\common;..\Siv3D\Source\ThirdParty;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

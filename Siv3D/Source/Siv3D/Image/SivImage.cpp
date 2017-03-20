@@ -13,6 +13,11 @@
 # include "../ImageFormat/IImageFormat.hpp"
 # include <Siv3D/Image.hpp>
 
+
+# include "../../ThirdParty/guetzli/processor.h"
+# include <Siv3D/BinaryWriter.hpp>
+# include "../ImageFormat/JPEG/ImageFormat_JPEG.hpp"
+
 namespace s3d
 {
 	namespace detail
@@ -20,6 +25,30 @@ namespace s3d
 		static constexpr bool IsValidSize(const size_t width, const size_t height)
 		{
 			return width <= MaxImageSize && height <= MaxImageSize;
+		}
+
+		static std::vector<uint8> ToRGBVector(const Image& image)
+		{
+			std::vector<uint8> rgb(image.num_pixels() * 3);
+
+			if (image.isEmpty())
+			{
+				return rgb;
+			}
+
+			const Color* pSrc = image.data();
+			const Color* const pSrcEnd = pSrc + image.num_pixels();
+			uint8* pDst = rgb.data();
+
+			while (pSrc != pSrcEnd)
+			{
+				*pDst++ = pSrc->r;
+				*pDst++ = pSrc->g;
+				*pDst++ = pSrc->b;
+				++pSrc;
+			}
+
+			return rgb;
 		}
 	}
 
@@ -29,7 +58,7 @@ namespace s3d
 
 		if (!new_image.isEmpty())
 		{
-			Color* pDst = new_image[0];
+			Color* pDst = new_image.data();
 			const Color* pDstEnd = pDst + new_image.num_pixels();
 
 			while (pDst != pDstEnd)
@@ -50,7 +79,7 @@ namespace s3d
 			const double sx = 1.0 / (width - 1);
 			const double sy = 1.0 / (height - 1);
 
-			Color* pDst = new_image[0];
+			Color* pDst = new_image.data();
 
 			for (uint32 y = 0; y < height; ++y)
 			{
@@ -139,7 +168,7 @@ namespace s3d
 
 		const ColorF* pSrc = grid.data();
 		const ColorF* const pSrcEnd = pSrc + grid.size_elements();
-		Color* pDst = &m_data[0];
+		Color* pDst = m_data.data();
 
 		while (pSrc != pSrcEnd)
 		{
@@ -210,10 +239,10 @@ namespace s3d
 			return false;
 		}
 
-		Color* pDst = (*this)[0];
+		Color* pDst = data();
 		const size_t dstStep = m_width;
 
-		const Color* pSrc = alphaImage[0];
+		const Color* pSrc = alphaImage.data();
 		const size_t srcStep = alphaImage.m_width;
 
 		const uint32 w = std::min(m_width, alphaImage.m_width);
@@ -249,5 +278,54 @@ namespace s3d
 		}
 
 		return Siv3DEngine::GetImageFormat()->save(*this, format, path);
+	}
+
+	bool Image::saveJPEG(const FilePath& path, const int32 quality) const
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		BinaryWriter writer(path);
+
+		if (!writer)
+		{
+			return false;
+		}
+
+		return Siv3DEngine::GetImageFormat()->encodeJPEG(writer, *this, quality);
+	}
+
+	bool Image::savePerceptualJPEG(const FilePath& path, const double butteraugliTarget) const
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		BinaryWriter writer(path);
+
+		if (!writer)
+		{
+			return false;
+		}
+
+		const std::vector<uint8> rgb = detail::ToRGBVector(*this);
+
+		guetzli::Params params;
+		params.butteraugli_target = static_cast<float>(butteraugliTarget);
+
+		guetzli::ProcessStats stats;
+		std::string out_data;
+
+		if (!guetzli::Process(params, &stats, rgb, m_width, m_height, &out_data))
+		{
+			return false;
+		}
+		
+		writer.write(out_data.data(), out_data.length());
+
+		return true;
 	}
 }

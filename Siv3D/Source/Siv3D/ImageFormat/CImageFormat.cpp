@@ -123,6 +123,23 @@ namespace s3d
 		return (*it)->save(image, path);
 	}
 
+	bool CImageFormat::encodeJPEG(IWriter& writer, const Image& image, const int32 quality) const
+	{
+		const auto p = findFormat(ImageFormat::JPEG);
+
+		if (p == m_imageFormats.end())
+		{
+			return false;
+		}
+
+		if (const ImageFormat_JPEG* jpeg = dynamic_cast<ImageFormat_JPEG*>(p->get()))
+		{
+			return jpeg->encode(image, writer, quality);
+		}
+
+		return false;
+	}
+
 	Array<std::unique_ptr<IImageFormat>>::const_iterator CImageFormat::findFormat(const ImageFormat format) const
 	{
 		for (auto it = m_imageFormats.begin(); it != m_imageFormats.end(); ++it)
