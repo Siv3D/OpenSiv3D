@@ -235,6 +235,36 @@ distribution.<br>
 
 # endif
 
+u8R"-(<div class="c0">EASING EQUATIONS</div>
+<div class="c1">Copyright (c) 2001 Robert Penner</div>
+<div class="c2">
+Redistribution and use in source and binary forms, with or without<br>
+modification, are permitted provided that the following conditions are<br>
+met:<br>
+<br>
+    * Redistributions of source code must retain the above copyright<br>
+      notice, this list of conditions and the following disclaimer.<br>
+    * Redistributions in binary form must reproduce the above<br>
+      copyright notice, this list of conditions and the following<br>
+      disclaimer in the documentation and/or other materials provided<br>
+      with the distribution.<br>
+    * Neither the name of the author nor the names of its<br>
+      contributors may be used to endorse or promote products derived<br>
+      from this software without specific prior written permission.<br>
+<br>
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS<br>
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT<br>
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR<br>
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT<br>
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,<br>
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT<br>
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,<br>
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY<br>
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT<br>
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE<br>
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<br>
+</div>)-"
+
 u8R"-(<div class="c0">muparser</div>
 <div class="c1">Copyright (c) 2011 Ingo Berg</div>
 <div class="c2">
