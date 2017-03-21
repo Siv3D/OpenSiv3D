@@ -245,6 +245,9 @@
     <Filter Include="Source\Siv3D\Line">
       <UniqueIdentifier>{d7fd069b-d8a1-496b-96ab-8ac063e97aa3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Circle">
+      <UniqueIdentifier>{a54ac146-530a-47de-87fe-f610f589114d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1409,6 +1412,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Line\SivLine.cpp">
       <Filter>Source\Siv3D\Line</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Circle\SivCircle.cpp">
+      <Filter>Source\Siv3D\Circle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

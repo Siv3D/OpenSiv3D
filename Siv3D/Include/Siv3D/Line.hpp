@@ -219,7 +219,7 @@ namespace s3d
 	/// 入力ストリーム
 	/// </param>
 	/// <param name="rect">
-	/// 長方形
+	/// 線分
 	/// </param>
 	/// <returns>
 	/// 渡した後の入力ストリーム
