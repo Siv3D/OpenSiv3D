@@ -13,6 +13,7 @@
 # include "Fwd.hpp"
 # include "PointVector.hpp"
 # include "Line.hpp"
+# include "MathConstants.hpp"
 # include "NamedParameter.hpp"
 
 namespace s3d
@@ -312,7 +313,85 @@ namespace s3d
 			return movedBy(v.x, v.y);
 		}
 
+		constexpr Circle& moveBy(value_type _x, value_type _y) noexcept
+		{
+			center.moveBy(_x, _y);
+			return *this;
+		}
 
+		constexpr Circle& moveBy(const position_type& v) noexcept
+		{
+			return moveBy(v.x, v.y);
+		}
+
+		constexpr Circle stretched(value_type size) const noexcept
+		{
+			return Circle(center, r + size);
+		}
+
+		//constexpr Ellipse stretched(double _x, double _y) const noexcept
+		//{
+		//	return Ellipse(center, r + _x, r + _y);
+		//}
+
+		constexpr Circle scaled(double s) const noexcept
+		{
+			return Circle(center, r * s);
+		}
+
+		//constexpr Ellipse scaled(double sx, double sy) const noexcept
+		//{
+		//	return Ellipse(center, r * sx, r * sy);
+		//}
+
+		constexpr position_type top() const noexcept
+		{
+			return{ center.x, center.y - r };
+		}
+
+		constexpr position_type right() const noexcept
+		{
+			return{ center.x + r, center.y };
+		}
+
+		constexpr position_type bottom() const noexcept
+		{
+			return{ center.x, center.y + r };
+		}
+
+		constexpr position_type left() const noexcept
+		{
+			return{ center.x - r, center.y };
+		}
+
+		constexpr Line diameter() const noexcept
+		{
+			return{ left(), right() };
+		}
+
+		constexpr value_type area() const noexcept
+		{
+			return r * r * Math::Pi;
+		}
+
+		constexpr value_type perimeter() const noexcept
+		{
+			return 2 * r * Math::Pi;
+		}
+
+		// intersects
+
+		// contains
+
+		// leftClicked() leftPressed() leftReleased()
+
+		// rightClicked() rightPressed() rightReleased()
+
+		// mouseOver()
+
+		// paint~ overpaint~ draw~
+
+		// Polygon asPolygon() const;
 	};
 }
 

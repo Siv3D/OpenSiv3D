@@ -1072,8 +1072,7 @@ namespace s3d
 		/// </returns>
 		constexpr Rectangle& moveBy(const size_type& v) noexcept
 		{
-			pos.moveBy(v);
-			return *this;
+			return moveBy(v.x, v.y);
 		}
 
 		/// <summary>

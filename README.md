@@ -99,7 +99,7 @@
 - [x] Guetzli
 - [x] Butteraugli
 - [x] Line
-- [ ] Circle
+- [x] Circle
 - [ ] Triangle
 - [ ] Window::SetPos()
 - [ ] Window::Centering()
