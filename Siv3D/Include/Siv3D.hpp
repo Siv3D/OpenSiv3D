@@ -241,8 +241,8 @@
 	# include "Siv3D/Circle.hpp"
 	//// 楕円
 	//# include "Siv3D/Ellipse.hpp"
-	//// 三角形
-	//# include "Siv3D/Triangle.hpp"
+	// 三角形
+	# include "Siv3D/Triangle.hpp"
 	//// 四角形
 	//# include "Siv3D/Quad.hpp"
 	//// 角丸長方形

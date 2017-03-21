@@ -964,6 +964,9 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\debug_print.h">
       <Filter>Source\ThirdParty\guetzli</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Triangle.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
