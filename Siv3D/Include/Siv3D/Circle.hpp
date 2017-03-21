@@ -245,6 +245,11 @@ namespace s3d
 			return set(bottomRight->x - _r, bottomRight->y - _r, _r);
 		}
 
+		constexpr Circle& set(const Circle& circle) noexcept
+		{
+			return *this = circle;
+		}
+
 		constexpr Circle& setCenter(value_type _x, value_type _y) noexcept
 		{
 			center.set(_x, _y);
@@ -296,6 +301,18 @@ namespace s3d
 			r = _r;
 			return *this;
 		}
+
+		constexpr Circle movedBy(value_type _x, value_type _y) const noexcept
+		{
+			return{ center.movedBy(_x, _y), r };
+		}
+
+		constexpr Circle movedBy(const position_type& v) const noexcept
+		{
+			return movedBy(v.x, v.y);
+		}
+
+
 	};
 }
 
