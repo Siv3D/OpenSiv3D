@@ -27,7 +27,7 @@ namespace s3d
 
 		using size_type = SizeType;
 
-		using value_type = typename SizeType::value_type;
+		using value_type = typename size_type::value_type;
 		
 		S3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
 		

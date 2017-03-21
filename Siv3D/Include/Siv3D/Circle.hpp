@@ -17,6 +17,12 @@ namespace s3d
 {
 	struct Circle
 	{
+		using position_type = Vec2;
+
+		using size_type = double;
+
+		using value_type = position_type::value_type;
+
 
 	};
 }

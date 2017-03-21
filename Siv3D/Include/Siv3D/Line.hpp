@@ -19,7 +19,7 @@ namespace s3d
 	{
 		using position_type = Vec2;
 
-		using value_type = typename position_type::value_type;
+		using value_type = position_type::value_type;
 		
 		/// <summary>
 		/// 線分の開始位置
