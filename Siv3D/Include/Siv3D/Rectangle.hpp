@@ -13,6 +13,7 @@
 # include "Fwd.hpp"
 # include "NamedParameter.hpp"
 # include "PointVector.hpp"
+# include "Line.hpp"
 
 namespace s3d
 {
@@ -1213,7 +1214,25 @@ namespace s3d
 			return{ x + w * 0.5, y + h * 0.5 };
 		}
 
-		// top() right() bottom() left()
+		constexpr Line top() const noexcept
+		{
+			return{ tl(), tr() };
+		}
+
+		constexpr Line right() const noexcept
+		{
+			return{ tr(), br() };
+		}
+
+		constexpr Line bottom() const noexcept
+		{
+			return{ br(), bl() };
+		}
+
+		constexpr Line left() const noexcept
+		{
+			return{ bl(), tl() };
+		}
 
 		/// <summary>
 		/// 長方形の面積を返します。

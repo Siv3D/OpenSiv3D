@@ -98,8 +98,8 @@
 - [x] Graphics::SetFullScreen()
 - [x] Guetzli
 - [x] Butteraugli
+- [x] Line
 - [ ] Circle
-- [ ] Line
 - [ ] Triangle
 - [ ] Window::SetPos()
 - [ ] Window::Centering()
