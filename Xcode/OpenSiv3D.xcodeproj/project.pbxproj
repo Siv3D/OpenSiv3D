@@ -438,6 +438,7 @@
 		2C80EDFD1E7FCCE800EFEF01 /* score.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C80EDD01E7FCCE800EFEF01 /* score.h */; };
 		2C80EDFE1E7FCCE800EFEF01 /* stats.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C80EDD11E7FCCE800EFEF01 /* stats.h */; };
 		2C80EE011E8154B100EFEF01 /* SivCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C80EE001E8154B100EFEF01 /* SivCircle.cpp */; };
+		2C80EE031E8163E100EFEF01 /* Triangle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C80EE021E8163E100EFEF01 /* Triangle.hpp */; };
 		2CA79A101DF55A0D0028D11D /* boost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F81DF55A0D0028D11D /* boost_filesystem.a */; };
 		2CA79A111DF55A0D0028D11D /* boost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F91DF55A0D0028D11D /* boost_system.a */; };
 		2CA79AAD1DF55A410028D11D /* Siv3DTest_OSX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79A9D1DF55A410028D11D /* Siv3DTest_OSX.cpp */; };
@@ -922,6 +923,7 @@
 		2C80EDD01E7FCCE800EFEF01 /* score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = score.h; sourceTree = "<group>"; };
 		2C80EDD11E7FCCE800EFEF01 /* stats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stats.h; sourceTree = "<group>"; };
 		2C80EE001E8154B100EFEF01 /* SivCircle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCircle.cpp; sourceTree = "<group>"; };
+		2C80EE021E8163E100EFEF01 /* Triangle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Triangle.hpp; sourceTree = "<group>"; };
 		2CA798F81DF55A0D0028D11D /* boost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_filesystem.a; sourceTree = "<group>"; };
 		2CA798F91DF55A0D0028D11D /* boost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_system.a; sourceTree = "<group>"; };
 		2CA798FA1DF55A0D0028D11D /* libSiv3D.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSiv3D.a; sourceTree = "<group>"; };
@@ -2064,6 +2066,7 @@
 				2C80ED061E73D1E400EFEF01 /* Time.hpp */,
 				2C80ED071E73D1E400EFEF01 /* TimeProfiler.hpp */,
 				2C80ED081E73D1E400EFEF01 /* Timer.hpp */,
+				2C80EE021E8163E100EFEF01 /* Triangle.hpp */,
 				2C80ED091E73D1E400EFEF01 /* Types.hpp */,
 				2C80ED0A1E73D1E400EFEF01 /* TypeTraits.hpp */,
 				2C80ED0B1E73D1E400EFEF01 /* Uncopyable.hpp */,
@@ -2500,6 +2503,7 @@
 				2C80EC421E73D1D200EFEF01 /* D3D11Device.hpp in Headers */,
 				2C80ED291E73D1E400EFEF01 /* Compression.hpp in Headers */,
 				2C5866F01E3DDB7D0028B9F0 /* internal.h in Headers */,
+				2C80EE031E8163E100EFEF01 /* Triangle.hpp in Headers */,
 				2C80EC511E73D1D200EFEF01 /* ImageFormat_JPEG.hpp in Headers */,
 				2C58672C1E3DDB7E0028B9F0 /* zstd.h in Headers */,
 				2C80EDE71E7FCCE800EFEF01 /* jpeg_data_decoder.h in Headers */,
