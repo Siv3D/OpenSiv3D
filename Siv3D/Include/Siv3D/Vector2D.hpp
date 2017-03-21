@@ -217,6 +217,12 @@ namespace s3d
 				&& y == static_cast<value_type>(0.0);
 		}
 
+		bool hasNaN() const noexcept
+		{
+			return std::isnan(x)
+				|| std::isnan(y);
+		}
+
 		constexpr value_type dot(const Vector2D& v) const noexcept
 		{
 			return x * v.x + y * v.y;

@@ -1040,7 +1040,7 @@ namespace s3d
 		/// </returns>
 		constexpr Rectangle movedBy(const size_type& v) const noexcept
 		{
-			return{ pos.movedBy(v), size };
+			return movedBy(v.x, v.y);
 		}
 
 		/// <summary>
@@ -1072,8 +1072,7 @@ namespace s3d
 		/// </returns>
 		constexpr Rectangle& moveBy(const size_type& v) noexcept
 		{
-			pos.moveBy(v);
-			return *this;
+			return moveBy(v.x, v.y);
 		}
 
 		/// <summary>

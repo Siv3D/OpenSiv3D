@@ -519,6 +519,14 @@ namespace s3d
 				&& w == static_cast<value_type>(0.0);
 		}
 
+		bool hasNaN() const noexcept
+		{
+			return std::isnan(x)
+				|| std::isnan(y)
+				|| std::isnan(z)
+				|| std::isnan(w);
+		}
+
 		constexpr Type dot(const Vector4D& v) const
 		{
 			return x * v.x + y * v.y + z * v.z + w * v.w;
