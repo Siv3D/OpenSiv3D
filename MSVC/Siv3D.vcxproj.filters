@@ -242,6 +242,9 @@
     <Filter Include="Source\ThirdParty\butteraugli">
       <UniqueIdentifier>{b95ce22f-7ba3-4f0f-a5fb-7c1f45924750}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Line">
+      <UniqueIdentifier>{d7fd069b-d8a1-496b-96ab-8ac063e97aa3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1403,6 +1406,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\debug_print.cc">
       <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Line\SivLine.cpp">
+      <Filter>Source\Siv3D\Line</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

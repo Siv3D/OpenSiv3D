@@ -1352,8 +1352,8 @@ namespace s3d
 
 namespace fmt
 {
-	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::Rect& rect)
+	template <class ArgFormatter, class SizeType>
+	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::Rectangle<SizeType>& rect)
 	{
 		const auto tag = s3d::detail::GetTag(format_str);
 

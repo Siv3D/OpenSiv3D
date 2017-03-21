@@ -278,6 +278,12 @@ SOFTWARE.<br>
 </div>)-"
 
 
+u8R"-(<div class="c0">LineSegmentIntersection</div>
+<div class="c1">Copyright (c) 2015 Kristian Lindberg Vinther</div>
+<div class="c2">Licenced with the Code Project Open Licence (CPOL) http://www.codeproject.com/info/cpol10.aspx <br>
+</div>)-"
+
+
 u8R"-(<div class="c0">miniutf</div>
 <div class="c1">Copyright (c) 2013 Dropbox, Inc.</div>
 <div class="c2">
