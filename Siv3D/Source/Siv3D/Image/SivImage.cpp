@@ -12,9 +12,14 @@
 # include "../Siv3DEngine.hpp"
 # include "../ImageFormat/IImageFormat.hpp"
 # include "../../ThirdParty/guetzli/processor.h"
+
+S3D_DISABLE_MSVC_WARNINGS_PUSH(4100 4244)
 # include "../../ThirdParty/butteraugli/butteraugli.h"
+S3D_DISABLE_MSVC_WARNINGS_POP()
+
 # include <Siv3D/Image.hpp>
 # include <Siv3D/BinaryWriter.hpp>
+# include <Siv3D/Number.hpp>
 # include <Siv3D/Logger.hpp>
 
 namespace s3d
@@ -377,6 +382,11 @@ namespace s3d
 	{
 		double PerceivedDifferences(const Image& a, const Image& b)
 		{
+			if (a.isEmpty() || a.size() != b.size())
+			{
+				return Infinity<double>();
+			}
+
 			butteraugli::ImageF diffMap;
 			double diffValue;
 			butteraugli::ButteraugliInterface(detail::ToImageFVector(a), detail::ToImageFVector(b), diffMap, diffValue);

@@ -3,55 +3,21 @@
 
 void Main()
 {
-	/*
-	const FilePath title = L"Night";
-	const FilePath dir = L"nc";
+	// 指定した線分を直径とする円
+	Log << Circle(Line(0, 0, 10, 0));
 
-	const FilePath originalPath(dir + L"/" + L"original.png");
-	const Image original(originalPath);
+	// 指定した 2 点を結ぶ線分を直径とする円
+	Log << Circle(Vec2(0, 4), Vec2(3, 5));
 
-	Log << L"## {}\n"_fmt(title);
-	Log << L"|original|";
-	Log << L"|:---:|";
-	Log << L"|{}bytes|"_fmt(ThousandsSeparate(FileSystem::FileSize(originalPath)));
-	Log << L"|![](images/{}/original.png)|"_fmt(dir);
+	// 指定した 3 点を通る円
+	Log << Circle(Vec2(0, 4), Vec2(3, 5), Vec2(10, 8));
 
-	Log << L"### libjpeg-turbo 1.5.1\n";
-	Log << L"|quality     |size  |butteraugli score|image      |";
-	Log << L"|:----------:|:-----:|:------:|:-------------------:|";
+	// 第 1 引数の座標が中心で、第 2 引数の座標を通る円
+	Log << Circle(Arg::center(5, 5), Vec2(10, 10));
 
-	for (int32 quality = 80; quality <= 100; ++quality)
-	{
-		const FilePath path = dir + L"/" + L"{}.jpg"_fmt(quality);
-		original.saveJPEG(path, quality);
-		Log << L"|" << quality << L"|" << ThousandsSeparate(FileSystem::FileSize(path)) << L"|" << Imaging::PerceivedDifferences(original, Image(path)) << L"|" << L"[■](images/{}/{}.jpg)"_fmt(dir, quality) << L"|";
-	}
-
-	Log << L"### Guetzli\n";
-	Log << L"|target     |size  |butteraugli score|image      |";
-	Log << L"|:----------:|:-----:|:------:|:-------------------:|";
-
-	for (int32 t = 20; t >= 0; --t)
-	{
-		const double target = t / 10.0;
-		const FilePath path = dir + L"/" + L"b{}.jpg"_fmt(ToFixed(target, 2));
-		original.savePerceptualJPEG(path, target);
-		Log << L"|" << ToFixed(target, 2) << L"|" << ThousandsSeparate(FileSystem::FileSize(path)) << L"|" << Imaging::PerceivedDifferences(original, Image(path)) << L"|" << L"[■](images/{}/b{}.jpg)"_fmt(dir, ToFixed(target, 2)) << L"|";
-	}
-	*/
-
-	for (const auto& output : Graphics::EnumOutputs())
-	{
-		Log << L"---" << output.name;
-		Log << output.desktopRect;
-		Log << output.displayModes.map([](const DisplayMode& mode)
-		{
-			return Format(mode.size, L"@", mode.refreshRateHz, L"Hz");
-		});
-	}
-	
 	while (System::Update())
 	{
 		Graphics::SetBackground(HSV(Cursor::Pos().x * 0.5, 0.5, 1.0));
 	}
 }
+

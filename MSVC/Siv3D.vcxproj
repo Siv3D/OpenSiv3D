@@ -272,6 +272,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\ByteArray\SivByteArray.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\CharacterEncoding\SivCharacterEncoding.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\CharacterSet\SivCharacterSet.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Circle\SivCircle.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Color\SivColor.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Compression\SivCompression.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Console\CConsole.cpp" />
@@ -314,6 +315,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Keyboard\CKeyboard_Windows.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Keyboard\KeyboardFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Key\SivKey.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Line\SivLine.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\CLogger.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\LoggerFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\SivLogger.cpp" />

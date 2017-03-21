@@ -13,6 +13,7 @@
 # include "Fwd.hpp"
 # include "NamedParameter.hpp"
 # include "PointVector.hpp"
+# include "Line.hpp"
 
 namespace s3d
 {
@@ -26,7 +27,7 @@ namespace s3d
 
 		using size_type = SizeType;
 
-		using value_type = typename SizeType::value_type;
+		using value_type = typename size_type::value_type;
 		
 		S3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
 		
@@ -1213,7 +1214,25 @@ namespace s3d
 			return{ x + w * 0.5, y + h * 0.5 };
 		}
 
-		// top() right() bottom() left()
+		constexpr Line top() const noexcept
+		{
+			return{ tl(), tr() };
+		}
+
+		constexpr Line right() const noexcept
+		{
+			return{ tr(), br() };
+		}
+
+		constexpr Line bottom() const noexcept
+		{
+			return{ br(), bl() };
+		}
+
+		constexpr Line left() const noexcept
+		{
+			return{ bl(), tl() };
+		}
 
 		/// <summary>
 		/// 長方形の面積を返します。
@@ -1352,8 +1371,8 @@ namespace s3d
 
 namespace fmt
 {
-	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::Rect& rect)
+	template <class ArgFormatter, class SizeType>
+	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::Rectangle<SizeType>& rect)
 	{
 		const auto tag = s3d::detail::GetTag(format_str);
 

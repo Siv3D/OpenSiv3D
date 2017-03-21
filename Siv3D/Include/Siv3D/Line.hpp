@@ -19,7 +19,7 @@ namespace s3d
 	{
 		using position_type = Vec2;
 
-		using value_type = typename position_type::value_type;
+		using value_type = position_type::value_type;
 		
 		/// <summary>
 		/// 線分の開始位置
@@ -148,8 +148,10 @@ namespace s3d
 
 		// intersects
 		
-		Optional<Vec2> intersectsAt(const Line& line) const;
-		
+		Optional<position_type> intersectsAt(const Line& line) const;
+
+		Optional<position_type> intersectsAtPrecise(const Line& line) const;
+
 		// rotated
 		
 		// rotatedAt
@@ -169,3 +171,82 @@ namespace s3d
 		// asPolygon;
 	};
 }
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting Line
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[x] istream
+//	[x] wistream
+//	[x] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
+	inline void Formatter(FormatData& formatData, const Line& value)
+	{
+		Formatter(formatData, Vec4(value.begin.x, value.begin.y, value.end.x, value.end.y));
+	}
+
+	/// <summary>
+	/// 出力ストリームに線分を渡します。
+	/// </summary>
+	/// <param name="os">
+	/// 出力ストリーム
+	/// </param>
+	/// <param name="line">
+	/// 線分
+	/// </param>
+	/// <returns>
+	/// 渡した後の出力ストリーム
+	/// </returns>
+	template <class CharType>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const Line& line)
+	{
+		return	os << CharType('(')
+			<< line.begin.x << CharType(',')
+			<< line.begin.y << CharType(',')
+			<< line.end.x << CharType(',')
+			<< line.end.y << CharType(')');
+	}
+
+	/// <summary>
+	/// 入力ストリームに線分を渡します。
+	/// </summary>
+	/// <param name="is">
+	/// 入力ストリーム
+	/// </param>
+	/// <param name="rect">
+	/// 線分
+	/// </param>
+	/// <returns>
+	/// 渡した後の入力ストリーム
+	/// </returns>
+	template <class CharType>
+	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& is, Line& line)
+	{
+		CharType unused;
+		return	is >> unused
+			>> line.begin.x >> unused
+			>> line.begin.y >> unused
+			>> line.end.x >> unused
+			>> line.end.y >> unused;
+	}
+}
+
+namespace fmt
+{
+	template <class ArgFormatter>
+	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::Line& line)
+	{
+		const auto tag = s3d::detail::GetTag(format_str);
+
+		const auto fmt = L"({" + tag + L"},{" + tag + L"},{" + tag + L"},{" + tag + L"})";
+
+		f.writer().write(fmt, line.begin.x, line.begin.y, line.end.x, line.end.y);
+	}
+}
+//
+//////////////////////////////////////////////////////////////////////////////

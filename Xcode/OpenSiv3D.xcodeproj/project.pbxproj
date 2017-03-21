@@ -437,6 +437,7 @@
 		2C80EDFC1E7FCCE800EFEF01 /* score.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C80EDCF1E7FCCE800EFEF01 /* score.cc */; };
 		2C80EDFD1E7FCCE800EFEF01 /* score.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C80EDD01E7FCCE800EFEF01 /* score.h */; };
 		2C80EDFE1E7FCCE800EFEF01 /* stats.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C80EDD11E7FCCE800EFEF01 /* stats.h */; };
+		2C80EE011E8154B100EFEF01 /* SivCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C80EE001E8154B100EFEF01 /* SivCircle.cpp */; };
 		2CA79A101DF55A0D0028D11D /* boost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F81DF55A0D0028D11D /* boost_filesystem.a */; };
 		2CA79A111DF55A0D0028D11D /* boost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F91DF55A0D0028D11D /* boost_system.a */; };
 		2CA79AAD1DF55A410028D11D /* Siv3DTest_OSX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79A9D1DF55A410028D11D /* Siv3DTest_OSX.cpp */; };
@@ -920,6 +921,7 @@
 		2C80EDCF1E7FCCE800EFEF01 /* score.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = score.cc; sourceTree = "<group>"; };
 		2C80EDD01E7FCCE800EFEF01 /* score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = score.h; sourceTree = "<group>"; };
 		2C80EDD11E7FCCE800EFEF01 /* stats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stats.h; sourceTree = "<group>"; };
+		2C80EE001E8154B100EFEF01 /* SivCircle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCircle.cpp; sourceTree = "<group>"; };
 		2CA798F81DF55A0D0028D11D /* boost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_filesystem.a; sourceTree = "<group>"; };
 		2CA798F91DF55A0D0028D11D /* boost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_system.a; sourceTree = "<group>"; };
 		2CA798FA1DF55A0D0028D11D /* libSiv3D.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSiv3D.a; sourceTree = "<group>"; };
@@ -1332,6 +1334,7 @@
 		2C80EB2E1E73D1D100EFEF01 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C80EDFF1E8154B100EFEF01 /* Circle */,
 				2C80ED9A1E774DF400EFEF01 /* Line */,
 				2C80EB351E73D1D100EFEF01 /* Base64 */,
 				2C80EB371E73D1D100EFEF01 /* BigFloat */,
@@ -2168,6 +2171,14 @@
 			path = guetzli;
 			sourceTree = "<group>";
 		};
+		2C80EDFF1E8154B100EFEF01 /* Circle */ = {
+			isa = PBXGroup;
+			children = (
+				2C80EE001E8154B100EFEF01 /* SivCircle.cpp */,
+			);
+			path = Circle;
+			sourceTree = "<group>";
+		};
 		2CA798F51DF55A0D0028D11D /* Lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -2731,6 +2742,7 @@
 				2C80EC9A1E73D1D200EFEF01 /* SivWindow.cpp in Sources */,
 				2C5867221E3DDB7E0028B9F0 /* fse_compress.c in Sources */,
 				2C80EC851E73D1D200EFEF01 /* SivSystem.cpp in Sources */,
+				2C80EE011E8154B100EFEF01 /* SivCircle.cpp in Sources */,
 				2C80EC591E73D1D200EFEF01 /* SivKey.cpp in Sources */,
 				2C80EC8A1E73D1D200EFEF01 /* SivTextReader.cpp in Sources */,
 				2C80EDE41E7FCCE800EFEF01 /* jpeg_data.cc in Sources */,

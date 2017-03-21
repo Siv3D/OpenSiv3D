@@ -692,6 +692,20 @@ namespace s3d
 
 	namespace Imaging
 	{
+		/// <summary>
+		/// 2 つの画像間の知覚的な誤差を計算します。
+		/// butteraugli のスコアに基づいています。
+		/// </summary>
+		/// <param name="a">
+		/// 比較する画像
+		/// </param>
+		/// <param name="b">
+		/// 比較する画像
+		/// </param>
+		/// <returns>
+		/// 画像が一致する場合は 0 を返し、知覚される誤差が大きくなるほど、大きな値を返します。
+		/// いずれかの画像が空であるか、サイズが異なる場合は inf を返します。
+		/// </returns>
 		double PerceivedDifferences(const Image& a, const Image& b);
 	}
 }

@@ -96,10 +96,10 @@
 - [x] Graphics::SetBackground()
 - [x] Graphics::EnumOutputs()
 - [x] Graphics::SetFullScreen()
-- [ ] Guetzli
-- [ ] Butteraugli
+- [x] Guetzli
+- [x] Butteraugli
+- [x] Line
 - [ ] Circle
-- [ ] Line
 - [ ] Triangle
 - [ ] Window::SetPos()
 - [ ] Window::Centering()
