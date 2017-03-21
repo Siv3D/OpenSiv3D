@@ -96,8 +96,8 @@
 - [x] Graphics::SetBackground()
 - [x] Graphics::EnumOutputs()
 - [x] Graphics::SetFullScreen()
-- [ ] Guetzli
-- [ ] Butteraugli
+- [x] Guetzli
+- [x] Butteraugli
 - [ ] Circle
 - [ ] Line
 - [ ] Triangle
