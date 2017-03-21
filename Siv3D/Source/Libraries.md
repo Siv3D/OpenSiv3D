@@ -1,13 +1,16 @@
 - Boost 1.62.0 http://www.boost.org/users/history/version_1_62_0.html
-- double-conversion https://github.com/google/double-conversion 
+- butteraugli https://github.com/google/butteraugli
+- Convenient Constructs For Stepping Through a Range of Values https://www.codeproject.com/articles/876156/convenient-constructs-for-stepping-through-a-range
+- double-conversion https://github.com/google/double-conversion
+- Easing Equations http://robertpenner.com/easing/
 - fmt 3.0.1 https://github.com/fmtlib/fmt/releases
+- GLWF 3.2.1 http://www.glfw.org
+- Guetzli v1.0 https://github.com/google/guetzli/releases
 - hopscotch-map v1.1.0 https://github.com/Tessil/hopscotch-map/releases
 - miniutf https://github.com/dropbox/miniutf
-- Zstandard v1.1.2 https://github.com/facebook/zstd/releases
-- Convenient Constructs For Stepping Through a Range of Values https://www.codeproject.com/articles/876156/convenient-constructs-for-stepping-through-a-range
-- GLWF 3.2.1 http://www.glfw.org
-- EASING EQUATIONS http://robertpenner.com/easing/
 - muparser V2.2.5 https://github.com/beltoforion/muparser/releases
-- zlib 1.2.11 http://www.zlib.net/
-- libpng 1.6.28 http://www.libpng.org/pub/png/libpng.html
 - libjpeg-turbo 1.5.1 https://sourceforge.net/projects/libjpeg-turbo/files/
+- libpng 1.6.28 http://www.libpng.org/pub/png/libpng.html
+- xxHash v0.6.2 https://github.com/Cyan4973/xxHash/releases
+- zlib 1.2.11 http://www.zlib.net/
+- Zstandard v1.1.2 https://github.com/facebook/zstd/releases
