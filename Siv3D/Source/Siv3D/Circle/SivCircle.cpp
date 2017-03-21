@@ -34,6 +34,6 @@ namespace s3d
 		const double c12 = (p1.y * p1.y - p2.y * p2.y) + (p1.x * p1.x - p2.x * p2.x);
 		const double cy = (a02 * c12 - a12 * c02) / (a02 * b12 - a12 * b02);
 		const double cx = std::abs(a02) < std::abs(a12) ? ((c12 - b12 * cy) / a12) : ((c02 - b02 * cy) / a02);
-		*this = Circle(cx, cy, p0.distanceFrom(Vec2(cx, cy)));
+		*this = Circle(cx, cy, p0.distanceFrom(cx, cy));
 	}
 }
