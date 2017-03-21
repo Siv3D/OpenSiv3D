@@ -299,15 +299,8 @@ namespace s3d
 
 			if (SUCCEEDED(pOutput->GetDesc(&desc)))
 			{
-				::SetWindowPos(
-					m_hWnd,
-					nullptr,
-					desc.DesktopCoordinates.left,
-					desc.DesktopCoordinates.top,
-					0,
-					0,
-					SWP_DEFERERASE | SWP_NOOWNERZORDER | SWP_NOZORDER | SWP_NOSIZE
-				);
+				Siv3DEngine::GetWindow()->setPos(
+					Point(desc.DesktopCoordinates.left, desc.DesktopCoordinates.top));
 			}
 		}
 

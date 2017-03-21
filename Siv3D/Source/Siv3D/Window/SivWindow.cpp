@@ -25,5 +25,10 @@ namespace s3d
 		{
 			return Siv3DEngine::GetWindow()->getState();
 		}
+
+		void SetPos(const Point& pos)
+		{
+			Siv3DEngine::GetWindow()->setPos(pos);
+		}
 	}
 }

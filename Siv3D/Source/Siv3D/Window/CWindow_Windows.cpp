@@ -149,6 +149,21 @@ namespace s3d
 		return m_state;
 	}
 
+	void CWindow_Windows::setPos(const Point& pos)
+	{
+		m_state.pos.set(pos);
+
+		::SetWindowPos(
+			m_hWnd,
+			nullptr,
+			pos.x,
+			pos.y,
+			0,
+			0,
+			SWP_DEFERERASE | SWP_NOOWNERZORDER | SWP_NOZORDER | SWP_NOSIZE
+		);
+	}
+
 	void CWindow_Windows::initState()
 	{
 		m_windowClassName = FileSystem::ModulePath();

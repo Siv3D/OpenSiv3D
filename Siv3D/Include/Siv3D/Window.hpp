@@ -80,5 +80,7 @@ namespace s3d
 		}
 		
 		const WindowState& GetState();
+
+		void SetPos(const Point& pos);
 	}
 }
