@@ -167,12 +167,12 @@ namespace s3d
 {
 	namespace System
 	{
-		Array<Monitor> EnumMonitors()
+		Array<Monitor> EnumActiveMonitors()
 		{
 			return{};
 		}
 
-		size_t GetCurrentMonitor()
+		size_t GetCurrentMonitorIndex()
 		{
 			return 0;
 		}
@@ -185,12 +185,12 @@ namespace s3d
 {
 	namespace System
 	{
-		Array<Monitor> EnumMonitors()
+		Array<Monitor> EnumActiveMonitors()
 		{
 			return{};
 		}
 
-		size_t GetCurrentMonitor()
+		size_t GetCurrentMonitorIndex()
 		{
 			return 0;
 		}

@@ -3,6 +3,14 @@
 
 void Main()
 {
-	Log << (Iota(13 * 4).map([](int32 n) { return Format(L"♦♣♥♠"[n / 13], n % 13 + 1); }).asArray() << L"Joker").shuffle().in_groups(5);
+	while (System::Update())
+	{
+		if (KeyU.down())
+		{
+			Window::SetPos(Point(200, 200));
+		}
+		
+		Graphics::SetBackground(HSV(Cursor::Pos().x * 0.5, 0.5, 1.0));
+	}
 }
 

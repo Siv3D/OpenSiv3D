@@ -35,7 +35,10 @@ namespace s3d
 		
 		::glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 		
+		m_state.clientSize.set(Window::DefaultClientSize);
 		m_state.title = L"Siv3D App";
+		m_state.showState = ShowState::Normal;
+		m_state.focused = false;
 		
 		m_glfwWindow = ::glfwCreateWindow(Window::DefaultClientSize.x, Window::DefaultClientSize.y, m_state.title.narrow().c_str(), nullptr, nullptr);
 		
@@ -49,6 +52,9 @@ namespace s3d
 		::glfwMakeContextCurrent(m_glfwWindow);
 
 		::glfwSwapInterval(1);
+		
+		//m_state.windowSize
+		//m_state.titleBarHeight
 		
 		return true;
 	}
@@ -90,6 +96,13 @@ namespace s3d
 	const WindowState& CWindow_macOS::getState() const
 	{
 		return m_state;
+	}
+	
+	void CWindow_macOS::setPos(const Point& pos)
+	{
+		m_state.pos.set(pos);
+		
+		::glfwSetWindowPos(m_glfwWindow, pos.x, pos.y);
 	}
 }
 

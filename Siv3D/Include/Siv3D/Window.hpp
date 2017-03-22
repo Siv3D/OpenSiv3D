@@ -79,7 +79,7 @@ namespace s3d
 		
 		const WindowState& GetState();
 
-		// [x] Windows | [ ] macOS | [ ] Linux
+		// [x] Windows | [x] macOS | [ ] Linux
 		void SetPos(const Point& pos);
 
 		// [x] Windows | [ ] macOS | [ ] Linux
