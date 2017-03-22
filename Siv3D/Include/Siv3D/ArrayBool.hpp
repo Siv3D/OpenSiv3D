@@ -395,6 +395,31 @@ namespace s3d
 			return new_array;
 		}
 
+		Array<Array<bool>, std::allocator<Array<bool>>> in_groups(const size_t group) const
+		{
+			Array<Array<bool>, std::allocator<Array<bool>>> result;
+
+			if (group == 0)
+			{
+				return result;
+			}
+
+			const size_t div = size() / group;
+			const size_t mod = size() % group;
+			size_t index = 0;
+
+			for (size_t i = 0; i < group; ++i)
+			{
+				const size_t length = div + (mod > 0 && mod > index);
+
+				result.push_back(slice(index, length));
+
+				index += length;
+			}
+
+			return result;
+		}
+
 		bool include(const bool& value) const
 		{
 			for (const auto& v : *this)
