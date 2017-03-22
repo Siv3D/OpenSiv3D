@@ -15,9 +15,10 @@
 # include "../Siv3DEngine.hpp"
 # include "../Window/IWindow.hpp"
 # include "CDragDrop_Linux.hpp"
-//# include "../Siv3D_Linux.h"
+# include "../Siv3D_Linux.h"
 # include <Siv3D/Time.hpp>
 # include <Siv3D/FileSystem.hpp>
+# include <Siv3D/Cursor.hpp>
 
 extern "C"
 {
@@ -25,19 +26,19 @@ extern "C"
 
 	CDragDrop_Linux* pDragDrop = nullptr;
 	
-	void s3d_DraggingEntered(bool isFilePath, int x, int y)
+	void s3d_DraggingEntered(bool isFilePath)
 	{
 		if (pDragDrop)
 		{
-			pDragDrop->internal_entered(isFilePath, Point(x, y));
+			pDragDrop->internal_entered(isFilePath, Cursor::Pos());
 		}
 	}
 	
-	void s3d_DraggingUpdated(int x, int y)
+	void s3d_DraggingUpdated()
 	{
 		if (pDragDrop)
 		{
-			pDragDrop->internal_updated(Point(x, y));
+			pDragDrop->internal_updated(Cursor::Pos());
 		}
 	}
 	
@@ -49,26 +50,11 @@ extern "C"
 		}
 	}
 	
-	void s3d_TextDropped(const char* text, int x, int y)
+	void s3d_DataDropped(const char* text)
 	{
 		if (pDragDrop)
 		{
-			pDragDrop->internal_textDropped(CharacterSet::Widen(text), Point(x, y));
-		}
-	}
-	
-	void s3d_FilePathsDropped(int count, const char** paths, int x, int y)
-	{
-		if (pDragDrop)
-		{
-			Array<FilePath> results(count);
-			
-			for (int32 i = 0; i < count; ++i)
-			{
-				results[i] = FileSystem::FullPath(CharacterSet::Widen(paths[i]));
-			}
-			
-			pDragDrop->internal_filePathsDropped(results, Point(x, y));
+			pDragDrop->internal_dataDropped(CharacterSet::Widen(text), Cursor::Pos());
 		}
 	}
 }
@@ -203,26 +189,44 @@ namespace s3d
 		m_internal.dragOver = false;
 	}
 	
-	void CDragDrop_Linux::internal_textDropped(const String& text, const Point& pos)
+	void CDragDrop_Linux::internal_dataDropped(const String& text, const Point& pos)
 	{
-		std::lock_guard<std::mutex> resourceGuard(m_mutex);
-		
-		m_internal.dragOver = false;
-		
-		m_internal.droppedTexts.push_back({ text, pos, Time::GetMillisec() });
-	}
-	
-	void CDragDrop_Linux::internal_filePathsDropped(const Array<FilePath>& paths, const Point& pos)
-	{
-		std::lock_guard<std::mutex> resourceGuard(m_mutex);
-		
-		m_internal.dragOver = false;
-
-		const uint64 timeMillisec = Time::GetMillisec();
-		
-		for (const auto& path : paths)
+		if (m_internal.itemType == DragItemType::Text)
 		{
-			m_internal.droppedFilePaths.push_back({ path, pos, timeMillisec });
+			std::lock_guard<std::mutex> resourceGuard(m_mutex);
+
+			m_internal.dragOver = false;
+
+			m_internal.droppedTexts.push_back({ text, pos, Time::GetMillisec() });
+		}
+		if (m_internal.itemType == DragItemType::FilePaths)
+		{
+			Array<FilePath> paths = text.split(L'\n');
+			auto itr = paths.begin();
+			while (itr != paths.end())
+			{
+				(*itr).trim();
+				if ((*itr).isEmpty() || (*itr)[0] == L'#')
+				{
+					itr = paths.erase(itr);
+				}
+				else
+				{
+					(*itr).erase(0, 7); // erase "file://"
+					itr++;
+				}
+			}
+			
+			std::lock_guard<std::mutex> resourceGuard(m_mutex);
+
+			m_internal.dragOver = false;
+
+			const uint64 timeMillisec = Time::GetMillisec();
+
+			for (const auto& path : paths)
+			{
+				m_internal.droppedFilePaths.push_back({ path, pos, timeMillisec });
+			}
 		}
 	}
 }

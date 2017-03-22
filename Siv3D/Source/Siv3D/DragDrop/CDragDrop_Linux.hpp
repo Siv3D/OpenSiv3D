@@ -84,9 +84,7 @@ namespace s3d
 		
 		void internal_exited();
 		
-		void internal_textDropped(const String& text, const Point& pos);
-		
-		void internal_filePathsDropped(const Array<FilePath>& paths, const Point& pos);
+		void internal_dataDropped(const String& text, const Point& pos);
 	};
 }
 
