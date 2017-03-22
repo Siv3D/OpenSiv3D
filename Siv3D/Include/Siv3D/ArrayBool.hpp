@@ -139,6 +139,17 @@ namespace s3d
 			return empty();
 		}
 
+		/// <summary>
+		/// 配列に要素が含まれているかを返します。
+		/// </summary>
+		/// <returns>
+		/// 配列に要素が含まれている場合 true, それ以外の場合は false
+		/// </returns>
+		explicit operator bool() const noexcept
+		{
+			return !empty();
+		}
+
 		void release()
 		{
 			clear();

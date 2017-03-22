@@ -492,6 +492,17 @@ namespace s3d
 
 		bool isEmpty() const noexcept { return m_data.empty(); }
 
+		/// <summary>
+		/// 配列に要素が含まれているかを返します。
+		/// </summary>
+		/// <returns>
+		/// 配列に要素が含まれている場合 true, それ以外の場合は false
+		/// </returns>
+		explicit operator bool() const noexcept
+		{
+			return !m_data.empty();
+		}
+
 		size_type width() const noexcept { return m_width; }
 
 		size_type height() const noexcept { return m_height; }

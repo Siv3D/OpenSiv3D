@@ -138,6 +138,15 @@ namespace s3d
 		::GetWindowRect(m_hWnd, &rc);
 		m_state.pos.set(rc.left, rc.top);
 
+		if (const auto monitors = System::EnumActiveMonitors())
+		{
+
+		}
+		else
+		{
+			m_state.currentMonitorIndex = 0;
+		}
+
 		return true;
 	}
 
@@ -187,6 +196,7 @@ namespace s3d
 		m_state.clientSize.set(Window::DefaultClientSize.x, Window::DefaultClientSize.y);
 		m_state.title = L"Siv3D App";
 		m_state.showState = ShowState::Normal;
+		m_state.currentMonitorIndex = 0;
 		m_state.focused = false;
 
 		RECT windowRect = { 0, 0, m_state.clientSize.x, m_state.clientSize.y };
@@ -207,18 +217,16 @@ namespace s3d
 
 		m_state.titleBarHeight = ::GetSystemMetrics(SM_CYCAPTION) + m_state.frameSize.y;
 
-		const auto monitors = System::EnumActiveMonitors();
-
-		if (monitors.isEmpty())
-		{
-			m_state.pos.set(100, 100);
-		}
-		else
+		if (const auto monitors = System::EnumActiveMonitors())
 		{
 			const auto& primaryMonitior = monitors[0];
 			const int32 xOffset = (primaryMonitior.workArea.w - m_state.windowSize.x) / 2;
 			const int32 yOffset = (primaryMonitior.workArea.h - m_state.windowSize.y) / 2;
-			m_state.pos.set(std::max(primaryMonitior.workArea.x + xOffset, 0), std::max(primaryMonitior.workArea.y + yOffset, 0));
+			m_state.pos.set(std::max(primaryMonitior.workArea.x + xOffset, 0), std::max(primaryMonitior.workArea.y + yOffset, 0));			
+		}
+		else
+		{
+			m_state.pos.set(100, 100);
 		}
 	}
 

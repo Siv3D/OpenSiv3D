@@ -14,7 +14,7 @@ void Main()
 	{
 		const auto state = Window::GetState();
 
-		Log << state.pos;
+		//Log << state.pos;
 
 		if (KeyC.down())
 		{
