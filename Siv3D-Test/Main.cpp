@@ -16,6 +16,8 @@ void Main()
 
 		//Log << state.pos;
 
+		Log << System::GetCurrentMonitorIndex();
+
 		if (KeyC.down())
 		{
 			Window::Centering();

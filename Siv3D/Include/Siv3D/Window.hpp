@@ -62,8 +62,6 @@ namespace s3d
 
 		ShowState showState;
 
-		uint32 currentMonitorIndex;
-
 		bool focused;
 	};
 

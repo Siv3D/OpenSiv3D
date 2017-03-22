@@ -138,14 +138,7 @@ namespace s3d
 		::GetWindowRect(m_hWnd, &rc);
 		m_state.pos.set(rc.left, rc.top);
 
-		if (const auto monitors = System::EnumActiveMonitors())
-		{
-
-		}
-		else
-		{
-			m_state.currentMonitorIndex = 0;
-		}
+		
 
 		return true;
 	}
@@ -196,7 +189,6 @@ namespace s3d
 		m_state.clientSize.set(Window::DefaultClientSize.x, Window::DefaultClientSize.y);
 		m_state.title = L"Siv3D App";
 		m_state.showState = ShowState::Normal;
-		m_state.currentMonitorIndex = 0;
 		m_state.focused = false;
 
 		RECT windowRect = { 0, 0, m_state.clientSize.x, m_state.clientSize.y };

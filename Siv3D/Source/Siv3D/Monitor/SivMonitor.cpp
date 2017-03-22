@@ -18,11 +18,15 @@
 # define  _WIN32_WINNT _WIN32_WINNT_WIN7
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
+# include "../Siv3DEngine.hpp"
+# include "../Window/IWindow.hpp"
 
 namespace s3d
 {
 	namespace detail
 	{
+		using MonitorCheck = std::pair<String, HMONITOR>;
+
 		static BOOL CALLBACK MonitorEnumProc(HMONITOR hMonitor, HDC, LPRECT, LPARAM userData)
 		{
 			MONITORINFOEX monitorInfo;
@@ -42,6 +46,24 @@ namespace s3d
 				monitor->workArea.y = monitorInfo.rcWork.top;
 				monitor->workArea.w = monitorInfo.rcWork.right - monitorInfo.rcWork.left;
 				monitor->workArea.h = monitorInfo.rcWork.bottom - monitorInfo.rcWork.top;
+
+				return false;
+			}
+
+			return true;
+		}
+
+		static BOOL CALLBACK MonitorCheckProc(HMONITOR hMonitor, HDC, LPRECT, LPARAM userData)
+		{
+			MONITORINFOEX monitorInfo;
+			monitorInfo.cbSize = sizeof(monitorInfo);
+			::GetMonitorInfoW(hMonitor, &monitorInfo);
+
+			MonitorCheck* monitor = (MonitorCheck*)userData;
+
+			if (monitor->first == monitorInfo.szDevice)
+			{
+				monitor->second = hMonitor;
 
 				return false;
 			}
@@ -91,6 +113,51 @@ namespace s3d
 
 			return monitors;
 		}
+
+		size_t GetCurrentMonitorIndex()
+		{
+			const HMONITOR currentMonitor = ::MonitorFromWindow(Siv3DEngine::GetWindow()->getHandle(), MONITOR_DEFAULTTOPRIMARY);
+			size_t index = 0;
+
+			DISPLAY_DEVICE displayDevice;
+			displayDevice.cb = sizeof(displayDevice);
+
+			for (int32 deviceIndex = 0; ::EnumDisplayDevicesW(0, deviceIndex, &displayDevice, 0); ++deviceIndex)
+			{
+				if (displayDevice.StateFlags & DISPLAY_DEVICE_ATTACHED_TO_DESKTOP)
+				{
+					DISPLAY_DEVICE monitor;
+					ZeroMemory(&monitor, sizeof(monitor));
+					monitor.cb = sizeof(monitor);
+
+					for (int32 monitorIndex = 0; ::EnumDisplayDevicesW(displayDevice.DeviceName, monitorIndex, &monitor, 0); ++monitorIndex)
+					{
+						if ((monitor.StateFlags & DISPLAY_DEVICE_ACTIVE) &&
+							!(monitor.StateFlags & DISPLAY_DEVICE_MIRRORING_DRIVER))
+						{
+							detail::MonitorCheck desc = { String(displayDevice.DeviceName), nullptr };
+
+							::EnumDisplayMonitors(nullptr, nullptr, detail::MonitorCheckProc, (LPARAM)&desc);
+
+							if (desc.second == currentMonitor)
+							{
+								return index;
+							}
+
+							++index;
+						}
+
+						ZeroMemory(&monitor, sizeof(monitor));
+						monitor.cb = sizeof(monitor);
+					}
+				}
+
+				ZeroMemory(&displayDevice, sizeof(displayDevice));
+				displayDevice.cb = sizeof(displayDevice);
+			}
+
+			return 0;
+		}
 	}
 }
 
@@ -104,6 +171,11 @@ namespace s3d
 		{
 			return{};
 		}
+
+		size_t GetCurrentMonitor()
+		{
+			return 0;
+		}
 	}
 }
 
@@ -116,6 +188,11 @@ namespace s3d
 		Array<Monitor> EnumMonitors()
 		{
 			return{};
+		}
+
+		size_t GetCurrentMonitor()
+		{
+			return 0;
 		}
 	}
 }
