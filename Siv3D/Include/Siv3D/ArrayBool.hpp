@@ -250,6 +250,23 @@ namespace s3d
 			return result;
 		}
 
+		Array<Array<bool>, std::allocator<Array<bool>>> chunk(const size_t n) const
+		{
+			Array<Array<bool>, std::allocator<Array<bool>>> result;
+
+			if (n == 0)
+			{
+				return result;
+			}
+
+			for (size_t i = 0; i < (size() + n - 1) / n; ++i)
+			{
+				result.push_back(slice(i * n, n));
+			}
+
+			return result;
+		}
+
 		size_t count(const bool& value) const
 		{
 			size_t result = 0;

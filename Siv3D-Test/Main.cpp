@@ -3,34 +3,5 @@
 
 void Main()
 {
-	//Log << Window::GetState().windowSize;
-
-	//for (const auto& monitor : System::EnumActiveMonitors())
-	//{
-	//	Log << monitor.workArea;
-	//}
-
-	while (System::Update())
-	{
-		const auto state = Window::GetState();
-
-		//Log << state.pos;
-
-		Log << System::GetCurrentMonitorIndex();
-
-		if (KeyC.down())
-		{
-			Window::Centering();
-		}
-
-		//Log << state.focused;
-
-		//for (const auto& monitor : System::EnumActiveMonitors())
-		//{
-		//	Log << monitor.workArea;
-		//}
-
-		//Graphics::SetBackground(HSV(Cursor::Pos().x * 0.5, 0.5, 1.0));
-	}
+	Log << Iota(13 * 4).map([](int32 n) { return Format(L"♦♣♥♠"[n / 13], n % 13 + 1); }).asArray().shuffle().take(20).chunk(5);
 }
-

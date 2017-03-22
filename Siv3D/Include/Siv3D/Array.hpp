@@ -417,6 +417,23 @@ namespace s3d
 			return result;
 		}
 
+		Array<Array<Type, Allocator>, std::allocator<Array<Type, Allocator>>> chunk(const size_t n) const
+		{
+			Array<Array<Type, Allocator>, std::allocator<Array<Type, Allocator>>> result;
+
+			if (n == 0)
+			{
+				return result;
+			}
+
+			for (size_t i = 0; i < (size() + n - 1) / n; ++i)
+			{
+				result.push_back(slice(i * n, n));
+			}
+
+			return result;
+		}
+
 		/// <summary>
 		/// 指定した値を持つ要素の個数を返します。
 		/// </summary>
