@@ -82,7 +82,7 @@ namespace s3d
 		// [x] Windows | [ ] macOS | [ ] Linux
 		void SetPos(const Point& pos);
 
-		// [ ] Windows | [ ] macOS | [ ] Linux
+		// [x] Windows | [ ] macOS | [ ] Linux
 		void Centering();
 	}
 }

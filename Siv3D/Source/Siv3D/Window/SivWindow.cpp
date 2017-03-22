@@ -11,6 +11,7 @@
 
 # include "../Siv3DEngine.hpp"
 # include "IWindow.hpp"
+# include <Siv3D/Window.hpp>
 # include <Siv3D/Monitor.hpp>
 
 namespace s3d
@@ -34,16 +35,17 @@ namespace s3d
 
 		void Centering()
 		{
-			//const auto monitors = System::EnumActiveMonitors();
+			const auto monitors = System::EnumActiveMonitors();
 
-			//size_t index = 0;
+			if (!monitors)
+			{
+				return;
+			}
 
-			//for (size_t i = 0; i < monitors.size(); ++i)
-			//{
-			//	if(monitors[i].workArea)
-			//}
+			const Rect workArea = monitors[System::GetCurrentMonitorIndex()].workArea;
+			const Size windowSize = Siv3DEngine::GetWindow()->getState().windowSize;
 
-			//Monitor
+			SetPos(workArea.pos + (workArea.size - windowSize) / 2);
 		}
 	}
 }
