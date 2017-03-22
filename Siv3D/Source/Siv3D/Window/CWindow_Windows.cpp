@@ -14,6 +14,7 @@
 
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/System.hpp>
+# include <Siv3D/Monitor.hpp>
 # include "../Siv3DEngine.hpp"
 # include "CWindow_Windows.hpp"
 # include "../System/ISystem.hpp"
@@ -124,6 +125,19 @@ namespace s3d
 	
 	bool CWindow_Windows::update()
 	{
+		WINDOWPLACEMENT wpl = { sizeof(WINDOWPLACEMENT), };
+		::GetWindowPlacement(m_hWnd, &wpl);
+
+		m_state.showState = (wpl.showCmd == SW_SHOWMINIMIZED) ? ShowState::Minimized
+			: (wpl.showCmd == SW_SHOWMAXIMIZED) ? ShowState::Maximized
+			: ShowState::Normal;
+
+		m_state.focused = (m_hWnd == ::GetForegroundWindow());
+
+		RECT rc;
+		::GetWindowRect(m_hWnd, &rc);
+		m_state.pos.set(rc.left, rc.top);
+
 		return true;
 	}
 
@@ -171,8 +185,9 @@ namespace s3d
 		m_style = WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
 
 		m_state.clientSize.set(Window::DefaultClientSize.x, Window::DefaultClientSize.y);
-		m_state.screenSize.set(::GetSystemMetrics(SM_CXSCREEN), ::GetSystemMetrics(SM_CYSCREEN));
 		m_state.title = L"Siv3D App";
+		m_state.showState = ShowState::Normal;
+		m_state.focused = false;
 
 		RECT windowRect = { 0, 0, m_state.clientSize.x, m_state.clientSize.y };
 		::AdjustWindowRectEx(&windowRect, m_style, FALSE, 0);
@@ -192,65 +207,18 @@ namespace s3d
 
 		m_state.titleBarHeight = ::GetSystemMetrics(SM_CYCAPTION) + m_state.frameSize.y;
 
-		updateTaskbarState();
+		const auto monitors = System::EnumActiveMonitors();
+
+		if (monitors.isEmpty())
 		{
-			Point offset{ 0, 0 }, size{ 0, 0 };
-
-			if (m_state.taskbarPos % 2)
-			{
-				size.x = m_state.taskbarRect.w;
-			}
-			else
-			{
-				size.y = m_state.taskbarRect.h;
-			}
-
-			if (m_state.taskbarPos == 2)
-			{
-				offset.y = m_state.taskbarRect.h;
-			}
-			else if (m_state.taskbarPos == 1)
-			{
-				offset.x = m_state.taskbarRect.w;
-			}
-
-			const Point pos = ((m_state.screenSize - size) - m_state.windowSize) / 2 + offset;
-
-			m_state.pos.set(std::max(pos.x, 0), std::max(pos.y, 0));
+			m_state.pos.set(100, 100);
 		}
-	}
-	
-	void CWindow_Windows::updateTaskbarState()
-	{
-		APPBARDATA barData{};
-		barData.cbSize = sizeof(APPBARDATA);
-		barData.hWnd = m_hWnd;
-		::SHAppBarMessage(ABM_GETTASKBARPOS, &barData);
-
-		m_state.taskbarRect.setPos(barData.rc.left, barData.rc.top);
-		m_state.taskbarRect.setSize(barData.rc.right - barData.rc.left, barData.rc.bottom - barData.rc.top);
-
-		if (m_state.screenSize.x <= m_state.taskbarRect.w) // 上か下
+		else
 		{
-			if (m_state.taskbarRect.y <= 0) // 上
-			{
-				m_state.taskbarPos = 2;
-			}
-			else
-			{
-				m_state.taskbarPos = 0;
-			}
-		}
-		else // 左か右
-		{
-			if (m_state.taskbarRect.x <= 0) // 左
-			{
-				m_state.taskbarPos = 1;
-			}
-			else
-			{
-				m_state.taskbarPos = 3;
-			}
+			const auto& primaryMonitior = monitors[0];
+			const int32 xOffset = (primaryMonitior.workArea.w - m_state.windowSize.x) / 2;
+			const int32 yOffset = (primaryMonitior.workArea.h - m_state.windowSize.y) / 2;
+			m_state.pos.set(std::max(primaryMonitior.workArea.x + xOffset, 0), std::max(primaryMonitior.workArea.y + yOffset, 0));
 		}
 	}
 

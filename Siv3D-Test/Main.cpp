@@ -3,12 +3,32 @@
 
 void Main()
 {
-	constexpr auto v = Triangle(0, 0, 10, 0, 0, 10).p2;
-	Log << v;
+	//Log << Window::GetState().windowSize;
+
+	//for (const auto& monitor : System::EnumActiveMonitors())
+	//{
+	//	Log << monitor.workArea;
+	//}
 
 	while (System::Update())
 	{
-		Graphics::SetBackground(HSV(Cursor::Pos().x * 0.5, 0.5, 1.0));
+		const auto state = Window::GetState();
+
+		Log << state.pos;
+
+		if (KeyC.down())
+		{
+			Window::Centering();
+		}
+
+		//Log << state.focused;
+
+		//for (const auto& monitor : System::EnumActiveMonitors())
+		//{
+		//	Log << monitor.workArea;
+		//}
+
+		//Graphics::SetBackground(HSV(Cursor::Pos().x * 0.5, 0.5, 1.0));
 	}
 }
 

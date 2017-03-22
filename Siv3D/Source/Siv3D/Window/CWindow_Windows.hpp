@@ -38,8 +38,6 @@ namespace s3d
 
 		void initState();
 
-		void updateTaskbarState();
-
 		bool registerWindowClass();
 
 		bool createWindow();

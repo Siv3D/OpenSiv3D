@@ -11,6 +11,7 @@
 
 # include "../Siv3DEngine.hpp"
 # include "IWindow.hpp"
+# include <Siv3D/Monitor.hpp>
 
 namespace s3d
 {
@@ -29,6 +30,20 @@ namespace s3d
 		void SetPos(const Point& pos)
 		{
 			Siv3DEngine::GetWindow()->setPos(pos);
+		}
+
+		void Centering()
+		{
+			//const auto monitors = System::EnumActiveMonitors();
+
+			//size_t index = 0;
+
+			//for (size_t i = 0; i < monitors.size(); ++i)
+			//{
+			//	if(monitors[i].workArea)
+			//}
+
+			//Monitor
 		}
 	}
 }
