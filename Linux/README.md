@@ -1,7 +1,7 @@
 # Linux版Siv3Dについて
 
 Linuxへの移植は以下の環境で行っています。
-- Arch Linux (カーネル 4.9.11)
+- Arch Linux (カーネル 4.10.3)
 - clang 3.9.1
 - boost 1.63.0
 
