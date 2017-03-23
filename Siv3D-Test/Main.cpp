@@ -7,7 +7,7 @@ void Main()
 
 	auto task = CreateConcurrentTask([&]()
 	{
-		return Range(4, 20).map(Multiplies(0.1)).asArray().parallel_each([&](double t)
+		Range(4, 20).map(Multiplies(0.1)).asArray().parallel_each([&](double t)
 		{
 			image.savePerceptualJPEG(L"b{}.jpg"_fmt(t), t);
 		});

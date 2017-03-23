@@ -250,7 +250,6 @@
 		2C80EC8C1E73D1D200EFEF01 /* CTextWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C80EBE81E73D1D200EFEF01 /* CTextWriter.cpp */; };
 		2C80EC8D1E73D1D200EFEF01 /* CTextWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C80EBE91E73D1D200EFEF01 /* CTextWriter.hpp */; };
 		2C80EC8E1E73D1D200EFEF01 /* SivTextWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C80EBEA1E73D1D200EFEF01 /* SivTextWriter.cpp */; };
-		2C80EC8F1E73D1D200EFEF01 /* SivThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C80EBEC1E73D1D200EFEF01 /* SivThread.cpp */; };
 		2C80EC901E73D1D200EFEF01 /* SivTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C80EBEE1E73D1D200EFEF01 /* SivTime.cpp */; };
 		2C80EC911E73D1D200EFEF01 /* SivTimeProfiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C80EBF01E73D1D200EFEF01 /* SivTimeProfiler.cpp */; };
 		2C80EC921E73D1D200EFEF01 /* SivVector2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C80EBF21E73D1D200EFEF01 /* SivVector2D.cpp */; };
@@ -439,6 +438,8 @@
 		2C80EDFE1E7FCCE800EFEF01 /* stats.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C80EDD11E7FCCE800EFEF01 /* stats.h */; };
 		2C80EE011E8154B100EFEF01 /* SivCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C80EE001E8154B100EFEF01 /* SivCircle.cpp */; };
 		2C80EE031E8163E100EFEF01 /* Triangle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C80EE021E8163E100EFEF01 /* Triangle.hpp */; };
+		2C80EE061E84265000EFEF01 /* SivThreading.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C80EE051E84265000EFEF01 /* SivThreading.cpp */; };
+		2C80EE081E84266600EFEF01 /* ConcurrentTask.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C80EE071E84266600EFEF01 /* ConcurrentTask.hpp */; };
 		2CA79A101DF55A0D0028D11D /* boost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F81DF55A0D0028D11D /* boost_filesystem.a */; };
 		2CA79A111DF55A0D0028D11D /* boost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F91DF55A0D0028D11D /* boost_system.a */; };
 		2CA79AAD1DF55A410028D11D /* Siv3DTest_OSX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79A9D1DF55A410028D11D /* Siv3DTest_OSX.cpp */; };
@@ -732,7 +733,6 @@
 		2C80EBE81E73D1D200EFEF01 /* CTextWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTextWriter.cpp; sourceTree = "<group>"; };
 		2C80EBE91E73D1D200EFEF01 /* CTextWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTextWriter.hpp; sourceTree = "<group>"; };
 		2C80EBEA1E73D1D200EFEF01 /* SivTextWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextWriter.cpp; sourceTree = "<group>"; };
-		2C80EBEC1E73D1D200EFEF01 /* SivThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivThread.cpp; sourceTree = "<group>"; };
 		2C80EBEE1E73D1D200EFEF01 /* SivTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTime.cpp; sourceTree = "<group>"; };
 		2C80EBF01E73D1D200EFEF01 /* SivTimeProfiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTimeProfiler.cpp; sourceTree = "<group>"; };
 		2C80EBF21E73D1D200EFEF01 /* SivVector2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivVector2D.cpp; sourceTree = "<group>"; };
@@ -924,6 +924,8 @@
 		2C80EDD11E7FCCE800EFEF01 /* stats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stats.h; sourceTree = "<group>"; };
 		2C80EE001E8154B100EFEF01 /* SivCircle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCircle.cpp; sourceTree = "<group>"; };
 		2C80EE021E8163E100EFEF01 /* Triangle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Triangle.hpp; sourceTree = "<group>"; };
+		2C80EE051E84265000EFEF01 /* SivThreading.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivThreading.cpp; sourceTree = "<group>"; };
+		2C80EE071E84266600EFEF01 /* ConcurrentTask.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ConcurrentTask.hpp; sourceTree = "<group>"; };
 		2CA798F81DF55A0D0028D11D /* boost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_filesystem.a; sourceTree = "<group>"; };
 		2CA798F91DF55A0D0028D11D /* boost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_system.a; sourceTree = "<group>"; };
 		2CA798FA1DF55A0D0028D11D /* libSiv3D.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSiv3D.a; sourceTree = "<group>"; };
@@ -1336,6 +1338,7 @@
 		2C80EB2E1E73D1D100EFEF01 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C80EE041E84265000EFEF01 /* Threading */,
 				2C80EDFF1E8154B100EFEF01 /* Circle */,
 				2C80ED9A1E774DF400EFEF01 /* Line */,
 				2C80EB351E73D1D100EFEF01 /* Base64 */,
@@ -1387,7 +1390,6 @@
 				2C80EBD91E73D1D200EFEF01 /* System */,
 				2C80EBE21E73D1D200EFEF01 /* TextReader */,
 				2C80EBE71E73D1D200EFEF01 /* TextWriter */,
-				2C80EBEB1E73D1D200EFEF01 /* Thread */,
 				2C80EBED1E73D1D200EFEF01 /* Time */,
 				2C80EBEF1E73D1D200EFEF01 /* TimeProfiler */,
 				2C80EBF11E73D1D200EFEF01 /* Vector2D */,
@@ -1878,14 +1880,6 @@
 			path = TextWriter;
 			sourceTree = "<group>";
 		};
-		2C80EBEB1E73D1D200EFEF01 /* Thread */ = {
-			isa = PBXGroup;
-			children = (
-				2C80EBEC1E73D1D200EFEF01 /* SivThread.cpp */,
-			);
-			path = Thread;
-			sourceTree = "<group>";
-		};
 		2C80EBED1E73D1D200EFEF01 /* Time */ = {
 			isa = PBXGroup;
 			children = (
@@ -1981,6 +1975,7 @@
 				2C80ECB21E73D1E400EFEF01 /* ColorPalette.hpp */,
 				2C80ECB31E73D1E400EFEF01 /* Compression.hpp */,
 				2C80ECB41E73D1E400EFEF01 /* Concept.hpp */,
+				2C80EE071E84266600EFEF01 /* ConcurrentTask.hpp */,
 				2C80ECB51E73D1E400EFEF01 /* Console.hpp */,
 				2C80ECB61E73D1E400EFEF01 /* Cursor.hpp */,
 				2C80ECB71E73D1E400EFEF01 /* Cylindrical.hpp */,
@@ -2180,6 +2175,14 @@
 				2C80EE001E8154B100EFEF01 /* SivCircle.cpp */,
 			);
 			path = Circle;
+			sourceTree = "<group>";
+		};
+		2C80EE041E84265000EFEF01 /* Threading */ = {
+			isa = PBXGroup;
+			children = (
+				2C80EE051E84265000EFEF01 /* SivThreading.cpp */,
+			);
+			path = Threading;
 			sourceTree = "<group>";
 		};
 		2CA798F51DF55A0D0028D11D /* Lib */ = {
@@ -2477,6 +2480,7 @@
 				2C80ED4E1E73D1E400EFEF01 /* KeyConjunction.hpp in Headers */,
 				2C80EC1A1E73D1D200EFEF01 /* CByteArray.hpp in Headers */,
 				2C80ED4C1E73D1E400EFEF01 /* Key.hpp in Headers */,
+				2C80EE081E84266600EFEF01 /* ConcurrentTask.hpp in Headers */,
 				2C80EC4B1E73D1D200EFEF01 /* ImageFormat_BMP.hpp in Headers */,
 				2C80ED761E73D1E400EFEF01 /* StringView.hpp in Headers */,
 				2C80ED341E73D1E400EFEF01 /* Easing.hpp in Headers */,
@@ -2679,6 +2683,7 @@
 				2C80EC9F1E73D1D200EFEF01 /* SivXXHash.cpp in Sources */,
 				2C80EC1B1E73D1D200EFEF01 /* SivByteArray.cpp in Sources */,
 				2C5867091E3DDB7E0028B9F0 /* muParserDLL.cpp in Sources */,
+				2C80EE061E84265000EFEF01 /* SivThreading.cpp in Sources */,
 				2C5867271E3DDB7E0028B9F0 /* zstd_decompress.c in Sources */,
 				2C80EC861E73D1D200EFEF01 /* SivSystem.mm in Sources */,
 				2C80EC3C1E73D1D200EFEF01 /* SivFormatBool.cpp in Sources */,
@@ -2809,7 +2814,6 @@
 				2C5866F11E3DDB7D0028B9F0 /* monitor.c in Sources */,
 				2C80EC731E73D1D200EFEF01 /* MouseFactory.cpp in Sources */,
 				2C80EC8B1E73D1D200EFEF01 /* TextReader.mm in Sources */,
-				2C80EC8F1E73D1D200EFEF01 /* SivThread.cpp in Sources */,
 				2C80EC661E73D1D200EFEF01 /* CMathParser.cpp in Sources */,
 				2C80EC871E73D1D200EFEF01 /* SystemFactory.cpp in Sources */,
 				2C80EC141E73D1D200EFEF01 /* CBinaryWriter_macOS.cpp in Sources */,
