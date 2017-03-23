@@ -25,7 +25,7 @@ namespace s3d
 {
 	namespace detail
 	{
-		using MonitorCheck = std::pair<String, HMONITOR>;
+		using MonitorCheck = std::pair<const String, HMONITOR>;
 
 		static BOOL CALLBACK MonitorEnumProc(HMONITOR hMonitor, HDC, LPRECT, LPARAM userData)
 		{
