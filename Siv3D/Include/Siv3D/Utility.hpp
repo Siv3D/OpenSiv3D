@@ -46,7 +46,7 @@ namespace s3d
 	/// 初期化リストの中で最大の値。複数が等しい場合はその中で最も左の値 | The greatest value in ilist. If several values are equivalent to the greatest, returns the leftmost one
 	/// </returns>
 	template <class Type>
-	inline S3D_CONSTEXPR_CPP14 Type Max(std::initializer_list<Type> ilist)
+	inline constexpr Type Max(std::initializer_list<Type> ilist)
 	{
 		return *std::max_element(ilist.begin(), ilist.end());
 	}
@@ -79,7 +79,7 @@ namespace s3d
 	/// 初期化リストの中で最小大の値。複数が等しい場合はその中で最も左の値 | The least value in ilist. If several values are equivalent to the least, returns the leftmost one
 	/// </returns>
 	template <class Type>
-	inline S3D_CONSTEXPR_CPP14 Type Min(std::initializer_list<Type> ilist)
+	inline constexpr Type Min(std::initializer_list<Type> ilist)
 	{
 		return *std::min_element(ilist.begin(), ilist.end());
 	}

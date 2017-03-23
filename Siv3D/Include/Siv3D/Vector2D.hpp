@@ -97,36 +97,36 @@ namespace s3d
 			return{ x / v.x, y / v.y };
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector2D& operator +=(const Vector2D& v) noexcept
+		constexpr Vector2D& operator +=(const Vector2D& v) noexcept
 		{
 			x += v.x; y += v.y;
 			return *this;
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector2D& operator -=(const Vector2D& v) noexcept
+		constexpr Vector2D& operator -=(const Vector2D& v) noexcept
 		{
 			x -= v.x; y -= v.y;
 			return *this;
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector2D& operator *=(value_type s) noexcept
+		constexpr Vector2D& operator *=(value_type s) noexcept
 		{
 			x *= s; y *= s;
 			return *this;
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector2D& operator *=(const Vector2D& v) noexcept
+		constexpr Vector2D& operator *=(const Vector2D& v) noexcept
 		{
 			x *= v.x; y *= v.y;
 			return *this;
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector2D& operator /=(value_type s) noexcept
+		constexpr Vector2D& operator /=(value_type s) noexcept
 		{
 			return *this *= (static_cast<value_type>(1.0) / s);
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector2D& operator /=(const Vector2D& v) noexcept
+		constexpr Vector2D& operator /=(const Vector2D& v) noexcept
 		{
 			x /= v.x; y /= v.y;
 			return *this;
@@ -179,13 +179,13 @@ namespace s3d
 			return{ static_cast<Point::value_type>(x), static_cast<Point::value_type>(y) };
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector2D& set(value_type _x, value_type _y) noexcept
+		constexpr Vector2D& set(value_type _x, value_type _y) noexcept
 		{
 			x = _x; y = _y;
 			return *this;
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector2D& set(const Vector2D& v) noexcept
+		constexpr Vector2D& set(const Vector2D& v) noexcept
 		{
 			return *this = v;
 		}
@@ -200,13 +200,13 @@ namespace s3d
 			return{ x + v.x, y + v.y };
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector2D& moveBy(value_type _x, value_type _y) noexcept
+		constexpr Vector2D& moveBy(value_type _x, value_type _y) noexcept
 		{
 			x += _x; y += _y;
 			return *this;
 		}
 
-		S3D_CONSTEXPR_CPP14 Vector2D& moveBy(const Vector2D& v) noexcept
+		constexpr Vector2D& moveBy(const Vector2D& v) noexcept
 		{
 			return *this += v;
 		}
@@ -215,6 +215,12 @@ namespace s3d
 		{
 			return x == static_cast<value_type>(0.0)
 				&& y == static_cast<value_type>(0.0);
+		}
+
+		bool hasNaN() const noexcept
+		{
+			return std::isnan(x)
+				|| std::isnan(y);
 		}
 
 		constexpr value_type dot(const Vector2D& v) const noexcept
@@ -249,9 +255,19 @@ namespace s3d
 			return *this *= (_length / len);
 		}
 
+		value_type distanceFrom(value_type _x, value_type _y) const noexcept
+		{
+			return distanceFrom({ _x, _y });
+		}
+
 		value_type distanceFrom(const Vector2D& v) const noexcept
 		{
 			return (*this - v).length();
+		}
+
+		constexpr value_type distanceFromSq(value_type _x, value_type _y) const noexcept
+		{
+			return distanceFromSq({ _x, _y });
 		}
 
 		constexpr value_type distanceFromSq(const Vector2D& v) const noexcept

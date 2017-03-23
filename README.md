@@ -91,12 +91,39 @@
 ---------------------------
 
 #### 0.0.8
-- [ ] Linux Support
-- [ ] Circle
-- [ ] Line
+- [x] VS2017 Support
+- [x] Monitor
+- [x] Graphics::SetBackground()
+- [x] Graphics::EnumOutputs()
+- [x] Graphics::SetFullScreen()
+- [x] Window::SetPos()
+- [x] Window::Centering()
+- [x] Guetzli
+- [x] Butteraugli
+- [x] Line
+- [x] Circle
 - [ ] Triangle
 - [ ] Math (Partial)
-- [ ] Graphics (Partial)
+- [ ] Linux Support
+
+---------------------------
+
+#### 0.0.9
+- [ ] Log
+- [ ] Clipboard
+- [ ] MessageBox
+- [ ] CommandLine
+- [ ] GIF
+- [ ] GIA Animation
+- [ ] Cursor::SetPos()
+- [ ] Cursor::OnClient()
+- [ ] Cursor::Clip()
+- [ ] UID
+- [ ] TextureFormat (Partial)
+- [ ] Point::paint() / overpaint()
+- [ ] Profiler::FPS()
+- [ ] Graphics::EnableVSync()
+- [ ] Resource files
 
 ## Discussion ##
  [Siv3D Slack #open-siv3d](https://siv3d.slack.com/messages/open-siv3d/details/)  (Japanese)

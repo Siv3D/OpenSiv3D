@@ -60,14 +60,14 @@ namespace s3d
 				, m_count(count)
 				, m_step(step) {}
 
-			steps_iterator& operator ++()
+			constexpr steps_iterator& operator ++()
 			{
 				--m_count;
 				m_currentValue += m_step;
 				return *this;
 			}
 
-			steps_iterator operator ++(int)
+			constexpr steps_iterator operator ++(int)
 			{
 				steps_iterator tmp = *this;
 				--m_count;
@@ -145,7 +145,7 @@ namespace s3d
 		}
 
 		template <class Fty>
-		N count_if(Fty f) const
+		constexpr N count_if(Fty f) const
 		{
 			if (isEmpty())
 			{
@@ -233,9 +233,9 @@ namespace s3d
 		}
 
 		template <class Fty>
-		auto filter(Fty f) const;
+		constexpr auto filter(Fty f) const;
 
-		bool include(const value_type& x) const
+		constexpr bool include(const value_type& x) const
 		{
 			if (isEmpty())
 			{
@@ -267,7 +267,7 @@ namespace s3d
 		}
 
 		template <class Fty>
-		bool include_if(Fty f) const
+		constexpr bool include_if(Fty f) const
 		{
 			if (isEmpty())
 			{
@@ -345,10 +345,10 @@ namespace s3d
 		}
 
 		template <class Fty>
-		auto map(Fty f) const;
+		constexpr auto map(Fty f) const;
 
 		template <class Fty>
-		auto reduce(Fty f, std::result_of_t<Fty(value_type, value_type)> init) const
+		constexpr auto reduce(Fty f, std::result_of_t<Fty(value_type, value_type)> init) const
 		{
 			if (isEmpty())
 			{
@@ -375,7 +375,7 @@ namespace s3d
 		}
 
 		template <class Fty>
-		auto reduce1(Fty f) const
+		constexpr auto reduce1(Fty f) const
 		{
 			if (isEmpty())
 			{
@@ -405,7 +405,7 @@ namespace s3d
 		}
 
 		template <class Type = std::common_type_t<T, S, N>>
-		Type sum() const
+		constexpr Type sum() const
 		{
 			const auto n = count();
 			const Type a = startValue();
@@ -1069,7 +1069,7 @@ namespace s3d
 	}
 
 	template <class T, class U, class S = int32, class StartType = std::common_type_t<T, U>, class CounterType = std::common_type_t<std::size_t, StartType>>
-	inline auto step_to(T a, U b, S s = 1)
+	inline constexpr auto step_to(T a, U b, S s = 1)
 	{
 		static_assert(std::is_integral<StartType>::value || IsBigInt<StartType>::value, "step_to requires integral parameters");
 		CounterType  n = 0;
@@ -1096,7 +1096,7 @@ namespace s3d
 	}
 
 	template<class T, class U, class S = int32, class StartType = std::common_type_t<T, U>, class CounterType = std::common_type_t<std::size_t, StartType>>
-	inline auto step_until(T a, U b, S s = 1)
+	inline constexpr auto step_until(T a, U b, S s = 1)
 	{
 		static_assert(std::is_integral<StartType>::value || IsBigInt<StartType>::value, "step_until requires integral parameters");
 		CounterType  n;
@@ -1139,7 +1139,7 @@ namespace s3d
 	}
 
 	template<class T, class U, class S = int32, class StartType = std::common_type_t<T, U>, class CounterType = std::common_type_t<std::size_t, StartType>>
-	inline auto Iota(T beg, U end, S step = 1)
+	inline constexpr auto Iota(T beg, U end, S step = 1)
 	{
 		return step_until(beg, end, step);
 	}
@@ -1150,7 +1150,7 @@ namespace s3d
 	//
 
 	template<class T, class U, class S = int32, class StartType = std::common_type_t<T, U>, class CounterType = std::common_type_t<std::size_t, StartType>>
-	inline auto Range(T beg, U end, S step = 1)
+	inline constexpr auto Range(T beg, U end, S step = 1)
 	{
 		return step_to(beg, end, step);
 	}
@@ -1596,7 +1596,7 @@ namespace s3d
 
 	template <class T, class N, class S, bool isScalar>
 	template <class Fty>
-	inline auto steps_class<T, N, S, isScalar>::filter(Fty f) const
+	inline constexpr auto steps_class<T, N, S, isScalar>::filter(Fty f) const
 	{
 		const auto tuple = std::make_tuple(detail::FilterFunction<Fty>{ f });
 		return detail::F_Step<steps_class, value_type, decltype(tuple)>(*this, tuple);
@@ -1604,7 +1604,7 @@ namespace s3d
 
     template <class T, class N, class S, bool isScalar>
     template <class Fty>
-    inline auto steps_class<T, N, S, isScalar>::map(Fty f) const
+    inline constexpr auto steps_class<T, N, S, isScalar>::map(Fty f) const
 	{
 		using Ret = std::result_of_t<Fty(value_type)>;
 		std::tuple<detail::MapFunction<Fty>> _f{ { f } };

@@ -153,7 +153,7 @@ namespace s3d
 
 		image.resize(width, height);
 
-		uint8* pixels = static_cast<uint8*>(image.data());
+		uint8* pixels = image.dataAsUint8();
 
 		Array<uint8*> ppbRowPointers(height);
 
@@ -211,7 +211,7 @@ namespace s3d
 
 		::png_write_info(png_ptr, info_ptr);
 
-		const uint8* pRow = static_cast<const uint8*>(image.data());
+		const uint8* pRow = image.dataAsUint8();
 
 		for (uint32 y = 0; y < height; ++y)
 		{
