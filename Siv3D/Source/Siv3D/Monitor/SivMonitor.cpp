@@ -58,6 +58,7 @@ namespace s3d
 			DISPLAY_DEVICE displayDevice;
 			displayDevice.cb = sizeof(displayDevice);
 
+			// デスクトップとして使われている仮想ディスプレイを検索
 			for (int32 deviceIndex = 0; ::EnumDisplayDevicesW(0, deviceIndex, &displayDevice, 0); ++deviceIndex)
 			{
 				if (displayDevice.StateFlags & DISPLAY_DEVICE_ATTACHED_TO_DESKTOP)
@@ -66,6 +67,7 @@ namespace s3d
 					ZeroMemory(&monitor, sizeof(monitor));
 					monitor.cb = sizeof(monitor);
 
+					// デスクトップとして設定されているモニターの一覧を取得
 					for (int32 monitorIndex = 0; ::EnumDisplayDevicesW(displayDevice.DeviceName, monitorIndex, &monitor, 0); ++monitorIndex)
 					{
 						if ((monitor.StateFlags & DISPLAY_DEVICE_ACTIVE) &&
@@ -73,7 +75,9 @@ namespace s3d
 						{
 							Monitor monitorInfo;
 							monitorInfo.displayDeviceName = displayDevice.DeviceName;
+							// モニターの配置とサイズを取得
 							::EnumDisplayMonitors(nullptr, nullptr, detail::MonitorEnumProc, (LPARAM)&monitorInfo);
+							// その他の情報を取得
 							monitorInfo.id = monitor.DeviceID;
 							monitorInfo.name = monitor.DeviceString;
 							monitorInfo.isPrimary = !!(displayDevice.StateFlags & DISPLAY_DEVICE_PRIMARY_DEVICE);
