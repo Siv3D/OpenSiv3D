@@ -163,13 +163,48 @@ namespace s3d
 
 # elif defined(SIV3D_TARGET_MACOS)
 
+# include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
+
 namespace s3d
 {
 	namespace System
 	{
 		Array<Monitor> EnumActiveMonitors()
 		{
-			return{};
+			Array<Monitor> results;
+			
+			int32 numMonitors;
+			GLFWmonitor** monitors = ::glfwGetMonitors(&numMonitors);
+			
+			for (int32 i = 0; i < numMonitors; ++i)
+			{
+				GLFWmonitor* monitor = monitors[i];
+				
+				Monitor result;
+				result.name = CharacterSet::Widen(::glfwGetMonitorName(monitor));
+				
+				uint32 displayID, unitNumber;
+				int32 xPos, yPos, width, height;
+				int32 wx, wy, ww, wh;
+				glfwGetMonitorInfo_Siv3D(monitor, &displayID, &unitNumber,
+										 &xPos, &yPos, &width, &height,
+										 &wx, &wy, &ww, &wh);
+				result.id = Format(displayID);
+				result.displayDeviceName = Format(unitNumber);
+				result.displayRect.x = xPos;
+				result.displayRect.y = yPos;
+				result.displayRect.w = width;
+				result.displayRect.h = height;
+				result.workArea.x = wx;
+				result.workArea.y = wy;
+				result.workArea.w = ww;
+				result.workArea.h = wh;
+				result.isPrimary = (i == 0);
+
+				results.push_back(result);
+			}
+			
+			return results;
 		}
 
 		size_t GetCurrentMonitorIndex()

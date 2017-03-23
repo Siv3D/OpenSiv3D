@@ -331,6 +331,74 @@ GLFWAPI void glfwGetMonitorRect_Siv3D(GLFWmonitor* handle, int* xpos, int* ypos,
 	if (h)
 		*h = (int) bounds.size.height;
 }
+
+GLFWAPI void glfwGetMonitorInfo_Siv3D(GLFWmonitor* handle, uint32_t* displayID, uint32_t* unitNumber,
+									  int* xpos, int* ypos, int* w, int* h,
+									  int* wx, int* wy, int* ww, int* wh)
+{
+	_GLFWmonitor* monitor = (_GLFWmonitor*) handle;
+	assert(monitor != NULL);
+	
+	_GLFW_REQUIRE_INIT();
+	
+	if (displayID)
+		*displayID = monitor->ns.displayID;
+	
+	if (unitNumber)
+		*unitNumber = monitor->ns.unitNumber;
+	
+	const CGRect bounds = CGDisplayBounds(monitor->ns.displayID);
+	
+	if (xpos)
+		*xpos = (int) bounds.origin.x;
+	if (ypos)
+		*ypos = (int) bounds.origin.y;
+	if (w)
+		*w = (int) bounds.size.width;
+	if (h)
+		*h = (int) bounds.size.height;
+	
+	NSScreen *result;
+	bool isPrimary = true;
+	
+	for (NSScreen *screen in [NSScreen screens])
+	{
+		if ([[[screen deviceDescription] valueForKey:@"NSScreenNumber"] intValue] == monitor->ns.displayID)
+		{
+			result = screen;
+			break;
+		}
+		
+		isPrimary = false;
+	}
+	
+	if (result)
+	{
+		NSRect frame = [result frame];
+		NSRect visibleFrame = [result visibleFrame];
+		CGRect rect = NSRectToCGRect(visibleFrame);
+		
+		if(isPrimary)
+		{
+			rect.origin.y = frame.size.height - visibleFrame.origin.y - visibleFrame.size.height;
+		}
+		else
+		{
+			NSScreen* primaryScreen = [[NSScreen screens] objectAtIndex:0];
+			const float primaryScreenHeight = [primaryScreen frame].size.height;
+			rect.origin.y = primaryScreenHeight - rect.origin.y - rect.size.height;
+		}
+		
+		if (wx)
+			*wx = (int) rect.origin.x;
+		if (wy)
+			*wy = (int) rect.origin.y;
+		if (ww)
+			*ww = (int) rect.size.width;
+		if (wh)
+			*wh = (int) rect.size.height;
+	}
+}
 //
 //-----------------------------------------------
 
