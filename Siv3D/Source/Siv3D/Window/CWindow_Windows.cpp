@@ -84,6 +84,7 @@ namespace s3d
 
 		::DestroyWindow(m_hWnd);
 
+		// 適当に残ったメッセージを処理
 		for (int32 i = 0; i < 16; ++i)
 		{
 			MSG message;
@@ -125,6 +126,7 @@ namespace s3d
 	
 	bool CWindow_Windows::update()
 	{
+		// ウィンドウが最小化、最大化されているかどうかチェック
 		WINDOWPLACEMENT wpl = { sizeof(WINDOWPLACEMENT), };
 		::GetWindowPlacement(m_hWnd, &wpl);
 
@@ -134,6 +136,7 @@ namespace s3d
 
 		m_state.focused = (m_hWnd == ::GetForegroundWindow());
 
+		// ウィンドウの大きさを更新
 		RECT rc;
 		::GetWindowRect(m_hWnd, &rc);
 		m_state.pos.set(rc.left, rc.top);
@@ -180,6 +183,7 @@ namespace s3d
 
 	void CWindow_Windows::initState()
 	{
+		// ウィンドウクラス名として実行ファイルのパスを使用
 		m_windowClassName = FileSystem::ModulePath();
 
 		m_style = WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
@@ -194,6 +198,7 @@ namespace s3d
 
 		m_state.windowSize.set(windowRect.right - windowRect.left, windowRect.bottom - windowRect.top);
 
+		// ウィンドウの枠やタイトルバーの幅を取得
 		if (const int addedBorder = ::GetSystemMetrics(SM_CXPADDEDBORDER))
 		{
 			m_state.frameSize.x = ::GetSystemMetrics(SM_CXFRAME) + addedBorder;
@@ -209,6 +214,7 @@ namespace s3d
 
 		if (const auto monitors = System::EnumActiveMonitors())
 		{
+			// プライマリモニターの中央に位置するようにウィンドウを配置
 			const auto& primaryMonitior = monitors[0];
 			const int32 xOffset = (primaryMonitior.workArea.w - m_state.windowSize.x) / 2;
 			const int32 yOffset = (primaryMonitior.workArea.h - m_state.windowSize.y) / 2;
