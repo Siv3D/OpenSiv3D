@@ -96,13 +96,13 @@
 - [x] Graphics::SetBackground()
 - [x] Graphics::EnumOutputs()
 - [x] Graphics::SetFullScreen()
+- [x] Window::SetPos()
+- [x] Window::Centering()
 - [x] Guetzli
 - [x] Butteraugli
 - [x] Line
 - [x] Circle
 - [ ] Triangle
-- [x] Window::SetPos()
-- [ ] Window::Centering()
 - [ ] Math (Partial)
 - [ ] Linux Support
 
