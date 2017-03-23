@@ -16,9 +16,9 @@ namespace s3d
 {
 	namespace Graphics
 	{
-		void SetSetBackground(const ColorF& color)
+		void SetBackground(const ColorF& color)
 		{
-			color;
+			Siv3DEngine::GetGraphics()->setClearColor(color);
 		}
 
 		Array<DisplayOutput> EnumOutputs()

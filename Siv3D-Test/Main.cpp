@@ -3,29 +3,29 @@
 
 void Main()
 {
-	for (const auto& displayOutput : Graphics::EnumOutputs())
+	for(const auto& monitor : System::EnumActiveMonitors())
 	{
-		Console << L"-----" << displayOutput.name;
-		Console << displayOutput.displayModes.map([](const auto& displayMode){
-			return Format(displayMode.size, L"@", displayMode.refreshRateHz, L"Hz");
-		});
+		Log << L"----";
+		Log << monitor.name;
+		Log << monitor.id;
+		Log << monitor.displayDeviceName;
+		Log << monitor.displayRect;
+		Log << monitor.workArea;
+		Log << monitor.isPrimary;
 	}
-
+	
+	Window::SetPos(Point(0, 64));
+	
 	while (System::Update())
 	{
-		if (KeyL.down())
+		Window::SetTitle(System::GetCurrentMonitorIndex());
+		
+		if(KeyC.down())
 		{
-			Graphics::SetFullScreen(true, Size(2560, 1080), 1);
+			Window::Centering();
 		}
-
-		if (KeyR.down())
-		{
-			Graphics::SetFullScreen(true, Size(3840, 2160), 0);
-		}
-
-		if (KeyW.down())
-		{
-			Graphics::SetFullScreen(false, Size(1280, 720));
-		}
+		
+		Graphics::SetBackground(HSV(Cursor::Pos().x * 0.5, 0.5, 1.0));
 	}
 }
+

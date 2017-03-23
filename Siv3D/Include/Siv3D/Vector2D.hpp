@@ -217,6 +217,12 @@ namespace s3d
 				&& y == static_cast<value_type>(0.0);
 		}
 
+		bool hasNaN() const noexcept
+		{
+			return std::isnan(x)
+				|| std::isnan(y);
+		}
+
 		constexpr value_type dot(const Vector2D& v) const noexcept
 		{
 			return x * v.x + y * v.y;
@@ -249,9 +255,19 @@ namespace s3d
 			return *this *= (_length / len);
 		}
 
+		value_type distanceFrom(value_type _x, value_type _y) const noexcept
+		{
+			return distanceFrom({ _x, _y });
+		}
+
 		value_type distanceFrom(const Vector2D& v) const noexcept
 		{
 			return (*this - v).length();
+		}
+
+		constexpr value_type distanceFromSq(value_type _x, value_type _y) const noexcept
+		{
+			return distanceFromSq({ _x, _y });
 		}
 
 		constexpr value_type distanceFromSq(const Vector2D& v) const noexcept

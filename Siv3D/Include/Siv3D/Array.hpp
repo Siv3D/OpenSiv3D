@@ -170,6 +170,17 @@ namespace s3d
 		}
 
 		/// <summary>
+		/// 配列に要素が含まれているかを返します。
+		/// </summary>
+		/// <returns>
+		/// 配列に要素が含まれている場合 true, それ以外の場合は false
+		/// </returns>
+		explicit operator bool() const noexcept
+		{
+			return !empty();
+		}
+
+		/// <summary>
 		/// 配列の要素を全て消去し、メモリも解放します。
 		/// </summary>
 		/// <returns>
@@ -406,6 +417,23 @@ namespace s3d
 			return result;
 		}
 
+		Array<Array<Type, Allocator>, std::allocator<Array<Type, Allocator>>> chunk(const size_t n) const
+		{
+			Array<Array<Type, Allocator>, std::allocator<Array<Type, Allocator>>> result;
+
+			if (n == 0)
+			{
+				return result;
+			}
+
+			for (size_t i = 0; i < (size() + n - 1) / n; ++i)
+			{
+				result.push_back(slice(i * n, n));
+			}
+
+			return result;
+		}
+
 		/// <summary>
 		/// 指定した値を持つ要素の個数を返します。
 		/// </summary>
@@ -637,6 +665,31 @@ namespace s3d
 			}
 
 			return new_array;
+		}
+
+		Array<Array<Type, Allocator>, std::allocator<Array<Type, Allocator>>> in_groups(const size_t group) const
+		{
+			Array<Array<Type, Allocator>, std::allocator<Array<Type, Allocator>>> result;
+
+			if (group == 0)
+			{
+				return result;
+			}
+
+			const size_t div = size() / group;
+			const size_t mod = size() % group;
+			size_t index = 0;
+
+			for (size_t i = 0; i < group; ++i)
+			{
+				const size_t length = div + (mod > 0 && mod > index);
+
+				result.push_back(slice(index, length));
+
+				index += length;
+			}
+
+			return result;
 		}
 
 		/// <summary>

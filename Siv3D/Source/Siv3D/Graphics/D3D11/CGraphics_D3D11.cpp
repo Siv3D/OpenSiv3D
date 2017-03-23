@@ -50,6 +50,17 @@ namespace s3d
 			return false;
 		}
 
+		//////////////////////////////////////////////////////
+		//
+		//	 D3D11RenderTarget
+		//
+		m_renderTarget = std::make_unique<D3D11RenderTarget>(m_device->getDevice(), m_device->getContext(), m_swapChain->getSwapChain());
+
+		if (!m_renderTarget->init())
+		{
+			return false;
+		}
+
 		return true;
 	}
 
@@ -58,9 +69,34 @@ namespace s3d
 		return m_swapChain->enumOutputs();
 	}
 
+	void CGraphics_D3D11::setClearColor(const ColorF& color)
+	{
+		m_renderTarget->setClearColor(color);
+	}
+
 	bool CGraphics_D3D11::setFullScreen(bool fullScreen, const Size& size, size_t displayIndex, double refreshRateHz)
 	{
 		return m_swapChain->setFullScreen(fullScreen, size, displayIndex, refreshRateHz);
+	}
+
+	bool CGraphics_D3D11::present()
+	{
+		return m_swapChain->present();
+	}
+
+	void CGraphics_D3D11::clear()
+	{
+		m_renderTarget->clear();
+	}
+
+	void CGraphics_D3D11::beginResize()
+	{
+		m_renderTarget->beginResize();
+	}
+
+	bool CGraphics_D3D11::endResize(const Size& size)
+	{
+		return m_renderTarget->endResize(size);
 	}
 }
 

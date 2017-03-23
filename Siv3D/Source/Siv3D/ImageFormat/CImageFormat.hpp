@@ -45,5 +45,7 @@ namespace s3d
 		Image decode(IReader&& reader, ImageFormat format) const override;
 
 		bool save(const Image& image, ImageFormat format, const FilePath& path) const override;
+
+		bool encodeJPEG(IWriter& writer, const Image& image, int32 quality) const override;
 	};
 }

@@ -47,11 +47,7 @@ namespace s3d
 
 		size_t m_currentDisplayIndex = 0;
 
-		bool m_highDPIAwareness = false;
-
 		bool m_fullScreen = false;
-
-		void checkDPIAwareness();
 
 		bool setBestFullScreenMode(const Size& size, size_t displayIndex, double refreshRateHz);
 
@@ -66,6 +62,10 @@ namespace s3d
 		Array<DisplayOutput> enumOutputs();
 
 		bool setFullScreen(bool fullScreen, const Size& size, size_t displayIndex, double refreshRateHz);
+
+		IDXGISwapChain* getSwapChain() const;
+
+		bool present();
 	};
 }
 

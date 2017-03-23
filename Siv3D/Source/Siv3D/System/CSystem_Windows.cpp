@@ -23,6 +23,8 @@
 # include "../Mouse/IMouse.hpp"
 # include "../Graphics/IGraphics.hpp"
 
+# include <Siv3D/Logger.hpp>
+
 namespace s3d
 {
 	namespace WindowEvent
@@ -104,7 +106,12 @@ namespace s3d
 			return false;
 		}
 
-		System::Sleep(MillisecondsF(16.66));
+		if (!Siv3DEngine::GetGraphics()->present())
+		{
+			return false;
+		}
+
+		Siv3DEngine::GetGraphics()->clear();
 
 		Siv3DEngine::GetDragDrop()->update();
 

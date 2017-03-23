@@ -81,6 +81,8 @@ namespace s3d
 		{
 			return false;
 		}
+		
+		Siv3DEngine::GetGraphics()->clear();
 
 		return true;
 	}
@@ -99,13 +101,15 @@ namespace s3d
 			return false;
 		}
 
+		Siv3DEngine::GetGraphics()->present();
+
 		if (!Siv3DEngine::GetWindow()->update())
 		{
 			return false;
 		}
-
-		System::Sleep(MillisecondsF(16.66));
-
+		
+		Siv3DEngine::GetGraphics()->clear();
+		
 		if (!Siv3DEngine::GetDragDrop()->update())
 		{
 			return false;

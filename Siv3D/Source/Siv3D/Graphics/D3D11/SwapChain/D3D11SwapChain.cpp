@@ -24,6 +24,7 @@
 # include "../../../Siv3DEngine.hpp"
 # include "../../../EngineUtility.hpp"
 # include "../../../Window/IWindow.hpp"
+# include "../../../Graphics/IGraphics.hpp"
 # include <Siv3D/Monitor.hpp>
 
 # include <Siv3D/Logger.hpp>
@@ -71,8 +72,6 @@ namespace s3d
 
 	bool D3D11SwapChain::init()
 	{
-		checkDPIAwareness();
-
 		m_hWnd = Siv3DEngine::GetWindow()->getHandle();
 
 		m_desc.BufferDesc.Width						= m_size.x;
@@ -137,10 +136,10 @@ namespace s3d
 					}
 
 					output.name = desc.DeviceName;
-					output.desktopRect.x = desc.DesktopCoordinates.left;
-					output.desktopRect.y = desc.DesktopCoordinates.top;
-					output.desktopRect.w = desc.DesktopCoordinates.right - desc.DesktopCoordinates.left;
-					output.desktopRect.h = desc.DesktopCoordinates.bottom - desc.DesktopCoordinates.top;
+					output.displayRect.x = desc.DesktopCoordinates.left;
+					output.displayRect.y = desc.DesktopCoordinates.top;
+					output.displayRect.w = desc.DesktopCoordinates.right - desc.DesktopCoordinates.left;
+					output.displayRect.h = desc.DesktopCoordinates.bottom - desc.DesktopCoordinates.top;
 					output.rotation = desc.Rotation ? 0 : (static_cast<int32>(desc.Rotation) - 1) * 90;
 				}
 
@@ -221,11 +220,15 @@ namespace s3d
 		{
 			m_swapChain->SetFullscreenState(false, nullptr);
 
+			Siv3DEngine::GetGraphics()->beginResize();
+
 			auto targetDesc = m_desc.BufferDesc;
 			targetDesc.Width = size.x;
 			targetDesc.Height = size.y;
 			m_swapChain->ResizeTarget(&targetDesc);
 			m_swapChain->ResizeBuffers(1, size.x, size.y, DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
+
+			Siv3DEngine::GetGraphics()->endResize(size);
 		}
 
 		m_fullScreen = fullScreen;
@@ -235,26 +238,27 @@ namespace s3d
 		return true;
 	}
 
-	void D3D11SwapChain::checkDPIAwareness()
+	IDXGISwapChain* D3D11SwapChain::getSwapChain() const
 	{
-		if (HINSTANCE shcore = ::LoadLibraryW(L"shcore.dll"))
+		return m_swapChain.Get();
+	}
+
+	bool D3D11SwapChain::present()
+	{
+		const bool vSyncEnabled = true;
+
+		const HRESULT hr = m_swapChain->Present(vSyncEnabled, 0);
+
+		if (FAILED(hr))
 		{
-			decltype(GetProcessDpiAwareness)* p_GetProcessDpiAwareness = FunctionPointer(shcore, "GetProcessDpiAwareness");
-
-			PROCESS_DPI_AWARENESS awareness;
-
-			p_GetProcessDpiAwareness(nullptr, &awareness);
-
-			m_highDPIAwareness = (awareness != PROCESS_DPI_UNAWARE);
-
-			::FreeLibrary(shcore);
+			return false;
 		}
-		else
+		else if (hr == DXGI_STATUS_OCCLUDED)
 		{
-			m_highDPIAwareness = IsProcessDPIAware();
+			::Sleep(13);
 		}
 
-		Log(L"m_highDPIAwareness:", m_highDPIAwareness);
+		return true;
 	}
 
 	bool D3D11SwapChain::setBestFullScreenMode(const Size& size, const size_t displayIndex, const double refreshRateHz)
@@ -295,15 +299,8 @@ namespace s3d
 
 			if (SUCCEEDED(pOutput->GetDesc(&desc)))
 			{
-				::SetWindowPos(
-					m_hWnd,
-					nullptr,
-					desc.DesktopCoordinates.left,
-					desc.DesktopCoordinates.top,
-					0,
-					0,
-					SWP_DEFERERASE | SWP_NOOWNERZORDER | SWP_NOZORDER | SWP_NOSIZE
-				);
+				Siv3DEngine::GetWindow()->setPos(
+					Point(desc.DesktopCoordinates.left, desc.DesktopCoordinates.top));
 			}
 		}
 
@@ -332,13 +329,15 @@ namespace s3d
 		//Log << static_cast<double>(displayModeList[bestIndex].RefreshRate.Numerator) / displayModeList[bestIndex].RefreshRate.Denominator;
 		//Log << (int32)displayModeList[bestIndex].Scaling;
 
-		if (!m_highDPIAwareness)
-		{
-			detail::SetHighDPI();
-		}
+		detail::SetHighDPI();
+
+		Siv3DEngine::GetGraphics()->beginResize();
 
 		m_swapChain->ResizeTarget(&displayModeList[bestIndex]);
 		m_swapChain->ResizeBuffers(1, displayModeList[bestIndex].Width, displayModeList[bestIndex].Height, DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
+		
+		Siv3DEngine::GetGraphics()->endResize(size);
+		
 		m_swapChain->SetFullscreenState(true, pOutput.Get());
 
 		return true;

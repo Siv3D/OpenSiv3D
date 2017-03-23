@@ -233,6 +233,21 @@
     <Filter Include="Source\Siv3D\Graphics\D3D11\SwapChain">
       <UniqueIdentifier>{744ea05b-ef91-449a-bfcc-58eaf3e7376e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Graphics\D3D11\RenderTarget">
+      <UniqueIdentifier>{5d744aff-9f14-4611-b752-99aa99894c3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ThirdParty\guetzli">
+      <UniqueIdentifier>{d0c0d4de-4084-4a6a-b4c4-0393c2efd350}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ThirdParty\butteraugli">
+      <UniqueIdentifier>{b95ce22f-7ba3-4f0f-a5fb-7c1f45924750}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Line">
+      <UniqueIdentifier>{d7fd069b-d8a1-496b-96ab-8ac063e97aa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Circle">
+      <UniqueIdentifier>{a54ac146-530a-47de-87fe-f610f589114d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -862,6 +877,96 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\GL\CGraphics_GL.hpp">
       <Filter>Source\Siv3D\Graphics\GL</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\RenderTarget\D3D11RenderTarget.hpp">
+      <Filter>Source\Siv3D\Graphics\D3D11\RenderTarget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Circle.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Line.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\butteraugli\butteraugli.h">
+      <Filter>Source\ThirdParty\butteraugli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\entropy_encode.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\fast_log.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\fdct.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\gamma_correct.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\idct.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_bit_writer.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_data.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_data_decoder.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_data_encoder.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_data_reader.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_data_writer.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_error.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_huffman_decode.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\output_image.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\preprocess_downsample.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\processor.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\quality.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\quantize.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\score.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\stats.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\butteraugli_comparator.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\color_transform.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\comparator.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\dct_double.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\debug_print.h">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Triangle.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1245,10 +1350,82 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\GL\CGraphics_GL.cpp">
       <Filter>Source\Siv3D\Graphics\GL</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\RenderTarget\D3D11RenderTarget.cpp">
+      <Filter>Source\Siv3D\Graphics\D3D11\RenderTarget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\butteraugli\butteraugli.cc">
+      <Filter>Source\ThirdParty\butteraugli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\entropy_encode.cc">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\fdct.cc">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\gamma_correct.cc">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\idct.cc">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_data.cc">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_data_decoder.cc">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_data_encoder.cc">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_data_reader.cc">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_data_writer.cc">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\jpeg_huffman_decode.cc">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\output_image.cc">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\preprocess_downsample.cc">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\processor.cc">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\quality.cc">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\quantize.cc">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\score.cc">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\butteraugli_comparator.cc">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\dct_double.cc">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\debug_print.cc">
+      <Filter>Source\ThirdParty\guetzli</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Line\SivLine.cpp">
+      <Filter>Source\Siv3D\Line</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Circle\SivCircle.cpp">
+      <Filter>Source\Siv3D\Circle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\Include\Siv3D\Point.inl">
       <Filter>Include\Siv3D</Filter>
+    </None>
+    <None Include="..\Siv3D\Source\ThirdParty\guetzli\order.inc">
+      <Filter>Source\ThirdParty\guetzli</Filter>
     </None>
   </ItemGroup>
 </Project>
