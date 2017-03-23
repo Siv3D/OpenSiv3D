@@ -32,7 +32,7 @@ namespace s3d
 		// [x] Windows | [x] macOS | [ ] Linux
 		Array<Monitor> EnumActiveMonitors();
 
-		// [x] Windows | [ ] macOS | [ ] Linux
+		// [x] Windows | [x] macOS | [ ] Linux
 		size_t GetCurrentMonitorIndex();
 	}
 }

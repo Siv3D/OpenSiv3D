@@ -48,12 +48,19 @@ namespace s3d
 			
 			return false;
 		}
-
+		
+		int32 windowPosX, windowPosY;
+		::glfwGetWindowPos(m_glfwWindow, &windowPosX, &windowPosY);
+		m_state.pos.set(windowPosX, windowPosY);
+		
+		int32 windowSizeX, windowSizeY;
+		::glfwGetWindowSize(m_glfwWindow, &windowSizeX, &windowSizeY);
+		m_state.windowSize.set(windowSizeX, windowSizeY);
+		
 		::glfwMakeContextCurrent(m_glfwWindow);
 
 		::glfwSwapInterval(1);
 		
-		//m_state.windowSize
 		//m_state.titleBarHeight
 		
 		return true;
@@ -72,6 +79,14 @@ namespace s3d
 		{
 			return false;
 		}
+		
+		int32 windowPosX, windowPosY;
+		::glfwGetWindowPos(m_glfwWindow, &windowPosX, &windowPosY);
+		m_state.pos.set(windowPosX, windowPosY);
+		
+		int32 windowSizeX, windowSizeY;
+		::glfwGetWindowSize(m_glfwWindow, &windowSizeX, &windowSizeY);
+		m_state.windowSize.set(windowSizeX, windowSizeY);
 		
 		return true;
 	}

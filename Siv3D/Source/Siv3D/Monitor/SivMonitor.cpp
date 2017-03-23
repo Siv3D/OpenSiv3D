@@ -164,6 +164,7 @@ namespace s3d
 # elif defined(SIV3D_TARGET_MACOS)
 
 # include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
+# include <Siv3D/Window.hpp>
 
 namespace s3d
 {
@@ -209,7 +210,32 @@ namespace s3d
 
 		size_t GetCurrentMonitorIndex()
 		{
-			return 0;
+			const auto& state = Window::GetState();
+			const Point pos = state.pos;
+			const Size size = state.windowSize;
+			
+			const auto monitors = EnumActiveMonitors();
+			int32 bestoverlap = 0;
+			size_t bestIndex = 0;
+			
+			for (size_t i = 0; i < monitors.size(); ++i)
+			{
+				const auto& monitor = monitors[i];
+				const Point mPos = monitor.displayRect.pos;
+				const Size mSize = monitor.displayRect.size;
+
+				const int32 overlap =
+					std::max(0, std::min(pos.x + size.x, mPos.x + mSize.x) - std::max(pos.x, mPos.x)) *
+					std::max(0, std::min(pos.y + size.y, mPos.y + mSize.y) - std::max(pos.y, mPos.y));
+				
+				if (bestoverlap < overlap)
+				{
+					bestoverlap = overlap;
+					bestIndex = i;
+				}
+			}
+			
+			return bestIndex;
 		}
 	}
 }

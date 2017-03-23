@@ -18,7 +18,12 @@ void Main()
 	
 	while (System::Update())
 	{
-		Window::SetTitle(Cursor::ScreenPos());
+		Window::SetTitle(System::GetCurrentMonitorIndex());
+		
+		if(KeyC.down())
+		{
+			Window::Centering();
+		}
 		
 		Graphics::SetBackground(HSV(Cursor::Pos().x * 0.5, 0.5, 1.0));
 	}
