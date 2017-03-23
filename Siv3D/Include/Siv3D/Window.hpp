@@ -48,11 +48,13 @@ namespace s3d
 		/// <summary>
 		/// ウィンドウの枠線の幅と高さ
 		/// </summary>
+		// [x] Windows | [ ] macOS | [ ] Linux
 		Size frameSize;
 
 		/// <summary>
 		/// ウィンドウのタイトルバーの高さ
 		/// </summary>
+		// [x] Windows | [ ] macOS | [ ] Linux
 		int32 titleBarHeight;
 
 		/// <summary>
@@ -60,8 +62,10 @@ namespace s3d
 		/// </summary>
 		String title;
 
+		// [x] Windows | [ ] macOS | [ ] Linux
 		ShowState showState;
 
+		// [x] Windows | [ ] macOS | [ ] Linux
 		bool focused;
 	};
 
