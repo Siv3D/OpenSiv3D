@@ -19,20 +19,35 @@ namespace s3d
 {
 	struct Monitor
 	{
+		/// <summary>ディスプレイの名前</summary>
 		String name;
 		String id;
+		/// <summary>内部的に使われているディスプレイの名前</summary>
 		String displayDeviceName;
+		/// <summary>ディスプレイ全体の位置とサイズ</summary>
 		Rect displayRect;
+		/// <summary>タスクバーなどを除いた利用可能な領域の位置とサイズ</summary>
 		Rect workArea;
+		/// <summary>メインディスプレイかどうか</summary>
 		bool isPrimary;
 	};
 
 	namespace System
 	{
-		// [x] Windows | [x] macOS | [ ] Linux
+		/// <summary>
+		/// 使用可能なモニターの一覧を取得します。
+		/// </summary>
+		/// <remarks>
+		/// [x] Windows | [x] macOS | [ ] Linux
+		/// </remarks>
 		Array<Monitor> EnumActiveMonitors();
 
-		// [x] Windows | [x] macOS | [ ] Linux
+		/// <summary>
+		/// ウィンドウが配置されているモニターのインデックスを取得します。
+		/// </summary>
+		/// <remarks>
+		/// [x] Windows | [x] macOS | [ ] Linux
+		/// </remarks>
 		size_t GetCurrentMonitorIndex();
 	}
 }
