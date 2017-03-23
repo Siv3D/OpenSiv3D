@@ -25,6 +25,7 @@ namespace s3d
 {
 	namespace detail
 	{
+		// チェック用デバイス名とモニタハンドル
 		using MonitorCheck = std::pair<String, HMONITOR>;
 
 		static BOOL CALLBACK MonitorEnumProc(HMONITOR hMonitor, HDC, LPRECT, LPARAM userData)
@@ -80,7 +81,7 @@ namespace s3d
 			DISPLAY_DEVICE displayDevice;
 			displayDevice.cb = sizeof(displayDevice);
 
-			// デスクトップとして使われている仮想ディスプレイを検索
+			// デスクトップとして割り当てられている仮想ディスプレイを検索
 			for (int32 deviceIndex = 0; ::EnumDisplayDevicesW(0, deviceIndex, &displayDevice, 0); ++deviceIndex)
 			{
 				if (displayDevice.StateFlags & DISPLAY_DEVICE_ATTACHED_TO_DESKTOP)
@@ -89,7 +90,7 @@ namespace s3d
 					ZeroMemory(&monitor, sizeof(monitor));
 					monitor.cb = sizeof(monitor);
 
-					// デスクトップとして設定されているモニターの一覧を取得
+					// デスクトップとして使われているモニターの一覧を取得
 					for (int32 monitorIndex = 0; ::EnumDisplayDevicesW(displayDevice.DeviceName, monitorIndex, &monitor, 0); ++monitorIndex)
 					{
 						if ((monitor.StateFlags & DISPLAY_DEVICE_ACTIVE) &&
@@ -126,6 +127,7 @@ namespace s3d
 			DISPLAY_DEVICE displayDevice;
 			displayDevice.cb = sizeof(displayDevice);
 
+			// デスクトップとして割り当てられている仮想デスクトップを検索
 			for (int32 deviceIndex = 0; ::EnumDisplayDevicesW(0, deviceIndex, &displayDevice, 0); ++deviceIndex)
 			{
 				if (displayDevice.StateFlags & DISPLAY_DEVICE_ATTACHED_TO_DESKTOP)
@@ -134,6 +136,7 @@ namespace s3d
 					ZeroMemory(&monitor, sizeof(monitor));
 					monitor.cb = sizeof(monitor);
 
+					// デスクトップとして使われているモニターの一覧を取得
 					for (int32 monitorIndex = 0; ::EnumDisplayDevicesW(displayDevice.DeviceName, monitorIndex, &monitor, 0); ++monitorIndex)
 					{
 						if ((monitor.StateFlags & DISPLAY_DEVICE_ACTIVE) &&
@@ -141,6 +144,7 @@ namespace s3d
 						{
 							detail::MonitorCheck desc = { String(displayDevice.DeviceName), nullptr };
 
+							// モニターのハンドルを取得
 							::EnumDisplayMonitors(nullptr, nullptr, detail::MonitorCheckProc, (LPARAM)&desc);
 
 							if (desc.second == currentMonitor)
