@@ -38,8 +38,6 @@ namespace s3d
 
 		void initState();
 
-		void updateTaskbarState();
-
 		bool registerWindowClass();
 
 		bool createWindow();
@@ -59,6 +57,8 @@ namespace s3d
 		void setTitle(const String& title, bool forceUpdate) override;
 		
 		const WindowState& getState() const override;
+
+		void setPos(const Point& pos) override;
 	};
 }
 

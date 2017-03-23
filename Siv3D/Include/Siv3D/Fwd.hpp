@@ -451,6 +451,7 @@ namespace s3d
 	//
 	//	Window.hpp
 	//
+	enum class ShowState;
 	struct WindowState;
 
 

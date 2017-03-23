@@ -101,7 +101,7 @@
 - [x] Line
 - [x] Circle
 - [ ] Triangle
-- [ ] Window::SetPos()
+- [x] Window::SetPos()
 - [ ] Window::Centering()
 - [ ] Math (Partial)
 - [ ] Linux Support

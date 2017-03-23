@@ -114,6 +114,14 @@ namespace s3d
 
 		constexpr bool isEmpty() const noexcept { return m_length == 0; }
 
+		/// <summary>
+		/// 文字列に要素が含まれているかを示します。
+		/// </summary>
+		explicit constexpr operator bool() const noexcept
+		{
+			return m_length != 0;
+		}
+
 		constexpr void remove_prefix(const size_type n) noexcept
 		{
 			assert(n <= size() && "BasicStringView::remove_prefix() can't remove more than size()");
