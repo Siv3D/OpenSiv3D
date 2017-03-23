@@ -3,29 +3,24 @@
 
 void Main()
 {
-	for(const auto& monitor : System::EnumActiveMonitors())
+	const Image image(L"example/windmill.png");
+
+	auto task = CreateConcurrentTask([&]()
 	{
-		Log << L"----";
-		Log << monitor.name;
-		Log << monitor.id;
-		Log << monitor.displayDeviceName;
-		Log << monitor.displayRect;
-		Log << monitor.workArea;
-		Log << monitor.isPrimary;
-	}
-	
-	Window::SetPos(Point(0, 64));
-	
+		return Range(4, 20).map(Multiplies(0.1)).asArray().parallel_each([&](double t)
+		{
+			image.savePerceptualJPEG(L"b{}.jpg"_fmt(t), t);
+		});
+	});
+
 	while (System::Update())
 	{
-		Window::SetTitle(System::GetCurrentMonitorIndex());
-		
-		if(KeyC.down())
+		Window::SetTitle(L"変換中 ", String(9, L'□').insert(Time::GetMillisec() / 200 % 10, 1, L'■'));
+
+		if (task.is_done())
 		{
-			Window::Centering();
+			break;
 		}
-		
-		Graphics::SetBackground(HSV(Cursor::Pos().x * 0.5, 0.5, 1.0));
 	}
 }
 

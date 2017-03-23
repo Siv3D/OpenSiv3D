@@ -23,6 +23,12 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	ConcurrentTask.hpp
+	//
+	template <class Type> class ConcurrentTask;
+
+	//////////////////////////////////////////////////////
+	//
 	//	AlignedAllocator.hpp
 	//
 	template <class Type, size_t Alignment> class AlignedAllocator;
