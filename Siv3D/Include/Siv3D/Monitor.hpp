@@ -29,7 +29,7 @@ namespace s3d
 
 	namespace System
 	{
-		// [x] Windows | [ ] macOS | [ ] Linux
+		// [x] Windows | [x] macOS | [ ] Linux
 		Array<Monitor> EnumActiveMonitors();
 
 		// [x] Windows | [ ] macOS | [ ] Linux

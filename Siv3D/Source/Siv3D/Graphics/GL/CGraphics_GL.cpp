@@ -50,19 +50,19 @@ namespace s3d
 			
 			DisplayOutput output;
 			
-			output.name = CharacterSet::Widen(glfwGetMonitorName(monitor));
+			output.name = CharacterSet::Widen(::glfwGetMonitorName(monitor));
 			
 			int32 xPos, yPos, width, height;
 			
 			glfwGetMonitorRect_Siv3D(monitor, &xPos, &yPos, &width, &height);
-			output.desktopRect.x = xPos;
-			output.desktopRect.y = yPos;
-			output.desktopRect.w = width;
-			output.desktopRect.h = height;
+			output.displayRect.x = xPos;
+			output.displayRect.y = yPos;
+			output.displayRect.w = width;
+			output.displayRect.h = height;
 			output.rotation = 0; // [Siv3D ToDo]
 			
 			int32 numModes;
-			const GLFWvidmode* videoModes = glfwGetVideoModes(monitor, &numModes);
+			const GLFWvidmode* videoModes = ::glfwGetVideoModes(monitor, &numModes);
 			
 			for (int32 i = 0; i < numModes; ++i)
 			{

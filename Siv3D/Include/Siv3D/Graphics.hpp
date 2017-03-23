@@ -27,7 +27,7 @@ namespace s3d
 	{
 		String name;
 
-		Rect desktopRect;
+		Rect displayRect;
 
 		int32 rotation;
 

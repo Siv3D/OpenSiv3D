@@ -136,10 +136,10 @@ namespace s3d
 					}
 
 					output.name = desc.DeviceName;
-					output.desktopRect.x = desc.DesktopCoordinates.left;
-					output.desktopRect.y = desc.DesktopCoordinates.top;
-					output.desktopRect.w = desc.DesktopCoordinates.right - desc.DesktopCoordinates.left;
-					output.desktopRect.h = desc.DesktopCoordinates.bottom - desc.DesktopCoordinates.top;
+					output.displayRect.x = desc.DesktopCoordinates.left;
+					output.displayRect.y = desc.DesktopCoordinates.top;
+					output.displayRect.w = desc.DesktopCoordinates.right - desc.DesktopCoordinates.left;
+					output.displayRect.h = desc.DesktopCoordinates.bottom - desc.DesktopCoordinates.top;
 					output.rotation = desc.Rotation ? 0 : (static_cast<int32>(desc.Rotation) - 1) * 90;
 				}
 
