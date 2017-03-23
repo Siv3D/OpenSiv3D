@@ -20,6 +20,11 @@ void Main()
 	{
 		Window::SetTitle(Cursor::ScreenPos());
 		
+		if(KeyU.down())
+		{
+			Window::Centering();
+		}
+		
 		Graphics::SetBackground(HSV(Cursor::Pos().x * 0.5, 0.5, 1.0));
 	}
 }
