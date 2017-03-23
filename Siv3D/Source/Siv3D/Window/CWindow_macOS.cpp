@@ -49,6 +49,10 @@ namespace s3d
 			return false;
 		}
 		
+		int32 windowPosX, windowPosY;
+		::glfwGetWindowPos(m_glfwWindow, &windowPosX, &windowPosY);
+		m_state.pos.set(windowPosX, windowPosY);
+		
 		int32 windowSizeX, windowSizeY;
 		::glfwGetWindowSize(m_glfwWindow, &windowSizeX, &windowSizeY);
 		m_state.windowSize.set(windowSizeX, windowSizeY);
@@ -75,6 +79,10 @@ namespace s3d
 		{
 			return false;
 		}
+		
+		int32 windowPosX, windowPosY;
+		::glfwGetWindowPos(m_glfwWindow, &windowPosX, &windowPosY);
+		m_state.pos.set(windowPosX, windowPosY);
 		
 		int32 windowSizeX, windowSizeY;
 		::glfwGetWindowSize(m_glfwWindow, &windowSizeX, &windowSizeY);

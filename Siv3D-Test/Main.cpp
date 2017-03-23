@@ -18,9 +18,9 @@ void Main()
 	
 	while (System::Update())
 	{
-		Window::SetTitle(Cursor::ScreenPos());
+		Window::SetTitle(System::GetCurrentMonitorIndex());
 		
-		if(KeyU.down())
+		if(KeyC.down())
 		{
 			Window::Centering();
 		}
