@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\fmt\format.h" />
     <ClInclude Include="..\Siv3D\Include\fmt\ostream.h" />
+    <ClInclude Include="..\Siv3D\Include\hopscotch_map\hopscotch_hash.h" />
+    <ClInclude Include="..\Siv3D\Include\hopscotch_map\hopscotch_map.h" />
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\AlignedAllocator.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\AlignedMemory.hpp" />

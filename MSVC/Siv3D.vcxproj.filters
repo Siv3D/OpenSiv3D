@@ -248,6 +248,9 @@
     <Filter Include="Source\Siv3D\Threading">
       <UniqueIdentifier>{ddc50282-2527-4556-b1f4-7120bda080e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Include\hopscotch_map">
+      <UniqueIdentifier>{98f1b10e-2b4d-4934-9038-30fd425d440b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -969,6 +972,12 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\Threading.hpp">
       <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\hopscotch_map\hopscotch_map.h">
+      <Filter>Include\hopscotch_map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\hopscotch_map\hopscotch_hash.h">
+      <Filter>Include\hopscotch_map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
