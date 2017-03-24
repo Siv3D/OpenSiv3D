@@ -233,16 +233,16 @@
 	# include "Siv3D/Spherical.hpp"
 	//// 3x2 行列
 	//# include "Siv3D/Mat3x2.hpp"
-	//// 線分
-	//# include "Siv3D/Line.hpp"
+	// 線分
+	# include "Siv3D/Line.hpp"
 	// 長方形
 	# include "Siv3D/Rectangle.hpp"
-	//// 円
-	//# include "Siv3D/Circle.hpp"
+	// 円
+	# include "Siv3D/Circle.hpp"
 	//// 楕円
 	//# include "Siv3D/Ellipse.hpp"
-	//// 三角形
-	//# include "Siv3D/Triangle.hpp"
+	// 三角形
+	# include "Siv3D/Triangle.hpp"
 	//// 四角形
 	//# include "Siv3D/Quad.hpp"
 	//// 角丸長方形
@@ -382,6 +382,8 @@
 	//# include "Siv3D/Midi.hpp"
 	//// システム
 	# include "Siv3D/System.hpp"
+	// 接続されているモニタの情報
+	# include "Siv3D/Monitor.hpp"
 	// ウィンドウ
 	# include "Siv3D/Window.hpp"
 	//// メッセージボックス
@@ -457,8 +459,8 @@
 	//# include "Siv3D/ConstantBuffer.hpp"
 	//// 頂点レイアウト
 	//# include "Siv3D/InputLayout.hpp"
-	//// グラフィックス全般
-	//# include "Siv3D/Graphics.hpp"
+	// グラフィックス全般
+	# include "Siv3D/Graphics.hpp"
 	//// スクリーンショット
 	//# include "Siv3D/ScreenCapture.hpp"
 	//// 2D グラフィックス設定
@@ -617,8 +619,8 @@
 	//# include "Siv3D/Serialization.hpp"
 	//// 名前空間の設定
 	//# include "Siv3D/Namespace.hpp"
-	//// GPU の使用
-	//# include "Siv3D/HighPerfoemanceGraphics.hpp"
+	// GPU の使用
+	# include "Siv3D/HighPerfoemanceGPU.hpp"
 
 # ifndef NO_S3D_USING
 

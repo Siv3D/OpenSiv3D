@@ -141,25 +141,25 @@ namespace s3d
 
 		constexpr Vec2 operator /(double s) const noexcept;
 
-		S3D_CONSTEXPR_CPP14 Point& operator +=(const Point& p) noexcept
+		constexpr Point& operator +=(const Point& p) noexcept
 		{
 			x += p.x; y += p.y;
 			return *this;
 		}
 
-		S3D_CONSTEXPR_CPP14 Point& operator -=(const Point& p) noexcept
+		constexpr Point& operator -=(const Point& p) noexcept
 		{
 			x -= p.x; y -= p.y;
 			return *this;
 		}
 
-		S3D_CONSTEXPR_CPP14 Point& operator *=(const int32 s) noexcept
+		constexpr Point& operator *=(const int32 s) noexcept
 		{
 			x *= s; y *= s;
 			return *this;
 		}
 
-		S3D_CONSTEXPR_CPP14 Point& operator /=(const int32 s) noexcept
+		constexpr Point& operator /=(const int32 s) noexcept
 		{
 			assert(s != 0);
 			x /= s; y /= s;
@@ -176,13 +176,13 @@ namespace s3d
 			return x != p.x || y != p.y;
 		}
 
-		S3D_CONSTEXPR_CPP14 Point& set(const int32 _x, const int32 _y) noexcept
+		constexpr Point& set(const int32 _x, const int32 _y) noexcept
 		{
 			x = _x; y = _y;
 			return *this;
 		}
 
-		S3D_CONSTEXPR_CPP14 Point& set(const Point& p) noexcept
+		constexpr Point& set(const Point& p) noexcept
 		{
 			return *this = p;
 		}
@@ -200,13 +200,13 @@ namespace s3d
 		template <class Type>
 		constexpr Vector2D<Type> movedBy(const Vector2D<Type>& v) const noexcept;
 
-		S3D_CONSTEXPR_CPP14 Point& moveBy(int32 _x, int32 _y) noexcept
+		constexpr Point& moveBy(int32 _x, int32 _y) noexcept
 		{
 			x += _x; y += _y;
 			return *this;
 		}
 
-		S3D_CONSTEXPR_CPP14 Point& moveBy(const Point& p) noexcept
+		constexpr Point& moveBy(const Point& p) noexcept
 		{
 			return *this += p;
 		}

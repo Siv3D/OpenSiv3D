@@ -127,7 +127,7 @@ namespace s3d
 			tj,
 			buffer,
 			static_cast<unsigned long>(size),
-			static_cast<unsigned char*>(image.data()),
+			image.dataAsUint8(),
 			image.width(),
 			image.stride(),
 			image.height(),
@@ -162,7 +162,7 @@ namespace s3d
 
 		::tjCompress(
 			tj,
-			const_cast<uint8*>(static_cast<const unsigned char*>(image.data())),
+			const_cast<uint8*>(image.dataAsUint8()),
 			width,
 			width * 4,
 			height,

@@ -1454,7 +1454,26 @@ GLFWAPI GLFWmonitor* glfwGetPrimaryMonitor(void);
  *  @ingroup monitor
  */
 GLFWAPI void glfwGetMonitorPos(GLFWmonitor* monitor, int* xpos, int* ypos);
-
+	
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+GLFWAPI void glfwGetMonitorRect_Siv3D(GLFWmonitor* handle, int* xpos, int* ypos, int* w, int* h);
+	
+# if defined (SIV3D_TARGET_MACOS)
+GLFWAPI void glfwGetMonitorInfo_Siv3D(GLFWmonitor* handle, uint32_t* displayID, uint32_t* unitNumber,
+									  int* xpos, int* ypos, int* w, int* h,
+									  int* wx, int* wy, int* ww, int* wh);
+# elif defined (SIV3D_TARGET_LINUX)
+// Because this function will allocate memory for display name, function caller must free "name".
+GLFWAPI void glfwGetMonitorInfo_Siv3D(GLFWmonitor* handle, uint32_t* displayID, char** name,
+									  int* xpos, int* ypos, int* w, int* h,
+									  int* wx, int* wy, int* ww, int* wh);
+# endif
+//
+//-----------------------------------------------
+		
 /*! @brief Returns the physical size of the monitor.
  *
  *  This function returns the size, in millimetres, of the display area of the

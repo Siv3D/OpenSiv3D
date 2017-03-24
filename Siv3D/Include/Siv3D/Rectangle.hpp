@@ -13,6 +13,7 @@
 # include "Fwd.hpp"
 # include "NamedParameter.hpp"
 # include "PointVector.hpp"
+# include "Line.hpp"
 
 namespace s3d
 {
@@ -26,12 +27,25 @@ namespace s3d
 
 		using size_type = SizeType;
 
-		using value_type = typename SizeType::value_type;
+		using value_type = typename size_type::value_type;
 		
 		S3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
 		
         union
 		{
+			struct
+			{
+				/// <summary>
+				/// 長方形の左上の点の位置
+				/// </summary>
+				position_type pos;
+
+				/// <summary>
+				/// 長方形のサイズ
+				/// </summary>
+				size_type size;
+			};
+
 			struct
 			{
 				/// <summary>
@@ -54,19 +68,6 @@ namespace s3d
 				/// </summary>
 				value_type h;
 			};
-
-			struct
-			{
-				/// <summary>
-				/// 長方形の左上の点の位置
-				/// </summary>
-				position_type pos;
-
-				/// <summary>
-				/// 長方形のサイズ
-				/// </summary>
-				size_type size;
-			};
 		};
 
 		S3D_DISABLE_MSVC_WARNINGS_POP()
@@ -83,10 +84,8 @@ namespace s3d
 		/// 長方形の幅と高さ
 		/// </param>
 		explicit constexpr Rectangle(value_type _size) noexcept
-			: x(0)
-			, y(0)
-			, w(_size)
-			, h(_size) {}
+			: pos(0, 0)
+			, size(_size, _size) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -98,10 +97,8 @@ namespace s3d
 		/// 長方形の高さ
 		/// </param>
 		constexpr Rectangle(value_type _w, value_type _h) noexcept
-			: x(0)
-			, y(0)
-			, w(_w)
-			, h(_h) {}
+			: pos(0, 0)
+			, size(_w, _h) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -110,10 +107,8 @@ namespace s3d
 		/// 長方形の大きさ
 		/// </param>
 		explicit constexpr Rectangle(size_type _size) noexcept
-			: x(0)
-			, y(0)
-			, w(_size.x)
-			, h(_size.y) {}
+			: pos(0, 0)
+			, size(_size) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -131,10 +126,8 @@ namespace s3d
 		/// 長方形の高さ
 		/// </param>
 		constexpr Rectangle(value_type _x, value_type _y, value_type _w, value_type _h) noexcept
-			: x(_x)
-			, y(_y)
-			, w(_w)
-			, h(_h) {}
+			: pos(_x, _y)
+			, size(_w, _h) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -149,10 +142,8 @@ namespace s3d
 		/// 長方形の縦横の大きさ
 		/// </param>
 		constexpr Rectangle(value_type _x, value_type _y, value_type _size) noexcept
-			: x(_x)
-			, y(_y)
-			, w(_size)
-			, h(_size) {}
+			: pos(_x, _y)
+			, size(_size, _size) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -167,10 +158,8 @@ namespace s3d
 		/// 長方形の大きさ
 		/// </param>
 		constexpr Rectangle(value_type _x, value_type _y, size_type _size) noexcept
-			: x(_x)
-			, y(_y)
-			, w(_size.x)
-			, h(_size.y) {}
+			: pos(_x, _y)
+			, size(_size) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -182,10 +171,8 @@ namespace s3d
 		/// 長方形の大きさ
 		/// </param>
 		constexpr Rectangle(position_type _pos, value_type _size) noexcept
-			: x(_pos.x)
-			, y(_pos.y)
-			, w(_size)
-			, h(_size) {}
+			: pos(_pos)
+			, size(_size, _size) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -200,10 +187,8 @@ namespace s3d
 		/// 長方形の高さ
 		/// </param>
 		constexpr Rectangle(position_type _pos, value_type _w, value_type _h) noexcept
-			: x(_pos.x)
-			, y(_pos.y)
-			, w(_w)
-			, h(_h) {}
+			: pos(_pos)
+			, size(_w, _h) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -215,10 +200,8 @@ namespace s3d
 		/// 長方形の大きさ
 		/// </param>
 		constexpr Rectangle(position_type _pos, size_type _size) noexcept
-			: x(_pos.x)
-			, y(_pos.y)
-			, w(_size.x)
-			, h(_size.y) {}
+			: pos(_pos)
+			, size(_size) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -228,10 +211,8 @@ namespace s3d
 		/// </param>
 		template <class Type>
 		constexpr Rectangle(const Rectangle<Type>& r) noexcept
-			: x(static_cast<value_type>(r.x))
-			, y(static_cast<value_type>(r.y))
-			, w(static_cast<value_type>(r.w))
-			, h(static_cast<value_type>(r.h)) {}
+			: pos(static_cast<value_type>(r.x), static_cast<value_type>(r.y))
+			, size(static_cast<value_type>(r.w), static_cast<value_type>(r.h)) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -243,10 +224,8 @@ namespace s3d
 		/// 長方形の大きさ
 		/// </param>
 		constexpr Rectangle(Arg::center_<position_type> _center, value_type _size) noexcept
-			: x(_center->x - _size / 2)
-			, y(_center->y - _size / 2)
-			, w(_size)
-			, h(_size) {}
+			: pos(_center->x - _size / 2, _center->y - _size / 2)
+			, size(_size, _size) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -261,10 +240,8 @@ namespace s3d
 		/// 長方形の高さ
 		/// </param>
 		constexpr Rectangle(Arg::center_<position_type> _center, value_type _w, value_type _h) noexcept
-			: x(_center->x - _w / 2)
-			, y(_center->y - _h / 2)
-			, w(_w)
-			, h(_h) {}
+			: pos(_center->x - _w / 2, _center->y - _h / 2)
+			, size(_w, _h) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -276,10 +253,8 @@ namespace s3d
 		/// 長方形の大きさ
 		/// </param>
 		constexpr Rectangle(Arg::center_<position_type> _center, size_type _size) noexcept
-			: x(_center->x - _size.x / 2)
-			, y(_center->y - _size.y / 2)
-			, w(_size.x)
-			, h(_size.y) {}
+			: pos(_center->x - _size.x / 2, _center->y - _size.y / 2)
+			, size(_size.x, _size.y) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -291,10 +266,8 @@ namespace s3d
 		/// 長方形の大きさ
 		/// </param>
 		constexpr Rectangle(Arg::topLeft_<position_type> topLeft, value_type _size) noexcept
-			: x(topLeft->x)
-			, y(topLeft->y)
-			, w(_size)
-			, h(_size) {}
+			: pos(topLeft->x, topLeft->y)
+			, size(_size, _size) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -309,10 +282,8 @@ namespace s3d
 		/// 長方形の高さ
 		/// </param>
 		constexpr Rectangle(Arg::topLeft_<position_type> topLeft, value_type _w, value_type _h) noexcept
-			: x(topLeft->x)
-			, y(topLeft->y)
-			, w(_w)
-			, h(_h) {}
+			: pos(topLeft->x, topLeft->y)
+			, size(_w, _h) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -324,10 +295,8 @@ namespace s3d
 		/// 長方形の大きさ
 		/// </param>
 		constexpr Rectangle(Arg::topLeft_<position_type> topLeft, size_type _size) noexcept
-			: x(topLeft->x)
-			, y(topLeft->y)
-			, w(_size.x)
-			, h(_size.y) {}
+			: pos(topLeft->x, topLeft->y)
+			, size(_size.x, _size.y) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -339,10 +308,8 @@ namespace s3d
 		/// 長方形の大きさ
 		/// </param>
 		constexpr Rectangle(Arg::topRight_<position_type> topRight, value_type _size) noexcept
-			: x(topRight->x - _size)
-			, y(topRight->y)
-			, w(_size)
-			, h(_size) {}
+			: pos(topRight->x - _size, topRight->y)
+			, size(_size, _size) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -357,10 +324,8 @@ namespace s3d
 		/// 長方形の高さ
 		/// </param>
 		constexpr Rectangle(Arg::topRight_<position_type> topRight, value_type _w, value_type _h) noexcept
-			: x(topRight->x - _w)
-			, y(topRight->y)
-			, w(_w)
-			, h(_h) {}
+			: pos(topRight->x - _w, topRight->y)
+			, size(_w, _h) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -372,10 +337,8 @@ namespace s3d
 		/// 長方形の大きさ
 		/// </param>
 		constexpr Rectangle(Arg::topRight_<position_type> topRight, size_type _size) noexcept
-			: x(topRight->x - _size.x)
-			, y(topRight->y)
-			, w(_size.x)
-			, h(_size.y) {}
+			: pos(topRight->x - _size.x, topRight->y)
+			, size(_size.x, _size.y) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -387,10 +350,8 @@ namespace s3d
 		/// 長方形の大きさ
 		/// </param>
 		constexpr Rectangle(Arg::bottomLeft_<position_type> bottomLeft, value_type _size) noexcept
-			: x(bottomLeft->x)
-			, y(bottomLeft->y - _size)
-			, w(_size)
-			, h(_size) {}
+			: pos(bottomLeft->x, bottomLeft->y - _size)
+			, size(_size, _size) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -405,10 +366,8 @@ namespace s3d
 		/// 長方形の高さ
 		/// </param>
 		constexpr Rectangle(Arg::bottomLeft_<position_type> bottomLeft, value_type _w, value_type _h) noexcept
-			: x(bottomLeft->x)
-			, y(bottomLeft->y - _h)
-			, w(_w)
-			, h(_h) {}
+			: pos(bottomLeft->x, bottomLeft->y - _h)
+			, size(_w, _h) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -420,10 +379,8 @@ namespace s3d
 		/// 長方形の大きさ
 		/// </param>
 		constexpr Rectangle(Arg::bottomLeft_<position_type> bottomLeft, size_type _size) noexcept
-			: x(bottomLeft->x)
-			, y(bottomLeft->y - _size.y)
-			, w(_size.x)
-			, h(_size.y) {}
+			: pos(bottomLeft->x, bottomLeft->y - _size.y)
+			, size(_size.x, _size.y) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -435,10 +392,8 @@ namespace s3d
 		/// 長方形の大きさ
 		/// </param>
 		constexpr Rectangle(Arg::bottomRight_<position_type> bottomRight, value_type _size) noexcept
-			: x(bottomRight->x - _size)
-			, y(bottomRight->y - _size)
-			, w(_size)
-			, h(_size) {}
+			: pos(bottomRight->x - _size, bottomRight->y - _size)
+			, size(_size, _size) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -453,10 +408,8 @@ namespace s3d
 		/// 長方形の高さ
 		/// </param>
 		constexpr Rectangle(Arg::bottomRight_<position_type> bottomRight, value_type _w, value_type _h) noexcept
-			: x(bottomRight->x - _w)
-			, y(bottomRight->y - _h)
-			, w(_w)
-			, h(_h) {}
+			: pos(bottomRight->x - _w, bottomRight->y - _h)
+			, size(_w, _h) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -468,20 +421,18 @@ namespace s3d
 		/// 長方形の大きさ
 		/// </param>
 		constexpr Rectangle(Arg::bottomRight_<position_type> bottomRight, size_type _size) noexcept
-			: x(bottomRight->x - _size.x)
-			, y(bottomRight->y - _size.y)
-			, w(_size.x)
-			, h(_size.y) {}
+			: pos(bottomRight->x - _size.x, bottomRight->y - _size.y)
+			, size(_size.x, _size.y) {}
 
-		constexpr bool operator ==(const Rectangle& r) const noexcept
+		constexpr bool operator ==(const Rectangle& rect) const noexcept
 		{
-			return pos == r.pos
-				&& size == r.size;
+			return pos == rect.pos
+				&& size == rect.size;
 		}
 
-		constexpr bool operator !=(const Rectangle& r) const noexcept
+		constexpr bool operator !=(const Rectangle& rect) const noexcept
 		{
-			return !(*this == r);
+			return !(*this == rect);
 		}
 
 		/// <summary>
@@ -496,7 +447,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setPos(value_type _x, value_type _y)
+		constexpr Rectangle& setPos(value_type _x, value_type _y) noexcept
 		{
 			pos.set(_x, _y);
 			return *this;
@@ -511,7 +462,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setPos(const position_type& _pos)
+		constexpr Rectangle& setPos(const position_type& _pos) noexcept
 		{
 			return setPos(_pos.x, _pos.y);
 		}
@@ -525,7 +476,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setPos(Arg::center_<position_type> _center)
+		constexpr Rectangle& setPos(Arg::center_<position_type> _center) noexcept
 		{
 			return setCenter(_center.value());
 		}
@@ -539,7 +490,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setPos(Arg::topLeft_<position_type> topLeft)
+		constexpr Rectangle& setPos(Arg::topLeft_<position_type> topLeft) noexcept
 		{
 			return setPos(topLeft.value());
 		}
@@ -553,10 +504,9 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setPos(Arg::topRight_<position_type> topRight)
+		constexpr Rectangle& setPos(Arg::topRight_<position_type> topRight) noexcept
 		{
-			x = topRight->x - w;
-			y = topRight->y;
+			pos.set(topRight->x - w, topRight->y);
 			return *this;
 		}
 
@@ -569,10 +519,9 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setPos(Arg::bottomLeft_<position_type> bottomLeft)
+		constexpr Rectangle& setPos(Arg::bottomLeft_<position_type> bottomLeft) noexcept
 		{
-			x = bottomLeft->x;
-			y = bottomLeft->y - h;
+			pos.set(bottomLeft->x, bottomLeft->y - h);
 			return *this;
 		}
 
@@ -585,10 +534,9 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setPos(Arg::bottomRight_<position_type> bottomRight)
+		constexpr Rectangle& setPos(Arg::bottomRight_<position_type> bottomRight) noexcept
 		{
-			x = bottomRight->x - w;
-			y = bottomRight->y - h;
+			pos.set(bottomRight->x - w, bottomRight->y - h);
 			return *this;
 		}
 	
@@ -604,7 +552,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setCenter(value_type _x, value_type _y)
+		constexpr Rectangle& setCenter(value_type _x, value_type _y) noexcept
 		{
 			pos.set(_x - w / 2, _y - h / 2);
 			return *this;
@@ -619,7 +567,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setCenter(const position_type& _pos)
+		constexpr Rectangle& setCenter(const position_type& _pos) noexcept
 		{
 			return setCenter(_pos.x, _pos.y);
 		}
@@ -636,7 +584,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setSize(value_type _w, value_type _h)
+		constexpr Rectangle& setSize(value_type _w, value_type _h) noexcept
 		{
 			size.set(_w, _h);
 			return *this;
@@ -651,7 +599,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& setSize(const size_type& _size)
+		constexpr Rectangle& setSize(const size_type& _size) noexcept
 		{
 			return setSize(_size.x, _size.y);
 		}
@@ -677,12 +625,10 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(value_type _x, value_type _y, value_type _w, value_type _h) noexcept
+		constexpr Rectangle& set(value_type _x, value_type _y, value_type _w, value_type _h) noexcept
 		{
-			x = _x;
-			y = _y;
-			w = _w;
-			h = _h;
+			pos.set(_x, _y);
+			size.set(_w, _h);
 			return *this;
 		}
 
@@ -701,7 +647,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(value_type _x, value_type _y, value_type _size) noexcept
+		constexpr Rectangle& set(value_type _x, value_type _y, value_type _size) noexcept
 		{
 			return set(_x, _y, _size, _size);
 		}
@@ -721,7 +667,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(value_type _x, value_type _y, size_type _size) noexcept
+		constexpr Rectangle& set(value_type _x, value_type _y, size_type _size) noexcept
 		{
 			return set(_x, _y, _size.x, _size.y);
 		}
@@ -738,7 +684,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(position_type _pos, value_type _size) noexcept
+		constexpr Rectangle& set(position_type _pos, value_type _size) noexcept
 		{
 			return set(_pos.x, _pos.y, _size, _size);
 		}
@@ -758,7 +704,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(position_type _pos, value_type _w, value_type _h) noexcept
+		constexpr Rectangle& set(position_type _pos, value_type _w, value_type _h) noexcept
 		{
 			return set(_pos.x, _pos.y, _w, _h);
 		}
@@ -775,7 +721,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(position_type _pos, size_type _size) noexcept
+		constexpr Rectangle& set(position_type _pos, size_type _size) noexcept
 		{
 			return set(_pos.x, _pos.y, _size.x, _size.y);
 		}
@@ -790,7 +736,7 @@ namespace s3d
 		/// *this
 		/// </returns>
 		template <class Type>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(const Rectangle<Type>& r) noexcept
+		constexpr Rectangle& set(const Rectangle<Type>& r) noexcept
 		{
 			return set(static_cast<value_type>(r.x), static_cast<value_type>(r.y),
 				static_cast<value_type>(r.w), static_cast<value_type>(r.h));
@@ -808,7 +754,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::center_<position_type> _center, value_type _size) noexcept
+		constexpr Rectangle& set(Arg::center_<position_type> _center, value_type _size) noexcept
 		{
 			return set(_center->x - _size / 2, _center->y - _size / 2, _size, _size);
 		}
@@ -828,7 +774,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::center_<position_type> _center, value_type _w, value_type _h) noexcept
+		constexpr Rectangle& set(Arg::center_<position_type> _center, value_type _w, value_type _h) noexcept
 		{
 			return set(_center->x - _w / 2, _center->y - _h / 2, _w, _h);
 		}
@@ -845,7 +791,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::center_<position_type> _center, size_type _size) noexcept
+		constexpr Rectangle& set(Arg::center_<position_type> _center, size_type _size) noexcept
 		{
 			return set(_center->x - _size.x / 2, _center->y - _size.y / 2, _size.x, _size.y);
 		}
@@ -862,7 +808,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::topLeft_<position_type> topLeft, value_type _size) noexcept
+		constexpr Rectangle& set(Arg::topLeft_<position_type> topLeft, value_type _size) noexcept
 		{
 			return set(topLeft->x, topLeft->y, _size, _size);
 		}
@@ -882,7 +828,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::topLeft_<position_type> topLeft, value_type _w, value_type _h) noexcept
+		constexpr Rectangle& set(Arg::topLeft_<position_type> topLeft, value_type _w, value_type _h) noexcept
 		{
 			return set(topLeft->x, topLeft->y, _w, _h);
 		}
@@ -899,7 +845,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::topLeft_<position_type> topLeft, size_type _size) noexcept
+		constexpr Rectangle& set(Arg::topLeft_<position_type> topLeft, size_type _size) noexcept
 		{
 			return set(topLeft->x, topLeft->y, _size.x, _size.y);
 		}
@@ -916,7 +862,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::topRight_<position_type> topRight, value_type _size) noexcept
+		constexpr Rectangle& set(Arg::topRight_<position_type> topRight, value_type _size) noexcept
 		{
 			return set(topRight->x - _size, topRight->y, _size, _size);
 		}
@@ -936,7 +882,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::topRight_<position_type> topRight, value_type _w, value_type _h) noexcept
+		constexpr Rectangle& set(Arg::topRight_<position_type> topRight, value_type _w, value_type _h) noexcept
 		{
 			return set(topRight->x - _w, topRight->y, _w, _h);
 		}
@@ -953,7 +899,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::topRight_<position_type> topRight, size_type _size) noexcept
+		constexpr Rectangle& set(Arg::topRight_<position_type> topRight, size_type _size) noexcept
 		{
 			return set(topRight->x - _size.x, topRight->y, _size.x, _size.y);
 		}
@@ -970,7 +916,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::bottomLeft_<position_type> bottomLeft, value_type _size) noexcept
+		constexpr Rectangle& set(Arg::bottomLeft_<position_type> bottomLeft, value_type _size) noexcept
 		{
 			return set(bottomLeft->x, bottomLeft->y - _size, _size, _size);
 		}
@@ -990,7 +936,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::bottomLeft_<position_type> bottomLeft, value_type _w, value_type _h) noexcept
+		constexpr Rectangle& set(Arg::bottomLeft_<position_type> bottomLeft, value_type _w, value_type _h) noexcept
 		{
 			return set(bottomLeft->x, bottomLeft->y - _h, _w, _h);
 		}
@@ -1007,7 +953,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::bottomLeft_<position_type> bottomLeft, size_type _size) noexcept
+		constexpr Rectangle& set(Arg::bottomLeft_<position_type> bottomLeft, size_type _size) noexcept
 		{
 			return set(bottomLeft->x, bottomLeft->y - _size.y, _size.x, _size.y);
 		}
@@ -1024,7 +970,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::bottomRight_<position_type> bottomRight, value_type _size) noexcept
+		constexpr Rectangle& set(Arg::bottomRight_<position_type> bottomRight, value_type _size) noexcept
 		{
 			return set(bottomRight->x - _size, bottomRight->y - _size, _size, _size);
 		}
@@ -1044,7 +990,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::bottomRight_<position_type> bottomRight, value_type _w, value_type _h) noexcept
+		constexpr Rectangle& set(Arg::bottomRight_<position_type> bottomRight, value_type _w, value_type _h) noexcept
 		{
 			return set(bottomRight->x - _w, bottomRight->y - _h, _w, _h);
 		}
@@ -1061,7 +1007,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& set(Arg::bottomRight_<position_type> bottomRight, size_type _size) noexcept
+		constexpr Rectangle& set(Arg::bottomRight_<position_type> bottomRight, size_type _size) noexcept
 		{
 			return set(bottomRight->x - _size.x, bottomRight->y - _size.y, _size.x, _size.y);
 		}
@@ -1094,7 +1040,7 @@ namespace s3d
 		/// </returns>
 		constexpr Rectangle movedBy(const size_type& v) const noexcept
 		{
-			return{ pos.movedBy(v), size };
+			return movedBy(v.x, v.y);
 		}
 
 		/// <summary>
@@ -1109,7 +1055,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& moveBy(value_type _x, value_type _y) noexcept
+		constexpr Rectangle& moveBy(value_type _x, value_type _y) noexcept
 		{
 			pos.moveBy(_x, _y);
 			return *this;
@@ -1124,10 +1070,9 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		S3D_CONSTEXPR_CPP14 Rectangle& moveBy(const size_type& v) noexcept
+		constexpr Rectangle& moveBy(const size_type& v) noexcept
 		{
-			pos.moveBy(v);
-			return *this;
+			return moveBy(v.x, v.y);
 		}
 
 		/// <summary>
@@ -1243,16 +1188,6 @@ namespace s3d
 			return scaledAt(_pos.x, _pos.y, s.x, s.y);
 		}
 
-		constexpr Rectangle operator +(const size_type& v) const noexcept
-		{
-			return movedBy(v);
-		}
-
-		constexpr Rectangle operator -(const size_type& v) const noexcept
-		{
-			return movedBy(-v);
-		}
-
 		constexpr size_type tl() const noexcept
 		{
 			return pos;
@@ -1273,17 +1208,30 @@ namespace s3d
 			return{ x + w, y + h };
 		}
 
-		constexpr size_type center() const noexcept
-		{
-			return{ x + w / 2, y + h / 2 };
-		}
-
-		constexpr Vec2 centerF() const noexcept
+		constexpr Vec2 center() const noexcept
 		{
 			return{ x + w * 0.5, y + h * 0.5 };
 		}
 
-		// top() right() bottom() left()
+		constexpr Line top() const noexcept
+		{
+			return{ tl(), tr() };
+		}
+
+		constexpr Line right() const noexcept
+		{
+			return{ tr(), br() };
+		}
+
+		constexpr Line bottom() const noexcept
+		{
+			return{ br(), bl() };
+		}
+
+		constexpr Line left() const noexcept
+		{
+			return{ bl(), tl() };
+		}
 
 		/// <summary>
 		/// 長方形の面積を返します。
@@ -1291,7 +1239,7 @@ namespace s3d
 		/// <returns>
 		/// 長方形の面積
 		/// </returns>
-		constexpr value_type area() const
+		constexpr value_type area() const noexcept
 		{
 			return w * h;
 		}
@@ -1302,7 +1250,7 @@ namespace s3d
 		/// <returns>
 		/// 長方形の周の長さ
 		/// </returns>
-		constexpr value_type perimeter() const
+		constexpr value_type perimeter() const noexcept
 		{
 			return (w + h) * 2;
 		}
@@ -1422,8 +1370,8 @@ namespace s3d
 
 namespace fmt
 {
-	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::Rect& rect)
+	template <class ArgFormatter, class SizeType>
+	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::Rectangle<SizeType>& rect)
 	{
 		const auto tag = s3d::detail::GetTag(format_str);
 

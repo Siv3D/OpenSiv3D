@@ -289,13 +289,13 @@ TEST(AlignedMemory, HasAlignment)
 TEST(AlignedMemory, MakeUnique)
 {
 	{
-		auto p = MakeUnique<uint8>(0);
+		auto p = MakeUnique<uint8>(uint8(0));
 		EXPECT_NE(p.get(), nullptr);
 		EXPECT_TRUE(IsAligned(p.get(), 1));
 	}
 	
 	{
-		auto p = MakeUnique<uint16>(0);
+		auto p = MakeUnique<uint16>(uint16(0));
 		EXPECT_NE(p.get(), nullptr);
 		EXPECT_TRUE(IsAligned(p.get(), 2));
 	}
@@ -346,13 +346,13 @@ TEST(AlignedMemory, MakeUnique)
 TEST(AlignedMemory, MakeShared)
 {
 	{
-		auto p = MakeShared<uint8>(0);
+		auto p = MakeShared<uint8>(uint8(0));
 		EXPECT_NE(p.get(), nullptr);
 		EXPECT_TRUE(IsAligned(p.get(), 1));
 	}
 	
 	{
-		auto p = MakeShared<uint16>(0);
+		auto p = MakeShared<uint16>(uint16(0));
 		EXPECT_NE(p.get(), nullptr);
 		EXPECT_TRUE(IsAligned(p.get(), 2));
 	}

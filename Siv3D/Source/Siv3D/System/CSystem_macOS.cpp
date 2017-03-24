@@ -21,6 +21,7 @@
 # include "../Cursor/ICursor.hpp"
 # include "../Keyboard/IKeyboard.hpp"
 # include "../Mouse/IMouse.hpp"
+# include "../Graphics/IGraphics.hpp"
 
 namespace s3d
 {
@@ -76,6 +77,13 @@ namespace s3d
 			return false;
 		}
 
+		if (!Siv3DEngine::GetGraphics()->init())
+		{
+			return false;
+		}
+		
+		Siv3DEngine::GetGraphics()->clear();
+
 		return true;
 	}
 
@@ -93,13 +101,15 @@ namespace s3d
 			return false;
 		}
 
+		Siv3DEngine::GetGraphics()->present();
+
 		if (!Siv3DEngine::GetWindow()->update())
 		{
 			return false;
 		}
-
-		System::Sleep(MillisecondsF(16.66));
-
+		
+		Siv3DEngine::GetGraphics()->clear();
+		
 		if (!Siv3DEngine::GetDragDrop()->update())
 		{
 			return false;

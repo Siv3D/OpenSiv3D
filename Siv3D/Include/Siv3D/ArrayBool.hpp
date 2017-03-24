@@ -139,6 +139,17 @@ namespace s3d
 			return empty();
 		}
 
+		/// <summary>
+		/// 配列に要素が含まれているかを返します。
+		/// </summary>
+		/// <returns>
+		/// 配列に要素が含まれている場合 true, それ以外の場合は false
+		/// </returns>
+		explicit operator bool() const noexcept
+		{
+			return !empty();
+		}
+
 		void release()
 		{
 			clear();
@@ -235,6 +246,23 @@ namespace s3d
 			result.reserve(std::min(n, size()));
 
 			Sample(begin(), end(), std::back_inserter(result), n, std::forward<URBG>(rbg));
+
+			return result;
+		}
+
+		Array<Array<bool>, std::allocator<Array<bool>>> chunk(const size_t n) const
+		{
+			Array<Array<bool>, std::allocator<Array<bool>>> result;
+
+			if (n == 0)
+			{
+				return result;
+			}
+
+			for (size_t i = 0; i < (size() + n - 1) / n; ++i)
+			{
+				result.push_back(slice(i * n, n));
+			}
 
 			return result;
 		}
@@ -365,6 +393,31 @@ namespace s3d
 			}
 
 			return new_array;
+		}
+
+		Array<Array<bool>, std::allocator<Array<bool>>> in_groups(const size_t group) const
+		{
+			Array<Array<bool>, std::allocator<Array<bool>>> result;
+
+			if (group == 0)
+			{
+				return result;
+			}
+
+			const size_t div = size() / group;
+			const size_t mod = size() % group;
+			size_t index = 0;
+
+			for (size_t i = 0; i < group; ++i)
+			{
+				const size_t length = div + (mod > 0 && mod > index);
+
+				result.push_back(slice(index, length));
+
+				index += length;
+			}
+
+			return result;
 		}
 
 		bool include(const bool& value) const

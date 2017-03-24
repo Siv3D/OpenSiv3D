@@ -38,5 +38,7 @@ namespace s3d
 		virtual bool save(const Image& image, ImageFormat format, const FilePath& path) const = 0;
 
 		//virtual ByteArray encode(const Image& image, ImageFormat format);
+
+		virtual bool encodeJPEG(IWriter& writer, const Image& image, int32 quality) const = 0;
 	};
 }

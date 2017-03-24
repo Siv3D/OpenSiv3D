@@ -1108,6 +1108,14 @@ namespace s3d
 		bool isEmpty() const noexcept { return m_string.empty(); }
 
 		/// <summary>
+		/// 文字列に要素が含まれているかを示します。
+		/// </summary>
+		explicit operator bool() const noexcept
+		{
+			return !m_string.empty();
+		}
+
+		/// <summary>
 		/// メモリ上に確保可能な最大の文字列の長さを示します。
 		/// </summary>
 		size_t maxSize() const noexcept { return m_string.max_size(); }

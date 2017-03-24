@@ -16,6 +16,15 @@
 
 namespace s3d
 {
+	enum class ShowState
+	{
+		Normal,
+
+		Minimized,
+
+		Maximized,
+	};
+
 	/// <summary>
 	/// ウィンドウの状態
 	/// </summary>
@@ -32,11 +41,6 @@ namespace s3d
 		Size windowSize;
 
 		/// <summary>
-		/// スクリーンの幅と高さ
-		/// </summary>
-		Size screenSize;
-
-		/// <summary>
 		/// ウィンドウの左上の位置
 		/// </summary>
 		Point pos;
@@ -44,27 +48,25 @@ namespace s3d
 		/// <summary>
 		/// ウィンドウの枠線の幅と高さ
 		/// </summary>
+		// [x] Windows | [ ] macOS | [ ] Linux
 		Size frameSize;
 
 		/// <summary>
 		/// ウィンドウのタイトルバーの高さ
 		/// </summary>
+		// [x] Windows | [ ] macOS | [ ] Linux
 		int32 titleBarHeight;
-
-		/// <summary>
-		/// スクリーンのタスクバーの矩形範囲
-		/// </summary>
-		Rect taskbarRect;
-
-		/// <summary>
-		/// スクリーンのタスクバーの位置（下: 0 左: 1 上: 2 右: 3)
-		/// </summary>
-		int32 taskbarPos;
 
 		/// <summary>
 		/// ウィンドウのタイトル
 		/// </summary>
 		String title;
+
+		// [x] Windows | [ ] macOS | [ ] Linux
+		ShowState showState;
+
+		// [x] Windows | [ ] macOS | [ ] Linux
+		bool focused;
 	};
 
 	namespace Window
@@ -78,5 +80,13 @@ namespace s3d
 		{
 			SetTitle(Format(args...));
 		}
+		
+		const WindowState& GetState();
+
+		// [x] Windows | [x] macOS | [ ] Linux
+		void SetPos(const Point& pos);
+
+		// [x] Windows | [ ] macOS | [ ] Linux
+		void Centering();
 	}
 }

@@ -6,7 +6,7 @@
 |:---------------:|:---------------:|:-------------:|:------------------------------|
 | Windows Desktop | <a href="https://github.com/Siv3D/OpenSiv3D/wiki/OpenSiv3D-SDK-for-Windows-Desktop">**0.0.7**.716</a>     | 1 March 2017 | Windows 7 SP1 / 8.1 / 10<br>Microsoft Visual C++ 2015 Update 3 |
 | macOS           | <a href="https://github.com/Siv3D/OpenSiv3D/wiki/OpenSiv3D-SDK-for-macOS">**0.0.7**.716</a>     | 1 March 2017 | macOS Sierra v10.12 or newer<br>Xcode 8.1 or newer |
-| Linux           | <a href="https://github.com/wynd2608/OpenSiv3D">**0.0.6**</a> (unofficial)  |               | |
+| Linux           | <a href="https://github.com/wynd2608/OpenSiv3D">**0.0.7**.716</a> (unofficial)  |               | |
 | Universal Windows Platform | TBA  |               | Windows 10<br>Microsoft Visual C++ 2015 Update 3 or newer |
 
 ## Roadmap ##
@@ -91,12 +91,39 @@
 ---------------------------
 
 #### 0.0.8
-- [ ] Linux Support
-- [ ] Circle
-- [ ] Line
+- [x] VS2017 Support
+- [x] Monitor
+- [x] Graphics::SetBackground()
+- [x] Graphics::EnumOutputs()
+- [x] Graphics::SetFullScreen()
+- [x] Window::SetPos()
+- [x] Window::Centering()
+- [x] Guetzli
+- [x] Butteraugli
+- [x] Line
+- [x] Circle
 - [ ] Triangle
 - [ ] Math (Partial)
-- [ ] Graphics (Partial)
+- [ ] Linux Support
+
+---------------------------
+
+#### 0.0.9
+- [ ] Log
+- [ ] Clipboard
+- [ ] MessageBox
+- [ ] CommandLine
+- [ ] GIF
+- [ ] GIA Animation
+- [ ] Cursor::SetPos()
+- [ ] Cursor::OnClient()
+- [ ] Cursor::Clip()
+- [ ] UID
+- [ ] TextureFormat (Partial)
+- [ ] Point::paint() / overpaint()
+- [ ] Profiler::FPS()
+- [ ] Graphics::EnableVSync()
+- [ ] Resource files
 
 ## Discussion ##
  [Siv3D Slack #open-siv3d](https://siv3d.slack.com/messages/open-siv3d/details/)  (Japanese)
