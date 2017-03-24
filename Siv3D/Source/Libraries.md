@@ -6,7 +6,7 @@
 - fmt 3.0.1 https://github.com/fmtlib/fmt/releases
 - GLWF 3.2.1 http://www.glfw.org
 - Guetzli v1.0 https://github.com/google/guetzli/releases
-- hopscotch-map v1.1.0 https://github.com/Tessil/hopscotch-map/releases
+- hopscotch-map v1.3.0 https://github.com/Tessil/hopscotch-map/releases
 - LineSegmentIntersection https://www.codeproject.com/Tips/862988/Find-the-Intersection-Point-of-Two-Line-Segments
 - miniutf https://github.com/dropbox/miniutf
 - muparser V2.2.5 https://github.com/beltoforion/muparser/releases
