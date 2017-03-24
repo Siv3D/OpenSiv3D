@@ -6,7 +6,7 @@
 |:---------------:|:---------------:|:-------------:|:------------------------------|
 | Windows Desktop | <a href="https://github.com/Siv3D/OpenSiv3D/wiki/OpenSiv3D-SDK-for-Windows-Desktop">**0.0.7**.716</a>     | 1 March 2017 | Windows 7 SP1 / 8.1 / 10<br>Microsoft Visual C++ 2015 Update 3 |
 | macOS           | <a href="https://github.com/Siv3D/OpenSiv3D/wiki/OpenSiv3D-SDK-for-macOS">**0.0.7**.716</a>     | 1 March 2017 | macOS Sierra v10.12 or newer<br>Xcode 8.1 or newer |
-| Linux           | <a href="https://github.com/wynd2608/OpenSiv3D">**0.0.6**</a> (unofficial)  |               | |
+| Linux           | <a href="https://github.com/wynd2608/OpenSiv3D">**0.0.7**.716</a> (unofficial)  |               | |
 | Universal Windows Platform | TBA  |               | Windows 10<br>Microsoft Visual C++ 2015 Update 3 or newer |
 
 ## Roadmap ##

@@ -25,11 +25,26 @@
 //
 //========================================================================
 
+//-----------------------------------------------
+//
+//     [Siv3D]
+//
+//     This file is modified for the Siv3D Engine.
+//
+//     Copyright (C) 2008-2017 Ryo Suzuki
+//     Copyright (C) 2016-2017 OpenSiv3D Project
+//
+//-----------------------------------------------
+
 #include "internal.h"
 
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
+
+#if defined (SIV3D_TARGET_LINUX)
+#include <assert.h>
+#endif
 
 
 // Check whether the display mode should be included in enumeration
@@ -330,6 +345,96 @@ void _glfwPlatformGetMonitorPos(_GLFWmonitor* monitor, int* xpos, int* ypos)
         XRRFreeScreenResources(sr);
     }
 }
+
+//-----------------------------------------------
+//
+//     [Siv3D]
+//
+#include <X11/extensions/render.h>
+#include <X11/extensions/render.h>
+#include <X11/extensions/render.h>
+
+GLFWAPI void glfwGetMonitorRect_Siv3D(GLFWmonitor* handle, int* xpos, int* ypos, int* w, int* h)
+{
+	_GLFWmonitor* monitor = (_GLFWmonitor*) handle;
+	assert(monitor != NULL);
+
+	_GLFW_REQUIRE_INIT();
+
+	XRRScreenResources* sr;
+	XRRCrtcInfo* ci;
+
+	sr = XRRGetScreenResourcesCurrent(_glfw.x11.display, _glfw.x11.root);
+	ci = XRRGetCrtcInfo(_glfw.x11.display, sr, monitor->x11.crtc);
+
+	if (xpos)
+		*xpos = (int) ci->x;
+	if (ypos)
+		*ypos = (int) ci->y;
+	if (w)
+		*w = (int) ci->width;
+	if (h)
+		*h = (int) ci->height;
+
+	XRRFreeCrtcInfo(ci);
+	XRRFreeScreenResources(sr);
+}
+
+GLFWAPI void glfwGetMonitorInfo_Siv3D(GLFWmonitor* handle, uint32_t* displayID, char** name,
+                                                                         int* xpos, int* ypos, int* w, int* h,
+                                                                         int* wx, int* wy, int* ww, int* wh)
+{
+   _GLFWmonitor* monitor = (_GLFWmonitor*) handle;
+   assert(monitor != NULL);
+
+   _GLFW_REQUIRE_INIT();
+
+	XRRScreenResources* sr;
+	XRRCrtcInfo* ci;
+
+	sr = XRRGetScreenResourcesCurrent(_glfw.x11.display, _glfw.x11.root);
+	ci = XRRGetCrtcInfo(_glfw.x11.display, sr, monitor->x11.crtc);
+
+	if (displayID)
+		*displayID = monitor->x11.crtc;
+
+	if (name)
+	{
+		XRROutputInfo* oi;
+		oi = XRRGetOutputInfo(_glfw.x11.display, sr, monitor->x11.output);
+		int nameLen = oi->nameLen;
+		*name = (char*)malloc(sizeof(char) * (nameLen + 1)); // function caller must free this memory.
+		for (int i = 0; i < nameLen; i++)
+		{
+			(*name)[i] = oi->name[i];
+		}
+		(*name)[nameLen] = '\0';
+		XRRFreeOutputInfo(oi);
+	}
+
+	if (xpos)
+		*xpos = (int) ci->x;
+	if (ypos)
+		*ypos = (int) ci->y;
+	if (w)
+		*w = (int) ci->width;
+	if (h)
+		*h = (int) ci->height;
+
+	if (wx)
+		*wx = (int) ci->x;
+	if (wy)
+		*wy = (int) ci->y;
+	if (ww)
+		*ww = (int) ci->width;
+	if (wh)
+		*wh = (int) ci->height;
+   
+	XRRFreeCrtcInfo(ci);
+	XRRFreeScreenResources(sr);
+}
+//
+//-----------------------------------------------
 
 GLFWvidmode* _glfwPlatformGetVideoModes(_GLFWmonitor* monitor, int* count)
 {

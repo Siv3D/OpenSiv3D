@@ -23,7 +23,7 @@ namespace s3d
 
 	CWindow_Linux::~CWindow_Linux()
 	{
-		glfwTerminate();
+		::glfwTerminate();
 	}
 
 	bool CWindow_Linux::init()
@@ -32,40 +32,63 @@ namespace s3d
 		{
 			return false;
 		}
+
+		::glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 		
-		m_glfwWindow = glfwCreateWindow(640, 480, "Siv3D App", nullptr, nullptr);
+		m_state.clientSize.set(Window::DefaultClientSize);
+		m_state.title = L"Siv3D App";
+		m_state.showState = ShowState::Normal;
+		m_state.focused = false;
+
+		m_glfwWindow = ::glfwCreateWindow(Window::DefaultClientSize.x, Window::DefaultClientSize.y, m_state.title.narrow().c_str(), nullptr, nullptr);
 		
 		if (!m_glfwWindow)
 		{
-			glfwTerminate();
+			::glfwTerminate();
 			
 			return false;
 		}
 
-		glfwMakeContextCurrent(m_glfwWindow);
+		int32 windowPosX, windowPosY;
+		::glfwGetWindowPos(m_glfwWindow, &windowPosX, &windowPosY);
+		m_state.pos.set(windowPosX, windowPosY);
 
+		int32 windowSizeX, windowSizeY;
+		::glfwGetWindowSize(m_glfwWindow, &windowSizeX, &windowSizeY);
+		m_state.windowSize.set(windowSizeX, windowSizeY);
+
+		::glfwMakeContextCurrent(m_glfwWindow);
+
+		::glfwSwapInterval(1);
+
+		//m_state.titleBarHeight
+		
 		return true;
 	}
 	
 	bool CWindow_Linux::update()
 	{
-		glClearColor(11/255.0f, 22/255.0f, 33/255.0f, 1.0f);
+		::glfwPollEvents();
 		
-		glClear(GL_COLOR_BUFFER_BIT);
-		
-		glfwSwapBuffers(m_glfwWindow);
-		
-		glfwPollEvents();
-		
-		if(glfwGetKey(m_glfwWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		if(::glfwGetKey(m_glfwWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		{
-			glfwSetWindowShouldClose(m_glfwWindow, GL_TRUE);
+			::glfwSetWindowShouldClose(m_glfwWindow, GL_TRUE);
 		}
 		   
-		if(glfwWindowShouldClose(m_glfwWindow))
+		if(::glfwWindowShouldClose(m_glfwWindow))
 		{
 			return false;
 		}
+		
+		int32 windowPosX, windowPosY;
+		::glfwGetWindowPos(m_glfwWindow, &windowPosX, &windowPosY);
+		m_state.pos.set(windowPosX, windowPosY);
+
+		int32 windowSizeX, windowSizeY;
+		::glfwGetWindowSize(m_glfwWindow, &windowSizeX, &windowSizeY);
+		m_state.windowSize.set(windowSizeX, windowSizeY);
+
+		m_state.focused;
 		
 		return true;
 	}
@@ -74,17 +97,29 @@ namespace s3d
 		return m_glfwWindow;
 	}
 
-	void CWindow_Linux::setTitle(const String& title)
+	void CWindow_Linux::setTitle(const String& title, bool forceUpdate)
 	{
-		if (title == m_currentTitle)
+		if (!forceUpdate && title == m_state.title)
 		{
 			return;
 		}
 
-		m_currentTitle = title;
+		m_state.title = title;
 
-		glfwSetWindowTitle(m_glfwWindow, m_currentTitle.narrow().c_str());
+		::glfwSetWindowTitle(m_glfwWindow, m_state.title.narrow().c_str());
 	}
+
+	const WindowState& CWindow_Linux::getState() const
+    {   
+        return m_state;
+    }   
+    
+    void CWindow_Linux::setPos(const Point& pos)
+    {   
+        m_state.pos.set(pos);
+    
+        ::glfwSetWindowPos(m_glfwWindow, pos.x, pos.y);
+    } 
 }
 
 # endif

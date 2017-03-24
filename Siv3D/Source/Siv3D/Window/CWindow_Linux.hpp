@@ -15,6 +15,7 @@
 
 # include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 # include <Siv3D/String.hpp>
+# include <Siv3D/Window.hpp>
 # include "IWindow.hpp"
 
 namespace s3d
@@ -25,7 +26,7 @@ namespace s3d
 
 		WindowHandle m_glfwWindow = nullptr;
 
-		String m_currentTitle = L"Siv3D App";
+		WindowState m_state;	
 		
 	public:
 
@@ -39,7 +40,11 @@ namespace s3d
 		
 		WindowHandle getHandle() const override;
 
-		void setTitle(const String& title) override;
+		void setTitle(const String& title, bool forceUpdate) override;
+
+		const WindowState& getState() const override;
+
+		void setPos(const Point& pos) override;
 	};
 }
 
