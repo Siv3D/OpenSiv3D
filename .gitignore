@@ -300,3 +300,9 @@ siv3d.a
 **/*.xcodeproj/*
 !**/*.xcodeproj/project.pbxproj
 !**/*.xcodeproj/project.xcworkspace/contents.xcoworkspacedata
+
+# Linux
+# =========================
+CMakeCache.txt
+CMakeFiles
+Makefile

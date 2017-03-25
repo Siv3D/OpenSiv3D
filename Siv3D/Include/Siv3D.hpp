@@ -62,8 +62,10 @@
 	# include "Siv3D/Uncopyable.hpp"
 	// 名前付き引数
 	# include "Siv3D/NamedParameter.hpp"
-	// スレッド
+	// マルチスレッド
 	# include "Siv3D/Threading.hpp"
+	// マルチスレッドタスク
+	# include "Siv3D/ConcurrentTask.hpp"
 	// メモリアライメント
 	# include "Siv3D/AlignedMemory.hpp"	
 	// アライメント対応アロケータ
@@ -613,8 +615,6 @@
 	//# include "Siv3D/ApplicationUtility.hpp"
 	//// アドオン
 	//# include "Siv3D/Addon.hpp"
-	//// マルチスレッド
-	//# include "Siv3D/Threading.hpp"
 	//// シリアライゼーション
 	//# include "Siv3D/Serialization.hpp"
 	//// 名前空間の設定
