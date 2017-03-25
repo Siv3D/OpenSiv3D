@@ -284,7 +284,7 @@ namespace s3d
 
 				results.push_back(result);
 
-				free(name); // free monitor name buffer.
+				::free(name); // free monitor name buffer.
 			}
 			
 			return results;
