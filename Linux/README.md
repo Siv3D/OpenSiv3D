@@ -25,6 +25,7 @@ cmakeコマンドを実行するときに`-DCMAKE_BUILD_TYPE=Debug`もしくは`
 
 ## 現状の本家OpenSiv3Dとの相違点
 - Cursor::sceenPos()とCursor::previousScreenPos()はそれぞれCursor::clientPos()とCursor::previsouClientPos()と同じ値を返します。(Linuxではディスプレイマネージャによって画面上のどこにカーソルがあるか取得する機能があったりなかったりするため。)
+- Monitor::workAreaはMonitor::displayRectと同じ値になっています。(X11環境で各モニタのワークエリアを取得するのが難しいため。)
 
 ## テスト
 テストコードは `Linux/Test` 以下にあります。
