@@ -102,6 +102,7 @@
 - [x] Butteraugli
 - [x] Line
 - [x] Circle
+- [x] ConcurrentTask
 - [ ] Triangle
 - [ ] Math (Partial)
 - [ ] Linux Support

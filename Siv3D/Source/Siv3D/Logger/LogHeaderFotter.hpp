@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (C) 2008-2017 Ryo Suzuki
-//	Copyright (C) 2016-2017 OpenSiv3D Project
+//	Copyright (c) 2008-2017 Ryo Suzuki
+//	Copyright (c) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -256,7 +256,7 @@ limitations under the License.<br>
 
 
 u8R"-(<div class="c0">hopscotch-map</div>
-<div class="c1">Copyright (c) 2016 Tessil</div>
+<div class="c1">Copyright (c) 2017 Tessil</div>
 <div class="c2">
 Permission is hereby granted, free of charge, to any person obtaining a copy<br>
 of this software and associated documentation files (the "Software"), to deal<br>

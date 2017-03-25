@@ -107,9 +107,6 @@
     <Filter Include="Source\Siv3D\Point">
       <UniqueIdentifier>{033bb555-eb6b-44f0-a175-5fa500b14f78}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Siv3D\Thread">
-      <UniqueIdentifier>{6c9d88d3-71fd-41dd-aa24-cc9d1e471e6a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Siv3D\Console">
       <UniqueIdentifier>{6d89462c-bf88-4b39-b9d3-d40abb8dbf6e}</UniqueIdentifier>
     </Filter>
@@ -247,6 +244,12 @@
     </Filter>
     <Filter Include="Source\Siv3D\Circle">
       <UniqueIdentifier>{a54ac146-530a-47de-87fe-f610f589114d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Threading">
+      <UniqueIdentifier>{ddc50282-2527-4556-b1f4-7120bda080e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\hopscotch_map">
+      <UniqueIdentifier>{98f1b10e-2b4d-4934-9038-30fd425d440b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -509,9 +512,6 @@
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\Math.hpp">
-      <Filter>Include\Siv3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\Include\Siv3D\Threading.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\Circular.hpp">
@@ -967,6 +967,18 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Triangle.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\ConcurrentTask.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Threading.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\hopscotch_map\hopscotch_map.h">
+      <Filter>Include\hopscotch_map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\hopscotch_map\hopscotch_hash.h">
+      <Filter>Include\hopscotch_map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1100,9 +1112,6 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Point\SivPoint.cpp">
       <Filter>Source\Siv3D\Point</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\Siv3D\Thread\SivThread.cpp">
-      <Filter>Source\Siv3D\Thread</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Console\ConsoleFactory.cpp">
       <Filter>Source\Siv3D\Console</Filter>
@@ -1418,6 +1427,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Circle\SivCircle.cpp">
       <Filter>Source\Siv3D\Circle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Threading\SivThreading.cpp">
+      <Filter>Source\Siv3D\Threading</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
