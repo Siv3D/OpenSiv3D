@@ -37,7 +37,7 @@ TEST(Types, size)
 
 	ASSERT_EQ(sizeof(size_t), (size_t)4);
 
-# elif defined(SIV3D_TARGET_MACOS)
+# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 	ASSERT_EQ(sizeof(size_t), (size_t)8);
 

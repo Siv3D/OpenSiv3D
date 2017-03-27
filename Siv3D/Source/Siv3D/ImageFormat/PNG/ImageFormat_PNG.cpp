@@ -9,7 +9,13 @@
 //
 //-----------------------------------------------
 
+# include <Siv3D/Platform.hpp>
+# if defined(SIV3D_TARGET_LINUX)
+# include <png.h>
+# else
 # include "../../../ThirdParty/libpng/png.h"
+# endif
+
 # include "ImageFormat_PNG.hpp"
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/IWriter.hpp>

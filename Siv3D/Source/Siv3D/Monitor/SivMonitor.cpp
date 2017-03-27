@@ -242,18 +242,82 @@ namespace s3d
 
 # elif defined(SIV3D_TARGET_LINUX)
 
+# include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
+# include <Siv3D/Window.hpp>
+
 namespace s3d
 {
 	namespace System
 	{
 		Array<Monitor> EnumActiveMonitors()
 		{
-			return{};
+			Array<Monitor> results;
+			
+			int32 numMonitors;
+			GLFWmonitor** monitors = ::glfwGetMonitors(&numMonitors);
+			
+			for (int32 i = 0; i < numMonitors; ++i)
+			{
+				GLFWmonitor* monitor = monitors[i];
+				
+				Monitor result;
+				result.name = CharacterSet::Widen(::glfwGetMonitorName(monitor));
+				
+				uint32 displayID;
+				int32 xPos, yPos, width, height;
+				int32 wx, wy, ww, wh;
+				char* name = nullptr;
+				glfwGetMonitorInfo_Siv3D(monitor, &displayID, &name,
+										 &xPos, &yPos, &width, &height,
+										 &wx, &wy, &ww, &wh);
+				result.id = Format(displayID);
+				result.displayDeviceName = CharacterSet::Widen(name);
+				result.displayRect.x = xPos;
+				result.displayRect.y = yPos;
+				result.displayRect.w = width;
+				result.displayRect.h = height;
+				result.workArea.x = wx;
+				result.workArea.y = wy;
+				result.workArea.w = ww;
+				result.workArea.h = wh;
+				result.isPrimary = (i == 0);
+
+				results.push_back(result);
+
+				::free(name); // free monitor name buffer.
+			}
+			
+			return results;
 		}
 
 		size_t GetCurrentMonitorIndex()
 		{
-			return 0;
+			const auto& state = Window::GetState();
+			const Point pos = state.pos;
+			const Size size = state.windowSize;
+			
+			const auto monitors = EnumActiveMonitors();
+			int32 bestoverlap = 0;
+			size_t bestIndex = 0;
+			
+			for (size_t i = 0; i < monitors.size(); ++i)
+			{
+				const auto& monitor = monitors[i];
+				const Point mPos = monitor.displayRect.pos;
+				const Size mSize = monitor.displayRect.size;
+
+				const int32 overlap =
+					std::max(0, std::min(pos.x + size.x, mPos.x + mSize.x) - std::max(pos.x, mPos.x)) *
+					std::max(0, std::min(pos.y + size.y, mPos.y + mSize.y) - std::max(pos.y, mPos.y));
+				
+				if (bestoverlap < overlap)
+				{
+					bestoverlap = overlap;
+					bestIndex = i;
+				}
+			}
+			
+			return bestIndex;
 		}
 	}
 }

@@ -118,4 +118,58 @@ namespace s3d
 	}
 }
 
+# elif defined(SIV3D_TARGET_LINUX)
+
+# include <stdlib.h>
+# include <unistd.h>
+# include <Siv3D/FileSystem.hpp>
+
+namespace s3d
+{
+	namespace System
+	{
+        void Sleep(int32 milliseconds)
+        {
+            if (milliseconds < 0)
+            {
+                return;
+            }
+
+            ::usleep(static_cast<uint32>(milliseconds) * 1000);
+        }
+
+		bool LaunchBrowser(const FilePath& _url)
+		{
+			FilePath url = _url;
+			
+			if (!url.starts_with(L"http://") && !url.starts_with(L"https://"))
+			{
+				const String extension = FileSystem::Extension(url);
+				
+				if (extension != L"html" && extension != L"htm")
+				{
+					return false;
+				}
+				
+				url.insert(0, L"file://");
+			}
+
+			if (system("which xdg-open >/dev/null 2>&1"))
+			{
+				//There isn't xdg-open command.
+				return false;
+			}
+
+			String command = L"xdg-open ";
+			command += url;
+			command += L" >/dev/null 2>&1";
+			if (system(command.narrow().c_str()) == 0)
+			{
+				return true;
+			}
+			return false;
+		}
+	}
+}
+
 # endif

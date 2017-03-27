@@ -11,6 +11,7 @@
 
 # include "CSystem_Windows.hpp"
 # include "CSystem_macOS.hpp"
+# include "CSystem_Linux.hpp"
 
 namespace s3d
 {
@@ -23,6 +24,10 @@ namespace s3d
 	# elif defined(SIV3D_TARGET_MACOS)
 
 		return new CSystem_macOS;
+
+	# elif defined(SIV3D_TARGET_LINUX)
+
+		return new CSystem_Linux;
 
 	# endif
 	}
