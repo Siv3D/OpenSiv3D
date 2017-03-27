@@ -14,6 +14,11 @@
 # include <Siv3D/HSV.hpp>
 # include <Siv3D/PointVector.hpp>
 
+// memcpy
+# if defined(SIV3D_TARGET_LINUX)
+# include <memory.h>
+# endif
+
 namespace s3d
 {
 	namespace detail

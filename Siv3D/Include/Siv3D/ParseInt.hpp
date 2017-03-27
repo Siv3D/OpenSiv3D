@@ -54,7 +54,7 @@ namespace s3d
 
 		return ::wcstol(str.data(), nullptr, radix.value());
 
-	# elif defined(SIV3D_TARGET_MACOS)
+	# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 		const long result = ::wcstol(str.data(), nullptr, radix.value());
 		return (result < INT32_MIN || INT32_MAX < result) ? 0 : static_cast<int32>(result);
@@ -69,7 +69,7 @@ namespace s3d
 
 		return ::wcstoul(str.data(), nullptr, radix.value());
 
-	# elif defined(SIV3D_TARGET_MACOS)
+	# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 		const unsigned long result = ::wcstoul(str.data(), nullptr, radix.value());
 		return (UINT32_MAX < result) ? 0 : static_cast<uint32>(result);
@@ -89,6 +89,7 @@ namespace s3d
 		return ::wcstoul(str.data(), nullptr, radix.value());
 	}
 
+	# ifndef SIV3D_TARGET_LINUX
 	template <>
 	inline int64 ParseInt<int64>(const String& str, Arg::radix_<uint32> radix)
 	{
@@ -100,7 +101,7 @@ namespace s3d
 	{
 		return ::wcstoull(str.data(), nullptr, radix.value());
 	}
-
+	# endif
 
 	template <class IntegerType>
 	inline Optional<IntegerType> ParseIntOpt(const String& str, Arg::radix_<uint32> radix = (Arg::radix = 0));
@@ -176,7 +177,7 @@ namespace s3d
 
 		return result;
 
-	# elif defined(SIV3D_TARGET_MACOS)
+	# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 		wchar* p;
 		const long result = ::wcstol(str.data(), &p, radix.value());
@@ -206,7 +207,7 @@ namespace s3d
 
 		return result;
 
-	# elif defined(SIV3D_TARGET_MACOS)
+	# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 		wchar* p;
 		const unsigned long result = ::wcstoul(str.data(), &p, radix.value());
@@ -249,6 +250,7 @@ namespace s3d
 		return result;
 	}
 
+	# ifndef SIV3D_TARGET_LINUX
 	template <>
 	inline Optional<int64> ParseIntOpt<int64>(const String& str, Arg::radix_<uint32> radix)
 	{
@@ -276,4 +278,5 @@ namespace s3d
 
 		return result;
 	}
+	# endif
 }

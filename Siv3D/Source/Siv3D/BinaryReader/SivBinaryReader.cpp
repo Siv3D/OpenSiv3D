@@ -12,6 +12,7 @@
 # include <Siv3D/BinaryReader.hpp>
 # include "CBinaryReader_Windows.hpp"
 # include "CBinaryReader_macOS.hpp"
+# include "CBinaryReader_Linux.hpp"
 
 namespace s3d
 {

@@ -84,10 +84,10 @@ TEST(Concept, HasOperatorBool)
 {
 	EXPECT_EQ(Concept::HasOperatorBool<int32>::value, true);
 	EXPECT_EQ(Concept::HasOperatorBool<float>::value, true);
-	EXPECT_EQ(Concept::HasOperatorBool<String>::value, false);
+	EXPECT_EQ(Concept::HasOperatorBool<String>::value, true);
 	EXPECT_EQ(Concept::HasOperatorBool<BigInt>::value, true);
 	EXPECT_EQ(Concept::HasOperatorBool<Optional<double>>::value, true);
-	EXPECT_EQ(Concept::HasOperatorBool<Array<Date>>::value, false);
+	EXPECT_EQ(Concept::HasOperatorBool<Array<Date>>::value, true);
 	EXPECT_EQ(Concept::HasOperatorBool<BinaryReader>::value, true);
 }
 
@@ -95,10 +95,10 @@ TEST(Concept, HasLogicalNot)
 {
 	EXPECT_EQ(Concept::HasLogicalNot<int32>::value, true);
 	EXPECT_EQ(Concept::HasLogicalNot<float>::value, true);
-	EXPECT_EQ(Concept::HasLogicalNot<String>::value, false);
+	EXPECT_EQ(Concept::HasLogicalNot<String>::value, true);
 	EXPECT_EQ(Concept::HasLogicalNot<BigInt>::value, true);
 	EXPECT_EQ(Concept::HasLogicalNot<Optional<double>>::value, true);
-	EXPECT_EQ(Concept::HasLogicalNot<Array<Date>>::value, false);
+	EXPECT_EQ(Concept::HasLogicalNot<Array<Date>>::value, true);
 	EXPECT_EQ(Concept::HasLogicalNot<BinaryReader>::value, true);
 }
 
@@ -444,10 +444,10 @@ TEST(Concept, HasLogicalAnd)
 {
 	EXPECT_EQ(Concept::HasLogicalAnd<int32>::value, true);
 	EXPECT_EQ(Concept::HasLogicalAnd<float>::value, true);
-	EXPECT_EQ(Concept::HasLogicalAnd<String>::value, false);
+	EXPECT_EQ(Concept::HasLogicalAnd<String>::value, true);
 	EXPECT_EQ(Concept::HasLogicalAnd<BigInt>::value, true);
 	EXPECT_EQ(Concept::HasLogicalAnd<Optional<double>>::value, true);
-	EXPECT_EQ(Concept::HasLogicalAnd<Array<Date>>::value, false);
+	EXPECT_EQ(Concept::HasLogicalAnd<Array<Date>>::value, true);
 	EXPECT_EQ(Concept::HasLogicalAnd<BinaryReader>::value, true);
 }
 
@@ -455,10 +455,10 @@ TEST(Concept, HasLogicalOr)
 {
 	EXPECT_EQ(Concept::HasLogicalOr<int32>::value, true);
 	EXPECT_EQ(Concept::HasLogicalOr<float>::value, true);
-	EXPECT_EQ(Concept::HasLogicalOr<String>::value, false);
+	EXPECT_EQ(Concept::HasLogicalOr<String>::value, true);
 	EXPECT_EQ(Concept::HasLogicalOr<BigInt>::value, true);
 	EXPECT_EQ(Concept::HasLogicalOr<Optional<double>>::value, true);
-	EXPECT_EQ(Concept::HasLogicalOr<Array<Date>>::value, false);
+	EXPECT_EQ(Concept::HasLogicalOr<Array<Date>>::value, true);
 	EXPECT_EQ(Concept::HasLogicalOr<BinaryReader>::value, true);
 }
 

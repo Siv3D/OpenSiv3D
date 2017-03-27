@@ -18,6 +18,10 @@
 # include "Grid.hpp"
 # include "ImageFormat.hpp"
 
+# if defined(SIV3D_TARGET_LINUX)
+# include <memory.h>
+# endif
+
 namespace s3d
 {
 	/// <summary>

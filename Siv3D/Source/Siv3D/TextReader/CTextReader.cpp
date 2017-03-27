@@ -14,7 +14,7 @@
 # include <Siv3D/ByteArray.hpp>
 # include "CTextReader.hpp"
 
-# if defined(SIV3D_TARGET_MACOS)
+# if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 std::string ConvertLine(const std::string& line);
 
