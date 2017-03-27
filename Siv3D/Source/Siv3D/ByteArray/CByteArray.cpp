@@ -86,7 +86,7 @@ namespace s3d
 
 	int64 ByteArray::CByteArray::setPos(const int64 pos)
 	{
-		return m_pos = Clamp(pos, 0L, m_size);
+		return m_pos = Clamp(pos, int64(0), m_size);
 	}
 
 	int64 ByteArray::CByteArray::getPos() const

@@ -979,6 +979,33 @@
     <ClInclude Include="..\Siv3D\Include\hopscotch_map\hopscotch_hash.h">
       <Filter>Include\hopscotch_map</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryReader\CBinaryReader_Linux.hpp">
+      <Filter>Source\Siv3D\BinaryReader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryWriter\CBinaryWriter_Linux.hpp">
+      <Filter>Source\Siv3D\BinaryWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_Linux.hpp">
+      <Filter>Source\Siv3D\Cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\DragDrop\CDragDrop_Linux.hpp">
+      <Filter>Source\Siv3D\DragDrop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Keyboard\CKeyboard_Linux.hpp">
+      <Filter>Source\Siv3D\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Mouse\CMouse_Linux.hpp">
+      <Filter>Source\Siv3D\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\System\CSystem_Linux.hpp">
+      <Filter>Source\Siv3D\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Window\CWindow_Linux.hpp">
+      <Filter>Source\Siv3D\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Siv3D_Linux.h">
+      <Filter>Source\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1430,6 +1457,30 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Threading\SivThreading.cpp">
       <Filter>Source\Siv3D\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryReader\CBinaryReader_Linux.cpp">
+      <Filter>Source\Siv3D\BinaryReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryWriter\CBinaryWriter_Linux.cpp">
+      <Filter>Source\Siv3D\BinaryWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_Linux.cpp">
+      <Filter>Source\Siv3D\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\DragDrop\CDragDrop_Linux.cpp">
+      <Filter>Source\Siv3D\DragDrop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Keyboard\CKeyboard_Linux.cpp">
+      <Filter>Source\Siv3D\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Mouse\CMouse_Linux.cpp">
+      <Filter>Source\Siv3D\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\System\CSystem_Linux.cpp">
+      <Filter>Source\Siv3D\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Window\CWindow_Linux.cpp">
+      <Filter>Source\Siv3D\Window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
