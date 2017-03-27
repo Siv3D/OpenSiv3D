@@ -150,10 +150,10 @@ namespace s3d
 
 			if (m_pausing)
 			{
-				return Max(m_accumulationMicrosec, 0LL);
+				return Max(m_accumulationMicrosec, (int64)0);
 			}
 
-			return Max(m_accumulationMicrosec - (t - m_startTimeMicrosec), 0LL);
+			return Max(m_accumulationMicrosec - (t - m_startTimeMicrosec), (int64)0);
 		}
 
 		int64 us64() const

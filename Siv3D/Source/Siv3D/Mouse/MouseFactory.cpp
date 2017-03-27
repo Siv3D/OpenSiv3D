@@ -11,6 +11,7 @@
 
 # include "CMouse_Windows.hpp"
 # include "CMouse_macOS.hpp"
+# include "CMouse_Linux.hpp"
 
 namespace s3d
 {
@@ -24,6 +25,10 @@ namespace s3d
 		
 		return new CMouse_macOS;
 		
+	# elif defined(SIV3D_TARGET_LINUX)
+
+		return new CMouse_Linux;
+
 	# endif
 	}
 }

@@ -34,7 +34,7 @@ namespace s3d
 		{
 			m_encoding = CharacterSet::GetEncoding(path);
             
-            # if defined(SIV3D_TARGET_MACOS)
+            # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
             
                 if (m_encoding == CharacterEncoding::Unknown)
                 {
@@ -203,7 +203,7 @@ namespace s3d
 						previous = ch;
 					}
 
-				# elif defined(SIV3D_TARGET_MACOS)
+				# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 				
 					char16_t previous = '\0';
 
@@ -249,7 +249,7 @@ namespace s3d
 						previous = ch;
 					}
 
-				# elif defined(SIV3D_TARGET_MACOS)
+				# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 				
 					char16_t previous = '\0';
 

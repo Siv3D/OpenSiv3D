@@ -15,7 +15,7 @@
 
 namespace s3d
 {
-# if defined(SIV3D_TARGET_MACOS)
+# if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 	namespace detail
 	{
@@ -43,7 +43,7 @@ namespace s3d
 
 		const uint64 m_start = ::__rdtsc();
 
-	# elif defined(SIV3D_TARGET_MACOS)
+	# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 		const uint64 m_start = detail::rdtsc();
 
@@ -60,7 +60,7 @@ namespace s3d
 
 			return ::__rdtsc() - m_start;
 
-		# elif defined(SIV3D_TARGET_MACOS)
+		# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 			return detail::rdtsc() - m_start;
 

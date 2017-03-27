@@ -10,6 +10,12 @@
 //-----------------------------------------------
 
 # pragma once
+
+// memcmp
+# ifdef SIV3D_TARGET_LINUX
+# include <string.h>
+# endif
+
 # include "Fwd.hpp"
 # include "String.hpp"
 # include "Duration.hpp"

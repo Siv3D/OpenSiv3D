@@ -25,6 +25,10 @@
 
 	# include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 
+# elif defined(SIV3D_TARGET_LINUX)
+
+	# include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
+
 # endif
 
 namespace s3d

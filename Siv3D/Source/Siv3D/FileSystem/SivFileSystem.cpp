@@ -584,14 +584,19 @@ namespace s3d
 }
 
 
-# elif defined(SIV3D_TARGET_MACOS)
+# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 # include <sys/stat.h>
 # include <boost/filesystem.hpp>
 # include <Siv3D/FileSystem.hpp>
 
+# if defined(SIV3D_TARGET_MACOS)
 bool macOS_TrashFile(const char* path, unsigned long pathLength, bool isDirectory);
 std::string macOS_SpecialFolder(int folder);
+# elif defined(SIV3D_TARGET_LINUX)
+bool Linux_TrashFile(const char* path);
+std::string Linux_SpecialFolder(int folder);
+# endif
 
 namespace s3d
 {
@@ -822,7 +827,11 @@ namespace s3d
                 return none;
             }
             
+# if defined(SIV3D_TARGET_MACOS)
             auto tv = s.st_birthtimespec;
+# elif defined(SIV3D_TARGET_LINUX)
+			auto tv = s.st_ctim;
+# endif
             ::tm lt;
             ::localtime_r(&tv.tv_sec, &lt);
             return DateTime((1900 + lt.tm_year), (1 + lt.tm_mon), (lt.tm_mday),
@@ -837,7 +846,11 @@ namespace s3d
                 return none;
             }
             
+# if defined(SIV3D_TARGET_MACOS)
             auto tv = s.st_mtimespec;
+# elif defined(SIV3D_TARGET_LINUX)
+            auto tv = s.st_mtim;
+# endif
             ::tm lt;
             ::localtime_r(&tv.tv_sec, &lt);
             return DateTime((1900 + lt.tm_year), (1 + lt.tm_mon), (lt.tm_mday),
@@ -853,7 +866,11 @@ namespace s3d
                 return none;
             }
             
+# if defined(SIV3D_TARGET_MACOS)
             auto tv = s.st_atimespec;
+# elif defined(SIV3D_TARGET_LINUX)
+            auto tv = s.st_atim;
+# endif
             ::tm lt;
             ::localtime_r(&tv.tv_sec, &lt);
             return DateTime((1900 + lt.tm_year), (1 + lt.tm_mon), (lt.tm_mday),
@@ -904,7 +921,11 @@ namespace s3d
         
         FilePath SpecialFolderPath(const SpecialFolder folder)
         {
+# if defined(SIV3D_TARGET_MACOS)
             return CharacterSet::Widen(macOS_SpecialFolder(static_cast<int>(folder))) << L'/';
+# elif defined(SIV3D_TARGET_LINUX)
+            return CharacterSet::Widen(Linux_SpecialFolder(static_cast<int>(folder))) << L'/';
+# endif
         }
         
         FilePath TempDirectoryPath()
@@ -926,7 +947,11 @@ namespace s3d
             
             const std::string utf8Path = path.narrow();
             
+# if defined(SIV3D_TARGET_MACOS)
             return macOS_TrashFile(utf8Path.c_str(), utf8Path.length(), IsDirectory(path));
+# elif defined(SIV3D_TARGET_LINUX)
+            return Linux_TrashFile(utf8Path.c_str());
+# endif
         }
     }
 }
