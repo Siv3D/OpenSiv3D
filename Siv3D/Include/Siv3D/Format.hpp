@@ -179,9 +179,9 @@ namespace s3d
 
 	void Formatter(FormatData& formatData, uint32 value);
 
-	void Formatter(FormatData& formatData, int64 value);
+	void Formatter(FormatData& formatData, long long value);
 
-	void Formatter(FormatData& formatData, uint64 value);
+	void Formatter(FormatData& formatData, unsigned long long value);
 
 	void Formatter(FormatData& formatData, double value);
 
@@ -230,7 +230,7 @@ namespace s3d
 
 	# else
 
-		Formatter(formatData, static_cast<int64>(value));
+		Formatter(formatData, static_cast<long long>(value));
 
 	# endif	
 	}
@@ -243,7 +243,7 @@ namespace s3d
 
 	# else
 
-		Formatter(formatData, static_cast<uint64>(value));
+		Formatter(formatData, static_cast<unsigned long long>(value));
 
 	# endif	
 	}

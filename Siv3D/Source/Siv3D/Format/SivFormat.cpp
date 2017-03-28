@@ -72,13 +72,13 @@ namespace s3d
 		formatData.string.append(buffer.c_str(), buffer.size());
 	}
 
-	void Formatter(FormatData& formatData, const int64 value)
+	void Formatter(FormatData& formatData, const long long value)
 	{
 		const detail::FormatInt buffer(value);
 		formatData.string.append(buffer.c_str(), buffer.size());
 	}
 
-	void Formatter(FormatData& formatData, const uint64 value)
+	void Formatter(FormatData& formatData, const unsigned long long value)
 	{
 		const detail::FormatInt buffer(value);
 		formatData.string.append(buffer.c_str(), buffer.size());
