@@ -26,38 +26,40 @@ namespace s3d
 
 		using value_type = position_type::value_type;
 
-		Vec2 p0, p1, p2;
+		position_type p0, p1, p2;
 
 		Triangle() = default;
 
-		explicit Triangle(double sides) noexcept
+		explicit Triangle(value_type sides) noexcept
 			: p0(0.0, -1.0 / detail::Sqrt3 * sides)
 			, p1(sides * 0.5, sides / (2.0 * detail::Sqrt3))
 			, p2(-p1.x, p1.y) {}
 
-		Triangle(double sides, double angle) noexcept;
+		Triangle(value_type sides, value_type angle) noexcept;
 
-		Triangle(double x, double y, double sides) noexcept;
+		constexpr Triangle(value_type x, value_type y, value_type sides) noexcept
+			: Triangle(Triangle(sides).moveBy(x, y)) {}
 
-		Triangle(const Vec2& pos, double sides) noexcept
+		constexpr Triangle(const position_type& pos, value_type sides) noexcept
 			: Triangle(pos.x, pos.y, sides) {}
 
-		Triangle(double x, double y, double sides, double angle) noexcept;
+		Triangle(value_type x, value_type y, value_type sides, value_type angle) noexcept
+			: Triangle(Triangle(sides, angle).moveBy(x, y)) {}
 			
-		Triangle(const Vec2& pos, double sides, double angle) noexcept
+		Triangle(const position_type& pos, value_type sides, value_type angle) noexcept
 			: Triangle(pos.x, pos.y, sides, angle) {}
 
-		constexpr Triangle(double x0, double y0, double x1, double y1, double x2, double y2) noexcept
+		constexpr Triangle(value_type x0, value_type y0, value_type x1, value_type y1, value_type x2, value_type y2) noexcept
 			: p0(x0, y0)
 			, p1(x1, y1)
 			, p2(x2, y2) {}
 
-		constexpr Triangle(const Vec2& _p0, const Vec2& _p1, const Vec2& _p2) noexcept
+		constexpr Triangle(const position_type& _p0, const position_type& _p1, const position_type& _p2) noexcept
 			: p0(_p0)
 			, p1(_p1)
 			, p2(_p2) {}
 
-		constexpr Triangle& set(double x0, double y0, double x1, double y1, double x2, double y2) noexcept
+		constexpr Triangle& set(value_type x0, value_type y0, value_type x1, value_type y1, value_type x2, value_type y2) noexcept
 		{
 			p0.set(x0, y0);
 			p1.set(x1, y1);
@@ -65,7 +67,7 @@ namespace s3d
 			return *this;
 		}
 
-		constexpr Triangle& set(const Vec2& _p0, const Vec2& _p1, const Vec2& _p2) noexcept
+		constexpr Triangle& set(const position_type& _p0, const position_type& _p1, const position_type& _p2) noexcept
 		{
 			p0.set(_p0);
 			p1.set(_p1);
@@ -76,6 +78,53 @@ namespace s3d
 		constexpr Triangle& set(const Triangle& triangle) noexcept
 		{
 			return *this = triangle;
+		}
+
+		constexpr Triangle movedBy(value_type x, value_type y) const noexcept
+		{
+			return{ p0.movedBy(x, y), p1.movedBy(x, y), p2.movedBy(x, y) };
+		}
+
+		constexpr Triangle movedBy(const position_type& v) const noexcept
+		{
+			return movedBy(v.x, v.y);
+		}
+
+		constexpr Triangle& moveBy(value_type x, value_type y) noexcept
+		{
+			p0.moveBy(x, y);
+			p1.moveBy(x, y);
+			p2.moveBy(x, y);
+			return *this;
+		}
+
+		constexpr Triangle& moveBy(const position_type& v) noexcept
+		{
+			return moveBy(v.x, v.y);
+		}
+
+		constexpr Triangle& setCentroid(value_type x, value_type y) noexcept
+		{
+			return moveBy(position_type(x, y) - centroid());
+		}
+
+		constexpr Triangle& setCentroid(const position_type& pos) noexcept
+		{
+			return setCentroid(pos.x, pos.y);
+		}
+
+		constexpr position_type centroid() const noexcept
+		{
+			return (p0 + p1 + p2) / 3.0;
+		}
+
+		Triangle rotated(value_type angle) const noexcept;
+
+		Triangle rotatedAt(value_type x, value_type y, value_type angle) const noexcept;
+
+		Triangle rotatedAt(const position_type& pos, value_type angle) const noexcept
+		{
+			return rotatedAt(pos.x, pos.y, angle);
 		}
 	};
 }
