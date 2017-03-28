@@ -222,17 +222,31 @@ namespace s3d
 		Formatter(formatData, static_cast<uint32>(value));
 	}
 
-# ifndef SIV3D_TARGET_LINUX
 	inline void Formatter(FormatData& formatData, const long value)
 	{
+	# if defined(SIV3D_TARGET_WINDOWS)
+
+		Formatter(formatData, static_cast<int32>(value));
+
+	# else
+
 		Formatter(formatData, static_cast<int64>(value));
+
+	# endif	
 	}
 
 	inline void Formatter(FormatData& formatData, const unsigned long value)
 	{
+	# if defined(SIV3D_TARGET_WINDOWS)
+
+		Formatter(formatData, static_cast<uint32>(value));
+
+	# else
+
 		Formatter(formatData, static_cast<uint64>(value));
+
+	# endif	
 	}
-# endif
 
 	inline void Formatter(FormatData& formatData, const wchar value)
 	{
