@@ -461,6 +461,8 @@
 		2C81C0A81E89FCFA00D27E52 /* posix_tls.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C81C0A61E89FCFA00D27E52 /* posix_tls.c */; };
 		2C81C0A91E89FCFA00D27E52 /* posix_tls.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C81C0A71E89FCFA00D27E52 /* posix_tls.h */; };
 		2C81C0AB1E89FD1A00D27E52 /* vulkan.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C81C0AA1E89FD1A00D27E52 /* vulkan.c */; };
+		2C81C0AE1E8A37AC00D27E52 /* SivFileSystem_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C81C0AC1E8A37AC00D27E52 /* SivFileSystem_macOS.cpp */; };
+		2C81C0AF1E8A37AC00D27E52 /* SivFileSystem_Windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C81C0AD1E8A37AC00D27E52 /* SivFileSystem_Windows.cpp */; };
 		2CA79A101DF55A0D0028D11D /* boost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F81DF55A0D0028D11D /* boost_filesystem.a */; };
 		2CA79A111DF55A0D0028D11D /* boost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F91DF55A0D0028D11D /* boost_system.a */; };
 		2CA79AAD1DF55A410028D11D /* Siv3DTest_OSX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79A9D1DF55A410028D11D /* Siv3DTest_OSX.cpp */; };
@@ -968,6 +970,8 @@
 		2C81C0A61E89FCFA00D27E52 /* posix_tls.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = posix_tls.c; sourceTree = "<group>"; };
 		2C81C0A71E89FCFA00D27E52 /* posix_tls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = posix_tls.h; sourceTree = "<group>"; };
 		2C81C0AA1E89FD1A00D27E52 /* vulkan.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vulkan.c; sourceTree = "<group>"; };
+		2C81C0AC1E8A37AC00D27E52 /* SivFileSystem_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivFileSystem_macOS.cpp; sourceTree = "<group>"; };
+		2C81C0AD1E8A37AC00D27E52 /* SivFileSystem_Windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivFileSystem_Windows.cpp; sourceTree = "<group>"; };
 		2CA798F81DF55A0D0028D11D /* boost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_filesystem.a; sourceTree = "<group>"; };
 		2CA798F91DF55A0D0028D11D /* boost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_system.a; sourceTree = "<group>"; };
 		2CA798FA1DF55A0D0028D11D /* libSiv3D.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSiv3D.a; sourceTree = "<group>"; };
@@ -1535,6 +1539,8 @@
 		2C81BD6D1E89F8E300D27E52 /* FileSystem */ = {
 			isa = PBXGroup;
 			children = (
+				2C81C0AC1E8A37AC00D27E52 /* SivFileSystem_macOS.cpp */,
+				2C81C0AD1E8A37AC00D27E52 /* SivFileSystem_Windows.cpp */,
 				2C81BD6E1E89F8E300D27E52 /* SivFileSystem.cpp */,
 				2C81BD6F1E89F8E300D27E52 /* SivFileSystem.mm */,
 				2C81BD701E89F8E300D27E52 /* SivFileSystem_Linux.cpp */,
@@ -2804,10 +2810,12 @@
 				2C81BFEB1E89F8E300D27E52 /* TextReader.mm in Sources */,
 				2C81C0681E89F8E300D27E52 /* preprocess_downsample.cc in Sources */,
 				2C81BF951E89F8E300D27E52 /* D3D11RenderTarget.cpp in Sources */,
+				2C81C0AF1E8A37AC00D27E52 /* SivFileSystem_Windows.cpp in Sources */,
 				2C81BF9F1E89F8E300D27E52 /* SivImage.cpp in Sources */,
 				2C81BFE51E89F8E300D27E52 /* SivSystem.mm in Sources */,
 				2C81BF931E89F8E300D27E52 /* D3D11Device.cpp in Sources */,
 				2C81BFE71E89F8E300D27E52 /* CTextReader.cpp in Sources */,
+				2C81C0AE1E8A37AC00D27E52 /* SivFileSystem_macOS.cpp in Sources */,
 				2C81C0201E89F8E300D27E52 /* cocoa_monitor.m in Sources */,
 				2C81BF6C1E89F8E300D27E52 /* SivCompression.cpp in Sources */,
 				2C81BF801E89F8E300D27E52 /* CDragDrop_macOS.cpp in Sources */,

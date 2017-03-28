@@ -18,14 +18,6 @@
 
 namespace s3d
 {
-	namespace detail
-	{
-		inline bool IsResourcePath(const FilePath& path)
-		{
-			return path.starts_with(L'/');
-		}
-	}
-
 	BinaryReader::CBinaryReader::CBinaryReader()
 	{
 
@@ -43,7 +35,7 @@ namespace s3d
 			close();
 		}
 
-		if (detail::IsResourcePath(path))
+		if (FileSystem::IsResource(path))
 		{
 			HMODULE module = ::GetModuleHandleW(nullptr);
 

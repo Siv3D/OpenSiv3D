@@ -13,14 +13,23 @@
 
 # if defined(_WIN32)
 
+	/// <summary>
+	/// Target platform: Windows (x86 and x64)
+	/// </summary>
 	# define SIV3D_TARGET_WINDOWS
 
 # elif defined(__APPLE__) && defined(__MACH__)
 
+	/// <summary>
+	/// Target platform: macOS
+	/// </summary>
 	# define SIV3D_TARGET_MACOS
 
 # elif defined(__linux__)
 
+	/// <summary>
+	/// Target platform: Linux
+	/// </summary>
 	# define SIV3D_TARGET_LINUX
 
 # else
@@ -32,10 +41,16 @@
 
 # if defined(SIV3D_TARGET_WINDOWS) && defined(_WIN64)
 
+	/// <summary>
+	/// Target Windows platform: 64-bit desktop application
+	/// </summary>
 	# define SIV3D_TARGET_WINDOWS_DESKTOP_X64
 
 # elif defined(SIV3D_TARGET_WINDOWS) && !defined(_WIN64)
 
+	/// <summary>
+	/// Target Windows platform: 32-bit desktop application
+	/// </summary>
 	# define SIV3D_TARGET_WINDOWS_DESKTOP_X86
 
 # endif
@@ -43,10 +58,16 @@
 
 # if defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64) || defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
+	/// <summary>
+	/// Target architecture: x64
+	/// </summary>
 	# define SIV3D_TARGET_X64
 
 # else
 
+	/// <summary>
+	/// Target architecture: x86
+	/// </summary>
 	# define SIV3D_TARGET_X86
 
 # endif

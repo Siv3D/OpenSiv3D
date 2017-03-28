@@ -9,15 +9,11 @@
 //
 //-----------------------------------------------
 
+# include <memory.h>
 # include <Siv3D/Format.hpp>
 # include <Siv3D/Color.hpp>
 # include <Siv3D/HSV.hpp>
 # include <Siv3D/PointVector.hpp>
-
-// memcpy
-# if defined(SIV3D_TARGET_LINUX)
-# include <memory.h>
-# endif
 
 namespace s3d
 {
@@ -76,13 +72,13 @@ namespace s3d
 		formatData.string.append(buffer.c_str(), buffer.size());
 	}
 
-	void Formatter(FormatData& formatData, const int64 value)
+	void Formatter(FormatData& formatData, const long long value)
 	{
 		const detail::FormatInt buffer(value);
 		formatData.string.append(buffer.c_str(), buffer.size());
 	}
 
-	void Formatter(FormatData& formatData, const uint64 value)
+	void Formatter(FormatData& formatData, const unsigned long long value)
 	{
 		const detail::FormatInt buffer(value);
 		formatData.string.append(buffer.c_str(), buffer.size());
