@@ -251,6 +251,9 @@
     <Filter Include="Include\hopscotch_map">
       <UniqueIdentifier>{98f1b10e-2b4d-4934-9038-30fd425d440b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Triangle">
+      <UniqueIdentifier>{d2d4d354-4ac8-4463-8884-2a4ea038ccff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1493,6 +1496,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_Linux.cpp">
       <Filter>Source\Siv3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Triangle\SivTriangle.cpp">
+      <Filter>Source\Siv3D\Triangle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
