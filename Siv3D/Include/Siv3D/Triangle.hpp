@@ -118,13 +118,106 @@ namespace s3d
 			return (p0 + p1 + p2) / 3.0;
 		}
 
-		Triangle rotated(value_type angle) const noexcept;
-
-		Triangle rotatedAt(value_type x, value_type y, value_type angle) const noexcept;
-
-		Triangle rotatedAt(const position_type& pos, value_type angle) const noexcept
+		Triangle rotated(value_type angle) const noexcept
 		{
-			return rotatedAt(pos.x, pos.y, angle);
+			return rotatedAt(centroid(), angle);
 		}
+
+		Triangle rotatedAt(value_type x, value_type y, value_type angle) const noexcept
+		{
+			return rotatedAt(Vec2(x, y), angle);
+		}
+
+		Triangle rotatedAt(const position_type& pos, value_type angle) const noexcept;
+
+		value_type area() const noexcept;
+
+		value_type perimeter() const noexcept;
+
+		// intersects, contains
+
+		// leftClicked() leftPressed() leftReleased()
+
+		// rightClicked() rightPressed() rightReleased()
+
+		// mouseOver()
+
+		// paint~ overpaint~ draw~
+
+		// Polygon asPolygon() const;
 	};
 }
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting Triangle
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[x] istream
+//	[x] wistream
+//	[x] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
+	void Formatter(FormatData& formatData, const Triangle& value);
+
+	/// <summary>
+	/// 出力ストリームに三角形を渡します。
+	/// </summary>
+	/// <param name="os">
+	/// 出力ストリーム
+	/// </param>
+	/// <param name="triangle">
+	/// 三角形
+	/// </param>
+	/// <returns>
+	/// 渡した後の出力ストリーム
+	/// </returns>
+	template <class CharType>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const Triangle& triangle)
+	{
+		return	os << CharType('(')
+			<< triangle.p0 << CharType(',')
+			<< triangle.p1 << CharType(',')
+			<< triangle.p2 << CharType(')');
+	}
+
+	/// <summary>
+	/// 入力ストリームに三角形を渡します。
+	/// </summary>
+	/// <param name="is">
+	/// 入力ストリーム
+	/// </param>
+	/// <param name="triangle">
+	/// 三角形
+	/// </param>
+	/// <returns>
+	/// 渡した後の入力ストリーム
+	/// </returns>
+	template <class CharType>
+	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& is, Triangle& triangle)
+	{
+		CharType unused;
+		return	is >> unused
+			>> triangle.p0 >> unused
+			>> triangle.p1 >> unused
+			>> triangle.p2 >> unused;
+	}
+}
+
+namespace fmt
+{
+	template <class ArgFormatter>
+	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::Triangle& triangle)
+	{
+		const auto tag = s3d::detail::GetTag(format_str);
+
+		const auto fmt = L"({" + tag + L"},{" + tag + L"},{" + tag + L"})";
+
+		f.writer().write(fmt, triangle.p0, triangle.p1, triangle.p2);
+	}
+}
+//
+//////////////////////////////////////////////////////////////////////////////
