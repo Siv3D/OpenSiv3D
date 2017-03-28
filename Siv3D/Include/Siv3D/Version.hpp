@@ -15,12 +15,12 @@
 /// <summary>
 /// Siv3D のバージョン | Version of Siv3D
 /// </summary>
-# define Siv3DVersion L"0.0.7"
+# define Siv3DVersion L"0.0.8"
 
 /// <summary>
 /// Siv3D のバージョン ID | Version ID of Siv3D
 /// </summary>
-# define Siv3DVersionID 200'000'007
+# define Siv3DVersionID 200'000'008
 
 /// <summary>
 /// ターゲットプラットフォーム | Platform target

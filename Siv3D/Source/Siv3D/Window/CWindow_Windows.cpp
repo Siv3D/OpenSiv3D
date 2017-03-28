@@ -178,6 +178,15 @@ namespace s3d
 		);
 	}
 
+	void CWindow_Windows::updateClientSize(const Size& size)
+	{
+		m_state.clientSize.set(size);
+
+		RECT windowRect = { 0, 0, m_state.clientSize.x, m_state.clientSize.y };
+		::AdjustWindowRectEx(&windowRect, m_style, FALSE, 0);
+		m_state.windowSize.set(windowRect.right - windowRect.left, windowRect.bottom - windowRect.top);
+	}
+
 	void CWindow_Windows::initState()
 	{
 		m_windowClassName = FileSystem::ModulePath();
@@ -191,7 +200,6 @@ namespace s3d
 
 		RECT windowRect = { 0, 0, m_state.clientSize.x, m_state.clientSize.y };
 		::AdjustWindowRectEx(&windowRect, m_style, FALSE, 0);
-
 		m_state.windowSize.set(windowRect.right - windowRect.left, windowRect.bottom - windowRect.top);
 
 		if (const int addedBorder = ::GetSystemMetrics(SM_CXPADDEDBORDER))
