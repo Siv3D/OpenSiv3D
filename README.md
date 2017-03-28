@@ -104,8 +104,7 @@
 - [x] Circle
 - [x] ConcurrentTask
 - [x] Triangle
-- [ ] Math (Partial)
-- [ ] Linux Support
+- [x] Linux Support
 
 ---------------------------
 
