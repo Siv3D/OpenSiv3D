@@ -45,6 +45,8 @@ namespace s3d
 		const WindowState& getState() const override;
 
 		void setPos(const Point& pos) override;
+		
+		void updateClientSize(const Size& size) override;
 	};
 }
 
