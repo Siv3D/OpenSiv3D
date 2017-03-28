@@ -87,15 +87,15 @@ namespace s3d
 {
 	namespace System
 	{
-        void Sleep(int32 milliseconds)
-        {
-            if (milliseconds < 0)
-            {
-                return;
-            }
+		void Sleep(int32 milliseconds)
+		{
+			if (milliseconds < 0)
+			{
+				return;
+			}
 
-            ::usleep(static_cast<uint32>(milliseconds) * 1000);
-        }
+			::usleep(static_cast<uint32>(milliseconds) * 1000);
+		}
 
 		bool LaunchBrowser(const FilePath& _url)
 		{
@@ -128,15 +128,15 @@ namespace s3d
 {
 	namespace System
 	{
-        void Sleep(int32 milliseconds)
-        {
-            if (milliseconds < 0)
-            {
-                return;
-            }
+		void Sleep(int32 milliseconds)
+		{
+			if (milliseconds < 0)
+			{
+				return;
+			}
 
-            ::usleep(static_cast<uint32>(milliseconds) * 1000);
-        }
+			::usleep(static_cast<uint32>(milliseconds) * 1000);
+		}
 
 		bool LaunchBrowser(const FilePath& _url)
 		{

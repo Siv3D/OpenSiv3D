@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <memory.h>
 # include "Fwd.hpp"
 # include "Array.hpp"
 # include "Color.hpp"
@@ -17,10 +18,6 @@
 # include "PointVector.hpp"
 # include "Grid.hpp"
 # include "ImageFormat.hpp"
-
-# if defined(SIV3D_TARGET_LINUX)
-# include <memory.h>
-# endif
 
 namespace s3d
 {
