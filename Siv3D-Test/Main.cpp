@@ -747,7 +747,7 @@ void Main()
 
 	while (System::Update())
 	{
-		Graphics::SetBackground(HSV(Cursor::Pos().x * 0.2, 1.0 - Cursor::Pos().y * 0.001));
+		Graphics::SetBackground(HSV(Cursor::Pos().x * 0.2));
 
 		/////////////////////////////////////////////////
 		//
