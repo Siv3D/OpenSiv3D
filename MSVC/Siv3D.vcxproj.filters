@@ -1482,6 +1482,18 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Window\CWindow_Linux.cpp">
       <Filter>Source\Siv3D\Window</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\FileSystem\SivFileSystem_Linux.cpp">
+      <Filter>Source\Siv3D\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\FileSystem\SivFileSystem_macOS.cpp">
+      <Filter>Source\Siv3D\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\FileSystem\SivFileSystem_Windows.cpp">
+      <Filter>Source\Siv3D\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_Linux.cpp">
+      <Filter>Source\Siv3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\Include\Siv3D\Point.inl">

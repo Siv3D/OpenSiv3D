@@ -54,11 +54,8 @@ namespace s3d
 # elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 # include <iostream>
-# include <Siv3D/CharacterSet.hpp>
-
-# if defined(SIV3D_TARGET_LINUX)
 # include <locale>
-# endif
+# include <Siv3D/CharacterSet.hpp>
 
 namespace s3d
 {

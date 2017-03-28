@@ -307,6 +307,9 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\DragDrop\SivDragDrop.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\EngineDirectory\EngineDirectory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FileSystem\SivFileSystem.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\FileSystem\SivFileSystem_Linux.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\FileSystem\SivFileSystem_macOS.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\FileSystem\SivFileSystem_Windows.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatBool\SivFormatBool.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatFloat\SivFormatFloat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatInt\SivFormatInt.cpp" />
@@ -353,6 +356,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Point\SivPoint.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Rectangle\SivRectangle.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DEngine.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_Linux.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_macOS.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_Windows.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Stopwatch\SivStopwatch.cpp" />
@@ -490,23 +494,23 @@
     <OutDir>..\Siv3D\Lib\Windows(x64)\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
     <IntDir>$(ProjectName)\Intermediate\Debug-x64\</IntDir>
-    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_62_0;..\Siv3D\Source\ThirdParty\zstd;..\Siv3D\Source\ThirdParty\zstd\common;..\Siv3D\Source\ThirdParty;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_64_0;..\Siv3D\Source\ThirdParty\zstd;..\Siv3D\Source\ThirdParty\zstd\common;..\Siv3D\Source\ThirdParty;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IntDir>$(ProjectName)\Intermediate\Release-x64\</IntDir>
     <OutDir>..\Siv3D\Lib\Windows(x64)\</OutDir>
-    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_62_0;..\Siv3D\Source\ThirdParty\zstd;..\Siv3D\Source\ThirdParty\zstd\common;..\Siv3D\Source\ThirdParty;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_64_0;..\Siv3D\Source\ThirdParty\zstd;..\Siv3D\Source\ThirdParty\zstd\common;..\Siv3D\Source\ThirdParty;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>..\Siv3D\Lib\Windows(x86)\</OutDir>
     <IntDir>$(ProjectName)\Intermediate\Release-x86\</IntDir>
-    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_62_0;..\Siv3D\Source\ThirdParty\zstd;..\Siv3D\Source\ThirdParty\zstd\common;..\Siv3D\Source\ThirdParty;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_64_0;..\Siv3D\Source\ThirdParty\zstd;..\Siv3D\Source\ThirdParty\zstd\common;..\Siv3D\Source\ThirdParty;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\Siv3D\Lib\Windows(x86)\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
     <IntDir>$(ProjectName)\Intermediate\Debug-x86\</IntDir>
-    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_62_0;..\Siv3D\Source\ThirdParty\zstd;..\Siv3D\Source\ThirdParty\zstd\common;..\Siv3D\Source\ThirdParty;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_64_0;..\Siv3D\Source\ThirdParty\zstd;..\Siv3D\Source\ThirdParty\zstd\common;..\Siv3D\Source\ThirdParty;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -521,7 +525,7 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <MinimalRebuild>false</MinimalRebuild>
-      <LanguageStandard>stdcpp14</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -539,7 +543,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MinimalRebuild>false</MinimalRebuild>
-      <LanguageStandard>stdcpp14</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -560,7 +564,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <LanguageStandard>stdcpp14</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -586,7 +590,7 @@
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AssemblerOutput>AssemblyCode</AssemblerOutput>
-      <LanguageStandard>stdcpp14</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

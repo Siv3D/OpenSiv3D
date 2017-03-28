@@ -11,7 +11,6 @@
 
 # pragma once
 # include <algorithm>
-
 # include "Distribution.hpp"
 # include "DefaultRNG.hpp"
 

@@ -89,19 +89,17 @@ namespace s3d
 		return ::wcstoul(str.data(), nullptr, radix.value());
 	}
 
-	# ifndef SIV3D_TARGET_LINUX
 	template <>
-	inline int64 ParseInt<int64>(const String& str, Arg::radix_<uint32> radix)
+	inline long long ParseInt<long long>(const String& str, Arg::radix_<uint32> radix)
 	{
 		return ::wcstoll(str.data(), nullptr, radix.value());
 	}
 
 	template <>
-	inline uint64 ParseInt<uint64>(const String& str, Arg::radix_<uint32> radix)
+	inline unsigned long long ParseInt<unsigned long long>(const String& str, Arg::radix_<uint32> radix)
 	{
 		return ::wcstoull(str.data(), nullptr, radix.value());
 	}
-	# endif
 
 	template <class IntegerType>
 	inline Optional<IntegerType> ParseIntOpt(const String& str, Arg::radix_<uint32> radix = (Arg::radix = 0));
@@ -250,9 +248,8 @@ namespace s3d
 		return result;
 	}
 
-	# ifndef SIV3D_TARGET_LINUX
 	template <>
-	inline Optional<int64> ParseIntOpt<int64>(const String& str, Arg::radix_<uint32> radix)
+	inline Optional<long long> ParseIntOpt<long long>(const String& str, Arg::radix_<uint32> radix)
 	{
 		wchar* p;
 		const int64 result = ::wcstoll(str.data(), &p, radix.value());
@@ -266,7 +263,7 @@ namespace s3d
 	}
 
 	template <>
-	inline Optional<uint64> ParseIntOpt<uint64>(const String& str, Arg::radix_<uint32> radix)
+	inline Optional<unsigned long long> ParseIntOpt<unsigned long long>(const String& str, Arg::radix_<uint32> radix)
 	{
 		wchar* p;
 		const uint64 result = ::wcstoull(str.data(), &p, radix.value());
@@ -278,5 +275,4 @@ namespace s3d
 
 		return result;
 	}
-	# endif
 }
