@@ -463,6 +463,7 @@
 		2C81C0AB1E89FD1A00D27E52 /* vulkan.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C81C0AA1E89FD1A00D27E52 /* vulkan.c */; };
 		2C81C0AE1E8A37AC00D27E52 /* SivFileSystem_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C81C0AC1E8A37AC00D27E52 /* SivFileSystem_macOS.cpp */; };
 		2C81C0AF1E8A37AC00D27E52 /* SivFileSystem_Windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C81C0AD1E8A37AC00D27E52 /* SivFileSystem_Windows.cpp */; };
+		2C81C0B21E8A800900D27E52 /* SivTriangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C81C0B11E8A800900D27E52 /* SivTriangle.cpp */; };
 		2CA79A101DF55A0D0028D11D /* boost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F81DF55A0D0028D11D /* boost_filesystem.a */; };
 		2CA79A111DF55A0D0028D11D /* boost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F91DF55A0D0028D11D /* boost_system.a */; };
 		2CA79AAD1DF55A410028D11D /* Siv3DTest_OSX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79A9D1DF55A410028D11D /* Siv3DTest_OSX.cpp */; };
@@ -972,6 +973,7 @@
 		2C81C0AA1E89FD1A00D27E52 /* vulkan.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vulkan.c; sourceTree = "<group>"; };
 		2C81C0AC1E8A37AC00D27E52 /* SivFileSystem_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivFileSystem_macOS.cpp; sourceTree = "<group>"; };
 		2C81C0AD1E8A37AC00D27E52 /* SivFileSystem_Windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivFileSystem_Windows.cpp; sourceTree = "<group>"; };
+		2C81C0B11E8A800900D27E52 /* SivTriangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTriangle.cpp; sourceTree = "<group>"; };
 		2CA798F81DF55A0D0028D11D /* boost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_filesystem.a; sourceTree = "<group>"; };
 		2CA798F91DF55A0D0028D11D /* boost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_system.a; sourceTree = "<group>"; };
 		2CA798FA1DF55A0D0028D11D /* libSiv3D.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSiv3D.a; sourceTree = "<group>"; };
@@ -1296,6 +1298,7 @@
 		2C81BD1D1E89F8E300D27E52 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C81C0B01E8A800900D27E52 /* Triangle */,
 				2C81BD241E89F8E300D27E52 /* Base64 */,
 				2C81BD261E89F8E300D27E52 /* BigFloat */,
 				2C81BD291E89F8E300D27E52 /* BigInt */,
@@ -2274,6 +2277,14 @@
 			path = dictBuilder;
 			sourceTree = "<group>";
 		};
+		2C81C0B01E8A800900D27E52 /* Triangle */ = {
+			isa = PBXGroup;
+			children = (
+				2C81C0B11E8A800900D27E52 /* SivTriangle.cpp */,
+			);
+			path = Triangle;
+			sourceTree = "<group>";
+		};
 		2CA798F51DF55A0D0028D11D /* Lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -2831,6 +2842,7 @@
 				2C81BF651E89F8E300D27E52 /* CByteArray.cpp in Sources */,
 				2C81C01D1E89F8E300D27E52 /* cocoa_init.m in Sources */,
 				2C81BFAF1E89F8E300D27E52 /* SivKey.cpp in Sources */,
+				2C81C0B21E8A800900D27E52 /* SivTriangle.cpp in Sources */,
 				2C81BFDC1E89F8E300D27E52 /* SivString.cpp in Sources */,
 				2C81C0531E89F8E300D27E52 /* gamma_correct.cc in Sources */,
 				2C81BFF31E89F8E300D27E52 /* SivVector3D.cpp in Sources */,
