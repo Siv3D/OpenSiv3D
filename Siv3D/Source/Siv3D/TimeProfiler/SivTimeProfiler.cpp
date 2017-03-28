@@ -85,7 +85,7 @@ namespace s3d
 				}
 				else // 100,000 - 999,999
 				{
-					result.append(ToString((uint64)(ns / 1'000ULL)));
+					result.append(ToString((ns / UINT64_C(1'000))));
 					result.append(L"us", 2);
 				}
 			}
@@ -104,7 +104,7 @@ namespace s3d
 			}
 			else // 100,000,000 - 999,999,999
 			{
-				result.append(ToString((uint64)(ns / 1'000'000ULL)));
+				result.append(ToString((ns / UINT64_C(1'000'000))));
 				result.append(L"ms", 2);
 			}
 		}
@@ -122,7 +122,7 @@ namespace s3d
 			}
 			else if (ns < 100'000'000'000ULL) // 100,000,000,000 - 999,999,999,999
 			{
-				result.append(ToString((uint64)(ns / 1'000'000'000ULL)));
+				result.append(ToString((ns / UINT64_C(1'000'000'000))));
 				result.push_back(L's');
 			}
 			else // 1'000,000,000,000 -

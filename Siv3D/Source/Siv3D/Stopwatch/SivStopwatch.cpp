@@ -53,35 +53,35 @@ namespace s3d
 			return Pad(us / (1000LL * 1000LL * 60LL * 60LL * 24LL), { 2, L'0' });
 		case 1:	// D		日 (0-)
 		case 3:	// d		日 (0-)
-			return ToString((int64)(us / (1000LL * 1000LL * 60LL * 60LL * 24LL)));
+			return ToString(static_cast<int64>(us / (1000LL * 1000LL * 60LL * 60LL * 24LL)));
 		case 4:	// HH		時 (00-)
 			return Pad(us / (1000LL * 1000LL * 60LL * 60LL), { 2, L'0' });
 		case 5:	// H		時 (0-)
-			return ToString((int64)(us / (1000LL * 1000LL * 60LL * 60LL)));
+			return ToString(static_cast<int64>(us / (1000LL * 1000LL * 60LL * 60LL)));
 		case 6:	// hh		時 (00-24)
 			return Pad(us / (1000LL * 1000LL * 60LL * 60LL) % 24, { 2, L'0' });
 		case 7:	// h		時 (0-24)
-			return ToString((int64)(us / (1000LL * 1000LL * 60LL * 60LL) % 24));
+			return ToString(static_cast<int64>(us / (1000LL * 1000LL * 60LL * 60LL) % 24));
 		case 8:	// MM		分 (00-)
 			return Pad(us / (1000LL * 1000LL * 60LL), { 2, L'0' });
 		case 9:	// M		分 (0-)
-			return ToString((int64)(us / (1000LL * 1000LL * 60LL)));
+			return ToString(static_cast<int64>(us / (1000LL * 1000LL * 60LL)));
 		case 10: // mm		分 (00-59)
 			return Pad(us / (1000LL * 1000LL * 60LL) % 60, { 2, L'0' });
 		case 11: // m		分 (0-59)
-			return ToString((int64)(us / (1000LL * 1000LL * 60LL) % 60));
+			return ToString(static_cast<int64>(us / (1000LL * 1000LL * 60LL) % 60));
 		case 12: // SS		秒 (00-)
 			return Pad(us / (1000LL * 1000LL), { 2, L'0' });
 		case 13: // S		秒 (0-)
-			return ToString((int64)(us / (1000LL * 1000LL)));
+			return ToString(static_cast<int64>(us / (1000LL * 1000LL)));
 		case 14: // ss		秒 (00-59)
 			return Pad(us / (1000LL * 1000LL) % 60, { 2, L'0' });
 		case 15: // s		秒 (0-59)
-			return ToString((int64)(us / (1000LL * 1000LL) % 60));
+			return ToString(static_cast<int64>(us / (1000LL * 1000LL) % 60));
 		case 16: // X		ミリ秒 (0-)
-			return ToString((int64)(us / (1000LL)));
+			return ToString(static_cast<int64>(us / (1000LL)));
 		case 17: // x		小数点以下 1 桁秒 (0-9)
-			return ToString((int64)(us / (1000LL * 100L) % 10));
+			return ToString(static_cast<int64>(us / (1000LL * 100L) % 10));
 		case 18: // xx		小数点以下 2 桁秒 (00-99)
 			return Pad(us / (1000LL * 10LL) % 100, { 2, L'0' });
 		case 19: // xxx		小数点以下 3 桁秒 (000-999)
