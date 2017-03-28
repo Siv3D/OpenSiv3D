@@ -387,9 +387,37 @@ namespace s3d
 				return Infinity<double>();
 			}
 
-			butteraugli::ImageF diffMap;
+			butteraugli::ImageF diff;
 			double diffValue;
-			butteraugli::ButteraugliInterface(detail::ToImageFVector(a), detail::ToImageFVector(b), diffMap, diffValue);
+			butteraugli::ButteraugliInterface(detail::ToImageFVector(a), detail::ToImageFVector(b), diff, diffValue);
+
+			return diffValue;
+		}
+
+		double PerceivedDifferences(const Image& a, const Image& b, Grid<float>& diffMap)
+		{
+			if (a.isEmpty() || a.size() != b.size())
+			{
+				return Infinity<double>();
+			}
+
+			butteraugli::ImageF diff;
+			double diffValue;
+			butteraugli::ButteraugliInterface(detail::ToImageFVector(a), detail::ToImageFVector(b), diff, diffValue);
+
+			diffMap.resize(diff.xsize(), diff.ysize());
+
+			float* pDst = diffMap.data();
+
+			for (size_t y = 0; y < diff.ysize(); ++y)
+			{
+				const float* line = diff.Row(y);
+
+				for (size_t x = 0; x < diff.xsize(); ++x)
+				{
+					*pDst++ = (*line++);
+				}
+			}
 
 			return diffValue;
 		}

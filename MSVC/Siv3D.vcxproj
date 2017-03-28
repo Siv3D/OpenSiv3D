@@ -373,6 +373,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Threading\SivThreading.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TimeProfiler\SivTimeProfiler.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Time\SivTime.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Triangle\SivTriangle.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Vector2D\SivVector2D.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Vector3D\SivVector3D.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Vector4D\SivVector4D.cpp" />
