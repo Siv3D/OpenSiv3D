@@ -84,9 +84,7 @@ namespace s3d
 		
 		constexpr Line& set(const Line& line) noexcept
 		{
-			begin.set(line.begin);
-			end.set(line.end);
-			return *this;
+			return *this = line;
 		}
 		
 		constexpr Line movedBy(value_type x, value_type y) const noexcept
