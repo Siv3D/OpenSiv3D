@@ -30,7 +30,7 @@ namespace s3d
 
 		Triangle() = default;
 
-		explicit Triangle(value_type sides) noexcept
+		explicit constexpr Triangle(value_type sides) noexcept
 			: p0(0.0, -1.0 / detail::Sqrt3 * sides)
 			, p1(sides * 0.5, sides / (2.0 * detail::Sqrt3))
 			, p2(-p1.x, p1.y) {}
