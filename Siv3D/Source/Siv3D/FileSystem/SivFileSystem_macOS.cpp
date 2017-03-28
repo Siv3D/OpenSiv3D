@@ -14,6 +14,7 @@
 
 # include <sys/stat.h>
 # include <Siv3D/FileSystem.hpp>
+# include <boost/filesystem.hpp>
 
 # if defined(SIV3D_TARGET_MACOS)
 
@@ -29,6 +30,8 @@
 
 namespace s3d
 {
+	namespace fs = boost::filesystem;
+	
 	namespace detail
 	{
 		static bool GetStat(const FilePath& path, struct stat& s)
