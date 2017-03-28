@@ -130,6 +130,7 @@ set(SOURCE_FILES
 	"../Siv3D/Source/Siv3D/Threading/SivThreading.cpp"
 	"../Siv3D/Source/Siv3D/Time/SivTime.cpp"
 	"../Siv3D/Source/Siv3D/TimeProfiler/SivTimeProfiler.cpp"
+	"../Siv3D/Source/Siv3D/Triangle/SivTriangle.cpp"
 	"../Siv3D/Source/Siv3D/Vector2D/SivVector2D.cpp"
 	"../Siv3D/Source/Siv3D/Vector3D/SivVector3D.cpp"
 	"../Siv3D/Source/Siv3D/Vector4D/SivVector4D.cpp"
