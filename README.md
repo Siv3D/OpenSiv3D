@@ -103,7 +103,7 @@
 - [x] Line
 - [x] Circle
 - [x] ConcurrentTask
-- [ ] Triangle
+- [x] Triangle
 - [ ] Math (Partial)
 - [ ] Linux Support
 

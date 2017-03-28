@@ -708,6 +708,8 @@ namespace s3d
 		/// いずれかの画像が空であるか、サイズが異なる場合は inf を返します。
 		/// </returns>
 		double PerceivedDifferences(const Image& a, const Image& b);
+
+		double PerceivedDifferences(const Image& a, const Image& b, Grid<float>& diffMap);
 	}
 }
 

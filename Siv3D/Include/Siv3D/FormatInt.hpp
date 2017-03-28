@@ -283,7 +283,7 @@ namespace s3d
 	/// </returns>
 	inline String ToString(const long long value)
 	{
-		return detail::FormatInt(value).str();
+		return detail::FormatInt(static_cast<int64>(value)).str();
 	}
 
 	/// <summary>
@@ -297,7 +297,7 @@ namespace s3d
 	/// </returns>
 	inline String ToString(const unsigned long long value)
 	{
-		return detail::FormatInt(value).str();
+		return detail::FormatInt(static_cast<uint64>(value)).str();
 	}
 
 	inline String ToString(const char value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
