@@ -23,19 +23,36 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		static constexpr int32 messageBoxStyleFlags[5] =
+		{
+			0,
+			MB_ICONINFORMATION,
+			MB_ICONWARNING,
+			MB_ICONERROR,
+			MB_ICONQUESTION,
+		};
+
+		static constexpr int32 messageBoxButtonFlags[5] =
+		{
+			MB_OK,
+			MB_OKCANCEL,
+			MB_YESNO,
+		};
+	}
+
 	namespace System
 	{
 		MessageBoxSelection ShowMessageBox(const String& title, const String& text, MessageBoxStyle style, MessageBoxButtons buttons)
 		{
-			auto task = CreateConcurrentTask([&]()
-			{
-				::MessageBoxW(nullptr, text.c_str(), title.c_str(), 0);
-			});
+			const int32 flag = detail::messageBoxStyleFlags[static_cast<int32>(style)]
+							 | detail::messageBoxButtonFlags[static_cast<int32>(buttons)];
 
-			while (!task.is_done())
+			const int32 result = CreateConcurrentTask([&, flag]()
 			{
-				::Sleep(1);
-			}
+				return ::MessageBoxW(nullptr, text.c_str(), title.c_str(), flag);
+			}).get();
 
 			return MessageBoxSelection::None;
 		}

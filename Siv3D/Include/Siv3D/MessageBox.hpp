@@ -17,6 +17,8 @@ namespace s3d
 {
 	enum class MessageBoxStyle
 	{
+		Default,
+
 		Info,
 
 		Warning,
@@ -24,8 +26,6 @@ namespace s3d
 		Error,
 		
 		Question,
-
-		Default = Info
 	};
 
 	enum class MessageBoxButtons

@@ -133,6 +133,7 @@ namespace s3d
 			: ShowState::Normal;
 
 		m_state.focused = (m_hWnd == ::GetForegroundWindow());
+		m_state.fullScreen = false;
 
 		RECT rc;
 		::GetWindowRect(m_hWnd, &rc);

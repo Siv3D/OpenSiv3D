@@ -67,6 +67,8 @@ namespace s3d
 
 		// [x] Windows | [ ] macOS | [ ] Linux
 		bool focused;
+
+		bool fullScreen;
 	};
 
 	namespace Window

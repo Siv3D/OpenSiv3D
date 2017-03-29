@@ -39,6 +39,7 @@ namespace s3d
 		m_state.title = L"Siv3D App";
 		m_state.showState = ShowState::Normal;
 		m_state.focused = false;
+		m_state.fullScreen = false;
 
 		m_glfwWindow = ::glfwCreateWindow(Window::DefaultClientSize.x, Window::DefaultClientSize.y, m_state.title.narrow().c_str(), nullptr, nullptr);
 		
