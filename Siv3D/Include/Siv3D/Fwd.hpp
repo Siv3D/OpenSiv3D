@@ -460,6 +460,14 @@ namespace s3d
 	enum class ShowState;
 	struct WindowState;
 
+	//////////////////////////////////////////////////////
+	//
+	//	MessageBox.hpp
+	//
+	enum class MessageBoxStyle;
+	enum class MessageBoxButtons;
+	enum class MessageBoxSelection;
+
 
 
 	//////////////////////////////////////////////////////

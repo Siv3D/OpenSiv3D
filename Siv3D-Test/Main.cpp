@@ -5,6 +5,11 @@ void Main()
 {
 	while (System::Update())
 	{
-		Graphics::SetBackground(HSV(Cursor::Pos().x * 0.2));
+		if (Key0.down())
+		{
+			System::ShowMessageBox(L"Quit?");
+		}
+
+		Graphics::SetBackground(HSV(Cursor::Pos().x * 0.2));	
 	}
 }

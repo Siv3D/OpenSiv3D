@@ -388,8 +388,8 @@
 	# include "Siv3D/Monitor.hpp"
 	// ウィンドウ
 	# include "Siv3D/Window.hpp"
-	//// メッセージボックス
-	//# include "Siv3D/MessageBox.hpp"
+	// メッセージボックス
+	# include "Siv3D/MessageBox.hpp"
 	//// クリップボード
 	//# include "Siv3D/Clipboard.hpp"
 	// ドラッグ & ドロップ
