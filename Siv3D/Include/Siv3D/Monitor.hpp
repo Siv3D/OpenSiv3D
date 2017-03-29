@@ -29,10 +29,8 @@ namespace s3d
 
 	namespace System
 	{
-		// [x] Windows | [x] macOS | [ ] Linux
 		Array<Monitor> EnumActiveMonitors();
 
-		// [x] Windows | [x] macOS | [ ] Linux
 		size_t GetCurrentMonitorIndex();
 	}
 }
