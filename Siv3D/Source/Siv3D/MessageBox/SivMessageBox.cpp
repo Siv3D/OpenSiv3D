@@ -19,6 +19,7 @@
 # define  _WIN32_WINNT _WIN32_WINNT_WIN7
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
+# include <Siv3D/Window.hpp>
 # include <Siv3D/ConcurrentTask.hpp>
 
 namespace s3d
@@ -46,6 +47,11 @@ namespace s3d
 	{
 		MessageBoxSelection ShowMessageBox(const String& title, const String& text, MessageBoxStyle style, MessageBoxButtons buttons)
 		{
+			if (Window::GetState().fullScreen)
+			{
+				return MessageBoxSelection::None;
+			}
+
 			const int32 flag = detail::messageBoxStyleFlags[static_cast<int32>(style)]
 							 | detail::messageBoxButtonFlags[static_cast<int32>(buttons)];
 
@@ -54,7 +60,19 @@ namespace s3d
 				return ::MessageBoxW(nullptr, text.c_str(), title.c_str(), flag);
 			}).get();
 
-			return MessageBoxSelection::None;
+			switch (result)
+			{
+			case IDOK:
+				return MessageBoxSelection::OK;
+			case IDCANCEL:
+				return MessageBoxSelection::Cancel;
+			case IDYES:
+				return MessageBoxSelection::Yes;
+			case IDNO:
+				return MessageBoxSelection::No;
+			default:
+				return MessageBoxSelection::None;
+			}
 		}
 	}
 }
