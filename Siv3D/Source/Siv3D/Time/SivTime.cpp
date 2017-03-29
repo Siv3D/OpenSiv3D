@@ -158,7 +158,7 @@ namespace s3d
 
 		uint64 GetMicrosecSinceEpoch()
 		{
-            ::timeval tv;
+			::timeval tv;
 			::gettimeofday(&tv, nullptr);
 			return tv.tv_sec * 1'000'000ULL + tv.tv_usec;
 		}
@@ -225,7 +225,7 @@ namespace s3d
 
 		uint64 GetMicrosecSinceEpoch()
 		{
-            ::timeval tv;
+			::timeval tv;
 			::gettimeofday(&tv, nullptr);
 			return tv.tv_sec * 1'000'000ULL + tv.tv_usec;
 		}

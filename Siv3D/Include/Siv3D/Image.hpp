@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <memory.h>
 # include "Fwd.hpp"
 # include "Array.hpp"
 # include "Color.hpp"
@@ -17,10 +18,6 @@
 # include "PointVector.hpp"
 # include "Grid.hpp"
 # include "ImageFormat.hpp"
-
-# if defined(SIV3D_TARGET_LINUX)
-# include <memory.h>
-# endif
 
 namespace s3d
 {
@@ -711,6 +708,8 @@ namespace s3d
 		/// いずれかの画像が空であるか、サイズが異なる場合は inf を返します。
 		/// </returns>
 		double PerceivedDifferences(const Image& a, const Image& b);
+
+		double PerceivedDifferences(const Image& a, const Image& b, Grid<float>& diffMap);
 	}
 }
 

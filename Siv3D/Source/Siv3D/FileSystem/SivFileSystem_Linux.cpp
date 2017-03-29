@@ -9,12 +9,14 @@
 //
 //-----------------------------------------------
 
-#include <glib-2.0/glib.h>
-#include <glib-2.0/gio/gio.h>
-#include <stdlib.h>
-#include <string>
+# include <Siv3D/Platform.hpp>
+# if defined(SIV3D_TARGET_LINUX)
 
-#include "Siv3D/FileSystem.hpp"
+# include <stdlib.h>
+# include <string>
+# include <glib-2.0/glib.h>
+# include <glib-2.0/gio/gio.h>
+# include "Siv3D/FileSystem.hpp"
 
 using namespace s3d;
 
@@ -65,3 +67,4 @@ bool Linux_TrashFile(const char* path)
 	return true;
 }
 
+# endif

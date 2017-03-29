@@ -253,9 +253,9 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToString(const int64 value)
+	inline String ToString(const long value)
 	{
-		return detail::FormatInt(value).str();
+		return detail::FormatInt(static_cast<int64>(value)).str();
 	}
 
 	/// <summary>
@@ -267,9 +267,37 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToString(const uint64 value)
+	inline String ToString(const unsigned long value)
 	{
-		return detail::FormatInt(value).str();
+		return detail::FormatInt(static_cast<uint64>(value)).str();
+	}
+
+	/// <summary>
+	/// 整数を文字列で表します。
+	/// </summary>
+	/// <param name="value">
+	/// 整数
+	/// </param>
+	/// <returns>
+	/// 変換した文字列
+	/// </returns>
+	inline String ToString(const long long value)
+	{
+		return detail::FormatInt(static_cast<int64>(value)).str();
+	}
+
+	/// <summary>
+	/// 整数を文字列で表します。
+	/// </summary>
+	/// <param name="value">
+	/// 整数
+	/// </param>
+	/// <returns>
+	/// 変換した文字列
+	/// </returns>
+	inline String ToString(const unsigned long long value)
+	{
+		return detail::FormatInt(static_cast<uint64>(value)).str();
 	}
 
 	inline String ToString(const char value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
@@ -307,12 +335,22 @@ namespace s3d
 		return detail::ItoW(value, radix.value(), false, *upperCase);
 	}
 
-	inline String ToString(const int64 value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	inline String ToString(const long value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	{
+		return detail::ItoW(static_cast<uint32>(value), radix.value(), (radix.value() == 10 && value < 0), *upperCase);
+	}
+
+	inline String ToString(const unsigned long value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	{
+		return detail::ItoW(value, radix.value(), false, *upperCase);
+	}
+
+	inline String ToString(const long long value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return detail::ItoW(static_cast<uint64>(value), radix.value(), (radix.value() == 10 && value < 0), *upperCase);
 	}
 
-	inline String ToString(const uint64 value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	inline String ToString(const unsigned long long value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return detail::ItoW(value, radix.value(), false, *upperCase);
 	}
@@ -354,12 +392,22 @@ namespace s3d
 		return ToString(value, Arg::radix = 2);
 	}
 
-	inline String ToBinary(const int64 value)
+	inline String ToBinary(const long value)
 	{
 		return ToString(value, Arg::radix = 2);
 	}
 
-	inline String ToBinary(const uint64 value)
+	inline String ToBinary(const unsigned long value)
+	{
+		return ToString(value, Arg::radix = 2);
+	}
+
+	inline String ToBinary(const long long value)
+	{
+		return ToString(value, Arg::radix = 2);
+	}
+
+	inline String ToBinary(const unsigned long long value)
 	{
 		return ToString(value, Arg::radix = 2);
 	}
@@ -400,12 +448,22 @@ namespace s3d
 		return ToString(value, Arg::radix = 8);
 	}
 
-	inline String ToOctal(const int64 value)
+	inline String ToOctal(const long value)
 	{
 		return ToString(value, Arg::radix = 8);
 	}
 
-	inline String ToOctal(const uint64 value)
+	inline String ToOctal(const unsigned long value)
+	{
+		return ToString(value, Arg::radix = 8);
+	}
+
+	inline String ToOctal(const long long value)
+	{
+		return ToString(value, Arg::radix = 8);
+	}
+
+	inline String ToOctal(const unsigned long long value)
 	{
 		return ToString(value, Arg::radix = 8);
 	}
@@ -446,12 +504,22 @@ namespace s3d
 		return ToString(value, Arg::radix = 16, upperCase);
 	}
 
-	inline String ToHex(const int64 value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	inline String ToHex(const long value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return ToString(value, Arg::radix = 16, upperCase);
 	}
 
-	inline String ToHex(const uint64 value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	inline String ToHex(const unsigned long value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	{
+		return ToString(value, Arg::radix = 16, upperCase);
+	}
+
+	inline String ToHex(const long long value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	{
+		return ToString(value, Arg::radix = 16, upperCase);
+	}
+
+	inline String ToHex(const unsigned long long value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return ToString(value, Arg::radix = 16, upperCase);
 	}
