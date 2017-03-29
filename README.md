@@ -109,12 +109,12 @@
 ---------------------------
 
 #### 0.0.9
+- [ ] MessageBox
 - [ ] Log
 - [ ] Clipboard
-- [ ] MessageBox
 - [ ] CommandLine
 - [ ] GIF
-- [ ] GIA Animation
+- [ ] GIF Animation
 - [ ] Cursor::SetPos()
 - [ ] Cursor::OnClient()
 - [ ] Cursor::Clip()
@@ -124,6 +124,13 @@
 - [ ] Profiler::FPS()
 - [ ] Graphics::EnableVSync()
 - [ ] Resource files
+
+---------------------------
+
+#### 0.1.0
+- [ ] Rect::draw()
+- [ ] Line::draw()
+- [ ] Triangle::draw()
 
 ## Discussion ##
  [Siv3D Slack #open-siv3d](https://siv3d.slack.com/messages/open-siv3d/details/)  (Japanese)
