@@ -5,13 +5,10 @@ void Main()
 {
 	while (System::Update())
 	{
-		if (KeyQ.down())
+		if (KeyQ.down() && System::ShowMessageBox(L"アプリを終了します。", MessageBoxButtons::OKCancel)
+			== MessageBoxSelection::OK)
 		{
-			if (System::ShowMessageBox(L"アプリを終了します。", MessageBoxButtons::OKCancel)
-				== MessageBoxSelection::OK)
-			{
-				break;
-			}
+			break;
 		}
 	}
 }

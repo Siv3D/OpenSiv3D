@@ -18,8 +18,8 @@ namespace s3d
 		int ShowMessageBox_macOS(const char* title, const char* message, const int style, const int buttons)
 		{
 			NSAlert* alert = [[NSAlert alloc] init];
-			[alert setMessageText:[NSString stringWithCString:title encoding:[NSString defaultCStringEncoding]]];
-			[alert setInformativeText:[NSString stringWithCString:message encoding:[NSString defaultCStringEncoding]]];
+			[alert setMessageText:[NSString stringWithCString:title encoding:NSUTF8StringEncoding]];
+			[alert setInformativeText:[NSString stringWithCString:message encoding:NSUTF8StringEncoding]];
 
 			const NSAlertStyle styles[] = {
 				NSAlertStyleInformational,
