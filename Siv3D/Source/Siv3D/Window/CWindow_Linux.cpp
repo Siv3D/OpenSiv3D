@@ -120,6 +120,15 @@ namespace s3d
     
         ::glfwSetWindowPos(m_glfwWindow, pos.x, pos.y);
     } 
+
+	void CWindow_Linux::updateClientSize(const Size& size)
+	{
+		m_state.clientSize.set(size);
+
+		int32 windowSizeX, windowSizeY;
+		::glfwGetWindowSize(m_glfwWindow, &windowSizeX, &windowSizeY);
+		m_state.windowSize.set(windowSizeX, windowSizeY);
+	}
 }
 
 # endif

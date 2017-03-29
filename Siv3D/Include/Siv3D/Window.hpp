@@ -83,10 +83,8 @@ namespace s3d
 		
 		const WindowState& GetState();
 
-		// [x] Windows | [x] macOS | [ ] Linux
 		void SetPos(const Point& pos);
 
-		// [x] Windows | [ ] macOS | [ ] Linux
 		void Centering();
 	}
 }
