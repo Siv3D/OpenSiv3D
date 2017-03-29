@@ -52,6 +52,7 @@ namespace s3d
 				return;
 			}
 
+			// システムクロックの精度を上げる
 			::timeBeginPeriod(1);
 
 			::Sleep(milliseconds);
@@ -61,6 +62,7 @@ namespace s3d
 
 		bool LaunchBrowser(const FilePath& url)
 		{
+			// Web 上のコンテンツもしくは HTML ファイルでなければ処理を返す
 			if (!url.starts_with(L"http://") && !url.starts_with(L"https://"))
 			{
 				const String extension = FileSystem::Extension(url);
