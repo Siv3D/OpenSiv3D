@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 
+find_package(PkgConfig)
+
 project(open_siv3d_linux CXX)
 enable_language(C)
 
@@ -33,6 +35,7 @@ elseif (_SIV3D_LINUX_WINDOW_API_MIR)
 endif()
 configure_file(./Siv3D_Linux_GLFW_Window_API.h.in ${CMAKE_CURRENT_SOURCE_DIR}/Siv3D_Linux_GLFW_Window_API.h)
 
+pkg_check_modules(LIBSIV3D REQUIRED glib-2.0 gobject-2.0 gio-2.0 gl libpng libjpeg x11 xi xinerama xcursor xrandr)
 include_directories(
 	"/usr/include"
 
@@ -42,8 +45,7 @@ include_directories(
 	"../Siv3D/Source/ThirdParty/zstd/common"
 	"../Siv3D/Source/ThirdParty/"
 
-	"/usr/include/glib-2.0"
-	"/usr/lib/glib-2.0/include"
+	${LIBSIV3D_INCLUDE_DIRS}
 )
 
 set(SOURCE_FILES
