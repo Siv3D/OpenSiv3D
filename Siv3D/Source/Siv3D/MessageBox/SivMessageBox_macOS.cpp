@@ -16,11 +16,19 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		int ShowMessageBox_macOS(const char* title, const char* message, int style, int buttons);
+	}
+	
 	namespace System
 	{
 		MessageBoxSelection ShowMessageBox(const String& title, const String& text, MessageBoxStyle style, MessageBoxButtons buttons)
 		{
-			return MessageBoxSelection::None;
+			const int32 result = detail::ShowMessageBox_macOS(title.narrow().c_str(), text.narrow().c_str(),
+								 static_cast<int32>(style), static_cast<int32>(buttons));
+			
+			return static_cast<MessageBoxSelection>(result);
 		}
 	}
 }
