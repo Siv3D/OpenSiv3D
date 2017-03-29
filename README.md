@@ -109,10 +109,9 @@
 ---------------------------
 
 #### 0.0.9
-- [ ] MessageBox
-- [ ] Log
+- [x] MessageBox
 - [ ] Clipboard
-- [ ] CommandLine
+- [ ] Log
 - [ ] GIF
 - [ ] GIF Animation
 - [ ] Cursor::SetPos()
