@@ -179,9 +179,10 @@ namespace s3d
 		);
 	}
 
-	void CWindow_Windows::updateClientSize(const Size& size)
+	void CWindow_Windows::updateClientSize(const bool fullScreen, const Size& size)
 	{
 		m_state.clientSize.set(size);
+		m_state.fullScreen = fullScreen;
 
 		RECT windowRect = { 0, 0, m_state.clientSize.x, m_state.clientSize.y };
 		::AdjustWindowRectEx(&windowRect, m_style, FALSE, 0);

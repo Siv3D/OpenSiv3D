@@ -109,7 +109,7 @@ namespace s3d
 			::glfwSetWindowMonitor(m_glfwWindow, monitors[displayIndex], 0, 0, size.x, size.y, refreshRateHz);
 		}
 		
-		Siv3DEngine::GetWindow()->updateClientSize(size);
+		Siv3DEngine::GetWindow()->updateClientSize(fullScreen, size);
 
 		return true;
 	}
