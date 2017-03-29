@@ -9,10 +9,10 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/MessageBox.hpp>
-
+# include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_WINDOWS)
 
+# include <Siv3D/MessageBox.hpp>
 # define  NOMINMAX
 # define  STRICT
 # define  WIN32_LEAN_AND_MEAN
@@ -74,26 +74,6 @@ namespace s3d
 				return MessageBoxSelection::None;
 			}
 		}
-	}
-}
-
-# elif defined(SIV3D_TARGET_MACOS)
-
-namespace s3d
-{
-	namespace System
-	{
-		MessageBoxSelection ShowMessageBox(const String& title, const String& text, MessageBoxStyle style, MessageBoxButtons buttons);
-	}
-}
-
-# elif defined(SIV3D_TARGET_LINUX)
-
-namespace s3d
-{
-	namespace System
-	{
-		MessageBoxSelection ShowMessageBox(const String& title, const String& text, MessageBoxStyle style, MessageBoxButtons buttons);
 	}
 }
 

@@ -1506,7 +1506,13 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Triangle\SivTriangle.cpp">
       <Filter>Source\Siv3D\Triangle</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\Siv3D\MessageBox\SivMessageBox.cpp">
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MessageBox\SivMessageBox_Windows.cpp">
+      <Filter>Source\Siv3D\MessageBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MessageBox\SivMessageBox_macOS.cpp">
+      <Filter>Source\Siv3D\MessageBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MessageBox\SivMessageBox_Linux.cpp">
       <Filter>Source\Siv3D\MessageBox</Filter>
     </ClCompile>
   </ItemGroup>

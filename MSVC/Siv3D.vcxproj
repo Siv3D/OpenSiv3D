@@ -346,7 +346,9 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\MD5\SivMD5.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\MemoryMapping\CMemoryMapping.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\MemoryMapping\SivMemoryMapping.cpp" />
-    <ClCompile Include="..\Siv3D\Source\Siv3D\MessageBox\SivMessageBox.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MessageBox\SivMessageBox_Linux.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MessageBox\SivMessageBox_macOS.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MessageBox\SivMessageBox_Windows.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Monitor\SivMonitor.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Mouse\CMouse_Linux.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Mouse\CMouse_macOS.cpp" />
