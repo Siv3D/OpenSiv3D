@@ -18,6 +18,17 @@
 		2C2126401E8C0268006F8101 /* SivMessageBox_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C21263D1E8C0268006F8101 /* SivMessageBox_macOS.cpp */; };
 		2C2126411E8C0268006F8101 /* SivMessageBox_Windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C21263E1E8C0268006F8101 /* SivMessageBox_Windows.cpp */; };
 		2C2126431E8C02DB006F8101 /* SivMessageBox_macOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C2126421E8C02DB006F8101 /* SivMessageBox_macOS.mm */; };
+		2C2126501E8CB7B5006F8101 /* dgif_lib.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C2126451E8CB7B5006F8101 /* dgif_lib.c */; };
+		2C2126511E8CB7B5006F8101 /* egif_lib.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C2126461E8CB7B5006F8101 /* egif_lib.c */; };
+		2C2126521E8CB7B5006F8101 /* gif_err.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C2126471E8CB7B5006F8101 /* gif_err.c */; };
+		2C2126531E8CB7B5006F8101 /* gif_font.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C2126481E8CB7B5006F8101 /* gif_font.c */; };
+		2C2126541E8CB7B5006F8101 /* gif_hash.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C2126491E8CB7B5006F8101 /* gif_hash.c */; };
+		2C2126551E8CB7B5006F8101 /* gif_hash.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C21264A1E8CB7B5006F8101 /* gif_hash.h */; };
+		2C2126561E8CB7B5006F8101 /* gif_lib.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C21264B1E8CB7B5006F8101 /* gif_lib.h */; };
+		2C2126571E8CB7B5006F8101 /* gif_lib_private.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C21264C1E8CB7B5006F8101 /* gif_lib_private.h */; };
+		2C2126581E8CB7B5006F8101 /* gifalloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C21264D1E8CB7B5006F8101 /* gifalloc.c */; };
+		2C2126591E8CB7B5006F8101 /* openbsd-reallocarray.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C21264E1E8CB7B5006F8101 /* openbsd-reallocarray.c */; };
+		2C21265A1E8CB7B5006F8101 /* quantize.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C21264F1E8CB7B5006F8101 /* quantize.c */; };
 		2C2CCF511CE8698C001844FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2CCF501CE8698C001844FF /* Foundation.framework */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
@@ -524,6 +535,17 @@
 		2C21263D1E8C0268006F8101 /* SivMessageBox_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMessageBox_macOS.cpp; sourceTree = "<group>"; };
 		2C21263E1E8C0268006F8101 /* SivMessageBox_Windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMessageBox_Windows.cpp; sourceTree = "<group>"; };
 		2C2126421E8C02DB006F8101 /* SivMessageBox_macOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SivMessageBox_macOS.mm; sourceTree = "<group>"; };
+		2C2126451E8CB7B5006F8101 /* dgif_lib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dgif_lib.c; sourceTree = "<group>"; };
+		2C2126461E8CB7B5006F8101 /* egif_lib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = egif_lib.c; sourceTree = "<group>"; };
+		2C2126471E8CB7B5006F8101 /* gif_err.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gif_err.c; sourceTree = "<group>"; };
+		2C2126481E8CB7B5006F8101 /* gif_font.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gif_font.c; sourceTree = "<group>"; };
+		2C2126491E8CB7B5006F8101 /* gif_hash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gif_hash.c; sourceTree = "<group>"; };
+		2C21264A1E8CB7B5006F8101 /* gif_hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gif_hash.h; sourceTree = "<group>"; };
+		2C21264B1E8CB7B5006F8101 /* gif_lib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gif_lib.h; sourceTree = "<group>"; };
+		2C21264C1E8CB7B5006F8101 /* gif_lib_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gif_lib_private.h; sourceTree = "<group>"; };
+		2C21264D1E8CB7B5006F8101 /* gifalloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gifalloc.c; sourceTree = "<group>"; };
+		2C21264E1E8CB7B5006F8101 /* openbsd-reallocarray.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "openbsd-reallocarray.c"; sourceTree = "<group>"; };
+		2C21264F1E8CB7B5006F8101 /* quantize.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quantize.c; sourceTree = "<group>"; };
 		2C2CCF501CE8698C001844FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
@@ -1106,6 +1128,24 @@
 				2C21263E1E8C0268006F8101 /* SivMessageBox_Windows.cpp */,
 			);
 			path = MessageBox;
+			sourceTree = "<group>";
+		};
+		2C2126441E8CB7B5006F8101 /* giflib */ = {
+			isa = PBXGroup;
+			children = (
+				2C2126451E8CB7B5006F8101 /* dgif_lib.c */,
+				2C2126461E8CB7B5006F8101 /* egif_lib.c */,
+				2C2126471E8CB7B5006F8101 /* gif_err.c */,
+				2C2126481E8CB7B5006F8101 /* gif_font.c */,
+				2C2126491E8CB7B5006F8101 /* gif_hash.c */,
+				2C21264A1E8CB7B5006F8101 /* gif_hash.h */,
+				2C21264B1E8CB7B5006F8101 /* gif_lib.h */,
+				2C21264C1E8CB7B5006F8101 /* gif_lib_private.h */,
+				2C21264D1E8CB7B5006F8101 /* gifalloc.c */,
+				2C21264E1E8CB7B5006F8101 /* openbsd-reallocarray.c */,
+				2C21264F1E8CB7B5006F8101 /* quantize.c */,
+			);
+			path = giflib;
 			sourceTree = "<group>";
 		};
 		2C38B1471CDEB45C007A7E9F /* Lib */ = {
@@ -2003,6 +2043,7 @@
 		2C81BE121E89F8E300D27E52 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				2C2126441E8CB7B5006F8101 /* giflib */,
 				2C81BE131E89F8E300D27E52 /* butteraugli */,
 				2C81BE171E89F8E300D27E52 /* double-conversion */,
 				2C81BE2B1E89F8E300D27E52 /* fmt */,
@@ -2584,6 +2625,7 @@
 				2C81BF451E89F8E300D27E52 /* Version.hpp in Headers */,
 				2C81C0711E89F8E300D27E52 /* score.h in Headers */,
 				2C81C0051E89F8E300D27E52 /* bignum-dtoa.h in Headers */,
+				2C2126551E8CB7B5006F8101 /* gif_hash.h in Headers */,
 				2C81C0471E89F8E300D27E52 /* butteraugli_comparator.h in Headers */,
 				2C81C02C1E89F8E300D27E52 /* internal.h in Headers */,
 				2C81BEE71E89F8E300D27E52 /* ConcurrentTask.hpp in Headers */,
@@ -2593,6 +2635,7 @@
 				2C81C01C1E89F8E300D27E52 /* glfw3native.h in Headers */,
 				2C81BEDD1E89F8E300D27E52 /* ByteArrayView.hpp in Headers */,
 				2C81C0741E89F8E300D27E52 /* png.h in Headers */,
+				2C2126561E8CB7B5006F8101 /* gif_lib.h in Headers */,
 				2C81BF381E89F8E300D27E52 /* Threading.hpp in Headers */,
 				2C81C07C1E89F8E300D27E52 /* muParserBase.h in Headers */,
 				2C81BF1C1E89F8E300D27E52 /* Parse.hpp in Headers */,
@@ -2616,6 +2659,7 @@
 				2C81BFBB1E89F8E300D27E52 /* ILogger.hpp in Headers */,
 				2C81BF011E89F8E300D27E52 /* HSV.hpp in Headers */,
 				2C81BF051E89F8E300D27E52 /* INIReader.hpp in Headers */,
+				2C2126571E8CB7B5006F8101 /* gif_lib_private.h in Headers */,
 				2C81C0491E89F8E300D27E52 /* comparator.h in Headers */,
 				2C81C08E1E89F8E400D27E52 /* bitstream.h in Headers */,
 				2C81BEF21E89F8E300D27E52 /* FileSystem.hpp in Headers */,
@@ -2832,7 +2876,9 @@
 				2C81C07D1E89F8E300D27E52 /* muParserBytecode.cpp in Sources */,
 				2C81BF641E89F8E300D27E52 /* SivBinaryWriter.cpp in Sources */,
 				2C81C09F1E89F8E400D27E52 /* huf_decompress.c in Sources */,
+				2C2126581E8CB7B5006F8101 /* gifalloc.c in Sources */,
 				2C21263F1E8C0268006F8101 /* SivMessageBox_Linux.cpp in Sources */,
+				2C2126531E8CB7B5006F8101 /* gif_font.c in Sources */,
 				2C81BF901E89F8E300D27E52 /* SivFormatInt.cpp in Sources */,
 				2C81C0631E89F8E300D27E52 /* jpeg_huffman_decode.cc in Sources */,
 				2C81C0001E89F8E300D27E52 /* SivWritableMemoryMapping.cpp in Sources */,
@@ -2848,12 +2894,14 @@
 				2C81C0681E89F8E300D27E52 /* preprocess_downsample.cc in Sources */,
 				2C81BF951E89F8E300D27E52 /* D3D11RenderTarget.cpp in Sources */,
 				2C81C0AF1E8A37AC00D27E52 /* SivFileSystem_Windows.cpp in Sources */,
+				2C2126591E8CB7B5006F8101 /* openbsd-reallocarray.c in Sources */,
 				2C81BF9F1E89F8E300D27E52 /* SivImage.cpp in Sources */,
 				2C81BFE51E89F8E300D27E52 /* SivSystem.mm in Sources */,
 				2C81BF931E89F8E300D27E52 /* D3D11Device.cpp in Sources */,
 				2C81BFE71E89F8E300D27E52 /* CTextReader.cpp in Sources */,
 				2C81C0AE1E8A37AC00D27E52 /* SivFileSystem_macOS.cpp in Sources */,
 				2C81C0201E89F8E300D27E52 /* cocoa_monitor.m in Sources */,
+				2C2126501E8CB7B5006F8101 /* dgif_lib.c in Sources */,
 				2C81BF6C1E89F8E300D27E52 /* SivCompression.cpp in Sources */,
 				2C81BF801E89F8E300D27E52 /* CDragDrop_macOS.cpp in Sources */,
 				2C81C01F1E89F8E300D27E52 /* cocoa_joystick.m in Sources */,
@@ -2918,6 +2966,7 @@
 				2C81BFCF1E89F8E300D27E52 /* SivMouse.cpp in Sources */,
 				2C81C07F1E89F8E300D27E52 /* muParserCallback.cpp in Sources */,
 				2C81BF721E89F8E300D27E52 /* CCursor_Linux.cpp in Sources */,
+				2C21265A1E8CB7B5006F8101 /* quantize.c in Sources */,
 				2C2126431E8C02DB006F8101 /* SivMessageBox_macOS.mm in Sources */,
 				2C81BFF91E89F8E300D27E52 /* CWindow_Windows.cpp in Sources */,
 				2C81C04A1E89F8E300D27E52 /* dct_double.cc in Sources */,
@@ -2933,6 +2982,7 @@
 				2C81C09C1E89F8E400D27E52 /* huf_compress.c in Sources */,
 				2C81BF911E89F8E300D27E52 /* CGraphics_D3D11.cpp in Sources */,
 				2C81C0A11E89F8E400D27E52 /* divsufsort.c in Sources */,
+				2C2126511E8CB7B5006F8101 /* egif_lib.c in Sources */,
 				2C81BF5B1E89F8E300D27E52 /* CBinaryReader_Windows.cpp in Sources */,
 				2C81C0221E89F8E300D27E52 /* cocoa_time.c in Sources */,
 				2C81BFC61E89F8E300D27E52 /* SivMonitor.cpp in Sources */,
@@ -2960,6 +3010,8 @@
 				2C81BFF51E89F8E300D27E52 /* CWindow_Linux.cpp in Sources */,
 				2C81C06C1E89F8E300D27E52 /* quality.cc in Sources */,
 				2C81BFCB1E89F8E300D27E52 /* CMouse_Windows.cpp in Sources */,
+				2C2126541E8CB7B5006F8101 /* gif_hash.c in Sources */,
+				2C2126521E8CB7B5006F8101 /* gif_err.c in Sources */,
 				2C81BFAB1E89F8E300D27E52 /* CINIReader.cpp in Sources */,
 				2C81BFD01E89F8E300D27E52 /* SivParseFloat.cpp in Sources */,
 				2C81BF971E89F8E300D27E52 /* D3D11SwapChain.cpp in Sources */,
