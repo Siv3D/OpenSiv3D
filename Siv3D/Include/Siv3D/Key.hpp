@@ -45,10 +45,28 @@ namespace s3d
 			, m_code(code)
 			, m_userIndex(userIndex) {}
 
+		/// <summary>
+		/// キーが押され始めたことを示します。
+		/// </summary>
+		/// <returns>
+		/// キーが押され始めた場合 true, 押されていなかったり、すでに押されていたりした場合は false
+		/// </returns>
 		bool down() const;
 
+		/// <summary>
+		/// キーが押されていることを示します。
+		/// </summary>
+		/// <returns>
+		/// キーが押されている場合 true, それ以外の場合は false
+		/// </returns>
 		bool pressed() const;
 
+		/// <summary>
+		/// キーが離されたことを示します。
+		/// </summary>
+		/// <returns>
+		/// キーが離された場合 true, 押されていたり、すでに離されていたりした場合は false
+		/// </returns>
 		bool up() const;
 
 		MillisecondsF pressedDuration() const;
