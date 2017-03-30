@@ -73,6 +73,9 @@ namespace s3d
 
 	namespace Window
 	{
+		/// <summary>
+		/// デフォルトのクライアント解像度
+		/// </summary>
 		constexpr Size DefaultClientSize(640, 480);
 
 		void SetTitle(const String& title);
