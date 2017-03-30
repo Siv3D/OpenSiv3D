@@ -17,11 +17,21 @@
 
 namespace s3d
 {
-	static int GifReadCallback(GifFileType* gif, GifByteType* bytes, int size)
+	namespace detail
 	{
-		const auto reader = static_cast<IReader*>(gif->UserData);
+		static int GifReadCallback(GifFileType* gif, GifByteType* bytes, const int size)
+		{
+			const auto reader = static_cast<IReader*>(gif->UserData);
 
-		return static_cast<int>(reader->read(bytes, size));
+			return static_cast<int>(reader->read(bytes, size));
+		}
+
+		static int GifWriteCallback(GifFileType* gif, const GifByteType * bytes, const int size)
+		{
+			const auto writer = static_cast<IWriter*>(gif->UserData);
+
+			return static_cast<int>(writer->write(bytes, size));
+		}
 	}
 
 	ImageFormat ImageFormat_GIF::format() const
@@ -65,7 +75,7 @@ namespace s3d
 		Image image;
 
 		int error;
-		GifFileType* gif = DGifOpen(&reader, GifReadCallback, &error);
+		GifFileType* gif = DGifOpen(&reader, detail::GifReadCallback, &error);
 
 		if (!gif)
 		{
@@ -119,9 +129,14 @@ namespace s3d
 			palette[i].r = colorMap->Colors[i].Red;
 			palette[i].g = colorMap->Colors[i].Green;
 			palette[i].b = colorMap->Colors[i].Blue;
-			palette[i].a = (transparentIndex == i ? 0 : 255);
+			palette[i].a = 255;
 		}
-		
+
+		if (0 <= transparentIndex)
+		{
+			palette[transparentIndex].set(0, 0, 0, 0);
+		}
+
 		const int32 offset_x = frame->ImageDesc.Left;
 		const int32 offset_y = frame->ImageDesc.Top;
 		const int32 width = frame->ImageDesc.Width;
@@ -158,6 +173,136 @@ namespace s3d
 		{
 			return false;
 		}
+
+		const int32 width = image.width();
+		const int32 height = image.height();
+		const int32 num_pixels = image.num_pixels();
+		Array<uint8> rBuffer(num_pixels);
+		Array<uint8> gBuffer(num_pixels);
+		Array<uint8> bBuffer(num_pixels);
+
+		uint8* rDst = rBuffer.data();
+		uint8* gDst = gBuffer.data();
+		uint8* bDst = bBuffer.data();
+		{
+			const Color* pSrc = image.data();
+			const Color* const pSrcEnd = pSrc + num_pixels;
+
+			while (pSrc != pSrcEnd)
+			{
+				*rDst++ = pSrc->r;
+				*gDst++ = pSrc->g;
+				*bDst++ = pSrc->b;
+				++pSrc;
+			}
+		}
+
+		bool hasTransparency = false;
+		{
+			const Color* pSrc = image.data();
+			const Color* const pSrcEnd = pSrc + num_pixels;
+
+			while (pSrc != pSrcEnd)
+			{
+				if (pSrc->a == 0)
+				{
+					hasTransparency = true;
+					break;
+				}
+
+				++pSrc;
+			}
+		}
+
+		int32 colorMapSize = hasTransparency ? 255 : 256;
+		GifColorType colors[256] = {};
+
+		ColorMapObject colorMap;
+		colorMap.ColorCount		= colorMapSize;
+		colorMap.BitsPerPixel	= 8;
+		colorMap.Colors			= colors;
+		Array<GifByteType> outputBuffer(num_pixels);
+
+		GifQuantizeBuffer(width, height, &colorMapSize,
+			rBuffer.data(), gBuffer.data(), bBuffer.data(), outputBuffer.data(), colorMap.Colors);
+
+		int32 transparencyIndex = -1;
+
+		if (hasTransparency)
+		{
+			transparencyIndex = colorMap.ColorCount;
+
+			++colorMap.ColorCount;
+			colorMap.Colors[transparencyIndex] = { 0,0,0 };
+
+			const Color* pSrc = image.data();
+			const Color* const pSrcEnd = pSrc + num_pixels;
+			GifByteType* pDst = outputBuffer.data();
+
+			while (pSrc != pSrcEnd)
+			{
+				if (pSrc->a == 0)
+				{
+					*pDst = 255;
+				}
+
+				++pSrc;
+				++pDst;
+			}
+		}
+
+		int error = 0;
+		GifFileType* gif = EGifOpen(&writer, detail::GifWriteCallback, &error);
+		
+		EGifSetGifVersion(gif, true);
+
+		if (EGifPutScreenDesc(gif, width, height, 8, 0, nullptr) == GIF_ERROR)
+		{
+			EGifCloseFile(gif, &error);
+			return false;
+		}
+
+		/*
+		uint8 param[3] = { 1, 0, 0 };
+		EGifPutExtensionLeader(gif, APPLICATION_EXT_FUNC_CODE);
+		EGifPutExtensionBlock(gif, 11, "NETSCAPE2.0");
+		EGifPutExtensionBlock(gif, 3, param);
+		EGifPutExtensionTrailer(gif);
+		*/
+
+		GraphicsControlBlock controlBlock;
+		controlBlock.DisposalMode		= DISPOSAL_UNSPECIFIED;
+		controlBlock.UserInputFlag		= false;
+		controlBlock.DelayTime			= 100;
+		controlBlock.TransparentColor	= hasTransparency ? transparencyIndex : NO_TRANSPARENT_COLOR;
+
+		GifByteType ext[4];
+		EGifGCBToExtension(&controlBlock, ext);
+
+		if (EGifPutExtension(gif, GRAPHICS_EXT_FUNC_CODE, sizeof(ext), ext) == GIF_ERROR)
+		{
+			EGifCloseFile(gif, &error);
+			return false;
+		}
+
+		int r = EGifPutImageDesc(gif, 0, 0, width, height, false, &colorMap);
+
+		if (r != GIF_OK)
+		{
+			EGifCloseFile(gif, &error);
+			return false;
+		}
+
+		for (int32 y = 0; y < height; ++y)
+		{
+			if (EGifPutLine(gif, &outputBuffer[y * width], width) == GIF_ERROR)
+			{
+				EGifCloseFile(gif, &error);
+				return false;
+			}
+		}
+
+		EGifCloseFile(gif, &error);
 
 		return true;
 	}
