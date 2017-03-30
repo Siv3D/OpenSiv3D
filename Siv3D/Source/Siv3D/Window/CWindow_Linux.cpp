@@ -39,6 +39,7 @@ namespace s3d
 		m_state.title = L"Siv3D App";
 		m_state.showState = ShowState::Normal;
 		m_state.focused = false;
+		m_state.fullScreen = false;
 
 		m_glfwWindow = ::glfwCreateWindow(Window::DefaultClientSize.x, Window::DefaultClientSize.y, m_state.title.narrow().c_str(), nullptr, nullptr);
 		
@@ -121,9 +122,10 @@ namespace s3d
         ::glfwSetWindowPos(m_glfwWindow, pos.x, pos.y);
     } 
 
-	void CWindow_Linux::updateClientSize(const Size& size)
+	void CWindow_Linux::updateClientSize(const bool fullScreen, const Size& size)
 	{
 		m_state.clientSize.set(size);
+		m_state.fullScreen = fullScreen;
 
 		int32 windowSizeX, windowSizeY;
 		::glfwGetWindowSize(m_glfwWindow, &windowSizeX, &windowSizeY);

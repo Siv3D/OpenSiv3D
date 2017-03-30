@@ -254,6 +254,9 @@
     <Filter Include="Source\Siv3D\Triangle">
       <UniqueIdentifier>{d2d4d354-4ac8-4463-8884-2a4ea038ccff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\MessageBox">
+      <UniqueIdentifier>{e46d08c9-c018-4888-ae4e-91f27298a2f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1009,6 +1012,9 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Siv3D_Linux.h">
       <Filter>Source\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\MessageBox.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1499,6 +1505,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Triangle\SivTriangle.cpp">
       <Filter>Source\Siv3D\Triangle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MessageBox\SivMessageBox_Windows.cpp">
+      <Filter>Source\Siv3D\MessageBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MessageBox\SivMessageBox_macOS.cpp">
+      <Filter>Source\Siv3D\MessageBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MessageBox\SivMessageBox_Linux.cpp">
+      <Filter>Source\Siv3D\MessageBox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
