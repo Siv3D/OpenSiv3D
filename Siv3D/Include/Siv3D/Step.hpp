@@ -407,7 +407,7 @@ namespace s3d
 			return result;
 		}
 
-		auto sum() const
+		constexpr auto sum() const
 		{
 			using result_type = decltype(std::declval<T>() + std::declval<S>());
 			
