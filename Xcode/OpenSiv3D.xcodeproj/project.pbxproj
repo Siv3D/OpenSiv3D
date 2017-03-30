@@ -29,6 +29,8 @@
 		2C2126581E8CB7B5006F8101 /* gifalloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C21264D1E8CB7B5006F8101 /* gifalloc.c */; };
 		2C2126591E8CB7B5006F8101 /* openbsd-reallocarray.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C21264E1E8CB7B5006F8101 /* openbsd-reallocarray.c */; };
 		2C21265C1E8CD59B006F8101 /* gif_quantize.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C21265B1E8CD59B006F8101 /* gif_quantize.c */; };
+		2C2126601E8CF6EA006F8101 /* ImageFormat_GIF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C21265E1E8CF6EA006F8101 /* ImageFormat_GIF.cpp */; };
+		2C2126611E8CF6EA006F8101 /* ImageFormat_GIF.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C21265F1E8CF6EA006F8101 /* ImageFormat_GIF.hpp */; };
 		2C2CCF511CE8698C001844FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2CCF501CE8698C001844FF /* Foundation.framework */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
@@ -546,6 +548,8 @@
 		2C21264D1E8CB7B5006F8101 /* gifalloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gifalloc.c; sourceTree = "<group>"; };
 		2C21264E1E8CB7B5006F8101 /* openbsd-reallocarray.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "openbsd-reallocarray.c"; sourceTree = "<group>"; };
 		2C21265B1E8CD59B006F8101 /* gif_quantize.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gif_quantize.c; sourceTree = "<group>"; };
+		2C21265E1E8CF6EA006F8101 /* ImageFormat_GIF.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageFormat_GIF.cpp; sourceTree = "<group>"; };
+		2C21265F1E8CF6EA006F8101 /* ImageFormat_GIF.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageFormat_GIF.hpp; sourceTree = "<group>"; };
 		2C2CCF501CE8698C001844FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
@@ -1148,6 +1152,15 @@
 			path = giflib;
 			sourceTree = "<group>";
 		};
+		2C21265D1E8CF6EA006F8101 /* GIF */ = {
+			isa = PBXGroup;
+			children = (
+				2C21265E1E8CF6EA006F8101 /* ImageFormat_GIF.cpp */,
+				2C21265F1E8CF6EA006F8101 /* ImageFormat_GIF.hpp */,
+			);
+			path = GIF;
+			sourceTree = "<group>";
+		};
 		2C38B1471CDEB45C007A7E9F /* Lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -1725,6 +1738,7 @@
 		2C81BD901E89F8E300D27E52 /* ImageFormat */ = {
 			isa = PBXGroup;
 			children = (
+				2C21265D1E8CF6EA006F8101 /* GIF */,
 				2C81BD911E89F8E300D27E52 /* BMP */,
 				2C81BD941E89F8E300D27E52 /* CImageFormat.cpp */,
 				2C81BD951E89F8E300D27E52 /* CImageFormat.hpp */,
@@ -2533,6 +2547,7 @@
 				2C81BF0D1E89F8E300D27E52 /* Lerp.hpp in Headers */,
 				2C81BF1B1E89F8E300D27E52 /* Optional.hpp in Headers */,
 				2C81BF981E89F8E300D27E52 /* D3D11SwapChain.hpp in Headers */,
+				2C2126611E8CF6EA006F8101 /* ImageFormat_GIF.hpp in Headers */,
 				2C81C05D1E89F8E300D27E52 /* jpeg_data_encoder.h in Headers */,
 				2C81C04B1E89F8E300D27E52 /* dct_double.h in Headers */,
 				2C81C0721E89F8E300D27E52 /* stats.h in Headers */,
@@ -2945,6 +2960,7 @@
 				2C81C09B1E89F8E400D27E52 /* fse_compress.c in Sources */,
 				2C81C0171E89F8E300D27E52 /* glad.c in Sources */,
 				2C81BF8D1E89F8E300D27E52 /* SivFormat.cpp in Sources */,
+				2C2126601E8CF6EA006F8101 /* ImageFormat_GIF.cpp in Sources */,
 				2C81BFEC1E89F8E300D27E52 /* CTextWriter.cpp in Sources */,
 				2C81BFA81E89F8E300D27E52 /* ImageFormat_PNG.cpp in Sources */,
 				2C81BFB71E89F8E300D27E52 /* KeyboardFactory.cpp in Sources */,
