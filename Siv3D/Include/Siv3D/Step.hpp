@@ -859,7 +859,7 @@ namespace s3d
 				return new_array;
 			}
 
-		size_t count() const
+			size_t count() const
 			{
 				size_t sum = 0;
 				each([&sum](const auto) { ++sum; });

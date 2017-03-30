@@ -81,8 +81,20 @@ namespace s3d
 		/// </returns>
 		int32 d() const { return static_cast<int32>(d64()); }
 
+		/// <summary>
+		/// タイマーの残り時間を[日]で返します。
+		/// </summary>
+		/// <returns>
+		/// タイマーの残り時間[日]
+		/// </returns>
 		int64 d64() const { return us() / (1000LL * 1000LL * 60LL * 60LL * 24LL); }
 
+		/// <summary>
+		/// タイマーの残り時間を[日]で返します。
+		/// </summary>
+		/// <returns>
+		/// タイマーの残り時間[日]
+		/// </returns>
 		double dF() const { return static_cast<double>(us() / static_cast<double>(1000LL * 1000LL * 60LL * 60LL * 24LL)); }
 
 		/// <summary>
@@ -93,8 +105,20 @@ namespace s3d
 		/// </returns>
 		int32 h() const { return static_cast<int32>(h64()); }
 
+		/// <summary>
+		/// タイマーの残り時間を[時]で返します。
+		/// </summary>
+		/// <returns>
+		/// タイマーの残り時間[時]
+		/// </returns>
 		int64 h64() const { return us() / (1000LL * 1000LL * 60LL * 60LL); }
 
+		/// <summary>
+		/// タイマーの残り時間を[時]で返します。
+		/// </summary>
+		/// <returns>
+		/// タイマーの残り時間[時]
+		/// </returns>
 		double hF() const { return static_cast<double>(us() / static_cast<double>(1000LL * 1000LL * 60LL * 60LL)); }
 
 		/// <summary>
@@ -105,8 +129,20 @@ namespace s3d
 		/// </returns>
 		int32 min() const { return static_cast<int32>(min64()); }
 
+		/// <summary>
+		/// タイマーの残り時間を[分]で返します。
+		/// </summary>
+		/// <returns>
+		/// タイマーの残り時間[分]
+		/// </returns>
 		int64 min64() const { return us() / (1000LL * 1000LL * 60LL); }
 
+		/// <summary>
+		/// タイマーの残り時間を[分]で返します。
+		/// </summary>
+		/// <returns>
+		/// タイマーの残り時間[分]
+		/// </returns>
 		double minF() const { return static_cast<double>(us() / static_cast<double>(1000LL * 1000LL * 60LL)); }
 
 		/// <summary>
@@ -117,8 +153,20 @@ namespace s3d
 		/// </returns>
 		int32 s() const { return static_cast<int32>(s64()); }
 
+		/// <summary>
+		/// タイマーの残り時間を[秒]で返します。
+		/// </summary>
+		/// <returns>
+		/// タイマーの残り時間[秒]
+		/// </returns>
 		int64 s64() const { return us() / (1000LL * 1000LL); }
 
+		/// <summary>
+		/// タイマーの残り時間を[秒]で返します。
+		/// </summary>
+		/// <returns>
+		/// タイマーの残り時間[秒]
+		/// </returns>
 		double sF() const { return static_cast<double>(us() / static_cast<double>(1000LL * 1000LL)); }
 
 		/// <summary>
@@ -129,8 +177,20 @@ namespace s3d
 		/// </returns>
 		int32 ms() const { return static_cast<int32>(ms64()); }
 
+		/// <summary>
+		/// タイマーの残り時間を[ミリ秒]で返します。
+		/// </summary>
+		/// <returns>
+		/// タイマーの残り時間[ミリ秒]
+		/// </returns>
 		int64 ms64() const { return us() / (1000LL); }
 
+		/// <summary>
+		/// タイマーの残り時間を[ミリ秒]で返します。
+		/// </summary>
+		/// <returns>
+		/// タイマーの残り時間[ミリ秒]
+		/// </returns>
 		double msF() const { return static_cast<double>(us() / static_cast<double>(1000LL)); }
 
 		/// <summary>
@@ -156,11 +216,23 @@ namespace s3d
 			return Max<int64>(m_accumulationMicrosec - (t - m_startTimeMicrosec), 0);
 		}
 
+		/// <summary>
+		/// タイマーの残り時間を[マイクロ秒]で返します。
+		/// </summary>
+		/// <returns>
+		/// タイマーの残り時間[マイクロ秒]
+		/// </returns>
 		int64 us64() const
 		{
 			return us();
 		}
 
+		/// <summary>
+		/// タイマーの残り時間を[マイクロ秒]で返します。
+		/// </summary>
+		/// <returns>
+		/// タイマーの残り時間[マイクロ秒]
+		/// </returns>
 		double usF() const { return static_cast<double>(us()); }
 
 		/// <summary>
@@ -179,6 +251,12 @@ namespace s3d
 		/// </returns>
 		MillisecondsF remainingF() const { return MillisecondsF(msF()); }
 
+		/// <summary>
+		/// タイマーが 0 に達しているかを返します。
+		/// </summary>
+		/// <returns>
+		/// タイマーが 0 に達している場合は true, それ以外の場合は false
+		/// </returns>
 		bool reachedZero() const
 		{
 			return us() <= 0;
@@ -237,6 +315,12 @@ namespace s3d
 			start();
 		}
 
+		/// <summary>
+		/// タイマーを最初の設定時刻から開始しなおします。
+		/// </summary>
+		/// <returns>
+		/// なし
+		/// </returns>
 		void restart()
 		{
 			set(MicrosecondsF(m_initialTimeMicrosec));
