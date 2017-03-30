@@ -110,10 +110,9 @@
 
 #### 0.0.9
 - [x] MessageBox
+- [x] GIF
 - [ ] Clipboard
 - [ ] Log
-- [ ] GIF
-- [ ] GIF Animation
 - [ ] Cursor::SetPos()
 - [ ] Cursor::OnClient()
 - [ ] Cursor::Clip()
@@ -130,6 +129,7 @@
 - [ ] Rect::draw()
 - [ ] Line::draw()
 - [ ] Triangle::draw()
+- [ ] GIF Animation
 
 ## Discussion ##
  [Siv3D Slack #open-siv3d](https://siv3d.slack.com/messages/open-siv3d/details/)  (Japanese)
