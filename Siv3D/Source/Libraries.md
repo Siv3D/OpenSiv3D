@@ -4,6 +4,7 @@
 - double-conversion https://github.com/google/double-conversion
 - Easing Equations http://robertpenner.com/easing/
 - fmt 3.0.1 https://github.com/fmtlib/fmt/releases
+- giflib 5.1.4 https://sourceforge.net/projects/giflib/
 - GLWF 3.2.1 http://www.glfw.org
 - Guetzli v1.0.1 https://github.com/google/guetzli/releases
 - hopscotch-map v1.3.0 https://github.com/Tessil/hopscotch-map/releases

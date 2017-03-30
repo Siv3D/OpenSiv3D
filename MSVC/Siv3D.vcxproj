@@ -175,6 +175,7 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\IGraphics.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\BMP\ImageFormat_BMP.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\CImageFormat.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\GIF\ImageFormat_GIF.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\IImageFormat.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\JPEG\ImageFormat_JPEG.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\PNG\ImageFormat_PNG.hpp" />
@@ -328,6 +329,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\HSV\SivHSV.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\BMP\ImageFormat_BMP.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\CImageFormat.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\GIF\ImageFormat_GIF.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\ImageFormatFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\JPEG\ImageFormat_JPEG.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\PNG\ImageFormat_PNG.cpp" />
@@ -409,7 +411,7 @@
     <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\gif_font.c" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\gif_hash.c" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\openbsd-reallocarray.c" />
-    <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\quantize.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\gif_quantize.c" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\butteraugli_comparator.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\dct_double.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\debug_print.cc" />
