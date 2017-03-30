@@ -98,6 +98,12 @@ namespace s3d
 
 		bool LaunchBrowser(const FilePath& url);
 
-		void OpenLicenses();
+		/// <summary>
+		/// ライセンス情報を表示します。
+		/// </summary>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void ShowLicenses();
 	}
 }

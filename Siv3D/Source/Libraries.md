@@ -1,9 +1,10 @@
-- Boost 1.62.0 http://www.boost.org/users/history/version_1_62_0.html
+- Boost 1.64.0 http://www.boost.org/users/history/version_1_64_0.html
 - butteraugli https://github.com/google/butteraugli
 - Convenient Constructs For Stepping Through a Range of Values https://www.codeproject.com/articles/876156/convenient-constructs-for-stepping-through-a-range
 - double-conversion https://github.com/google/double-conversion
 - Easing Equations http://robertpenner.com/easing/
 - fmt 3.0.1 https://github.com/fmtlib/fmt/releases
+- giflib 5.1.4 https://sourceforge.net/projects/giflib/
 - GLWF 3.2.1 http://www.glfw.org
 - Guetzli v1.0.1 https://github.com/google/guetzli/releases
 - hopscotch-map v1.3.0 https://github.com/Tessil/hopscotch-map/releases

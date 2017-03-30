@@ -78,6 +78,15 @@ namespace s3d
 			return GetEncoding(BinaryReader(path));
 		}
 
+		/// <summary>
+		/// テキストファイルの BOM のサイズ（バイト）を返します。
+		/// </summary>
+		/// <param name="encoding">
+		/// エンコーディング形式
+		/// </param>
+		/// <returns>
+		/// テキストファイルの BOM のサイズ（バイト）
+		/// </returns>
 		inline constexpr int32 GetBOMSize(CharacterEncoding encoding)
 		{
 			return encoding == CharacterEncoding::UTF8_BOM ? 3

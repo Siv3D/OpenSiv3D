@@ -108,6 +108,47 @@ namespace s3d
 	}
 
 	/// <summary>
+	/// イテレータの範囲からランダムに値を選択します。
+	/// </summary>
+	/// <param name="begin">
+	/// 開始位置
+	/// </param>
+	/// <param name="end">
+	/// 終了位置
+	/// </param>
+	/// <remarks>
+	/// グローバルな乱数エンジンを使用します。
+	/// </remarks>
+	/// <returns>
+	/// イテレータの範囲からランダムに選択された値
+	/// </returns>
+	template <class Iterator>
+	inline auto RandomSelect(Iterator begin, Iterator end)
+	{
+		assert(begin != end);
+		std::advance(begin, Random(std::distance(begin, end) - 1));
+		return *begin;
+	}
+
+	/// <summary>
+	/// コンテナの中からランダムに値を選択します。
+	/// </summary>
+	/// <param name="c">
+	/// コンテナ
+	/// </param>
+	/// <remarks>
+	/// グローバルな乱数エンジンを使用します。
+	/// </remarks>
+	/// <returns>
+	/// コンテナの中からランダムに選択された値
+	/// </returns>
+	template <class Container>
+	inline auto RandomSelect(const Container& c)
+	{
+		return RandomSelect(std::begin(c), std::end(c));
+	}
+
+	/// <summary>
 	/// リストの中からランダムに値を選択します。
 	/// </summary>
 	/// <param name="ilist">
@@ -119,20 +160,6 @@ namespace s3d
 	/// <returns>
 	/// リストの中からランダムに選択された値
 	/// </returns>
-	template <class Iterator>
-	inline auto RandomSelect(Iterator begin, Iterator end)
-	{
-		assert(begin != end);
-		std::advance(begin, Random(std::distance(begin, end) - 1));
-		return *begin;
-	}
-
-	template <class Container>
-	inline auto RandomSelect(const Container& c)
-	{
-		return RandomSelect(std::begin(c), std::end(c));
-	}
-
 	template <class Type>
 	inline Type RandomSelect(std::initializer_list<Type> ilist)
 	{

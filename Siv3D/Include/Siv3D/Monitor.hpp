@@ -37,17 +37,11 @@ namespace s3d
 		/// <summary>
 		/// 使用可能なモニターの一覧を取得します。
 		/// </summary>
-		/// <remarks>
-		/// [x] Windows | [x] macOS | [ ] Linux
-		/// </remarks>
 		Array<Monitor> EnumActiveMonitors();
 
 		/// <summary>
 		/// ウィンドウが配置されているモニターのインデックスを取得します。
 		/// </summary>
-		/// <remarks>
-		/// [x] Windows | [x] macOS | [ ] Linux
-		/// </remarks>
 		size_t GetCurrentMonitorIndex();
 	}
 }

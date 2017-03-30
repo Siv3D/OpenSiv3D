@@ -41,7 +41,7 @@ namespace s3d
 	template <class Type>
 	inline constexpr Type&& constexpr_forward(typename std::remove_reference_t<Type>&& t) noexcept
 	{
-		static_assert(!std::is_lvalue_reference<Type>::value, "!!");
+		static_assert(!std::is_lvalue_reference<Type>::value);
 		return static_cast<Type&&>(t);
 	}
 
@@ -233,8 +233,8 @@ namespace s3d
 	template <class Type>
 	class Optional : private OptionalBase<Type>
 	{
-		static_assert(!std::is_same<std::decay_t<Type>, None_t>::value, "bad T");
-		static_assert(!std::is_same<std::decay_t<Type>, in_place_t>::value, "bad T");
+		static_assert(!std::is_same<std::decay_t<Type>, None_t>::value, "bad Type");
+		static_assert(!std::is_same<std::decay_t<Type>, in_place_t>::value, "bad Type");
 
 		Type* dataptr()
 		{

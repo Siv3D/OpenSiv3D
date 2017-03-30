@@ -135,6 +135,7 @@ namespace s3d
 			: ShowState::Normal;
 
 		m_state.focused = (m_hWnd == ::GetForegroundWindow());
+		m_state.fullScreen = false;
 
 		// ウィンドウの大きさを更新
 		RECT rc;
@@ -181,6 +182,16 @@ namespace s3d
 		);
 	}
 
+	void CWindow_Windows::updateClientSize(const bool fullScreen, const Size& size)
+	{
+		m_state.clientSize.set(size);
+		m_state.fullScreen = fullScreen;
+
+		RECT windowRect = { 0, 0, m_state.clientSize.x, m_state.clientSize.y };
+		::AdjustWindowRectEx(&windowRect, m_style, FALSE, 0);
+		m_state.windowSize.set(windowRect.right - windowRect.left, windowRect.bottom - windowRect.top);
+	}
+
 	void CWindow_Windows::initState()
 	{
 		// ウィンドウクラス名として実行ファイルのパスを使用
@@ -195,7 +206,6 @@ namespace s3d
 
 		RECT windowRect = { 0, 0, m_state.clientSize.x, m_state.clientSize.y };
 		::AdjustWindowRectEx(&windowRect, m_style, FALSE, 0);
-
 		m_state.windowSize.set(windowRect.right - windowRect.left, windowRect.bottom - windowRect.top);
 
 		// ウィンドウの枠やタイトルバーの幅を取得

@@ -235,6 +235,8 @@ namespace s3d
 		m_size = size;
 		m_currentDisplayIndex = displayIndex;
 
+		Siv3DEngine::GetWindow()->updateClientSize(m_fullScreen, size);
+
 		return true;
 	}
 

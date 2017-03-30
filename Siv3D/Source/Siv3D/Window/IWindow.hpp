@@ -62,5 +62,7 @@ namespace s3d
 		virtual const WindowState& getState() const = 0;
 
 		virtual void setPos(const Point& pos) = 0;
+
+		virtual void updateClientSize(bool fullScreen, const Size& size) = 0;
 	};
 }
