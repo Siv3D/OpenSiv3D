@@ -427,9 +427,6 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\FileSystem.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\Include\Siv3D\TextEncoding.hpp">
-      <Filter>Include\Siv3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\InfiniteList.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>

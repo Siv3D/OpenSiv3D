@@ -116,7 +116,6 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\WritableMemoryMapping.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Xorshift.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\System.hpp" />
-    <ClInclude Include="..\Siv3D\Include\Siv3D\TextEncoding.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextReader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextWriter.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ConcurrentTask.hpp" />
