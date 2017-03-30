@@ -175,9 +175,9 @@ GifQuantizeBuffer(unsigned int Width,
     }
 
 #ifdef DEBUG
-    fprintf(stderr,
-            "Quantization L(0) errors: Red = %d, Green = %d, Blue = %d.\n",
-            MaxRGBError[0], MaxRGBError[1], MaxRGBError[2]);
+    //fprintf(stderr,
+    //        "Quantization L(0) errors: Red = %d, Green = %d, Blue = %d.\n",
+    //        MaxRGBError[0], MaxRGBError[1], MaxRGBError[2]);
 #endif /* DEBUG */
 
     free((char *)ColorArrayEntries);
