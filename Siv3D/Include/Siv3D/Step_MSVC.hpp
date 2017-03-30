@@ -404,12 +404,11 @@ namespace s3d
 			return result;
 		}
 
-		template <class Type = std::common_type_t<T, S, N>>
-		constexpr Type sum() const
+		constexpr auto sum() const
 		{
 			const auto n = count();
-			const Type a = startValue();
-			const Type d = step();
+			const auto a = startValue();
+			const auto d = step();
 			return n * (2 * a + (n - 1) * d) / 2;
 		}
 
@@ -966,10 +965,11 @@ namespace s3d
 			return result;
 		}
 
-		template <class Type = value_type>
-		Type sum() const
+		auto sum() const
 		{
-			return reduce(Plus<Type>(), Type{});
+			using result_type = decltype(std::declval<T>() + std::declval<S>());
+
+			return reduce(Plus<result_type>(), result_type{});
 		}
 
 		Array<value_type> take(size_t n) const

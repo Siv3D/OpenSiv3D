@@ -409,7 +409,7 @@ namespace s3d
 
 		auto sum() const
 		{
-			using result_type = decltype(startValue() + step());
+			using result_type = decltype(std::declval<T>() + std::declval<S>());
 			
 			if constexpr (std::is_scalar<result_type>::value)
 			{
