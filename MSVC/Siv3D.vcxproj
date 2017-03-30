@@ -217,6 +217,9 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\ieee.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\strtod.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\utils.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\giflib\gif_hash.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\giflib\gif_lib.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\giflib\gif_lib_private.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\butteraugli_comparator.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\color_transform.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\guetzli\comparator.h" />
@@ -399,6 +402,14 @@
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\fixed-dtoa.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\strtod.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\fmt\format.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\dgif_lib.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\egif_lib.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\gifalloc.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\gif_err.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\gif_font.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\gif_hash.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\openbsd-reallocarray.c" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\quantize.c" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\butteraugli_comparator.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\dct_double.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\guetzli\debug_print.cc" />

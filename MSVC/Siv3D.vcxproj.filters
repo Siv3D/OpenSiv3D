@@ -257,6 +257,9 @@
     <Filter Include="Source\Siv3D\MessageBox">
       <UniqueIdentifier>{e46d08c9-c018-4888-ae4e-91f27298a2f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\ThirdParty\giflib">
+      <UniqueIdentifier>{0da2c0b8-18bb-4c06-b400-41f158196a57}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1015,6 +1018,15 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\MessageBox.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\giflib\gif_hash.h">
+      <Filter>Source\ThirdParty\giflib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\giflib\gif_lib.h">
+      <Filter>Source\ThirdParty\giflib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\giflib\gif_lib_private.h">
+      <Filter>Source\ThirdParty\giflib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1514,6 +1526,30 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\MessageBox\SivMessageBox_Linux.cpp">
       <Filter>Source\Siv3D\MessageBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\gifalloc.c">
+      <Filter>Source\ThirdParty\giflib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\openbsd-reallocarray.c">
+      <Filter>Source\ThirdParty\giflib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\quantize.c">
+      <Filter>Source\ThirdParty\giflib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\dgif_lib.c">
+      <Filter>Source\ThirdParty\giflib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\egif_lib.c">
+      <Filter>Source\ThirdParty\giflib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\gif_err.c">
+      <Filter>Source\ThirdParty\giflib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\gif_font.c">
+      <Filter>Source\ThirdParty\giflib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\gif_hash.c">
+      <Filter>Source\ThirdParty\giflib</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
