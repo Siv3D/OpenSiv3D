@@ -46,7 +46,7 @@ namespace s3d
 
 		void setPos(const Point& pos) override;
 
-		void updateClientSize(const Size& size) override;
+		void updateClientSize(bool fullScreen, const Size& size) override;
 	};
 }
 

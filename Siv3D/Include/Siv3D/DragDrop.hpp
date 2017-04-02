@@ -19,33 +19,69 @@ namespace s3d
 {
 	enum class DragItemType
 	{
+		/// <summary>
+		/// ファイルパス
+		/// </summary>
 		FilePaths,
 
+		/// <summary>
+		/// テキスト
+		/// </summary>
 		Text
 	};
 
 	struct DragStatus
 	{
+		/// <summary>
+		/// ドラッグしているアイテムの種類
+		/// </summary>
 		DragItemType itemType;
 
+		/// <summary>
+		/// ドラッグしているカーソルの位置（クライアント座標）
+		/// </summary>
 		Point pos;
 	};
 
 	struct DroppedFilePath
 	{
+		/// <summary>
+		/// ファイルパス
+		/// </summary>
 		FilePath path;
 
+		/// <summary>
+		/// ドロップされた位置（クライアント座標）
+		/// </summary>
 		Point pos;
 
+		/// <summary>
+		/// ドロップされた時刻（ミリ秒）
+		/// </summary>
+		/// <remarks>
+		/// Time::GetMillisec() で取得する時刻と比較できます。
+		/// </remarks>
 		uint64 timeMillisec;
 	};
 
 	struct DroppedText
 	{
+		/// <summary>
+		/// テキスト
+		/// </summary>
 		String text;
 
+		/// <summary>
+		/// ドロップされたクライアント位置（クライアント座標）
+		/// </summary>
 		Point pos;
 
+		/// <summary>
+		/// ドロップされた時刻（ミリ秒）
+		/// </summary>
+		/// <remarks>
+		/// Time::GetMillisec() で取得する時刻と比較できます。
+		/// </remarks>
 		uint64 timeMillisec;
 	};
 

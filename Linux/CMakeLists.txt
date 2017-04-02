@@ -7,7 +7,7 @@ enable_language(C)
 
 set(CMAKE_CXX_COMPILER "clang++")
 #set(CMAKE_CXX_COMPILER "g++")
-set(CMAKE_CXX_FLAGS "-std=c++14 -Wall -Wextra -Wno-unknown-pragmas")
+set(CMAKE_CXX_FLAGS "-std=c++1z -Wall -Wextra -Wno-unknown-pragmas")
 set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG -march=native")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -Og -pg")
@@ -92,6 +92,7 @@ set(SOURCE_FILES
 	"../Siv3D/Source/Siv3D/INIReader/SivINIReader.cpp"
 	"../Siv3D/Source/Siv3D/Image/SivImage.cpp"
 	"../Siv3D/Source/Siv3D/ImageFormat/BMP/ImageFormat_BMP.cpp"
+	"../Siv3D/Source/Siv3D/ImageFormat/GIF/ImageFormat_GIF.cpp"
 	"../Siv3D/Source/Siv3D/ImageFormat/JPEG/ImageFormat_JPEG.cpp"
 	"../Siv3D/Source/Siv3D/ImageFormat/PNG/ImageFormat_PNG.cpp"
 	"../Siv3D/Source/Siv3D/ImageFormat/CImageFormat.cpp"
@@ -109,6 +110,7 @@ set(SOURCE_FILES
 	"../Siv3D/Source/Siv3D/MathParser/SivMathParser.cpp"
 	"../Siv3D/Source/Siv3D/MemoryMapping/CMemoryMapping.cpp"
 	"../Siv3D/Source/Siv3D/MemoryMapping/SivMemoryMapping.cpp"
+	"../Siv3D/Source/Siv3D/MessageBox/SivMessageBox_Linux.cpp"
 	"../Siv3D/Source/Siv3D/Monitor/SivMonitor.cpp"
 	"../Siv3D/Source/Siv3D/Mouse/CMouse_Linux.cpp"
 	"../Siv3D/Source/Siv3D/Mouse/MouseFactory.cpp"
