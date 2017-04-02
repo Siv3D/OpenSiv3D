@@ -17,6 +17,7 @@
 - OpenGL
 - libpng
 - libjpeg (turbojpeg)
+- libgif
 - X11
 - X11 Input extension (Xi)
 - X11 RandR extension (Xrandr)
@@ -40,7 +41,7 @@ cmakeコマンドを実行するときに`-DCMAKE_BUILD_TYPE=Debug`もしくは`
 
 「libsiv3d.a」をリンクしてSiv3Dを使ったプログラムをコンパイルする時には、
 `-lsiv3d`オプションでOpenSiv3Dのライブラリをリンクする他に、依存ライブラリとして、
-`-lboost_filesystem -lboost_system -lglib-2.0 -lgio-2.0 -lgobject-2.0 -lpthread -lGL -lpng -lturbojpeg -lX11 -lXi -lXrandr -lXinerama -lXcursor -ldl`を指定する必要があります。
+`-lboost_filesystem -lboost_system -lglib-2.0 -lgio-2.0 -lgobject-2.0 -lpthread -lGL -lpng -lturbojpeg -lgif -lX11 -lXi -lXrandr -lXinerama -lXcursor -ldl`を指定する必要があります。
 
 ## 現状のOpenSiv3D Windows/macOS版との相違点
 - Cursor::sceenPos()とCursor::previousScreenPos()はそれぞれCursor::clientPos()とCursor::previsouClientPos()と同じ値を返します。(Linuxではディスプレイマネージャによって画面上のどこにカーソルがあるか取得する機能があったりなかったりするため。)
