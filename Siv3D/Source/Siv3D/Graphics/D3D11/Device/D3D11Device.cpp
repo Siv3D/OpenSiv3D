@@ -269,7 +269,7 @@ namespace s3d
 
 		uint32 creationFlags = D3D11_CREATE_DEVICE_SINGLETHREADED;
 
-# ifdef _DEBUG
+	# ifdef _DEBUG
 
 		if (HINSTANCE D3D11_1SDKLayersLibrary = ::LoadLibraryW(L"D3D11_1SDKLayers.dll"))
 		{
@@ -278,7 +278,7 @@ namespace s3d
 			::FreeLibrary(D3D11_1SDKLayersLibrary);
 		}
 
-# endif
+	# endif
 
 		if (!adapterIndexFromConfig && favor_iGPU)
 		{

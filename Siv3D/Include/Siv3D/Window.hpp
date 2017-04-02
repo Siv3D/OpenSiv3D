@@ -67,10 +67,15 @@ namespace s3d
 
 		// [x] Windows | [ ] macOS | [ ] Linux
 		bool focused;
+
+		bool fullScreen;
 	};
 
 	namespace Window
 	{
+		/// <summary>
+		/// デフォルトのクライアント解像度
+		/// </summary>
 		constexpr Size DefaultClientSize(640, 480);
 
 		void SetTitle(const String& title);

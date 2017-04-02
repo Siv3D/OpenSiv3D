@@ -57,8 +57,20 @@ namespace s3d
 	
 	namespace Mouse
 	{
+		/// <summary>
+		/// マウスホイールのスクロール量を返します。
+		/// </summary>
+		/// <returns>
+		/// マウスホイールのスクロール量
+		/// </returns>
 		double Wheel();
 		
+		/// <summary>
+		/// マウスの水平ホイールのスクロール量を返します。
+		/// </summary>
+		/// <returns>
+		/// マウスの水平ホイールのスクロール量
+		/// </returns>
 		double WheelH();
 	}
 }

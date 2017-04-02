@@ -6,7 +6,7 @@
 |:---------------:|:---------------:|:-------------:|:------------------------------|
 | Windows Desktop | <a href="https://github.com/Siv3D/OpenSiv3D/wiki/OpenSiv3D-SDK-for-Windows-Desktop">**0.0.8**.971</a>     | 29 March 2017 | Windows 7 SP1 / 8.1 / 10<br>Microsoft Visual C++ 2017 |
 | macOS           | <a href="https://github.com/Siv3D/OpenSiv3D/wiki/OpenSiv3D-SDK-for-macOS">**0.0.8**.971</a>     | 29 March 2017 | macOS Sierra v10.12 or newer<br>Xcode 8.1 or newer |
-| Linux           | <a href="https://github.com/Siv3D/OpenSiv3D/tree/master/Linux">**0.0.8**.971</a> (experimental)  |               | |
+| Linux           | <a href="https://github.com/wynd2608/OpenSiv3D/tree/master/Linux">**0.0.8**.971</a> (experimental)  |               | |
 | Universal Windows Platform | TBA  |               | Windows 10<br>Microsoft Visual C++ 2017 or newer |
 
 ## Roadmap ##
@@ -109,12 +109,10 @@
 ---------------------------
 
 #### 0.0.9
-- [ ] Log
+- [x] MessageBox
+- [x] GIF
 - [ ] Clipboard
-- [ ] MessageBox
-- [ ] CommandLine
-- [ ] GIF
-- [ ] GIA Animation
+- [ ] Log
 - [ ] Cursor::SetPos()
 - [ ] Cursor::OnClient()
 - [ ] Cursor::Clip()
@@ -124,6 +122,14 @@
 - [ ] Profiler::FPS()
 - [ ] Graphics::EnableVSync()
 - [ ] Resource files
+
+---------------------------
+
+#### 0.1.0
+- [ ] Rect::draw()
+- [ ] Line::draw()
+- [ ] Triangle::draw()
+- [ ] GIF Animation
 
 ## Discussion ##
  [Siv3D Slack #open-siv3d](https://siv3d.slack.com/messages/open-siv3d/details/)  (Japanese)
