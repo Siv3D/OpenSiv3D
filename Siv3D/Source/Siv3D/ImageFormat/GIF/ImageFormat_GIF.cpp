@@ -50,7 +50,7 @@ namespace s3d
 	{
 		static constexpr uint8 GIF_SIGN87a[] = { 'G', 'I', 'F', '8', '7', 'a' };
 		static constexpr uint8 GIF_SIGN89a[] = { 'G', 'I', 'F', '8', '9', 'a' };
-			
+
 		return ::memcmp(bytes, GIF_SIGN87a, sizeof(GIF_SIGN87a)) == 0
 			|| ::memcmp(bytes, GIF_SIGN89a, sizeof(GIF_SIGN89a)) == 0;
 	}
@@ -113,7 +113,7 @@ namespace s3d
 		}
 
 		const ColorMapObject* colorMap = frame->ImageDesc.ColorMap ? frame->ImageDesc.ColorMap : gif->SColorMap;
-		
+
 		// no local or global color map
 		if (!colorMap)
 		{
@@ -253,7 +253,7 @@ namespace s3d
 
 		int error = 0;
 		GifFileType* gif = EGifOpen(&writer, detail::GifWriteCallback, &error);
-		
+
 		EGifSetGifVersion(gif, true);
 
 		if (EGifPutScreenDesc(gif, width, height, 8, 0, nullptr) == GIF_ERROR)
@@ -310,7 +310,7 @@ namespace s3d
 	bool ImageFormat_GIF::save(const Image& image, const FilePath& path) const
 	{
 		BinaryWriter writer(path);
-			
+
 		return encode(image, writer);
 	}
 }
