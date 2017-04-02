@@ -9,7 +9,12 @@
 //
 //-----------------------------------------------
 
+# if defined (SIV3D_TARGET_LINUX)
+# include <gif_lib.h>
+# else
 # include "../../../ThirdParty/giflib/gif_lib.h"
+# endif
+
 # include "ImageFormat_GIF.hpp"
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/IWriter.hpp>
