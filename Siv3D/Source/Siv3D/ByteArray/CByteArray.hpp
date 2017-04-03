@@ -22,9 +22,9 @@ namespace s3d
 
 		MemoryMapping m_memoryMapping;
 
-		Array<uint8> m_array;
+		Array<Byte> m_array;
 
-		const uint8* m_view = nullptr;
+		const Byte* m_view = nullptr;
 
 		int64 m_size = 0;
 
@@ -36,9 +36,9 @@ namespace s3d
 
 		bool create(const void* src, size_t size);
 
-		bool create(const Array<uint8>& data);
+		bool create(const Array<Byte>& data);
 
-		bool create(Array<uint8>&& data);
+		bool create(Array<Byte>&& data);
 
 		void release();
 
@@ -50,7 +50,7 @@ namespace s3d
 
 		int64 getPos() const;
 
-		const uint8* data() const;
+		const Byte* data() const;
 
 		int64 read(void* dst, int64 size);
 

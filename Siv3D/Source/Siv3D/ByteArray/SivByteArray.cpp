@@ -31,12 +31,12 @@ namespace s3d
 		return pImpl->create(src, size);
 	}
 
-	bool ByteArray::create(const Array<uint8>& data)
+	bool ByteArray::create(const Array<Byte>& data)
 	{
 		return pImpl->create(data.data(), data.size());
 	}
 
-	bool ByteArray::create(Array<uint8>&& data)
+	bool ByteArray::create(Array<Byte>&& data)
 	{
 		return pImpl->create(std::move(data));
 	}
@@ -78,7 +78,7 @@ namespace s3d
 		return pImpl->setPos(pImpl->getPos() + offset);
 	}
 
-	const uint8* ByteArray::data() const
+	const Byte* ByteArray::data() const
 	{
 		return pImpl->data();
 	}
