@@ -201,7 +201,7 @@ namespace s3d
 			return;
 		}
 
-		uint8* const pData = static_cast<uint8*>(::MapViewOfFile(
+		Byte* const pData = static_cast<Byte*>(::MapViewOfFile(
 			m_mapHandle, FILE_MAP_WRITE, static_cast<uint64>(internalOffset) >> 32,
 			internalOffset & 0xffFFffFF, offset - internalOffset + mappingSize));
 
@@ -222,7 +222,7 @@ namespace s3d
 			m_fileSize = offset + mappingSize;
 		}
 
-		uint8* const pData = static_cast<uint8*>(
+		Byte* const pData = static_cast<Byte*>(
 			::mmap(0, offset - internalOffset + mappingSize, (PROT_READ | PROT_WRITE), MAP_SHARED, m_fileHandle, internalOffset));
 
 		if (pData == MAP_FAILED)
@@ -251,7 +251,7 @@ namespace s3d
 			return;
 		}
 
-		uint8* const pData = m_mapView - (m_mapOffset - m_mapOffset / detail::GetGranularity() * detail::GetGranularity());
+		Byte* const pData = m_mapView - (m_mapOffset - m_mapOffset / detail::GetGranularity() * detail::GetGranularity());
 
 	# if defined (SIV3D_TARGET_WINDOWS)
 
@@ -276,7 +276,7 @@ namespace s3d
 	{
 		if (m_mapView)
 		{
-			uint8* const pData = m_mapView - (m_mapOffset - m_mapOffset / detail::GetGranularity() * detail::GetGranularity());
+			Byte* const pData = m_mapView - (m_mapOffset - m_mapOffset / detail::GetGranularity() * detail::GetGranularity());
 			const size_t flushSize = m_mappedSize + (m_mapView - pData);
 			
 		# if defined (SIV3D_TARGET_WINDOWS)
@@ -319,7 +319,7 @@ namespace s3d
 		return m_fileSize;
 	}
 
-	uint8* WritableMemoryMapping::CWritableMemoryMapping::data() const
+	Byte* WritableMemoryMapping::CWritableMemoryMapping::data() const
 	{
 		return m_mapView;
 	}

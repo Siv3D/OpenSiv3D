@@ -277,13 +277,13 @@ TEST(AlignedMemory, AlignedNew)
 	}
 }
 
-TEST(AlignedMemory, HasAlignment)
+TEST(AlignedMemory, IsOverAligned)
 {
-	EXPECT_EQ(HasAlignment<int32>::value, false);
-	EXPECT_EQ(HasAlignment<double>::value, false);
-	EXPECT_EQ(HasAlignment<Data16>::value, SIV3D_ALLOCATOR_MIN_ALIGNMENT < 16);
-	EXPECT_EQ(HasAlignment<Data32>::value, SIV3D_ALLOCATOR_MIN_ALIGNMENT < 32);
-	EXPECT_EQ(HasAlignment<Data64>::value, SIV3D_ALLOCATOR_MIN_ALIGNMENT < 64);
+	EXPECT_EQ(IsOverAligned<int32>::value, false);
+	EXPECT_EQ(IsOverAligned<double>::value, false);
+	EXPECT_EQ(IsOverAligned<Data16>::value, SIV3D_ALLOCATOR_MIN_ALIGNMENT < 16);
+	EXPECT_EQ(IsOverAligned<Data32>::value, SIV3D_ALLOCATOR_MIN_ALIGNMENT < 32);
+	EXPECT_EQ(IsOverAligned<Data64>::value, SIV3D_ALLOCATOR_MIN_ALIGNMENT < 64);
 }
 
 TEST(AlignedMemory, MakeUnique)
