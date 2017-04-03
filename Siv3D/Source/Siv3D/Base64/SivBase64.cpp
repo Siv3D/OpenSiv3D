@@ -102,18 +102,18 @@ namespace s3d
 				return ByteArray();
 			}
 
-			Array<uint8> dst(detail::DecodeLength(src));
+			Array<Byte> dst(detail::DecodeLength(src));
 			const auto blocks = src.length() / 4;
 			const auto remain = src.length() % 4;
 			const wchar* pSrc = src.data();
-			uint8* pDst = dst.data();
+			Byte* pDst = dst.data();
 
 			for (size_t i = 0; i < blocks; ++i)
 			{
 				const uint8 v1 = detail::decodeTable[*pSrc++ & 0xff];
 				const uint8 v2 = detail::decodeTable[*pSrc++ & 0xff];
 
-				*pDst++ = static_cast<uint8>(v1 << 2 | v2 >> 4);
+				*pDst++ = static_cast<Byte>(v1 << 2 | v2 >> 4);
 
 				const uint8 v3 = detail::decodeTable[*pSrc++ & 0xff];
 
@@ -122,7 +122,7 @@ namespace s3d
 					break;
 				}
 
-				*pDst++ = static_cast<uint8>((v2 << 4 | v3 >> 2) & 0xff);
+				*pDst++ = static_cast<Byte>((v2 << 4 | v3 >> 2) & 0xff);
 
 				const uint8 v4 = detail::decodeTable[*pSrc++ & 0xff];
 
@@ -131,7 +131,7 @@ namespace s3d
 					break;
 				}
 
-				*pDst++ = static_cast<uint8>((v3 << 6 | v4) & 0xff);
+				*pDst++ = static_cast<Byte>((v3 << 6 | v4) & 0xff);
 			}
 
 			if (remain)
@@ -139,11 +139,11 @@ namespace s3d
 				const uint8 v1 = detail::decodeTable[*pSrc++ & 0xff];
 				const uint8 v2 = detail::decodeTable[*pSrc++ & 0xff];
 
-				*pDst++ = static_cast<uint8>(v1 << 2 | v2 >> 4);
+				*pDst++ = static_cast<Byte>(v1 << 2 | v2 >> 4);
 
 				if (remain == 3)
 				{
-					*pDst++ = static_cast<uint8>((v2 << 4 | detail::decodeTable[*pSrc++ & 0xff] >> 2) & 0xff);
+					*pDst++ = static_cast<Byte>((v2 << 4 | detail::decodeTable[*pSrc++ & 0xff] >> 2) & 0xff);
 				}
 			}
 

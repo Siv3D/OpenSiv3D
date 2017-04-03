@@ -55,7 +55,7 @@ namespace s3d
 
 		size_t m_mapOffset = 0;
 
-		uint8* m_mapView = nullptr;
+		Byte* m_mapView = nullptr;
 
 		FilePath m_fullPath;
 
@@ -85,7 +85,7 @@ namespace s3d
 
 		int64 fileSize() const;
 
-		uint8* data() const;
+		Byte* data() const;
 
 		const FilePath& path() const;
 	};

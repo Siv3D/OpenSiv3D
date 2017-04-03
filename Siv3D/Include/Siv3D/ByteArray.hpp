@@ -60,7 +60,7 @@ namespace s3d
 		/// <param name="data">
 		/// コピーするデータ
 		/// </param>
-		explicit ByteArray(const Array<uint8>& data)
+		explicit ByteArray(const Array<Byte>& data)
 			: ByteArray()
 		{
 			create(data);
@@ -72,7 +72,7 @@ namespace s3d
 		/// <param name="data">
 		/// ムーブするデータ
 		/// </param>
-		explicit ByteArray(Array<uint8>&& data)
+		explicit ByteArray(Array<Byte>&& data)
 			: ByteArray()
 		{
 			create(std::move(data));
@@ -106,7 +106,7 @@ namespace s3d
 		/// <returns>
 		/// バッファの作成に成功した場合 true, それ以外の場合は false
 		/// </returns>
-		bool create(const Array<uint8>& data);
+		bool create(const Array<Byte>& data);
 
 		/// <summary>
 		/// データをムーブして読み込み用バッファを作成します。
@@ -117,7 +117,7 @@ namespace s3d
 		/// <returns>
 		/// バッファの作成に成功した場合 true, それ以外の場合は false
 		/// </returns>
-		bool create(Array<uint8>&& data);
+		bool create(Array<Byte>&& data);
 
 		/// <summary>
 		/// 読み込みバッファを解放します。
@@ -190,7 +190,7 @@ namespace s3d
 		/// <returns>
 		/// 読み込みバッファの先頭ポインタ
 		/// </returns>
-		const uint8* data() const;
+		const Byte* data() const;
 
 		/// <summary>
 		/// ファイルからデータを読み込みます。

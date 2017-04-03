@@ -21,11 +21,11 @@ namespace s3d
 	{
 	public:
 
-		using value_type				= uint8;
-		using pointer					= const uint8*;
-		using const_pointer				= const uint8*;
-		using reference					= const uint8&;
-		using const_reference			= const uint8&;
+		using value_type				= Byte;
+		using pointer					= const Byte*;
+		using const_pointer				= const Byte*;
+		using reference					= const Byte&;
+		using const_reference			= const Byte&;
 		using const_iterator			= const_pointer;
 		using iterator					= const_iterator;
 		using const_reverse_iterator	= std::reverse_iterator<const_iterator>;
@@ -35,7 +35,7 @@ namespace s3d
 
 	private:
 
-		const uint8* m_ptr = nullptr;
+		const Byte* m_ptr = nullptr;
 
 		size_type m_size = 0;
 
@@ -50,7 +50,7 @@ namespace s3d
 
 		template <class Type, std::enable_if_t<std::is_trivially_copyable<Type>::value>* = nullptr>
 		constexpr ByteArrayView(const Type* ptr, size_type count) noexcept
-			: m_ptr(static_cast<const uint8*>(static_cast<const void*>(ptr)))
+			: m_ptr(static_cast<const_pointer>(static_cast<const void*>(ptr)))
 			, m_size(sizeof(Type) * count) {}
 
 		template <class Type, std::enable_if_t<std::is_trivially_copyable<Type>::value>* = nullptr>

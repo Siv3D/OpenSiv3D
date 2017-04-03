@@ -60,4 +60,9 @@ namespace s3d
 	/// 文字
 	/// </summary>
 	using wchar = wchar_t;
+
+	/// <summary>
+	/// 1 バイトを表現する型
+	/// </summary>
+	enum class Byte : unsigned char { };
 }

@@ -27,7 +27,7 @@ namespace s3d
 
 		FilePath m_fullPath;
 
-		uint8* m_pBuffer = nullptr;
+		Byte* m_pBuffer = nullptr;
 
 		size_t m_currentBufferPos = 0;
 
