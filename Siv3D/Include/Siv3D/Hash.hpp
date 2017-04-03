@@ -41,7 +41,7 @@ namespace s3d
 
 			// Mix 4 bytes at a time into the hash
 
-			const Byte* data = static_cast<const Byte*>(key);
+			const uint8* data = static_cast<const uint8*>(key);
 
 			while (len >= 4)
 			{

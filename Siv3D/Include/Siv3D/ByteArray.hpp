@@ -312,3 +312,30 @@ namespace s3d
 		bool save(const FilePath& path) const;
 	};
 }
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting ByteArray
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[ ] istream
+//	[ ] wistream
+//	[p] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
+	inline void Formatter(FormatData& formatData, const ByteArray& value)
+	{
+		Formatter(formatData, value.getView());
+	}
+
+	template <class CharType>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const ByteArray& value)
+	{
+		return os << value.getView();
+	}
+}
+//
+//////////////////////////////////////////////////////////////////////////////

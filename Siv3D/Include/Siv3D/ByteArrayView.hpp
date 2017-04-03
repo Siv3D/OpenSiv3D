@@ -108,3 +108,27 @@ namespace s3d
 		const_reverse_iterator crend() const noexcept { return const_reverse_iterator{ cbegin() }; }
 	};
 }
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting ByteArrayView
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[ ] istream
+//	[ ] wistream
+//	[p] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
+	void Formatter(FormatData& formatData, const ByteArrayView& value);
+
+	template <class CharType>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const ByteArrayView& value)
+	{
+		return os << Format(value);
+	}
+}
+//
+//////////////////////////////////////////////////////////////////////////////
