@@ -141,7 +141,7 @@ namespace s3d
     /// </returns>
     inline uint32 AsUint(const float value) noexcept
     {
-        static_assert(sizeof(uint32) == sizeof(float), "");
+        static_assert(sizeof(uint32) == sizeof(float));
         return *static_cast<const uint32*>(static_cast<const void*>(&value));
     }
     
@@ -156,7 +156,7 @@ namespace s3d
     /// </returns>
     inline uint64 AsUint(const double value) noexcept
     {
-        static_assert(sizeof(uint64) == sizeof(double), "");
+        static_assert(sizeof(uint64) == sizeof(double));
         return *static_cast<const uint64*>(static_cast<const void*>(&value));
     }
     

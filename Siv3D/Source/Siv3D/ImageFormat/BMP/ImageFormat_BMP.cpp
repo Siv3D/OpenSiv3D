@@ -38,7 +38,7 @@ namespace s3d
 		uint32 biClrImportant;
 	};
 
-	static_assert(sizeof(BMPHeader) == 54, "sizeof(BMPHeader) != 54");
+	static_assert(sizeof(BMPHeader) == 54);
 
 # pragma pack ( pop )
 
