@@ -124,11 +124,9 @@ namespace s3d
 {
 	void Formatter(FormatData& formatData, const ByteArrayView& value);
 
-	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const ByteArrayView& value)
-	{
-		return os << Format(value);
-	}
+	std::ostream& operator <<(std::ostream& os, const ByteArrayView& value);
+	
+	std::wostream& operator <<(std::wostream& os, const ByteArrayView& value);
 }
 //
 //////////////////////////////////////////////////////////////////////////////

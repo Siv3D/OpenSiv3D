@@ -31,6 +31,7 @@
 		2C21265C1E8CD59B006F8101 /* gif_quantize.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C21265B1E8CD59B006F8101 /* gif_quantize.c */; };
 		2C2126601E8CF6EA006F8101 /* ImageFormat_GIF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C21265E1E8CF6EA006F8101 /* ImageFormat_GIF.cpp */; };
 		2C2126611E8CF6EA006F8101 /* ImageFormat_GIF.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C21265F1E8CF6EA006F8101 /* ImageFormat_GIF.hpp */; };
+		2C2126631E9297CC006F8101 /* Byte.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C2126621E9297CC006F8101 /* Byte.hpp */; };
 		2C2CCF511CE8698C001844FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2CCF501CE8698C001844FF /* Foundation.framework */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
@@ -550,6 +551,7 @@
 		2C21265B1E8CD59B006F8101 /* gif_quantize.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gif_quantize.c; sourceTree = "<group>"; };
 		2C21265E1E8CF6EA006F8101 /* ImageFormat_GIF.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageFormat_GIF.cpp; sourceTree = "<group>"; };
 		2C21265F1E8CF6EA006F8101 /* ImageFormat_GIF.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageFormat_GIF.hpp; sourceTree = "<group>"; };
+		2C2126621E9297CC006F8101 /* Byte.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Byte.hpp; sourceTree = "<group>"; };
 		2C2CCF501CE8698C001844FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
@@ -1244,6 +1246,7 @@
 				2C81BCA71E89F8E300D27E52 /* BigInt.hpp */,
 				2C81BCA81E89F8E300D27E52 /* BinaryReader.hpp */,
 				2C81BCA91E89F8E300D27E52 /* BinaryWriter.hpp */,
+				2C2126621E9297CC006F8101 /* Byte.hpp */,
 				2C81BCAA1E89F8E300D27E52 /* ByteArray.hpp */,
 				2C81BCAB1E89F8E300D27E52 /* ByteArrayView.hpp */,
 				2C81BCAC1E89F8E300D27E52 /* Char.hpp */,
@@ -2472,6 +2475,7 @@
 				2C81BF021E89F8E300D27E52 /* Image.hpp in Headers */,
 				2C81BF4A1E89F8E300D27E52 /* XXHash.hpp in Headers */,
 				2C81BF611E89F8E300D27E52 /* CBinaryWriter_macOS.hpp in Headers */,
+				2C2126631E9297CC006F8101 /* Byte.hpp in Headers */,
 				2C81C0761E89F8E300D27E52 /* pnglibconf.h in Headers */,
 				2C81C08A1E89F8E300D27E52 /* muParserTemplateMagic.h in Headers */,
 				2C81C01E1E89F8E300D27E52 /* cocoa_joystick.h in Headers */,
