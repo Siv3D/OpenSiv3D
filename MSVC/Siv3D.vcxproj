@@ -156,6 +156,10 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryWriter\CBinaryWriter_macOS.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryWriter\CBinaryWriter_Windows.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\ByteArray\CByteArray.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Clipboard\CClipboard_Linux.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Clipboard\CClipboard_macOS.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Clipboard\CClipboard_Windows.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Clipboard\IClipboard.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Console\CConsole.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Console\IConsole.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_Linux.hpp" />
@@ -294,6 +298,11 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\CharacterEncoding\SivCharacterEncoding.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\CharacterSet\SivCharacterSet.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Circle\SivCircle.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Clipboard\CClipboard_Linux.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Clipboard\CClipboard_macOS.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Clipboard\CClipboard_Windows.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Clipboard\ClipboardFactory.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Clipboard\SivClipboard.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Color\SivColor.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Compression\SivCompression.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Console\CConsole.cpp" />
