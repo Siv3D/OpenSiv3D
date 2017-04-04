@@ -67,7 +67,7 @@ namespace s3d
 		const int32 width = (buf[1] << 8) + (buf[0] << 0);
 		const int32 height = (buf[3] << 8) + (buf[2] << 0);
 
-		return{ 0,0 };
+		return{ width, height };
 	}
 
 	Image ImageFormat_GIF::decode(IReader& reader) const

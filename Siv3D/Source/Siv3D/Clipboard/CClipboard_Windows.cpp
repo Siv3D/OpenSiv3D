@@ -390,6 +390,10 @@ namespace s3d
 		::EmptyClipboard();
 
 		::CloseClipboard();
+		
+		m_text.clear();
+		m_image.clear();
+		m_filePaths.clear();
 	}
 }
 

@@ -28,15 +28,15 @@ namespace s3d
 	{
 	private:
 
-		uint32 m_sequenceNumber = 0;
-
-		bool m_hasChanged = false;
-
 		String m_text;
 
 		Image m_image;
 
 		Array<FilePath> m_filePaths;
+
+		uint32 m_sequenceNumber = 0;
+		
+		bool m_hasChanged = false;
 
 	public:
 

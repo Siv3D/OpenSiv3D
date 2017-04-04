@@ -42,8 +42,6 @@ namespace s3d
 
 		bool hasChanged() override;
 
-		bool hasChanged() override;
-
 		bool hasText() override;
 
 		bool hasImage() override;

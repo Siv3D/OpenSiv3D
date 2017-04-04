@@ -84,6 +84,9 @@ namespace s3d
 	void CClipboard_Linux::clear()
 	{
 		// [Siv3D ToDo]
+		m_text.clear();
+		m_image.clear();
+		m_filePaths.clear();
 	}
 }
 

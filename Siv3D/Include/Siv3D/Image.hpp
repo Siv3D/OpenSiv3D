@@ -310,7 +310,7 @@ namespace s3d
 		/// <summary>
 		/// 画像のデータサイズ
 		/// </summary>
-		uint32 memorySize() const
+		uint32 size_bytes() const
 		{
 			return stride() * m_height;
 		}

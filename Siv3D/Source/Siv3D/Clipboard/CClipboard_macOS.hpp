@@ -22,14 +22,16 @@ namespace s3d
 	{
 	private:
 
-		bool m_hasChanged = false;
-
 		String m_text;
 
 		Image m_image;
 
 		Array<FilePath> m_filePaths;
 
+		uint64 m_changeCount = 0;
+		
+		bool m_hasChanged = false;
+		
 	public:
 
 		CClipboard_macOS();
@@ -39,8 +41,6 @@ namespace s3d
 		bool init() override;
 
 		void update() override;
-
-		bool hasChanged() override;
 
 		bool hasChanged() override;
 

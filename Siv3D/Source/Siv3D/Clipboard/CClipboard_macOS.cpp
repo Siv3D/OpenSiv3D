@@ -16,6 +16,19 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		String ClipboardGetText_macOS();
+		
+		Image ClipboardGetImage_macOS();
+		
+		Array<FilePath> ClipboardGetFilePaths_macOS();
+		
+		void ClipboardClear_macOS();
+		
+		long ClipboardGetChangeCount_macOS();
+	}
+		
 	CClipboard_macOS::CClipboard_macOS()
 	{
 
@@ -28,12 +41,29 @@ namespace s3d
 
 	bool CClipboard_macOS::init()
 	{
+		m_changeCount = detail::ClipboardGetChangeCount_macOS();
+		
 		return true;
 	}
 
 	void CClipboard_macOS::update()
 	{
+		const uint64 currentChangeCount = detail::ClipboardGetChangeCount_macOS();
+		
+		m_hasChanged = (currentChangeCount != m_changeCount);
+		
+		m_changeCount = currentChangeCount;
+		
+		if (!m_hasChanged)
+		{
+			return;
+		}
 
+		m_text = detail::ClipboardGetText_macOS();
+
+		m_image = detail::ClipboardGetImage_macOS();
+		
+		m_filePaths = detail::ClipboardGetFilePaths_macOS();
 	}
 
 	bool CClipboard_macOS::hasChanged()
@@ -83,7 +113,11 @@ namespace s3d
 
 	void CClipboard_macOS::clear()
 	{
-		// [Siv3D ToDo]
+		detail::ClipboardClear_macOS();
+		
+		m_text.clear();
+		m_image.clear();
+		m_filePaths.clear();
 	}
 }
 

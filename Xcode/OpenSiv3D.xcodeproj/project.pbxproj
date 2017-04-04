@@ -32,6 +32,17 @@
 		2C2126601E8CF6EA006F8101 /* ImageFormat_GIF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C21265E1E8CF6EA006F8101 /* ImageFormat_GIF.cpp */; };
 		2C2126611E8CF6EA006F8101 /* ImageFormat_GIF.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C21265F1E8CF6EA006F8101 /* ImageFormat_GIF.hpp */; };
 		2C2126631E9297CC006F8101 /* Byte.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C2126621E9297CC006F8101 /* Byte.hpp */; };
+		2C2126651E93CF92006F8101 /* Clipboard.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C2126641E93CF92006F8101 /* Clipboard.hpp */; };
+		2C2126701E93CFA2006F8101 /* CClipboard_Linux.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2126671E93CFA2006F8101 /* CClipboard_Linux.cpp */; };
+		2C2126711E93CFA2006F8101 /* CClipboard_Linux.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C2126681E93CFA2006F8101 /* CClipboard_Linux.hpp */; };
+		2C2126721E93CFA2006F8101 /* CClipboard_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2126691E93CFA2006F8101 /* CClipboard_macOS.cpp */; };
+		2C2126731E93CFA2006F8101 /* CClipboard_macOS.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C21266A1E93CFA2006F8101 /* CClipboard_macOS.hpp */; };
+		2C2126741E93CFA2006F8101 /* CClipboard_Windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C21266B1E93CFA2006F8101 /* CClipboard_Windows.cpp */; };
+		2C2126751E93CFA2006F8101 /* CClipboard_Windows.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C21266C1E93CFA2006F8101 /* CClipboard_Windows.hpp */; };
+		2C2126761E93CFA2006F8101 /* ClipboardFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C21266D1E93CFA2006F8101 /* ClipboardFactory.cpp */; };
+		2C2126771E93CFA2006F8101 /* IClipboard.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C21266E1E93CFA2006F8101 /* IClipboard.hpp */; };
+		2C2126781E93CFA2006F8101 /* SivClipboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C21266F1E93CFA2006F8101 /* SivClipboard.cpp */; };
+		2C21267A1E93D115006F8101 /* CClipboard_macOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C2126791E93D115006F8101 /* CClipboard_macOS.mm */; };
 		2C2CCF511CE8698C001844FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2CCF501CE8698C001844FF /* Foundation.framework */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
@@ -552,6 +563,17 @@
 		2C21265E1E8CF6EA006F8101 /* ImageFormat_GIF.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageFormat_GIF.cpp; sourceTree = "<group>"; };
 		2C21265F1E8CF6EA006F8101 /* ImageFormat_GIF.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageFormat_GIF.hpp; sourceTree = "<group>"; };
 		2C2126621E9297CC006F8101 /* Byte.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Byte.hpp; sourceTree = "<group>"; };
+		2C2126641E93CF92006F8101 /* Clipboard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Clipboard.hpp; sourceTree = "<group>"; };
+		2C2126671E93CFA2006F8101 /* CClipboard_Linux.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CClipboard_Linux.cpp; sourceTree = "<group>"; };
+		2C2126681E93CFA2006F8101 /* CClipboard_Linux.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CClipboard_Linux.hpp; sourceTree = "<group>"; };
+		2C2126691E93CFA2006F8101 /* CClipboard_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CClipboard_macOS.cpp; sourceTree = "<group>"; };
+		2C21266A1E93CFA2006F8101 /* CClipboard_macOS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CClipboard_macOS.hpp; sourceTree = "<group>"; };
+		2C21266B1E93CFA2006F8101 /* CClipboard_Windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CClipboard_Windows.cpp; sourceTree = "<group>"; };
+		2C21266C1E93CFA2006F8101 /* CClipboard_Windows.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CClipboard_Windows.hpp; sourceTree = "<group>"; };
+		2C21266D1E93CFA2006F8101 /* ClipboardFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ClipboardFactory.cpp; sourceTree = "<group>"; };
+		2C21266E1E93CFA2006F8101 /* IClipboard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IClipboard.hpp; sourceTree = "<group>"; };
+		2C21266F1E93CFA2006F8101 /* SivClipboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivClipboard.cpp; sourceTree = "<group>"; };
+		2C2126791E93D115006F8101 /* CClipboard_macOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CClipboard_macOS.mm; sourceTree = "<group>"; };
 		2C2CCF501CE8698C001844FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
@@ -1163,6 +1185,23 @@
 			path = GIF;
 			sourceTree = "<group>";
 		};
+		2C2126661E93CFA2006F8101 /* Clipboard */ = {
+			isa = PBXGroup;
+			children = (
+				2C2126671E93CFA2006F8101 /* CClipboard_Linux.cpp */,
+				2C2126681E93CFA2006F8101 /* CClipboard_Linux.hpp */,
+				2C2126691E93CFA2006F8101 /* CClipboard_macOS.cpp */,
+				2C21266A1E93CFA2006F8101 /* CClipboard_macOS.hpp */,
+				2C2126791E93D115006F8101 /* CClipboard_macOS.mm */,
+				2C21266B1E93CFA2006F8101 /* CClipboard_Windows.cpp */,
+				2C21266C1E93CFA2006F8101 /* CClipboard_Windows.hpp */,
+				2C21266D1E93CFA2006F8101 /* ClipboardFactory.cpp */,
+				2C21266E1E93CFA2006F8101 /* IClipboard.hpp */,
+				2C21266F1E93CFA2006F8101 /* SivClipboard.cpp */,
+			);
+			path = Clipboard;
+			sourceTree = "<group>";
+		};
 		2C38B1471CDEB45C007A7E9F /* Lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -1254,6 +1293,7 @@
 				2C81BCAE1E89F8E300D27E52 /* CharacterSet.hpp */,
 				2C81BCAF1E89F8E300D27E52 /* Circle.hpp */,
 				2C81BCB01E89F8E300D27E52 /* Circular.hpp */,
+				2C2126641E93CF92006F8101 /* Clipboard.hpp */,
 				2C81BCB11E89F8E300D27E52 /* Color.hpp */,
 				2C81BCB21E89F8E300D27E52 /* ColorPalette.hpp */,
 				2C81BCB31E89F8E300D27E52 /* Compression.hpp */,
@@ -1376,6 +1416,7 @@
 		2C81BD1D1E89F8E300D27E52 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C2126661E93CFA2006F8101 /* Clipboard */,
 				2C21263B1E8C0268006F8101 /* MessageBox */,
 				2C81C0B01E8A800900D27E52 /* Triangle */,
 				2C81BD241E89F8E300D27E52 /* Base64 */,
@@ -2472,6 +2513,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C81C01B1E89F8E300D27E52 /* glfw3.h in Headers */,
+				2C2126771E93CFA2006F8101 /* IClipboard.hpp in Headers */,
 				2C81BF021E89F8E300D27E52 /* Image.hpp in Headers */,
 				2C81BF4A1E89F8E300D27E52 /* XXHash.hpp in Headers */,
 				2C81BF611E89F8E300D27E52 /* CBinaryWriter_macOS.hpp in Headers */,
@@ -2540,6 +2582,7 @@
 				2C81C0921E89F8E400D27E52 /* fse.h in Headers */,
 				2C81BFC01E89F8E300D27E52 /* CMathParser.hpp in Headers */,
 				2C81BF321E89F8E300D27E52 /* Stopwatch.hpp in Headers */,
+				2C2126731E93CFA2006F8101 /* CClipboard_macOS.hpp in Headers */,
 				2C81BFF81E89F8E300D27E52 /* CWindow_macOS.hpp in Headers */,
 				2C81BF891E89F8E300D27E52 /* EngineUtility.hpp in Headers */,
 				2C81C0191E89F8E300D27E52 /* khrplatform.h in Headers */,
@@ -2547,6 +2590,7 @@
 				2C81C01A1E89F8E300D27E52 /* linmath.h in Headers */,
 				2C81BF041E89F8E300D27E52 /* InfiniteList.hpp in Headers */,
 				2C81BF2D1E89F8E300D27E52 /* Regex.hpp in Headers */,
+				2C2126711E93CFA2006F8101 /* CClipboard_Linux.hpp in Headers */,
 				2C81BEE91E89F8E300D27E52 /* Cursor.hpp in Headers */,
 				2C81BF0D1E89F8E300D27E52 /* Lerp.hpp in Headers */,
 				2C81BF1B1E89F8E300D27E52 /* Optional.hpp in Headers */,
@@ -2604,6 +2648,7 @@
 				2C81BFCC1E89F8E300D27E52 /* CMouse_Windows.hpp in Headers */,
 				2C81BF9C1E89F8E300D27E52 /* IGraphics.hpp in Headers */,
 				2C81BFBD1E89F8E300D27E52 /* LogHeaderFotter.hpp in Headers */,
+				2C2126751E93CFA2006F8101 /* CClipboard_Windows.hpp in Headers */,
 				2C81BFD71E89F8E300D27E52 /* Siv3DEngine.hpp in Headers */,
 				2C81BED11E89F8E300D27E52 /* hopscotch_map.h in Headers */,
 				2C81BF831E89F8E300D27E52 /* CDragDrop_Windows.hpp in Headers */,
@@ -2693,6 +2738,7 @@
 				2C81C05F1E89F8E300D27E52 /* jpeg_data_reader.h in Headers */,
 				2C81C00F1E89F8E300D27E52 /* fast-dtoa.h in Headers */,
 				2C81BF421E89F8E300D27E52 /* Vector2D.hpp in Headers */,
+				2C2126651E93CF92006F8101 /* Clipboard.hpp in Headers */,
 				2C81C0911E89F8E400D27E52 /* error_private.h in Headers */,
 				2C81C04D1E89F8E300D27E52 /* debug_print.h in Headers */,
 				2C81BF361E89F8E300D27E52 /* TextReader.hpp in Headers */,
@@ -2872,6 +2918,7 @@
 				2C81BFBC1E89F8E300D27E52 /* LoggerFactory.cpp in Sources */,
 				2C81BF9D1E89F8E300D27E52 /* SivGraphics.cpp in Sources */,
 				2C81BFEF1E89F8E300D27E52 /* SivThreading.cpp in Sources */,
+				2C2126761E93CFA2006F8101 /* ClipboardFactory.cpp in Sources */,
 				2C81C0651E89F8E300D27E52 /* order.inc in Sources */,
 				2C81BF691E89F8E300D27E52 /* SivCharacterSet.cpp in Sources */,
 				2C81BFCE1E89F8E300D27E52 /* MouseFactory.cpp in Sources */,
@@ -2896,6 +2943,7 @@
 				2C81BF641E89F8E300D27E52 /* SivBinaryWriter.cpp in Sources */,
 				2C81C09F1E89F8E400D27E52 /* huf_decompress.c in Sources */,
 				2C2126581E8CB7B5006F8101 /* gifalloc.c in Sources */,
+				2C2126721E93CFA2006F8101 /* CClipboard_macOS.cpp in Sources */,
 				2C21263F1E8C0268006F8101 /* SivMessageBox_Linux.cpp in Sources */,
 				2C2126531E8CB7B5006F8101 /* gif_font.c in Sources */,
 				2C81BF901E89F8E300D27E52 /* SivFormatInt.cpp in Sources */,
@@ -2956,6 +3004,7 @@
 				2C81BFE41E89F8E300D27E52 /* SivSystem.cpp in Sources */,
 				2C81BF5D1E89F8E300D27E52 /* SivBinaryReader.cpp in Sources */,
 				2C81BFDA1E89F8E300D27E52 /* Siv3DMain_Windows.cpp in Sources */,
+				2C2126741E93CFA2006F8101 /* CClipboard_Windows.cpp in Sources */,
 				2C81BF6A1E89F8E300D27E52 /* SivCircle.cpp in Sources */,
 				2C81BFBF1E89F8E300D27E52 /* CMathParser.cpp in Sources */,
 				2C81BF6B1E89F8E300D27E52 /* SivColor.cpp in Sources */,
@@ -2996,6 +3045,7 @@
 				2C81BFB81E89F8E300D27E52 /* SivLine.cpp in Sources */,
 				2C81C02B1E89F8E300D27E52 /* input.c in Sources */,
 				2C81C0771E89F8E300D27E52 /* md5.cpp in Sources */,
+				2C2126701E93CFA2006F8101 /* CClipboard_Linux.cpp in Sources */,
 				2C81BF761E89F8E300D27E52 /* CCursor_Windows.cpp in Sources */,
 				2C81BFF71E89F8E300D27E52 /* CWindow_macOS.cpp in Sources */,
 				2C81C09C1E89F8E400D27E52 /* huf_compress.c in Sources */,
@@ -3004,6 +3054,7 @@
 				2C2126511E8CB7B5006F8101 /* egif_lib.c in Sources */,
 				2C81BF5B1E89F8E300D27E52 /* CBinaryReader_Windows.cpp in Sources */,
 				2C81C0221E89F8E300D27E52 /* cocoa_time.c in Sources */,
+				2C21267A1E93D115006F8101 /* CClipboard_macOS.mm in Sources */,
 				2C81BFC61E89F8E300D27E52 /* SivMonitor.cpp in Sources */,
 				2C81BFA21E89F8E300D27E52 /* CImageFormat.cpp in Sources */,
 				2C81BF841E89F8E300D27E52 /* DragDropFactory.cpp in Sources */,
@@ -3044,6 +3095,7 @@
 				2C81BFFC1E89F8E300D27E52 /* SivWindow.cpp in Sources */,
 				2C81BFDB1E89F8E300D27E52 /* SivStopwatch.cpp in Sources */,
 				2C81BF741E89F8E300D27E52 /* CCursor_macOS.cpp in Sources */,
+				2C2126781E93CFA2006F8101 /* SivClipboard.cpp in Sources */,
 				2C81C04C1E89F8E300D27E52 /* debug_print.cc in Sources */,
 				2C81BFC21E89F8E300D27E52 /* SivMD5.cpp in Sources */,
 				2C81BFE91E89F8E300D27E52 /* CTextReader_Linux.cpp in Sources */,

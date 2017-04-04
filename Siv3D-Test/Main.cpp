@@ -4,10 +4,16 @@
 
 void Main()
 {
+	int frame = 0;
+	
 	while (System::Update())
 	{
+		++frame;
+		
 		if (Clipboard::HasChanged())
 		{
+			//Log << frame;
+			
 			Log << L"HasChanged";
 
 			if (Clipboard::HasText())
@@ -16,11 +22,21 @@ void Main()
 
 				Log << Clipboard::GetText();
 			}
-			else if (Clipboard::HasImage())
+			
+			if (Clipboard::HasImage())
 			{
 				Log << L"HasImage";
 
-				Clipboard::GetImage().save(L"{}.png"_fmt(Time::GetMillisec()));
+				Log << Clipboard::GetImage().size();
+				
+				//Clipboard::GetImage().save(L"{}.png"_fmt(Time::GetMillisec()));
+			}
+			
+			if (Clipboard::HasFilePaths())
+			{
+				Log << L"HasFilePaths";
+				
+				Log << Clipboard::GetFilePaths();
 			}
 		}
 
@@ -37,6 +53,11 @@ void Main()
 		if (KeyW.down())
 		{
 			Clipboard::SetImage(Image(L"example/windmill.png"));
+		}
+		
+		if (KeyC.down())
+		{
+			Clipboard::Clear();
 		}
 
 		if (KeyQ.down() && System::ShowMessageBox(L"アプリを終了します。", MessageBoxButtons::OKCancel)
