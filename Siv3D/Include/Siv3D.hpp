@@ -392,8 +392,8 @@
 	# include "Siv3D/Window.hpp"
 	// メッセージボックス
 	# include "Siv3D/MessageBox.hpp"
-	//// クリップボード
-	//# include "Siv3D/Clipboard.hpp"
+	// クリップボード
+	# include "Siv3D/Clipboard.hpp"
 	// ドラッグ & ドロップ
 	# include "Siv3D/DragDrop.hpp"
 	//// ダイアログ

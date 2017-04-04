@@ -35,6 +35,56 @@ namespace s3d
 	{
 
 	}
+
+	bool CClipboard_Linux::hasChanged()
+	{
+		return m_hasChanged;
+	}
+
+	bool CClipboard_Linux::hasText()
+	{
+		return !m_text.isEmpty();
+	}
+
+	bool CClipboard_Linux::hasImage()
+	{
+		return !m_image.isEmpty();
+	}
+
+	bool CClipboard_Linux::hasFilePaths()
+	{
+		return !m_filePaths.isEmpty();
+	}
+
+	const String& CClipboard_Linux::getText()
+	{
+		return m_text;
+	}
+
+	const Image& CClipboard_Linux::getImage()
+	{
+		return m_image;
+	}
+
+	const Array<FilePath>& CClipboard_Linux::getFilePaths()
+	{
+		return m_filePaths;
+	}
+
+	void CClipboard_Linux::setText(const String& text)
+	{
+		// [Siv3D ToDo]
+	}
+
+	void CClipboard_Linux::setImage(const Image& image)
+	{
+		// [Siv3D ToDo]
+	}
+
+	void CClipboard_Linux::clear()
+	{
+		// [Siv3D ToDo]
+	}
 }
 
 # endif

@@ -28,9 +28,13 @@ namespace s3d
 
 		bool HasImage();
 
+		bool HasFilePaths();
+
 		const String& GetText();
 
 		const Image& GetImage();
+
+		const Array<FilePath>& GetFilePaths();
 
 		void SetText(const String& text);
 

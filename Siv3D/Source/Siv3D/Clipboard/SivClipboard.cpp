@@ -17,6 +17,54 @@ namespace s3d
 {
 	namespace Clipboard
 	{
+		bool HasChanged()
+		{
+			return Siv3DEngine::GetClipboard()->hasChanged();
+		}
 
+		bool HasText()
+		{
+			return Siv3DEngine::GetClipboard()->hasText();
+		}
+
+		bool HasImage()
+		{
+			return Siv3DEngine::GetClipboard()->hasImage();
+		}
+
+		bool HasFilePaths()
+		{
+			return Siv3DEngine::GetClipboard()->hasFilePaths();
+		}
+
+		const String& GetText()
+		{
+			return Siv3DEngine::GetClipboard()->getText();
+		}
+
+		const Image& GetImage()
+		{
+			return Siv3DEngine::GetClipboard()->getImage();
+		}
+
+		const Array<FilePath>& GetFilePaths()
+		{
+			return Siv3DEngine::GetClipboard()->getFilePaths();
+		}
+
+		void SetText(const String& text)
+		{
+			Siv3DEngine::GetClipboard()->setText(text);
+		}
+
+		void SetImage(const Image& image)
+		{
+			Siv3DEngine::GetClipboard()->setImage(image);
+		}
+
+		void Clear()
+		{
+			Siv3DEngine::GetClipboard()->clear();
+		}
 	}
 }

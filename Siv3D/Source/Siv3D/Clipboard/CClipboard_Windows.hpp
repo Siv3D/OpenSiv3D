@@ -20,12 +20,23 @@
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
 # include "IClipboard.hpp"
+# include <Siv3D/Image.hpp>
 
 namespace s3d
 {
 	class CClipboard_Windows : public ISiv3DClipboard
 	{
 	private:
+
+		uint32 m_sequenceNumber = 0;
+
+		bool m_hasChanged = false;
+
+		String m_text;
+
+		Image m_image;
+
+		Array<FilePath> m_filePaths;
 
 	public:
 
@@ -36,6 +47,26 @@ namespace s3d
 		bool init() override;
 
 		void update() override;
+
+		bool hasChanged() override;
+
+		bool hasText() override;
+
+		bool hasImage() override;
+
+		bool hasFilePaths() override;
+
+		const String& getText() override;
+
+		const Image& getImage() override;
+
+		const Array<FilePath>& getFilePaths() override;
+
+		void setText(const String& text) override;
+
+		void setImage(const Image& image) override;
+
+		void clear() override;
 	};
 }
 

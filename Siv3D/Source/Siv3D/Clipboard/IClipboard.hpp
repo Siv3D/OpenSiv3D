@@ -12,6 +12,7 @@
 # pragma once
 # include <utility>
 # include <Siv3D/Fwd.hpp>
+# include <Siv3D/Array.hpp>
 
 namespace s3d
 {
@@ -26,5 +27,25 @@ namespace s3d
 		virtual bool init() = 0;
 
 		virtual void update() = 0;
+
+		virtual bool hasChanged() = 0;
+
+		virtual bool hasText() = 0;
+
+		virtual bool hasImage() = 0;
+
+		virtual bool hasFilePaths() = 0;
+
+		virtual const String& getText() = 0;
+
+		virtual const Image& getImage() = 0;
+
+		virtual const Array<FilePath>& getFilePaths() = 0;
+
+		virtual void setText(const String& text) = 0;
+
+		virtual void setImage(const Image& image) = 0;
+
+		virtual void clear() = 0;
 	};
 }
