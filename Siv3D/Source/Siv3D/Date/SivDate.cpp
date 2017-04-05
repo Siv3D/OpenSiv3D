@@ -26,7 +26,6 @@
 
 # endif
 
-# include <boost/functional/hash.hpp>
 # include <Siv3D/Date.hpp>
 
 namespace s3d
@@ -171,14 +170,3 @@ namespace s3d
 	}
 }
 
-namespace std
-{
-	size_t hash<s3d::Date>::operator()(const s3d::Date& date) const
-	{
-		size_t h = 0;
-		boost::hash_combine(h, date.year);
-		boost::hash_combine(h, date.month);
-		boost::hash_combine(h, date.day);
-		return h;
-	}
-}
