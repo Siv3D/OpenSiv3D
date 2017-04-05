@@ -43,6 +43,7 @@
 		2C2126771E93CFA2006F8101 /* IClipboard.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C21266E1E93CFA2006F8101 /* IClipboard.hpp */; };
 		2C2126781E93CFA2006F8101 /* SivClipboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C21266F1E93CFA2006F8101 /* SivClipboard.cpp */; };
 		2C21267A1E93D115006F8101 /* CClipboard_macOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C2126791E93D115006F8101 /* CClipboard_macOS.mm */; };
+		2C21267C1E9534A4006F8101 /* ReaderView.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C21267B1E9534A4006F8101 /* ReaderView.hpp */; };
 		2C2CCF511CE8698C001844FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2CCF501CE8698C001844FF /* Foundation.framework */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
@@ -574,6 +575,7 @@
 		2C21266E1E93CFA2006F8101 /* IClipboard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IClipboard.hpp; sourceTree = "<group>"; };
 		2C21266F1E93CFA2006F8101 /* SivClipboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivClipboard.cpp; sourceTree = "<group>"; };
 		2C2126791E93D115006F8101 /* CClipboard_macOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CClipboard_macOS.mm; sourceTree = "<group>"; };
+		2C21267B1E9534A4006F8101 /* ReaderView.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ReaderView.hpp; sourceTree = "<group>"; };
 		2C2CCF501CE8698C001844FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
@@ -1369,6 +1371,7 @@
 				2C81BCF81E89F8E300D27E52 /* RandomVec3.hpp */,
 				2C81BCF91E89F8E300D27E52 /* RandomVec4.hpp */,
 				2C81BCFA1E89F8E300D27E52 /* RDTSCClock.hpp */,
+				2C21267B1E9534A4006F8101 /* ReaderView.hpp */,
 				2C81BCFB1E89F8E300D27E52 /* Rectangle.hpp */,
 				2C81BCFC1E89F8E300D27E52 /* Regex.hpp */,
 				2C81BCFD1E89F8E300D27E52 /* SpeedStopwatch.hpp */,
@@ -2706,6 +2709,7 @@
 				2C81C0941E89F8E400D27E52 /* huf.h in Headers */,
 				2C81BECF1E89F8E300D27E52 /* ostream.h in Headers */,
 				2C81C07A1E89F8E300D27E52 /* muParser.h in Headers */,
+				2C21267C1E9534A4006F8101 /* ReaderView.hpp in Headers */,
 				2C81C0271E89F8E300D27E52 /* glfw_config.h in Headers */,
 				2C81BF251E89F8E300D27E52 /* Random.hpp in Headers */,
 				2C81BF491E89F8E300D27E52 /* Xorshift.hpp in Headers */,

@@ -56,7 +56,7 @@ namespace s3d
 			{
 				NSArray* content = [pasteboard readObjectsForClasses:stringClassArray options:options];
 				
-				if(NSString* str = [content firstObject])
+				if (NSString* str = [content firstObject])
 				{
 					text = CharacterSet::Widen([str UTF8String]);
 				}
@@ -65,12 +65,27 @@ namespace s3d
 		
 		void ClipboardSetText_macOS(const String& text)
 		{
+			NSPasteboard* pasteboard	= [NSPasteboard generalPasteboard];
+			NSArray* stringClassArray	= [NSArray arrayWithObjects:NSStringPboardType, nil];
 			
+			[pasteboard declareTypes:stringClassArray owner:nil];
+			[pasteboard setString:[NSString stringWithUTF8String:text.narrow().c_str()]
+							 forType:NSStringPboardType];
 		}
 		
 		void ClipboardSetImage_macOS(const Image& image)
 		{
+			//NSBitmapImageRep* rep = [[[NSBitmapImageRep alloc] initWithCGImage:source->getCgImage()] autorelease];
+			/*
+			NSImage* img = [[NSImage alloc] initWithSize:[rep size]];
+			[img addRepresentation: rep];
 			
+			NSPasteboard* pasteboard	= [NSPasteboard generalPasteboard];
+			[pasteboard declareTypes: [NSArray arrayWithObject: NSTIFFPboardType] owner:nil];
+			[pasteboard setData:[img TIFFRepresentation] forType:NSTIFFPboardType];
+			
+			[img release];
+			 */
 		}
 		
 		void ClipboardClear_macOS()
