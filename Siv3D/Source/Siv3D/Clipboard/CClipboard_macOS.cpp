@@ -18,11 +18,11 @@ namespace s3d
 {
 	namespace detail
 	{
-		String ClipboardGetText_macOS();
-		
-		Image ClipboardGetImage_macOS();
-		
-		Array<FilePath> ClipboardGetFilePaths_macOS();
+		void ClipboardGetItem_macOS(String& text, Image& image, Array<FilePath>& filePaths);
+	
+		void ClipboardSetText_macOS(const String& text);
+
+		void ClipboardSetImage_macOS(const Image& image);
 		
 		void ClipboardClear_macOS();
 		
@@ -59,11 +59,7 @@ namespace s3d
 			return;
 		}
 
-		m_text = detail::ClipboardGetText_macOS();
-
-		m_image = detail::ClipboardGetImage_macOS();
-		
-		m_filePaths = detail::ClipboardGetFilePaths_macOS();
+		detail::ClipboardGetItem_macOS(m_text, m_image, m_filePaths);
 	}
 
 	bool CClipboard_macOS::hasChanged()
@@ -103,12 +99,12 @@ namespace s3d
 
 	void CClipboard_macOS::setText(const String& text)
 	{
-		// [Siv3D ToDo]
+		detail::ClipboardSetText_macOS(text);
 	}
 
 	void CClipboard_macOS::setImage(const Image& image)
 	{
-		// [Siv3D ToDo]
+		detail::ClipboardSetImage_macOS(image);
 	}
 
 	void CClipboard_macOS::clear()

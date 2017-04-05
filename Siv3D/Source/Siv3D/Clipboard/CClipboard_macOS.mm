@@ -17,65 +17,60 @@ namespace s3d
 {
 	namespace detail
 	{
-		String ClipboardGetText_macOS()
+		void ClipboardGetItem_macOS(String& text, Image& image, Array<FilePath>& filePaths)
 		{
+			text.clear();
+			image.clear();
+			filePaths.clear();
+			
 			NSPasteboard* pasteboard	= [NSPasteboard generalPasteboard];
-			NSArray* classArray			= [NSArray arrayWithObject:[NSString class]];
 			NSDictionary* options		= [NSDictionary dictionary];
 			
-			if ([pasteboard canReadObjectForClasses:classArray options:options])
+			NSArray* stringClassArray	= [NSArray arrayWithObject:[NSString class]];
+			NSArray* imageClassArray	= [NSArray arrayWithObject:[NSImage class]];
+			NSArray* urlClassArray		= [NSArray arrayWithObject:[NSURL class]];
+			
+			if ([pasteboard canReadObjectForClasses:imageClassArray options:options])
 			{
-				NSArray* content = [pasteboard readObjectsForClasses:classArray options:options];
+				NSArray* content = [pasteboard readObjectsForClasses:imageClassArray options:options];
 				
-				if(NSString* text = [content firstObject])
+				if ([content count] > 0)
 				{
-					return CharacterSet::Widen([text UTF8String]);
+					NSImage* img = [content objectAtIndex:0];
+					NSBitmapImageRep* rep = [NSBitmapImageRep imageRepWithData:[img TIFFRepresentation]];
+				
+					image.resize([rep pixelsWide], [rep pixelsHigh]);
+					::memcpy(image.data(), [rep bitmapData], image.size_bytes());
 				}
 			}
-			
-			return String();
-		}
-		
-		Image ClipboardGetImage_macOS()
-		{
-			NSPasteboard* pasteboard	= [NSPasteboard generalPasteboard];
-			NSArray* classArray			= [NSArray arrayWithObject:[NSImage class]];
-			NSDictionary* options		= [NSDictionary dictionary];
-
-			if ([pasteboard canReadObjectForClasses:classArray options:options])
+			else if ([pasteboard canReadObjectForClasses:urlClassArray options:options])
 			{
-				if (NSBitmapImageRep* rep = [NSBitmapImageRep imageRepWithPasteboard:pasteboard])
+				NSArray* content = [pasteboard readObjectsForClasses:urlClassArray options:options];
+				
+				for (NSURL* url in content)
 				{
-					const int32 width = [rep size].width;
-					const int32 height = [rep size].height;
-					Image image(width, height);
-					
-					const uint8* pSrc = [rep bitmapData];
-					Color* pDst = image.data();
-					
-					::memcpy(pDst, pSrc, image.size_bytes());
-
-					return image;
+					filePaths.push_back(CharacterSet::Widen([url.absoluteString UTF8String]));
 				}
 			}
-			
-			return Image();
+			else if ([pasteboard canReadObjectForClasses:stringClassArray options:options])
+			{
+				NSArray* content = [pasteboard readObjectsForClasses:stringClassArray options:options];
+				
+				if(NSString* str = [content firstObject])
+				{
+					text = CharacterSet::Widen([str UTF8String]);
+				}
+			}
 		}
 		
-		Array<FilePath> ClipboardGetFilePaths_macOS()
+		void ClipboardSetText_macOS(const String& text)
 		{
-			NSPasteboard* pasteboard	= [NSPasteboard generalPasteboard];
-			NSArray* classArray			= [NSArray arrayWithObject:[NSURL class]];
-			NSDictionary* options		= [NSDictionary dictionaryWithObject:
-										   [NSNumber numberWithBool:YES] forKey:NSPasteboardURLReadingFileURLsOnlyKey];
-			NSArray* fileURLs			= [pasteboard readObjectsForClasses:classArray options:options];
 			
-			if ([fileURLs count] > 0)
-			{
-				return Array<FilePath>([fileURLs count]);
-			}
+		}
+		
+		void ClipboardSetImage_macOS(const Image& image)
+		{
 			
-			return Array<FilePath>();
 		}
 		
 		void ClipboardClear_macOS()
