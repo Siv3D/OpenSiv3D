@@ -21,6 +21,7 @@
 # include "../Window/IWindow.hpp"
 # include "CClipboard_Windows.hpp"
 # include <Siv3D/FileSystem.hpp>
+# include <Siv3D/ReaderView.hpp>
 
 namespace s3d
 {
@@ -35,8 +36,9 @@ namespace s3d
 				return;
 			}
 
+			const size_t memorySize = ::GlobalSize(hDIB);
 			const void* memory = reinterpret_cast<uint8*>(::GlobalLock(hDIB));
-
+			
 			const BITMAPV5HEADER* header = static_cast<const BITMAPV5HEADER*>(memory);
 	
 			if (header->bV5Size != sizeof(BITMAPV5HEADER)
@@ -79,14 +81,18 @@ namespace s3d
 			const int32 height	= reversed ? header->bV5Height : -header->bV5Height;
 			const bool hasAlpha = (header->bV5Compression == BI_BITFIELDS)
 				&& (header->bV5BitCount == 32);
+			const bool hasBitFields = header->bV5Compression == BI_BITFIELDS;
 
 			image.resize(width, height);
 
-			const uint8* data = static_cast<const uint8*>(memory) + sizeof(BITMAPV5HEADER);
+			//const uint8* data = static_cast<const uint8*>(memory) + sizeof(BITMAPV5HEADER);
+			
+			ReaderView reader(static_cast<const Byte*>(memory) + sizeof(BITMAPV5HEADER),
+				memorySize - sizeof(BITMAPV5HEADER));
 
-			if (header->bV5Compression == BI_BITFIELDS)
+			if (hasBitFields)
 			{
-				data += 12;
+				reader.skip(12);
 			}
 
 			switch (const int32 depth = header->bV5BitCount)
@@ -94,8 +100,7 @@ namespace s3d
 			case 8:
 				{
 					uint8 palette[1024];
-					::memcpy(palette, data, sizeof(palette));
-					data += sizeof(palette);
+					reader.read(palette);
 
 					const uint32 rowSize = width + (width % 4 ? 4 - width % 4 : 0);
 					const int32 lineStep = reversed ? -width : width;
@@ -106,13 +111,11 @@ namespace s3d
 					{
 						if (y == height - 1)
 						{
-							::memcpy(buffer, data, width);
-							data += width;
+							reader.read(buffer, width);
 						}
 						else
 						{
-							::memcpy(buffer, data, rowSize);
-							data += rowSize;
+							reader.read(buffer, rowSize);
 						}
 
 						const uint8* pSrc = buffer;
@@ -145,13 +148,11 @@ namespace s3d
 					{
 						if (y == height - 1)
 						{
-							::memcpy(buffer, data, depthBytes * width);
-							data += depthBytes * width;
+							reader.read(buffer, depthBytes * width);
 						}
 						else
 						{
-							::memcpy(buffer, data, rowSize);
-							data += rowSize;
+							reader.read(buffer, rowSize);
 						}
 
 						const Color* const pDstEnd = pDstLine + width;
