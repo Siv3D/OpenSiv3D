@@ -145,7 +145,7 @@ namespace s3d
 
 			for (;;)
 			{
-				const size_t read = std::min<size_t>(toRead, view.size() - reader.getPos());
+				const size_t read = std::min<size_t>(toRead, view.size() - static_cast<size_t>(reader.getPos()));
 
 				if (read == 0)
 				{
@@ -387,7 +387,7 @@ namespace s3d
 
 			for (;;)
 			{
-				const size_t read = std::min<int64>(toRead, view.size() - reader.getPos());
+				const size_t read = std::min<size_t>(toRead, view.size() - static_cast<size_t>(reader.getPos()));
 
 				if (read == 0)
 				{
