@@ -165,6 +165,8 @@
 	# include "Siv3D/IReader.hpp"
 	// IWriter インタフェース
 	# include "Siv3D/IWriter.hpp"
+	// メモリ範囲への Reader インタフェース
+	# include "Siv3D/ReaderView.hpp"
 	// メモリマップトファイル
 	# include "Siv3D/MemoryMapping.hpp"
 	// 書き込み可能なメモリマップトファイル
