@@ -6,6 +6,6 @@ void Main()
 {
 	while (System::Update())
 	{
-		Window::SetTitle(System::DeltaTime());
+		Window::SetTitle(Profiler::FPS(), L"fps");
 	}
 }

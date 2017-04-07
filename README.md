@@ -114,7 +114,7 @@
 - [x] Clipboard
 - [x] Profiler::FPS()
 - [x] System::FrameCount()
-- [ ] System::DeltaTime()
+- [x] System::DeltaTime()
 - [ ] Graphics::EnableVSync()
 - [ ] Log
 - [ ] Cursor::SetPos()
