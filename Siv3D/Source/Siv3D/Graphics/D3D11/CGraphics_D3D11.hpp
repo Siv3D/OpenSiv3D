@@ -52,6 +52,10 @@ namespace s3d
 		void beginResize() override;
 
 		bool endResize(const Size& size) override;
+		
+		void setVSyncEnabled(bool enabled) override;
+		
+		bool isVSyncEnabled() const override;
 	};
 }
 

@@ -27,6 +27,8 @@ namespace s3d
 		WindowHandle m_glfwWindow = nullptr;
 		
 		ColorF m_clearColor = Color(11, 22, 33);
+		
+		bool m_vsync = true;
 
 	public:
 
@@ -55,6 +57,10 @@ namespace s3d
 		{
 			return true;
 		}
+		
+		void setVSyncEnabled(bool enabled) override;
+		
+		bool isVSyncEnabled() const override;
 	};
 }
 

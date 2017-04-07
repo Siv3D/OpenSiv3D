@@ -247,9 +247,7 @@ namespace s3d
 
 	bool D3D11SwapChain::present()
 	{
-		const bool vSyncEnabled = true;
-
-		const HRESULT hr = m_swapChain->Present(vSyncEnabled, 0);
+		const HRESULT hr = m_swapChain->Present(m_vSyncEnabled, 0);
 
 		if (FAILED(hr))
 		{
@@ -261,6 +259,16 @@ namespace s3d
 		}
 
 		return true;
+	}
+
+	void D3D11SwapChain::setVSyncEnabled(const bool enabled)
+	{
+		m_vSyncEnabled = enabled;
+	}
+
+	bool D3D11SwapChain::isVSyncEnabled() const
+	{
+		return m_vSyncEnabled;
 	}
 
 	bool D3D11SwapChain::setBestFullScreenMode(const Size& size, const size_t displayIndex, const double refreshRateHz)

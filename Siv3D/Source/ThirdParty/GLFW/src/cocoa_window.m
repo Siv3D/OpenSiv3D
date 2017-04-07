@@ -1468,7 +1468,7 @@ int _glfwPlatformWindowIconified(_GLFWwindow* window)
 
 int _glfwPlatformWindowVisible(_GLFWwindow* window)
 {
-    return [window->ns.object isVisible];
+	return [window->ns.object isVisible] && ([window->ns.object occlusionState] & NSWindowOcclusionStateVisible);
 }
 
 int _glfwPlatformWindowMaximized(_GLFWwindow* window)

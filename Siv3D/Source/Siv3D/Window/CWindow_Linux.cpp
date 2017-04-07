@@ -60,8 +60,6 @@ namespace s3d
 
 		::glfwMakeContextCurrent(m_glfwWindow);
 
-		::glfwSwapInterval(1);
-
 		//m_state.titleBarHeight
 		
 		return true;

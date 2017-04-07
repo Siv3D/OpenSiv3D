@@ -35,6 +35,8 @@ namespace s3d
 	{
 		m_glfwWindow = Siv3DEngine::GetWindow()->getHandle();
 		
+		::glfwSwapInterval(m_vsync);
+		
 		return true;
 	}
 	
@@ -120,7 +122,9 @@ namespace s3d
 		::glfwSwapBuffers(m_glfwWindow);
 		
 		if (::glfwGetWindowAttrib(m_glfwWindow, GLFW_ICONIFIED)
-			|| ::glfwGetWindowAttrib(m_glfwWindow, GLFW_VISIBLE))
+			|| !::glfwGetWindowAttrib(m_glfwWindow, GLFW_VISIBLE)
+			|| !::glfwGetWindowAttrib(m_glfwWindow, GLFW_FOCUSED) // work around
+			)
 		{
 			System::Sleep(16);
 		}
@@ -137,6 +141,23 @@ namespace s3d
 					 1.0f);
 		
 		::glClear(GL_COLOR_BUFFER_BIT);
+	}
+	
+	void CGraphics_GL::setVSyncEnabled(const bool enabled)
+	{
+		if (enabled == m_vsync)
+		{
+			return;
+		}
+		
+		m_vsync = enabled;
+		
+		::glfwSwapInterval(m_vsync);
+	}
+	
+	bool CGraphics_GL::isVSyncEnabled() const
+	{
+		return m_vsync;
 	}
 }
 
