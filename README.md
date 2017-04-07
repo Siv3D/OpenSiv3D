@@ -111,7 +111,8 @@
 #### 0.0.9
 - [x] MessageBox
 - [x] GIF
-- [ ] Clipboard
+- [x] Clipboard
+- [ ] Graphics::EnableVSync()
 - [ ] Log
 - [ ] Cursor::SetPos()
 - [ ] Cursor::OnClient()
@@ -120,7 +121,6 @@
 - [ ] TextureFormat (Partial)
 - [ ] Point::paint() / overpaint()
 - [ ] Profiler::FPS()
-- [ ] Graphics::EnableVSync()
 - [ ] Resource files
 
 ---------------------------
