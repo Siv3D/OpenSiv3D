@@ -119,6 +119,9 @@ namespace s3d
 
 		Siv3DEngine::GetProfiler()->beginFrame();
 
+		++m_systemFrameCount;
+		++m_userFrameCount;
+
 		if (!Siv3DEngine::GetWindow()->update())
 		{
 			return false;
@@ -145,6 +148,21 @@ namespace s3d
 	void CSystem_macOS::reportEvent(const uint32 windowEventFlag)
 	{
 		m_event |= windowEventFlag;
+	}
+
+	uint64 CSystem_macOS::getSystemFrameCount() const noexcept
+	{
+		return m_systemFrameCount;
+	}
+
+	int32 CSystem_macOS::getUserFrameCount() const noexcept
+	{
+		return m_userFrameCount;
+	}
+
+	void CSystem_macOS::setUserFrameCount(const int32 count) noexcept
+	{
+		m_userFrameCount = count;
 	}
 }
 

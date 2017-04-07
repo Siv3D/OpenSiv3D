@@ -29,6 +29,10 @@ namespace s3d
 
 		uint32 m_exitEvent = WindowEvent::Default;
 
+		uint64 m_systemFrameCount = 0;
+
+		int32 m_userFrameCount = 0;
+
 	public:
 
 		CSystem_Windows();
@@ -42,6 +46,12 @@ namespace s3d
 		bool update() override;
 
 		void reportEvent(uint32 windowEventFlag) override;
+
+		uint64 getSystemFrameCount() const noexcept override;
+
+		int32 getUserFrameCount() const noexcept override;
+
+		void setUserFrameCount(int32 count) noexcept override;
 	};
 }
 

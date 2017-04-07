@@ -29,5 +29,11 @@ namespace s3d
 		virtual bool update() = 0;
 
 		virtual void reportEvent(uint32 windowEventFlag) = 0;
+
+		virtual uint64 getSystemFrameCount() const noexcept = 0;
+
+		virtual int32 getUserFrameCount() const noexcept = 0;
+
+		virtual void setUserFrameCount(int32 count) noexcept = 0;
 	};
 }

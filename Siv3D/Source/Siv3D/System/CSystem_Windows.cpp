@@ -127,6 +127,9 @@ namespace s3d
 
 		Siv3DEngine::GetProfiler()->beginFrame();
 
+		++m_systemFrameCount;
+		++m_userFrameCount;
+
 		Siv3DEngine::GetGraphics()->clear();
 
 		Siv3DEngine::GetDragDrop()->update();
@@ -145,6 +148,21 @@ namespace s3d
 	void CSystem_Windows::reportEvent(const uint32 windowEventFlag)
 	{
 		m_event |= windowEventFlag;
+	}
+
+	uint64 CSystem_Windows::getSystemFrameCount() const noexcept
+	{
+		return m_systemFrameCount;
+	}
+
+	int32 CSystem_Windows::getUserFrameCount() const noexcept
+	{
+		return m_userFrameCount;
+	}
+
+	void CSystem_Windows::setUserFrameCount(const int32 count) noexcept
+	{
+		m_userFrameCount = count;
 	}
 }
 

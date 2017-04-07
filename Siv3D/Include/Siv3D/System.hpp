@@ -69,6 +69,12 @@ namespace s3d
 
 	namespace System
 	{
+		bool Update();
+
+		int32 FrameCount();
+
+		void SetFrameCount(int32 count);
+
 		/// <summary>
 		/// 指定したミリ秒だけ処理を停止します。
 		/// </summary>
@@ -94,8 +100,6 @@ namespace s3d
 			Sleep(static_cast<int32>(milliseconds.count()));
 		}
 		
-		bool Update();
-
 		bool LaunchBrowser(const FilePath& url);
 
 		/// <summary>

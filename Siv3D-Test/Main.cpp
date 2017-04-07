@@ -6,6 +6,6 @@ void Main()
 {
 	while (System::Update())
 	{
-		Window::SetTitle(Profiler::FPS());
+		Window::SetTitle(L"{}fps: {}"_fmt(Profiler::FPS(), System::FrameCount()));
 	}
 }
