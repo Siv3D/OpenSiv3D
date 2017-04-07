@@ -27,9 +27,27 @@ namespace s3d
 {
 	namespace detail
 	{
-		void LoadImageFromClipboard(Image& image)
+		static bool HasInvalidPremultipliedColors(const Color* image, const size_t num_pixels)
 		{
-			const HANDLE hDIB = ::GetClipboardData(CF_DIBV5);
+			const Color* pSrc = image;
+			const Color* const pSrcEnd = pSrc + num_pixels;
+
+			while (pSrc != pSrcEnd)
+			{
+				if (pSrc->r > pSrc->a || pSrc->g > pSrc->a || pSrc->b > pSrc->a)
+				{
+					return true;
+				}
+
+				++pSrc;
+			}
+
+			return false;
+		}
+
+		static void LoadImageFromClipboard(Image& image)
+		{
+			const HANDLE hDIB = ::GetClipboardData(CF_DIB);
 
 			if (!hDIB)
 			{
@@ -37,144 +55,157 @@ namespace s3d
 			}
 
 			const size_t memorySize = ::GlobalSize(hDIB);
-			const void* memory = reinterpret_cast<uint8*>(::GlobalLock(hDIB));
-			
-			const BITMAPV5HEADER* header = static_cast<const BITMAPV5HEADER*>(memory);
-	
-			if (header->bV5Size != sizeof(BITMAPV5HEADER)
-				|| (header->bV5Compression != 0 && header->bV5Compression != 3))
-			{
-				::GlobalUnlock(hDIB);
 
+			if (const void* memory = reinterpret_cast<uint8*>(::GlobalLock(hDIB)))
+			{
+				const BITMAPINFO* header = static_cast<const BITMAPINFO*>(memory);
+				const int32 depth = header->bmiHeader.biBitCount;
+
+				size_t colorTableSize = 0;
+
+				if (depth == 8)
+				{
+					colorTableSize = header->bmiHeader.biClrUsed ? header->bmiHeader.biClrUsed
+						: (1 << header->bmiHeader.biBitCount);
+				}
+				else if (depth == 32 && header->bmiHeader.biCompression == BI_BITFIELDS)
+				{
+					colorTableSize = 3;
+				}
+
+				const size_t offsetSize = header->bmiHeader.biSize + colorTableSize * sizeof(RGBQUAD);
+				const void* bitmapData = static_cast<const Byte*>(memory) + offsetSize;
+
+				const bool reversed	= header->bmiHeader.biHeight > 0;
+				const int32 width	= header->bmiHeader.biWidth;
+				const int32 height	= reversed ? header->bmiHeader.biHeight : -header->bmiHeader.biHeight;	
+				const bool hasAlpha = (depth == 32)
+					&& !HasInvalidPremultipliedColors(static_cast<const Color*>(bitmapData), width * height);
+				image.resize(width, height);
+
+				ReaderView reader(bitmapData, memorySize - offsetSize);
+
+				switch (depth)
+				{
+				case 8:
+					{
+						uint8 palette[1024];
+						reader.read(palette);
+
+						const uint32 rowSize = width + (width % 4 ? 4 - width % 4 : 0);
+						const int32 lineStep = reversed ? -width : width;
+						Color* pDstLine = image[reversed ? height - 1 : 0];
+						uint8* const buffer = static_cast<uint8*>(::malloc(rowSize));
+
+						for (int32 y = 0; y < height; ++y)
+						{
+							if (y == height - 1)
+							{
+								reader.read(buffer, width);
+							}
+							else
+							{
+								reader.read(buffer, rowSize);
+							}
+
+							const uint8* pSrc = buffer;
+							const Color* const pDstEnd = pDstLine + width;
+
+							for (Color* pDst = pDstLine; pDst != pDstEnd; ++pDst)
+							{
+								const uint8 *src = palette + ((*pSrc++) << 2);
+							
+								pDst->set(src[2], src[1], src[0]);
+							}
+
+							pDstLine += lineStep;
+						}
+
+						::free(buffer);
+
+						break;
+					}
+				case 24:
+				case 32:
+					{
+						const size_t rowSize = depth == 24 ? width * 3 + width % 4 : width * 4;			
+						const int32 depthBytes = depth / 8;
+						const int32 lineStep = reversed ? -width : width;
+						Color* pDstLine = image[reversed ? height - 1 : 0];
+						uint8* const buffer = static_cast<uint8*>(::malloc(rowSize));
+
+						for (int32 y = 0; y < height; ++y)
+						{
+							if (y == height - 1)
+							{
+								reader.read(buffer, depthBytes * width);
+							}
+							else
+							{
+								reader.read(buffer, rowSize);
+							}
+
+							const Color* const pDstEnd = pDstLine + width;
+							const uint8* pSrc = buffer;
+
+							for (Color* pDst = pDstLine; pDst != pDstEnd; ++pDst)
+							{
+								pDst->set(pSrc[2], pSrc[1], pSrc[0], hasAlpha ? pSrc[3] : 255);
+
+								pSrc += depthBytes;
+							}
+
+							pDstLine += lineStep;
+						}
+
+						::free(buffer);
+
+						break;
+					}
+				}
+
+			}
+			::GlobalUnlock(hDIB);
+		}
+
+		static void WriteBitmapToClipboard(HBITMAP hSourceBitmap, const Size& size)
+		{
+			HDC hDC				= ::GetDC(nullptr);
+			HDC hCompatibleDC	= ::CreateCompatibleDC(nullptr);
+			HDC hSourceDC		= ::CreateCompatibleDC(nullptr);
+			HBITMAP hBitmap		= ::CreateCompatibleBitmap(hDC, size.x, size.y);
+	
+			if (!hBitmap)
+			{
+				::DeleteDC(hCompatibleDC);
+				::DeleteDC(hSourceDC);
+				::ReleaseDC(nullptr, hDC);
 				return;
 			}
-		
-			//Log << L"----";
-			//Log << header->bV5Size;
-			//Log << header->bV5Width;
-			//Log << header->bV5Height;
-			//Log << header->bV5Planes;
-			//Log << header->bV5BitCount;
-			//Log << header->bV5Compression;
-			//Log << header->bV5SizeImage;
-			//Log << header->bV5XPelsPerMeter;
-			//Log << header->bV5YPelsPerMeter;
-			//Log << header->bV5ClrUsed;
-			//Log << header->bV5ClrImportant;
-			//Log << header->bV5RedMask;
-			//Log << header->bV5GreenMask;
-			//Log << header->bV5BlueMask;
-			//Log << header->bV5AlphaMask;
-			//Log << header->bV5CSType;
-			//Log << header->bV5Endpoints;
-			//Log << header->bV5GammaRed;
-			//Log << header->bV5GammaGreen;
-			//Log << header->bV5GammaBlue;
-			//Log << header->bV5Intent;
-			//Log << header->bV5ProfileData;
-			//Log << header->bV5ProfileSize;
-			//Log << header->bV5Reserved;
-			//Log << L"----";
 
-			const bool reversed	= header->bV5Height > 0;
-			const int32 width	= header->bV5Width;
-			const int32 height	= reversed ? header->bV5Height : -header->bV5Height;
-			const bool hasAlpha = (header->bV5Compression == BI_BITFIELDS)
-				&& (header->bV5BitCount == 32);
-			const bool hasBitFields = header->bV5Compression == BI_BITFIELDS;
-
-			image.resize(width, height);
-
-			//const uint8* data = static_cast<const uint8*>(memory) + sizeof(BITMAPV5HEADER);
-			
-			ReaderView reader(static_cast<const Byte*>(memory) + sizeof(BITMAPV5HEADER),
-				memorySize - sizeof(BITMAPV5HEADER));
-
-			if (hasBitFields)
+			HBITMAP hOldBitmap = (HBITMAP)::SelectObject(hCompatibleDC, hBitmap);
+			HBITMAP hOldSource = (HBITMAP)::SelectObject(hSourceDC, hSourceBitmap);
 			{
-				reader.skip(12);
+				const BLENDFUNCTION blend = { AC_SRC_OVER, 0, 255, AC_SRC_ALPHA };
+				::GdiAlphaBlend(hCompatibleDC, 0, 0, size.x, size.y, hSourceDC, 0, 0, size.x, size.y, blend);
+			}
+			::SelectObject(hCompatibleDC, hOldBitmap);
+			::SelectObject(hSourceDC, hOldSource);
+			
+			::DeleteObject(hOldBitmap);
+			::DeleteObject(hOldSource);
+			::DeleteDC(hCompatibleDC);
+			::DeleteDC(hSourceDC);
+			::ReleaseDC(nullptr, hDC);
+
+			if (::OpenClipboard(nullptr))
+			{
+				::EmptyClipboard();
+				::SetClipboardData(CF_BITMAP, hBitmap);
+				::CloseClipboard();
 			}
 
-			switch (const int32 depth = header->bV5BitCount)
-			{
-			case 8:
-				{
-					uint8 palette[1024];
-					reader.read(palette);
-
-					const uint32 rowSize = width + (width % 4 ? 4 - width % 4 : 0);
-					const int32 lineStep = reversed ? -width : width;
-					Color* pDstLine = image[reversed ? height - 1 : 0];
-					uint8* const buffer = static_cast<uint8*>(::malloc(rowSize));
-
-					for (int32 y = 0; y < height; ++y)
-					{
-						if (y == height - 1)
-						{
-							reader.read(buffer, width);
-						}
-						else
-						{
-							reader.read(buffer, rowSize);
-						}
-
-						const uint8* pSrc = buffer;
-						const Color* const pDstEnd = pDstLine + width;
-
-						for (Color* pDst = pDstLine; pDst != pDstEnd; ++pDst)
-						{
-							const uint8 *src = palette + ((*pSrc++) << 2);
-							
-							pDst->set(src[2], src[1], src[0]);
-						}
-
-						pDstLine += lineStep;
-					}
-
-					::free(buffer);
-
-					break;
-				}
-			case 24:
-			case 32:
-				{
-					const size_t rowSize = depth == 24 ? width * 3 + width % 4 : width * 4;			
-					const int32 depthBytes = depth / 8;
-					const int32 lineStep = reversed ? -width : width;
-					Color* pDstLine = image[reversed ? height - 1 : 0];
-					uint8* const buffer = static_cast<uint8*>(::malloc(rowSize));
-
-					for (int32 y = 0; y < height; ++y)
-					{
-						if (y == height - 1)
-						{
-							reader.read(buffer, depthBytes * width);
-						}
-						else
-						{
-							reader.read(buffer, rowSize);
-						}
-
-						const Color* const pDstEnd = pDstLine + width;
-						const uint8* pSrc = buffer;
-
-						for (Color* pDst = pDstLine; pDst != pDstEnd; ++pDst)
-						{
-							pDst->set(pSrc[2], pSrc[1], pSrc[0], hasAlpha ? pSrc[3] : 255);
-
-							pSrc += depthBytes;
-						}
-
-						pDstLine += lineStep;
-					}
-
-					::free(buffer);
-
-					break;
-				}
-			}
-			
-			::GlobalUnlock(hDIB);
+			::DeleteObject(hBitmap);
 		}
 	}
 
@@ -228,7 +259,7 @@ namespace s3d
 
 			::CloseClipboard();
 		}
-		else if (::IsClipboardFormatAvailable(CF_DIBV5))
+		else if (::IsClipboardFormatAvailable(CF_DIB))
 		{
 			if (!::OpenClipboard(nullptr))
 			{
@@ -303,13 +334,6 @@ namespace s3d
 
 	void CClipboard_Windows::setText(const String& text)
 	{
-		if (!::OpenClipboard(nullptr))
-		{
-			return;
-		}
-
-		::EmptyClipboard();
-
 		const size_t size = sizeof(char16_t) * (text.length() + 1);
 
 		HANDLE hData = ::GlobalAlloc(GMEM_MOVEABLE, size);
@@ -320,78 +344,73 @@ namespace s3d
 		
 		::GlobalUnlock(hData);
 		
-		::SetClipboardData(CF_UNICODETEXT, hData);
-		
-		::CloseClipboard();
+		if (!::OpenClipboard(nullptr))
+		{
+			::EmptyClipboard();
+			::SetClipboardData(CF_UNICODETEXT, hData);
+			::CloseClipboard();
+		}
+
+		::GlobalFree(hData);
 	}
 
 	void CClipboard_Windows::setImage(const Image& image)
 	{
-		if (!::OpenClipboard(nullptr))
+		HDC hDC = ::GetDC(nullptr);
+		BITMAPINFO header = {};
+		header.bmiHeader.biSize			= sizeof(BITMAPINFOHEADER);
+		header.bmiHeader.biWidth		= image.width();
+		header.bmiHeader.biHeight		= -image.height();
+		header.bmiHeader.biPlanes		= 1;
+		header.bmiHeader.biBitCount		= 32;
+		header.bmiHeader.biCompression	= BI_RGB;
+
+		void* bitmapData;
+		HBITMAP hBitmap = ::CreateDIBSection(hDC, &header, DIB_RGB_COLORS, &bitmapData, nullptr, 0);
+
+		if (bitmapData && hBitmap)
 		{
-			return;
-		}
+			const Color* pSrc = image.data();
+			const Color* pSrcEnd = pSrc + image.num_pixels();
+			Color* pDst = static_cast<Color*>(bitmapData);
 
-		::EmptyClipboard();
-
-		const int32 width		= image.width();
-		const int32 height		= image.height();
-		const int32 rowSize		= ((width * 32 + 31) / 32) * 4;
-		const size_t dataSize	= sizeof(BITMAPV5HEADER) + height * rowSize;
-		HANDLE hData			= ::GlobalAlloc(GMEM_MOVEABLE, dataSize);
-		uint8* const memory		= reinterpret_cast<uint8_t*>(::GlobalLock(hData));
-
-		BITMAPV5HEADER header	= {};
-		header.bV5Size			= sizeof(BITMAPV5HEADER);
-		header.bV5Width			= width;
-		header.bV5Height		= -height;
-		header.bV5Planes		= 1;
-		header.bV5BitCount		= 32;
-		header.bV5Compression	= BI_RGB;
-		header.bV5SizeImage		= height * rowSize;
-		header.bV5RedMask		= 0x00FF0000;
-		header.bV5GreenMask		= 0x0000FF00;
-		header.bV5BlueMask		= 0x000000FF;
-		header.bV5AlphaMask		= 0xFF000000;
-		header.bV5CSType		= LCS_sRGB;
-		header.bV5Intent		= LCS_GM_IMAGES;
-		*(reinterpret_cast<BITMAPV5HEADER*>(memory)) = header;
-
-		uint8* const pBegin = memory + sizeof(BITMAPV5HEADER);
-		const Color* pSrc = image.data();
-
-		for (int32 y = 0; y < height; ++y)
-		{
-			uint8* pDst = pBegin + rowSize * y;
-
-			for (int32 x = 0; x < width; ++x)
+			while (pSrc != pSrcEnd)
 			{
-				*pDst++ = pSrc->b;
-				*pDst++ = pSrc->g;
-				*pDst++ = pSrc->r;
-				*pDst++ = 255;
+				if (pSrc->a == 255)
+				{
+					pDst->r = pSrc->b;
+					pDst->g = pSrc->g;
+					pDst->b = pSrc->r;
+					pDst->a = 255;
+				}
+				else
+				{
+					const float fa = pSrc->a / 255.0f;
+					pDst->r = static_cast<uint8>(pSrc->b * fa);
+					pDst->g = static_cast<uint8>(pSrc->g * fa);
+					pDst->b = static_cast<uint8>(pSrc->r * fa);
+					pDst->a = pSrc->a;
+				}
+
+				++pDst;
 				++pSrc;
 			}
+
+			detail::WriteBitmapToClipboard(hBitmap, image.size());
 		}
 
-		::GlobalUnlock(hData);
-
-		::SetClipboardData(CF_DIBV5, hData);
-
-		::CloseClipboard();
+		::DeleteObject(hBitmap);
+		::ReleaseDC(nullptr, hDC);
 	}
 
 	void CClipboard_Windows::clear()
 	{
-		if (!::OpenClipboard(nullptr))
+		if (::OpenClipboard(nullptr))
 		{
-			return;
+			::EmptyClipboard();
+			::CloseClipboard();
 		}
-
-		::EmptyClipboard();
-
-		::CloseClipboard();
-		
+	
 		m_text.clear();
 		m_image.clear();
 		m_filePaths.clear();

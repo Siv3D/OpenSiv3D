@@ -29,7 +29,7 @@ void Main()
 
 				Log << Clipboard::GetImage().size();
 				
-				//Clipboard::GetImage().save(L"{}.png"_fmt(Time::GetMillisec()));
+				Clipboard::GetImage().save(L"{}.png"_fmt(Time::GetMillisec()));
 			}
 			
 			if (Clipboard::HasFilePaths())
