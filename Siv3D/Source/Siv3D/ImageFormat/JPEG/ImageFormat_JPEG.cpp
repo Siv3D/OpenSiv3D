@@ -176,7 +176,7 @@ namespace s3d
 
 		::tjDestroy(tj);
 
-		const bool result = retJPEGsize == writer.write(buffer, retJPEGsize);
+		const bool result = static_cast<int64>(retJPEGsize) == writer.write(buffer, retJPEGsize);
 
 		::free(buffer);
 
