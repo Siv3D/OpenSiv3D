@@ -169,6 +169,11 @@ namespace s3d
 	{
 		m_userFrameCount = count;
 	}
+	
+	double CSystem_macOS::getDeltaTime() const noexcept
+	{
+		return m_currentDeltaTimeSec;
+	}
 }
 
 # endif

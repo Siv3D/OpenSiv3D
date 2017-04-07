@@ -169,6 +169,11 @@ namespace s3d
 	{
 		m_userFrameCount = count;
 	}
+	
+	double CSystem_Linux::getDeltaTime() const noexcept
+	{
+		return m_currentDeltaTimeSec;
+	}
 }
 
 # endif
