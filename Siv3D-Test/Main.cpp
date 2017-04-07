@@ -4,16 +4,10 @@
 
 void Main()
 {
-	int frame = 0;
-	
 	while (System::Update())
 	{
-		++frame;
-		
 		if (Clipboard::HasChanged())
 		{
-			//Log << frame;
-			
 			Log << L"HasChanged";
 
 			if (Clipboard::HasText())

@@ -689,6 +689,18 @@ namespace s3d
 		bool saveJPEG(const FilePath& path, int32 quality = 90) const;
 
 		bool savePerceptualJPEG(const FilePath& path, double butteraugliTarget = 1.0) const;
+		
+		Image& swapRB()
+		{
+			for (auto& pixel : m_data)
+			{
+				const uint32 t = pixel.r;
+				pixel.r = pixel.b;
+				pixel.b = t;
+			}
+			
+			return *this;
+		}
 	};
 
 	namespace Imaging

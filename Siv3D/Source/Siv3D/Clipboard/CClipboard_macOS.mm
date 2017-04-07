@@ -73,11 +73,27 @@ namespace s3d
 							 forType:NSStringPboardType];
 		}
 		
-		void ClipboardSetImage_macOS(const Image& image)
+		void ClipboardSetImage_macOS(const Image& _image)
 		{
-			//NSBitmapImageRep* rep = [[[NSBitmapImageRep alloc] initWithCGImage:source->getCgImage()] autorelease];
-			/*
-			NSImage* img = [[NSImage alloc] initWithSize:[rep size]];
+			Image image(_image);
+			
+			image.swapRB();
+			
+			CGImageRef cgImage;
+			{
+				CFDataRef data = CFDataCreateWithBytesNoCopy(kCFAllocatorDefault,
+															 image.dataAsUint8(), image.size_bytes(), kCFAllocatorNull);
+			
+				CGDataProviderRef dataProvider = CGDataProviderCreateWithCFData(data);
+			
+				cgImage = CGImageCreate(image.width(), image.height(), 8, 32, image.stride(),
+										CGColorSpaceCreateWithName(kCGColorSpaceSRGB),
+										kCGImageAlphaFirst | kCGBitmapByteOrder32Host,
+										dataProvider, nullptr, false, kCGRenderingIntentDefault);
+			}
+			
+			NSBitmapImageRep* rep = [[[NSBitmapImageRep alloc] initWithCGImage:cgImage] autorelease];
+			NSImage* img = [[NSImage alloc] init];
 			[img addRepresentation: rep];
 			
 			NSPasteboard* pasteboard	= [NSPasteboard generalPasteboard];
@@ -85,7 +101,6 @@ namespace s3d
 			[pasteboard setData:[img TIFFRepresentation] forType:NSTIFFPboardType];
 			
 			[img release];
-			 */
 		}
 		
 		void ClipboardClear_macOS()
