@@ -98,6 +98,16 @@ namespace s3d
 	{
 		return m_renderTarget->endResize(size);
 	}
+
+	void CGraphics_D3D11::setVSyncEnabled(const bool enabled)
+	{
+		m_swapChain->setVSyncEnabled(enabled);
+	}
+
+	bool CGraphics_D3D11::isVSyncEnabled() const
+	{
+		return m_swapChain->isVSyncEnabled();
+	}
 }
 
 # endif
