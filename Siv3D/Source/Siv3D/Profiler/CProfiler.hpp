@@ -11,12 +11,19 @@
 
 # pragma once
 # include "IProfiler.hpp"
+# include <Siv3D/Stopwatch.hpp>
 
 namespace s3d
 {
 	class CProfiler : public ISiv3DProfiler
 	{
 	private:
+
+		int32 m_fpsCount = 0;
+
+		int32 m_currentFPS = 1;
+
+		Stopwatch m_fpsStopwatch;
 
 	public:
 
@@ -25,5 +32,11 @@ namespace s3d
 		~CProfiler() override;
 
 		bool init() override;
+
+		void beginFrame() override;
+
+		void endFrame() override;
+
+		int32 getFPS() const override;
 	};
 }

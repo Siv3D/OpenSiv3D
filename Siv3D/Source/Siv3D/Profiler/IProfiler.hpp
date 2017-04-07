@@ -23,5 +23,11 @@ namespace s3d
 		virtual ~ISiv3DProfiler() = default;
 
 		virtual bool init() = 0;
+
+		virtual void beginFrame() = 0;
+
+		virtual void endFrame() = 0;
+
+		virtual int32 getFPS() const = 0;
 	};
 }

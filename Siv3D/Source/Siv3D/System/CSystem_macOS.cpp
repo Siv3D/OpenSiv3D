@@ -17,6 +17,7 @@
 # include "../Logger/ILogger.hpp"
 # include "../ImageFormat/IImageFormat.hpp"
 # include "../Window/IWindow.hpp"
+# include "../Profiler/IProfiler.hpp"
 # include "../DragDrop/IDragDrop.hpp"
 # include "../Clipboard/IClipboard.hpp"
 # include "../Cursor/ICursor.hpp"
@@ -54,6 +55,11 @@ namespace s3d
 		}
 
 		if (!Siv3DEngine::GetWindow()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetProfiler()->init())
 		{
 			return false;
 		}
@@ -107,7 +113,11 @@ namespace s3d
 			return false;
 		}
 
+		Siv3DEngine::GetProfiler()->endFrame();
+
 		Siv3DEngine::GetGraphics()->present();
+
+		Siv3DEngine::GetProfiler()->beginFrame();
 
 		if (!Siv3DEngine::GetWindow()->update())
 		{

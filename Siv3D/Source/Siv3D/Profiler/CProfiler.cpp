@@ -25,7 +25,34 @@ namespace s3d
 
 	bool CProfiler::init()
 	{
+		m_fpsStopwatch.start();
 
 		return true;
+	}
+
+	void CProfiler::beginFrame()
+	{
+		if (m_fpsStopwatch.msF() < 1000.0)
+		{
+			++m_fpsCount;
+		}
+		else
+		{
+			m_currentFPS = m_fpsCount;
+
+			m_fpsCount = 1;
+
+			m_fpsStopwatch.restart();
+		}
+	}
+
+	void CProfiler::endFrame()
+	{
+
+	}
+
+	int32 CProfiler::getFPS() const
+	{
+		return m_currentFPS;
 	}
 }

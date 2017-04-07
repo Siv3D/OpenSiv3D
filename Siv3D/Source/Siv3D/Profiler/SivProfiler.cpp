@@ -11,11 +11,15 @@
 
 # include "../Siv3DEngine.hpp"
 # include "IProfiler.hpp"
+# include <Siv3D/Profiler.hpp>
 
 namespace s3d
 {
 	namespace Profiler
 	{
-	
+		int32 FPS()
+		{
+			return Siv3DEngine::GetProfiler()->getFPS();
+		}
 	}
 }

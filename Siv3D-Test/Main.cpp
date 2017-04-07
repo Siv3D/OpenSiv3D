@@ -4,10 +4,8 @@
 
 void Main()
 {
-	int32 frame = 0;
-	
 	while (System::Update())
 	{
-		Window::SetTitle(frame++);
+		Window::SetTitle(Profiler::FPS());
 	}
 }
