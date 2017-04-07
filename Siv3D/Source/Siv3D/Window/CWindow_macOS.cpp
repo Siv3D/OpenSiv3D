@@ -63,8 +63,6 @@ namespace s3d
 		m_state.windowSize.set(windowSizeX, windowSizeY);
 		
 		::glfwMakeContextCurrent(m_glfwWindow);
-
-		::glfwSwapInterval(1);
 		
 		//m_state.titleBarHeight
 		
