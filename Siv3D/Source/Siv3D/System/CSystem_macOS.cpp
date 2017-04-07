@@ -122,6 +122,11 @@ namespace s3d
 		++m_systemFrameCount;
 		++m_userFrameCount;
 
+		const uint64 currentNanoSec = Time::GetNanosec();
+		m_currentDeltaTimeSec = m_previousFrameTimeNanosec ?
+			(currentNanoSec - m_previousFrameTimeNanosec) / 1'000'000'000.0 : 0.0;
+		m_previousFrameTimeNanosec = currentNanoSec;
+
 		if (!Siv3DEngine::GetWindow()->update())
 		{
 			return false;

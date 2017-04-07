@@ -35,5 +35,7 @@ namespace s3d
 		virtual int32 getUserFrameCount() const noexcept = 0;
 
 		virtual void setUserFrameCount(int32 count) noexcept = 0;
+
+		virtual double getDeltaTime() const noexcept = 0;
 	};
 }

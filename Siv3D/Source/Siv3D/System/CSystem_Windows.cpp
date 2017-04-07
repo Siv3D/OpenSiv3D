@@ -130,6 +130,11 @@ namespace s3d
 		++m_systemFrameCount;
 		++m_userFrameCount;
 
+		const uint64 currentNanoSec = Time::GetNanosec();
+		m_currentDeltaTimeSec = m_previousFrameTimeNanosec ?
+			(currentNanoSec - m_previousFrameTimeNanosec) / 1'000'000'000.0 : 0.0;
+		m_previousFrameTimeNanosec = currentNanoSec;
+
 		Siv3DEngine::GetGraphics()->clear();
 
 		Siv3DEngine::GetDragDrop()->update();
@@ -163,6 +168,11 @@ namespace s3d
 	void CSystem_Windows::setUserFrameCount(const int32 count) noexcept
 	{
 		m_userFrameCount = count;
+	}
+
+	double CSystem_Windows::getDeltaTime() const noexcept
+	{
+		return m_currentDeltaTimeSec;
 	}
 }
 

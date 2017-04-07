@@ -33,6 +33,10 @@ namespace s3d
 
 		int32 m_userFrameCount = 0;
 
+		double m_currentDeltaTimeSec = 0.0;
+
+		uint64 m_previousFrameTimeNanosec = 0;
+
 	public:
 
 		CSystem_macOS();
@@ -52,6 +56,8 @@ namespace s3d
 		int32 getUserFrameCount() const noexcept override;
 
 		void setUserFrameCount(int32 count) noexcept override;
+
+		double getDeltaTime() const noexcept override;
 	};
 }
 
