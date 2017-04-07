@@ -17,6 +17,7 @@
 # include "../Logger/ILogger.hpp"
 # include "../ImageFormat/IImageFormat.hpp"
 # include "../Window/IWindow.hpp"
+# include "../Profiler/IProfiler.hpp"
 # include "../DragDrop/IDragDrop.hpp"
 # include "../Clipboard/IClipboard.hpp"
 # include "../Cursor/ICursor.hpp"
@@ -56,6 +57,11 @@ namespace s3d
 		}
 
 		if (!Siv3DEngine::GetWindow()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetProfiler()->init())
 		{
 			return false;
 		}
@@ -112,10 +118,22 @@ namespace s3d
 			return false;
 		}
 
+		Siv3DEngine::GetProfiler()->endFrame();
+
 		if (!Siv3DEngine::GetGraphics()->present())
 		{
 			return false;
 		}
+
+		Siv3DEngine::GetProfiler()->beginFrame();
+
+		++m_systemFrameCount;
+		++m_userFrameCount;
+
+		const uint64 currentNanoSec = Time::GetNanosec();
+		m_currentDeltaTimeSec = m_previousFrameTimeNanosec ?
+			(currentNanoSec - m_previousFrameTimeNanosec) / 1'000'000'000.0 : 0.0;
+		m_previousFrameTimeNanosec = currentNanoSec;
 
 		Siv3DEngine::GetGraphics()->clear();
 
@@ -135,6 +153,26 @@ namespace s3d
 	void CSystem_Windows::reportEvent(const uint32 windowEventFlag)
 	{
 		m_event |= windowEventFlag;
+	}
+
+	uint64 CSystem_Windows::getSystemFrameCount() const noexcept
+	{
+		return m_systemFrameCount;
+	}
+
+	int32 CSystem_Windows::getUserFrameCount() const noexcept
+	{
+		return m_userFrameCount;
+	}
+
+	void CSystem_Windows::setUserFrameCount(const int32 count) noexcept
+	{
+		m_userFrameCount = count;
+	}
+
+	double CSystem_Windows::getDeltaTime() const noexcept
+	{
+		return m_currentDeltaTimeSec;
 	}
 }
 

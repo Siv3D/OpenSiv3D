@@ -19,6 +19,7 @@ namespace s3d
 	class ISiv3DConsole;
 	class ISiv3DImageFormat;
 	class ISiv3DWindow;
+	class ISiv3DProfiler;
 	class ISiv3DDragDrop;
 	class ISiv3DClipboard;
 	class ISiv3DCursor;
@@ -72,6 +73,8 @@ namespace s3d
 
 		Siv3DComponent<ISiv3DWindow> m_window;
 
+		Siv3DComponent<ISiv3DProfiler> m_profiler;
+
 		Siv3DComponent<ISiv3DDragDrop> m_dragdrop;
 
 		Siv3DComponent<ISiv3DClipboard> m_clipboard;
@@ -118,6 +121,11 @@ namespace s3d
 		static ISiv3DWindow* GetWindow()
 		{
 			return pEngine->m_window.get();
+		}
+
+		static ISiv3DProfiler* GetProfiler()
+		{
+			return pEngine->m_profiler.get();
 		}
 
 		static ISiv3DDragDrop* GetDragDrop()

@@ -112,6 +112,9 @@
 - [x] MessageBox
 - [x] GIF
 - [x] Clipboard
+- [x] Profiler::FPS()
+- [x] System::FrameCount()
+- [x] System::DeltaTime()
 - [ ] Graphics::EnableVSync()
 - [ ] Log
 - [ ] Cursor::SetPos()
@@ -120,7 +123,6 @@
 - [ ] UID
 - [ ] TextureFormat (Partial)
 - [ ] Point::paint() / overpaint()
-- [ ] Profiler::FPS()
 - [ ] Resource files
 
 ---------------------------
