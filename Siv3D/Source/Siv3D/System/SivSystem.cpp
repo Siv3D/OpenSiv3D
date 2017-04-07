@@ -25,6 +25,21 @@ namespace s3d
 			return Siv3DEngine::GetSystem()->update();
 		}
 
+		int32 FrameCount()
+		{
+			return Siv3DEngine::GetSystem()->getUserFrameCount();
+		}
+
+		void SetFrameCount(const int32 count)
+		{
+			Siv3DEngine::GetSystem()->setUserFrameCount(count);
+		}
+
+		double DeltaTime()
+		{
+			return Siv3DEngine::GetSystem()->getDeltaTime();
+		}
+
 		void ShowLicenses()
 		{
 			LaunchBrowser(EngineDirectory::LicensePath());

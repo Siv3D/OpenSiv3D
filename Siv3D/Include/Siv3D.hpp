@@ -165,6 +165,8 @@
 	# include "Siv3D/IReader.hpp"
 	// IWriter インタフェース
 	# include "Siv3D/IWriter.hpp"
+	// メモリ範囲への Reader インタフェース
+	# include "Siv3D/ReaderView.hpp"
 	// メモリマップトファイル
 	# include "Siv3D/MemoryMapping.hpp"
 	// 書き込み可能なメモリマップトファイル
@@ -392,14 +394,14 @@
 	# include "Siv3D/Window.hpp"
 	// メッセージボックス
 	# include "Siv3D/MessageBox.hpp"
-	//// クリップボード
-	//# include "Siv3D/Clipboard.hpp"
+	// クリップボード
+	# include "Siv3D/Clipboard.hpp"
 	// ドラッグ & ドロップ
 	# include "Siv3D/DragDrop.hpp"
 	//// ダイアログ
 	//# include "Siv3D/Dialog.hpp"
-	//// プロファイリング
-	//# include "Siv3D/Profiler.hpp"
+	// プロファイリング
+	# include "Siv3D/Profiler.hpp"
 //
 // 入力デバイス
 //

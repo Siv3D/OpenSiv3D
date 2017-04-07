@@ -41,5 +41,9 @@ namespace s3d
 		Array<DisplayOutput> EnumOutputs();
 
 		bool SetFullScreen(bool fullScreen, const Size& size, size_t displayIndex = 0, double refreshRateHz = 60.0);
+
+		void SetVSyncEnabled(bool enabled);
+
+		bool IsVSyncEnabled();
 	}
 }

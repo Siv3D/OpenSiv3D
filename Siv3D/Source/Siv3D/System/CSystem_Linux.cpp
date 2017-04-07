@@ -17,7 +17,9 @@
 # include "../Logger/ILogger.hpp"
 # include "../ImageFormat/IImageFormat.hpp"
 # include "../Window/IWindow.hpp"
+# include "../Profiler/IProfiler.hpp"
 # include "../DragDrop/IDragDrop.hpp"
+# include "../Clipboard/IClipboard.hpp"
 # include "../Cursor/ICursor.hpp"
 # include "../Keyboard/IKeyboard.hpp"
 # include "../Mouse/IMouse.hpp"
@@ -57,11 +59,21 @@ namespace s3d
 			return false;
 		}
 
+		if (!Siv3DEngine::GetProfiler()->init())
+		{
+			return false;
+		}
+
 		if (!Siv3DEngine::GetDragDrop()->init())
 		{
 			return false;
 		}
-		
+
+		if (!Siv3DEngine::GetClipboard()->init())
+		{
+			return false;
+		}
+
 		if (!Siv3DEngine::GetCursor()->init())
 		{
 			return false;
@@ -81,6 +93,7 @@ namespace s3d
 		{
 			return false;
 		}
+
 		Siv3DEngine::GetGraphics()->clear();
 
 		return true;
@@ -100,7 +113,19 @@ namespace s3d
 			return false;
 		}
 
+		Siv3DEngine::GetProfiler()->endFrame();
+
 		Siv3DEngine::GetGraphics()->present();
+
+		Siv3DEngine::GetProfiler()->beginFrame();
+
+		++m_systemFrameCount;
+		++m_userFrameCount;
+
+		const uint64 currentNanoSec = Time::GetNanosec();
+		m_currentDeltaTimeSec = m_previousFrameTimeNanosec ?
+			(currentNanoSec - m_previousFrameTimeNanosec) / 1'000'000'000.0 : 0.0;
+		m_previousFrameTimeNanosec = currentNanoSec;
 
 		if (!Siv3DEngine::GetWindow()->update())
 		{
@@ -114,6 +139,8 @@ namespace s3d
 			return false;
 		}
 
+		Siv3DEngine::GetClipboard()->update();
+
 		Siv3DEngine::GetCursor()->update();
 
 		Siv3DEngine::GetKeyboard()->update();
@@ -126,6 +153,26 @@ namespace s3d
 	void CSystem_Linux::reportEvent(const uint32 windowEventFlag)
 	{
 		m_event |= windowEventFlag;
+	}
+
+	uint64 CSystem_Linux::getSystemFrameCount() const noexcept
+	{
+		return m_systemFrameCount;
+	}
+
+	int32 CSystem_Linux::getUserFrameCount() const noexcept
+	{
+		return m_userFrameCount;
+	}
+
+	void CSystem_Linux::setUserFrameCount(const int32 count) noexcept
+	{
+		m_userFrameCount = count;
+	}
+	
+	double CSystem_Linux::getDeltaTime() const noexcept
+	{
+		return m_currentDeltaTimeSec;
 	}
 }
 
