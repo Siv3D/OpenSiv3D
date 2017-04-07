@@ -26,7 +26,6 @@
 
 # endif
 
-# include <boost/functional/hash.hpp>
 # include <Siv3D/DateTime.hpp>
 # include <Siv3D/FormatUtility.hpp>
 
@@ -321,7 +320,7 @@ namespace s3d
 		return *this;
 	}
 
-	Milliseconds operator - (const DateTime& a, const DateTime& b)
+	Milliseconds operator -(const DateTime& a, const DateTime& b)
 	{
 		const auto diffDays = Date(a) - Date(b);
 		const auto aMillisec = detail::TimeToMillisecCount(a.hour, a.minute, a.second, a.milliseconds);
@@ -331,18 +330,3 @@ namespace s3d
 	}
 }
 
-namespace std
-{
-	size_t hash<s3d::DateTime>::operator()(const s3d::DateTime& dateTime) const
-	{
-		size_t h = 0;
-		boost::hash_combine(h, dateTime.year);
-		boost::hash_combine(h, dateTime.month);
-		boost::hash_combine(h, dateTime.day);
-		boost::hash_combine(h, dateTime.hour);
-		boost::hash_combine(h, dateTime.minute);
-		boost::hash_combine(h, dateTime.second);
-		boost::hash_combine(h, dateTime.milliseconds);
-		return h;
-	}
-}

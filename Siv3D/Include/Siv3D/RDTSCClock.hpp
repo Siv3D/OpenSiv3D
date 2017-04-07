@@ -15,19 +15,26 @@
 
 namespace s3d
 {
-# if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
-
 	namespace detail
 	{
+	# if defined(SIV3D_TARGET_WINDOWS)
+
+		__forceinline uint64 rdtsc()
+		{
+			return ::__rdtsc();
+		}
+
+	# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
+
 		static __inline__ uint64 rdtsc()
 		{
 			uint32 hi, lo;
 			__asm__ __volatile__("rdtsc" : "=a"(lo), "=d"(hi));
 			return static_cast<uint64>(lo) | (static_cast<uint64>(hi) << 32);
 		}
-	}
 
-# endif
+	# endif
+	}
 
 	/// <summary>
 	/// CPU サイクルカウンター
@@ -38,16 +45,8 @@ namespace s3d
 	class RDTSCClock
 	{
 	private:
-	
-	# if defined(SIV3D_TARGET_WINDOWS)
-
-		const uint64 m_start = ::__rdtsc();
-
-	# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 		const uint64 m_start = detail::rdtsc();
-
-	# endif
 
 	public:
 
@@ -56,15 +55,7 @@ namespace s3d
 		/// </summary>
 		uint64 cycles() const
 		{
-		# if defined(SIV3D_TARGET_WINDOWS)
-
-			return ::__rdtsc() - m_start;
-
-		# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
-
 			return detail::rdtsc() - m_start;
-
-		# endif
 		}
 
 		/// <summary>

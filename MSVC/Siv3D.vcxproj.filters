@@ -263,6 +263,9 @@
     <Filter Include="Source\Siv3D\ImageFormat\GIF">
       <UniqueIdentifier>{50552d22-25e2-4d18-9701-95c0382353b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Clipboard">
+      <UniqueIdentifier>{eecf9fcd-54f7-4d4e-a6f5-49054db2d278}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1033,6 +1036,24 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Byte.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Clipboard.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Clipboard\CClipboard_macOS.hpp">
+      <Filter>Source\Siv3D\Clipboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Clipboard\CClipboard_Windows.hpp">
+      <Filter>Source\Siv3D\Clipboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Clipboard\IClipboard.hpp">
+      <Filter>Source\Siv3D\Clipboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Clipboard\CClipboard_Linux.hpp">
+      <Filter>Source\Siv3D\Clipboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\ReaderView.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1559,6 +1580,21 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\gif_quantize.c">
       <Filter>Source\ThirdParty\giflib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Clipboard\CClipboard_Windows.cpp">
+      <Filter>Source\Siv3D\Clipboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Clipboard\ClipboardFactory.cpp">
+      <Filter>Source\Siv3D\Clipboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Clipboard\SivClipboard.cpp">
+      <Filter>Source\Siv3D\Clipboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Clipboard\CClipboard_Linux.cpp">
+      <Filter>Source\Siv3D\Clipboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Clipboard\CClipboard_macOS.cpp">
+      <Filter>Source\Siv3D\Clipboard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
