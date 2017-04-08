@@ -315,10 +315,10 @@ namespace s3d
 					Point(desc.DesktopCoordinates.left, desc.DesktopCoordinates.top));
 			}
 		}
-
+    
 		// サイズが一致するもののうちリフレッシュレートが一致するものを選択
 		// サイズが一致するものが存在しなければ return false
-		size_t bestIndex = 0;
+		Optional<size_t> bestIndex;
 		double bestDiff = 999999.9;
 
 		for (size_t i = 0; i < displayModeList.size(); ++i)
@@ -338,6 +338,11 @@ namespace s3d
 			}
 		}
 
+		if (!bestIndex)
+		{
+			return false;
+		}
+
 		//Log << displayModeList[bestIndex].Width;
 		//Log << displayModeList[bestIndex].Height;
 		//Log << static_cast<double>(displayModeList[bestIndex].RefreshRate.Numerator) / displayModeList[bestIndex].RefreshRate.Denominator;
@@ -347,8 +352,10 @@ namespace s3d
 
 		Siv3DEngine::GetGraphics()->beginResize();
 
-		m_swapChain->ResizeTarget(&displayModeList[bestIndex]);
-		m_swapChain->ResizeBuffers(1, displayModeList[bestIndex].Width, displayModeList[bestIndex].Height, DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
+		const auto& bestDisplayMode = displayModeList[bestIndex.value()];
+
+		m_swapChain->ResizeTarget(&bestDisplayMode);
+		m_swapChain->ResizeBuffers(1, bestDisplayMode.Width, bestDisplayMode.Height, DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
 		
 		Siv3DEngine::GetGraphics()->endResize(size);
 		
