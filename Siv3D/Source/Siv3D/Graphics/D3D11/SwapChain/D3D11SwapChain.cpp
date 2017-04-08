@@ -206,11 +206,12 @@ namespace s3d
 
 		if (fullScreen)
 		{
+			// 一旦フルスクリーンを解除
 			if (m_fullScreen)
 			{
 				setFullScreen(false, size, displayIndex, refreshRateHz);
 			}
-
+			// フルスクリーン化
 			if (!setBestFullScreenMode(size, displayIndex, refreshRateHz))
 			{
 				return false;
@@ -218,6 +219,7 @@ namespace s3d
 		}
 		else
 		{
+			// フルスクリーンを解除
 			m_swapChain->SetFullscreenState(false, nullptr);
 
 			Siv3DEngine::GetGraphics()->beginResize();
@@ -314,6 +316,8 @@ namespace s3d
 			}
 		}
 
+		// サイズが一致するもののうちリフレッシュレートが一致するものを選択
+		// サイズが一致するものが存在しなければ return false
 		size_t bestIndex = 0;
 		double bestDiff = 999999.9;
 
