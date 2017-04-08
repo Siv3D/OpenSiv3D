@@ -1835,6 +1835,15 @@ namespace s3d
 			return result;
 		}
 
+		/// <summary>
+		/// 指定された数だけ先頭の文字を削除した新しい文字列を返します。
+		/// </summary>
+		/// <param name="n">
+		/// 削除する文字数
+		/// </param>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String drop(const size_t n) const
 		{
 			if (n >= m_string.size())
@@ -1845,12 +1854,30 @@ namespace s3d
 			return String(m_string.begin() + n, m_string.end());
 		}
 
+		/// <summary>
+		/// 文字列の先頭から、指定された条件を満たす連続した文字を削除した新しい文字列を返します。
+		/// </summary>
+		/// <param name="f">
+		/// 条件を記述した関数
+		/// </param>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		template <class Fty>
 		String drop_while(Fty f) const
 		{
 			return String(std::find_if_not(m_string.begin(), m_string.end(), f), m_string.end());
 		}
 
+		/// <summary>
+		/// 文字列の各文字への参照を引数に、先頭の文字から順に関数を呼び出します。
+		/// </summary>
+		/// <param name="f">
+		/// 各文字への参照を引数にとる関数
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		template <class Fty>
 		String& each(Fty f)
 		{
@@ -1862,6 +1889,15 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 文字列の各文字への参照を引数に、先頭の文字から順に関数を呼び出します。
+		/// </summary>
+		/// <param name="f">
+		/// 各文字への参照を引数にとる関数
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		template <class Fty>
 		const String& each(Fty f) const
 		{
@@ -1873,6 +1909,15 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 文字列の各文字のインデックスと参照を引数に、先頭の文字から順に関数を呼び出します。
+		/// </summary>
+		/// <param name="f">
+		/// 各文字のインデックスと参照を引数にとる関数
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		template <class Fty>
 		String& each_index(Fty f)
 		{
@@ -1886,6 +1931,15 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 文字列の各文字のインデックスと参照を引数に、先頭の文字から順に関数を呼び出します。
+		/// </summary>
+		/// <param name="f">
+		/// 各文字のインデックスと参照を引数にとる関数
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		template <class Fty>
 		const String& each_index(Fty f) const
 		{
@@ -1959,6 +2013,18 @@ namespace s3d
 			return result;
 		}
 
+		/// <summary>
+		/// 指定した位置の文字への参照を返します。指定されたインデックスが存在しない場合はデフォルト値を返します。
+		/// </summary>
+		/// <param name="index">
+		/// 位置
+		/// </param>
+		/// <param name="defaultValue">
+		/// インデックスが存在しない場合に返されるデフォルト値
+		/// </param>
+		/// <returns>
+		/// 指定した位置の文字への参照、もしくはデフォルト値
+		/// </returns>
 		const wchar& fetch(const size_t index, const wchar& defaultValue) const
 		{
 			if (index >= size())
@@ -1969,6 +2035,15 @@ namespace s3d
 			return m_string[index];
 		}
 
+		/// <summary>
+		/// 文字列のサイズを変えずに、全文字を指定された文字で置換します。
+		/// </summary>
+		/// <param name="value">
+		/// 置換後の文字
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		String& fill(const wchar value)
 		{
 			std::fill(m_string.begin(), m_string.end(), value);
@@ -1976,6 +2051,15 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 指定した条件に合う文字のみを含む新しい文字列を返します。
+		/// </summary>
+		/// <param name="f">
+		/// 条件を記述した関数
+		/// </param>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		template <class Fty>
 		String filter(Fty f) const
 		{
