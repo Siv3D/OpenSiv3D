@@ -316,7 +316,7 @@ namespace s3d
 			}
 		}
     
-    // サイズが一致するもののうちリフレッシュレートが一致するものを選択
+		// サイズが一致するもののうちリフレッシュレートが一致するものを選択
 		// サイズが一致するものが存在しなければ return false
 		Optional<size_t> bestIndex;
 		double bestDiff = 999999.9;
