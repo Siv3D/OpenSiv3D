@@ -1493,6 +1493,15 @@ namespace s3d
 			return m_string.compare(str.m_string);
 		}
 
+		/// <summary>
+		/// 英字の大小を無視して文字列の大小を比較します。
+		/// </summary>
+		/// <param name="str">
+		/// 比較対象の文字列
+		/// </param>
+		/// <returns>
+		/// 比較結果。等しければ 0, 小さければ &lt;0, 大きければ &gt;0
+		/// </returns>
 		int32 case_compare(const String& str) const noexcept
 		{
 			auto first1 = begin(), last1 = end();
@@ -1522,6 +1531,15 @@ namespace s3d
 			}
 		}
 
+		/// <summary>
+		/// 英字の大小を無視して文字列を比較します。
+		/// </summary>
+		/// <param name="str">
+		/// 比較対象の文字列
+		/// </param>
+		/// <returns>
+		/// 英字の大小を無視した時に文字列が等しい場合 true, それ以外の場合は false
+		/// </returns>
 		bool case_equals(const String& str) const noexcept
 		{
 			if (length() != str.length())
@@ -1646,6 +1664,15 @@ namespace s3d
 			return m_string >= str.m_string;
 		}
 
+		/// <summary>
+		/// 全ての文字が条件を満たすかを返します。
+		/// </summary>
+		/// <param name="f">
+		/// 条件を記述した関数
+		/// </param>
+		/// <returns>
+		/// 条件を満たさない文字が 1 つでもあれば false, それ以外の場合は true
+		/// </returns>
 		template <class Fty = decltype(Id)>
 		bool all(Fty f = Id) const
 		{
@@ -1660,6 +1687,15 @@ namespace s3d
 			return true;
 		}
 
+		/// <summary>
+		/// 少なくとも 1 つの文字が条件を満たすかを返します。
+		/// </summary>
+		/// <param name="f">
+		/// 条件を記述した関数
+		/// </param>
+		/// <returns>
+		/// 条件を満たす文字が 1 つでもあれば true, それ以外の場合は false
+		/// </returns>
 		template <class Fty = decltype(Id)>
 		bool any(Fty f = Id) const
 		{
@@ -1674,6 +1710,12 @@ namespace s3d
 			return false;
 		}
 
+		/// <summary>
+		/// 最初に登場する英字を大文字にします。
+		/// </summary>
+		/// <returns>
+		/// *this
+		/// </returns>
 		String& capitalize()
 		{
 			for (auto& v : m_string)
@@ -1703,6 +1745,12 @@ namespace s3d
 			return String(*this).capitalize();
 		}
 
+		/// <summary>
+		/// 最初に登場する英字を大文字にした文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String capitalized() &&
 		{
 			capitalize();
@@ -1710,6 +1758,15 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 文字列の長さを返します。
+		/// </summary>
+		/// <remarks>
+		/// 絵文字などが使用されている場合、必ずしも見かけ上の文字数と一致しない事に注意してください。
+		/// </remarks>
+		/// <returns>
+		/// 文字列の長さ
+		/// </returns>
 		size_t count() const noexcept
 		{
 			return m_string.length();
@@ -2003,7 +2060,7 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// 指定した 1 行の文字数で改行するようにした文字列を返します。
+		/// 指定した 1 行の文字数で改行するようにした新しい文字列を返します。
 		/// </summary>
 		/// <param name="width">
 		/// 1 行の文字数
@@ -2045,6 +2102,12 @@ namespace s3d
 			return result;
 		}
 
+		/// <summary>
+		/// 英字をすべて小文字にします。
+		/// </summary>
+		/// <returns>
+		/// *this
+		/// </returns>
 		String& lowercase()
 		{
 			for (auto& v : m_string)
@@ -2059,7 +2122,7 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// 英字をすべて小文字にした文字列を返します。
+		/// 英字をすべて小文字にした新しい文字列を返します。
 		/// </summary>
 		/// <returns>
 		/// 新しい文字列
@@ -2069,6 +2132,12 @@ namespace s3d
 			return String(*this).lowercase();
 		}
 
+		/// <summary>
+		/// 英字をすべて小文字にした新しい文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String lowercased() &&
 		{
 			lowercase();
@@ -2076,6 +2145,21 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 文字列を指定された文字で左詰めします。
+		/// </summary>
+		/// <param name="length">
+		/// 左詰めした後の文字列の長さ
+		/// </param>
+		/// <param name="fillChar">
+		/// 左詰め用の埋め文字
+		/// </param>
+		/// <remarks>
+		/// 元の文字列の長さが <paramref name="length"/> より大きい場合、変更は行われません。 
+		/// </remarks>
+		/// <returns>
+		/// *this
+		/// </returns>
 		String& lpad(const size_t length, const wchar fillChar = L' ')
 		{
 			if (length <= m_string.length())
@@ -2088,6 +2172,21 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 文字列を指定された文字で左詰めした新しい文字列を返します。
+		/// </summary>
+		/// <param name="length">
+		/// 左詰めした後の文字列の長さ
+		/// </param>
+		/// <param name="fillChar">
+		/// 左詰め用の埋め文字
+		/// </param>
+		/// <remarks>
+		/// 元の文字列の長さが <paramref name="length"/> より大きい場合、元の文字列のコピーが返ります。 
+		/// </remarks>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String lpadded(const size_t length, const wchar fillChar = L' ') const &
 		{
 			if (length <= m_string.length())
@@ -2106,6 +2205,21 @@ namespace s3d
 			return new_string;
 		}
 
+		/// <summary>
+		/// 文字列を指定された文字で左詰めした新しい文字列を返します。
+		/// </summary>
+		/// <param name="length">
+		/// 左詰めした後の文字列の長さ
+		/// </param>
+		/// <param name="fillChar">
+		/// 左詰め用の埋め文字
+		/// </param>
+		/// <remarks>
+		/// 元の文字列の長さが <paramref name="length"/> より大きい場合、元の文字列のコピーが返ります。 
+		/// </remarks>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String lpadded(const size_t length, const wchar fillChar = L' ') &&
 		{
 			lpad(length, fillChar);
@@ -2113,6 +2227,12 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 文字列の先頭にある空白文字を削除します。
+		/// </summary>
+		/// <returns>
+		/// *this
+		/// </returns>
 		String& ltrim()
 		{
 			m_string.erase(m_string.begin(), std::find_if_not(m_string.begin(), m_string.end(), detail::IsTrimmable));
@@ -2120,11 +2240,23 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 文字列の先頭にある空白文字を削除した新しい文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String ltrimmed() const &
 		{
 			return String(std::find_if_not(m_string.begin(), m_string.end(), detail::IsTrimmable), m_string.end());
 		}
 
+		/// <summary>
+		/// 文字列の先頭にある空白文字を削除した新しい文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String ltrimmed() &&
 		{
 			ltrim();
@@ -2132,6 +2264,15 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 文字列の各文字に関数を適用した戻り値からなる配列を返します
+		/// </summary>
+		/// <param name="f">
+		/// 各文字に適用する関数
+		/// </param>
+		/// <returns>
+		/// 文字列の各文字に関数を適用した戻り値からなる配列
+		/// </returns>
 		template <class Fty>
 		auto map(Fty f) const
 		{
@@ -2157,6 +2298,15 @@ namespace s3d
 		/// </returns>
 		std::string narrow() const;
 
+		/// <summary>
+		/// 全ての要素が条件を満たさないかを返します。
+		/// </summary>
+		/// <param name="f">
+		/// 条件を記述した関数
+		/// </param>
+		/// <returns>
+		/// 条件を満たす要素が 1 つでもあれば false, それ以外の場合は true
+		/// </returns>
 		template <class Fty = decltype(Id)>
 		bool none(Fty f = Id) const
 		{
@@ -2171,6 +2321,15 @@ namespace s3d
 			return true;
 		}
 
+		/// <summary>
+		/// 指定した文字を文字列から削除します。
+		/// </summary>
+		/// <param name="ch">
+		/// 削除する文字
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		String& remove(const wchar ch)
 		{
 			m_string.erase(std::remove(m_string.begin(), m_string.end(), ch), m_string.end());
@@ -2179,7 +2338,21 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// 指定した文字を除去した文字列を返します。
+		/// 指定した文字列をもとの文字列から削除します。
+		/// </summary>
+		/// <param name="str">
+		/// 削除する文字列
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		String& remove(const StringView str)
+		{
+			return *this = removed(str);
+		}
+
+		/// <summary>
+		/// 指定した文字を除去した新しい文字列を返します。
 		/// </summary>
 		/// <param name="ch">
 		/// 除去対象の文字
@@ -2202,6 +2375,15 @@ namespace s3d
 			return new_string;
 		}
 
+		/// <summary>
+		/// 指定した文字を除去した新しい文字列を返します。
+		/// </summary>
+		/// <param name="ch">
+		/// 除去対象の文字
+		/// </param>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String removed(const wchar ch) &&
 		{
 			remove(ch);
@@ -2209,13 +2391,8 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		String& remove(const StringView str)
-		{
-			return *this = removed(str);
-		}
-
 		/// <summary>
-		/// 指定した文字列を除去した文字列を返します。
+		/// 指定した文字列を除去した新しい文字列を返します。
 		/// </summary>
 		/// <param name="str">
 		/// 除去対象の文字列
@@ -2225,6 +2402,15 @@ namespace s3d
 		/// </returns>
 		String removed(const StringView str) const;
 
+		/// <summary>
+		/// 指定したインデックスの文字を文字列から削除します。
+		/// </summary>
+		/// <param name="index">
+		/// インデックス
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		String& remove_at(const size_t index)
 		{
 			if (m_string.size() <= index)
@@ -2237,6 +2423,15 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 指定したインデックスの文字を削除した新しい文字列を返します。
+		/// </summary>
+		/// <param name="index">
+		/// インデックス
+		/// </param>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String removed_at(const size_t index) const &
 		{
 			if (m_string.size() <= index)
@@ -2255,6 +2450,15 @@ namespace s3d
 			return new_string;
 		}
 
+		/// <summary>
+		/// 指定したインデックスの文字を削除した新しい文字列を返します。
+		/// </summary>
+		/// <param name="index">
+		/// インデックス
+		/// </param>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String removed_at(const size_t index) &&
 		{
 			remove_at(index);
@@ -2262,6 +2466,15 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 指定した条件を満たす文字を削除します。
+		/// </summary>
+		/// <param name="f">
+		/// 検索する条件
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		template <class Fty>
 		String& remove_if(Fty f)
 		{
@@ -2271,10 +2484,10 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// 条件に合う文字を除去した文字列を返します。
+		/// 指定した条件を満たす文字を削除した新しい文字列を返します。
 		/// </summary>
-		/// <param name="function">
-		/// 条件を記述した関数
+		/// <param name="f">
+		/// 検索する条件
 		/// </param>
 		/// <returns>
 		/// 新しい文字列
@@ -2295,6 +2508,15 @@ namespace s3d
 			return new_string;
 		}
 
+		/// <summary>
+		/// 指定した条件を満たす文字を削除した新しい文字列を返します。
+		/// </summary>
+		/// <param name="f">
+		/// 検索する条件
+		/// </param>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		template <class Fty>
 		String removed_if(Fty f) &&
 		{
@@ -2303,6 +2525,18 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 指定した文字を置換します。
+		/// </summary>
+		/// <param name="oldChar">
+		/// 置換対象の文字
+		/// </param>
+		/// <param name="newChar">
+		/// 置換後の文字
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		String& replace(const wchar oldChar, const wchar newChar)
 		{
 			for (auto& v : m_string)
@@ -2316,37 +2550,8 @@ namespace s3d
 			return *this;
 		}
 
-		String& replace(const String& oldStr, const String& newStr)
-		{
-			return *this = replaced(oldStr, newStr);
-		}
-
 		/// <summary>
-		/// 指定した文字を置換した文字列を返します。
-		/// </summary>
-		/// <param name="oldChar">
-		/// 置換対象の文字
-		/// </param>
-		/// <param name="newChar">
-		/// 置換後の文字
-		/// </param>
-		/// <returns>
-		/// 置換後の文字列
-		/// </returns>
-		String replaced(const wchar oldChar, const wchar newChar) const &
-		{
-			return String(*this).replace(oldChar, newChar);
-		}
-
-		String replaced(const wchar oldChar, const wchar newChar) &&
-		{
-			replace(oldChar, newChar);
-
-			return std::move(*this);
-		}
-
-		/// <summary>
-		/// 指定した文字列を置換した文字列を返します。
+		/// 指定した文字列を置換します。
 		/// </summary>
 		/// <param name="oldStr">
 		/// 置換対象の文字列
@@ -2355,7 +2560,60 @@ namespace s3d
 		/// 置換後の文字列
 		/// </param>
 		/// <returns>
+		/// *this
+		/// </returns>
+		String& replace(const String& oldStr, const String& newStr)
+		{
+			return *this = replaced(oldStr, newStr);
+		}
+
+		/// <summary>
+		/// 指定した文字を置換した新しい文字列を返します。
+		/// </summary>
+		/// <param name="oldChar">
+		/// 置換対象の文字
+		/// </param>
+		/// <param name="newChar">
+		/// 置換後の文字
+		/// </param>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
+		String replaced(const wchar oldChar, const wchar newChar) const &
+		{
+			return String(*this).replace(oldChar, newChar);
+		}
+
+		/// <summary>
+		/// 指定した文字を置換した新しい文字列を返します。
+		/// </summary>
+		/// <param name="oldChar">
+		/// 置換対象の文字
+		/// </param>
+		/// <param name="newChar">
+		/// 置換後の文字
+		/// </param>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
+		String replaced(const wchar oldChar, const wchar newChar) &&
+		{
+			replace(oldChar, newChar);
+
+			return std::move(*this);
+		}
+
+		/// <summary>
+		/// 指定した文字列を置換した新しい文字列を返します。
+		/// </summary>
+		/// <param name="oldStr">
+		/// 置換対象の文字列
+		/// </param>
+		/// <param name="newChar">
 		/// 置換後の文字列
+		/// </param>
+		/// <returns>
+		/// 新しい文字列
 		/// </returns>
 		String replaced(const String& oldStr, const String& newStr) const
 		{
@@ -2383,6 +2641,18 @@ namespace s3d
 			return new_string;
 		}
 
+		/// <summary>
+		/// 指定した条件を満たす文字を別の文字に置き換えます。
+		/// </summary>
+		/// <param name="f">
+		/// 検索する条件
+		/// </param>
+		/// <param name="newChar">
+		/// 置換後の文字
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		template <class Fty>
 		String& replace_if(Fty f, const wchar newChar)
 		{
@@ -2397,12 +2667,36 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 指定した条件を満たす文字を別の文字に置き換えます。
+		/// </summary>
+		/// <param name="f">
+		/// 検索する条件
+		/// </param>
+		/// <param name="newChar">
+		/// 置換後の文字
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		template <class Fty>
 		String replaced_if(Fty f, const wchar newChar) const &&
 		{
 			return String(*this).replace_if(f, newChar);
 		}
 
+		/// <summary>
+		/// 指定した条件を満たす文字を別の文字に置き換えた新しい文字列を返します。
+		/// </summary>
+		/// <param name="f">
+		/// 検索する条件
+		/// </param>
+		/// <param name="newChar">
+		/// 置換後の文字
+		/// </param>
+		/// <returns>
+		/// 指定した条件を満たす文字を別の文字に置き換えた新しい文字列
+		/// </returns>
 		template <class Fty>
 		String replaced_if(Fty f, const wchar newChar) &
 		{
@@ -2411,6 +2705,12 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 文字列を反転します。
+		/// </summary>
+		/// <returns>
+		/// *this
+		/// </returns>
 		String& reverse()
 		{
 			std::reverse(m_string.begin(), m_string.end());
@@ -2429,6 +2729,12 @@ namespace s3d
 			return String(m_string.rbegin(), m_string.rend());
 		}
 
+		/// <summary>
+		/// 反転した文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String reversed() &&
 		{
 			reverse();
@@ -2436,6 +2742,15 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 文字列の各文字への参照を引数に、末尾の文字から順に関数を呼び出します。
+		/// </summary>
+		/// <param name="f">
+		/// 各文字への参照を引数にとる関数
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		template <class Fty>
 		String& reverse_each(Fty f)
 		{
@@ -2447,6 +2762,15 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 文字列の各文字への参照を引数に、末尾の文字から順に関数を呼び出します。
+		/// </summary>
+		/// <param name="f">
+		/// 各文字への参照を引数にとる関数
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		template <class Fty>
 		const String& reverse_each(Fty f) const
 		{
@@ -2458,6 +2782,15 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 文字列の各文字の位置をシフトさせ、はみ出た文字は反対側に挿入します。
+		/// </summary>
+		/// <param name="count">
+		/// 文字をシフトする数
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		String& rotate(std::ptrdiff_t count = 1)
 		{
 			if (m_string.empty())
@@ -2488,11 +2821,29 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 文字列の各文字の位置をシフトさせ、はみ出た文字を反対側に挿入した新しい文字列を返します。
+		/// </summary>
+		/// <param name="count">
+		/// 文字をシフトする数
+		/// </param>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String rotated(const std::ptrdiff_t count = 1) const &
 		{
 			return String(*this).rotate(count);
 		}
 
+		/// <summary>
+		/// 文字列の各文字の位置をシフトさせ、はみ出た文字を反対側に挿入した新しい文字列を返します。
+		/// </summary>
+		/// <param name="count">
+		/// 文字をシフトする数
+		/// </param>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String rotated(const std::ptrdiff_t count = 1) &&
 		{
 			rotate(count);
@@ -2500,6 +2851,21 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 文字列を指定された文字で右詰めします。
+		/// </summary>
+		/// <param name="length">
+		/// 右詰めした後の文字列の長さ
+		/// </param>
+		/// <param name="fillChar">
+		/// 右詰め用の埋め文字
+		/// </param>
+		/// <remarks>
+		/// 元の文字列の長さが <paramref name="length"/> より大きい場合、変更は行われません。
+		/// </remarks>
+		/// <returns>
+		/// *this
+		/// </returns>
 		String& rpad(const size_t length, const wchar fillChar = L' ')
 		{
 			if (length <= m_string.length())
@@ -2512,6 +2878,21 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 文字列を指定された文字で右詰めした新しい文字列を返します。
+		/// </summary>
+		/// <param name="length">
+		/// 右詰めした後の文字列の長さ
+		/// </param>
+		/// <param name="fillChar">
+		/// 右詰め用の埋め文字
+		/// </param>
+		/// <remarks>
+		/// 元の文字列の長さが <paramref name="length"/> より大きい場合、元の文字列のコピーが返ります。 
+		/// </remarks>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String rpadded(const size_t length, const wchar fillChar = L' ') const &
 		{
 			if (length <= m_string.length())
@@ -2530,6 +2911,21 @@ namespace s3d
 			return new_string;
 		}
 
+		/// <summary>
+		/// 文字列を指定された文字で右詰めした新しい文字列を返します。
+		/// </summary>
+		/// <param name="length">
+		/// 右詰めした後の文字列の長さ
+		/// </param>
+		/// <param name="fillChar">
+		/// 右詰め用の埋め文字
+		/// </param>
+		/// <remarks>
+		/// 元の文字列の長さが <paramref name="length"/> より大きい場合、元の文字列のコピーが返ります。 
+		/// </remarks>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String rpadded(const size_t length, const wchar fillChar = L' ') &&
 		{
 			rpad(length, fillChar);
@@ -2537,6 +2933,12 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 文字列の末尾にある空白文字を削除します。
+		/// </summary>
+		/// <returns>
+		/// *this
+		/// </returns>
 		String& rtrim()
 		{
 			m_string.erase(std::find_if_not(m_string.rbegin(), m_string.rend(), detail::IsTrimmable).base(), m_string.end());
@@ -2544,11 +2946,23 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 文字列の末尾にある空白文字を削除した新しい文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String rtrimmed() const &
 		{
 			return String(m_string.begin(), std::find_if_not(m_string.rbegin(), m_string.rend(), detail::IsTrimmable).base());
 		}
 
+		/// <summary>
+		/// 文字列の末尾にある空白文字を削除した新しい文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String rtrimmed() &&
 		{
 			rtrim();
@@ -2556,11 +2970,26 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 文字列をランダムに並び替えます。
+		/// </summary>
+		/// <returns>
+		/// *this
+		/// </returns>
 		String& shuffle()
 		{
 			return shuffle(GetDefaultRNG());
 		}
 
+		/// <summary>
+		/// 指定された乱数生成器を使って文字列をランダムに並び替えます。
+		/// </summary>
+		/// <param name="rbg">
+		/// 使用する乱数生成器
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		template <class URBG>
 		String& shuffle(URBG&& rbg)
 		{
@@ -2569,22 +2998,52 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// ランダムに並び替えた新しい文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// *this
+		/// </returns>
 		String shuffled() const &
 		{
 			return shuffled(GetDefaultRNG());
 		}
 
+		/// <summary>
+		/// ランダムに並び替えた新しい文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// ランダムに並び替えられた文字列
+		/// </returns>
 		String shuffled() &&
 		{
 			return shuffled(GetDefaultRNG());
 		}
 
+		/// <summary>
+		/// 指定された乱数生成器を使ってランダムに並び替えた新しい文字列を返します。
+		/// </summary>
+		/// <param name="rbg">
+		/// 使用する乱数生成器
+		/// </param>
+		/// <returns>
+		/// ランダムに並び替えられた文字列
+		/// </returns>
 		template <class URBG>
 		String shuffled(URBG&& rbg) const &
 		{
 			return String(*this).shuffle(std::forward<URBG>(rbg));
 		}
 
+		/// <summary>
+		/// 指定された乱数生成器を使ってランダムに並び替えた新しい文字列を返します。
+		/// </summary>
+		/// <param name="rbg">
+		/// 使用する乱数生成器
+		/// </param>
+		/// <returns>
+		/// ランダムに並び替えられた文字列
+		/// </returns>
 		template <class URBG>
 		String shuffled(URBG&& rbg) &&
 		{
@@ -2636,6 +3095,12 @@ namespace s3d
 		/// </returns>
 		bool starts_with(const StringView str) const;
 
+		/// <summary>
+		/// 英字の大文字と小文字を入れ替えます。
+		/// </summary>
+		/// <returns>
+		/// *this
+		/// </returns>
 		String& swapcase()
 		{
 			for (auto& v : m_string)
@@ -2664,6 +3129,12 @@ namespace s3d
 			return String(*this).swapcase();
 		}
 
+		/// <summary>
+		/// 英字の大文字と小文字を入れ替えた文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String swapcased() &&
 		{
 			swapcase();
@@ -2671,6 +3142,12 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 文字列の先頭と末尾にある空白文字を削除します。
+		/// </summary>
+		/// <returns>
+		/// *this
+		/// </returns>
 		String& trim()
 		{
 			m_string.erase(m_string.begin(), std::find_if_not(m_string.begin(), m_string.end(), detail::IsTrimmable));
@@ -2680,11 +3157,23 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 文字列の先頭と末尾にある空白文字を削除した新しい文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String trimmed() const &
 		{
 			return String(std::find_if_not(m_string.begin(), m_string.end(), detail::IsTrimmable), std::find_if_not(m_string.rbegin(), m_string.rend(), detail::IsTrimmable).base());
 		}
 
+		/// <summary>
+		/// 文字列の先頭と末尾にある空白文字を削除した新しい文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String trimmed() &&
 		{
 			trim();
@@ -2692,6 +3181,12 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 英字をすべて大文字にします。
+		/// </summary>
+		/// <returns>
+		/// *this
+		/// </returns>
 		String& uppercase()
 		{
 			for (auto& v : m_string)
@@ -2716,6 +3211,12 @@ namespace s3d
 			return String(*this).uppercase();
 		}
 
+		/// <summary>
+		/// 英字をすべて大文字にした文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String uppercased() &&
 		{
 			uppercase();
@@ -2723,12 +3224,36 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 文字列を UTF8 の std::string にエンコードします。
+		/// </summary>
+		/// <returns>
+		/// UTF8 でエンコードされた std::string
+		/// </returns>
 		std::string toUTF8() const;
 
+		/// <summary>
+		/// 文字列を UTF16 の std::u16string にエンコードします。
+		/// </summary>
+		/// <returns>
+		/// UTF16 でエンコードされた std::u16string
+		/// </returns>
 		std::u16string toUTF16() const;
 
+		/// <summary>
+		/// 文字列を UTF32 の std::u32string にエンコードします。
+		/// </summary>
+		/// <returns>
+		/// UTF32 でエンコードされた std::u32string
+		/// </returns>
 		std::u32string toUTF32() const;
 
+		/// <summary>
+		/// 文字列を辞書順でソートします。
+		/// </summary>
+		/// <returns>
+		/// *this
+		/// </returns>
 		String& sort()
 		{
 			std::sort(m_string.begin(), m_string.end());
@@ -2736,6 +3261,15 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 文字列を指定された関数で比較してソートします。
+		/// </summary>
+		/// <param name="f">
+		/// 使用する比較関数
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		template <class Fty>
 		String& sort_by(Fty f)
 		{
@@ -2744,11 +3278,23 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 文字列を辞書順でソートした新しい文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// ソート済みの文字列
+		/// </returns>
 		String sorted() const &
 		{
 			return String(*this).sort();
 		}
 
+		/// <summary>
+		/// 文字列を辞書順でソートした新しい文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// ソート済みの文字列
+		/// </returns>
 		String sorted() &&
 		{
 			std::sort(m_string.begin(), m_string.end());
@@ -2756,12 +3302,30 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 文字列を指定された関数で比較してソートした新しい文字列を返します。
+		/// </summary>
+		/// <param name="f">
+		/// 使用する比較関数
+		/// </param>
+		/// <returns>
+		/// ソート済みの文字列
+		/// </returns>
 		template <class Fty>
 		String sorted_by(Fty f) const &
 		{
 			return String(*this).sort_by(f);
 		}
 
+		/// <summary>
+		/// 文字列を指定された関数で比較してソートした新しい文字列を返します。
+		/// </summary>
+		/// <param name="f">
+		/// 使用する比較関数
+		/// </param>
+		/// <returns>
+		/// ソート済みの文字列
+		/// </returns>
 		template <class Fty>
 		String sorted_by(Fty f) &&
 		{
@@ -2770,17 +3334,41 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 文字列の先頭から指定された文字数分取り出した新しい文字列を返します。
+		/// </summary>
+		/// <param name="n">
+		/// 取り出す文字数
+		/// </param>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String take(size_t n) const
 		{
 			return String(m_string.begin(), m_string.begin() + std::min(n, m_string.size()));
 		}
 
+		/// <summary>
+		/// 文字列の先頭から、指定された条件を満たす連続した文字を取り出した新しい文字列を返します。
+		/// </summary>
+		/// <param name="f">
+		/// 条件を記述した関数
+		/// </param>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		template <class Fty>
 		String take_while(Fty f) const
 		{
 			return String(m_string.begin(), std::find_if_not(m_string.begin(), m_string.end(), f));
 		}
 
+		/// <summary>
+		/// 文字列をソートし、重複する要素を削除します。
+		/// </summary>
+		/// <returns>
+		/// *this
+		/// </returns>
 		String& unique()
 		{
 			sort();
@@ -2790,11 +3378,23 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 文字列をソートし、重複する要素を削除した新しい文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String uniqued() const &
 		{
 			return String(*this).unique();
 		}
 
+		/// <summary>
+		/// 文字列をソートし、重複する要素を削除した新しい文字列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String uniqued() &&
 		{
 			sort();
@@ -2806,6 +3406,18 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 複数のインデックスを取り、それらの文字からなる新しい文字列を返します。
+		/// </summary>
+		/// <param name="indices">
+		/// 複数の現在の文字列におけるインデックス
+		/// </param>
+		/// <example><code>
+		/// String(L"abcde").values_at({0, 3, 4}); // => L"ade"
+		/// </code></example>
+		/// <returns>
+		/// 新しい文字列
+		/// </returns>
 		String values_at(std::initializer_list<size_t> indices) const
 		{
 			String new_array;
@@ -2825,6 +3437,15 @@ namespace s3d
 			return new_array;
 		}
 
+		/// <summary>
+		/// 文字列に XML エスケープを行います。
+		/// </summary>
+		/// <remarks>
+		/// &quot;, \, &amp;, &gt;, &lt; をエスケープ文字に置換します
+		/// </remarks>
+		/// <returns>
+		/// *this
+		/// </returns>
 		String& xml_escape()
 		{
 			return *this = xml_escaped();
@@ -2874,6 +3495,18 @@ namespace s3d
 		}
 	};
 
+	/// <summary>
+	/// 出力ストリームに文字列を渡します。
+	/// </summary>
+	/// <param name="output">
+	/// 出力ストリーム
+	/// </param>
+	/// <param name="str">
+	/// 文字列
+	/// </param>
+	/// <returns>
+	/// 渡した後の出力ストリーム
+	/// </returns>
 	inline std::ostream& operator <<(std::ostream& output, const String& str)
 	{
 		return output << str.narrow();
