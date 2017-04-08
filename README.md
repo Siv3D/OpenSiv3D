@@ -116,13 +116,11 @@
 - [x] System::FrameCount()
 - [x] System::DeltaTime()
 - [x] Graphics::EnableVSync()
-- [ ] Log
+- [ ] HTMLWriter
 - [ ] Cursor::SetPos()
 - [ ] Cursor::OnClient()
 - [ ] Cursor::Clip()
-- [ ] UID
 - [ ] TextureFormat (Partial)
-- [ ] Point::paint() / overpaint()
 - [ ] Resource files
 
 ---------------------------
@@ -132,6 +130,9 @@
 - [ ] Line::draw()
 - [ ] Triangle::draw()
 - [ ] GIF Animation
+- [ ] Log
+- [ ] UID
+- [ ] Point::paint() / overpaint()
 
 ## Discussion ##
  [Siv3D Slack #open-siv3d](https://siv3d.slack.com/messages/open-siv3d/details/)  (Japanese)
