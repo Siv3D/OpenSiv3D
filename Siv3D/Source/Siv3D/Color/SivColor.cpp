@@ -72,6 +72,11 @@ namespace s3d
 				a };
 	}
 
+	String Color::toHex() const
+	{
+		return ToHex(r).lpad(2, L'0') + ToHex(g).lpad(2, L'0') + ToHex(b).lpad(2, L'0');
+	}
+
 	void Formatter(FormatData& formatData, const Color& value)
 	{
 		const size_t bufferSize = 12 * 4 + 6;
