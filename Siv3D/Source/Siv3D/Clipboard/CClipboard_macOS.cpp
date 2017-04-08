@@ -100,17 +100,28 @@ namespace s3d
 	void CClipboard_macOS::setText(const String& text)
 	{
 		detail::ClipboardSetText_macOS(text);
+
+		m_hasChanged = true;
+		m_text = text;
+		m_image.clear();
+		m_filePaths.clear();
 	}
 
 	void CClipboard_macOS::setImage(const Image& image)
 	{
 		detail::ClipboardSetImage_macOS(image);
+
+		m_hasChanged = true;
+		m_text.clear();
+		m_image = image;
+		m_filePaths.clear();
 	}
 
 	void CClipboard_macOS::clear()
 	{
 		detail::ClipboardClear_macOS();
 		
+		m_hasChanged = true;
 		m_text.clear();
 		m_image.clear();
 		m_filePaths.clear();

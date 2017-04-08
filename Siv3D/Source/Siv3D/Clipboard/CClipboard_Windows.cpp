@@ -349,6 +349,11 @@ namespace s3d
 			::EmptyClipboard();
 			::SetClipboardData(CF_UNICODETEXT, hData);
 			::CloseClipboard();
+
+			m_hasChanged = true;
+			m_text = text;
+			m_image.clear();
+			m_filePaths.clear();
 		}
 
 		::GlobalFree(hData);
@@ -397,6 +402,11 @@ namespace s3d
 			}
 
 			detail::WriteBitmapToClipboard(hBitmap, image.size());
+
+			m_hasChanged = true;
+			m_text.clear();
+			m_image = image;
+			m_filePaths.clear();
 		}
 
 		::DeleteObject(hBitmap);
@@ -411,6 +421,7 @@ namespace s3d
 			::CloseClipboard();
 		}
 	
+		m_hasChanged = true;
 		m_text.clear();
 		m_image.clear();
 		m_filePaths.clear();
