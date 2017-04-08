@@ -1502,14 +1502,14 @@ namespace s3d
 		/// <returns>
 		/// 比較結果。等しければ 0, 小さければ &lt;0, 大きければ &gt;0
 		/// </returns>
-		int32 case_compare(const String& str) const noexcept
+		int32 case_insensitive_compare(const String& str) const noexcept
 		{
 			auto first1 = begin(), last1 = end();
 			auto first2 = str.begin(), last2 = str.end();
 
 			for (; (first1 != last1) && (first2 != last2); ++first1, ++first2)
 			{
-				const int32 c = CaseCompare(*first1, *first2);
+				const int32 c = CaseInsensitiveCompare(*first1, *first2);
 
 				if (c != 0)
 				{
@@ -1540,7 +1540,7 @@ namespace s3d
 		/// <returns>
 		/// 英字の大小を無視した時に文字列が等しい場合 true, それ以外の場合は false
 		/// </returns>
-		bool case_equals(const String& str) const noexcept
+		bool case_insensitive_equals(const String& str) const noexcept
 		{
 			if (length() != str.length())
 			{
@@ -1552,7 +1552,7 @@ namespace s3d
 
 			for (; (first1 != last1) && (first2 != last2); ++first1, ++first2)
 			{
-				const int32 c = CaseCompare(*first1, *first2);
+				const int32 c = CaseInsensitiveCompare(*first1, *first2);
 
 				if (c != 0)
 				{
