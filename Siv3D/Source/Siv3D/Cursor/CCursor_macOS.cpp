@@ -92,9 +92,9 @@ namespace s3d
 
 	}
 
-	void CCursor_macOS::clip(const Rect& rect)
+	void CCursor_macOS::clip(const Optional<Rect>& rect)
 	{
-
+		m_clipRect = rect;
 	}
 }
 

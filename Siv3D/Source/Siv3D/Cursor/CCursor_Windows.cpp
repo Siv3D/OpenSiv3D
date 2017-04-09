@@ -44,6 +44,21 @@ namespace s3d
 
 	void CCursor_Windows::update()
 	{
+		if (m_clipRect)
+		{
+			POINT leftTop{ m_clipRect->x, m_clipRect->y };
+			::ClientToScreen(m_hWnd, &leftTop);
+
+			RECT clipRect{ leftTop.x, leftTop.y,
+				leftTop.x + std::max(m_clipRect->w - 1, 0),
+				leftTop.y + std::max(m_clipRect->h - 1, 0) };
+			::ClipCursor(&clipRect);
+		}
+		else
+		{
+			::ClipCursor(nullptr);
+		}
+
 		POINT screenPos;
 
 		::GetCursorPos(&screenPos);
@@ -97,9 +112,9 @@ namespace s3d
 		::SetCursorPos(point.x, point.y);
 	}
 
-	void CCursor_Windows::clip(const Rect& rect)
+	void CCursor_Windows::clip(const Optional<Rect>& rect)
 	{
-
+		m_clipRect = rect;
 	}
 }
 

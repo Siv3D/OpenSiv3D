@@ -61,7 +61,7 @@ namespace s3d
 				Rect(Siv3DEngine::GetWindow()->getState().clientSize));
 		}
 
-		void Clip(const Rect& rect)
+		void Clip(const Optional<Rect>& rect)
 		{
 			Siv3DEngine::GetCursor()->clip(rect);
 		}

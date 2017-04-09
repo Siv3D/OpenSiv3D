@@ -91,9 +91,9 @@ namespace s3d
 
 	}
 
-	void CCursor_Linux::clip(const Rect& rect)
+	void CCursor_Linux::clip(const Optional<Rect>& rect)
 	{
-
+		m_clipRect = rect;
 	}
 }
 

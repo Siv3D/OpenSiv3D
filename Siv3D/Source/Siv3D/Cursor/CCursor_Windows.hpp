@@ -21,6 +21,7 @@
 # include <Windows.h>
 # include "ICursor.hpp"
 # include <Siv3D/PointVector.hpp>
+# include <Siv3D/Rectangle.hpp>
 
 namespace s3d
 {
@@ -41,6 +42,8 @@ namespace s3d
 		Point m_clientPos{ 0, 0 };
 
 		Point m_clientDelta{ 0, 0 };
+
+		Optional<Rect> m_clipRect;
 
 	public:
 
@@ -66,7 +69,7 @@ namespace s3d
 
 		void setPos(int32 x, int32 y) override;
 
-		void clip(const Rect& rect) override;
+		void clip(const Optional<Rect>& rect) override;
 	};
 }
 

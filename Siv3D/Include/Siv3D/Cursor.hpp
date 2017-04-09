@@ -74,6 +74,6 @@ namespace s3d
 
 		bool OnClient();
 
-		void Clip(const Rect& rect);
+		void Clip(const Optional<Rect>& rect);
 	}
 }
