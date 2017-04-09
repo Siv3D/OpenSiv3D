@@ -173,8 +173,8 @@
 	# include "Siv3D/WritableMemoryMapping.hpp"
 	// 読み込み用バッファ
 	# include "Siv3D/ByteArray.hpp"
-	//// 書き込み用バッファ
-	//# include "Siv3D/MemoryWriter.hpp"
+	// 書き込み用バッファ
+	# include "Siv3D/MemoryWriter.hpp"
 	// バイナリファイルの読み込み
 	# include "Siv3D/BinaryReader.hpp"
 	// バイナリファイルの書き込み

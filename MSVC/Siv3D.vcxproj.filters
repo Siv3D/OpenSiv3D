@@ -269,6 +269,9 @@
     <Filter Include="Source\Siv3D\Profiler">
       <UniqueIdentifier>{352aa608-d387-4ed5-853b-f21ebe6fa82c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\MemoryWriter">
+      <UniqueIdentifier>{bee0f98f-175d-4104-82d6-1836530e9176}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1065,6 +1068,9 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\Source\Siv3D\Profiler\CProfiler.hpp">
       <Filter>Source\Siv3D\Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\MemoryWriter.hpp">
+      <Filter>Include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

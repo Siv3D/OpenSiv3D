@@ -90,6 +90,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\MathParser.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\MD5.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\MemoryMapping.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\MemoryWriter.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\MersenneTwister.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\MessageBox.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Monitor.hpp" />
