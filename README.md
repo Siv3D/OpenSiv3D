@@ -116,6 +116,8 @@
 - [x] System::FrameCount()
 - [x] System::DeltaTime()
 - [x] Graphics::EnableVSync()
+- [x] ReaderView
+- [x] MemoryWriter
 - [ ] HTMLWriter
 - [ ] Cursor::SetPos()
 - [ ] Cursor::OnClient()
