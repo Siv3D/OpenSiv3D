@@ -72,8 +72,8 @@ namespace s3d
 		return BinaryWriter(path).write(pImpl->data(), static_cast<size_t>(pImpl->size())) == pImpl->size();
 	}
 
-	ReaderView MemoryWriter::getView() const
+	ByteArrayView MemoryWriter::getView() const
 	{
-		return ReaderView(pImpl->data(), static_cast<size_t>(pImpl->size()));
+		return ByteArrayView(pImpl->data(), static_cast<size_t>(pImpl->size()));
 	}
 }

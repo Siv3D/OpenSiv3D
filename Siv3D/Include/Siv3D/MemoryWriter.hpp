@@ -20,7 +20,7 @@ namespace s3d
 	/// <summary>
 	/// 書き込み用バッファ
 	/// </summary>
-	class MemoryWriter : IWriter
+	class MemoryWriter : public IWriter
 	{
 	private:
 
@@ -160,6 +160,6 @@ namespace s3d
 		/// </returns>
 		bool save(const FilePath& path) const;
 
-		ReaderView getView() const;
+		ByteArrayView getView() const;
 	};
 }

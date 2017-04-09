@@ -689,7 +689,9 @@ namespace s3d
 		bool saveJPEG(const FilePath& path, int32 quality = 90) const;
 
 		bool savePerceptualJPEG(const FilePath& path, double butteraugliTarget = 1.0) const;
-		
+
+		MemoryWriter encode(ImageFormat format = ImageFormat::PNG) const;
+
 		Image& swapRB()
 		{
 			for (auto& pixel : m_data)

@@ -46,6 +46,8 @@ namespace s3d
 
 		bool save(const Image& image, ImageFormat format, const FilePath& path) const override;
 
+		MemoryWriter encode(const Image& image, ImageFormat format) const override;
+
 		bool encodeJPEG(IWriter& writer, const Image& image, int32 quality) const override;
 	};
 }

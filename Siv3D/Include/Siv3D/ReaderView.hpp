@@ -12,6 +12,7 @@
 # pragma once
 # include "Fwd.hpp"
 # include "IReader.hpp"
+# include "ByteArrayView.hpp"
 
 namespace s3d
 {
@@ -36,6 +37,10 @@ namespace s3d
 		constexpr ReaderView(const void* begin, const void* end) noexcept
 			: m_size(static_cast<const Byte*>(end) - static_cast<const Byte*>(begin))
 			, m_ptr(static_cast<const Byte*>(begin)) {}
+
+		constexpr ReaderView(ByteArrayView view) noexcept
+			: m_size(view.size())
+			, m_ptr(view.data()) {}
 
 		bool isOpened() const override
 		{
