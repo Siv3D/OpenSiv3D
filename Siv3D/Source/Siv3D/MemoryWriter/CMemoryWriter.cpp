@@ -44,7 +44,7 @@ namespace s3d
 
 	int64 MemoryWriter::CMemoryWriter::write(const void* const src, const size_t size)
 	{
-		assert(buffer || size == 0);
+		assert(src || size == 0);
 
 		if (m_pos < 0)
 		{
