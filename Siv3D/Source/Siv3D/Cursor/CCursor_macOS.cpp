@@ -15,11 +15,19 @@
 # include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 # include "../Siv3DEngine.hpp"
 # include "CCursor_macOS.hpp"
+# include <Siv3D/Optional.hpp>
 
 void macOS_GetScreenCursorPos(double* xpos, double* ypos);
 
 namespace s3d
 {
+	namespace detail
+	{
+		Point CursorScreenPos_macOS();
+		
+		void CursorSetPos_macOS(int32 x, int32 y);
+	}
+	
 	CCursor_macOS::CCursor_macOS()
 	{
 
@@ -46,14 +54,18 @@ namespace s3d
 
 	void CCursor_macOS::update()
 	{
-		double screenX, screenY;
-		macOS_GetScreenCursorPos(&screenX, &screenY);
-		m_screenPos.set(static_cast<int32>(screenX), static_cast<int32>(screenY));
+		if (m_clipRect)
+		{
+			// [Siv3D ToDo]
+		}
+		
+		m_screenPos = detail::CursorScreenPos_macOS();
 		m_previousScreenPos = m_screenPos;
 
 		double clientX, clientY;
 		::glfwGetCursorPos(m_glfwWindow, &clientX, &clientY);
 		m_clientPos.set(static_cast<int32>(clientX), static_cast<int32>(clientY));
+		
 		m_previousClientPos = m_clientPos;
 	}
 
@@ -89,7 +101,12 @@ namespace s3d
 
 	void CCursor_macOS::setPos(const int32 x, const int32 y)
 	{
-
+		const Point screenPos = Point(x, y) + (m_screenPos - m_clientPos);
+		
+		detail::CursorSetPos_macOS(screenPos.x, screenPos.y);
+		
+		m_clientPos.set(x, y);
+		m_screenPos.set(screenPos);
 	}
 
 	void CCursor_macOS::clip(const Optional<Rect>& rect)

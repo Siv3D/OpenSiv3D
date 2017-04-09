@@ -74,6 +74,7 @@ namespace s3d
 
 		bool OnClient();
 
+		// macOS 未実装
 		void Clip(const Optional<Rect>& rect);
 	}
 }

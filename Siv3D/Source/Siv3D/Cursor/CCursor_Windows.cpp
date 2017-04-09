@@ -106,10 +106,11 @@ namespace s3d
 	void CCursor_Windows::setPos(const int32 x, const int32 y)
 	{
 		POINT point{ x, y };
-
 		::ClientToScreen(m_hWnd, &point);
-
 		::SetCursorPos(point.x, point.y);
+		
+		m_clientPos.set(x, y);
+		m_screenPos.set(point.x, point.y);
 	}
 
 	void CCursor_Windows::clip(const Optional<Rect>& rect)

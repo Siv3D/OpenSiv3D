@@ -4,13 +4,18 @@
 
 void Main()
 {
-	Cursor::Clip(Rect(640, 480));
+	//Cursor::Clip(Rect(640, 480));
 
 	while (System::Update())
 	{
-		Window::SetTitle(Profiler::FPS(), L"fps", Cursor::Pos());
+		Window::SetTitle(Profiler::FPS(), L"fps");
 		
 		Graphics::SetBackground(HSV(Cursor::Pos().x * 0.5));
+		
+		if (KeyC.down())
+		{
+			Cursor::SetPos(320, 240);
+		}
 		
 		if (KeyU.down())
 		{

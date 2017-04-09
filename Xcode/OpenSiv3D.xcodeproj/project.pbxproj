@@ -56,6 +56,7 @@
 		2C2126921E9A4001006F8101 /* SivMemoryWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C21268F1E9A4001006F8101 /* SivMemoryWriter.cpp */; };
 		2C2126941E9A5A85006F8101 /* Geometry2D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C2126931E9A5A85006F8101 /* Geometry2D.hpp */; };
 		2C2126971E9A5AAE006F8101 /* SivGeometry2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2126961E9A5AAE006F8101 /* SivGeometry2D.cpp */; };
+		2C21269B1E9A62F3006F8101 /* CCursor_macOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C21269A1E9A62F3006F8101 /* CCursor_macOS.mm */; };
 		2C2CCF511CE8698C001844FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2CCF501CE8698C001844FF /* Foundation.framework */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
@@ -222,7 +223,6 @@
 		2C81BF751E89F8E300D27E52 /* CCursor_macOS.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C81BD541E89F8E300D27E52 /* CCursor_macOS.hpp */; };
 		2C81BF761E89F8E300D27E52 /* CCursor_Windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C81BD551E89F8E300D27E52 /* CCursor_Windows.cpp */; };
 		2C81BF771E89F8E300D27E52 /* CCursor_Windows.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C81BD561E89F8E300D27E52 /* CCursor_Windows.hpp */; };
-		2C81BF781E89F8E300D27E52 /* Cursor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C81BD571E89F8E300D27E52 /* Cursor.mm */; };
 		2C81BF791E89F8E300D27E52 /* CursorFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C81BD581E89F8E300D27E52 /* CursorFactory.cpp */; };
 		2C81BF7A1E89F8E300D27E52 /* ICursor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C81BD591E89F8E300D27E52 /* ICursor.hpp */; };
 		2C81BF7B1E89F8E300D27E52 /* SivCursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C81BD5A1E89F8E300D27E52 /* SivCursor.cpp */; };
@@ -600,6 +600,7 @@
 		2C21268F1E9A4001006F8101 /* SivMemoryWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMemoryWriter.cpp; sourceTree = "<group>"; };
 		2C2126931E9A5A85006F8101 /* Geometry2D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Geometry2D.hpp; sourceTree = "<group>"; };
 		2C2126961E9A5AAE006F8101 /* SivGeometry2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGeometry2D.cpp; sourceTree = "<group>"; };
+		2C21269A1E9A62F3006F8101 /* CCursor_macOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCursor_macOS.mm; sourceTree = "<group>"; };
 		2C2CCF501CE8698C001844FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
@@ -770,7 +771,6 @@
 		2C81BD541E89F8E300D27E52 /* CCursor_macOS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CCursor_macOS.hpp; sourceTree = "<group>"; };
 		2C81BD551E89F8E300D27E52 /* CCursor_Windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCursor_Windows.cpp; sourceTree = "<group>"; };
 		2C81BD561E89F8E300D27E52 /* CCursor_Windows.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CCursor_Windows.hpp; sourceTree = "<group>"; };
-		2C81BD571E89F8E300D27E52 /* Cursor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Cursor.mm; sourceTree = "<group>"; };
 		2C81BD581E89F8E300D27E52 /* CursorFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CursorFactory.cpp; sourceTree = "<group>"; };
 		2C81BD591E89F8E300D27E52 /* ICursor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ICursor.hpp; sourceTree = "<group>"; };
 		2C81BD5A1E89F8E300D27E52 /* SivCursor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCursor.cpp; sourceTree = "<group>"; };
@@ -1671,9 +1671,9 @@
 				2C81BD521E89F8E300D27E52 /* CCursor_Linux.hpp */,
 				2C81BD531E89F8E300D27E52 /* CCursor_macOS.cpp */,
 				2C81BD541E89F8E300D27E52 /* CCursor_macOS.hpp */,
+				2C21269A1E9A62F3006F8101 /* CCursor_macOS.mm */,
 				2C81BD551E89F8E300D27E52 /* CCursor_Windows.cpp */,
 				2C81BD561E89F8E300D27E52 /* CCursor_Windows.hpp */,
-				2C81BD571E89F8E300D27E52 /* Cursor.mm */,
 				2C81BD581E89F8E300D27E52 /* CursorFactory.cpp */,
 				2C81BD591E89F8E300D27E52 /* ICursor.hpp */,
 				2C81BD5A1E89F8E300D27E52 /* SivCursor.cpp */,
@@ -3072,7 +3072,6 @@
 				2C81BF8E1E89F8E300D27E52 /* SivFormatBool.cpp in Sources */,
 				2C81C0061E89F8E300D27E52 /* bignum.cc in Sources */,
 				2C81BF681E89F8E300D27E52 /* SivCharacterEncoding.cpp in Sources */,
-				2C81BF781E89F8E300D27E52 /* Cursor.mm in Sources */,
 				2C81BFDD1E89F8E300D27E52 /* CSystem_Linux.cpp in Sources */,
 				2C81C0461E89F8E300D27E52 /* butteraugli_comparator.cc in Sources */,
 				2C81BFE41E89F8E300D27E52 /* SivSystem.cpp in Sources */,
@@ -3088,6 +3087,7 @@
 				2C81C0171E89F8E300D27E52 /* glad.c in Sources */,
 				2C81BF8D1E89F8E300D27E52 /* SivFormat.cpp in Sources */,
 				2C2126601E8CF6EA006F8101 /* ImageFormat_GIF.cpp in Sources */,
+				2C21269B1E9A62F3006F8101 /* CCursor_macOS.mm in Sources */,
 				2C81BFEC1E89F8E300D27E52 /* CTextWriter.cpp in Sources */,
 				2C2126891E97D11D006F8101 /* SivProfiler.cpp in Sources */,
 				2C81BFA81E89F8E300D27E52 /* ImageFormat_PNG.cpp in Sources */,
