@@ -1072,6 +1072,9 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\MemoryWriter.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\MemoryWriter\CMemoryWriter.hpp">
+      <Filter>Source\Siv3D\MemoryWriter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1622,6 +1625,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\CProfiler.cpp">
       <Filter>Source\Siv3D\Profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MemoryWriter\SivMemoryWriter.cpp">
+      <Filter>Source\Siv3D\MemoryWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MemoryWriter\CMemoryWriter.cpp">
+      <Filter>Source\Siv3D\MemoryWriter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

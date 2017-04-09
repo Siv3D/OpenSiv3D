@@ -145,7 +145,7 @@ namespace s3d
 		/// <summary>
 		/// ファイルにデータを書き込みます。
 		/// </summary>
-		/// <param name="buffer">
+		/// <param name="src">
 		/// 書き込むデータ
 		/// </param>
 		/// <param name="size">
@@ -154,7 +154,7 @@ namespace s3d
 		/// <returns>
 		/// 実際に書き込んだサイズ（バイト）
 		/// </returns>
-		int64 write(const void* buffer, size_t size) override;
+		int64 write(const void* src, size_t size) override;
 
 		/// <summary>
 		/// ファイルにデータを書き込みます。

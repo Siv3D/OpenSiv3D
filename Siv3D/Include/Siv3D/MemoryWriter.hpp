@@ -57,20 +57,20 @@ namespace s3d
 		bool isOpened() const override { return true; }
 
 		/// <summary>
+		/// 書き込み用バッファの内容を消去し、書き込み位置を先頭に戻します。
+		/// </summary>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void clear();
+
+		/// <summary>
 		/// 書き込み用バッファが使用可能かを返します。
 		/// </summary>
 		/// <returns>
 		/// つねに true
 		/// </returns>
 		explicit operator bool() const { return isOpened(); }
-
-		/// <summary>
-		/// 現在開いているファイルの内容を消去し、書き込み位置を先頭に戻します。
-		/// </summary>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void clear();
 
 		/// <summary>
 		/// 書き込み用バッファのサイズを返します。
@@ -110,7 +110,7 @@ namespace s3d
 		/// <summary>
 		///	バッファにデータを書き込みます。
 		/// </summary>
-		/// <param name="buffer">
+		/// <param name="src">
 		/// 書き込むデータ
 		/// </param>
 		/// <param name="size">
@@ -119,7 +119,7 @@ namespace s3d
 		/// <returns>
 		/// 実際に書き込んだサイズ（バイト）
 		/// </returns>
-		int64 write(const void* buffer, size_t size) override;
+		int64 write(const void* src, size_t size) override;
 
 		/// <summary>
 		/// バッファにデータを書き込みます。
