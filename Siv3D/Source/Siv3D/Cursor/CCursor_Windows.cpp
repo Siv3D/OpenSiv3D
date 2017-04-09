@@ -87,6 +87,20 @@ namespace s3d
 	{
 		return m_clientDelta;
 	}
+
+	void CCursor_Windows::setPos(const int32 x, const int32 y)
+	{
+		POINT point{ x, y };
+
+		::ClientToScreen(m_hWnd, &point);
+
+		::SetCursorPos(point.x, point.y);
+	}
+
+	void CCursor_Windows::clip(const Rect& rect)
+	{
+
+	}
 }
 
 # endif

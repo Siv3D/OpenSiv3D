@@ -58,6 +58,10 @@ namespace s3d
 		const Point& clientPos() const override;
 
 		const Point& clientDelta() const override;
+
+		void setPos(int32 x, int32 y) override;
+
+		void clip(const Rect& rect) override;
 	};
 }
 

@@ -85,6 +85,16 @@ namespace s3d
 	{
 		return m_clientDelta;
 	}
+
+	void CCursor_Linux::setPos(const int32 x, const int32 y)
+	{
+
+	}
+
+	void CCursor_Linux::clip(const Rect& rect)
+	{
+
+	}
 }
 
 # endif

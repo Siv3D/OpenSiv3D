@@ -86,6 +86,16 @@ namespace s3d
 	{
 		return m_clientDelta;
 	}
+
+	void CCursor_macOS::setPos(const int32 x, const int32 y)
+	{
+
+	}
+
+	void CCursor_macOS::clip(const Rect& rect)
+	{
+
+	}
 }
 
 # endif

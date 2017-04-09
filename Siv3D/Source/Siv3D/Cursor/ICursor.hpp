@@ -37,5 +37,9 @@ namespace s3d
 		virtual const Point& clientPos() const = 0;
 
 		virtual const Point& clientDelta() const = 0;
+
+		virtual void setPos(int32 x, int32 y) = 0;
+
+		virtual void clip(const Rect& rect) = 0;
 	};
 }

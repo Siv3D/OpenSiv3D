@@ -120,7 +120,7 @@
 - [x] MemoryWriter
 - [ ] HTMLWriter
 - [ ] Cursor::SetPos()
-- [ ] Cursor::OnClient()
+- [x] Cursor::OnClient()
 - [ ] Cursor::Clip()
 - [ ] TextureFormat (Partial)
 - [ ] Resource files

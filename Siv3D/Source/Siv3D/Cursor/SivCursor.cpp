@@ -11,7 +11,10 @@
 
 # include "../Siv3DEngine.hpp"
 # include "ICursor.hpp"
+# include "../Window/IWindow.hpp"
 # include <Siv3D/Cursor.hpp>
+# include <Siv3D/Geometry2D.hpp>
+# include <Siv3D/Window.hpp>
 
 namespace s3d
 {
@@ -45,6 +48,22 @@ namespace s3d
 		const Point& ScreenDelta()
 		{
 			return Siv3DEngine::GetCursor()->screenDelta();
+		}
+
+		void SetPos(const int32 x, const int32 y)
+		{
+			Siv3DEngine::GetCursor()->setPos(x, y);
+		}
+
+		bool OnClient()
+		{
+			return Geometry2D::Intersect(Siv3DEngine::GetCursor()->clientPos(),
+				Rect(Siv3DEngine::GetWindow()->getState().clientSize));
+		}
+
+		void Clip(const Rect& rect)
+		{
+			Siv3DEngine::GetCursor()->clip(rect);
 		}
 	}
 }

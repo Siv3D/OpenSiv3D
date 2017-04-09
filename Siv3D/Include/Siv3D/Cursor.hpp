@@ -11,6 +11,7 @@
 
 # pragma once
 # include "Fwd.hpp"
+# include "PointVector.hpp"
 
 namespace s3d
 {
@@ -64,10 +65,15 @@ namespace s3d
 		/// </returns>
 		const Point& ScreenDelta();
 
-		void SetPos(const Point& pos);
+		void SetPos(int32 x, int32 y);
+
+		inline void SetPos(const Point& pos)
+		{
+			SetPos(pos.x, pos.y);
+		}
 
 		bool OnClient();
-		
+
 		void Clip(const Rect& rect);
 	}
 }
