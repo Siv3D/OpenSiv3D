@@ -118,23 +118,28 @@
 - [x] Graphics::EnableVSync()
 - [x] ReaderView
 - [x] MemoryWriter
-- [ ] HTMLWriter
-- [ ] Cursor::SetPos()
+- [x] Cursor::SetPos()
 - [x] Cursor::OnClient()
-- [ ] Cursor::Clip()
-- [ ] TextureFormat (Partial)
+- [x] Cursor::Clip()
 - [ ] Resource files
+- [ ] HTMLWriter
 
 ---------------------------
 
 #### 0.1.0
+- [ ] TextureFormat (Partial)
+- [ ] Point::draw()
 - [ ] Rect::draw()
 - [ ] Line::draw()
 - [ ] Triangle::draw()
-- [ ] GIF Animation
+
+---------------------------
+
+#### 0.1.1
+- [ ] Rect::drawFrame()
+- [ ] WindowState
 - [ ] Log
 - [ ] UID
-- [ ] Point::paint() / overpaint()
 
 ## Discussion ##
  [Siv3D Slack #open-siv3d](https://siv3d.slack.com/messages/open-siv3d/details/)  (Japanese)
