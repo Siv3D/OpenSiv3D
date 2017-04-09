@@ -54,6 +54,8 @@
 		2C2126901E9A4001006F8101 /* CMemoryWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C21268D1E9A4001006F8101 /* CMemoryWriter.cpp */; };
 		2C2126911E9A4001006F8101 /* CMemoryWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C21268E1E9A4001006F8101 /* CMemoryWriter.hpp */; };
 		2C2126921E9A4001006F8101 /* SivMemoryWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C21268F1E9A4001006F8101 /* SivMemoryWriter.cpp */; };
+		2C2126941E9A5A85006F8101 /* Geometry2D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C2126931E9A5A85006F8101 /* Geometry2D.hpp */; };
+		2C2126971E9A5AAE006F8101 /* SivGeometry2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2126961E9A5AAE006F8101 /* SivGeometry2D.cpp */; };
 		2C2CCF511CE8698C001844FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2CCF501CE8698C001844FF /* Foundation.framework */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
@@ -596,6 +598,8 @@
 		2C21268D1E9A4001006F8101 /* CMemoryWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CMemoryWriter.cpp; sourceTree = "<group>"; };
 		2C21268E1E9A4001006F8101 /* CMemoryWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CMemoryWriter.hpp; sourceTree = "<group>"; };
 		2C21268F1E9A4001006F8101 /* SivMemoryWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMemoryWriter.cpp; sourceTree = "<group>"; };
+		2C2126931E9A5A85006F8101 /* Geometry2D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Geometry2D.hpp; sourceTree = "<group>"; };
+		2C2126961E9A5AAE006F8101 /* SivGeometry2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGeometry2D.cpp; sourceTree = "<group>"; };
 		2C2CCF501CE8698C001844FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
@@ -1246,6 +1250,14 @@
 			path = MemoryWriter;
 			sourceTree = "<group>";
 		};
+		2C2126951E9A5AAE006F8101 /* Geometry2D */ = {
+			isa = PBXGroup;
+			children = (
+				2C2126961E9A5AAE006F8101 /* SivGeometry2D.cpp */,
+			);
+			path = Geometry2D;
+			sourceTree = "<group>";
+		};
 		2C38B1471CDEB45C007A7E9F /* Lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -1362,6 +1374,7 @@
 				2C81BCC61E89F8E300D27E52 /* FormatUtility.hpp */,
 				2C81BCC71E89F8E300D27E52 /* Functor.hpp */,
 				2C81BCC81E89F8E300D27E52 /* Fwd.hpp */,
+				2C2126931E9A5A85006F8101 /* Geometry2D.hpp */,
 				2C81BCC91E89F8E300D27E52 /* Graphics.hpp */,
 				2C81BCCA1E89F8E300D27E52 /* Grid.hpp */,
 				2C81BCCB1E89F8E300D27E52 /* HardwareRNG.hpp */,
@@ -1463,6 +1476,7 @@
 		2C81BD1D1E89F8E300D27E52 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C2126951E9A5AAE006F8101 /* Geometry2D */,
 				2C21268C1E9A4001006F8101 /* MemoryWriter */,
 				2C21267F1E97D11D006F8101 /* Profiler */,
 				2C2126661E93CFA2006F8101 /* Clipboard */,
@@ -2585,6 +2599,7 @@
 				2C81BFCD1E89F8E300D27E52 /* IMouse.hpp in Headers */,
 				2C81BF1F1E89F8E300D27E52 /* ParseInt.hpp in Headers */,
 				2C81BFB11E89F8E300D27E52 /* CKeyboard_Linux.hpp in Headers */,
+				2C2126941E9A5A85006F8101 /* Geometry2D.hpp in Headers */,
 				2C81BF7F1E89F8E300D27E52 /* CDragDrop_Linux.hpp in Headers */,
 				2C81C0591E89F8E300D27E52 /* jpeg_data.h in Headers */,
 				2C81BF0F1E89F8E300D27E52 /* Line.hpp in Headers */,
@@ -2983,6 +2998,7 @@
 				2C81BF6F1E89F8E300D27E52 /* ConsoleFactory.cpp in Sources */,
 				2C81C0231E89F8E300D27E52 /* cocoa_window.m in Sources */,
 				2C81C05E1E89F8E300D27E52 /* jpeg_data_reader.cc in Sources */,
+				2C2126971E9A5AAE006F8101 /* SivGeometry2D.cpp in Sources */,
 				2C81C0961E89F8E400D27E52 /* xxhash.c in Sources */,
 				2C81C0551E89F8E300D27E52 /* idct.cc in Sources */,
 				2C81BF711E89F8E300D27E52 /* SivConsole.cpp in Sources */,
