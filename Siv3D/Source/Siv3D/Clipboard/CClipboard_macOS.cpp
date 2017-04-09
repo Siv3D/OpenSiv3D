@@ -101,6 +101,7 @@ namespace s3d
 	{
 		detail::ClipboardSetText_macOS(text);
 
+		m_changeCount = detail::ClipboardGetChangeCount_macOS();
 		m_hasChanged = true;
 		m_text = text;
 		m_image.clear();
@@ -111,6 +112,7 @@ namespace s3d
 	{
 		detail::ClipboardSetImage_macOS(image);
 
+		m_changeCount = detail::ClipboardGetChangeCount_macOS();
 		m_hasChanged = true;
 		m_text.clear();
 		m_image = image;
@@ -121,7 +123,8 @@ namespace s3d
 	{
 		detail::ClipboardClear_macOS();
 		
-		m_hasChanged = true;
+		m_changeCount = detail::ClipboardGetChangeCount_macOS();
+		m_hasChanged = false;
 		m_text.clear();
 		m_image.clear();
 		m_filePaths.clear();
