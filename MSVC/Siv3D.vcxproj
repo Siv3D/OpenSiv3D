@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Siv3D2015\Siv3D-Later-2015\Siv3D\Siv3D\Src\Siv3D\Graphics\D3D11\RasterizerState\D3D11RasterizerState.hpp" />
     <ClInclude Include="..\Siv3D\Include\fmt\format.h" />
     <ClInclude Include="..\Siv3D\Include\fmt\ostream.h" />
     <ClInclude Include="..\Siv3D\Include\hopscotch_map\hopscotch_hash.h" />
@@ -181,6 +182,7 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\DragDrop\IDragDrop.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\EngineDirectory\EngineDirectory.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\EngineUtility.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\BlendState\D3D11BlendState.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\CGraphics_D3D11.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\Device\D3D11Device.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\RenderTarget\D3D11RenderTarget.hpp" />
@@ -299,6 +301,7 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\dictBuilder\zdict.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Siv3D2015\Siv3D-Later-2015\Siv3D\Siv3D\Src\Siv3D\Graphics\D3D11\RasterizerState\D3D11RasterizerState.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Base64\SivBase64.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\BigFloat\SivBigFloat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\BigInt\SivBigInt.cpp" />
@@ -347,6 +350,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatInt\SivFormatInt.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Format\SivFormat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Geometry2D\SivGeometry2D.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\BlendState\D3D11BlendState.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\CGraphics_D3D11.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\Device\D3D11Device.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\RenderTarget\D3D11RenderTarget.cpp" />

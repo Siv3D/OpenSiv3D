@@ -79,6 +79,12 @@ namespace s3d
 			return false;
 		}
 
+		//////////////////////////////////////////////////////
+		//
+		//	 D3D11BlendState
+		//
+		m_pBlendState = std::make_unique<D3D11BlendState>(m_device->getDevice(), m_device->getContext());
+
 		return true;
 	}
 

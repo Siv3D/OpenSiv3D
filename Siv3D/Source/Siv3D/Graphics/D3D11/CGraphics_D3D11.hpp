@@ -19,6 +19,7 @@
 # include "SwapChain/D3D11SwapChain.hpp"
 # include "RenderTarget/D3D11RenderTarget.hpp"
 # include "../../Texture/D3D11/CTextureD3D11.hpp"
+# include "BlendState/D3D11BlendState.hpp"
 
 namespace s3d
 {
@@ -33,6 +34,8 @@ namespace s3d
 		std::unique_ptr<D3D11RenderTarget> m_renderTarget;
 
 		CTextureD3D11* m_texture;
+
+		std::unique_ptr<D3D11BlendState> m_pBlendState;
 
 	public:
 
