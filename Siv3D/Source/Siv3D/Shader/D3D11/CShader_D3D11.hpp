@@ -43,7 +43,7 @@ namespace s3d
 
 		AssetHandleManager<VertexShader::IDType, std::shared_ptr<VertexShader_D3D11>> m_vertexShaders{ L"VertexShader" };
 
-		bool compileHLSL(IReader& reader, ByteArray& to);
+		bool compileHLSL(IReader& reader, ByteArray& to, const std::string& entryPoint, const std::string& target);
 
 	public:
 
