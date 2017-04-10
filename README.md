@@ -121,7 +121,7 @@
 - [x] Cursor::SetPos()
 - [x] Cursor::OnClient()
 - [x] Cursor::Clip()
-- [ ] Resource files
+- [x] Resource
 - [ ] HTMLWriter
 
 ---------------------------
