@@ -21,6 +21,8 @@
 # include <Windows.h>
 # include <d3d11.h>
 # include "../ITexture.hpp"
+# include "Texture_D3D11.hpp"
+# include "../../AssetHandleManager/AssetHandleManager.hpp"
 
 namespace s3d
 {
@@ -30,11 +32,23 @@ namespace s3d
 
 		ID3D11Device* m_device = nullptr;
 
+		IDXGISwapChain* m_swapChain = nullptr;
+
+		AssetHandleManager<Texture::IDType, std::shared_ptr<Texture_D3D11>> m_textures{ L"Texture" };
+
 	public:
+
+		~CTextureD3D11() override;
 
 		bool init(ID3D11Device* device, IDXGISwapChain* swapChain);
 
+		Texture::IDType createFromBackBuffer() override;
+
 		void release(Texture::IDType handleID) override;
+
+		Size getSize(Texture::IDType handleID) override;
+
+		ID3D11RenderTargetView* getRTV(Texture::IDType handleID);
 	};
 }
 

@@ -12,6 +12,7 @@
 # include "../Siv3DEngine.hpp"
 # include "ITexture.hpp"
 # include <Siv3D/Texture.hpp>
+# include <Siv3D/PointVector.hpp>
 
 namespace s3d
 {
@@ -27,6 +28,12 @@ namespace s3d
 		{
 			p->release(m_id);
 		}
+	}
+
+	Texture::Texture(BackBuffer)
+		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::GetTexture()->createFromBackBuffer()))
+	{
+
 	}
 
 	Texture::Texture()
@@ -55,13 +62,28 @@ namespace s3d
 		return m_handle->getID();
 	}
 
-	bool Texture::operator == (const Texture& texture) const
+	bool Texture::operator ==(const Texture& texture) const
 	{
 		return m_handle->getID() == texture.m_handle->getID();
 	}
 
-	bool Texture::operator != (const Texture& texture) const
+	bool Texture::operator !=(const Texture& texture) const
 	{
 		return m_handle->getID() != texture.m_handle->getID();
+	}
+
+	int32 Texture::width() const
+	{
+		return Siv3DEngine::GetTexture()->getSize(m_handle->getID()).x;
+	}
+
+	int32 Texture::height() const
+	{
+		return Siv3DEngine::GetTexture()->getSize(m_handle->getID()).y;
+	}
+
+	Size Texture::size() const
+	{
+		return Siv3DEngine::GetTexture()->getSize(m_handle->getID());
 	}
 }

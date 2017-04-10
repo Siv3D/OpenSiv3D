@@ -23,6 +23,10 @@ namespace s3d
 
 		virtual ~ISiv3DTexture() = default;
 
+		virtual Texture::IDType createFromBackBuffer() = 0;
+
 		virtual void release(Texture::IDType handleID) = 0;
+
+		virtual Size getSize(Texture::IDType handleID) = 0;
 	};
 }

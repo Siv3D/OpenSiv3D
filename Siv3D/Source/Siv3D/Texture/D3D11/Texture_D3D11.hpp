@@ -21,6 +21,7 @@
 # include <Windows.h>
 # include <wrl.h>
 # include <d3d11.h>
+# include <Siv3D/PointVector.hpp>
 
 using namespace Microsoft::WRL;
 
@@ -34,15 +35,39 @@ namespace s3d
 
 		ComPtr<ID3D11RenderTargetView> m_renderTargetView;
 
+		ComPtr<ID3D11ShaderResourceView> m_shaderResourceView;
+
 		D3D11_TEXTURE2D_DESC m_desc{};
+
+		D3D11_SHADER_RESOURCE_VIEW_DESC m_srvDesc{};
 
 		bool m_initialized = false;
 
 	public:
 
+		struct Null {};
+		struct BackBuffer {};
+
 		Texture_D3D11() = default;
 
-		static Texture_D3D11 CreateBackBuffer(ID3D11Device* device, IDXGISwapChain* swapChain);
+		Texture_D3D11(Null, ID3D11Device* device);
+
+		Texture_D3D11(BackBuffer, ID3D11Device* device, IDXGISwapChain* swapChain);
+
+		bool isInitialized() const noexcept
+		{
+			return m_initialized;
+		}
+
+		Size getSize() const
+		{
+			return{ m_desc.Width, m_desc.Height };
+		}
+
+		ID3D11RenderTargetView* getRTV()
+		{
+			return m_renderTargetView.Get();
+		}
 	};
 }
 

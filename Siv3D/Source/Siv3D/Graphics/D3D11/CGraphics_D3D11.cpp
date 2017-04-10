@@ -53,17 +53,6 @@ namespace s3d
 
 		//////////////////////////////////////////////////////
 		//
-		//	 D3D11RenderTarget
-		//
-		m_renderTarget = std::make_unique<D3D11RenderTarget>(m_device->getDevice(), m_device->getContext(), m_swapChain->getSwapChain());
-
-		if (!m_renderTarget->init())
-		{
-			return false;
-		}
-
-		//////////////////////////////////////////////////////
-		//
 		//	 CTextureD3D11
 		//
 		m_texture = dynamic_cast<CTextureD3D11*>(Siv3DEngine::GetTexture());
@@ -74,6 +63,18 @@ namespace s3d
 		}
 
 		if (!m_texture->init(m_device->getDevice(), m_swapChain->getSwapChain()))
+		{
+			return false;
+		}
+
+		//////////////////////////////////////////////////////
+		//
+		//	 D3D11RenderTarget
+		//
+		m_renderTarget = std::make_unique<D3D11RenderTarget>(m_device->getDevice(),
+			m_device->getContext(), m_swapChain->getSwapChain(), m_texture);
+
+		if (!m_renderTarget->init())
 		{
 			return false;
 		}

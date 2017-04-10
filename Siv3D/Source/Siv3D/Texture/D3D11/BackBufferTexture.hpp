@@ -11,23 +11,18 @@
 
 # pragma once
 # include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
+# if defined(SIV3D_TARGET_WINDOWS)
 
-# include "../ITexture.hpp"
+# include <Siv3D/Texture.hpp>
 
 namespace s3d
 {
-	class CTextureGL : public ISiv3DTexture
+	class BackBufferTexture : public Texture
 	{
 	public:
 
-		bool init() { return true; }
-
-		Texture::IDType createFromBackBuffer() override { return 0; }
-
-		void release(Texture::IDType handleID) override {}
-
-		Size getSize(Texture::IDType handleID) override { return Size(0, 0); }
+		BackBufferTexture()
+			: Texture(BackBuffer{}) {}
 	};
 }
 

@@ -26,7 +26,9 @@ namespace s3d
 
 		std::shared_ptr<TextureHandle> m_handle;
 
-		static Texture CreateBackBuffer();
+		struct BackBuffer {};
+
+		Texture(BackBuffer);
 
 	public:
 
@@ -95,5 +97,11 @@ namespace s3d
 		/// 2 つの Texture が異なる場合 true, それ以外の場合は false
 		/// </returns>
 		bool operator !=(const Texture& texture) const;
+
+		int32 width() const;
+
+		int32 height() const;
+
+		Size size() const;
 	};
 }

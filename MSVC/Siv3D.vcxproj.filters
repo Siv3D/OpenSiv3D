@@ -287,6 +287,9 @@
     <Filter Include="Source\Siv3D\Texture\GL">
       <UniqueIdentifier>{1b2edf0c-7b30-4924-b81d-25167eb9b7dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\AssetHandleManager">
+      <UniqueIdentifier>{8677642d-afdd-4303-ad79-4931f62fbeff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1116,6 +1119,12 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\Texture.hpp">
       <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\AssetHandleManager\AssetHandleManager.hpp">
+      <Filter>Source\Siv3D\AssetHandleManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\D3D11\BackBufferTexture.hpp">
+      <Filter>Source\Siv3D\Texture\D3D11</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -18,10 +18,11 @@
 
 namespace s3d
 {
-	D3D11RenderTarget::D3D11RenderTarget(ID3D11Device* device, ID3D11DeviceContext* context, IDXGISwapChain* swapChain)
+	D3D11RenderTarget::D3D11RenderTarget(ID3D11Device* device, ID3D11DeviceContext* context, IDXGISwapChain* swapChain, CTextureD3D11* texture)
 		: m_device(device)
 		, m_context(context)
 		, m_swapChain(swapChain)
+		, m_texture(texture)
 	{
 
 	}
@@ -33,17 +34,14 @@ namespace s3d
 
 	bool D3D11RenderTarget::init()
 	{
-		if (FAILED(m_swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), &m_backBufferTexture)))
+		ID3D11RenderTargetView* pRTV[3]
 		{
-			return false;
-		}
+			m_texture->getRTV(m_backBuffer.id()),
+			nullptr,
+			nullptr,
+		};
 
-		if (FAILED(m_device->CreateRenderTargetView(m_backBufferTexture.Get(), nullptr, &m_backBufferRenderTargetView)))
-		{
-			return false;
-		}
-
-		m_context->OMSetRenderTargets(1, m_backBufferRenderTargetView.GetAddressOf(), nullptr);
+		m_context->OMSetRenderTargets(3, pRTV, nullptr);
 
 		D3D11_VIEWPORT m_viewport;
 		m_viewport.TopLeftX = 0;
@@ -72,30 +70,35 @@ namespace s3d
 			static_cast<float>(m_clearColor.a),
 		};
 
-		m_context->ClearRenderTargetView(m_backBufferRenderTargetView.Get(), colors);
+		m_context->ClearRenderTargetView(m_texture->getRTV(m_backBuffer.id()), colors);
 	}
 
 	void D3D11RenderTarget::beginResize()
 	{
-		m_context->OMSetRenderTargets(1, m_backBufferRenderTargetView.GetAddressOf(), nullptr);
+		ID3D11RenderTargetView* pRTV[3]
+		{
+			nullptr,
+			nullptr,
+			nullptr,
+		};
 
-		m_backBufferRenderTargetView.Reset();
-		m_backBufferTexture.Reset();
+		m_context->OMSetRenderTargets(3, pRTV, nullptr);
+
+		m_backBuffer.release();
 	}
 
 	bool D3D11RenderTarget::endResize(const Size& size)
 	{
-		if (FAILED(m_swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), &m_backBufferTexture)))
-		{
-			return false;
-		}
+		m_backBuffer = BackBufferTexture();
 
-		if (FAILED(m_device->CreateRenderTargetView(m_backBufferTexture.Get(), nullptr, &m_backBufferRenderTargetView)))
+		ID3D11RenderTargetView* pRTV[3]
 		{
-			return false;
-		}
+			m_texture->getRTV(m_backBuffer.id()),
+			nullptr,
+			nullptr,
+		};
 
-		m_context->OMSetRenderTargets(1, m_backBufferRenderTargetView.GetAddressOf(), nullptr);
+		m_context->OMSetRenderTargets(3, pRTV, nullptr);
 
 		D3D11_VIEWPORT m_viewport;
 		m_viewport.TopLeftX = 0;
