@@ -36,6 +36,22 @@ namespace s3d
 		m_glfwWindow = Siv3DEngine::GetWindow()->getHandle();
 		
 		::glfwSwapInterval(m_vsync);
+
+		//////////////////////////////////////////////////////
+		//
+		//	 CTextureGL
+		//
+		m_texture = dynamic_cast<CTextureGL*>(Siv3DEngine::GetTexture());
+
+		if (!m_texture)
+		{
+			return false;
+		}
+
+		if (!m_texture->init())
+		{
+			return false;
+		}
 		
 		return true;
 	}
