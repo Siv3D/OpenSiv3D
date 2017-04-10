@@ -27,6 +27,8 @@ namespace s3d
 
 		IDType m_id = NullID;
 
+	public:
+
 		AssetHandle() = default;
 
 		constexpr AssetHandle(IDType id) noexcept

@@ -9,7 +9,6 @@
 //
 //-----------------------------------------------
 
-# pragma once
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_WINDOWS)
 
@@ -22,13 +21,10 @@
 # include <wrl.h>
 using namespace Microsoft::WRL;
 # include <d3d11.h>
-# include <Siv3D/Color.hpp>
-# include "../../../Texture/D3D11/BackBufferTexture.hpp"
-# include "../../../Texture/D3D11/CTextureD3D11.hpp"
 
 namespace s3d
 {
-	class D3D11RenderTarget
+	class D3D11SamplerState
 	{
 	private:
 
@@ -36,29 +32,11 @@ namespace s3d
 
 		ID3D11DeviceContext* m_context = nullptr;
 
-		IDXGISwapChain* m_swapChain = nullptr;
+		ComPtr<ID3D11SamplerState> m_state;
 
-		CTextureD3D11* m_texture;
-
-		ColorF m_clearColor = Color(11, 22, 33);
-
-		BackBufferTexture m_backBuffer;
-		
 	public:
 
-		D3D11RenderTarget(ID3D11Device* device, ID3D11DeviceContext* context, IDXGISwapChain* swapChain, CTextureD3D11* texture);
-
-		~D3D11RenderTarget();
-
-		bool init();
-
-		void setClearColor(const ColorF& color);
-
-		void clear();
-
-		void beginResize();
-
-		bool endResize(const Size& size);
+		D3D11SamplerState(ID3D11Device* device, ID3D11DeviceContext* context);
 	};
 }
 

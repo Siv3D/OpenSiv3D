@@ -287,6 +287,21 @@
     <Filter Include="Source\Siv3D\Texture\GL">
       <UniqueIdentifier>{1b2edf0c-7b30-4924-b81d-25167eb9b7dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\AssetHandleManager">
+      <UniqueIdentifier>{8677642d-afdd-4303-ad79-4931f62fbeff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Graphics\D3D11\BlendState">
+      <UniqueIdentifier>{938b7dec-ff3d-44ab-89bb-be2f3e201487}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Graphics\D3D11\RasterizerState">
+      <UniqueIdentifier>{c8b5ee6f-8aac-403b-be2a-d4255d7c2147}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Graphics\D3D11\DepthStencilState">
+      <UniqueIdentifier>{180fb70a-9b86-42bd-8c5f-4d8bb1a5b217}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Graphics\D3D11\SamplerState">
+      <UniqueIdentifier>{5deecba7-12fb-45dc-bdec-eacde585f52c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1117,6 +1132,24 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Texture.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\AssetHandleManager\AssetHandleManager.hpp">
+      <Filter>Source\Siv3D\AssetHandleManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\D3D11\BackBufferTexture.hpp">
+      <Filter>Source\Siv3D\Texture\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\BlendState\D3D11BlendState.hpp">
+      <Filter>Source\Siv3D\Graphics\D3D11\BlendState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\RasterizerState\D3D11RasterizerState.hpp">
+      <Filter>Source\Siv3D\Graphics\D3D11\RasterizerState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\SamplerState\D3D11SamplerState.hpp">
+      <Filter>Source\Siv3D\Graphics\D3D11\SamplerState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\DepthStencilState\D3D11DepthStencilState.hpp">
+      <Filter>Source\Siv3D\Graphics\D3D11\DepthStencilState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1688,6 +1721,21 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\D3D11\CTextureD3D11.cpp">
       <Filter>Source\Siv3D\Texture\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\SivTexture.cpp">
+      <Filter>Source\Siv3D\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\BlendState\D3D11BlendState.cpp">
+      <Filter>Source\Siv3D\Graphics\D3D11\BlendState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\RasterizerState\D3D11RasterizerState.cpp">
+      <Filter>Source\Siv3D\Graphics\D3D11\RasterizerState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\SamplerState\D3D11SamplerState.cpp">
+      <Filter>Source\Siv3D\Graphics\D3D11\SamplerState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\DepthStencilState\D3D11DepthStencilState.cpp">
+      <Filter>Source\Siv3D\Graphics\D3D11\DepthStencilState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
