@@ -27,7 +27,14 @@ namespace s3d
 
 	CShader_D3D11::~CShader_D3D11()
 	{
+		m_vertexShaders.destroy();
 
+		m_pixelShaders.destroy();
+
+		if (m_d3dcompiler)
+		{
+			::FreeLibrary(m_d3dcompiler);
+		}
 	}
 
 	bool CShader_D3D11::init(ID3D11Device* const device, ID3D11DeviceContext* const context)
@@ -55,14 +62,27 @@ namespace s3d
 			p_D3DCompile2 = FunctionPointer(m_d3dcompiler, "D3DCompile2");
 		}
 
-		const auto nullVertexShader = std::make_shared<VertexShader_D3D11>(VertexShader_D3D11::Null{});
-
-		if (!nullVertexShader->isInitialized())
 		{
-			return false;
+			const auto nullVertexShader = std::make_shared<VertexShader_D3D11>(VertexShader_D3D11::Null{});
+
+			if (!nullVertexShader->isInitialized())
+			{
+				return false;
+			}
+
+			m_vertexShaders.setNullData(nullVertexShader);
 		}
 
-		m_vertexShaders.setNullData(nullVertexShader);
+		{
+			const auto nullPixelShader = std::make_shared<PixelShader_D3D11>(PixelShader_D3D11::Null{});
+
+			if (!nullPixelShader->isInitialized())
+			{
+				return false;
+			}
+
+			m_pixelShaders.setNullData(nullPixelShader);
+		}
 
 		return true;
 	}
@@ -124,6 +144,28 @@ namespace s3d
 		}
 
 		return m_vertexShaders.add(vertexShader);
+	}
+
+	PixelShader::IDType CShader_D3D11::createPS(ByteArray&& binary)
+	{
+		const auto pixelShader = std::make_shared<PixelShader_D3D11>(std::move(binary), m_device);
+
+		if (!pixelShader->isInitialized())
+		{
+			return PixelShader::IDType(0);
+		}
+
+		return m_pixelShaders.add(pixelShader);
+	}
+
+	void CShader_D3D11::releaseVS(const VertexShader::IDType handleID)
+	{
+		m_vertexShaders.erase(handleID);
+	}
+
+	void CShader_D3D11::releasePS(const PixelShader::IDType handleID)
+	{
+		m_pixelShaders.erase(handleID);
 	}
 }
 

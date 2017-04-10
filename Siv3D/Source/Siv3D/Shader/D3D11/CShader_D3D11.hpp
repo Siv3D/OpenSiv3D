@@ -25,6 +25,7 @@ using namespace Microsoft::WRL;
 # include <d3dcompiler.h>
 # include "../IShader.hpp"
 # include "VertexShader_D3D11.hpp"
+# include "PixelShader_D3D11.hpp"
 # include "../../AssetHandleManager/AssetHandleManager.hpp"
 
 namespace s3d
@@ -43,6 +44,8 @@ namespace s3d
 
 		AssetHandleManager<VertexShader::IDType, std::shared_ptr<VertexShader_D3D11>> m_vertexShaders{ L"VertexShader" };
 
+		AssetHandleManager<PixelShader::IDType, std::shared_ptr<PixelShader_D3D11>> m_pixelShaders{ L"PixelShader" };
+
 	public:
 
 		CShader_D3D11();
@@ -55,11 +58,11 @@ namespace s3d
 
 		VertexShader::IDType createVS(ByteArray&& binary) override;
 
-		PixelShader::IDType createPS(ByteArray&& binary) override { return 0; }
+		PixelShader::IDType createPS(ByteArray&& binary) override;
 
-		void releaseVS(VertexShader::IDType handleID) override {}
+		void releaseVS(VertexShader::IDType handleID) override;
 
-		void releasePS(PixelShader::IDType handleID) override {}
+		void releasePS(PixelShader::IDType handleID) override;
 	};
 }
 
