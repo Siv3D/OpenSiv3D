@@ -69,6 +69,8 @@
 		2C316E2C1E9B627B0011CAAE /* CTextureGL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E251E9B627B0011CAAE /* CTextureGL.hpp */; };
 		2C316E2D1E9B627B0011CAAE /* ITexture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E261E9B627B0011CAAE /* ITexture.hpp */; };
 		2C316E2E1E9B627B0011CAAE /* TextureFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E271E9B627B0011CAAE /* TextureFactory.cpp */; };
+		2C316E301E9B699B0011CAAE /* AssetHandle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E2F1E9B699B0011CAAE /* AssetHandle.hpp */; };
+		2C316E321E9B69AF0011CAAE /* Texture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E311E9B69AF0011CAAE /* Texture.hpp */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
 		2C81BECE1E89F8E300D27E52 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C81BC981E89F8E300D27E52 /* format.h */; };
@@ -624,6 +626,8 @@
 		2C316E251E9B627B0011CAAE /* CTextureGL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTextureGL.hpp; sourceTree = "<group>"; };
 		2C316E261E9B627B0011CAAE /* ITexture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ITexture.hpp; sourceTree = "<group>"; };
 		2C316E271E9B627B0011CAAE /* TextureFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureFactory.cpp; sourceTree = "<group>"; };
+		2C316E2F1E9B699B0011CAAE /* AssetHandle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AssetHandle.hpp; sourceTree = "<group>"; };
+		2C316E311E9B69AF0011CAAE /* Texture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Texture.hpp; sourceTree = "<group>"; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
 		2C5869261E3F0C620028B9F0 /* lpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lpng.a; sourceTree = "<group>"; };
@@ -1396,6 +1400,7 @@
 				2C81BCA21E89F8E300D27E52 /* AlignedMemory.hpp */,
 				2C81BCA31E89F8E300D27E52 /* Array.hpp */,
 				2C81BCA41E89F8E300D27E52 /* ArrayBool.hpp */,
+				2C316E2F1E9B699B0011CAAE /* AssetHandle.hpp */,
 				2C81BCA51E89F8E300D27E52 /* Base64.hpp */,
 				2C81BCA61E89F8E300D27E52 /* BigFloat.hpp */,
 				2C81BCA71E89F8E300D27E52 /* BigInt.hpp */,
@@ -1501,6 +1506,7 @@
 				2C81BD031E89F8E300D27E52 /* StringView.hpp */,
 				2C81BD041E89F8E300D27E52 /* System.hpp */,
 				2C81BD051E89F8E300D27E52 /* TextReader.hpp */,
+				2C316E311E9B69AF0011CAAE /* Texture.hpp */,
 				2C316E1C1E9B625F0011CAAE /* TextureFormat.hpp */,
 				2C81BD061E89F8E300D27E52 /* TextWriter.hpp */,
 				2C81BD071E89F8E300D27E52 /* Threading.hpp */,
@@ -2648,6 +2654,7 @@
 				2C81BF611E89F8E300D27E52 /* CBinaryWriter_macOS.hpp in Headers */,
 				2C2126631E9297CC006F8101 /* Byte.hpp in Headers */,
 				2C81C0761E89F8E300D27E52 /* pnglibconf.h in Headers */,
+				2C316E301E9B699B0011CAAE /* AssetHandle.hpp in Headers */,
 				2C81C08A1E89F8E300D27E52 /* muParserTemplateMagic.h in Headers */,
 				2C81C01E1E89F8E300D27E52 /* cocoa_joystick.h in Headers */,
 				2C81BF131E89F8E300D27E52 /* MathParser.hpp in Headers */,
@@ -2879,6 +2886,7 @@
 				2C81C05F1E89F8E300D27E52 /* jpeg_data_reader.h in Headers */,
 				2C81C00F1E89F8E300D27E52 /* fast-dtoa.h in Headers */,
 				2C81BF421E89F8E300D27E52 /* Vector2D.hpp in Headers */,
+				2C316E321E9B69AF0011CAAE /* Texture.hpp in Headers */,
 				2C2126651E93CF92006F8101 /* Clipboard.hpp in Headers */,
 				2C81C0911E89F8E400D27E52 /* error_private.h in Headers */,
 				2C81C04D1E89F8E300D27E52 /* debug_print.h in Headers */,
