@@ -14,6 +14,7 @@
 
 # include "../../Siv3DEngine.hpp"
 # include "../../Window/IWindow.hpp"
+# include "../../Shader/IShader.hpp"
 # include "CGraphics_GL.hpp"
 # include <Siv3D/Window.hpp>
 # include <Siv3D/CharacterSet.hpp>
@@ -49,6 +50,15 @@ namespace s3d
 		}
 
 		if (!m_texture->init())
+		{
+			return false;
+		}
+		
+		//////////////////////////////////////////////////////
+		//
+		//	 Shader
+		//
+		if (!Siv3DEngine::GetShader()->init())
 		{
 			return false;
 		}

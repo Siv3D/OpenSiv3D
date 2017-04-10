@@ -83,6 +83,13 @@
 		2C316E4D1E9BA9240011CAAE /* D3D11RasterizerState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E441E9BA9240011CAAE /* D3D11RasterizerState.hpp */; };
 		2C316E4E1E9BA9240011CAAE /* D3D11SamplerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E461E9BA9240011CAAE /* D3D11SamplerState.cpp */; };
 		2C316E4F1E9BA9240011CAAE /* D3D11SamplerState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E471E9BA9240011CAAE /* D3D11SamplerState.hpp */; };
+		2C316E5A1E9BAD790011CAAE /* CShader_D3D11.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E521E9BAD790011CAAE /* CShader_D3D11.cpp */; };
+		2C316E5B1E9BAD790011CAAE /* CShader_D3D11.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E531E9BAD790011CAAE /* CShader_D3D11.hpp */; };
+		2C316E5C1E9BAD790011CAAE /* CShader_GL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E551E9BAD790011CAAE /* CShader_GL.cpp */; };
+		2C316E5D1E9BAD790011CAAE /* CShader_GL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E561E9BAD790011CAAE /* CShader_GL.hpp */; };
+		2C316E5E1E9BAD790011CAAE /* IShader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E571E9BAD790011CAAE /* IShader.hpp */; };
+		2C316E5F1E9BAD790011CAAE /* ShaderFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E581E9BAD790011CAAE /* ShaderFactory.cpp */; };
+		2C316E601E9BAD790011CAAE /* SivShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E591E9BAD790011CAAE /* SivShader.cpp */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
 		2C81BECE1E89F8E300D27E52 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C81BC981E89F8E300D27E52 /* format.h */; };
@@ -652,6 +659,13 @@
 		2C316E441E9BA9240011CAAE /* D3D11RasterizerState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = D3D11RasterizerState.hpp; sourceTree = "<group>"; };
 		2C316E461E9BA9240011CAAE /* D3D11SamplerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = D3D11SamplerState.cpp; sourceTree = "<group>"; };
 		2C316E471E9BA9240011CAAE /* D3D11SamplerState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = D3D11SamplerState.hpp; sourceTree = "<group>"; };
+		2C316E521E9BAD790011CAAE /* CShader_D3D11.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CShader_D3D11.cpp; sourceTree = "<group>"; };
+		2C316E531E9BAD790011CAAE /* CShader_D3D11.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CShader_D3D11.hpp; sourceTree = "<group>"; };
+		2C316E551E9BAD790011CAAE /* CShader_GL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CShader_GL.cpp; sourceTree = "<group>"; };
+		2C316E561E9BAD790011CAAE /* CShader_GL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CShader_GL.hpp; sourceTree = "<group>"; };
+		2C316E571E9BAD790011CAAE /* IShader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IShader.hpp; sourceTree = "<group>"; };
+		2C316E581E9BAD790011CAAE /* ShaderFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderFactory.cpp; sourceTree = "<group>"; };
+		2C316E591E9BAD790011CAAE /* SivShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivShader.cpp; sourceTree = "<group>"; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
 		2C5869261E3F0C620028B9F0 /* lpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lpng.a; sourceTree = "<group>"; };
@@ -1393,6 +1407,36 @@
 			path = SamplerState;
 			sourceTree = "<group>";
 		};
+		2C316E501E9BAD790011CAAE /* Shader */ = {
+			isa = PBXGroup;
+			children = (
+				2C316E511E9BAD790011CAAE /* D3D11 */,
+				2C316E541E9BAD790011CAAE /* GL */,
+				2C316E571E9BAD790011CAAE /* IShader.hpp */,
+				2C316E581E9BAD790011CAAE /* ShaderFactory.cpp */,
+				2C316E591E9BAD790011CAAE /* SivShader.cpp */,
+			);
+			path = Shader;
+			sourceTree = "<group>";
+		};
+		2C316E511E9BAD790011CAAE /* D3D11 */ = {
+			isa = PBXGroup;
+			children = (
+				2C316E521E9BAD790011CAAE /* CShader_D3D11.cpp */,
+				2C316E531E9BAD790011CAAE /* CShader_D3D11.hpp */,
+			);
+			path = D3D11;
+			sourceTree = "<group>";
+		};
+		2C316E541E9BAD790011CAAE /* GL */ = {
+			isa = PBXGroup;
+			children = (
+				2C316E551E9BAD790011CAAE /* CShader_GL.cpp */,
+				2C316E561E9BAD790011CAAE /* CShader_GL.hpp */,
+			);
+			path = GL;
+			sourceTree = "<group>";
+		};
 		2C38B1471CDEB45C007A7E9F /* Lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -1615,6 +1659,7 @@
 		2C81BD1D1E89F8E300D27E52 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C316E501E9BAD790011CAAE /* Shader */,
 				2C316E371E9B82E00011CAAE /* AssetHandleManager */,
 				2C316E1E1E9B627B0011CAAE /* Texture */,
 				2C316E171E9B38200011CAAE /* Resource */,
@@ -2740,6 +2785,7 @@
 				2C81BF311E89F8E300D27E52 /* Step_MSVC.hpp in Headers */,
 				2C81BEF41E89F8E300D27E52 /* FormatBool.hpp in Headers */,
 				2C81BF351E89F8E300D27E52 /* System.hpp in Headers */,
+				2C316E5D1E9BAD790011CAAE /* CShader_GL.hpp in Headers */,
 				2C81BEDE1E89F8E300D27E52 /* Char.hpp in Headers */,
 				2C81BF151E89F8E300D27E52 /* MemoryMapping.hpp in Headers */,
 				2C81C0091E89F8E300D27E52 /* cached-powers.h in Headers */,
@@ -2969,6 +3015,7 @@
 				2C316E321E9B69AF0011CAAE /* Texture.hpp in Headers */,
 				2C2126651E93CF92006F8101 /* Clipboard.hpp in Headers */,
 				2C81C0911E89F8E400D27E52 /* error_private.h in Headers */,
+				2C316E5E1E9BAD790011CAAE /* IShader.hpp in Headers */,
 				2C81C04D1E89F8E300D27E52 /* debug_print.h in Headers */,
 				2C81BF361E89F8E300D27E52 /* TextReader.hpp in Headers */,
 				2C81BEF01E89F8E300D27E52 /* Duration.hpp in Headers */,
@@ -3003,6 +3050,7 @@
 				2C316E391E9B82E00011CAAE /* AssetHandleManager.hpp in Headers */,
 				2C81BEEC1E89F8E300D27E52 /* DateTime.hpp in Headers */,
 				2C81BFFA1E89F8E300D27E52 /* CWindow_Windows.hpp in Headers */,
+				2C316E5B1E9BAD790011CAAE /* CShader_D3D11.hpp in Headers */,
 				2C81BF071E89F8E300D27E52 /* IteratorRange.hpp in Headers */,
 				2C81C0151E89F8E300D27E52 /* utils.h in Headers */,
 				2C81BED61E89F8E300D27E52 /* ArrayBool.hpp in Headers */,
@@ -3222,14 +3270,17 @@
 				2C81BFF01E89F8E300D27E52 /* SivTime.cpp in Sources */,
 				2C81C08F1E89F8E400D27E52 /* entropy_common.c in Sources */,
 				2C81BF651E89F8E300D27E52 /* CByteArray.cpp in Sources */,
+				2C316E601E9BAD790011CAAE /* SivShader.cpp in Sources */,
 				2C81C01D1E89F8E300D27E52 /* cocoa_init.m in Sources */,
 				2C81BFAF1E89F8E300D27E52 /* SivKey.cpp in Sources */,
 				2C81C0B21E8A800900D27E52 /* SivTriangle.cpp in Sources */,
 				2C81BFDC1E89F8E300D27E52 /* SivString.cpp in Sources */,
 				2C81C0531E89F8E300D27E52 /* gamma_correct.cc in Sources */,
+				2C316E5A1E9BAD790011CAAE /* CShader_D3D11.cpp in Sources */,
 				2C81BFF31E89F8E300D27E52 /* SivVector3D.cpp in Sources */,
 				2C81BFAA1E89F8E300D27E52 /* SivImageFormat.cpp in Sources */,
 				2C81C0931E89F8E400D27E52 /* fse_decompress.c in Sources */,
+				2C316E5C1E9BAD790011CAAE /* CShader_GL.cpp in Sources */,
 				2C81C05A1E89F8E300D27E52 /* jpeg_data_decoder.cc in Sources */,
 				2C81BFA01E89F8E300D27E52 /* ImageFormat_BMP.cpp in Sources */,
 				2C81C00E1E89F8E300D27E52 /* fast-dtoa.cc in Sources */,
@@ -3350,6 +3401,7 @@
 				2C81BF8B1E89F8E300D27E52 /* SivFileSystem.mm in Sources */,
 				2C81C0841E89F8E300D27E52 /* muParserError.cpp in Sources */,
 				2C81BFD21E89F8E300D27E52 /* SivPoint.cpp in Sources */,
+				2C316E5F1E9BAD790011CAAE /* ShaderFactory.cpp in Sources */,
 				2C316E2E1E9B627B0011CAAE /* TextureFactory.cpp in Sources */,
 				2C81BF521E89F8E300D27E52 /* SivBase64.cpp in Sources */,
 				2C81C00A1E89F8E300D27E52 /* diy-fp.cc in Sources */,
