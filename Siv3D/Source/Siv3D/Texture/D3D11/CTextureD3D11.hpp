@@ -33,6 +33,8 @@ namespace s3d
 	public:
 
 		bool init(ID3D11Device* device, IDXGISwapChain* swapChain);
+
+		void release(Texture::IDType handleID) override;
 	};
 }
 

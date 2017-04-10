@@ -1689,6 +1689,9 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\D3D11\CTextureD3D11.cpp">
       <Filter>Source\Siv3D\Texture\D3D11</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\SivTexture.cpp">
+      <Filter>Source\Siv3D\Texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\Include\Siv3D\Point.inl">

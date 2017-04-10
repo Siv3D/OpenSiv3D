@@ -4,6 +4,10 @@
 
 void Main()
 {
+	Texture texture;
+
+	Log << texture.isEmpty();
+
 	Log << EnumResourceFiles();
 
 	Log << Resource(L"example/siv3d-kun.png");

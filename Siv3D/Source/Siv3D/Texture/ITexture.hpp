@@ -11,6 +11,7 @@
 
 # pragma once
 # include <Siv3D/Fwd.hpp>
+# include <Siv3D/Texture.hpp>
 
 namespace s3d
 {
@@ -21,5 +22,7 @@ namespace s3d
 		static ISiv3DTexture* Create();
 
 		virtual ~ISiv3DTexture() = default;
+
+		virtual void release(Texture::IDType handleID) = 0;
 	};
 }

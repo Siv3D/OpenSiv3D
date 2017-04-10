@@ -23,6 +23,11 @@ namespace s3d
 
 		return true;
 	}
+
+	void CTextureD3D11::release(Texture::IDType handleID)
+	{
+		handleID;
+	}
 }
 
 # endif

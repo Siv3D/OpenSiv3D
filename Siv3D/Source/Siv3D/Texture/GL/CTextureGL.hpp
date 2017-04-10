@@ -22,6 +22,8 @@ namespace s3d
 	public:
 
 		bool init() { return true; }
+
+		void release(Texture::IDType handleID) {}
 	};
 }
 
