@@ -17,6 +17,7 @@
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/ByteArray.hpp>
 # include <Siv3D/BinaryReader.hpp>
+# include <Siv3D/Resource.hpp>
 # include <Siv3D/Logger.hpp>
 
 namespace s3d
@@ -28,6 +29,10 @@ namespace s3d
 
 	CShader_D3D11::~CShader_D3D11()
 	{
+		m_standardVSs.clear();
+
+		m_standardPSs.clear();
+
 		m_vertexShaders.destroy();
 
 		m_pixelShaders.destroy();
@@ -85,13 +90,17 @@ namespace s3d
 			m_pixelShaders.setNullData(nullPixelShader);
 		}
 
-		///*
+		/*
 		
 		compileHLSLToFile(L"engine/shader/sprite.hlsl", L"engine/shader/sprite.vs", "VS", "vs_4_0");
 		compileHLSLToFile(L"engine/shader/sprite.hlsl", L"engine/shader/sprite.ps", "PS", "ps_4_0");
 		compileHLSLToFile(L"engine/shader/shape.hlsl", L"engine/shader/shape.ps", "PS", "ps_4_0");
 
 		//*/
+
+		m_standardVSs.push_back(VertexShader(Resource(L"engine/shader/sprite.vs")));
+		m_standardPSs.push_back(PixelShader(Resource(L"engine/shader/sprite.ps")));
+		m_standardPSs.push_back(PixelShader(Resource(L"engine/shader/shape.ps")));
 
 		return true;
 	}

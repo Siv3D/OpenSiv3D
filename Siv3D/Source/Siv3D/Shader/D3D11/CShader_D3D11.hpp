@@ -46,6 +46,10 @@ namespace s3d
 
 		AssetHandleManager<PixelShader::IDType, std::shared_ptr<PixelShader_D3D11>> m_pixelShaders{ L"PixelShader" };
 
+		Array<VertexShader> m_standardVSs;
+
+		Array<PixelShader> m_standardPSs;
+
 		bool compileHLSLToFile(const FilePath& hlsl, const FilePath& to, const char* entryPoint, const char* target);
 
 	public:
