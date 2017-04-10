@@ -226,9 +226,9 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\System\ISystem.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\TextReader\CTextReader.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\D3D11\BackBufferTexture.hpp" />
-    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\D3D11\CTextureD3D11.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\D3D11\CTexture_D3D11.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\D3D11\Texture_D3D11.hpp" />
-    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\GL\CTextureGL.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\GL\CTexture_GL.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\ITexture.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\TextWriter\CTextWriter.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Window\CWindow_Linux.hpp" />
@@ -426,7 +426,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\System\SystemFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextReader\CTextReader.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextReader\SivTextReader.cpp" />
-    <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\D3D11\CTextureD3D11.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\D3D11\CTexture_D3D11.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\D3D11\Texture_D3D11.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\SivTexture.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\TextureFactory.cpp" />

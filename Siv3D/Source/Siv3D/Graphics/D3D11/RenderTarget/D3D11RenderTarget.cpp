@@ -18,7 +18,7 @@
 
 namespace s3d
 {
-	D3D11RenderTarget::D3D11RenderTarget(ID3D11Device* device, ID3D11DeviceContext* context, IDXGISwapChain* swapChain, CTextureD3D11* texture)
+	D3D11RenderTarget::D3D11RenderTarget(ID3D11Device* device, ID3D11DeviceContext* context, IDXGISwapChain* swapChain, CTexture_D3D11* texture)
 		: m_device(device)
 		, m_context(context)
 		, m_swapChain(swapChain)

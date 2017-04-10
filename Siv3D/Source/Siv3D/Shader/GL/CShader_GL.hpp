@@ -27,7 +27,7 @@ namespace s3d
 
 		~CShader_GL() override;
 
-		bool init() override;
+		bool init();
 	};
 }
 

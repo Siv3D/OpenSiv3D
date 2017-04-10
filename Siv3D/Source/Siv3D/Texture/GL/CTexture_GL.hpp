@@ -17,7 +17,7 @@
 
 namespace s3d
 {
-	class CTextureGL : public ISiv3DTexture
+	class CTexture_GL : public ISiv3DTexture
 	{
 	public:
 

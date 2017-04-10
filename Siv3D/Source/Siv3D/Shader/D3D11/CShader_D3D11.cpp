@@ -26,8 +26,10 @@ namespace s3d
 
 	}
 
-	bool CShader_D3D11::init()
+	bool CShader_D3D11::init(ID3D11Device* const device, ID3D11DeviceContext* const context)
 	{
+		m_device = device;
+		m_context = context;
 
 		return true;
 	}

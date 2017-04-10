@@ -21,7 +21,5 @@ namespace s3d
 		static ISiv3DShader* Create();
 
 		virtual ~ISiv3DShader() = default;
-
-		virtual bool init() = 0;
 	};
 }

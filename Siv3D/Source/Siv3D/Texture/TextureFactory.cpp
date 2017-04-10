@@ -9,8 +9,8 @@
 //
 //-----------------------------------------------
 
-# include "D3D11/CTextureD3D11.hpp"
-# include "GL/CTextureGL.hpp"
+# include "D3D11/CTexture_D3D11.hpp"
+# include "GL/CTexture_GL.hpp"
 
 namespace s3d
 {
@@ -18,11 +18,11 @@ namespace s3d
 	{
 	# if defined(SIV3D_TARGET_WINDOWS)
 
-		return new CTextureD3D11;
+		return new CTexture_D3D11;
 
 	# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 	
-		return new CTextureGL;
+		return new CTexture_GL;
 
 	# endif
 	}

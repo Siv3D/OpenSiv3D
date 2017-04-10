@@ -14,6 +14,7 @@
 
 # include "../../Siv3DEngine.hpp"
 # include "CGraphics_D3D11.hpp"
+# include "../../Shader/IShader.hpp"
 
 namespace s3d
 {
@@ -53,9 +54,9 @@ namespace s3d
 
 		//////////////////////////////////////////////////////
 		//
-		//	 CTextureD3D11
+		//	 CTexture_D3D11
 		//
-		m_texture = dynamic_cast<CTextureD3D11*>(Siv3DEngine::GetTexture());
+		m_texture = dynamic_cast<CTexture_D3D11*>(Siv3DEngine::GetTexture());
 
 		if (!m_texture)
 		{
@@ -63,6 +64,22 @@ namespace s3d
 		}
 
 		if (!m_texture->init(m_device->getDevice(), m_device->getContext(), m_swapChain->getSwapChain()))
+		{
+			return false;
+		}
+
+		//////////////////////////////////////////////////////
+		//
+		//	 CShader_D3D11
+		//
+		m_shader = dynamic_cast<CShader_D3D11*>(Siv3DEngine::GetShader());
+
+		if (!m_shader)
+		{
+			return false;
+		}
+
+		if (!m_shader->init(m_device->getDevice(), m_device->getContext()))
 		{
 			return false;
 		}

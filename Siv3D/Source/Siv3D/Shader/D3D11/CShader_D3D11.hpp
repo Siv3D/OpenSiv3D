@@ -13,6 +13,15 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_WINDOWS)
 
+# define  NOMINMAX
+# define  STRICT
+# define  WIN32_LEAN_AND_MEAN
+# define  _WIN32_WINNT _WIN32_WINNT_WIN7
+# define  NTDDI_VERSION NTDDI_WIN7
+# include <Windows.h>
+# include <wrl.h>
+using namespace Microsoft::WRL;
+# include <d3d11.h>
 # include "../IShader.hpp"
 
 namespace s3d
@@ -21,13 +30,17 @@ namespace s3d
 	{
 	private:
 
+		ID3D11Device* m_device = nullptr;
+
+		ID3D11DeviceContext* m_context = nullptr;
+
 	public:
 
 		CShader_D3D11();
 
 		~CShader_D3D11() override;
 
-		bool init() override;
+		bool init(ID3D11Device* device, ID3D11DeviceContext* context);
 	};
 }
 
