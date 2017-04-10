@@ -48,6 +48,10 @@ namespace s3d
 
 		Size getSize(Texture::IDType handleID) override;
 
+		void beginResize(Texture::IDType handleID);
+
+		bool endResizeBackBuffer(Texture::IDType handleID);
+
 		ID3D11RenderTargetView* getRTV(Texture::IDType handleID);
 	};
 }

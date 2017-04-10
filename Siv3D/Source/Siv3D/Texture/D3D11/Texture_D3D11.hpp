@@ -68,6 +68,10 @@ namespace s3d
 		{
 			return m_renderTargetView.Get();
 		}
+
+		void beginResize();
+
+		bool endResize(BackBuffer, ID3D11Device* device, IDXGISwapChain* swapChain);
 	};
 }
 

@@ -84,12 +84,12 @@ namespace s3d
 
 		m_context->OMSetRenderTargets(3, pRTV, nullptr);
 
-		m_backBuffer.release();
+		m_backBuffer.beginResize(m_texture);
 	}
 
 	bool D3D11RenderTarget::endResize(const Size& size)
 	{
-		m_backBuffer = BackBufferTexture();
+		m_backBuffer.endResize(m_texture);
 
 		ID3D11RenderTargetView* pRTV[3]
 		{

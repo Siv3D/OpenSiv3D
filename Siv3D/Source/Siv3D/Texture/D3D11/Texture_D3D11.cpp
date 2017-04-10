@@ -76,6 +76,18 @@ namespace s3d
 
 		m_initialized = true;
 	}
+
+	void Texture_D3D11::beginResize()
+	{
+		*this = Texture_D3D11();
+	}
+
+	bool Texture_D3D11::endResize(BackBuffer, ID3D11Device* const device, IDXGISwapChain* const swapChain)
+	{
+		*this = Texture_D3D11(BackBuffer{}, device, swapChain);
+
+		return isInitialized();
+	}
 }
 
 # endif

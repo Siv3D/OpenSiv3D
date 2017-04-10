@@ -61,6 +61,16 @@ namespace s3d
 		return m_textures[handleID]->getSize();
 	}
 
+	void CTextureD3D11::beginResize(const Texture::IDType handleID)
+	{
+		m_textures[handleID]->beginResize();
+	}
+
+	bool CTextureD3D11::endResizeBackBuffer(const Texture::IDType handleID)
+	{
+		return m_textures[handleID]->endResize(Texture_D3D11::BackBuffer{}, m_device, m_swapChain);
+	}
+
 	ID3D11RenderTargetView* CTextureD3D11::getRTV(const Texture::IDType handleID)
 	{
 		return m_textures[handleID]->getRTV();
