@@ -26,6 +26,7 @@ namespace s3d
 	class ISiv3DKeyboard;
 	class ISiv3DMouse;
 	class ISiv3DGraphics;
+	class ISiv3DTexture;
 
 	template <class Interface>
 	class Siv3DComponent
@@ -86,6 +87,8 @@ namespace s3d
 		Siv3DComponent<ISiv3DMouse> m_mouse;
 
 		Siv3DComponent<ISiv3DGraphics> m_graphics;
+
+		Siv3DComponent<ISiv3DTexture> m_texture;
 
 	public:
 
@@ -156,6 +159,11 @@ namespace s3d
 		static ISiv3DGraphics* GetGraphics()
 		{
 			return pEngine->m_graphics.get();
+		}
+
+		static ISiv3DTexture* GetTexture()
+		{
+			return pEngine->m_texture.get();
 		}
 	};
 }

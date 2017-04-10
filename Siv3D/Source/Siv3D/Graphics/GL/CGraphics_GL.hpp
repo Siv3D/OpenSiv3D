@@ -16,6 +16,7 @@
 # include "../../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 # include "../IGraphics.hpp"
 # include "../../Window/IWindow.hpp"
+# include "../../Texture/GL/CTextureGL.hpp"
 # include <Siv3D/Color.hpp>
 
 namespace s3d
@@ -29,6 +30,8 @@ namespace s3d
 		ColorF m_clearColor = Color(11, 22, 33);
 		
 		bool m_vsync = true;
+
+		CTextureGL* m_texture;
 
 	public:
 

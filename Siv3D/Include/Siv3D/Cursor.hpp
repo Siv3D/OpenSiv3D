@@ -11,6 +11,7 @@
 
 # pragma once
 # include "Fwd.hpp"
+# include "PointVector.hpp"
 
 namespace s3d
 {
@@ -63,5 +64,17 @@ namespace s3d
 		/// 1 つ前のフレームと比べたマウスカーソルの移動量（スクリーン座標）
 		/// </returns>
 		const Point& ScreenDelta();
+
+		void SetPos(int32 x, int32 y);
+
+		inline void SetPos(const Point& pos)
+		{
+			SetPos(pos.x, pos.y);
+		}
+
+		bool OnClient();
+
+		// macOS 未実装
+		void Clip(const Optional<Rect>& rect);
 	}
 }

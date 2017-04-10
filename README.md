@@ -116,22 +116,31 @@
 - [x] System::FrameCount()
 - [x] System::DeltaTime()
 - [x] Graphics::EnableVSync()
-- [ ] Log
-- [ ] Cursor::SetPos()
-- [ ] Cursor::OnClient()
-- [ ] Cursor::Clip()
-- [ ] UID
-- [ ] TextureFormat (Partial)
-- [ ] Point::paint() / overpaint()
-- [ ] Resource files
+- [x] ReaderView
+- [x] MemoryWriter
+- [x] Cursor::SetPos()
+- [x] Cursor::OnClient()
+- [x] Cursor::Clip()
+- [x] Resource
+- [x] Window::Resize()
+- [ ] HTMLWriter
 
 ---------------------------
 
 #### 0.1.0
+- [ ] TextureFormat (Partial)
+- [ ] Point::draw()
 - [ ] Rect::draw()
 - [ ] Line::draw()
 - [ ] Triangle::draw()
-- [ ] GIF Animation
+
+---------------------------
+
+#### 0.1.1
+- [ ] Rect::drawFrame()
+- [ ] WindowState
+- [ ] Log
+- [ ] UID
 
 ## Discussion ##
  [Siv3D Slack #open-siv3d](https://siv3d.slack.com/messages/open-siv3d/details/)  (Japanese)

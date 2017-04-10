@@ -159,6 +159,8 @@
 //
 	// ファイルとディレクトリ
 	# include "Siv3D/FileSystem.hpp"
+	// リソースファイル
+	# include "Siv3D/Resource.hpp"
 	//// ファイルとディレクトリの変更の監視
 	//# include "Siv3D/FileMonitor.hpp"
 	// IReader インタフェース
@@ -173,8 +175,8 @@
 	# include "Siv3D/WritableMemoryMapping.hpp"
 	// 読み込み用バッファ
 	# include "Siv3D/ByteArray.hpp"
-	//// 書き込み用バッファ
-	//# include "Siv3D/MemoryWriter.hpp"
+	// 書き込み用バッファ
+	# include "Siv3D/MemoryWriter.hpp"
 	// バイナリファイルの読み込み
 	# include "Siv3D/BinaryReader.hpp"
 	// バイナリファイルの書き込み
@@ -305,8 +307,8 @@
 	# include "Siv3D/Easing.hpp"
 	//// イージング ユーティリティ
 	//# include "Siv3D/EasingController.hpp"
-	//// 2D 幾何
-	//# include "Siv3D/Geometry2D.hpp"
+	// 2D 幾何
+	# include "Siv3D/Geometry2D.hpp"
 	// Perlin Noise
 	# include "Siv3D/PerlinNoise.hpp"
 	//// スプライン
@@ -328,8 +330,8 @@
 	# include "Siv3D/Image.hpp"
 	// 画像デコーダ・エンコーダインタフェース
 	# include "Siv3D/ImageFormat.hpp"
-	//// 画像のフォーマット
-	//# include "Siv3D/TextureFormat.hpp"
+	// 画像のフォーマット
+	# include "Siv3D/TextureFormat.hpp"
 	//// カスタムカラーフォーマット
 	//# include "Siv3D/CustomColor.hpp"
 	//// カスタムカラーフォーマットの画像
@@ -404,6 +406,8 @@
 	//# include "Siv3D/Dialog.hpp"
 	// プロファイリング
 	# include "Siv3D/Profiler.hpp"
+	// アセットハンドル
+	# include "Siv3D/AssetHandle.hpp"
 //
 // 入力デバイス
 //
@@ -478,8 +482,8 @@
 //
 // テクスチャ
 //
-	//// テクスチャ
-	//# include "Siv3D/Texture.hpp"
+	// テクスチャ
+	# include "Siv3D/Texture.hpp"
 	//// 領域を指定したテクスチャ
 	//# include "Siv3D/TextureRegion.hpp"
 	//// 四角形に貼り付けたテクスチャ
