@@ -104,6 +104,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\ParseFloat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ParseInt.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\PerlinNoise.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\PixelShader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Point.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\PointVector.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Profiler.hpp" />
@@ -122,6 +123,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextureFormat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Threading.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Triangle.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\VertexShader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Void_t.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Window.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\WritableMemoryMapping.hpp" />
@@ -216,6 +218,11 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Mouse\IMouse.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Profiler\CProfiler.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Profiler\IProfiler.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\D3D11\CShader_D3D11.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\D3D11\PixelShader_D3D11.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\D3D11\VertexShader_D3D11.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\GL\CShader_GL.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\IShader.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Siv3DEngine.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Siv3D_Linux.h" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\System\CSystem_Linux.hpp" />
@@ -224,9 +231,9 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\System\ISystem.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\TextReader\CTextReader.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\D3D11\BackBufferTexture.hpp" />
-    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\D3D11\CTextureD3D11.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\D3D11\CTexture_D3D11.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\D3D11\Texture_D3D11.hpp" />
-    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\GL\CTextureGL.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\GL\CTexture_GL.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\ITexture.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\TextWriter\CTextWriter.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Window\CWindow_Linux.hpp" />
@@ -401,12 +408,19 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Mouse\SivMouse.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ParseFloat\SivParseFloat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\PerlinNoise\SivPerlinNoise.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\PixelShader\SivPixelShader.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Point\SivPoint.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\CProfiler.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\ProfilerFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\SivProfiler.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Rectangle\SivRectangle.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Resource\SivResource.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\D3D11\CShader_D3D11.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\D3D11\PixelShader_D3D11.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\D3D11\VertexShader_D3D11.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\GL\CShader_GL.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\ShaderFactory.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\SivShader.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DEngine.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_Linux.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_macOS.cpp" />
@@ -420,7 +434,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\System\SystemFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextReader\CTextReader.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextReader\SivTextReader.cpp" />
-    <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\D3D11\CTextureD3D11.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\D3D11\CTexture_D3D11.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\D3D11\Texture_D3D11.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\SivTexture.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\TextureFactory.cpp" />
@@ -433,6 +447,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Vector2D\SivVector2D.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Vector3D\SivVector3D.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Vector4D\SivVector4D.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\VertexShader\SivVertexShader.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Window\CWindow_Linux.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Window\CWindow_macOS.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Window\CWindow_Windows.cpp" />

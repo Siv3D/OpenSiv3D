@@ -16,7 +16,7 @@
 # include "../../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 # include "../IGraphics.hpp"
 # include "../../Window/IWindow.hpp"
-# include "../../Texture/GL/CTextureGL.hpp"
+# include "../../Texture/GL/CTexture_GL.hpp"
 # include <Siv3D/Color.hpp>
 
 namespace s3d
@@ -31,7 +31,7 @@ namespace s3d
 		
 		bool m_vsync = true;
 
-		CTextureGL* m_texture;
+		CTexture_GL* m_texture;
 
 	public:
 

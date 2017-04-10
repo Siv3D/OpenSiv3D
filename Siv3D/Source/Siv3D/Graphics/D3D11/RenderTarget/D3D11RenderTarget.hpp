@@ -24,7 +24,7 @@ using namespace Microsoft::WRL;
 # include <d3d11.h>
 # include <Siv3D/Color.hpp>
 # include "../../../Texture/D3D11/BackBufferTexture.hpp"
-# include "../../../Texture/D3D11/CTextureD3D11.hpp"
+# include "../../../Texture/D3D11/CTexture_D3D11.hpp"
 
 namespace s3d
 {
@@ -38,7 +38,7 @@ namespace s3d
 
 		IDXGISwapChain* m_swapChain = nullptr;
 
-		CTextureD3D11* m_texture;
+		CTexture_D3D11* m_texture;
 
 		ColorF m_clearColor = Color(11, 22, 33);
 
@@ -46,7 +46,7 @@ namespace s3d
 		
 	public:
 
-		D3D11RenderTarget(ID3D11Device* device, ID3D11DeviceContext* context, IDXGISwapChain* swapChain, CTextureD3D11* texture);
+		D3D11RenderTarget(ID3D11Device* device, ID3D11DeviceContext* context, IDXGISwapChain* swapChain, CTexture_D3D11* texture);
 
 		~D3D11RenderTarget();
 

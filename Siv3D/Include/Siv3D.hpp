@@ -221,7 +221,7 @@
 	//# include "Siv3D/ZIPReader.hpp"
 	//// ZIP 圧縮ファイルの書き出し
 	//# include "Siv3D/ZIPWriter.hpp"
-	// HTML ファイルの書き込み
+	// HTML ファイルの書き出し
 	# include "Siv3D/HTMLWriter.hpp"
 //
 // 色
@@ -463,10 +463,10 @@
 	//# include "Siv3D/RenderState.hpp"
 	//// シェーダ
 	//# include "Siv3D/Shader.hpp"
-	//// 頂点シェーダ
-	//# include "Siv3D/VertexShader.hpp"
-	//// ピクセルシェーダ
-	//# include "Siv3D/PixelShader.hpp"
+	// 頂点シェーダ
+	# include "Siv3D/VertexShader.hpp"
+	// ピクセルシェーダ
+	# include "Siv3D/PixelShader.hpp"
 	//// 定数バッファ
 	//# include "Siv3D/ConstantBuffer.hpp"
 	//// 頂点レイアウト

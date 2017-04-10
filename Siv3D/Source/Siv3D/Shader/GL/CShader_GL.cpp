@@ -9,26 +9,28 @@
 //
 //-----------------------------------------------
 
-# pragma once
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
-# include "../ITexture.hpp"
+# include "CShader_GL.hpp"
 
 namespace s3d
 {
-	class CTextureGL : public ISiv3DTexture
+	CShader_GL::CShader_GL()
 	{
-	public:
 
-		bool init() { return true; }
+	}
 
-		Texture::IDType createFromBackBuffer() override;
+	CShader_GL::~CShader_GL()
+	{
 
-		void release(Texture::IDType handleID) override;
+	}
 
-		Size getSize(Texture::IDType handleID) override;
-	};
+	bool CShader_GL::init()
+	{
+
+		return true;
+	}
 }
 
 # endif
