@@ -1180,6 +1180,9 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\PixelShader.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\D3D11\VertexShader_D3D11.hpp">
+      <Filter>Source\Siv3D\Shader\D3D11</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1784,6 +1787,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\PixelShader\SivPixelShader.cpp">
       <Filter>Source\Siv3D\PixelShader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\D3D11\VertexShader_D3D11.cpp">
+      <Filter>Source\Siv3D\Shader\D3D11</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

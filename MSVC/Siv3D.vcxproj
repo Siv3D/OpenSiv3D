@@ -218,6 +218,7 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Profiler\CProfiler.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Profiler\IProfiler.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\D3D11\CShader_D3D11.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\D3D11\VertexShader_D3D11.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\GL\CShader_GL.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\IShader.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Siv3DEngine.hpp" />
@@ -413,6 +414,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Rectangle\SivRectangle.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Resource\SivResource.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\D3D11\CShader_D3D11.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\D3D11\VertexShader_D3D11.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\GL\CShader_GL.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\ShaderFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\SivShader.cpp" />

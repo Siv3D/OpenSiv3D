@@ -22,7 +22,10 @@
 # include <wrl.h>
 using namespace Microsoft::WRL;
 # include <d3d11.h>
+# include <d3dcompiler.h>
 # include "../IShader.hpp"
+# include "VertexShader_D3D11.hpp"
+# include "../../AssetHandleManager/AssetHandleManager.hpp"
 
 namespace s3d
 {
@@ -34,6 +37,14 @@ namespace s3d
 
 		ID3D11DeviceContext* m_context = nullptr;
 
+		HINSTANCE m_d3dcompiler = nullptr;
+
+		decltype(D3DCompile2)* p_D3DCompile2 = nullptr;
+
+		AssetHandleManager<VertexShader::IDType, std::shared_ptr<VertexShader_D3D11>> m_vertexShaders{ L"VertexShader" };
+
+		bool compileHLSL(IReader& reader, ByteArray& to);
+
 	public:
 
 		CShader_D3D11();
@@ -42,7 +53,7 @@ namespace s3d
 
 		bool init(ID3D11Device* device, ID3D11DeviceContext* context);
 
-		VertexShader::IDType createVS(IReader&& reader) override { return 0; }
+		VertexShader::IDType createVS(IReader&& reader) override;
 
 		PixelShader::IDType createPS(IReader&& reader) override { return 0; }
 
