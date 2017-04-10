@@ -328,8 +328,8 @@
 	# include "Siv3D/Image.hpp"
 	// 画像デコーダ・エンコーダインタフェース
 	# include "Siv3D/ImageFormat.hpp"
-	//// 画像のフォーマット
-	//# include "Siv3D/TextureFormat.hpp"
+	// 画像のフォーマット
+	# include "Siv3D/TextureFormat.hpp"
 	//// カスタムカラーフォーマット
 	//# include "Siv3D/CustomColor.hpp"
 	//// カスタムカラーフォーマットの画像
@@ -404,6 +404,8 @@
 	//# include "Siv3D/Dialog.hpp"
 	// プロファイリング
 	# include "Siv3D/Profiler.hpp"
+	// アセットハンドル
+	# include "Siv3D/AssetHandle.hpp"
 //
 // 入力デバイス
 //
@@ -478,8 +480,8 @@
 //
 // テクスチャ
 //
-	//// テクスチャ
-	//# include "Siv3D/Texture.hpp"
+	// テクスチャ
+	# include "Siv3D/Texture.hpp"
 	//// 領域を指定したテクスチャ
 	//# include "Siv3D/TextureRegion.hpp"
 	//// 四角形に貼り付けたテクスチャ

@@ -1111,6 +1111,12 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\GL\CTextureGL.hpp">
       <Filter>Source\Siv3D\Texture\GL</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\AssetHandle.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Texture.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
