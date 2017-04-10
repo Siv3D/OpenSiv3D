@@ -19,7 +19,7 @@ x64/
 x86/
 build/
 bld/
-[Bb]in/
+[Bb]in/*
 [Oo]bj/
 [Ii]ntermediate/
 [Dd]ebug-x64/
@@ -300,7 +300,7 @@ siv3d.a
 **/*.xcodeproj/*
 !**/*.xcodeproj/project.pbxproj
 !**/*.xcodeproj/project.xcworkspace/contents.xcoworkspacedata
-!Xcode/bin/engine/*
+!engine/
 
 # Linux
 # =========================
