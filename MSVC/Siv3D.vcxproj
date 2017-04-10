@@ -73,6 +73,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\HashMap.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\HighPerfoemanceGPU.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\HSV.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\HTMLWriter.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ImageFormat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Image.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\InfiniteList.hpp" />
