@@ -58,6 +58,9 @@
 		2C2126971E9A5AAE006F8101 /* SivGeometry2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2126961E9A5AAE006F8101 /* SivGeometry2D.cpp */; };
 		2C21269B1E9A62F3006F8101 /* CCursor_macOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C21269A1E9A62F3006F8101 /* CCursor_macOS.mm */; };
 		2C2CCF511CE8698C001844FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2CCF501CE8698C001844FF /* Foundation.framework */; };
+		2C316E161E9B37FD0011CAAE /* Resource.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E151E9B37FD0011CAAE /* Resource.hpp */; };
+		2C316E191E9B38200011CAAE /* SivResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E181E9B38200011CAAE /* SivResource.cpp */; };
+		2C316E1B1E9B3B260011CAAE /* engine in Resources */ = {isa = PBXBuildFile; fileRef = 2C316E1A1E9B3B260011CAAE /* engine */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
 		2C81BECE1E89F8E300D27E52 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C81BC981E89F8E300D27E52 /* format.h */; };
@@ -602,6 +605,9 @@
 		2C2126961E9A5AAE006F8101 /* SivGeometry2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGeometry2D.cpp; sourceTree = "<group>"; };
 		2C21269A1E9A62F3006F8101 /* CCursor_macOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCursor_macOS.mm; sourceTree = "<group>"; };
 		2C2CCF501CE8698C001844FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2C316E151E9B37FD0011CAAE /* Resource.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Resource.hpp; sourceTree = "<group>"; };
+		2C316E181E9B38200011CAAE /* SivResource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivResource.cpp; sourceTree = "<group>"; };
+		2C316E1A1E9B3B260011CAAE /* engine */ = {isa = PBXFileReference; lastKnownFileType = folder; name = engine; path = bin/engine; sourceTree = SOURCE_ROOT; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
 		2C5869261E3F0C620028B9F0 /* lpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lpng.a; sourceTree = "<group>"; };
@@ -1258,6 +1264,14 @@
 			path = Geometry2D;
 			sourceTree = "<group>";
 		};
+		2C316E171E9B38200011CAAE /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				2C316E181E9B38200011CAAE /* SivResource.cpp */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		2C38B1471CDEB45C007A7E9F /* Lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -1431,6 +1445,7 @@
 				2C21267B1E9534A4006F8101 /* ReaderView.hpp */,
 				2C81BCFB1E89F8E300D27E52 /* Rectangle.hpp */,
 				2C81BCFC1E89F8E300D27E52 /* Regex.hpp */,
+				2C316E151E9B37FD0011CAAE /* Resource.hpp */,
 				2C81BCFD1E89F8E300D27E52 /* SpeedStopwatch.hpp */,
 				2C81BCFE1E89F8E300D27E52 /* Spherical.hpp */,
 				2C81BCFF1E89F8E300D27E52 /* Step.hpp */,
@@ -1476,6 +1491,7 @@
 		2C81BD1D1E89F8E300D27E52 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C316E171E9B38200011CAAE /* Resource */,
 				2C2126951E9A5AAE006F8101 /* Geometry2D */,
 				2C21268C1E9A4001006F8101 /* MemoryWriter */,
 				2C21267F1E97D11D006F8101 /* Profiler */,
@@ -2548,6 +2564,7 @@
 		2CA7F74D1CA7F43D00495647 /* Siv3D-Test */ = {
 			isa = PBXGroup;
 			children = (
+				2C316E1A1E9B3B260011CAAE /* engine */,
 				2CA79A9B1DF55A410028D11D /* Test */,
 				2C17773E1CDEE5D500BB8AD0 /* Include */,
 				2C38B1471CDEB45C007A7E9F /* Lib */,
@@ -2614,6 +2631,7 @@
 				2C81BF121E89F8E300D27E52 /* MathConstants.hpp in Headers */,
 				2C81BFAC1E89F8E300D27E52 /* CINIReader.hpp in Headers */,
 				2C81BEF31E89F8E300D27E52 /* Format.hpp in Headers */,
+				2C316E161E9B37FD0011CAAE /* Resource.hpp in Headers */,
 				2C81C04F1E89F8E300D27E52 /* entropy_encode.h in Headers */,
 				2C81BF531E89F8E300D27E52 /* CBigFloat.hpp in Headers */,
 				2C81C0621E89F8E300D27E52 /* jpeg_error.h in Headers */,
@@ -2937,6 +2955,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C316E1B1E9B3B260011CAAE /* engine in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3033,6 +3052,7 @@
 				2C81C0681E89F8E300D27E52 /* preprocess_downsample.cc in Sources */,
 				2C81BF951E89F8E300D27E52 /* D3D11RenderTarget.cpp in Sources */,
 				2C81C0AF1E8A37AC00D27E52 /* SivFileSystem_Windows.cpp in Sources */,
+				2C316E191E9B38200011CAAE /* SivResource.cpp in Sources */,
 				2C2126591E8CB7B5006F8101 /* openbsd-reallocarray.c in Sources */,
 				2C81BF9F1E89F8E300D27E52 /* SivImage.cpp in Sources */,
 				2C81BFE51E89F8E300D27E52 /* SivSystem.mm in Sources */,

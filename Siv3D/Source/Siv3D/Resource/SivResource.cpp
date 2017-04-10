@@ -71,6 +71,8 @@ namespace s3d
 # include <Siv3D/String.hpp>
 # include <Siv3D/FileSystem.hpp>
 
+#include <Siv3D/Logger.hpp>
+
 namespace s3d
 {
 	namespace detail
@@ -78,11 +80,15 @@ namespace s3d
 		static Array<FilePath> GetResourceFilePaths()
 		{
 			const FilePath resourcePath = FileSystem::ModulePath() + L"/Contents/Resources/";
+			
+			Array<FilePath> paths = FileSystem::DirectoryContents(resourcePath, true);
+		
+			paths.remove(resourcePath + L"icon.icns");
 
-			Array<FilePath> files = FileSystem::DirectoryContents(resourcePath, true);
-
-			files.remove(resourcePath + L"icon.icns");
-
+			paths.remove_if([](const FilePath& path){ return FileSystem::IsDirectory(path); });
+			
+			paths.sort();
+			
 			return paths;
 		}
 	}
@@ -94,7 +100,7 @@ namespace s3d
 		return paths;
 	}
 
-	FilePath File(const FilePath& path)
+	FilePath Resource(const FilePath& path)
 	{
 		if (FileSystem::IsResource(path))
 		{
@@ -124,7 +130,7 @@ namespace s3d
 		return paths;
 	}
 
-	FilePath File(const FilePath& path)
+	FilePath Resource(const FilePath& path)
 	{
 		// [Siv3D ToDo]
 
