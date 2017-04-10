@@ -37,9 +37,41 @@ namespace s3d
 	}
 
 	VertexShader::VertexShader(const FilePath& path)
-		: m_handle(std::make_shared<VertexShaderHandle>(Siv3DEngine::GetShader()->createVS(BinaryReader(path))))
+		: VertexShader()
 	{
+	# if defined(SIV3D_TARGET_WINDOWS)
 
+		BinaryReader reader(path);
+
+		if (!reader.isOpened() || reader.size() == 0 || !reader.supportsLookahead())
+		{
+			return;
+		}
+
+		static constexpr uint8 dxbc[4] = { 'D', 'X', 'B', 'C' };
+		uint8 fourcc[4];
+
+		if (!reader.lookahead(fourcc))
+		{
+			return;
+		}
+
+		const bool isBinary = (::memcmp(dxbc, fourcc, 4) == 0);
+
+		ByteArray memory;
+
+		if (isBinary)
+		{
+			memory = reader.readAll();
+		}
+		else if (!Siv3DEngine::GetShader()->compileHLSL(reader, memory, reader.path().narrow().c_str(), "VS", "vs_4_0"))
+		{
+			return;
+		}
+
+		m_handle = std::make_shared<VertexShaderHandle>(Siv3DEngine::GetShader()->createVS(std::move(memory)));
+
+	# endif
 	}
 
 	VertexShader::~VertexShader()

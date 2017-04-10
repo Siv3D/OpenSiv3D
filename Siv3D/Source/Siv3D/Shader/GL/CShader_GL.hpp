@@ -29,9 +29,14 @@ namespace s3d
 
 		bool init();
 
-		VertexShader::IDType createVS(IReader&& reader) override { return 0; }
+		bool compileHLSL(IReader& reader, ByteArray& to, const char* filePath, const char* entryPoint, const char*target) override
+		{
+			return false;
+		}
 
-		PixelShader::IDType createPS(IReader&& reader) override { return 0; }
+		VertexShader::IDType createVS(ByteArray&& binary) override { return 0; }
+
+		PixelShader::IDType createPS(ByteArray&& binary) override { return 0; }
 
 		void releaseVS(VertexShader::IDType handleID) override {}
 

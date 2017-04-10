@@ -25,12 +25,7 @@ namespace s3d
 	VertexShader_D3D11::VertexShader_D3D11(ByteArray&& binary, ID3D11Device* const device)
 		: m_binary(std::move(binary))
 	{
-		if (FAILED(device->CreateVertexShader(
-			m_binary.data(),
-			static_cast<size_t>(m_binary.size()),
-			nullptr,
-			&m_shader
-		)))
+		if (FAILED(device->CreateVertexShader(m_binary.data(), static_cast<size_t>(m_binary.size()), nullptr, &m_shader)))
 		{
 			return;
 		}

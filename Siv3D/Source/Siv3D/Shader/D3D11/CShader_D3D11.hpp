@@ -43,8 +43,6 @@ namespace s3d
 
 		AssetHandleManager<VertexShader::IDType, std::shared_ptr<VertexShader_D3D11>> m_vertexShaders{ L"VertexShader" };
 
-		bool compileHLSL(IReader& reader, ByteArray& to, const std::string& entryPoint, const std::string& target);
-
 	public:
 
 		CShader_D3D11();
@@ -53,9 +51,11 @@ namespace s3d
 
 		bool init(ID3D11Device* device, ID3D11DeviceContext* context);
 
-		VertexShader::IDType createVS(IReader&& reader) override;
+		bool compileHLSL(IReader& reader, ByteArray& to, const char* filePath, const char* entryPoint, const char* target) override;
 
-		PixelShader::IDType createPS(IReader&& reader) override { return 0; }
+		VertexShader::IDType createVS(ByteArray&& binary) override;
+
+		PixelShader::IDType createPS(ByteArray&& binary) override { return 0; }
 
 		void releaseVS(VertexShader::IDType handleID) override {}
 

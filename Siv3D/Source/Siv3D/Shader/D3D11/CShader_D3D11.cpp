@@ -16,6 +16,7 @@
 # include "../../EngineUtility.hpp"
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/ByteArray.hpp>
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -66,49 +67,7 @@ namespace s3d
 		return true;
 	}
 
-	VertexShader::IDType CShader_D3D11::createVS(IReader&& reader)
-	{
-		if (!reader.isOpened() || reader.size() == 0 || !reader.supportsLookahead())
-		{
-			return VertexShader::IDType(0);
-		}
-
-		static constexpr uint8 dxbc[4] = { 'D', 'X', 'B', 'C' };
-		uint8 fourcc[4];
-
-		if (!reader.lookahead(fourcc))
-		{
-			return VertexShader::IDType(0);
-		}
-
-		const bool isBinary = (::memcmp(dxbc, fourcc, 4) == 0);
-
-		ByteArray binary;
-
-		if (isBinary)
-		{
-			Array<Byte> data(static_cast<size_t>(reader.size()));
-
-			reader.read(data.data(), data.size());
-
-			binary.create(std::move(data));
-		}
-		else if (!compileHLSL(reader, binary, "VS", "vs_4_0"))
-		{
-			return VertexShader::IDType(0);
-		}
-
-		const auto vertexShader = std::make_shared<VertexShader_D3D11>(std::move(binary), m_device);
-
-		if (!vertexShader->isInitialized())
-		{
-			return VertexShader::IDType(0);
-		}
-
-		return m_vertexShaders.add(vertexShader);
-	}
-
-	bool CShader_D3D11::compileHLSL(IReader& reader, ByteArray& to, const std::string& entryPoint, const std::string& target)
+	bool CShader_D3D11::compileHLSL(IReader& reader, ByteArray& to, const char* filePath, const char* entryPoint, const char* target)
 	{
 		if (!p_D3DCompile2)
 		{
@@ -128,10 +87,8 @@ namespace s3d
 
 		ID3DBlob* pBlobOut = nullptr;
 		ID3DBlob* pErrorBlob = nullptr;
-		const HRESULT hr = p_D3DCompile2(data.data(), data.size(), nullptr, nullptr, nullptr,
-			entryPoint.c_str(),
-			target.c_str(),
-			flags, 0, 0, nullptr, 0, &pBlobOut, &pErrorBlob);
+		const HRESULT hr = p_D3DCompile2(data.data(), data.size(), filePath, nullptr, nullptr,
+			entryPoint, target, flags, 0, 0, nullptr, 0, &pBlobOut, &pErrorBlob);
 
 		if (pErrorBlob)
 		{
@@ -153,8 +110,20 @@ namespace s3d
 		to.create(pBlobOut->GetBufferPointer(), pBlobOut->GetBufferSize());
 
 		pBlobOut->Release();
-		
+
 		return true;
+	}
+
+	VertexShader::IDType CShader_D3D11::createVS(ByteArray&& binary)
+	{
+		const auto vertexShader = std::make_shared<VertexShader_D3D11>(std::move(binary), m_device);
+
+		if (!vertexShader->isInitialized())
+		{
+			return VertexShader::IDType(0);
+		}
+
+		return m_vertexShaders.add(vertexShader);
 	}
 }
 

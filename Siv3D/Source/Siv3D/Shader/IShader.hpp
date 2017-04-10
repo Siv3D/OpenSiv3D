@@ -24,9 +24,11 @@ namespace s3d
 
 		virtual ~ISiv3DShader() = default;
 
-		virtual VertexShader::IDType createVS(IReader&& reader) = 0;
+		virtual bool compileHLSL(IReader& reader, ByteArray& to, const char* filePath, const char* entryPoint, const char* target) = 0;
 
-		virtual PixelShader::IDType createPS(IReader&& reader) = 0;
+		virtual VertexShader::IDType createVS(ByteArray&& binary) = 0;
+
+		virtual PixelShader::IDType createPS(ByteArray&& binary) = 0;
 
 		virtual void releaseVS(VertexShader::IDType handleID) = 0;
 

@@ -37,9 +37,41 @@ namespace s3d
 	}
 
 	PixelShader::PixelShader(const FilePath& path)
-		: m_handle(std::make_shared<PixelShaderHandle>(Siv3DEngine::GetShader()->createPS(BinaryReader(path))))
+		: PixelShader()
 	{
+	# if defined(SIV3D_TARGET_WINDOWS)
 
+		BinaryReader reader(path);
+
+		if (!reader.isOpened() || reader.size() == 0 || !reader.supportsLookahead())
+		{
+			return;
+		}
+
+		static constexpr uint8 dxbc[4] = { 'D', 'X', 'B', 'C' };
+		uint8 fourcc[4];
+
+		if (!reader.lookahead(fourcc))
+		{
+			return;
+		}
+
+		const bool isBinary = (::memcmp(dxbc, fourcc, 4) == 0);
+
+		ByteArray memory;
+
+		if (isBinary)
+		{
+			memory = reader.readAll();
+		}
+		else if (!Siv3DEngine::GetShader()->compileHLSL(reader, memory, reader.path().narrow().c_str(), "PS", "ps_4_0"))
+		{
+			return;
+		}
+
+		m_handle = std::make_shared<PixelShaderHandle>(Siv3DEngine::GetShader()->createPS(std::move(memory)));
+
+	# endif
 	}
 
 	PixelShader::~PixelShader()
