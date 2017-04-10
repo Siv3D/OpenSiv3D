@@ -17,6 +17,23 @@ namespace s3d
 		: m_device(device)
 		, m_context(context)
 	{
+		D3D11_RASTERIZER_DESC desc{};
+		desc.FillMode				= D3D11_FILL_SOLID;
+		desc.CullMode				= D3D11_CULL_BACK;
+		desc.FrontCounterClockwise	= false;
+		desc.DepthBias				= 0;
+		desc.DepthBiasClamp			= 0.0f;
+		desc.SlopeScaledDepthBias	= 0.0f;
+		desc.DepthClipEnable		= true;
+		desc.ScissorEnable			= false;
+		desc.MultisampleEnable		= false;
+		desc.AntialiasedLineEnable	= false;
 
+		if (FAILED(m_device->CreateRasterizerState(&desc, &m_state)))
+		{
+			return;
+		}
+
+		m_context->RSSetState(m_state.Get());
 	}
 }

@@ -30,6 +30,8 @@ namespace s3d
 
 		ID3D11DeviceContext* m_context = nullptr;
 
+		ComPtr<ID3D11BlendState> m_state;
+
 	public:
 
 		D3D11BlendState(ID3D11Device* device, ID3D11DeviceContext* context);

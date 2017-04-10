@@ -22,7 +22,7 @@ using namespace Microsoft::WRL;
 
 namespace s3d
 {
-	class D3D11RasterizerState
+	class D3D11SamplerState
 	{
 	private:
 
@@ -30,10 +30,10 @@ namespace s3d
 
 		ID3D11DeviceContext* m_context = nullptr;
 
-		ComPtr<ID3D11RasterizerState> m_state;
+		ComPtr<ID3D11SamplerState> m_state;
 
 	public:
 
-		D3D11RasterizerState(ID3D11Device* device, ID3D11DeviceContext* context);
+		D3D11SamplerState(ID3D11Device* device, ID3D11DeviceContext* context);
 	};
 }

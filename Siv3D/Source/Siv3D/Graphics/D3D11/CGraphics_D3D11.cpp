@@ -85,6 +85,24 @@ namespace s3d
 		//
 		m_pBlendState = std::make_unique<D3D11BlendState>(m_device->getDevice(), m_device->getContext());
 
+		//////////////////////////////////////////////////////
+		//
+		//	 D3D11RasterizerState
+		//
+		m_pRasterizerState = std::make_unique<D3D11RasterizerState>(m_device->getDevice(), m_device->getContext());
+
+		//////////////////////////////////////////////////////
+		//
+		//	 D3D11DepthStencilState
+		//
+		m_pDepthStencilState = std::make_unique<D3D11DepthStencilState>(m_device->getDevice(), m_device->getContext());
+
+		//////////////////////////////////////////////////////
+		//
+		//	 D3D11SamplerState
+		//
+		m_pSamplerState = std::make_unique<D3D11SamplerState>(m_device->getDevice(), m_device->getContext());
+
 		return true;
 	}
 
