@@ -86,6 +86,11 @@ namespace s3d
 
 		return m_vertexShaders.add(vertexShader);
 	}
+
+	bool CShader_D3D11::compileHLSL(IReader& reader, ByteArray& to)
+	{
+		return false;
+	}
 }
 
 # endif
