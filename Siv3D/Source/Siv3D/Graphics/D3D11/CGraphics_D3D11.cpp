@@ -12,6 +12,7 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_WINDOWS)
 
+# include "../../Siv3DEngine.hpp"
 # include "CGraphics_D3D11.hpp"
 
 namespace s3d
@@ -57,6 +58,22 @@ namespace s3d
 		m_renderTarget = std::make_unique<D3D11RenderTarget>(m_device->getDevice(), m_device->getContext(), m_swapChain->getSwapChain());
 
 		if (!m_renderTarget->init())
+		{
+			return false;
+		}
+
+		//////////////////////////////////////////////////////
+		//
+		//	 CTextureD3D11
+		//
+		m_texture = dynamic_cast<CTextureD3D11*>(Siv3DEngine::GetTexture());
+
+		if (!m_texture)
+		{
+			return false;
+		}
+
+		if (!m_texture->init(m_device->getDevice(), m_swapChain->getSwapChain()))
 		{
 			return false;
 		}

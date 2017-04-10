@@ -67,6 +67,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Geometry2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Graphics.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Grid.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\AssetHandle.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\HardwareRNG.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Hash.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\HashMap.hpp" />
@@ -116,6 +117,8 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Regex.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Resource.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Spherical.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Texture.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\TextureFormat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Threading.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Triangle.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Void_t.hpp" />
@@ -214,6 +217,10 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\System\CSystem_Windows.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\System\ISystem.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\TextReader\CTextReader.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\D3D11\CTextureD3D11.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\D3D11\Texture_D3D11.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\GL\CTextureGL.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\ITexture.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\TextWriter\CTextWriter.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Window\CWindow_Linux.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Window\CWindow_macOS.hpp" />
@@ -402,6 +409,9 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\System\SystemFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextReader\CTextReader.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextReader\SivTextReader.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\D3D11\CTextureD3D11.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\D3D11\Texture_D3D11.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\TextureFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextWriter\CTextWriter.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextWriter\SivTextWriter.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Threading\SivThreading.cpp" />

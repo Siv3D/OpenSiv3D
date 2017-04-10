@@ -18,6 +18,7 @@
 # include "Device/D3D11Device.hpp"
 # include "SwapChain/D3D11SwapChain.hpp"
 # include "RenderTarget/D3D11RenderTarget.hpp"
+# include "../../Texture/D3D11/CTextureD3D11.hpp"
 
 namespace s3d
 {
@@ -30,6 +31,8 @@ namespace s3d
 		std::unique_ptr<D3D11SwapChain> m_swapChain;
 
 		std::unique_ptr<D3D11RenderTarget> m_renderTarget;
+
+		CTextureD3D11* m_texture;
 
 	public:
 
