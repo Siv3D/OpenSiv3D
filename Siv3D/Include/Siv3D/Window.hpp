@@ -91,5 +91,45 @@ namespace s3d
 		void SetPos(const Point& pos);
 
 		void Centering();
+
+		/// <summary>
+		/// ウィンドウのサイズを変更します。
+		/// </summary>
+		/// <param name="width">
+		/// 新しいウィンドウのクライアント領域の幅(ピクセル）
+		/// </param>
+		/// <param name="height">
+		/// 新しいウィンドウのクライアント領域の高さ(ピクセル）
+		/// </param>
+		/// <param name="centering">
+		/// サイズ変更後にセンタリングするか
+		/// </param>
+		/// <remarks>
+		/// フルスクリーンの場合、この関数は失敗します。
+		/// </remarks>
+		/// <returns>
+		/// サイズの変更に成功したら true, それ以外の場合は false 
+		/// </returns>
+		bool Resize(int32 width, int32 height, bool centering = true);
+
+		/// <summary>
+		/// ウィンドウのサイズを変更します。
+		/// </summary>
+		/// <param name="size">
+		/// 新しいウィンドウのクライアント領域のサイズ(ピクセル）
+		/// </param>
+		/// <param name="centering">
+		/// サイズ変更後にセンタリングするか
+		/// </param>
+		/// <remarks>
+		/// フルスクリーンの場合、この関数は失敗します。
+		/// </remarks>
+		/// <returns>
+		/// サイズの変更に成功したら true, それ以外の場合は false 
+		/// </returns>
+		inline bool Resize(const s3d::Size& size, bool centering = true)
+		{
+			return Resize(size.x, size.y, centering);
+		}
 	}
 }

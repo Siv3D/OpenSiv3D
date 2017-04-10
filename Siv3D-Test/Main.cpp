@@ -4,6 +4,8 @@
 
 void Main()
 {
+	Window::Resize(1280, 720);
+
 	while (System::Update())
 	{
 		if (KeyR.down())
