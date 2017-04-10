@@ -16,6 +16,7 @@
 # include "../../EngineUtility.hpp"
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/ByteArray.hpp>
+# include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/Logger.hpp>
 
 namespace s3d
@@ -44,11 +45,11 @@ namespace s3d
 
 	# if defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64)
 
-		m_d3dcompiler = ::LoadLibraryW(L"dll(x64)/D3D/d3dcompiler_47.dll");
+		m_d3dcompiler = ::LoadLibraryW(L"dll_x64/d3d/d3dcompiler_47.dll");
 
 	# elif defined(SIV3D_TARGET_WINDOWS_DESKTOP_X86)
 
-		m_d3dcompiler = ::LoadLibraryW(L"dll(x86)/D3D/d3dcompiler_47.dll");
+		m_d3dcompiler = ::LoadLibraryW(L"dll_x86/d3d/d3dcompiler_47.dll");
 
 	# endif
 
@@ -83,6 +84,14 @@ namespace s3d
 
 			m_pixelShaders.setNullData(nullPixelShader);
 		}
+
+		///*
+		
+		compileHLSLToFile(L"engine/shader/sprite.hlsl", L"engine/shader/sprite.vs", "VS", "vs_4_0");
+		compileHLSLToFile(L"engine/shader/sprite.hlsl", L"engine/shader/sprite.ps", "PS", "ps_4_0");
+		compileHLSLToFile(L"engine/shader/shape.hlsl", L"engine/shader/shape.ps", "PS", "ps_4_0");
+
+		//*/
 
 		return true;
 	}
@@ -166,6 +175,19 @@ namespace s3d
 	void CShader_D3D11::releasePS(const PixelShader::IDType handleID)
 	{
 		m_pixelShaders.erase(handleID);
+	}
+
+	bool CShader_D3D11::compileHLSLToFile(const FilePath& hlsl, const FilePath& to, const char* entryPoint, const char* target)
+	{
+		BinaryReader reader(hlsl);
+		ByteArray binary;
+
+		if (!compileHLSL(reader, binary, hlsl.narrow().c_str(), entryPoint, target))
+		{
+			return false;
+		}
+
+		return binary.save(to);
 	}
 }
 

@@ -4,6 +4,10 @@
 
 void Main()
 {
+	VertexShader vs(L"engine/shader/sprite.hlsl");
+
+	Log << !vs.isEmpty();
+
 	Window::Resize(1280, 720);
 
 	while (System::Update())
