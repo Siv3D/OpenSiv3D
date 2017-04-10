@@ -219,6 +219,8 @@
 	//# include "Siv3D/ZIPReader.hpp"
 	//// ZIP 圧縮ファイルの書き出し
 	//# include "Siv3D/ZIPWriter.hpp"
+	// HTML ファイルの書き込み
+	# include "Siv3D/HTMLWriter.hpp"
 //
 // 色
 //
