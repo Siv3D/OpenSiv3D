@@ -23,6 +23,8 @@ namespace s3d
 		class Handle {};
 
 		using TextureHandle = AssetHandle<Handle>;
+		
+		friend TextureHandle::~AssetHandle();
 
 		std::shared_ptr<TextureHandle> m_handle;
 
