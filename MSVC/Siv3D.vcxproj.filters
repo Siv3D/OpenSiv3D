@@ -275,6 +275,9 @@
     <Filter Include="Source\Siv3D\Geometry2D">
       <UniqueIdentifier>{ef7a3a50-3fbd-42c1-b0a4-baea6070c9d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Resource">
+      <UniqueIdentifier>{5bd1eccc-0081-4c16-aec0-7d43decd5482}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1081,6 +1084,9 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Geometry2D.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Resource.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1640,6 +1646,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Geometry2D\SivGeometry2D.cpp">
       <Filter>Source\Siv3D\Geometry2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Resource\SivResource.cpp">
+      <Filter>Source\Siv3D\Resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
