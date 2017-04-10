@@ -43,6 +43,12 @@ namespace s3d
 
 		bool m_initialized = false;
 
+		bool isSRGB() const
+		{
+			// [Siv3D ToDo]
+			return false;
+		}
+
 	public:
 
 		struct Null {};
@@ -68,6 +74,8 @@ namespace s3d
 		{
 			return m_renderTargetView.Get();
 		}
+
+		void clearRT(ID3D11DeviceContext* context, const ColorF& color);
 
 		void beginResize();
 

@@ -32,6 +32,8 @@ namespace s3d
 
 		ID3D11Device* m_device = nullptr;
 
+		ID3D11DeviceContext* m_context = nullptr;
+
 		IDXGISwapChain* m_swapChain = nullptr;
 
 		AssetHandleManager<Texture::IDType, std::shared_ptr<Texture_D3D11>> m_textures{ L"Texture" };
@@ -40,13 +42,15 @@ namespace s3d
 
 		~CTextureD3D11() override;
 
-		bool init(ID3D11Device* device, IDXGISwapChain* swapChain);
+		bool init(ID3D11Device* device, ID3D11DeviceContext* context, IDXGISwapChain* swapChain);
 
 		Texture::IDType createFromBackBuffer() override;
 
 		void release(Texture::IDType handleID) override;
 
 		Size getSize(Texture::IDType handleID) override;
+
+		void clearRT(Texture::IDType handleID, const ColorF& color);
 
 		void beginResize(Texture::IDType handleID);
 

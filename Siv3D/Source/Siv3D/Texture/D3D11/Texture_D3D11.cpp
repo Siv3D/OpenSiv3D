@@ -77,6 +77,21 @@ namespace s3d
 		m_initialized = true;
 	}
 
+	void Texture_D3D11::clearRT(ID3D11DeviceContext* context, const ColorF& color)
+	{
+		const ColorF clearColor = isSRGB() ? color.gamma(1.0 / 2.2) : color;
+
+		const float colors[4]
+		{
+			static_cast<float>(clearColor.r),
+			static_cast<float>(clearColor.g),
+			static_cast<float>(clearColor.b),
+			static_cast<float>(clearColor.a),
+		};
+
+		context->ClearRenderTargetView(m_renderTargetView.Get(), colors);
+	}
+
 	void Texture_D3D11::beginResize()
 	{
 		*this = Texture_D3D11();

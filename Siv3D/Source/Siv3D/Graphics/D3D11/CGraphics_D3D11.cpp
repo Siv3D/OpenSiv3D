@@ -62,7 +62,7 @@ namespace s3d
 			return false;
 		}
 
-		if (!m_texture->init(m_device->getDevice(), m_swapChain->getSwapChain()))
+		if (!m_texture->init(m_device->getDevice(), m_device->getContext(), m_swapChain->getSwapChain()))
 		{
 			return false;
 		}

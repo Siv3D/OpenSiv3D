@@ -25,6 +25,11 @@ namespace s3d
 		BackBufferTexture()
 			: Texture(BackBuffer{}) {}
 
+		void clear(CTextureD3D11* texture, const ColorF& color)
+		{
+			texture->clearRT(m_handle->getID(), color);
+		}
+
 		void beginResize(CTextureD3D11* texture)
 		{
 			texture->beginResize(m_handle->getID());

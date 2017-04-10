@@ -62,15 +62,7 @@ namespace s3d
 
 	void D3D11RenderTarget::clear()
 	{
-		const float colors[4]
-		{
-			static_cast<float>(m_clearColor.r),
-			static_cast<float>(m_clearColor.g),
-			static_cast<float>(m_clearColor.b),
-			static_cast<float>(m_clearColor.a),
-		};
-
-		m_context->ClearRenderTargetView(m_texture->getRTV(m_backBuffer.id()), colors);
+		m_backBuffer.clear(m_texture, m_clearColor);
 	}
 
 	void D3D11RenderTarget::beginResize()

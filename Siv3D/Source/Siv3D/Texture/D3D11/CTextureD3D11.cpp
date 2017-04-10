@@ -22,9 +22,10 @@ namespace s3d
 		m_textures.destroy();
 	}
 
-	bool CTextureD3D11::init(ID3D11Device* const device, IDXGISwapChain* const swapChain)
+	bool CTextureD3D11::init(ID3D11Device* const device, ID3D11DeviceContext* const context, IDXGISwapChain* const swapChain)
 	{
 		m_device = device;
+		m_context = context;
 		m_swapChain = swapChain;
 
 		const auto nullTexture = std::make_shared<Texture_D3D11>(Texture_D3D11::Null{}, device);
@@ -59,6 +60,11 @@ namespace s3d
 	Size CTextureD3D11::getSize(const Texture::IDType handleID)
 	{
 		return m_textures[handleID]->getSize();
+	}
+
+	void CTextureD3D11::clearRT(Texture::IDType handleID, const ColorF& color)
+	{
+		m_textures[handleID]->clearRT(m_context, color);
 	}
 
 	void CTextureD3D11::beginResize(const Texture::IDType handleID)
