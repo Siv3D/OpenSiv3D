@@ -12,7 +12,7 @@ void Main()
 	Log << Image(L"example/siv3d-kun.png").size();
 
 	// exe 埋め込みリソースから
-	Log << Image(Resource(L"engine/siv3d-kun.png")).size();
+	Log << TextReader(Resource(L"engine/engine.txt")).readAll();
 
 	while (System::Update())
 	{
