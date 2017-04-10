@@ -92,6 +92,11 @@
 		2C316E701E9BB0CE0011CAAE /* CTextureGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E691E9BB0CE0011CAAE /* CTextureGL.cpp */; };
 		2C316E731E9BBA530011CAAE /* SivVertexShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E721E9BBA530011CAAE /* SivVertexShader.cpp */; };
 		2C316E761E9BBA630011CAAE /* SivPixelShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E751E9BBA630011CAAE /* SivPixelShader.cpp */; };
+		2C316E7B1E9BDA5F0011CAAE /* PixelShader_D3D11.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E771E9BDA5F0011CAAE /* PixelShader_D3D11.cpp */; };
+		2C316E7C1E9BDA5F0011CAAE /* PixelShader_D3D11.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E781E9BDA5F0011CAAE /* PixelShader_D3D11.hpp */; };
+		2C316E7D1E9BDA5F0011CAAE /* VertexShader_D3D11.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E791E9BDA5F0011CAAE /* VertexShader_D3D11.cpp */; };
+		2C316E7E1E9BDA5F0011CAAE /* VertexShader_D3D11.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E7A1E9BDA5F0011CAAE /* VertexShader_D3D11.hpp */; };
+		2C316E801E9BDA850011CAAE /* HTMLWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E7F1E9BDA850011CAAE /* HTMLWriter.hpp */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
 		2C81BECE1E89F8E300D27E52 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C81BC981E89F8E300D27E52 /* format.h */; };
@@ -670,6 +675,11 @@
 		2C316E691E9BB0CE0011CAAE /* CTextureGL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTextureGL.cpp; sourceTree = "<group>"; };
 		2C316E721E9BBA530011CAAE /* SivVertexShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivVertexShader.cpp; sourceTree = "<group>"; };
 		2C316E751E9BBA630011CAAE /* SivPixelShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivPixelShader.cpp; sourceTree = "<group>"; };
+		2C316E771E9BDA5F0011CAAE /* PixelShader_D3D11.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PixelShader_D3D11.cpp; sourceTree = "<group>"; };
+		2C316E781E9BDA5F0011CAAE /* PixelShader_D3D11.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PixelShader_D3D11.hpp; sourceTree = "<group>"; };
+		2C316E791E9BDA5F0011CAAE /* VertexShader_D3D11.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VertexShader_D3D11.cpp; sourceTree = "<group>"; };
+		2C316E7A1E9BDA5F0011CAAE /* VertexShader_D3D11.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = VertexShader_D3D11.hpp; sourceTree = "<group>"; };
+		2C316E7F1E9BDA850011CAAE /* HTMLWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HTMLWriter.hpp; sourceTree = "<group>"; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
 		2C5869261E3F0C620028B9F0 /* lpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lpng.a; sourceTree = "<group>"; };
@@ -1407,6 +1417,10 @@
 			children = (
 				2C316E521E9BAD790011CAAE /* CShader_D3D11.cpp */,
 				2C316E531E9BAD790011CAAE /* CShader_D3D11.hpp */,
+				2C316E771E9BDA5F0011CAAE /* PixelShader_D3D11.cpp */,
+				2C316E781E9BDA5F0011CAAE /* PixelShader_D3D11.hpp */,
+				2C316E791E9BDA5F0011CAAE /* VertexShader_D3D11.cpp */,
+				2C316E7A1E9BDA5F0011CAAE /* VertexShader_D3D11.hpp */,
 			);
 			path = D3D11;
 			sourceTree = "<group>";
@@ -1582,6 +1596,7 @@
 				2C81BCCD1E89F8E300D27E52 /* HashMap.hpp */,
 				2C81BCCE1E89F8E300D27E52 /* HighPerfoemanceGPU.hpp */,
 				2C81BCCF1E89F8E300D27E52 /* HSV.hpp */,
+				2C316E7F1E9BDA850011CAAE /* HTMLWriter.hpp */,
 				2C81BCD01E89F8E300D27E52 /* Image.hpp */,
 				2C81BCD11E89F8E300D27E52 /* ImageFormat.hpp */,
 				2C81BCD21E89F8E300D27E52 /* InfiniteList.hpp */,
@@ -2811,6 +2826,7 @@
 				2C316E5D1E9BAD790011CAAE /* CShader_GL.hpp in Headers */,
 				2C81BEDE1E89F8E300D27E52 /* Char.hpp in Headers */,
 				2C81BF151E89F8E300D27E52 /* MemoryMapping.hpp in Headers */,
+				2C316E801E9BDA850011CAAE /* HTMLWriter.hpp in Headers */,
 				2C81C0091E89F8E300D27E52 /* cached-powers.h in Headers */,
 				2C81BF081E89F8E300D27E52 /* IWriter.hpp in Headers */,
 				2C81BF5F1E89F8E300D27E52 /* CBinaryWriter_Linux.hpp in Headers */,
@@ -2889,6 +2905,7 @@
 				2C81BFF61E89F8E300D27E52 /* CWindow_Linux.hpp in Headers */,
 				2C316E6C1E9BB0CE0011CAAE /* CTexture_D3D11.hpp in Headers */,
 				2C81BFD51E89F8E300D27E52 /* Siv3D_macOS.h in Headers */,
+				2C316E7E1E9BDA5F0011CAAE /* VertexShader_D3D11.hpp in Headers */,
 				2C81BFD41E89F8E300D27E52 /* Siv3D_Linux.h in Headers */,
 				2C81BF481E89F8E300D27E52 /* WritableMemoryMapping.hpp in Headers */,
 				2C81BEFA1E89F8E300D27E52 /* Fwd.hpp in Headers */,
@@ -3025,6 +3042,7 @@
 				2C81C0031E89F8E300D27E52 /* butteraugli.h in Headers */,
 				2C81C05B1E89F8E300D27E52 /* jpeg_data_decoder.h in Headers */,
 				2C81BF9A1E89F8E300D27E52 /* CGraphics_GL.hpp in Headers */,
+				2C316E7C1E9BDA5F0011CAAE /* PixelShader_D3D11.hpp in Headers */,
 				2C81BF661E89F8E300D27E52 /* CByteArray.hpp in Headers */,
 				2C81BF221E89F8E300D27E52 /* PlatformWindows.hpp in Headers */,
 				2C81BFBA1E89F8E300D27E52 /* CLogger.hpp in Headers */,
@@ -3266,6 +3284,7 @@
 				2C81C0131E89F8E300D27E52 /* strtod.cc in Sources */,
 				2C81BF821E89F8E300D27E52 /* CDragDrop_Windows.cpp in Sources */,
 				2C81BFEB1E89F8E300D27E52 /* TextReader.mm in Sources */,
+				2C316E7D1E9BDA5F0011CAAE /* VertexShader_D3D11.cpp in Sources */,
 				2C81C0681E89F8E300D27E52 /* preprocess_downsample.cc in Sources */,
 				2C81BF951E89F8E300D27E52 /* D3D11RenderTarget.cpp in Sources */,
 				2C81C0AF1E8A37AC00D27E52 /* SivFileSystem_Windows.cpp in Sources */,
@@ -3368,6 +3387,7 @@
 				2C81BF761E89F8E300D27E52 /* CCursor_Windows.cpp in Sources */,
 				2C81BFF71E89F8E300D27E52 /* CWindow_macOS.cpp in Sources */,
 				2C81C09C1E89F8E400D27E52 /* huf_compress.c in Sources */,
+				2C316E7B1E9BDA5F0011CAAE /* PixelShader_D3D11.cpp in Sources */,
 				2C81BF911E89F8E300D27E52 /* CGraphics_D3D11.cpp in Sources */,
 				2C81C0A11E89F8E400D27E52 /* divsufsort.c in Sources */,
 				2C2126511E8CB7B5006F8101 /* egif_lib.c in Sources */,
