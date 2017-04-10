@@ -28,6 +28,14 @@ namespace s3d
 		~CShader_GL() override;
 
 		bool init();
+
+		VertexShader::IDType createVS(IReader&& reader) override { return 0; }
+
+		PixelShader::IDType createPS(IReader&& reader) override { return 0; }
+
+		void releaseVS(VertexShader::IDType handleID) override {}
+
+		void releasePS(PixelShader::IDType handleID) override {}
 	};
 }
 

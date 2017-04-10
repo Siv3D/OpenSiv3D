@@ -41,6 +41,14 @@ namespace s3d
 		~CShader_D3D11() override;
 
 		bool init(ID3D11Device* device, ID3D11DeviceContext* context);
+
+		VertexShader::IDType createVS(IReader&& reader) override { return 0; }
+
+		PixelShader::IDType createPS(IReader&& reader) override { return 0; }
+
+		void releaseVS(VertexShader::IDType handleID) override {}
+
+		void releasePS(PixelShader::IDType handleID) override {}
 	};
 }
 

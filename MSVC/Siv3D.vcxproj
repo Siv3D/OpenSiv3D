@@ -103,6 +103,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\ParseFloat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ParseInt.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\PerlinNoise.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\PixelShader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Point.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\PointVector.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Profiler.hpp" />
@@ -121,6 +122,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextureFormat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Threading.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Triangle.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\VertexShader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Void_t.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Window.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\WritableMemoryMapping.hpp" />
@@ -403,6 +405,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Mouse\SivMouse.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ParseFloat\SivParseFloat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\PerlinNoise\SivPerlinNoise.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\PixelShader\SivPixelShader.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Point\SivPoint.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\CProfiler.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\ProfilerFactory.cpp" />
@@ -439,6 +442,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Vector2D\SivVector2D.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Vector3D\SivVector3D.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Vector4D\SivVector4D.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\VertexShader\SivVertexShader.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Window\CWindow_Linux.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Window\CWindow_macOS.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Window\CWindow_Windows.cpp" />
