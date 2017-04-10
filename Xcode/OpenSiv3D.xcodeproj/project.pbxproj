@@ -61,6 +61,14 @@
 		2C316E161E9B37FD0011CAAE /* Resource.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E151E9B37FD0011CAAE /* Resource.hpp */; };
 		2C316E191E9B38200011CAAE /* SivResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E181E9B38200011CAAE /* SivResource.cpp */; };
 		2C316E1B1E9B3B260011CAAE /* engine in Resources */ = {isa = PBXBuildFile; fileRef = 2C316E1A1E9B3B260011CAAE /* engine */; };
+		2C316E1D1E9B625F0011CAAE /* TextureFormat.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E1C1E9B625F0011CAAE /* TextureFormat.hpp */; };
+		2C316E281E9B627B0011CAAE /* CTextureD3D11.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E201E9B627B0011CAAE /* CTextureD3D11.cpp */; };
+		2C316E291E9B627B0011CAAE /* CTextureD3D11.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E211E9B627B0011CAAE /* CTextureD3D11.hpp */; };
+		2C316E2A1E9B627B0011CAAE /* Texture_D3D11.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E221E9B627B0011CAAE /* Texture_D3D11.cpp */; };
+		2C316E2B1E9B627B0011CAAE /* Texture_D3D11.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E231E9B627B0011CAAE /* Texture_D3D11.hpp */; };
+		2C316E2C1E9B627B0011CAAE /* CTextureGL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E251E9B627B0011CAAE /* CTextureGL.hpp */; };
+		2C316E2D1E9B627B0011CAAE /* ITexture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E261E9B627B0011CAAE /* ITexture.hpp */; };
+		2C316E2E1E9B627B0011CAAE /* TextureFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E271E9B627B0011CAAE /* TextureFactory.cpp */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
 		2C81BECE1E89F8E300D27E52 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C81BC981E89F8E300D27E52 /* format.h */; };
@@ -608,6 +616,14 @@
 		2C316E151E9B37FD0011CAAE /* Resource.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Resource.hpp; sourceTree = "<group>"; };
 		2C316E181E9B38200011CAAE /* SivResource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivResource.cpp; sourceTree = "<group>"; };
 		2C316E1A1E9B3B260011CAAE /* engine */ = {isa = PBXFileReference; lastKnownFileType = folder; name = engine; path = bin/engine; sourceTree = SOURCE_ROOT; };
+		2C316E1C1E9B625F0011CAAE /* TextureFormat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextureFormat.hpp; sourceTree = "<group>"; };
+		2C316E201E9B627B0011CAAE /* CTextureD3D11.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTextureD3D11.cpp; sourceTree = "<group>"; };
+		2C316E211E9B627B0011CAAE /* CTextureD3D11.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTextureD3D11.hpp; sourceTree = "<group>"; };
+		2C316E221E9B627B0011CAAE /* Texture_D3D11.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Texture_D3D11.cpp; sourceTree = "<group>"; };
+		2C316E231E9B627B0011CAAE /* Texture_D3D11.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Texture_D3D11.hpp; sourceTree = "<group>"; };
+		2C316E251E9B627B0011CAAE /* CTextureGL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTextureGL.hpp; sourceTree = "<group>"; };
+		2C316E261E9B627B0011CAAE /* ITexture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ITexture.hpp; sourceTree = "<group>"; };
+		2C316E271E9B627B0011CAAE /* TextureFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureFactory.cpp; sourceTree = "<group>"; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
 		2C5869261E3F0C620028B9F0 /* lpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lpng.a; sourceTree = "<group>"; };
@@ -1272,6 +1288,36 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		2C316E1E1E9B627B0011CAAE /* Texture */ = {
+			isa = PBXGroup;
+			children = (
+				2C316E1F1E9B627B0011CAAE /* D3D11 */,
+				2C316E241E9B627B0011CAAE /* GL */,
+				2C316E261E9B627B0011CAAE /* ITexture.hpp */,
+				2C316E271E9B627B0011CAAE /* TextureFactory.cpp */,
+			);
+			path = Texture;
+			sourceTree = "<group>";
+		};
+		2C316E1F1E9B627B0011CAAE /* D3D11 */ = {
+			isa = PBXGroup;
+			children = (
+				2C316E201E9B627B0011CAAE /* CTextureD3D11.cpp */,
+				2C316E211E9B627B0011CAAE /* CTextureD3D11.hpp */,
+				2C316E221E9B627B0011CAAE /* Texture_D3D11.cpp */,
+				2C316E231E9B627B0011CAAE /* Texture_D3D11.hpp */,
+			);
+			path = D3D11;
+			sourceTree = "<group>";
+		};
+		2C316E241E9B627B0011CAAE /* GL */ = {
+			isa = PBXGroup;
+			children = (
+				2C316E251E9B627B0011CAAE /* CTextureGL.hpp */,
+			);
+			path = GL;
+			sourceTree = "<group>";
+		};
 		2C38B1471CDEB45C007A7E9F /* Lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -1455,6 +1501,7 @@
 				2C81BD031E89F8E300D27E52 /* StringView.hpp */,
 				2C81BD041E89F8E300D27E52 /* System.hpp */,
 				2C81BD051E89F8E300D27E52 /* TextReader.hpp */,
+				2C316E1C1E9B625F0011CAAE /* TextureFormat.hpp */,
 				2C81BD061E89F8E300D27E52 /* TextWriter.hpp */,
 				2C81BD071E89F8E300D27E52 /* Threading.hpp */,
 				2C81BD081E89F8E300D27E52 /* Time.hpp */,
@@ -1491,6 +1538,7 @@
 		2C81BD1D1E89F8E300D27E52 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C316E1E1E9B627B0011CAAE /* Texture */,
 				2C316E171E9B38200011CAAE /* Resource */,
 				2C2126951E9A5AAE006F8101 /* Geometry2D */,
 				2C21268C1E9A4001006F8101 /* MemoryWriter */,
@@ -2605,6 +2653,7 @@
 				2C81BF131E89F8E300D27E52 /* MathParser.hpp in Headers */,
 				2C81C0881E89F8E300D27E52 /* muParserInt.h in Headers */,
 				2C81BF2F1E89F8E300D27E52 /* Spherical.hpp in Headers */,
+				2C316E1D1E9B625F0011CAAE /* TextureFormat.hpp in Headers */,
 				2C81BF311E89F8E300D27E52 /* Step_MSVC.hpp in Headers */,
 				2C81BEF41E89F8E300D27E52 /* FormatBool.hpp in Headers */,
 				2C81BF351E89F8E300D27E52 /* System.hpp in Headers */,
@@ -2623,6 +2672,7 @@
 				2C81BEF91E89F8E300D27E52 /* Functor.hpp in Headers */,
 				2C81C0781E89F8E300D27E52 /* md5.h in Headers */,
 				2C81BEE61E89F8E300D27E52 /* Concept.hpp in Headers */,
+				2C316E2B1E9B627B0011CAAE /* Texture_D3D11.hpp in Headers */,
 				2C81BEDF1E89F8E300D27E52 /* CharacterEncoding.hpp in Headers */,
 				2C81C0891E89F8E300D27E52 /* muParserStack.h in Headers */,
 				2C81BFB51E89F8E300D27E52 /* CKeyboard_Windows.hpp in Headers */,
@@ -2643,6 +2693,7 @@
 				2C81C00D1E89F8E300D27E52 /* double-conversion.h in Headers */,
 				2C81BEF81E89F8E300D27E52 /* FormatUtility.hpp in Headers */,
 				2C81C0071E89F8E300D27E52 /* bignum.h in Headers */,
+				2C316E291E9B627B0011CAAE /* CTextureD3D11.hpp in Headers */,
 				2C81BF161E89F8E300D27E52 /* MersenneTwister.hpp in Headers */,
 				2C81BF3E1E89F8E300D27E52 /* TypeTraits.hpp in Headers */,
 				2C81C0521E89F8E300D27E52 /* fdct.h in Headers */,
@@ -2713,6 +2764,7 @@
 				2C81C09A1E89F8E400D27E52 /* zstd_internal.h in Headers */,
 				2C81BF031E89F8E300D27E52 /* ImageFormat.hpp in Headers */,
 				2C2126861E97D11D006F8101 /* CProfiler.hpp in Headers */,
+				2C316E2D1E9B627B0011CAAE /* ITexture.hpp in Headers */,
 				2C81BEE51E89F8E300D27E52 /* Compression.hpp in Headers */,
 				2C81BF811E89F8E300D27E52 /* CDragDrop_macOS.hpp in Headers */,
 				2C81C0181E89F8E300D27E52 /* glad.h in Headers */,
@@ -2742,6 +2794,7 @@
 				2C81BF2E1E89F8E300D27E52 /* SpeedStopwatch.hpp in Headers */,
 				2C81BF271E89F8E300D27E52 /* RandomPoint.hpp in Headers */,
 				2C81BF941E89F8E300D27E52 /* D3D11Device.hpp in Headers */,
+				2C316E2C1E9B627B0011CAAE /* CTextureGL.hpp in Headers */,
 				2C81C0641E89F8E300D27E52 /* jpeg_huffman_decode.h in Headers */,
 				2C2126871E97D11D006F8101 /* IProfiler.hpp in Headers */,
 				2C81C07E1E89F8E300D27E52 /* muParserBytecode.h in Headers */,
@@ -2998,6 +3051,7 @@
 				2C81BFC71E89F8E300D27E52 /* CMouse_Linux.cpp in Sources */,
 				2C81C0601E89F8E300D27E52 /* jpeg_data_writer.cc in Sources */,
 				2C81BF5E1E89F8E300D27E52 /* CBinaryWriter_Linux.cpp in Sources */,
+				2C316E281E9B627B0011CAAE /* CTextureD3D11.cpp in Sources */,
 				2C81C0A31E89F8E400D27E52 /* zdict.c in Sources */,
 				2C81BF541E89F8E300D27E52 /* SivBigFloat.cpp in Sources */,
 				2C81BFD11E89F8E300D27E52 /* SivPerlinNoise.cpp in Sources */,
@@ -3102,6 +3156,7 @@
 				2C81BFBF1E89F8E300D27E52 /* CMathParser.cpp in Sources */,
 				2C81BF6B1E89F8E300D27E52 /* SivColor.cpp in Sources */,
 				2C81BF7E1E89F8E300D27E52 /* CDragDrop_Linux.cpp in Sources */,
+				2C316E2A1E9B627B0011CAAE /* Texture_D3D11.cpp in Sources */,
 				2C81C0981E89F8E400D27E52 /* zstd_common.c in Sources */,
 				2C81C09B1E89F8E400D27E52 /* fse_compress.c in Sources */,
 				2C81C0171E89F8E300D27E52 /* glad.c in Sources */,
@@ -3199,6 +3254,7 @@
 				2C81BF8B1E89F8E300D27E52 /* SivFileSystem.mm in Sources */,
 				2C81C0841E89F8E300D27E52 /* muParserError.cpp in Sources */,
 				2C81BFD21E89F8E300D27E52 /* SivPoint.cpp in Sources */,
+				2C316E2E1E9B627B0011CAAE /* TextureFactory.cpp in Sources */,
 				2C81BF521E89F8E300D27E52 /* SivBase64.cpp in Sources */,
 				2C81C00A1E89F8E300D27E52 /* diy-fp.cc in Sources */,
 				2C81BFC91E89F8E300D27E52 /* CMouse_macOS.cpp in Sources */,

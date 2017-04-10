@@ -10,6 +10,9 @@
 //-----------------------------------------------
 
 # pragma once
+# include <Siv3D/Platform.hpp>
+# if defined(SIV3D_TARGET_WINDOWS)
+
 # define  NOMINMAX
 # define  STRICT
 # define  WIN32_LEAN_AND_MEAN
@@ -42,3 +45,5 @@ namespace s3d
 		static Texture_D3D11 CreateBackBuffer(ID3D11Device* device, IDXGISwapChain* swapChain);
 	};
 }
+
+# endif
