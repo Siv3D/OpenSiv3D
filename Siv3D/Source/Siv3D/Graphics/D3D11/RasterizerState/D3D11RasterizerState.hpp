@@ -2,14 +2,14 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (C) 2008-2016 Ryo Suzuki
+//	Copyright (c) 2008-2017 Ryo Suzuki
+//	Copyright (c) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <unordered_map>
 # define  NOMINMAX
 # define  STRICT
 # define  WIN32_LEAN_AND_MEAN
@@ -19,12 +19,9 @@
 # include <wrl.h>
 using namespace Microsoft::WRL;
 # include <d3d11.h>
-# include "../../../../../Inc/Siv3D/RasterizerState.hpp"
 
 namespace s3d
 {
-	const RasterizerState NullRasterizerState(FillMode(0));
-
 	class D3D11RasterizerState
 	{
 	private:
@@ -33,20 +30,8 @@ namespace s3d
 
 		ID3D11DeviceContext* m_context = nullptr;
 
-		using RasterizerStateList = std::unordered_map < RasterizerState, ComPtr<ID3D11RasterizerState> > ;
-
-		RasterizerStateList m_states;
-
-		RasterizerState m_currentState = NullRasterizerState;
-
-		RasterizerStateList::iterator create(const RasterizerState& state);
-
 	public:
 
-		void init();
-
-		void set(const RasterizerState& state);
-
-		void setScissorRect(const Rect& rect);
+		D3D11RasterizerState(ID3D11Device* device, ID3D11DeviceContext* context);
 	};
 }

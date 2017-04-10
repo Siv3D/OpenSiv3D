@@ -1141,7 +1141,7 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\BlendState\D3D11BlendState.hpp">
       <Filter>Source\Siv3D\Graphics\D3D11\BlendState</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Siv3D2015\Siv3D-Later-2015\Siv3D\Siv3D\Src\Siv3D\Graphics\D3D11\RasterizerState\D3D11RasterizerState.hpp">
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\RasterizerState\D3D11RasterizerState.hpp">
       <Filter>Source\Siv3D\Graphics\D3D11\RasterizerState</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1722,7 +1722,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\BlendState\D3D11BlendState.cpp">
       <Filter>Source\Siv3D\Graphics\D3D11\BlendState</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Siv3D2015\Siv3D-Later-2015\Siv3D\Siv3D\Src\Siv3D\Graphics\D3D11\RasterizerState\D3D11RasterizerState.cpp">
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\RasterizerState\D3D11RasterizerState.cpp">
       <Filter>Source\Siv3D\Graphics\D3D11\RasterizerState</Filter>
     </ClCompile>
   </ItemGroup>
