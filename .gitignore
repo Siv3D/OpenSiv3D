@@ -301,6 +301,7 @@ siv3d.a
 !**/*.xcodeproj/project.pbxproj
 !**/*.xcodeproj/project.xcworkspace/contents.xcoworkspacedata
 !Xcode/bin/engine/
+!Xcode/bin/example/
 !Xcode/bin/test/
 
 # Linux
