@@ -44,7 +44,7 @@ namespace s3d
 
 		void writeEscapedElement(const String& escaped, const String& tag, const Array<std::pair<String, String>>& styles)
 		{
-			const String beginTag = styles.map([](const std::pair<String, String>& keyValue) {return keyValue.first + L":" + keyValue.second + L";"; }).join(L"\n", tag + L" style=\"", L"\"");
+			const String beginTag = styles.map([](const std::pair<String, String>& keyValue) {return keyValue.first + L":" + keyValue.second + L";"; }).join(L" ", tag + L" style=\"", L"\"");
 
 			if (escaped.isEmpty())
 			{
@@ -56,7 +56,7 @@ namespace s3d
 			}
 		}
 
-		void writeHeader()
+		void beginHTML()
 		{
 			//<html>のlangは指定しない
 			m_writer.writeln(L"<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\" />");
@@ -65,7 +65,7 @@ namespace s3d
 			m_writer.writeln(L"</head>\n<body>");
 		}
 
-		void writeFooter()
+		void endHTML()
 		{
 			m_writer.writeln(L"</body>\n</html>");
 		}
@@ -145,12 +145,26 @@ namespace s3d
 			, m_title(title)
 			, m_style(styleSheet)
 		{
-			writeHeader();
+			beginHTML();
 		}
 
 		~HTMLWriter()
 		{
 			close();
+		}
+
+		void open(const FilePath& path, const String& title = L"Untitled", const String& styleSheet = DefaultStyle())
+		{
+			if (isOpened())
+			{
+				close();
+			}
+
+			m_writer = TextWriter(path);
+			m_title = title;
+			m_style = styleSheet;
+
+			beginHTML();
 		}
 
 		void close()
@@ -160,7 +174,7 @@ namespace s3d
 				return;
 			}
 
-			writeFooter();
+			endHTML();
 			m_writer.close();
 		}
 
@@ -184,7 +198,7 @@ namespace s3d
 			m_writer.writeln(str);
 		}
 
-		void writeParagraph(const String& str, const Color& color)
+		void writeParagraph(const String& str, const Color& color = Palette::Black)
 		{
 			writeEscapedElement(HTMLEscape(str), L"p", { { L"color", GetRGBCode(color) } });
 		}
