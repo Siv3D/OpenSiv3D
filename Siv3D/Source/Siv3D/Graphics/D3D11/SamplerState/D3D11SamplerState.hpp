@@ -9,7 +9,9 @@
 //
 //-----------------------------------------------
 
-# pragma once
+# include <Siv3D/Platform.hpp>
+# if defined(SIV3D_TARGET_WINDOWS)
+
 # define  NOMINMAX
 # define  STRICT
 # define  WIN32_LEAN_AND_MEAN
@@ -37,3 +39,5 @@ namespace s3d
 		D3D11SamplerState(ID3D11Device* device, ID3D11DeviceContext* context);
 	};
 }
+
+# endif

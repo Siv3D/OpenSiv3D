@@ -9,6 +9,9 @@
 //
 //-----------------------------------------------
 
+# include <Siv3D/Platform.hpp>
+# if defined(SIV3D_TARGET_WINDOWS)
+
 # include "D3D11SamplerState.hpp"
 
 namespace s3d
@@ -39,3 +42,5 @@ namespace s3d
 		m_context->PSSetSamplers(0, 1, m_state.GetAddressOf());
 	}
 }
+
+# endif

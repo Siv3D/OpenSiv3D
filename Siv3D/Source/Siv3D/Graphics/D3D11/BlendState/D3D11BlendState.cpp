@@ -9,6 +9,9 @@
 //
 //-----------------------------------------------
 
+# include <Siv3D/Platform.hpp>
+# if defined(SIV3D_TARGET_WINDOWS)
+
 # include "D3D11BlendState.hpp"
 
 namespace s3d
@@ -39,3 +42,5 @@ namespace s3d
 		m_context->OMSetBlendState(m_state.Get(), blendFactor, 0xffFFffFF);
 	}
 }
+
+# endif
