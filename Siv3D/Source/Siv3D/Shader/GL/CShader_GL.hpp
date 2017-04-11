@@ -14,6 +14,8 @@
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 # include "../IShader.hpp"
+# include <Siv3D/Array.hpp>
+# include <Siv3D/ByteArrayView.hpp>
 
 namespace s3d
 {

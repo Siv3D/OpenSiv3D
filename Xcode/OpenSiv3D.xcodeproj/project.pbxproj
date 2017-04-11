@@ -97,6 +97,13 @@
 		2C316E7D1E9BDA5F0011CAAE /* VertexShader_D3D11.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E791E9BDA5F0011CAAE /* VertexShader_D3D11.cpp */; };
 		2C316E7E1E9BDA5F0011CAAE /* VertexShader_D3D11.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E7A1E9BDA5F0011CAAE /* VertexShader_D3D11.hpp */; };
 		2C316E801E9BDA850011CAAE /* HTMLWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E7F1E9BDA850011CAAE /* HTMLWriter.hpp */; };
+		2C316E8B1E9C9BA60011CAAE /* CRenderer2D_D3D11.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E831E9C9BA60011CAAE /* CRenderer2D_D3D11.cpp */; };
+		2C316E8C1E9C9BA60011CAAE /* CRenderer2D_D3D11.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E841E9C9BA60011CAAE /* CRenderer2D_D3D11.hpp */; };
+		2C316E8D1E9C9BA60011CAAE /* D3D11SpriteBatch.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E851E9C9BA60011CAAE /* D3D11SpriteBatch.hpp */; };
+		2C316E8E1E9C9BA60011CAAE /* CRenderer2D_GL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E871E9C9BA60011CAAE /* CRenderer2D_GL.cpp */; };
+		2C316E8F1E9C9BA60011CAAE /* CRenderer2D_GL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E881E9C9BA60011CAAE /* CRenderer2D_GL.hpp */; };
+		2C316E901E9C9BA60011CAAE /* IRenderer2D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E891E9C9BA60011CAAE /* IRenderer2D.hpp */; };
+		2C316E911E9C9BA60011CAAE /* Renderer2DFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E8A1E9C9BA60011CAAE /* Renderer2DFactory.cpp */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
 		2C81BECE1E89F8E300D27E52 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C81BC981E89F8E300D27E52 /* format.h */; };
@@ -680,6 +687,13 @@
 		2C316E791E9BDA5F0011CAAE /* VertexShader_D3D11.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VertexShader_D3D11.cpp; sourceTree = "<group>"; };
 		2C316E7A1E9BDA5F0011CAAE /* VertexShader_D3D11.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = VertexShader_D3D11.hpp; sourceTree = "<group>"; };
 		2C316E7F1E9BDA850011CAAE /* HTMLWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HTMLWriter.hpp; sourceTree = "<group>"; };
+		2C316E831E9C9BA60011CAAE /* CRenderer2D_D3D11.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CRenderer2D_D3D11.cpp; sourceTree = "<group>"; };
+		2C316E841E9C9BA60011CAAE /* CRenderer2D_D3D11.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CRenderer2D_D3D11.hpp; sourceTree = "<group>"; };
+		2C316E851E9C9BA60011CAAE /* D3D11SpriteBatch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = D3D11SpriteBatch.hpp; sourceTree = "<group>"; };
+		2C316E871E9C9BA60011CAAE /* CRenderer2D_GL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CRenderer2D_GL.cpp; sourceTree = "<group>"; };
+		2C316E881E9C9BA60011CAAE /* CRenderer2D_GL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CRenderer2D_GL.hpp; sourceTree = "<group>"; };
+		2C316E891E9C9BA60011CAAE /* IRenderer2D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IRenderer2D.hpp; sourceTree = "<group>"; };
+		2C316E8A1E9C9BA60011CAAE /* Renderer2DFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Renderer2DFactory.cpp; sourceTree = "<group>"; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
 		2C5869261E3F0C620028B9F0 /* lpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lpng.a; sourceTree = "<group>"; };
@@ -1471,6 +1485,36 @@
 			path = PixelShader;
 			sourceTree = "<group>";
 		};
+		2C316E811E9C9BA60011CAAE /* Renderer2D */ = {
+			isa = PBXGroup;
+			children = (
+				2C316E821E9C9BA60011CAAE /* D3D11 */,
+				2C316E861E9C9BA60011CAAE /* GL */,
+				2C316E891E9C9BA60011CAAE /* IRenderer2D.hpp */,
+				2C316E8A1E9C9BA60011CAAE /* Renderer2DFactory.cpp */,
+			);
+			path = Renderer2D;
+			sourceTree = "<group>";
+		};
+		2C316E821E9C9BA60011CAAE /* D3D11 */ = {
+			isa = PBXGroup;
+			children = (
+				2C316E831E9C9BA60011CAAE /* CRenderer2D_D3D11.cpp */,
+				2C316E841E9C9BA60011CAAE /* CRenderer2D_D3D11.hpp */,
+				2C316E851E9C9BA60011CAAE /* D3D11SpriteBatch.hpp */,
+			);
+			path = D3D11;
+			sourceTree = "<group>";
+		};
+		2C316E861E9C9BA60011CAAE /* GL */ = {
+			isa = PBXGroup;
+			children = (
+				2C316E871E9C9BA60011CAAE /* CRenderer2D_GL.cpp */,
+				2C316E881E9C9BA60011CAAE /* CRenderer2D_GL.hpp */,
+			);
+			path = GL;
+			sourceTree = "<group>";
+		};
 		2C38B1471CDEB45C007A7E9F /* Lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -1694,6 +1738,7 @@
 		2C81BD1D1E89F8E300D27E52 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C316E811E9C9BA60011CAAE /* Renderer2D */,
 				2C316E741E9BBA630011CAAE /* PixelShader */,
 				2C316E711E9BBA530011CAAE /* VertexShader */,
 				2C316E501E9BAD790011CAAE /* Shader */,
@@ -2824,6 +2869,7 @@
 				2C81BEF41E89F8E300D27E52 /* FormatBool.hpp in Headers */,
 				2C81BF351E89F8E300D27E52 /* System.hpp in Headers */,
 				2C316E5D1E9BAD790011CAAE /* CShader_GL.hpp in Headers */,
+				2C316E8F1E9C9BA60011CAAE /* CRenderer2D_GL.hpp in Headers */,
 				2C81BEDE1E89F8E300D27E52 /* Char.hpp in Headers */,
 				2C81BF151E89F8E300D27E52 /* MemoryMapping.hpp in Headers */,
 				2C316E801E9BDA850011CAAE /* HTMLWriter.hpp in Headers */,
@@ -2852,6 +2898,7 @@
 				2C81C04F1E89F8E300D27E52 /* entropy_encode.h in Headers */,
 				2C81BF531E89F8E300D27E52 /* CBigFloat.hpp in Headers */,
 				2C81C0621E89F8E300D27E52 /* jpeg_error.h in Headers */,
+				2C316E8D1E9C9BA60011CAAE /* D3D11SpriteBatch.hpp in Headers */,
 				2C81BEE21E89F8E300D27E52 /* Circular.hpp in Headers */,
 				2C81BF431E89F8E300D27E52 /* Vector3D.hpp in Headers */,
 				2C81BF141E89F8E300D27E52 /* MD5.hpp in Headers */,
@@ -3021,6 +3068,7 @@
 				2C81BF251E89F8E300D27E52 /* Random.hpp in Headers */,
 				2C81BF491E89F8E300D27E52 /* Xorshift.hpp in Headers */,
 				2C81BED81E89F8E300D27E52 /* BigFloat.hpp in Headers */,
+				2C316E901E9C9BA60011CAAE /* IRenderer2D.hpp in Headers */,
 				2C81C06D1E89F8E300D27E52 /* quality.h in Headers */,
 				2C81BF3C1E89F8E300D27E52 /* Triangle.hpp in Headers */,
 				2C81BF771E89F8E300D27E52 /* CCursor_Windows.hpp in Headers */,
@@ -3101,6 +3149,7 @@
 				2C21263A1E8C024F006F8101 /* MessageBox.hpp in Headers */,
 				2C81BF1E1E89F8E300D27E52 /* ParseFloat.hpp in Headers */,
 				2C316E4D1E9BA9240011CAAE /* D3D11RasterizerState.hpp in Headers */,
+				2C316E8C1E9C9BA60011CAAE /* CRenderer2D_D3D11.hpp in Headers */,
 				2C81BF101E89F8E300D27E52 /* Logger.hpp in Headers */,
 				2C81C0811E89F8E300D27E52 /* muParserDef.h in Headers */,
 				2C81BF631E89F8E300D27E52 /* CBinaryWriter_Windows.hpp in Headers */,
@@ -3229,10 +3278,12 @@
 				2C81BFC71E89F8E300D27E52 /* CMouse_Linux.cpp in Sources */,
 				2C81C0601E89F8E300D27E52 /* jpeg_data_writer.cc in Sources */,
 				2C81BF5E1E89F8E300D27E52 /* CBinaryWriter_Linux.cpp in Sources */,
+				2C316E8B1E9C9BA60011CAAE /* CRenderer2D_D3D11.cpp in Sources */,
 				2C81C0A31E89F8E400D27E52 /* zdict.c in Sources */,
 				2C81BF541E89F8E300D27E52 /* SivBigFloat.cpp in Sources */,
 				2C81BFD11E89F8E300D27E52 /* SivPerlinNoise.cpp in Sources */,
 				2C81C05C1E89F8E300D27E52 /* jpeg_data_encoder.cc in Sources */,
+				2C316E911E9C9BA60011CAAE /* Renderer2DFactory.cpp in Sources */,
 				2C81BFB01E89F8E300D27E52 /* CKeyboard_Linux.cpp in Sources */,
 				2C81C02A1E89F8E300D27E52 /* init.c in Sources */,
 				2C81BFBC1E89F8E300D27E52 /* LoggerFactory.cpp in Sources */,
@@ -3256,6 +3307,7 @@
 				2C81C0101E89F8E300D27E52 /* fixed-dtoa.cc in Sources */,
 				2C81BFB21E89F8E300D27E52 /* CKeyboard_macOS.cpp in Sources */,
 				2C81C0041E89F8E300D27E52 /* bignum-dtoa.cc in Sources */,
+				2C316E8E1E9C9BA60011CAAE /* CRenderer2D_GL.cpp in Sources */,
 				2C81C0021E89F8E300D27E52 /* butteraugli.cc in Sources */,
 				2C81BF621E89F8E300D27E52 /* CBinaryWriter_Windows.cpp in Sources */,
 				2C2126401E8C0268006F8101 /* SivMessageBox_macOS.cpp in Sources */,
