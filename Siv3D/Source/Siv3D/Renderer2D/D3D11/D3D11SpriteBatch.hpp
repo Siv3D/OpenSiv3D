@@ -132,8 +132,103 @@ namespace s3d
 			return true;
 		}
 
-		void setBuffers()
+		bool getBuffer(const uint32 vertexSize, const uint32 indexSize, SpriteVertex** pVertex, IndexType** pIndices, IndexType* indexOffset)
 		{
+			// VB
+			{
+				const size_t currentVertexSize = m_vertices.size();
+				const size_t requiredVertexSize = m_vertexPos + vertexSize;
+
+				if (currentVertexSize < requiredVertexSize)
+				{
+					return false;
+				}
+			}
+
+			// IB
+			{
+				const size_t currentIndexSize = m_indices.size();
+				const size_t requiredIndexSize = m_indexPos + indexSize;
+
+				if (currentIndexSize < requiredIndexSize)
+				{
+					return false;
+				}
+			}
+
+			*pVertex = m_vertices.data() + m_vertexPos;
+			*pIndices = m_indices.data() + m_indexPos;
+			*indexOffset = 0;
+
+			m_vertexPos += vertexSize;
+			m_indexPos += indexSize;
+
+			return true;
+		}
+
+		// 仮の実装
+		std::pair<uint32, uint32> setBuffers()
+		{
+			std::pair<uint32, uint32> vi{ 0,0 };
+
+			{
+				const SpriteVertex* vertexData = m_vertices.data();
+				const size_t vertexSize = m_vertexPos;
+
+				D3D11_MAP mapType = D3D11_MAP_WRITE_NO_OVERWRITE;
+
+				if (VertexBufferSize < m_vertexBufferWritePos + vertexSize)
+				{
+					mapType = D3D11_MAP_WRITE_DISCARD;
+					m_vertexBufferWritePos = 0;
+				}
+
+				D3D11_MAPPED_SUBRESOURCE vres;
+
+				if (SUCCEEDED(m_context->Map(m_vertexBuffer.Get(), 0, mapType, 0, &vres)))
+				{
+					if (SpriteVertex* const vtxbuf = static_cast<SpriteVertex*>(vres.pData) + m_vertexBufferWritePos)
+					{
+						::memcpy(vtxbuf, vertexData, sizeof(SpriteVertex) * vertexSize);
+
+						m_context->Unmap(m_vertexBuffer.Get(), 0);
+					}
+				}
+
+				m_vertexBufferWritePos += vertexSize;
+				vi.first = m_vertexBufferWritePos - vertexSize;
+			}
+
+			{
+				const IndexType* indexData = m_indices.data();
+				const size_t indexSize = m_indexPos;
+
+				D3D11_MAP mapType = D3D11_MAP_WRITE_NO_OVERWRITE;
+
+				if (IndexBufferSize < m_indexBufferWritePos + indexSize)
+				{
+					mapType = D3D11_MAP_WRITE_DISCARD;
+					m_indexBufferWritePos = 0;
+				}
+
+				D3D11_MAPPED_SUBRESOURCE ires;
+
+				if (FAILED(m_context->Map(m_indexBuffer.Get(), 0, mapType, 0, &ires)))
+				{
+					return{ 0, 0 };
+				}
+
+				if (IndexType* const idxbuf = static_cast<IndexType*>(ires.pData) + m_indexBufferWritePos)
+				{
+					::memcpy(idxbuf, indexData, sizeof(IndexType) * indexSize);
+
+					m_context->Unmap(m_indexBuffer.Get(), 0);
+				}
+
+				m_indexBufferWritePos += indexSize;
+				vi.second = m_indexBufferWritePos - indexSize;
+			}
+
 			ID3D11Buffer* const pBuf[3] = { m_vertexBuffer.Get(), nullptr, nullptr };
 
 			const UINT stride[3] = { sizeof(SpriteVertex), 0, 0 };
@@ -143,6 +238,8 @@ namespace s3d
 			m_context->IASetVertexBuffers(0, 3, pBuf, stride, offset);
 
 			m_context->IASetIndexBuffer(m_indexBuffer.Get(), sizeof(IndexType) == 2 ? DXGI_FORMAT_R16_UINT : DXGI_FORMAT_R32_UINT, 0);
+
+			return vi;
 		}
 
 		void clear()

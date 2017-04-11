@@ -40,6 +40,8 @@ namespace s3d
 
 		D3D11SpriteBatch m_spriteBatch;
 
+		ComPtr<ID3D11Buffer> m_cbuffer;
+
 	public:
 
 		CRenderer2D_D3D11();

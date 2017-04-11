@@ -46,6 +46,10 @@ namespace s3d
 
 		AssetHandleManager<PixelShader::IDType, std::shared_ptr<PixelShader_D3D11>> m_pixelShaders{ L"PixelShader" };
 
+		VertexShader::IDType m_currentVS = VertexShader::IDType(-1);
+
+		PixelShader::IDType m_currentPS = PixelShader::IDType(-1);
+
 		Array<VertexShader> m_standardVSs;
 
 		Array<PixelShader> m_standardPSs;
@@ -77,6 +81,10 @@ namespace s3d
 		const VertexShader& getStandardVS(size_t index) const override;
 
 		const PixelShader& getStandardPS(size_t index) const override;
+
+		void setVS(VertexShader::IDType handleID) override;
+
+		void setPS(PixelShader::IDType handleID) override;
 	};
 }
 

@@ -99,8 +99,8 @@ namespace s3d
 		//*/
 
 		m_standardVSs.push_back(VertexShader(Resource(L"engine/shader/sprite.vs")));
-		m_standardPSs.push_back(PixelShader(Resource(L"engine/shader/sprite.ps")));
 		m_standardPSs.push_back(PixelShader(Resource(L"engine/shader/shape.ps")));
+		m_standardPSs.push_back(PixelShader(Resource(L"engine/shader/sprite.ps")));
 
 		return true;
 	}
@@ -204,6 +204,30 @@ namespace s3d
 	const PixelShader& CShader_D3D11::getStandardPS(const size_t index) const
 	{
 		return m_standardPSs[index];
+	}
+
+	void CShader_D3D11::setVS(const VertexShader::IDType handleID)
+	{
+		if (handleID == m_currentVS)
+		{
+			return;
+		}
+
+		m_context->VSSetShader(m_vertexShaders[handleID]->getShader(), nullptr, 0);
+
+		m_currentVS = handleID;
+	}
+
+	void CShader_D3D11::setPS(const PixelShader::IDType handleID)
+	{
+		if (m_currentPS == handleID)
+		{
+			return;
+		}
+
+		m_context->PSSetShader(m_pixelShaders[handleID]->getShader(), nullptr, 0);
+
+		m_currentPS = handleID;
 	}
 
 	bool CShader_D3D11::compileHLSLToFile(const FilePath& hlsl, const FilePath& to, const char* entryPoint, const char* target)

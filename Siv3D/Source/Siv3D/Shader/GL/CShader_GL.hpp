@@ -67,6 +67,10 @@ namespace s3d
 		{
 			return m_standardPSs[index];
 		}
+
+		void setVS(VertexShader::IDType handleID) override {}
+
+		void setPS(PixelShader::IDType handleID) override {}
 	};
 }
 

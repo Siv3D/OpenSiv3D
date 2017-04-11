@@ -41,5 +41,9 @@ namespace s3d
 		virtual const VertexShader& getStandardVS(size_t index) const = 0;
 
 		virtual const PixelShader& getStandardPS(size_t index) const = 0;
+
+		virtual void setVS(VertexShader::IDType handleID) = 0;
+
+		virtual void setPS(PixelShader::IDType handleID) = 0;
 	};
 }

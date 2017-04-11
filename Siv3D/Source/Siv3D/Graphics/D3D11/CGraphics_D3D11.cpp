@@ -136,6 +136,12 @@ namespace s3d
 			return false;
 		}
 
+		//////////////////////////////////////////////////////
+		//
+		//
+		//
+		m_device->getContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
 		return true;
 	}
 
