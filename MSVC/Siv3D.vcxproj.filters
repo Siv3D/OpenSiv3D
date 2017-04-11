@@ -317,6 +317,15 @@
     <Filter Include="Source\Siv3D\PixelShader">
       <UniqueIdentifier>{7cccfe50-1006-4577-a6c4-8eb6950334e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Renderer2D">
+      <UniqueIdentifier>{83fbc862-8be6-4afb-a471-c072865c3449}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Renderer2D\D3D11">
+      <UniqueIdentifier>{125dcbac-0f84-4576-80af-9b85a0b51a11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Renderer2D\GL">
+      <UniqueIdentifier>{c5f70fd1-88bd-445e-b0bb-9d0e09a54a7f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1189,6 +1198,15 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\D3D11\PixelShader_D3D11.hpp">
       <Filter>Source\Siv3D\Shader\D3D11</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\IRenderer2D.hpp">
+      <Filter>Source\Siv3D\Renderer2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\D3D11\CRenderer2D_D3D11.hpp">
+      <Filter>Source\Siv3D\Renderer2D\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\GL\CRenderer2D_GL.hpp">
+      <Filter>Source\Siv3D\Renderer2D\GL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1799,6 +1817,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\D3D11\PixelShader_D3D11.cpp">
       <Filter>Source\Siv3D\Shader\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Renderer2D\Renderer2DFactory.cpp">
+      <Filter>Source\Siv3D\Renderer2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Renderer2D\D3D11\CRenderer2D_D3D11.cpp">
+      <Filter>Source\Siv3D\Renderer2D\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Renderer2D\GL\CRenderer2D_GL.cpp">
+      <Filter>Source\Siv3D\Renderer2D\GL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
