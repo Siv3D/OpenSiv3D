@@ -33,5 +33,13 @@ namespace s3d
 		virtual void releaseVS(VertexShader::IDType handleID) = 0;
 
 		virtual void releasePS(PixelShader::IDType handleID) = 0;
+
+		virtual ByteArrayView getBinaryViewVS(VertexShader::IDType handleID) = 0;
+
+		virtual ByteArrayView getBinaryViewPS(PixelShader::IDType handleID) = 0;
+
+		virtual const VertexShader& getStandardVS(size_t index) const = 0;
+
+		virtual const PixelShader& getStandardPS(size_t index) const = 0;
 	};
 }

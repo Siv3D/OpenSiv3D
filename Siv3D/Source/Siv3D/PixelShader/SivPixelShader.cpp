@@ -103,4 +103,9 @@ namespace s3d
 	{
 		return m_handle->getID() != shader.m_handle->getID();
 	}
+
+	ByteArrayView PixelShader::getBinaryView() const
+	{
+		return Siv3DEngine::GetShader()->getBinaryViewPS(m_handle->getID());
+	}
 }

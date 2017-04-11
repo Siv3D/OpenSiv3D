@@ -120,6 +120,22 @@ namespace s3d
 		//
 		m_pSamplerState = std::make_unique<D3D11SamplerState>(m_device->getDevice(), m_device->getContext());
 
+		//////////////////////////////////////////////////////
+		//
+		//	 CRenderer2D_D3D11
+		//
+		m_renderer2D = dynamic_cast<CRenderer2D_D3D11*>(Siv3DEngine::GetRenderer2D());
+
+		if (!m_renderer2D)
+		{
+			return false;
+		}
+
+		if (!m_renderer2D->init(m_device->getDevice(), m_device->getContext()))
+		{
+			return false;
+		}
+
 		return true;
 	}
 
@@ -166,6 +182,13 @@ namespace s3d
 	bool CGraphics_D3D11::isVSyncEnabled() const
 	{
 		return m_swapChain->isVSyncEnabled();
+	}
+
+	bool CGraphics_D3D11::flush()
+	{
+		m_renderer2D->flush();
+
+		return true;
 	}
 }
 

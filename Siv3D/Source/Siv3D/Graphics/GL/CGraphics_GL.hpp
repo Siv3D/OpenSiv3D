@@ -64,6 +64,11 @@ namespace s3d
 		void setVSyncEnabled(bool enabled) override;
 		
 		bool isVSyncEnabled() const override;
+
+		bool flush() override
+		{
+			return true;
+		}
 	};
 }
 

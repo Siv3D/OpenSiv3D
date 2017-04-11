@@ -219,6 +219,7 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Profiler\CProfiler.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Profiler\IProfiler.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\D3D11\CRenderer2D_D3D11.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\D3D11\D3D11SpriteBatch.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\GL\CRenderer2D_GL.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\IRenderer2D.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\D3D11\CShader_D3D11.hpp" />

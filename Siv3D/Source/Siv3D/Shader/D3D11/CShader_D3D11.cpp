@@ -186,6 +186,26 @@ namespace s3d
 		m_pixelShaders.erase(handleID);
 	}
 
+	ByteArrayView CShader_D3D11::getBinaryViewVS(const VertexShader::IDType handleID)
+	{
+		return m_vertexShaders[handleID]->getView();
+	}
+
+	ByteArrayView CShader_D3D11::getBinaryViewPS(const PixelShader::IDType handleID)
+	{
+		return m_pixelShaders[handleID]->getView();
+	}
+
+	const VertexShader& CShader_D3D11::getStandardVS(const size_t index) const
+	{
+		return m_standardVSs[index];
+	}
+
+	const PixelShader& CShader_D3D11::getStandardPS(const size_t index) const
+	{
+		return m_standardPSs[index];
+	}
+
 	bool CShader_D3D11::compileHLSLToFile(const FilePath& hlsl, const FilePath& to, const char* entryPoint, const char* target)
 	{
 		BinaryReader reader(hlsl);

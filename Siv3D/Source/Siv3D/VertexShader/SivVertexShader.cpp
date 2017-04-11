@@ -103,4 +103,9 @@ namespace s3d
 	{
 		return m_handle->getID() != shader.m_handle->getID();
 	}
+
+	ByteArrayView VertexShader::getBinaryView() const
+	{
+		return Siv3DEngine::GetShader()->getBinaryViewVS(m_handle->getID());
+	}
 }

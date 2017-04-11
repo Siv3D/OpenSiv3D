@@ -69,6 +69,14 @@ namespace s3d
 		void releaseVS(VertexShader::IDType handleID) override;
 
 		void releasePS(PixelShader::IDType handleID) override;
+
+		ByteArrayView getBinaryViewVS(VertexShader::IDType handleID) override;
+
+		ByteArrayView getBinaryViewPS(PixelShader::IDType handleID) override;
+
+		const VertexShader& getStandardVS(size_t index) const override;
+
+		const PixelShader& getStandardPS(size_t index) const override;
 	};
 }
 

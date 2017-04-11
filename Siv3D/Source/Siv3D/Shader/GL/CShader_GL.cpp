@@ -28,6 +28,8 @@ namespace s3d
 
 	bool CShader_GL::init()
 	{
+		m_standardVSs.emplace_back();
+		m_standardPSs.emplace_back();
 
 		return true;
 	}

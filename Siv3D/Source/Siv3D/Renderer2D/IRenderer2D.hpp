@@ -21,5 +21,7 @@ namespace s3d
 		static ISiv3DRenderer2D* Create();
 
 		virtual ~ISiv3DRenderer2D() = default;
+
+		virtual void flush() = 0;
 	};
 }

@@ -28,6 +28,8 @@ namespace s3d
 		~CRenderer2D_GL() override;
 
 		bool init();
+
+		void flush() override {}
 	};
 }
 

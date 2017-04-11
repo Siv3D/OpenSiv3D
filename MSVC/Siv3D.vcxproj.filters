@@ -1207,6 +1207,9 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\GL\CRenderer2D_GL.hpp">
       <Filter>Source\Siv3D\Renderer2D\GL</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\D3D11\D3D11SpriteBatch.hpp">
+      <Filter>Source\Siv3D\Renderer2D\D3D11</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">

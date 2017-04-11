@@ -24,6 +24,7 @@ using namespace Microsoft::WRL;
 # include <d3d11.h>
 # include <d3dcompiler.h>
 # include "../IRenderer2D.hpp"
+# include "D3D11SpriteBatch.hpp"
 
 namespace s3d
 {
@@ -35,6 +36,10 @@ namespace s3d
 
 		ID3D11DeviceContext* m_context = nullptr;
 
+		ComPtr<ID3D11InputLayout> m_inputLayout;
+
+		D3D11SpriteBatch m_spriteBatch;
+
 	public:
 
 		CRenderer2D_D3D11();
@@ -42,6 +47,8 @@ namespace s3d
 		~CRenderer2D_D3D11() override;
 
 		bool init(ID3D11Device* device, ID3D11DeviceContext* context);
+
+		void flush();
 	};
 }
 
