@@ -87,7 +87,7 @@ namespace s3d
 		//
 		{
 			constexpr IndexType vertexSize = 4, indexSize = 6;
-			SpriteVertex* pVertex;
+			Vertex2D* pVertex;
 			IndexType* pIndex;
 			IndexType indexOffset;
 

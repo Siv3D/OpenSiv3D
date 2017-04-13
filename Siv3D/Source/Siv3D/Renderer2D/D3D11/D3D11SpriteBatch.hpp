@@ -26,32 +26,11 @@ using namespace Microsoft::WRL;
 # include "../IRenderer2D.hpp"
 
 # include <Siv3D/Array.hpp>
-# include <Siv3D/PointVector.hpp>
+# include <Siv3D/Vertex2D.hpp>
 
 namespace s3d
 {
 	using IndexType = uint32;
-
-	/// <summary>
-	/// スプライトの頂点データ
-	/// </summary>
-	struct SpriteVertex
-	{
-		/// <summary>
-		/// 位置
-		/// </summary>
-		Float2 pos;
-
-		/// <summary>
-		/// UV 座標
-		/// </summary>
-		Float2 tex;
-
-		/// <summary>
-		/// 色
-		/// </summary>
-		Float4 color;
-	};
 
 	class D3D11SpriteBatch
 	{
@@ -65,7 +44,7 @@ namespace s3d
 
 		ComPtr<ID3D11Buffer> m_indexBuffer;
 
-		Array<SpriteVertex> m_vertices;
+		Array<Vertex2D> m_vertices;
 
 		Array<IndexType> m_indices;
 
@@ -101,7 +80,7 @@ namespace s3d
 
 			{
 				D3D11_BUFFER_DESC desc;
-				desc.ByteWidth				= sizeof(SpriteVertex) * VertexBufferSize;
+				desc.ByteWidth				= sizeof(Vertex2D) * VertexBufferSize;
 				desc.Usage					= D3D11_USAGE_DYNAMIC;
 				desc.BindFlags				= D3D11_BIND_VERTEX_BUFFER;
 				desc.CPUAccessFlags			= D3D11_CPU_ACCESS_WRITE;
@@ -132,7 +111,7 @@ namespace s3d
 			return true;
 		}
 
-		bool getBuffer(const uint32 vertexSize, const uint32 indexSize, SpriteVertex** pVertex, IndexType** pIndices, IndexType* indexOffset)
+		bool getBuffer(const uint32 vertexSize, const uint32 indexSize, Vertex2D** pVertex, IndexType** pIndices, IndexType* indexOffset)
 		{
 			// VB
 			{
@@ -172,7 +151,7 @@ namespace s3d
 			std::pair<uint32, uint32> vi{ 0,0 };
 
 			{
-				const SpriteVertex* vertexData = m_vertices.data();
+				const Vertex2D* vertexData = m_vertices.data();
 				const size_t vertexSize = m_vertexPos;
 
 				D3D11_MAP mapType = D3D11_MAP_WRITE_NO_OVERWRITE;
@@ -187,9 +166,9 @@ namespace s3d
 
 				if (SUCCEEDED(m_context->Map(m_vertexBuffer.Get(), 0, mapType, 0, &vres)))
 				{
-					if (SpriteVertex* const vtxbuf = static_cast<SpriteVertex*>(vres.pData) + m_vertexBufferWritePos)
+					if (Vertex2D* const vtxbuf = static_cast<Vertex2D*>(vres.pData) + m_vertexBufferWritePos)
 					{
-						::memcpy(vtxbuf, vertexData, sizeof(SpriteVertex) * vertexSize);
+						::memcpy(vtxbuf, vertexData, sizeof(Vertex2D) * vertexSize);
 
 						m_context->Unmap(m_vertexBuffer.Get(), 0);
 					}
@@ -231,7 +210,7 @@ namespace s3d
 
 			ID3D11Buffer* const pBuf[3] = { m_vertexBuffer.Get(), nullptr, nullptr };
 
-			const UINT stride[3] = { sizeof(SpriteVertex), 0, 0 };
+			const UINT stride[3] = { sizeof(Vertex2D), 0, 0 };
 
 			const UINT offset[3] = { 0, 0, 0 };
 

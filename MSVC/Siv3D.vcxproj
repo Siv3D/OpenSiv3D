@@ -124,6 +124,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextureFormat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Threading.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Triangle.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Vertex2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\VertexShader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Void_t.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Window.hpp" />
