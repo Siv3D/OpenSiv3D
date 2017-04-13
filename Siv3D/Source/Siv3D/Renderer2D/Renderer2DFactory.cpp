@@ -9,30 +9,21 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
-
-# include "CShader_GL.hpp"
+# include "D3D11/CRenderer2D_D3D11.hpp"
+# include "GL/CRenderer2D_GL.hpp"
 
 namespace s3d
 {
-	CShader_GL::CShader_GL()
+	ISiv3DRenderer2D* ISiv3DRenderer2D::Create()
 	{
+	# if defined(SIV3D_TARGET_WINDOWS)
 
-	}
+		return new CRenderer2D_D3D11;
 
-	CShader_GL::~CShader_GL()
-	{
+	# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
+	
+		return new CRenderer2D_GL;
 
-	}
-
-	bool CShader_GL::init()
-	{
-		m_standardVSs.emplace_back();
-		m_standardPSs.emplace_back();
-
-		return true;
+	# endif
 	}
 }
-
-# endif

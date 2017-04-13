@@ -43,5 +43,7 @@ namespace s3d
 		virtual void setVSyncEnabled(bool enabled) = 0;
 		
 		virtual bool isVSyncEnabled() const = 0;
+
+		virtual bool flush() = 0;
 	};
 }

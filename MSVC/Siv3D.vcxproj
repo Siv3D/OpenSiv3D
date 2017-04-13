@@ -88,6 +88,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Lerp.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Line.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Logger.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Mat3x2.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Math.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\MathConstants.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\MathParser.hpp" />
@@ -123,6 +124,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextureFormat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Threading.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Triangle.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Vertex2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\VertexShader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Void_t.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Window.hpp" />
@@ -218,6 +220,10 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Mouse\IMouse.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Profiler\CProfiler.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Profiler\IProfiler.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\D3D11\CRenderer2D_D3D11.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\D3D11\D3D11SpriteBatch.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\GL\CRenderer2D_GL.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\IRenderer2D.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\D3D11\CShader_D3D11.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\D3D11\PixelShader_D3D11.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\D3D11\VertexShader_D3D11.hpp" />
@@ -414,6 +420,9 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\ProfilerFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\SivProfiler.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Rectangle\SivRectangle.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Renderer2D\D3D11\CRenderer2D_D3D11.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Renderer2D\GL\CRenderer2D_GL.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Renderer2D\Renderer2DFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Resource\SivResource.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\D3D11\CShader_D3D11.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\D3D11\PixelShader_D3D11.cpp" />

@@ -7,6 +7,9 @@
 # define Resource(path) DefineResource(path, FILE, path)
 
 DefineResource(100, ICON, icon.ico)
+Resource(engine/shader/sprite.vs)
+Resource(engine/shader/sprite.ps)
+Resource(engine/shader/shape.ps)
 
 //////////////////////////////////////////////////////
 //

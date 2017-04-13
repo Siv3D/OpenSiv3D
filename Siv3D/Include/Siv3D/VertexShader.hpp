@@ -52,5 +52,7 @@ namespace s3d
 		bool operator ==(const VertexShader& shader) const;
 
 		bool operator !=(const VertexShader& shader) const;
+
+		ByteArrayView getBinaryView() const;
 	};
 }

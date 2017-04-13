@@ -59,6 +59,26 @@ namespace s3d
 		//	 Shader
 		//
 		
+		
+		
+		//////////////////////////////////////////////////////
+		//
+		//	 CRenderer2D_D3D11
+		//
+		m_renderer2D = dynamic_cast<CRenderer2D_GL*>(Siv3DEngine::GetRenderer2D());
+		
+		if (!m_renderer2D)
+		{
+			return false;
+		}
+		
+		if (!m_renderer2D->init())
+		{
+			return false;
+		}
+		
+		
+		
 		return true;
 	}
 	
@@ -180,6 +200,13 @@ namespace s3d
 	bool CGraphics_GL::isVSyncEnabled() const
 	{
 		return m_vsync;
+	}
+	
+	bool CGraphics_GL::flush()
+	{
+		m_renderer2D->flush();
+		
+		return true;
 	}
 }
 

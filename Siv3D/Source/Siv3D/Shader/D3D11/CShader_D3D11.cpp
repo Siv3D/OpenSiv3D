@@ -16,6 +16,8 @@
 # include "../../EngineUtility.hpp"
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/ByteArray.hpp>
+# include <Siv3D/BinaryReader.hpp>
+# include <Siv3D/Resource.hpp>
 # include <Siv3D/Logger.hpp>
 
 namespace s3d
@@ -27,6 +29,10 @@ namespace s3d
 
 	CShader_D3D11::~CShader_D3D11()
 	{
+		m_standardVSs.clear();
+
+		m_standardPSs.clear();
+
 		m_vertexShaders.destroy();
 
 		m_pixelShaders.destroy();
@@ -44,11 +50,11 @@ namespace s3d
 
 	# if defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64)
 
-		m_d3dcompiler = ::LoadLibraryW(L"dll(x64)/D3D/d3dcompiler_47.dll");
+		m_d3dcompiler = ::LoadLibraryW(L"dll_x64/d3d/d3dcompiler_47.dll");
 
 	# elif defined(SIV3D_TARGET_WINDOWS_DESKTOP_X86)
 
-		m_d3dcompiler = ::LoadLibraryW(L"dll(x86)/D3D/d3dcompiler_47.dll");
+		m_d3dcompiler = ::LoadLibraryW(L"dll_x86/d3d/d3dcompiler_47.dll");
 
 	# endif
 
@@ -83,6 +89,18 @@ namespace s3d
 
 			m_pixelShaders.setNullData(nullPixelShader);
 		}
+
+		/*
+		
+		compileHLSLToFile(L"engine/shader/sprite.hlsl", L"engine/shader/sprite.vs", "VS", "vs_4_0");
+		compileHLSLToFile(L"engine/shader/sprite.hlsl", L"engine/shader/sprite.ps", "PS", "ps_4_0");
+		compileHLSLToFile(L"engine/shader/shape.hlsl", L"engine/shader/shape.ps", "PS", "ps_4_0");
+
+		//*/
+
+		m_standardVSs.push_back(VertexShader(Resource(L"engine/shader/sprite.vs")));
+		m_standardPSs.push_back(PixelShader(Resource(L"engine/shader/shape.ps")));
+		m_standardPSs.push_back(PixelShader(Resource(L"engine/shader/sprite.ps")));
 
 		return true;
 	}
@@ -166,6 +184,63 @@ namespace s3d
 	void CShader_D3D11::releasePS(const PixelShader::IDType handleID)
 	{
 		m_pixelShaders.erase(handleID);
+	}
+
+	ByteArrayView CShader_D3D11::getBinaryViewVS(const VertexShader::IDType handleID)
+	{
+		return m_vertexShaders[handleID]->getView();
+	}
+
+	ByteArrayView CShader_D3D11::getBinaryViewPS(const PixelShader::IDType handleID)
+	{
+		return m_pixelShaders[handleID]->getView();
+	}
+
+	const VertexShader& CShader_D3D11::getStandardVS(const size_t index) const
+	{
+		return m_standardVSs[index];
+	}
+
+	const PixelShader& CShader_D3D11::getStandardPS(const size_t index) const
+	{
+		return m_standardPSs[index];
+	}
+
+	void CShader_D3D11::setVS(const VertexShader::IDType handleID)
+	{
+		if (handleID == m_currentVS)
+		{
+			return;
+		}
+
+		m_context->VSSetShader(m_vertexShaders[handleID]->getShader(), nullptr, 0);
+
+		m_currentVS = handleID;
+	}
+
+	void CShader_D3D11::setPS(const PixelShader::IDType handleID)
+	{
+		if (m_currentPS == handleID)
+		{
+			return;
+		}
+
+		m_context->PSSetShader(m_pixelShaders[handleID]->getShader(), nullptr, 0);
+
+		m_currentPS = handleID;
+	}
+
+	bool CShader_D3D11::compileHLSLToFile(const FilePath& hlsl, const FilePath& to, const char* entryPoint, const char* target)
+	{
+		BinaryReader reader(hlsl);
+		ByteArray binary;
+
+		if (!compileHLSL(reader, binary, hlsl.narrow().c_str(), entryPoint, target))
+		{
+			return false;
+		}
+
+		return binary.save(to);
 	}
 }
 

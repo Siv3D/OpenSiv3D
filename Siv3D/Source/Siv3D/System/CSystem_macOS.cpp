@@ -113,6 +113,11 @@ namespace s3d
 			return false;
 		}
 
+		if (!Siv3DEngine::GetGraphics()->flush())
+		{
+			return false;
+		}
+		
 		Siv3DEngine::GetProfiler()->endFrame();
 
 		Siv3DEngine::GetGraphics()->present();
