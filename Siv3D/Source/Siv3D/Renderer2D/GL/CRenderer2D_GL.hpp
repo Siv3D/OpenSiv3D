@@ -31,9 +31,19 @@ namespace s3d
 		
 		GLuint m_vao = 0;
 		
-		GLuint m_vbo = 0;
+		GLuint m_vertexBuffer = 0;
+		
+		GLuint m_indexBuffer = 0;
+		
+		uint32 m_vertexWritePos = 0;
+
+		uint32 m_indexWritePos = 0;
 		
 		bool m_initialized = false;
+		
+		static constexpr uint32 VertexBufferSize = 65536;
+
+		static constexpr uint32 IndexBufferSize = 65536;
 		
 	public:
 
