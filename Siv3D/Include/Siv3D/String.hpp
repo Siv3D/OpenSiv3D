@@ -989,6 +989,17 @@ namespace s3d
 		const wchar& operator[](const size_t offset) const { return m_string[offset]; }
 
 		/// <summary>
+		/// 先頭に文字を追加します。
+		/// </summary>
+		/// <param name="value">
+		/// 追加する値
+		/// </param>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void push_front(const wchar ch) { insert(begin(), ch); }
+
+		/// <summary>
 		/// 末尾に文字を追加します。
 		/// </summary>
 		/// <param name="ch">
@@ -998,6 +1009,14 @@ namespace s3d
 		/// なし
 		/// </returns>
 		void push_back(const wchar ch) { m_string.push_back(ch); }
+
+		/// <summary>
+		/// 先頭の文字を削除します。
+		/// </summary>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void pop_front() { m_string.erase(m_string.begin()); }
 
 		/// <summary>
 		/// 末尾の文字を削除します。
