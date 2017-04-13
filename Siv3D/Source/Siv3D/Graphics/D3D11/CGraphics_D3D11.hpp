@@ -38,9 +38,9 @@ namespace s3d
 
 		std::unique_ptr<D3D11RenderTarget> m_renderTarget;
 
-		CTexture_D3D11* m_texture;
+		CTexture_D3D11* m_texture = nullptr;
 
-		CShader_D3D11* m_shader;
+		CShader_D3D11* m_shader = nullptr;
 
 		std::unique_ptr<D3D11BlendState> m_pBlendState;
 
@@ -50,7 +50,7 @@ namespace s3d
 
 		std::unique_ptr<D3D11SamplerState> m_pSamplerState;
 
-		CRenderer2D_D3D11* m_renderer2D;
+		CRenderer2D_D3D11* m_renderer2D = nullptr;
 
 	public:
 

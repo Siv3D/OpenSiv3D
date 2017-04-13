@@ -23,10 +23,7 @@
 
 # elif defined(SIV3D_TARGET_MACOS)
 
-	# include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
-
-# elif defined(SIV3D_TARGET_LINUX)
-
+	# include <GL/glew.h>
 	# include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 
 # endif

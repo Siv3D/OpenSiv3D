@@ -13,10 +13,12 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
+# include <GL/glew.h>
 # include "../../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 # include "../IGraphics.hpp"
 # include "../../Window/IWindow.hpp"
 # include "../../Texture/GL/CTexture_GL.hpp"
+# include "../../Renderer2D/GL/CRenderer2D_GL.hpp"
 # include <Siv3D/Color.hpp>
 
 namespace s3d
@@ -31,7 +33,9 @@ namespace s3d
 		
 		bool m_vsync = true;
 
-		CTexture_GL* m_texture;
+		CTexture_GL* m_texture = nullptr;
+		
+		CRenderer2D_GL* m_renderer2D = nullptr;
 
 	public:
 
@@ -65,10 +69,7 @@ namespace s3d
 		
 		bool isVSyncEnabled() const override;
 
-		bool flush() override
-		{
-			return true;
-		}
+		bool flush() override;
 	};
 }
 

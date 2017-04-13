@@ -64,6 +64,11 @@ namespace s3d
 		
 		::glfwMakeContextCurrent(m_glfwWindow);
 		
+		if (::glewInit() != GLEW_OK)
+		{
+			return false;
+		}
+		
 		//m_state.titleBarHeight
 		
 		return true;

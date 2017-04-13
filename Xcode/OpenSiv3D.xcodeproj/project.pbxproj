@@ -105,6 +105,11 @@
 		2C316E901E9C9BA60011CAAE /* IRenderer2D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E891E9C9BA60011CAAE /* IRenderer2D.hpp */; };
 		2C316E911E9C9BA60011CAAE /* Renderer2DFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E8A1E9C9BA60011CAAE /* Renderer2DFactory.cpp */; };
 		2C316E931E9CA83A0011CAAE /* Mat3x2.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E921E9CA83A0011CAAE /* Mat3x2.hpp */; };
+		2C316EA31E9F022A0011CAAE /* eglew.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E9F1E9F022A0011CAAE /* eglew.h */; };
+		2C316EA41E9F022A0011CAAE /* glew.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C316EA01E9F022A0011CAAE /* glew.h */; };
+		2C316EA51E9F022A0011CAAE /* glxew.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C316EA11E9F022A0011CAAE /* glxew.h */; };
+		2C316EA61E9F022A0011CAAE /* wglew.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C316EA21E9F022A0011CAAE /* wglew.h */; };
+		2C316EAF1E9F0AAD0011CAAE /* lGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C316EAE1E9F0AAD0011CAAE /* lGLEW.a */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
 		2C81BECE1E89F8E300D27E52 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C81BC981E89F8E300D27E52 /* format.h */; };
@@ -696,6 +701,12 @@
 		2C316E891E9C9BA60011CAAE /* IRenderer2D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IRenderer2D.hpp; sourceTree = "<group>"; };
 		2C316E8A1E9C9BA60011CAAE /* Renderer2DFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Renderer2DFactory.cpp; sourceTree = "<group>"; };
 		2C316E921E9CA83A0011CAAE /* Mat3x2.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Mat3x2.hpp; sourceTree = "<group>"; };
+		2C316E9F1E9F022A0011CAAE /* eglew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglew.h; sourceTree = "<group>"; };
+		2C316EA01E9F022A0011CAAE /* glew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glew.h; sourceTree = "<group>"; };
+		2C316EA11E9F022A0011CAAE /* glxew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glxew.h; sourceTree = "<group>"; };
+		2C316EA21E9F022A0011CAAE /* wglew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wglew.h; sourceTree = "<group>"; };
+		2C316EA91E9F09C40011CAAE /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		2C316EAE1E9F0AAD0011CAAE /* lGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lGLEW.a; sourceTree = "<group>"; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
 		2C5869261E3F0C620028B9F0 /* lpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lpng.a; sourceTree = "<group>"; };
@@ -1186,6 +1197,7 @@
 				2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */,
 				2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */,
 				2C2CCF511CE8698C001844FF /* Foundation.framework in Frameworks */,
+				2C316EAF1E9F0AAD0011CAAE /* lGLEW.a in Frameworks */,
 				2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */,
 				2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */,
 				2C17800E1E48CC4F00B2A3D6 /* lturbojpeg.a in Frameworks */,
@@ -1515,6 +1527,33 @@
 				2C316E881E9C9BA60011CAAE /* CRenderer2D_GL.hpp */,
 			);
 			path = GL;
+			sourceTree = "<group>";
+		};
+		2C316E9E1E9F022A0011CAAE /* GL */ = {
+			isa = PBXGroup;
+			children = (
+				2C316E9F1E9F022A0011CAAE /* eglew.h */,
+				2C316EA01E9F022A0011CAAE /* glew.h */,
+				2C316EA11E9F022A0011CAAE /* glxew.h */,
+				2C316EA21E9F022A0011CAAE /* wglew.h */,
+			);
+			path = GL;
+			sourceTree = "<group>";
+		};
+		2C316EA81E9F09C40011CAAE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2C316EA91E9F09C40011CAAE /* OpenGL.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2C316EAD1E9F0AAD0011CAAE /* glew */ = {
+			isa = PBXGroup;
+			children = (
+				2C316EAE1E9F0AAD0011CAAE /* lGLEW.a */,
+			);
+			path = glew;
 			sourceTree = "<group>";
 		};
 		2C38B1471CDEB45C007A7E9F /* Lib */ = {
@@ -2440,6 +2479,7 @@
 		2C81BE121E89F8E300D27E52 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				2C316E9E1E9F022A0011CAAE /* GL */,
 				2C2126441E8CB7B5006F8101 /* giflib */,
 				2C81BE131E89F8E300D27E52 /* butteraugli */,
 				2C81BE171E89F8E300D27E52 /* double-conversion */,
@@ -2757,6 +2797,7 @@
 		2CA798F61DF55A0D0028D11D /* macOS */ = {
 			isa = PBXGroup;
 			children = (
+				2C316EAD1E9F0AAD0011CAAE /* glew */,
 				2C17800A1E48CBF300B2A3D6 /* libjpeg-turbo */,
 				2C5869211E3F0B980028B9F0 /* zlib */,
 				2C58691E1E3F0B900028B9F0 /* libpng */,
@@ -2809,6 +2850,7 @@
 				2CA7F7641CA7F44F00495647 /* Siv3D */,
 				2CA7F74D1CA7F43D00495647 /* Siv3D-Test */,
 				2CA7F73E1CA7F3B100495647 /* Products */,
+				2C316EA81E9F09C40011CAAE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2864,6 +2906,7 @@
 				2C81C08A1E89F8E300D27E52 /* muParserTemplateMagic.h in Headers */,
 				2C316E6E1E9BB0CE0011CAAE /* Texture_D3D11.hpp in Headers */,
 				2C316E931E9CA83A0011CAAE /* Mat3x2.hpp in Headers */,
+				2C316EA51E9F022A0011CAAE /* glxew.h in Headers */,
 				2C81C01E1E89F8E300D27E52 /* cocoa_joystick.h in Headers */,
 				2C81BF131E89F8E300D27E52 /* MathParser.hpp in Headers */,
 				2C81C0881E89F8E300D27E52 /* muParserInt.h in Headers */,
@@ -2938,6 +2981,7 @@
 				2C81BFF81E89F8E300D27E52 /* CWindow_macOS.hpp in Headers */,
 				2C81BF891E89F8E300D27E52 /* EngineUtility.hpp in Headers */,
 				2C81C0191E89F8E300D27E52 /* khrplatform.h in Headers */,
+				2C316EA61E9F022A0011CAAE /* wglew.h in Headers */,
 				2C81BEE31E89F8E300D27E52 /* Color.hpp in Headers */,
 				2C81C01A1E89F8E300D27E52 /* linmath.h in Headers */,
 				2C81BF041E89F8E300D27E52 /* InfiniteList.hpp in Headers */,
@@ -2993,6 +3037,7 @@
 				2C81C0211E89F8E300D27E52 /* cocoa_platform.h in Headers */,
 				2C81BFE31E89F8E300D27E52 /* ISystem.hpp in Headers */,
 				2C81BF751E89F8E300D27E52 /* CCursor_macOS.hpp in Headers */,
+				2C316EA31E9F022A0011CAAE /* eglew.h in Headers */,
 				2C81BED01E89F8E300D27E52 /* hopscotch_hash.h in Headers */,
 				2C81BF3B1E89F8E300D27E52 /* Timer.hpp in Headers */,
 				2C81BFAE1E89F8E300D27E52 /* InputState.hpp in Headers */,
@@ -3142,6 +3187,7 @@
 				2C316E391E9B82E00011CAAE /* AssetHandleManager.hpp in Headers */,
 				2C81BEEC1E89F8E300D27E52 /* DateTime.hpp in Headers */,
 				2C81BFFA1E89F8E300D27E52 /* CWindow_Windows.hpp in Headers */,
+				2C316EA41E9F022A0011CAAE /* glew.h in Headers */,
 				2C316E5B1E9BAD790011CAAE /* CShader_D3D11.hpp in Headers */,
 				2C81BF071E89F8E300D27E52 /* IteratorRange.hpp in Headers */,
 				2C81C0151E89F8E300D27E52 /* utils.h in Headers */,

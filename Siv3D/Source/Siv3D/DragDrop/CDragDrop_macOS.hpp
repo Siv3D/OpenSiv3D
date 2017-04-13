@@ -13,6 +13,7 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_MACOS)
 
+# include <GL/glew.h>
 # include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 # include "IDragDrop.hpp"
 
