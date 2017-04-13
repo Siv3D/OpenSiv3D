@@ -31,7 +31,7 @@ namespace s3d
 		
 		GLuint m_vao = 0;
 		
-		GLuint m_vbo[2] = { 0, 0 };
+		GLuint m_vbo = 0;
 		
 		bool m_initialized = false;
 		

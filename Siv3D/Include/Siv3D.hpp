@@ -451,6 +451,8 @@
 //
 // グラフィックス
 //
+	// 2D 頂点データ
+	# include "Siv3D/Vertex2D.hpp"
 	//// ブレンドステート
 	//# include "Siv3D/BlendState.hpp"
 	//// ラスタライザーステート
