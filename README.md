@@ -123,24 +123,26 @@
 - [x] Cursor::Clip()
 - [x] Resource
 - [x] Window::Resize()
-- [ ] HTMLWriter
-
+- [x] HTMLWriter
+- [ ] Quad
+- [ ] Engine Log (Partial)
 ---------------------------
 
 #### 0.1.0
-- [ ] TextureFormat (Partial)
 - [ ] Point::draw()
-- [ ] Rect::draw()
 - [ ] Line::draw()
+- [ ] Rect::draw()
 - [ ] Triangle::draw()
+- [ ] Quad::draw()
+- [ ] Rect::drawFrame()
 
 ---------------------------
 
 #### 0.1.1
-- [ ] Rect::drawFrame()
 - [ ] WindowState
-- [ ] Log
 - [ ] UID
+- [ ] EasingController
+- [ ] INIWriter
 
 ## Discussion ##
  [Siv3D Slack #open-siv3d](https://siv3d.slack.com/messages/open-siv3d/details/)  (Japanese)
