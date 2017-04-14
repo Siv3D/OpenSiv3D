@@ -23,7 +23,7 @@
 namespace s3d
 {
 	/// <summary>
-	/// Format の内部で使用するデータ
+	/// Formatter の内部で使用するデータ
 	/// </summary>
 	struct FormatData
 	{
@@ -68,113 +68,116 @@ namespace s3d
 	namespace detail
 	{
 		/// <summary>
-		/// Format の内部で使用するクラス
+		/// Format_impl の内部で使用するクラス
 		/// </summary>
 		template <class...>
 		struct format_validation
 			: std::true_type {};
 
 		/// <summary>
-		/// Format の内部で使用するクラス
+		/// Format_impl の内部で使用するクラス
 		/// </summary>
 		template <class T, class... TT>
 		struct format_validation<T, TT...>
 			: std::integral_constant<bool, !std::is_same<std::decay_t<T>, char*>::value && format_validation<TT...>::value> {};
 
-		/// <summary>
-		/// Format の内部で使用する関数
-		/// </summary>
-		inline void Format_impl(const FormatData&)
-		{
-			return;
-		}
-
-		/// <summary>
-		/// Format の内部で使用する関数
-		/// </summary>
-		template <class Type, class... Args>
-		inline void Format_impl(FormatData& formatData, const Type& value, const Args&... args)
-		{
-			Formatter(formatData, value);
-			Format_impl(formatData, args...);
-		}
-
 		void AppendInt(wchar** p, const long value);
+
+		struct Format_impl
+		{
+		private:
+
+			static void Format_(const FormatData&)
+			{
+				return;
+			}
+
+			template <class Type, class... Args>
+			static void Format_(FormatData& formatData, const Type& value, const Args&... args)
+			{
+				Formatter(formatData, value);
+				Format_(formatData, args...);
+			}
+
+		public:
+
+			/// <summary>
+			/// 一連の引数を文字列に変換します。
+			/// </summary>
+			/// <param name="args">
+			/// 変換する値
+			/// </param>
+			/// <returns>
+			/// 引数を文字列に変換して連結した文字列
+			/// </returns>
+			template <class... Args>
+			String operator ()(const Args&... args) const
+			{
+				static_assert(format_validation<Args...>::value, "type \"char*\" cannot be used in Format()");
+				FormatData formatData;
+				Format_(formatData, args...);
+				return std::move(formatData.string);
+			}
+
+			/// <summary>
+			/// 引数を文字列に変換します。
+			/// </summary>
+			/// <param name="ch">
+			/// 変換する値
+			/// </param>
+			/// <returns>
+			/// 引数を文字列に変換した文字列
+			/// </returns>
+			String operator ()(const wchar ch) const
+			{
+				return String(1, ch);
+			}
+
+			/// <summary>
+			/// 引数を文字列に変換します。
+			/// </summary>
+			/// <param name="str">
+			/// 変換する文字列
+			/// </param>
+			/// <returns>
+			/// 引数を文字列に変換した文字列
+			/// </returns>
+			String operator ()(const wchar* const str) const
+			{
+				return String(str);
+			}
+
+			/// <summary>
+			/// 引数を文字列に変換します。
+			/// </summary>
+			/// <param name="str">
+			/// 変換する文字列
+			/// </param>
+			/// <returns>
+			/// 引数を文字列に変換した文字列
+			/// </returns>
+			const String& operator ()(const String& str) const
+			{
+				return str;
+			}
+
+			/// <summary>
+			/// 引数を文字列に変換します。
+			/// </summary>
+			/// <param name="str">
+			/// 変換する文字列
+			/// </param>
+			/// <returns>
+			/// 引数を文字列に変換した文字列
+			/// </returns>
+			String operator ()(String&& str) const noexcept
+			{
+				return std::move(str);
+			}
+		};
 	}
 
-	/// <summary>
-	/// 一連の引数を文字列に変換します。
-	/// </summary>
-	/// <param name="args">
-	/// 変換する値
-	/// </param>
-	/// <returns>
-	/// 引数を文字列に変換して連結した文字列
-	/// </returns>
-	template <class... Args>
-	inline String Format(const Args&... args)
-	{
-		static_assert(detail::format_validation<Args...>::value, "type \"char*\" cannot be used in Format()");
-		FormatData formatData;
-		detail::Format_impl(formatData, args...);
-		return std::move(formatData.string);
-	}
-
-	/// <summary>
-	/// 引数を文字列に変換します。
-	/// </summary>
-	/// <param name="ch">
-	/// 変換する値
-	/// </param>
-	/// <returns>
-	/// 引数を文字列に変換した文字列
-	/// </returns>
-	inline String Format(const wchar ch)
-	{
-		return String(1, ch);
-	}
-	
-	/// <summary>
-	/// 引数を文字列に変換します。
-	/// </summary>
-	/// <param name="str">
-	/// 変換する文字列
-	/// </param>
-	/// <returns>
-	/// 引数を文字列に変換した文字列
-	/// </returns>
-	inline String Format(const wchar* const str)
-	{
-		return String(str);
-	}
-
-	/// <summary>
-	/// 引数を文字列に変換します。
-	/// </summary>
-	/// <param name="str">
-	/// 変換する文字列
-	/// </param>
-	/// <returns>
-	/// 引数を文字列に変換した文字列
-	/// </returns>
-	inline String Format(const String& str)
-	{
-		return str;
-	}
-
-	/// <summary>
-	/// 引数を文字列に変換します。
-	/// </summary>
-	/// <param name="str">
-	/// 変換する文字列
-	/// </param>
-	/// <returns>
-	/// 引数を文字列に変換した文字列
-	/// </returns>
-	inline String Format(String&& str) noexcept
-	{
-		return std::move(str);
-	}
+	constexpr auto Format = detail::Format_impl();
 
 	void Formatter(FormatData& formatData, int32 value);
 

@@ -24,7 +24,7 @@ void Main()
 
 	html.writeHeader(L"テーブル", 3);
 
-	const Grid<String> contents({ 10, 3 }, Range(1, 30).map([](int32 n) { return Format(n); }));
+	const Grid<String> contents({ 10, 3 }, Range(1, 30).map(Format));
 
 	html.writeTable(contents);
 
