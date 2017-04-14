@@ -125,7 +125,7 @@ namespace s3d
 
 		Triangle rotatedAt(value_type x, value_type y, value_type angle) const noexcept
 		{
-			return rotatedAt(Vec2(x, y), angle);
+			return rotatedAt(position_type(x, y), angle);
 		}
 
 		Triangle rotatedAt(const position_type& pos, value_type angle) const noexcept;
