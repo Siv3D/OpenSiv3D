@@ -14,6 +14,7 @@
 
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Utility.hpp>
+# include <Siv3D/Logger.hpp>
 # include "CBinaryReader_Windows.hpp"
 
 namespace s3d
@@ -53,6 +54,8 @@ namespace s3d
 			}
 			else
 			{
+				LOG_FAIL(L"BinaryReader: Failed to load resource \"{}\""_fmt(path));
+
 				return false;
 			}
 		}
@@ -64,6 +67,8 @@ namespace s3d
 
 			if (!m_opened)
 			{
+				LOG_FAIL(L"BinaryReader: Failed to open file \"{}\""_fmt(path));
+
 				return false;
 			}
 
