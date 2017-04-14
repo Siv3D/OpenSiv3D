@@ -140,10 +140,10 @@ namespace s3d
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const Quad& quad)
 	{
 		return	os << CharType('(')
-			<< triangle.p0 << CharType(',')
-			<< triangle.p1 << CharType(',')
-			<< triangle.p2 << CharType(',')
-			<< triangle.p3 << CharType(')');
+			<< quad.p0 << CharType(',')
+			<< quad.p1 << CharType(',')
+			<< quad.p2 << CharType(',')
+			<< quad.p3 << CharType(')');
 	}
 
 	/// <summary>
@@ -163,10 +163,10 @@ namespace s3d
 	{
 		CharType unused;
 		return	is >> unused
-			>> triangle.p0 >> unused
-			>> triangle.p1 >> unused
-			>> triangle.p2 >> unused
-			>> triangle.p3 >> unused;
+			>> quad.p0 >> unused
+			>> quad.p1 >> unused
+			>> quad.p2 >> unused
+			>> quad.p3 >> unused;
 	}
 }
 
