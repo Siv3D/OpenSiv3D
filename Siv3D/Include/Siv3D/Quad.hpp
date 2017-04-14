@@ -22,6 +22,16 @@ namespace s3d
 		using value_type = position_type::value_type;
 
 		position_type p0, p1, p2, p3;
+		
+		position_type& p(size_t index)
+		{
+			return (&p0)[index];
+		}
+		
+		const position_type& p(size_t index) const
+		{
+			return (&p0)[index];
+		}
 
 		Quad() = default;
 

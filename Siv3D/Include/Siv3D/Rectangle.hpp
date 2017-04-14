@@ -1335,8 +1335,8 @@ namespace s3d
 
 			for (int32 i = 0; i < 4; ++i)
 			{
-				quad.p[i].x = pts[i].x * c - pts[i].y * s + _pos.x;
-				quad.p[i].y = pts[i].x * s + pts[i].y * c + _pos.y;
+				quad.p(i).x = pts[i].x * c - pts[i].y * s + _pos.x;
+				quad.p(i).y = pts[i].x * s + pts[i].y * c + _pos.y;
 			}
 
 			return quad;
