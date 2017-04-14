@@ -10,10 +10,12 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Fwd.hpp"
 # include "TextWriter.hpp"
 # include "Grid.hpp"
 # include "Unspecified.hpp"
 # include "Color.hpp"
+# include "Image.hpp"
 
 namespace s3d
 {
@@ -23,45 +25,50 @@ namespace s3d
 
 		TextWriter m_writer;
 
-		String m_title;
-
-		String m_style;
-
-		void writeEscapedElement(const String& escaped, const String& tag)
+		void writeElementRaw(const StringView content, const String& tag)
 		{
-			writeEscapedElement(escaped, tag, tag);
+			writeElementRaw(content, tag, tag);
 		}
 
-		void writeEscapedElement(const String& escaped, const String& beginTag, const String& endTag)
+		void writeElementRaw(const StringView content, const String& startTag, const String& endTag)
 		{
 			if (!isOpened())
 			{
 				return;
 			}
 
-			m_writer.writeln(L"<" + beginTag + L">" + escaped + L"</" + endTag + L">");
+			m_writer.writeln(L"<" + startTag + L">");
+
+			m_writer.writeln(content);
+
+			m_writer.writeln(L"</" + endTag + L">");
 		}
 
-		void writeEscapedElement(const String& escaped, const String& tag, const Array<std::pair<String, String>>& styles)
+		void writeElementRaw(const StringView content, const String& tag, const Array<std::pair<String, String>>& styles)
 		{
-			const String beginTag = styles.map([](const std::pair<String, String>& keyValue) {return keyValue.first + L":" + keyValue.second + L";"; }).join(L" ", tag + L" style=\"", L"\"");
+			const String startTag =
+				styles.map([](const std::pair<String, String>& keyValue) {
+					return keyValue.first + L":" + keyValue.second + L";";
+				}).join(L" ", tag + L" style=\"", L"\"");
 
-			if (escaped.isEmpty())
+			if (content.isEmpty())
 			{
-				writeRaw(L"<" + beginTag + L">");
+				writeRaw(L"<" + startTag + L">");
 			}
 			else
 			{
-				writeEscapedElement(escaped, beginTag, tag);
+				writeElementRaw(content, startTag, tag);
 			}
 		}
 
-		void beginHTML()
+		void beginHTML(const String& title, const StringView style)
 		{
-			//<html>のlangは指定しない
 			m_writer.writeln(L"<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\" />");
-			writeEscapedElement(m_title.xml_escaped(), L"title");
-			writeEscapedElement(m_style, L"style");
+			
+			writeElementRaw(title.xml_escaped(), L"title");
+			
+			writeElementRaw(style, L"style");
+			
 			m_writer.writeln(L"</head>\n<body>");
 		}
 
@@ -70,15 +77,15 @@ namespace s3d
 			m_writer.writeln(L"</body>\n</html>");
 		}
 
-		static String HTMLEscape(const String& str)
+		static String HTMLEscape(const StringView view)
 		{
 			String new_string;
 
-			new_string.reserve(str.length());
+			new_string.reserve(view.length());
 
-			for (const auto v : str)
+			for (const auto ch : view)
 			{
-				switch (v)
+				switch (ch)
 				{
 				case L'\n':
 					new_string.append(L"<br>", 4);
@@ -101,7 +108,7 @@ namespace s3d
 					new_string.append(L"&gt;", 4);
 					break;
 				default:
-					new_string.push_back(v);
+					new_string.push_back(ch);
 					break;
 				}
 			}
@@ -109,43 +116,36 @@ namespace s3d
 			return new_string;
 		}
 
-		static String GetRGBCode(const Color& color)
+		static String GetColorCode(const Color& color)
 		{
-			return L"#" +
-				ToHex(color.r).lpad(2, L'0') +
-				ToHex(color.g).lpad(2, L'0') +
-				ToHex(color.b).lpad(2, L'0');
+			return L"#" + color.toHex();
 		}
 
 		static String DefaultStyle()
 		{
-			return String(LR"(
-				body{
-					margin:0 5%;
-				}
-				table{
-					border-collapse: collapse;
-				}
-				tr:nth-child(even){
-					background:#f6f8fa;
-				}
-				th,td{
-					padding:10px;
-					border: 1px solid #dfe2e5;
-				}
-				)").remove(L"\t");
+			return String(
+LR"(body{
+  margin: 20px 40px;
+}
+table{
+  border-collapse: collapse;
+}
+tr:nth-child(even){
+  background: #f6f8fa;
+}
+th,td{
+  padding: 10px;
+  border: 1px solid #dfe2e5;
+})");
 		}
 
 	public:
 
 		HTMLWriter() = default;
 
-		HTMLWriter(const FilePath& path, const String& title = L"Untitled", const String& styleSheet = DefaultStyle())
-			: m_writer(path)
-			, m_title(title)
-			, m_style(styleSheet)
+		HTMLWriter(const FilePath& path, const String& title = L"Untitled", const StringView styleSheet = DefaultStyle())
 		{
-			beginHTML();
+			open(path, title, styleSheet);
 		}
 
 		~HTMLWriter()
@@ -153,18 +153,21 @@ namespace s3d
 			close();
 		}
 
-		void open(const FilePath& path, const String& title = L"Untitled", const String& styleSheet = DefaultStyle())
+		bool open(const FilePath& path, const String& title = L"Untitled", const StringView styleSheet = DefaultStyle())
 		{
 			if (isOpened())
 			{
 				close();
 			}
 
-			m_writer = TextWriter(path);
-			m_title = title;
-			m_style = styleSheet;
+			if (!m_writer.open(path))
+			{
+				return false;
+			}
 
-			beginHTML();
+			beginHTML(title, styleSheet);
+
+			return true;
 		}
 
 		void close()
@@ -175,6 +178,7 @@ namespace s3d
 			}
 
 			endHTML();
+
 			m_writer.close();
 		}
 
@@ -188,99 +192,119 @@ namespace s3d
 			return isOpened();
 		}
 
-		void writeRaw(const String& str)
+		void writeRaw(const StringView view)
 		{
 			if (!isOpened())
 			{
 				return;
 			}
 
-			m_writer.writeln(str);
+			m_writer.write(view);
 		}
 
-		void writeParagraph(const String& str, const Color& color = Palette::Black)
+		void writeParagraph(const StringView view, const Color& color = Palette::Black)
 		{
-			writeEscapedElement(HTMLEscape(str), L"p", { { L"color", GetRGBCode(color) } });
+			writeElementRaw(HTMLEscape(view), L"p", { { L"color", GetColorCode(color) } });
 		}
 
-		void writeHeader(const String& str, int32 level = 1)
+		void writeHeader(const StringView view, int32 level = 1)
 		{
-			writeEscapedElement(HTMLEscape(str), Format(L'h', Clamp(level, 1, 6)));
+			writeElementRaw(HTMLEscape(view), Format(L'h', Clamp(level, 1, 6)));
 		}
 
 		void writeList(const Array<String>& items)
 		{
-			writeRaw(L"<ul>");
-
-			for (const auto& item : items)
+			writeRaw(L"<ul>\n");
 			{
-				writeEscapedElement(HTMLEscape(item), L"li");
+				for (const auto& item : items)
+				{
+					writeElementRaw(HTMLEscape(item), L"li");
+				}
 			}
-
-			writeRaw(L"</ul>");
+			writeRaw(L"</ul>\n");
 		}
 
 		void writeOrderedList(const Array<String>& items)
 		{
-			writeRaw(L"<ol>");
-
-			for (const auto& item : items)
+			writeRaw(L"<ol>\n");
 			{
-				writeEscapedElement(HTMLEscape(item), L"li");
+				for (const auto& item : items)
+				{
+					writeElementRaw(HTMLEscape(item), L"li");
+				}
 			}
-
-			writeRaw(L"</ol>");
+			writeRaw(L"</ol>\n");
 		}
 
-		void writeTable(const Grid<String>& items)
+		void writeTable(const Grid<String>& items, const bool hasHeader = false)
 		{
-			writeRaw(L"<table>");
-
-			if (items.isEmpty())
+			writeRaw(L"<table>\n");
 			{
-				writeRaw(L"</table>");
-				return;
-			}
-
-			writeRaw(L"<tr>");
-			for (size_t x = 0; x < items.width(); ++x)
-			{
-				writeEscapedElement(HTMLEscape(items[0][x]), L"th");
-			}
-			writeRaw(L"</tr>");
-
-			for (size_t y = 1; y < items.height(); ++y)
-			{
-				writeRaw(L"<tr>");
-
-				for (size_t x = 0; x < items.width(); ++x)
+				if (items.isEmpty())
 				{
-					writeEscapedElement(HTMLEscape(items[y][x]), L"td");
+					return writeRaw(L"</table>\n");
 				}
 
-				writeRaw(L"</tr>");
+				if (hasHeader)
+				{
+					writeRaw(L"<tr>\n");
+					{
+						for (size_t x = 0; x < items.width(); ++x)
+						{
+							writeElementRaw(HTMLEscape(items[0][x]), L"th");
+						}
+					}
+					writeRaw(L"</tr>\n");
+				}
+
+				for (size_t y = hasHeader; y < items.height(); ++y)
+				{
+					writeRaw(L"<tr>\n");
+					{
+						for (size_t x = 0; x < items.width(); ++x)
+						{
+							writeElementRaw(HTMLEscape(items[y][x]), L"td");
+						}
+					}
+					writeRaw(L"</tr>\n");
+				}
 			}
-
-			writeRaw(L"</table>");
+			writeRaw(L"</table>\n");
 		}
 
-		void writeLine()
+		void writeLine(int32 thickness = 2, const Color& color = Color(223, 226, 229))
 		{
-			writeRaw(L"<hr>");
-		}
-
-		void writeLine(int32 thickness)
-		{
-			writeEscapedElement(L"", L"hr", { { L"height", Format(thickness, L"px") } });
-		}
-
-		void writeLine(int32 thickness, const Color& color)
-		{
-			writeEscapedElement(L"", L"hr", { { L"height", Format(thickness, L"px") },{ L"background-color", GetRGBCode(color) } });
+			writeRaw(Format(L"<hr style=\"height:", thickness, L"px; background-color:", GetColorCode(color), L"; border: 0;\">\n"));
 		}
 
 		void writeImage(const Image& image, const Optional<Size>& size = unspecified)
 		{
+			writeRaw(L"<img src=\"data:image/png;base64,");
+
+			writeRaw(Base64::Encode(image.encode(ImageFormat::PNG).getView()));
+
+			const Size s = size.value_or(image.size());
+
+			writeRaw(L"\" width=\"" + Format(s.x) + L"\" height=\"" + Format(s.y) + L"\">\n");
+		}
+
+		void writeImage(const FilePath& url, const Optional<Size>& size = unspecified)
+		{
+			writeRaw(L"<img src=\"" + url);
+
+			if (size)
+			{
+				writeRaw(L"\" width=\"" + Format(size->x) + L"\" height=\"" + Format(size->y) + L"\">\n");
+			}
+			else
+			{
+				writeRaw(L"\">\n");
+			}			
+		}
+
+		const FilePath& path() const
+		{
+			return m_writer.path();
 		}
 	};
 }
