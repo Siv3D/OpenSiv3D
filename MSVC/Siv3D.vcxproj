@@ -109,6 +109,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Point.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\PointVector.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Profiler.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Quad.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Random.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\RandomColor.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\RandomPoint.hpp" />
