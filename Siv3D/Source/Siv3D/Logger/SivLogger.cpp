@@ -25,6 +25,21 @@ namespace s3d
 
 	namespace Logger
 	{
+		void SetOutputLevel(const OutputLevel level)
+		{
+			Siv3DEngine::GetLogger()->setOutputLevel(level);
+		}
+
+		void OutputLog(const LogDescription desc, const String& str)
+		{
+			Siv3DEngine::GetLogger()->write(desc, str);
+		}
+
+		void WriteRawHTML(const String& str)
+		{
+			Siv3DEngine::GetLogger()->writeRawHTML(str);
+		}
+
 		void RemoveLogOnExit()
 		{
 			Siv3DEngine::GetLogger()->removeLogOnExit();

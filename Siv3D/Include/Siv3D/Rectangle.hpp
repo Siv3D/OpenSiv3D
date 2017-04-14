@@ -14,6 +14,7 @@
 # include "NamedParameter.hpp"
 # include "PointVector.hpp"
 # include "Line.hpp"
+# include "Quad.hpp"
 
 namespace s3d
 {
@@ -1255,6 +1256,110 @@ namespace s3d
 			return (w + h) * 2;
 		}
 
+		/// <summary>
+		/// 長方形を回転させた図形を返します。
+		/// </summary>
+		/// <param name="angle">
+		/// 回転角度（ラジアン）
+		/// </param>
+		/// <returns>
+		/// 回転した四角形
+		/// </returns>
+		Quad rotated(double angle) const
+		{
+			const Vec2 cent(x + w * 0.5, y + h * 0.5);
+			const double cx = cent.x;
+			const double cy = cent.y;
+			const double x0 = -size.x * 0.5;
+			const double x1 = size.x * 0.5;
+			const double y0 = -size.y * 0.5;
+			const double y1 = size.y * 0.5;
+			const double s = std::sin(angle);
+			const double c = std::cos(angle);
+			const double x0c = x0*c;
+			const double x0s = x0*s;
+			const double x1c = x1*c;
+			const double x1s = x1*s;
+			const double y0c = y0*c;
+			const double y0s = y0*s;
+			const double y1c = y1*c;
+			const double y1s = y1*s;
+			return{ { x0c - y0s + cx, x0s + y0c + cy },{ x1c - y0s + cx, x1s + y0c + cy },{ x1c - y1s + cx, x1s + y1c + cy },{ x0c - y1s + cx, x0s + y1c + cy } };
+		}
+
+		/// <summary>
+		/// 長方形を回転させた図形を返します。
+		/// </summary>
+		/// <param name="x">
+		/// 回転軸の X 座標
+		/// </param>
+		/// <param name="y">
+		/// 回転軸の Y 座標
+		/// </param>
+		/// <param name="angle">
+		/// 回転角度（ラジアン）
+		/// </param>
+		/// <returns>
+		/// 回転した四角形
+		/// </returns>
+		Quad rotatedAt(double _x, double _y, double angle) const
+		{
+			return rotatedAt({ _x, _y }, angle);
+		}
+		
+		/// <summary>
+		/// 長方形を回転させた図形を返します。
+		/// </summary>
+		/// <param name="pos">
+		/// 回転軸の位置
+		/// </param>
+		/// <param name="angle">
+		/// 回転角度（ラジアン）
+		/// </param>
+		/// <returns>
+		/// 回転した四角形
+		/// </returns>
+		Quad rotatedAt(const Vec2& _pos, double angle) const
+		{
+			Vec2 pts[4] = { { x, y },{ x + w, y },{ x + w, y + h },{ x, y + h } };
+
+			for (int i = 0; i < 4; ++i)
+			{
+				pts[i] -= _pos;
+			}
+
+			const double s = std::sin(angle);
+			const double c = std::cos(angle);
+
+			Quad quad;
+
+			for (int32 i = 0; i < 4; ++i)
+			{
+				quad.p(i).x = pts[i].x * c - pts[i].y * s + _pos.x;
+				quad.p(i).y = pts[i].x * s + pts[i].y * c + _pos.y;
+			}
+
+			return quad;
+		}
+
+		constexpr Quad shearedX(double vx) const noexcept
+		{
+			return{
+				Vec2(x + vx, y),
+				Vec2(x + w + vx, y),
+				Vec2(x + w - vx, y + h),
+				Vec2(x - vx, y + h) };
+		}
+
+		constexpr Quad shearedY(double vy) const noexcept
+		{
+			return{
+				Vec2(x, y - vy),
+				Vec2(x + w, y + vy),
+				Vec2(x + w, y + h + vy),
+				Vec2(x, y + h - vy) };
+		}
+
 		// intersects
 
 		// contains
@@ -1278,14 +1383,6 @@ namespace s3d
 		// drawFrame
 
 		// drawShadow
-
-		// rotated
-
-		// rotatedAt
-
-		// shearedX
-
-		// shearedY
 
 		// TexturedQuad operator()(const Texture& texture) const;
 

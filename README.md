@@ -124,7 +124,8 @@
 - [x] Resource
 - [x] Window::Resize()
 - [x] HTMLWriter
-- [ ] Quad
+- [x] step2D
+- [x] Quad
 - [ ] Engine Log (Partial)
 ---------------------------
 
