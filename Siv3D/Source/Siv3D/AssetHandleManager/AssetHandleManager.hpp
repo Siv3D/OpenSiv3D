@@ -13,6 +13,7 @@
 # include <memory>
 # include <Siv3D/HashMap.hpp>
 # include <Siv3D/String.hpp>
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -44,6 +45,8 @@ namespace s3d
 		void setNullData(const Data& data)
 		{
 			m_data.emplace(NullID, data);
+
+			LOG_DEBUG(L"Created {}[0(null)]"_fmt(m_assetTypeName));
 		}
 
 		const Data& operator [](const IDType id)
