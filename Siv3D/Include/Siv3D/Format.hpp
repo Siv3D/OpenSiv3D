@@ -18,6 +18,7 @@
 # include "FormatInt.hpp"
 # include "FormatFloat.hpp"
 # include "FormatLiteral.hpp"
+# include "CharacterSet.hpp"
 
 namespace s3d
 {
@@ -271,6 +272,26 @@ namespace s3d
 	inline void Formatter(FormatData& formatData, const wchar* const str)
 	{
 		formatData.string.append(str);
+	}
+
+	inline void Formatter(FormatData& formatData, const char16_t* const str)
+	{
+		formatData.string.append(CharacterSet::FromUTF16(str));
+	}
+
+	inline void Formatter(FormatData& formatData, const std::u16string& str)
+	{
+		formatData.string.append(CharacterSet::FromUTF16(str));
+	}
+
+	inline void Formatter(FormatData& formatData, const char32_t* const str)
+	{
+		formatData.string.append(CharacterSet::FromUTF32(str));
+	}
+
+	inline void Formatter(FormatData& formatData, const std::u32string& str)
+	{
+		formatData.string.append(CharacterSet::FromUTF32(str));
 	}
 
 	template <class Iterator>
