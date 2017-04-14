@@ -82,6 +82,27 @@ namespace s3d
 		}
 	}
 
+	/// <summary>
+	/// ログファイルの詳細度
+	/// </summary>
+	enum class OutputLevel
+	{
+		/// <summary>
+		/// 低
+		/// </summary>
+		Less,
+
+		/// <summary>
+		/// 通常
+		/// </summary>
+		Normal,
+
+		/// <summary>
+		/// 高
+		/// </summary>
+		More,
+	};
+
 	enum class LogDescription
 	{
 		Error,		// Less
@@ -95,6 +116,29 @@ namespace s3d
 
 	namespace Logger
 	{
+		void SetOutputLevel(OutputLevel level);
+
+		void OutputLog(LogDescription desc, const String& str);
+
+		void WriteRawHTML(const String& str);
+
 		void RemoveLogOnExit();
 	}
 }
+
+# define LOG_ERROR(...)		s3d::Logger::OutputLog(s3d::LogDescription::Error,__VA_ARGS__)
+# define LOG_FAIL(...)		s3d::Logger::OutputLog(s3d::LogDescription::Fail,__VA_ARGS__)
+# define LOG_WARNING(...)	s3d::Logger::OutputLog(s3d::LogDescription::Warning,__VA_ARGS__)
+# define LOG_SCRIPT(...)	s3d::Logger::OutputLog(s3d::LogDescription::Script,__VA_ARGS__)
+# define LOG_INFO(...)		s3d::Logger::OutputLog(s3d::LogDescription::Info,__VA_ARGS__)
+
+# ifdef _DEBUG
+
+	# define LOG_DEBUG(...)		s3d::Logger::OutputLog(s3d::LogDescription::Debug,__VA_ARGS__)
+	# define LOG_TEST(...)		s3d::Logger::OutputLog(s3d::LogDescription::Debug,__VA_ARGS__)
+
+# else
+
+	# define LOG_DEBUG(...)		((void)0)
+
+# endif
