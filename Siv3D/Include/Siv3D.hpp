@@ -80,6 +80,8 @@
 	# include "Siv3D/HashMap.hpp"
 	// 範囲
 	# include "Siv3D/Step.hpp"
+	// 二次元の範囲
+	# include "Siv3D/Step2D.hpp"
 	// 無限リスト
 	# include "Siv3D/InfiniteList.hpp"
 	// 二次元配列
