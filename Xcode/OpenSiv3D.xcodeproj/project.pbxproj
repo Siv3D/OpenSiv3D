@@ -236,6 +236,7 @@
 		2C316FCA1EA0AEE20011CAAE /* CHTMLWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316FC71EA0AEE20011CAAE /* CHTMLWriter.cpp */; };
 		2C316FCB1EA0AEE20011CAAE /* CHTMLWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316FC81EA0AEE20011CAAE /* CHTMLWriter.hpp */; };
 		2C316FCC1EA0AEE20011CAAE /* SivHTMLWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316FC91EA0AEE20011CAAE /* SivHTMLWriter.cpp */; };
+		2C316FCE1EA0C3920011CAAE /* Step2D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316FCD1EA0C3920011CAAE /* Step2D.hpp */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
 		2C81BECE1E89F8E300D27E52 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C81BC981E89F8E300D27E52 /* format.h */; };
@@ -840,6 +841,7 @@
 		2C316FC71EA0AEE20011CAAE /* CHTMLWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CHTMLWriter.cpp; sourceTree = "<group>"; };
 		2C316FC81EA0AEE20011CAAE /* CHTMLWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CHTMLWriter.hpp; sourceTree = "<group>"; };
 		2C316FC91EA0AEE20011CAAE /* SivHTMLWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivHTMLWriter.cpp; sourceTree = "<group>"; };
+		2C316FCD1EA0C3920011CAAE /* Step2D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Step2D.hpp; sourceTree = "<group>"; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
 		2C5869261E3F0C620028B9F0 /* lpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lpng.a; sourceTree = "<group>"; };
@@ -1678,6 +1680,7 @@
 				2C316F1C1E9F7B950011CAAE /* SpeedStopwatch.hpp */,
 				2C316F1D1E9F7B950011CAAE /* Spherical.hpp */,
 				2C316F1E1E9F7B950011CAAE /* Step.hpp */,
+				2C316FCD1EA0C3920011CAAE /* Step2D.hpp */,
 				2C316F1F1E9F7B950011CAAE /* Step_MSVC.hpp */,
 				2C316F201E9F7B950011CAAE /* Stopwatch.hpp */,
 				2C316F211E9F7B950011CAAE /* String.hpp */,
@@ -3086,6 +3089,7 @@
 				2C81BFA31E89F8E300D27E52 /* CImageFormat.hpp in Headers */,
 				2C81C0951E89F8E400D27E52 /* mem.h in Headers */,
 				2C316FAE1E9F7B950011CAAE /* Texture.hpp in Headers */,
+				2C316FCE1EA0C3920011CAAE /* Step2D.hpp in Headers */,
 				2C81BFCC1E89F8E300D27E52 /* CMouse_Windows.hpp in Headers */,
 				2C81BF9C1E89F8E300D27E52 /* IGraphics.hpp in Headers */,
 				2C81BFBD1E89F8E300D27E52 /* LogHeaderFotter.hpp in Headers */,
