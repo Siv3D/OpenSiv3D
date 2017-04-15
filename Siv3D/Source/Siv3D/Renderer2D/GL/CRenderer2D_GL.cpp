@@ -206,6 +206,38 @@ void main()
 		
 		m_drawIndexCount += indexSize;
 	}
+	
+	void CRenderer2D_GL::addRect(const FloatRect& rect, const Float4(&colors)[4])
+	{
+		constexpr IndexType vertexSize = 4, indexSize = 6;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+		
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		{
+			return;
+		}
+		
+		pVertex[0].pos.set(rect.left, rect.top);
+		pVertex[0].color = colors[0];
+		
+		pVertex[1].pos.set(rect.right, rect.top);
+		pVertex[1].color = colors[1];
+		
+		pVertex[2].pos.set(rect.left, rect.bottom);
+		pVertex[2].color = colors[3];
+		
+		pVertex[3].pos.set(rect.right, rect.bottom);
+		pVertex[3].color = colors[2];
+		
+		for (IndexType i = 0; i < indexSize; ++i)
+		{
+			*pIndex++ = indexOffset + detail::rectIndexTable[i];
+		}
+		
+		m_drawIndexCount += indexSize;
+	}
 }
 
 # endif
