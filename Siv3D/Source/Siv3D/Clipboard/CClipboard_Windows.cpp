@@ -241,18 +241,20 @@ namespace s3d
 	{
 		text.clear();
 
-		if (::IsClipboardFormatAvailable(CF_TEXT))
+		if (::IsClipboardFormatAvailable(CF_UNICODETEXT))
 		{
 			if (!::OpenClipboard(nullptr))
 			{
 				return false;
 			}
 
-			if (const HGLOBAL hGlobal = static_cast<HGLOBAL>(::GetClipboardData(CF_TEXT)))
+			if (const HGLOBAL hGlobal = static_cast<HGLOBAL>(::GetClipboardData(CF_UNICODETEXT)))
 			{
-				text = CharacterSet::Widen(static_cast<char*>(::GlobalLock(hGlobal)));
+				text = static_cast<const wchar_t*>(::GlobalLock(hGlobal));
 
 				::GlobalUnlock(hGlobal);
+
+				text.remove(L'\r');
 			}
 
 			::CloseClipboard();
