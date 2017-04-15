@@ -36,6 +36,8 @@ namespace s3d
 		CTexture_GL* m_texture = nullptr;
 		
 		CRenderer2D_GL* m_renderer2D = nullptr;
+		
+		Size m_currentRenderTargetSize = { 640, 480 };
 
 	public:
 
@@ -70,6 +72,8 @@ namespace s3d
 		bool isVSyncEnabled() const override;
 
 		bool flush() override;
+		
+		const Size& getCurrentRenderTargetSize() const override;
 	};
 }
 

@@ -15,6 +15,7 @@
 # include "PointVector.hpp"
 # include "Line.hpp"
 # include "Quad.hpp"
+# include "Color.hpp"
 
 namespace s3d
 {
@@ -1377,6 +1378,62 @@ namespace s3d
 		// paintFrame
 
 		// overpaintFrame
+
+		/// <summary>
+		/// 長方形を描きます。
+		/// </summary>
+		/// <param name="color">
+		/// 色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Rectangle& draw(const ColorF& color = Palette::White) const;
+
+		/// <summary>
+		/// 長方形を描きます。
+		/// </summary>
+		/// <param name="colors">
+		/// 各頂点の色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Rectangle& draw(const ColorF(&colors)[4]) const;
+
+		/// <summary>
+		/// 長方形を描きます。
+		/// </summary>
+		/// <param name="topColor">
+		/// 上側の色
+		/// </param>
+		/// <param name="bottomColor">
+		/// 下側の色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Rectangle& draw(Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const
+		{
+			return draw({ *topColor, *topColor, *bottomColor, *bottomColor });
+		}
+
+		/// <summary>
+		/// 長方形を描きます。
+		/// </summary>
+		/// <param name="leftColor">
+		/// 左側の色
+		/// </param>
+		/// <param name="rightColor">
+		/// 右側の色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Rectangle& draw(Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const
+		{
+			return draw({ *leftColor, *rightColor, *rightColor, *leftColor });
+		}
 
 		// draw
 

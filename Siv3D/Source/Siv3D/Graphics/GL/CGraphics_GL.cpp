@@ -154,6 +154,10 @@ namespace s3d
 			::glfwSetWindowMonitor(m_glfwWindow, monitors[displayIndex], 0, 0, size.x, size.y, refreshRateHz);
 		}
 		
+		m_currentRenderTargetSize = size;
+		
+		::glViewport(0, 0, m_currentRenderTargetSize.x, m_currentRenderTargetSize.y);
+		
 		Siv3DEngine::GetWindow()->updateClientSize(fullScreen, size);
 
 		return true;
@@ -204,9 +208,14 @@ namespace s3d
 	
 	bool CGraphics_GL::flush()
 	{
-		//m_renderer2D->flush();
+		m_renderer2D->flush();
 		
 		return true;
+	}
+	
+	const Size& CGraphics_GL::getCurrentRenderTargetSize() const
+	{
+		return m_currentRenderTargetSize;
 	}
 }
 

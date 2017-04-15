@@ -43,6 +43,8 @@ namespace s3d
 		ColorF m_clearColor = Color(11, 22, 33);
 
 		BackBufferTexture m_backBuffer;
+
+		Size m_currentRenderTargetResolution = { 640, 480 };
 		
 	public:
 
@@ -59,6 +61,8 @@ namespace s3d
 		void beginResize();
 
 		bool endResize(const Size& size);
+
+		const Size& getCurrentRenderTargetSize() const;
 	};
 }
 

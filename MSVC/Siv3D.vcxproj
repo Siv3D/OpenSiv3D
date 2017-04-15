@@ -56,6 +56,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Easing.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\FileSystem.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\BigFloat.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\FloatRect.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Format.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\FormatBool.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\FormatFloat.hpp" />

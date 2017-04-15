@@ -12,11 +12,22 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
+# include "../../Siv3DEngine.hpp"
+# include "../../Graphics/IGraphics.hpp"
 # include "CRenderer2D_GL.hpp"
 # include <Siv3D/Vertex2D.hpp>
+#include <Siv3D/FloatRect.hpp>
+#include <Siv3D/Color.hpp>
+#include <Siv3D/Mat3x2.hpp>
+#include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
+	namespace detail
+	{
+		static constexpr IndexType rectIndexTable[6] = { 0, 1, 2, 2, 1, 3 };
+	}
+	
 	CRenderer2D_GL::CRenderer2D_GL()
 	{
 
@@ -25,11 +36,7 @@ namespace s3d
 	CRenderer2D_GL::~CRenderer2D_GL()
 	{
 		if (m_initialized)
-		{
-			::glDeleteVertexArrays(1, &m_vao);
-			::glDeleteBuffers(1, &m_indexBuffer);
-			::glDeleteBuffers(1, &m_vertexBuffer);
-		
+		{		
 			::glDeleteProgram(m_programHandle);
 			::glDeleteShader(m_pixelShader);
 			::glDeleteShader(m_vertexShader);
@@ -49,11 +56,14 @@ in vec2 Tex;
 in vec4 VertexColor;
 
 out vec4 Color;
+		
+uniform vec4 g_transform[2];
 
 void main()
 {
 	Color = VertexColor;
-	gl_Position = vec4(VertexPosition, 0.0, 1.0);
+	gl_Position.xy	= g_transform[0].zw + VertexPosition.x * g_transform[0].xy + VertexPosition.y * g_transform[1].xy;
+	gl_Position.zw	= g_transform[1].zw;
 }
 )";
 		
@@ -125,28 +135,12 @@ void main()
 		
 		::glUseProgram(m_programHandle);
 		
-		::glGenBuffers(1, &m_vertexBuffer);
-		::glGenBuffers(1, &m_indexBuffer);
 		
-		::glGenVertexArrays(1, &m_vao);
-		
-		::glBindVertexArray(m_vao);
+		if (!m_spriteBatch.init())
 		{
-			::glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
-			::glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex2D) * VertexBufferSize, nullptr, GL_DYNAMIC_DRAW);
-
-			::glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 32, (GLubyte*)0);
-			::glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 32, (GLubyte*)8);
-			::glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 32, (GLubyte*)16);
-		
-			::glEnableVertexAttribArray(0);
-			::glEnableVertexAttribArray(1);
-			::glEnableVertexAttribArray(2);
-			
-			::glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBuffer);
-			::glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32) * IndexBufferSize, nullptr, GL_DYNAMIC_DRAW);
+			return false;
 		}
-		::glBindVertexArray(0);
+		
 		
 		m_initialized = true;
 		
@@ -155,72 +149,94 @@ void main()
 	
 	void CRenderer2D_GL::flush()
 	{
-		const size_t vertexSize = 4;
-		const size_t indexSize = 6;
+		const Float2 currentRenderTargetSize = Siv3DEngine::GetGraphics()->getCurrentRenderTargetSize();
+		const Mat3x2 currentMat = Mat3x2::Identity();
+		const Mat3x2 currentScreen = Mat3x2::Screen(currentRenderTargetSize);
+		const Mat3x2 matrix = currentMat * currentScreen;
 		
-		static int frame = 0;
-		++frame;
-		
-		const float f = sin(frame / 100.0f);
-		
-		const Vertex2D vertices[vertexSize] = {
-			{Float2(-0.8f,  f), Float2(0.0f,  0.0f), Float4( 1.0f, 0.5f, 0.2f, 1.0f)},
-			{Float2(-0.8f,  0.0f), Float2(0.0f,  0.0f), Float4( 1.0f, 1.0f, 1.0f, 1.0f)},
-			{Float2( 0.0f,  0.8f), Float2(0.0f,  0.0f), Float4( 1.0f, 0.5f, 0.2f, 1.0f)},
-			{Float2( 0.0f,  0.0f), Float2(0.0f,  0.0f), Float4( 1.0f, 1.0f, 1.0f, 1.0f)},
+		const float transform[8] =
+		{
+			matrix._11, matrix._12, matrix._31, matrix._32,
+			matrix._21, matrix._22, 0.0f, 1.0f
 		};
 		
+		GLuint uniformLocation = ::glGetUniformLocation(m_programHandle, "g_transform");
+		
+		::glUniform4fv(uniformLocation, 2, transform);
+		
+		const std::pair<uint32, uint32> vi = m_spriteBatch.setBuffers();
 	
-		::glBindVertexArray(m_vao);
-		
-		
-		if (m_vertexWritePos + vertexSize > VertexBufferSize)
-		{
-			m_vertexWritePos = 0;
-		}
-		
-		const uint32 vertexOffset = m_vertexWritePos;
-		{
-			void* pDst = ::glMapBufferRange(GL_ARRAY_BUFFER, sizeof(Vertex2D) * m_vertexWritePos, sizeof(Vertex2D) * vertexSize,
-											GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
-			
-			::memcpy(pDst, vertices, sizeof(Vertex2D) * vertexSize);
-			
-			::glUnmapBuffer(GL_ARRAY_BUFFER);
-		}
-		m_vertexWritePos += vertexSize;		
-		
-		
-		
-		if (m_indexWritePos + indexSize > IndexBufferSize)
-		{
-			m_indexWritePos = 0;
-		}
+		::glDrawElements(GL_TRIANGLES, m_drawIndexCount, GL_UNSIGNED_INT, (uint32*)(nullptr) + vi.second);
 
-		uint32 indices[indexSize] = { 0, 1, 2, 1, 2, 3 };
-		
-		for (auto& index : indices)
-		{
-			index += vertexOffset;
-		}
-		
-		const uint32 indexOffset = m_indexWritePos;
-		{
-			void* pDst = ::glMapBufferRange(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32) * m_indexWritePos, sizeof(uint32) * indexSize,
-						 GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
-		
-			::memcpy(pDst, indices, sizeof(uint32) * indexSize);
-		
-			::glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER);
-		}
-		m_indexWritePos += indexSize;
-		
-		
-		
-		::glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (uint32*)(nullptr) + indexOffset);
-
-		
 		::glBindVertexArray(0);
+		 
+		m_drawIndexCount = 0;
+		
+		m_spriteBatch.clear();
+	}
+	
+	void CRenderer2D_GL::addRect(const FloatRect& rect, const Float4& color)
+	{
+		constexpr IndexType vertexSize = 4, indexSize = 6;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+		
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		{
+			return;
+		}
+
+		pVertex[0].pos.set(rect.left, rect.top);
+		pVertex[0].color = color;
+		
+		pVertex[1].pos.set(rect.right, rect.top);
+		pVertex[1].color = color;
+		
+		pVertex[2].pos.set(rect.left, rect.bottom);
+		pVertex[2].color = color;
+		
+		pVertex[3].pos.set(rect.right, rect.bottom);
+		pVertex[3].color = color;
+		
+		for (IndexType i = 0; i < indexSize; ++i)
+		{
+			*pIndex++ = indexOffset + detail::rectIndexTable[i];
+		}
+		
+		m_drawIndexCount += indexSize;
+	}
+	
+	void CRenderer2D_GL::addRect(const FloatRect& rect, const Float4(&colors)[4])
+	{
+		constexpr IndexType vertexSize = 4, indexSize = 6;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+		
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		{
+			return;
+		}
+		
+		pVertex[0].pos.set(rect.left, rect.top);
+		pVertex[0].color = colors[0];
+		
+		pVertex[1].pos.set(rect.right, rect.top);
+		pVertex[1].color = colors[1];
+		
+		pVertex[2].pos.set(rect.left, rect.bottom);
+		pVertex[2].color = colors[3];
+		
+		pVertex[3].pos.set(rect.right, rect.bottom);
+		pVertex[3].color = colors[2];
+		
+		for (IndexType i = 0; i < indexSize; ++i)
+		{
+			*pIndex++ = indexOffset + detail::rectIndexTable[i];
+		}
+		
+		m_drawIndexCount += indexSize;
 	}
 }
 

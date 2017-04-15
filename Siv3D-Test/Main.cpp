@@ -1,13 +1,17 @@
 ﻿
 # include <Siv3D.hpp>
-# include "Test/Siv3DTest.hpp"
 
 void Main()
 {
 	while (System::Update())
 	{
-		Window::SetTitle(Profiler::FPS());
+		if (KeyR.down())
+		{
+			Window::Resize(1280, 720);
+		}
 
-		Graphics::SetBackground(HSV(Cursor::Pos().x * 0.2));
+		Rect(100, 50, 80).draw({Palette::Orange, Palette::Orange, Palette::White, Palette::White});
+
+		Rect(200, 50, 80).draw(Arg::left = Palette::Orange, Arg::right = Palette::White);
 	}
 }

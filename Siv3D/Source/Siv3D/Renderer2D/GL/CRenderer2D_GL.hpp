@@ -16,6 +16,7 @@
 # include <GL/glew.h>
 # include "../../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 # include "../IRenderer2D.hpp"
+# include "GLSpriteBatch.hpp"
 
 namespace s3d
 {
@@ -29,21 +30,11 @@ namespace s3d
 		
 		GLuint m_programHandle = 0;
 		
-		GLuint m_vao = 0;
+		GLSpriteBatch m_spriteBatch;
 		
-		GLuint m_vertexBuffer = 0;
-		
-		GLuint m_indexBuffer = 0;
-		
-		uint32 m_vertexWritePos = 0;
-
-		uint32 m_indexWritePos = 0;
+		uint32 m_drawIndexCount = 0;
 		
 		bool m_initialized = false;
-		
-		static constexpr uint32 VertexBufferSize = 65536;
-
-		static constexpr uint32 IndexBufferSize = 65536;
 		
 	public:
 
@@ -54,6 +45,10 @@ namespace s3d
 		bool init();
 
 		void flush() override;
+
+		void addRect(const FloatRect& rect, const Float4& color) override;
+		
+		void addRect(const FloatRect& rect, const Float4(&colors)[4]) override;
 	};
 }
 

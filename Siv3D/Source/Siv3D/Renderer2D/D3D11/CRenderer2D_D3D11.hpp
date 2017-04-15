@@ -42,6 +42,8 @@ namespace s3d
 
 		ComPtr<ID3D11Buffer> m_cbuffer;
 
+		uint32 m_drawIndexCount = 0;
+
 	public:
 
 		CRenderer2D_D3D11();
@@ -50,7 +52,11 @@ namespace s3d
 
 		bool init(ID3D11Device* device, ID3D11DeviceContext* context);
 
-		void flush();
+		void flush() override;
+
+		void addRect(const FloatRect& rect, const Float4& color) override;
+
+		void addRect(const FloatRect& rect, const Float4(&colors)[4]) override;
 	};
 }
 

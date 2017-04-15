@@ -14,14 +14,21 @@
 
 # include "../../Siv3DEngine.hpp"
 # include "../../Shader/IShader.hpp"
+# include "../../Graphics/IGraphics.hpp"
 # include "CRenderer2D_D3D11.hpp"
 
 #include <Siv3D/Mat3x2.hpp>
-#include <Siv3D/Rectangle.hpp>
+#include <Siv3D/FloatRect.hpp>
+#include <Siv3D/Color.hpp>
 #include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
+	namespace detail
+	{
+		static constexpr IndexType rectIndexTable[6] = { 0, 1, 2, 2, 1, 3 };
+	}
+
 	CRenderer2D_D3D11::CRenderer2D_D3D11()
 	{
 
@@ -81,55 +88,13 @@ namespace s3d
 
 	void CRenderer2D_D3D11::flush()
 	{
-		//// send batch
-		//
-		// (add rect)
-		//
-		{
-			constexpr IndexType vertexSize = 4, indexSize = 6;
-			Vertex2D* pVertex;
-			IndexType* pIndex;
-			IndexType indexOffset;
-
-			if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
-			{
-				return;
-			}
-
-			const Rect rect(40, 80, 400, 200);
-
-			const float left = static_cast<float>(rect.x);
-			const float right = static_cast<float>(rect.x + rect.w);
-			const float top = static_cast<float>(rect.y);
-			const float bottom = static_cast<float>(rect.y + rect.h);
-			const Float4 color(0.2f, 0.5f, 1.0f, 1.0f);
-
-			pVertex[0].pos.set(left, top);
-			pVertex[0].color = color;
-
-			pVertex[1].pos.set(right, top);
-			pVertex[1].color = color;
-
-			pVertex[2].pos.set(left, bottom);
-			pVertex[2].color = color;
-
-			pVertex[3].pos.set(right, bottom);
-			pVertex[3].color = color;
-
-			static constexpr IndexType rectIndexTable[6] = { 0, 1, 2, 2, 1, 3 };
-
-			for (IndexType i = 0; i < indexSize; ++i)
-			{
-				pIndex[i] = indexOffset + rectIndexTable[i];
-			}
-		}
-
 		// set buffer
 		const auto vi = m_spriteBatch.setBuffers();
 
 		// setCB
+		const Float2 currentRenderTargetSize = Siv3DEngine::GetGraphics()->getCurrentRenderTargetSize();
 		const Mat3x2 currentMat = Mat3x2::Identity();
-		const Mat3x2 currentScreen = Mat3x2::Screen(640, 480);
+		const Mat3x2 currentScreen = Mat3x2::Screen(currentRenderTargetSize);
 		const Mat3x2 matrix = currentMat * currentScreen;
 
 		const float transform[8] =
@@ -158,11 +123,78 @@ namespace s3d
 		// setPS
 		Siv3DEngine::GetShader()->setPS(Siv3DEngine::GetShader()->getStandardPS(0).id());
 
-		// draw
-		m_context->DrawIndexed(6, vi.second, vi.first);
+		//Log << vi << L" " << m_drawIndexCount;
 
+		// draw
+		m_context->DrawIndexed(m_drawIndexCount, vi.second, vi.first);
+
+		m_drawIndexCount = 0;
 
 		m_spriteBatch.clear();
+	}
+
+	void CRenderer2D_D3D11::addRect(const FloatRect& rect, const Float4& color)
+	{
+		constexpr IndexType vertexSize = 4, indexSize = 6;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		{
+			return;
+		}
+
+		pVertex[0].pos.set(rect.left, rect.top);
+		pVertex[0].color = color;
+
+		pVertex[1].pos.set(rect.right, rect.top);
+		pVertex[1].color = color;
+
+		pVertex[2].pos.set(rect.left, rect.bottom);
+		pVertex[2].color = color;
+
+		pVertex[3].pos.set(rect.right, rect.bottom);
+		pVertex[3].color = color;
+
+		for (IndexType i = 0; i < indexSize; ++i)
+		{
+			*pIndex++ = indexOffset + detail::rectIndexTable[i];
+		}
+
+		m_drawIndexCount += indexSize;
+	}
+
+	void CRenderer2D_D3D11::addRect(const FloatRect& rect, const Float4(&colors)[4])
+	{
+		constexpr IndexType vertexSize = 4, indexSize = 6;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		{
+			return;
+		}
+
+		pVertex[0].pos.set(rect.left, rect.top);
+		pVertex[0].color = colors[0];
+
+		pVertex[1].pos.set(rect.right, rect.top);
+		pVertex[1].color = colors[1];
+
+		pVertex[2].pos.set(rect.left, rect.bottom);
+		pVertex[2].color = colors[3];
+
+		pVertex[3].pos.set(rect.right, rect.bottom);
+		pVertex[3].color = colors[2];
+
+		for (IndexType i = 0; i < indexSize; ++i)
+		{
+			*pIndex++ = indexOffset + detail::rectIndexTable[i];
+		}
+
+		m_drawIndexCount += indexSize;
 	}
 }
 

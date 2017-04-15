@@ -45,5 +45,7 @@ namespace s3d
 		virtual bool isVSyncEnabled() const = 0;
 
 		virtual bool flush() = 0;
+
+		virtual const Size& getCurrentRenderTargetSize() const = 0;
 	};
 }

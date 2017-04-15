@@ -144,8 +144,6 @@ namespace s3d
 			return false;
 		}
 
-		Siv3DEngine::GetClipboard()->update();
-
 		Siv3DEngine::GetCursor()->update();
 
 		Siv3DEngine::GetKeyboard()->update();

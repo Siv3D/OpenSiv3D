@@ -22,34 +22,19 @@ namespace s3d
 			return Siv3DEngine::GetClipboard()->hasChanged();
 		}
 
-		bool HasText()
+		bool GetText(String& text)
 		{
-			return Siv3DEngine::GetClipboard()->hasText();
+			return Siv3DEngine::GetClipboard()->getText(text);
 		}
 
-		bool HasImage()
+		bool GetImage(Image& image)
 		{
-			return Siv3DEngine::GetClipboard()->hasImage();
+			return Siv3DEngine::GetClipboard()->getImage(image);
 		}
 
-		bool HasFilePaths()
+		bool GetFilePaths(Array<FilePath>& paths)
 		{
-			return Siv3DEngine::GetClipboard()->hasFilePaths();
-		}
-
-		const String& GetText()
-		{
-			return Siv3DEngine::GetClipboard()->getText();
-		}
-
-		const Image& GetImage()
-		{
-			return Siv3DEngine::GetClipboard()->getImage();
-		}
-
-		const Array<FilePath>& GetFilePaths()
-		{
-			return Siv3DEngine::GetClipboard()->getFilePaths();
+			return Siv3DEngine::GetClipboard()->getFilePaths(paths);
 		}
 
 		void SetText(const String& text)
