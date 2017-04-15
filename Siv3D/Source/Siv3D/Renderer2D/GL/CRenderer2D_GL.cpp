@@ -56,11 +56,14 @@ in vec2 Tex;
 in vec4 VertexColor;
 
 out vec4 Color;
+		
+uniform vec4 g_transform[2];
 
 void main()
 {
 	Color = VertexColor;
-	gl_Position = vec4(VertexPosition, 0.0, 1.0);
+	gl_Position.xy	= g_transform[0].zw + VertexPosition.x * g_transform[0].xy + VertexPosition.y * g_transform[1].xy;
+	gl_Position.zw	= g_transform[1].zw;
 }
 )";
 		
@@ -146,6 +149,21 @@ void main()
 	
 	void CRenderer2D_GL::flush()
 	{
+		const Float2 currentRenderTargetSize = Siv3DEngine::GetGraphics()->getCurrentRenderTargetSize();
+		const Mat3x2 currentMat = Mat3x2::Identity();
+		const Mat3x2 currentScreen = Mat3x2::Screen(currentRenderTargetSize);
+		const Mat3x2 matrix = currentMat * currentScreen;
+		
+		const float transform[8] =
+		{
+			matrix._11, matrix._12, matrix._31, matrix._32,
+			matrix._21, matrix._22, 0.0f, 1.0f
+		};
+		
+		GLuint uniformLocation = ::glGetUniformLocation(m_programHandle, "g_transform");
+		
+		::glUniform4fv(uniformLocation, 2, transform);
+		
 		const std::pair<uint32, uint32> vi = m_spriteBatch.setBuffers();
 	
 		::glDrawElements(GL_TRIANGLES, m_drawIndexCount, GL_UNSIGNED_INT, (uint32*)(nullptr) + vi.second);
@@ -157,7 +175,7 @@ void main()
 		m_spriteBatch.clear();
 	}
 	
-	void CRenderer2D_GL::addRect(const FloatRect& _rect, const Float4& color)
+	void CRenderer2D_GL::addRect(const FloatRect& rect, const Float4& color)
 	{
 		constexpr IndexType vertexSize = 4, indexSize = 6;
 		Vertex2D* pVertex;
@@ -168,21 +186,7 @@ void main()
 		{
 			return;
 		}
-		
-		const Float2 currentRenderTargetSize = Siv3DEngine::GetGraphics()->getCurrentRenderTargetSize();
-		const Mat3x2 currentMat = Mat3x2::Identity();
-		const Mat3x2 currentScreen = Mat3x2::Screen(currentRenderTargetSize);
-		const Mat3x2 matrix = currentMat * currentScreen;
-		
-		Float2 lt = matrix.transform(Float2(_rect.left, _rect.top));
-		Float2 rb = matrix.transform(Float2(_rect.right, _rect.bottom));
-		
-		FloatRect rect;
-		rect.left = lt.x;
-		rect.top = lt.y;
-		rect.right = rb.x;
-		rect.bottom = rb.y;
-		
+
 		pVertex[0].pos.set(rect.left, rect.top);
 		pVertex[0].color = color;
 		
