@@ -23,9 +23,7 @@ namespace s3d
 	private:
 
 		uint64 m_changeCount = 0;
-		
-		bool m_hasChanged = false;
-		
+
 	public:
 
 		CClipboard_macOS();

@@ -55,11 +55,11 @@ namespace s3d
 	{
 		const uint64 currentChangeCount = detail::ClipboardGetChangeCount_macOS();
 		
-		m_hasChanged = (currentChangeCount != m_changeCount);
+		const bool hasChanged = (currentChangeCount != m_changeCount);
 		
 		m_changeCount = currentChangeCount;
 		
-		return m_hasChanged;
+		return hasChanged;
 	}
 
 	bool CClipboard_macOS::getText(String& text)
@@ -82,7 +82,6 @@ namespace s3d
 		detail::ClipboardSetText_macOS(text);
 
 		m_changeCount = detail::ClipboardGetChangeCount_macOS();
-		m_hasChanged = true;
 	}
 
 	void CClipboard_macOS::setImage(const Image& image)
@@ -90,7 +89,6 @@ namespace s3d
 		detail::ClipboardSetImage_macOS(image);
 
 		m_changeCount = detail::ClipboardGetChangeCount_macOS();
-		m_hasChanged = true;
 	}
 
 	void CClipboard_macOS::clear()
@@ -98,7 +96,6 @@ namespace s3d
 		detail::ClipboardClear_macOS();
 		
 		m_changeCount = detail::ClipboardGetChangeCount_macOS();
-		m_hasChanged = false;
 	}
 }
 
