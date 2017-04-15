@@ -3,8 +3,6 @@
 
 void Main()
 {
-	Graphics::SetBackground(Color(55, 111, 222));
-	
 	while (System::Update())
 	{
 		if (KeyR.down())
@@ -12,11 +10,8 @@ void Main()
 			Window::Resize(1280, 720);
 		}
 
-		for (auto p : step({ 10, 10 }))
-		{
-			Rect(p * 40, 38).draw(HSV(10 * (p.x + p.y)));
-		}
+		Rect(100, 50, 80).draw({Palette::Orange, Palette::Orange, Palette::White, Palette::White});
 
-		Rect(Arg::center = Cursor::Pos(), 20).draw();
+		Rect(200, 50, 80).draw(Arg::left = Palette::Orange, Arg::right = Palette::White);
 	}
 }
