@@ -46,6 +46,8 @@ namespace s3d
 
 				m_size = ::SizeofResource(hModule, hrs);
 
+				LOG_DEBUG(L"📤 BinaryReader: Opened resource \"{0}\" size: {1}"_fmt(path, FMTBYTES(m_size)));
+
 				m_opened = true;
 
 				m_fullPath = path;
@@ -54,7 +56,7 @@ namespace s3d
 			}
 			else
 			{
-				LOG_FAIL(L"BinaryReader: Failed to load resource \"{}\""_fmt(path));
+				LOG_FAIL(L"❌ BinaryReader: Failed to open resource \"{0}\""_fmt(path));
 
 				return false;
 			}
@@ -67,7 +69,7 @@ namespace s3d
 
 			if (!m_opened)
 			{
-				LOG_FAIL(L"BinaryReader: Failed to open file \"{}\""_fmt(path));
+				LOG_FAIL(L"❌ BinaryReader: Failed to open file \"{0}\""_fmt(path));
 
 				return false;
 			}
@@ -79,6 +81,8 @@ namespace s3d
 			::GetFileSizeEx(m_handle, &size);
 
 			m_size = size.QuadPart;
+
+			LOG_DEBUG(L"📤 BinaryReader: Opened file \"{0}\" size: {1}"_fmt(m_fullPath, FMTBYTES(m_size)));
 
 			return true;
 		}
@@ -94,12 +98,16 @@ namespace s3d
 		if (m_pResource)
 		{
 			m_pResource = nullptr;
+
+			LOG_DEBUG(L"📥 BinaryReader: Closed resource \"{0}\""_fmt(m_fullPath));
 		}
 		else
 		{
 			::CloseHandle(m_handle);
 
 			m_handle = INVALID_HANDLE_VALUE;
+
+			LOG_DEBUG(L"📥 BinaryReader: Closed file \"{0}\""_fmt(m_fullPath));
 		}
 
 		m_opened = false;
@@ -139,6 +147,8 @@ namespace s3d
 
 			if (!::ReadFile(m_handle, buffer, static_cast<DWORD>(size), &readBytes, nullptr))
 			{
+				LOG_DEBUG(L"❌ BinaryReader: Failed ::ReadFile() \"{0}\""_fmt(m_fullPath));
+
 				return 0;
 			}
 
@@ -168,6 +178,8 @@ namespace s3d
 
 			if (!::ReadFile(m_handle, buffer, static_cast<DWORD>(size), &readBytes, nullptr))
 			{
+				LOG_DEBUG(L"❌ BinaryReader: Failed ::ReadFile() \"{0}\""_fmt(m_fullPath));
+
 				return 0;
 			}
 
@@ -229,6 +241,8 @@ namespace s3d
 
 			if (!::ReadFile(m_handle, buffer, static_cast<DWORD>(size), &readBytes, nullptr))
 			{
+				LOG_DEBUG(L"❌ BinaryReader: Failed ::ReadFile() \"{0}\""_fmt(m_fullPath));
+
 				return 0;
 			}
 
@@ -260,6 +274,8 @@ namespace s3d
 
 			if (!::ReadFile(m_handle, buffer, static_cast<DWORD>(size), &readBytes, nullptr))
 			{
+				LOG_DEBUG(L"❌ BinaryReader: Failed ::ReadFile() \"{0}\""_fmt(m_fullPath));
+
 				return 0;
 			}
 

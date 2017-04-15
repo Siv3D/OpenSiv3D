@@ -122,23 +122,45 @@ namespace s3d
 
 		void WriteRawHTML(const String& str);
 
+		String FormatBytes(int64 bytes);
+
 		void RemoveLogOnExit();
 	}
 }
 
-# define LOG_ERROR(...)		s3d::Logger::OutputLog(s3d::LogDescription::Error,__VA_ARGS__)
-# define LOG_FAIL(...)		s3d::Logger::OutputLog(s3d::LogDescription::Fail,__VA_ARGS__)
-# define LOG_WARNING(...)	s3d::Logger::OutputLog(s3d::LogDescription::Warning,__VA_ARGS__)
-# define LOG_SCRIPT(...)	s3d::Logger::OutputLog(s3d::LogDescription::Script,__VA_ARGS__)
-# define LOG_INFO(...)		s3d::Logger::OutputLog(s3d::LogDescription::Info,__VA_ARGS__)
+# define FMTBYTES(size)			s3d::Logger::FormatBytes(size)
+# define LOG_ERROR(MESSAGE)		s3d::Logger::OutputLog(s3d::LogDescription::Error,MESSAGE)
+# define LOG_FAIL(MESSAGE)		s3d::Logger::OutputLog(s3d::LogDescription::Fail,MESSAGE)
+# define LOG_WARNING(MESSAGE)	s3d::Logger::OutputLog(s3d::LogDescription::Warning,MESSAGE)
+# define LOG_SCRIPT(MESSAGE)	s3d::Logger::OutputLog(s3d::LogDescription::Script,MESSAGE)
+# define LOG_INFO(MESSAGE)		s3d::Logger::OutputLog(s3d::LogDescription::Info,MESSAGE)
 
 # ifdef _DEBUG
 
-	# define LOG_DEBUG(...)		s3d::Logger::OutputLog(s3d::LogDescription::Debug,__VA_ARGS__)
-	# define LOG_TEST(...)		s3d::Logger::OutputLog(s3d::LogDescription::Debug,__VA_ARGS__)
+	# define LOG_DEBUG(MESSAGE)	s3d::Logger::OutputLog(s3d::LogDescription::Debug,MESSAGE)
+	# define LOG_TEST(MESSAGE)	s3d::Logger::OutputLog(s3d::LogDescription::Debug,MESSAGE)
 
 # else
 
 	# define LOG_DEBUG(...)		((void)0)
 
 # endif
+
+/*
+Emojis for logger
+
+🆗 : OK
+✅ : Succeeded
+⚠️ : Warning
+📤 : Opened
+📥 : Closed
+🚧 : Unimplemented
+❌ : Failed
+🛑 : Error
+💠 : Created
+♻️ : Released
+ℹ️ : Hint
+🔶 : (orange)
+🔷 : (blue)
+🔥 : (fire)
+*/

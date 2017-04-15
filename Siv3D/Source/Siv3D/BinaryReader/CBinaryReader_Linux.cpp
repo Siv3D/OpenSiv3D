@@ -13,6 +13,7 @@
 # if defined(SIV3D_TARGET_LINUX)
 
 # include <Siv3D/FileSystem.hpp>
+# include <Siv3D/Logger.hpp>
 # include "CBinaryReader_Linux.hpp"
 
 namespace s3d
@@ -38,12 +39,16 @@ namespace s3d
 
 		if (!m_pFile)
 		{
+			LOG_FAIL(L"❌ BinaryReader: Failed to open file \"{0}\""_fmt(path));
+
 			return false;
 		}
 
 		m_size = FileSystem::FileSize(path);
 
 		m_fullPath = FileSystem::FullPath(path);
+
+		LOG_DEBUG(L"📤 BinaryReader: Opened file \"{0}\" size: {1}"_fmt(m_fullPath, FMTBYTES(m_size)));
 
 		return true;
 	}
@@ -56,6 +61,8 @@ namespace s3d
 		}
 
 		std::fclose(m_pFile);
+
+		LOG_DEBUG(L"📥 BinaryReader: Closed file \"{0}\""_fmt(m_fullPath));
 
 		m_pFile = nullptr;
 

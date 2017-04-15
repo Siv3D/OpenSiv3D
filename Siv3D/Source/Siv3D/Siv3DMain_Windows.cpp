@@ -21,6 +21,8 @@
 # include <Siv3D/Fwd.hpp>
 # include <Siv3D/String.hpp>
 # include <Siv3D/FileSystem.hpp>
+# include <Siv3D/Logger.hpp>
+# include <Siv3D/FormatUtility.hpp>
 # include "Siv3DEngine.hpp"
 # include "Logger/ILogger.hpp"
 # include "System/ISystem.hpp"
@@ -37,6 +39,14 @@ namespace s3d
 			void SetModulePath();
 		}
 
+		static void ShowException(const DWORD _code)
+		{
+			const String code = (_code == EXCEPTION_ACCESS_VIOLATION) ? L"EXCEPTION_ACCESS_VIOLATION"
+				: Format(L"0x", Pad(ToHex(_code), { 8, L'0' }));
+
+			LOG_ERROR(L"🛑 Application terminated due to an exception. Exception code: {0}"_fmt(code));
+		}
+
 		static void MainThread()
 		{
 			PEXCEPTION_POINTERS ex = nullptr;
@@ -47,7 +57,7 @@ namespace s3d
 			}
 			__except (ex = GetExceptionInformation(), EXCEPTION_EXECUTE_HANDLER)
 			{
-
+				ShowException(ex->ExceptionRecord->ExceptionCode);
 			}
 		}
 
@@ -111,8 +121,12 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 
 	if (!Siv3DEngine::GetSystem()->init())
 	{
+		LOG_ERROR(L"🛑 Application cannot start due to an initialization error");
+
 		return false;
 	}
+
+	Logger::WriteRawHTML(L"<hr width=\"99%\">");
 
 	const std::future<void> f = std::async(std::launch::async, detail::MainThread);
 
@@ -141,6 +155,8 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 
 		::Sleep(1);
 	}
+
+	Logger::WriteRawHTML(L"<hr width=\"99%\">");
 
 	return 0;
 }
