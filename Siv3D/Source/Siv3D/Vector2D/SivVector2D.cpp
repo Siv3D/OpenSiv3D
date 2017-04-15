@@ -13,9 +13,6 @@
 
 namespace s3d
 {
-	template Float2;
-	template Vec2;
-
 	void Formatter(FormatData& formatData, const Float2& value)
 	{
 		Formatter(formatData, Vec2(value));
@@ -29,4 +26,7 @@ namespace s3d
 		formatData.string.append(ToString(value.y, formatData.decimalPlace.value));
 		formatData.string.push_back(L')');
 	}
+	
+	template struct Vector2D<float>;
+	template struct Vector2D<double>;
 }

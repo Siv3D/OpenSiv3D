@@ -49,7 +49,7 @@ namespace s3d
 		Formatter(formatData, Vec4(value.x, value.y, value.w, value.h));
 	}
 
-	template Rect;
-
-	template RectF;
+	template struct Rectangle<Point>;
+	
+	template struct Rectangle<Vec2>;
 }
