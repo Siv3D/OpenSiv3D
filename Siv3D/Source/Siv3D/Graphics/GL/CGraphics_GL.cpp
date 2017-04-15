@@ -204,7 +204,7 @@ namespace s3d
 	
 	bool CGraphics_GL::flush()
 	{
-		//m_renderer2D->flush();
+		m_renderer2D->flush();
 		
 		return true;
 	}

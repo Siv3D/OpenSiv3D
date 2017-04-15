@@ -15,6 +15,7 @@
 # include "PointVector.hpp"
 # include "Line.hpp"
 # include "Quad.hpp"
+# include "Color.hpp"
 
 namespace s3d
 {
@@ -1377,6 +1378,8 @@ namespace s3d
 		// paintFrame
 
 		// overpaintFrame
+
+		const Rectangle& draw(const ColorF& color = Palette::White) const;
 
 		// draw
 

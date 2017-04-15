@@ -269,8 +269,8 @@
 	//# include "Siv3D/Arrow.hpp"
 	//// 2D 図形の Variant
 	//# include "Siv3D/Shape.hpp"
-	//// レンダリング用形状
-	//# include "Siv3D/FloatShape.hpp"
+	// Float 型の長方形
+	# include "Siv3D/FloatRect.hpp"
 //
 // 乱数
 //

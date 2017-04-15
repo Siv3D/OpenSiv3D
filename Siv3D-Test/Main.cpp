@@ -1,13 +1,13 @@
 ﻿
 # include <Siv3D.hpp>
-# include "Test/Siv3DTest.hpp"
 
 void Main()
 {
 	while (System::Update())
 	{
-		Window::SetTitle(Profiler::FPS());
-
-		Graphics::SetBackground(HSV(Cursor::Pos().x * 0.2));
+		for (auto p : step({ 10, 10 }))
+		{
+			Rect(p * 40, 38).draw(HSV(10 * (p.x + p.y)));
+		}
 	}
 }

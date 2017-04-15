@@ -11,9 +11,20 @@
 
 # include <Siv3D/Rectangle.hpp>
 # include <Siv3D/Format.hpp>
+# include <Siv3D/FloatRect.hpp>
+# include "../Siv3DEngine.hpp"
+# include "../Renderer2D/IRenderer2D.hpp"
 
 namespace s3d
 {
+	template <class SizeType>
+	const Rectangle<SizeType>& Rectangle<SizeType>::draw(const ColorF& color) const
+	{
+		Siv3DEngine::GetRenderer2D()->addRect(FloatRect(x, y, x + w, y + h), Float4(color.r, color.g, color.b, color.a));
+
+		return *this;
+	}
+
 	void Formatter(FormatData& formatData, const Rect& value)
 	{
 		const size_t bufferSize = 12 * 4 + 6;
@@ -37,4 +48,8 @@ namespace s3d
 	{
 		Formatter(formatData, Vec4(value.x, value.y, value.w, value.h));
 	}
+
+	template Rect;
+
+	template RectF;
 }

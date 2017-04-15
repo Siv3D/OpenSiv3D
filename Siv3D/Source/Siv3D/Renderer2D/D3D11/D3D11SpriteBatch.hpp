@@ -64,6 +64,29 @@ namespace s3d
 		static constexpr uint32 VertexBufferSize	= 65536;
 		static constexpr uint32 IndexBufferSize		= 65536 * 8;
 
+		void resizeVertixes(const uint32 requiredVertexSize)
+		{
+			size_t newVertexSize = m_vertices.size() * 2;
+
+			while (newVertexSize < requiredVertexSize)
+			{
+				newVertexSize *= 2;
+			}
+
+			m_vertices.resize(newVertexSize);
+		}
+
+		void resizeIndices(const uint32 requiredIndexSize)
+		{
+			size_t newIndexSize = m_indices.size() * 2;
+
+			while (newIndexSize < requiredIndexSize)
+			{
+				newIndexSize *= 2;
+			}
+
+			m_indices.resize(newIndexSize);
+		}
 	public:
 
 		D3D11SpriteBatch()
@@ -114,33 +137,39 @@ namespace s3d
 		bool getBuffer(const uint32 vertexSize, const uint32 indexSize, Vertex2D** pVertex, IndexType** pIndices, IndexType* indexOffset)
 		{
 			// VB
-			{
-				const size_t currentVertexSize = m_vertices.size();
-				const size_t requiredVertexSize = m_vertexPos + vertexSize;
+			const size_t requiredVertexSize = m_vertexPos + vertexSize;
 
-				if (currentVertexSize < requiredVertexSize)
+			if (m_vertices.size() < requiredVertexSize)
+			{
+				if (MaxVertexSize < requiredVertexSize
+					|| VertexBufferSize < requiredVertexSize) // 仮
 				{
 					return false;
 				}
+
+				resizeVertixes(requiredVertexSize);
 			}
 
 			// IB
-			{
-				const size_t currentIndexSize = m_indices.size();
-				const size_t requiredIndexSize = m_indexPos + indexSize;
+			const size_t requiredIndexSize = m_indexPos + indexSize;
 
-				if (currentIndexSize < requiredIndexSize)
+			if (m_indices.size() < requiredIndexSize)
+			{
+				if (MaxIndexSize < requiredIndexSize
+					|| IndexBufferSize < requiredIndexSize) // 仮
 				{
 					return false;
 				}
+
+				resizeIndices(requiredIndexSize);
 			}
 
 			*pVertex = m_vertices.data() + m_vertexPos;
 			*pIndices = m_indices.data() + m_indexPos;
-			*indexOffset = 0;
+			*indexOffset = m_vertexPos;
 
-			m_vertexPos += vertexSize;
-			m_indexPos += indexSize;
+			m_vertexPos = requiredVertexSize;
+			m_indexPos = requiredIndexSize;
 
 			return true;
 		}
@@ -214,9 +243,11 @@ namespace s3d
 
 			const UINT offset[3] = { 0, 0, 0 };
 
+			constexpr auto indexFormat = sizeof(IndexType) == 2 ? DXGI_FORMAT_R16_UINT : DXGI_FORMAT_R32_UINT;
+
 			m_context->IASetVertexBuffers(0, 3, pBuf, stride, offset);
 
-			m_context->IASetIndexBuffer(m_indexBuffer.Get(), sizeof(IndexType) == 2 ? DXGI_FORMAT_R16_UINT : DXGI_FORMAT_R32_UINT, 0);
+			m_context->IASetIndexBuffer(m_indexBuffer.Get(), indexFormat, 0);
 
 			return vi;
 		}

@@ -23,5 +23,7 @@ namespace s3d
 		virtual ~ISiv3DRenderer2D() = default;
 
 		virtual void flush() = 0;
+
+		virtual void addRect(const FloatRect& rect, const Float4& color) = 0;
 	};
 }

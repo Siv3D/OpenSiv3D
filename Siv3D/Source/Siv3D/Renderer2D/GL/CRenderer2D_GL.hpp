@@ -54,6 +54,8 @@ namespace s3d
 		bool init();
 
 		void flush() override;
+
+		void addRect(const FloatRect& rect, const Float4& color) override {}
 	};
 }
 
