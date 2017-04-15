@@ -44,12 +44,12 @@ namespace s3d
 		m_context->OMSetRenderTargets(3, pRTV, nullptr);
 
 		D3D11_VIEWPORT m_viewport;
-		m_viewport.TopLeftX = 0;
-		m_viewport.TopLeftY = 0;
-		m_viewport.Width = 640;
-		m_viewport.Height = 480;
-		m_viewport.MinDepth = 0.0f;
-		m_viewport.MaxDepth = 1.0f;
+		m_viewport.TopLeftX	= 0;
+		m_viewport.TopLeftY	= 0;
+		m_viewport.Width	= static_cast<float>(m_currentRenderTargetResolution.x);
+		m_viewport.Height	= static_cast<float>(m_currentRenderTargetResolution.y);
+		m_viewport.MinDepth	= 0.0f;
+		m_viewport.MaxDepth	= 1.0f;
 		m_context->RSSetViewports(1, &m_viewport);
 
 		return true;
@@ -81,7 +81,12 @@ namespace s3d
 
 	bool D3D11RenderTarget::endResize(const Size& size)
 	{
-		m_backBuffer.endResize(m_texture);
+		if (!m_backBuffer.endResize(m_texture))
+		{
+			return false;
+		}
+
+		m_currentRenderTargetResolution = size;
 
 		ID3D11RenderTargetView* pRTV[3]
 		{
@@ -102,6 +107,11 @@ namespace s3d
 		m_context->RSSetViewports(1, &m_viewport);
 
 		return true;
+	}
+
+	const Size& D3D11RenderTarget::getCurrentRenderTargetSize() const
+	{
+		return m_currentRenderTargetResolution;
 	}
 }
 

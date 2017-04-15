@@ -196,6 +196,11 @@ namespace s3d
 
 		return true;
 	}
+
+	const Size& CGraphics_D3D11::getCurrentRenderTargetSize() const
+	{
+		return m_renderTarget->getCurrentRenderTargetSize();
+	}
 }
 
 # endif

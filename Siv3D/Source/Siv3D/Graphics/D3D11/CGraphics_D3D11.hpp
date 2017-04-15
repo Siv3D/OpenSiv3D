@@ -79,6 +79,8 @@ namespace s3d
 		bool isVSyncEnabled() const override;
 
 		bool flush() override;
+
+		const Size& getCurrentRenderTargetSize() const override;
 	};
 }
 

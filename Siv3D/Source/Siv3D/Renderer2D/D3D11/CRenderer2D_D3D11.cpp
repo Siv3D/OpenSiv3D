@@ -14,6 +14,7 @@
 
 # include "../../Siv3DEngine.hpp"
 # include "../../Shader/IShader.hpp"
+# include "../../Graphics/IGraphics.hpp"
 # include "CRenderer2D_D3D11.hpp"
 
 #include <Siv3D/Mat3x2.hpp>
@@ -91,8 +92,9 @@ namespace s3d
 		const auto vi = m_spriteBatch.setBuffers();
 
 		// setCB
+		const Float2 currentRenderTargetSize = Siv3DEngine::GetGraphics()->getCurrentRenderTargetSize();
 		const Mat3x2 currentMat = Mat3x2::Identity();
-		const Mat3x2 currentScreen = Mat3x2::Screen(640, 480);
+		const Mat3x2 currentScreen = Mat3x2::Screen(currentRenderTargetSize);
 		const Mat3x2 matrix = currentMat * currentScreen;
 
 		const float transform[8] =
