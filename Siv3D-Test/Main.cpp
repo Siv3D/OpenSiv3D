@@ -3,6 +3,8 @@
 
 void Main()
 {
+	Graphics::SetBackground(Color(55, 111, 222));
+	
 	while (System::Update())
 	{
 		if (KeyR.down())

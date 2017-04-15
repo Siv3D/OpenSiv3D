@@ -12,6 +12,8 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
+# include "../../Siv3DEngine.hpp"
+# include "../../Graphics/IGraphics.hpp"
 # include "CRenderer2D_GL.hpp"
 # include <Siv3D/Vertex2D.hpp>
 #include <Siv3D/FloatRect.hpp>
@@ -167,8 +169,9 @@ void main()
 			return;
 		}
 		
+		const Float2 currentRenderTargetSize = Siv3DEngine::GetGraphics()->getCurrentRenderTargetSize();
 		const Mat3x2 currentMat = Mat3x2::Identity();
-		const Mat3x2 currentScreen = Mat3x2::Screen(640, 480);
+		const Mat3x2 currentScreen = Mat3x2::Screen(currentRenderTargetSize);
 		const Mat3x2 matrix = currentMat * currentScreen;
 		
 		Float2 lt = matrix.transform(Float2(_rect.left, _rect.top));
