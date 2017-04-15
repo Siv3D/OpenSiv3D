@@ -149,6 +149,8 @@ namespace s3d
 
 		if (!m_d3d11)
 		{
+			LOG_FAIL(L"❌ Failed to load \"d3d11.dll\"");
+
 			return false;
 		}
 
@@ -161,11 +163,15 @@ namespace s3d
 
 		if (FAILED(m_device.Get()->QueryInterface(__uuidof(IDXGIDevice1), &pDXGI)))
 		{
+			LOG_FAIL(L"❌ ID3D11Device::QueryInterface() failed");
+
 			return false;
 		}
 
 		if (FAILED(pDXGI->GetAdapter(&m_adapter)))
 		{
+			LOG_FAIL(L"❌ IDXGIDevice1::GetAdapter() failed");
+
 			return false;
 		}
 
@@ -277,11 +283,11 @@ namespace s3d
 
 			::FreeLibrary(D3D11_1SDKLayersLibrary);
 
-			LOG_DEBUG(L"🆗 D3D11 debug layer supported");
+			LOG_INFO(L"🆗 D3D11 debug layer supported");
 		}
 		else
 		{
-			LOG_DEBUG(L"ℹ️ D3D11 debug layer not supported");
+			LOG_INFO(L"ℹ️ D3D11 debug layer not supported");
 		}
 
 	# endif
