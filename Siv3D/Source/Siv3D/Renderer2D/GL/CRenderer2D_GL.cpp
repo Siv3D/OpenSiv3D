@@ -222,6 +222,11 @@ void main()
 		
 		::glBindVertexArray(0);
 	}
+	
+	void CRenderer2D_GL::addRect(const FloatRect& rect, const Float4& color)
+	{
+		
+	}
 }
 
 # endif

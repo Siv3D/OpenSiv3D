@@ -55,7 +55,7 @@ namespace s3d
 
 		void flush() override;
 
-		void addRect(const FloatRect& rect, const Float4& color) override {}
+		void addRect(const FloatRect& rect, const Float4& color) override;
 	};
 }
 
