@@ -145,22 +145,3 @@ namespace s3d
 	# define LOG_DEBUG(...)		((void)0)
 
 # endif
-
-/*
-Emojis for logger
-
-🆗 : OK
-✅ : Succeeded
-⚠️ : Warning
-📤 : Opened
-📥 : Closed
-🚧 : Unimplemented
-❌ : Failed
-🛑 : Error
-💠 : Created
-♻️ : Released
-ℹ️ : Hint
-🔶 : (orange)
-🔷 : (blue)
-🔥 : (fire)
-*/
