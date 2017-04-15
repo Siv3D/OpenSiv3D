@@ -29,13 +29,13 @@ namespace s3d
 	{
 		const static String logLevelStr[] =
 		{
-			L"[error]",
-			L"[fail]",
-			L"[warning]",
-			L"[script]",
+			L"[error] ",
+			L"[fail] ",
+			L"[warning] ",
+			L"[script] ",
 			L"",
-			L"[info]",
-			L"[debug]",
+			L"[info] ",
+			L"[debug] ",
 		};
 
 		static void OutputDebug(const LogDescription desc, const String& str)
@@ -188,15 +188,15 @@ namespace s3d
 	{
 		if (m_outputLevel == OutputLevel::More)
 		{
-			return true;
+			return false;
 		}
 		else if (m_outputLevel == OutputLevel::Normal)
 		{
-			return desc <= LogDescription::Info;
+			return desc > LogDescription::Info;
 		}
 		else
 		{
-			return desc <= LogDescription::Script;
+			return desc > LogDescription::Script;
 		}
 	}
 }
