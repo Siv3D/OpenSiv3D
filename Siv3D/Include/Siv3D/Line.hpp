@@ -122,17 +122,17 @@ namespace s3d
 			return *this;
 		}
 		
-		constexpr Line reversed() const
+		constexpr Line reversed() const noexcept
 		{
 			return{ end, begin };
 		}
 		
-		value_type length() const
+		value_type length() const noexcept
 		{
 			return begin.distanceFrom(end);
 		}
 		
-		constexpr value_type lengthSq() const
+		constexpr value_type lengthSq() const noexcept
 		{
 			return begin.distanceFromSq(end);
 		}
@@ -142,9 +142,13 @@ namespace s3d
 			return (begin + end) * 0.5;
 		}
 		
-		position_type closest(const position_type& pos) const;
+		position_type closest(const position_type& pos) const noexcept;
 
-		// intersects
+		template <class Shape2DType>
+		bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
+		{
+			return Geometry2D::Intersect(*this, shape);
+		}
 		
 		Optional<position_type> intersectsAt(const Line& line) const;
 
