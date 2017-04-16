@@ -200,6 +200,8 @@ namespace s3d
 		//bool Intersect(const LineString& a, const Polygon&		b);
 		//bool Intersect(const LineString& a, const MultiPolygon&	b);
 		//bool Intersect(const LineString& a, const LineString&	b);
+		
+		bool Contains(const Rect& a, const Point& b);
 
 	}
 }
