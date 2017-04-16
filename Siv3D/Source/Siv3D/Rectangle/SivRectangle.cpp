@@ -39,6 +39,18 @@ namespace s3d
 		return *this;
 	}
 
+	template <class SizeType>
+	const Rectangle<SizeType>& Rectangle<SizeType>::drawFrame(const double innerThickness, const double outerThickness, const ColorF& color) const
+	{
+		Siv3DEngine::GetRenderer2D()->addRectFrame(
+			FloatRect(x + innerThickness, y + innerThickness, x + w - innerThickness, y + h - innerThickness),
+			static_cast<float>(innerThickness + outerThickness),
+			Float4(color.r, color.g, color.b, color.a)
+		);
+
+		return *this;
+	}
+
 	void Formatter(FormatData& formatData, const Rect& value)
 	{
 		const size_t bufferSize = 12 * 4 + 6;

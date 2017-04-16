@@ -26,5 +26,7 @@ void Main()
 		Triangle(Window::Center(), 80).draw(Palette::Orange);
 		
 		Rect(80, 160, 200).draw(Color(255, 127));
+
+		Rect(300, 300, 200, 100).drawFrame(4);
 	}
 }

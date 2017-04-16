@@ -1447,6 +1447,23 @@ namespace s3d
 
 		// drawFrame
 
+		/// <summary>
+		/// 長方形の枠を描きます。
+		/// </summary>
+		/// <param name="innerThickness">
+		/// 内側の太さ
+		/// </param>
+		/// <param name="outerThickness">
+		/// 外側の太さ
+		/// </param>
+		/// <param name="color">
+		/// 色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Rectangle& drawFrame(double innerThickness = 1.0, double outerThickness = 0.0, const ColorF& color = Palette::White) const;
+
 		// drawShadow
 
 		// TexturedQuad operator()(const Texture& texture) const;
