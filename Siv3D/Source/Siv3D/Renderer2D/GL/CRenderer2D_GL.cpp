@@ -27,6 +27,8 @@ namespace s3d
 	namespace detail
 	{
 		static constexpr IndexType rectIndexTable[6] = { 0, 1, 2, 2, 1, 3 };
+		
+		static constexpr IndexType rectFrameIndexTable[24] = { 0, 1, 2, 3, 2, 1, 0, 4, 1, 5, 1, 4, 5, 4, 7, 6, 7, 4, 3, 7, 2, 6, 2, 7 };
 	}
 	
 	CRenderer2D_GL::CRenderer2D_GL()
