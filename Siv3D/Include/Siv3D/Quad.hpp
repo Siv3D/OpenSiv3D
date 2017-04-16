@@ -115,6 +115,10 @@ namespace s3d
 
 		// paint~ overpaint~ draw~
 
+		const Quad& draw(const ColorF& color = Palette::White) const;
+
+		const Quad& draw(const ColorF(&colors)[4]) const;
+
 		// Polygon asPolygon() const;
 	};
 }

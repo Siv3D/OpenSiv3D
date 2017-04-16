@@ -54,9 +54,17 @@ namespace s3d
 
 		void flush() override;
 
+		void addTriangle(const Float2(&pts)[3], const Float4& color) override;
+
+		void addTriangle(const Float2(&pts)[3], const Float4(&colors)[3]) override;
+
 		void addRect(const FloatRect& rect, const Float4& color) override;
 
 		void addRect(const FloatRect& rect, const Float4(&colors)[4]) override;
+
+		void addQuad(const FloatQuad& quad, const Float4& color) override;
+
+		void addQuad(const FloatQuad& quad, const Float4(&colors)[4]) override;
 	};
 }
 

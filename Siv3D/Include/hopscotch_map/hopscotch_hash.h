@@ -205,13 +205,13 @@ public:
     }   
     
 private:  
-    std::size_t bucket_for_hash_iprime(std::size_t hash, unsigned int iprime) const {
+    std::size_t bucket_for_hash_iprime(std::size_t hash, std::size_t iprime) const {
         tsl_assert(iprime < tsl::detail_hopscotch_hash::MOD_PRIME.size());
         return tsl::detail_hopscotch_hash::MOD_PRIME[iprime](hash);
     }
     
 private:
-    unsigned int m_iprime;
+    std::size_t m_iprime;
 };
 
 

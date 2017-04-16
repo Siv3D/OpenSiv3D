@@ -16,10 +16,11 @@
 # include "../../Graphics/IGraphics.hpp"
 # include "CRenderer2D_GL.hpp"
 # include <Siv3D/Vertex2D.hpp>
-#include <Siv3D/FloatRect.hpp>
-#include <Siv3D/Color.hpp>
-#include <Siv3D/Mat3x2.hpp>
-#include <Siv3D/Logger.hpp>
+# include <Siv3D/FloatRect.hpp>
+# include <Siv3D/FloatQuad.hpp>
+# include <Siv3D/Color.hpp>
+# include <Siv3D/Mat3x2.hpp>
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -174,6 +175,62 @@ void main()
 		
 		m_spriteBatch.clear();
 	}
+
+	void CRenderer2D_GL::addTriangle(const Float2(&pts)[3], const Float4& color)
+	{
+		constexpr IndexType vertexSize = 3, indexSize = 3;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		{
+			return;
+		}
+
+		pVertex[0].pos		= pts[0];
+		pVertex[0].color	= color;
+
+		pVertex[1].pos		= pts[1];
+		pVertex[1].color	= color;
+
+		pVertex[2].pos		= pts[2];
+		pVertex[2].color	= color;
+
+		pIndex[0] = indexOffset;
+		pIndex[1] = indexOffset + 1;
+		pIndex[2] = indexOffset + 2;
+
+		m_drawIndexCount += indexSize;
+	}
+
+	void CRenderer2D_GL::addTriangle(const Float2(&pts)[3], const Float4(&colors)[3])
+	{
+		constexpr IndexType vertexSize = 3, indexSize = 3;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		{
+			return;
+		}
+
+		pVertex[0].pos		= pts[0];
+		pVertex[0].color	= colors[0];
+
+		pVertex[1].pos		= pts[1];
+		pVertex[1].color	= colors[1];
+
+		pVertex[2].pos		= pts[2];
+		pVertex[2].color	= colors[2];
+
+		pIndex[0] = indexOffset;
+		pIndex[1] = indexOffset + 1;
+		pIndex[2] = indexOffset + 2;
+
+		m_drawIndexCount += indexSize;
+	}
 	
 	void CRenderer2D_GL::addRect(const FloatRect& rect, const Float4& color)
 	{
@@ -230,6 +287,70 @@ void main()
 		
 		pVertex[3].pos.set(rect.right, rect.bottom);
 		pVertex[3].color = colors[2];
+		
+		for (IndexType i = 0; i < indexSize; ++i)
+		{
+			*pIndex++ = indexOffset + detail::rectIndexTable[i];
+		}
+		
+		m_drawIndexCount += indexSize;
+	}
+	
+	void CRenderer2D_GL::addQuad(const FloatQuad& quad, const Float4& color)
+	{
+		constexpr IndexType vertexSize = 4, indexSize = 6;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+		
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		{
+			return;
+		}
+		
+		pVertex[0].pos		= quad.p[0];
+		pVertex[0].color	= color;
+		
+		pVertex[1].pos		= quad.p[1];
+		pVertex[1].color	= color;
+		
+		pVertex[2].pos		= quad.p[3];
+		pVertex[2].color	= color;
+		
+		pVertex[3].pos		= quad.p[2];
+		pVertex[3].color	= color;
+		
+		for (IndexType i = 0; i < indexSize; ++i)
+		{
+			*pIndex++ = indexOffset + detail::rectIndexTable[i];
+		}
+		
+		m_drawIndexCount += indexSize;
+	}
+	
+	void CRenderer2D_GL::addQuad(const FloatQuad& quad, const Float4(&colors)[4])
+	{
+		constexpr IndexType vertexSize = 4, indexSize = 6;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+		
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		{
+			return;
+		}
+		
+		pVertex[0].pos		= quad.p[0];
+		pVertex[0].color	= colors[0];
+		
+		pVertex[1].pos		= quad.p[1];
+		pVertex[1].color	= colors[1];
+		
+		pVertex[2].pos		= quad.p[3];
+		pVertex[2].color	= colors[3];
+		
+		pVertex[3].pos		= quad.p[2];
+		pVertex[3].color	= colors[2];
 		
 		for (IndexType i = 0; i < indexSize; ++i)
 		{

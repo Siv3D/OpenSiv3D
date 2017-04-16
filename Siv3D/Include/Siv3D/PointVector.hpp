@@ -16,6 +16,7 @@
 # include "Point.inl"
 # include "Vector3D.hpp"
 # include "Vector4D.hpp"
+# include "Color.hpp"
 
 namespace s3d
 {

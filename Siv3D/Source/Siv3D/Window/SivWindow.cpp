@@ -44,7 +44,7 @@ namespace s3d
 			}
 
 			const Rect workArea = monitors[System::GetCurrentMonitorIndex()].workArea;
-			const Size windowSize = Siv3DEngine::GetWindow()->getState().windowSize;
+			const s3d::Size windowSize = Siv3DEngine::GetWindow()->getState().windowSize;
 
 			SetPos(workArea.pos + (workArea.size - windowSize) / 2);
 		}
@@ -58,7 +58,7 @@ namespace s3d
 				return false;
 			}
 
-			const Size newSize(width, height);
+			const s3d::Size newSize(width, height);
 
 			bool result = true;
 

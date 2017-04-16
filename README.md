@@ -132,9 +132,9 @@
 #### 0.1.0
 - [ ] Point::draw()
 - [ ] Line::draw()
-- [ ] Rect::draw()
-- [ ] Triangle::draw()
-- [ ] Quad::draw()
+- [x] Rect::draw()
+- [x] Triangle::draw()
+- [x] Quad::draw()
 - [ ] Rect::drawFrame()
 
 ---------------------------

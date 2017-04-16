@@ -10,6 +10,9 @@
 //-----------------------------------------------
 
 # include <Siv3D/Quad.hpp>
+# include <Siv3D/FloatQuad.hpp>
+# include "../Siv3DEngine.hpp"
+# include "../Renderer2D/IRenderer2D.hpp"
 
 namespace s3d
 {
@@ -39,6 +42,26 @@ namespace s3d
 	Quad::value_type Quad::perimeter() const noexcept
 	{
 		return p0.distanceFrom(p1) + p1.distanceFrom(p2) + p2.distanceFrom(p3) + p3.distanceFrom(p0);
+	}
+
+	const Quad& Quad::draw(const ColorF& color) const
+	{
+		Siv3DEngine::GetRenderer2D()->addQuad(FloatQuad(p0, p1, p2, p3), Float4(color.r, color.g, color.b, color.a));
+
+		return *this;
+	}
+
+	const Quad& Quad::draw(const ColorF(&colors)[4]) const
+	{
+		Siv3DEngine::GetRenderer2D()->addQuad(FloatQuad(p0, p1, p2, p3),
+		{
+			Float4(colors[0].r, colors[0].g, colors[0].b, colors[0].a),
+				Float4(colors[1].r, colors[1].g, colors[1].b, colors[1].a),
+				Float4(colors[2].r, colors[2].g, colors[2].b, colors[2].a),
+				Float4(colors[3].r, colors[3].g, colors[3].b, colors[3].a)
+		});
+
+		return *this;
 	}
 
 	void Formatter(FormatData& formatData, const Quad& value)
