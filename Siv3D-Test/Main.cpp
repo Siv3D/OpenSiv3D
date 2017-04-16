@@ -16,6 +16,6 @@ void Main()
 
 		Rect(Arg::center(320, 240), 100, 40).rotated(System::FrameCount() * 1_deg).draw();
 
-		Triangle(320, 240, 80).draw(Palette::Green);
+		Triangle(Window::Center(), 80).draw(Palette::Green);
 	}
 }
