@@ -26,8 +26,37 @@ using namespace Microsoft::WRL;
 # include "../../../Texture/D3D11/BackBufferTexture.hpp"
 # include "../../../Texture/D3D11/CTexture_D3D11.hpp"
 
+# include "../../../Siv3DEngine.hpp"
+
+
 namespace s3d
 {
+	class RenderTexture : public Texture
+	{
+	public:
+
+		RenderTexture()
+			: Texture() {}
+
+		RenderTexture(const Size& size, uint32 multisampleCount = 1)
+			: Texture(Texture::Render{}, size, multisampleCount) {}
+
+		void clear(CTexture_D3D11* texture, const ColorF& color)
+		{
+			texture->clearRT(m_handle->getID(), color);
+		}
+
+		void beginResize(CTexture_D3D11* texture)
+		{
+			texture->beginResize(m_handle->getID());
+		}
+
+		bool endResize(CTexture_D3D11* texture, const Size& size, const uint32 multisampleCount)
+		{
+			return texture->endResizeRenderTexture(m_handle->getID(), size, multisampleCount);
+		}
+	};
+
 	class D3D11RenderTarget
 	{
 	private:
@@ -38,17 +67,21 @@ namespace s3d
 
 		IDXGISwapChain* m_swapChain = nullptr;
 
-		CTexture_D3D11* m_texture;
+		CTexture_D3D11* m_texture = nullptr;
+
+		DXGI_SAMPLE_DESC m_sample2D = { 1, 0 };
 
 		ColorF m_clearColor = Color(11, 22, 33);
 
 		BackBufferTexture m_backBuffer;
 
+		RenderTexture m_rt2D;
+
 		Size m_currentRenderTargetResolution = { 640, 480 };
 		
 	public:
 
-		D3D11RenderTarget(ID3D11Device* device, ID3D11DeviceContext* context, IDXGISwapChain* swapChain, CTexture_D3D11* texture);
+		D3D11RenderTarget(ID3D11Device* device, ID3D11DeviceContext* context, IDXGISwapChain* swapChain, CTexture_D3D11* texture, const DXGI_SAMPLE_DESC& sample2D);
 
 		~D3D11RenderTarget();
 
@@ -57,6 +90,8 @@ namespace s3d
 		void setClearColor(const ColorF& color);
 
 		void clear();
+
+		void resolve();
 
 		void beginResize();
 

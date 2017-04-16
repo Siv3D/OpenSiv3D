@@ -130,19 +130,19 @@
 ---------------------------
 
 #### 0.1.0
-- [ ] Point::draw()
-- [ ] Line::draw()
 - [x] Rect::draw()
 - [x] Triangle::draw()
 - [x] Quad::draw()
-- [ ] Rect::drawFrame()
+- [x] Rect::drawFrame()
+- [ ] EasingController
 
 ---------------------------
 
 #### 0.1.1
+- [ ] Point::draw()
+- [ ] Line::draw()
 - [ ] WindowState
 - [ ] UID
-- [ ] EasingController
 - [ ] INIWriter
 
 ## Discussion ##

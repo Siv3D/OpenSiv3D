@@ -21,6 +21,11 @@ namespace s3d
 	{
 		return 0;
 	}
+
+	Texture::IDType CTexture_GL::createRT(const Size& size, const uint32 multisampleCount)
+	{
+		return 0;
+	}
 	
 	void CTexture_GL::release(Texture::IDType handleID)
 	{

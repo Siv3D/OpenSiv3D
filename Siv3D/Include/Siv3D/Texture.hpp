@@ -30,7 +30,11 @@ namespace s3d
 
 		struct BackBuffer {};
 
+		struct Render {};
+
 		explicit Texture(BackBuffer);
+
+		Texture(Render, const Size& size, uint32 multisampleCount);
 
 	public:
 

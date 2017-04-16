@@ -88,8 +88,10 @@ namespace s3d
 		//
 		//	 D3D11RenderTarget
 		//
+		const DXGI_SAMPLE_DESC sample2D = m_device->getBestMSAA(DXGI_FORMAT_R8G8B8A8_UNORM, 4);
+
 		m_renderTarget = std::make_unique<D3D11RenderTarget>(m_device->getDevice(),
-			m_device->getContext(), m_swapChain->getSwapChain(), m_texture);
+			m_device->getContext(), m_swapChain->getSwapChain(), m_texture, sample2D);
 
 		if (!m_renderTarget->init())
 		{
@@ -193,6 +195,8 @@ namespace s3d
 	bool CGraphics_D3D11::flush()
 	{
 		m_renderer2D->flush();
+
+		m_renderTarget->resolve();
 
 		return true;
 	}

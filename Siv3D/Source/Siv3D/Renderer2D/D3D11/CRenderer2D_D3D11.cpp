@@ -27,6 +27,8 @@ namespace s3d
 	namespace detail
 	{
 		static constexpr IndexType rectIndexTable[6] = { 0, 1, 2, 2, 1, 3 };
+
+		static constexpr IndexType rectFrameIndexTable[24] = { 0, 1, 2, 3, 2, 1, 0, 4, 1, 5, 1, 4, 5, 4, 7, 6, 7, 4, 3, 7, 2, 6, 2, 7 };
 	}
 
 	CRenderer2D_D3D11::CRenderer2D_D3D11()
@@ -280,6 +282,40 @@ namespace s3d
 		for (IndexType i = 0; i < indexSize; ++i)
 		{
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
+		}
+
+		m_drawIndexCount += indexSize;
+	}
+
+	void CRenderer2D_D3D11::addRectFrame(const FloatRect& rect, float thickness, const Float4& color)
+	{
+		constexpr IndexType vertexSize = 8, indexSize = 24;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		{
+			return;
+		}
+
+		pVertex[0].pos.set(rect.left - thickness, rect.top - thickness);
+		pVertex[1].pos.set(rect.left, rect.top);
+		pVertex[2].pos.set(rect.left - thickness, rect.bottom + thickness);
+		pVertex[3].pos.set(rect.left, rect.bottom);
+		pVertex[4].pos.set(rect.right + thickness, rect.top - thickness);
+		pVertex[5].pos.set(rect.right, rect.top);
+		pVertex[6].pos.set(rect.right + thickness, rect.bottom + thickness);
+		pVertex[7].pos.set(rect.right, rect.bottom);
+
+		for (size_t i = 0; i < 8; ++i)
+		{
+			(pVertex++)->color = color;
+		}
+
+		for (IndexType i = 0; i < indexSize; ++i)
+		{
+			*pIndex++ = indexOffset + detail::rectFrameIndexTable[i];
 		}
 
 		m_drawIndexCount += indexSize;

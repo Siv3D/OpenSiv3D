@@ -41,13 +41,13 @@ namespace s3d
 			}
 		}
 
-		static bool IsZero(const double x)
+		static bool IsZero(const double x) noexcept
 		{
 			return std::abs(x) < 1e-10;
 		}
 	}
 
-	Line::position_type Line::closest(const position_type& pos) const
+	Line::position_type Line::closest(const position_type& pos) const noexcept
 	{
 		Vec2 v = end - begin;
 		const double d = v.length();

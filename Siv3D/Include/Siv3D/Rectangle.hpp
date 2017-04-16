@@ -1266,7 +1266,7 @@ namespace s3d
 		/// <returns>
 		/// 回転した四角形
 		/// </returns>
-		Quad rotated(double angle) const
+		Quad rotated(double angle) const noexcept
 		{
 			const Vec2 cent(x + w * 0.5, y + h * 0.5);
 			const double cx = cent.x;
@@ -1303,7 +1303,7 @@ namespace s3d
 		/// <returns>
 		/// 回転した四角形
 		/// </returns>
-		Quad rotatedAt(double _x, double _y, double angle) const
+		Quad rotatedAt(double _x, double _y, double angle) const noexcept
 		{
 			return rotatedAt({ _x, _y }, angle);
 		}
@@ -1320,7 +1320,7 @@ namespace s3d
 		/// <returns>
 		/// 回転した四角形
 		/// </returns>
-		Quad rotatedAt(const Vec2& _pos, double angle) const
+		Quad rotatedAt(const Vec2& _pos, double angle) const noexcept
 		{
 			Vec2 pts[4] = { { x, y },{ x + w, y },{ x + w, y + h },{ x, y + h } };
 
@@ -1361,9 +1361,17 @@ namespace s3d
 				Vec2(x, y + h - vy) };
 		}
 
-		// intersects
+		template <class Shape2DType>
+		bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
+		{
+			return Geometry2D::Intersect(*this, shape);
+		}
 
-		// contains
+		template <class Shape2DType>
+		bool contains(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Contains(*this, shape)))
+		{
+			return Geometry2D::Contains(*this, shape);
+		}
 
 		// leftClicked() leftPressed() leftReleased()
 
@@ -1438,6 +1446,23 @@ namespace s3d
 		// draw
 
 		// drawFrame
+
+		/// <summary>
+		/// 長方形の枠を描きます。
+		/// </summary>
+		/// <param name="innerThickness">
+		/// 内側の太さ
+		/// </param>
+		/// <param name="outerThickness">
+		/// 外側の太さ
+		/// </param>
+		/// <param name="color">
+		/// 色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Rectangle& drawFrame(double innerThickness = 1.0, double outerThickness = 0.0, const ColorF& color = Palette::White) const;
 
 		// drawShadow
 

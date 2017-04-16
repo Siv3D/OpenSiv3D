@@ -144,7 +144,17 @@ namespace s3d
 
 		value_type perimeter() const noexcept;
 
-		// intersects, contains
+		template <class Shape2DType>
+		bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
+		{
+			return Geometry2D::Intersect(*this, shape);
+		}
+
+		template <class Shape2DType>
+		bool contains(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Contains(*this, shape)))
+		{
+			return Geometry2D::Contains(*this, shape);
+		}
 
 		// leftClicked() leftPressed() leftReleased()
 

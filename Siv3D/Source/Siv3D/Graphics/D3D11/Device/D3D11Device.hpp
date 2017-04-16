@@ -13,6 +13,7 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_WINDOWS)
 
+# include <Siv3D/Fwd.hpp>
 # include <Siv3D/HashMap.hpp>
 # define  NOMINMAX
 # define  STRICT
@@ -60,7 +61,7 @@ namespace s3d
 
 		D3D_DRIVER_TYPE getDriverType() const;
 
-		DXGI_SAMPLE_DESC getBestMSAA(DXGI_FORMAT format);
+		DXGI_SAMPLE_DESC getBestMSAA(DXGI_FORMAT format, uint32 maxSample);
 	};
 }
 

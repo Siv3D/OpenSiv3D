@@ -76,6 +76,44 @@ namespace s3d
 		m_initialized = true;
 	}
 
+	Texture_D3D11::Texture_D3D11(Render, ID3D11Device* device, const Size& size, const uint32 multisampleCount)
+	{
+		m_desc.Width			= size.x;
+		m_desc.Height			= size.y;
+		m_desc.MipLevels		= 1;
+		m_desc.ArraySize		= 1;
+		m_desc.Format			= DXGI_FORMAT_R8G8B8A8_UNORM;
+		m_desc.SampleDesc		= DXGI_SAMPLE_DESC{ multisampleCount, 0 };
+		m_desc.Usage			= D3D11_USAGE_DEFAULT;
+		m_desc.BindFlags		= D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
+		m_desc.CPUAccessFlags	= 0;
+		m_desc.MiscFlags		= 0;
+
+		if (FAILED(device->CreateTexture2D(&m_desc, nullptr, &m_texture)))
+		{
+			return;
+		}
+
+		m_rtDesc.Format			= m_desc.Format;
+		m_rtDesc.ViewDimension	= (m_desc.SampleDesc.Count == 1) ? D3D11_RTV_DIMENSION_TEXTURE2D : D3D11_RTV_DIMENSION_TEXTURE2DMS;
+	
+		if (FAILED(device->CreateRenderTargetView(m_texture.Get(), &m_rtDesc, &m_renderTargetView)))
+		{
+			return;
+		}
+
+		m_srvDesc.Format		= m_desc.Format;
+		m_srvDesc.ViewDimension	= (m_desc.SampleDesc.Count == 1) ? D3D11_SRV_DIMENSION_TEXTURE2D : D3D11_SRV_DIMENSION_TEXTURE2DMS;
+		m_srvDesc.Texture2D		= { 0, m_desc.MipLevels };
+
+		if (FAILED(device->CreateShaderResourceView(m_texture.Get(), &m_srvDesc, &m_shaderResourceView)))
+		{
+			return;
+		}
+
+		m_initialized = true;
+	}
+
 	void Texture_D3D11::clearRT(ID3D11DeviceContext* context, const ColorF& color)
 	{
 		const ColorF clearColor = isSRGB() ? color.gamma(1.0 / 2.2) : color;
@@ -99,6 +137,13 @@ namespace s3d
 	bool Texture_D3D11::endResize(BackBuffer, ID3D11Device* const device, IDXGISwapChain* const swapChain)
 	{
 		*this = Texture_D3D11(BackBuffer{}, device, swapChain);
+
+		return isInitialized();
+	}
+
+	bool Texture_D3D11::endResize(Render, ID3D11Device* device, const Size& size, const uint32 multisampleCount)
+	{
+		*this = Texture_D3D11(Render{}, device, size, multisampleCount);
 
 		return isInitialized();
 	}

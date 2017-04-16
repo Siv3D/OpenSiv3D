@@ -23,12 +23,12 @@ namespace s3d
 
 		position_type p0, p1, p2, p3;
 		
-		position_type& p(size_t index)
+		position_type& p(size_t index) noexcept
 		{
 			return (&p0)[index];
 		}
 		
-		const position_type& p(size_t index) const
+		const position_type& p(size_t index) const noexcept
 		{
 			return (&p0)[index];
 		}
@@ -105,7 +105,17 @@ namespace s3d
 
 		value_type perimeter() const noexcept;
 
-		// intersects, contains
+		template <class Shape2DType>
+		bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
+		{
+			return Geometry2D::Intersect(*this, shape);
+		}
+
+		template <class Shape2DType>
+		bool contains(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Contains(*this, shape)))
+		{
+			return Geometry2D::Contains(*this, shape);
+		}
 
 		// leftClicked() leftPressed() leftReleased()
 
