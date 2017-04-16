@@ -51,9 +51,9 @@ namespace s3d
 		return m_textures.add(texture);
 	}
 
-	Texture::IDType CTexture_D3D11::createRT(const Size& size)
+	Texture::IDType CTexture_D3D11::createRT(const Size& size, const uint32 multisampleCount)
 	{
-		const auto texture = std::make_shared<Texture_D3D11>(Texture_D3D11::Render{}, m_device, size);
+		const auto texture = std::make_shared<Texture_D3D11>(Texture_D3D11::Render{}, m_device, size, multisampleCount);
 
 		if (!texture->isInitialized())
 		{
@@ -88,9 +88,9 @@ namespace s3d
 		return m_textures[handleID]->endResize(Texture_D3D11::BackBuffer{}, m_device, m_swapChain);
 	}
 
-	bool CTexture_D3D11::endResizeRenderTexture(Texture::IDType handleID, const Size& size)
+	bool CTexture_D3D11::endResizeRenderTexture(Texture::IDType handleID, const Size& size, const uint32 multisampleCount)
 	{
-		return m_textures[handleID]->endResize(Texture_D3D11::Render{}, m_device, size);
+		return m_textures[handleID]->endResize(Texture_D3D11::Render{}, m_device, size, multisampleCount);
 	}
 
 	ID3D11Texture2D* CTexture_D3D11::getTexture(Texture::IDType handleID)

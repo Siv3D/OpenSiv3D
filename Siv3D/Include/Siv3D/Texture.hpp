@@ -34,7 +34,7 @@ namespace s3d
 
 		explicit Texture(BackBuffer);
 
-		Texture(Render, const Size& size);
+		Texture(Render, const Size& size, uint32 multisampleCount);
 
 	public:
 

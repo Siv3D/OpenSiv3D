@@ -76,14 +76,14 @@ namespace s3d
 		m_initialized = true;
 	}
 
-	Texture_D3D11::Texture_D3D11(Render, ID3D11Device* device, const Size& size)
+	Texture_D3D11::Texture_D3D11(Render, ID3D11Device* device, const Size& size, const uint32 multisampleCount)
 	{
 		m_desc.Width			= size.x;
 		m_desc.Height			= size.y;
 		m_desc.MipLevels		= 1;
 		m_desc.ArraySize		= 1;
 		m_desc.Format			= DXGI_FORMAT_R8G8B8A8_UNORM;
-		m_desc.SampleDesc		= DXGI_SAMPLE_DESC{ 4, 0 };
+		m_desc.SampleDesc		= DXGI_SAMPLE_DESC{ multisampleCount, 0 };
 		m_desc.Usage			= D3D11_USAGE_DEFAULT;
 		m_desc.BindFlags		= D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
 		m_desc.CPUAccessFlags	= 0;
@@ -141,9 +141,9 @@ namespace s3d
 		return isInitialized();
 	}
 
-	bool Texture_D3D11::endResize(Render, ID3D11Device* device, const Size& size)
+	bool Texture_D3D11::endResize(Render, ID3D11Device* device, const Size& size, const uint32 multisampleCount)
 	{
-		*this = Texture_D3D11(Render{}, device, size);
+		*this = Texture_D3D11(Render{}, device, size, multisampleCount);
 
 		return isInitialized();
 	}

@@ -205,7 +205,7 @@ namespace s3d
 		return m_driverType;
 	}
 
-	DXGI_SAMPLE_DESC D3D11Device::getBestMSAA(DXGI_FORMAT format)
+	DXGI_SAMPLE_DESC D3D11Device::getBestMSAA(const DXGI_FORMAT format, const uint32 maxSample)
 	{
 		const auto it = m_bestMSAAs.find(format);
 
@@ -216,17 +216,17 @@ namespace s3d
 
 		DXGI_SAMPLE_DESC desc{ 1,0 };
 
-		for (uint32 count = D3D11_MAX_MULTISAMPLE_SAMPLE_COUNT; count > 0; count /= 2)
+		for (uint32 count = std::min<uint32>(D3D11_MAX_MULTISAMPLE_SAMPLE_COUNT, maxSample); count > 0; count /= 2)
 		{
 			uint32 quality;
 
-			if (SUCCEEDED(m_device->CheckMultisampleQualityLevels(DXGI_FORMAT_R8G8B8A8_UNORM, count, &quality)))
+			if (SUCCEEDED(m_device->CheckMultisampleQualityLevels(format, count, &quality)))
 			{
 				if (quality > 0)
 				{
 					desc.Count = count;
 					desc.Quality = quality - 1;
-					//Log(L"MSAA x", count, L" (quality: ", quality, L")");
+					Log(L"MSAA x", count, L" (quality: ", quality, L")");
 
 					m_bestMSAAs.emplace(format, desc);
 

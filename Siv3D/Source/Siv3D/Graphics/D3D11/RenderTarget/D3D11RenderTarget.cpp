@@ -18,11 +18,13 @@
 
 namespace s3d
 {
-	D3D11RenderTarget::D3D11RenderTarget(ID3D11Device* device, ID3D11DeviceContext* context, IDXGISwapChain* swapChain, CTexture_D3D11* texture)
+	D3D11RenderTarget::D3D11RenderTarget(ID3D11Device* device, ID3D11DeviceContext* context,
+		IDXGISwapChain* swapChain, CTexture_D3D11* texture, const DXGI_SAMPLE_DESC& sample2D)
 		: m_device(device)
 		, m_context(context)
 		, m_swapChain(swapChain)
 		, m_texture(texture)
+		, m_sample2D(sample2D)
 	{
 
 	}
@@ -34,7 +36,7 @@ namespace s3d
 
 	bool D3D11RenderTarget::init()
 	{
-		m_rt2D = RenderTexture(Size(640, 480));
+		m_rt2D = RenderTexture(Size(640, 480), m_sample2D.Count);
 
 		if (!m_rt2D)
 		{
@@ -105,10 +107,6 @@ namespace s3d
 
 		m_rt2D.beginResize(m_texture);
 		m_backBuffer.beginResize(m_texture);
-
-		pRTV[0] = m_texture->getRTV(m_rt2D.id());
-
-		m_context->OMSetRenderTargets(3, pRTV, nullptr);
 	}
 
 	bool D3D11RenderTarget::endResize(const Size& size)
@@ -118,7 +116,7 @@ namespace s3d
 			return false;
 		}
 
-		if (!m_rt2D.endResize(m_texture, size))
+		if (!m_rt2D.endResize(m_texture, size, m_sample2D.Count))
 		{
 			return false;
 		}

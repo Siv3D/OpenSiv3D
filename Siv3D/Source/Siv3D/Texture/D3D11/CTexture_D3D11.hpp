@@ -46,7 +46,7 @@ namespace s3d
 
 		Texture::IDType createFromBackBuffer() override;
 
-		Texture::IDType createRT(const Size& size) override;
+		Texture::IDType createRT(const Size& size, uint32 multisampleCount) override;
 
 		void release(Texture::IDType handleID) override;
 
@@ -58,7 +58,7 @@ namespace s3d
 
 		bool endResizeBackBuffer(Texture::IDType handleID);
 
-		bool endResizeRenderTexture(Texture::IDType handleID, const Size& size);
+		bool endResizeRenderTexture(Texture::IDType handleID, const Size& size, uint32 multisampleCount);
 
 		ID3D11Texture2D* getTexture(Texture::IDType handleID);
 

@@ -63,7 +63,7 @@ namespace s3d
 
 		Texture_D3D11(BackBuffer, ID3D11Device* device, IDXGISwapChain* swapChain);
 
-		Texture_D3D11(Render, ID3D11Device* device, const Size& size);
+		Texture_D3D11(Render, ID3D11Device* device, const Size& size, uint32 multisampleCount);
 
 		bool isInitialized() const noexcept
 		{
@@ -91,7 +91,7 @@ namespace s3d
 
 		bool endResize(BackBuffer, ID3D11Device* device, IDXGISwapChain* swapChain);
 
-		bool endResize(Render, ID3D11Device* device, const Size& size);
+		bool endResize(Render, ID3D11Device* device, const Size& size, uint32 multisampleCount);
 	};
 }
 
