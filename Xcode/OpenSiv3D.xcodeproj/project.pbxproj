@@ -241,6 +241,7 @@
 		2C316FD31EA0CB660011CAAE /* SivQuad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316FD21EA0CB660011CAAE /* SivQuad.cpp */; };
 		2C5769311EA23D530072BB68 /* FloatRect.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5769301EA23D530072BB68 /* FloatRect.hpp */; };
 		2C5769331EA24BE00072BB68 /* GLSpriteBatch.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5769321EA24BE00072BB68 /* GLSpriteBatch.hpp */; };
+		2C5769351EA2F6AC0072BB68 /* FloatQuad.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5769341EA2F6AC0072BB68 /* FloatQuad.hpp */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
 		2C81BECE1E89F8E300D27E52 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C81BC981E89F8E300D27E52 /* format.h */; };
@@ -851,6 +852,7 @@
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5769301EA23D530072BB68 /* FloatRect.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FloatRect.hpp; sourceTree = "<group>"; };
 		2C5769321EA24BE00072BB68 /* GLSpriteBatch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GLSpriteBatch.hpp; sourceTree = "<group>"; };
+		2C5769341EA2F6AC0072BB68 /* FloatQuad.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FloatQuad.hpp; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
 		2C5869261E3F0C620028B9F0 /* lpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lpng.a; sourceTree = "<group>"; };
 		2C81BC981E89F8E300D27E52 /* format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
@@ -1617,6 +1619,7 @@
 				2C316ED41E9F7B950011CAAE /* Duration.hpp */,
 				2C316ED51E9F7B950011CAAE /* Easing.hpp */,
 				2C316ED61E9F7B950011CAAE /* FileSystem.hpp */,
+				2C5769341EA2F6AC0072BB68 /* FloatQuad.hpp */,
 				2C5769301EA23D530072BB68 /* FloatRect.hpp */,
 				2C316ED71E9F7B950011CAAE /* Format.hpp */,
 				2C316ED81E9F7B950011CAAE /* FormatBool.hpp */,
@@ -3203,6 +3206,7 @@
 				2C81BFBB1E89F8E300D27E52 /* ILogger.hpp in Headers */,
 				2C2126571E8CB7B5006F8101 /* gif_lib_private.h in Headers */,
 				2C316E4F1E9BA9240011CAAE /* D3D11SamplerState.hpp in Headers */,
+				2C5769351EA2F6AC0072BB68 /* FloatQuad.hpp in Headers */,
 				2C81C0491E89F8E300D27E52 /* comparator.h in Headers */,
 				2C81C08E1E89F8E400D27E52 /* bitstream.h in Headers */,
 				2C316F7A1E9F7B950011CAAE /* Keyboard.hpp in Headers */,
