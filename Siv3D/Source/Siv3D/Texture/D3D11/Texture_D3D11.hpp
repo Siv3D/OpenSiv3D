@@ -39,6 +39,8 @@ namespace s3d
 
 		D3D11_TEXTURE2D_DESC m_desc{};
 
+		D3D11_RENDER_TARGET_VIEW_DESC m_rtDesc{};
+
 		D3D11_SHADER_RESOURCE_VIEW_DESC m_srvDesc{};
 
 		bool m_initialized = false;
@@ -53,12 +55,15 @@ namespace s3d
 
 		struct Null {};
 		struct BackBuffer {};
+		struct Render {};
 
 		Texture_D3D11() = default;
 
 		Texture_D3D11(Null, ID3D11Device* device);
 
 		Texture_D3D11(BackBuffer, ID3D11Device* device, IDXGISwapChain* swapChain);
+
+		Texture_D3D11(Render, ID3D11Device* device, const Size& size);
 
 		bool isInitialized() const noexcept
 		{
@@ -68,6 +73,11 @@ namespace s3d
 		Size getSize() const
 		{
 			return{ m_desc.Width, m_desc.Height };
+		}
+
+		ID3D11Texture2D* getTexture()
+		{
+			return m_texture.Get();
 		}
 
 		ID3D11RenderTargetView* getRTV()
@@ -80,6 +90,8 @@ namespace s3d
 		void beginResize();
 
 		bool endResize(BackBuffer, ID3D11Device* device, IDXGISwapChain* swapChain);
+
+		bool endResize(Render, ID3D11Device* device, const Size& size);
 	};
 }
 

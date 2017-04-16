@@ -1866,6 +1866,9 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Quad\SivQuad.cpp">
       <Filter>Source\Siv3D\Quad</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\GL\CTextureGL.cpp">
+      <Filter>Source\Siv3D\Texture\GL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\Include\Siv3D\Point.inl">

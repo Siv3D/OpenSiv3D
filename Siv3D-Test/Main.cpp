@@ -5,6 +5,8 @@ void Main()
 {
 	while (System::Update())
 	{
+		Window::SetTitle(Profiler::FPS());
+
 		if (KeyR.down())
 		{
 			Window::Resize(1280, 720);

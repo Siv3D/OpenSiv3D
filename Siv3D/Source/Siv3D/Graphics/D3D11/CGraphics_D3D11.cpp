@@ -194,6 +194,8 @@ namespace s3d
 	{
 		m_renderer2D->flush();
 
+		m_renderTarget->resolve();
+
 		return true;
 	}
 

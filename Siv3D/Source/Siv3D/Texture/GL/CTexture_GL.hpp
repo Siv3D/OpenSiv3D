@@ -25,6 +25,8 @@ namespace s3d
 
 		Texture::IDType createFromBackBuffer() override;
 
+		Texture::IDType createRT(const Size& size) override;
+
 		void release(Texture::IDType handleID) override;
 
 		Size getSize(Texture::IDType handleID) override;

@@ -26,8 +26,37 @@ using namespace Microsoft::WRL;
 # include "../../../Texture/D3D11/BackBufferTexture.hpp"
 # include "../../../Texture/D3D11/CTexture_D3D11.hpp"
 
+# include "../../../Siv3DEngine.hpp"
+
+
 namespace s3d
 {
+	class RenderTexture : public Texture
+	{
+	public:
+
+		RenderTexture()
+			: Texture() {}
+
+		RenderTexture(const Size& size)
+			: Texture(Texture::Render{}, size) {}
+
+		void clear(CTexture_D3D11* texture, const ColorF& color)
+		{
+			texture->clearRT(m_handle->getID(), color);
+		}
+
+		void beginResize(CTexture_D3D11* texture)
+		{
+			texture->beginResize(m_handle->getID());
+		}
+
+		bool endResize(CTexture_D3D11* texture, const Size& size)
+		{
+			return texture->endResizeRenderTexture(m_handle->getID(), size);
+		}
+	};
+
 	class D3D11RenderTarget
 	{
 	private:
@@ -44,6 +73,8 @@ namespace s3d
 
 		BackBufferTexture m_backBuffer;
 
+		RenderTexture m_rt2D;
+
 		Size m_currentRenderTargetResolution = { 640, 480 };
 		
 	public:
@@ -57,6 +88,8 @@ namespace s3d
 		void setClearColor(const ColorF& color);
 
 		void clear();
+
+		void resolve();
 
 		void beginResize();
 

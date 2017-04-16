@@ -25,6 +25,8 @@ namespace s3d
 
 		virtual Texture::IDType createFromBackBuffer() = 0;
 
+		virtual Texture::IDType createRT(const Size& size) = 0;
+
 		virtual void release(Texture::IDType handleID) = 0;
 
 		virtual Size getSize(Texture::IDType handleID) = 0;

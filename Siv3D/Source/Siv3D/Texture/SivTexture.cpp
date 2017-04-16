@@ -36,6 +36,12 @@ namespace s3d
 
 	}
 
+	Texture::Texture(Render, const Size& size)
+		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::GetTexture()->createRT(size)))
+	{
+
+	}
+
 	Texture::Texture()
 		: m_handle(std::make_shared<TextureHandle>())
 	{

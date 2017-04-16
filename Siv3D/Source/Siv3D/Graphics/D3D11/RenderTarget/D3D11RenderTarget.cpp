@@ -34,9 +34,16 @@ namespace s3d
 
 	bool D3D11RenderTarget::init()
 	{
+		m_rt2D = RenderTexture(Size(640, 480));
+
+		if (!m_rt2D)
+		{
+			return false;
+		}
+
 		ID3D11RenderTargetView* pRTV[3]
 		{
-			m_texture->getRTV(m_backBuffer.id()),
+			m_texture->getRTV(m_rt2D.id()),
 			nullptr,
 			nullptr,
 		};
@@ -62,7 +69,27 @@ namespace s3d
 
 	void D3D11RenderTarget::clear()
 	{
-		m_backBuffer.clear(m_texture, m_clearColor);
+		m_rt2D.clear(m_texture, m_clearColor);
+	}
+
+	void D3D11RenderTarget::resolve()
+	{
+		ID3D11RenderTargetView* pRTV[3]
+		{
+			nullptr,
+			nullptr,
+			nullptr,
+		};
+
+		m_context->OMSetRenderTargets(3, pRTV, nullptr);
+
+		m_context->ResolveSubresource(m_texture->getTexture(m_backBuffer.id()), 0,
+			m_texture->getTexture(m_rt2D.id()), 0,
+			DXGI_FORMAT_R8G8B8A8_UNORM);
+
+		pRTV[0] = m_texture->getRTV(m_rt2D.id());
+
+		m_context->OMSetRenderTargets(3, pRTV, nullptr);
 	}
 
 	void D3D11RenderTarget::beginResize()
@@ -76,12 +103,22 @@ namespace s3d
 
 		m_context->OMSetRenderTargets(3, pRTV, nullptr);
 
+		m_rt2D.beginResize(m_texture);
 		m_backBuffer.beginResize(m_texture);
+
+		pRTV[0] = m_texture->getRTV(m_rt2D.id());
+
+		m_context->OMSetRenderTargets(3, pRTV, nullptr);
 	}
 
 	bool D3D11RenderTarget::endResize(const Size& size)
 	{
 		if (!m_backBuffer.endResize(m_texture))
+		{
+			return false;
+		}
+
+		if (!m_rt2D.endResize(m_texture, size))
 		{
 			return false;
 		}

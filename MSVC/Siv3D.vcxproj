@@ -453,6 +453,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextReader\SivTextReader.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\D3D11\CTexture_D3D11.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\D3D11\Texture_D3D11.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\GL\CTextureGL.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\SivTexture.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\TextureFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextWriter\CTextWriter.cpp" />
