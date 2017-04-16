@@ -27,5 +27,9 @@ namespace s3d
 		virtual void addRect(const FloatRect& rect, const Float4& color) = 0;
 
 		virtual void addRect(const FloatRect& rect, const Float4(&colors)[4]) = 0;
+
+		virtual void addQuad(const FloatQuad& quad, const Float4& color) = 0;
+
+		virtual void addQuad(const FloatQuad& quad, const Float4(&colors)[4]) = 0;
 	};
 }

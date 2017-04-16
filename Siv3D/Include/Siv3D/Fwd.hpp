@@ -365,7 +365,12 @@ namespace s3d
 	//	FloatRect.hpp
 	//
 	struct FloatRect;
-	
+
+	//////////////////////////////////////////////////////
+	//
+	//	FloatQuad.hpp
+	//
+	struct FloatQuad;
 
 
 
