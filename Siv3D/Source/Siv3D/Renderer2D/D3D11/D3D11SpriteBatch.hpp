@@ -137,7 +137,7 @@ namespace s3d
 		bool getBuffer(const uint32 vertexSize, const uint32 indexSize, Vertex2D** pVertex, IndexType** pIndices, IndexType* indexOffset)
 		{
 			// VB
-			const size_t requiredVertexSize = m_vertexPos + vertexSize;
+			const uint32 requiredVertexSize = m_vertexPos + vertexSize;
 
 			if (m_vertices.size() < requiredVertexSize)
 			{
@@ -151,7 +151,7 @@ namespace s3d
 			}
 
 			// IB
-			const size_t requiredIndexSize = m_indexPos + indexSize;
+			const uint32 requiredIndexSize = m_indexPos + indexSize;
 
 			if (m_indices.size() < requiredIndexSize)
 			{
@@ -181,7 +181,7 @@ namespace s3d
 
 			{
 				const Vertex2D* vertexData = m_vertices.data();
-				const size_t vertexSize = m_vertexPos;
+				const uint32 vertexSize = m_vertexPos;
 
 				D3D11_MAP mapType = D3D11_MAP_WRITE_NO_OVERWRITE;
 
@@ -209,7 +209,7 @@ namespace s3d
 
 			{
 				const IndexType* indexData = m_indices.data();
-				const size_t indexSize = m_indexPos;
+				const uint32 indexSize = m_indexPos;
 
 				D3D11_MAP mapType = D3D11_MAP_WRITE_NO_OVERWRITE;
 
