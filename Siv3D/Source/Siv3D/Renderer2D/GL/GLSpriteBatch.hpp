@@ -109,9 +109,9 @@ namespace s3d
 				::glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
 				::glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex2D) * VertexBufferSize, nullptr, GL_DYNAMIC_DRAW);
 				
-				::glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 32, (GLubyte*)0);
-				::glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 32, (GLubyte*)8);
-				::glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 32, (GLubyte*)16);
+				::glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 32, (GLubyte*)0);
+				::glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 32, (GLubyte*)8);
+				::glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, 32, (GLubyte*)16);
 				
 				::glEnableVertexAttribArray(0);
 				::glEnableVertexAttribArray(1);
@@ -181,6 +181,7 @@ namespace s3d
 				if (VertexBufferSize < m_vertexBufferWritePos + vertexSize)
 				{
 					m_vertexBufferWritePos = 0;
+					::glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex2D) * VertexBufferSize, nullptr, GL_DYNAMIC_DRAW);
 				}
 				
 				const uint32 vertexOffset = m_vertexBufferWritePos;
@@ -203,6 +204,7 @@ namespace s3d
 				if (IndexBufferSize < m_indexBufferWritePos + indexSize)
 				{
 					m_indexBufferWritePos = 0;
+					::glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32) * IndexBufferSize, nullptr, GL_DYNAMIC_DRAW);
 				}
 
 				for (uint32 i = 0; i < indexSize; ++i)
@@ -223,7 +225,7 @@ namespace s3d
 				m_indexBufferWritePos += indexSize;
 				vi.second = indexOffset;
 			}
-			
+
 			return vi;
 		}
 

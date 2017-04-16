@@ -142,6 +142,9 @@ void main()
 			return false;
 		}
 		
+		::glEnable(GL_BLEND);
+		::glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
+		::glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
 		
 		m_initialized = true;
 		
