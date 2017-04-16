@@ -15,6 +15,8 @@
 # include <iostream>
 # include "Fwd.hpp"
 # include "Format.hpp"
+# include "Color.hpp"
+# include "Geometry2D.hpp"
 
 namespace s3d
 {
@@ -231,10 +233,16 @@ namespace s3d
 		template <class Type>
 		constexpr Vector2D<Type> lerp(const Vector2D<Type>& other, const double f) const noexcept;
 
+		template <class Shape2DType>
+		bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
+		{
+			return Geometry2D::Intersect(*this, shape);
+		}
+
 		/// <summary>
 		/// Point{ 0, 0 }
 		/// </summary>
-		static constexpr Point Zero()
+		static constexpr Point Zero() noexcept
 		{
 			return{ 0, 0 };
 		}
@@ -242,7 +250,7 @@ namespace s3d
 		/// <summary>
 		/// Point{ 1, 1 }
 		/// </summary>
-		static constexpr Point One()
+		static constexpr Point One() noexcept
 		{
 			return{ 1, 1 };
 		}
@@ -250,7 +258,7 @@ namespace s3d
 		/// <summary>
 		/// Point{ value, value }
 		/// </summary>
-		static constexpr Point All(const value_type value = 1)
+		static constexpr Point All(const value_type value = 1) noexcept
 		{
 			return{ value, value };
 		}
@@ -258,7 +266,7 @@ namespace s3d
 		/// <summary>
 		/// Point{ 1, 0 }
 		/// </summary>
-		static constexpr Point UnitX()
+		static constexpr Point UnitX() noexcept
 		{
 			return{ 1, 0 };
 		}
@@ -266,7 +274,7 @@ namespace s3d
 		/// <summary>
 		/// Point{ 0, 1 }
 		/// </summary>
-		static constexpr Point UnitY()
+		static constexpr Point UnitY() noexcept
 		{
 			return{ 0, 1 };
 		}
@@ -274,7 +282,7 @@ namespace s3d
 		/// <summary>
 		/// Point{ -length, 0 }
 		/// </summary>
-		static constexpr Point Left(const value_type length = 1)
+		static constexpr Point Left(const value_type length = 1) noexcept
 		{
 			return{ -length, 0 };
 		}
@@ -282,7 +290,7 @@ namespace s3d
 		/// <summary>
 		/// Point{ length, 0 }
 		/// </summary>
-		static constexpr Point Right(const value_type length = 1)
+		static constexpr Point Right(const value_type length = 1) noexcept
 		{
 			return{ length, 0 };
 		}
@@ -290,7 +298,7 @@ namespace s3d
 		/// <summary>
 		/// Point{ 0, -length }
 		/// </summary>
-		static constexpr Point Up(const value_type length = 1)
+		static constexpr Point Up(const value_type length = 1) noexcept
 		{
 			return{ 0, -length };
 		}
@@ -298,7 +306,7 @@ namespace s3d
 		/// <summary>
 		/// Point{ 0, length }
 		/// </summary>
-		static constexpr Point Down(const value_type length = 1)
+		static constexpr Point Down(const value_type length = 1) noexcept
 		{
 			return{ 0, length };
 		}

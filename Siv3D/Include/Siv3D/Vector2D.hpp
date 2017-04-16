@@ -307,10 +307,16 @@ namespace s3d
 			return Vector2D(x + (other.x - x) * f, y + (other.y - y) * f);
 		}
 
+		template <class Shape2DType>
+		bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
+		{
+			return Geometry2D::Intersect(*this, shape);
+		}
+
 		/// <summary>
 		/// Vector2D{ 0, 0 }
 		/// </summary>
-		static constexpr Vector2D Zero()
+		static constexpr Vector2D Zero() noexcept
 		{
 			return{ 0, 0 };
 		}
@@ -318,7 +324,7 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ 1, 1 }
 		/// </summary>
-		static constexpr Vector2D One()
+		static constexpr Vector2D One() noexcept
 		{
 			return{ 1, 1 };
 		}
@@ -326,7 +332,7 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ value, value }
 		/// </summary>
-		static constexpr Vector2D All(value_type value = 1)
+		static constexpr Vector2D All(value_type value = 1) noexcept
 		{
 			return{ value, value };
 		}
@@ -334,7 +340,7 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ 1, 0 }
 		/// </summary>
-		static constexpr Vector2D UnitX()
+		static constexpr Vector2D UnitX() noexcept
 		{
 			return{ 1, 0 };
 		}
@@ -342,7 +348,7 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ 0, 1 }
 		/// </summary>
-		static constexpr Vector2D UnitY()
+		static constexpr Vector2D UnitY() noexcept
 		{
 			return{ 0, 1 };
 		}
@@ -350,7 +356,7 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ -length, 0 }
 		/// </summary>
-		static constexpr Vector2D Left(value_type length = 1)
+		static constexpr Vector2D Left(value_type length = 1) noexcept
 		{
 			return{ -length, 0 };
 		}
@@ -358,7 +364,7 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ length, 0 }
 		/// </summary>
-		static constexpr Vector2D Right(value_type length = 1)
+		static constexpr Vector2D Right(value_type length = 1) noexcept
 		{
 			return{ length, 0 };
 		}
@@ -366,7 +372,7 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ 0, -length }
 		/// </summary>
-		static constexpr Vector2D Up(value_type length = 1)
+		static constexpr Vector2D Up(value_type length = 1) noexcept
 		{
 			return{ 0, -length };
 		}
@@ -374,7 +380,7 @@ namespace s3d
 		/// <summary>
 		/// Vector2D{ 0, length }
 		/// </summary>
-		static constexpr Vector2D Down(value_type length = 1)
+		static constexpr Vector2D Down(value_type length = 1) noexcept
 		{
 			return{ 0, length };
 		}
