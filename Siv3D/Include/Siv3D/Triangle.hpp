@@ -154,6 +154,10 @@ namespace s3d
 
 		// paint~ overpaint~ draw~
 
+		const Triangle& draw(const ColorF& color = Palette::White) const;
+
+		const Triangle& draw(const ColorF(&colors)[3]) const;
+
 		// Polygon asPolygon() const;
 	};
 }

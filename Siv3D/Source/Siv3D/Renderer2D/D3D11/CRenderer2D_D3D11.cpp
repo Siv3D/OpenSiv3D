@@ -133,6 +133,62 @@ namespace s3d
 		m_spriteBatch.clear();
 	}
 
+	void CRenderer2D_D3D11::addTriangle(const Float2(&pts)[3], const Float4& color)
+	{
+		constexpr IndexType vertexSize = 3, indexSize = 3;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		{
+			return;
+		}
+
+		pVertex[0].pos		= pts[0];
+		pVertex[0].color	= color;
+
+		pVertex[1].pos		= pts[1];
+		pVertex[1].color	= color;
+
+		pVertex[2].pos		= pts[2];
+		pVertex[2].color	= color;
+
+		pIndex[0] = indexOffset;
+		pIndex[1] = indexOffset + 1;
+		pIndex[2] = indexOffset + 2;
+
+		m_drawIndexCount += indexSize;
+	}
+
+	void CRenderer2D_D3D11::addTriangle(const Float2(&pts)[3], const Float4(&colors)[3])
+	{
+		constexpr IndexType vertexSize = 3, indexSize = 3;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		{
+			return;
+		}
+
+		pVertex[0].pos		= pts[0];
+		pVertex[0].color	= colors[0];
+
+		pVertex[1].pos		= pts[1];
+		pVertex[1].color	= colors[1];
+
+		pVertex[2].pos		= pts[2];
+		pVertex[2].color	= colors[2];
+
+		pIndex[0] = indexOffset;
+		pIndex[1] = indexOffset + 1;
+		pIndex[2] = indexOffset + 2;
+
+		m_drawIndexCount += indexSize;
+	}
+
 	void CRenderer2D_D3D11::addRect(const FloatRect& rect, const Float4& color)
 	{
 		constexpr IndexType vertexSize = 4, indexSize = 6;
