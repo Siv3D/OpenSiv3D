@@ -21,6 +21,8 @@ void Main()
 
 		Rect(200, 50, 80).draw(Arg::left = Palette::Orange, Arg::right = Palette::White);
 
+		Rect(400, 100, 100, 80).shearedX(40).draw(Palette::Yellow);
+
 		Rect(Arg::center(320, 240), 160, 40).rotated(System::FrameCount() * 1_deg).draw(Palette::Seagreen);
 
 		Triangle(Window::Center(), 80).draw(Palette::Orange);

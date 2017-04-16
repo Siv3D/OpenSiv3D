@@ -133,7 +133,8 @@
 - [x] Rect::draw()
 - [x] Triangle::draw()
 - [x] Quad::draw()
-- [ ] Rect::drawFrame()
+- [x] Rect::drawFrame()
+- [ ] EasingController
 
 ---------------------------
 
@@ -142,7 +143,6 @@
 - [ ] Line::draw()
 - [ ] WindowState
 - [ ] UID
-- [ ] EasingController
 - [ ] INIWriter
 
 ## Discussion ##
