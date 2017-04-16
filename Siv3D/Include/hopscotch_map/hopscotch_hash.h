@@ -188,7 +188,7 @@ public:
             throw std::length_error("The map exceeds its maxmimum size.");
         }
         
-        m_iprime = std::distance(tsl::detail_hopscotch_hash::PRIMES.begin(), it_prime);
+        m_iprime = static_cast<unsigned int>(std::distance(tsl::detail_hopscotch_hash::PRIMES.begin(), it_prime));
         min_bucket_count_in_out = *it_prime;
     }
     
@@ -205,13 +205,13 @@ public:
     }   
     
 private:  
-    std::size_t bucket_for_hash_iprime(std::size_t hash, std::size_t iprime) const {
+    std::size_t bucket_for_hash_iprime(std::size_t hash, unsigned int iprime) const {
         tsl_assert(iprime < tsl::detail_hopscotch_hash::MOD_PRIME.size());
         return tsl::detail_hopscotch_hash::MOD_PRIME[iprime](hash);
     }
     
 private:
-    std::size_t m_iprime;
+    unsigned int m_iprime;
 };
 
 
@@ -391,8 +391,43 @@ public:
         m_neighborhood_infos = bucket.m_neighborhood_infos;
     }
      
-    hopscotch_bucket& operator=(const hopscotch_bucket& bucket) = delete;
-    hopscotch_bucket& operator=(hopscotch_bucket&& bucket) = delete;
+    hopscotch_bucket& operator=(const hopscotch_bucket& bucket) 
+        noexcept(std::is_nothrow_copy_constructible<value_type>::value) 
+    {
+        if(this != &bucket) {
+            if(!is_empty()) {
+                destroy_value();
+                set_is_empty(true);
+            }
+            
+            if(!bucket.is_empty()) {
+                ::new (static_cast<void*>(std::addressof(m_value))) value_type(bucket.get_value());
+                this->copy_hash(bucket);
+            }
+            
+            m_neighborhood_infos = bucket.m_neighborhood_infos;
+        }
+        
+        return *this;
+    }
+    
+    hopscotch_bucket& operator=(hopscotch_bucket&& bucket) 
+         noexcept(std::is_nothrow_move_constructible<value_type>::value) 
+    {
+        if(!is_empty()) {
+            destroy_value();
+            set_is_empty(true);
+        }
+
+        if(!bucket.is_empty()) {
+            ::new (static_cast<void*>(std::addressof(m_value))) value_type(std::move(bucket.get_value()));
+            this->copy_hash(bucket);
+        }
+
+        m_neighborhood_infos = bucket.m_neighborhood_infos;
+
+        return *this;
+    }        
      
     ~hopscotch_bucket() noexcept {
         if(!is_empty()) {
@@ -1034,14 +1069,23 @@ public:
      */
     template<class K, class U = ValueSelect, typename std::enable_if<!std::is_same<U, void>::value>::type* = nullptr>
     typename U::value_type& at(const K& key) {
-        return const_cast<typename U::value_type&>(static_cast<const hopscotch_hash*>(this)->at(key));
+        return at(key, m_hash(key));
     }
     
     template<class K, class U = ValueSelect, typename std::enable_if<!std::is_same<U, void>::value>::type* = nullptr>
+    typename U::value_type& at(const K& key, std::size_t hash) {
+        return const_cast<typename U::value_type&>(static_cast<const hopscotch_hash*>(this)->at(key, hash));
+    }
+    
+    
+    template<class K, class U = ValueSelect, typename std::enable_if<!std::is_same<U, void>::value>::type* = nullptr>
     const typename U::value_type& at(const K& key) const {
+        return at(key, m_hash(key));
+    }
+    
+    template<class K, class U = ValueSelect, typename std::enable_if<!std::is_same<U, void>::value>::type* = nullptr>
+    const typename U::value_type& at(const K& key, std::size_t hash) const {
         using T = typename U::value_type;
-        
-        const std::size_t hash = m_hash(key);
         
         const T* value = find_value_internal(key, hash, m_buckets.begin() + bucket_for_hash(hash));
         if(value == nullptr) {
@@ -1051,6 +1095,7 @@ public:
             return *value;
         }
     }
+    
     
     template<class K, class U = ValueSelect, typename std::enable_if<!std::is_same<U, void>::value>::type* = nullptr>
     typename U::value_type& operator[](K&& key) {
@@ -1068,10 +1113,14 @@ public:
         }
     }
     
+    
     template<class K>
     size_type count(const K& key) const {
-        const std::size_t hash = m_hash(key);
-        
+        return count(key, m_hash(key));
+    }
+    
+    template<class K>
+    size_type count(const K& key, std::size_t hash) const {
         if(find_value_internal(key, hash, m_buckets.begin() + bucket_for_hash(hash)) == nullptr) {
             return 0;
         }
@@ -1079,6 +1128,7 @@ public:
             return 1;
         }
     }
+    
     
     template<class K>
     iterator find(const K& key) {
@@ -1088,11 +1138,23 @@ public:
     }
     
     template<class K>
+    iterator find(const K& key, std::size_t hash) {
+        return find_internal(key, hash, m_buckets.begin() + bucket_for_hash(hash));
+    }
+    
+    
+    template<class K>
     const_iterator find(const K& key) const {
         const std::size_t hash = m_hash(key);
         
         return find_internal(key, hash, m_buckets.begin() + bucket_for_hash(hash));
     }
+    
+    template<class K>
+    const_iterator find(const K& key, std::size_t hash) const {
+        return find_internal(key, hash, m_buckets.begin() + bucket_for_hash(hash));
+    }
+    
     
     template<class K>
     std::pair<iterator, iterator> equal_range(const K& key) {
@@ -1101,8 +1163,21 @@ public:
     }
     
     template<class K>
+    std::pair<iterator, iterator> equal_range(const K& key, std::size_t hash) {
+        iterator it = find(key, hash);
+        return std::make_pair(it, it);
+    }
+    
+    
+    template<class K>
     std::pair<const_iterator, const_iterator> equal_range(const K& key) const {
         const_iterator it = find(key);
+        return std::make_pair(it, it);
+    }
+    
+    template<class K>
+    std::pair<const_iterator, const_iterator> equal_range(const K& key, std::size_t hash) const {
+        const_iterator it = find(key, hash);
         return std::make_pair(it, it);
     }
     
@@ -1133,7 +1208,7 @@ public:
      *  Hash policy 
      */
     float load_factor() const {
-        return (1.0f*m_nb_elements)/bucket_count();
+        return float(m_nb_elements)/float(bucket_count());
     }
     
     float max_load_factor() const {
