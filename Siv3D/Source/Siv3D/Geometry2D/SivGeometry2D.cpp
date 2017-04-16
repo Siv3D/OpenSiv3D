@@ -72,5 +72,57 @@ namespace s3d
 		{
 			return a.distanceFromSq(b.center) <= (b.r * b.r);
 		}
+
+
+
+
+
+		bool Intersect(const Line& a, const Circle& b) noexcept
+		{
+			const Vec2 ab = a.end - a.begin;
+			const Vec2 ac = b.center - a.begin;
+			const Vec2 bc = b.center - a.end;
+			const double e = ac.dot(ab);
+			const double rr = b.r * b.r;
+
+			if (e <= 0.0)
+			{
+				return ac.dot(ac) <= rr;
+			}
+
+			const double f = ab.dot(ab);
+
+			if (e >= f)
+			{
+				return bc.dot(bc) <= rr;
+			}
+
+			return (ac.dot(ac) - e * e / f) <= rr;
+		}
+
+
+
+
+
+
+		bool Intersect(const Rect& a, const Circle& b) noexcept
+		{
+			const double aw = a.w * 0.5;
+			const double ah = a.h * 0.5;
+			const double cX = std::abs(b.x - a.x - aw);
+			const double cY = std::abs(b.y - a.y - ah);
+
+			if (cX > (aw + b.r) || cY > (ah + b.r))
+			{
+				return false;
+			}
+
+			if (cX <= (aw) || cY <= (ah))
+			{
+				return true;
+			}
+
+			return (cX - aw) * (cX - aw) + (cY - ah) * (cY - ah) <= (b.r * b.r);
+		}
 	}
 }

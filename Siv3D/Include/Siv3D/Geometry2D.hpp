@@ -52,7 +52,7 @@ namespace s3d
 		//bool Intersect(const Line& a, const Line&			b);
 		//bool Intersect(const Line& a, const Rect&			b);
 		//bool Intersect(const Line& a, const RectF&			b);
-		//bool Intersect(const Line& a, const Circle&			b);
+		bool Intersect(const Line& a, const Circle&			b) noexcept;
 		//bool Intersect(const Line& a, const Ellipse&		b);
 		//bool Intersect(const Line& a, const Triangle&		b);
 		//bool Intersect(const Line& a, const Quad&			b);
@@ -66,7 +66,7 @@ namespace s3d
 		//bool Intersect(const Rect& a, const Line&			b);
 		//bool Intersect(const Rect& a, const Rect&			b);
 		//bool Intersect(const Rect& a, const RectF&			b);
-		//bool Intersect(const Rect& a, const Circle&			b);
+		bool Intersect(const Rect& a, const Circle&			b) noexcept;
 		//bool Intersect(const Rect& a, const Ellipse&		b);
 		//bool Intersect(const Rect& a, const Triangle&		b);
 		//bool Intersect(const Rect& a, const Quad&			b);
