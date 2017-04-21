@@ -51,6 +51,41 @@
 		2C2126971E9A5AAE006F8101 /* SivGeometry2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2126961E9A5AAE006F8101 /* SivGeometry2D.cpp */; };
 		2C21269B1E9A62F3006F8101 /* CCursor_macOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C21269A1E9A62F3006F8101 /* CCursor_macOS.mm */; };
 		2C2CCF511CE8698C001844FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2CCF501CE8698C001844FF /* Foundation.framework */; };
+		2C2E82941EAA1B3A0057BDAF /* allocators.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E826E1EAA1B3A0057BDAF /* allocators.h */; };
+		2C2E82951EAA1B3A0057BDAF /* document.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E826F1EAA1B3A0057BDAF /* document.h */; };
+		2C2E82961EAA1B3A0057BDAF /* encodedstream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E82701EAA1B3A0057BDAF /* encodedstream.h */; };
+		2C2E82971EAA1B3A0057BDAF /* encodings.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E82711EAA1B3A0057BDAF /* encodings.h */; };
+		2C2E82981EAA1B3A0057BDAF /* en.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E82731EAA1B3A0057BDAF /* en.h */; };
+		2C2E82991EAA1B3A0057BDAF /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E82741EAA1B3A0057BDAF /* error.h */; };
+		2C2E829A1EAA1B3A0057BDAF /* filereadstream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E82751EAA1B3A0057BDAF /* filereadstream.h */; };
+		2C2E829B1EAA1B3A0057BDAF /* filewritestream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E82761EAA1B3A0057BDAF /* filewritestream.h */; };
+		2C2E829C1EAA1B3A0057BDAF /* fwd.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E82771EAA1B3A0057BDAF /* fwd.h */; };
+		2C2E829D1EAA1B3A0057BDAF /* biginteger.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E82791EAA1B3A0057BDAF /* biginteger.h */; };
+		2C2E829E1EAA1B3A0057BDAF /* diyfp.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E827A1EAA1B3A0057BDAF /* diyfp.h */; };
+		2C2E829F1EAA1B3A0057BDAF /* dtoa.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E827B1EAA1B3A0057BDAF /* dtoa.h */; };
+		2C2E82A01EAA1B3A0057BDAF /* ieee754.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E827C1EAA1B3A0057BDAF /* ieee754.h */; };
+		2C2E82A11EAA1B3A0057BDAF /* itoa.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E827D1EAA1B3A0057BDAF /* itoa.h */; };
+		2C2E82A21EAA1B3A0057BDAF /* meta.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E827E1EAA1B3A0057BDAF /* meta.h */; };
+		2C2E82A31EAA1B3A0057BDAF /* pow10.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E827F1EAA1B3A0057BDAF /* pow10.h */; };
+		2C2E82A41EAA1B3A0057BDAF /* regex.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E82801EAA1B3A0057BDAF /* regex.h */; };
+		2C2E82A51EAA1B3A0057BDAF /* stack.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E82811EAA1B3A0057BDAF /* stack.h */; };
+		2C2E82A61EAA1B3A0057BDAF /* strfunc.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E82821EAA1B3A0057BDAF /* strfunc.h */; };
+		2C2E82A71EAA1B3A0057BDAF /* strtod.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E82831EAA1B3A0057BDAF /* strtod.h */; };
+		2C2E82A81EAA1B3A0057BDAF /* swap.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E82841EAA1B3A0057BDAF /* swap.h */; };
+		2C2E82A91EAA1B3A0057BDAF /* istreamwrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E82851EAA1B3A0057BDAF /* istreamwrapper.h */; };
+		2C2E82AA1EAA1B3A0057BDAF /* memorybuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E82861EAA1B3A0057BDAF /* memorybuffer.h */; };
+		2C2E82AB1EAA1B3A0057BDAF /* memorystream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E82871EAA1B3A0057BDAF /* memorystream.h */; };
+		2C2E82AE1EAA1B3A0057BDAF /* ostreamwrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E828B1EAA1B3A0057BDAF /* ostreamwrapper.h */; };
+		2C2E82AF1EAA1B3A0057BDAF /* pointer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E828C1EAA1B3A0057BDAF /* pointer.h */; };
+		2C2E82B01EAA1B3A0057BDAF /* prettywriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E828D1EAA1B3A0057BDAF /* prettywriter.h */; };
+		2C2E82B11EAA1B3A0057BDAF /* rapidjson.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E828E1EAA1B3A0057BDAF /* rapidjson.h */; };
+		2C2E82B21EAA1B3A0057BDAF /* reader.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E828F1EAA1B3A0057BDAF /* reader.h */; };
+		2C2E82B31EAA1B3A0057BDAF /* schema.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E82901EAA1B3A0057BDAF /* schema.h */; };
+		2C2E82B41EAA1B3A0057BDAF /* stream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E82911EAA1B3A0057BDAF /* stream.h */; };
+		2C2E82B51EAA1B3A0057BDAF /* stringbuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E82921EAA1B3A0057BDAF /* stringbuffer.h */; };
+		2C2E82B61EAA1B3A0057BDAF /* writer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E82931EAA1B3A0057BDAF /* writer.h */; };
+		2C2E82B91EAA1B550057BDAF /* SivJSONReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2E82B81EAA1B550057BDAF /* SivJSONReader.cpp */; };
+		2C2E82BB1EAA1B930057BDAF /* JSONReader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E82BA1EAA1B930057BDAF /* JSONReader.hpp */; };
 		2C316E191E9B38200011CAAE /* SivResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E181E9B38200011CAAE /* SivResource.cpp */; };
 		2C316E1B1E9B3B260011CAAE /* engine in Resources */ = {isa = PBXBuildFile; fileRef = 2C316E1A1E9B3B260011CAAE /* engine */; };
 		2C316E2D1E9B627B0011CAAE /* ITexture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E261E9B627B0011CAAE /* ITexture.hpp */; };
@@ -659,6 +694,41 @@
 		2C2126961E9A5AAE006F8101 /* SivGeometry2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGeometry2D.cpp; sourceTree = "<group>"; };
 		2C21269A1E9A62F3006F8101 /* CCursor_macOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCursor_macOS.mm; sourceTree = "<group>"; };
 		2C2CCF501CE8698C001844FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2C2E826E1EAA1B3A0057BDAF /* allocators.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allocators.h; sourceTree = "<group>"; };
+		2C2E826F1EAA1B3A0057BDAF /* document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = document.h; sourceTree = "<group>"; };
+		2C2E82701EAA1B3A0057BDAF /* encodedstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = encodedstream.h; sourceTree = "<group>"; };
+		2C2E82711EAA1B3A0057BDAF /* encodings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = encodings.h; sourceTree = "<group>"; };
+		2C2E82731EAA1B3A0057BDAF /* en.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = en.h; sourceTree = "<group>"; };
+		2C2E82741EAA1B3A0057BDAF /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
+		2C2E82751EAA1B3A0057BDAF /* filereadstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filereadstream.h; sourceTree = "<group>"; };
+		2C2E82761EAA1B3A0057BDAF /* filewritestream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filewritestream.h; sourceTree = "<group>"; };
+		2C2E82771EAA1B3A0057BDAF /* fwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fwd.h; sourceTree = "<group>"; };
+		2C2E82791EAA1B3A0057BDAF /* biginteger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = biginteger.h; sourceTree = "<group>"; };
+		2C2E827A1EAA1B3A0057BDAF /* diyfp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = diyfp.h; sourceTree = "<group>"; };
+		2C2E827B1EAA1B3A0057BDAF /* dtoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dtoa.h; sourceTree = "<group>"; };
+		2C2E827C1EAA1B3A0057BDAF /* ieee754.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ieee754.h; sourceTree = "<group>"; };
+		2C2E827D1EAA1B3A0057BDAF /* itoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = itoa.h; sourceTree = "<group>"; };
+		2C2E827E1EAA1B3A0057BDAF /* meta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = meta.h; sourceTree = "<group>"; };
+		2C2E827F1EAA1B3A0057BDAF /* pow10.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pow10.h; sourceTree = "<group>"; };
+		2C2E82801EAA1B3A0057BDAF /* regex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = regex.h; sourceTree = "<group>"; };
+		2C2E82811EAA1B3A0057BDAF /* stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stack.h; sourceTree = "<group>"; };
+		2C2E82821EAA1B3A0057BDAF /* strfunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strfunc.h; sourceTree = "<group>"; };
+		2C2E82831EAA1B3A0057BDAF /* strtod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strtod.h; sourceTree = "<group>"; };
+		2C2E82841EAA1B3A0057BDAF /* swap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = swap.h; sourceTree = "<group>"; };
+		2C2E82851EAA1B3A0057BDAF /* istreamwrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = istreamwrapper.h; sourceTree = "<group>"; };
+		2C2E82861EAA1B3A0057BDAF /* memorybuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memorybuffer.h; sourceTree = "<group>"; };
+		2C2E82871EAA1B3A0057BDAF /* memorystream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memorystream.h; sourceTree = "<group>"; };
+		2C2E828B1EAA1B3A0057BDAF /* ostreamwrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ostreamwrapper.h; sourceTree = "<group>"; };
+		2C2E828C1EAA1B3A0057BDAF /* pointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pointer.h; sourceTree = "<group>"; };
+		2C2E828D1EAA1B3A0057BDAF /* prettywriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = prettywriter.h; sourceTree = "<group>"; };
+		2C2E828E1EAA1B3A0057BDAF /* rapidjson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rapidjson.h; sourceTree = "<group>"; };
+		2C2E828F1EAA1B3A0057BDAF /* reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reader.h; sourceTree = "<group>"; };
+		2C2E82901EAA1B3A0057BDAF /* schema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = schema.h; sourceTree = "<group>"; };
+		2C2E82911EAA1B3A0057BDAF /* stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stream.h; sourceTree = "<group>"; };
+		2C2E82921EAA1B3A0057BDAF /* stringbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stringbuffer.h; sourceTree = "<group>"; };
+		2C2E82931EAA1B3A0057BDAF /* writer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = writer.h; sourceTree = "<group>"; };
+		2C2E82B81EAA1B550057BDAF /* SivJSONReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivJSONReader.cpp; sourceTree = "<group>"; };
+		2C2E82BA1EAA1B930057BDAF /* JSONReader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = JSONReader.hpp; sourceTree = "<group>"; };
 		2C316E181E9B38200011CAAE /* SivResource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivResource.cpp; sourceTree = "<group>"; };
 		2C316E1A1E9B3B260011CAAE /* engine */ = {isa = PBXFileReference; lastKnownFileType = folder; name = engine; path = bin/engine; sourceTree = SOURCE_ROOT; };
 		2C316E261E9B627B0011CAAE /* ITexture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ITexture.hpp; sourceTree = "<group>"; };
@@ -1388,6 +1458,70 @@
 			path = Geometry2D;
 			sourceTree = "<group>";
 		};
+		2C2E826D1EAA1B3A0057BDAF /* rapidjson */ = {
+			isa = PBXGroup;
+			children = (
+				2C2E826E1EAA1B3A0057BDAF /* allocators.h */,
+				2C2E826F1EAA1B3A0057BDAF /* document.h */,
+				2C2E82701EAA1B3A0057BDAF /* encodedstream.h */,
+				2C2E82711EAA1B3A0057BDAF /* encodings.h */,
+				2C2E82721EAA1B3A0057BDAF /* error */,
+				2C2E82751EAA1B3A0057BDAF /* filereadstream.h */,
+				2C2E82761EAA1B3A0057BDAF /* filewritestream.h */,
+				2C2E82771EAA1B3A0057BDAF /* fwd.h */,
+				2C2E82781EAA1B3A0057BDAF /* internal */,
+				2C2E82851EAA1B3A0057BDAF /* istreamwrapper.h */,
+				2C2E82861EAA1B3A0057BDAF /* memorybuffer.h */,
+				2C2E82871EAA1B3A0057BDAF /* memorystream.h */,
+				2C2E828B1EAA1B3A0057BDAF /* ostreamwrapper.h */,
+				2C2E828C1EAA1B3A0057BDAF /* pointer.h */,
+				2C2E828D1EAA1B3A0057BDAF /* prettywriter.h */,
+				2C2E828E1EAA1B3A0057BDAF /* rapidjson.h */,
+				2C2E828F1EAA1B3A0057BDAF /* reader.h */,
+				2C2E82901EAA1B3A0057BDAF /* schema.h */,
+				2C2E82911EAA1B3A0057BDAF /* stream.h */,
+				2C2E82921EAA1B3A0057BDAF /* stringbuffer.h */,
+				2C2E82931EAA1B3A0057BDAF /* writer.h */,
+			);
+			path = rapidjson;
+			sourceTree = "<group>";
+		};
+		2C2E82721EAA1B3A0057BDAF /* error */ = {
+			isa = PBXGroup;
+			children = (
+				2C2E82731EAA1B3A0057BDAF /* en.h */,
+				2C2E82741EAA1B3A0057BDAF /* error.h */,
+			);
+			path = error;
+			sourceTree = "<group>";
+		};
+		2C2E82781EAA1B3A0057BDAF /* internal */ = {
+			isa = PBXGroup;
+			children = (
+				2C2E82791EAA1B3A0057BDAF /* biginteger.h */,
+				2C2E827A1EAA1B3A0057BDAF /* diyfp.h */,
+				2C2E827B1EAA1B3A0057BDAF /* dtoa.h */,
+				2C2E827C1EAA1B3A0057BDAF /* ieee754.h */,
+				2C2E827D1EAA1B3A0057BDAF /* itoa.h */,
+				2C2E827E1EAA1B3A0057BDAF /* meta.h */,
+				2C2E827F1EAA1B3A0057BDAF /* pow10.h */,
+				2C2E82801EAA1B3A0057BDAF /* regex.h */,
+				2C2E82811EAA1B3A0057BDAF /* stack.h */,
+				2C2E82821EAA1B3A0057BDAF /* strfunc.h */,
+				2C2E82831EAA1B3A0057BDAF /* strtod.h */,
+				2C2E82841EAA1B3A0057BDAF /* swap.h */,
+			);
+			path = internal;
+			sourceTree = "<group>";
+		};
+		2C2E82B71EAA1B550057BDAF /* JSONReader */ = {
+			isa = PBXGroup;
+			children = (
+				2C2E82B81EAA1B550057BDAF /* SivJSONReader.cpp */,
+			);
+			path = JSONReader;
+			sourceTree = "<group>";
+		};
 		2C316E171E9B38200011CAAE /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -1645,6 +1779,7 @@
 				2C316EEC1E9F7B950011CAAE /* IReader.hpp */,
 				2C316EED1E9F7B950011CAAE /* IteratorRange.hpp */,
 				2C316EEE1E9F7B950011CAAE /* IWriter.hpp */,
+				2C2E82BA1EAA1B930057BDAF /* JSONReader.hpp */,
 				2C316EEF1E9F7B950011CAAE /* Key.hpp */,
 				2C316EF01E9F7B950011CAAE /* Keyboard.hpp */,
 				2C316EF11E9F7B950011CAAE /* KeyConjunction.hpp */,
@@ -1830,6 +1965,7 @@
 		2C81BD1D1E89F8E300D27E52 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C2E82B71EAA1B550057BDAF /* JSONReader */,
 				2C316FD11EA0CB660011CAAE /* Quad */,
 				2C316FC61EA0AEE20011CAAE /* HTMLWriter */,
 				2C316E811E9C9BA60011CAAE /* Renderer2D */,
@@ -2531,6 +2667,7 @@
 		2C81BE121E89F8E300D27E52 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				2C2E826D1EAA1B3A0057BDAF /* rapidjson */,
 				2C316E9E1E9F022A0011CAAE /* GL */,
 				2C2126441E8CB7B5006F8101 /* giflib */,
 				2C81BE131E89F8E300D27E52 /* butteraugli */,
@@ -2965,7 +3102,9 @@
 				2C316E6E1E9BB0CE0011CAAE /* Texture_D3D11.hpp in Headers */,
 				2C316F761E9F7B950011CAAE /* IReader.hpp in Headers */,
 				2C316F831E9F7B950011CAAE /* MathConstants.hpp in Headers */,
+				2C2E82B51EAA1B3A0057BDAF /* stringbuffer.h in Headers */,
 				2C316EA51E9F022A0011CAAE /* glxew.h in Headers */,
+				2C2E82A21EAA1B3A0057BDAF /* meta.h in Headers */,
 				2C316F701E9F7B950011CAAE /* HSV.hpp in Headers */,
 				2C316F3F1E9F7B950011CAAE /* AlignedMemory.hpp in Headers */,
 				2C81C01E1E89F8E300D27E52 /* cocoa_joystick.h in Headers */,
@@ -2981,6 +3120,7 @@
 				2C316F5D1E9F7B950011CAAE /* DragDrop.hpp in Headers */,
 				2C316FC21E9F7B950011CAAE /* Window.hpp in Headers */,
 				2C316F4E1E9F7B950011CAAE /* Circle.hpp in Headers */,
+				2C2E82A31EAA1B3A0057BDAF /* pow10.h in Headers */,
 				2C81BFCD1E89F8E300D27E52 /* IMouse.hpp in Headers */,
 				2C81BFB11E89F8E300D27E52 /* CKeyboard_Linux.hpp in Headers */,
 				2C81BF7F1E89F8E300D27E52 /* CDragDrop_Linux.hpp in Headers */,
@@ -3002,12 +3142,15 @@
 				2C81C0621E89F8E300D27E52 /* jpeg_error.h in Headers */,
 				2C316E8D1E9C9BA60011CAAE /* D3D11SpriteBatch.hpp in Headers */,
 				2C81C0971E89F8E400D27E52 /* xxhash.h in Headers */,
+				2C2E829E1EAA1B3A0057BDAF /* diyfp.h in Headers */,
 				2C316F681E9F7B950011CAAE /* Fwd.hpp in Headers */,
 				2C316FC01E9F7B950011CAAE /* VertexShader.hpp in Headers */,
+				2C2E82B61EAA1B3A0057BDAF /* writer.h in Headers */,
 				2C81C00D1E89F8E300D27E52 /* double-conversion.h in Headers */,
 				2C81C0071E89F8E300D27E52 /* bignum.h in Headers */,
 				2C81C0521E89F8E300D27E52 /* fdct.h in Headers */,
 				2C316F421E9F7B950011CAAE /* AssetHandle.hpp in Headers */,
+				2C2E82AB1EAA1B3A0057BDAF /* memorystream.h in Headers */,
 				2C316F441E9F7B950011CAAE /* BigFloat.hpp in Headers */,
 				2C81BFFF1E89F8E300D27E52 /* CWritableMemoryMapping.hpp in Headers */,
 				2C81C0751E89F8E300D27E52 /* pngconf.h in Headers */,
@@ -3034,6 +3177,7 @@
 				2C316F621E9F7B950011CAAE /* FormatBool.hpp in Headers */,
 				2C316F7B1E9F7B950011CAAE /* KeyConjunction.hpp in Headers */,
 				2C316F4F1E9F7B950011CAAE /* Circular.hpp in Headers */,
+				2C2E829D1EAA1B3A0057BDAF /* biginteger.h in Headers */,
 				2C81BF891E89F8E300D27E52 /* EngineUtility.hpp in Headers */,
 				2C81C0191E89F8E300D27E52 /* khrplatform.h in Headers */,
 				2C316FB51E9F7B950011CAAE /* Triangle.hpp in Headers */,
@@ -3045,6 +3189,7 @@
 				2C81BF981E89F8E300D27E52 /* D3D11SwapChain.hpp in Headers */,
 				2C2126611E8CF6EA006F8101 /* ImageFormat_GIF.hpp in Headers */,
 				2C316F5B1E9F7B950011CAAE /* DefaultRNG.hpp in Headers */,
+				2C2E82A81EAA1B3A0057BDAF /* swap.h in Headers */,
 				2C81C05D1E89F8E300D27E52 /* jpeg_data_encoder.h in Headers */,
 				2C316FA51E9F7B950011CAAE /* SpeedStopwatch.hpp in Headers */,
 				2C316F651E9F7B950011CAAE /* FormatLiteral.hpp in Headers */,
@@ -3072,12 +3217,14 @@
 				2C316FA71E9F7B950011CAAE /* Step.hpp in Headers */,
 				2C81C0481E89F8E300D27E52 /* color_transform.h in Headers */,
 				2C81BFED1E89F8E300D27E52 /* CTextWriter.hpp in Headers */,
+				2C2E82961EAA1B3A0057BDAF /* encodedstream.h in Headers */,
 				2C81BFB31E89F8E300D27E52 /* CKeyboard_macOS.hpp in Headers */,
 				2C81BFA91E89F8E300D27E52 /* ImageFormat_PNG.hpp in Headers */,
 				2C81C0A21E89F8E400D27E52 /* divsufsort.h in Headers */,
 				2C316F8A1E9F7B950011CAAE /* Monitor.hpp in Headers */,
 				2C316F691E9F7B950011CAAE /* Geometry2D.hpp in Headers */,
 				2C316F771E9F7B950011CAAE /* IteratorRange.hpp in Headers */,
+				2C2E82AE1EAA1B3A0057BDAF /* ostreamwrapper.h in Headers */,
 				2C81C0A41E89F8E400D27E52 /* zdict.h in Headers */,
 				2C316FC51E9F7B950011CAAE /* XXHash.hpp in Headers */,
 				2C316F8F1E9F7B950011CAAE /* Parse.hpp in Headers */,
@@ -3088,12 +3235,15 @@
 				2C81BF881E89F8E300D27E52 /* EngineDirectory.hpp in Headers */,
 				2C81C0451E89F8E300D27E52 /* xkb_unicode.h in Headers */,
 				2C81C09A1E89F8E400D27E52 /* zstd_internal.h in Headers */,
+				2C2E82971EAA1B3A0057BDAF /* encodings.h in Headers */,
+				2C2E82AF1EAA1B3A0057BDAF /* pointer.h in Headers */,
 				2C2126861E97D11D006F8101 /* CProfiler.hpp in Headers */,
 				2C316F811E9F7B950011CAAE /* Mat3x2.hpp in Headers */,
 				2C316F731E9F7B950011CAAE /* ImageFormat.hpp in Headers */,
 				2C316FA21E9F7B950011CAAE /* Rectangle.hpp in Headers */,
 				2C316F891E9F7B950011CAAE /* MessageBox.hpp in Headers */,
 				2C316E2D1E9B627B0011CAAE /* ITexture.hpp in Headers */,
+				2C2E82B41EAA1B3A0057BDAF /* stream.h in Headers */,
 				2C316F9A1E9F7B950011CAAE /* Random.hpp in Headers */,
 				2C81BF811E89F8E300D27E52 /* CDragDrop_macOS.hpp in Headers */,
 				2C81C0181E89F8E300D27E52 /* glad.h in Headers */,
@@ -3109,6 +3259,7 @@
 				2C81BFAE1E89F8E300D27E52 /* InputState.hpp in Headers */,
 				2C81C0801E89F8E300D27E52 /* muParserCallback.h in Headers */,
 				2C81BFE01E89F8E300D27E52 /* CSystem_macOS.hpp in Headers */,
+				2C2E82BB1EAA1B930057BDAF /* JSONReader.hpp in Headers */,
 				2C316F6A1E9F7B950011CAAE /* Graphics.hpp in Headers */,
 				2C316F9C1E9F7B950011CAAE /* RandomPoint.hpp in Headers */,
 				2C81BFA31E89F8E300D27E52 /* CImageFormat.hpp in Headers */,
@@ -3128,6 +3279,7 @@
 				2C81BF941E89F8E300D27E52 /* D3D11Device.hpp in Headers */,
 				2C81C0641E89F8E300D27E52 /* jpeg_huffman_decode.h in Headers */,
 				2C2126871E97D11D006F8101 /* IProfiler.hpp in Headers */,
+				2C2E829C1EAA1B3A0057BDAF /* fwd.h in Headers */,
 				2C316F9B1E9F7B950011CAAE /* RandomColor.hpp in Headers */,
 				2C81C07E1E89F8E300D27E52 /* muParserBytecode.h in Headers */,
 				2C81BFA41E89F8E300D27E52 /* IImageFormat.hpp in Headers */,
@@ -3135,6 +3287,7 @@
 				2C316F5F1E9F7B950011CAAE /* Easing.hpp in Headers */,
 				2C316FA41E9F7B950011CAAE /* Resource.hpp in Headers */,
 				2C81BF4B1E89F8E300D27E52 /* Siv3D.hpp in Headers */,
+				2C2E82951EAA1B3A0057BDAF /* document.h in Headers */,
 				2C316FAF1E9F7B950011CAAE /* TextureFormat.hpp in Headers */,
 				2C81C0671E89F8E300D27E52 /* output_image.h in Headers */,
 				2C81BFFB1E89F8E300D27E52 /* IWindow.hpp in Headers */,
@@ -3149,7 +3302,9 @@
 				2C316F6B1E9F7B950011CAAE /* Grid.hpp in Headers */,
 				2C81C0121E89F8E300D27E52 /* ieee.h in Headers */,
 				2C81C0541E89F8E300D27E52 /* gamma_correct.h in Headers */,
+				2C2E829B1EAA1B3A0057BDAF /* filewritestream.h in Headers */,
 				2C81C0561E89F8E300D27E52 /* idct.h in Headers */,
+				2C2E82B21EAA1B3A0057BDAF /* reader.h in Headers */,
 				2C81BF7A1E89F8E300D27E52 /* ICursor.hpp in Headers */,
 				2C316FBE1E9F7B950011CAAE /* Version.hpp in Headers */,
 				2C316F881E9F7B950011CAAE /* MersenneTwister.hpp in Headers */,
@@ -3167,6 +3322,7 @@
 				2C81C0571E89F8E300D27E52 /* jpeg_bit_writer.h in Headers */,
 				2C316F851E9F7B950011CAAE /* MD5.hpp in Headers */,
 				2C81C06B1E89F8E300D27E52 /* processor.h in Headers */,
+				2C2E829F1EAA1B3A0057BDAF /* dtoa.h in Headers */,
 				2C81BFA11E89F8E300D27E52 /* ImageFormat_BMP.hpp in Headers */,
 				2C316F451E9F7B950011CAAE /* BigInt.hpp in Headers */,
 				2C316FA11E9F7B950011CAAE /* ReaderView.hpp in Headers */,
@@ -3175,17 +3331,21 @@
 				2C316F5C1E9F7B950011CAAE /* Distribution.hpp in Headers */,
 				2C316FAB1E9F7B950011CAAE /* StringView.hpp in Headers */,
 				2C81C01C1E89F8E300D27E52 /* glfw3native.h in Headers */,
+				2C2E82A91EAA1B3A0057BDAF /* istreamwrapper.h in Headers */,
 				2C81C0741E89F8E300D27E52 /* png.h in Headers */,
 				2C316F431E9F7B950011CAAE /* Base64.hpp in Headers */,
 				2C316FB61E9F7B950011CAAE /* Types.hpp in Headers */,
 				2C2126561E8CB7B5006F8101 /* gif_lib.h in Headers */,
 				2C81C07C1E89F8E300D27E52 /* muParserBase.h in Headers */,
+				2C2E82A01EAA1B3A0057BDAF /* ieee754.h in Headers */,
 				2C81C0941E89F8E400D27E52 /* huf.h in Headers */,
 				2C316F611E9F7B950011CAAE /* Format.hpp in Headers */,
 				2C316F631E9F7B950011CAAE /* FormatFloat.hpp in Headers */,
+				2C2E82B01EAA1B3A0057BDAF /* prettywriter.h in Headers */,
 				2C316F461E9F7B950011CAAE /* BinaryReader.hpp in Headers */,
 				2C81BECF1E89F8E300D27E52 /* ostream.h in Headers */,
 				2C316F521E9F7B950011CAAE /* ColorPalette.hpp in Headers */,
+				2C2E82981EAA1B3A0057BDAF /* en.h in Headers */,
 				2C316FAA1E9F7B950011CAAE /* String.hpp in Headers */,
 				2C316FB41E9F7B950011CAAE /* Timer.hpp in Headers */,
 				2C81C07A1E89F8E300D27E52 /* muParser.h in Headers */,
@@ -3200,10 +3360,13 @@
 				2C316F4C1E9F7B950011CAAE /* CharacterEncoding.hpp in Headers */,
 				2C316FA81E9F7B950011CAAE /* Step_MSVC.hpp in Headers */,
 				2C316F921E9F7B950011CAAE /* ParseInt.hpp in Headers */,
+				2C2E82A71EAA1B3A0057BDAF /* strtod.h in Headers */,
 				2C81BFDE1E89F8E300D27E52 /* CSystem_Linux.hpp in Headers */,
+				2C2E82A11EAA1B3A0057BDAF /* itoa.h in Headers */,
 				2C316F7C1E9F7B950011CAAE /* KeyGroup.hpp in Headers */,
 				2C81C0611E89F8E300D27E52 /* jpeg_data_writer.h in Headers */,
 				2C81BFBB1E89F8E300D27E52 /* ILogger.hpp in Headers */,
+				2C2E82B11EAA1B3A0057BDAF /* rapidjson.h in Headers */,
 				2C2126571E8CB7B5006F8101 /* gif_lib_private.h in Headers */,
 				2C316E4F1E9BA9240011CAAE /* D3D11SamplerState.hpp in Headers */,
 				2C5769351EA2F6AC0072BB68 /* FloatQuad.hpp in Headers */,
@@ -3227,10 +3390,12 @@
 				2C81C0911E89F8E400D27E52 /* error_private.h in Headers */,
 				2C316E5E1E9BAD790011CAAE /* IShader.hpp in Headers */,
 				2C81C04D1E89F8E300D27E52 /* debug_print.h in Headers */,
+				2C2E82A41EAA1B3A0057BDAF /* regex.h in Headers */,
 				2C81BF961E89F8E300D27E52 /* D3D11RenderTarget.hpp in Headers */,
 				2C316F991E9F7B950011CAAE /* Profiler.hpp in Headers */,
 				2C316FA91E9F7B950011CAAE /* Stopwatch.hpp in Headers */,
 				2C81BF6E1E89F8E300D27E52 /* CConsole.hpp in Headers */,
+				2C2E82A51EAA1B3A0057BDAF /* stack.h in Headers */,
 				2C81BF581E89F8E300D27E52 /* CBinaryReader_Linux.hpp in Headers */,
 				2C316FA31E9F7B950011CAAE /* Regex.hpp in Headers */,
 				2C316FA61E9F7B950011CAAE /* Spherical.hpp in Headers */,
@@ -3239,6 +3404,8 @@
 				2C316F6F1E9F7B950011CAAE /* HighPerfoemanceGPU.hpp in Headers */,
 				2C81C0141E89F8E300D27E52 /* strtod.h in Headers */,
 				2C81C00B1E89F8E300D27E52 /* diy-fp.h in Headers */,
+				2C2E82AA1EAA1B3A0057BDAF /* memorybuffer.h in Headers */,
+				2C2E82941EAA1B3A0057BDAF /* allocators.h in Headers */,
 				2C316F551E9F7B950011CAAE /* ConcurrentTask.hpp in Headers */,
 				2C81BECE1E89F8E300D27E52 /* format.h in Headers */,
 				2C316F951E9F7B950011CAAE /* Platform.hpp in Headers */,
@@ -3252,10 +3419,13 @@
 				2C316F4A1E9F7B950011CAAE /* ByteArrayView.hpp in Headers */,
 				2C316E391E9B82E00011CAAE /* AssetHandleManager.hpp in Headers */,
 				2C81BFFA1E89F8E300D27E52 /* CWindow_Windows.hpp in Headers */,
+				2C2E82A61EAA1B3A0057BDAF /* strfunc.h in Headers */,
+				2C2E82B31EAA1B3A0057BDAF /* schema.h in Headers */,
 				2C316F8B1E9F7B950011CAAE /* Mouse.hpp in Headers */,
 				2C316F801E9F7B950011CAAE /* Logger.hpp in Headers */,
 				2C316EA41E9F022A0011CAAE /* glew.h in Headers */,
 				2C316E5B1E9BAD790011CAAE /* CShader_D3D11.hpp in Headers */,
+				2C2E82991EAA1B3A0057BDAF /* error.h in Headers */,
 				2C81C0151E89F8E300D27E52 /* utils.h in Headers */,
 				2C316F751E9F7B950011CAAE /* INIReader.hpp in Headers */,
 				2C316FB71E9F7B950011CAAE /* TypeTraits.hpp in Headers */,
@@ -3263,6 +3433,7 @@
 				2C316E4D1E9BA9240011CAAE /* D3D11RasterizerState.hpp in Headers */,
 				2C316FB91E9F7B950011CAAE /* Unspecified.hpp in Headers */,
 				2C316E8C1E9C9BA60011CAAE /* CRenderer2D_D3D11.hpp in Headers */,
+				2C2E829A1EAA1B3A0057BDAF /* filereadstream.h in Headers */,
 				2C81C0811E89F8E300D27E52 /* muParserDef.h in Headers */,
 				2C81BF631E89F8E300D27E52 /* CBinaryWriter_Windows.hpp in Headers */,
 				2C81C0851E89F8E300D27E52 /* muParserError.h in Headers */,
@@ -3410,6 +3581,7 @@
 				2C316E6B1E9BB0CE0011CAAE /* CTexture_D3D11.cpp in Sources */,
 				2C81BF6F1E89F8E300D27E52 /* ConsoleFactory.cpp in Sources */,
 				2C81C0231E89F8E300D27E52 /* cocoa_window.m in Sources */,
+				2C2E82B91EAA1B550057BDAF /* SivJSONReader.cpp in Sources */,
 				2C81C05E1E89F8E300D27E52 /* jpeg_data_reader.cc in Sources */,
 				2C2126971E9A5AAE006F8101 /* SivGeometry2D.cpp in Sources */,
 				2C81C0961E89F8E400D27E52 /* xxhash.c in Sources */,

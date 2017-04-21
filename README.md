@@ -134,7 +134,8 @@
 - [x] Triangle::draw()
 - [x] Quad::draw()
 - [x] Rect::drawFrame()
-- [ ] EasingController
+- [ ] Circle::draw()
+- [x] JSONReader
 
 ---------------------------
 
@@ -144,6 +145,7 @@
 - [ ] WindowState
 - [ ] UID
 - [ ] INIWriter
+- [ ] EasingController
 
 ## Discussion ##
  [Siv3D Slack #open-siv3d](https://siv3d.slack.com/messages/open-siv3d/details/)  (Japanese)
