@@ -439,9 +439,13 @@ namespace s3d
 
 	}
 
-	JSONReader::JSONReader(const FilePath& path)
-		: JSONReader()
+	bool JSONReader::open(const FilePath& path)
 	{
+		if (isOpend())
+		{
+			close();
+		}
+
 		const String text = TextReader(path).readAll();
 
 		rapidjson::GenericStringStream<rapidjson::UTF16<>> m_stream(text.c_str());
@@ -452,10 +456,48 @@ namespace s3d
 
 		m_document->document.ParseStream<flags>(m_stream);
 
-		if (!m_document->document.HasParseError())
+		if (m_document->document.HasParseError())
 		{
-			m_detail->value.emplace(m_document->document);
+			return false;
 		}
+
+		m_detail->value.emplace(m_document->document);
+
+		return true;
+	}
+
+	bool JSONReader::open(const std::shared_ptr<IReader>& reader)
+	{
+		if (isOpend())
+		{
+			close();
+		}
+
+		const String text = TextReader(reader).readAll();
+
+		rapidjson::GenericStringStream<rapidjson::UTF16<>> m_stream(text.c_str());
+
+		constexpr uint32 flags = rapidjson::kParseCommentsFlag
+			| rapidjson::kParseTrailingCommasFlag
+			| rapidjson::kParseNanAndInfFlag;
+
+		m_document->document.ParseStream<flags>(m_stream);
+
+		if (m_document->document.HasParseError())
+		{
+			return false;
+		}
+
+		m_detail->value.emplace(m_document->document);
+
+		return true;
+	}
+
+	void JSONReader::close()
+	{
+		m_detail->value.reset();
+
+		m_document->document = rapidjson::GenericDocument<rapidjson::UTF16<>>{};
 	}
 
 	bool JSONReader::isOpend() const
