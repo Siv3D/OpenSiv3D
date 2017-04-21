@@ -20,6 +20,7 @@
 # include <Siv3D/FloatRect.hpp>
 # include <Siv3D/FloatQuad.hpp>
 # include <Siv3D/Color.hpp>
+# include <Siv3D/MathConstants.hpp>
 # include <Siv3D/Logger.hpp>
 
 namespace s3d
@@ -316,6 +317,51 @@ namespace s3d
 		for (IndexType i = 0; i < indexSize; ++i)
 		{
 			*pIndex++ = indexOffset + detail::rectFrameIndexTable[i];
+		}
+
+		m_drawIndexCount += indexSize;
+	}
+
+	// 仮の実装
+	void CRenderer2D_D3D11::addCircle(const Float2& center, const float r, const Float4& color)
+	{
+		const float absR = std::abs(r);
+		const float centerX = center.x;
+		const float centerY = center.y;
+
+		const IndexType quality = static_cast<IndexType>(std::min(absR * 0.225f + 18.0f, 255.0f));
+		const IndexType vertexSize = quality + 1, indexSize = quality * 3;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		{
+			return;
+		}
+
+		// 中心
+		pVertex[0].pos.set(centerX, centerY);
+
+		// 周
+		const float radDelta = Math::TwoPiF / quality;
+
+		for (IndexType i = 1; i <= quality; ++i)
+		{
+			const float rad = radDelta * (i - 1.0f);
+			pVertex[i].pos.set(centerX + r * ::cosf(rad), centerY - r * ::sinf(rad));
+		}
+
+		for (size_t i = 0; i < vertexSize; ++i)
+		{
+			(pVertex++)->color = color;
+		}
+
+		for (IndexType i = 0; i < quality; ++i)
+		{
+			pIndex[i * 3 + 0] = indexOffset + (i + 0) + 1;
+			pIndex[i * 3 + 1] = indexOffset;
+			pIndex[i * 3 + 2] = indexOffset + (i + 1) % quality + 1;
 		}
 
 		m_drawIndexCount += indexSize;

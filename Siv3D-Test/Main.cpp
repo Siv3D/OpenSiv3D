@@ -3,8 +3,6 @@
 
 void Main()
 {
-	Graphics::SetFullScreen(true, Size(1920, 1080));
-
 	while (System::Update())
 	{
 		Window::SetTitle(Profiler::FPS());
@@ -32,5 +30,7 @@ void Main()
 		Rect(80, 160, 200).draw(Color(255, 127));
 
 		Rect(300, 300, 200, 100).drawFrame(4);
+
+		Circle(Cursor::Pos(), 40).draw(ColorF(1, 0, 0, 0.5));
 	}
 }
