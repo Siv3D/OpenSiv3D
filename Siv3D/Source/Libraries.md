@@ -9,11 +9,12 @@
 - GLWF 3.2.1 http://www.glfw.org
 - Guetzli v1.0.1 https://github.com/google/guetzli/releases
 - hopscotch-map v1.3.0 https://github.com/Tessil/hopscotch-map/releases
+- libjpeg-turbo 1.5.1 https://sourceforge.net/projects/libjpeg-turbo/files/
+- libpng 1.6.28 http://www.libpng.org/pub/png/libpng.html
 - LineSegmentIntersection https://www.codeproject.com/Tips/862988/Find-the-Intersection-Point-of-Two-Line-Segments
 - miniutf https://github.com/dropbox/miniutf
 - muparser V2.2.5 https://github.com/beltoforion/muparser/releases
-- libjpeg-turbo 1.5.1 https://sourceforge.net/projects/libjpeg-turbo/files/
-- libpng 1.6.28 http://www.libpng.org/pub/png/libpng.html
+- RapidJSON https://github.com/miloyip/rapidjson/releases
 - xxHash v0.6.2 https://github.com/Cyan4973/xxHash/releases
 - zlib 1.2.11 http://www.zlib.net/
 - Zstandard v1.1.2 https://github.com/facebook/zstd/releases
