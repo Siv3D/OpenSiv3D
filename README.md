@@ -134,7 +134,7 @@
 - [x] Triangle::draw()
 - [x] Quad::draw()
 - [x] Rect::drawFrame()
-- [ ] Circle::draw()
+- [x] Circle::draw()
 - [x] JSONReader
 
 ---------------------------
