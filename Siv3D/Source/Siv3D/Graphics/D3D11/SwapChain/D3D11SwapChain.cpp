@@ -66,7 +66,7 @@ namespace s3d
 	{
 		if (m_swapChain && m_fullScreen)
 		{
-			setFullScreen(false, m_size, 0, 60.0);
+			m_swapChain->SetFullscreenState(false, nullptr);
 		}
 	}
 

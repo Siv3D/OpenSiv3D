@@ -399,6 +399,17 @@ namespace s3d
 
 		// paint~ overpaint~ draw~
 
+		/// <summary>
+		/// 円を描きます。
+		/// </summary>
+		/// <param name="color">
+		/// 色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Circle& draw(const ColorF& color = Palette::White) const;
+
 		// Polygon asPolygon() const;
 	};
 }
