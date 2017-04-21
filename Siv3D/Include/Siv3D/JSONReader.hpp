@@ -170,7 +170,7 @@ namespace s3d
 
 		explicit JSONValue(const detail::JSONValueDetail& value);
 
-		JSONValue operator [](const String& key) const;
+		JSONValue operator [](const String& path) const;
 
 		template <class Type>
 		Type get() const

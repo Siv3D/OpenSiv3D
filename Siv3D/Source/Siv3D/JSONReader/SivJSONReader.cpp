@@ -184,14 +184,35 @@ namespace s3d
 
 	}
 
-	JSONValue JSONValue::operator [](const String& key) const
+	JSONValue JSONValue::operator [](const String& path) const
 	{
-		if (isEmpty() || !m_detail->value->HasMember(key.c_str()))
+		if (isEmpty())
 		{
 			return JSONValue();
 		}
 
-		return JSONValue(detail::JSONValueDetail((*m_detail->value)[key.c_str()]));
+		auto value = m_detail->value;
+
+		for (const auto& p : path.split(L'.'))
+		{
+			if (!value->HasMember(p.c_str()))
+			{
+				return JSONValue();
+			}
+
+			value = Optional<const rapidjson::GenericValue<rapidjson::UTF16<>>&>((*value)[p.c_str()]);
+		}
+
+		return JSONValue(detail::JSONValueDetail(value));
+
+		/*
+		if (isEmpty() || !m_detail->value->HasMember(path.c_str()))
+		{
+			return JSONValue();
+		}
+
+		return JSONValue(detail::JSONValueDetail((*m_detail->value)[path.c_str()]));
+		*/
 	}
 
 	bool JSONValue::isEmpty() const
