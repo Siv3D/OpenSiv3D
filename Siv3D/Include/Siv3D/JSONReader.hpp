@@ -13,6 +13,7 @@
 # include "Fwd.hpp"
 # include "Optional.hpp"
 # include "String.hpp"
+# include "Parse.hpp"
 
 namespace s3d
 {
@@ -183,6 +184,12 @@ namespace s3d
 			return getOpt<Type>().value_or(std::forward<U>(defaultValue));
 		}
 
+		template <class Type>
+		Optional<Type> getOpt() const
+		{
+			return getOpt_<Type>();
+		}
+		
 		bool isEmpty() const;
 
 		explicit operator bool() const
@@ -253,47 +260,31 @@ namespace s3d
 		//
 
 		String getString() const;
-
-		template <class Type>
-		Optional<Type> getOpt() const
-		{
-			return getOpt_<Type>();
-		}
-
-		template <>
-		Optional<String> getOpt<String>() const;
-
-		////////////////////////////////
-		//
-		//	Number
-		//
-
-		template <>
-		Optional<int32> getOpt<int32>() const;
-
-		template <>
-		Optional<uint32> getOpt<uint32>() const;
-
-		template <>
-		Optional<int64> getOpt<int64>() const;
-
-		template <>
-		Optional<uint64> getOpt<uint64>() const;
-
-		template <>
-		Optional<float> getOpt<float>() const;
-
-		template <>
-		Optional<double> getOpt<double>() const;
-
-		////////////////////////////////
-		//
-		//	Bool
-		//
-
-		template <>
-		Optional<bool> getOpt<bool>() const;
 	};
+	
+	template <>
+	Optional<String> JSONValue::getOpt<String>() const;
+
+	template <>
+	Optional<int32> JSONValue::getOpt<int32>() const;
+	
+	template <>
+	Optional<uint32> JSONValue::getOpt<uint32>() const;
+	
+	template <>
+	Optional<int64> JSONValue::getOpt<int64>() const;
+	
+	template <>
+	Optional<uint64> JSONValue::getOpt<uint64>() const;
+	
+	template <>
+	Optional<float> JSONValue::getOpt<float>() const;
+	
+	template <>
+	Optional<double> JSONValue::getOpt<double>() const;
+
+	template <>
+	Optional<bool> JSONValue::getOpt<bool>() const;
 
 	struct JSONObjectMember
 	{

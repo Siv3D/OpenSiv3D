@@ -283,10 +283,10 @@ namespace s3d
 			JSONArrayIterator(detail::JSONArrayIteratorDetail(m_detail->value->End())));
 	}
 
-	//////////////////////////////////
-	////
-	////	String
-	////
+	////////////////////////////////
+	//
+	//	String
+	//
 
 	String JSONValue::getString() const
 	{
