@@ -3,59 +3,44 @@
 
 void Main()
 {
-	const Size blockSize(40, 20);
-	const double speed = 8.0;
-	Rect bar(60, 10);
-	Circle ball(320, 400, 8);
-	Vec2 ballSpeed(0, -speed);
+	JSONReader json(L"example/test.json");
 
-	Array<Rect> blocks;
-	for (auto p : step({ Window::Width() / blockSize.x , 5 }))
+	if (!json)
 	{
-		blocks.emplace_back((p*blockSize).moveBy(0, 60), blockSize);
+		return;
 	}
+
+	Log << L"---------";
+
+	for (const auto& object : json.objectView())
+	{
+		Log << object.name;
+	}
+
+	Log << L"---------";
+
+	for (const auto& member : json[L"北アメリカ"][L"カナダ"][L"公用語"].arrayView())
+	{
+		Log << member.getString();
+	}
+
+	Log << L"---------";
+
+	Log << json[L"北アメリカ"][L"カナダ"][L"公用語"].arrayCount();
+	Log << json[L"北アメリカ"][L"カナダ"][L"公用語"].arrayView()[1].getString();
+
+	Log << L"---------";
+
+	Log << json.isObject();
+	Log << json[L"アジア"].isObject();
+
+	Log << json[L"アジア"][L"日本"][L"面積"].getOpt<int32>();
+	Log << json[L"アジア"][L"日本"][L"首都"].getString();
+	Log << json[L"a"][L"日本"][L"面積"].getOpt<int32>();
 
 	while (System::Update())
 	{
-		Window::SetTitle(Profiler::FPS());
 
-		ball.moveBy(ballSpeed);
-		bar.setCenter(Cursor::Pos().x, 420);
-
-		for (auto it = blocks.begin(); it != blocks.end(); ++it)
-		{
-			if (it->intersects(ball))
-			{
-				(it->bottom().intersects(ball) || it->top().intersects(ball)
-					? ballSpeed.y : ballSpeed.x) *= -1;
-
-				blocks.erase(it);
-				break;
-			}
-		}
-
-		for (auto const& block : blocks)
-		{
-			block.stretched(-1).draw(HSV(block.y - 40));
-		}
-
-		if (ball.y < 0 && ballSpeed.y <  0)
-		{
-			ballSpeed.y *= -1;
-		}
-
-		if ((ball.x < 0 && ballSpeed.x < 0) || (Window::Width() < ball.x && ballSpeed.x > 0))
-		{
-			ballSpeed.x *= -1;
-		}
-
-		if (ballSpeed.y > 0 && bar.intersects(ball))
-		{
-			ballSpeed = Vec2((ball.x - bar.center().x) / 8, -ballSpeed.y).setLength(speed);
-		}
-
-		RectF(Arg::center = ball.center, ball.r * 2).rotated(45_deg).draw();
-		bar.draw();
 	}
 }
 
