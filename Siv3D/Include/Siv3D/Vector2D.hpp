@@ -211,6 +211,10 @@ namespace s3d
 			return *this += v;
 		}
 
+		Vector2D& clamp(const RectF& rect) noexcept;
+
+		Vector2D clamped(const RectF& rect) noexcept;
+
 		constexpr bool isZero() const noexcept
 		{
 			return x == static_cast<value_type>(0.0)

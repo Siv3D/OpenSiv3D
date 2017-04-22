@@ -1,113 +1,79 @@
-﻿
-# include <Siv3D.hpp>
-
-template <class State>
-class MiniScene
-{
-private:
-
-	using SceneFunc = std::function<void()>;
-
-	HashMap<State, SceneFunc> m_scenes;
-
-	Optional<State> m_currentScene;
-
-public:
-
-	~MiniScene()
-	{
-		while (System::Update())
-		{
-			auto it = m_scenes.find(*m_currentScene);
-
-			if (it != m_scenes.end())
-			{
-				it->second();
-			}
-		}
-	}
-
-	MiniScene& add(const State& name, SceneFunc f)
-	{
-		if (!m_currentScene)
-		{
-			m_currentScene = name;
-		}
-
-		m_scenes.emplace(name, f);
-
-		return *this;
-	}
-
-	void changeScene(const State& name)
-	{
-		*m_currentScene = name;
-	}
-};
+﻿# include <Siv3D.hpp>
 
 void Main()
 {
-	const double speed = 8.0;
-	Circle ball;
-	Vec2 ballSpeed;
-	Array<Rect> blocks;
+	Graphics::SetBackground(ColorF(0.2, 0.6, 1.0));
 
-	MiniScene<String> scene;
+	int32 count = 0, crash = 0, score = 0, highSore = 0;
+	Array<Vec2> shots, bullets, enemies;
+	Circle player(320, 400, 16);
 
-	scene.add(L"Title", [&]()
+	while (System::Update())
 	{
-		Circle(Cursor::Pos(), 100).draw();
+		++count;
 
-		if (MouseL.down())
+		if (count % (24 - Min(count / 60, 18)) == 0)
 		{
-			const Size blockSize(40, 20);		
-			ball.set(320, 400, 8);
-			ballSpeed.set(0, -speed);
-			blocks = Iota2D(Window::Width() / blockSize.x, 5).asArray()
-				.map([=](Point p) { return Rect(p * blockSize, blockSize).moveBy(0, 60); });
-
-			scene.changeScene(L"Game");
+			enemies.emplace_back(Random(40, 600), -40);
 		}
-	});
 
-	scene.add(L"Game", [&]()
-	{
-		const Rect bar(Arg::center(Cursor::Pos().x, 420), 60, 10);
-		ball.moveBy(ballSpeed);
+		player.moveBy(Vec2(KeyRight.pressed() - KeyLeft.pressed(), KeyDown.pressed() - KeyUp.pressed())
+			.setLength(KeyShift.pressed() ? 4.5 : 9.0));
 
-		for (auto it = blocks.begin(); it != blocks.end(); ++it)
+		player.center.clamp(Window::ClientRect());
+
+		if (KeyZ.pressed() && count % 4 == 0)
 		{
-			if (it->intersects(ball))
+			shots.push_back(player.center);
+		}
+
+		shots.each([](Vec2& shot) { shot.y -= 8.0; });
+
+		bullets.each([](Vec2& bullet) { bullet.y += 4.0; });
+
+		enemies.each([](Vec2& enemy) { enemy.y += 2.0; });
+
+		if (count % 60 == 0)
+		{
+			enemies.each([&](Vec2& p) { bullets.push_back(p); });
+		}
+
+		if (bullets.any([=](const Vec2& b) { return b.intersects(player); })
+			|| enemies.any([=](const Vec2& e) { return e.y > 490.0; }))
+		{
+			count = score = 0;
+			crash = 60;
+		}
+
+		shots.remove_if([](const Vec2& s) { return s.y < -10.0; });
+
+		bullets.remove_if([](const Vec2& b) { return b.y > 490.0; });
+
+		enemies.remove_if([&](const Vec2& e)
+		{
+			if (shots.any([=](const Vec2& s) { return e.distanceFrom(s) < 20.0; }))
 			{
-				(it->bottom().intersects(ball) || it->top().intersects(ball) ? ballSpeed.y : ballSpeed.x) *= -1;
-				blocks.erase(it);
-				break;
+				++score;
+				return true;
 			}
-		}
+			else return e.y > 490.0;
+		});
 
-		blocks.each([](const Rect& b) { b.stretched(-1).draw(HSV(b.y - 40)); });
+		shots.each([](const Vec2& s) { Circle(s, 7).draw(Palette::Orange); });
 
-		if (ball.y < 0 && ballSpeed.y <  0)
+		bullets.each([](const Vec2& b) { Circle(b, 4).draw(Palette::Yellow); });
+
+		enemies.each([](const Vec2& e) { RectF(Arg::center(e), 30).rotated(e.y / 100.0).draw(Palette::Black); });
+
+		player.draw();
+
+		if (crash)
 		{
-			ballSpeed.y *= -1;
+			Window::ClientRect().draw(Alpha(--crash * 3));
 		}
 
-		if ((ball.x < 0 && ballSpeed.x < 0) || (Window::Width() < ball.x && ballSpeed.x > 0))
-		{
-			ballSpeed.x *= -1;
-		}
+		highSore = Max(score, highSore);
 
-		if (ballSpeed.y > 0 && bar.intersects(ball))
-		{
-			ballSpeed = Vec2((ball.x - bar.center().x) / 8, -ballSpeed.y).setLength(speed);
-		}
-
-		ball.draw();
-		bar.draw();
-
-		if (ball.y > 500)
-		{
-			scene.changeScene(L"Title");
-		}
-	});
+		Window::SetTitle(L"[Z]: shot | [Arrow keys]: Move | Hi:{} | {}"_fmt(highSore, score));
+	}
 }
