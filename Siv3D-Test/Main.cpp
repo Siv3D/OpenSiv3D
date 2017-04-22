@@ -1,36 +1,113 @@
 ﻿
 # include <Siv3D.hpp>
 
+template <class State>
+class MiniScene
+{
+private:
+
+	using SceneFunc = std::function<void()>;
+
+	HashMap<State, SceneFunc> m_scenes;
+
+	Optional<State> m_currentScene;
+
+public:
+
+	~MiniScene()
+	{
+		while (System::Update())
+		{
+			auto it = m_scenes.find(*m_currentScene);
+
+			if (it != m_scenes.end())
+			{
+				it->second();
+			}
+		}
+	}
+
+	MiniScene& add(const State& name, SceneFunc f)
+	{
+		if (!m_currentScene)
+		{
+			m_currentScene = name;
+		}
+
+		m_scenes.emplace(name, f);
+
+		return *this;
+	}
+
+	void changeScene(const State& name)
+	{
+		*m_currentScene = name;
+	}
+};
+
 void Main()
 {
-	while (System::Update())
+	const double speed = 8.0;
+	Circle ball;
+	Vec2 ballSpeed;
+	Array<Rect> blocks;
+
+	MiniScene<String> scene;
+
+	scene.add(L"Title", [&]()
 	{
-		Window::SetTitle(Profiler::FPS());
+		Circle(Cursor::Pos(), 100).draw();
 
-		if (KeyR.down())
+		if (MouseL.down())
 		{
-			Window::Resize(1280, 720);
+			const Size blockSize(40, 20);		
+			ball.set(320, 400, 8);
+			ballSpeed.set(0, -speed);
+			blocks = Iota2D(Window::Width() / blockSize.x, 5).asArray()
+				.map([=](Point p) { return Rect(p * blockSize, blockSize).moveBy(0, 60); });
+
+			scene.changeScene(L"Game");
+		}
+	});
+
+	scene.add(L"Game", [&]()
+	{
+		const Rect bar(Arg::center(Cursor::Pos().x, 420), 60, 10);
+		ball.moveBy(ballSpeed);
+
+		for (auto it = blocks.begin(); it != blocks.end(); ++it)
+		{
+			if (it->intersects(ball))
+			{
+				(it->bottom().intersects(ball) || it->top().intersects(ball) ? ballSpeed.y : ballSpeed.x) *= -1;
+				blocks.erase(it);
+				break;
+			}
 		}
 
-		for (auto p : step({ 10,10 }))
+		blocks.each([](const Rect& b) { b.stretched(-1).draw(HSV(b.y - 40)); });
+
+		if (ball.y < 0 && ballSpeed.y <  0)
 		{
-			Rect(p * 20, 18).draw(HSV(10 * (p.x + p.y)));
+			ballSpeed.y *= -1;
 		}
 
-		Rect(100, 50, 80).draw({ Palette::Orange, Palette::Orange, Palette::White, Palette::White });
+		if ((ball.x < 0 && ballSpeed.x < 0) || (Window::Width() < ball.x && ballSpeed.x > 0))
+		{
+			ballSpeed.x *= -1;
+		}
 
-		Rect(200, 50, 80).draw(Arg::left = Palette::Orange, Arg::right = Palette::White);
+		if (ballSpeed.y > 0 && bar.intersects(ball))
+		{
+			ballSpeed = Vec2((ball.x - bar.center().x) / 8, -ballSpeed.y).setLength(speed);
+		}
 
-		Rect(400, 100, 100, 80).shearedX(40).draw(Palette::Yellow);
+		ball.draw();
+		bar.draw();
 
-		Rect(Arg::center(320, 240), 160, 40).rotated(System::FrameCount() * 1_deg).draw(Palette::Seagreen);
-
-		Triangle(Window::Center(), 80).draw(Palette::Orange);
-
-		Rect(80, 160, 200).draw(Color(255, 127));
-
-		Rect(300, 300, 200, 100).drawFrame(4);
-
-		Circle(Cursor::Pos(), 40).draw(ColorF(1, 0, 0, 0.5));
-	}
+		if (ball.y > 500)
+		{
+			scene.changeScene(L"Title");
+		}
+	});
 }
