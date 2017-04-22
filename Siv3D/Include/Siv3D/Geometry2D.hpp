@@ -38,7 +38,7 @@ namespace s3d
 		//bool Intersect(const Vec2& a, const Line&			b);
 		//bool Intersect(const Vec2& a, const Rect&			b);
 		//bool Intersect(const Vec2& a, const RectF&			b);
-		//bool Intersect(const Vec2& a, const Circle&			b);
+		bool Intersect(const Vec2& a, const Circle&			b) noexcept;
 		//bool Intersect(const Vec2& a, const Ellipse&		b);
 		//bool Intersect(const Vec2& a, const Triangle&		b);
 		//bool Intersect(const Vec2& a, const Quad&			b);
@@ -89,8 +89,8 @@ namespace s3d
 		//bool Intersect(const RectF& a, const MultiPolygon&	b);
 		//bool Intersect(const RectF& a, const LineString&	b);
 
-		//bool Intersect(const Circle& a, const Point&			b);
-		//bool Intersect(const Circle& a, const Vec2&				b);
+		bool Intersect(const Circle& a, const Point&			b) noexcept;
+		bool Intersect(const Circle& a, const Vec2&				b) noexcept;
 		//bool Intersect(const Circle& a, const Line&				b);
 		//bool Intersect(const Circle& a, const Rect&				b);
 		//bool Intersect(const Circle& a, const RectF&			b);

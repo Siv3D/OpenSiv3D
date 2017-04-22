@@ -77,6 +77,13 @@ namespace s3d
 
 
 
+		bool Intersect(const Vec2& a, const Circle& b) noexcept
+		{
+			return a.distanceFromSq(b.center) <= (b.r * b.r);
+		}
+
+
+
 		bool Intersect(const Line& a, const Circle& b) noexcept
 		{
 			const Vec2 ab = a.end - a.begin;
@@ -123,6 +130,16 @@ namespace s3d
 			}
 
 			return (cX - aw) * (cX - aw) + (cY - ah) * (cY - ah) <= (b.r * b.r);
+		}
+
+		bool Intersect(const Circle& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Circle& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
 		}
 	}
 }

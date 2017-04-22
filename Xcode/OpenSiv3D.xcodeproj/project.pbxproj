@@ -50,7 +50,6 @@
 		2C2126921E9A4001006F8101 /* SivMemoryWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C21268F1E9A4001006F8101 /* SivMemoryWriter.cpp */; };
 		2C2126971E9A5AAE006F8101 /* SivGeometry2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2126961E9A5AAE006F8101 /* SivGeometry2D.cpp */; };
 		2C21269B1E9A62F3006F8101 /* CCursor_macOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C21269A1E9A62F3006F8101 /* CCursor_macOS.mm */; };
-		2C2CCF511CE8698C001844FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2CCF501CE8698C001844FF /* Foundation.framework */; };
 		2C2E82941EAA1B3A0057BDAF /* allocators.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E826E1EAA1B3A0057BDAF /* allocators.h */; };
 		2C2E82951EAA1B3A0057BDAF /* document.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E826F1EAA1B3A0057BDAF /* document.h */; };
 		2C2E82961EAA1B3A0057BDAF /* encodedstream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2E82701EAA1B3A0057BDAF /* encodedstream.h */; };
@@ -1290,7 +1289,6 @@
 			files = (
 				2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */,
 				2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */,
-				2C2CCF511CE8698C001844FF /* Foundation.framework in Frameworks */,
 				2C316EAF1E9F0AAD0011CAAE /* lGLEW.a in Frameworks */,
 				2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */,
 				2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */,
@@ -3837,7 +3835,7 @@
 				HEADER_SEARCH_PATHS = (
 					../Siv3D/Include,
 					"../Siv3D-Test/Include",
-					../Dependencies/boost_1_62_0,
+					../Dependencies/boost_1_64_0,
 				);
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -3896,7 +3894,7 @@
 				HEADER_SEARCH_PATHS = (
 					../Siv3D/Include,
 					"../Siv3D-Test/Include",
-					../Dependencies/boost_1_62_0,
+					../Dependencies/boost_1_64_0,
 				);
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -4007,7 +4005,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					../Dependencies/boost_1_62_0,
+					../Dependencies/boost_1_64_0,
 					../Siv3D/Include,
 					../Siv3D/Source/ThirdParty,
 				);
@@ -4061,7 +4059,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					../Dependencies/boost_1_62_0,
+					../Dependencies/boost_1_64_0,
 					../Siv3D/Include,
 					../Siv3D/Source/ThirdParty,
 				);
