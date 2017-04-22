@@ -323,7 +323,7 @@ namespace s3d
 		/// </returns>
 		Type* operator[](const size_t index)
 		{
-			return const_cast<Type&>(static_cast<const Grid&>(*this)[index]);
+			return &m_data[index * m_width];
 		}
 
 		/// <summary>
@@ -354,7 +354,7 @@ namespace s3d
 		/// </returns>
 		Type& operator[](const Point& pos)
 		{
-			return const_cast<Type&>(static_cast<const Grid&>(*this)[pos]);
+			return m_data[pos.y * m_width + pos.x];
 		}
 
 		/// <summary>
