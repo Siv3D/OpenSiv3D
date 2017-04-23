@@ -38,11 +38,6 @@ namespace s3d
 		uint32 vertexPos = 0;
 
 		uint32 indexPos = 0;
-
-		constexpr void clear() noexcept
-		{
-			vertexPos = indexPos = 0;
-		}
 	};
 
 	struct BatchDrawOffset

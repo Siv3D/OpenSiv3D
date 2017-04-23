@@ -27,7 +27,7 @@ namespace s3d
 
 		OutputLevel m_outputLevel =
 
-# ifdef _DEBUG
+# if defined(_DEBUG) || defined(DEBUG)
 
 			OutputLevel::More;
 
