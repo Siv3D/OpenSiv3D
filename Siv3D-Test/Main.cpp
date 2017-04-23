@@ -2,13 +2,35 @@
 
 void Main()
 {
+	Graphics::SetBackground(Palette::White);
+
+	Circle circle(200, 200, 50);
+
+	bool grabbed = false;
+
 	while (System::Update())
 	{
-		for (auto p : step({ 80, 40 }))
+		if (circle.leftClicked())
 		{
-			Circle(p * 10, 20).draw();
+			grabbed = true;
+		}
+		else if (MouseL.up())
+		{
+			grabbed = false;
+		}
+		else if (grabbed)
+		{
+			circle.moveBy(Cursor::Delta());
 		}
 
-		Circle(Cursor::Pos(), 40).draw(ColorF(1, 0, 0, 0.5));
+		const bool handCursor = circle.mouseOver();
+
+		if (grabbed)
+		{
+			// つかんでいる場合、円の影を描く
+			circle.movedBy(2,2).draw(Palette::Gray);
+		}
+
+		circle.draw(Palette::Skyblue);
 	}
 }

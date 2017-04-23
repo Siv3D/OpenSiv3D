@@ -25,12 +25,27 @@ namespace s3d
 			return Siv3DEngine::GetCursor()->clientPos();
 		}
 
+		Vec2 PosF()
+		{
+			return Siv3DEngine::GetCursor()->clientPos();
+		}
+
 		const Point& PreviousPos()
 		{
 			return Siv3DEngine::GetCursor()->previousClientPos();
 		}
 
+		Vec2 PreviousPosF()
+		{
+			return Siv3DEngine::GetCursor()->previousClientPos();
+		}
+
 		const Point& Delta()
+		{
+			return Siv3DEngine::GetCursor()->clientDelta();
+		}
+
+		Vec2 DeltaF()
 		{
 			return Siv3DEngine::GetCursor()->clientDelta();
 		}

@@ -10,6 +10,8 @@
 //-----------------------------------------------
 
 # include <Siv3D/Circle.hpp>
+# include <Siv3D/Mouse.hpp>
+# include <Siv3D/Cursor.hpp>
 # include "../Siv3DEngine.hpp"
 # include "../Renderer2D/IRenderer2D.hpp"
 
@@ -37,6 +39,41 @@ namespace s3d
 		const double cy = (a02 * c12 - a12 * c02) / (a02 * b12 - a12 * b02);
 		const double cx = std::abs(a02) < std::abs(a12) ? ((c12 - b12 * cy) / a12) : ((c02 - b02 * cy) / a02);
 		*this = Circle(cx, cy, p0.distanceFrom(cx, cy));
+	}
+
+	bool Circle::leftClicked() const
+	{
+		return MouseL.down() && mouseOver();
+	}
+
+	bool Circle::leftPressed() const
+	{
+		return MouseL.pressed() && mouseOver();
+	}
+
+	bool Circle::leftReleased() const
+	{
+		return MouseL.up() && mouseOver();
+	}
+
+	bool Circle::rightClicked() const
+	{
+		return MouseR.down() && mouseOver();
+	}
+
+	bool Circle::rightPressed() const
+	{
+		return MouseR.pressed() && mouseOver();
+	}
+
+	bool Circle::rightReleased() const
+	{
+		return MouseR.up() && mouseOver();
+	}
+
+	bool Circle::mouseOver() const
+	{
+		return Geometry2D::Intersect(Cursor::PosF(), *this);
 	}
 
 	const Circle& Circle::draw(const ColorF& color) const
