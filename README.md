@@ -1,6 +1,6 @@
 <h1>OpenSiv3D <a href="http://doge.mit-license.org"><img src="http://img.shields.io/:license-mit-blue.svg"></a> <a href="https://siv3d-slackin.herokuapp.com/">  <img src="https://siv3d-slackin.herokuapp.com/badge.svg"></a></h1>
 
-### SDK Downloads
+<h3> <a href="#-sdk-downloads"><img src="doc/siv3d_icon_48.png" align="absmiddle"></a> SDK Downloads</h3>
 
 | Platform        | Version        | Date       | Requirements                  |
 |:---------------:|:---------------:|:-------------:|:------------------------------|
