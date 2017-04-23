@@ -9,9 +9,15 @@
 | Linux           | <a href="https://github.com/wynd2608/OpenSiv3D/tree/master/Linux">**0.0.8**.971</a> (experimental)  |               | |
 | Universal Windows Platform | TBA  |               | Windows 10<br>Microsoft Visual C++ 2017 or newer |
 
-## Roadmap ##
- https://github.com/Siv3D/OpenSiv3D/blob/master/Siv3D/Include/Siv3D.hpp
-  
+## Architecture
+
+
+| Platform        | Graphics API    | Audio API |
+|:---------------:|:---------------:|:-------------:|
+| Windows Desktop | Direct3D 11 | XAudio2 |
+| macOS           | OpenGL 4.1 |  |
+| Linux           | OpenGL 4.1  |  |   
+ 
 ---------------------------
 
 #### 0.0.3
