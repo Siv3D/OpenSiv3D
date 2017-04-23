@@ -11,7 +11,6 @@
 
 ## Architecture
 
-
 | Platform        | Graphics API    | Audio API |
 |:---------------:|:---------------:|:-------------:|
 | Windows Desktop | Direct3D 11 | XAudio2 |
@@ -20,138 +19,10 @@
  
 ---------------------------
 
-#### 0.0.3
-- [x] Date
-- [x] DateTime
-- [x] Timer
-- [x] FileSystem (Partial)
+## Roadmap
 
----------------------------
+https://github.com/Siv3D/OpenSiv3D/wiki/Roadmap
 
-#### 0.0.4
-- [x] InfiniteList
-- [x] BigFloat
-- [x] FileSystem (Partial)
-- [x] IWriter
-- [x] BinaryWriter
-- [x] IReader
-- [x] BinaryReader
-- [x] TextWriter
-- [x] Logger (Partial)
-- [x] Regex (Partial)
-
----------------------------
-
-#### 0.0.5
-- [x] Color
-- [x] HSV
-- [x] Point
-- [x] Vector2D
-- [x] Vector3D
-- [x] Vector4D
-- [x] Circular
-- [x] RNG
-- [x] Distribution
-- [x] NamedParameter
-- [x] MemoryMapping
-- [x] WritableMemoryMapping
-- [x] Concept
-- [x] Hash
-- [x] ByteArrayView
-- [x] Random
-- [x] PerlinNoise
-- [x] Image (Partial)
-- [x] Compression
-
----------------------------
-
-#### 0.0.6
-- [x] Drag and Drop
-- [x] Lerp
-- [x] Easing
-- [x] Math Parser
-- [x] Base64
-- [x] MD5
-- [x] xxHash
-- [x] TextReader
-- [x] INIReader
-- [x] IImageFormat
-- [x] Image (Partial)
-- [x] BMP
-- [x] PNG
-
----------------------------
-
-#### 0.0.7
-- [x] JPEG
-- [x] HashMap
-- [x] Cursor (Partial)
-- [x] Mouse
-- [x] Key
-- [x] KeyConjunction
-- [x] KeyGroup
-- [x] Rectangle (Partial)
-- [x] Cylindrical
-- [x] Spherical
-
----------------------------
-
-#### 0.0.8
-- [x] VS2017 Support
-- [x] Monitor
-- [x] Graphics::SetBackground()
-- [x] Graphics::EnumOutputs()
-- [x] Graphics::SetFullScreen()
-- [x] Window::SetPos()
-- [x] Window::Centering()
-- [x] Guetzli
-- [x] Butteraugli
-- [x] Line
-- [x] Circle
-- [x] ConcurrentTask
-- [x] Triangle
-- [x] Linux Support
-
----------------------------
-
-#### 0.0.9
-- [x] MessageBox
-- [x] GIF
-- [x] Clipboard
-- [x] Profiler::FPS()
-- [x] System::FrameCount()
-- [x] System::DeltaTime()
-- [x] Graphics::EnableVSync()
-- [x] ReaderView
-- [x] MemoryWriter
-- [x] Cursor::SetPos()
-- [x] Cursor::OnClient()
-- [x] Cursor::Clip()
-- [x] Resource
-- [x] Window::Resize()
-- [x] HTMLWriter
-- [x] step2D
-- [x] Quad
-- [x] Engine Log (Partial)
----------------------------
-
-#### 0.1.0
-- [x] Rect::draw()
-- [x] Triangle::draw()
-- [x] Quad::draw()
-- [x] Rect::drawFrame()
-- [x] Circle::draw()
-- [x] JSONReader
-
----------------------------
-
-#### 0.1.1
-- [ ] Point::draw()
-- [ ] Line::draw()
-- [ ] WindowState
-- [ ] UID
-- [ ] INIWriter
-- [ ] EasingController
 
 ## Discussion ##
  [Siv3D Slack #open-siv3d](https://siv3d.slack.com/messages/open-siv3d/details/)  (Japanese)
