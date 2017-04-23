@@ -91,9 +91,6 @@ namespace s3d
 
 	void CRenderer2D_D3D11::flush()
 	{
-		// set buffer
-		const auto vi = m_spriteBatch.setBuffers();
-
 		// setCB
 		const Float2 currentRenderTargetSize = Siv3DEngine::GetGraphics()->getCurrentRenderTargetSize();
 		const Mat3x2 currentMat = Mat3x2::Identity();
@@ -126,12 +123,14 @@ namespace s3d
 		// setPS
 		Siv3DEngine::GetShader()->setPS(Siv3DEngine::GetShader()->getStandardPS(0).id());
 
-		//Log << vi << L" " << m_drawIndexCount;
+		for (size_t i = 0; i < m_spriteBatch.getBatchCount(); ++i)
+		{
+			// set buffer
+			const BatchDrawOffset batchDrawOffset = m_spriteBatch.setBuffers(i);
 
-		// draw
-		m_context->DrawIndexed(m_drawIndexCount, vi.second, vi.first);
-
-		m_drawIndexCount = 0;
+			// draw
+			m_context->DrawIndexed(batchDrawOffset.indexCount, batchDrawOffset.indexStartLocation, batchDrawOffset.vertexStartLocation);
+		}
 
 		m_spriteBatch.clear();
 	}
@@ -160,8 +159,6 @@ namespace s3d
 		pIndex[0] = indexOffset;
 		pIndex[1] = indexOffset + 1;
 		pIndex[2] = indexOffset + 2;
-
-		m_drawIndexCount += indexSize;
 	}
 
 	void CRenderer2D_D3D11::addTriangle(const Float2(&pts)[3], const Float4(&colors)[3])
@@ -188,8 +185,6 @@ namespace s3d
 		pIndex[0] = indexOffset;
 		pIndex[1] = indexOffset + 1;
 		pIndex[2] = indexOffset + 2;
-
-		m_drawIndexCount += indexSize;
 	}
 
 	void CRenderer2D_D3D11::addRect(const FloatRect& rect, const Float4& color)
@@ -220,8 +215,6 @@ namespace s3d
 		{
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
 		}
-
-		m_drawIndexCount += indexSize;
 	}
 
 	void CRenderer2D_D3D11::addRect(const FloatRect& rect, const Float4(&colors)[4])
@@ -252,8 +245,6 @@ namespace s3d
 		{
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
 		}
-
-		m_drawIndexCount += indexSize;
 	}
 
 	void CRenderer2D_D3D11::addQuad(const FloatQuad& quad, const Float4& color)
@@ -284,8 +275,6 @@ namespace s3d
 		{
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
 		}
-
-		m_drawIndexCount += indexSize;
 	}
 
 	void CRenderer2D_D3D11::addRectFrame(const FloatRect& rect, float thickness, const Float4& color)
@@ -318,8 +307,6 @@ namespace s3d
 		{
 			*pIndex++ = indexOffset + detail::rectFrameIndexTable[i];
 		}
-
-		m_drawIndexCount += indexSize;
 	}
 
 	// 仮の実装
@@ -363,8 +350,6 @@ namespace s3d
 			pIndex[i * 3 + 1] = indexOffset;
 			pIndex[i * 3 + 2] = indexOffset + (i + 1) % quality + 1;
 		}
-
-		m_drawIndexCount += indexSize;
 	}
 
 	void CRenderer2D_D3D11::addQuad(const FloatQuad& quad, const Float4(&colors)[4])
@@ -395,8 +380,6 @@ namespace s3d
 		{
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
 		}
-
-		m_drawIndexCount += indexSize;
 	}
 }
 

@@ -364,7 +364,7 @@ namespace s3d
 			return{ center.x - r, center.y };
 		}
 
-		constexpr Line diameter() const noexcept
+		constexpr Line lineDiameter() const noexcept
 		{
 			return{ left(), right() };
 		}

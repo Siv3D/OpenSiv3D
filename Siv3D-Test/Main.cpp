@@ -4,13 +4,11 @@ void Main()
 {
 	while (System::Update())
 	{
-		for (auto i : step(12))
+		for (auto p : step({ 80, 40 }))
 		{
-			Rect(10 + i * 40, 20, 30).draw(HSV(i * 30));
+			Circle(p * 10, 20).draw();
 		}
 
-		Rect(Arg::center(Window::Center()), 200, 20).rotated(System::FrameCount() * 0.01).draw();
-
-		Circle(Cursor::Pos(), 40).draw(ColorF(1.0, 0.0, 0.2, 0.6));
+		Circle(Cursor::Pos(), 40).draw(ColorF(1, 0, 0, 0.5));
 	}
 }
