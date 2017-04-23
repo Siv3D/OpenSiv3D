@@ -232,6 +232,11 @@ namespace s3d
 			return x * v.x + y * v.y;
 		}
 
+		constexpr value_type cross(const Vector2D& v) const noexcept
+		{
+			return x * v.y - y * v.x;
+		}
+
 		value_type length() const noexcept
 		{
 			return std::sqrt(lengthSq());
