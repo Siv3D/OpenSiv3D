@@ -1360,6 +1360,9 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\rapidjson\istreamwrapper.h">
       <Filter>Source\ThirdParty\rapidjson</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\GL\GLSpriteBatch.hpp">
+      <Filter>Source\Siv3D\Renderer2D\GL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
