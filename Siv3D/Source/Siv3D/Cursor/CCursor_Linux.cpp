@@ -51,9 +51,11 @@ namespace s3d
 		double clientX, clientY;
 		::glfwGetCursorPos(m_glfwWindow, &clientX, &clientY);
 		m_clientPos.set(static_cast<int32>(clientX), static_cast<int32>(clientY));
+		m_clientDelta = m_clientPos - m_previousClientPos;
 		m_previousClientPos = m_clientPos;
 
 		m_screenPos.set(static_cast<int32>(clientX), static_cast<int32>(clientY));
+		m_screenDelta = m_screenPos - m_previousScreenPos;
 		m_previousScreenPos = m_screenPos;
 	}
 
