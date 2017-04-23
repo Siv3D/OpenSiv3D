@@ -1,6 +1,6 @@
-<h1>OpenSiv3D <a href="http://doge.mit-license.org"><img src="http://img.shields.io/:license-mit-blue.svg"></a> <a href="https://siv3d-slackin.herokuapp.com/"><img src="https://siv3d-slackin.herokuapp.com/badge.svg"></a></h1>
+<h1><img src="doc/siv3d_icon_48.png" align="absmiddle">OpenSiv3D <a href="http://doge.mit-license.org"><img src="http://img.shields.io/:license-mit-blue.svg"></a> <a href="https://siv3d-slackin.herokuapp.com/"><img src="https://siv3d-slackin.herokuapp.com/badge.svg"></a></h1>
 
-<h2><a href="#-sdk-downloads"><img src="doc/siv3d_icon_48.png" align="absmiddle"></a> SDK Downloads</h2>
+### SDK Downloads
 
 | Platform        | Version        | Date       | Requirements                  |
 |:---------------:|:---------------:|:-------------:|:------------------------------|
@@ -9,7 +9,7 @@
 | Linux           | <a href="https://github.com/wynd2608/OpenSiv3D/tree/master/Linux">**0.0.8**.971</a> (experimental)  |               | |
 | Universal Windows Platform | TBA  |               | Windows 10<br>Microsoft Visual C++ 2017 or newer |
 
-## Architecture
+### Architecture
 
 | Platform        | Graphics API    | Audio API |
 |:---------------:|:---------------:|:-------------:|
@@ -19,10 +19,11 @@
  
 ---------------------------
 
-## Roadmap
+### Roadmap
 
 https://github.com/Siv3D/OpenSiv3D/wiki/Roadmap
 
+---------------------------
 
-## Discussion ##
+### Discussion
  [Siv3D Slack #open-siv3d](https://siv3d.slack.com/messages/open-siv3d/details/)  (Japanese)
