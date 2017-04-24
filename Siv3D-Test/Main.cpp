@@ -2,15 +2,12 @@
 
 void Main()
 {
-	Timer timer{ 60s };
-
 	while (System::Update())
 	{
-		if (MouseL.down())
-		{
-			timer.start();
-		}
+		Rect(20).draw();
 
-		Window::SetTitle(timer, L" @ ", timer.progress0_1());
+		Rect(100, 100, 100).drawFrame(20, 0);
+
+		Circle(Cursor::Pos(), 40).drawFrame(20, 0);
 	}
 }

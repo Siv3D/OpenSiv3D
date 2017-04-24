@@ -369,6 +369,50 @@ void main()
 			pIndex[i * 3 + 2] = indexOffset + (i + 1) % quality + 1;
 		}
 	}
+
+	void CRenderer2D_GL::addCircleFrame(const Float2& center, float r, float thickness, const Float4& color)
+	{
+		const float rt = r + thickness;
+		const IndexType quality = detail::CalculateCircleFrameQuality(rt);
+		const IndexType vertexSize = quality * 2, indexSize = quality * 6;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		{
+			return;
+		}
+
+		const float centerX = center.x;
+		const float centerY = center.y;
+		const float radDelta = Math::TwoPiF / quality;
+
+		for (IndexType i = 0; i < quality; ++i)
+		{
+			const float rad = radDelta * (i - 1.0f);
+			const float c = std::cosf(rad);
+			const float s = std::sinf(rad);
+			pVertex[i * 2 + 0].pos.set(centerX + rt * c, centerY - rt * s);
+			pVertex[i * 2 + 1].pos.set(centerX + r * c, centerY - r * s);
+
+			Log << pVertex[i * 2 + 0].pos;
+			Log << pVertex[i * 2 + 1].pos;
+		}
+
+		for (size_t i = 0; i < vertexSize; ++i)
+		{
+			(pVertex++)->color = color;
+		}
+
+		for (IndexType i = 0; i < quality; ++i)
+		{
+			for (IndexType k = 0; k < 6; ++k)
+			{
+				pIndex[i * 6 + k] = indexOffset + (i * 2 + detail::rectIndexTable[k]) % (quality * 2);
+			}
+		}
+	}
 	
 	void CRenderer2D_GL::addQuad(const FloatQuad& quad, const Float4& color)
 	{

@@ -36,6 +36,8 @@ namespace s3d
 
 		virtual void addCircle(const Float2& center, float r, const Float4& color) = 0;
 
+		virtual void addCircleFrame(const Float2& center, float r, float thickness, const Float4& color) = 0;
+
 		virtual void addQuad(const FloatQuad& quad, const Float4& color) = 0;
 
 		virtual void addQuad(const FloatQuad& quad, const Float4(&colors)[4]) = 0;

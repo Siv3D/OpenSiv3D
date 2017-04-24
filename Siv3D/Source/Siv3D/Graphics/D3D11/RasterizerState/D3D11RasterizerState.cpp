@@ -22,7 +22,7 @@ namespace s3d
 	{
 		D3D11_RASTERIZER_DESC desc{};
 		desc.FillMode				= D3D11_FILL_SOLID;
-		desc.CullMode				= D3D11_CULL_BACK;
+		desc.CullMode				= D3D11_CULL_NONE;
 		desc.FrontCounterClockwise	= false;
 		desc.DepthBias				= 0;
 		desc.DepthBiasClamp			= 0.0f;

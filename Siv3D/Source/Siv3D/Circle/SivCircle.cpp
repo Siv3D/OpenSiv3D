@@ -86,4 +86,16 @@ namespace s3d
 
 		return *this;
 	}
+
+	const Circle& Circle::drawFrame(double innerThickness, double outerThickness, const ColorF& color) const
+	{
+		Siv3DEngine::GetRenderer2D()->addCircleFrame(
+			center,
+			static_cast<float>(r - innerThickness),
+			static_cast<float>(innerThickness + outerThickness),
+			Float4(color.r, color.g, color.b, color.a)
+		);
+
+		return *this;
+	}
 }
