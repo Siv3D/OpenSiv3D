@@ -29,6 +29,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Array.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ArrayBool.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Base64.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\BlendState.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Byte.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ByteArrayView.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\BigInt.hpp" />
@@ -228,6 +229,7 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Profiler\CProfiler.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Profiler\IProfiler.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\D3D11\CRenderer2D_D3D11.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\D3D11\D3D11Renderer2DCommandManager.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\D3D11\D3D11SpriteBatch.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\GL\CRenderer2D_GL.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\GL\GLSpriteBatch.hpp" />

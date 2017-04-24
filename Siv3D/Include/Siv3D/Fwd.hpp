@@ -553,6 +553,13 @@ namespace s3d
 	//
 	struct Vertex2D;
 
+	//////////////////////////////////////////////////////
+	//
+	//	BlendState.hpp
+	//
+	enum class Blend : uint8;
+	enum class BlendOp : uint8;
+	struct BlendState;
 	
 	
 

@@ -2,6 +2,11 @@
 
 void Main()
 {
+	const BlendState b;
+
+	Log << b.enable;
+	Log << b.alphaToCoverageEnable;
+
 	while (System::Update())
 	{
 		Rect(20).draw();

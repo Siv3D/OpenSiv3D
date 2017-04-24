@@ -1366,6 +1366,12 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\EasingController.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\D3D11\D3D11Renderer2DCommandManager.hpp">
+      <Filter>Source\Siv3D\Renderer2D\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\BlendState.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">

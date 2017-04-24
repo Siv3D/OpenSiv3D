@@ -457,8 +457,8 @@
 //
 	// 2D 頂点データ
 	# include "Siv3D/Vertex2D.hpp"
-	//// ブレンドステート
-	//# include "Siv3D/BlendState.hpp"
+	// ブレンドステート
+	# include "Siv3D/BlendState.hpp"
 	//// ラスタライザーステート
 	//# include "Siv3D/RasterizerState.hpp"
 	//// デプスステートとステンシルステート
