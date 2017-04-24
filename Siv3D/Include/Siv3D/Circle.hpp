@@ -435,6 +435,27 @@ namespace s3d
 		/// </returns>
 		const Circle& drawFrame(double innerThickness = 1.0, double outerThickness = 0.0, const ColorF& color = Palette::White) const;
 
+		/// <summary>
+		/// 円の枠を描きます。
+		/// </summary>
+		/// <param name="innerThickness">
+		/// 内側の太さ
+		/// </param>
+		/// <param name="outerThickness">
+		/// 外側の太さ
+		/// </param>
+		/// <param name="innerColor">
+		/// 色
+		/// </param>
+		/// <param name="outerColor">
+		/// 色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Circle& drawFrame(double innerThickness, double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const;
+
+
 		// Polygon asPolygon() const;
 	};
 }

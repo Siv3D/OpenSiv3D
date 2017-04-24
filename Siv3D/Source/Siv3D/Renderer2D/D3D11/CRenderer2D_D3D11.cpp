@@ -395,13 +395,56 @@ namespace s3d
 			const float rad = radDelta * (i - 1.0f);
 			const float c = std::cosf(rad);
 			const float s = std::sinf(rad);
-			pVertex[i * 2 + 0].pos.set(centerX + rt * c, centerY - rt * s);
-			pVertex[i * 2 + 1].pos.set(centerX + r * c, centerY - r * s);
+
+			pVertex->pos.set(centerX + rt * c, centerY - rt * s);
+			pVertex->color = color;
+			++pVertex;
+
+			pVertex->pos.set(centerX + r * c, centerY - r * s);
+			pVertex->color = color;
+			++pVertex;
 		}
 
-		for (size_t i = 0; i < vertexSize; ++i)
+		for (IndexType i = 0; i < quality; ++i)
 		{
-			(pVertex++)->color = color;
+			for (IndexType k = 0; k < 6; ++k)
+			{
+				pIndex[i * 6 + k] = indexOffset + (i * 2 + detail::rectIndexTable[k]) % (quality * 2);
+			}
+		}
+	}
+
+	void CRenderer2D_D3D11::addCircleFrame(const Float2& center, float r, float thickness, const Float4& innerColor, const Float4& outerColor)
+	{
+		const float rt = r + thickness;
+		const IndexType quality = detail::CalculateCircleFrameQuality(rt);
+		const IndexType vertexSize = quality * 2, indexSize = quality * 6;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		{
+			return;
+		}
+
+		const float centerX = center.x;
+		const float centerY = center.y;
+		const float radDelta = Math::TwoPiF / quality;
+
+		for (IndexType i = 0; i < quality; ++i)
+		{
+			const float rad = radDelta * (i - 1.0f);
+			const float c = std::cosf(rad);
+			const float s = std::sinf(rad);
+
+			pVertex->pos.set(centerX + rt * c, centerY - rt * s);
+			pVertex->color = outerColor;
+			++pVertex;
+
+			pVertex->pos.set(centerX + r * c, centerY - r * s);
+			pVertex->color = innerColor;
+			++pVertex;
 		}
 
 		for (IndexType i = 0; i < quality; ++i)
