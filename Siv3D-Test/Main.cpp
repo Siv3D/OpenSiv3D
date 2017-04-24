@@ -2,15 +2,15 @@
 
 void Main()
 {
+	Timer timer{ 60s };
+
 	while (System::Update())
 	{
-		for (auto i : step(12))
+		if (MouseL.down())
 		{
-			Rect(10 + i * 40, 20, 30).draw(HSV(i * 30));
+			timer.start();
 		}
 
-		Rect(Arg::center(Window::Center()), 200, 20).rotated(System::FrameCount() * 0.01).draw();
-
-		Circle(Cursor::Pos(), 40).draw(ColorF(1.0, 0.0, 0.2, 0.6));
+		Window::SetTitle(timer, L" @ ", timer.progress0_1());
 	}
 }

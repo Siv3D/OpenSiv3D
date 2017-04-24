@@ -171,14 +171,15 @@ void main()
 		
 		::glUniform4fv(uniformLocation, 2, transform);
 		
-		const std::pair<uint32, uint32> vi = m_spriteBatch.setBuffers();
+		for (size_t i = 0; i < m_spriteBatch.getBatchCount(); ++i)
+		{
+			const BatchDrawOffset batchDrawOffset = m_spriteBatch.setBuffers(i);
 	
-		::glDrawElements(GL_TRIANGLES, m_drawIndexCount, GL_UNSIGNED_INT, (uint32*)(nullptr) + vi.second);
-
-		::glBindVertexArray(0);
-		 
-		m_drawIndexCount = 0;
+			::glDrawElements(GL_TRIANGLES, batchDrawOffset.indexCount, GL_UNSIGNED_INT, (uint32*)(nullptr) + batchDrawOffset.indexStartLocation);
+		}
 		
+		::glBindVertexArray(0);
+
 		m_spriteBatch.clear();
 	}
 
@@ -206,8 +207,6 @@ void main()
 		pIndex[0] = indexOffset;
 		pIndex[1] = indexOffset + 1;
 		pIndex[2] = indexOffset + 2;
-
-		m_drawIndexCount += indexSize;
 	}
 
 	void CRenderer2D_GL::addTriangle(const Float2(&pts)[3], const Float4(&colors)[3])
@@ -234,8 +233,6 @@ void main()
 		pIndex[0] = indexOffset;
 		pIndex[1] = indexOffset + 1;
 		pIndex[2] = indexOffset + 2;
-
-		m_drawIndexCount += indexSize;
 	}
 	
 	void CRenderer2D_GL::addRect(const FloatRect& rect, const Float4& color)
@@ -266,8 +263,6 @@ void main()
 		{
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
 		}
-		
-		m_drawIndexCount += indexSize;
 	}
 	
 	void CRenderer2D_GL::addRect(const FloatRect& rect, const Float4(&colors)[4])
@@ -298,8 +293,6 @@ void main()
 		{
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
 		}
-		
-		m_drawIndexCount += indexSize;
 	}
 
 	void CRenderer2D_GL::addRectFrame(const FloatRect& rect, float thickness, const Float4& color)
@@ -332,8 +325,6 @@ void main()
 		{
 			*pIndex++ = indexOffset + detail::rectFrameIndexTable[i];
 		}
-
-		m_drawIndexCount += indexSize;
 	}
 
 	// 仮の実装
@@ -377,8 +368,6 @@ void main()
 			pIndex[i * 3 + 1] = indexOffset;
 			pIndex[i * 3 + 2] = indexOffset + (i + 1) % quality + 1;
 		}
-
-		m_drawIndexCount += indexSize;
 	}
 	
 	void CRenderer2D_GL::addQuad(const FloatQuad& quad, const Float4& color)
@@ -409,8 +398,6 @@ void main()
 		{
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
 		}
-		
-		m_drawIndexCount += indexSize;
 	}
 	
 	void CRenderer2D_GL::addQuad(const FloatQuad& quad, const Float4(&colors)[4])
@@ -441,8 +428,6 @@ void main()
 		{
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
 		}
-		
-		m_drawIndexCount += indexSize;
 	}
 }
 

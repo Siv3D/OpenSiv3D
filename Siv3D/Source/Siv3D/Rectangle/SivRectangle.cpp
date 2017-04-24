@@ -12,11 +12,55 @@
 # include <Siv3D/Rectangle.hpp>
 # include <Siv3D/Format.hpp>
 # include <Siv3D/FloatRect.hpp>
+# include <Siv3D/Mouse.hpp>
+# include <Siv3D/Cursor.hpp>
 # include "../Siv3DEngine.hpp"
 # include "../Renderer2D/IRenderer2D.hpp"
 
 namespace s3d
 {
+	template <class SizeType>
+	bool Rectangle<SizeType>::leftClicked() const
+	{
+		return MouseL.down() && mouseOver();
+	}
+
+	template <class SizeType>
+	bool Rectangle<SizeType>::leftPressed() const
+	{
+		return MouseL.pressed() && mouseOver();
+	}
+
+	template <class SizeType>
+	bool Rectangle<SizeType>::leftReleased() const
+	{
+		return MouseL.up() && mouseOver();
+	}
+
+	template <class SizeType>
+	bool Rectangle<SizeType>::rightClicked() const
+	{
+		return MouseR.down() && mouseOver();
+	}
+
+	template <class SizeType>
+	bool Rectangle<SizeType>::rightPressed() const
+	{
+		return MouseR.pressed() && mouseOver();
+	}
+
+	template <class SizeType>
+	bool Rectangle<SizeType>::rightReleased() const
+	{
+		return MouseR.up() && mouseOver();
+	}
+
+	template <class SizeType>
+	bool Rectangle<SizeType>::mouseOver() const
+	{
+		return Geometry2D::Intersect(Cursor::PosF(), *this);
+	}
+
 	template <class SizeType>
 	const Rectangle<SizeType>& Rectangle<SizeType>::draw(const ColorF& color) const
 	{

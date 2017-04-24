@@ -239,6 +239,20 @@ namespace s3d
 			return Geometry2D::Intersect(*this, shape);
 		}
 
+		bool leftClicked() const;
+
+		bool leftPressed() const;
+
+		bool leftReleased() const;
+
+		bool rightClicked() const;
+
+		bool rightPressed() const;
+
+		bool rightReleased() const;
+
+		bool mouseOver() const;
+
 		/// <summary>
 		/// Point{ 0, 0 }
 		/// </summary>

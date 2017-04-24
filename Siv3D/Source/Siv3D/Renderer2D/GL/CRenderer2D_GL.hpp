@@ -31,9 +31,7 @@ namespace s3d
 		GLuint m_programHandle = 0;
 		
 		GLSpriteBatch m_spriteBatch;
-		
-		uint32 m_drawIndexCount = 0;
-		
+
 		bool m_initialized = false;
 		
 	public:

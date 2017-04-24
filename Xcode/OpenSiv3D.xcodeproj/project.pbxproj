@@ -273,6 +273,7 @@
 		2C316FCE1EA0C3920011CAAE /* Step2D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316FCD1EA0C3920011CAAE /* Step2D.hpp */; };
 		2C316FD01EA0C59A0011CAAE /* Quad.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316FCF1EA0C59A0011CAAE /* Quad.hpp */; };
 		2C316FD31EA0CB660011CAAE /* SivQuad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316FD21EA0CB660011CAAE /* SivQuad.cpp */; };
+		2C3C390C1EAE2D4100E54E8B /* EasingController.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3C390B1EAE2D4100E54E8B /* EasingController.hpp */; };
 		2C5769311EA23D530072BB68 /* FloatRect.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5769301EA23D530072BB68 /* FloatRect.hpp */; };
 		2C5769331EA24BE00072BB68 /* GLSpriteBatch.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5769321EA24BE00072BB68 /* GLSpriteBatch.hpp */; };
 		2C5769351EA2F6AC0072BB68 /* FloatQuad.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C5769341EA2F6AC0072BB68 /* FloatQuad.hpp */; };
@@ -692,7 +693,6 @@
 		2C21268F1E9A4001006F8101 /* SivMemoryWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMemoryWriter.cpp; sourceTree = "<group>"; };
 		2C2126961E9A5AAE006F8101 /* SivGeometry2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGeometry2D.cpp; sourceTree = "<group>"; };
 		2C21269A1E9A62F3006F8101 /* CCursor_macOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCursor_macOS.mm; sourceTree = "<group>"; };
-		2C2CCF501CE8698C001844FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2C2E826E1EAA1B3A0057BDAF /* allocators.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allocators.h; sourceTree = "<group>"; };
 		2C2E826F1EAA1B3A0057BDAF /* document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = document.h; sourceTree = "<group>"; };
 		2C2E82701EAA1B3A0057BDAF /* encodedstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = encodedstream.h; sourceTree = "<group>"; };
@@ -919,6 +919,7 @@
 		2C316FCF1EA0C59A0011CAAE /* Quad.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Quad.hpp; sourceTree = "<group>"; };
 		2C316FD21EA0CB660011CAAE /* SivQuad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivQuad.cpp; sourceTree = "<group>"; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
+		2C3C390B1EAE2D4100E54E8B /* EasingController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EasingController.hpp; sourceTree = "<group>"; };
 		2C5769301EA23D530072BB68 /* FloatRect.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FloatRect.hpp; sourceTree = "<group>"; };
 		2C5769321EA24BE00072BB68 /* GLSpriteBatch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GLSpriteBatch.hpp; sourceTree = "<group>"; };
 		2C5769341EA2F6AC0072BB68 /* FloatQuad.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FloatQuad.hpp; sourceTree = "<group>"; };
@@ -1750,6 +1751,7 @@
 				2C316ED31E9F7B950011CAAE /* DragDrop.hpp */,
 				2C316ED41E9F7B950011CAAE /* Duration.hpp */,
 				2C316ED51E9F7B950011CAAE /* Easing.hpp */,
+				2C3C390B1EAE2D4100E54E8B /* EasingController.hpp */,
 				2C316ED61E9F7B950011CAAE /* FileSystem.hpp */,
 				2C5769341EA2F6AC0072BB68 /* FloatQuad.hpp */,
 				2C5769301EA23D530072BB68 /* FloatRect.hpp */,
@@ -3032,7 +3034,6 @@
 		2CA7F7321CA7F34200495647 = {
 			isa = PBXGroup;
 			children = (
-				2C2CCF501CE8698C001844FF /* Foundation.framework */,
 				2C1778BF1CE0D5DB00BB8AD0 /* Info.plist */,
 				2CA7F7641CA7F44F00495647 /* Siv3D */,
 				2CA7F74D1CA7F43D00495647 /* Siv3D-Test */,
@@ -3342,6 +3343,7 @@
 				2C2E82B01EAA1B3A0057BDAF /* prettywriter.h in Headers */,
 				2C316F461E9F7B950011CAAE /* BinaryReader.hpp in Headers */,
 				2C81BECF1E89F8E300D27E52 /* ostream.h in Headers */,
+				2C3C390C1EAE2D4100E54E8B /* EasingController.hpp in Headers */,
 				2C316F521E9F7B950011CAAE /* ColorPalette.hpp in Headers */,
 				2C2E82981EAA1B3A0057BDAF /* en.h in Headers */,
 				2C316FAA1E9F7B950011CAAE /* String.hpp in Headers */,

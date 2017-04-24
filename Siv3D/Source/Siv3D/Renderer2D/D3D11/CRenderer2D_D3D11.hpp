@@ -42,8 +42,6 @@ namespace s3d
 
 		ComPtr<ID3D11Buffer> m_cbuffer;
 
-		uint32 m_drawIndexCount = 0;
-
 	public:
 
 		CRenderer2D_D3D11();

@@ -26,6 +26,14 @@ namespace s3d
 		const Point& Pos();
 
 		/// <summary>
+		/// マウスカーソルの位置を返します（クライアント座標）
+		/// </summary>
+		/// <returns>
+		/// マウスカーソルの位置（クライアント座標）
+		/// </returns>
+		Vec2 PosF();
+
+		/// <summary>
 		/// 1 フレーム前のマウスカーソルの位置を返します（クライアント座標）
 		/// </summary>
 		/// <returns>
@@ -34,12 +42,28 @@ namespace s3d
 		const Point& PreviousPos();
 
 		/// <summary>
+		/// 1 フレーム前のマウスカーソルの位置を返します（クライアント座標）
+		/// </summary>
+		/// <returns>
+		/// 1 フレーム前のマウスカーソルの位置（クライアント座標）
+		/// </returns>
+		Vec2 PreviousPosF();
+
+		/// <summary>
 		/// 1 つ前のフレームと比べたマウスカーソルの移動量を返します（クライアント座標）
 		/// </summary>
 		/// <returns>
 		/// 1 つ前のフレームと比べたマウスカーソルの移動量（クライアント座標）
 		/// </returns>
 		const Point& Delta();
+
+		/// <summary>
+		/// 1 つ前のフレームと比べたマウスカーソルの移動量を返します（クライアント座標）
+		/// </summary>
+		/// <returns>
+		/// 1 つ前のフレームと比べたマウスカーソルの移動量（クライアント座標）
+		/// </returns>
+		Vec2 DeltaF();
 
 		/// <summary>
 		/// マウスカーソルの位置を返します（スクリーン座標）

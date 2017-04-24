@@ -11,6 +11,8 @@
 
 # include <Siv3D/Triangle.hpp>
 # include <Siv3D/Circular.hpp>
+# include <Siv3D/Mouse.hpp>
+# include <Siv3D/Cursor.hpp>
 # include "../Siv3DEngine.hpp"
 # include "../Renderer2D/IRenderer2D.hpp"
 
@@ -45,6 +47,41 @@ namespace s3d
 	Triangle::value_type Triangle::perimeter() const noexcept
 	{
 		return p0.distanceFrom(p1) + p1.distanceFrom(p2) + p2.distanceFrom(p0);
+	}
+
+	bool Triangle::leftClicked() const
+	{
+		return MouseL.down() && mouseOver();
+	}
+
+	bool Triangle::leftPressed() const
+	{
+		return MouseL.pressed() && mouseOver();
+	}
+
+	bool Triangle::leftReleased() const
+	{
+		return MouseL.up() && mouseOver();
+	}
+
+	bool Triangle::rightClicked() const
+	{
+		return MouseR.down() && mouseOver();
+	}
+
+	bool Triangle::rightPressed() const
+	{
+		return MouseR.pressed() && mouseOver();
+	}
+
+	bool Triangle::rightReleased() const
+	{
+		return MouseR.up() && mouseOver();
+	}
+
+	bool Triangle::mouseOver() const
+	{
+		return Geometry2D::Intersect(Cursor::PosF(), *this);
 	}
 
 	const Triangle& Triangle::draw(const ColorF& color) const

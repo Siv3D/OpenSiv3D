@@ -11,6 +11,8 @@
 
 # include <Siv3D/Quad.hpp>
 # include <Siv3D/FloatQuad.hpp>
+# include <Siv3D/Mouse.hpp>
+# include <Siv3D/Cursor.hpp>
 # include "../Siv3DEngine.hpp"
 # include "../Renderer2D/IRenderer2D.hpp"
 
@@ -42,6 +44,41 @@ namespace s3d
 	Quad::value_type Quad::perimeter() const noexcept
 	{
 		return p0.distanceFrom(p1) + p1.distanceFrom(p2) + p2.distanceFrom(p3) + p3.distanceFrom(p0);
+	}
+
+	bool Quad::leftClicked() const
+	{
+		return MouseL.down() && mouseOver();
+	}
+
+	bool Quad::leftPressed() const
+	{
+		return MouseL.pressed() && mouseOver();
+	}
+
+	bool Quad::leftReleased() const
+	{
+		return MouseL.up() && mouseOver();
+	}
+
+	bool Quad::rightClicked() const
+	{
+		return MouseR.down() && mouseOver();
+	}
+
+	bool Quad::rightPressed() const
+	{
+		return MouseR.pressed() && mouseOver();
+	}
+
+	bool Quad::rightReleased() const
+	{
+		return MouseR.up() && mouseOver();
+	}
+
+	bool Quad::mouseOver() const
+	{
+		return Geometry2D::Intersect(Cursor::PosF(), *this);
 	}
 
 	const Quad& Quad::draw(const ColorF& color) const

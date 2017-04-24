@@ -364,7 +364,7 @@ namespace s3d
 			return{ center.x - r, center.y };
 		}
 
-		constexpr Line diameter() const noexcept
+		constexpr Line lineDiameter() const noexcept
 		{
 			return{ left(), right() };
 		}
@@ -391,11 +391,19 @@ namespace s3d
 			return Geometry2D::Contains(*this, shape);
 		}
 
-		// leftClicked() leftPressed() leftReleased()
+		bool leftClicked() const;
 
-		// rightClicked() rightPressed() rightReleased()
+		bool leftPressed() const;
 
-		// mouseOver()
+		bool leftReleased() const;
+
+		bool rightClicked() const;
+
+		bool rightPressed() const;
+
+		bool rightReleased() const;
+
+		bool mouseOver() const;
 
 		// paint~ overpaint~ draw~
 

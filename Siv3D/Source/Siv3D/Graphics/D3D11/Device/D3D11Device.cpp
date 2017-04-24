@@ -226,7 +226,7 @@ namespace s3d
 				{
 					desc.Count = count;
 					desc.Quality = quality - 1;
-					Log(L"MSAA x", count, L" (quality: ", quality, L")");
+					//Log(L"MSAA x", count, L" (quality: ", quality, L")");
 
 					m_bestMSAAs.emplace(format, desc);
 
