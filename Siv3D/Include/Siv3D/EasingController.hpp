@@ -46,7 +46,7 @@ namespace s3d
 			, m_a(a)
 			, m_b(b) {}
 
-		EasingController(double easingFunction(double), const Type& a, const Type& b, const MillisecondsF& duration = 1000.0ms)
+		EasingController(double easingFunction(double), const Type& a, const Type& b, const MillisecondsF& duration = Milliseconds(1000))
 			: m_easingFunction(easingFunction)
 			, m_durationMillisec(static_cast<double>(duration.count()))
 			, m_a(a)
@@ -139,7 +139,7 @@ namespace s3d
 
 		bool isMoving() const
 		{
-			return m_stopwatch.isActive() && !isEnd();
+			return m_stopwatch.isStarted() && !done();
 		}
 
 		bool done() const
