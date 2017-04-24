@@ -236,6 +236,22 @@ namespace s3d
 		double usF() const { return static_cast<double>(us()); }
 
 		/// <summary>
+		/// タイマーの初期設定時間を返します。
+		/// </summary>
+		/// <returns>
+		/// タイマーの初期設定時間
+		/// </returns>
+		Milliseconds duration() const { return Milliseconds(m_initialTimeMicrosec / 1'000); }
+
+		/// <summary>
+		/// タイマーの初期設定時間を返します。
+		/// </summary>
+		/// <returns>
+		/// タイマーの初期設定時間
+		/// </returns>
+		MillisecondsF durationF() const { return MillisecondsF(m_initialTimeMicrosec / 1'000.0); }
+
+		/// <summary>
 		/// タイマーの残り時間を返します。
 		/// </summary>
 		/// <returns>
@@ -250,6 +266,17 @@ namespace s3d
 		/// タイマーの残り時間
 		/// </returns>
 		MillisecondsF remainingF() const { return MillisecondsF(msF()); }
+
+		/// <summary>
+		/// タイマーの進み具合を 1 から 0 の範囲で返します。
+		/// </summary>
+		/// <returns>
+		/// タイマーの進み具合 (1.0 から始まり、0.0 で終わる)
+		/// </returns>
+		double progress1_0() const
+		{
+			return static_cast<double>(us()) / m_initialTimeMicrosec;
+		}
 
 		/// <summary>
 		/// タイマーが 0 に達しているかを返します。
