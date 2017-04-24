@@ -309,8 +309,8 @@
 	# include "Siv3D/Lerp.hpp"
 	// イージング関数
 	# include "Siv3D/Easing.hpp"
-	//// イージング ユーティリティ
-	//# include "Siv3D/EasingController.hpp"
+	// イージング ユーティリティ
+	# include "Siv3D/EasingController.hpp"
 	// 2D 幾何
 	# include "Siv3D/Geometry2D.hpp"
 	// Perlin Noise

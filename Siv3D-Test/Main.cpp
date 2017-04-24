@@ -2,35 +2,41 @@
 
 void Main()
 {
-	Graphics::SetBackground(Palette::White);
-
-	Circle circle(200, 200, 50);
-
-	bool grabbed = false;
+	EasingController<Vec2> easing(
+		Easing::Quint,
+		Vec2(80, 100),	// 始点
+		Vec2(560, 100),	// 終点
+		1000ms			// 時間
+	);
 
 	while (System::Update())
 	{
-		if (circle.leftClicked())
+		if (MouseL.down())
 		{
-			grabbed = true;
-		}
-		else if (MouseL.up())
-		{
-			grabbed = false;
-		}
-		else if (grabbed)
-		{
-			circle.moveBy(Cursor::Delta());
+			easing.start();
 		}
 
-		const bool handCursor = circle.mouseOver();
-
-		if (grabbed)
+		if (MouseR.down())
 		{
-			// つかんでいる場合、円の影を描く
-			circle.movedBy(2,2).draw(Palette::Gray);
+			easing.setB(Vec2(560, 200));
 		}
 
-		circle.draw(Palette::Skyblue);
+		if (KeyA.down())
+		{
+			easing.jumpToA();
+		}
+
+		if (KeyB.down())
+		{
+			easing.jumpToB();
+		}
+
+		Circle(easing.base(), 20).draw(Palette::Orange);
+
+		Circle(easing.easeInOut(), 20).moveBy(0, 80).draw();
+
+		Circle(easing.easeIn(), 20).moveBy(0, 160).draw();
+
+		Circle(easing.easeOut(), 20).moveBy(0, 240).draw();
 	}
 }
