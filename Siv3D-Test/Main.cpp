@@ -11,6 +11,6 @@ void Main()
 			timer.start();
 		}
 
-		Window::SetTitle(timer, L" @ ", timer.progress1_0());
+		Window::SetTitle(timer, L" @ ", timer.progress0_1());
 	}
 }

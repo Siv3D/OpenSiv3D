@@ -279,6 +279,17 @@ namespace s3d
 		}
 
 		/// <summary>
+		/// タイマーの進み具合を 0 から 1 の範囲で返します。
+		/// </summary>
+		/// <returns>
+		/// タイマーの進み具合 (0.0 から始まり、1.0 で終わる)
+		/// </returns>
+		double progress0_1() const
+		{
+			return 1.0 - progress1_0();
+		}
+
+		/// <summary>
 		/// タイマーが 0 に達しているかを返します。
 		/// </summary>
 		/// <returns>
