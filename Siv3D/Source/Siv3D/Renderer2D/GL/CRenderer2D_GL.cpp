@@ -30,6 +30,26 @@ namespace s3d
 		static constexpr IndexType rectIndexTable[6] = { 0, 1, 2, 2, 1, 3 };
 		
 		static constexpr IndexType rectFrameIndexTable[24] = { 0, 1, 2, 3, 2, 1, 0, 4, 1, 5, 1, 4, 5, 4, 7, 6, 7, 4, 3, 7, 2, 6, 2, 7 };
+
+		static constexpr IndexType CalculateCircleFrameQuality(const float size) noexcept
+		{
+			if (size <= 1.0f)
+			{
+				return 4;
+			}
+			else if (size <= 6.0f)
+			{
+				return 7;
+			}
+			else if (size <= 8.0f)
+			{
+				return 11;
+			}
+			else
+			{
+				return static_cast<IndexType>(std::min(size * 0.225f + 18.0f, 255.0f));
+			}
+		}
 	}
 	
 	CRenderer2D_GL::CRenderer2D_GL()
@@ -395,9 +415,6 @@ void main()
 			const float s = std::sinf(rad);
 			pVertex[i * 2 + 0].pos.set(centerX + rt * c, centerY - rt * s);
 			pVertex[i * 2 + 1].pos.set(centerX + r * c, centerY - r * s);
-
-			Log << pVertex[i * 2 + 0].pos;
-			Log << pVertex[i * 2 + 1].pos;
 		}
 
 		for (size_t i = 0; i < vertexSize; ++i)

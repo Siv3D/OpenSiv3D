@@ -397,9 +397,6 @@ namespace s3d
 			const float s = std::sinf(rad);
 			pVertex[i * 2 + 0].pos.set(centerX + rt * c, centerY - rt * s);
 			pVertex[i * 2 + 1].pos.set(centerX + r * c, centerY - r * s);
-
-			Log << pVertex[i * 2 + 0].pos;
-			Log << pVertex[i * 2 + 1].pos;
 		}
 
 		for (size_t i = 0; i < vertexSize; ++i)
