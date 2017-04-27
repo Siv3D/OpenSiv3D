@@ -22,7 +22,7 @@ namespace s3d
 		{
 			const size_t bufferSize = ZSTD_compressBound(view.size());
 
-			Array<uint8> buffer(bufferSize);
+			Array<Byte> buffer(bufferSize);
 
 			const size_t result = ZSTD_compress(buffer.data(), buffer.size(), view.data(), view.size(), compressionLevel);
 
@@ -48,10 +48,10 @@ namespace s3d
 			}
 
 			const size_t inputBufferSize = ZSTD_CStreamInSize();
-			const auto pInputBuffer = std::make_unique<uint8[]>(inputBufferSize);
+			const auto pInputBuffer = std::make_unique<Byte[]>(inputBufferSize);
 
 			const size_t outputBufferSize = ZSTD_CStreamOutSize();
-			const auto pOutputBuffer = std::make_unique<uint8[]>(outputBufferSize);
+			const auto pOutputBuffer = std::make_unique<Byte[]>(outputBufferSize);
 
 			ZSTD_CStream* const cStream = ZSTD_createCStream();
 
@@ -69,7 +69,7 @@ namespace s3d
 
 			size_t toRead = inputBufferSize;
 
-			Array<uint8> buffer;
+			Array<Byte> buffer;
 
 			while (const size_t read = static_cast<size_t>(reader.read(pInputBuffer.get(), toRead)))
 			{
@@ -112,10 +112,10 @@ namespace s3d
 		bool CompressToFile(const ByteArrayView view, const FilePath& outputPath, const int32 compressionLevel)
 		{
 			const size_t inputBufferSize = ZSTD_CStreamInSize();
-			const auto pInputBuffer = std::make_unique<uint8[]>(inputBufferSize);
+			const auto pInputBuffer = std::make_unique<Byte[]>(inputBufferSize);
 
 			const size_t outputBufferSize = ZSTD_CStreamOutSize();
-			const auto pOutputBuffer = std::make_unique<uint8[]>(outputBufferSize);
+			const auto pOutputBuffer = std::make_unique<Byte[]>(outputBufferSize);
 
 			ZSTD_CStream* const cStream = ZSTD_createCStream();
 
@@ -205,10 +205,10 @@ namespace s3d
 			}
 
 			const size_t inputBufferSize = ZSTD_CStreamInSize();
-			const auto pInputBuffer = std::make_unique<uint8[]>(inputBufferSize);
+			const auto pInputBuffer = std::make_unique<Byte[]>(inputBufferSize);
 
 			const size_t outputBufferSize = ZSTD_CStreamOutSize();
-			const auto pOutputBuffer = std::make_unique<uint8[]>(outputBufferSize);
+			const auto pOutputBuffer = std::make_unique<Byte[]>(outputBufferSize);
 
 			ZSTD_CStream* const cStream = ZSTD_createCStream();
 
@@ -284,7 +284,7 @@ namespace s3d
 				return ByteArray();
 			}
 
-			Array<uint8> outputBuffer(static_cast<size_t>(originalSize));
+			Array<Byte> outputBuffer(static_cast<size_t>(originalSize));
 
 			const size_t decompressedSize = ZSTD_decompress(outputBuffer.data(), outputBuffer.size(), view.data(), view.size());
 
@@ -306,10 +306,10 @@ namespace s3d
 			}
 
 			const size_t inputBufferSize = ZSTD_DStreamInSize();
-			const auto pInputBuffer = std::make_unique<uint8[]>(inputBufferSize);
+			const auto pInputBuffer = std::make_unique<Byte[]>(inputBufferSize);
 
 			const size_t outputBufferSize = ZSTD_DStreamOutSize();
-			const auto pOutputBuffer = std::make_unique<uint8[]>(outputBufferSize);
+			const auto pOutputBuffer = std::make_unique<Byte[]>(outputBufferSize);
 
 			ZSTD_DStream* const dStream = ZSTD_createDStream();
 
@@ -327,7 +327,7 @@ namespace s3d
 
 			size_t toRead = initResult;
 
-			Array<uint8> buffer;
+			Array<Byte> buffer;
 
 			while (const size_t read = static_cast<size_t>(reader.read(pInputBuffer.get(), toRead)))
 			{
@@ -356,10 +356,10 @@ namespace s3d
 		bool DecompressToFile(const ByteArrayView view, const FilePath& outputPath)
 		{
 			const size_t inputBufferSize = ZSTD_DStreamInSize();
-			const auto pInputBuffer = std::make_unique<uint8[]>(inputBufferSize);
+			const auto pInputBuffer = std::make_unique<Byte[]>(inputBufferSize);
 
 			const size_t outputBufferSize = ZSTD_DStreamOutSize();
-			const auto pOutputBuffer = std::make_unique<uint8[]>(outputBufferSize);
+			const auto pOutputBuffer = std::make_unique<Byte[]>(outputBufferSize);
 
 			ZSTD_DStream* const dStream = ZSTD_createDStream();
 
@@ -433,10 +433,10 @@ namespace s3d
 			}
 
 			const size_t inputBufferSize = ZSTD_DStreamInSize();
-			const auto pInputBuffer = std::make_unique<uint8[]>(inputBufferSize);
+			const auto pInputBuffer = std::make_unique<Byte[]>(inputBufferSize);
 
 			const size_t outputBufferSize = ZSTD_DStreamOutSize();
-			const auto pOutputBuffer = std::make_unique<uint8[]>(outputBufferSize);
+			const auto pOutputBuffer = std::make_unique<Byte[]>(outputBufferSize);
 
 			ZSTD_DStream* const dStream = ZSTD_createDStream();
 

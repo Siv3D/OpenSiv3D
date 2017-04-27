@@ -14,6 +14,7 @@
 # include <Siv3D/Color.hpp>
 # include <Siv3D/HSV.hpp>
 # include <Siv3D/PointVector.hpp>
+# include <Siv3D/Byte.hpp>
 
 namespace s3d
 {
@@ -148,5 +149,20 @@ namespace s3d
 		{
 			formatData.string.append(L"false", 5);
 		}
+	}
+
+	void Formatter(FormatData& formatData, const ByteArrayView& value)
+	{
+		Formatter(formatData, value.begin(), value.end());
+	}
+
+	std::ostream& operator <<(std::ostream& os, const ByteArrayView& value)
+	{
+		return os << Format(value);
+	}
+
+	std::wostream& operator <<(std::wostream& os, const ByteArrayView& value)
+	{
+		return os << Format(value);
 	}
 }

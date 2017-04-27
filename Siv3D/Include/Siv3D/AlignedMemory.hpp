@@ -190,7 +190,7 @@ namespace s3d
 	/// 明示的なアライメントの指定が必要な型であるかを判定します。
 	/// </summary>
 	template <class Type>
-	struct HasAlignment
+	struct IsOverAligned
 		: std::integral_constant<bool, (alignof(Type) > SIV3D_ALLOCATOR_MIN_ALIGNMENT)> {};
 
 	/// <summary>
@@ -202,7 +202,7 @@ namespace s3d
 	/// <returns>
 	/// 構築した unique_ptr
 	/// </returns>
-	template <class Type, class ...Args, std::enable_if_t<!HasAlignment<Type>::value>* = nullptr>
+	template <class Type, class ...Args, std::enable_if_t<!IsOverAligned<Type>::value>* = nullptr>
 	std::unique_ptr<Type> MakeUnique(Args&&... args)
 	{
 		return std::make_unique<Type>(std::forward<Args>(args)...);
@@ -217,7 +217,7 @@ namespace s3d
 	/// <returns>
 	/// 構築した unique_ptr
 	/// </returns>
-	template <class Type, class ...Args, std::enable_if_t<HasAlignment<Type>::value>* = nullptr>
+	template <class Type, class ...Args, std::enable_if_t<IsOverAligned<Type>::value>* = nullptr>
 	std::unique_ptr<Type, AlignedDeleter<Type>> MakeUnique(Args&&... args)
 	{
 		return std::unique_ptr<Type, AlignedDeleter<Type>>(AlignedNew<Type>(std::forward<Args>(args)...));
@@ -232,7 +232,7 @@ namespace s3d
 	/// <returns>
 	/// 構築した shared_ptr
 	/// </returns>
-	template <class Type, class ...Args, std::enable_if_t<!HasAlignment<Type>::value>* = nullptr>
+	template <class Type, class ...Args, std::enable_if_t<!IsOverAligned<Type>::value>* = nullptr>
 	std::shared_ptr<Type> MakeShared(Args&&... args)
 	{
 		return std::make_shared<Type>(std::forward<Args>(args)...);
@@ -247,7 +247,7 @@ namespace s3d
 	/// <returns>
 	/// 構築した shared_ptr
 	/// </returns>
-	template <class Type, class ...Args, std::enable_if_t<HasAlignment<Type>::value>* = nullptr>
+	template <class Type, class ...Args, std::enable_if_t<IsOverAligned<Type>::value>* = nullptr>
 	std::shared_ptr<Type> MakeShared(Args&&... args)
 	{
 		return std::shared_ptr<Type>(AlignedNew<Type>(std::forward<Args>(args)...), AlignedDeleter<Type>());

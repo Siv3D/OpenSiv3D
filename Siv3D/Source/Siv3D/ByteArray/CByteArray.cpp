@@ -32,7 +32,7 @@ namespace s3d
 	{
 		release();
 
-		m_array.assign(static_cast<const uint8*>(src), static_cast<const uint8*>(src) + size);
+		m_array.assign(static_cast<const Byte*>(src), static_cast<const Byte*>(src) + size);
 		
 		m_view = m_array.data();
 		m_size = m_array.size();
@@ -40,7 +40,7 @@ namespace s3d
 		return true;
 	}
 
-	bool ByteArray::CByteArray::create(const Array<uint8>& data)
+	bool ByteArray::CByteArray::create(const Array<Byte>& data)
 	{
 		release();
 
@@ -52,7 +52,7 @@ namespace s3d
 		return true;
 	}
 
-	bool ByteArray::CByteArray::create(Array<uint8>&& data)
+	bool ByteArray::CByteArray::create(Array<Byte>&& data)
 	{
 		release();
 
@@ -94,7 +94,7 @@ namespace s3d
 		return m_pos;
 	}
 
-	const uint8* ByteArray::CByteArray::data() const
+	const Byte* ByteArray::CByteArray::data() const
 	{
 		return m_view;
 	}

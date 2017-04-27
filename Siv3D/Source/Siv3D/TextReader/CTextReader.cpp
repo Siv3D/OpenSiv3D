@@ -34,7 +34,7 @@ namespace s3d
 
 			if (int64 sizeToRead = reader.size())
 			{
-				uint8* const buffer = static_cast<uint8*>(::malloc(bufferSize));
+				Byte* const buffer = static_cast<Byte*>(::malloc(bufferSize));
 
 				while (sizeToRead)
 				{
@@ -257,7 +257,7 @@ namespace s3d
 		{
 			const size_t bomSize = CharacterSet::GetBOMSize(m_encoding);
 
-			Array<uint8> tmp(static_cast<size_t>(m_reader->size()) - bomSize);
+			Array<Byte> tmp(static_cast<size_t>(m_reader->size()) - bomSize);
 			
 			if (tmp.empty())
 			{

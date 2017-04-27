@@ -57,7 +57,7 @@ namespace s3d
 
 		int64 fileSize() const;
 
-		const uint8* data() const;
+		const Byte* data() const;
 
 		const FilePath& path() const;
 	};

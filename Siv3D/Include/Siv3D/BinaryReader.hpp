@@ -230,7 +230,7 @@ namespace s3d
 
 		ByteArray readAll()
 		{
-			Array<uint8> data(static_cast<size_t>(size()));
+			Array<Byte> data(static_cast<size_t>(size()));
 
 			read(data.data(), 0, size());
 

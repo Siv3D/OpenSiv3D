@@ -67,6 +67,6 @@ namespace s3d
 	template <class Type>
 	struct DefaultAllocator
 	{
-		using type = std::conditional_t<HasAlignment<Type>::value, AlignedAllocator<Type>, std::allocator<Type>>;
+		using type = std::conditional_t<IsOverAligned<Type>::value, AlignedAllocator<Type>, std::allocator<Type>>;
 	};
 }
