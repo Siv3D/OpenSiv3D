@@ -20,7 +20,7 @@ namespace s3d
 {
 	namespace Cursor
 	{
-		const Point& Pos()
+		Point Pos()
 		{
 			return Siv3DEngine::GetCursor()->clientPos();
 		}
@@ -30,7 +30,7 @@ namespace s3d
 			return Siv3DEngine::GetCursor()->clientPos();
 		}
 
-		const Point& PreviousPos()
+		Point PreviousPos()
 		{
 			return Siv3DEngine::GetCursor()->previousClientPos();
 		}
@@ -40,7 +40,7 @@ namespace s3d
 			return Siv3DEngine::GetCursor()->previousClientPos();
 		}
 
-		const Point& Delta()
+		Point Delta()
 		{
 			return Siv3DEngine::GetCursor()->clientDelta();
 		}
@@ -50,17 +50,17 @@ namespace s3d
 			return Siv3DEngine::GetCursor()->clientDelta();
 		}
 
-		const Point& ScreenPos()
+		Point ScreenPos()
 		{
 			return Siv3DEngine::GetCursor()->screenPos();
 		}
 
-		const Point& PreviousScreenPos()
+		Point PreviousScreenPos()
 		{
 			return Siv3DEngine::GetCursor()->previousScreenPos();
 		}
 
-		const Point& ScreenDelta()
+		Point ScreenDelta()
 		{
 			return Siv3DEngine::GetCursor()->screenDelta();
 		}
