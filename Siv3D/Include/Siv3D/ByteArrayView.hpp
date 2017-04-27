@@ -125,7 +125,7 @@ namespace s3d
 	void Formatter(FormatData& formatData, const ByteArrayView& value);
 
 	std::ostream& operator <<(std::ostream& os, const ByteArrayView& value);
-	
+
 	std::wostream& operator <<(std::wostream& os, const ByteArrayView& value);
 }
 //
