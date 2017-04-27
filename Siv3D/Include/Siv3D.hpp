@@ -72,6 +72,8 @@
 	# include "Siv3D/AlignedAllocator.hpp"
 	// 動的配列
 	# include "Siv3D/Array.hpp"
+	// 1 バイトを表現する型
+	# include "Siv3D/Byte.hpp"
 	// バイナリ配列ビュー
 	# include "Siv3D/ByteArrayView.hpp"
 	// ハッシュマップ

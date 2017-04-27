@@ -60,7 +60,7 @@ namespace s3d
 		return pImpl->fileSize();
 	}
 
-	const uint8* MemoryMapping::data() const
+	const Byte* MemoryMapping::data() const
 	{
 		return pImpl->data();
 	}

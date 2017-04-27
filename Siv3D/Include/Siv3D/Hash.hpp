@@ -102,7 +102,7 @@ namespace s3d
 				h *= m;
 			}
 
-			const uint8* data2 = static_cast<const uint8*>(static_cast<const void*>(data));
+			const Byte* data2 = static_cast<const Byte*>(static_cast<const void*>(data));
 
 			switch (len & 7)
 			{
@@ -130,7 +130,7 @@ namespace s3d
 	{
 		inline constexpr size_t FNV1a(const ByteArrayView view)
 		{
-			const uint8* data = view.data();
+			const Byte* data = view.data();
 
 		# if (SIV3D_PLATFORM_PTR_SIZE == 4)
 

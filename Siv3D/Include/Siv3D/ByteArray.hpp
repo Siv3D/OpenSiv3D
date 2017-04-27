@@ -60,7 +60,7 @@ namespace s3d
 		/// <param name="data">
 		/// コピーするデータ
 		/// </param>
-		explicit ByteArray(const Array<uint8>& data)
+		explicit ByteArray(const Array<Byte>& data)
 			: ByteArray()
 		{
 			create(data);
@@ -72,7 +72,7 @@ namespace s3d
 		/// <param name="data">
 		/// ムーブするデータ
 		/// </param>
-		explicit ByteArray(Array<uint8>&& data)
+		explicit ByteArray(Array<Byte>&& data)
 			: ByteArray()
 		{
 			create(std::move(data));
@@ -106,7 +106,7 @@ namespace s3d
 		/// <returns>
 		/// バッファの作成に成功した場合 true, それ以外の場合は false
 		/// </returns>
-		bool create(const Array<uint8>& data);
+		bool create(const Array<Byte>& data);
 
 		/// <summary>
 		/// データをムーブして読み込み用バッファを作成します。
@@ -117,7 +117,7 @@ namespace s3d
 		/// <returns>
 		/// バッファの作成に成功した場合 true, それ以外の場合は false
 		/// </returns>
-		bool create(Array<uint8>&& data);
+		bool create(Array<Byte>&& data);
 
 		/// <summary>
 		/// 読み込みバッファを解放します。
@@ -190,7 +190,7 @@ namespace s3d
 		/// <returns>
 		/// 読み込みバッファの先頭ポインタ
 		/// </returns>
-		const uint8* data() const;
+		const Byte* data() const;
 
 		/// <summary>
 		/// ファイルからデータを読み込みます。
@@ -312,3 +312,30 @@ namespace s3d
 		bool save(const FilePath& path) const;
 	};
 }
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting ByteArray
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[ ] istream
+//	[ ] wistream
+//	[p] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
+	inline void Formatter(FormatData& formatData, const ByteArray& value)
+	{
+		Formatter(formatData, value.getView());
+	}
+
+	template <class CharType>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const ByteArray& value)
+	{
+		return os << value.getView();
+	}
+}
+//
+//////////////////////////////////////////////////////////////////////////////

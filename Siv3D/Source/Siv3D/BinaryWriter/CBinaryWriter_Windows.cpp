@@ -30,7 +30,7 @@ namespace s3d
 	{
 		if (!m_pBuffer)
 		{
-			m_pBuffer = static_cast<uint8*>(::malloc(BufferSize));
+			m_pBuffer = static_cast<Byte*>(::malloc(BufferSize));
 		}
 
 		::memcpy(m_pBuffer + m_currentBufferPos, src, size);
