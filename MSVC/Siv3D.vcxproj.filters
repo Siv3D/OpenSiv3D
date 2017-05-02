@@ -266,6 +266,9 @@
     <Filter Include="Source\Siv3D\Clipboard">
       <UniqueIdentifier>{eecf9fcd-54f7-4d4e-a6f5-49054db2d278}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Profiler">
+      <UniqueIdentifier>{352aa608-d387-4ed5-853b-f21ebe6fa82c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1054,6 +1057,15 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\ReaderView.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Profiler.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Profiler\IProfiler.hpp">
+      <Filter>Source\Siv3D\Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Profiler\CProfiler.hpp">
+      <Filter>Source\Siv3D\Profiler</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1595,6 +1607,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Clipboard\CClipboard_macOS.cpp">
       <Filter>Source\Siv3D\Clipboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\ProfilerFactory.cpp">
+      <Filter>Source\Siv3D\Profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\SivProfiler.cpp">
+      <Filter>Source\Siv3D\Profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\CProfiler.cpp">
+      <Filter>Source\Siv3D\Profiler</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

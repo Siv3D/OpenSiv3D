@@ -502,13 +502,13 @@ namespace s3d
 		{
 		# if defined(SIV3D_TARGET_WINDOWS)
 			
-			wchar ch;
+			wchar ch = L'\0';
 			m_ifs.get(ch);
 			return ch;
 			
 		# else
 			
-			char ch;
+			char ch = '\0';
 			m_ifs.get(ch);
 			return ch; // [Siv3D TODO]
 			
