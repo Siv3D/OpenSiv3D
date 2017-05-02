@@ -18,6 +18,7 @@
 # include "../ImageFormat/IImageFormat.hpp"
 # include "../Window/IWindow.hpp"
 # include "../DragDrop/IDragDrop.hpp"
+# include "../Clipboard/IClipboard.hpp"
 # include "../Cursor/ICursor.hpp"
 # include "../Keyboard/IKeyboard.hpp"
 # include "../Mouse/IMouse.hpp"
@@ -61,7 +62,12 @@ namespace s3d
 		{
 			return false;
 		}
-		
+
+		if (!Siv3DEngine::GetClipboard()->init())
+		{
+			return false;
+		}
+
 		if (!Siv3DEngine::GetCursor()->init())
 		{
 			return false;
@@ -81,6 +87,7 @@ namespace s3d
 		{
 			return false;
 		}
+
 		Siv3DEngine::GetGraphics()->clear();
 
 		return true;
@@ -113,6 +120,8 @@ namespace s3d
 		{
 			return false;
 		}
+
+		Siv3DEngine::GetClipboard()->update();
 
 		Siv3DEngine::GetCursor()->update();
 

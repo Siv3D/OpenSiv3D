@@ -20,6 +20,7 @@ namespace s3d
 	class ISiv3DImageFormat;
 	class ISiv3DWindow;
 	class ISiv3DDragDrop;
+	class ISiv3DClipboard;
 	class ISiv3DCursor;
 	class ISiv3DKeyboard;
 	class ISiv3DMouse;
@@ -73,6 +74,8 @@ namespace s3d
 
 		Siv3DComponent<ISiv3DDragDrop> m_dragdrop;
 
+		Siv3DComponent<ISiv3DClipboard> m_clipboard;
+
 		Siv3DComponent<ISiv3DCursor> m_cursor;
 
 		Siv3DComponent<ISiv3DKeyboard> m_keyboard;
@@ -120,6 +123,11 @@ namespace s3d
 		static ISiv3DDragDrop* GetDragDrop()
 		{
 			return pEngine->m_dragdrop.get();
+		}
+
+		static ISiv3DClipboard* GetClipboard()
+		{
+			return pEngine->m_clipboard.get();
 		}
 
 		static ISiv3DCursor* GetCursor()

@@ -40,7 +40,24 @@ namespace s3d
 			template <class IntegerType, std::enable_if_t<!IsBigInt<IntegerType>::value>* = nullptr>
 			void checkOverflow() const
 			{
-				if (m_currentValue > std::numeric_limits<Type>::max() - m_step)
+				bool overflow = false;
+
+				if (m_step > 0)
+				{
+					if (m_currentValue > std::numeric_limits<Type>::max() - m_step)
+					{
+						overflow = true;
+					}
+				}
+				else if (m_step < 0)
+				{
+					if (m_step < 0 && m_currentValue < std::numeric_limits<Type>::min() - m_step)
+					{
+						overflow = true;
+					}
+				}
+
+				if (overflow)
 				{
 					throw std::overflow_error("infinite_iterator: integer overflow");
 				}

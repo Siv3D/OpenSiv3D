@@ -13,6 +13,7 @@
 # include <Siv3D/Compression.hpp>
 # include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/BinaryWriter.hpp>
+# include <Siv3D/ReaderView.hpp>
 
 namespace s3d
 {
@@ -140,20 +141,18 @@ namespace s3d
 				return false;
 			}
 
-			size_t readPos = 0;
+			ReaderView reader(view.data(), view.size());
 
 			for (;;)
 			{
-				const size_t read = std::min(toRead, view.size() - readPos);
+				const size_t read = std::min<size_t>(toRead, view.size() - static_cast<size_t>(reader.getPos()));
 
 				if (read == 0)
 				{
 					break;
 				}
 
-				::memcpy(pInputBuffer.get(), view.data() + readPos, read);
-
-				readPos += read;
+				reader.read(pInputBuffer.get(), read);
 
 				ZSTD_inBuffer input = { pInputBuffer.get(), read, 0 };
 
@@ -384,20 +383,18 @@ namespace s3d
 				return false;
 			}
 
-			size_t readPos = 0;
+			ReaderView reader(view.data(), view.size());
 
 			for (;;)
 			{
-				const size_t read = std::min(toRead, view.size() - readPos);
+				const size_t read = std::min<size_t>(toRead, view.size() - static_cast<size_t>(reader.getPos()));
 
 				if (read == 0)
 				{
 					break;
 				}
 
-				::memcpy(pInputBuffer.get(), view.data() + readPos, read);
-
-				readPos += read;
+				reader.read(pInputBuffer.get(), read);
 
 				ZSTD_inBuffer input = { pInputBuffer.get(), read, 0 };
 
