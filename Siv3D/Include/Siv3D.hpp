@@ -400,8 +400,8 @@
 	# include "Siv3D/DragDrop.hpp"
 	//// ダイアログ
 	//# include "Siv3D/Dialog.hpp"
-	//// プロファイリング
-	//# include "Siv3D/Profiler.hpp"
+	// プロファイリング
+	# include "Siv3D/Profiler.hpp"
 //
 // 入力デバイス
 //

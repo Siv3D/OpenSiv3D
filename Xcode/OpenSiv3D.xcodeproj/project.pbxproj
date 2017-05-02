@@ -44,6 +44,12 @@
 		2C2126781E93CFA2006F8101 /* SivClipboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C21266F1E93CFA2006F8101 /* SivClipboard.cpp */; };
 		2C21267A1E93D115006F8101 /* CClipboard_macOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C2126791E93D115006F8101 /* CClipboard_macOS.mm */; };
 		2C21267C1E9534A4006F8101 /* ReaderView.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C21267B1E9534A4006F8101 /* ReaderView.hpp */; };
+		2C21267E1E97D108006F8101 /* Profiler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C21267D1E97D108006F8101 /* Profiler.hpp */; };
+		2C2126851E97D11D006F8101 /* CProfiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2126801E97D11D006F8101 /* CProfiler.cpp */; };
+		2C2126861E97D11D006F8101 /* CProfiler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C2126811E97D11D006F8101 /* CProfiler.hpp */; };
+		2C2126871E97D11D006F8101 /* IProfiler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C2126821E97D11D006F8101 /* IProfiler.hpp */; };
+		2C2126881E97D11D006F8101 /* ProfilerFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2126831E97D11D006F8101 /* ProfilerFactory.cpp */; };
+		2C2126891E97D11D006F8101 /* SivProfiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2126841E97D11D006F8101 /* SivProfiler.cpp */; };
 		2C2CCF511CE8698C001844FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2CCF501CE8698C001844FF /* Foundation.framework */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
@@ -576,6 +582,12 @@
 		2C21266F1E93CFA2006F8101 /* SivClipboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivClipboard.cpp; sourceTree = "<group>"; };
 		2C2126791E93D115006F8101 /* CClipboard_macOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CClipboard_macOS.mm; sourceTree = "<group>"; };
 		2C21267B1E9534A4006F8101 /* ReaderView.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ReaderView.hpp; sourceTree = "<group>"; };
+		2C21267D1E97D108006F8101 /* Profiler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Profiler.hpp; sourceTree = "<group>"; };
+		2C2126801E97D11D006F8101 /* CProfiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CProfiler.cpp; sourceTree = "<group>"; };
+		2C2126811E97D11D006F8101 /* CProfiler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CProfiler.hpp; sourceTree = "<group>"; };
+		2C2126821E97D11D006F8101 /* IProfiler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IProfiler.hpp; sourceTree = "<group>"; };
+		2C2126831E97D11D006F8101 /* ProfilerFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProfilerFactory.cpp; sourceTree = "<group>"; };
+		2C2126841E97D11D006F8101 /* SivProfiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivProfiler.cpp; sourceTree = "<group>"; };
 		2C2CCF501CE8698C001844FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
@@ -1204,6 +1216,18 @@
 			path = Clipboard;
 			sourceTree = "<group>";
 		};
+		2C21267F1E97D11D006F8101 /* Profiler */ = {
+			isa = PBXGroup;
+			children = (
+				2C2126801E97D11D006F8101 /* CProfiler.cpp */,
+				2C2126811E97D11D006F8101 /* CProfiler.hpp */,
+				2C2126821E97D11D006F8101 /* IProfiler.hpp */,
+				2C2126831E97D11D006F8101 /* ProfilerFactory.cpp */,
+				2C2126841E97D11D006F8101 /* SivProfiler.cpp */,
+			);
+			path = Profiler;
+			sourceTree = "<group>";
+		};
 		2C38B1471CDEB45C007A7E9F /* Lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -1364,6 +1388,7 @@
 				2C81BCF11E89F8E300D27E52 /* Point.hpp */,
 				2C81BCF21E89F8E300D27E52 /* Point.inl */,
 				2C81BCF31E89F8E300D27E52 /* PointVector.hpp */,
+				2C21267D1E97D108006F8101 /* Profiler.hpp */,
 				2C81BCF41E89F8E300D27E52 /* Random.hpp */,
 				2C81BCF51E89F8E300D27E52 /* RandomColor.hpp */,
 				2C81BCF61E89F8E300D27E52 /* RandomPoint.hpp */,
@@ -1419,6 +1444,7 @@
 		2C81BD1D1E89F8E300D27E52 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C21267F1E97D11D006F8101 /* Profiler */,
 				2C2126661E93CFA2006F8101 /* Clipboard */,
 				2C21263B1E8C0268006F8101 /* MessageBox */,
 				2C81C0B01E8A800900D27E52 /* Triangle */,
@@ -2632,6 +2658,7 @@
 				2C81C0451E89F8E300D27E52 /* xkb_unicode.h in Headers */,
 				2C81C09A1E89F8E400D27E52 /* zstd_internal.h in Headers */,
 				2C81BF031E89F8E300D27E52 /* ImageFormat.hpp in Headers */,
+				2C2126861E97D11D006F8101 /* CProfiler.hpp in Headers */,
 				2C81BEE51E89F8E300D27E52 /* Compression.hpp in Headers */,
 				2C81BF811E89F8E300D27E52 /* CDragDrop_macOS.hpp in Headers */,
 				2C81C0181E89F8E300D27E52 /* glad.h in Headers */,
@@ -2646,6 +2673,7 @@
 				2C81BF181E89F8E300D27E52 /* Mouse.hpp in Headers */,
 				2C81BFE01E89F8E300D27E52 /* CSystem_macOS.hpp in Headers */,
 				2C81BF291E89F8E300D27E52 /* RandomVec3.hpp in Headers */,
+				2C21267E1E97D108006F8101 /* Profiler.hpp in Headers */,
 				2C81BFA31E89F8E300D27E52 /* CImageFormat.hpp in Headers */,
 				2C81C0951E89F8E400D27E52 /* mem.h in Headers */,
 				2C81BFCC1E89F8E300D27E52 /* CMouse_Windows.hpp in Headers */,
@@ -2661,6 +2689,7 @@
 				2C81BF271E89F8E300D27E52 /* RandomPoint.hpp in Headers */,
 				2C81BF941E89F8E300D27E52 /* D3D11Device.hpp in Headers */,
 				2C81C0641E89F8E300D27E52 /* jpeg_huffman_decode.h in Headers */,
+				2C2126871E97D11D006F8101 /* IProfiler.hpp in Headers */,
 				2C81C07E1E89F8E300D27E52 /* muParserBytecode.h in Headers */,
 				2C81BFA41E89F8E300D27E52 /* IImageFormat.hpp in Headers */,
 				2C81BF0A1E89F8E300D27E52 /* Keyboard.hpp in Headers */,
@@ -2955,6 +2984,7 @@
 				2C81C0001E89F8E300D27E52 /* SivWritableMemoryMapping.cpp in Sources */,
 				2C81C0581E89F8E300D27E52 /* jpeg_data.cc in Sources */,
 				2C81C0901E89F8E400D27E52 /* error_private.c in Sources */,
+				2C2126881E97D11D006F8101 /* ProfilerFactory.cpp in Sources */,
 				2C81BFBE1E89F8E300D27E52 /* SivLogger.cpp in Sources */,
 				2C81BFD91E89F8E300D27E52 /* Siv3DMain_macOS.cpp in Sources */,
 				2C81C06E1E89F8E300D27E52 /* quantize.cc in Sources */,
@@ -3019,6 +3049,7 @@
 				2C81BF8D1E89F8E300D27E52 /* SivFormat.cpp in Sources */,
 				2C2126601E8CF6EA006F8101 /* ImageFormat_GIF.cpp in Sources */,
 				2C81BFEC1E89F8E300D27E52 /* CTextWriter.cpp in Sources */,
+				2C2126891E97D11D006F8101 /* SivProfiler.cpp in Sources */,
 				2C81BFA81E89F8E300D27E52 /* ImageFormat_PNG.cpp in Sources */,
 				2C81BFB71E89F8E300D27E52 /* KeyboardFactory.cpp in Sources */,
 				2C81C0791E89F8E300D27E52 /* muParser.cpp in Sources */,
@@ -3059,6 +3090,7 @@
 				2C81BF5B1E89F8E300D27E52 /* CBinaryReader_Windows.cpp in Sources */,
 				2C81C0221E89F8E300D27E52 /* cocoa_time.c in Sources */,
 				2C21267A1E93D115006F8101 /* CClipboard_macOS.mm in Sources */,
+				2C2126851E97D11D006F8101 /* CProfiler.cpp in Sources */,
 				2C81BFC61E89F8E300D27E52 /* SivMonitor.cpp in Sources */,
 				2C81BFA21E89F8E300D27E52 /* CImageFormat.cpp in Sources */,
 				2C81BF841E89F8E300D27E52 /* DragDropFactory.cpp in Sources */,

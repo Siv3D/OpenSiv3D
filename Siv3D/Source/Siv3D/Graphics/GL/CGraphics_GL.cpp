@@ -17,6 +17,7 @@
 # include "CGraphics_GL.hpp"
 # include <Siv3D/Window.hpp>
 # include <Siv3D/CharacterSet.hpp>
+# include <Siv3D/System.hpp>
 
 namespace s3d
 {
@@ -101,7 +102,7 @@ namespace s3d
 			int32 numMonitors;
 			GLFWmonitor** monitors = ::glfwGetMonitors(&numMonitors);
 			
-			if (displayIndex > numMonitors)
+			if (static_cast<int32>(displayIndex) > numMonitors)
 			{
 				return false;
 			}
@@ -117,6 +118,12 @@ namespace s3d
 	bool CGraphics_GL::present()
 	{
 		::glfwSwapBuffers(m_glfwWindow);
+		
+		if (::glfwGetWindowAttrib(m_glfwWindow, GLFW_ICONIFIED)
+			|| ::glfwGetWindowAttrib(m_glfwWindow, GLFW_VISIBLE))
+		{
+			System::Sleep(16);
+		}
 		
 		return true;
 	}
