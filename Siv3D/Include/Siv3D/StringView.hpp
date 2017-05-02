@@ -59,9 +59,9 @@ namespace s3d
 			: m_ptr(str)
 			, m_length(count) {}
 
-        BasicStringView(const value_type* str)
-            : m_ptr(str)
-            , m_length(traits_type::length(str)) {}
+		BasicStringView(const value_type* str)
+			: m_ptr(str)
+			, m_length(traits_type::length(str)) {}
 
 		BasicStringView& operator =(const BasicStringView&) noexcept = default;
 
@@ -140,7 +140,7 @@ namespace s3d
 			const value_type* ptr = m_ptr;
 			m_ptr = other.m_ptr;
 			other.m_ptr = ptr;
-            
+
 			const size_type length = m_length;
 			m_length = other.m_length;
 			other.m_length = length;

@@ -16,6 +16,7 @@
 # include "ImageFormat/IImageFormat.hpp"
 # include "Window/IWindow.hpp"
 # include "DragDrop/IDragDrop.hpp"
+# include "Clipboard/IClipboard.hpp"
 # include "Cursor/ICursor.hpp"
 # include "Keyboard/IKeyboard.hpp"
 # include "Mouse/IMouse.hpp"
@@ -36,6 +37,7 @@ namespace s3d
 		m_mouse.release();
 		m_keyboard.release();
 		m_cursor.release();
+		m_clipboard.release();
 		m_dragdrop.release();
 		m_window.release();
 		m_imageFormat.release();
