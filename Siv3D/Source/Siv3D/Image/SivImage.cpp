@@ -19,6 +19,7 @@ S3D_DISABLE_MSVC_WARNINGS_POP()
 
 # include <Siv3D/Image.hpp>
 # include <Siv3D/BinaryWriter.hpp>
+# include <Siv3D/MemoryWriter.hpp>
 # include <Siv3D/Number.hpp>
 # include <Siv3D/Logger.hpp>
 
@@ -376,6 +377,21 @@ namespace s3d
 		writer.write(out_data.data(), out_data.length());
 
 		return true;
+	}
+
+	MemoryWriter Image::encode(ImageFormat format) const
+	{
+		if (isEmpty())
+		{
+			return MemoryWriter();
+		}
+
+		if (format == ImageFormat::Unspecified)
+		{
+			format = ImageFormat::PNG;
+		}
+
+		return Siv3DEngine::GetImageFormat()->encode(*this, format);
 	}
 
 	namespace Imaging

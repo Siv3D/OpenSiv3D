@@ -18,7 +18,7 @@
 
 namespace s3d
 {
-	class ByteArray : IReader
+	class ByteArray : public IReader
 	{
 	private:
 

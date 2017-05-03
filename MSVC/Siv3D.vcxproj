@@ -90,6 +90,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\MathParser.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\MD5.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\MemoryMapping.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\MemoryWriter.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\MersenneTwister.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\MessageBox.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Monitor.hpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Logger\LogHeaderFotter.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\MathParser\CMathParser.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\MemoryMapping\CMemoryMapping.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\MemoryWriter\CMemoryWriter.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Mouse\CMouse_Linux.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Mouse\CMouse_macOS.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Mouse\CMouse_Windows.hpp" />
@@ -365,6 +367,8 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\MD5\SivMD5.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\MemoryMapping\CMemoryMapping.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\MemoryMapping\SivMemoryMapping.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MemoryWriter\CMemoryWriter.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\MemoryWriter\SivMemoryWriter.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\MessageBox\SivMessageBox_Linux.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\MessageBox\SivMessageBox_macOS.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\MessageBox\SivMessageBox_Windows.cpp" />

@@ -10,97 +10,54 @@
 //-----------------------------------------------
 
 # pragma once
+# include <memory>
+# include "Fwd.hpp"
 # include "IWriter.hpp"
-# include "FileSystem.hpp"
+# include "ByteArrayView.hpp"
 
 namespace s3d
 {
 	/// <summary>
-	/// 書き込み用バイナリファイル
+	/// 書き込み用バッファ
 	/// </summary>
-	class BinaryWriter : public IWriter
+	class MemoryWriter : public IWriter
 	{
 	private:
 
-		class CBinaryWriter;
+		class CMemoryWriter;
 
-		std::shared_ptr<CBinaryWriter> pImpl;
+		std::shared_ptr<CMemoryWriter> pImpl;
 
 	public:
 
 		/// <summary>
 		/// デフォルトコンストラクタ
 		/// </summary>
-		BinaryWriter();
-
-		/// <summary>
-		/// 書き込み用のバイナリファイルを開きます。
-		/// </summary>
-		/// <param name="path">
-		/// ファイルパス
-		/// </param>
-		/// <param name="openMode">
-		/// オープンモード
-		/// </param>
-		explicit BinaryWriter(const FilePath& path, OpenMode openMode = OpenMode::Trunc)
-			: BinaryWriter()
-		{
-			open(path, openMode);
-		}
+		MemoryWriter();
 
 		/// <summary>
 		/// デストラクタ
 		/// </summary>
-		~BinaryWriter() = default;
+		~MemoryWriter() = default;
 
 		/// <summary>
-		/// 書き込み用のバイナリファイルを開きます。
-		/// </summary>
-		/// <param name="path">
-		/// ファイルパス
-		/// </param>
-		/// <param name="openMode">
-		/// オープンモード
-		/// </param>
-		/// <returns>
-		/// ファイルのオープンに成功した場合 true, それ以外の場合は false
-		/// </returns>
-		bool open(const FilePath& path, OpenMode openMode = OpenMode::Trunc);
-
-		/// <summary>
-		/// バイナリファイルの書き込みバッファをフラッシュします。
+		/// 書き込みバッファを解放します。
 		/// </summary>
 		/// <returns>
 		/// なし
 		/// </returns>
-		void flush();
+		void release();
 
 		/// <summary>
-		/// バイナリファイルをクローズします。
+		/// 書き込み用バッファが使用可能かを返します。
 		/// </summary>
 		/// <returns>
-		/// なし
+		/// つねに true
 		/// </returns>
-		void close();
+		bool isOpened() const override { return true; }
 
 		/// <summary>
-		/// バイナリファイルがオープンされているかを返します。
-		/// </summary>
-		/// <returns>
-		/// ファイルがオープンされている場合 true, それ以外の場合は false
-		/// </returns>
-		bool isOpened() const override;
-
-		/// <summary>
-		/// バイナリファイルがオープンされているかを返します。
-		/// </summary>
-		/// <returns>
-		/// ファイルがオープンされている場合 true, それ以外の場合は false
-		/// </returns>
-		explicit operator bool() const { return isOpened(); }
-
-		/// <summary>
-		/// 現在開いているファイルの内容を消去し、書き込み位置を先頭に戻します。
+		/// 書き込み用バッファの内容を消去し、書き込み位置を先頭に戻します。
 		/// </summary>
 		/// <returns>
 		/// なし
@@ -108,10 +65,18 @@ namespace s3d
 		void clear();
 
 		/// <summary>
-		/// バイナリファイルのサイズを返します。
+		/// 書き込み用バッファが使用可能かを返します。
 		/// </summary>
 		/// <returns>
-		/// バイナリファイルのサイズ（バイト）
+		/// つねに true
+		/// </returns>
+		explicit operator bool() const { return isOpened(); }
+
+		/// <summary>
+		/// 書き込み用バッファのサイズを返します。
+		/// </summary>
+		/// <returns>
+		/// 書き込み用バッファのサイズ（バイト）
 		/// </returns>
 		int64 size() const override;
 
@@ -143,7 +108,7 @@ namespace s3d
 		int64 seekEnd();
 
 		/// <summary>
-		/// ファイルにデータを書き込みます。
+		///	バッファにデータを書き込みます。
 		/// </summary>
 		/// <param name="src">
 		/// 書き込むデータ
@@ -157,7 +122,7 @@ namespace s3d
 		int64 write(const void* src, size_t size) override;
 
 		/// <summary>
-		/// ファイルにデータを書き込みます。
+		/// バッファにデータを書き込みます。
 		/// </summary>
 		/// <param name="view">
 		/// 書き込むデータ
@@ -171,11 +136,30 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// オープンしているファイルのパスを返します。
+		/// 書き込みバッファの先頭ポインタを返します。
 		/// </summary>
 		/// <remarks>
-		/// クローズしている場合は空の文字列です。
+		/// 現在の書き込み位置に関係なく、バッファの先頭のポインタを返します。
 		/// </remarks>
-		const FilePath& path() const;
+		/// <returns>
+		/// 書き込みバッファの先頭ポインタ
+		/// </returns>
+		const Byte* data() const;
+
+		/// <summary>
+		/// バッファの内容をファイルに保存します。
+		/// </summary>
+		/// <param name="path">
+		/// ファイルパス
+		/// </param>
+		/// <remarks>
+		/// 現在の書き込み位置に関係なく、バッファの内容全てを保存します。
+		/// </remarks>
+		/// <returns>
+		/// 保存に成功した場合 true, それ以外の場合は false
+		/// </returns>
+		bool save(const FilePath& path) const;
+
+		ByteArrayView getView() const;
 	};
 }
