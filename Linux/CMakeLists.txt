@@ -113,6 +113,8 @@ set(SOURCE_FILES
 	"../Siv3D/Source/Siv3D/MathParser/SivMathParser.cpp"
 	"../Siv3D/Source/Siv3D/MemoryMapping/CMemoryMapping.cpp"
 	"../Siv3D/Source/Siv3D/MemoryMapping/SivMemoryMapping.cpp"
+	"../Siv3D/Source/Siv3D/MemoryWriter/CMemoryWriter.cpp"
+	"../Siv3D/Source/Siv3D/MemoryWriter/SivMemoryWriter.cpp"
 	"../Siv3D/Source/Siv3D/MessageBox/SivMessageBox_Linux.cpp"
 	"../Siv3D/Source/Siv3D/Monitor/SivMonitor.cpp"
 	"../Siv3D/Source/Siv3D/Mouse/CMouse_Linux.cpp"
