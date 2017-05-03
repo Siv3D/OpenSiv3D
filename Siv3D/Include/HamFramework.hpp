@@ -33,3 +33,4 @@
 # endif
 
 # include "HamFramework/Rx.hpp"
+# include "HamFramework/MiniScene.hpp"
