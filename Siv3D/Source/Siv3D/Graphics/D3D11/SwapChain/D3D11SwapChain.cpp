@@ -206,11 +206,12 @@ namespace s3d
 
 		if (fullScreen)
 		{
+			// 一旦フルスクリーンを解除
 			if (m_fullScreen)
 			{
 				setFullScreen(false, size, displayIndex, refreshRateHz);
 			}
-
+			// フルスクリーン化
 			if (!setBestFullScreenMode(size, displayIndex, refreshRateHz))
 			{
 				return false;
@@ -218,6 +219,7 @@ namespace s3d
 		}
 		else
 		{
+			// フルスクリーンを解除
 			m_swapChain->SetFullscreenState(false, nullptr);
 
 			Siv3DEngine::GetGraphics()->beginResize();
@@ -247,9 +249,7 @@ namespace s3d
 
 	bool D3D11SwapChain::present()
 	{
-		const bool vSyncEnabled = true;
-
-		const HRESULT hr = m_swapChain->Present(vSyncEnabled, 0);
+		const HRESULT hr = m_swapChain->Present(m_vSyncEnabled, 0);
 
 		if (FAILED(hr))
 		{
@@ -261,6 +261,16 @@ namespace s3d
 		}
 
 		return true;
+	}
+
+	void D3D11SwapChain::setVSyncEnabled(const bool enabled)
+	{
+		m_vSyncEnabled = enabled;
+	}
+
+	bool D3D11SwapChain::isVSyncEnabled() const
+	{
+		return m_vSyncEnabled;
 	}
 
 	bool D3D11SwapChain::setBestFullScreenMode(const Size& size, const size_t displayIndex, const double refreshRateHz)
@@ -305,8 +315,10 @@ namespace s3d
 					Point(desc.DesktopCoordinates.left, desc.DesktopCoordinates.top));
 			}
 		}
-
-		size_t bestIndex = 0;
+    
+		// サイズが一致するもののうちリフレッシュレートが一致するものを選択
+		// サイズが一致するものが存在しなければ return false
+		Optional<size_t> bestIndex;
 		double bestDiff = 999999.9;
 
 		for (size_t i = 0; i < displayModeList.size(); ++i)
@@ -326,6 +338,11 @@ namespace s3d
 			}
 		}
 
+		if (!bestIndex)
+		{
+			return false;
+		}
+
 		//Log << displayModeList[bestIndex].Width;
 		//Log << displayModeList[bestIndex].Height;
 		//Log << static_cast<double>(displayModeList[bestIndex].RefreshRate.Numerator) / displayModeList[bestIndex].RefreshRate.Denominator;
@@ -335,8 +352,10 @@ namespace s3d
 
 		Siv3DEngine::GetGraphics()->beginResize();
 
-		m_swapChain->ResizeTarget(&displayModeList[bestIndex]);
-		m_swapChain->ResizeBuffers(1, displayModeList[bestIndex].Width, displayModeList[bestIndex].Height, DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
+		const auto& bestDisplayMode = displayModeList[bestIndex.value()];
+
+		m_swapChain->ResizeTarget(&bestDisplayMode);
+		m_swapChain->ResizeBuffers(1, bestDisplayMode.Width, bestDisplayMode.Height, DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
 		
 		Siv3DEngine::GetGraphics()->endResize(size);
 		

@@ -417,6 +417,15 @@ namespace s3d
 			return result;
 		}
 
+		/// <summary>
+		/// 配列を指定された数に分割した、配列の配列を返します。
+		/// </summary>
+		/// <param name="n">
+		/// 配列の分割数
+		/// </param>
+		/// <returns>
+		/// 指定された分割数に分割した配列の配列
+		/// </returns>
 		Array<Array<Type, Allocator>, std::allocator<Array<Type, Allocator>>> chunk(const size_t n) const
 		{
 			Array<Array<Type, Allocator>, std::allocator<Array<Type, Allocator>>> result;
@@ -521,7 +530,7 @@ namespace s3d
 		}
 		
 		/// <summary>
-		/// 配列の各要素への参照を引数に、先頭の要素から順に関数を呼び出します
+		/// 配列の各要素への参照を引数に、先頭の要素から順に関数を呼び出します。
 		/// </summary>
 		/// <param name="f">
 		/// 各要素への参照を引数にとる関数
@@ -541,7 +550,7 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// 配列の各要素への参照を引数に、先頭の要素から順に関数を呼び出します
+		/// 配列の各要素への参照を引数に、先頭の要素から順に関数を呼び出します。
 		/// </summary>
 		/// <param name="f">
 		/// 各要素への参照を引数にとる関数
@@ -561,7 +570,7 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// インデックスと、配列の各要素への参照を引数に、先頭の要素から順に関数を呼び出します
+		/// インデックスと、配列の各要素への参照を引数に、先頭の要素から順に関数を呼び出します。
 		/// </summary>
 		/// <param name="f">
 		/// 第一引数にインデックス、第二引数に各要素への参照をとる関数
@@ -583,7 +592,7 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// インデックスと、配列の各要素への参照を引数に、先頭の要素から順に関数を呼び出します
+		/// インデックスと、配列の各要素への参照を引数に、先頭の要素から順に関数を呼び出します。
 		/// </summary>
 		/// <param name="f">
 		/// 第一引数にインデックス、第二引数に各要素への参照をとる関数
@@ -627,7 +636,7 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// 配列のすべての要素に同じ値を代入します
+		/// 配列のすべての要素に同じ値を代入します。
 		/// </summary>
 		/// <param name="value">
 		/// すべての要素に代入する値
@@ -643,7 +652,7 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// 条件を満たす要素のみからなる新しい配列を返します
+		/// 条件を満たす要素のみからなる新しい配列を返します。
 		/// </summary>
 		/// <param name="f">
 		/// 新しい配列に含む要素の条件
@@ -667,6 +676,15 @@ namespace s3d
 			return new_array;
 		}
 
+		/// <summary>
+		/// 配列を指定された要素数づつに分割した、配列の配列を返します。
+		/// </summary>
+		/// <param name="group">
+		/// 一つの分割された配列に含まれる要素数
+		/// </param>
+		/// <returns>
+		/// 指定された要素数づつに分割された配列の配列
+		/// </returns>
 		Array<Array<Type, Allocator>, std::allocator<Array<Type, Allocator>>> in_groups(const size_t group) const
 		{
 			Array<Array<Type, Allocator>, std::allocator<Array<Type, Allocator>>> result;
@@ -1281,7 +1299,7 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// 配列の各要素への参照を引数に、末尾の要素から順に関数を呼び出します
+		/// 配列の各要素への参照を引数に、末尾の要素から順に関数を呼び出します。
 		/// </summary>
 		/// <param name="f">
 		/// 各要素への参照を引数にとる関数
@@ -1301,7 +1319,7 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// 配列の各要素への参照を引数に、末尾の要素から順に関数を呼び出します
+		/// 配列の各要素への参照を引数に、末尾の要素から順に関数を呼び出します。
 		/// </summary>
 		/// <param name="f">
 		/// 各要素への参照を引数にとる関数
@@ -1321,7 +1339,7 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// 配列の要素の位置をシフトさせ、はみ出た要素は反対側に挿入します。
+		/// 配列の各要素の位置をシフトさせ、はみ出た要素は反対側に挿入します。
 		/// </summary>
 		/// <param name="count">
 		/// 要素をシフトする数
@@ -1359,11 +1377,29 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 配列の各要素の位置をシフトさせ、はみ出た要素を反対側に挿入した新しい配列を返します。
+		/// </summary>
+		/// <param name="count">
+		/// 要素をシフトする数
+		/// </param>
+		/// <returns>
+		/// 新しい配列
+		/// </returns>
 		Array rotated(const std::ptrdiff_t count = 1) const &
 		{
 			return Array(*this).rotate(count);
 		}
 
+		/// <summary>
+		/// 配列の各要素の位置をシフトさせ、はみ出た要素を反対側に挿入した新しい配列を返します。
+		/// </summary>
+		/// <param name="count">
+		/// 要素をシフトする数
+		/// </param>
+		/// <returns>
+		/// 新しい配列
+		/// </returns>
 		Array rotated(const std::ptrdiff_t count = 1) &&
 		{
 			rotate(count);
@@ -1371,11 +1407,26 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 配列をランダムに並び替えます。
+		/// </summary>
+		/// <returns>
+		/// *this
+		/// </returns>
 		Array& shuffle()
 		{
 			return shuffle(GetDefaultRNG());
 		}
 
+		/// <summary>
+		/// 指定された乱数生成器を使って配列をランダムに並び替えます。
+		/// </summary>
+		/// <param name="rbg">
+		/// 使用する乱数生成器
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		template <class URBG>
 		Array& shuffle(URBG&& rbg)
 		{
@@ -1384,22 +1435,52 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// ランダムに並び替えた新しい配列を返します。
+		/// </summary>
+		/// <returns>
+		/// ランダムに並び替えられた配列
+		/// </returns>
 		Array shuffled() const &
 		{
 			return shuffled(GetDefaultRNG());
 		}
 
+		/// <summary>
+		/// ランダムに並び替えた新しい配列を返します。
+		/// </summary>
+		/// <returns>
+		/// ランダムに並び替えられた配列
+		/// </returns>
 		Array shuffled() &&
 		{
 			return shuffled(GetDefaultRNG());
 		}
 
+		/// <summary>
+		/// 指定された乱数生成器を使ってランダムに並び替えた新しい配列を返します。
+		/// </summary>
+		/// <param name="rbg">
+		/// 使用する乱数生成器
+		/// </param>
+		/// <returns>
+		/// ランダムに並び替えられた配列
+		/// </returns>
 		template <class URBG>
 		Array shuffled(URBG&& rbg) const &
 		{
 			return Array(*this).shuffle(std::forward<URBG>(rbg));
 		}
 
+		/// <summary>
+		/// 指定された乱数生成器を使ってランダムに並び替えた新しい配列を返します。
+		/// </summary>
+		/// <param name="rbg">
+		/// 使用する乱数生成器
+		/// </param>
+		/// <returns>
+		/// ランダムに並び替えられた配列
+		/// </returns>
 		template <class URBG>
 		Array shuffled(URBG&& rbg) &&
 		{
@@ -1408,6 +1489,15 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 指定されたインデックスから配列の末尾までをコピーした新しい配列を返します。
+		/// </summary>
+		/// <param name="index">
+		/// 新しい配列の先頭要素になる要素のインデックス
+		/// </param>
+		/// <returns>
+		/// 新しい配列
+		/// </returns>
 		Array slice(const size_t index) const
 		{
 			if (index >= size())
@@ -1418,6 +1508,18 @@ namespace s3d
 			return Array(begin() + index, end());
 		}
 
+		/// <summary>
+		/// 指定されたインデックスから指定された要素数をコピーした新しい配列を返します。
+		/// </summary>
+		/// <param name="index">
+		/// 新しい配列の先頭要素になる要素のインデックス
+		/// </param>
+		/// <param name="length">
+		/// 新しい配列の要素数
+		/// </param>
+		/// <returns>
+		/// 新しい配列
+		/// </returns>
 		Array slice(const size_t index, const size_t length) const
 		{
 			if (index >= size())
@@ -1428,6 +1530,12 @@ namespace s3d
 			return Array(begin() + index, begin() + std::min(index + length, size()));
 		}
 
+		/// <summary>
+		/// 配列を &lt; 比較でソートします。
+		/// </summary>
+		/// <returns>
+		/// *this
+		/// </returns>
 		template <class T = Type, std::enable_if_t<Concept::HasLessThan<T>::value>* = nullptr>
 		Array& sort()
 		{
@@ -1436,6 +1544,15 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 配列を指定された比較関数でソートします。
+		/// </summary>
+		/// <param name="f">
+		/// 使用する比較関数
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		template <class Fty>
 		Array& sort_by(Fty f)
 		{
@@ -1444,12 +1561,24 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 配列を &lt; 比較でソートした新しい配列を返します。
+		/// </summary>
+		/// <returns>
+		/// ソート済みの配列
+		/// </returns>
 		template <class T = Type, std::enable_if_t<Concept::HasLessThan<T>::value>* = nullptr>
 		Array sorted() const &
 		{
 			return Array(*this).sort();
 		}
 
+		/// <summary>
+		/// 配列を &lt; 比較でソートした新しい配列を返します。
+		/// </summary>
+		/// <returns>
+		/// ソート済みの配列
+		/// </returns>
 		template <class T = Type, std::enable_if_t<Concept::HasLessThan<T>::value>* = nullptr>
 		Array sorted() &&
 		{
@@ -1458,12 +1587,30 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 配列を指定された比較関数でソートした新しい配列を返します。
+		/// </summary>
+		/// <param name="f">
+		/// 使用する比較関数
+		/// </param>
+		/// <returns>
+		/// ソート済みの配列
+		/// </returns>
 		template <class Fty>
 		Array sorted_by(Fty f) const &
 		{
 			return Array(*this).sort_by(f);
 		}
 
+		/// <summary>
+		/// 配列を指定された比較関数でソートした新しい配列を返します。
+		/// </summary>
+		/// <param name="f">
+		/// 使用する比較関数
+		/// </param>
+		/// <returns>
+		/// ソート済みの配列
+		/// </returns>
 		template <class Fty>
 		Array sorted_by(Fty f) &&
 		{
@@ -1472,6 +1619,12 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 配列の全要素の合計を返します。
+		/// </summary>
+		/// <returns>
+		/// 配列の全要素の合計
+		/// </returns>
 		template <class T = Type, std::enable_if_t<Concept::HasPlus<T>::value && Concept::HasPlusAssign<T>::value>* = nullptr>
 		auto sum() const
 		{
@@ -1485,6 +1638,12 @@ namespace s3d
 			return result;
 		}
 
+		/// <summary>
+		/// 配列の全要素の合計を返します。
+		/// </summary>
+		/// <returns>
+		/// 配列の全要素の合計
+		/// </returns>
 		template <class T = Type, std::enable_if_t<Concept::HasPlus<T>::value && !Concept::HasPlusAssign<T>::value>* = nullptr>
 		auto sum() const
 		{
@@ -1498,12 +1657,19 @@ namespace s3d
 			return result;
 		}
 
+		// do nothing
 		template <class T = Type, std::enable_if_t<!Concept::HasPlus<T>::value>* = nullptr>
 		const Array& sum() const
 		{
 			return *this;
 		}
 
+		/// <summary>
+		/// 精度の高い配列の全要素の合計を返します。
+		/// </summary>
+		/// <returns>
+		/// 高精度な配列の全要素の合計
+		/// </returns>
 		template <class T = Type, std::enable_if_t<std::is_floating_point<T>::value>* = nullptr>
 		auto sumF() const &
 		{
@@ -1521,17 +1687,41 @@ namespace s3d
 			return static_cast<T>(s);
 		}
 
+		/// <summary>
+		/// 配列の先頭から指定された要素数分取り出した新しい配列を返します。
+		/// </summary>
+		/// <param name="n">
+		/// 取り出す要素数
+		/// </param>
+		/// <returns>
+		/// 新しい配列
+		/// </returns>
 		Array take(const size_t n) const
 		{
 			return Array(begin(), begin() + std::min(n, size()));
 		}
 
+		/// <summary>
+		/// 配列の先頭から、指定された条件を満たす連続した要素を取り出した新しい配列を返します。
+		/// </summary>
+		/// <param name="f">
+		/// 条件を記述した関数
+		/// </param>
+		/// <returns>
+		/// 新しい配列
+		/// </returns>
 		template <class Fty>
 		Array take_while(Fty f) const
 		{
 			return Array(begin(), std::find_if_not(begin(), end(), f));
 		}
 
+		/// <summary>
+		/// 配列をソートし、重複する要素を削除します。
+		/// </summary>
+		/// <returns>
+		/// *this
+		/// </returns>
 		Array& unique()
 		{
 			sort();
@@ -1541,11 +1731,23 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 配列をソートし、重複する要素を削除した新しい配列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい配列
+		/// </returns>
 		Array uniqued() const &
 		{
 			return Array(*this).unique();
 		}
 
+		/// <summary>
+		/// 配列をソートし、重複する要素を削除した新しい配列を返します。
+		/// </summary>
+		/// <returns>
+		/// 新しい配列
+		/// </returns>
 		Array uniqued() &&
 		{
 			sort();
@@ -1557,6 +1759,18 @@ namespace s3d
 			return std::move(*this);
 		}
 
+		/// <summary>
+		/// 複数のインデックスを取り、それらの要素からなる新しい配列を返します。
+		/// </summary>
+		/// <param name="indices">
+		/// 現在の配列における複数のインデックス
+		/// </param>
+		/// <example><code>
+		/// Array &lt; int &gt; ({1, 2, 3, 4, 5}).values_at({0, 3, 4}); // => {1, 4, 5}
+		/// </code></example>
+		/// <returns>
+		/// 新しい配列
+		/// </returns>
 		Array values_at(std::initializer_list<size_t> indices) const
 		{
 			Array new_array;
@@ -1576,6 +1790,18 @@ namespace s3d
 			return new_array;
 		}
 
+		/// <summary>
+		/// 条件に合う要素の個数を並列化して数えます。
+		/// </summary>
+		/// <param name="f">
+		/// 条件を記述した関数
+		/// </param>
+		/// <param name="numThreads">
+		/// 使用するスレッド数の最大数
+		/// </param>
+		/// <returns>
+		/// 見つかった要素の個数
+		/// </returns>
 		template <class Fty>
 		size_t parallel_count_if(Fty f, size_t numThreads = Threading::GetConcurrency()) const
 		{
@@ -1611,6 +1837,18 @@ namespace s3d
 			return result;
 		}
 
+		/// <summary>
+		/// 配列の各要素への参照を引数に、並列化して関数を呼び出します。
+		/// </summary>
+		/// <param name="f">
+		/// 各要素への参照を引数にとる関数
+		/// </param>
+		/// <param name="numThreads">
+		/// 使用するスレッド数の最大数
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		template <class Fty>
 		Array& parallel_each(Fty f, size_t numThreads = Threading::GetConcurrency())
 		{
@@ -1646,6 +1884,18 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 配列の各要素への参照を引数に、並列化して関数を呼び出します。
+		/// </summary>
+		/// <param name="f">
+		/// 各要素への参照を引数にとる関数
+		/// </param>
+		/// <param name="numThreads">
+		/// 使用するスレッド数の最大数
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
 		template <class Fty>
 		const Array& parallel_each(Fty f, size_t numThreads = Threading::GetConcurrency()) const
 		{
@@ -1679,6 +1929,18 @@ namespace s3d
 			return *this;
 		}
 
+		/// <summary>
+		/// 配列の各要素に関数を並列化して適用し、その戻り値からなる配列を返します。
+		/// </summary>
+		/// <param name="f">
+		/// 各要素に適用する関数
+		/// </param>
+		/// <param name="numThreads">
+		/// 使用するスレッド数の最大数
+		/// </param>
+		/// <returns>
+		/// 配列の各要素に関数を適用した戻り値からなる配列
+		/// </returns>
 		template <class Fty>
 		auto parallel_map(Fty f, size_t numThreads = Threading::GetConcurrency()) const
 			-> Array<decltype(f(std::declval<value_type>()))>

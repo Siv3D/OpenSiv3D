@@ -115,7 +115,7 @@
 - [x] Profiler::FPS()
 - [x] System::FrameCount()
 - [x] System::DeltaTime()
-- [ ] Graphics::EnableVSync()
+- [x] Graphics::EnableVSync()
 - [ ] Log
 - [ ] Cursor::SetPos()
 - [ ] Cursor::OnClient()

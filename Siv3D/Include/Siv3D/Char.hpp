@@ -187,7 +187,7 @@ namespace s3d
 			|| InRange<char32_t>(ch, 0x1F900, 0x1F9FF);
 	}
 
-	inline constexpr int32 CaseCompare(const wchar a, const wchar b) noexcept
+	inline constexpr int32 CaseInsensitiveCompare(const wchar a, const wchar b) noexcept
 	{
 		return (a + IsUpper(a) * 32) < (b + IsUpper(b) * 32) ? -1 : (a + IsUpper(a) * 32) != (b + IsUpper(b) * 32);
 	}
