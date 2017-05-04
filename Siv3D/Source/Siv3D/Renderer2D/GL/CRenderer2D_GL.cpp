@@ -21,6 +21,7 @@
 # include <Siv3D/Color.hpp>
 # include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/MathConstants.hpp>
+# include <Siv3D/BlendState.hpp>
 # include <Siv3D/Logger.hpp>
 
 namespace s3d
@@ -203,6 +204,17 @@ void main()
 		m_spriteBatch.clear();
 	}
 
+	void CRenderer2D_GL::setBlendState(const BlendState& state)
+	{
+		// [Siv3D ToDo]
+	}
+	
+	BlendState CRenderer2D_GL::getBlendState() const
+	{
+		// [Siv3D ToDo]
+		return BlendState::Default;
+	}
+	
 	void CRenderer2D_GL::addTriangle(const Float2(&pts)[3], const Float4& color)
 	{
 		constexpr IndexType vertexSize = 3, indexSize = 3;
