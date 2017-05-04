@@ -161,7 +161,7 @@ namespace s3d
 		bool getBuffer(const uint32 vertexSize, const uint32 indexSize, Vertex2D** pVertex, IndexType** pIndices, IndexType* indexOffset)
 		{
 			// VB
-			const uint32 requiredVertexSize = m_batches.back().vertexPos + vertexSize;
+			const uint32 requiredVertexSize = m_vertexArrayWritePos + vertexSize;
 
 			if (m_vertices.size() < requiredVertexSize)
 			{
@@ -174,7 +174,7 @@ namespace s3d
 			}
 
 			// IB
-			const uint32 requiredIndexSize = m_batches.back().indexPos + indexSize;
+			const uint32 requiredIndexSize = m_indexArrayWritePos + indexSize;
 
 			if (m_indices.size() < requiredIndexSize)
 			{
@@ -186,8 +186,8 @@ namespace s3d
 				resizeIndices(requiredIndexSize);
 			}
 			
-			if (VertexBufferSize < requiredVertexSize
-				|| IndexBufferSize < requiredIndexSize)
+			if (VertexBufferSize < (m_batches.back().vertexPos + vertexSize)
+				|| IndexBufferSize < (m_batches.back().indexPos + indexSize))
 			{
 				m_batches.emplace_back();
 			}
