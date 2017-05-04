@@ -192,6 +192,21 @@ namespace s3d
 		return m_swapChain->isVSyncEnabled();
 	}
 
+	void CGraphics_D3D11::setTargetFrameRateHz(const Optional<double>& targetFrameRateHz)
+	{
+		m_swapChain->setTargetFrameRateHz(targetFrameRateHz);
+	}
+
+	Optional<double> CGraphics_D3D11::getTargetFrameRateHz() const
+	{
+		return m_swapChain->getTargetFrameRateHz();
+	}
+
+	double CGraphics_D3D11::getDisplayRefreshRateHz() const
+	{
+		return m_swapChain->getDisplayRefreshRateHz();
+	}
+
 	bool CGraphics_D3D11::flush()
 	{
 		m_renderer2D->flush();

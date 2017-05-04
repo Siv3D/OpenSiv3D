@@ -30,6 +30,26 @@ namespace s3d
 		static constexpr IndexType rectIndexTable[6] = { 0, 1, 2, 2, 1, 3 };
 		
 		static constexpr IndexType rectFrameIndexTable[24] = { 0, 1, 2, 3, 2, 1, 0, 4, 1, 5, 1, 4, 5, 4, 7, 6, 7, 4, 3, 7, 2, 6, 2, 7 };
+
+		static constexpr IndexType CalculateCircleFrameQuality(const float size) noexcept
+		{
+			if (size <= 1.0f)
+			{
+				return 4;
+			}
+			else if (size <= 6.0f)
+			{
+				return 7;
+			}
+			else if (size <= 8.0f)
+			{
+				return 11;
+			}
+			else
+			{
+				return static_cast<IndexType>(std::min(size * 0.225f + 18.0f, 255.0f));
+			}
+		}
 	}
 	
 	CRenderer2D_GL::CRenderer2D_GL()
@@ -367,6 +387,90 @@ void main()
 			pIndex[i * 3 + 0] = indexOffset + (i + 0) + 1;
 			pIndex[i * 3 + 1] = indexOffset;
 			pIndex[i * 3 + 2] = indexOffset + (i + 1) % quality + 1;
+		}
+	}
+
+	void CRenderer2D_GL::addCircleFrame(const Float2& center, float r, float thickness, const Float4& color)
+	{
+		const float rt = r + thickness;
+		const IndexType quality = detail::CalculateCircleFrameQuality(rt);
+		const IndexType vertexSize = quality * 2, indexSize = quality * 6;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		{
+			return;
+		}
+
+		const float centerX = center.x;
+		const float centerY = center.y;
+		const float radDelta = Math::TwoPiF / quality;
+
+		for (IndexType i = 0; i < quality; ++i)
+		{
+			const float rad = radDelta * (i - 1.0f);
+			const float c = std::cosf(rad);
+			const float s = std::sinf(rad);
+
+			pVertex->pos.set(centerX + rt * c, centerY - rt * s);
+			pVertex->color = color;
+			++pVertex;
+
+			pVertex->pos.set(centerX + r * c, centerY - r * s);
+			pVertex->color = color;
+			++pVertex;
+		}
+
+		for (IndexType i = 0; i < quality; ++i)
+		{
+			for (IndexType k = 0; k < 6; ++k)
+			{
+				pIndex[i * 6 + k] = indexOffset + (i * 2 + detail::rectIndexTable[k]) % (quality * 2);
+			}
+		}
+	}
+
+	void CRenderer2D_GL::addCircleFrame(const Float2& center, float r, float thickness, const Float4& innerColor, const Float4& outerColor)
+	{
+		const float rt = r + thickness;
+		const IndexType quality = detail::CalculateCircleFrameQuality(rt);
+		const IndexType vertexSize = quality * 2, indexSize = quality * 6;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		{
+			return;
+		}
+
+		const float centerX = center.x;
+		const float centerY = center.y;
+		const float radDelta = Math::TwoPiF / quality;
+
+		for (IndexType i = 0; i < quality; ++i)
+		{
+			const float rad = radDelta * (i - 1.0f);
+			const float c = std::cosf(rad);
+			const float s = std::sinf(rad);
+
+			pVertex->pos.set(centerX + rt * c, centerY - rt * s);
+			pVertex->color = outerColor;
+			++pVertex;
+
+			pVertex->pos.set(centerX + r * c, centerY - r * s);
+			pVertex->color = innerColor;
+			++pVertex;
+		}
+
+		for (IndexType i = 0; i < quality; ++i)
+		{
+			for (IndexType k = 0; k < 6; ++k)
+			{
+				pIndex[i * 6 + k] = indexOffset + (i * 2 + detail::rectIndexTable[k]) % (quality * 2);
+			}
 		}
 	}
 	

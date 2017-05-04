@@ -55,6 +55,10 @@ namespace s3d
 		void addRectFrame(const FloatRect& rect, float thickness, const Float4& color) override;
 
 		void addCircle(const Float2& center, float r, const Float4& color) override;
+
+		void addCircleFrame(const Float2& center, float r, float thickness, const Float4& color) override;
+
+		void addCircleFrame(const Float2& center, float r, float thickness, const Float4& innerColor, const Float4& outerColor) override;
 		
 		void addQuad(const FloatQuad& quad, const Float4& color) override;
 		

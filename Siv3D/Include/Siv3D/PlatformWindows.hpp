@@ -75,3 +75,4 @@
 # endif
 
 # pragma comment (lib, "winmm")
+# pragma comment (lib, "Dwmapi")

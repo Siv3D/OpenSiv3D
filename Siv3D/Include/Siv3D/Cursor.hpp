@@ -23,7 +23,7 @@ namespace s3d
 		/// <returns>
 		/// マウスカーソルの位置（クライアント座標）
 		/// </returns>
-		const Point& Pos();
+		Point Pos();
 
 		/// <summary>
 		/// マウスカーソルの位置を返します（クライアント座標）
@@ -39,7 +39,7 @@ namespace s3d
 		/// <returns>
 		/// 1 フレーム前のマウスカーソルの位置（クライアント座標）
 		/// </returns>
-		const Point& PreviousPos();
+		Point PreviousPos();
 
 		/// <summary>
 		/// 1 フレーム前のマウスカーソルの位置を返します（クライアント座標）
@@ -55,7 +55,7 @@ namespace s3d
 		/// <returns>
 		/// 1 つ前のフレームと比べたマウスカーソルの移動量（クライアント座標）
 		/// </returns>
-		const Point& Delta();
+		Point Delta();
 
 		/// <summary>
 		/// 1 つ前のフレームと比べたマウスカーソルの移動量を返します（クライアント座標）
@@ -71,7 +71,7 @@ namespace s3d
 		/// <returns>
 		/// マウスカーソルの位置（スクリーン座標）
 		/// </returns>
-		const Point& ScreenPos();
+		Point ScreenPos();
 
 		/// <summary>
 		/// 1 フレーム前のマウスカーソルの位置を返します（スクリーン座標）
@@ -79,7 +79,7 @@ namespace s3d
 		/// <returns>
 		/// 1 フレーム前のマウスカーソルの位置（スクリーン座標）
 		/// </returns>
-		const Point& PreviousScreenPos();
+		Point PreviousScreenPos();
 
 		/// <summary>
 		/// 1 つ前のフレームと比べたマウスカーソルの移動量を返します（スクリーン座標）
@@ -87,7 +87,7 @@ namespace s3d
 		/// <returns>
 		/// 1 つ前のフレームと比べたマウスカーソルの移動量（スクリーン座標）
 		/// </returns>
-		const Point& ScreenDelta();
+		Point ScreenDelta();
 
 		void SetPos(int32 x, int32 y);
 

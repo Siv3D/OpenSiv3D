@@ -40,5 +40,20 @@ namespace s3d
 		{
 			return Siv3DEngine::GetGraphics()->isVSyncEnabled();
 		}
+
+		void SetTargetFrameRateHz(const Optional<double>& targetFrameRateHz)
+		{
+			Siv3DEngine::GetGraphics()->setTargetFrameRateHz(targetFrameRateHz);
+		}
+
+		Optional<double> GetTargetFrameRateHz()
+		{
+			return Siv3DEngine::GetGraphics()->getTargetFrameRateHz();
+		}
+
+		double GetDisplayRefreshRateHz()
+		{
+			return Siv3DEngine::GetGraphics()->getDisplayRefreshRateHz();
+		}
 	}
 }

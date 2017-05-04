@@ -347,6 +347,9 @@
     <Filter Include="Source\Siv3D\JSONReader">
       <UniqueIdentifier>{54a6963e-93d0-4f6a-97d1-abf266a35486}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Include\HamFramework">
+      <UniqueIdentifier>{bcb7610a-59f4-41f4-9a1f-89236d2caa52}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1365,6 +1368,21 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\EasingController.hpp">
       <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\D3D11\D3D11Renderer2DCommandManager.hpp">
+      <Filter>Source\Siv3D\Renderer2D\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\BlendState.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\HamFramework.hpp">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\HamFramework\Rx.hpp">
+      <Filter>Include\HamFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\HamFramework\MiniScene.hpp">
+      <Filter>Include\HamFramework</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

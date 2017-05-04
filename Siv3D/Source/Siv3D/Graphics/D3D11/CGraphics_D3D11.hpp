@@ -78,6 +78,12 @@ namespace s3d
 		
 		bool isVSyncEnabled() const override;
 
+		void setTargetFrameRateHz(const Optional<double>& targetFrameRateHz) override;
+
+		Optional<double> getTargetFrameRateHz() const override;
+
+		double getDisplayRefreshRateHz() const override;
+
 		bool flush() override;
 
 		const Size& getCurrentRenderTargetSize() const override;

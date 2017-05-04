@@ -38,6 +38,10 @@ namespace s3d
 		CRenderer2D_GL* m_renderer2D = nullptr;
 		
 		Size m_currentRenderTargetSize = { 640, 480 };
+		
+		double m_lastFlipTimeMillisec = 0;
+		
+		Optional<double> m_targetFrameRateHz;
 
 	public:
 
@@ -70,6 +74,16 @@ namespace s3d
 		void setVSyncEnabled(bool enabled) override;
 		
 		bool isVSyncEnabled() const override;
+
+		void setTargetFrameRateHz(const Optional<double>& targetFrameRateHz) override;
+
+		Optional<double> getTargetFrameRateHz() const override;
+
+		double getDisplayRefreshRateHz() const override
+		{
+			// [Siv3D ToDo]
+			return 60.0;
+		}
 
 		bool flush() override;
 		
