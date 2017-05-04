@@ -25,6 +25,7 @@ using namespace Microsoft::WRL;
 # include <d3dcompiler.h>
 # include "../IRenderer2D.hpp"
 # include "D3D11SpriteBatch.hpp"
+# include "D3D11Renderer2DCommandManager.hpp"
 
 namespace s3d
 {
@@ -41,6 +42,8 @@ namespace s3d
 		D3D11SpriteBatch m_spriteBatch;
 
 		ComPtr<ID3D11Buffer> m_cbuffer;
+
+		D3D11Render2DCommandManager m_commandManager;
 
 	public:
 

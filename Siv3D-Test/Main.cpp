@@ -2,7 +2,7 @@
 
 void Main()
 {
-	Graphics::SetTargetFrameRateHz(120);
+	//Graphics::SetTargetFrameRateHz(120);
 
 	Graphics::SetBackground(Palette::White);
 
@@ -10,6 +10,11 @@ void Main()
 
 	while (System::Update())
 	{
+		for (auto p : step(Size(100, 50)))
+		{
+			Circle(p * 5, 2).draw(Palette::Gray);
+		}
+
 		Window::SetTitle(Profiler::FPS(), L"FPS");
 
 		t += System::DeltaTime();

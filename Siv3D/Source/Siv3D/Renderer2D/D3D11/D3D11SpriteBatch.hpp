@@ -28,6 +28,7 @@ using namespace Microsoft::WRL;
 # include <Siv3D/Array.hpp>
 # include <Siv3D/Vertex2D.hpp>
 # include <Siv3D/Logger.hpp>
+# include "D3D11Renderer2DCommandManager.hpp"
 
 namespace s3d
 {
@@ -85,7 +86,7 @@ namespace s3d
 		static constexpr uint32 VertexBufferSize	= 65536;
 		static constexpr uint32 IndexBufferSize		= VertexBufferSize * 8;
 
-		void resizeVertixes(const uint32 requiredVertexSize)
+		void resizeVertices(const uint32 requiredVertexSize)
 		{
 			size_t newVertexSize = m_vertices.size() * 2;
 
@@ -112,6 +113,7 @@ namespace s3d
 
 			m_indices.resize(newIndexSize);
 		}
+
 	public:
 
 		D3D11SpriteBatch()
@@ -160,10 +162,10 @@ namespace s3d
 			return true;
 		}
 
-		bool getBuffer(const uint32 vertexSize, const uint32 indexSize, Vertex2D** pVertex, IndexType** pIndices, IndexType* indexOffset)
+		bool getBuffer(const uint32 vertexSize, const uint32 indexSize, Vertex2D** pVertex, IndexType** pIndices, IndexType* indexOffset, D3D11Render2DCommandManager& commandManager)
 		{
 			// VB
-			const uint32 requiredVertexSize = m_batches.back().vertexPos + vertexSize;
+			const uint32 requiredVertexSize = m_vertexArrayWritePos + vertexSize;
 
 			if (m_vertices.size() < requiredVertexSize)
 			{
@@ -172,11 +174,11 @@ namespace s3d
 					return false;
 				}
 
-				resizeVertixes(requiredVertexSize);
+				resizeVertices(requiredVertexSize);
 			}
 
 			// IB
-			const uint32 requiredIndexSize = m_batches.back().indexPos + indexSize;
+			const uint32 requiredIndexSize = m_indexArrayWritePos + indexSize;
 
 			if (m_indices.size() < requiredIndexSize)
 			{
@@ -188,10 +190,12 @@ namespace s3d
 				resizeIndices(requiredIndexSize);
 			}
 
-			if (VertexBufferSize < requiredVertexSize
-				|| IndexBufferSize < requiredIndexSize)
+			if (VertexBufferSize < (m_batches.back().vertexPos + vertexSize)
+				|| IndexBufferSize < (m_batches.back().indexPos + indexSize))
 			{
 				m_batches.emplace_back();
+
+				commandManager.pushNextBatch();
 			}
 
 			*pVertex = m_vertices.data() + m_vertexArrayWritePos;
@@ -203,7 +207,7 @@ namespace s3d
 
 			m_batches.back().vertexPos += vertexSize;
 			m_batches.back().indexPos += indexSize;
-
+		
 			return true;
 		}
 

@@ -80,7 +80,7 @@ namespace s3d
 		static constexpr uint32 VertexBufferSize	= 65536;
 		static constexpr uint32 IndexBufferSize		= 65536 * 8;
 
-		void resizeVertixes(const uint32 requiredVertexSize)
+		void resizeVertices(const uint32 requiredVertexSize)
 		{
 			size_t newVertexSize = m_vertices.size() * 2;
 
@@ -170,7 +170,7 @@ namespace s3d
 					return false;
 				}
 
-				resizeVertixes(requiredVertexSize);
+				resizeVertices(requiredVertexSize);
 			}
 
 			// IB
