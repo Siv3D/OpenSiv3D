@@ -317,21 +317,21 @@ namespace s3d
 					::DwmFlush();
 				}
 				
-				double timeToSleep;
+				double timeToSleepMillisec;
 				
 				do
 				{
 					::QueryPerformanceCounter(&counter);
 					
-					const double timeSinceFlip = detail::ToMillisec(counter.QuadPart - m_lastFlipTime);
+					const double timeSinceFlipMillisec = detail::ToMillisec(counter.QuadPart - m_lastFlipTime);
 					
-					timeToSleep = (targetRefreshPeriodMillisec - timeSinceFlip);
+					timeToSleepMillisec = (targetRefreshPeriodMillisec - timeSinceFlipMillisec);
 					
-					if (timeToSleep > 0.0)
+					if (timeToSleepMillisec > 0.0)
 					{
-						::Sleep(static_cast<int32>(timeToSleep));
+						::Sleep(static_cast<int32>(timeToSleepMillisec));
 					}
-				} while (timeToSleep > 0.0);
+				} while (timeToSleepMillisec > 0.0);
 			}
 			
 			const HRESULT hr = m_swapChain->Present(0, 0);
