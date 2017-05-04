@@ -16,6 +16,7 @@
 # include "GIF/ImageFormat_GIF.hpp"
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/BinaryReader.hpp>
+# include <Siv3D/MemoryWriter.hpp>
 # include <Siv3D/FileSystem.hpp>
 
 namespace s3d
@@ -123,6 +124,25 @@ namespace s3d
 		}
 
 		return (*it)->save(image, path);
+	}
+
+	MemoryWriter CImageFormat::encode(const Image& image, ImageFormat format) const
+	{
+		const auto it = findFormat(format);
+
+		if (it == m_imageFormats.end())
+		{
+			return MemoryWriter();
+		}
+
+		MemoryWriter writer;
+
+		if (!(*it)->encode(image, writer))
+		{
+			return MemoryWriter();
+		}
+
+		return writer;
 	}
 
 	bool CImageFormat::encodeJPEG(IWriter& writer, const Image& image, const int32 quality) const

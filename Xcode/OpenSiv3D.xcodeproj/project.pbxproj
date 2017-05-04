@@ -50,6 +50,10 @@
 		2C2126871E97D11D006F8101 /* IProfiler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C2126821E97D11D006F8101 /* IProfiler.hpp */; };
 		2C2126881E97D11D006F8101 /* ProfilerFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2126831E97D11D006F8101 /* ProfilerFactory.cpp */; };
 		2C2126891E97D11D006F8101 /* SivProfiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2126841E97D11D006F8101 /* SivProfiler.cpp */; };
+		2C21268B1E9A3FEA006F8101 /* MemoryWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C21268A1E9A3FEA006F8101 /* MemoryWriter.hpp */; };
+		2C2126901E9A4001006F8101 /* CMemoryWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C21268D1E9A4001006F8101 /* CMemoryWriter.cpp */; };
+		2C2126911E9A4001006F8101 /* CMemoryWriter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C21268E1E9A4001006F8101 /* CMemoryWriter.hpp */; };
+		2C2126921E9A4001006F8101 /* SivMemoryWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C21268F1E9A4001006F8101 /* SivMemoryWriter.cpp */; };
 		2C2CCF511CE8698C001844FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2CCF501CE8698C001844FF /* Foundation.framework */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
@@ -588,6 +592,10 @@
 		2C2126821E97D11D006F8101 /* IProfiler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IProfiler.hpp; sourceTree = "<group>"; };
 		2C2126831E97D11D006F8101 /* ProfilerFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProfilerFactory.cpp; sourceTree = "<group>"; };
 		2C2126841E97D11D006F8101 /* SivProfiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivProfiler.cpp; sourceTree = "<group>"; };
+		2C21268A1E9A3FEA006F8101 /* MemoryWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MemoryWriter.hpp; sourceTree = "<group>"; };
+		2C21268D1E9A4001006F8101 /* CMemoryWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CMemoryWriter.cpp; sourceTree = "<group>"; };
+		2C21268E1E9A4001006F8101 /* CMemoryWriter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CMemoryWriter.hpp; sourceTree = "<group>"; };
+		2C21268F1E9A4001006F8101 /* SivMemoryWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivMemoryWriter.cpp; sourceTree = "<group>"; };
 		2C2CCF501CE8698C001844FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
@@ -1228,6 +1236,16 @@
 			path = Profiler;
 			sourceTree = "<group>";
 		};
+		2C21268C1E9A4001006F8101 /* MemoryWriter */ = {
+			isa = PBXGroup;
+			children = (
+				2C21268D1E9A4001006F8101 /* CMemoryWriter.cpp */,
+				2C21268E1E9A4001006F8101 /* CMemoryWriter.hpp */,
+				2C21268F1E9A4001006F8101 /* SivMemoryWriter.cpp */,
+			);
+			path = MemoryWriter;
+			sourceTree = "<group>";
+		};
 		2C38B1471CDEB45C007A7E9F /* Lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -1371,6 +1389,7 @@
 				2C81BCE11E89F8E300D27E52 /* MathParser.hpp */,
 				2C81BCE21E89F8E300D27E52 /* MD5.hpp */,
 				2C81BCE31E89F8E300D27E52 /* MemoryMapping.hpp */,
+				2C21268A1E9A3FEA006F8101 /* MemoryWriter.hpp */,
 				2C81BCE41E89F8E300D27E52 /* MersenneTwister.hpp */,
 				2C2126391E8C024F006F8101 /* MessageBox.hpp */,
 				2C81BCE51E89F8E300D27E52 /* Monitor.hpp */,
@@ -1444,6 +1463,7 @@
 		2C81BD1D1E89F8E300D27E52 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C21268C1E9A4001006F8101 /* MemoryWriter */,
 				2C21267F1E97D11D006F8101 /* Profiler */,
 				2C2126661E93CFA2006F8101 /* Clipboard */,
 				2C21263B1E8C0268006F8101 /* MessageBox */,
@@ -2544,6 +2564,7 @@
 				2C81C01B1E89F8E300D27E52 /* glfw3.h in Headers */,
 				2C2126771E93CFA2006F8101 /* IClipboard.hpp in Headers */,
 				2C81BF021E89F8E300D27E52 /* Image.hpp in Headers */,
+				2C2126911E9A4001006F8101 /* CMemoryWriter.hpp in Headers */,
 				2C81BF4A1E89F8E300D27E52 /* XXHash.hpp in Headers */,
 				2C81BF611E89F8E300D27E52 /* CBinaryWriter_macOS.hpp in Headers */,
 				2C2126631E9297CC006F8101 /* Byte.hpp in Headers */,
@@ -2697,6 +2718,7 @@
 				2C81BF4B1E89F8E300D27E52 /* Siv3D.hpp in Headers */,
 				2C81BEDC1E89F8E300D27E52 /* ByteArray.hpp in Headers */,
 				2C81BEE01E89F8E300D27E52 /* CharacterSet.hpp in Headers */,
+				2C21268B1E9A3FEA006F8101 /* MemoryWriter.hpp in Headers */,
 				2C81BF2A1E89F8E300D27E52 /* RandomVec4.hpp in Headers */,
 				2C81C0671E89F8E300D27E52 /* output_image.h in Headers */,
 				2C81BEFF1E89F8E300D27E52 /* HashMap.hpp in Headers */,
@@ -2998,6 +3020,7 @@
 				2C2126591E8CB7B5006F8101 /* openbsd-reallocarray.c in Sources */,
 				2C81BF9F1E89F8E300D27E52 /* SivImage.cpp in Sources */,
 				2C81BFE51E89F8E300D27E52 /* SivSystem.mm in Sources */,
+				2C2126901E9A4001006F8101 /* CMemoryWriter.cpp in Sources */,
 				2C81BF931E89F8E300D27E52 /* D3D11Device.cpp in Sources */,
 				2C81BFE71E89F8E300D27E52 /* CTextReader.cpp in Sources */,
 				2C81C0AE1E8A37AC00D27E52 /* SivFileSystem_macOS.cpp in Sources */,
@@ -3027,6 +3050,7 @@
 				2C81BFA01E89F8E300D27E52 /* ImageFormat_BMP.cpp in Sources */,
 				2C81C00E1E89F8E300D27E52 /* fast-dtoa.cc in Sources */,
 				2C81C03B1E89F8E300D27E52 /* window.c in Sources */,
+				2C2126921E9A4001006F8101 /* SivMemoryWriter.cpp in Sources */,
 				2C81BF8C1E89F8E300D27E52 /* SivFileSystem_Linux.cpp in Sources */,
 				2C81C04E1E89F8E300D27E52 /* entropy_encode.cc in Sources */,
 				2C81BF8E1E89F8E300D27E52 /* SivFormatBool.cpp in Sources */,

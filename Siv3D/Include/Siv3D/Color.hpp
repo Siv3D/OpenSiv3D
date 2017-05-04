@@ -306,6 +306,8 @@ namespace s3d
 		/// ガンマを適用した値
 		/// </returns>
 		Color gamma(double gamma) const noexcept;
+
+		String toHex() const;
 	};
 
 	/// <summary>

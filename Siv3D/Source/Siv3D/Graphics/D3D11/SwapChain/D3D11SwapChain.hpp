@@ -49,6 +49,10 @@ namespace s3d
 
 		bool m_fullScreen = false;
 
+		bool m_vSyncEnabled = true;
+
+		// ディスプレイの設定の中でユーザー設定に最も近いものを適用
+		// 利用可能なサイズのうち size に一致するものがなければ false を返す
 		bool setBestFullScreenMode(const Size& size, size_t displayIndex, double refreshRateHz);
 
 	public:
@@ -66,6 +70,10 @@ namespace s3d
 		IDXGISwapChain* getSwapChain() const;
 
 		bool present();
+
+		void setVSyncEnabled(bool enabled);
+
+		bool isVSyncEnabled() const;
 	};
 }
 

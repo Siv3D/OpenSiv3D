@@ -63,5 +63,11 @@ namespace s3d
 		/// 1 つ前のフレームと比べたマウスカーソルの移動量（スクリーン座標）
 		/// </returns>
 		const Point& ScreenDelta();
+
+		void SetPos(const Point& pos);
+
+		bool OnClient();
+		
+		void Clip(const Rect& rect);
 	}
 }
