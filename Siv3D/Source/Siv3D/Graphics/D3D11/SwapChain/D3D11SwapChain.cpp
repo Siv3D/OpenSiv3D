@@ -18,6 +18,7 @@
 # define  NTDDI_VERSION NTDDI_WINBLUE
 # include <Windows.h>
 # include <ShellScalingApi.h>
+# include <dwmapi.h>
 # undef _WIN32_WINNT
 # undef	NTDDI_VERSION
 # include "D3D11SwapChain.hpp"
@@ -51,6 +52,19 @@ namespace s3d
 			{
 				::SetProcessDPIAware();
 			}
+		}
+
+		inline double GetPerformanceFrequency()
+		{
+			::LARGE_INTEGER frequency;
+			::QueryPerformanceFrequency(&frequency);
+			return static_cast<double>(frequency.QuadPart);
+		}
+
+		inline double ToMillisec(const uint64 count)
+		{
+			static const double scale = 1'000 / detail::GetPerformanceFrequency();
+			return count * scale;
 		}
 	}
 
@@ -111,7 +125,13 @@ namespace s3d
 		{
 			return false;
 		}
-	
+
+		DWM_TIMING_INFO timingInfo = {};
+		timingInfo.cbSize = sizeof(DWM_TIMING_INFO);
+		::DwmGetCompositionTimingInfo(nullptr, &timingInfo);
+		const double displayRefreshPeriodMillisec = detail::ToMillisec(timingInfo.qpcRefreshPeriod);
+		m_currentDisplayRefreshRateHz = 1000.0 / displayRefreshPeriodMillisec;
+
 		return true;
 	}
 
@@ -211,6 +231,7 @@ namespace s3d
 			{
 				setFullScreen(false, size, displayIndex, refreshRateHz);
 			}
+
 			// フルスクリーン化
 			if (!setBestFullScreenMode(size, displayIndex, refreshRateHz))
 			{
@@ -231,6 +252,12 @@ namespace s3d
 			m_swapChain->ResizeBuffers(1, size.x, size.y, DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
 
 			Siv3DEngine::GetGraphics()->endResize(size);
+
+			DWM_TIMING_INFO timingInfo = {};
+			timingInfo.cbSize = sizeof(DWM_TIMING_INFO);
+			::DwmGetCompositionTimingInfo(nullptr, &timingInfo);
+			const double displayRefreshPeriodMillisec = detail::ToMillisec(timingInfo.qpcRefreshPeriod);
+			m_currentDisplayRefreshRateHz = 1000.0 / displayRefreshPeriodMillisec;
 		}
 
 		m_fullScreen = fullScreen;
@@ -249,15 +276,72 @@ namespace s3d
 
 	bool D3D11SwapChain::present()
 	{
-		const HRESULT hr = m_swapChain->Present(m_vSyncEnabled, 0);
+		const bool vSync = (m_targetFrameRateHz == 0.0);
 
-		if (FAILED(hr))
+		if (m_targetFrameRateHz)
 		{
-			return false;
+			const double targetRefreshRateHz = m_targetFrameRateHz.value();
+			const double targetRefreshPeriodMillisec = (1000.0f / targetRefreshRateHz);
+
+			DWM_TIMING_INFO timingInfo = {};
+			timingInfo.cbSize = sizeof(DWM_TIMING_INFO);
+			::DwmGetCompositionTimingInfo(nullptr, &timingInfo);
+			const double displayRefreshPeriodMillisec = detail::ToMillisec(timingInfo.qpcRefreshPeriod);
+
+			LARGE_INTEGER counter;
+			::QueryPerformanceCounter(&counter);
+			//const double cputTime = detail::ToMillisec(counter.QuadPart - m_lastFlipTime);
+
+			{
+				m_context->Flush();
+
+				if (vSync)
+				{
+					::DwmFlush();
+				}
+
+				double timeToSleep;
+
+				do
+				{
+					::QueryPerformanceCounter(&counter);
+
+					const double timeSinceFlip = detail::ToMillisec(counter.QuadPart - m_lastFlipTime);
+
+					timeToSleep = (targetRefreshPeriodMillisec - timeSinceFlip);
+
+					if (timeToSleep > 0.0)
+					{
+						::Sleep(static_cast<int32>(timeToSleep));
+					}
+				} while (timeToSleep > 0.0);
+			}
+
+			const HRESULT hr = m_swapChain->Present(0, 0);
+
+			if (FAILED(hr))
+			{
+				return false;
+			}
+
+			m_lastFlipTime = counter.QuadPart;
 		}
-		else if (hr == DXGI_STATUS_OCCLUDED)
+		else
 		{
-			::Sleep(13);
+			const HRESULT hr = m_swapChain->Present(1, 0);
+
+			if (FAILED(hr))
+			{
+				return false;
+			}
+			else if (hr == DXGI_STATUS_OCCLUDED)
+			{
+				::Sleep(static_cast<int32>(1000 / m_currentDisplayRefreshRateHz * 0.9));
+			}
+
+			LARGE_INTEGER counter;
+			::QueryPerformanceCounter(&counter);
+			m_lastFlipTime = counter.QuadPart;
 		}
 
 		return true;
@@ -271,6 +355,21 @@ namespace s3d
 	bool D3D11SwapChain::isVSyncEnabled() const
 	{
 		return m_vSyncEnabled;
+	}
+
+	void D3D11SwapChain::setTargetFrameRateHz(const Optional<double>& targetFrameRateHz)
+	{
+		m_targetFrameRateHz = targetFrameRateHz;
+	}
+
+	Optional<double> D3D11SwapChain::getTargetFrameRateHz() const
+	{
+		return m_targetFrameRateHz;
+	}
+
+	double D3D11SwapChain::getDisplayRefreshRateHz() const
+	{
+		return m_currentDisplayRefreshRateHz;
 	}
 
 	bool D3D11SwapChain::setBestFullScreenMode(const Size& size, const size_t displayIndex, const double refreshRateHz)
@@ -360,6 +459,8 @@ namespace s3d
 		Siv3DEngine::GetGraphics()->endResize(size);
 		
 		m_swapChain->SetFullscreenState(true, pOutput.Get());
+
+		m_currentDisplayRefreshRateHz = static_cast<double>(bestDisplayMode.RefreshRate.Denominator) / bestDisplayMode.RefreshRate.Numerator;
 
 		return true;
 	}

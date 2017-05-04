@@ -45,5 +45,11 @@ namespace s3d
 		void SetVSyncEnabled(bool enabled);
 
 		bool IsVSyncEnabled();
+
+		void SetTargetFrameRateHz(const Optional<double>& targetFrameRateHz);
+
+		Optional<double> GetTargetFrameRateHz();
+
+		double GetDisplayRefreshRateHz();
 	}
 }

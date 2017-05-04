@@ -44,6 +44,12 @@ namespace s3d
 		
 		virtual bool isVSyncEnabled() const = 0;
 
+		virtual void setTargetFrameRateHz(const Optional<double>& targetFrameRateHz) = 0;
+
+		virtual Optional<double> getTargetFrameRateHz() const  = 0;
+
+		virtual double getDisplayRefreshRateHz() const = 0;
+
 		virtual bool flush() = 0;
 
 		virtual const Size& getCurrentRenderTargetSize() const = 0;

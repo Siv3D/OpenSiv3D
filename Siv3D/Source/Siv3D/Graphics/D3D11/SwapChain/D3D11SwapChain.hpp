@@ -47,6 +47,12 @@ namespace s3d
 
 		size_t m_currentDisplayIndex = 0;
 
+		uint64 m_lastFlipTime = 0;
+
+		double m_currentDisplayRefreshRateHz = 60.0;
+
+		Optional<double> m_targetFrameRateHz;
+
 		bool m_fullScreen = false;
 
 		bool m_vSyncEnabled = true;
@@ -74,6 +80,12 @@ namespace s3d
 		void setVSyncEnabled(bool enabled);
 
 		bool isVSyncEnabled() const;
+
+		void setTargetFrameRateHz(const Optional<double>& targetFrameRateHz);
+
+		Optional<double> getTargetFrameRateHz() const;
+
+		double getDisplayRefreshRateHz() const;
 	};
 }
 

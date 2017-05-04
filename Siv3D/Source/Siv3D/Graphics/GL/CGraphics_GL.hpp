@@ -71,6 +71,23 @@ namespace s3d
 		
 		bool isVSyncEnabled() const override;
 
+		void setTargetFrameRateHz(const Optional<double>& targetFrameRateHz) override
+		{
+			// [Siv3D ToDo]
+		}
+
+		double getTargetFrameRateHz() const override
+		{
+			// [Siv3D ToDo]
+			return 60.0;
+		}
+
+		Optional<double> getDisplayRefreshRateHz() const override
+		{
+			// [Siv3D ToDo]
+			return none;
+		}
+
 		bool flush() override;
 		
 		const Size& getCurrentRenderTargetSize() const override;
