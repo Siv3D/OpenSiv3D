@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C0C78A81EBB47AE00386CBB /* D3D11Renderer2DCommandManager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C78A71EBB47AE00386CBB /* D3D11Renderer2DCommandManager.hpp */; };
+		2C0C78AA1EBB47BF00386CBB /* BlendState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C78A91EBB47BF00386CBB /* BlendState.hpp */; };
+		2C0C78AC1EBB47EC00386CBB /* HamFramework.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C78AB1EBB47EC00386CBB /* HamFramework.hpp */; };
+		2C0C78B01EBB47F800386CBB /* MiniScene.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C78AE1EBB47F800386CBB /* MiniScene.hpp */; };
+		2C0C78B11EBB47F800386CBB /* Rx.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C78AF1EBB47F800386CBB /* Rx.hpp */; };
 		2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C38B14A1CDEB45C007A7E9F /* gtest.a */; };
 		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
@@ -627,6 +632,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C0C78A71EBB47AE00386CBB /* D3D11Renderer2DCommandManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = D3D11Renderer2DCommandManager.hpp; sourceTree = "<group>"; };
+		2C0C78A91EBB47BF00386CBB /* BlendState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BlendState.hpp; sourceTree = "<group>"; };
+		2C0C78AB1EBB47EC00386CBB /* HamFramework.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HamFramework.hpp; sourceTree = "<group>"; };
+		2C0C78AE1EBB47F800386CBB /* MiniScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MiniScene.hpp; sourceTree = "<group>"; };
+		2C0C78AF1EBB47F800386CBB /* Rx.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Rx.hpp; sourceTree = "<group>"; };
 		2C1777401CDEE5D500BB8AD0 /* gtest-death-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-death-test.h"; sourceTree = "<group>"; };
 		2C1777411CDEE5D500BB8AD0 /* gtest-message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-message.h"; sourceTree = "<group>"; };
 		2C1777421CDEE5D500BB8AD0 /* gtest-param-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-param-test.h"; sourceTree = "<group>"; };
@@ -1309,6 +1319,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C0C78AD1EBB47F800386CBB /* HamFramework */ = {
+			isa = PBXGroup;
+			children = (
+				2C0C78AE1EBB47F800386CBB /* MiniScene.hpp */,
+				2C0C78AF1EBB47F800386CBB /* Rx.hpp */,
+			);
+			path = HamFramework;
+			sourceTree = "<group>";
+		};
 		2C17773E1CDEE5D500BB8AD0 /* Include */ = {
 			isa = PBXGroup;
 			children = (
@@ -1672,6 +1691,7 @@
 			children = (
 				2C316E831E9C9BA60011CAAE /* CRenderer2D_D3D11.cpp */,
 				2C316E841E9C9BA60011CAAE /* CRenderer2D_D3D11.hpp */,
+				2C0C78A71EBB47AE00386CBB /* D3D11Renderer2DCommandManager.hpp */,
 				2C316E851E9C9BA60011CAAE /* D3D11SpriteBatch.hpp */,
 			);
 			path = D3D11;
@@ -1727,6 +1747,7 @@
 				2C316EBB1E9F7B950011CAAE /* BigInt.hpp */,
 				2C316EBC1E9F7B950011CAAE /* BinaryReader.hpp */,
 				2C316EBD1E9F7B950011CAAE /* BinaryWriter.hpp */,
+				2C0C78A91EBB47BF00386CBB /* BlendState.hpp */,
 				2C316EBE1E9F7B950011CAAE /* Byte.hpp */,
 				2C316EBF1E9F7B950011CAAE /* ByteArray.hpp */,
 				2C316EC01E9F7B950011CAAE /* ByteArrayView.hpp */,
@@ -1925,6 +1946,8 @@
 		2C81BC961E89F8E300D27E52 /* Include */ = {
 			isa = PBXGroup;
 			children = (
+				2C0C78AD1EBB47F800386CBB /* HamFramework */,
+				2C0C78AB1EBB47EC00386CBB /* HamFramework.hpp */,
 				2C316EB21E9F7B950011CAAE /* Siv3D */,
 				2C81BC971E89F8E300D27E52 /* fmt */,
 				2C81BC9B1E89F8E300D27E52 /* hopscotch_map */,
@@ -3135,6 +3158,7 @@
 				2C81C0111E89F8E300D27E52 /* fixed-dtoa.h in Headers */,
 				2C81BFAC1E89F8E300D27E52 /* CINIReader.hpp in Headers */,
 				2C316F931E9F7B950011CAAE /* PerlinNoise.hpp in Headers */,
+				2C0C78A81EBB47AE00386CBB /* D3D11Renderer2DCommandManager.hpp in Headers */,
 				2C81C04F1E89F8E300D27E52 /* entropy_encode.h in Headers */,
 				2C81BF531E89F8E300D27E52 /* CBigFloat.hpp in Headers */,
 				2C316F5A1E9F7B950011CAAE /* DateTime.hpp in Headers */,
@@ -3191,6 +3215,7 @@
 				2C2E82A81EAA1B3A0057BDAF /* swap.h in Headers */,
 				2C81C05D1E89F8E300D27E52 /* jpeg_data_encoder.h in Headers */,
 				2C316FA51E9F7B950011CAAE /* SpeedStopwatch.hpp in Headers */,
+				2C0C78B01EBB47F800386CBB /* MiniScene.hpp in Headers */,
 				2C316F651E9F7B950011CAAE /* FormatLiteral.hpp in Headers */,
 				2C81C04B1E89F8E300D27E52 /* dct_double.h in Headers */,
 				2C81C0721E89F8E300D27E52 /* stats.h in Headers */,
@@ -3281,6 +3306,7 @@
 				2C2E829C1EAA1B3A0057BDAF /* fwd.h in Headers */,
 				2C316F9B1E9F7B950011CAAE /* RandomColor.hpp in Headers */,
 				2C81C07E1E89F8E300D27E52 /* muParserBytecode.h in Headers */,
+				2C0C78AA1EBB47BF00386CBB /* BlendState.hpp in Headers */,
 				2C81BFA41E89F8E300D27E52 /* IImageFormat.hpp in Headers */,
 				2C81BF551E89F8E300D27E52 /* CBigInt.hpp in Headers */,
 				2C316F5F1E9F7B950011CAAE /* Easing.hpp in Headers */,
@@ -3324,6 +3350,7 @@
 				2C2E829F1EAA1B3A0057BDAF /* dtoa.h in Headers */,
 				2C81BFA11E89F8E300D27E52 /* ImageFormat_BMP.hpp in Headers */,
 				2C316F451E9F7B950011CAAE /* BigInt.hpp in Headers */,
+				2C0C78AC1EBB47EC00386CBB /* HamFramework.hpp in Headers */,
 				2C316FA11E9F7B950011CAAE /* ReaderView.hpp in Headers */,
 				2C316FB31E9F7B950011CAAE /* TimeProfiler.hpp in Headers */,
 				2C316F4B1E9F7B950011CAAE /* Char.hpp in Headers */,
@@ -3348,6 +3375,7 @@
 				2C2E82981EAA1B3A0057BDAF /* en.h in Headers */,
 				2C316FAA1E9F7B950011CAAE /* String.hpp in Headers */,
 				2C316FB41E9F7B950011CAAE /* Timer.hpp in Headers */,
+				2C0C78B11EBB47F800386CBB /* Rx.hpp in Headers */,
 				2C81C07A1E89F8E300D27E52 /* muParser.h in Headers */,
 				2C81C0271E89F8E300D27E52 /* glfw_config.h in Headers */,
 				2C316E901E9C9BA60011CAAE /* IRenderer2D.hpp in Headers */,

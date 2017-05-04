@@ -60,7 +60,7 @@ namespace s3d
 
 			std::shared_ptr<IOperator<Type, continuous>> m_child;
 
-			IOperator& setChild(const std::shared_ptr<IOperator<Type, continuous>>& child) override
+			IOperator<Type, continuous>& setChild(const std::shared_ptr<IOperator<Type, continuous>>& child) override
 			{
 				return *(m_child = child);
 			}
@@ -142,7 +142,7 @@ namespace s3d
 
 			std::shared_ptr<IOperator<Type, continuous>> m_child;
 
-			IOperator& setChild(const std::shared_ptr<IOperator<Type, continuous>>& child) override
+			IOperator<Type, continuous>& setChild(const std::shared_ptr<IOperator<Type, continuous>>& child) override
 			{
 				return *(m_child = child);
 			}
@@ -189,7 +189,7 @@ namespace s3d
 
 			bool m_updated = false;
 
-			IOperator& setChild(const std::shared_ptr<IOperator<Type, continuous>>& child) override
+			IOperator<Type, continuous>& setChild(const std::shared_ptr<IOperator<Type, continuous>>& child) override
 			{
 				return *(m_child = child);
 			}
@@ -243,7 +243,7 @@ namespace s3d
 
 			function_type m_function;
 
-			IOperator& setChild(const std::shared_ptr<IOperator<Type, continuous>>&) override
+			IOperator<Type, continuous>& setChild(const std::shared_ptr<IOperator<Type, continuous>>&) override
 			{
 				return *this;
 			}
@@ -328,9 +328,9 @@ namespace s3d
 				return *m_children.back();
 			}
 
-			void subscribe(std::function<void(Type)> func)
+			void subscribe(std::function<void(Type)> function)
 			{
-				m_children.push_back(std::make_shared<Subscriber<Type, continuous>>(func));
+				m_children.push_back(std::make_shared<Subscriber<Type, continuous>>(function));
 			}
 
 			void send(const Message<Type>& message)

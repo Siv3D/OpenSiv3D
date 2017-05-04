@@ -76,16 +76,16 @@ namespace s3d
 			// [Siv3D ToDo]
 		}
 
-		double getTargetFrameRateHz() const override
-		{
-			// [Siv3D ToDo]
-			return 60.0;
-		}
-
-		Optional<double> getDisplayRefreshRateHz() const override
+		Optional<double> getTargetFrameRateHz() const override
 		{
 			// [Siv3D ToDo]
 			return none;
+		}
+
+		double getDisplayRefreshRateHz() const override
+		{
+			// [Siv3D ToDo]
+			return 60.0;
 		}
 
 		bool flush() override;
