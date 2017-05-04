@@ -1,21 +1,18 @@
 ﻿# include <Siv3D.hpp>
+# include <HamFramework.hpp>
 
 void Main()
 {
-	//Graphics::SetTargetFrameRateHz(120);
-
-	Graphics::SetBackground(Palette::White);
-
 	double t = 0.0;
+
+	Graphics2D::SetBlendState(BlendState::Additive);
 
 	while (System::Update())
 	{
-		for (auto p : step(Size(100, 50)))
+		for (auto p : step(Size(20, 20)))
 		{
-			Circle(p * 5, 2).draw(Palette::Gray);
+			Circle(p * 20, 8).draw(Palette::Gray);
 		}
-
-		Window::SetTitle(Profiler::FPS(), L"FPS");
 
 		t += System::DeltaTime();
 

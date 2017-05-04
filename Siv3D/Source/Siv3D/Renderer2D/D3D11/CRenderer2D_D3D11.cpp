@@ -14,7 +14,7 @@
 
 # include "../../Siv3DEngine.hpp"
 # include "../../Shader/IShader.hpp"
-# include "../../Graphics/IGraphics.hpp"
+# include "../../Graphics/D3D11/CGraphics_D3D11.hpp"
 # include "CRenderer2D_D3D11.hpp"
 # include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/FloatRect.hpp>
@@ -111,6 +111,8 @@ namespace s3d
 
 	void CRenderer2D_D3D11::flush()
 	{
+		CGraphics_D3D11* const graphics = dynamic_cast<CGraphics_D3D11* const>(Siv3DEngine::GetGraphics());
+
 		// setCB
 		const Float2 currentRenderTargetSize = Siv3DEngine::GetGraphics()->getCurrentRenderTargetSize();
 		const Mat3x2 currentMat = Mat3x2::Identity();
@@ -148,7 +150,7 @@ namespace s3d
 
 		const Byte* commandPointer = m_commandManager.getCommandBuffer();
 
-		Log(L"----");
+		//Log(L"----");
 
 		for (size_t commandIndex = 0; commandIndex < m_commandManager.getCount(); ++commandIndex)
 		{
@@ -158,23 +160,31 @@ namespace s3d
 			{
 			case D3D11Render2DInstruction::Nop:
 				{
-					Log(L"Nop");
+					//Log(L"Nop");
 					break;
 				}
 			case D3D11Render2DInstruction::Draw:
 				{
-					const D3D11Render2DCommand<D3D11Render2DInstruction::Draw>* command = static_cast<const D3D11Render2DCommand<D3D11Render2DInstruction::Draw>*>(static_cast<const void*>(commandPointer));
+					const auto* command = static_cast<const D3D11Render2DCommand<D3D11Render2DInstruction::Draw>*>(static_cast<const void*>(commandPointer));
 					
-					Log(L"Draw: ", command->indexSize);
+					//Log(L"Draw: ", command->indexSize);
 					m_context->DrawIndexed(command->indexSize, batchDrawOffset.indexStartLocation, batchDrawOffset.vertexStartLocation);
 					batchDrawOffset.indexStartLocation += command->indexSize;
 					break;
 				}
 			case D3D11Render2DInstruction::NextBatch:
 				{
-					Log(L"NextBatch: ", batchIndex);
+					//Log(L"NextBatch: ", batchIndex);
 					batchDrawOffset = m_spriteBatch.setBuffers(batchIndex);
 					++batchIndex;
+					break;
+				}
+			case D3D11Render2DInstruction::BlendState:
+				{
+					const auto* command = static_cast<const D3D11Render2DCommand<D3D11Render2DInstruction::BlendState>*>(static_cast<const void*>(commandPointer));
+
+					//Log(L"BlendState");
+					graphics->getBlendState()->set(command->blendState);
 					break;
 				}
 			}
@@ -182,22 +192,19 @@ namespace s3d
 			commandPointer += header->commandSize;
 		}
 
-		/*
-
-		for (size_t i = 0; i < m_spriteBatch.getBatchCount(); ++i)
-		{
-			// set buffer
-			const BatchDrawOffset batchDrawOffset = m_spriteBatch.setBuffers(i);
-
-			// draw
-			m_context->DrawIndexed(batchDrawOffset.indexCount, batchDrawOffset.indexStartLocation, batchDrawOffset.vertexStartLocation);
-		}
-
-		//*/
-
 		m_spriteBatch.clear();
 
 		m_commandManager.reset();
+	}
+
+	void CRenderer2D_D3D11::setBlendState(const BlendState& state)
+	{
+		m_commandManager.pushBlendState(state);
+	}
+
+	BlendState CRenderer2D_D3D11::getBlendState() const
+	{
+		return m_commandManager.getCurrentBlendState();
 	}
 
 	void CRenderer2D_D3D11::addTriangle(const Float2(&pts)[3], const Float4& color)

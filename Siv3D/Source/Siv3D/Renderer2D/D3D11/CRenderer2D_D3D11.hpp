@@ -55,6 +55,10 @@ namespace s3d
 
 		void flush() override;
 
+		void setBlendState(const BlendState& state) override;
+
+		BlendState getBlendState() const override;
+
 		void addTriangle(const Float2(&pts)[3], const Float4& color) override;
 
 		void addTriangle(const Float2(&pts)[3], const Float4(&colors)[3]) override;

@@ -44,6 +44,17 @@ namespace s3d
 
 		void flush() override;
 
+		void setBlendState(const BlendState& state) override
+		{
+			// [Siv3D ToDo]
+		}
+
+		BlendState getBlendState() const override
+		{
+			// [Siv3D ToDo]
+			return BlendState::Default;
+		}
+
 		void addTriangle(const Float2(&pts)[3], const Float4& color) override;
 
 		void addTriangle(const Float2(&pts)[3], const Float4(&colors)[3]) override;

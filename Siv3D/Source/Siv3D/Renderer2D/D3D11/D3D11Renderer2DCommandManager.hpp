@@ -23,6 +23,7 @@
 # include <Siv3D/Fwd.hpp>
 # include <Siv3D/Array.hpp>
 # include <Siv3D/Byte.hpp>
+# include <Siv3D/BlendState.hpp>
 
 namespace s3d
 {
@@ -33,6 +34,8 @@ namespace s3d
 		Draw,
 
 		NextBatch,
+
+		BlendState,
 	};
 
 	struct D3D11Render2DCommandHeader
@@ -67,10 +70,21 @@ namespace s3d
 
 			sizeof(D3D11Render2DCommand<D3D11Render2DInstruction::NextBatch>)
 		};
-
-		uint32 indexSize;
 	};
-	
+
+	template <>
+	struct D3D11Render2DCommand<D3D11Render2DInstruction::BlendState>
+	{
+		D3D11Render2DCommandHeader header =
+		{
+			D3D11Render2DInstruction::BlendState,
+
+			sizeof(D3D11Render2DCommand<D3D11Render2DInstruction::BlendState>)
+		};
+
+		BlendState blendState;
+	};
+
 	class D3D11Render2DCommandManager
 	{
 	private:
@@ -82,6 +96,8 @@ namespace s3d
 		Byte* m_lastCommandPointer = nullptr;
 
 		D3D11Render2DInstruction m_lastCommand = D3D11Render2DInstruction::Nop;
+
+		BlendState m_currentBlendState = BlendState::Default;
 
 		template <class Command>
 		void writeCommand(const Command& command)
@@ -126,6 +142,12 @@ namespace s3d
 			m_commandCount = 0;
 
 			pushNextBatch();
+
+			{
+				D3D11Render2DCommand<D3D11Render2DInstruction::BlendState> command;
+				command.blendState = m_currentBlendState;
+				writeCommand(command);
+			}
 		}
 
 		void pushDraw(const uint32 indexSize)
@@ -145,6 +167,25 @@ namespace s3d
 		void pushNextBatch()
 		{
 			writeCommand(D3D11Render2DCommand<D3D11Render2DInstruction::NextBatch>());
+		}
+
+		void pushBlendState(const BlendState& state)
+		{
+			if (state == m_currentBlendState)
+			{
+				return;
+			}
+
+			D3D11Render2DCommand<D3D11Render2DInstruction::BlendState> command;
+			command.blendState = state;
+			writeCommand(command);
+
+			m_currentBlendState = state;
+		}
+
+		const BlendState& getCurrentBlendState() const
+		{
+			return m_currentBlendState;
 		}
 	};
 }
