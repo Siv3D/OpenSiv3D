@@ -276,60 +276,12 @@ namespace s3d
 
 	bool D3D11SwapChain::present()
 	{
-		const bool vSync = (m_targetFrameRateHz == 0.0);
+		const bool vSync = !m_targetFrameRateHz.has_value();
 
-		if (m_targetFrameRateHz)
-		{
-			const double targetRefreshRateHz = m_targetFrameRateHz.value();
-			const double targetRefreshPeriodMillisec = (1000.0f / targetRefreshRateHz);
-
-			DWM_TIMING_INFO timingInfo = {};
-			timingInfo.cbSize = sizeof(DWM_TIMING_INFO);
-			::DwmGetCompositionTimingInfo(nullptr, &timingInfo);
-			const double displayRefreshPeriodMillisec = detail::ToMillisec(timingInfo.qpcRefreshPeriod);
-
-			LARGE_INTEGER counter;
-			::QueryPerformanceCounter(&counter);
-			//const double cputTime = detail::ToMillisec(counter.QuadPart - m_lastFlipTime);
-
-			{
-				m_context->Flush();
-
-				if (vSync)
-				{
-					::DwmFlush();
-				}
-
-				double timeToSleep;
-
-				do
-				{
-					::QueryPerformanceCounter(&counter);
-
-					const double timeSinceFlip = detail::ToMillisec(counter.QuadPart - m_lastFlipTime);
-
-					timeToSleep = (targetRefreshPeriodMillisec - timeSinceFlip);
-
-					if (timeToSleep > 0.0)
-					{
-						::Sleep(static_cast<int32>(timeToSleep));
-					}
-				} while (timeToSleep > 0.0);
-			}
-
-			const HRESULT hr = m_swapChain->Present(0, 0);
-
-			if (FAILED(hr))
-			{
-				return false;
-			}
-
-			m_lastFlipTime = counter.QuadPart;
-		}
-		else
+		if (vSync)
 		{
 			const HRESULT hr = m_swapChain->Present(1, 0);
-
+			
 			if (FAILED(hr))
 			{
 				return false;
@@ -338,9 +290,57 @@ namespace s3d
 			{
 				::Sleep(static_cast<int32>(1000 / m_currentDisplayRefreshRateHz * 0.9));
 			}
-
+			
 			LARGE_INTEGER counter;
 			::QueryPerformanceCounter(&counter);
+			m_lastFlipTime = counter.QuadPart;
+		}
+		else
+		{
+			const double targetRefreshRateHz = m_targetFrameRateHz.value();
+			const double targetRefreshPeriodMillisec = (1000.0f / targetRefreshRateHz);
+			
+			DWM_TIMING_INFO timingInfo = {};
+			timingInfo.cbSize = sizeof(DWM_TIMING_INFO);
+			::DwmGetCompositionTimingInfo(nullptr, &timingInfo);
+			const double displayRefreshPeriodMillisec = detail::ToMillisec(timingInfo.qpcRefreshPeriod);
+			
+			LARGE_INTEGER counter;
+			::QueryPerformanceCounter(&counter);
+			//const double cputTime = detail::ToMillisec(counter.QuadPart - m_lastFlipTime);
+			
+			{
+				m_context->Flush();
+				
+				if (vSync)
+				{
+					::DwmFlush();
+				}
+				
+				double timeToSleep;
+				
+				do
+				{
+					::QueryPerformanceCounter(&counter);
+					
+					const double timeSinceFlip = detail::ToMillisec(counter.QuadPart - m_lastFlipTime);
+					
+					timeToSleep = (targetRefreshPeriodMillisec - timeSinceFlip);
+					
+					if (timeToSleep > 0.0)
+					{
+						::Sleep(static_cast<int32>(timeToSleep));
+					}
+				} while (timeToSleep > 0.0);
+			}
+			
+			const HRESULT hr = m_swapChain->Present(0, 0);
+			
+			if (FAILED(hr))
+			{
+				return false;
+			}
+			
 			m_lastFlipTime = counter.QuadPart;
 		}
 

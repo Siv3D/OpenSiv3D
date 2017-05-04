@@ -12,6 +12,7 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
+# include <unistd.h>
 # include "../../Siv3DEngine.hpp"
 # include "../../Window/IWindow.hpp"
 # include "../../Shader/IShader.hpp"
@@ -19,6 +20,7 @@
 # include <Siv3D/Window.hpp>
 # include <Siv3D/CharacterSet.hpp>
 # include <Siv3D/System.hpp>
+# include <Siv3D/Time.hpp>
 
 namespace s3d
 {
@@ -76,8 +78,6 @@ namespace s3d
 		{
 			return false;
 		}
-		
-		
 		
 		return true;
 	}
@@ -165,14 +165,44 @@ namespace s3d
 	
 	bool CGraphics_GL::present()
 	{
-		::glfwSwapBuffers(m_glfwWindow);
+		const bool vSync = !m_targetFrameRateHz.has_value();
 		
-		if (::glfwGetWindowAttrib(m_glfwWindow, GLFW_ICONIFIED)
-			|| !::glfwGetWindowAttrib(m_glfwWindow, GLFW_VISIBLE)
-			|| !::glfwGetWindowAttrib(m_glfwWindow, GLFW_FOCUSED) // work around
-			)
+		if (vSync)
 		{
-			System::Sleep(16);
+			::glfwSwapBuffers(m_glfwWindow);
+			
+			if (::glfwGetWindowAttrib(m_glfwWindow, GLFW_ICONIFIED)
+				|| !::glfwGetWindowAttrib(m_glfwWindow, GLFW_VISIBLE)
+				|| !::glfwGetWindowAttrib(m_glfwWindow, GLFW_FOCUSED) // work around
+				)
+			{
+				System::Sleep(16);
+			}
+		}
+		else
+		{
+			const double targetRefreshRateHz = m_targetFrameRateHz.value();
+			const double targetRefreshPeriodMillisec = (1000.0f / targetRefreshRateHz);
+
+			::glfwSwapBuffers(m_glfwWindow);
+			
+			double timeToSleepMillisec;
+			double countMillisec;
+			
+			do
+			{
+				countMillisec = (Time::GetMicrosec() / 1000.0);
+				const double timeSinceFlipMillisec = countMillisec - m_lastFlipTimeMillisec;
+				
+				timeToSleepMillisec = (targetRefreshPeriodMillisec - timeSinceFlipMillisec);
+				
+				if (timeToSleepMillisec > 0.0)
+				{
+					::usleep(static_cast<uint32>(std::floor(timeToSleepMillisec) * 1000));
+				}
+			} while (timeToSleepMillisec > 0.0);
+			
+			m_lastFlipTimeMillisec = countMillisec;
 		}
 		
 		return true;
@@ -204,6 +234,21 @@ namespace s3d
 	bool CGraphics_GL::isVSyncEnabled() const
 	{
 		return m_vsync;
+	}
+	
+	void CGraphics_GL::setTargetFrameRateHz(const Optional<double>& targetFrameRateHz)
+	{
+		if (m_targetFrameRateHz != targetFrameRateHz)
+		{
+			::glfwSwapInterval(!targetFrameRateHz.has_value());
+		}
+		
+		m_targetFrameRateHz = targetFrameRateHz;
+	}
+	
+	Optional<double> CGraphics_GL::getTargetFrameRateHz() const
+	{
+		return m_targetFrameRateHz;
 	}
 	
 	bool CGraphics_GL::flush()
