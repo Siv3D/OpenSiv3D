@@ -14,7 +14,7 @@
 
 # include "../../Siv3DEngine.hpp"
 # include "../../Shader/IShader.hpp"
-# include "../../Graphics/IGraphics.hpp"
+# include "../../Graphics/D3D11/CGraphics_D3D11.hpp"
 # include "CRenderer2D_D3D11.hpp"
 # include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/FloatRect.hpp>
@@ -105,12 +105,16 @@ namespace s3d
 				return false;
 			}
 		}
+		
+		m_commandManager.reset();
 
 		return true;
 	}
 
 	void CRenderer2D_D3D11::flush()
 	{
+		CGraphics_D3D11* const graphics = dynamic_cast<CGraphics_D3D11* const>(Siv3DEngine::GetGraphics());
+
 		// setCB
 		const Float2 currentRenderTargetSize = Siv3DEngine::GetGraphics()->getCurrentRenderTargetSize();
 		const Mat3x2 currentMat = Mat3x2::Identity();
@@ -143,16 +147,66 @@ namespace s3d
 		// setPS
 		Siv3DEngine::GetShader()->setPS(Siv3DEngine::GetShader()->getStandardPS(0).id());
 
-		for (size_t i = 0; i < m_spriteBatch.getBatchCount(); ++i)
-		{
-			// set buffer
-			const BatchDrawOffset batchDrawOffset = m_spriteBatch.setBuffers(i);
+		size_t batchIndex = 0;
+		BatchDrawOffset batchDrawOffset;
 
-			// draw
-			m_context->DrawIndexed(batchDrawOffset.indexCount, batchDrawOffset.indexStartLocation, batchDrawOffset.vertexStartLocation);
+		const Byte* commandPointer = m_commandManager.getCommandBuffer();
+
+		//Log(L"----");
+
+		for (size_t commandIndex = 0; commandIndex < m_commandManager.getCount(); ++commandIndex)
+		{
+			const D3D11Render2DCommandHeader* header = static_cast<const D3D11Render2DCommandHeader*>(static_cast<const void*>(commandPointer));
+
+			switch (header->instruction)
+			{
+			case D3D11Render2DInstruction::Nop:
+				{
+					//Log(L"Nop");
+					break;
+				}
+			case D3D11Render2DInstruction::Draw:
+				{
+					const auto* command = static_cast<const D3D11Render2DCommand<D3D11Render2DInstruction::Draw>*>(static_cast<const void*>(commandPointer));
+					
+					//Log(L"Draw: ", command->indexSize);
+					m_context->DrawIndexed(command->indexSize, batchDrawOffset.indexStartLocation, batchDrawOffset.vertexStartLocation);
+					batchDrawOffset.indexStartLocation += command->indexSize;
+					break;
+				}
+			case D3D11Render2DInstruction::NextBatch:
+				{
+					//Log(L"NextBatch: ", batchIndex);
+					batchDrawOffset = m_spriteBatch.setBuffers(batchIndex);
+					++batchIndex;
+					break;
+				}
+			case D3D11Render2DInstruction::BlendState:
+				{
+					const auto* command = static_cast<const D3D11Render2DCommand<D3D11Render2DInstruction::BlendState>*>(static_cast<const void*>(commandPointer));
+
+					//Log(L"BlendState");
+					graphics->getBlendState()->set(command->blendState);
+					break;
+				}
+			}
+
+			commandPointer += header->commandSize;
 		}
 
 		m_spriteBatch.clear();
+
+		m_commandManager.reset();
+	}
+
+	void CRenderer2D_D3D11::setBlendState(const BlendState& state)
+	{
+		m_commandManager.pushBlendState(state);
+	}
+
+	BlendState CRenderer2D_D3D11::getBlendState() const
+	{
+		return m_commandManager.getCurrentBlendState();
 	}
 
 	void CRenderer2D_D3D11::addTriangle(const Float2(&pts)[3], const Float4& color)
@@ -162,7 +216,7 @@ namespace s3d
 		IndexType* pIndex;
 		IndexType indexOffset;
 
-		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
 		{
 			return;
 		}
@@ -179,6 +233,8 @@ namespace s3d
 		pIndex[0] = indexOffset;
 		pIndex[1] = indexOffset + 1;
 		pIndex[2] = indexOffset + 2;
+
+		m_commandManager.pushDraw(indexSize);
 	}
 
 	void CRenderer2D_D3D11::addTriangle(const Float2(&pts)[3], const Float4(&colors)[3])
@@ -188,7 +244,7 @@ namespace s3d
 		IndexType* pIndex;
 		IndexType indexOffset;
 
-		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
 		{
 			return;
 		}
@@ -205,6 +261,8 @@ namespace s3d
 		pIndex[0] = indexOffset;
 		pIndex[1] = indexOffset + 1;
 		pIndex[2] = indexOffset + 2;
+
+		m_commandManager.pushDraw(indexSize);
 	}
 
 	void CRenderer2D_D3D11::addRect(const FloatRect& rect, const Float4& color)
@@ -214,7 +272,7 @@ namespace s3d
 		IndexType* pIndex;
 		IndexType indexOffset;
 
-		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
 		{
 			return;
 		}
@@ -235,6 +293,8 @@ namespace s3d
 		{
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
 		}
+
+		m_commandManager.pushDraw(indexSize);
 	}
 
 	void CRenderer2D_D3D11::addRect(const FloatRect& rect, const Float4(&colors)[4])
@@ -244,7 +304,7 @@ namespace s3d
 		IndexType* pIndex;
 		IndexType indexOffset;
 
-		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
 		{
 			return;
 		}
@@ -265,6 +325,8 @@ namespace s3d
 		{
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
 		}
+
+		m_commandManager.pushDraw(indexSize);
 	}
 
 	void CRenderer2D_D3D11::addQuad(const FloatQuad& quad, const Float4& color)
@@ -274,7 +336,7 @@ namespace s3d
 		IndexType* pIndex;
 		IndexType indexOffset;
 
-		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
 		{
 			return;
 		}
@@ -295,6 +357,8 @@ namespace s3d
 		{
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
 		}
+
+		m_commandManager.pushDraw(indexSize);
 	}
 
 	void CRenderer2D_D3D11::addRectFrame(const FloatRect& rect, float thickness, const Float4& color)
@@ -304,7 +368,7 @@ namespace s3d
 		IndexType* pIndex;
 		IndexType indexOffset;
 
-		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
 		{
 			return;
 		}
@@ -327,6 +391,8 @@ namespace s3d
 		{
 			*pIndex++ = indexOffset + detail::rectFrameIndexTable[i];
 		}
+
+		m_commandManager.pushDraw(indexSize);
 	}
 
 	// 仮の実装
@@ -342,7 +408,7 @@ namespace s3d
 		IndexType* pIndex;
 		IndexType indexOffset;
 
-		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
 		{
 			return;
 		}
@@ -356,7 +422,7 @@ namespace s3d
 		for (IndexType i = 1; i <= quality; ++i)
 		{
 			const float rad = radDelta * (i - 1.0f);
-			pVertex[i].pos.set(centerX + r * ::cosf(rad), centerY - r * ::sinf(rad));
+			pVertex[i].pos.set(centerX + r * std::cos(rad), centerY - r * std::sinf(rad));
 		}
 
 		for (size_t i = 0; i < vertexSize; ++i)
@@ -370,6 +436,8 @@ namespace s3d
 			pIndex[i * 3 + 1] = indexOffset;
 			pIndex[i * 3 + 2] = indexOffset + (i + 1) % quality + 1;
 		}
+
+		m_commandManager.pushDraw(indexSize);
 	}
 	
 	void CRenderer2D_D3D11::addCircleFrame(const Float2& center, float r, float thickness, const Float4& color)
@@ -381,7 +449,7 @@ namespace s3d
 		IndexType* pIndex;
 		IndexType indexOffset;
 
-		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
 		{
 			return;
 		}
@@ -412,6 +480,8 @@ namespace s3d
 				pIndex[i * 6 + k] = indexOffset + (i * 2 + detail::rectIndexTable[k]) % (quality * 2);
 			}
 		}
+
+		m_commandManager.pushDraw(indexSize);
 	}
 
 	void CRenderer2D_D3D11::addCircleFrame(const Float2& center, float r, float thickness, const Float4& innerColor, const Float4& outerColor)
@@ -423,7 +493,7 @@ namespace s3d
 		IndexType* pIndex;
 		IndexType indexOffset;
 
-		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
 		{
 			return;
 		}
@@ -454,6 +524,8 @@ namespace s3d
 				pIndex[i * 6 + k] = indexOffset + (i * 2 + detail::rectIndexTable[k]) % (quality * 2);
 			}
 		}
+
+		m_commandManager.pushDraw(indexSize);
 	}
 
 	void CRenderer2D_D3D11::addQuad(const FloatQuad& quad, const Float4(&colors)[4])
@@ -463,7 +535,7 @@ namespace s3d
 		IndexType* pIndex;
 		IndexType indexOffset;
 
-		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
 		{
 			return;
 		}
@@ -484,6 +556,8 @@ namespace s3d
 		{
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
 		}
+
+		m_commandManager.pushDraw(indexSize);
 	}
 }
 

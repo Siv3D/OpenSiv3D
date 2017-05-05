@@ -11,15 +11,8 @@
 
 # pragma once
 # include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_WINDOWS)
+# if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
-# define  NOMINMAX
-# define  STRICT
-# define  WIN32_LEAN_AND_MEAN
-# define  _WIN32_WINNT _WIN32_WINNT_WIN7
-# define  NTDDI_VERSION NTDDI_WIN7
-# include <Windows.h>
-# include <d3d11.h>
 # include <Siv3D/Fwd.hpp>
 # include <Siv3D/Array.hpp>
 # include <Siv3D/Byte.hpp>
@@ -27,7 +20,7 @@
 
 namespace s3d
 {
-	enum class D3D11Render2DInstruction : uint16
+	enum class GLRender2DInstruction : uint16
 	{
 		Nop,
 
@@ -38,54 +31,54 @@ namespace s3d
 		BlendState,
 	};
 
-	struct D3D11Render2DCommandHeader
+	struct GLRender2DCommandHeader
 	{
-		D3D11Render2DInstruction instruction;
+		GLRender2DInstruction instruction;
 
 		uint16 commandSize;
 	};
 
-	template <D3D11Render2DInstruction instruction>
-	struct D3D11Render2DCommand;
+	template <GLRender2DInstruction instruction>
+	struct GLRender2DCommand;
 
 	template <>
-	struct D3D11Render2DCommand<D3D11Render2DInstruction::Draw>
+	struct GLRender2DCommand<GLRender2DInstruction::Draw>
 	{
-		D3D11Render2DCommandHeader header =
+		GLRender2DCommandHeader header =
 		{
-			D3D11Render2DInstruction::Draw,
+			GLRender2DInstruction::Draw,
 
-			sizeof(D3D11Render2DCommand<D3D11Render2DInstruction::Draw>)
+			sizeof(GLRender2DCommand<GLRender2DInstruction::Draw>)
 		};
 
 		uint32 indexSize;
 	};
 
 	template <>
-	struct D3D11Render2DCommand<D3D11Render2DInstruction::NextBatch>
+	struct GLRender2DCommand<GLRender2DInstruction::NextBatch>
 	{
-		D3D11Render2DCommandHeader header =
+		GLRender2DCommandHeader header =
 		{
-			D3D11Render2DInstruction::NextBatch,
+			GLRender2DInstruction::NextBatch,
 
-			sizeof(D3D11Render2DCommand<D3D11Render2DInstruction::NextBatch>)
+			sizeof(GLRender2DCommand<GLRender2DInstruction::NextBatch>)
 		};
 	};
 
 	template <>
-	struct D3D11Render2DCommand<D3D11Render2DInstruction::BlendState>
+	struct GLRender2DCommand<GLRender2DInstruction::BlendState>
 	{
-		D3D11Render2DCommandHeader header =
+		GLRender2DCommandHeader header =
 		{
-			D3D11Render2DInstruction::BlendState,
+			GLRender2DInstruction::BlendState,
 
-			sizeof(D3D11Render2DCommand<D3D11Render2DInstruction::BlendState>)
+			sizeof(GLRender2DCommand<GLRender2DInstruction::BlendState>)
 		};
 
 		BlendState blendState;
 	};
 
-	class D3D11Render2DCommandManager
+	class GLRender2DCommandManager
 	{
 	private:
 
@@ -95,7 +88,7 @@ namespace s3d
 
 		Byte* m_lastCommandPointer = nullptr;
 
-		D3D11Render2DInstruction m_lastCommand = D3D11Render2DInstruction::Nop;
+		GLRender2DInstruction m_lastCommand = GLRender2DInstruction::Nop;
 
 		BlendState m_currentBlendState = BlendState::Default;
 
@@ -117,10 +110,10 @@ namespace s3d
 			m_lastCommand = command.header.instruction;
 		}
 
-		template <D3D11Render2DInstruction instruction>
-		D3D11Render2DCommand<instruction>& getLastCommand()
+		template <GLRender2DInstruction instruction>
+		GLRender2DCommand<instruction>& getLastCommand()
 		{
-			return *static_cast<D3D11Render2DCommand<instruction>*>(static_cast<void*>(m_lastCommandPointer));
+			return *static_cast<GLRender2DCommand<instruction>*>(static_cast<void*>(m_lastCommandPointer));
 		}
 
 	public:
@@ -144,7 +137,7 @@ namespace s3d
 			pushNextBatch();
 
 			{
-				D3D11Render2DCommand<D3D11Render2DInstruction::BlendState> command;
+				GLRender2DCommand<GLRender2DInstruction::BlendState> command;
 				command.blendState = m_currentBlendState;
 				writeCommand(command);
 			}
@@ -152,21 +145,21 @@ namespace s3d
 
 		void pushDraw(const uint32 indexSize)
 		{
-			if (m_lastCommand == D3D11Render2DInstruction::Draw)
+			if (m_lastCommand == GLRender2DInstruction::Draw)
 			{
-				getLastCommand<D3D11Render2DInstruction::Draw>().indexSize += indexSize;
+				getLastCommand<GLRender2DInstruction::Draw>().indexSize += indexSize;
 				
 				return;
 			}
 
-			D3D11Render2DCommand<D3D11Render2DInstruction::Draw> command;
+			GLRender2DCommand<GLRender2DInstruction::Draw> command;
 			command.indexSize = indexSize;
 			writeCommand(command);
 		}
 
 		void pushNextBatch()
 		{
-			writeCommand(D3D11Render2DCommand<D3D11Render2DInstruction::NextBatch>());
+			writeCommand(GLRender2DCommand<GLRender2DInstruction::NextBatch>());
 		}
 
 		void pushBlendState(const BlendState& state)
@@ -176,7 +169,7 @@ namespace s3d
 				return;
 			}
 
-			D3D11Render2DCommand<D3D11Render2DInstruction::BlendState> command;
+			GLRender2DCommand<GLRender2DInstruction::BlendState> command;
 			command.blendState = state;
 			writeCommand(command);
 

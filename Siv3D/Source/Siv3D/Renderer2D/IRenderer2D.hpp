@@ -24,6 +24,10 @@ namespace s3d
 
 		virtual void flush() = 0;
 
+		virtual void setBlendState(const BlendState& state) = 0;
+
+		virtual BlendState getBlendState() const = 0;
+
 		virtual void addTriangle(const Float2(&pts)[3], const Float4& color) = 0;
 
 		virtual void addTriangle(const Float2(&pts)[3], const Float4(&colors)[3]) = 0;

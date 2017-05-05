@@ -25,6 +25,7 @@ using namespace Microsoft::WRL;
 # include <d3dcompiler.h>
 # include "../IRenderer2D.hpp"
 # include "D3D11SpriteBatch.hpp"
+# include "D3D11Renderer2DCommandManager.hpp"
 
 namespace s3d
 {
@@ -42,6 +43,8 @@ namespace s3d
 
 		ComPtr<ID3D11Buffer> m_cbuffer;
 
+		D3D11Render2DCommandManager m_commandManager;
+
 	public:
 
 		CRenderer2D_D3D11();
@@ -51,6 +54,10 @@ namespace s3d
 		bool init(ID3D11Device* device, ID3D11DeviceContext* context);
 
 		void flush() override;
+
+		void setBlendState(const BlendState& state) override;
+
+		BlendState getBlendState() const override;
 
 		void addTriangle(const Float2(&pts)[3], const Float4& color) override;
 

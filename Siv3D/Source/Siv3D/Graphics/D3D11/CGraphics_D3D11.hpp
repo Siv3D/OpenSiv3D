@@ -60,6 +60,8 @@ namespace s3d
 
 		bool init() override;
 
+		D3D11BlendState* getBlendState() { return m_pBlendState.get(); }
+
 		void setClearColor(const ColorF& color) override;
 
 		Array<DisplayOutput> enumOutputs() override;

@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <functional>
 # include "Fwd.hpp"
 
 namespace s3d
@@ -49,6 +50,27 @@ namespace s3d
 	/// </summary>
 	struct BlendState
 	{
+	private:
+
+		enum class Predefined
+		{
+			NonPremultiplied,
+
+			Opaque,
+
+			Additive,
+
+			Subtractive,
+
+			Multiplicative,
+
+			Multiplicative2X,
+
+			Default = NonPremultiplied,
+		};
+
+	public:
+
 		using StorageType = uint32;
 
 		S3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
@@ -61,7 +83,7 @@ namespace s3d
 
 				Blend src : 5;
 
-				Blend dest : 5;
+				Blend dst : 5;
 
 				BlendOp op : 3;
 
@@ -69,7 +91,7 @@ namespace s3d
 
 				Blend srcAlpha : 5;
 
-				Blend destAlpha : 5;
+				Blend dstAlpha : 5;
 
 				BlendOp opAlpha : 3;
 			};
@@ -82,20 +104,35 @@ namespace s3d
 		explicit BlendState(
 			bool _enable = true,
 			Blend _src = Blend::SrcAlpha,
-			Blend _dest = Blend::InvSrcAlpha,
+			Blend _dst = Blend::InvSrcAlpha,
 			BlendOp _op = BlendOp::Add,
 			Blend _srcAlpha = Blend::Zero,
-			Blend _destAlpha = Blend::One,
+			Blend _dstAlpha = Blend::One,
 			BlendOp _opAlpha = BlendOp::Add,
 			bool _alphaToCoverageEnable = false) noexcept
 			: enable(_enable)
 			, src(_src)
-			, dest(_dest)
+			, dst(_dst)
 			, op(_op)
 			, alphaToCoverageEnable(_alphaToCoverageEnable)
 			, srcAlpha(_srcAlpha)
-			, destAlpha(_destAlpha)
+			, dstAlpha(_dstAlpha)
 			, opAlpha(_opAlpha) {}
+
+		BlendState(Predefined predefined)
+		{
+			static const BlendState predefinedStates[6] =
+			{
+				BlendState{ true },																// NonPremultiplied
+				BlendState{ false },																// Opaque
+				BlendState{ true, Blend::SrcAlpha,	Blend::One,			BlendOp::Add },	// Additive
+				BlendState{ true, Blend::SrcAlpha,	Blend::One,			BlendOp::RevSubtract },	// Subtractive
+				BlendState{ true, Blend::Zero,		Blend::SrcColor,	BlendOp::Add },	// Multiplicative
+				BlendState{ true, Blend::DestColor,	Blend::SrcColor,	BlendOp::Add },	// Multiplicative2X
+			};
+
+			*this = predefinedStates[static_cast<size_t>(predefined)];
+		}
 
 		bool operator ==(const BlendState& b) const noexcept
 		{
@@ -105,6 +142,60 @@ namespace s3d
 		bool operator !=(const BlendState& b) const noexcept
 		{
 			return _data != b._data;
+		}
+
+		/// <summary>
+		/// デフォルトのブレンド
+		/// BlendState{ true }
+		/// </summary>
+		static const Predefined NonPremultiplied = Predefined::NonPremultiplied;
+
+		/// <summary>
+		/// 不透明
+		/// BlendState{ false }
+		/// </summary>
+		static const Predefined Opaque = Predefined::Opaque;
+
+		/// <summary>
+		/// 加算ブレンド
+		/// BlendState{ true, Blend::SrcAlpha, Blend::One, BlendOp::Add }
+		/// </summary>
+		static const Predefined Additive = Predefined::Additive;
+
+		/// <summary>
+		/// 減算ブレンド
+		/// BlendState{ true, Blend::SrcAlpha, Blend::One, BlendOp::RevSubtract }
+		/// </summary>
+		static const Predefined Subtractive = Predefined::Subtractive;
+
+		/// <summary>
+		/// 乗算ブレンド
+		/// BlendState{ true, Blend::Zero, Blend::SrcColor, BlendOp::Add }
+		/// </summary>
+		static const Predefined Multiplicative = Predefined::Multiplicative;
+
+		/// <summary>
+		/// 2X 乗算ブレンド
+		/// BlendState{ true, Blend::DestColor, Blend::SrcColor, BlendOp::Add }
+		/// </summary>
+		static const Predefined Multiplicative2X = Predefined::Multiplicative2X;
+
+		/// <summary>
+		/// デフォルトのブレンド
+		/// BlendState{ true }
+		/// </summary>
+		static const Predefined Default = Predefined::Default;
+	};
+}
+
+namespace std
+{
+	template <>
+	struct hash<s3d::BlendState>
+	{
+		size_t operator()(const s3d::BlendState& keyVal) const
+		{
+			return hash<s3d::BlendState::StorageType>()(keyVal._data);
 		}
 	};
 }
