@@ -46,6 +46,8 @@ namespace s3d
 		
 		Optional<double> m_targetFrameRateHz;
 
+		RenderTexture* m_unused = nullptr;
+
 	public:
 
 		CGraphics_GL();
@@ -93,6 +95,12 @@ namespace s3d
 		bool flush() override;
 		
 		const Size& getCurrentRenderTargetSize() const override;
+
+		const RenderTexture& getBackBuffer2D() const override
+		{
+			// [Siv3D ToDo]
+			return *m_unused;
+		}
 	};
 }
 

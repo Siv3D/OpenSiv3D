@@ -29,17 +29,12 @@ namespace s3d
 
 
 
-		void BeginViewport(const Rect& viewport)
+		void SetViewport(const Optional<Rect>& viewport)
 		{
 			Siv3DEngine::GetRenderer2D()->setViewport(viewport);
 		}
 
-		void EndViewport()
-		{
-			Siv3DEngine::GetRenderer2D()->setViewport(Rect(0, 0, INT_MIN, INT_MIN));
-		}
-
-		Rect GetViewport()
+		Optional<Rect> GetViewport()
 		{
 			return Siv3DEngine::GetRenderer2D()->getViewport();
 		}

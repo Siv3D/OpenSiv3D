@@ -113,49 +113,25 @@ namespace s3d
 
 	void CRenderer2D_D3D11::flush()
 	{
-		CGraphics_D3D11* const graphics = dynamic_cast<CGraphics_D3D11* const>(Siv3DEngine::GetGraphics());
+		CGraphics_D3D11* const pGraphics = dynamic_cast<CGraphics_D3D11* const>(Siv3DEngine::GetGraphics());
+		CTexture_D3D11* const pTexture = dynamic_cast<CTexture_D3D11* const>(Siv3DEngine::GetTexture());
 
-		const Float2 currentRenderTargetSize = Siv3DEngine::GetGraphics()->getCurrentRenderTargetSize();
-
-		// setCB
-		{
-			const Mat3x2 currentMat = Mat3x2::Identity();
-			const Mat3x2 currentScreen = Mat3x2::Screen(currentRenderTargetSize);
-			const Mat3x2 matrix = currentMat * currentScreen;
-
-			const float transform[8] =
-			{
-				matrix._11, matrix._12, matrix._31, matrix._32,
-				matrix._21, matrix._22, 0.0f, 1.0f
-			};
-
-			D3D11_MAPPED_SUBRESOURCE mapped;
-
-			if (SUCCEEDED(m_context->Map(m_cbuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped)))
-			{
-				if (void* dst = mapped.pData)
-				{
-					::memcpy(dst, transform, sizeof(transform));
-
-					m_context->Unmap(m_cbuffer.Get(), 0);
-				}
-			}
-		}
-
+		// set CB
 		m_context->VSSetConstantBuffers(0, 1, m_cbuffer.GetAddressOf());
 
-		// setVS
+		// set VS
 		Siv3DEngine::GetShader()->setVS(Siv3DEngine::GetShader()->getStandardVS(0).id());
 
-		// setPS
+		// set PS
 		Siv3DEngine::GetShader()->setPS(Siv3DEngine::GetShader()->getStandardPS(0).id());
 
 		size_t batchIndex = 0;
 		BatchDrawOffset batchDrawOffset;
+		Size currentRenderTargetSize(0, 0);
 
 		const Byte* commandPointer = m_commandManager.getCommandBuffer();
 
-		//Log(L"----");
+		Log(L"----");
 
 		for (size_t commandIndex = 0; commandIndex < m_commandManager.getCount(); ++commandIndex)
 		{
@@ -163,108 +139,94 @@ namespace s3d
 
 			switch (header->instruction)
 			{
-			case D3D11Render2DInstruction::Nop:
+				case D3D11Render2DInstruction::Nop:
 				{
-					//Log(L"Nop");
+					Log(L"Nop");
 					break;
 				}
-			case D3D11Render2DInstruction::Draw:
+				case D3D11Render2DInstruction::Draw:
 				{
 					const auto* command = static_cast<const D3D11Render2DCommand<D3D11Render2DInstruction::Draw>*>(static_cast<const void*>(commandPointer));
 					
-					//Log(L"Draw: ", command->indexSize);
+					Log(L"Draw: ", command->indexSize);
 					m_context->DrawIndexed(command->indexSize, batchDrawOffset.indexStartLocation, batchDrawOffset.vertexStartLocation);
 					batchDrawOffset.indexStartLocation += command->indexSize;
 					break;
 				}
-			case D3D11Render2DInstruction::NextBatch:
+				case D3D11Render2DInstruction::NextBatch:
 				{
-					//Log(L"NextBatch: ", batchIndex);
+					Log(L"NextBatch: ", batchIndex);
 					batchDrawOffset = m_spriteBatch.setBuffers(batchIndex);
 					++batchIndex;
 					break;
 				}
-			case D3D11Render2DInstruction::BlendState:
+				case D3D11Render2DInstruction::BlendState:
 				{
 					const auto* command = static_cast<const D3D11Render2DCommand<D3D11Render2DInstruction::BlendState>*>(static_cast<const void*>(commandPointer));
 
-					//Log(L"BlendState");
-					graphics->getBlendState()->set(command->blendState);
+					Log(L"BlendState");
+					pGraphics->getBlendState()->set(command->blendState);
 					break;
 				}
-			case D3D11Render2DInstruction::Viewport:
+				case D3D11Render2DInstruction::Viewport:
 				{
 					const auto* command = static_cast<const D3D11Render2DCommand<D3D11Render2DInstruction::Viewport>*>(static_cast<const void*>(commandPointer));
-
-					//Log(L"Viewport");
-					//graphics->getBlendState()->set(command->blendState);
 
 					D3D11_VIEWPORT viewport;
 					viewport.MinDepth = 0.0f;
 					viewport.MaxDepth = 1.0f;
 
-					if (command->viewport == Rect(0, 0, INT_MIN, INT_MIN))
-					{				
-						viewport.TopLeftX	= 0;
-						viewport.TopLeftY	= 0;
-						viewport.Width		= currentRenderTargetSize.x;
-						viewport.Height		= currentRenderTargetSize.y;
-
-						const Mat3x2 currentMat = Mat3x2::Identity();
-						const Mat3x2 currentScreen = Mat3x2::Screen(currentRenderTargetSize);
-						const Mat3x2 matrix = currentMat * currentScreen;
-
-						const float transform[8] =
-						{
-							matrix._11, matrix._12, matrix._31, matrix._32,
-							matrix._21, matrix._22, 0.0f, 1.0f
-						};
-
-						D3D11_MAPPED_SUBRESOURCE mapped;
-
-						if (SUCCEEDED(m_context->Map(m_cbuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped)))
-						{
-							if (void* dst = mapped.pData)
-							{
-								::memcpy(dst, transform, sizeof(transform));
-
-								m_context->Unmap(m_cbuffer.Get(), 0);
-							}
-						}
+					if (command->viewport)
+					{			
+						Log(L"Viewport: ", *command->viewport);
+						viewport.TopLeftX	= static_cast<float>(command->viewport->x);
+						viewport.TopLeftY	= static_cast<float>(command->viewport->y);
+						viewport.Width		= static_cast<float>(command->viewport->w);
+						viewport.Height		= static_cast<float>(command->viewport->h);
 					}
 					else
 					{
-						//Log(L"Viewport: ", command->viewport);
-
-						viewport.TopLeftX	= static_cast<float>(command->viewport.x);
-						viewport.TopLeftY	= static_cast<float>(command->viewport.y);
-						viewport.Width		= static_cast<float>(command->viewport.w);
-						viewport.Height		= static_cast<float>(command->viewport.h);
-
-						const Mat3x2 currentMat = Mat3x2::Identity();
-						const Mat3x2 currentScreen = Mat3x2::Screen(command->viewport.w, command->viewport.h);
-						const Mat3x2 matrix = currentMat * currentScreen;
-
-						const float transform[8] =
-						{
-							matrix._11, matrix._12, matrix._31, matrix._32,
-							matrix._21, matrix._22, 0.0f, 1.0f
-						};
-
-						D3D11_MAPPED_SUBRESOURCE mapped;
-
-						if (SUCCEEDED(m_context->Map(m_cbuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped)))
-						{
-							if (void* dst = mapped.pData)
-							{
-								::memcpy(dst, transform, sizeof(transform));
-
-								m_context->Unmap(m_cbuffer.Get(), 0);
-							}
-						}
+						Log(L"Viewport reset: ", Rect(0, 0, currentRenderTargetSize));
+						viewport.TopLeftX	= 0;
+						viewport.TopLeftY	= 0;
+						viewport.Width		= static_cast<float>(currentRenderTargetSize.x);
+						viewport.Height		= static_cast<float>(currentRenderTargetSize.y);
 					}
 
 					m_context->RSSetViewports(1, &viewport);
+
+					const Mat3x2 currentMat = Mat3x2::Identity();
+					const Mat3x2 currentScreen = Mat3x2::Screen(viewport.Width, viewport.Height);
+					const Mat3x2 matrix = currentMat * currentScreen;
+
+					const float transform[8] =
+					{
+						matrix._11, matrix._12, matrix._31, matrix._32,
+						matrix._21, matrix._22, 0.0f, 1.0f
+					};
+
+					D3D11_MAPPED_SUBRESOURCE mapped;
+
+					if (SUCCEEDED(m_context->Map(m_cbuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped)))
+					{
+						if (void* dst = mapped.pData)
+						{
+							::memcpy(dst, transform, sizeof(transform));
+
+							m_context->Unmap(m_cbuffer.Get(), 0);
+						}
+					}
+
+					break;
+				}
+				case D3D11Render2DInstruction::RenderTarget:
+				{
+					const auto* command = static_cast<const D3D11Render2DCommand<D3D11Render2DInstruction::RenderTarget>*>(static_cast<const void*>(commandPointer));
+
+					pGraphics->getRenderTarget()->setRenderTargetView(pTexture->getRTV(command->textureID));
+					currentRenderTargetSize = pTexture->getSize(command->textureID);
+
+					Log(L"RenderTarget: id = ", command->textureID, L", size = ", currentRenderTargetSize);
 
 					break;
 				}
@@ -288,23 +250,14 @@ namespace s3d
 		return m_commandManager.getCurrentBlendState();
 	}
 
-	void CRenderer2D_D3D11::setViewport(const Rect& viewport)
+	void CRenderer2D_D3D11::setViewport(const Optional<Rect>& viewport)
 	{
 		m_commandManager.pushViewport(viewport);
 	}
 
-	Rect CRenderer2D_D3D11::getViewport() const
+	Optional<Rect> CRenderer2D_D3D11::getViewport() const
 	{
-		const Rect viewport = m_commandManager.getCurrentViewport();
-
-		if (viewport == Rect(0, 0, INT_MIN, INT_MIN))
-		{
-			return Rect(0, 0, Siv3DEngine::GetGraphics()->getCurrentRenderTargetSize());
-		}
-		else
-		{
-			return viewport;
-		}
+		return m_commandManager.getCurrentViewport();
 	}
 
 	void CRenderer2D_D3D11::addTriangle(const Float2(&pts)[3], const Float4& color)

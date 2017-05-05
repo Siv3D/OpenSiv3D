@@ -220,6 +220,11 @@ namespace s3d
 	{
 		return m_renderTarget->getCurrentRenderTargetSize();
 	}
+
+	const RenderTexture& CGraphics_D3D11::getBackBuffer2D() const
+	{
+		return m_renderTarget->getBackBuffer2D();
+	}
 }
 
 # endif

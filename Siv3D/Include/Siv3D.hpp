@@ -78,6 +78,8 @@
 	# include "Siv3D/ByteArrayView.hpp"
 	// ハッシュマップ
 	# include "Siv3D/HashMap.hpp"
+	// ハッシュセット
+	# include "Siv3D/HashSet.hpp"
 	// 範囲
 	# include "Siv3D/Step.hpp"
 	// 二次元の範囲

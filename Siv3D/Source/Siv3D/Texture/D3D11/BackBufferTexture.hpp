@@ -13,31 +13,22 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_WINDOWS)
 
+# include "../../Siv3DEngine.hpp"
 # include "CTexture_D3D11.hpp"
 # include <Siv3D/Texture.hpp>
 
 namespace s3d
 {
-	class BackBufferTexture : public Texture
+	class BackBufferTexture : public RenderTexture
 	{
 	public:
 
 		BackBufferTexture()
-			: Texture(BackBuffer{}) {}
+			: RenderTexture(BackBuffer{}) {}
 
-		void clear(CTexture_D3D11* texture, const ColorF& color)
+		bool endResize()
 		{
-			texture->clearRT(m_handle->getID(), color);
-		}
-
-		void beginResize(CTexture_D3D11* texture)
-		{
-			texture->beginResize(m_handle->getID());
-		}
-
-		bool endResize(CTexture_D3D11* texture)
-		{
-			return texture->endResizeBackBuffer(m_handle->getID());
+			return Siv3DEngine::GetTexture()->endResizeBackBuffer(m_handle->getID());
 		}
 	};
 }

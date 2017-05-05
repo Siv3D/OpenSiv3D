@@ -46,11 +46,9 @@ namespace s3d
 
 
 
-		void BeginViewport(const Rect& viewport);
+		void SetViewport(const Optional<Rect>& viewport);
 
-		void EndViewport();
-
-		Rect GetViewport();
+		Optional<Rect> GetViewport();
 	}
 
 
@@ -97,14 +95,14 @@ namespace s3d
 	{
 	private:
 
-		Rect m_oldViewport;
+		Optional<Rect> m_oldViewport;
 
 	public:
 
-		ViewportBlock2D(const Rect& viewport)
+		ViewportBlock2D(const Optional<Rect>& viewport)
 			: m_oldViewport(Graphics2D::GetViewport())
 		{
-			Graphics2D::BeginViewport(viewport);
+			Graphics2D::SetViewport(viewport);
 		}
 
 		ViewportBlock2D(int32 x, int32 y, int32 w, int32 h)
@@ -121,7 +119,7 @@ namespace s3d
 
 		~ViewportBlock2D()
 		{
-			Graphics2D::BeginViewport(m_oldViewport);
+			Graphics2D::SetViewport(m_oldViewport);
 		}
 	};
 }

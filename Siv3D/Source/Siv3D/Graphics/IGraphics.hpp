@@ -53,5 +53,7 @@ namespace s3d
 		virtual bool flush() = 0;
 
 		virtual const Size& getCurrentRenderTargetSize() const = 0;
+
+		virtual const RenderTexture& getBackBuffer2D() const = 0;
 	};
 }

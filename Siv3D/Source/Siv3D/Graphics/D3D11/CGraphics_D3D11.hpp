@@ -60,6 +60,8 @@ namespace s3d
 
 		bool init() override;
 
+		D3D11RenderTarget* getRenderTarget() { return m_renderTarget.get(); }
+
 		D3D11BlendState* getBlendState() { return m_pBlendState.get(); }
 
 		void setClearColor(const ColorF& color) override;
@@ -89,6 +91,8 @@ namespace s3d
 		bool flush() override;
 
 		const Size& getCurrentRenderTargetSize() const override;
+
+		const RenderTexture& getBackBuffer2D() const override;
 	};
 }
 

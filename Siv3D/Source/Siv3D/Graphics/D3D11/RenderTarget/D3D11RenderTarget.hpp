@@ -23,6 +23,7 @@
 using namespace Microsoft::WRL;
 # include <d3d11.h>
 # include <Siv3D/Color.hpp>
+# include <Siv3D/RenderTexture.hpp>
 # include "../../../Texture/D3D11/BackBufferTexture.hpp"
 # include "../../../Texture/D3D11/CTexture_D3D11.hpp"
 
@@ -31,32 +32,6 @@ using namespace Microsoft::WRL;
 
 namespace s3d
 {
-	class RenderTexture : public Texture
-	{
-	public:
-
-		RenderTexture()
-			: Texture() {}
-
-		RenderTexture(const Size& size, uint32 multisampleCount = 1)
-			: Texture(Texture::Render{}, size, multisampleCount) {}
-
-		void clear(CTexture_D3D11* texture, const ColorF& color)
-		{
-			texture->clearRT(m_handle->getID(), color);
-		}
-
-		void beginResize(CTexture_D3D11* texture)
-		{
-			texture->beginResize(m_handle->getID());
-		}
-
-		bool endResize(CTexture_D3D11* texture, const Size& size, const uint32 multisampleCount)
-		{
-			return texture->endResizeRenderTexture(m_handle->getID(), size, multisampleCount);
-		}
-	};
-
 	class D3D11RenderTarget
 	{
 	private:
@@ -98,6 +73,10 @@ namespace s3d
 		bool endResize(const Size& size);
 
 		const Size& getCurrentRenderTargetSize() const;
+
+		void setRenderTargetView(ID3D11RenderTargetView* rtv);
+
+		const RenderTexture& getBackBuffer2D() const;
 	};
 }
 

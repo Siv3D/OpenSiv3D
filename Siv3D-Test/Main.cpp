@@ -3,20 +3,30 @@
 
 void Main()
 {
+	const Array<Circle> circles(20, Arg::generator = []()
+	{
+		return Circle(RandomVec2(320, 240), 40);
+	});
+
 	RenderStateBlock2D rsb(BlendState::Additive);
 
 	while (System::Update())
 	{
+		if (KeyR.down())
+		{
+			Window::Resize(1280, 720);
+		}
+
 		for (auto i : step(4))
 		{
 			ViewportBlock2D vb(i % 2 * 320, i / 2 * 240, 320, 240);
 
-			for (int32 n = 0; n < 20; ++n)
+			for (const auto& circle : circles)
 			{
-				Circle(RandomVec2(320, 240), 40).draw(HSV(i * 90 + 45, 0.5));
+				circle.draw(HSV(i * 90 + 45, 0.5));
 			}
 		}
+
+		Circle(Cursor::Pos(), 80).draw();
 	}
 }
-
-

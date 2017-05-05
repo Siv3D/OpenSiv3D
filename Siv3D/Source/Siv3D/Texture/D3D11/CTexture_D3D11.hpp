@@ -52,17 +52,19 @@ namespace s3d
 
 		Size getSize(Texture::IDType handleID) override;
 
-		void clearRT(Texture::IDType handleID, const ColorF& color);
+		void clearRT(Texture::IDType handleID, const ColorF& color) override;
 
-		void beginResize(Texture::IDType handleID);
+		void beginResize(Texture::IDType handleID) override;
 
-		bool endResizeBackBuffer(Texture::IDType handleID);
+		bool endResizeRT(Texture::IDType handleID, const Size& size, uint32 multisampleCount) override;
 
-		bool endResizeRenderTexture(Texture::IDType handleID, const Size& size, uint32 multisampleCount);
+		bool endResizeBackBuffer(Texture::IDType handleID) override;
 
 		ID3D11Texture2D* getTexture(Texture::IDType handleID);
 
 		ID3D11RenderTargetView* getRTV(Texture::IDType handleID);
+
+
 	};
 }
 
