@@ -80,13 +80,13 @@ namespace s3d
 									  detail::blendOpTable[static_cast<size_t>(state.opAlpha)]);
 		}
 		
-		if (state.src != m_currentState.src || state.dest != m_currentState.dest
-			|| state.srcAlpha != m_currentState.srcAlpha || state.destAlpha != m_currentState.destAlpha)
+		if (state.src != m_currentState.src || state.dst != m_currentState.dst
+			|| state.srcAlpha != m_currentState.srcAlpha || state.dstAlpha != m_currentState.dstAlpha)
 		{
 			::glBlendFuncSeparate(detail::blendTable[static_cast<size_t>(state.src)],
-								  detail::blendTable[static_cast<size_t>(state.dest)],
+								  detail::blendTable[static_cast<size_t>(state.dst)],
 								  detail::blendTable[static_cast<size_t>(state.srcAlpha)],
-								  detail::blendTable[static_cast<size_t>(state.destAlpha)]);
+								  detail::blendTable[static_cast<size_t>(state.dstAlpha)]);
 		}
 		
 		m_currentState = state;

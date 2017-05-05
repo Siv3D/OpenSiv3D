@@ -83,7 +83,7 @@ namespace s3d
 
 				Blend src : 5;
 
-				Blend dest : 5;
+				Blend dst : 5;
 
 				BlendOp op : 3;
 
@@ -91,7 +91,7 @@ namespace s3d
 
 				Blend srcAlpha : 5;
 
-				Blend destAlpha : 5;
+				Blend dstAlpha : 5;
 
 				BlendOp opAlpha : 3;
 			};
@@ -104,19 +104,19 @@ namespace s3d
 		explicit BlendState(
 			bool _enable = true,
 			Blend _src = Blend::SrcAlpha,
-			Blend _dest = Blend::InvSrcAlpha,
+			Blend _dst = Blend::InvSrcAlpha,
 			BlendOp _op = BlendOp::Add,
 			Blend _srcAlpha = Blend::Zero,
-			Blend _destAlpha = Blend::One,
+			Blend _dstAlpha = Blend::One,
 			BlendOp _opAlpha = BlendOp::Add,
 			bool _alphaToCoverageEnable = false) noexcept
 			: enable(_enable)
 			, src(_src)
-			, dest(_dest)
+			, dst(_dst)
 			, op(_op)
 			, alphaToCoverageEnable(_alphaToCoverageEnable)
 			, srcAlpha(_srcAlpha)
-			, destAlpha(_destAlpha)
+			, dstAlpha(_dstAlpha)
 			, opAlpha(_opAlpha) {}
 
 		BlendState(Predefined predefined)

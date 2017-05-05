@@ -353,6 +353,9 @@
     <Filter Include="Source\Siv3D\Graphics2D">
       <UniqueIdentifier>{2e6f7ddc-a5d1-433b-b209-ca43caa6a653}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Graphics\GL\BlendState">
+      <UniqueIdentifier>{262ff4ea-d134-4d03-bccc-ce8d2ee1161d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1390,6 +1393,12 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Graphics2D.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\GL\BlendState\GLBlendState.hpp">
+      <Filter>Source\Siv3D\Graphics\GL\BlendState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\GL\GLRenderer2DCommandManager.hpp">
+      <Filter>Source\Siv3D\Renderer2D\GL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2027,6 +2036,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics2D\SivGraphics2D.cpp">
       <Filter>Source\Siv3D\Graphics2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\GL\BlendState\GLBlendState.cpp">
+      <Filter>Source\Siv3D\Graphics\GL\BlendState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
