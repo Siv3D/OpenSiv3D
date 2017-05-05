@@ -35,7 +35,7 @@ namespace s3d
 			Siv3DEngine::GetSystem()->setUserFrameCount(count);
 		}
 
-		double DeltaTime(double maxDuration)
+		double DeltaTime(const double maxDuration)
 		{
 			return std::min(Siv3DEngine::GetSystem()->getDeltaTime(), maxDuration);
 		}
