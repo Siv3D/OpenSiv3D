@@ -24,6 +24,12 @@
 # include <Siv3D/Array.hpp>
 # include <Siv3D/Byte.hpp>
 # include <Siv3D/BlendState.hpp>
+# include <Siv3D/Rectangle.hpp>
+# include <Siv3D/Texture.hpp>
+# include <Siv3D/RenderTexture.hpp>
+# include <Siv3D/HashMap.hpp>
+# include "../../Siv3DEngine.hpp"
+# include "../../Graphics/IGraphics.hpp"
 
 namespace s3d
 {
@@ -36,6 +42,10 @@ namespace s3d
 		NextBatch,
 
 		BlendState,
+
+		Viewport,
+
+		RenderTarget,
 	};
 
 	struct D3D11Render2DCommandHeader
@@ -85,6 +95,32 @@ namespace s3d
 		BlendState blendState;
 	};
 
+	template <>
+	struct D3D11Render2DCommand<D3D11Render2DInstruction::Viewport>
+	{
+		D3D11Render2DCommandHeader header =
+		{
+			D3D11Render2DInstruction::Viewport,
+
+			sizeof(D3D11Render2DCommand<D3D11Render2DInstruction::Viewport>)
+		};
+
+		Optional<Rect> viewport;
+	};
+
+	template <>
+	struct D3D11Render2DCommand<D3D11Render2DInstruction::RenderTarget>
+	{
+		D3D11Render2DCommandHeader header =
+		{
+			D3D11Render2DInstruction::RenderTarget,
+
+			sizeof(D3D11Render2DCommand<D3D11Render2DInstruction::RenderTarget>)
+		};
+
+		Texture::IDType textureID;
+	};
+
 	class D3D11Render2DCommandManager
 	{
 	private:
@@ -98,6 +134,12 @@ namespace s3d
 		D3D11Render2DInstruction m_lastCommand = D3D11Render2DInstruction::Nop;
 
 		BlendState m_currentBlendState = BlendState::Default;
+
+		Optional<Rect> m_currentViewport;
+
+		HashMap<Texture::IDType, Texture> m_reservedTextures;
+
+		RenderTexture m_currentRenderTarget;
 
 		template <class Command>
 		void writeCommand(const Command& command)
@@ -139,6 +181,8 @@ namespace s3d
 		{
 			m_commands.clear();
 
+			m_reservedTextures.clear();
+
 			m_commandCount = 0;
 
 			pushNextBatch();
@@ -146,6 +190,22 @@ namespace s3d
 			{
 				D3D11Render2DCommand<D3D11Render2DInstruction::BlendState> command;
 				command.blendState = m_currentBlendState;
+				writeCommand(command);
+			}
+
+			{
+				const RenderTexture& backBuffer2D = Siv3DEngine::GetGraphics()->getBackBuffer2D();
+				m_currentRenderTarget = backBuffer2D;
+				m_reservedTextures.emplace(backBuffer2D.id(), backBuffer2D);
+
+				D3D11Render2DCommand<D3D11Render2DInstruction::RenderTarget> command;
+				command.textureID = backBuffer2D.id();
+				writeCommand(command);
+			}
+
+			{
+				D3D11Render2DCommand<D3D11Render2DInstruction::Viewport> command;
+				command.viewport = m_currentViewport;
 				writeCommand(command);
 			}
 		}
@@ -186,6 +246,46 @@ namespace s3d
 		const BlendState& getCurrentBlendState() const
 		{
 			return m_currentBlendState;
+		}
+
+		void pushViewport(const Optional<Rect>& viewport)
+		{
+			if (viewport == m_currentViewport)
+			{
+				return;
+			}
+
+			D3D11Render2DCommand<D3D11Render2DInstruction::Viewport> command;
+			command.viewport = viewport;
+			writeCommand(command);
+
+			m_currentViewport = viewport;
+		}
+
+		Optional<Rect> getCurrentViewport() const
+		{
+			return m_currentViewport;
+		}
+
+		void pushRenderTarget(const RenderTexture& texture)
+		{
+			const auto id = texture.id();
+
+			if (id == m_currentRenderTarget.id())
+			{
+				return;
+			}
+
+			if (m_reservedTextures.find(id) == m_reservedTextures.end())
+			{
+				m_reservedTextures.emplace(id, texture);
+			}
+
+			D3D11Render2DCommand<D3D11Render2DInstruction::RenderTarget> command;
+			command.textureID = id;
+			writeCommand(command);
+
+			m_currentRenderTarget = texture;
 		}
 	};
 }

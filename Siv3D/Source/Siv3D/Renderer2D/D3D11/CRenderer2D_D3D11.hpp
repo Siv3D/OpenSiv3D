@@ -59,6 +59,10 @@ namespace s3d
 
 		BlendState getBlendState() const override;
 
+		void setViewport(const Optional<Rect>& viewport) override;
+
+		Optional<Rect> getViewport() const override;
+
 		void addTriangle(const Float2(&pts)[3], const Float4& color) override;
 
 		void addTriangle(const Float2(&pts)[3], const Float4(&colors)[3]) override;

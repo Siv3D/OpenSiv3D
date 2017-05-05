@@ -181,21 +181,7 @@ void main()
 	{
 		CGraphics_GL* const graphics = dynamic_cast<CGraphics_GL* const>(Siv3DEngine::GetGraphics());
 		
-		const Float2 currentRenderTargetSize = Siv3DEngine::GetGraphics()->getCurrentRenderTargetSize();
-		const Mat3x2 currentMat = Mat3x2::Identity();
-		const Mat3x2 currentScreen = Mat3x2::Screen(currentRenderTargetSize);
-		const Mat3x2 matrix = currentMat * currentScreen;
-		
-		const float transform[8] =
-		{
-			matrix._11, matrix._12, matrix._31, matrix._32,
-			matrix._21, matrix._22, 0.0f, 1.0f
-		};
-		
-		GLuint uniformLocation = ::glGetUniformLocation(m_programHandle, "g_transform");
-		
-		::glUniform4fv(uniformLocation, 2, transform);
-		
+		const Size currentRenderTargetSize = Siv3DEngine::GetGraphics()->getCurrentRenderTargetSize();
 		
 		size_t batchIndex = 0;
 		BatchDrawOffset batchDrawOffset;
@@ -241,19 +227,47 @@ void main()
 					graphics->getBlendState()->set(command->blendState);
 					break;
 				}
+				case GLRender2DInstruction::Viewport:
+				{
+					const auto* command = static_cast<const GLRender2DCommand<GLRender2DInstruction::Viewport>*>(static_cast<const void*>(commandPointer));
+					
+					Rect viewport;
+					
+					if (command->viewport)
+					{
+						//Log(L"Viewport: ", *command->viewport);
+						viewport = command->viewport.value();
+					}
+					else
+					{
+						//Log(L"Viewport reset: ", Rect(0, 0, currentRenderTargetSize));
+						viewport.x = 0;
+						viewport.y = 0;
+						viewport.w = static_cast<float>(currentRenderTargetSize.x);
+						viewport.h = static_cast<float>(currentRenderTargetSize.y);
+					}
+					
+					::glViewport(viewport.x, currentRenderTargetSize.y - viewport.h - viewport.y, viewport.w, viewport.h);
+					
+					const Mat3x2 currentMat = Mat3x2::Identity();
+					const Mat3x2 currentScreen = Mat3x2::Screen(viewport.w, viewport.h);
+					const Mat3x2 matrix = currentMat * currentScreen;
+					
+					const float transform[8] =
+					{
+						matrix._11, matrix._12, matrix._31, matrix._32,
+						matrix._21, matrix._22, 0.0f, 1.0f
+					};
+					
+					GLuint uniformLocation = ::glGetUniformLocation(m_programHandle, "g_transform");
+					::glUniform4fv(uniformLocation, 2, transform);
+					
+					break;
+				}
 			}
 			
 			commandPointer += header->commandSize;
 		}
-		
-		/*
-		for (size_t i = 0; i < m_spriteBatch.getBatchCount(); ++i)
-		{
-			const BatchDrawOffset batchDrawOffset = m_spriteBatch.setBuffers(i);
-	
-			::glDrawElements(GL_TRIANGLES, batchDrawOffset.indexCount, GL_UNSIGNED_INT, (uint32*)(nullptr) + batchDrawOffset.indexStartLocation);
-		}
-		 */
 		
 		::glBindVertexArray(0);
 
@@ -270,6 +284,16 @@ void main()
 	BlendState CRenderer2D_GL::getBlendState() const
 	{
 		return m_commandManager.getCurrentBlendState();
+	}
+	
+	void CRenderer2D_GL::setViewport(const Optional<Rect>& viewport)
+	{
+		m_commandManager.pushViewport(viewport);
+	}
+	
+	Optional<Rect> CRenderer2D_GL::getViewport() const
+	{
+		return m_commandManager.getCurrentViewport();
 	}
 	
 	void CRenderer2D_GL::addTriangle(const Float2(&pts)[3], const Float4& color)

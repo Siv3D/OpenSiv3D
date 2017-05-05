@@ -78,6 +78,8 @@
 	# include "Siv3D/ByteArrayView.hpp"
 	// ハッシュマップ
 	# include "Siv3D/HashMap.hpp"
+	// ハッシュセット
+	# include "Siv3D/HashSet.hpp"
 	// 範囲
 	# include "Siv3D/Step.hpp"
 	// 二次元の範囲
@@ -251,8 +253,8 @@
 	# include "Siv3D/Rectangle.hpp"
 	// 円
 	# include "Siv3D/Circle.hpp"
-	//// 楕円
-	//# include "Siv3D/Ellipse.hpp"
+	// 楕円
+	# include "Siv3D/Ellipse.hpp"
 	// 三角形
 	# include "Siv3D/Triangle.hpp"
 	// 四角形
@@ -496,8 +498,8 @@
 	//# include "Siv3D/TexturedQuad.hpp"
 	//// 動的テクスチャ
 	//# include "Siv3D/DynamicTexture.hpp"
-	//// レンダーテクスチャ
-	//# include "Siv3D/RenderTexture.hpp"
+	// レンダーテクスチャ
+	# include "Siv3D/RenderTexture.hpp"
 //
 // フォント
 //

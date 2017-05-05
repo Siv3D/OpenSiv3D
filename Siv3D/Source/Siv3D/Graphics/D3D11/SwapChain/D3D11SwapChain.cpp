@@ -347,16 +347,6 @@ namespace s3d
 		return true;
 	}
 
-	void D3D11SwapChain::setVSyncEnabled(const bool enabled)
-	{
-		m_vSyncEnabled = enabled;
-	}
-
-	bool D3D11SwapChain::isVSyncEnabled() const
-	{
-		return m_vSyncEnabled;
-	}
-
 	void D3D11SwapChain::setTargetFrameRateHz(const Optional<double>& targetFrameRateHz)
 	{
 		m_targetFrameRateHz = targetFrameRateHz;

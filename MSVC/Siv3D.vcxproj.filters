@@ -356,6 +356,9 @@
     <Filter Include="Source\Siv3D\Graphics\GL\BlendState">
       <UniqueIdentifier>{262ff4ea-d134-4d03-bccc-ce8d2ee1161d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\RenderTexture">
+      <UniqueIdentifier>{f23f3366-e1ed-4643-b948-50eb50695022}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1399,6 +1402,18 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\GL\GLRenderer2DCommandManager.hpp">
       <Filter>Source\Siv3D\Renderer2D\GL</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\RenderTexture.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\hopscotch_map\hopscotch_set.h">
+      <Filter>Include\hopscotch_map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\HashSet.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Ellipse.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2039,6 +2054,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\GL\BlendState\GLBlendState.cpp">
       <Filter>Source\Siv3D\Graphics\GL\BlendState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\RenderTexture\SivRenderTexture.cpp">
+      <Filter>Source\Siv3D\RenderTexture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

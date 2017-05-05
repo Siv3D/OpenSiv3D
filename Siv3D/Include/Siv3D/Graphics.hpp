@@ -42,10 +42,6 @@ namespace s3d
 
 		bool SetFullScreen(bool fullScreen, const Size& size, size_t displayIndex = 0, double refreshRateHz = 60.0);
 
-		void SetVSyncEnabled(bool enabled);
-
-		bool IsVSyncEnabled();
-
 		void SetTargetFrameRateHz(const Optional<double>& targetFrameRateHz);
 
 		Optional<double> GetTargetFrameRateHz();

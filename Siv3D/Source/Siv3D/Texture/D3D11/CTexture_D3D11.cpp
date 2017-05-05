@@ -88,7 +88,7 @@ namespace s3d
 		return m_textures[handleID]->endResize(Texture_D3D11::BackBuffer{}, m_device, m_swapChain);
 	}
 
-	bool CTexture_D3D11::endResizeRenderTexture(Texture::IDType handleID, const Size& size, const uint32 multisampleCount)
+	bool CTexture_D3D11::endResizeRT(Texture::IDType handleID, const Size& size, const uint32 multisampleCount)
 	{
 		return m_textures[handleID]->endResize(Texture_D3D11::Render{}, m_device, size, multisampleCount);
 	}

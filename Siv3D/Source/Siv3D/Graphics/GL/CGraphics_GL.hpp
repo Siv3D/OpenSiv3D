@@ -32,8 +32,6 @@ namespace s3d
 		
 		ColorF m_clearColor = Color(11, 22, 33);
 		
-		bool m_vsync = true;
-
 		CTexture_GL* m_texture = nullptr;
 		
 		std::unique_ptr<GLBlendState> m_pBlendState;
@@ -45,6 +43,8 @@ namespace s3d
 		double m_lastFlipTimeMillisec = 0;
 		
 		Optional<double> m_targetFrameRateHz;
+
+		RenderTexture* m_unused = nullptr;
 
 	public:
 
@@ -75,10 +75,6 @@ namespace s3d
 		{
 			return true;
 		}
-		
-		void setVSyncEnabled(bool enabled) override;
-		
-		bool isVSyncEnabled() const override;
 
 		void setTargetFrameRateHz(const Optional<double>& targetFrameRateHz) override;
 
@@ -93,6 +89,12 @@ namespace s3d
 		bool flush() override;
 		
 		const Size& getCurrentRenderTargetSize() const override;
+
+		const RenderTexture& getBackBuffer2D() const override
+		{
+			// [Siv3D ToDo]
+			return *m_unused;
+		}
 	};
 }
 

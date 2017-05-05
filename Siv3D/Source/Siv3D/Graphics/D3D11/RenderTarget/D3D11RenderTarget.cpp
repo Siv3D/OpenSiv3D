@@ -43,24 +43,6 @@ namespace s3d
 			return false;
 		}
 
-		ID3D11RenderTargetView* pRTV[3]
-		{
-			m_texture->getRTV(m_rt2D.id()),
-			nullptr,
-			nullptr,
-		};
-
-		m_context->OMSetRenderTargets(3, pRTV, nullptr);
-
-		D3D11_VIEWPORT m_viewport;
-		m_viewport.TopLeftX	= 0;
-		m_viewport.TopLeftY	= 0;
-		m_viewport.Width	= static_cast<float>(m_currentRenderTargetResolution.x);
-		m_viewport.Height	= static_cast<float>(m_currentRenderTargetResolution.y);
-		m_viewport.MinDepth	= 0.0f;
-		m_viewport.MaxDepth	= 1.0f;
-		m_context->RSSetViewports(1, &m_viewport);
-
 		return true;
 	}
 
@@ -71,7 +53,7 @@ namespace s3d
 
 	void D3D11RenderTarget::clear()
 	{
-		m_rt2D.clear(m_texture, m_clearColor);
+		m_rt2D.clear(m_clearColor);
 	}
 
 	void D3D11RenderTarget::resolve()
@@ -105,48 +87,47 @@ namespace s3d
 
 		m_context->OMSetRenderTargets(3, pRTV, nullptr);
 
-		m_rt2D.beginResize(m_texture);
-		m_backBuffer.beginResize(m_texture);
+		m_rt2D.beginResize();
+		m_backBuffer.beginResize();
 	}
 
 	bool D3D11RenderTarget::endResize(const Size& size)
 	{
-		if (!m_backBuffer.endResize(m_texture))
+		if (!m_backBuffer.endResize())
 		{
 			return false;
 		}
 
-		if (!m_rt2D.endResize(m_texture, size, m_sample2D.Count))
+		if (!m_rt2D.endResize(size, m_sample2D.Count))
 		{
 			return false;
 		}
 
-		m_currentRenderTargetResolution = size;
-
-		ID3D11RenderTargetView* pRTV[3]
-		{
-			m_texture->getRTV(m_backBuffer.id()),
-			nullptr,
-			nullptr,
-		};
-
-		m_context->OMSetRenderTargets(3, pRTV, nullptr);
-
-		D3D11_VIEWPORT m_viewport;
-		m_viewport.TopLeftX = 0;
-		m_viewport.TopLeftY = 0;
-		m_viewport.Width = static_cast<float>(size.x);
-		m_viewport.Height = static_cast<float>(size.y);
-		m_viewport.MinDepth = 0.0f;
-		m_viewport.MaxDepth = 1.0f;
-		m_context->RSSetViewports(1, &m_viewport);
+		m_currentBackBufferResolution = size;
 
 		return true;
 	}
 
 	const Size& D3D11RenderTarget::getCurrentRenderTargetSize() const
 	{
-		return m_currentRenderTargetResolution;
+		return m_currentBackBufferResolution;
+	}
+
+	void D3D11RenderTarget::setRenderTargetView(ID3D11RenderTargetView* rtv)
+	{
+		ID3D11RenderTargetView* pRTV[3]
+		{
+			rtv,
+			nullptr,
+			nullptr,
+		};
+
+		m_context->OMSetRenderTargets(3, pRTV, nullptr);
+	}
+
+	const RenderTexture& D3D11RenderTarget::getBackBuffer2D() const
+	{
+		return m_rt2D;
 	}
 }
 

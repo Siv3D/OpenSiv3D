@@ -15,6 +15,8 @@
 
 # include <GL/glew.h>
 # include "../../../ThirdParty/GLFW/include/GLFW/glfw3.h"
+# include <Siv3D/Optional.hpp>
+# include <Siv3D/Rectangle.hpp>
 # include "../IRenderer2D.hpp"
 # include "GLSpriteBatch.hpp"
 # include "GLRenderer2DCommandManager.hpp"
@@ -50,6 +52,10 @@ namespace s3d
 		void setBlendState(const BlendState& state) override;
 
 		BlendState getBlendState() const override;
+
+		void setViewport(const Optional<Rect>& viewport) override;
+
+		Optional<Rect> getViewport() const override;
 
 		void addTriangle(const Float2(&pts)[3], const Float4& color) override;
 

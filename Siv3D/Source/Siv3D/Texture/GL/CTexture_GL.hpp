@@ -30,6 +30,28 @@ namespace s3d
 		void release(Texture::IDType handleID) override;
 
 		Size getSize(Texture::IDType handleID) override;
+
+		void clearRT(Texture::IDType handleID, const ColorF& color) override
+		{
+			// [Siv3D ToDo]
+		}
+
+		void beginResize(Texture::IDType handleID) override
+		{
+			// [Siv3D ToDo]
+		}
+
+		bool endResizeRT(Texture::IDType handleID, const Size& size, uint32 multisampleCount) override
+		{
+			// [Siv3D ToDo]
+			return false;
+		}
+
+		bool endResizeBackBuffer(Texture::IDType handleID) override
+		{
+			// [Siv3D ToDo]
+			return false;
+		}
 	};
 }
 

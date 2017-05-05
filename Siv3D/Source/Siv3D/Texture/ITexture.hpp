@@ -30,5 +30,13 @@ namespace s3d
 		virtual void release(Texture::IDType handleID) = 0;
 
 		virtual Size getSize(Texture::IDType handleID) = 0;
+
+		virtual void clearRT(Texture::IDType handleID, const ColorF& color) = 0;
+
+		virtual void beginResize(Texture::IDType handleID) = 0;
+
+		virtual bool endResizeRT(Texture::IDType handleID, const Size& size, uint32 multisampleCount) = 0;
+
+		virtual bool endResizeBackBuffer(Texture::IDType handleID) = 0;
 	};
 }

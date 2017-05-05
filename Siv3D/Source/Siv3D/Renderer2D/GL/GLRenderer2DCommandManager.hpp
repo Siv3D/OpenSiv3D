@@ -29,6 +29,8 @@ namespace s3d
 		NextBatch,
 
 		BlendState,
+		
+		Viewport,
 	};
 
 	struct GLRender2DCommandHeader
@@ -77,6 +79,19 @@ namespace s3d
 
 		BlendState blendState;
 	};
+	
+	template <>
+	struct GLRender2DCommand<GLRender2DInstruction::Viewport>
+	{
+		GLRender2DCommandHeader header =
+		{
+			GLRender2DInstruction::Viewport,
+			
+			sizeof(GLRender2DCommand<GLRender2DInstruction::Viewport>)
+		};
+		
+		Optional<Rect> viewport;
+	};
 
 	class GLRender2DCommandManager
 	{
@@ -91,6 +106,8 @@ namespace s3d
 		GLRender2DInstruction m_lastCommand = GLRender2DInstruction::Nop;
 
 		BlendState m_currentBlendState = BlendState::Default;
+		
+		Optional<Rect> m_currentViewport;
 
 		template <class Command>
 		void writeCommand(const Command& command)
@@ -141,6 +158,12 @@ namespace s3d
 				command.blendState = m_currentBlendState;
 				writeCommand(command);
 			}
+			
+			{
+				GLRender2DCommand<GLRender2DInstruction::Viewport> command;
+				command.viewport = m_currentViewport;
+				writeCommand(command);
+			}
 		}
 
 		void pushDraw(const uint32 indexSize)
@@ -179,6 +202,25 @@ namespace s3d
 		const BlendState& getCurrentBlendState() const
 		{
 			return m_currentBlendState;
+		}
+		
+		void pushViewport(const Optional<Rect>& viewport)
+		{
+			if (viewport == m_currentViewport)
+			{
+				return;
+			}
+			
+			GLRender2DCommand<GLRender2DInstruction::Viewport> command;
+			command.viewport = viewport;
+			writeCommand(command);
+			
+			m_currentViewport = viewport;
+		}
+		
+		Optional<Rect> getCurrentViewport() const
+		{
+			return m_currentViewport;
 		}
 	};
 }

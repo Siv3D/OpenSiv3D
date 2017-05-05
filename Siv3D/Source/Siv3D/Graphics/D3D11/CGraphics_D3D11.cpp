@@ -182,16 +182,6 @@ namespace s3d
 		return m_renderTarget->endResize(size);
 	}
 
-	void CGraphics_D3D11::setVSyncEnabled(const bool enabled)
-	{
-		m_swapChain->setVSyncEnabled(enabled);
-	}
-
-	bool CGraphics_D3D11::isVSyncEnabled() const
-	{
-		return m_swapChain->isVSyncEnabled();
-	}
-
 	void CGraphics_D3D11::setTargetFrameRateHz(const Optional<double>& targetFrameRateHz)
 	{
 		m_swapChain->setTargetFrameRateHz(targetFrameRateHz);
@@ -219,6 +209,11 @@ namespace s3d
 	const Size& CGraphics_D3D11::getCurrentRenderTargetSize() const
 	{
 		return m_renderTarget->getCurrentRenderTargetSize();
+	}
+
+	const RenderTexture& CGraphics_D3D11::getBackBuffer2D() const
+	{
+		return m_renderTarget->getBackBuffer2D();
 	}
 }
 
