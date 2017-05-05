@@ -12,11 +12,6 @@ void Main()
 
 	while (System::Update())
 	{
-		if (KeyR.down())
-		{
-			Window::Resize(1280, 720);
-		}
-
 		for (auto i : step(4))
 		{
 			ViewportBlock2D viewport(i % 2 * 320, i / 2 * 240, 320, 240);

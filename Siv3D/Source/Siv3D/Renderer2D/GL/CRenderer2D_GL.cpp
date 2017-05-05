@@ -581,7 +581,97 @@ void main()
 		
 		m_commandManager.pushDraw(indexSize);
 	}
-	
+
+	void CRenderer2D_GL::addEllipse(const Float2& center, float a, float b, const Float4& color)
+	{
+		const float majorAxis = std::max(std::abs(a), std::abs(b));
+		const IndexType quality = static_cast<IndexType>(std::min(majorAxis * 0.225f + 18.0f, 255.0f));
+		const IndexType vertexSize = quality + 1, indexSize = quality * 3;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+		{
+			return;
+		}
+
+		const float centerX = center.x;
+		const float centerY = center.y;
+
+		// 中心
+		pVertex[0].pos.set(centerX, centerY);
+
+		// 周
+		const float radDelta = Math::TwoPiF / quality;
+
+		for (IndexType i = 1; i <= quality; ++i)
+		{
+			const float rad = radDelta * (i - 1.0f);
+			pVertex[i].pos.set(centerX + a * std::cos(rad), centerY - b * std::sin(rad));
+		}
+
+		for (size_t i = 0; i < vertexSize; ++i)
+		{
+			(pVertex++)->color = color;
+		}
+
+		for (IndexType i = 0; i < quality; ++i)
+		{
+			pIndex[i * 3 + 0] = indexOffset + (i + 0) + 1;
+			pIndex[i * 3 + 1] = indexOffset;
+			pIndex[i * 3 + 2] = indexOffset + (i + 1) % quality + 1;
+		}
+
+		m_commandManager.pushDraw(indexSize);
+	}
+
+	void CRenderer2D_GL::addEllipseFrame(const Float2& center, float a, float b, float thickness, const Float4& color)
+	{
+		const float at = a + thickness;
+		const float bt = b + thickness;
+		const float majorT = std::max(std::abs(at), std::abs(bt));
+		const IndexType quality = detail::CalculateCircleFrameQuality(majorT);
+		const IndexType vertexSize = quality * 2, indexSize = quality * 6;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+		{
+			return;
+		}
+
+		const float centerX = center.x;
+		const float centerY = center.y;
+		const float radDelta = Math::TwoPiF / quality;
+
+		for (IndexType i = 0; i < quality; ++i)
+		{
+			const float rad = radDelta * (i - 1.0f);
+			const float c = std::cosf(rad);
+			const float s = std::sinf(rad);
+
+			pVertex->pos.set(centerX + a * c, centerY - b * s);
+			pVertex->color = color;
+			++pVertex;
+
+			pVertex->pos.set(centerX + at * c, centerY - bt * s);
+			pVertex->color = color;
+			++pVertex;
+		}
+
+		for (IndexType i = 0; i < quality; ++i)
+		{
+			for (IndexType k = 0; k < 6; ++k)
+			{
+				pIndex[i * 6 + k] = indexOffset + (i * 2 + detail::rectIndexTable[k]) % (quality * 2);
+			}
+		}
+
+		m_commandManager.pushDraw(indexSize);
+	}
+
 	void CRenderer2D_GL::addQuad(const FloatQuad& quad, const Float4& color)
 	{
 		constexpr IndexType vertexSize = 4, indexSize = 6;

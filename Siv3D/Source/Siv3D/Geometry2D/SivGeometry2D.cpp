@@ -13,8 +13,9 @@
 # include <Siv3D/Geometry2D.hpp>
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/Line.hpp>
-# include <Siv3D/Circle.hpp>
 # include <Siv3D/Rectangle.hpp>
+# include <Siv3D/Circle.hpp>
+# include <Siv3D/Ellipse.hpp>
 # include <Siv3D/Triangle.hpp>
 # include <Siv3D/Quad.hpp>
 
@@ -219,6 +220,19 @@ namespace s3d
 			return a.distanceFromSq(b.center) <= (b.r * b.r);
 		}
 
+		bool Intersect(const Point& a, const Ellipse& b) noexcept
+		{
+			if (b.a == 0.0 || b.b == 0.0)
+			{
+				return false;
+			}
+
+			const double xh = (b.x - a.x);
+			const double yk = (b.y - a.y);
+
+			return (xh * xh) / (b.a * b.a) + (yk * yk) / (b.b * b.b) <= 1.0;
+		}
+
 		bool Intersect(const Point& a, const Triangle& b) noexcept
 		{
 			const bool b1 = detail::Sign(a, b.p0, b.p1) < 0.0;
@@ -262,6 +276,19 @@ namespace s3d
 		bool Intersect(const Vec2& a, const Circle& b) noexcept
 		{
 			return a.distanceFromSq(b.center) <= (b.r * b.r);
+		}
+
+		bool Intersect(const Vec2& a, const Ellipse& b) noexcept
+		{
+			if (b.a == 0.0 || b.b == 0.0)
+			{
+				return false;
+			}
+
+			const double xh = (b.x - a.x);
+			const double yk = (b.y - a.y);
+
+			return (xh * xh) / (b.a * b.a) + (yk * yk) / (b.b * b.b) <= 1.0;
 		}
 
 		bool Intersect(const Vec2& a, const Triangle& b) noexcept
@@ -527,6 +554,16 @@ namespace s3d
 		{
 			return detail::CircleTriangleIntersection(a, Triangle{ b.p0, b.p1, b.p3 })
 				|| detail::CircleTriangleIntersection(a, Triangle{ b.p1, b.p2, b.p3 });
+		}
+
+		bool Intersect(const Ellipse& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Ellipse& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
 		}
 
 		bool Intersect(const Triangle& a, const Point& b) noexcept
