@@ -43,14 +43,10 @@ namespace s3d
 		/// </returns>
 		BlendState GetBlendState();
 
-
-
-
 		void SetViewport(const Optional<Rect>& viewport);
 
 		Optional<Rect> GetViewport();
 	}
-
 
 	class RenderStateBlock2D
 	{
@@ -73,6 +69,18 @@ namespace s3d
 			Graphics2D::SetBlendState(blendState);
 		}
 
+		RenderStateBlock2D(RenderStateBlock2D&& block)
+		{
+			m_oldBlendState = block.m_oldBlendState;
+
+			block.clear();
+		}
+
+		~RenderStateBlock2D()
+		{
+			m_oldBlendState.then(Graphics2D::SetBlendState);
+		}
+
 		RenderStateBlock2D& operator =(RenderStateBlock2D&& block)
 		{
 			if (!m_oldBlendState && block.m_oldBlendState)
@@ -84,22 +92,24 @@ namespace s3d
 
 			return *this;
 		}
-
-		~RenderStateBlock2D()
-		{
-			m_oldBlendState.then(Graphics2D::SetBlendState);
-		}
 	};
 
 	class ViewportBlock2D
 	{
 	private:
 
-		Optional<Rect> m_oldViewport;
+		Optional<Optional<Rect>> m_oldViewport;
+
+		void clear()
+		{
+			m_oldViewport.reset();
+		}
 
 	public:
+		
+		ViewportBlock2D() = default;
 
-		ViewportBlock2D(const Optional<Rect>& viewport)
+		explicit ViewportBlock2D(const Optional<Rect>& viewport)
 			: m_oldViewport(Graphics2D::GetViewport())
 		{
 			Graphics2D::SetViewport(viewport);
@@ -117,9 +127,28 @@ namespace s3d
 		ViewportBlock2D(const Point& pos, const Size& size)
 			: ViewportBlock2D(Rect(pos, size)) {}
 
+		ViewportBlock2D(ViewportBlock2D&& block)
+		{
+			m_oldViewport = block.m_oldViewport;
+
+			block.clear();
+		}
+
 		~ViewportBlock2D()
 		{
-			Graphics2D::SetViewport(m_oldViewport);
+			m_oldViewport.then(Graphics2D::SetViewport);
+		}
+
+		ViewportBlock2D& operator =(ViewportBlock2D&& block)
+		{
+			if (!m_oldViewport && block.m_oldViewport)
+			{
+				m_oldViewport = block.m_oldViewport;
+			}
+
+			block.clear();
+
+			return *this;
 		}
 	};
 }
