@@ -13,6 +13,9 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_LINUX)
 
+// XGrabPointer関数
+# include <X11/Xlib.h>
+
 # include "ICursor.hpp"
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/Rectangle.hpp>
@@ -39,6 +42,8 @@ namespace s3d
 		Point m_clientDelta{ 0, 0 };
 
 		Optional<Rect> m_clipRect;
+
+		bool m_grabbing = false;
 
 	public:
 
