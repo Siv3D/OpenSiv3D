@@ -52,7 +52,7 @@ namespace s3d
 
 		RenderTexture m_rt2D;
 
-		Size m_currentRenderTargetResolution = { 640, 480 };
+		Size m_currentBackBufferResolution = { 640, 480 };
 		
 	public:
 
