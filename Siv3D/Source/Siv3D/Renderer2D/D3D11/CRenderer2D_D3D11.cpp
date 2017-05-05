@@ -115,27 +115,30 @@ namespace s3d
 	{
 		CGraphics_D3D11* const graphics = dynamic_cast<CGraphics_D3D11* const>(Siv3DEngine::GetGraphics());
 
-		// setCB
 		const Float2 currentRenderTargetSize = Siv3DEngine::GetGraphics()->getCurrentRenderTargetSize();
-		const Mat3x2 currentMat = Mat3x2::Identity();
-		const Mat3x2 currentScreen = Mat3x2::Screen(currentRenderTargetSize);
-		const Mat3x2 matrix = currentMat * currentScreen;
 
-		const float transform[8] =
+		// setCB
 		{
-			matrix._11, matrix._12, matrix._31, matrix._32,
-			matrix._21, matrix._22, 0.0f, 1.0f
-		};
+			const Mat3x2 currentMat = Mat3x2::Identity();
+			const Mat3x2 currentScreen = Mat3x2::Screen(currentRenderTargetSize);
+			const Mat3x2 matrix = currentMat * currentScreen;
 
-		D3D11_MAPPED_SUBRESOURCE mapped;
-
-		if (SUCCEEDED(m_context->Map(m_cbuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped)))
-		{
-			if (void* dst = mapped.pData)
+			const float transform[8] =
 			{
-				::memcpy(dst, transform, sizeof(transform));
+				matrix._11, matrix._12, matrix._31, matrix._32,
+				matrix._21, matrix._22, 0.0f, 1.0f
+			};
 
-				m_context->Unmap(m_cbuffer.Get(), 0);
+			D3D11_MAPPED_SUBRESOURCE mapped;
+
+			if (SUCCEEDED(m_context->Map(m_cbuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped)))
+			{
+				if (void* dst = mapped.pData)
+				{
+					::memcpy(dst, transform, sizeof(transform));
+
+					m_context->Unmap(m_cbuffer.Get(), 0);
+				}
 			}
 		}
 
@@ -189,6 +192,82 @@ namespace s3d
 					graphics->getBlendState()->set(command->blendState);
 					break;
 				}
+			case D3D11Render2DInstruction::Viewport:
+				{
+					const auto* command = static_cast<const D3D11Render2DCommand<D3D11Render2DInstruction::Viewport>*>(static_cast<const void*>(commandPointer));
+
+					//Log(L"Viewport");
+					//graphics->getBlendState()->set(command->blendState);
+
+					D3D11_VIEWPORT viewport;
+					viewport.MinDepth = 0.0f;
+					viewport.MaxDepth = 1.0f;
+
+					if (command->viewport == Rect(0, 0, INT_MIN, INT_MIN))
+					{				
+						viewport.TopLeftX	= 0;
+						viewport.TopLeftY	= 0;
+						viewport.Width		= currentRenderTargetSize.x;
+						viewport.Height		= currentRenderTargetSize.y;
+
+						const Mat3x2 currentMat = Mat3x2::Identity();
+						const Mat3x2 currentScreen = Mat3x2::Screen(currentRenderTargetSize);
+						const Mat3x2 matrix = currentMat * currentScreen;
+
+						const float transform[8] =
+						{
+							matrix._11, matrix._12, matrix._31, matrix._32,
+							matrix._21, matrix._22, 0.0f, 1.0f
+						};
+
+						D3D11_MAPPED_SUBRESOURCE mapped;
+
+						if (SUCCEEDED(m_context->Map(m_cbuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped)))
+						{
+							if (void* dst = mapped.pData)
+							{
+								::memcpy(dst, transform, sizeof(transform));
+
+								m_context->Unmap(m_cbuffer.Get(), 0);
+							}
+						}
+					}
+					else
+					{
+						//Log(L"Viewport: ", command->viewport);
+
+						viewport.TopLeftX	= static_cast<float>(command->viewport.x);
+						viewport.TopLeftY	= static_cast<float>(command->viewport.y);
+						viewport.Width		= static_cast<float>(command->viewport.w);
+						viewport.Height		= static_cast<float>(command->viewport.h);
+
+						const Mat3x2 currentMat = Mat3x2::Identity();
+						const Mat3x2 currentScreen = Mat3x2::Screen(command->viewport.w, command->viewport.h);
+						const Mat3x2 matrix = currentMat * currentScreen;
+
+						const float transform[8] =
+						{
+							matrix._11, matrix._12, matrix._31, matrix._32,
+							matrix._21, matrix._22, 0.0f, 1.0f
+						};
+
+						D3D11_MAPPED_SUBRESOURCE mapped;
+
+						if (SUCCEEDED(m_context->Map(m_cbuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped)))
+						{
+							if (void* dst = mapped.pData)
+							{
+								::memcpy(dst, transform, sizeof(transform));
+
+								m_context->Unmap(m_cbuffer.Get(), 0);
+							}
+						}
+					}
+
+					m_context->RSSetViewports(1, &viewport);
+
+					break;
+				}
 			}
 
 			commandPointer += header->commandSize;
@@ -207,6 +286,25 @@ namespace s3d
 	BlendState CRenderer2D_D3D11::getBlendState() const
 	{
 		return m_commandManager.getCurrentBlendState();
+	}
+
+	void CRenderer2D_D3D11::setViewport(const Rect& viewport)
+	{
+		m_commandManager.pushViewport(viewport);
+	}
+
+	Rect CRenderer2D_D3D11::getViewport() const
+	{
+		const Rect viewport = m_commandManager.getCurrentViewport();
+
+		if (viewport == Rect(0, 0, INT_MIN, INT_MIN))
+		{
+			return Rect(0, 0, Siv3DEngine::GetGraphics()->getCurrentRenderTargetSize());
+		}
+		else
+		{
+			return viewport;
+		}
 	}
 
 	void CRenderer2D_D3D11::addTriangle(const Float2(&pts)[3], const Float4& color)

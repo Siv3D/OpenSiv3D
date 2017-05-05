@@ -26,5 +26,22 @@ namespace s3d
 		{
 			return Siv3DEngine::GetRenderer2D()->getBlendState();
 		}
+
+
+
+		void BeginViewport(const Rect& viewport)
+		{
+			Siv3DEngine::GetRenderer2D()->setViewport(viewport);
+		}
+
+		void EndViewport()
+		{
+			Siv3DEngine::GetRenderer2D()->setViewport(Rect(0, 0, INT_MIN, INT_MIN));
+		}
+
+		Rect GetViewport()
+		{
+			return Siv3DEngine::GetRenderer2D()->getViewport();
+		}
 	}
 }

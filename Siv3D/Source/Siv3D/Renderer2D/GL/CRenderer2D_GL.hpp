@@ -51,6 +51,17 @@ namespace s3d
 
 		BlendState getBlendState() const override;
 
+		void setViewport(const Rect& viewport) override
+		{
+			// [Siv3D ToDo]
+		}
+
+		Rect getViewport() const override
+		{
+			// [Siv3D ToDo]
+			return  Rect(0, 0, 0, 0);
+		}
+
 		void addTriangle(const Float2(&pts)[3], const Float4& color) override;
 
 		void addTriangle(const Float2(&pts)[3], const Float4(&colors)[3]) override;

@@ -1,30 +1,22 @@
-﻿# include <Siv3D.hpp>
-# include <HamFramework.hpp>
+﻿
+# include <Siv3D.hpp>
 
 void Main()
 {
-	double t = 0.0;
-
-	Graphics2D::SetBlendState(BlendState::Additive);
+	RenderStateBlock2D rsb(BlendState::Additive);
 
 	while (System::Update())
 	{
-		for (auto p : step(Size(100, 50)))
+		for (auto i : step(4))
 		{
-			Circle(p * 6, 3).draw(Palette::Gray);
+			ViewportBlock2D vb(i % 2 * 320, i / 2 * 240, 320, 240);
+
+			for (int32 n = 0; n < 20; ++n)
+			{
+				Circle(RandomVec2(320, 240), 40).draw(HSV(i * 90 + 45, 0.5));
+			}
 		}
-
-		t += System::DeltaTime();
-
-		for (int32 i = 0; i < 36; ++i)
-		{
-			const double angle = i * 10_deg + t;
-
-			const Vec2 pos = Circular(200, angle) + Window::Center();
-
-			RectF(25).setCenter(pos).rotated(angle).draw(HSV(i * 10));
-		}
-		
-		Circle(Cursor::Pos(), 40).draw(ColorF(1,0,0,0.5));
 	}
 }
+
+

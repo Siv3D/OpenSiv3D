@@ -24,6 +24,7 @@
 # include <Siv3D/Array.hpp>
 # include <Siv3D/Byte.hpp>
 # include <Siv3D/BlendState.hpp>
+# include <Siv3D/Rectangle.hpp>
 
 namespace s3d
 {
@@ -36,6 +37,8 @@ namespace s3d
 		NextBatch,
 
 		BlendState,
+
+		Viewport,
 	};
 
 	struct D3D11Render2DCommandHeader
@@ -85,6 +88,19 @@ namespace s3d
 		BlendState blendState;
 	};
 
+	template <>
+	struct D3D11Render2DCommand<D3D11Render2DInstruction::Viewport>
+	{
+		D3D11Render2DCommandHeader header =
+		{
+			D3D11Render2DInstruction::Viewport,
+
+			sizeof(D3D11Render2DCommand<D3D11Render2DInstruction::Viewport>)
+		};
+
+		Rect viewport; // Rect(0, 0, INT_MIN, INT_MIN) -> default
+	};
+
 	class D3D11Render2DCommandManager
 	{
 	private:
@@ -98,6 +114,8 @@ namespace s3d
 		D3D11Render2DInstruction m_lastCommand = D3D11Render2DInstruction::Nop;
 
 		BlendState m_currentBlendState = BlendState::Default;
+
+		Rect m_currentViewport = Rect(0, 0, INT_MIN, INT_MIN);
 
 		template <class Command>
 		void writeCommand(const Command& command)
@@ -148,6 +166,14 @@ namespace s3d
 				command.blendState = m_currentBlendState;
 				writeCommand(command);
 			}
+
+			{
+				D3D11Render2DCommand<D3D11Render2DInstruction::Viewport> command;
+				command.viewport = Rect(0, 0, INT_MIN, INT_MIN);
+				writeCommand(command);
+
+				m_currentViewport = Rect(0, 0, INT_MIN, INT_MIN);
+			}
 		}
 
 		void pushDraw(const uint32 indexSize)
@@ -186,6 +212,25 @@ namespace s3d
 		const BlendState& getCurrentBlendState() const
 		{
 			return m_currentBlendState;
+		}
+
+		void pushViewport(const Rect& viewport)
+		{
+			if (viewport == m_currentViewport)
+			{
+				return;
+			}
+
+			D3D11Render2DCommand<D3D11Render2DInstruction::Viewport> command;
+			command.viewport = viewport;
+			writeCommand(command);
+
+			m_currentViewport = viewport;
+		}
+
+		Rect getCurrentViewport() const
+		{
+			return m_currentViewport;
 		}
 	};
 }

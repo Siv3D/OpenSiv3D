@@ -28,6 +28,10 @@ namespace s3d
 
 		virtual BlendState getBlendState() const = 0;
 
+		virtual void setViewport(const Rect& viewport) = 0;
+
+		virtual Rect getViewport() const = 0;
+
 		virtual void addTriangle(const Float2(&pts)[3], const Float4& color) = 0;
 
 		virtual void addTriangle(const Float2(&pts)[3], const Float4(&colors)[3]) = 0;
