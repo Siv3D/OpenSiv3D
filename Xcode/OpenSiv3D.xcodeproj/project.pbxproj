@@ -17,6 +17,10 @@
 		2C0C78B81EBC01C200386CBB /* GLRenderer2DCommandManager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C78B71EBC01C200386CBB /* GLRenderer2DCommandManager.hpp */; };
 		2C0C78BC1EBC069F00386CBB /* GLBlendState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C78BA1EBC069F00386CBB /* GLBlendState.cpp */; };
 		2C0C78BD1EBC069F00386CBB /* GLBlendState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C78BB1EBC069F00386CBB /* GLBlendState.hpp */; };
+		2C0C78BF1EBC665A00386CBB /* hopscotch_set.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C78BE1EBC665A00386CBB /* hopscotch_set.h */; };
+		2C0C78C11EBC667600386CBB /* HashSet.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C78C01EBC667600386CBB /* HashSet.hpp */; };
+		2C0C78C31EBC668E00386CBB /* RenderTexture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C78C21EBC668E00386CBB /* RenderTexture.hpp */; };
+		2C0C78C61EBC66A400386CBB /* SivRenderTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C78C51EBC66A400386CBB /* SivRenderTexture.cpp */; };
 		2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C38B14A1CDEB45C007A7E9F /* gtest.a */; };
 		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
@@ -647,6 +651,10 @@
 		2C0C78B71EBC01C200386CBB /* GLRenderer2DCommandManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GLRenderer2DCommandManager.hpp; sourceTree = "<group>"; };
 		2C0C78BA1EBC069F00386CBB /* GLBlendState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GLBlendState.cpp; sourceTree = "<group>"; };
 		2C0C78BB1EBC069F00386CBB /* GLBlendState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GLBlendState.hpp; sourceTree = "<group>"; };
+		2C0C78BE1EBC665A00386CBB /* hopscotch_set.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hopscotch_set.h; sourceTree = "<group>"; };
+		2C0C78C01EBC667600386CBB /* HashSet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HashSet.hpp; sourceTree = "<group>"; };
+		2C0C78C21EBC668E00386CBB /* RenderTexture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RenderTexture.hpp; sourceTree = "<group>"; };
+		2C0C78C51EBC66A400386CBB /* SivRenderTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRenderTexture.cpp; sourceTree = "<group>"; };
 		2C1777401CDEE5D500BB8AD0 /* gtest-death-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-death-test.h"; sourceTree = "<group>"; };
 		2C1777411CDEE5D500BB8AD0 /* gtest-message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-message.h"; sourceTree = "<group>"; };
 		2C1777421CDEE5D500BB8AD0 /* gtest-param-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-param-test.h"; sourceTree = "<group>"; };
@@ -1355,6 +1363,14 @@
 			path = BlendState;
 			sourceTree = "<group>";
 		};
+		2C0C78C41EBC66A400386CBB /* RenderTexture */ = {
+			isa = PBXGroup;
+			children = (
+				2C0C78C51EBC66A400386CBB /* SivRenderTexture.cpp */,
+			);
+			path = RenderTexture;
+			sourceTree = "<group>";
+		};
 		2C17773E1CDEE5D500BB8AD0 /* Include */ = {
 			isa = PBXGroup;
 			children = (
@@ -1819,6 +1835,7 @@
 				2C316EE21E9F7B950011CAAE /* HardwareRNG.hpp */,
 				2C316EE31E9F7B950011CAAE /* Hash.hpp */,
 				2C316EE41E9F7B950011CAAE /* HashMap.hpp */,
+				2C0C78C01EBC667600386CBB /* HashSet.hpp */,
 				2C316EE51E9F7B950011CAAE /* HighPerfoemanceGPU.hpp */,
 				2C316EE61E9F7B950011CAAE /* HSV.hpp */,
 				2C316EE71E9F7B950011CAAE /* HTMLWriter.hpp */,
@@ -1875,6 +1892,7 @@
 				2C316F181E9F7B950011CAAE /* ReaderView.hpp */,
 				2C316F191E9F7B950011CAAE /* Rectangle.hpp */,
 				2C316F1A1E9F7B950011CAAE /* Regex.hpp */,
+				2C0C78C21EBC668E00386CBB /* RenderTexture.hpp */,
 				2C316F1B1E9F7B950011CAAE /* Resource.hpp */,
 				2C316F1C1E9F7B950011CAAE /* SpeedStopwatch.hpp */,
 				2C316F1D1E9F7B950011CAAE /* Spherical.hpp */,
@@ -2000,6 +2018,7 @@
 			children = (
 				2C81BC9C1E89F8E300D27E52 /* hopscotch_hash.h */,
 				2C81BC9D1E89F8E300D27E52 /* hopscotch_map.h */,
+				2C0C78BE1EBC665A00386CBB /* hopscotch_set.h */,
 				2C81BC9E1E89F8E300D27E52 /* LICENSE */,
 			);
 			path = hopscotch_map;
@@ -2017,6 +2036,7 @@
 		2C81BD1D1E89F8E300D27E52 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C0C78C41EBC66A400386CBB /* RenderTexture */,
 				2C0C78B41EBB936700386CBB /* Graphics2D */,
 				2C2E82B71EAA1B550057BDAF /* JSONReader */,
 				2C316FD11EA0CB660011CAAE /* Quad */,
@@ -3214,6 +3234,7 @@
 				2C81C0861E89F8E300D27E52 /* muParserFixes.h in Headers */,
 				2C81BF701E89F8E300D27E52 /* IConsole.hpp in Headers */,
 				2C316F781E9F7B950011CAAE /* IWriter.hpp in Headers */,
+				2C0C78C31EBC668E00386CBB /* RenderTexture.hpp in Headers */,
 				2C316F641E9F7B950011CAAE /* FormatInt.hpp in Headers */,
 				2C81BF731E89F8E300D27E52 /* CCursor_Linux.hpp in Headers */,
 				2C81BFCA1E89F8E300D27E52 /* CMouse_macOS.hpp in Headers */,
@@ -3320,6 +3341,7 @@
 				2C2E82BB1EAA1B930057BDAF /* JSONReader.hpp in Headers */,
 				2C316F6A1E9F7B950011CAAE /* Graphics.hpp in Headers */,
 				2C316F9C1E9F7B950011CAAE /* RandomPoint.hpp in Headers */,
+				2C0C78C11EBC667600386CBB /* HashSet.hpp in Headers */,
 				2C81BFA31E89F8E300D27E52 /* CImageFormat.hpp in Headers */,
 				2C81C0951E89F8E400D27E52 /* mem.h in Headers */,
 				2C316FAE1E9F7B950011CAAE /* Texture.hpp in Headers */,
@@ -3403,6 +3425,7 @@
 				2C316F631E9F7B950011CAAE /* FormatFloat.hpp in Headers */,
 				2C2E82B01EAA1B3A0057BDAF /* prettywriter.h in Headers */,
 				2C316F461E9F7B950011CAAE /* BinaryReader.hpp in Headers */,
+				2C0C78BF1EBC665A00386CBB /* hopscotch_set.h in Headers */,
 				2C81BECF1E89F8E300D27E52 /* ostream.h in Headers */,
 				2C3C390C1EAE2D4100E54E8B /* EasingController.hpp in Headers */,
 				2C316F521E9F7B950011CAAE /* ColorPalette.hpp in Headers */,
@@ -3826,6 +3849,7 @@
 				2C81C06C1E89F8E300D27E52 /* quality.cc in Sources */,
 				2C81BFCB1E89F8E300D27E52 /* CMouse_Windows.cpp in Sources */,
 				2C2126541E8CB7B5006F8101 /* gif_hash.c in Sources */,
+				2C0C78C61EBC66A400386CBB /* SivRenderTexture.cpp in Sources */,
 				2C2126521E8CB7B5006F8101 /* gif_err.c in Sources */,
 				2C81BFAB1E89F8E300D27E52 /* CINIReader.cpp in Sources */,
 				2C81BFD01E89F8E300D27E52 /* SivParseFloat.cpp in Sources */,
