@@ -205,10 +205,8 @@ namespace s3d
 
 			{
 				D3D11Render2DCommand<D3D11Render2DInstruction::Viewport> command;
-				command.viewport = m_currentViewport;// Rect(0, 0, INT_MIN, INT_MIN);
+				command.viewport = m_currentViewport;
 				writeCommand(command);
-
-				//m_currentViewport = Rect(0, 0, INT_MIN, INT_MIN);
 			}
 		}
 
