@@ -131,7 +131,7 @@ namespace s3d
 
 		const Byte* commandPointer = m_commandManager.getCommandBuffer();
 
-		Log(L"----");
+		//Log(L"----");
 
 		for (size_t commandIndex = 0; commandIndex < m_commandManager.getCount(); ++commandIndex)
 		{
@@ -141,21 +141,21 @@ namespace s3d
 			{
 				case D3D11Render2DInstruction::Nop:
 				{
-					Log(L"Nop");
+					//Log(L"Nop");
 					break;
 				}
 				case D3D11Render2DInstruction::Draw:
 				{
 					const auto* command = static_cast<const D3D11Render2DCommand<D3D11Render2DInstruction::Draw>*>(static_cast<const void*>(commandPointer));
 					
-					Log(L"Draw: ", command->indexSize);
+					//Log(L"Draw: ", command->indexSize);
 					m_context->DrawIndexed(command->indexSize, batchDrawOffset.indexStartLocation, batchDrawOffset.vertexStartLocation);
 					batchDrawOffset.indexStartLocation += command->indexSize;
 					break;
 				}
 				case D3D11Render2DInstruction::NextBatch:
 				{
-					Log(L"NextBatch: ", batchIndex);
+					//Log(L"NextBatch: ", batchIndex);
 					batchDrawOffset = m_spriteBatch.setBuffers(batchIndex);
 					++batchIndex;
 					break;
@@ -164,7 +164,7 @@ namespace s3d
 				{
 					const auto* command = static_cast<const D3D11Render2DCommand<D3D11Render2DInstruction::BlendState>*>(static_cast<const void*>(commandPointer));
 
-					Log(L"BlendState");
+					//Log(L"BlendState");
 					pGraphics->getBlendState()->set(command->blendState);
 					break;
 				}
@@ -178,7 +178,7 @@ namespace s3d
 
 					if (command->viewport)
 					{			
-						Log(L"Viewport: ", *command->viewport);
+						//Log(L"Viewport: ", *command->viewport);
 						viewport.TopLeftX	= static_cast<float>(command->viewport->x);
 						viewport.TopLeftY	= static_cast<float>(command->viewport->y);
 						viewport.Width		= static_cast<float>(command->viewport->w);
@@ -186,7 +186,7 @@ namespace s3d
 					}
 					else
 					{
-						Log(L"Viewport reset: ", Rect(0, 0, currentRenderTargetSize));
+						//Log(L"Viewport reset: ", Rect(0, 0, currentRenderTargetSize));
 						viewport.TopLeftX	= 0;
 						viewport.TopLeftY	= 0;
 						viewport.Width		= static_cast<float>(currentRenderTargetSize.x);
@@ -226,7 +226,7 @@ namespace s3d
 					pGraphics->getRenderTarget()->setRenderTargetView(pTexture->getRTV(command->textureID));
 					currentRenderTargetSize = pTexture->getSize(command->textureID);
 
-					Log(L"RenderTarget: id = ", command->textureID, L", size = ", currentRenderTargetSize);
+					//Log(L"RenderTarget: id = ", command->textureID, L", size = ", currentRenderTargetSize);
 
 					break;
 				}
