@@ -39,10 +39,6 @@ namespace s3d
 		virtual void beginResize() = 0;
 
 		virtual bool endResize(const Size& size) = 0;
-		
-		virtual void setVSyncEnabled(bool enabled) = 0;
-		
-		virtual bool isVSyncEnabled() const = 0;
 
 		virtual void setTargetFrameRateHz(const Optional<double>& targetFrameRateHz) = 0;
 
