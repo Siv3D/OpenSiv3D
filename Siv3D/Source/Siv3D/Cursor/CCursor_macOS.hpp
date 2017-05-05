@@ -15,6 +15,7 @@
 
 # include "ICursor.hpp"
 # include <Siv3D/PointVector.hpp>
+# include <Siv3D/Rectangle.hpp>
 # include "../Window/IWindow.hpp"
 
 namespace s3d
@@ -37,6 +38,8 @@ namespace s3d
 
 		Point m_clientDelta{ 0, 0 };
 
+		Optional<Rect> m_clipRect;
+
 	public:
 
 		CCursor_macOS();
@@ -58,6 +61,10 @@ namespace s3d
 		const Point& clientPos() const override;
 
 		const Point& clientDelta() const override;
+
+		void setPos(int32 x, int32 y) override;
+
+		void clip(const Optional<Rect>& rect) override;
 	};
 }
 

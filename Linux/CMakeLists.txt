@@ -90,6 +90,7 @@ set(SOURCE_FILES
 	"../Siv3D/Source/Siv3D/Graphics/GL/CGraphics_GL.cpp"
 	"../Siv3D/Source/Siv3D/Graphics/GraphicsFactory.cpp"
 	"../Siv3D/Source/Siv3D/Graphics/SivGraphics.cpp"
+	"../Siv3D/Source/Siv3D/Geometry2D/SivGeometry2D.cpp"
 	"../Siv3D/Source/Siv3D/HSV/SivHSV.cpp"
 	"../Siv3D/Source/Siv3D/INIReader/CINIReader.cpp"
 	"../Siv3D/Source/Siv3D/INIReader/SivINIReader.cpp"

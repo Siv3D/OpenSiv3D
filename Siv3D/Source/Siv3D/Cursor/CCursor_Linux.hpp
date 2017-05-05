@@ -13,8 +13,12 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_LINUX)
 
+// XGrabPointer関数
+# include <X11/Xlib.h>
+
 # include "ICursor.hpp"
 # include <Siv3D/PointVector.hpp>
+# include <Siv3D/Rectangle.hpp>
 # include "../Window/IWindow.hpp"
 
 namespace s3d
@@ -37,6 +41,10 @@ namespace s3d
 
 		Point m_clientDelta{ 0, 0 };
 
+		Optional<Rect> m_clipRect;
+
+		bool m_grabbing = false;
+
 	public:
 
 		CCursor_Linux();
@@ -58,6 +66,10 @@ namespace s3d
 		const Point& clientPos() const override;
 
 		const Point& clientDelta() const override;
+
+		void setPos(int32 x, int32 y) override;
+
+		void clip(const Optional<Rect>& rect) override;
 	};
 }
 
