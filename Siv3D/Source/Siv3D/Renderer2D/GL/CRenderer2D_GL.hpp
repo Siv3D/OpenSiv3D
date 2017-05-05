@@ -17,6 +17,7 @@
 # include "../../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 # include "../IRenderer2D.hpp"
 # include "GLSpriteBatch.hpp"
+# include "GLRenderer2DCommandManager.hpp"
 
 namespace s3d
 {
@@ -31,6 +32,8 @@ namespace s3d
 		GLuint m_programHandle = 0;
 		
 		GLSpriteBatch m_spriteBatch;
+		
+		GLRender2DCommandManager m_commandManager;
 
 		bool m_initialized = false;
 		

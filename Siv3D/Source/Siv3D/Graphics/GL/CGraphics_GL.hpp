@@ -18,6 +18,7 @@
 # include "../IGraphics.hpp"
 # include "../../Window/IWindow.hpp"
 # include "../../Texture/GL/CTexture_GL.hpp"
+# include "BlendState/GLBlendState.hpp"
 # include "../../Renderer2D/GL/CRenderer2D_GL.hpp"
 # include <Siv3D/Color.hpp>
 
@@ -35,6 +36,8 @@ namespace s3d
 
 		CTexture_GL* m_texture = nullptr;
 		
+		std::unique_ptr<GLBlendState> m_pBlendState;
+		
 		CRenderer2D_GL* m_renderer2D = nullptr;
 		
 		Size m_currentRenderTargetSize = { 640, 480 };
@@ -50,6 +53,8 @@ namespace s3d
 		~CGraphics_GL() override;
 
 		bool init() override;
+		
+		GLBlendState* getBlendState() { return m_pBlendState.get(); }
 
 		Array<DisplayOutput> enumOutputs() override;
 

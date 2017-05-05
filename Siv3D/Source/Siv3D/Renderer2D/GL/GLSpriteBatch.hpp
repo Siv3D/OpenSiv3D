@@ -18,6 +18,7 @@
 # include <Siv3D/Array.hpp>
 # include <Siv3D/Vertex2D.hpp>
 # include <Siv3D/Logger.hpp>
+# include "GLRenderer2DCommandManager.hpp"
 
 namespace s3d
 {
@@ -158,7 +159,7 @@ namespace s3d
 			return true;
 		}
 
-		bool getBuffer(const uint32 vertexSize, const uint32 indexSize, Vertex2D** pVertex, IndexType** pIndices, IndexType* indexOffset)
+		bool getBuffer(const uint32 vertexSize, const uint32 indexSize, Vertex2D** pVertex, IndexType** pIndices, IndexType* indexOffset, GLRender2DCommandManager& commandManager)
 		{
 			// VB
 			const uint32 requiredVertexSize = m_vertexArrayWritePos + vertexSize;
@@ -190,6 +191,8 @@ namespace s3d
 				|| IndexBufferSize < (m_batches.back().indexPos + indexSize))
 			{
 				m_batches.emplace_back();
+				
+				commandManager.pushNextBatch();
 			}
 
 			*pVertex = m_vertices.data() + m_vertexArrayWritePos;

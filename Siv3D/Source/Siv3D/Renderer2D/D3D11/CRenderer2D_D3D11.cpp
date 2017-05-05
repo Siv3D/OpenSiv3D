@@ -105,6 +105,8 @@ namespace s3d
 				return false;
 			}
 		}
+		
+		m_commandManager.reset();
 
 		return true;
 	}

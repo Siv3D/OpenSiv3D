@@ -13,7 +13,7 @@
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 # include "../../Siv3DEngine.hpp"
-# include "../../Graphics/IGraphics.hpp"
+# include "../../Graphics/GL/CGraphics_GL.hpp"
 # include "CRenderer2D_GL.hpp"
 # include <Siv3D/Vertex2D.hpp>
 # include <Siv3D/FloatRect.hpp>
@@ -166,9 +166,11 @@ void main()
 			return false;
 		}
 		
-		::glEnable(GL_BLEND);
-		::glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
-		::glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
+		//::glEnable(GL_BLEND);
+		//::glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
+		//::glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
+		
+		m_commandManager.reset();
 		
 		m_initialized = true;
 		
@@ -177,6 +179,8 @@ void main()
 	
 	void CRenderer2D_GL::flush()
 	{
+		CGraphics_GL* const graphics = dynamic_cast<CGraphics_GL* const>(Siv3DEngine::GetGraphics());
+		
 		const Float2 currentRenderTargetSize = Siv3DEngine::GetGraphics()->getCurrentRenderTargetSize();
 		const Mat3x2 currentMat = Mat3x2::Identity();
 		const Mat3x2 currentScreen = Mat3x2::Screen(currentRenderTargetSize);
@@ -192,27 +196,80 @@ void main()
 		
 		::glUniform4fv(uniformLocation, 2, transform);
 		
+		
+		size_t batchIndex = 0;
+		BatchDrawOffset batchDrawOffset;
+		
+		const Byte* commandPointer = m_commandManager.getCommandBuffer();
+		
+		//Log(L"----");
+		
+		for (size_t commandIndex = 0; commandIndex < m_commandManager.getCount(); ++commandIndex)
+		{
+			const GLRender2DCommandHeader* header = static_cast<const GLRender2DCommandHeader*>(static_cast<const void*>(commandPointer));
+			
+			switch (header->instruction)
+			{
+				case GLRender2DInstruction::Nop:
+				{
+					//Log(L"Nop");
+					break;
+				}
+				case GLRender2DInstruction::Draw:
+				{
+					const auto* command = static_cast<const GLRender2DCommand<GLRender2DInstruction::Draw>*>(static_cast<const void*>(commandPointer));
+					
+					//Log(L"Draw: ", command->indexSize);
+					::glDrawElements(GL_TRIANGLES, command->indexSize, GL_UNSIGNED_INT, (uint32*)(nullptr) + batchDrawOffset.indexStartLocation);
+
+					batchDrawOffset.indexStartLocation += command->indexSize;
+					
+					break;
+				}
+				case GLRender2DInstruction::NextBatch:
+				{
+					//Log(L"NextBatch: ", batchIndex);
+					batchDrawOffset = m_spriteBatch.setBuffers(batchIndex);
+					++batchIndex;
+					break;
+				}
+				case GLRender2DInstruction::BlendState:
+				{
+					const auto* command = static_cast<const GLRender2DCommand<GLRender2DInstruction::BlendState>*>(static_cast<const void*>(commandPointer));
+					
+					//Log(L"BlendState");
+					graphics->getBlendState()->set(command->blendState);
+					break;
+				}
+			}
+			
+			commandPointer += header->commandSize;
+		}
+		
+		/*
 		for (size_t i = 0; i < m_spriteBatch.getBatchCount(); ++i)
 		{
 			const BatchDrawOffset batchDrawOffset = m_spriteBatch.setBuffers(i);
 	
 			::glDrawElements(GL_TRIANGLES, batchDrawOffset.indexCount, GL_UNSIGNED_INT, (uint32*)(nullptr) + batchDrawOffset.indexStartLocation);
 		}
+		 */
 		
 		::glBindVertexArray(0);
 
 		m_spriteBatch.clear();
+		
+		m_commandManager.reset();
 	}
 
 	void CRenderer2D_GL::setBlendState(const BlendState& state)
 	{
-		// [Siv3D ToDo]
+		m_commandManager.pushBlendState(state);
 	}
 	
 	BlendState CRenderer2D_GL::getBlendState() const
 	{
-		// [Siv3D ToDo]
-		return BlendState::Default;
+		return m_commandManager.getCurrentBlendState();
 	}
 	
 	void CRenderer2D_GL::addTriangle(const Float2(&pts)[3], const Float4& color)
@@ -222,7 +279,7 @@ void main()
 		IndexType* pIndex;
 		IndexType indexOffset;
 
-		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
 		{
 			return;
 		}
@@ -239,6 +296,8 @@ void main()
 		pIndex[0] = indexOffset;
 		pIndex[1] = indexOffset + 1;
 		pIndex[2] = indexOffset + 2;
+		
+		m_commandManager.pushDraw(indexSize);
 	}
 
 	void CRenderer2D_GL::addTriangle(const Float2(&pts)[3], const Float4(&colors)[3])
@@ -248,7 +307,7 @@ void main()
 		IndexType* pIndex;
 		IndexType indexOffset;
 
-		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
 		{
 			return;
 		}
@@ -265,6 +324,8 @@ void main()
 		pIndex[0] = indexOffset;
 		pIndex[1] = indexOffset + 1;
 		pIndex[2] = indexOffset + 2;
+		
+		m_commandManager.pushDraw(indexSize);
 	}
 	
 	void CRenderer2D_GL::addRect(const FloatRect& rect, const Float4& color)
@@ -274,7 +335,7 @@ void main()
 		IndexType* pIndex;
 		IndexType indexOffset;
 		
-		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
 		{
 			return;
 		}
@@ -295,6 +356,8 @@ void main()
 		{
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
 		}
+		
+		m_commandManager.pushDraw(indexSize);
 	}
 	
 	void CRenderer2D_GL::addRect(const FloatRect& rect, const Float4(&colors)[4])
@@ -304,8 +367,7 @@ void main()
 		IndexType* pIndex;
 		IndexType indexOffset;
 		
-		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
-		{
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))		{
 			return;
 		}
 		
@@ -325,6 +387,8 @@ void main()
 		{
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
 		}
+		
+		m_commandManager.pushDraw(indexSize);
 	}
 
 	void CRenderer2D_GL::addRectFrame(const FloatRect& rect, float thickness, const Float4& color)
@@ -334,7 +398,7 @@ void main()
 		IndexType* pIndex;
 		IndexType indexOffset;
 
-		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
 		{
 			return;
 		}
@@ -357,6 +421,8 @@ void main()
 		{
 			*pIndex++ = indexOffset + detail::rectFrameIndexTable[i];
 		}
+		
+		m_commandManager.pushDraw(indexSize);
 	}
 
 	// 仮の実装
@@ -372,7 +438,7 @@ void main()
 		IndexType* pIndex;
 		IndexType indexOffset;
 
-		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
 		{
 			return;
 		}
@@ -400,6 +466,8 @@ void main()
 			pIndex[i * 3 + 1] = indexOffset;
 			pIndex[i * 3 + 2] = indexOffset + (i + 1) % quality + 1;
 		}
+		
+		m_commandManager.pushDraw(indexSize);
 	}
 
 	void CRenderer2D_GL::addCircleFrame(const Float2& center, float r, float thickness, const Float4& color)
@@ -411,7 +479,7 @@ void main()
 		IndexType* pIndex;
 		IndexType indexOffset;
 
-		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
 		{
 			return;
 		}
@@ -442,6 +510,8 @@ void main()
 				pIndex[i * 6 + k] = indexOffset + (i * 2 + detail::rectIndexTable[k]) % (quality * 2);
 			}
 		}
+		
+		m_commandManager.pushDraw(indexSize);
 	}
 
 	void CRenderer2D_GL::addCircleFrame(const Float2& center, float r, float thickness, const Float4& innerColor, const Float4& outerColor)
@@ -453,7 +523,7 @@ void main()
 		IndexType* pIndex;
 		IndexType indexOffset;
 
-		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
 		{
 			return;
 		}
@@ -484,6 +554,8 @@ void main()
 				pIndex[i * 6 + k] = indexOffset + (i * 2 + detail::rectIndexTable[k]) % (quality * 2);
 			}
 		}
+		
+		m_commandManager.pushDraw(indexSize);
 	}
 	
 	void CRenderer2D_GL::addQuad(const FloatQuad& quad, const Float4& color)
@@ -493,7 +565,7 @@ void main()
 		IndexType* pIndex;
 		IndexType indexOffset;
 		
-		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
 		{
 			return;
 		}
@@ -514,6 +586,8 @@ void main()
 		{
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
 		}
+		
+		m_commandManager.pushDraw(indexSize);
 	}
 	
 	void CRenderer2D_GL::addQuad(const FloatQuad& quad, const Float4(&colors)[4])
@@ -523,7 +597,7 @@ void main()
 		IndexType* pIndex;
 		IndexType indexOffset;
 		
-		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset))
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
 		{
 			return;
 		}
@@ -544,6 +618,8 @@ void main()
 		{
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
 		}
+		
+		m_commandManager.pushDraw(indexSize);
 	}
 }
 

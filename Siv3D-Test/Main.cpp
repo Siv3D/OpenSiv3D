@@ -9,9 +9,9 @@ void Main()
 
 	while (System::Update())
 	{
-		for (auto p : step(Size(20, 20)))
+		for (auto p : step(Size(100, 50)))
 		{
-			Circle(p * 20, 8).draw(Palette::Gray);
+			Circle(p * 6, 3).draw(Palette::Gray);
 		}
 
 		t += System::DeltaTime();
@@ -24,5 +24,7 @@ void Main()
 
 			RectF(25).setCenter(pos).rotated(angle).draw(HSV(i * 10));
 		}
+		
+		Circle(Cursor::Pos(), 40).draw(ColorF(1,0,0,0.5));
 	}
 }

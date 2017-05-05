@@ -14,6 +14,9 @@
 		2C0C78B11EBB47F800386CBB /* Rx.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C78AF1EBB47F800386CBB /* Rx.hpp */; };
 		2C0C78B31EBB934D00386CBB /* Graphics2D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C78B21EBB934D00386CBB /* Graphics2D.hpp */; };
 		2C0C78B61EBB936700386CBB /* SivGraphics2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C78B51EBB936700386CBB /* SivGraphics2D.cpp */; };
+		2C0C78B81EBC01C200386CBB /* GLRenderer2DCommandManager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C78B71EBC01C200386CBB /* GLRenderer2DCommandManager.hpp */; };
+		2C0C78BC1EBC069F00386CBB /* GLBlendState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C78BA1EBC069F00386CBB /* GLBlendState.cpp */; };
+		2C0C78BD1EBC069F00386CBB /* GLBlendState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C78BB1EBC069F00386CBB /* GLBlendState.hpp */; };
 		2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C38B14A1CDEB45C007A7E9F /* gtest.a */; };
 		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
@@ -641,6 +644,9 @@
 		2C0C78AF1EBB47F800386CBB /* Rx.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Rx.hpp; sourceTree = "<group>"; };
 		2C0C78B21EBB934D00386CBB /* Graphics2D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Graphics2D.hpp; sourceTree = "<group>"; };
 		2C0C78B51EBB936700386CBB /* SivGraphics2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivGraphics2D.cpp; sourceTree = "<group>"; };
+		2C0C78B71EBC01C200386CBB /* GLRenderer2DCommandManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GLRenderer2DCommandManager.hpp; sourceTree = "<group>"; };
+		2C0C78BA1EBC069F00386CBB /* GLBlendState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GLBlendState.cpp; sourceTree = "<group>"; };
+		2C0C78BB1EBC069F00386CBB /* GLBlendState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GLBlendState.hpp; sourceTree = "<group>"; };
 		2C1777401CDEE5D500BB8AD0 /* gtest-death-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-death-test.h"; sourceTree = "<group>"; };
 		2C1777411CDEE5D500BB8AD0 /* gtest-message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-message.h"; sourceTree = "<group>"; };
 		2C1777421CDEE5D500BB8AD0 /* gtest-param-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-param-test.h"; sourceTree = "<group>"; };
@@ -1340,6 +1346,15 @@
 			path = Graphics2D;
 			sourceTree = "<group>";
 		};
+		2C0C78B91EBC069F00386CBB /* BlendState */ = {
+			isa = PBXGroup;
+			children = (
+				2C0C78BA1EBC069F00386CBB /* GLBlendState.cpp */,
+				2C0C78BB1EBC069F00386CBB /* GLBlendState.hpp */,
+			);
+			path = BlendState;
+			sourceTree = "<group>";
+		};
 		2C17773E1CDEE5D500BB8AD0 /* Include */ = {
 			isa = PBXGroup;
 			children = (
@@ -1714,6 +1729,7 @@
 			children = (
 				2C5769321EA24BE00072BB68 /* GLSpriteBatch.hpp */,
 				2C316E871E9C9BA60011CAAE /* CRenderer2D_GL.cpp */,
+				2C0C78B71EBC01C200386CBB /* GLRenderer2DCommandManager.hpp */,
 				2C316E881E9C9BA60011CAAE /* CRenderer2D_GL.hpp */,
 			);
 			path = GL;
@@ -2360,6 +2376,7 @@
 		2C81BD861E89F8E300D27E52 /* GL */ = {
 			isa = PBXGroup;
 			children = (
+				2C0C78B91EBC069F00386CBB /* BlendState */,
 				2C81BD871E89F8E300D27E52 /* CGraphics_GL.cpp */,
 				2C81BD881E89F8E300D27E52 /* CGraphics_GL.hpp */,
 			);
@@ -3225,6 +3242,7 @@
 				2C2126711E93CFA2006F8101 /* CClipboard_Linux.hpp in Headers */,
 				2C81BF981E89F8E300D27E52 /* D3D11SwapChain.hpp in Headers */,
 				2C2126611E8CF6EA006F8101 /* ImageFormat_GIF.hpp in Headers */,
+				2C0C78B81EBC01C200386CBB /* GLRenderer2DCommandManager.hpp in Headers */,
 				2C316F5B1E9F7B950011CAAE /* DefaultRNG.hpp in Headers */,
 				2C2E82A81EAA1B3A0057BDAF /* swap.h in Headers */,
 				2C81C05D1E89F8E300D27E52 /* jpeg_data_encoder.h in Headers */,
@@ -3274,6 +3292,7 @@
 				2C81C0451E89F8E300D27E52 /* xkb_unicode.h in Headers */,
 				2C81C09A1E89F8E400D27E52 /* zstd_internal.h in Headers */,
 				2C2E82971EAA1B3A0057BDAF /* encodings.h in Headers */,
+				2C0C78BD1EBC069F00386CBB /* GLBlendState.hpp in Headers */,
 				2C2E82AF1EAA1B3A0057BDAF /* pointer.h in Headers */,
 				2C2126861E97D11D006F8101 /* CProfiler.hpp in Headers */,
 				2C316F811E9F7B950011CAAE /* Mat3x2.hpp in Headers */,
@@ -3707,6 +3726,7 @@
 				2C81C05A1E89F8E300D27E52 /* jpeg_data_decoder.cc in Sources */,
 				2C81BFA01E89F8E300D27E52 /* ImageFormat_BMP.cpp in Sources */,
 				2C81C00E1E89F8E300D27E52 /* fast-dtoa.cc in Sources */,
+				2C0C78BC1EBC069F00386CBB /* GLBlendState.cpp in Sources */,
 				2C0C78B61EBB936700386CBB /* SivGraphics2D.cpp in Sources */,
 				2C81C03B1E89F8E300D27E52 /* window.c in Sources */,
 				2C2126921E9A4001006F8101 /* SivMemoryWriter.cpp in Sources */,
