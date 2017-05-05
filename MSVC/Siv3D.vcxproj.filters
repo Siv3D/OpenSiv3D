@@ -359,6 +359,9 @@
     <Filter Include="Source\Siv3D\RenderTexture">
       <UniqueIdentifier>{f23f3366-e1ed-4643-b948-50eb50695022}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Ellipse">
+      <UniqueIdentifier>{fdc71d09-77a8-423c-8b90-75afed007792}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -2057,6 +2060,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\RenderTexture\SivRenderTexture.cpp">
       <Filter>Source\Siv3D\RenderTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Ellipse\SivEllipse.cpp">
+      <Filter>Source\Siv3D\Ellipse</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

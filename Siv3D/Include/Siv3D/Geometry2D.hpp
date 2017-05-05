@@ -25,7 +25,7 @@ namespace s3d
 		bool Intersect(const Point& a, const Rect&			b) noexcept;
 		bool Intersect(const Point& a, const RectF&			b) noexcept;
 		bool Intersect(const Point& a, const Circle&		b) noexcept;
-		//bool Intersect(const Point& a, const Ellipse&		b);
+		bool Intersect(const Point& a, const Ellipse&		b) noexcept;
 		bool Intersect(const Point& a, const Triangle&		b) noexcept;
 		bool Intersect(const Point& a, const Quad&			b) noexcept;
 		//bool Intersect(const Point& a, const RoundRect&		b);
@@ -39,7 +39,7 @@ namespace s3d
 		bool Intersect(const Vec2& a, const Rect&			b) noexcept;
 		bool Intersect(const Vec2& a, const RectF&			b) noexcept;
 		bool Intersect(const Vec2& a, const Circle&			b) noexcept;
-		//bool Intersect(const Vec2& a, const Ellipse&		b);
+		bool Intersect(const Vec2& a, const Ellipse&		b) noexcept;
 		bool Intersect(const Vec2& a, const Triangle&		b) noexcept;
 		bool Intersect(const Vec2& a, const Quad&			b) noexcept;
 		//bool Intersect(const Vec2& a, const RoundRect&		b);
