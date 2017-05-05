@@ -21,6 +21,7 @@
 		2C0C78C11EBC667600386CBB /* HashSet.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C78C01EBC667600386CBB /* HashSet.hpp */; };
 		2C0C78C31EBC668E00386CBB /* RenderTexture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C78C21EBC668E00386CBB /* RenderTexture.hpp */; };
 		2C0C78C61EBC66A400386CBB /* SivRenderTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C78C51EBC66A400386CBB /* SivRenderTexture.cpp */; };
+		2C0C78C81EBCA64B00386CBB /* Ellipse.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C78C71EBCA64B00386CBB /* Ellipse.hpp */; };
 		2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C38B14A1CDEB45C007A7E9F /* gtest.a */; };
 		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
@@ -655,6 +656,7 @@
 		2C0C78C01EBC667600386CBB /* HashSet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HashSet.hpp; sourceTree = "<group>"; };
 		2C0C78C21EBC668E00386CBB /* RenderTexture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RenderTexture.hpp; sourceTree = "<group>"; };
 		2C0C78C51EBC66A400386CBB /* SivRenderTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRenderTexture.cpp; sourceTree = "<group>"; };
+		2C0C78C71EBCA64B00386CBB /* Ellipse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Ellipse.hpp; sourceTree = "<group>"; };
 		2C1777401CDEE5D500BB8AD0 /* gtest-death-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-death-test.h"; sourceTree = "<group>"; };
 		2C1777411CDEE5D500BB8AD0 /* gtest-message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-message.h"; sourceTree = "<group>"; };
 		2C1777421CDEE5D500BB8AD0 /* gtest-param-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-param-test.h"; sourceTree = "<group>"; };
@@ -1817,6 +1819,7 @@
 				2C316ED41E9F7B950011CAAE /* Duration.hpp */,
 				2C316ED51E9F7B950011CAAE /* Easing.hpp */,
 				2C3C390B1EAE2D4100E54E8B /* EasingController.hpp */,
+				2C0C78C71EBCA64B00386CBB /* Ellipse.hpp */,
 				2C316ED61E9F7B950011CAAE /* FileSystem.hpp */,
 				2C5769341EA2F6AC0072BB68 /* FloatQuad.hpp */,
 				2C5769301EA23D530072BB68 /* FloatRect.hpp */,
@@ -3339,6 +3342,7 @@
 				2C81C0801E89F8E300D27E52 /* muParserCallback.h in Headers */,
 				2C81BFE01E89F8E300D27E52 /* CSystem_macOS.hpp in Headers */,
 				2C2E82BB1EAA1B930057BDAF /* JSONReader.hpp in Headers */,
+				2C0C78C81EBCA64B00386CBB /* Ellipse.hpp in Headers */,
 				2C316F6A1E9F7B950011CAAE /* Graphics.hpp in Headers */,
 				2C316F9C1E9F7B950011CAAE /* RandomPoint.hpp in Headers */,
 				2C0C78C11EBC667600386CBB /* HashSet.hpp in Headers */,
