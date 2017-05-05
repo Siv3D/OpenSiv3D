@@ -88,7 +88,7 @@ namespace s3d
 
 	void CCursor_Linux::setPos(const int32 x, const int32 y)
 	{
-
+		::glfwSetCursorPos(m_glfwWindow, x, y);
 	}
 
 	void CCursor_Linux::clip(const Optional<Rect>& rect)
