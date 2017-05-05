@@ -75,7 +75,7 @@ namespace s3d
 
 		void SetFrameCount(int32 count);
 
-		double DeltaTime();
+		double DeltaTime(double maxDuration = 0.1);
 
 		/// <summary>
 		/// 指定したミリ秒だけ処理を停止します。

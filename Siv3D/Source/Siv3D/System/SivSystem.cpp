@@ -35,9 +35,9 @@ namespace s3d
 			Siv3DEngine::GetSystem()->setUserFrameCount(count);
 		}
 
-		double DeltaTime()
+		double DeltaTime(double maxDuration)
 		{
-			return Siv3DEngine::GetSystem()->getDeltaTime();
+			return std::min(Siv3DEngine::GetSystem()->getDeltaTime(), maxDuration);
 		}
 
 		void ShowLicenses()
