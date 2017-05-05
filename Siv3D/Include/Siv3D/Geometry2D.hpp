@@ -103,8 +103,8 @@ namespace s3d
 		//bool Intersect(const Circle& a, const MultiPolygon&		b);
 		//bool Intersect(const Circle& a, const LineString&		b);
 
-		//bool Intersect(const Ellipse& a, const Point&			b);
-		//bool Intersect(const Ellipse& a, const Vec2&			b);
+		bool Intersect(const Ellipse& a, const Point&			b) noexcept;
+		bool Intersect(const Ellipse& a, const Vec2&			b) noexcept;
 		//bool Intersect(const Ellipse& a, const Line&			b);
 		//bool Intersect(const Ellipse& a, const Rect&			b);
 		//bool Intersect(const Ellipse& a, const RectF&			b);

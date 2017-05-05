@@ -556,6 +556,16 @@ namespace s3d
 				|| detail::CircleTriangleIntersection(a, Triangle{ b.p1, b.p2, b.p3 });
 		}
 
+		bool Intersect(const Ellipse& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Ellipse& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
 		bool Intersect(const Triangle& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);

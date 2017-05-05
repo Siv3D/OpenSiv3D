@@ -27,6 +27,6 @@ void Main()
 			}
 		}
 
-		Circle(Cursor::Pos(), 80).draw();
+		Ellipse(Cursor::Pos(), 80, 40).draw().drawFrame(0, 4, Palette::Red);
 	}
 }
