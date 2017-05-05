@@ -253,8 +253,8 @@
 	# include "Siv3D/Rectangle.hpp"
 	// 円
 	# include "Siv3D/Circle.hpp"
-	//// 楕円
-	//# include "Siv3D/Ellipse.hpp"
+	// 楕円
+	# include "Siv3D/Ellipse.hpp"
 	// 三角形
 	# include "Siv3D/Triangle.hpp"
 	// 四角形
