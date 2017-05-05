@@ -485,6 +485,10 @@
 	//# include "Siv3D/ScreenCapture.hpp"
 	// 2D グラフィックス設定
 	# include "Siv3D/Graphics2D.hpp"
+	// 2D グラフィックス設定
+	# include "Siv3D/RenderStateBlock2D.hpp"
+	// 2D グラフィックス設定
+	# include "Siv3D/ViewportBlock2D.hpp"
 	//// 2D スプライト
 	//# include "Siv3D/Sprite.hpp"
 //
