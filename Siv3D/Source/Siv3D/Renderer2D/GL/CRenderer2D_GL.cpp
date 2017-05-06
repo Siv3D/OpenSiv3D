@@ -52,6 +52,32 @@ namespace s3d
 				return static_cast<IndexType>(std::min(size * 0.225f + 18.0f, 255.0f));
 			}
 		}
+		
+		static IndexType CalculateCirclePieQuality(float size, float angle)
+		{
+			const float rate = std::min(std::abs(angle) / (Math::TwoPiF) * 2.0f, 1.0f);
+			
+			IndexType quality;
+			
+			if (size <= 1.0f)
+			{
+				quality = 4;
+			}
+			else if (size <= 6.0f)
+			{
+				quality = 7;
+			}
+			else if (size <= 8.0f)
+			{
+				quality = 11;
+			}
+			else
+			{
+				quality = static_cast<IndexType>(std::min(size * 0.225f + 18.0f, 255.0f));
+			}
+			
+			return static_cast<IndexType>(std::max(quality * rate, 3.0f));
+		}
 	}
 		
 	CRenderer2D_GL::CRenderer2D_GL()
@@ -597,6 +623,111 @@ void main()
 			for (IndexType k = 0; k < 6; ++k)
 			{
 				pIndex[i * 6 + k] = indexOffset + (i * 2 + detail::rectIndexTable[k]) % (quality * 2);
+			}
+		}
+		
+		m_commandManager.pushDraw(indexSize);
+	}
+	
+	void CRenderer2D_GL::addCirclePie(const Float2& center, float r, float startAngle, float angle, const Float4& color)
+	{
+		if (angle == 0.0f)
+		{
+			return;
+		}
+		
+		angle = Clamp(angle, -Math::TwoPiF, Math::TwoPiF);
+		
+		const IndexType quality = detail::CalculateCirclePieQuality(r, angle);
+		const IndexType vertexSize = quality + 1, indexSize = (quality - 1) * 3;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+		
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+		{
+			return;
+		}
+		
+		const float centerX = center.x;
+		const float centerY = center.y;
+		
+		// 中心
+		pVertex[0].pos.set(centerX, centerY);
+		
+		// 周
+		const float radDelta = Math::TwoPiF / (quality - 1);
+		const float start = -(startAngle + angle) + Math::HalfPiF;
+		const float angleScale = angle / Math::TwoPiF;
+		
+		for (IndexType i = 1; i <= quality; ++i)
+		{
+			const float rad = start + (radDelta * (i - 1.0f)) * angleScale;
+			pVertex[i].pos.set(centerX + r * std::cosf(rad), centerY - r * std::sinf(rad));
+		}
+		
+		for (size_t i = 0; i < vertexSize; ++i)
+		{
+			(pVertex++)->color = color;
+		}
+		
+		for (IndexType i = 0; i < quality - 1; ++i)
+		{
+			pIndex[i * 3 + 0] = indexOffset + (i + 0) + 1;
+			pIndex[i * 3 + 1] = indexOffset;
+			pIndex[i * 3 + 2] = indexOffset + (i + 1) + 1;
+		}
+		
+		m_commandManager.pushDraw(indexSize);
+	}
+	
+	void CRenderer2D_GL::addCircleArc(const Float2& center, float r, float startAngle, float angle, float thickness, const Float4& color)
+	{
+		if (angle == 0.0f)
+		{
+			return;
+		}
+		
+		angle = Clamp(angle, -Math::TwoPiF, Math::TwoPiF);
+		
+		const float rt = r + thickness;
+		const IndexType quality = detail::CalculateCircleFrameQuality(rt);
+		const IndexType vertexSize = quality * 2, indexSize = (quality - 1) * 6;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+		
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+		{
+			return;
+		}
+		
+		const float centerX = center.x;
+		const float centerY = center.y;
+		const float radDelta = Math::TwoPiF / (quality - 1);
+		const float start = -(startAngle + angle) + Math::HalfPiF;
+		const float angleScale = angle / Math::TwoPiF;
+		
+		for (IndexType i = 0; i < quality; ++i)
+		{
+			const float rad = start + (radDelta * i) * angleScale;
+			const float c = std::cosf(rad);
+			const float s = std::sinf(rad);
+			
+			pVertex->pos.set(centerX + rt * c, centerY - rt * s);
+			pVertex->color = color;
+			++pVertex;
+			
+			pVertex->pos.set(centerX + r * c, centerY - r * s);
+			pVertex->color = color;
+			++pVertex;
+		}
+		
+		for (IndexType i = 0; i < quality - 1; ++i)
+		{
+			for (IndexType k = 0; k < 6; ++k)
+			{
+				pIndex[i * 6 + k] = indexOffset + (i * 2 + detail::rectIndexTable[k]);
 			}
 		}
 		
