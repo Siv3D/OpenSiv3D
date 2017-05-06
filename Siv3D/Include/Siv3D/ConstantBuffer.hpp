@@ -63,7 +63,11 @@ namespace s3d
 			return Type::BindingPoint();
 		}
 
-		ConstantBuffer() = default;
+		ConstantBuffer()
+			: m_base(Size)
+		{
+			
+		}
 
 		explicit ConstantBuffer(const Type& data)
 			: ConstantBuffer()

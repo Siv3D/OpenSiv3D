@@ -23,6 +23,7 @@
 # include <Siv3D/MathConstants.hpp>
 # include <Siv3D/BlendState.hpp>
 # include <Siv3D/Logger.hpp>
+# include "../../ConstantBuffer/GL/GLConstantBuffer.hpp"
 
 namespace s3d
 {

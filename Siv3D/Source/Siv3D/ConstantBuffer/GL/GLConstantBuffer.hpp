@@ -24,43 +24,21 @@ namespace s3d
 		{
 		private:
 		
-			GLuint m_uniformBufferHandle = 0;
+			size_t m_bufferSize = 0;
+			
+			mutable GLuint m_uniformBufferHandle = 0;
+			
+			void init() const;
 				
 		public:
 
-			explicit ConstantBufferDetail(size_t)
-			{
-				::glGenBuffers(1, &m_uniformBufferHandle);
-			}
+			explicit ConstantBufferDetail(const size_t size);
 
-			~ConstantBufferDetail()
-			{
-				if (m_uniformBufferHandle)
-				{
-					::glDeleteBuffers(1, &m_uniformBufferHandle);
-				}
-			}
+			~ConstantBufferDetail();
 		
-			bool update(const void* const data, const size_t size)
-			{
-				if (!m_uniformBufferHandle)
-				{
-					return false;
-				}
-			
-				::glBindBuffer(GL_UNIFORM_BUFFER, m_uniformBufferHandle);
-			
-				::glBufferData(GL_UNIFORM_BUFFER, size, data, GL_STATIC_DRAW);
-			
-				::glBindBuffer(GL_UNIFORM_BUFFER, 0);
-			
-				return true;
-			}
+			bool update(const void* const data, const size_t size);
 		
-			GLuint getHandle() const
-			{
-				return m_uniformBufferHandle;
-			}
+			GLuint getHandle() const;
 		};
 	}
 }

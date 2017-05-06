@@ -422,6 +422,12 @@
 		2C0C7DC01EBCC39B00386CBB /* Xorshift.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7D211EBCC39B00386CBB /* Xorshift.hpp */; };
 		2C0C7DC11EBCC39B00386CBB /* XXHash.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7D221EBCC39B00386CBB /* XXHash.hpp */; };
 		2C0C7DC21EBCC39B00386CBB /* Siv3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7D231EBCC39B00386CBB /* Siv3D.hpp */; };
+		2C0C7DC41EBE0E1D00386CBB /* ConstantBuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7DC31EBE0E1D00386CBB /* ConstantBuffer.hpp */; };
+		2C0C7DCD1EBE0E2E00386CBB /* D3D11ConstantBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C7DC71EBE0E2E00386CBB /* D3D11ConstantBuffer.cpp */; };
+		2C0C7DCE1EBE0E2E00386CBB /* D3D11ConstantBuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7DC81EBE0E2E00386CBB /* D3D11ConstantBuffer.hpp */; };
+		2C0C7DCF1EBE0E2E00386CBB /* GLConstantBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C7DCA1EBE0E2E00386CBB /* GLConstantBuffer.cpp */; };
+		2C0C7DD01EBE0E2E00386CBB /* GLConstantBuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7DCB1EBE0E2E00386CBB /* GLConstantBuffer.hpp */; };
+		2C0C7DD11EBE0E2E00386CBB /* SivConstantBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C7DCC1EBE0E2E00386CBB /* SivConstantBuffer.cpp */; };
 		2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C38B14A1CDEB45C007A7E9F /* gtest.a */; };
 		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
@@ -1063,6 +1069,12 @@
 		2C0C7D211EBCC39B00386CBB /* Xorshift.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Xorshift.hpp; sourceTree = "<group>"; };
 		2C0C7D221EBCC39B00386CBB /* XXHash.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = XXHash.hpp; sourceTree = "<group>"; };
 		2C0C7D231EBCC39B00386CBB /* Siv3D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Siv3D.hpp; sourceTree = "<group>"; };
+		2C0C7DC31EBE0E1D00386CBB /* ConstantBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ConstantBuffer.hpp; sourceTree = "<group>"; };
+		2C0C7DC71EBE0E2E00386CBB /* D3D11ConstantBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = D3D11ConstantBuffer.cpp; sourceTree = "<group>"; };
+		2C0C7DC81EBE0E2E00386CBB /* D3D11ConstantBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = D3D11ConstantBuffer.hpp; sourceTree = "<group>"; };
+		2C0C7DCA1EBE0E2E00386CBB /* GLConstantBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GLConstantBuffer.cpp; sourceTree = "<group>"; };
+		2C0C7DCB1EBE0E2E00386CBB /* GLConstantBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GLConstantBuffer.hpp; sourceTree = "<group>"; };
+		2C0C7DCC1EBE0E2E00386CBB /* SivConstantBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivConstantBuffer.cpp; sourceTree = "<group>"; };
 		2C1777401CDEE5D500BB8AD0 /* gtest-death-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-death-test.h"; sourceTree = "<group>"; };
 		2C1777411CDEE5D500BB8AD0 /* gtest-message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-message.h"; sourceTree = "<group>"; };
 		2C1777421CDEE5D500BB8AD0 /* gtest-param-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-param-test.h"; sourceTree = "<group>"; };
@@ -1347,6 +1359,7 @@
 		2C0C7A121EBCC38300386CBB /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C0C7DC51EBE0E2E00386CBB /* ConstantBuffer */,
 				2C0C7A191EBCC38300386CBB /* AssetHandleManager */,
 				2C0C7A1B1EBCC38300386CBB /* Base64 */,
 				2C0C7A1D1EBCC38300386CBB /* BigFloat */,
@@ -2424,6 +2437,7 @@
 				2C0C7CA41EBCC39B00386CBB /* Concept.hpp */,
 				2C0C7CA51EBCC39B00386CBB /* ConcurrentTask.hpp */,
 				2C0C7CA61EBCC39B00386CBB /* Console.hpp */,
+				2C0C7DC31EBE0E1D00386CBB /* ConstantBuffer.hpp */,
 				2C0C7CA71EBCC39B00386CBB /* Cursor.hpp */,
 				2C0C7CA81EBCC39B00386CBB /* Cylindrical.hpp */,
 				2C0C7CA91EBCC39B00386CBB /* Date.hpp */,
@@ -2550,6 +2564,34 @@
 				2C0C7D221EBCC39B00386CBB /* XXHash.hpp */,
 			);
 			path = Siv3D;
+			sourceTree = "<group>";
+		};
+		2C0C7DC51EBE0E2E00386CBB /* ConstantBuffer */ = {
+			isa = PBXGroup;
+			children = (
+				2C0C7DC61EBE0E2E00386CBB /* D3D11 */,
+				2C0C7DC91EBE0E2E00386CBB /* GL */,
+				2C0C7DCC1EBE0E2E00386CBB /* SivConstantBuffer.cpp */,
+			);
+			path = ConstantBuffer;
+			sourceTree = "<group>";
+		};
+		2C0C7DC61EBE0E2E00386CBB /* D3D11 */ = {
+			isa = PBXGroup;
+			children = (
+				2C0C7DC71EBE0E2E00386CBB /* D3D11ConstantBuffer.cpp */,
+				2C0C7DC81EBE0E2E00386CBB /* D3D11ConstantBuffer.hpp */,
+			);
+			path = D3D11;
+			sourceTree = "<group>";
+		};
+		2C0C7DC91EBE0E2E00386CBB /* GL */ = {
+			isa = PBXGroup;
+			children = (
+				2C0C7DCA1EBE0E2E00386CBB /* GLConstantBuffer.cpp */,
+				2C0C7DCB1EBE0E2E00386CBB /* GLConstantBuffer.hpp */,
+			);
+			path = GL;
 			sourceTree = "<group>";
 		};
 		2C17773E1CDEE5D500BB8AD0 /* Include */ = {
@@ -3415,6 +3457,7 @@
 				2C2E829F1EAA1B3A0057BDAF /* dtoa.h in Headers */,
 				2C0C7B871EBCC38400386CBB /* CBinaryReader_Windows.hpp in Headers */,
 				2C0C7D701EBCC39B00386CBB /* Key.hpp in Headers */,
+				2C0C7DD01EBE0E2E00386CBB /* GLConstantBuffer.hpp in Headers */,
 				2C0C7C2E1EBCC38400386CBB /* D3D11Renderer2DCommandManager.hpp in Headers */,
 				2C0C7C441EBCC38400386CBB /* Siv3D_macOS.h in Headers */,
 				2C81C01C1E89F8E300D27E52 /* glfw3native.h in Headers */,
@@ -3476,6 +3519,7 @@
 				2C0C7BF51EBCC38400386CBB /* CINIReader.hpp in Headers */,
 				2C0C7D7F1EBCC39B00386CBB /* MersenneTwister.hpp in Headers */,
 				2C0C7C401EBCC38400386CBB /* IShader.hpp in Headers */,
+				2C0C7DC41EBE0E1D00386CBB /* ConstantBuffer.hpp in Headers */,
 				2C0C7D711EBCC39B00386CBB /* Keyboard.hpp in Headers */,
 				2C0C7D661EBCC39B00386CBB /* HSV.hpp in Headers */,
 				2C0C7D4D1EBCC39B00386CBB /* DragDrop.hpp in Headers */,
@@ -3520,6 +3564,7 @@
 				2C0C7C621EBCC38400386CBB /* ITexture.hpp in Headers */,
 				2C2E82A61EAA1B3A0057BDAF /* strfunc.h in Headers */,
 				2C0C7D321EBCC39B00386CBB /* Base64.hpp in Headers */,
+				2C0C7DCE1EBE0E2E00386CBB /* D3D11ConstantBuffer.hpp in Headers */,
 				2C0C7BB61EBCC38400386CBB /* CDragDrop_macOS.hpp in Headers */,
 				2C2E82B31EAA1B3A0057BDAF /* schema.h in Headers */,
 				2C316EA41E9F022A0011CAAE /* glew.h in Headers */,
@@ -3690,6 +3735,7 @@
 				2C0C7C171EBCC38400386CBB /* SivMonitor.cpp in Sources */,
 				2C81C0511E89F8E300D27E52 /* fdct.cc in Sources */,
 				2C81C07D1E89F8E300D27E52 /* muParserBytecode.cpp in Sources */,
+				2C0C7DD11EBE0E2E00386CBB /* SivConstantBuffer.cpp in Sources */,
 				2C0C7BC31EBCC38400386CBB /* SivFileSystem_macOS.cpp in Sources */,
 				2C81C09F1E89F8E400D27E52 /* huf_decompress.c in Sources */,
 				2C0C7BD01EBCC38400386CBB /* D3D11Device.cpp in Sources */,
@@ -3744,6 +3790,7 @@
 				2C0C7BE21EBCC38400386CBB /* SivHSV.cpp in Sources */,
 				2C81C00E1E89F8E300D27E52 /* fast-dtoa.cc in Sources */,
 				2C0C7B841EBCC38400386CBB /* CBinaryReader_macOS.cpp in Sources */,
+				2C0C7DCF1EBE0E2E00386CBB /* GLConstantBuffer.cpp in Sources */,
 				2C0C7BF61EBCC38400386CBB /* SivINIReader.cpp in Sources */,
 				2C0C7BA41EBCC38400386CBB /* ConsoleFactory.cpp in Sources */,
 				2C0C7C0D1EBCC38400386CBB /* CMemoryMapping.cpp in Sources */,
@@ -3761,6 +3808,7 @@
 				2C81C0981E89F8E400D27E52 /* zstd_common.c in Sources */,
 				2C81C09B1E89F8E400D27E52 /* fse_compress.c in Sources */,
 				2C0C7C411EBCC38400386CBB /* ShaderFactory.cpp in Sources */,
+				2C0C7DCD1EBE0E2E00386CBB /* D3D11ConstantBuffer.cpp in Sources */,
 				2C0C7C0C1EBCC38400386CBB /* SivMD5.cpp in Sources */,
 				2C81C0171E89F8E300D27E52 /* glad.c in Sources */,
 				2C81C0791E89F8E300D27E52 /* muParser.cpp in Sources */,
