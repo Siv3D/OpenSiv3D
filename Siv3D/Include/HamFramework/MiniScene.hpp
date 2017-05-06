@@ -99,7 +99,7 @@ void Main()
 	scene[L"Game"] = [&]()
 	{
 		const Rect bar(Arg::center(Cursor::Pos().x, 420), 60, 10);
-		ball.moveBy(ballSpeed);
+		ball.moveBy(ballSpeed * (System::DeltaTime() / 0.01667));
 
 		for (auto it = blocks.begin(); it != blocks.end(); ++it)
 		{
