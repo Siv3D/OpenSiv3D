@@ -14,7 +14,7 @@
 
 # include <GL/glew.h>
 # include "../../../../ThirdParty/GLFW/include/GLFW/glfw3.h"
-# include "GLBlendState.hpp"
+# include "GLRasterizerState.hpp"
 
 namespace s3d
 {
@@ -61,33 +61,54 @@ namespace s3d
 		{
 			return;
 		}
+		
+		if (state.fillMode != m_currentState.fillMode)
+		{
+			::glPolygonMode(GL_FRONT_AND_BACK, state.fillMode == FillMode::Solid ? GL_FILL : GL_LINE);
+		}
 
-		//if (state.enable != m_currentState.enable)
-		//{
-		//	if (state.enable)
-		//	{
-		//		::glEnable(GL_BLEND);
-		//	}
-		//	else
-		//	{
-		//		::glDisable(GL_BLEND);
-		//	}
-		//}
-		//
-		//if (state.op != m_currentState.op || state.opAlpha != m_currentState.opAlpha)
-		//{
-		//	::glBlendEquationSeparate(detail::blendOpTable[static_cast<size_t>(state.op)],
-		//							  detail::blendOpTable[static_cast<size_t>(state.opAlpha)]);
-		//}
-		//
-		//if (state.src != m_currentState.src || state.dst != m_currentState.dst
-		//	|| state.srcAlpha != m_currentState.srcAlpha || state.dstAlpha != m_currentState.dstAlpha)
-		//{
-		//	::glBlendFuncSeparate(detail::blendTable[static_cast<size_t>(state.src)],
-		//						  detail::blendTable[static_cast<size_t>(state.dst)],
-		//						  detail::blendTable[static_cast<size_t>(state.srcAlpha)],
-		//						  detail::blendTable[static_cast<size_t>(state.dstAlpha)]);
-		//}
+		if (state.cullMode != m_currentState.cullMode)
+		{
+			if (state.cullMode == CullMode::None)
+			{
+				::glDisable(GL_CULL_FACE);
+			}
+			else
+			{
+				::glEnable(GL_CULL_FACE);
+				
+				::glFrontFace(GL_CW);
+				
+				::glCullFace(state.cullMode == CullMode::Front ? GL_FRONT : GL_BACK);
+			}
+		}
+		
+		if (state.scissorEnable != m_currentState.scissorEnable)
+		{
+			if (state.scissorEnable)
+			{
+				::glEnable(GL_SCISSOR_TEST);
+			}
+			else
+			{
+				::glDisable(GL_SCISSOR_TEST);
+			}
+		}
+		
+		if (state.depthBias != m_currentState.depthBias)
+		{
+			if (state.depthBias)
+			{
+				::glEnable(GL_POLYGON_OFFSET_LINE);
+				::glEnable(GL_POLYGON_OFFSET_FILL);
+				::glPolygonOffset(0, state.depthBias);
+			}
+			else
+			{
+				::glDisable(GL_POLYGON_OFFSET_LINE);
+				::glDisable(GL_POLYGON_OFFSET_FILL);
+			}
+		}
 		
 		m_currentState = state;
 	}

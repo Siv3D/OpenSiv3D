@@ -428,6 +428,9 @@
 		2C0C7DCF1EBE0E2E00386CBB /* GLConstantBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C7DCA1EBE0E2E00386CBB /* GLConstantBuffer.cpp */; };
 		2C0C7DD01EBE0E2E00386CBB /* GLConstantBuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7DCB1EBE0E2E00386CBB /* GLConstantBuffer.hpp */; };
 		2C0C7DD11EBE0E2E00386CBB /* SivConstantBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C7DCC1EBE0E2E00386CBB /* SivConstantBuffer.cpp */; };
+		2C0C7DD31EBE21D000386CBB /* RasterizerState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7DD21EBE21D000386CBB /* RasterizerState.hpp */; };
+		2C0C7DD71EBE21F100386CBB /* GLRasterizerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C7DD51EBE21F100386CBB /* GLRasterizerState.cpp */; };
+		2C0C7DD81EBE21F100386CBB /* GLRasterizerState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7DD61EBE21F100386CBB /* GLRasterizerState.hpp */; };
 		2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C38B14A1CDEB45C007A7E9F /* gtest.a */; };
 		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
@@ -1075,6 +1078,9 @@
 		2C0C7DCA1EBE0E2E00386CBB /* GLConstantBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GLConstantBuffer.cpp; sourceTree = "<group>"; };
 		2C0C7DCB1EBE0E2E00386CBB /* GLConstantBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GLConstantBuffer.hpp; sourceTree = "<group>"; };
 		2C0C7DCC1EBE0E2E00386CBB /* SivConstantBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivConstantBuffer.cpp; sourceTree = "<group>"; };
+		2C0C7DD21EBE21D000386CBB /* RasterizerState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RasterizerState.hpp; sourceTree = "<group>"; };
+		2C0C7DD51EBE21F100386CBB /* GLRasterizerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GLRasterizerState.cpp; sourceTree = "<group>"; };
+		2C0C7DD61EBE21F100386CBB /* GLRasterizerState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GLRasterizerState.hpp; sourceTree = "<group>"; };
 		2C1777401CDEE5D500BB8AD0 /* gtest-death-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-death-test.h"; sourceTree = "<group>"; };
 		2C1777411CDEE5D500BB8AD0 /* gtest-message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-message.h"; sourceTree = "<group>"; };
 		2C1777421CDEE5D500BB8AD0 /* gtest-param-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-param-test.h"; sourceTree = "<group>"; };
@@ -1798,6 +1804,7 @@
 		2C0C7A9A1EBCC38400386CBB /* GL */ = {
 			isa = PBXGroup;
 			children = (
+				2C0C7DD41EBE21F100386CBB /* RasterizerState */,
 				2C0C7A9B1EBCC38400386CBB /* BlendState */,
 				2C0C7A9E1EBCC38400386CBB /* CGraphics_GL.cpp */,
 				2C0C7A9F1EBCC38400386CBB /* CGraphics_GL.hpp */,
@@ -2520,6 +2527,7 @@
 				2C0C7CF61EBCC39B00386CBB /* RandomVec2.hpp */,
 				2C0C7CF71EBCC39B00386CBB /* RandomVec3.hpp */,
 				2C0C7CF81EBCC39B00386CBB /* RandomVec4.hpp */,
+				2C0C7DD21EBE21D000386CBB /* RasterizerState.hpp */,
 				2C0C7CF91EBCC39B00386CBB /* RDTSCClock.hpp */,
 				2C0C7CFA1EBCC39B00386CBB /* ReaderView.hpp */,
 				2C0C7CFB1EBCC39B00386CBB /* Rectangle.hpp */,
@@ -2592,6 +2600,15 @@
 				2C0C7DCB1EBE0E2E00386CBB /* GLConstantBuffer.hpp */,
 			);
 			path = GL;
+			sourceTree = "<group>";
+		};
+		2C0C7DD41EBE21F100386CBB /* RasterizerState */ = {
+			isa = PBXGroup;
+			children = (
+				2C0C7DD51EBE21F100386CBB /* GLRasterizerState.cpp */,
+				2C0C7DD61EBE21F100386CBB /* GLRasterizerState.hpp */,
+			);
+			path = RasterizerState;
 			sourceTree = "<group>";
 		};
 		2C17773E1CDEE5D500BB8AD0 /* Include */ = {
@@ -3244,6 +3261,7 @@
 				2C0C7D5A1EBCC39B00386CBB /* FormatUtility.hpp in Headers */,
 				2C81C0891E89F8E300D27E52 /* muParserStack.h in Headers */,
 				2C0C7D981EBCC39B00386CBB /* RDTSCClock.hpp in Headers */,
+				2C0C7DD81EBE21F100386CBB /* GLRasterizerState.hpp in Headers */,
 				2C0C7C191EBCC38400386CBB /* CMouse_Linux.hpp in Headers */,
 				2C0C7DBF1EBCC39B00386CBB /* WritableMemoryMapping.hpp in Headers */,
 				2C81C0111E89F8E300D27E52 /* fixed-dtoa.h in Headers */,
@@ -3286,6 +3304,7 @@
 				2C0C7D3B1EBCC39B00386CBB /* Char.hpp in Headers */,
 				2C0C7C001EBCC38400386CBB /* IKeyboard.hpp in Headers */,
 				2C0C7B9C1EBCC38400386CBB /* CClipboard_Windows.hpp in Headers */,
+				2C0C7DD31EBE21D000386CBB /* RasterizerState.hpp in Headers */,
 				2C0C7BEC1EBCC38400386CBB /* ImageFormat_GIF.hpp in Headers */,
 				2C0C7D571EBCC39B00386CBB /* FormatFloat.hpp in Headers */,
 				2C81C0921E89F8E400D27E52 /* fse.h in Headers */,
@@ -3900,6 +3919,7 @@
 				2C0C7BA01EBCC38400386CBB /* SivColor.cpp in Sources */,
 				2C0C7BC91EBCC38400386CBB /* SivGeometry2D.cpp in Sources */,
 				2C0C7BC11EBCC38400386CBB /* SivFileSystem.mm in Sources */,
+				2C0C7DD71EBE21F100386CBB /* GLRasterizerState.cpp in Sources */,
 				2C0C7BEF1EBCC38400386CBB /* ImageFormat_JPEG.cpp in Sources */,
 				2C81C00C1E89F8E300D27E52 /* double-conversion.cc in Sources */,
 				2C81C0A01E89F8E400D27E52 /* zstd_decompress.c in Sources */,

@@ -213,6 +213,14 @@ void main()
 					graphics->getBlendState()->set(command->blendState);
 					break;
 				}
+				case GLRender2DInstruction::RasterizerState:
+				{
+					const auto* command = static_cast<const GLRender2DCommand<GLRender2DInstruction::RasterizerState>*>(static_cast<const void*>(commandPointer));
+					
+					//Log(L"RasterizerState");
+					graphics->getRasterizerState()->set(command->rasterizerState);
+					break;
+				}
 				case GLRender2DInstruction::Viewport:
 				{
 					const auto* command = static_cast<const GLRender2DCommand<GLRender2DInstruction::Viewport>*>(static_cast<const void*>(commandPointer));
@@ -267,6 +275,16 @@ void main()
 	BlendState CRenderer2D_GL::getBlendState() const
 	{
 		return m_commandManager.getCurrentBlendState();
+	}
+	
+	void CRenderer2D_GL::setRasterizerState(const RasterizerState& state)
+	{
+		m_commandManager.pushRasterizerState(state);
+	}
+	
+	RasterizerState CRenderer2D_GL::getRasterizerState() const
+	{
+		return m_commandManager.getCurrentRasterizerState();
 	}
 	
 	void CRenderer2D_GL::setViewport(const Optional<Rect>& viewport)

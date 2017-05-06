@@ -17,6 +17,7 @@
 # include <Siv3D/Array.hpp>
 # include <Siv3D/Byte.hpp>
 # include <Siv3D/BlendState.hpp>
+# include <Siv3D/RasterizerState.hpp>
 
 namespace s3d
 {
@@ -29,6 +30,8 @@ namespace s3d
 		NextBatch,
 
 		BlendState,
+		
+		RasterizerState,
 		
 		Viewport,
 	};
@@ -81,6 +84,19 @@ namespace s3d
 	};
 	
 	template <>
+	struct GLRender2DCommand<GLRender2DInstruction::RasterizerState>
+	{
+		GLRender2DCommandHeader header =
+		{
+			GLRender2DInstruction::RasterizerState,
+			
+			sizeof(GLRender2DCommand<GLRender2DInstruction::RasterizerState>)
+		};
+		
+		RasterizerState rasterizerState;
+	};
+	
+	template <>
 	struct GLRender2DCommand<GLRender2DInstruction::Viewport>
 	{
 		GLRender2DCommandHeader header =
@@ -106,6 +122,8 @@ namespace s3d
 		GLRender2DInstruction m_lastCommand = GLRender2DInstruction::Nop;
 
 		BlendState m_currentBlendState = BlendState::Default;
+		
+		RasterizerState m_currentRasterizerState = RasterizerState::Default2D;
 		
 		Optional<Rect> m_currentViewport;
 
@@ -160,6 +178,12 @@ namespace s3d
 			}
 			
 			{
+				GLRender2DCommand<GLRender2DInstruction::RasterizerState> command;
+				command.rasterizerState = m_currentRasterizerState;
+				writeCommand(command);
+			}
+			
+			{
 				GLRender2DCommand<GLRender2DInstruction::Viewport> command;
 				command.viewport = m_currentViewport;
 				writeCommand(command);
@@ -202,6 +226,25 @@ namespace s3d
 		const BlendState& getCurrentBlendState() const
 		{
 			return m_currentBlendState;
+		}
+		
+		void pushRasterizerState(const RasterizerState& state)
+		{
+			if (state == m_currentRasterizerState)
+			{
+				return;
+			}
+			
+			GLRender2DCommand<GLRender2DInstruction::RasterizerState> command;
+			command.rasterizerState = state;
+			writeCommand(command);
+			
+			m_currentRasterizerState = state;
+		}
+		
+		const RasterizerState& getCurrentRasterizerState() const
+		{
+			return m_currentRasterizerState;
 		}
 		
 		void pushViewport(const Optional<Rect>& viewport)

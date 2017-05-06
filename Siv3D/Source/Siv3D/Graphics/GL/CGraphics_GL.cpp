@@ -68,6 +68,12 @@ namespace s3d
 		//
 		m_pBlendState = std::make_unique<GLBlendState>();
 		
+		//////////////////////////////////////////////////////
+		//
+		//	 GLRasterizerState
+		//
+		m_pRasterizerState = std::make_unique<GLRasterizerState>();
+		
 		
 		//////////////////////////////////////////////////////
 		//
