@@ -25,7 +25,7 @@ void Main()
 			}
 		}
 		
-		RenderStateBlock2D blend(BlendState::Default);
+		RenderStateBlock2D blend2(BlendState::Default);
 		
 		for (int32 i = 0; i < 36; ++i)
 		{

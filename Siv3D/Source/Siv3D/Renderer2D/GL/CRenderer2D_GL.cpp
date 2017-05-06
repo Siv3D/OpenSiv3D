@@ -52,25 +52,7 @@ namespace s3d
 			}
 		}
 	}
-	
-	ConstantBufferBase::ConstantBufferBase()
-		: m_detail(std::make_shared<ConstantBufferDetail>())
-	{
 		
-	}
-	
-	bool ConstantBufferBase::_internal_update(const void* const data, const size_t size)
-	{
-		return m_detail->update(data, size);
-	}
-	
-	const ConstantBufferBase::ConstantBufferDetail* ConstantBufferBase::_detail() const
-	{
-		return m_detail.get();
-	}
-	
-	
-	
 	CRenderer2D_GL::CRenderer2D_GL()
 	{
 

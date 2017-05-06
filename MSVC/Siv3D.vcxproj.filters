@@ -362,6 +362,15 @@
     <Filter Include="Source\Siv3D\Ellipse">
       <UniqueIdentifier>{fdc71d09-77a8-423c-8b90-75afed007792}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\ConstantBuffer">
+      <UniqueIdentifier>{8cc542b6-821d-4899-94d9-a427093181aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\ConstantBuffer\D3D11">
+      <UniqueIdentifier>{866a96ca-cd72-40db-83b0-2c02a676af10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\ConstantBuffer\GL">
+      <UniqueIdentifier>{0defc131-95ac-4796-979c-0d61488a2160}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1423,6 +1432,15 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\ViewportBlock2D.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\ConstantBuffer.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\ConstantBuffer\GL\GLConstantBuffer.hpp">
+      <Filter>Source\Siv3D\ConstantBuffer\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\ConstantBuffer\D3D11\D3D11ConstantBuffer.hpp">
+      <Filter>Source\Siv3D\ConstantBuffer\D3D11</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2069,6 +2087,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Ellipse\SivEllipse.cpp">
       <Filter>Source\Siv3D\Ellipse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ConstantBuffer\SivConstantBuffer.cpp">
+      <Filter>Source\Siv3D\ConstantBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ConstantBuffer\GL\GLConstantBuffer.cpp">
+      <Filter>Source\Siv3D\ConstantBuffer\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ConstantBuffer\D3D11\D3D11ConstantBuffer.cpp">
+      <Filter>Source\Siv3D\ConstantBuffer\D3D11</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

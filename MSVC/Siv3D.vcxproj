@@ -51,6 +51,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Compression.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Concept.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Console.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\ConstantBuffer.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Cursor.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Cylindrical.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Date.hpp" />
@@ -193,6 +194,8 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Clipboard\IClipboard.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Console\CConsole.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Console\IConsole.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\ConstantBuffer\D3D11\D3D11ConstantBuffer.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\ConstantBuffer\GL\GLConstantBuffer.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_Linux.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_macOS.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_Windows.hpp" />
@@ -400,6 +403,9 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Console\CConsole.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Console\ConsoleFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Console\SivConsole.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ConstantBuffer\D3D11\D3D11ConstantBuffer.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ConstantBuffer\GL\GLConstantBuffer.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ConstantBuffer\SivConstantBuffer.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_Linux.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_macOS.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_Windows.cpp" />
