@@ -99,7 +99,7 @@ namespace s3d
 	};
 
 	template <>
-	struct GLRender2DCommand<D3D11Render2DInstruction::ScissorRect>
+	struct GLRender2DCommand<GLRender2DInstruction::ScissorRect>
 	{
 		GLRender2DCommandHeader header =
 		{
@@ -277,7 +277,7 @@ namespace s3d
 				return;
 			}
 
-			D3D11Render2DCommand<D3D11Render2DInstruction::ScissorRect> command;
+			GLRender2DCommand<GLRender2DInstruction::ScissorRect> command;
 			command.scissorRect = scissorRect;
 			writeCommand(command);
 

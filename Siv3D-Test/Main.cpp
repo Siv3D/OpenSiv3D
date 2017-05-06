@@ -9,7 +9,7 @@ void Main()
 	
 	double t = 0.0;
 	
-	Graphics2D::SetScissorRect(Rect(100, 100, 200, 200));
+	Graphics2D::SetScissorRect(Rect(10, 20, 200, 100));
 
 	RenderStateBlock2D blend(BlendState::Additive, RasterizerState::WireframeCullNone);
 	

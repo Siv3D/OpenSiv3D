@@ -221,6 +221,16 @@ void main()
 					graphics->getRasterizerState()->set(command->rasterizerState);
 					break;
 				}
+				case GLRender2DInstruction::ScissorRect:
+				{
+					const auto* command = static_cast<const GLRender2DCommand<GLRender2DInstruction::ScissorRect>*>(static_cast<const void*>(commandPointer));
+					
+					//Log(L"ScissorRect: ", command->scissorRect);
+					const Rect& r = command->scissorRect;
+					::glScissor(r.x, currentRenderTargetSize.y - r.h - r.y, r.w, r.h);
+					
+					break;
+				}
 				case GLRender2DInstruction::Viewport:
 				{
 					const auto* command = static_cast<const GLRender2DCommand<GLRender2DInstruction::Viewport>*>(static_cast<const void*>(commandPointer));
