@@ -554,6 +554,13 @@ namespace s3d
 	enum class BlendOp : uint8;
 	struct BlendState;
 
+	//////////////////////////////////////////////////////
+	//
+	//	RasterizerState.hpp
+	//
+	enum class FillMode : uint8;
+	enum class CullMode : uint8;
+	struct RasterizerState;
 	
 	//////////////////////////////////////////////////////
 	//

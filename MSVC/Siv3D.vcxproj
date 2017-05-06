@@ -129,6 +129,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\RandomVec2.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\RandomVec3.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\RandomVec4.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\RasterizerState.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ReaderView.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Rectangle.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Regex.hpp" />

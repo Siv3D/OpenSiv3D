@@ -1441,6 +1441,9 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\ConstantBuffer\D3D11\D3D11ConstantBuffer.hpp">
       <Filter>Source\Siv3D\ConstantBuffer\D3D11</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\RasterizerState.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">

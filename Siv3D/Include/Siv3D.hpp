@@ -461,8 +461,8 @@
 	# include "Siv3D/Vertex2D.hpp"
 	// ブレンドステート
 	# include "Siv3D/BlendState.hpp"
-	//// ラスタライザーステート
-	//# include "Siv3D/RasterizerState.hpp"
+	// ラスタライザーステート
+	# include "Siv3D/RasterizerState.hpp"
 	//// デプスステートとステンシルステート
 	//# include "Siv3D/DepthStencilState.hpp"
 	//// サンプラーステート
