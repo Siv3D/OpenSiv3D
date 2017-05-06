@@ -63,6 +63,10 @@ namespace s3d
 		/// </returns>
 		RasterizerState GetRasterizerState();
 
+		void SetScissorRect(const Rect& rect);
+
+		Rect GetScissorRect();
+
 		void SetViewport(const Optional<Rect>& viewport);
 
 		Optional<Rect> GetViewport();

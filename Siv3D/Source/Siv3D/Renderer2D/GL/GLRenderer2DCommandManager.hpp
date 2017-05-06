@@ -32,6 +32,8 @@ namespace s3d
 		BlendState,
 		
 		RasterizerState,
+
+		ScissorRect,
 		
 		Viewport,
 	};
@@ -95,6 +97,19 @@ namespace s3d
 		
 		RasterizerState rasterizerState;
 	};
+
+	template <>
+	struct GLRender2DCommand<D3D11Render2DInstruction::ScissorRect>
+	{
+		GLRender2DCommandHeader header =
+		{
+			GLRender2DInstruction::ScissorRect,
+
+			sizeof(GLRender2DCommand<GLRender2DInstruction::ScissorRect>)
+		};
+
+		Rect scissorRect;
+	};
 	
 	template <>
 	struct GLRender2DCommand<GLRender2DInstruction::Viewport>
@@ -125,6 +140,8 @@ namespace s3d
 		
 		RasterizerState m_currentRasterizerState = RasterizerState::Default2D;
 		
+		Rect m_currentScissorRect = { 0, 0, 0, 0 };
+
 		Optional<Rect> m_currentViewport;
 
 		template <class Command>
@@ -180,6 +197,12 @@ namespace s3d
 			{
 				GLRender2DCommand<GLRender2DInstruction::RasterizerState> command;
 				command.rasterizerState = m_currentRasterizerState;
+				writeCommand(command);
+			}
+
+			{
+				GLRender2DCommand<GLRender2DInstruction::ScissorRect> command;
+				command.scissorRect = m_currentScissorRect;
 				writeCommand(command);
 			}
 			
@@ -245,6 +268,25 @@ namespace s3d
 		const RasterizerState& getCurrentRasterizerState() const
 		{
 			return m_currentRasterizerState;
+		}
+
+		void pushScissorRect(const Rect& scissorRect)
+		{
+			if (scissorRect == m_currentScissorRect)
+			{
+				return;
+			}
+
+			D3D11Render2DCommand<D3D11Render2DInstruction::ScissorRect> command;
+			command.scissorRect = scissorRect;
+			writeCommand(command);
+
+			m_currentScissorRect = scissorRect;
+		}
+
+		Rect getCurrentScissorRect() const
+		{
+			return m_currentScissorRect;
 		}
 		
 		void pushViewport(const Optional<Rect>& viewport)

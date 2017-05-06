@@ -161,6 +161,14 @@ namespace s3d
 					pGraphics->getRasterizerState()->set(command->rasterizerState);
 					break;
 				}
+				case D3D11Render2DInstruction::ScissorRect:
+				{
+					const auto* command = static_cast<const D3D11Render2DCommand<D3D11Render2DInstruction::ScissorRect>*>(static_cast<const void*>(commandPointer));
+
+					//Log(L"ScissorRect: ", command->scissorRect);
+					pGraphics->getRasterizerState()->setScissorRect(command->scissorRect);
+					break;
+				}
 				case D3D11Render2DInstruction::Viewport:
 				{
 					const auto* command = static_cast<const D3D11Render2DCommand<D3D11Render2DInstruction::Viewport>*>(static_cast<const void*>(commandPointer));
@@ -237,6 +245,16 @@ namespace s3d
 	RasterizerState CRenderer2D_D3D11::getRasterizerState() const
 	{
 		return m_commandManager.getCurrentRasterizerState();
+	}
+
+	void CRenderer2D_D3D11::setScissorRect(const Rect& rect)
+	{
+		m_commandManager.pushScissorRect(rect);
+	}
+
+	Rect CRenderer2D_D3D11::getScissorRect() const
+	{
+		return m_commandManager.getCurrentScissorRect();
 	}
 
 	void CRenderer2D_D3D11::setViewport(const Optional<Rect>& viewport)

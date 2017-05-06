@@ -9,6 +9,8 @@ void Main()
 	
 	double t = 0.0;
 	
+	Graphics2D::SetScissorRect(Rect(100, 100, 200, 200));
+
 	RenderStateBlock2D blend(BlendState::Additive, RasterizerState::WireframeCullNone);
 	
 	while (System::Update())
@@ -25,7 +27,7 @@ void Main()
 			}
 		}
 		
-		RenderStateBlock2D blend2(BlendState::Default);
+		RenderStateBlock2D blend2(BlendState::Default, RasterizerState::SolidCullNoneScissor);
 		
 		for (int32 i = 0; i < 36; ++i)
 		{

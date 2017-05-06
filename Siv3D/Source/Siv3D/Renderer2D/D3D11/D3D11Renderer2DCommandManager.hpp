@@ -46,6 +46,8 @@ namespace s3d
 
 		RasterizerState,
 
+		ScissorRect,
+
 		Viewport,
 
 		RenderTarget,
@@ -113,6 +115,19 @@ namespace s3d
 	};
 
 	template <>
+	struct D3D11Render2DCommand<D3D11Render2DInstruction::ScissorRect>
+	{
+		D3D11Render2DCommandHeader header =
+		{
+			D3D11Render2DInstruction::ScissorRect,
+
+			sizeof(D3D11Render2DCommand<D3D11Render2DInstruction::ScissorRect>)
+		};
+
+		Rect scissorRect;
+	};
+
+	template <>
 	struct D3D11Render2DCommand<D3D11Render2DInstruction::Viewport>
 	{
 		D3D11Render2DCommandHeader header =
@@ -153,6 +168,8 @@ namespace s3d
 		BlendState m_currentBlendState = BlendState::Default;
 
 		RasterizerState m_currentRasterizerState = RasterizerState::Default2D;
+
+		Rect m_currentScissorRect = { 0, 0, 0, 0 };
 
 		Optional<Rect> m_currentViewport;
 
@@ -229,6 +246,12 @@ namespace s3d
 			}
 
 			{
+				D3D11Render2DCommand<D3D11Render2DInstruction::ScissorRect> command;
+				command.scissorRect = m_currentScissorRect;
+				writeCommand(command);
+			}
+
+			{
 				D3D11Render2DCommand<D3D11Render2DInstruction::Viewport> command;
 				command.viewport = m_currentViewport;
 				writeCommand(command);
@@ -290,6 +313,25 @@ namespace s3d
 		const RasterizerState& getCurrentRasterizerState() const
 		{
 			return m_currentRasterizerState;
+		}
+
+		void pushScissorRect(const Rect& scissorRect)
+		{
+			if (scissorRect == m_currentScissorRect)
+			{
+				return;
+			}
+
+			D3D11Render2DCommand<D3D11Render2DInstruction::ScissorRect> command;
+			command.scissorRect = scissorRect;
+			writeCommand(command);
+
+			m_currentScissorRect = scissorRect;
+		}
+
+		Rect getCurrentScissorRect() const
+		{
+			return m_currentScissorRect;
 		}
 
 		void pushViewport(const Optional<Rect>& viewport)

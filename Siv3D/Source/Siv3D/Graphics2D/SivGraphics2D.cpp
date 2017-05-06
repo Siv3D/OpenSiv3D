@@ -37,6 +37,16 @@ namespace s3d
 			return Siv3DEngine::GetRenderer2D()->getRasterizerState();
 		}
 
+		void SetScissorRect(const Rect& rect)
+		{
+			Siv3DEngine::GetRenderer2D()->setScissorRect(rect);
+		}
+
+		Rect GetScissorRect()
+		{
+			return Siv3DEngine::GetRenderer2D()->getScissorRect();
+		}
+
 
 		void SetViewport(const Optional<Rect>& viewport)
 		{

@@ -78,6 +78,10 @@ namespace s3d
 
 		RasterizerState getRasterizerState() const override;
 
+		void setScissorRect(const Rect& rect) override;
+
+		Rect getScissorRect() const override;
+
 		void setViewport(const Optional<Rect>& viewport) override;
 
 		Optional<Rect> getViewport() const override;

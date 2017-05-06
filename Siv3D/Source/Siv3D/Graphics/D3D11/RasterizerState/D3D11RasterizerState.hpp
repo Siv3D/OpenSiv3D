@@ -49,6 +49,8 @@ namespace s3d
 		D3D11RasterizerState(ID3D11Device* device, ID3D11DeviceContext* context);
 
 		void set(const RasterizerState& state);
+
+		void setScissorRect(const Rect& scissorRect);
 	};
 }
 

@@ -286,6 +286,16 @@ void main()
 	{
 		return m_commandManager.getCurrentRasterizerState();
 	}
+
+	void CRenderer2D_GL::setScissorRect(const Rect& rect)
+	{
+		m_commandManager.pushScissorRect(rect);
+	}
+
+	Rect CRenderer2D_GL::getScissorRect() const
+	{
+		return m_commandManager.getCurrentScissorRect();
+	}
 	
 	void CRenderer2D_GL::setViewport(const Optional<Rect>& viewport)
 	{
