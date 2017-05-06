@@ -3,25 +3,25 @@
 
 void Main()
 {
-	const Array<Circle> circles(20, Arg::generator = []()
-	{
-		return Circle(RandomVec2(320, 240), 40);
-	});
+	Graphics::SetBackground(Palette::White);
 
-	RenderStateBlock2D blend(BlendState::Additive);
+	double t = 0.0;
 
 	while (System::Update())
 	{
-		for (auto i : step(4))
-		{
-			ViewportBlock2D viewport(i % 2 * 320, i / 2 * 240, 320, 240);
+		Window::SetTitle(Profiler::FPS(), L"FPS");
 
-			for (const auto& circle : circles)
-			{
-				circle.draw(HSV(i * 90 + 45, 0.5));
-			}
+		t += System::DeltaTime();
+
+		for (auto i : step(36))
+		{
+			const double angle = i * 10_deg + t * 30_deg;
+
+			const Vec2 pos = Circular(200, angle) + Window::Center();
+
+			RectF(25).setCenter(pos).rotated(angle).draw(HSV(i * 10));
 		}
 
-		Circle(Cursor::Pos(), 80).draw();
+		Circle(Cursor::Pos(), 40).draw(ColorF(1.0, 0.0, 0.0, 0.5));
 	}
 }
