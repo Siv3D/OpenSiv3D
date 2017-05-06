@@ -23,6 +23,60 @@
 
 namespace s3d
 {
+	class ShaderProgram
+	{
+	private:
+		
+		GLuint m_programHandle = 0;
+		
+	public:
+		
+		bool init()
+		{
+			m_programHandle = ::glCreateProgram();
+			
+			return m_programHandle != 0;
+		}
+		
+		void attach(const GLuint shader)
+		{
+			::glAttachShader(m_programHandle, shader);
+		}
+		
+		bool link()
+		{
+			::glLinkProgram(m_programHandle);
+			
+			GLint status;
+			::glGetProgramiv(m_programHandle, GL_LINK_STATUS, &status);
+			
+			if (status == GL_FALSE)
+			{
+				return false;
+			}
+			
+			return true;
+		}
+		
+		void use()
+		{
+			::glUseProgram(m_programHandle);
+		}
+		
+		GLuint getUniformBlockIndex(const char* const name)
+		{
+			return ::glGetUniformBlockIndex(m_programHandle, name);
+		}
+		
+		~ShaderProgram()
+		{
+			if (m_programHandle)
+			{
+				::glDeleteProgram(m_programHandle);
+			}
+		}
+	};
+	
 	class CRenderer2D_GL : public ISiv3DRenderer2D
 	{
 	private:
@@ -31,7 +85,11 @@ namespace s3d
 		
 		GLuint m_pixelShader = 0;
 		
-		GLuint m_programHandle = 0;
+		ShaderProgram m_shaderProgram;
+		
+		GLuint m_uniform_buffer = 0;
+		
+		GLuint m_uniformBlockIndex = 0;
 		
 		GLSpriteBatch m_spriteBatch;
 		

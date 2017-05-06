@@ -61,8 +61,7 @@ namespace s3d
 	CRenderer2D_GL::~CRenderer2D_GL()
 	{
 		if (m_initialized)
-		{		
-			::glDeleteProgram(m_programHandle);
+		{
 			::glDeleteShader(m_pixelShader);
 			::glDeleteShader(m_vertexShader);
 		}
@@ -71,18 +70,22 @@ namespace s3d
 	bool CRenderer2D_GL::init()
 	{
 		m_vertexShader = ::glCreateShader(GL_VERTEX_SHADER);
-		
+
 		const char* vsCode =
 R"(
 #version 410
+#extension GL_ARB_explicit_uniform_location : enable
 		
-in vec2 VertexPosition;
-in vec2 Tex;
-in vec4 VertexColor;
+layout(location = 0) in vec2 VertexPosition;
+layout(location = 1) in vec2 Tex;
+layout(location = 2) in vec4 VertexColor;
 
-out vec4 Color;
+layout(location = 0) out vec4 Color;
 		
-uniform vec4 g_transform[2];
+layout(std140) uniform SpriteCB
+{
+	vec4 g_transform[2];
+};
 
 void main()
 {
@@ -104,17 +107,15 @@ void main()
 			return false;
 		}
 		
-	
-		
 		m_pixelShader = ::glCreateShader(GL_FRAGMENT_SHADER);
 		
 		const char* psCode =
 		R"(
 #version 410
 		
-in vec4 Color;
+layout(location = 0) in vec4 Color;
 
-out vec4 FragColor;
+layout(location = 0) out vec4 FragColor;
 		
 void main()
 {
@@ -132,44 +133,31 @@ void main()
 		{
 			return false;
 		}
-		
-		m_programHandle = ::glCreateProgram();
-		
-		if (!m_programHandle)
+
+		if (!m_shaderProgram.init())
 		{
 			return false;
 		}
 		
-		::glAttachShader(m_programHandle, m_vertexShader);
-		::glAttachShader(m_programHandle, m_pixelShader);
-		
-		::glBindAttribLocation(m_programHandle, 0, "VertexPosition");
-		::glBindAttribLocation(m_programHandle, 1, "Tex");
-		::glBindAttribLocation(m_programHandle, 2, "VertexColor");
-		::glBindFragDataLocation(m_programHandle, 0, "FragColor");
-		
-		::glLinkProgram(m_programHandle);
-		
-		GLint status;
-		::glGetProgramiv(m_programHandle, GL_LINK_STATUS, &status);
-		
-		if (status == GL_FALSE)
+		m_shaderProgram.attach(m_vertexShader);
+		m_shaderProgram.attach(m_pixelShader);
+
+		if (!m_shaderProgram.link())
 		{
 			return false;
 		}
 		
-		::glUseProgram(m_programHandle);
-		
-		
+		m_uniformBlockIndex = m_shaderProgram.getUniformBlockIndex("SpriteCB");
+
+		m_shaderProgram.use();
+
+		::glGenBuffers(1, &m_uniform_buffer);
+	
 		if (!m_spriteBatch.init())
 		{
 			return false;
 		}
-		
-		//::glEnable(GL_BLEND);
-		//::glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
-		//::glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
-		
+
 		m_commandManager.reset();
 		
 		m_initialized = true;
@@ -258,9 +246,11 @@ void main()
 						matrix._11, matrix._12, matrix._31, matrix._32,
 						matrix._21, matrix._22, 0.0f, 1.0f
 					};
-					
-					GLuint uniformLocation = ::glGetUniformLocation(m_programHandle, "g_transform");
-					::glUniform4fv(uniformLocation, 2, transform);
+
+					::glBindBuffer(GL_UNIFORM_BUFFER, m_uniform_buffer);
+					::glBufferData(GL_UNIFORM_BUFFER, sizeof(transform), &transform, GL_DYNAMIC_DRAW);
+					::glBindBuffer(GL_UNIFORM_BUFFER, 0);
+					::glBindBufferBase(GL_UNIFORM_BUFFER, m_uniformBlockIndex, m_uniform_buffer);
 					
 					break;
 				}
