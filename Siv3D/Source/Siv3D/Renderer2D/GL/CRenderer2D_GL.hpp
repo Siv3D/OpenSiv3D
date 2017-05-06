@@ -17,12 +17,89 @@
 # include "../../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 # include <Siv3D/Optional.hpp>
 # include <Siv3D/Rectangle.hpp>
+# include <Siv3D/ConstantBuffer.hpp>
 # include "../IRenderer2D.hpp"
 # include "GLSpriteBatch.hpp"
 # include "GLRenderer2DCommandManager.hpp"
 
 namespace s3d
 {
+	class ShaderProgram
+	{
+	private:
+		
+		GLuint m_programHandle = 0;
+		
+	public:
+		
+		bool init()
+		{
+			m_programHandle = ::glCreateProgram();
+			
+			return m_programHandle != 0;
+		}
+		
+		void attach(const GLuint shader)
+		{
+			::glAttachShader(m_programHandle, shader);
+		}
+		
+		bool link()
+		{
+			::glLinkProgram(m_programHandle);
+			
+			GLint status;
+			::glGetProgramiv(m_programHandle, GL_LINK_STATUS, &status);
+			
+			if (status == GL_FALSE)
+			{
+				return false;
+			}
+			
+			return true;
+		}
+		
+		void use()
+		{
+			::glUseProgram(m_programHandle);
+		}
+		
+		GLuint getUniformBlockIndex(const char* const name)
+		{
+			return ::glGetUniformBlockIndex(m_programHandle, name);
+		}
+		
+		void setUniformBlockBinding(const char* const name, GLuint index)
+		{
+			::glUniformBlockBinding(m_programHandle, getUniformBlockIndex(name), index);
+		}
+		
+		~ShaderProgram()
+		{
+			if (m_programHandle)
+			{
+				::glDeleteProgram(m_programHandle);
+			}
+		}
+	};
+					
+	struct SpriteCB
+	{
+		static const char* Name()
+		{
+			return "SpriteCB";
+		}
+		
+		static constexpr uint32 BindingPoint()
+		{
+			return 0;
+		}
+		
+		Float4 transform[2];
+	};
+	
+	static_assert(sizeof(SpriteCB) == 32);
+
 	class CRenderer2D_GL : public ISiv3DRenderer2D
 	{
 	private:
@@ -31,7 +108,9 @@ namespace s3d
 		
 		GLuint m_pixelShader = 0;
 		
-		GLuint m_programHandle = 0;
+		ShaderProgram m_shaderProgram;
+
+		ConstantBuffer<SpriteCB> m_cbSprite;
 		
 		GLSpriteBatch m_spriteBatch;
 		
@@ -52,6 +131,10 @@ namespace s3d
 		void setBlendState(const BlendState& state) override;
 
 		BlendState getBlendState() const override;
+
+		void setRasterizerState(const RasterizerState& state) override;
+
+		RasterizerState getRasterizerState() const override;
 
 		void setViewport(const Optional<Rect>& viewport) override;
 

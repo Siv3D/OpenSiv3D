@@ -27,6 +27,15 @@ namespace s3d
 			return Siv3DEngine::GetRenderer2D()->getBlendState();
 		}
 
+		void SetRasterizerState(const RasterizerState& rasterizerState)
+		{
+			Siv3DEngine::GetRenderer2D()->setRasterizerState(rasterizerState);
+		}
+
+		RasterizerState GetRasterizerState()
+		{
+			return Siv3DEngine::GetRenderer2D()->getRasterizerState();
+		}
 
 
 		void SetViewport(const Optional<Rect>& viewport)

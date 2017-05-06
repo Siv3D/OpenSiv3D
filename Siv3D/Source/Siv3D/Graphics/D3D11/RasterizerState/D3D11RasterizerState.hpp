@@ -21,9 +21,13 @@
 # include <wrl.h>
 using namespace Microsoft::WRL;
 # include <d3d11.h>
+# include <Siv3D/HashMap.hpp>
+# include <Siv3D/RasterizerState.hpp>
 
 namespace s3d
 {
+	const RasterizerState NullRasterizerState(FillMode(0));
+
 	class D3D11RasterizerState
 	{
 	private:
@@ -32,11 +36,19 @@ namespace s3d
 
 		ID3D11DeviceContext* m_context = nullptr;
 
-		ComPtr<ID3D11RasterizerState> m_state;
+		using RasterizerStateList = HashMap<RasterizerState, ComPtr<ID3D11RasterizerState>>;
+
+		RasterizerStateList m_states;
+
+		RasterizerState m_currentState = NullRasterizerState;
+
+		RasterizerStateList::iterator create(const RasterizerState& state);
 
 	public:
 
 		D3D11RasterizerState(ID3D11Device* device, ID3D11DeviceContext* context);
+
+		void set(const RasterizerState& state);
 	};
 }
 

@@ -461,8 +461,8 @@
 	# include "Siv3D/Vertex2D.hpp"
 	// ブレンドステート
 	# include "Siv3D/BlendState.hpp"
-	//// ラスタライザーステート
-	//# include "Siv3D/RasterizerState.hpp"
+	// ラスタライザーステート
+	# include "Siv3D/RasterizerState.hpp"
 	//// デプスステートとステンシルステート
 	//# include "Siv3D/DepthStencilState.hpp"
 	//// サンプラーステート
@@ -475,8 +475,8 @@
 	# include "Siv3D/VertexShader.hpp"
 	// ピクセルシェーダ
 	# include "Siv3D/PixelShader.hpp"
-	//// 定数バッファ
-	//# include "Siv3D/ConstantBuffer.hpp"
+	// 定数バッファ
+	# include "Siv3D/ConstantBuffer.hpp"
 	//// 頂点レイアウト
 	//# include "Siv3D/InputLayout.hpp"
 	// グラフィックス全般

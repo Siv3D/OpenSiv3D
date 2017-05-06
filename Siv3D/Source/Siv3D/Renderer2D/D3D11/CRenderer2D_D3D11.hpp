@@ -22,13 +22,28 @@
 # include <wrl.h>
 using namespace Microsoft::WRL;
 # include <d3d11.h>
-# include <d3dcompiler.h>
+# include <Siv3D/ConstantBuffer.hpp>
 # include "../IRenderer2D.hpp"
 # include "D3D11SpriteBatch.hpp"
 # include "D3D11Renderer2DCommandManager.hpp"
 
 namespace s3d
 {
+	struct SpriteCB
+	{
+		static const char* Name()
+		{
+			return "SpriteCB";
+		}
+
+		static constexpr uint32 BindingPoint()
+		{
+			return 0;
+		}
+
+		Float4 transform[2];
+	};
+
 	class CRenderer2D_D3D11 : public ISiv3DRenderer2D
 	{
 	private:
@@ -41,7 +56,7 @@ namespace s3d
 
 		D3D11SpriteBatch m_spriteBatch;
 
-		ComPtr<ID3D11Buffer> m_cbuffer;
+		ConstantBuffer<SpriteCB> m_cbSprite;
 
 		D3D11Render2DCommandManager m_commandManager;
 
@@ -58,6 +73,10 @@ namespace s3d
 		void setBlendState(const BlendState& state) override;
 
 		BlendState getBlendState() const override;
+
+		void setRasterizerState(const RasterizerState& state) override;
+
+		RasterizerState getRasterizerState() const override;
 
 		void setViewport(const Optional<Rect>& viewport) override;
 

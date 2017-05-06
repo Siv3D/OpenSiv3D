@@ -15,6 +15,7 @@
 # include "../../Siv3DEngine.hpp"
 # include "../../Shader/IShader.hpp"
 # include "../../Graphics/D3D11/CGraphics_D3D11.hpp"
+# include "../../ConstantBuffer/D3D11/D3D11ConstantBuffer.hpp"
 # include "CRenderer2D_D3D11.hpp"
 # include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/FloatRect.hpp>
@@ -89,22 +90,6 @@ namespace s3d
 		{
 			return false;
 		}
-
-
-		{
-			D3D11_BUFFER_DESC desc;
-			desc.ByteWidth				= static_cast<uint32>(sizeof(float) * 8);
-			desc.Usage					= D3D11_USAGE_DYNAMIC;
-			desc.BindFlags				= D3D11_BIND_CONSTANT_BUFFER;
-			desc.CPUAccessFlags			= D3D11_CPU_ACCESS_WRITE;
-			desc.MiscFlags				= 0;
-			desc.StructureByteStride	= 0;
-
-			if (FAILED(m_device->CreateBuffer(&desc, nullptr, &m_cbuffer)))
-			{
-				return false;
-			}
-		}
 		
 		m_commandManager.reset();
 
@@ -117,7 +102,7 @@ namespace s3d
 		CTexture_D3D11* const pTexture = dynamic_cast<CTexture_D3D11* const>(Siv3DEngine::GetTexture());
 
 		// set CB
-		m_context->VSSetConstantBuffers(0, 1, m_cbuffer.GetAddressOf());
+		m_context->VSSetConstantBuffers(m_cbSprite.BindingPoint(), 1, m_cbSprite.base()._detail()->getBufferPtr());
 
 		// set VS
 		Siv3DEngine::GetShader()->setVS(Siv3DEngine::GetShader()->getStandardVS(0).id());
@@ -168,6 +153,14 @@ namespace s3d
 					pGraphics->getBlendState()->set(command->blendState);
 					break;
 				}
+				case D3D11Render2DInstruction::RasterizerState:
+				{
+					const auto* command = static_cast<const D3D11Render2DCommand<D3D11Render2DInstruction::RasterizerState>*>(static_cast<const void*>(commandPointer));
+
+					//Log(L"RasterizerState");
+					pGraphics->getRasterizerState()->set(command->rasterizerState);
+					break;
+				}
 				case D3D11Render2DInstruction::Viewport:
 				{
 					const auto* command = static_cast<const D3D11Render2DCommand<D3D11Render2DInstruction::Viewport>*>(static_cast<const void*>(commandPointer));
@@ -199,23 +192,9 @@ namespace s3d
 					const Mat3x2 currentScreen = Mat3x2::Screen(viewport.Width, viewport.Height);
 					const Mat3x2 matrix = currentMat * currentScreen;
 
-					const float transform[8] =
-					{
-						matrix._11, matrix._12, matrix._31, matrix._32,
-						matrix._21, matrix._22, 0.0f, 1.0f
-					};
-
-					D3D11_MAPPED_SUBRESOURCE mapped;
-
-					if (SUCCEEDED(m_context->Map(m_cbuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped)))
-					{
-						if (void* dst = mapped.pData)
-						{
-							::memcpy(dst, transform, sizeof(transform));
-
-							m_context->Unmap(m_cbuffer.Get(), 0);
-						}
-					}
+					m_cbSprite->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
+					m_cbSprite->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
+					m_cbSprite._internal_update();
 
 					break;
 				}
@@ -248,6 +227,16 @@ namespace s3d
 	BlendState CRenderer2D_D3D11::getBlendState() const
 	{
 		return m_commandManager.getCurrentBlendState();
+	}
+
+	void CRenderer2D_D3D11::setRasterizerState(const RasterizerState& state)
+	{
+		m_commandManager.pushRasterizerState(state);
+	}
+
+	RasterizerState CRenderer2D_D3D11::getRasterizerState() const
+	{
+		return m_commandManager.getCurrentRasterizerState();
 	}
 
 	void CRenderer2D_D3D11::setViewport(const Optional<Rect>& viewport)

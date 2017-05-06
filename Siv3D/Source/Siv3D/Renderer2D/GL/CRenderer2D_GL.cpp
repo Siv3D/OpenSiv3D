@@ -23,6 +23,7 @@
 # include <Siv3D/MathConstants.hpp>
 # include <Siv3D/BlendState.hpp>
 # include <Siv3D/Logger.hpp>
+# include "../../ConstantBuffer/GL/GLConstantBuffer.hpp"
 
 namespace s3d
 {
@@ -52,7 +53,7 @@ namespace s3d
 			}
 		}
 	}
-	
+		
 	CRenderer2D_GL::CRenderer2D_GL()
 	{
 
@@ -61,8 +62,7 @@ namespace s3d
 	CRenderer2D_GL::~CRenderer2D_GL()
 	{
 		if (m_initialized)
-		{		
-			::glDeleteProgram(m_programHandle);
+		{
 			::glDeleteShader(m_pixelShader);
 			::glDeleteShader(m_vertexShader);
 		}
@@ -71,18 +71,21 @@ namespace s3d
 	bool CRenderer2D_GL::init()
 	{
 		m_vertexShader = ::glCreateShader(GL_VERTEX_SHADER);
-		
+
 		const char* vsCode =
 R"(
 #version 410
 		
-in vec2 VertexPosition;
-in vec2 Tex;
-in vec4 VertexColor;
+layout(location = 0) in vec2 VertexPosition;
+layout(location = 1) in vec2 Tex;
+layout(location = 2) in vec4 VertexColor;
 
-out vec4 Color;
+layout(location = 0) out vec4 Color;
 		
-uniform vec4 g_transform[2];
+layout(std140) uniform SpriteCB
+{
+	vec4 g_transform[2];
+};
 
 void main()
 {
@@ -104,17 +107,15 @@ void main()
 			return false;
 		}
 		
-	
-		
 		m_pixelShader = ::glCreateShader(GL_FRAGMENT_SHADER);
 		
 		const char* psCode =
 		R"(
 #version 410
 		
-in vec4 Color;
+layout(location = 0) in vec4 Color;
 
-out vec4 FragColor;
+layout(location = 0) out vec4 FragColor;
 		
 void main()
 {
@@ -132,44 +133,29 @@ void main()
 		{
 			return false;
 		}
-		
-		m_programHandle = ::glCreateProgram();
-		
-		if (!m_programHandle)
+
+		if (!m_shaderProgram.init())
 		{
 			return false;
 		}
 		
-		::glAttachShader(m_programHandle, m_vertexShader);
-		::glAttachShader(m_programHandle, m_pixelShader);
-		
-		::glBindAttribLocation(m_programHandle, 0, "VertexPosition");
-		::glBindAttribLocation(m_programHandle, 1, "Tex");
-		::glBindAttribLocation(m_programHandle, 2, "VertexColor");
-		::glBindFragDataLocation(m_programHandle, 0, "FragColor");
-		
-		::glLinkProgram(m_programHandle);
-		
-		GLint status;
-		::glGetProgramiv(m_programHandle, GL_LINK_STATUS, &status);
-		
-		if (status == GL_FALSE)
+		m_shaderProgram.attach(m_vertexShader);
+		m_shaderProgram.attach(m_pixelShader);
+
+		if (!m_shaderProgram.link())
 		{
 			return false;
 		}
 		
-		::glUseProgram(m_programHandle);
+		m_shaderProgram.setUniformBlockBinding(m_cbSprite.Name(), m_cbSprite.BindingPoint());
 		
-		
+		m_shaderProgram.use();
+
 		if (!m_spriteBatch.init())
 		{
 			return false;
 		}
-		
-		//::glEnable(GL_BLEND);
-		//::glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
-		//::glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
-		
+
 		m_commandManager.reset();
 		
 		m_initialized = true;
@@ -227,6 +213,14 @@ void main()
 					graphics->getBlendState()->set(command->blendState);
 					break;
 				}
+				case GLRender2DInstruction::RasterizerState:
+				{
+					const auto* command = static_cast<const GLRender2DCommand<GLRender2DInstruction::RasterizerState>*>(static_cast<const void*>(commandPointer));
+					
+					//Log(L"RasterizerState");
+					graphics->getRasterizerState()->set(command->rasterizerState);
+					break;
+				}
 				case GLRender2DInstruction::Viewport:
 				{
 					const auto* command = static_cast<const GLRender2DCommand<GLRender2DInstruction::Viewport>*>(static_cast<const void*>(commandPointer));
@@ -252,15 +246,12 @@ void main()
 					const Mat3x2 currentMat = Mat3x2::Identity();
 					const Mat3x2 currentScreen = Mat3x2::Screen(viewport.w, viewport.h);
 					const Mat3x2 matrix = currentMat * currentScreen;
-					
-					const float transform[8] =
-					{
-						matrix._11, matrix._12, matrix._31, matrix._32,
-						matrix._21, matrix._22, 0.0f, 1.0f
-					};
-					
-					GLuint uniformLocation = ::glGetUniformLocation(m_programHandle, "g_transform");
-					::glUniform4fv(uniformLocation, 2, transform);
+
+					m_cbSprite->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
+					m_cbSprite->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
+					m_cbSprite._internal_update();
+
+					::glBindBufferBase(GL_UNIFORM_BUFFER, m_cbSprite.BindingPoint(), m_cbSprite.base()._detail()->getHandle());
 					
 					break;
 				}
@@ -284,6 +275,16 @@ void main()
 	BlendState CRenderer2D_GL::getBlendState() const
 	{
 		return m_commandManager.getCurrentBlendState();
+	}
+	
+	void CRenderer2D_GL::setRasterizerState(const RasterizerState& state)
+	{
+		m_commandManager.pushRasterizerState(state);
+	}
+	
+	RasterizerState CRenderer2D_GL::getRasterizerState() const
+	{
+		return m_commandManager.getCurrentRasterizerState();
 	}
 	
 	void CRenderer2D_GL::setViewport(const Optional<Rect>& viewport)

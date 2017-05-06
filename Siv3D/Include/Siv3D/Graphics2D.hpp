@@ -12,6 +12,7 @@
 # pragma once
 # include "Fwd.hpp"
 # include "BlendState.hpp"
+# include "RasterizerState.hpp"
 # include "Rectangle.hpp"
 
 namespace s3d
@@ -42,6 +43,25 @@ namespace s3d
 		/// 現在の 2D 描画のブレンドステート
 		/// </returns>
 		BlendState GetBlendState();
+
+		/// <summary>
+		/// 2D 描画のラスタライザーステートを設定します。
+		/// </summary>
+		/// <param name="rasterizerState">
+		/// ラスタライザーステート
+		/// </param>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void SetRasterizerState(const RasterizerState& rasterizerState);
+
+		/// <summary>
+		/// 現在の 2D 描画のラスタライザーステートを取得します。
+		/// </summary>
+		/// <returns>
+		/// 現在の 2D 描画のラスタライザーステート
+		/// </returns>
+		RasterizerState GetRasterizerState();
 
 		void SetViewport(const Optional<Rect>& viewport);
 

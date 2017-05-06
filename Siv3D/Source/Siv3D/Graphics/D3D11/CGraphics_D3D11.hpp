@@ -60,9 +60,15 @@ namespace s3d
 
 		bool init() override;
 
-		D3D11RenderTarget* getRenderTarget() { return m_renderTarget.get(); }
+		ID3D11Device* getDevice() const { return m_device->getDevice(); }
 
-		D3D11BlendState* getBlendState() { return m_pBlendState.get(); }
+		ID3D11DeviceContext* getContext() const { return m_device->getContext(); }
+
+		D3D11RenderTarget* getRenderTarget() const { return m_renderTarget.get(); }
+
+		D3D11BlendState* getBlendState() const { return m_pBlendState.get(); }
+
+		D3D11RasterizerState* getRasterizerState() const { return m_pRasterizerState.get(); }
 
 		void setClearColor(const ColorF& color) override;
 
