@@ -9,7 +9,7 @@ void Main()
 	
 	double t = 0.0;
 	
-	RenderStateBlock2D blend(BlendState::Additive);
+	RenderStateBlock2D blend(BlendState::Additive, RasterizerState::WireframeCullNone);
 	
 	while (System::Update())
 	{
