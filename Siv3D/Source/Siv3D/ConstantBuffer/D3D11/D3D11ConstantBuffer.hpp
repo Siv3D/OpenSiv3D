@@ -32,7 +32,11 @@ namespace s3d
 		{
 		private:
 
-			ComPtr<ID3D11Buffer> m_buffer;
+			size_t m_bufferSize = 0;
+
+			mutable ComPtr<ID3D11Buffer> m_buffer;
+
+			bool init() const;
 
 		public:
 

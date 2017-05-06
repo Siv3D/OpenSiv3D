@@ -21,31 +21,19 @@ namespace s3d
 	namespace detail
 	{
 		ConstantBufferBase::ConstantBufferDetail::ConstantBufferDetail(const size_t size)
+			: m_bufferSize(size)
 		{
-			CGraphics_D3D11* const graphics = dynamic_cast<CGraphics_D3D11*>(Siv3DEngine::GetGraphics());
 
-			D3D11_BUFFER_DESC desc;
-			desc.ByteWidth				= static_cast<uint32>(size);
-			desc.Usage					= D3D11_USAGE_DYNAMIC;
-			desc.BindFlags				= D3D11_BIND_CONSTANT_BUFFER;
-			desc.CPUAccessFlags			= D3D11_CPU_ACCESS_WRITE;
-			desc.MiscFlags				= 0;
-			desc.StructureByteStride	= 0;
-
-			if (FAILED(graphics->getDevice()->CreateBuffer(&desc, nullptr, &m_buffer)))
-			{
-				return;
-			}
 		}
 
 		bool ConstantBufferBase::ConstantBufferDetail::update(const void* const data, const size_t size)
 		{
-			CGraphics_D3D11* const graphics = dynamic_cast<CGraphics_D3D11*>(Siv3DEngine::GetGraphics());
-
 			if (!m_buffer)
 			{
-				return false;
+				init();
 			}
+
+			CGraphics_D3D11* const graphics = dynamic_cast<CGraphics_D3D11*>(Siv3DEngine::GetGraphics());
 
 			D3D11_MAPPED_SUBRESOURCE mapped;
 
@@ -68,7 +56,32 @@ namespace s3d
 
 		ID3D11Buffer* const* ConstantBufferBase::ConstantBufferDetail::getBufferPtr() const
 		{
+			if (!m_buffer)
+			{
+				init();
+			}
+
 			return m_buffer.GetAddressOf();
+		}
+
+		bool ConstantBufferBase::ConstantBufferDetail::init() const
+		{
+			CGraphics_D3D11* const graphics = dynamic_cast<CGraphics_D3D11*>(Siv3DEngine::GetGraphics());
+
+			D3D11_BUFFER_DESC desc;
+			desc.ByteWidth				= static_cast<uint32>(m_bufferSize);
+			desc.Usage					= D3D11_USAGE_DYNAMIC;
+			desc.BindFlags				= D3D11_BIND_CONSTANT_BUFFER;
+			desc.CPUAccessFlags			= D3D11_CPU_ACCESS_WRITE;
+			desc.MiscFlags				= 0;
+			desc.StructureByteStride	= 0;
+
+			if (FAILED(graphics->getDevice()->CreateBuffer(&desc, nullptr, &m_buffer)))
+			{
+				return false;
+			}
+
+			return true;
 		}
 	}
 }

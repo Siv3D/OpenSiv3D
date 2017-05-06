@@ -22,7 +22,6 @@
 # include <wrl.h>
 using namespace Microsoft::WRL;
 # include <d3d11.h>
-# include <d3dcompiler.h>
 # include "../IRenderer2D.hpp"
 
 # include <Siv3D/Array.hpp>

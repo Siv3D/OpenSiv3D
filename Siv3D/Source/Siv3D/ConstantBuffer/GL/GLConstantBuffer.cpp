@@ -18,12 +18,7 @@
 namespace s3d
 {
 	namespace detail
-	{
-		void ConstantBufferBase::ConstantBufferDetail::init() const
-		{
-			::glGenBuffers(1, &m_uniformBufferHandle);
-		}
-		
+	{		
 		ConstantBufferBase::ConstantBufferDetail::ConstantBufferDetail(const size_t size)
 			: m_bufferSize(size)
 		{
@@ -64,6 +59,11 @@ namespace s3d
 			}
 				
 			return m_uniformBufferHandle;
+		}
+
+		void ConstantBufferBase::ConstantBufferDetail::init() const
+		{
+			::glGenBuffers(1, &m_uniformBufferHandle);
 		}
 	}
 }

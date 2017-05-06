@@ -58,7 +58,7 @@ namespace s3d
 			return Type::Name();
 		}
 
-		static uint32 BindingPoint()
+		static constexpr uint32 BindingPoint()
 		{
 			return Type::BindingPoint();
 		}

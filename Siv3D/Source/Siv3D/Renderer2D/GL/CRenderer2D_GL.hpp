@@ -90,7 +90,7 @@ namespace s3d
 			return "SpriteCB";
 		}
 		
-		static uint32 BindingPoint()
+		static constexpr uint32 BindingPoint()
 		{
 			return 0;
 		}
