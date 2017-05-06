@@ -53,6 +53,24 @@ namespace s3d
 		}
 	}
 	
+	ConstantBufferBase::ConstantBufferBase()
+		: m_detail(std::make_shared<ConstantBufferDetail>())
+	{
+		
+	}
+	
+	bool ConstantBufferBase::_internal_update(const void* const data, const size_t size)
+	{
+		return m_detail->update(data, size);
+	}
+	
+	const ConstantBufferBase::ConstantBufferDetail* ConstantBufferBase::_detail() const
+	{
+		return m_detail.get();
+	}
+	
+	
+	
 	CRenderer2D_GL::CRenderer2D_GL()
 	{
 
@@ -74,7 +92,6 @@ namespace s3d
 		const char* vsCode =
 R"(
 #version 410
-#extension GL_ARB_explicit_uniform_location : enable
 		
 layout(location = 0) in vec2 VertexPosition;
 layout(location = 1) in vec2 Tex;
@@ -147,12 +164,10 @@ void main()
 			return false;
 		}
 		
-		m_uniformBlockIndex = m_shaderProgram.getUniformBlockIndex("SpriteCB");
-
+		m_shaderProgram.setUniformBlockBinding(m_cbSprite.Name(), m_cbSprite.BindingPoint());
+		
 		m_shaderProgram.use();
 
-		::glGenBuffers(1, &m_uniform_buffer);
-	
 		if (!m_spriteBatch.init())
 		{
 			return false;
@@ -240,17 +255,12 @@ void main()
 					const Mat3x2 currentMat = Mat3x2::Identity();
 					const Mat3x2 currentScreen = Mat3x2::Screen(viewport.w, viewport.h);
 					const Mat3x2 matrix = currentMat * currentScreen;
-					
-					const float transform[8] =
-					{
-						matrix._11, matrix._12, matrix._31, matrix._32,
-						matrix._21, matrix._22, 0.0f, 1.0f
-					};
 
-					::glBindBuffer(GL_UNIFORM_BUFFER, m_uniform_buffer);
-					::glBufferData(GL_UNIFORM_BUFFER, sizeof(transform), &transform, GL_DYNAMIC_DRAW);
-					::glBindBuffer(GL_UNIFORM_BUFFER, 0);
-					::glBindBufferBase(GL_UNIFORM_BUFFER, m_uniformBlockIndex, m_uniform_buffer);
+					m_cbSprite->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
+					m_cbSprite->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
+					m_cbSprite._internal_update();
+
+					::glBindBufferBase(GL_UNIFORM_BUFFER, m_cbSprite.BindingPoint(), m_cbSprite.base()._detail()->getHandle());
 					
 					break;
 				}

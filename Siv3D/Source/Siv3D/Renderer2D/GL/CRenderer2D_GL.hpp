@@ -68,6 +68,11 @@ namespace s3d
 			return ::glGetUniformBlockIndex(m_programHandle, name);
 		}
 		
+		void setUniformBlockBinding(const char* const name, GLuint index)
+		{
+			::glUniformBlockBinding(m_programHandle, getUniformBlockIndex(name), index);
+		}
+		
 		~ShaderProgram()
 		{
 			if (m_programHandle)
@@ -77,6 +82,182 @@ namespace s3d
 		}
 	};
 	
+	class ConstantBufferBase
+	{
+	private:
+		
+		class ConstantBufferDetail;
+		
+		std::shared_ptr<ConstantBufferDetail> m_detail;
+		
+	public:
+		
+		ConstantBufferBase();
+
+		bool _internal_update(const void* data, size_t size);
+		
+		const ConstantBufferDetail* _detail() const;
+	};
+	
+
+	class ConstantBufferBase::ConstantBufferDetail
+	{
+	private:
+		
+		GLuint m_uniformBufferHandle = 0;
+		
+		bool initBuffer()
+		{
+			if (m_uniformBufferHandle)
+			{
+				return true;
+			}
+			
+			::glGenBuffers(1, &m_uniformBufferHandle);
+			
+			return true;
+		}
+		
+	public:
+
+		~ConstantBufferDetail()
+		{
+			if (m_uniformBufferHandle)
+			{
+				::glDeleteBuffers(1, &m_uniformBufferHandle);
+			}
+		}
+		
+		bool update(const void* const data, const size_t size)
+		{
+			if (!initBuffer())
+			{
+				return false;
+			}
+			
+			::glBindBuffer(GL_UNIFORM_BUFFER, m_uniformBufferHandle);
+			
+			::glBufferData(GL_UNIFORM_BUFFER, size, data, GL_STATIC_DRAW);
+			
+			::glBindBuffer(GL_UNIFORM_BUFFER, 0);
+			
+			return true;
+		}
+		
+		GLuint getHandle() const
+		{
+			return m_uniformBufferHandle;
+		}
+	};
+			
+	template <class Type>
+	class ConstantBuffer
+	{
+	private:
+		
+		static constexpr size_t Size = sizeof(Type);
+		
+		static_assert(Size <= 16 * 4096); // <= 64KB
+		
+		static_assert(Size % 16 == 0);
+		
+		ConstantBufferBase m_base;
+		
+		Type* const m_data = AlignedMalloc<Type>();
+		
+	public:
+		
+		static const char* Name()
+		{
+			return Type::Name();
+		}
+		
+		static uint32 BindingPoint()
+		{
+			return Type::BindingPoint();
+		}
+		
+		ConstantBuffer() = default;
+		
+		explicit ConstantBuffer(const Type& data)
+			: ConstantBuffer()
+		{
+			*m_data = data;
+		}
+		
+		~ConstantBuffer()
+		{
+			AlignedFree(m_data);
+		}
+		
+		constexpr size_t getDataSize() const noexcept
+		{
+			return Size;
+		}
+		
+		const float* getPtr() const
+		{
+			return static_cast<const float*>(static_cast<const void*>(m_data));
+		}
+		
+		Type& get()
+		{
+			return *m_data;
+		}
+		
+		const Type& get() const
+		{
+			return *m_data;
+		}
+
+		bool _internal_update()
+		{
+			return m_base._internal_update(m_data, Size);
+		}
+		
+		const ConstantBufferBase& base() const
+		{
+			return m_base;
+		}
+		
+		Type& operator *()
+		{
+			return *m_data;
+		}
+		
+		const Type& operator *() const
+		{
+			return *m_data;
+		}
+		
+		Type* operator ->()
+		{
+			return m_data;
+		}
+		
+		const Type* operator ->() const
+		{
+			return *m_data;
+		}
+	};
+	
+	struct SpriteCB
+	{
+		static const char* Name()
+		{
+			return "SpriteCB";
+		}
+		
+		static uint32 BindingPoint()
+		{
+			return 0;
+		}
+		
+		Float4 transform[2];
+	};
+	
+	static_assert(sizeof(SpriteCB) == 32);
+
 	class CRenderer2D_GL : public ISiv3DRenderer2D
 	{
 	private:
@@ -86,10 +267,8 @@ namespace s3d
 		GLuint m_pixelShader = 0;
 		
 		ShaderProgram m_shaderProgram;
-		
-		GLuint m_uniform_buffer = 0;
-		
-		GLuint m_uniformBlockIndex = 0;
+
+		ConstantBuffer<SpriteCB> m_cbSprite;
 		
 		GLSpriteBatch m_spriteBatch;
 		
