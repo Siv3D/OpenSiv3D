@@ -153,6 +153,14 @@ namespace s3d
 					pGraphics->getBlendState()->set(command->blendState);
 					break;
 				}
+				case D3D11Render2DInstruction::RasterizerState:
+				{
+					const auto* command = static_cast<const D3D11Render2DCommand<D3D11Render2DInstruction::RasterizerState>*>(static_cast<const void*>(commandPointer));
+
+					//Log(L"RasterizerState");
+					pGraphics->getRasterizerState()->set(command->rasterizerState);
+					break;
+				}
 				case D3D11Render2DInstruction::Viewport:
 				{
 					const auto* command = static_cast<const D3D11Render2DCommand<D3D11Render2DInstruction::Viewport>*>(static_cast<const void*>(commandPointer));
@@ -219,6 +227,16 @@ namespace s3d
 	BlendState CRenderer2D_D3D11::getBlendState() const
 	{
 		return m_commandManager.getCurrentBlendState();
+	}
+
+	void CRenderer2D_D3D11::setRasterizerState(const RasterizerState& state)
+	{
+		m_commandManager.pushRasterizerState(state);
+	}
+
+	RasterizerState CRenderer2D_D3D11::getRasterizerState() const
+	{
+		return m_commandManager.getCurrentRasterizerState();
 	}
 
 	void CRenderer2D_D3D11::setViewport(const Optional<Rect>& viewport)

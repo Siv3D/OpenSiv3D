@@ -129,12 +129,12 @@ namespace s3d
 			*this = predefinedStates[static_cast<size_t>(predefined)];
 		}
 
-		bool operator ==(const BlendState& b) const noexcept
+		bool operator ==(const RasterizerState& b) const noexcept
 		{
 			return _data == b._data;
 		}
 
-		bool operator !=(const BlendState& b) const noexcept
+		bool operator !=(const RasterizerState& b) const noexcept
 		{
 			return _data != b._data;
 		}

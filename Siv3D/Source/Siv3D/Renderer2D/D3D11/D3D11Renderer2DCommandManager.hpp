@@ -24,6 +24,7 @@
 # include <Siv3D/Array.hpp>
 # include <Siv3D/Byte.hpp>
 # include <Siv3D/BlendState.hpp>
+# include <Siv3D/RasterizerState.hpp>
 # include <Siv3D/Rectangle.hpp>
 # include <Siv3D/Texture.hpp>
 # include <Siv3D/RenderTexture.hpp>
@@ -42,6 +43,8 @@ namespace s3d
 		NextBatch,
 
 		BlendState,
+
+		RasterizerState,
 
 		Viewport,
 
@@ -95,6 +98,20 @@ namespace s3d
 		BlendState blendState;
 	};
 
+
+	template <>
+	struct D3D11Render2DCommand<D3D11Render2DInstruction::RasterizerState>
+	{
+		D3D11Render2DCommandHeader header =
+		{
+			D3D11Render2DInstruction::RasterizerState,
+
+			sizeof(D3D11Render2DCommand<D3D11Render2DInstruction::RasterizerState>)
+		};
+
+		RasterizerState rasterizerState;
+	};
+
 	template <>
 	struct D3D11Render2DCommand<D3D11Render2DInstruction::Viewport>
 	{
@@ -134,6 +151,8 @@ namespace s3d
 		D3D11Render2DInstruction m_lastCommand = D3D11Render2DInstruction::Nop;
 
 		BlendState m_currentBlendState = BlendState::Default;
+
+		RasterizerState m_currentRasterizerState = RasterizerState::Default2D;
 
 		Optional<Rect> m_currentViewport;
 
@@ -194,6 +213,12 @@ namespace s3d
 			}
 
 			{
+				D3D11Render2DCommand<D3D11Render2DInstruction::RasterizerState> command;
+				command.rasterizerState = m_currentRasterizerState;
+				writeCommand(command);
+			}
+
+			{
 				const RenderTexture& backBuffer2D = Siv3DEngine::GetGraphics()->getBackBuffer2D();
 				m_currentRenderTarget = backBuffer2D;
 				m_reservedTextures.emplace(backBuffer2D.id(), backBuffer2D);
@@ -246,6 +271,25 @@ namespace s3d
 		const BlendState& getCurrentBlendState() const
 		{
 			return m_currentBlendState;
+		}
+
+		void pushRasterizerState(const RasterizerState& state)
+		{
+			if (state == m_currentRasterizerState)
+			{
+				return;
+			}
+
+			D3D11Render2DCommand<D3D11Render2DInstruction::RasterizerState> command;
+			command.rasterizerState = state;
+			writeCommand(command);
+
+			m_currentRasterizerState = state;
+		}
+
+		const RasterizerState& getCurrentRasterizerState() const
+		{
+			return m_currentRasterizerState;
 		}
 
 		void pushViewport(const Optional<Rect>& viewport)

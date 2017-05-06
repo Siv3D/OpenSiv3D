@@ -28,6 +28,10 @@ namespace s3d
 
 		virtual BlendState getBlendState() const = 0;
 
+		virtual void setRasterizerState(const RasterizerState& state) = 0;
+
+		virtual RasterizerState getRasterizerState() const = 0;
+
 		virtual void setViewport(const Optional<Rect>& viewport) = 0;
 
 		virtual Optional<Rect> getViewport() const = 0;

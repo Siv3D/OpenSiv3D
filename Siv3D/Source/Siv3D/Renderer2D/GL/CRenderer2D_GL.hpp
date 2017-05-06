@@ -132,6 +132,10 @@ namespace s3d
 
 		BlendState getBlendState() const override;
 
+		void setRasterizerState(const RasterizerState& state) override;
+
+		RasterizerState getRasterizerState() const override;
+
 		void setViewport(const Optional<Rect>& viewport) override;
 
 		Optional<Rect> getViewport() const override;

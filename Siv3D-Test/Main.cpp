@@ -37,5 +37,7 @@ void Main()
 		}
 		
 		Circle(Cursor::Pos(), 80).draw(ColorF(1.0, 0.5));
+
+		Rect(40).draw();
 	}
 }

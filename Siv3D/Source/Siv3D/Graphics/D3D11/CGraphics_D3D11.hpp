@@ -68,6 +68,8 @@ namespace s3d
 
 		D3D11BlendState* getBlendState() const { return m_pBlendState.get(); }
 
+		D3D11RasterizerState* getRasterizerState() const { return m_pRasterizerState.get(); }
+
 		void setClearColor(const ColorF& color) override;
 
 		Array<DisplayOutput> enumOutputs() override;
