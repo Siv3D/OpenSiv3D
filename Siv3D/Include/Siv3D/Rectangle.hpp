@@ -1451,9 +1451,22 @@ namespace s3d
 			return draw({ *leftColor, *rightColor, *rightColor, *leftColor });
 		}
 
-		// draw
-
-		// drawFrame
+		/// <summary>
+		/// 長方形の枠を描きます。
+		/// </summary>
+		/// <param name="thickness">
+		/// 枠の太さ
+		/// </param>
+		/// <param name="color">
+		/// 色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Rectangle& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const
+		{
+			return drawFrame(thickness * 0.5, thickness * 0.5, color);
+		}
 
 		/// <summary>
 		/// 長方形の枠を描きます。
@@ -1470,7 +1483,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		const Rectangle& drawFrame(double innerThickness = 1.0, double outerThickness = 0.0, const ColorF& color = Palette::White) const;
+		const Rectangle& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
 
 		// drawShadow
 

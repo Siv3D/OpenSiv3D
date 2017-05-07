@@ -47,5 +47,9 @@ void Main()
 		Rect(40).draw();
 
 		Line(Window::Center(), Cursor::Pos()).draw(4, { Palette::Yellow, Palette::Red });
+
+		Circle(200).drawFrame(5);
+
+		Rect(100, 100, 200).drawFrame(3);
 	}
 }

@@ -153,16 +153,6 @@ namespace s3d
 		}
 	}
 
-	const Line& Line::draw(const ColorF& color) const
-	{
-		return draw(1.0, color);
-	}
-
-	const Line& Line::draw(const ColorF(&colors)[2]) const
-	{
-		return draw(1, colors);
-	}
-
 	const Line& Line::draw(double thickness, const ColorF& color) const
 	{
 		const Float4 colorF(color.r, color.g, color.b, color.a);
