@@ -128,6 +128,8 @@ namespace s3d
 			return (p0 + p1 + p2) / 3.0;
 		}
 
+		Triangle stretched(value_type size) const noexcept;
+
 		Triangle rotated(value_type angle) const noexcept
 		{
 			return rotatedAt(centroid(), angle);
@@ -175,6 +177,10 @@ namespace s3d
 		const Triangle& draw(const ColorF& color = Palette::White) const;
 
 		const Triangle& draw(const ColorF(&colors)[3]) const;
+
+		const Triangle& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
+
+		const Triangle& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
 
 		// Polygon asPolygon() const;
 	};
