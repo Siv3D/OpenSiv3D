@@ -44,18 +44,19 @@ namespace s3d
 		const float af = static_cast<float>(angle);
 		const Float2 n = Float2(w, w).rotate(af), a = Float2(r, w).rotate(af), b = Float2(w, r).rotate(af);
 		
-		shape.m_vertices[0].moveBy(a.x, a.y);
-		shape.m_vertices[1].moveBy(n.x, n.y);
-		shape.m_vertices[2].moveBy(b.x, b.y);
-		shape.m_vertices[3].moveBy(-a.y, a.x);
-		shape.m_vertices[4].moveBy(-n.y, n.x);
-		shape.m_vertices[5].moveBy(-b.y, b.x);
-		shape.m_vertices[6].moveBy(-a.x, -a.y);
-		shape.m_vertices[7].moveBy(-n.x, -n.y);
-		shape.m_vertices[8].moveBy(-b.x, -b.y);
-		shape.m_vertices[9].moveBy(a.y, -a.x);
-		shape.m_vertices[10].moveBy(n.y, -n.x);
-		shape.m_vertices[11].moveBy(b.y, -b.x);
+		Float2* pPos = shape.m_vertices.data();
+		(pPos++)->moveBy(a.x, a.y);
+		(pPos++)->moveBy(n.x, n.y);
+		(pPos++)->moveBy(b.x, b.y);
+		(pPos++)->moveBy(-a.y, a.x);
+		(pPos++)->moveBy(-n.y, n.x);
+		(pPos++)->moveBy(-b.y, b.x);
+		(pPos++)->moveBy(-a.x, -a.y);
+		(pPos++)->moveBy(-n.x, -n.y);
+		(pPos++)->moveBy(-b.x, -b.y);
+		(pPos++)->moveBy(a.y, -a.x);
+		(pPos++)->moveBy(n.y, -n.x);
+		(pPos++)->moveBy(b.y, -b.x);
 
 		shape.m_indices = { 6, 11, 5, 5, 11, 0, 8, 9, 7, 7, 9, 10, 4, 1, 3, 3, 1, 2 };
 
@@ -72,16 +73,20 @@ namespace s3d
 		Shape2D shape(n, 3 * (n - 2), center, 0);
 
 		const Float2 offset(center);
+		Float2* pPos = shape.m_vertices.data();
 
 		for (uint32 i = 0; i < n; ++i)
 		{
-			shape.m_vertices[i] += Circular(r, angle + i * (Math::TwoPi / n)).toFloat2();
+			*pPos++ += Circular(r, angle + i * (Math::TwoPi / n)).toFloat2();
 		}
+
+		uint32* pIndex = shape.m_indices.data();
 
 		for (uint32 i = 0; i < n - 2; ++i)
 		{
-			shape.m_indices[i * 3 + 1] = i + 1;
-			shape.m_indices[i * 3 + 2] = i + 2;
+			++pIndex;
+			(*pIndex++) = i + 1;
+			(*pIndex++) = i + 2;
 		}
 
 		return shape;
@@ -102,25 +107,29 @@ namespace s3d
 		}
 
 		Shape2D shape(n * 2, n * 3 + (n - 2) * 3, center, 1);
+		Float2* pPos = shape.m_vertices.data();
 
 		for (uint32 i = 0; i < n * 2; ++i)
 		{
-			shape.m_vertices[i] += Circular(i % 2 ? rInner : rOuter, angle + i * (Math::Pi / n)).toFloat2();
+			(*pPos++) += Circular(i % 2 ? rInner : rOuter, angle + i * (Math::Pi / n)).toFloat2();
 		}
+
+		uint32* pIndex = shape.m_indices.data();
 
 		for (uint32 i = 0; i < n; ++i)
 		{
-			shape.m_indices[i * 3 + 0] = i * 2 + 1;
-			shape.m_indices[i * 3 + 1] = (i * 2 + 2) % (n * 2);
-			shape.m_indices[i * 3 + 2] = (i * 2 + 3) % (n * 2);
+			(*pIndex++) = i * 2 + 1;
+			(*pIndex++) = (i * 2 + 2) % (n * 2);
+			(*pIndex++) = (i * 2 + 3) % (n * 2);
 		}
 
 		const uint32 offset = n * 3;
 
 		for (uint32 i = 0; i < n - 2; ++i)
 		{
-			shape.m_indices[offset + i * 3 + 1] = i * 2 + 3;
-			shape.m_indices[offset + i * 3 + 2] = i * 2 + 5;
+			++pIndex;
+			(*pIndex++) = i * 2 + 3;
+			(*pIndex++) = i * 2 + 5;
 		}
 
 		return shape;
