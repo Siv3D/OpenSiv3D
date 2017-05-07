@@ -30,7 +30,7 @@ void Main()
 		}
 		
 		RenderStateBlock2D blend2(BlendState::Default, RasterizerState::SolidCullBackScissor);
-		
+
 		for (int32 i = 0; i < 36; ++i)
 		{
 			const double angle = i * 10_deg + t * 30_deg;
@@ -51,5 +51,21 @@ void Main()
 		Circle(200).drawFrame(5);
 
 		Rect(100, 100, 200).drawFrame(3);
+
+		Shape2D::Plus(200, 20, Cursor::Pos(), t * 30_deg).drawFrame();
+
+		Shape2D::Cross(100, 40, Cursor::Pos()).drawFrame(4, Palette::Red);
+
+		Shape2D::Pentagon(60, Cursor::Pos()).drawFrame(4, Palette::Yellow);
+		
+		Shape2D::Hexagon(40, Cursor::Pos()).drawFrame(4, Palette::Green);
+
+		Shape2D::Star(30, Cursor::Pos()).drawFrame(4);
+
+		Shape2D::NStar(12, 160, 40, Vec2(300, 300)).drawFrame(4, Palette::Blue);
+
+		Shape2D::Arrow(Vec2(100, 400), Vec2(500, 200), 30, { 80, 40 }).drawFrame(4);
+
+		Line(100, 400, 500, 200).drawArrow(30, { 80, 40 }, Palette::Gray);
 	}
 }

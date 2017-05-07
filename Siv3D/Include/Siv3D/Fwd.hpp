@@ -389,7 +389,7 @@ namespace s3d
 	//
 	//	Shape2D.hpp
 	//
-	struct Shape2D;
+	class Shape2D;
 
 
 	//////////////////////////////////////////////////////

@@ -11,6 +11,8 @@
 
 # pragma once
 # include <Siv3D/Fwd.hpp>
+# include <Siv3D/Array.hpp>
+# include <Siv3D/PointVector.hpp>
 
 namespace s3d
 {
@@ -71,5 +73,10 @@ namespace s3d
 		virtual void addQuad(const FloatQuad& quad, const Float4(&colors)[4]) = 0;
 
 		virtual void addLineString(const Vec2* pts, uint32 size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, bool isClosed) = 0;
+
+		virtual void addShape2D(const Array<Float2>& vertices, const Array<uint32>& indices, const Float4& color) = 0;
+
+		virtual void addShape2DFrame(const Float2* pts, uint32 size, float thickness, const Float4& color) = 0;
+
 	};
 }

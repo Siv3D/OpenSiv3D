@@ -13,29 +13,25 @@
 # include "Fwd.hpp"
 # include "Vertex2D.hpp"
 # include "Array.hpp"
+# include "Line.hpp"
 
 namespace s3d
 {
-	struct Shape2D
+	class Shape2D
 	{
-		/// <summary>
-		/// 頂点バッファ
-		/// </summary>
-		Array<Vertex2D> vertices;
+	private:
 
-		/// <summary>
-		/// インデックスバッファ
-		/// </summary>
-		/// <remarks>
-		/// サイズは 3 の倍数でなければなりません。
-		/// </remarks>
-		Array<uint32> indices;
+		Array<Float2> m_vertices;
+
+		Array<uint32> m_indices;
+
+		Shape2D(uint32 vSize, uint32 iSize);
+
+		Shape2D(uint32 vSize, uint32 iSize, const Float2& offset, uint32 baseIndex);
+
+	public:
 
 		Shape2D() = default;
-
-		Shape2D(uint32 vertexSize, uint32 indexSize)
-			: vertices(vertexSize)
-			, indices(indexSize) {}
 
 		static Shape2D Cross(double r, double width, const Vec2& center = Vec2(0, 0), double angle = 0.0);
 
@@ -57,12 +53,25 @@ namespace s3d
 
 		static Shape2D NStar(uint32 n, double rOuter, double rInner, const Vec2& center = Vec2(0, 0), double angle = 0.0);
 
-		static Shape2D Arrow(const Vec2& from, const Vec2& to, double thickness, const Vec2& headSize);
+		static Shape2D Arrow(const Vec2& from, const Vec2& to, double width, const Vec2& headSize);
 
-		static Shape2D DoubleArrow(const Vec2& a, const Vec2& b, double thickness, const Vec2& headSize);		
+		static Shape2D Arrow(const Line& line, double width, const Vec2& headSize)
+		{
+			return Arrow(line.begin, line.end, width, headSize);
+		}
+
+		//static Shape2D DoubleArrow(const Vec2& a, const Vec2& b, double width, const Vec2& headSize);		
+
+		//static Shape2D DoubleArrow(const Line& line, double width, const Vec2& headSize);	
 
 		// ArrowHead
 
 		// Check
+
+		// Heart
+
+		void draw(const ColorF& color = Palette::White) const;
+
+		void drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 	};
 }

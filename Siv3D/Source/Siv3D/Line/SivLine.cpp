@@ -12,6 +12,7 @@
 # include <Siv3D/Line.hpp>
 # include <Siv3D/MathConstants.hpp>
 # include <Siv3D/XXHash.hpp>
+# include <Siv3D/Shape2D.hpp>
 # include "../Siv3DEngine.hpp"
 # include "../Renderer2D/IRenderer2D.hpp"
 
@@ -169,6 +170,13 @@ namespace s3d
 			Float4(colors[0].r, colors[0].g, colors[0].b, colors[0].a),
 			Float4(colors[1].r, colors[1].g, colors[1].b, colors[1].a)
 		});
+
+		return *this;
+	}
+
+	const Line& Line::drawArrow(double width, const Vec2& headSize, const ColorF& color) const
+	{
+		Shape2D::Arrow(begin, end, width, headSize).draw(color);
 
 		return *this;
 	}
