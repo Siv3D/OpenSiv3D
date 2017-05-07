@@ -20,20 +20,20 @@ namespace s3d
 {
 	namespace detail
 	{
-		void GetPowerSource(CFDictionaryRef dictionary, bool& hasAC, bool& haveBattery, bool& charging,
+		void GetPowerSource(CFDictionaryRef dictionary, bool& hasAC, bool& hasBattery, bool& charging,
 							Optional<int32>& maxTimeToEmptySec, Optional<int32>& percent, Optional<int32>& timeToFullSec)
 		{
-			CFBooleanRef bval;
+			CFBooleanRef b;
 
-			if (CFDictionaryGetValueIfPresent(dictionary, CFSTR(kIOPSIsPresentKey), (const void**)&bval)
-				 && (bval == kCFBooleanFalse))
+			if (CFDictionaryGetValueIfPresent(dictionary, CFSTR(kIOPSIsPresentKey), (const void**)&b)
+				 && (b == kCFBooleanFalse))
 			{
 				return;
 			}
 		
-			CFStringRef strval;
+			CFStringRef str;
 			
-			if (!CFDictionaryGetValueIfPresent(dictionary, CFSTR(kIOPSPowerSourceStateKey), (const void**)&strval))
+			if (!CFDictionaryGetValueIfPresent(dictionary, CFSTR(kIOPSPowerSourceStateKey), (const void**)&str))
 			{
 				return;
 			}
@@ -41,13 +41,13 @@ namespace s3d
 			//
 			// has AC?
 			//
-			bool l_isAC = false;
+			bool isAC = false;
 			
-			if (CFStringCompare(strval, CFSTR(kIOPSACPowerValue), 0) == kCFCompareEqualTo)
+			if (CFStringCompare(str, CFSTR(kIOPSACPowerValue), 0) == kCFCompareEqualTo)
 			{
-				l_isAC = hasAC = true;
+				isAC = hasAC = true;
 			}
-			else if (CFStringCompare(strval, CFSTR(kIOPSBatteryPowerValue), 0) != kCFCompareEqualTo)
+			else if (CFStringCompare(str, CFSTR(kIOPSBatteryPowerValue), 0) != kCFCompareEqualTo)
 			{
 				return;
 			}
@@ -57,13 +57,13 @@ namespace s3d
 			//
 			Optional<int32> timeToEmptySec;
 			
-			CFNumberRef numval;
+			CFNumberRef num;
 			
-			if (!l_isAC && CFDictionaryGetValueIfPresent(dictionary, CFSTR(kIOPSTimeToEmptyKey), (const void**)&numval))
+			if (!isAC && CFDictionaryGetValueIfPresent(dictionary, CFSTR(kIOPSTimeToEmptyKey), (const void**)&num))
 			{
 				SInt32 val;
 				
-				if (CFNumberGetValue(numval, kCFNumberSInt32Type, &val) && val > 0)
+				if (CFNumberGetValue(num, kCFNumberSInt32Type, &val) && (val > 0))
 				{
 					timeToEmptySec = val * 60;
 				}
@@ -74,13 +74,13 @@ namespace s3d
 			//
 			Optional<int32> maxCapacityPaercent;
 			
-			if (CFDictionaryGetValueIfPresent(dictionary, CFSTR(kIOPSMaxCapacityKey), (const void**)&numval))
+			if (CFDictionaryGetValueIfPresent(dictionary, CFSTR(kIOPSMaxCapacityKey), (const void**)&num))
 			{
 				SInt32 val;
 				
-				if (CFNumberGetValue(numval, kCFNumberSInt32Type, &val) && val > 0)
+				if (CFNumberGetValue(num, kCFNumberSInt32Type, &val) && (val > 0))
 				{
-					haveBattery = true;
+					hasBattery = true;
 					
 					maxCapacityPaercent = val;
 				}
@@ -91,11 +91,11 @@ namespace s3d
 			//
 			Optional<int32> currentCapacityPercent;
 			
-			if (CFDictionaryGetValueIfPresent(dictionary, CFSTR(kIOPSCurrentCapacityKey), (const void**)&numval))
+			if (CFDictionaryGetValueIfPresent(dictionary, CFSTR(kIOPSCurrentCapacityKey), (const void**)&num))
 			{
 				SInt32 val;
 				
-				if (CFNumberGetValue(numval, kCFNumberSInt32Type, &val) && val > 0)
+				if (CFNumberGetValue(num, kCFNumberSInt32Type, &val) && (val > 0))
 				{
 					currentCapacityPercent = val;
 				}
@@ -110,52 +110,49 @@ namespace s3d
 			//
 			// is charging?
 			//
-			bool l_charge = false;
+			bool isCharging = false;
 			
-			if (CFDictionaryGetValueIfPresent(dictionary, CFSTR(kIOPSIsChargingKey), (const void**)&bval)
-				&& (bval == kCFBooleanTrue))
+			if (CFDictionaryGetValueIfPresent(dictionary, CFSTR(kIOPSIsChargingKey), (const void**)&b)
+				&& (b == kCFBooleanTrue))
 			{
-				l_charge = true;
-			}
-			
-			//
-			// time to full charge
-			//
-			if (l_charge && CFDictionaryGetValueIfPresent(dictionary, CFSTR(kIOPSTimeToFullChargeKey), (const void**)&numval))
-			{
-				SInt32 val;
-
-				if (CFNumberGetValue(numval, kCFNumberSInt32Type, &val) && val > 0)
+				isCharging = true;
+				
+				//
+				// time to full charge
+				//
+				if (CFDictionaryGetValueIfPresent(dictionary, CFSTR(kIOPSTimeToFullChargeKey), (const void**)&num))
 				{
-					timeToFullSec = val * 60;
+					SInt32 val;
+					
+					if (CFNumberGetValue(num, kCFNumberSInt32Type, &val) && val > 0)
+					{
+						timeToFullSec = val * 60;
+					}
 				}
 			}
 
-			bool choose = false;
+			bool update = false;
 			
 			if (!timeToEmptySec && !maxTimeToEmptySec)
 			{
-				if (!currentCapacityPercent && !percent)
-				{
-					choose = true;
-				}
-				
-				if (currentCapacityPercent > percent)
-				{
-					choose = true;
-				}
+				update = (!currentCapacityPercent && !percent)
+					|| (currentCapacityPercent > percent);
 			}
-			else if (timeToEmptySec > maxTimeToEmptySec)
+			else
 			{
-				choose = true;
+				update = (timeToEmptySec > maxTimeToEmptySec);
 			}
 			
-			if (choose)
+			if (!update)
 			{
-				maxTimeToEmptySec = timeToEmptySec;
-				percent = currentCapacityPercent;
-				charging = l_charge;
+				return;
 			}
+
+			maxTimeToEmptySec = timeToEmptySec;
+
+			percent = currentCapacityPercent;
+			
+			charging = isCharging;
 		}
 		
 		void GetPowerStatus_macOS(PowerStatus& result)
