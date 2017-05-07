@@ -52,7 +52,7 @@ namespace s3d
 			}
 		}
 
-		static IndexType CalculateCirclePieQuality(float size, float angle)
+		static IndexType CalculateCirclePieQuality(const float size, const float angle)
 		{
 			const float rate = std::min(std::abs(angle) / (Math::TwoPiF) * 2.0f, 1.0f);
 
@@ -293,7 +293,7 @@ namespace s3d
 		return m_commandManager.getCurrentViewport();
 	}
 
-	void CRenderer2D_D3D11::addLine(const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2])
+	void CRenderer2D_D3D11::addLine(const Float2& begin, const Float2& end, const float thickness, const Float4(&colors)[2])
 	{
 		constexpr IndexType vertexSize = 4, indexSize = 6;
 		Vertex2D* pVertex;
@@ -482,7 +482,7 @@ namespace s3d
 		m_commandManager.pushDraw(indexSize);
 	}
 
-	void CRenderer2D_D3D11::addRectFrame(const FloatRect& rect, float thickness, const Float4& color)
+	void CRenderer2D_D3D11::addRectFrame(const FloatRect& rect, const float thickness, const Float4& color)
 	{
 		constexpr IndexType vertexSize = 8, indexSize = 24;
 		Vertex2D* pVertex;
@@ -561,7 +561,7 @@ namespace s3d
 		m_commandManager.pushDraw(indexSize);
 	}
 	
-	void CRenderer2D_D3D11::addCircleFrame(const Float2& center, float r, float thickness, const Float4& color)
+	void CRenderer2D_D3D11::addCircleFrame(const Float2& center, const float r, const float thickness, const Float4& color)
 	{
 		const float rt = r + thickness;
 		const IndexType quality = detail::CalculateCircleFrameQuality(rt);
@@ -605,7 +605,7 @@ namespace s3d
 		m_commandManager.pushDraw(indexSize);
 	}
 
-	void CRenderer2D_D3D11::addCircleFrame(const Float2& center, float r, float thickness, const Float4& innerColor, const Float4& outerColor)
+	void CRenderer2D_D3D11::addCircleFrame(const Float2& center, const float r, const float thickness, const Float4& innerColor, const Float4& outerColor)
 	{
 		const float rt = r + thickness;
 		const IndexType quality = detail::CalculateCircleFrameQuality(rt);
@@ -649,7 +649,7 @@ namespace s3d
 		m_commandManager.pushDraw(indexSize);
 	}
 
-	void CRenderer2D_D3D11::addCirclePie(const Float2& center, float r, float startAngle, float angle, const Float4& color)
+	void CRenderer2D_D3D11::addCirclePie(const Float2& center, const float r, const float startAngle, float angle, const Float4& color)
 	{
 		if (angle == 0.0f)
 		{
@@ -701,7 +701,7 @@ namespace s3d
 		m_commandManager.pushDraw(indexSize);
 	}
 
-	void CRenderer2D_D3D11::addCircleArc(const Float2& center, float r, float startAngle, float angle, float thickness, const Float4& color)
+	void CRenderer2D_D3D11::addCircleArc(const Float2& center, const float r, const float startAngle, float angle, const float thickness, const Float4& color)
 	{
 		if (angle == 0.0f)
 		{
@@ -754,7 +754,7 @@ namespace s3d
 		m_commandManager.pushDraw(indexSize);
 	}
 
-	void CRenderer2D_D3D11::addEllipse(const Float2& center, float a, float b, const Float4& color)
+	void CRenderer2D_D3D11::addEllipse(const Float2& center, const float a, const float b, const Float4& color)
 	{
 		const float majorAxis = std::max(std::abs(a), std::abs(b));
 		const IndexType quality = static_cast<IndexType>(std::min(majorAxis * 0.225f + 18.0f, 255.0f));
@@ -798,7 +798,7 @@ namespace s3d
 		m_commandManager.pushDraw(indexSize);
 	}
 
-	void CRenderer2D_D3D11::addEllipseFrame(const Float2& center, float a, float b, float thickness, const Float4& color)
+	void CRenderer2D_D3D11::addEllipseFrame(const Float2& center, const float a, const float b, const float thickness, const Float4& color)
 	{
 		const float at = a + thickness;
 		const float bt = b + thickness;
@@ -876,7 +876,7 @@ namespace s3d
 		m_commandManager.pushDraw(indexSize);
 	}
 
-	void CRenderer2D_D3D11::addLineString(const Vec2* pts, uint32 size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, bool isClosed)
+	void CRenderer2D_D3D11::addLineString(const Vec2* const pts, uint32 size, const Optional<Float2>& offset, const float thickness, const bool inner, const Float4& color, const bool isClosed)
 	{
 		if (!pts || size < 2)
 		{
@@ -1153,7 +1153,7 @@ namespace s3d
 		m_commandManager.pushDraw(indexSize);
 	}
 
-	void CRenderer2D_D3D11::addShape2DFrame(const Float2* pts, uint32 size, float thickness, const Float4& color)
+	void CRenderer2D_D3D11::addShape2DFrame(const Float2* const pts, uint32 size, const float thickness, const Float4& color)
 	{
 		if (size < 2)
 		{

@@ -126,7 +126,7 @@ namespace s3d
 		return shape;
 	}
 
-	Shape2D Shape2D::Arrow(const Vec2& from, const Vec2& to, double width, const Vec2& headSize)
+	Shape2D Shape2D::Arrow(const Vec2& from, const Vec2& to, const double width, const Vec2& headSize)
 	{
 		const double length = to.distanceFrom(from);
 
@@ -167,7 +167,7 @@ namespace s3d
 		Siv3DEngine::GetRenderer2D()->addShape2D(m_vertices, m_indices, Float4(color.r, color.g, color.b, color.a));
 	}
 
-	void Shape2D::drawFrame(double thickness, const ColorF& color) const
+	void Shape2D::drawFrame(const double thickness, const ColorF& color) const
 	{
 		Siv3DEngine::GetRenderer2D()->addShape2DFrame(m_vertices.data(), m_vertices.size(),
 			static_cast<float>(thickness), Float4(color.r, color.g, color.b, color.a));
