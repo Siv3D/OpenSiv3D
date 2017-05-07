@@ -86,6 +86,8 @@ namespace s3d
 
 		Optional<Rect> getViewport() const override;
 
+		void addLine(const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) override;
+
 		void addTriangle(const Float2(&pts)[3], const Float4& color) override;
 
 		void addTriangle(const Float2(&pts)[3], const Float4(&colors)[3]) override;

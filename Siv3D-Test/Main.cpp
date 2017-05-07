@@ -45,5 +45,7 @@ void Main()
 			.drawArc(90_deg, 100_deg, 6, 0, Palette::Red);
 
 		Rect(40).draw();
+
+		Line(Window::Center(), Cursor::Pos()).draw(4, { Palette::Yellow, Palette::Red });
 	}
 }

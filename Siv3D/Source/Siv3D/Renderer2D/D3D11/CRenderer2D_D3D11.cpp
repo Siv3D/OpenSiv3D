@@ -293,6 +293,43 @@ namespace s3d
 		return m_commandManager.getCurrentViewport();
 	}
 
+	void CRenderer2D_D3D11::addLine(const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2])
+	{
+		constexpr IndexType vertexSize = 4, indexSize = 6;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+		{
+			return;
+		}
+
+		const float thicknessHalf = thickness * 0.5f;
+		const Float2 line = (end - begin).setLength(thicknessHalf);
+		const Float2 vNormal(-line.y, line.x);
+		const Float2 lineHalf(line * thicknessHalf);
+
+		pVertex[0].pos = (begin + vNormal - lineHalf);
+		pVertex[0].color = colors[0];
+
+		pVertex[1].pos = (begin - vNormal - lineHalf);
+		pVertex[1].color = colors[0];
+
+		pVertex[2].pos = (end + vNormal + lineHalf);
+		pVertex[2].color = colors[1];
+
+		pVertex[3].pos = (end - vNormal + lineHalf);
+		pVertex[3].color = colors[1];
+
+		for (IndexType i = 0; i < indexSize; ++i)
+		{
+			pIndex[i] = indexOffset + detail::rectIndexTable[i];
+		}
+
+		m_commandManager.pushDraw(indexSize);
+	}
+
 	void CRenderer2D_D3D11::addTriangle(const Float2(&pts)[3], const Float4& color)
 	{
 		constexpr IndexType vertexSize = 3, indexSize = 3;
