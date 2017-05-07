@@ -96,9 +96,22 @@ namespace s3d
 			SetPos(pos.x, pos.y);
 		}
 
-		bool OnClient();
+		bool OnClientRect();
 
-		// macOS 未実装
-		void Clip(const Optional<Rect>& rect);
+		/// <summary>
+		/// マウスカーソルの移動範囲をクライアント画面に制限します
+		/// </summary>
+		/// <param name="clip">
+		/// 制限を設定する場合は true, 解除する場合は false
+		/// </param>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void ClipClientRect(bool clip);
+	}
+
+	namespace win::Cursor
+	{
+		void ClipRect(const Optional<Rect>& rect);
 	}
 }

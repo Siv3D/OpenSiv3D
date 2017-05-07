@@ -40,6 +40,8 @@ namespace s3d
 
 		virtual void setPos(int32 x, int32 y) = 0;
 
+		virtual void clipClientRect(bool clip) = 0;
+
 		virtual void clip(const Optional<Rect>& rect) = 0;
 	};
 }

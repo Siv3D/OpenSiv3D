@@ -45,6 +45,10 @@ namespace s3d
 
 		Optional<Rect> m_clipRect;
 
+		bool m_clipClientRect = false;
+
+		void updateClip();
+
 	public:
 
 		CCursor_Windows();
@@ -68,6 +72,8 @@ namespace s3d
 		const Point& clientDelta() const override;
 
 		void setPos(int32 x, int32 y) override;
+
+		void clipClientRect(bool clip) override;
 
 		void clip(const Optional<Rect>& rect) override;
 	};

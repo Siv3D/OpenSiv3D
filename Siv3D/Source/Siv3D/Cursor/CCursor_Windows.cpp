@@ -44,23 +44,9 @@ namespace s3d
 
 	void CCursor_Windows::update()
 	{
-		if (m_clipRect)
-		{
-			POINT leftTop{ m_clipRect->x, m_clipRect->y };
-			::ClientToScreen(m_hWnd, &leftTop);
-
-			RECT clipRect{ leftTop.x, leftTop.y,
-				leftTop.x + std::max(m_clipRect->w - 1, 0),
-				leftTop.y + std::max(m_clipRect->h - 1, 0) };
-			::ClipCursor(&clipRect);
-		}
-		else
-		{
-			::ClipCursor(nullptr);
-		}
+		updateClip();
 
 		POINT screenPos;
-
 		::GetCursorPos(&screenPos);
 		m_screenPos.set(screenPos.x, screenPos.y);
 		m_screenDelta = m_screenPos - m_previousScreenPos;
@@ -113,9 +99,50 @@ namespace s3d
 		m_screenPos.set(point.x, point.y);
 	}
 
+	void CCursor_Windows::clipClientRect(const bool clip)
+	{
+		if (clip != m_clipClientRect)
+		{
+			updateClip();
+		}
+
+		m_clipClientRect = clip;
+	}
+
 	void CCursor_Windows::clip(const Optional<Rect>& rect)
 	{
 		m_clipRect = rect;
+	}
+
+	void CCursor_Windows::updateClip()
+	{
+		if (m_clipRect)
+		{
+			POINT leftTop{ m_clipRect->x, m_clipRect->y };
+			::ClientToScreen(m_hWnd, &leftTop);
+
+			RECT clipRect{ leftTop.x, leftTop.y,
+				leftTop.x + std::max(m_clipRect->w - 1, 0),
+				leftTop.y + std::max(m_clipRect->h - 1, 0) };
+			::ClipCursor(&clipRect);
+		}
+		else if (m_clipClientRect)
+		{
+			RECT clientRect;
+			::GetClientRect(m_hWnd, &clientRect);
+
+			POINT leftTop{ clientRect.left, clientRect.top };
+			::ClientToScreen(m_hWnd, &leftTop);
+
+			RECT clipRect{ leftTop.x, leftTop.y,
+				leftTop.x + std::max<int32>(clientRect.right - 1, 0),
+				leftTop.y + std::max<int32>(clientRect.bottom - 1, 0) };
+			::ClipCursor(&clipRect);
+		}
+		else
+		{
+			::ClipCursor(nullptr);
+		}
 	}
 }
 

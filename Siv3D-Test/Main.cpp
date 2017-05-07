@@ -1,26 +1,56 @@
 ﻿
 # include <Siv3D.hpp>
 
+void LogPowerStatus()
+{
+	const String ac[3] = { L"Unknown", L"Offline", L"Online" };
+	const String bt[5] = { L"Unknown", L"High", L"Low", L"Critical", L"No battery" };
+	
+	PowerStatus status = System::GetPowerStatus();
+	
+	Log << L"------";
+	Log << L"AC: " << ac[(int32)status.ac];
+	Log << L"Battery status: " << bt[(int32)status.battery];
+	
+	if (status.batteryLifePercent)
+	{
+		Log << L"🔋" << status.batteryLifePercent.value() << L"%";
+	}
+	else
+	{
+		Log << L"🔋 -- %";
+	}
+	
+	if (status.batteryLifeTimeSec)
+	{
+		Log << (status.batteryLifeTimeSec.value() / 60) << L" min to empty";
+	}
+	else
+	{
+		Log << L"-- min to empty";
+	}
+	
+	if (status.batteryTimeToFullChargeSec)
+	{
+		Log << (status.batteryTimeToFullChargeSec.value() / 60) << L" min to full charge";
+	}
+	else
+	{
+		Log << L"-- min to full charge";
+	}
+	
+	Log << L"charging: " << status.charging;
+	
+	Log << L"batterySaver: " << status.batterySaver;
+}
+
 void Main()
 {
-	const Array<Vec2> pts(400, Arg::generator = [](){
-		return RandomVec2(Window::ClientRect());
-	});
-
-	RenderStateBlock2D blend(BlendState::Additive);
-	
 	while (System::Update())
 	{
-		for(auto i : Range(0, 99))
-			Shape2D::Cross(16, 6, pts[i], i * 1_deg).draw(HSV(i));
-
-		for (auto i : Range(100, 199))
-			Shape2D::Star(20, pts[i], i * 1_deg).draw(HSV(i));
-
-		for (auto i : Range(200, 299))
-			Shape2D::Hexagon(20, pts[i], i * 1_deg).draw(HSV(i));
-
-		for (auto i : Range(300, 399))
-			Shape2D::NStar(8, 20, 4, pts[i], i * 1_deg).draw(HSV(i));
+		if (System::FrameCount() % 100 == 0)
+		{
+			LogPowerStatus();
+		}
 	}
 }

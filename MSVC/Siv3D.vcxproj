@@ -121,6 +121,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\PixelShader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Point.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\PointVector.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\PowerStatus.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Profiler.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Quad.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Random.hpp" />
@@ -489,6 +490,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\PerlinNoise\SivPerlinNoise.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\PixelShader\SivPixelShader.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Point\SivPoint.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\PowerStatus\SivPowerStatus.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\CProfiler.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\ProfilerFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\SivProfiler.cpp" />

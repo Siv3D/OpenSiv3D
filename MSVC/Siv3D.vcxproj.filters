@@ -377,6 +377,9 @@
     <Filter Include="Source\Siv3D\Shape2D">
       <UniqueIdentifier>{0565c7ad-2512-416a-8e4e-0b3b39be75fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\PowerStatus">
+      <UniqueIdentifier>{b6f92982-6c51-4884-8952-7503ae6cd84c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1456,6 +1459,9 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Shape2D.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\PowerStatus.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2117,6 +2123,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Shape2D\SivShape2D.cpp">
       <Filter>Source\Siv3D\Shape2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\PowerStatus\SivPowerStatus.cpp">
+      <Filter>Source\Siv3D\PowerStatus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
