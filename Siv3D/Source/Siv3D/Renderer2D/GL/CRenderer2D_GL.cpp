@@ -52,6 +52,32 @@ namespace s3d
 				return static_cast<IndexType>(std::min(size * 0.225f + 18.0f, 255.0f));
 			}
 		}
+		
+		static IndexType CalculateCirclePieQuality(float size, float angle)
+		{
+			const float rate = std::min(std::abs(angle) / (Math::TwoPiF) * 2.0f, 1.0f);
+			
+			IndexType quality;
+			
+			if (size <= 1.0f)
+			{
+				quality = 4;
+			}
+			else if (size <= 6.0f)
+			{
+				quality = 7;
+			}
+			else if (size <= 8.0f)
+			{
+				quality = 11;
+			}
+			else
+			{
+				quality = static_cast<IndexType>(std::min(size * 0.225f + 18.0f, 255.0f));
+			}
+			
+			return static_cast<IndexType>(std::max(quality * rate, 3.0f));
+		}
 	}
 		
 	CRenderer2D_GL::CRenderer2D_GL()
@@ -221,6 +247,16 @@ void main()
 					graphics->getRasterizerState()->set(command->rasterizerState);
 					break;
 				}
+				case GLRender2DInstruction::ScissorRect:
+				{
+					const auto* command = static_cast<const GLRender2DCommand<GLRender2DInstruction::ScissorRect>*>(static_cast<const void*>(commandPointer));
+					
+					//Log(L"ScissorRect: ", command->scissorRect);
+					const Rect& r = command->scissorRect;
+					::glScissor(r.x, currentRenderTargetSize.y - r.h - r.y, r.w, r.h);
+					
+					break;
+				}
 				case GLRender2DInstruction::Viewport:
 				{
 					const auto* command = static_cast<const GLRender2DCommand<GLRender2DInstruction::Viewport>*>(static_cast<const void*>(commandPointer));
@@ -286,6 +322,16 @@ void main()
 	{
 		return m_commandManager.getCurrentRasterizerState();
 	}
+
+	void CRenderer2D_GL::setScissorRect(const Rect& rect)
+	{
+		m_commandManager.pushScissorRect(rect);
+	}
+
+	Rect CRenderer2D_GL::getScissorRect() const
+	{
+		return m_commandManager.getCurrentScissorRect();
+	}
 	
 	void CRenderer2D_GL::setViewport(const Optional<Rect>& viewport)
 	{
@@ -295,6 +341,43 @@ void main()
 	Optional<Rect> CRenderer2D_GL::getViewport() const
 	{
 		return m_commandManager.getCurrentViewport();
+	}
+	
+	void CRenderer2D_GL::addLine(const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2])
+	{
+		constexpr IndexType vertexSize = 4, indexSize = 6;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+		
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+		{
+			return;
+		}
+		
+		const float thicknessHalf = thickness * 0.5f;
+		const Float2 line = (end - begin).setLength(thicknessHalf);
+		const Float2 vNormal(-line.y, line.x);
+		const Float2 lineHalf(line * thicknessHalf);
+		
+		pVertex[0].pos = (begin + vNormal - lineHalf);
+		pVertex[0].color = colors[0];
+		
+		pVertex[1].pos = (begin - vNormal - lineHalf);
+		pVertex[1].color = colors[0];
+		
+		pVertex[2].pos = (end + vNormal + lineHalf);
+		pVertex[2].color = colors[1];
+		
+		pVertex[3].pos = (end - vNormal + lineHalf);
+		pVertex[3].color = colors[1];
+		
+		for (IndexType i = 0; i < indexSize; ++i)
+		{
+			pIndex[i] = indexOffset + detail::rectIndexTable[i];
+		}
+		
+		m_commandManager.pushDraw(indexSize);
 	}
 	
 	void CRenderer2D_GL::addTriangle(const Float2(&pts)[3], const Float4& color)
@@ -582,6 +665,111 @@ void main()
 		
 		m_commandManager.pushDraw(indexSize);
 	}
+	
+	void CRenderer2D_GL::addCirclePie(const Float2& center, float r, float startAngle, float angle, const Float4& color)
+	{
+		if (angle == 0.0f)
+		{
+			return;
+		}
+		
+		angle = Clamp(angle, -Math::TwoPiF, Math::TwoPiF);
+		
+		const IndexType quality = detail::CalculateCirclePieQuality(r, angle);
+		const IndexType vertexSize = quality + 1, indexSize = (quality - 1) * 3;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+		
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+		{
+			return;
+		}
+		
+		const float centerX = center.x;
+		const float centerY = center.y;
+		
+		// 中心
+		pVertex[0].pos.set(centerX, centerY);
+		
+		// 周
+		const float radDelta = Math::TwoPiF / (quality - 1);
+		const float start = -(startAngle + angle) + Math::HalfPiF;
+		const float angleScale = angle / Math::TwoPiF;
+		
+		for (IndexType i = 1; i <= quality; ++i)
+		{
+			const float rad = start + (radDelta * (i - 1.0f)) * angleScale;
+			pVertex[i].pos.set(centerX + r * std::cosf(rad), centerY - r * std::sinf(rad));
+		}
+		
+		for (size_t i = 0; i < vertexSize; ++i)
+		{
+			(pVertex++)->color = color;
+		}
+		
+		for (IndexType i = 0; i < quality - 1; ++i)
+		{
+			pIndex[i * 3 + 0] = indexOffset + (i + 0) + 1;
+			pIndex[i * 3 + 1] = indexOffset;
+			pIndex[i * 3 + 2] = indexOffset + (i + 1) + 1;
+		}
+		
+		m_commandManager.pushDraw(indexSize);
+	}
+	
+	void CRenderer2D_GL::addCircleArc(const Float2& center, float r, float startAngle, float angle, float thickness, const Float4& color)
+	{
+		if (angle == 0.0f)
+		{
+			return;
+		}
+		
+		angle = Clamp(angle, -Math::TwoPiF, Math::TwoPiF);
+		
+		const float rt = r + thickness;
+		const IndexType quality = detail::CalculateCircleFrameQuality(rt);
+		const IndexType vertexSize = quality * 2, indexSize = (quality - 1) * 6;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+		
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+		{
+			return;
+		}
+		
+		const float centerX = center.x;
+		const float centerY = center.y;
+		const float radDelta = Math::TwoPiF / (quality - 1);
+		const float start = -(startAngle + angle) + Math::HalfPiF;
+		const float angleScale = angle / Math::TwoPiF;
+		
+		for (IndexType i = 0; i < quality; ++i)
+		{
+			const float rad = start + (radDelta * i) * angleScale;
+			const float c = std::cosf(rad);
+			const float s = std::sinf(rad);
+			
+			pVertex->pos.set(centerX + rt * c, centerY - rt * s);
+			pVertex->color = color;
+			++pVertex;
+			
+			pVertex->pos.set(centerX + r * c, centerY - r * s);
+			pVertex->color = color;
+			++pVertex;
+		}
+		
+		for (IndexType i = 0; i < quality - 1; ++i)
+		{
+			for (IndexType k = 0; k < 6; ++k)
+			{
+				pIndex[i * 6 + k] = indexOffset + (i * 2 + detail::rectIndexTable[k]);
+			}
+		}
+		
+		m_commandManager.pushDraw(indexSize);
+	}
 
 	void CRenderer2D_GL::addEllipse(const Float2& center, float a, float b, const Float4& color)
 	{
@@ -732,6 +920,241 @@ void main()
 		for (IndexType i = 0; i < indexSize; ++i)
 		{
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
+		}
+		
+		m_commandManager.pushDraw(indexSize);
+	}
+	
+	void CRenderer2D_GL::addLineString(const Vec2* pts, uint32 size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, bool isClosed)
+	{
+		if (!pts || size < 2)
+		{
+			return;
+		}
+		
+		// 大昔に書いたコードなので整理したい
+		
+		const float th2 = 0.01f;
+		
+		Array<Float2> buf;
+		{
+			buf.push_back(pts[0]);
+			
+			for (uint16 i = 1; i < size - 1; ++i)
+			{
+				const Float2 back = pts[i - 1];
+				const Float2 current = pts[i];
+				
+				if (back.distanceFromSq(current) < th2)
+				{
+					continue;
+				}
+				
+				buf.push_back(current);
+			}
+			
+			const Float2 back = pts[size - 2];
+			const Float2 current = pts[size - 1];
+			
+			if (back.distanceFromSq(current) >= th2)
+			{
+				buf.push_back(current);
+			}
+			
+			if (isClosed && buf.size() >= 2 && buf.back().distanceFromSq(buf.front()) <= th2)
+			{
+				buf.pop_back();
+			}
+			
+			if (buf.size() < 2)
+			{
+				return;
+			}
+		}
+		
+		const float threshold = 0.55f;
+		
+		Array<Float2> buf2;
+		
+		buf2.push_back(buf.front());
+		
+		for (size_t i = 1; i < buf.size() - 1 + isClosed; ++i)
+		{
+			const Float2 back = buf[i - 1];
+			const Float2 current = buf[i];
+			const Float2 next = buf[(i + 1) % buf.size()];
+			
+			const Float2 v1 = (back - current).normalized();
+			const Float2 v2 = (next - current).normalized();
+			
+			buf2.push_back(current);
+			
+			if (!inner && v1.dot(v2) > threshold)
+			{
+				const Float2 line = current - back;
+				const Float2 normal = Float2{ -line.y, line.x }.normalized();
+				const Float2 tangent = ((next - current).normalized() + (current - back).normalized()).normalized();
+				const Float2 line2 = next - current;
+				
+				if (tangent.dot(line2) >= (-tangent).dot(line2))
+				{
+					buf2.push_back(current + tangent.normalized()*th2);
+				}
+				else if (tangent.dot(line2) <= (-tangent).dot(line2))
+				{
+					buf2.push_back(current + (-tangent).normalized()*th2);
+				}
+				else
+				{
+					buf2.push_back(current + normal*0.001f);
+				}
+			}
+		}
+		
+		if (isClosed)
+		{
+			const Float2 back = buf[buf.size() - 1];
+			const Float2 current = buf[0];
+			const Float2 next = buf[1];
+			
+			const Float2 v1 = (back - current).normalized();
+			const Float2 v2 = (next - current).normalized();
+			
+			if (!inner && v1.dot(v2) > threshold)
+			{
+				const Float2 line = current - back;
+				const Float2 normal = Float2{ -line.y, line.x }.normalized();
+				const Float2 tangent = ((next - current).normalized() + (current - back).normalized()).normalized();
+				const Float2 line2 = next - current;
+				
+				if (tangent.dot(line2) >= (-tangent).dot(line2))
+				{
+					buf2.push_back(current - tangent.normalized() * th2);
+				}
+				else if (tangent.dot(line2) <= (-tangent).dot(line2))
+				{
+					buf2.push_back(current - (-tangent).normalized() * th2);
+				}
+				else
+				{
+					buf2.push_back(current - normal * 0.001f);
+				}
+			}
+		}
+		else
+		{
+			buf2.push_back(buf.back());
+		}
+		
+		size = static_cast<IndexType>(buf2.size());
+		const IndexType vertexSize = size * 2, indexSize = 6 * (size - 1) + (isClosed * 6);
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+		
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+		{
+			return;
+		}
+		
+		const float thicknessHalf = thickness * 0.5f;
+		
+		if (isClosed)
+		{
+			const Float2 p0 = buf2[buf2.size() - 1];
+			const Float2 p1 = buf2[0];
+			const Float2 p2 = buf2[1];
+			const Float2 line = p1 - p0;
+			const Float2 normal = Float2{ -line.y, line.x }.normalized();
+			const Float2 tangent = ((p2 - p1).normalized() + (p1 - p0).normalized()).normalized();
+			const Float2 miter = Float2{ -tangent.y, tangent.x };
+			const float length = thicknessHalf / miter.dot(normal);
+			const Float2 result0 = p1 + miter * length;
+			const Float2 result1 = p1 - miter * length;
+			
+			pVertex[0].pos.set(result0);
+			pVertex[1].pos.set(result1);
+		}
+		else
+		{
+			const Float2 p0 = buf2[0];
+			const Float2 p1 = buf2[1];
+			const Float2 line = p1 - p0;
+			const Float2 normal = Float2{ -line.y, line.x }.normalized();
+			const Float2 a = p0 + thicknessHalf * normal;
+			const Float2 b = p0 - thicknessHalf * normal;
+			
+			pVertex[0].pos.set(a);
+			pVertex[1].pos.set(b);
+		}
+		
+		for (unsigned short i = 0; i < size - 2; ++i)
+		{
+			const Float2 p0 = buf2[i];
+			const Float2 p1 = buf2[i + 1];
+			const Float2 p2 = buf2[i + 2];
+			const Float2 line = p1 - p0;
+			const Float2 normal = Float2{ -line.y, line.x }.normalized();
+			const Float2 tangent = ((p2 - p1).normalized() + (p1 - p0).normalized()).normalized();
+			const Float2 miter = Float2{ -tangent.y, tangent.x };
+			const float length = thicknessHalf / miter.dot(normal);
+			const Float2 result0 = p1 + miter * length;
+			const Float2 result1 = p1 - miter * length;
+			
+			pVertex[i * 2 + 2].pos.set(result0);
+			pVertex[i * 2 + 3].pos.set(result1);
+		}
+		
+		if (isClosed)
+		{
+			const Float2 p0 = buf2[size - 2];
+			const Float2 p1 = buf2[size - 1];
+			const Float2 p2 = buf2[0];
+			const Float2 line = p1 - p0;
+			const Float2 normal = Float2{ -line.y, line.x }.normalized();
+			const Float2 tangent = ((p2 - p1).normalized() + (p1 - p0).normalized()).normalized();
+			const Float2 miter = Float2{ -tangent.y, tangent.x };
+			const float length = thicknessHalf / miter.dot(normal);
+			const Float2 result0 = p1 + miter * length;
+			const Float2 result1 = p1 - miter * length;
+			
+			pVertex[size * 2 - 2].pos.set(result0);
+			pVertex[size * 2 - 1].pos.set(result1);
+		}
+		else
+		{
+			const Float2 p0 = buf2[size - 2];
+			const Float2 p1 = buf2[size - 1];
+			const Float2 line = p1 - p0;
+			const Float2 normal = Float2{ -line.y, line.x }.normalized();
+			const Float2 c = p1 + thicknessHalf * normal;
+			const Float2 d = p1 - thicknessHalf * normal;
+			
+			pVertex[size * 2 - 2].pos.set(c);
+			pVertex[size * 2 - 1].pos.set(d);
+		}
+		
+		if (offset)
+		{
+			const Float2 v = offset.value();
+			
+			for (IndexType i = 0; i < vertexSize; ++i)
+			{
+				pVertex[i].pos.moveBy(v);
+			}
+		}
+		
+		for (size_t i = 0; i < vertexSize; ++i)
+		{
+			(pVertex++)->color = color;
+		}
+		
+		for (IndexType k = 0; k < size - 1 + isClosed; ++k)
+		{
+			for (IndexType i = 0; i < 6; ++i)
+			{
+				pIndex[k * 6 + i] = (indexOffset + (detail::rectIndexTable[i] + k * 2) % vertexSize);
+			}
 		}
 		
 		m_commandManager.pushDraw(indexSize);

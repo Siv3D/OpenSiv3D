@@ -111,4 +111,31 @@ namespace s3d
 
 		return *this;
 	}
+
+	const Circle& Circle::drawPie(double startAngle, double angle, const ColorF& color) const
+	{
+		Siv3DEngine::GetRenderer2D()->addCirclePie(
+			center,
+			static_cast<float>(r),
+			static_cast<float>(startAngle),
+			static_cast<float>(angle),
+			Float4(color.r, color.g, color.b, color.a)
+		);
+
+		return *this;
+	}
+
+	const Circle& Circle::drawArc(double startAngle, double angle, double innerThickness, double outerThickness, const ColorF& color) const
+	{
+		Siv3DEngine::GetRenderer2D()->addCircleArc(
+			center,
+			static_cast<float>(r - innerThickness),
+			static_cast<float>(startAngle),
+			static_cast<float>(angle),
+			static_cast<float>(innerThickness + outerThickness),
+			Float4(color.r, color.g, color.b, color.a)
+		);
+
+		return *this;
+	}
 }

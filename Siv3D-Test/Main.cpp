@@ -9,10 +9,14 @@ void Main()
 	
 	double t = 0.0;
 	
+	Graphics2D::SetScissorRect(Rect(10, 20, 600, 400));
+
 	RenderStateBlock2D blend(BlendState::Additive, RasterizerState::WireframeCullNone);
 	
 	while (System::Update())
 	{
+		Window::SetTitle(Profiler::FPS(), L"FPS");
+
 		t += System::DeltaTime();
 		
 		for (auto i : step(4))
@@ -25,7 +29,7 @@ void Main()
 			}
 		}
 		
-		RenderStateBlock2D blend2(BlendState::Default);
+		RenderStateBlock2D blend2(BlendState::Default, RasterizerState::SolidCullBackScissor);
 		
 		for (int32 i = 0; i < 36; ++i)
 		{
@@ -36,8 +40,16 @@ void Main()
 			RectF(25).setCenter(pos).rotated(angle).draw(HSV(i * 10));
 		}
 		
-		Circle(Cursor::Pos(), 80).draw(ColorF(1.0, 0.5));
+		Circle(Cursor::Pos(), 80).draw(ColorF(1.0, 0.5))
+			.drawPie(90_deg, 120_deg, Palette::Orange)
+			.drawArc(90_deg, 100_deg, 6, 0, Palette::Red);
 
 		Rect(40).draw();
+
+		Line(Window::Center(), Cursor::Pos()).draw(4, { Palette::Yellow, Palette::Red });
+
+		Circle(200).drawFrame(5);
+
+		Rect(100, 100, 200).drawFrame(3);
 	}
 }

@@ -136,10 +136,16 @@ namespace s3d
 
 		RasterizerState getRasterizerState() const override;
 
+		void setScissorRect(const Rect& rect) override;
+
+		Rect getScissorRect() const override;
+
 		void setViewport(const Optional<Rect>& viewport) override;
 
 		Optional<Rect> getViewport() const override;
 
+		void addLine(const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) override;
+		
 		void addTriangle(const Float2(&pts)[3], const Float4& color) override;
 
 		void addTriangle(const Float2(&pts)[3], const Float4(&colors)[3]) override;
@@ -156,6 +162,10 @@ namespace s3d
 
 		void addCircleFrame(const Float2& center, float r, float thickness, const Float4& innerColor, const Float4& outerColor) override;
 
+		void addCirclePie(const Float2& center, float r, float startAngle, float angle, const Float4& color) override;
+		
+		void addCircleArc(const Float2& center, float r, float startAngle, float angle, float thickness, const Float4& color) override;	
+		
 		void addEllipse(const Float2& center, float a, float b, const Float4& color) override;
 
 		void addEllipseFrame(const Float2& center, float a, float b, float thickness, const Float4& color) override;
@@ -163,6 +173,8 @@ namespace s3d
 		void addQuad(const FloatQuad& quad, const Float4& color) override;
 		
 		void addQuad(const FloatQuad& quad, const Float4(&colors)[4]) override;
+		
+		void addLineString(const Vec2* pts, uint32 size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, bool isClosed) override;		
 	};
 }
 

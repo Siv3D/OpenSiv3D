@@ -94,6 +94,8 @@ namespace s3d
 			return moveBy(v.x, v.y);
 		}
 
+		Quad stretched(value_type size) const noexcept;
+
 		Quad rotatedAt(value_type x, value_type y, value_type angle) const noexcept
 		{
 			return rotatedAt(position_type(x, y), angle);
@@ -136,6 +138,10 @@ namespace s3d
 		const Quad& draw(const ColorF& color = Palette::White) const;
 
 		const Quad& draw(const ColorF(&colors)[4]) const;
+
+		const Quad& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
+
+		const Quad& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
 
 		// Polygon asPolygon() const;
 	};

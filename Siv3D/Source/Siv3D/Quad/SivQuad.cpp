@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Quad.hpp>
+# include <Siv3D/Line.hpp>
 # include <Siv3D/FloatQuad.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
@@ -18,6 +19,40 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		//
+		// http://imagingsolution.blog107.fc2.com/blog-entry-137.html
+		//
+		static constexpr Vec2 GetP(const Vec2& p0, const Vec2& p1, const Vec2& p2, const Vec2& p3) noexcept
+		{
+			const double a = (p3.x - p2.x) * (p0.y - p2.y) - (p3.y - p2.y) * (p0.x - p2.x);
+			const double b = (p3.x - p2.x) * (p2.y - p1.y) - (p3.y - p2.y) * (p2.x - p1.x);
+			const double c = a / (a + b);
+			return Vec2(p0.x + (p1.x - p0.x) * c, p0.y + (p1.y - p0.y) * c);
+		}
+	}
+
+	Quad Quad::stretched(const value_type size) const noexcept
+	{
+		Line lines[4] =
+		{
+			{ p0, p1 },{ p1, p2 },{ p2, p3 },{ p3, p0 }
+		};
+
+		for (auto& line : lines)
+		{
+			const Vec2 v = (line.end - line.begin).setLength(size);
+			line.moveBy(v.y, -v.x);
+		}
+
+		const Vec2 t0 = detail::GetP(lines[3].begin, lines[3].end, lines[0].begin, lines[0].end);
+		const Vec2 t1 = detail::GetP(lines[0].begin, lines[0].end, lines[1].begin, lines[1].end);
+		const Vec2 t2 = detail::GetP(lines[1].begin, lines[1].end, lines[2].begin, lines[2].end);
+		const Vec2 t3 = detail::GetP(lines[2].begin, lines[2].end, lines[3].begin, lines[3].end);
+		return Quad(t0, t1, t2, t3);
+	}
+
 	Quad Quad::rotatedAt(const position_type& pos, value_type angle) const noexcept
 	{
 		const position_type a0 = p0 - pos;
@@ -93,10 +128,31 @@ namespace s3d
 		Siv3DEngine::GetRenderer2D()->addQuad(FloatQuad(p0, p1, p2, p3),
 		{
 			Float4(colors[0].r, colors[0].g, colors[0].b, colors[0].a),
-				Float4(colors[1].r, colors[1].g, colors[1].b, colors[1].a),
-				Float4(colors[2].r, colors[2].g, colors[2].b, colors[2].a),
-				Float4(colors[3].r, colors[3].g, colors[3].b, colors[3].a)
+			Float4(colors[1].r, colors[1].g, colors[1].b, colors[1].a),
+			Float4(colors[2].r, colors[2].g, colors[2].b, colors[2].a),
+			Float4(colors[3].r, colors[3].g, colors[3].b, colors[3].a)
 		});
+
+		return *this;
+	}
+
+	const Quad& Quad::drawFrame(double thickness, const ColorF& color) const
+	{
+		Siv3DEngine::GetRenderer2D()->addLineString(&p0, 4, s3d::none,
+			static_cast<float>(thickness), false, Float4(color.r, color.g, color.b, color.a), true);
+
+		return *this;
+	}
+
+	const Quad& Quad::drawFrame(double innerThickness, double outerThickness, const ColorF& color) const
+	{
+		const double offset = (outerThickness - innerThickness) * 0.5;
+
+		const Quad t = stretched(offset);
+
+		Siv3DEngine::GetRenderer2D()->addLineString(&t.p0, 4, none,
+			static_cast<float>(innerThickness + outerThickness),
+			outerThickness == 0.0, Float4(color.r, color.g, color.b, color.a), true);
 
 		return *this;
 	}

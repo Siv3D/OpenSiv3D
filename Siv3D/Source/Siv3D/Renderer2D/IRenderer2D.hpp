@@ -32,9 +32,15 @@ namespace s3d
 
 		virtual RasterizerState getRasterizerState() const = 0;
 
+		virtual void setScissorRect(const Rect& rect) = 0;
+
+		virtual Rect getScissorRect() const = 0;
+
 		virtual void setViewport(const Optional<Rect>& viewport) = 0;
 
 		virtual Optional<Rect> getViewport() const = 0;
+
+		virtual void addLine(const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) = 0;
 
 		virtual void addTriangle(const Float2(&pts)[3], const Float4& color) = 0;
 
@@ -52,6 +58,10 @@ namespace s3d
 
 		virtual void addCircleFrame(const Float2& center, float r, float thickness, const Float4& innerColor, const Float4& outerColor) = 0;
 
+		virtual void addCirclePie(const Float2& center, float r, float startAngle, float angle, const Float4& color) = 0;
+
+		virtual void addCircleArc(const Float2& center, float r, float startAngle, float angle, float thickness, const Float4& color) = 0;
+
 		virtual void addEllipse(const Float2& center, float a, float b, const Float4& color) = 0;
 
 		virtual void addEllipseFrame(const Float2& center, float a, float b, float thickness, const Float4& color) = 0;
@@ -59,5 +69,7 @@ namespace s3d
 		virtual void addQuad(const FloatQuad& quad, const Float4& color) = 0;
 
 		virtual void addQuad(const FloatQuad& quad, const Float4(&colors)[4]) = 0;
+
+		virtual void addLineString(const Vec2* pts, uint32 size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, bool isClosed) = 0;
 	};
 }

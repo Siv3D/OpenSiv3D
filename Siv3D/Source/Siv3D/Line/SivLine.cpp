@@ -12,6 +12,8 @@
 # include <Siv3D/Line.hpp>
 # include <Siv3D/MathConstants.hpp>
 # include <Siv3D/XXHash.hpp>
+# include "../Siv3DEngine.hpp"
+# include "../Renderer2D/IRenderer2D.hpp"
 
 namespace s3d
 {
@@ -149,5 +151,25 @@ namespace s3d
 				return b.intersectsAt(a);
 			}
 		}
+	}
+
+	const Line& Line::draw(double thickness, const ColorF& color) const
+	{
+		const Float4 colorF(color.r, color.g, color.b, color.a);
+
+		Siv3DEngine::GetRenderer2D()->addLine(begin, end, static_cast<float>(thickness), { colorF, colorF });
+
+		return *this;
+	}
+
+	const Line& Line::draw(double thickness, const ColorF(&colors)[2]) const
+	{
+		Siv3DEngine::GetRenderer2D()->addLine(begin, end, static_cast<float>(thickness),
+		{
+			Float4(colors[0].r, colors[0].g, colors[0].b, colors[0].a),
+			Float4(colors[1].r, colors[1].g, colors[1].b, colors[1].a)
+		});
+
+		return *this;
 	}
 }

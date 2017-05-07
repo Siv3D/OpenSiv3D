@@ -421,6 +421,23 @@ namespace s3d
 		/// <summary>
 		/// 円の枠を描きます。
 		/// </summary>
+		/// <param name="thickness">
+		/// 枠の太さ
+		/// </param>
+		/// <param name="color">
+		/// 色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Circle& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const
+		{
+			return drawFrame(thickness * 0.5, thickness * 0.5, color);
+		}
+
+		/// <summary>
+		/// 円の枠を描きます。
+		/// </summary>
 		/// <param name="innerThickness">
 		/// 内側の太さ
 		/// </param>
@@ -433,7 +450,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		const Circle& drawFrame(double innerThickness = 1.0, double outerThickness = 0.0, const ColorF& color = Palette::White) const;
+		const Circle& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
 
 		/// <summary>
 		/// 円の枠を描きます。
@@ -454,6 +471,46 @@ namespace s3d
 		/// *this
 		/// </returns>
 		const Circle& drawFrame(double innerThickness, double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const;
+
+		/// <summary>
+		/// 扇形を描きます。
+		/// </summary>
+		/// <param name="startAngle">
+		/// 開始角度
+		/// </param>
+		/// <param name="angle">
+		/// 角度
+		/// </param>
+		/// <param name="color">
+		/// 色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Circle& drawPie(double startAngle, double angle, const ColorF& color = Palette::White) const;
+
+		/// <summary>
+		/// 弧を描きます。
+		/// </summary>
+		/// <param name="startAngle">
+		/// 開始角度
+		/// </param>
+		/// <param name="angle">
+		/// 角度
+		/// </param>
+		/// <param name="innerThickness">
+		/// 内側の太さ
+		/// </param>
+		/// <param name="outerThickness">
+		/// 外側の太さ
+		/// </param>
+		/// <param name="color">
+		/// 色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Circle& drawArc(double startAngle, double angle, double innerThickness = 1.0, double outerThickness = 0.0, const ColorF& color = Palette::White) const;
 
 
 		// Polygon asPolygon() const;

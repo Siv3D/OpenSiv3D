@@ -99,8 +99,8 @@ namespace s3d
 		
 		constexpr Line& moveBy(value_type x, value_type y) noexcept
 		{
-			begin.movedBy(x, y);
-			end.movedBy(x, y);
+			begin.moveBy(x, y);
+			end.moveBy(x, y);
 			return *this;
 		}
 		
@@ -166,7 +166,19 @@ namespace s3d
 		
 		// overpaintArrow
 		
-		// draw
+		const Line& draw(const ColorF& color = Palette::White) const
+		{
+			return draw(1.0, color);
+		}
+
+		const Line& draw(const ColorF(&colors)[2]) const
+		{
+			return draw(1.0, colors);
+		}
+
+		const Line& draw(double thickness, const ColorF& color = Palette::White) const;
+
+		const Line& draw(double thickness, const ColorF(&colors)[2]) const;
 		
 		// drawArrow
 		
