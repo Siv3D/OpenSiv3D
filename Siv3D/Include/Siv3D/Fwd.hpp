@@ -337,7 +337,7 @@ namespace s3d
 	//
 	//	Line.hpp
 	//
-	struct  Line;
+	struct Line;
 
 	//////////////////////////////////////////////////////
 	//
@@ -434,22 +434,17 @@ namespace s3d
 	//
 	template <class Type> class EasingController;
 
-
-
 	//////////////////////////////////////////////////////
 	//
 	//	PerlinNoise.hpp
 	//
 	class PerlinNoise;
 
-
-
 	//////////////////////////////////////////////////////
 	//
 	//	MathParser.hpp
 	//
 	class MathParser;
-
 
 
 
@@ -476,6 +471,27 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	Monitor.hpp
+	//
+	struct Monitor;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Window.hpp
+	//
+	enum class ShowState;
+	struct WindowState;
+
+	//////////////////////////////////////////////////////
+	//
+	//	MessageBox.hpp
+	//
+	enum class MessageBoxStyle;
+	enum class MessageBoxButtons;
+	enum class MessageBoxSelection;
+
+	//////////////////////////////////////////////////////
+	//
 	//	DragDrop.hpp
 	//
 	enum class DragItemType;
@@ -483,14 +499,19 @@ namespace s3d
 	struct DroppedFilePath;
 	struct DroppedText;
 
+	//////////////////////////////////////////////////////
+	//
+	//	PowerStatus.hpp
+	//
+	enum class ACLineStatus;
+	enum class BatteryStatus;
+	struct PowerStatus;
 
 	//////////////////////////////////////////////////////
 	//
 	//	AssetHandle.hpp
 	//
 	template <class Type> class AssetHandle;
-
-
 
 	//////////////////////////////////////////////////////
 	//
@@ -511,28 +532,6 @@ namespace s3d
 	//
 	class KeyGroup;
 
-
-
-	//////////////////////////////////////////////////////
-	//
-	//	Monitor.hpp
-	//
-	struct Monitor;
-
-	//////////////////////////////////////////////////////
-	//
-	//	Window.hpp
-	//
-	enum class ShowState;
-	struct WindowState;
-
-	//////////////////////////////////////////////////////
-	//
-	//	MessageBox.hpp
-	//
-	enum class MessageBoxStyle;
-	enum class MessageBoxButtons;
-	enum class MessageBoxSelection;
 
 
 
@@ -578,7 +577,6 @@ namespace s3d
 	//	ViewportBlock2D.hpp
 	//
 	class ViewportBlock2D;
-
 
 	//////////////////////////////////////////////////////
 	//

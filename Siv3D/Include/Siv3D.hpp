@@ -396,7 +396,7 @@
 	//# include "Siv3D/UID.hpp"
 	//// MIDI
 	//# include "Siv3D/Midi.hpp"
-	//// システム
+	// システム
 	# include "Siv3D/System.hpp"
 	// 接続されているモニタの情報
 	# include "Siv3D/Monitor.hpp"
@@ -410,6 +410,8 @@
 	# include "Siv3D/DragDrop.hpp"
 	//// ダイアログ
 	//# include "Siv3D/Dialog.hpp"
+	// システムの電源の情報
+	# include "Siv3D/PowerStatus.hpp"
 	// プロファイリング
 	# include "Siv3D/Profiler.hpp"
 	// アセットハンドル
