@@ -57,7 +57,7 @@ namespace s3d
 
 			if (s.BatteryFullLifeTime != BATTERY_LIFE_UNKNOWN)
 			{
-				status.batteryFullLifeTimeSec = s.BatteryFullLifeTime;
+				status.batteryTimeToFullChargeSec = s.BatteryFullLifeTime;
 			}
 
 			return status;
@@ -71,11 +71,20 @@ namespace s3d
 
 namespace s3d
 {
+	namespace detail
+	{
+		void GetPowerStatus_macOS(PowerStatus& result);
+	}
+			
 	namespace System
 	{
 		PowerStatus GetPowerStatus()
 		{
-			return PowerStatus();
+			PowerStatus status;
+			
+			detail::GetPowerStatus_macOS(status);
+			
+			return status;
 		}
 	}
 }

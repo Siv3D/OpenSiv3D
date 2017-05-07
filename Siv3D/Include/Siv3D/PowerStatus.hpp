@@ -47,7 +47,7 @@ namespace s3d
 
 		Optional<int32> batteryLifeTimeSec;
 
-		Optional<int32> batteryFullLifeTimeSec;
+		Optional<int32> batteryTimeToFullChargeSec;
 
 		bool charging = false;
 
@@ -56,6 +56,7 @@ namespace s3d
 
 	namespace System
 	{
+		// macOS: 0.1ms
 		PowerStatus GetPowerStatus();
 	}
 }
