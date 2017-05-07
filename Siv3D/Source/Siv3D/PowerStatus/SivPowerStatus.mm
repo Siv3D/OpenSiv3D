@@ -9,7 +9,6 @@
 //
 //-----------------------------------------------
 
-
 # include <algorithm>
 # include <Siv3D/PowerStatus.hpp>
 # import  <Cocoa/Cocoa.h>
@@ -185,7 +184,10 @@ namespace s3d
 					else
 					{
 						result.battery = percent <= 5 ? BatteryStatus::Critical
-							: percent <= 20 ? BatteryStatus::Low : BatteryStatus::High;
+							: percent <= 33 ? BatteryStatus::Low
+							: percent <= 66 ? BatteryStatus::Middle
+							: BatteryStatus::High;
+
 						result.batteryLifePercent = percent;
 					
 						if (charging) // charging

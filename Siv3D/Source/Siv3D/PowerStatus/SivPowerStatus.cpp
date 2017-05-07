@@ -41,7 +41,9 @@ namespace s3d
 			status.battery = (s.BatteryFlag & BATTERY_FLAG_HIGH) ? BatteryStatus::High
 				: (s.BatteryFlag & BATTERY_FLAG_LOW) ? BatteryStatus::Low
 				: (s.BatteryFlag & BATTERY_FLAG_CRITICAL) ? BatteryStatus::Critical
-				: (s.BatteryFlag & BATTERY_FLAG_NO_BATTERY) ? BatteryStatus::NoBattery : BatteryStatus::Unknown;
+				: (s.BatteryFlag & BATTERY_FLAG_NO_BATTERY) ? BatteryStatus::NoBattery
+				: (s.BatteryFlag & BATTERY_FLAG_UNKNOWN) ? BatteryStatus::Unknown
+				: BatteryStatus::Middle;
 
 			status.charging = !!(s.BatteryFlag & BATTERY_FLAG_CHARGING);
 

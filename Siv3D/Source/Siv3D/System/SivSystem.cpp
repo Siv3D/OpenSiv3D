@@ -25,6 +25,11 @@ namespace s3d
 			return Siv3DEngine::GetSystem()->update();
 		}
 
+		double DeltaTime(const double maxDuration)
+		{
+			return std::min(Siv3DEngine::GetSystem()->getDeltaTime(), maxDuration);
+		}
+
 		int32 FrameCount()
 		{
 			return Siv3DEngine::GetSystem()->getUserFrameCount();
@@ -33,11 +38,6 @@ namespace s3d
 		void SetFrameCount(const int32 count)
 		{
 			Siv3DEngine::GetSystem()->setUserFrameCount(count);
-		}
-
-		double DeltaTime(const double maxDuration)
-		{
-			return std::min(Siv3DEngine::GetSystem()->getDeltaTime(), maxDuration);
 		}
 
 		void ShowLicenses()
