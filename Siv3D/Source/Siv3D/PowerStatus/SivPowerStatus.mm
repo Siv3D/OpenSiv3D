@@ -124,7 +124,7 @@ namespace s3d
 				{
 					SInt32 val;
 					
-					if (CFNumberGetValue(num, kCFNumberSInt32Type, &val) && val > 0)
+					if (CFNumberGetValue(num, kCFNumberSInt32Type, &val) && (val > 0))
 					{
 						timeToFullSec = val * 60;
 					}
@@ -157,18 +157,14 @@ namespace s3d
 		
 		void GetPowerStatus_macOS(PowerStatus& result)
 		{
-			bool succeeded = false;
-			
 			Optional<int32> maxTimeToEmptySec, percent, timeToFullSec;
 			
 			if (CFTypeRef powerSourceInfo = IOPSCopyPowerSourcesInfo())
 			{
 				if (CFArrayRef list = IOPSCopyPowerSourcesList(powerSourceInfo))
 				{
-					bool hasAC = false;
-					bool hasBattery = false;
-					bool charging = false;
-					
+					bool hasAC = false, hasBattery = false, charging = false;
+
 					const CFIndex total = CFArrayGetCount(list);
 	
 					for (CFIndex i = 0; i < total; ++i)
@@ -178,8 +174,6 @@ namespace s3d
 						if (CFDictionaryRef dictionary = IOPSGetPowerSourceDescription(powerSourceInfo, t))
 						{
 							GetPowerSource(dictionary, hasAC, hasBattery, charging, maxTimeToEmptySec, percent, timeToFullSec);
-							
-							succeeded = true;
 						}
 					}
 					
@@ -188,24 +182,27 @@ namespace s3d
 						result.ac = ACLineStatus::Online;
 						result.battery = BatteryStatus::NoBattery;
 					}
-					else if (charging) // charging
+					else
 					{
-						result.ac = ACLineStatus::Online;
-						result.batteryTimeToFullChargeSec = timeToFullSec;
 						result.battery = percent <= 5 ? BatteryStatus::Critical
-						: percent <= 20 ? BatteryStatus::Low : BatteryStatus::High;
-						result.charging = true;
-					}
-					else if (hasAC) // full charged
-					{
-						result.ac = ACLineStatus::Online;
-						result.battery = BatteryStatus::High;
-					}
-					else // on battery
-					{
-						result.ac = ACLineStatus::Offline;
-						result.battery = percent <= 5 ? BatteryStatus::Critical
-						: percent <= 20 ? BatteryStatus::Low : BatteryStatus::High;
+							: percent <= 20 ? BatteryStatus::Low : BatteryStatus::High;
+						result.batteryLifePercent = percent;
+					
+						if (charging) // charging
+						{
+							result.ac = ACLineStatus::Online;
+							result.batteryTimeToFullChargeSec = timeToFullSec;
+							result.charging = true;
+						}
+						else if (hasAC) // full charged
+						{
+							result.ac = ACLineStatus::Online;
+						}
+						else // on battery
+						{
+							result.ac = ACLineStatus::Offline;
+							result.batteryLifeTimeSec = maxTimeToEmptySec;
+						}
 					}
 					
 					CFRelease(list);
@@ -214,32 +211,23 @@ namespace s3d
 				CFRelease(powerSourceInfo);
 			}
 			
-			if (succeeded)
+			if (result.ac == ACLineStatus::Unknown)
 			{
-				if (result.ac == ACLineStatus::Offline)
-				{
-					result.batteryLifeTimeSec = maxTimeToEmptySec;
-				}
-			
-				result.batteryLifePercent = percent;
+				CFTimeInterval batteryLifeTimeSec = IOPSGetTimeRemainingEstimate();
 				
-				return;
-			}
-
-			CFTimeInterval batteryLifeTimeSec = IOPSGetTimeRemainingEstimate();
-			
-			if (batteryLifeTimeSec == kIOPSTimeRemainingUnlimited)
-			{
-				result.ac = ACLineStatus::Online;
-			}
-			else if (batteryLifeTimeSec == kIOPSTimeRemainingUnknown)
-			{
-				result.ac = ACLineStatus::Offline;
-			}
-			else
-			{
-				result.ac = ACLineStatus::Offline;
-				result.batteryLifeTimeSec = batteryLifeTimeSec;
+				if (batteryLifeTimeSec == kIOPSTimeRemainingUnlimited)
+				{
+					result.ac = ACLineStatus::Online;
+				}
+				else if (batteryLifeTimeSec == kIOPSTimeRemainingUnknown)
+				{
+					result.ac = ACLineStatus::Offline;
+				}
+				else
+				{
+					result.ac = ACLineStatus::Offline;
+					result.batteryLifeTimeSec = batteryLifeTimeSec;
+				}
 			}
 		}
 	}
