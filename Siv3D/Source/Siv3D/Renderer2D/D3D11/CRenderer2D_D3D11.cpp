@@ -52,7 +52,7 @@ namespace s3d
 			}
 		}
 
-		static IndexType CalculateCirclePieQuality(float size, float angle)
+		static IndexType CalculateCirclePieQuality(const float size, const float angle)
 		{
 			const float rate = std::min(std::abs(angle) / (Math::TwoPiF) * 2.0f, 1.0f);
 
@@ -293,7 +293,7 @@ namespace s3d
 		return m_commandManager.getCurrentViewport();
 	}
 
-	void CRenderer2D_D3D11::addLine(const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2])
+	void CRenderer2D_D3D11::addLine(const Float2& begin, const Float2& end, const float thickness, const Float4(&colors)[2])
 	{
 		constexpr IndexType vertexSize = 4, indexSize = 6;
 		Vertex2D* pVertex;
@@ -482,7 +482,7 @@ namespace s3d
 		m_commandManager.pushDraw(indexSize);
 	}
 
-	void CRenderer2D_D3D11::addRectFrame(const FloatRect& rect, float thickness, const Float4& color)
+	void CRenderer2D_D3D11::addRectFrame(const FloatRect& rect, const float thickness, const Float4& color)
 	{
 		constexpr IndexType vertexSize = 8, indexSize = 24;
 		Vertex2D* pVertex;
@@ -561,7 +561,7 @@ namespace s3d
 		m_commandManager.pushDraw(indexSize);
 	}
 	
-	void CRenderer2D_D3D11::addCircleFrame(const Float2& center, float r, float thickness, const Float4& color)
+	void CRenderer2D_D3D11::addCircleFrame(const Float2& center, const float r, const float thickness, const Float4& color)
 	{
 		const float rt = r + thickness;
 		const IndexType quality = detail::CalculateCircleFrameQuality(rt);
@@ -605,7 +605,7 @@ namespace s3d
 		m_commandManager.pushDraw(indexSize);
 	}
 
-	void CRenderer2D_D3D11::addCircleFrame(const Float2& center, float r, float thickness, const Float4& innerColor, const Float4& outerColor)
+	void CRenderer2D_D3D11::addCircleFrame(const Float2& center, const float r, const float thickness, const Float4& innerColor, const Float4& outerColor)
 	{
 		const float rt = r + thickness;
 		const IndexType quality = detail::CalculateCircleFrameQuality(rt);
@@ -649,7 +649,7 @@ namespace s3d
 		m_commandManager.pushDraw(indexSize);
 	}
 
-	void CRenderer2D_D3D11::addCirclePie(const Float2& center, float r, float startAngle, float angle, const Float4& color)
+	void CRenderer2D_D3D11::addCirclePie(const Float2& center, const float r, const float startAngle, float angle, const Float4& color)
 	{
 		if (angle == 0.0f)
 		{
@@ -701,7 +701,7 @@ namespace s3d
 		m_commandManager.pushDraw(indexSize);
 	}
 
-	void CRenderer2D_D3D11::addCircleArc(const Float2& center, float r, float startAngle, float angle, float thickness, const Float4& color)
+	void CRenderer2D_D3D11::addCircleArc(const Float2& center, const float r, const float startAngle, float angle, const float thickness, const Float4& color)
 	{
 		if (angle == 0.0f)
 		{
@@ -754,7 +754,7 @@ namespace s3d
 		m_commandManager.pushDraw(indexSize);
 	}
 
-	void CRenderer2D_D3D11::addEllipse(const Float2& center, float a, float b, const Float4& color)
+	void CRenderer2D_D3D11::addEllipse(const Float2& center, const float a, const float b, const Float4& color)
 	{
 		const float majorAxis = std::max(std::abs(a), std::abs(b));
 		const IndexType quality = static_cast<IndexType>(std::min(majorAxis * 0.225f + 18.0f, 255.0f));
@@ -798,7 +798,7 @@ namespace s3d
 		m_commandManager.pushDraw(indexSize);
 	}
 
-	void CRenderer2D_D3D11::addEllipseFrame(const Float2& center, float a, float b, float thickness, const Float4& color)
+	void CRenderer2D_D3D11::addEllipseFrame(const Float2& center, const float a, const float b, const float thickness, const Float4& color)
 	{
 		const float at = a + thickness;
 		const float bt = b + thickness;
@@ -876,7 +876,7 @@ namespace s3d
 		m_commandManager.pushDraw(indexSize);
 	}
 
-	void CRenderer2D_D3D11::addLineString(const Vec2* pts, uint32 size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, bool isClosed)
+	void CRenderer2D_D3D11::addLineString(const Vec2* const pts, uint32 size, const Optional<Float2>& offset, const float thickness, const bool inner, const Float4& color, const bool isClosed)
 	{
 		if (!pts || size < 2)
 		{
@@ -1101,6 +1101,242 @@ namespace s3d
 		}
 
 		for (IndexType k = 0; k < size - 1 + isClosed; ++k)
+		{
+			for (IndexType i = 0; i < 6; ++i)
+			{
+				pIndex[k * 6 + i] = (indexOffset + (detail::rectIndexTable[i] + k * 2) % vertexSize);
+			}
+		}
+
+		m_commandManager.pushDraw(indexSize);
+	}
+
+	void CRenderer2D_D3D11::addShape2D(const Array<Float2>& vertices, const Array<uint32>& indices, const Float4& color)
+	{
+		if (vertices.isEmpty())
+		{
+			return;
+		}
+
+		const IndexType vertexSize = static_cast<IndexType>(vertices.size()), indexSize = static_cast<IndexType>(indices.size());
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+		{
+			return;
+		}
+
+		{
+			const Float2* pSrc = vertices.data();
+			const Float2* pSrcEnd = pSrc + vertices.size();
+
+			while (pSrc != pSrcEnd)
+			{
+				pVertex->pos = *pSrc++;
+				pVertex->color = color;
+				++pVertex;
+			}
+		}
+
+		static_assert(sizeof(IndexType) == sizeof(uint32));
+		{
+			::memcpy(pIndex, indices.data(), indices.size_bytes());
+		}
+
+		for (size_t i = 0; i < indexSize; ++i)
+		{
+			*(pIndex++) += indexOffset;
+		}
+
+		m_commandManager.pushDraw(indexSize);
+	}
+
+	void CRenderer2D_D3D11::addShape2DFrame(const Float2* const pts, uint32 size, const float thickness, const Float4& color)
+	{
+		if (size < 2)
+		{
+			return;
+		}
+
+		// 大昔に書いたコードなので整理したい
+
+		const float th2 = 0.01f;
+
+		Array<Float2> buf;
+		{
+			buf.push_back(pts[0]);
+
+			for (uint16 i = 1; i < size - 1; ++i)
+			{
+				const Float2 back = pts[i - 1];
+				const Float2 current = pts[i];
+
+				if (back.distanceFromSq(current) < th2)
+				{
+					continue;
+				}
+
+				buf.push_back(current);
+			}
+
+			const Float2 back = pts[size - 2];
+			const Float2 current = pts[size - 1];
+
+			if (back.distanceFromSq(current) >= th2)
+			{
+				buf.push_back(current);
+			}
+
+			if (buf.size() >= 2 && buf.back().distanceFromSq(buf.front()) <= th2)
+			{
+				buf.pop_back();
+			}
+
+			if (buf.size() < 2)
+			{
+				return;
+			}
+		}
+
+		const float threshold = 0.55f;
+
+		Array<Float2> buf2;
+
+		buf2.push_back(buf.front());
+
+		for (size_t i = 1; i < buf.size(); ++i)
+		{
+			const Float2 back = buf[i - 1];
+			const Float2 current = buf[i];
+			const Float2 next = buf[(i + 1) % buf.size()];
+
+			const Float2 v1 = (back - current).normalized();
+			const Float2 v2 = (next - current).normalized();
+
+			buf2.push_back(current);
+
+			if (v1.dot(v2) > threshold)
+			{
+				const Float2 line = current - back;
+				const Float2 normal = Float2{ -line.y, line.x }.normalized();
+				const Float2 tangent = ((next - current).normalized() + (current - back).normalized()).normalized();
+				const Float2 line2 = next - current;
+
+				if (tangent.dot(line2) >= (-tangent).dot(line2))
+				{
+					buf2.push_back(current + tangent.normalized()*th2);
+				}
+				else if (tangent.dot(line2) <= (-tangent).dot(line2))
+				{
+					buf2.push_back(current + (-tangent).normalized()*th2);
+				}
+				else
+				{
+					buf2.push_back(current + normal*0.001f);
+				}
+			}
+		}
+
+		{
+			const Float2 back = buf[buf.size() - 1];
+			const Float2 current = buf[0];
+			const Float2 next = buf[1];
+
+			const Float2 v1 = (back - current).normalized();
+			const Float2 v2 = (next - current).normalized();
+
+			if (v1.dot(v2) > threshold)
+			{
+				const Float2 line = current - back;
+				const Float2 normal = Float2{ -line.y, line.x }.normalized();
+				const Float2 tangent = ((next - current).normalized() + (current - back).normalized()).normalized();
+				const Float2 line2 = next - current;
+
+				if (tangent.dot(line2) >= (-tangent).dot(line2))
+				{
+					buf2.push_back(current - tangent.normalized() * th2);
+				}
+				else if (tangent.dot(line2) <= (-tangent).dot(line2))
+				{
+					buf2.push_back(current - (-tangent).normalized() * th2);
+				}
+				else
+				{
+					buf2.push_back(current - normal * 0.001f);
+				}
+			}
+		}
+
+		size = static_cast<IndexType>(buf2.size());
+		const IndexType vertexSize = size * 2, indexSize = 6 * (size - 1) + 6;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+		{
+			return;
+		}
+
+		const float thicknessHalf = thickness * 0.5f;
+
+		{
+			const Float2 p0 = buf2[buf2.size() - 1];
+			const Float2 p1 = buf2[0];
+			const Float2 p2 = buf2[1];
+			const Float2 line = p1 - p0;
+			const Float2 normal = Float2{ -line.y, line.x }.normalized();
+			const Float2 tangent = ((p2 - p1).normalized() + (p1 - p0).normalized()).normalized();
+			const Float2 miter = Float2{ -tangent.y, tangent.x };
+			const float length = thicknessHalf / miter.dot(normal);
+			const Float2 result0 = p1 + miter * length;
+			const Float2 result1 = p1 - miter * length;
+
+			pVertex[0].pos.set(result0);
+			pVertex[1].pos.set(result1);
+		}
+
+		for (unsigned short i = 0; i < size - 2; ++i)
+		{
+			const Float2 p0 = buf2[i];
+			const Float2 p1 = buf2[i + 1];
+			const Float2 p2 = buf2[i + 2];
+			const Float2 line = p1 - p0;
+			const Float2 normal = Float2{ -line.y, line.x }.normalized();
+			const Float2 tangent = ((p2 - p1).normalized() + (p1 - p0).normalized()).normalized();
+			const Float2 miter = Float2{ -tangent.y, tangent.x };
+			const float length = thicknessHalf / miter.dot(normal);
+			const Float2 result0 = p1 + miter * length;
+			const Float2 result1 = p1 - miter * length;
+
+			pVertex[i * 2 + 2].pos.set(result0);
+			pVertex[i * 2 + 3].pos.set(result1);
+		}
+
+		{
+			const Float2 p0 = buf2[size - 2];
+			const Float2 p1 = buf2[size - 1];
+			const Float2 p2 = buf2[0];
+			const Float2 line = p1 - p0;
+			const Float2 normal = Float2{ -line.y, line.x }.normalized();
+			const Float2 tangent = ((p2 - p1).normalized() + (p1 - p0).normalized()).normalized();
+			const Float2 miter = Float2{ -tangent.y, tangent.x };
+			const float length = thicknessHalf / miter.dot(normal);
+			const Float2 result0 = p1 + miter * length;
+			const Float2 result1 = p1 - miter * length;
+
+			pVertex[size * 2 - 2].pos.set(result0);
+			pVertex[size * 2 - 1].pos.set(result1);
+		}
+
+		for (size_t i = 0; i < vertexSize; ++i)
+		{
+			(pVertex++)->color = color;
+		}
+
+		for (IndexType k = 0; k < size; ++k)
 		{
 			for (IndexType i = 0; i < 6; ++i)
 			{

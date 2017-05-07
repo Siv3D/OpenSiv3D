@@ -431,6 +431,8 @@
 		2C0C7DD31EBE21D000386CBB /* RasterizerState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7DD21EBE21D000386CBB /* RasterizerState.hpp */; };
 		2C0C7DD71EBE21F100386CBB /* GLRasterizerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C7DD51EBE21F100386CBB /* GLRasterizerState.cpp */; };
 		2C0C7DD81EBE21F100386CBB /* GLRasterizerState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7DD61EBE21F100386CBB /* GLRasterizerState.hpp */; };
+		2C0C7DDA1EBEFE8500386CBB /* Shape2D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7DD91EBEFE8500386CBB /* Shape2D.hpp */; };
+		2C0C7DDD1EBEFE9B00386CBB /* SivShape2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C7DDC1EBEFE9B00386CBB /* SivShape2D.cpp */; };
 		2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C38B14A1CDEB45C007A7E9F /* gtest.a */; };
 		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
@@ -1081,6 +1083,8 @@
 		2C0C7DD21EBE21D000386CBB /* RasterizerState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RasterizerState.hpp; sourceTree = "<group>"; };
 		2C0C7DD51EBE21F100386CBB /* GLRasterizerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GLRasterizerState.cpp; sourceTree = "<group>"; };
 		2C0C7DD61EBE21F100386CBB /* GLRasterizerState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GLRasterizerState.hpp; sourceTree = "<group>"; };
+		2C0C7DD91EBEFE8500386CBB /* Shape2D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Shape2D.hpp; sourceTree = "<group>"; };
+		2C0C7DDC1EBEFE9B00386CBB /* SivShape2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivShape2D.cpp; sourceTree = "<group>"; };
 		2C1777401CDEE5D500BB8AD0 /* gtest-death-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-death-test.h"; sourceTree = "<group>"; };
 		2C1777411CDEE5D500BB8AD0 /* gtest-message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-message.h"; sourceTree = "<group>"; };
 		2C1777421CDEE5D500BB8AD0 /* gtest-param-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-param-test.h"; sourceTree = "<group>"; };
@@ -1365,6 +1369,7 @@
 		2C0C7A121EBCC38300386CBB /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C0C7DDB1EBEFE9B00386CBB /* Shape2D */,
 				2C0C7DC51EBE0E2E00386CBB /* ConstantBuffer */,
 				2C0C7A191EBCC38300386CBB /* AssetHandleManager */,
 				2C0C7A1B1EBCC38300386CBB /* Base64 */,
@@ -2535,6 +2540,7 @@
 				2C0C7CFD1EBCC39B00386CBB /* RenderStateBlock2D.hpp */,
 				2C0C7CFE1EBCC39B00386CBB /* RenderTexture.hpp */,
 				2C0C7CFF1EBCC39B00386CBB /* Resource.hpp */,
+				2C0C7DD91EBEFE8500386CBB /* Shape2D.hpp */,
 				2C0C7D001EBCC39B00386CBB /* SpeedStopwatch.hpp */,
 				2C0C7D011EBCC39B00386CBB /* Spherical.hpp */,
 				2C0C7D021EBCC39B00386CBB /* Step.hpp */,
@@ -2609,6 +2615,14 @@
 				2C0C7DD61EBE21F100386CBB /* GLRasterizerState.hpp */,
 			);
 			path = RasterizerState;
+			sourceTree = "<group>";
+		};
+		2C0C7DDB1EBEFE9B00386CBB /* Shape2D */ = {
+			isa = PBXGroup;
+			children = (
+				2C0C7DDC1EBEFE9B00386CBB /* SivShape2D.cpp */,
+			);
+			path = Shape2D;
 			sourceTree = "<group>";
 		};
 		2C17773E1CDEE5D500BB8AD0 /* Include */ = {
@@ -3226,6 +3240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C0C7D951EBCC39B00386CBB /* RandomVec2.hpp in Headers */,
+				2C0C7DDA1EBEFE8500386CBB /* Shape2D.hpp in Headers */,
 				2C81C01B1E89F8E300D27E52 /* glfw3.h in Headers */,
 				2C0C7B851EBCC38400386CBB /* CBinaryReader_macOS.hpp in Headers */,
 				2C81C0761E89F8E300D27E52 /* pnglibconf.h in Headers */,
@@ -3879,6 +3894,7 @@
 				2C0C7C161EBCC38400386CBB /* SivMessageBox_Windows.cpp in Sources */,
 				2C81C0161E89F8E300D27E52 /* format.cc in Sources */,
 				2C0C7BD61EBCC38400386CBB /* D3D11SamplerState.cpp in Sources */,
+				2C0C7DDD1EBEFE9B00386CBB /* SivShape2D.cpp in Sources */,
 				2C0C7C5E1EBCC38400386CBB /* Texture_D3D11.cpp in Sources */,
 				2C0C7C641EBCC38400386CBB /* TextureFactory.cpp in Sources */,
 				2C0C7C791EBCC38400386CBB /* CWritableMemoryMapping.cpp in Sources */,

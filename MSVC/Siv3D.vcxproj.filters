@@ -374,6 +374,9 @@
     <Filter Include="Source\Siv3D\Graphics\GL\RasterizerState">
       <UniqueIdentifier>{f05f19a7-a063-430d-9626-edfb1663026b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Shape2D">
+      <UniqueIdentifier>{0565c7ad-2512-416a-8e4e-0b3b39be75fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1450,6 +1453,9 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\GL\RasterizerState\GLRasterizerState.hpp">
       <Filter>Source\Siv3D\Graphics\GL\RasterizerState</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Shape2D.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2108,6 +2114,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\GL\RasterizerState\GLRasterizerState.cpp">
       <Filter>Source\Siv3D\Graphics\GL\RasterizerState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Shape2D\SivShape2D.cpp">
+      <Filter>Source\Siv3D\Shape2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

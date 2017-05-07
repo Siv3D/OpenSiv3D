@@ -179,9 +179,9 @@ namespace s3d
 		const Line& draw(double thickness, const ColorF& color = Palette::White) const;
 
 		const Line& draw(double thickness, const ColorF(&colors)[2]) const;
-		
-		// drawArrow
-		
+
+		const Line& drawArrow(double width = 1.0, const Vec2& headSize = Vec2(5.0, 5.0), const ColorF& color = Palette::White) const;
+
 		// asPolygon;
 	};
 }

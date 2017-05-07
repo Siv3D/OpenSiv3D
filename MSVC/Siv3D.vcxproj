@@ -136,6 +136,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\RenderStateBlock2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\RenderTexture.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Resource.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Shape2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Spherical.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Step2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Texture.hpp" />
@@ -504,6 +505,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\GL\CShader_GL.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\ShaderFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\SivShader.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Shape2D\SivShape2D.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DEngine.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_Linux.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_macOS.cpp" />
