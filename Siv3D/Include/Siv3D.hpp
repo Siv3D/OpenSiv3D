@@ -275,6 +275,8 @@
 	# include "Siv3D/FloatRect.hpp"
 	// Float 型の四角形
 	# include "Siv3D/FloatQuad.hpp"
+	// 2D 形状
+	# include "Siv3D/Shape2D.hpp"
 //
 // 乱数
 //
