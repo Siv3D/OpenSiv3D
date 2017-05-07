@@ -144,6 +144,8 @@ namespace s3d
 
 		Optional<Rect> getViewport() const override;
 
+		void addLine(const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) override;
+		
 		void addTriangle(const Float2(&pts)[3], const Float4& color) override;
 
 		void addTriangle(const Float2(&pts)[3], const Float4(&colors)[3]) override;
@@ -171,6 +173,8 @@ namespace s3d
 		void addQuad(const FloatQuad& quad, const Float4& color) override;
 		
 		void addQuad(const FloatQuad& quad, const Float4(&colors)[4]) override;
+		
+		void addLineString(const Vec2* pts, uint32 size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, bool isClosed) override;		
 	};
 }
 
