@@ -267,8 +267,6 @@
 	//# include "Siv3D/Polygon.hpp"
 	//// 多角形の集合
 	//# include "Siv3D/MultiPolygon.hpp"
-	//// 矢印形
-	//# include "Siv3D/Arrow.hpp"
 	//// 2D 図形の Variant
 	//# include "Siv3D/Shape.hpp"
 	// Float 型の長方形

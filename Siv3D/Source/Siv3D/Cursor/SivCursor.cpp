@@ -70,13 +70,21 @@ namespace s3d
 			Siv3DEngine::GetCursor()->setPos(x, y);
 		}
 
-		bool OnClient()
+		bool OnClientRect()
 		{
 			return Geometry2D::Intersect(Siv3DEngine::GetCursor()->clientPos(),
 				Rect(Siv3DEngine::GetWindow()->getState().clientSize));
 		}
 
-		void Clip(const Optional<Rect>& rect)
+		void ClipClientRect(bool clip)
+		{
+			Siv3DEngine::GetCursor()->clipClientRect(clip);
+		}
+	}
+
+	namespace win::Cursor
+	{
+		void ClipRect(const Optional<Rect>& rect)
 		{
 			Siv3DEngine::GetCursor()->clip(rect);
 		}

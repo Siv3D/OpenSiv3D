@@ -11,6 +11,8 @@ void Main()
 	
 	while (System::Update())
 	{
+		Window::SetTitle(Cursor::Pos());
+
 		for(auto i : Range(0, 99))
 			Shape2D::Cross(16, 6, pts[i], i * 1_deg).draw(HSV(i));
 
