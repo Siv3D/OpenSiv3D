@@ -24,62 +24,43 @@
 
 namespace s3d
 {
-	class ShaderProgram
+	class ShaderPipeline
 	{
 	private:
 		
-		GLuint m_programHandle = 0;
+		GLuint m_pipeline = 0;
 		
 	public:
 		
+		~ShaderPipeline()
+		{
+			if (m_pipeline)
+			{
+				::glDeleteProgramPipelines(1, &m_pipeline);
+			}
+		}
+		
 		bool init()
 		{
-			m_programHandle = ::glCreateProgram();
+			::glGenProgramPipelines(1, &m_pipeline);
 			
-			return m_programHandle != 0;
+			return m_pipeline != 0;
 		}
 		
-		void attach(const GLuint shader)
+		void setVS(GLuint vsProgramHandle)
 		{
-			::glAttachShader(m_programHandle, shader);
+			::glUseProgramStages(m_pipeline, GL_VERTEX_SHADER_BIT, vsProgramHandle);
 		}
 		
-		bool link()
+		void setPS(GLuint psProgramHandle)
 		{
-			::glLinkProgram(m_programHandle);
-			
-			GLint status;
-			::glGetProgramiv(m_programHandle, GL_LINK_STATUS, &status);
-			
-			if (status == GL_FALSE)
-			{
-				return false;
-			}
-			
-			return true;
+			::glUseProgramStages(m_pipeline, GL_FRAGMENT_SHADER_BIT, psProgramHandle);
 		}
 		
 		void use()
 		{
-			::glUseProgram(m_programHandle);
-		}
-		
-		GLuint getUniformBlockIndex(const char* const name)
-		{
-			return ::glGetUniformBlockIndex(m_programHandle, name);
-		}
-		
-		void setUniformBlockBinding(const char* const name, GLuint index)
-		{
-			::glUniformBlockBinding(m_programHandle, getUniformBlockIndex(name), index);
-		}
-		
-		~ShaderProgram()
-		{
-			if (m_programHandle)
-			{
-				::glDeleteProgram(m_programHandle);
-			}
+			::glUseProgram(0);
+			::glBindProgramPipeline(m_pipeline);
 		}
 	};
 					
@@ -102,7 +83,7 @@ namespace s3d
 	{
 	private:
 		
-		GLuint m_vertexShader = 0;
+		GLuint m_vsProgram = 0;
 		
 	public:
 		
@@ -110,43 +91,54 @@ namespace s3d
 		
 		~GLVertexShader()
 		{
-			if (m_vertexShader)
+			if (m_vsProgram)
 			{
-				::glDeleteShader(m_vertexShader);
+				::glDeleteProgram(m_vsProgram);
 			}
 		}
 		
 		bool createFromString(const String& source)
 		{
-			if (m_vertexShader)
+			if (m_vsProgram)
 			{
 				return false;
 			}
-			
-			m_vertexShader = ::glCreateShader(GL_VERTEX_SHADER);
 			
 			const std::string sourceUTF8 = source.toUTF8();
 			
 			const char* pSource = sourceUTF8.c_str();
 			
-			::glShaderSource(m_vertexShader, 1, &pSource, nullptr);
+			m_vsProgram = ::glCreateShaderProgramv(GL_VERTEX_SHADER, 1, &pSource);
 			
-			::glCompileShader(m_vertexShader);
+			GLint logLen = 0;
 			
-			GLint result;
-			::glGetShaderiv(m_vertexShader, GL_COMPILE_STATUS, &result);
+			::glGetProgramiv(m_vsProgram, GL_INFO_LOG_LENGTH, &logLen);
 			
-			if (result == GL_FALSE)
+			if (logLen > 4)
 			{
-				return false;
+				std::string log(logLen + 1, '\0');
+				
+				::glGetProgramInfoLog(m_vsProgram, logLen, &logLen, &log[0]);
+				
+				Log << CharacterSet::Widen(log);
 			}
 			
-			return true;
+			return m_vsProgram != 0;
 		}
 		
-		GLint getHandle() const
+		GLint getProgram() const
 		{
-			return m_vertexShader;
+			return m_vsProgram;
+		}
+		
+		GLuint getUniformBlockIndex(const char* const name)
+		{
+			return ::glGetUniformBlockIndex(m_vsProgram, name);
+		}
+		
+		void setUniformBlockBinding(const char* const name, GLuint index)
+		{
+			::glUniformBlockBinding(m_vsProgram, getUniformBlockIndex(name), index);
 		}
 	};
 	
@@ -154,7 +146,7 @@ namespace s3d
 	{
 	private:
 		
-		GLuint m_pixelShader = 0;
+		GLuint m_psProgram = 0;
 		
 	public:
 		
@@ -162,43 +154,54 @@ namespace s3d
 		
 		~GLPixelShader()
 		{
-			if (m_pixelShader)
+			if (m_psProgram)
 			{
-				::glDeleteShader(m_pixelShader);
+				::glDeleteProgram(m_psProgram);
 			}
 		}
 		
 		bool createFromString(const String& source)
 		{
-			if (m_pixelShader)
+			if (m_psProgram)
 			{
 				return false;
 			}
-			
-			m_pixelShader = ::glCreateShader(GL_FRAGMENT_SHADER);
 			
 			const std::string sourceUTF8 = source.toUTF8();
 			
 			const char* pSource = sourceUTF8.c_str();
 			
-			::glShaderSource(m_pixelShader, 1, &pSource, nullptr);
+			m_psProgram = ::glCreateShaderProgramv(GL_FRAGMENT_SHADER, 1, &pSource);
 			
-			::glCompileShader(m_pixelShader);
+			GLint logLen = 0;
 			
-			GLint result;
-			::glGetShaderiv(m_pixelShader, GL_COMPILE_STATUS, &result);
+			::glGetProgramiv(m_psProgram, GL_INFO_LOG_LENGTH, &logLen);
 			
-			if (result == GL_FALSE)
+			if (logLen > 4)
 			{
-				return false;
+				std::string log(logLen + 1, '\0');
+				
+				::glGetProgramInfoLog(m_psProgram, logLen, &logLen, &log[0]);
+				
+				Log << CharacterSet::Widen(log);
 			}
 			
-			return true;
+			return m_psProgram != 0;
 		}
 		
-		GLint getHandle() const
+		GLint getProgram() const
 		{
-			return m_pixelShader;
+			return m_psProgram;
+		}
+		
+		GLuint getUniformBlockIndex(const char* const name)
+		{
+			return ::glGetUniformBlockIndex(m_psProgram, name);
+		}
+		
+		void setUniformBlockBinding(const char* const name, GLuint index)
+		{
+			::glUniformBlockBinding(m_psProgram, getUniformBlockIndex(name), index);
 		}
 	};
 
@@ -210,7 +213,7 @@ namespace s3d
 		
 		GLPixelShader m_pixelShader;
 		
-		ShaderProgram m_shaderProgram;
+		ShaderPipeline m_pipeline;
 
 		ConstantBuffer<SpriteCB> m_cbSprite;
 		

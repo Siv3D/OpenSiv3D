@@ -88,6 +88,7 @@ layout(location = 1) in vec2 Tex;
 layout(location = 2) in vec4 VertexColor;
 		
 layout(location = 0) out vec4 Color;
+out vec4 gl_Position;
 		
 layout(std140) uniform SpriteCB
 {
@@ -138,23 +139,16 @@ void main()
 		{
 			return false;
 		}
-
-		if (!m_shaderProgram.init())
+		
+		m_vertexShader.setUniformBlockBinding(m_cbSprite.Name(), m_cbSprite.BindingPoint());
+		
+		if (!m_pipeline.init())
 		{
 			return false;
 		}
 		
-		m_shaderProgram.attach(m_vertexShader.getHandle());
-		m_shaderProgram.attach(m_pixelShader.getHandle());
-
-		if (!m_shaderProgram.link())
-		{
-			return false;
-		}
-		
-		m_shaderProgram.setUniformBlockBinding(m_cbSprite.Name(), m_cbSprite.BindingPoint());
-		
-		m_shaderProgram.use();
+		m_pipeline.setVS(m_vertexShader.getProgram());
+		m_pipeline.setPS(m_pixelShader.getProgram());
 
 		if (!m_spriteBatch.init())
 		{
@@ -178,6 +172,8 @@ void main()
 		const Byte* commandPointer = m_commandManager.getCommandBuffer();
 		
 		//Log(L"----");
+		
+		m_pipeline.use();
 		
 		for (size_t commandIndex = 0; commandIndex < m_commandManager.getCount(); ++commandIndex)
 		{
