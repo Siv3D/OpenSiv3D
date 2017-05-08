@@ -70,7 +70,7 @@ namespace s3d
 
 		VertexShader::IDType createVSFromFile(const FilePath& path) override;
 		
-		VertexShader::IDType createVSFromSource(const String& source) override
+		VertexShader::IDType createVSFromSource(const String&) override
 		{
 			// [Siv3D ToDo];
 			return 0;

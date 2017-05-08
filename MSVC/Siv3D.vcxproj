@@ -257,6 +257,8 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\D3D11\PixelShader_D3D11.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\D3D11\VertexShader_D3D11.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\GL\CShader_GL.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\GL\PixelShader_GL.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\GL\VertexShader_GL.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\IShader.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Siv3DEngine.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Siv3D_Linux.h" />
