@@ -471,6 +471,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Keyboard\CKeyboard_Windows.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Keyboard\KeyboardFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Key\SivKey.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\LineString\SivLineString.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Line\SivLine.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\CLogger.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Logger\LoggerFactory.cpp" />

@@ -386,6 +386,9 @@
     <Filter Include="Source\Siv3D\RasterizerState">
       <UniqueIdentifier>{1282df3e-2c27-4d02-b600-4540fc8476c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\LineString">
+      <UniqueIdentifier>{176f4596-10bc-4904-a479-c8faed2c6eca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -2150,6 +2153,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\RasterizerState\SivRasterizerState.cpp">
       <Filter>Source\Siv3D\RasterizerState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\LineString\SivLineString.cpp">
+      <Filter>Source\Siv3D\LineString</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
