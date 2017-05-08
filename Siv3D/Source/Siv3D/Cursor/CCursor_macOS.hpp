@@ -64,7 +64,7 @@ namespace s3d
 
 		void setPos(int32 x, int32 y) override;
 
-		void clipClientRect(bool clip) override
+		void clipClientRect(bool) override
 		{
 			// [Siv3D ToDo]
 		}

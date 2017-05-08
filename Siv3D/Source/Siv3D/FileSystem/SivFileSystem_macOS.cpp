@@ -147,7 +147,7 @@ namespace s3d
 
 		FilePath VolumePath(const FilePath& path)
 		{
-			// [Siv3D*TODO]
+			// [Siv3D ToDo]
 			return FilePath(1, L'/');
 		}
 
@@ -174,7 +174,7 @@ namespace s3d
 			}
 			else
 			{
-				// [Siv3D*TODO]
+				// [Siv3D ToDo]
 				return false;
 			}
 		}
@@ -216,7 +216,7 @@ namespace s3d
 			}
 			else
 			{
-				// [Siv3D*TODO]
+				// [Siv3D ToDo]
 				return 0;
 			}
 		}
