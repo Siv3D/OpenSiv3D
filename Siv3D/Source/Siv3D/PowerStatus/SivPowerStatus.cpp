@@ -46,6 +46,7 @@ namespace s3d
 				: BatteryStatus::Middle;
 
 			status.charging = !!(s.BatteryFlag & BATTERY_FLAG_CHARGING);
+			status.batterySaver = !!(s.SystemStatusFlag & SYSTEM_STATUS_FLAG_POWER_SAVING_ON);
 
 			if (s.BatteryLifePercent != BATTERY_PERCENTAGE_UNKNOWN)
 			{
