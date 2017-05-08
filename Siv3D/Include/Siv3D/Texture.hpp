@@ -16,6 +16,37 @@
 
 namespace s3d
 {
+	/// <summary>
+	/// テクスチャの設定
+	/// </summary>
+	enum class TextureDesc
+	{
+		/// <summary>
+		/// ミップマップなし
+		/// </summary>
+		Unmipped,
+
+		/// <summary>
+		/// ミップマップなし、sRGB
+		/// </summary>
+		UnmippedSRGB,
+
+		/// <summary>
+		/// ミップマップあり
+		/// </summary>
+		Mipped,
+
+		/// <summary>
+		/// ミップマップあり、sRGB
+		/// </summary>
+		MippedSRGB,
+
+		/// <summary>
+		/// 3D 用のテクスチャのデフォルト [ミップマップあり、sRGB]
+		/// </summary>
+		For3D = MippedSRGB,
+	};
+
 	class Texture
 	{
 	protected:
@@ -44,6 +75,36 @@ namespace s3d
 		/// デフォルトコンストラクタ
 		/// </summary>
 		Texture();
+
+		/// <summary>
+		/// 画像からテクスチャを作成します。
+		/// </summary>
+		/// <param name="image">
+		/// 画像
+		/// </param>
+		/// <param name="desc">
+		/// テクスチャの設定
+		/// </param>
+		/// <remarks>
+		/// 画像が空の場合、空のテクスチャを作成します。
+		/// </remarks>
+		explicit Texture(const Image& image, TextureDesc desc = TextureDesc::Unmipped);
+
+		/// <summary>
+		/// 画像ファイルからテクスチャを作成します。
+		/// </summary>
+		/// <param name="path">
+		/// 画像ファイルのパス
+		/// </param>
+		/// <param name="desc">
+		/// テクスチャの設定
+		/// </param>
+		/// <remarks>
+		/// 画像ファイルの読み込みに失敗した場合、空のテクスチャを作成します。
+		/// </remarks>
+		explicit Texture(const FilePath& path, TextureDesc desc = TextureDesc::Unmipped);
+
+		explicit Texture(IReader&& reader, TextureDesc desc = TextureDesc::Unmipped);
 
 		/// <summary>
 		/// デストラクタ

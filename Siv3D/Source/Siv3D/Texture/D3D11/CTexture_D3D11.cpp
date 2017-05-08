@@ -13,6 +13,7 @@
 # if defined(SIV3D_TARGET_WINDOWS)
 
 # include "CTexture_D3D11.hpp"
+# include <Siv3D/Image.hpp>
 
 namespace s3d
 {
@@ -42,6 +43,23 @@ namespace s3d
 	Texture::IDType CTexture_D3D11::createFromBackBuffer()
 	{
 		const auto texture = std::make_shared<Texture_D3D11>(Texture_D3D11::BackBuffer{}, m_device, m_swapChain);
+
+		if (!texture->isInitialized())
+		{
+			return 0;
+		}
+
+		return m_textures.add(texture);
+	}
+
+	Texture::IDType CTexture_D3D11::create(const Image& image, const TextureDesc desc)
+	{
+		if (!image)
+		{
+			return 0;
+		}
+
+		const auto texture = std::make_shared<Texture_D3D11>(m_device, image, desc);
 
 		if (!texture->isInitialized())
 		{

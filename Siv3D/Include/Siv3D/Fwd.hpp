@@ -630,6 +630,7 @@ namespace s3d
 	//
 	//	Texture.hpp
 	//
+	enum class TextureDesc;
 	class Texture;
 
 	//////////////////////////////////////////////////////
