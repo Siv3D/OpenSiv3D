@@ -137,6 +137,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\RenderStateBlock2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\RenderTexture.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Resource.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Shader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Shape2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Spherical.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Step2D.hpp" />

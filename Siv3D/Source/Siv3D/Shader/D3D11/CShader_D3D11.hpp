@@ -19,8 +19,6 @@
 # define  _WIN32_WINNT _WIN32_WINNT_WIN7
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
-# include <wrl.h>
-using namespace Microsoft::WRL;
 # include <d3d11.h>
 # include <d3dcompiler.h>
 # include "../IShader.hpp"
@@ -80,7 +78,7 @@ namespace s3d
 
 		PixelShader::IDType createPSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints) override;
 		
-		PixelShader::IDType createPSFromSource(const String& source, const Array<BindingPoint>&) override
+		PixelShader::IDType createPSFromSource(const String&, const Array<BindingPoint>&) override
 		{
 			// [Siv3D ToDo];
 			return 0;

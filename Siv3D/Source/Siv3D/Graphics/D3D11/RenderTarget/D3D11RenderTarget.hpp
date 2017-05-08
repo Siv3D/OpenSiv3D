@@ -19,16 +19,12 @@
 # define  _WIN32_WINNT _WIN32_WINNT_WIN7
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
-# include <wrl.h>
-using namespace Microsoft::WRL;
 # include <d3d11.h>
 # include <Siv3D/Color.hpp>
 # include <Siv3D/RenderTexture.hpp>
 # include "../../../Texture/D3D11/BackBufferTexture.hpp"
 # include "../../../Texture/D3D11/CTexture_D3D11.hpp"
-
 # include "../../../Siv3DEngine.hpp"
-
 
 namespace s3d
 {
