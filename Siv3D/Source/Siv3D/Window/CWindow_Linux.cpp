@@ -13,6 +13,7 @@
 # if defined(SIV3D_TARGET_LINUX)
 
 # include "CWindow_Linux.hpp"
+# include <Siv3D/System.hpp>
 
 namespace s3d
 {
@@ -79,7 +80,7 @@ namespace s3d
 			Siv3DEngine::GetSystem()->reportEvent(WindowEvent::AnyKey | WindowEvent::EscapeKey);
 		}
 
-		if (::glfwGetWindowAttrib(window, GLFW_FOCUSED) == GL_TRUE)
+		if (::glfwGetWindowAttrib(m_glfwWindow, GLFW_FOCUSED) == GL_FALSE)
 		{
 			Siv3DEngine::GetSystem()->reportEvent(WindowEvent::Unfocus);
 		}
