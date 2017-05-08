@@ -78,5 +78,7 @@ namespace s3d
 
 		virtual void addShape2DFrame(const Float2* pts, uint32 size, float thickness, const Float4& color) = 0;
 
+
+		virtual void addTextureRegion(const Texture& texture, const FloatRect& rect, const FloatRect& uv, const Float4& color) = 0;
 	};
 }

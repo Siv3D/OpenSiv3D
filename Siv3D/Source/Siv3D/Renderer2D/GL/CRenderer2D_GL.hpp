@@ -152,6 +152,13 @@ namespace s3d
 		void addShape2D(const Array<Float2>& vertices, const Array<uint32>& indices, const Float4& color) override;
 		
 		void addShape2DFrame(const Float2* pts, uint32 size, float thickness, const Float4& color) override;
+
+
+
+		void addTextureRegion(const Texture&, const FloatRect&, const FloatRect&, const Float4&) override
+		{
+			// [Siv3D ToDo]
+		}
 	};
 }
 

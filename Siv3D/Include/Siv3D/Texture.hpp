@@ -13,6 +13,7 @@
 # include <memory>
 # include "Fwd.hpp"
 # include "AssetHandle.hpp"
+# include "Rectangle.hpp"
 
 namespace s3d
 {
@@ -170,5 +171,54 @@ namespace s3d
 		int32 height() const;
 
 		Size size() const;
+
+
+		/// <summary>
+		/// テクスチャを描きます。
+		/// </summary>
+		/// <param name="diffuse">
+		/// 乗算する色
+		/// </param>
+		/// <returns>
+		/// 描画領域
+		/// </returns>
+		RectF draw(const ColorF& diffuse = Palette::White) const
+		{
+			return draw(0.0, 0.0, diffuse);
+		}
+
+		/// <summary>
+		/// 指定した位置にテクスチャを描きます。
+		/// </summary>
+		/// <param name="x">
+		/// 描画開始位置の X 座標
+		/// </param>
+		/// <param name="y">
+		/// 描画開始位置の Y 座標
+		/// </param>
+		/// <param name="diffuse">
+		/// 乗算する色
+		/// </param>
+		/// <returns>
+		/// 描画領域
+		/// </returns>
+		RectF draw(double x, double y, const ColorF& diffuse = Palette::White) const;
+
+		/// <summary>
+		/// 指定した位置にテクスチャを描きます。
+		/// </summary>
+		/// <param name="pos">
+		/// 描画開始位置
+		/// </param>
+		/// <param name="diffuse">
+		/// 乗算する色
+		/// </param>
+		/// <returns>
+		/// 描画領域
+		/// </returns>
+		RectF draw(const Vec2& pos, const Color& diffuse = Palette::White) const
+		{
+			return draw(pos.x, pos.y, diffuse);
+		}
 	};
 }

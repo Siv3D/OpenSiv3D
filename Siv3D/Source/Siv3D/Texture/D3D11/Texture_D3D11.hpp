@@ -87,6 +87,11 @@ namespace s3d
 			return m_renderTargetView.Get();
 		}
 
+		ID3D11ShaderResourceView** getSRVPtr()
+		{
+			return m_shaderResourceView.GetAddressOf();
+		}
+
 		void clearRT(ID3D11DeviceContext* context, const ColorF& color);
 
 		void beginResize();

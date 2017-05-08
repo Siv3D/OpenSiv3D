@@ -58,6 +58,12 @@ namespace s3d
 			// [Siv3D ToDo]
 			return false;
 		}
+
+
+		void setPS(uint32, Texture::IDType) override
+		{
+			// [Siv3D ToDo]
+		}
 	};
 }
 

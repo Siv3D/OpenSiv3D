@@ -67,6 +67,8 @@ namespace s3d
 		ID3D11RenderTargetView* getRTV(Texture::IDType handleID);
 
 
+
+		void setPS(uint32 slot, Texture::IDType handleID) override;
 	};
 }
 

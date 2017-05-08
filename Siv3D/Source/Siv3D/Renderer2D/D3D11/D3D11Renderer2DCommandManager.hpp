@@ -29,8 +29,10 @@
 # include <Siv3D/Texture.hpp>
 # include <Siv3D/RenderTexture.hpp>
 # include <Siv3D/HashMap.hpp>
+# include <Siv3D/PixelShader.hpp>
 # include "../../Siv3DEngine.hpp"
 # include "../../Graphics/IGraphics.hpp"
+# include "../../Shader/IShader.hpp"
 
 namespace s3d
 {
@@ -50,7 +52,18 @@ namespace s3d
 
 		Viewport,
 
+		PixelShader,
+
+		PSTexture,
+
 		RenderTarget,
+	};
+
+	enum class D3D11Render2DPixelShaderType
+	{
+		Shape,
+
+		Sprite,
 	};
 
 	struct D3D11Render2DCommandHeader
@@ -141,6 +154,34 @@ namespace s3d
 	};
 
 	template <>
+	struct D3D11Render2DCommand<D3D11Render2DInstruction::PixelShader>
+	{
+		D3D11Render2DCommandHeader header =
+		{
+			D3D11Render2DInstruction::PixelShader,
+
+			sizeof(D3D11Render2DCommand<D3D11Render2DInstruction::PixelShader>)
+		};
+
+		PixelShader::IDType psID;
+	};
+
+	template <>
+	struct D3D11Render2DCommand<D3D11Render2DInstruction::PSTexture>
+	{
+		D3D11Render2DCommandHeader header =
+		{
+			D3D11Render2DInstruction::PSTexture,
+
+			sizeof(D3D11Render2DCommand<D3D11Render2DInstruction::PSTexture>)
+		};
+
+		uint32 slot;
+
+		Texture::IDType textureID;
+	};
+
+	template <>
 	struct D3D11Render2DCommand<D3D11Render2DInstruction::RenderTarget>
 	{
 		D3D11Render2DCommandHeader header =
@@ -173,7 +214,12 @@ namespace s3d
 
 		Optional<Rect> m_currentViewport;
 
+		Optional<D3D11Render2DPixelShaderType> m_currentPSType;
+
 		HashMap<Texture::IDType, Texture> m_reservedTextures;
+
+		// [Siv3D ToDo]
+		std::array<Texture::IDType, 8> m_currentPSTextures;
 
 		RenderTexture m_currentRenderTarget;
 
@@ -256,11 +302,34 @@ namespace s3d
 				command.viewport = m_currentViewport;
 				writeCommand(command);
 			}
+
+			m_currentPSType.reset();
+
+			for (uint32 slot = 0; slot < m_currentPSTextures.size(); ++slot)
+			{
+				m_currentPSTextures[slot] = 0;
+				D3D11Render2DCommand<D3D11Render2DInstruction::PSTexture> command;
+				command.slot = slot;
+				command.textureID = 0;
+				writeCommand(command);
+			}
 		}
 
-		void pushDraw(const uint32 indexSize)
+		void pushDraw(const uint32 indexSize, const D3D11Render2DPixelShaderType ps)
 		{
-			if (m_lastCommand == D3D11Render2DInstruction::Draw)
+			bool shaderChanged = false;
+
+			if (ps != m_currentPSType)
+			{
+				D3D11Render2DCommand<D3D11Render2DInstruction::PixelShader> command;
+				command.psID = Siv3DEngine::GetShader()->getStandardPS(static_cast<size_t>(ps)).id();
+				writeCommand(command);
+
+				m_currentPSType = ps;
+				shaderChanged = true;
+			}
+
+			if (!shaderChanged && m_lastCommand == D3D11Render2DInstruction::Draw)
 			{
 				getLastCommand<D3D11Render2DInstruction::Draw>().indexSize += indexSize;
 				
@@ -351,6 +420,31 @@ namespace s3d
 		Optional<Rect> getCurrentViewport() const
 		{
 			return m_currentViewport;
+		}
+
+		void pushPSTexture(const uint32 slot, const Texture& texture)
+		{
+			// [Siv3D ToDo]
+			assert(slot <= 8);
+
+			const auto id = texture.id();
+
+			if (id == m_currentPSTextures[slot])
+			{
+				return;
+			}
+
+			if (m_reservedTextures.find(id) == m_reservedTextures.end())
+			{
+				m_reservedTextures.emplace(id, texture);
+			}
+
+			D3D11Render2DCommand<D3D11Render2DInstruction::PSTexture> command;
+			command.slot = slot;
+			command.textureID = id;
+			writeCommand(command);
+
+			m_currentPSTextures[slot] = id;
 		}
 
 		void pushRenderTarget(const RenderTexture& texture)

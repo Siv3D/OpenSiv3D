@@ -120,6 +120,13 @@ namespace s3d
 	{
 		return m_textures[handleID]->getRTV();
 	}
+
+
+
+	void CTexture_D3D11::setPS(uint32 slot, Texture::IDType handleID)
+	{
+		m_context->PSSetShaderResources(slot, 1, m_textures[handleID]->getSRVPtr());
+	}
 }
 
 # endif

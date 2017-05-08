@@ -16,6 +16,8 @@ void Main()
 		{ 50, 400 }
 	};
 
+	const Texture texture(L"example/siv3d-kun.png");
+
 	while (System::Update())
 	{
 		for (auto i : step(4))
@@ -30,6 +32,8 @@ void Main()
 
 		line.draw(3, Palette::Yellow);
 		
-		Circle(Cursor::Pos(), 80).draw();
+		RenderStateBlock2D blend2(BlendState::Default);
+
+		texture.draw(Cursor::Pos());
 	}
 }

@@ -232,6 +232,24 @@ namespace s3d
 
 					break;
 				}
+				case D3D11Render2DInstruction::PixelShader:
+				{
+					const auto* command = static_cast<const D3D11Render2DCommand<D3D11Render2DInstruction::PixelShader>*>(static_cast<const void*>(commandPointer));
+
+					//Log(L"PixelShader: id = ", command->psID);
+					Siv3DEngine::GetShader()->setPS(command->psID);
+
+					break;
+				}
+				case D3D11Render2DInstruction::PSTexture:
+				{
+					const auto* command = static_cast<const D3D11Render2DCommand<D3D11Render2DInstruction::PSTexture>*>(static_cast<const void*>(commandPointer));
+
+					//Log(L"PSTexture: slot = ", command->slot, L", id = ", command->textureID);
+					Siv3DEngine::GetTexture()->setPS(command->slot, command->textureID);
+					
+					break;
+				}
 				case D3D11Render2DInstruction::RenderTarget:
 				{
 					const auto* command = static_cast<const D3D11Render2DCommand<D3D11Render2DInstruction::RenderTarget>*>(static_cast<const void*>(commandPointer));
@@ -327,7 +345,7 @@ namespace s3d
 			pIndex[i] = indexOffset + detail::rectIndexTable[i];
 		}
 
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
 	}
 
 	void CRenderer2D_D3D11::addTriangle(const Float2(&pts)[3], const Float4& color)
@@ -355,7 +373,7 @@ namespace s3d
 		pIndex[1] = indexOffset + 1;
 		pIndex[2] = indexOffset + 2;
 
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
 	}
 
 	void CRenderer2D_D3D11::addTriangle(const Float2(&pts)[3], const Float4(&colors)[3])
@@ -383,7 +401,7 @@ namespace s3d
 		pIndex[1] = indexOffset + 1;
 		pIndex[2] = indexOffset + 2;
 
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
 	}
 
 	void CRenderer2D_D3D11::addRect(const FloatRect& rect, const Float4& color)
@@ -415,7 +433,7 @@ namespace s3d
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
 		}
 
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
 	}
 
 	void CRenderer2D_D3D11::addRect(const FloatRect& rect, const Float4(&colors)[4])
@@ -447,7 +465,7 @@ namespace s3d
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
 		}
 
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
 	}
 
 	void CRenderer2D_D3D11::addQuad(const FloatQuad& quad, const Float4& color)
@@ -479,7 +497,7 @@ namespace s3d
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
 		}
 
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
 	}
 
 	void CRenderer2D_D3D11::addRectFrame(const FloatRect& rect, const float thickness, const Float4& color)
@@ -513,7 +531,7 @@ namespace s3d
 			*pIndex++ = indexOffset + detail::rectFrameIndexTable[i];
 		}
 
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
 	}
 
 	// 仮の実装
@@ -558,7 +576,7 @@ namespace s3d
 			pIndex[i * 3 + 2] = indexOffset + (i + 1) % quality + 1;
 		}
 
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
 	}
 	
 	void CRenderer2D_D3D11::addCircleFrame(const Float2& center, const float r, const float thickness, const Float4& color)
@@ -602,7 +620,7 @@ namespace s3d
 			}
 		}
 
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
 	}
 
 	void CRenderer2D_D3D11::addCircleFrame(const Float2& center, const float r, const float thickness, const Float4& innerColor, const Float4& outerColor)
@@ -646,7 +664,7 @@ namespace s3d
 			}
 		}
 
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
 	}
 
 	void CRenderer2D_D3D11::addCirclePie(const Float2& center, const float r, const float startAngle, float angle, const Float4& color)
@@ -698,7 +716,7 @@ namespace s3d
 			pIndex[i * 3 + 2] = indexOffset + (i + 1) + 1;
 		}
 
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
 	}
 
 	void CRenderer2D_D3D11::addCircleArc(const Float2& center, const float r, const float startAngle, float angle, const float thickness, const Float4& color)
@@ -751,7 +769,7 @@ namespace s3d
 			}
 		}
 
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
 	}
 
 	void CRenderer2D_D3D11::addEllipse(const Float2& center, const float a, const float b, const Float4& color)
@@ -795,7 +813,7 @@ namespace s3d
 			pIndex[i * 3 + 2] = indexOffset + (i + 1) % quality + 1;
 		}
 
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
 	}
 
 	void CRenderer2D_D3D11::addEllipseFrame(const Float2& center, const float a, const float b, const float thickness, const Float4& color)
@@ -841,7 +859,7 @@ namespace s3d
 			}
 		}
 
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
 	}
 
 	void CRenderer2D_D3D11::addQuad(const FloatQuad& quad, const Float4(&colors)[4])
@@ -873,7 +891,7 @@ namespace s3d
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
 		}
 
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
 	}
 
 	void CRenderer2D_D3D11::addLineString(const Vec2* const pts, uint32 size, const Optional<Float2>& offset, const float thickness, const bool inner, const Float4& color, const bool isClosed)
@@ -1108,7 +1126,7 @@ namespace s3d
 			}
 		}
 
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
 	}
 
 	void CRenderer2D_D3D11::addShape2D(const Array<Float2>& vertices, const Array<uint32>& indices, const Float4& color)
@@ -1150,7 +1168,7 @@ namespace s3d
 			*(pIndex++) += indexOffset;
 		}
 
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
 	}
 
 	void CRenderer2D_D3D11::addShape2DFrame(const Float2* const pts, uint32 size, const float thickness, const Float4& color)
@@ -1344,7 +1362,45 @@ namespace s3d
 			}
 		}
 
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
+	}
+
+	void CRenderer2D_D3D11::addTextureRegion(const Texture& texture, const FloatRect& rect, const FloatRect& uv, const Float4& color)
+	{
+		constexpr IndexType vertexSize = 4, indexSize = 6;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+		{
+			return;
+		}
+
+		pVertex[0].pos.set(rect.left, rect.top);
+		pVertex[0].tex.set(uv.left, uv.top);
+		pVertex[0].color = color;
+
+		pVertex[1].pos.set(rect.right, rect.top);
+		pVertex[1].tex.set(uv.right, uv.top);
+		pVertex[1].color = color;
+
+		pVertex[2].pos.set(rect.left, rect.bottom);
+		pVertex[2].tex.set(uv.left, uv.bottom);
+		pVertex[2].color = color;
+
+		pVertex[3].pos.set(rect.right, rect.bottom);
+		pVertex[3].tex.set(uv.right, uv.bottom);
+		pVertex[3].color = color;
+
+		for (IndexType i = 0; i < indexSize; ++i)
+		{
+			*pIndex++ = indexOffset + detail::rectIndexTable[i];
+		}
+
+		m_commandManager.pushPSTexture(0, texture);
+
+		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Sprite);
 	}
 }
 

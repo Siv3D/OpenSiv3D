@@ -40,5 +40,9 @@ namespace s3d
 		virtual bool endResizeRT(Texture::IDType handleID, const Size& size, uint32 multisampleCount) = 0;
 
 		virtual bool endResizeBackBuffer(Texture::IDType handleID) = 0;
+
+
+
+		virtual void setPS(uint32 slot, Texture::IDType handleID) = 0;
 	};
 }
