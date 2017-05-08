@@ -587,6 +587,12 @@ namespace s3d
 	enum class FillMode : uint8;
 	enum class CullMode : uint8;
 	struct RasterizerState;
+
+	//////////////////////////////////////////////////////
+	//
+	//	SamplerState.hpp
+	//
+	struct SamplerState;
 	
 	//////////////////////////////////////////////////////
 	//

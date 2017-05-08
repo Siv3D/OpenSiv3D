@@ -138,6 +138,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\RenderStateBlock2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\RenderTexture.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Resource.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\SamplerState.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Shader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Shape2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Spherical.hpp" />
@@ -504,6 +505,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\RasterizerState\SivRasterizerState.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Rectangle\SivRectangle.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Renderer2D\D3D11\CRenderer2D_D3D11.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Renderer2D\D3D11\D3D11Renderer2DCommandManager.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Renderer2D\GL\CRenderer2D_GL.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Renderer2D\Renderer2DFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\RenderTexture\SivRenderTexture.cpp" />
