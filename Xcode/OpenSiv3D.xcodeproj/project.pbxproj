@@ -443,6 +443,8 @@
 		2C0C7DF01EC081B700386CBB /* SivRasterizerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C7DEF1EC081B700386CBB /* SivRasterizerState.cpp */; };
 		2C0C7DF21EC094AE00386CBB /* LineString.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7DF11EC094AE00386CBB /* LineString.hpp */; };
 		2C0C7DF51EC0A2EA00386CBB /* SivLineString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C7DF41EC0A2EA00386CBB /* SivLineString.cpp */; };
+		2C0C7DF71EC0BBC600386CBB /* SamplerState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7DF61EC0BBC600386CBB /* SamplerState.hpp */; };
+		2C0C7DF91EC0BBEA00386CBB /* D3D11Renderer2DCommandManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C7DF81EC0BBEA00386CBB /* D3D11Renderer2DCommandManager.cpp */; };
 		2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C38B14A1CDEB45C007A7E9F /* gtest.a */; };
 		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
@@ -1105,6 +1107,8 @@
 		2C0C7DEF1EC081B700386CBB /* SivRasterizerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRasterizerState.cpp; sourceTree = "<group>"; };
 		2C0C7DF11EC094AE00386CBB /* LineString.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LineString.hpp; sourceTree = "<group>"; };
 		2C0C7DF41EC0A2EA00386CBB /* SivLineString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivLineString.cpp; sourceTree = "<group>"; };
+		2C0C7DF61EC0BBC600386CBB /* SamplerState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SamplerState.hpp; sourceTree = "<group>"; };
+		2C0C7DF81EC0BBEA00386CBB /* D3D11Renderer2DCommandManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = D3D11Renderer2DCommandManager.cpp; sourceTree = "<group>"; };
 		2C1777401CDEE5D500BB8AD0 /* gtest-death-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-death-test.h"; sourceTree = "<group>"; };
 		2C1777411CDEE5D500BB8AD0 /* gtest-message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-message.h"; sourceTree = "<group>"; };
 		2C1777421CDEE5D500BB8AD0 /* gtest-param-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-param-test.h"; sourceTree = "<group>"; };
@@ -2148,6 +2152,7 @@
 			children = (
 				2C0C7B0D1EBCC38400386CBB /* CRenderer2D_D3D11.cpp */,
 				2C0C7B0E1EBCC38400386CBB /* CRenderer2D_D3D11.hpp */,
+				2C0C7DF81EC0BBEA00386CBB /* D3D11Renderer2DCommandManager.cpp */,
 				2C0C7B0F1EBCC38400386CBB /* D3D11Renderer2DCommandManager.hpp */,
 				2C0C7B101EBCC38400386CBB /* D3D11SpriteBatch.hpp */,
 			);
@@ -2568,6 +2573,7 @@
 				2C0C7CFD1EBCC39B00386CBB /* RenderStateBlock2D.hpp */,
 				2C0C7CFE1EBCC39B00386CBB /* RenderTexture.hpp */,
 				2C0C7CFF1EBCC39B00386CBB /* Resource.hpp */,
+				2C0C7DF61EC0BBC600386CBB /* SamplerState.hpp */,
 				2C0C7DE91EC03A6B00386CBB /* Shader.hpp */,
 				2C0C7DD91EBEFE8500386CBB /* Shape2D.hpp */,
 				2C0C7D001EBCC39B00386CBB /* SpeedStopwatch.hpp */,
@@ -3358,6 +3364,7 @@
 				2C2E829E1EAA1B3A0057BDAF /* diyfp.h in Headers */,
 				2C2E82B61EAA1B3A0057BDAF /* writer.h in Headers */,
 				2C81C00D1E89F8E300D27E52 /* double-conversion.h in Headers */,
+				2C0C7DF71EC0BBC600386CBB /* SamplerState.hpp in Headers */,
 				2C0C7C2F1EBCC38400386CBB /* D3D11SpriteBatch.hpp in Headers */,
 				2C0C7BCD1EBCC38400386CBB /* CGraphics_D3D11.hpp in Headers */,
 				2C0C7D671EBCC39B00386CBB /* HTMLWriter.hpp in Headers */,
@@ -4010,6 +4017,7 @@
 				2C0C7DE31EBF2EBA00386CBB /* SivPowerStatus.cpp in Sources */,
 				2C81C00C1E89F8E300D27E52 /* double-conversion.cc in Sources */,
 				2C81C0A01E89F8E400D27E52 /* zstd_decompress.c in Sources */,
+				2C0C7DF91EC0BBEA00386CBB /* D3D11Renderer2DCommandManager.cpp in Sources */,
 				2C0C7C2B1EBCC38400386CBB /* SivRectangle.cpp in Sources */,
 				2C0C7BA61EBCC38400386CBB /* SivConsole.cpp in Sources */,
 				2C0C7C541EBCC38400386CBB /* SivSystem.mm in Sources */,
