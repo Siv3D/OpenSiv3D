@@ -25,6 +25,21 @@ namespace s3d
 			return Siv3DEngine::GetSystem()->update();
 		}
 
+		void Exit()
+		{
+			Siv3DEngine::GetSystem()->reportEvent(WindowEvent::ExitFlag);
+		}
+
+		void SetExitEvent(const uint32 windowEventFlag)
+		{
+			Siv3DEngine::GetSystem()->setExitEvent(windowEventFlag);
+		}
+
+		uint32 GetPreviousEvent()
+		{
+			return Siv3DEngine::GetSystem()->getPreviousEvent();
+		}
+		
 		double DeltaTime(const double maxDuration)
 		{
 			return std::min(Siv3DEngine::GetSystem()->getDeltaTime(), maxDuration);

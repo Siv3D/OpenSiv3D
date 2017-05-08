@@ -33,24 +33,14 @@ namespace s3d
 			EscapeKey = 0x02,
 
 			/// <summary>
-			/// マウスの左クリック
-			/// </summary>
-			LeftClick = 0x04,
-
-			/// <summary>
-			/// マウスの右クリック
-			/// </summary>
-			RightClick = 0x08,
-
-			/// <summary>
 			/// ウィンドウのフォーカスが外れる
 			/// </summary>
-			Unfocus = 0x10,
+			Unfocus = 0x04,
 
 			/// <summary>
 			/// 何らかのキーが押される
 			/// </summary>
-			AnyKey = 0x20,
+			AnyKey = 0x08,
 
 			/// <summary>
 			/// デフォルト（ウィンドウの [x] ボタンが押されるか、エスケープキーが押される）
@@ -85,7 +75,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		//void Exit();
+		void Exit();
 
 		/// <summary>
 		/// アプリケーションを終了させるウィンドウイベントを設定します。
@@ -96,7 +86,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		//void SetExitEvent(int32 windowEventFlag);
+		void SetExitEvent(uint32 windowEventFlag);
 
 		/// <summary>
 		/// 直前のフレームで発生したウィンドウイベントを返します。
@@ -104,7 +94,7 @@ namespace s3d
 		/// <returns>
 		/// 直前のフレームで発生したウィンドウイベントを表す WindowEvent::Flag の組み合わせ
 		/// </returns>
-		//int32 GetPreviousEvent();
+		uint32 GetPreviousEvent();
 
 		double DeltaTime(double maxDuration = 0.1);
 

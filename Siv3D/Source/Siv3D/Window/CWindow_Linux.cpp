@@ -74,14 +74,21 @@ namespace s3d
 	{
 		::glfwPollEvents();
 		
-		if(::glfwGetKey(m_glfwWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		if (::glfwGetKey(m_glfwWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		{
-			::glfwSetWindowShouldClose(m_glfwWindow, GL_TRUE);
+			Siv3DEngine::GetSystem()->reportEvent(WindowEvent::AnyKey | WindowEvent::EscapeKey);
 		}
-		   
-		if(::glfwWindowShouldClose(m_glfwWindow))
+
+		if (::glfwGetWindowAttrib(window, GLFW_FOCUSED) == GL_TRUE)
 		{
-			return false;
+			Siv3DEngine::GetSystem()->reportEvent(WindowEvent::Unfocus);
+		}
+
+		if (::glfwWindowShouldClose(m_glfwWindow))
+		{
+			Siv3DEngine::GetSystem()->reportEvent(WindowEvent::CloseButton);
+
+			::glfwSetWindowShouldClose(m_glfwWindow, GL_FALSE);
 		}
 		
 		int32 windowPosX, windowPosY;

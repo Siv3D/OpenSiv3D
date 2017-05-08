@@ -29,11 +29,6 @@
 
 namespace s3d
 {
-	namespace WindowEvent
-	{
-		static constexpr uint32 ExitFlag = 0x10000000;
-	}
-
 	CSystem_Windows::CSystem_Windows()
 	{
 
@@ -99,11 +94,6 @@ namespace s3d
 		return true;
 	}
 
-	void CSystem_Windows::exit()
-	{
-		m_event |= WindowEvent::ExitFlag;
-	}
-
 	bool CSystem_Windows::update()
 	{
 		m_previousEvent = m_event.exchange(0);
@@ -156,6 +146,16 @@ namespace s3d
 	void CSystem_Windows::reportEvent(const uint32 windowEventFlag)
 	{
 		m_event |= windowEventFlag;
+	}
+
+	void CSystem_Windows::setExitEvent(const uint32 windowEventFlag)
+	{
+		m_exitEvent = windowEventFlag;
+	}
+
+	uint32 CSystem_Windows::getPreviousEvent() const
+	{
+		return m_previousEvent;
 	}
 
 	uint64 CSystem_Windows::getSystemFrameCount() const noexcept
