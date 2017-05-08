@@ -14,7 +14,7 @@
 
 namespace s3d
 {
-	Array<String> String::split(const wchar ch) const
+	Array<String> String::split(const value_type ch) const
 	{
 		if (m_string.empty())
 		{
@@ -23,8 +23,8 @@ namespace s3d
 
 		Array<String> result(1);
 
-		const wchar* pSrc = m_string.data();
-		const wchar* const pSrcEnd = pSrc + m_string.length();
+		const value_type* pSrc = m_string.data();
+		const value_type* const pSrcEnd = pSrc + m_string.length();
 		String* currentLine = &result.back();
 
 		while (pSrc != pSrcEnd)
@@ -54,18 +54,18 @@ namespace s3d
 
 		Array<String> result(1);
 
-		const wchar* pSrc = m_string.data();
-		const wchar* const pSrcEnd = pSrc + m_string.length();
+		const value_type* pSrc = m_string.data();
+		const value_type* const pSrcEnd = pSrc + m_string.length();
 		String* currentLine = &result.back();
 
 		while (pSrc != pSrcEnd)
 		{
-			if (*pSrc == L'\n')
+			if (*pSrc == value_type('\n'))
 			{
 				result.emplace_back();
 				currentLine = &result.back();
 			}
-			else if (*pSrc != L'\r')
+			else if (*pSrc != value_type('\r'))
 			{
 				currentLine->push_back(*pSrc);
 			}
