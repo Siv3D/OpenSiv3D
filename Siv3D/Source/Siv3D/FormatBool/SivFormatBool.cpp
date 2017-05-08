@@ -16,7 +16,7 @@ namespace s3d
 {
 	String ToString(const bool value, const LetterCase letterCase)
 	{
-		static constexpr const wchar bools[] = L"falsetrueFALSETRUEFalseTrue";
+		static constexpr const wchar bools[] = S3DSTR("falsetrueFALSETRUEFalseTrue");
 		const size_t index = static_cast<size_t>(letterCase) * 9 + value * 5;
 		return String(bools + index, 5 - value);
 	}

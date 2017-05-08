@@ -18,18 +18,18 @@ namespace s3d
 {
 	inline bool ParseBool(const String& str)
 	{
-		return str.trimmed().lowercase().compare(L"true") == 0;
+		return str.trimmed().lowercase().compare(S3DSTR("true")) == 0;
 	}
 
 	inline Optional<bool> ParseBoolOpt(const String& str)
 	{
 		const String t = str.trimmed().lowercase();
 
-		if (t.compare(L"true") == 0)
+		if (t.compare(S3DSTR("true")) == 0)
 		{
 			return true;
 		}
-		else if (t.compare(L"false") == 0)
+		else if (t.compare(S3DSTR("false")) == 0)
 		{
 			return false;
 		}

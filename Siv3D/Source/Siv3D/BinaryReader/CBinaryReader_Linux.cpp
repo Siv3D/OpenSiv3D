@@ -39,7 +39,7 @@ namespace s3d
 
 		if (!m_pFile)
 		{
-			LOG_FAIL(L"❌ BinaryReader: Failed to open file \"{0}\""_fmt(path));
+			LOG_FAIL(S3DSTR("❌ BinaryReader: Failed to open file \"{0}\"")_fmt(path));
 
 			return false;
 		}
@@ -48,7 +48,7 @@ namespace s3d
 
 		m_fullPath = FileSystem::FullPath(path);
 
-		LOG_DEBUG(L"📤 BinaryReader: Opened file \"{0}\" size: {1}"_fmt(m_fullPath, FMTBYTES(m_size)));
+		LOG_DEBUG(S3DSTR("📤 BinaryReader: Opened file \"{0}\" size: {1}")_fmt(m_fullPath, FMTBYTES(m_size)));
 
 		return true;
 	}
@@ -62,7 +62,7 @@ namespace s3d
 
 		std::fclose(m_pFile);
 
-		LOG_DEBUG(L"📥 BinaryReader: Closed file \"{0}\""_fmt(m_fullPath));
+		LOG_DEBUG(S3DSTR("📥 BinaryReader: Closed file \"{0}\"")_fmt(m_fullPath));
 
 		m_pFile = nullptr;
 

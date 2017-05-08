@@ -563,7 +563,7 @@ namespace fmt
 	{
 		const auto tag = s3d::detail::GetTag(format_str);
 
-		const auto fmt = L"{" + tag + L"}";
+		const auto fmt = S3DSTR("{") + tag + S3DSTR("}");
 
 		f.writer().write(fmt, i.str().str());
 	}

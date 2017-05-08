@@ -559,7 +559,7 @@ namespace s3d
 
 		FilePath TempDirectoryPath()
 		{
-			return FileSystem::SpecialFolderPath(SpecialFolder::LocalAppData) + L"Temp/";
+			return FileSystem::SpecialFolderPath(SpecialFolder::LocalAppData) + S3DSTR("Temp/");
 		}
 
 		bool Remove(const FilePath& path, const bool allowUndo)

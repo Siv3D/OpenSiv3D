@@ -127,13 +127,13 @@ namespace s3d
 			switch (featureLevel)
 			{
 			case D3D_FEATURE_LEVEL_11_0:
-				return L"11_0";
+				return S3DSTR("11_0");
 			case D3D_FEATURE_LEVEL_10_1:
-				return L"10_1";
+				return S3DSTR("10_1");
 			case D3D_FEATURE_LEVEL_10_0:
-				return L"10_0";
+				return S3DSTR("10_0");
 			default:
-				return L"UNKNOWN";
+				return S3DSTR("UNKNOWN");
 			}
 		}
 	}
@@ -149,7 +149,7 @@ namespace s3d
 
 		if (!m_d3d11)
 		{
-			LOG_FAIL(L"❌ Failed to load \"d3d11.dll\"");
+			LOG_FAIL(S3DSTR("❌ Failed to load \"d3d11.dll\""));
 
 			return false;
 		}
@@ -163,14 +163,14 @@ namespace s3d
 
 		if (FAILED(m_device.Get()->QueryInterface(__uuidof(IDXGIDevice1), &pDXGI)))
 		{
-			LOG_FAIL(L"❌ ID3D11Device::QueryInterface() failed");
+			LOG_FAIL(S3DSTR("❌ ID3D11Device::QueryInterface() failed"));
 
 			return false;
 		}
 
 		if (FAILED(pDXGI->GetAdapter(&m_adapter)))
 		{
-			LOG_FAIL(L"❌ IDXGIDevice1::GetAdapter() failed");
+			LOG_FAIL(S3DSTR("❌ IDXGIDevice1::GetAdapter() failed"));
 
 			return false;
 		}
@@ -179,7 +179,7 @@ namespace s3d
 
 		if (SUCCEEDED(m_adapter->GetDesc(&adapterDesc)))
 		{
-			LOG_INFO(L"🆗 Graphics adapter: {0}"_fmt(adapterDesc.Description));
+			LOG_INFO(S3DSTR("🆗 Graphics adapter: {0}")_fmt(adapterDesc.Description));
 		}
 
 		return true;
@@ -226,7 +226,6 @@ namespace s3d
 				{
 					desc.Count = count;
 					desc.Quality = quality - 1;
-					//Log(L"MSAA x", count, L" (quality: ", quality, L")");
 
 					m_bestMSAAs.emplace(format, desc);
 
@@ -256,7 +255,7 @@ namespace s3d
 			return false;
 		}
 
-		LOG_INFO(L"Available graphics adapters:");
+		LOG_INFO(S3DSTR("Available graphics adapters:"));
 
 		for (const auto& adapter : adapters)
 		{
@@ -283,11 +282,11 @@ namespace s3d
 
 			::FreeLibrary(D3D11_1SDKLayersLibrary);
 
-			LOG_INFO(L"🆗 D3D11 debug layer supported");
+			LOG_INFO(S3DSTR("🆗 D3D11 debug layer supported"));
 		}
 		else
 		{
-			LOG_INFO(L"ℹ️ D3D11 debug layer not supported");
+			LOG_INFO(S3DSTR("ℹ️ D3D11 debug layer not supported"));
 		}
 
 	# endif
@@ -327,13 +326,13 @@ namespace s3d
 				{
 					m_driverType = D3D_DRIVER_TYPE_HARDWARE;
 					
-					LOG_INFO(L"✅ D3D11 device created. Driver type: Hardware (feature level {0})"_fmt(detail::ToString(m_featureLevel)));
+					LOG_INFO(S3DSTR("✅ D3D11 device created. Driver type: Hardware (feature level {0})")_fmt(detail::ToString(m_featureLevel)));
 				}
 				else
 				{
 					m_driverType = D3D_DRIVER_TYPE_UNKNOWN;
 
-					LOG_INFO(L"✅ D3D11 device created. Driver type: Unknown (feature level {0})"_fmt(detail::ToString(m_featureLevel)));
+					LOG_INFO(S3DSTR("✅ D3D11 device created. Driver type: Unknown (feature level {0})")_fmt(detail::ToString(m_featureLevel)));
 				}
 
 				return true;
@@ -358,7 +357,7 @@ namespace s3d
 			{
 				m_driverType = D3D_DRIVER_TYPE_HARDWARE;
 
-				LOG_INFO(L"✅ D3D11 device created. Driver type: Hardware (feature level {0})"_fmt(detail::ToString(m_featureLevel)));
+				LOG_INFO(S3DSTR("✅ D3D11 device created. Driver type: Hardware (feature level {0})")_fmt(detail::ToString(m_featureLevel)));
 
 				return true;
 			}
@@ -384,7 +383,7 @@ namespace s3d
 			{
 				m_driverType = D3D_DRIVER_TYPE_WARP;
 
-				LOG_INFO(L"✅ D3D11 device created. Driver type: WARP (feature level {0})"_fmt(detail::ToString(m_featureLevel)));
+				LOG_INFO(S3DSTR("✅ D3D11 device created. Driver type: WARP (feature level {0})")_fmt(detail::ToString(m_featureLevel)));
 
 				return true;
 			}
@@ -410,13 +409,13 @@ namespace s3d
 			{
 				m_driverType = D3D_DRIVER_TYPE_REFERENCE;
 
-				LOG_WARNING(L"✅⚠️ D3D11 device created. Driver type: Reference (feature level {0})"_fmt(detail::ToString(m_featureLevel)));
+				LOG_WARNING(S3DSTR("✅⚠️ D3D11 device created. Driver type: Reference (feature level {0})")_fmt(detail::ToString(m_featureLevel)));
 
 				return true;
 			}
 			else
 			{
-				LOG_FAIL(L"❌ Failed to create D3D11 device (Driver type: Reference)");
+				LOG_FAIL(S3DSTR("❌ Failed to create D3D11 device (Driver type: Reference)"));
 
 				return false;
 			}
@@ -438,13 +437,13 @@ namespace s3d
 			{
 				m_driverType = D3D_DRIVER_TYPE_NULL;
 
-				LOG_WARNING(L"✅⚠️ D3D11 device created. Driver type: NULL (feature level {0})"_fmt(detail::ToString(m_featureLevel)));
+				LOG_WARNING(S3DSTR("✅⚠️ D3D11 device created. Driver type: NULL (feature level {0})")_fmt(detail::ToString(m_featureLevel)));
 
 				return true;
 			}
 			else
 			{
-				LOG_FAIL(L"❌ Failed to create D3D11 device (Driver type: NULL)");
+				LOG_FAIL(S3DSTR("❌ Failed to create D3D11 device (Driver type: NULL)"));
 
 				return false;
 			}

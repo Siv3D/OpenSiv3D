@@ -49,7 +49,7 @@ namespace s3d
 
 	const Array<String>& ImageFormat_BMP::possibleExtexsions() const
 	{
-		static const Array<String> extensions = { L"bmp" };
+		static const Array<String> extensions = { S3DSTR("bmp") };
 
 		return extensions;
 	}

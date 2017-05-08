@@ -16,7 +16,7 @@ namespace s3d
 {
 	namespace detail
 	{
-		static constexpr wchar chars[] = L"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+		static constexpr char chars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
 		constexpr static uint8 decodeTable[256] =
 		{

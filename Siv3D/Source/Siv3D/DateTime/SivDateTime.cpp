@@ -52,50 +52,50 @@ namespace s3d
 
 		static const String MonthEnglish[12]
 		{
-			L"January",
-			L"February",
-			L"March",
-			L"April",
-			L"May",
-			L"June",
-			L"July",
-			L"August",
-			L"September",
-			L"October",
-			L"November",
-			L"December",
+			S3DSTR("January"),
+			S3DSTR("February"),
+			S3DSTR("March"),
+			S3DSTR("April"),
+			S3DSTR("May"),
+			S3DSTR("June"),
+			S3DSTR("July"),
+			S3DSTR("August"),
+			S3DSTR("September"),
+			S3DSTR("October"),
+			S3DSTR("November"),
+			S3DSTR("December"),
 		};
 
 		static const String AMPM[2]
 		{
-			L"AM",
-			L"PM",
+			S3DSTR("AM"),
+			S3DSTR("PM"),
 		};
 
 		static const String FormatPatterns[22]
 		{
-			L"yyyy",
-			L"yy",
-			L"y",
-			L"MMMM",
-			L"MMM",
-			L"MM",
-			L"M",
-			L"dd",
-			L"d",
-			L"EEEE",
-			L"EEE",
-			L"E",
-			L"a",
-			L"HH",
-			L"H",
-			L"hh",
-			L"h",
-			L"mm",
-			L"ss",
-			L"S",
-			L"SS",
-			L"SSS"
+			S3DSTR("yyyy"),
+			S3DSTR("yy"),
+			S3DSTR("y"),
+			S3DSTR("MMMM"),
+			S3DSTR("MMM"),
+			S3DSTR("MM"),
+			S3DSTR("M"),
+			S3DSTR("dd"),
+			S3DSTR("d"),
+			S3DSTR("EEEE"),
+			S3DSTR("EEE"),
+			S3DSTR("E"),
+			S3DSTR("a"),
+			S3DSTR("HH"),
+			S3DSTR("H"),
+			S3DSTR("hh"),
+			S3DSTR("h"),
+			S3DSTR("mm"),
+			S3DSTR("ss"),
+			S3DSTR("S"),
+			S3DSTR("SS"),
+			S3DSTR("SSS")
 		};
 	}
 

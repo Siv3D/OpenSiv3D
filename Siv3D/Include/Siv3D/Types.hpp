@@ -64,7 +64,7 @@ namespace s3d
 	/// <summary>
 	/// 文字プレフィックス
 	/// </summary>
-	# define S3DCHR(x)      L ## x
+	# define S3DCHAR(x)      L ## x
 
 	/// <summary>
 	/// 文字列プレフィックス

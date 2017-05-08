@@ -425,7 +425,7 @@ namespace s3d
 		/// <returns>
 		/// フォーマットされた残り時間
 		/// </returns>
-		String format(const String& pattern = L"H:mm:ss.xx") const
+		String format(const String& pattern = S3DSTR("H:mm:ss.xx")) const
 		{
 			return Stopwatch(remainingF(), false).format(pattern);
 		}

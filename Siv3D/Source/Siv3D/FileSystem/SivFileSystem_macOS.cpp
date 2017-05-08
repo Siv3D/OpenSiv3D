@@ -123,7 +123,7 @@ namespace s3d
 
 		bool IsResource(const FilePath& path)
 		{
-			static const FilePath resourcePath = FileSystem::ModulePath() + L"/Contents/Resources/";
+			static const FilePath resourcePath = FileSystem::ModulePath() + S3DSTR("/Contents/Resources/");
 			
 			return path.starts_with(resourcePath) && Exists(path);
 		}

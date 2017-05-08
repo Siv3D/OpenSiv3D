@@ -128,97 +128,97 @@ namespace s3d
 	{
 		Formatter(formatData, days.count());
 
-		formatData.string.push_back(L'd');
+		formatData.string.push_back(S3DCHAR('d'));
 	}
 
 	inline void Formatter(FormatData& formatData, const DaysF& days)
 	{
 		Formatter(formatData, days.count());
 
-		formatData.string.push_back(L'd');
+		formatData.string.push_back(S3DCHAR('d'));
 	}
 
 	inline void Formatter(FormatData& formatData, const Hours& hours)
 	{
 		Formatter(formatData, hours.count());
 
-		formatData.string.push_back(L'h');
+		formatData.string.push_back(S3DCHAR('h'));
 	}
 
 	inline void Formatter(FormatData& formatData, const HoursF& hours)
 	{
 		Formatter(formatData, hours.count());
 
-		formatData.string.push_back(L'h');
+		formatData.string.push_back(S3DCHAR('h'));
 	}
 
 	inline void Formatter(FormatData& formatData, const Minutes& minutes)
 	{
 		Formatter(formatData, minutes.count());
 
-		formatData.string.append(L"min", 3);
+		formatData.string.append(S3DSTR("min"), 3);
 	}
 
 	inline void Formatter(FormatData& formatData, const MinutesF& minutes)
 	{
 		Formatter(formatData, minutes.count());
 
-		formatData.string.append(L"min", 3);
+		formatData.string.append(S3DSTR("min"), 3);
 	}
 
 	inline void Formatter(FormatData& formatData, const Seconds& seconds)
 	{
 		Formatter(formatData, seconds.count());
 
-		formatData.string.push_back(L's');
+		formatData.string.push_back(S3DCHAR('s'));
 	}
 
 	inline void Formatter(FormatData& formatData, const SecondsF& seconds)
 	{
 		Formatter(formatData, seconds.count());
 
-		formatData.string.push_back(L's');
+		formatData.string.push_back(S3DCHAR('s'));
 	}
 
 	inline void Formatter(FormatData& formatData, const Milliseconds& milliseconds)
 	{
 		Formatter(formatData, milliseconds.count());
 
-		formatData.string.append(L"ms", 2);
+		formatData.string.append(S3DSTR("ms"), 2);
 	}
 
 	inline void Formatter(FormatData& formatData, const MillisecondsF& milliseconds)
 	{
 		Formatter(formatData, milliseconds.count());
 
-		formatData.string.append(L"ms", 2);
+		formatData.string.append(S3DSTR("ms"), 2);
 	}
 
 	inline void Formatter(FormatData& formatData, const Microseconds& microseconds)
 	{
 		Formatter(formatData, microseconds.count());
 
-		formatData.string.append(L"us", 2);
+		formatData.string.append(S3DSTR("us"), 2);
 	}
 
 	inline void Formatter(FormatData& formatData, const MicrosecondsF& microseconds)
 	{
 		Formatter(formatData, microseconds.count());
 
-		formatData.string.append(L"us", 2);
+		formatData.string.append(S3DSTR("us"), 2);
 	}
 
 	inline void Formatter(FormatData& formatData, const Nanoseconds& nanoseconds)
 	{
 		Formatter(formatData, nanoseconds.count());
 
-		formatData.string.append(L"ns", 2);
+		formatData.string.append(S3DSTR("ns"), 2);
 	}
 
 	inline void Formatter(FormatData& formatData, const NanosecondsF& nanoseconds)
 	{
 		Formatter(formatData, nanoseconds.count());
 
-		formatData.string.append(L"ns", 2);
+		formatData.string.append(S3DSTR("ns"), 2);
 	}
 }

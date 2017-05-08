@@ -128,7 +128,7 @@ namespace s3d
 		/// 色をカラーコードから作成します。
 		/// </summary>
 		/// <param name="code">
-		/// L"#FFF" または L"#FFFFFF" のように # から始まるカラーコード
+		/// "#FFF" または "#FFFFFF" のように # から始まるカラーコード
 		/// </param>
 		explicit Color(StringView code) noexcept;
 
@@ -437,7 +437,7 @@ namespace s3d
 		/// 色をカラーコードから作成します。
 		/// </summary>
 		/// <param name="code">
-		/// L"#FFF" または L"#FFFFFF" のように # から始まるカラーコード
+		/// "#FFF" または "#FFFFFF" のように # から始まるカラーコード
 		/// </param>
 		explicit ColorF(StringView code) noexcept
 			: ColorF(Color(code)) {}
@@ -1002,7 +1002,7 @@ namespace fmt
 	{
 		const auto tag = s3d::detail::GetTag(format_str);
 
-		const auto fmt = L"({" + tag + L"},{" + tag + L"},{" + tag + L"},{" + tag + L"})";
+		const auto fmt = S3DSTR("({") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("})");
 
 		f.writer().write(fmt, color.r, color.g, color.b, color.a);
 	}
