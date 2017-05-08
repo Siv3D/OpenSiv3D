@@ -20,12 +20,13 @@
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
 # include <wrl.h>
-using namespace Microsoft::WRL;
 # include <d3d11.h>
 # include <Siv3D/ConstantBuffer.hpp>
 # include "../IRenderer2D.hpp"
 # include "D3D11SpriteBatch.hpp"
 # include "D3D11Renderer2DCommandManager.hpp"
+
+using namespace Microsoft::WRL;
 
 namespace s3d
 {

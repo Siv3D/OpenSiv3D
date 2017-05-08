@@ -42,7 +42,7 @@ namespace s3d
 
 		//////////////////////////////////////////////////////
 		//
-		//	 CTextureGL
+		//	 CTexture_GL
 		//
 		m_texture = dynamic_cast<CTexture_GL*>(Siv3DEngine::GetTexture());
 
@@ -58,9 +58,19 @@ namespace s3d
 		
 		//////////////////////////////////////////////////////
 		//
-		//	 Shader
+		//	 CShader_GL
 		//
+		m_shader = dynamic_cast<CShader_GL*>(Siv3DEngine::GetShader());
 		
+		if (!m_shader)
+		{
+			return false;
+		}
+		
+		if (!m_shader->init())
+		{
+			return false;
+		}
 		
 		//////////////////////////////////////////////////////
 		//

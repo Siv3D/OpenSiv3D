@@ -123,8 +123,6 @@ namespace s3d
 			(*pIndex++) = (i * 2 + 3) % (n * 2);
 		}
 
-		const uint32 offset = n * 3;
-
 		for (uint32 i = 0; i < n - 2; ++i)
 		{
 			++pIndex;

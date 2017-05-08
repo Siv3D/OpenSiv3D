@@ -20,10 +20,11 @@
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
 # include <wrl.h>
-using namespace Microsoft::WRL;
 # include <d3d11.h>
 # include <Siv3D/Array.hpp>
 # include <Siv3D/Graphics.hpp>
+
+using namespace Microsoft::WRL;
 
 namespace s3d
 {

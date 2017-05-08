@@ -29,6 +29,8 @@ namespace s3d
 		Unknown,
 		
 		High,
+
+		Middle,
 		
 		Low,
 		

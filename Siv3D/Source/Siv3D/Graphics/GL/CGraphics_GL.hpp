@@ -18,6 +18,7 @@
 # include "../IGraphics.hpp"
 # include "../../Window/IWindow.hpp"
 # include "../../Texture/GL/CTexture_GL.hpp"
+# include "../../Shader/GL/CShader_GL.hpp"
 # include "BlendState/GLBlendState.hpp"
 # include "RasterizerState/GLRasterizerState.hpp"
 # include "../../Renderer2D/GL/CRenderer2D_GL.hpp"
@@ -34,6 +35,8 @@ namespace s3d
 		ColorF m_clearColor = Color(11, 22, 33);
 		
 		CTexture_GL* m_texture = nullptr;
+		
+		CShader_GL* m_shader = nullptr;
 		
 		std::unique_ptr<GLBlendState> m_pBlendState;
 		

@@ -1462,6 +1462,15 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\PowerStatus.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\GL\VertexShader_GL.hpp">
+      <Filter>Source\Siv3D\Shader\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\GL\PixelShader_GL.hpp">
+      <Filter>Source\Siv3D\Shader\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Shader.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">

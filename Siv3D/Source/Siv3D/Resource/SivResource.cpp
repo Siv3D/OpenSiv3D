@@ -51,7 +51,7 @@ namespace s3d
 
 	const Array<FilePath>& EnumResourceFiles()
 	{
-		static Array<FilePath> paths = detail::GetResourceFilePaths();
+		const static Array<FilePath> paths = detail::GetResourceFilePaths();
 
 		return paths;
 	}
@@ -97,7 +97,7 @@ namespace s3d
 
 	const Array<FilePath>& EnumResourceFiles()
 	{
-		static Array<FilePath> paths = detail::GetResourceFilePaths();
+		const static Array<FilePath> paths = detail::GetResourceFilePaths();
 
 		return paths;
 	}

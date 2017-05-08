@@ -19,8 +19,9 @@
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
 # include <wrl.h>
-using namespace Microsoft::WRL;
 # include <d3d11.h>
+
+using namespace Microsoft::WRL;
 
 namespace s3d
 {

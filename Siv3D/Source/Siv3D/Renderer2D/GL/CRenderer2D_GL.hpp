@@ -24,62 +24,43 @@
 
 namespace s3d
 {
-	class ShaderProgram
+	class ShaderPipeline
 	{
 	private:
 		
-		GLuint m_programHandle = 0;
+		GLuint m_pipeline = 0;
 		
 	public:
 		
+		~ShaderPipeline()
+		{
+			if (m_pipeline)
+			{
+				::glDeleteProgramPipelines(1, &m_pipeline);
+			}
+		}
+		
 		bool init()
 		{
-			m_programHandle = ::glCreateProgram();
+			::glGenProgramPipelines(1, &m_pipeline);
 			
-			return m_programHandle != 0;
+			return m_pipeline != 0;
 		}
 		
-		void attach(const GLuint shader)
+		void setVS(GLuint vsProgramHandle)
 		{
-			::glAttachShader(m_programHandle, shader);
+			::glUseProgramStages(m_pipeline, GL_VERTEX_SHADER_BIT, vsProgramHandle);
 		}
 		
-		bool link()
+		void setPS(GLuint psProgramHandle)
 		{
-			::glLinkProgram(m_programHandle);
-			
-			GLint status;
-			::glGetProgramiv(m_programHandle, GL_LINK_STATUS, &status);
-			
-			if (status == GL_FALSE)
-			{
-				return false;
-			}
-			
-			return true;
+			::glUseProgramStages(m_pipeline, GL_FRAGMENT_SHADER_BIT, psProgramHandle);
 		}
 		
 		void use()
 		{
-			::glUseProgram(m_programHandle);
-		}
-		
-		GLuint getUniformBlockIndex(const char* const name)
-		{
-			return ::glGetUniformBlockIndex(m_programHandle, name);
-		}
-		
-		void setUniformBlockBinding(const char* const name, GLuint index)
-		{
-			::glUniformBlockBinding(m_programHandle, getUniformBlockIndex(name), index);
-		}
-		
-		~ShaderProgram()
-		{
-			if (m_programHandle)
-			{
-				::glDeleteProgram(m_programHandle);
-			}
+			::glUseProgram(0);
+			::glBindProgramPipeline(m_pipeline);
 		}
 	};
 					
@@ -97,18 +78,12 @@ namespace s3d
 		
 		Float4 transform[2];
 	};
-	
-	static_assert(sizeof(SpriteCB) == 32);
 
 	class CRenderer2D_GL : public ISiv3DRenderer2D
 	{
 	private:
 
-		GLuint m_vertexShader = 0;
-		
-		GLuint m_pixelShader = 0;
-		
-		ShaderProgram m_shaderProgram;
+		ShaderPipeline m_pipeline;
 
 		ConstantBuffer<SpriteCB> m_cbSprite;
 		
@@ -116,8 +91,6 @@ namespace s3d
 		
 		GLRender2DCommandManager m_commandManager;
 
-		bool m_initialized = false;
-		
 	public:
 
 		CRenderer2D_GL();

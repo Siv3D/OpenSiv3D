@@ -87,104 +87,27 @@ namespace s3d
 
 	CRenderer2D_GL::~CRenderer2D_GL()
 	{
-		if (m_initialized)
-		{
-			::glDeleteShader(m_pixelShader);
-			::glDeleteShader(m_vertexShader);
-		}
+
 	}
 
 	bool CRenderer2D_GL::init()
 	{
-		m_vertexShader = ::glCreateShader(GL_VERTEX_SHADER);
+		CShader_GL* const shader = dynamic_cast<CShader_GL* const>(Siv3DEngine::GetShader());
 
-		const char* vsCode =
-R"(
-#version 410
-		
-layout(location = 0) in vec2 VertexPosition;
-layout(location = 1) in vec2 Tex;
-layout(location = 2) in vec4 VertexColor;
-
-layout(location = 0) out vec4 Color;
-		
-layout(std140) uniform SpriteCB
-{
-	vec4 g_transform[2];
-};
-
-void main()
-{
-	Color = VertexColor;
-	gl_Position.xy	= g_transform[0].zw + VertexPosition.x * g_transform[0].xy + VertexPosition.y * g_transform[1].xy;
-	gl_Position.zw	= g_transform[1].zw;
-}
-)";
-		
-		::glShaderSource(m_vertexShader, 1, &vsCode, nullptr);
-		
-		::glCompileShader(m_vertexShader);
-
-		GLint result;
-		::glGetShaderiv(m_vertexShader, GL_COMPILE_STATUS, &result);
-		
-		if (result == GL_FALSE)
+		if (!m_pipeline.init())
 		{
 			return false;
 		}
 		
-		m_pixelShader = ::glCreateShader(GL_FRAGMENT_SHADER);
+		m_pipeline.setVS(shader->getVSProgram(shader->getStandardVS(0).id()));
+		m_pipeline.setPS(shader->getPSProgram(shader->getStandardPS(0).id()));
 		
-		const char* psCode =
-		R"(
-#version 410
-		
-layout(location = 0) in vec4 Color;
-
-layout(location = 0) out vec4 FragColor;
-		
-void main()
-{
-	FragColor = Color;
-}
-)";
-		
-		::glShaderSource(m_pixelShader, 1, &psCode, nullptr);
-		
-		::glCompileShader(m_pixelShader);
-
-		::glGetShaderiv(m_vertexShader, GL_COMPILE_STATUS, &result);
-		
-		if (result == GL_FALSE)
-		{
-			return false;
-		}
-
-		if (!m_shaderProgram.init())
-		{
-			return false;
-		}
-		
-		m_shaderProgram.attach(m_vertexShader);
-		m_shaderProgram.attach(m_pixelShader);
-
-		if (!m_shaderProgram.link())
-		{
-			return false;
-		}
-		
-		m_shaderProgram.setUniformBlockBinding(m_cbSprite.Name(), m_cbSprite.BindingPoint());
-		
-		m_shaderProgram.use();
-
 		if (!m_spriteBatch.init())
 		{
 			return false;
 		}
 
 		m_commandManager.reset();
-		
-		m_initialized = true;
 		
 		return true;
 	}
@@ -202,6 +125,8 @@ void main()
 		
 		//Log(L"----");
 		
+		m_pipeline.use();
+		
 		for (size_t commandIndex = 0; commandIndex < m_commandManager.getCount(); ++commandIndex)
 		{
 			const GLRender2DCommandHeader* header = static_cast<const GLRender2DCommandHeader*>(static_cast<const void*>(commandPointer));
@@ -218,8 +143,8 @@ void main()
 					const auto* command = static_cast<const GLRender2DCommand<GLRender2DInstruction::Draw>*>(static_cast<const void*>(commandPointer));
 					
 					//Log(L"Draw: ", command->indexSize);
-					::glDrawElements(GL_TRIANGLES, command->indexSize, GL_UNSIGNED_INT, (uint32*)(nullptr) + batchDrawOffset.indexStartLocation);
-
+					::glDrawElementsBaseVertex(GL_TRIANGLES, command->indexSize, GL_UNSIGNED_INT, (uint32*)(nullptr) + batchDrawOffset.indexStartLocation, batchDrawOffset.vertexStartLocation);
+					
 					batchDrawOffset.indexStartLocation += command->indexSize;
 					
 					break;
