@@ -98,15 +98,117 @@ namespace s3d
 		Float4 transform[2];
 	};
 	
-	static_assert(sizeof(SpriteCB) == 32);
+	class GLVertexShader
+	{
+	private:
+		
+		GLuint m_vertexShader = 0;
+		
+	public:
+		
+		GLVertexShader() = default;
+		
+		~GLVertexShader()
+		{
+			if (m_vertexShader)
+			{
+				::glDeleteShader(m_vertexShader);
+			}
+		}
+		
+		bool createFromString(const String& source)
+		{
+			if (m_vertexShader)
+			{
+				return false;
+			}
+			
+			m_vertexShader = ::glCreateShader(GL_VERTEX_SHADER);
+			
+			const std::string sourceUTF8 = source.toUTF8();
+			
+			const char* pSource = sourceUTF8.c_str();
+			
+			::glShaderSource(m_vertexShader, 1, &pSource, nullptr);
+			
+			::glCompileShader(m_vertexShader);
+			
+			GLint result;
+			::glGetShaderiv(m_vertexShader, GL_COMPILE_STATUS, &result);
+			
+			if (result == GL_FALSE)
+			{
+				return false;
+			}
+			
+			return true;
+		}
+		
+		GLint getHandle() const
+		{
+			return m_vertexShader;
+		}
+	};
+	
+	class GLPixelShader
+	{
+	private:
+		
+		GLuint m_pixelShader = 0;
+		
+	public:
+		
+		GLPixelShader() = default;
+		
+		~GLPixelShader()
+		{
+			if (m_pixelShader)
+			{
+				::glDeleteShader(m_pixelShader);
+			}
+		}
+		
+		bool createFromString(const String& source)
+		{
+			if (m_pixelShader)
+			{
+				return false;
+			}
+			
+			m_pixelShader = ::glCreateShader(GL_FRAGMENT_SHADER);
+			
+			const std::string sourceUTF8 = source.toUTF8();
+			
+			const char* pSource = sourceUTF8.c_str();
+			
+			::glShaderSource(m_pixelShader, 1, &pSource, nullptr);
+			
+			::glCompileShader(m_pixelShader);
+			
+			GLint result;
+			::glGetShaderiv(m_pixelShader, GL_COMPILE_STATUS, &result);
+			
+			if (result == GL_FALSE)
+			{
+				return false;
+			}
+			
+			return true;
+		}
+		
+		GLint getHandle() const
+		{
+			return m_pixelShader;
+		}
+	};
 
 	class CRenderer2D_GL : public ISiv3DRenderer2D
 	{
 	private:
 
-		GLuint m_vertexShader = 0;
+		GLVertexShader m_vertexShader;
 		
-		GLuint m_pixelShader = 0;
+		GLPixelShader m_pixelShader;
 		
 		ShaderProgram m_shaderProgram;
 
@@ -116,8 +218,6 @@ namespace s3d
 		
 		GLRender2DCommandManager m_commandManager;
 
-		bool m_initialized = false;
-		
 	public:
 
 		CRenderer2D_GL();

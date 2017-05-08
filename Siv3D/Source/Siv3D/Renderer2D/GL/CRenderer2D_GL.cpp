@@ -78,41 +78,22 @@ namespace s3d
 			
 			return static_cast<IndexType>(std::max(quality * rate, 3.0f));
 		}
-	}
 		
-	CRenderer2D_GL::CRenderer2D_GL()
-	{
-
-	}
-
-	CRenderer2D_GL::~CRenderer2D_GL()
-	{
-		if (m_initialized)
-		{
-			::glDeleteShader(m_pixelShader);
-			::glDeleteShader(m_vertexShader);
-		}
-	}
-
-	bool CRenderer2D_GL::init()
-	{
-		m_vertexShader = ::glCreateShader(GL_VERTEX_SHADER);
-
-		const char* vsCode =
-R"(
+		const String vsCode =
+LR"(
 #version 410
 		
 layout(location = 0) in vec2 VertexPosition;
 layout(location = 1) in vec2 Tex;
 layout(location = 2) in vec4 VertexColor;
-
+		
 layout(location = 0) out vec4 Color;
 		
 layout(std140) uniform SpriteCB
 {
 	vec4 g_transform[2];
 };
-
+		
 void main()
 {
 	Color = VertexColor;
@@ -121,22 +102,8 @@ void main()
 }
 )";
 		
-		::glShaderSource(m_vertexShader, 1, &vsCode, nullptr);
-		
-		::glCompileShader(m_vertexShader);
-
-		GLint result;
-		::glGetShaderiv(m_vertexShader, GL_COMPILE_STATUS, &result);
-		
-		if (result == GL_FALSE)
-		{
-			return false;
-		}
-		
-		m_pixelShader = ::glCreateShader(GL_FRAGMENT_SHADER);
-		
-		const char* psCode =
-		R"(
+		const String psCode =
+LR"(
 #version 410
 		
 layout(location = 0) in vec4 Color;
@@ -148,14 +115,26 @@ void main()
 	FragColor = Color;
 }
 )";
+	}
 		
-		::glShaderSource(m_pixelShader, 1, &psCode, nullptr);
-		
-		::glCompileShader(m_pixelShader);
+	CRenderer2D_GL::CRenderer2D_GL()
+	{
 
-		::glGetShaderiv(m_vertexShader, GL_COMPILE_STATUS, &result);
+	}
+
+	CRenderer2D_GL::~CRenderer2D_GL()
+	{
+
+	}
+
+	bool CRenderer2D_GL::init()
+	{
+		if (!m_vertexShader.createFromString(detail::vsCode))
+		{
+			return false;
+		}
 		
-		if (result == GL_FALSE)
+		if (!m_pixelShader.createFromString(detail::psCode))
 		{
 			return false;
 		}
@@ -165,8 +144,8 @@ void main()
 			return false;
 		}
 		
-		m_shaderProgram.attach(m_vertexShader);
-		m_shaderProgram.attach(m_pixelShader);
+		m_shaderProgram.attach(m_vertexShader.getHandle());
+		m_shaderProgram.attach(m_pixelShader.getHandle());
 
 		if (!m_shaderProgram.link())
 		{
@@ -183,8 +162,6 @@ void main()
 		}
 
 		m_commandManager.reset();
-		
-		m_initialized = true;
 		
 		return true;
 	}
