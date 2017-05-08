@@ -7,7 +7,7 @@ void Main()
 	});
 	
 	RenderStateBlock2D blend(BlendState::Additive);
-	
+
 	while (System::Update())
 	{
 		for (auto i : step(4))

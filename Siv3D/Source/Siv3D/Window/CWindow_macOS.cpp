@@ -13,6 +13,9 @@
 # if defined(SIV3D_TARGET_MACOS)
 
 # include "CWindow_macOS.hpp"
+# include "../Siv3DEngine.hpp"
+# include "../System/ISystem.hpp"
+# include <Siv3D/System.hpp>
 
 namespace s3d
 {
@@ -79,14 +82,21 @@ namespace s3d
 	{		
 		::glfwPollEvents();
 		
-		if(::glfwGetKey(m_glfwWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		if (::glfwGetKey(m_glfwWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		{
-			::glfwSetWindowShouldClose(m_glfwWindow, GL_TRUE);
+			Siv3DEngine::GetSystem()->reportEvent(WindowEvent::AnyKey | WindowEvent::EscapeKey);
 		}
-		   
-		if(::glfwWindowShouldClose(m_glfwWindow))
+
+		if (::glfwGetWindowAttrib(m_glfwWindow, GLFW_FOCUSED) == GL_FALSE)
 		{
-			return false;
+			Siv3DEngine::GetSystem()->reportEvent(WindowEvent::Unfocus);
+		}
+
+		if (::glfwWindowShouldClose(m_glfwWindow))
+		{
+			Siv3DEngine::GetSystem()->reportEvent(WindowEvent::CloseButton);
+
+			::glfwSetWindowShouldClose(m_glfwWindow, GL_FALSE);
 		}
 		
 		int32 windowPosX, windowPosY;

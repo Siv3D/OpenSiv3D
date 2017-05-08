@@ -28,42 +28,49 @@ namespace s3d
 		{
 			switch (message)
 			{
-			case WM_CLOSE:
-
-				Siv3DEngine::GetSystem()->reportEvent(WindowEvent::CloseButton);
-
-				return 0; // WM_DESTROY を発生させない
-
-			case WM_DESTROY:
-
-				::PostQuitMessage(0);
-
-				return 0;
-
-			case WM_KEYDOWN:
-
-				if (wParam == VK_ESCAPE)
+				case WM_CLOSE:
 				{
-					Siv3DEngine::GetSystem()->reportEvent(WindowEvent::AnyKey | WindowEvent::EscapeKey);
+					Siv3DEngine::GetSystem()->reportEvent(WindowEvent::CloseButton);
+
+					return 0; // WM_DESTROY を発生させない
 				}
-				else if (VK_BACK <= wParam) // マウス以外のキー入力
+				case WM_KILLFOCUS:
 				{
-					Siv3DEngine::GetSystem()->reportEvent(WindowEvent::AnyKey);
+					Siv3DEngine::GetSystem()->reportEvent(WindowEvent::Unfocus);
+
+					break;
 				}
+				case WM_DESTROY:
+				{
+					::PostQuitMessage(0);
 
-				break;
+					return 0;
+				}
+				case WM_KEYDOWN:
+				{
+					if (wParam == VK_ESCAPE)
+					{
+						Siv3DEngine::GetSystem()->reportEvent(WindowEvent::AnyKey | WindowEvent::EscapeKey);
+					}
+					else if (VK_BACK <= wParam) // マウス以外のキー入力
+					{
+						Siv3DEngine::GetSystem()->reportEvent(WindowEvent::AnyKey);
+					}
 
-			case WM_MOUSEWHEEL:
+					break;
+				}
+				case WM_MOUSEWHEEL:
+				{
+					Siv3DEngine::GetMouse()->onScroll(static_cast<short>(HIWORD(wParam)) / -double(WHEEL_DELTA), 0);
 
-				Siv3DEngine::GetMouse()->onScroll(static_cast<short>(HIWORD(wParam)) / -double(WHEEL_DELTA), 0);
+					return 0;
+				}
+				case WM_MOUSEHWHEEL:
+				{
+					Siv3DEngine::GetMouse()->onScroll(0, static_cast<short>(HIWORD(wParam)) / double(WHEEL_DELTA));
 
-				return 0;
-
-			case WM_MOUSEHWHEEL:
-
-				Siv3DEngine::GetMouse()->onScroll(0, static_cast<short>(HIWORD(wParam)) / double(WHEEL_DELTA));
-
-				return 0;
+					return 0;
+				}
 			}
 
 			return ::DefWindowProcW(hWnd, message, wParam, lParam);
