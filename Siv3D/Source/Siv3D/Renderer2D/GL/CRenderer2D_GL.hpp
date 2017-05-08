@@ -110,6 +110,10 @@ namespace s3d
 			
 			m_vsProgram = ::glCreateShaderProgramv(GL_VERTEX_SHADER, 1, &pSource);
 			
+			GLint status = GL_FALSE;
+			
+			::glGetProgramiv(m_vsProgram, GL_LINK_STATUS, &status);
+			
 			GLint logLen = 0;
 			
 			::glGetProgramiv(m_vsProgram, GL_INFO_LOG_LENGTH, &logLen);
@@ -121,6 +125,13 @@ namespace s3d
 				::glGetProgramInfoLog(m_vsProgram, logLen, &logLen, &log[0]);
 				
 				Log << CharacterSet::Widen(log);
+			}
+			
+			if (status == GL_FALSE)
+			{
+				::glDeleteProgram(m_vsProgram);
+				
+				m_vsProgram = 0;
 			}
 			
 			return m_vsProgram != 0;
@@ -173,6 +184,10 @@ namespace s3d
 			
 			m_psProgram = ::glCreateShaderProgramv(GL_FRAGMENT_SHADER, 1, &pSource);
 			
+			GLint status = GL_FALSE;
+			
+			::glGetProgramiv(m_psProgram, GL_LINK_STATUS, &status);
+			
 			GLint logLen = 0;
 			
 			::glGetProgramiv(m_psProgram, GL_INFO_LOG_LENGTH, &logLen);
@@ -184,6 +199,13 @@ namespace s3d
 				::glGetProgramInfoLog(m_psProgram, logLen, &logLen, &log[0]);
 				
 				Log << CharacterSet::Widen(log);
+			}
+			
+			if (status == GL_FALSE)
+			{
+				::glDeleteProgram(m_psProgram);
+				
+				m_psProgram = 0;
 			}
 			
 			return m_psProgram != 0;

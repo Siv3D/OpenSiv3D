@@ -37,6 +37,8 @@ namespace s3d
 		uint32 indexCount = 0;
 		
 		uint32 indexStartLocation = 0;
+		
+		uint32 vertexStartLocation = 0;
 	};
 	
 	class GLSpriteBatch
@@ -250,7 +252,7 @@ namespace s3d
 				}
 
 				m_vertexBufferWritePos += vertexSize;
-
+				batchDrawOffset.vertexStartLocation = vertexOffset;
 				
 				IndexType* indexData = m_indices.data() + indexArrayOffset;
 				const uint32 indexSize = m_batches[batchIndex].indexPos;
@@ -259,11 +261,6 @@ namespace s3d
 				{
 					m_indexBufferWritePos = 0;
 					::glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32) * IndexBufferSize, nullptr, GL_DYNAMIC_DRAW);
-				}
-
-				for (uint32 i = 0; i < indexSize; ++i)
-				{
-					indexData[i] += vertexOffset;
 				}
 				
 				const uint32 indexOffset = m_indexBufferWritePos;
