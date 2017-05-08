@@ -436,6 +436,8 @@
 		2C0C7DDF1EBF2EA200386CBB /* PowerStatus.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7DDE1EBF2EA200386CBB /* PowerStatus.hpp */; };
 		2C0C7DE31EBF2EBA00386CBB /* SivPowerStatus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C7DE11EBF2EBA00386CBB /* SivPowerStatus.cpp */; };
 		2C0C7DE41EBF2EBA00386CBB /* SivPowerStatus.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C7DE21EBF2EBA00386CBB /* SivPowerStatus.mm */; };
+		2C0C7DE71EC01EF600386CBB /* PixelShader_GL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7DE51EC01EF600386CBB /* PixelShader_GL.hpp */; };
+		2C0C7DE81EC01EF600386CBB /* VertexShader_GL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7DE61EC01EF600386CBB /* VertexShader_GL.hpp */; };
 		2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C38B14A1CDEB45C007A7E9F /* gtest.a */; };
 		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
@@ -1091,6 +1093,8 @@
 		2C0C7DDE1EBF2EA200386CBB /* PowerStatus.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PowerStatus.hpp; sourceTree = "<group>"; };
 		2C0C7DE11EBF2EBA00386CBB /* SivPowerStatus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivPowerStatus.cpp; sourceTree = "<group>"; };
 		2C0C7DE21EBF2EBA00386CBB /* SivPowerStatus.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SivPowerStatus.mm; sourceTree = "<group>"; };
+		2C0C7DE51EC01EF600386CBB /* PixelShader_GL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PixelShader_GL.hpp; sourceTree = "<group>"; };
+		2C0C7DE61EC01EF600386CBB /* VertexShader_GL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = VertexShader_GL.hpp; sourceTree = "<group>"; };
 		2C1777401CDEE5D500BB8AD0 /* gtest-death-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-death-test.h"; sourceTree = "<group>"; };
 		2C1777411CDEE5D500BB8AD0 /* gtest-message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-message.h"; sourceTree = "<group>"; };
 		2C1777421CDEE5D500BB8AD0 /* gtest-param-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-param-test.h"; sourceTree = "<group>"; };
@@ -2192,6 +2196,8 @@
 		2C0C7B241EBCC38400386CBB /* GL */ = {
 			isa = PBXGroup;
 			children = (
+				2C0C7DE51EC01EF600386CBB /* PixelShader_GL.hpp */,
+				2C0C7DE61EC01EF600386CBB /* VertexShader_GL.hpp */,
 				2C0C7B251EBCC38400386CBB /* CShader_GL.cpp */,
 				2C0C7B261EBCC38400386CBB /* CShader_GL.hpp */,
 			);
@@ -3291,6 +3297,7 @@
 				2C81C0781E89F8E300D27E52 /* md5.h in Headers */,
 				2C0C7D441EBCC39B00386CBB /* Concept.hpp in Headers */,
 				2C0C7D5A1EBCC39B00386CBB /* FormatUtility.hpp in Headers */,
+				2C0C7DE71EC01EF600386CBB /* PixelShader_GL.hpp in Headers */,
 				2C81C0891E89F8E300D27E52 /* muParserStack.h in Headers */,
 				2C0C7D981EBCC39B00386CBB /* RDTSCClock.hpp in Headers */,
 				2C0C7DD81EBE21F100386CBB /* GLRasterizerState.hpp in Headers */,
@@ -3597,6 +3604,7 @@
 				2C0C7D8F1EBCC39B00386CBB /* PointVector.hpp in Headers */,
 				2C81C0141E89F8E300D27E52 /* strtod.h in Headers */,
 				2C0C7B831EBCC38400386CBB /* CBinaryReader_Linux.hpp in Headers */,
+				2C0C7DE81EC01EF600386CBB /* VertexShader_GL.hpp in Headers */,
 				2C81C00B1E89F8E300D27E52 /* diy-fp.h in Headers */,
 				2C2E82AA1EAA1B3A0057BDAF /* memorybuffer.h in Headers */,
 				2C2E82941EAA1B3A0057BDAF /* allocators.h in Headers */,

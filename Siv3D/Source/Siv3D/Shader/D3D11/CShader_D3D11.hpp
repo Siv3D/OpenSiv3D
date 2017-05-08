@@ -54,6 +54,8 @@ namespace s3d
 
 		Array<PixelShader> m_standardPSs;
 
+		bool compileHLSL(IReader& reader, ByteArray& to, const char* filePath, const char* entryPoint, const char* target);
+			
 		bool compileHLSLToFile(const FilePath& hlsl, const FilePath& to, const char* entryPoint, const char* target);
 
 	public:
@@ -64,15 +66,25 @@ namespace s3d
 
 		bool init(ID3D11Device* device, ID3D11DeviceContext* context);
 
-		bool compileHLSL(IReader& reader, ByteArray& to, const char* filePath, const char* entryPoint, const char* target) override;
-
 		VertexShader::IDType createVS(ByteArray&& binary) override;
 
 		VertexShader::IDType createVSFromFile(const FilePath& path) override;
+		
+		VertexShader::IDType createVSFromSource(const String& source) override
+		{
+			// [Siv3D ToDo];
+			return 0;
+		}
 
 		PixelShader::IDType createPS(ByteArray&& binary) override;
 
 		PixelShader::IDType createPSFromFile(const FilePath& path) override;
+		
+		PixelShader::IDType createPSFromSource(const String& source) override
+		{
+			// [Siv3D ToDo];
+			return 0;
+		}
 
 		void releaseVS(VertexShader::IDType handleID) override;
 

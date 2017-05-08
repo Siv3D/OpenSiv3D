@@ -41,6 +41,12 @@ namespace s3d
 	{
 
 	}
+	
+	PixelShader::PixelShader(Arg::source_<String> source)
+		: m_handle(std::make_shared<PixelShaderHandle>(Siv3DEngine::GetShader()->createPSFromSource(source.value())))
+	{
+		
+	}
 
 	PixelShader::~PixelShader()
 	{

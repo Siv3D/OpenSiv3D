@@ -105,53 +105,6 @@ namespace s3d
 		return true;
 	}
 
-	bool CShader_D3D11::compileHLSL(IReader& reader, ByteArray& to, const char* filePath, const char* entryPoint, const char* target)
-	{
-		if (!p_D3DCompile2)
-		{
-			return false;
-		}
-
-		Array<Byte> data(static_cast<size_t>(reader.size()));
-
-		reader.read(data.data(), data.size());
-
-		const bool preferFlow = false;
-		const uint32 flags =
-			D3DCOMPILE_ENABLE_STRICTNESS
-			| D3DCOMPILE_OPTIMIZATION_LEVEL3
-			| D3DCOMPILE_WARNINGS_ARE_ERRORS
-			| (preferFlow ? D3DCOMPILE_PREFER_FLOW_CONTROL : 0);
-
-		ID3DBlob* pBlobOut = nullptr;
-		ID3DBlob* pErrorBlob = nullptr;
-		const HRESULT hr = p_D3DCompile2(data.data(), data.size(), filePath, nullptr, nullptr,
-			entryPoint, target, flags, 0, 0, nullptr, 0, &pBlobOut, &pErrorBlob);
-
-		if (pErrorBlob)
-		{
-			::OutputDebugStringA((const char*)pErrorBlob->GetBufferPointer());
-
-			pErrorBlob->Release();
-		}
-
-		if (FAILED(hr))
-		{
-			if (pBlobOut)
-			{
-				pBlobOut->Release();
-			}
-
-			return false;
-		}
-
-		to.create(pBlobOut->GetBufferPointer(), pBlobOut->GetBufferSize());
-
-		pBlobOut->Release();
-
-		return true;
-	}
-
 	VertexShader::IDType CShader_D3D11::createVS(ByteArray&& binary)
 	{
 		const auto vertexShader = std::make_shared<VertexShader_D3D11>(std::move(binary), m_device);
@@ -295,6 +248,53 @@ namespace s3d
 
 		m_currentPS = handleID;
 	}
+	
+	bool CShader_D3D11::compileHLSL(IReader& reader, ByteArray& to, const char* filePath, const char* entryPoint, const char* target)
+	{
+		if (!p_D3DCompile2)
+		{
+			return false;
+		}
+		
+		Array<Byte> data(static_cast<size_t>(reader.size()));
+		
+		reader.read(data.data(), data.size());
+		
+		const bool preferFlow = false;
+		const uint32 flags =
+		D3DCOMPILE_ENABLE_STRICTNESS
+		| D3DCOMPILE_OPTIMIZATION_LEVEL3
+		| D3DCOMPILE_WARNINGS_ARE_ERRORS
+		| (preferFlow ? D3DCOMPILE_PREFER_FLOW_CONTROL : 0);
+		
+		ID3DBlob* pBlobOut = nullptr;
+		ID3DBlob* pErrorBlob = nullptr;
+		const HRESULT hr = p_D3DCompile2(data.data(), data.size(), filePath, nullptr, nullptr,
+										 entryPoint, target, flags, 0, 0, nullptr, 0, &pBlobOut, &pErrorBlob);
+		
+		if (pErrorBlob)
+		{
+			::OutputDebugStringA((const char*)pErrorBlob->GetBufferPointer());
+			
+			pErrorBlob->Release();
+		}
+		
+		if (FAILED(hr))
+		{
+			if (pBlobOut)
+			{
+				pBlobOut->Release();
+			}
+			
+			return false;
+		}
+		
+		to.create(pBlobOut->GetBufferPointer(), pBlobOut->GetBufferSize());
+		
+		pBlobOut->Release();
+		
+		return true;
+	}	
 
 	bool CShader_D3D11::compileHLSLToFile(const FilePath& hlsl, const FilePath& to, const char* entryPoint, const char* target)
 	{

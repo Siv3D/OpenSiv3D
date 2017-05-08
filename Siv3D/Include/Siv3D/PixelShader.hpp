@@ -13,6 +13,8 @@
 # include <memory>
 # include "Fwd.hpp"
 # include "AssetHandle.hpp"
+# include "String.hpp"
+# include "NamedParameter.hpp"
 
 namespace s3d
 {
@@ -35,6 +37,8 @@ namespace s3d
 		PixelShader();
 
 		explicit PixelShader(const FilePath& path);
+		
+		explicit PixelShader(Arg::source_<String> source);
 
 		virtual ~PixelShader();
 

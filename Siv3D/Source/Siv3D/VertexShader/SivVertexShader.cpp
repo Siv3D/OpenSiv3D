@@ -41,6 +41,12 @@ namespace s3d
 	{
 
 	}
+	
+	VertexShader::VertexShader(Arg::source_<String> source)
+		: m_handle(std::make_shared<VertexShaderHandle>(Siv3DEngine::GetShader()->createVSFromSource(source.value())))
+	{
+		
+	}
 
 	VertexShader::~VertexShader()
 	{
