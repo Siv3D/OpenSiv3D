@@ -461,7 +461,7 @@ namespace s3d
 			return true;
 		}
 
-		String join(const String& sep = L",", const String& begin = L"{", const String& end = L"}") const
+		String join(const String& sep = S3DSTR(","), const String& begin = S3DSTR("{"), const String& end = S3DSTR("}")) const
 		{
 			String s;
 

@@ -68,8 +68,6 @@ namespace s3d
 			rgb.emplace_back(image.width(), image.height());
 			rgb.emplace_back(image.width(), image.height());
 
-			//Log << L"bp" << rgb[0].bytes_per_row();
-
 			double table[256];
 			for (int i = 0; i < 256; ++i) {
 				const double srgb = i / 255.0;

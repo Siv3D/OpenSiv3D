@@ -61,13 +61,13 @@ namespace s3d
 
 			void writeln(const String& text) const
 			{
-				write(text + L'\n');
+				write(text + S3DCHAR('\n'));
 			}
 
 			template <class... Args>
 			void writeln(const Args&... args) const
 			{
-				return write(Format(args..., L'\n'));
+				return write(Format(args..., S3DCHAR('\n')));
 			}
 
 			void operator()(const String& text) const
@@ -78,7 +78,7 @@ namespace s3d
 			template <class... Args>
 			void operator()(const Args&... args) const
 			{
-				return write(Format(args..., L'\n'));
+				return write(Format(args..., S3DCHAR('\n')));
 			}
 
 			template <class Type>

@@ -22,17 +22,17 @@ namespace s3d
 		return 0;
 	}
 
-	Texture::IDType CTexture_GL::createRT(const Size& size, const uint32 multisampleCount)
+	Texture::IDType CTexture_GL::createRT(const Size&, const uint32)
 	{
 		return 0;
 	}
 	
-	void CTexture_GL::release(Texture::IDType handleID)
+	void CTexture_GL::release(Texture::IDType)
 	{
 	
 	}
 	
-	Size CTexture_GL::getSize(Texture::IDType handleID)
+	Size CTexture_GL::getSize(Texture::IDType)
 	{
 		return Size(0, 0);
 	}

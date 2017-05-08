@@ -79,7 +79,7 @@ namespace s3d
 
 		}
 
-		bool endResize(const Size& size) override
+		bool endResize(const Size&) override
 		{
 			return true;
 		}

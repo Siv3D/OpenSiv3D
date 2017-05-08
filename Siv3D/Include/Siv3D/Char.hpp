@@ -18,8 +18,8 @@ namespace s3d
 {
 	namespace detail
 	{
-		constexpr wchar halfWidthSpace = L' ';
-		constexpr wchar fullWidthSpace = L'　';
+		constexpr char32_t halfWidthSpace = U' ';
+		constexpr char32_t fullWidthSpace = U'　';
 	}
 
 	/// <summary>
@@ -33,7 +33,7 @@ namespace s3d
 	/// </returns>
 	inline constexpr bool IsDigit(const char32_t ch) noexcept
 	{
-		return (ch - L'0') <= (L'9' - L'0');
+		return (ch - U'0') <= (U'9' - U'0');
 	}
 
 	/// <summary>
@@ -47,7 +47,7 @@ namespace s3d
 	/// </returns>
 	inline constexpr bool IsLower(const char32_t ch) noexcept
 	{
-		return (ch - L'a') <= (L'z' - L'a');
+		return (ch - U'a') <= (U'z' - U'a');
 	}
 
 	/// <summary>
@@ -61,7 +61,7 @@ namespace s3d
 	/// </returns>
 	inline constexpr bool IsUpper(const char32_t ch) noexcept
 	{
-		return (ch - L'A') <= (L'Z' - L'A');
+		return (ch - U'A') <= (U'Z' - U'A');
 	}
 
 	/// <summary>
@@ -103,7 +103,7 @@ namespace s3d
 	/// </returns>
 	inline constexpr bool IsXdigit(const char32_t ch) noexcept
 	{
-		return IsDigit(ch) || ((ch - L'A') <= (L'F' - L'A')) || ((ch - L'a') <= (L'f' - L'a'));
+		return IsDigit(ch) || ((ch - U'A') <= (U'F' - U'A')) || ((ch - U'a') <= (U'f' - U'a'));
 	}
 
 	/// <summary>
@@ -127,14 +127,14 @@ namespace s3d
 	/// 文字
 	/// </param>
 	/// <remarks>
-	/// L' ', L'\t', L'　' が該当します。
+	/// ' ', '\t', '　' が該当します。
 	/// </remarks>
 	/// <returns>
 	/// 空白文字である場合 true, それ以外の場合は false
 	/// </returns>
 	inline constexpr bool IsBlank(const char32_t ch) noexcept
 	{
-		return (ch == detail::halfWidthSpace) || (ch == L'\t') || (ch == detail::fullWidthSpace);
+		return (ch == detail::halfWidthSpace) || (ch == U'\t') || (ch == detail::fullWidthSpace);
 	}
 
 	/// <summary>
@@ -144,14 +144,14 @@ namespace s3d
 	/// 文字
 	/// </param>
 	/// <remarks>
-	/// L' ', L'\t', L'\n', L'\v', L'\f', L'\r', L'　' が該当します。
+	/// ' ', '\t', '\n', '\v', '\f', '\r', '　' が該当します。
 	/// </remarks>
 	/// <returns>
 	/// 空白類文字である場合 true, それ以外の場合は false
 	/// </returns>
 	inline constexpr bool IsSpace(const char32_t ch) noexcept
 	{
-		return ((ch - L'\t') <= (L'\r' - L'\t')) || (ch == detail::halfWidthSpace) || (ch == detail::fullWidthSpace);
+		return ((ch - U'\t') <= (U'\r' - U'\t')) || (ch == detail::halfWidthSpace) || (ch == detail::fullWidthSpace);
 	}
 
 	/// <summary>

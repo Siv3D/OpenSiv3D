@@ -48,7 +48,7 @@ namespace s3d
 					}
 				}
 
-				if ((end - p) == 2 && p[0] == L'-' && p[1] == L'0')
+				if ((end - p) == 2 && p[0] == '-' && p[1] == '0')
 				{
 					++p;
 				}
@@ -95,7 +95,7 @@ namespace s3d
 					}
 				}
 
-				if ((end - p) == 2 && p[0] == L'-' && p[1] == L'0')
+				if ((end - p) == 2 && p[0] == '-' && p[1] == '0')
 				{
 					++p;
 				}
@@ -106,7 +106,7 @@ namespace s3d
 				{
 					*(pDst++) = *(p++);
 				}
-				*pDst = L'\0';
+				*pDst = S3DCHAR('\0');
 				return ret;
 			}
 			else
@@ -121,7 +121,7 @@ namespace s3d
 				{
 					*(pDst++) = *(p++);
 				}
-				*pDst = L'\0';
+				*pDst = S3DCHAR('\0');
 				return length;
 			}
 		}

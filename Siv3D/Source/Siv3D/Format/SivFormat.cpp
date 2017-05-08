@@ -38,11 +38,11 @@ namespace s3d
 
 			wchar buffer[12];
 			wchar* pos = &buffer[11];
-			*pos = L'\0';
+			*pos = S3DCHAR('\0');
 
 			do
 			{
-				*(--pos) = L'0' + static_cast<wchar>(val % 10);
+				*(--pos) = S3DCHAR('0') + static_cast<wchar>(val % 10);
 
 				val = val / 10;
 
@@ -50,7 +50,7 @@ namespace s3d
 
 			if (negative)
 			{
-				*(--pos) = L'-';
+				*(--pos) = S3DCHAR('-');
 			}
 
 			const size_t length = &buffer[11] - pos;
@@ -136,18 +136,18 @@ namespace s3d
 	
 	void Formatter(FormatData& formatData, std::nullptr_t)
 	{
-		formatData.string.append(L"null", 4);
+		formatData.string.append(S3DSTR("null"), 4);
 	}
 
 	void Formatter(FormatData& formatData, const bool value)
 	{
 		if (value)
 		{
-			formatData.string.append(L"true", 4);
+			formatData.string.append(S3DSTR("true"), 4);
 		}
 		else
 		{
-			formatData.string.append(L"false", 5);
+			formatData.string.append(S3DSTR("false"), 5);
 		}
 	}
 

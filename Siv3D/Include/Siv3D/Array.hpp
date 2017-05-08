@@ -791,7 +791,7 @@ namespace s3d
 		/// <returns>
 		/// 要素を指定した文字列で連結した結果の文字列
 		/// </returns>
-		String join(const String& sep = L",", const String& begin = L"{", const String& end = L"}") const
+		String join(const String& sep = S3DSTR(","), const String& begin = S3DSTR("{"), const String& end = S3DSTR("}")) const
 		{
 			String s;
 

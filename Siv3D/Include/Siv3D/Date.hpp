@@ -221,7 +221,7 @@ namespace s3d
 		/// <returns>
 		/// フォーマットされた日付
 		/// </returns>
-		String format(const String& format = L"yyyy/M/d") const;
+		String format(const String& format = S3DSTR("yyyy/M/d")) const;
 
 		/// <summary>
 		/// 昨日のローカルの日付を返します。

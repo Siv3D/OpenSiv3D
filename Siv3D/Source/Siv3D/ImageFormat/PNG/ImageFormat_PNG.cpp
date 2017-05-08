@@ -44,7 +44,7 @@ namespace s3d
 
 	const Array<String>& ImageFormat_PNG::possibleExtexsions() const
 	{
-		static const Array<String> extensions = { L"png" };
+		static const Array<String> extensions = { S3DSTR("png") };
 
 		return extensions;
 	}

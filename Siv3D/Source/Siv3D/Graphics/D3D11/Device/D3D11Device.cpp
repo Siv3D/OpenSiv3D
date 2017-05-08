@@ -58,7 +58,7 @@ namespace s3d
 
 		static Array<Adapter> EnumAdapters()
 		{
-			HINSTANCE dxgi = ::LoadLibraryW(L"dxgi.dll");
+			HINSTANCE dxgi = ::LoadLibraryW(S3DWSTR("dxgi.dll"));
 
 			if (!dxgi)
 			{
@@ -127,13 +127,13 @@ namespace s3d
 			switch (featureLevel)
 			{
 			case D3D_FEATURE_LEVEL_11_0:
-				return L"11_0";
+				return S3DSTR("11_0");
 			case D3D_FEATURE_LEVEL_10_1:
-				return L"10_1";
+				return S3DSTR("10_1");
 			case D3D_FEATURE_LEVEL_10_0:
-				return L"10_0";
+				return S3DSTR("10_0");
 			default:
-				return L"UNKNOWN";
+				return S3DSTR("UNKNOWN");
 			}
 		}
 	}
@@ -145,7 +145,7 @@ namespace s3d
 
 	bool D3D11Device::init()
 	{
-		m_d3d11 = ::LoadLibraryW(L"d3d11.dll");
+		m_d3d11 = ::LoadLibraryW(S3DWSTR("d3d11.dll"));
 
 		if (!m_d3d11)
 		{
@@ -226,7 +226,6 @@ namespace s3d
 				{
 					desc.Count = count;
 					desc.Quality = quality - 1;
-					//Log(L"MSAA x", count, L" (quality: ", quality, L")");
 
 					m_bestMSAAs.emplace(format, desc);
 
@@ -277,7 +276,7 @@ namespace s3d
 
 	# ifdef _DEBUG
 
-		if (HINSTANCE D3D11_1SDKLayersLibrary = ::LoadLibraryW(L"D3D11_1SDKLayers.dll"))
+		if (HINSTANCE D3D11_1SDKLayersLibrary = ::LoadLibraryW(S3DWSTR("D3D11_1SDKLayers.dll")))
 		{
 			creationFlags |= D3D11_CREATE_DEVICE_DEBUG;
 

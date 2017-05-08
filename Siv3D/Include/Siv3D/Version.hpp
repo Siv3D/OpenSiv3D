@@ -11,11 +11,12 @@
 
 # pragma once
 # include "Platform.hpp"
+# include "Types.hpp"
 
 /// <summary>
 /// Siv3D のバージョン | Version of Siv3D
 /// </summary>
-# define Siv3DVersion L"0.1.1"
+# define Siv3DVersion S3DSTR("0.1.1")
 
 /// <summary>
 /// Siv3D のバージョン ID | Version ID of Siv3D
@@ -27,19 +28,19 @@
 /// </summary>
 # if defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64)
 
-	# define Siv3DPlatform	L"WindowsDesktop-x64"
+	# define Siv3DPlatform	S3DSTR("WindowsDesktop-x64")
 
 # elif defined(SIV3D_TARGET_WINDOWS_DESKTOP_X86)
 
-	# define Siv3DPlatform	L"WindowsDesktop-x86"
+	# define Siv3DPlatform	S3DSTR("WindowsDesktop-x86")
 
 # elif defined(SIV3D_TARGET_MACOS)
 
-	# define Siv3DPlatform	L"macOS"
+	# define Siv3DPlatform	S3DSTR("macOS")
 
 # elif defined(SIV3D_TARGET_LINUX)
 
-	# define Siv3DPlatform	L"Linux"
+	# define Siv3DPlatform	S3DSTR("Linux")
 
 # else
 

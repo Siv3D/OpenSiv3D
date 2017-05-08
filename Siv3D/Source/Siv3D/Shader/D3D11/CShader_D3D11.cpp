@@ -50,17 +50,17 @@ namespace s3d
 
 	# if defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64)
 
-		m_d3dcompiler = ::LoadLibraryW(L"dll_x64/d3d/d3dcompiler_47.dll");
+		m_d3dcompiler = ::LoadLibraryW(S3DWSTR("dll_x64/d3d/d3dcompiler_47.dll"));
 
 	# elif defined(SIV3D_TARGET_WINDOWS_DESKTOP_X86)
 
-		m_d3dcompiler = ::LoadLibraryW(L"dll_x86/d3d/d3dcompiler_47.dll");
+		m_d3dcompiler = ::LoadLibraryW(S3DWSTR("dll_x86/d3d/d3dcompiler_47.dll"));
 
 	# endif
 
 		if (!m_d3dcompiler)
 		{
-			::LoadLibraryW(L"d3dcompiler_47.dll");
+			::LoadLibraryW(S3DWSTR("d3dcompiler_47.dll"));
 		}
 
 		if (m_d3dcompiler)
@@ -92,15 +92,15 @@ namespace s3d
 
 		/*
 		
-		compileHLSLToFile(L"engine/shader/sprite.hlsl", L"engine/shader/sprite.vs", "VS", "vs_4_0");
-		compileHLSLToFile(L"engine/shader/sprite.hlsl", L"engine/shader/sprite.ps", "PS", "ps_4_0");
-		compileHLSLToFile(L"engine/shader/shape.hlsl", L"engine/shader/shape.ps", "PS", "ps_4_0");
+		compileHLSLToFile(S3DSTR("engine/shader/sprite.hlsl"), S3DSTR("engine/shader/sprite.vs"), "VS", "vs_4_0");
+		compileHLSLToFile(S3DSTR("engine/shader/sprite.hlsl"), S3DSTR("engine/shader/sprite.ps"), "PS", "ps_4_0");
+		compileHLSLToFile(S3DSTR("engine/shader/shape.hlsl"), S3DSTR("engine/shader/shape.ps"), "PS", "ps_4_0");
 
 		//*/
 
-		m_standardVSs.push_back(VertexShader(Resource(L"engine/shader/sprite.vs")));
-		m_standardPSs.push_back(PixelShader(Resource(L"engine/shader/shape.ps")));
-		m_standardPSs.push_back(PixelShader(Resource(L"engine/shader/sprite.ps")));
+		m_standardVSs.push_back(VertexShader(Resource(S3DSTR("engine/shader/sprite.vs"))));
+		m_standardPSs.push_back(PixelShader(Resource(S3DSTR("engine/shader/shape.ps"))));
+		m_standardPSs.push_back(PixelShader(Resource(S3DSTR("engine/shader/sprite.ps"))));
 
 		return true;
 	}

@@ -380,6 +380,12 @@
     <Filter Include="Source\Siv3D\PowerStatus">
       <UniqueIdentifier>{b6f92982-6c51-4884-8952-7503ae6cd84c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\BlendState">
+      <UniqueIdentifier>{d88b8048-155b-4a98-8bce-ead211a2fecb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\RasterizerState">
+      <UniqueIdentifier>{1282df3e-2c27-4d02-b600-4540fc8476c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -2135,6 +2141,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\PowerStatus\SivPowerStatus.cpp">
       <Filter>Source\Siv3D\PowerStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\BlendState\SivBlendState.cpp">
+      <Filter>Source\Siv3D\BlendState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\RasterizerState\SivRasterizerState.cpp">
+      <Filter>Source\Siv3D\RasterizerState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -395,6 +395,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryWriter\CBinaryWriter_macOS.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryWriter\CBinaryWriter_Windows.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryWriter\SivBinaryWriter.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\BlendState\SivBlendState.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ByteArray\CByteArray.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ByteArray\SivByteArray.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\CharacterEncoding\SivCharacterEncoding.cpp" />
@@ -498,6 +499,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\ProfilerFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\SivProfiler.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Quad\SivQuad.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\RasterizerState\SivRasterizerState.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Rectangle\SivRectangle.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Renderer2D\D3D11\CRenderer2D_D3D11.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Renderer2D\GL\CRenderer2D_GL.cpp" />

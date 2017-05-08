@@ -36,7 +36,7 @@ namespace s3d
 		::glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 		
 		m_state.clientSize.set(Window::DefaultClientSize);
-		m_state.title = L"Siv3D App";
+		m_state.title = S3DSTR("Siv3D App");
 		m_state.showState = ShowState::Normal;
 		m_state.focused = false;
 		m_state.fullScreen = false;

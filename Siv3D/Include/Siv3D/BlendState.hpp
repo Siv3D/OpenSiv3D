@@ -119,20 +119,7 @@ namespace s3d
 			, dstAlpha(_dstAlpha)
 			, opAlpha(_opAlpha) {}
 
-		BlendState(Predefined predefined)
-		{
-			static const BlendState predefinedStates[6] =
-			{
-				BlendState{ true },																// NonPremultiplied
-				BlendState{ false },																// Opaque
-				BlendState{ true, Blend::SrcAlpha,	Blend::One,			BlendOp::Add },	// Additive
-				BlendState{ true, Blend::SrcAlpha,	Blend::One,			BlendOp::RevSubtract },	// Subtractive
-				BlendState{ true, Blend::Zero,		Blend::SrcColor,	BlendOp::Add },	// Multiplicative
-				BlendState{ true, Blend::DestColor,	Blend::SrcColor,	BlendOp::Add },	// Multiplicative2X
-			};
-
-			*this = predefinedStates[static_cast<size_t>(predefined)];
-		}
+		BlendState(Predefined predefined);
 
 		bool operator ==(const BlendState& b) const noexcept
 		{
@@ -148,43 +135,43 @@ namespace s3d
 		/// デフォルトのブレンド
 		/// BlendState{ true }
 		/// </summary>
-		static const Predefined NonPremultiplied = Predefined::NonPremultiplied;
+		static constexpr Predefined NonPremultiplied = Predefined::NonPremultiplied;
 
 		/// <summary>
 		/// 不透明
 		/// BlendState{ false }
 		/// </summary>
-		static const Predefined Opaque = Predefined::Opaque;
+		static constexpr Predefined Opaque = Predefined::Opaque;
 
 		/// <summary>
 		/// 加算ブレンド
 		/// BlendState{ true, Blend::SrcAlpha, Blend::One, BlendOp::Add }
 		/// </summary>
-		static const Predefined Additive = Predefined::Additive;
+		static constexpr Predefined Additive = Predefined::Additive;
 
 		/// <summary>
 		/// 減算ブレンド
 		/// BlendState{ true, Blend::SrcAlpha, Blend::One, BlendOp::RevSubtract }
 		/// </summary>
-		static const Predefined Subtractive = Predefined::Subtractive;
+		static constexpr Predefined Subtractive = Predefined::Subtractive;
 
 		/// <summary>
 		/// 乗算ブレンド
 		/// BlendState{ true, Blend::Zero, Blend::SrcColor, BlendOp::Add }
 		/// </summary>
-		static const Predefined Multiplicative = Predefined::Multiplicative;
+		static constexpr Predefined Multiplicative = Predefined::Multiplicative;
 
 		/// <summary>
 		/// 2X 乗算ブレンド
 		/// BlendState{ true, Blend::DestColor, Blend::SrcColor, BlendOp::Add }
 		/// </summary>
-		static const Predefined Multiplicative2X = Predefined::Multiplicative2X;
+		static constexpr Predefined Multiplicative2X = Predefined::Multiplicative2X;
 
 		/// <summary>
 		/// デフォルトのブレンド
 		/// BlendState{ true }
 		/// </summary>
-		static const Predefined Default = Predefined::Default;
+		static constexpr Predefined Default = Predefined::Default;
 	};
 }
 

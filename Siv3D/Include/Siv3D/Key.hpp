@@ -36,7 +36,7 @@ namespace s3d
 
 		uint8 m_userIndex = 0;
 
-		uint8 m_reserved = 0;
+		S3D_MAYBE_UNUSED uint8 m_reserved = 0;
 
 	public:
 

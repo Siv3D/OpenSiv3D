@@ -1393,7 +1393,7 @@ namespace s3d
 	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
 	inline void Formatter(FormatData& formatData, const Grid<Type, Allocator>& grid)
 	{
-		formatData.string.push_back(L'{');
+		formatData.string.push_back(S3DCHAR('{'));
 
 		bool isFirst = true;
 
@@ -1405,15 +1405,15 @@ namespace s3d
 			}
 			else
 			{
-				formatData.string.push_back(L',');
+				formatData.string.push_back(S3DCHAR(','));
 
-				formatData.string.push_back(L'\n');
+				formatData.string.push_back(S3DCHAR('\n'));
 			}
 
 			Formatter(formatData, grid[y], grid[y] + grid.width());
 		}
 
-		formatData.string.push_back(L'}');
+		formatData.string.push_back(S3DCHAR('}'));
 	}
 
 	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>

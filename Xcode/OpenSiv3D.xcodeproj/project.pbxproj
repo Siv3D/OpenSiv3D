@@ -439,6 +439,8 @@
 		2C0C7DE71EC01EF600386CBB /* PixelShader_GL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7DE51EC01EF600386CBB /* PixelShader_GL.hpp */; };
 		2C0C7DE81EC01EF600386CBB /* VertexShader_GL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7DE61EC01EF600386CBB /* VertexShader_GL.hpp */; };
 		2C0C7DEA1EC03A6B00386CBB /* Shader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7DE91EC03A6B00386CBB /* Shader.hpp */; };
+		2C0C7DED1EC07DF000386CBB /* SivBlendState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C7DEC1EC07DF000386CBB /* SivBlendState.cpp */; };
+		2C0C7DF01EC081B700386CBB /* SivRasterizerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C7DEF1EC081B700386CBB /* SivRasterizerState.cpp */; };
 		2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C38B14A1CDEB45C007A7E9F /* gtest.a */; };
 		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
@@ -1097,6 +1099,8 @@
 		2C0C7DE51EC01EF600386CBB /* PixelShader_GL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PixelShader_GL.hpp; sourceTree = "<group>"; };
 		2C0C7DE61EC01EF600386CBB /* VertexShader_GL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = VertexShader_GL.hpp; sourceTree = "<group>"; };
 		2C0C7DE91EC03A6B00386CBB /* Shader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Shader.hpp; sourceTree = "<group>"; };
+		2C0C7DEC1EC07DF000386CBB /* SivBlendState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBlendState.cpp; sourceTree = "<group>"; };
+		2C0C7DEF1EC081B700386CBB /* SivRasterizerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRasterizerState.cpp; sourceTree = "<group>"; };
 		2C1777401CDEE5D500BB8AD0 /* gtest-death-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-death-test.h"; sourceTree = "<group>"; };
 		2C1777411CDEE5D500BB8AD0 /* gtest-message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-message.h"; sourceTree = "<group>"; };
 		2C1777421CDEE5D500BB8AD0 /* gtest-param-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-param-test.h"; sourceTree = "<group>"; };
@@ -1381,6 +1385,8 @@
 		2C0C7A121EBCC38300386CBB /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C0C7DEE1EC081B700386CBB /* RasterizerState */,
+				2C0C7DEB1EC07DF000386CBB /* BlendState */,
 				2C0C7DE01EBF2EBA00386CBB /* PowerStatus */,
 				2C0C7DDB1EBEFE9B00386CBB /* Shape2D */,
 				2C0C7DC51EBE0E2E00386CBB /* ConstantBuffer */,
@@ -2651,6 +2657,22 @@
 			path = PowerStatus;
 			sourceTree = "<group>";
 		};
+		2C0C7DEB1EC07DF000386CBB /* BlendState */ = {
+			isa = PBXGroup;
+			children = (
+				2C0C7DEC1EC07DF000386CBB /* SivBlendState.cpp */,
+			);
+			path = BlendState;
+			sourceTree = "<group>";
+		};
+		2C0C7DEE1EC081B700386CBB /* RasterizerState */ = {
+			isa = PBXGroup;
+			children = (
+				2C0C7DEF1EC081B700386CBB /* SivRasterizerState.cpp */,
+			);
+			path = RasterizerState;
+			sourceTree = "<group>";
+		};
 		2C17773E1CDEE5D500BB8AD0 /* Include */ = {
 			isa = PBXGroup;
 			children = (
@@ -3891,6 +3913,7 @@
 				2C0C7BC81EBCC38400386CBB /* SivFormatInt.cpp in Sources */,
 				2C0C7C211EBCC38400386CBB /* SivParseFloat.cpp in Sources */,
 				2C81C0871E89F8E300D27E52 /* muParserInt.cpp in Sources */,
+				2C0C7DED1EC07DF000386CBB /* SivBlendState.cpp in Sources */,
 				2C0C7C231EBCC38400386CBB /* SivPixelShader.cpp in Sources */,
 				2C0C7C361EBCC38400386CBB /* SivRenderTexture.cpp in Sources */,
 				2C81C0AB1E89FD1A00D27E52 /* vulkan.c in Sources */,
@@ -3974,6 +3997,7 @@
 				2C0C7C2B1EBCC38400386CBB /* SivRectangle.cpp in Sources */,
 				2C0C7BA61EBCC38400386CBB /* SivConsole.cpp in Sources */,
 				2C0C7C541EBCC38400386CBB /* SivSystem.mm in Sources */,
+				2C0C7DF01EC081B700386CBB /* SivRasterizerState.cpp in Sources */,
 				2C0C7C0B1EBCC38400386CBB /* SivMathParser.cpp in Sources */,
 				2C0C7BB31EBCC38400386CBB /* CDragDrop_Linux.cpp in Sources */,
 				2C0C7BBC1EBCC38400386CBB /* SivEllipse.cpp in Sources */,
