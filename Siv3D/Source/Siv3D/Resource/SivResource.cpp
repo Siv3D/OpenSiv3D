@@ -81,11 +81,11 @@ namespace s3d
 	{
 		static Array<FilePath> GetResourceFilePaths()
 		{
-			const FilePath resourcePath = FileSystem::ModulePath() + L"/Contents/Resources/";
+			const FilePath resourcePath = FileSystem::ModulePath() + S3DSTR("/Contents/Resources/");
 			
 			Array<FilePath> paths = FileSystem::DirectoryContents(resourcePath, true);
 		
-			paths.remove(resourcePath + L"icon.icns");
+			paths.remove(resourcePath + S3DSTR("icon.icns"));
 
 			paths.remove_if([](const FilePath& path){ return FileSystem::IsDirectory(path); });
 			
@@ -109,7 +109,7 @@ namespace s3d
 			return path;
 		}
 
-		const FilePath resourcePath = FileSystem::ModulePath() + L"/Contents/Resources/";
+		const FilePath resourcePath = FileSystem::ModulePath() + S3DSTR("/Contents/Resources/");
 
 		return resourcePath + path;
 	}

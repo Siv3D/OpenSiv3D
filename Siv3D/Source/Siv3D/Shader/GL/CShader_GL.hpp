@@ -30,9 +30,9 @@ namespace s3d
 
 		Array<PixelShader> m_standardPSs;
 		
-		AssetHandleManager<VertexShader::IDType, std::shared_ptr<VertexShader_GL>> m_vertexShaders{ L"VertexShader" };
+		AssetHandleManager<VertexShader::IDType, std::shared_ptr<VertexShader_GL>> m_vertexShaders{ S3DSTR("VertexShader") };
 		
-		AssetHandleManager<PixelShader::IDType, std::shared_ptr<PixelShader_GL>> m_pixelShaders{ L"PixelShader" };
+		AssetHandleManager<PixelShader::IDType, std::shared_ptr<PixelShader_GL>> m_pixelShaders{ S3DSTR("PixelShader") };
 
 	public:
 

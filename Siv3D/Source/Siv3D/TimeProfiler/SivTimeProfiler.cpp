@@ -69,24 +69,24 @@ namespace s3d
 			if (ns < 1'000ULL) // 0 - 999
 			{
 				result.append(ToString(ns));
-				result.append(L"ns", 2);
+				result.append(S3DSTR("ns"), 2);
 			}
 			else
 			{
 				if (ns < 10'000ULL) // 1,000 - 9,999
 				{
 					result.append(ToFixed(ns / 1'000.0, 2));
-					result.append(L"us", 2);
+					result.append(S3DSTR("us"), 2);
 				}
 				else if (ns < 100'000ULL) // 10,000 - 99,999
 				{
 					result.append(ToFixed(ns / 1'000.0, 1));
-					result.append(L"us", 2);
+					result.append(S3DSTR("us"), 2);
 				}
 				else // 100,000 - 999,999
 				{
 					result.append(ToString(ns / 1'000ULL));
-					result.append(L"us", 2);
+					result.append(S3DSTR("us"), 2);
 				}
 			}
 		}
@@ -95,17 +95,17 @@ namespace s3d
 			if (ns < 10'000'000ULL) // 1,000,000 - 9,999,999
 			{
 				result.append(ToFixed(ns / 1'000'000.0, 2));
-				result.append(L"ms", 2);
+				result.append(S3DSTR("ms"), 2);
 			}
 			else if (ns < 100'000'000ULL) // 10,000,000 - 99,999,999
 			{
 				result.append(ToFixed(ns / 1'000'000.0, 1));
-				result.append(L"ms", 2);
+				result.append(S3DSTR("ms"), 2);
 			}
 			else // 100,000,000 - 999,999,999
 			{
 				result.append(ToString(ns / 1'000'000ULL));
-				result.append(L"ms", 2);
+				result.append(S3DSTR("ms"), 2);
 			}
 		}
 		else
@@ -113,21 +113,21 @@ namespace s3d
 			if (ns < 10'000'000'000ULL) // 1,000,000,000 - 9,999,999,999
 			{
 				result.append(ToFixed(ns / 1'000'000'000.0, 2));
-				result.push_back(L's');
+				result.push_back(S3DCHAR('s'));
 			}
 			else if (ns < 100'000'000'000ULL) // 10,000,000,000 - 99,999,999,999
 			{
 				result.append(ToFixed(ns / 1'000'000'000.0, 1));
-				result.push_back(L's');
+				result.push_back(S3DCHAR('s'));
 			}
 			else if (ns < 100'000'000'000ULL) // 100,000,000,000 - 999,999,999,999
 			{
 				result.append(ToString(ns / 1'000'000'000ULL));
-				result.push_back(L's');
+				result.push_back(S3DCHAR('s'));
 			}
 			else // 1'000,000,000,000 -
 			{
-				result.assign(L">999s");
+				result.assign(S3DSTR(">999s"));
 			}
 		}
 
@@ -160,9 +160,9 @@ namespace s3d
 			its[it->second.index] = it;
 		}
 
-		Log(L'[', m_name, L']');
+		Log(S3DCHAR('['), m_name, S3DCHAR(']'));
 
-		Log(String(maxLabelLength, L' '), L" |  avg   |  min   |  max   |");
+		Log(String(maxLabelLength, S3DCHAR(' ')), S3DSTR(" |  avg   |  min   |  max   |"));
 
 		for (const auto& it : its)
 		{
@@ -172,7 +172,7 @@ namespace s3d
 			{
 				const uint64 average = data.second.sum / data.second.count;
 
-				Log(data.first.rpadded(maxLabelLength), L" | ", toString(average).rpad(6), L" | ", toString(data.second.min).rpad(6), L" | ", toString(data.second.max).rpad(6), L" |");
+				Log(data.first.rpadded(maxLabelLength), S3DSTR(" | "), toString(average).rpad(6), S3DSTR(" | "), toString(data.second.min).rpad(6), S3DSTR(" | "), toString(data.second.max).rpad(6), S3DSTR(" |"));
 			}
 		}
 	}

@@ -78,11 +78,11 @@ namespace s3d
 		bool LaunchBrowser(const FilePath& url)
 		{
 			// Web 上のコンテンツもしくは HTML ファイルでなければ処理を返す
-			if (!url.starts_with(L"http://") && !url.starts_with(L"https://"))
+			if (!url.starts_with(S3DSTR("http://")) && !url.starts_with(S3DSTR("https://")))
 			{
 				const String extension = FileSystem::Extension(url);
 
-				if (extension != L"html" && extension != L"htm")
+				if (extension != S3DSTR("html") && extension != S3DSTR("htm"))
 				{
 					return false;
 				}		
@@ -118,16 +118,16 @@ namespace s3d
 		{
 			FilePath url = _url;
 			
-			if (!url.starts_with(L"http://") && !url.starts_with(L"https://"))
+			if (!url.starts_with(S3DSTR("http://")) && !url.starts_with(S3DSTR("https://")))
 			{
 				const String extension = FileSystem::Extension(url);
 				
-				if (extension != L"html" && extension != L"htm")
+				if (extension != S3DSTR("html") && extension != S3DSTR("htm"))
 				{
 					return false;
 				}
 				
-				url.insert(0, L"file://");
+				url.insert(0, S3DSTR("file://"));
 			}
 			
 			return macOS_LaunchBrowser(url.narrow().c_str());
@@ -159,16 +159,16 @@ namespace s3d
 		{
 			FilePath url = _url;
 			
-			if (!url.starts_with(L"http://") && !url.starts_with(L"https://"))
+			if (!url.starts_with(S3DSTR("http://")) && !url.starts_with(S3DSTR("https://")))
 			{
 				const String extension = FileSystem::Extension(url);
 				
-				if (extension != L"html" && extension != L"htm")
+				if (extension != S3DSTR("html") && extension != S3DSTR("htm"))
 				{
 					return false;
 				}
 				
-				url.insert(0, L"file://");
+				url.insert(0, S3DSTR("file://"));
 			}
 
 			if (system("which xdg-open >/dev/null 2>&1"))
@@ -177,9 +177,9 @@ namespace s3d
 				return false;
 			}
 
-			String command = L"xdg-open ";
+			String command = S3DSTR("xdg-open ");
 			command += url;
-			command += L" >/dev/null 2>&1";
+			command += S3DSTR(" >/dev/null 2>&1");
 			if (system(command.narrow().c_str()) == 0)
 			{
 				return true;

@@ -40,9 +40,9 @@ namespace s3d
 
 		decltype(D3DCompile2)* p_D3DCompile2 = nullptr;
 
-		AssetHandleManager<VertexShader::IDType, std::shared_ptr<VertexShader_D3D11>> m_vertexShaders{ L"VertexShader" };
+		AssetHandleManager<VertexShader::IDType, std::shared_ptr<VertexShader_D3D11>> m_vertexShaders{ S3DSTR("VertexShader") };
 
-		AssetHandleManager<PixelShader::IDType, std::shared_ptr<PixelShader_D3D11>> m_pixelShaders{ L"PixelShader" };
+		AssetHandleManager<PixelShader::IDType, std::shared_ptr<PixelShader_D3D11>> m_pixelShaders{ S3DSTR("PixelShader") };
 
 		VertexShader::IDType m_currentVS = VertexShader::IDType(-1);
 

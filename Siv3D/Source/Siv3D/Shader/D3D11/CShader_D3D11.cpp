@@ -92,15 +92,15 @@ namespace s3d
 
 		/*
 		
-		compileHLSLToFile(L"engine/shader/sprite.hlsl", L"engine/shader/sprite.vs", "VS", "vs_4_0");
-		compileHLSLToFile(L"engine/shader/sprite.hlsl", L"engine/shader/sprite.ps", "PS", "ps_4_0");
-		compileHLSLToFile(L"engine/shader/shape.hlsl", L"engine/shader/shape.ps", "PS", "ps_4_0");
+		compileHLSLToFile(S3DSTR("engine/shader/sprite.hlsl"), S3DSTR("engine/shader/sprite.vs"), "VS", "vs_4_0");
+		compileHLSLToFile(S3DSTR("engine/shader/sprite.hlsl"), S3DSTR("engine/shader/sprite.ps"), "PS", "ps_4_0");
+		compileHLSLToFile(S3DSTR("engine/shader/shape.hlsl"), S3DSTR("engine/shader/shape.ps"), "PS", "ps_4_0");
 
 		//*/
 
-		m_standardVSs.push_back(VertexShader(Resource(L"engine/shader/sprite.vs")));
-		m_standardPSs.push_back(PixelShader(Resource(L"engine/shader/shape.ps")));
-		m_standardPSs.push_back(PixelShader(Resource(L"engine/shader/sprite.ps")));
+		m_standardVSs.push_back(VertexShader(Resource(S3DSTR("engine/shader/sprite.vs"))));
+		m_standardPSs.push_back(PixelShader(Resource(S3DSTR("engine/shader/shape.ps"))));
+		m_standardPSs.push_back(PixelShader(Resource(S3DSTR("engine/shader/sprite.ps"))));
 
 		return true;
 	}

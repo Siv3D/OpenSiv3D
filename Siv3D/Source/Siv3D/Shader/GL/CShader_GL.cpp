@@ -97,7 +97,7 @@ void main()
 			m_pixelShaders.setNullData(nullPixelShader);
 		}
 		
-		m_standardVSs.push_back(VertexShader(Arg::source = detail::vsCode, { { L"SpriteCB", 0 } }));
+		m_standardVSs.push_back(VertexShader(Arg::source = detail::vsCode, { { S3DSTR("SpriteCB"), 0 } }));
 		m_standardPSs.push_back(PixelShader(Arg::source = detail::psCode));
 
 		return true;

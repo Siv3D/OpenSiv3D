@@ -36,7 +36,7 @@ namespace s3d
 
 		IDXGISwapChain* m_swapChain = nullptr;
 
-		AssetHandleManager<Texture::IDType, std::shared_ptr<Texture_D3D11>> m_textures{ L"Texture" };
+		AssetHandleManager<Texture::IDType, std::shared_ptr<Texture_D3D11>> m_textures{ S3DSTR("Texture") };
 
 	public:
 

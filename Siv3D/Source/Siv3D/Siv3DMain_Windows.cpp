@@ -41,8 +41,8 @@ namespace s3d
 
 		static void ShowException(const DWORD _code)
 		{
-			const String code = (_code == EXCEPTION_ACCESS_VIOLATION) ? L"EXCEPTION_ACCESS_VIOLATION"
-				: Format(L"0x", Pad(ToHex(_code), { 8, L'0' }));
+			const String code = (_code == EXCEPTION_ACCESS_VIOLATION) ? S3DSTR("EXCEPTION_ACCESS_VIOLATION")
+				: Format(S3DSTR("0x"), Pad(ToHex(_code), { 8, S3DCHAR('0') }));
 
 			LOG_ERROR(L"🛑 Application terminated due to an exception. Exception code: {0}"_fmt(code));
 		}
@@ -126,7 +126,7 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 		return false;
 	}
 
-	Logger::WriteRawHTML(L"<hr width=\"99%\">");
+	Logger::WriteRawHTML(S3DSTR("<hr width=\"99%\">"));
 
 	const std::future<void> f = std::async(std::launch::async, detail::MainThread);
 
@@ -156,7 +156,7 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 		::Sleep(1);
 	}
 
-	Logger::WriteRawHTML(L"<hr width=\"99%\">");
+	Logger::WriteRawHTML(S3DSTR("<hr width=\"99%\">"));
 
 	return 0;
 }
