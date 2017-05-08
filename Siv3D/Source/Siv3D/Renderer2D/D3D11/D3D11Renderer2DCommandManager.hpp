@@ -250,6 +250,8 @@ namespace s3d
 
 	public:
 
+		~D3D11Render2DCommandManager();
+
 		size_t getCount() const
 		{
 			return m_commandCount;

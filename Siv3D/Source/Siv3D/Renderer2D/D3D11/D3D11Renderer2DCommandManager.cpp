@@ -17,6 +17,13 @@
 
 namespace s3d
 {
+	D3D11Render2DCommandManager::~D3D11Render2DCommandManager()
+	{
+		m_currentRenderTarget.release();
+
+		m_reservedTextures.clear();
+	}
+
 	void D3D11Render2DCommandManager::reset()
 	{
 		m_commands.clear();
@@ -65,10 +72,10 @@ namespace s3d
 
 		for (uint32 slot = 0; slot < m_currentPSTextures.size(); ++slot)
 		{
-			m_currentPSTextures[slot] = 0;
+			m_currentPSTextures[slot] = Texture::NullHandleID;
 			D3D11Render2DCommand<D3D11Render2DInstruction::PSTexture> command;
 			command.slot = slot;
-			command.textureID = 0;
+			command.textureID = Texture::NullHandleID;
 			writeCommand(command);
 		}
 	}

@@ -72,6 +72,8 @@ namespace s3d
 
 		using IDType = TextureHandle::IDType;
 
+		static constexpr IDType NullHandleID = TextureHandle::NullID;
+
 		/// <summary>
 		/// デフォルトコンストラクタ
 		/// </summary>

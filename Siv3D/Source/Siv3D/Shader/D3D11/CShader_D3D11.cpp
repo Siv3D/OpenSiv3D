@@ -111,7 +111,7 @@ namespace s3d
 
 		if (!vertexShader->isInitialized())
 		{
-			return VertexShader::IDType(0);
+			return VertexShader::NullHandleID;
 		}
 
 		return m_vertexShaders.add(vertexShader);
@@ -123,7 +123,7 @@ namespace s3d
 
 		if (!reader.isOpened() || reader.size() == 0 || !reader.supportsLookahead())
 		{
-			return VertexShader::IDType(0);
+			return VertexShader::NullHandleID;
 		}
 
 		static constexpr uint8 dxbc[4] = { 'D', 'X', 'B', 'C' };
@@ -131,7 +131,7 @@ namespace s3d
 
 		if (!reader.lookahead(fourcc))
 		{
-			return VertexShader::IDType(0);
+			return VertexShader::NullHandleID;
 		}
 
 		const bool isBinary = (::memcmp(dxbc, fourcc, 4) == 0);
@@ -144,7 +144,7 @@ namespace s3d
 		}
 		else if (!compileHLSL(reader, memory, reader.path().narrow().c_str(), "VS", "vs_4_0"))
 		{
-			return VertexShader::IDType(0);
+			return VertexShader::NullHandleID;
 		}
 
 		return createVS(std::move(memory));
@@ -156,7 +156,7 @@ namespace s3d
 
 		if (!pixelShader->isInitialized())
 		{
-			return PixelShader::IDType(0);
+			return PixelShader::NullHandleID;
 		}
 
 		return m_pixelShaders.add(pixelShader);
@@ -176,7 +176,7 @@ namespace s3d
 
 		if (!reader.lookahead(fourcc))
 		{
-			return PixelShader::IDType(0);
+			return PixelShader::NullHandleID;
 		}
 
 		const bool isBinary = (::memcmp(dxbc, fourcc, 4) == 0);
@@ -189,7 +189,7 @@ namespace s3d
 		}
 		else if (!compileHLSL(reader, memory, reader.path().narrow().c_str(), "PS", "ps_4_0"))
 		{
-			return PixelShader::IDType(0);
+			return PixelShader::NullHandleID;
 		}
 
 		return createPS(std::move(memory));

@@ -46,7 +46,7 @@ namespace s3d
 
 		if (!texture->isInitialized())
 		{
-			return 0;
+			return Texture::NullHandleID;
 		}
 
 		return m_textures.add(texture);
@@ -56,14 +56,14 @@ namespace s3d
 	{
 		if (!image)
 		{
-			return 0;
+			return Texture::NullHandleID;
 		}
 
 		const auto texture = std::make_shared<Texture_D3D11>(m_device, image, desc);
 
 		if (!texture->isInitialized())
 		{
-			return 0;
+			return Texture::NullHandleID;
 		}
 
 		return m_textures.add(texture);
@@ -75,7 +75,7 @@ namespace s3d
 
 		if (!texture->isInitialized())
 		{
-			return 0;
+			return Texture::NullHandleID;
 		}
 
 		return m_textures.add(texture);
