@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 
 find_package(PkgConfig)
 
-project(open_siv3d_linux CXX)
+project(OpenSiv3D_Linux CXX)
 enable_language(C)
 
 set(CMAKE_CXX_COMPILER "clang++")
@@ -249,8 +249,8 @@ elseif (_SIV3D_LINUX_WINDOW_API_MIR)
 	)
 endif()
 
-add_library(siv3d STATIC ${SOURCE_FILES})
+add_library(Siv3D STATIC ${SOURCE_FILES})
 
-target_link_libraries(siv3d
+target_link_libraries(Siv3D
 )
 
