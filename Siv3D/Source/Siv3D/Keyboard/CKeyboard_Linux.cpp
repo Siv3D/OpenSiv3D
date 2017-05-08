@@ -16,6 +16,7 @@
 # include "../Siv3DEngine.hpp"
 # include "CKeyboard_Linux.hpp"
 # include "../System/ISystem.hpp"
+# include <Siv3D/System.hpp>
 
 namespace s3d
 {

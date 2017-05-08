@@ -8,7 +8,7 @@ void Main()
 	
 	RenderStateBlock2D blend(BlendState::Additive);
 	
-	System::SetExitEvent(WindowEvent::Unfocus);
+	System::SetExitEvent(WindowEvent::CloseButton);
 
 	while (System::Update())
 	{
