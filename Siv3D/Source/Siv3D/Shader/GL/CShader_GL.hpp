@@ -42,7 +42,11 @@ namespace s3d
 
 		VertexShader::IDType createVS(ByteArray&& binary) override { return 0; }
 
+		VertexShader::IDType createVSFromFile(const FilePath& path) override { return 0; }
+
 		PixelShader::IDType createPS(ByteArray&& binary) override { return 0; }
+
+		PixelShader::IDType createPSFromFile(const FilePath& path) override { return 0; }
 
 		void releaseVS(VertexShader::IDType handleID) override {}
 

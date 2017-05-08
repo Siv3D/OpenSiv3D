@@ -28,7 +28,11 @@ namespace s3d
 
 		virtual VertexShader::IDType createVS(ByteArray&& binary) = 0;
 
+		virtual VertexShader::IDType createVSFromFile(const FilePath& path) = 0;
+
 		virtual PixelShader::IDType createPS(ByteArray&& binary) = 0;
+
+		virtual PixelShader::IDType createPSFromFile(const FilePath& path) = 0;
 
 		virtual void releaseVS(VertexShader::IDType handleID) = 0;
 

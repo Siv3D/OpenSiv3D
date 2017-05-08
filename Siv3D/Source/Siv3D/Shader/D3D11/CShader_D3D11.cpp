@@ -164,6 +164,39 @@ namespace s3d
 		return m_vertexShaders.add(vertexShader);
 	}
 
+	VertexShader::IDType CShader_D3D11::createVSFromFile(const FilePath& path)
+	{
+		BinaryReader reader(path);
+
+		if (!reader.isOpened() || reader.size() == 0 || !reader.supportsLookahead())
+		{
+			return VertexShader::IDType(0);
+		}
+
+		static constexpr uint8 dxbc[4] = { 'D', 'X', 'B', 'C' };
+		uint8 fourcc[4];
+
+		if (!reader.lookahead(fourcc))
+		{
+			return VertexShader::IDType(0);
+		}
+
+		const bool isBinary = (::memcmp(dxbc, fourcc, 4) == 0);
+
+		ByteArray memory;
+
+		if (isBinary)
+		{
+			memory = reader.readAll();
+		}
+		else if (!compileHLSL(reader, memory, reader.path().narrow().c_str(), "VS", "vs_4_0"))
+		{
+			return VertexShader::IDType(0);
+		}
+
+		return createVS(std::move(memory));
+	}
+
 	PixelShader::IDType CShader_D3D11::createPS(ByteArray&& binary)
 	{
 		const auto pixelShader = std::make_shared<PixelShader_D3D11>(std::move(binary), m_device);
@@ -174,6 +207,39 @@ namespace s3d
 		}
 
 		return m_pixelShaders.add(pixelShader);
+	}
+
+	PixelShader::IDType CShader_D3D11::createPSFromFile(const FilePath& path)
+	{
+		BinaryReader reader(path);
+
+		if (!reader.isOpened() || reader.size() == 0 || !reader.supportsLookahead())
+		{
+			return PixelShader::IDType(0);
+		}
+
+		static constexpr uint8 dxbc[4] = { 'D', 'X', 'B', 'C' };
+		uint8 fourcc[4];
+
+		if (!reader.lookahead(fourcc))
+		{
+			return PixelShader::IDType(0);
+		}
+
+		const bool isBinary = (::memcmp(dxbc, fourcc, 4) == 0);
+
+		ByteArray memory;
+
+		if (isBinary)
+		{
+			memory = reader.readAll();
+		}
+		else if (!compileHLSL(reader, memory, reader.path().narrow().c_str(), "PS", "ps_4_0"))
+		{
+			return PixelShader::IDType(0);
+		}
+
+		return createPS(std::move(memory));
 	}
 
 	void CShader_D3D11::releaseVS(const VertexShader::IDType handleID)
