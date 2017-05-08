@@ -100,6 +100,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\KeyGroup.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Lerp.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Line.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\LineString.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Logger.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Mat3x2.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Math.hpp" />

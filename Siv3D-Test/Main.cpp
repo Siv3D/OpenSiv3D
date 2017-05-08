@@ -7,13 +7,9 @@ void Main()
 	});
 	
 	RenderStateBlock2D blend(BlendState::Additive);
-	
-	System::SetExitEvent(WindowEvent::Unfocus);
 
 	while (System::Update())
 	{
-		Log << System::GetPreviousEvent();
-
 		for (auto i : step(4))
 		{
 			ViewportBlock2D viewport(i % 2 * 320, i / 2 * 240, 320, 240);
@@ -25,10 +21,5 @@ void Main()
 		}
 		
 		Circle(Cursor::Pos(), 80).draw();
-
-		if (KeyDown.down())
-		{
-			System::Exit();
-		}
 	}
 }
