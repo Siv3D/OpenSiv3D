@@ -471,8 +471,8 @@
 	//# include "Siv3D/SamplerState.hpp"
 	//// レンダーステート
 	//# include "Siv3D/RenderState.hpp"
-	//// シェーダ
-	//# include "Siv3D/Shader.hpp"
+	// シェーダ
+	# include "Siv3D/Shader.hpp"
 	// 頂点シェーダ
 	# include "Siv3D/VertexShader.hpp"
 	// ピクセルシェーダ

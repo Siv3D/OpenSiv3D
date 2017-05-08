@@ -86,7 +86,20 @@ namespace s3d
 			return m_initialized;
 		}
 		
-		GLint getProgram() const;
+		GLint getProgram() const
+		{
+			return m_psProgram;
+		}
+		
+		GLuint getUniformBlockIndex(const char* const name)
+		{
+			return ::glGetUniformBlockIndex(m_psProgram, name);
+		}
+		
+		void setUniformBlockBinding(const char* const name, GLuint index)
+		{
+			::glUniformBlockBinding(m_psProgram, getUniformBlockIndex(name), index);
+		}
 		
 		ByteArrayView getView() const;
 	};

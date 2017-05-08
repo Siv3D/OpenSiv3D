@@ -117,7 +117,7 @@ namespace s3d
 		return m_vertexShaders.add(vertexShader);
 	}
 
-	VertexShader::IDType CShader_D3D11::createVSFromFile(const FilePath& path)
+	VertexShader::IDType CShader_D3D11::createVSFromFile(const FilePath& path, const Array<BindingPoint>&)
 	{
 		BinaryReader reader(path);
 
@@ -162,7 +162,7 @@ namespace s3d
 		return m_pixelShaders.add(pixelShader);
 	}
 
-	PixelShader::IDType CShader_D3D11::createPSFromFile(const FilePath& path)
+	PixelShader::IDType CShader_D3D11::createPSFromFile(const FilePath& path, const Array<BindingPoint>&)
 	{
 		BinaryReader reader(path);
 

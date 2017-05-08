@@ -15,6 +15,8 @@
 # include "AssetHandle.hpp"
 # include "String.hpp"
 # include "NamedParameter.hpp"
+# include "Array.hpp"
+# include "Shader.hpp"
 
 namespace s3d
 {
@@ -36,9 +38,9 @@ namespace s3d
 
 		VertexShader();
 
-		explicit VertexShader(const FilePath& path);
+		explicit VertexShader(const FilePath& path, const Array<BindingPoint>& bindingPoints = {});
 		
-		explicit VertexShader(Arg::source_<String> source);
+		explicit VertexShader(Arg::source_<String> source, const Array<BindingPoint>& bindingPoints = {});
 
 		virtual ~VertexShader();
 

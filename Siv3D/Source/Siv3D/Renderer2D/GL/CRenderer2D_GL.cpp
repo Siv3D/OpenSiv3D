@@ -78,44 +78,6 @@ namespace s3d
 			
 			return static_cast<IndexType>(std::max(quality * rate, 3.0f));
 		}
-		
-		const String vsCode =
-LR"(
-#version 410
-		
-layout(location = 0) in vec2 VertexPosition;
-layout(location = 1) in vec2 Tex;
-layout(location = 2) in vec4 VertexColor;
-		
-layout(location = 0) out vec4 Color;
-out vec4 gl_Position;
-		
-layout(std140) uniform SpriteCB
-{
-	vec4 g_transform[2];
-};
-		
-void main()
-{
-	Color = VertexColor;
-	gl_Position.xy	= g_transform[0].zw + VertexPosition.x * g_transform[0].xy + VertexPosition.y * g_transform[1].xy;
-	gl_Position.zw	= g_transform[1].zw;
-}
-)";
-		
-		const String psCode =
-LR"(
-#version 410
-		
-layout(location = 0) in vec4 Color;
-
-layout(location = 0) out vec4 FragColor;
-		
-void main()
-{
-	FragColor = Color;
-}
-)";
 	}
 		
 	CRenderer2D_GL::CRenderer2D_GL()
@@ -130,26 +92,16 @@ void main()
 
 	bool CRenderer2D_GL::init()
 	{
-		if (!m_vertexShader.createFromString(detail::vsCode))
-		{
-			return false;
-		}
-		
-		if (!m_pixelShader.createFromString(detail::psCode))
-		{
-			return false;
-		}
-		
-		m_vertexShader.setUniformBlockBinding(m_cbSprite.Name(), m_cbSprite.BindingPoint());
-		
+		CShader_GL* const shader = dynamic_cast<CShader_GL* const>(Siv3DEngine::GetShader());
+
 		if (!m_pipeline.init())
 		{
 			return false;
 		}
 		
-		m_pipeline.setVS(m_vertexShader.getProgram());
-		m_pipeline.setPS(m_pixelShader.getProgram());
-
+		m_pipeline.setVS(shader->getVSProgram(shader->getStandardVS(0).id()));
+		m_pipeline.setPS(shader->getPSProgram(shader->getStandardPS(0).id()));
+		
 		if (!m_spriteBatch.init())
 		{
 			return false;

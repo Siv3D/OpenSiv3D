@@ -68,9 +68,9 @@ namespace s3d
 
 		VertexShader::IDType createVS(ByteArray&& binary) override;
 
-		VertexShader::IDType createVSFromFile(const FilePath& path) override;
+		VertexShader::IDType createVSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints) override;
 		
-		VertexShader::IDType createVSFromSource(const String&) override
+		VertexShader::IDType createVSFromSource(const String&, const Array<BindingPoint>&) override
 		{
 			// [Siv3D ToDo];
 			return 0;
@@ -78,9 +78,9 @@ namespace s3d
 
 		PixelShader::IDType createPS(ByteArray&& binary) override;
 
-		PixelShader::IDType createPSFromFile(const FilePath& path) override;
+		PixelShader::IDType createPSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints) override;
 		
-		PixelShader::IDType createPSFromSource(const String& source) override
+		PixelShader::IDType createPSFromSource(const String& source, const Array<BindingPoint>&) override
 		{
 			// [Siv3D ToDo];
 			return 0;

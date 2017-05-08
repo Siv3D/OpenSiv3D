@@ -97,13 +97,13 @@ void main()
 			m_pixelShaders.setNullData(nullPixelShader);
 		}
 		
-		m_standardVSs.push_back(VertexShader(Arg::source = detail::vsCode));
+		m_standardVSs.push_back(VertexShader(Arg::source = detail::vsCode, { { L"SpriteCB", 0 } }));
 		m_standardPSs.push_back(PixelShader(Arg::source = detail::psCode));
 
 		return true;
 	}
 	
-	VertexShader::IDType CShader_GL::createVSFromSource(const String& source)
+	VertexShader::IDType CShader_GL::createVSFromSource(const String& source, const Array<BindingPoint>& bindingPoints)
 	{
 		const auto vertexShader = std::make_shared<VertexShader_GL>(source);
 		
@@ -112,16 +112,26 @@ void main()
 			return VertexShader::IDType(0);
 		}
 		
+		for (const auto& bindingPoint : bindingPoints)
+		{
+			vertexShader->setUniformBlockBinding(bindingPoint.bufferName.narrow().c_str(), bindingPoint.index);
+		}
+		
 		return m_vertexShaders.add(vertexShader);
 	}
 	
-	PixelShader::IDType CShader_GL::createPSFromSource(const String& source)
+	PixelShader::IDType CShader_GL::createPSFromSource(const String& source, const Array<BindingPoint>& bindingPoints)
 	{
 		const auto pixelShader = std::make_shared<PixelShader_GL>(source);
 		
 		if (!pixelShader->isInitialized())
 		{
 			return PixelShader::IDType(0);
+		}
+		
+		for (const auto& bindingPoint : bindingPoints)
+		{
+			pixelShader->setUniformBlockBinding(bindingPoint.bufferName.narrow().c_str(), bindingPoint.index);
 		}
 		
 		return m_pixelShaders.add(pixelShader);
@@ -135,6 +145,16 @@ void main()
 	void CShader_GL::releasePS(const PixelShader::IDType handleID)
 	{
 		m_pixelShaders.erase(handleID);
+	}
+	
+	GLuint CShader_GL::getVSProgram(const VertexShader::IDType handleID)
+	{
+		return m_vertexShaders[handleID]->getProgram();
+	}
+	
+	GLuint CShader_GL::getPSProgram(const PixelShader::IDType handleID)
+	{
+		return m_pixelShaders[handleID]->getProgram();
 	}
 }
 
