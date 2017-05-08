@@ -88,7 +88,7 @@ namespace s3d
 				}		
 			}
 
-			return reinterpret_cast<size_t>(::ShellExecuteW(nullptr, L"open", url.c_str(), nullptr, nullptr, SW_SHOWNORMAL)) > 32;
+			return reinterpret_cast<size_t>(::ShellExecuteW(nullptr, S3DWSTR("open"), url.c_str(), nullptr, nullptr, SW_SHOWNORMAL)) > 32;
 		}
 	}
 }

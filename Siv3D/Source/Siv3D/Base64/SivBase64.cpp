@@ -49,8 +49,8 @@ namespace s3d
 
 			if (src.length() % 4 == 0 && !src.isEmpty())
 			{
-				length -= (src[src.length() - 2] == L'=') ? 2
-					: (src[src.length() - 1] == L'=') ? 1 : 0;
+				length -= (src[src.length() - 2] == S3DCHAR('=')) ? 2
+					: (src[src.length() - 1] == S3DCHAR('=')) ? 1 : 0;
 			}
 
 			return length;
@@ -61,7 +61,7 @@ namespace s3d
 	{
 		String Encode(const void* const data, const size_t size)
 		{
-			String result(detail::EncodeLength(size), L'=');
+			String result(detail::EncodeLength(size), S3DCHAR('='));
 			const auto blocks = size / 3;
 			const auto remain = size % 3;
 			const uint8* pSrc = static_cast<const uint8*>(data);

@@ -40,7 +40,7 @@ namespace s3d
 		{
 			HMODULE hModule = ::GetModuleHandleW(nullptr);
 
-			if (HRSRC hrs = ::FindResourceW(hModule, &path[1], L"FILE"))
+			if (HRSRC hrs = ::FindResourceW(hModule, &path[1], S3DWSTR("FILE")))
 			{
 				m_pResource = ::LockResource(::LoadResource(hModule, hrs));
 

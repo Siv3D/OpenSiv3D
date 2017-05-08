@@ -411,7 +411,7 @@ namespace s3d
 				++end;
 			}
 
-			if (*end != L'}')
+			if (*end != Char('}'))
 			{
 				FMT_THROW(fmt::FormatError("missing '}' in format string"));
 			}

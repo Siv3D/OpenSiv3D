@@ -322,7 +322,7 @@ namespace s3d
 		FilePath SpecialFolderPath(SpecialFolder folder);
 
 		/// <summary>
-		/// 一時ファイル用のディレクトリのパスを返します。パスの末尾には L'/' が付きます。
+		/// 一時ファイル用のディレクトリのパスを返します。パスの末尾には '/' が付きます。
 		/// </summary>
 		/// <returns>
 		/// 一時ファイル用のディレクトリのパス

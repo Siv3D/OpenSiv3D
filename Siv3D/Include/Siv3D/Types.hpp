@@ -70,4 +70,9 @@ namespace s3d
 	/// 文字列プレフィックス
 	/// </summary>
 	# define S3DSTR(x)      L ## x
+
+	/// <summary>
+	/// 文字列プレフィックス
+	/// </summary>
+	# define S3DWSTR(x)      L ## x
 }

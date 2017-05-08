@@ -118,7 +118,7 @@ namespace s3d
 	{
 		m_errorMessage.clear();
 
-		m_parser.SetExpr(L"");
+		m_parser.SetExpr(mu::string_type());
 
 		m_parser.ClearConst();
 

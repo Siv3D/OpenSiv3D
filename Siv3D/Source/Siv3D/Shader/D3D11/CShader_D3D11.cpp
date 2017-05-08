@@ -50,17 +50,17 @@ namespace s3d
 
 	# if defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64)
 
-		m_d3dcompiler = ::LoadLibraryW(L"dll_x64/d3d/d3dcompiler_47.dll");
+		m_d3dcompiler = ::LoadLibraryW(S3DWSTR("dll_x64/d3d/d3dcompiler_47.dll"));
 
 	# elif defined(SIV3D_TARGET_WINDOWS_DESKTOP_X86)
 
-		m_d3dcompiler = ::LoadLibraryW(L"dll_x86/d3d/d3dcompiler_47.dll");
+		m_d3dcompiler = ::LoadLibraryW(S3DWSTR("dll_x86/d3d/d3dcompiler_47.dll"));
 
 	# endif
 
 		if (!m_d3dcompiler)
 		{
-			::LoadLibraryW(L"d3dcompiler_47.dll");
+			::LoadLibraryW(S3DWSTR("d3dcompiler_47.dll"));
 		}
 
 		if (m_d3dcompiler)

@@ -115,7 +115,7 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 		::LocalFree(szArglist);
 	}
 
-	::OutputDebugStringW(L"Siv3D for Windows\n");
+	::OutputDebugStringW(S3DWSTR("Siv3D for Windows\n"));
 
 	Siv3DEngine engine;
 

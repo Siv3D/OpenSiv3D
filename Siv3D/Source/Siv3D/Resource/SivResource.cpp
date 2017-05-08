@@ -41,7 +41,7 @@ namespace s3d
 
 			HMODULE hModule = ::GetModuleHandleW(nullptr);
 
-			::EnumResourceNamesW(hModule, L"FILE", detail::EnumResourceNameCallback, (LONG_PTR)&paths);
+			::EnumResourceNamesW(hModule, S3DWSTR("FILE"), detail::EnumResourceNameCallback, (LONG_PTR)&paths);
 
 			paths.sort();
 

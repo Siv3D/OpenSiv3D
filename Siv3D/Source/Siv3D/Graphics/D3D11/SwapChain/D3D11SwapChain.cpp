@@ -40,7 +40,7 @@ namespace s3d
 		// に高 DPI が既定の設定として登録されてしまう。
 		static void SetHighDPI()
 		{
-			if (HINSTANCE shcore = ::LoadLibraryW(L"shcore.dll"))
+			if (HINSTANCE shcore = ::LoadLibraryW(S3DWSTR("shcore.dll")))
 			{
 				decltype(SetProcessDpiAwareness)* p_SetProcessDpiAwareness = FunctionPointer(shcore, "SetProcessDpiAwareness");
 
