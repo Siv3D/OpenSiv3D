@@ -2,38 +2,32 @@
 
 void Main()
 {
-	const Array<Circle> circles(20, Arg::generator = [](){
-		return Circle(RandomVec2(320, 240), 40);
-	});
-	
-	RenderStateBlock2D blend(BlendState::Additive);
-
-	const LineString line
-	{
-		{ 50, 100 },{ 600, 100 },
-		{ 50, 200 },{ 600, 200 },
-		{ 50, 300 },{ 600, 300 },
-		{ 50, 400 }
-	};
-
-	const Texture texture(L"example/siv3d-kun.png");
+	// 空のテクスチャ
+	Texture texture;
 
 	while (System::Update())
 	{
-		for (auto i : step(4))
+		// 何かがドロップされた
+		if (DragDrop::HasNewFilePaths())
 		{
-			ViewportBlock2D viewport(i % 2 * 320, i / 2 * 240, 320, 240);
-			
-			for (const auto& circle : circles)
+			const auto items = DragDrop::GetDroppedFilePaths();
+
+			// テクスチャとしてロードに成功したら
+			if (const Texture tmp{ items[0].path })
 			{
-				circle.draw(HSV(i * 90 + 45, 0.5));
+				// テクスチャを置き換える
+				texture = tmp;
+
+				Log << texture.size();
+
+				// ウィンドウをテクスチャと同じサイズにする
+				Window::Resize(texture.size(), false);
 			}
 		}
 
-		line.draw(3, Palette::Yellow);
-		
-		RenderStateBlock2D blend2(BlendState::Default);
-
-		texture.draw(Cursor::Pos());
+		if (texture)
+		{
+			texture.draw();
+		}
 	}
 }

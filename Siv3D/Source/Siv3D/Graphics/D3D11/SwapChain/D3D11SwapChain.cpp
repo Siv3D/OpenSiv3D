@@ -241,7 +241,10 @@ namespace s3d
 		else
 		{
 			// フルスクリーンを解除
-			m_swapChain->SetFullscreenState(false, nullptr);
+			if (m_fullScreen)
+			{
+				m_swapChain->SetFullscreenState(false, nullptr);
+			}
 
 			Siv3DEngine::GetGraphics()->beginResize();
 

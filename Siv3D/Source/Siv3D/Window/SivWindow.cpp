@@ -45,8 +45,15 @@ namespace s3d
 
 			const Rect workArea = monitors[System::GetCurrentMonitorIndex()].workArea;
 			const s3d::Size windowSize = Siv3DEngine::GetWindow()->getState().windowSize;
+			
+			Point pos = workArea.pos + (workArea.size - windowSize) / 2;
 
-			SetPos(workArea.pos + (workArea.size - windowSize) / 2);
+			if (pos.y < 0)
+			{
+				pos.y = 0;
+			}
+
+			SetPos(pos);
 		}
 
 		bool Resize(const int32 width, const int32 height, const bool centering)
