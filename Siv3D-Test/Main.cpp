@@ -2,36 +2,15 @@
 
 void Main()
 {
-	// create a new empty texture
-	Texture texture;
+	LineString lines;
 
 	while (System::Update())
 	{
-		// if some files have dropped
-		if (DragDrop::HasNewFilePaths())
+		if (!Cursor::Delta().isZero())
 		{
-			// retrieve file paths
-			const auto items = DragDrop::GetDroppedFilePaths();
-
-			// load the first file as a Texture
-			const Texture tmp(items[0].path);
-
-			// if succeeded
-			if (tmp)
-			{
-				// set the new texture
-				texture = tmp;
-
-				// resize the window to be the same size as the texture
-				Window::Resize(texture.size());
-			}
+			lines << Cursor::Pos();
 		}
 
-		// if the texture has content
-		if (texture)
-		{
-			// draw
-			texture.draw();
-		}
+		lines.draw(10);
 	}
 }
