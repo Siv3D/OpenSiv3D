@@ -12,6 +12,7 @@
 # include "../Siv3DEngine.hpp"
 # include "ITexture.hpp"
 # include "../Renderer2D/IRenderer2D.hpp"
+# include "../Profiler/IProfiler.hpp"
 # include <Siv3D/Texture.hpp>
 # include <Siv3D/TextureRegion.hpp>
 # include <Siv3D/Image.hpp>
@@ -42,7 +43,7 @@ namespace s3d
 	Texture::Texture(Render, const Size& size, const uint32 multisampleCount)
 		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::GetTexture()->createRT(size, multisampleCount)))
 	{
-
+		ASSET_CREATION();
 	}
 
 	Texture::Texture()
@@ -54,7 +55,7 @@ namespace s3d
 	Texture::Texture(const Image& image, const TextureDesc desc)
 		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::GetTexture()->create(image, desc)))
 	{
-		//ASSET_CREATION;
+		ASSET_CREATION();
 	}
 
 	Texture::Texture(const FilePath& path, const TextureDesc desc)

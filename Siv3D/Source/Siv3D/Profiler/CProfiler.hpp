@@ -19,11 +19,25 @@ namespace s3d
 	{
 	private:
 
+		//
+		// FPS
+		//
 		int32 m_fpsCount = 0;
 
 		int32 m_currentFPS = 1;
 
 		Stopwatch m_fpsStopwatch;
+
+		//
+		// Asset creation
+		//
+		static constexpr int32 ReportFrameCount = 30;
+
+		bool m_assetCreationWarningEnabled = true;
+
+		std::array<int32, ReportFrameCount> m_assetCreationCount{};
+
+		std::array<int32, ReportFrameCount> m_assetReleaseCount{};
 
 	public:
 
@@ -38,5 +52,14 @@ namespace s3d
 		void endFrame() override;
 
 		int32 getFPS() const override;
+
+
+		void setAssetCreationWarningEnabled(bool enabled) override;
+
+		void reportAssetCreation() override;
+
+		void reportAssetRelease() override;
+
+		bool reportAssetNextFrame() override;
 	};
 }
