@@ -36,6 +36,8 @@ namespace s3d
 
 		using IDType = PixelShaderHandle::IDType;
 
+		static constexpr IDType NullHandleID = PixelShaderHandle::NullID;
+
 		PixelShader();
 
 		explicit PixelShader(const FilePath& path, const Array<BindingPoint>& bindingPoints = {});

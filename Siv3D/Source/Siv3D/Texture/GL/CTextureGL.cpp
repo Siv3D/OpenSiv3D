@@ -17,24 +17,67 @@
 
 namespace s3d
 {
+	CTexture_GL::~CTexture_GL()
+	{
+		m_textures.destroy();
+	}
+	
+	bool CTexture_GL::init()
+	{
+		const auto nullTexture = std::make_shared<Texture_GL>(Texture_GL::Null{});
+		
+		if (!nullTexture->isInitialized())
+		{
+			return false;
+		}
+		
+		m_textures.setNullData(nullTexture);
+		
+		return true;
+	}
+	
 	Texture::IDType CTexture_GL::createFromBackBuffer()
 	{
-		return 0;
+		return Texture::NullHandleID;
+	}
+	
+	Texture::IDType CTexture_GL::create(const Image& image, const TextureDesc desc)
+	{
+		if (!image)
+		{
+			return Texture::NullHandleID;
+		}
+		
+		const auto texture = std::make_shared<Texture_GL>(image, desc);
+		
+		if (!texture->isInitialized())
+		{
+			return Texture::NullHandleID;
+		}
+		
+		return m_textures.add(texture);
 	}
 
 	Texture::IDType CTexture_GL::createRT(const Size&, const uint32)
 	{
-		return 0;
+		return Texture::NullHandleID;
 	}
 	
-	void CTexture_GL::release(Texture::IDType)
+	void CTexture_GL::release(const Texture::IDType handleID)
 	{
-	
+		m_textures.erase(handleID);
 	}
 	
-	Size CTexture_GL::getSize(Texture::IDType)
+	Size CTexture_GL::getSize(const Texture::IDType handleID)
 	{
-		return Size(0, 0);
+		return m_textures[handleID]->getSize();
+	}
+	
+	
+	void CTexture_GL::setPS(const uint32 slot, const Texture::IDType handleID)
+	{
+		::glActiveTexture(GL_TEXTURE0 + slot);
+		::glBindTexture(GL_TEXTURE_2D, m_textures[handleID]->getTexture());
 	}
 }
 

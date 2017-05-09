@@ -65,6 +65,8 @@ namespace s3d
 
 		Texture_D3D11(Render, ID3D11Device* device, const Size& size, uint32 multisampleCount);
 
+		Texture_D3D11(ID3D11Device* device, const Image& image, TextureDesc desc);
+
 		bool isInitialized() const noexcept
 		{
 			return m_initialized;
@@ -83,6 +85,11 @@ namespace s3d
 		ID3D11RenderTargetView* getRTV()
 		{
 			return m_renderTargetView.Get();
+		}
+
+		ID3D11ShaderResourceView** getSRVPtr()
+		{
+			return m_shaderResourceView.GetAddressOf();
 		}
 
 		void clearRT(ID3D11DeviceContext* context, const ColorF& color);

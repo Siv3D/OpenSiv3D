@@ -8,6 +8,16 @@ void Main()
 	
 	RenderStateBlock2D blend(BlendState::Additive);
 
+	const LineString line
+	{
+		{ 50, 100 },{ 600, 100 },
+		{ 50, 200 },{ 600, 200 },
+		{ 50, 300 },{ 600, 300 },
+		{ 50, 400 }
+	};
+
+	const Texture texture(L"example/siv3d-kun.png");
+
 	while (System::Update())
 	{
 		for (auto i : step(4))
@@ -19,7 +29,11 @@ void Main()
 				circle.draw(HSV(i * 90 + 45, 0.5));
 			}
 		}
+
+		line.draw(3, Palette::Yellow);
 		
-		Circle(Cursor::Pos(), 80).draw();
+		RenderStateBlock2D blend2(BlendState::Default);
+
+		texture.draw(Cursor::Pos());
 	}
 }

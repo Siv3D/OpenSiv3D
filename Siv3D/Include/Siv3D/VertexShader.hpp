@@ -36,6 +36,8 @@ namespace s3d
 
 		using IDType = VertexShaderHandle::IDType;
 
+		static constexpr IDType NullHandleID = VertexShaderHandle::NullID;
+
 		VertexShader();
 
 		explicit VertexShader(const FilePath& path, const Array<BindingPoint>& bindingPoints = {});

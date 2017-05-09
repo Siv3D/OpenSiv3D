@@ -14,16 +14,26 @@
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 # include "../ITexture.hpp"
+# include "Texture_GL.hpp"
+# include "../../AssetHandleManager/AssetHandleManager.hpp"
 
 namespace s3d
 {
 	class CTexture_GL : public ISiv3DTexture
 	{
+	private:
+		
+		AssetHandleManager<Texture::IDType, std::shared_ptr<Texture_GL>> m_textures{ S3DSTR("Texture") };
+		
 	public:
 
-		bool init() { return true; }
+		~CTexture_GL();
+		
+		bool init();
 
 		Texture::IDType createFromBackBuffer() override;
+
+		Texture::IDType create(const Image&, TextureDesc) override;
 
 		Texture::IDType createRT(const Size& size, uint32 multisampleCount) override;
 
@@ -52,6 +62,9 @@ namespace s3d
 			// [Siv3D ToDo]
 			return false;
 		}
+
+
+		void setPS(uint32 slot, Texture::IDType handleID) override;
 	};
 }
 

@@ -25,12 +25,15 @@
 # include <Siv3D/Byte.hpp>
 # include <Siv3D/BlendState.hpp>
 # include <Siv3D/RasterizerState.hpp>
+# include <Siv3D/SamplerState.hpp>
 # include <Siv3D/Rectangle.hpp>
 # include <Siv3D/Texture.hpp>
 # include <Siv3D/RenderTexture.hpp>
 # include <Siv3D/HashMap.hpp>
+# include <Siv3D/PixelShader.hpp>
 # include "../../Siv3DEngine.hpp"
 # include "../../Graphics/IGraphics.hpp"
+# include "../../Shader/IShader.hpp"
 
 namespace s3d
 {
@@ -50,7 +53,18 @@ namespace s3d
 
 		Viewport,
 
+		PixelShader,
+
+		PSTexture,
+
 		RenderTarget,
+	};
+
+	enum class D3D11Render2DPixelShaderType
+	{
+		Shape,
+
+		Sprite,
 	};
 
 	struct D3D11Render2DCommandHeader
@@ -100,7 +114,6 @@ namespace s3d
 		BlendState blendState;
 	};
 
-
 	template <>
 	struct D3D11Render2DCommand<D3D11Render2DInstruction::RasterizerState>
 	{
@@ -141,6 +154,34 @@ namespace s3d
 	};
 
 	template <>
+	struct D3D11Render2DCommand<D3D11Render2DInstruction::PixelShader>
+	{
+		D3D11Render2DCommandHeader header =
+		{
+			D3D11Render2DInstruction::PixelShader,
+
+			sizeof(D3D11Render2DCommand<D3D11Render2DInstruction::PixelShader>)
+		};
+
+		PixelShader::IDType psID;
+	};
+
+	template <>
+	struct D3D11Render2DCommand<D3D11Render2DInstruction::PSTexture>
+	{
+		D3D11Render2DCommandHeader header =
+		{
+			D3D11Render2DInstruction::PSTexture,
+
+			sizeof(D3D11Render2DCommand<D3D11Render2DInstruction::PSTexture>)
+		};
+
+		uint32 slot;
+
+		Texture::IDType textureID;
+	};
+
+	template <>
 	struct D3D11Render2DCommand<D3D11Render2DInstruction::RenderTarget>
 	{
 		D3D11Render2DCommandHeader header =
@@ -156,6 +197,8 @@ namespace s3d
 	class D3D11Render2DCommandManager
 	{
 	private:
+
+		static constexpr uint32 MaxSamplerCount = SamplerState::MaxSamplerCount;
 
 		Array<Byte> m_commands;
 
@@ -173,7 +216,11 @@ namespace s3d
 
 		Optional<Rect> m_currentViewport;
 
+		Optional<D3D11Render2DPixelShaderType> m_currentPSType;
+
 		HashMap<Texture::IDType, Texture> m_reservedTextures;
+
+		std::array<Texture::IDType, MaxSamplerCount> m_currentPSTextures;
 
 		RenderTexture m_currentRenderTarget;
 
@@ -203,6 +250,8 @@ namespace s3d
 
 	public:
 
+		~D3D11Render2DCommandManager();
+
 		size_t getCount() const
 		{
 			return m_commandCount;
@@ -213,101 +262,27 @@ namespace s3d
 			return m_commands.data();
 		}
 
-		void reset()
-		{
-			m_commands.clear();
+		void reset();
 
-			m_reservedTextures.clear();
+		void pushDraw(const uint32 indexSize, D3D11Render2DPixelShaderType ps);
 
-			m_commandCount = 0;
+		void pushNextBatch();
 
-			pushNextBatch();
+		void pushBlendState(const BlendState& state);
 
-			{
-				D3D11Render2DCommand<D3D11Render2DInstruction::BlendState> command;
-				command.blendState = m_currentBlendState;
-				writeCommand(command);
-			}
+		void pushRasterizerState(const RasterizerState& state);
 
-			{
-				D3D11Render2DCommand<D3D11Render2DInstruction::RasterizerState> command;
-				command.rasterizerState = m_currentRasterizerState;
-				writeCommand(command);
-			}
+		void pushScissorRect(const Rect& scissorRect);
 
-			{
-				const RenderTexture& backBuffer2D = Siv3DEngine::GetGraphics()->getBackBuffer2D();
-				m_currentRenderTarget = backBuffer2D;
-				m_reservedTextures.emplace(backBuffer2D.id(), backBuffer2D);
+		void pushViewport(const Optional<Rect>& viewport);
 
-				D3D11Render2DCommand<D3D11Render2DInstruction::RenderTarget> command;
-				command.textureID = backBuffer2D.id();
-				writeCommand(command);
-			}
+		void pushPSTexture(const uint32 slot, const Texture& texture);
 
-			{
-				D3D11Render2DCommand<D3D11Render2DInstruction::ScissorRect> command;
-				command.scissorRect = m_currentScissorRect;
-				writeCommand(command);
-			}
-
-			{
-				D3D11Render2DCommand<D3D11Render2DInstruction::Viewport> command;
-				command.viewport = m_currentViewport;
-				writeCommand(command);
-			}
-		}
-
-		void pushDraw(const uint32 indexSize)
-		{
-			if (m_lastCommand == D3D11Render2DInstruction::Draw)
-			{
-				getLastCommand<D3D11Render2DInstruction::Draw>().indexSize += indexSize;
-				
-				return;
-			}
-
-			D3D11Render2DCommand<D3D11Render2DInstruction::Draw> command;
-			command.indexSize = indexSize;
-			writeCommand(command);
-		}
-
-		void pushNextBatch()
-		{
-			writeCommand(D3D11Render2DCommand<D3D11Render2DInstruction::NextBatch>());
-		}
-
-		void pushBlendState(const BlendState& state)
-		{
-			if (state == m_currentBlendState)
-			{
-				return;
-			}
-
-			D3D11Render2DCommand<D3D11Render2DInstruction::BlendState> command;
-			command.blendState = state;
-			writeCommand(command);
-
-			m_currentBlendState = state;
-		}
+		void pushRenderTarget(const RenderTexture& texture);
 
 		const BlendState& getCurrentBlendState() const
 		{
 			return m_currentBlendState;
-		}
-
-		void pushRasterizerState(const RasterizerState& state)
-		{
-			if (state == m_currentRasterizerState)
-			{
-				return;
-			}
-
-			D3D11Render2DCommand<D3D11Render2DInstruction::RasterizerState> command;
-			command.rasterizerState = state;
-			writeCommand(command);
-
-			m_currentRasterizerState = state;
 		}
 
 		const RasterizerState& getCurrentRasterizerState() const
@@ -315,63 +290,14 @@ namespace s3d
 			return m_currentRasterizerState;
 		}
 
-		void pushScissorRect(const Rect& scissorRect)
-		{
-			if (scissorRect == m_currentScissorRect)
-			{
-				return;
-			}
-
-			D3D11Render2DCommand<D3D11Render2DInstruction::ScissorRect> command;
-			command.scissorRect = scissorRect;
-			writeCommand(command);
-
-			m_currentScissorRect = scissorRect;
-		}
-
 		Rect getCurrentScissorRect() const
 		{
 			return m_currentScissorRect;
 		}
 
-		void pushViewport(const Optional<Rect>& viewport)
-		{
-			if (viewport == m_currentViewport)
-			{
-				return;
-			}
-
-			D3D11Render2DCommand<D3D11Render2DInstruction::Viewport> command;
-			command.viewport = viewport;
-			writeCommand(command);
-
-			m_currentViewport = viewport;
-		}
-
-		Optional<Rect> getCurrentViewport() const
+		const Optional<Rect>& getCurrentViewport() const
 		{
 			return m_currentViewport;
-		}
-
-		void pushRenderTarget(const RenderTexture& texture)
-		{
-			const auto id = texture.id();
-
-			if (id == m_currentRenderTarget.id())
-			{
-				return;
-			}
-
-			if (m_reservedTextures.find(id) == m_reservedTextures.end())
-			{
-				m_reservedTextures.emplace(id, texture);
-			}
-
-			D3D11Render2DCommand<D3D11Render2DInstruction::RenderTarget> command;
-			command.textureID = id;
-			writeCommand(command);
-
-			m_currentRenderTarget = texture;
 		}
 	};
 }

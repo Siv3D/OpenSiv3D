@@ -25,6 +25,8 @@ namespace s3d
 
 		virtual Texture::IDType createFromBackBuffer() = 0;
 
+		virtual Texture::IDType create(const Image& image, TextureDesc desc) = 0;
+
 		virtual Texture::IDType createRT(const Size& size, uint32 multisampleCount) = 0;
 
 		virtual void release(Texture::IDType handleID) = 0;
@@ -38,5 +40,9 @@ namespace s3d
 		virtual bool endResizeRT(Texture::IDType handleID, const Size& size, uint32 multisampleCount) = 0;
 
 		virtual bool endResizeBackBuffer(Texture::IDType handleID) = 0;
+
+
+
+		virtual void setPS(uint32 slot, Texture::IDType handleID) = 0;
 	};
 }

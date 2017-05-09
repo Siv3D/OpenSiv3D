@@ -114,6 +114,69 @@ namespace s3d
 		m_initialized = true;
 	}
 
+	Texture_D3D11::Texture_D3D11(ID3D11Device* device, const Image& image, const TextureDesc)
+	{
+		m_desc.Width				= image.width();
+		m_desc.Height				= image.height();
+		m_desc.MipLevels			= 1; // desc == TextureDesc::Mipped || desc == TextureDesc::MippedSRGB ? CalculateMipCount(image.width, image.height) : 1;
+		m_desc.ArraySize			= 1;
+		m_desc.Format				= DXGI_FORMAT_R8G8B8A8_UNORM; //static_cast<DXGI_FORMAT>(desc == TextureDesc::UnmippedSRGB || desc == TextureDesc::MippedSRGB ? TextureFormat::R8G8B8A8_Unorm_SRGB : TextureFormat::R8G8B8A8_Unorm);
+		m_desc.SampleDesc			= DXGI_SAMPLE_DESC{ 1, 0 };
+		m_desc.Usage				= D3D11_USAGE_IMMUTABLE;
+		m_desc.BindFlags			= D3D11_BIND_SHADER_RESOURCE;
+		m_desc.CPUAccessFlags		= 0;
+		m_desc.MiscFlags			= 0;
+
+		if (m_desc.MipLevels == 1)	// no Mip
+		{
+			const D3D11_SUBRESOURCE_DATA initData{ image.data(), image.stride(), 0 };
+
+			if (FAILED(device->CreateTexture2D(&m_desc, &initData, &m_texture)))
+			{
+				return;
+			}
+		}
+		else
+		{
+			/*
+			Array<Image> mipImages(m_desc.MipLevels - 1);
+
+			mipImages[0] = Imaging::GenerateMip(image);
+
+			for (uint32 i = 1; i < m_desc.MipLevels - 1; ++i)
+			{
+				mipImages[i] = Imaging::GenerateMip(mipImages[i - 1]);
+			}
+
+			Array<D3D11_SUBRESOURCE_DATA> initData(m_desc.MipLevels);
+
+			initData[0] = { image.data(), image.stride, 0 };
+
+			for (uint32 i = 0; i < m_desc.MipLevels - 1; ++i)
+			{
+				initData[i + 1] = { mipImages[i].data(), mipImages[i].stride, 0 };
+			}
+
+			if (FAILED(device->CreateTexture2D(&m_desc, initData.data(), &m_texture)))
+			{
+				LOG_FAIL(L"failed: mipped CreateTexture2D");
+				return;
+			}
+			*/
+		}
+
+		m_srvDesc.Format		= m_desc.Format;
+		m_srvDesc.ViewDimension	= D3D11_SRV_DIMENSION_TEXTURE2D;
+		m_srvDesc.Texture2D		= { 0, m_desc.MipLevels };
+
+		if (FAILED(device->CreateShaderResourceView(m_texture.Get(), &m_srvDesc, &m_shaderResourceView)))
+		{
+			return;
+		}
+
+		m_initialized = true;
+	}
+
 	void Texture_D3D11::clearRT(ID3D11DeviceContext* context, const ColorF& color)
 	{
 		const ColorF clearColor = isSRGB() ? color.gamma(1.0 / 2.2) : color;

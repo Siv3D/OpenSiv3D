@@ -85,6 +85,8 @@ namespace s3d
 		GLuint getVSProgram(VertexShader::IDType handleID);
 		
 		GLuint getPSProgram(PixelShader::IDType handleID);
+		
+		void setPSSamplerUniform(PixelShader::IDType handleID);
 	};
 }
 

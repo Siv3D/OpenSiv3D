@@ -13,9 +13,41 @@
 # include <memory>
 # include "Fwd.hpp"
 # include "AssetHandle.hpp"
+# include "Rectangle.hpp"
 
 namespace s3d
 {
+	/// <summary>
+	/// テクスチャの設定
+	/// </summary>
+	enum class TextureDesc
+	{
+		/// <summary>
+		/// ミップマップなし
+		/// </summary>
+		Unmipped,
+
+		/// <summary>
+		/// ミップマップなし、sRGB
+		/// </summary>
+		UnmippedSRGB,
+
+		/// <summary>
+		/// ミップマップあり
+		/// </summary>
+		Mipped,
+
+		/// <summary>
+		/// ミップマップあり、sRGB
+		/// </summary>
+		MippedSRGB,
+
+		/// <summary>
+		/// 3D 用のテクスチャのデフォルト [ミップマップあり、sRGB]
+		/// </summary>
+		For3D = MippedSRGB,
+	};
+
 	class Texture
 	{
 	protected:
@@ -40,10 +72,42 @@ namespace s3d
 
 		using IDType = TextureHandle::IDType;
 
+		static constexpr IDType NullHandleID = TextureHandle::NullID;
+
 		/// <summary>
 		/// デフォルトコンストラクタ
 		/// </summary>
 		Texture();
+
+		/// <summary>
+		/// 画像からテクスチャを作成します。
+		/// </summary>
+		/// <param name="image">
+		/// 画像
+		/// </param>
+		/// <param name="desc">
+		/// テクスチャの設定
+		/// </param>
+		/// <remarks>
+		/// 画像が空の場合、空のテクスチャを作成します。
+		/// </remarks>
+		explicit Texture(const Image& image, TextureDesc desc = TextureDesc::Unmipped);
+
+		/// <summary>
+		/// 画像ファイルからテクスチャを作成します。
+		/// </summary>
+		/// <param name="path">
+		/// 画像ファイルのパス
+		/// </param>
+		/// <param name="desc">
+		/// テクスチャの設定
+		/// </param>
+		/// <remarks>
+		/// 画像ファイルの読み込みに失敗した場合、空のテクスチャを作成します。
+		/// </remarks>
+		explicit Texture(const FilePath& path, TextureDesc desc = TextureDesc::Unmipped);
+
+		explicit Texture(IReader&& reader, TextureDesc desc = TextureDesc::Unmipped);
 
 		/// <summary>
 		/// デストラクタ
@@ -109,5 +173,54 @@ namespace s3d
 		int32 height() const;
 
 		Size size() const;
+
+
+		/// <summary>
+		/// テクスチャを描きます。
+		/// </summary>
+		/// <param name="diffuse">
+		/// 乗算する色
+		/// </param>
+		/// <returns>
+		/// 描画領域
+		/// </returns>
+		RectF draw(const ColorF& diffuse = Palette::White) const
+		{
+			return draw(0.0, 0.0, diffuse);
+		}
+
+		/// <summary>
+		/// 指定した位置にテクスチャを描きます。
+		/// </summary>
+		/// <param name="x">
+		/// 描画開始位置の X 座標
+		/// </param>
+		/// <param name="y">
+		/// 描画開始位置の Y 座標
+		/// </param>
+		/// <param name="diffuse">
+		/// 乗算する色
+		/// </param>
+		/// <returns>
+		/// 描画領域
+		/// </returns>
+		RectF draw(double x, double y, const ColorF& diffuse = Palette::White) const;
+
+		/// <summary>
+		/// 指定した位置にテクスチャを描きます。
+		/// </summary>
+		/// <param name="pos">
+		/// 描画開始位置
+		/// </param>
+		/// <param name="diffuse">
+		/// 乗算する色
+		/// </param>
+		/// <returns>
+		/// 描画領域
+		/// </returns>
+		RectF draw(const Vec2& pos, const Color& diffuse = Palette::White) const
+		{
+			return draw(pos.x, pos.y, diffuse);
+		}
 	};
 }

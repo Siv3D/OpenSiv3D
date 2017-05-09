@@ -23,10 +23,11 @@ namespace s3d
 #version 410
 		
 layout(location = 0) in vec2 VertexPosition;
-layout(location = 1) in vec2 Tex;
+layout(location = 1) in vec2 VertexTex;
 layout(location = 2) in vec4 VertexColor;
 		
 layout(location = 0) out vec4 Color;
+layout(location = 1) out vec2 Tex;
 out vec4 gl_Position;
 		
 layout(std140) uniform SpriteCB
@@ -39,6 +40,7 @@ void main()
 	Color = VertexColor;
 	gl_Position.xy	= g_transform[0].zw + VertexPosition.x * g_transform[0].xy + VertexPosition.y * g_transform[1].xy;
 	gl_Position.zw	= g_transform[1].zw;
+	Tex = VertexTex;
 }
 )";
 		
@@ -53,6 +55,23 @@ layout(location = 0) out vec4 FragColor;
 void main()
 {
 	FragColor = Color;
+}
+)";
+		
+		const String psCodeSprite =
+		LR"(
+#version 410
+		
+layout(location = 0) in vec4 Color;
+layout(location = 1) in vec2 Tex;
+		
+uniform sampler2D Tex0;
+		
+layout(location = 0) out vec4 FragColor;
+		
+void main()
+{
+	FragColor = texture(Tex0, Tex) * Color;
 }
 )";
 	}
@@ -99,7 +118,8 @@ void main()
 		
 		m_standardVSs.push_back(VertexShader(Arg::source = detail::vsCode, { { S3DSTR("SpriteCB"), 0 } }));
 		m_standardPSs.push_back(PixelShader(Arg::source = detail::psCode));
-
+		m_standardPSs.push_back(PixelShader(Arg::source = detail::psCodeSprite));
+		
 		return true;
 	}
 	
@@ -155,6 +175,11 @@ void main()
 	GLuint CShader_GL::getPSProgram(const PixelShader::IDType handleID)
 	{
 		return m_pixelShaders[handleID]->getProgram();
+	}
+	
+	void CShader_GL::setPSSamplerUniform(const PixelShader::IDType handleID)
+	{
+		m_pixelShaders[handleID]->setPSSamplerUniform();
 	}
 }
 
