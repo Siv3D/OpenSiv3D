@@ -38,8 +38,7 @@ namespace s3d
 			float r,
 			float b,
 			double sx,
-			double sy
-		)
+			double sy)
 			: texture(_texture)
 			, uvRect(l, t, r, b)
 			, size(sx, sy) {}
@@ -50,8 +49,7 @@ namespace s3d
 			float t,
 			float r,
 			float b,
-			const Vec2& _size
-		)
+			const Vec2& _size)
 			: texture(_texture)
 			, uvRect(l, t, r, b)
 			, size(_size) {}
@@ -60,8 +58,7 @@ namespace s3d
 			const Texture& _texture,
 			const FloatRect& _uvRect,
 			double sx,
-			double sy
-		)
+			double sy)
 			: texture(_texture)
 			, uvRect(_uvRect)
 			, size(sx, sy) {}
@@ -69,8 +66,7 @@ namespace s3d
 		TextureRegion(
 			const Texture& _texture,
 			const FloatRect& _uvRect,
-			const Vec2& _size
-		)
+			const Vec2& _size)
 			: texture(_texture)
 			, uvRect(_uvRect)
 			, size(_size) {}
@@ -104,7 +100,10 @@ namespace s3d
 		/// <returns>
 		/// 描画領域
 		/// </returns>
-		RectF draw(const ColorF& diffuse = Palette::White) const;
+		RectF draw(const ColorF& diffuse = Palette::White) const
+		{
+			return draw(0.0, 0.0, diffuse);
+		}
 
 		/// <summary>
 		/// 指定した位置にテクスチャを描きます。
@@ -135,7 +134,10 @@ namespace s3d
 		/// <returns>
 		/// 描画領域
 		/// </returns>
-		RectF draw(const Vec2& pos, const ColorF& diffuse = Palette::White) const;
+		RectF draw(const Vec2& pos, const ColorF& diffuse = Palette::White) const
+		{
+			return draw(pos.x, pos.y, diffuse);
+		}
 
 		/// <summary>
 		/// 中心位置を指定してテクスチャを描きます。
@@ -166,21 +168,33 @@ namespace s3d
 		/// <returns>
 		/// 描画領域
 		/// </returns>
-		RectF drawAt(const Vec2& pos, const ColorF& diffuse = Palette::White) const;
+		RectF drawAt(const Vec2& pos, const ColorF& diffuse = Palette::White) const
+		{
+			return drawAt(pos.x, pos.y, diffuse);
+		}
 
 		TextureRegion mirror() const;
 
 		TextureRegion flip() const;
 
-		TextureRegion scale(double scaling) const;
+		TextureRegion scale(double s) const
+		{
+			return scale(s, s);
+		}
 
-		TextureRegion scale(double xScaling, double yScaling) const;
+		TextureRegion scale(double sx, double sy) const;
 
-		TextureRegion scale(const Vec2& scaling) const;
+		TextureRegion scale(const Vec2& s) const
+		{
+			return scale(s.x, s.y);
+		}
 
 		TextureRegion resize(double width, double height) const;
 
-		TextureRegion resize(const Vec2& _size) const;
+		TextureRegion resize(const Vec2& _size) const
+		{
+			return resize(_size.x, _size.y);
+		}
 
 		//TexturedQuad rotate(double radian) const;
 
