@@ -666,6 +666,7 @@
 		2CA79ABB1DF55A410028D11D /* TestTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79AAB1DF55A410028D11D /* TestTypes.cpp */; };
 		2CA79ABC1DF55A410028D11D /* TestUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79AAC1DF55A410028D11D /* TestUtility.cpp */; };
 		2CCE339B1EC0CB8300B6A0D5 /* Texture_GL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */; };
+		2CCE339D1EC1E71400B6A0D5 /* TextureRegion.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1364,6 +1365,7 @@
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
 		2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Texture_GL.hpp; sourceTree = "<group>"; };
+		2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextureRegion.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2591,6 +2593,7 @@
 				2C0C7D091EBCC39B00386CBB /* TextReader.hpp */,
 				2C0C7D0A1EBCC39B00386CBB /* Texture.hpp */,
 				2C0C7D0B1EBCC39B00386CBB /* TextureFormat.hpp */,
+				2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */,
 				2C0C7D0C1EBCC39B00386CBB /* TextWriter.hpp */,
 				2C0C7D0D1EBCC39B00386CBB /* Threading.hpp */,
 				2C0C7D0E1EBCC39B00386CBB /* Time.hpp */,
@@ -3361,6 +3364,7 @@
 				2C0C7BF01EBCC38400386CBB /* ImageFormat_JPEG.hpp in Headers */,
 				2C0C7BFF1EBCC38400386CBB /* CKeyboard_Windows.hpp in Headers */,
 				2C0C7BCF1EBCC38400386CBB /* D3D11DepthStencilState.hpp in Headers */,
+				2CCE339D1EC1E71400B6A0D5 /* TextureRegion.hpp in Headers */,
 				2C0C7DA61EBCC39B00386CBB /* StringView.hpp in Headers */,
 				2C81C0621E89F8E300D27E52 /* jpeg_error.h in Headers */,
 				2C81C0971E89F8E400D27E52 /* xxhash.h in Headers */,
