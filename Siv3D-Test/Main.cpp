@@ -2,59 +2,36 @@
 
 void Main()
 {
-	// 空のテクスチャ
+	// create a new empty texture
 	Texture texture;
-
-	Graphics::SetBackground(Palette::White);
-	
-	double t = 0.0;
 
 	while (System::Update())
 	{
-		Window::SetTitle(Window::GetState().windowSize, Window::Size());
-		
-		if (KeyW.down())
-		{
-			Graphics::SetFullScreen(false, Size(1280, 720));
-		}
-
-		if (KeyR.down())
-		{
-			Window::Resize(Size(1280, 720));
-		}
-
-		// 何かがドロップされた
+		// if some files have dropped
 		if (DragDrop::HasNewFilePaths())
 		{
+			// retrieve file paths
 			const auto items = DragDrop::GetDroppedFilePaths();
 
-			// テクスチャとしてロードに成功したら
-			if (const Texture tmp{ items[0].path })
+			// load the first file as a Texture
+			const Texture tmp(items[0].path);
+
+			// if succeeded
+			if (tmp)
 			{
-				// テクスチャを置き換える
+				// set the new texture
 				texture = tmp;
 
-				// ウィンドウをテクスチャと同じサイズにする
+				// resize the window to be the same size as the texture
 				Window::Resize(texture.size());
 			}
 		}
 
+		// if the texture has content
 		if (texture)
 		{
+			// draw
 			texture.draw();
 		}
-
-		t += System::DeltaTime();
-
-		for (int32 i = 0; i < 36; ++i)
-		{
-			const double angle = i * 10_deg + t * 30_deg;
-
-			const Vec2 pos = Circular(200, angle) + Window::Center();
-
-			RectF(25).setCenter(pos).rotated(angle).draw(HSV(i * 10));
-		}
-		
-		Circle(Cursor::Pos(), 80).draw(ColorF(1,0,0,0.5));
 	}
 }
