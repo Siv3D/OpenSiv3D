@@ -56,9 +56,8 @@ namespace s3d
 
 		bool m_fullScreen = false;
 
-		// ディスプレイの設定の中でユーザー設定に最も近いものを適用
-		// 利用可能なサイズのうち size に一致するものがなければ false を返す
-		bool setBestFullScreenMode(const Size& size, size_t displayIndex, double refreshRateHz);
+		// ディスプレイの設定の中でユーザー設定に最も近いものを取得
+		Optional<std::pair<DXGI_MODE_DESC, ComPtr<IDXGIOutput>>> getBestFullScreenMode(const Size& size, size_t displayIndex, double refreshRateHz);
 
 	public:
 
@@ -76,15 +75,13 @@ namespace s3d
 
 		bool present();
 
-		void setVSyncEnabled(bool enabled);
-
-		bool isVSyncEnabled() const;
-
 		void setTargetFrameRateHz(const Optional<double>& targetFrameRateHz);
 
 		Optional<double> getTargetFrameRateHz() const;
 
 		double getDisplayRefreshRateHz() const;
+
+		bool resizeTarget(const DXGI_MODE_DESC& modeDesc);
 	};
 }
 

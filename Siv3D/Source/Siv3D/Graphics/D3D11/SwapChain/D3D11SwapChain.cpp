@@ -232,11 +232,26 @@ namespace s3d
 				setFullScreen(false, size, displayIndex, refreshRateHz);
 			}
 
-			// フルスクリーン化
-			if (!setBestFullScreenMode(size, displayIndex, refreshRateHz))
+			const auto bestMode = getBestFullScreenMode(size, displayIndex, refreshRateHz);
+
+			if (!bestMode)
 			{
 				return false;
 			}
+
+			detail::SetHighDPI();
+
+			if (!resizeTarget(bestMode->first))
+			{
+				return false;
+			}
+
+			if (FAILED(m_swapChain->SetFullscreenState(true, bestMode->second.Get())))
+			{
+				return false;
+			}
+
+			m_currentDisplayRefreshRateHz = static_cast<double>(bestMode->first.RefreshRate.Denominator) / bestMode->first.RefreshRate.Numerator;
 		}
 		else
 		{
@@ -246,15 +261,14 @@ namespace s3d
 				m_swapChain->SetFullscreenState(false, nullptr);
 			}
 
-			Siv3DEngine::GetGraphics()->beginResize();
+			auto targetDesc		= m_desc.BufferDesc;
+			targetDesc.Width	= size.x;
+			targetDesc.Height	= size.y;
 
-			auto targetDesc = m_desc.BufferDesc;
-			targetDesc.Width = size.x;
-			targetDesc.Height = size.y;
-			m_swapChain->ResizeTarget(&targetDesc);
-			m_swapChain->ResizeBuffers(1, size.x, size.y, DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
-
-			Siv3DEngine::GetGraphics()->endResize(size);
+			if (!resizeTarget(targetDesc))
+			{
+				return false;
+			}
 
 			DWM_TIMING_INFO timingInfo = {};
 			timingInfo.cbSize = sizeof(DWM_TIMING_INFO);
@@ -365,7 +379,32 @@ namespace s3d
 		return m_currentDisplayRefreshRateHz;
 	}
 
-	bool D3D11SwapChain::setBestFullScreenMode(const Size& size, const size_t displayIndex, const double refreshRateHz)
+	bool D3D11SwapChain::resizeTarget(const DXGI_MODE_DESC& modeDesc)
+	{
+		LOG_TEST(L"D3D11SwapChain::resizeTarget() : {}"_fmt(Size(modeDesc.Width, modeDesc.Height)));
+
+		Siv3DEngine::GetGraphics()->beginResize();
+		{
+			if (FAILED(m_swapChain->ResizeTarget(&modeDesc)))
+			{
+				return false;
+			}
+			
+			if (FAILED(m_swapChain->ResizeBuffers(1, modeDesc.Width, modeDesc.Height, DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH)))
+			{
+				return false;
+			}
+		}
+		
+		if (!Siv3DEngine::GetGraphics()->endResize(Size(modeDesc.Width, modeDesc.Height)))
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	Optional<std::pair<DXGI_MODE_DESC, ComPtr<IDXGIOutput>>> D3D11SwapChain::getBestFullScreenMode(const Size& size, const size_t displayIndex, const double refreshRateHz)
 	{
 		assert(!m_fullScreen);
 
@@ -375,7 +414,7 @@ namespace s3d
 		{
 			if (FAILED(m_adapter->EnumOutputs(0, &pOutput)))
 			{
-				return false;
+				return none;
 			}
 		}
 
@@ -389,13 +428,13 @@ namespace s3d
 
 			if (FAILED(pOutput->GetDisplayModeList(DXGI_FORMAT_R8G8B8A8_UNORM, 0, &numModes, displayModeList.data())))
 			{
-				return false;
+				return none;
 			}
 		}
 
 		if (numModes == 0)
 		{
-			return false;
+			return none;
 		}
 
 		{
@@ -420,7 +459,7 @@ namespace s3d
 			if (int32(desc.Width) == size.x && int32(desc.Height) == size.y)
 			{
 				const double rate = static_cast<double>(desc.RefreshRate.Numerator) / desc.RefreshRate.Denominator;
-				const double diff = ::abs(refreshRateHz - rate) + (desc.Scaling == DXGI_MODE_SCALING_STRETCHED ? 0.0 : desc.Scaling == DXGI_MODE_SCALING_UNSPECIFIED ? 0.0001 : 0.0002);
+				const double diff = std::abs(refreshRateHz - rate) + (desc.Scaling == DXGI_MODE_SCALING_STRETCHED ? 0.0 : desc.Scaling == DXGI_MODE_SCALING_UNSPECIFIED ? 0.0001 : 0.0002);
 
 				if (diff < bestDiff)
 				{
@@ -432,7 +471,7 @@ namespace s3d
 
 		if (!bestIndex)
 		{
-			return false;
+			return none;
 		}
 
 		//Log << displayModeList[bestIndex].Width;
@@ -440,22 +479,7 @@ namespace s3d
 		//Log << static_cast<double>(displayModeList[bestIndex].RefreshRate.Numerator) / displayModeList[bestIndex].RefreshRate.Denominator;
 		//Log << (int32)displayModeList[bestIndex].Scaling;
 
-		detail::SetHighDPI();
-
-		Siv3DEngine::GetGraphics()->beginResize();
-
-		const auto& bestDisplayMode = displayModeList[bestIndex.value()];
-
-		m_swapChain->ResizeTarget(&bestDisplayMode);
-		m_swapChain->ResizeBuffers(1, bestDisplayMode.Width, bestDisplayMode.Height, DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
-		
-		Siv3DEngine::GetGraphics()->endResize(size);
-		
-		m_swapChain->SetFullscreenState(true, pOutput.Get());
-
-		m_currentDisplayRefreshRateHz = static_cast<double>(bestDisplayMode.RefreshRate.Denominator) / bestDisplayMode.RefreshRate.Numerator;
-
-		return true;
+		return std::pair<DXGI_MODE_DESC, ComPtr<IDXGIOutput>>(displayModeList[bestIndex.value()], std::move(pOutput));
 	}
 }
 
