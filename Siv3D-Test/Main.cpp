@@ -9,6 +9,8 @@ void Main()
 		if (!Cursor::Delta().isZero())
 		{
 			lines << Cursor::Pos();
+
+			Log << lines;
 		}
 
 		lines.draw(10);

@@ -163,13 +163,13 @@ namespace s3d
 	void Formatter(FormatData& formatData, const Quad& value);
 
 	/// <summary>
-	/// 出力ストリームに三角形を渡します。
+	/// 出力ストリームに四角形を渡します。
 	/// </summary>
 	/// <param name="os">
 	/// 出力ストリーム
 	/// </param>
 	/// <param name="quad">
-	/// 三角形
+	/// 四角形
 	/// </param>
 	/// <returns>
 	/// 渡した後の出力ストリーム
@@ -185,13 +185,13 @@ namespace s3d
 	}
 
 	/// <summary>
-	/// 入力ストリームに三角形を渡します。
+	/// 入力ストリームに四角形を渡します。
 	/// </summary>
 	/// <param name="is">
 	/// 入力ストリーム
 	/// </param>
 	/// <param name="quad">
-	/// 三角形
+	/// 四角形
 	/// </param>
 	/// <returns>
 	/// 渡した後の入力ストリーム

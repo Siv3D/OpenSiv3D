@@ -243,3 +243,56 @@ namespace s3d
 		// asPolygon
 	};
 }
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting LineString
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[ ] istream
+//	[ ] wistream
+//	[p] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
+	inline void Formatter(FormatData& formatData, const LineString& value)
+	{
+		formatData.string.append(value.join(L",", L"(", L")"));
+	}
+
+	/// <summary>
+	/// 出力ストリームに線を渡します。
+	/// </summary>
+	/// <param name="os">
+	/// 出力ストリーム
+	/// </param>
+	/// <param name="lines">
+	/// 線
+	/// </param>
+	/// <returns>
+	/// 渡した後の出力ストリーム
+	/// </returns>
+	template <class CharType>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const LineString& lines)
+	{
+		os << CharType('(');
+
+		bool b = false;
+
+		for (const auto& point : lines)
+		{
+			if (std::exchange(b, true))
+			{
+				os << CharType(',');
+			}
+
+			os << point;
+		}
+
+		return os << CharType(')');
+	}
+}
+//
+//////////////////////////////////////////////////////////////////////////////

@@ -163,12 +163,12 @@ namespace s3d
 
 	void Formatter(FormatData& formatData, const Triangle& value)
 	{
-		formatData.string.push_back(L'(');
+		formatData.string.push_back(S3DCHAR('('));
 		Formatter(formatData, value.p0);
-		formatData.string.push_back(L',');
+		formatData.string.push_back(S3DCHAR(','));
 		Formatter(formatData, value.p1);
-		formatData.string.push_back(L',');
+		formatData.string.push_back(S3DCHAR(','));
 		Formatter(formatData, value.p2);
-		formatData.string.push_back(L')');
+		formatData.string.push_back(S3DCHAR(')'));
 	}
 }
