@@ -667,6 +667,7 @@
 		2CA79ABC1DF55A410028D11D /* TestUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79AAC1DF55A410028D11D /* TestUtility.cpp */; };
 		2CCE339B1EC0CB8300B6A0D5 /* Texture_GL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */; };
 		2CCE339D1EC1E71400B6A0D5 /* TextureRegion.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */; };
+		2CCE33A01EC1F1B800B6A0D5 /* SivTextureRegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE339F1EC1F1B800B6A0D5 /* SivTextureRegion.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1366,6 +1367,7 @@
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
 		2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Texture_GL.hpp; sourceTree = "<group>"; };
 		2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextureRegion.hpp; sourceTree = "<group>"; };
+		2CCE339F1EC1F1B800B6A0D5 /* SivTextureRegion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextureRegion.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1397,6 +1399,7 @@
 		2C0C7A121EBCC38300386CBB /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2CCE339E1EC1F1B800B6A0D5 /* TextureRegion */,
 				2C0C7DF31EC0A2EA00386CBB /* LineString */,
 				2C0C7DEE1EC081B700386CBB /* RasterizerState */,
 				2C0C7DEB1EC07DF000386CBB /* BlendState */,
@@ -3306,6 +3309,14 @@
 			path = ../Siv3D;
 			sourceTree = "<group>";
 		};
+		2CCE339E1EC1F1B800B6A0D5 /* TextureRegion */ = {
+			isa = PBXGroup;
+			children = (
+				2CCE339F1EC1F1B800B6A0D5 /* SivTextureRegion.cpp */,
+			);
+			path = TextureRegion;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -4047,6 +4058,7 @@
 				2C0C7B9D1EBCC38400386CBB /* ClipboardFactory.cpp in Sources */,
 				2C0C7C7B1EBCC38400386CBB /* SivWritableMemoryMapping.cpp in Sources */,
 				2C2126541E8CB7B5006F8101 /* gif_hash.c in Sources */,
+				2CCE33A01EC1F1B800B6A0D5 /* SivTextureRegion.cpp in Sources */,
 				2C2126521E8CB7B5006F8101 /* gif_err.c in Sources */,
 				2C0C7C6D1EBCC38400386CBB /* SivVector3D.cpp in Sources */,
 				2C81C04C1E89F8E300D27E52 /* debug_print.cc in Sources */,
