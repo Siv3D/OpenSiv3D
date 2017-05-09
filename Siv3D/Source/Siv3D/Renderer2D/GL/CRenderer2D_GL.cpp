@@ -87,20 +87,18 @@ namespace s3d
 
 	CRenderer2D_GL::~CRenderer2D_GL()
 	{
-
+		if (m_sampler)
+		{
+			::glDeleteSamplers(1, &m_sampler);
+		}
 	}
 
 	bool CRenderer2D_GL::init()
 	{
-		CShader_GL* const shader = dynamic_cast<CShader_GL* const>(Siv3DEngine::GetShader());
-
 		if (!m_pipeline.init())
 		{
 			return false;
 		}
-		
-		m_pipeline.setVS(shader->getVSProgram(shader->getStandardVS(0).id()));
-		m_pipeline.setPS(shader->getPSProgram(shader->getStandardPS(0).id()));
 		
 		if (!m_spriteBatch.init())
 		{
@@ -109,12 +107,20 @@ namespace s3d
 
 		m_commandManager.reset();
 		
+		::glGenSamplers(1, &m_sampler);
+		::glSamplerParameteri(m_sampler, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		::glSamplerParameteri(m_sampler, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		::glSamplerParameteri(m_sampler, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		::glSamplerParameteri(m_sampler, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		::glBindSampler(0, m_sampler);
+		
 		return true;
 	}
 	
 	void CRenderer2D_GL::flush()
 	{
 		CGraphics_GL* const graphics = dynamic_cast<CGraphics_GL* const>(Siv3DEngine::GetGraphics());
+		CShader_GL* const shader = dynamic_cast<CShader_GL* const>(Siv3DEngine::GetShader());
 		
 		const Size currentRenderTargetSize = Siv3DEngine::GetGraphics()->getCurrentRenderTargetSize();
 		
@@ -124,6 +130,9 @@ namespace s3d
 		const Byte* commandPointer = m_commandManager.getCommandBuffer();
 		
 		//Log(L"----");
+	
+		m_pipeline.setVS(shader->getVSProgram(shader->getStandardVS(0).id()));
+		m_pipeline.setPS(shader->getPSProgram(shader->getStandardPS(0).id()));
 		
 		m_pipeline.use();
 		
@@ -216,6 +225,25 @@ namespace s3d
 					
 					break;
 				}
+				case GLRender2DInstruction::PixelShader:
+				{
+					const auto* command = static_cast<const GLRender2DCommand<GLRender2DInstruction::PixelShader>*>(static_cast<const void*>(commandPointer));
+					
+					//Log(L"PixelShader: id = ", command->psID);
+					m_pipeline.setPS(shader->getPSProgram(command->psID));
+					shader->setPSSamplerUniform(command->psID);
+					
+					break;
+				}
+				case GLRender2DInstruction::PSTexture:
+				{
+					const auto* command = static_cast<const GLRender2DCommand<GLRender2DInstruction::PSTexture>*>(static_cast<const void*>(commandPointer));
+					
+					//Log(L"PSTexture: slot = ", command->slot, L", id = ", command->textureID);
+					Siv3DEngine::GetTexture()->setPS(command->slot, command->textureID);
+					
+					break;
+				}
 			}
 			
 			commandPointer += header->commandSize;
@@ -302,7 +330,7 @@ namespace s3d
 			pIndex[i] = indexOffset + detail::rectIndexTable[i];
 		}
 		
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Shape);
 	}
 	
 	void CRenderer2D_GL::addTriangle(const Float2(&pts)[3], const Float4& color)
@@ -330,7 +358,7 @@ namespace s3d
 		pIndex[1] = indexOffset + 1;
 		pIndex[2] = indexOffset + 2;
 		
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Shape);
 	}
 
 	void CRenderer2D_GL::addTriangle(const Float2(&pts)[3], const Float4(&colors)[3])
@@ -358,7 +386,7 @@ namespace s3d
 		pIndex[1] = indexOffset + 1;
 		pIndex[2] = indexOffset + 2;
 		
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Shape);
 	}
 	
 	void CRenderer2D_GL::addRect(const FloatRect& rect, const Float4& color)
@@ -390,7 +418,7 @@ namespace s3d
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
 		}
 		
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Shape);
 	}
 	
 	void CRenderer2D_GL::addRect(const FloatRect& rect, const Float4(&colors)[4])
@@ -421,7 +449,7 @@ namespace s3d
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
 		}
 		
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Shape);
 	}
 
 	void CRenderer2D_GL::addRectFrame(const FloatRect& rect, float thickness, const Float4& color)
@@ -455,7 +483,7 @@ namespace s3d
 			*pIndex++ = indexOffset + detail::rectFrameIndexTable[i];
 		}
 		
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Shape);
 	}
 
 	// 仮の実装
@@ -500,7 +528,7 @@ namespace s3d
 			pIndex[i * 3 + 2] = indexOffset + (i + 1) % quality + 1;
 		}
 		
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Shape);
 	}
 
 	void CRenderer2D_GL::addCircleFrame(const Float2& center, float r, float thickness, const Float4& color)
@@ -544,7 +572,7 @@ namespace s3d
 			}
 		}
 		
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Shape);
 	}
 
 	void CRenderer2D_GL::addCircleFrame(const Float2& center, float r, float thickness, const Float4& innerColor, const Float4& outerColor)
@@ -588,7 +616,7 @@ namespace s3d
 			}
 		}
 		
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Shape);
 	}
 	
 	void CRenderer2D_GL::addCirclePie(const Float2& center, float r, float startAngle, float angle, const Float4& color)
@@ -640,7 +668,7 @@ namespace s3d
 			pIndex[i * 3 + 2] = indexOffset + (i + 1) + 1;
 		}
 		
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Shape);
 	}
 	
 	void CRenderer2D_GL::addCircleArc(const Float2& center, float r, float startAngle, float angle, float thickness, const Float4& color)
@@ -693,7 +721,7 @@ namespace s3d
 			}
 		}
 		
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Shape);
 	}
 
 	void CRenderer2D_GL::addEllipse(const Float2& center, float a, float b, const Float4& color)
@@ -737,7 +765,7 @@ namespace s3d
 			pIndex[i * 3 + 2] = indexOffset + (i + 1) % quality + 1;
 		}
 
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Shape);
 	}
 
 	void CRenderer2D_GL::addEllipseFrame(const Float2& center, float a, float b, float thickness, const Float4& color)
@@ -783,7 +811,7 @@ namespace s3d
 			}
 		}
 
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Shape);
 	}
 
 	void CRenderer2D_GL::addQuad(const FloatQuad& quad, const Float4& color)
@@ -815,7 +843,7 @@ namespace s3d
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
 		}
 		
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Shape);
 	}
 	
 	void CRenderer2D_GL::addQuad(const FloatQuad& quad, const Float4(&colors)[4])
@@ -847,7 +875,7 @@ namespace s3d
 			*pIndex++ = indexOffset + detail::rectIndexTable[i];
 		}
 		
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Shape);
 	}
 	
 	void CRenderer2D_GL::addLineString(const Vec2* pts, uint32 size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, bool isClosed)
@@ -1082,7 +1110,7 @@ namespace s3d
 			}
 		}
 		
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Shape);
 	}
 	
 	void CRenderer2D_GL::addShape2D(const Array<Float2>& vertices, const Array<uint32>& indices, const Float4& color)
@@ -1124,7 +1152,7 @@ namespace s3d
 			*(pIndex++) += indexOffset;
 		}
 		
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Shape);
 	}
 	
 	void CRenderer2D_GL::addShape2DFrame(const Float2* pts, uint32 size, float thickness, const Float4& color)
@@ -1318,7 +1346,45 @@ namespace s3d
 			}
 		}
 		
-		m_commandManager.pushDraw(indexSize);
+		m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Shape);
+	}
+	
+	void CRenderer2D_GL::addTextureRegion(const Texture& texture, const FloatRect& rect, const FloatRect& uv, const Float4& color)
+	{
+		constexpr IndexType vertexSize = 4, indexSize = 6;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+		
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+		{
+			return;
+		}
+		
+		pVertex[0].pos.set(rect.left, rect.top);
+		pVertex[0].tex.set(uv.left, uv.top);
+		pVertex[0].color = color;
+		
+		pVertex[1].pos.set(rect.right, rect.top);
+		pVertex[1].tex.set(uv.right, uv.top);
+		pVertex[1].color = color;
+		
+		pVertex[2].pos.set(rect.left, rect.bottom);
+		pVertex[2].tex.set(uv.left, uv.bottom);
+		pVertex[2].color = color;
+		
+		pVertex[3].pos.set(rect.right, rect.bottom);
+		pVertex[3].tex.set(uv.right, uv.bottom);
+		pVertex[3].color = color;
+		
+		for (IndexType i = 0; i < indexSize; ++i)
+		{
+			*pIndex++ = indexOffset + detail::rectIndexTable[i];
+		}
+		
+		m_commandManager.pushPSTexture(0, texture);
+		
+		m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Sprite);
 	}
 }
 

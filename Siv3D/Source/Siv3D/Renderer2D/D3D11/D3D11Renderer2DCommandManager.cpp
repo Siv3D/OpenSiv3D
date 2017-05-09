@@ -19,9 +19,7 @@ namespace s3d
 {
 	D3D11Render2DCommandManager::~D3D11Render2DCommandManager()
 	{
-		m_currentRenderTarget.release();
 
-		m_reservedTextures.clear();
 	}
 
 	void D3D11Render2DCommandManager::reset()

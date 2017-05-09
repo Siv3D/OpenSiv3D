@@ -18,6 +18,12 @@
 # include <Siv3D/Byte.hpp>
 # include <Siv3D/BlendState.hpp>
 # include <Siv3D/RasterizerState.hpp>
+# include <Siv3D/SamplerState.hpp>
+# include <Siv3D/PixelShader.hpp>
+# include <Siv3D/Texture.hpp>
+# include <Siv3D/HashMap.hpp>
+# include "../../Siv3DEngine.hpp"
+# include "../../Shader/IShader.hpp"
 
 namespace s3d
 {
@@ -36,6 +42,17 @@ namespace s3d
 		ScissorRect,
 		
 		Viewport,
+		
+		PixelShader,
+		
+		PSTexture,
+	};
+	
+	enum class GLRender2DPixelShaderType
+	{
+		Shape,
+		
+		Sprite,
 	};
 
 	struct GLRender2DCommandHeader
@@ -123,11 +140,41 @@ namespace s3d
 		
 		Optional<Rect> viewport;
 	};
+	
+	template <>
+	struct GLRender2DCommand<GLRender2DInstruction::PixelShader>
+	{
+		GLRender2DCommandHeader header =
+		{
+			GLRender2DInstruction::PixelShader,
+			
+			sizeof(GLRender2DCommand<GLRender2DInstruction::PixelShader>)
+		};
+
+		PixelShader::IDType psID;
+	};
+	
+	template <>
+	struct GLRender2DCommand<GLRender2DInstruction::PSTexture>
+	{
+		GLRender2DCommandHeader header =
+		{
+			GLRender2DInstruction::PSTexture,
+			
+			sizeof(GLRender2DCommand<GLRender2DInstruction::PSTexture>)
+		};
+		
+		uint32 slot;
+		
+		Texture::IDType textureID;
+	};
 
 	class GLRender2DCommandManager
 	{
 	private:
 
+		static constexpr uint32 MaxSamplerCount = SamplerState::MaxSamplerCount;
+		
 		Array<Byte> m_commands;
 
 		size_t m_commandCount = 0;
@@ -143,7 +190,13 @@ namespace s3d
 		Rect m_currentScissorRect = { 0, 0, 0, 0 };
 
 		Optional<Rect> m_currentViewport;
+		
+		Optional<GLRender2DPixelShaderType> m_currentPSType;
 
+		HashMap<Texture::IDType, Texture> m_reservedTextures;
+		
+		std::array<Texture::IDType, MaxSamplerCount> m_currentPSTextures;
+		
 		template <class Command>
 		void writeCommand(const Command& command)
 		{
@@ -185,6 +238,8 @@ namespace s3d
 			m_commands.clear();
 
 			m_commandCount = 0;
+			
+			m_reservedTextures.clear();
 
 			pushNextBatch();
 
@@ -211,11 +266,34 @@ namespace s3d
 				command.viewport = m_currentViewport;
 				writeCommand(command);
 			}
+			
+			m_currentPSType.reset();
+			
+			for (uint32 slot = 0; slot < m_currentPSTextures.size(); ++slot)
+			{
+				m_currentPSTextures[slot] = Texture::NullHandleID;
+				GLRender2DCommand<GLRender2DInstruction::PSTexture> command;
+				command.slot = slot;
+				command.textureID = Texture::NullHandleID;
+				writeCommand(command);
+			}
 		}
 
-		void pushDraw(const uint32 indexSize)
+		void pushDraw(const uint32 indexSize, GLRender2DPixelShaderType ps)
 		{
-			if (m_lastCommand == GLRender2DInstruction::Draw)
+			bool shaderChanged = false;
+			
+			if (ps != m_currentPSType)
+			{
+				GLRender2DCommand<GLRender2DInstruction::PixelShader> command;
+				command.psID = Siv3DEngine::GetShader()->getStandardPS(static_cast<size_t>(ps)).id();
+				writeCommand(command);
+				
+				m_currentPSType = ps;
+				shaderChanged = true;
+			}
+			
+			if (!shaderChanged && m_lastCommand == GLRender2DInstruction::Draw)
 			{
 				getLastCommand<GLRender2DInstruction::Draw>().indexSize += indexSize;
 				
@@ -245,11 +323,6 @@ namespace s3d
 
 			m_currentBlendState = state;
 		}
-
-		const BlendState& getCurrentBlendState() const
-		{
-			return m_currentBlendState;
-		}
 		
 		void pushRasterizerState(const RasterizerState& state)
 		{
@@ -264,11 +337,6 @@ namespace s3d
 			
 			m_currentRasterizerState = state;
 		}
-		
-		const RasterizerState& getCurrentRasterizerState() const
-		{
-			return m_currentRasterizerState;
-		}
 
 		void pushScissorRect(const Rect& scissorRect)
 		{
@@ -282,11 +350,6 @@ namespace s3d
 			writeCommand(command);
 
 			m_currentScissorRect = scissorRect;
-		}
-
-		Rect getCurrentScissorRect() const
-		{
-			return m_currentScissorRect;
 		}
 		
 		void pushViewport(const Optional<Rect>& viewport)
@@ -303,7 +366,46 @@ namespace s3d
 			m_currentViewport = viewport;
 		}
 		
-		Optional<Rect> getCurrentViewport() const
+		void pushPSTexture(const uint32 slot, const Texture& texture)
+		{
+			assert(slot < MaxSamplerCount);
+			
+			const auto id = texture.id();
+			
+			if (id == m_currentPSTextures[slot])
+			{
+				return;
+			}
+			
+			if (m_reservedTextures.find(id) == m_reservedTextures.end())
+			{
+				m_reservedTextures.emplace(id, texture);
+			}
+			
+			GLRender2DCommand<GLRender2DInstruction::PSTexture> command;
+			command.slot = slot;
+			command.textureID = id;
+			writeCommand(command);
+			
+			m_currentPSTextures[slot] = id;
+		}
+
+		const BlendState& getCurrentBlendState() const
+		{
+			return m_currentBlendState;
+		}
+		
+		const RasterizerState& getCurrentRasterizerState() const
+		{
+			return m_currentRasterizerState;
+		}
+		
+		Rect getCurrentScissorRect() const
+		{
+			return m_currentScissorRect;
+		}
+			
+		const Optional<Rect>& getCurrentViewport() const
 		{
 			return m_currentViewport;
 		}

@@ -665,6 +665,7 @@
 		2CA79ABA1DF55A410028D11D /* TestString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79AAA1DF55A410028D11D /* TestString.cpp */; };
 		2CA79ABB1DF55A410028D11D /* TestTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79AAB1DF55A410028D11D /* TestTypes.cpp */; };
 		2CA79ABC1DF55A410028D11D /* TestUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79AAC1DF55A410028D11D /* TestUtility.cpp */; };
+		2CCE339B1EC0CB8300B6A0D5 /* Texture_GL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1362,6 +1363,7 @@
 		2CA79AAC1DF55A410028D11D /* TestUtility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestUtility.cpp; sourceTree = "<group>"; };
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
+		2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Texture_GL.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2294,8 +2296,9 @@
 		2C0C7B4D1EBCC38400386CBB /* GL */ = {
 			isa = PBXGroup;
 			children = (
-				2C0C7B4E1EBCC38400386CBB /* CTexture_GL.hpp */,
 				2C0C7B4F1EBCC38400386CBB /* CTextureGL.cpp */,
+				2C0C7B4E1EBCC38400386CBB /* CTexture_GL.hpp */,
+				2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */,
 			);
 			path = GL;
 			sourceTree = "<group>";
@@ -3628,6 +3631,7 @@
 				2C0C7DC41EBE0E1D00386CBB /* ConstantBuffer.hpp in Headers */,
 				2C0C7D711EBCC39B00386CBB /* Keyboard.hpp in Headers */,
 				2C0C7D661EBCC39B00386CBB /* HSV.hpp in Headers */,
+				2CCE339B1EC0CB8300B6A0D5 /* Texture_GL.hpp in Headers */,
 				2C0C7D4D1EBCC39B00386CBB /* DragDrop.hpp in Headers */,
 				2C81C05F1E89F8E300D27E52 /* jpeg_data_reader.h in Headers */,
 				2C0C7DA41EBCC39B00386CBB /* Stopwatch.hpp in Headers */,

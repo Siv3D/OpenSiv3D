@@ -90,6 +90,8 @@ namespace s3d
 		GLSpriteBatch m_spriteBatch;
 		
 		GLRender2DCommandManager m_commandManager;
+		
+		GLuint m_sampler = 0;
 
 	public:
 
@@ -155,10 +157,7 @@ namespace s3d
 
 
 
-		void addTextureRegion(const Texture&, const FloatRect&, const FloatRect&, const Float4&) override
-		{
-			// [Siv3D ToDo]
-		}
+		void addTextureRegion(const Texture& texture, const FloatRect& rect, const FloatRect& uv, const Float4& color) override;
 	};
 }
 

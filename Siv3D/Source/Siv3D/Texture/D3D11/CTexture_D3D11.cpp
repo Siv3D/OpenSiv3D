@@ -106,12 +106,12 @@ namespace s3d
 		return m_textures[handleID]->endResize(Texture_D3D11::BackBuffer{}, m_device, m_swapChain);
 	}
 
-	bool CTexture_D3D11::endResizeRT(Texture::IDType handleID, const Size& size, const uint32 multisampleCount)
+	bool CTexture_D3D11::endResizeRT(const Texture::IDType handleID, const Size& size, const uint32 multisampleCount)
 	{
 		return m_textures[handleID]->endResize(Texture_D3D11::Render{}, m_device, size, multisampleCount);
 	}
 
-	ID3D11Texture2D* CTexture_D3D11::getTexture(Texture::IDType handleID)
+	ID3D11Texture2D* CTexture_D3D11::getTexture(const Texture::IDType handleID)
 	{
 		return m_textures[handleID]->getTexture();
 	}
@@ -123,7 +123,7 @@ namespace s3d
 
 
 
-	void CTexture_D3D11::setPS(uint32 slot, Texture::IDType handleID)
+	void CTexture_D3D11::setPS(const uint32 slot, const Texture::IDType handleID)
 	{
 		m_context->PSSetShaderResources(slot, 1, m_textures[handleID]->getSRVPtr());
 	}

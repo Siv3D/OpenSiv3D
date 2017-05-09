@@ -17,6 +17,8 @@
 # include "../../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 # include <Siv3D/Fwd.hpp>
 
+#include <Siv3D/Logger.hpp>
+
 namespace s3d
 {
 	class PixelShader_GL
@@ -24,6 +26,8 @@ namespace s3d
 	private:
 		
 		GLuint m_psProgram = 0;
+		
+		Optional<GLint> m_textureIndex;
 		
 		bool m_initialized = false;
 		
@@ -68,7 +72,7 @@ namespace s3d
 				
 				::glGetProgramInfoLog(m_psProgram, logLen, &logLen, &log[0]);
 				
-				//Log << CharacterSet::Widen(log);
+				Log << CharacterSet::Widen(log);
 			}
 			
 			if (status == GL_FALSE)
@@ -76,6 +80,16 @@ namespace s3d
 				::glDeleteProgram(m_psProgram);
 				
 				m_psProgram = 0;
+			}
+			
+			if (m_psProgram)
+			{
+				const int32 t = ::glGetUniformLocation(m_psProgram, "Tex0");
+				
+				if (t != -1)
+				{
+					m_textureIndex = t;
+				}
 			}
 			
 			m_initialized = m_psProgram != 0;
@@ -89,6 +103,14 @@ namespace s3d
 		GLint getProgram() const
 		{
 			return m_psProgram;
+		}
+		
+		void setPSSamplerUniform()
+		{
+			if (m_textureIndex)
+			{
+				::glUniform1i(m_textureIndex.value(), 0);
+			}
 		}
 		
 		GLuint getUniformBlockIndex(const char* const name)
