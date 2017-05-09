@@ -5,19 +5,14 @@ void Main()
 	// 空のテクスチャ
 	Texture texture;
 
+	Graphics::SetBackground(Palette::White);
+	
 	double t = 0.0;
 
 	while (System::Update())
 	{
 		Window::SetTitle(Window::GetState().windowSize, Window::Size());
-
-		Log << Window::GetState().fullScreen;
-
-		if (KeyF.down())
-		{
-			Graphics::SetFullScreen(true, Size(1920, 1080), 1);
-		}
-
+		
 		if (KeyW.down())
 		{
 			Graphics::SetFullScreen(false, Size(1280, 720));
@@ -59,5 +54,7 @@ void Main()
 
 			RectF(25).setCenter(pos).rotated(angle).draw(HSV(i * 10));
 		}
+		
+		Circle(Cursor::Pos(), 80).draw(ColorF(1,0,0,0.5));
 	}
 }
