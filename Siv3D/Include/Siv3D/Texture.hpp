@@ -322,5 +322,56 @@ namespace s3d
 		{
 			return drawAt(pos.x, pos.y, diffuse);
 		}
+
+		TextureRegion operator ()(double x, double y, double w, double h) const;
+
+		TextureRegion operator ()(const Vec2& xy, double w, double h) const;
+
+		TextureRegion operator ()(double x, double y, const Vec2& size) const;
+
+		TextureRegion operator ()(const Vec2& xy, const Vec2& size) const;
+
+		/// <summary>
+		/// テクスチャ内の範囲を表す TextureRegion を返します。
+		/// </summary>
+		/// <param name="rect">
+		/// 範囲（ピクセル）
+		/// </param>
+		/// <returns>
+		/// テクスチャの範囲を表す TextureRegion
+		/// </returns>
+		TextureRegion operator ()(const RectF& rect) const;
+
+		TextureRegion uv(double u, double v, double w, double h) const;
+
+		TextureRegion uv(const RectF& rect) const;
+
+		TextureRegion mirror() const;
+
+		TextureRegion flip() const;
+
+		TextureRegion scale(double s) const;
+
+		TextureRegion scale(double xs, double ys) const;
+
+		TextureRegion scale(const Vec2& s) const;
+
+		TextureRegion resize(double width, double height) const;
+
+		TextureRegion resize(const Vec2& size) const;
+
+		TextureRegion repeat(double xRepeat, double yRepeat) const;
+
+		TextureRegion repeat(const Vec2& _repeat) const;
+
+		TextureRegion map(double width, double height) const;
+
+		TextureRegion map(const Vec2& size) const;
+
+		//TexturedQuad rotate(double radian) const;
+
+		//TexturedQuad rotateAt(double x, double y, double radian) const;
+
+		//TexturedQuad rotateAt(const Vec2& pos, double radian) const;
 	};
 }
