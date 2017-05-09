@@ -183,22 +183,50 @@ namespace s3d
 			return base_type::slice(index, length);
 		}
 
+		size_t num_lines() const noexcept
+		{
+			return size() < 2 ? 0 : size() - 1;
+		}
+
 		Line line(size_t index) const
 		{
 			return{ base_type::operator[](index), base_type::operator[](index + 1) };
 		}
 
-		// moveBy
+		LineString& moveBy(double x, double y) noexcept
+		{
+			for (auto& point : *this)
+			{
+				point.moveBy(x, y);
+			}
 
-		// movedBy
+			return *this;
+		}
 
-		// num_lines
+		LineString& moveBy(const Vec2& v) noexcept
+		{
+			return moveBy(v.x, v.y);
+		}
 
-		// intersects
+		LineString movedBy(double x, double y) const
+		{
+			return LineString(*this).moveBy(x, y);
+		}
+
+		LineString movedBy(const Vec2& v) const
+		{
+			return movedBy(v.x, v.y);
+		}
+
+		RectF calculateBoundingRect() const noexcept;
+
+		template <class Shape2DType>
+		bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
+		{
+			return Geometry2D::Intersect(*this, shape);
+		}
 
 		//LineString toCatmullRomSpline(bool isClosedCurve = false, int32 interpolation = 24) const;
-
-		//RectF calculateBoundingRect() const;
 
 		// paint
 
@@ -215,3 +243,56 @@ namespace s3d
 		// asPolygon
 	};
 }
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting LineString
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[ ] istream
+//	[ ] wistream
+//	[p] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
+	inline void Formatter(FormatData& formatData, const LineString& value)
+	{
+		formatData.string.append(value.join(L",", L"(", L")"));
+	}
+
+	/// <summary>
+	/// 出力ストリームに線を渡します。
+	/// </summary>
+	/// <param name="os">
+	/// 出力ストリーム
+	/// </param>
+	/// <param name="lines">
+	/// 線
+	/// </param>
+	/// <returns>
+	/// 渡した後の出力ストリーム
+	/// </returns>
+	template <class CharType>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const LineString& lines)
+	{
+		os << CharType('(');
+
+		bool b = false;
+
+		for (const auto& point : lines)
+		{
+			if (std::exchange(b, true))
+			{
+				os << CharType(',');
+			}
+
+			os << point;
+		}
+
+		return os << CharType(')');
+	}
+}
+//
+//////////////////////////////////////////////////////////////////////////////

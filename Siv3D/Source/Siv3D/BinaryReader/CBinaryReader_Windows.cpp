@@ -101,7 +101,7 @@ namespace s3d
 
 			LOG_DEBUG(L"📥 BinaryReader: Closed resource \"{0}\""_fmt(m_fullPath));
 		}
-		else
+		else if(m_handle != INVALID_HANDLE_VALUE)
 		{
 			::CloseHandle(m_handle);
 

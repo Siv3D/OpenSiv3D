@@ -110,6 +110,42 @@ namespace s3d
 		explicit Texture(IReader&& reader, TextureDesc desc = TextureDesc::Unmipped);
 
 		/// <summary>
+		/// 2 つの画像ファイルからテクスチャを作成します。
+		/// </summary>
+		/// <param name="rgb">
+		/// RGB を読み込む画像ファイルのパス
+		/// </param>
+		/// <param name="alpha">
+		/// アルファ値を読み込む画像ファイルのパス
+		/// </param>
+		/// <param name="desc">
+		/// テクスチャの設定
+		/// </param>
+		/// <remarks>
+		/// alpha の画像の R 成分を、テクスチャのアルファ値に設定します。
+		/// 画像ファイルの読み込みに失敗した場合、空のテクスチャを作成します。
+		/// </remarks>
+		Texture(const FilePath& rgb, const FilePath& alpha, TextureDesc desc = TextureDesc::Unmipped);
+
+		/// <summary>
+		/// 画像ファイルからアルファ値を作成し、テクスチャを作成します。
+		/// </summary>
+		/// <param name="rgb">
+		/// RGB 成分の色
+		/// </param>
+		/// <param name="alpha">
+		/// アルファ値を読み込む画像ファイルのパス
+		/// </param>
+		/// <param name="desc">
+		/// テクスチャの設定
+		/// </param>
+		/// <remarks>
+		/// alpha の画像の R 成分を、テクスチャのアルファ値に設定します。
+		/// 画像ファイルの読み込みに失敗した場合、空のテクスチャを作成します。
+		/// </remarks>
+		Texture(const Color& rgb, const FilePath& alpha, TextureDesc desc = TextureDesc::Unmipped);
+
+		/// <summary>
 		/// デストラクタ
 		/// </summary>
 		virtual ~Texture();
@@ -174,6 +210,36 @@ namespace s3d
 
 		Size size() const;
 
+		Rect region(int32 x, int32 y) const
+		{
+			return{ x, y, size() };
+		}
+
+		Rect region(const Point& pos = Point(0, 0)) const
+		{
+			return region(pos.x, pos.y);
+		}
+
+		RectF region(double x, double y) const
+		{
+			return{ x, y, size() };
+		}
+
+		RectF region(const Vec2& pos) const
+		{
+			return region(pos.x, pos.y);
+		}
+
+		RectF regionAt(double x, double y) const
+		{
+			const Size s = size();
+			return{ x - s.x * 0.5, y - s.y * 0.5, s };
+		}
+
+		RectF regionAt(const Vec2& pos) const
+		{
+			return regionAt(pos.x, pos.y);
+		}
 
 		/// <summary>
 		/// テクスチャを描きます。
@@ -222,5 +288,90 @@ namespace s3d
 		{
 			return draw(pos.x, pos.y, diffuse);
 		}
+
+		/// <summary>
+		/// 中心位置を指定してテクスチャを描きます。
+		/// </summary>
+		/// <param name="x">
+		/// 中心位置の X 座標
+		/// </param>
+		/// <param name="y">
+		/// 中心位置の X 座標
+		/// </param>
+		/// <param name="diffuse">
+		/// 乗算する色
+		/// </param>
+		/// <returns>
+		/// 描画領域
+		/// </returns>
+		RectF drawAt(double x, double y, const ColorF& diffuse = Palette::White) const;
+
+		/// <summary>
+		/// 中心位置を指定してテクスチャを描きます。
+		/// </summary>
+		/// <param name="pos">
+		/// 中心位置の座標
+		/// </param>
+		/// <param name="diffuse">
+		/// 乗算する色
+		/// </param>
+		/// <returns>
+		/// 描画領域
+		/// </returns>
+		RectF drawAt(const Vec2& pos, const ColorF& diffuse = Palette::White) const
+		{
+			return drawAt(pos.x, pos.y, diffuse);
+		}
+
+		TextureRegion operator ()(double x, double y, double w, double h) const;
+
+		TextureRegion operator ()(const Vec2& xy, double w, double h) const;
+
+		TextureRegion operator ()(double x, double y, const Vec2& size) const;
+
+		TextureRegion operator ()(const Vec2& xy, const Vec2& size) const;
+
+		/// <summary>
+		/// テクスチャ内の範囲を表す TextureRegion を返します。
+		/// </summary>
+		/// <param name="rect">
+		/// 範囲（ピクセル）
+		/// </param>
+		/// <returns>
+		/// テクスチャの範囲を表す TextureRegion
+		/// </returns>
+		TextureRegion operator ()(const RectF& rect) const;
+
+		TextureRegion uv(double u, double v, double w, double h) const;
+
+		TextureRegion uv(const RectF& rect) const;
+
+		TextureRegion mirror() const;
+
+		TextureRegion flip() const;
+
+		TextureRegion scale(double s) const;
+
+		TextureRegion scale(double xs, double ys) const;
+
+		TextureRegion scale(const Vec2& s) const;
+
+		TextureRegion resize(double width, double height) const;
+
+		TextureRegion resize(const Vec2& size) const;
+
+		TextureRegion repeat(double xRepeat, double yRepeat) const;
+
+		TextureRegion repeat(const Vec2& _repeat) const;
+
+		TextureRegion map(double width, double height) const;
+
+		TextureRegion map(const Vec2& size) const;
+
+		//TexturedQuad rotate(double radian) const;
+
+		//TexturedQuad rotateAt(double x, double y, double radian) const;
+
+		//TexturedQuad rotateAt(const Vec2& pos, double radian) const;
 	};
 }
