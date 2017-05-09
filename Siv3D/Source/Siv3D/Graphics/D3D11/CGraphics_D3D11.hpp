@@ -95,6 +95,16 @@ namespace s3d
 		const Size& getCurrentRenderTargetSize() const override;
 
 		const RenderTexture& getBackBuffer2D() const override;
+
+		bool resizeTargetWindowed(const Size& size)
+		{
+			return m_swapChain->resizeTargetWindowed(size);
+		}
+
+		Optional<Size> shouldResize() const
+		{
+			return m_swapChain->shouldResize();
+		}
 	};
 }
 

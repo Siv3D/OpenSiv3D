@@ -88,8 +88,8 @@ namespace s3d
 	{
 		m_hWnd = Siv3DEngine::GetWindow()->getHandle();
 
-		m_desc.BufferDesc.Width						= m_size.x;
-		m_desc.BufferDesc.Height					= m_size.y;
+		m_desc.BufferDesc.Width						= m_actualSize.x;
+		m_desc.BufferDesc.Height					= m_actualSize.y;
 		m_desc.BufferDesc.RefreshRate.Numerator		= 0;
 		m_desc.BufferDesc.RefreshRate.Denominator	= 0;
 		m_desc.BufferDesc.Format					= DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -218,7 +218,7 @@ namespace s3d
 	bool D3D11SwapChain::setFullScreen(const bool fullScreen, const Size& size, const size_t displayIndex, const double refreshRateHz)
 	{
 		if (fullScreen == m_fullScreen
-			&& size == m_size
+			&& size == m_targetSize
 			&& displayIndex == m_currentDisplayIndex)
 		{
 			return true;
@@ -246,6 +246,8 @@ namespace s3d
 				return false;
 			}
 
+			m_targetSize = size;
+
 			if (FAILED(m_swapChain->SetFullscreenState(true, bestMode->second.Get())))
 			{
 				return false;
@@ -254,6 +256,8 @@ namespace s3d
 			m_fullScreen = true;
 
 			m_currentDisplayRefreshRateHz = static_cast<double>(bestMode->first.RefreshRate.Denominator) / bestMode->first.RefreshRate.Numerator;
+		
+			Siv3DEngine::GetWindow()->updateClientSize(true, size);
 		}
 		else
 		{
@@ -265,14 +269,9 @@ namespace s3d
 
 			m_fullScreen = false;
 
-			auto targetDesc		= m_desc.BufferDesc;
-			targetDesc.Width	= size.x;
-			targetDesc.Height	= size.y;
+			m_targetSize = size;
 
-			if (!resizeTarget(targetDesc))
-			{
-				return false;
-			}
+			Siv3DEngine::GetWindow()->updateClientSize(false, size);
 
 			DWM_TIMING_INFO timingInfo = {};
 			timingInfo.cbSize = sizeof(DWM_TIMING_INFO);
@@ -280,12 +279,8 @@ namespace s3d
 			const double displayRefreshPeriodMillisec = detail::ToMillisec(timingInfo.qpcRefreshPeriod);
 			m_currentDisplayRefreshRateHz = 1000.0 / displayRefreshPeriodMillisec;
 		}
-
 		
-		m_size = size;
 		m_currentDisplayIndex = displayIndex;
-
-		Siv3DEngine::GetWindow()->updateClientSize(m_fullScreen, size);
 
 		return true;
 	}
@@ -383,29 +378,59 @@ namespace s3d
 		return m_currentDisplayRefreshRateHz;
 	}
 
+	bool D3D11SwapChain::resizeTargetWindowed(const Size& size)
+	{
+		auto targetDesc		= m_desc.BufferDesc;
+		targetDesc.Width	= size.x;
+		targetDesc.Height	= size.y;
+		m_targetSize = size;
+
+		return resizeTarget(targetDesc);
+	}
+
 	bool D3D11SwapChain::resizeTarget(const DXGI_MODE_DESC& modeDesc)
 	{
-		LOG_TEST(L"D3D11SwapChain::resizeTarget() : {}"_fmt(Size(modeDesc.Width, modeDesc.Height)));
+		const Size size(modeDesc.Width, modeDesc.Height);
 
 		Siv3DEngine::GetGraphics()->beginResize();
 		{
 			if (FAILED(m_swapChain->ResizeTarget(&modeDesc)))
 			{
+				LOG_FAIL(L"❌ D3D11SwapChain: IDXGISwapChain::ResizeTarget() failed");
+
 				return false;
 			}
 			
 			if (FAILED(m_swapChain->ResizeBuffers(1, modeDesc.Width, modeDesc.Height, DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH)))
 			{
+				LOG_FAIL(L"❌ D3D11SwapChain: IDXGISwapChain::ResizeBuffers() failed");
+
 				return false;
 			}
 		}
 		
-		if (!Siv3DEngine::GetGraphics()->endResize(Size(modeDesc.Width, modeDesc.Height)))
+		if (!Siv3DEngine::GetGraphics()->endResize(size))
 		{
+			LOG_FAIL(L"❌ D3D11SwapChain: CGraphics_D3D11::endResize() failed");
+
 			return false;
 		}
 
+		m_actualSize = size;
+
+		LOG_DEBUG(L"✅ Changed resolution to {0}x{1}"_fmt(size.x, size.y));
+
 		return true;
+	}
+
+	Optional<Size> D3D11SwapChain::shouldResize() const
+	{
+		if (m_actualSize == m_targetSize)
+		{
+			return none;
+		}
+
+		return m_targetSize;
 	}
 
 	Optional<std::pair<DXGI_MODE_DESC, ComPtr<IDXGIOutput>>> D3D11SwapChain::getBestFullScreenMode(const Size& size, const size_t displayIndex, const double refreshRateHz)

@@ -22,6 +22,7 @@
 # include <wrl.h>
 # include <d3d11.h>
 # include <Siv3D/Array.hpp>
+# include <Siv3D/Window.hpp>
 # include <Siv3D/Graphics.hpp>
 
 using namespace Microsoft::WRL;
@@ -44,7 +45,9 @@ namespace s3d
 
 		ComPtr<IDXGISwapChain> m_swapChain;
 
-		Size m_size{ 640, 480 };
+		Size m_targetSize = Window::DefaultClientSize;
+
+		Size m_actualSize = Window::DefaultClientSize;
 
 		size_t m_currentDisplayIndex = 0;
 
@@ -81,7 +84,11 @@ namespace s3d
 
 		double getDisplayRefreshRateHz() const;
 
+		bool resizeTargetWindowed(const Size& size);
+
 		bool resizeTarget(const DXGI_MODE_DESC& modeDesc);
+
+		Optional<Size> shouldResize() const;
 	};
 }
 

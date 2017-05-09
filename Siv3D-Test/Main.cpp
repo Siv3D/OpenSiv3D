@@ -9,6 +9,10 @@ void Main()
 
 	while (System::Update())
 	{
+		Window::SetTitle(Window::GetState().windowSize, Window::Size());
+
+		Log << Window::GetState().fullScreen;
+
 		if (KeyF.down())
 		{
 			Graphics::SetFullScreen(true, Size(1920, 1080), 1);
@@ -34,8 +38,6 @@ void Main()
 			{
 				// テクスチャを置き換える
 				texture = tmp;
-
-				Log << texture.size();
 
 				// ウィンドウをテクスチャと同じサイズにする
 				Window::Resize(texture.size());
