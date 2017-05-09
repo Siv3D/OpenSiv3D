@@ -251,6 +251,8 @@ namespace s3d
 				return false;
 			}
 
+			m_fullScreen = true;
+
 			m_currentDisplayRefreshRateHz = static_cast<double>(bestMode->first.RefreshRate.Denominator) / bestMode->first.RefreshRate.Numerator;
 		}
 		else
@@ -260,6 +262,8 @@ namespace s3d
 			{
 				m_swapChain->SetFullscreenState(false, nullptr);
 			}
+
+			m_fullScreen = false;
 
 			auto targetDesc		= m_desc.BufferDesc;
 			targetDesc.Width	= size.x;
@@ -277,7 +281,7 @@ namespace s3d
 			m_currentDisplayRefreshRateHz = 1000.0 / displayRefreshPeriodMillisec;
 		}
 
-		m_fullScreen = fullScreen;
+		
 		m_size = size;
 		m_currentDisplayIndex = displayIndex;
 

@@ -19,6 +19,11 @@ void Main()
 			Graphics::SetFullScreen(false, Size(1280, 720));
 		}
 
+		if (KeyR.down())
+		{
+			Window::Resize(Size(1280, 720));
+		}
+
 		// 何かがドロップされた
 		if (DragDrop::HasNewFilePaths())
 		{
@@ -33,7 +38,7 @@ void Main()
 				Log << texture.size();
 
 				// ウィンドウをテクスチャと同じサイズにする
-				Window::Resize(texture.size(), false);
+				Window::Resize(texture.size());
 			}
 		}
 
