@@ -22,6 +22,7 @@
 # include <wrl.h>
 # include <d3d11.h>
 # include <Siv3D/Array.hpp>
+# include <Siv3D/Window.hpp>
 # include <Siv3D/Graphics.hpp>
 
 using namespace Microsoft::WRL;
@@ -44,7 +45,9 @@ namespace s3d
 
 		ComPtr<IDXGISwapChain> m_swapChain;
 
-		Size m_size{ 640, 480 };
+		Size m_targetSize = Window::DefaultClientSize;
+
+		Size m_actualSize = Window::DefaultClientSize;
 
 		size_t m_currentDisplayIndex = 0;
 
@@ -56,9 +59,8 @@ namespace s3d
 
 		bool m_fullScreen = false;
 
-		// ディスプレイの設定の中でユーザー設定に最も近いものを適用
-		// 利用可能なサイズのうち size に一致するものがなければ false を返す
-		bool setBestFullScreenMode(const Size& size, size_t displayIndex, double refreshRateHz);
+		// ディスプレイの設定の中でユーザー設定に最も近いものを取得
+		Optional<std::pair<DXGI_MODE_DESC, ComPtr<IDXGIOutput>>> getBestFullScreenMode(const Size& size, size_t displayIndex, double refreshRateHz);
 
 	public:
 
@@ -76,15 +78,17 @@ namespace s3d
 
 		bool present();
 
-		void setVSyncEnabled(bool enabled);
-
-		bool isVSyncEnabled() const;
-
 		void setTargetFrameRateHz(const Optional<double>& targetFrameRateHz);
 
 		Optional<double> getTargetFrameRateHz() const;
 
 		double getDisplayRefreshRateHz() const;
+
+		bool resizeTargetWindowed(const Size& size);
+
+		bool resizeTarget(const DXGI_MODE_DESC& modeDesc);
+
+		Optional<Size> shouldResize() const;
 	};
 }
 

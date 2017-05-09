@@ -358,7 +358,7 @@ GLFWAPI void glfwGetMonitorInfo_Siv3D(GLFWmonitor* handle, uint32_t* displayID, 
 	if (h)
 		*h = (int) bounds.size.height;
 	
-	NSScreen *result;
+	NSScreen *result = NULL;
 	bool isPrimary = true;
 	
 	for (NSScreen *screen in [NSScreen screens])
@@ -397,6 +397,17 @@ GLFWAPI void glfwGetMonitorInfo_Siv3D(GLFWmonitor* handle, uint32_t* displayID, 
 			*ww = (int) rect.size.width;
 		if (wh)
 			*wh = (int) rect.size.height;
+	}
+	else
+	{// 取得に失敗することがある原因を調べる [Siv3D ToDo]
+		if (wx)
+			*wx = (int) bounds.origin.x;
+		if (wy)
+			*wy = (int) bounds.origin.y;
+		if (ww)
+			*ww = (int) bounds.size.width;
+		if (wh)
+			*wh = (int) bounds.size.height;
 	}
 }
 //

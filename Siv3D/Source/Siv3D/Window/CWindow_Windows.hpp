@@ -36,6 +36,8 @@ namespace s3d
 		
 		WindowState m_state;
 
+		bool m_resizeRequest = false;
+
 		void initState();
 
 		bool registerWindowClass();
@@ -61,6 +63,8 @@ namespace s3d
 		void setPos(const Point& pos) override;
 
 		void updateClientSize(bool fullScreen, const Size& size) override;
+
+		void requestResize();
 	};
 }
 
