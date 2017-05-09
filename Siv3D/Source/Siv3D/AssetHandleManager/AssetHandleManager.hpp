@@ -14,6 +14,8 @@
 # include <Siv3D/HashMap.hpp>
 # include <Siv3D/String.hpp>
 # include <Siv3D/Logger.hpp>
+# include "../Siv3DEngine.hpp"
+# include "../Profiler/IProfiler.hpp"
 
 namespace s3d
 {
@@ -104,6 +106,8 @@ namespace s3d
 			LOG_DEBUG(L"♻️ Released {0}[{1}]"_fmt(m_assetTypeName, id));
 
 			m_data.erase(it);
+
+			ASSET_RELEASE();
 		}
 
 		void destroy()

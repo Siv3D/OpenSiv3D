@@ -29,5 +29,17 @@ namespace s3d
 		virtual void endFrame() = 0;
 
 		virtual int32 getFPS() const = 0;
+
+
+		virtual void setAssetCreationWarningEnabled(bool enabled) = 0;
+
+		virtual void reportAssetCreation() = 0;
+
+		virtual void reportAssetRelease() = 0;
+
+		virtual bool reportAssetNextFrame() = 0;
 	};
 }
+
+# define ASSET_CREATION()	s3d::Siv3DEngine::GetProfiler()->reportAssetCreation()
+# define ASSET_RELEASE()	s3d::Siv3DEngine::GetProfiler()->reportAssetRelease() 

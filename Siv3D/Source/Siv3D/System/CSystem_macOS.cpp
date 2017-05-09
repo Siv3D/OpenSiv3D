@@ -114,6 +114,11 @@ namespace s3d
 
 		Siv3DEngine::GetProfiler()->beginFrame();
 
+		if (!Siv3DEngine::GetProfiler()->reportAssetNextFrame())
+		{
+			return false;
+		}
+
 		++m_systemFrameCount;
 		++m_userFrameCount;
 
