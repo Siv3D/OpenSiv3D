@@ -162,6 +162,8 @@ namespace s3d
 			::glfwSetWindowMonitor(m_glfwWindow, nullptr, 0, 0, size.x, size.y, GLFW_DONT_CARE);
 			
 			Siv3DEngine::GetWindow()->setTitle(Siv3DEngine::GetWindow()->getState().title, true);
+			
+			Siv3DEngine::GetWindow()->updateClientSize(false, size);
 		}
 		else
 		{
