@@ -2,17 +2,10 @@
 
 void Main()
 {
-	LineString lines;
+	const Texture texture(L"example/siv3d-kun.png");
 
 	while (System::Update())
 	{
-		if (!Cursor::Delta().isZero())
-		{
-			lines << Cursor::Pos();
-
-			Log << lines;
-		}
-
-		lines.draw(10);
+		texture.drawAt(Cursor::Pos());
 	}
 }

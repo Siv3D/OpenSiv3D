@@ -68,6 +68,18 @@ namespace s3d
 
 	}
 
+	Texture::Texture(const FilePath& rgb, const FilePath& alpha, const TextureDesc desc)
+		: Texture(Image(rgb, alpha), desc)
+	{
+
+	}
+
+	Texture::Texture(const Color& rgb, const FilePath& alpha, const TextureDesc desc)
+		: Texture(Image(rgb, alpha), desc)
+	{
+
+	}
+
 	Texture::~Texture()
 	{
 
@@ -113,11 +125,6 @@ namespace s3d
 		return Siv3DEngine::GetTexture()->getSize(m_handle->getID());
 	}
 
-
-
-
-
-
 	RectF Texture::draw(const double x, const double y, const ColorF& diffuse) const
 	{
 		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->getID());
@@ -130,5 +137,21 @@ namespace s3d
 		);
 
 		return RectF(x, y, size);
+	}
+
+	RectF Texture::drawAt(const double x, const double y, const ColorF& diffuse) const
+	{
+		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->getID());
+		const double wHalf = size.x * 0.5;
+		const double hHalf = size.y * 0.5;
+
+		Siv3DEngine::GetRenderer2D()->addTextureRegion(
+			*this,
+			{ x - wHalf, y - hHalf, x + wHalf, y + hHalf },
+			{ 0.0f, 0.0f, 1.0f, 1.0f },
+			Float4(diffuse.r, diffuse.g, diffuse.b, diffuse.a)
+		);
+
+		return RectF(x - wHalf, y - hHalf, size);
 	}
 }
