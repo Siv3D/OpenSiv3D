@@ -21,13 +21,8 @@
  
 ---------------------------
 
-### Roadmap
-
-https://github.com/Siv3D/OpenSiv3D/wiki/Roadmap
-
----------------------------
-
-### Discussion
- [Siv3D Slack #open-siv3d](https://siv3d.slack.com/messages/open-siv3d/details/)  (Japanese)
-
----------------------------
+<table>
+<tr><td align="center"> 📘 </td><td> <a href="https://github.com/Siv3D/OpenSiv3D/wiki">Reference</a> </td></tr>
+<tr><td align="center"> 🚧 </td><td> <a href="https://github.com/Siv3D/OpenSiv3D/wiki/Roadmap">Roadmap</a> </td></tr>
+<tr><td align="center"> ❓  </td><td> <a href="https://siv3d-slackin.herokuapp.com/">Siv3D User Group (#Slack)</a> </td></tr>
+</table>
