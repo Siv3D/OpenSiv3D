@@ -1,5 +1,8 @@
 <h1>OpenSiv3D <a href="http://doge.mit-license.org"><img src="http://img.shields.io/:license-mit-blue.svg"></a> <a href="https://siv3d-slackin.herokuapp.com/">  <img src="https://siv3d-slackin.herokuapp.com/badge.svg"></a></h1>
 
+**OpenSiv3D** is a C++14/17 library for games and interactive media.  
+In development for release in 2017. Successor to the current <a href="https://github.com/Siv3D/Reference-JP/wiki">Siv3D</a>.  
+
 <h3> <a href="#-sdk-downloads"><img src="doc/siv3d_icon_48.png" align="absmiddle"></a> SDK Downloads</h3>
 
 | Platform        | Version        | Date       | Requirements                  |
@@ -21,13 +24,8 @@
  
 ---------------------------
 
-### Roadmap
-
-https://github.com/Siv3D/OpenSiv3D/wiki/Roadmap
-
----------------------------
-
-### Discussion
- [Siv3D Slack #open-siv3d](https://siv3d.slack.com/messages/open-siv3d/details/)  (Japanese)
-
----------------------------
+<table>
+<tr><td align="center"> 📘 </td><td> <a href="https://github.com/Siv3D/OpenSiv3D/wiki">Reference</a> </td></tr>
+<tr><td align="center"> 🚧 </td><td> <a href="https://github.com/Siv3D/OpenSiv3D/wiki/Roadmap">Roadmap</a> </td></tr>
+<tr><td align="center"> ❓  </td><td> <a href="https://siv3d-slackin.herokuapp.com/">Siv3D User Group (#Slack)</a> </td></tr>
+</table>
