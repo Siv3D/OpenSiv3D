@@ -7,6 +7,11 @@ void Main()
 
 	double t = 0.0;
 
+	//ImageProcessing::GenerateMips(Image(L"example/windmill.png")).each_index([](size_t index, const Image& image)
+	//{
+	//	image.save(L"{}.png"_fmt(index));
+	//});
+
 	while (System::Update())
 	{
 		Window::SetTitle(Profiler::FPS(), L"FPS");

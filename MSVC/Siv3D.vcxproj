@@ -88,6 +88,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\HTMLWriter.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ImageFormat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Image.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\ImageProcessing.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\InfiniteList.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\INIReader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\IReader.hpp" />
@@ -464,6 +465,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\JPEG\ImageFormat_JPEG.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\PNG\ImageFormat_PNG.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\SivImageFormat.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ImageProcessing\SivImageProcessing.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Image\SivImage.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\INIReader\CINIReader.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\INIReader\SivINIReader.cpp" />

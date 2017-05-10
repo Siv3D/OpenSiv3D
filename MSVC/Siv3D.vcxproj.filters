@@ -392,6 +392,9 @@
     <Filter Include="Source\Siv3D\TextureRegion">
       <UniqueIdentifier>{d656c6f0-f041-4f53-90f8-780d4299e2ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\ImageProcessing">
+      <UniqueIdentifier>{98b408ea-45d3-4a5d-9d2f-97255d9c4edb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1492,6 +1495,9 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextureRegion.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\ImageProcessing.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2171,6 +2177,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextureRegion\SivTextureRegion.cpp">
       <Filter>Source\Siv3D\TextureRegion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ImageProcessing\SivImageProcessing.cpp">
+      <Filter>Source\Siv3D\ImageProcessing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
