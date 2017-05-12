@@ -14,6 +14,7 @@
 
 # include "CTexture_D3D11.hpp"
 # include <Siv3D/Image.hpp>
+# include <Siv3D/ImageProcessing.hpp>
 
 namespace s3d
 {
@@ -54,12 +55,34 @@ namespace s3d
 
 	Texture::IDType CTexture_D3D11::create(const Image& image, const TextureDesc desc)
 	{
+		if (ImageProcessing::IsMipped(desc))
+		{
+			return create(image, ImageProcessing::GenerateMips(image), desc);
+		}
+
 		if (!image)
 		{
 			return Texture::NullHandleID;
 		}
 
 		const auto texture = std::make_shared<Texture_D3D11>(m_device, image, desc);
+
+		if (!texture->isInitialized())
+		{
+			return Texture::NullHandleID;
+		}
+
+		return m_textures.add(texture);
+	}
+
+	Texture::IDType CTexture_D3D11::create(const Image& image, const Array<Image>& mipmaps, TextureDesc desc)
+	{
+		if (!image)
+		{
+			return Texture::NullHandleID;
+		}
+
+		const auto texture = std::make_shared<Texture_D3D11>(m_device, image, mipmaps, desc);
 
 		if (!texture->isInitialized())
 		{

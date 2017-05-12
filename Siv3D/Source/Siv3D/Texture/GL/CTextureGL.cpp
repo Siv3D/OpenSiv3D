@@ -58,6 +58,12 @@ namespace s3d
 		return m_textures.add(texture);
 	}
 
+	Texture::IDType CTexture_GL::create(const Image& image, const Array<Image>& mipmaps, TextureDesc desc)
+	{
+		// [Siv3D ToDo]
+		return Texture::NullHandleID;
+	}
+
 	Texture::IDType CTexture_GL::createRT(const Size&, const uint32)
 	{
 		return Texture::NullHandleID;

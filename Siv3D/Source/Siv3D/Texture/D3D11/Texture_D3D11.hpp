@@ -22,6 +22,8 @@
 # include <wrl.h>
 # include <d3d11.h>
 # include <Siv3D/PointVector.hpp>
+# include <Siv3D/Image.hpp>
+# include <Siv3D/Array.hpp>
 
 using namespace Microsoft::WRL;
 
@@ -66,6 +68,8 @@ namespace s3d
 		Texture_D3D11(Render, ID3D11Device* device, const Size& size, uint32 multisampleCount);
 
 		Texture_D3D11(ID3D11Device* device, const Image& image, TextureDesc desc);
+
+		Texture_D3D11(ID3D11Device* device, const Image& image, const Array<Image>& mipmaps, TextureDesc);
 
 		bool isInitialized() const noexcept
 		{

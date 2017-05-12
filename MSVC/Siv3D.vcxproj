@@ -276,6 +276,7 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\D3D11\CTexture_D3D11.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\D3D11\Texture_D3D11.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\GL\CTexture_GL.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\GL\Texture_GL.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\ITexture.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\TextWriter\CTextWriter.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Window\CWindow_Linux.hpp" />

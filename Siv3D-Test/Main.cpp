@@ -12,6 +12,8 @@ void Main()
 	//	image.save(L"{}.png"_fmt(index));
 	//});
 
+	const Texture texture(L"example/windmill.png", TextureDesc::Mipped);
+
 	while (System::Update())
 	{
 		Window::SetTitle(Profiler::FPS(), L"FPS");
@@ -28,5 +30,7 @@ void Main()
 		}
 
 		Circle(Cursor::Pos(), 40).draw(ColorF(1.0, 0.0, 0.0, 0.5));
+
+		texture.scale(Cursor::Pos().x / 100.0).drawAt(Window::Center());
 	}
 }

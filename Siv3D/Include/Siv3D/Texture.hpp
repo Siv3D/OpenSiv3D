@@ -12,8 +12,10 @@
 # pragma once
 # include <memory>
 # include "Fwd.hpp"
+# include "Array.hpp"
 # include "AssetHandle.hpp"
 # include "Rectangle.hpp"
+# include "Image.hpp"
 
 namespace s3d
 {
@@ -92,6 +94,9 @@ namespace s3d
 		/// 画像が空の場合、空のテクスチャを作成します。
 		/// </remarks>
 		explicit Texture(const Image& image, TextureDesc desc = TextureDesc::Unmipped);
+
+
+		Texture(const Image& image, const Array<Image>& mipmaps, TextureDesc desc = TextureDesc::Mipped);
 
 		/// <summary>
 		/// 画像ファイルからテクスチャを作成します。

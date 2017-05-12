@@ -35,6 +35,8 @@ namespace s3d
 
 		Texture::IDType create(const Image&, TextureDesc) override;
 
+		Texture::IDType create(const Image& image, const Array<Image>& mipmaps, TextureDesc desc) override;
+
 		Texture::IDType createRT(const Size& size, uint32 multisampleCount) override;
 
 		void release(Texture::IDType handleID) override;
