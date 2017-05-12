@@ -592,6 +592,8 @@ namespace s3d
 	//
 	//	SamplerState.hpp
 	//
+	enum class TextureFilter : bool;
+	enum class TextureAddressMode : uint8;
 	struct SamplerState;
 	
 	//////////////////////////////////////////////////////

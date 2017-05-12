@@ -395,6 +395,9 @@
     <Filter Include="Source\Siv3D\ImageProcessing">
       <UniqueIdentifier>{98b408ea-45d3-4a5d-9d2f-97255d9c4edb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\SamplerState">
+      <UniqueIdentifier>{db64ac8f-081a-4d4f-91ac-4b95ec24c56a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -2183,6 +2186,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\ImageProcessing\SivImageProcessing.cpp">
       <Filter>Source\Siv3D\ImageProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\SamplerState\SivSamplerState.cpp">
+      <Filter>Source\Siv3D\SamplerState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

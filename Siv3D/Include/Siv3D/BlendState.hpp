@@ -173,6 +173,8 @@ namespace s3d
 		/// </summary>
 		static constexpr Predefined Default = Predefined::Default;
 	};
+
+	static_assert(sizeof(BlendState) == sizeof(BlendState::StorageType));
 }
 
 namespace std

@@ -469,10 +469,8 @@
 	# include "Siv3D/RasterizerState.hpp"
 	//// デプスステートとステンシルステート
 	//# include "Siv3D/DepthStencilState.hpp"
-	//// サンプラーステート
-	//# include "Siv3D/SamplerState.hpp"
-	//// レンダーステート
-	//# include "Siv3D/RenderState.hpp"
+	// サンプラーステート
+	# include "Siv3D/SamplerState.hpp"
 	// シェーダ
 	# include "Siv3D/Shader.hpp"
 	// 頂点シェーダ
