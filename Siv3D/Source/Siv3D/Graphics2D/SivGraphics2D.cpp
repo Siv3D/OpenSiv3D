@@ -37,6 +37,17 @@ namespace s3d
 			return Siv3DEngine::GetRenderer2D()->getRasterizerState();
 		}
 
+		void SetSamplerState(const SamplerState& samplerState)
+		{
+			// [Siv3D ToDo]
+		}
+
+		SamplerState GetSamplerState()
+		{
+			// [Siv3D ToDo]
+			return SamplerState::Default2D;
+		}
+
 		void SetScissorRect(const Rect& rect)
 		{
 			Siv3DEngine::GetRenderer2D()->setScissorRect(rect);
