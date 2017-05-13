@@ -668,6 +668,7 @@
 		2CCA356F1EC6BBA900078678 /* ImageProcessing.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */; };
 		2CCA35721EC6BBBD00078678 /* SivImageProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35711EC6BBBD00078678 /* SivImageProcessing.cpp */; };
 		2CCA35751EC6BBCA00078678 /* SivSamplerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35741EC6BBCA00078678 /* SivSamplerState.cpp */; };
+		2CCA35771EC6C3CE00078678 /* Texture_GL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35761EC6C3CE00078678 /* Texture_GL.cpp */; };
 		2CCE339B1EC0CB8300B6A0D5 /* Texture_GL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */; };
 		2CCE339D1EC1E71400B6A0D5 /* TextureRegion.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */; };
 		2CCE33A01EC1F1B800B6A0D5 /* SivTextureRegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE339F1EC1F1B800B6A0D5 /* SivTextureRegion.cpp */; };
@@ -1371,6 +1372,7 @@
 		2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageProcessing.hpp; sourceTree = "<group>"; };
 		2CCA35711EC6BBBD00078678 /* SivImageProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivImageProcessing.cpp; sourceTree = "<group>"; };
 		2CCA35741EC6BBCA00078678 /* SivSamplerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSamplerState.cpp; sourceTree = "<group>"; };
+		2CCA35761EC6C3CE00078678 /* Texture_GL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Texture_GL.cpp; sourceTree = "<group>"; };
 		2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Texture_GL.hpp; sourceTree = "<group>"; };
 		2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextureRegion.hpp; sourceTree = "<group>"; };
 		2CCE339F1EC1F1B800B6A0D5 /* SivTextureRegion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextureRegion.cpp; sourceTree = "<group>"; };
@@ -2311,6 +2313,7 @@
 			children = (
 				2C0C7B4F1EBCC38400386CBB /* CTextureGL.cpp */,
 				2C0C7B4E1EBCC38400386CBB /* CTexture_GL.hpp */,
+				2CCA35761EC6C3CE00078678 /* Texture_GL.cpp */,
 				2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */,
 			);
 			path = GL;
@@ -4098,6 +4101,7 @@
 				2C0C7BB51EBCC38400386CBB /* CDragDrop_macOS.cpp in Sources */,
 				2C81C0841E89F8E300D27E52 /* muParserError.cpp in Sources */,
 				2C0C7C1A1EBCC38400386CBB /* CMouse_macOS.cpp in Sources */,
+				2CCA35771EC6C3CE00078678 /* Texture_GL.cpp in Sources */,
 				2C0C7C701EBCC38400386CBB /* CWindow_Linux.cpp in Sources */,
 				2C81C00A1E89F8E300D27E52 /* diy-fp.cc in Sources */,
 				2C0C7BB21EBCC38400386CBB /* SivDateTime.cpp in Sources */,
