@@ -1504,6 +1504,9 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\GL\Texture_GL.hpp">
       <Filter>Source\Siv3D\Texture\GL</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\GL\SamplerState\GLSamplerState.hpp">
+      <Filter>Source\Siv3D\Graphics\GL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2189,6 +2192,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\SamplerState\SivSamplerState.cpp">
       <Filter>Source\Siv3D\SamplerState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\GL\Texture_GL.cpp">
+      <Filter>Source\Siv3D\Texture\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\GL\SamplerState\GLSamplerState.cpp">
+      <Filter>Source\Siv3D\Graphics\GL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
