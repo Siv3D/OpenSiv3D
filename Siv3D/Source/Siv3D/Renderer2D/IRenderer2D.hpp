@@ -13,6 +13,7 @@
 # include <Siv3D/Fwd.hpp>
 # include <Siv3D/Array.hpp>
 # include <Siv3D/PointVector.hpp>
+# include <Siv3D/SamplerState.hpp>
 
 namespace s3d
 {
@@ -33,6 +34,10 @@ namespace s3d
 		virtual void setRasterizerState(const RasterizerState& state) = 0;
 
 		virtual RasterizerState getRasterizerState() const = 0;
+
+		virtual void setSamplerState(ShaderStage stage, uint32 slot, const SamplerState& state) = 0;
+
+		virtual const std::array<SamplerState, SamplerState::MaxSamplerCount>& getSamplerStates(ShaderStage stage) const = 0;
 
 		virtual void setScissorRect(const Rect& rect) = 0;
 

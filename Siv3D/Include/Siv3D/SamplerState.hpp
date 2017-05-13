@@ -115,6 +115,7 @@ namespace s3d
 
 				uint8 maxAnisotropy : 7;
 
+				// [Siv3D ToDo] HalFloat に
 				int16 lodBias;
 
 				Float4 borderColor;

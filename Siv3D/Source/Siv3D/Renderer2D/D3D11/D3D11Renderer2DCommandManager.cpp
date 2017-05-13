@@ -44,6 +44,19 @@ namespace s3d
 			writeCommand(command);
 		}
 
+		for (uint32 slot = 0; slot < m_currentPSSamplers.size(); ++slot)
+		{
+			D3D11Render2DCommand<D3D11Render2DInstruction::PSSamplerState> command;
+			command.samplerState = m_currentPSSamplers[slot];
+			command.slot = slot;
+			writeCommand(command);
+		}
+
+		for (uint32 slot = 0; slot < m_currentVSSamplers.size(); ++slot)
+		{
+			//m_commands.emplace_back(slot, m_currentVSSamplers[slot], InstructionTag<D3D11Render2DInstruction::VSSampler>{});
+		}
+
 		{
 			const RenderTexture& backBuffer2D = Siv3DEngine::GetGraphics()->getBackBuffer2D();
 			m_currentRenderTarget = backBuffer2D;
@@ -135,6 +148,23 @@ namespace s3d
 		writeCommand(command);
 
 		m_currentRasterizerState = state;
+	}
+
+	void D3D11Render2DCommandManager::pushPSSamplerState(const uint32 slot, const SamplerState& state)
+	{
+		assert(slot < MaxSamplerCount);
+
+		if (state == m_currentPSSamplers[slot])
+		{
+			return;
+		}
+
+		D3D11Render2DCommand<D3D11Render2DInstruction::PSSamplerState> command;
+		command.samplerState = state;
+		command.slot = slot;
+		writeCommand(command);
+
+		m_currentPSSamplers[slot] = state;
 	}
 
 	void D3D11Render2DCommandManager::pushScissorRect(const Rect& scissorRect)

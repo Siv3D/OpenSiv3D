@@ -64,6 +64,10 @@ namespace s3d
 		/// </returns>
 		RasterizerState GetRasterizerState();
 
+
+
+		void SetSamplerState(uint32 slot, const SamplerState& samplerState);
+
 		/// <summary>
 		/// 2D 描画のサンプラーステートを設定します。
 		/// </summary>
@@ -73,7 +77,26 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void SetSamplerState(const SamplerState& samplerState);
+		inline void SetSamplerState(const SamplerState& samplerState)
+		{
+			SetSamplerState(0, samplerState);
+		}
+
+		/// <summary>
+		/// 現在の 2D 描画のサンプラーステートを取得します。
+		/// </summary>
+		/// <param name="slot">
+		/// スロット
+		/// </param>
+		/// <returns>
+		/// 現在の 2D 描画のサンプラーステート
+		/// </returns>
+		SamplerState GetSamplerState(uint32 slot);
+
+		inline SamplerState GetSamplerState()
+		{
+			return GetSamplerState(0);
+		}
 
 		/// <summary>
 		/// 現在の 2D 描画のサンプラーステートを取得します。

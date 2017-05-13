@@ -612,6 +612,7 @@ namespace s3d
 	//
 	//	Shader.hpp
 	//
+	enum class ShaderStage;
 	struct BindingPoint;
 
 	//////////////////////////////////////////////////////

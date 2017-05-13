@@ -18,6 +18,8 @@ void Main()
 	
 	const Texture texture(L"example/windmill.png", TextureDesc::Mipped);
 	//const Texture texture(image, mipmaps);
+
+	RenderStateBlock2D sampler(SamplerState::RepeatNearest);
 	
 	while (System::Update())
 	{
