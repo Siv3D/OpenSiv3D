@@ -14,65 +14,23 @@
 
 # include <GL/glew.h>
 # include "../../../../ThirdParty/GLFW/include/GLFW/glfw3.h"
-# include "GLRasterizerState.hpp"
+# include "GLSamplerState.hpp"
 
 namespace s3d
 {
-	//namespace detail
-	//{
-	//	static constexpr uint32 blendOpTable[6] =
-	//	{
-	//		0,
-	//		GL_FUNC_ADD,
-	//		GL_FUNC_SUBTRACT,
-	//		GL_FUNC_REVERSE_SUBTRACT,
-	//		GL_MIN,
-	//		GL_MAX
-	//	};
-
-	//	static constexpr uint32 blendTable[20] =
-	//	{
-	//		0,
-	//		GL_ZERO,
-	//		GL_ONE,
-	//		GL_SRC_COLOR,
-	//		GL_ONE_MINUS_SRC_COLOR,
-	//		GL_SRC_ALPHA,
-	//		GL_ONE_MINUS_SRC_ALPHA,
-	//		GL_DST_ALPHA,
-	//		GL_ONE_MINUS_DST_ALPHA,
-	//		GL_DST_COLOR,
-	//		GL_ONE_MINUS_DST_COLOR,
-	//		GL_SRC_ALPHA_SATURATE,
-	//		0,
-	//		0,
-	//		GL_CONSTANT_COLOR,
-	//		GL_ONE_MINUS_CONSTANT_COLOR,
-	//		GL_SRC1_COLOR,
-	//		GL_ONE_MINUS_SRC1_COLOR,
-	//		GL_SRC1_ALPHA,
-	//		GL_ONE_MINUS_SRC1_ALPHA,
-	//	};
-	//}
-	
-	GLRasterizerState::GLRasterizerState()
+	GLSamplerState::GLSamplerState()
 	{
-		::glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		
-		::glDisable(GL_CULL_FACE);
-						
-		::glDisable(GL_SCISSOR_TEST);
-						
-		::glDisable(GL_POLYGON_OFFSET_LINE);
-		::glDisable(GL_POLYGON_OFFSET_FILL);
+	
 	}
 	
-	void GLRasterizerState::set(const RasterizerState& state)
+	void GLSamplerState::set(const SamplerState& state)
 	{
 		if (state == m_currentState)
 		{
 			return;
 		}
+	
+		/*
 		
 		if (state.fillMode != m_currentState.fillMode)
 		{
@@ -122,6 +80,8 @@ namespace s3d
 			}
 		}
 		
+		 */
+		 
 		m_currentState = state;
 	}
 }

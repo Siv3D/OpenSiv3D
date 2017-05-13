@@ -55,6 +55,19 @@ namespace s3d
 		};
 	}
 	
+	GLBlendState::GLBlendState()
+	{
+		::glEnable(GL_BLEND);
+		
+		::glBlendEquationSeparate(detail::blendOpTable[static_cast<size_t>(m_currentState.op)],
+								  detail::blendOpTable[static_cast<size_t>(m_currentState.opAlpha)]);
+		
+		::glBlendFuncSeparate(detail::blendTable[static_cast<size_t>(m_currentState.src)],
+							  detail::blendTable[static_cast<size_t>(m_currentState.dst)],
+							  detail::blendTable[static_cast<size_t>(m_currentState.srcAlpha)],
+							  detail::blendTable[static_cast<size_t>(m_currentState.dstAlpha)]);
+	}
+	
 	void GLBlendState::set(const BlendState& state)
 	{
 		if (state == m_currentState)

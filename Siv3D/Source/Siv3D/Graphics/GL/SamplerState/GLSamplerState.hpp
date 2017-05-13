@@ -12,21 +12,21 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
-# include <Siv3D/BlendState.hpp>
+# include <Siv3D/SamplerState.hpp>
 
 namespace s3d
 {
-	class GLBlendState
+	class GLSamplerState
 	{
 	private:
 
-		BlendState m_currentState = BlendState::Default;
+		SamplerState m_currentState = SamplerState::Default2D;
 
 	public:
 		
-		GLBlendState();
+		GLSamplerState();
 
-		void set(const BlendState& state);
+		void set(const SamplerState& state);
 	};
 }
 

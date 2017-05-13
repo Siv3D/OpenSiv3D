@@ -669,6 +669,8 @@
 		2CCA35721EC6BBBD00078678 /* SivImageProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35711EC6BBBD00078678 /* SivImageProcessing.cpp */; };
 		2CCA35751EC6BBCA00078678 /* SivSamplerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35741EC6BBCA00078678 /* SivSamplerState.cpp */; };
 		2CCA35771EC6C3CE00078678 /* Texture_GL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35761EC6C3CE00078678 /* Texture_GL.cpp */; };
+		2CCA357B1EC705A700078678 /* GLSamplerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35791EC705A700078678 /* GLSamplerState.cpp */; };
+		2CCA357C1EC705A700078678 /* GLSamplerState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA357A1EC705A700078678 /* GLSamplerState.hpp */; };
 		2CCE339B1EC0CB8300B6A0D5 /* Texture_GL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */; };
 		2CCE339D1EC1E71400B6A0D5 /* TextureRegion.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */; };
 		2CCE33A01EC1F1B800B6A0D5 /* SivTextureRegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE339F1EC1F1B800B6A0D5 /* SivTextureRegion.cpp */; };
@@ -1373,6 +1375,8 @@
 		2CCA35711EC6BBBD00078678 /* SivImageProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivImageProcessing.cpp; sourceTree = "<group>"; };
 		2CCA35741EC6BBCA00078678 /* SivSamplerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSamplerState.cpp; sourceTree = "<group>"; };
 		2CCA35761EC6C3CE00078678 /* Texture_GL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Texture_GL.cpp; sourceTree = "<group>"; };
+		2CCA35791EC705A700078678 /* GLSamplerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GLSamplerState.cpp; sourceTree = "<group>"; };
+		2CCA357A1EC705A700078678 /* GLSamplerState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GLSamplerState.hpp; sourceTree = "<group>"; };
 		2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Texture_GL.hpp; sourceTree = "<group>"; };
 		2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextureRegion.hpp; sourceTree = "<group>"; };
 		2CCE339F1EC1F1B800B6A0D5 /* SivTextureRegion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextureRegion.cpp; sourceTree = "<group>"; };
@@ -1854,6 +1858,7 @@
 		2C0C7A9A1EBCC38400386CBB /* GL */ = {
 			isa = PBXGroup;
 			children = (
+				2CCA35781EC705A700078678 /* SamplerState */,
 				2C0C7DD41EBE21F100386CBB /* RasterizerState */,
 				2C0C7A9B1EBCC38400386CBB /* BlendState */,
 				2C0C7A9E1EBCC38400386CBB /* CGraphics_GL.cpp */,
@@ -3337,6 +3342,15 @@
 			path = SamplerState;
 			sourceTree = "<group>";
 		};
+		2CCA35781EC705A700078678 /* SamplerState */ = {
+			isa = PBXGroup;
+			children = (
+				2CCA35791EC705A700078678 /* GLSamplerState.cpp */,
+				2CCA357A1EC705A700078678 /* GLSamplerState.hpp */,
+			);
+			path = SamplerState;
+			sourceTree = "<group>";
+		};
 		2CCE339E1EC1F1B800B6A0D5 /* TextureRegion */ = {
 			isa = PBXGroup;
 			children = (
@@ -3369,6 +3383,7 @@
 				2C0C7D6F1EBCC39B00386CBB /* JSONReader.hpp in Headers */,
 				2C0C7D361EBCC39B00386CBB /* BinaryWriter.hpp in Headers */,
 				2C2E82A21EAA1B3A0057BDAF /* meta.h in Headers */,
+				2CCA357C1EC705A700078678 /* GLSamplerState.hpp in Headers */,
 				2C0C7B801EBCC38400386CBB /* CBigInt.hpp in Headers */,
 				2C0C7D931EBCC39B00386CBB /* RandomColor.hpp in Headers */,
 				2C81C01E1E89F8E300D27E52 /* cocoa_joystick.h in Headers */,
@@ -3992,6 +4007,7 @@
 				2C0C7C421EBCC38400386CBB /* SivShader.cpp in Sources */,
 				2C0C7B821EBCC38400386CBB /* CBinaryReader_Linux.cpp in Sources */,
 				2C0C7BE11EBCC38400386CBB /* SivGraphics2D.cpp in Sources */,
+				2CCA357B1EC705A700078678 /* GLSamplerState.cpp in Sources */,
 				2C0C7B921EBCC38400386CBB /* SivByteArray.cpp in Sources */,
 				2C0C7C501EBCC38400386CBB /* CSystem_Windows.cpp in Sources */,
 				2C81C09D1E89F8E400D27E52 /* zstd_compress.c in Sources */,
