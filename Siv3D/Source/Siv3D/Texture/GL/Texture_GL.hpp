@@ -56,13 +56,33 @@ namespace s3d
 			m_initialized = true;
 		}
 		
-		Texture_GL(const Image& image, TextureDesc desc)
+		Texture_GL(const Image& image, const TextureDesc desc)
 		{
 			::glGenTextures(1, &m_texture);
 			
 			::glBindTexture(GL_TEXTURE_2D, m_texture);
 			
 			::glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width(), image.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image.data());
+			
+			m_size = image.size();
+			
+			m_initialized = true;
+		}
+		
+		Texture_GL(const Image& image, const Array<Image>& mipmaps, const TextureDesc desc)
+		{
+			::glGenTextures(1, &m_texture);
+			
+			::glBindTexture(GL_TEXTURE_2D, m_texture);
+			
+			::glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width(), image.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image.data());
+			
+			for (uint32 i = 0; i < mipmaps.size(); ++i)
+			{
+				const Image& mipmap = mipmaps[i];
+				
+				::glTexImage2D(GL_TEXTURE_2D, (i + 1), GL_RGBA, mipmap.width(), mipmap.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, mipmap.data());
+			}
 			
 			m_size = image.size();
 			

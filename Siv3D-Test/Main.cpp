@@ -12,8 +12,13 @@ void Main()
 	//	image.save(L"{}.png"_fmt(index));
 	//});
 
+	//const Image image(L"example/windmill.png");
+	//Array<Image> mipmaps = ImageProcessing::GenerateMips(image);
+	//mipmaps[3].fill(Palette::Red);
+	
 	const Texture texture(L"example/windmill.png", TextureDesc::Mipped);
-
+	//const Texture texture(image, mipmaps);
+	
 	while (System::Update())
 	{
 		Window::SetTitle(Profiler::FPS(), L"FPS");

@@ -110,7 +110,7 @@ namespace s3d
 		::glGenSamplers(1, &m_sampler);
 		::glSamplerParameteri(m_sampler, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		::glSamplerParameteri(m_sampler, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		::glSamplerParameteri(m_sampler, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		::glSamplerParameteri(m_sampler, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		::glSamplerParameteri(m_sampler, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		::glBindSampler(0, m_sampler);
 		

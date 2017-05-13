@@ -55,11 +55,6 @@ namespace s3d
 
 	Texture::IDType CTexture_D3D11::create(const Image& image, const TextureDesc desc)
 	{
-		if (ImageProcessing::IsMipped(desc))
-		{
-			return create(image, ImageProcessing::GenerateMips(image), desc);
-		}
-
 		if (!image)
 		{
 			return Texture::NullHandleID;
