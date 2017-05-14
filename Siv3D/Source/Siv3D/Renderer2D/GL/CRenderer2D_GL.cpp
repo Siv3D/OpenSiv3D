@@ -252,6 +252,14 @@ namespace s3d
 		m_spriteBatch.clear();
 		
 		m_commandManager.reset();
+
+		/*
+		GLenum err;
+		while((err = glGetError()) != GL_NO_ERROR)
+		{
+			Log << L"HasError";
+		}
+		*/
 	}
 
 	void CRenderer2D_GL::setBlendState(const BlendState& state)
