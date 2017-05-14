@@ -47,6 +47,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Concept.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Console.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ConstantBuffer.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\CubicBezier.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Cursor.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Cylindrical.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Date.hpp" />
@@ -122,6 +123,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\PowerStatus.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Profiler.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Quad.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\QuadraticBezier.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Random.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\RandomColor.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\RandomPoint.hpp" />
@@ -140,6 +142,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Shape2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\SIMDMath.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Spherical.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Spline.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Step2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Texture.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TexturedQuad.hpp" />
@@ -423,6 +426,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\ConstantBuffer\D3D11\D3D11ConstantBuffer.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ConstantBuffer\GL\GLConstantBuffer.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ConstantBuffer\SivConstantBuffer.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\CubicBezier\SivCubicBezier.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_Linux.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_macOS.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_Windows.cpp" />
@@ -510,6 +514,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\CProfiler.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\ProfilerFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\SivProfiler.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\QuadraticBezier\SivQuadraticBezier.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Quad\SivQuad.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\RasterizerState\SivRasterizerState.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Rectangle\SivRectangle.cpp" />

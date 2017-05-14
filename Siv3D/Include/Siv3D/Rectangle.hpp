@@ -1487,9 +1487,9 @@ namespace s3d
 
 		// drawShadow
 
-		// TexturedQuad operator()(const Texture& texture) const;
+		 TexturedQuad operator ()(const Texture& texture) const;
 
-		// TexturedQuad operator()(const TextureRegion& textureRegion) const;
+		 TexturedQuad operator ()(const TextureRegion& textureRegion) const;
 
 		// Polygon asPolygon() const;
 	};

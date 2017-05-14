@@ -33,6 +33,10 @@ namespace s3d
 
 		Shape2D() = default;
 
+		Shape2D(Array<Float2> vertices, Array<uint32> indices)
+			: m_vertices(std::move(vertices))
+			, m_indices(std::move(indices)) {}
+
 		static Shape2D Cross(double r, double width, const Vec2& center = Vec2(0, 0), double angle = 0.0);
 
 		static Shape2D Plus(double r, double width, const Vec2& center = Vec2(0, 0), double angle = 0.0);

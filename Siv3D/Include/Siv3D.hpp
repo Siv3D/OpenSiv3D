@@ -317,12 +317,12 @@
 	# include "Siv3D/Geometry2D.hpp"
 	// Perlin Noise
 	# include "Siv3D/PerlinNoise.hpp"
-	//// スプライン
-	//# include "Siv3D/Spline.hpp"
-	//// 2 次ベジェ曲線
-	//# include "Siv3D/QuadraticBezier.hpp"
-	//// 3 次ベジェ曲線
-	//# include "Siv3D/CubicBezier.hpp"
+	// スプライン
+	# include "Siv3D/Spline.hpp"
+	// 2 次ベジェ曲線
+	# include "Siv3D/QuadraticBezier.hpp"
+	// 3 次ベジェ曲線
+	# include "Siv3D/CubicBezier.hpp"
 	// SIMD
 	# include "Siv3D/SIMDMath.hpp"
 	// 半精度浮動小数点数

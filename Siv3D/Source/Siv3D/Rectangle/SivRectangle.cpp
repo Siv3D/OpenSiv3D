@@ -14,6 +14,8 @@
 # include <Siv3D/FloatRect.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
+# include <Siv3D/TextureRegion.hpp>
+# include <Siv3D/TexturedQuad.hpp>
 # include "../Siv3DEngine.hpp"
 # include "../Renderer2D/IRenderer2D.hpp"
 
@@ -93,6 +95,24 @@ namespace s3d
 		);
 
 		return *this;
+	}
+
+	template <class SizeType>
+	TexturedQuad Rectangle<SizeType>::operator ()(const Texture& texture) const
+	{
+		return TexturedQuad(texture,
+			0.0f, 0.0f, 1.0f, 1.0f,
+			{ pos,{ x + w, y },{ x + w, y + h },{ x, y + h } },
+			center());
+	}
+
+	template <class SizeType>
+	TexturedQuad Rectangle<SizeType>::operator ()(const TextureRegion& textureRegion) const
+	{
+		return TexturedQuad(textureRegion.texture,
+			textureRegion.uvRect,
+			{ pos,{ x + w, y },{ x + w, y + h },{ x, y + h } },
+			center());
 	}
 
 	void Formatter(FormatData& formatData, const Rect& value)

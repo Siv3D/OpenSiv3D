@@ -12,6 +12,7 @@
 # include <Siv3D/LineString.hpp>
 # include <Siv3D/Optional.hpp>
 # include <Siv3D/Rectangle.hpp>
+# include <Siv3D/Spline.hpp>
 # include "../Siv3DEngine.hpp"
 # include "../Renderer2D/IRenderer2D.hpp"
 
@@ -59,6 +60,64 @@ namespace s3d
 		return RectF(left, top, right - left, bottom - top);
 	}
 
+	LineString LineString::catmullRom(const bool isClosed, const int32 interpolation) const
+	{
+		if (size() < 2)
+		{
+			return *this;
+		}
+
+		// [Siv3D ToDo] 最適化
+
+		Array<Vec2> points;
+		{
+			points.reserve(size() + 2 + isClosed);
+
+			if (isClosed)
+			{
+				points.push_back((*this)[size() - 1]);
+			}
+			else
+			{
+				points.push_back((*this)[0]);
+			}
+
+			for (const auto& point : *this)
+			{
+				points.push_back(point);
+			}
+
+			if (isClosed)
+			{
+				points.push_back((*this)[0]);
+				points.push_back((*this)[1]);
+			}
+			else
+			{
+				points.push_back((*this)[size() - 1]);
+			}
+		}
+
+		LineString splinePoints;
+		{
+			splinePoints.reserve((points.size() - 3)*interpolation + 1);
+
+			for (size_t i = 1; i < points.size() - 2; ++i)
+			{
+				const bool isLast = (i + 1) == points.size() - 2;
+
+				for (int32 t = 0; t < (interpolation + isLast); ++t)
+				{
+					const Vec2 p = Spline::CatmullRom(points[i - 1], points[i], points[i + 1], points[i + 2], t / static_cast<double>(interpolation));
+
+					splinePoints.push_back(p);
+				}
+			}
+		}
+
+		return splinePoints;
+	}
+
 	const LineString& LineString::draw(const ColorF& color, const bool isClosed) const
 	{
 		return draw(1.0, color, isClosed);
@@ -82,5 +141,10 @@ namespace s3d
 		);
 
 		return *this;
+	}
+
+	void LineString::drawCatmullRom(const double thickness, const ColorF& color, const bool isClosed, const int32 interpolation) const
+	{
+		catmullRom(isClosed, interpolation).draw(thickness, color, false);
 	}
 }

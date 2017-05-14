@@ -404,6 +404,12 @@
     <Filter Include="Source\Siv3D\TexturedQuad">
       <UniqueIdentifier>{3396b2cd-7d87-4f03-ab04-92e61543113f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\QuadraticBezier">
+      <UniqueIdentifier>{60d49729-5904-474c-837d-b00470442a76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\CubicBezier">
+      <UniqueIdentifier>{4b9e2fa8-9b81-4aa6-8cd7-7ff5fb1bb84d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1522,6 +1528,15 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\TexturedQuad.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\QuadraticBezier.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\CubicBezier.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Spline.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2216,6 +2231,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\TexturedQuad\SivTexturedQuad.cpp">
       <Filter>Source\Siv3D\TexturedQuad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\QuadraticBezier\SivQuadraticBezier.cpp">
+      <Filter>Source\Siv3D\QuadraticBezier</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\CubicBezier\SivCubicBezier.cpp">
+      <Filter>Source\Siv3D\CubicBezier</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

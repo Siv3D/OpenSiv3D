@@ -176,7 +176,7 @@ namespace s3d
 
 	void Shape2D::drawFrame(const double thickness, const ColorF& color) const
 	{
-		Siv3DEngine::GetRenderer2D()->addShape2DFrame(m_vertices.data(), m_vertices.size(),
+		Siv3DEngine::GetRenderer2D()->addShape2DFrame(m_vertices.data(), static_cast<uint32>(m_vertices.size()),
 			static_cast<float>(thickness), Float4(color.r, color.g, color.b, color.a));
 	}
 }
