@@ -11,8 +11,8 @@
 
 # pragma once
 # include "String.hpp"
-# include "../fmt/format.h"
-# include "../fmt/ostream.h"
+# include "../ThirdParty/fmt/format.h"
+# include "../ThirdParty/fmt/ostream.h"
 
 namespace s3d
 {

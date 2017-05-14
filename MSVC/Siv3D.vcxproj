@@ -19,14 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Siv3D\Include\fmt\format.h" />
-    <ClInclude Include="..\Siv3D\Include\fmt\ostream.h" />
     <ClInclude Include="..\Siv3D\Include\HamFramework.hpp" />
     <ClInclude Include="..\Siv3D\Include\HamFramework\MiniScene.hpp" />
     <ClInclude Include="..\Siv3D\Include\HamFramework\Rx.hpp" />
-    <ClInclude Include="..\Siv3D\Include\hopscotch_map\hopscotch_hash.h" />
-    <ClInclude Include="..\Siv3D\Include\hopscotch_map\hopscotch_map.h" />
-    <ClInclude Include="..\Siv3D\Include\hopscotch_map\hopscotch_set.h" />
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\AlignedAllocator.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\AlignedMemory.hpp" />
@@ -186,6 +181,11 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Vector4D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Version.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\XXHash.hpp" />
+    <ClInclude Include="..\Siv3D\Include\ThirdParty\fmt\format.h" />
+    <ClInclude Include="..\Siv3D\Include\ThirdParty\fmt\ostream.h" />
+    <ClInclude Include="..\Siv3D\Include\ThirdParty\hopscotch_map\hopscotch_hash.h" />
+    <ClInclude Include="..\Siv3D\Include\ThirdParty\hopscotch_map\hopscotch_map.h" />
+    <ClInclude Include="..\Siv3D\Include\ThirdParty\hopscotch_map\hopscotch_set.h" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\AssetHandleManager\AssetHandleManager.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BigFloat\CBigFloat.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BigInt\CBigInt.hpp" />
