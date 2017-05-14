@@ -23,7 +23,7 @@ namespace s3d
 			texture,
 			{ x, y, x + size.x, y + size.y },
 			uvRect,
-			Float4(diffuse.r, diffuse.g, diffuse.b, diffuse.a)
+			diffuse.toFloat4()
 		);
 
 		return RectF{ x, y, size };
@@ -37,7 +37,7 @@ namespace s3d
 			texture,
 			{ x - sizeHalf.x, y - sizeHalf.y, x + sizeHalf.x, y + sizeHalf.y },
 			uvRect,
-			Float4(diffuse.r, diffuse.g, diffuse.b, diffuse.a)
+			diffuse.toFloat4()
 		);
 
 		return RectF{ x - sizeHalf.x, y - sizeHalf.y, size };

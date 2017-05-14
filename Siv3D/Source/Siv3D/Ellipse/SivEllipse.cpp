@@ -58,7 +58,7 @@ namespace s3d
 			center,
 			static_cast<float>(a),
 			static_cast<float>(b),
-			Float4(color.r, color.g, color.b, color.a)
+			color.toFloat4()
 		);
 
 		return *this;
@@ -71,7 +71,7 @@ namespace s3d
 			static_cast<float>(a - innerThickness),
 			static_cast<float>(b - innerThickness),
 			static_cast<float>(innerThickness + outerThickness),
-			Float4(color.r, color.g, color.b, color.a)
+			color.toFloat4()
 		);
 
 		return *this;

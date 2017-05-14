@@ -145,7 +145,7 @@ namespace s3d
 			*this,
 			FloatRect(x, y, x + size.x, y + size.y),
 			FloatRect(0.0f, 0.0f, 1.0f, 1.0f),
-			Float4(diffuse.r, diffuse.g, diffuse.b, diffuse.a)
+			diffuse.toFloat4()
 		);
 
 		return RectF(x, y, size);
@@ -161,7 +161,7 @@ namespace s3d
 			*this,
 			{ x - wHalf, y - hHalf, x + wHalf, y + hHalf },
 			{ 0.0f, 0.0f, 1.0f, 1.0f },
-			Float4(diffuse.r, diffuse.g, diffuse.b, diffuse.a)
+			diffuse.toFloat4()
 		);
 
 		return RectF(x - wHalf, y - hHalf, size);

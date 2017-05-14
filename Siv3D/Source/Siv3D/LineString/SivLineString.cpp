@@ -136,7 +136,7 @@ namespace s3d
 			s3d::none,
 			static_cast<float>(thickness),
 			false,
-			Float4(color.r, color.g, color.b, color.a),
+			color.toFloat4(),
 			isClosed
 		);
 

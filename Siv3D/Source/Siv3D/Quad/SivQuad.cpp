@@ -120,7 +120,7 @@ namespace s3d
 
 	const Quad& Quad::draw(const ColorF& color) const
 	{
-		Siv3DEngine::GetRenderer2D()->addQuad(FloatQuad(p0, p1, p2, p3), Float4(color.r, color.g, color.b, color.a));
+		Siv3DEngine::GetRenderer2D()->addQuad(FloatQuad(p0, p1, p2, p3), color.toFloat4());
 
 		return *this;
 	}
@@ -128,12 +128,7 @@ namespace s3d
 	const Quad& Quad::draw(const ColorF(&colors)[4]) const
 	{
 		Siv3DEngine::GetRenderer2D()->addQuad(FloatQuad(p0, p1, p2, p3),
-		{
-			Float4(colors[0].r, colors[0].g, colors[0].b, colors[0].a),
-			Float4(colors[1].r, colors[1].g, colors[1].b, colors[1].a),
-			Float4(colors[2].r, colors[2].g, colors[2].b, colors[2].a),
-			Float4(colors[3].r, colors[3].g, colors[3].b, colors[3].a)
-		});
+			{ colors[0].toFloat4(), colors[1].toFloat4(), colors[2].toFloat4(), colors[3].toFloat4() });
 
 		return *this;
 	}
@@ -141,7 +136,7 @@ namespace s3d
 	const Quad& Quad::drawFrame(double thickness, const ColorF& color) const
 	{
 		Siv3DEngine::GetRenderer2D()->addLineString(&p0, 4, s3d::none,
-			static_cast<float>(thickness), false, Float4(color.r, color.g, color.b, color.a), true);
+			static_cast<float>(thickness), false, color.toFloat4(), true);
 
 		return *this;
 	}
@@ -154,7 +149,7 @@ namespace s3d
 
 		Siv3DEngine::GetRenderer2D()->addLineString(&t.p0, 4, none,
 			static_cast<float>(innerThickness + outerThickness),
-			outerThickness == 0.0, Float4(color.r, color.g, color.b, color.a), true);
+			outerThickness == 0.0, color.toFloat4(), true);
 
 		return *this;
 	}
