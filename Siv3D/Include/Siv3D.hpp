@@ -323,10 +323,10 @@
 	//# include "Siv3D/QuadraticBezier.hpp"
 	//// 3 次ベジェ曲線
 	//# include "Siv3D/CubicBezier.hpp"
-	//// SIMD
-	//# include "Siv3D/SIMD.hpp"
-	//// 半精度浮動小数点数
-	//# include "Siv3D/HalfFloat.hpp"
+	// SIMD
+	# include "Siv3D/SIMDMath.hpp"
+	// 半精度浮動小数点数
+	# include "Siv3D/HalfFloat.hpp"
 	// 数式パーサ
 	# include "Siv3D/MathParser.hpp"
 //
@@ -500,8 +500,8 @@
 	# include "Siv3D/Texture.hpp"
 	// 領域を指定したテクスチャ
 	# include "Siv3D/TextureRegion.hpp"
-	//// 四角形に貼り付けたテクスチャ
-	//# include "Siv3D/TexturedQuad.hpp"
+	// 四角形に貼り付けたテクスチャ
+	# include "Siv3D/TexturedQuad.hpp"
 	//// 動的テクスチャ
 	//# include "Siv3D/DynamicTexture.hpp"
 	// レンダーテクスチャ

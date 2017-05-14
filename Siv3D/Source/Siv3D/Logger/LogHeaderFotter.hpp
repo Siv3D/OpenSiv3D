@@ -145,6 +145,28 @@ u8R"-(<div class="c0">Convenient Constructs For Stepping Through a Range of Valu
 </div>)-"
 
 
+u8R"-(<div class="c0">DirectXMath</div>
+<div class="c1">Copyright (c) 2017 Microsoft Corp</div>
+<div class="c2">
+Permission is hereby granted, free of charge, to any person obtaining a copy of this<br>
+software and associated documentation files (the "Software"), to deal in the Software<br>
+without restriction, including without limitation the rights to use, copy, modify,<br>
+merge, publish, distribute, sublicense, and/or sell copies of the Software, and to<br>
+permit persons to whom the Software is furnished to do so, subject to the following<br>
+conditions:<br>
+<br>
+The above copyright notice and this permission notice shall be included in all copies<br>
+or substantial portions of the Software.<br>
+<br>
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,<br>
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A<br>
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT<br>
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF<br>
+CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE<br>
+OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.<br>
+</div>)-"
+
+
 u8R"-(<div class="c0">double-conversion</div>
 <div class="c1">Copyright (c) 2006-2011, the V8 project authors. All rights reserved.</div>
 <div class="c2">

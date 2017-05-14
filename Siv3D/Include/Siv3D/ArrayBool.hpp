@@ -41,8 +41,6 @@ namespace s3d
 
 		using base_type::assign;
 		using base_type::get_allocator;
-		using base_type::at;
-		using base_type::operator[];
 		using base_type::front;
 		using base_type::back;
 		using base_type::data;
@@ -170,6 +168,99 @@ namespace s3d
 		void pop_front()
 		{
 			erase(begin());
+		}
+
+		/// <summary>
+		/// 要素にアクセスします。
+		/// </summary>
+		/// <returns>
+		/// 要素へのインデックス
+		/// </returns>
+		/// <returns>
+		/// 要素への参照
+		/// </returns>
+		const bool& operator[](size_t index) const &
+		{
+			return base_type::operator[](index);
+		}
+
+		/// <summary>
+		/// 要素にアクセスします。
+		/// </summary>
+		/// <returns>
+		/// 要素へのインデックス
+		/// </returns>
+		/// <returns>
+		/// 要素への参照
+		/// </returns>
+		bool& operator[](size_t index) &
+		{
+			return base_type::operator[](index);
+		}
+
+		/// <summary>
+		/// 要素を取得します。
+		/// </summary>
+		/// <returns>
+		/// 要素へのインデックス
+		/// </returns>
+		/// <returns>
+		/// 要素
+		/// </returns>
+		bool operator[](size_t index) &&
+		{
+			return std::move(base_type::operator[](index));
+		}
+
+		/// <summary>
+		/// 要素にアクセスします。
+		/// </summary>
+		/// <returns>
+		/// 要素へのインデックス
+		/// </returns>
+		/// <exception cref="std::out_of_range">
+		/// 範囲外アクセスの場合 throw されます。
+		/// </exception>
+		/// <returns>
+		/// 要素への参照
+		/// </returns>
+		const bool& at(size_t index) const &
+		{
+			return base_type::at(index);
+		}
+
+		/// <summary>
+		/// 要素にアクセスします。
+		/// </summary>
+		/// <returns>
+		/// 要素へのインデックス
+		/// </returns>
+		/// <exception cref="std::out_of_range">
+		/// 範囲外アクセスの場合 throw されます。
+		/// </exception>
+		/// <returns>
+		/// 要素への参照
+		/// </returns>
+		bool& at(size_t index) &
+		{
+			return base_type::at(index);
+		}
+
+		/// <summary>
+		/// 要素を取得します。
+		/// </summary>
+		/// <returns>
+		/// 要素へのインデックス
+		/// </returns>
+		/// <exception cref="std::out_of_range">
+		/// 範囲外アクセスの場合 throw されます。
+		/// </exception>
+		/// <returns>
+		/// 要素
+		/// </returns>
+		bool at(size_t index) &&
+		{
+			return std::move(base_type::at(index));
 		}
 
 		Array& operator <<(const bool& value)

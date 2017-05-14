@@ -1548,6 +1548,44 @@ namespace s3d
 		
 		m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Sprite);
 	}
+	
+	void CRenderer2D_GL::addTexturedQuad(const Texture& texture, const FloatQuad& quad, const FloatRect& uv, const Float4& color)
+	{
+		constexpr IndexType vertexSize = 4, indexSize = 6;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+		
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+		{
+			return;
+		}
+		
+		pVertex[0].pos = quad.p[0];
+		pVertex[0].tex.set(uv.left, uv.top);
+		pVertex[0].color = color;
+		
+		pVertex[1].pos = quad.p[1];
+		pVertex[1].tex.set(uv.right, uv.top);
+		pVertex[1].color = color;
+		
+		pVertex[2].pos = quad.p[3];
+		pVertex[2].tex.set(uv.left, uv.bottom);
+		pVertex[2].color = color;
+		
+		pVertex[3].pos = quad.p[2];
+		pVertex[3].tex.set(uv.right, uv.bottom);
+		pVertex[3].color = color;
+		
+		for (uint32 i = 0; i < indexSize; ++i)
+		{
+			pIndex[i] = indexOffset + detail::rectIndexTable[i];
+		}
+		
+		m_commandManager.pushPSTexture(0, texture);
+		
+		m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Sprite);
+	}
 }
 
 # endif

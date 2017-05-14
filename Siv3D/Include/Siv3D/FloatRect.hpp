@@ -39,5 +39,4 @@ namespace s3d
 			, right(static_cast<float>(r))
 			, bottom(static_cast<float>(b)) {}
 	};
-
 }

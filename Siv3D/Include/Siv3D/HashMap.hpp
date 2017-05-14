@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
-# include "../hopscotch_map/hopscotch_map.h"
+# include "../ThirdParty/hopscotch_map/hopscotch_map.h"
 
 namespace s3d
 {

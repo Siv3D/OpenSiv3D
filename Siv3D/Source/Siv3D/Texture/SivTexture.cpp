@@ -15,9 +15,9 @@
 # include "../Profiler/IProfiler.hpp"
 # include <Siv3D/Texture.hpp>
 # include <Siv3D/TextureRegion.hpp>
+# include <Siv3D/TexturedQuad.hpp>
 # include <Siv3D/Image.hpp>
 # include <Siv3D/ImageProcessing.hpp>
-# include <Siv3D/FloatRect.hpp>
 
 namespace s3d
 {
@@ -281,5 +281,30 @@ namespace s3d
 	TextureRegion Texture::map(const Vec2& size) const
 	{
 		return map(size.x, size.y);
+	}
+
+	TexturedQuad Texture::rotate(const double angle) const
+	{
+		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->getID());
+
+		return TexturedQuad(*this,
+			0.0f, 0.0f, 1.0f, 1.0f,
+			Rect(size).rotated(angle),
+			Float2(size.x * 0.5, size.y * 0.5));
+	}
+
+	TexturedQuad Texture::rotateAt(const double x, const double y, const double angle) const
+	{
+		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->getID());
+
+		return TexturedQuad(*this,
+			0.0f, 0.0f, 1.0f, 1.0f,
+			Rect(size).rotatedAt(x, y, angle),
+			Float2(x, y));
+	}
+
+	TexturedQuad Texture::rotateAt(const Vec2& pos, const double angle) const
+	{
+		return rotateAt(pos.x, pos.y, angle);
 	}
 }

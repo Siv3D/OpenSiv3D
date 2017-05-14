@@ -950,7 +950,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の文字への参照
 		/// </returns>
-		value_type& at(const size_t offset) { return m_string.at(offset); }
+		value_type& at(const size_t offset) & { return m_string.at(offset); }
 
 		/// <summary>
 		/// 指定した位置の文字への参照を返します。
@@ -964,7 +964,21 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の文字への参照
 		/// </returns>
-		const value_type& at(const size_t offset) const { return m_string.at(offset); }
+		const value_type& at(const size_t offset) const & { return m_string.at(offset); }
+
+		/// <summary>
+		/// 指定した位置の文字を取得します。
+		/// </summary>
+		/// <param name="offset">
+		/// 位置
+		/// </param>
+		/// <exception cref="std::out_of_range">
+		/// 範囲外アクセスの場合 throw されます。
+		/// </exception>
+		/// <returns>
+		/// 指定した位置の文字への参照
+		/// </returns>
+		value_type at(const size_t offset) && { return m_string.at(offset); }
 
 		/// <summary>
 		/// 指定した位置の文字への参照を返します。
@@ -975,7 +989,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の文字への参照
 		/// </returns>
-		value_type& operator[](const size_t offset) { return m_string[offset]; }
+		value_type& operator[](const size_t offset) & { return m_string[offset]; }
 
 		/// <summary>
 		/// 指定した位置の文字への参照を返します。
@@ -986,7 +1000,18 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の文字への参照
 		/// </returns>
-		const value_type& operator[](const size_t offset) const { return m_string[offset]; }
+		const value_type& operator[](const size_t offset) const & { return m_string[offset]; }
+
+		/// <summary>
+		/// 指定した位置の文字を取得します。
+		/// </summary>
+		/// <param name="offset">
+		/// 位置
+		/// </param>
+		/// <returns>
+		/// 指定した位置の文字への参照
+		/// </returns>
+		value_type operator[](const size_t offset) && { return std::move(m_string[offset]); }
 
 		/// <summary>
 		/// 先頭に文字を追加します。

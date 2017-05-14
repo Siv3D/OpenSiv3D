@@ -80,9 +80,6 @@
     <Filter Include="Source\ThirdParty\fmt">
       <UniqueIdentifier>{99f0c82e-4c8e-43d4-802c-5939bbcd6a62}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Include\fmt">
-      <UniqueIdentifier>{1e8e2427-6f55-4194-8bf1-353c2cb86810}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Siv3D\Color">
       <UniqueIdentifier>{eb852a5a-e0f3-4294-9ae9-e2f9c05870bd}</UniqueIdentifier>
     </Filter>
@@ -248,9 +245,6 @@
     <Filter Include="Source\Siv3D\Threading">
       <UniqueIdentifier>{ddc50282-2527-4556-b1f4-7120bda080e1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Include\hopscotch_map">
-      <UniqueIdentifier>{98f1b10e-2b4d-4934-9038-30fd425d440b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Siv3D\Triangle">
       <UniqueIdentifier>{d2d4d354-4ac8-4463-8884-2a4ea038ccff}</UniqueIdentifier>
     </Filter>
@@ -397,6 +391,18 @@
     </Filter>
     <Filter Include="Source\Siv3D\SamplerState">
       <UniqueIdentifier>{db64ac8f-081a-4d4f-91ac-4b95ec24c56a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ThirdParty">
+      <UniqueIdentifier>{37be80f5-7b47-4592-b2a0-8124c230db2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ThirdParty\fmt">
+      <UniqueIdentifier>{8744b8b1-d13d-4f6b-af31-5ded566a4ad5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ThirdParty\hopscotch_map">
+      <UniqueIdentifier>{daf9be17-bdcb-4663-ae65-bd6b0b808ba0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\TexturedQuad">
+      <UniqueIdentifier>{3396b2cd-7d87-4f03-ab04-92e61543113f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -853,12 +859,6 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\INIReader\CINIReader.hpp">
       <Filter>Source\Siv3D\INIReader</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\Include\fmt\ostream.h">
-      <Filter>Include\fmt</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\Include\fmt\format.h">
-      <Filter>Include\fmt</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\bitstream.h">
       <Filter>Source\ThirdParty\zstd\common</Filter>
     </ClInclude>
@@ -1116,12 +1116,6 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\Threading.hpp">
       <Filter>Include\Siv3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\Include\hopscotch_map\hopscotch_map.h">
-      <Filter>Include\hopscotch_map</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\Include\hopscotch_map\hopscotch_hash.h">
-      <Filter>Include\hopscotch_map</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryReader\CBinaryReader_Linux.hpp">
       <Filter>Source\Siv3D\BinaryReader</Filter>
@@ -1444,9 +1438,6 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\RenderTexture.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\Include\hopscotch_map\hopscotch_set.h">
-      <Filter>Include\hopscotch_map</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\HashSet.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
@@ -1506,6 +1497,30 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\GL\SamplerState\GLSamplerState.hpp">
       <Filter>Source\Siv3D\Graphics\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\ThirdParty\fmt\format.h">
+      <Filter>Include\ThirdParty\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\ThirdParty\fmt\ostream.h">
+      <Filter>Include\ThirdParty\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\ThirdParty\hopscotch_map\hopscotch_map.h">
+      <Filter>Include\ThirdParty\hopscotch_map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\ThirdParty\hopscotch_map\hopscotch_set.h">
+      <Filter>Include\ThirdParty\hopscotch_map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\ThirdParty\hopscotch_map\hopscotch_hash.h">
+      <Filter>Include\ThirdParty\hopscotch_map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\HalfFloat.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\SIMDMath.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\TexturedQuad.hpp">
+      <Filter>Include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2198,6 +2213,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\GL\SamplerState\GLSamplerState.cpp">
       <Filter>Source\Siv3D\Graphics\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\TexturedQuad\SivTexturedQuad.cpp">
+      <Filter>Source\Siv3D\TexturedQuad</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
