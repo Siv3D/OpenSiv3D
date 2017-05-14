@@ -463,6 +463,8 @@
 //
 	// 2D 頂点データ
 	# include "Siv3D/Vertex2D.hpp"
+	// 2D スプライト
+	# include "Siv3D/Sprite.hpp"
 	// ブレンドステート
 	# include "Siv3D/BlendState.hpp"
 	// ラスタライザーステート
@@ -491,8 +493,6 @@
 	# include "Siv3D/RenderStateBlock2D.hpp"
 	// 2D グラフィックス設定
 	# include "Siv3D/ViewportBlock2D.hpp"
-	//// 2D スプライト
-	//# include "Siv3D/Sprite.hpp"
 //
 // テクスチャ
 //

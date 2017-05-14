@@ -143,6 +143,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\SIMDMath.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Spherical.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Spline.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Sprite.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Step2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Texture.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TexturedQuad.hpp" />
@@ -536,6 +537,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_Linux.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_macOS.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_Windows.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Sprite\SivSprite.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Stopwatch\SivStopwatch.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\String\SivString.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\System\CSystem_Linux.cpp" />

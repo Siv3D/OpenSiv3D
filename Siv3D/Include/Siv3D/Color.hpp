@@ -681,6 +681,10 @@ namespace s3d
 					   , a >= 1.0 ? 255 : a <= 0.0 ? 0 : static_cast<uint8>(a * 255.0 + 0.5));
 		}
 
+		Float4 toFloat4() const;
+
+		Vec4 toVec4() const;
+
 		/// <summary>
 		/// ガンマを適用した値を返します。
 		/// </summary>
