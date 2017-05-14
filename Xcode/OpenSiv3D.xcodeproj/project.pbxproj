@@ -680,6 +680,8 @@
 		2CCA359B1EC89A1900078678 /* SivCubicBezier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA359A1EC89A1900078678 /* SivCubicBezier.cpp */; };
 		2CCA359E1EC89A2600078678 /* SivQuadraticBezier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA359D1EC89A2600078678 /* SivQuadraticBezier.cpp */; };
 		2CCA35A01EC89DBC00078678 /* Spline.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA359F1EC89DBC00078678 /* Spline.hpp */; };
+		2CCA35A31EC8ADAC00078678 /* SivSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35A21EC8ADAC00078678 /* SivSprite.cpp */; };
+		2CCA35A51EC8ADCD00078678 /* Sprite.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA35A41EC8ADCD00078678 /* Sprite.hpp */; };
 		2CCE339B1EC0CB8300B6A0D5 /* Texture_GL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */; };
 		2CCE339D1EC1E71400B6A0D5 /* TextureRegion.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */; };
 		2CCE33A01EC1F1B800B6A0D5 /* SivTextureRegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE339F1EC1F1B800B6A0D5 /* SivTextureRegion.cpp */; };
@@ -1395,6 +1397,8 @@
 		2CCA359A1EC89A1900078678 /* SivCubicBezier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCubicBezier.cpp; sourceTree = "<group>"; };
 		2CCA359D1EC89A2600078678 /* SivQuadraticBezier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivQuadraticBezier.cpp; sourceTree = "<group>"; };
 		2CCA359F1EC89DBC00078678 /* Spline.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Spline.hpp; sourceTree = "<group>"; };
+		2CCA35A21EC8ADAC00078678 /* SivSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSprite.cpp; sourceTree = "<group>"; };
+		2CCA35A41EC8ADCD00078678 /* Sprite.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Sprite.hpp; sourceTree = "<group>"; };
 		2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Texture_GL.hpp; sourceTree = "<group>"; };
 		2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextureRegion.hpp; sourceTree = "<group>"; };
 		2CCE339F1EC1F1B800B6A0D5 /* SivTextureRegion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextureRegion.cpp; sourceTree = "<group>"; };
@@ -1429,6 +1433,7 @@
 		2C0C7A121EBCC38300386CBB /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2CCA35A11EC8ADAC00078678 /* Sprite */,
 				2CCA359C1EC89A2600078678 /* QuadraticBezier */,
 				2CCA35991EC89A1900078678 /* CubicBezier */,
 				2CCA35921EC8850D00078678 /* TexturedQuad */,
@@ -2609,6 +2614,7 @@
 				2CCA359F1EC89DBC00078678 /* Spline.hpp */,
 				2C0C7D021EBCC39B00386CBB /* Step.hpp */,
 				2C0C7D031EBCC39B00386CBB /* Step2D.hpp */,
+				2CCA35A41EC8ADCD00078678 /* Sprite.hpp */,
 				2C0C7D041EBCC39B00386CBB /* Step_MSVC.hpp */,
 				2C0C7D051EBCC39B00386CBB /* Stopwatch.hpp */,
 				2C0C7D061EBCC39B00386CBB /* String.hpp */,
@@ -3410,6 +3416,14 @@
 			path = QuadraticBezier;
 			sourceTree = "<group>";
 		};
+		2CCA35A11EC8ADAC00078678 /* Sprite */ = {
+			isa = PBXGroup;
+			children = (
+				2CCA35A21EC8ADAC00078678 /* SivSprite.cpp */,
+			);
+			path = Sprite;
+			sourceTree = "<group>";
+		};
 		2CCE339E1EC1F1B800B6A0D5 /* TextureRegion */ = {
 			isa = PBXGroup;
 			children = (
@@ -3616,6 +3630,7 @@
 				2C0C7DB11EBCC39B00386CBB /* Types.hpp in Headers */,
 				2C0C7D641EBCC39B00386CBB /* HashSet.hpp in Headers */,
 				2C0C7C3B1EBCC38400386CBB /* PixelShader_D3D11.hpp in Headers */,
+				2CCA35A51EC8ADCD00078678 /* Sprite.hpp in Headers */,
 				2C2E829C1EAA1B3A0057BDAF /* fwd.h in Headers */,
 				2C0C7D841EBCC39B00386CBB /* Number.hpp in Headers */,
 				2C0C7B9E1EBCC38400386CBB /* IClipboard.hpp in Headers */,
@@ -4152,6 +4167,7 @@
 				2C0C7C2B1EBCC38400386CBB /* SivRectangle.cpp in Sources */,
 				2C0C7BA61EBCC38400386CBB /* SivConsole.cpp in Sources */,
 				2C0C7C541EBCC38400386CBB /* SivSystem.mm in Sources */,
+				2CCA35A31EC8ADAC00078678 /* SivSprite.cpp in Sources */,
 				2C0C7DF01EC081B700386CBB /* SivRasterizerState.cpp in Sources */,
 				2C0C7C0B1EBCC38400386CBB /* SivMathParser.cpp in Sources */,
 				2C0C7BB31EBCC38400386CBB /* CDragDrop_Linux.cpp in Sources */,

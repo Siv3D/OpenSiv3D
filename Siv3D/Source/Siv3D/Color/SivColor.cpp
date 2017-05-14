@@ -119,7 +119,7 @@ namespace s3d
 
 	Vec4 ColorF::toVec4() const
 	{
-		return Float4(r, g, b, a);
+		return Vec4(r, g, b, a);
 	}
 
 	ColorF ColorF::gamma(const double gamma) const noexcept

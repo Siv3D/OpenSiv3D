@@ -66,11 +66,11 @@ void Main()
 		sprite.indices[i * 6 + 5] = i * 2 + 2;
 	}
 
-	//Graphics2D::SetBlendState(BlendState::Additive);
-
 	RenderStateBlock2D blend(BlendState::Additive);
 
 	PerlinNoise noise;
+	
+	const Texture texture2(L"example/windmill.png");
 
 	while (System::Update())
 	{
@@ -87,10 +87,10 @@ void Main()
 				const double b = a + 40 + noise.noise(t*0.05) * 40;
 
 				sprite.vertices[i * 2 + 0].pos = Float2(i, a);
-				sprite.vertices[i * 2 + 0].color = color.rgba();
+				sprite.vertices[i * 2 + 0].color = color.toFloat4();
 
 				sprite.vertices[i * 2 + 1].pos = Float2(i, b);
-				sprite.vertices[i * 2 + 1].color = color.rgba();
+				sprite.vertices[i * 2 + 1].color = color.toFloat4();
 			}
 
 			sprite.draw(texture);

@@ -18,6 +18,7 @@
 # include <Siv3D/Vertex2D.hpp>
 # include <Siv3D/FloatRect.hpp>
 # include <Siv3D/FloatQuad.hpp>
+# include <Siv3D/Sprite.hpp>
 # include <Siv3D/Color.hpp>
 # include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/MathConstants.hpp>
@@ -1585,6 +1586,60 @@ namespace s3d
 		m_commandManager.pushPSTexture(0, texture);
 		
 		m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Sprite);
+	}
+	
+	void CRenderer2D_GL::addSprite(const Optional<Texture>& texture, const Sprite& sprite, const uint32 startIndex, uint32 indexCount)
+	{
+		if (sprite.vertices.empty() || sprite.indices.empty() || sprite.indices.size() <= startIndex)
+		{
+			return;
+		}
+		
+		if (sprite.indices.size() < (startIndex + indexCount))
+		{
+			indexCount = static_cast<uint32>(sprite.indices.size() - startIndex);
+		}
+		
+		if (indexCount % 3 != 0)
+		{
+			indexCount -= (indexCount % 3);
+		}
+		
+		if (indexCount == 0)
+		{
+			return;
+		}
+		
+		const IndexType vertexSize = static_cast<IndexType>(sprite.vertices.size()), indexSize = static_cast<IndexType>(indexCount);
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+		
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+		{
+			return;
+		}
+		
+		::memcpy(pVertex, sprite.vertices.data(), vertexSize * sizeof(Vertex2D));
+		
+		const IndexType* const pDstEnd = pIndex + indexSize;
+		const uint32* pSrc = &sprite.indices[startIndex];
+		
+		while (pIndex != pDstEnd)
+		{
+			*pIndex++ = indexOffset + (*pSrc++);
+		}
+		
+		if (texture)
+		{
+			m_commandManager.pushPSTexture(0, *texture);
+			
+			m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Sprite);
+		}
+		else
+		{
+			m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Shape);
+		}
 	}
 }
 
