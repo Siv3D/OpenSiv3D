@@ -373,10 +373,10 @@ namespace s3d
 
 		TextureRegion map(const Vec2& size) const;
 
-		//TexturedQuad rotate(double radian) const;
+		TexturedQuad rotate(double angle) const;
 
-		//TexturedQuad rotateAt(double x, double y, double radian) const;
+		TexturedQuad rotateAt(double x, double y, double angle) const;
 
-		//TexturedQuad rotateAt(const Vec2& pos, double radian) const;
+		TexturedQuad rotateAt(const Vec2& pos, double angle) const;
 	};
 }

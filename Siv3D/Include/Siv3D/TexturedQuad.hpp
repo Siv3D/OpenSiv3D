@@ -18,6 +18,53 @@ namespace s3d
 {
 	struct TexturedQuad
 	{
+		Quad quad;
 
+		Texture texture;
+
+		FloatRect uvRect;
+
+		Float2 center;
+
+		TexturedQuad(
+			const Texture& _texture,
+			float l,
+			float t,
+			float r,
+			float b,
+			const Quad& _quad,
+			const Float2& _center)
+			: quad(_quad)
+			, texture(_texture)
+			, uvRect(l, t, r, b)
+			, center(_center) {}
+
+		TexturedQuad(
+			const Texture& _texture,
+			const FloatRect& _uvRect,
+			const Quad& _quad,
+			const Float2& _center)
+			: quad(_quad)
+			, texture(_texture)
+			, uvRect(_uvRect)
+			, center(_center) {}
+
+		const Quad& draw(const ColorF& diffuse = Palette::White) const;
+
+		Quad draw(double x, double y, const ColorF& diffuse = Palette::White) const;
+
+		Quad draw(const Vec2& pos, const ColorF& diffuse = Palette::White) const
+		{
+			return draw(pos.x, pos.y, diffuse);
+		}
+
+		const Quad& drawAt(const ColorF& diffuse = Palette::White) const;
+
+		Quad drawAt(double x, double y, const ColorF& diffuse = Palette::White) const;
+
+		Quad drawAt(const Vec2& pos, const ColorF& diffuse = Palette::White) const
+		{
+			return drawAt(pos.x, pos.y, diffuse);
+		}
 	};
 }

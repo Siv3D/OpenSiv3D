@@ -43,7 +43,8 @@ namespace s3d
 		: m_device(device)
 		, m_context(context)
 	{
-
+		m_currentVSStates.fill(NullSamplerState);
+		m_currentPSStates.fill(NullSamplerState);
 	}
 
 	void D3D11SamplerState::setVS(const uint32 slot, const SamplerState& state)
@@ -100,9 +101,11 @@ namespace s3d
 
 	D3D11SamplerState::SamplerStateList::iterator D3D11SamplerState::create(const SamplerState& state)
 	{
+		const uint32 filterIndex = ((static_cast<int32>(state.min) & 1) << 2)
+			| ((static_cast<int32>(state.mag) & 1) << 1) | (static_cast<int32>(state.mip) & 1);
+
 		D3D11_SAMPLER_DESC desc{};
-		desc.Filter			= detail::filterTable[(static_cast<int32>(state.min) << 2)
-								| (static_cast<int32>(state.mag) << 1) | (static_cast<int32>(state.mip))];
+		desc.Filter			= detail::filterTable[filterIndex];
 		desc.AddressU		= detail::addressModeTable[static_cast<int32>(state.addressU)];
 		desc.AddressV		= detail::addressModeTable[static_cast<int32>(state.addressV)];
 		desc.AddressW		= detail::addressModeTable[static_cast<int32>(state.addressW)];

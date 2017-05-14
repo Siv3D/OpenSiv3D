@@ -13,6 +13,7 @@
 # include "../Renderer2D/IRenderer2D.hpp"
 # include <Siv3D/Texture.hpp>
 # include <Siv3D/TextureRegion.hpp>
+# include <Siv3D/TexturedQuad.hpp>
 
 namespace s3d
 {
@@ -68,5 +69,26 @@ namespace s3d
 		return TextureRegion{ texture,
 			uvRect,
 			width, height };
+	}
+
+	TexturedQuad TextureRegion::rotate(const double angle) const
+	{
+		return TexturedQuad(texture,
+			uvRect,
+			RectF(size).rotated(angle),
+			size * 0.5f);
+	}
+
+	TexturedQuad TextureRegion::rotateAt(const double x, const double y, const double angle) const
+	{
+		return TexturedQuad(texture,
+			uvRect,
+			RectF(size).rotatedAt(x, y, angle),
+			Float2(x, y));
+	}
+
+	TexturedQuad TextureRegion::rotateAt(const Vec2& pos, const double angle) const
+	{
+		return rotateAt(pos.x, pos.y, angle);
 	}
 }
