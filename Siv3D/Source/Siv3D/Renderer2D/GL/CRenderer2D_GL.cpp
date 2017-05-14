@@ -477,6 +477,14 @@ namespace s3d
 			
 			m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::LineRoundDot);
 		}
+
+		/*
+		GLenum err;
+		while((err = glGetError()) != GL_NO_ERROR)
+		{
+			Log << L"HasError";
+		}
+		*/
 	}
 	
 	void CRenderer2D_GL::addTriangle(const Float2(&pts)[3], const Float4& color)
