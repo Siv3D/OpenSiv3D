@@ -675,6 +675,10 @@
 		2CCA358F1EC8833F00078678 /* SIMDMath.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA358E1EC8833F00078678 /* SIMDMath.hpp */; };
 		2CCA35911EC884F500078678 /* TexturedQuad.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA35901EC884F500078678 /* TexturedQuad.hpp */; };
 		2CCA35941EC8850D00078678 /* SivTexturedQuad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35931EC8850D00078678 /* SivTexturedQuad.cpp */; };
+		2CCA35961EC899F000078678 /* CubicBezier.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA35951EC899F000078678 /* CubicBezier.hpp */; };
+		2CCA35981EC89A0500078678 /* QuadraticBezier.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA35971EC89A0500078678 /* QuadraticBezier.hpp */; };
+		2CCA359B1EC89A1900078678 /* SivCubicBezier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA359A1EC89A1900078678 /* SivCubicBezier.cpp */; };
+		2CCA359E1EC89A2600078678 /* SivQuadraticBezier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA359D1EC89A2600078678 /* SivQuadraticBezier.cpp */; };
 		2CCE339B1EC0CB8300B6A0D5 /* Texture_GL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */; };
 		2CCE339D1EC1E71400B6A0D5 /* TextureRegion.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */; };
 		2CCE33A01EC1F1B800B6A0D5 /* SivTextureRegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE339F1EC1F1B800B6A0D5 /* SivTextureRegion.cpp */; };
@@ -1385,6 +1389,10 @@
 		2CCA358E1EC8833F00078678 /* SIMDMath.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SIMDMath.hpp; sourceTree = "<group>"; };
 		2CCA35901EC884F500078678 /* TexturedQuad.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TexturedQuad.hpp; sourceTree = "<group>"; };
 		2CCA35931EC8850D00078678 /* SivTexturedQuad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTexturedQuad.cpp; sourceTree = "<group>"; };
+		2CCA35951EC899F000078678 /* CubicBezier.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CubicBezier.hpp; sourceTree = "<group>"; };
+		2CCA35971EC89A0500078678 /* QuadraticBezier.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = QuadraticBezier.hpp; sourceTree = "<group>"; };
+		2CCA359A1EC89A1900078678 /* SivCubicBezier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCubicBezier.cpp; sourceTree = "<group>"; };
+		2CCA359D1EC89A2600078678 /* SivQuadraticBezier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivQuadraticBezier.cpp; sourceTree = "<group>"; };
 		2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Texture_GL.hpp; sourceTree = "<group>"; };
 		2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextureRegion.hpp; sourceTree = "<group>"; };
 		2CCE339F1EC1F1B800B6A0D5 /* SivTextureRegion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextureRegion.cpp; sourceTree = "<group>"; };
@@ -1419,6 +1427,8 @@
 		2C0C7A121EBCC38300386CBB /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2CCA359C1EC89A2600078678 /* QuadraticBezier */,
+				2CCA35991EC89A1900078678 /* CubicBezier */,
 				2CCA35921EC8850D00078678 /* TexturedQuad */,
 				2CCA35731EC6BBCA00078678 /* SamplerState */,
 				2CCA35701EC6BBBD00078678 /* ImageProcessing */,
@@ -2492,6 +2502,7 @@
 				2C0C7CA51EBCC39B00386CBB /* ConcurrentTask.hpp */,
 				2C0C7CA61EBCC39B00386CBB /* Console.hpp */,
 				2C0C7DC31EBE0E1D00386CBB /* ConstantBuffer.hpp */,
+				2CCA35951EC899F000078678 /* CubicBezier.hpp */,
 				2C0C7CA71EBCC39B00386CBB /* Cursor.hpp */,
 				2C0C7CA81EBCC39B00386CBB /* Cylindrical.hpp */,
 				2C0C7CA91EBCC39B00386CBB /* Date.hpp */,
@@ -2572,6 +2583,7 @@
 				2C0C7DDE1EBF2EA200386CBB /* PowerStatus.hpp */,
 				2C0C7CF11EBCC39B00386CBB /* Profiler.hpp */,
 				2C0C7CF21EBCC39B00386CBB /* Quad.hpp */,
+				2CCA35971EC89A0500078678 /* QuadraticBezier.hpp */,
 				2C0C7CF31EBCC39B00386CBB /* Random.hpp */,
 				2C0C7CF41EBCC39B00386CBB /* RandomColor.hpp */,
 				2C0C7CF51EBCC39B00386CBB /* RandomPoint.hpp */,
@@ -3379,6 +3391,22 @@
 			path = TexturedQuad;
 			sourceTree = "<group>";
 		};
+		2CCA35991EC89A1900078678 /* CubicBezier */ = {
+			isa = PBXGroup;
+			children = (
+				2CCA359A1EC89A1900078678 /* SivCubicBezier.cpp */,
+			);
+			path = CubicBezier;
+			sourceTree = "<group>";
+		};
+		2CCA359C1EC89A2600078678 /* QuadraticBezier */ = {
+			isa = PBXGroup;
+			children = (
+				2CCA359D1EC89A2600078678 /* SivQuadraticBezier.cpp */,
+			);
+			path = QuadraticBezier;
+			sourceTree = "<group>";
+		};
 		2CCE339E1EC1F1B800B6A0D5 /* TextureRegion */ = {
 			isa = PBXGroup;
 			children = (
@@ -3458,6 +3486,7 @@
 				2C0C7DF71EC0BBC600386CBB /* SamplerState.hpp in Headers */,
 				2C0C7C2F1EBCC38400386CBB /* D3D11SpriteBatch.hpp in Headers */,
 				2C0C7BCD1EBCC38400386CBB /* CGraphics_D3D11.hpp in Headers */,
+				2CCA35981EC89A0500078678 /* QuadraticBezier.hpp in Headers */,
 				2C0C7D671EBCC39B00386CBB /* HTMLWriter.hpp in Headers */,
 				2C0C7DAC1EBCC39B00386CBB /* Threading.hpp in Headers */,
 				2C0C7DB71EBCC39B00386CBB /* Vector3D.hpp in Headers */,
@@ -3777,6 +3806,7 @@
 				2C0C7D911EBCC39B00386CBB /* Quad.hpp in Headers */,
 				2C0C7C461EBCC38400386CBB /* Siv3DEngine.hpp in Headers */,
 				2C2E829A1EAA1B3A0057BDAF /* filereadstream.h in Headers */,
+				2CCA35961EC899F000078678 /* CubicBezier.hpp in Headers */,
 				2C81C0811E89F8E300D27E52 /* muParserDef.h in Headers */,
 				2C81C0851E89F8E300D27E52 /* muParserError.h in Headers */,
 				2C0C7DA01EBCC39B00386CBB /* Spherical.hpp in Headers */,
@@ -4144,6 +4174,7 @@
 				2C0C7BF31EBCC38400386CBB /* SivImageFormat.cpp in Sources */,
 				2C0C7BC21EBCC38400386CBB /* SivFileSystem_Linux.cpp in Sources */,
 				2C0C7BB91EBCC38400386CBB /* DragDropFactory.cpp in Sources */,
+				2CCA359E1EC89A2600078678 /* SivQuadraticBezier.cpp in Sources */,
 				2C0C7C471EBCC38400386CBB /* Siv3DMain_Linux.cpp in Sources */,
 				2C0C7BFA1EBCC38400386CBB /* CKeyboard_Linux.cpp in Sources */,
 				2C0C7BB51EBCC38400386CBB /* CDragDrop_macOS.cpp in Sources */,
@@ -4151,6 +4182,7 @@
 				2C0C7C1A1EBCC38400386CBB /* CMouse_macOS.cpp in Sources */,
 				2CCA35771EC6C3CE00078678 /* Texture_GL.cpp in Sources */,
 				2C0C7C701EBCC38400386CBB /* CWindow_Linux.cpp in Sources */,
+				2CCA359B1EC89A1900078678 /* SivCubicBezier.cpp in Sources */,
 				2C81C00A1E89F8E300D27E52 /* diy-fp.cc in Sources */,
 				2C0C7BB21EBCC38400386CBB /* SivDateTime.cpp in Sources */,
 				2C0C7C4C1EBCC38400386CBB /* CSystem_Linux.cpp in Sources */,
