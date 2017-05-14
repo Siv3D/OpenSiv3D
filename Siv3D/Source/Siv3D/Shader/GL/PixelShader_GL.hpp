@@ -109,7 +109,11 @@ namespace s3d
 		{
 			if (m_textureIndex)
 			{
+				::glUseProgram(m_psProgram);
+				
 				::glUniform1i(m_textureIndex.value(), 0);
+				
+				::glUseProgram(0);
 			}
 		}
 		

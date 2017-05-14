@@ -91,8 +91,6 @@ namespace s3d
 		
 		GLRender2DCommandManager m_commandManager;
 		
-		GLuint m_sampler = 0;
-
 	public:
 
 		CRenderer2D_GL();
