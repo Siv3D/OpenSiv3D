@@ -18,7 +18,8 @@ namespace s3d
 {
 	D3D11Render2DCommandManager::D3D11Render2DCommandManager()
 	{
-		m_currentSamplerStates.fill(SamplerState::Default2D);
+		m_currentVSSamplers.fill(SamplerState::Default2D);
+		m_currentPSSamplers.fill(SamplerState::Default2D);
 	}
 	
 	D3D11Render2DCommandManager::~D3D11Render2DCommandManager()
