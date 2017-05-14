@@ -74,6 +74,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Graphics2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Grid.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\AssetHandle.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\HalfFloat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\HardwareRNG.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Hash.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\HashMap.hpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\SamplerState.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Shader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Shape2D.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\SIMDMath.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Spherical.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Step2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Texture.hpp" />

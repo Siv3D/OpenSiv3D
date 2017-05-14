@@ -1,6 +1,7 @@
 - Boost 1.64.0 http://www.boost.org/users/history/version_1_64_0.html
 - butteraugli https://github.com/google/butteraugli
 - Convenient Constructs For Stepping Through a Range of Values https://www.codeproject.com/articles/876156/convenient-constructs-for-stepping-through-a-range
+- DirectXMath 3.10 https://github.com/Microsoft/DirectXMath/releases
 - double-conversion https://github.com/google/double-conversion
 - Easing Equations http://robertpenner.com/easing/
 - fmt 3.0.1 https://github.com/fmtlib/fmt/releases

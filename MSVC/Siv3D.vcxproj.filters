@@ -1510,6 +1510,12 @@
     <ClInclude Include="..\Siv3D\Include\ThirdParty\hopscotch_map\hopscotch_hash.h">
       <Filter>Include\ThirdParty\hopscotch_map</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\HalfFloat.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\SIMDMath.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">

@@ -7,6 +7,10 @@ void Main()
 
 	//Log << n;
 
+	const HalfFloat x1 = -123.45;
+
+	Log << x1 * 2.0;
+
 	while (System::Update())
 	{
 
