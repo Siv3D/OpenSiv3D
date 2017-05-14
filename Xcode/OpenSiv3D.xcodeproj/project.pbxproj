@@ -682,6 +682,8 @@
 		2CCA35A01EC89DBC00078678 /* Spline.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA359F1EC89DBC00078678 /* Spline.hpp */; };
 		2CCA35A31EC8ADAC00078678 /* SivSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35A21EC8ADAC00078678 /* SivSprite.cpp */; };
 		2CCA35A51EC8ADCD00078678 /* Sprite.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA35A41EC8ADCD00078678 /* Sprite.hpp */; };
+		2CCA35A71EC8B38300078678 /* RoundRect.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA35A61EC8B38300078678 /* RoundRect.hpp */; };
+		2CCA35AA1EC8B39800078678 /* SivRoundRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35A91EC8B39800078678 /* SivRoundRect.cpp */; };
 		2CCE339B1EC0CB8300B6A0D5 /* Texture_GL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */; };
 		2CCE339D1EC1E71400B6A0D5 /* TextureRegion.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */; };
 		2CCE33A01EC1F1B800B6A0D5 /* SivTextureRegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE339F1EC1F1B800B6A0D5 /* SivTextureRegion.cpp */; };
@@ -1399,6 +1401,8 @@
 		2CCA359F1EC89DBC00078678 /* Spline.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Spline.hpp; sourceTree = "<group>"; };
 		2CCA35A21EC8ADAC00078678 /* SivSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSprite.cpp; sourceTree = "<group>"; };
 		2CCA35A41EC8ADCD00078678 /* Sprite.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Sprite.hpp; sourceTree = "<group>"; };
+		2CCA35A61EC8B38300078678 /* RoundRect.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RoundRect.hpp; sourceTree = "<group>"; };
+		2CCA35A91EC8B39800078678 /* SivRoundRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRoundRect.cpp; sourceTree = "<group>"; };
 		2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Texture_GL.hpp; sourceTree = "<group>"; };
 		2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextureRegion.hpp; sourceTree = "<group>"; };
 		2CCE339F1EC1F1B800B6A0D5 /* SivTextureRegion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextureRegion.cpp; sourceTree = "<group>"; };
@@ -1433,6 +1437,7 @@
 		2C0C7A121EBCC38300386CBB /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2CCA35A81EC8B39800078678 /* RoundRect */,
 				2CCA35A11EC8ADAC00078678 /* Sprite */,
 				2CCA359C1EC89A2600078678 /* QuadraticBezier */,
 				2CCA35991EC89A1900078678 /* CubicBezier */,
@@ -2605,6 +2610,7 @@
 				2C0C7CFD1EBCC39B00386CBB /* RenderStateBlock2D.hpp */,
 				2C0C7CFE1EBCC39B00386CBB /* RenderTexture.hpp */,
 				2C0C7CFF1EBCC39B00386CBB /* Resource.hpp */,
+				2CCA35A61EC8B38300078678 /* RoundRect.hpp */,
 				2C0C7DF61EC0BBC600386CBB /* SamplerState.hpp */,
 				2C0C7DE91EC03A6B00386CBB /* Shader.hpp */,
 				2C0C7DD91EBEFE8500386CBB /* Shape2D.hpp */,
@@ -3424,6 +3430,14 @@
 			path = Sprite;
 			sourceTree = "<group>";
 		};
+		2CCA35A81EC8B39800078678 /* RoundRect */ = {
+			isa = PBXGroup;
+			children = (
+				2CCA35A91EC8B39800078678 /* SivRoundRect.cpp */,
+			);
+			path = RoundRect;
+			sourceTree = "<group>";
+		};
 		2CCE339E1EC1F1B800B6A0D5 /* TextureRegion */ = {
 			isa = PBXGroup;
 			children = (
@@ -3816,6 +3830,7 @@
 				2C0C7DCE1EBE0E2E00386CBB /* D3D11ConstantBuffer.hpp in Headers */,
 				2C0C7BB61EBCC38400386CBB /* CDragDrop_macOS.hpp in Headers */,
 				2C2E82B31EAA1B3A0057BDAF /* schema.h in Headers */,
+				2CCA35A71EC8B38300078678 /* RoundRect.hpp in Headers */,
 				2C316EA41E9F022A0011CAAE /* glew.h in Headers */,
 				2C0C7BDB1EBCC38400386CBB /* GLBlendState.hpp in Headers */,
 				2C0C7D5B1EBCC39B00386CBB /* Functor.hpp in Headers */,
@@ -4164,6 +4179,7 @@
 				2C81C00C1E89F8E300D27E52 /* double-conversion.cc in Sources */,
 				2C81C0A01E89F8E400D27E52 /* zstd_decompress.c in Sources */,
 				2C0C7DF91EC0BBEA00386CBB /* D3D11Renderer2DCommandManager.cpp in Sources */,
+				2CCA35AA1EC8B39800078678 /* SivRoundRect.cpp in Sources */,
 				2C0C7C2B1EBCC38400386CBB /* SivRectangle.cpp in Sources */,
 				2C0C7BA61EBCC38400386CBB /* SivConsole.cpp in Sources */,
 				2C0C7C541EBCC38400386CBB /* SivSystem.mm in Sources */,
