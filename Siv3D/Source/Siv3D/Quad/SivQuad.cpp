@@ -14,6 +14,8 @@
 # include <Siv3D/FloatQuad.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
+# include <Siv3D/TextureRegion.hpp>
+# include <Siv3D/TexturedQuad.hpp>
 # include "../Siv3DEngine.hpp"
 # include "../Renderer2D/IRenderer2D.hpp"
 
@@ -155,6 +157,26 @@ namespace s3d
 			outerThickness == 0.0, Float4(color.r, color.g, color.b, color.a), true);
 
 		return *this;
+	}
+
+	TexturedQuad Quad::operator ()(const Texture& texture) const
+	{
+		const Vec2 center = (p0 + p1 + p2 + p3) * 0.25;
+
+		return TexturedQuad(texture,
+			0.0f, 0.0f, 1.0f, 1.0f,
+			*this,
+			center);
+	}
+
+	TexturedQuad Quad::operator ()(const TextureRegion& textureRegion) const
+	{
+		const Vec2 center = (p0 + p1 + p2 + p3) * 0.25;
+
+		return TexturedQuad(textureRegion.texture,
+			textureRegion.uvRect,
+			*this,
+			center);
 	}
 
 	void Formatter(FormatData& formatData, const Quad& value)

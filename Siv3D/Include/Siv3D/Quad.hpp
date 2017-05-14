@@ -143,6 +143,10 @@ namespace s3d
 
 		const Quad& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
 
+		TexturedQuad operator ()(const Texture& texture) const;
+
+		TexturedQuad operator ()(const TextureRegion& textureRegion) const;
+
 		// Polygon asPolygon() const;
 	};
 }
