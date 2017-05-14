@@ -292,7 +292,8 @@ namespace s3d
 
 	bool D3D11SwapChain::present()
 	{
-		const bool vSync = !m_targetFrameRateHz.has_value();
+		const bool vSync = !m_targetFrameRateHz.has_value() ||
+			(m_targetFrameRateHz.value() >= 30 && std::abs(m_targetFrameRateHz.value() - m_currentDisplayRefreshRateHz) <= 3.0);
 
 		if (vSync)
 		{

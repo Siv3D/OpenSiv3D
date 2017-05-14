@@ -41,41 +41,13 @@ namespace s3d
 
 		Texture_GL() = default;
 
-		Texture_GL(Null)
-		{
-			const Image image(16, 16, Palette::Yellow);
-			
-			::glGenTextures(1, &m_texture);
-			
-			::glBindTexture(GL_TEXTURE_2D, m_texture);
-			
-			::glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width(), image.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image.data());
-			
-			m_size = image.size();
-			
-			m_initialized = true;
-		}
+		Texture_GL(Null);
 		
-		Texture_GL(const Image& image, TextureDesc desc)
-		{
-			::glGenTextures(1, &m_texture);
-			
-			::glBindTexture(GL_TEXTURE_2D, m_texture);
-			
-			::glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width(), image.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image.data());
-			
-			m_size = image.size();
-			
-			m_initialized = true;
-		}
+		Texture_GL(const Image& image, const TextureDesc desc);
 		
-		~Texture_GL()
-		{
-			if (m_texture)
-			{
-				::glDeleteTextures(1, &m_texture);
-			}
-		}
+		Texture_GL(const Image& image, const Array<Image>& mipmaps, const TextureDesc desc);
+		
+		~Texture_GL();
 
 		bool isInitialized() const noexcept
 		{

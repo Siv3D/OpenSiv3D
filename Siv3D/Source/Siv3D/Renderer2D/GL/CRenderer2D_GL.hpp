@@ -111,6 +111,10 @@ namespace s3d
 
 		RasterizerState getRasterizerState() const override;
 
+		void setSamplerState(ShaderStage stage, uint32 slot, const SamplerState& state) override;
+
+		const std::array<SamplerState, SamplerState::MaxSamplerCount>& getSamplerStates(ShaderStage stage) const override;
+
 		void setScissorRect(const Rect& rect) override;
 
 		Rect getScissorRect() const override;

@@ -16,15 +16,15 @@
 
 namespace s3d
 {
-	const BlendState NullBlendState(false, Blend(0));
-
 	class GLBlendState
 	{
 	private:
 
-		BlendState m_currentState = NullBlendState;
+		BlendState m_currentState = BlendState::Default;
 
 	public:
+		
+		GLBlendState();
 
 		void set(const BlendState& state);
 	};

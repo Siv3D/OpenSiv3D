@@ -49,6 +49,8 @@ namespace s3d
 
 		RasterizerState,
 
+		PSSamplerState,
+
 		ScissorRect,
 
 		Viewport,
@@ -125,6 +127,21 @@ namespace s3d
 		};
 
 		RasterizerState rasterizerState;
+	};
+
+	template <>
+	struct D3D11Render2DCommand<D3D11Render2DInstruction::PSSamplerState>
+	{
+		D3D11Render2DCommandHeader header =
+		{
+			D3D11Render2DInstruction::PSSamplerState,
+
+			sizeof(D3D11Render2DCommand<D3D11Render2DInstruction::PSSamplerState>)
+		};
+
+		SamplerState samplerState;
+
+		uint32 slot;
 	};
 
 	template <>
@@ -212,6 +229,10 @@ namespace s3d
 
 		RasterizerState m_currentRasterizerState = RasterizerState::Default2D;
 
+		std::array<SamplerState, SamplerState::MaxSamplerCount> m_currentVSSamplers;
+
+		std::array<SamplerState, SamplerState::MaxSamplerCount> m_currentPSSamplers;
+
 		Rect m_currentScissorRect = { 0, 0, 0, 0 };
 
 		Optional<Rect> m_currentViewport;
@@ -249,6 +270,8 @@ namespace s3d
 		}
 
 	public:
+		
+		D3D11Render2DCommandManager();
 
 		~D3D11Render2DCommandManager();
 
@@ -272,6 +295,8 @@ namespace s3d
 
 		void pushRasterizerState(const RasterizerState& state);
 
+		void pushPSSamplerState(uint32 slot, const SamplerState& state);
+
 		void pushScissorRect(const Rect& scissorRect);
 
 		void pushViewport(const Optional<Rect>& viewport);
@@ -288,6 +313,16 @@ namespace s3d
 		const RasterizerState& getCurrentRasterizerState() const
 		{
 			return m_currentRasterizerState;
+		}
+
+		const std::array<SamplerState, SamplerState::MaxSamplerCount>& getCurrentVSSamplerStates() const
+		{
+			return m_currentVSSamplers;
+		}
+
+		const std::array<SamplerState, SamplerState::MaxSamplerCount>& getCurrentPSSamplerStates() const
+		{
+			return m_currentPSSamplers;
 		}
 
 		Rect getCurrentScissorRect() const

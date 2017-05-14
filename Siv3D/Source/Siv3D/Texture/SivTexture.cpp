@@ -16,6 +16,7 @@
 # include <Siv3D/Texture.hpp>
 # include <Siv3D/TextureRegion.hpp>
 # include <Siv3D/Image.hpp>
+# include <Siv3D/ImageProcessing.hpp>
 # include <Siv3D/FloatRect.hpp>
 
 namespace s3d
@@ -53,7 +54,16 @@ namespace s3d
 	}
 
 	Texture::Texture(const Image& image, const TextureDesc desc)
-		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::GetTexture()->create(image, desc)))
+		: m_handle(std::make_shared<TextureHandle>(
+				ImageProcessing::IsMipped(desc) ?
+					Siv3DEngine::GetTexture()->create(image, ImageProcessing::GenerateMips(image), desc) :
+					Siv3DEngine::GetTexture()->create(image, desc)))
+	{
+		ASSET_CREATION();
+	}
+
+	Texture::Texture(const Image& image, const Array<Image>& mipmaps, const TextureDesc desc)
+		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::GetTexture()->create(image, mipmaps, desc)))
 	{
 		ASSET_CREATION();
 	}

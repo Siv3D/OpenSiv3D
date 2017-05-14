@@ -55,6 +55,18 @@ namespace s3d
 	//	};
 	//}
 	
+	GLRasterizerState::GLRasterizerState()
+	{
+		::glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		
+		::glDisable(GL_CULL_FACE);
+						
+		::glDisable(GL_SCISSOR_TEST);
+						
+		::glDisable(GL_POLYGON_OFFSET_LINE);
+		::glDisable(GL_POLYGON_OFFSET_FILL);
+	}
+	
 	void GLRasterizerState::set(const RasterizerState& state)
 	{
 		if (state == m_currentState)

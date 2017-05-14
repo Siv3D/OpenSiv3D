@@ -16,15 +16,15 @@
 
 namespace s3d
 {
-	const RasterizerState NullRasterizerState(FillMode(0));
-
 	class GLRasterizerState
 	{
 	private:
 
-		RasterizerState m_currentState = NullRasterizerState;
+		RasterizerState m_currentState = RasterizerState::Default2D;
 
 	public:
+		
+		GLRasterizerState();
 
 		void set(const RasterizerState& state);
 	};

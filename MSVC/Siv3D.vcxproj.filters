@@ -392,6 +392,12 @@
     <Filter Include="Source\Siv3D\TextureRegion">
       <UniqueIdentifier>{d656c6f0-f041-4f53-90f8-780d4299e2ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\ImageProcessing">
+      <UniqueIdentifier>{98b408ea-45d3-4a5d-9d2f-97255d9c4edb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\SamplerState">
+      <UniqueIdentifier>{db64ac8f-081a-4d4f-91ac-4b95ec24c56a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1492,6 +1498,15 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextureRegion.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\ImageProcessing.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\GL\Texture_GL.hpp">
+      <Filter>Source\Siv3D\Texture\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\GL\SamplerState\GLSamplerState.hpp">
+      <Filter>Source\Siv3D\Graphics\GL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2171,6 +2186,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextureRegion\SivTextureRegion.cpp">
       <Filter>Source\Siv3D\TextureRegion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ImageProcessing\SivImageProcessing.cpp">
+      <Filter>Source\Siv3D\ImageProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\SamplerState\SivSamplerState.cpp">
+      <Filter>Source\Siv3D\SamplerState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\GL\Texture_GL.cpp">
+      <Filter>Source\Siv3D\Texture\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\GL\SamplerState\GLSamplerState.cpp">
+      <Filter>Source\Siv3D\Graphics\GL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

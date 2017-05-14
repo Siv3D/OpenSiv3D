@@ -665,6 +665,12 @@
 		2CA79ABA1DF55A410028D11D /* TestString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79AAA1DF55A410028D11D /* TestString.cpp */; };
 		2CA79ABB1DF55A410028D11D /* TestTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79AAB1DF55A410028D11D /* TestTypes.cpp */; };
 		2CA79ABC1DF55A410028D11D /* TestUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79AAC1DF55A410028D11D /* TestUtility.cpp */; };
+		2CCA356F1EC6BBA900078678 /* ImageProcessing.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */; };
+		2CCA35721EC6BBBD00078678 /* SivImageProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35711EC6BBBD00078678 /* SivImageProcessing.cpp */; };
+		2CCA35751EC6BBCA00078678 /* SivSamplerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35741EC6BBCA00078678 /* SivSamplerState.cpp */; };
+		2CCA35771EC6C3CE00078678 /* Texture_GL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35761EC6C3CE00078678 /* Texture_GL.cpp */; };
+		2CCA357B1EC705A700078678 /* GLSamplerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35791EC705A700078678 /* GLSamplerState.cpp */; };
+		2CCA357C1EC705A700078678 /* GLSamplerState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA357A1EC705A700078678 /* GLSamplerState.hpp */; };
 		2CCE339B1EC0CB8300B6A0D5 /* Texture_GL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */; };
 		2CCE339D1EC1E71400B6A0D5 /* TextureRegion.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */; };
 		2CCE33A01EC1F1B800B6A0D5 /* SivTextureRegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE339F1EC1F1B800B6A0D5 /* SivTextureRegion.cpp */; };
@@ -1365,6 +1371,12 @@
 		2CA79AAC1DF55A410028D11D /* TestUtility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestUtility.cpp; sourceTree = "<group>"; };
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
+		2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageProcessing.hpp; sourceTree = "<group>"; };
+		2CCA35711EC6BBBD00078678 /* SivImageProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivImageProcessing.cpp; sourceTree = "<group>"; };
+		2CCA35741EC6BBCA00078678 /* SivSamplerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSamplerState.cpp; sourceTree = "<group>"; };
+		2CCA35761EC6C3CE00078678 /* Texture_GL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Texture_GL.cpp; sourceTree = "<group>"; };
+		2CCA35791EC705A700078678 /* GLSamplerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GLSamplerState.cpp; sourceTree = "<group>"; };
+		2CCA357A1EC705A700078678 /* GLSamplerState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GLSamplerState.hpp; sourceTree = "<group>"; };
 		2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Texture_GL.hpp; sourceTree = "<group>"; };
 		2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextureRegion.hpp; sourceTree = "<group>"; };
 		2CCE339F1EC1F1B800B6A0D5 /* SivTextureRegion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextureRegion.cpp; sourceTree = "<group>"; };
@@ -1399,6 +1411,8 @@
 		2C0C7A121EBCC38300386CBB /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2CCA35731EC6BBCA00078678 /* SamplerState */,
+				2CCA35701EC6BBBD00078678 /* ImageProcessing */,
 				2CCE339E1EC1F1B800B6A0D5 /* TextureRegion */,
 				2C0C7DF31EC0A2EA00386CBB /* LineString */,
 				2C0C7DEE1EC081B700386CBB /* RasterizerState */,
@@ -1844,6 +1858,7 @@
 		2C0C7A9A1EBCC38400386CBB /* GL */ = {
 			isa = PBXGroup;
 			children = (
+				2CCA35781EC705A700078678 /* SamplerState */,
 				2C0C7DD41EBE21F100386CBB /* RasterizerState */,
 				2C0C7A9B1EBCC38400386CBB /* BlendState */,
 				2C0C7A9E1EBCC38400386CBB /* CGraphics_GL.cpp */,
@@ -2303,6 +2318,7 @@
 			children = (
 				2C0C7B4F1EBCC38400386CBB /* CTextureGL.cpp */,
 				2C0C7B4E1EBCC38400386CBB /* CTexture_GL.hpp */,
+				2CCA35761EC6C3CE00078678 /* Texture_GL.cpp */,
 				2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */,
 			);
 			path = GL;
@@ -2524,6 +2540,7 @@
 				2C0C7CC71EBCC39B00386CBB /* HTMLWriter.hpp */,
 				2C0C7CC81EBCC39B00386CBB /* Image.hpp */,
 				2C0C7CC91EBCC39B00386CBB /* ImageFormat.hpp */,
+				2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */,
 				2C0C7CCA1EBCC39B00386CBB /* InfiniteList.hpp */,
 				2C0C7CCB1EBCC39B00386CBB /* INIReader.hpp */,
 				2C0C7CCC1EBCC39B00386CBB /* IReader.hpp */,
@@ -3309,6 +3326,31 @@
 			path = ../Siv3D;
 			sourceTree = "<group>";
 		};
+		2CCA35701EC6BBBD00078678 /* ImageProcessing */ = {
+			isa = PBXGroup;
+			children = (
+				2CCA35711EC6BBBD00078678 /* SivImageProcessing.cpp */,
+			);
+			path = ImageProcessing;
+			sourceTree = "<group>";
+		};
+		2CCA35731EC6BBCA00078678 /* SamplerState */ = {
+			isa = PBXGroup;
+			children = (
+				2CCA35741EC6BBCA00078678 /* SivSamplerState.cpp */,
+			);
+			path = SamplerState;
+			sourceTree = "<group>";
+		};
+		2CCA35781EC705A700078678 /* SamplerState */ = {
+			isa = PBXGroup;
+			children = (
+				2CCA35791EC705A700078678 /* GLSamplerState.cpp */,
+				2CCA357A1EC705A700078678 /* GLSamplerState.hpp */,
+			);
+			path = SamplerState;
+			sourceTree = "<group>";
+		};
 		2CCE339E1EC1F1B800B6A0D5 /* TextureRegion */ = {
 			isa = PBXGroup;
 			children = (
@@ -3341,6 +3383,7 @@
 				2C0C7D6F1EBCC39B00386CBB /* JSONReader.hpp in Headers */,
 				2C0C7D361EBCC39B00386CBB /* BinaryWriter.hpp in Headers */,
 				2C2E82A21EAA1B3A0057BDAF /* meta.h in Headers */,
+				2CCA357C1EC705A700078678 /* GLSamplerState.hpp in Headers */,
 				2C0C7B801EBCC38400386CBB /* CBigInt.hpp in Headers */,
 				2C0C7D931EBCC39B00386CBB /* RandomColor.hpp in Headers */,
 				2C81C01E1E89F8E300D27E52 /* cocoa_joystick.h in Headers */,
@@ -3589,6 +3632,7 @@
 				2C0C7D251EBCC39B00386CBB /* ostream.h in Headers */,
 				2C0C7B8E1EBCC38400386CBB /* CBinaryWriter_Windows.hpp in Headers */,
 				2C0C7BDF1EBCC38400386CBB /* IGraphics.hpp in Headers */,
+				2CCA356F1EC6BBA900078678 /* ImageProcessing.hpp in Headers */,
 				2C2E82A91EAA1B3A0057BDAF /* istreamwrapper.h in Headers */,
 				2C81C0741E89F8E300D27E52 /* png.h in Headers */,
 				2C0C7DA81EBCC39B00386CBB /* TextReader.hpp in Headers */,
@@ -3855,6 +3899,7 @@
 				2C0C7BE51EBCC38400386CBB /* SivHTMLWriter.cpp in Sources */,
 				2C0C7BDC1EBCC38400386CBB /* CGraphics_GL.cpp in Sources */,
 				2C81C0101E89F8E300D27E52 /* fixed-dtoa.cc in Sources */,
+				2CCA35751EC6BBCA00078678 /* SivSamplerState.cpp in Sources */,
 				2C0C7BBD1EBCC38400386CBB /* EngineDirectory.cpp in Sources */,
 				2C81C0041E89F8E300D27E52 /* bignum-dtoa.cc in Sources */,
 				2C81C0021E89F8E300D27E52 /* butteraugli.cc in Sources */,
@@ -3962,6 +4007,7 @@
 				2C0C7C421EBCC38400386CBB /* SivShader.cpp in Sources */,
 				2C0C7B821EBCC38400386CBB /* CBinaryReader_Linux.cpp in Sources */,
 				2C0C7BE11EBCC38400386CBB /* SivGraphics2D.cpp in Sources */,
+				2CCA357B1EC705A700078678 /* GLSamplerState.cpp in Sources */,
 				2C0C7B921EBCC38400386CBB /* SivByteArray.cpp in Sources */,
 				2C0C7C501EBCC38400386CBB /* CSystem_Windows.cpp in Sources */,
 				2C81C09D1E89F8E400D27E52 /* zstd_compress.c in Sources */,
@@ -4032,6 +4078,7 @@
 				2C0C7BC91EBCC38400386CBB /* SivGeometry2D.cpp in Sources */,
 				2C0C7BC11EBCC38400386CBB /* SivFileSystem.mm in Sources */,
 				2C0C7DD71EBE21F100386CBB /* GLRasterizerState.cpp in Sources */,
+				2CCA35721EC6BBBD00078678 /* SivImageProcessing.cpp in Sources */,
 				2C0C7BEF1EBCC38400386CBB /* ImageFormat_JPEG.cpp in Sources */,
 				2C0C7DE31EBF2EBA00386CBB /* SivPowerStatus.cpp in Sources */,
 				2C81C00C1E89F8E300D27E52 /* double-conversion.cc in Sources */,
@@ -4070,6 +4117,7 @@
 				2C0C7BB51EBCC38400386CBB /* CDragDrop_macOS.cpp in Sources */,
 				2C81C0841E89F8E300D27E52 /* muParserError.cpp in Sources */,
 				2C0C7C1A1EBCC38400386CBB /* CMouse_macOS.cpp in Sources */,
+				2CCA35771EC6C3CE00078678 /* Texture_GL.cpp in Sources */,
 				2C0C7C701EBCC38400386CBB /* CWindow_Linux.cpp in Sources */,
 				2C81C00A1E89F8E300D27E52 /* diy-fp.cc in Sources */,
 				2C0C7BB21EBCC38400386CBB /* SivDateTime.cpp in Sources */,

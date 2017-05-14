@@ -15,6 +15,13 @@
 
 namespace s3d
 {
+	enum class ShaderStage
+	{
+		Vertex,
+
+		Pixel,
+	};
+
 	struct BindingPoint
 	{
 		String bufferName;

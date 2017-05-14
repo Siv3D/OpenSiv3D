@@ -20,11 +20,23 @@
 # include <Windows.h>
 # include <wrl.h>
 # include <d3d11.h>
+# include <Siv3D/HashMap.hpp>
+# include <Siv3D/SamplerState.hpp>
 
 using namespace Microsoft::WRL;
 
 namespace s3d
 {
+	static const SamplerState NullSamplerState(TextureAddressMode::Repeat,
+		TextureAddressMode::Repeat,
+		TextureAddressMode::Repeat,
+		TextureFilter::Linear,
+		TextureFilter::Linear,
+		TextureFilter::Linear,
+		0,
+		-1,
+		Float4(FLT_MIN, FLT_MIN, FLT_MIN, FLT_MIN));
+
 	class D3D11SamplerState
 	{
 	private:
@@ -33,11 +45,23 @@ namespace s3d
 
 		ID3D11DeviceContext* m_context = nullptr;
 
-		ComPtr<ID3D11SamplerState> m_state;
+		using SamplerStateList = HashMap<SamplerState, ComPtr<ID3D11SamplerState>>;
+
+		SamplerStateList m_states;
+
+		std::array<SamplerState, SamplerState::MaxSamplerCount> m_currentVSStates;
+
+		std::array<SamplerState, SamplerState::MaxSamplerCount> m_currentPSStates;
+
+		SamplerStateList::iterator create(const SamplerState& state);
 
 	public:
 
 		D3D11SamplerState(ID3D11Device* device, ID3D11DeviceContext* context);
+
+		void setVS(uint32 slot, const SamplerState& state);
+
+		void setPS(uint32 slot, const SamplerState& state);
 	};
 }
 

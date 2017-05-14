@@ -9,7 +9,6 @@
 //
 //-----------------------------------------------
 
-# pragma once
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_WINDOWS)
 
@@ -17,9 +16,15 @@
 
 namespace s3d
 {
+	D3D11Render2DCommandManager::D3D11Render2DCommandManager()
+	{
+		m_currentVSSamplers.fill(SamplerState::Default2D);
+		m_currentPSSamplers.fill(SamplerState::Default2D);
+	}
+	
 	D3D11Render2DCommandManager::~D3D11Render2DCommandManager()
 	{
-
+		m_currentPSSamplers.fill(SamplerState::Default2D);
 	}
 
 	void D3D11Render2DCommandManager::reset()
@@ -42,6 +47,19 @@ namespace s3d
 			D3D11Render2DCommand<D3D11Render2DInstruction::RasterizerState> command;
 			command.rasterizerState = m_currentRasterizerState;
 			writeCommand(command);
+		}
+
+		for (uint32 slot = 0; slot < m_currentPSSamplers.size(); ++slot)
+		{
+			D3D11Render2DCommand<D3D11Render2DInstruction::PSSamplerState> command;
+			command.samplerState = m_currentPSSamplers[slot];
+			command.slot = slot;
+			writeCommand(command);
+		}
+
+		for (uint32 slot = 0; slot < m_currentVSSamplers.size(); ++slot)
+		{
+			//m_commands.emplace_back(slot, m_currentVSSamplers[slot], InstructionTag<D3D11Render2DInstruction::VSSampler>{});
 		}
 
 		{
@@ -135,6 +153,23 @@ namespace s3d
 		writeCommand(command);
 
 		m_currentRasterizerState = state;
+	}
+
+	void D3D11Render2DCommandManager::pushPSSamplerState(const uint32 slot, const SamplerState& state)
+	{
+		assert(slot < MaxSamplerCount);
+
+		if (state == m_currentPSSamplers[slot])
+		{
+			return;
+		}
+
+		D3D11Render2DCommand<D3D11Render2DInstruction::PSSamplerState> command;
+		command.samplerState = state;
+		command.slot = slot;
+		writeCommand(command);
+
+		m_currentPSSamplers[slot] = state;
 	}
 
 	void D3D11Render2DCommandManager::pushScissorRect(const Rect& scissorRect)

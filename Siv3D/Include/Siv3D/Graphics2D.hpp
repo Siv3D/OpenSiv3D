@@ -13,6 +13,7 @@
 # include "Fwd.hpp"
 # include "BlendState.hpp"
 # include "RasterizerState.hpp"
+# include "SamplerState.hpp"
 # include "Rectangle.hpp"
 
 namespace s3d
@@ -62,6 +63,48 @@ namespace s3d
 		/// 現在の 2D 描画のラスタライザーステート
 		/// </returns>
 		RasterizerState GetRasterizerState();
+
+
+
+		void SetSamplerState(uint32 slot, const SamplerState& samplerState);
+
+		/// <summary>
+		/// 2D 描画のサンプラーステートを設定します。
+		/// </summary>
+		/// <param name="rasterizerState">
+		/// サンプラーステート
+		/// </param>
+		/// <returns>
+		/// なし
+		/// </returns>
+		inline void SetSamplerState(const SamplerState& samplerState)
+		{
+			SetSamplerState(0, samplerState);
+		}
+
+		/// <summary>
+		/// 現在の 2D 描画のサンプラーステートを取得します。
+		/// </summary>
+		/// <param name="slot">
+		/// スロット
+		/// </param>
+		/// <returns>
+		/// 現在の 2D 描画のサンプラーステート
+		/// </returns>
+		SamplerState GetSamplerState(uint32 slot);
+
+		inline SamplerState GetSamplerState()
+		{
+			return GetSamplerState(0);
+		}
+
+		/// <summary>
+		/// 現在の 2D 描画のサンプラーステートを取得します。
+		/// </summary>
+		/// <returns>
+		/// 現在の 2D 描画のサンプラーステート
+		/// </returns>
+		SamplerState GetSamplerState();
 
 		void SetScissorRect(const Rect& rect);
 

@@ -187,6 +187,14 @@ namespace s3d
 					pGraphics->getRasterizerState()->set(command->rasterizerState);
 					break;
 				}
+				case D3D11Render2DInstruction::PSSamplerState:
+				{
+					const auto* command = static_cast<const D3D11Render2DCommand<D3D11Render2DInstruction::PSSamplerState>*>(static_cast<const void*>(commandPointer));
+
+					//Log(L"PSSamplerState: ", command->slot);
+					pGraphics->getSamplerState()->setPS(command->slot, command->samplerState);
+					break;
+				}
 				case D3D11Render2DInstruction::ScissorRect:
 				{
 					const auto* command = static_cast<const D3D11Render2DCommand<D3D11Render2DInstruction::ScissorRect>*>(static_cast<const void*>(commandPointer));
@@ -289,6 +297,31 @@ namespace s3d
 	RasterizerState CRenderer2D_D3D11::getRasterizerState() const
 	{
 		return m_commandManager.getCurrentRasterizerState();
+	}
+
+	void CRenderer2D_D3D11::setSamplerState(const ShaderStage stage, const uint32 slot, const SamplerState& state)
+	{
+		if (stage == ShaderStage::Vertex)
+		{
+			// [Siv3D ToDo]
+			//m_commandManager.pushVSSamplerState(slot, state);
+		}
+		else if (stage == ShaderStage::Pixel)
+		{
+			m_commandManager.pushPSSamplerState(slot, state);
+		}
+	}
+
+	const std::array<SamplerState, SamplerState::MaxSamplerCount>& CRenderer2D_D3D11::getSamplerStates(const ShaderStage stage) const
+	{
+		if (stage == ShaderStage::Vertex)
+		{
+			return m_commandManager.getCurrentVSSamplerStates();
+		}
+		else
+		{
+			return m_commandManager.getCurrentPSSamplerStates();
+		}
 	}
 
 	void CRenderer2D_D3D11::setScissorRect(const Rect& rect)

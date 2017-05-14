@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Graphics2D.hpp>
+# include <Siv3D/Shader.hpp>
 # include "../Siv3DEngine.hpp"
 # include "../Renderer2D/IRenderer2D.hpp"
 
@@ -35,6 +36,16 @@ namespace s3d
 		RasterizerState GetRasterizerState()
 		{
 			return Siv3DEngine::GetRenderer2D()->getRasterizerState();
+		}
+
+		void SetSamplerState(const uint32 slot, const SamplerState& samplerState)
+		{
+			Siv3DEngine::GetRenderer2D()->setSamplerState(ShaderStage::Pixel, slot, samplerState);
+		}
+
+		SamplerState GetSamplerState(const uint32 slot)
+		{
+			return Siv3DEngine::GetRenderer2D()->getSamplerStates(ShaderStage::Pixel)[slot];
 		}
 
 		void SetScissorRect(const Rect& rect)

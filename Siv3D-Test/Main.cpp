@@ -7,6 +7,20 @@ void Main()
 
 	double t = 0.0;
 
+	//ImageProcessing::GenerateMips(Image(L"example/windmill.png")).each_index([](size_t index, const Image& image)
+	//{
+	//	image.save(L"{}.png"_fmt(index));
+	//});
+
+	//const Image image(L"example/windmill.png");
+	//Array<Image> mipmaps = ImageProcessing::GenerateMips(image);
+	//mipmaps[3].fill(Palette::Red);
+	
+	const Texture texture(L"example/windmill.png", TextureDesc::Mipped);
+	//const Texture texture(image, mipmaps);
+
+	RenderStateBlock2D sampler(SamplerState::RepeatNearest);
+	
 	while (System::Update())
 	{
 		Window::SetTitle(Profiler::FPS(), L"FPS");
@@ -23,5 +37,7 @@ void Main()
 		}
 
 		Circle(Cursor::Pos(), 40).draw(ColorF(1.0, 0.0, 0.0, 0.5));
+
+		texture.scale(Cursor::Pos().x / 100.0).drawAt(Window::Center());
 	}
 }

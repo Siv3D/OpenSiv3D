@@ -84,6 +84,12 @@ namespace s3d
 		//
 		m_pRasterizerState = std::make_unique<GLRasterizerState>();
 		
+		//////////////////////////////////////////////////////
+		//
+		//	 GLSamplerState
+		//
+		m_pSamplerState = std::make_unique<GLSamplerState>();
+		
 		
 		//////////////////////////////////////////////////////
 		//

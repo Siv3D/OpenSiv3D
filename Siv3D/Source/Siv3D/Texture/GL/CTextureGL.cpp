@@ -58,6 +58,23 @@ namespace s3d
 		return m_textures.add(texture);
 	}
 
+	Texture::IDType CTexture_GL::create(const Image& image, const Array<Image>& mipmaps, const TextureDesc desc)
+	{
+		if (!image)
+		{
+			return Texture::NullHandleID;
+		}
+		
+		const auto texture = std::make_shared<Texture_GL>(image, mipmaps, desc);
+		
+		if (!texture->isInitialized())
+		{
+			return Texture::NullHandleID;
+		}
+		
+		return m_textures.add(texture);
+	}
+
 	Texture::IDType CTexture_GL::createRT(const Size&, const uint32)
 	{
 		return Texture::NullHandleID;

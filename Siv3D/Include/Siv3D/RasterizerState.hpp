@@ -235,6 +235,8 @@ namespace s3d
 		/// </summary>
 		static const Predefined Default3D = Predefined::Default3D;
 	};
+
+	static_assert(sizeof(RasterizerState) == sizeof(RasterizerState::StorageType));
 }
 
 namespace std

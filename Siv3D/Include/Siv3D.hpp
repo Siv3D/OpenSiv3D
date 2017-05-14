@@ -332,10 +332,12 @@
 //
 // 画像処理
 //
-	// 画像処理
+	// 画像
 	# include "Siv3D/Image.hpp"
 	// 画像デコーダ・エンコーダインタフェース
 	# include "Siv3D/ImageFormat.hpp"
+	// 画像処理
+	# include "Siv3D/ImageProcessing.hpp"
 	// 画像のフォーマット
 	# include "Siv3D/TextureFormat.hpp"
 	//// カスタムカラーフォーマット
@@ -467,10 +469,8 @@
 	# include "Siv3D/RasterizerState.hpp"
 	//// デプスステートとステンシルステート
 	//# include "Siv3D/DepthStencilState.hpp"
-	//// サンプラーステート
-	//# include "Siv3D/SamplerState.hpp"
-	//// レンダーステート
-	//# include "Siv3D/RenderState.hpp"
+	// サンプラーステート
+	# include "Siv3D/SamplerState.hpp"
 	// シェーダ
 	# include "Siv3D/Shader.hpp"
 	// 頂点シェーダ

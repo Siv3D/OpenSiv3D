@@ -21,6 +21,7 @@
 # include "../../Shader/GL/CShader_GL.hpp"
 # include "BlendState/GLBlendState.hpp"
 # include "RasterizerState/GLRasterizerState.hpp"
+# include "SamplerState/GLSamplerState.hpp"
 # include "../../Renderer2D/GL/CRenderer2D_GL.hpp"
 # include <Siv3D/Color.hpp>
 
@@ -41,6 +42,8 @@ namespace s3d
 		std::unique_ptr<GLBlendState> m_pBlendState;
 		
 		std::unique_ptr<GLRasterizerState> m_pRasterizerState;
+		
+		std::unique_ptr<GLSamplerState> m_pSamplerState;
 		
 		CRenderer2D_GL* m_renderer2D = nullptr;
 		
@@ -63,6 +66,8 @@ namespace s3d
 		GLBlendState* getBlendState() { return m_pBlendState.get(); }
 		
 		GLRasterizerState* getRasterizerState() { return m_pRasterizerState.get(); }
+		
+		GLSamplerState* getSamplerState() { return m_pSamplerState.get(); }
 
 		Array<DisplayOutput> enumOutputs() override;
 
