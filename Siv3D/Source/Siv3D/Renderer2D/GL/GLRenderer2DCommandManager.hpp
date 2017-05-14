@@ -38,6 +38,8 @@ namespace s3d
 		BlendState,
 		
 		RasterizerState,
+		
+		SamplerState,
 
 		ScissorRect,
 		
@@ -114,7 +116,22 @@ namespace s3d
 		
 		RasterizerState rasterizerState;
 	};
-
+	
+	template <>
+	struct GLRender2DCommand<GLRender2DInstruction::SamplerState>
+	{
+		GLRender2DCommandHeader header =
+		{
+			GLRender2DInstruction::SamplerState,
+			
+			sizeof(GLRender2DCommand<GLRender2DInstruction::SamplerState>)
+		};
+		
+		SamplerState samplerState;
+		
+		uint32 slot;
+	};
+	
 	template <>
 	struct GLRender2DCommand<GLRender2DInstruction::ScissorRect>
 	{
@@ -187,6 +204,8 @@ namespace s3d
 		
 		RasterizerState m_currentRasterizerState = RasterizerState::Default2D;
 		
+		std::array<SamplerState, SamplerState::MaxSamplerCount> m_currentSamplerStates;
+		
 		Rect m_currentScissorRect = { 0, 0, 0, 0 };
 
 		Optional<Rect> m_currentViewport;
@@ -222,6 +241,11 @@ namespace s3d
 		}
 
 	public:
+		
+		GLRender2DCommandManager()
+		{
+			m_currentSamplerStates.fill(SamplerState::Default2D);
+		}
 
 		size_t getCount() const
 		{
@@ -337,6 +361,23 @@ namespace s3d
 			
 			m_currentRasterizerState = state;
 		}
+		
+		void pushSamplerState(const uint32 slot, const SamplerState& state)
+		{
+			assert(slot < MaxSamplerCount);
+			
+			if (state == m_currentSamplerStates[slot])
+			{
+				return;
+			}
+			
+			GLRender2DCommand<GLRender2DInstruction::SamplerState> command;
+			command.samplerState = state;
+			command.slot = slot;
+			writeCommand(command);
+			
+			m_currentSamplerStates[slot] = state;
+		}
 
 		void pushScissorRect(const Rect& scissorRect)
 		{
@@ -398,6 +439,11 @@ namespace s3d
 		const RasterizerState& getCurrentRasterizerState() const
 		{
 			return m_currentRasterizerState;
+		}
+		
+		const std::array<SamplerState, SamplerState::MaxSamplerCount>& getSamplerStates() const
+		{
+			return m_currentSamplerStates;
 		}
 		
 		Rect getCurrentScissorRect() const

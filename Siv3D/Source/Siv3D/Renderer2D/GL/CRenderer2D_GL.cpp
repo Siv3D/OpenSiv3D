@@ -181,6 +181,14 @@ namespace s3d
 					graphics->getRasterizerState()->set(command->rasterizerState);
 					break;
 				}
+				case GLRender2DInstruction::SamplerState:
+				{
+					const auto* command = static_cast<const GLRender2DCommand<GLRender2DInstruction::SamplerState>*>(static_cast<const void*>(commandPointer));
+					
+					//Log(L"SamplerState");
+					graphics->getSamplerState()->set(command->slot, command->samplerState);
+					break;
+				}
 				case GLRender2DInstruction::ScissorRect:
 				{
 					const auto* command = static_cast<const GLRender2DCommand<GLRender2DInstruction::ScissorRect>*>(static_cast<const void*>(commandPointer));
@@ -274,6 +282,16 @@ namespace s3d
 	RasterizerState CRenderer2D_GL::getRasterizerState() const
 	{
 		return m_commandManager.getCurrentRasterizerState();
+	}
+	
+	void CRenderer2D_GL::setSamplerState(const ShaderStage stage, const uint32 slot, const SamplerState& state)
+	{
+		m_commandManager.pushSamplerState(slot, state);
+	}
+	
+	const std::array<SamplerState, SamplerState::MaxSamplerCount>& CRenderer2D_GL::getSamplerStates(const ShaderStage stage) const
+	{
+		return m_commandManager.getSamplerStates();
 	}
 
 	void CRenderer2D_GL::setScissorRect(const Rect& rect)

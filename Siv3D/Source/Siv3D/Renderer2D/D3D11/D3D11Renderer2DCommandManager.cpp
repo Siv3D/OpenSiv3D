@@ -9,7 +9,6 @@
 //
 //-----------------------------------------------
 
-# pragma once
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_WINDOWS)
 
@@ -17,9 +16,14 @@
 
 namespace s3d
 {
+	D3D11Render2DCommandManager::D3D11Render2DCommandManager()
+	{
+		m_currentSamplerStates.fill(SamplerState::Default2D);
+	}
+	
 	D3D11Render2DCommandManager::~D3D11Render2DCommandManager()
 	{
-
+		m_currentPSSamplers.fill(SamplerState::Default2D);
 	}
 
 	void D3D11Render2DCommandManager::reset()

@@ -18,71 +18,74 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		static constexpr GLint minmipTable[4] =
+		{
+			GL_NEAREST_MIPMAP_NEAREST,
+			GL_NEAREST_MIPMAP_LINEAR,
+			GL_LINEAR_MIPMAP_NEAREST,
+			GL_LINEAR_MIPMAP_LINEAR
+		};
+	}
+	
 	GLSamplerState::GLSamplerState()
 	{
 	
 	}
 	
-	void GLSamplerState::set(const SamplerState& state)
+	void GLSamplerState::set(const uint32 slot, const SamplerState& state)
 	{
-		if (state == m_currentState)
+		assert(slot < SamplerState::MaxSamplerCount);
+		
+		if (state == m_currentStates[slot])
 		{
 			return;
 		}
-	
-		/*
 		
-		if (state.fillMode != m_currentState.fillMode)
+		auto it = m_states.find(state);
+		
+		if (it == m_states.end())
 		{
-			::glPolygonMode(GL_FRONT_AND_BACK, state.fillMode == FillMode::Solid ? GL_FILL : GL_LINE);
+			it = create(state);
+			
+			if (it == m_states.end())
+			{
+				return;
+			}
+		}
+		
+		::glBindSampler(slot, it->second->m_sampler);
+		
+		m_currentStates[slot] = state;
+	}
+	
+	GLSamplerState::SamplerStateList::iterator GLSamplerState::create(const SamplerState& state)
+	{
+		std::unique_ptr<SamplerState_GL> samplerState = std::make_unique<SamplerState_GL>();
+
+		const GLuint sampler = samplerState->m_sampler;
+		static const GLfloat border[] = { state.borderColor.x, state.borderColor.y, state.borderColor.z, state.borderColor.w };
+		
+		::glSamplerParameteri(sampler, GL_TEXTURE_MIN_FILTER,
+							  detail::minmipTable[(static_cast<int32>(state.min) << 1) | (static_cast<int32>(state.mip))]);
+		::glSamplerParameteri(sampler, GL_TEXTURE_MAG_FILTER, static_cast<bool>(state.mag) ? GL_LINEAR : GL_NEAREST);
+		::glSamplerParameteri(sampler, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		::glSamplerParameteri(sampler, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		::glSamplerParameteri(sampler, GL_TEXTURE_WRAP_R, GL_REPEAT);
+		::glSamplerParameterf(sampler, GL_TEXTURE_LOD_BIAS, state.lodBias);
+		::glSamplerParameteri(sampler, GL_TEXTURE_COMPARE_MODE, GL_NONE);
+		::glSamplerParameterf(sampler, GL_TEXTURE_MAX_ANISOTROPY_EXT, state.maxAnisotropy);
+		::glSamplerParameterfv(sampler, GL_TEXTURE_BORDER_COLOR, border);
+		::glSamplerParameterf(sampler, GL_TEXTURE_MIN_LOD, -1000.0f);
+		::glSamplerParameterf(sampler, GL_TEXTURE_MAX_LOD, 1000.0f);
+		
+		if (m_states.size() >= 1024)
+		{
+			m_states.clear();
 		}
 
-		if (state.cullMode != m_currentState.cullMode)
-		{
-			if (state.cullMode == CullMode::None)
-			{
-				::glDisable(GL_CULL_FACE);
-			}
-			else
-			{
-				::glEnable(GL_CULL_FACE);
-				
-				::glFrontFace(GL_CW);
-				
-				::glCullFace(state.cullMode == CullMode::Front ? GL_FRONT : GL_BACK);
-			}
-		}
-		
-		if (state.scissorEnable != m_currentState.scissorEnable)
-		{
-			if (state.scissorEnable)
-			{
-				::glEnable(GL_SCISSOR_TEST);
-			}
-			else
-			{
-				::glDisable(GL_SCISSOR_TEST);
-			}
-		}
-		
-		if (state.depthBias != m_currentState.depthBias)
-		{
-			if (state.depthBias)
-			{
-				::glEnable(GL_POLYGON_OFFSET_LINE);
-				::glEnable(GL_POLYGON_OFFSET_FILL);
-				::glPolygonOffset(0, state.depthBias);
-			}
-			else
-			{
-				::glDisable(GL_POLYGON_OFFSET_LINE);
-				::glDisable(GL_POLYGON_OFFSET_FILL);
-			}
-		}
-		
-		 */
-		 
-		m_currentState = state;
+		return m_states.emplace(state, std::move(samplerState)).first;
 	}
 }
 

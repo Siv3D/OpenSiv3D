@@ -270,6 +270,8 @@ namespace s3d
 		}
 
 	public:
+		
+		D3D11Render2DCommandManager();
 
 		~D3D11Render2DCommandManager();
 

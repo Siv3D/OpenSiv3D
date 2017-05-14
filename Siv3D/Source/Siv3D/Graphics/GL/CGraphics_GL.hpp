@@ -66,6 +66,8 @@ namespace s3d
 		GLBlendState* getBlendState() { return m_pBlendState.get(); }
 		
 		GLRasterizerState* getRasterizerState() { return m_pRasterizerState.get(); }
+		
+		GLSamplerState* getSamplerState() { return m_pSamplerState.get(); }
 
 		Array<DisplayOutput> enumOutputs() override;
 

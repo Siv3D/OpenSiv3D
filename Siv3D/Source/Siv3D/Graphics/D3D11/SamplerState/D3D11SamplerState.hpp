@@ -27,7 +27,7 @@ using namespace Microsoft::WRL;
 
 namespace s3d
 {
-	const SamplerState NullSamplerState(TextureAddressMode::Repeat,
+	static const SamplerState NullSamplerState(TextureAddressMode::Repeat,
 		TextureAddressMode::Repeat,
 		TextureAddressMode::Repeat,
 		TextureFilter::Linear,
