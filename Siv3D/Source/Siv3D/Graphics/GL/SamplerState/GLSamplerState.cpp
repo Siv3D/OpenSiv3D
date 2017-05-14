@@ -20,22 +20,12 @@ namespace s3d
 {
 	namespace detail
 	{
-		/*
 		static constexpr GLint minmipTable[4] =
 		{
 			GL_NEAREST_MIPMAP_NEAREST,
 			GL_NEAREST_MIPMAP_LINEAR,
 			GL_LINEAR_MIPMAP_NEAREST,
 			GL_LINEAR_MIPMAP_LINEAR
-		};
-		 */
-		
-		static constexpr GLint minmipTable[4] =
-		{
-			GL_NEAREST,
-			GL_NEAREST,
-			GL_LINEAR,
-			GL_LINEAR
 		};
 	}
 	

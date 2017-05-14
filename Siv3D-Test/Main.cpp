@@ -10,8 +10,6 @@ void Main()
 	int32 x0 = 300;
 
 	double thickness = 24;
-	
-	const Texture texture(L"example/windmill.png");
 
 	while (System::Update())
 	{
@@ -30,7 +28,5 @@ void Main()
 		Line(x0, 350, v.x, v.y + 300).draw(LineStyle::SquareCapDot, thickness, Palette::Black);
 
 		Line(x0, 450, v.x, v.y + 400).draw(LineStyle::RoundCapDot, thickness, Palette::Black);
-		
-		texture.draw();
 	}
 }
