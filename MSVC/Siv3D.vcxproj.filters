@@ -401,6 +401,9 @@
     <Filter Include="Include\ThirdParty\hopscotch_map">
       <UniqueIdentifier>{daf9be17-bdcb-4663-ae65-bd6b0b808ba0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\TexturedQuad">
+      <UniqueIdentifier>{3396b2cd-7d87-4f03-ab04-92e61543113f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1516,6 +1519,9 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\SIMDMath.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\TexturedQuad.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2207,6 +2213,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\GL\SamplerState\GLSamplerState.cpp">
       <Filter>Source\Siv3D\Graphics\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\TexturedQuad\SivTexturedQuad.cpp">
+      <Filter>Source\Siv3D\TexturedQuad</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
