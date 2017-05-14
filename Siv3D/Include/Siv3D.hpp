@@ -317,8 +317,8 @@
 	# include "Siv3D/Geometry2D.hpp"
 	// Perlin Noise
 	# include "Siv3D/PerlinNoise.hpp"
-	//// スプライン
-	//# include "Siv3D/Spline.hpp"
+	// スプライン
+	# include "Siv3D/Spline.hpp"
 	// 2 次ベジェ曲線
 	# include "Siv3D/QuadraticBezier.hpp"
 	// 3 次ベジェ曲線

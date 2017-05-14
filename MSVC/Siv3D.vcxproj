@@ -142,6 +142,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Shape2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\SIMDMath.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Spherical.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Spline.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Step2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Texture.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TexturedQuad.hpp" />

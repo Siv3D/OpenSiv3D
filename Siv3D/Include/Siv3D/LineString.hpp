@@ -226,7 +226,7 @@ namespace s3d
 			return Geometry2D::Intersect(*this, shape);
 		}
 
-		//LineString toCatmullRomSpline(bool isClosedCurve = false, int32 interpolation = 24) const;
+		LineString catmullRom(bool isClosed = false, int32 interpolation = 24) const;
 
 		// paint
 
@@ -236,7 +236,7 @@ namespace s3d
 
 		const LineString& draw(double thickness, const ColorF& color = Palette::White, bool isClosed = false) const;
 
-		// drawCatmullRom
+		void drawCatmullRom(double thickness = 1.0, const ColorF& color = Palette::White, bool isClosed = false, int32 interpolation = 24) const;
 
 		// drawArray
 
