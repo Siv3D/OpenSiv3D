@@ -1066,7 +1066,7 @@ namespace s3d
 		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
 	}
 
-	void CRenderer2D_D3D11::addLineString(const Vec2* const pts, uint32 size, const Optional<Float2>& offset, const float thickness, const bool inner, const Float4& color, const bool isClosed)
+	void CRenderer2D_D3D11::addLineString(const LineStyle style, const Vec2* const pts, uint32 size, const Optional<Float2>& offset, const float thickness, const bool inner, const Float4& color, const bool isClosed)
 	{
 		if (!pts || size < 2)
 		{

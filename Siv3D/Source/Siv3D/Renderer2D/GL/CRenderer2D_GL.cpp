@@ -1041,7 +1041,7 @@ namespace s3d
 		m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Shape);
 	}
 	
-	void CRenderer2D_GL::addLineString(const Vec2* pts, uint32 size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, bool isClosed)
+	void CRenderer2D_GL::addLineString(const LineStyle style, const Vec2* pts, uint32 size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, bool isClosed)
 	{
 		if (!pts || size < 2)
 		{

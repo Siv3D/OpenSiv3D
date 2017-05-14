@@ -138,7 +138,7 @@ namespace s3d
 
 	const Triangle& Triangle::drawFrame(double thickness, const ColorF& color) const
 	{
-		Siv3DEngine::GetRenderer2D()->addLineString(&p0, 3, none,
+		Siv3DEngine::GetRenderer2D()->addLineString(LineStyle::SquareCap, &p0, 3, none,
 			static_cast<float>(thickness), false, color.toFloat4(), true);
 
 		return *this;
@@ -150,7 +150,7 @@ namespace s3d
 
 		const Triangle t = stretched(offset);
 
-		Siv3DEngine::GetRenderer2D()->addLineString(&t.p0, 3, none,
+		Siv3DEngine::GetRenderer2D()->addLineString(LineStyle::SquareCap, &t.p0, 3, none,
 			static_cast<float>(innerThickness + outerThickness),
 			outerThickness == 0.0, color.toFloat4(), true);
 
