@@ -259,8 +259,8 @@
 	# include "Siv3D/Triangle.hpp"
 	// 四角形
 	# include "Siv3D/Quad.hpp"
-	//// 角丸長方形
-	//# include "Siv3D/RoundRect.hpp"
+	// 角丸長方形
+	# include "Siv3D/RoundRect.hpp"
 	// 連続した複数の線分
 	# include "Siv3D/LineString.hpp"
 	//// 多角形

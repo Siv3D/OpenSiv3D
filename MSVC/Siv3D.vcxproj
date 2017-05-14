@@ -137,6 +137,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\RenderStateBlock2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\RenderTexture.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Resource.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\RoundRect.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\SamplerState.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Shader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Shape2D.hpp" />
@@ -525,6 +526,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Renderer2D\Renderer2DFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\RenderTexture\SivRenderTexture.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Resource\SivResource.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\RoundRect\SivRoundRect.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\SamplerState\SivSamplerState.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\D3D11\CShader_D3D11.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\D3D11\PixelShader_D3D11.cpp" />
