@@ -3,18 +3,15 @@
 
 void Main()
 {
-	const Texture texture(L"example/windmill.png");
-
-	const LineString line
-	{
-		{ 50, 50 },{ 200, 200 },
-		{ 400, 200 },{ 100, 400 },
-		{ 500, 400 }
-	};
-
 	while (System::Update())
 	{
-		// 線の幅 8 のスプライン曲線を描く
-		line.drawCatmullRom(8.0, Palette::White, true);
+		LineString{{ 50, 50 },{ 200, 200 }, { 400, 200 },{ 100, 400 }}
+			.drawCatmullRom(8.0, Palette::Pink, true);
+
+		QuadraticBezier({ 200, 50 }, {400, 200 }, { 600, 50 })
+			.draw(8.0, Palette::Red);
+		
+		CubicBezier({ 300, 400 }, { 450, 400 }, { 450, 100 }, { 600, 100 })
+			.draw(8.0, Palette::Orange);
 	}
 }

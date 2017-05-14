@@ -145,6 +145,6 @@ namespace s3d
 
 	void LineString::drawCatmullRom(const double thickness, const ColorF& color, const bool isClosed, const int32 interpolation) const
 	{
-		catmullRom(isClosed, interpolation).draw(thickness, color, false);
+		catmullRom(isClosed, interpolation).draw(thickness, color, isClosed);
 	}
 }
