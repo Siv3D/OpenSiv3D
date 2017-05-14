@@ -679,6 +679,7 @@
 		2CCA35981EC89A0500078678 /* QuadraticBezier.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA35971EC89A0500078678 /* QuadraticBezier.hpp */; };
 		2CCA359B1EC89A1900078678 /* SivCubicBezier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA359A1EC89A1900078678 /* SivCubicBezier.cpp */; };
 		2CCA359E1EC89A2600078678 /* SivQuadraticBezier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA359D1EC89A2600078678 /* SivQuadraticBezier.cpp */; };
+		2CCA35A01EC89DBC00078678 /* Spline.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA359F1EC89DBC00078678 /* Spline.hpp */; };
 		2CCE339B1EC0CB8300B6A0D5 /* Texture_GL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */; };
 		2CCE339D1EC1E71400B6A0D5 /* TextureRegion.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */; };
 		2CCE33A01EC1F1B800B6A0D5 /* SivTextureRegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE339F1EC1F1B800B6A0D5 /* SivTextureRegion.cpp */; };
@@ -1393,6 +1394,7 @@
 		2CCA35971EC89A0500078678 /* QuadraticBezier.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = QuadraticBezier.hpp; sourceTree = "<group>"; };
 		2CCA359A1EC89A1900078678 /* SivCubicBezier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCubicBezier.cpp; sourceTree = "<group>"; };
 		2CCA359D1EC89A2600078678 /* SivQuadraticBezier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivQuadraticBezier.cpp; sourceTree = "<group>"; };
+		2CCA359F1EC89DBC00078678 /* Spline.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Spline.hpp; sourceTree = "<group>"; };
 		2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Texture_GL.hpp; sourceTree = "<group>"; };
 		2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextureRegion.hpp; sourceTree = "<group>"; };
 		2CCE339F1EC1F1B800B6A0D5 /* SivTextureRegion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextureRegion.cpp; sourceTree = "<group>"; };
@@ -2604,6 +2606,7 @@
 				2CCA358E1EC8833F00078678 /* SIMDMath.hpp */,
 				2C0C7D001EBCC39B00386CBB /* SpeedStopwatch.hpp */,
 				2C0C7D011EBCC39B00386CBB /* Spherical.hpp */,
+				2CCA359F1EC89DBC00078678 /* Spline.hpp */,
 				2C0C7D021EBCC39B00386CBB /* Step.hpp */,
 				2C0C7D031EBCC39B00386CBB /* Step2D.hpp */,
 				2C0C7D041EBCC39B00386CBB /* Step_MSVC.hpp */,
@@ -3768,6 +3771,7 @@
 				2C81C04D1E89F8E300D27E52 /* debug_print.h in Headers */,
 				2C2E82A41EAA1B3A0057BDAF /* regex.h in Headers */,
 				2C0C7D3C1EBCC39B00386CBB /* CharacterEncoding.hpp in Headers */,
+				2CCA35A01EC89DBC00078678 /* Spline.hpp in Headers */,
 				2C2E82A51EAA1B3A0057BDAF /* stack.h in Headers */,
 				2C81C06F1E89F8E300D27E52 /* quantize.h in Headers */,
 				2C0C7C5B1EBCC38400386CBB /* BackBufferTexture.hpp in Headers */,
