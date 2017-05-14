@@ -673,6 +673,8 @@
 		2CCA358B1EC86CD600078678 /* hopscotch_set.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA35851EC86CD600078678 /* hopscotch_set.h */; };
 		2CCA358D1EC8832400078678 /* HalfFloat.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA358C1EC8832400078678 /* HalfFloat.hpp */; };
 		2CCA358F1EC8833F00078678 /* SIMDMath.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA358E1EC8833F00078678 /* SIMDMath.hpp */; };
+		2CCA35911EC884F500078678 /* TexturedQuad.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA35901EC884F500078678 /* TexturedQuad.hpp */; };
+		2CCA35941EC8850D00078678 /* SivTexturedQuad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35931EC8850D00078678 /* SivTexturedQuad.cpp */; };
 		2CCE339B1EC0CB8300B6A0D5 /* Texture_GL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */; };
 		2CCE339D1EC1E71400B6A0D5 /* TextureRegion.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */; };
 		2CCE33A01EC1F1B800B6A0D5 /* SivTextureRegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE339F1EC1F1B800B6A0D5 /* SivTextureRegion.cpp */; };
@@ -1381,6 +1383,8 @@
 		2CCA35861EC86CD600078678 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		2CCA358C1EC8832400078678 /* HalfFloat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HalfFloat.hpp; sourceTree = "<group>"; };
 		2CCA358E1EC8833F00078678 /* SIMDMath.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SIMDMath.hpp; sourceTree = "<group>"; };
+		2CCA35901EC884F500078678 /* TexturedQuad.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TexturedQuad.hpp; sourceTree = "<group>"; };
+		2CCA35931EC8850D00078678 /* SivTexturedQuad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTexturedQuad.cpp; sourceTree = "<group>"; };
 		2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Texture_GL.hpp; sourceTree = "<group>"; };
 		2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextureRegion.hpp; sourceTree = "<group>"; };
 		2CCE339F1EC1F1B800B6A0D5 /* SivTextureRegion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextureRegion.cpp; sourceTree = "<group>"; };
@@ -1415,6 +1419,7 @@
 		2C0C7A121EBCC38300386CBB /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2CCA35921EC8850D00078678 /* TexturedQuad */,
 				2CCA35731EC6BBCA00078678 /* SamplerState */,
 				2CCA35701EC6BBBD00078678 /* ImageProcessing */,
 				2CCE339E1EC1F1B800B6A0D5 /* TextureRegion */,
@@ -2596,6 +2601,7 @@
 				2C0C7D081EBCC39B00386CBB /* System.hpp */,
 				2C0C7D091EBCC39B00386CBB /* TextReader.hpp */,
 				2C0C7D0A1EBCC39B00386CBB /* Texture.hpp */,
+				2CCA35901EC884F500078678 /* TexturedQuad.hpp */,
 				2C0C7D0B1EBCC39B00386CBB /* TextureFormat.hpp */,
 				2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */,
 				2C0C7D0C1EBCC39B00386CBB /* TextWriter.hpp */,
@@ -3365,6 +3371,14 @@
 			path = hopscotch_map;
 			sourceTree = "<group>";
 		};
+		2CCA35921EC8850D00078678 /* TexturedQuad */ = {
+			isa = PBXGroup;
+			children = (
+				2CCA35931EC8850D00078678 /* SivTexturedQuad.cpp */,
+			);
+			path = TexturedQuad;
+			sourceTree = "<group>";
+		};
 		2CCE339E1EC1F1B800B6A0D5 /* TextureRegion */ = {
 			isa = PBXGroup;
 			children = (
@@ -3654,6 +3668,7 @@
 				2C81C0741E89F8E300D27E52 /* png.h in Headers */,
 				2C0C7DA81EBCC39B00386CBB /* TextReader.hpp in Headers */,
 				2C2126561E8CB7B5006F8101 /* gif_lib.h in Headers */,
+				2CCA35911EC884F500078678 /* TexturedQuad.hpp in Headers */,
 				2C0C7DA31EBCC39B00386CBB /* Step_MSVC.hpp in Headers */,
 				2C0C7BED1EBCC38400386CBB /* IImageFormat.hpp in Headers */,
 				2C81C07C1E89F8E300D27E52 /* muParserBase.h in Headers */,
@@ -4120,6 +4135,7 @@
 				2C0C7B961EBCC38400386CBB /* CClipboard_Linux.cpp in Sources */,
 				2C0C7B9D1EBCC38400386CBB /* ClipboardFactory.cpp in Sources */,
 				2C0C7C7B1EBCC38400386CBB /* SivWritableMemoryMapping.cpp in Sources */,
+				2CCA35941EC8850D00078678 /* SivTexturedQuad.cpp in Sources */,
 				2C2126541E8CB7B5006F8101 /* gif_hash.c in Sources */,
 				2CCE33A01EC1F1B800B6A0D5 /* SivTextureRegion.cpp in Sources */,
 				2C2126521E8CB7B5006F8101 /* gif_err.c in Sources */,
