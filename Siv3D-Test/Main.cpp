@@ -3,16 +3,30 @@
 
 void Main()
 {
-	Graphics::SetBackground(Palette::White);
+	Window::Resize(1280, 720);
+
+	Graphics::SetBackground(ColorF(1.0, 0.8, 0.3));
+
+	int32 x0 = 300;
+
+	double thickness = 24;
 
 	while (System::Update())
 	{
-		Window::SetTitle(Profiler::FPS(), L"FPS");
+		const Vec2 v = Circular(Arg::r = 120, Arg::theta = Time::GetMillisec() * 0.001) + Vec2(860, 160);
 
-		Line(100, 20, 100, 420).draw(Palette::Gray);
+		RectF(x0, 0, v.x - x0, 720).draw(Palette::White);
 
-		Line(500, 20, 500, 420).draw(Palette::Gray);
+		thickness = sin(Time::GetMillisec() * 0.000212) * 15 + 17;
 
-		Line(100, 100, 500, 100).draw(8, Palette::Red);
+		Line(x0, 50, v.x, v.y).draw(thickness, Palette::Black);
+
+		Line(x0, 150, v.x, v.y + 100).draw(LineStyle::NoCap, thickness, Palette::Black);
+
+		Line(x0, 250, v.x, v.y + 200).draw(LineStyle::RoundCap, thickness, Palette::Black);
+
+		Line(x0, 350, v.x, v.y + 300).draw(LineStyle::SquareCapDot, thickness, Palette::Black);
+
+		Line(x0, 450, v.x, v.y + 400).draw(LineStyle::RoundCapDot, thickness, Palette::Black);
 	}
 }

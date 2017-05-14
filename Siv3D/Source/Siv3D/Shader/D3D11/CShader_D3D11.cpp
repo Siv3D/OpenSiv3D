@@ -90,16 +90,18 @@ namespace s3d
 			m_pixelShaders.setNullData(nullPixelShader);
 		}
 
-		/*
-		
+		/*	
 		compileHLSLToFile(S3DSTR("engine/shader/sprite.hlsl"), S3DSTR("engine/shader/sprite.vs"), "VS", "vs_4_0");
 		compileHLSLToFile(S3DSTR("engine/shader/sprite.hlsl"), S3DSTR("engine/shader/sprite.ps"), "PS", "ps_4_0");
 		compileHLSLToFile(S3DSTR("engine/shader/shape.hlsl"), S3DSTR("engine/shader/shape.ps"), "PS", "ps_4_0");
-
+		compileHLSLToFile(S3DSTR("engine/shader/shape.hlsl"), S3DSTR("engine/shader/line_dot.ps"), "PS_LineDot", "ps_4_0");
+		compileHLSLToFile(S3DSTR("engine/shader/shape.hlsl"), S3DSTR("engine/shader/line_round_dot.ps"), "PS_LineRoundDot", "ps_4_0");
 		//*/
 
 		m_standardVSs.push_back(VertexShader(Resource(S3DSTR("engine/shader/sprite.vs"))));
 		m_standardPSs.push_back(PixelShader(Resource(S3DSTR("engine/shader/shape.ps"))));
+		m_standardPSs.push_back(PixelShader(Resource(S3DSTR("engine/shader/line_dot.ps"))));
+		m_standardPSs.push_back(PixelShader(Resource(S3DSTR("engine/shader/line_round_dot.ps"))));
 		m_standardPSs.push_back(PixelShader(Resource(S3DSTR("engine/shader/sprite.ps"))));
 
 		return true;

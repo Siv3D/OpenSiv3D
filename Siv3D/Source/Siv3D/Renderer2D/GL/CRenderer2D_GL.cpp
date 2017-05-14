@@ -314,7 +314,7 @@ namespace s3d
 		return m_commandManager.getCurrentViewport();
 	}
 	
-	void CRenderer2D_GL::addLine(const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2])
+	void CRenderer2D_GL::addLine(const LineStyle style, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2])
 	{
 		constexpr IndexType vertexSize = 4, indexSize = 6;
 		Vertex2D* pVertex;

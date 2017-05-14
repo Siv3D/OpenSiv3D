@@ -154,18 +154,18 @@ namespace s3d
 		}
 	}
 
-	const Line& Line::draw(double thickness, const ColorF& color) const
+	const Line& Line::draw(const LineStyle style, double thickness, const ColorF& color) const
 	{
 		const Float4 colorF(color.r, color.g, color.b, color.a);
 
-		Siv3DEngine::GetRenderer2D()->addLine(begin, end, static_cast<float>(thickness), { colorF, colorF });
+		Siv3DEngine::GetRenderer2D()->addLine(style, begin, end, static_cast<float>(thickness), { colorF, colorF });
 
 		return *this;
 	}
 
-	const Line& Line::draw(double thickness, const ColorF(&colors)[2]) const
+	const Line& Line::draw(const LineStyle style, double thickness, const ColorF(&colors)[2]) const
 	{
-		Siv3DEngine::GetRenderer2D()->addLine(begin, end, static_cast<float>(thickness),
+		Siv3DEngine::GetRenderer2D()->addLine(style, begin, end, static_cast<float>(thickness),
 		{
 			Float4(colors[0].r, colors[0].g, colors[0].b, colors[0].a),
 			Float4(colors[1].r, colors[1].g, colors[1].b, colors[1].a)

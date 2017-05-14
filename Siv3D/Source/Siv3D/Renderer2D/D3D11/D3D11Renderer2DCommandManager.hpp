@@ -66,6 +66,10 @@ namespace s3d
 	{
 		Shape,
 
+		LineDot,
+
+		LineRoundDot,
+
 		Sprite,
 	};
 
