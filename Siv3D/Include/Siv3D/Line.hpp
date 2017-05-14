@@ -15,6 +15,21 @@
 
 namespace s3d
 {
+	enum class LineStyle
+	{
+		SquareCap,
+
+		RoundCap,
+
+		NoCap,
+
+		SquareCapDot,
+
+		RoundCapDot,
+
+		Default = SquareCap,
+	};
+
 	struct Line
 	{
 		using position_type = Vec2;
@@ -168,17 +183,27 @@ namespace s3d
 		
 		const Line& draw(const ColorF& color = Palette::White) const
 		{
-			return draw(1.0, color);
+			return draw(LineStyle::Default, 1.0, color);
 		}
 
 		const Line& draw(const ColorF(&colors)[2]) const
 		{
-			return draw(1.0, colors);
+			return draw(LineStyle::Default, 1.0, colors);
 		}
 
-		const Line& draw(double thickness, const ColorF& color = Palette::White) const;
+		const Line& draw(double thickness, const ColorF& color = Palette::White) const
+		{
+			return draw(LineStyle::Default, thickness, color);
+		}
 
-		const Line& draw(double thickness, const ColorF(&colors)[2]) const;
+		const Line& draw(double thickness, const ColorF(&colors)[2]) const
+		{
+			return draw(LineStyle::Default, thickness, colors);
+		}
+
+		const Line& draw(LineStyle style, double thickness, const ColorF& color = Palette::White) const;
+
+		const Line& draw(LineStyle style, double thickness, const ColorF(&colors)[2]) const;
 
 		const Line& drawArrow(double width = 1.0, const Vec2& headSize = Vec2(5.0, 5.0), const ColorF& color = Palette::White) const;
 

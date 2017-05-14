@@ -44,7 +44,7 @@ void main()
 }
 )";
 		
-		const String psCode =
+		const String psCodeShape =
 		LR"(
 #version 410
 		
@@ -72,6 +72,46 @@ layout(location = 0) out vec4 FragColor;
 void main()
 {
 	FragColor = texture(Tex0, Tex) * Color;
+}
+)";
+		
+		const String psCodeLineDot =
+		LR"(
+#version 410
+		
+layout(location = 0) in vec4 Color;
+layout(location = 1) in vec2 Tex;
+		
+layout(location = 0) out vec4 FragColor;
+		
+void main()
+{
+	FragColor = Color;
+			
+	float t = min(abs(1.5 - mod(Tex.x, 3.0)) * 1.7, 1.0);
+			
+	FragColor.a *= pow(t, 24);
+}
+)";
+		
+		const String psCodeLineRoundDot =
+		LR"(
+#version 410
+		
+layout(location = 0) in vec4 Color;
+layout(location = 1) in vec2 Tex;
+		
+layout(location = 0) out vec4 FragColor;
+		
+void main()
+{
+	FragColor = Color;
+			
+	float t = mod(Tex.x, 2.0);
+			
+	t = abs(1.0 - t) * 2.0;
+			
+	FragColor.a *= 1.0 - clamp(pow(dot(vec2(t, Tex.y), vec2(t, Tex.y)), 12), 0.0, 1.0);
 }
 )";
 	}
@@ -117,7 +157,9 @@ void main()
 		}
 		
 		m_standardVSs.push_back(VertexShader(Arg::source = detail::vsCode, { { S3DSTR("SpriteCB"), 0 } }));
-		m_standardPSs.push_back(PixelShader(Arg::source = detail::psCode));
+		m_standardPSs.push_back(PixelShader(Arg::source = detail::psCodeShape));
+		m_standardPSs.push_back(PixelShader(Arg::source = detail::psCodeLineDot));
+		m_standardPSs.push_back(PixelShader(Arg::source = detail::psCodeLineRoundDot));
 		m_standardPSs.push_back(PixelShader(Arg::source = detail::psCodeSprite));
 		
 		return true;

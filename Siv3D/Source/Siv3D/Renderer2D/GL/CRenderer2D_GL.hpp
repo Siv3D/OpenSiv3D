@@ -91,8 +91,6 @@ namespace s3d
 		
 		GLRender2DCommandManager m_commandManager;
 		
-		GLuint m_sampler = 0;
-
 	public:
 
 		CRenderer2D_GL();
@@ -123,7 +121,7 @@ namespace s3d
 
 		Optional<Rect> getViewport() const override;
 
-		void addLine(const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) override;
+		void addLine(LineStyle style, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) override;
 		
 		void addTriangle(const Float2(&pts)[3], const Float4& color) override;
 

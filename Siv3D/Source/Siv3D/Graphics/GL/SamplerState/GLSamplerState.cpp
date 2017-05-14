@@ -31,7 +31,7 @@ namespace s3d
 	
 	GLSamplerState::GLSamplerState()
 	{
-	
+		m_currentStates.fill(NullSamplerState);
 	}
 	
 	void GLSamplerState::set(const uint32 slot, const SamplerState& state)

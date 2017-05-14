@@ -54,6 +54,10 @@ namespace s3d
 	{
 		Shape,
 		
+		LineDot,
+		
+		LineRoundDot,
+		
 		Sprite,
 	};
 
@@ -279,6 +283,14 @@ namespace s3d
 				writeCommand(command);
 			}
 
+			for (uint32 slot = 0; slot < m_currentSamplerStates.size(); ++slot)
+			{
+				GLRender2DCommand<GLRender2DInstruction::SamplerState> command;
+				command.slot = slot;
+				command.samplerState = m_currentSamplerStates[slot];
+				writeCommand(command);
+			}
+			
 			{
 				GLRender2DCommand<GLRender2DInstruction::ScissorRect> command;
 				command.scissorRect = m_currentScissorRect;

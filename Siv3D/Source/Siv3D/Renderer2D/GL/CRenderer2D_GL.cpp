@@ -87,10 +87,7 @@ namespace s3d
 
 	CRenderer2D_GL::~CRenderer2D_GL()
 	{
-		if (m_sampler)
-		{
-			::glDeleteSamplers(1, &m_sampler);
-		}
+
 	}
 
 	bool CRenderer2D_GL::init()
@@ -106,14 +103,7 @@ namespace s3d
 		}
 
 		m_commandManager.reset();
-		
-		::glGenSamplers(1, &m_sampler);
-		::glSamplerParameteri(m_sampler, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		::glSamplerParameteri(m_sampler, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		::glSamplerParameteri(m_sampler, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-		::glSamplerParameteri(m_sampler, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		::glBindSampler(0, m_sampler);
-		
+
 		return true;
 	}
 	
@@ -262,6 +252,14 @@ namespace s3d
 		m_spriteBatch.clear();
 		
 		m_commandManager.reset();
+
+		/*
+		GLenum err;
+		while((err = glGetError()) != GL_NO_ERROR)
+		{
+			Log << L"HasError";
+		}
+		*/
 	}
 
 	void CRenderer2D_GL::setBlendState(const BlendState& state)
@@ -314,41 +312,187 @@ namespace s3d
 		return m_commandManager.getCurrentViewport();
 	}
 	
-	void CRenderer2D_GL::addLine(const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2])
+	void CRenderer2D_GL::addLine(const LineStyle style, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2])
 	{
-		constexpr IndexType vertexSize = 4, indexSize = 6;
-		Vertex2D* pVertex;
-		IndexType* pIndex;
-		IndexType indexOffset;
-		
-		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+		if (thickness <= 0.0)
 		{
 			return;
 		}
 		
-		const float thicknessHalf = thickness * 0.5f;
-		const Float2 line = (end - begin).setLength(thicknessHalf);
-		const Float2 vNormal(-line.y, line.x);
-		const Float2 lineHalf(line * thicknessHalf);
-		
-		pVertex[0].pos = (begin + vNormal - lineHalf);
-		pVertex[0].color = colors[0];
-		
-		pVertex[1].pos = (begin - vNormal - lineHalf);
-		pVertex[1].color = colors[0];
-		
-		pVertex[2].pos = (end + vNormal + lineHalf);
-		pVertex[2].color = colors[1];
-		
-		pVertex[3].pos = (end - vNormal + lineHalf);
-		pVertex[3].color = colors[1];
-		
-		for (IndexType i = 0; i < indexSize; ++i)
+		if (style == LineStyle::SquareCap)
 		{
-			pIndex[i] = indexOffset + detail::rectIndexTable[i];
+			constexpr IndexType vertexSize = 4, indexSize = 6;
+			Vertex2D* pVertex;
+			IndexType* pIndex;
+			IndexType indexOffset;
+			
+			if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+			{
+				return;
+			}
+			
+			const float thicknessHalf = thickness * 0.5f;
+			const Float2 line = (end - begin).normalize();
+			const Float2 vNormal(-line.y * thicknessHalf, line.x * thicknessHalf);
+			const Float2 lineHalf(line * thicknessHalf);
+			
+			pVertex[0].pos = (begin + vNormal - lineHalf);
+			pVertex[0].color = colors[0];
+			
+			pVertex[1].pos = (begin - vNormal - lineHalf);
+			pVertex[1].color = colors[0];
+			
+			pVertex[2].pos = (end + vNormal + lineHalf);
+			pVertex[2].color = colors[1];
+			
+			pVertex[3].pos = (end - vNormal + lineHalf);
+			pVertex[3].color = colors[1];
+			
+			for (IndexType i = 0; i < indexSize; ++i)
+			{
+				pIndex[i] = indexOffset + detail::rectIndexTable[i];
+			}
+			
+			m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Shape);
 		}
-		
-		m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Shape);
+		else if(style == LineStyle::NoCap || style == LineStyle::RoundCap)
+		{
+			constexpr IndexType vertexSize = 4, indexSize = 6;
+			Vertex2D* pVertex;
+			IndexType* pIndex;
+			IndexType indexOffset;
+			
+			if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+			{
+				return;
+			}
+			
+			const float thicknessHalf = thickness * 0.5f;
+			const Float2 line = (end - begin).normalize();
+			const Float2 vNormal(-line.y * thicknessHalf, line.x * thicknessHalf);
+			const Float2 lineHalf(line * thicknessHalf);
+			
+			pVertex[0].pos = (begin + vNormal);
+			pVertex[0].color = colors[0];
+			
+			pVertex[1].pos = (begin - vNormal);
+			pVertex[1].color = colors[0];
+			
+			pVertex[2].pos = (end + vNormal);
+			pVertex[2].color = colors[1];
+			
+			pVertex[3].pos = (end - vNormal);
+			pVertex[3].color = colors[1];
+			
+			for (IndexType i = 0; i < indexSize; ++i)
+			{
+				pIndex[i] = indexOffset + detail::rectIndexTable[i];
+			}
+			
+			m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Shape);
+			
+			if (style == LineStyle::RoundCap)
+			{
+				addCirclePie(begin, thicknessHalf, std::atan2(vNormal.x, -vNormal.y), Math::PiF, colors[0]);
+				addCirclePie(end, thicknessHalf, std::atan2(-vNormal.x, vNormal.y), Math::PiF, colors[1]);
+			}
+		}
+		else if (style == LineStyle::SquareCapDot)
+		{
+			constexpr IndexType vertexSize = 4, indexSize = 6;
+			Vertex2D* pVertex;
+			IndexType* pIndex;
+			IndexType indexOffset;
+			
+			if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+			{
+				return;
+			}
+			
+			const float thicknessHalf = thickness * 0.5f;
+			const Float2 v = (end - begin);
+			const float lineLength = v.length();
+			const Float2 line = v / lineLength;
+			const Float2 vNormal(-line.y * thicknessHalf, line.x * thicknessHalf);
+			const Float2 lineHalf(line * thicknessHalf);
+			const float lineLengthN = lineLength / thickness;
+			
+			pVertex[0].pos = (begin + vNormal - lineHalf);
+			pVertex[0].color = colors[0];
+			pVertex[0].tex = Float2(0.0f , 1.0f);
+			
+			pVertex[1].pos = (begin - vNormal - lineHalf);
+			pVertex[1].color = colors[0];
+			pVertex[1].tex = Float2(0.0f, 0.0f);
+			
+			pVertex[2].pos = (end + vNormal + lineHalf);
+			pVertex[2].color = colors[1];
+			pVertex[2].tex = Float2(lineLengthN, 1.0f);
+			
+			pVertex[3].pos = (end - vNormal + lineHalf);
+			pVertex[3].color = colors[1];
+			pVertex[3].tex = Float2(lineLengthN, 0.0f);
+			
+			for (IndexType i = 0; i < indexSize; ++i)
+			{
+				pIndex[i] = indexOffset + detail::rectIndexTable[i];
+			}
+			
+			m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::LineDot);
+		}
+		else if (style == LineStyle::RoundCapDot)
+		{
+			constexpr IndexType vertexSize = 4, indexSize = 6;
+			Vertex2D* pVertex;
+			IndexType* pIndex;
+			IndexType indexOffset;
+			
+			if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+			{
+				return;
+			}
+			
+			const float thicknessHalf = thickness * 0.5f;
+			const Float2 v = (end - begin);
+			const float lineLength = v.length();
+			const Float2 line = v / lineLength;
+			const Float2 vNormal(-line.y * thicknessHalf, line.x * thicknessHalf);
+			const Float2 lineHalf(line * thicknessHalf);
+			float lineLengthN = lineLength / thickness;
+			const float m = std::fmod(lineLengthN - 1.0f, 2.0f);
+			lineLengthN += 2.0f - m;
+			
+			pVertex[0].pos = (begin + vNormal - lineHalf);
+			pVertex[0].color = colors[0];
+			pVertex[0].tex = Float2(0.5f, 1.0f);
+			
+			pVertex[1].pos = (begin - vNormal - lineHalf);
+			pVertex[1].color = colors[0];
+			pVertex[1].tex = Float2(0.5f, -1.0f);
+			
+			pVertex[2].pos = (end + vNormal + lineHalf);
+			pVertex[2].color = colors[1];
+			pVertex[2].tex = Float2(lineLengthN + 0.5f, 1.0f);
+			
+			pVertex[3].pos = (end - vNormal + lineHalf);
+			pVertex[3].color = colors[1];
+			pVertex[3].tex = Float2(lineLengthN + 0.5f, -1.0f);
+			
+			for (IndexType i = 0; i < indexSize; ++i)
+			{
+				pIndex[i] = indexOffset + detail::rectIndexTable[i];
+			}
+			
+			m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::LineRoundDot);
+		}
+
+		/*
+		GLenum err;
+		while((err = glGetError()) != GL_NO_ERROR)
+		{
+			Log << L"HasError";
+		}
+		*/
 	}
 	
 	void CRenderer2D_GL::addTriangle(const Float2(&pts)[3], const Float4& color)
