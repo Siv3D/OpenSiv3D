@@ -1,16 +1,21 @@
 ﻿
 # include <Siv3D.hpp>
 
+struct Widget
+{
+	int32 n = 0;
+
+	int32 b = 255;
+};
+
 void Main()
 {
+	Widget widget;
+
+	Console << ByteArrayView(widget).toHex();
+
 	while (System::Update())
 	{
-		const double offset = Time::GetMillisec() * 0.005;
-
-		LineString{ {100, 100}, {500, 100}, {500, 400}, {100, 400} }
-			.draw(LineStyle::SquareDot(offset * 2), 8, Palette::White, true);
-
-		Line(150, 350, 450, 150)
-			.draw(LineStyle::RoundDot(offset), 10, { HSV(20), HSV(60) });
+		
 	}
 }

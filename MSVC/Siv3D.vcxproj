@@ -410,6 +410,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryWriter\CBinaryWriter_Windows.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryWriter\SivBinaryWriter.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\BlendState\SivBlendState.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ByteArrayView\SivByteArrayView.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ByteArray\CByteArray.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ByteArray\SivByteArray.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\CharacterEncoding\SivCharacterEncoding.cpp" />

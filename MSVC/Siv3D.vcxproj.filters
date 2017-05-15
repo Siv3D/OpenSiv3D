@@ -416,6 +416,9 @@
     <Filter Include="Source\Siv3D\RoundRect">
       <UniqueIdentifier>{d892ee61-2221-4dfd-a581-f8d6eb4bda34}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\ByteArrayView">
+      <UniqueIdentifier>{003462ff-f48e-4107-b8ba-f90e9eff5fdc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -2255,6 +2258,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\RoundRect\SivRoundRect.cpp">
       <Filter>Source\Siv3D\RoundRect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ByteArrayView\SivByteArrayView.cpp">
+      <Filter>Source\Siv3D\ByteArrayView</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

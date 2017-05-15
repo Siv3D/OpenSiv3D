@@ -328,13 +328,13 @@ namespace s3d
 {
 	inline void Formatter(FormatData& formatData, const ByteArray& value)
 	{
-		Formatter(formatData, value.getView());
+		Formatter(formatData, value.getView().toHex());
 	}
 
 	template <class CharType>
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const ByteArray& value)
 	{
-		return os << value.getView();
+		return os << value.getView().toHex();
 	}
 }
 //

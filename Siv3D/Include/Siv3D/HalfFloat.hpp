@@ -37,7 +37,7 @@ namespace s3d
 			return detail::HalfToFloat(m_bits);
 		}
 
-		template <class Type>
+		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
 		HalfFloat(Type value)
 			: HalfFloat(static_cast<float>(value)) {}
 

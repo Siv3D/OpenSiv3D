@@ -150,11 +150,6 @@ namespace s3d
 			formatData.string.append(S3DSTR("false"), 5);
 		}
 	}
-
-	void Formatter(FormatData& formatData, const ByteArrayView& value)
-	{
-		Formatter(formatData, value.begin(), value.end());
-	}
 	
 	std::ostream& operator <<(std::ostream& os, const ByteArrayView& value)
 	{
