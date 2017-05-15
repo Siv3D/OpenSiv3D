@@ -130,11 +130,6 @@ namespace s3d
 	{
 		const Array<Byte> initialData = detail::GenerateInitialColorBuffer(size, color, format);
 
-		Log << color;
-		Log << color.toFloat4();
-		Log << L"Gen: " << initialData.size();
-		Log << *((const Color*)initialData.data());
-
 		return createDynamic(size, initialData.data(), static_cast<uint32>(initialData.size() / size.y), format);
 	}
 

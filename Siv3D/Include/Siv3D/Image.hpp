@@ -409,7 +409,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した行の先頭ポインタ
 		/// </returns>
-		Color* operator[](uint32 y)
+		Color* operator[](size_t y)
 		{
 			return &m_data[m_width * y];
 		}
@@ -431,7 +431,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した行の先頭ポインタ
 		/// </returns>
-		const Color* operator[](uint32 y) const
+		const Color* operator[](size_t y) const
 		{
 			return &m_data[m_width * y];
 		}

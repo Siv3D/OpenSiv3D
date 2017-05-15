@@ -8,9 +8,11 @@ void Main()
 	Image image(200, 200, Palette::White);
 
 	size_t n = 0;
-
+	
 	while (System::Update())
 	{
+		Window::SetTitle(Profiler::FPS());
+		
 		if (n < image.num_pixels())
 		{
 			image[n / 200][n % 200] = Palette::Orange;
