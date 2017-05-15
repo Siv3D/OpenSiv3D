@@ -25,7 +25,7 @@ namespace s3d
 	/// 画像の最大サイズ
 	/// </summary>
 	constexpr int32 MaxImageSize = 8192;
-	
+
 	/// <summary>
 	/// 画像
 	/// </summary>
@@ -69,12 +69,17 @@ namespace s3d
 
 		static Image Generate0_1(const size_t width, const size_t height, std::function<Color(Vec2)> generator);
 
+		static constexpr int32 Mod(int32 x, int32 y)
+		{
+			return x % y + ((x < 0) ? y : 0);
+		}
+
 	public:
 
-		using iterator					= Array<Color>::iterator;
-		using const_iterator			= Array<Color>::const_iterator;
-		using reverse_iterator			= Array<Color>::reverse_iterator;
-		using const_reverse_iterator	= Array<Color>::const_reverse_iterator;
+		using iterator = Array<Color>::iterator;
+		using const_iterator = Array<Color>::const_iterator;
+		using reverse_iterator = Array<Color>::reverse_iterator;
+		using const_reverse_iterator = Array<Color>::const_reverse_iterator;
 
 		/// <summary>
 		/// デフォルトコンストラクタ
@@ -682,6 +687,37 @@ namespace s3d
 		}
 
 
+		const Color& getPixel_Repeat(int32 x, int32 y) const
+		{
+			return m_data[m_width * Mod(y, m_height) + Mod(x, m_width)];
+		}
+
+		const Color& getPixel_Repeat(const Point& pos) const
+		{
+			return getPixel_Repeat(pos.x, pos.y);
+		}
+
+		/// <summary>
+		/// すべてのピクセルに変換関数を適用します。
+		/// </summary>
+		/// <param name="function">
+		/// 変換関数
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		Image& forEach(std::function<void(Color&)> function)
+		{
+			for (auto& pixel : m_data)
+			{
+				function(pixel);
+			}
+
+			return *this;
+		}
+
+
+
 		bool applyAlphaFromRChannel(const FilePath& alpha);
 
 		bool save(const FilePath& path, ImageFormat format = ImageFormat::Unspecified) const;
@@ -700,7 +736,7 @@ namespace s3d
 				pixel.r = pixel.b;
 				pixel.b = t;
 			}
-			
+
 			return *this;
 		}
 	};
