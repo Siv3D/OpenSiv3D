@@ -55,6 +55,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Distribution.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\DragDrop.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Duration.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\DynamicTexture.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Easing.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\EasingController.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Ellipse.hpp" />
@@ -442,6 +443,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\DragDrop\CDragDrop_Windows.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\DragDrop\DragDropFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\DragDrop\SivDragDrop.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\DynamicTexture\SivDynamicTexture.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Ellipse\SivEllipse.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\EngineDirectory\EngineDirectory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FileSystem\SivFileSystem.cpp" />

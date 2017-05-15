@@ -141,16 +141,16 @@ namespace s3d
 		/// </param>
 		Image(size_t width, size_t height);
 
-		Image(uint32 width, uint32 height, Arg::generator_<std::function<Color(void)>> generator)
+		Image(size_t width, size_t height, Arg::generator_<std::function<Color(void)>> generator)
 			: Image(Generate(width, height, *generator)) {}
 
-		Image(uint32 width, uint32 height, Arg::generator_<std::function<Color(Point)>> generator)
+		Image(size_t width, size_t height, Arg::generator_<std::function<Color(Point)>> generator)
 			: Image(Generate(width, height, *generator)) {}
 
-		Image(uint32 width, uint32 height, Arg::generator_<std::function<Color(Vec2)>> generator)
+		Image(size_t width, size_t height, Arg::generator_<std::function<Color(Vec2)>> generator)
 			: Image(Generate(width, height, *generator)) {}
 
-		Image(uint32 width, uint32 height, Arg::generator0_1_<std::function<Color(Vec2)>> generator)
+		Image(size_t width, size_t height, Arg::generator0_1_<std::function<Color(Vec2)>> generator)
 			: Image(Generate0_1(width, height, *generator)) {}
 
 		/// <summary>

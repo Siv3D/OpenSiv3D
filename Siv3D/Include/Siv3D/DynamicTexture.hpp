@@ -1,0 +1,46 @@
+﻿//-----------------------------------------------
+//
+//	This file is part of the Siv3D Engine.
+//
+//	Copyright (c) 2008-2017 Ryo Suzuki
+//	Copyright (c) 2016-2017 OpenSiv3D Project
+//
+//	Licensed under the MIT License.
+//
+//-----------------------------------------------
+
+# pragma once
+# include "Fwd.hpp"
+# include "Texture.hpp"
+# include "TextureFormat.hpp"
+
+namespace s3d
+{
+	/// <summary>
+	/// 動的テクスチャ
+	/// </summary>
+	/// <remarks>
+	/// 描画可能な画像です。
+	/// Texture と異なり、メモリを再確保することなく内容を更新できます。
+	/// </remarks>
+	class DynamicTexture : public Texture
+	{
+	private:
+
+	public:
+
+		DynamicTexture() = default;
+
+		DynamicTexture(size_t width, size_t height, TextureFormat format = TextureFormat::R8G8B8A8_Unorm);
+
+		DynamicTexture(size_t width, size_t height, const ColorF& color, TextureFormat format = TextureFormat::R8G8B8A8_Unorm);
+
+		explicit DynamicTexture(const Size& size, TextureFormat format = TextureFormat::R8G8B8A8_Unorm)
+			: DynamicTexture(size.x, size.y, format) {}
+
+		DynamicTexture(const Size& size, const ColorF& color, TextureFormat format = TextureFormat::R8G8B8A8_Unorm)
+			: DynamicTexture(size.x, size.y, color, format) {}
+
+		explicit DynamicTexture(const Image& image, TextureFormat format = TextureFormat::R8G8B8A8_Unorm);
+	};
+}

@@ -419,6 +419,9 @@
     <Filter Include="Source\Siv3D\ByteArrayView">
       <UniqueIdentifier>{003462ff-f48e-4107-b8ba-f90e9eff5fdc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\DynamicTexture">
+      <UniqueIdentifier>{fc0dd7e9-c99d-4b11-9f94-86484254afbc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1552,6 +1555,9 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\RoundRect.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\DynamicTexture.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2261,6 +2267,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\ByteArrayView\SivByteArrayView.cpp">
       <Filter>Source\Siv3D\ByteArrayView</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\DynamicTexture\SivDynamicTexture.cpp">
+      <Filter>Source\Siv3D\DynamicTexture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
