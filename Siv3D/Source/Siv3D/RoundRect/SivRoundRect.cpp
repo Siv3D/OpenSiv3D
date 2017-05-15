@@ -17,5 +17,18 @@
 
 namespace s3d
 {
-
+	void Formatter(FormatData& formatData, const RoundRect& value)
+	{
+		formatData.string.push_back(L'(');
+		formatData.string.append(ToString(value.x, formatData.decimalPlace.value));
+		formatData.string.push_back(L',');
+		formatData.string.append(ToString(value.y, formatData.decimalPlace.value));
+		formatData.string.push_back(L',');
+		formatData.string.append(ToString(value.w, formatData.decimalPlace.value));
+		formatData.string.push_back(L',');
+		formatData.string.append(ToString(value.h, formatData.decimalPlace.value));
+		formatData.string.push_back(L',');
+		formatData.string.append(ToString(value.r, formatData.decimalPlace.value));
+		formatData.string.push_back(L')');
+	}
 }

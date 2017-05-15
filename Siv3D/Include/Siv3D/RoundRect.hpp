@@ -204,3 +204,82 @@ namespace s3d
 		// draw / drawFrmae/ drawShadow
 	};
 }
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Formatting RoundRect
+//
+//	[x] Siv3D Formatter
+//	[x] ostream
+//	[x] wostream
+//	[x] istream
+//	[x] wistream
+//	[x] fmtlib BasicFormatter<wchar>
+//
+namespace s3d
+{
+	void Formatter(FormatData& formatData, const RoundRect& value);
+
+	/// <summary>
+	/// 出力ストリームに角丸長方形を渡します。
+	/// </summary>
+	/// <param name="os">
+	/// 出力ストリーム
+	/// </param>
+	/// <param name="roundRect">
+	/// 角丸長方形
+	/// </param>
+	/// <returns>
+	/// 渡した後の出力ストリーム
+	/// </returns>
+	template <class CharType>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const RoundRect& roundRect)
+	{
+		return	os << CharType('(')
+			<< roundRect.x << CharType(',')
+			<< roundRect.y << CharType(',')
+			<< roundRect.w << CharType(',')
+			<< roundRect.h << CharType(',')
+			<< roundRect.r << CharType(')');
+	}
+
+	/// <summary>
+	/// 入力ストリームに角丸長方形を渡します。
+	/// </summary>
+	/// <param name="is">
+	/// 入力ストリーム
+	/// </param>
+	/// <param name="roundRect">
+	/// 角丸長方形
+	/// </param>
+	/// <returns>
+	/// 渡した後の入力ストリーム
+	/// </returns>
+	template <class CharType>
+	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& is, RoundRect& roundRect)
+	{
+		CharType unused;
+		return	is >> unused
+			>> roundRect.x >> unused
+			>> roundRect.y >> unused
+			>> roundRect.w >> unused
+			>> roundRect.h >> unused
+			>> roundRect.r >> unused;
+	}
+}
+
+namespace fmt
+{
+	template <class ArgFormatter>
+	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::RoundRect& roundRect)
+	{
+		const auto tag = s3d::detail::GetTag(format_str);
+
+		const auto fmt = S3DSTR("({") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("})");
+
+		f.writer().write(fmt, roundRect.x, roundRect.y, roundRect.w, roundRect.h, roundRect.r);
+	}
+}
+//
+//////////////////////////////////////////////////////////////////////////////
+
