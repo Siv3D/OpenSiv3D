@@ -122,7 +122,7 @@ namespace s3d
 
 	const Triangle& Triangle::draw(const ColorF& color) const
 	{
-		Siv3DEngine::GetRenderer2D()->addTriangle({ p0, p1, p2 }, Float4(color.r, color.g, color.b, color.a));
+		Siv3DEngine::GetRenderer2D()->addTriangle({ p0, p1, p2 }, color.toFloat4());
 
 		return *this;
 	}
@@ -130,20 +130,16 @@ namespace s3d
 	const Triangle& Triangle::draw(const ColorF(&colors)[3]) const
 	{
 		Siv3DEngine::GetRenderer2D()->addTriangle(	
-		{ p0, p1, p2 },
-		{
-			Float4(colors[0].r, colors[0].g, colors[0].b, colors[0].a),
-			Float4(colors[1].r, colors[1].g, colors[1].b, colors[1].a),
-			Float4(colors[2].r, colors[2].g, colors[2].b, colors[2].a)
-		});
+			{ p0, p1, p2 },
+			{ colors[0].toFloat4(), colors[1].toFloat4(), colors[2].toFloat4() });
 
 		return *this;
 	}
 
 	const Triangle& Triangle::drawFrame(double thickness, const ColorF& color) const
 	{
-		Siv3DEngine::GetRenderer2D()->addLineString(&p0, 3, none,
-			static_cast<float>(thickness), false, Float4(color.r, color.g, color.b, color.a), true);
+		Siv3DEngine::GetRenderer2D()->addLineString(LineStyle::SquareCap, &p0, 3, none,
+			static_cast<float>(thickness), false, color.toFloat4(), true);
 
 		return *this;
 	}
@@ -154,9 +150,9 @@ namespace s3d
 
 		const Triangle t = stretched(offset);
 
-		Siv3DEngine::GetRenderer2D()->addLineString(&t.p0, 3, none,
+		Siv3DEngine::GetRenderer2D()->addLineString(LineStyle::SquareCap, &t.p0, 3, none,
 			static_cast<float>(innerThickness + outerThickness),
-			outerThickness == 0.0, Float4(color.r, color.g, color.b, color.a), true);
+			outerThickness == 0.0, color.toFloat4(), true);
 
 		return *this;
 	}

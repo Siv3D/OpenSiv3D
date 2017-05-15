@@ -118,12 +118,7 @@ namespace s3d
 		return splinePoints;
 	}
 
-	const LineString& LineString::draw(const ColorF& color, const bool isClosed) const
-	{
-		return draw(1.0, color, isClosed);
-	}
-
-	const LineString& LineString::draw(double thickness, const ColorF& color, const bool isClosed) const
+	const LineString& LineString::draw(const LineStyle& style, const double thickness, const ColorF& color, const bool isClosed) const
 	{
 		if (size() < 2)
 		{
@@ -131,20 +126,21 @@ namespace s3d
 		}
 
 		Siv3DEngine::GetRenderer2D()->addLineString(
+			style,
 			data(),
 			static_cast<uint32>(size()),
 			s3d::none,
 			static_cast<float>(thickness),
 			false,
-			Float4(color.r, color.g, color.b, color.a),
+			color.toFloat4(),
 			isClosed
 		);
 
 		return *this;
 	}
 
-	void LineString::drawCatmullRom(const double thickness, const ColorF& color, const bool isClosed, const int32 interpolation) const
+	void LineString::drawCatmullRom(const LineStyle& style, const double thickness, const ColorF& color, const bool isClosed, const int32 interpolation) const
 	{
-		catmullRom(isClosed, interpolation).draw(thickness, color, false);
+		catmullRom(isClosed, interpolation).draw(style, thickness, color, isClosed);
 	}
 }

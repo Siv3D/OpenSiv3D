@@ -18,22 +18,20 @@ namespace s3d
 {
 	Texture_GL::Texture_GL(Null)
 	{
-		const Image image(16, 16, Palette::Yellow);
-		
 		::glGenTextures(1, &m_texture);
 		
 		::glBindTexture(GL_TEXTURE_2D, m_texture);
-		
-		::glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width(), image.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image.data());
-		
-		for (uint32 i = 0; i < 4; ++i)
+
+		for (uint32 i = 0; i < 5; ++i)
 		{
-			const Image mipmap(8 >> i, 8 >> i, Palette::Yellow);
+			const Image mipmap(16 >> i, 16 >> i, Palette::Yellow);
 			
-			::glTexImage2D(GL_TEXTURE_2D, (i + 1), GL_RGBA, mipmap.width(), mipmap.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, mipmap.data());
+			::glTexImage2D(GL_TEXTURE_2D, i, GL_RGBA, mipmap.width(), mipmap.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, mipmap.data());
 		}
 		
-		m_size = image.size();
+		::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 4);
+		
+		m_size = Size(16, 16);
 		
 		m_initialized = true;
 	}
@@ -67,6 +65,8 @@ namespace s3d
 			
 			::glTexImage2D(GL_TEXTURE_2D, (i + 1), GL_RGBA, mipmap.width(), mipmap.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, mipmap.data());
 		}
+		
+		::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, mipmaps.size());
 		
 		m_size = image.size();
 		

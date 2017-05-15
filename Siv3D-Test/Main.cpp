@@ -1,20 +1,21 @@
 ﻿
 # include <Siv3D.hpp>
 
+struct Widget
+{
+	int32 n = 0;
+
+	int32 b = 255;
+};
+
 void Main()
 {
-	const Texture texture(L"example/windmill.png");
+	Widget widget;
 
-	const LineString line
-	{
-		{ 50, 50 },{ 200, 200 },
-		{ 400, 200 },{ 100, 400 },
-		{ 500, 400 }
-	};
+	Console << ByteArrayView(widget).toHex();
 
 	while (System::Update())
 	{
-		// 線の幅 8 のスプライン曲線を描く
-		line.drawCatmullRom(8.0, Palette::White, true);
+		
 	}
 }

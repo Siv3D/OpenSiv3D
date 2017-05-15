@@ -66,7 +66,7 @@ namespace s3d
 	template <class SizeType>
 	const Rectangle<SizeType>& Rectangle<SizeType>::draw(const ColorF& color) const
 	{
-		Siv3DEngine::GetRenderer2D()->addRect(FloatRect(x, y, x + w, y + h), Float4(color.r, color.g, color.b, color.a));
+		Siv3DEngine::GetRenderer2D()->addRect(FloatRect(x, y, x + w, y + h), color.toFloat4());
 
 		return *this;
 	}
@@ -75,12 +75,7 @@ namespace s3d
 	const Rectangle<SizeType>& Rectangle<SizeType>::draw(const ColorF(&colors)[4]) const
 	{
 		Siv3DEngine::GetRenderer2D()->addRect(FloatRect(x, y, x + w, y + h),
-		{
-			Float4(colors[0].r, colors[0].g, colors[0].b, colors[0].a),
-			Float4(colors[1].r, colors[1].g, colors[1].b, colors[1].a),
-			Float4(colors[2].r, colors[2].g, colors[2].b, colors[2].a),
-			Float4(colors[3].r, colors[3].g, colors[3].b, colors[3].a)
-		});
+			{ colors[0].toFloat4(), colors[1].toFloat4(), colors[2].toFloat4(), colors[3].toFloat4() });
 
 		return *this;
 	}
@@ -91,7 +86,7 @@ namespace s3d
 		Siv3DEngine::GetRenderer2D()->addRectFrame(
 			FloatRect(x + innerThickness, y + innerThickness, x + w - innerThickness, y + h - innerThickness),
 			static_cast<float>(innerThickness + outerThickness),
-			Float4(color.r, color.g, color.b, color.a)
+			color.toFloat4()
 		);
 
 		return *this;

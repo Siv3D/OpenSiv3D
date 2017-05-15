@@ -12,6 +12,8 @@
 # pragma once
 # include <Siv3D/Fwd.hpp>
 # include <Siv3D/Array.hpp>
+# include <Siv3D/Optional.hpp>
+# include <Siv3D/Texture.hpp>
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/SamplerState.hpp>
 
@@ -47,7 +49,7 @@ namespace s3d
 
 		virtual Optional<Rect> getViewport() const = 0;
 
-		virtual void addLine(LineStyle style, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) = 0;
+		virtual void addLine(const LineStyle& style, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) = 0;
 
 		virtual void addTriangle(const Float2(&pts)[3], const Float4& color) = 0;
 
@@ -77,7 +79,7 @@ namespace s3d
 
 		virtual void addQuad(const FloatQuad& quad, const Float4(&colors)[4]) = 0;
 
-		virtual void addLineString(const Vec2* pts, uint32 size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, bool isClosed) = 0;
+		virtual void addLineString(LineStyle style, const Vec2* pts, uint32 size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, bool isClosed) = 0;
 
 		virtual void addShape2D(const Array<Float2>& vertices, const Array<uint32>& indices, const Float4& color) = 0;
 
@@ -87,5 +89,7 @@ namespace s3d
 		virtual void addTextureRegion(const Texture& texture, const FloatRect& rect, const FloatRect& uv, const Float4& color) = 0;
 
 		virtual void addTexturedQuad(const Texture& texture, const FloatQuad& quad, const FloatRect& uv, const Float4& color) = 0;
+
+		virtual void addSprite(const Optional<Texture>& texture, const Sprite& sprite, uint32 startIndex, uint32 indexCount) = 0;
 	};
 }

@@ -232,11 +232,25 @@ namespace s3d
 
 		// overpaint
 
-		const LineString& draw(const ColorF& color = Palette::White, bool isClosed = false) const;
+		const LineString& draw(const ColorF& color = Palette::White, bool isClosed = false) const
+		{
+			return draw(LineStyle::SquareCap, 1.0, color, isClosed);
+		}
 
-		const LineString& draw(double thickness, const ColorF& color = Palette::White, bool isClosed = false) const;
+		const LineString& draw(double thickness, const ColorF& color = Palette::White, bool isClosed = false) const
+		{
+			return draw(LineStyle::SquareCap, thickness, color, isClosed);
+		}
 
-		void drawCatmullRom(double thickness = 1.0, const ColorF& color = Palette::White, bool isClosed = false, int32 interpolation = 24) const;
+		const LineString& draw(const LineStyle& style, double thickness, const ColorF& color = Palette::White, bool isClosed = false) const;
+
+		void drawCatmullRom(double thickness = 1.0, const ColorF& color = Palette::White, bool isClosed = false, int32 interpolation = 24) const
+		{
+			drawCatmullRom(LineStyle::SquareCap, thickness, color, isClosed, interpolation);
+		}
+
+		void drawCatmullRom(const LineStyle& style, double thickness = 1.0, const ColorF& color = Palette::White, bool isClosed = false, int32 interpolation = 24) const;
+
 
 		// drawArray
 

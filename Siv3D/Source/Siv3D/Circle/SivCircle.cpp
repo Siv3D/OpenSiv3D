@@ -81,7 +81,7 @@ namespace s3d
 		Siv3DEngine::GetRenderer2D()->addCircle(
 			center,
 			static_cast<float>(r),
-			Float4(color.r, color.g, color.b, color.a)
+			color.toFloat4()
 		);
 
 		return *this;
@@ -93,7 +93,7 @@ namespace s3d
 			center,
 			static_cast<float>(r - innerThickness),
 			static_cast<float>(innerThickness + outerThickness),
-			Float4(color.r, color.g, color.b, color.a)
+			color.toFloat4()
 		);
 
 		return *this;
@@ -105,8 +105,8 @@ namespace s3d
 			center,
 			static_cast<float>(r - innerThickness),
 			static_cast<float>(innerThickness + outerThickness),
-			Float4(innerColor.r, innerColor.g, innerColor.b, innerColor.a),
-			Float4(outerColor.r, outerColor.g, outerColor.b, outerColor.a)
+			innerColor.toFloat4(),
+			outerColor.toFloat4()
 		);
 
 		return *this;
@@ -119,7 +119,7 @@ namespace s3d
 			static_cast<float>(r),
 			static_cast<float>(startAngle),
 			static_cast<float>(angle),
-			Float4(color.r, color.g, color.b, color.a)
+			color.toFloat4()
 		);
 
 		return *this;
@@ -133,7 +133,7 @@ namespace s3d
 			static_cast<float>(startAngle),
 			static_cast<float>(angle),
 			static_cast<float>(innerThickness + outerThickness),
-			Float4(color.r, color.g, color.b, color.a)
+			color.toFloat4()
 		);
 
 		return *this;

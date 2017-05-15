@@ -18,8 +18,10 @@
 # include "../../ConstantBuffer/D3D11/D3D11ConstantBuffer.hpp"
 # include "CRenderer2D_D3D11.hpp"
 # include <Siv3D/Mat3x2.hpp>
+# include <Siv3D/Math.hpp>
 # include <Siv3D/FloatRect.hpp>
 # include <Siv3D/FloatQuad.hpp>
+# include <Siv3D/Sprite.hpp>
 # include <Siv3D/Color.hpp>
 # include <Siv3D/MathConstants.hpp>
 # include <Siv3D/Logger.hpp>
@@ -344,14 +346,14 @@ namespace s3d
 		return m_commandManager.getCurrentViewport();
 	}
 
-	void CRenderer2D_D3D11::addLine(const LineStyle style, const Float2& begin, const Float2& end, const float thickness, const Float4(&colors)[2])
+	void CRenderer2D_D3D11::addLine(const LineStyle& style, const Float2& begin, const Float2& end, const float thickness, const Float4(&colors)[2])
 	{
 		if (thickness <= 0.0)
 		{
 			return;
 		}
 
-		if (style == LineStyle::SquareCap)
+		if (style.isSquareCap())
 		{
 			constexpr IndexType vertexSize = 4, indexSize = 6;
 			Vertex2D* pVertex;
@@ -387,7 +389,7 @@ namespace s3d
 
 			m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
 		}
-		else if(style == LineStyle::NoCap || style == LineStyle::RoundCap)
+		else if(style.isNoCap() || style.isRoundCap())
 		{
 			constexpr IndexType vertexSize = 4, indexSize = 6;
 			Vertex2D* pVertex;
@@ -423,13 +425,13 @@ namespace s3d
 
 			m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
 
-			if (style == LineStyle::RoundCap)
+			if (style.isRoundCap())
 			{
 				addCirclePie(begin, thicknessHalf, std::atan2(vNormal.x, -vNormal.y), Math::PiF, colors[0]);
 				addCirclePie(end, thicknessHalf, std::atan2(-vNormal.x, vNormal.y), Math::PiF, colors[1]);
 			}
 		}
-		else if (style == LineStyle::SquareCapDot)
+		else if (style.isSquareDot())
 		{
 			constexpr IndexType vertexSize = 4, indexSize = 6;
 			Vertex2D* pVertex;
@@ -448,22 +450,23 @@ namespace s3d
 			const Float2 vNormal(-line.y * thicknessHalf, line.x * thicknessHalf);
 			const Float2 lineHalf(line * thicknessHalf);
 			const float lineLengthN = lineLength / thickness;
+			const float uOffset = static_cast<float>((1.0 - Math::Fraction(style.dotOffset / 3.0)) * 3.0);
 
 			pVertex[0].pos = (begin + vNormal - lineHalf);
 			pVertex[0].color = colors[0];
-			pVertex[0].tex = Float2(0.0f , 1.0f);
+			pVertex[0].tex = Float2(uOffset, 1.0f);
 
 			pVertex[1].pos = (begin - vNormal - lineHalf);
 			pVertex[1].color = colors[0];
-			pVertex[1].tex = Float2(0.0f, 0.0f);
+			pVertex[1].tex = Float2(uOffset, 0.0f);
 
 			pVertex[2].pos = (end + vNormal + lineHalf);
 			pVertex[2].color = colors[1];
-			pVertex[2].tex = Float2(lineLengthN, 1.0f);
+			pVertex[2].tex = Float2(uOffset + lineLengthN, 1.0f);
 
 			pVertex[3].pos = (end - vNormal + lineHalf);
 			pVertex[3].color = colors[1];
-			pVertex[3].tex = Float2(lineLengthN, 0.0f);
+			pVertex[3].tex = Float2(uOffset + lineLengthN, 0.0f);
 
 			for (IndexType i = 0; i < indexSize; ++i)
 			{
@@ -472,7 +475,7 @@ namespace s3d
 
 			m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::LineDot);
 		}
-		else if (style == LineStyle::RoundCapDot)
+		else if (style.isRoundDot())
 		{
 			constexpr IndexType vertexSize = 4, indexSize = 6;
 			Vertex2D* pVertex;
@@ -491,24 +494,29 @@ namespace s3d
 			const Float2 vNormal(-line.y * thicknessHalf, line.x * thicknessHalf);
 			const Float2 lineHalf(line * thicknessHalf);
 			float lineLengthN = lineLength / thickness;
-			const float m = std::fmod(lineLengthN - 1.0f, 2.0f);
-			lineLengthN += 2.0f - m;
+			const float uOffset = static_cast<float>((1.0 - Math::Fraction(style.dotOffset / 2.0)) * 2.0);
+			
+			if (style.hasAlignedDot)
+			{
+				const float m = std::fmod(lineLengthN - 1.0f, 2.0f);
+				lineLengthN += 2.0f - m;
+			}
 
 			pVertex[0].pos = (begin + vNormal - lineHalf);
 			pVertex[0].color = colors[0];
-			pVertex[0].tex = Float2(0.5f, 1.0f);
+			pVertex[0].tex = Float2(uOffset + 0.5f, 1.0f);
 
 			pVertex[1].pos = (begin - vNormal - lineHalf);
 			pVertex[1].color = colors[0];
-			pVertex[1].tex = Float2(0.5f, -1.0f);
+			pVertex[1].tex = Float2(uOffset + 0.5f, -1.0f);
 
 			pVertex[2].pos = (end + vNormal + lineHalf);
 			pVertex[2].color = colors[1];
-			pVertex[2].tex = Float2(lineLengthN + 0.5f, 1.0f);
+			pVertex[2].tex = Float2(uOffset + lineLengthN + 0.5f, 1.0f);
 
 			pVertex[3].pos = (end - vNormal + lineHalf);
 			pVertex[3].color = colors[1];
-			pVertex[3].tex = Float2(lineLengthN + 0.5f, -1.0f);
+			pVertex[3].tex = Float2(uOffset + lineLengthN + 0.5f, -1.0f);
 
 			for (IndexType i = 0; i < indexSize; ++i)
 			{
@@ -1065,12 +1073,21 @@ namespace s3d
 		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
 	}
 
-	void CRenderer2D_D3D11::addLineString(const Vec2* const pts, uint32 size, const Optional<Float2>& offset, const float thickness, const bool inner, const Float4& color, const bool isClosed)
+	void CRenderer2D_D3D11::addLineString(LineStyle style, const Vec2* const pts, uint32 size, const Optional<Float2>& offset, const float thickness, const bool inner, const Float4& color, const bool isClosed)
 	{
 		if (!pts || size < 2)
 		{
 			return;
 		}
+
+		if (isClosed && (style.isRoundCap() || style.isSquareCap()))
+		{
+			style = LineStyle::NoCap;
+		}
+
+		const bool hasCap = (!style.isNoCap() && !style.isRoundCap());
+		const bool isDot = style.isDotted;
+		Float2 vNormalBegin(0, 0), vNormalEnd(0, 0);
 
 		// 大昔に書いたコードなので整理したい
 
@@ -1129,7 +1146,7 @@ namespace s3d
 
 			buf2.push_back(current);
 
-			if (!inner && v1.dot(v2) > threshold)
+			if (!inner && !isDot && v1.dot(v2) > threshold)
 			{
 				const Float2 line = current - back;
 				const Float2 normal = Float2{ -line.y, line.x }.normalized();
@@ -1160,7 +1177,7 @@ namespace s3d
 			const Float2 v1 = (back - current).normalized();
 			const Float2 v2 = (next - current).normalized();
 
-			if (!inner && v1.dot(v2) > threshold)
+			if (!inner && !isDot && v1.dot(v2) > threshold)
 			{
 				const Float2 line = current - back;
 				const Float2 normal = Float2{ -line.y, line.x }.normalized();
@@ -1186,118 +1203,232 @@ namespace s3d
 			buf2.push_back(buf.back());
 		}
 
-		size = static_cast<IndexType>(buf2.size());
-		const IndexType vertexSize = size * 2, indexSize = 6 * (size - 1) + (isClosed * 6);
-		Vertex2D* pVertex;
-		IndexType* pIndex;
-		IndexType indexOffset;
-
-		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+		if (isDot)
 		{
-			return;
-		}
+			if (isClosed)
+			{
+				buf2.push_back(buf.front());
+			}
 
-		const float thicknessHalf = thickness * 0.5f;
+			size = static_cast<IndexType>(buf2.size());
+			const IndexType vertexSize = (size - 1) * 4, indexSize = 6 * (size - 1)/* + (isClosed * 6)*/;
+			Vertex2D* pVertex;
+			IndexType* pIndex;
+			IndexType indexOffset;
 
-		if (isClosed)
-		{
-			const Float2 p0 = buf2[buf2.size() - 1];
-			const Float2 p1 = buf2[0];
-			const Float2 p2 = buf2[1];
-			const Float2 line = p1 - p0;
-			const Float2 normal = Float2{ -line.y, line.x }.normalized();
-			const Float2 tangent = ((p2 - p1).normalized() + (p1 - p0).normalized()).normalized();
-			const Float2 miter = Float2{ -tangent.y, tangent.x };
-			const float length = thicknessHalf / miter.dot(normal);
-			const Float2 result0 = p1 + miter * length;
-			const Float2 result1 = p1 - miter * length;
+			if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+			{
+				return;
+			}
 
-			pVertex[0].pos.set(result0);
-			pVertex[1].pos.set(result1);
+			const float thicknessHalf = thickness * 0.5f;
+
+			for (uint32 i = 0; i < size - 1; ++i)
+			{
+				const Float2 p0 = buf2[i + 0];
+				const Float2 p1 = buf2[i + 1];
+				const Float2 line = (p1 - p0).normalize();
+				vNormalBegin = Float2(-line.y * thicknessHalf, line.x * thicknessHalf);
+				const Float2 lineHalf(line * thicknessHalf);
+
+				pVertex[i * 4 + 0].pos.set(p0 + vNormalBegin - lineHalf);
+				pVertex[i * 4 + 1].pos.set(p0 - vNormalBegin - lineHalf);
+				pVertex[i * 4 + 2].pos.set(p1 + vNormalBegin + lineHalf);
+				pVertex[i * 4 + 3].pos.set(p1 - vNormalBegin + lineHalf);
+			}
+
+			if (offset)
+			{
+				const Float2 v = offset.value();
+
+				for (IndexType i = 0; i < vertexSize; ++i)
+				{
+					pVertex[i].pos.moveBy(v);
+				}
+			}
+
+			if (style.isSquareDot())
+			{
+				const float uOffset = static_cast<float>((1.0 - Math::Fraction(style.dotOffset / 3.0)) * 3.0);
+				const float invThickness = 1.0f / thickness;
+				float distance = 0.0f;
+
+				pVertex[0].tex.set(0.0f + uOffset, 1.0f);
+				pVertex[1].tex.set(0.0f + uOffset, 0.0f);
+
+				for (IndexType i = 1; i < vertexSize / 2; ++i)
+				{
+					distance += pVertex[(i - 1) * 2].pos.distanceFrom(pVertex[i * 2].pos);
+
+					pVertex[i * 2 + 0].tex.set(distance * invThickness + uOffset, 1.0f);
+					pVertex[i * 2 + 1].tex.set(distance * invThickness + uOffset, 1.0f);
+				}
+			}
+			else
+			{
+				const float uOffset = static_cast<float>((1.0 - Math::Fraction(style.dotOffset / 2.0)) * 2.0);
+				const float invThickness = 1.0f / thickness;
+				float distance = 0.0f;
+
+				pVertex[0].tex.set(0.5f + uOffset, 1.0f);
+				pVertex[1].tex.set(0.5f + uOffset, -1.0f);
+
+				for (IndexType i = 1; i < vertexSize / 2; ++i)
+				{
+					distance += pVertex[(i - 1) * 2].pos.distanceFrom(pVertex[i * 2].pos) * invThickness;
+
+					if (style.hasAlignedDot)
+					{
+						const float m = std::fmod(distance - 1.0f, 2.0f);
+						distance += 2.0f - m;
+					}
+
+					pVertex[i * 2 + 0].tex.set(0.5f + distance + uOffset, 1.0f);
+					pVertex[i * 2 + 1].tex.set(0.5f + distance + uOffset, -1.0f);
+				}
+			}
+
+			for (size_t i = 0; i < vertexSize; ++i)
+			{
+				(pVertex++)->color = color;
+			}
+
+			for (IndexType k = 0; k < size - 1; ++k)
+			{
+				for (IndexType i = 0; i < 6; ++i)
+				{
+					pIndex[k * 6 + i] = (indexOffset + (detail::rectIndexTable[i] + k * 4));
+				}
+			}
+			
+			if (style.isSquareDot())
+			{
+				m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::LineDot);
+			}
+			else
+			{
+				m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::LineRoundDot);
+			}
 		}
 		else
 		{
-			const Float2 p0 = buf2[0];
-			const Float2 p1 = buf2[1];
-			const Float2 line = p1 - p0;
-			const Float2 normal = Float2{ -line.y, line.x }.normalized();
-			const Float2 a = p0 + thicknessHalf * normal;
-			const Float2 b = p0 - thicknessHalf * normal;
+			size = static_cast<IndexType>(buf2.size());
+			const IndexType vertexSize = size * 2, indexSize = 6 * (size - 1) + (isClosed * 6);
+			Vertex2D* pVertex;
+			IndexType* pIndex;
+			IndexType indexOffset;
 
-			pVertex[0].pos.set(a);
-			pVertex[1].pos.set(b);
-		}
-
-		for (unsigned short i = 0; i < size - 2; ++i)
-		{
-			const Float2 p0 = buf2[i];
-			const Float2 p1 = buf2[i + 1];
-			const Float2 p2 = buf2[i + 2];
-			const Float2 line = p1 - p0;
-			const Float2 normal = Float2{ -line.y, line.x }.normalized();
-			const Float2 tangent = ((p2 - p1).normalized() + (p1 - p0).normalized()).normalized();
-			const Float2 miter = Float2{ -tangent.y, tangent.x };
-			const float length = thicknessHalf / miter.dot(normal);
-			const Float2 result0 = p1 + miter * length;
-			const Float2 result1 = p1 - miter * length;
-
-			pVertex[i * 2 + 2].pos.set(result0);
-			pVertex[i * 2 + 3].pos.set(result1);
-		}
-
-		if (isClosed)
-		{
-			const Float2 p0 = buf2[size - 2];
-			const Float2 p1 = buf2[size - 1];
-			const Float2 p2 = buf2[0];
-			const Float2 line = p1 - p0;
-			const Float2 normal = Float2{ -line.y, line.x }.normalized();
-			const Float2 tangent = ((p2 - p1).normalized() + (p1 - p0).normalized()).normalized();
-			const Float2 miter = Float2{ -tangent.y, tangent.x };
-			const float length = thicknessHalf / miter.dot(normal);
-			const Float2 result0 = p1 + miter * length;
-			const Float2 result1 = p1 - miter * length;
-
-			pVertex[size * 2 - 2].pos.set(result0);
-			pVertex[size * 2 - 1].pos.set(result1);
-		}
-		else
-		{
-			const Float2 p0 = buf2[size - 2];
-			const Float2 p1 = buf2[size - 1];
-			const Float2 line = p1 - p0;
-			const Float2 normal = Float2{ -line.y, line.x }.normalized();
-			const Float2 c = p1 + thicknessHalf * normal;
-			const Float2 d = p1 - thicknessHalf * normal;
-
-			pVertex[size * 2 - 2].pos.set(c);
-			pVertex[size * 2 - 1].pos.set(d);
-		}
-
-		if (offset)
-		{
-			const Float2 v = offset.value();
-
-			for (IndexType i = 0; i < vertexSize; ++i)
+			if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
 			{
-				pVertex[i].pos.moveBy(v);
+				return;
+			}
+
+			const float thicknessHalf = thickness * 0.5f;
+
+			if (isClosed)
+			{
+				const Float2 p0 = buf2[buf2.size() - 1];
+				const Float2 p1 = buf2[0];
+				const Float2 p2 = buf2[1];
+				const Float2 line = p1 - p0;
+				const Float2 normal = Float2{ -line.y, line.x }.normalized();
+				const Float2 tangent = ((p2 - p1).normalized() + (p1 - p0).normalized()).normalized();
+				const Float2 miter = Float2{ -tangent.y, tangent.x };
+				const float length = thicknessHalf / miter.dot(normal);
+				const Float2 result0 = p1 + miter * length;
+				const Float2 result1 = p1 - miter * length;
+
+				pVertex[0].pos.set(result0);
+				pVertex[1].pos.set(result1);
+			}
+			else
+			{
+				const Float2 p0 = buf2[0];
+				const Float2 p1 = buf2[1];
+				const Float2 line = (p1 - p0).normalize();
+				vNormalBegin = Float2(-line.y * thicknessHalf, line.x * thicknessHalf);
+				const Float2 lineHalf(line * thicknessHalf);
+
+				pVertex[0].pos.set(p0 + vNormalBegin - lineHalf * hasCap);
+				pVertex[1].pos.set(p0 - vNormalBegin - lineHalf * hasCap);
+			}
+
+			for (uint32 i = 0; i < size - 2; ++i)
+			{
+				const Float2 p0 = buf2[i];
+				const Float2 p1 = buf2[i + 1];
+				const Float2 p2 = buf2[i + 2];
+				const Float2 line = p1 - p0;
+				const Float2 normal = Float2{ -line.y, line.x }.normalized();
+				const Float2 tangent = ((p2 - p1).normalized() + (p1 - p0).normalized()).normalized();
+				const Float2 miter = Float2{ -tangent.y, tangent.x };
+				const float length = thicknessHalf / miter.dot(normal);
+				const Float2 result0 = p1 + miter * length;
+				const Float2 result1 = p1 - miter * length;
+
+				pVertex[i * 2 + 2].pos.set(result0);
+				pVertex[i * 2 + 3].pos.set(result1);
+			}
+
+			if (isClosed)
+			{
+				const Float2 p0 = buf2[size - 2];
+				const Float2 p1 = buf2[size - 1];
+				const Float2 p2 = buf2[0];
+				const Float2 line = p1 - p0;
+				const Float2 normal = Float2{ -line.y, line.x }.normalized();
+				const Float2 tangent = ((p2 - p1).normalized() + (p1 - p0).normalized()).normalized();
+				const Float2 miter = Float2{ -tangent.y, tangent.x };
+				const float length = thicknessHalf / miter.dot(normal);
+				const Float2 result0 = p1 + miter * length;
+				const Float2 result1 = p1 - miter * length;
+
+				pVertex[size * 2 - 2].pos.set(result0);
+				pVertex[size * 2 - 1].pos.set(result1);
+			}
+			else
+			{
+				const Float2 p0 = buf2[size - 2];
+				const Float2 p1 = buf2[size - 1];
+				const Float2 line = (p1 - p0).normalize();
+				vNormalEnd = Float2(-line.y * thicknessHalf, line.x * thicknessHalf);
+				const Float2 lineHalf(line * thicknessHalf);
+
+				pVertex[size * 2 - 2].pos.set(p1 + vNormalEnd + lineHalf * hasCap);
+				pVertex[size * 2 - 1].pos.set(p1 - vNormalEnd + lineHalf * hasCap);
+			}
+
+			if (offset)
+			{
+				const Float2 v = offset.value();
+
+				for (IndexType i = 0; i < vertexSize; ++i)
+				{
+					pVertex[i].pos.moveBy(v);
+				}
+			}
+
+			for (size_t i = 0; i < vertexSize; ++i)
+			{
+				(pVertex++)->color = color;
+			}
+
+			for (IndexType k = 0; k < size - 1 + isClosed; ++k)
+			{
+				for (IndexType i = 0; i < 6; ++i)
+				{
+					pIndex[k * 6 + i] = (indexOffset + (detail::rectIndexTable[i] + k * 2) % vertexSize);
+				}
+			}
+
+			m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
+
+			if (style.isRoundCap())
+			{
+				addCirclePie(buf2.front(), thicknessHalf, std::atan2(vNormalBegin.x, -vNormalBegin.y), Math::PiF, color);
+				addCirclePie(buf2.back(), thicknessHalf, std::atan2(-vNormalEnd.x, vNormalEnd.y), Math::PiF, color);
 			}
 		}
-
-		for (size_t i = 0; i < vertexSize; ++i)
-		{
-			(pVertex++)->color = color;
-		}
-
-		for (IndexType k = 0; k < size - 1 + isClosed; ++k)
-		{
-			for (IndexType i = 0; i < 6; ++i)
-			{
-				pIndex[k * 6 + i] = (indexOffset + (detail::rectIndexTable[i] + k * 2) % vertexSize);
-			}
-		}
-
-		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
 	}
 
 	void CRenderer2D_D3D11::addShape2D(const Array<Float2>& vertices, const Array<uint32>& indices, const Float4& color)
@@ -1610,6 +1741,60 @@ namespace s3d
 		m_commandManager.pushPSTexture(0, texture);
 
 		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Sprite);
+	}
+
+	void CRenderer2D_D3D11::addSprite(const Optional<Texture>& texture, const Sprite& sprite, const uint32 startIndex, uint32 indexCount)
+	{
+		if (sprite.vertices.empty() || sprite.indices.empty() || sprite.indices.size() <= startIndex)
+		{
+			return;
+		}
+
+		if (sprite.indices.size() < (startIndex + indexCount))
+		{
+			indexCount = static_cast<uint32>(sprite.indices.size() - startIndex);
+		}
+
+		if (indexCount % 3 != 0)
+		{
+			indexCount -= (indexCount % 3);
+		}
+
+		if (indexCount == 0)
+		{
+			return;
+		}
+
+		const IndexType vertexSize = static_cast<IndexType>(sprite.vertices.size()), indexSize = static_cast<IndexType>(indexCount);
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+		{
+			return;
+		}
+
+		::memcpy(pVertex, sprite.vertices.data(), vertexSize * sizeof(Vertex2D));
+
+		const IndexType* const pDstEnd = pIndex + indexSize;
+		const uint32* pSrc = &sprite.indices[startIndex];
+
+		while (pIndex != pDstEnd)
+		{
+			*pIndex++ = indexOffset + (*pSrc++);
+		}
+
+		if (texture)
+		{
+			m_commandManager.pushPSTexture(0, *texture);
+
+			m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Sprite);
+		}
+		else
+		{
+			m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
+		}
 	}
 }
 

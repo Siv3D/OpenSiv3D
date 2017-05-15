@@ -121,7 +121,7 @@ namespace s3d
 
 		Optional<Rect> getViewport() const override;
 
-		void addLine(LineStyle style, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) override;
+		void addLine(const LineStyle& style, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) override;
 		
 		void addTriangle(const Float2(&pts)[3], const Float4& color) override;
 
@@ -151,7 +151,7 @@ namespace s3d
 		
 		void addQuad(const FloatQuad& quad, const Float4(&colors)[4]) override;
 		
-		void addLineString(const Vec2* pts, uint32 size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, bool isClosed) override;
+		void addLineString(LineStyle style, const Vec2* pts, uint32 size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, bool isClosed) override;
 		
 		void addShape2D(const Array<Float2>& vertices, const Array<uint32>& indices, const Float4& color) override;
 		
@@ -162,6 +162,8 @@ namespace s3d
 		void addTextureRegion(const Texture& texture, const FloatRect& rect, const FloatRect& uv, const Float4& color) override;
 		
 		void addTexturedQuad(const Texture& texture, const FloatQuad& quad, const FloatRect& uv, const Float4& color) override;
+		
+		void addSprite(const Optional<Texture>& texture, const Sprite& sprite, uint32 startIndex, uint32 indexCount) override;
 	};
 }
 

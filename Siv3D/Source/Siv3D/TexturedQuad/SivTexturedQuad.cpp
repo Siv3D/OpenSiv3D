@@ -19,7 +19,7 @@ namespace s3d
 {
 	const Quad& TexturedQuad::draw(const ColorF& diffuse) const
 	{
-		Siv3DEngine::GetRenderer2D()->addTexturedQuad(texture, quad, uvRect, Float4(diffuse.r, diffuse.g, diffuse.b, diffuse.a));
+		Siv3DEngine::GetRenderer2D()->addTexturedQuad(texture, quad, uvRect, diffuse.toFloat4());
 
 		return quad;
 	}
@@ -28,14 +28,14 @@ namespace s3d
 	{
 		const Quad q = quad.movedBy(x, y);
 
-		Siv3DEngine::GetRenderer2D()->addTexturedQuad(texture, q, uvRect, Float4(diffuse.r, diffuse.g, diffuse.b, diffuse.a));
+		Siv3DEngine::GetRenderer2D()->addTexturedQuad(texture, q, uvRect, diffuse.toFloat4());
 
 		return q;
 	}
 
 	const Quad& TexturedQuad::drawAt(const ColorF& diffuse) const
 	{
-		Siv3DEngine::GetRenderer2D()->addTexturedQuad(texture, quad.movedBy(center), uvRect, Float4(diffuse.r, diffuse.g, diffuse.b, diffuse.a));
+		Siv3DEngine::GetRenderer2D()->addTexturedQuad(texture, quad.movedBy(center), uvRect, diffuse.toFloat4());
 
 		return quad;
 	}
@@ -44,7 +44,7 @@ namespace s3d
 	{
 		const Quad q = quad.movedBy(x - center.x, y - center.y);
 
-		Siv3DEngine::GetRenderer2D()->addTexturedQuad(texture, q, uvRect, Float4(diffuse.r, diffuse.g, diffuse.b, diffuse.a));
+		Siv3DEngine::GetRenderer2D()->addTexturedQuad(texture, q, uvRect, diffuse.toFloat4());
 
 		return q;
 	}

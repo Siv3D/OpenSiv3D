@@ -15,19 +15,79 @@
 
 namespace s3d
 {
-	enum class LineStyle
+	struct LineStyle
 	{
-		SquareCap,
+		struct Parameters
+		{
+			double dotOffset;
 
-		RoundCap,
+			bool hasCap;
 
-		NoCap,
+			bool isRound;
 
-		SquareCapDot,
+			bool isDotted;
 
-		RoundCapDot,
+			bool hasAlignedDot;
 
-		Default = SquareCap,
+			constexpr Parameters operator ()(double _dotOffset) const
+			{
+				return Parameters{ _dotOffset, hasCap, isRound, isDotted, false };
+			}
+		};
+
+		double dotOffset = 0.0;
+
+		bool hasCap = true;
+
+		bool isRound = false;
+
+		bool isDotted = false;
+
+		bool hasAlignedDot = true;
+
+		constexpr LineStyle(const Parameters& params)
+			: dotOffset(params.dotOffset)
+			, hasCap(params.hasCap)
+			, isRound(params.isRound)
+			, isDotted(params.isDotted)
+			, hasAlignedDot(params.hasAlignedDot) {}
+
+		constexpr bool isSquareCap() const noexcept
+		{
+			return hasCap && !isRound && !isDotted;
+		}
+
+		constexpr bool isRoundCap() const noexcept
+		{
+			return hasCap && isRound && !isDotted;
+		}
+
+		constexpr bool isNoCap() const noexcept
+		{
+			return !hasCap && !isRound && !isDotted;
+		}
+
+		constexpr bool isSquareDot() const noexcept
+		{
+			return hasCap && !isRound && isDotted;
+		}
+
+		constexpr bool isRoundDot() const noexcept
+		{
+			return hasCap && isRound && isDotted;
+		}
+
+		static constexpr Parameters SquareCap{ 0.0, true, false, false, false };
+
+		static constexpr Parameters RoundCap{ 0.0, true, true, false, false };
+
+		static constexpr Parameters NoCap{ 0.0, false, false, false, false };
+
+		static constexpr Parameters SquareDot{ 0.0, true, false, true, false };
+
+		static constexpr Parameters RoundDot{ 0.0, true, true, true, true };
+
+		static constexpr Parameters Default = SquareCap;
 	};
 
 	struct Line
@@ -201,9 +261,9 @@ namespace s3d
 			return draw(LineStyle::Default, thickness, colors);
 		}
 
-		const Line& draw(LineStyle style, double thickness, const ColorF& color = Palette::White) const;
+		const Line& draw(const LineStyle& style, double thickness, const ColorF& color = Palette::White) const;
 
-		const Line& draw(LineStyle style, double thickness, const ColorF(&colors)[2]) const;
+		const Line& draw(const LineStyle& style, double thickness, const ColorF(&colors)[2]) const;
 
 		const Line& drawArrow(double width = 1.0, const Vec2& headSize = Vec2(5.0, 5.0), const ColorF& color = Palette::White) const;
 
