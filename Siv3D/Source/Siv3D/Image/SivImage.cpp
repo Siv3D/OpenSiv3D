@@ -392,7 +392,7 @@ namespace s3d
 		return Siv3DEngine::GetImageFormat()->encode(*this, format);
 	}
 
-	namespace Imaging
+	namespace ImageProcessing
 	{
 		double PerceivedDifferences(const Image& a, const Image& b)
 		{

@@ -76,10 +76,10 @@ namespace s3d
 
 	public:
 
-		using iterator = Array<Color>::iterator;
-		using const_iterator = Array<Color>::const_iterator;
-		using reverse_iterator = Array<Color>::reverse_iterator;
-		using const_reverse_iterator = Array<Color>::const_reverse_iterator;
+		using iterator					= Array<Color>::iterator;
+		using const_iterator			= Array<Color>::const_iterator;
+		using reverse_iterator			= Array<Color>::reverse_iterator;
+		using const_reverse_iterator	= Array<Color>::const_reverse_iterator;
 
 		/// <summary>
 		/// デフォルトコンストラクタ
@@ -716,18 +716,6 @@ namespace s3d
 			return *this;
 		}
 
-
-
-		bool applyAlphaFromRChannel(const FilePath& alpha);
-
-		bool save(const FilePath& path, ImageFormat format = ImageFormat::Unspecified) const;
-
-		bool saveJPEG(const FilePath& path, int32 quality = 90) const;
-
-		bool savePerceptualJPEG(const FilePath& path, double butteraugliTarget = 1.0) const;
-
-		MemoryWriter encode(ImageFormat format = ImageFormat::PNG) const;
-
 		Image& swapRB()
 		{
 			for (auto& pixel : m_data)
@@ -739,9 +727,19 @@ namespace s3d
 
 			return *this;
 		}
+
+		bool applyAlphaFromRChannel(const FilePath& alpha);
+
+		bool save(const FilePath& path, ImageFormat format = ImageFormat::Unspecified) const;
+
+		bool saveJPEG(const FilePath& path, int32 quality = 90) const;
+
+		bool savePerceptualJPEG(const FilePath& path, double butteraugliTarget = 1.0) const;
+
+		MemoryWriter encode(ImageFormat format = ImageFormat::PNG) const;
 	};
 
-	namespace Imaging
+	namespace ImageProcessing
 	{
 		/// <summary>
 		/// 2 つの画像間の知覚的な誤差を計算します。
