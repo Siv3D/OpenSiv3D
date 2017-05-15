@@ -13,6 +13,7 @@
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 # include "Texture_GL.hpp"
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -32,7 +33,8 @@ namespace s3d
 		::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 4);
 		
 		m_size = Size(16, 16);
-		
+		m_format = TextureFormat::R8G8B8A8_Unorm;
+		m_isDynamic = false;
 		m_initialized = true;
 	}
 	
@@ -47,7 +49,8 @@ namespace s3d
 		::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
 		
 		m_size = image.size();
-		
+		m_format = TextureFormat::R8G8B8A8_Unorm;
+		m_isDynamic = false;
 		m_initialized = true;
 	}
 	
@@ -69,7 +72,24 @@ namespace s3d
 		::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, mipmaps.size());
 		
 		m_size = image.size();
+		m_format = TextureFormat::R8G8B8A8_Unorm;
+		m_isDynamic = false;
+		m_initialized = true;
+	}
+	
+	Texture_GL::Texture_GL(const Size& size, const void* pData, const uint32 stride, const TextureFormat format)
+	{
+		::glGenTextures(1, &m_texture);
 		
+		::glBindTexture(GL_TEXTURE_2D, m_texture);
+		
+		::glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, pData);
+		
+		::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+		
+		m_size = size;
+		m_format = format;
+		m_isDynamic = true;
 		m_initialized = true;
 	}
 	
@@ -79,6 +99,36 @@ namespace s3d
 		{
 			::glDeleteTextures(1, &m_texture);
 		}
+	}
+	
+	bool Texture_GL::fill(const ColorF& color, bool wait)
+	{
+		if (!m_isDynamic)
+		{
+			return false;
+		}
+		
+		Image image(m_size, color);
+		
+		::glBindTexture(GL_TEXTURE_2D, m_texture);
+		
+		::glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_size.x, m_size.y, GL_RGBA, GL_UNSIGNED_BYTE, image.data());
+
+		return true;
+	}
+	
+	bool Texture_GL::fill(const void* src, uint32 stride, bool wait)
+	{
+		if (!m_isDynamic)
+		{
+			return false;
+		}
+		
+		::glBindTexture(GL_TEXTURE_2D, m_texture);
+		
+		::glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_size.x, m_size.y, GL_RGBA, GL_UNSIGNED_BYTE, src);
+		
+		return true;
 	}
 }
 

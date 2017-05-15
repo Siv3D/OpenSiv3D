@@ -685,6 +685,8 @@
 		2CCA35A71EC8B38300078678 /* RoundRect.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA35A61EC8B38300078678 /* RoundRect.hpp */; };
 		2CCA35AA1EC8B39800078678 /* SivRoundRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35A91EC8B39800078678 /* SivRoundRect.cpp */; };
 		2CCA35AD1EC9A8E100078678 /* SivByteArrayView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35AC1EC9A8E100078678 /* SivByteArrayView.cpp */; };
+		2CCA35AF1EC9AFF200078678 /* DynamicTexture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA35AE1EC9AFF200078678 /* DynamicTexture.hpp */; };
+		2CCA35B21EC9B00900078678 /* SivDynamicTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35B11EC9B00900078678 /* SivDynamicTexture.cpp */; };
 		2CCE339B1EC0CB8300B6A0D5 /* Texture_GL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */; };
 		2CCE339D1EC1E71400B6A0D5 /* TextureRegion.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */; };
 		2CCE33A01EC1F1B800B6A0D5 /* SivTextureRegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE339F1EC1F1B800B6A0D5 /* SivTextureRegion.cpp */; };
@@ -1405,6 +1407,8 @@
 		2CCA35A61EC8B38300078678 /* RoundRect.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RoundRect.hpp; sourceTree = "<group>"; };
 		2CCA35A91EC8B39800078678 /* SivRoundRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivRoundRect.cpp; sourceTree = "<group>"; };
 		2CCA35AC1EC9A8E100078678 /* SivByteArrayView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivByteArrayView.cpp; sourceTree = "<group>"; };
+		2CCA35AE1EC9AFF200078678 /* DynamicTexture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DynamicTexture.hpp; sourceTree = "<group>"; };
+		2CCA35B11EC9B00900078678 /* SivDynamicTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivDynamicTexture.cpp; sourceTree = "<group>"; };
 		2CCE339A1EC0CB8300B6A0D5 /* Texture_GL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Texture_GL.hpp; sourceTree = "<group>"; };
 		2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextureRegion.hpp; sourceTree = "<group>"; };
 		2CCE339F1EC1F1B800B6A0D5 /* SivTextureRegion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextureRegion.cpp; sourceTree = "<group>"; };
@@ -1439,6 +1443,7 @@
 		2C0C7A121EBCC38300386CBB /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2CCA35B01EC9B00900078678 /* DynamicTexture */,
 				2CCA35AB1EC9A8E100078678 /* ByteArrayView */,
 				2CCA35A81EC8B39800078678 /* RoundRect */,
 				2CCA35A11EC8ADAC00078678 /* Sprite */,
@@ -2526,6 +2531,7 @@
 				2C0C7CAC1EBCC39B00386CBB /* Distribution.hpp */,
 				2C0C7CAD1EBCC39B00386CBB /* DragDrop.hpp */,
 				2C0C7CAE1EBCC39B00386CBB /* Duration.hpp */,
+				2CCA35AE1EC9AFF200078678 /* DynamicTexture.hpp */,
 				2C0C7CAF1EBCC39B00386CBB /* Easing.hpp */,
 				2C0C7CB01EBCC39B00386CBB /* EasingController.hpp */,
 				2C0C7CB11EBCC39B00386CBB /* Ellipse.hpp */,
@@ -3449,6 +3455,14 @@
 			path = ByteArrayView;
 			sourceTree = "<group>";
 		};
+		2CCA35B01EC9B00900078678 /* DynamicTexture */ = {
+			isa = PBXGroup;
+			children = (
+				2CCA35B11EC9B00900078678 /* SivDynamicTexture.cpp */,
+			);
+			path = DynamicTexture;
+			sourceTree = "<group>";
+		};
 		2CCE339E1EC1F1B800B6A0D5 /* TextureRegion */ = {
 			isa = PBXGroup;
 			children = (
@@ -3666,6 +3680,7 @@
 				2C0C7C311EBCC38400386CBB /* CRenderer2D_GL.hpp in Headers */,
 				2C2E82951EAA1B3A0057BDAF /* document.h in Headers */,
 				2C81C0671E89F8E300D27E52 /* output_image.h in Headers */,
+				2CCA35AF1EC9AFF200078678 /* DynamicTexture.hpp in Headers */,
 				2C0C7D431EBCC39B00386CBB /* Compression.hpp in Headers */,
 				2C0C7D941EBCC39B00386CBB /* RandomPoint.hpp in Headers */,
 				2C81C08D1E89F8E400D27E52 /* muParserTokenReader.h in Headers */,
@@ -4109,6 +4124,7 @@
 				2C81C0871E89F8E300D27E52 /* muParserInt.cpp in Sources */,
 				2C0C7DED1EC07DF000386CBB /* SivBlendState.cpp in Sources */,
 				2C0C7C231EBCC38400386CBB /* SivPixelShader.cpp in Sources */,
+				2CCA35B21EC9B00900078678 /* SivDynamicTexture.cpp in Sources */,
 				2C0C7C361EBCC38400386CBB /* SivRenderTexture.cpp in Sources */,
 				2C81C0AB1E89FD1A00D27E52 /* vulkan.c in Sources */,
 				2C0C7C421EBCC38400386CBB /* SivShader.cpp in Sources */,

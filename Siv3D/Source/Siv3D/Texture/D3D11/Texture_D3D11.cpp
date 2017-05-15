@@ -16,9 +16,73 @@
 # include "Texture_D3D11.hpp"
 # include <Siv3D/Image.hpp>
 # include <Siv3D/ImageProcessing.hpp>
+# include <Siv3D/TextureFormat.hpp>
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
+	namespace detail
+	{
+		static constexpr DXGI_FORMAT ToDXGIFormat(const TextureFormat format) noexcept
+		{
+			if (format == TextureFormat::R8G8B8A8_Unorm)
+			{
+				return DXGI_FORMAT_R8G8B8A8_UNORM;
+			}
+
+			return DXGI_FORMAT_UNKNOWN;
+		}
+
+		static size_t GetPixelSize(const TextureFormat format) noexcept
+		{
+			if (format == TextureFormat::R8G8B8A8_Unorm)
+			{
+				return 4;
+			}
+
+			return 0;
+		}
+
+		static void Fill(void* const buffer, const uint32 width, const uint32 height, const uint32 dstStride, const ColorF& color, const TextureFormat format)
+		{
+			if (format == TextureFormat::R8G8B8A8_Unorm)
+			{
+				const uint32 value = Color(color).asUint32();
+
+				uint8* pDst = static_cast<uint8*>(buffer);
+
+				for (uint32 y = 0; y < height; ++y)
+				{
+					uint32* pDstLine = static_cast<uint32*>(static_cast<void*>(pDst));
+					
+					for (uint32 x = 0; x < width; ++x)
+					{
+						*pDstLine++ = value;
+					}
+
+					pDst += dstStride;
+				}
+			}
+		}
+
+		static void Fill(void* const buffer, const uint32 width, const uint32 height, const uint32 dstStride, const void* pData, const uint32 srcStride, const TextureFormat format)
+		{
+			if (format == TextureFormat::R8G8B8A8_Unorm)
+			{
+				uint8* pDst = static_cast<uint8*>(buffer);
+				const uint8* pSrc = static_cast<const uint8*>(pData);
+				const uint32 minStride = std::min(dstStride, srcStride);
+
+				for (uint32 y = 0; y < height; ++y)
+				{
+					::memcpy(pDst, pSrc, minStride);
+					pDst += dstStride;
+					pSrc += srcStride;
+				}
+			}
+		}
+	}
+
 	Texture_D3D11::Texture_D3D11(Null, ID3D11Device* const device)
 	{
 		const Image image(16, 16, Palette::Yellow);
@@ -50,6 +114,7 @@ namespace s3d
 			return;
 		}
 
+		m_format = TextureFormat::R8G8B8A8_Unorm;
 		m_initialized = true;
 	}
 
@@ -74,10 +139,75 @@ namespace s3d
 
 		m_shaderResourceView->GetDesc(&m_srvDesc);
 
+		m_format = TextureFormat::R8G8B8A8_Unorm; // [Siv3D ToDo]
 		m_initialized = true;
 	}
 
-	Texture_D3D11::Texture_D3D11(Render, ID3D11Device* device, const Size& size, const uint32 multisampleCount)
+	Texture_D3D11::Texture_D3D11(Dynamic, ID3D11Device* const device, const Size& size, const void* pData, const uint32 stride, const TextureFormat format)
+	{
+		if (!InRange(size.x, 1, MaxImageSize) || !InRange(size.y, 1, MaxImageSize))
+		{
+			return;
+		}
+
+		m_desc.Width				= size.x;
+		m_desc.Height				= size.y;
+		m_desc.MipLevels			= 1;
+		m_desc.ArraySize			= 1;
+		m_desc.Format				= detail::ToDXGIFormat(format);
+		m_desc.SampleDesc			= DXGI_SAMPLE_DESC{ 1, 0 };
+		m_desc.Usage				= D3D11_USAGE_DEFAULT;
+		m_desc.BindFlags			= D3D11_BIND_SHADER_RESOURCE;
+		m_desc.CPUAccessFlags		= 0;
+		m_desc.MiscFlags			= 0;
+
+		const D3D11_SUBRESOURCE_DATA initData{ pData, stride, 0 };
+
+		HRESULT hr = device->CreateTexture2D(&m_desc, pData ? &initData : nullptr, &m_texture);
+
+		if (FAILED(hr))
+		{
+			LOG_FAIL(L"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D (D3D11_USAGE_DEFAULT). Error code: {0}"_fmt(ToHex(hr)));
+
+			return;
+		}
+
+		{
+			D3D11_TEXTURE2D_DESC desc = m_desc;
+			desc.Usage			= D3D11_USAGE_STAGING;
+			desc.BindFlags		= 0;
+			desc.CPUAccessFlags	= D3D11_CPU_ACCESS_WRITE;
+
+			hr = device->CreateTexture2D(&desc, pData ? &initData : nullptr, &m_textureStaging);
+
+			if (FAILED(hr))
+			{
+				LOG_FAIL(L"❌ Texture_D3D11::Texture_D3D11() : Failed to create Texture2D (D3D11_USAGE_STAGING). Error code: {0}"_fmt(ToHex(hr)));
+
+				return;
+			}
+		}
+
+		{
+			m_srvDesc.Format		= m_desc.Format;
+			m_srvDesc.ViewDimension	= D3D11_SRV_DIMENSION_TEXTURE2D;
+			m_srvDesc.Texture2D		= { 0, m_desc.MipLevels };
+
+			hr = device->CreateShaderResourceView(m_texture.Get(), &m_srvDesc, &m_shaderResourceView);
+
+			if (FAILED(hr))
+			{
+				LOG_FAIL(L"❌ Texture_D3D11::Texture_D3D11() : Failed to create ShaderResourceView. Error code: {0}"_fmt(ToHex(hr)));
+
+				return;
+			}
+		}
+
+		m_format = format;
+		m_initialized = true;
+	}
+
+	Texture_D3D11::Texture_D3D11(Render, ID3D11Device* const device, const Size& size, const uint32 multisampleCount)
 	{
 		m_desc.Width			= size.x;
 		m_desc.Height			= size.y;
@@ -112,6 +242,7 @@ namespace s3d
 			return;
 		}
 
+		m_format = TextureFormat::R8G8B8A8_Unorm;
 		m_initialized = true;
 	}
 
@@ -144,10 +275,11 @@ namespace s3d
 			return;
 		}
 
+		m_format = TextureFormat::R8G8B8A8_Unorm;
 		m_initialized = true;
 	}
 
-	Texture_D3D11::Texture_D3D11(ID3D11Device* device, const Image& image, const Array<Image>& mipmaps, const TextureDesc)
+	Texture_D3D11::Texture_D3D11(ID3D11Device* const device, const Image& image, const Array<Image>& mipmaps, const TextureDesc)
 	{
 		m_desc.Width				= image.width();
 		m_desc.Height				= image.height();
@@ -183,10 +315,11 @@ namespace s3d
 			return;
 		}
 
+		m_format = TextureFormat::R8G8B8A8_Unorm;
 		m_initialized = true;
 	}
 
-	void Texture_D3D11::clearRT(ID3D11DeviceContext* context, const ColorF& color)
+	void Texture_D3D11::clearRT(ID3D11DeviceContext* const context, const ColorF& color)
 	{
 		const ColorF clearColor = isSRGB() ? color.gamma(1.0 / 2.2) : color;
 
@@ -213,11 +346,77 @@ namespace s3d
 		return isInitialized();
 	}
 
-	bool Texture_D3D11::endResize(Render, ID3D11Device* device, const Size& size, const uint32 multisampleCount)
+	bool Texture_D3D11::endResize(Render, ID3D11Device* const device, const Size& size, const uint32 multisampleCount)
 	{
 		*this = Texture_D3D11(Render{}, device, size, multisampleCount);
 
 		return isInitialized();
+	}
+
+	bool Texture_D3D11::fill(ID3D11DeviceContext* context, const ColorF& color, bool wait)
+	{
+		if (!m_textureStaging)
+		{
+			return false;
+		}
+
+		D3D11_MAPPED_SUBRESOURCE mapped;
+
+		if (FAILED(context->Map(m_textureStaging.Get(), 0, D3D11_MAP_WRITE, wait ? 0 : D3D11_MAP_FLAG_DO_NOT_WAIT, &mapped)))
+		{
+			return false;
+		}
+
+		if (detail::GetPixelSize(m_format) * m_desc.Width > mapped.RowPitch)
+		{
+			context->Unmap(m_textureStaging.Get(), 0);
+
+			return false;
+		}
+
+		if (mapped.pData)
+		{
+			detail::Fill(mapped.pData, m_desc.Width, m_desc.Height, mapped.RowPitch, color, m_format);
+		}
+
+		context->Unmap(m_textureStaging.Get(), 0);
+
+		context->CopyResource(m_texture.Get(), m_textureStaging.Get());
+
+		return true;
+	}
+
+	bool Texture_D3D11::fill(ID3D11DeviceContext* context, const void* src, const uint32 stride, bool wait)
+	{
+		if (!m_textureStaging)
+		{
+			return false;
+		}
+
+		D3D11_MAPPED_SUBRESOURCE mapped;
+
+		if (FAILED(context->Map(m_textureStaging.Get(), 0, D3D11_MAP_WRITE, wait ? 0 : D3D11_MAP_FLAG_DO_NOT_WAIT, &mapped)))
+		{
+			return false;
+		}
+
+		if (detail::GetPixelSize(m_format) * m_desc.Width > mapped.RowPitch)
+		{
+			context->Unmap(m_textureStaging.Get(), 0);
+
+			return false;
+		}
+
+		if (mapped.pData)
+		{
+			detail::Fill(mapped.pData, m_desc.Width, m_desc.Height, mapped.RowPitch, src, stride, m_format);
+		}
+
+		context->Unmap(m_textureStaging.Get(), 0);
+
+		context->CopyResource(m_texture.Get(), m_textureStaging.Get());
+
+		return false;
 	}
 }
 

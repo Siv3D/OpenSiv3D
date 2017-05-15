@@ -16,6 +16,7 @@
 # include <GL/glew.h>
 # include "../../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 # include <Siv3D/Image.hpp>
+# include <Siv3D/TextureFormat.hpp>
 
 namespace s3d
 {
@@ -27,6 +28,10 @@ namespace s3d
 		
 		Size m_size = { 0, 0 };
 
+		TextureFormat m_format = TextureFormat::Unknown;
+		
+		bool m_isDynamic = false;
+		
 		bool m_initialized = false;
 
 		bool isSRGB() const
@@ -47,6 +52,8 @@ namespace s3d
 		
 		Texture_GL(const Image& image, const Array<Image>& mipmaps, const TextureDesc desc);
 		
+		Texture_GL(const Size& size, const void* pData, uint32 stride, TextureFormat format);
+		
 		~Texture_GL();
 
 		bool isInitialized() const noexcept
@@ -63,6 +70,10 @@ namespace s3d
 		{
 			return m_size;
 		}
+		
+		bool fill(const ColorF& color, bool wait);
+		
+		bool fill(const void* src, uint32 stride, bool wait);
 	};
 }
 

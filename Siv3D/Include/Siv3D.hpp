@@ -502,8 +502,8 @@
 	# include "Siv3D/TextureRegion.hpp"
 	// 四角形に貼り付けたテクスチャ
 	# include "Siv3D/TexturedQuad.hpp"
-	//// 動的テクスチャ
-	//# include "Siv3D/DynamicTexture.hpp"
+	// 動的テクスチャ
+	# include "Siv3D/DynamicTexture.hpp"
 	// レンダーテクスチャ
 	# include "Siv3D/RenderTexture.hpp"
 //

@@ -64,9 +64,15 @@ namespace s3d
 
 		struct BackBuffer {};
 
+		struct Dynamic {};
+
 		struct Render {};
 
 		explicit Texture(BackBuffer);
+
+		Texture(Dynamic, uint32 width, uint32 height, const void* pData, uint32 stride, TextureFormat format);
+
+		Texture(Dynamic, uint32 width, uint32 height, const ColorF& color, TextureFormat format);
 
 		Texture(Render, const Size& size, uint32 multisampleCount);
 

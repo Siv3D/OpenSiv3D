@@ -24,6 +24,7 @@
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/Image.hpp>
 # include <Siv3D/Array.hpp>
+# include <Siv3D/TextureFormat.hpp>
 
 using namespace Microsoft::WRL;
 
@@ -35,6 +36,8 @@ namespace s3d
 
 		ComPtr<ID3D11Texture2D> m_texture;
 
+		ComPtr<ID3D11Texture2D> m_textureStaging;
+
 		ComPtr<ID3D11RenderTargetView> m_renderTargetView;
 
 		ComPtr<ID3D11ShaderResourceView> m_shaderResourceView;
@@ -44,6 +47,8 @@ namespace s3d
 		D3D11_RENDER_TARGET_VIEW_DESC m_rtDesc{};
 
 		D3D11_SHADER_RESOURCE_VIEW_DESC m_srvDesc{};
+
+		TextureFormat m_format = TextureFormat::Unknown;
 
 		bool m_initialized = false;
 
@@ -57,6 +62,7 @@ namespace s3d
 
 		struct Null {};
 		struct BackBuffer {};
+		struct Dynamic {};
 		struct Render {};
 
 		Texture_D3D11() = default;
@@ -64,6 +70,8 @@ namespace s3d
 		Texture_D3D11(Null, ID3D11Device* device);
 
 		Texture_D3D11(BackBuffer, ID3D11Device* device, IDXGISwapChain* swapChain);
+
+		Texture_D3D11(Dynamic, ID3D11Device* device, const Size& size, const void* pData, uint32 stride, TextureFormat format);
 
 		Texture_D3D11(Render, ID3D11Device* device, const Size& size, uint32 multisampleCount);
 
@@ -103,6 +111,11 @@ namespace s3d
 		bool endResize(BackBuffer, ID3D11Device* device, IDXGISwapChain* swapChain);
 
 		bool endResize(Render, ID3D11Device* device, const Size& size, uint32 multisampleCount);
+
+
+		bool fill(ID3D11DeviceContext* context, const ColorF& color, bool wait);
+
+		bool fill(ID3D11DeviceContext* context, const void* src, uint32 stride, bool wait);
 	};
 }
 

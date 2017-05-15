@@ -37,6 +37,10 @@ namespace s3d
 
 		Texture::IDType create(const Image& image, const Array<Image>& mipmaps, TextureDesc desc) override;
 
+		Texture::IDType createDynamic(const Size& size, const void* pData, uint32 stride, TextureFormat format) override;
+
+		Texture::IDType createDynamic(const Size& size, const ColorF& color, TextureFormat format) override;
+
 		Texture::IDType createRT(const Size& size, uint32 multisampleCount) override;
 
 		void release(Texture::IDType handleID) override;
@@ -67,6 +71,10 @@ namespace s3d
 
 
 		void setPS(uint32 slot, Texture::IDType handleID) override;
+
+		bool fill(Texture::IDType handleID, const ColorF& color, bool wait) override;
+
+		bool fill(Texture::IDType handleID, const void* src, uint32 stride, bool wait) override;
 	};
 }
 

@@ -25,7 +25,7 @@ namespace s3d
 	/// 画像の最大サイズ
 	/// </summary>
 	constexpr int32 MaxImageSize = 8192;
-	
+
 	/// <summary>
 	/// 画像
 	/// </summary>
@@ -68,6 +68,11 @@ namespace s3d
 		}
 
 		static Image Generate0_1(const size_t width, const size_t height, std::function<Color(Vec2)> generator);
+
+		static constexpr int32 Mod(int32 x, int32 y)
+		{
+			return x % y + ((x < 0) ? y : 0);
+		}
 
 	public:
 
@@ -141,16 +146,16 @@ namespace s3d
 		/// </param>
 		Image(size_t width, size_t height);
 
-		Image(uint32 width, uint32 height, Arg::generator_<std::function<Color(void)>> generator)
+		Image(size_t width, size_t height, Arg::generator_<std::function<Color(void)>> generator)
 			: Image(Generate(width, height, *generator)) {}
 
-		Image(uint32 width, uint32 height, Arg::generator_<std::function<Color(Point)>> generator)
+		Image(size_t width, size_t height, Arg::generator_<std::function<Color(Point)>> generator)
 			: Image(Generate(width, height, *generator)) {}
 
-		Image(uint32 width, uint32 height, Arg::generator_<std::function<Color(Vec2)>> generator)
+		Image(size_t width, size_t height, Arg::generator_<std::function<Color(Vec2)>> generator)
 			: Image(Generate(width, height, *generator)) {}
 
-		Image(uint32 width, uint32 height, Arg::generator0_1_<std::function<Color(Vec2)>> generator)
+		Image(size_t width, size_t height, Arg::generator0_1_<std::function<Color(Vec2)>> generator)
 			: Image(Generate0_1(width, height, *generator)) {}
 
 		/// <summary>
@@ -409,7 +414,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した行の先頭ポインタ
 		/// </returns>
-		Color* operator[](uint32 y)
+		Color* operator[](size_t y)
 		{
 			return &m_data[m_width * y];
 		}
@@ -431,7 +436,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した行の先頭ポインタ
 		/// </returns>
-		const Color* operator[](uint32 y) const
+		const Color* operator[](size_t y) const
 		{
 			return &m_data[m_width * y];
 		}
@@ -682,15 +687,34 @@ namespace s3d
 		}
 
 
-		bool applyAlphaFromRChannel(const FilePath& alpha);
+		const Color& getPixel_Repeat(int32 x, int32 y) const
+		{
+			return m_data[m_width * Mod(y, m_height) + Mod(x, m_width)];
+		}
 
-		bool save(const FilePath& path, ImageFormat format = ImageFormat::Unspecified) const;
+		const Color& getPixel_Repeat(const Point& pos) const
+		{
+			return getPixel_Repeat(pos.x, pos.y);
+		}
 
-		bool saveJPEG(const FilePath& path, int32 quality = 90) const;
+		/// <summary>
+		/// すべてのピクセルに変換関数を適用します。
+		/// </summary>
+		/// <param name="function">
+		/// 変換関数
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		Image& forEach(std::function<void(Color&)> function)
+		{
+			for (auto& pixel : m_data)
+			{
+				function(pixel);
+			}
 
-		bool savePerceptualJPEG(const FilePath& path, double butteraugliTarget = 1.0) const;
-
-		MemoryWriter encode(ImageFormat format = ImageFormat::PNG) const;
+			return *this;
+		}
 
 		Image& swapRB()
 		{
@@ -700,12 +724,22 @@ namespace s3d
 				pixel.r = pixel.b;
 				pixel.b = t;
 			}
-			
+
 			return *this;
 		}
+
+		bool applyAlphaFromRChannel(const FilePath& alpha);
+
+		bool save(const FilePath& path, ImageFormat format = ImageFormat::Unspecified) const;
+
+		bool saveJPEG(const FilePath& path, int32 quality = 90) const;
+
+		bool savePerceptualJPEG(const FilePath& path, double butteraugliTarget = 1.0) const;
+
+		MemoryWriter encode(ImageFormat format = ImageFormat::PNG) const;
 	};
 
-	namespace Imaging
+	namespace ImageProcessing
 	{
 		/// <summary>
 		/// 2 つの画像間の知覚的な誤差を計算します。
