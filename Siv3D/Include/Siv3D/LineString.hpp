@@ -242,14 +242,14 @@ namespace s3d
 			return draw(LineStyle::SquareCap, thickness, color, isClosed);
 		}
 
-		const LineString& draw(LineStyle style, double thickness, const ColorF& color = Palette::White, bool isClosed = false) const;
+		const LineString& draw(const LineStyle& style, double thickness, const ColorF& color = Palette::White, bool isClosed = false) const;
 
 		void drawCatmullRom(double thickness = 1.0, const ColorF& color = Palette::White, bool isClosed = false, int32 interpolation = 24) const
 		{
 			drawCatmullRom(LineStyle::SquareCap, thickness, color, isClosed, interpolation);
 		}
 
-		void drawCatmullRom(LineStyle style, double thickness = 1.0, const ColorF& color = Palette::White, bool isClosed = false, int32 interpolation = 24) const;
+		void drawCatmullRom(const LineStyle& style, double thickness = 1.0, const ColorF& color = Palette::White, bool isClosed = false, int32 interpolation = 24) const;
 
 
 		// drawArray

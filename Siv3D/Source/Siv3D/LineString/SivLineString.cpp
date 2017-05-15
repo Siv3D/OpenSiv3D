@@ -118,7 +118,7 @@ namespace s3d
 		return splinePoints;
 	}
 
-	const LineString& LineString::draw(const LineStyle style, const double thickness, const ColorF& color, const bool isClosed) const
+	const LineString& LineString::draw(const LineStyle& style, const double thickness, const ColorF& color, const bool isClosed) const
 	{
 		if (size() < 2)
 		{
@@ -139,7 +139,7 @@ namespace s3d
 		return *this;
 	}
 
-	void LineString::drawCatmullRom(const LineStyle style, const double thickness, const ColorF& color, const bool isClosed, const int32 interpolation) const
+	void LineString::drawCatmullRom(const LineStyle& style, const double thickness, const ColorF& color, const bool isClosed, const int32 interpolation) const
 	{
 		catmullRom(isClosed, interpolation).draw(style, thickness, color, isClosed);
 	}

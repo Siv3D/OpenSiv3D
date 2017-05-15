@@ -398,7 +398,7 @@ namespace s3d
 				addCirclePie(end, thicknessHalf, std::atan2(-vNormal.x, vNormal.y), Math::PiF, colors[1]);
 			}
 		}
-		else if (style == LineStyle::SquareCapDot)
+		else if (style == LineStyle::SquareDot)
 		{
 			constexpr IndexType vertexSize = 4, indexSize = 6;
 			Vertex2D* pVertex;
@@ -441,7 +441,7 @@ namespace s3d
 			
 			m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::LineDot);
 		}
-		else if (style == LineStyle::RoundCapDot)
+		else if (style == LineStyle::RoundDot)
 		{
 			constexpr IndexType vertexSize = 4, indexSize = 6;
 			Vertex2D* pVertex;
@@ -486,14 +486,6 @@ namespace s3d
 			
 			m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::LineRoundDot);
 		}
-
-		/*
-		GLenum err;
-		while((err = glGetError()) != GL_NO_ERROR)
-		{
-			Log << L"HasError";
-		}
-		*/
 	}
 	
 	void CRenderer2D_GL::addTriangle(const Float2(&pts)[3], const Float4& color)

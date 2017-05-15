@@ -154,7 +154,7 @@ namespace s3d
 		}
 	}
 
-	const Line& Line::draw(const LineStyle style, double thickness, const ColorF& color) const
+	const Line& Line::draw(const LineStyle& style, double thickness, const ColorF& color) const
 	{
 		const Float4 colorF = color.toFloat4();
 
@@ -163,7 +163,7 @@ namespace s3d
 		return *this;
 	}
 
-	const Line& Line::draw(const LineStyle style, double thickness, const ColorF(&colors)[2]) const
+	const Line& Line::draw(const LineStyle& style, double thickness, const ColorF(&colors)[2]) const
 	{
 		Siv3DEngine::GetRenderer2D()->addLine(style, begin, end, static_cast<float>(thickness),
 		{

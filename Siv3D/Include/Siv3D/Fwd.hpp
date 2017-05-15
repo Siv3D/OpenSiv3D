@@ -337,7 +337,7 @@ namespace s3d
 	//
 	//	Line.hpp
 	//
-	enum class LineStyle;
+	struct LineStyle;
 	struct Line;
 
 	//////////////////////////////////////////////////////
