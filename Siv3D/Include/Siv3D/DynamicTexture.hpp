@@ -42,5 +42,19 @@ namespace s3d
 			: DynamicTexture(size.x, size.y, color, format) {}
 
 		explicit DynamicTexture(const Image& image, TextureFormat format = TextureFormat::R8G8B8A8_Unorm);
+
+		bool fill(const ColorF& color);
+
+		/// <summary>
+		/// 動的テクスチャの中身を同じ大きさの画像で更新します。
+		/// 動的テクスチャが空の場合は新しい動的テクスチャを画像から作成します。
+		/// </summary>
+		/// <param name="image">
+		/// 画像
+		/// </param>
+		/// <returns>
+		/// 動的テクスチャの更新か作成に成功した場合 true, それ以外の場合は false
+		/// </returns>
+		bool fill(const Image& image);
 	};
 }

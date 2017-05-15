@@ -75,6 +75,18 @@ namespace s3d
 		return m_textures.add(texture);
 	}
 
+	Texture::IDType CTexture_GL::createDynamic(const Size& size, const void* pData, uint32 stride, TextureFormat format)
+	{
+		// [Siv3D ToDo]
+		return Texture::NullHandleID;
+	}
+
+	Texture::IDType CTexture_GL::createDynamic(const Size& size, const ColorF& color, TextureFormat format)
+	{
+		// [Siv3D ToDo]
+		return Texture::NullHandleID;
+	}
+
 	Texture::IDType CTexture_GL::createRT(const Size&, const uint32)
 	{
 		return Texture::NullHandleID;
@@ -95,6 +107,18 @@ namespace s3d
 	{
 		::glActiveTexture(GL_TEXTURE0 + slot);
 		::glBindTexture(GL_TEXTURE_2D, m_textures[handleID]->getTexture());
+	}
+
+	bool CTexture_GL::fill(const Texture::IDType handleID, const ColorF& color, const bool wait)
+	{
+		// [Siv3D ToDo]
+		return false;
+	}
+
+	bool CTexture_GL::fill(const Texture::IDType handleID, const void* const src, const uint32 stride, const bool wait)
+	{
+		// [Siv3D ToDo]
+		return false;
 	}
 }
 

@@ -32,4 +32,31 @@ namespace s3d
 	{
 
 	}
+
+	bool DynamicTexture::fill(const ColorF& color)
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		return Siv3DEngine::GetTexture()->fill(m_handle->getID(), color, true);
+	}
+
+	bool DynamicTexture::fill(const Image& image)
+	{
+		if (isEmpty())
+		{
+			*this = DynamicTexture(image);
+
+			return true;
+		}
+
+		if (image.size() != size())
+		{
+			return false;
+		}
+
+		return Siv3DEngine::GetTexture()->fill(m_handle->getID(), image.data(), image.stride(), true);
+	}
 }
