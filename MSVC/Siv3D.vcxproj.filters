@@ -422,6 +422,9 @@
     <Filter Include="Source\Siv3D\DynamicTexture">
       <UniqueIdentifier>{fc0dd7e9-c99d-4b11-9f94-86484254afbc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Font">
+      <UniqueIdentifier>{c3006384-6afc-4a8c-ab8d-4e79ce28dd38}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1558,6 +1561,18 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\DynamicTexture.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Font\CFont.hpp">
+      <Filter>Source\Siv3D\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Font\IFont.hpp">
+      <Filter>Source\Siv3D\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Font.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Font\FontData.hpp">
+      <Filter>Source\Siv3D\Font</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2270,6 +2285,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\DynamicTexture\SivDynamicTexture.cpp">
       <Filter>Source\Siv3D\DynamicTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Font\FontFactory.cpp">
+      <Filter>Source\Siv3D\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Font\SivFont.cpp">
+      <Filter>Source\Siv3D\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Font\CFont.cpp">
+      <Filter>Source\Siv3D\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Font\FontData.cpp">
+      <Filter>Source\Siv3D\Font</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

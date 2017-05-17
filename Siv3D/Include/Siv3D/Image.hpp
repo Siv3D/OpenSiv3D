@@ -686,6 +686,8 @@ namespace s3d
 			resize(size.x, size.y, fillColor);
 		}
 
+		void resizeRows(size_t rows, const Color& fillColor);
+
 
 		const Color& getPixel_Repeat(int32 x, int32 y) const
 		{

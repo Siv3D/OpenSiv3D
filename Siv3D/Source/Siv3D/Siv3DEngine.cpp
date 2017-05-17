@@ -25,6 +25,7 @@
 # include "Texture/ITexture.hpp"
 # include "Shader/IShader.hpp"
 # include "Renderer2D/IRenderer2D.hpp"
+# include "Font/IFont.hpp"
 
 namespace s3d
 {
@@ -37,6 +38,7 @@ namespace s3d
 
 	Siv3DEngine::~Siv3DEngine()
 	{
+		m_font.release();
 		m_renderer2D.release();
 		m_shader.release();
 		m_texture.release();

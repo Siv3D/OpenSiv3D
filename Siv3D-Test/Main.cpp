@@ -2,23 +2,11 @@
 
 void Main()
 {
-	Graphics::SetTargetFrameRateHz(10);
-	RenderStateBlock2D rs(SamplerState::ClampNearest);
-	Image img(128, 96, Arg::generator = []() { return Color(Random(1), 0, 0); });
-	DynamicTexture tex;
+	const Font font(L"engine/font/mplus-1p-regular.ttf", 32);
 
 	while (System::Update())
 	{
-		for (auto b : step(img.size()))
-		{
-			int32 s = 0;
-			for (auto d : step({ -1, -1 }, { 3, 3 }))
-				s += img.getPixel_Repeat(b + d).r;
-
-			img[b].b = (s == 3) || (img[b].r && s == 4);
-		}
-
-		tex.fill(img.forEach([](Color& p) { p.g = (p.r = p.b) ? 255 : 0; }));
-		tex.scale(5).draw();
+		font(L"OpenSiv3D でテキスト描画\nこんにちは。\nThe quick brown fox\n花鳥風月")
+			.draw(Vec2(30,40), Palette::Orange);
 	}
 }
