@@ -2,11 +2,11 @@
 
 void Main()
 {
-	const Font font(L"engine/font/mplus-1p-regular.ttf", 32);
+	const Font font(Typeface::Heavy, 32);
 
 	while (System::Update())
 	{
-		font(L"OpenSiv3D でテキスト描画\nこんにちは。\nThe quick brown fox\n花鳥風月")
-			.draw(Vec2(30,40), Palette::Orange);
+		font(L"OpenSiv3D でテキスト描画\nこんにちは。\nThe quick brown fox jumps\n花鳥風月")
+			.draw(Vec2(20,20), Palette::Skyblue);
 	}
 }

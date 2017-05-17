@@ -20,6 +20,13 @@
 
 namespace s3d
 {
+	namespace Typeface
+	{
+		const String Regular = L"engine/font/mplus-1p-regular.ttf";
+		
+		const String Heavy = L"engine/font/mplus-1p-heavy.ttf";
+	}
+	
 	class Font
 	{
 	protected:
@@ -27,6 +34,8 @@ namespace s3d
 		class Handle {};
 
 		using FontHandle = AssetHandle<Handle>;
+		
+		friend FontHandle::~AssetHandle();
 
 		std::shared_ptr<FontHandle> m_handle;
 

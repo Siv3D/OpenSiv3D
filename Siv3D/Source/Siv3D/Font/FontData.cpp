@@ -9,6 +9,7 @@
 //
 //-----------------------------------------------
 
+# include <cfloat>
 # include "FontData.hpp"
 # include <Siv3D/CharacterSet.hpp>
 # include <Siv3D/TextureRegion.hpp>
