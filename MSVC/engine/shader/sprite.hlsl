@@ -47,3 +47,27 @@ float4 PS(VS_OUTPUT input) : SV_Target
 {
 	return texture0.Sample(sampler0, input.tex) * input.color;
 }
+
+float4 PS_SDF(VS_OUTPUT input) : SV_Target
+{
+	float a = texture0.Sample(sampler0, input.tex).r;
+
+	const float MIN_VALUE = 0.48;
+	
+	const float MAX_VALUE = 0.52;
+
+	const float EDGE_VALUE = (MIN_VALUE + MAX_VALUE) / 2;
+
+	if (MIN_VALUE < a && a < MAX_VALUE)
+	{
+		a = smoothstep(MIN_VALUE, MAX_VALUE, a);
+
+		//return float4(1, 1, 0, 1);
+	}
+	else
+	{
+		a = a > EDGE_VALUE ? 1.0 : 0.0;
+	}
+
+	return float4(input.color.rgb, a);
+}

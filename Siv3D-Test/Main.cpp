@@ -2,11 +2,25 @@
 
 void Main()
 {
-	const Font font(Typeface::Heavy, 32);
+	FileSystem::Remove(L"out.png");
+
+	const Image image(L"input.png");
+
+	TimeProfiler tp;
+
+	tp.begin(L"a");
+	
+	const Image result = ImageProcessing::GenerateSDF(image, 16);
+	
+	tp.end();
+
+	result.save(L"out.png");
+
+	Log << Hash::MD5FromFile(L"out.png");
+	Log << Hash::MD5FromFile(L"outRef.png");
 
 	while (System::Update())
 	{
-		font(L"OpenSiv3D でテキスト描画\nこんにちは。\nThe quick brown fox jumps\n花鳥風月")
-			.draw(Vec2(20,20), Palette::Skyblue);
+
 	}
 }

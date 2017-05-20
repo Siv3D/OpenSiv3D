@@ -41,5 +41,7 @@ namespace s3d
 		}
 
 		Array<Image> GenerateMips(const Image& src);
+
+		Image GenerateSDF(const Image& image, const uint32 scale, const double spread = 16.0);
 	}
 }

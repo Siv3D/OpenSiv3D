@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/ImageProcessing.hpp>
+# include <Siv3D/Number.hpp>
 
 namespace s3d
 {
@@ -70,6 +71,20 @@ namespace s3d
 
 			return result;
 		}
+
+		struct SDFPixel
+		{
+			Point border;
+			
+			float distance;
+			
+			bool white;
+		};
+
+		inline float CalcDistance(const int32 x, const int32 y, const Point pos) noexcept
+		{
+			return std::sqrt(static_cast<float>((x - pos.x) * (x - pos.x) + (y - pos.y) * (y - pos.y)));
+		}
 	}
 
 	namespace ImageProcessing
@@ -93,6 +108,224 @@ namespace s3d
 			}
 
 			return mipImages;
+		}
+
+		Image GenerateSDF(const Image& image, const uint32 scale, const double spread)
+		{
+			if (!image)
+			{
+				return Image();
+			}
+
+			const size_t num_pixels = image.num_pixels();
+			const size_t imageWidth = image.width();
+			const size_t imageHeight = image.height();
+			const size_t resultWidth = imageWidth / scale;
+			const size_t resultHeight = imageHeight / scale;
+
+			detail::SDFPixel* const pPixels = static_cast<detail::SDFPixel*>(::malloc(sizeof(detail::SDFPixel) * num_pixels));
+			{
+				const Color* pSrc = image.data();
+				const Color* const pSrcEnd = pSrc + num_pixels;
+				detail::SDFPixel* pDst = pPixels;
+
+				while (pSrc != pSrcEnd)
+				{
+					pDst->distance = Largest<float>();
+					pDst->border.set(-1, -1);
+					pDst->white = (pSrc->r == 255);
+
+					++pSrc;
+					++pDst;
+				}
+			}
+
+			{
+				detail::SDFPixel* pDst = pPixels;
+
+				for (int32 y = 0; y < imageHeight; ++y)
+				{
+					for (int32 x = 0; x < imageWidth; ++x)
+					{
+						const bool center = pDst->white;
+						const bool isEdge = (center &&
+							(((0 < x) && (pDst - 1)->white != center)
+								|| ((x < imageWidth - 1) && (pDst + 1)->white != center)
+								|| ((0 < y) && (pDst - imageWidth)->white != center)
+								|| ((y < imageHeight - 1) && (pDst + imageWidth)->white != center)
+								));
+
+						if (isEdge)
+						{
+							pDst->distance = 0.0f;
+							pDst->border.set(x, y);
+						}
+
+						++pDst;
+					}
+				}
+			}
+
+			{
+				constexpr float sqrt2 = 1.41421356237f;
+				detail::SDFPixel* pixel = pPixels;
+
+				for (int32 y = 0; y < imageHeight; ++y)
+				{
+					const bool y0 = (0 < y);
+
+					for (int32 x = 0; x < imageWidth; ++x)
+					{
+						{
+							const detail::SDFPixel* offsetPixel = (pixel - imageWidth - 1);
+
+							if ((0 < x) && y0 && (offsetPixel->distance + sqrt2) < pixel->distance)
+							{
+								pixel->border = offsetPixel->border;
+								pixel->distance = detail::CalcDistance(x, y, pixel->border);
+							}
+						}
+
+						{
+							const detail::SDFPixel* offsetPixel = (pixel - imageWidth);
+
+							if (y0 && (offsetPixel->distance + 1.0f) < pixel->distance)
+							{
+								pixel->border = offsetPixel->border;
+								pixel->distance = detail::CalcDistance(x, y, pixel->border);
+							}
+						}
+
+						{
+							const detail::SDFPixel* offsetPixel = (pixel - imageWidth + 1);
+
+							if ((x < imageWidth - 1) && y0 && (offsetPixel->distance + sqrt2) < pixel->distance)
+							{
+								pixel->border = offsetPixel->border;
+								pixel->distance = detail::CalcDistance(x, y, pixel->border);
+							}
+						}
+
+						{
+							const detail::SDFPixel* offsetPixel = (pixel - 1);
+
+							if ((0 < x) && (offsetPixel->distance + 1.0f) < pixel->distance)
+							{
+								pixel->border = offsetPixel->border;
+								pixel->distance = detail::CalcDistance(x, y, pixel->border);
+							}
+						}
+
+						++pixel;
+					}
+				}
+
+				pixel = pPixels + num_pixels - 1;
+
+				for (int32 y = static_cast<int32>(imageHeight - 1); y >= 0; --y)
+				{
+					const bool yH = (y < imageHeight - 1);
+
+					for (int32 x = static_cast<int32>(imageWidth - 1); x >= 0; --x)
+					{
+						{
+							const detail::SDFPixel* offsetPixel = (pixel + 1);
+
+							if ((x < imageWidth - 1) && (offsetPixel->distance + 1.0f) < pixel->distance)
+							{
+								pixel->border = offsetPixel->border;
+								pixel->distance = detail::CalcDistance(x, y, pixel->border);
+							}
+						}
+
+						{
+							const detail::SDFPixel* offsetPixel = (pixel + imageWidth - 1);
+
+							if ((0 < x) && yH && (offsetPixel->distance + sqrt2) < pixel->distance)
+							{
+								pixel->border = offsetPixel->border;
+								pixel->distance = detail::CalcDistance(x, y, pixel->border);
+							}
+						}
+
+						{
+							const detail::SDFPixel* offsetPixel = (pixel + imageWidth);
+
+							if (yH && (offsetPixel->distance + 1.0f) < pixel->distance)
+							{
+								pixel->border = offsetPixel->border;
+								pixel->distance = detail::CalcDistance(x, y, pixel->border);
+							}
+						}
+
+						{
+							const detail::SDFPixel* offsetPixel = (pixel + imageWidth + 1);
+
+							if ((x < imageWidth - 1) && yH && (offsetPixel->distance + sqrt2) < pixel->distance)
+							{
+								pixel->border = offsetPixel->border;
+								pixel->distance = detail::CalcDistance(x, y, pixel->border);
+							}
+						}
+
+						--pixel;
+					}
+				}
+			}
+
+			{
+				detail::SDFPixel* pDst = pPixels;
+				detail::SDFPixel* const pDstEnd = pDst + num_pixels;
+
+				while (pDst != pDstEnd)
+				{
+					if (!pDst->white)
+					{
+						pDst->distance = -pDst->distance;
+					}
+
+					++pDst;
+				}
+			}
+
+			Image result(resultWidth, resultHeight);
+			{
+				const float div = 1.0f / (scale * scale * static_cast<float>(spread));
+				const detail::SDFPixel* pSrcLine = pPixels;
+				Color* pDst = result.data();
+
+				for (size_t y = 0; y < imageHeight; y += scale)
+				{
+					for (size_t x = 0; x < imageWidth; x += scale)
+					{
+						const detail::SDFPixel* pSrc = pSrcLine + x;
+
+						float sum = 0.0f;
+
+						for (size_t dy = 0u; dy < scale; ++dy)
+						{
+							for (size_t dx = 0u; dx < scale; ++dx)
+							{
+								sum += pSrc[dx].distance;
+							}
+
+							pSrc += imageWidth;
+						}
+
+						const float d = sum * div;
+
+						const uint8 sd = (d <= -1.0f) ? 0 : (1.0f <= d) ? 255 : static_cast<uint8>((d + 1.0f) * 127.5f + 0.5f);
+
+						(pDst++)->set(sd, sd, sd, 255);
+					}
+
+					pSrcLine += (imageWidth * scale);
+				}
+			}
+
+			::free(pPixels);
+
+			return result;
 		}
 	}
 }

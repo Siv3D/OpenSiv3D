@@ -96,6 +96,7 @@ namespace s3d
 		compileHLSLToFile(S3DSTR("engine/shader/shape.hlsl"), S3DSTR("engine/shader/shape.ps"), "PS", "ps_4_0");
 		compileHLSLToFile(S3DSTR("engine/shader/shape.hlsl"), S3DSTR("engine/shader/line_dot.ps"), "PS_LineDot", "ps_4_0");
 		compileHLSLToFile(S3DSTR("engine/shader/shape.hlsl"), S3DSTR("engine/shader/line_round_dot.ps"), "PS_LineRoundDot", "ps_4_0");
+		//compileHLSLToFile(S3DSTR("engine/shader/sprite.hlsl"), S3DSTR("engine/shader/sprite_sdf.ps"), "PS_SDF", "ps_4_0");
 		//*/
 
 		m_standardVSs.push_back(VertexShader(Resource(S3DSTR("engine/shader/sprite.vs"))));
