@@ -2,22 +2,22 @@
 
 void Main()
 {
-	FileSystem::Remove(L"out.png");
+	//FileSystem::Remove(L"out.png");
 
-	const Image image(L"input.png");
+	//const Image image(L"input.png");
 
-	TimeProfiler tp;
+	//TimeProfiler tp;
 
-	tp.begin(L"a");
-	
-	const Image result = ImageProcessing::GenerateSDF(image, 16);
-	
-	tp.end();
+	//tp.begin(L"a");
+	//
+	//const Image result = ImageProcessing::GenerateSDF(image, 16);
+	//
+	//tp.end();
 
-	result.save(L"out.png");
+	//result.save(L"out.png");
 
-	Log << Hash::MD5FromFile(L"out.png");
-	Log << Hash::MD5FromFile(L"outRef.png");
+	//Log << Hash::MD5FromFile(L"out.png");
+	//Log << Hash::MD5FromFile(L"outRef.png");
 
 	while (System::Update())
 	{

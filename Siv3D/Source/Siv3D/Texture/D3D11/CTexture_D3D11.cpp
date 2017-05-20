@@ -155,6 +155,11 @@ namespace s3d
 		return m_textures[handleID]->getSize();
 	}
 
+	TextureDesc CTexture_D3D11::getDesc(Texture::IDType handleID)
+	{
+		return m_textures[handleID]->getDesc();
+	}
+
 	void CTexture_D3D11::clearRT(Texture::IDType handleID, const ColorF& color)
 	{
 		m_textures[handleID]->clearRT(m_context, color);

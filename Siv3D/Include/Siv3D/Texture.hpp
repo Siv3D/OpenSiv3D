@@ -45,6 +45,11 @@ namespace s3d
 		MippedSRGB,
 
 		/// <summary>
+		/// Signed Distance Field
+		/// </summary>
+		SDF,
+
+		/// <summary>
 		/// 3D 用のテクスチャのデフォルト [ミップマップあり、sRGB]
 		/// </summary>
 		For3D = MippedSRGB,
@@ -220,6 +225,12 @@ namespace s3d
 		int32 height() const;
 
 		Size size() const;
+
+		TextureDesc getDesc() const;
+
+		bool isMipped() const;
+
+		bool isSDF() const;
 
 		Rect region(int32 x, int32 y) const
 		{

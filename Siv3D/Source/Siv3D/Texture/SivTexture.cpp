@@ -149,6 +149,25 @@ namespace s3d
 		return Siv3DEngine::GetTexture()->getSize(m_handle->getID());
 	}
 
+	TextureDesc Texture::getDesc() const
+	{
+		return Siv3DEngine::GetTexture()->getDesc(m_handle->getID());
+	}
+
+	bool Texture::isMipped() const
+	{
+		const TextureDesc desc = Siv3DEngine::GetTexture()->getDesc(m_handle->getID());
+
+		return (desc == TextureDesc::UnmippedSRGB) || (desc == TextureDesc::MippedSRGB);
+	}
+
+	bool Texture::isSDF() const
+	{
+		const TextureDesc desc = Siv3DEngine::GetTexture()->getDesc(m_handle->getID());
+
+		return (desc == TextureDesc::SDF);
+	}
+
 	RectF Texture::draw(const double x, const double y, const ColorF& diffuse) const
 	{
 		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->getID());

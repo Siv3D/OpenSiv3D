@@ -118,10 +118,10 @@ namespace s3d
 			}
 
 			const size_t num_pixels = image.num_pixels();
-			const size_t imageWidth = image.width();
-			const size_t imageHeight = image.height();
-			const size_t resultWidth = imageWidth / scale;
-			const size_t resultHeight = imageHeight / scale;
+			const int32 imageWidth = image.width();
+			const int32 imageHeight = image.height();
+			const int32 resultWidth = imageWidth / scale;
+			const int32 resultHeight = imageHeight / scale;
 
 			detail::SDFPixel* const pPixels = static_cast<detail::SDFPixel*>(::malloc(sizeof(detail::SDFPixel) * num_pixels));
 			{
@@ -222,11 +222,11 @@ namespace s3d
 
 				pixel = pPixels + num_pixels - 1;
 
-				for (int32 y = static_cast<int32>(imageHeight - 1); y >= 0; --y)
+				for (int32 y = imageHeight - 1; y >= 0; --y)
 				{
 					const bool yH = (y < imageHeight - 1);
 
-					for (int32 x = static_cast<int32>(imageWidth - 1); x >= 0; --x)
+					for (int32 x = imageWidth - 1; x >= 0; --x)
 					{
 						{
 							const detail::SDFPixel* offsetPixel = (pixel + 1);
@@ -294,9 +294,9 @@ namespace s3d
 				const detail::SDFPixel* pSrcLine = pPixels;
 				Color* pDst = result.data();
 
-				for (size_t y = 0; y < imageHeight; y += scale)
+				for (int32 y = 0; y < imageHeight; y += scale)
 				{
-					for (size_t x = 0; x < imageWidth; x += scale)
+					for (int32 x = 0; x < imageWidth; x += scale)
 					{
 						const detail::SDFPixel* pSrc = pSrcLine + x;
 

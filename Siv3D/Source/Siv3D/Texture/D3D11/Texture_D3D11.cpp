@@ -65,19 +65,27 @@ namespace s3d
 			}
 		}
 
-		static void Fill(void* const buffer, const uint32 width, const uint32 height, const uint32 dstStride, const void* pData, const uint32 srcStride, const TextureFormat format)
+		static void Fill(void* const buffer, const uint32, const uint32 height, const uint32 dstStride, const void* pData, const uint32 srcStride, const TextureFormat format)
 		{
 			if (format == TextureFormat::R8G8B8A8_Unorm)
 			{
 				uint8* pDst = static_cast<uint8*>(buffer);
 				const uint8* pSrc = static_cast<const uint8*>(pData);
-				const uint32 minStride = std::min(dstStride, srcStride);
 
-				for (uint32 y = 0; y < height; ++y)
+				if (dstStride == srcStride)
 				{
-					::memcpy(pDst, pSrc, minStride);
-					pDst += dstStride;
-					pSrc += srcStride;
+					::memcpy(pDst, pSrc, dstStride * height);
+				}
+				else
+				{
+					const uint32 minStride = std::min(dstStride, srcStride);
+
+					for (uint32 y = 0; y < height; ++y)
+					{
+						::memcpy(pDst, pSrc, minStride);
+						pDst += dstStride;
+						pSrc += srcStride;
+					}
 				}
 			}
 		}
@@ -115,6 +123,7 @@ namespace s3d
 		}
 
 		m_format = TextureFormat::R8G8B8A8_Unorm;
+		m_textureDesc = TextureDesc::Unmipped;
 		m_initialized = true;
 	}
 
@@ -140,6 +149,7 @@ namespace s3d
 		m_shaderResourceView->GetDesc(&m_srvDesc);
 
 		m_format = TextureFormat::R8G8B8A8_Unorm; // [Siv3D ToDo]
+		m_textureDesc = TextureDesc::Unmipped;
 		m_initialized = true;
 	}
 
@@ -204,6 +214,7 @@ namespace s3d
 		}
 
 		m_format = format;
+		m_textureDesc = TextureDesc::Unmipped;
 		m_initialized = true;
 	}
 
@@ -243,10 +254,11 @@ namespace s3d
 		}
 
 		m_format = TextureFormat::R8G8B8A8_Unorm;
+		m_textureDesc = TextureDesc::Unmipped;
 		m_initialized = true;
 	}
 
-	Texture_D3D11::Texture_D3D11(ID3D11Device* device, const Image& image, const TextureDesc)
+	Texture_D3D11::Texture_D3D11(ID3D11Device* device, const Image& image, const TextureDesc desc)
 	{
 		m_desc.Width				= image.width();
 		m_desc.Height				= image.height();
@@ -276,10 +288,11 @@ namespace s3d
 		}
 
 		m_format = TextureFormat::R8G8B8A8_Unorm;
+		m_textureDesc = desc;
 		m_initialized = true;
 	}
 
-	Texture_D3D11::Texture_D3D11(ID3D11Device* const device, const Image& image, const Array<Image>& mipmaps, const TextureDesc)
+	Texture_D3D11::Texture_D3D11(ID3D11Device* const device, const Image& image, const Array<Image>& mipmaps, const TextureDesc desc)
 	{
 		m_desc.Width				= image.width();
 		m_desc.Height				= image.height();
@@ -316,6 +329,7 @@ namespace s3d
 		}
 
 		m_format = TextureFormat::R8G8B8A8_Unorm;
+		m_textureDesc = desc;
 		m_initialized = true;
 	}
 

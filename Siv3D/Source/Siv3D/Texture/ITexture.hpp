@@ -39,6 +39,8 @@ namespace s3d
 
 		virtual Size getSize(Texture::IDType handleID) = 0;
 
+		virtual TextureDesc getDesc(Texture::IDType handleID) = 0;
+
 		virtual void clearRT(Texture::IDType handleID, const ColorF& color) = 0;
 
 		virtual void beginResize(Texture::IDType handleID) = 0;

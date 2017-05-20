@@ -134,6 +134,11 @@ namespace s3d
 	{
 		return m_textures[handleID]->getSize();
 	}
+
+	TextureDesc CTexture_GL::getDesc(Texture::IDType handleID)
+	{
+		return m_textures[handleID]->getDesc();
+	}
 	
 	
 	void CTexture_GL::setPS(const uint32 slot, const Texture::IDType handleID)

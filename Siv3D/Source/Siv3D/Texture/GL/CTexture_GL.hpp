@@ -47,6 +47,8 @@ namespace s3d
 
 		Size getSize(Texture::IDType handleID) override;
 
+		TextureDesc getDesc(Texture::IDType handleID) override;
+
 		void clearRT(Texture::IDType, const ColorF&) override
 		{
 			// [Siv3D ToDo]

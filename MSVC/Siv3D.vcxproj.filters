@@ -377,9 +377,6 @@
     <Filter Include="Source\Siv3D\BlendState">
       <UniqueIdentifier>{d88b8048-155b-4a98-8bce-ead211a2fecb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Siv3D\RasterizerState">
-      <UniqueIdentifier>{1282df3e-2c27-4d02-b600-4540fc8476c5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Siv3D\LineString">
       <UniqueIdentifier>{176f4596-10bc-4904-a479-c8faed2c6eca}</UniqueIdentifier>
     </Filter>
@@ -424,6 +421,9 @@
     </Filter>
     <Filter Include="Source\Siv3D\Font">
       <UniqueIdentifier>{c3006384-6afc-4a8c-ab8d-4e79ce28dd38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\RasterizerState">
+      <UniqueIdentifier>{1282df3e-2c27-4d02-b600-4540fc8476c5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

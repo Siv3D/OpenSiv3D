@@ -24,6 +24,7 @@
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/Image.hpp>
 # include <Siv3D/Array.hpp>
+# include <Siv3D/Texture.hpp>
 # include <Siv3D/TextureFormat.hpp>
 
 using namespace Microsoft::WRL;
@@ -49,6 +50,8 @@ namespace s3d
 		D3D11_SHADER_RESOURCE_VIEW_DESC m_srvDesc{};
 
 		TextureFormat m_format = TextureFormat::Unknown;
+
+		TextureDesc m_textureDesc = TextureDesc::Unmipped;
 
 		bool m_initialized = false;
 
@@ -88,6 +91,12 @@ namespace s3d
 		{
 			return{ m_desc.Width, m_desc.Height };
 		}
+
+		TextureDesc getDesc() const
+		{
+			return m_textureDesc;
+		}
+
 
 		ID3D11Texture2D* getTexture()
 		{
