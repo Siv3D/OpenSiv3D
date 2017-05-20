@@ -44,6 +44,7 @@
 		# pragma comment (lib, "Windows(x64)/zlib/zlib_d")
 		# pragma comment (lib, "Windows(x64)/libpng/libpng16_d")
 		# pragma comment (lib, "Windows(x64)/libjpeg-turbo/turbojpeg-static_d")
+		# pragma comment (lib, "Windows(x64)/freetype/freetype28MTd")
 
 	# else
 
@@ -51,6 +52,7 @@
 		# pragma comment (lib, "Windows(x64)/zlib/zlib")
 		# pragma comment (lib, "Windows(x64)/libpng/libpng16")
 		# pragma comment (lib, "Windows(x64)/libjpeg-turbo/turbojpeg-static")
+		# pragma comment (lib, "Windows(x64)/freetype/freetype28MT")
 
 	# endif
 
@@ -62,6 +64,7 @@
 		# pragma comment (lib, "Windows(x86)/zlib/zlib_d")
 		# pragma comment (lib, "Windows(x86)/libpng/libpng16_d")
 		# pragma comment (lib, "Windows(x86)/libjpeg-turbo/turbojpeg-static_d")
+		# pragma comment (lib, "Windows(x86)/freetype/freetype28MTd")
 
 	# else
 
@@ -69,6 +72,7 @@
 		# pragma comment (lib, "Windows(x86)/zlib/zlib")
 		# pragma comment (lib, "Windows(x86)/libpng/libpng16")
 		# pragma comment (lib, "Windows(x86)/libjpeg-turbo/turbojpeg-static")
+		# pragma comment (lib, "Windows(x86)/freetype/freetype28MT")
 
 	# endif
 

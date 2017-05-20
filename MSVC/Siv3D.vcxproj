@@ -63,6 +63,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\BigFloat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\FloatQuad.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\FloatRect.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Font.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Format.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\FormatBool.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\FormatFloat.hpp" />
@@ -223,6 +224,9 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\DragDrop\IDragDrop.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\EngineDirectory\EngineDirectory.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\EngineUtility.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Font\CFont.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Font\FontData.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Font\IFont.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\BlendState\D3D11BlendState.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\CGraphics_D3D11.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\DepthStencilState\D3D11DepthStencilState.hpp" />
@@ -450,6 +454,10 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\FileSystem\SivFileSystem_Linux.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FileSystem\SivFileSystem_macOS.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FileSystem\SivFileSystem_Windows.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Font\CFont.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Font\FontData.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Font\FontFactory.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Font\SivFont.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatBool\SivFormatBool.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatFloat\SivFormatFloat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatInt\SivFormatInt.cpp" />
@@ -696,23 +704,23 @@
     <OutDir>..\Siv3D\Lib\Windows(x64)\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
     <IntDir>$(ProjectName)\Intermediate\Debug-x64\</IntDir>
-    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_64_0;..\Siv3D\Source\ThirdParty\zstd;..\Siv3D\Source\ThirdParty\zstd\common;..\Siv3D\Source\ThirdParty;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_64_0;..\Siv3D\Source\ThirdParty\zstd;..\Siv3D\Source\ThirdParty\zstd\common;..\Siv3D\Source\ThirdParty;..\Siv3D\Source\ThirdParty\freetype;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IntDir>$(ProjectName)\Intermediate\Release-x64\</IntDir>
     <OutDir>..\Siv3D\Lib\Windows(x64)\</OutDir>
-    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_64_0;..\Siv3D\Source\ThirdParty\zstd;..\Siv3D\Source\ThirdParty\zstd\common;..\Siv3D\Source\ThirdParty;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_64_0;..\Siv3D\Source\ThirdParty\zstd;..\Siv3D\Source\ThirdParty\zstd\common;..\Siv3D\Source\ThirdParty;..\Siv3D\Source\ThirdParty\freetype;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>..\Siv3D\Lib\Windows(x86)\</OutDir>
     <IntDir>$(ProjectName)\Intermediate\Release-x86\</IntDir>
-    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_64_0;..\Siv3D\Source\ThirdParty\zstd;..\Siv3D\Source\ThirdParty\zstd\common;..\Siv3D\Source\ThirdParty;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_64_0;..\Siv3D\Source\ThirdParty\zstd;..\Siv3D\Source\ThirdParty\zstd\common;..\Siv3D\Source\ThirdParty;..\Siv3D\Source\ThirdParty\freetype;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\Siv3D\Lib\Windows(x86)\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
     <IntDir>$(ProjectName)\Intermediate\Debug-x86\</IntDir>
-    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_64_0;..\Siv3D\Source\ThirdParty\zstd;..\Siv3D\Source\ThirdParty\zstd\common;..\Siv3D\Source\ThirdParty;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\Include;..\Dependencies\boost_1_64_0;..\Siv3D\Source\ThirdParty\zstd;..\Siv3D\Source\ThirdParty\zstd\common;..\Siv3D\Source\ThirdParty;..\Siv3D\Source\ThirdParty\freetype;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

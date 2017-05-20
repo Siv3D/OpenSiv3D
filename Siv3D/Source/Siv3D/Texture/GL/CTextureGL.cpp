@@ -101,9 +101,9 @@ namespace s3d
 		return m_textures.add(texture);
 	}
 
-	Texture::IDType CTexture_GL::createDynamic(const Size& size, const void* pData, const uint32 stride, const TextureFormat format)
+	Texture::IDType CTexture_GL::createDynamic(const Size& size, const void* pData, const uint32 stride, const TextureFormat format, const TextureDesc desc)
 	{
-		const auto texture = std::make_shared<Texture_GL>(size, pData, stride, format);
+		const auto texture = std::make_shared<Texture_GL>(size, pData, stride, format, desc);
 		
 		if (!texture->isInitialized())
 		{
@@ -113,11 +113,11 @@ namespace s3d
 		return m_textures.add(texture);
 	}
 
-	Texture::IDType CTexture_GL::createDynamic(const Size& size, const ColorF& color, const TextureFormat format)
+	Texture::IDType CTexture_GL::createDynamic(const Size& size, const ColorF& color, const TextureFormat format, const TextureDesc desc)
 	{
 		const Array<Byte> initialData = detail::GenerateInitialColorBuffer(size, color, format);
 		
-		return createDynamic(size, initialData.data(), static_cast<uint32>(initialData.size() / size.y), format);
+		return createDynamic(size, initialData.data(), static_cast<uint32>(initialData.size() / size.y), format, desc);
 	}
 
 	Texture::IDType CTexture_GL::createRT(const Size&, const uint32)
@@ -133,6 +133,11 @@ namespace s3d
 	Size CTexture_GL::getSize(const Texture::IDType handleID)
 	{
 		return m_textures[handleID]->getSize();
+	}
+
+	TextureDesc CTexture_GL::getDesc(Texture::IDType handleID)
+	{
+		return m_textures[handleID]->getDesc();
 	}
 	
 	

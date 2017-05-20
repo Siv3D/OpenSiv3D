@@ -24,6 +24,7 @@
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/Image.hpp>
 # include <Siv3D/Array.hpp>
+# include <Siv3D/Texture.hpp>
 # include <Siv3D/TextureFormat.hpp>
 
 using namespace Microsoft::WRL;
@@ -50,6 +51,8 @@ namespace s3d
 
 		TextureFormat m_format = TextureFormat::Unknown;
 
+		TextureDesc m_textureDesc = TextureDesc::Unmipped;
+
 		bool m_initialized = false;
 
 		bool isSRGB() const
@@ -71,7 +74,7 @@ namespace s3d
 
 		Texture_D3D11(BackBuffer, ID3D11Device* device, IDXGISwapChain* swapChain);
 
-		Texture_D3D11(Dynamic, ID3D11Device* device, const Size& size, const void* pData, uint32 stride, TextureFormat format);
+		Texture_D3D11(Dynamic, ID3D11Device* device, const Size& size, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc);
 
 		Texture_D3D11(Render, ID3D11Device* device, const Size& size, uint32 multisampleCount);
 
@@ -88,6 +91,12 @@ namespace s3d
 		{
 			return{ m_desc.Width, m_desc.Height };
 		}
+
+		TextureDesc getDesc() const
+		{
+			return m_textureDesc;
+		}
+
 
 		ID3D11Texture2D* getTexture()
 		{

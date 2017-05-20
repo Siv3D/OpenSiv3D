@@ -692,5 +692,11 @@ namespace s3d
 	//	RenderTexture.hpp
 	//
 	class RenderTexture;
-	
+
+	//////////////////////////////////////////////////////
+	//
+	//	Font.hpp
+	//
+	class Font;
+	struct DrawableText;
 }

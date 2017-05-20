@@ -275,6 +275,30 @@ namespace s3d
 		m_height = static_cast<uint32>(height);
 	}
 
+	void Image::resizeRows(const size_t rows, const Color& fillColor)
+	{
+		if (rows == m_height)
+		{
+			return;
+		}
+
+		if (!detail::IsValidSize(m_width, rows))
+		{
+			return clear();
+		}
+
+		if (rows < m_height)
+		{
+			m_data.resize(m_width * rows);
+		}
+		else
+		{
+			m_data.insert(m_data.end(), m_width * (rows - m_height), fillColor);
+		}
+
+		m_height = static_cast<uint32>(rows);
+	}
+
 	bool Image::applyAlphaFromRChannel(const FilePath& alpha)
 	{
 		if (isEmpty())

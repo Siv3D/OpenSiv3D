@@ -12,6 +12,7 @@ Resource(engine/shader/shape.ps)
 Resource(engine/shader/line_dot.ps)
 Resource(engine/shader/line_round_dot.ps)
 Resource(engine/shader/sprite.ps)
+Resource(engine/shader/sprite_sdf.ps)
 
 //////////////////////////////////////////////////////
 //

@@ -1702,7 +1702,14 @@ namespace s3d
 
 		m_commandManager.pushPSTexture(0, texture);
 
-		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Sprite);
+		if (texture.isSDF())
+		{
+			m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::SpriteSDF);
+		}
+		else
+		{
+			m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Sprite);
+		}
 	}
 
 	void CRenderer2D_D3D11::addTexturedQuad(const Texture& texture, const FloatQuad& quad, const FloatRect& uv, const Float4& color)
@@ -1740,7 +1747,14 @@ namespace s3d
 
 		m_commandManager.pushPSTexture(0, texture);
 
-		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Sprite);
+		if (texture.isSDF())
+		{
+			m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::SpriteSDF);
+		}
+		else
+		{
+			m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Sprite);
+		}
 	}
 
 	void CRenderer2D_D3D11::addSprite(const Optional<Texture>& texture, const Sprite& sprite, const uint32 startIndex, uint32 indexCount)
@@ -1789,7 +1803,14 @@ namespace s3d
 		{
 			m_commandManager.pushPSTexture(0, *texture);
 
-			m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Sprite);
+			if (texture->isSDF())
+			{
+				m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::SpriteSDF);
+			}
+			else
+			{
+				m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Sprite);
+			}
 		}
 		else
 		{

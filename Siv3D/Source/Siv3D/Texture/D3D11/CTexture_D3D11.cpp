@@ -114,9 +114,9 @@ namespace s3d
 		return m_textures.add(texture);
 	}
 
-	Texture::IDType CTexture_D3D11::createDynamic(const Size& size, const void* pData, const uint32 stride, const TextureFormat format)
+	Texture::IDType CTexture_D3D11::createDynamic(const Size& size, const void* pData, const uint32 stride, const TextureFormat format, const TextureDesc desc)
 	{
-		const auto texture = std::make_shared<Texture_D3D11>(Texture_D3D11::Dynamic{}, m_device, size, pData, stride, format);
+		const auto texture = std::make_shared<Texture_D3D11>(Texture_D3D11::Dynamic{}, m_device, size, pData, stride, format, desc);
 
 		if (!texture->isInitialized())
 		{
@@ -126,11 +126,11 @@ namespace s3d
 		return m_textures.add(texture);
 	}
 
-	Texture::IDType CTexture_D3D11::createDynamic(const Size& size, const ColorF& color, const TextureFormat format)
+	Texture::IDType CTexture_D3D11::createDynamic(const Size& size, const ColorF& color, const TextureFormat format, const TextureDesc desc)
 	{
 		const Array<Byte> initialData = detail::GenerateInitialColorBuffer(size, color, format);
 
-		return createDynamic(size, initialData.data(), static_cast<uint32>(initialData.size() / size.y), format);
+		return createDynamic(size, initialData.data(), static_cast<uint32>(initialData.size() / size.y), format, desc);
 	}
 
 	Texture::IDType CTexture_D3D11::createRT(const Size& size, const uint32 multisampleCount)
@@ -153,6 +153,11 @@ namespace s3d
 	Size CTexture_D3D11::getSize(const Texture::IDType handleID)
 	{
 		return m_textures[handleID]->getSize();
+	}
+
+	TextureDesc CTexture_D3D11::getDesc(Texture::IDType handleID)
+	{
+		return m_textures[handleID]->getDesc();
 	}
 
 	void CTexture_D3D11::clearRT(Texture::IDType handleID, const ColorF& color)

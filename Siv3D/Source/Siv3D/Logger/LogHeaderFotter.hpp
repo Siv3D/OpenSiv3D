@@ -254,6 +254,12 @@ u8R"-(<div class="c0">fmt</div>
 </div>)-"
 
 
+u8R"-(<div class="c0">FreeType</div>
+<div class="c2">
+This software is based in part of the work of the FreeType Team.<br>
+</div>)-"
+
+
 u8R"-(<div class="c0">giflib</div>
 <div class="c1">The GIFLIB distribution is Copyright(c) 1997  Eric S.Raymond</div>
 <div class="c2">
@@ -481,6 +487,11 @@ to the following restrictions:<br>
 u8R"-(<div class="c0">LineSegmentIntersection</div>
 <div class="c1">Copyright (c) 2015 Kristian Lindberg Vinther</div>
 <div class="c2">Licenced with the Code Project Open Licence (CPOL) http://www.codeproject.com/info/cpol10.aspx <br>
+</div>)-"
+
+
+u8R"-(<div class="c0">Noto Fonts</div>
+<div class="c2">Licensed under SIL Open Font License v1.1.<br>
 </div>)-"
 
 

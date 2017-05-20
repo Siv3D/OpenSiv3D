@@ -59,6 +59,8 @@ namespace s3d
 		LineRoundDot,
 		
 		Sprite,
+		
+		SpriteSDF,
 	};
 
 	struct GLRender2DCommandHeader

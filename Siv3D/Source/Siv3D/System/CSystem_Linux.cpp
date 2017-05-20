@@ -24,6 +24,7 @@
 # include "../Keyboard/IKeyboard.hpp"
 # include "../Mouse/IMouse.hpp"
 # include "../Graphics/IGraphics.hpp"
+# include "../Font/IFont.hpp"
 
 namespace s3d
 {
@@ -90,6 +91,11 @@ namespace s3d
 		}
 
 		Siv3DEngine::GetGraphics()->clear();
+
+		if (!Siv3DEngine::GetFont()->init())
+		{
+			return false;
+		}
 
 		return true;
 	}
