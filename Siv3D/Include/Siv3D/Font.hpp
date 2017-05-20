@@ -143,7 +143,7 @@ namespace s3d
 			return draw(Vec2(x, y), color);
 		}
 
-		RectF draw(const Vec2& pos, const ColorF& color = Palette::White) const;
+		RectF draw(const Vec2& pos = Vec2(0, 0), const ColorF& color = Palette::White) const;
 	};
 
 	inline DrawableText Font::operator()(const String& text) const
