@@ -4,7 +4,7 @@ void Main()
 {
 	Graphics::SetBackground(Color(250, 240, 230));
 
-	const Font font(40, Typeface::Medium);
+	const Font font(20, Typeface::Bold, FontStyle::Italic);
 
 	while (System::Update())
 	{

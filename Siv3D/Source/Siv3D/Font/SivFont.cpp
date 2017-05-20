@@ -35,8 +35,8 @@ namespace s3d
 
 	}
 
-	Font::Font(const int32 fontSize, const FilePath& path)
-		: m_handle(std::make_shared<FontHandle>(Siv3DEngine::GetFont()->create(path, fontSize)))
+	Font::Font(const int32 fontSize, const FilePath& path, const FontStyle style)
+		: m_handle(std::make_shared<FontHandle>(Siv3DEngine::GetFont()->create(path, fontSize, style)))
 	{
 
 	}

@@ -12,6 +12,7 @@
 # pragma once
 # include <../Source/ThirdParty/freetype/ft2build.h>
 # include FT_FREETYPE_H
+# include FT_SYNTHESIS_H
 # include <Siv3D/HashMap.hpp>
 # include <Siv3D/Image.hpp>
 # include <Siv3D/DynamicTexture.hpp>
@@ -49,6 +50,12 @@ namespace s3d
 
 		int32 m_lineSpacing = 0;
 
+		bool m_bold = false;
+
+		bool m_italic = false;
+
+		bool m_noBitmap = true;
+
 		Point m_penPos = { 0, padding };
 
 		Image m_image;
@@ -69,6 +76,8 @@ namespace s3d
 
 		bool render(const std::u32string& codePoints);
 
+		bool renderGlyph(FT_Face face, FT_UInt glyphIndex);
+
 	public:
 
 		struct Null {};
@@ -77,7 +86,7 @@ namespace s3d
 
 		FontData(Null, FT_Library library);
 
-		FontData(FT_Library library, const String& filePath, const int32 fontSize);
+		FontData(FT_Library library, const String& filePath, const int32 fontSize, FontStyle style);
 
 		~FontData();
 
