@@ -45,9 +45,9 @@ namespace s3d
 		return true;
 	}
 
-	Font::IDType CFont::create(const FilePath& path, const int32 fontSize)
+	Font::IDType CFont::create(const FilePath& path, const int32 fontSize, const FontStyle style)
 	{
-		const auto font = std::make_shared<FontData>(m_library, path, fontSize);
+		const auto font = std::make_shared<FontData>(m_library, path, fontSize, style);
 
 		if (!font->isInitialized())
 		{

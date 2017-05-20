@@ -38,6 +38,28 @@ namespace s3d
 
 		const String Black = L"engine/font/mplus/mplus-1p-black.ttf";
 	}
+
+	/// <summary>
+	///	フォントスタイルのフラグ
+	/// </summary>
+	enum class FontStyle : uint32
+	{
+		Default = 0x0,
+
+		Bold = 0x01,
+
+		Italic = 0x02,
+
+		BoldItalic = Bold | Italic,
+
+		Bitmap = 0x04,
+
+		BoldBitmap = Bold | Bitmap,
+
+		ItalicBitmap = Italic | Bitmap,
+
+		BoldItalicBitmap = Bold | Italic | Bitmap,
+	};
 	
 	class Font
 	{
@@ -59,7 +81,7 @@ namespace s3d
 
 		Font();
 
-		Font(int32 fontSize, const FilePath& path = Typeface::Default);
+		Font(int32 fontSize, const FilePath& path = Typeface::Default, FontStyle style = FontStyle::Default);
 
 		~Font();
 
