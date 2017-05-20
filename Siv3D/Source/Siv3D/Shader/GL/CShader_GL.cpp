@@ -57,23 +57,7 @@ void main()
 	FragColor = Color;
 }
 )";
-		
-		const String psCodeSprite =
-		LR"(
-#version 410
-		
-layout(location = 0) in vec4 Color;
-layout(location = 1) in vec2 Tex;
-		
-uniform sampler2D Tex0;
-		
-layout(location = 0) out vec4 FragColor;
-		
-void main()
-{
-	FragColor = texture(Tex0, Tex) * Color;
-}
-)";
+
 		
 		const String psCodeLineDot =
 		LR"(
@@ -114,6 +98,60 @@ void main()
 	FragColor.a *= 1.0 - clamp(pow(dot(vec2(t, Tex.y), vec2(t, Tex.y)), 12), 0.0, 1.0);
 }
 )";
+		
+		const String psCodeSprite =
+		LR"(
+#version 410
+		
+layout(location = 0) in vec4 Color;
+layout(location = 1) in vec2 Tex;
+		
+uniform sampler2D Tex0;
+		
+layout(location = 0) out vec4 FragColor;
+		
+void main()
+{
+	FragColor = texture(Tex0, Tex) * Color;
+}
+)";
+	
+		const String psCodeSpriteSDF =
+		LR"(
+#version 410
+		
+layout(location = 0) in vec4 Color;
+layout(location = 1) in vec2 Tex;
+		
+uniform sampler2D Tex0;
+		
+layout(location = 0) out vec4 FragColor;
+		
+void main()
+{
+	float a = texture(Tex0, Tex).a;
+	
+	float MIN_EDGE_VALUE = 0.48;
+
+	float MAX_EDGE_VALUE = 0.52;
+	
+	if (a < MIN_EDGE_VALUE)
+	{
+		a = 0.0;
+	}
+	else if (MAX_EDGE_VALUE < a)
+	{
+		a = 1.0;
+	}
+	else
+	{
+		a = smoothstep(MIN_EDGE_VALUE, MAX_EDGE_VALUE, a);
+	}
+	
+	FragColor = vec4(Color.rgb, Color.a * a);
+}
+)";
+	
 	}
 	
 	CShader_GL::CShader_GL()
@@ -161,6 +199,7 @@ void main()
 		m_standardPSs.push_back(PixelShader(Arg::source = detail::psCodeLineDot));
 		m_standardPSs.push_back(PixelShader(Arg::source = detail::psCodeLineRoundDot));
 		m_standardPSs.push_back(PixelShader(Arg::source = detail::psCodeSprite));
+		m_standardPSs.push_back(PixelShader(Arg::source = detail::psCodeSpriteSDF));
 		
 		return true;
 	}
