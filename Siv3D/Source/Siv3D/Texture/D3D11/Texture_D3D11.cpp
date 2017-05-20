@@ -153,7 +153,7 @@ namespace s3d
 		m_initialized = true;
 	}
 
-	Texture_D3D11::Texture_D3D11(Dynamic, ID3D11Device* const device, const Size& size, const void* pData, const uint32 stride, const TextureFormat format)
+	Texture_D3D11::Texture_D3D11(Dynamic, ID3D11Device* const device, const Size& size, const void* pData, const uint32 stride, const TextureFormat format, const TextureDesc desc)
 	{
 		if (!InRange(size.x, 1, MaxImageSize) || !InRange(size.y, 1, MaxImageSize))
 		{
@@ -214,7 +214,7 @@ namespace s3d
 		}
 
 		m_format = format;
-		m_textureDesc = TextureDesc::Unmipped;
+		m_textureDesc = desc;
 		m_initialized = true;
 	}
 

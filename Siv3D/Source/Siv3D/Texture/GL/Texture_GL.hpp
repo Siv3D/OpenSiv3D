@@ -16,6 +16,7 @@
 # include <GL/glew.h>
 # include "../../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 # include <Siv3D/Image.hpp>
+# include <Siv3D/Texture.hpp>
 # include <Siv3D/TextureFormat.hpp>
 
 namespace s3d
@@ -29,6 +30,8 @@ namespace s3d
 		Size m_size = { 0, 0 };
 
 		TextureFormat m_format = TextureFormat::Unknown;
+		
+		TextureDesc m_textureDesc = TextureDesc::Unmipped;
 		
 		bool m_isDynamic = false;
 		
@@ -48,11 +51,11 @@ namespace s3d
 
 		Texture_GL(Null);
 		
-		Texture_GL(const Image& image, const TextureDesc desc);
+		Texture_GL(const Image& image, TextureDesc desc);
 		
-		Texture_GL(const Image& image, const Array<Image>& mipmaps, const TextureDesc desc);
+		Texture_GL(const Image& image, const Array<Image>& mipmaps, TextureDesc desc);
 		
-		Texture_GL(const Size& size, const void* pData, uint32 stride, TextureFormat format);
+		Texture_GL(const Size& size, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc);
 		
 		~Texture_GL();
 
@@ -69,6 +72,11 @@ namespace s3d
 		Size getSize() const
 		{
 			return m_size;
+		}
+		
+		TextureDesc getDesc() const
+		{
+			return m_textureDesc;
 		}
 		
 		bool fill(const ColorF& color, bool wait);

@@ -34,6 +34,7 @@ namespace s3d
 		
 		m_size = Size(16, 16);
 		m_format = TextureFormat::R8G8B8A8_Unorm;
+		m_textureDesc = TextureDesc::Mipped;
 		m_isDynamic = false;
 		m_initialized = true;
 	}
@@ -50,6 +51,7 @@ namespace s3d
 		
 		m_size = image.size();
 		m_format = TextureFormat::R8G8B8A8_Unorm;
+		m_textureDesc = desc;
 		m_isDynamic = false;
 		m_initialized = true;
 	}
@@ -73,11 +75,12 @@ namespace s3d
 		
 		m_size = image.size();
 		m_format = TextureFormat::R8G8B8A8_Unorm;
+		m_textureDesc = desc;
 		m_isDynamic = false;
 		m_initialized = true;
 	}
 	
-	Texture_GL::Texture_GL(const Size& size, const void* pData, const uint32 stride, const TextureFormat format)
+	Texture_GL::Texture_GL(const Size& size, const void* pData, const uint32 stride, const TextureFormat format, const TextureDesc desc)
 	{
 		::glGenTextures(1, &m_texture);
 		
@@ -89,6 +92,7 @@ namespace s3d
 		
 		m_size = size;
 		m_format = format;
+		m_textureDesc = desc;
 		m_isDynamic = true;
 		m_initialized = true;
 	}

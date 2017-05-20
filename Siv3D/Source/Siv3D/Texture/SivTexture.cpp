@@ -41,14 +41,14 @@ namespace s3d
 
 	}
 
-	Texture::Texture(Dynamic, const uint32 width, const uint32 height, const void* pData, const uint32 stride, const TextureFormat format)
-		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::GetTexture()->createDynamic(Size(width, height), pData, stride, format)))
+	Texture::Texture(Dynamic, const uint32 width, const uint32 height, const void* pData, const uint32 stride, const TextureFormat format, const TextureDesc desc)
+		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::GetTexture()->createDynamic(Size(width, height), pData, stride, format, desc)))
 	{
 		ASSET_CREATION();
 	}
 
-	Texture::Texture(Dynamic, const uint32 width, const uint32 height, const ColorF& color, const TextureFormat format)
-		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::GetTexture()->createDynamic(Size(width, height), color, format)))
+	Texture::Texture(Dynamic, const uint32 width, const uint32 height, const ColorF& color, const TextureFormat format, const TextureDesc desc)
+		: m_handle(std::make_shared<TextureHandle>(Siv3DEngine::GetTexture()->createDynamic(Size(width, height), color, format, desc)))
 	{
 		ASSET_CREATION();
 	}

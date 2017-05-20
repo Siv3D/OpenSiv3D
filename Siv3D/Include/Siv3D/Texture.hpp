@@ -75,9 +75,9 @@ namespace s3d
 
 		explicit Texture(BackBuffer);
 
-		Texture(Dynamic, uint32 width, uint32 height, const void* pData, uint32 stride, TextureFormat format);
+		Texture(Dynamic, uint32 width, uint32 height, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc);
 
-		Texture(Dynamic, uint32 width, uint32 height, const ColorF& color, TextureFormat format);
+		Texture(Dynamic, uint32 width, uint32 height, const ColorF& color, TextureFormat format, TextureDesc desc);
 
 		Texture(Render, const Size& size, uint32 multisampleCount);
 

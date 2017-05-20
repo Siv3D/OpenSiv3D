@@ -74,7 +74,7 @@ namespace s3d
 
 		Texture_D3D11(BackBuffer, ID3D11Device* device, IDXGISwapChain* swapChain);
 
-		Texture_D3D11(Dynamic, ID3D11Device* device, const Size& size, const void* pData, uint32 stride, TextureFormat format);
+		Texture_D3D11(Dynamic, ID3D11Device* device, const Size& size, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc);
 
 		Texture_D3D11(Render, ID3D11Device* device, const Size& size, uint32 multisampleCount);
 

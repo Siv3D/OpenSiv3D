@@ -29,9 +29,9 @@ namespace s3d
 
 		virtual Texture::IDType create(const Image& image, const Array<Image>& images, TextureDesc desc) = 0;
 
-		virtual Texture::IDType createDynamic(const Size& size, const void* pData, uint32 stride, TextureFormat format) = 0;
+		virtual Texture::IDType createDynamic(const Size& size, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc) = 0;
 
-		virtual Texture::IDType createDynamic(const Size& size, const ColorF& color, TextureFormat format) = 0;
+		virtual Texture::IDType createDynamic(const Size& size, const ColorF& color, TextureFormat format, TextureDesc desc) = 0;
 
 		virtual Texture::IDType createRT(const Size& size, uint32 multisampleCount) = 0;
 

@@ -31,17 +31,17 @@ namespace s3d
 
 		DynamicTexture() = default;
 
-		DynamicTexture(size_t width, size_t height, TextureFormat format = TextureFormat::R8G8B8A8_Unorm);
+		DynamicTexture(size_t width, size_t height, TextureFormat format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped);
 
-		DynamicTexture(size_t width, size_t height, const ColorF& color, TextureFormat format = TextureFormat::R8G8B8A8_Unorm);
+		DynamicTexture(size_t width, size_t height, const ColorF& color, TextureFormat format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped);
 
-		explicit DynamicTexture(const Size& size, TextureFormat format = TextureFormat::R8G8B8A8_Unorm)
-			: DynamicTexture(size.x, size.y, format) {}
+		explicit DynamicTexture(const Size& size, TextureFormat format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped)
+			: DynamicTexture(size.x, size.y, format, desc) {}
 
-		DynamicTexture(const Size& size, const ColorF& color, TextureFormat format = TextureFormat::R8G8B8A8_Unorm)
-			: DynamicTexture(size.x, size.y, color, format) {}
+		DynamicTexture(const Size& size, const ColorF& color, TextureFormat format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped)
+			: DynamicTexture(size.x, size.y, color, format, desc) {}
 
-		explicit DynamicTexture(const Image& image, TextureFormat format = TextureFormat::R8G8B8A8_Unorm);
+		explicit DynamicTexture(const Image& image, TextureFormat format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped);
 
 		bool fill(const ColorF& color);
 
