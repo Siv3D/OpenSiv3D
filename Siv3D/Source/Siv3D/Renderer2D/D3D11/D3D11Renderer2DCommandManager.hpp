@@ -71,6 +71,8 @@ namespace s3d
 		LineRoundDot,
 
 		Sprite,
+
+		SpriteSDF,
 	};
 
 	struct D3D11Render2DCommandHeader

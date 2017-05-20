@@ -43,30 +43,55 @@ VS_OUTPUT VS(VS_INPUT input)
 	return output;
 }
 
-float4 PS(VS_OUTPUT input) : SV_Target
+float4 PS_Shape(VS_OUTPUT input) : SV_Target
+{
+	return input.color;
+}
+
+float4 PS_LineDot(VS_OUTPUT input) : SV_Target
+{
+	const float t = min(abs(1.5 - fmod(input.tex.x, 3.0)) * 1.7, 1.0);
+
+	input.color.a *= pow(t, 24);
+
+	return input.color;
+}
+
+float4 PS_LineRoundDot(VS_OUTPUT input) : SV_Target
+{
+	const float t = fmod(input.tex.x, 2.0);
+
+	input.tex.x = abs(1 - t) * 2.0;
+
+	input.color.a *= 1.0 - saturate(pow(dot(input.tex, input.tex), 12));
+
+	return input.color;
+}
+
+float4 PS_Sprite(VS_OUTPUT input) : SV_Target
 {
 	return texture0.Sample(sampler0, input.tex) * input.color;
 }
 
 float4 PS_SDF(VS_OUTPUT input) : SV_Target
 {
-	float a = texture0.Sample(sampler0, input.tex).r;
+	float a = texture0.Sample(sampler0, input.tex).a;
 
-	const float MIN_VALUE = 0.48;
+	const float MIN_EDGE_VALUE = 0.48;
 	
-	const float MAX_VALUE = 0.52;
+	const float MAX_EDGE_VALUE = 0.52;
 
-	const float EDGE_VALUE = (MIN_VALUE + MAX_VALUE) / 2;
-
-	if (MIN_VALUE < a && a < MAX_VALUE)
+	if (a < MIN_EDGE_VALUE)
 	{
-		a = smoothstep(MIN_VALUE, MAX_VALUE, a);
-
-		//return float4(1, 1, 0, 1);
+		a = 0.0;
+	}
+	else if (MAX_EDGE_VALUE < a)
+	{
+		a = 1.0;
 	}
 	else
 	{
-		a = a > EDGE_VALUE ? 1.0 : 0.0;
+		a = smoothstep(MIN_EDGE_VALUE, MAX_EDGE_VALUE, a);
 	}
 
 	return float4(input.color.rgb, a);

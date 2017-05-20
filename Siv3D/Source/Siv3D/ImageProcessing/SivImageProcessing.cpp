@@ -288,7 +288,7 @@ namespace s3d
 				}
 			}
 
-			Image result(resultWidth, resultHeight);
+			Image result(resultWidth, resultHeight, Color(255, 255));
 			{
 				const float div = 1.0f / (scale * scale * static_cast<float>(spread));
 				const detail::SDFPixel* pSrcLine = pPixels;
@@ -316,7 +316,7 @@ namespace s3d
 
 						const uint8 sd = (d <= -1.0f) ? 0 : (1.0f <= d) ? 255 : static_cast<uint8>((d + 1.0f) * 127.5f + 0.5f);
 
-						(pDst++)->set(sd, sd, sd, 255);
+						(pDst++)->a = sd;
 					}
 
 					pSrcLine += (imageWidth * scale);
