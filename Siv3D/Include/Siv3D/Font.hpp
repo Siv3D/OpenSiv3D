@@ -22,9 +22,21 @@ namespace s3d
 {
 	namespace Typeface
 	{
-		const String Regular = L"engine/font/mplus-1p-regular.ttf";
+		const String Default = L"engine/font/umeplus/umeplus-p-gothic.ttf";
+
+		const String Thin = L"engine/font/mplus/mplus-1p-thin.ttf";
+
+		const String Light = L"engine/font/mplus/mplus-1p-light.ttf";
 		
-		const String Heavy = L"engine/font/mplus-1p-heavy.ttf";
+		const String Regular = L"engine/font/mplus/mplus-1p-regular.ttf";
+		
+		const String Medium = L"engine/font/mplus/mplus-1p-medium.ttf";
+
+		const String Bold = L"engine/font/mplus/mplus-1p-bold.ttf";
+		
+		const String Heavy = L"engine/font/mplus/mplus-1p-heavy.ttf";
+
+		const String Black = L"engine/font/mplus/mplus-1p-black.ttf";
 	}
 	
 	class Font
@@ -47,7 +59,7 @@ namespace s3d
 
 		Font();
 
-		Font(const FilePath& path, int32 fontSize);
+		Font(int32 fontSize, const FilePath& path = Typeface::Default);
 
 		~Font();
 

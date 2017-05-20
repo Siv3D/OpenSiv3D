@@ -31,11 +31,17 @@ namespace s3d
 	{
 	private:
 
-		FT_Face m_face = nullptr;
+		using CommonGlyphIndex = uint32;
 
-		HashMap<char32_t, FT_UInt> m_glyphIndexTable;
+		HashMap<char32_t, CommonGlyphIndex> m_glyphIndexTable;
 
-		HashMap<FT_UInt, GlyphInfo> m_glyphs;
+		FT_Face m_faceText = nullptr;
+
+		FT_Face m_faceEmoji = nullptr;
+
+		Array<GlyphInfo> m_glyphs;
+
+		Optional<CommonGlyphIndex> m_tofuIndex;
 
 		static constexpr int32 padding = 2;
 

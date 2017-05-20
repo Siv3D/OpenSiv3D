@@ -1,0 +1,51 @@
+UmePlus fonts
+
+UmePlus fonts are modified Ume fonts for Japanese.
+http://www.geocities.jp/ep3797/modified_fonts_01.html
+
+I used these fonts for UmePlus fonts:
+Kanji = Ume fonts
+https://osdn.net/projects/ume-font/releases/
+Alphabet/Hiragana/Katakana, Full width alphabet = M+ fonts
+https://osdn.net/projects/mplus-fonts/releases/
+Thanks to the authors.
+
+License
+Ume fonts, M+ fonts:
+See docs-{ume,mplus}.
+fontforge-scripts:
+Public Domain.
+
+Author
+UTUMI Hirosi <utuhiro78@yahoo.co.jp>
+
+
+How to update UmePlus fonts
+1. Install fontforge
+$ sudo pacman -S fontforge
+
+2. Put the files into umeplus-tmp
+$ mkdir umeplus-tmp
+$ mv mplus-TESTFLIGHT-062.tar.xz umeplus-tmp/
+$ mv umefont_660.7z umeplus-tmp/
+$ mv umeplus-fonts-20161108.tar.xz umeplus-tmp/
+$ mv umeplus-cl-fonts-20161108.tar.xz umeplus-tmp/
+
+3. Extract the files
+$ cd umeplus-tmp/
+$ tar xf umeplus-fonts-20161108.tar.xz
+$ mv umeplus-fonts-20161108 umeplus-fonts-dev
+$ tar xf umeplus-cl-fonts-20161108.tar.xz
+$ mv umeplus-cl-fonts-20161108 umeplus-cl-fonts-dev
+$ mv umeplus-fonts-dev/update-umeplus-fonts.sh .
+
+4. Update "update-umeplus-fonts.sh"
+$ leafpad update-umeplus-fonts.sh
+
+Update these lines:
+MPLUSVER="062"
+UMEVER="660"
+DATE="20161108"
+
+5. Update UmePlus fonts
+$ ./update-umeplus-fonts.sh

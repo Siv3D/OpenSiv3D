@@ -94,5 +94,5 @@ float4 PS_SDF(VS_OUTPUT input) : SV_Target
 		a = smoothstep(MIN_EDGE_VALUE, MAX_EDGE_VALUE, a);
 	}
 
-	return float4(input.color.rgb, a);
+	return float4(input.color.rgb, input.color.a * a);
 }
