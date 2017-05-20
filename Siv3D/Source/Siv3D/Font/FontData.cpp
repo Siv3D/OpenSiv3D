@@ -15,7 +15,7 @@
 # include <Siv3D/Font.hpp>
 # include <Siv3D/TextureRegion.hpp>
 
-# include <Siv3D/Logger.hpp>
+//# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -152,12 +152,12 @@ namespace s3d
 				continue;
 			}
 
-			Log << codePoint << L"----";
+			//Log << codePoint << L"----";
 
 			const FT_UInt glyphIndexText = ::FT_Get_Char_Index(m_faceText, codePoint);
 			const FT_UInt glyphIndexEmoji = (glyphIndexText != 0) ? 0 : m_faceEmoji ? ::FT_Get_Char_Index(m_faceEmoji, codePoint) : 0;
 
-			Log << glyphIndexText << L", " << glyphIndexEmoji;
+			//Log << glyphIndexText << L", " << glyphIndexEmoji;
 
 			if (glyphIndexText == 0 && glyphIndexEmoji == 0)
 			{
