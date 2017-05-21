@@ -2,12 +2,12 @@
 
 void Main()
 {
-	Graphics::SetBackground(Color(250, 240, 230));
-
-	const Font font(20, Typeface::Bold, FontStyle::Italic);
-
 	while (System::Update())
 	{
-		font(L"絵文字🐣🗻🙈👌の表示に対応").draw(20, 20, Palette::Brown);
+		for (auto i : step(12))
+		{
+			Shape2D::Rhombus(20, 40, Circular(100, i * 30_deg) + Window::Center(), i * 30_deg)
+				.draw(HSV(i*30));
+		}
 	}
 }
