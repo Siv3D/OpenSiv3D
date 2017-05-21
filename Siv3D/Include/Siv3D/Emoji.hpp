@@ -1,0 +1,44 @@
+﻿//-----------------------------------------------
+//
+//	This file is part of the Siv3D Engine.
+//
+//	Copyright (c) 2008-2017 Ryo Suzuki
+//	Copyright (c) 2016-2017 OpenSiv3D Project
+//
+//	Licensed under the MIT License.
+//
+//-----------------------------------------------
+
+# pragma once
+# include "Fwd.hpp"
+
+namespace s3d
+{
+	struct Emoji
+	{
+	private:
+
+		struct Helper
+		{
+			char32_t codePoint;
+		};
+
+	public:
+
+		char32_t codePoint;
+
+		explicit constexpr Emoji(char32_t _codePoint) noexcept
+			: codePoint(_codePoint) {}
+
+		constexpr Emoji(Helper helper) noexcept
+			: codePoint(helper.codePoint) {}
+
+		static Image LoadImage(char32_t _codePoint);
+
+		static constexpr Helper SoccerBall = { U'⚽' };
+
+		static constexpr Helper Fire = { U'🔥' };
+
+		static constexpr Helper Hamburger = { U'🍔' };
+	};
+}

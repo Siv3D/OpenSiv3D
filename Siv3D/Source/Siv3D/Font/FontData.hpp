@@ -13,6 +13,7 @@
 # include <../Source/ThirdParty/freetype/ft2build.h>
 # include FT_FREETYPE_H
 # include FT_SYNTHESIS_H
+# include FT_TRUETYPE_TABLES_H
 # include <Siv3D/HashMap.hpp>
 # include <Siv3D/Image.hpp>
 # include <Siv3D/DynamicTexture.hpp>

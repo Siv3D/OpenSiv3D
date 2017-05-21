@@ -18,6 +18,7 @@
 # include <Siv3D/TexturedQuad.hpp>
 # include <Siv3D/Image.hpp>
 # include <Siv3D/ImageProcessing.hpp>
+# include <Siv3D/Emoji.hpp>
 
 namespace s3d
 {
@@ -100,6 +101,12 @@ namespace s3d
 
 	Texture::Texture(const Color& rgb, const FilePath& alpha, const TextureDesc desc)
 		: Texture(Image(rgb, alpha), desc)
+	{
+
+	}
+
+	Texture::Texture(const Emoji& emoji, TextureDesc desc)
+		: Texture(Emoji::LoadImage(emoji.codePoint), desc)
 	{
 
 	}
