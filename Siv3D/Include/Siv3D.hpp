@@ -513,6 +513,8 @@
 	//# include "Siv3D/KineticTypography.hpp"
 	// フォント
 	# include "Siv3D/Font.hpp"
+	// フォント
+	# include "Siv3D/Emoji.hpp"
 //
 // 標準 GUI
 //

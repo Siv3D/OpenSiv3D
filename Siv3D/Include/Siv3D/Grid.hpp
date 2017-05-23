@@ -998,9 +998,9 @@ namespace s3d
 			{
 				pointer p = m_data.data();
 
-				for (int32 y = 0; y < m_height; ++y)
+				for (size_t y = 0; y < m_height; ++y)
 				{
-					for (int32 x = 0; x < m_width; ++x)
+					for (size_t x = 0; x < m_width; ++x)
 					{
 						f({ x,y }, *p++);
 					}
@@ -1017,9 +1017,9 @@ namespace s3d
 			{
 				const_pointer p = m_data.data();
 
-				for (int32 y = 0; y < m_height; ++y)
+				for (size_t y = 0; y < m_height; ++y)
 				{
-					for (int32 x = 0; x < m_width; ++x)
+					for (size_t x = 0; x < m_width; ++x)
 					{
 						f({ x,y }, *p++);
 					}

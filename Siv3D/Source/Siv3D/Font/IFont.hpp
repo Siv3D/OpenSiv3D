@@ -30,5 +30,7 @@ namespace s3d
 		virtual void release(Font::IDType handleID) = 0;
 
 		virtual RectF draw(Font::IDType handleID, const String& text, const Vec2& pos, const ColorF& color, double lineSpacingScale) = 0;
+
+		virtual Image getColorEmoji(uint32 codePoint) = 0;
 	};
 }

@@ -700,4 +700,10 @@ namespace s3d
 	class Font;
 	enum class FontStyle : uint32;
 	struct DrawableText;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Emoji.hpp
+	//
+	struct Emoji;
 }

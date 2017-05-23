@@ -64,6 +64,8 @@ namespace s3d
 			return Arrow(line.begin, line.end, width, headSize);
 		}
 
+		static Shape2D Rhombus(double w, double h, const Vec2& center = Vec2(0, 0), double angle = 0.0);
+
 		//static Shape2D DoubleArrow(const Vec2& a, const Vec2& b, double width, const Vec2& headSize);		
 
 		//static Shape2D DoubleArrow(const Line& line, double width, const Vec2& headSize);	

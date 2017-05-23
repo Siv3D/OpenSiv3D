@@ -425,6 +425,9 @@
     <Filter Include="Source\Siv3D\RasterizerState">
       <UniqueIdentifier>{1282df3e-2c27-4d02-b600-4540fc8476c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Emoji">
+      <UniqueIdentifier>{c66b0226-d2b9-4b2f-927f-5e35cc4393e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1573,6 +1576,9 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Font\FontData.hpp">
       <Filter>Source\Siv3D\Font</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Emoji.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2297,6 +2303,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Font\FontData.cpp">
       <Filter>Source\Siv3D\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Emoji\SivEmoji.cpp">
+      <Filter>Source\Siv3D\Emoji</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
