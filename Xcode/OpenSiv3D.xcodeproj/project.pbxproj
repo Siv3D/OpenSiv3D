@@ -642,6 +642,8 @@
 		2C81C0A81E89FCFA00D27E52 /* posix_tls.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C81C0A61E89FCFA00D27E52 /* posix_tls.c */; };
 		2C81C0A91E89FCFA00D27E52 /* posix_tls.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C81C0A71E89FCFA00D27E52 /* posix_tls.h */; };
 		2C81C0AB1E89FD1A00D27E52 /* vulkan.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C81C0AA1E89FD1A00D27E52 /* vulkan.c */; };
+		2CA6355D1ED3C30E00B851BC /* Emoji.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CA6355C1ED3C30E00B851BC /* Emoji.hpp */; };
+		2CA635601ED3C32400B851BC /* SivEmoji.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA6355F1ED3C32400B851BC /* SivEmoji.cpp */; };
 		2CA79A101DF55A0D0028D11D /* boost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F81DF55A0D0028D11D /* boost_filesystem.a */; };
 		2CA79A111DF55A0D0028D11D /* boost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F91DF55A0D0028D11D /* boost_system.a */; };
 		2CA79AAD1DF55A410028D11D /* Siv3DTest_OSX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79A9D1DF55A410028D11D /* Siv3DTest_OSX.cpp */; };
@@ -1458,6 +1460,8 @@
 		2C81C0A61E89FCFA00D27E52 /* posix_tls.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = posix_tls.c; sourceTree = "<group>"; };
 		2C81C0A71E89FCFA00D27E52 /* posix_tls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = posix_tls.h; sourceTree = "<group>"; };
 		2C81C0AA1E89FD1A00D27E52 /* vulkan.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vulkan.c; sourceTree = "<group>"; };
+		2CA6355C1ED3C30E00B851BC /* Emoji.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Emoji.hpp; sourceTree = "<group>"; };
+		2CA6355F1ED3C32400B851BC /* SivEmoji.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEmoji.cpp; sourceTree = "<group>"; };
 		2CA798F81DF55A0D0028D11D /* boost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_filesystem.a; sourceTree = "<group>"; };
 		2CA798F91DF55A0D0028D11D /* boost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_system.a; sourceTree = "<group>"; };
 		2CA798FA1DF55A0D0028D11D /* libSiv3D.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSiv3D.a; sourceTree = "<group>"; };
@@ -1644,6 +1648,7 @@
 		2C0C7A121EBCC38300386CBB /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2CA6355E1ED3C32400B851BC /* Emoji */,
 				2CCA35B51ECC740400078678 /* Font */,
 				2CCA35B01EC9B00900078678 /* DynamicTexture */,
 				2CCA35AB1EC9A8E100078678 /* ByteArrayView */,
@@ -2737,6 +2742,7 @@
 				2C0C7CAF1EBCC39B00386CBB /* Easing.hpp */,
 				2C0C7CB01EBCC39B00386CBB /* EasingController.hpp */,
 				2C0C7CB11EBCC39B00386CBB /* Ellipse.hpp */,
+				2CA6355C1ED3C30E00B851BC /* Emoji.hpp */,
 				2C0C7CB21EBCC39B00386CBB /* FileSystem.hpp */,
 				2C0C7CB31EBCC39B00386CBB /* FloatQuad.hpp */,
 				2C0C7CB41EBCC39B00386CBB /* FloatRect.hpp */,
@@ -3455,6 +3461,14 @@
 				2C81BECB1E89F8E300D27E52 /* zdict.h */,
 			);
 			path = dictBuilder;
+			sourceTree = "<group>";
+		};
+		2CA6355E1ED3C32400B851BC /* Emoji */ = {
+			isa = PBXGroup;
+			children = (
+				2CA6355F1ED3C32400B851BC /* SivEmoji.cpp */,
+			);
+			path = Emoji;
 			sourceTree = "<group>";
 		};
 		2CA798F51DF55A0D0028D11D /* Lib */ = {
@@ -4304,6 +4318,7 @@
 				2C0C7BB61EBCC38400386CBB /* CDragDrop_macOS.hpp in Headers */,
 				2C2E82B31EAA1B3A0057BDAF /* schema.h in Headers */,
 				2CCA35A71EC8B38300078678 /* RoundRect.hpp in Headers */,
+				2CA6355D1ED3C30E00B851BC /* Emoji.hpp in Headers */,
 				2C316EA41E9F022A0011CAAE /* glew.h in Headers */,
 				2C0C7BDB1EBCC38400386CBB /* GLBlendState.hpp in Headers */,
 				2C0C7D5B1EBCC39B00386CBB /* Functor.hpp in Headers */,
@@ -4502,6 +4517,7 @@
 				2C81C0681E89F8E300D27E52 /* preprocess_downsample.cc in Sources */,
 				2C0C7BBB1EBCC38400386CBB /* SivDragDrop.cpp in Sources */,
 				2C2126591E8CB7B5006F8101 /* openbsd-reallocarray.c in Sources */,
+				2CA635601ED3C32400B851BC /* SivEmoji.cpp in Sources */,
 				2C81C0201E89F8E300D27E52 /* cocoa_monitor.m in Sources */,
 				2C0C7C291EBCC38400386CBB /* SivProfiler.cpp in Sources */,
 				2C0C7C6C1EBCC38400386CBB /* SivVector2D.cpp in Sources */,
