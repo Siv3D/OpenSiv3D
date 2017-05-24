@@ -147,21 +147,21 @@ namespace s3d
 			return false;
 		}
 
-		int best_match = 0;
-		int diff = std::abs(30 - m_colorEmojiFace->available_sizes[0].width);
+		int32 bestMatch = 0;
+		int32 diff = std::abs(128 - m_colorEmojiFace->available_sizes[0].width);
 		
-		for (int i = 1; i < m_colorEmojiFace->num_fixed_sizes; ++i)
+		for (int32 i = 1; i < m_colorEmojiFace->num_fixed_sizes; ++i)
 		{
-			int ndiff = std::abs(30 - m_colorEmojiFace->available_sizes[i].width);
+			const int32 ndiff = std::abs(128 - m_colorEmojiFace->available_sizes[i].width);
 			
 			if (ndiff < diff)
 			{
-				best_match = i;
+				bestMatch = i;
 				diff = ndiff;
 			}
 		}
 
-		if (const FT_Error error = ::FT_Select_Size(m_colorEmojiFace, best_match))
+		if (const FT_Error error = ::FT_Select_Size(m_colorEmojiFace, bestMatch))
 		{
 			return false;
 		}
