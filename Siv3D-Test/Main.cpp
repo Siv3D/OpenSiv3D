@@ -2,23 +2,38 @@
 
 void Main()
 {
-	Graphics::SetBackground(ColorF(0.5, 0.9, 0.6));
+	const Font font(40);
 
-	const Texture ball(Emoji::SoccerBall);
-
-	const Texture hamburger(Emoji::Hamburger);
-
-	const Texture fire(Emoji::Fire);
-		
 	while (System::Update())
 	{
-		ball.draw(100, 100);
+		const Rect rect(Cursor::Pos(), 200, 100);
 
-		hamburger.draw(400, 200);
+		const Line line(rect.center() + Vec2(-100, 100), rect.center() + Vec2(420, 100));
 
-		for (auto i : step(10))
-		{
-			fire.scale(0.5).draw(i * 60, 400);
-		}	
+		const ColorF color(0.2, 0.8, 0.4);
+
+		rect.draw(color);
+
+		line.draw(3, color);
+
+		font(L"Xyz🌠").boundingRect(Arg::bottomRight = rect.br()).drawFrame(1,0, Palette::Orange);
+
+		font(L"Xyz🌠").region(Arg::bottomRight = rect.br()).drawFrame();
+
+		font(L"Xyz🌠").draw(Arg::bottomRight = rect.br());//.drawFrame();
+
+		font(L"Xyz🌠").drawBase(line.begin);//.drawFrame();
+
+		font(L"Xyz🌠").drawBase(Arg::center = line.center());// .drawFrame();
+
+		font(L"Xyz🌠").drawBase(Arg::right = line.end);// .drawFrame();
 	}
 }
+
+/*
+Font::drawAt()
+フォント埋め込み
+Font::region()
+
+
+*/

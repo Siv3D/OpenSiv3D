@@ -73,6 +73,26 @@ namespace s3d
 		m_fonts.erase(handleID);
 	}
 
+	int32 CFont::getAscender(const Font::IDType handleID)
+	{
+		return m_fonts[handleID]->getAscender();
+	}
+
+	int32 CFont::getDescender(const Font::IDType handleID)
+	{
+		return m_fonts[handleID]->getDescender();
+	}
+
+	RectF CFont::getBoundingRect(Font::IDType handleID, const String& text, double lineSpacingScale)
+	{
+		return m_fonts[handleID]->getBoundingRect(text, lineSpacingScale);
+	}
+
+	RectF CFont::getRegion(Font::IDType handleID, const String& text, double lineSpacingScale)
+	{
+		return m_fonts[handleID]->getRegion(text, lineSpacingScale);
+	}
+
 	RectF CFont::draw(const Font::IDType handleID, const String& text, const Vec2& pos, const ColorF& color, const double lineSpacingScale)
 	{
 		return m_fonts[handleID]->draw(text, pos, color, lineSpacingScale);

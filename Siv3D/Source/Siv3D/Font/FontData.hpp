@@ -51,6 +51,10 @@ namespace s3d
 
 		int32 m_lineSpacing = 0;
 
+		int32 m_ascender = 0;
+
+		int32 m_descender = 0;
+
 		bool m_bold = false;
 
 		bool m_italic = false;
@@ -95,6 +99,20 @@ namespace s3d
 		{
 			return m_initialized;
 		}
+
+		int32 getAscender() const
+		{
+			return m_ascender;
+		}
+
+		int32 getDescender() const
+		{
+			return m_descender;
+		}
+
+		RectF getBoundingRect(const String& text, double lineSpacingScale);
+
+		RectF getRegion(const String& text, double lineSpacingScale);
 
 		RectF draw(const String& text, const Vec2& pos, const ColorF& color, double lineSpacingScale);
 	};

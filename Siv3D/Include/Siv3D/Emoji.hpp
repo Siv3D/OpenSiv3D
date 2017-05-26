@@ -12,6 +12,9 @@
 # pragma once
 # include "Fwd.hpp"
 
+# define U32WIDEN(x) U ## x
+# define EMOJIDEF(NAME,CH) static constexpr Helper NAME = { U32WIDEN(#CH) };
+
 namespace s3d
 {
 	struct Emoji
@@ -20,7 +23,7 @@ namespace s3d
 
 		struct Helper
 		{
-			char32_t codePoint;
+			char32_t* codePoint;
 		};
 
 	public:
@@ -31,14 +34,35 @@ namespace s3d
 			: codePoint(_codePoint) {}
 
 		constexpr Emoji(Helper helper) noexcept
-			: codePoint(helper.codePoint) {}
+			: codePoint(helper.codePoint[0]) {}
 
 		static Image LoadImage(char32_t _codePoint);
 
-		static constexpr Helper SoccerBall = { U'⚽' };
+		//
+		// https://www.google.com/get/noto/help/emoji/
+		//
 
-		static constexpr Helper Fire = { U'🔥' };
+		/// <summary>
+		/// 🔥
+		/// </summary>
+		EMOJIDEF(Fire, 🔥);
 
-		static constexpr Helper Hamburger = { U'🍔' };
+		/// <summary>
+		/// ⚽
+		/// </summary>
+		EMOJIDEF(SoccerBall, ⚽);
+
+		/// <summary>
+		/// 🐵
+		/// </summary>
+		EMOJIDEF(MonkeyFace, 🐵);
+
+		/// <summary>
+		/// 🍔
+		/// </summary>
+		EMOJIDEF(Hamburger, 🍔);
 	};
 }
+
+# undef U32WIDEN
+# undef EMOJIDEF
