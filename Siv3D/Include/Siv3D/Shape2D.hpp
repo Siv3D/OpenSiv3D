@@ -66,6 +66,9 @@ namespace s3d
 
 		static Shape2D Rhombus(double w, double h, const Vec2& center = Vec2(0, 0), double angle = 0.0);
 
+		//static Shape2D RectBaloon(const RectF& rect, const Vec2& pointingPos = Vec2(0.0, 0.0), double tailRatio = 0.5, double angle = 0.0);
+		
+
 		//static Shape2D DoubleArrow(const Vec2& a, const Vec2& b, double width, const Vec2& headSize);		
 
 		//static Shape2D DoubleArrow(const Line& line, double width, const Vec2& headSize);	
@@ -76,8 +79,8 @@ namespace s3d
 
 		// Heart
 
-		void draw(const ColorF& color = Palette::White) const;
+		const Shape2D& draw(const ColorF& color = Palette::White) const;
 
-		void drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
+		const Shape2D& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 	};
 }

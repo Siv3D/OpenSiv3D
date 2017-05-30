@@ -190,14 +190,18 @@ namespace s3d
 	//	return Shape2D();
 	//}
 
-	void Shape2D::draw(const ColorF& color) const
+	const Shape2D& Shape2D::draw(const ColorF& color) const
 	{
 		Siv3DEngine::GetRenderer2D()->addShape2D(m_vertices, m_indices, color.toFloat4());
+
+		return *this;
 	}
 
-	void Shape2D::drawFrame(const double thickness, const ColorF& color) const
+	const Shape2D& Shape2D::drawFrame(const double thickness, const ColorF& color) const
 	{
 		Siv3DEngine::GetRenderer2D()->addShape2DFrame(m_vertices.data(), static_cast<uint32>(m_vertices.size()),
 			static_cast<float>(thickness), color.toFloat4());
+
+		return *this;
 	}
 }
