@@ -380,6 +380,8 @@ namespace s3d
 
 		TextureRegion scale(const Vec2& s) const;
 
+		TextureRegion resize(double size) const;
+
 		TextureRegion resize(double width, double height) const;
 
 		TextureRegion resize(const Vec2& size) const;

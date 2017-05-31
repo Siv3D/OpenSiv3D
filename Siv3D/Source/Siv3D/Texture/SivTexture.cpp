@@ -281,6 +281,13 @@ namespace s3d
 		return scale(s.x, s.y);
 	}
 
+	TextureRegion Texture::resize(const double size) const
+	{
+		const Size texSize = Siv3DEngine::GetTexture()->getSize(m_handle->getID());
+
+		return scale(static_cast<double>(size) / std::max(texSize.x, texSize.y));
+	}
+
 	TextureRegion Texture::resize(const double width, const double height) const
 	{
 		return TextureRegion(*this,
