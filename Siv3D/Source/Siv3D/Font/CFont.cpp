@@ -11,9 +11,44 @@
 
 # include "CFont.hpp"
 # include <Siv3D/FileSystem.hpp>
+# include <Siv3D/Resource.hpp>
+# include <Siv3D/Compression.hpp>
+# include "../EngineDirectory/EngineDirectory.hpp"
 
 namespace s3d
 {
+	namespace detail
+	{
+		FilePath GetEngineFontDirectory()
+		{
+			return EngineDirectory::CurrectVersionCommon() + S3DSTR("font/");
+		}
+
+		FilePath GetEngineFontPath(const Typeface typeface)
+		{
+			const FilePath fontDirectory = GetEngineFontDirectory();
+
+			switch (typeface)
+			{
+			case Typeface::Thin:
+				return fontDirectory + L"mplus/mplus-1p-thin.ttf";
+			case Typeface::Light:
+				return fontDirectory + L"mplus/mplus-1p-light.ttf";
+			case Typeface::Regular:
+				return fontDirectory + L"mplus/mplus-1p-regular.ttf";
+			case Typeface::Medium:
+				return fontDirectory + L"mplus/mplus-1p-medium.ttf";
+			case Typeface::Bold:
+				return fontDirectory + L"mplus/mplus-1p-bold.ttf";
+			case Typeface::Heavy:
+				return fontDirectory + L"mplus/mplus-1p-heavy.ttf";
+			default:
+				return fontDirectory + L"mplus/mplus-1p-black.ttf";
+			}
+		}
+	}
+
+
 	CFont::CFont()
 	{
 		m_fonts.destroy();
@@ -48,6 +83,32 @@ namespace s3d
 
 		m_fonts.setNullData(nullFont);
 
+		const FilePath fontNames[9] =
+		{
+			L"mplus/mplus-1p-thin.ttf",			
+			L"mplus/mplus-1p-light.ttf",		
+			L"mplus/mplus-1p-regular.ttf",		
+			L"mplus/mplus-1p-medium.ttf",		
+			L"mplus/mplus-1p-bold.ttf",		
+			L"mplus/mplus-1p-heavy.ttf",
+			L"mplus/mplus-1p-black.ttf",
+			L"noto/NotoEmoji-Regular.ttf",
+			L"noto/NotoColorEmoji.ttf",
+		};
+
+		const FilePath fontDirectory = EngineDirectory::CurrectVersionCommon() + S3DSTR("font/");
+		
+		for (const auto& fontName : fontNames)
+		{
+			const FilePath fontResourcePath = Resource(S3DSTR("engine/font/") + fontName + L".zst");
+
+			if (!FileSystem::Exists(fontDirectory + fontName)
+				&& FileSystem::Exists(fontResourcePath))
+			{
+				Compression::DecompressFileToFile(fontResourcePath, fontDirectory + fontName);
+			}
+		}
+	
 		if (!loadColorEmojiFace())
 		{
 			
@@ -56,9 +117,16 @@ namespace s3d
 		return true;
 	}
 
+	Font::IDType CFont::create(const Typeface typeface, const int32 fontSize, const FontStyle style)
+	{
+		return create(detail::GetEngineFontPath(typeface), fontSize, style);
+	}
+
 	Font::IDType CFont::create(const FilePath& path, const int32 fontSize, const FontStyle style)
 	{
-		const auto font = std::make_shared<FontData>(m_library, path, fontSize, style);
+		const FilePath emojiPath = detail::GetEngineFontDirectory() + L"noto/NotoEmoji-Regular.ttf";
+
+		const auto font = std::make_shared<FontData>(m_library, path, emojiPath, fontSize, style);
 
 		if (!font->isInitialized())
 		{
@@ -138,7 +206,7 @@ namespace s3d
 
 	bool CFont::loadColorEmojiFace()
 	{
-		const FilePath colorEmojiPath = L"engine/font/noto/NotoColorEmoji.ttf";
+		const FilePath colorEmojiPath = detail::GetEngineFontDirectory() + L"noto/NotoColorEmoji.ttf";
 
 		if (!FileSystem::Exists(colorEmojiPath))
 		{

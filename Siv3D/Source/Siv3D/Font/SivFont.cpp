@@ -12,6 +12,7 @@
 # include "../Siv3DEngine.hpp"
 # include "IFont.hpp"
 # include <Siv3D/Font.hpp>
+# include "../Profiler/IProfiler.hpp"
 
 namespace s3d
 {
@@ -35,10 +36,16 @@ namespace s3d
 
 	}
 
+	Font::Font(const int32 fontSize, const Typeface typeface, const FontStyle style)
+		: m_handle(std::make_shared<FontHandle>(Siv3DEngine::GetFont()->create(typeface, fontSize, style)))
+	{
+		ASSET_CREATION();
+	}
+
 	Font::Font(const int32 fontSize, const FilePath& path, const FontStyle style)
 		: m_handle(std::make_shared<FontHandle>(Siv3DEngine::GetFont()->create(path, fontSize, style)))
 	{
-
+		ASSET_CREATION();
 	}
 
 	Font::~Font()
