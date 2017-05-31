@@ -2,12 +2,10 @@
 
 void Main()
 {
-	Graphics::SetBackground(Color(250, 240, 230));
-
-	const Font font(20, Typeface::Bold, FontStyle::Italic);
+	const Texture sheep(Emoji(U'🐏'), TextureDesc::Mipped);
 
 	while (System::Update())
 	{
-		font(L"絵文字🐣🗻🙈👌の表示に対応").draw(20, 20, Palette::Brown);
+		sheep.resize(60).drawAt(Cursor::Pos());
 	}
 }

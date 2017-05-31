@@ -15,7 +15,7 @@
 # include <Siv3D/Font.hpp>
 # include <Siv3D/TextureRegion.hpp>
 
-//# include <Siv3D/Logger.hpp>
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -75,7 +75,14 @@ namespace s3d
 		//}
 
 		m_fontSize = fontSize;
-		m_lineSpacing = static_cast<int32>(m_faceText->size->metrics.height / 64);
+		//m_lineSpacing = static_cast<int32>(m_faceText->size->metrics.height / 64);
+		m_ascender = static_cast<int32>(m_faceText->size->metrics.ascender / 64);
+		m_descender = static_cast<int32>(m_faceText->size->metrics.descender / 64);
+		m_lineSpacing = m_ascender - m_descender;
+
+		//Log << m_lineSpacing;
+		//Log << m_ascender;
+		//Log << m_descender;
 
 		m_bold = static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Bold);
 		m_italic = static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Italic);
@@ -97,6 +104,101 @@ namespace s3d
 		}
 	}
 
+	RectF FontData::getBoundingRect(const String& text, const double lineSpacingScale)
+	{
+		const std::u32string codePoints = CharacterSet::ToUTF32(text);
+
+		if (!render(codePoints))
+		{
+			return RectF(0);
+		}
+
+		Vec2 penPos(0, 0);
+		Vec2 minPos(DBL_MAX, DBL_MAX);
+		Vec2 maxPos(DBL_MIN, DBL_MIN);
+
+		for (const auto& codePoint : codePoints)
+		{
+			if (codePoint == U'\n')
+			{
+				penPos.x = 0;
+				penPos.y += m_lineSpacing * lineSpacingScale;
+				continue;
+			}
+			else if (IsControl(codePoint))
+			{
+				continue;
+			}
+
+			const auto& glyphInfo = m_glyphs[m_glyphIndexTable[codePoint]];
+			const RectF region(penPos + glyphInfo.offset, glyphInfo.bitmapRect.size);
+
+			minPos.x = std::min(minPos.x, region.x);
+			minPos.y = std::min(minPos.y, region.y);
+			maxPos.x = std::max(maxPos.x, region.x + region.w);
+			maxPos.y = std::max(maxPos.y, region.y + region.h);
+			penPos.x += glyphInfo.xAdvance;
+		}
+
+		if (minPos == Vec2(DBL_MAX, DBL_MAX))
+		{
+			return RectF(0);
+		}
+
+		return RectF(minPos, maxPos - minPos);
+	}
+
+	RectF FontData::getRegion(const String& text, const double lineSpacingScale)
+	{
+		const std::u32string codePoints = CharacterSet::ToUTF32(text);
+
+		if (!render(codePoints))
+		{
+			return RectF(0);
+		}
+
+		Vec2 penPos(0, 0);
+		Vec2 minPos(DBL_MAX, DBL_MAX);
+		Vec2 maxPos(DBL_MIN, DBL_MIN);
+		int32 lineCount = 0;
+
+		for (const auto& codePoint : codePoints)
+		{
+			if (codePoint == U'\n')
+			{
+				penPos.x = 0;
+				penPos.y += m_lineSpacing * lineSpacingScale;
+				++lineCount;
+				continue;
+			}
+			else if (IsControl(codePoint))
+			{
+				continue;
+			}
+
+			if (lineCount == 0)
+			{
+				++lineCount;
+			}
+
+			const auto& glyphInfo = m_glyphs[m_glyphIndexTable[codePoint]];
+			const RectF region(penPos + glyphInfo.offset, glyphInfo.bitmapRect.size);
+
+			minPos.x = std::min(minPos.x, region.x);
+			minPos.y = std::min(minPos.y, region.y);
+			maxPos.x = std::max(maxPos.x, region.x + region.w);
+			maxPos.y = std::max(maxPos.y, region.y + region.h);
+			penPos.x += glyphInfo.xAdvance;
+		}
+
+		if (minPos == Vec2(DBL_MAX, DBL_MAX))
+		{
+			return RectF(0);
+		}
+
+		return RectF(0, 0, maxPos.x, lineCount * m_lineSpacing * lineSpacingScale);
+	}
+
 	RectF FontData::draw(const String& text, const Vec2& pos, const ColorF& color, double lineSpacingScale)
 	{
 		const std::u32string codePoints = CharacterSet::ToUTF32(text);
@@ -107,8 +209,8 @@ namespace s3d
 		}
 		
 		Vec2 penPos(pos);
-		Vec2 minPos(DBL_MAX, DBL_MAX);
-		Vec2 maxPos(DBL_MIN, DBL_MIN);
+		double maxPosX = DBL_MIN;
+		int32 lineCount = 0;
 		
 		for (const auto& codePoint : codePoints)
 		{
@@ -116,29 +218,33 @@ namespace s3d
 			{
 				penPos.x = pos.x;
 				penPos.y += m_lineSpacing * lineSpacingScale;
+				++lineCount;
 				continue;
 			}
 			else if (IsControl(codePoint))
 			{
 				continue;
 			}
+
+			if (lineCount == 0)
+			{
+				++lineCount;
+			}
 		
 			const auto& glyphInfo = m_glyphs[m_glyphIndexTable[codePoint]];
 			const RectF region = m_texture(glyphInfo.bitmapRect).draw(penPos + glyphInfo.offset, color);
-		
-			minPos.x = std::min(minPos.x, region.x);
-			minPos.y = std::min(minPos.y, region.y);
-			maxPos.x = std::max(maxPos.x, region.x + region.w);
-			maxPos.y = std::max(maxPos.y, region.y + region.h);
+
+			maxPosX = std::max(maxPosX, region.x + region.w);
 			penPos.x += glyphInfo.xAdvance;
 		}
-		
-		if (minPos == Vec2(DBL_MAX, DBL_MAX))
+
+		if (!lineCount)
 		{
 			return RectF(pos, 0);
 		}
 		
-		return RectF(minPos, maxPos - minPos);
+		return RectF(pos, maxPosX - pos.x, lineCount * m_lineSpacing * lineSpacingScale);
+		//return RectF(minPos, maxPos - minPos);
 	}
 
 	bool FontData::render(const std::u32string& codePoints)

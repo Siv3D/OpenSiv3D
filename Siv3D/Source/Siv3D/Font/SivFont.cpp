@@ -71,8 +71,25 @@ namespace s3d
 		return m_handle->getID() != shader.m_handle->getID();
 	}
 
+	int32 Font::ascender() const
+	{
+		return Siv3DEngine::GetFont()->getAscender(m_handle->getID());
+	}
 
+	int32 Font::descender() const
+	{
+		return Siv3DEngine::GetFont()->getDescender(m_handle->getID());
+	}
 
+	RectF DrawableText::boundingRect(const Vec2& pos) const
+	{
+		return Siv3DEngine::GetFont()->getBoundingRect(font.id(), text, 1.0).moveBy(pos);
+	}
+
+	RectF DrawableText::region(const Vec2& pos) const
+	{
+		return Siv3DEngine::GetFont()->getRegion(font.id(), text, 1.0).moveBy(pos);
+	}
 
 	RectF DrawableText::draw(const Vec2& pos, const ColorF& color) const
 	{

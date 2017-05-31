@@ -59,6 +59,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Easing.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\EasingController.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Ellipse.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Emoji.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\FileSystem.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\BigFloat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\FloatQuad.hpp" />
@@ -449,6 +450,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\DragDrop\SivDragDrop.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\DynamicTexture\SivDynamicTexture.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Ellipse\SivEllipse.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Emoji\SivEmoji.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\EngineDirectory\EngineDirectory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FileSystem\SivFileSystem.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FileSystem\SivFileSystem_Linux.cpp" />

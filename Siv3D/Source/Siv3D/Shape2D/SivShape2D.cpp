@@ -164,19 +164,44 @@ namespace s3d
 		return shape;
 	}
 
+	Shape2D Shape2D::Rhombus(const double w, const double h, const Vec2& center, const double angle)
+	{
+		Shape2D shape(4, 6, center, 0);
+
+		const float halfW = static_cast<float>(w) * 0.5f;
+		const float halfH = static_cast<float>(h) * 0.5f;
+		const float angleF = static_cast<float>(angle);
+		const float s = std::sin(angleF);
+		const float c = std::cos(angleF);
+
+		Float2* pPos = shape.m_vertices.data();
+		(pPos++)->moveBy(halfH * s, -halfH * c);
+		(pPos++)->moveBy(halfW * c, halfW * s);
+		(pPos++)->moveBy(-halfH * s, halfH * c);
+		(pPos++)->moveBy(-halfW * c, -halfW * s);
+
+		shape.m_indices = { 0, 1, 3, 2, 3, 1 };
+
+		return shape;
+	}
+
 	//Shape2D Shape2D::DoubleArrow(const Vec2& a, const Vec2& b, double width, const Vec2& headSize)
 	//{
 	//	return Shape2D();
 	//}
 
-	void Shape2D::draw(const ColorF& color) const
+	const Shape2D& Shape2D::draw(const ColorF& color) const
 	{
 		Siv3DEngine::GetRenderer2D()->addShape2D(m_vertices, m_indices, color.toFloat4());
+
+		return *this;
 	}
 
-	void Shape2D::drawFrame(const double thickness, const ColorF& color) const
+	const Shape2D& Shape2D::drawFrame(const double thickness, const ColorF& color) const
 	{
 		Siv3DEngine::GetRenderer2D()->addShape2DFrame(m_vertices.data(), static_cast<uint32>(m_vertices.size()),
 			static_cast<float>(thickness), color.toFloat4());
+
+		return *this;
 	}
 }
