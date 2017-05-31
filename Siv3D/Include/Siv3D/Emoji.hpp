@@ -12,8 +12,7 @@
 # pragma once
 # include "Fwd.hpp"
 
-# define U32WIDEN(x) U ## x
-# define EMOJIDEF(NAME,CH) static constexpr Helper NAME = { U32WIDEN(#CH) };
+# define EMOJIDEF(NAME,CH) static constexpr Helper NAME = { CH };
 
 namespace s3d
 {
@@ -23,7 +22,7 @@ namespace s3d
 
 		struct Helper
 		{
-			char32_t* codePoint;
+			const char32_t* codePoint;
 		};
 
 	public:
@@ -45,22 +44,22 @@ namespace s3d
 		/// <summary>
 		/// 🔥
 		/// </summary>
-		EMOJIDEF(Fire, 🔥);
+		EMOJIDEF(Fire, U"🔥");
 
 		/// <summary>
 		/// ⚽
 		/// </summary>
-		EMOJIDEF(SoccerBall, ⚽);
+		EMOJIDEF(SoccerBall, U"⚽");
 
 		/// <summary>
 		/// 🐵
 		/// </summary>
-		EMOJIDEF(MonkeyFace, 🐵);
+		EMOJIDEF(MonkeyFace, U"🐵");
 
 		/// <summary>
 		/// 🍔
 		/// </summary>
-		EMOJIDEF(Hamburger, 🍔);
+		EMOJIDEF(Hamburger, U"🍔");
 	};
 }
 
