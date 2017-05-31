@@ -91,7 +91,7 @@ namespace s3d
 
 		FontData(Null, FT_Library library);
 
-		FontData(FT_Library library, const String& filePath, const int32 fontSize, FontStyle style);
+		FontData(FT_Library library, const FilePath& filePath, const FilePath& emojiFilePath, const int32 fontSize, FontStyle style);
 
 		~FontData();
 

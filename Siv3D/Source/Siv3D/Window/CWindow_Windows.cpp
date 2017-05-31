@@ -317,17 +317,18 @@ namespace s3d
 
 		m_state.titleBarHeight = ::GetSystemMetrics(SM_CYCAPTION) + m_state.frameSize.y;
 
-		if (const auto monitors = System::EnumActiveMonitors())
+		m_state.pos.set(100, 100);
+
+		for (const auto& monitor : System::EnumActiveMonitors())
 		{
 			// プライマリモニターの中央に位置するようにウィンドウを配置
-			const auto& primaryMonitior = monitors[0];
-			const int32 xOffset = (primaryMonitior.workArea.w - m_state.windowSize.x) / 2;
-			const int32 yOffset = (primaryMonitior.workArea.h - m_state.windowSize.y) / 2;
-			m_state.pos.set(std::max(primaryMonitior.workArea.x + xOffset, 0), std::max(primaryMonitior.workArea.y + yOffset, 0));			
-		}
-		else
-		{
-			m_state.pos.set(100, 100);
+			if (monitor.isPrimary)
+			{
+				const int32 xOffset = (monitor.workArea.w - m_state.windowSize.x) / 2;
+				const int32 yOffset = (monitor.workArea.h - m_state.windowSize.y) / 2;
+				m_state.pos.set(std::max(monitor.workArea.x + xOffset, 0), std::max(monitor.workArea.y + yOffset, 0));
+				break;
+			}
 		}
 	}
 

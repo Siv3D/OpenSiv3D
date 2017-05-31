@@ -25,6 +25,8 @@ namespace s3d
 
 		virtual bool init() = 0;
 
+		virtual Font::IDType create(Typeface typeface, int32 fontSize, FontStyle style) = 0;
+
 		virtual Font::IDType create(const FilePath& path, int32 fontSize, FontStyle style) = 0;
 
 		virtual void release(Font::IDType handleID) = 0;

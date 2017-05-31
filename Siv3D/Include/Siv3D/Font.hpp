@@ -21,24 +21,24 @@
 
 namespace s3d
 {
-	namespace Typeface
+	enum class Typeface
 	{
-		const String Default = L"engine/font/umeplus/umeplus-p-gothic.ttf";
+		Thin,
 
-		const String Thin = L"engine/font/mplus/mplus-1p-thin.ttf";
+		Light,
 
-		const String Light = L"engine/font/mplus/mplus-1p-light.ttf";
-		
-		const String Regular = L"engine/font/mplus/mplus-1p-regular.ttf";
-		
-		const String Medium = L"engine/font/mplus/mplus-1p-medium.ttf";
+		Regular,
 
-		const String Bold = L"engine/font/mplus/mplus-1p-bold.ttf";
-		
-		const String Heavy = L"engine/font/mplus/mplus-1p-heavy.ttf";
+		Medium,
 
-		const String Black = L"engine/font/mplus/mplus-1p-black.ttf";
-	}
+		Bold,
+
+		Heavy,
+
+		Black,
+
+		Default = Regular,
+	};
 
 	/// <summary>
 	///	フォントスタイルのフラグ
@@ -82,7 +82,9 @@ namespace s3d
 
 		Font();
 
-		Font(int32 fontSize, const FilePath& path = Typeface::Default, FontStyle style = FontStyle::Default);
+		Font(int32 fontSize, Typeface typeface = Typeface::Default, FontStyle style = FontStyle::Default);
+
+		Font(int32 fontSize, const FilePath& path, FontStyle style = FontStyle::Default);
 
 		~Font();
 

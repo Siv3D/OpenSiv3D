@@ -24,7 +24,7 @@ namespace s3d
 		m_initialized = true;
 	}
 
-	FontData::FontData(FT_Library library, const String& filePath, const int32 fontSize, const FontStyle style)
+	FontData::FontData(FT_Library library, const FilePath& filePath, const FilePath& emojiFilePath, const int32 fontSize, const FontStyle style)
 	{
 		if (!InRange(fontSize, 1, 256))
 		{
@@ -50,7 +50,7 @@ namespace s3d
 			return;
 		}
 
-		if (const FT_Error error = ::FT_New_Face(library, "engine/font/noto/NotoEmoji-Regular.ttf", 0, &m_faceEmoji))
+		if (const FT_Error error = ::FT_New_Face(library, emojiFilePath.narrow().c_str(), 0, &m_faceEmoji))
 		{
 			if (error == FT_Err_Unknown_File_Format)
 			{
@@ -249,6 +249,11 @@ namespace s3d
 
 	bool FontData::render(const std::u32string& codePoints)
 	{
+		if (!m_faceText)
+		{
+			return false;
+		}
+
 		bool hasDirty = false;
 
 		for (const auto& codePoint : codePoints)

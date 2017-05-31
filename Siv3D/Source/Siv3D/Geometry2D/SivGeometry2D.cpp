@@ -490,6 +490,18 @@ namespace s3d
 			return (cX - aw) * (cX - aw) + (cY - ah) * (cY - ah) <= (b.r * b.r);
 		}
 
+		bool Intersect(const Rect& a, const Triangle& b) noexcept
+		{
+			return Intersect(Triangle(a.tl(), a.tr(), a.bl()), b)
+				|| Intersect(Triangle(a.bl(), a.tr(), a.br()), b);
+		}
+
+		bool Intersect(const Rect& a, const Quad& b) noexcept
+		{
+			return Intersect(a, Triangle(b.p0, b.p1, b.p2))
+				|| Intersect(a, Triangle(b.p0, b.p2, b.p3));
+		}
+
 		bool Intersect(const RectF& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
@@ -513,6 +525,18 @@ namespace s3d
 		bool Intersect(const RectF& a, const RectF& b) noexcept
 		{
 			return (a.x < b.x + b.w) && (b.x < a.x + a.w) && (a.y < b.y + b.h) && (b.y < a.y + a.h);
+		}
+
+		bool Intersect(const RectF& a, const Triangle& b) noexcept
+		{
+			return Intersect(Triangle(a.tl(), a.tr(), a.bl()), b)
+				|| Intersect(Triangle(a.bl(), a.tr(), a.br()), b);
+		}
+
+		bool Intersect(const RectF& a, const Quad& b) noexcept
+		{
+			return Intersect(a, Triangle(b.p0, b.p1, b.p2))
+				|| Intersect(a, Triangle(b.p0, b.p2, b.p3));
 		}
 
 		bool Intersect(const Circle& a, const Point& b) noexcept
@@ -581,9 +605,86 @@ namespace s3d
 			return Intersect(b, a);
 		}
 
+		bool Intersect(const Triangle& a, const Rect& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Triangle& a, const RectF& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
 		bool Intersect(const Triangle& a, const Circle& b) noexcept
 		{
 			return Intersect(b, a);
+		}
+
+		//
+		//	http://marupeke296.com/COL_2D_TriTri.html
+		//
+		bool Intersect(const Triangle& a, const Triangle& b) noexcept
+		{
+			const int32 other[3] = { 1, 2, 0 };
+			const int32 pindex[4] = { 1, 2, 0, 1 };
+			const Triangle* tri[3] = { &a, &b, &a };
+
+			for (int32 t = 0; t < 2; ++t)
+			{
+				const Triangle& ta = *tri[t];
+				const Triangle& tb = *tri[t + 1];
+
+				for (int32 i = 0; i < 3; ++i)
+				{
+					const Float2 vec = (ta.p(pindex[i + 1]) - ta.p(pindex[i])).normalized();
+					const Float2 sepVec(vec.y, -vec.x);
+
+					float s1min = sepVec.dot(ta.p(i));
+					float s1max = sepVec.dot(ta.p(other[i]));
+					
+					if (s1min > s1max)
+					{
+						std::swap(s1min, s1max);
+					}
+
+					float s2min = sepVec.dot(tb.p(0));
+					float s2max = sepVec.dot(tb.p(1));
+					
+					if (s2min > s2max)
+					{
+						std::swap(s2min, s2max);
+					}
+
+					const float d3 = sepVec.dot(tb.p(2));
+
+					if (d3 < s2min)
+					{
+						s2min = d3;
+					}
+					else if (d3 > s2max)
+					{
+						s2max = d3;
+					}
+
+					if (   (s2min <= s1min && s1min <= s2max)
+						|| (s2min <= s1max && s1max <= s2max)
+						|| (s1min <= s2min && s2min <= s1max)
+						|| (s1min <= s2max && s2max <= s1max))
+					{
+						continue;
+					}
+
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		bool Intersect(const Triangle& a, const Quad& b) noexcept
+		{
+			return Intersect(a, Triangle(b.p0, b.p1, b.p2))
+				 || Intersect(a, Triangle(b.p0, b.p2, b.p3));
 		}
 
 		bool Intersect(const Quad& a, const Point& b) noexcept
@@ -601,9 +702,30 @@ namespace s3d
 			return Intersect(b, a);
 		}
 
+		bool Intersect(const Quad& a, const Rect& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Quad& a, const RectF& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
 		bool Intersect(const Quad& a, const Circle& b) noexcept
 		{
 			return Intersect(b, a);
+		}
+
+		bool Intersect(const Quad& a, const Triangle& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Quad& a, const Quad& b) noexcept
+		{
+			return Intersect(Triangle(a.p0, a.p1, a.p2), b)
+				|| Intersect(Triangle(a.p0, a.p2, a.p3), b);
 		}
 	}
 }

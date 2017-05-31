@@ -13,6 +13,22 @@ Resource(engine/shader/line_dot.ps)
 Resource(engine/shader/line_round_dot.ps)
 Resource(engine/shader/sprite.ps)
 Resource(engine/shader/sprite_sdf.ps)
+Resource(engine/font/mplus/mplus-1p-regular.ttf.zst)
+
+//////////////////////////////////////////////////////
+//
+// Siv3D Engine Optional Resources
+//
+//////////////////////////////////////////////////////
+
+Resource(engine/font/mplus/mplus-1p-thin.ttf.zst)
+Resource(engine/font/mplus/mplus-1p-light.ttf.zst)
+Resource(engine/font/mplus/mplus-1p-medium.ttf.zst)
+Resource(engine/font/mplus/mplus-1p-bold.ttf.zst)
+Resource(engine/font/mplus/mplus-1p-heavy.ttf.zst)
+Resource(engine/font/mplus/mplus-1p-black.ttf.zst)
+Resource(engine/font/noto/NotoColorEmoji.ttf.zst)
+Resource(engine/font/noto/NotoEmoji-Regular.ttf.zst)
 
 //////////////////////////////////////////////////////
 //
