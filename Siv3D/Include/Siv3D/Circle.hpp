@@ -512,6 +512,9 @@ namespace s3d
 		/// </returns>
 		const Circle& drawArc(double startAngle, double angle, double innerThickness = 1.0, double outerThickness = 0.0, const ColorF& color = Palette::White) const;
 
+		TexturedCircle operator ()(const Texture& texture) const;
+
+		TexturedCircle operator ()(const TextureRegion& textureRegion) const;
 
 		// Polygon asPolygon() const;
 	};

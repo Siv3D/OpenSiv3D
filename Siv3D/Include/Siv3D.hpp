@@ -500,6 +500,8 @@
 	# include "Siv3D/Texture.hpp"
 	// 領域を指定したテクスチャ
 	# include "Siv3D/TextureRegion.hpp"
+	// 円に貼り付けたテクスチャ
+	# include "Siv3D/TexturedCircle.hpp"
 	// 四角形に貼り付けたテクスチャ
 	# include "Siv3D/TexturedQuad.hpp"
 	// 動的テクスチャ

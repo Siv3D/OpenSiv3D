@@ -308,7 +308,7 @@ namespace s3d
 		/// <returns>
 		/// 描画領域
 		/// </returns>
-		RectF draw(const Vec2& pos, const Color& diffuse = Palette::White) const
+		RectF draw(const Vec2& pos, const ColorF& diffuse = Palette::White) const
 		{
 			return draw(pos.x, pos.y, diffuse);
 		}
@@ -350,6 +350,8 @@ namespace s3d
 		TextureRegion operator ()(double x, double y, double w, double h) const;
 
 		TextureRegion operator ()(const Vec2& xy, double w, double h) const;
+
+		TextureRegion operator ()(double x, double y, double size) const;
 
 		TextureRegion operator ()(double x, double y, const Vec2& size) const;
 

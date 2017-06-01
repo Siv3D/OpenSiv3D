@@ -33,13 +33,6 @@ namespace s3d
 		return q;
 	}
 
-	const Quad& TexturedQuad::drawAt(const ColorF& diffuse) const
-	{
-		Siv3DEngine::GetRenderer2D()->addTexturedQuad(texture, quad.movedBy(center), uvRect, diffuse.toFloat4());
-
-		return quad;
-	}
-
 	Quad TexturedQuad::drawAt(const double x, const double y, const ColorF& diffuse) const
 	{
 		const Quad q = quad.movedBy(x - center.x, y - center.y);
