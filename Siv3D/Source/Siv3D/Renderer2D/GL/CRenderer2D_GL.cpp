@@ -25,6 +25,7 @@
 # include <Siv3D/Math.hpp>
 # include <Siv3D/MathConstants.hpp>
 # include <Siv3D/BlendState.hpp>
+# include <Siv3D/Resource.hpp>
 # include <Siv3D/Logger.hpp>
 # include "../../ConstantBuffer/GL/GLConstantBuffer.hpp"
 
