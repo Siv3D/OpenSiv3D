@@ -115,6 +115,17 @@ namespace s3d
 	{
 		m_clipRect = rect;
 	}
+
+	void CCursor_macOS::setStyle(CursorStyle style)
+	{
+		// [Siv3D ToDo]
+	}
+
+	CursorStyle CCursor_macOS::getStyle()
+	{
+		// [Siv3D ToDo]
+		return CursorStyle::Default;
+	}
 }
 
 # endif

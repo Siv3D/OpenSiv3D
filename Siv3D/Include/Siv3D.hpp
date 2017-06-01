@@ -548,8 +548,6 @@
 	//# include "Siv3D/GUIColorPalette.hpp"
 	//// GUI
 	//# include "Siv3D/GUI.hpp"
-	//// カーソル
-	//# include "Siv3D/Cursor.hpp"
 //
 // ムービー
 //

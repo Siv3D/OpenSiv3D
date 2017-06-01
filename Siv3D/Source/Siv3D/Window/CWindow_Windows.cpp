@@ -340,7 +340,7 @@ namespace s3d
 		windowClass.lpfnWndProc		= detail::WindowProc;
 		windowClass.hInstance		= ::GetModuleHandleW(nullptr);
 		windowClass.hIcon			= ::LoadIconW(::GetModuleHandleW(nullptr), MAKEINTRESOURCEW(100));
-		windowClass.hCursor			= ::LoadCursorW(nullptr, IDC_ARROW);
+		windowClass.hCursor			= nullptr;
 		windowClass.hbrBackground	= static_cast<HBRUSH>(::GetStockObject(DKGRAY_BRUSH));
 		windowClass.lpszClassName	= m_windowClassName.c_str();
 
