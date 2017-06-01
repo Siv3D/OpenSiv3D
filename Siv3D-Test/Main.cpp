@@ -4,23 +4,25 @@ void Main()
 {
 	Graphics::SetBackground(ColorF(0.4, 0.8, 0.6));
 
-	const Font font(20);
+	const Image boxShadowImage(Resource(L"engine/texture/box-shadow/256.png"));
 
-	const String text = L" Siv3D（http://siv3d.jp) は，音や画像を使ったプログラムや，マイク，Web カメラ，Kinect など様々なデバイスを使ったアプリケーションを，シンプルな C++ コードで開発できるフレームワークである．最新の C++ 規格を活用する，豊富なアプリケーション・プログラミング・インタフェース (API) により，お絵かきアプリは 9 行，Kinect を用いた人の姿勢のキャプチャは 15 行，ブロックくずしゲームは 28 行といったように，複雑なインタラクションを短いコードで記述できるのが特徴である．";
+	const Array<Image> boxShadowImageMips =
+	{
+		Image(Resource(L"engine/texture/box-shadow/128.png")),
+		Image(Resource(L"engine/texture/box-shadow/64.png")),
+		Image(Resource(L"engine/texture/box-shadow/32.png")),
+		Image(Resource(L"engine/texture/box-shadow/16.png")),
+		Image(Resource(L"engine/texture/box-shadow/8.png")),
+	};
 
-	Rect rect(40, 40, 100, 100);
+	const Texture boxShadowTexture(boxShadowImage, boxShadowImageMips);
+
+	double scale = 1.0;
 
 	while (System::Update())
 	{
-		const int32 w = Max(Cursor::Pos().x - 50, 80);
-		const int32 h = Max(Cursor::Pos().y - 50, font.height() + 10);
-		rect.setSize(w, h);
+		scale *= (1.0 + Mouse::Wheel() * 0.01);
 
-		rect.draw();
-
-		if (!font(text).draw(rect.stretched(-5), Palette::Black))
-		{
-			rect.drawFrame(0, 6, Palette::Red);
-		}
+		boxShadowTexture.scale(scale).draw(200, 200, ColorF(0.0, 0.5));
 	}
 }

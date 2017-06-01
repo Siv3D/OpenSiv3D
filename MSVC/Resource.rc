@@ -14,6 +14,12 @@ Resource(engine/shader/line_round_dot.ps)
 Resource(engine/shader/sprite.ps)
 Resource(engine/shader/sprite_sdf.ps)
 Resource(engine/font/mplus/mplus-1p-regular.ttf.zst)
+Resource(engine/texture/box-shadow/256.png)
+Resource(engine/texture/box-shadow/128.png)
+Resource(engine/texture/box-shadow/64.png)
+Resource(engine/texture/box-shadow/32.png)
+Resource(engine/texture/box-shadow/16.png)
+Resource(engine/texture/box-shadow/8.png)
 
 //////////////////////////////////////////////////////
 //

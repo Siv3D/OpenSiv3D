@@ -25,6 +25,7 @@
 # include <Siv3D/Sprite.hpp>
 # include <Siv3D/Color.hpp>
 # include <Siv3D/MathConstants.hpp>
+# include <Siv3D/Resource.hpp>
 # include <Siv3D/Logger.hpp>
 
 namespace s3d
@@ -121,6 +122,21 @@ namespace s3d
 		}
 		
 		m_commandManager.reset();
+
+		{
+			const Image boxShadowImage(Resource(L"engine/texture/box-shadow/256.png"));
+
+			const Array<Image> boxShadowImageMips =
+			{
+				Image(Resource(L"engine/texture/box-shadow/128.png")),
+				Image(Resource(L"engine/texture/box-shadow/64.png")),
+				Image(Resource(L"engine/texture/box-shadow/32.png")),
+				Image(Resource(L"engine/texture/box-shadow/16.png")),
+				Image(Resource(L"engine/texture/box-shadow/8.png")),
+			};
+
+			m_boxShadowTexture = Texture(boxShadowImage, boxShadowImageMips);
+		}
 
 		return true;
 	}

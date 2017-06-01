@@ -61,6 +61,8 @@ namespace s3d
 
 		D3D11Render2DCommandManager m_commandManager;
 
+		Texture m_boxShadowTexture;
+
 	public:
 
 		CRenderer2D_D3D11();
