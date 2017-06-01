@@ -39,6 +39,17 @@ namespace s3d
 		m_screenDelta.set(0, 0);
 		m_clientDelta.set(0, 0);
 
+		m_cursorStyles[size_t(CursorStyle::Arrow)] = ::LoadCursorW(nullptr, IDC_ARROW);
+		m_cursorStyles[size_t(CursorStyle::IBeam)] = ::LoadCursorW(nullptr, IDC_IBEAM);
+		m_cursorStyles[size_t(CursorStyle::Cross)] = ::LoadCursorW(nullptr, IDC_CROSS);
+		m_cursorStyles[size_t(CursorStyle::Hand)] = ::LoadCursorW(nullptr, IDC_HAND);
+		m_cursorStyles[size_t(CursorStyle::NotAllowed)] = ::LoadCursorW(nullptr, IDC_NO);
+		m_cursorStyles[size_t(CursorStyle::ResizeUpDown)] = ::LoadCursorW(nullptr, IDC_SIZENS);
+		m_cursorStyles[size_t(CursorStyle::ResizeLeftRight)] = ::LoadCursorW(nullptr, IDC_SIZEWE);
+		m_cursorStyles[size_t(CursorStyle::Hidden)] = nullptr;
+
+		::SetCursor(m_cursorStyles[0]);
+
 		return true;
 	}
 
@@ -57,6 +68,8 @@ namespace s3d
 		m_clientPos.set(clientPos.x, clientPos.y);
 		m_clientDelta = m_clientPos - m_previousClientPos;
 		m_previousClientPos = m_clientPos;
+
+		::SetCursor(m_cursorStyles[static_cast<size_t>(m_curerntCursorStyle)]);
 	}
 
 	const Point& CCursor_Windows::previousScreenPos() const
@@ -112,6 +125,23 @@ namespace s3d
 	void CCursor_Windows::clip(const Optional<Rect>& rect)
 	{
 		m_clipRect = rect;
+	}
+
+	void CCursor_Windows::setStyle(const CursorStyle style)
+	{
+		if (style == m_curerntCursorStyle)
+		{
+			return;
+		}
+
+		::SetCursor(m_cursorStyles[static_cast<size_t>(style)]);
+
+		m_curerntCursorStyle = style;
+	}
+
+	CursorStyle CCursor_Windows::getStyle()
+	{
+		return m_curerntCursorStyle;
 	}
 
 	void CCursor_Windows::updateClip()

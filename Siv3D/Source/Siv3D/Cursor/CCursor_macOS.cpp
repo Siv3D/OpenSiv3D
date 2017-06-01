@@ -17,6 +17,7 @@
 # include "../Siv3DEngine.hpp"
 # include "CCursor_macOS.hpp"
 # include <Siv3D/Optional.hpp>
+# include <Siv3D/Window.hpp>
 
 void macOS_GetScreenCursorPos(double* xpos, double* ypos);
 
@@ -27,6 +28,8 @@ namespace s3d
 		Point CursorScreenPos_macOS();
 		
 		void CursorSetPos_macOS(int32 x, int32 y);
+		
+		void CursorSetStyle_macOS(CursorStyle style);
 	}
 	
 	CCursor_macOS::CCursor_macOS()
@@ -69,6 +72,11 @@ namespace s3d
 		m_clientPos.set(static_cast<int32>(clientX), static_cast<int32>(clientY));
 		m_clientDelta = m_clientPos - m_previousClientPos;
 		m_previousClientPos = m_clientPos;
+		
+		if (Window::ClientRect().intersects(m_clientPos) && m_curerntCursorStyle != CursorStyle::Default)
+		{
+			detail::CursorSetStyle_macOS(m_curerntCursorStyle);
+		}
 	}
 
 	const Point& CCursor_macOS::previousScreenPos() const
@@ -114,6 +122,23 @@ namespace s3d
 	void CCursor_macOS::clip(const Optional<Rect>& rect)
 	{
 		m_clipRect = rect;
+	}
+
+	void CCursor_macOS::setStyle(CursorStyle style)
+	{
+		if (style == m_curerntCursorStyle)
+		{
+			return;
+		}
+		
+		detail::CursorSetStyle_macOS(style);
+		
+		m_curerntCursorStyle = style;
+	}
+
+	CursorStyle CCursor_macOS::getStyle()
+	{
+		return m_curerntCursorStyle;
 	}
 }
 

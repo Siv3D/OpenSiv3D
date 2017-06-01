@@ -17,6 +17,8 @@
 # include "../Siv3DEngine.hpp"
 # include "CMouse_macOS.hpp"
 
+# include <Siv3D/Logger.hpp>
+
 namespace s3d
 {
 	CMouse_macOS::CMouse_macOS()
@@ -32,19 +34,34 @@ namespace s3d
 	bool CMouse_macOS::init()
 	{
 		m_glfwWindow = Siv3DEngine::GetWindow()->getHandle();
+		
+		m_buttonsInternal.fill(MouseButtonState::Released);
 
 		::glfwSetScrollCallback(m_glfwWindow, OnScroll);
+		
+		::glfwSetMouseButtonCallback(m_glfwWindow, OnMouseButtonUpdated);
 		
 		return true;
 	}
 
 	void CMouse_macOS::update()
 	{
-		for (uint32 i = 0; i < MouseButtonCount; ++i)
 		{
-			const bool pressed = (::glfwGetMouseButton(m_glfwWindow, i) == GLFW_PRESS);
+			std::lock_guard<std::mutex> lock(m_buttonMutex);
+
+			for (uint32 i = 0; i < MouseButtonCount; ++i)
+			{
+				auto& state = m_buttonsInternal[i];
+				
+				const bool pressed = (state == MouseButtonState::Pressed) || (state == MouseButtonState::Tapped);
 	
-			m_states[i].update(pressed);
+				m_states[i].update(pressed);
+				
+				if (state == MouseButtonState::Tapped)
+				{
+					state = MouseButtonState::Released;
+				}
+			}
 		}
 		
 		{
@@ -91,6 +108,40 @@ namespace s3d
 	void CMouse_macOS::OnScroll(const WindowHandle, const double h, const double v)
 	{
 		Siv3DEngine::GetMouse()->onScroll(h, -v);
+	}
+	
+	void CMouse_macOS::onMouseButtonUpdated(const int32 index, const bool pressed)
+	{
+		std::lock_guard<std::mutex> lock(m_buttonMutex);
+		
+		auto& state = m_buttonsInternal[index];
+		
+		if(state == MouseButtonState::Released)
+		{
+			if(pressed)
+			{
+				state = MouseButtonState::Pressed;
+			}
+		}
+		else if(state == MouseButtonState::Pressed)
+		{
+			if(!pressed)
+			{
+				state = MouseButtonState::Tapped;
+			}
+		}
+		else
+		{
+			if(pressed)
+			{
+				state = MouseButtonState::Pressed;
+			}
+		}
+	}
+	
+	void CMouse_macOS::OnMouseButtonUpdated(WindowHandle, const int button, const int action, int)
+	{
+		Siv3DEngine::GetMouse()->onMouseButtonUpdated(button, (action == GLFW_PRESS));
 	}
 }
 

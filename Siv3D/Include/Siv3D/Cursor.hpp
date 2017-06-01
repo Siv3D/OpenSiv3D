@@ -15,6 +15,27 @@
 
 namespace s3d
 {
+	enum class CursorStyle
+	{
+		Arrow,
+
+		IBeam,
+
+		Cross,
+
+		Hand,
+
+		NotAllowed,
+
+		ResizeUpDown,
+
+		ResizeLeftRight,
+
+		Hidden,
+
+		Default = Arrow,
+	};
+
 	namespace Cursor
 	{
 		/// <summary>
@@ -108,6 +129,10 @@ namespace s3d
 		/// なし
 		/// </returns>
 		void ClipClientRect(bool clip);
+
+		void SetStyle(CursorStyle style);
+
+		CursorStyle GetStyle();
 	}
 
 	namespace win::Cursor

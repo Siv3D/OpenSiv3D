@@ -428,6 +428,9 @@
     <Filter Include="Source\Siv3D\Emoji">
       <UniqueIdentifier>{c66b0226-d2b9-4b2f-927f-5e35cc4393e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\TexturedCircle">
+      <UniqueIdentifier>{ed5a9f9f-c68f-426e-85f1-3782e7cf14c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1579,6 +1582,9 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Emoji.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\TexturedCircle.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2306,6 +2312,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Emoji\SivEmoji.cpp">
       <Filter>Source\Siv3D\Emoji</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\TexturedCircle\SivTexturedCircle.cpp">
+      <Filter>Source\Siv3D\TexturedCircle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

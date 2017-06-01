@@ -22,6 +22,7 @@
 # include "ICursor.hpp"
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/Rectangle.hpp>
+# include <Siv3D/Cursor.hpp>
 
 namespace s3d
 {
@@ -44,6 +45,10 @@ namespace s3d
 		Point m_clientDelta{ 0, 0 };
 
 		Optional<Rect> m_clipRect;
+
+		CursorStyle m_curerntCursorStyle = CursorStyle::Default;
+
+		std::array<HCURSOR, 8> m_cursorStyles;
 
 		bool m_clipClientRect = false;
 
@@ -76,6 +81,10 @@ namespace s3d
 		void clipClientRect(bool clip) override;
 
 		void clip(const Optional<Rect>& rect) override;
+
+		void setStyle(CursorStyle style) override;
+
+		CursorStyle getStyle() override;
 	};
 }
 

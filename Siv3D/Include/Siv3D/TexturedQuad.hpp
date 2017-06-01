@@ -58,8 +58,6 @@ namespace s3d
 			return draw(pos.x, pos.y, diffuse);
 		}
 
-		const Quad& drawAt(const ColorF& diffuse = Palette::White) const;
-
 		Quad drawAt(double x, double y, const ColorF& diffuse = Palette::White) const;
 
 		Quad drawAt(const Vec2& pos, const ColorF& diffuse = Palette::White) const

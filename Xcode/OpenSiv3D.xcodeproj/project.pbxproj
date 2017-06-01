@@ -662,6 +662,8 @@
 		2CA79ABA1DF55A410028D11D /* TestString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79AAA1DF55A410028D11D /* TestString.cpp */; };
 		2CA79ABB1DF55A410028D11D /* TestTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79AAB1DF55A410028D11D /* TestTypes.cpp */; };
 		2CA79ABC1DF55A410028D11D /* TestUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79AAC1DF55A410028D11D /* TestUtility.cpp */; };
+		2CAE4D961EE039670057BE7E /* SivTexturedCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE4D951EE039670057BE7E /* SivTexturedCircle.cpp */; };
+		2CAE4D981EE039790057BE7E /* TexturedCircle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAE4D971EE039790057BE7E /* TexturedCircle.hpp */; };
 		2CCA356F1EC6BBA900078678 /* ImageProcessing.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */; };
 		2CCA35721EC6BBBD00078678 /* SivImageProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35711EC6BBBD00078678 /* SivImageProcessing.cpp */; };
 		2CCA35751EC6BBCA00078678 /* SivSamplerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35741EC6BBCA00078678 /* SivSamplerState.cpp */; };
@@ -1484,6 +1486,8 @@
 		2CA79AAC1DF55A410028D11D /* TestUtility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestUtility.cpp; sourceTree = "<group>"; };
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
+		2CAE4D951EE039670057BE7E /* SivTexturedCircle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTexturedCircle.cpp; sourceTree = "<group>"; };
+		2CAE4D971EE039790057BE7E /* TexturedCircle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TexturedCircle.hpp; sourceTree = "<group>"; };
 		2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageProcessing.hpp; sourceTree = "<group>"; };
 		2CCA35711EC6BBBD00078678 /* SivImageProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivImageProcessing.cpp; sourceTree = "<group>"; };
 		2CCA35741EC6BBCA00078678 /* SivSamplerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSamplerState.cpp; sourceTree = "<group>"; };
@@ -1648,6 +1652,7 @@
 		2C0C7A121EBCC38300386CBB /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2CAE4D941EE039670057BE7E /* TexturedCircle */,
 				2CA6355E1ED3C32400B851BC /* Emoji */,
 				2CCA35B51ECC740400078678 /* Font */,
 				2CCA35B01EC9B00900078678 /* DynamicTexture */,
@@ -2846,6 +2851,7 @@
 				2C0C7D081EBCC39B00386CBB /* System.hpp */,
 				2C0C7D091EBCC39B00386CBB /* TextReader.hpp */,
 				2C0C7D0A1EBCC39B00386CBB /* Texture.hpp */,
+				2CAE4D971EE039790057BE7E /* TexturedCircle.hpp */,
 				2CCA35901EC884F500078678 /* TexturedQuad.hpp */,
 				2C0C7D0B1EBCC39B00386CBB /* TextureFormat.hpp */,
 				2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */,
@@ -3571,6 +3577,14 @@
 			path = ../Siv3D;
 			sourceTree = "<group>";
 		};
+		2CAE4D941EE039670057BE7E /* TexturedCircle */ = {
+			isa = PBXGroup;
+			children = (
+				2CAE4D951EE039670057BE7E /* SivTexturedCircle.cpp */,
+			);
+			path = TexturedCircle;
+			sourceTree = "<group>";
+		};
 		2CCA35701EC6BBBD00078678 /* ImageProcessing */ = {
 			isa = PBXGroup;
 			children = (
@@ -4172,6 +4186,7 @@
 				2C0C7D701EBCC39B00386CBB /* Key.hpp in Headers */,
 				2C0C7DD01EBE0E2E00386CBB /* GLConstantBuffer.hpp in Headers */,
 				2C0C7C2E1EBCC38400386CBB /* D3D11Renderer2DCommandManager.hpp in Headers */,
+				2CAE4D981EE039790057BE7E /* TexturedCircle.hpp in Headers */,
 				2C0C7C441EBCC38400386CBB /* Siv3D_macOS.h in Headers */,
 				2C81C01C1E89F8E300D27E52 /* glfw3native.h in Headers */,
 				2CCA36641ECC748F00078678 /* svcid.h in Headers */,
@@ -4685,6 +4700,7 @@
 				2CCA35C31ECC740400078678 /* SivFont.cpp in Sources */,
 				2C0C7DF01EC081B700386CBB /* SivRasterizerState.cpp in Sources */,
 				2C0C7C0B1EBCC38400386CBB /* SivMathParser.cpp in Sources */,
+				2CAE4D961EE039670057BE7E /* SivTexturedCircle.cpp in Sources */,
 				2C0C7BB31EBCC38400386CBB /* CDragDrop_Linux.cpp in Sources */,
 				2C0C7BBC1EBCC38400386CBB /* SivEllipse.cpp in Sources */,
 				2C0C7C6E1EBCC38400386CBB /* SivVector4D.cpp in Sources */,

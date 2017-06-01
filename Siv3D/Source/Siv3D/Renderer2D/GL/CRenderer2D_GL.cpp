@@ -20,6 +20,7 @@
 # include <Siv3D/FloatQuad.hpp>
 # include <Siv3D/Sprite.hpp>
 # include <Siv3D/Color.hpp>
+# include <Siv3D/Circle.hpp>
 # include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/Math.hpp>
 # include <Siv3D/MathConstants.hpp>
@@ -1669,6 +1670,68 @@ namespace s3d
 		
 		m_commandManager.pushPSTexture(0, texture);
 		
+		if (texture.isSDF())
+		{
+			m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::SpriteSDF);
+		}
+		else
+		{
+			m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Sprite);
+		}
+	}
+
+	void CRenderer2D_GL::addTexturedCircle(const Texture& texture, const Circle& circle, const FloatRect& uv, const Float4& color)
+	{
+		const float rf = static_cast<float>(circle.r);
+		const float absR = std::abs(rf);
+		const float centerX = static_cast<float>(circle.x);
+		const float centerY = static_cast<float>(circle.y);
+		const float centerU = (uv.left + uv.right) * 0.5f;
+		const float centerV = (uv.top + uv.bottom) * 0.5f;
+		const float rU = (uv.right - uv.left) * 0.5f;
+		const float rV = (uv.bottom - uv.top) * 0.5f;
+
+		const IndexType quality = static_cast<IndexType>(std::min(absR * 0.225f + 18.0f, 255.0f));
+		const IndexType vertexSize = quality + 1, indexSize = quality * 3;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+		{
+			return;
+		}
+
+		// 中心
+		pVertex[0].pos.set(centerX, centerY);
+		pVertex[0].tex.set(centerU, centerV);
+
+		// 周
+		const float radDelta = Math::TwoPiF / quality;
+
+		for (IndexType i = 1; i <= quality; ++i)
+		{
+			const float rad = radDelta * (i - 1.0f);
+			const float c = std::cos(rad);
+			const float s = std::sinf(rad);
+			pVertex[i].pos.set(centerX + rf * c, centerY - rf * s);
+			pVertex[i].tex.set(centerU + rU * c, centerV - rV * s);
+		}
+
+		for (size_t i = 0; i < vertexSize; ++i)
+		{
+			(pVertex++)->color = color;
+		}
+
+		for (IndexType i = 0; i < quality; ++i)
+		{
+			pIndex[i * 3 + 0] = indexOffset + (i + 0) + 1;
+			pIndex[i * 3 + 1] = indexOffset;
+			pIndex[i * 3 + 2] = indexOffset + (i + 1) % quality + 1;
+		}
+
+		m_commandManager.pushPSTexture(0, texture);
+
 		if (texture.isSDF())
 		{
 			m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::SpriteSDF);

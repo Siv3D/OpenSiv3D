@@ -80,6 +80,16 @@ namespace s3d
 		{
 			Siv3DEngine::GetCursor()->clipClientRect(clip);
 		}
+
+		void SetStyle(const CursorStyle style)
+		{
+			Siv3DEngine::GetCursor()->setStyle(style);
+		}
+
+		CursorStyle GetStyle()
+		{
+			return Siv3DEngine::GetCursor()->getStyle();
+		}
 	}
 
 	namespace win::Cursor
