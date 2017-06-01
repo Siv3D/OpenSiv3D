@@ -512,6 +512,26 @@ namespace s3d
 		/// </returns>
 		const Circle& drawArc(double startAngle, double angle, double innerThickness = 1.0, double outerThickness = 0.0, const ColorF& color = Palette::White) const;
 
+		/// <summary>
+		/// 円の影を描きます。
+		/// </summary>
+		/// <param name="offset">
+		/// 影の移動量（ピクセル）
+		/// </param>
+		/// <param name="blurRadius">
+		/// 影のぼかしの大きさ（ピクセル）
+		/// </param>
+		/// <param name="spread">
+		/// 長方形の広がり（ピクセル）
+		/// </param>
+		/// <param name="color">
+		/// 影の色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Circle& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF(0.0, 0.5)) const;
+
 		TexturedCircle operator ()(const Texture& texture) const;
 
 		TexturedCircle operator ()(const TextureRegion& textureRegion) const;

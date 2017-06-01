@@ -1896,6 +1896,11 @@ namespace s3d
 			m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
 		}
 	}
+
+	const Texture& CRenderer2D_D3D11::getBoxShadowTexture() const
+	{
+		return m_boxShadowTexture;
+	}
 }
 
 # endif
