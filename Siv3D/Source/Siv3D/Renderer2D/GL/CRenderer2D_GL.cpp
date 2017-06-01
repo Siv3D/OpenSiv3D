@@ -20,6 +20,7 @@
 # include <Siv3D/FloatQuad.hpp>
 # include <Siv3D/Sprite.hpp>
 # include <Siv3D/Color.hpp>
+# include <Siv3D/Circle.hpp>
 # include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/Math.hpp>
 # include <Siv3D/MathConstants.hpp>
@@ -1733,11 +1734,11 @@ namespace s3d
 
 		if (texture.isSDF())
 		{
-			m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::SpriteSDF);
+			m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::SpriteSDF);
 		}
 		else
 		{
-			m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Sprite);
+			m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Sprite);
 		}
 	}
 	
