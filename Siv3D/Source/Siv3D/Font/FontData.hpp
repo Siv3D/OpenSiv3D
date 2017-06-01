@@ -115,5 +115,7 @@ namespace s3d
 		RectF getRegion(const String& text, double lineSpacingScale);
 
 		RectF draw(const String& text, const Vec2& pos, const ColorF& color, double lineSpacingScale);
+
+		bool draw(const String& text, const RectF& area, const ColorF& color, double lineSpacingScale);
 	};
 }

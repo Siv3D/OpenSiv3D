@@ -54,6 +54,8 @@ namespace s3d
 
 		RectF draw(Font::IDType handleID, const String& text, const Vec2& pos, const ColorF& color, double lineSpacingScale) override;
 
+		bool draw(Font::IDType handleID, const String& text, const RectF& area, const ColorF& color, double lineSpacingScale) override;
+
 		Image getColorEmoji(uint32 codePoint) override;
 	};
 }

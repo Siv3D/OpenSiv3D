@@ -166,6 +166,11 @@ namespace s3d
 		return m_fonts[handleID]->draw(text, pos, color, lineSpacingScale);
 	}
 
+	bool CFont::draw(Font::IDType handleID, const String& text, const RectF& area, const ColorF& color, double lineSpacingScale)
+	{
+		return m_fonts[handleID]->draw(text, area, color, lineSpacingScale);
+	}
+
 	Image CFont::getColorEmoji(const uint32 codePoint)
 	{
 		const uint32_t glyphIndex = ::FT_Get_Char_Index(m_colorEmojiFace, codePoint);

@@ -75,14 +75,9 @@ namespace s3d
 		//}
 
 		m_fontSize = fontSize;
-		//m_lineSpacing = static_cast<int32>(m_faceText->size->metrics.height / 64);
 		m_ascender = static_cast<int32>(m_faceText->size->metrics.ascender / 64);
 		m_descender = static_cast<int32>(m_faceText->size->metrics.descender / 64);
 		m_lineSpacing = m_ascender - m_descender;
-
-		//Log << m_lineSpacing;
-		//Log << m_ascender;
-		//Log << m_descender;
 
 		m_bold = static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Bold);
 		m_italic = static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Italic);
@@ -245,6 +240,155 @@ namespace s3d
 		
 		return RectF(pos, maxPosX - pos.x, lineCount * m_lineSpacing * lineSpacingScale);
 		//return RectF(minPos, maxPos - minPos);
+	}
+
+	bool FontData::draw(const String& text, const RectF& area, const ColorF& color, const double lineSpacingScale)
+	{
+		const std::u32string codePoints = CharacterSet::ToUTF32(text);
+
+		if (!render(codePoints))
+		{
+			return false;
+		}
+
+		const double width = area.w;
+		const double height = area.h;
+
+		std::u32string adjustedText;
+		bool needDots = false;
+
+		if (m_lineSpacing > height)
+		{
+			return false;
+		}
+		
+		{
+			Vec2 penPos(0, 0);		
+
+			for (const auto& codePoint : codePoints)
+			{
+				if (codePoint == U'\n')
+				{
+					penPos.y += m_lineSpacing * lineSpacingScale;
+
+					if (penPos.y + m_lineSpacing <= height)
+					{
+						penPos.x = 0;
+						adjustedText.push_back(U'\n');
+						continue;
+					}
+					else
+					{
+						needDots = true;
+						break;
+					}
+				}
+				else if (IsControl(codePoint))
+				{
+					continue;
+				}
+
+				const auto& glyphInfo = m_glyphs[m_glyphIndexTable[codePoint]];
+				const int32 characterWidth = glyphInfo.offset.x + glyphInfo.bitmapRect.w;
+
+				if (penPos.x + characterWidth <= width)
+				{
+					penPos.x += glyphInfo.xAdvance;
+					adjustedText.push_back(codePoint);
+					continue;
+				}
+				else
+				{
+					penPos.y += m_lineSpacing * lineSpacingScale;
+
+					if (penPos.y + m_lineSpacing <= height)
+					{
+						if (glyphInfo.xAdvance > width)
+						{
+							return false;
+						}
+
+						penPos.x = glyphInfo.xAdvance;
+						adjustedText.push_back(U'\n');
+						adjustedText.push_back(codePoint);
+						continue;
+					}
+					else
+					{
+						needDots = true;
+						break;
+					}
+				}
+			}
+
+			if (needDots)
+			{
+				if (!render(U"."))
+				{
+					return false;
+				}
+
+				const auto& dotGlyph = m_glyphs[m_glyphIndexTable[U'.']];
+				const int32 dotWidth = dotGlyph.offset.x + dotGlyph.bitmapRect.w;
+				const int32 dotsWidth = dotGlyph.xAdvance * 2 + dotWidth;
+
+				while (!adjustedText.empty())
+				{
+					const char32_t codePoint = adjustedText.back();
+
+					if (codePoint == U'\n')
+					{
+						break;
+					}
+
+					if (width - penPos.x >= dotsWidth)
+					{
+						break;
+					}
+
+					const auto& glyphInfo = m_glyphs[m_glyphIndexTable[codePoint]];
+					penPos.x -= glyphInfo.xAdvance;
+					adjustedText.pop_back();
+				}
+
+				if (width - penPos.x >= dotsWidth)
+				{
+					adjustedText.append(U"...");
+				}
+			}
+		}
+
+		{
+			Vec2 penPos(area.pos);
+			int32 lineCount = 0;
+
+			for (const auto& codePoint : adjustedText)
+			{
+				if (codePoint == U'\n')
+				{
+					penPos.x = area.x;
+					penPos.y += m_lineSpacing * lineSpacingScale;
+					++lineCount;
+					continue;
+				}
+				else if (IsControl(codePoint))
+				{
+					continue;
+				}
+
+				if (lineCount == 0)
+				{
+					++lineCount;
+				}
+
+				const auto& glyphInfo = m_glyphs[m_glyphIndexTable[codePoint]];
+				const RectF region = m_texture(glyphInfo.bitmapRect).draw(penPos + glyphInfo.offset, color);
+
+				penPos.x += glyphInfo.xAdvance;
+			}
+		}
+
+		return !needDots;
 	}
 
 	bool FontData::render(const std::u32string& codePoints)
