@@ -41,5 +41,7 @@ namespace s3d
 		virtual const Vec2& wheel() const = 0;
 		
 		virtual void onScroll(double v, double h) = 0;
+		
+		virtual void onMouseButtonUpdated(int32 index, bool pressed) = 0;
 	};
 }

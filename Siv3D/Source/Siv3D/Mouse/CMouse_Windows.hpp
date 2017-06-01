@@ -61,6 +61,8 @@ namespace s3d
 		const Vec2& wheel() const override;
 		
 		void onScroll(double v, double h) override;
+		
+		void onMouseButtonUpdated(int32, bool) override {}
 	};
 }
 
