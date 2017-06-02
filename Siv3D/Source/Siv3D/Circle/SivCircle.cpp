@@ -177,9 +177,9 @@ namespace s3d
 
 		const float radDelta = Math::TwoPiF / quality;
 
-		for (int32 i = 0; i < quality; ++i)
+		for (uint32 i = 0; i < quality; ++i)
 		{
-			const float rad = radDelta * (i - 1);
+			const float rad = radDelta * i;
 			const float c = std::cosf(rad);
 			const float s = std::sinf(rad);
 			
