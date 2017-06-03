@@ -52,11 +52,13 @@ namespace s3d
 
 	CFont::CFont()
 	{
-		m_fonts.destroy();
+		
 	}
 
 	CFont::~CFont()
 	{
+		m_fonts.destroy();
+
 		m_colorEmoji.destroy();
 
 		if (m_library)

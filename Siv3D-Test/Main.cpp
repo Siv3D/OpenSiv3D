@@ -16,7 +16,7 @@ void Main()
 
 		texture2.draw(200, 200);
 
-		font(L"Hello 🇪🇪").draw();
+		font(L"ABCDE🐈あいうえお🍔abcde🇪🇪12345").draw();
 
 		//Circle(200, 200, 80).drawShadow(Vec2(2, 2), 12, 4).draw();
 	}
