@@ -107,6 +107,8 @@ namespace s3d
 
 		int32 descender() const;
 
+		int32 height() const;
+
 		/// <summary>
 		/// 描画するテキストを作成します。
 		/// </summary>
@@ -326,6 +328,11 @@ namespace s3d
 		{
 			return drawBase(pos - region().center(), color);
 		}
+
+
+
+		bool draw(const RectF& area, const ColorF& color = Palette::White) const;
+
 	};
 
 	inline DrawableText Font::operator()(const String& text) const

@@ -11,6 +11,8 @@
 
 # pragma once
 # include "Fwd.hpp"
+# include "String.hpp"
+# include "StringView.hpp"
 
 # define EMOJIDEF(NAME,CH) static constexpr Helper NAME = { CH };
 
@@ -22,20 +24,20 @@ namespace s3d
 
 		struct Helper
 		{
-			const char32_t* codePoint;
+			const wchar_t* codePoints;
 		};
 
 	public:
 
-		char32_t codePoint;
+		String codePoints;
 
-		explicit constexpr Emoji(char32_t _codePoint) noexcept
-			: codePoint(_codePoint) {}
+		explicit Emoji(StringView emoji) noexcept
+			: codePoints(emoji) {}
 
-		constexpr Emoji(Helper helper) noexcept
-			: codePoint(helper.codePoint[0]) {}
+		Emoji(Helper helper) noexcept
+			: codePoints(helper.codePoints) {}
 
-		static Image LoadImage(char32_t _codePoint);
+		static Image LoadImage(StringView emoji);
 
 		//
 		// https://www.google.com/get/noto/help/emoji/
@@ -44,22 +46,22 @@ namespace s3d
 		/// <summary>
 		/// 🔥
 		/// </summary>
-		EMOJIDEF(Fire, U"🔥");
+		EMOJIDEF(Fire, L"🔥");
 
 		/// <summary>
 		/// ⚽
 		/// </summary>
-		EMOJIDEF(SoccerBall, U"⚽");
+		EMOJIDEF(SoccerBall, L"⚽");
 
 		/// <summary>
 		/// 🐵
 		/// </summary>
-		EMOJIDEF(MonkeyFace, U"🐵");
+		EMOJIDEF(MonkeyFace, L"🐵");
 
 		/// <summary>
 		/// 🍔
 		/// </summary>
-		EMOJIDEF(Hamburger, U"🍔");
+		EMOJIDEF(Hamburger, L"🍔");
 	};
 }
 

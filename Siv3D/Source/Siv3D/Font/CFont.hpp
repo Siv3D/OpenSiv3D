@@ -24,7 +24,7 @@ namespace s3d
 
 		AssetHandleManager<Texture::IDType, std::shared_ptr<FontData>> m_fonts{ S3DSTR("Font") };
 
-		FT_Face m_colorEmojiFace = nullptr;
+		FontFace m_colorEmoji;
 
 		bool m_hasColorEmoji = false;
 
@@ -54,6 +54,8 @@ namespace s3d
 
 		RectF draw(Font::IDType handleID, const String& text, const Vec2& pos, const ColorF& color, double lineSpacingScale) override;
 
-		Image getColorEmoji(uint32 codePoint) override;
+		bool draw(Font::IDType handleID, const String& text, const RectF& area, const ColorF& color, double lineSpacingScale) override;
+
+		Image getColorEmoji(StringView emoji) override;
 	};
 }

@@ -13,6 +13,7 @@
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Resource.hpp>
 # include <Siv3D/Compression.hpp>
+# include <Siv3D/CharacterSet.hpp>
 # include "../EngineDirectory/EngineDirectory.hpp"
 
 namespace s3d
@@ -51,15 +52,14 @@ namespace s3d
 
 	CFont::CFont()
 	{
-		m_fonts.destroy();
+		
 	}
 
 	CFont::~CFont()
 	{
-		if (m_colorEmojiFace)
-		{
-			::FT_Done_Face(m_colorEmojiFace);
-		}
+		m_fonts.destroy();
+
+		m_colorEmoji.destroy();
 
 		if (m_library)
 		{
@@ -166,33 +166,45 @@ namespace s3d
 		return m_fonts[handleID]->draw(text, pos, color, lineSpacingScale);
 	}
 
-	Image CFont::getColorEmoji(const uint32 codePoint)
+	bool CFont::draw(Font::IDType handleID, const String& text, const RectF& area, const ColorF& color, double lineSpacingScale)
 	{
-		const uint32_t glyphIndex = ::FT_Get_Char_Index(m_colorEmojiFace, codePoint);
+		return m_fonts[handleID]->draw(text, area, color, lineSpacingScale);
+	}
 
+	Image CFont::getColorEmoji(const StringView emoji)
+	{
+		const auto glyphs = m_colorEmoji.get(emoji);
+
+		if (glyphs.second != 1)
+		{
+			return Image();
+		}
+
+		const uint32_t glyphIndex = glyphs.first[0].codepoint;
+	
 		if (glyphIndex == 0)
 		{
 			return Image();
 		}
 
-		if (const FT_Error error = ::FT_Load_Glyph(m_colorEmojiFace, glyphIndex, FT_LOAD_COLOR))
+		if (const FT_Error error = ::FT_Load_Glyph(m_colorEmoji.face, glyphIndex, FT_LOAD_COLOR))
 		{
 			return Image();
 		}
 
-		if (const FT_Error error = ::FT_Render_Glyph(m_colorEmojiFace->glyph, FT_RENDER_MODE_NORMAL))
+		if (const FT_Error error = ::FT_Render_Glyph(m_colorEmoji.face->glyph, FT_RENDER_MODE_NORMAL))
 		{
 			return Image();
 		}
 
-		const int32 bitmapWidth = m_colorEmojiFace->glyph->bitmap.width;
-		const int32 bitmapHeight = m_colorEmojiFace->glyph->bitmap.rows;
+		const int32 bitmapWidth = m_colorEmoji.face->glyph->bitmap.width;
+		const int32 bitmapHeight = m_colorEmoji.face->glyph->bitmap.rows;
 
 		Image image(bitmapWidth, bitmapHeight);
 
 		Color* pDst = image.data();
 		Color* const pDstEnd = pDst + image.num_pixels();
-		const uint8_t* pSrc = m_colorEmojiFace->glyph->bitmap.buffer;
+		const uint8_t* pSrc = m_colorEmoji.face->glyph->bitmap.buffer;
 
 		while (pDst != pDstEnd)
 		{
@@ -213,14 +225,14 @@ namespace s3d
 			return false;
 		}
 
-		if (const FT_Error error = ::FT_New_Face(m_library, colorEmojiPath.narrow().c_str(), 0, &m_colorEmojiFace))
+		if (const FT_Error error = ::FT_New_Face(m_library, colorEmojiPath.narrow().c_str(), 0, &m_colorEmoji.face))
 		{
 			return false;
 		}
 
 		FT_ULong length = 0;
 
-		if (const FT_Error error = ::FT_Load_Sfnt_Table(m_colorEmojiFace, FT_MAKE_TAG('C', 'B', 'D', 'T'), 0, nullptr, &length))
+		if (const FT_Error error = ::FT_Load_Sfnt_Table(m_colorEmoji.face, FT_MAKE_TAG('C', 'B', 'D', 'T'), 0, nullptr, &length))
 		{
 			return false;
 		}
@@ -230,17 +242,17 @@ namespace s3d
 			return false;
 		}
 
-		if (m_colorEmojiFace->num_fixed_sizes == 0)
+		if (m_colorEmoji.face->num_fixed_sizes == 0)
 		{
 			return false;
 		}
 
 		int32 bestMatch = 0;
-		int32 diff = std::abs(128 - m_colorEmojiFace->available_sizes[0].width);
+		int32 diff = std::abs(128 - m_colorEmoji.face->available_sizes[0].width);
 		
-		for (int32 i = 1; i < m_colorEmojiFace->num_fixed_sizes; ++i)
+		for (int32 i = 1; i < m_colorEmoji.face->num_fixed_sizes; ++i)
 		{
-			const int32 ndiff = std::abs(128 - m_colorEmojiFace->available_sizes[i].width);
+			const int32 ndiff = std::abs(128 - m_colorEmoji.face->available_sizes[i].width);
 			
 			if (ndiff < diff)
 			{
@@ -249,7 +261,14 @@ namespace s3d
 			}
 		}
 
-		if (const FT_Error error = ::FT_Select_Size(m_colorEmojiFace, bestMatch))
+		if (const FT_Error error = ::FT_Select_Size(m_colorEmoji.face, bestMatch))
+		{
+			return false;
+		}
+
+		m_colorEmoji.hbFont = ::hb_ft_font_create_referenced(m_colorEmoji.face);
+
+		if (!m_colorEmoji.hbFont)
 		{
 			return false;
 		}

@@ -93,5 +93,8 @@ namespace s3d
 		virtual void addTexturedQuad(const Texture& texture, const FloatQuad& quad, const FloatRect& uv, const Float4& color) = 0;
 
 		virtual void addSprite(const Optional<Texture>& texture, const Sprite& sprite, uint32 startIndex, uint32 indexCount) = 0;
+
+
+		virtual const Texture& getBoxShadowTexture() const = 0;
 	};
 }

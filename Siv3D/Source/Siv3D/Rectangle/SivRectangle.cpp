@@ -16,6 +16,7 @@
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/TextureRegion.hpp>
 # include <Siv3D/TexturedQuad.hpp>
+# include <Siv3D/Sprite.hpp>
 # include "../Siv3DEngine.hpp"
 # include "../Renderer2D/IRenderer2D.hpp"
 
@@ -88,6 +89,66 @@ namespace s3d
 			static_cast<float>(innerThickness + outerThickness),
 			color.toFloat4()
 		);
+
+		return *this;
+	}
+
+	template <class SizeType>
+	const Rectangle<SizeType>& Rectangle<SizeType>::drawShadow(const Vec2& offset, double blurRadius, double spread, const ColorF& color) const
+	{
+		if (blurRadius < 0.0)
+		{
+			return *this;
+		}
+
+		const RectF rect = RectF(pos + offset, size).stretched(spread + blurRadius * 0.5);
+		const Float4 colorF = color.toFloat4();
+
+		const double rr = Min({ rect.w * 0.5, rect.h * 0.5, blurRadius });
+		const float xs[4] =
+		{
+			static_cast<float>(rect.x),
+			static_cast<float>(rect.x + rr),
+			static_cast<float>(rect.x + rect.w - rr),
+			static_cast<float>(rect.x + rect.w)
+		};
+
+		const float ys[4] =
+		{
+			static_cast<float>(rect.y),
+			static_cast<float>(rect.y + rr),
+			static_cast<float>(rect.y + rect.h - rr),
+			static_cast<float>(rect.y + rect.h)
+		};
+
+		const float uvs[4] = { 0.0f, 0.5f, 0.5f, 1.0f };
+
+		Sprite sprite(16, 54);
+
+		Vertex2D* pVertex = sprite.vertices.data();
+
+		for (int32 i = 0; i < 16; ++i)
+		{
+			pVertex->pos.set(xs[i % 4], ys[i / 4]);
+			pVertex->tex.set(uvs[i % 4], uvs[i / 4]);
+			pVertex->color = colorF;
+			++pVertex;
+		}
+
+		static const uint32 rectIndexTable[6] = { 0, 1, 4, 4, 1, 5 };
+
+		for (uint32 ty = 0; ty < 3; ++ty)
+		{
+			for (uint32 tx = 0; tx < 3; ++tx)
+			{
+				for (uint32 k = 0; k < 6; ++k)
+				{
+					sprite.indices[(ty * 3 + tx) * 6 + k] = (ty * 4) + tx + rectIndexTable[k];
+				}
+			}
+		}
+
+		sprite.draw(Siv3DEngine::GetRenderer2D()->getBoxShadowTexture());
 
 		return *this;
 	}

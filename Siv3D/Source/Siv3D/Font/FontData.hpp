@@ -14,6 +14,8 @@
 # include FT_FREETYPE_H
 # include FT_SYNTHESIS_H
 # include FT_TRUETYPE_TABLES_H
+# include "../../ThirdParty/harfbuzz/hb.h"
+# include "../../ThirdParty/harfbuzz/hb-ft.h"
 # include <Siv3D/HashMap.hpp>
 # include <Siv3D/Image.hpp>
 # include <Siv3D/DynamicTexture.hpp>
@@ -29,6 +31,81 @@ namespace s3d
 		int32 xAdvance = 0;
 	};
 
+	struct FontFace
+	{
+		FT_Face face = nullptr;
+
+		hb_font_t* hbFont = nullptr;
+
+		hb_buffer_t* buffer = nullptr;
+
+		FontFace()
+			: buffer(::hb_buffer_create())
+		{
+
+		}
+
+		~FontFace()
+		{
+			destroy();
+		}
+
+		explicit operator bool() const noexcept
+		{
+			return face != nullptr;
+			//return face && hbFont;
+		}
+
+		std::pair<const hb_glyph_info_t*, size_t> get(const StringView view)
+		{
+			::hb_buffer_reset(buffer);
+
+		# if defined(SIV3D_TARGET_WINDOWS)
+	
+			::hb_buffer_add_utf16(buffer, reinterpret_cast<const uint16*>(view.data()), static_cast<int32>(view.length()), 0, static_cast<int32>(view.length()));
+
+		# else
+
+			::hb_buffer_add_utf32(buffer, reinterpret_cast<const uint32*>(view.data()), static_cast<int32>(view.length()), 0, static_cast<int32>(view.length()));
+
+		# endif	
+
+			::hb_buffer_guess_segment_properties(buffer);
+
+			::hb_shape(hbFont, buffer, nullptr, 0);
+
+			uint32 glyphCount = 0;
+
+			const hb_glyph_info_t* glyphInfo = ::hb_buffer_get_glyph_infos(buffer, &glyphCount);
+
+			return{ glyphInfo, glyphCount };
+		}
+
+		void destroy()
+		{
+			if (hbFont)
+			{
+				::hb_font_destroy(hbFont);
+
+				hbFont = nullptr;
+			}
+
+			if (buffer)
+			{
+				::hb_buffer_destroy(buffer);
+
+				buffer = nullptr;
+			}
+
+			if (face)
+			{
+				::FT_Done_Face(face);
+
+				face = nullptr;
+			}
+		}
+	};
+
 	class FontData
 	{
 	private:
@@ -37,9 +114,9 @@ namespace s3d
 
 		HashMap<char32_t, CommonGlyphIndex> m_glyphIndexTable;
 
-		FT_Face m_faceText = nullptr;
+		FontFace m_faceText;
 
-		FT_Face m_faceEmoji = nullptr;
+		FontFace m_faceEmoji;
 
 		Array<GlyphInfo> m_glyphs;
 
@@ -115,5 +192,7 @@ namespace s3d
 		RectF getRegion(const String& text, double lineSpacingScale);
 
 		RectF draw(const String& text, const Vec2& pos, const ColorF& color, double lineSpacingScale);
+
+		bool draw(const String& text, const RectF& area, const ColorF& color, double lineSpacingScale);
 	};
 }

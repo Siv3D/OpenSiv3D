@@ -164,6 +164,15 @@ namespace s3d
 			: m_string(std::move(str)) {}
 
 		/// <summary>
+		/// 文字列をコピーして新しい文字列を作成します。
+		/// </summary>
+		/// <param name="view">
+		/// コピーする文字列
+		/// </param>
+		explicit String(StringView view)
+			: m_string(view.begin(), view.end()) {}
+
+		/// <summary>
 		/// デストラクタ
 		/// </summary>
 		~String() = default;

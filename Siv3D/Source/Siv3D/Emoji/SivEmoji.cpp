@@ -16,8 +16,8 @@
 
 namespace s3d
 {
-	Image Emoji::LoadImage(const char32_t _codePoint)
+	Image Emoji::LoadImage(const StringView emoji)
 	{
-		return Siv3DEngine::GetFont()->getColorEmoji(_codePoint);
+		return Siv3DEngine::GetFont()->getColorEmoji(emoji);
 	}
 }

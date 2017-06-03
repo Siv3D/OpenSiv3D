@@ -90,6 +90,8 @@ namespace s3d
 		GLSpriteBatch m_spriteBatch;
 		
 		GLRender2DCommandManager m_commandManager;
+
+		Texture m_boxShadowTexture;
 		
 	public:
 
@@ -166,6 +168,9 @@ namespace s3d
 		void addTexturedQuad(const Texture& texture, const FloatQuad& quad, const FloatRect& uv, const Float4& color) override;
 		
 		void addSprite(const Optional<Texture>& texture, const Sprite& sprite, uint32 startIndex, uint32 indexCount) override;
+
+
+		const Texture& getBoxShadowTexture() const override;
 	};
 }
 
