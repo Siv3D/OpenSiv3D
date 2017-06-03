@@ -639,14 +639,12 @@
 	//# include "Siv3D/Effect.hpp"
 	// コンソールウィンドウ
 	# include "Siv3D/Console.hpp"
-	//// デバッグ出力
-	//# include "Siv3D/ApplicationUtility.hpp"
+	// デバッグ出力
+	# include "Siv3D/ApplicationUtility.hpp"
 	//// アドオン
 	//# include "Siv3D/Addon.hpp"
 	//// シリアライゼーション
 	//# include "Siv3D/Serialization.hpp"
-	//// 名前空間の設定
-	//# include "Siv3D/Namespace.hpp"
 	// GPU の使用
 	# include "Siv3D/HighPerfoemanceGPU.hpp"
 

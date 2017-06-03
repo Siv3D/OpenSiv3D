@@ -103,6 +103,11 @@ namespace s3d
 		return Siv3DEngine::GetFont()->getRegion(font.id(), text, 1.0).moveBy(pos);
 	}
 
+	Array<int32> DrawableText::getXAdvances() const
+	{
+		return Siv3DEngine::GetFont()->getXAdvances(font.id(), text);
+	}
+
 	RectF DrawableText::draw(const Vec2& pos, const ColorF& color) const
 	{
 		return Siv3DEngine::GetFont()->draw(font.id(), text, pos, color, 1.0);

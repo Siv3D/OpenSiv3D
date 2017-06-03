@@ -13,6 +13,7 @@
 # include <memory>
 # include "Fwd.hpp"
 # include "AssetHandle.hpp"
+# include "Array.hpp"
 # include "String.hpp"
 # include "Color.hpp"
 # include "PointVector.hpp"
@@ -192,12 +193,6 @@ namespace s3d
 		}
 
 
-
-
-
-
-
-
 		RectF region(double x, double y) const
 		{
 			return region(Vec2(x, y));
@@ -243,7 +238,7 @@ namespace s3d
 		}
 
 
-
+		Array<int32> getXAdvances() const;
 
 
 
@@ -332,7 +327,6 @@ namespace s3d
 
 
 		bool draw(const RectF& area, const ColorF& color = Palette::White) const;
-
 	};
 
 	inline DrawableText Font::operator()(const String& text) const

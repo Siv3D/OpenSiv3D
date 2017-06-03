@@ -161,6 +161,11 @@ namespace s3d
 		return m_fonts[handleID]->getRegion(text, lineSpacingScale);
 	}
 
+	Array<int32> CFont::getXAdvances(Font::IDType handleID, const String& text)
+	{
+		return m_fonts[handleID]->getXAdvances(text);
+	}
+
 	RectF CFont::draw(const Font::IDType handleID, const String& text, const Vec2& pos, const ColorF& color, const double lineSpacingScale)
 	{
 		return m_fonts[handleID]->draw(text, pos, color, lineSpacingScale);

@@ -52,6 +52,8 @@ namespace s3d
 
 		RectF getRegion(Font::IDType handleID, const String& text, double lineSpacingScale) override;
 
+		Array<int32> getXAdvances(Font::IDType handleID, const String& text) override;
+
 		RectF draw(Font::IDType handleID, const String& text, const Vec2& pos, const ColorF& color, double lineSpacingScale) override;
 
 		bool draw(Font::IDType handleID, const String& text, const RectF& area, const ColorF& color, double lineSpacingScale) override;

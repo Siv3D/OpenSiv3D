@@ -39,6 +39,8 @@ namespace s3d
 
 		virtual RectF getRegion(Font::IDType handleID, const String& text, double lineSpacingScale) = 0;
 
+		virtual Array<int32> getXAdvances(Font::IDType handleID, const String& text) = 0;
+
 		virtual RectF draw(Font::IDType handleID, const String& text, const Vec2& pos, const ColorF& color, double lineSpacingScale) = 0;
 
 		virtual bool draw(Font::IDType handleID, const String& text, const RectF& area, const ColorF& color, double lineSpacingScale) = 0;

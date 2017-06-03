@@ -1,45 +1,34 @@
-﻿// OpenSiv3D v0.1.4-
-# include <Siv3D.hpp>
+﻿# include <Siv3D.hpp>
 
 void Main()
 {
-	Graphics::SetBackground(ColorF(0.6));
-	const Texture texture(L"example/siv3d-kun.png");
-	const RoundRect rect(30, 50, 100, 100, 25);
-	Stopwatch s;
+	Graphics::SetBackground(ColorF(0.4, 0.4, 0.7));
+	const Font font(30, Typeface::Default);
+	const Rect box(20, 40, 500, font.height());
+	const String text = L"あいうえお。12345-Abcdefg.,!?";
+	const Array<int32> xAdvances = font(text).getXAdvances();
+	size_t index = xAdvances.size();
 
 	while (System::Update())
 	{
-		if (MouseL.down())
+		if (0 < index && KeyLeft.down())
 		{
-			s.restart();
+			--index;
+		}
+		else if (index < xAdvances.size() && KeyRight.down())
+		{
+			++index;
 		}
 
-		if (s > 3.0s)
+		int32 xOffset = 0;
+
+		for (size_t i = 0; i < index; ++i)
 		{
-			const double t = std::min((s.sF() - 3.0) * 3, 1.0);
-			RectF(640, 480 * t).draw(Arg::top = ColorF(1, 0.8, 0, t), Arg::bottom = ColorF(0.9, 0.6, 0, t));
-			RectF(640 * t, 20).draw(ColorF(0, t * 0.8));
+			xOffset += xAdvances[i];
 		}
 
-		if (s > 2.4s)
-		{
-			rect.drawShadow(Vec2(1, 2), 8, 1);
-		}
-
-		if (s > 0.6s)
-		{
-			rect.draw(Palette::Skyblue);
-		}
-
-		if (s > 1.2s)
-		{
-			rect(texture(90, 5, 110)).draw();
-		}
-
-		if (s > 1.8s)
-		{
-			rect.drawFrame(6, 0, AlphaF(0.1)).drawFrame(4, 0, AlphaF(0.2)).drawFrame(2, 0, AlphaF(0.4));
-		}
+		box.stretched(2).draw();
+		font(text).draw(box.pos, Palette::Black);
+		Rect(box.pos.movedBy(xOffset - 1, 0), 2, box.h).draw(Palette::Red);
 	}
 }

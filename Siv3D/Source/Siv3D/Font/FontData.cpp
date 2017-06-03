@@ -186,6 +186,40 @@ namespace s3d
 		return RectF(0, 0, maxPos.x, lineCount * m_lineSpacing * lineSpacingScale);
 	}
 
+	Array<int32> FontData::getXAdvances(const String& text)
+	{
+		const std::u32string codePoints = CharacterSet::ToUTF32(text);
+
+		if (!render(codePoints))
+		{
+			return Array<int32>();
+		}
+
+		Array<int32> xAdvabces;
+
+		for (const auto& codePoint : codePoints)
+		{
+			if (codePoint == U'\n')
+			{
+				xAdvabces.push_back(0);
+			}
+			else if (IsControl(codePoint))
+			{
+				xAdvabces.push_back(0);
+
+				continue;
+			}
+
+			const auto& glyphInfo = m_glyphs[m_glyphIndexTable[codePoint]];
+
+			const int32 xAdvance = glyphInfo.xAdvance;
+
+			xAdvabces.push_back(xAdvance);
+		}
+
+		return xAdvabces;
+	}
+
 	RectF FontData::draw(const String& text, const Vec2& pos, const ColorF& color, double lineSpacingScale)
 	{
 		const std::u32string codePoints = CharacterSet::ToUTF32(text);
