@@ -45,6 +45,7 @@
 		# pragma comment (lib, "Windows(x64)/libpng/libpng16_d")
 		# pragma comment (lib, "Windows(x64)/libjpeg-turbo/turbojpeg-static_d")
 		# pragma comment (lib, "Windows(x64)/freetype/freetype28MTd")
+		# pragma comment (lib, "Windows(x64)/harfbuzz/harfbuzz_d")
 
 	# else
 
@@ -53,6 +54,7 @@
 		# pragma comment (lib, "Windows(x64)/libpng/libpng16")
 		# pragma comment (lib, "Windows(x64)/libjpeg-turbo/turbojpeg-static")
 		# pragma comment (lib, "Windows(x64)/freetype/freetype28MT")
+		# pragma comment (lib, "Windows(x64)/harfbuzz/harfbuzz")
 
 	# endif
 
@@ -65,6 +67,7 @@
 		# pragma comment (lib, "Windows(x86)/libpng/libpng16_d")
 		# pragma comment (lib, "Windows(x86)/libjpeg-turbo/turbojpeg-static_d")
 		# pragma comment (lib, "Windows(x86)/freetype/freetype28MTd")
+		# pragma comment (lib, "Windows(x86)/harfbuzz/harfbuzz_d")
 
 	# else
 
@@ -73,6 +76,7 @@
 		# pragma comment (lib, "Windows(x86)/libpng/libpng16")
 		# pragma comment (lib, "Windows(x86)/libjpeg-turbo/turbojpeg-static")
 		# pragma comment (lib, "Windows(x86)/freetype/freetype28MT")
+		# pragma comment (lib, "Windows(x86)/harfbuzz/harfbuzz")
 
 	# endif
 

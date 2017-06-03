@@ -13,7 +13,10 @@
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Resource.hpp>
 # include <Siv3D/Compression.hpp>
+# include <Siv3D/CharacterSet.hpp>
 # include "../EngineDirectory/EngineDirectory.hpp"
+# include "../../ThirdParty/harfbuzz/hb.h"
+# include "../../ThirdParty/harfbuzz/hb-ft.h"
 
 namespace s3d
 {
@@ -174,6 +177,68 @@ namespace s3d
 	Image CFont::getColorEmoji(const uint32 codePoint)
 	{
 		const uint32_t glyphIndex = ::FT_Get_Char_Index(m_colorEmojiFace, codePoint);
+
+		if (glyphIndex == 0)
+		{
+			return Image();
+		}
+
+		if (const FT_Error error = ::FT_Load_Glyph(m_colorEmojiFace, glyphIndex, FT_LOAD_COLOR))
+		{
+			return Image();
+		}
+
+		if (const FT_Error error = ::FT_Render_Glyph(m_colorEmojiFace->glyph, FT_RENDER_MODE_NORMAL))
+		{
+			return Image();
+		}
+
+		const int32 bitmapWidth = m_colorEmojiFace->glyph->bitmap.width;
+		const int32 bitmapHeight = m_colorEmojiFace->glyph->bitmap.rows;
+
+		Image image(bitmapWidth, bitmapHeight);
+
+		Color* pDst = image.data();
+		Color* const pDstEnd = pDst + image.num_pixels();
+		const uint8_t* pSrc = m_colorEmojiFace->glyph->bitmap.buffer;
+
+		while (pDst != pDstEnd)
+		{
+			pDst->set(pSrc[2], pSrc[1], pSrc[0], pSrc[3]);
+			++pDst;
+			pSrc += 4;
+		}
+
+		return image;
+	}
+
+	Image CFont::getColorEmoji(const StringView emoji)
+	{
+		const std::string utf8 = CharacterSet::ToUTF8(emoji);
+
+		hb_buffer_t* buf = hb_buffer_create();
+		::hb_buffer_add_utf8(buf, utf8.c_str(), static_cast<int32>(utf8.length()), 0, static_cast<int32>(utf8.length()));
+		::hb_buffer_guess_segment_properties(buf);
+		hb_font_t* font = ::hb_ft_font_create_referenced(m_colorEmojiFace);
+		::hb_shape(font, buf, nullptr, 0);
+
+		uint32 glyphCount = 0;
+		hb_glyph_info_t* glyphInfo = ::hb_buffer_get_glyph_infos(buf, &glyphCount);
+		//hb_glyph_position_t* glyphPos = ::hb_buffer_get_glyph_positions(buf, &glyphCount);
+
+		Log << L"glyphCount: " << glyphCount;
+
+		if (glyphCount != 1)
+		{
+			return Image();
+		}
+
+		const uint32_t glyphIndex = glyphInfo[0].codepoint;
+
+		Log << L"glyphIndex: " << glyphIndex;
+
+		::hb_buffer_destroy(buf);
+		::hb_font_destroy(font);
 
 		if (glyphIndex == 0)
 		{

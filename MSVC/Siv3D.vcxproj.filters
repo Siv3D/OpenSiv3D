@@ -431,6 +431,9 @@
     <Filter Include="Source\Siv3D\TexturedCircle">
       <UniqueIdentifier>{ed5a9f9f-c68f-426e-85f1-3782e7cf14c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\ThirdParty\harfbuzz">
+      <UniqueIdentifier>{ef37f9e1-316c-4e59-be27-df9675c2d0df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1584,6 +1587,45 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\TexturedCircle.hpp">
       <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\harfbuzz\hb-deprecated.h">
+      <Filter>Source\ThirdParty\harfbuzz</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\harfbuzz\hb-face.h">
+      <Filter>Source\ThirdParty\harfbuzz</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\harfbuzz\hb-font.h">
+      <Filter>Source\ThirdParty\harfbuzz</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\harfbuzz\hb-ft.h">
+      <Filter>Source\ThirdParty\harfbuzz</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\harfbuzz\hb-set.h">
+      <Filter>Source\ThirdParty\harfbuzz</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\harfbuzz\hb-shape.h">
+      <Filter>Source\ThirdParty\harfbuzz</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\harfbuzz\hb-shape-plan.h">
+      <Filter>Source\ThirdParty\harfbuzz</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\harfbuzz\hb-unicode.h">
+      <Filter>Source\ThirdParty\harfbuzz</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\harfbuzz\hb-version.h">
+      <Filter>Source\ThirdParty\harfbuzz</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\harfbuzz\hb.h">
+      <Filter>Source\ThirdParty\harfbuzz</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\harfbuzz\hb-blob.h">
+      <Filter>Source\ThirdParty\harfbuzz</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\harfbuzz\hb-buffer.h">
+      <Filter>Source\ThirdParty\harfbuzz</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\harfbuzz\hb-common.h">
+      <Filter>Source\ThirdParty\harfbuzz</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

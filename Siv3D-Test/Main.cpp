@@ -2,10 +2,14 @@
 
 void Main()
 {
-	Graphics::SetBackground(ColorF(0.4, 0.8, 0.6));
+	//Graphics::SetBackground(ColorF(0.4, 0.8, 0.6));
+
+	const Texture texture(Emoji::LoadImage(L"🇪🇪"));
 
 	while (System::Update())
 	{
-		Circle(200, 200, 80).drawShadow(Vec2(2, 2), 12, 4).draw();
+		texture.draw();
+
+		//Circle(200, 200, 80).drawShadow(Vec2(2, 2), 12, 4).draw();
 	}
 }

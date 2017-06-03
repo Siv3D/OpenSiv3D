@@ -57,5 +57,7 @@ namespace s3d
 		bool draw(Font::IDType handleID, const String& text, const RectF& area, const ColorF& color, double lineSpacingScale) override;
 
 		Image getColorEmoji(uint32 codePoint) override;
+
+		Image getColorEmoji(StringView emoji) override;
 	};
 }
