@@ -665,6 +665,8 @@
 		2CAE4D961EE039670057BE7E /* SivTexturedCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE4D951EE039670057BE7E /* SivTexturedCircle.cpp */; };
 		2CAE4D981EE039790057BE7E /* TexturedCircle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAE4D971EE039790057BE7E /* TexturedCircle.hpp */; };
 		2CAE4DF01EE276490057BE7E /* lharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CAE4DEF1EE276490057BE7E /* lharfbuzz.a */; };
+		2CAE4DF51EE2D75C0057BE7E /* SivTexturedRoundRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE4DF41EE2D75C0057BE7E /* SivTexturedRoundRect.cpp */; };
+		2CAE4DF71EE2D7770057BE7E /* TexturedRoundRect.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAE4DF61EE2D7770057BE7E /* TexturedRoundRect.hpp */; };
 		2CCA356F1EC6BBA900078678 /* ImageProcessing.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */; };
 		2CCA35721EC6BBBD00078678 /* SivImageProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35711EC6BBBD00078678 /* SivImageProcessing.cpp */; };
 		2CCA35751EC6BBCA00078678 /* SivSamplerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35741EC6BBCA00078678 /* SivSamplerState.cpp */; };
@@ -1490,6 +1492,8 @@
 		2CAE4D951EE039670057BE7E /* SivTexturedCircle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTexturedCircle.cpp; sourceTree = "<group>"; };
 		2CAE4D971EE039790057BE7E /* TexturedCircle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TexturedCircle.hpp; sourceTree = "<group>"; };
 		2CAE4DEF1EE276490057BE7E /* lharfbuzz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lharfbuzz.a; sourceTree = "<group>"; };
+		2CAE4DF41EE2D75C0057BE7E /* SivTexturedRoundRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTexturedRoundRect.cpp; sourceTree = "<group>"; };
+		2CAE4DF61EE2D7770057BE7E /* TexturedRoundRect.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TexturedRoundRect.hpp; sourceTree = "<group>"; };
 		2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageProcessing.hpp; sourceTree = "<group>"; };
 		2CCA35711EC6BBBD00078678 /* SivImageProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivImageProcessing.cpp; sourceTree = "<group>"; };
 		2CCA35741EC6BBCA00078678 /* SivSamplerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSamplerState.cpp; sourceTree = "<group>"; };
@@ -1655,6 +1659,7 @@
 		2C0C7A121EBCC38300386CBB /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2CAE4DF31EE2D75C0057BE7E /* TexturedRoundRect */,
 				2CAE4D941EE039670057BE7E /* TexturedCircle */,
 				2CA6355E1ED3C32400B851BC /* Emoji */,
 				2CCA35B51ECC740400078678 /* Font */,
@@ -2856,6 +2861,7 @@
 				2C0C7D0A1EBCC39B00386CBB /* Texture.hpp */,
 				2CAE4D971EE039790057BE7E /* TexturedCircle.hpp */,
 				2CCA35901EC884F500078678 /* TexturedQuad.hpp */,
+				2CAE4DF61EE2D7770057BE7E /* TexturedRoundRect.hpp */,
 				2C0C7D0B1EBCC39B00386CBB /* TextureFormat.hpp */,
 				2CCE339C1EC1E71400B6A0D5 /* TextureRegion.hpp */,
 				2C0C7D0C1EBCC39B00386CBB /* TextWriter.hpp */,
@@ -3595,6 +3601,14 @@
 				2CAE4DEF1EE276490057BE7E /* lharfbuzz.a */,
 			);
 			path = harfbuzz;
+			sourceTree = "<group>";
+		};
+		2CAE4DF31EE2D75C0057BE7E /* TexturedRoundRect */ = {
+			isa = PBXGroup;
+			children = (
+				2CAE4DF41EE2D75C0057BE7E /* SivTexturedRoundRect.cpp */,
+			);
+			path = TexturedRoundRect;
 			sourceTree = "<group>";
 		};
 		2CCA35701EC6BBBD00078678 /* ImageProcessing */ = {
@@ -4349,6 +4363,7 @@
 				2C316EA41E9F022A0011CAAE /* glew.h in Headers */,
 				2C0C7BDB1EBCC38400386CBB /* GLBlendState.hpp in Headers */,
 				2C0C7D5B1EBCC39B00386CBB /* Functor.hpp in Headers */,
+				2CAE4DF71EE2D7770057BE7E /* TexturedRoundRect.hpp in Headers */,
 				2C2E82991EAA1B3A0057BDAF /* error.h in Headers */,
 				2C81C0151E89F8E300D27E52 /* utils.h in Headers */,
 				2C0C7D3F1EBCC39B00386CBB /* Circular.hpp in Headers */,
@@ -4541,6 +4556,7 @@
 				2C81C06E1E89F8E300D27E52 /* quantize.cc in Sources */,
 				2C81C0131E89F8E300D27E52 /* strtod.cc in Sources */,
 				2C0C7B951EBCC38400386CBB /* SivCircle.cpp in Sources */,
+				2CAE4DF51EE2D75C0057BE7E /* SivTexturedRoundRect.cpp in Sources */,
 				2C81C0681E89F8E300D27E52 /* preprocess_downsample.cc in Sources */,
 				2C0C7BBB1EBCC38400386CBB /* SivDragDrop.cpp in Sources */,
 				2C2126591E8CB7B5006F8101 /* openbsd-reallocarray.c in Sources */,

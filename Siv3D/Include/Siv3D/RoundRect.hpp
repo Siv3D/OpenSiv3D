@@ -13,6 +13,7 @@
 # include "Fwd.hpp"
 # include "PointVector.hpp"
 # include "Rectangle.hpp"
+# include "NamedParameter.hpp"
 # include "Math.hpp"
 
 namespace s3d
@@ -60,6 +61,14 @@ namespace s3d
 
 		constexpr RoundRect(const position_type& pos, const size_type& size, value_type _r) noexcept
 			: rect(pos, size)
+			, r(_r) {}
+
+		constexpr RoundRect(Arg::center_<position_type> _center, value_type _w, value_type _h, value_type _r) noexcept
+			: rect(_center, _w, _h)
+			, r(_r) {}
+
+		constexpr RoundRect(Arg::center_<position_type> _center, value_type _size, value_type _r) noexcept
+			: rect(_center, _size)
 			, r(_r) {}
 
 		constexpr RoundRect(const RectF& _rect, value_type _r) noexcept
@@ -201,7 +210,38 @@ namespace s3d
 
 		// paint / overpaint
 
-		// draw / drawFrmae/ drawShadow
+		const RoundRect& draw(const ColorF& color = Palette::White) const;
+
+		const RoundRect& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const
+		{
+			return drawFrame(thickness * 0.5, thickness * 0.5, color);
+		}
+
+		const RoundRect& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
+
+		/// <summary>
+		/// 角丸長方形の影を描きます。
+		/// </summary>
+		/// <param name="offset">
+		/// 影の移動量（ピクセル）
+		/// </param>
+		/// <param name="blurRadius">
+		/// 影のぼかしの大きさ（ピクセル）
+		/// </param>
+		/// <param name="spread">
+		/// 長方形の広がり（ピクセル）
+		/// </param>
+		/// <param name="color">
+		/// 影の色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const RoundRect& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF(0.0, 0.5)) const;
+
+		TexturedRoundRect operator ()(const Texture& texture) const;
+
+		TexturedRoundRect operator ()(const TextureRegion& textureRegion) const;
 	};
 }
 

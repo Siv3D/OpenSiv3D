@@ -152,6 +152,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Texture.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TexturedCircle.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TexturedQuad.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\TexturedRoundRect.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextureFormat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextureRegion.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Threading.hpp" />
@@ -578,6 +579,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextReader\SivTextReader.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TexturedCircle\SivTexturedCircle.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TexturedQuad\SivTexturedQuad.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\TexturedRoundRect\SivTexturedRoundRect.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextureRegion\SivTextureRegion.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\D3D11\CTexture_D3D11.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\D3D11\Texture_D3D11.cpp" />
