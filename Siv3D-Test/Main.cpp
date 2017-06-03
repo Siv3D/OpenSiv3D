@@ -2,22 +2,16 @@
 
 void Main()
 {
-	//Graphics::SetBackground(ColorF(0.4, 0.8, 0.6));
+	Graphics::SetBackground(ColorF(0.7, 0.9, 0.9));
 
-	const Texture texture(Emoji(L"🇪🇪"));
-
-	const Texture texture2(Emoji::Hamburger);
-
-	const Font font(20);
+	const Texture e1(Emoji(L"👩🏿‍🌾"));
+	const Texture e2(Emoji(L"🇳🇵"));
+	const Texture e3(Emoji(L"🏳️‍🌈"));
 
 	while (System::Update())
 	{
-		texture.draw();
-
-		texture2.draw(200, 200);
-
-		font(L"ABCDE🐈あいうえお🍔abcde🇪🇪12345").draw();
-
-		//Circle(200, 200, 80).drawShadow(Vec2(2, 2), 12, 4).draw();
+		e1.draw(20, 40);
+		e2.draw(180, 40);
+		e3.draw(340, 40);
 	}
 }

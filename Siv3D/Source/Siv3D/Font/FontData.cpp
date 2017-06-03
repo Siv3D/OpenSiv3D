@@ -31,7 +31,7 @@ namespace s3d
 			return;
 		}
 
-		if (const FT_Error error = ::FT_New_Face(library, filePath.narrow().c_str(), 0, &m_faceText))
+		if (const FT_Error error = ::FT_New_Face(library, filePath.narrow().c_str(), 0, &m_faceText.face))
 		{
 			if (error == FT_Err_Unknown_File_Format)
 			{
@@ -45,12 +45,12 @@ namespace s3d
 			return;
 		}
 
-		if (const FT_Error error = ::FT_Set_Pixel_Sizes(m_faceText, 0, fontSize))
+		if (const FT_Error error = ::FT_Set_Pixel_Sizes(m_faceText.face, 0, fontSize))
 		{
 			return;
 		}
 
-		if (const FT_Error error = ::FT_New_Face(library, emojiFilePath.narrow().c_str(), 0, &m_faceEmoji))
+		if (const FT_Error error = ::FT_New_Face(library, emojiFilePath.narrow().c_str(), 0, &m_faceEmoji.face))
 		{
 			if (error == FT_Err_Unknown_File_Format)
 			{
@@ -63,7 +63,7 @@ namespace s3d
 		}
 		else
 		{
-			if (const FT_Error error2 = ::FT_Set_Pixel_Sizes(m_faceEmoji, 0, fontSize))
+			if (const FT_Error error2 = ::FT_Set_Pixel_Sizes(m_faceEmoji.face, 0, fontSize))
 			{
 				//
 			}
@@ -75,8 +75,8 @@ namespace s3d
 		//}
 
 		m_fontSize = fontSize;
-		m_ascender = static_cast<int32>(m_faceText->size->metrics.ascender / 64);
-		m_descender = static_cast<int32>(m_faceText->size->metrics.descender / 64);
+		m_ascender = static_cast<int32>(m_faceText.face->size->metrics.ascender / 64);
+		m_descender = static_cast<int32>(m_faceText.face->size->metrics.descender / 64);
 		m_lineSpacing = m_ascender - m_descender;
 
 		m_bold = static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Bold);
@@ -88,15 +88,7 @@ namespace s3d
 
 	FontData::~FontData()
 	{
-		if (m_faceEmoji)
-		{
-			::FT_Done_Face(m_faceEmoji);
-		}
 
-		if (m_faceText)
-		{
-			::FT_Done_Face(m_faceText);
-		}
 	}
 
 	RectF FontData::getBoundingRect(const String& text, const double lineSpacingScale)
@@ -409,8 +401,8 @@ namespace s3d
 
 			//Log << codePoint << L"----";
 
-			const FT_UInt glyphIndexText = ::FT_Get_Char_Index(m_faceText, codePoint);
-			const FT_UInt glyphIndexEmoji = (glyphIndexText != 0) ? 0 : m_faceEmoji ? ::FT_Get_Char_Index(m_faceEmoji, codePoint) : 0;
+			const FT_UInt glyphIndexText = ::FT_Get_Char_Index(m_faceText.face, codePoint);
+			const FT_UInt glyphIndexEmoji = (glyphIndexText != 0) ? 0 : m_faceEmoji ? ::FT_Get_Char_Index(m_faceEmoji.face, codePoint) : 0;
 
 			//Log << glyphIndexText << L", " << glyphIndexEmoji;
 
@@ -418,7 +410,7 @@ namespace s3d
 			{
 				if (!m_tofuIndex)
 				{
-					if (!renderGlyph(m_faceText, 0))
+					if (!renderGlyph(m_faceText.face, 0))
 					{
 						continue;
 					}
@@ -432,7 +424,7 @@ namespace s3d
 			}
 			else
 			{
-				const FT_Face face = (glyphIndexText != 0) ? m_faceText : m_faceEmoji;
+				const FT_Face face = (glyphIndexText != 0) ? m_faceText.face : m_faceEmoji.face;
 				const FT_UInt glyphIndex = (glyphIndexText != 0) ? glyphIndexText : glyphIndexEmoji;
 
 				renderGlyph(face, glyphIndex);

@@ -50,6 +50,12 @@ namespace s3d
 			destroy();
 		}
 
+		explicit operator bool() const noexcept
+		{
+			return face != nullptr;
+			//return face && hbFont;
+		}
+
 		std::pair<const hb_glyph_info_t*, size_t> get(const StringView view)
 		{
 			::hb_buffer_reset(buffer);
@@ -108,9 +114,9 @@ namespace s3d
 
 		HashMap<char32_t, CommonGlyphIndex> m_glyphIndexTable;
 
-		FT_Face m_faceText = nullptr;
+		FontFace m_faceText;
 
-		FT_Face m_faceEmoji = nullptr;
+		FontFace m_faceEmoji;
 
 		Array<GlyphInfo> m_glyphs;
 
