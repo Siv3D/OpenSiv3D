@@ -2,16 +2,15 @@
 
 void Main()
 {
-	Graphics::SetBackground(ColorF(0.7, 0.9, 0.9));
-
-	const Texture e1(Emoji(L"👩🏿‍🌾"));
-	const Texture e2(Emoji(L"🇳🇵"));
-	const Texture e3(Emoji(L"🏳️‍🌈"));
+	Graphics::SetBackground(ColorF(0.0, 0.9, 0.0));
 
 	while (System::Update())
 	{
-		e1.draw(20, 40);
-		e2.draw(180, 40);
-		e3.draw(340, 40);
+		RoundRect r(Cursor::Pos() + Point(80, 80), 400, 200, 50);
+
+		r.draw();
+
+
+		RoundRect(Cursor::Pos() + Point(40, 40), 400, 200, 20).drawFrame(10, Palette::Red);
 	}
 }
