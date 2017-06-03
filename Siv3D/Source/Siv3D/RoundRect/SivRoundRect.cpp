@@ -189,6 +189,161 @@ namespace s3d
 		return *this;
 	}
 
+	const RoundRect& RoundRect::drawShadow(const Vec2& offset, double blurRadius, double spread, const ColorF& color) const
+	{
+		if (blurRadius < 0.0)
+		{
+			return *this;
+		}
+
+		if (blurRadius * 0.5 > (std::min(w * 0.5, h * 0.5) + spread))
+		{
+			blurRadius = (std::min(w * 0.5, h * 0.5) + spread) * 2.0;
+		}
+
+		const double innnerOffset = blurRadius * 0.5 > r ? blurRadius * 0.5 : r;
+		const double over = std::max(blurRadius * 0.5 - r, 0.0);
+		const RectF baseRect = rect.stretched(spread - innnerOffset).movedBy(offset);
+		const Float4 colF = color.toFloat4();
+		const double pR = std::min({ w * 0.5, h * 0.5, r });
+		const double nearR = std::max(pR - blurRadius * 0.5, 0.0);
+		const double farR = pR + blurRadius * 0.5 + over;
+		const uint32 quality = static_cast<uint32>(detail::CaluculateFanQuality(farR));
+
+		Array<Vec2> fanDirections(quality);
+
+		const double radDelta = Math::HalfPi / (quality - 1);
+
+		for (uint32 i = 0; i < quality; ++i)
+		{
+			fanDirections[i] = Circular(1.0, radDelta * i);
+		}
+
+		const std::array<Vec2, 4> centers =
+		{{
+			{ baseRect.x + baseRect.w, baseRect.y },
+			{ baseRect.x + baseRect.w, baseRect.y + baseRect.h },
+			{ baseRect.x, baseRect.y + baseRect.h },
+			{ baseRect.x, baseRect.y },
+		}};
+
+		Array<Vec2> verticesInner;
+		{
+			verticesInner.reserve(quality * 4);
+
+			for (uint32 i = 0; i < quality; ++i)
+			{
+				verticesInner.emplace_back(centers[0] + nearR * fanDirections[i]);
+			}
+
+			for (uint32 i = 0; i < quality; ++i)
+			{
+				verticesInner.emplace_back(centers[1] + nearR * Vec2(fanDirections[quality - i - 1].x, -fanDirections[quality - i - 1].y));
+			}
+
+			for (uint32 i = 0; i < quality; ++i)
+			{
+				verticesInner.emplace_back(centers[2] + nearR * Vec2(-fanDirections[i].x, -fanDirections[i].y));
+			}
+
+			for (uint32 i = 0; i < quality; ++i)
+			{
+				verticesInner.emplace_back(centers[3] + nearR * Vec2(-fanDirections[quality - i - 1].x, fanDirections[quality - i - 1].y));
+			}
+		}
+
+		Array<Vec2> verticesOuter;
+		{
+			verticesOuter.reserve(quality * 4);
+
+			for (uint32 i = 0; i < quality; ++i)
+			{
+				verticesOuter.emplace_back(centers[0] + farR * fanDirections[i]);
+			}
+
+			for (uint32 i = 0; i < quality; ++i)
+			{
+				verticesOuter.emplace_back(centers[1] + farR * Vec2(fanDirections[quality - i - 1].x, -fanDirections[quality - i - 1].y));
+			}
+
+			for (uint32 i = 0; i < quality; ++i)
+			{
+				verticesOuter.emplace_back(centers[2] + farR * Vec2(-fanDirections[i].x, -fanDirections[i].y));
+			}
+
+			for (uint32 i = 0; i < quality; ++i)
+			{
+				verticesOuter.emplace_back(centers[3] + farR * Vec2(-fanDirections[quality - i - 1].x, fanDirections[quality - i - 1].y));
+			}
+		}
+
+		Sprite sprite(static_cast<uint32>(4 + verticesInner.size() + verticesOuter.size()), 6 + ((quality + 1) * 3 * 4) + ((quality) * 4 * 6));
+
+		sprite.vertices[0].set(centers[0], Float2(0.5f, 0.5f), colF);
+		sprite.vertices[1].set(centers[1], Float2(0.5f, 0.5f), colF);
+		sprite.vertices[2].set(centers[2], Float2(0.5f, 0.5f), colF);
+		sprite.vertices[3].set(centers[3], Float2(0.5f, 0.5f), colF);
+
+		for (size_t i = 0; i < verticesInner.size(); ++i)
+		{
+			sprite.vertices[4 + i].set(verticesInner[i], Float2(0.5f, 0.5f), colF);
+		}
+
+		for (size_t i = 0; i < verticesOuter.size(); ++i)
+		{
+			sprite.vertices[4 + verticesInner.size() + i].set(verticesOuter[i], Float2(0.5f, 0.0f), colF);
+		}
+
+		sprite.indices[0] = 3;
+		sprite.indices[1] = 0;
+		sprite.indices[2] = 2;
+
+		sprite.indices[3] = 2;
+		sprite.indices[4] = 0;
+		sprite.indices[5] = 1;
+
+		for (uint32 i = 0; i < 4; ++i)
+		{
+			for (uint32 k = 0; k < quality - 1; ++k)
+			{
+				sprite.indices[6 + k * 3 + i * (quality + 1) * 3 + 0] = i;
+				sprite.indices[6 + k * 3 + i * (quality + 1) * 3 + 1] = 4 + i * quality + k;
+				sprite.indices[6 + k * 3 + i * (quality + 1) * 3 + 2] = 4 + i * quality + k + 1;
+			}
+
+			sprite.indices[6 + (i + 1) * (quality + 1) * 3 - 6] = i;
+			sprite.indices[6 + (i + 1) * (quality + 1) * 3 - 5] = (i + 1) * quality - 1 + 4;
+			sprite.indices[6 + (i + 1) * (quality + 1) * 3 - 4] = ((i + 1) * quality) % (4 * quality) + 4;
+
+			sprite.indices[6 + (i + 1) * (quality + 1) * 3 - 3] = i;
+			sprite.indices[6 + (i + 1) * (quality + 1) * 3 - 2] = ((i + 1) * quality) % (4 * quality) + 4;
+			sprite.indices[6 + (i + 1) * (quality + 1) * 3 - 1] = (i + 1) % 4;
+		}
+
+		const uint32 i1 = 6 + 4 * (quality + 1) * 3;
+		const uint32 v1 = static_cast<uint32>(verticesInner.size());
+
+		for (uint32 i = 0; i < 4; ++i)
+		{
+			for (uint32 k = 0; k < quality; ++k)
+			{
+				const uint32 localV1 = i * quality + k;
+				const uint32 localV2 = (localV1 + 1) % (quality * 4);
+
+				sprite.indices[i1 + (i * quality * 6) + k * 6 + 0] = v1 + localV1 + 4;
+				sprite.indices[i1 + (i * quality * 6) + k * 6 + 1] = v1 + localV2 + 4;
+				sprite.indices[i1 + (i * quality * 6) + k * 6 + 2] = localV1 + 4;
+				sprite.indices[i1 + (i * quality * 6) + k * 6 + 3] = localV1 + 4;
+				sprite.indices[i1 + (i * quality * 6) + k * 6 + 4] = v1 + localV2 + 4;
+				sprite.indices[i1 + (i * quality * 6) + k * 6 + 5] = localV2 + 4;
+			}
+		}
+
+		sprite.draw(Siv3DEngine::GetRenderer2D()->getBoxShadowTexture());
+
+		return *this;
+	}
+
 	TexturedRoundRect RoundRect::operator ()(const Texture& texture) const
 	{
 		return TexturedRoundRect(texture,

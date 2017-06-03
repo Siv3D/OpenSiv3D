@@ -237,7 +237,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		//const RoundRect& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF(0.0, 0.5)) const;
+		const RoundRect& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF(0.0, 0.5)) const;
 
 		TexturedRoundRect operator ()(const Texture& texture) const;
 
