@@ -106,7 +106,7 @@ namespace s3d
 	}
 
 	Texture::Texture(const Emoji& emoji, TextureDesc desc)
-		: Texture(Emoji::LoadImage(emoji.codePoint), desc)
+		: Texture(Emoji::LoadImage(emoji.codePoints), desc)
 	{
 
 	}
