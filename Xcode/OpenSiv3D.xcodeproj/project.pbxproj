@@ -664,6 +664,7 @@
 		2CA79ABC1DF55A410028D11D /* TestUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA79AAC1DF55A410028D11D /* TestUtility.cpp */; };
 		2CAE4D961EE039670057BE7E /* SivTexturedCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE4D951EE039670057BE7E /* SivTexturedCircle.cpp */; };
 		2CAE4D981EE039790057BE7E /* TexturedCircle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAE4D971EE039790057BE7E /* TexturedCircle.hpp */; };
+		2CAE4DF01EE276490057BE7E /* lharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CAE4DEF1EE276490057BE7E /* lharfbuzz.a */; };
 		2CCA356F1EC6BBA900078678 /* ImageProcessing.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */; };
 		2CCA35721EC6BBBD00078678 /* SivImageProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35711EC6BBBD00078678 /* SivImageProcessing.cpp */; };
 		2CCA35751EC6BBCA00078678 /* SivSamplerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35741EC6BBCA00078678 /* SivSamplerState.cpp */; };
@@ -1488,6 +1489,7 @@
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
 		2CAE4D951EE039670057BE7E /* SivTexturedCircle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTexturedCircle.cpp; sourceTree = "<group>"; };
 		2CAE4D971EE039790057BE7E /* TexturedCircle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TexturedCircle.hpp; sourceTree = "<group>"; };
+		2CAE4DEF1EE276490057BE7E /* lharfbuzz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lharfbuzz.a; sourceTree = "<group>"; };
 		2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageProcessing.hpp; sourceTree = "<group>"; };
 		2CCA35711EC6BBBD00078678 /* SivImageProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivImageProcessing.cpp; sourceTree = "<group>"; };
 		2CCA35741EC6BBCA00078678 /* SivSamplerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSamplerState.cpp; sourceTree = "<group>"; };
@@ -1629,6 +1631,7 @@
 			files = (
 				2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */,
 				2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */,
+				2CAE4DF01EE276490057BE7E /* lharfbuzz.a in Frameworks */,
 				2C316EAF1E9F0AAD0011CAAE /* lGLEW.a in Frameworks */,
 				2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */,
 				2CCA36811ECC773F00078678 /* lfreetype.a in Frameworks */,
@@ -3488,6 +3491,7 @@
 		2CA798F61DF55A0D0028D11D /* macOS */ = {
 			isa = PBXGroup;
 			children = (
+				2CAE4DEB1EE275DF0057BE7E /* harfbuzz */,
 				2CCA367F1ECC773F00078678 /* freetype */,
 				2C316EAD1E9F0AAD0011CAAE /* glew */,
 				2C17800A1E48CBF300B2A3D6 /* libjpeg-turbo */,
@@ -3583,6 +3587,14 @@
 				2CAE4D951EE039670057BE7E /* SivTexturedCircle.cpp */,
 			);
 			path = TexturedCircle;
+			sourceTree = "<group>";
+		};
+		2CAE4DEB1EE275DF0057BE7E /* harfbuzz */ = {
+			isa = PBXGroup;
+			children = (
+				2CAE4DEF1EE276490057BE7E /* lharfbuzz.a */,
+			);
+			path = harfbuzz;
 			sourceTree = "<group>";
 		};
 		2CCA35701EC6BBBD00078678 /* ImageProcessing */ = {
