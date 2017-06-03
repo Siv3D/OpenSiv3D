@@ -14,6 +14,8 @@
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/Sprite.hpp>
 # include <Siv3D/Circular.hpp>
+# include <Siv3D/TexturedRoundRect.hpp>
+# include <Siv3D/TextureRegion.hpp>
 # include "../Siv3DEngine.hpp"
 # include "../Renderer2D/IRenderer2D.hpp"
 
@@ -185,6 +187,20 @@ namespace s3d
 		);
 
 		return *this;
+	}
+
+	TexturedRoundRect RoundRect::operator ()(const Texture& texture) const
+	{
+		return TexturedRoundRect(texture,
+			0.0f, 0.0f, 1.0f, 1.0f,
+			*this);
+	}
+
+	TexturedRoundRect RoundRect::operator ()(const TextureRegion& textureRegion) const
+	{
+		return TexturedRoundRect(textureRegion.texture,
+			textureRegion.uvRect,
+			*this);
 	}
 
 	void Formatter(FormatData& formatData, const RoundRect& value)

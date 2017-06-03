@@ -2,15 +2,14 @@
 
 void Main()
 {
-	Graphics::SetBackground(ColorF(0.0, 0.9, 0.0));
+	const Texture texture(L"example/siv3d-kun.png");
+
+	const RoundRect rect(30, 30, 140, 140, 40);
 
 	while (System::Update())
 	{
-		RoundRect r(Cursor::Pos() + Point(80, 80), 400, 200, 50);
+		rect.draw(Palette::Skyblue);
 
-		r.draw();
-
-
-		RoundRect(Cursor::Pos() + Point(40, 40), 400, 200, 20).drawFrame(10, Palette::Red);
+		rect(texture(90, 5, 110)).draw();
 	}
 }

@@ -44,13 +44,13 @@ namespace s3d
 			, texture(_texture)
 			, uvRect(_uvRect) {}
 
-		//const FloatRect& draw(const ColorF& diffuse = Palette::White) const;
+		const RoundRect& draw(const ColorF& diffuse = Palette::White) const;
 
-		//FloatRect drawAt(double x, double y, const ColorF& diffuse = Palette::White) const;
+		RoundRect drawAt(double x, double y, const ColorF& diffuse = Palette::White) const;
 
-		//FloatRect drawAt(const Vec2& pos, const ColorF& diffuse = Palette::White) const
-		//{
-		//	return drawAt(pos.x, pos.y, diffuse);
-		//}
+		RoundRect drawAt(const Vec2& pos, const ColorF& diffuse = Palette::White) const
+		{
+			return drawAt(pos.x, pos.y, diffuse);
+		}
 	};
 }
