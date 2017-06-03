@@ -434,6 +434,9 @@
     <Filter Include="Source\ThirdParty\harfbuzz">
       <UniqueIdentifier>{ef37f9e1-316c-4e59-be27-df9675c2d0df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\TexturedRoundRect">
+      <UniqueIdentifier>{355a7928-bc55-4df1-a97a-8854b7ec9425}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1627,6 +1630,9 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\harfbuzz\hb-common.h">
       <Filter>Source\ThirdParty\harfbuzz</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\TexturedRoundRect.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2357,6 +2363,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\TexturedCircle\SivTexturedCircle.cpp">
       <Filter>Source\Siv3D\TexturedCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\TexturedRoundRect\SivTexturedRoundRect.cpp">
+      <Filter>Source\Siv3D\TexturedRoundRect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

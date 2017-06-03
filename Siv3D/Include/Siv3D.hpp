@@ -504,6 +504,8 @@
 	# include "Siv3D/TexturedCircle.hpp"
 	// 四角形に貼り付けたテクスチャ
 	# include "Siv3D/TexturedQuad.hpp"
+	// 角丸長方形に貼り付けたテクスチャ
+	# include "Siv3D/TexturedRoundRect.hpp"
 	// 動的テクスチャ
 	# include "Siv3D/DynamicTexture.hpp"
 	// レンダーテクスチャ

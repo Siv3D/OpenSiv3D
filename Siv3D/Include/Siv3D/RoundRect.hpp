@@ -201,8 +201,6 @@ namespace s3d
 
 		// paint / overpaint
 
-		// draw / drawFrmae/ drawShadow
-
 		const RoundRect& draw(const ColorF& color = Palette::White) const;
 
 		const RoundRect& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const
