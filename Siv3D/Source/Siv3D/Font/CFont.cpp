@@ -83,7 +83,7 @@ namespace s3d
 
 		m_fonts.setNullData(nullFont);
 
-		const FilePath fontNames[9] =
+		const FilePath fontNames[10] =
 		{
 			L"mplus/mplus-1p-thin.ttf",			
 			L"mplus/mplus-1p-light.ttf",		
@@ -94,6 +94,7 @@ namespace s3d
 			L"mplus/mplus-1p-black.ttf",
 			L"noto/NotoEmoji-Regular.ttf",
 			L"noto/NotoColorEmoji.ttf",
+			L"fontawesome/FontAwesome.otf",
 		};
 
 		const FilePath fontDirectory = EngineDirectory::CurrectVersionCommon() + S3DSTR("font/");
@@ -178,6 +179,11 @@ namespace s3d
 
 	Image CFont::getColorEmoji(const StringView emoji)
 	{
+		if (!m_colorEmoji)
+		{
+			return Image();
+		}
+
 		const auto glyphs = m_colorEmoji.get(emoji);
 
 		if (glyphs.second != 1)
@@ -288,8 +294,6 @@ namespace s3d
 		{
 			return false;
 		}
-
-		m_hasColorEmoji = true;
 
 		return true;
 	}

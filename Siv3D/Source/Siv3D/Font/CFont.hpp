@@ -26,7 +26,7 @@ namespace s3d
 
 		FontFace m_colorEmoji;
 
-		bool m_hasColorEmoji = false;
+		FontFace m_awesomeIcon;
 
 		bool loadColorEmojiFace();
 

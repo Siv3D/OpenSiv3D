@@ -4,16 +4,20 @@ void Main()
 {
 	Graphics::SetBackground(ColorF(0.2, 0.5, 0.3));
 
-	const Font font(50);
+	//const Font font(50, L"engine/font/fontawesome/FontAwesome.otf");
 
-	const Texture cat(Emoji(L"🐈")), dog(Emoji(L"🐕"));
+	const Font font2(50);
+
 
 	while (System::Update())
 	{
-		font(L"Hello, Siv3D!🐣").draw(50, 50, Palette::Yellow);
+		//font(L"\uf099").draw(50, 50);
 
-		cat.drawAt(100, 200);
+		//Log << font(L"\uf099").getXAdvances()[0];
 
-		dog.drawAt(300, 200);
+		ClearPrint();
+	//	Print << font(L"u\f099").getXAdvances()[0];
+	//	Print << Cursor::Pos();
+	//	font2(L"ツイートする").draw(50 + font(L"\uf099").getXAdvances()[0], 50);
 	}
 }
