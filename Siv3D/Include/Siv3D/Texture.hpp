@@ -163,6 +163,8 @@ namespace s3d
 
 		explicit Texture(const Emoji& emoji, TextureDesc desc = TextureDesc::Unmipped);
 
+		explicit Texture(const Icon& icon, TextureDesc desc = TextureDesc::Unmipped);
+
 		/// <summary>
 		/// デストラクタ
 		/// </summary>

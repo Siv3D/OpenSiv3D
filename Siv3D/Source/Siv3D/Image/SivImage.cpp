@@ -22,6 +22,8 @@ S3D_DISABLE_MSVC_WARNINGS_POP()
 # include <Siv3D/MemoryWriter.hpp>
 # include <Siv3D/Number.hpp>
 # include <Siv3D/Logger.hpp>
+# include <Siv3D/Emoji.hpp>
+# include <Siv3D/Icon.hpp>
 
 namespace s3d
 {
@@ -195,6 +197,16 @@ namespace s3d
 			pixel.g = rgb.g;
 			pixel.b = rgb.b;
 		}
+	}
+
+	Image::Image(const Emoji& emoji)
+	{
+		*this = Emoji::LoadImage(emoji.codePoints);
+	}
+
+	Image::Image(const Icon& icon)
+	{
+		*this = Icon::LoadImage(icon.code, icon.size);
 	}
 
 	Image::Image(const Grid<Color>& grid)

@@ -30,6 +30,8 @@ namespace s3d
 
 		bool loadColorEmojiFace();
 
+		bool loadAwesomeIconFace();
+
 	public:
 
 		CFont();
@@ -59,5 +61,7 @@ namespace s3d
 		bool draw(Font::IDType handleID, const String& text, const RectF& area, const ColorF& color, double lineSpacingScale) override;
 
 		Image getColorEmoji(StringView emoji) override;
+
+		Image getAwesomeIcon(uint16 code, int32 size) override;
 	};
 }

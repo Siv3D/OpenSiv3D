@@ -46,5 +46,7 @@ namespace s3d
 		virtual bool draw(Font::IDType handleID, const String& text, const RectF& area, const ColorF& color, double lineSpacingScale) = 0;
 
 		virtual Image getColorEmoji(StringView emoji) = 0;
+
+		virtual Image getAwesomeIcon(uint16 code, int32 size) = 0;
 	};
 }

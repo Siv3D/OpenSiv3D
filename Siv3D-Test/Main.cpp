@@ -2,22 +2,19 @@
 
 void Main()
 {
-	Graphics::SetBackground(ColorF(0.2, 0.5, 0.3));
-
-	//const Font font(50, L"engine/font/fontawesome/FontAwesome.otf");
-
-	const Font font2(50);
-
+	Graphics::SetBackground(ColorF(0.9, 0.8, 0.7));
+	const Texture tweet(Icon(0xf099, 40));
+	const Font font(32, Typeface::Bold);
 
 	while (System::Update())
 	{
-		//font(L"\uf099").draw(50, 50);
+		RoundRect(20, 20, 370, 50, 8)
+			.drawShadow(Vec2(2,2), 8, 1)
+			.draw(ColorF(0.3, 0.7, 0.8))
+			.drawFrame(1.5, 0, AlphaF(0.4));
 
-		//Log << font(L"\uf099").getXAdvances()[0];
+		tweet.drawAt(50, 45);
 
-		ClearPrint();
-	//	Print << font(L"u\f099").getXAdvances()[0];
-	//	Print << Cursor::Pos();
-	//	font2(L"ツイートする").draw(50 + font(L"\uf099").getXAdvances()[0], 50);
+		font(L"結果をツイートする").draw(80, 25);
 	}
 }

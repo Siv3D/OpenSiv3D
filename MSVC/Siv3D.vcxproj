@@ -25,6 +25,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\AlignedAllocator.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\AlignedMemory.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Icon.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Print.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Array.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ArrayBool.hpp" />
@@ -501,6 +502,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\HSV\SivHSV.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\HTMLWriter\CHTMLWriter.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\HTMLWriter\SivHTMLWriter.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Icon\SivIcon.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\BMP\ImageFormat_BMP.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\CImageFormat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\GIF\ImageFormat_GIF.cpp" />

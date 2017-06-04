@@ -517,8 +517,10 @@
 	//# include "Siv3D/KineticTypography.hpp"
 	// フォント
 	# include "Siv3D/Font.hpp"
-	// フォント
+	// 絵文字コレクション
 	# include "Siv3D/Emoji.hpp"
+	// アイコンコレクション
+	# include "Siv3D/Icon.hpp"
 //
 // 標準 GUI
 //
