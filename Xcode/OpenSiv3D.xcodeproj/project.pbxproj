@@ -440,6 +440,8 @@
 		2C0C7DF51EC0A2EA00386CBB /* SivLineString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C7DF41EC0A2EA00386CBB /* SivLineString.cpp */; };
 		2C0C7DF71EC0BBC600386CBB /* SamplerState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7DF61EC0BBC600386CBB /* SamplerState.hpp */; };
 		2C0C7DF91EC0BBEA00386CBB /* D3D11Renderer2DCommandManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C7DF81EC0BBEA00386CBB /* D3D11Renderer2DCommandManager.cpp */; };
+		2C114C881EE3DBEB00A198BB /* Icon.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C114C871EE3DBEB00A198BB /* Icon.hpp */; };
+		2C114C8B1EE3DC0000A198BB /* SivIcon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C114C8A1EE3DC0000A198BB /* SivIcon.cpp */; };
 		2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C38B14A1CDEB45C007A7E9F /* gtest.a */; };
 		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
@@ -1240,6 +1242,8 @@
 		2C0C7DF41EC0A2EA00386CBB /* SivLineString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivLineString.cpp; sourceTree = "<group>"; };
 		2C0C7DF61EC0BBC600386CBB /* SamplerState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SamplerState.hpp; sourceTree = "<group>"; };
 		2C0C7DF81EC0BBEA00386CBB /* D3D11Renderer2DCommandManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = D3D11Renderer2DCommandManager.cpp; sourceTree = "<group>"; };
+		2C114C871EE3DBEB00A198BB /* Icon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Icon.hpp; sourceTree = "<group>"; };
+		2C114C8A1EE3DC0000A198BB /* SivIcon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivIcon.cpp; sourceTree = "<group>"; };
 		2C1777401CDEE5D500BB8AD0 /* gtest-death-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-death-test.h"; sourceTree = "<group>"; };
 		2C1777411CDEE5D500BB8AD0 /* gtest-message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-message.h"; sourceTree = "<group>"; };
 		2C1777421CDEE5D500BB8AD0 /* gtest-param-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-param-test.h"; sourceTree = "<group>"; };
@@ -1671,6 +1675,7 @@
 		2C0C7A121EBCC38300386CBB /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C114C891EE3DC0000A198BB /* Icon */,
 				2CAE4DFC1EE3AC1C0057BE7E /* Print */,
 				2CAE4DF31EE2D75C0057BE7E /* TexturedRoundRect */,
 				2CAE4D941EE039670057BE7E /* TexturedCircle */,
@@ -2793,6 +2798,7 @@
 				2C0C7CC51EBCC39B00386CBB /* HighPerfoemanceGPU.hpp */,
 				2C0C7CC61EBCC39B00386CBB /* HSV.hpp */,
 				2C0C7CC71EBCC39B00386CBB /* HTMLWriter.hpp */,
+				2C114C871EE3DBEB00A198BB /* Icon.hpp */,
 				2C0C7CC81EBCC39B00386CBB /* Image.hpp */,
 				2C0C7CC91EBCC39B00386CBB /* ImageFormat.hpp */,
 				2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */,
@@ -2981,6 +2987,14 @@
 				2C0C7DF41EC0A2EA00386CBB /* SivLineString.cpp */,
 			);
 			path = LineString;
+			sourceTree = "<group>";
+		};
+		2C114C891EE3DC0000A198BB /* Icon */ = {
+			isa = PBXGroup;
+			children = (
+				2C114C8A1EE3DC0000A198BB /* SivIcon.cpp */,
+			);
+			path = Icon;
 			sourceTree = "<group>";
 		};
 		2C17773E1CDEE5D500BB8AD0 /* Include */ = {
@@ -4354,6 +4368,7 @@
 				2C81C06F1E89F8E300D27E52 /* quantize.h in Headers */,
 				2C0C7C5B1EBCC38400386CBB /* BackBufferTexture.hpp in Headers */,
 				2C0C7D871EBCC39B00386CBB /* ParseBool.hpp in Headers */,
+				2C114C881EE3DBEB00A198BB /* Icon.hpp in Headers */,
 				2C0C7D8F1EBCC39B00386CBB /* PointVector.hpp in Headers */,
 				2CCA36461ECC748E00078678 /* ftpcfdrv.h in Headers */,
 				2CCA365B1ECC748F00078678 /* ftrfork.h in Headers */,
@@ -4662,6 +4677,7 @@
 				2C0C7C381EBCC38400386CBB /* CShader_D3D11.cpp in Sources */,
 				2C0C7BC81EBCC38400386CBB /* SivFormatInt.cpp in Sources */,
 				2C0C7C211EBCC38400386CBB /* SivParseFloat.cpp in Sources */,
+				2C114C8B1EE3DC0000A198BB /* SivIcon.cpp in Sources */,
 				2C81C0871E89F8E300D27E52 /* muParserInt.cpp in Sources */,
 				2C0C7DED1EC07DF000386CBB /* SivBlendState.cpp in Sources */,
 				2C0C7C231EBCC38400386CBB /* SivPixelShader.cpp in Sources */,
