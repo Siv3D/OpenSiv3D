@@ -8,13 +8,16 @@ void Main()
 
 	while (System::Update())
 	{
-		RoundRect(20, 20, 370, 50, 8)
-			.drawShadow(Vec2(2,2), 8, 1)
+		RoundRect rr(20, 20, 370, 50, 8);
+
+		rr.drawShadow(Vec2(2,2), 8, 1)
 			.draw(ColorF(0.3, 0.7, 0.8))
 			.drawFrame(1.5, 0, AlphaF(0.4));
 
 		tweet.drawAt(50, 45);
 
 		font(L"結果をツイートする").draw(80, 25);
+
+		Cursor::SetStyle(rr.mouseOver() ? CursorStyle::Hand : CursorStyle::Default);	
 	}
 }
