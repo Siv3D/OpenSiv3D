@@ -23,6 +23,7 @@
 # include "../Cursor/ICursor.hpp"
 # include "../Keyboard/IKeyboard.hpp"
 # include "../Mouse/IMouse.hpp"
+# include "../TextInput/ITextInput.hpp"
 # include "../Graphics/IGraphics.hpp"
 # include "../Font/IFont.hpp"
 # include "../Print/IPrint.hpp"
@@ -158,6 +159,8 @@ namespace s3d
 		Siv3DEngine::GetKeyboard()->update();
 
 		Siv3DEngine::GetMouse()->update();
+
+		Siv3DEngine::GetTextInput()->update();
 		
 		return true;
 	}

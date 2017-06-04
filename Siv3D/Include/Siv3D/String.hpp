@@ -1150,6 +1150,8 @@ namespace s3d
 
 		size_t size_bytes() const noexcept { return m_string.size() * sizeof(value_type); }
 
+		size_t num_codePoints() const;
+
 		/// <summary>
 		/// 空の文字列であるかを示します。
 		/// </summary>
@@ -3792,6 +3794,11 @@ namespace std
 
 namespace s3d
 {
+	inline size_t String::num_codePoints() const
+	{
+		return CharacterSet::CountCodePoints(*this);
+	}
+
 	inline size_t String::count(const StringView str) const
 	{
 		size_t count = 0;

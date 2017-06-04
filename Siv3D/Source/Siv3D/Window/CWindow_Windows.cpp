@@ -20,6 +20,7 @@
 # include "CWindow_Windows.hpp"
 # include "../System/ISystem.hpp"
 # include "../Mouse/IMouse.hpp"
+# include "../TextInput/ITextInput.hpp"
 
 # include "../Graphics/D3D11/CGraphics_D3D11.hpp"
 
@@ -107,6 +108,23 @@ namespace s3d
 				case WM_MOUSEHWHEEL:
 				{
 					Siv3DEngine::GetMouse()->onScroll(0, static_cast<short>(HIWORD(wParam)) / double(WHEEL_DELTA));
+
+					return 0;
+				}
+				case WM_CHAR:
+				{
+					Siv3DEngine::GetTextInput()->pushChar(wParam);
+
+					return 0;
+				}
+				case WM_UNICHAR:
+				{
+					if (wParam == UNICODE_NOCHAR)
+					{
+						return true;
+					}
+
+					Siv3DEngine::GetTextInput()->pushChar(wParam);
 
 					return 0;
 				}
