@@ -89,6 +89,11 @@ namespace s3d
 			return false;
 		}
 
+		if (!Siv3DEngine::GetTextInput()->init())
+		{
+			return false;
+		}
+		
 		if (!Siv3DEngine::GetGraphics()->init())
 		{
 			return false;

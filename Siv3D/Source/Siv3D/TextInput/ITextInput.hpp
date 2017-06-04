@@ -30,5 +30,7 @@ namespace s3d
 		virtual void pushChar(char32_t ch) = 0;
 
 		virtual const std::u32string& getChars() const = 0;
+		
+		virtual const String& getMarkedText() const = 0;
 	};
 }

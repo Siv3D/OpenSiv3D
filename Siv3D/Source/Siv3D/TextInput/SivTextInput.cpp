@@ -68,7 +68,7 @@ namespace s3d
 
 			if (text.size() < cursorPos)
 			{
-				cursorPos = textU32.size();
+				cursorPos = text.size();
 			}
 
 			for (auto const ch : chars)
@@ -96,6 +96,11 @@ namespace s3d
 		# endif
 
 			return cursorPos;
+		}
+		
+		String GetMarkedText()
+		{
+			return Siv3DEngine::GetTextInput()->getMarkedText();
 		}
 	}
 }

@@ -13,6 +13,8 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
+# include <mutex>
+# include "../Window/IWindow.hpp"
 # include "ITextInput.hpp"
 # include <Siv3D/String.hpp>
 
@@ -21,8 +23,21 @@ namespace s3d
 	class CTextInput_macOS : public ISiv3DTextInput
 	{
 	private:
+		
+		std::mutex m_mutex;
+		
+		std::u16string m_internalChars;
 
 		std::u32string m_chars;
+		
+		
+		std::mutex m_mutexMarkedText;
+		
+		String m_internalMarkedText;
+		
+		String m_markedText;
+		
+		bool m_haveMarkedText = false;
 
 	public:
 
@@ -37,6 +52,12 @@ namespace s3d
 		void pushChar(char32_t ch) override;
 
 		const std::u32string& getChars() const override;
+		
+		const String& getMarkedText() const override;
+		
+		static void OnCharacterInput(WindowHandle, uint32 codePoint);
+		
+		void onHaveMarkedText(const char* text);
 	};
 }
 

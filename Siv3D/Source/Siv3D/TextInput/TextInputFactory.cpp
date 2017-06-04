@@ -22,7 +22,7 @@ namespace s3d
 
 	# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 		
-		return new CDragDrop_macOS;
+		return new CTextInput_macOS;
 		
 	# endif
 	}

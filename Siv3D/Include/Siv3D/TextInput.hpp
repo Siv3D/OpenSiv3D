@@ -19,5 +19,7 @@ namespace s3d
 		String GetRawInput();
 
 		size_t UpdateText(String& text, size_t cursorPos);
+		
+		String GetMarkedText();
 	}
 }

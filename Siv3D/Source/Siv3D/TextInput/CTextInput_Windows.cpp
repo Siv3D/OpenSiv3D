@@ -52,6 +52,11 @@ namespace s3d
 	{
 		return m_chars;
 	}
+	
+	const String& CTextInput_Windows::getMarkedText() const
+	{
+		return m_markedText;
+	}
 }
 
 # endif

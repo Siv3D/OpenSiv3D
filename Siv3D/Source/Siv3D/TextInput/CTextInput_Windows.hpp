@@ -28,6 +28,9 @@ namespace s3d
 		String m_internalChars;
 
 		std::u32string m_chars;
+		
+		
+		String m_markedText;
 
 	public:
 
