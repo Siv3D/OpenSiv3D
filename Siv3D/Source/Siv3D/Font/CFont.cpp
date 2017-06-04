@@ -59,6 +59,8 @@ namespace s3d
 	{
 		m_fonts.destroy();
 
+		m_awesomeIcon.destroy();
+
 		m_colorEmoji.destroy();
 
 		if (m_library)
@@ -83,7 +85,7 @@ namespace s3d
 
 		m_fonts.setNullData(nullFont);
 
-		const FilePath fontNames[9] =
+		const FilePath fontNames[10] =
 		{
 			L"mplus/mplus-1p-thin.ttf",			
 			L"mplus/mplus-1p-light.ttf",		
@@ -94,6 +96,7 @@ namespace s3d
 			L"mplus/mplus-1p-black.ttf",
 			L"noto/NotoEmoji-Regular.ttf",
 			L"noto/NotoColorEmoji.ttf",
+			L"fontawesome/FontAwesome.otf",
 		};
 
 		const FilePath fontDirectory = EngineDirectory::CurrectVersionCommon() + S3DSTR("font/");
@@ -112,6 +115,11 @@ namespace s3d
 		if (!loadColorEmojiFace())
 		{
 			
+		}
+
+		if (!loadAwesomeIconFace())
+		{
+
 		}
 
 		return true;
@@ -161,6 +169,11 @@ namespace s3d
 		return m_fonts[handleID]->getRegion(text, lineSpacingScale);
 	}
 
+	Array<int32> CFont::getXAdvances(Font::IDType handleID, const String& text)
+	{
+		return m_fonts[handleID]->getXAdvances(text);
+	}
+
 	RectF CFont::draw(const Font::IDType handleID, const String& text, const Vec2& pos, const ColorF& color, const double lineSpacingScale)
 	{
 		return m_fonts[handleID]->draw(text, pos, color, lineSpacingScale);
@@ -173,6 +186,11 @@ namespace s3d
 
 	Image CFont::getColorEmoji(const StringView emoji)
 	{
+		if (!m_colorEmoji)
+		{
+			return Image();
+		}
+
 		const auto glyphs = m_colorEmoji.get(emoji);
 
 		if (glyphs.second != 1)
@@ -208,9 +226,70 @@ namespace s3d
 
 		while (pDst != pDstEnd)
 		{
-			pDst->set(pSrc[2], pSrc[1], pSrc[0], pSrc[3]);
+			uint8 r = pSrc[2], g = pSrc[1], b = pSrc[0], a = pSrc[3];
+
+			if (0 < a && a < 254)
+			{
+				const float t = 255.0f / a;
+				r = static_cast<uint8>(r * t);
+				g = static_cast<uint8>(g * t);
+				b = static_cast<uint8>(b * t);
+			}
+
+			pDst->set(r, g, b, a);
+
 			++pDst;
 			pSrc += 4;
+		}
+
+		return image;
+	}
+
+	Image CFont::getAwesomeIcon(const uint16 code, int32 size)
+	{
+		if (!m_awesomeIcon || size < 1)
+		{
+			return Image();
+		}
+
+		size = std::max(size - 2, 1);
+
+		if (const FT_Error error = ::FT_Set_Pixel_Sizes(m_awesomeIcon.face, 0, size))
+		{
+			return Image();
+		}
+
+		const FT_UInt glyphIndex = ::FT_Get_Char_Index(m_awesomeIcon.face, code);
+
+		if(glyphIndex == 0)
+		{
+			return Image();
+		}
+
+		if (const FT_Error error = ::FT_Load_Glyph(m_awesomeIcon.face, glyphIndex, FT_LOAD_DEFAULT | FT_LOAD_NO_BITMAP))
+		{
+			return Image();
+		}
+
+		const FT_GlyphSlot slot = m_awesomeIcon.face->glyph;
+
+		if (const FT_Error error = ::FT_Render_Glyph(slot, FT_RENDER_MODE_NORMAL))
+		{
+			return Image();
+		}
+
+		const int32 bitmapWidth = slot->bitmap.width;
+		const int32 bitmapHeight = slot->bitmap.rows;
+
+		Image image(bitmapWidth + 2, bitmapHeight + 2, Color(255, 0));
+		const uint8* bitmapBuffer = slot->bitmap.buffer;
+
+		for (int32 y = 0; y < bitmapHeight; ++y)
+		{
+			for (int32 x = 0; x < bitmapWidth; ++x)
+			{
+				image[y + 1][x + 1] = Color(255, bitmapBuffer[y * bitmapWidth + x]);
+			}
 		}
 
 		return image;
@@ -273,7 +352,31 @@ namespace s3d
 			return false;
 		}
 
-		m_hasColorEmoji = true;
+		return true;
+	}
+
+	bool CFont::loadAwesomeIconFace()
+	{
+		const FilePath awesomeIconPath = detail::GetEngineFontDirectory() + L"fontawesome/FontAwesome.otf";
+
+		if (!FileSystem::Exists(awesomeIconPath))
+		{
+			return false;
+		}
+
+		if (const FT_Error error = ::FT_New_Face(m_library, awesomeIconPath.narrow().c_str(), 0, &m_awesomeIcon.face))
+		{
+			if (error == FT_Err_Unknown_File_Format)
+			{
+				// unsupported format
+			}
+			else if (error)
+			{
+				// failed to open or load
+			}
+
+			return false;
+		}
 
 		return true;
 	}

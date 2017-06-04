@@ -724,4 +724,10 @@ namespace s3d
 	//	Emoji.hpp
 	//
 	struct Emoji;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Icon.hpp
+	//
+	struct Icon;
 }

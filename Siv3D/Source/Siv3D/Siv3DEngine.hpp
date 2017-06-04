@@ -30,6 +30,7 @@ namespace s3d
 	class ISiv3DShader;
 	class ISiv3DRenderer2D;
 	class ISiv3DFont;
+	class ISiv3DPrint;
 
 	template <class Interface>
 	class Siv3DComponent
@@ -98,6 +99,8 @@ namespace s3d
 		Siv3DComponent<ISiv3DRenderer2D> m_renderer2D;
 
 		Siv3DComponent<ISiv3DFont> m_font;
+
+		Siv3DComponent<ISiv3DPrint> m_print;
 
 	public:
 
@@ -188,6 +191,11 @@ namespace s3d
 		static ISiv3DFont* GetFont()
 		{
 			return pEngine->m_font.get();
+		}
+
+		static ISiv3DPrint* GetPrint()
+		{
+			return pEngine->m_print.get();
 		}
 	};
 }

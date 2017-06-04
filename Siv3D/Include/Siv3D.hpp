@@ -517,8 +517,10 @@
 	//# include "Siv3D/KineticTypography.hpp"
 	// フォント
 	# include "Siv3D/Font.hpp"
-	// フォント
+	// 絵文字コレクション
 	# include "Siv3D/Emoji.hpp"
+	// アイコンコレクション
+	# include "Siv3D/Icon.hpp"
 //
 // 標準 GUI
 //
@@ -639,14 +641,12 @@
 	//# include "Siv3D/Effect.hpp"
 	// コンソールウィンドウ
 	# include "Siv3D/Console.hpp"
-	//// デバッグ出力
-	//# include "Siv3D/ApplicationUtility.hpp"
+	// デバッグ出力
+	# include "Siv3D/Print.hpp"
 	//// アドオン
 	//# include "Siv3D/Addon.hpp"
 	//// シリアライゼーション
 	//# include "Siv3D/Serialization.hpp"
-	//// 名前空間の設定
-	//# include "Siv3D/Namespace.hpp"
 	// GPU の使用
 	# include "Siv3D/HighPerfoemanceGPU.hpp"
 

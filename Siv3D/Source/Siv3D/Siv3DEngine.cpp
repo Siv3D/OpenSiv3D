@@ -26,6 +26,7 @@
 # include "Shader/IShader.hpp"
 # include "Renderer2D/IRenderer2D.hpp"
 # include "Font/IFont.hpp"
+# include "Print/IPrint.hpp"
 
 namespace s3d
 {
@@ -38,6 +39,7 @@ namespace s3d
 
 	Siv3DEngine::~Siv3DEngine()
 	{
+		m_print.release();
 		m_font.release();
 		m_renderer2D.release();
 		m_shader.release();

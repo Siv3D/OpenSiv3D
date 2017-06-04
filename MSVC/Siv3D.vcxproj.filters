@@ -437,6 +437,12 @@
     <Filter Include="Source\Siv3D\TexturedRoundRect">
       <UniqueIdentifier>{355a7928-bc55-4df1-a97a-8854b7ec9425}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Print">
+      <UniqueIdentifier>{2b57ddaf-1382-4614-a96d-c4ac0116c9b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Icon">
+      <UniqueIdentifier>{837bb04a-87d1-4d8c-84a7-0005d6ec350f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1633,6 +1639,18 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\TexturedRoundRect.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Print\CPrint.hpp">
+      <Filter>Source\Siv3D\Print</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Print\IPrint.hpp">
+      <Filter>Source\Siv3D\Print</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Print.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Icon.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2366,6 +2384,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\TexturedRoundRect\SivTexturedRoundRect.cpp">
       <Filter>Source\Siv3D\TexturedRoundRect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Print\PrintFactory.cpp">
+      <Filter>Source\Siv3D\Print</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Print\SivPrint.cpp">
+      <Filter>Source\Siv3D\Print</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Print\CPrint.cpp">
+      <Filter>Source\Siv3D\Print</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Icon\SivIcon.cpp">
+      <Filter>Source\Siv3D\Icon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

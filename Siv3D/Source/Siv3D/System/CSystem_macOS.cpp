@@ -25,6 +25,7 @@
 # include "../Mouse/IMouse.hpp"
 # include "../Graphics/IGraphics.hpp"
 # include "../Font/IFont.hpp"
+# include "../Print/IPrint.hpp"
 
 namespace s3d
 {
@@ -97,6 +98,11 @@ namespace s3d
 			return false;
 		}
 
+		if (!Siv3DEngine::GetPrint()->init())
+		{
+			return false;
+		}
+
 		return true;
 	}
 
@@ -108,6 +114,8 @@ namespace s3d
 		{
 			return false;
 		}
+
+		Siv3DEngine::GetPrint()->draw();
 
 		if (!Siv3DEngine::GetGraphics()->flush())
 		{

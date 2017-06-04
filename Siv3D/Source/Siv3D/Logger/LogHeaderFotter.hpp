@@ -77,7 +77,8 @@ const static char footer[] =
 u8R"-(</div>
 <h3>Licenses</h3>
 <div class="c0">Siv3D Engine</div>
-<div class="c1">Copyright (c) 2008-2017 Ryo Suzuki<br>Copyright (c) 2016-2017 OpenSiv3D Project</div>
+<div class="c1">Copyright (c) 2008-2017 Ryo Suzuki<br>
+Copyright (c) 2016-2017 OpenSiv3D Project</div>
 <div class="c2">
 Permission is hereby granted, free of charge, to any person obtaining a copy<br>
 of this software and associated documentation files (the “Software”), to deal<br>
@@ -254,6 +255,11 @@ u8R"-(<div class="c0">fmt</div>
 </div>)-"
 
 
+u8R"-(<div class="c0">Font Awesome</div>
+<div class="c2">Licensed under SIL Open Font License v1.1.<br>
+</div>)-"
+
+
 u8R"-(<div class="c0">FreeType</div>
 <div class="c2">
 This software is based in part of the work of the FreeType Team.<br>
@@ -286,11 +292,11 @@ THE SOFTWARE.<br>
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 u8R"-(<div class="c0">GLEW</div>
-<div class="c1">Copyright(C) 2008 - 2015, Nigel Stewart &lt;nigels[]users sourceforge net&gt;</div>
-<div class="c1">Copyright(C) 2002 - 2008, Milan Ikits &lt;milan ikits[]ieee org&gt;</div>
-<div class="c1">Copyright(C) 2002 - 2008, Marcelo E.Magallon &lt;mmagallo[]debian org&gt;</div>
-<div class="c1">Copyright(C) 2002, Lev Povalahev</div>
-<div class="c1">All rights reserved.</div>
+<div class="c1">Copyright(C) 2008 - 2015, Nigel Stewart &lt;nigels[]users sourceforge net&gt;<br>
+Copyright(C) 2002 - 2008, Milan Ikits &lt;milan ikits[]ieee org&gt;<br>
+Copyright(C) 2002 - 2008, Marcelo E.Magallon &lt;mmagallo[]debian org&gt;<br>
+Copyright(C) 2002, Lev Povalahev<br>
+All rights reserved.</div>
 <div class="c2">
 Redistribution and use in source and binary forms, with or without<br>
 modification, are permitted provided that the following conditions are met :<br>
@@ -358,8 +364,8 @@ MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.<br>
 
 
 u8R"-(<div class="c0">GLFW</div>
-<div class="c1">Copyright (c) 2002 - 2006 Marcus Geelnard</div>
-<div class="c1">Copyright (c) 2006 - 2016 Camilla Löwy &lt;elmindreda@glfw.org&gt;</div>
+<div class="c1">Copyright (c) 2002 - 2006 Marcus Geelnard<br>
+Copyright (c) 2006 - 2016 Camilla Löwy &lt;elmindreda@glfw.org&gt;</div>
 <div class="c2">
 This software is provided 'as-is', without any express or implied<br>
 warranty.In no event will the authors be held liable for any damages<br>
@@ -398,6 +404,39 @@ distributed under the License is distributed on an "AS IS" BASIS,<br>
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<br>
 See the License for the specific language governing permissions and<br>
 limitations under the License.<br>
+</div>)-"
+
+
+u8R"-(<div class="c0">HarfBuzz</div>
+<div class="c1">Copyright © 2010,2011,2012  Google, Inc.<br>
+Copyright (c) 2012  Mozilla Foundation<br>
+Copyright (c) 2011  Codethink Limited<br>
+Copyright (c) 2008,2010  Nokia Corporation and/or its subsidiary(-ies)<br>
+Copyright (c) 2009  Keith Stribley<br>
+Copyright (c) 2009  Martin Hosken and SIL International<br>
+Copyright (c) 2007  Chris Wilson<br>
+Copyright (c) 2006  Behdad Esfahbod<br>
+Copyright (c) 2005  David Turner<br>
+Copyright (c) 2004,2007,2008,2009,2010  Red Hat, Inc.<br>
+Copyright (c) 1998-2004  David Turner and Werner Lemberg</div>
+<div class="c2">
+Permission is hereby granted, without written agreement and without<br>
+license or royalty fees, to use, copy, modify, and distribute this<br>
+software and its documentation for any purpose, provided that the<br>
+above copyright notice and the following two paragraphs appear in<br>
+all copies of this software.<br>
+<br>
+IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE TO ANY PARTY FOR<br>
+DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES<br>
+ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN<br>
+IF THE COPYRIGHT HOLDER HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH<br>
+DAMAGE.<br>
+<br>
+THE COPYRIGHT HOLDER SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING,<br>
+BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND<br>
+FITNESS FOR A PARTICULAR PURPOSE.  THE SOFTWARE PROVIDED HEREUNDER IS<br>
+ON AN "AS IS" BASIS, AND THE COPYRIGHT HOLDER HAS NO OBLIGATION TO<br>
+PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.<br>
 </div>)-"
 
 

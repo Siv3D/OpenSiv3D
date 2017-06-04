@@ -26,9 +26,11 @@ namespace s3d
 
 		FontFace m_colorEmoji;
 
-		bool m_hasColorEmoji = false;
+		FontFace m_awesomeIcon;
 
 		bool loadColorEmojiFace();
+
+		bool loadAwesomeIconFace();
 
 	public:
 
@@ -52,10 +54,14 @@ namespace s3d
 
 		RectF getRegion(Font::IDType handleID, const String& text, double lineSpacingScale) override;
 
+		Array<int32> getXAdvances(Font::IDType handleID, const String& text) override;
+
 		RectF draw(Font::IDType handleID, const String& text, const Vec2& pos, const ColorF& color, double lineSpacingScale) override;
 
 		bool draw(Font::IDType handleID, const String& text, const RectF& area, const ColorF& color, double lineSpacingScale) override;
 
 		Image getColorEmoji(StringView emoji) override;
+
+		Image getAwesomeIcon(uint16 code, int32 size) override;
 	};
 }
