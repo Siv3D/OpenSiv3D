@@ -640,7 +640,7 @@
 	// コンソールウィンドウ
 	# include "Siv3D/Console.hpp"
 	// デバッグ出力
-	# include "Siv3D/ApplicationUtility.hpp"
+	# include "Siv3D/Print.hpp"
 	//// アドオン
 	//# include "Siv3D/Addon.hpp"
 	//// シリアライゼーション

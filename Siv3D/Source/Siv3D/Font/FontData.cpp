@@ -202,6 +202,8 @@ namespace s3d
 			if (codePoint == U'\n')
 			{
 				xAdvabces.push_back(0);
+
+				continue;
 			}
 			else if (IsControl(codePoint))
 			{
