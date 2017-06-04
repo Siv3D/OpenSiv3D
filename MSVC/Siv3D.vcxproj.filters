@@ -443,6 +443,9 @@
     <Filter Include="Source\Siv3D\Icon">
       <UniqueIdentifier>{837bb04a-87d1-4d8c-84a7-0005d6ec350f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\TextInput">
+      <UniqueIdentifier>{ff8b8df7-6630-4d39-9cbd-d918cb471d9c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1651,6 +1654,18 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Icon.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\TextInput\ITextInput.hpp">
+      <Filter>Source\Siv3D\TextInput</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\TextInput.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\TextInput\CTextInput_macOS.hpp">
+      <Filter>Source\Siv3D\TextInput</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\TextInput\CTextInput_Windows.hpp">
+      <Filter>Source\Siv3D\TextInput</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2396,6 +2411,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Icon\SivIcon.cpp">
       <Filter>Source\Siv3D\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\TextInput\SivTextInput.cpp">
+      <Filter>Source\Siv3D\TextInput</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\TextInput\TextInputFactory.cpp">
+      <Filter>Source\Siv3D\TextInput</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\TextInput\CTextInput_macOS.cpp">
+      <Filter>Source\Siv3D\TextInput</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\TextInput\CTextInput_Windows.cpp">
+      <Filter>Source\Siv3D\TextInput</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

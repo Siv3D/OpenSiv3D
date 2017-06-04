@@ -49,7 +49,6 @@ namespace s3d
 		}
 	}
 
-
 	CFont::CFont()
 	{
 		
@@ -205,24 +204,26 @@ namespace s3d
 			return Image();
 		}
 
-		if (const FT_Error error = ::FT_Load_Glyph(m_colorEmoji.face, glyphIndex, FT_LOAD_COLOR))
+		const FT_Face face = m_colorEmoji.face;
+
+		if (const FT_Error error = ::FT_Load_Glyph(face, glyphIndex, FT_LOAD_COLOR))
 		{
 			return Image();
 		}
 
-		if (const FT_Error error = ::FT_Render_Glyph(m_colorEmoji.face->glyph, FT_RENDER_MODE_NORMAL))
+		if (const FT_Error error = ::FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL))
 		{
 			return Image();
 		}
 
-		const int32 bitmapWidth = m_colorEmoji.face->glyph->bitmap.width;
-		const int32 bitmapHeight = m_colorEmoji.face->glyph->bitmap.rows;
+		const int32 bitmapWidth = face->glyph->bitmap.width;
+		const int32 bitmapHeight = face->glyph->bitmap.rows;
 
 		Image image(bitmapWidth, bitmapHeight);
 
 		Color* pDst = image.data();
 		Color* const pDstEnd = pDst + image.num_pixels();
-		const uint8_t* pSrc = m_colorEmoji.face->glyph->bitmap.buffer;
+		const uint8_t* pSrc = face->glyph->bitmap.buffer;
 
 		while (pDst != pDstEnd)
 		{
@@ -254,24 +255,26 @@ namespace s3d
 
 		size = std::max(size - 2, 1);
 
-		if (const FT_Error error = ::FT_Set_Pixel_Sizes(m_awesomeIcon.face, 0, size))
+		const FT_Face face = m_awesomeIcon.face;
+
+		if (const FT_Error error = ::FT_Set_Pixel_Sizes(face, 0, size))
 		{
 			return Image();
 		}
 
-		const FT_UInt glyphIndex = ::FT_Get_Char_Index(m_awesomeIcon.face, code);
+		const FT_UInt glyphIndex = ::FT_Get_Char_Index(face, code);
 
 		if(glyphIndex == 0)
 		{
 			return Image();
 		}
 
-		if (const FT_Error error = ::FT_Load_Glyph(m_awesomeIcon.face, glyphIndex, FT_LOAD_DEFAULT | FT_LOAD_NO_BITMAP))
+		if (const FT_Error error = ::FT_Load_Glyph(face, glyphIndex, FT_LOAD_DEFAULT | FT_LOAD_NO_BITMAP))
 		{
 			return Image();
 		}
 
-		const FT_GlyphSlot slot = m_awesomeIcon.face->glyph;
+		const FT_GlyphSlot slot = face->glyph;
 
 		if (const FT_Error error = ::FT_Render_Glyph(slot, FT_RENDER_MODE_NORMAL))
 		{
@@ -297,21 +300,23 @@ namespace s3d
 
 	bool CFont::loadColorEmojiFace()
 	{
-		const FilePath colorEmojiPath = detail::GetEngineFontDirectory() + L"noto/NotoColorEmoji.ttf";
+		const FilePath path = detail::GetEngineFontDirectory() + L"noto/NotoColorEmoji.ttf";
 
-		if (!FileSystem::Exists(colorEmojiPath))
+		if (!FileSystem::Exists(path))
 		{
 			return false;
 		}
 
-		if (const FT_Error error = ::FT_New_Face(m_library, colorEmojiPath.narrow().c_str(), 0, &m_colorEmoji.face))
+		if (const FT_Error error = ::FT_New_Face(m_library, path.narrow().c_str(), 0, &m_colorEmoji.face))
 		{
 			return false;
 		}
 
 		FT_ULong length = 0;
 
-		if (const FT_Error error = ::FT_Load_Sfnt_Table(m_colorEmoji.face, FT_MAKE_TAG('C', 'B', 'D', 'T'), 0, nullptr, &length))
+		const FT_Face face = m_colorEmoji.face;
+
+		if (const FT_Error error = ::FT_Load_Sfnt_Table(face, FT_MAKE_TAG('C', 'B', 'D', 'T'), 0, nullptr, &length))
 		{
 			return false;
 		}
@@ -321,17 +326,17 @@ namespace s3d
 			return false;
 		}
 
-		if (m_colorEmoji.face->num_fixed_sizes == 0)
+		if (face->num_fixed_sizes == 0)
 		{
 			return false;
 		}
 
 		int32 bestMatch = 0;
-		int32 diff = std::abs(128 - m_colorEmoji.face->available_sizes[0].width);
+		int32 diff = std::abs(128 - face->available_sizes[0].width);
 		
-		for (int32 i = 1; i < m_colorEmoji.face->num_fixed_sizes; ++i)
+		for (int32 i = 1; i < face->num_fixed_sizes; ++i)
 		{
-			const int32 ndiff = std::abs(128 - m_colorEmoji.face->available_sizes[i].width);
+			const int32 ndiff = std::abs(128 - face->available_sizes[i].width);
 			
 			if (ndiff < diff)
 			{
@@ -340,12 +345,12 @@ namespace s3d
 			}
 		}
 
-		if (const FT_Error error = ::FT_Select_Size(m_colorEmoji.face, bestMatch))
+		if (const FT_Error error = ::FT_Select_Size(face, bestMatch))
 		{
 			return false;
 		}
 
-		m_colorEmoji.hbFont = ::hb_ft_font_create_referenced(m_colorEmoji.face);
+		m_colorEmoji.hbFont = ::hb_ft_font_create_referenced(face);
 
 		if (!m_colorEmoji.hbFont)
 		{
@@ -357,14 +362,14 @@ namespace s3d
 
 	bool CFont::loadAwesomeIconFace()
 	{
-		const FilePath awesomeIconPath = detail::GetEngineFontDirectory() + L"fontawesome/FontAwesome.otf";
+		const FilePath path = detail::GetEngineFontDirectory() + L"fontawesome/FontAwesome.otf";
 
-		if (!FileSystem::Exists(awesomeIconPath))
+		if (!FileSystem::Exists(path))
 		{
 			return false;
 		}
 
-		if (const FT_Error error = ::FT_New_Face(m_library, awesomeIconPath.narrow().c_str(), 0, &m_awesomeIcon.face))
+		if (const FT_Error error = ::FT_New_Face(m_library, path.narrow().c_str(), 0, &m_awesomeIcon.face))
 		{
 			if (error == FT_Err_Unknown_File_Format)
 			{

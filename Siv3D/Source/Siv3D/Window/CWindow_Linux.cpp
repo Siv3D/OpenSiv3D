@@ -83,6 +83,11 @@ namespace s3d
 		if (::glfwGetWindowAttrib(m_glfwWindow, GLFW_FOCUSED) == GL_FALSE)
 		{
 			Siv3DEngine::GetSystem()->reportEvent(WindowEvent::Unfocus);
+			m_state.focused = false;
+		}
+		else
+		{
+			m_state.focused = true;
 		}
 
 		if (::glfwWindowShouldClose(m_glfwWindow))

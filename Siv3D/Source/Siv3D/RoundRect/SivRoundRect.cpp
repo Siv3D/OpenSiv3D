@@ -85,6 +85,42 @@ namespace s3d
 		}
 	}
 
+	bool RoundRect::leftClicked() const
+	{
+		return MouseL.down() && mouseOver();
+	}
+
+	bool RoundRect::leftPressed() const
+	{
+		return MouseL.pressed() && mouseOver();
+	}
+
+	bool RoundRect::leftReleased() const
+	{
+		return MouseL.up() && mouseOver();
+	}
+
+	bool RoundRect::rightClicked() const
+	{
+		return MouseR.down() && mouseOver();
+	}
+
+	bool RoundRect::rightPressed() const
+	{
+		return MouseR.pressed() && mouseOver();
+	}
+
+	bool RoundRect::rightReleased() const
+	{
+		return MouseR.up() && mouseOver();
+	}
+
+	bool RoundRect::mouseOver() const
+	{
+		return Geometry2D::Intersect(Cursor::PosF(), *this);
+	}
+
+
 	const RoundRect& RoundRect::draw(const ColorF& color) const
 	{
 		const double rr = std::min({ rect.w * 0.5, rect.h * 0.5, r });

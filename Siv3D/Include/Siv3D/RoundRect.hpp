@@ -192,7 +192,6 @@ namespace s3d
 			return Geometry2D::Contains(*this, shape);
 		}
 
-		/*
 		bool leftClicked() const;
 
 		bool leftPressed() const;
@@ -206,7 +205,6 @@ namespace s3d
 		bool rightReleased() const;
 
 		bool mouseOver() const;
-		*/
 
 		// paint / overpaint
 

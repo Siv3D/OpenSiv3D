@@ -864,6 +864,19 @@ namespace s3d
 			}
 		}
 
+		size_t CountCodePoints(StringView str)
+		{
+		# if defined(SIV3D_TARGET_WINDOWS)
+
+			return  detail::UTF16ToUTF32_Length(str.begin(), str.end());
+
+		# else
+
+			return str.size();
+	
+		# endif	
+		}
+
 		String PercentEncode(const StringView str, const Arg::upperCase_<bool> upperCase)
 		{
 			const std::string utf8 = ToUTF8(str);

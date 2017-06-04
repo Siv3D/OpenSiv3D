@@ -18,6 +18,7 @@
 # include <Siv3D/Ellipse.hpp>
 # include <Siv3D/Triangle.hpp>
 # include <Siv3D/Quad.hpp>
+# include <Siv3D/RoundRect.hpp>
 
 namespace s3d
 {
@@ -186,6 +187,48 @@ namespace s3d
 			//; We're done, no intersection
 			return false;
 		}
+
+		struct RoundRectParts
+		{
+			RectF boundingRect;
+			RectF rectA;
+			RectF rectB;
+			Circle circleTL;
+			Circle circleTR;
+			Circle circleBR;
+			Circle circleBL;
+
+			RoundRectParts(const RoundRect& roundRect) noexcept
+			{
+				const RectF& rect = roundRect.rect;
+				const double rr = std::min({ rect.w * 0.5, rect.h * 0.5, roundRect.r });
+				const double x0 = rect.x;
+				const double x1 = rect.x + rr;
+				const double x2 = rect.x + rect.w - rr;
+				const double y0 = rect.y;
+				const double y1 = rect.y + rr;
+				const double y2 = rect.y + rect.h - rr;
+				boundingRect = roundRect.rect;
+				rectA.set(x0, y1, rect.w, y2 - y1);
+				rectB.set(x1, y0, x2 - x1, rect.h);
+				circleTL.set(x1, y1, rr);
+				circleTR.set(x2, y1, rr);
+				circleBR.set(x2, y2, rr);
+				circleBL.set(x1, y2, rr);
+			}
+
+			template <class Shape>
+			bool intersects(const Shape& shape) const noexcept
+			{
+				return boundingRect.intersects(shape)
+					&& (rectA.intersects(shape)
+					|| rectB.intersects(shape)
+					|| circleTL.intersects(shape)
+					|| circleTR.intersects(shape)
+					|| circleBR.intersects(shape)
+					|| circleBL.intersects(shape));
+			}
+		};
 	}
 
 	namespace Geometry2D
@@ -247,6 +290,11 @@ namespace s3d
 			return Intersect(a, Triangle{ b.p0, b.p1, b.p3 }) || Intersect(a, Triangle{ b.p1, b.p2, b.p3 });
 		}
 
+		bool Intersect(const Point& a, const RoundRect& b) noexcept
+		{
+			return detail::RoundRectParts(b).intersects(a);
+		}
+
 
 		bool Intersect(const Vec2& a, const Point& b) noexcept
 		{
@@ -303,6 +351,11 @@ namespace s3d
 		bool Intersect(const Vec2& a, const Quad& b) noexcept
 		{
 			return Intersect(a, Triangle{ b.p0, b.p1, b.p3 }) || Intersect(a, Triangle{ b.p1, b.p2, b.p3 });
+		}
+
+		bool Intersect(const Vec2& a, const RoundRect& b) noexcept
+		{
+			return detail::RoundRectParts(b).intersects(a);
 		}
 
 		bool Intersect(const Line& a, const Point& b) noexcept
@@ -444,6 +497,11 @@ namespace s3d
 				|| Intersect(a, Line(b.p3, b.p0));
 		}
 
+		bool Intersect(const Line& a, const RoundRect& b) noexcept
+		{
+			return detail::RoundRectParts(b).intersects(a);
+		}
+
 		bool Intersect(const Rect& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
@@ -502,6 +560,11 @@ namespace s3d
 				|| Intersect(a, Triangle(b.p0, b.p2, b.p3));
 		}
 
+		bool Intersect(const Rect& a, const RoundRect& b) noexcept
+		{
+			return detail::RoundRectParts(b).intersects(a);
+		}
+
 		bool Intersect(const RectF& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
@@ -527,6 +590,26 @@ namespace s3d
 			return (a.x < b.x + b.w) && (b.x < a.x + a.w) && (a.y < b.y + b.h) && (b.y < a.y + a.h);
 		}
 
+		bool Intersect(const RectF& a, const Circle& b) noexcept
+		{
+			const double aw = a.w * 0.5;
+			const double ah = a.h * 0.5;
+			const double cX = std::abs(b.x - a.x - aw);
+			const double cY = std::abs(b.y - a.y - ah);
+
+			if (cX >(aw + b.r) || cY >(ah + b.r))
+			{
+				return false;
+			}
+
+			if (cX <= (aw) || cY <= (ah))
+			{
+				return true;
+			}
+
+			return (cX - aw) * (cX - aw) + (cY - ah) * (cY - ah) <= (b.r * b.r);
+		}
+
 		bool Intersect(const RectF& a, const Triangle& b) noexcept
 		{
 			return Intersect(Triangle(a.tl(), a.tr(), a.bl()), b)
@@ -537,6 +620,11 @@ namespace s3d
 		{
 			return Intersect(a, Triangle(b.p0, b.p1, b.p2))
 				|| Intersect(a, Triangle(b.p0, b.p2, b.p3));
+		}
+
+		bool Intersect(const RectF& a, const RoundRect& b) noexcept
+		{
+			return detail::RoundRectParts(b).intersects(a);
 		}
 
 		bool Intersect(const Circle& a, const Point& b) noexcept
@@ -578,6 +666,11 @@ namespace s3d
 		{
 			return detail::CircleTriangleIntersection(a, Triangle{ b.p0, b.p1, b.p3 })
 				|| detail::CircleTriangleIntersection(a, Triangle{ b.p1, b.p2, b.p3 });
+		}
+
+		bool Intersect(const Circle& a, const RoundRect& b) noexcept
+		{
+			return detail::RoundRectParts(b).intersects(a);
 		}
 
 		bool Intersect(const Ellipse& a, const Point& b) noexcept
@@ -687,6 +780,11 @@ namespace s3d
 				 || Intersect(a, Triangle(b.p0, b.p2, b.p3));
 		}
 
+		bool Intersect(const Triangle& a, const RoundRect& b) noexcept
+		{
+			return detail::RoundRectParts(b).intersects(a);
+		}
+
 		bool Intersect(const Quad& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
@@ -726,6 +824,69 @@ namespace s3d
 		{
 			return Intersect(Triangle(a.p0, a.p1, a.p2), b)
 				|| Intersect(Triangle(a.p0, a.p2, a.p3), b);
+		}
+
+		bool Intersect(const Quad& a, const RoundRect& b) noexcept
+		{
+			return detail::RoundRectParts(b).intersects(a);
+		}
+
+		bool Intersect(const RoundRect& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const RoundRect& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const RoundRect& a, const Line& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const RoundRect& a, const Rect& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const RoundRect& a, const RectF& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const RoundRect& a, const Circle& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const RoundRect& a, const Triangle& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const RoundRect& a, const Quad& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const RoundRect& a, const RoundRect& b) noexcept
+		{
+			if (!Intersect(a.rect, b.rect))
+			{
+				return false;
+			}
+
+			const detail::RoundRectParts partsA(a);
+			const detail::RoundRectParts partsB(b);
+
+			return partsA.intersects(partsB.rectA)
+				|| partsA.intersects(partsB.rectB)
+				|| partsA.intersects(partsB.circleTL)
+				|| partsA.intersects(partsB.circleTR)
+				|| partsA.intersects(partsB.circleBR)
+				|| partsA.intersects(partsB.circleBL);
 		}
 	}
 }

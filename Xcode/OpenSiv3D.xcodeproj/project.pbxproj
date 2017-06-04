@@ -442,6 +442,14 @@
 		2C0C7DF91EC0BBEA00386CBB /* D3D11Renderer2DCommandManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C7DF81EC0BBEA00386CBB /* D3D11Renderer2DCommandManager.cpp */; };
 		2C114C881EE3DBEB00A198BB /* Icon.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C114C871EE3DBEB00A198BB /* Icon.hpp */; };
 		2C114C8B1EE3DC0000A198BB /* SivIcon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C114C8A1EE3DC0000A198BB /* SivIcon.cpp */; };
+		2C114C8D1EE432A100A198BB /* TextInput.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C114C8C1EE432A100A198BB /* TextInput.hpp */; };
+		2C114C961EE432B200A198BB /* CTextInput_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C114C8F1EE432B200A198BB /* CTextInput_macOS.cpp */; };
+		2C114C971EE432B200A198BB /* CTextInput_macOS.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C114C901EE432B200A198BB /* CTextInput_macOS.hpp */; };
+		2C114C981EE432B200A198BB /* CTextInput_Windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C114C911EE432B200A198BB /* CTextInput_Windows.cpp */; };
+		2C114C991EE432B200A198BB /* CTextInput_Windows.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C114C921EE432B200A198BB /* CTextInput_Windows.hpp */; };
+		2C114C9A1EE432B200A198BB /* ITextInput.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C114C931EE432B200A198BB /* ITextInput.hpp */; };
+		2C114C9B1EE432B200A198BB /* SivTextInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C114C941EE432B200A198BB /* SivTextInput.cpp */; };
+		2C114C9C1EE432B200A198BB /* TextInputFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C114C951EE432B200A198BB /* TextInputFactory.cpp */; };
 		2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C38B14A1CDEB45C007A7E9F /* gtest.a */; };
 		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
@@ -1244,6 +1252,14 @@
 		2C0C7DF81EC0BBEA00386CBB /* D3D11Renderer2DCommandManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = D3D11Renderer2DCommandManager.cpp; sourceTree = "<group>"; };
 		2C114C871EE3DBEB00A198BB /* Icon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Icon.hpp; sourceTree = "<group>"; };
 		2C114C8A1EE3DC0000A198BB /* SivIcon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivIcon.cpp; sourceTree = "<group>"; };
+		2C114C8C1EE432A100A198BB /* TextInput.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextInput.hpp; sourceTree = "<group>"; };
+		2C114C8F1EE432B200A198BB /* CTextInput_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTextInput_macOS.cpp; sourceTree = "<group>"; };
+		2C114C901EE432B200A198BB /* CTextInput_macOS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTextInput_macOS.hpp; sourceTree = "<group>"; };
+		2C114C911EE432B200A198BB /* CTextInput_Windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTextInput_Windows.cpp; sourceTree = "<group>"; };
+		2C114C921EE432B200A198BB /* CTextInput_Windows.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTextInput_Windows.hpp; sourceTree = "<group>"; };
+		2C114C931EE432B200A198BB /* ITextInput.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ITextInput.hpp; sourceTree = "<group>"; };
+		2C114C941EE432B200A198BB /* SivTextInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextInput.cpp; sourceTree = "<group>"; };
+		2C114C951EE432B200A198BB /* TextInputFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextInputFactory.cpp; sourceTree = "<group>"; };
 		2C1777401CDEE5D500BB8AD0 /* gtest-death-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-death-test.h"; sourceTree = "<group>"; };
 		2C1777411CDEE5D500BB8AD0 /* gtest-message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-message.h"; sourceTree = "<group>"; };
 		2C1777421CDEE5D500BB8AD0 /* gtest-param-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-param-test.h"; sourceTree = "<group>"; };
@@ -1675,6 +1691,7 @@
 		2C0C7A121EBCC38300386CBB /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C114C8E1EE432B200A198BB /* TextInput */,
 				2C114C891EE3DC0000A198BB /* Icon */,
 				2CAE4DFC1EE3AC1C0057BE7E /* Print */,
 				2CAE4DF31EE2D75C0057BE7E /* TexturedRoundRect */,
@@ -2877,6 +2894,7 @@
 				2C0C7D061EBCC39B00386CBB /* String.hpp */,
 				2C0C7D071EBCC39B00386CBB /* StringView.hpp */,
 				2C0C7D081EBCC39B00386CBB /* System.hpp */,
+				2C114C8C1EE432A100A198BB /* TextInput.hpp */,
 				2C0C7D091EBCC39B00386CBB /* TextReader.hpp */,
 				2C0C7D0A1EBCC39B00386CBB /* Texture.hpp */,
 				2CAE4D971EE039790057BE7E /* TexturedCircle.hpp */,
@@ -2995,6 +3013,20 @@
 				2C114C8A1EE3DC0000A198BB /* SivIcon.cpp */,
 			);
 			path = Icon;
+			sourceTree = "<group>";
+		};
+		2C114C8E1EE432B200A198BB /* TextInput */ = {
+			isa = PBXGroup;
+			children = (
+				2C114C8F1EE432B200A198BB /* CTextInput_macOS.cpp */,
+				2C114C901EE432B200A198BB /* CTextInput_macOS.hpp */,
+				2C114C911EE432B200A198BB /* CTextInput_Windows.cpp */,
+				2C114C921EE432B200A198BB /* CTextInput_Windows.hpp */,
+				2C114C931EE432B200A198BB /* ITextInput.hpp */,
+				2C114C941EE432B200A198BB /* SivTextInput.cpp */,
+				2C114C951EE432B200A198BB /* TextInputFactory.cpp */,
+			);
+			path = TextInput;
 			sourceTree = "<group>";
 		};
 		2C17773E1CDEE5D500BB8AD0 /* Include */ = {
@@ -4085,6 +4117,7 @@
 				2C2E82961EAA1B3A0057BDAF /* encodedstream.h in Headers */,
 				2C81C0A21E89F8E400D27E52 /* divsufsort.h in Headers */,
 				2C0C7D2F1EBCC39B00386CBB /* Array.hpp in Headers */,
+				2C114C971EE432B200A198BB /* CTextInput_macOS.hpp in Headers */,
 				2CCA36401ECC748E00078678 /* ftmac.h in Headers */,
 				2C0C7DC21EBCC39B00386CBB /* Siv3D.hpp in Headers */,
 				2C2E82AE1EAA1B3A0057BDAF /* ostreamwrapper.h in Headers */,
@@ -4269,6 +4302,7 @@
 				2C2126561E8CB7B5006F8101 /* gif_lib.h in Headers */,
 				2CCA35911EC884F500078678 /* TexturedQuad.hpp in Headers */,
 				2CCA36291ECC748E00078678 /* freetype.h in Headers */,
+				2C114C991EE432B200A198BB /* CTextInput_Windows.hpp in Headers */,
 				2C0C7DA31EBCC39B00386CBB /* Step_MSVC.hpp in Headers */,
 				2CCA367A1ECC748F00078678 /* ttnameid.h in Headers */,
 				2C0C7BED1EBCC38400386CBB /* IImageFormat.hpp in Headers */,
@@ -4297,6 +4331,7 @@
 				2C81C0691E89F8E300D27E52 /* preprocess_downsample.h in Headers */,
 				2C0C7D631EBCC39B00386CBB /* HashMap.hpp in Headers */,
 				2C0C7D4F1EBCC39B00386CBB /* Easing.hpp in Headers */,
+				2C114C9A1EE432B200A198BB /* ITextInput.hpp in Headers */,
 				2C0C7D891EBCC39B00386CBB /* ParseInt.hpp in Headers */,
 				2CCA36251ECC748E00078678 /* ftheader.h in Headers */,
 				2CCA36771ECC748F00078678 /* t1types.h in Headers */,
@@ -4305,6 +4340,7 @@
 				2C0C7D4A1EBCC39B00386CBB /* DateTime.hpp in Headers */,
 				2C2E82A11EAA1B3A0057BDAF /* itoa.h in Headers */,
 				2C0C7C571EBCC38400386CBB /* CTextReader.hpp in Headers */,
+				2C114C8D1EE432A100A198BB /* TextInput.hpp in Headers */,
 				2C0C7D6D1EBCC39B00386CBB /* IteratorRange.hpp in Headers */,
 				2CCA364B1ECC748F00078678 /* ftstroke.h in Headers */,
 				2CCA367D1ECC748F00078678 /* ttunpat.h in Headers */,
@@ -4639,6 +4675,7 @@
 				2C81C0931E89F8E400D27E52 /* fse_decompress.c in Sources */,
 				2C81C05A1E89F8E300D27E52 /* jpeg_data_decoder.cc in Sources */,
 				2C0C7BCC1EBCC38400386CBB /* CGraphics_D3D11.cpp in Sources */,
+				2C114C981EE432B200A198BB /* CTextInput_Windows.cpp in Sources */,
 				2C0C7BE21EBCC38400386CBB /* SivHSV.cpp in Sources */,
 				2C81C00E1E89F8E300D27E52 /* fast-dtoa.cc in Sources */,
 				2C0C7B841EBCC38400386CBB /* CBinaryReader_macOS.cpp in Sources */,
@@ -4651,6 +4688,7 @@
 				2C0C7C451EBCC38400386CBB /* Siv3DEngine.cpp in Sources */,
 				2C0C7BC71EBCC38400386CBB /* SivFormatFloat.cpp in Sources */,
 				2C0C7B8B1EBCC38400386CBB /* CBinaryWriter_macOS.cpp in Sources */,
+				2C114C9C1EE432B200A198BB /* TextInputFactory.cpp in Sources */,
 				2C0C7C031EBCC38400386CBB /* CLogger.cpp in Sources */,
 				2C81C0061E89F8E300D27E52 /* bignum.cc in Sources */,
 				2C0C7C3E1EBCC38400386CBB /* CShader_GL.cpp in Sources */,
@@ -4765,10 +4803,12 @@
 				2C0C7BEF1EBCC38400386CBB /* ImageFormat_JPEG.cpp in Sources */,
 				2C0C7DE31EBF2EBA00386CBB /* SivPowerStatus.cpp in Sources */,
 				2C81C00C1E89F8E300D27E52 /* double-conversion.cc in Sources */,
+				2C114C9B1EE432B200A198BB /* SivTextInput.cpp in Sources */,
 				2C81C0A01E89F8E400D27E52 /* zstd_decompress.c in Sources */,
 				2C0C7DF91EC0BBEA00386CBB /* D3D11Renderer2DCommandManager.cpp in Sources */,
 				2CCA35AA1EC8B39800078678 /* SivRoundRect.cpp in Sources */,
 				2C0C7C2B1EBCC38400386CBB /* SivRectangle.cpp in Sources */,
+				2C114C961EE432B200A198BB /* CTextInput_macOS.cpp in Sources */,
 				2C0C7BA61EBCC38400386CBB /* SivConsole.cpp in Sources */,
 				2C0C7C541EBCC38400386CBB /* SivSystem.mm in Sources */,
 				2CCA35A31EC8ADAC00078678 /* SivSprite.cpp in Sources */,

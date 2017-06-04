@@ -84,3 +84,4 @@
 
 # pragma comment (lib, "winmm")
 # pragma comment (lib, "Dwmapi")
+# pragma comment (lib, "imm32")

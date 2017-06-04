@@ -9,27 +9,21 @@
 //
 //-----------------------------------------------
 
-# include "CDragDrop_Windows.hpp"
-# include "CDragDrop_macOS.hpp"
-# include "CDragDrop_Linux.hpp"
+# include "CTextInput_Windows.hpp"
+# include "CTextInput_macOS.hpp"
 
 namespace s3d
 {
-	ISiv3DDragDrop* ISiv3DDragDrop::Create()
+	ISiv3DTextInput* ISiv3DTextInput::Create()
 	{
 	# if defined(SIV3D_TARGET_WINDOWS)
 
-		return new CDragDrop_Windows;
+		return new CTextInput_Windows;
 
-	# elif defined(SIV3D_TARGET_MACOS)
+	# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 		
-		return new CDragDrop_macOS;
-		
-	# elif defined(SIV3D_TARGET_LINUX)
-		
-		return new CDragDrop_Linux;
+		return new CTextInput_macOS;
 		
 	# endif
 	}
 }
-
