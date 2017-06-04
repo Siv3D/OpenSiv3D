@@ -56,6 +56,8 @@ namespace s3d
 		{
 			NonPremultiplied,
 
+			Premultiplied,
+
 			Opaque,
 
 			Additive,
@@ -133,9 +135,15 @@ namespace s3d
 
 		/// <summary>
 		/// デフォルトのブレンド
-		/// BlendState{ true }
+		/// BlendState{ true, Blend::SrcAlpha, Blend::InvSrcAlpha, BlendOp::Add, Blend::Zero, Blend::One, BlendOp::Add }
 		/// </summary>
 		static constexpr Predefined NonPremultiplied = Predefined::NonPremultiplied;
+
+		/// <summary>
+		/// 乗算済みアルファブレンド
+		/// BlendState{ true, Blend::One, Blend::InvSrcAlpha, BlendOp::Add, Blend::Zero, Blend::One, BlendOp::Add }
+		/// </summary>
+		static constexpr Predefined Premultiplied = Predefined::Premultiplied;
 
 		/// <summary>
 		/// 不透明
@@ -145,25 +153,25 @@ namespace s3d
 
 		/// <summary>
 		/// 加算ブレンド
-		/// BlendState{ true, Blend::SrcAlpha, Blend::One, BlendOp::Add }
+		/// BlendState{ true, Blend::SrcAlpha, Blend::One, BlendOp::Add, Blend::Zero, Blend::One, BlendOp::Add }
 		/// </summary>
 		static constexpr Predefined Additive = Predefined::Additive;
 
 		/// <summary>
 		/// 減算ブレンド
-		/// BlendState{ true, Blend::SrcAlpha, Blend::One, BlendOp::RevSubtract }
+		/// BlendState{ true, Blend::SrcAlpha, Blend::One, BlendOp::RevSubtract, Blend::Zero, Blend::One, BlendOp::Add }
 		/// </summary>
 		static constexpr Predefined Subtractive = Predefined::Subtractive;
 
 		/// <summary>
 		/// 乗算ブレンド
-		/// BlendState{ true, Blend::Zero, Blend::SrcColor, BlendOp::Add }
+		/// BlendState{ true, Blend::Zero, Blend::SrcColor, BlendOp::Add, Blend::Zero, Blend::One, BlendOp::Add }
 		/// </summary>
 		static constexpr Predefined Multiplicative = Predefined::Multiplicative;
 
 		/// <summary>
 		/// 2X 乗算ブレンド
-		/// BlendState{ true, Blend::DestColor, Blend::SrcColor, BlendOp::Add }
+		/// BlendState{ true, Blend::DestColor, Blend::SrcColor, BlendOp::Add, Blend::Zero, Blend::One, BlendOp::Add }
 		/// </summary>
 		static constexpr Predefined Multiplicative2X = Predefined::Multiplicative2X;
 
