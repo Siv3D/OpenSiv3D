@@ -15,6 +15,7 @@
 
 # include <mutex>
 # include "ITextInput.hpp"
+# include "../Window/IWindow.hpp"
 # include <Siv3D/String.hpp>
 
 namespace s3d
@@ -22,6 +23,10 @@ namespace s3d
 	class CTextInput_Windows : public ISiv3DTextInput
 	{
 	private:
+
+		WindowHandle m_hWnd = nullptr;
+
+		HIMC m_hImc = nullptr;
 
 		std::mutex m_mutex;
 
@@ -45,6 +50,8 @@ namespace s3d
 		void pushChar(char32_t ch) override;
 
 		const std::u32string& getChars() const override;
+
+		const String& getMarkedText() const override;
 	};
 }
 
