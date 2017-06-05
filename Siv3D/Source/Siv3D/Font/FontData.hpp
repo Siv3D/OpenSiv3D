@@ -29,6 +29,8 @@ namespace s3d
 		Point offset = { 0,0 };
 
 		int32 xAdvance = 0;
+
+		int32 width = 0;
 	};
 
 	struct FontFace
