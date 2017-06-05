@@ -158,6 +158,11 @@ namespace s3d
 		return m_fonts[handleID]->getDescender();
 	}
 
+	Array<Glyph> CFont::getGlyphs(Font::IDType handleID, const String& text)
+	{
+		return m_fonts[handleID]->getGlyphs(text);
+	}
+
 	RectF CFont::getBoundingRect(Font::IDType handleID, const String& text, double lineSpacingScale)
 	{
 		return m_fonts[handleID]->getBoundingRect(text, lineSpacingScale);

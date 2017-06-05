@@ -93,6 +93,11 @@ namespace s3d
 		return Siv3DEngine::GetFont()->getAscender(m_handle->getID()) - Siv3DEngine::GetFont()->getDescender(m_handle->getID());
 	}
 
+	Array<Glyph> Font::getGlyphs(const String& text) const
+	{
+		return Siv3DEngine::GetFont()->getGlyphs(m_handle->getID(), text);
+	}
+
 	RectF DrawableText::boundingRect(const Vec2& pos) const
 	{
 		return Siv3DEngine::GetFont()->getBoundingRect(font.id(), text, 1.0).moveBy(pos);

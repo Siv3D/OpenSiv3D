@@ -50,6 +50,8 @@ namespace s3d
 
 		int32 getDescender(Font::IDType handleID);
 
+		Array<Glyph> getGlyphs(Font::IDType handleID, const String& text);
+
 		RectF getBoundingRect(Font::IDType handleID, const String& text, double lineSpacingScale) override;
 
 		RectF getRegion(Font::IDType handleID, const String& text, double lineSpacingScale) override;

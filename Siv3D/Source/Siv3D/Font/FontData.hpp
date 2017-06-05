@@ -18,6 +18,7 @@
 # include "../../ThirdParty/harfbuzz/hb-ft.h"
 # include <Siv3D/HashMap.hpp>
 # include <Siv3D/Image.hpp>
+# include <Siv3D/Font.hpp>
 # include <Siv3D/DynamicTexture.hpp>
 
 namespace s3d
@@ -190,6 +191,8 @@ namespace s3d
 		{
 			return m_descender;
 		}
+
+		Array<Glyph> getGlyphs(const String& text);
 
 		RectF getBoundingRect(const String& text, double lineSpacingScale);
 

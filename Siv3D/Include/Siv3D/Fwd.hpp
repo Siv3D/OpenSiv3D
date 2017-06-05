@@ -715,8 +715,10 @@ namespace s3d
 	//
 	//	Font.hpp
 	//
-	class Font;
+	enum class Typeface;
 	enum class FontStyle : uint32;
+	struct Glyph;
+	class Font;
 	struct DrawableText;
 
 	//////////////////////////////////////////////////////

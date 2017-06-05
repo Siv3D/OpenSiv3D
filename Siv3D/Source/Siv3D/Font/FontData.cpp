@@ -95,6 +95,48 @@ namespace s3d
 
 	}
 
+	Array<Glyph> FontData::getGlyphs(const String& text)
+	{
+		const std::u32string codePoints = CharacterSet::ToUTF32(text);
+
+		if (!render(codePoints))
+		{
+			return Array<Glyph>();
+		}
+
+		Array<Glyph> glyphs;
+
+		for (const auto codePoint : codePoints)
+		{
+			Glyph glyph;
+			glyph.codePoint = codePoint;
+
+			if (codePoint == U'\n')
+			{
+
+			}
+			else if (codePoint == U'\t')
+			{
+				glyph.xAdvance = m_tabWidth;
+			}
+			if (IsControl(codePoint))
+			{
+
+			}
+			else
+			{
+				const auto& glyphInfo = m_glyphs[m_glyphIndexTable[codePoint]];
+				glyph.texture = m_texture(glyphInfo.bitmapRect);
+				glyph.offset = glyphInfo.offset;
+				glyph.xAdvance = glyphInfo.xAdvance;
+			}
+
+			glyphs.push_back(glyph);
+		}
+
+		return glyphs;
+	}
+
 	RectF FontData::getBoundingRect(const String& text, const double lineSpacingScale)
 	{
 		const std::u32string codePoints = CharacterSet::ToUTF32(text);

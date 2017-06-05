@@ -35,6 +35,8 @@ namespace s3d
 
 		virtual int32 getDescender(Font::IDType handleID) = 0;
 
+		virtual Array<Glyph> getGlyphs(Font::IDType handleID, const String& text) = 0;
+
 		virtual RectF getBoundingRect(Font::IDType handleID, const String& text, double lineSpacingScale) = 0;
 
 		virtual RectF getRegion(Font::IDType handleID, const String& text, double lineSpacingScale) = 0;

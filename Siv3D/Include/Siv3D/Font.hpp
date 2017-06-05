@@ -18,6 +18,7 @@
 # include "Color.hpp"
 # include "PointVector.hpp"
 # include "Rectangle.hpp"
+# include "TextureRegion.hpp"
 # include "NamedParameter.hpp"
 
 namespace s3d
@@ -61,6 +62,17 @@ namespace s3d
 		ItalicBitmap = Italic | Bitmap,
 
 		BoldItalicBitmap = Bold | Italic | Bitmap,
+	};
+
+	struct Glyph
+	{
+		TextureRegion texture;
+
+		char32_t codePoint;
+
+		Point offset;
+
+		int32 xAdvance;
 	};
 	
 	class Font
@@ -109,6 +121,8 @@ namespace s3d
 		int32 descender() const;
 
 		int32 height() const;
+
+		Array<Glyph> getGlyphs(const String& text) const;
 
 		/// <summary>
 		/// 描画するテキストを作成します。
