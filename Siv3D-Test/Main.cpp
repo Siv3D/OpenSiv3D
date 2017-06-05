@@ -31,13 +31,13 @@ void Main()
 				rightPress.restart();
 			}
 
-			if (KeyUp.down())
+			if (KeyUp.down() || (KeyUp.pressedDuration() > 0.33s && upPress > 0.06s))
 			{
 				requestUpDown = -1;
 				upPress.restart();
 			}
 
-			if (KeyDown.down())
+			if (KeyDown.down() || (KeyDown.pressedDuration() > 0.33s && downPress > 0.06s))
 			{
 				requestUpDown = 1;
 				downPress.restart();
