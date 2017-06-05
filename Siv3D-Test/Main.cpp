@@ -24,6 +24,10 @@ void Main()
 	
 		const int32 lines = (int32)text.count(L'\n');
 		font(text).draw(pos);
+
+		font(text).boundingRect(pos).drawFrame(1,0,Palette::Lightgreen);
+		font(text).region(pos).drawFrame(1,0,Palette::Red);
+
 		
 		const String markedText = TextInput::GetMarkedText();
 		font(markedText).draw(pos.movedBy(xOffset, 0), Palette::Gray);

@@ -132,6 +132,8 @@ namespace s3d
 
 		int32 m_descender = 0;
 
+		int32 m_tabWidth = 0;
+
 		bool m_bold = false;
 
 		bool m_italic = false;

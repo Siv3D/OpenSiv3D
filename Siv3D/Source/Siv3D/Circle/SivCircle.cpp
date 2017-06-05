@@ -180,8 +180,8 @@ namespace s3d
 		for (uint32 i = 0; i < quality; ++i)
 		{
 			const float rad = radDelta * i;
-			const float c = std::cosf(rad);
-			const float s = std::sinf(rad);
+			const float c = std::cos(rad);
+			const float s = std::sin(rad);
 			
 			Vertex2D* inner = &sprite.vertices[i];
 			Vertex2D* outer = inner + outerVertexSize;
