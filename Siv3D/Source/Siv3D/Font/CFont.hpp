@@ -46,11 +46,11 @@ namespace s3d
 
 		void release(Font::IDType handleID) override;
 
-		int32 getAscender(Font::IDType handleID);
+		int32 getAscender(Font::IDType handleID) override;
 
-		int32 getDescender(Font::IDType handleID);
+		int32 getDescender(Font::IDType handleID) override;
 
-		Array<Glyph> getGlyphs(Font::IDType handleID, const String& text);
+		Array<Glyph> getGlyphs(Font::IDType handleID, const String& text) override;
 
 		RectF getBoundingRect(Font::IDType handleID, const String& text, double lineSpacingScale) override;
 
