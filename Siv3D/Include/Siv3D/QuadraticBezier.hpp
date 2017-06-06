@@ -61,8 +61,6 @@ namespace s3d
 	{
 	private:
 
-		QuadraticBezier m_bezier;
-
 		Vec2 m_v0, m_v1;
 
 		double m_t = 0.0;
@@ -72,8 +70,7 @@ namespace s3d
 		QuadraticBezierPath() = default;
 
 		explicit constexpr QuadraticBezierPath(const QuadraticBezier& bezier) noexcept
-			: m_bezier(bezier)
-			, m_v0(2 * bezier.p0 - 4 * bezier.p1 + 2 * bezier.p2)
+			: m_v0(2 * bezier.p0 - 4 * bezier.p1 + 2 * bezier.p2)
 			, m_v1(-2 * bezier.p0 + 2 * bezier.p1) {}
 
 		constexpr void setT(const double t) noexcept
