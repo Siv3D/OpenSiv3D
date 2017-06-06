@@ -35,17 +35,17 @@ namespace s3d
 
 		virtual int32 getDescender(Font::IDType handleID) = 0;
 
-		virtual Array<Glyph> getGlyphs(Font::IDType handleID, const String& text) = 0;
+		virtual Array<Glyph> getGlyphs(Font::IDType handleID, const U32String& codePoints) = 0;
 
-		virtual RectF getBoundingRect(Font::IDType handleID, const String& text, double lineSpacingScale) = 0;
+		virtual RectF getBoundingRect(Font::IDType handleID, const U32String& codePoints, double lineSpacingScale) = 0;
 
-		virtual RectF getRegion(Font::IDType handleID, const String& text, double lineSpacingScale) = 0;
+		virtual RectF getRegion(Font::IDType handleID, const U32String& codePoints, double lineSpacingScale) = 0;
 
-		virtual Array<int32> getXAdvances(Font::IDType handleID, const String& text) = 0;
+		virtual Array<int32> getXAdvances(Font::IDType handleID, const U32String& codePoints) = 0;
 
-		virtual RectF draw(Font::IDType handleID, const String& text, const Vec2& pos, const ColorF& color, double lineSpacingScale) = 0;
+		virtual RectF draw(Font::IDType handleID, const U32String& codePoints, const Vec2& pos, const ColorF& color, double lineSpacingScale) = 0;
 
-		virtual bool draw(Font::IDType handleID, const String& text, const RectF& area, const ColorF& color, double lineSpacingScale) = 0;
+		virtual bool draw(Font::IDType handleID, const U32String& codePoints, const RectF& area, const ColorF& color, double lineSpacingScale) = 0;
 
 		virtual Image getColorEmoji(StringView emoji) = 0;
 

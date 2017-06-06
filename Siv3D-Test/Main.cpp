@@ -11,7 +11,7 @@ void Main()
 		bool onTag = false;
 		String tag;
 
-		for (const auto& glyph : font.getGlyphs(L"計算#123+234#してくれる"))
+		for (const auto& glyph : font(L"計算#123+234#してくれる"))
 		{
 			if (glyph.codePoint == U'#')
 			{

@@ -95,13 +95,11 @@ namespace s3d
 
 	}
 
-	Array<Glyph> FontData::getGlyphs(const String& text)
+	Array<Glyph> FontData::getGlyphs(const U32String& codePoints)
 	{
-		const std::u32string codePoints = CharacterSet::ToUTF32(text);
-
 		if (!render(codePoints))
 		{
-			return Array<Glyph>();
+			return Array<Glyph>(codePoints.size());
 		}
 
 		Array<Glyph> glyphs;
@@ -137,10 +135,8 @@ namespace s3d
 		return glyphs;
 	}
 
-	RectF FontData::getBoundingRect(const String& text, const double lineSpacingScale)
+	RectF FontData::getBoundingRect(const U32String& codePoints, const double lineSpacingScale)
 	{
-		const std::u32string codePoints = CharacterSet::ToUTF32(text);
-
 		if (!render(codePoints))
 		{
 			return RectF(0);
@@ -186,10 +182,8 @@ namespace s3d
 		return RectF(minPos, maxPos - minPos);
 	}
 
-	RectF FontData::getRegion(const String& text, const double lineSpacingScale)
+	RectF FontData::getRegion(const U32String& codePoints, const double lineSpacingScale)
 	{
-		const std::u32string codePoints = CharacterSet::ToUTF32(text);
-
 		if (!render(codePoints))
 		{
 			return RectF(0);
@@ -242,10 +236,8 @@ namespace s3d
 		return RectF(0, 0, maxPos.x, lineCount * m_lineSpacing * lineSpacingScale);
 	}
 
-	Array<int32> FontData::getXAdvances(const String& text)
+	Array<int32> FontData::getXAdvances(const U32String& codePoints)
 	{
-		const std::u32string codePoints = CharacterSet::ToUTF32(text);
-
 		if (!render(codePoints))
 		{
 			return Array<int32>();
@@ -273,10 +265,8 @@ namespace s3d
 		return xAdvabces;
 	}
 
-	RectF FontData::draw(const String& text, const Vec2& pos, const ColorF& color, double lineSpacingScale)
+	RectF FontData::draw(const U32String& codePoints, const Vec2& pos, const ColorF& color, double lineSpacingScale)
 	{
-		const std::u32string codePoints = CharacterSet::ToUTF32(text);
-		
 		if (!render(codePoints))
 		{
 			return RectF(pos, 0);
@@ -324,10 +314,8 @@ namespace s3d
 		return RectF(pos, maxPosX - pos.x, lineCount * m_lineSpacing * lineSpacingScale);
 	}
 
-	bool FontData::draw(const String& text, const RectF& area, const ColorF& color, const double lineSpacingScale)
+	bool FontData::draw(const U32String& codePoints, const RectF& area, const ColorF& color, const double lineSpacingScale)
 	{
-		const std::u32string codePoints = CharacterSet::ToUTF32(text);
-
 		if (!render(codePoints))
 		{
 			return false;
@@ -514,7 +502,7 @@ namespace s3d
 		return !needDots;
 	}
 
-	bool FontData::render(const std::u32string& codePoints)
+	bool FontData::render(const U32String& codePoints)
 	{
 		if (!m_faceText)
 		{

@@ -161,7 +161,7 @@ namespace s3d
 		//	return true;
 		//}
 
-		bool render(const std::u32string& codePoints);
+		bool render(const U32String& codePoints);
 
 		bool renderGlyph(FT_Face face, FT_UInt glyphIndex);
 
@@ -192,16 +192,16 @@ namespace s3d
 			return m_descender;
 		}
 
-		Array<Glyph> getGlyphs(const String& text);
+		Array<Glyph> getGlyphs(const U32String& codePoints);
 
-		RectF getBoundingRect(const String& text, double lineSpacingScale);
+		RectF getBoundingRect(const U32String& codePoints, double lineSpacingScale);
 
-		RectF getRegion(const String& text, double lineSpacingScale);
+		RectF getRegion(const U32String& codePoints, double lineSpacingScale);
 
-		Array<int32> getXAdvances(const String& text);
+		Array<int32> getXAdvances(const U32String& codePoints);
 
-		RectF draw(const String& text, const Vec2& pos, const ColorF& color, double lineSpacingScale);
+		RectF draw(const U32String& codePoints, const Vec2& pos, const ColorF& color, double lineSpacingScale);
 
-		bool draw(const String& text, const RectF& area, const ColorF& color, double lineSpacingScale);
+		bool draw(const U32String& codePoints, const RectF& area, const ColorF& color, double lineSpacingScale);
 	};
 }

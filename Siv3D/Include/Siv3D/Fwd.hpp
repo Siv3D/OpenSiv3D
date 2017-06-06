@@ -719,6 +719,7 @@ namespace s3d
 	enum class FontStyle : uint32;
 	struct Glyph;
 	class Font;
+	class GlyphIterator;
 	struct DrawableText;
 
 	//////////////////////////////////////////////////////

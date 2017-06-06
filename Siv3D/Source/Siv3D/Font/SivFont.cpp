@@ -93,33 +93,46 @@ namespace s3d
 		return Siv3DEngine::GetFont()->getAscender(m_handle->getID()) - Siv3DEngine::GetFont()->getDescender(m_handle->getID());
 	}
 
+	Glyph Font::getGlyph(const char32_t codePoint) const
+	{
+		return Siv3DEngine::GetFont()->getGlyphs(m_handle->getID(), U32String(1, codePoint))[0];
+	}
+
 	Array<Glyph> Font::getGlyphs(const String& text) const
 	{
+	# if defined(SIV3D_TARGET_WINDOWS)
+
+		return Siv3DEngine::GetFont()->getGlyphs(m_handle->getID(), text.toUTF32());
+
+	# else
+
 		return Siv3DEngine::GetFont()->getGlyphs(m_handle->getID(), text);
+
+	# endif		
 	}
 
 	RectF DrawableText::boundingRect(const Vec2& pos) const
 	{
-		return Siv3DEngine::GetFont()->getBoundingRect(font.id(), text, 1.0).moveBy(pos);
+		return Siv3DEngine::GetFont()->getBoundingRect(font.id(), codePoints, 1.0).moveBy(pos);
 	}
 
 	RectF DrawableText::region(const Vec2& pos) const
 	{
-		return Siv3DEngine::GetFont()->getRegion(font.id(), text, 1.0).moveBy(pos);
+		return Siv3DEngine::GetFont()->getRegion(font.id(), codePoints, 1.0).moveBy(pos);
 	}
 
 	Array<int32> DrawableText::getXAdvances() const
 	{
-		return Siv3DEngine::GetFont()->getXAdvances(font.id(), text);
+		return Siv3DEngine::GetFont()->getXAdvances(font.id(), codePoints);
 	}
 
 	RectF DrawableText::draw(const Vec2& pos, const ColorF& color) const
 	{
-		return Siv3DEngine::GetFont()->draw(font.id(), text, pos, color, 1.0);
+		return Siv3DEngine::GetFont()->draw(font.id(), codePoints, pos, color, 1.0);
 	}
 
 	bool DrawableText::draw(const RectF& area, const ColorF& color) const
 	{
-		return Siv3DEngine::GetFont()->draw(font.id(), text, area, color, 1.0);
+		return Siv3DEngine::GetFont()->draw(font.id(), codePoints, area, color, 1.0);
 	}
 }

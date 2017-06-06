@@ -12,10 +12,11 @@
 # pragma once
 # include "Optional.hpp"
 # include "Graphics2D.hpp"
+# include "Uncopyable.hpp"
 
 namespace s3d
 {
-	class RenderStateBlock2D
+	class RenderStateBlock2D : Uncopyable
 	{
 	private:
 
