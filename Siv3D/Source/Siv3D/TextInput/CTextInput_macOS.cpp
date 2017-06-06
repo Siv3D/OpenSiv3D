@@ -115,7 +115,7 @@ namespace s3d
 	{
 		std::lock_guard<std::mutex> lock(m_mutex);
 		
-		m_internalChars.push_back(ch);
+		m_internalChars.push_back(static_cast<char16_t>(ch));
 	}
 
 	const std::u32string& CTextInput_macOS::getChars() const

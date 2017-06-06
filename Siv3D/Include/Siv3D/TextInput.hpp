@@ -11,14 +11,41 @@
 
 # pragma once
 # include "Fwd.hpp"
+# include "String.hpp"
 
 namespace s3d
 {
+	enum class TextInputMode
+	{
+		DenyControl				= 0x00,
+
+		AllowEnter				= 0x01,
+
+		AllowTab				= 0x02,
+
+		AllowBackSpace			= 0x04,
+
+		AllowEnterTab			= AllowEnter | AllowTab,
+
+		AllowEnterBackSpace		= AllowEnter | AllowBackSpace,
+
+		AllowTabBackSpace		= AllowTab | AllowBackSpace,
+
+		AllowEnterTabBackSpace	= AllowEnter | AllowTab | AllowBackSpace,
+
+		Default					= AllowEnterTabBackSpace,
+	};
+
 	namespace TextInput
 	{
 		String GetRawInput();
 
-		size_t UpdateText(String& text, size_t cursorPos);
+		size_t UpdateText(String& text, size_t cursorPos, TextInputMode mode = TextInputMode::Default);
+
+		inline void UpdateText(String& text, TextInputMode mode = TextInputMode::Default)
+		{
+			UpdateText(text, text.num_codePoints(), mode);
+		}
 		
 		String GetMarkedText();
 	}

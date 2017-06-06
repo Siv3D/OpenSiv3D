@@ -2,36 +2,16 @@
 
 void Main()
 {
-	Graphics::SetBackground(Palette::White);
-	const Font font(40);
+	Graphics::SetBackground(ColorF(0.2, 0.5, 0.3));
+
+	const Font font(50);
 
 	while (System::Update())
 	{
-		Vec2 penPos(20, 20);
-		bool onTag = false;
-		String tag;
+		font(L"Hello, Siv3D!🐣").drawAt(Window::Center(), Palette::Yellow);
 
-		for (const auto& glyph : font(L"計算#123+234#してくれる"))
-		{
-			if (glyph.codePoint == U'#')
-			{
-				if (onTag)
-				{
-					penPos.x += font(Eval(tag)).draw(penPos, Palette::Brown).w;
-					tag.clear();
-				}
-				
-				onTag = !onTag;
-			}
-			else if (onTag)
-			{
-				tag.push_back(static_cast<wchar>(glyph.codePoint));
-			}
-			else
-			{
-				glyph.texture.draw(penPos + glyph.offset, Palette::Black);
-				penPos.x += glyph.xAdvance;
-			}
-		}
+		font(Cursor::Pos()).draw(20, 400);
+
+		Circle(Cursor::Pos(), 60).draw(ColorF(1, 0, 0, 0.5));
 	}
 }
