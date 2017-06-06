@@ -385,8 +385,6 @@ namespace s3d
 							break;
 						}
 					}
-
-					continue;
 				}
 				else if (IsControl(codePoint))
 				{
@@ -428,7 +426,7 @@ namespace s3d
 
 			if (needDots)
 			{
-				if (!render(U"."))
+				if (!render(U32String(1, U32String::value_type('.'))))
 				{
 					return false;
 				}
@@ -493,8 +491,7 @@ namespace s3d
 				}
 
 				const auto& glyphInfo = m_glyphs[m_glyphIndexTable[codePoint]];
-				const RectF region = m_texture(glyphInfo.bitmapRect).draw(penPos + glyphInfo.offset, color);
-
+				m_texture(glyphInfo.bitmapRect).draw(penPos + glyphInfo.offset, color);
 				penPos.x += glyphInfo.xAdvance;
 			}
 		}
@@ -532,7 +529,7 @@ namespace s3d
 
 					hasDirty = true;
 
-					m_tofuIndex = m_glyphs.size() - 1;
+					m_tofuIndex = static_cast<CommonGlyphIndex>(m_glyphs.size() - 1);
 				}
 
 				m_glyphIndexTable.emplace(codePoint, m_tofuIndex.value());
