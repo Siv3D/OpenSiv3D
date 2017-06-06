@@ -72,8 +72,8 @@ namespace s3d
 		static Mat3x2 Rotate(double angle, const Float2& center = { 0,0 })
 		{
 			Mat3x2 m;
-			const float s = std::sinf(static_cast<float>(angle));
-			const float c = std::cosf(static_cast<float>(angle));
+			const float s = std::sin(static_cast<float>(angle));
+			const float c = std::cos(static_cast<float>(angle));
 			m._11 = c;
 			m._12 = s;
 			m._21 = -s;

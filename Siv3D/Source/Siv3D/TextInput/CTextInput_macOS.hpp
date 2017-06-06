@@ -17,6 +17,7 @@
 # include "../Window/IWindow.hpp"
 # include "ITextInput.hpp"
 # include <Siv3D/String.hpp>
+# include <Siv3D/Stopwatch.hpp>
 
 namespace s3d
 {
@@ -38,6 +39,13 @@ namespace s3d
 		String m_markedText;
 		
 		bool m_haveMarkedText = false;
+		
+		
+		Stopwatch m_enterPress;
+		
+		Stopwatch m_tabPress;
+		
+		Stopwatch m_backSpacePress;
 
 	public:
 

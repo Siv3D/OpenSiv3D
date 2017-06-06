@@ -158,29 +158,34 @@ namespace s3d
 		return m_fonts[handleID]->getDescender();
 	}
 
-	RectF CFont::getBoundingRect(Font::IDType handleID, const String& text, double lineSpacingScale)
+	Array<Glyph> CFont::getGlyphs(Font::IDType handleID, const U32String& codePoints)
 	{
-		return m_fonts[handleID]->getBoundingRect(text, lineSpacingScale);
+		return m_fonts[handleID]->getGlyphs(codePoints);
 	}
 
-	RectF CFont::getRegion(Font::IDType handleID, const String& text, double lineSpacingScale)
+	RectF CFont::getBoundingRect(Font::IDType handleID, const U32String& codePoints, double lineSpacingScale)
 	{
-		return m_fonts[handleID]->getRegion(text, lineSpacingScale);
+		return m_fonts[handleID]->getBoundingRect(codePoints, lineSpacingScale);
 	}
 
-	Array<int32> CFont::getXAdvances(Font::IDType handleID, const String& text)
+	RectF CFont::getRegion(Font::IDType handleID, const U32String& codePoints, double lineSpacingScale)
 	{
-		return m_fonts[handleID]->getXAdvances(text);
+		return m_fonts[handleID]->getRegion(codePoints, lineSpacingScale);
 	}
 
-	RectF CFont::draw(const Font::IDType handleID, const String& text, const Vec2& pos, const ColorF& color, const double lineSpacingScale)
+	Array<int32> CFont::getXAdvances(Font::IDType handleID, const U32String& codePoints)
 	{
-		return m_fonts[handleID]->draw(text, pos, color, lineSpacingScale);
+		return m_fonts[handleID]->getXAdvances(codePoints);
 	}
 
-	bool CFont::draw(Font::IDType handleID, const String& text, const RectF& area, const ColorF& color, double lineSpacingScale)
+	RectF CFont::draw(const Font::IDType handleID, const U32String& codePoints, const Vec2& pos, const ColorF& color, const double lineSpacingScale)
 	{
-		return m_fonts[handleID]->draw(text, area, color, lineSpacingScale);
+		return m_fonts[handleID]->draw(codePoints, pos, color, lineSpacingScale);
+	}
+
+	bool CFont::draw(Font::IDType handleID, const U32String& codePoints, const RectF& area, const ColorF& color, double lineSpacingScale)
+	{
+		return m_fonts[handleID]->draw(codePoints, area, color, lineSpacingScale);
 	}
 
 	Image CFont::getColorEmoji(const StringView emoji)

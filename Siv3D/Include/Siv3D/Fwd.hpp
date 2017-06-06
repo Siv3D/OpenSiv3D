@@ -581,8 +581,11 @@ namespace s3d
 	//
 	class KeyGroup;
 
-
-
+	//////////////////////////////////////////////////////
+	//
+	//	TextInput.hpp
+	//
+	enum class TextInputMode;
 
 	//////////////////////////////////////////////////////
 	//
@@ -715,8 +718,11 @@ namespace s3d
 	//
 	//	Font.hpp
 	//
-	class Font;
+	enum class Typeface;
 	enum class FontStyle : uint32;
+	struct Glyph;
+	class Font;
+	class GlyphIterator;
 	struct DrawableText;
 
 	//////////////////////////////////////////////////////

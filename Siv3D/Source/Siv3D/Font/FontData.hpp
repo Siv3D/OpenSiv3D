@@ -18,6 +18,7 @@
 # include "../../ThirdParty/harfbuzz/hb-ft.h"
 # include <Siv3D/HashMap.hpp>
 # include <Siv3D/Image.hpp>
+# include <Siv3D/Font.hpp>
 # include <Siv3D/DynamicTexture.hpp>
 
 namespace s3d
@@ -29,6 +30,8 @@ namespace s3d
 		Point offset = { 0,0 };
 
 		int32 xAdvance = 0;
+
+		int32 width = 0;
 	};
 
 	struct FontFace
@@ -132,6 +135,8 @@ namespace s3d
 
 		int32 m_descender = 0;
 
+		int32 m_tabWidth = 0;
+
 		bool m_bold = false;
 
 		bool m_italic = false;
@@ -156,7 +161,7 @@ namespace s3d
 		//	return true;
 		//}
 
-		bool render(const std::u32string& codePoints);
+		bool render(const U32String& codePoints);
 
 		bool renderGlyph(FT_Face face, FT_UInt glyphIndex);
 
@@ -187,14 +192,16 @@ namespace s3d
 			return m_descender;
 		}
 
-		RectF getBoundingRect(const String& text, double lineSpacingScale);
+		Array<Glyph> getGlyphs(const U32String& codePoints);
 
-		RectF getRegion(const String& text, double lineSpacingScale);
+		RectF getBoundingRect(const U32String& codePoints, double lineSpacingScale);
 
-		Array<int32> getXAdvances(const String& text);
+		RectF getRegion(const U32String& codePoints, double lineSpacingScale);
 
-		RectF draw(const String& text, const Vec2& pos, const ColorF& color, double lineSpacingScale);
+		Array<int32> getXAdvances(const U32String& codePoints);
 
-		bool draw(const String& text, const RectF& area, const ColorF& color, double lineSpacingScale);
+		RectF draw(const U32String& codePoints, const Vec2& pos, const ColorF& color, double lineSpacingScale);
+
+		bool draw(const U32String& codePoints, const RectF& area, const ColorF& color, double lineSpacingScale);
 	};
 }

@@ -11,7 +11,7 @@
 
 # include "../Siv3DEngine.hpp"
 # include "ITextInput.hpp"
-# include <Siv3D/String.hpp>
+# include <Siv3D/TextInput.hpp>
 
 namespace s3d
 {
@@ -22,7 +22,7 @@ namespace s3d
 			return CharacterSet::FromUTF32(Siv3DEngine::GetTextInput()->getChars());
 		}
 
-		size_t UpdateText(String& text, size_t cursorPos)
+		size_t UpdateText(String& text, size_t cursorPos, const TextInputMode mode)
 		{
 			const std::u32string chars = Siv3DEngine::GetTextInput()->getChars();
 
@@ -32,6 +32,10 @@ namespace s3d
 			}
 
 		# if defined(SIV3D_TARGET_WINDOWS)
+
+			const bool allowEnter = static_cast<uint32>(mode) & static_cast<uint32>(TextInputMode::AllowEnter);
+			const bool allowTab = static_cast<uint32>(mode) & static_cast<uint32>(TextInputMode::AllowTab);
+			const bool allowBackSpace = static_cast<uint32>(mode) & static_cast<uint32>(TextInputMode::AllowBackSpace);
 
 			std::u32string textU32 = text.toUTF32();
 
@@ -44,18 +48,29 @@ namespace s3d
 			{
 				if (ch == S3DCHAR('\r'))
 				{
-					textU32.insert(textU32.begin() + cursorPos, S3DCHAR('\n'));
-					++cursorPos;
+					if (allowEnter)
+					{
+						textU32.insert(textU32.begin() + cursorPos, S3DCHAR('\n'));
+						++cursorPos;
+					}
 				}
 				else if (ch == S3DCHAR('\b'))
 				{
-					if (0 < cursorPos)
+					if (allowBackSpace && 0 < cursorPos)
 					{
 						textU32.erase(textU32.begin() + cursorPos - 1);
 						--cursorPos;
 					}
 				}
-				else if (!IsControl(ch) || ch == S3DCHAR('\t'))
+				else if (ch == S3DCHAR('\t'))
+				{
+					if (allowTab)
+					{
+						textU32.insert(textU32.begin() + cursorPos, S3DCHAR('\t'));
+						++cursorPos;
+					}
+				}
+				else if (!IsControl(ch))
 				{
 					textU32.insert(textU32.begin() + cursorPos, ch);
 					++cursorPos;

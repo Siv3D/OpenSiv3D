@@ -757,7 +757,7 @@ namespace s3d
 		for (IndexType i = 1; i <= quality; ++i)
 		{
 			const float rad = radDelta * (i - 1.0f);
-			pVertex[i].pos.set(centerX + r * std::cos(rad), centerY - r * std::sinf(rad));
+			pVertex[i].pos.set(centerX + r * std::cos(rad), centerY - r * std::sin(rad));
 		}
 
 		for (size_t i = 0; i < vertexSize; ++i)
@@ -796,8 +796,8 @@ namespace s3d
 		for (IndexType i = 0; i < quality; ++i)
 		{
 			const float rad = radDelta * (i - 1.0f);
-			const float c = std::cosf(rad);
-			const float s = std::sinf(rad);
+			const float c = std::cos(rad);
+			const float s = std::sin(rad);
 
 			pVertex->pos.set(centerX + rt * c, centerY - rt * s);
 			pVertex->color = color;
@@ -840,8 +840,8 @@ namespace s3d
 		for (IndexType i = 0; i < quality; ++i)
 		{
 			const float rad = radDelta * (i - 1.0f);
-			const float c = std::cosf(rad);
-			const float s = std::sinf(rad);
+			const float c = std::cos(rad);
+			const float s = std::sin(rad);
 
 			pVertex->pos.set(centerX + rt * c, centerY - rt * s);
 			pVertex->color = outerColor;
@@ -897,7 +897,7 @@ namespace s3d
 		for (IndexType i = 1; i <= quality; ++i)
 		{
 			const float rad = start + (radDelta * (i - 1.0f)) * angleScale;
-			pVertex[i].pos.set(centerX + r * std::cosf(rad), centerY - r * std::sinf(rad));
+			pVertex[i].pos.set(centerX + r * std::cos(rad), centerY - r * std::sin(rad));
 		}
 
 		for (size_t i = 0; i < vertexSize; ++i)
@@ -945,8 +945,8 @@ namespace s3d
 		for (IndexType i = 0; i < quality; ++i)
 		{
 			const float rad = start + (radDelta * i) * angleScale;
-			const float c = std::cosf(rad);
-			const float s = std::sinf(rad);
+			const float c = std::cos(rad);
+			const float s = std::sin(rad);
 				
 			pVertex->pos.set(centerX + rt * c, centerY - rt * s);
 			pVertex->color = color;
@@ -1035,8 +1035,8 @@ namespace s3d
 		for (IndexType i = 0; i < quality; ++i)
 		{
 			const float rad = radDelta * (i - 1.0f);
-			const float c = std::cosf(rad);
-			const float s = std::sinf(rad);
+			const float c = std::cos(rad);
+			const float s = std::sin(rad);
 
 			pVertex->pos.set(centerX + a * c, centerY - b * s);
 			pVertex->color = color;
@@ -1762,7 +1762,7 @@ namespace s3d
 		{
 			const float rad = radDelta * (i - 1.0f);
 			const float c = std::cos(rad);
-			const float s = std::sinf(rad);
+			const float s = std::sin(rad);
 			pVertex[i].pos.set(centerX + rf * c, centerY - rf * s);
 			pVertex[i].tex.set(centerU + rU * c, centerV - rV * s);
 		}

@@ -46,19 +46,21 @@ namespace s3d
 
 		void release(Font::IDType handleID) override;
 
-		int32 getAscender(Font::IDType handleID);
+		int32 getAscender(Font::IDType handleID) override;
 
-		int32 getDescender(Font::IDType handleID);
+		int32 getDescender(Font::IDType handleID) override;
 
-		RectF getBoundingRect(Font::IDType handleID, const String& text, double lineSpacingScale) override;
+		Array<Glyph> getGlyphs(Font::IDType handleID, const U32String& codePoints) override;
 
-		RectF getRegion(Font::IDType handleID, const String& text, double lineSpacingScale) override;
+		RectF getBoundingRect(Font::IDType handleID, const U32String& codePoints, double lineSpacingScale) override;
 
-		Array<int32> getXAdvances(Font::IDType handleID, const String& text) override;
+		RectF getRegion(Font::IDType handleID, const U32String& codePoints, double lineSpacingScale) override;
 
-		RectF draw(Font::IDType handleID, const String& text, const Vec2& pos, const ColorF& color, double lineSpacingScale) override;
+		Array<int32> getXAdvances(Font::IDType handleID, const U32String& codePoints) override;
 
-		bool draw(Font::IDType handleID, const String& text, const RectF& area, const ColorF& color, double lineSpacingScale) override;
+		RectF draw(Font::IDType handleID, const U32String& codePoints, const Vec2& pos, const ColorF& color, double lineSpacingScale) override;
+
+		bool draw(Font::IDType handleID, const U32String& codePoints, const RectF& area, const ColorF& color, double lineSpacingScale) override;
 
 		Image getColorEmoji(StringView emoji) override;
 

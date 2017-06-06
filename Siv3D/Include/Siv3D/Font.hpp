@@ -18,6 +18,7 @@
 # include "Color.hpp"
 # include "PointVector.hpp"
 # include "Rectangle.hpp"
+# include "TextureRegion.hpp"
 # include "NamedParameter.hpp"
 
 namespace s3d
@@ -61,6 +62,24 @@ namespace s3d
 		ItalicBitmap = Italic | Bitmap,
 
 		BoldItalicBitmap = Bold | Italic | Bitmap,
+	};
+
+	struct Glyph
+	{
+		TextureRegion texture;
+
+		char32_t codePoint = U'\0';
+
+		Point offset = Point(0, 0);
+
+		int32 xAdvance = 0;
+
+		Glyph()
+		{
+			texture.uvRect = FloatRect(0.0f, 0.0f, 0.0f, 0.0f);
+			
+			texture.size.set(0.0f, 0.0f);
+		}
 	};
 	
 	class Font
@@ -110,6 +129,10 @@ namespace s3d
 
 		int32 height() const;
 
+		Glyph getGlyph(char32_t codePoint) const;
+
+		Array<Glyph> getGlyphs(const String& text) const;
+
 		/// <summary>
 		/// 描画するテキストを作成します。
 		/// </summary>
@@ -124,6 +147,17 @@ namespace s3d
 		/// <summary>
 		/// 描画するテキストを作成します。
 		/// </summary>
+		/// <param name="text">
+		/// 文字列
+		/// </param>
+		/// <returns>
+		/// DrawableString
+		/// </returns>
+		DrawableText operator()(String&& text) const;
+
+		/// <summary>
+		/// 描画するテキストを作成します。
+		/// </summary>
 		/// <param name="args">
 		/// 文字列に変換するデータ
 		/// </param>
@@ -134,19 +168,90 @@ namespace s3d
 		inline DrawableText operator()(const Args& ... args) const;
 	};
 
+	class GlyphIterator
+	{
+	private:
+
+		Font font;
+
+		U32String::const_iterator textIterator;
+
+	public:
+
+		GlyphIterator() = default;
+
+		GlyphIterator(const GlyphIterator&) = default;
+
+		GlyphIterator(const Font& _font, U32String::const_iterator _it)
+			: font(_font)
+			, textIterator(_it) {}
+
+		GlyphIterator& operator =(const GlyphIterator&) = default;
+
+		GlyphIterator& operator ++()
+		{
+			++textIterator;
+
+			return *this;
+		}
+
+		Glyph operator *() const
+		{
+			return font.getGlyph(*textIterator);
+		}
+
+		bool operator ==(const GlyphIterator& other) const
+		{
+			return textIterator == other.textIterator;
+		}
+		
+		bool operator !=(const GlyphIterator& other) const
+		{
+			return textIterator != other.textIterator;
+		}
+	};
+
 	struct DrawableText
 	{
 		Font font;
 
-		String text;
+		U32String codePoints;
 
-		DrawableText(const Font& _font, const String& _text)
+		DrawableText(const Font& _font, const String& text)
 			: font(_font)
-			, text(_text) {}
 
-		DrawableText(const Font& _font, String&& _text)
+		# if defined(SIV3D_TARGET_WINDOWS)
+
+			, codePoints(text.toUTF32()) {}
+
+		# else
+
+			, codePoints(text) {}
+
+		# endif	
+
+		DrawableText(const Font& _font, String&& text)
 			: font(_font)
-			, text(std::move(_text)) {}
+
+		# if defined(SIV3D_TARGET_WINDOWS)
+
+			, codePoints(text.toUTF32()) {}
+
+		# else
+
+			, codePoints(std::move(text)) {}
+
+		# endif	
+
+		GlyphIterator begin() const
+		{
+			return GlyphIterator(font, codePoints.begin());
+		}
+
+		GlyphIterator end() const
+		{
+			return GlyphIterator(font, codePoints.end());
+		}
 
 		RectF boundingRect(double x, double y) const
 		{
@@ -192,7 +297,6 @@ namespace s3d
 			return rect.movedBy(pos - rect.center());
 		}
 
-
 		RectF region(double x, double y) const
 		{
 			return region(Vec2(x, y));
@@ -237,11 +341,7 @@ namespace s3d
 			return rect.movedBy(pos - rect.center());
 		}
 
-
 		Array<int32> getXAdvances() const;
-
-
-
 
 		RectF draw(double x, double y, const ColorF& color = Palette::White) const
 		{
@@ -285,10 +385,6 @@ namespace s3d
 			return draw(pos - region().center(), color);
 		}
 
-
-
-
-
 		RectF drawBase(double x, double y, const ColorF& color = Palette::White) const
 		{
 			return drawBase(Vec2(x, y), color);
@@ -324,14 +420,17 @@ namespace s3d
 			return drawBase(pos - region().center(), color);
 		}
 
-
-
 		bool draw(const RectF& area, const ColorF& color = Palette::White) const;
 	};
 
 	inline DrawableText Font::operator()(const String& text) const
 	{
 		return{ *this, text };
+	}
+
+	inline DrawableText Font::operator()(String&& text) const
+	{
+		return{ *this, std::move(text) };
 	}
 
 	template <class ... Args>

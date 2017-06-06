@@ -3895,4 +3895,14 @@ namespace s3d
 	};
 
 	using FilePath = String;
+
+# if defined(SIV3D_TARGET_WINDOWS)
+
+	using U32String = std::u32string;
+
+# else
+
+	using U32String = String;
+
+# endif	
 }
