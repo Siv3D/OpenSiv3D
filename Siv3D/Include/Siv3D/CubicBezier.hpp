@@ -64,8 +64,6 @@ namespace s3d
 	{
 	private:
 
-		CubicBezier m_bezier;
-
 		Vec2 m_v0, m_v1, m_v2;
 
 		double m_t = 0.0;
@@ -75,8 +73,7 @@ namespace s3d
 		CubicBezierPath() = default;
 
 		explicit constexpr CubicBezierPath(const CubicBezier& bezier) noexcept
-			: m_bezier(bezier)
-			, m_v0(-3 * bezier.p0 + 9 * bezier.p1 - 9 * bezier.p2 + 3 * bezier.p3)
+			: m_v0(-3 * bezier.p0 + 9 * bezier.p1 - 9 * bezier.p2 + 3 * bezier.p3)
 			, m_v1(6 * bezier.p0 - 12 * bezier.p1 + 6 * bezier.p2)
 			, m_v2(-3 * bezier.p0 + 3 * bezier.p1) {}
 
