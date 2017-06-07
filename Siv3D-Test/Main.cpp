@@ -2,16 +2,15 @@
 
 void Main()
 {
-	Graphics::SetBackground(ColorF(0.2, 0.5, 0.3));
-
-	const Font font(50);
-
 	while (System::Update())
 	{
-		font(L"Hello, Siv3D!🐣").drawAt(Window::Center(), Palette::Yellow);
+		for (auto i : step(16))
+		{
+			Circle(20 +40 * i, 100, i * 0.5).draw();
 
-		font(Cursor::Pos()).draw(20, 400);
+			Circle(20 + 40 * i, 200, (i+16)*0.5).draw();
 
-		Circle(Cursor::Pos(), 60).draw(ColorF(1, 0, 0, 0.5));
+			Circle(Cursor::Pos(), 100).draw();
+		}
 	}
 }
