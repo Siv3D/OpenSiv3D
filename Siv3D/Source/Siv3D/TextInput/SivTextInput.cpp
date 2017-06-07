@@ -21,29 +21,29 @@ namespace s3d
 		{
 			return CharacterSet::FromUTF32(Siv3DEngine::GetTextInput()->getChars());
 		}
-
+		
 		size_t UpdateText(String& text, size_t cursorPos, const TextInputMode mode)
 		{
 			const std::u32string chars = Siv3DEngine::GetTextInput()->getChars();
-
+			
 			if (chars.empty())
 			{
 				return cursorPos;
 			}
-
-		# if defined(SIV3D_TARGET_WINDOWS)
-
+			
 			const bool allowEnter = static_cast<uint32>(mode) & static_cast<uint32>(TextInputMode::AllowEnter);
 			const bool allowTab = static_cast<uint32>(mode) & static_cast<uint32>(TextInputMode::AllowTab);
 			const bool allowBackSpace = static_cast<uint32>(mode) & static_cast<uint32>(TextInputMode::AllowBackSpace);
-
+			
+		# if defined(SIV3D_TARGET_WINDOWS)
+			
 			std::u32string textU32 = text.toUTF32();
-
+			
 			if (textU32.size() < cursorPos)
 			{
 				cursorPos = textU32.size();
 			}
-
+			
 			for (auto const ch : chars)
 			{
 				if (ch == S3DCHAR('\r'))
@@ -76,40 +76,51 @@ namespace s3d
 					++cursorPos;
 				}
 			}
-
+			
 			text = CharacterSet::FromUTF32(textU32);
-
+			
 		# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
-
+			
 			if (text.size() < cursorPos)
 			{
 				cursorPos = text.size();
 			}
-
+			
 			for (auto const ch : chars)
 			{
 				if (ch == S3DCHAR('\r'))
 				{
-					text.insert(text.begin() + cursorPos, S3DCHAR('\n'));
-					++cursorPos;
+					if (allowEnter)
+					{
+						text.insert(text.begin() + cursorPos, S3DCHAR('\n'));
+						++cursorPos;
+					}
 				}
 				else if (ch == S3DCHAR('\b'))
 				{
-					if (0 < cursorPos)
+					if (allowBackSpace && 0 < cursorPos)
 					{
 						text.erase(text.begin() + cursorPos - 1);
 						--cursorPos;
 					}
 				}
-				else if (!IsControl(ch) || ch == S3DCHAR('\t'))
+				else if (ch == S3DCHAR('\t'))
+				{
+					if (allowTab)
+					{
+						text.insert(text.begin() + cursorPos, S3DCHAR('\t'));
+						++cursorPos;
+					}
+				}
+				else if (!IsControl(ch))
 				{
 					text.insert(text.begin() + cursorPos, ch);
 					++cursorPos;
 				}
 			}
-		
+			
 		# endif
-
+			
 			return cursorPos;
 		}
 		
