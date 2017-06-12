@@ -125,6 +125,11 @@ namespace s3d
 		m_context->OMSetRenderTargets(3, pRTV, nullptr);
 	}
 
+	const BackBufferTexture& D3D11RenderTarget::getBackBufferTexture() const
+	{
+		return m_backBuffer;
+	}
+
 	const RenderTexture& D3D11RenderTarget::getBackBuffer2D() const
 	{
 		return m_rt2D;

@@ -24,6 +24,7 @@
 # include <Siv3D/Array.hpp>
 # include <Siv3D/Window.hpp>
 # include <Siv3D/Graphics.hpp>
+# include <Siv3D/Image.hpp>
 
 using namespace Microsoft::WRL;
 

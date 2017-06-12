@@ -54,6 +54,6 @@ namespace s3d
 		
 		virtual void requestScreenCapture() = 0;
 		
-		virtual const Image& receiveScreenCapture() const = 0;
+		virtual const Image& getScreenCapture() const = 0;
 	};
 }

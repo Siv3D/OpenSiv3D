@@ -286,7 +286,7 @@ namespace s3d
 		m_screenCapture.request();
 	}
 	
-	const Image& CGraphics_GL::receiveScreenCapture() const
+	const Image& CGraphics_GL::getScreenCapture() const
 	{
 		return m_screenCapture.getImage();
 	}

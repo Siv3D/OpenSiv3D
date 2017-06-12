@@ -3,16 +3,33 @@
 void Main()
 {
 	Graphics::SetBackground(ColorF(0.3, 0.9, 0.4));
+
+	const Font font(40);
 	
 	while (System::Update())
 	{
-		for (auto i : step(16))
+		font(L"Siv3D: {}"_fmt(System::FrameCount())).draw();
+
+		Circle(Cursor::Pos(), 200).draw(Palette::Orange);
+
+		if (KeyP.down())
 		{
-			Circle(20 +40 * i, 100, i * 0.5).draw();
+			ScreenCapture::SaveCurrentFrame();
+		}
 
-			Circle(20 + 40 * i, 200, (i+16)*0.5).draw();
+		if (Key1.down())
+		{
+			Window::Resize(800, 600);
+		}
 
-			Circle(Cursor::Pos(), 100).draw();
+		if (Key2.down())
+		{
+			Window::Resize(1280, 720);
+		}
+
+		if (Key3.down())
+		{
+			Window::Resize(1920, 1080);
 		}
 	}
 }

@@ -194,7 +194,7 @@ namespace s3d
 		
 		void requestScreenCapture() override;
 
-		const Image& receiveScreenCapture() const override;
+		const Image& getScreenCapture() const override;
 	};
 }
 

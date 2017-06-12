@@ -487,8 +487,8 @@
 	//# include "Siv3D/InputLayout.hpp"
 	// グラフィックス全般
 	# include "Siv3D/Graphics.hpp"
-	//// スクリーンショット
-	//# include "Siv3D/ScreenCapture.hpp"
+	// スクリーンショット
+	# include "Siv3D/ScreenCapture.hpp"
 	// 2D グラフィックス設定
 	# include "Siv3D/Graphics2D.hpp"
 	// 2D グラフィックス設定

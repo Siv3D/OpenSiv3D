@@ -72,6 +72,8 @@ namespace s3d
 
 		void setRenderTargetView(ID3D11RenderTargetView* rtv);
 
+		const BackBufferTexture& getBackBufferTexture() const;
+
 		const RenderTexture& getBackBuffer2D() const;
 	};
 }
