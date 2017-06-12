@@ -2,6 +2,8 @@
 
 void Main()
 {
+	Graphics::SetBackground(ColorF(0.3, 0.9, 0.4));
+	
 	while (System::Update())
 	{
 		for (auto i : step(16))

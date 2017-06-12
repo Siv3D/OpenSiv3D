@@ -350,6 +350,37 @@ namespace s3d
 
 		return true;
 	}
+	
+	Image& Image::flip()
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+		
+		// 2. 処理
+		{
+			const int32 h = m_height, s = stride();
+			Array<Color> line(m_width);
+			Color* lineU = m_data.data();
+			Color* lineB = lineU + m_width * (h - 1);
+			
+			for (int32 y = 0; y < h / 2; ++y)
+			{
+				::memcpy(line.data(), lineU, s);
+				::memcpy(lineU, lineB, s);
+				::memcpy(lineB, line.data(), s);
+				
+				lineU += m_width;
+				lineB -= m_width;
+			}
+		}
+		
+		return *this;
+	}
 
 	bool Image::save(const FilePath& path, ImageFormat format) const
 	{

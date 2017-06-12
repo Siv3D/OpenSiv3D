@@ -736,6 +736,11 @@ namespace s3d
 
 		bool applyAlphaFromRChannel(const FilePath& alpha);
 
+		Image& flip();
+		
+		
+		
+		
 		bool save(const FilePath& path, ImageFormat format = ImageFormat::Unspecified) const;
 
 		bool saveJPEG(const FilePath& path, int32 quality = 90) const;

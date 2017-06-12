@@ -107,6 +107,10 @@ namespace s3d
 		{
 			return m_swapChain->shouldResize();
 		}
+		
+		void requestScreenCapture() override;
+		
+		const Image& receiveScreenCapture() const override;
 	};
 }
 

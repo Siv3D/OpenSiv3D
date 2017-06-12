@@ -42,7 +42,7 @@ namespace s3d
 		//	CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 		//	OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-		uint16 FloatToHalf(const float value) noexcept
+		inline uint16 FloatToHalf(const float value) noexcept
 		{
 			uint32 Result;
 
@@ -83,7 +83,7 @@ namespace s3d
 			return static_cast<uint16>(Result | Sign);
 		}
 
-		float HalfToFloat(const uint16 value) noexcept
+		inline float HalfToFloat(const uint16 value) noexcept
 		{
 			uint32 Mantissa = (uint32)(value & 0x03FF);
 
