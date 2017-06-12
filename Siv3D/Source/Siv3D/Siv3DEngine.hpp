@@ -32,6 +32,7 @@ namespace s3d
 	class ISiv3DRenderer2D;
 	class ISiv3DFont;
 	class ISiv3DPrint;
+	class ISiv3DScreenCapture;
 
 	template <class Interface>
 	class Siv3DComponent
@@ -104,6 +105,8 @@ namespace s3d
 		Siv3DComponent<ISiv3DFont> m_font;
 
 		Siv3DComponent<ISiv3DPrint> m_print;
+
+		Siv3DComponent<ISiv3DScreenCapture> m_screenCapture;
 
 	public:
 
@@ -204,6 +207,11 @@ namespace s3d
 		static ISiv3DPrint* GetPrint()
 		{
 			return pEngine->m_print.get();
+		}
+
+		static ISiv3DScreenCapture* GetScreenCapture()
+		{
+			return pEngine->m_screenCapture.get();
 		}
 	};
 }

@@ -2,16 +2,34 @@
 
 void Main()
 {
-	Graphics::SetBackground(ColorF(0.2, 0.5, 0.3));
+	Graphics::SetBackground(ColorF(0.3, 0.9, 0.4));
 
-	const Font font(50);
-
+	const Font font(40);
+	
 	while (System::Update())
 	{
-		font(L"Hello, Siv3D!🐣").drawAt(Window::Center(), Palette::Yellow);
+		font(L"Siv3D: {}"_fmt(System::FrameCount())).draw();
 
-		font(Cursor::Pos()).draw(20, 400);
+		Circle(Cursor::Pos(), 200).draw(Palette::Orange);
 
-		Circle(Cursor::Pos(), 60).draw(ColorF(1, 0, 0, 0.5));
+		if (KeyP.down())
+		{
+			ScreenCapture::SaveCurrentFrame();
+		}
+
+		if (Key1.down())
+		{
+			Window::Resize(800, 600);
+		}
+
+		if (Key2.down())
+		{
+			Window::Resize(1280, 720);
+		}
+
+		if (Key3.down())
+		{
+			Window::Resize(1920, 1080);
+		}
 	}
 }

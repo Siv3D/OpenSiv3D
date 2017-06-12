@@ -24,6 +24,7 @@
 # include "RasterizerState/D3D11RasterizerState.hpp"
 # include "DepthStencilState/D3D11DepthStencilState.hpp"
 # include "SamplerState/D3D11SamplerState.hpp"
+# include "ScreenCapture/D3D11ScreenCapture.hpp"
 # include "../../Renderer2D/D3D11/CRenderer2D_D3D11.hpp"
 
 namespace s3d
@@ -49,6 +50,8 @@ namespace s3d
 		std::unique_ptr<D3D11DepthStencilState> m_pDepthStencilState;
 
 		std::unique_ptr<D3D11SamplerState> m_pSamplerState;
+
+		std::unique_ptr<D3D11ScreenCapture> m_screenCapture;
 
 		CRenderer2D_D3D11* m_renderer2D = nullptr;
 
@@ -107,6 +110,10 @@ namespace s3d
 		{
 			return m_swapChain->shouldResize();
 		}
+		
+		void requestScreenCapture() override;
+		
+		const Image& getScreenCapture() const override;
 	};
 }
 

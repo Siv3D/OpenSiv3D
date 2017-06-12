@@ -10,27 +10,22 @@
 //-----------------------------------------------
 
 # pragma once
-# include <string>
 # include <Siv3D/Fwd.hpp>
 
 namespace s3d
 {
-	class ISiv3DTextInput
+	class ISiv3DScreenCapture
 	{
 	public:
 
-		static ISiv3DTextInput* Create();
+		static ISiv3DScreenCapture* Create();
 
-		virtual ~ISiv3DTextInput() = default;
+		virtual ~ISiv3DScreenCapture() = default;
 
 		virtual bool init() = 0;
 
-		virtual void update() = 0;
+		virtual bool update() = 0;
 
-		virtual void pushChar(uint32 ch) = 0;
-
-		virtual const std::u32string& getChars() const = 0;
-		
-		virtual const String& getMarkedText() const = 0;
+		virtual void requestScreenCapture(const FilePath& path) = 0;
 	};
 }

@@ -50,11 +50,35 @@ namespace s3d
 			size };
 	}
 
+	TextureRegion TextureRegion::mirror(const bool doMirror) const
+	{
+		if (doMirror)
+		{
+			return mirror();
+		}
+		else
+		{
+			return *this;
+		}
+	}
+
 	TextureRegion TextureRegion::flip() const
 	{
 		return TextureRegion{ texture,
 			uvRect.left, uvRect.bottom, uvRect.right, uvRect.top,
 			size };
+	}
+
+	TextureRegion TextureRegion::flip(const bool doFlip) const
+	{
+		if (doFlip)
+		{
+			return flip();
+		}
+		else
+		{
+			return *this;
+		}
 	}
 
 	TextureRegion TextureRegion::scale(const double sx, const double sy) const

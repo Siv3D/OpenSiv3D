@@ -27,6 +27,87 @@
 
 namespace s3d
 {
+	class ScreenCaptureManager
+	{
+	private:
+		
+		GLuint m_fbo = 0;
+		
+		GLuint m_texture = 0;
+
+		Image m_image;
+		
+		bool m_requested = false;
+		
+	public:
+		
+		ScreenCaptureManager() = default;
+		
+		~ScreenCaptureManager()
+		{
+			if (m_texture)
+			{
+				::glDeleteTextures(1, &m_texture);
+			}
+			
+			if (m_fbo)
+			{
+				::glDeleteFramebuffers(1, &m_fbo);
+			}
+		}
+		
+		void request()
+		{
+			m_requested = true;
+		}
+		
+		bool isRequested() const
+		{
+			return m_requested;
+		}
+		
+		void capture(const Size& size)
+		{
+			m_requested = false;
+			
+			if (!m_fbo || !m_texture)
+			{
+				::glGenFramebuffers(1, &m_fbo);
+				::glGenTextures(1, &m_texture);
+			}
+			
+			if (size != m_image.size())
+			{
+				::glBindTexture(GL_TEXTURE_2D, m_texture);
+				::glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+				
+				::glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
+				::glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, m_texture, 0);
+				
+				m_image.resize(size);
+			}
+			
+			::glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
+			::glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_fbo);
+			
+			::glBlitFramebuffer(0, 0, size.x, size.y, 0, 0, size.x, size.y, GL_COLOR_BUFFER_BIT, GL_LINEAR);
+			
+			::glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+			::glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
+
+			::glReadPixels(0, 0, size.x, size.y, GL_RGBA, GL_UNSIGNED_BYTE, m_image.data());
+			
+			::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+				
+			m_image.flip();
+		}
+		
+		const Image& getImage() const
+		{
+			return m_image;
+		}
+	};
+	
 	class CGraphics_GL : public ISiv3DGraphics
 	{
 	private:
@@ -54,7 +135,9 @@ namespace s3d
 		Optional<double> m_targetFrameRateHz;
 
 		RenderTexture* m_unused = nullptr;
-
+		
+		ScreenCaptureManager m_screenCapture;
+		
 	public:
 
 		CGraphics_GL();
@@ -108,6 +191,10 @@ namespace s3d
 			// [Siv3D ToDo]
 			return *m_unused;
 		}
+		
+		void requestScreenCapture() override;
+
+		const Image& getScreenCapture() const override;
 	};
 }
 

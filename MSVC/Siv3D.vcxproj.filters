@@ -446,6 +446,12 @@
     <Filter Include="Source\Siv3D\TextInput">
       <UniqueIdentifier>{ff8b8df7-6630-4d39-9cbd-d918cb471d9c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Graphics\D3D11\ScreenCapture">
+      <UniqueIdentifier>{ba98f1f1-a16f-432b-839e-aa6d074007db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\ScreenCapture">
+      <UniqueIdentifier>{9242ee72-278f-4934-b3f5-08dfa9c73688}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1666,6 +1672,18 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\TextInput\CTextInput_Windows.hpp">
       <Filter>Source\Siv3D\TextInput</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\ScreenCapture\D3D11ScreenCapture.hpp">
+      <Filter>Source\Siv3D\Graphics\D3D11\ScreenCapture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\ScreenCapture\IScreenCapture.hpp">
+      <Filter>Source\Siv3D\ScreenCapture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\ScreenCapture\CScreenCapture.hpp">
+      <Filter>Source\Siv3D\ScreenCapture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\ScreenCapture.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2423,6 +2441,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextInput\CTextInput_Windows.cpp">
       <Filter>Source\Siv3D\TextInput</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\ScreenCapture\D3D11ScreenCapture.cpp">
+      <Filter>Source\Siv3D\Graphics\D3D11\ScreenCapture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ScreenCapture\ScreenCaptureFactory.cpp">
+      <Filter>Source\Siv3D\ScreenCapture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ScreenCapture\SivScreenCapture.cpp">
+      <Filter>Source\Siv3D\ScreenCapture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ScreenCapture\CScreenCapture.cpp">
+      <Filter>Source\Siv3D\ScreenCapture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

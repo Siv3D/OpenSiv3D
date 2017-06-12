@@ -57,7 +57,7 @@ namespace s3d
 
 		void update() override;
 
-		void pushChar(char32_t ch) override;
+		void pushChar(uint32 ch) override;
 
 		const std::u32string& getChars() const override;
 		

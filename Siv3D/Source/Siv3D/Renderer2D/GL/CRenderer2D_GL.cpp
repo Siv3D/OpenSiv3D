@@ -37,23 +37,31 @@ namespace s3d
 		
 		static constexpr IndexType rectFrameIndexTable[24] = { 0, 1, 2, 3, 2, 1, 0, 4, 1, 5, 1, 4, 5, 4, 7, 6, 7, 4, 3, 7, 2, 6, 2, 7 };
 
+		static constexpr IndexType CalculateCircleQuality(const float size) noexcept
+		{
+			if (size <= 5.0f)
+			{
+				return static_cast<IndexType>(size + 3) * 2;
+			}
+			else
+			{
+				return static_cast<IndexType>(std::min(18 + (size - 5.0f) / 2.2f, 255.0f));
+			}
+		}
+
 		static constexpr IndexType CalculateCircleFrameQuality(const float size) noexcept
 		{
 			if (size <= 1.0f)
 			{
 				return 4;
 			}
-			else if (size <= 6.0f)
-			{
-				return 7;
-			}
 			else if (size <= 8.0f)
 			{
-				return 11;
+				return std::max(static_cast<IndexType>(2.0 * size), IndexType(8));
 			}
 			else
 			{
-				return static_cast<IndexType>(std::min(size * 0.225f + 18.0f, 255.0f));
+				return static_cast<IndexType>(std::min(16 + (size - 8.0f) / 2.2f, 255.0f));
 			}
 		}
 		
@@ -389,8 +397,7 @@ namespace s3d
 			const float thicknessHalf = thickness * 0.5f;
 			const Float2 line = (end - begin).normalize();
 			const Float2 vNormal(-line.y * thicknessHalf, line.x * thicknessHalf);
-			const Float2 lineHalf(line * thicknessHalf);
-			
+
 			pVertex[0].pos = (begin + vNormal);
 			pVertex[0].color = colors[0];
 			
@@ -672,7 +679,7 @@ namespace s3d
 		const float centerX = center.x;
 		const float centerY = center.y;
 
-		const IndexType quality = static_cast<IndexType>(std::min(absR * 0.225f + 18.0f, 255.0f));
+		const IndexType quality = detail::CalculateCircleQuality(absR);
 		const IndexType vertexSize = quality + 1, indexSize = quality * 3;
 		Vertex2D* pVertex;
 		IndexType* pIndex;

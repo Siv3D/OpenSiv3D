@@ -235,6 +235,11 @@ namespace s3d
 			m_lastFlipTimeMillisec = countMillisec;
 		}
 		
+		if (m_screenCapture.isRequested())
+		{
+			m_screenCapture.capture(m_currentRenderTargetSize);
+		}
+		
 		return true;
 	}
 	
@@ -274,6 +279,16 @@ namespace s3d
 	const Size& CGraphics_GL::getCurrentRenderTargetSize() const
 	{
 		return m_currentRenderTargetSize;
+	}
+	
+	void CGraphics_GL::requestScreenCapture()
+	{
+		m_screenCapture.request();
+	}
+	
+	const Image& CGraphics_GL::getScreenCapture() const
+	{
+		return m_screenCapture.getImage();
 	}
 }
 

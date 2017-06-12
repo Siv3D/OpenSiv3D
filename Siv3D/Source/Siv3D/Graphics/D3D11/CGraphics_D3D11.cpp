@@ -124,6 +124,12 @@ namespace s3d
 
 		//////////////////////////////////////////////////////
 		//
+		//	 D3D11ScreenCapture
+		//
+		m_screenCapture = std::make_unique<D3D11ScreenCapture>(m_device->getDevice(), m_device->getContext());
+
+		//////////////////////////////////////////////////////
+		//
 		//	 CRenderer2D_D3D11
 		//
 		m_renderer2D = dynamic_cast<CRenderer2D_D3D11*>(Siv3DEngine::GetRenderer2D());
@@ -157,14 +163,25 @@ namespace s3d
 		m_renderTarget->setClearColor(color);
 	}
 
-	bool CGraphics_D3D11::setFullScreen(bool fullScreen, const Size& size, size_t displayIndex, double refreshRateHz)
+	bool CGraphics_D3D11::setFullScreen(bool fullScreen, const Size& size, const size_t displayIndex, const double refreshRateHz)
 	{
 		return m_swapChain->setFullScreen(fullScreen, size, displayIndex, refreshRateHz);
 	}
 
 	bool CGraphics_D3D11::present()
 	{
-		return m_swapChain->present();
+		if (!m_swapChain->present())
+		{
+			return false;
+		}
+
+		if (m_screenCapture->isRequested())
+		{
+			m_screenCapture->capture(m_texture,
+				m_renderTarget->getBackBufferTexture().id(), m_renderTarget->getCurrentRenderTargetSize());
+		}
+
+		return true;
 	}
 
 	void CGraphics_D3D11::clear()
@@ -214,6 +231,16 @@ namespace s3d
 	const RenderTexture& CGraphics_D3D11::getBackBuffer2D() const
 	{
 		return m_renderTarget->getBackBuffer2D();
+	}
+
+	void CGraphics_D3D11::requestScreenCapture()
+	{
+		m_screenCapture->request();
+	}
+
+	const Image& CGraphics_D3D11::getScreenCapture() const
+	{
+		return m_screenCapture->getImage();
 	}
 }
 

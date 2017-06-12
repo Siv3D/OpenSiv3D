@@ -15,13 +15,13 @@
 
 namespace s3d
 {
-	DynamicTexture::DynamicTexture(const size_t width, const size_t height, const TextureFormat format, const TextureDesc desc)
+	DynamicTexture::DynamicTexture(const uint32 width, const uint32 height, const TextureFormat format, const TextureDesc desc)
 		: Texture(Texture::Dynamic{}, width, height, nullptr, 0, format, desc)
 	{
 
 	}
 
-	DynamicTexture::DynamicTexture(const size_t width, const size_t height, const ColorF& color, const TextureFormat format, const TextureDesc desc)
+	DynamicTexture::DynamicTexture(const uint32 width, const uint32 height, const ColorF& color, const TextureFormat format, const TextureDesc desc)
 		: Texture(Texture::Dynamic{}, width, height, color, format, desc)
 	{
 

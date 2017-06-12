@@ -27,6 +27,7 @@
 # include "../Graphics/IGraphics.hpp"
 # include "../Font/IFont.hpp"
 # include "../Print/IPrint.hpp"
+# include "../ScreenCapture/IScreenCapture.hpp"
 
 # include <Siv3D/Logger.hpp>
 
@@ -109,6 +110,11 @@ namespace s3d
 			return false;
 		}
 
+		if (!Siv3DEngine::GetScreenCapture()->init())
+		{
+			return false;
+		}
+
 		return true;
 	}
 
@@ -141,6 +147,11 @@ namespace s3d
 		}
 
 		Siv3DEngine::GetProfiler()->beginFrame();
+
+		if (!Siv3DEngine::GetScreenCapture()->update())
+		{
+			return false;
+		}
 
 		if (!Siv3DEngine::GetProfiler()->reportAssetNextFrame())
 		{

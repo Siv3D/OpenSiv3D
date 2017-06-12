@@ -376,7 +376,11 @@ namespace s3d
 
 		TextureRegion mirror() const;
 
+		TextureRegion mirror(bool doMirror) const;
+
 		TextureRegion flip() const;
+
+		TextureRegion flip(bool doFlip) const;
 
 		TextureRegion scale(double s) const;
 

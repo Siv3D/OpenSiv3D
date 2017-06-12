@@ -51,5 +51,9 @@ namespace s3d
 		virtual const Size& getCurrentRenderTargetSize() const = 0;
 
 		virtual const RenderTexture& getBackBuffer2D() const = 0;
+		
+		virtual void requestScreenCapture() = 0;
+		
+		virtual const Image& getScreenCapture() const = 0;
 	};
 }

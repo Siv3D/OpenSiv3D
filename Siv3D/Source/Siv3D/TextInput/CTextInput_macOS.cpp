@@ -111,7 +111,7 @@ namespace s3d
 		}
 	}
 
-	void CTextInput_macOS::pushChar(const char32_t ch)
+	void CTextInput_macOS::pushChar(const uint32 ch)
 	{
 		std::lock_guard<std::mutex> lock(m_mutex);
 		
