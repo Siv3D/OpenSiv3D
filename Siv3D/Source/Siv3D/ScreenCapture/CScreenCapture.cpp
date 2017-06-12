@@ -56,14 +56,14 @@ namespace s3d
 			ScreenCapture::SaveCurrentFrame();
 		}
 
-# if defined(SIV3D_TARGET_MACOS)
+	# if defined(SIV3D_TARGET_MACOS)
 
 		if (!m_hasRequest && ((KeyCommand + KeyControl).pressed() && Key4.down()))
 		{
 			ScreenCapture::SaveCurrentFrame();
 		}
 
-# endif
+	# endif
 
 		return true;
 	}

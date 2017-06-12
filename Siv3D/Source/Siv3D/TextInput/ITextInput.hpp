@@ -27,7 +27,7 @@ namespace s3d
 
 		virtual void update() = 0;
 
-		virtual void pushChar(char32_t ch) = 0;
+		virtual void pushChar(uint32 ch) = 0;
 
 		virtual const std::u32string& getChars() const = 0;
 		

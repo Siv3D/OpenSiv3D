@@ -543,7 +543,7 @@ namespace s3d
 
 				hasDirty = true;
 
-				m_glyphIndexTable.emplace(codePoint, m_glyphs.size() - 1);
+				m_glyphIndexTable.emplace(codePoint, static_cast<uint32>(m_glyphs.size() - 1));
 			}
 		}
 

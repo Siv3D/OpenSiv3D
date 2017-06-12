@@ -31,9 +31,9 @@ namespace s3d
 
 		DynamicTexture() = default;
 
-		DynamicTexture(size_t width, size_t height, TextureFormat format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped);
+		DynamicTexture(uint32 width, uint32 height, TextureFormat format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped);
 
-		DynamicTexture(size_t width, size_t height, const ColorF& color, TextureFormat format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped);
+		DynamicTexture(uint32 width, uint32 height, const ColorF& color, TextureFormat format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped);
 
 		explicit DynamicTexture(const Size& size, TextureFormat format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped)
 			: DynamicTexture(size.x, size.y, format, desc) {}
