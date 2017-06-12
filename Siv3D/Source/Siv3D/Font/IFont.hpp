@@ -31,9 +31,9 @@ namespace s3d
 
 		virtual void release(Font::IDType handleID) = 0;
 
-		virtual int32 getAscender(Font::IDType handleID) = 0;
+		virtual int32 getAscent(Font::IDType handleID) = 0;
 
-		virtual int32 getDescender(Font::IDType handleID) = 0;
+		virtual int32 getDescent(Font::IDType handleID) = 0;
 
 		virtual Array<Glyph> getGlyphs(Font::IDType handleID, const U32String& codePoints) = 0;
 

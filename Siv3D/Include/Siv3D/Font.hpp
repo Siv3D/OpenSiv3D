@@ -72,6 +72,8 @@ namespace s3d
 
 		Point offset = Point(0, 0);
 
+		int32 bearingY = 0;
+
 		int32 xAdvance = 0;
 
 		Glyph()
@@ -123,9 +125,9 @@ namespace s3d
 
 		bool operator !=(const Font& font) const;
 
-		int32 ascender() const;
+		int32 ascent() const;
 
-		int32 descender() const;
+		int32 descent() const;
 
 		int32 height() const;
 
@@ -392,7 +394,7 @@ namespace s3d
 
 		RectF drawBase(const Vec2& pos = Vec2(0, 0), const ColorF& color = Palette::White) const
 		{
-			return draw(pos.movedBy(0, -font.ascender()), color);
+			return draw(pos.movedBy(0, -font.ascent()), color);
 		}
 
 		RectF drawBase(Arg::left_<Vec2> left, const ColorF& color = Palette::White) const

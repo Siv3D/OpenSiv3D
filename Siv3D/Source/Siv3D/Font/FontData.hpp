@@ -29,6 +29,8 @@ namespace s3d
 
 		Point offset = { 0,0 };
 
+		int32 bearingY = 0;
+
 		int32 xAdvance = 0;
 
 		int32 width = 0;
@@ -182,12 +184,12 @@ namespace s3d
 			return m_initialized;
 		}
 
-		int32 getAscender() const
+		int32 getAscent() const noexcept
 		{
 			return m_ascender;
 		}
 
-		int32 getDescender() const
+		int32 getDescent() const noexcept
 		{
 			return m_descender;
 		}

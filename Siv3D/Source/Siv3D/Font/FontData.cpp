@@ -70,8 +70,8 @@ namespace s3d
 
 		m_fontSize		= fontSize;
 		m_ascender		= static_cast<int32>(m_faceText.face->size->metrics.ascender / 64);
-		m_descender		= static_cast<int32>(m_faceText.face->size->metrics.descender / 64);
-		m_lineSpacing	= m_ascender - m_descender;
+		m_descender		= -static_cast<int32>(m_faceText.face->size->metrics.descender / 64);
+		m_lineSpacing	= m_ascender + m_descender;
 		m_bold			= static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Bold);
 		m_italic		= static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Italic);
 		m_noBitmap		= !(static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Bitmap));
@@ -123,10 +123,11 @@ namespace s3d
 			}
 			else
 			{
-				const auto& glyphInfo = m_glyphs[m_glyphIndexTable[codePoint]];
-				glyph.texture = m_texture(glyphInfo.bitmapRect);
-				glyph.offset = glyphInfo.offset;
-				glyph.xAdvance = glyphInfo.xAdvance;
+				const auto& glyphInfo	= m_glyphs[m_glyphIndexTable[codePoint]];
+				glyph.texture			= m_texture(glyphInfo.bitmapRect);
+				glyph.offset			= glyphInfo.offset;
+				glyph.bearingY			= glyphInfo.bearingY;
+				glyph.xAdvance			= glyphInfo.xAdvance;
 			}
 
 			glyphs.push_back(glyph);
@@ -634,7 +635,8 @@ namespace s3d
 
 		GlyphInfo info;
 		info.bitmapRect.set(m_penPos, bitmapWidth, bitmapHeight);
-		info.offset.set(slot->bitmap_left, m_fontSize - slot->bitmap_top);
+		info.offset.set(slot->bitmap_left, m_ascender - slot->bitmap_top);
+		info.bearingY = static_cast<int32>(slot->bitmap_top);
 		info.xAdvance = static_cast<int32>(slot->metrics.horiAdvance / 64);
 
 		const uint8* bitmapBuffer = slot->bitmap.buffer;

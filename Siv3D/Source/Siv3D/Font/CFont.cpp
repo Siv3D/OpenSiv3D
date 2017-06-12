@@ -148,14 +148,14 @@ namespace s3d
 		m_fonts.erase(handleID);
 	}
 
-	int32 CFont::getAscender(const Font::IDType handleID)
+	int32 CFont::getAscent(const Font::IDType handleID)
 	{
-		return m_fonts[handleID]->getAscender();
+		return m_fonts[handleID]->getAscent();
 	}
 
-	int32 CFont::getDescender(const Font::IDType handleID)
+	int32 CFont::getDescent(const Font::IDType handleID)
 	{
-		return m_fonts[handleID]->getDescender();
+		return m_fonts[handleID]->getDescent();
 	}
 
 	Array<Glyph> CFont::getGlyphs(Font::IDType handleID, const U32String& codePoints)

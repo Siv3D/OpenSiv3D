@@ -78,19 +78,19 @@ namespace s3d
 		return m_handle->getID() != shader.m_handle->getID();
 	}
 
-	int32 Font::ascender() const
+	int32 Font::ascent() const
 	{
-		return Siv3DEngine::GetFont()->getAscender(m_handle->getID());
+		return Siv3DEngine::GetFont()->getAscent(m_handle->getID());
 	}
 
-	int32 Font::descender() const
+	int32 Font::descent() const
 	{
-		return Siv3DEngine::GetFont()->getDescender(m_handle->getID());
+		return Siv3DEngine::GetFont()->getDescent(m_handle->getID());
 	}
 
 	int32 Font::height() const
 	{
-		return Siv3DEngine::GetFont()->getAscender(m_handle->getID()) - Siv3DEngine::GetFont()->getDescender(m_handle->getID());
+		return Siv3DEngine::GetFont()->getAscent(m_handle->getID()) + Siv3DEngine::GetFont()->getDescent(m_handle->getID());
 	}
 
 	Glyph Font::getGlyph(const char32_t codePoint) const

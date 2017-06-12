@@ -46,9 +46,9 @@ namespace s3d
 
 		void release(Font::IDType handleID) override;
 
-		int32 getAscender(Font::IDType handleID) override;
+		int32 getAscent(Font::IDType handleID) override;
 
-		int32 getDescender(Font::IDType handleID) override;
+		int32 getDescent(Font::IDType handleID) override;
 
 		Array<Glyph> getGlyphs(Font::IDType handleID, const U32String& codePoints) override;
 
