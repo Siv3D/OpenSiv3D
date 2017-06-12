@@ -13,6 +13,9 @@
 # include "../Graphics/IGraphics.hpp"
 # include "CScreenCapture.hpp"
 # include <Siv3D/Image.hpp>
+# include <Siv3D/Keyboard.hpp>
+# include <Siv3D/KeyConjunction.hpp>
+# include <Siv3D/ScreenCapture.hpp>
 
 namespace s3d
 {
@@ -34,21 +37,33 @@ namespace s3d
 
 	bool CScreenCapture::update()
 	{
-		if (!m_hasRequest)
+		if (m_hasRequest)
 		{
-			return true;
+			const Image& image = Siv3DEngine::GetGraphics()->getScreenCapture();
+
+			for (const auto& path : m_requestedPaths)
+			{
+				image.save(path);
+			}
+
+			m_requestedPaths.clear();
+
+			m_hasRequest = false;
 		}
 
-		const Image& image = Siv3DEngine::GetGraphics()->getScreenCapture();
-
-		for (const auto& path : m_requestedPaths)
+		if (KeyPrintScreen.down())
 		{
-			image.save(path);
+			ScreenCapture::SaveCurrentFrame();
 		}
 
-		m_requestedPaths.clear();
+# if defined(SIV3D_TARGET_MACOS)
 
-		m_hasRequest = false;
+		if (!m_hasRequest && ((KeyCommand + KeyControl).pressed() && Key4.down()))
+		{
+			ScreenCapture::SaveCurrentFrame();
+		}
+
+# endif
 
 		return true;
 	}
