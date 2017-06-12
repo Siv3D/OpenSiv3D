@@ -397,8 +397,7 @@ namespace s3d
 			const float thicknessHalf = thickness * 0.5f;
 			const Float2 line = (end - begin).normalize();
 			const Float2 vNormal(-line.y * thicknessHalf, line.x * thicknessHalf);
-			const Float2 lineHalf(line * thicknessHalf);
-			
+
 			pVertex[0].pos = (begin + vNormal);
 			pVertex[0].color = colors[0];
 			
