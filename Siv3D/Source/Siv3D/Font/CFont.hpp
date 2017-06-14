@@ -70,6 +70,8 @@ namespace s3d
 
 		Image getColorEmoji(StringView emoji) override;
 
+		Image getColorEmojiSilhouette(StringView emoji) override;
+
 		Image getAwesomeIcon(uint16 code, int32 size) override;
 	};
 }

@@ -55,6 +55,8 @@ namespace s3d
 
 		virtual Image getColorEmoji(StringView emoji) = 0;
 
+		virtual Image getColorEmojiSilhouette(StringView emoji) = 0;
+
 		virtual Image getAwesomeIcon(uint16 code, int32 size) = 0;
 	};
 }
