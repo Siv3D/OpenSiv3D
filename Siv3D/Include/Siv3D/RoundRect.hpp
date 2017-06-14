@@ -170,6 +170,11 @@ namespace s3d
 			return RoundRect(rect.stretched(top, right, bottom, left), r);
 		}
 
+		constexpr position_type center() const noexcept
+		{
+			return rect.center();
+		}
+
 		constexpr double area() const noexcept
 		{
 			return rect.area() - (4 - Math::Pi) * r * r;
