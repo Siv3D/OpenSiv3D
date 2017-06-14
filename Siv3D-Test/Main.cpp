@@ -4,10 +4,10 @@ void Main()
 {
 	Graphics::SetBackground(ColorF(1.0, 0.95, 0.9));
 	
-	const Texture ebi(Emoji::LoadSilhouette(L"🍤"), TextureDesc::Mipped);
+	const Texture ebi(Emoji(L"🍤"), TextureDesc::Mipped);
 
 	while (System::Update())
 	{
-		ebi.drawAt(Cursor::Pos());
+		ebi.draw(Arg::bottomLeft = Cursor::Pos());
 	}
 }
