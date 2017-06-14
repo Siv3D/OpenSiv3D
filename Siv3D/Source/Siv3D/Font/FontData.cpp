@@ -68,6 +68,9 @@ namespace s3d
 			}
 		}
 
+		m_familyName	= CharacterSet::Widen(m_faceText.face->family_name);
+		m_styleName		= CharacterSet::Widen(m_faceText.face->style_name);
+
 		m_fontSize		= fontSize;
 		m_ascender		= static_cast<int32>(m_faceText.face->size->metrics.ascender / 64);
 		m_descender		= -static_cast<int32>(m_faceText.face->size->metrics.descender / 64);

@@ -125,6 +125,12 @@ namespace s3d
 
 		bool operator !=(const Font& font) const;
 
+		const String& familyName() const;
+
+		const String& styleName() const;
+
+		int32 fontSize() const;
+
 		int32 ascent() const;
 
 		int32 descent() const;

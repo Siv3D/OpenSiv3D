@@ -5,7 +5,9 @@ void Main()
 	Graphics::SetBackground(ColorF(0.3, 0.9, 0.4));
 
 	const Font font1(40), font2(60), font3(120);
-	
+
+	Log << font1.familyName() << L"-" << font1.styleName();
+
 	while (System::Update())
 	{
 		Line(50, 0, 50, 480).draw();

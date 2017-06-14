@@ -46,6 +46,12 @@ namespace s3d
 
 		void release(Font::IDType handleID) override;
 
+		const String& getFamilyName(Font::IDType handleID) override;
+
+		const String& getStyleName(Font::IDType handleID) override;
+
+		int32 getFontSize(Font::IDType handleID) override;
+
 		int32 getAscent(Font::IDType handleID) override;
 
 		int32 getDescent(Font::IDType handleID) override;

@@ -148,6 +148,21 @@ namespace s3d
 		m_fonts.erase(handleID);
 	}
 
+	const String& CFont::getFamilyName(const Font::IDType handleID)
+	{
+		return m_fonts[handleID]->getFamilyName();
+	}
+
+	const String& CFont::getStyleName(const Font::IDType handleID)
+	{
+		return m_fonts[handleID]->getStyleName();
+	}
+
+	int32 CFont::getFontSize(const Font::IDType handleID)
+	{
+		return m_fonts[handleID]->getFontSize();
+	}
+
 	int32 CFont::getAscent(const Font::IDType handleID)
 	{
 		return m_fonts[handleID]->getAscent();

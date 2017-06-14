@@ -78,6 +78,21 @@ namespace s3d
 		return m_handle->getID() != shader.m_handle->getID();
 	}
 
+	const String& Font::familyName() const
+	{
+		return Siv3DEngine::GetFont()->getFamilyName(m_handle->getID());
+	}
+
+	const String& Font::styleName() const
+	{
+		return Siv3DEngine::GetFont()->getStyleName(m_handle->getID());
+	}
+
+	int32 Font::fontSize() const
+	{
+		return Siv3DEngine::GetFont()->getFontSize(m_handle->getID());
+	}
+
 	int32 Font::ascent() const
 	{
 		return Siv3DEngine::GetFont()->getAscent(m_handle->getID());
