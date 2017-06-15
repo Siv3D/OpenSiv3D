@@ -20,4 +20,9 @@ namespace s3d
 	{
 		return Siv3DEngine::GetFont()->getColorEmoji(emoji);
 	}
+
+	Image Emoji::LoadSilhouette(StringView emoji)
+	{
+		return Siv3DEngine::GetFont()->getColorEmojiSilhouette(emoji);
+	}
 }

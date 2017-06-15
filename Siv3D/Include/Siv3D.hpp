@@ -524,6 +524,11 @@
 	// アイコンコレクション
 	# include "Siv3D/Icon.hpp"
 //
+// 独立 GUI
+//
+	// テキストボックス
+	# include "Siv3D/TextBox.hpp"
+//
 // 標準 GUI
 //
 	//// ウィジェットのスタイル

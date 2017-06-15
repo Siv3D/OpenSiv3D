@@ -315,6 +315,31 @@ namespace s3d
 			return draw(pos.x, pos.y, diffuse);
 		}
 
+		RectF draw(Arg::topLeft_<Vec2> topLeft, const ColorF& diffuse = Palette::White) const
+		{
+			return draw(topLeft->x, topLeft->y, diffuse);
+		}
+
+		RectF draw(Arg::topRight_<Vec2> topRight, const ColorF& diffuse = Palette::White) const
+		{
+			return draw(topRight->x - width(), topRight->y, diffuse);
+		}
+
+		RectF draw(Arg::bottomLeft_<Vec2> bottomLeft, const ColorF& diffuse = Palette::White) const
+		{
+			return draw(bottomLeft->x, bottomLeft->y - height(), diffuse);
+		}
+
+		RectF draw(Arg::bottomRight_<Vec2> bottomRight, const ColorF& diffuse = Palette::White) const
+		{
+			return draw(bottomRight->x - width(), bottomRight->y - height(), diffuse);
+		}
+
+		RectF draw(Arg::center_<Vec2> center, const ColorF& diffuse = Palette::White) const
+		{
+			return drawAt(center->x, center->y, diffuse);
+		}
+
 		/// <summary>
 		/// 中心位置を指定してテクスチャを描きます。
 		/// </summary>

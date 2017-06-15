@@ -111,8 +111,8 @@ namespace s3d
 
 			const String str = CharacterSet::FromUTF32(text);
 
-			m_font(str).draw(10.85, 10.85 + lineCount * height + overflowOffset, Palette::Black);
-			m_font(str).draw(10, 10 + lineCount * height + overflowOffset);
+			m_font(str).draw(10.85, 8.85 + lineCount * height + overflowOffset, Palette::Black);
+			m_font(str).draw(10, 8 + lineCount * height + overflowOffset);
 
 			text.clear();
 

@@ -46,9 +46,15 @@ namespace s3d
 
 		void release(Font::IDType handleID) override;
 
-		int32 getAscender(Font::IDType handleID) override;
+		const String& getFamilyName(Font::IDType handleID) override;
 
-		int32 getDescender(Font::IDType handleID) override;
+		const String& getStyleName(Font::IDType handleID) override;
+
+		int32 getFontSize(Font::IDType handleID) override;
+
+		int32 getAscent(Font::IDType handleID) override;
+
+		int32 getDescent(Font::IDType handleID) override;
 
 		Array<Glyph> getGlyphs(Font::IDType handleID, const U32String& codePoints) override;
 
@@ -63,6 +69,8 @@ namespace s3d
 		bool draw(Font::IDType handleID, const U32String& codePoints, const RectF& area, const ColorF& color, double lineSpacingScale) override;
 
 		Image getColorEmoji(StringView emoji) override;
+
+		Image getColorEmojiSilhouette(StringView emoji) override;
 
 		Image getAwesomeIcon(uint16 code, int32 size) override;
 	};

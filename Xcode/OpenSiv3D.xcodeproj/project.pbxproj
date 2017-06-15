@@ -680,6 +680,10 @@
 		2CAAB1091EEEC40F0000A06D /* IScreenCapture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB1041EEEC40F0000A06D /* IScreenCapture.hpp */; };
 		2CAAB10A1EEEC40F0000A06D /* ScreenCaptureFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAAB1051EEEC40F0000A06D /* ScreenCaptureFactory.cpp */; };
 		2CAAB10B1EEEC40F0000A06D /* SivScreenCapture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAAB1061EEEC40F0000A06D /* SivScreenCapture.cpp */; };
+		2CAAB10D1EF289A10000A06D /* TextBox.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB10C1EF289A10000A06D /* TextBox.hpp */; };
+		2CAAB1121EF289BB0000A06D /* CTextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAAB10F1EF289BB0000A06D /* CTextBox.cpp */; };
+		2CAAB1131EF289BB0000A06D /* CTextBox.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB1101EF289BB0000A06D /* CTextBox.hpp */; };
+		2CAAB1141EF289BB0000A06D /* SivTextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAAB1111EF289BB0000A06D /* SivTextBox.cpp */; };
 		2CAE4D961EE039670057BE7E /* SivTexturedCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE4D951EE039670057BE7E /* SivTexturedCircle.cpp */; };
 		2CAE4D981EE039790057BE7E /* TexturedCircle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAE4D971EE039790057BE7E /* TexturedCircle.hpp */; };
 		2CAE4DF01EE276490057BE7E /* lharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CAE4DEF1EE276490057BE7E /* lharfbuzz.a */; };
@@ -1531,6 +1535,10 @@
 		2CAAB1041EEEC40F0000A06D /* IScreenCapture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IScreenCapture.hpp; sourceTree = "<group>"; };
 		2CAAB1051EEEC40F0000A06D /* ScreenCaptureFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenCaptureFactory.cpp; sourceTree = "<group>"; };
 		2CAAB1061EEEC40F0000A06D /* SivScreenCapture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivScreenCapture.cpp; sourceTree = "<group>"; };
+		2CAAB10C1EF289A10000A06D /* TextBox.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextBox.hpp; sourceTree = "<group>"; };
+		2CAAB10F1EF289BB0000A06D /* CTextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTextBox.cpp; sourceTree = "<group>"; };
+		2CAAB1101EF289BB0000A06D /* CTextBox.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTextBox.hpp; sourceTree = "<group>"; };
+		2CAAB1111EF289BB0000A06D /* SivTextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextBox.cpp; sourceTree = "<group>"; };
 		2CAE4D951EE039670057BE7E /* SivTexturedCircle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTexturedCircle.cpp; sourceTree = "<group>"; };
 		2CAE4D971EE039790057BE7E /* TexturedCircle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TexturedCircle.hpp; sourceTree = "<group>"; };
 		2CAE4DEF1EE276490057BE7E /* lharfbuzz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lharfbuzz.a; sourceTree = "<group>"; };
@@ -1707,6 +1715,7 @@
 		2C0C7A121EBCC38300386CBB /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2CAAB10E1EF289BB0000A06D /* TextBox */,
 				2CAAB1011EEEC40F0000A06D /* ScreenCapture */,
 				2C114C8E1EE432B200A198BB /* TextInput */,
 				2C114C891EE3DC0000A198BB /* Icon */,
@@ -2913,6 +2922,7 @@
 				2C0C7D061EBCC39B00386CBB /* String.hpp */,
 				2C0C7D071EBCC39B00386CBB /* StringView.hpp */,
 				2C0C7D081EBCC39B00386CBB /* System.hpp */,
+				2CAAB10C1EF289A10000A06D /* TextBox.hpp */,
 				2C114C8C1EE432A100A198BB /* TextInput.hpp */,
 				2C0C7D091EBCC39B00386CBB /* TextReader.hpp */,
 				2C0C7D0A1EBCC39B00386CBB /* Texture.hpp */,
@@ -3687,6 +3697,16 @@
 			path = ScreenCapture;
 			sourceTree = "<group>";
 		};
+		2CAAB10E1EF289BB0000A06D /* TextBox */ = {
+			isa = PBXGroup;
+			children = (
+				2CAAB10F1EF289BB0000A06D /* CTextBox.cpp */,
+				2CAAB1101EF289BB0000A06D /* CTextBox.hpp */,
+				2CAAB1111EF289BB0000A06D /* SivTextBox.cpp */,
+			);
+			path = TextBox;
+			sourceTree = "<group>";
+		};
 		2CAE4D941EE039670057BE7E /* TexturedCircle */ = {
 			isa = PBXGroup;
 			children = (
@@ -4046,6 +4066,7 @@
 				2C0C7C4F1EBCC38400386CBB /* CSystem_macOS.hpp in Headers */,
 				2C0C7BB81EBCC38400386CBB /* CDragDrop_Windows.hpp in Headers */,
 				2C81C0781E89F8E300D27E52 /* md5.h in Headers */,
+				2CAAB1131EF289BB0000A06D /* CTextBox.hpp in Headers */,
 				2C0C7D441EBCC39B00386CBB /* Concept.hpp in Headers */,
 				2CCA36541ECC748F00078678 /* ftdebug.h in Headers */,
 				2C0C7D5A1EBCC39B00386CBB /* FormatUtility.hpp in Headers */,
@@ -4148,6 +4169,7 @@
 				2CCA36281ECC748E00078678 /* ftstdlib.h in Headers */,
 				2C81C09E1E89F8E400D27E52 /* zstd_opt.h in Headers */,
 				2C0C7C391EBCC38400386CBB /* CShader_D3D11.hpp in Headers */,
+				2CAAB10D1EF289A10000A06D /* TextBox.hpp in Headers */,
 				2CCA36501ECC748F00078678 /* fttypes.h in Headers */,
 				2CCA36241ECC748E00078678 /* ftconfig.h in Headers */,
 				2C81C0481E89F8E300D27E52 /* color_transform.h in Headers */,
@@ -4673,6 +4695,7 @@
 				2C2126581E8CB7B5006F8101 /* gifalloc.c in Sources */,
 				2C0C7BC51EBCC38400386CBB /* SivFormat.cpp in Sources */,
 				2C0C7C681EBCC38400386CBB /* SivThreading.cpp in Sources */,
+				2CAAB1141EF289BB0000A06D /* SivTextBox.cpp in Sources */,
 				2C2126531E8CB7B5006F8101 /* gif_font.c in Sources */,
 				2C81C0631E89F8E300D27E52 /* jpeg_huffman_decode.cc in Sources */,
 				2C0C7BC61EBCC38400386CBB /* SivFormatBool.cpp in Sources */,
@@ -4855,6 +4878,7 @@
 				2C81C0A01E89F8E400D27E52 /* zstd_decompress.c in Sources */,
 				2C0C7DF91EC0BBEA00386CBB /* D3D11Renderer2DCommandManager.cpp in Sources */,
 				2CCA35AA1EC8B39800078678 /* SivRoundRect.cpp in Sources */,
+				2CAAB1121EF289BB0000A06D /* CTextBox.cpp in Sources */,
 				2C0C7C2B1EBCC38400386CBB /* SivRectangle.cpp in Sources */,
 				2C114C961EE432B200A198BB /* CTextInput_macOS.cpp in Sources */,
 				2C0C7BA61EBCC38400386CBB /* SivConsole.cpp in Sources */,

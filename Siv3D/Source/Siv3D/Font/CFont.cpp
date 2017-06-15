@@ -148,14 +148,29 @@ namespace s3d
 		m_fonts.erase(handleID);
 	}
 
-	int32 CFont::getAscender(const Font::IDType handleID)
+	const String& CFont::getFamilyName(const Font::IDType handleID)
 	{
-		return m_fonts[handleID]->getAscender();
+		return m_fonts[handleID]->getFamilyName();
 	}
 
-	int32 CFont::getDescender(const Font::IDType handleID)
+	const String& CFont::getStyleName(const Font::IDType handleID)
 	{
-		return m_fonts[handleID]->getDescender();
+		return m_fonts[handleID]->getStyleName();
+	}
+
+	int32 CFont::getFontSize(const Font::IDType handleID)
+	{
+		return m_fonts[handleID]->getFontSize();
+	}
+
+	int32 CFont::getAscent(const Font::IDType handleID)
+	{
+		return m_fonts[handleID]->getAscent();
+	}
+
+	int32 CFont::getDescent(const Font::IDType handleID)
+	{
+		return m_fonts[handleID]->getDescent();
 	}
 
 	Array<Glyph> CFont::getGlyphs(Font::IDType handleID, const U32String& codePoints)
@@ -244,6 +259,58 @@ namespace s3d
 
 			pDst->set(r, g, b, a);
 
+			++pDst;
+			pSrc += 4;
+		}
+
+		return image;
+	}
+
+	Image CFont::getColorEmojiSilhouette(const StringView emoji)
+	{
+		if (!m_colorEmoji)
+		{
+			return Image();
+		}
+
+		const auto glyphs = m_colorEmoji.get(emoji);
+
+		if (glyphs.second != 1)
+		{
+			return Image();
+		}
+
+		const uint32_t glyphIndex = glyphs.first[0].codepoint;
+
+		if (glyphIndex == 0)
+		{
+			return Image();
+		}
+
+		const FT_Face face = m_colorEmoji.face;
+
+		if (const FT_Error error = ::FT_Load_Glyph(face, glyphIndex, FT_LOAD_COLOR))
+		{
+			return Image();
+		}
+
+		if (const FT_Error error = ::FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL))
+		{
+			return Image();
+		}
+
+		const int32 bitmapWidth = face->glyph->bitmap.width;
+		const int32 bitmapHeight = face->glyph->bitmap.rows;
+
+		Image image(bitmapWidth, bitmapHeight, Palette::White);
+
+		Color* pDst = image.data();
+		Color* const pDstEnd = pDst + image.num_pixels();
+		const uint8_t* pSrc = face->glyph->bitmap.buffer + 3;
+
+		while (pDst != pDstEnd)
+		{
+			pDst->setA(*pSrc);
 			++pDst;
 			pSrc += 4;
 		}

@@ -68,10 +68,13 @@ namespace s3d
 			}
 		}
 
+		m_familyName	= CharacterSet::Widen(m_faceText.face->family_name);
+		m_styleName		= CharacterSet::Widen(m_faceText.face->style_name);
+
 		m_fontSize		= fontSize;
 		m_ascender		= static_cast<int32>(m_faceText.face->size->metrics.ascender / 64);
-		m_descender		= static_cast<int32>(m_faceText.face->size->metrics.descender / 64);
-		m_lineSpacing	= m_ascender - m_descender;
+		m_descender		= -static_cast<int32>(m_faceText.face->size->metrics.descender / 64);
+		m_lineSpacing	= m_ascender + m_descender;
 		m_bold			= static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Bold);
 		m_italic		= static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Italic);
 		m_noBitmap		= !(static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Bitmap));
@@ -123,10 +126,11 @@ namespace s3d
 			}
 			else
 			{
-				const auto& glyphInfo = m_glyphs[m_glyphIndexTable[codePoint]];
-				glyph.texture = m_texture(glyphInfo.bitmapRect);
-				glyph.offset = glyphInfo.offset;
-				glyph.xAdvance = glyphInfo.xAdvance;
+				const auto& glyphInfo	= m_glyphs[m_glyphIndexTable[codePoint]];
+				glyph.texture			= m_texture(glyphInfo.bitmapRect);
+				glyph.offset			= glyphInfo.offset;
+				glyph.bearingY			= glyphInfo.bearingY;
+				glyph.xAdvance			= glyphInfo.xAdvance;
 			}
 
 			glyphs.push_back(glyph);
@@ -219,10 +223,10 @@ namespace s3d
 
 				const auto& glyphInfo = m_glyphs[m_glyphIndexTable[codePoint]];
 				const RectF region(penPos + glyphInfo.offset, glyphInfo.bitmapRect.size);
-				const int32 characterWidth = glyphInfo.bitmapRect.size.isZero() ? glyphInfo.xAdvance : glyphInfo.bitmapRect.size.x;
+				const int32 characterWidth = glyphInfo.xAdvance;
 				minPos.x = std::min(minPos.x, region.x);
 				minPos.y = std::min(minPos.y, region.y);
-				maxPos.x = std::max(maxPos.x, region.x + characterWidth);
+				maxPos.x = std::max(maxPos.x, penPos.x + characterWidth);
 				maxPos.y = std::max(maxPos.y, region.y + region.h);
 				penPos.x += glyphInfo.xAdvance;
 			}
@@ -300,7 +304,7 @@ namespace s3d
 
 				const auto& glyphInfo = m_glyphs[m_glyphIndexTable[codePoint]];
 				const RectF region = m_texture(glyphInfo.bitmapRect).draw(penPos + glyphInfo.offset, color);
-				const int32 characterWidth = glyphInfo.bitmapRect.size.isZero() ? glyphInfo.xAdvance : glyphInfo.bitmapRect.size.x;
+				const int32 characterWidth = glyphInfo.xAdvance;
 				maxPosX = std::max(maxPosX, region.x + characterWidth);
 				penPos.x += glyphInfo.xAdvance;
 			}
@@ -634,7 +638,8 @@ namespace s3d
 
 		GlyphInfo info;
 		info.bitmapRect.set(m_penPos, bitmapWidth, bitmapHeight);
-		info.offset.set(slot->bitmap_left, m_fontSize - slot->bitmap_top);
+		info.offset.set(slot->bitmap_left, m_ascender - slot->bitmap_top);
+		info.bearingY = static_cast<int32>(slot->bitmap_top);
 		info.xAdvance = static_cast<int32>(slot->metrics.horiAdvance / 64);
 
 		const uint8* bitmapBuffer = slot->bitmap.buffer;

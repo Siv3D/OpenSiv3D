@@ -39,6 +39,8 @@ namespace s3d
 
 		static Image LoadImage(StringView emoji);
 
+		static Image LoadSilhouette(StringView emoji);
+
 		//
 		// https://www.google.com/get/noto/help/emoji/
 		//

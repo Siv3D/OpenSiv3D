@@ -183,6 +183,13 @@ namespace s3d
 		{
 			return moveBy(v.x, v.y);
 		}
+
+		Line stretched(const value_type length) const noexcept
+		{
+			const position_type v = vector().setLength(length);
+
+			return Line(begin - v, end + v);
+		}
 		
 		constexpr position_type vector() const noexcept
 		{

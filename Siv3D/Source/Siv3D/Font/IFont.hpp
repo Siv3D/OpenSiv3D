@@ -31,9 +31,15 @@ namespace s3d
 
 		virtual void release(Font::IDType handleID) = 0;
 
-		virtual int32 getAscender(Font::IDType handleID) = 0;
+		virtual const String& getFamilyName(Font::IDType handleID) = 0;
 
-		virtual int32 getDescender(Font::IDType handleID) = 0;
+		virtual const String& getStyleName(Font::IDType handleID) = 0;
+
+		virtual int32 getFontSize(Font::IDType handleID) = 0;
+
+		virtual int32 getAscent(Font::IDType handleID) = 0;
+
+		virtual int32 getDescent(Font::IDType handleID) = 0;
 
 		virtual Array<Glyph> getGlyphs(Font::IDType handleID, const U32String& codePoints) = 0;
 
@@ -48,6 +54,8 @@ namespace s3d
 		virtual bool draw(Font::IDType handleID, const U32String& codePoints, const RectF& area, const ColorF& color, double lineSpacingScale) = 0;
 
 		virtual Image getColorEmoji(StringView emoji) = 0;
+
+		virtual Image getColorEmojiSilhouette(StringView emoji) = 0;
 
 		virtual Image getAwesomeIcon(uint16 code, int32 size) = 0;
 	};
