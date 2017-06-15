@@ -223,10 +223,10 @@ namespace s3d
 
 				const auto& glyphInfo = m_glyphs[m_glyphIndexTable[codePoint]];
 				const RectF region(penPos + glyphInfo.offset, glyphInfo.bitmapRect.size);
-				const int32 characterWidth = glyphInfo.bitmapRect.size.isZero() ? glyphInfo.xAdvance : glyphInfo.bitmapRect.size.x;
+				const int32 characterWidth = glyphInfo.xAdvance;
 				minPos.x = std::min(minPos.x, region.x);
 				minPos.y = std::min(minPos.y, region.y);
-				maxPos.x = std::max(maxPos.x, region.x + characterWidth);
+				maxPos.x = std::max(maxPos.x, penPos.x + characterWidth);
 				maxPos.y = std::max(maxPos.y, region.y + region.h);
 				penPos.x += glyphInfo.xAdvance;
 			}
@@ -304,7 +304,7 @@ namespace s3d
 
 				const auto& glyphInfo = m_glyphs[m_glyphIndexTable[codePoint]];
 				const RectF region = m_texture(glyphInfo.bitmapRect).draw(penPos + glyphInfo.offset, color);
-				const int32 characterWidth = glyphInfo.bitmapRect.size.isZero() ? glyphInfo.xAdvance : glyphInfo.bitmapRect.size.x;
+				const int32 characterWidth = glyphInfo.xAdvance;
 				maxPosX = std::max(maxPosX, region.x + characterWidth);
 				penPos.x += glyphInfo.xAdvance;
 			}

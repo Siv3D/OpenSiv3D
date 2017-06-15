@@ -452,6 +452,9 @@
     <Filter Include="Source\Siv3D\ScreenCapture">
       <UniqueIdentifier>{9242ee72-278f-4934-b3f5-08dfa9c73688}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\TextBox">
+      <UniqueIdentifier>{4455d053-f1e6-41a9-bb86-47b8855aba70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1684,6 +1687,12 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\ScreenCapture.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\TextBox.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\TextBox\CTextBox.hpp">
+      <Filter>Source\Siv3D\TextBox</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2453,6 +2462,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\ScreenCapture\CScreenCapture.cpp">
       <Filter>Source\Siv3D\ScreenCapture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\TextBox\CTextBox.cpp">
+      <Filter>Source\Siv3D\TextBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\TextBox\SivTextBox.cpp">
+      <Filter>Source\Siv3D\TextBox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
