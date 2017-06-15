@@ -93,6 +93,14 @@ namespace s3d
 
 		Optional<Rect> getViewport() const override;
 
+		//void pushTransform(const Mat3x2& matrix) override;
+
+		//void popTransform() override;
+
+		//const Mat3x2& getTransform() const override;
+
+		//float getMaxScaling() const override;
+
 		void addLine(const LineStyle& style, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) override;
 
 		void addTriangle(const Float2(&pts)[3], const Float4& color) override;

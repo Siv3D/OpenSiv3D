@@ -190,6 +190,13 @@ namespace s3d
 
 			return Line(begin - v, end + v);
 		}
+
+		Line stretched(const value_type lengthBegin, const value_type lengthEnd) const noexcept
+		{
+			const position_type v = vector().normalized();
+
+			return Line(begin - v * lengthBegin, end + v * lengthEnd);
+		}
 		
 		constexpr position_type vector() const noexcept
 		{

@@ -49,6 +49,14 @@ namespace s3d
 
 		virtual Optional<Rect> getViewport() const = 0;
 
+		//virtual void pushTransform(const Mat3x2& matrix) = 0;
+
+		//virtual void popTransform() = 0;
+
+		//virtual const Mat3x2& getTransform() const = 0;
+
+		//virtual float getMaxScaling() const = 0;
+
 		virtual void addLine(const LineStyle& style, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) = 0;
 
 		virtual void addTriangle(const Float2(&pts)[3], const Float4& color) = 0;
