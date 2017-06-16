@@ -36,6 +36,8 @@ namespace s3d
 		~CWindow_Linux() override;
 
 		bool init() override;
+
+		void show() override;
 		
 		bool update() override;
 		

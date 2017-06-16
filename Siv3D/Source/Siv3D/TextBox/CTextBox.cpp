@@ -14,6 +14,8 @@
 # include <Siv3D/TextInput.hpp>
 # include <Siv3D/Keyboard.hpp>
 # include <Siv3D/Cursor.hpp>
+# include <Siv3D/ViewportBlock2D.hpp>
+# include <Siv3D/Print.hpp>
 
 namespace s3d
 {
@@ -90,7 +92,8 @@ namespace s3d
 			const double cursorX = Cursor::PosF().x - m_pos.x - BoxState::PaddingLeft;
 			const Array<int32> xAdvances = m_font(m_text).getXAdvances();
 
-			int32 previousX = 0, currentX = 0;
+			int32 previousX = static_cast<int32>(m_boxState.textOffsetX);
+			int32 currentX = previousX;
 
 			for (auto i : step(xAdvances.size()))
 			{
@@ -135,27 +138,33 @@ namespace s3d
 
 	void TextBox::CTextBox::drawText(const ColorF& textColor, const ColorF& markedTextColor, const ColorF& descriptionColor) const
 	{
-		m_font(m_headText).draw(m_pos.movedBy(BoxState::PaddingLeft, 0), textColor);
-
-		m_font(m_markedText).draw(m_pos.movedBy(BoxState::PaddingLeft + m_boxState.headTextWidth, 0), markedTextColor)
-			.bottom().movedBy(0, -2).draw(2, markedTextColor);
-
-		m_font(m_tailText).draw(m_pos.movedBy(BoxState::PaddingLeft + m_boxState.headTextWidth + m_boxState.markedTextWidth, 0), textColor);
-
-		if (m_description && !m_text && !m_active)
 		{
-			m_font(m_description).draw(m_pos.movedBy(BoxState::PaddingLeft, 0), descriptionColor);
-		}
+			const double offsetX = m_boxState.textOffsetX;
 
-		const bool showCursor = m_active
-			&& ((m_cursorStopwatch.ms() % 1200 < 600)
-				|| (m_leftPress.isRunning() && m_leftPress < SecondsF(0.5))
-				|| (m_rightPress.isRunning() && m_rightPress < SecondsF(0.5)));
+			ViewportBlock2D viewport(Rect(m_boxState.getRect(m_pos)));
 
-		if (showCursor)
-		{
-			const double x = m_pos.x + BoxState::PaddingLeft + m_boxState.cursorXAdvance;
-			Line(x, m_pos.y, x, m_pos.y + m_boxState.textHeight).stretched(-3).draw(2, textColor);
+			m_font(m_headText).draw(Vec2(offsetX + BoxState::PaddingLeft, 0), textColor);
+
+			m_font(m_markedText).draw(Vec2(offsetX + BoxState::PaddingLeft + m_boxState.headTextWidth, 0), markedTextColor)
+				.bottom().movedBy(0, -2).draw(2, markedTextColor);
+
+			m_font(m_tailText).draw(Vec2(offsetX + BoxState::PaddingLeft + m_boxState.headTextWidth + m_boxState.markedTextWidth, 0), textColor);
+
+			if (m_description && !m_text && !m_active)
+			{
+				m_font(m_description).draw(Vec2(offsetX + BoxState::PaddingLeft, 0), descriptionColor);
+			}
+
+			const bool showCursor = m_active
+				&& ((m_cursorStopwatch.ms() % 1200 < 600)
+					|| (m_leftPress.isRunning() && m_leftPress < SecondsF(0.5))
+					|| (m_rightPress.isRunning() && m_rightPress < SecondsF(0.5)));
+
+			if (showCursor)
+			{
+				const double x = offsetX + BoxState::PaddingLeft + m_boxState.cursorXAdvance;
+				Line(x, 0, x, m_boxState.textHeight).stretched(-3).draw(2, textColor);
+			}
 		}
 	}
 
@@ -227,6 +236,7 @@ namespace s3d
 		m_boxState.tailTextWidth = m_font(m_tailText).region().w;
 		m_boxState.markedTextWidth = m_font(m_markedText).region().w;
 		m_boxState.textHeight = m_font.height();
+		m_boxState.textOffsetX = std::min(0.0, m_boxState.getWidth() - (m_boxState.headTextWidth + m_boxState.markedTextWidth + m_boxState.tailTextWidth));
 
 		const Array<int32> xAdvances = m_font(m_text).getXAdvances();
 		const Array<int32> markedXAdvances = m_font(m_markedText).getXAdvances();
@@ -240,6 +250,18 @@ namespace s3d
 		for (auto xAdvance : markedXAdvances)
 		{
 			m_boxState.cursorXAdvance += xAdvance;
+		}
+
+		const double offsetT = m_boxState.textOffsetX + m_boxState.cursorXAdvance;
+		const double width = m_boxState.getWidth() - BoxState::PaddingLeft - BoxState::PaddingRight;
+	
+		if (offsetT < 0)
+		{
+			m_boxState.textOffsetX -= offsetT;
+		}
+		else if (offsetT > width)
+		{
+			m_boxState.textOffsetX -= (offsetT - width);
 		}
 
 		if (m_description && !m_text && !m_active)

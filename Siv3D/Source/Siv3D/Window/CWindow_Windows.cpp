@@ -187,7 +187,18 @@ namespace s3d
 
 		return true;
 	}
-	
+
+	void CWindow_Windows::show()
+	{
+		::ShowWindow(m_hWnd, SW_SHOW);
+
+		::ValidateRect(m_hWnd, 0);
+
+		::UpdateWindow(m_hWnd);
+
+		::SetForegroundWindow(m_hWnd);
+	}
+
 	bool CWindow_Windows::update()
 	{
 		// ウィンドウが最小化、最大化されているかどうかチェック
@@ -392,7 +403,7 @@ namespace s3d
 			return false;
 		}
 
-		::ShowWindow(m_hWnd, SW_SHOW);
+		//::ShowWindow(m_hWnd, SW_SHOW);
 
 		return true;
 	}

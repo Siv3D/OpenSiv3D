@@ -49,6 +49,8 @@ namespace s3d
 		virtual ~ISiv3DWindow() = default;
 
 		virtual bool init() = 0;
+
+		virtual void show() = 0;
 		
 		virtual bool update() = 0;
 

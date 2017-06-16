@@ -115,11 +115,20 @@ namespace s3d
 			return false;
 		}
 
+		m_setupState = SetupState::Initialized;
+
 		return true;
 	}
 
 	bool CSystem_Windows::update()
 	{
+		if (m_setupState == SetupState::Initialized)
+		{
+			Siv3DEngine::GetWindow()->show();
+
+			m_setupState = SetupState::Displayed;
+		}
+
 		m_previousEvent = m_event.exchange(0);
 
 		if (const auto event = m_previousEvent & (WindowEvent::ExitFlag | m_exitEvent))

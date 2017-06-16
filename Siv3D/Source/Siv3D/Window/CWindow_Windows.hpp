@@ -51,6 +51,8 @@ namespace s3d
 		~CWindow_Windows() override;
 
 		bool init() override;
+
+		void show() override;
 		
 		bool update() override;
 
