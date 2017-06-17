@@ -15,6 +15,7 @@
 # include "../Siv3DEngine.hpp"
 # include "CSystem_Windows.hpp"
 # include "../Logger/ILogger.hpp"
+# include "../CPU/ICPU.hpp"
 # include "../ImageFormat/IImageFormat.hpp"
 # include "../Window/IWindow.hpp"
 # include "../Profiler/IProfiler.hpp"
@@ -46,6 +47,11 @@ namespace s3d
 	bool CSystem_Windows::init()
 	{
 		if (!Siv3DEngine::GetLogger()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetCPU()->init())
 		{
 			return false;
 		}
@@ -115,11 +121,20 @@ namespace s3d
 			return false;
 		}
 
+		m_setupState = SetupState::Initialized;
+
 		return true;
 	}
 
 	bool CSystem_Windows::update()
 	{
+		if (m_setupState == SetupState::Initialized)
+		{
+			Siv3DEngine::GetWindow()->show();
+
+			m_setupState = SetupState::Displayed;
+		}
+
 		m_previousEvent = m_event.exchange(0);
 
 		if (const auto event = m_previousEvent & (WindowEvent::ExitFlag | m_exitEvent))

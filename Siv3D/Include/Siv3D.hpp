@@ -263,8 +263,8 @@
 	# include "Siv3D/RoundRect.hpp"
 	// 連続した複数の線分
 	# include "Siv3D/LineString.hpp"
-	//// 多角形
-	//# include "Siv3D/Polygon.hpp"
+	// 多角形
+	# include "Siv3D/Polygon.hpp"
 	//// 多角形の集合
 	//# include "Siv3D/MultiPolygon.hpp"
 	// Float 型の長方形
@@ -400,6 +400,8 @@
 	//# include "Siv3D/Midi.hpp"
 	// システム
 	# include "Siv3D/System.hpp"
+	// CPU
+	# include "Siv3D/CPU.hpp"
 	// 接続されているモニタの情報
 	# include "Siv3D/Monitor.hpp"
 	// ウィンドウ
@@ -495,6 +497,8 @@
 	# include "Siv3D/RenderStateBlock2D.hpp"
 	// 2D グラフィックス設定
 	# include "Siv3D/ViewportBlock2D.hpp"
+	// 2D 座標変換
+	# include "Siv3D/Transformer2D.hpp"
 //
 // テクスチャ
 //

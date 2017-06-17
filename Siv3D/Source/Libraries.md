@@ -4,6 +4,7 @@
 - DirectXMath 3.10 https://github.com/Microsoft/DirectXMath/releases
 - double-conversion https://github.com/google/double-conversion
 - Easing Equations http://robertpenner.com/easing/
+- FeatureDetector https://github.com/Mysticial/FeatureDetector
 - fmt 3.0.1 https://github.com/fmtlib/fmt/releases
 - FreeType 2.8 https://www.freetype.org/
 - giflib 5.1.4 https://sourceforge.net/projects/giflib/

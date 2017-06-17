@@ -84,6 +84,12 @@ namespace s3d
 			writeCommand(command);
 		}
 
+		{
+			D3D11Render2DCommand<D3D11Render2DInstruction::Transform> command;
+			command.matrix = m_currentTransform;
+			writeCommand(command);
+		}
+
 		m_currentPSType.reset();
 
 		for (uint32 slot = 0; slot < m_currentPSTextures.size(); ++slot)
@@ -198,6 +204,24 @@ namespace s3d
 		writeCommand(command);
 
 		m_currentViewport = viewport;
+	}
+
+	void D3D11Render2DCommandManager::pushTransform(const Mat3x2& matrix)
+	{
+		if (!::memcmp(&matrix, &m_currentTransform, sizeof(Mat3x2)))
+		{
+			return;
+		}
+
+		D3D11Render2DCommand<D3D11Render2DInstruction::Transform> command;
+		command.matrix = matrix;
+		writeCommand(command);
+
+		m_currentTransform = matrix;
+
+		const Float2 sa = matrix.transform(Float2(0.0f, 0.0f));
+		const Float2 sb = matrix.transform(Float2(1.0f, 1.0f));
+		m_currentMaxScaling = sa.distanceFrom(sb) / 1.4142135623730950488016887f;
 	}
 
 	void D3D11Render2DCommandManager::pushPSTexture(const uint32 slot, const Texture& texture)

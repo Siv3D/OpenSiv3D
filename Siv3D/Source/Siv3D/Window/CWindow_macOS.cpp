@@ -77,6 +77,11 @@ namespace s3d
 		
 		return true;
 	}
+
+	void CWindow_macOS::show()
+	{
+
+	}
 	
 	bool CWindow_macOS::update()
 	{		
@@ -152,6 +157,16 @@ namespace s3d
 		int32 windowSizeX, windowSizeY;
 		::glfwGetWindowSize(m_glfwWindow, &windowSizeX, &windowSizeY);
 		m_state.windowSize.set(windowSizeX, windowSizeY);
+	}
+
+	void CWindow_macOS::setBaseSize(const Size& size)
+	{
+		m_baseSize = size;
+	}
+
+	Size CWindow_macOS::getBaseSize() const
+	{
+		return m_baseSize;
 	}
 }
 

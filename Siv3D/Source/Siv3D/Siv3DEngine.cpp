@@ -12,6 +12,7 @@
 # include "Siv3DEngine.hpp"
 # include "Logger/ILogger.hpp"
 # include "System/ISystem.hpp"
+# include "CPU/ICPU.hpp"
 # include "Console/IConsole.hpp"
 # include "ImageFormat/IImageFormat.hpp"
 # include "Window/IWindow.hpp"
@@ -58,6 +59,7 @@ namespace s3d
 		m_window.release();
 		m_imageFormat.release();
 		m_console.release();
+		m_cpu.release();
 		m_system.release();
 		m_logger.release();
 

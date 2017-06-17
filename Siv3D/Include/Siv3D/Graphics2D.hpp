@@ -113,5 +113,9 @@ namespace s3d
 		void SetViewport(const Optional<Rect>& viewport);
 
 		Optional<Rect> GetViewport();
+		
+		void SetTransform(const Mat3x2& matrix);
+		
+		const Mat3x2& GetTransform();
 	}
 }

@@ -16,6 +16,7 @@ namespace s3d
 {
 	class ISiv3DLogger;
 	class ISiv3DSystem;
+	class ISiv3DCPU;
 	class ISiv3DConsole;
 	class ISiv3DImageFormat;
 	class ISiv3DWindow;
@@ -74,6 +75,8 @@ namespace s3d
 
 		Siv3DComponent<ISiv3DSystem> m_system;
 
+		Siv3DComponent<ISiv3DCPU> m_cpu;
+
 		Siv3DComponent<ISiv3DConsole> m_console;
 
 		Siv3DComponent<ISiv3DImageFormat> m_imageFormat;
@@ -127,6 +130,11 @@ namespace s3d
 		static ISiv3DSystem* GetSystem()
 		{
 			return pEngine->m_system.get();
+		}
+
+		static ISiv3DCPU* GetCPU()
+		{
+			return pEngine->m_cpu.get();
 		}
 
 		static ISiv3DConsole* GetConsole()

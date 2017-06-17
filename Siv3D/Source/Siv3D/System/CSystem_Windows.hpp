@@ -23,6 +23,14 @@ namespace s3d
 	{
 	private:
 
+		enum class SetupState
+		{
+			Uninitialized,
+			Initialized,
+			Displayed,
+			DisplayedWaitKey,
+		} m_setupState = SetupState::Uninitialized;
+
 		std::atomic<uint32> m_event = {0};
 
 		uint32 m_previousEvent = 0;

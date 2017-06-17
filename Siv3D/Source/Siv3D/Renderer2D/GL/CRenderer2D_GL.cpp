@@ -152,6 +152,8 @@ namespace s3d
 		m_pipeline.setPS(shader->getPSProgram(shader->getStandardPS(0).id()));
 		
 		m_pipeline.use();
+		Mat3x2 currentMat = Mat3x2::Identity();
+		Mat3x2 currentScreen;
 		
 		for (size_t commandIndex = 0; commandIndex < m_commandManager.getCount(); ++commandIndex)
 		{
@@ -238,14 +240,26 @@ namespace s3d
 					
 					::glViewport(viewport.x, currentRenderTargetSize.y - viewport.h - viewport.y, viewport.w, viewport.h);
 					
-					const Mat3x2 currentMat = Mat3x2::Identity();
-					const Mat3x2 currentScreen = Mat3x2::Screen(viewport.w, viewport.h);
+					currentScreen = Mat3x2::Screen(viewport.w, viewport.h);
+					
 					const Mat3x2 matrix = currentMat * currentScreen;
-
 					m_cbSprite->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
 					m_cbSprite->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
 					m_cbSprite._internal_update();
-
+					::glBindBufferBase(GL_UNIFORM_BUFFER, m_cbSprite.BindingPoint(), m_cbSprite.base()._detail()->getHandle());
+					
+					break;
+				}
+				case GLRender2DInstruction::Transform:
+				{
+					const auto* command = static_cast<const GLRender2DCommand<GLRender2DInstruction::Transform>*>(static_cast<const void*>(commandPointer));
+					
+					currentMat = command->matrix;
+					
+					const Mat3x2 matrix = currentMat * currentScreen;
+					m_cbSprite->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
+					m_cbSprite->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
+					m_cbSprite._internal_update();
 					::glBindBufferBase(GL_UNIFORM_BUFFER, m_cbSprite.BindingPoint(), m_cbSprite.base()._detail()->getHandle());
 					
 					break;
@@ -337,6 +351,21 @@ namespace s3d
 	Optional<Rect> CRenderer2D_GL::getViewport() const
 	{
 		return m_commandManager.getCurrentViewport();
+	}
+
+	void CRenderer2D_GL::setTransform(const Mat3x2& matrix)
+	{
+		m_commandManager.pushTransform(matrix);
+	}
+
+	const Mat3x2& CRenderer2D_GL::getTransform() const
+	{
+		return m_commandManager.getCurrentTransform();
+	}
+
+	float CRenderer2D_GL::getMaxScaling() const
+	{
+		return m_commandManager.getCurrentMaxScaling();
 	}
 	
 	void CRenderer2D_GL::addLine(const LineStyle& style, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2])
@@ -678,8 +707,9 @@ namespace s3d
 		const float absR = std::abs(r);
 		const float centerX = center.x;
 		const float centerY = center.y;
+		const float scale = getMaxScaling();
 
-		const IndexType quality = detail::CalculateCircleQuality(absR);
+		const IndexType quality = detail::CalculateCircleQuality(absR * scale);
 		const IndexType vertexSize = quality + 1, indexSize = quality * 3;
 		Vertex2D* pVertex;
 		IndexType* pIndex;
@@ -720,7 +750,8 @@ namespace s3d
 	void CRenderer2D_GL::addCircleFrame(const Float2& center, float r, float thickness, const Float4& color)
 	{
 		const float rt = r + thickness;
-		const IndexType quality = detail::CalculateCircleFrameQuality(rt);
+		const float scale = getMaxScaling();
+		const IndexType quality = detail::CalculateCircleFrameQuality(rt * scale);
 		const IndexType vertexSize = quality * 2, indexSize = quality * 6;
 		Vertex2D* pVertex;
 		IndexType* pIndex;
@@ -764,7 +795,8 @@ namespace s3d
 	void CRenderer2D_GL::addCircleFrame(const Float2& center, float r, float thickness, const Float4& innerColor, const Float4& outerColor)
 	{
 		const float rt = r + thickness;
-		const IndexType quality = detail::CalculateCircleFrameQuality(rt);
+		const float scale = getMaxScaling();
+		const IndexType quality = detail::CalculateCircleFrameQuality(rt * scale);
 		const IndexType vertexSize = quality * 2, indexSize = quality * 6;
 		Vertex2D* pVertex;
 		IndexType* pIndex;
@@ -814,7 +846,8 @@ namespace s3d
 		
 		angle = Clamp(angle, -Math::TwoPiF, Math::TwoPiF);
 		
-		const IndexType quality = detail::CalculateCirclePieQuality(r, angle);
+		const float scale = getMaxScaling();
+		const IndexType quality = detail::CalculateCirclePieQuality(r * scale, angle);
 		const IndexType vertexSize = quality + 1, indexSize = (quality - 1) * 3;
 		Vertex2D* pVertex;
 		IndexType* pIndex;
@@ -867,7 +900,8 @@ namespace s3d
 		angle = Clamp(angle, -Math::TwoPiF, Math::TwoPiF);
 		
 		const float rt = r + thickness;
-		const IndexType quality = detail::CalculateCircleFrameQuality(rt);
+		const float scale = getMaxScaling();
+		const IndexType quality = detail::CalculateCircleFrameQuality(rt * scale);
 		const IndexType vertexSize = quality * 2, indexSize = (quality - 1) * 6;
 		Vertex2D* pVertex;
 		IndexType* pIndex;
@@ -959,7 +993,8 @@ namespace s3d
 		const float at = a + thickness;
 		const float bt = b + thickness;
 		const float majorT = std::max(std::abs(at), std::abs(bt));
-		const IndexType quality = detail::CalculateCircleFrameQuality(majorT);
+		const float scale = getMaxScaling();
+		const IndexType quality = detail::CalculateCircleFrameQuality(majorT * scale);
 		const IndexType vertexSize = quality * 2, indexSize = quality * 6;
 		Vertex2D* pVertex;
 		IndexType* pIndex;

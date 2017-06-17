@@ -16,6 +16,7 @@
 # include "ICursor.hpp"
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/Rectangle.hpp>
+# include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/Cursor.hpp>
 # include "../Window/IWindow.hpp"
 
@@ -33,11 +34,21 @@ namespace s3d
 
 		Point m_screenDelta{ 0, 0 };
 
-		Point m_previousClientPos{ 0, 0 };
+		Point m_previousClientPos_raw{ 0, 0 };
 
-		Point m_clientPos{ 0, 0 };
+		Point m_clientPos_raw{ 0, 0 };
 
-		Point m_clientDelta{ 0, 0 };
+		Point m_clientPos_transformedPoint{ 0, 0 };
+
+		Vec2 m_clientPos_transformedVec2{ 0, 0 };
+
+		Point m_previousClientPos_transformedPoint{ 0, 0 };
+
+		Vec2 m_previousClientPos_transformedVec2{ 0, 0 };
+
+		Mat3x2 m_transform = Mat3x2::Identity();
+
+		Mat3x2 m_transformInv = Mat3x2::Identity();
 
 		Optional<Rect> m_clipRect;
 
@@ -63,9 +74,19 @@ namespace s3d
 
 		const Point& clientPos() const override;
 
-		const Point& clientDelta() const override;
+		Point clientDelta() const override;
+
+		const Vec2& previousClientPosF() const override;
+
+		const Vec2& clientPosF() const override;
+
+		Vec2 clientDeltaF() const override;
 
 		void setPos(int32 x, int32 y) override;
+
+		void setTransform(const Mat3x2& matrix) override;
+
+		const Mat3x2& getTransform() const override;
 
 		void clipClientRect(bool) override
 		{

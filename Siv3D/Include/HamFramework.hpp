@@ -32,5 +32,7 @@
 
 # endif
 
-# include "HamFramework/Rx.hpp"
+# include "HamFramework/Camera2D.hpp"
 # include "HamFramework/MiniScene.hpp"
+# include "HamFramework/Rx.hpp"
+# include "HamFramework/ScalableWindow.hpp"

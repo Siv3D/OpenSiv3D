@@ -1,25 +1,43 @@
 ﻿# include <Siv3D.hpp>
+# include <HamFramework.hpp>
 
 void Main()
 {
-	Graphics::SetBackground(ColorF(0.7, 0.9, 0.5));
+	ScalableWindow::SetBaseSize(640, 480);
+	Window::Resize(1280, 720);
+	Graphics::SetBackground(ColorF(0.3, 0.5, 0.3));
 
-	const Font font(20);
-
-	Array<TextBox> textboxes = {
-		TextBox(font, 50, 50, 300, L"", L"東京都 渋谷区 3 丁目"),
-		TextBox(font, 50, 100, 300, L"", L"000-0000"),
-		TextBox(font, 50, 150, 300),
-		TextBox(font, 50, 200),
+	const Array<Texture> textures = {
+		Texture(Emoji(L"🏡"), TextureDesc::Mipped), Texture(Emoji(L"🏠"), TextureDesc::Mipped),
+		Texture(Emoji(L"🏥"), TextureDesc::Mipped), Texture(Emoji(L"🏛️"), TextureDesc::Mipped),
+		Texture(Emoji(L"🏗️"), TextureDesc::Mipped), Texture(Emoji(L"🏘️"), TextureDesc::Mipped),
+		Texture(Emoji(L"🏢"), TextureDesc::Mipped), Texture(Emoji(L"🏫"), TextureDesc::Mipped),
+		Texture(Emoji(L"🏦"), TextureDesc::Mipped), Texture(Emoji(L"🏤"), TextureDesc::Mipped),
+		Texture(Emoji(L"🗼"), TextureDesc::Mipped), Texture(Emoji(L"⛪"), TextureDesc::Mipped),
+		Texture(Emoji(L"🏭"), TextureDesc::Mipped), Texture(Emoji(L"🏬"), TextureDesc::Mipped),
 	};
+
+	Array<std::pair<Vec2, int32>> emojis;
+	Camera2D camera;
 
 	while (System::Update())
 	{
-		for (auto& textbox : textboxes)
-		{
-			textbox.update();
+		camera.update();
+		const auto transformer = camera.createTransformer();
+		const auto transformer2 = ScalableWindow::CreateTransformer();
+		const RenderStateBlock2D sampler(SamplerState::ClampLinear);
 
-			textbox.draw();
+		if (MouseL.down())
+		{
+			emojis.emplace_back(Cursor::Pos(), Random(textures.size() - 1));
 		}
+
+		for (const auto& emoji : emojis)
+		{
+			Circle(emoji.first, 20).draw();
+		}
+
+		ScalableWindow::DrawBlackBars(ColorF(0.0, 0.8));
+		camera.draw(Palette::Orange);
 	}
 }

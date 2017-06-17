@@ -34,7 +34,8 @@ namespace s3d
 		static Array<Vec2> GetOuterVertices(const RoundRect& rect, const double offset)
 		{
 			const double rr = std::min({ rect.w * 0.5, rect.h * 0.5, rect.r }) + offset;
-			const int32 quality = detail::CaluculateFanQuality(rr);
+			const float scale = Siv3DEngine::GetRenderer2D()->getMaxScaling();
+			const int32 quality = detail::CaluculateFanQuality(rr * scale);
 			const double radDelta = Math::HalfPi / (quality - 1);
 
 			Array<Vec2> fanPositions(quality);
@@ -124,7 +125,8 @@ namespace s3d
 	const RoundRect& RoundRect::draw(const ColorF& color) const
 	{
 		const double rr = std::min({ rect.w * 0.5, rect.h * 0.5, r });
-		const int32 quality = detail::CaluculateFanQuality(rr);
+		const float scale = Siv3DEngine::GetRenderer2D()->getMaxScaling();
+		const int32 quality = detail::CaluculateFanQuality(rr * scale);
 		const double radDelta = Math::HalfPi / (quality - 1);
 
 		Array<Float2> fanPositions(quality);
@@ -244,7 +246,8 @@ namespace s3d
 		const double pR = std::min({ w * 0.5, h * 0.5, r });
 		const double nearR = std::max(pR - blurRadius * 0.5, 0.0);
 		const double farR = pR + blurRadius * 0.5 + over;
-		const uint32 quality = static_cast<uint32>(detail::CaluculateFanQuality(farR));
+		const float scale = Siv3DEngine::GetRenderer2D()->getMaxScaling();
+		const uint32 quality = static_cast<uint32>(detail::CaluculateFanQuality(farR * scale));
 
 		Array<Vec2> fanDirections(quality);
 

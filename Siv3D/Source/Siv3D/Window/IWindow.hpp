@@ -49,6 +49,8 @@ namespace s3d
 		virtual ~ISiv3DWindow() = default;
 
 		virtual bool init() = 0;
+
+		virtual void show() = 0;
 		
 		virtual bool update() = 0;
 
@@ -61,5 +63,9 @@ namespace s3d
 		virtual void setPos(const Point& pos) = 0;
 
 		virtual void updateClientSize(bool fullScreen, const Size& size) = 0;
+
+		virtual void setBaseSize(const Size& size) = 0;
+
+		virtual Size getBaseSize() const = 0;
 	};
 }

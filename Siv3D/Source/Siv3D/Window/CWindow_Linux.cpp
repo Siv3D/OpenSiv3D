@@ -70,6 +70,11 @@ namespace s3d
 		
 		return true;
 	}
+
+	void CWindow_Linux::show()
+	{
+
+	}
 	
 	bool CWindow_Linux::update()
 	{
@@ -146,6 +151,16 @@ namespace s3d
 		int32 windowSizeX, windowSizeY;
 		::glfwGetWindowSize(m_glfwWindow, &windowSizeX, &windowSizeY);
 		m_state.windowSize.set(windowSizeX, windowSizeY);
+	}
+
+	void CWindow_Linux::setBaseSize(const Size& size)
+	{
+		m_baseSize = size;
+	}
+
+	Size CWindow_Linux::getBaseSize() const
+	{
+		return m_baseSize;
 	}
 }
 

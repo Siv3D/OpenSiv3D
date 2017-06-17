@@ -19,6 +19,7 @@
 # include <Siv3D/BlendState.hpp>
 # include <Siv3D/RasterizerState.hpp>
 # include <Siv3D/SamplerState.hpp>
+# include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/PixelShader.hpp>
 # include <Siv3D/Texture.hpp>
 # include <Siv3D/HashMap.hpp>
@@ -44,6 +45,8 @@ namespace s3d
 		ScissorRect,
 		
 		Viewport,
+		
+		Transform,
 		
 		PixelShader,
 		
@@ -165,6 +168,19 @@ namespace s3d
 	};
 	
 	template <>
+	struct GLRender2DCommand<GLRender2DInstruction::Transform>
+	{
+		GLRender2DCommandHeader header =
+		{
+			GLRender2DInstruction::Transform,
+			
+			sizeof(GLRender2DCommand<GLRender2DInstruction::Transform>)
+		};
+		
+		Mat3x2 matrix;
+	};
+	
+	template <>
 	struct GLRender2DCommand<GLRender2DInstruction::PixelShader>
 	{
 		GLRender2DCommandHeader header =
@@ -215,6 +231,10 @@ namespace s3d
 		Rect m_currentScissorRect = { 0, 0, 0, 0 };
 
 		Optional<Rect> m_currentViewport;
+		
+		Mat3x2 m_currentTransform = Mat3x2::Identity();
+		
+		float m_currentMaxScaling = 1.0f;
 		
 		Optional<GLRender2DPixelShaderType> m_currentPSType;
 
@@ -302,6 +322,12 @@ namespace s3d
 			{
 				GLRender2DCommand<GLRender2DInstruction::Viewport> command;
 				command.viewport = m_currentViewport;
+				writeCommand(command);
+			}
+			
+			{
+				GLRender2DCommand<GLRender2DInstruction::Transform> command;
+				command.matrix = m_currentTransform;
 				writeCommand(command);
 			}
 			
@@ -421,6 +447,24 @@ namespace s3d
 			m_currentViewport = viewport;
 		}
 		
+		void pushTransform(const Mat3x2& matrix)
+		{
+			if (!::memcmp(&matrix, &m_currentTransform, sizeof(Mat3x2)))
+			{
+				return;
+			}
+			
+			GLRender2DCommand<GLRender2DInstruction::Transform> command;
+			command.matrix = matrix;
+			writeCommand(command);
+			
+			m_currentTransform = matrix;
+			
+			const Float2 sa = matrix.transform(Float2(0.0f, 0.0f));
+			const Float2 sb = matrix.transform(Float2(1.0f, 1.0f));
+			m_currentMaxScaling = sa.distanceFrom(sb) / 1.4142135623730950488016887f;
+		}
+		
 		void pushPSTexture(const uint32 slot, const Texture& texture)
 		{
 			assert(slot < MaxSamplerCount);
@@ -468,6 +512,16 @@ namespace s3d
 		const Optional<Rect>& getCurrentViewport() const
 		{
 			return m_currentViewport;
+		}
+		
+		const Mat3x2& getCurrentTransform() const
+		{
+			return m_currentTransform;
+		}
+		
+		float getCurrentMaxScaling() const noexcept
+		{
+			return m_currentMaxScaling;
 		}
 	};
 }

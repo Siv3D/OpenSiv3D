@@ -684,6 +684,21 @@
 		2CAAB1121EF289BB0000A06D /* CTextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAAB10F1EF289BB0000A06D /* CTextBox.cpp */; };
 		2CAAB1131EF289BB0000A06D /* CTextBox.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB1101EF289BB0000A06D /* CTextBox.hpp */; };
 		2CAAB1141EF289BB0000A06D /* SivTextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAAB1111EF289BB0000A06D /* SivTextBox.cpp */; };
+		2CAAB1161EF4EB5A0000A06D /* CPU.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB1151EF4EB5A0000A06D /* CPU.hpp */; };
+		2CAAB11D1EF4EB6E0000A06D /* CCPU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAAB1181EF4EB6E0000A06D /* CCPU.cpp */; };
+		2CAAB11E1EF4EB6E0000A06D /* CCPU.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB1191EF4EB6E0000A06D /* CCPU.hpp */; };
+		2CAAB11F1EF4EB6E0000A06D /* CPUFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAAB11A1EF4EB6E0000A06D /* CPUFactory.cpp */; };
+		2CAAB1201EF4EB6E0000A06D /* ICPU.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB11B1EF4EB6E0000A06D /* ICPU.hpp */; };
+		2CAAB1211EF4EB6E0000A06D /* SivCPU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAAB11C1EF4EB6E0000A06D /* SivCPU.cpp */; };
+		2CAAB1281EF4EBA10000A06D /* cpu_x86.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAAB1231EF4EBA10000A06D /* cpu_x86.cpp */; };
+		2CAAB1291EF4EBA10000A06D /* cpu_x86.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB1241EF4EBA10000A06D /* cpu_x86.h */; };
+		2CAAB12A1EF4EBA10000A06D /* cpu_x86_Linux.ipp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB1251EF4EBA10000A06D /* cpu_x86_Linux.ipp */; };
+		2CAAB12B1EF4EBA10000A06D /* cpu_x86_Windows.ipp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB1261EF4EBA10000A06D /* cpu_x86_Windows.ipp */; };
+		2CAAB12F1EF513B90000A06D /* Transformer2D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB12E1EF513B90000A06D /* Transformer2D.hpp */; };
+		2CAAB1311EF51ACC0000A06D /* ScalableWindow.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB1301EF51ACC0000A06D /* ScalableWindow.hpp */; };
+		2CAAB1331EF54DAA0000A06D /* Camera2D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB1321EF54DAA0000A06D /* Camera2D.hpp */; };
+		2CAAB1351EF55B960000A06D /* Polygon.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB1341EF55B960000A06D /* Polygon.hpp */; };
+		2CAAB1371EF55C390000A06D /* Point.ipp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB1361EF55C390000A06D /* Point.ipp */; };
 		2CAE4D961EE039670057BE7E /* SivTexturedCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE4D951EE039670057BE7E /* SivTexturedCircle.cpp */; };
 		2CAE4D981EE039790057BE7E /* TexturedCircle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAE4D971EE039790057BE7E /* TexturedCircle.hpp */; };
 		2CAE4DF01EE276490057BE7E /* lharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CAE4DEF1EE276490057BE7E /* lharfbuzz.a */; };
@@ -1186,7 +1201,6 @@
 		2C0C7CEC1EBCC39B00386CBB /* Platform.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Platform.hpp; sourceTree = "<group>"; };
 		2C0C7CED1EBCC39B00386CBB /* PlatformWindows.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PlatformWindows.hpp; sourceTree = "<group>"; };
 		2C0C7CEE1EBCC39B00386CBB /* Point.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Point.hpp; sourceTree = "<group>"; };
-		2C0C7CEF1EBCC39B00386CBB /* Point.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Point.inl; sourceTree = "<group>"; };
 		2C0C7CF01EBCC39B00386CBB /* PointVector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PointVector.hpp; sourceTree = "<group>"; };
 		2C0C7CF11EBCC39B00386CBB /* Profiler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Profiler.hpp; sourceTree = "<group>"; };
 		2C0C7CF21EBCC39B00386CBB /* Quad.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Quad.hpp; sourceTree = "<group>"; };
@@ -1539,6 +1553,22 @@
 		2CAAB10F1EF289BB0000A06D /* CTextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTextBox.cpp; sourceTree = "<group>"; };
 		2CAAB1101EF289BB0000A06D /* CTextBox.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTextBox.hpp; sourceTree = "<group>"; };
 		2CAAB1111EF289BB0000A06D /* SivTextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextBox.cpp; sourceTree = "<group>"; };
+		2CAAB1151EF4EB5A0000A06D /* CPU.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CPU.hpp; sourceTree = "<group>"; };
+		2CAAB1181EF4EB6E0000A06D /* CCPU.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPU.cpp; sourceTree = "<group>"; };
+		2CAAB1191EF4EB6E0000A06D /* CCPU.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CCPU.hpp; sourceTree = "<group>"; };
+		2CAAB11A1EF4EB6E0000A06D /* CPUFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPUFactory.cpp; sourceTree = "<group>"; };
+		2CAAB11B1EF4EB6E0000A06D /* ICPU.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ICPU.hpp; sourceTree = "<group>"; };
+		2CAAB11C1EF4EB6E0000A06D /* SivCPU.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCPU.cpp; sourceTree = "<group>"; };
+		2CAAB1231EF4EBA10000A06D /* cpu_x86.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpu_x86.cpp; sourceTree = "<group>"; };
+		2CAAB1241EF4EBA10000A06D /* cpu_x86.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpu_x86.h; sourceTree = "<group>"; };
+		2CAAB1251EF4EBA10000A06D /* cpu_x86_Linux.ipp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cpu_x86_Linux.ipp; sourceTree = "<group>"; };
+		2CAAB1261EF4EBA10000A06D /* cpu_x86_Windows.ipp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cpu_x86_Windows.ipp; sourceTree = "<group>"; };
+		2CAAB1271EF4EBA10000A06D /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		2CAAB12E1EF513B90000A06D /* Transformer2D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Transformer2D.hpp; sourceTree = "<group>"; };
+		2CAAB1301EF51ACC0000A06D /* ScalableWindow.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ScalableWindow.hpp; sourceTree = "<group>"; };
+		2CAAB1321EF54DAA0000A06D /* Camera2D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Camera2D.hpp; sourceTree = "<group>"; };
+		2CAAB1341EF55B960000A06D /* Polygon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Polygon.hpp; sourceTree = "<group>"; };
+		2CAAB1361EF55C390000A06D /* Point.ipp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Point.ipp; sourceTree = "<group>"; };
 		2CAE4D951EE039670057BE7E /* SivTexturedCircle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTexturedCircle.cpp; sourceTree = "<group>"; };
 		2CAE4D971EE039790057BE7E /* TexturedCircle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TexturedCircle.hpp; sourceTree = "<group>"; };
 		2CAE4DEF1EE276490057BE7E /* lharfbuzz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lharfbuzz.a; sourceTree = "<group>"; };
@@ -1715,6 +1745,7 @@
 		2C0C7A121EBCC38300386CBB /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2CAAB1171EF4EB6E0000A06D /* CPU */,
 				2CAAB10E1EF289BB0000A06D /* TextBox */,
 				2CAAB1011EEEC40F0000A06D /* ScreenCapture */,
 				2C114C8E1EE432B200A198BB /* TextInput */,
@@ -2768,8 +2799,10 @@
 		2C0C7C821EBCC39A00386CBB /* HamFramework */ = {
 			isa = PBXGroup;
 			children = (
+				2CAAB1321EF54DAA0000A06D /* Camera2D.hpp */,
 				2C0C7C831EBCC39A00386CBB /* MiniScene.hpp */,
 				2C0C7C841EBCC39A00386CBB /* Rx.hpp */,
+				2CAAB1301EF51ACC0000A06D /* ScalableWindow.hpp */,
 			);
 			path = HamFramework;
 			sourceTree = "<group>";
@@ -2804,6 +2837,7 @@
 				2C0C7CA51EBCC39B00386CBB /* ConcurrentTask.hpp */,
 				2C0C7CA61EBCC39B00386CBB /* Console.hpp */,
 				2C0C7DC31EBE0E1D00386CBB /* ConstantBuffer.hpp */,
+				2CAAB1151EF4EB5A0000A06D /* CPU.hpp */,
 				2CCA35951EC899F000078678 /* CubicBezier.hpp */,
 				2C0C7CA71EBCC39B00386CBB /* Cursor.hpp */,
 				2C0C7CA81EBCC39B00386CBB /* Cylindrical.hpp */,
@@ -2884,8 +2918,9 @@
 				2C0C7CEC1EBCC39B00386CBB /* Platform.hpp */,
 				2C0C7CED1EBCC39B00386CBB /* PlatformWindows.hpp */,
 				2C0C7CEE1EBCC39B00386CBB /* Point.hpp */,
-				2C0C7CEF1EBCC39B00386CBB /* Point.inl */,
+				2CAAB1361EF55C390000A06D /* Point.ipp */,
 				2C0C7CF01EBCC39B00386CBB /* PointVector.hpp */,
+				2CAAB1341EF55B960000A06D /* Polygon.hpp */,
 				2C0C7DDE1EBF2EA200386CBB /* PowerStatus.hpp */,
 				2CAE4DFA1EE3AC080057BE7E /* Print.hpp */,
 				2C0C7CF11EBCC39B00386CBB /* Profiler.hpp */,
@@ -2936,6 +2971,7 @@
 				2C0C7D0E1EBCC39B00386CBB /* Time.hpp */,
 				2C0C7D0F1EBCC39B00386CBB /* TimeProfiler.hpp */,
 				2C0C7D101EBCC39B00386CBB /* Timer.hpp */,
+				2CAAB12E1EF513B90000A06D /* Transformer2D.hpp */,
 				2C0C7D111EBCC39B00386CBB /* Triangle.hpp */,
 				2C0C7D121EBCC39B00386CBB /* Types.hpp */,
 				2C0C7D131EBCC39B00386CBB /* TypeTraits.hpp */,
@@ -3266,6 +3302,7 @@
 		2C81BE121E89F8E300D27E52 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				2CAAB1221EF4EBA10000A06D /* FeatureDetector */,
 				2CCA35C41ECC748E00078678 /* freetype */,
 				2C2E826D1EAA1B3A0057BDAF /* rapidjson */,
 				2C316E9E1E9F022A0011CAAE /* GL */,
@@ -3707,6 +3744,30 @@
 			path = TextBox;
 			sourceTree = "<group>";
 		};
+		2CAAB1171EF4EB6E0000A06D /* CPU */ = {
+			isa = PBXGroup;
+			children = (
+				2CAAB1181EF4EB6E0000A06D /* CCPU.cpp */,
+				2CAAB1191EF4EB6E0000A06D /* CCPU.hpp */,
+				2CAAB11A1EF4EB6E0000A06D /* CPUFactory.cpp */,
+				2CAAB11B1EF4EB6E0000A06D /* ICPU.hpp */,
+				2CAAB11C1EF4EB6E0000A06D /* SivCPU.cpp */,
+			);
+			path = CPU;
+			sourceTree = "<group>";
+		};
+		2CAAB1221EF4EBA10000A06D /* FeatureDetector */ = {
+			isa = PBXGroup;
+			children = (
+				2CAAB1231EF4EBA10000A06D /* cpu_x86.cpp */,
+				2CAAB1241EF4EBA10000A06D /* cpu_x86.h */,
+				2CAAB1251EF4EBA10000A06D /* cpu_x86_Linux.ipp */,
+				2CAAB1261EF4EBA10000A06D /* cpu_x86_Windows.ipp */,
+				2CAAB1271EF4EBA10000A06D /* LICENSE.txt */,
+			);
+			path = FeatureDetector;
+			sourceTree = "<group>";
+		};
 		2CAE4D941EE039670057BE7E /* TexturedCircle */ = {
 			isa = PBXGroup;
 			children = (
@@ -4081,6 +4142,7 @@
 				2C81C0111E89F8E300D27E52 /* fixed-dtoa.h in Headers */,
 				2CCA35C01ECC740400078678 /* FontData.hpp in Headers */,
 				2C81C04F1E89F8E300D27E52 /* entropy_encode.h in Headers */,
+				2CAAB1371EF55C390000A06D /* Point.ipp in Headers */,
 				2CCA36561ECC748F00078678 /* ftgloadr.h in Headers */,
 				2C0C7DBE1EBCC39B00386CBB /* Window.hpp in Headers */,
 				2C0C7C511EBCC38400386CBB /* CSystem_Windows.hpp in Headers */,
@@ -4118,6 +4180,7 @@
 				2C0C7DB21EBCC39B00386CBB /* TypeTraits.hpp in Headers */,
 				2C0C7BAD1EBCC38400386CBB /* CCursor_Windows.hpp in Headers */,
 				2CCA36321ECC748E00078678 /* ftchapters.h in Headers */,
+				2CAAB12B1EF4EBA10000A06D /* cpu_x86_Windows.ipp in Headers */,
 				2CCA36751ECC748F00078678 /* svwinfnt.h in Headers */,
 				2C0C7D6A1EBCC39B00386CBB /* InfiniteList.hpp in Headers */,
 				2C81C0861E89F8E300D27E52 /* muParserFixes.h in Headers */,
@@ -4138,6 +4201,7 @@
 				2C0C7DBD1EBCC39B00386CBB /* Void_t.hpp in Headers */,
 				2C0C7DBC1EBCC39B00386CBB /* ViewportBlock2D.hpp in Headers */,
 				2C0C7D9F1EBCC39B00386CBB /* SpeedStopwatch.hpp in Headers */,
+				2CAAB11E1EF4EB6E0000A06D /* CCPU.hpp in Headers */,
 				2C0C7D691EBCC39B00386CBB /* ImageFormat.hpp in Headers */,
 				2C0C7D541EBCC39B00386CBB /* FloatRect.hpp in Headers */,
 				2C81C0191E89F8E300D27E52 /* khrplatform.h in Headers */,
@@ -4218,6 +4282,7 @@
 				2C2E82B41EAA1B3A0057BDAF /* stream.h in Headers */,
 				2C0C7D3D1EBCC39B00386CBB /* CharacterSet.hpp in Headers */,
 				2CCA365A1ECC748F00078678 /* ftpic.h in Headers */,
+				2CAAB1291EF4EBA10000A06D /* cpu_x86.h in Headers */,
 				2C81C0181E89F8E300D27E52 /* glad.h in Headers */,
 				2C0C7D921EBCC39B00386CBB /* Random.hpp in Headers */,
 				2CAAB1001EEEC3F80000A06D /* D3D11ScreenCapture.hpp in Headers */,
@@ -4307,6 +4372,7 @@
 				2C0C7BA81EBCC38400386CBB /* CCursor_Linux.hpp in Headers */,
 				2C0C7DA51EBCC39B00386CBB /* String.hpp in Headers */,
 				2C0C7D621EBCC39B00386CBB /* Hash.hpp in Headers */,
+				2CAAB1311EF51ACC0000A06D /* ScalableWindow.hpp in Headers */,
 				2C0C7C761EBCC38400386CBB /* IWindow.hpp in Headers */,
 				2C0C7BD71EBCC38400386CBB /* D3D11SamplerState.hpp in Headers */,
 				2C0C7D8D1EBCC39B00386CBB /* PlatformWindows.hpp in Headers */,
@@ -4382,14 +4448,17 @@
 				2C0C7D811EBCC39B00386CBB /* Monitor.hpp in Headers */,
 				2C2E82B01EAA1B3A0057BDAF /* prettywriter.h in Headers */,
 				2CCA366A1ECC748F00078678 /* svmm.h in Headers */,
+				2CAAB1351EF55B960000A06D /* Polygon.hpp in Headers */,
 				2C2E82981EAA1B3A0057BDAF /* en.h in Headers */,
 				2C0C7BE81EBCC38400386CBB /* ImageFormat_BMP.hpp in Headers */,
 				2C0C7D801EBCC39B00386CBB /* MessageBox.hpp in Headers */,
 				2C0C7D7C1EBCC39B00386CBB /* MD5.hpp in Headers */,
 				2C81C07A1E89F8E300D27E52 /* muParser.h in Headers */,
+				2CAAB12A1EF4EBA10000A06D /* cpu_x86_Linux.ipp in Headers */,
 				2C0C7D3A1EBCC39B00386CBB /* ByteArrayView.hpp in Headers */,
 				2C81C0271E89F8E300D27E52 /* glfw_config.h in Headers */,
 				2CCA367C1ECC748F00078678 /* tttags.h in Headers */,
+				2CAAB1201EF4EB6E0000A06D /* ICPU.hpp in Headers */,
 				2C0C7D7D1EBCC39B00386CBB /* MemoryMapping.hpp in Headers */,
 				2C0C7D791EBCC39B00386CBB /* Math.hpp in Headers */,
 				2C0C7D261EBCC39B00386CBB /* MiniScene.hpp in Headers */,
@@ -4397,6 +4466,7 @@
 				2C81C0691E89F8E300D27E52 /* preprocess_downsample.h in Headers */,
 				2C0C7D631EBCC39B00386CBB /* HashMap.hpp in Headers */,
 				2C0C7D4F1EBCC39B00386CBB /* Easing.hpp in Headers */,
+				2CAAB1331EF54DAA0000A06D /* Camera2D.hpp in Headers */,
 				2C114C9A1EE432B200A198BB /* ITextInput.hpp in Headers */,
 				2C0C7D891EBCC39B00386CBB /* ParseInt.hpp in Headers */,
 				2CCA36251ECC748E00078678 /* ftheader.h in Headers */,
@@ -4465,6 +4535,7 @@
 				2CCA36581ECC748F00078678 /* ftmemory.h in Headers */,
 				2C0C7D3C1EBCC39B00386CBB /* CharacterEncoding.hpp in Headers */,
 				2CCA35A01EC89DBC00078678 /* Spline.hpp in Headers */,
+				2CAAB1161EF4EB5A0000A06D /* CPU.hpp in Headers */,
 				2CCA36661ECC748F00078678 /* svgldict.h in Headers */,
 				2C2E82A51EAA1B3A0057BDAF /* stack.h in Headers */,
 				2C81C06F1E89F8E300D27E52 /* quantize.h in Headers */,
@@ -4478,6 +4549,7 @@
 				2C0C7B831EBCC38400386CBB /* CBinaryReader_Linux.hpp in Headers */,
 				2C0C7DE81EC01EF600386CBB /* VertexShader_GL.hpp in Headers */,
 				2C81C00B1E89F8E300D27E52 /* diy-fp.h in Headers */,
+				2CAAB12F1EF513B90000A06D /* Transformer2D.hpp in Headers */,
 				2C2E82AA1EAA1B3A0057BDAF /* memorybuffer.h in Headers */,
 				2CCA363E1ECC748E00078678 /* ftlist.h in Headers */,
 				2C2E82941EAA1B3A0057BDAF /* allocators.h in Headers */,
@@ -4655,6 +4727,7 @@
 				2C0C7C081EBCC38400386CBB /* SivLogger.cpp in Sources */,
 				2C0C7BB11EBCC38400386CBB /* SivDate.cpp in Sources */,
 				2C81C0A31E89F8E400D27E52 /* zdict.c in Sources */,
+				2CAAB1281EF4EBA10000A06D /* cpu_x86.cpp in Sources */,
 				2C81C05C1E89F8E300D27E52 /* jpeg_data_encoder.cc in Sources */,
 				2C0C7DF51EC0A2EA00386CBB /* SivLineString.cpp in Sources */,
 				2C0C7C281EBCC38400386CBB /* ProfilerFactory.cpp in Sources */,
@@ -4725,6 +4798,7 @@
 				2C0C7C301EBCC38400386CBB /* CRenderer2D_GL.cpp in Sources */,
 				2C0C7C671EBCC38400386CBB /* SivTextWriter.cpp in Sources */,
 				2C0C7C771EBCC38400386CBB /* SivWindow.cpp in Sources */,
+				2CAAB1211EF4EB6E0000A06D /* SivCPU.cpp in Sources */,
 				2C81C08F1E89F8E400D27E52 /* entropy_common.c in Sources */,
 				2C81C01D1E89F8E300D27E52 /* cocoa_init.m in Sources */,
 				2C0C7C6A1EBCC38400386CBB /* SivTimeProfiler.cpp in Sources */,
@@ -4763,6 +4837,7 @@
 				2C81C0061E89F8E300D27E52 /* bignum.cc in Sources */,
 				2C0C7C3E1EBCC38400386CBB /* CShader_GL.cpp in Sources */,
 				2C81C0461E89F8E300D27E52 /* butteraugli_comparator.cc in Sources */,
+				2CAAB11F1EF4EB6E0000A06D /* CPUFactory.cpp in Sources */,
 				2C0C7C3C1EBCC38400386CBB /* VertexShader_D3D11.cpp in Sources */,
 				2C0C7B881EBCC38400386CBB /* SivBinaryReader.cpp in Sources */,
 				2C81C0981E89F8E400D27E52 /* zstd_common.c in Sources */,
@@ -4819,6 +4894,7 @@
 				2C0C7C6B1EBCC38400386CBB /* SivTriangle.cpp in Sources */,
 				2C81C06A1E89F8E300D27E52 /* processor.cc in Sources */,
 				2C0C7B8F1EBCC38400386CBB /* SivBinaryWriter.cpp in Sources */,
+				2CAAB11D1EF4EB6E0000A06D /* CCPU.cpp in Sources */,
 				2C0C7C5A1EBCC38400386CBB /* TextReader.mm in Sources */,
 				2C0C7C061EBCC38400386CBB /* LoggerFactory.cpp in Sources */,
 				2C0C7C161EBCC38400386CBB /* SivMessageBox_Windows.cpp in Sources */,

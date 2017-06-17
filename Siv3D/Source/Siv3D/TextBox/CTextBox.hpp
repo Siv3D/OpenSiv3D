@@ -58,6 +58,8 @@ namespace s3d
 
 			double textHeight = 0.0;
 
+			double textOffsetX = 0.0;
+
 			double cursorXAdvance = 0;
 
 			Optional<double> width;
@@ -66,11 +68,16 @@ namespace s3d
 
 			static constexpr int32 PaddingRight = 8;
 
-			RectF getRect(const Vec2& pos) const noexcept
+			double getWidth() const noexcept
 			{
 				const double contentWidth = PaddingLeft + headTextWidth + markedTextWidth + tailTextWidth + descriptionTextWidth + PaddingRight;
 
-				return RectF(pos, width.value_or(contentWidth), textHeight);
+				return width.value_or(contentWidth);
+			}
+
+			RectF getRect(const Vec2& pos) const noexcept
+			{
+				return RectF(pos, getWidth(), textHeight);
 			}
 
 		} m_boxState;

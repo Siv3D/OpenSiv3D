@@ -113,7 +113,7 @@ namespace s3d
 				}
 				case WM_CHAR:
 				{
-					Siv3DEngine::GetTextInput()->pushChar(wParam);
+					Siv3DEngine::GetTextInput()->pushChar(static_cast<uint32>(wParam));
 
 					return 0;
 				}
@@ -124,7 +124,7 @@ namespace s3d
 						return true;
 					}
 
-					Siv3DEngine::GetTextInput()->pushChar(wParam);
+					Siv3DEngine::GetTextInput()->pushChar(static_cast<uint32>(wParam));
 
 					return 0;
 				}
@@ -187,7 +187,18 @@ namespace s3d
 
 		return true;
 	}
-	
+
+	void CWindow_Windows::show()
+	{
+		::ShowWindow(m_hWnd, SW_SHOW);
+
+		::ValidateRect(m_hWnd, 0);
+
+		::UpdateWindow(m_hWnd);
+
+		::SetForegroundWindow(m_hWnd);
+	}
+
 	bool CWindow_Windows::update()
 	{
 		// ウィンドウが最小化、最大化されているかどうかチェック
@@ -300,6 +311,16 @@ namespace s3d
 		}
 	}
 
+	void CWindow_Windows::setBaseSize(const Size& size)
+	{
+		m_baseSize = size;
+	}
+
+	Size CWindow_Windows::getBaseSize() const
+	{
+		return m_baseSize;
+	}
+
 	void CWindow_Windows::requestResize()
 	{
 		m_resizeRequest = true;
@@ -392,7 +413,7 @@ namespace s3d
 			return false;
 		}
 
-		::ShowWindow(m_hWnd, SW_SHOW);
+		//::ShowWindow(m_hWnd, SW_SHOW);
 
 		return true;
 	}
