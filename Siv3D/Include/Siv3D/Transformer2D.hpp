@@ -49,6 +49,15 @@ namespace s3d
 			}
 		}
 
+		Transformer2D(const Mat3x2& graphics2DTransform, const Mat3x2& cursorTransform)
+			: m_oldGraphics2DMatrix(Graphics2D::GetTransform())
+			, m_oldCursorMatrix(Cursor::GetTransform())
+		{
+			Graphics2D::SetTransform(m_oldGraphics2DMatrix.value() * graphics2DTransform);
+
+			Cursor::SetTransform(m_oldCursorMatrix.value() * cursorTransform);
+		}
+
 		Transformer2D(Transformer2D&& transformer)
 		{
 			m_oldGraphics2DMatrix = transformer.m_oldGraphics2DMatrix;

@@ -119,7 +119,7 @@ namespace s3d
 
 	void TextBox::CTextBox::drawGlow(const double blurRadius, const double spread, const ColorF& color) const
 	{
-		Transformer2D transformer(Graphics2D::GetTransform().inverse());
+		const Transformer2D transformer(Graphics2D::GetTransform().inverse());
 		
 		if (m_active)
 		{
@@ -129,7 +129,7 @@ namespace s3d
 
 	void TextBox::CTextBox::drawBox(const ColorF& boxColor) const
 	{
-		Transformer2D transformer(Graphics2D::GetTransform().inverse());
+		const Transformer2D transformer(Graphics2D::GetTransform().inverse());
 		
 		const RectF rect = m_boxState.getRect(m_pos);
 
@@ -143,35 +143,33 @@ namespace s3d
 
 	void TextBox::CTextBox::drawText(const ColorF& textColor, const ColorF& markedTextColor, const ColorF& descriptionColor) const
 	{
-		{
-			Transformer2D transformer(Graphics2D::GetTransform().inverse());
+		const Transformer2D transformer(Graphics2D::GetTransform().inverse());
 			
-			const double offsetX = m_boxState.textOffsetX;
+		const double offsetX = m_boxState.textOffsetX;
 
-			ViewportBlock2D viewport(Rect(m_boxState.getRect(m_pos)));
+		ViewportBlock2D viewport(Rect(m_boxState.getRect(m_pos)));
 
-			m_font(m_headText).draw(Vec2(offsetX + BoxState::PaddingLeft, 0), textColor);
+		m_font(m_headText).draw(Vec2(offsetX + BoxState::PaddingLeft, 0), textColor);
 
-			m_font(m_markedText).draw(Vec2(offsetX + BoxState::PaddingLeft + m_boxState.headTextWidth, 0), markedTextColor)
-				.bottom().movedBy(0, -2).draw(2, markedTextColor);
+		m_font(m_markedText).draw(Vec2(offsetX + BoxState::PaddingLeft + m_boxState.headTextWidth, 0), markedTextColor)
+			.bottom().movedBy(0, -2).draw(2, markedTextColor);
 
-			m_font(m_tailText).draw(Vec2(offsetX + BoxState::PaddingLeft + m_boxState.headTextWidth + m_boxState.markedTextWidth, 0), textColor);
+		m_font(m_tailText).draw(Vec2(offsetX + BoxState::PaddingLeft + m_boxState.headTextWidth + m_boxState.markedTextWidth, 0), textColor);
 
-			if (m_description && !m_text && !m_active)
-			{
-				m_font(m_description).draw(Vec2(offsetX + BoxState::PaddingLeft, 0), descriptionColor);
-			}
+		if (m_description && !m_text && !m_active)
+		{
+			m_font(m_description).draw(Vec2(offsetX + BoxState::PaddingLeft, 0), descriptionColor);
+		}
 
-			const bool showCursor = m_active
-				&& ((m_cursorStopwatch.ms() % 1200 < 600)
-					|| (m_leftPress.isRunning() && m_leftPress < SecondsF(0.5))
-					|| (m_rightPress.isRunning() && m_rightPress < SecondsF(0.5)));
+		const bool showCursor = m_active
+			&& ((m_cursorStopwatch.ms() % 1200 < 600)
+				|| (m_leftPress.isRunning() && m_leftPress < SecondsF(0.5))
+				|| (m_rightPress.isRunning() && m_rightPress < SecondsF(0.5)));
 
-			if (showCursor)
-			{
-				const double x = offsetX + BoxState::PaddingLeft + m_boxState.cursorXAdvance;
-				Line(x, 0, x, m_boxState.textHeight).stretched(-3).draw(2, textColor);
-			}
+		if (showCursor)
+		{
+			const double x = offsetX + BoxState::PaddingLeft + m_boxState.cursorXAdvance;
+			Line(x, 0, x, m_boxState.textHeight).stretched(-3).draw(2, textColor);
 		}
 	}
 

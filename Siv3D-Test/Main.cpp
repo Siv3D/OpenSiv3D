@@ -4,33 +4,40 @@
 void Main()
 {
 	ScalableWindow::SetBaseSize(640, 480);
+	Window::Resize(1280, 720);
+	Graphics::SetBackground(ColorF(0.3, 0.5, 0.3));
 
-	Window::Resize(1000, 800);
+	const Array<Texture> textures = {
+		Texture(Emoji(L"🏡"), TextureDesc::Mipped), Texture(Emoji(L"🏠"), TextureDesc::Mipped),
+		Texture(Emoji(L"🏥"), TextureDesc::Mipped), Texture(Emoji(L"🏛️"), TextureDesc::Mipped),
+		Texture(Emoji(L"🏗️"), TextureDesc::Mipped), Texture(Emoji(L"🏘️"), TextureDesc::Mipped),
+		Texture(Emoji(L"🏢"), TextureDesc::Mipped), Texture(Emoji(L"🏫"), TextureDesc::Mipped),
+		Texture(Emoji(L"🏦"), TextureDesc::Mipped), Texture(Emoji(L"🏤"), TextureDesc::Mipped),
+		Texture(Emoji(L"🗼"), TextureDesc::Mipped), Texture(Emoji(L"⛪"), TextureDesc::Mipped),
+		Texture(Emoji(L"🏭"), TextureDesc::Mipped), Texture(Emoji(L"🏬"), TextureDesc::Mipped),
+	};
 
-	Graphics::SetBackground(Palette::White);
-
-	const int32 dotSize = 40;
-
-	Grid<int32> dots(Window::BaseWidth() / dotSize, Window::BaseHeight() / dotSize);
+	Array<std::pair<Vec2, int32>> emojis;
+	Camera2D camera;
 
 	while (System::Update())
 	{
-		const auto transformer = ScalableWindow::CreateTransformer();
+		camera.update();
+		const auto transformer = camera.createTransformer();
+		const auto transformer2 = ScalableWindow::CreateTransformer();
+		const RenderStateBlock2D sampler(SamplerState::ClampLinear);
 
-		for (auto p : step({ dots.size() }))
+		if (MouseL.down())
 		{
-			const Rect rect(p * dotSize, dotSize, dotSize);
-
-			if (rect.leftClicked())
-			{
-				++dots[p.y][p.x] %= 4;
-			}
-
-			const Color color(240 - dots[p.y][p.x] * 70);
-
-			rect.stretched(-1).draw(color);
+			emojis.emplace_back(Cursor::Pos(), Random(textures.size() - 1));
 		}
 
-		ScalableWindow::DrawBlackBars(HSV(40, 0.2, 0.9));
+		for (const auto& emoji : emojis)
+		{
+			textures[emoji.second].drawAt(emoji.first);
+		}
+
+		ScalableWindow::DrawBlackBars(ColorF(0.0, 0.8));
+		camera.draw(Palette::Orange);
 	}
 }

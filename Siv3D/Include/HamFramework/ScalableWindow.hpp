@@ -26,8 +26,6 @@ namespace s3d
 
 		inline void SetBaseSize(const Size& baseSize = Size(640, 480))
 		{
-			//Window::SetStyle(WindowStyle::Sizeable);
-
 			Window::SetBaseSize(baseSize);
 		}
 
@@ -115,7 +113,7 @@ namespace s3d
 
 		inline void DrawBlackBars(const ColorF& color = Palette::Black, const Size& baseSize = Window::BaseSize())
 		{
-			Transformer2D transformer(Graphics2D::GetTransform().inverse());
+			const Transformer2D transformer(Graphics2D::GetTransform().inverse());
 
 			for (const auto& bar : GetBlackBars(baseSize))
 			{
@@ -131,5 +129,38 @@ namespace s3d
 }
 
 /* example
+# include <Siv3D.hpp>
+# include <HamFramework.hpp>
 
+void Main()
+{
+	ScalableWindow::SetBaseSize(640, 480);
+
+	Window::Resize(1280, 640);
+
+	const int32 dotSize = 40;
+
+	Grid<int32> dots(Window::BaseSize() / dotSize);
+
+	Graphics::SetBackground(Palette::White);
+
+	while (System::Update())
+	{
+		const auto transformer = ScalableWindow::CreateTransformer();
+
+		for (auto p : step(dots.size()))
+		{
+			const Rect rect(p * dotSize, dotSize);
+
+			if (rect.leftClicked())
+			{
+				++dots[p] %= 4;
+			}
+
+			rect.stretched(-1).draw(ColorF(0.95 - dots[p] * 0.3));
+		}
+
+		ScalableWindow::DrawBlackBars(HSV(40, 0.2, 0.9));
+	}
+}
 */

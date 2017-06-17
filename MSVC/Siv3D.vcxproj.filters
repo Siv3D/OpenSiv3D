@@ -1717,6 +1717,9 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Transformer2D.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\HamFramework\Camera2D.hpp">
+      <Filter>Include\HamFramework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">

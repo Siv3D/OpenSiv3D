@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\HamFramework.hpp" />
+    <ClInclude Include="..\Siv3D\Include\HamFramework\Camera2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\HamFramework\MiniScene.hpp" />
     <ClInclude Include="..\Siv3D\Include\HamFramework\Rx.hpp" />
     <ClInclude Include="..\Siv3D\Include\HamFramework\ScalableWindow.hpp" />
