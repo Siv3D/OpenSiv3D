@@ -26,9 +26,11 @@ namespace s3d
 
 	struct CPUFeature
 	{
-		CPUVendor vendor;
-
 		String vendorName;
+
+		String name;
+
+		CPUVendor vendor;
 
 		/// <summary>
 		/// SSE

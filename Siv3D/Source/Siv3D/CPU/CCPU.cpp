@@ -36,7 +36,33 @@ namespace s3d
 
 		m_feature.vendorName = CharacterSet::FromUTF8(cpuFeature.get_vendor_string());
 
+		{
+			int32 cpui[4] = {};
+			cpuFeature.cpuid(cpui, 0x80000000);
+			const int32 nExIDs = cpui[0];
+			Array<int32> extData;
+
+			for (int32 i = 0x80000000; i <= nExIDs; ++i)
+			{
+				cpuFeature.cpuid(cpui, i);
+
+				extData.insert(extData.end(), std::begin(cpui), std::end(cpui));
+			}
+
+			char brand[0x40] = {};
+
+			if (nExIDs >= 0x80000004)
+			{
+				::memcpy(brand, &extData[8], sizeof(cpui));
+				::memcpy(brand + 16, &extData[12], sizeof(cpui));
+				::memcpy(brand + 32, &extData[16], sizeof(cpui));
+			}
+
+			m_feature.name = CharacterSet::FromUTF8(brand);
+		}
+
 		LOG_INFO(L"ℹ️ CPU vendor: {0}"_fmt(m_feature.vendorName));
+		LOG_INFO(L"ℹ️ CPU name: {0}"_fmt(m_feature.name));
 
 		m_feature.SSE		= cpuFeature.HW_SSE;
 		m_feature.SSE2		= cpuFeature.HW_SSE2;
