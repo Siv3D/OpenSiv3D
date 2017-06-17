@@ -705,7 +705,7 @@
     <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\dictBuilder\zdict.c" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Siv3D\Include\Siv3D\Point.inl" />
+    <None Include="..\Siv3D\Include\Siv3D\Point.ipp" />
     <None Include="..\Siv3D\Source\ThirdParty\FeatureDetector\cpu_x86_Linux.ipp" />
     <None Include="..\Siv3D\Source\ThirdParty\FeatureDetector\cpu_x86_Windows.ipp" />
     <None Include="..\Siv3D\Source\ThirdParty\guetzli\order.inc" />

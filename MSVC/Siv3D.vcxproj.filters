@@ -2513,9 +2513,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Siv3D\Include\Siv3D\Point.inl">
-      <Filter>Include\Siv3D</Filter>
-    </None>
     <None Include="..\Siv3D\Source\ThirdParty\guetzli\order.inc">
       <Filter>Source\ThirdParty\guetzli</Filter>
     </None>
@@ -2524,6 +2521,9 @@
     </None>
     <None Include="..\Siv3D\Source\ThirdParty\FeatureDetector\cpu_x86_Windows.ipp">
       <Filter>Source\ThirdParty\FeatureDetector</Filter>
+    </None>
+    <None Include="..\Siv3D\Include\Siv3D\Point.ipp">
+      <Filter>Include\Siv3D</Filter>
     </None>
   </ItemGroup>
 </Project>
