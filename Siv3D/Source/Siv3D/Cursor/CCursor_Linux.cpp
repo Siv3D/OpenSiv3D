@@ -41,7 +41,6 @@ namespace s3d
 		m_previousScreenPos = m_screenPos;
 		m_previousClientPos_raw = m_screenPos;
 		m_screenDelta.set(0, 0);
-		m_clientDelta.set(0, 0);
 
 		return true;
 	}
@@ -81,12 +80,12 @@ namespace s3d
 
 	const Point& CCursor_Linux::previousClientPos() const
 	{
-		return m_previousClientPos;
+		return m_previousClientPos_transformedPoint;
 	}
 
 	const Point& CCursor_Linux::clientPos() const
 	{
-		return m_previousClientPos;
+		return m_previousClientPos_transformedPoint;
 	}
 
 	Point CCursor_Linux::clientDelta() const

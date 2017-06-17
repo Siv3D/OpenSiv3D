@@ -51,7 +51,6 @@ namespace s3d
 		m_previousScreenPos = m_screenPos;
 		m_previousClientPos_raw = m_screenPos;
 		m_screenDelta.set(0, 0);
-		m_clientDelta.set(0, 0);
 
 		return true;
 	}
@@ -78,7 +77,7 @@ namespace s3d
 		m_clientPos_transformedPoint			= m_clientPos_transformedVec2.asPoint();
 		m_previousClientPos_transformedPoint	= m_previousClientPos_transformedVec2.asPoint();
 		
-		if (Window::ClientRect().intersects(m_clientPos) && m_curerntCursorStyle != CursorStyle::Default)
+		if (Window::ClientRect().intersects(m_clientPos_raw) && m_curerntCursorStyle != CursorStyle::Default)
 		{
 			detail::CursorSetStyle_macOS(m_curerntCursorStyle);
 		}
@@ -101,12 +100,12 @@ namespace s3d
 
 	const Point& CCursor_macOS::previousClientPos() const
 	{
-		return m_previousClientPos;
+		return m_previousClientPos_transformedPoint;
 	}
 
 	const Point& CCursor_macOS::clientPos() const
 	{
-		return m_previousClientPos;
+		return m_previousClientPos_transformedPoint;
 	}
 
 	Point CCursor_macOS::clientDelta() const
@@ -131,7 +130,7 @@ namespace s3d
 
 	void CCursor_macOS::setPos(const int32 x, const int32 y)
 	{
-		const Point screenPos = Point(x, y) + (m_screenPos - m_clientPos);
+		const Point screenPos = Point(x, y) + (m_screenPos - m_clientPos_raw);
 		
 		detail::CursorSetPos_macOS(screenPos.x, screenPos.y);
 		
