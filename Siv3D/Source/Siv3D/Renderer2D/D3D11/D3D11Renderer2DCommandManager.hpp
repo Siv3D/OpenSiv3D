@@ -27,6 +27,7 @@
 # include <Siv3D/RasterizerState.hpp>
 # include <Siv3D/SamplerState.hpp>
 # include <Siv3D/Rectangle.hpp>
+# include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/Texture.hpp>
 # include <Siv3D/RenderTexture.hpp>
 # include <Siv3D/HashMap.hpp>
@@ -54,6 +55,8 @@ namespace s3d
 		ScissorRect,
 
 		Viewport,
+
+		Transform,
 
 		PixelShader,
 
@@ -177,6 +180,19 @@ namespace s3d
 	};
 
 	template <>
+	struct D3D11Render2DCommand<D3D11Render2DInstruction::Transform>
+	{
+		D3D11Render2DCommandHeader header =
+		{
+			D3D11Render2DInstruction::Transform,
+
+			sizeof(D3D11Render2DCommand<D3D11Render2DInstruction::Transform>)
+		};
+
+		Mat3x2 matrix;
+	};
+
+	template <>
 	struct D3D11Render2DCommand<D3D11Render2DInstruction::PixelShader>
 	{
 		D3D11Render2DCommandHeader header =
@@ -243,6 +259,10 @@ namespace s3d
 
 		Optional<Rect> m_currentViewport;
 
+		Mat3x2 m_currentTransform = Mat3x2::Identity();
+
+		float m_currentMaxScaling = 1.0f;
+
 		Optional<D3D11Render2DPixelShaderType> m_currentPSType;
 
 		HashMap<Texture::IDType, Texture> m_reservedTextures;
@@ -307,6 +327,8 @@ namespace s3d
 
 		void pushViewport(const Optional<Rect>& viewport);
 
+		void pushTransform(const Mat3x2& matrix);
+
 		void pushPSTexture(const uint32 slot, const Texture& texture);
 
 		void pushRenderTarget(const RenderTexture& texture);
@@ -339,6 +361,16 @@ namespace s3d
 		const Optional<Rect>& getCurrentViewport() const
 		{
 			return m_currentViewport;
+		}
+
+		const Mat3x2& getCurrentTransform() const
+		{
+			return m_currentTransform;
+		}
+
+		float getCurrentMaxScaling() const noexcept
+		{
+			return m_currentMaxScaling;
 		}
 	};
 }

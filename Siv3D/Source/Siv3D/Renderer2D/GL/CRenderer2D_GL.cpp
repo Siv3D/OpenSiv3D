@@ -338,6 +338,21 @@ namespace s3d
 	{
 		return m_commandManager.getCurrentViewport();
 	}
+
+	void CRenderer2D_GL::setTransform(const Mat3x2& matrix)
+	{
+		m_commandManager.pushTransform(matrix);
+	}
+
+	const Mat3x2& CRenderer2D_GL::getTransform() const
+	{
+		return m_commandManager.getCurrentTransform();
+	}
+
+	float CRenderer2D_GL::getMaxScaling() const
+	{
+		return m_commandManager.getCurrentMaxScaling();
+	}
 	
 	void CRenderer2D_GL::addLine(const LineStyle& style, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2])
 	{
