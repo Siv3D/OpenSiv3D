@@ -59,6 +59,7 @@ namespace s3d
 		m_window.release();
 		m_imageFormat.release();
 		m_console.release();
+		m_cpu.release();
 		m_system.release();
 		m_logger.release();
 
