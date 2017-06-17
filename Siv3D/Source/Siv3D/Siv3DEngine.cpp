@@ -12,6 +12,7 @@
 # include "Siv3DEngine.hpp"
 # include "Logger/ILogger.hpp"
 # include "System/ISystem.hpp"
+# include "CPU/ICPU.hpp"
 # include "Console/IConsole.hpp"
 # include "ImageFormat/IImageFormat.hpp"
 # include "Window/IWindow.hpp"

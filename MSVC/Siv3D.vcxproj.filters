@@ -455,6 +455,12 @@
     <Filter Include="Source\Siv3D\TextBox">
       <UniqueIdentifier>{4455d053-f1e6-41a9-bb86-47b8855aba70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\CPU">
+      <UniqueIdentifier>{0ea9d2d2-961a-495e-b733-665164c9b2a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ThirdParty\FeatureDetector">
+      <UniqueIdentifier>{26ae999f-bd0c-4d1f-b7c8-eea2f598bce1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1693,6 +1699,18 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\TextBox\CTextBox.hpp">
       <Filter>Source\Siv3D\TextBox</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\CPU.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\CPU\ICPU.hpp">
+      <Filter>Source\Siv3D\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\CPU\CCPU.hpp">
+      <Filter>Source\Siv3D\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\FeatureDetector\cpu_x86.h">
+      <Filter>Source\ThirdParty\FeatureDetector</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2469,6 +2487,18 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextBox\SivTextBox.cpp">
       <Filter>Source\Siv3D\TextBox</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\CPU\CPUFactory.cpp">
+      <Filter>Source\Siv3D\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\CPU\SivCPU.cpp">
+      <Filter>Source\Siv3D\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\CPU\CCPU.cpp">
+      <Filter>Source\Siv3D\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\FeatureDetector\cpu_x86.cpp">
+      <Filter>Source\ThirdParty\FeatureDetector</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\Include\Siv3D\Point.inl">
@@ -2476,6 +2506,12 @@
     </None>
     <None Include="..\Siv3D\Source\ThirdParty\guetzli\order.inc">
       <Filter>Source\ThirdParty\guetzli</Filter>
+    </None>
+    <None Include="..\Siv3D\Source\ThirdParty\FeatureDetector\cpu_x86_Linux.ipp">
+      <Filter>Source\ThirdParty\FeatureDetector</Filter>
+    </None>
+    <None Include="..\Siv3D\Source\ThirdParty\FeatureDetector\cpu_x86_Windows.ipp">
+      <Filter>Source\ThirdParty\FeatureDetector</Filter>
     </None>
   </ItemGroup>
 </Project>

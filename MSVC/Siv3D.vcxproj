@@ -25,6 +25,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\AlignedAllocator.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\AlignedMemory.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\CPU.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Icon.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Print.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Array.hpp" />
@@ -222,6 +223,8 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Console\IConsole.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\ConstantBuffer\D3D11\D3D11ConstantBuffer.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\ConstantBuffer\GL\GLConstantBuffer.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\CPU\CCPU.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\CPU\ICPU.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_Linux.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_macOS.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_Windows.hpp" />
@@ -326,6 +329,7 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\ieee.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\strtod.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\utils.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\FeatureDetector\cpu_x86.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\giflib\gif_hash.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\giflib\gif_lib.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\giflib\gif_lib_private.h" />
@@ -464,6 +468,9 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\ConstantBuffer\D3D11\D3D11ConstantBuffer.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ConstantBuffer\GL\GLConstantBuffer.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\ConstantBuffer\SivConstantBuffer.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\CPU\CCPU.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\CPU\CPUFactory.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\CPU\SivCPU.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\CubicBezier\SivCubicBezier.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_Linux.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_macOS.cpp" />
@@ -642,6 +649,7 @@
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\fast-dtoa.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\fixed-dtoa.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\strtod.cc" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\FeatureDetector\cpu_x86.cpp" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\fmt\format.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\dgif_lib.c" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\egif_lib.c" />
@@ -694,6 +702,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\Include\Siv3D\Point.inl" />
+    <None Include="..\Siv3D\Source\ThirdParty\FeatureDetector\cpu_x86_Linux.ipp" />
+    <None Include="..\Siv3D\Source\ThirdParty\FeatureDetector\cpu_x86_Windows.ipp" />
     <None Include="..\Siv3D\Source\ThirdParty\guetzli\order.inc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

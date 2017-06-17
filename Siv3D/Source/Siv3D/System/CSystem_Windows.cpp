@@ -15,6 +15,7 @@
 # include "../Siv3DEngine.hpp"
 # include "CSystem_Windows.hpp"
 # include "../Logger/ILogger.hpp"
+# include "../CPU/ICPU.hpp"
 # include "../ImageFormat/IImageFormat.hpp"
 # include "../Window/IWindow.hpp"
 # include "../Profiler/IProfiler.hpp"
@@ -46,6 +47,11 @@ namespace s3d
 	bool CSystem_Windows::init()
 	{
 		if (!Siv3DEngine::GetLogger()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetCPU()->init())
 		{
 			return false;
 		}

@@ -113,7 +113,7 @@ namespace s3d
 				}
 				case WM_CHAR:
 				{
-					Siv3DEngine::GetTextInput()->pushChar(wParam);
+					Siv3DEngine::GetTextInput()->pushChar(static_cast<uint32>(wParam));
 
 					return 0;
 				}
@@ -124,7 +124,7 @@ namespace s3d
 						return true;
 					}
 
-					Siv3DEngine::GetTextInput()->pushChar(wParam);
+					Siv3DEngine::GetTextInput()->pushChar(static_cast<uint32>(wParam));
 
 					return 0;
 				}
