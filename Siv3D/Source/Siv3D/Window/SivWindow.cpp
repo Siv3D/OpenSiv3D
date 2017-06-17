@@ -81,5 +81,15 @@ namespace s3d
 
 			return result;
 		}
+
+		void SetBaseSize(const s3d::Size& size)
+		{
+			Siv3DEngine::GetWindow()->setBaseSize(size);
+		}
+
+		s3d::Size BaseSize()
+		{
+			return Siv3DEngine::GetWindow()->getBaseSize();
+		}
 	}
 }

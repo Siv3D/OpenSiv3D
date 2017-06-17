@@ -1,20 +1,36 @@
 ﻿# include <Siv3D.hpp>
+# include <HamFramework.hpp>
 
 void Main()
 {
-	Graphics::SetBackground(ColorF(0.7, 0.9, 0.5));
+	ScalableWindow::SetBaseSize(640, 480);
 
-	const Font font(20);
-	TextBox textbox(font, 30, 30, 200, L"", L"");
+	Window::Resize(1000, 800);
+
+	Graphics::SetBackground(Palette::White);
+
+	const int32 dotSize = 40;
+
+	Grid<int32> dots(Window::BaseWidth() / dotSize, Window::BaseHeight() / dotSize);
 
 	while (System::Update())
 	{
-		{
-			Transformer2D tr(Mat3x2::Scale(2.0));
-		
-			textbox.update();
+		const auto transformer = ScalableWindow::CreateTransformer();
 
-			textbox.draw();
+		for (auto p : step({ dots.size() }))
+		{
+			const Rect rect(p * dotSize, dotSize, dotSize);
+
+			if (rect.leftClicked())
+			{
+				++dots[p.y][p.x] %= 4;
+			}
+
+			const Color color(240 - dots[p.y][p.x] * 70);
+
+			rect.stretched(-1).draw(color);
 		}
+
+		ScalableWindow::DrawBlackBars(HSV(40, 0.2, 0.9));
 	}
 }

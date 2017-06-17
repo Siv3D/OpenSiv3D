@@ -311,6 +311,16 @@ namespace s3d
 		}
 	}
 
+	void CWindow_Windows::setBaseSize(const Size& size)
+	{
+		m_baseSize = size;
+	}
+
+	Size CWindow_Windows::getBaseSize() const
+	{
+		return m_baseSize;
+	}
+
 	void CWindow_Windows::requestResize()
 	{
 		m_resizeRequest = true;

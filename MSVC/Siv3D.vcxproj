@@ -22,6 +22,7 @@
     <ClInclude Include="..\Siv3D\Include\HamFramework.hpp" />
     <ClInclude Include="..\Siv3D\Include\HamFramework\MiniScene.hpp" />
     <ClInclude Include="..\Siv3D\Include\HamFramework\Rx.hpp" />
+    <ClInclude Include="..\Siv3D\Include\HamFramework\ScalableWindow.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\AlignedAllocator.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\AlignedMemory.hpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextureFormat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextureRegion.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Threading.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Transformer2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Triangle.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Vertex2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\VertexShader.hpp" />

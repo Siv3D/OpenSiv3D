@@ -35,9 +35,8 @@ namespace s3d
 		update();
 
 		m_previousScreenPos = m_screenPos;
-		m_previousClientPos = m_screenPos;
+		m_previousClientPos_raw = m_screenPos;
 		m_screenDelta.set(0, 0);
-		m_clientDelta.set(0, 0);
 
 		m_cursorStyles[size_t(CursorStyle::Arrow)] = ::LoadCursorW(nullptr, IDC_ARROW);
 		m_cursorStyles[size_t(CursorStyle::IBeam)] = ::LoadCursorW(nullptr, IDC_IBEAM);
@@ -65,9 +64,14 @@ namespace s3d
 
 		POINT clientPos = screenPos;
 		::ScreenToClient(m_hWnd, &clientPos);
-		m_clientPos.set(clientPos.x, clientPos.y);
-		m_clientDelta = m_clientPos - m_previousClientPos;
-		m_previousClientPos = m_clientPos;
+		m_clientPos_raw.set(clientPos.x, clientPos.y);
+		m_previousClientPos_raw = m_clientPos_raw;
+
+		m_clientPos_transformedVec2			= m_transformInv.transform(m_clientPos_raw);
+		m_previousClientPos_transformedVec2	= m_transformInv.transform(m_previousClientPos_raw);
+		
+		m_clientPos_transformedPoint			= m_clientPos_transformedVec2.asPoint();
+		m_previousClientPos_transformedPoint	= m_previousClientPos_transformedVec2.asPoint();
 
 		::SetCursor(m_cursorStyles[static_cast<size_t>(m_curerntCursorStyle)]);
 	}
@@ -89,17 +93,32 @@ namespace s3d
 
 	const Point& CCursor_Windows::previousClientPos() const
 	{
-		return m_previousClientPos;
+		return m_previousClientPos_transformedPoint;
 	}
 
 	const Point& CCursor_Windows::clientPos() const
 	{
-		return m_previousClientPos;
+		return m_previousClientPos_transformedPoint;
 	}
 
-	const Point& CCursor_Windows::clientDelta() const
+	Point CCursor_Windows::clientDelta() const
 	{
-		return m_clientDelta;
+		return m_clientPos_transformedPoint - m_previousClientPos_transformedPoint;
+	}
+
+	const Vec2& CCursor_Windows::previousClientPosF() const
+	{
+		return m_previousClientPos_transformedVec2;
+	}
+
+	const Vec2& CCursor_Windows::clientPosF() const
+	{
+		return m_previousClientPos_transformedVec2;
+	}
+
+	Vec2 CCursor_Windows::clientDeltaF() const
+	{
+		return m_clientPos_transformedVec2 - m_previousClientPos_transformedVec2;
 	}
 
 	void CCursor_Windows::setPos(const int32 x, const int32 y)
@@ -108,8 +127,33 @@ namespace s3d
 		::ClientToScreen(m_hWnd, &point);
 		::SetCursorPos(point.x, point.y);
 		
-		m_clientPos.set(x, y);
+		m_clientPos_raw.set(x, y);
 		m_screenPos.set(point.x, point.y);
+
+		m_clientPos_transformedVec2		= m_transformInv.transform(m_clientPos_raw);
+		m_clientPos_transformedPoint	= m_clientPos_transformedVec2.asPoint();
+	}
+
+	void CCursor_Windows::setTransform(const Mat3x2& matrix)
+	{
+		if (!::memcmp(&m_transform, &matrix, sizeof(Mat3x2)))
+		{
+			return;
+		}
+
+		m_transform = matrix;
+		m_transformInv = m_transform.inverse();
+
+		m_clientPos_transformedVec2			= m_transformInv.transform(m_clientPos_raw);
+		m_previousClientPos_transformedVec2	= m_transformInv.transform(m_previousClientPos_raw);
+		
+		m_clientPos_transformedPoint			= m_clientPos_transformedVec2.asPoint();
+		m_previousClientPos_transformedPoint	= m_previousClientPos_transformedVec2.asPoint();
+	}
+
+	const Mat3x2& CCursor_Windows::getTransform() const
+	{
+		return m_transform;
 	}
 
 	void CCursor_Windows::clipClientRect(const bool clip)

@@ -36,6 +36,8 @@ namespace s3d
 		
 		WindowState m_state;
 
+		Size m_baseSize = Window::DefaultClientSize;
+
 		bool m_resizeRequest = false;
 
 		void initState();
@@ -67,6 +69,10 @@ namespace s3d
 		void updateClientSize(bool fullScreen, const Size& size) override;
 
 		void requestResize();
+
+		void setBaseSize(const Size& size) override;
+
+		Size getBaseSize() const override;
 	};
 }
 

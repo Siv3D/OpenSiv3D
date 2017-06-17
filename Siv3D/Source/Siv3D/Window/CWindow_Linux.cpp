@@ -152,6 +152,16 @@ namespace s3d
 		::glfwGetWindowSize(m_glfwWindow, &windowSizeX, &windowSizeY);
 		m_state.windowSize.set(windowSizeX, windowSizeY);
 	}
+
+	void CWindow_Linux::setBaseSize(const Size& size)
+	{
+		m_baseSize = size;
+	}
+
+	Size CWindow_Linux::getBaseSize() const
+	{
+		return m_baseSize;
+	}
 }
 
 # endif

@@ -1711,6 +1711,12 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\FeatureDetector\cpu_x86.h">
       <Filter>Source\ThirdParty\FeatureDetector</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\HamFramework\ScalableWindow.hpp">
+      <Filter>Include\HamFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Transformer2D.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">

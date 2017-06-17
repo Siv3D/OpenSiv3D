@@ -27,7 +27,7 @@ namespace s3d
 
 		Vec2 PosF()
 		{
-			return Siv3DEngine::GetCursor()->clientPos();
+			return Siv3DEngine::GetCursor()->clientPosF();
 		}
 
 		Point PreviousPos()
@@ -37,7 +37,7 @@ namespace s3d
 
 		Vec2 PreviousPosF()
 		{
-			return Siv3DEngine::GetCursor()->previousClientPos();
+			return Siv3DEngine::GetCursor()->previousClientPosF();
 		}
 
 		Point Delta()
@@ -47,7 +47,7 @@ namespace s3d
 
 		Vec2 DeltaF()
 		{
-			return Siv3DEngine::GetCursor()->clientDelta();
+			return Siv3DEngine::GetCursor()->clientDeltaF();
 		}
 
 		Point ScreenPos()
@@ -74,6 +74,16 @@ namespace s3d
 		{
 			return Geometry2D::Intersect(Siv3DEngine::GetCursor()->clientPos(),
 				Rect(Siv3DEngine::GetWindow()->getState().clientSize));
+		}
+
+		void SetTransform(const Mat3x2& matrix) 
+		{
+			Siv3DEngine::GetCursor()->setTransform(matrix);
+		}
+
+		const Mat3x2& GetTransform()
+		{
+			return Siv3DEngine::GetCursor()->getTransform();
 		}
 
 		void ClipClientRect(bool clip)

@@ -186,5 +186,24 @@ namespace s3d
 		{
 			return Resize(size.x, size.y, centering);
 		}
+
+		void SetBaseSize(const s3d::Size& size);
+
+		s3d::Size BaseSize();
+
+		inline Point BaseCenter()
+		{
+			return BaseSize() / 2;
+		}
+
+		inline int32 BaseWidth()
+		{
+			return BaseSize().x;
+		}
+
+		inline int32 BaseHeight()
+		{
+			return BaseSize().y;
+		}
 	}
 }

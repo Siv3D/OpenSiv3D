@@ -119,6 +119,16 @@ namespace s3d
 
 		bool OnClientRect();
 
+		void SetTransform(const Mat3x2& matrix);
+
+		/// <summary>
+		/// クライアント座標系のカーソル位置に適用されている座標変換を返します。
+		/// </summary>
+		/// <returns>
+		/// 適用されている座標変換
+		/// </returns>
+		const Mat3x2& GetTransform();
+
 		/// <summary>
 		/// マウスカーソルの移動範囲をクライアント画面に制限します
 		/// </summary>

@@ -49,7 +49,7 @@ namespace s3d
 		update();
 
 		m_previousScreenPos = m_screenPos;
-		m_previousClientPos = m_screenPos;
+		m_previousClientPos_raw = m_screenPos;
 		m_screenDelta.set(0, 0);
 		m_clientDelta.set(0, 0);
 
@@ -69,9 +69,14 @@ namespace s3d
 
 		double clientX, clientY;
 		::glfwGetCursorPos(m_glfwWindow, &clientX, &clientY);
-		m_clientPos.set(static_cast<int32>(clientX), static_cast<int32>(clientY));
-		m_clientDelta = m_clientPos - m_previousClientPos;
-		m_previousClientPos = m_clientPos;
+		m_clientPos_raw.set(static_cast<int32>(clientX), static_cast<int32>(clientY));
+		m_previousClientPos_raw = m_clientPos_raw;
+
+		m_clientPos_transformedVec2			= m_transformInv.transform(m_clientPos_raw);
+		m_previousClientPos_transformedVec2	= m_transformInv.transform(m_previousClientPos_raw);
+		
+		m_clientPos_transformedPoint			= m_clientPos_transformedVec2.asPoint();
+		m_previousClientPos_transformedPoint	= m_previousClientPos_transformedVec2.asPoint();
 		
 		if (Window::ClientRect().intersects(m_clientPos) && m_curerntCursorStyle != CursorStyle::Default)
 		{
@@ -104,9 +109,24 @@ namespace s3d
 		return m_previousClientPos;
 	}
 
-	const Point& CCursor_macOS::clientDelta() const
+	Point CCursor_macOS::clientDelta() const
 	{
-		return m_clientDelta;
+		return m_clientPos_transformedPoint - m_previousClientPos_transformedPoint;
+	}
+
+	const Vec2& CCursor_macOS::previousClientPosF() const
+	{
+		return m_previousClientPos_transformedVec2;
+	}
+
+	const Vec2& CCursor_macOS::clientPosF() const
+	{
+		return m_previousClientPos_transformedVec2;
+	}
+
+	Vec2 CCursor_macOS::clientDeltaF() const
+	{
+		return m_clientPos_transformedVec2 - m_previousClientPos_transformedVec2;
 	}
 
 	void CCursor_macOS::setPos(const int32 x, const int32 y)
@@ -115,8 +135,34 @@ namespace s3d
 		
 		detail::CursorSetPos_macOS(screenPos.x, screenPos.y);
 		
-		m_clientPos.set(x, y);
+		m_clientPos_raw.set(x, y);
 		m_screenPos.set(screenPos);
+
+		m_clientPos_transformedVec2		= m_transformInv.transform(m_clientPos_raw);
+		m_clientPos_transformedPoint	= m_clientPos_transformedVec2.asPoint();
+
+	}
+
+	void CCursor_macOS::setTransform(const Mat3x2& matrix)
+	{
+		if (!::memcmp(&m_transform, &matrix, sizeof(Mat3x2)))
+		{
+			return;
+		}
+
+		m_transform = matrix;
+		m_transformInv = m_transform.inverse();
+
+		m_clientPos_transformedVec2 = m_transformInv.transform(m_clientPos_raw);
+		m_previousClientPos_transformedVec2 = m_transformInv.transform(m_previousClientPos_raw);
+
+		m_clientPos_transformedPoint = m_clientPos_transformedVec2.asPoint();
+		m_previousClientPos_transformedPoint = m_previousClientPos_transformedVec2.asPoint();
+	}
+
+	const Mat3x2& CCursor_macOS::getTransform() const
+	{
+		return m_transform;
 	}
 
 	void CCursor_macOS::clip(const Optional<Rect>& rect)

@@ -28,6 +28,8 @@ namespace s3d
 		WindowHandle m_glfwWindow = nullptr;
 
 		WindowState m_state;
+
+		Size m_baseSize = Window::DefaultClientSize;
 		
 	public:
 
@@ -50,6 +52,10 @@ namespace s3d
 		void setPos(const Point& pos) override;
 		
 		void updateClientSize(bool fullScreen, const Size& size) override;
+
+		void setBaseSize(const Size& size) override;
+
+		Size getBaseSize() const override;
 	};
 }
 

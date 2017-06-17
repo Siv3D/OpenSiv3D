@@ -13,6 +13,121 @@
 
 namespace s3d
 {
+	namespace ScalableWindow
+	{
+		enum class ContentScale
+		{
+			EnsureFit,
+			
+			Maximize,
+			
+			Default = EnsureFit
+		};
+
+		inline void SetBaseSize(const Size& baseSize = Size(640, 480))
+		{
+			//Window::SetStyle(WindowStyle::Sizeable);
+
+			Window::SetBaseSize(baseSize);
+		}
+
+		inline void SetBaseSize(int32 width, int32 height)
+		{
+			return SetBaseSize({ width, height });
+		}
+
+		inline Transformer2D CreateTransformer(const Size& baseSize, ContentScale contentScale = ContentScale::Default)
+		{
+			const double sx = static_cast<double>(Window::Width()) / baseSize.x;
+
+			const double sy = static_cast<double>(Window::Height()) / baseSize.y;
+
+			const double s = (contentScale == ContentScale::EnsureFit) ? Min(sx, sy) : Max(sx, sy);
+
+			if (sx <= sy)
+			{
+				return Transformer2D(Mat3x2::Scale(s).translate(0, (Window::Height() - baseSize.y * s) * 0.5), true);
+			}
+			else
+			{
+				return Transformer2D(Mat3x2::Scale(s).translate((Window::Width() - baseSize.x * s) * 0.5, 0), true);
+			}
+		}
+
+		inline Transformer2D CreateTransformer(int32 width, int32 height, ContentScale contentScale = ContentScale::Default)
+		{
+			return CreateTransformer({ width, height }, contentScale);
+		}
+
+		inline Transformer2D CreateTransformer(ContentScale contentScale = ContentScale::Default)
+		{
+			return CreateTransformer(Window::BaseSize(), contentScale);
+		}
+
+		inline RectF GetVirtualWindowArea(const Size& baseSize = Window::BaseSize())
+		{
+			const double sx = static_cast<double>(Window::Width()) / baseSize.x;
+
+			const double sy = static_cast<double>(Window::Height()) / baseSize.y;
+
+			const double s = Min(sx, sy);
+
+			if (sx <= sy)
+			{
+				return RectF(baseSize * s).moveBy(0, (Window::Height() - baseSize.y * s) * 0.5);
+			}
+			else
+			{
+				return RectF(baseSize * s).moveBy((Window::Width() - baseSize.x * s) * 0.5, 0);
+			}
+		}
+
+		inline Array<RectF> GetBlackBars(const Size& baseSize = Window::BaseSize())
+		{
+			const double sx = static_cast<double>(Window::Width()) / baseSize.x;
+
+			const double sy = static_cast<double>(Window::Height()) / baseSize.y;
+
+			const double s = Min(sx, sy);
+
+			if (sx < sy)
+			{
+				const double h = (Window::Height() - baseSize.y * s) * 0.5;
+
+				return{ RectF(0, 0, Window::Width(), h), RectF(0, Window::Height() - h,Window::Width(), h) };
+			}
+			else if (sx > sy)
+			{
+				const double w = (Window::Width() - baseSize.x * s) * 0.5;
+
+				return{ RectF(0, 0, w, Window::Height()), RectF(Window::Width() - w, 0, w, Window::Height()) };
+			}
+			else
+			{
+				return{};
+			}
+		}
+
+		inline Array<RectF> GetBlackBars(int32 width, int32 height)
+		{
+			return GetBlackBars({ width, height });
+		}
+
+		inline void DrawBlackBars(const ColorF& color = Palette::Black, const Size& baseSize = Window::BaseSize())
+		{
+			Transformer2D transformer(Graphics2D::GetTransform().inverse());
+
+			for (const auto& bar : GetBlackBars(baseSize))
+			{
+				bar.draw(color);
+			}
+		}
+
+		inline void DrawBlackBars(const ColorF& color, int32 width, int32 height)
+		{
+			return DrawBlackBars(color, { width, height });
+		}
+	}
 }
 
 /* example
