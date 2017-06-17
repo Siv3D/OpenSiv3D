@@ -773,8 +773,9 @@ namespace s3d
 		const float absR = std::abs(r);
 		const float centerX = center.x;
 		const float centerY = center.y;
+		const float scale = getMaxScaling();
 
-		const IndexType quality = detail::CalculateCircleQuality(absR);
+		const IndexType quality = detail::CalculateCircleQuality(absR * scale);
 		const IndexType vertexSize = quality + 1, indexSize = quality * 3;
 		Vertex2D* pVertex;
 		IndexType* pIndex;
@@ -815,7 +816,8 @@ namespace s3d
 	void CRenderer2D_D3D11::addCircleFrame(const Float2& center, const float r, const float thickness, const Float4& color)
 	{
 		const float rt = r + thickness;
-		const IndexType quality = detail::CalculateCircleFrameQuality(rt);
+		const float scale = getMaxScaling();
+		const IndexType quality = detail::CalculateCircleFrameQuality(rt * scale);
 		const IndexType vertexSize = quality * 2, indexSize = quality * 6;
 		Vertex2D* pVertex;
 		IndexType* pIndex;
@@ -859,7 +861,8 @@ namespace s3d
 	void CRenderer2D_D3D11::addCircleFrame(const Float2& center, const float r, const float thickness, const Float4& innerColor, const Float4& outerColor)
 	{
 		const float rt = r + thickness;
-		const IndexType quality = detail::CalculateCircleFrameQuality(rt);
+		const float scale = getMaxScaling();
+		const IndexType quality = detail::CalculateCircleFrameQuality(rt * scale);
 		const IndexType vertexSize = quality * 2, indexSize = quality * 6;
 		Vertex2D* pVertex;
 		IndexType* pIndex;
@@ -909,7 +912,8 @@ namespace s3d
 
 		angle = Clamp(angle, -Math::TwoPiF, Math::TwoPiF);
 
-		const IndexType quality = detail::CalculateCirclePieQuality(r, angle);
+		const float scale = getMaxScaling();
+		const IndexType quality = detail::CalculateCirclePieQuality(r * scale, angle);
 		const IndexType vertexSize = quality + 1, indexSize = (quality - 1) * 3;
 		Vertex2D* pVertex;
 		IndexType* pIndex;
@@ -962,7 +966,8 @@ namespace s3d
 		angle = Clamp(angle, -Math::TwoPiF, Math::TwoPiF);
 
 		const float rt = r + thickness;
-		const IndexType quality = detail::CalculateCircleFrameQuality(rt);
+		const float scale = getMaxScaling();
+		const IndexType quality = detail::CalculateCircleFrameQuality(rt * scale);
 		const IndexType vertexSize = quality * 2, indexSize = (quality - 1) * 6;
 		Vertex2D* pVertex;
 		IndexType* pIndex;
@@ -1054,7 +1059,8 @@ namespace s3d
 		const float at = a + thickness;
 		const float bt = b + thickness;
 		const float majorT = std::max(std::abs(at), std::abs(bt));
-		const IndexType quality = detail::CalculateCircleFrameQuality(majorT);
+		const float scale = getMaxScaling();
+		const IndexType quality = detail::CalculateCircleFrameQuality(majorT * scale);
 		const IndexType vertexSize = quality * 2, indexSize = quality * 6;
 		Vertex2D* pVertex;
 		IndexType* pIndex;

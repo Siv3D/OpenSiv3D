@@ -263,8 +263,8 @@
 	# include "Siv3D/RoundRect.hpp"
 	// 連続した複数の線分
 	# include "Siv3D/LineString.hpp"
-	//// 多角形
-	//# include "Siv3D/Polygon.hpp"
+	// 多角形
+	# include "Siv3D/Polygon.hpp"
 	//// 多角形の集合
 	//# include "Siv3D/MultiPolygon.hpp"
 	// Float 型の長方形

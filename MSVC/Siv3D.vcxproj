@@ -29,6 +29,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\AlignedMemory.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\CPU.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Icon.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Polygon.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Print.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Array.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ArrayBool.hpp" />

@@ -34,7 +34,7 @@ void Main()
 
 		for (const auto& emoji : emojis)
 		{
-			textures[emoji.second].drawAt(emoji.first);
+			Circle(emoji.first, 20).draw();
 		}
 
 		ScalableWindow::DrawBlackBars(ColorF(0.0, 0.8));

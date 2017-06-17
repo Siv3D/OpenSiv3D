@@ -13,6 +13,8 @@
 # include <Siv3D/Circular.hpp>
 # include <Siv3D/Texture.hpp>
 # include <Siv3D/TexturedRoundRect.hpp>
+# include "../Siv3DEngine.hpp"
+# include "../Renderer2D/IRenderer2D.hpp"
 
 namespace s3d
 {
@@ -30,7 +32,8 @@ namespace s3d
 	const RoundRect& TexturedRoundRect::draw(const ColorF& diffuse) const
 	{
 		const double rr = std::min({ rect.w * 0.5, rect.h * 0.5, rect.r });
-		const int32 quality = detail::CaluculateFanQuality(rr);
+		const float scale = Siv3DEngine::GetRenderer2D()->getMaxScaling();
+		const int32 quality = detail::CaluculateFanQuality(rr * scale);
 		const double radDelta = Math::HalfPi / (quality - 1);
 
 		Array<Float2> fanPositions(quality);
