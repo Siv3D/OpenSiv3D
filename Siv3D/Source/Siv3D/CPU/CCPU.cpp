@@ -51,7 +51,7 @@ namespace s3d
 
 			char brand[0x40] = {};
 
-			if (nExIDs >= 0x80000004)
+			if (static_cast<uint32>(nExIDs) >= 0x80000004)
 			{
 				::memcpy(brand, &extData[8], sizeof(cpui));
 				::memcpy(brand + 16, &extData[12], sizeof(cpui));

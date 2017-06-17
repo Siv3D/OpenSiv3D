@@ -697,6 +697,8 @@
 		2CAAB12F1EF513B90000A06D /* Transformer2D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB12E1EF513B90000A06D /* Transformer2D.hpp */; };
 		2CAAB1311EF51ACC0000A06D /* ScalableWindow.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB1301EF51ACC0000A06D /* ScalableWindow.hpp */; };
 		2CAAB1331EF54DAA0000A06D /* Camera2D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB1321EF54DAA0000A06D /* Camera2D.hpp */; };
+		2CAAB1351EF55B960000A06D /* Polygon.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB1341EF55B960000A06D /* Polygon.hpp */; };
+		2CAAB1371EF55C390000A06D /* Point.ipp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB1361EF55C390000A06D /* Point.ipp */; };
 		2CAE4D961EE039670057BE7E /* SivTexturedCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE4D951EE039670057BE7E /* SivTexturedCircle.cpp */; };
 		2CAE4D981EE039790057BE7E /* TexturedCircle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAE4D971EE039790057BE7E /* TexturedCircle.hpp */; };
 		2CAE4DF01EE276490057BE7E /* lharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CAE4DEF1EE276490057BE7E /* lharfbuzz.a */; };
@@ -1199,7 +1201,6 @@
 		2C0C7CEC1EBCC39B00386CBB /* Platform.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Platform.hpp; sourceTree = "<group>"; };
 		2C0C7CED1EBCC39B00386CBB /* PlatformWindows.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PlatformWindows.hpp; sourceTree = "<group>"; };
 		2C0C7CEE1EBCC39B00386CBB /* Point.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Point.hpp; sourceTree = "<group>"; };
-		2C0C7CEF1EBCC39B00386CBB /* Point.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Point.inl; sourceTree = "<group>"; };
 		2C0C7CF01EBCC39B00386CBB /* PointVector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PointVector.hpp; sourceTree = "<group>"; };
 		2C0C7CF11EBCC39B00386CBB /* Profiler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Profiler.hpp; sourceTree = "<group>"; };
 		2C0C7CF21EBCC39B00386CBB /* Quad.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Quad.hpp; sourceTree = "<group>"; };
@@ -1566,6 +1567,8 @@
 		2CAAB12E1EF513B90000A06D /* Transformer2D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Transformer2D.hpp; sourceTree = "<group>"; };
 		2CAAB1301EF51ACC0000A06D /* ScalableWindow.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ScalableWindow.hpp; sourceTree = "<group>"; };
 		2CAAB1321EF54DAA0000A06D /* Camera2D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Camera2D.hpp; sourceTree = "<group>"; };
+		2CAAB1341EF55B960000A06D /* Polygon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Polygon.hpp; sourceTree = "<group>"; };
+		2CAAB1361EF55C390000A06D /* Point.ipp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Point.ipp; sourceTree = "<group>"; };
 		2CAE4D951EE039670057BE7E /* SivTexturedCircle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTexturedCircle.cpp; sourceTree = "<group>"; };
 		2CAE4D971EE039790057BE7E /* TexturedCircle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TexturedCircle.hpp; sourceTree = "<group>"; };
 		2CAE4DEF1EE276490057BE7E /* lharfbuzz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lharfbuzz.a; sourceTree = "<group>"; };
@@ -2915,8 +2918,9 @@
 				2C0C7CEC1EBCC39B00386CBB /* Platform.hpp */,
 				2C0C7CED1EBCC39B00386CBB /* PlatformWindows.hpp */,
 				2C0C7CEE1EBCC39B00386CBB /* Point.hpp */,
-				2C0C7CEF1EBCC39B00386CBB /* Point.inl */,
+				2CAAB1361EF55C390000A06D /* Point.ipp */,
 				2C0C7CF01EBCC39B00386CBB /* PointVector.hpp */,
+				2CAAB1341EF55B960000A06D /* Polygon.hpp */,
 				2C0C7DDE1EBF2EA200386CBB /* PowerStatus.hpp */,
 				2CAE4DFA1EE3AC080057BE7E /* Print.hpp */,
 				2C0C7CF11EBCC39B00386CBB /* Profiler.hpp */,
@@ -4138,6 +4142,7 @@
 				2C81C0111E89F8E300D27E52 /* fixed-dtoa.h in Headers */,
 				2CCA35C01ECC740400078678 /* FontData.hpp in Headers */,
 				2C81C04F1E89F8E300D27E52 /* entropy_encode.h in Headers */,
+				2CAAB1371EF55C390000A06D /* Point.ipp in Headers */,
 				2CCA36561ECC748F00078678 /* ftgloadr.h in Headers */,
 				2C0C7DBE1EBCC39B00386CBB /* Window.hpp in Headers */,
 				2C0C7C511EBCC38400386CBB /* CSystem_Windows.hpp in Headers */,
@@ -4443,6 +4448,7 @@
 				2C0C7D811EBCC39B00386CBB /* Monitor.hpp in Headers */,
 				2C2E82B01EAA1B3A0057BDAF /* prettywriter.h in Headers */,
 				2CCA366A1ECC748F00078678 /* svmm.h in Headers */,
+				2CAAB1351EF55B960000A06D /* Polygon.hpp in Headers */,
 				2C2E82981EAA1B3A0057BDAF /* en.h in Headers */,
 				2C0C7BE81EBCC38400386CBB /* ImageFormat_BMP.hpp in Headers */,
 				2C0C7D801EBCC39B00386CBB /* MessageBox.hpp in Headers */,

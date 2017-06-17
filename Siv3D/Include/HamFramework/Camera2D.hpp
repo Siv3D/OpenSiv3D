@@ -153,8 +153,7 @@ namespace s3d
 
 		std::array<Key, 6> m_keyConfig =
 		{
-			KeyW, KeyA, KeyS, KeyD,
-			KeyUp, KeyDown
+			{ KeyW, KeyA, KeyS, KeyD, KeyUp, KeyDown }
 		};
 
 		Optional<Point> m_grabPos;
