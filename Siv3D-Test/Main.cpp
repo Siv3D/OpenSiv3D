@@ -9,7 +9,12 @@ void Main()
 
 	while (System::Update())
 	{
-		textbox.update();
-		textbox.draw();
+		{
+			Transformer2D tr(Mat3x2::Scale(2.0));
+		
+			textbox.update();
+
+			textbox.draw();
+		}
 	}
 }

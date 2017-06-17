@@ -152,6 +152,8 @@ namespace s3d
 		m_pipeline.setPS(shader->getPSProgram(shader->getStandardPS(0).id()));
 		
 		m_pipeline.use();
+		Mat3x2 currentMat = Mat3x2::Identity();
+		Mat3x2 currentScreen;
 		
 		for (size_t commandIndex = 0; commandIndex < m_commandManager.getCount(); ++commandIndex)
 		{
@@ -238,14 +240,26 @@ namespace s3d
 					
 					::glViewport(viewport.x, currentRenderTargetSize.y - viewport.h - viewport.y, viewport.w, viewport.h);
 					
-					const Mat3x2 currentMat = Mat3x2::Identity();
-					const Mat3x2 currentScreen = Mat3x2::Screen(viewport.w, viewport.h);
+					currentScreen = Mat3x2::Screen(viewport.w, viewport.h);
+					
 					const Mat3x2 matrix = currentMat * currentScreen;
-
 					m_cbSprite->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
 					m_cbSprite->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
 					m_cbSprite._internal_update();
-
+					::glBindBufferBase(GL_UNIFORM_BUFFER, m_cbSprite.BindingPoint(), m_cbSprite.base()._detail()->getHandle());
+					
+					break;
+				}
+				case GLRender2DInstruction::Transform:
+				{
+					const auto* command = static_cast<const GLRender2DCommand<GLRender2DInstruction::Transform>*>(static_cast<const void*>(commandPointer));
+					
+					currentMat = command->matrix;
+					
+					const Mat3x2 matrix = currentMat * currentScreen;
+					m_cbSprite->transform[0].set(matrix._11, matrix._12, matrix._31, matrix._32);
+					m_cbSprite->transform[1].set(matrix._21, matrix._22, 0.0f, 1.0f);
+					m_cbSprite._internal_update();
 					::glBindBufferBase(GL_UNIFORM_BUFFER, m_cbSprite.BindingPoint(), m_cbSprite.base()._detail()->getHandle());
 					
 					break;

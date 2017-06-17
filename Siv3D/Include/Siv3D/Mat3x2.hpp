@@ -162,7 +162,7 @@ namespace s3d
 			_32 = a._31 * b._12 + a._32 * b._22 + b._32;
 		}
 
-		Mat3x2 operator*(const Mat3x2 &matrix) const
+		Mat3x2 operator *(const Mat3x2 &matrix) const
 		{
 			Mat3x2 result;
 			result.setProduct(*this, matrix);

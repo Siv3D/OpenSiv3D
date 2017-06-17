@@ -694,6 +694,8 @@
 		2CAAB1291EF4EBA10000A06D /* cpu_x86.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB1241EF4EBA10000A06D /* cpu_x86.h */; };
 		2CAAB12A1EF4EBA10000A06D /* cpu_x86_Linux.ipp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB1251EF4EBA10000A06D /* cpu_x86_Linux.ipp */; };
 		2CAAB12B1EF4EBA10000A06D /* cpu_x86_Windows.ipp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB1261EF4EBA10000A06D /* cpu_x86_Windows.ipp */; };
+		2CAAB12F1EF513B90000A06D /* Transformer2D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB12E1EF513B90000A06D /* Transformer2D.hpp */; };
+		2CAAB1311EF51ACC0000A06D /* ScalableWindow.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAAB1301EF51ACC0000A06D /* ScalableWindow.hpp */; };
 		2CAE4D961EE039670057BE7E /* SivTexturedCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAE4D951EE039670057BE7E /* SivTexturedCircle.cpp */; };
 		2CAE4D981EE039790057BE7E /* TexturedCircle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAE4D971EE039790057BE7E /* TexturedCircle.hpp */; };
 		2CAE4DF01EE276490057BE7E /* lharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CAE4DEF1EE276490057BE7E /* lharfbuzz.a */; };
@@ -1560,6 +1562,8 @@
 		2CAAB1251EF4EBA10000A06D /* cpu_x86_Linux.ipp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cpu_x86_Linux.ipp; sourceTree = "<group>"; };
 		2CAAB1261EF4EBA10000A06D /* cpu_x86_Windows.ipp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cpu_x86_Windows.ipp; sourceTree = "<group>"; };
 		2CAAB1271EF4EBA10000A06D /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		2CAAB12E1EF513B90000A06D /* Transformer2D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Transformer2D.hpp; sourceTree = "<group>"; };
+		2CAAB1301EF51ACC0000A06D /* ScalableWindow.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ScalableWindow.hpp; sourceTree = "<group>"; };
 		2CAE4D951EE039670057BE7E /* SivTexturedCircle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTexturedCircle.cpp; sourceTree = "<group>"; };
 		2CAE4D971EE039790057BE7E /* TexturedCircle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TexturedCircle.hpp; sourceTree = "<group>"; };
 		2CAE4DEF1EE276490057BE7E /* lharfbuzz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lharfbuzz.a; sourceTree = "<group>"; };
@@ -2792,6 +2796,7 @@
 			children = (
 				2C0C7C831EBCC39A00386CBB /* MiniScene.hpp */,
 				2C0C7C841EBCC39A00386CBB /* Rx.hpp */,
+				2CAAB1301EF51ACC0000A06D /* ScalableWindow.hpp */,
 			);
 			path = HamFramework;
 			sourceTree = "<group>";
@@ -2959,6 +2964,7 @@
 				2C0C7D0E1EBCC39B00386CBB /* Time.hpp */,
 				2C0C7D0F1EBCC39B00386CBB /* TimeProfiler.hpp */,
 				2C0C7D101EBCC39B00386CBB /* Timer.hpp */,
+				2CAAB12E1EF513B90000A06D /* Transformer2D.hpp */,
 				2C0C7D111EBCC39B00386CBB /* Triangle.hpp */,
 				2C0C7D121EBCC39B00386CBB /* Types.hpp */,
 				2C0C7D131EBCC39B00386CBB /* TypeTraits.hpp */,
@@ -4358,6 +4364,7 @@
 				2C0C7BA81EBCC38400386CBB /* CCursor_Linux.hpp in Headers */,
 				2C0C7DA51EBCC39B00386CBB /* String.hpp in Headers */,
 				2C0C7D621EBCC39B00386CBB /* Hash.hpp in Headers */,
+				2CAAB1311EF51ACC0000A06D /* ScalableWindow.hpp in Headers */,
 				2C0C7C761EBCC38400386CBB /* IWindow.hpp in Headers */,
 				2C0C7BD71EBCC38400386CBB /* D3D11SamplerState.hpp in Headers */,
 				2C0C7D8D1EBCC39B00386CBB /* PlatformWindows.hpp in Headers */,
@@ -4532,6 +4539,7 @@
 				2C0C7B831EBCC38400386CBB /* CBinaryReader_Linux.hpp in Headers */,
 				2C0C7DE81EC01EF600386CBB /* VertexShader_GL.hpp in Headers */,
 				2C81C00B1E89F8E300D27E52 /* diy-fp.h in Headers */,
+				2CAAB12F1EF513B90000A06D /* Transformer2D.hpp in Headers */,
 				2C2E82AA1EAA1B3A0057BDAF /* memorybuffer.h in Headers */,
 				2CCA363E1ECC748E00078678 /* ftlist.h in Headers */,
 				2C2E82941EAA1B3A0057BDAF /* allocators.h in Headers */,

@@ -68,5 +68,15 @@ namespace s3d
 		{
 			return Siv3DEngine::GetRenderer2D()->getViewport();
 		}
+		
+		void SetTransform(const Mat3x2& matrix)
+		{
+			Siv3DEngine::GetRenderer2D()->setTransform(matrix);
+		}
+		
+		const Mat3x2& GetTransform()
+		{
+			return Siv3DEngine::GetRenderer2D()->getTransform();
+		}
 	}
 }

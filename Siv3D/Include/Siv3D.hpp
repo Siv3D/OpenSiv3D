@@ -497,6 +497,8 @@
 	# include "Siv3D/RenderStateBlock2D.hpp"
 	// 2D グラフィックス設定
 	# include "Siv3D/ViewportBlock2D.hpp"
+	// 2D 座標変換
+	# include "Siv3D/Transformer2D.hpp"
 //
 // テクスチャ
 //

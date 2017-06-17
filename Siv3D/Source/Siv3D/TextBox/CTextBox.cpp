@@ -15,6 +15,7 @@
 # include <Siv3D/Keyboard.hpp>
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/ViewportBlock2D.hpp>
+# include <Siv3D/Transformer2D.hpp>
 # include <Siv3D/Print.hpp>
 
 namespace s3d
@@ -118,6 +119,8 @@ namespace s3d
 
 	void TextBox::CTextBox::drawGlow(const double blurRadius, const double spread, const ColorF& color) const
 	{
+		Transformer2D transformer(Graphics2D::GetTransform().inverse());
+		
 		if (m_active)
 		{
 			m_boxState.getRect(m_pos).drawShadow(Vec2(0, 0), blurRadius, spread, color);
@@ -126,6 +129,8 @@ namespace s3d
 
 	void TextBox::CTextBox::drawBox(const ColorF& boxColor) const
 	{
+		Transformer2D transformer(Graphics2D::GetTransform().inverse());
+		
 		const RectF rect = m_boxState.getRect(m_pos);
 
 		rect.draw(boxColor);
@@ -139,6 +144,8 @@ namespace s3d
 	void TextBox::CTextBox::drawText(const ColorF& textColor, const ColorF& markedTextColor, const ColorF& descriptionColor) const
 	{
 		{
+			Transformer2D transformer(Graphics2D::GetTransform().inverse());
+			
 			const double offsetX = m_boxState.textOffsetX;
 
 			ViewportBlock2D viewport(Rect(m_boxState.getRect(m_pos)));

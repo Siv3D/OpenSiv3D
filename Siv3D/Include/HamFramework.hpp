@@ -32,5 +32,6 @@
 
 # endif
 
-# include "HamFramework/Rx.hpp"
 # include "HamFramework/MiniScene.hpp"
+# include "HamFramework/Rx.hpp"
+# include "HamFramework/ScalableWindow.hpp"
