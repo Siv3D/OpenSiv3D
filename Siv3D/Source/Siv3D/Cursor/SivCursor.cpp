@@ -13,7 +13,7 @@
 # include "ICursor.hpp"
 # include "../Window/IWindow.hpp"
 # include <Siv3D/Cursor.hpp>
-# include <Siv3D/Geometry2D.hpp>
+# include <Siv3D/Intersection.hpp>
 # include <Siv3D/Window.hpp>
 
 namespace s3d

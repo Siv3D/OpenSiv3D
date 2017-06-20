@@ -1771,6 +1771,9 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\clip2tri\clip2tri.h">
       <Filter>Source\ThirdParty\clip2tri</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Intersection.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">

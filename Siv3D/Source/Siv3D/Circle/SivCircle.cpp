@@ -11,6 +11,7 @@
 
 # include <Siv3D/Circle.hpp>
 # include <Siv3D/Ellipse.hpp>
+# include <Siv3D/Geometry2D.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/TexturedCircle.hpp>
@@ -53,6 +54,21 @@ namespace s3d
 	Ellipse Circle::scaled(const double sx, const double sy) const noexcept
 	{
 		return Ellipse(center, r * sx, r * sy);
+	}
+
+	Optional<Array<Vec2>> Circle::intersectsAt(const Line& line) const
+	{
+		return Geometry2D::IntersectAt(line, Ellipse(*this));
+	}
+
+	Optional<Array<Vec2>> Circle::intersectsAt(const Rect& rect) const
+	{
+		return Geometry2D::IntersectAt(rect, Ellipse(*this));
+	}
+
+	Optional<Array<Vec2>> Circle::intersectsAt(const RectF& rect) const
+	{
+		return Geometry2D::IntersectAt(rect, Ellipse(*this));
 	}
 
 	bool Circle::leftClicked() const

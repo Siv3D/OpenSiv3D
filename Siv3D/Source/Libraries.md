@@ -15,6 +15,7 @@
 - Guetzli v1.0.1 https://github.com/google/guetzli/releases
 - HarfBuzz 1.4.6 https://github.com/behdad/harfbuzz/releases
 - hopscotch-map v1.3.0 https://github.com/Tessil/hopscotch-map/releases
+- kld-intersections v0.1.1 https://github.com/thelonious/kld-intersections/releases
 - libjpeg-turbo 1.5.1 https://sourceforge.net/projects/libjpeg-turbo/files/
 - libpng 1.6.28 http://www.libpng.org/pub/png/libpng.html
 - LineSegmentIntersection https://www.codeproject.com/Tips/862988/Find-the-Intersection-Point-of-Two-Line-Segments
