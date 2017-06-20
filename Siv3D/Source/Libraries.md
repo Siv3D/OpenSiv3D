@@ -1,5 +1,7 @@
 - Boost 1.64.0 http://www.boost.org/users/history/version_1_64_0.html
 - butteraugli https://github.com/google/butteraugli
+- clip2tri https://github.com/raptor/clip2tri
+- Clipper http://www.angusj.com/delphi/clipper.php
 - Convenient Constructs For Stepping Through a Range of Values https://www.codeproject.com/articles/876156/convenient-constructs-for-stepping-through-a-range
 - DirectXMath 3.10 https://github.com/Microsoft/DirectXMath/releases
 - double-conversion https://github.com/google/double-conversion
@@ -18,6 +20,7 @@
 - LineSegmentIntersection https://www.codeproject.com/Tips/862988/Find-the-Intersection-Point-of-Two-Line-Segments
 - miniutf https://github.com/dropbox/miniutf
 - muparser V2.2.5 https://github.com/beltoforion/muparser/releases
+- Poly2Tri https://github.com/jhasse/poly2tri
 - RapidJSON https://github.com/miloyip/rapidjson/releases
 - xxHash v0.6.2 https://github.com/Cyan4973/xxHash/releases
 - zlib 1.2.11 http://www.zlib.net/
