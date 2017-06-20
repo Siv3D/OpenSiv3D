@@ -19,6 +19,7 @@
 # include <Siv3D/Triangle.hpp>
 # include <Siv3D/Quad.hpp>
 # include <Siv3D/RoundRect.hpp>
+# include <Siv3D/Polygon.hpp>
 
 namespace s3d
 {
@@ -295,6 +296,11 @@ namespace s3d
 			return detail::RoundRectParts(b).intersects(a);
 		}
 
+		bool Intersect(const Point& a, const Polygon& b) noexcept
+		{
+			return Intersect(Vec2(a), b);
+		}
+
 
 		bool Intersect(const Vec2& a, const Point& b) noexcept
 		{
@@ -356,6 +362,26 @@ namespace s3d
 		bool Intersect(const Vec2& a, const RoundRect& b) noexcept
 		{
 			return detail::RoundRectParts(b).intersects(a);
+		}
+
+		bool Intersect(const Vec2& a, const Polygon& b) noexcept
+		{
+			if (!b || !Intersect(a, b.boundingRect()))
+			{
+				return false;
+			}
+
+			const size_t num_triangles = b.num_triangles();
+
+			for (size_t i = 0; i < num_triangles; ++i)
+			{
+				if (Intersect(a, b.triangle(i)))
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		bool Intersect(const Line& a, const Point& b) noexcept
@@ -502,6 +528,26 @@ namespace s3d
 			return detail::RoundRectParts(b).intersects(a);
 		}
 
+		bool Intersect(const Line& a, const Polygon& b) noexcept
+		{
+			if (!b || !Intersect(a, b.boundingRect()))
+			{
+				return false;
+			}
+
+			const size_t num_triangles = b.num_triangles();
+
+			for (size_t i = 0; i < num_triangles; ++i)
+			{
+				if (Intersect(a, b.triangle(i)))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		bool Intersect(const Rect& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
@@ -563,6 +609,26 @@ namespace s3d
 		bool Intersect(const Rect& a, const RoundRect& b) noexcept
 		{
 			return detail::RoundRectParts(b).intersects(a);
+		}
+
+		bool Intersect(const Rect& a, const Polygon& b) noexcept
+		{
+			if (!b || !Intersect(a, b.boundingRect()))
+			{
+				return false;
+			}
+
+			const size_t num_triangles = b.num_triangles();
+
+			for (size_t i = 0; i < num_triangles; ++i)
+			{
+				if (Intersect(a, b.triangle(i)))
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		bool Intersect(const RectF& a, const Point& b) noexcept
@@ -627,6 +693,26 @@ namespace s3d
 			return detail::RoundRectParts(b).intersects(a);
 		}
 
+		bool Intersect(const RectF& a, const Polygon& b) noexcept
+		{
+			if (!b || !Intersect(a, b.boundingRect()))
+			{
+				return false;
+			}
+
+			const size_t num_triangles = b.num_triangles();
+
+			for (size_t i = 0; i < num_triangles; ++i)
+			{
+				if (Intersect(a, b.triangle(i)))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		bool Intersect(const Circle& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
@@ -671,6 +757,26 @@ namespace s3d
 		bool Intersect(const Circle& a, const RoundRect& b) noexcept
 		{
 			return detail::RoundRectParts(b).intersects(a);
+		}
+
+		bool Intersect(const Circle& a, const Polygon& b) noexcept
+		{
+			if (!b || !Intersect(a, b.boundingRect()))
+			{
+				return false;
+			}
+
+			const size_t num_triangles = b.num_triangles();
+
+			for (size_t i = 0; i < num_triangles; ++i)
+			{
+				if (Intersect(a, b.triangle(i)))
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		bool Intersect(const Ellipse& a, const Point& b) noexcept
@@ -785,6 +891,26 @@ namespace s3d
 			return detail::RoundRectParts(b).intersects(a);
 		}
 
+		bool Intersect(const Triangle& a, const Polygon& b) noexcept
+		{
+			if (!b || !Intersect(a, b.boundingRect()))
+			{
+				return false;
+			}
+
+			const size_t num_triangles = b.num_triangles();
+
+			for (size_t i = 0; i < num_triangles; ++i)
+			{
+				if (Intersect(a, b.triangle(i)))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		bool Intersect(const Quad& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
@@ -829,6 +955,31 @@ namespace s3d
 		bool Intersect(const Quad& a, const RoundRect& b) noexcept
 		{
 			return detail::RoundRectParts(b).intersects(a);
+		}
+
+		bool Intersect(const Quad& a, const Polygon& b) noexcept
+		{
+			if (!b || !Intersect(a, b.boundingRect()))
+			{
+				return false;
+			}
+
+			const Triangle a0(a.p0, a.p1, a.p2);
+			const Triangle a1(a.p0, a.p2, a.p3);
+
+			const size_t num_triangles = b.num_triangles();
+
+			for (size_t i = 0; i < num_triangles; ++i)
+			{
+				const Triangle b0 = b.triangle(i);
+
+				if (Intersect(a0, b0) || Intersect(a1, b0))
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		bool Intersect(const RoundRect& a, const Point& b) noexcept
@@ -887,6 +1038,78 @@ namespace s3d
 				|| partsA.intersects(partsB.circleTR)
 				|| partsA.intersects(partsB.circleBR)
 				|| partsA.intersects(partsB.circleBL);
+		}
+
+		bool Intersect(const RoundRect& a, const Polygon& b) noexcept
+		{
+			if (!b || !Intersect(a, b.boundingRect()))
+			{
+				return false;
+			}
+
+			const detail::RoundRectParts partsA(a);
+
+			const size_t num_triangles = b.num_triangles();
+
+			for (size_t i = 0; i < num_triangles; ++i)
+			{
+				if (partsA.intersects(b.triangle(i)))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		bool Intersect(const Polygon& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Polygon& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Polygon& a, const Line& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Polygon& a, const Rect& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Polygon& a, const RectF& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Polygon& a, const Circle& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Polygon& a, const Triangle& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Polygon& a, const Quad& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Polygon& a, const RoundRect& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Polygon& a, const Polygon&	b)
+		{
+			return a.intersects(b);
 		}
 	}
 }

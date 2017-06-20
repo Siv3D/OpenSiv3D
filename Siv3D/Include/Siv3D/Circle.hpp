@@ -329,20 +329,14 @@ namespace s3d
 			return Circle(center, r + size);
 		}
 
-		//constexpr Ellipse stretched(double _x, double _y) const noexcept
-		//{
-		//	return Ellipse(center, r + _x, r + _y);
-		//}
+		Ellipse stretched(double _x, double _y) const noexcept;
 
 		constexpr Circle scaled(double s) const noexcept
 		{
 			return Circle(center, r * s);
 		}
 
-		//constexpr Ellipse scaled(double sx, double sy) const noexcept
-		//{
-		//	return Ellipse(center, r * sx, r * sy);
-		//}
+		Ellipse scaled(double sx, double sy) const noexcept;
 
 		constexpr position_type top() const noexcept
 		{

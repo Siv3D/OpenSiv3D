@@ -79,6 +79,16 @@ namespace s3d
 
 		// Heart
 
+		const Array<Float2>& vertices() const
+		{
+			return m_vertices;
+		}
+
+		const Array<uint32> indices() const
+		{
+			return m_indices;
+		}
+
 		const Shape2D& draw(const ColorF& color = Palette::White) const;
 
 		const Shape2D& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
