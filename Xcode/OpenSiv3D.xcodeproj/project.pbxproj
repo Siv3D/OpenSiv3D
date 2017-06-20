@@ -671,6 +671,7 @@
 		2C8E407F1EF95B9400F30069 /* sweep_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E40731EF95B9400F30069 /* sweep_context.h */; };
 		2C8E40831EF95BA000F30069 /* clip2tri.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E40811EF95BA000F30069 /* clip2tri.cpp */; };
 		2C8E40841EF95BA000F30069 /* clip2tri.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E40821EF95BA000F30069 /* clip2tri.h */; };
+		2C8E40861EF9732100F30069 /* Intersection.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E40851EF9732100F30069 /* Intersection.hpp */; };
 		2CA6355D1ED3C30E00B851BC /* Emoji.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CA6355C1ED3C30E00B851BC /* Emoji.hpp */; };
 		2CA635601ED3C32400B851BC /* SivEmoji.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA6355F1ED3C32400B851BC /* SivEmoji.cpp */; };
 		2CA79A101DF55A0D0028D11D /* boost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F81DF55A0D0028D11D /* boost_filesystem.a */; };
@@ -1555,6 +1556,7 @@
 		2C8E40731EF95B9400F30069 /* sweep_context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sweep_context.h; sourceTree = "<group>"; };
 		2C8E40811EF95BA000F30069 /* clip2tri.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = clip2tri.cpp; sourceTree = "<group>"; };
 		2C8E40821EF95BA000F30069 /* clip2tri.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = clip2tri.h; sourceTree = "<group>"; };
+		2C8E40851EF9732100F30069 /* Intersection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Intersection.hpp; sourceTree = "<group>"; };
 		2CA6355C1ED3C30E00B851BC /* Emoji.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Emoji.hpp; sourceTree = "<group>"; };
 		2CA6355F1ED3C32400B851BC /* SivEmoji.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEmoji.cpp; sourceTree = "<group>"; };
 		2CA798F81DF55A0D0028D11D /* boost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_filesystem.a; sourceTree = "<group>"; };
@@ -2921,6 +2923,7 @@
 				2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */,
 				2C0C7CCA1EBCC39B00386CBB /* InfiniteList.hpp */,
 				2C0C7CCB1EBCC39B00386CBB /* INIReader.hpp */,
+				2C8E40851EF9732100F30069 /* Intersection.hpp */,
 				2C0C7CCC1EBCC39B00386CBB /* IReader.hpp */,
 				2C0C7CCD1EBCC39B00386CBB /* IteratorRange.hpp */,
 				2C0C7CCE1EBCC39B00386CBB /* IWriter.hpp */,
@@ -4392,6 +4395,7 @@
 				2C0C7D3D1EBCC39B00386CBB /* CharacterSet.hpp in Headers */,
 				2CCA365A1ECC748F00078678 /* ftpic.h in Headers */,
 				2CAAB1291EF4EBA10000A06D /* cpu_x86.h in Headers */,
+				2C8E40861EF9732100F30069 /* Intersection.hpp in Headers */,
 				2C81C0181E89F8E300D27E52 /* glad.h in Headers */,
 				2C0C7D921EBCC39B00386CBB /* Random.hpp in Headers */,
 				2CAAB1001EEEC3F80000A06D /* D3D11ScreenCapture.hpp in Headers */,
