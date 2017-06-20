@@ -652,6 +652,25 @@
 		2C81C0A81E89FCFA00D27E52 /* posix_tls.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C81C0A61E89FCFA00D27E52 /* posix_tls.c */; };
 		2C81C0A91E89FCFA00D27E52 /* posix_tls.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C81C0A71E89FCFA00D27E52 /* posix_tls.h */; };
 		2C81C0AB1E89FD1A00D27E52 /* vulkan.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C81C0AA1E89FD1A00D27E52 /* vulkan.c */; };
+		2C8E405D1EF95B7600F30069 /* CPolygon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E405A1EF95B7600F30069 /* CPolygon.cpp */; };
+		2C8E405E1EF95B7600F30069 /* CPolygon.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E405B1EF95B7600F30069 /* CPolygon.hpp */; };
+		2C8E405F1EF95B7600F30069 /* SivPolygon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E405C1EF95B7600F30069 /* SivPolygon.cpp */; };
+		2C8E40631EF95B8A00F30069 /* clipper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E40611EF95B8A00F30069 /* clipper.cpp */; };
+		2C8E40641EF95B8A00F30069 /* clipper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E40621EF95B8A00F30069 /* clipper.hpp */; };
+		2C8E40741EF95B9400F30069 /* shapes.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E40671EF95B9400F30069 /* shapes.cc */; };
+		2C8E40751EF95B9400F30069 /* shapes.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E40681EF95B9400F30069 /* shapes.h */; };
+		2C8E40761EF95B9400F30069 /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E40691EF95B9400F30069 /* utils.h */; };
+		2C8E40771EF95B9400F30069 /* poly2tri.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E406A1EF95B9400F30069 /* poly2tri.h */; };
+		2C8E40781EF95B9400F30069 /* advancing_front.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E406C1EF95B9400F30069 /* advancing_front.cc */; };
+		2C8E40791EF95B9400F30069 /* advancing_front.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E406D1EF95B9400F30069 /* advancing_front.h */; };
+		2C8E407A1EF95B9400F30069 /* cdt.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E406E1EF95B9400F30069 /* cdt.cc */; };
+		2C8E407B1EF95B9400F30069 /* cdt.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E406F1EF95B9400F30069 /* cdt.h */; };
+		2C8E407C1EF95B9400F30069 /* sweep.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E40701EF95B9400F30069 /* sweep.cc */; };
+		2C8E407D1EF95B9400F30069 /* sweep.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E40711EF95B9400F30069 /* sweep.h */; };
+		2C8E407E1EF95B9400F30069 /* sweep_context.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E40721EF95B9400F30069 /* sweep_context.cc */; };
+		2C8E407F1EF95B9400F30069 /* sweep_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E40731EF95B9400F30069 /* sweep_context.h */; };
+		2C8E40831EF95BA000F30069 /* clip2tri.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E40811EF95BA000F30069 /* clip2tri.cpp */; };
+		2C8E40841EF95BA000F30069 /* clip2tri.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E40821EF95BA000F30069 /* clip2tri.h */; };
 		2CA6355D1ED3C30E00B851BC /* Emoji.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CA6355C1ED3C30E00B851BC /* Emoji.hpp */; };
 		2CA635601ED3C32400B851BC /* SivEmoji.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA6355F1ED3C32400B851BC /* SivEmoji.cpp */; };
 		2CA79A101DF55A0D0028D11D /* boost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F81DF55A0D0028D11D /* boost_filesystem.a */; };
@@ -1517,6 +1536,25 @@
 		2C81C0A61E89FCFA00D27E52 /* posix_tls.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = posix_tls.c; sourceTree = "<group>"; };
 		2C81C0A71E89FCFA00D27E52 /* posix_tls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = posix_tls.h; sourceTree = "<group>"; };
 		2C81C0AA1E89FD1A00D27E52 /* vulkan.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vulkan.c; sourceTree = "<group>"; };
+		2C8E405A1EF95B7600F30069 /* CPolygon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPolygon.cpp; sourceTree = "<group>"; };
+		2C8E405B1EF95B7600F30069 /* CPolygon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CPolygon.hpp; sourceTree = "<group>"; };
+		2C8E405C1EF95B7600F30069 /* SivPolygon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivPolygon.cpp; sourceTree = "<group>"; };
+		2C8E40611EF95B8A00F30069 /* clipper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = clipper.cpp; sourceTree = "<group>"; };
+		2C8E40621EF95B8A00F30069 /* clipper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = clipper.hpp; sourceTree = "<group>"; };
+		2C8E40671EF95B9400F30069 /* shapes.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shapes.cc; sourceTree = "<group>"; };
+		2C8E40681EF95B9400F30069 /* shapes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shapes.h; sourceTree = "<group>"; };
+		2C8E40691EF95B9400F30069 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
+		2C8E406A1EF95B9400F30069 /* poly2tri.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poly2tri.h; sourceTree = "<group>"; };
+		2C8E406C1EF95B9400F30069 /* advancing_front.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = advancing_front.cc; sourceTree = "<group>"; };
+		2C8E406D1EF95B9400F30069 /* advancing_front.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = advancing_front.h; sourceTree = "<group>"; };
+		2C8E406E1EF95B9400F30069 /* cdt.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cdt.cc; sourceTree = "<group>"; };
+		2C8E406F1EF95B9400F30069 /* cdt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cdt.h; sourceTree = "<group>"; };
+		2C8E40701EF95B9400F30069 /* sweep.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sweep.cc; sourceTree = "<group>"; };
+		2C8E40711EF95B9400F30069 /* sweep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sweep.h; sourceTree = "<group>"; };
+		2C8E40721EF95B9400F30069 /* sweep_context.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sweep_context.cc; sourceTree = "<group>"; };
+		2C8E40731EF95B9400F30069 /* sweep_context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sweep_context.h; sourceTree = "<group>"; };
+		2C8E40811EF95BA000F30069 /* clip2tri.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = clip2tri.cpp; sourceTree = "<group>"; };
+		2C8E40821EF95BA000F30069 /* clip2tri.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = clip2tri.h; sourceTree = "<group>"; };
 		2CA6355C1ED3C30E00B851BC /* Emoji.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Emoji.hpp; sourceTree = "<group>"; };
 		2CA6355F1ED3C32400B851BC /* SivEmoji.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEmoji.cpp; sourceTree = "<group>"; };
 		2CA798F81DF55A0D0028D11D /* boost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_filesystem.a; sourceTree = "<group>"; };
@@ -1745,6 +1783,7 @@
 		2C0C7A121EBCC38300386CBB /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C8E40591EF95B7600F30069 /* Polygon */,
 				2CAAB1171EF4EB6E0000A06D /* CPU */,
 				2CAAB10E1EF289BB0000A06D /* TextBox */,
 				2CAAB1011EEEC40F0000A06D /* ScreenCapture */,
@@ -3302,6 +3341,9 @@
 		2C81BE121E89F8E300D27E52 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				2C8E40801EF95BA000F30069 /* clip2tri */,
+				2C8E40651EF95B9400F30069 /* poly2tri */,
+				2C8E40601EF95B8A00F30069 /* clipper */,
 				2CAAB1221EF4EBA10000A06D /* FeatureDetector */,
 				2CCA35C41ECC748E00078678 /* freetype */,
 				2C2E826D1EAA1B3A0057BDAF /* rapidjson */,
@@ -3602,6 +3644,69 @@
 				2C81BECB1E89F8E300D27E52 /* zdict.h */,
 			);
 			path = dictBuilder;
+			sourceTree = "<group>";
+		};
+		2C8E40591EF95B7600F30069 /* Polygon */ = {
+			isa = PBXGroup;
+			children = (
+				2C8E405A1EF95B7600F30069 /* CPolygon.cpp */,
+				2C8E405B1EF95B7600F30069 /* CPolygon.hpp */,
+				2C8E405C1EF95B7600F30069 /* SivPolygon.cpp */,
+			);
+			path = Polygon;
+			sourceTree = "<group>";
+		};
+		2C8E40601EF95B8A00F30069 /* clipper */ = {
+			isa = PBXGroup;
+			children = (
+				2C8E40611EF95B8A00F30069 /* clipper.cpp */,
+				2C8E40621EF95B8A00F30069 /* clipper.hpp */,
+			);
+			path = clipper;
+			sourceTree = "<group>";
+		};
+		2C8E40651EF95B9400F30069 /* poly2tri */ = {
+			isa = PBXGroup;
+			children = (
+				2C8E40661EF95B9400F30069 /* common */,
+				2C8E406A1EF95B9400F30069 /* poly2tri.h */,
+				2C8E406B1EF95B9400F30069 /* sweep */,
+			);
+			path = poly2tri;
+			sourceTree = "<group>";
+		};
+		2C8E40661EF95B9400F30069 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				2C8E40671EF95B9400F30069 /* shapes.cc */,
+				2C8E40681EF95B9400F30069 /* shapes.h */,
+				2C8E40691EF95B9400F30069 /* utils.h */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		2C8E406B1EF95B9400F30069 /* sweep */ = {
+			isa = PBXGroup;
+			children = (
+				2C8E406C1EF95B9400F30069 /* advancing_front.cc */,
+				2C8E406D1EF95B9400F30069 /* advancing_front.h */,
+				2C8E406E1EF95B9400F30069 /* cdt.cc */,
+				2C8E406F1EF95B9400F30069 /* cdt.h */,
+				2C8E40701EF95B9400F30069 /* sweep.cc */,
+				2C8E40711EF95B9400F30069 /* sweep.h */,
+				2C8E40721EF95B9400F30069 /* sweep_context.cc */,
+				2C8E40731EF95B9400F30069 /* sweep_context.h */,
+			);
+			path = sweep;
+			sourceTree = "<group>";
+		};
+		2C8E40801EF95BA000F30069 /* clip2tri */ = {
+			isa = PBXGroup;
+			children = (
+				2C8E40811EF95BA000F30069 /* clip2tri.cpp */,
+				2C8E40821EF95BA000F30069 /* clip2tri.h */,
+			);
+			path = clip2tri;
 			sourceTree = "<group>";
 		};
 		2CA6355E1ED3C32400B851BC /* Emoji */ = {
@@ -4083,6 +4188,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C0C7D951EBCC39B00386CBB /* RandomVec2.hpp in Headers */,
+				2C8E40791EF95B9400F30069 /* advancing_front.h in Headers */,
 				2C0C7DDA1EBEFE8500386CBB /* Shape2D.hpp in Headers */,
 				2C81C01B1E89F8E300D27E52 /* glfw3.h in Headers */,
 				2CCA36601ECC748F00078678 /* internal.h in Headers */,
@@ -4151,12 +4257,14 @@
 				2C0C7BCB1EBCC38400386CBB /* D3D11BlendState.hpp in Headers */,
 				2C0C7D9E1EBCC39B00386CBB /* Resource.hpp in Headers */,
 				2C0C7BF01EBCC38400386CBB /* ImageFormat_JPEG.hpp in Headers */,
+				2C8E407B1EF95B9400F30069 /* cdt.h in Headers */,
 				2CCA36591ECC748F00078678 /* ftobjs.h in Headers */,
 				2CCA366D1ECC748F00078678 /* svpostnm.h in Headers */,
 				2C0C7BFF1EBCC38400386CBB /* CKeyboard_Windows.hpp in Headers */,
 				2C0C7BCF1EBCC38400386CBB /* D3D11DepthStencilState.hpp in Headers */,
 				2CCE339D1EC1E71400B6A0D5 /* TextureRegion.hpp in Headers */,
 				2C0C7DA61EBCC39B00386CBB /* StringView.hpp in Headers */,
+				2C8E407F1EF95B9400F30069 /* sweep_context.h in Headers */,
 				2C81C0621E89F8E300D27E52 /* jpeg_error.h in Headers */,
 				2C81C0971E89F8E400D27E52 /* xxhash.h in Headers */,
 				2C2E829E1EAA1B3A0057BDAF /* diyfp.h in Headers */,
@@ -4268,6 +4376,7 @@
 				2C0C7DB61EBCC39B00386CBB /* Vector2D.hpp in Headers */,
 				2C0C7C5F1EBCC38400386CBB /* Texture_D3D11.hpp in Headers */,
 				2CCA36271ECC748E00078678 /* ftoption.h in Headers */,
+				2C8E40751EF95B9400F30069 /* shapes.h in Headers */,
 				2C0C7B7E1EBCC38400386CBB /* CBigFloat.hpp in Headers */,
 				2CCA36331ECC748E00078678 /* ftcid.h in Headers */,
 				2C0C7D8B1EBCC39B00386CBB /* PixelShader.hpp in Headers */,
@@ -4337,6 +4446,7 @@
 				2C0C7D4C1EBCC39B00386CBB /* Distribution.hpp in Headers */,
 				2CCA36341ECC748E00078678 /* fterrdef.h in Headers */,
 				2C0C7D9C1EBCC39B00386CBB /* RenderStateBlock2D.hpp in Headers */,
+				2C8E40641EF95B8A00F30069 /* clipper.hpp in Headers */,
 				2C81C07E1E89F8E300D27E52 /* muParserBytecode.h in Headers */,
 				2C0C7C311EBCC38400386CBB /* CRenderer2D_GL.hpp in Headers */,
 				2C2E82951EAA1B3A0057BDAF /* document.h in Headers */,
@@ -4381,6 +4491,7 @@
 				2C0C7C051EBCC38400386CBB /* ILogger.hpp in Headers */,
 				2C0C7D731EBCC39B00386CBB /* KeyGroup.hpp in Headers */,
 				2C0C7C431EBCC38400386CBB /* Siv3D_Linux.h in Headers */,
+				2C8E405E1EF95B7600F30069 /* CPolygon.hpp in Headers */,
 				2C0C7BA31EBCC38400386CBB /* CConsole.hpp in Headers */,
 				2CCA364E1ECC748F00078678 /* fttrigon.h in Headers */,
 				2C0C7D471EBCC39B00386CBB /* Cursor.hpp in Headers */,
@@ -4398,6 +4509,7 @@
 				2C81C0471E89F8E300D27E52 /* butteraugli_comparator.h in Headers */,
 				2C0C7D7E1EBCC39B00386CBB /* MemoryWriter.hpp in Headers */,
 				2C0C7D521EBCC39B00386CBB /* FileSystem.hpp in Headers */,
+				2C8E40761EF95B9400F30069 /* utils.h in Headers */,
 				2C0C7D411EBCC39B00386CBB /* Color.hpp in Headers */,
 				2C81C02C1E89F8E300D27E52 /* internal.h in Headers */,
 				2C0C7C4D1EBCC38400386CBB /* CSystem_Linux.hpp in Headers */,
@@ -4472,6 +4584,7 @@
 				2CCA36251ECC748E00078678 /* ftheader.h in Headers */,
 				2CCA36771ECC748F00078678 /* t1types.h in Headers */,
 				2C2E82A71EAA1B3A0057BDAF /* strtod.h in Headers */,
+				2C8E40841EF95BA000F30069 /* clip2tri.h in Headers */,
 				2C0C7D651EBCC39B00386CBB /* HighPerfoemanceGPU.hpp in Headers */,
 				2C0C7D4A1EBCC39B00386CBB /* DateTime.hpp in Headers */,
 				2C2E82A11EAA1B3A0057BDAF /* itoa.h in Headers */,
@@ -4550,6 +4663,7 @@
 				2C0C7DE81EC01EF600386CBB /* VertexShader_GL.hpp in Headers */,
 				2C81C00B1E89F8E300D27E52 /* diy-fp.h in Headers */,
 				2CAAB12F1EF513B90000A06D /* Transformer2D.hpp in Headers */,
+				2C8E407D1EF95B9400F30069 /* sweep.h in Headers */,
 				2C2E82AA1EAA1B3A0057BDAF /* memorybuffer.h in Headers */,
 				2CCA363E1ECC748E00078678 /* ftlist.h in Headers */,
 				2C2E82941EAA1B3A0057BDAF /* allocators.h in Headers */,
@@ -4557,6 +4671,7 @@
 				2C0C7D311EBCC39B00386CBB /* AssetHandle.hpp in Headers */,
 				2CCA36301ECC748E00078678 /* ftcache.h in Headers */,
 				2C81C08B1E89F8E400D27E52 /* muParserToken.h in Headers */,
+				2C8E40771EF95B9400F30069 /* poly2tri.h in Headers */,
 				2CAE4E041EE3AC1C0057BE7E /* IPrint.hpp in Headers */,
 				2C0C7BBE1EBCC38400386CBB /* EngineDirectory.hpp in Headers */,
 				2C0C7C3D1EBCC38400386CBB /* VertexShader_D3D11.hpp in Headers */,
@@ -4733,6 +4848,7 @@
 				2C0C7C281EBCC38400386CBB /* ProfilerFactory.cpp in Sources */,
 				2C0C7C7C1EBCC38400386CBB /* SivXXHash.cpp in Sources */,
 				2C81C02A1E89F8E300D27E52 /* init.c in Sources */,
+				2C8E40631EF95B8A00F30069 /* clipper.cpp in Sources */,
 				2C0C7C531EBCC38400386CBB /* SivSystem.cpp in Sources */,
 				2C81C0651E89F8E300D27E52 /* order.inc in Sources */,
 				2C0C7C5C1EBCC38400386CBB /* CTexture_D3D11.cpp in Sources */,
@@ -4760,6 +4876,7 @@
 				2C81C0511E89F8E300D27E52 /* fdct.cc in Sources */,
 				2C81C07D1E89F8E300D27E52 /* muParserBytecode.cpp in Sources */,
 				2C0C7DD11EBE0E2E00386CBB /* SivConstantBuffer.cpp in Sources */,
+				2C8E407A1EF95B9400F30069 /* cdt.cc in Sources */,
 				2C0C7DE41EBF2EBA00386CBB /* SivPowerStatus.mm in Sources */,
 				2C0C7BC31EBCC38400386CBB /* SivFileSystem_macOS.cpp in Sources */,
 				2C81C09F1E89F8E400D27E52 /* huf_decompress.c in Sources */,
@@ -4773,6 +4890,7 @@
 				2C81C0631E89F8E300D27E52 /* jpeg_huffman_decode.cc in Sources */,
 				2C0C7BC61EBCC38400386CBB /* SivFormatBool.cpp in Sources */,
 				2C0C7C691EBCC38400386CBB /* SivTime.cpp in Sources */,
+				2C8E405F1EF95B7600F30069 /* SivPolygon.cpp in Sources */,
 				2C81C0581E89F8E300D27E52 /* jpeg_data.cc in Sources */,
 				2C81C0901E89F8E400D27E52 /* error_private.c in Sources */,
 				2C81C06E1E89F8E300D27E52 /* quantize.cc in Sources */,
@@ -4808,6 +4926,7 @@
 				2CAAB10A1EEEC40F0000A06D /* ScreenCaptureFactory.cpp in Sources */,
 				2CCA35AD1EC9A8E100078678 /* SivByteArrayView.cpp in Sources */,
 				2C81C0531E89F8E300D27E52 /* gamma_correct.cc in Sources */,
+				2C8E407C1EF95B9400F30069 /* sweep.cc in Sources */,
 				2C0C7C181EBCC38400386CBB /* CMouse_Linux.cpp in Sources */,
 				2C0C7BDE1EBCC38400386CBB /* GraphicsFactory.cpp in Sources */,
 				2C0C7BD81EBCC38400386CBB /* D3D11SwapChain.cpp in Sources */,
@@ -4826,6 +4945,7 @@
 				2C0C7DCF1EBE0E2E00386CBB /* GLConstantBuffer.cpp in Sources */,
 				2C0C7BF61EBCC38400386CBB /* SivINIReader.cpp in Sources */,
 				2C0C7BA41EBCC38400386CBB /* ConsoleFactory.cpp in Sources */,
+				2C8E407E1EF95B9400F30069 /* sweep_context.cc in Sources */,
 				2C0C7C0D1EBCC38400386CBB /* CMemoryMapping.cpp in Sources */,
 				2C81C03B1E89F8E300D27E52 /* window.c in Sources */,
 				2C81C04E1E89F8E300D27E52 /* entropy_encode.cc in Sources */,
@@ -4870,6 +4990,7 @@
 				2C0C7C421EBCC38400386CBB /* SivShader.cpp in Sources */,
 				2C0C7B821EBCC38400386CBB /* CBinaryReader_Linux.cpp in Sources */,
 				2C0C7BE11EBCC38400386CBB /* SivGraphics2D.cpp in Sources */,
+				2C8E40831EF95BA000F30069 /* clip2tri.cpp in Sources */,
 				2CCA357B1EC705A700078678 /* GLSamplerState.cpp in Sources */,
 				2C0C7B921EBCC38400386CBB /* SivByteArray.cpp in Sources */,
 				2C0C7C501EBCC38400386CBB /* CSystem_Windows.cpp in Sources */,
@@ -4887,8 +5008,10 @@
 				2C0C7BEE1EBCC38400386CBB /* ImageFormatFactory.cpp in Sources */,
 				2C0C7C351EBCC38400386CBB /* Renderer2DFactory.cpp in Sources */,
 				2C0C7C101EBCC38400386CBB /* CMemoryWriter.cpp in Sources */,
+				2C8E40741EF95B9400F30069 /* shapes.cc in Sources */,
 				2C0C7C201EBCC38400386CBB /* SivMouse.cpp in Sources */,
 				2C0C7C1C1EBCC38400386CBB /* CMouse_Windows.cpp in Sources */,
+				2C8E40781EF95B9400F30069 /* advancing_front.cc in Sources */,
 				2C0C7C141EBCC38400386CBB /* SivMessageBox_macOS.cpp in Sources */,
 				2C0C7BFE1EBCC38400386CBB /* CKeyboard_Windows.cpp in Sources */,
 				2C0C7C6B1EBCC38400386CBB /* SivTriangle.cpp in Sources */,
@@ -4912,6 +5035,7 @@
 				2C81C04A1E89F8E300D27E52 /* dct_double.cc in Sources */,
 				2C81C0661E89F8E300D27E52 /* output_image.cc in Sources */,
 				2C81C0241E89F8E300D27E52 /* context.c in Sources */,
+				2C8E405D1EF95B7600F30069 /* CPolygon.cpp in Sources */,
 				2C0C7BE01EBCC38400386CBB /* SivGraphics.cpp in Sources */,
 				2C0C7BE31EBCC38400386CBB /* CHTMLWriter.cpp in Sources */,
 				2C0C7C651EBCC38400386CBB /* CTextWriter.cpp in Sources */,
