@@ -13,6 +13,7 @@
 # include "Fwd.hpp"
 # include "PointVector.hpp"
 # include "Line.hpp"
+# include "Array.hpp"
 # include "MathConstants.hpp"
 # include "NamedParameter.hpp"
 
@@ -329,20 +330,14 @@ namespace s3d
 			return Circle(center, r + size);
 		}
 
-		//constexpr Ellipse stretched(double _x, double _y) const noexcept
-		//{
-		//	return Ellipse(center, r + _x, r + _y);
-		//}
+		Ellipse stretched(double _x, double _y) const noexcept;
 
 		constexpr Circle scaled(double s) const noexcept
 		{
 			return Circle(center, r * s);
 		}
 
-		//constexpr Ellipse scaled(double sx, double sy) const noexcept
-		//{
-		//	return Ellipse(center, r * sx, r * sy);
-		//}
+		Ellipse scaled(double sx, double sy) const noexcept;
 
 		constexpr position_type top() const noexcept
 		{
@@ -390,6 +385,12 @@ namespace s3d
 		{
 			return Geometry2D::Contains(*this, shape);
 		}
+
+		Optional<Array<Vec2>> intersectsAt(const Line& line) const;
+
+		Optional<Array<Vec2>> intersectsAt(const Rect& line) const;
+
+		Optional<Array<Vec2>> intersectsAt(const RectF& line) const;
 
 		bool leftClicked() const;
 

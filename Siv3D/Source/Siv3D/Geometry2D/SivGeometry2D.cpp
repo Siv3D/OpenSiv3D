@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Fwd.hpp>
+# include <Siv3D/Intersection.hpp>
 # include <Siv3D/Geometry2D.hpp>
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/Line.hpp>
@@ -19,6 +20,7 @@
 # include <Siv3D/Triangle.hpp>
 # include <Siv3D/Quad.hpp>
 # include <Siv3D/RoundRect.hpp>
+# include <Siv3D/Polygon.hpp>
 
 namespace s3d
 {
@@ -295,6 +297,11 @@ namespace s3d
 			return detail::RoundRectParts(b).intersects(a);
 		}
 
+		bool Intersect(const Point& a, const Polygon& b) noexcept
+		{
+			return Intersect(Vec2(a), b);
+		}
+
 
 		bool Intersect(const Vec2& a, const Point& b) noexcept
 		{
@@ -356,6 +363,26 @@ namespace s3d
 		bool Intersect(const Vec2& a, const RoundRect& b) noexcept
 		{
 			return detail::RoundRectParts(b).intersects(a);
+		}
+
+		bool Intersect(const Vec2& a, const Polygon& b) noexcept
+		{
+			if (!b || !Intersect(a, b.boundingRect()))
+			{
+				return false;
+			}
+
+			const size_t num_triangles = b.num_triangles();
+
+			for (size_t i = 0; i < num_triangles; ++i)
+			{
+				if (Intersect(a, b.triangle(i)))
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		bool Intersect(const Line& a, const Point& b) noexcept
@@ -472,6 +499,58 @@ namespace s3d
 			return (ac.dot(ac) - e * e / f) <= rr;
 		}
 
+		//
+		//	https://github.com/thelonious/kld-intersections/blob/development/lib/Intersection.js
+		//
+		bool Intersect(const Line& a, const Ellipse& b) noexcept
+		{
+			const double rx = b.a;
+			const double ry = b.b;
+			const Vec2 dir(a.vector());
+			const Vec2 diff(a.begin - b.center);
+			const Vec2 mDir(dir.x / (rx*rx), dir.y / (ry*ry));
+			const Vec2 mDiff(diff.x / (rx*rx), diff.y / (ry*ry));
+
+			const double va = dir.dot(mDir);
+			const double vb = dir.dot(mDiff);
+			const double vc = diff.dot(mDiff) - 1.0;
+			double vd = vb*vb - va*vc;
+
+			const double ERRF = 1e-15;
+			const double ZEROepsilon = 10 * std::max({ std::abs(va), std::abs(vb), std::abs(vc) }) * ERRF;		
+			if (std::abs(vd) < ZEROepsilon)
+			{
+				vd = 0;
+			}
+
+			if (vd < 0)
+			{
+				return false;
+			}
+			else if (vd > 0)
+			{
+				const double root = std::sqrt(vd);
+				double t_a = (-vb - root) / va;
+				double t_b = (-vb + root) / va;
+				t_b = (t_b > 1) ? t_b - ERRF : (t_b < 0) ? t_b + ERRF : t_b;
+				t_a = (t_a > 1) ? t_a - ERRF : (t_a < 0) ? t_a + ERRF : t_a;
+
+				if ((t_a < 0 || 1 < t_a) && (t_b < 0 || 1 < t_b))
+				{
+					return !((t_a < 0 && t_b < 0) || (t_a > 1 && t_b > 1));
+				}
+				else
+				{
+					return true;
+				}
+			}
+			else
+			{
+				const double t = -vb / va;
+				return  (0 <= t && t <= 1);
+			}
+		}
+
 		bool Intersect(const Line& a, const Triangle& b) noexcept
 		{
 			if (Intersect(a.begin, b) || Intersect(a.end, b))
@@ -500,6 +579,26 @@ namespace s3d
 		bool Intersect(const Line& a, const RoundRect& b) noexcept
 		{
 			return detail::RoundRectParts(b).intersects(a);
+		}
+
+		bool Intersect(const Line& a, const Polygon& b) noexcept
+		{
+			if (!b || !Intersect(a, b.boundingRect()))
+			{
+				return false;
+			}
+
+			const size_t num_triangles = b.num_triangles();
+
+			for (size_t i = 0; i < num_triangles; ++i)
+			{
+				if (Intersect(a, b.triangle(i)))
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		bool Intersect(const Rect& a, const Point& b) noexcept
@@ -565,6 +664,26 @@ namespace s3d
 			return detail::RoundRectParts(b).intersects(a);
 		}
 
+		bool Intersect(const Rect& a, const Polygon& b) noexcept
+		{
+			if (!b || !Intersect(a, b.boundingRect()))
+			{
+				return false;
+			}
+
+			const size_t num_triangles = b.num_triangles();
+
+			for (size_t i = 0; i < num_triangles; ++i)
+			{
+				if (Intersect(a, b.triangle(i)))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		bool Intersect(const RectF& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
@@ -627,6 +746,26 @@ namespace s3d
 			return detail::RoundRectParts(b).intersects(a);
 		}
 
+		bool Intersect(const RectF& a, const Polygon& b) noexcept
+		{
+			if (!b || !Intersect(a, b.boundingRect()))
+			{
+				return false;
+			}
+
+			const size_t num_triangles = b.num_triangles();
+
+			for (size_t i = 0; i < num_triangles; ++i)
+			{
+				if (Intersect(a, b.triangle(i)))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		bool Intersect(const Circle& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
@@ -673,12 +812,37 @@ namespace s3d
 			return detail::RoundRectParts(b).intersects(a);
 		}
 
+		bool Intersect(const Circle& a, const Polygon& b) noexcept
+		{
+			if (!b || !Intersect(a, b.boundingRect()))
+			{
+				return false;
+			}
+
+			const size_t num_triangles = b.num_triangles();
+
+			for (size_t i = 0; i < num_triangles; ++i)
+			{
+				if (Intersect(a, b.triangle(i)))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		bool Intersect(const Ellipse& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
 		}
 
 		bool Intersect(const Ellipse& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Ellipse& a, const Line& b) noexcept
 		{
 			return Intersect(b, a);
 		}
@@ -785,6 +949,26 @@ namespace s3d
 			return detail::RoundRectParts(b).intersects(a);
 		}
 
+		bool Intersect(const Triangle& a, const Polygon& b) noexcept
+		{
+			if (!b || !Intersect(a, b.boundingRect()))
+			{
+				return false;
+			}
+
+			const size_t num_triangles = b.num_triangles();
+
+			for (size_t i = 0; i < num_triangles; ++i)
+			{
+				if (Intersect(a, b.triangle(i)))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		bool Intersect(const Quad& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
@@ -829,6 +1013,31 @@ namespace s3d
 		bool Intersect(const Quad& a, const RoundRect& b) noexcept
 		{
 			return detail::RoundRectParts(b).intersects(a);
+		}
+
+		bool Intersect(const Quad& a, const Polygon& b) noexcept
+		{
+			if (!b || !Intersect(a, b.boundingRect()))
+			{
+				return false;
+			}
+
+			const Triangle a0(a.p0, a.p1, a.p2);
+			const Triangle a1(a.p0, a.p2, a.p3);
+
+			const size_t num_triangles = b.num_triangles();
+
+			for (size_t i = 0; i < num_triangles; ++i)
+			{
+				const Triangle b0 = b.triangle(i);
+
+				if (Intersect(a0, b0) || Intersect(a1, b0))
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		bool Intersect(const RoundRect& a, const Point& b) noexcept
@@ -887,6 +1096,194 @@ namespace s3d
 				|| partsA.intersects(partsB.circleTR)
 				|| partsA.intersects(partsB.circleBR)
 				|| partsA.intersects(partsB.circleBL);
+		}
+
+		bool Intersect(const RoundRect& a, const Polygon& b) noexcept
+		{
+			if (!b || !Intersect(a, b.boundingRect()))
+			{
+				return false;
+			}
+
+			const detail::RoundRectParts partsA(a);
+
+			const size_t num_triangles = b.num_triangles();
+
+			for (size_t i = 0; i < num_triangles; ++i)
+			{
+				if (partsA.intersects(b.triangle(i)))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		bool Intersect(const Polygon& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Polygon& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Polygon& a, const Line& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Polygon& a, const Rect& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Polygon& a, const RectF& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Polygon& a, const Circle& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Polygon& a, const Triangle& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Polygon& a, const Quad& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Polygon& a, const RoundRect& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Polygon& a, const Polygon&	b)
+		{
+			return a.intersects(b);
+		}
+
+		//
+		//	https://github.com/thelonious/kld-intersections/blob/development/lib/Intersection.js
+		//
+		Optional<Array<Vec2>> IntersectAt(const Line& a, const Ellipse& b)
+		{
+			const double rx = b.a;
+			const double ry = b.b;
+			const Vec2 dir(a.vector());
+			const Vec2 diff(a.begin - b.center);
+			const Vec2 mDir(dir.x / (rx*rx), dir.y / (ry*ry));
+			const Vec2 mDiff(diff.x / (rx*rx), diff.y / (ry*ry));
+
+			const double va = dir.dot(mDir);
+			const double vb = dir.dot(mDiff);
+			const double vc = diff.dot(mDiff) - 1.0;
+			double vd = vb*vb - va*vc;
+
+			const double ERRF = 1e-15;
+			const double ZEROepsilon = 10 * std::max({ std::abs(va), std::abs(vb), std::abs(vc) }) * ERRF;
+			if (std::abs(vd) < ZEROepsilon)
+			{
+				vd = 0;
+			}
+
+			Array<Vec2> results;
+
+			if (vd < 0)
+			{
+				return none;
+			}
+			else if (vd > 0)
+			{
+				const double root = std::sqrt(vd);
+				double t_a = (-vb - root) / va;
+				double t_b = (-vb + root) / va;
+				t_b = (t_b > 1) ? t_b - ERRF : (t_b < 0) ? t_b + ERRF : t_b;
+				t_a = (t_a > 1) ? t_a - ERRF : (t_a < 0) ? t_a + ERRF : t_a;
+
+				if ((t_a < 0 || 1 < t_a) && (t_b < 0 || 1 < t_b))
+				{
+					if ((t_a < 0 && t_b < 0) || (t_a > 1 && t_b > 1))
+					{
+						return none;
+					}
+					else
+					{
+						return Array<Vec2>();
+					}
+				}
+				else
+				{
+					if (0 <= t_a && t_a <= 1)
+					{
+						results.emplace_back(a.begin.lerp(a.end, t_a));
+					}
+
+					if (0 <= t_b && t_b <= 1)
+					{
+						results.emplace_back(a.begin.lerp(a.end, t_b));
+					}
+				}
+			}
+			else
+			{
+				const double t = -vb / va;
+				
+				if (0 <= t && t <= 1)
+				{	
+					results.emplace_back(a.begin.lerp(a.end, t));
+				}
+				else
+				{
+					return none;
+				}
+			}
+
+			return results;
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Rect& a, const Ellipse& b)
+		{
+			return IntersectAt(RectF(a), b);
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const RectF& a, const Ellipse& b)
+		{
+			Array<Vec2> result;
+
+			const Optional<Array<Vec2>> r[4] =
+			{
+				IntersectAt(a.top(), b),
+				IntersectAt(a.right(), b),
+				IntersectAt(a.bottom(), b),
+				IntersectAt(a.left(), b),
+			};
+
+			bool hasIntersection = false;
+
+			for (const auto& intersections : r)
+			{
+				if (intersections)
+				{
+					hasIntersection = true;
+
+					result.append(intersections.value());
+				}
+			}
+
+			if (!hasIntersection)
+			{
+				return none;
+			}
+
+			return result;
 		}
 	}
 }
