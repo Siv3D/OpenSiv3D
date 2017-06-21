@@ -129,7 +129,7 @@ namespace s3d
 
 		//const Polygon& draw(const Array<ColorF>& colors) const;
 
-		//const Polygon& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
+		const Polygon& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
 		//const Polygon& drawWireframe(double thickness = 1.0, const ColorF& color = Palette::White) const;
 	};

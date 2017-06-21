@@ -75,5 +75,7 @@ namespace s3d
 		const Array<uint32>& indices() const;
 
 		void draw(const ColorF& color) const;
+
+		void drawFrame(double thickness, const ColorF& color) const;
 	};
 }

@@ -179,4 +179,11 @@ namespace s3d
 
 		return *this;
 	}
+
+	const Polygon& Polygon::drawFrame(const double thickness, const ColorF& color) const
+	{
+		pImpl->drawFrame(thickness, color);
+
+		return *this;
+	}
 }

@@ -15,6 +15,8 @@ S3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 S3D_DISABLE_MSVC_WARNINGS_POP()
 # include "../../ThirdParty/clip2tri/clip2tri.h"
 # include <Siv3D/Shape2D.hpp>
+# include "../Siv3DEngine.hpp"
+# include "../Renderer2D/IRenderer2D.hpp"
 
 namespace s3d
 {
@@ -204,6 +206,39 @@ namespace s3d
 
 	void Polygon::CPolygon::draw(const ColorF& color) const
 	{
-		Shape2D{ m_vertices, m_indices }.draw(color);
+		Siv3DEngine::GetRenderer2D()->addShape2D(m_vertices, m_indices, color.toFloat4());
+	}
+
+	void Polygon::CPolygon::drawFrame(double thickness, const ColorF& color) const
+	{
+		if (m_polygon.outer().isEmpty())
+		{
+			return;
+		}
+
+		Siv3DEngine::GetRenderer2D()->addLineString(
+			LineStyle::Default,
+			m_polygon.outer().data(),
+			static_cast<uint32>(m_polygon.outer().size()),
+			none,
+			static_cast<float>(thickness),
+			false,
+			color.toFloat4(),
+			true
+		);
+
+		for (const auto& hole : m_polygon.inners())
+		{
+			Siv3DEngine::GetRenderer2D()->addLineString(
+				LineStyle::Default,
+				hole.data(),
+				static_cast<uint32>(hole.size()),
+				none,
+				static_cast<float>(thickness),
+				false,
+				color.toFloat4(),
+				true
+			);
+		}
 	}
 }
