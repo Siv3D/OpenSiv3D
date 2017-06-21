@@ -25,4 +25,4 @@
 - RapidJSON https://github.com/miloyip/rapidjson/releases
 - xxHash v0.6.2 https://github.com/Cyan4973/xxHash/releases
 - zlib 1.2.11 http://www.zlib.net/
-- Zstandard v1.1.2 https://github.com/facebook/zstd/releases
+- Zstandard v1.2.0 https://github.com/facebook/zstd/releases
