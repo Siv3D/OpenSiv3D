@@ -33,7 +33,7 @@ void Main()
 
 	while (System::Update())
 	{
-		const Circle circle(320, 240, 150);
+		const Ellipse circle(320, 240, 150, 80);
 		const Line line(50, 400, Cursor::Pos());
 		const Rect rect(Cursor::Pos() + Point(40, 40), 300, 150);
 

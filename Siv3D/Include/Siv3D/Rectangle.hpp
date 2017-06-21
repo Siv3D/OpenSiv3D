@@ -14,6 +14,7 @@
 # include "NamedParameter.hpp"
 # include "PointVector.hpp"
 # include "Line.hpp"
+# include "Geometry2D.hpp"
 # include "Quad.hpp"
 # include "Color.hpp"
 
@@ -1365,6 +1366,12 @@ namespace s3d
 		bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
 		{
 			return Geometry2D::Intersect(*this, shape);
+		}
+
+		template <class Shape2DType>
+		Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::IntersectAt(*this, shape)))
+		{
+			return Geometry2D::IntersectAt(*this, shape);
 		}
 
 		template <class Shape2DType>

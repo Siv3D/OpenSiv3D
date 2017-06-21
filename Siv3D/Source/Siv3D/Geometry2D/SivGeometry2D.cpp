@@ -231,6 +231,37 @@ namespace s3d
 					|| circleBL.intersects(shape));
 			}
 		};
+
+		Array<Vec2> RemoveDuplication(Array<Vec2> points)
+		{
+			if (points.size() >= 2)
+			{
+				for (auto it = points.begin();;)
+				{
+					if ((it + 1) == points.end())
+					{
+						break;
+					}
+
+					if (*it == *(it + 1))
+					{
+						it = points.erase(it);
+					}
+					else
+					{
+						++it;
+					}
+				}
+
+				if (points.size() >= 2
+					&& (points.front() == points.back()))
+				{
+					points.pop_back();
+				}
+			}
+
+			return points;
+		}
 	}
 
 	namespace Geometry2D
@@ -1169,6 +1200,42 @@ namespace s3d
 		{
 			return a.intersects(b);
 		}
+		
+		///////////////////////////////////////////////////////////////////////////////
+		//
+		//	IntersectAt
+		//
+		Optional<Array<Vec2>> IntersectAt(const Line& a, const Rect& b)
+		{
+			return IntersectAt(a, RectF(b));
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Line& a, const RectF& b)
+		{
+			if (!a.intersects(b))
+			{
+				return none;
+			}
+
+			const Line linesB[4] = { b.top(), b.right(), b.bottom(), b.left() };
+
+			Array<Vec2> points;
+
+			for (size_t i = 0; i < 4; ++i)
+			{
+				if (const auto at = a.intersectsAt(linesB[i]))
+				{
+					points.push_back(at.value());
+				}
+			}
+
+			return detail::RemoveDuplication(std::move(points));
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Line& a, const Circle& b)
+		{
+			return IntersectAt(a, Ellipse(b));
+		}
 
 		//
 		//	https://github.com/thelonious/kld-intersections/blob/development/lib/Intersection.js
@@ -1249,14 +1316,75 @@ namespace s3d
 			return results;
 		}
 
+		Optional<Array<Vec2>> IntersectAt(const Rect& a, const Circle& b)
+		{
+			return IntersectAt(a, Ellipse(b));
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Rect& a, const Line& b)
+		{
+			return IntersectAt(b, RectF(a));
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Rect& a, const Rect& b)
+		{
+			return IntersectAt(RectF(a), RectF(b));
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Rect& a, const RectF& b)
+		{
+			return IntersectAt(RectF(a), b);
+		}
+
 		Optional<Array<Vec2>> IntersectAt(const Rect& a, const Ellipse& b)
 		{
 			return IntersectAt(RectF(a), b);
 		}
 
+		Optional<Array<Vec2>> IntersectAt(const RectF& a, const Circle& b)
+		{
+			return IntersectAt(a, Ellipse(b));
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const RectF& a, const Line& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const RectF& a, const Rect& b)
+		{
+			return IntersectAt(a, RectF(b));
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const RectF& a, const RectF& b)
+		{
+			if (!a.intersects(b))
+			{
+				return none;
+			}
+
+			const Line linesA[4] = { a.top(), a.right(), a.bottom(), a.left() };
+			const Line linesB[4] = { b.top(), b.right(), b.bottom(), b.left() };
+
+			Array<Vec2> points;
+
+			for (size_t i = 0; i < 4; ++i)
+			{
+				for (size_t k = 0; k < 4; ++k)
+				{
+					if (const auto at = linesA[i].intersectsAt(linesB[k]))
+					{
+						points.push_back(at.value());
+					}
+				}
+			}
+
+			return detail::RemoveDuplication(std::move(points));
+		}
+
 		Optional<Array<Vec2>> IntersectAt(const RectF& a, const Ellipse& b)
 		{
-			Array<Vec2> result;
+			Array<Vec2> points;
 
 			const Optional<Array<Vec2>> r[4] =
 			{
@@ -1274,7 +1402,7 @@ namespace s3d
 				{
 					hasIntersection = true;
 
-					result.append(intersections.value());
+					points.append(intersections.value());
 				}
 			}
 
@@ -1283,7 +1411,37 @@ namespace s3d
 				return none;
 			}
 
-			return result;
+			return detail::RemoveDuplication(std::move(points));
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Circle& a, const Line& b)
+		{
+			return IntersectAt(b, Ellipse(a));
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Circle& a, const Rect& b)
+		{
+			return IntersectAt(b, Ellipse(a));
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Circle& a, const RectF& b)
+		{
+			return IntersectAt(b, Ellipse(a));
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Line& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Rect& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const RectF& b)
+		{
+			return IntersectAt(b, a);
 		}
 	}
 }
