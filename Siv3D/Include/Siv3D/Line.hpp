@@ -12,6 +12,7 @@
 # pragma once
 # include "Fwd.hpp"
 # include "PointVector.hpp"
+# include "Geometry2D.hpp"
 
 namespace s3d
 {
@@ -239,6 +240,12 @@ namespace s3d
 			return Geometry2D::Intersect(*this, shape);
 		}
 		
+		template <class Shape2DType>
+		Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::IntersectAt(*this, shape)))
+		{
+			return Geometry2D::IntersectAt(*this, shape);
+		}
+
 		Optional<position_type> intersectsAt(const Line& line) const;
 
 		Optional<position_type> intersectsAtPrecise(const Line& line) const;

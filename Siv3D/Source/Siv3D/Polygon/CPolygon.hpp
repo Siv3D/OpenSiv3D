@@ -60,7 +60,9 @@ namespace s3d
 
 		//double perimeter() const;
 
-		//Vec2 centroid() const;
+		Vec2 centroid() const;
+		
+		Polygon computeConvexHull() const;
 
 		bool intersects(const CPolygon& other) const;
 
@@ -75,5 +77,7 @@ namespace s3d
 		const Array<uint32>& indices() const;
 
 		void draw(const ColorF& color) const;
+
+		void drawFrame(double thickness, const ColorF& color) const;
 	};
 }

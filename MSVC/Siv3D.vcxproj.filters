@@ -934,39 +934,6 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\INIReader\CINIReader.hpp">
       <Filter>Source\Siv3D\INIReader</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\bitstream.h">
-      <Filter>Source\ThirdParty\zstd\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\error_private.h">
-      <Filter>Source\ThirdParty\zstd\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\fse.h">
-      <Filter>Source\ThirdParty\zstd\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\huf.h">
-      <Filter>Source\ThirdParty\zstd\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\mem.h">
-      <Filter>Source\ThirdParty\zstd\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\xxhash.h">
-      <Filter>Source\ThirdParty\zstd\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\zstd_errors.h">
-      <Filter>Source\ThirdParty\zstd\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\zstd_internal.h">
-      <Filter>Source\ThirdParty\zstd\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\compress\zstd_opt.h">
-      <Filter>Source\ThirdParty\zstd\compress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\dictBuilder\divsufsort.h">
-      <Filter>Source\ThirdParty\zstd\dictBuilder</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\dictBuilder\zdict.h">
-      <Filter>Source\ThirdParty\zstd\dictBuilder</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\AlignedAllocator.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
@@ -1774,6 +1741,51 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Intersection.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\bitstream.h">
+      <Filter>Source\ThirdParty\zstd\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\error_private.h">
+      <Filter>Source\ThirdParty\zstd\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\fse.h">
+      <Filter>Source\ThirdParty\zstd\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\huf.h">
+      <Filter>Source\ThirdParty\zstd\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\mem.h">
+      <Filter>Source\ThirdParty\zstd\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\pool.h">
+      <Filter>Source\ThirdParty\zstd\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\threading.h">
+      <Filter>Source\ThirdParty\zstd\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\xxhash.h">
+      <Filter>Source\ThirdParty\zstd\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\zstd_errors.h">
+      <Filter>Source\ThirdParty\zstd\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\common\zstd_internal.h">
+      <Filter>Source\ThirdParty\zstd\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\compress\zstdmt_compress.h">
+      <Filter>Source\ThirdParty\zstd\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\compress\zstd_opt.h">
+      <Filter>Source\ThirdParty\zstd\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\dictBuilder\divsufsort.h">
+      <Filter>Source\ThirdParty\zstd\dictBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\dictBuilder\zdict.h">
+      <Filter>Source\ThirdParty\zstd\dictBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\zstd.h">
+      <Filter>Source\ThirdParty\zstd</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2033,42 +2045,6 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\fmt\format.cc">
       <Filter>Source\ThirdParty\fmt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\common\entropy_common.c">
-      <Filter>Source\ThirdParty\zstd\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\common\error_private.c">
-      <Filter>Source\ThirdParty\zstd\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\common\fse_decompress.c">
-      <Filter>Source\ThirdParty\zstd\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\common\xxhash.c">
-      <Filter>Source\ThirdParty\zstd\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\common\zstd_common.c">
-      <Filter>Source\ThirdParty\zstd\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\compress\fse_compress.c">
-      <Filter>Source\ThirdParty\zstd\compress</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\compress\huf_compress.c">
-      <Filter>Source\ThirdParty\zstd\compress</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\compress\zstd_compress.c">
-      <Filter>Source\ThirdParty\zstd\compress</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\decompress\huf_decompress.c">
-      <Filter>Source\ThirdParty\zstd\decompress</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\decompress\zstd_decompress.c">
-      <Filter>Source\ThirdParty\zstd\decompress</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\dictBuilder\divsufsort.c">
-      <Filter>Source\ThirdParty\zstd\dictBuilder</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\dictBuilder\zdict.c">
-      <Filter>Source\ThirdParty\zstd\dictBuilder</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\BMP\ImageFormat_BMP.cpp">
       <Filter>Source\Siv3D\ImageFormat\BMP</Filter>
@@ -2588,6 +2564,54 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\clip2tri\clip2tri.cpp">
       <Filter>Source\ThirdParty\clip2tri</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\common\entropy_common.c">
+      <Filter>Source\ThirdParty\zstd\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\common\error_private.c">
+      <Filter>Source\ThirdParty\zstd\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\common\fse_decompress.c">
+      <Filter>Source\ThirdParty\zstd\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\common\pool.c">
+      <Filter>Source\ThirdParty\zstd\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\common\threading.c">
+      <Filter>Source\ThirdParty\zstd\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\common\xxhash.c">
+      <Filter>Source\ThirdParty\zstd\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\common\zstd_common.c">
+      <Filter>Source\ThirdParty\zstd\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\compress\fse_compress.c">
+      <Filter>Source\ThirdParty\zstd\compress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\compress\huf_compress.c">
+      <Filter>Source\ThirdParty\zstd\compress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\compress\zstdmt_compress.c">
+      <Filter>Source\ThirdParty\zstd\compress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\compress\zstd_compress.c">
+      <Filter>Source\ThirdParty\zstd\compress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\decompress\huf_decompress.c">
+      <Filter>Source\ThirdParty\zstd\decompress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\decompress\zstd_decompress.c">
+      <Filter>Source\ThirdParty\zstd\decompress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\dictBuilder\cover.c">
+      <Filter>Source\ThirdParty\zstd\dictBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\dictBuilder\divsufsort.c">
+      <Filter>Source\ThirdParty\zstd\dictBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\dictBuilder\zdict.c">
+      <Filter>Source\ThirdParty\zstd\dictBuilder</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

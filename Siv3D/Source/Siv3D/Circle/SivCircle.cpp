@@ -56,21 +56,6 @@ namespace s3d
 		return Ellipse(center, r * sx, r * sy);
 	}
 
-	Optional<Array<Vec2>> Circle::intersectsAt(const Line& line) const
-	{
-		return Geometry2D::IntersectAt(line, Ellipse(*this));
-	}
-
-	Optional<Array<Vec2>> Circle::intersectsAt(const Rect& rect) const
-	{
-		return Geometry2D::IntersectAt(rect, Ellipse(*this));
-	}
-
-	Optional<Array<Vec2>> Circle::intersectsAt(const RectF& rect) const
-	{
-		return Geometry2D::IntersectAt(rect, Ellipse(*this));
-	}
-
 	bool Circle::leftClicked() const
 	{
 		return MouseL.down() && mouseOver();

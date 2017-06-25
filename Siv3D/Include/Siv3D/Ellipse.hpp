@@ -239,6 +239,12 @@ namespace s3d
 		}
 
 		template <class Shape2DType>
+		Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::IntersectAt(*this, shape)))
+		{
+			return Geometry2D::IntersectAt(*this, shape);
+		}
+
+		template <class Shape2DType>
 		bool contains(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Contains(*this, shape)))
 		{
 			return Geometry2D::Contains(*this, shape);

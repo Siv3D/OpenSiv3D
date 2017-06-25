@@ -7,14 +7,14 @@
 - double-conversion https://github.com/google/double-conversion
 - Easing Equations http://robertpenner.com/easing/
 - FeatureDetector https://github.com/Mysticial/FeatureDetector
-- fmt 3.0.1 https://github.com/fmtlib/fmt/releases
+- fmt 3.0.2 https://github.com/fmtlib/fmt/releases
 - FreeType 2.8 https://www.freetype.org/
 - giflib 5.1.4 https://sourceforge.net/projects/giflib/
 - GLEW 2.0.0 https://github.com/nigels-com/glew/releases
 - GLWF 3.2.1 http://www.glfw.org
 - Guetzli v1.0.1 https://github.com/google/guetzli/releases
 - HarfBuzz 1.4.6 https://github.com/behdad/harfbuzz/releases
-- hopscotch-map v1.3.0 https://github.com/Tessil/hopscotch-map/releases
+- hopscotch-map v1.3.1 https://github.com/Tessil/hopscotch-map/releases
 - kld-intersections v0.1.1 https://github.com/thelonious/kld-intersections/releases
 - libjpeg-turbo 1.5.1 https://sourceforge.net/projects/libjpeg-turbo/files/
 - libpng 1.6.28 http://www.libpng.org/pub/png/libpng.html
@@ -25,4 +25,4 @@
 - RapidJSON https://github.com/miloyip/rapidjson/releases
 - xxHash v0.6.2 https://github.com/Cyan4973/xxHash/releases
 - zlib 1.2.11 http://www.zlib.net/
-- Zstandard v1.1.2 https://github.com/facebook/zstd/releases
+- Zstandard v1.2.0 https://github.com/facebook/zstd/releases

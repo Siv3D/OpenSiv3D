@@ -28,23 +28,13 @@ namespace s3d
 
 		WindowHandle m_glfwWindow = nullptr;
 
-		Point m_previousScreenPos{ 0, 0 };
+		CursorState<Point> m_screen;
 
-		Point m_screenPos{ 0, 0 };
+		CursorState<Point> m_client_raw;
 
-		Point m_screenDelta{ 0, 0 };
+		CursorState<Vec2> m_client_transformedF;
 
-		Point m_previousClientPos_raw{ 0, 0 };
-
-		Point m_clientPos_raw{ 0, 0 };
-
-		Point m_clientPos_transformedPoint{ 0, 0 };
-
-		Vec2 m_clientPos_transformedVec2{ 0, 0 };
-
-		Point m_previousClientPos_transformedPoint{ 0, 0 };
-
-		Vec2 m_previousClientPos_transformedVec2{ 0, 0 };
+		CursorState<Point> m_client_transformed;
 
 		Mat3x2 m_transform = Mat3x2::Identity();
 
@@ -64,23 +54,13 @@ namespace s3d
 
 		void update() override;
 
-		const Point& previousScreenPos() const override;
+		const CursorState<Point>& screen() const override;
 
-		const Point& screenPos() const override;
+		const CursorState<Point>& clientRaw() const override;
 
-		const Point& screenDelta() const override;
+		const CursorState<Vec2>& clientTransformedF() const override;
 
-		const Point& previousClientPos() const override;
-
-		const Point& clientPos() const override;
-
-		Point clientDelta() const override;
-
-		const Vec2& previousClientPosF() const override;
-
-		const Vec2& clientPosF() const override;
-
-		Vec2 clientDeltaF() const override;
+		const CursorState<Point>& clientTransformed() const override;
 
 		void setPos(int32 x, int32 y) override;
 

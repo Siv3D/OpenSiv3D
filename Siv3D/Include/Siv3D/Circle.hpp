@@ -14,6 +14,7 @@
 # include "PointVector.hpp"
 # include "Line.hpp"
 # include "Array.hpp"
+# include "Geometry2D.hpp"
 # include "MathConstants.hpp"
 # include "NamedParameter.hpp"
 
@@ -381,16 +382,16 @@ namespace s3d
 		}
 
 		template <class Shape2DType>
+		Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::IntersectAt(*this, shape)))
+		{
+			return Geometry2D::IntersectAt(*this, shape);
+		}
+
+		template <class Shape2DType>
 		bool contains(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Contains(*this, shape)))
 		{
 			return Geometry2D::Contains(*this, shape);
 		}
-
-		Optional<Array<Vec2>> intersectsAt(const Line& line) const;
-
-		Optional<Array<Vec2>> intersectsAt(const Rect& line) const;
-
-		Optional<Array<Vec2>> intersectsAt(const RectF& line) const;
 
 		bool leftClicked() const;
 
