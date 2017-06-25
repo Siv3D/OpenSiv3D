@@ -736,6 +736,8 @@ namespace s3d
 
 		bool applyAlphaFromRChannel(const FilePath& alpha);
 
+		Image& mirror();
+
 		Image& flip();
 		
 		

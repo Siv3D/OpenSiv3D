@@ -350,6 +350,40 @@ namespace s3d
 
 		return true;
 	}
+
+	Image& Image::mirror()
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			const int32 h = m_height, w = m_width, wHalf = m_width / 2;	
+			Color* line = m_data.data();		
+
+			for (int32 y = 0; y < h; ++y)
+			{
+				Color* lineA = line;
+				Color* lineB = line + w - 1;;
+
+				for (int32 x = 0; x < wHalf; ++x)
+				{
+					std::swap(*lineA, *lineB);
+					++lineA;
+					--lineB;
+				}
+
+				line += w;
+			}
+		}
+
+		return *this;
+	}
 	
 	Image& Image::flip()
 	{

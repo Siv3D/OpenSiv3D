@@ -2,8 +2,10 @@
 
 void Main()
 {
+	const Texture texture(Image(L"example/windmill.png").mirror());
+
 	while (System::Update())
 	{
-		
+		texture.draw();
 	}
 }
