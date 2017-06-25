@@ -778,9 +778,6 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\RDTSCClock.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\Include\Siv3D\Void_t.hpp">
-      <Filter>Include\Siv3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\MemoryMapping.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
