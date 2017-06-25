@@ -48,9 +48,10 @@ namespace s3d
 
 		update();
 
-		m_previousScreenPos = m_screenPos;
-		m_previousClientPos_raw = m_screenPos;
-		m_screenDelta.set(0, 0);
+		m_screen.previous = m_screen.current;
+		m_client_raw.previous = m_client_raw.current;
+		m_client_transformed.previous = m_client_transformed.current;
+		m_client_transformedF.previous = m_client_transformedF.current;
 
 		return true;
 	}
@@ -62,20 +63,23 @@ namespace s3d
 			// [Siv3D ToDo]
 		}
 		
-		m_screenPos = detail::CursorScreenPos_macOS();
-		m_screenDelta = m_screenPos - m_previousScreenPos;
-		m_previousScreenPos = m_screenPos;
+		m_screen.previous = m_screen.current;
+		m_screen.current = detail::CursorScreenPos_macOS();
+		m_screen.delta = m_screen.current - m_screen.previous;
 
 		double clientX, clientY;
 		::glfwGetCursorPos(m_glfwWindow, &clientX, &clientY);
-		m_clientPos_raw.set(static_cast<int32>(clientX), static_cast<int32>(clientY));
-		m_previousClientPos_raw = m_clientPos_raw;
+		m_client_raw.previous = m_client_raw.current;
+		m_client_raw.current.set(static_cast<int32>(clientX), static_cast<int32>(clientY);
+		m_client_raw.delta = m_client_raw.current - m_client_raw.previous;
 
-		m_clientPos_transformedVec2			= m_transformInv.transform(m_clientPos_raw);
-		m_previousClientPos_transformedVec2	= m_transformInv.transform(m_previousClientPos_raw);
-		
-		m_clientPos_transformedPoint			= m_clientPos_transformedVec2.asPoint();
-		m_previousClientPos_transformedPoint	= m_previousClientPos_transformedVec2.asPoint();
+		m_client_transformedF.previous = m_client_transformedF.current;
+		m_client_transformedF.current = m_transformInv.transform(m_client_raw.current);
+		m_client_transformedF.delta = m_client_transformedF.current - m_client_transformedF.previous;
+
+		m_client_transformed.previous = m_client_transformedF.previous.asPoint();
+		m_client_transformed.current = m_client_transformedF.current.asPoint();
+		m_client_transformed.delta = m_client_transformedF.delta.asPoint();
 		
 		if (Window::ClientRect().intersects(m_clientPos_raw) && m_curerntCursorStyle != CursorStyle::Default)
 		{
@@ -83,49 +87,24 @@ namespace s3d
 		}
 	}
 
-	const Point& CCursor_macOS::previousScreenPos() const
+	const CursorState<Point>& CCursor_macOS::screen() const
 	{
-		return m_previousScreenPos;
+		return m_screen;
 	}
 
-	const Point& CCursor_macOS::screenPos() const
+	const CursorState<Point>& CCursor_macOS::clientRaw() const
 	{
-		return m_screenPos;
+		return m_client_raw;
 	}
 
-	const Point& CCursor_macOS::screenDelta() const
+	const CursorState<Vec2>& CCursor_macOS::clientTransformedF() const
 	{
-		return m_screenDelta;
+		return m_client_transformedF;
 	}
 
-	const Point& CCursor_macOS::previousClientPos() const
+	const CursorState<Point>& CCursor_macOS::clientTransformed() const
 	{
-		return m_previousClientPos_transformedPoint;
-	}
-
-	const Point& CCursor_macOS::clientPos() const
-	{
-		return m_previousClientPos_transformedPoint;
-	}
-
-	Point CCursor_macOS::clientDelta() const
-	{
-		return m_clientPos_transformedPoint - m_previousClientPos_transformedPoint;
-	}
-
-	const Vec2& CCursor_macOS::previousClientPosF() const
-	{
-		return m_previousClientPos_transformedVec2;
-	}
-
-	const Vec2& CCursor_macOS::clientPosF() const
-	{
-		return m_previousClientPos_transformedVec2;
-	}
-
-	Vec2 CCursor_macOS::clientDeltaF() const
-	{
-		return m_clientPos_transformedVec2 - m_previousClientPos_transformedVec2;
+		return m_client_transformed;
 	}
 
 	void CCursor_macOS::setPos(const int32 x, const int32 y)
@@ -134,12 +113,17 @@ namespace s3d
 		
 		detail::CursorSetPos_macOS(screenPos.x, screenPos.y);
 		
-		m_clientPos_raw.set(x, y);
-		m_screenPos.set(screenPos);
+		m_screen.current = screenPos;
+		m_screen.delta = m_screen.current - m_screen.previous;
 
-		m_clientPos_transformedVec2		= m_transformInv.transform(m_clientPos_raw);
-		m_clientPos_transformedPoint	= m_clientPos_transformedVec2.asPoint();
+		m_client_raw.current.set(x, y);
+		m_client_raw.delta = m_client_raw.current - m_client_raw.previous;
 
+		m_client_transformedF.current = m_transformInv.transform(m_client_raw.current);
+		m_client_transformedF.delta = m_client_transformedF.current - m_client_transformedF.previous;
+
+		m_client_transformed.current = m_client_transformedF.current.asPoint();
+		m_client_transformed.delta = m_client_transformedF.delta.asPoint();
 	}
 
 	void CCursor_macOS::setTransform(const Mat3x2& matrix)
@@ -152,11 +136,11 @@ namespace s3d
 		m_transform = matrix;
 		m_transformInv = m_transform.inverse();
 
-		m_clientPos_transformedVec2 = m_transformInv.transform(m_clientPos_raw);
-		m_previousClientPos_transformedVec2 = m_transformInv.transform(m_previousClientPos_raw);
+		m_client_transformedF.current = m_transformInv.transform(m_client_raw.current);
+		m_client_transformedF.delta = m_client_transformedF.current - m_client_transformedF.previous;
 
-		m_clientPos_transformedPoint = m_clientPos_transformedVec2.asPoint();
-		m_previousClientPos_transformedPoint = m_previousClientPos_transformedVec2.asPoint();
+		m_client_transformed.current = m_client_transformedF.current.asPoint();
+		m_client_transformed.delta = m_client_transformedF.delta.asPoint();
 	}
 
 	const Mat3x2& CCursor_macOS::getTransform() const

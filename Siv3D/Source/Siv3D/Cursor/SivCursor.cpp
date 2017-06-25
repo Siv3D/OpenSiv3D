@@ -22,47 +22,62 @@ namespace s3d
 	{
 		Point Pos()
 		{
-			return Siv3DEngine::GetCursor()->clientPos();
-		}
-
-		Vec2 PosF()
-		{
-			return Siv3DEngine::GetCursor()->clientPosF();
+			return Siv3DEngine::GetCursor()->clientTransformed().current;
 		}
 
 		Point PreviousPos()
 		{
-			return Siv3DEngine::GetCursor()->previousClientPos();
-		}
-
-		Vec2 PreviousPosF()
-		{
-			return Siv3DEngine::GetCursor()->previousClientPosF();
+			return Siv3DEngine::GetCursor()->clientTransformed().previous;
 		}
 
 		Point Delta()
 		{
-			return Siv3DEngine::GetCursor()->clientDelta();
+			return Siv3DEngine::GetCursor()->clientTransformed().delta;
+		}
+
+		Vec2 PosF()
+		{
+			return Siv3DEngine::GetCursor()->clientTransformedF().current;
+		}
+
+		Vec2 PreviousPosF()
+		{
+			return Siv3DEngine::GetCursor()->clientTransformedF().previous;
 		}
 
 		Vec2 DeltaF()
 		{
-			return Siv3DEngine::GetCursor()->clientDeltaF();
+			return Siv3DEngine::GetCursor()->clientTransformedF().delta;
+		}
+
+		Point PosRaw()
+		{
+			return Siv3DEngine::GetCursor()->clientRaw().current;
+		}
+
+		Point PreviousPosRaw()
+		{
+			return Siv3DEngine::GetCursor()->clientRaw().previous;
+		}
+
+		Point DeltaRaw()
+		{
+			return Siv3DEngine::GetCursor()->clientRaw().delta;
 		}
 
 		Point ScreenPos()
 		{
-			return Siv3DEngine::GetCursor()->screenPos();
+			return Siv3DEngine::GetCursor()->screen().current;
 		}
 
 		Point PreviousScreenPos()
 		{
-			return Siv3DEngine::GetCursor()->previousScreenPos();
+			return Siv3DEngine::GetCursor()->screen().previous;
 		}
 
 		Point ScreenDelta()
 		{
-			return Siv3DEngine::GetCursor()->screenDelta();
+			return Siv3DEngine::GetCursor()->screen().delta;
 		}
 
 		void SetPos(const int32 x, const int32 y)
@@ -72,7 +87,7 @@ namespace s3d
 
 		bool OnClientRect()
 		{
-			return Geometry2D::Intersect(Siv3DEngine::GetCursor()->clientPos(),
+			return Geometry2D::Intersect(Siv3DEngine::GetCursor()->clientRaw().current,
 				Rect(Siv3DEngine::GetWindow()->getState().clientSize));
 		}
 

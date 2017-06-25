@@ -14,6 +14,16 @@
 
 namespace s3d
 {
+	template <class VectorType>
+	struct CursorState
+	{
+		VectorType previous = { 0,0 };
+
+		VectorType current = { 0,0 };
+
+		VectorType delta = { 0,0 };
+	};
+
 	class ISiv3DCursor
 	{
 	public:
@@ -26,23 +36,13 @@ namespace s3d
 
 		virtual void update() = 0;
 
-		virtual const Point& previousScreenPos() const = 0;
+		virtual const CursorState<Point>& screen() const = 0;
 
-		virtual const Point& screenPos() const = 0;
+		virtual const CursorState<Point>& clientRaw() const = 0;
 
-		virtual const Point& screenDelta() const = 0;
+		virtual const CursorState<Vec2>& clientTransformedF() const = 0;
 
-		virtual const Point& previousClientPos() const = 0;
-
-		virtual const Point& clientPos() const = 0;
-
-		virtual Point clientDelta() const = 0;
-
-		virtual const Vec2& previousClientPosF() const = 0;
-
-		virtual const Vec2& clientPosF() const = 0;
-
-		virtual Vec2 clientDeltaF() const = 0;
+		virtual const CursorState<Point>& clientTransformed() const = 0;
 
 		virtual void setPos(int32 x, int32 y) = 0;
 
