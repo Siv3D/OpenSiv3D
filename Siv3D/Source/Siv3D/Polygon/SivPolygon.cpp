@@ -128,10 +128,15 @@ namespace s3d
 	//	return pImpl->perimeter();
 	//}
 
-	//Vec2 Polygon::centroid() const
-	//{
-	//	return pImpl->centroid();
-	//}
+	Vec2 Polygon::centroid() const
+	{
+		return pImpl->centroid();
+	}
+	
+	Polygon Polygon::computeConvexHull() const
+	{
+		return pImpl->computeConvexHull();
+	}
 
 	bool Polygon::intersects(const Polygon& polygon) const
 	{

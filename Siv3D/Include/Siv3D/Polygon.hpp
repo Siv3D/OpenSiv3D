@@ -91,9 +91,9 @@ namespace s3d
 
 		//double perimeter() const;
 
-		//Vec2 centroid() const;
+		Vec2 centroid() const;
 
-		//Polygon computeConvexHull() const;
+		Polygon computeConvexHull() const;
 
 		//Polygon simplified(double maxDistance = 2.0) const;
 

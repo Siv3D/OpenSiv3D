@@ -12,6 +12,11 @@
 # include "CPolygon.hpp"
 S3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry/algorithms/intersects.hpp>
+# include <boost/geometry/strategies/strategies.hpp>
+# include <boost/geometry/algorithms/centroid.hpp>
+# include <boost/geometry/algorithms/convex_hull.hpp>
+# include <boost/geometry/algorithms/simplify.hpp>
+# include <boost/geometry/algorithms/buffer.hpp>
 S3D_DISABLE_MSVC_WARNINGS_POP()
 # include "../../ThirdParty/clip2tri/clip2tri.h"
 # include <Siv3D/Shape2D.hpp>
@@ -167,6 +172,29 @@ namespace s3d
 		{
 			point.moveBy(xf, yf);
 		}
+	}
+	
+	Vec2 Polygon::CPolygon::centroid() const
+	{
+		if (outer().isEmpty())
+		{
+			return Vec2(0, 0);
+		}
+		
+		Vec2 centroid;
+		
+		boost::geometry::centroid(m_polygon, centroid);
+		
+		return centroid;
+	}
+	
+	Polygon Polygon::CPolygon::computeConvexHull() const
+	{
+		gRing result;
+		
+		boost::geometry::convex_hull(m_polygon.outer(), result);
+		
+		return Polygon(result);
 	}
 
 	bool Polygon::CPolygon::intersects(const CPolygon& other) const
