@@ -14,6 +14,7 @@
 # include "NamedParameter.hpp"
 # include "PointVector.hpp"
 # include "Line.hpp"
+# include "Intersection.hpp"
 # include "Geometry2D.hpp"
 # include "Quad.hpp"
 # include "Color.hpp"

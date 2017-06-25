@@ -55,7 +55,7 @@ namespace s3d
 		m_screen.delta = m_screen.current - m_screen.previous;
 
 		m_client_raw.previous = m_client_raw.current;
-		m_client_raw.current.set(static_cast<int32>(clientX), static_cast<int32>(clientY);
+		m_client_raw.current.set(static_cast<int32>(clientX), static_cast<int32>(clientY));
 		m_client_raw.delta = m_client_raw.current - m_client_raw.previous;
 
 		m_client_transformedF.previous = m_client_transformedF.current;

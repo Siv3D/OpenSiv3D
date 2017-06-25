@@ -70,7 +70,7 @@ namespace s3d
 		double clientX, clientY;
 		::glfwGetCursorPos(m_glfwWindow, &clientX, &clientY);
 		m_client_raw.previous = m_client_raw.current;
-		m_client_raw.current.set(static_cast<int32>(clientX), static_cast<int32>(clientY);
+		m_client_raw.current.set(static_cast<int32>(clientX), static_cast<int32>(clientY));
 		m_client_raw.delta = m_client_raw.current - m_client_raw.previous;
 
 		m_client_transformedF.previous = m_client_transformedF.current;
@@ -81,7 +81,7 @@ namespace s3d
 		m_client_transformed.current = m_client_transformedF.current.asPoint();
 		m_client_transformed.delta = m_client_transformedF.delta.asPoint();
 		
-		if (Window::ClientRect().intersects(m_clientPos_raw) && m_curerntCursorStyle != CursorStyle::Default)
+		if (Window::ClientRect().intersects(m_client_raw.current) && m_curerntCursorStyle != CursorStyle::Default)
 		{
 			detail::CursorSetStyle_macOS(m_curerntCursorStyle);
 		}
@@ -109,7 +109,7 @@ namespace s3d
 
 	void CCursor_macOS::setPos(const int32 x, const int32 y)
 	{
-		const Point screenPos = Point(x, y) + (m_screenPos - m_clientPos_raw);
+		const Point screenPos = Point(x, y) + (m_screen.current - m_client_raw.current);
 		
 		detail::CursorSetPos_macOS(screenPos.x, screenPos.y);
 		
