@@ -411,7 +411,6 @@
 		2C0C7DBA1EBCC39B00386CBB /* Vertex2D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7D1B1EBCC39B00386CBB /* Vertex2D.hpp */; };
 		2C0C7DBB1EBCC39B00386CBB /* VertexShader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7D1C1EBCC39B00386CBB /* VertexShader.hpp */; };
 		2C0C7DBC1EBCC39B00386CBB /* ViewportBlock2D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7D1D1EBCC39B00386CBB /* ViewportBlock2D.hpp */; };
-		2C0C7DBD1EBCC39B00386CBB /* Void_t.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7D1E1EBCC39B00386CBB /* Void_t.hpp */; };
 		2C0C7DBE1EBCC39B00386CBB /* Window.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7D1F1EBCC39B00386CBB /* Window.hpp */; };
 		2C0C7DBF1EBCC39B00386CBB /* WritableMemoryMapping.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7D201EBCC39B00386CBB /* WritableMemoryMapping.hpp */; };
 		2C0C7DC01EBCC39B00386CBB /* Xorshift.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7D211EBCC39B00386CBB /* Xorshift.hpp */; };
@@ -1274,7 +1273,6 @@
 		2C0C7D1B1EBCC39B00386CBB /* Vertex2D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Vertex2D.hpp; sourceTree = "<group>"; };
 		2C0C7D1C1EBCC39B00386CBB /* VertexShader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = VertexShader.hpp; sourceTree = "<group>"; };
 		2C0C7D1D1EBCC39B00386CBB /* ViewportBlock2D.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ViewportBlock2D.hpp; sourceTree = "<group>"; };
-		2C0C7D1E1EBCC39B00386CBB /* Void_t.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Void_t.hpp; sourceTree = "<group>"; };
 		2C0C7D1F1EBCC39B00386CBB /* Window.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Window.hpp; sourceTree = "<group>"; };
 		2C0C7D201EBCC39B00386CBB /* WritableMemoryMapping.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = WritableMemoryMapping.hpp; sourceTree = "<group>"; };
 		2C0C7D211EBCC39B00386CBB /* Xorshift.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Xorshift.hpp; sourceTree = "<group>"; };
@@ -3041,7 +3039,6 @@
 				2C0C7D1B1EBCC39B00386CBB /* Vertex2D.hpp */,
 				2C0C7D1C1EBCC39B00386CBB /* VertexShader.hpp */,
 				2C0C7D1D1EBCC39B00386CBB /* ViewportBlock2D.hpp */,
-				2C0C7D1E1EBCC39B00386CBB /* Void_t.hpp */,
 				2C0C7D1F1EBCC39B00386CBB /* Window.hpp */,
 				2C0C7D201EBCC39B00386CBB /* WritableMemoryMapping.hpp */,
 				2C0C7D211EBCC39B00386CBB /* Xorshift.hpp */,
@@ -4329,7 +4326,6 @@
 				2CCA366F1ECC748F00078678 /* svpscmap.h in Headers */,
 				2C2E829D1EAA1B3A0057BDAF /* biginteger.h in Headers */,
 				2C0C7BD91EBCC38400386CBB /* D3D11SwapChain.hpp in Headers */,
-				2C0C7DBD1EBCC39B00386CBB /* Void_t.hpp in Headers */,
 				2C0C7DBC1EBCC39B00386CBB /* ViewportBlock2D.hpp in Headers */,
 				2C0C7D9F1EBCC39B00386CBB /* SpeedStopwatch.hpp in Headers */,
 				2CAAB11E1EF4EB6E0000A06D /* CCPU.hpp in Headers */,
