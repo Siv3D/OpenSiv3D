@@ -13,6 +13,7 @@
 # include "Fwd.hpp"
 # include "PointVector.hpp"
 # include "LineString.hpp"
+# include "Geometry2D.hpp"
 
 namespace s3d
 {
@@ -49,6 +50,18 @@ namespace s3d
 		}
 
 		LineString getLineString(double start, double end, uint32 quality = 24) const;
+
+		template <class Shape2DType>
+		bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
+		{
+			return Geometry2D::Intersect(*this, shape);
+		}
+
+		template <class Shape2DType>
+		Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::IntersectAt(*this, shape)))
+		{
+			return Geometry2D::IntersectAt(*this, shape);
+		}
 
 		// paint, overpaint
 	

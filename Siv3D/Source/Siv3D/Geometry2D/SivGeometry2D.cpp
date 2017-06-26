@@ -14,6 +14,8 @@
 # include <Siv3D/Geometry2D.hpp>
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/Line.hpp>
+# include <Siv3D/Bezier2.hpp>
+# include <Siv3D/Bezier3.hpp>
 # include <Siv3D/Rectangle.hpp>
 # include <Siv3D/Circle.hpp>
 # include <Siv3D/Ellipse.hpp>
@@ -21,6 +23,7 @@
 # include <Siv3D/Quad.hpp>
 # include <Siv3D/RoundRect.hpp>
 # include <Siv3D/Polygon.hpp>
+# include "Polynomial.hpp"
 
 namespace s3d
 {
@@ -262,10 +265,32 @@ namespace s3d
 
 			return points;
 		}
+
+		static constexpr RectF RoughBoundingRect(const Bezier2& bezier)
+		{
+			const double minX = std::min({ bezier.p0.x, bezier.p1.x, bezier.p2.x });
+			const double maxX = std::max({ bezier.p0.x, bezier.p1.x, bezier.p2.x });
+			const double minY = std::min({ bezier.p0.x, bezier.p1.y, bezier.p2.y });
+			const double maxY = std::max({ bezier.p0.y, bezier.p1.y, bezier.p2.y });
+			return{ minX, minY, maxX - minX,maxY - minY };
+		}
+
+		static constexpr RectF RoughBoundingRect(const Bezier3& bezier)
+		{
+			const double minX = std::min({ bezier.p0.x, bezier.p1.x, bezier.p2.x, bezier.p3.x });
+			const double maxX = std::max({ bezier.p0.x, bezier.p1.x, bezier.p2.x, bezier.p3.x });
+			const double minY = std::min({ bezier.p0.x, bezier.p1.y, bezier.p2.y, bezier.p3.y });
+			const double maxY = std::max({ bezier.p0.y, bezier.p1.y, bezier.p2.y, bezier.p3.y });
+			return{ minX, minY, maxX - minX,maxY - minY };
+		}
 	}
 
 	namespace Geometry2D
 	{
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Point vs
+		//
 		bool Intersect(const Point& a, const Point& b) noexcept
 		{
 			return a == b;
@@ -333,7 +358,10 @@ namespace s3d
 			return Intersect(Vec2(a), b);
 		}
 
-
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Vec2 vs
+		//
 		bool Intersect(const Vec2& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
@@ -416,6 +444,10 @@ namespace s3d
 			return false;
 		}
 
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Line vs
+		//
 		bool Intersect(const Line& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
@@ -632,6 +664,38 @@ namespace s3d
 			return false;
 		}
 
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Bezier2 vs
+		//
+		bool Intersect(const Bezier2& a, const Circle& b)
+		{
+			return IntersectAt(a, Ellipse(b)).has_value();
+		}
+
+		bool Intersect(const Bezier2& a, const Ellipse& b)
+		{
+			return IntersectAt(a, b).has_value();
+		}
+
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Bezier3 vs
+		//
+		bool Intersect(const Bezier3& a, const Circle& b)
+		{
+			return IntersectAt(a, Ellipse(b)).has_value();
+		}
+
+		bool Intersect(const Bezier3& a, const Ellipse& b)
+		{
+			return IntersectAt(a, b).has_value();
+		}
+
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Rect vs
+		//
 		bool Intersect(const Rect& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
@@ -656,7 +720,6 @@ namespace s3d
 		{
 			return (a.x < b.x + b.w) && (b.x < a.x + a.w) && (a.y < b.y + b.h) && (b.y < a.y + a.h);
 		}
-
 
 		bool Intersect(const Rect& a, const Circle& b) noexcept
 		{
@@ -715,6 +778,10 @@ namespace s3d
 			return false;
 		}
 
+		////////////////////////////////////////////////////////////////////
+		//
+		//	RectF vs
+		//
 		bool Intersect(const RectF& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
@@ -797,6 +864,10 @@ namespace s3d
 			return false;
 		}
 
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Circle vs
+		//
 		bool Intersect(const Circle& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
@@ -808,6 +879,16 @@ namespace s3d
 		}
 
 		bool Intersect(const Circle& a, const Line& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Circle& a, const Bezier2& b)
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Circle& a, const Bezier3& b)
 		{
 			return Intersect(b, a);
 		}
@@ -863,6 +944,10 @@ namespace s3d
 			return false;
 		}
 
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Ellipse vs
+		//
 		bool Intersect(const Ellipse& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
@@ -878,6 +963,20 @@ namespace s3d
 			return Intersect(b, a);
 		}
 
+		bool Intersect(const Ellipse& a, const Bezier2& b)
+		{
+			return Intersect(b, a);
+		}
+
+		bool Intersect(const Ellipse& a, const Bezier3& b)
+		{
+			return Intersect(b, a);
+		}
+
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Triangle vs
+		//
 		bool Intersect(const Triangle& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
@@ -1000,6 +1099,10 @@ namespace s3d
 			return false;
 		}
 
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Quad vs
+		//
 		bool Intersect(const Quad& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
@@ -1071,6 +1174,10 @@ namespace s3d
 			return false;
 		}
 
+		////////////////////////////////////////////////////////////////////
+		//
+		//	RoundRect vs
+		//
 		bool Intersect(const RoundRect& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
@@ -1151,6 +1258,10 @@ namespace s3d
 			return false;
 		}
 
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Polygon vs
+		//
 		bool Intersect(const Polygon& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
@@ -1201,7 +1312,7 @@ namespace s3d
 			return a.intersects(b);
 		}
 		
-		///////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////
 		//
 		//	IntersectAt
 		//
@@ -1316,6 +1427,152 @@ namespace s3d
 			return results;
 		}
 
+		Optional<Array<Vec2>> IntersectAt(const Bezier2& a, const Circle& b)
+		{
+			return IntersectAt(a, Ellipse(b));
+		}
+
+		//
+		//	https://github.com/thelonious/kld-intersections/blob/development/lib/Intersection.js
+		//
+		Optional<Array<Vec2>> IntersectAt(const Bezier2& a, const Ellipse& b)
+		{
+			if (!Intersect(detail::RoughBoundingRect(a), b.boundingRect()))
+			{
+				return none;
+			}
+
+			const Vec2 t1 = a.p1 * -2;
+			const Vec2 c2 = a.p0 + (t1 + a.p2);
+			const Vec2 t2 = a.p0 * -2;
+			const Vec2 t3 = a.p1 * 2;
+			const Vec2 c1 = t2 + t3;
+			const Vec2 c0 = a.p0;
+			const double rxrx = b.a * b.a;
+			const double ryry = b.b * b.b;
+
+			const Array<double> roots = Polynomial({
+				ryry*c2.x*c2.x + rxrx*c2.y*c2.y,
+				2 * (ryry*c2.x*c1.x + rxrx*c2.y*c1.y),
+				ryry*(2 * c2.x*c0.x + c1.x*c1.x) + rxrx*(2 * c2.y*c0.y + c1.y*c1.y) - 2 * (ryry*b.x*c2.x + rxrx*b.y*c2.y),
+				2 * (ryry*c1.x*(c0.x - b.x) + rxrx*c1.y*(c0.y - b.y)),
+				ryry*(c0.x*c0.x + b.x*b.x) + rxrx*(c0.y*c0.y + b.y*b.y) - 2 * (ryry*b.x*c0.x + rxrx*b.y*c0.y) - rxrx*ryry,
+			}).getRoots();
+
+			Array<Vec2> points;
+
+			for (size_t i = 0; i < roots.size(); ++i)
+			{
+				const double t = roots[i];
+
+				if (0 <= t && t <= 1)
+				{
+					points.push_back(c2 * (t*t) + (c1 * t + c0));
+				}
+			}
+
+			if (points)
+			{
+				return points;
+			}
+			else if (Intersect(a.p0, b) || Intersect(a.p2, b))
+			{
+				return Array<Vec2>();
+			}
+			else
+			{
+				return none;
+			}
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Bezier3& a, const Circle& b)
+		{
+			return IntersectAt(a, Ellipse(b));
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Bezier3& a, const Ellipse& b)
+		{
+			if (!Intersect(detail::RoughBoundingRect(a), b.boundingRect()))
+			{
+				return none;
+			}
+
+			const Vec2 t1 = -a.p0;
+			const Vec2 t2 = a.p1 * 3.0;
+			const Vec2 t3 = a.p2 * -3.0;
+			const Vec2 t4 = t1 + (t2 + (t3 + a.p3));
+			const Vec2 c3 = t4;
+
+			const Vec2 u1 = a.p0 * 3.0;
+			const Vec2 u2 = a.p1 * -6.0;
+			const Vec2 u3 = a.p2 * 3.0;
+			const Vec2 u4 = u1 + (u2 + u3);
+			const Vec2 c2 = u4;
+
+			const Vec2 v1 = a.p0 * -3.0;
+			const Vec2 v2 = a.p1 * 3.0;
+			const Vec2 v3 = v1 + v2;
+			const Vec2 c1 = v3;
+
+			const Vec2 c0 = a.p0;
+
+			const double rxrx = b.a*b.a;
+			const double ryry = b.b*b.b;
+
+			Polynomial poly({
+				c3.x*c3.x*ryry + c3.y*c3.y*rxrx,
+				2 * (c3.x*c2.x*ryry + c3.y*c2.y*rxrx),
+				2 * (c3.x*c1.x*ryry + c3.y*c1.y*rxrx) + c2.x*c2.x*ryry + c2.y*c2.y*rxrx,
+				2 * c3.x*ryry*(c0.x - b.x) + 2 * c3.y*rxrx*(c0.y - b.y) +
+				2 * (c2.x*c1.x*ryry + c2.y*c1.y*rxrx),
+				2 * c2.x*ryry*(c0.x - b.x) + 2 * c2.y*rxrx*(c0.y - b.y) +
+				c1.x*c1.x*ryry + c1.y*c1.y*rxrx,
+				2 * c1.x*ryry*(c0.x - b.x) + 2 * c1.y*rxrx*(c0.y - b.y),
+				c0.x*c0.x*ryry - 2 * c0.y*b.y*rxrx - 2 * c0.x*b.x*ryry +
+				c0.y*c0.y*rxrx + b.x*b.x*ryry + b.y*b.y*rxrx - rxrx*ryry
+			});
+			
+			Array<double> roots = poly.getRootsInInterval(0, 1);
+			{
+				const double ZEROepsilon = 1e-15;
+				roots.sort_by([](double a, double b) { return a < b; });
+		
+				for (size_t i = 1; i < roots.size();)
+				{
+					if (std::abs(roots[i] - roots[i - 1]) < ZEROepsilon)
+					{
+						roots.remove_at(i);
+					}
+					else
+					{
+						++i;
+					}
+				}
+			}
+
+			Array<Vec2> points;
+
+			for (size_t i = 0; i < roots.size(); ++i)
+			{
+				const double t = roots[i];
+				const Vec2 v = c3 * (t * t * t) + (c2 * (t * t) + (c1 * t + c0));
+				points.push_back(v);
+			}
+
+			if (points)
+			{
+				return points;
+			}
+			else if (Intersect(a.p0, b) || Intersect(a.p3, b))
+			{
+				return Array<Vec2>();
+			}
+			else
+			{
+				return none;
+			}
+		}
+
 		Optional<Array<Vec2>> IntersectAt(const Rect& a, const Circle& b)
 		{
 			return IntersectAt(a, Ellipse(b));
@@ -1419,6 +1676,16 @@ namespace s3d
 			return IntersectAt(b, Ellipse(a));
 		}
 
+		Optional<Array<Vec2>> IntersectAt(const Circle& a, const Bezier2& b)
+		{
+			return IntersectAt(b, Ellipse(a));
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Circle& a, const Bezier3& b)
+		{
+			return IntersectAt(b, Ellipse(a));
+		}
+
 		Optional<Array<Vec2>> IntersectAt(const Circle& a, const Rect& b)
 		{
 			return IntersectAt(b, Ellipse(a));
@@ -1430,6 +1697,16 @@ namespace s3d
 		}
 
 		Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Line& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Bezier2& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Bezier3& b)
 		{
 			return IntersectAt(b, a);
 		}
