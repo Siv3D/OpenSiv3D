@@ -99,12 +99,12 @@ namespace s3d
 		void add(std::unique_ptr<IEffect>&& effect) const;
 
 		template <class EffectElement, class... Args>
-		void add(Args&&... args)
+		void add(Args&&... args) const
 		{
 			add(std::make_unique<EffectElement>(std::forward<Args>(args)...));
 		}
 
-		void add(std::function<bool(double)> f)
+		void add(std::function<bool(double)> f) const
 		{
 			struct AnonymousEffect : IEffect
 			{

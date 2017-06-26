@@ -20,12 +20,12 @@ void Main()
 
 	while (System::Update())
 	{	
-		if (MouseL.down()) // IEffect
+		if (MouseL.down()) // (従来) IEffect
 		{
 			effect.add<Ripple>(Cursor::Pos());
 		}
 		
-		if (MouseR.down()) // ラムダ式
+		if (MouseR.down()) // (新機能) ラムダ式
 		{
 			effect.add([pos = Cursor::Pos()](double t){
 				Circle(pos, t * 100).draw(ColorF(Palette::Orange, 1.0 - t));
