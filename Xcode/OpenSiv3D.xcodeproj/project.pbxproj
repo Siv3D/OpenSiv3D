@@ -678,6 +678,10 @@
 		2C8E40C81EFAD70900F30069 /* zdict.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E40A81EFAD70900F30069 /* zdict.c */; };
 		2C8E40C91EFAD70900F30069 /* zdict.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E40A91EFAD70900F30069 /* zdict.h */; };
 		2C8E40CA1EFAD70900F30069 /* zstd.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E40AB1EFAD70900F30069 /* zstd.h */; };
+		2C8E40CD1F00B87600F30069 /* Bezier2.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E40CB1F00B87600F30069 /* Bezier2.hpp */; };
+		2C8E40CE1F00B87600F30069 /* Bezier3.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E40CC1F00B87600F30069 /* Bezier3.hpp */; };
+		2C8E40D31F00B88700F30069 /* SivBezier2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E40D01F00B88700F30069 /* SivBezier2.cpp */; };
+		2C8E40D41F00B88700F30069 /* SivBezier3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E40D21F00B88700F30069 /* SivBezier3.cpp */; };
 		2CA6355D1ED3C30E00B851BC /* Emoji.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CA6355C1ED3C30E00B851BC /* Emoji.hpp */; };
 		2CA635601ED3C32400B851BC /* SivEmoji.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA6355F1ED3C32400B851BC /* SivEmoji.cpp */; };
 		2CA79A101DF55A0D0028D11D /* boost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F81DF55A0D0028D11D /* boost_filesystem.a */; };
@@ -751,10 +755,6 @@
 		2CCA358F1EC8833F00078678 /* SIMDMath.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA358E1EC8833F00078678 /* SIMDMath.hpp */; };
 		2CCA35911EC884F500078678 /* TexturedQuad.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA35901EC884F500078678 /* TexturedQuad.hpp */; };
 		2CCA35941EC8850D00078678 /* SivTexturedQuad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35931EC8850D00078678 /* SivTexturedQuad.cpp */; };
-		2CCA35961EC899F000078678 /* CubicBezier.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA35951EC899F000078678 /* CubicBezier.hpp */; };
-		2CCA35981EC89A0500078678 /* QuadraticBezier.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA35971EC89A0500078678 /* QuadraticBezier.hpp */; };
-		2CCA359B1EC89A1900078678 /* SivCubicBezier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA359A1EC89A1900078678 /* SivCubicBezier.cpp */; };
-		2CCA359E1EC89A2600078678 /* SivQuadraticBezier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA359D1EC89A2600078678 /* SivQuadraticBezier.cpp */; };
 		2CCA35A01EC89DBC00078678 /* Spline.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA359F1EC89DBC00078678 /* Spline.hpp */; };
 		2CCA35A31EC8ADAC00078678 /* SivSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA35A21EC8ADAC00078678 /* SivSprite.cpp */; };
 		2CCA35A51EC8ADCD00078678 /* Sprite.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA35A41EC8ADCD00078678 /* Sprite.hpp */; };
@@ -1569,6 +1569,10 @@
 		2C8E40A91EFAD70900F30069 /* zdict.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zdict.h; sourceTree = "<group>"; };
 		2C8E40AA1EFAD70900F30069 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		2C8E40AB1EFAD70900F30069 /* zstd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd.h; sourceTree = "<group>"; };
+		2C8E40CB1F00B87600F30069 /* Bezier2.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Bezier2.hpp; sourceTree = "<group>"; };
+		2C8E40CC1F00B87600F30069 /* Bezier3.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Bezier3.hpp; sourceTree = "<group>"; };
+		2C8E40D01F00B88700F30069 /* SivBezier2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBezier2.cpp; sourceTree = "<group>"; };
+		2C8E40D21F00B88700F30069 /* SivBezier3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBezier3.cpp; sourceTree = "<group>"; };
 		2CA6355C1ED3C30E00B851BC /* Emoji.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Emoji.hpp; sourceTree = "<group>"; };
 		2CA6355F1ED3C32400B851BC /* SivEmoji.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEmoji.cpp; sourceTree = "<group>"; };
 		2CA798F81DF55A0D0028D11D /* boost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_filesystem.a; sourceTree = "<group>"; };
@@ -1649,10 +1653,6 @@
 		2CCA358E1EC8833F00078678 /* SIMDMath.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SIMDMath.hpp; sourceTree = "<group>"; };
 		2CCA35901EC884F500078678 /* TexturedQuad.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TexturedQuad.hpp; sourceTree = "<group>"; };
 		2CCA35931EC8850D00078678 /* SivTexturedQuad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTexturedQuad.cpp; sourceTree = "<group>"; };
-		2CCA35951EC899F000078678 /* CubicBezier.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CubicBezier.hpp; sourceTree = "<group>"; };
-		2CCA35971EC89A0500078678 /* QuadraticBezier.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = QuadraticBezier.hpp; sourceTree = "<group>"; };
-		2CCA359A1EC89A1900078678 /* SivCubicBezier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivCubicBezier.cpp; sourceTree = "<group>"; };
-		2CCA359D1EC89A2600078678 /* SivQuadraticBezier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivQuadraticBezier.cpp; sourceTree = "<group>"; };
 		2CCA359F1EC89DBC00078678 /* Spline.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Spline.hpp; sourceTree = "<group>"; };
 		2CCA35A21EC8ADAC00078678 /* SivSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSprite.cpp; sourceTree = "<group>"; };
 		2CCA35A41EC8ADCD00078678 /* Sprite.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Sprite.hpp; sourceTree = "<group>"; };
@@ -1797,6 +1797,8 @@
 		2C0C7A121EBCC38300386CBB /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C8E40CF1F00B88700F30069 /* Bezier2 */,
+				2C8E40D11F00B88700F30069 /* Bezier3 */,
 				2C8E40591EF95B7600F30069 /* Polygon */,
 				2CAAB1171EF4EB6E0000A06D /* CPU */,
 				2CAAB10E1EF289BB0000A06D /* TextBox */,
@@ -1812,8 +1814,6 @@
 				2CCA35AB1EC9A8E100078678 /* ByteArrayView */,
 				2CCA35A81EC8B39800078678 /* RoundRect */,
 				2CCA35A11EC8ADAC00078678 /* Sprite */,
-				2CCA359C1EC89A2600078678 /* QuadraticBezier */,
-				2CCA35991EC89A1900078678 /* CubicBezier */,
 				2CCA35921EC8850D00078678 /* TexturedQuad */,
 				2CCA35731EC6BBCA00078678 /* SamplerState */,
 				2CCA35701EC6BBBD00078678 /* ImageProcessing */,
@@ -2869,6 +2869,8 @@
 				2C0C7C901EBCC39B00386CBB /* ArrayBool.hpp */,
 				2C0C7C911EBCC39B00386CBB /* AssetHandle.hpp */,
 				2C0C7C921EBCC39B00386CBB /* Base64.hpp */,
+				2C8E40CB1F00B87600F30069 /* Bezier2.hpp */,
+				2C8E40CC1F00B87600F30069 /* Bezier3.hpp */,
 				2C0C7C931EBCC39B00386CBB /* BigFloat.hpp */,
 				2C0C7C941EBCC39B00386CBB /* BigInt.hpp */,
 				2C0C7C951EBCC39B00386CBB /* BinaryReader.hpp */,
@@ -2891,7 +2893,6 @@
 				2C0C7CA61EBCC39B00386CBB /* Console.hpp */,
 				2C0C7DC31EBE0E1D00386CBB /* ConstantBuffer.hpp */,
 				2CAAB1151EF4EB5A0000A06D /* CPU.hpp */,
-				2CCA35951EC899F000078678 /* CubicBezier.hpp */,
 				2C0C7CA71EBCC39B00386CBB /* Cursor.hpp */,
 				2C0C7CA81EBCC39B00386CBB /* Cylindrical.hpp */,
 				2C0C7CA91EBCC39B00386CBB /* Date.hpp */,
@@ -2979,7 +2980,6 @@
 				2CAE4DFA1EE3AC080057BE7E /* Print.hpp */,
 				2C0C7CF11EBCC39B00386CBB /* Profiler.hpp */,
 				2C0C7CF21EBCC39B00386CBB /* Quad.hpp */,
-				2CCA35971EC89A0500078678 /* QuadraticBezier.hpp */,
 				2C0C7CF31EBCC39B00386CBB /* Random.hpp */,
 				2C0C7CF41EBCC39B00386CBB /* RandomColor.hpp */,
 				2C0C7CF51EBCC39B00386CBB /* RandomPoint.hpp */,
@@ -3730,6 +3730,22 @@
 			path = dictBuilder;
 			sourceTree = "<group>";
 		};
+		2C8E40CF1F00B88700F30069 /* Bezier2 */ = {
+			isa = PBXGroup;
+			children = (
+				2C8E40D01F00B88700F30069 /* SivBezier2.cpp */,
+			);
+			path = Bezier2;
+			sourceTree = "<group>";
+		};
+		2C8E40D11F00B88700F30069 /* Bezier3 */ = {
+			isa = PBXGroup;
+			children = (
+				2C8E40D21F00B88700F30069 /* SivBezier3.cpp */,
+			);
+			path = Bezier3;
+			sourceTree = "<group>";
+		};
 		2CA6355E1ED3C32400B851BC /* Emoji */ = {
 			isa = PBXGroup;
 			children = (
@@ -3993,22 +4009,6 @@
 			path = TexturedQuad;
 			sourceTree = "<group>";
 		};
-		2CCA35991EC89A1900078678 /* CubicBezier */ = {
-			isa = PBXGroup;
-			children = (
-				2CCA359A1EC89A1900078678 /* SivCubicBezier.cpp */,
-			);
-			path = CubicBezier;
-			sourceTree = "<group>";
-		};
-		2CCA359C1EC89A2600078678 /* QuadraticBezier */ = {
-			isa = PBXGroup;
-			children = (
-				2CCA359D1EC89A2600078678 /* SivQuadraticBezier.cpp */,
-			);
-			path = QuadraticBezier;
-			sourceTree = "<group>";
-		};
 		2CCA35A11EC8ADAC00078678 /* Sprite */ = {
 			isa = PBXGroup;
 			children = (
@@ -4253,6 +4253,7 @@
 				2C0C7BB41EBCC38400386CBB /* CDragDrop_Linux.hpp in Headers */,
 				2C81C0591E89F8E300D27E52 /* jpeg_data.h in Headers */,
 				2C0C7C4F1EBCC38400386CBB /* CSystem_macOS.hpp in Headers */,
+				2C8E40CE1F00B87600F30069 /* Bezier3.hpp in Headers */,
 				2C0C7BB81EBCC38400386CBB /* CDragDrop_Windows.hpp in Headers */,
 				2C81C0781E89F8E300D27E52 /* md5.h in Headers */,
 				2CAAB1131EF289BB0000A06D /* CTextBox.hpp in Headers */,
@@ -4294,7 +4295,6 @@
 				2C0C7DF71EC0BBC600386CBB /* SamplerState.hpp in Headers */,
 				2C0C7C2F1EBCC38400386CBB /* D3D11SpriteBatch.hpp in Headers */,
 				2C0C7BCD1EBCC38400386CBB /* CGraphics_D3D11.hpp in Headers */,
-				2CCA35981EC89A0500078678 /* QuadraticBezier.hpp in Headers */,
 				2C0C7D671EBCC39B00386CBB /* HTMLWriter.hpp in Headers */,
 				2C0C7DAC1EBCC39B00386CBB /* Threading.hpp in Headers */,
 				2C0C7DB71EBCC39B00386CBB /* Vector3D.hpp in Headers */,
@@ -4448,6 +4448,7 @@
 				2C0C7C041EBCC38400386CBB /* CLogger.hpp in Headers */,
 				2CAAB1081EEEC40F0000A06D /* CScreenCapture.hpp in Headers */,
 				2CCA36651ECC748F00078678 /* svfntfmt.h in Headers */,
+				2C8E40CD1F00B87600F30069 /* Bezier2.hpp in Headers */,
 				2C0C7D751EBCC39B00386CBB /* LetterCase.hpp in Headers */,
 				2C81C0831E89F8E300D27E52 /* muParserDLL.h in Headers */,
 				2C0C7D6E1EBCC39B00386CBB /* IWriter.hpp in Headers */,
@@ -4729,7 +4730,6 @@
 				2C2E829A1EAA1B3A0057BDAF /* filereadstream.h in Headers */,
 				2CCA36681ECC748F00078678 /* svkern.h in Headers */,
 				2CCA364D1ECC748F00078678 /* ftsystem.h in Headers */,
-				2CCA35961EC899F000078678 /* CubicBezier.hpp in Headers */,
 				2C81C0811E89F8E300D27E52 /* muParserDef.h in Headers */,
 				2CCA364C1ECC748F00078678 /* ftsynth.h in Headers */,
 				2C81C0851E89F8E300D27E52 /* muParserError.h in Headers */,
@@ -5025,6 +5025,7 @@
 				2C8E40C31EFAD70900F30069 /* huf_decompress.c in Sources */,
 				2C0C7BF11EBCC38400386CBB /* ImageFormat_PNG.cpp in Sources */,
 				2C0C7C2C1EBCC38400386CBB /* CRenderer2D_D3D11.cpp in Sources */,
+				2C8E40D31F00B88700F30069 /* SivBezier2.cpp in Sources */,
 				2C0C7C0F1EBCC38400386CBB /* SivMemoryMapping.cpp in Sources */,
 				2C0C7BCE1EBCC38400386CBB /* D3D11DepthStencilState.cpp in Sources */,
 				2C0C7B7D1EBCC38400386CBB /* SivBase64.cpp in Sources */,
@@ -5048,6 +5049,7 @@
 				2C8E40B81EFAD70900F30069 /* xxhash.c in Sources */,
 				2C0C7C5A1EBCC38400386CBB /* TextReader.mm in Sources */,
 				2C0C7C061EBCC38400386CBB /* LoggerFactory.cpp in Sources */,
+				2C8E40D41F00B88700F30069 /* SivBezier3.cpp in Sources */,
 				2C0C7C161EBCC38400386CBB /* SivMessageBox_Windows.cpp in Sources */,
 				2C81C0161E89F8E300D27E52 /* format.cc in Sources */,
 				2C0C7BD61EBCC38400386CBB /* D3D11SamplerState.cpp in Sources */,
@@ -5142,7 +5144,6 @@
 				2C0C7BF31EBCC38400386CBB /* SivImageFormat.cpp in Sources */,
 				2C0C7BC21EBCC38400386CBB /* SivFileSystem_Linux.cpp in Sources */,
 				2C0C7BB91EBCC38400386CBB /* DragDropFactory.cpp in Sources */,
-				2CCA359E1EC89A2600078678 /* SivQuadraticBezier.cpp in Sources */,
 				2C0C7C471EBCC38400386CBB /* Siv3DMain_Linux.cpp in Sources */,
 				2C0C7BFA1EBCC38400386CBB /* CKeyboard_Linux.cpp in Sources */,
 				2C0C7BB51EBCC38400386CBB /* CDragDrop_macOS.cpp in Sources */,
@@ -5150,7 +5151,6 @@
 				2C0C7C1A1EBCC38400386CBB /* CMouse_macOS.cpp in Sources */,
 				2CCA35771EC6C3CE00078678 /* Texture_GL.cpp in Sources */,
 				2C0C7C701EBCC38400386CBB /* CWindow_Linux.cpp in Sources */,
-				2CCA359B1EC89A1900078678 /* SivCubicBezier.cpp in Sources */,
 				2C81C00A1E89F8E300D27E52 /* diy-fp.cc in Sources */,
 				2C0C7BB21EBCC38400386CBB /* SivDateTime.cpp in Sources */,
 				2C0C7C4C1EBCC38400386CBB /* CSystem_Linux.cpp in Sources */,
