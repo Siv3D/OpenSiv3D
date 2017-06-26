@@ -465,17 +465,17 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
-	//	QuadraticBezier.hpp
+	//	Bezier2.hpp
 	//
-	struct QuadraticBezier;
-	struct QuadraticBezierPath;
+	struct Bezier2;
+	struct Bezier2Path;
 
 	//////////////////////////////////////////////////////
 	//
-	//	CubicBezier.hpp
+	//	Bezier3.hpp
 	//
-	struct CubicBezier;
-	struct CubicBezierPath;
+	struct Bezier3;
+	struct Bezier3Path;
 
 	//////////////////////////////////////////////////////
 	//

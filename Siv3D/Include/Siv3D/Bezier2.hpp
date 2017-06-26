@@ -19,13 +19,13 @@ namespace s3d
 	/// <summary>
 	/// 2 次ベジェ曲線
 	/// </summary>
-	struct QuadraticBezier
+	struct Bezier2
 	{
 		Vec2 p0, p1, p2;
 
-		QuadraticBezier() = default;
+		Bezier2() = default;
 
-		constexpr QuadraticBezier(const Vec2& _p0, const Vec2& _p1, const Vec2& _p2) noexcept
+		constexpr Bezier2(const Vec2& _p0, const Vec2& _p1, const Vec2& _p2) noexcept
 			: p0(_p0)
 			, p1(_p1)
 			, p2(_p2) {}
@@ -49,15 +49,15 @@ namespace s3d
 
 		// paint, overpaint
 
-		const QuadraticBezier& draw(const ColorF& color = Palette::White) const
+		const Bezier2& draw(const ColorF& color = Palette::White) const
 		{
 			return draw(1.0, color);
 		}
 
-		const QuadraticBezier& draw(double thickness, const ColorF& color = Palette::White) const;
+		const Bezier2& draw(double thickness, const ColorF& color = Palette::White) const;
 	};
 
-	struct QuadraticBezierPath
+	struct Bezier2Path
 	{
 	private:
 
@@ -67,9 +67,9 @@ namespace s3d
 
 	public:
 
-		QuadraticBezierPath() = default;
+		Bezier2Path() = default;
 
-		explicit constexpr QuadraticBezierPath(const QuadraticBezier& bezier) noexcept
+		explicit constexpr Bezier2Path(const Bezier2& bezier) noexcept
 			: m_v0(2 * bezier.p0 - 4 * bezier.p1 + 2 * bezier.p2)
 			, m_v1(-2 * bezier.p0 + 2 * bezier.p1) {}
 

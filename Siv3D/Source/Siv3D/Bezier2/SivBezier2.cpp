@@ -9,16 +9,17 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/CubicBezier.hpp>
+# include <Siv3D/Bezier2.hpp>
 
 namespace s3d
 {
-	LineString CubicBezier::getLineString(const double start, const double end, const uint32 quality) const
+	LineString Bezier2::getLineString(const double start, const double end, const uint32 quality) const
 	{
 		const double length = end - start;
 		const double d = length / (quality + 1);
 
 		LineString pts(quality + 2);
+
 		Vec2* pDst = pts.data();
 
 		for (uint32 i = 0; i <= (quality + 1); ++i)
@@ -29,8 +30,10 @@ namespace s3d
 		return pts;
 	}
 
-	void CubicBezier::draw(const double thickness, const ColorF& color) const
+	const Bezier2& Bezier2::draw(const double thickness, const ColorF& color) const
 	{
 		getLineString().draw(thickness, color);
+
+		return *this;
 	}
 }
