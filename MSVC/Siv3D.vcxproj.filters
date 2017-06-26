@@ -479,6 +479,9 @@
     <Filter Include="Source\Siv3D\Bezier3">
       <UniqueIdentifier>{d2309ba8-d5f9-4e71-82d1-ae68b82d0fcb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Effect">
+      <UniqueIdentifier>{5a1fed8f-640f-4726-b2dc-601a15f639c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1786,6 +1789,18 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Geometry2D\Polynomial.hpp">
       <Filter>Source\Siv3D\Geometry2D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Effect.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Effect\CEffect.hpp">
+      <Filter>Source\Siv3D\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Effect\IEffect.hpp">
+      <Filter>Source\Siv3D\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Effect\EffectData.hpp">
+      <Filter>Source\Siv3D\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2612,6 +2627,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Bezier3\SivBezier3.cpp">
       <Filter>Source\Siv3D\Bezier3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Effect\EffectFactory.cpp">
+      <Filter>Source\Siv3D\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Effect\SivEffect.cpp">
+      <Filter>Source\Siv3D\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Effect\CEffect.cpp">
+      <Filter>Source\Siv3D\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Effect\EffectData.cpp">
+      <Filter>Source\Siv3D\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

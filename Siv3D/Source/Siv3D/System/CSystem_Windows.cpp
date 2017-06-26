@@ -29,6 +29,7 @@
 # include "../Font/IFont.hpp"
 # include "../Print/IPrint.hpp"
 # include "../ScreenCapture/IScreenCapture.hpp"
+# include "../Effect/IEffect.hpp"
 
 # include <Siv3D/Logger.hpp>
 
@@ -117,6 +118,11 @@ namespace s3d
 		}
 
 		if (!Siv3DEngine::GetScreenCapture()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetEffect()->init())
 		{
 			return false;
 		}
