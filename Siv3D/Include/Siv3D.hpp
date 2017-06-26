@@ -322,9 +322,9 @@
 	// スプライン
 	# include "Siv3D/Spline.hpp"
 	// 2 次ベジェ曲線
-	# include "Siv3D/QuadraticBezier.hpp"
+	# include "Siv3D/Bezier2.hpp"
 	// 3 次ベジェ曲線
-	# include "Siv3D/CubicBezier.hpp"
+	# include "Siv3D/Bezier3.hpp"
 	// SIMD
 	# include "Siv3D/SIMDMath.hpp"
 	// 半精度浮動小数点数

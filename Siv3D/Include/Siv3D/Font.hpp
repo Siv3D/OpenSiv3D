@@ -288,6 +288,16 @@ namespace s3d
 			return boundingRect(bottomRight->movedBy(-region().size));
 		}
 
+		RectF boundingRect(Arg::topCenter_<Vec2> topCenter) const
+		{
+			return boundingRect(topCenter->movedBy(-region().w * 0.5, 0));
+		}
+
+		RectF boundingRect(Arg::bottomCenter_<Vec2> bottomCenter) const
+		{
+			return boundingRect(bottomCenter->movedBy(-region().w * 0.5, -region().h));
+		}
+
 		RectF boundingRect(Arg::center_<Vec2> center) const
 		{
 			return boundingRectAt(*center);
@@ -330,6 +340,16 @@ namespace s3d
 		RectF region(Arg::bottomRight_<Vec2> bottomRight) const
 		{
 			return region(bottomRight->movedBy(-region().size));
+		}
+
+		RectF region(Arg::topCenter_<Vec2> topCenter) const
+		{
+			return region(topCenter->movedBy(-region().w * 0.5, 0));
+		}
+
+		RectF region(Arg::bottomCenter_<Vec2> bottomCenter) const
+		{
+			return region(bottomCenter->movedBy(-region().w * 0.5, -region().h));
 		}
 
 		RectF region(Arg::center_<Vec2> center) const
@@ -376,6 +396,16 @@ namespace s3d
 		RectF draw(Arg::bottomRight_<Vec2> bottomRight, const ColorF& color = Palette::White) const
 		{
 			return draw(bottomRight->movedBy(-region().size), color);
+		}
+
+		RectF draw(Arg::topCenter_<Vec2> topCenter, const ColorF& color = Palette::White) const
+		{
+			return draw(topCenter->movedBy(-region().w * 0.5, 0), color);
+		}
+
+		RectF draw(Arg::bottomCenter_<Vec2> bottomCenter, const ColorF& color = Palette::White) const
+		{
+			return draw(bottomCenter->movedBy(-region().w * 0.5, -region().h), color);
 		}
 
 		RectF draw(Arg::center_<Vec2> center, const ColorF& color = Palette::White) const

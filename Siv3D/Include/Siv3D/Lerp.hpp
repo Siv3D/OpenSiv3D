@@ -11,17 +11,16 @@
 
 # pragma once
 # include <type_traits>
-# include "Void_t.hpp"
 
 namespace s3d
 {
 	namespace detail
 	{
-		template <class, class = Void_t<>>
+		template <class, class = std::void_t<>>
 		struct HasLerp : std::false_type {};
 
 		template <class Type>
-		struct HasLerp<Type, Void_t<decltype(std::declval<Type&>().lerp(std::declval<const Type&>(), 0.0))>> : std::true_type {};
+		struct HasLerp<Type, std::void_t<decltype(std::declval<Type&>().lerp(std::declval<const Type&>(), 0.0))>> : std::true_type {};
 	}
 
 	namespace Math

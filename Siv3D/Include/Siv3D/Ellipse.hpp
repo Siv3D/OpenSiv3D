@@ -232,6 +232,11 @@ namespace s3d
 			return a * b * Math::Pi;
 		}
 
+		constexpr RectF boundingRect() const noexcept
+		{
+			return RectF(center.movedBy(-a, -b), a * 2, b * 2);
+		}
+
 		template <class Shape2DType>
 		bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
 		{

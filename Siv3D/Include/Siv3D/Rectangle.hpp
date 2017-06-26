@@ -428,6 +428,22 @@ namespace s3d
 			: pos(bottomRight->x - _size.x, bottomRight->y - _size.y)
 			, size(_size.x, _size.y) {}
 
+		constexpr Rectangle(Arg::topCenter_<position_type> topCenter, value_type _w, value_type _h) noexcept
+			: pos(topCenter->x - _w / 2, topCenter->y)
+			, size(_w, _h) {}
+
+		constexpr Rectangle(Arg::topCenter_<position_type> topCenter, size_type _size) noexcept
+			: pos(topCenter->x - _size.x / 2, topCenter->y)
+			, size(_size.x, _size.y) {}
+
+		constexpr Rectangle(Arg::bottomCenter_<position_type> bottomCenter, value_type _w, value_type _h) noexcept
+			: pos(bottomCenter->x - _w / 2, bottomCenter->y - _h)
+			, size(_w, _h) {}
+
+		constexpr Rectangle(Arg::bottomCenter_<position_type> bottomCenter, size_type _size) noexcept
+			: pos(bottomCenter->x - _size.x / 2, bottomCenter->y - _size.y)
+			, size(_size.x, _size.y) {}
+
 		constexpr bool operator ==(const Rectangle& rect) const noexcept
 		{
 			return pos == rect.pos
@@ -543,7 +559,19 @@ namespace s3d
 			pos.set(bottomRight->x - w, bottomRight->y - h);
 			return *this;
 		}
-	
+
+		constexpr Rectangle& setPos(Arg::topCenter_<position_type> topCenter) noexcept
+		{
+			pos.set(topCenter->x - w / 2, topCenter->y);
+			return *this;
+		}
+
+		constexpr Rectangle& setPos(Arg::bottomCenter_<position_type> bottomCenter) noexcept
+		{
+			pos.set(bottomCenter->x - w / 2, bottomCenter->y - h);
+			return *this;
+		}
+
 		/// <summary>
 		/// 中心位置を指定して長方形を移動させます。
 		/// </summary>
@@ -607,9 +635,6 @@ namespace s3d
 		{
 			return setSize(_size.x, _size.y);
 		}
-
-
-
 
 		/// <summary>
 		/// 長方形を設定します。
@@ -1014,6 +1039,26 @@ namespace s3d
 		constexpr Rectangle& set(Arg::bottomRight_<position_type> bottomRight, size_type _size) noexcept
 		{
 			return set(bottomRight->x - _size.x, bottomRight->y - _size.y, _size.x, _size.y);
+		}
+
+		constexpr Rectangle& set(Arg::topCenter_<position_type> topCenter, value_type _w, value_type _h) noexcept
+		{
+			return set(topCenter->x - _w / 2, topCenter->y, _w, _h);
+		}
+
+		constexpr Rectangle& set(Arg::topCenter_<position_type> topCenter, size_type _size) noexcept
+		{
+			return set(topCenter->x - _size.x / 2, topCenter->y, _size.x, _size.y);
+		}
+
+		constexpr Rectangle& set(Arg::bottomCenter_<position_type> bottomCenter, value_type _w, value_type _h) noexcept
+		{
+			return set(bottomCenter->x - _w / 2, bottomCenter->y - _h, _w, _h);
+		}
+
+		constexpr Rectangle& set(Arg::bottomCenter_<position_type> bottomCenter, size_type _size) noexcept
+		{
+			return set(bottomCenter->x - _size.x / 2, bottomCenter->y - _size.y, _size.x, _size.y);
 		}
 
 		/// <summary>

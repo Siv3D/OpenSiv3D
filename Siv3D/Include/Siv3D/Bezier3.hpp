@@ -13,19 +13,20 @@
 # include "Fwd.hpp"
 # include "PointVector.hpp"
 # include "LineString.hpp"
+# include "Geometry2D.hpp"
 
 namespace s3d
 {
 	/// <summary>
 	/// 3 次ベジェ曲線
 	/// </summary>
-	struct CubicBezier
+	struct Bezier3
 	{
 		Vec2 p0, p1, p2, p3;
 
-		CubicBezier() = default;
+		Bezier3() = default;
 
-		constexpr CubicBezier(const Vec2& _p0, const Vec2& _p1, const Vec2& _p2, const Vec2& _p3) noexcept
+		constexpr Bezier3(const Vec2& _p0, const Vec2& _p1, const Vec2& _p2, const Vec2& _p3) noexcept
 			: p0(_p0)
 			, p1(_p1)
 			, p2(_p2)
@@ -50,6 +51,18 @@ namespace s3d
 
 		LineString getLineString(double start, double end, uint32 quality = 24) const;
 
+		template <class Shape2DType>
+		bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
+		{
+			return Geometry2D::Intersect(*this, shape);
+		}
+
+		template <class Shape2DType>
+		Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::IntersectAt(*this, shape)))
+		{
+			return Geometry2D::IntersectAt(*this, shape);
+		}
+
 		// paint, overpaint
 	
 		void draw(const ColorF& color = Palette::White) const
@@ -60,7 +73,7 @@ namespace s3d
 		void draw(double thickness, const ColorF& color = Palette::White) const;
 	};
 
-	struct CubicBezierPath
+	struct Bezier3Path
 	{
 	private:
 
@@ -70,9 +83,9 @@ namespace s3d
 
 	public:
 
-		CubicBezierPath() = default;
+		Bezier3Path() = default;
 
-		explicit constexpr CubicBezierPath(const CubicBezier& bezier) noexcept
+		explicit constexpr Bezier3Path(const Bezier3& bezier) noexcept
 			: m_v0(-3 * bezier.p0 + 9 * bezier.p1 - 9 * bezier.p2 + 3 * bezier.p3)
 			, m_v1(6 * bezier.p0 - 12 * bezier.p1 + 6 * bezier.p2)
 			, m_v2(-3 * bezier.p0 + 3 * bezier.p1) {}

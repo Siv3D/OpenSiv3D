@@ -54,7 +54,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Concept.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Console.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ConstantBuffer.hpp" />
-    <ClInclude Include="..\Siv3D\Include\Siv3D\CubicBezier.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Bezier3.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Cursor.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Cylindrical.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Date.hpp" />
@@ -133,7 +133,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\PowerStatus.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Profiler.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Quad.hpp" />
-    <ClInclude Include="..\Siv3D\Include\Siv3D\QuadraticBezier.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Bezier2.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Random.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\RandomColor.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\RandomPoint.hpp" />
@@ -171,7 +171,6 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Vertex2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\VertexShader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ViewportBlock2D.hpp" />
-    <ClInclude Include="..\Siv3D\Include\Siv3D\Void_t.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Window.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\WritableMemoryMapping.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Xorshift.hpp" />
@@ -243,6 +242,7 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Font\CFont.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Font\FontData.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Font\IFont.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Geometry2D\Polynomial.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\BlendState\D3D11BlendState.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\CGraphics_D3D11.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\DepthStencilState\D3D11DepthStencilState.hpp" />
@@ -457,6 +457,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Base64\SivBase64.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Bezier2\SivBezier2.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Bezier3\SivBezier3.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\BigFloat\SivBigFloat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\BigInt\SivBigInt.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\BinaryReader\CBinaryReader_Linux.cpp" />
@@ -490,7 +492,6 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\CPU\CCPU.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\CPU\CPUFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\CPU\SivCPU.cpp" />
-    <ClCompile Include="..\Siv3D\Source\Siv3D\CubicBezier\SivCubicBezier.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_Linux.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_macOS.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Cursor\CCursor_Windows.cpp" />
@@ -591,7 +592,6 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\CProfiler.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\ProfilerFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\SivProfiler.cpp" />
-    <ClCompile Include="..\Siv3D\Source\Siv3D\QuadraticBezier\SivQuadraticBezier.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Quad\SivQuad.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\RasterizerState\SivRasterizerState.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Rectangle\SivRectangle.cpp" />
@@ -817,7 +817,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <DebugInformationFormat />
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -836,7 +836,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_LIB;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <DebugInformationFormat />
       <MultiProcessorCompilation>true</MultiProcessorCompilation>

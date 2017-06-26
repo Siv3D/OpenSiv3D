@@ -523,6 +523,36 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<br>
 </div>)-"
 
 
+u8R"-(<div class="c0">kld-polynomial</div>
+<div class="c1">Copyright (c) 2013, Kevin Lindsey. All rights reserved.</div>
+<div class="c2">
+Redistribution and use in source and binary forms, with or without modification,<br>
+are permitted provided that the following conditions are met:<br>
+<br>
+  Redistributions of source code must retain the above copyright notice, this<br>
+  list of conditions and the following disclaimer.<br>
+<br>
+  Redistributions in binary form must reproduce the above copyright notice, this<br>
+  list of conditions and the following disclaimer in the documentation and/or<br>
+  other materials provided with the distribution.<br>
+<br>
+  Neither the name of the {organization} nor the names of its<br>
+  contributors may be used to endorse or promote products derived from<br>
+  this software without specific prior written permission.<br>
+<br>
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND<br>
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED<br>
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE<br>
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR<br>
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES<br>
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;<br>
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON<br>
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT<br>
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS<br>
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<br>
+</div>)-"
+
+
 u8R"-(<div class="c0">libjpeg</div>
 <div class="c2">
 This software is based in part on the work of the Independent JPEG Group.<br>

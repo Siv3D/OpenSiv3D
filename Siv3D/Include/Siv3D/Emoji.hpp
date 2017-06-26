@@ -14,58 +14,22 @@
 # include "String.hpp"
 # include "StringView.hpp"
 
-# define EMOJIDEF(NAME,CH) static constexpr Helper NAME = { CH };
-
 namespace s3d
 {
+	//
+	// https://github.com/Siv3D/OpenSiv3D/wiki/Emoji-list
+	// https://www.google.com/get/noto/help/emoji/
+	//
 	struct Emoji
 	{
-	private:
-
-		struct Helper
-		{
-			const wchar_t* codePoints;
-		};
-
-	public:
-
 		String codePoints;
 
 		explicit Emoji(StringView emoji) noexcept
 			: codePoints(emoji) {}
 
-		Emoji(Helper helper) noexcept
-			: codePoints(helper.codePoints) {}
-
 		static Image LoadImage(StringView emoji);
 
 		static Image LoadSilhouette(StringView emoji);
-
-		//
-		// https://www.google.com/get/noto/help/emoji/
-		//
-
-		/// <summary>
-		/// 🔥
-		/// </summary>
-		EMOJIDEF(Fire, L"🔥");
-
-		/// <summary>
-		/// ⚽
-		/// </summary>
-		EMOJIDEF(SoccerBall, L"⚽");
-
-		/// <summary>
-		/// 🐵
-		/// </summary>
-		EMOJIDEF(MonkeyFace, L"🐵");
-
-		/// <summary>
-		/// 🍔
-		/// </summary>
-		EMOJIDEF(Hamburger, L"🍔");
 	};
 }
 
-# undef U32WIDEN
-# undef EMOJIDEF

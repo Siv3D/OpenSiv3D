@@ -401,12 +401,6 @@
     <Filter Include="Source\Siv3D\TexturedQuad">
       <UniqueIdentifier>{3396b2cd-7d87-4f03-ab04-92e61543113f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Siv3D\QuadraticBezier">
-      <UniqueIdentifier>{60d49729-5904-474c-837d-b00470442a76}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Siv3D\CubicBezier">
-      <UniqueIdentifier>{4b9e2fa8-9b81-4aa6-8cd7-7ff5fb1bb84d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Siv3D\Sprite">
       <UniqueIdentifier>{ca3b5aef-4858-4f0d-80d8-f0579176b7a8}</UniqueIdentifier>
     </Filter>
@@ -478,6 +472,12 @@
     </Filter>
     <Filter Include="Source\ThirdParty\clip2tri">
       <UniqueIdentifier>{b64c96be-8ecc-46cc-8c65-3cf133fca477}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Bezier2">
+      <UniqueIdentifier>{e6377170-0b00-40f9-96a1-cf08e04c2f49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Bezier3">
+      <UniqueIdentifier>{d2309ba8-d5f9-4e71-82d1-ae68b82d0fcb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -776,9 +776,6 @@
       <Filter>Source\Siv3D\Console</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\RDTSCClock.hpp">
-      <Filter>Include\Siv3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\Include\Siv3D\Void_t.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\MemoryMapping.hpp">
@@ -1564,12 +1561,6 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\TexturedQuad.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\Include\Siv3D\QuadraticBezier.hpp">
-      <Filter>Include\Siv3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\Include\Siv3D\CubicBezier.hpp">
-      <Filter>Include\Siv3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\Spline.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
@@ -1785,6 +1776,15 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\zstd.h">
       <Filter>Source\ThirdParty\zstd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Bezier2.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Bezier3.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Geometry2D\Polynomial.hpp">
+      <Filter>Source\Siv3D\Geometry2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2445,12 +2445,6 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\TexturedQuad\SivTexturedQuad.cpp">
       <Filter>Source\Siv3D\TexturedQuad</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\Siv3D\QuadraticBezier\SivQuadraticBezier.cpp">
-      <Filter>Source\Siv3D\QuadraticBezier</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\Siv3D\CubicBezier\SivCubicBezier.cpp">
-      <Filter>Source\Siv3D\CubicBezier</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Sprite\SivSprite.cpp">
       <Filter>Source\Siv3D\Sprite</Filter>
     </ClCompile>
@@ -2612,6 +2606,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\zstd\dictBuilder\zdict.c">
       <Filter>Source\ThirdParty\zstd\dictBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Bezier2\SivBezier2.cpp">
+      <Filter>Source\Siv3D\Bezier2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Bezier3\SivBezier3.cpp">
+      <Filter>Source\Siv3D\Bezier3</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
