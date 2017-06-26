@@ -1,22 +1,21 @@
-﻿# include <Siv3D.hpp> //OpenSiv3D v0.1.5
+﻿# include <Siv3D.hpp> // OpenSiv3D v0.1.5
 
 void Main()
 {
+	Graphics::SetBackground(ColorF(0.8, 0.9, 1.0));
+
+	const Font font(50);
+
+	const Texture textureCat(Emoji(L"🐈"), TextureDesc::Mipped);
+
 	while (System::Update())
 	{
-		const Circle circle(Cursor::Pos(), 50);
-		const Bezier3 bezier(Vec2(100, 400), Vec2(300, 400), Vec2(300, 100), Vec2(500, 100));
+		font(L"Hello, Siv3D!🐣").drawAt(Window::Center(), Palette::Black);
 
-		const auto points = circle.intersectsAt(bezier);
-		bezier.draw(5, points ? Palette::Orange : Palette::White);
-		circle.draw(points ? ColorF(Palette::Yellow, 0.8) : ColorF(1.0, 0.5));
+		font(Cursor::Pos()).draw(20, 400, ColorF(0.6));
 
-		if (points)
-		{
-			for (const auto& point : points.value())
-			{
-				Circle(point, 8).draw(Palette::Red);
-			}
-		}
+		textureCat.resize(80).draw(540, 380);
+
+		Circle(Cursor::Pos(), 60).draw(ColorF(1, 0, 0, 0.5));
 	}
 }
