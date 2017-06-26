@@ -683,6 +683,14 @@
 		2C8E40D31F00B88700F30069 /* SivBezier2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E40D01F00B88700F30069 /* SivBezier2.cpp */; };
 		2C8E40D41F00B88700F30069 /* SivBezier3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E40D21F00B88700F30069 /* SivBezier3.cpp */; };
 		2C8E40D61F01065000F30069 /* Polynomial.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E40D51F01065000F30069 /* Polynomial.hpp */; };
+		2C8E40DF1F01413C00F30069 /* CEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E40D81F01413C00F30069 /* CEffect.cpp */; };
+		2C8E40E01F01413C00F30069 /* CEffect.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E40D91F01413C00F30069 /* CEffect.hpp */; };
+		2C8E40E11F01413C00F30069 /* EffectData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E40DA1F01413C00F30069 /* EffectData.cpp */; };
+		2C8E40E21F01413C00F30069 /* EffectData.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E40DB1F01413C00F30069 /* EffectData.hpp */; };
+		2C8E40E31F01413C00F30069 /* EffectFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E40DC1F01413C00F30069 /* EffectFactory.cpp */; };
+		2C8E40E41F01413C00F30069 /* IEffect.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E40DD1F01413C00F30069 /* IEffect.hpp */; };
+		2C8E40E51F01413C00F30069 /* SivEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E40DE1F01413C00F30069 /* SivEffect.cpp */; };
+		2C8E40E71F01415100F30069 /* Effect.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E40E61F01415100F30069 /* Effect.hpp */; };
 		2CA6355D1ED3C30E00B851BC /* Emoji.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CA6355C1ED3C30E00B851BC /* Emoji.hpp */; };
 		2CA635601ED3C32400B851BC /* SivEmoji.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA6355F1ED3C32400B851BC /* SivEmoji.cpp */; };
 		2CA79A101DF55A0D0028D11D /* boost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F81DF55A0D0028D11D /* boost_filesystem.a */; };
@@ -1575,6 +1583,14 @@
 		2C8E40D01F00B88700F30069 /* SivBezier2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBezier2.cpp; sourceTree = "<group>"; };
 		2C8E40D21F00B88700F30069 /* SivBezier3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBezier3.cpp; sourceTree = "<group>"; };
 		2C8E40D51F01065000F30069 /* Polynomial.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Polynomial.hpp; sourceTree = "<group>"; };
+		2C8E40D81F01413C00F30069 /* CEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CEffect.cpp; sourceTree = "<group>"; };
+		2C8E40D91F01413C00F30069 /* CEffect.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CEffect.hpp; sourceTree = "<group>"; };
+		2C8E40DA1F01413C00F30069 /* EffectData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectData.cpp; sourceTree = "<group>"; };
+		2C8E40DB1F01413C00F30069 /* EffectData.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EffectData.hpp; sourceTree = "<group>"; };
+		2C8E40DC1F01413C00F30069 /* EffectFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectFactory.cpp; sourceTree = "<group>"; };
+		2C8E40DD1F01413C00F30069 /* IEffect.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IEffect.hpp; sourceTree = "<group>"; };
+		2C8E40DE1F01413C00F30069 /* SivEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEffect.cpp; sourceTree = "<group>"; };
+		2C8E40E61F01415100F30069 /* Effect.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Effect.hpp; sourceTree = "<group>"; };
 		2CA6355C1ED3C30E00B851BC /* Emoji.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Emoji.hpp; sourceTree = "<group>"; };
 		2CA6355F1ED3C32400B851BC /* SivEmoji.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEmoji.cpp; sourceTree = "<group>"; };
 		2CA798F81DF55A0D0028D11D /* boost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_filesystem.a; sourceTree = "<group>"; };
@@ -1799,6 +1815,7 @@
 		2C0C7A121EBCC38300386CBB /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C8E40D71F01413C00F30069 /* Effect */,
 				2C8E40CF1F00B88700F30069 /* Bezier2 */,
 				2C8E40D11F00B88700F30069 /* Bezier3 */,
 				2C8E40591EF95B7600F30069 /* Polygon */,
@@ -2907,6 +2924,7 @@
 				2CCA35AE1EC9AFF200078678 /* DynamicTexture.hpp */,
 				2C0C7CAF1EBCC39B00386CBB /* Easing.hpp */,
 				2C0C7CB01EBCC39B00386CBB /* EasingController.hpp */,
+				2C8E40E61F01415100F30069 /* Effect.hpp */,
 				2C0C7CB11EBCC39B00386CBB /* Ellipse.hpp */,
 				2CA6355C1ED3C30E00B851BC /* Emoji.hpp */,
 				2C0C7CB21EBCC39B00386CBB /* FileSystem.hpp */,
@@ -3749,6 +3767,20 @@
 			path = Bezier3;
 			sourceTree = "<group>";
 		};
+		2C8E40D71F01413C00F30069 /* Effect */ = {
+			isa = PBXGroup;
+			children = (
+				2C8E40D81F01413C00F30069 /* CEffect.cpp */,
+				2C8E40D91F01413C00F30069 /* CEffect.hpp */,
+				2C8E40DA1F01413C00F30069 /* EffectData.cpp */,
+				2C8E40DB1F01413C00F30069 /* EffectData.hpp */,
+				2C8E40DC1F01413C00F30069 /* EffectFactory.cpp */,
+				2C8E40DD1F01413C00F30069 /* IEffect.hpp */,
+				2C8E40DE1F01413C00F30069 /* SivEffect.cpp */,
+			);
+			path = Effect;
+			sourceTree = "<group>";
+		};
 		2CA6355E1ED3C32400B851BC /* Emoji */ = {
 			isa = PBXGroup;
 			children = (
@@ -4318,12 +4350,14 @@
 				2C81C0861E89F8E300D27E52 /* muParserFixes.h in Headers */,
 				2C0C7D501EBCC39B00386CBB /* EasingController.hpp in Headers */,
 				2C0C7D6B1EBCC39B00386CBB /* INIReader.hpp in Headers */,
+				2C8E40E41F01413C00F30069 /* IEffect.hpp in Headers */,
 				2C0C7BF81EBCC38400386CBB /* InputState.hpp in Headers */,
 				2C0C7D851EBCC39B00386CBB /* Optional.hpp in Headers */,
 				2C0C7D3B1EBCC39B00386CBB /* Char.hpp in Headers */,
 				2C0C7C001EBCC38400386CBB /* IKeyboard.hpp in Headers */,
 				2C0C7B9C1EBCC38400386CBB /* CClipboard_Windows.hpp in Headers */,
 				2C0C7DD31EBE21D000386CBB /* RasterizerState.hpp in Headers */,
+				2C8E40E01F01413C00F30069 /* CEffect.hpp in Headers */,
 				2C0C7BEC1EBCC38400386CBB /* ImageFormat_GIF.hpp in Headers */,
 				2C0C7D571EBCC39B00386CBB /* FormatFloat.hpp in Headers */,
 				2CCA366F1ECC748F00078678 /* svpscmap.h in Headers */,
@@ -4359,6 +4393,7 @@
 				2CCA36721ECC748F00078678 /* svttcmap.h in Headers */,
 				2C81C0341E89F8E300D27E52 /* nsgl_context.h in Headers */,
 				2C81C0501E89F8E300D27E52 /* fast_log.h in Headers */,
+				2C8E40E21F01413C00F30069 /* EffectData.hpp in Headers */,
 				2C0C7D681EBCC39B00386CBB /* Image.hpp in Headers */,
 				2CCA36281ECC748E00078678 /* ftstdlib.h in Headers */,
 				2C0C7C391EBCC38400386CBB /* CShader_D3D11.hpp in Headers */,
@@ -4553,6 +4588,7 @@
 				2C0C7B991EBCC38400386CBB /* CClipboard_macOS.hpp in Headers */,
 				2CAE4E031EE3AC1C0057BE7E /* CPrint.hpp in Headers */,
 				2C2E829F1EAA1B3A0057BDAF /* dtoa.h in Headers */,
+				2C8E40E71F01415100F30069 /* Effect.hpp in Headers */,
 				2CCA35881EC86CD600078678 /* ostream.h in Headers */,
 				2C0C7B871EBCC38400386CBB /* CBinaryReader_Windows.hpp in Headers */,
 				2C0C7D701EBCC39B00386CBB /* Key.hpp in Headers */,
@@ -4977,6 +5013,7 @@
 				2C8E40B41EFAD70900F30069 /* pool.c in Sources */,
 				2C0C7BF61EBCC38400386CBB /* SivINIReader.cpp in Sources */,
 				2C0C7BA41EBCC38400386CBB /* ConsoleFactory.cpp in Sources */,
+				2C8E40E51F01413C00F30069 /* SivEffect.cpp in Sources */,
 				2C8E407E1EF95B9400F30069 /* sweep_context.cc in Sources */,
 				2C0C7C0D1EBCC38400386CBB /* CMemoryMapping.cpp in Sources */,
 				2C81C03B1E89F8E300D27E52 /* window.c in Sources */,
@@ -4998,6 +5035,7 @@
 				2C81C0171E89F8E300D27E52 /* glad.c in Sources */,
 				2C81C0791E89F8E300D27E52 /* muParser.cpp in Sources */,
 				2C81C08C1E89F8E400D27E52 /* muParserTokenReader.cpp in Sources */,
+				2C8E40E31F01413C00F30069 /* EffectFactory.cpp in Sources */,
 				2C0C7C4B1EBCC38400386CBB /* SivString.cpp in Sources */,
 				2C0C7B931EBCC38400386CBB /* SivCharacterEncoding.cpp in Sources */,
 				2C0C7BF91EBCC38400386CBB /* SivKey.cpp in Sources */,
@@ -5031,6 +5069,7 @@
 				2C0C7C2C1EBCC38400386CBB /* CRenderer2D_D3D11.cpp in Sources */,
 				2C8E40D31F00B88700F30069 /* SivBezier2.cpp in Sources */,
 				2C0C7C0F1EBCC38400386CBB /* SivMemoryMapping.cpp in Sources */,
+				2C8E40E11F01413C00F30069 /* EffectData.cpp in Sources */,
 				2C0C7BCE1EBCC38400386CBB /* D3D11DepthStencilState.cpp in Sources */,
 				2C0C7B7D1EBCC38400386CBB /* SivBase64.cpp in Sources */,
 				2C0C7C4E1EBCC38400386CBB /* CSystem_macOS.cpp in Sources */,
@@ -5107,6 +5146,7 @@
 				2C0C7BEF1EBCC38400386CBB /* ImageFormat_JPEG.cpp in Sources */,
 				2C0C7DE31EBF2EBA00386CBB /* SivPowerStatus.cpp in Sources */,
 				2CAAB10B1EEEC40F0000A06D /* SivScreenCapture.cpp in Sources */,
+				2C8E40DF1F01413C00F30069 /* CEffect.cpp in Sources */,
 				2C81C00C1E89F8E300D27E52 /* double-conversion.cc in Sources */,
 				2C114C9B1EE432B200A198BB /* SivTextInput.cpp in Sources */,
 				2C0C7DF91EC0BBEA00386CBB /* D3D11Renderer2DCommandManager.cpp in Sources */,
