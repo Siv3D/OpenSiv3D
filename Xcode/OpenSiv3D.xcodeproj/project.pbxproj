@@ -682,6 +682,7 @@
 		2C8E40CE1F00B87600F30069 /* Bezier3.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E40CC1F00B87600F30069 /* Bezier3.hpp */; };
 		2C8E40D31F00B88700F30069 /* SivBezier2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E40D01F00B88700F30069 /* SivBezier2.cpp */; };
 		2C8E40D41F00B88700F30069 /* SivBezier3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E40D21F00B88700F30069 /* SivBezier3.cpp */; };
+		2C8E40D61F01065000F30069 /* Polynomial.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8E40D51F01065000F30069 /* Polynomial.hpp */; };
 		2CA6355D1ED3C30E00B851BC /* Emoji.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CA6355C1ED3C30E00B851BC /* Emoji.hpp */; };
 		2CA635601ED3C32400B851BC /* SivEmoji.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA6355F1ED3C32400B851BC /* SivEmoji.cpp */; };
 		2CA79A101DF55A0D0028D11D /* boost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA798F81DF55A0D0028D11D /* boost_filesystem.a */; };
@@ -1573,6 +1574,7 @@
 		2C8E40CC1F00B87600F30069 /* Bezier3.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Bezier3.hpp; sourceTree = "<group>"; };
 		2C8E40D01F00B88700F30069 /* SivBezier2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBezier2.cpp; sourceTree = "<group>"; };
 		2C8E40D21F00B88700F30069 /* SivBezier3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBezier3.cpp; sourceTree = "<group>"; };
+		2C8E40D51F01065000F30069 /* Polynomial.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Polynomial.hpp; sourceTree = "<group>"; };
 		2CA6355C1ED3C30E00B851BC /* Emoji.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Emoji.hpp; sourceTree = "<group>"; };
 		2CA6355F1ED3C32400B851BC /* SivEmoji.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivEmoji.cpp; sourceTree = "<group>"; };
 		2CA798F81DF55A0D0028D11D /* boost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = boost_filesystem.a; sourceTree = "<group>"; };
@@ -2163,6 +2165,7 @@
 		2C0C7A7F1EBCC38400386CBB /* Geometry2D */ = {
 			isa = PBXGroup;
 			children = (
+				2C8E40D51F01065000F30069 /* Polynomial.hpp */,
 				2C0C7A801EBCC38400386CBB /* SivGeometry2D.cpp */,
 			);
 			path = Geometry2D;
@@ -4439,6 +4442,7 @@
 				2C0C7D991EBCC39B00386CBB /* ReaderView.hpp in Headers */,
 				2C81C0801E89F8E300D27E52 /* muParserCallback.h in Headers */,
 				2C0C7BFB1EBCC38400386CBB /* CKeyboard_Linux.hpp in Headers */,
+				2C8E40D61F01065000F30069 /* Polynomial.hpp in Headers */,
 				2C0C7D8E1EBCC39B00386CBB /* Point.hpp in Headers */,
 				2C0C7D741EBCC39B00386CBB /* Lerp.hpp in Headers */,
 				2C0C7D821EBCC39B00386CBB /* Mouse.hpp in Headers */,
