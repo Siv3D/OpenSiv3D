@@ -22,7 +22,7 @@ namespace s3d
 
 		FT_Library m_library = nullptr;
 
-		AssetHandleManager<Texture::IDType, std::shared_ptr<FontData>> m_fonts{ S3DSTR("Font") };
+		AssetHandleManager<Font::IDType, std::shared_ptr<FontData>> m_fonts{ S3DSTR("Font") };
 
 		FontFace m_colorEmoji;
 

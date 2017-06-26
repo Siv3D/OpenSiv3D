@@ -11,6 +11,7 @@
 
 # pragma once
 # include <memory>
+# include <functional>
 # include "Fwd.hpp"
 # include "AssetHandle.hpp"
 # include "Uncopyable.hpp"
@@ -40,16 +41,13 @@ namespace s3d
 
 		using IDType = EffectHandle::IDType;
 
+		static constexpr IDType NullHandleID = EffectHandle::NullID;
+
 		Effect();
 
 		~Effect();
 
 		void release();
-
-		/// <summary>
-		/// エフェクトが空かどうかを示します。
-		/// </summary>
-		bool isEmpty() const;
 
 		/// <summary>
 		/// エフェクトハンドルの ID を示します。
@@ -83,6 +81,14 @@ namespace s3d
 			return hasEffects();
 		}
 
+		/// <summary>
+		/// エフェクトが空かどうかを示します。
+		/// </summary>
+		bool isEmpty() const
+		{
+			return !hasEffects();
+		}
+
 		bool hasEffects() const
 		{
 			return num_effects() > 0;
@@ -96,6 +102,24 @@ namespace s3d
 		void add(Args&&... args)
 		{
 			add(std::make_unique<EffectElement>(std::forward<Args>(args)...));
+		}
+
+		void add(std::function<bool(double)> f)
+		{
+			struct AnonymousEffect : IEffect
+			{
+				std::function<bool(double)> function;
+
+				explicit AnonymousEffect(std::function<bool(double)> _function)
+					: function(_function) {}
+
+				bool update(double timeSec) override
+				{
+					return function(timeSec);
+				}
+			};
+
+			add(std::make_unique<AnonymousEffect>(f));
 		}
 
 		void pause() const;

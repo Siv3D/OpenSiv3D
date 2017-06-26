@@ -68,14 +68,14 @@ namespace s3d
 		return m_handle->getID();
 	}
 
-	bool Font::operator ==(const Font& shader) const
+	bool Font::operator ==(const Font& font) const
 	{
-		return m_handle->getID() == shader.m_handle->getID();
+		return m_handle->getID() == font.m_handle->getID();
 	}
 
-	bool Font::operator !=(const Font& shader) const
+	bool Font::operator !=(const Font& font) const
 	{
-		return m_handle->getID() != shader.m_handle->getID();
+		return m_handle->getID() != font.m_handle->getID();
 	}
 
 	const String& Font::familyName() const
