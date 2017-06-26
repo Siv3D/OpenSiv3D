@@ -757,7 +757,7 @@ namespace s3d
 		/// <summary>
 		/// 符号を示す値を返します。
 		/// </summary>
-		inline constexpr float Sign(float x)
+		inline constexpr float Sign(float x) noexcept
 		{
 			return x < 0.0f ? -1.0f : x > 0.0f ? 1.0f : 0.0f;
 		}
@@ -765,7 +765,7 @@ namespace s3d
 		/// <summary>
 		/// 符号を示す値を返します。
 		/// </summary>
-		inline constexpr double Sign(double x)
+		inline constexpr double Sign(double x) noexcept
 		{
 			return x < 0.0 ? -1.0 : x > 0.0 ? 1.0 : 0.0;
 		}
@@ -774,7 +774,7 @@ namespace s3d
 		/// 符号を示す値を返します。
 		/// </summary>
 		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
-		inline constexpr double Sign(Type x)
+		inline constexpr double Sign(Type x) noexcept
 		{
 			return Sign(static_cast<double>(x));
 		}
@@ -782,7 +782,7 @@ namespace s3d
 		/// <summary>
 		/// 符号を示す値を返します。
 		/// </summary>
-		inline constexpr Vec2 Sign(const Point& v)
+		inline constexpr Vec2 Sign(const Point& v) noexcept
 		{
 			return{ Sign(v.x), Sign(v.y) };
 		}
@@ -790,7 +790,7 @@ namespace s3d
 		/// <summary>
 		/// 符号を示す値を返します。
 		/// </summary>
-		inline constexpr Float2 Sign(const Float2& v)
+		inline constexpr Float2 Sign(const Float2& v) noexcept
 		{
 			return{ Sign(v.x), Sign(v.y) };
 		}
@@ -798,7 +798,7 @@ namespace s3d
 		/// <summary>
 		/// 符号を示す値を返します。
 		/// </summary>
-		inline constexpr Float3 Sign(const Float3& v)
+		inline constexpr Float3 Sign(const Float3& v) noexcept
 		{
 			return{ Sign(v.x), Sign(v.y), Sign(v.z) };
 		}
@@ -806,7 +806,7 @@ namespace s3d
 		/// <summary>
 		/// 符号を示す値を返します。
 		/// </summary>
-		inline constexpr Float4 Sign(const Float4& v)
+		inline constexpr Float4 Sign(const Float4& v) noexcept
 		{
 			return{ Sign(v.x), Sign(v.y), Sign(v.z), Sign(v.w) };
 		}
@@ -814,7 +814,7 @@ namespace s3d
 		/// <summary>
 		/// 符号を示す値を返します。
 		/// </summary>
-		inline constexpr Vec2 Sign(const Vec2& v)
+		inline constexpr Vec2 Sign(const Vec2& v) noexcept
 		{
 			return{ Sign(v.x), Sign(v.y) };
 		}
@@ -822,7 +822,7 @@ namespace s3d
 		/// <summary>
 		/// 符号を示す値を返します。
 		/// </summary>
-		inline constexpr Vec3 Sign(const Vec3& v)
+		inline constexpr Vec3 Sign(const Vec3& v) noexcept
 		{
 			return{ Sign(v.x), Sign(v.y), Sign(v.z) };
 		}
@@ -830,7 +830,7 @@ namespace s3d
 		/// <summary>
 		/// 符号を示す値を返します。
 		/// </summary>
-		inline constexpr Vec4 Sign(const Vec4& v)
+		inline constexpr Vec4 Sign(const Vec4& v) noexcept
 		{
 			return{ Sign(v.x), Sign(v.y), Sign(v.z), Sign(v.w) };
 		}
@@ -842,7 +842,7 @@ namespace s3d
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		inline constexpr float Radians(float x)
+		inline constexpr float Radians(float x) noexcept
 		{
 			return x * (PiF / 180.0f);
 		}
@@ -850,7 +850,7 @@ namespace s3d
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		inline constexpr double Radians(double x)
+		inline constexpr double Radians(double x) noexcept
 		{
 			return x * (Pi / 180.0);
 		}
@@ -859,7 +859,7 @@ namespace s3d
 		/// 度数法からラジアンに変換します。
 		/// </summary>
 		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
-		inline constexpr double Radians(Type x)
+		inline constexpr double Radians(Type x) noexcept
 		{
 			return Radians(static_cast<double>(x));
 		}
@@ -867,7 +867,7 @@ namespace s3d
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		inline constexpr Vec2 Radians(const Point& v)
+		inline constexpr Vec2 Radians(const Point& v) noexcept
 		{
 			return{ Radians(v.x), Radians(v.y) };
 		}
@@ -875,7 +875,7 @@ namespace s3d
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		inline constexpr Float2 Radians(const Float2& v)
+		inline constexpr Float2 Radians(const Float2& v) noexcept
 		{
 			return{ Radians(v.x), Radians(v.y) };
 		}
@@ -883,7 +883,7 @@ namespace s3d
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		inline constexpr Float3 Radians(const Float3& v)
+		inline constexpr Float3 Radians(const Float3& v) noexcept
 		{
 			return{ Radians(v.x), Radians(v.y), Radians(v.z) };
 		}
@@ -891,7 +891,7 @@ namespace s3d
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		inline constexpr Float4 Radians(const Float4& v)
+		inline constexpr Float4 Radians(const Float4& v) noexcept
 		{
 			return{ Radians(v.x), Radians(v.y), Radians(v.z), Radians(v.w) };
 		}
@@ -899,7 +899,7 @@ namespace s3d
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		inline constexpr Vec2 Radians(const Vec2& v)
+		inline constexpr Vec2 Radians(const Vec2& v) noexcept
 		{
 			return{ Radians(v.x), Radians(v.y) };
 		}
@@ -907,7 +907,7 @@ namespace s3d
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		inline constexpr Vec3 Radians(const Vec3& v)
+		inline constexpr Vec3 Radians(const Vec3& v) noexcept
 		{
 			return{ Radians(v.x), Radians(v.y), Radians(v.z) };
 		}
@@ -915,7 +915,7 @@ namespace s3d
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		inline constexpr Vec4 Radians(const Vec4& v)
+		inline constexpr Vec4 Radians(const Vec4& v) noexcept
 		{
 			return{ Radians(v.x), Radians(v.y), Radians(v.z), Radians(v.w) };
 		}
@@ -927,7 +927,7 @@ namespace s3d
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		inline constexpr float Degrees(float x)
+		inline constexpr float Degrees(float x) noexcept
 		{
 			return x * (180.0f / PiF);
 		}
@@ -935,7 +935,7 @@ namespace s3d
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		inline constexpr double Degrees(double x)
+		inline constexpr double Degrees(double x) noexcept
 		{
 			return x * (180.0 / Pi);
 		}
@@ -944,7 +944,7 @@ namespace s3d
 		/// ラジアンから度数法に変換します。
 		/// </summary>
 		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
-		inline constexpr double Degrees(Type x)
+		inline constexpr double Degrees(Type x) noexcept
 		{
 			return Degrees(static_cast<double>(x));
 		}
@@ -952,7 +952,7 @@ namespace s3d
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		inline constexpr Vec2 Degrees(const Point& v)
+		inline constexpr Vec2 Degrees(const Point& v) noexcept
 		{
 			return{ Degrees(v.x), Degrees(v.y) };
 		}
@@ -960,7 +960,7 @@ namespace s3d
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		inline constexpr Float2 Degrees(const Float2& v)
+		inline constexpr Float2 Degrees(const Float2& v) noexcept
 		{
 			return{ Degrees(v.x), Degrees(v.y) };
 		}
@@ -968,7 +968,7 @@ namespace s3d
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		inline constexpr Float3 Degrees(const Float3& v)
+		inline constexpr Float3 Degrees(const Float3& v) noexcept
 		{
 			return{ Degrees(v.x), Degrees(v.y), Degrees(v.z) };
 		}
@@ -976,7 +976,7 @@ namespace s3d
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		inline constexpr Float4 Degrees(const Float4& v)
+		inline constexpr Float4 Degrees(const Float4& v) noexcept
 		{
 			return{ Degrees(v.x), Degrees(v.y), Degrees(v.z), Degrees(v.w) };
 		}
@@ -984,7 +984,7 @@ namespace s3d
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		inline constexpr Vec2 Degrees(const Vec2& v)
+		inline constexpr Vec2 Degrees(const Vec2& v) noexcept
 		{
 			return{ Degrees(v.x), Degrees(v.y) };
 		}
@@ -992,7 +992,7 @@ namespace s3d
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		inline constexpr Vec3 Degrees(const Vec3& v)
+		inline constexpr Vec3 Degrees(const Vec3& v) noexcept
 		{
 			return{ Degrees(v.x), Degrees(v.y), Degrees(v.z) };
 		}
@@ -1000,7 +1000,7 @@ namespace s3d
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		inline constexpr Vec4 Degrees(const Vec4& v)
+		inline constexpr Vec4 Degrees(const Vec4& v) noexcept
 		{
 			return{ Degrees(v.x), Degrees(v.y), Degrees(v.z), Degrees(v.w) };
 		}
@@ -1012,7 +1012,7 @@ namespace s3d
 		/// <summary>
 		/// 絶対値を返します。
 		/// </summary>
-		inline constexpr float Abs(float x)
+		inline constexpr float Abs(float x) noexcept
 		{
 			return x >= 0.0f ? x : -x;
 		}
@@ -1020,7 +1020,7 @@ namespace s3d
 		/// <summary>
 		/// 絶対値を返します。
 		/// </summary>
-		inline constexpr double Abs(double x)
+		inline constexpr double Abs(double x) noexcept
 		{
 			return x >= 0.0 ? x : -x;
 		}
@@ -1029,7 +1029,7 @@ namespace s3d
 		/// 絶対値を返します。
 		/// </summary>
 		template <class Type, std::enable_if_t<std::is_signed<Type>::value>* = nullptr>
-		inline constexpr Type Abs(Type x)
+		inline constexpr Type Abs(Type x) noexcept
 		{
 			return x >= Type(0) ? x : -x;
 		}
@@ -1037,7 +1037,7 @@ namespace s3d
 		/// <summary>
 		/// 絶対値を返します。
 		/// </summary>
-		inline constexpr Vec2 Abs(const Point& v)
+		inline constexpr Vec2 Abs(const Point& v) noexcept
 		{
 			return{ Abs(v.x), Abs(v.y) };
 		}
@@ -1045,7 +1045,7 @@ namespace s3d
 		/// <summary>
 		/// 絶対値を返します。
 		/// </summary>
-		inline constexpr Float2 Abs(const Float2& v)
+		inline constexpr Float2 Abs(const Float2& v) noexcept
 		{
 			return{ Abs(v.x), Abs(v.y) };
 		}
@@ -1053,7 +1053,7 @@ namespace s3d
 		/// <summary>
 		/// 絶対値を返します。
 		/// </summary>
-		inline constexpr Float3 Abs(const Float3& v)
+		inline constexpr Float3 Abs(const Float3& v) noexcept
 		{
 			return{ Abs(v.x), Abs(v.y), Abs(v.z) };
 		}
@@ -1061,7 +1061,7 @@ namespace s3d
 		/// <summary>
 		/// 絶対値を返します。
 		/// </summary>
-		inline constexpr Float4 Abs(const Float4& v)
+		inline constexpr Float4 Abs(const Float4& v) noexcept
 		{
 			return{ Abs(v.x), Abs(v.y), Abs(v.z), Abs(v.w) };
 		}
@@ -1069,7 +1069,7 @@ namespace s3d
 		/// <summary>
 		/// 絶対値を返します。
 		/// </summary>
-		inline constexpr Vec2 Abs(const Vec2& v)
+		inline constexpr Vec2 Abs(const Vec2& v) noexcept
 		{
 			return{ Abs(v.x), Abs(v.y) };
 		}
@@ -1077,7 +1077,7 @@ namespace s3d
 		/// <summary>
 		/// 絶対値を返します。
 		/// </summary>
-		inline constexpr Vec3 Abs(const Vec3& v)
+		inline constexpr Vec3 Abs(const Vec3& v) noexcept
 		{
 			return{ Abs(v.x), Abs(v.y), Abs(v.z) };
 		}
@@ -1085,7 +1085,7 @@ namespace s3d
 		/// <summary>
 		/// 絶対値を返します。
 		/// </summary>
-		inline constexpr Vec4 Abs(const Vec4& v)
+		inline constexpr Vec4 Abs(const Vec4& v) noexcept
 		{
 			return{ Abs(v.x), Abs(v.y), Abs(v.z), Abs(v.w) };
 		}
@@ -1097,7 +1097,7 @@ namespace s3d
 		/// <summary>
 		/// 平方を計算します。
 		/// </summary>
-		inline constexpr float Square(float x)
+		inline constexpr float Square(float x) noexcept
 		{
 			return x * x;
 		}
@@ -1105,7 +1105,7 @@ namespace s3d
 		/// <summary>
 		/// 平方を計算します。
 		/// </summary>
-		inline constexpr double Square(double x)
+		inline constexpr double Square(double x) noexcept
 		{
 			return x * x;
 		}
@@ -1114,7 +1114,7 @@ namespace s3d
 		/// 平方を計算します。
 		/// </summary>
 		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
-		inline constexpr double Square(Type x)
+		inline constexpr double Square(Type x) noexcept
 		{
 			return Square(static_cast<double>(x));
 		}
@@ -1314,6 +1314,81 @@ namespace s3d
 		// Tan
 		// Tanh
 		// Normalize
-		// Smoothstep
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// エルミート補間した結果を返します。
+		/// </summary>
+		inline constexpr float Smoothstep(float min, float max, float x) noexcept
+		{
+			if (x <= min)
+			{
+				return 0.0f;
+			}
+			else if (max <= x)
+			{
+				return 1.0f;
+			}
+
+			x = (x - min) / (max - min);
+
+			return x * x * (3.0f - 2.0f * x);
+		}
+
+		/// <summary>
+		/// エルミート補間した結果を返します。
+		/// </summary>
+		inline constexpr double Smoothstep(double min, double max, double x) noexcept
+		{
+			if (x <= min)
+			{
+				return 0.0;
+			}
+			else if (max <= x)
+			{
+				return 1.0;
+			}
+
+			x = (x - min) / (max - min);
+
+			return x * x * (3.0 - 2.0 * x);
+		}
+
+		/// <summary>
+		/// エルミート補間した結果を返します。
+		/// </summary>
+		inline constexpr float Smoothstep(float x) noexcept
+		{
+			if (x <= 0.0f)
+			{
+				return 0.0f;
+			}
+			else if (1.0f <= x)
+			{
+				return 1.0f;
+			}
+
+			return x * x * (3.0f - 2.0f * x);
+		}
+
+		/// <summary>
+		/// エルミート補間した結果を返します。
+		/// </summary>
+		inline constexpr double Smoothstep(double x) noexcept
+		{
+			if (x <= 0.0)
+			{
+				return 0.0;
+			}
+			else if (1.0 <= x)
+			{
+				return 1.0;
+			}
+
+			return x * x * (3.0 - 2.0 * x);
+		}
 	}
 }
