@@ -141,6 +141,7 @@ set(SOURCE_FILES
 	"../Siv3D/Source/Siv3D/TextReader/SivTextReader.cpp"
 	"../Siv3D/Source/Siv3D/TextWriter/CTextWriter.cpp"
 	"../Siv3D/Source/Siv3D/TextWriter/SivTextWriter.cpp"
+	"../Siv3D/Source/Siv3D/Texture/TextureFactory.cpp"
 	"../Siv3D/Source/Siv3D/Threading/SivThreading.cpp"
 	"../Siv3D/Source/Siv3D/Time/SivTime.cpp"
 	"../Siv3D/Source/Siv3D/TimeProfiler/SivTimeProfiler.cpp"
