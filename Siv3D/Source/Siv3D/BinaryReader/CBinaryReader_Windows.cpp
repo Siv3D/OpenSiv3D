@@ -37,13 +37,13 @@ namespace s3d
 
 		if (FileSystem::IsResource(path))
 		{
-			HMODULE module = ::GetModuleHandleW(nullptr);
+			HMODULE hModule = ::GetModuleHandleW(nullptr);
 
-			if (HRSRC hrs = ::FindResourceW(module, (L'#' + path.substr(1)).c_str(), L"FILE"))
+			if (HRSRC hrs = ::FindResourceW(hModule, &path[1], L"FILE"))
 			{
-				m_pResource = ::LockResource(::LoadResource(module, hrs));
+				m_pResource = ::LockResource(::LoadResource(hModule, hrs));
 
-				m_size = ::SizeofResource(module, hrs);
+				m_size = ::SizeofResource(hModule, hrs);
 
 				m_opened = true;
 

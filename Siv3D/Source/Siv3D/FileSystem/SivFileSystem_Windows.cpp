@@ -49,7 +49,7 @@ namespace s3d
 
 		inline bool ResourceExists(const FilePath& path)
 		{
-			return ::FindResourceW(::GetModuleHandleW(nullptr), (L'#' + path.substr(1)).c_str(), L"FILE") != nullptr;
+			return ::FindResourceW(::GetModuleHandleW(nullptr), &path[1], L"FILE") != nullptr;
 		}
 
 		static FilePath NormalizePath(FilePath path, const bool skipDirectoryCheck = false)
@@ -252,12 +252,12 @@ namespace s3d
 
 			if (length == 0)
 			{
-				// [Siv3D*TODO]
+				// [Siv3D ToDo]
 				return FilePath();
 			}
 			else if (length > std::size(result))
 			{
-				// [Siv3D*TODO]
+				// [Siv3D ToDo]
 				return FilePath();
 			}
 
@@ -314,7 +314,7 @@ namespace s3d
 
 			if (detail::IsNotFound(status))
 			{
-				// [Siv3D*TODO]
+				// [Siv3D ToDo]
 				return false;
 			}
 			else if (detail::IsRegular(status))
@@ -323,7 +323,7 @@ namespace s3d
 
 				if (::GetFileAttributesExW(path.c_str(), ::GetFileExInfoStandard, &fad) == 0)
 				{
-					// [Siv3D*TODO]
+					// [Siv3D ToDo]
 					return false;
 				}
 
@@ -335,7 +335,7 @@ namespace s3d
 			}
 			else
 			{
-				// [Siv3D*TODO]
+				// [Siv3D ToDo]
 				return false;
 			}
 		}
@@ -361,7 +361,7 @@ namespace s3d
 
 				if (::GetFileAttributesExW(path.replaced(L'/', L'\\').c_str(), ::GetFileExInfoStandard, &fad) == 0)
 				{
-					// [Siv3D*TODO]
+					// [Siv3D ToDo]
 					return 0;
 				}
 
@@ -373,7 +373,7 @@ namespace s3d
 			}
 			else
 			{
-				// [Siv3D*TODO]
+				// [Siv3D ToDo]
 				return 0;
 			}
 		}
@@ -403,7 +403,7 @@ namespace s3d
 
 			if (::GetFileAttributesExW(path.c_str(), ::GetFileExInfoStandard, &fad) == 0)
 			{
-				// [Siv3D*TODO]
+				// [Siv3D ToDo]
 				return 0;
 			}
 
@@ -522,12 +522,12 @@ namespace s3d
 
 			if (length == 0)
 			{
-				// [Siv3D*TODO]
+				// [Siv3D ToDo]
 				return FilePath();
 			}
 			else if (length > _countof(result))
 			{
-				// [Siv3D*TODO]
+				// [Siv3D ToDo]
 				return FilePath();
 			}
 

@@ -65,10 +65,10 @@
     <ClInclude Include="..\Siv3D-Test\Test\Siv3DTest.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Icon.ico" />
+    <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Resource.rc" />
+    <Image Include="icon.ico" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{160BF0EC-EEAE-497B-8AA5-CB2941E393B2}</ProjectGuid>
