@@ -19,6 +19,10 @@
 # include "SwapChain/D3D11SwapChain.hpp"
 # include "RenderTarget/D3D11RenderTarget.hpp"
 # include "../../Texture/D3D11/CTextureD3D11.hpp"
+# include "BlendState/D3D11BlendState.hpp"
+# include "RasterizerState/D3D11RasterizerState.hpp"
+# include "DepthStencilState/D3D11DepthStencilState.hpp"
+# include "SamplerState/D3D11SamplerState.hpp"
 
 namespace s3d
 {
@@ -33,6 +37,14 @@ namespace s3d
 		std::unique_ptr<D3D11RenderTarget> m_renderTarget;
 
 		CTextureD3D11* m_texture;
+
+		std::unique_ptr<D3D11BlendState> m_pBlendState;
+
+		std::unique_ptr<D3D11RasterizerState> m_pRasterizerState;
+
+		std::unique_ptr<D3D11DepthStencilState> m_pDepthStencilState;
+
+		std::unique_ptr<D3D11SamplerState> m_pSamplerState;
 
 	public:
 

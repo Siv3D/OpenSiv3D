@@ -155,6 +155,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Vector4D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Version.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\XXHash.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\AssetHandleManager\AssetHandleManager.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BigFloat\CBigFloat.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BigInt\CBigInt.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryReader\CBinaryReader_Linux.hpp" />
@@ -180,9 +181,13 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\DragDrop\IDragDrop.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\EngineDirectory\EngineDirectory.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\EngineUtility.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\BlendState\D3D11BlendState.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\CGraphics_D3D11.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\DepthStencilState\D3D11DepthStencilState.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\Device\D3D11Device.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\RasterizerState\D3D11RasterizerState.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\RenderTarget\D3D11RenderTarget.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\SamplerState\D3D11SamplerState.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\SwapChain\D3D11SwapChain.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\GL\CGraphics_GL.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\IGraphics.hpp" />
@@ -217,6 +222,7 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\System\CSystem_Windows.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\System\ISystem.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\TextReader\CTextReader.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\D3D11\BackBufferTexture.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\D3D11\CTextureD3D11.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\D3D11\Texture_D3D11.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\GL\CTextureGL.hpp" />
@@ -345,9 +351,13 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\FormatInt\SivFormatInt.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Format\SivFormat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Geometry2D\SivGeometry2D.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\BlendState\D3D11BlendState.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\CGraphics_D3D11.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\DepthStencilState\D3D11DepthStencilState.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\Device\D3D11Device.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\RasterizerState\D3D11RasterizerState.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\RenderTarget\D3D11RenderTarget.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\SamplerState\D3D11SamplerState.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\SwapChain\D3D11SwapChain.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\GL\CGraphics_GL.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\GraphicsFactory.cpp" />
@@ -411,6 +421,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextReader\SivTextReader.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\D3D11\CTextureD3D11.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\D3D11\Texture_D3D11.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\SivTexture.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\TextureFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextWriter\CTextWriter.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TextWriter\SivTextWriter.cpp" />

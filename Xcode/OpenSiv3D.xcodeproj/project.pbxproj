@@ -71,6 +71,18 @@
 		2C316E2E1E9B627B0011CAAE /* TextureFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E271E9B627B0011CAAE /* TextureFactory.cpp */; };
 		2C316E301E9B699B0011CAAE /* AssetHandle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E2F1E9B699B0011CAAE /* AssetHandle.hpp */; };
 		2C316E321E9B69AF0011CAAE /* Texture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E311E9B69AF0011CAAE /* Texture.hpp */; };
+		2C316E341E9B82B40011CAAE /* SivTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E331E9B82B40011CAAE /* SivTexture.cpp */; };
+		2C316E361E9B82C00011CAAE /* BackBufferTexture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E351E9B82C00011CAAE /* BackBufferTexture.hpp */; };
+		2C316E391E9B82E00011CAAE /* AssetHandleManager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E381E9B82E00011CAAE /* AssetHandleManager.hpp */; };
+		2C316E3B1E9B83BA0011CAAE /* CTextureGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E3A1E9B83BA0011CAAE /* CTextureGL.cpp */; };
+		2C316E481E9BA9240011CAAE /* D3D11BlendState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E3D1E9BA9240011CAAE /* D3D11BlendState.cpp */; };
+		2C316E491E9BA9240011CAAE /* D3D11BlendState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E3E1E9BA9240011CAAE /* D3D11BlendState.hpp */; };
+		2C316E4A1E9BA9240011CAAE /* D3D11DepthStencilState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E401E9BA9240011CAAE /* D3D11DepthStencilState.cpp */; };
+		2C316E4B1E9BA9240011CAAE /* D3D11DepthStencilState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E411E9BA9240011CAAE /* D3D11DepthStencilState.hpp */; };
+		2C316E4C1E9BA9240011CAAE /* D3D11RasterizerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E431E9BA9240011CAAE /* D3D11RasterizerState.cpp */; };
+		2C316E4D1E9BA9240011CAAE /* D3D11RasterizerState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E441E9BA9240011CAAE /* D3D11RasterizerState.hpp */; };
+		2C316E4E1E9BA9240011CAAE /* D3D11SamplerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C316E461E9BA9240011CAAE /* D3D11SamplerState.cpp */; };
+		2C316E4F1E9BA9240011CAAE /* D3D11SamplerState.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C316E471E9BA9240011CAAE /* D3D11SamplerState.hpp */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
 		2C81BECE1E89F8E300D27E52 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C81BC981E89F8E300D27E52 /* format.h */; };
@@ -628,6 +640,18 @@
 		2C316E271E9B627B0011CAAE /* TextureFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureFactory.cpp; sourceTree = "<group>"; };
 		2C316E2F1E9B699B0011CAAE /* AssetHandle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AssetHandle.hpp; sourceTree = "<group>"; };
 		2C316E311E9B69AF0011CAAE /* Texture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Texture.hpp; sourceTree = "<group>"; };
+		2C316E331E9B82B40011CAAE /* SivTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTexture.cpp; sourceTree = "<group>"; };
+		2C316E351E9B82C00011CAAE /* BackBufferTexture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BackBufferTexture.hpp; sourceTree = "<group>"; };
+		2C316E381E9B82E00011CAAE /* AssetHandleManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AssetHandleManager.hpp; sourceTree = "<group>"; };
+		2C316E3A1E9B83BA0011CAAE /* CTextureGL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTextureGL.cpp; sourceTree = "<group>"; };
+		2C316E3D1E9BA9240011CAAE /* D3D11BlendState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = D3D11BlendState.cpp; sourceTree = "<group>"; };
+		2C316E3E1E9BA9240011CAAE /* D3D11BlendState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = D3D11BlendState.hpp; sourceTree = "<group>"; };
+		2C316E401E9BA9240011CAAE /* D3D11DepthStencilState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = D3D11DepthStencilState.cpp; sourceTree = "<group>"; };
+		2C316E411E9BA9240011CAAE /* D3D11DepthStencilState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = D3D11DepthStencilState.hpp; sourceTree = "<group>"; };
+		2C316E431E9BA9240011CAAE /* D3D11RasterizerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = D3D11RasterizerState.cpp; sourceTree = "<group>"; };
+		2C316E441E9BA9240011CAAE /* D3D11RasterizerState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = D3D11RasterizerState.hpp; sourceTree = "<group>"; };
+		2C316E461E9BA9240011CAAE /* D3D11SamplerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = D3D11SamplerState.cpp; sourceTree = "<group>"; };
+		2C316E471E9BA9240011CAAE /* D3D11SamplerState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = D3D11SamplerState.hpp; sourceTree = "<group>"; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
 		2C5869261E3F0C620028B9F0 /* lpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lpng.a; sourceTree = "<group>"; };
@@ -1298,6 +1322,7 @@
 				2C316E1F1E9B627B0011CAAE /* D3D11 */,
 				2C316E241E9B627B0011CAAE /* GL */,
 				2C316E261E9B627B0011CAAE /* ITexture.hpp */,
+				2C316E331E9B82B40011CAAE /* SivTexture.cpp */,
 				2C316E271E9B627B0011CAAE /* TextureFactory.cpp */,
 			);
 			path = Texture;
@@ -1306,6 +1331,7 @@
 		2C316E1F1E9B627B0011CAAE /* D3D11 */ = {
 			isa = PBXGroup;
 			children = (
+				2C316E351E9B82C00011CAAE /* BackBufferTexture.hpp */,
 				2C316E201E9B627B0011CAAE /* CTextureD3D11.cpp */,
 				2C316E211E9B627B0011CAAE /* CTextureD3D11.hpp */,
 				2C316E221E9B627B0011CAAE /* Texture_D3D11.cpp */,
@@ -1317,9 +1343,54 @@
 		2C316E241E9B627B0011CAAE /* GL */ = {
 			isa = PBXGroup;
 			children = (
+				2C316E3A1E9B83BA0011CAAE /* CTextureGL.cpp */,
 				2C316E251E9B627B0011CAAE /* CTextureGL.hpp */,
 			);
 			path = GL;
+			sourceTree = "<group>";
+		};
+		2C316E371E9B82E00011CAAE /* AssetHandleManager */ = {
+			isa = PBXGroup;
+			children = (
+				2C316E381E9B82E00011CAAE /* AssetHandleManager.hpp */,
+			);
+			path = AssetHandleManager;
+			sourceTree = "<group>";
+		};
+		2C316E3C1E9BA9240011CAAE /* BlendState */ = {
+			isa = PBXGroup;
+			children = (
+				2C316E3D1E9BA9240011CAAE /* D3D11BlendState.cpp */,
+				2C316E3E1E9BA9240011CAAE /* D3D11BlendState.hpp */,
+			);
+			path = BlendState;
+			sourceTree = "<group>";
+		};
+		2C316E3F1E9BA9240011CAAE /* DepthStencilState */ = {
+			isa = PBXGroup;
+			children = (
+				2C316E401E9BA9240011CAAE /* D3D11DepthStencilState.cpp */,
+				2C316E411E9BA9240011CAAE /* D3D11DepthStencilState.hpp */,
+			);
+			path = DepthStencilState;
+			sourceTree = "<group>";
+		};
+		2C316E421E9BA9240011CAAE /* RasterizerState */ = {
+			isa = PBXGroup;
+			children = (
+				2C316E431E9BA9240011CAAE /* D3D11RasterizerState.cpp */,
+				2C316E441E9BA9240011CAAE /* D3D11RasterizerState.hpp */,
+			);
+			path = RasterizerState;
+			sourceTree = "<group>";
+		};
+		2C316E451E9BA9240011CAAE /* SamplerState */ = {
+			isa = PBXGroup;
+			children = (
+				2C316E461E9BA9240011CAAE /* D3D11SamplerState.cpp */,
+				2C316E471E9BA9240011CAAE /* D3D11SamplerState.hpp */,
+			);
+			path = SamplerState;
 			sourceTree = "<group>";
 		};
 		2C38B1471CDEB45C007A7E9F /* Lib */ = {
@@ -1544,6 +1615,7 @@
 		2C81BD1D1E89F8E300D27E52 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C316E371E9B82E00011CAAE /* AssetHandleManager */,
 				2C316E1E1E9B627B0011CAAE /* Texture */,
 				2C316E171E9B38200011CAAE /* Resource */,
 				2C2126951E9A5AAE006F8101 /* Geometry2D */,
@@ -1851,6 +1923,10 @@
 		2C81BD7A1E89F8E300D27E52 /* D3D11 */ = {
 			isa = PBXGroup;
 			children = (
+				2C316E3C1E9BA9240011CAAE /* BlendState */,
+				2C316E3F1E9BA9240011CAAE /* DepthStencilState */,
+				2C316E421E9BA9240011CAAE /* RasterizerState */,
+				2C316E451E9BA9240011CAAE /* SamplerState */,
 				2C81BD7B1E89F8E300D27E52 /* CGraphics_D3D11.cpp */,
 				2C81BD7C1E89F8E300D27E52 /* CGraphics_D3D11.hpp */,
 				2C81BD7D1E89F8E300D27E52 /* Device */,
@@ -2706,6 +2782,7 @@
 				2C81C0521E89F8E300D27E52 /* fdct.h in Headers */,
 				2C81BF241E89F8E300D27E52 /* PointVector.hpp in Headers */,
 				2C81BFFF1E89F8E300D27E52 /* CWritableMemoryMapping.hpp in Headers */,
+				2C316E361E9B82C00011CAAE /* BackBufferTexture.hpp in Headers */,
 				2C81C0751E89F8E300D27E52 /* pngconf.h in Headers */,
 				2C81BEEB1E89F8E300D27E52 /* Date.hpp in Headers */,
 				2C81BF0C1E89F8E300D27E52 /* KeyGroup.hpp in Headers */,
@@ -2731,6 +2808,8 @@
 				2C81C01A1E89F8E300D27E52 /* linmath.h in Headers */,
 				2C81BF041E89F8E300D27E52 /* InfiniteList.hpp in Headers */,
 				2C81BF2D1E89F8E300D27E52 /* Regex.hpp in Headers */,
+				2C316E491E9BA9240011CAAE /* D3D11BlendState.hpp in Headers */,
+				2C316E4B1E9BA9240011CAAE /* D3D11DepthStencilState.hpp in Headers */,
 				2C2126711E93CFA2006F8101 /* CClipboard_Linux.hpp in Headers */,
 				2C81BEE91E89F8E300D27E52 /* Cursor.hpp in Headers */,
 				2C81BF0D1E89F8E300D27E52 /* Lerp.hpp in Headers */,
@@ -2872,6 +2951,7 @@
 				2C81BF011E89F8E300D27E52 /* HSV.hpp in Headers */,
 				2C81BF051E89F8E300D27E52 /* INIReader.hpp in Headers */,
 				2C2126571E8CB7B5006F8101 /* gif_lib_private.h in Headers */,
+				2C316E4F1E9BA9240011CAAE /* D3D11SamplerState.hpp in Headers */,
 				2C81C0491E89F8E300D27E52 /* comparator.h in Headers */,
 				2C81C08E1E89F8E400D27E52 /* bitstream.h in Headers */,
 				2C81BEF21E89F8E300D27E52 /* FileSystem.hpp in Headers */,
@@ -2920,6 +3000,7 @@
 				2C81C0A91E89FCFA00D27E52 /* posix_tls.h in Headers */,
 				2C81BF3D1E89F8E300D27E52 /* Types.hpp in Headers */,
 				2C81BED31E89F8E300D27E52 /* AlignedAllocator.hpp in Headers */,
+				2C316E391E9B82E00011CAAE /* AssetHandleManager.hpp in Headers */,
 				2C81BEEC1E89F8E300D27E52 /* DateTime.hpp in Headers */,
 				2C81BFFA1E89F8E300D27E52 /* CWindow_Windows.hpp in Headers */,
 				2C81BF071E89F8E300D27E52 /* IteratorRange.hpp in Headers */,
@@ -2931,6 +3012,7 @@
 				2C81BEEA1E89F8E300D27E52 /* Cylindrical.hpp in Headers */,
 				2C21263A1E8C024F006F8101 /* MessageBox.hpp in Headers */,
 				2C81BF1E1E89F8E300D27E52 /* ParseFloat.hpp in Headers */,
+				2C316E4D1E9BA9240011CAAE /* D3D11RasterizerState.hpp in Headers */,
 				2C81BF101E89F8E300D27E52 /* Logger.hpp in Headers */,
 				2C81C0811E89F8E300D27E52 /* muParserDef.h in Headers */,
 				2C81BF631E89F8E300D27E52 /* CBinaryWriter_Windows.hpp in Headers */,
@@ -3092,6 +3174,7 @@
 				2C81BF8F1E89F8E300D27E52 /* SivFormatFloat.cpp in Sources */,
 				2C81C0511E89F8E300D27E52 /* fdct.cc in Sources */,
 				2C81C07D1E89F8E300D27E52 /* muParserBytecode.cpp in Sources */,
+				2C316E3B1E9B83BA0011CAAE /* CTextureGL.cpp in Sources */,
 				2C81BF641E89F8E300D27E52 /* SivBinaryWriter.cpp in Sources */,
 				2C81C09F1E89F8E400D27E52 /* huf_decompress.c in Sources */,
 				2C2126581E8CB7B5006F8101 /* gifalloc.c in Sources */,
@@ -3102,7 +3185,9 @@
 				2C81C0631E89F8E300D27E52 /* jpeg_huffman_decode.cc in Sources */,
 				2C81C0001E89F8E300D27E52 /* SivWritableMemoryMapping.cpp in Sources */,
 				2C81C0581E89F8E300D27E52 /* jpeg_data.cc in Sources */,
+				2C316E4A1E9BA9240011CAAE /* D3D11DepthStencilState.cpp in Sources */,
 				2C81C0901E89F8E400D27E52 /* error_private.c in Sources */,
+				2C316E341E9B82B40011CAAE /* SivTexture.cpp in Sources */,
 				2C2126881E97D11D006F8101 /* ProfilerFactory.cpp in Sources */,
 				2C81BFBE1E89F8E300D27E52 /* SivLogger.cpp in Sources */,
 				2C81BFD91E89F8E300D27E52 /* Siv3DMain_macOS.cpp in Sources */,
@@ -3118,6 +3203,7 @@
 				2C2126591E8CB7B5006F8101 /* openbsd-reallocarray.c in Sources */,
 				2C81BF9F1E89F8E300D27E52 /* SivImage.cpp in Sources */,
 				2C81BFE51E89F8E300D27E52 /* SivSystem.mm in Sources */,
+				2C316E4E1E9BA9240011CAAE /* D3D11SamplerState.cpp in Sources */,
 				2C2126901E9A4001006F8101 /* CMemoryWriter.cpp in Sources */,
 				2C81BF931E89F8E300D27E52 /* D3D11Device.cpp in Sources */,
 				2C81BFE71E89F8E300D27E52 /* CTextReader.cpp in Sources */,
@@ -3192,6 +3278,7 @@
 				2C81C0161E89F8E300D27E52 /* format.cc in Sources */,
 				2C81BFCF1E89F8E300D27E52 /* SivMouse.cpp in Sources */,
 				2C81C07F1E89F8E300D27E52 /* muParserCallback.cpp in Sources */,
+				2C316E4C1E9BA9240011CAAE /* D3D11RasterizerState.cpp in Sources */,
 				2C81BF721E89F8E300D27E52 /* CCursor_Linux.cpp in Sources */,
 				2C2126431E8C02DB006F8101 /* SivMessageBox_macOS.mm in Sources */,
 				2C81BFF91E89F8E300D27E52 /* CWindow_Windows.cpp in Sources */,
@@ -3218,6 +3305,7 @@
 				2C81BFA21E89F8E300D27E52 /* CImageFormat.cpp in Sources */,
 				2C81BF841E89F8E300D27E52 /* DragDropFactory.cpp in Sources */,
 				2C81BFA51E89F8E300D27E52 /* ImageFormatFactory.cpp in Sources */,
+				2C316E481E9BA9240011CAAE /* D3D11BlendState.cpp in Sources */,
 				2C81C0821E89F8E300D27E52 /* muParserDLL.cpp in Sources */,
 				2C81BF791E89F8E300D27E52 /* CursorFactory.cpp in Sources */,
 				2C81BF861E89F8E300D27E52 /* SivDragDrop.cpp in Sources */,

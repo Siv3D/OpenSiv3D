@@ -53,17 +53,6 @@ namespace s3d
 
 		//////////////////////////////////////////////////////
 		//
-		//	 D3D11RenderTarget
-		//
-		m_renderTarget = std::make_unique<D3D11RenderTarget>(m_device->getDevice(), m_device->getContext(), m_swapChain->getSwapChain());
-
-		if (!m_renderTarget->init())
-		{
-			return false;
-		}
-
-		//////////////////////////////////////////////////////
-		//
 		//	 CTextureD3D11
 		//
 		m_texture = dynamic_cast<CTextureD3D11*>(Siv3DEngine::GetTexture());
@@ -73,10 +62,46 @@ namespace s3d
 			return false;
 		}
 
-		if (!m_texture->init(m_device->getDevice(), m_swapChain->getSwapChain()))
+		if (!m_texture->init(m_device->getDevice(), m_device->getContext(), m_swapChain->getSwapChain()))
 		{
 			return false;
 		}
+
+		//////////////////////////////////////////////////////
+		//
+		//	 D3D11RenderTarget
+		//
+		m_renderTarget = std::make_unique<D3D11RenderTarget>(m_device->getDevice(),
+			m_device->getContext(), m_swapChain->getSwapChain(), m_texture);
+
+		if (!m_renderTarget->init())
+		{
+			return false;
+		}
+
+		//////////////////////////////////////////////////////
+		//
+		//	 D3D11BlendState
+		//
+		m_pBlendState = std::make_unique<D3D11BlendState>(m_device->getDevice(), m_device->getContext());
+
+		//////////////////////////////////////////////////////
+		//
+		//	 D3D11RasterizerState
+		//
+		m_pRasterizerState = std::make_unique<D3D11RasterizerState>(m_device->getDevice(), m_device->getContext());
+
+		//////////////////////////////////////////////////////
+		//
+		//	 D3D11DepthStencilState
+		//
+		m_pDepthStencilState = std::make_unique<D3D11DepthStencilState>(m_device->getDevice(), m_device->getContext());
+
+		//////////////////////////////////////////////////////
+		//
+		//	 D3D11SamplerState
+		//
+		m_pSamplerState = std::make_unique<D3D11SamplerState>(m_device->getDevice(), m_device->getContext());
 
 		return true;
 	}

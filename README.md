@@ -122,6 +122,7 @@
 - [x] Cursor::OnClient()
 - [x] Cursor::Clip()
 - [x] Resource
+- [x] Window::Resize()
 - [ ] HTMLWriter
 
 ---------------------------
