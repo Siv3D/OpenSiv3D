@@ -159,6 +159,8 @@
 //
 	// ファイルとディレクトリ
 	# include "Siv3D/FileSystem.hpp"
+	// リソースファイル
+	# include "Siv3D/Resource.hpp"
 	//// ファイルとディレクトリの変更の監視
 	//# include "Siv3D/FileMonitor.hpp"
 	// IReader インタフェース

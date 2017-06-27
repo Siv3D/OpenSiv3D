@@ -114,6 +114,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\ReaderView.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Rectangle.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Regex.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Resource.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Spherical.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Threading.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Triangle.hpp" />
@@ -387,6 +388,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\ProfilerFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\SivProfiler.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Rectangle\SivRectangle.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Resource\SivResource.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DEngine.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_Linux.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Siv3DMain_macOS.cpp" />

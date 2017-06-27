@@ -13,8 +13,10 @@
 
 namespace s3d
 {
+# ifndef SIV3D_TARGET_LINUX
 	template Float4;
 	template Vec4;
+# endif
 	
 	void Formatter(FormatData& formatData, const Float4& value)
 	{
