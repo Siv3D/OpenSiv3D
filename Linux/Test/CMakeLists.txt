@@ -55,7 +55,7 @@ add_executable(siv3d_test
 target_link_libraries(siv3d_test
 	gtest
 	gtest_main
-	siv3d
+	Siv3D
 	boost_filesystem
 	boost_system
 	pthread
