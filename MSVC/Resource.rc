@@ -28,5 +28,4 @@ MYIDENTIFIER_1 FILE "assets/a b c.txt"
 MYIDENTIFIER_2 FILE "level 1/map.dat"
 */
 
-Resource(engine/siv3d-kun.png)
-Resource(engine/windmill.png)
+Resource(engine/engine.txt)

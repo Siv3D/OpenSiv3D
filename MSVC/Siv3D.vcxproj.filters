@@ -278,6 +278,15 @@
     <Filter Include="Source\Siv3D\Resource">
       <UniqueIdentifier>{5bd1eccc-0081-4c16-aec0-7d43decd5482}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Texture">
+      <UniqueIdentifier>{529cf39b-c606-4a56-ba54-8fac2814e75b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Texture\D3D11">
+      <UniqueIdentifier>{93acc459-641d-4b45-a2da-4802f7477145}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Texture\GL">
+      <UniqueIdentifier>{1b2edf0c-7b30-4924-b81d-25167eb9b7dd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1087,6 +1096,27 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Resource.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\TextureFormat.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\D3D11\Texture_D3D11.hpp">
+      <Filter>Source\Siv3D\Texture\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\ITexture.hpp">
+      <Filter>Source\Siv3D\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\D3D11\CTextureD3D11.hpp">
+      <Filter>Source\Siv3D\Texture\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\GL\CTextureGL.hpp">
+      <Filter>Source\Siv3D\Texture\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\AssetHandle.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Texture.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1649,6 +1679,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Resource\SivResource.cpp">
       <Filter>Source\Siv3D\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\D3D11\Texture_D3D11.cpp">
+      <Filter>Source\Siv3D\Texture\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\TextureFactory.cpp">
+      <Filter>Source\Siv3D\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\D3D11\CTextureD3D11.cpp">
+      <Filter>Source\Siv3D\Texture\D3D11</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

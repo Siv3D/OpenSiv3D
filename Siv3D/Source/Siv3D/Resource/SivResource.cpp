@@ -43,6 +43,8 @@ namespace s3d
 
 			::EnumResourceNamesW(hModule, L"FILE", detail::EnumResourceNameCallback, (LONG_PTR)&paths);
 
+			paths.sort();
+
 			return paths;
 		}
 	}

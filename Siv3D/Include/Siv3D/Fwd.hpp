@@ -431,6 +431,13 @@ namespace s3d
 	enum class ImageFormat;
 	class IImageFormat;
 
+	//////////////////////////////////////////////////////
+	//
+	//	TextureFormat.hpp
+	//
+	enum class TextureFormat;
+
+
 
 	//////////////////////////////////////////////////////
 	//
@@ -441,6 +448,12 @@ namespace s3d
 	struct DroppedFilePath;
 	struct DroppedText;
 
+
+	//////////////////////////////////////////////////////
+	//
+	//	AssetHandle.hpp
+	//
+	template <class Type> class AssetHandle;
 
 
 
@@ -494,4 +507,13 @@ namespace s3d
 	//
 	struct DisplayMode;
 	struct DisplayOutput;
+
+
+
+	//////////////////////////////////////////////////////
+	//
+	//	Texture.hpp
+	//
+	class Texture;
+
 }
