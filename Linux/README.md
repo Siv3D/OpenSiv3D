@@ -34,12 +34,12 @@ make
 ```
 
 正常にコンパイルが終了すると作業ディレクトリに
-「libsiv3d.a」というファイルができているはずです。
+「libSiv3D.a」というファイルができているはずです。
 
 cmakeコマンドを実行するときに`-DCMAKE_BUILD_TYPE=Debug`もしくは`Release`を適用すると
 それに対応したオプションがコンパイラに渡されるMakefileが生成されます。
 
-「libsiv3d.a」をリンクしてSiv3Dを使ったプログラムをコンパイルする時には、
+「libSiv3D.a」をリンクしてSiv3Dを使ったプログラムをコンパイルする時には、
 `-lsiv3d`オプションでOpenSiv3Dのライブラリをリンクする他に、依存ライブラリとして、
 `-lboost_filesystem -lboost_system -lglib-2.0 -lgio-2.0 -lgobject-2.0 -lpthread -lGL -lpng -lturbojpeg -lgif -lX11 -lXi -lXrandr -lXinerama -lXcursor -ldl`を指定する必要があります。
 
@@ -47,11 +47,12 @@ cmakeコマンドを実行するときに`-DCMAKE_BUILD_TYPE=Debug`もしくは`
 - Cursor::sceenPos()とCursor::previousScreenPos()はそれぞれCursor::clientPos()とCursor::previsouClientPos()と同じ値を返します。(Linuxではディスプレイマネージャによって画面上のどこにカーソルがあるか取得する機能があったりなかったりするため。)
 - Monitor::workAreaはMonitor::displayRectと同じ値になっています。(X11環境で各モニタのワークエリアを取得するのが難しいため。)
 - Cursor::clip()は動作しますが、clipする領域が黒で塗りつぶされます。(clip領域として指定するのに使っているWindowを透明に描画するするコードが上手く動かないため。)対策が分かり次第修正予定です。
+- Resource周辺の機能は全く実装されていません。
 
 ## テスト
 テストコードは `Linux/Test` 以下にあります。
-CMakeLists.txtでは、libsiv3d.aが `Linux/Debug` にあることを想定しているため、
-`Linux/Debug` にlibsiv3d.aを配置するか、
-別の場所にlibsiv3d.aを配置する場合はCMakeLists.txtを編集してください。
+CMakeLists.txtでは、libSiv3D.aが `Linux/Debug` にあることを想定しているため、
+`Linux/Debug` にlibSiv3D.aを配置するか、
+別の場所にlibSiv3D.aを配置する場合はCMakeLists.txtを編集してください。
 
 また、`MSVC`以下にある`example`ディレクトリのある階層でテストプログラムを実行する必要があります。
