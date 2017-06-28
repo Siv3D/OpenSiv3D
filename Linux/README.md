@@ -8,8 +8,8 @@
 ## 依存ライブラリ・パッケージ
 コンパイルと実行には以下のライブラリやパッケージが必要です。
 - CMake 2.8 or newer
-- Clang
-- LLVM
+- GCC
+  - バージョンの相性問題でClang, LLVMからGCCに移行しました
 - boost
 - boost-system
 - boost-filesystem
@@ -47,7 +47,7 @@ cmakeコマンドを実行するときに`-DCMAKE_BUILD_TYPE=Debug`もしくは`
 - Cursor::sceenPos()とCursor::previousScreenPos()はそれぞれCursor::clientPos()とCursor::previsouClientPos()と同じ値を返します。(Linuxではディスプレイマネージャによって画面上のどこにカーソルがあるか取得する機能があったりなかったりするため。)
 - Monitor::workAreaはMonitor::displayRectと同じ値になっています。(X11環境で各モニタのワークエリアを取得するのが難しいため。)
 - Cursor::clip()は動作しますが、clipする領域が黒で塗りつぶされます。(clip領域として指定するのに使っているWindowを透明に描画するするコードが上手く動かないため。)対策が分かり次第修正予定です。
-- Resource周辺の機能は全く実装されていません。
+- リソースファイルは実行ファイルと同階層の「resource」ディレクトリ内に配置されます。
 
 ## テスト
 テストコードは `Linux/Test` 以下にあります。
