@@ -176,9 +176,11 @@ namespace s3d
 			return detail::IsRegular(path);
 		}
 
-		bool IsResource(const FilePath&)
+		bool IsResource(const FilePath& path)
 		{
-			return false;
+			static const FilePath resourcePath = FileSystem::ModulePath() + L"/resources/";
+
+			return path.starts_with(resourcePath) && Exists(path);
 		}
 
 		FilePath FullPath(const FilePath& path)
