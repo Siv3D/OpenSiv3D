@@ -1099,6 +1099,9 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Profiler\CProfiler.hpp">
       <Filter>Source\Siv3D\Profiler</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\HTMLWriter.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\MemoryWriter.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
