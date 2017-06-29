@@ -302,6 +302,30 @@
     <Filter Include="Source\Siv3D\Graphics\D3D11\SamplerState">
       <UniqueIdentifier>{5deecba7-12fb-45dc-bdec-eacde585f52c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Shader">
+      <UniqueIdentifier>{45d011d6-372a-49d4-9377-29af5d7f4f4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Shader\D3D11">
+      <UniqueIdentifier>{3916ff57-1025-484b-9805-abf795bc8022}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Shader\GL">
+      <UniqueIdentifier>{8b470a4a-5593-41d0-a81d-f213ce071534}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\VertexShader">
+      <UniqueIdentifier>{1f6f43d0-3681-41b0-998b-8a1e73e1c9dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\PixelShader">
+      <UniqueIdentifier>{7cccfe50-1006-4577-a6c4-8eb6950334e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Renderer2D">
+      <UniqueIdentifier>{83fbc862-8be6-4afb-a471-c072865c3449}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Renderer2D\D3D11">
+      <UniqueIdentifier>{125dcbac-0f84-4576-80af-9b85a0b51a11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Renderer2D\GL">
+      <UniqueIdentifier>{c5f70fd1-88bd-445e-b0bb-9d0e09a54a7f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1123,12 +1147,6 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\ITexture.hpp">
       <Filter>Source\Siv3D\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\D3D11\CTextureD3D11.hpp">
-      <Filter>Source\Siv3D\Texture\D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\GL\CTextureGL.hpp">
-      <Filter>Source\Siv3D\Texture\GL</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\AssetHandle.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
@@ -1152,6 +1170,51 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\DepthStencilState\D3D11DepthStencilState.hpp">
       <Filter>Source\Siv3D\Graphics\D3D11\DepthStencilState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\IShader.hpp">
+      <Filter>Source\Siv3D\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\D3D11\CShader_D3D11.hpp">
+      <Filter>Source\Siv3D\Shader\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\GL\CShader_GL.hpp">
+      <Filter>Source\Siv3D\Shader\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\D3D11\CTexture_D3D11.hpp">
+      <Filter>Source\Siv3D\Texture\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\GL\CTexture_GL.hpp">
+      <Filter>Source\Siv3D\Texture\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\VertexShader.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\PixelShader.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\D3D11\VertexShader_D3D11.hpp">
+      <Filter>Source\Siv3D\Shader\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Shader\D3D11\PixelShader_D3D11.hpp">
+      <Filter>Source\Siv3D\Shader\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\IRenderer2D.hpp">
+      <Filter>Source\Siv3D\Renderer2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\D3D11\CRenderer2D_D3D11.hpp">
+      <Filter>Source\Siv3D\Renderer2D\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\GL\CRenderer2D_GL.hpp">
+      <Filter>Source\Siv3D\Renderer2D\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Renderer2D\D3D11\D3D11SpriteBatch.hpp">
+      <Filter>Source\Siv3D\Renderer2D\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Mat3x2.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Vertex2D.hpp">
+      <Filter>Include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1722,9 +1785,6 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\TextureFactory.cpp">
       <Filter>Source\Siv3D\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\D3D11\CTextureD3D11.cpp">
-      <Filter>Source\Siv3D\Texture\D3D11</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\SivTexture.cpp">
       <Filter>Source\Siv3D\Texture</Filter>
     </ClCompile>
@@ -1739,6 +1799,42 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Graphics\D3D11\DepthStencilState\D3D11DepthStencilState.cpp">
       <Filter>Source\Siv3D\Graphics\D3D11\DepthStencilState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\ShaderFactory.cpp">
+      <Filter>Source\Siv3D\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\SivShader.cpp">
+      <Filter>Source\Siv3D\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\D3D11\CShader_D3D11.cpp">
+      <Filter>Source\Siv3D\Shader\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\GL\CShader_GL.cpp">
+      <Filter>Source\Siv3D\Shader\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\D3D11\CTexture_D3D11.cpp">
+      <Filter>Source\Siv3D\Texture\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\VertexShader\SivVertexShader.cpp">
+      <Filter>Source\Siv3D\VertexShader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\PixelShader\SivPixelShader.cpp">
+      <Filter>Source\Siv3D\PixelShader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\D3D11\VertexShader_D3D11.cpp">
+      <Filter>Source\Siv3D\Shader\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Shader\D3D11\PixelShader_D3D11.cpp">
+      <Filter>Source\Siv3D\Shader\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Renderer2D\Renderer2DFactory.cpp">
+      <Filter>Source\Siv3D\Renderer2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Renderer2D\D3D11\CRenderer2D_D3D11.cpp">
+      <Filter>Source\Siv3D\Renderer2D\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Renderer2D\GL\CRenderer2D_GL.cpp">
+      <Filter>Source\Siv3D\Renderer2D\GL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

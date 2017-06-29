@@ -12,9 +12,9 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_LINUX)
 
-# include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 # include "../Siv3DEngine.hpp"
 # include "CKeyboard_Linux.hpp"
+# include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 
 namespace s3d
 {

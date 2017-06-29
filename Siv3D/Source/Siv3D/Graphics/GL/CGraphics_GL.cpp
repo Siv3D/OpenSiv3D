@@ -14,6 +14,7 @@
 
 # include "../../Siv3DEngine.hpp"
 # include "../../Window/IWindow.hpp"
+# include "../../Shader/IShader.hpp"
 # include "CGraphics_GL.hpp"
 # include <Siv3D/Window.hpp>
 # include <Siv3D/CharacterSet.hpp>
@@ -41,7 +42,7 @@ namespace s3d
 		//
 		//	 CTextureGL
 		//
-		m_texture = dynamic_cast<CTextureGL*>(Siv3DEngine::GetTexture());
+		m_texture = dynamic_cast<CTexture_GL*>(Siv3DEngine::GetTexture());
 
 		if (!m_texture)
 		{
@@ -52,6 +53,31 @@ namespace s3d
 		{
 			return false;
 		}
+		
+		//////////////////////////////////////////////////////
+		//
+		//	 Shader
+		//
+		
+		
+		
+		//////////////////////////////////////////////////////
+		//
+		//	 CRenderer2D_D3D11
+		//
+		m_renderer2D = dynamic_cast<CRenderer2D_GL*>(Siv3DEngine::GetRenderer2D());
+		
+		if (!m_renderer2D)
+		{
+			return false;
+		}
+		
+		if (!m_renderer2D->init())
+		{
+			return false;
+		}
+		
+		
 		
 		return true;
 	}
@@ -174,6 +200,13 @@ namespace s3d
 	bool CGraphics_GL::isVSyncEnabled() const
 	{
 		return m_vsync;
+	}
+	
+	bool CGraphics_GL::flush()
+	{
+		m_renderer2D->flush();
+		
+		return true;
 	}
 }
 

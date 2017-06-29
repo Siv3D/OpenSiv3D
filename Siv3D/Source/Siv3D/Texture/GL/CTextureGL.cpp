@@ -13,22 +13,22 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
-# include "CTextureGL.hpp"
+# include "CTexture_GL.hpp"
 # include <Siv3D/PointVector.hpp>
 
 namespace s3d
 {
-	Texture::IDType CTextureGL::createFromBackBuffer()
+	Texture::IDType CTexture_GL::createFromBackBuffer()
 	{
 		return 0;
 	}
 	
-	void CTextureGL::release(Texture::IDType handleID)
+	void CTexture_GL::release(Texture::IDType handleID)
 	{
 	
 	}
 	
-	Size CTextureGL::getSize(Texture::IDType handleID)
+	Size CTexture_GL::getSize(Texture::IDType handleID)
 	{
 		return Size(0, 0);
 	}

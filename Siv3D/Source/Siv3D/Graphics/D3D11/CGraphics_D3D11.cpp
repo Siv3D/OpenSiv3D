@@ -14,6 +14,7 @@
 
 # include "../../Siv3DEngine.hpp"
 # include "CGraphics_D3D11.hpp"
+# include "../../Shader/IShader.hpp"
 
 namespace s3d
 {
@@ -53,9 +54,9 @@ namespace s3d
 
 		//////////////////////////////////////////////////////
 		//
-		//	 CTextureD3D11
+		//	 CTexture_D3D11
 		//
-		m_texture = dynamic_cast<CTextureD3D11*>(Siv3DEngine::GetTexture());
+		m_texture = dynamic_cast<CTexture_D3D11*>(Siv3DEngine::GetTexture());
 
 		if (!m_texture)
 		{
@@ -63,6 +64,22 @@ namespace s3d
 		}
 
 		if (!m_texture->init(m_device->getDevice(), m_device->getContext(), m_swapChain->getSwapChain()))
+		{
+			return false;
+		}
+
+		//////////////////////////////////////////////////////
+		//
+		//	 CShader_D3D11
+		//
+		m_shader = dynamic_cast<CShader_D3D11*>(Siv3DEngine::GetShader());
+
+		if (!m_shader)
+		{
+			return false;
+		}
+
+		if (!m_shader->init(m_device->getDevice(), m_device->getContext()))
 		{
 			return false;
 		}
@@ -102,6 +119,28 @@ namespace s3d
 		//	 D3D11SamplerState
 		//
 		m_pSamplerState = std::make_unique<D3D11SamplerState>(m_device->getDevice(), m_device->getContext());
+
+		//////////////////////////////////////////////////////
+		//
+		//	 CRenderer2D_D3D11
+		//
+		m_renderer2D = dynamic_cast<CRenderer2D_D3D11*>(Siv3DEngine::GetRenderer2D());
+
+		if (!m_renderer2D)
+		{
+			return false;
+		}
+
+		if (!m_renderer2D->init(m_device->getDevice(), m_device->getContext()))
+		{
+			return false;
+		}
+
+		//////////////////////////////////////////////////////
+		//
+		//
+		//
+		m_device->getContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		return true;
 	}
@@ -149,6 +188,13 @@ namespace s3d
 	bool CGraphics_D3D11::isVSyncEnabled() const
 	{
 		return m_swapChain->isVSyncEnabled();
+	}
+
+	bool CGraphics_D3D11::flush()
+	{
+		m_renderer2D->flush();
+
+		return true;
 	}
 }
 

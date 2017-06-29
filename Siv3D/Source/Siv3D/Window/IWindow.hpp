@@ -21,12 +21,9 @@
 	# define  NTDDI_VERSION NTDDI_WIN7
 	# include <Windows.h>
 
-# elif defined(SIV3D_TARGET_MACOS)
+# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
-	# include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
-
-# elif defined(SIV3D_TARGET_LINUX)
-
+	# include <GL/glew.h>
 	# include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 
 # endif

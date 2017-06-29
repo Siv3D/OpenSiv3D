@@ -221,7 +221,7 @@
 	//# include "Siv3D/ZIPReader.hpp"
 	//// ZIP 圧縮ファイルの書き出し
 	//# include "Siv3D/ZIPWriter.hpp"
-	// HTML ファイルの書き込み
+	// HTML ファイルの書き出し
 	# include "Siv3D/HTMLWriter.hpp"
 //
 // 色
@@ -241,8 +241,8 @@
 	# include "Siv3D/Cylindrical.hpp"
 	// 球面座標
 	# include "Siv3D/Spherical.hpp"
-	//// 3x2 行列
-	//# include "Siv3D/Mat3x2.hpp"
+	// 3x2 行列
+	# include "Siv3D/Mat3x2.hpp"
 	// 線分
 	# include "Siv3D/Line.hpp"
 	// 長方形
@@ -451,6 +451,8 @@
 //
 // グラフィックス
 //
+	// 2D 頂点データ
+	# include "Siv3D/Vertex2D.hpp"
 	//// ブレンドステート
 	//# include "Siv3D/BlendState.hpp"
 	//// ラスタライザーステート
@@ -463,10 +465,10 @@
 	//# include "Siv3D/RenderState.hpp"
 	//// シェーダ
 	//# include "Siv3D/Shader.hpp"
-	//// 頂点シェーダ
-	//# include "Siv3D/VertexShader.hpp"
-	//// ピクセルシェーダ
-	//# include "Siv3D/PixelShader.hpp"
+	// 頂点シェーダ
+	# include "Siv3D/VertexShader.hpp"
+	// ピクセルシェーダ
+	# include "Siv3D/PixelShader.hpp"
 	//// 定数バッファ
 	//# include "Siv3D/ConstantBuffer.hpp"
 	//// 頂点レイアウト
