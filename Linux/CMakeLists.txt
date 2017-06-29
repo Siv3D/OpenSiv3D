@@ -129,6 +129,8 @@ set(SOURCE_FILES
 	"../Siv3D/Source/Siv3D/Profiler/ProfilerFactory.cpp"
 	"../Siv3D/Source/Siv3D/Profiler/SivProfiler.cpp"
 	"../Siv3D/Source/Siv3D/Rectangle/SivRectangle.cpp"
+	"../Siv3D/Source/Siv3D/Renderer2D/GL/CRenderer2D_GL.cpp"
+	"../Siv3D/Source/Siv3D/Renderer2D/Renderer2DFactory.cpp"
 	"../Siv3D/Source/Siv3D/Resource/SivResource.cpp"
 	"../Siv3D/Source/Siv3D/Shader/GL/CShader_GL.cpp"
 	"../Siv3D/Source/Siv3D/Shader/ShaderFactory.cpp"
