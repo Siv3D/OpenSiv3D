@@ -14,12 +14,18 @@
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 # include "../IShader.hpp"
+# include <Siv3D/Array.hpp>
+# include <Siv3D/ByteArrayView.hpp>
 
 namespace s3d
 {
 	class CShader_GL : public ISiv3DShader
 	{
 	private:
+
+		Array<VertexShader> m_standardVSs;
+
+		Array<PixelShader> m_standardPSs;
 
 	public:
 
@@ -41,6 +47,30 @@ namespace s3d
 		void releaseVS(VertexShader::IDType handleID) override {}
 
 		void releasePS(PixelShader::IDType handleID) override {}
+
+		ByteArrayView getBinaryViewVS(VertexShader::IDType handleID) override
+		{
+			return ByteArrayView();
+		}
+
+		ByteArrayView getBinaryViewPS(PixelShader::IDType handleID) override
+		{
+			return ByteArrayView();
+		}
+
+		const VertexShader& getStandardVS(size_t index) const override
+		{
+			return m_standardVSs[index];
+		}
+
+		const PixelShader& getStandardPS(size_t index) const override
+		{
+			return m_standardPSs[index];
+		}
+
+		void setVS(VertexShader::IDType handleID) override {}
+
+		void setPS(PixelShader::IDType handleID) override {}
 	};
 }
 

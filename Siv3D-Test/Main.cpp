@@ -4,14 +4,9 @@
 
 void Main()
 {
-	Window::Resize(1280, 720);
-
 	while (System::Update())
 	{
-		if (KeyR.down())
-		{
-			Graphics::SetFullScreen(false, Size(800, 600));
-		}
+		Window::SetTitle(Profiler::FPS());
 
 		Graphics::SetBackground(HSV(Cursor::Pos().x * 0.2));
 	}
