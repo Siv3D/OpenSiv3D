@@ -26,7 +26,7 @@
 
 namespace s3d
 {
-	class CTextureD3D11 : public ISiv3DTexture
+	class CTexture_D3D11 : public ISiv3DTexture
 	{
 	private:
 
@@ -40,7 +40,7 @@ namespace s3d
 
 	public:
 
-		~CTextureD3D11() override;
+		~CTexture_D3D11() override;
 
 		bool init(ID3D11Device* device, ID3D11DeviceContext* context, IDXGISwapChain* swapChain);
 

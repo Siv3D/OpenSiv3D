@@ -14,6 +14,7 @@
 
 # include "../../Siv3DEngine.hpp"
 # include "../../Window/IWindow.hpp"
+# include "../../Shader/IShader.hpp"
 # include "CGraphics_GL.hpp"
 # include <Siv3D/Window.hpp>
 # include <Siv3D/CharacterSet.hpp>
@@ -41,7 +42,7 @@ namespace s3d
 		//
 		//	 CTextureGL
 		//
-		m_texture = dynamic_cast<CTextureGL*>(Siv3DEngine::GetTexture());
+		m_texture = dynamic_cast<CTexture_GL*>(Siv3DEngine::GetTexture());
 
 		if (!m_texture)
 		{
@@ -52,6 +53,11 @@ namespace s3d
 		{
 			return false;
 		}
+		
+		//////////////////////////////////////////////////////
+		//
+		//	 Shader
+		//
 		
 		return true;
 	}

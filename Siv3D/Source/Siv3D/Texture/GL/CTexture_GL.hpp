@@ -13,25 +13,22 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
-# include "CTexture_GL.hpp"
-# include <Siv3D/PointVector.hpp>
+# include "../ITexture.hpp"
 
 namespace s3d
 {
-	Texture::IDType CTexture_GL::createFromBackBuffer()
+	class CTexture_GL : public ISiv3DTexture
 	{
-		return 0;
-	}
-	
-	void CTexture_GL::release(Texture::IDType handleID)
-	{
-	
-	}
-	
-	Size CTexture_GL::getSize(Texture::IDType handleID)
-	{
-		return Size(0, 0);
-	}
+	public:
+
+		bool init() { return true; }
+
+		Texture::IDType createFromBackBuffer() override;
+
+		void release(Texture::IDType handleID) override;
+
+		Size getSize(Texture::IDType handleID) override;
+	};
 }
 
 # endif

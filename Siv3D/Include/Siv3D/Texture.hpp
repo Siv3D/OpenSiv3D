@@ -30,7 +30,7 @@ namespace s3d
 
 		struct BackBuffer {};
 
-		Texture(BackBuffer);
+		explicit Texture(BackBuffer);
 
 	public:
 
