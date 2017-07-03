@@ -27,6 +27,8 @@ namespace s3d
 	class ISiv3DKeyboard;
 	class ISiv3DMouse;
 	class ISiv3DTextInput;
+	class ISiv3DAudioFormat;
+	class ISiv3DAudio;
 	class ISiv3DGraphics;
 	class ISiv3DTexture;
 	class ISiv3DShader;
@@ -34,6 +36,7 @@ namespace s3d
 	class ISiv3DFont;
 	class ISiv3DPrint;
 	class ISiv3DScreenCapture;
+	class ISiv3DEffect;
 
 	template <class Interface>
 	class Siv3DComponent
@@ -97,6 +100,10 @@ namespace s3d
 
 		Siv3DComponent<ISiv3DTextInput> m_textInput;
 
+		Siv3DComponent<ISiv3DAudioFormat> m_audioFormat;
+
+		Siv3DComponent<ISiv3DAudio> m_audio;
+
 		Siv3DComponent<ISiv3DGraphics> m_graphics;
 
 		Siv3DComponent<ISiv3DTexture> m_texture;
@@ -110,6 +117,8 @@ namespace s3d
 		Siv3DComponent<ISiv3DPrint> m_print;
 
 		Siv3DComponent<ISiv3DScreenCapture> m_screenCapture;
+
+		Siv3DComponent<ISiv3DEffect> m_effect;
 
 	public:
 
@@ -187,6 +196,16 @@ namespace s3d
 			return pEngine->m_textInput.get();
 		}
 
+		static ISiv3DAudioFormat* GetAudioFormat()
+		{
+			return pEngine->m_audioFormat.get();
+		}
+
+		static ISiv3DAudio* GetAudio()
+		{
+			return pEngine->m_audio.get();
+		}
+
 		static ISiv3DGraphics* GetGraphics()
 		{
 			return pEngine->m_graphics.get();
@@ -220,6 +239,11 @@ namespace s3d
 		static ISiv3DScreenCapture* GetScreenCapture()
 		{
 			return pEngine->m_screenCapture.get();
+		}
+
+		static ISiv3DEffect* GetEffect()
+		{
+			return pEngine->m_effect.get();
 		}
 	};
 }

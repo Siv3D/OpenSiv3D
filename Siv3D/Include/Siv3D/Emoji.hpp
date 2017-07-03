@@ -11,6 +11,7 @@
 
 # pragma once
 # include "Fwd.hpp"
+# include "Array.hpp"
 # include "String.hpp"
 # include "StringView.hpp"
 
@@ -31,5 +32,19 @@ namespace s3d
 
 		static Image LoadSilhouette(StringView emoji);
 	};
+
+	struct Character
+	{
+		union
+		{
+			char32_t codePoint;
+
+			uint32 emojiIndex;
+		};
+
+		//bool isEmoji() const;
+	};
+
+	//size_t CheckEmoji(Array<char32_t>::const_iterator it);
 }
 

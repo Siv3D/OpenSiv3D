@@ -39,7 +39,7 @@ namespace s3d
 			const String& defaultText = L"", const String& description = L"")
 			: TextBox(font, pos.x, pos.y, width, description, defaultText) {}
 
-		bool update(bool clicked = MouseL.down());
+		bool update(bool clicked = MouseL.down()) const;
 
 		void drawGlow(double blurRadius = 6, double spread = 3, const ColorF& color = ColorF(0.0, 0.5, 1.0, 0.8)) const;
 

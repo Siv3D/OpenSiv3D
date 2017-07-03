@@ -26,7 +26,7 @@ namespace s3d
 
 	}
 
-	bool TextBox::update(const bool clicked)
+	bool TextBox::update(const bool clicked) const
 	{
 		return pImpl->update(clicked);
 	}

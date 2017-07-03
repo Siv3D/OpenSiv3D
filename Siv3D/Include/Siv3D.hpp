@@ -355,10 +355,12 @@
 //
 // 音声処理
 //
-	//// 音声波形のサンプル
-	//# include "Siv3D/WaveSample.hpp"
-	//// 音声波形
-	//# include "Siv3D/Wave.hpp"
+	// 音声波形のサンプル
+	# include "Siv3D/WaveSample.hpp"
+	// 波形デコーダ・エンコーダインタフェース
+	# include "Siv3D/AudioFormat.hpp"
+	// 音声波形
+	# include "Siv3D/Wave.hpp"
 	//// 音声波形のテンポ・ピッチ変更
 	//# include "Siv3D/WaveStretcher.hpp"
 	//// FFT
@@ -458,10 +460,10 @@
 	//// Tobii EyeX
 	//# include "Siv3D/TobiiEyeX.hpp"
 //
-// サウンド
+// オーディオ
 //
-	//// サウンド
-	//# include "Siv3D/Sound.hpp"
+	// オーディオ
+	# include "Siv3D/Audio.hpp"
 	//// サウンドの拍カウント
 	//# include "Siv3D/SoundBeat.hpp"
 //
@@ -521,8 +523,6 @@
 //
 // フォント
 //
-	//// キネティックタイポグラフィ
-	//# include "Siv3D/KineticTypography.hpp"
 	// フォント
 	# include "Siv3D/Font.hpp"
 	// 絵文字コレクション
@@ -534,6 +534,11 @@
 //
 	// テキストボックス
 	# include "Siv3D/TextBox.hpp"
+//
+// エフェクト
+//
+	// エフェクト
+	# include "Siv3D/Effect.hpp"
 //
 // 標準 GUI
 //
@@ -650,8 +655,6 @@
 //
 // ユーティリティ
 //
-	//// エフェクト
-	//# include "Siv3D/Effect.hpp"
 	// コンソールウィンドウ
 	# include "Siv3D/Console.hpp"
 	// デバッグ出力

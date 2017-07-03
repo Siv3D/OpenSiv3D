@@ -37,6 +37,8 @@ namespace s3d
 
 		const RectF rect = m_boxState.getRect(m_pos);
 
+		const Transformer2D transformer(Graphics2D::GetTransform().inverse(), Cursor::GetTransform().inverse());
+
 		if (m_active)
 		{
 			const String raw = TextInput::GetRawInput();

@@ -3,7 +3,7 @@
 **OpenSiv3D** is a C++14/17 framework for games and interactive media.  
 In development for release in 2017. Successor to the current <a href="https://github.com/Siv3D/Reference-JP/wiki">Siv3D</a>.  
 
-<h3> <a href="#-sdk-downloads"><img src="doc/siv3d_icon_48.png" align="absmiddle"></a> SDK Downloads</h3>
+<h3> <a href="#-sdk-downloads"><img src="https://github.com/Siv3D/File/blob/master/doc/download/siv3d_icon_48.png?raw=true" align="absmiddle"></a> SDK Downloads</h3>
 
 | Platform        | Version        | Date       | Requirements                  |
 |:---------------:|:---------------:|:-------------:|:------------------------------|
