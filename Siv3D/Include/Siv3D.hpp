@@ -460,10 +460,10 @@
 	//// Tobii EyeX
 	//# include "Siv3D/TobiiEyeX.hpp"
 //
-// サウンド
+// オーディオ
 //
-	//// サウンド
-	//# include "Siv3D/Sound.hpp"
+	// オーディオ
+	# include "Siv3D/Audio.hpp"
 	//// サウンドの拍カウント
 	//# include "Siv3D/SoundBeat.hpp"
 //

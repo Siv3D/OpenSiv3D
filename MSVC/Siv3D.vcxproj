@@ -27,6 +27,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\AlignedAllocator.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\AlignedMemory.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Audio.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\AudioFormat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\CPU.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Effect.hpp" />
@@ -217,6 +218,10 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\AudioFormat\CAudioFormat.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\AudioFormat\IAudioFormat.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\AudioFormat\WAVE\AudioFormat_WAVE.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\AL\CAudio_AL.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\IAudio.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\XAudio27\CAudio_XAudio27.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\XAudio28\CAudio_XAudio28.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BigFloat\CBigFloat.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BigInt\CBigInt.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryReader\CBinaryReader_Linux.hpp" />
@@ -472,6 +477,11 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\AudioFormat\CAudioFormat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\AudioFormat\SivAudioFormat.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\AudioFormat\WAVE\AudioFormat_WAVE.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\AL\CAudio_AL.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\AudioFactory.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\SivAudio.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\XAudio27\CAudio_XAudio27.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\XAudio28\CAudio_XAudio28.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Base64\SivBase64.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Bezier2\SivBezier2.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Bezier3\SivBezier3.cpp" />

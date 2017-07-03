@@ -12,6 +12,7 @@
 # pragma once
 # include "Array.hpp"
 # include "WaveSample.hpp"
+# include "AudioFormat.hpp"
 
 namespace s3d
 {
@@ -114,13 +115,13 @@ namespace s3d
 
 		//Wave(const SecondsF& length, std::function<double(double)> generator, uint32 samplingRate = Wave::DefaultSamplingRate);
 
-		//explicit Wave(const FilePath& path);
+		explicit Wave(const FilePath& path);
 
-		//explicit Wave(IReader&& reader, AudioFormat format = AudioFormat::Unspecified);
+		explicit Wave(IReader&& reader, AudioFormat format = AudioFormat::Unspecified);
 
-		//Wave(const Wave& wave);
+		Wave(const Wave& wave) = default;
 
-		//Wave(Wave && wave);
+		Wave(Wave&& wave) noexcept;
 
 		template <class InputIt>
 		Wave(InputIt first, InputIt last, uint32 samplingRate = Wave::DefaultSamplingRate)
