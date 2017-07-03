@@ -244,6 +244,7 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\EngineDirectory\EngineDirectory.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\EngineUtility.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Font\CFont.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Font\EmojiDatabase.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Font\FontData.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Font\IFont.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Geometry2D\Polynomial.hpp" />
@@ -342,6 +343,7 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\strtod.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\double-conversion\utils.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\FeatureDetector\cpu_x86.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\FID\FID.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\giflib\gif_hash.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\giflib\gif_lib.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\giflib\gif_lib_private.h" />
@@ -521,6 +523,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\FileSystem\SivFileSystem_macOS.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\FileSystem\SivFileSystem_Windows.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Font\CFont.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Font\EmojiDatabase.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Font\FontData.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Font\FontFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Font\SivFont.cpp" />
@@ -681,6 +684,7 @@
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\fixed-dtoa.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\strtod.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\FeatureDetector\cpu_x86.cpp" />
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\FID\FID.cpp" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\fmt\format.cc" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\dgif_lib.c" />
     <ClCompile Include="..\Siv3D\Source\ThirdParty\giflib\egif_lib.c" />

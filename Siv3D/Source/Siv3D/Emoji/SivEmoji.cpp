@@ -25,4 +25,9 @@ namespace s3d
 	{
 		return Siv3DEngine::GetFont()->getColorEmojiSilhouette(emoji);
 	}
+
+	//size_t CheckEmoji(Array<char32_t>::const_iterator it)
+	//{
+	//	return Siv3DEngine::GetFont()->checkEmoji(it);
+	//}
 }

@@ -13,6 +13,7 @@
 # include "IFont.hpp"
 # include "../AssetHandleManager/AssetHandleManager.hpp"
 # include "FontData.hpp"
+# include "EmojiDatabase.hpp"
 
 namespace s3d
 {
@@ -27,6 +28,10 @@ namespace s3d
 		FontFace m_colorEmoji;
 
 		FontFace m_awesomeIcon;
+
+		EmojiDatabase m_emojiDataBase;
+
+		EmojiDatabase2 m_emojiDataBase2;
 
 		bool loadColorEmojiFace();
 
@@ -73,5 +78,7 @@ namespace s3d
 		Image getColorEmojiSilhouette(StringView emoji) override;
 
 		Image getAwesomeIcon(uint16 code, int32 size) override;
+
+		size_t checkEmoji(std::vector<char32_t>::const_iterator it, std::vector<char32_t>::const_iterator itEnd) const override;
 	};
 }

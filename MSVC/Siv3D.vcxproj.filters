@@ -482,6 +482,9 @@
     <Filter Include="Source\Siv3D\Effect">
       <UniqueIdentifier>{5a1fed8f-640f-4726-b2dc-601a15f639c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\ThirdParty\FID">
+      <UniqueIdentifier>{66648f56-06e3-4baa-b805-821923d9d5a1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1801,6 +1804,12 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Effect\EffectData.hpp">
       <Filter>Source\Siv3D\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Font\EmojiDatabase.hpp">
+      <Filter>Source\Siv3D\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\FID\FID.h">
+      <Filter>Source\ThirdParty\FID</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2639,6 +2648,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Effect\EffectData.cpp">
       <Filter>Source\Siv3D\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Font\EmojiDatabase.cpp">
+      <Filter>Source\Siv3D\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\ThirdParty\FID\FID.cpp">
+      <Filter>Source\ThirdParty\FID</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
