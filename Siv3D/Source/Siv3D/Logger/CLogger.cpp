@@ -136,8 +136,18 @@ namespace s3d
 		return true;
 	}
 
+	void CLogger::setOutputLevel(const OutputLevel level)
+	{
+		m_outputLevel = level;
+	}
+
 	void CLogger::write(const LogDescription desc, const String& str)
 	{
+		if (suppress(desc))
+		{
+			return;
+		}
+
 		std::lock_guard<std::mutex> lock(m_mutex);
 
 		detail::OutputDebug(desc, str);
@@ -154,6 +164,13 @@ namespace s3d
 		}
 	}
 
+	void CLogger::writeRawHTML(const String& str)
+	{
+		std::lock_guard<std::mutex> lock(m_mutex);
+
+		m_writer.writeln(str);
+	}
+
 	void CLogger::removeLogOnExit()
 	{
 		m_removeFileOnExit = true;
@@ -165,5 +182,21 @@ namespace s3d
 		writer.writeUTF8(headerA);
 		writer.writeUTF8(headerD);
 		writer.writeUTF8(footer);
+	}
+
+	bool CLogger::suppress(const LogDescription desc) const
+	{
+		if (m_outputLevel == OutputLevel::More)
+		{
+			return true;
+		}
+		else if (m_outputLevel == OutputLevel::Normal)
+		{
+			return desc <= LogDescription::Info;
+		}
+		else
+		{
+			return desc <= LogDescription::Script;
+		}
 	}
 }

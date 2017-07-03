@@ -109,6 +109,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Point.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\PointVector.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Profiler.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Quad.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Random.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\RandomColor.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\RandomPoint.hpp" />
@@ -120,6 +121,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Regex.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Resource.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Spherical.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Step2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Texture.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextureFormat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Threading.hpp" />
@@ -422,6 +424,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\CProfiler.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\ProfilerFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Profiler\SivProfiler.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Quad\SivQuad.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Rectangle\SivRectangle.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Renderer2D\D3D11\CRenderer2D_D3D11.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Renderer2D\GL\CRenderer2D_GL.cpp" />
