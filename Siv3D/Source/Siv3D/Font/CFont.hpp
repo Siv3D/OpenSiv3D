@@ -31,7 +31,7 @@ namespace s3d
 
 		EmojiDatabase m_emojiDataBase;
 
-		EmojiDatabase2 m_emojiDataBase2;
+		//EmojiDatabase2 m_emojiDataBase2;
 
 		bool loadColorEmojiFace();
 

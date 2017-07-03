@@ -449,6 +449,10 @@
 		2C114C9A1EE432B200A198BB /* ITextInput.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C114C931EE432B200A198BB /* ITextInput.hpp */; };
 		2C114C9B1EE432B200A198BB /* SivTextInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C114C941EE432B200A198BB /* SivTextInput.cpp */; };
 		2C114C9C1EE432B200A198BB /* TextInputFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C114C951EE432B200A198BB /* TextInputFactory.cpp */; };
+		2C15814C1F0A047C002687D2 /* EmojiDatabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C15814A1F0A047C002687D2 /* EmojiDatabase.cpp */; };
+		2C15814D1F0A047C002687D2 /* EmojiDatabase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C15814B1F0A047C002687D2 /* EmojiDatabase.hpp */; };
+		2C1581521F0A048F002687D2 /* FID.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C15814F1F0A048F002687D2 /* FID.cpp */; };
+		2C1581531F0A048F002687D2 /* FID.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1581501F0A048F002687D2 /* FID.h */; };
 		2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2C1778CF1CE0D65600BB8AD0 /* gtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C38B14A1CDEB45C007A7E9F /* gtest.a */; };
 		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
@@ -1320,6 +1324,12 @@
 		2C114C931EE432B200A198BB /* ITextInput.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ITextInput.hpp; sourceTree = "<group>"; };
 		2C114C941EE432B200A198BB /* SivTextInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTextInput.cpp; sourceTree = "<group>"; };
 		2C114C951EE432B200A198BB /* TextInputFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextInputFactory.cpp; sourceTree = "<group>"; };
+		2C1581491F0A047C002687D2 /* EmojiCodePoints.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = EmojiCodePoints.txt; sourceTree = "<group>"; };
+		2C15814A1F0A047C002687D2 /* EmojiDatabase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmojiDatabase.cpp; sourceTree = "<group>"; };
+		2C15814B1F0A047C002687D2 /* EmojiDatabase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EmojiDatabase.hpp; sourceTree = "<group>"; };
+		2C15814F1F0A048F002687D2 /* FID.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FID.cpp; sourceTree = "<group>"; };
+		2C1581501F0A048F002687D2 /* FID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FID.h; sourceTree = "<group>"; };
+		2C1581511F0A048F002687D2 /* LICENCE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
 		2C1777401CDEE5D500BB8AD0 /* gtest-death-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-death-test.h"; sourceTree = "<group>"; };
 		2C1777411CDEE5D500BB8AD0 /* gtest-message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-message.h"; sourceTree = "<group>"; };
 		2C1777421CDEE5D500BB8AD0 /* gtest-param-test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gtest-param-test.h"; sourceTree = "<group>"; };
@@ -3168,6 +3178,16 @@
 			path = TextInput;
 			sourceTree = "<group>";
 		};
+		2C15814E1F0A048F002687D2 /* FID */ = {
+			isa = PBXGroup;
+			children = (
+				2C15814F1F0A048F002687D2 /* FID.cpp */,
+				2C1581501F0A048F002687D2 /* FID.h */,
+				2C1581511F0A048F002687D2 /* LICENCE */,
+			);
+			path = FID;
+			sourceTree = "<group>";
+		};
 		2C17773E1CDEE5D500BB8AD0 /* Include */ = {
 			isa = PBXGroup;
 			children = (
@@ -3376,6 +3396,7 @@
 		2C81BE121E89F8E300D27E52 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				2C15814E1F0A048F002687D2 /* FID */,
 				2C8E40871EFAD70900F30069 /* zstd */,
 				2C8E40801EF95BA000F30069 /* clip2tri */,
 				2C8E40651EF95B9400F30069 /* poly2tri */,
@@ -4079,6 +4100,9 @@
 		2CCA35B51ECC740400078678 /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				2C1581491F0A047C002687D2 /* EmojiCodePoints.txt */,
+				2C15814A1F0A047C002687D2 /* EmojiDatabase.cpp */,
+				2C15814B1F0A047C002687D2 /* EmojiDatabase.hpp */,
 				2CCA35B61ECC740400078678 /* CFont.cpp */,
 				2CCA35B71ECC740400078678 /* CFont.hpp */,
 				2CCA35B81ECC740400078678 /* FontData.cpp */,
@@ -4243,6 +4267,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C1581531F0A048F002687D2 /* FID.h in Headers */,
 				2C8E40B01EFAD70900F30069 /* fse.h in Headers */,
 				2C0C7D951EBCC39B00386CBB /* RandomVec2.hpp in Headers */,
 				2C8E40791EF95B9400F30069 /* advancing_front.h in Headers */,
@@ -4739,6 +4764,7 @@
 				2C8E40771EF95B9400F30069 /* poly2tri.h in Headers */,
 				2CAE4E041EE3AC1C0057BE7E /* IPrint.hpp in Headers */,
 				2C0C7BBE1EBCC38400386CBB /* EngineDirectory.hpp in Headers */,
+				2C15814D1F0A047C002687D2 /* EmojiDatabase.hpp in Headers */,
 				2C0C7C3D1EBCC38400386CBB /* VertexShader_D3D11.hpp in Headers */,
 				2C81C0A91E89FCFA00D27E52 /* posix_tls.h in Headers */,
 				2CCA367B1ECC748F00078678 /* tttables.h in Headers */,
@@ -4896,6 +4922,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C81C0351E89F8E300D27E52 /* nsgl_context.m in Sources */,
+				2C1581521F0A048F002687D2 /* FID.cpp in Sources */,
 				2C0C7BA11EBCC38400386CBB /* SivCompression.cpp in Sources */,
 				2C0C7C151EBCC38400386CBB /* SivMessageBox_macOS.mm in Sources */,
 				2C8E40C41EFAD70900F30069 /* zstd_decompress.c in Sources */,
@@ -5146,6 +5173,7 @@
 				2C0C7BEF1EBCC38400386CBB /* ImageFormat_JPEG.cpp in Sources */,
 				2C0C7DE31EBF2EBA00386CBB /* SivPowerStatus.cpp in Sources */,
 				2CAAB10B1EEEC40F0000A06D /* SivScreenCapture.cpp in Sources */,
+				2C15814C1F0A047C002687D2 /* EmojiDatabase.cpp in Sources */,
 				2C8E40DF1F01413C00F30069 /* CEffect.cpp in Sources */,
 				2C81C00C1E89F8E300D27E52 /* double-conversion.cc in Sources */,
 				2C114C9B1EE432B200A198BB /* SivTextInput.cpp in Sources */,

@@ -42,7 +42,7 @@ namespace s3d
 
 		size_t check(std::vector<char32_t>::const_iterator it, std::vector<char32_t>::const_iterator itEnd) const;
 	};
-
+/*
 	class EmojiDataHelper
 	{
 		friend class EmojiDatabase2;
@@ -74,7 +74,7 @@ namespace s3d
 			constexpr auto arr = emojiCodePoints();
 			std::uint32_t prev = 0;
 			std::uint32_t count = 1;
-			for (std::size_t i = 0; i != arr.size() - 1/*for last comma*/; ++i) {
+			for (std::size_t i = 0; i != arr.size() - 1; ++i) {
 				const auto len = length(arr[i]);
 				if (prev == 0) {
 					prev = arr[i][0];
@@ -111,10 +111,10 @@ namespace s3d
 		trie emojiCodePoints =
 			[] {
 			trie tri = { std::make_unique<HashMap<std::uint32_t, trie>>(), 0 };
-			tri.nexts->reserve(EmojiDataHelper::trieHeadSize() + 1/*workaround*/);
+			tri.nexts->reserve(EmojiDataHelper::trieHeadSize() + 1);
 			constexpr auto arr = EmojiDataHelper::emojiCodePoints();
 			trie* ptr;
-			for (std::size_t j = 0; j != arr.size() - 1/*for last comma*/; ++j) {
+			for (std::size_t j = 0; j != arr.size() - 1; ++j) {
 				ptr = &tri;
 				const auto len = length(arr[j]);
 				for (std::size_t i = 0; i != len; ++i) {
@@ -146,4 +146,5 @@ namespace s3d
 			return ptr->length;
 		}
 	};
+	*/
 }
