@@ -485,6 +485,15 @@
     <Filter Include="Source\ThirdParty\FID">
       <UniqueIdentifier>{66648f56-06e3-4baa-b805-821923d9d5a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Wave">
+      <UniqueIdentifier>{5f7dffe3-59c2-4b39-85ed-cb914d03eaa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\AudioFormat">
+      <UniqueIdentifier>{8f815891-78fa-4d25-ac6b-f313455ddddf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\AudioFormat\WAVE">
+      <UniqueIdentifier>{ffbdbeb8-9ee7-474b-96af-88aaa0f6b9e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1810,6 +1819,24 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\FID\FID.h">
       <Filter>Source\ThirdParty\FID</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Wave.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\WaveSample.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\AudioFormat\WAVE\AudioFormat_WAVE.hpp">
+      <Filter>Source\Siv3D\AudioFormat\WAVE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\AudioFormat\CAudioFormat.hpp">
+      <Filter>Source\Siv3D\AudioFormat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\AudioFormat\IAudioFormat.hpp">
+      <Filter>Source\Siv3D\AudioFormat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\AudioFormat.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2654,6 +2681,21 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\FID\FID.cpp">
       <Filter>Source\ThirdParty\FID</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Wave\SivWave.cpp">
+      <Filter>Source\Siv3D\Wave</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\AudioFormat\WAVE\AudioFormat_WAVE.cpp">
+      <Filter>Source\Siv3D\AudioFormat\WAVE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\AudioFormat\SivAudioFormat.cpp">
+      <Filter>Source\Siv3D\AudioFormat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\AudioFormat\AudioFormatFactory.cpp">
+      <Filter>Source\Siv3D\AudioFormat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\AudioFormat\CAudioFormat.cpp">
+      <Filter>Source\Siv3D\AudioFormat</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

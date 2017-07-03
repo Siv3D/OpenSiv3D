@@ -27,6 +27,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\AlignedAllocator.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\AlignedMemory.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\AudioFormat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\CPU.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Effect.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Icon.hpp" />
@@ -172,6 +173,8 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Vertex2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\VertexShader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ViewportBlock2D.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Wave.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\WaveSample.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Window.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\WritableMemoryMapping.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Xorshift.hpp" />
@@ -211,6 +214,9 @@
     <ClInclude Include="..\Siv3D\Include\ThirdParty\hopscotch_map\hopscotch_map.h" />
     <ClInclude Include="..\Siv3D\Include\ThirdParty\hopscotch_map\hopscotch_set.h" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\AssetHandleManager\AssetHandleManager.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\AudioFormat\CAudioFormat.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\AudioFormat\IAudioFormat.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\AudioFormat\WAVE\AudioFormat_WAVE.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BigFloat\CBigFloat.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BigInt\CBigInt.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryReader\CBinaryReader_Linux.hpp" />
@@ -462,6 +468,10 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\zstd\zstd.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\AudioFormat\AudioFormatFactory.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\AudioFormat\CAudioFormat.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\AudioFormat\SivAudioFormat.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\AudioFormat\WAVE\AudioFormat_WAVE.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Base64\SivBase64.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Bezier2\SivBezier2.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Bezier3\SivBezier3.cpp" />
@@ -664,6 +674,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Vector3D\SivVector3D.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Vector4D\SivVector4D.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\VertexShader\SivVertexShader.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Wave\SivWave.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Window\CWindow_Linux.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Window\CWindow_macOS.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Window\CWindow_Windows.cpp" />

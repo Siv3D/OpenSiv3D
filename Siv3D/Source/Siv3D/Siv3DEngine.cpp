@@ -23,6 +23,7 @@
 # include "Keyboard/IKeyboard.hpp"
 # include "Mouse/IMouse.hpp"
 # include "TextInput/ITextInput.hpp"
+# include "AudioFormat/IAudioFormat.hpp"
 # include "Graphics/IGraphics.hpp"
 # include "Texture/ITexture.hpp"
 # include "Shader/IShader.hpp"
@@ -51,6 +52,7 @@ namespace s3d
 		m_shader.release();
 		m_texture.release();
 		m_graphics.release();
+		m_audioFormat.release();
 		m_textInput.release();
 		m_mouse.release();
 		m_keyboard.release();

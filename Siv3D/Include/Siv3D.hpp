@@ -355,10 +355,12 @@
 //
 // 音声処理
 //
-	//// 音声波形のサンプル
-	//# include "Siv3D/WaveSample.hpp"
-	//// 音声波形
-	//# include "Siv3D/Wave.hpp"
+	// 音声波形のサンプル
+	# include "Siv3D/WaveSample.hpp"
+	// 波形デコーダ・エンコーダインタフェース
+	# include "Siv3D/AudioFormat.hpp"
+	// 音声波形
+	# include "Siv3D/Wave.hpp"
 	//// 音声波形のテンポ・ピッチ変更
 	//# include "Siv3D/WaveStretcher.hpp"
 	//// FFT

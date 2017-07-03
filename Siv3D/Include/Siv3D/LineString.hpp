@@ -71,6 +71,7 @@ namespace s3d
 		using base_type::resize;
 
 		using base_type::count;
+		using base_type::count_if;
 		using base_type::isEmpty;
 		using base_type::operator bool;
 		using base_type::release;
@@ -257,6 +258,15 @@ namespace s3d
 		// asPolygon
 	};
 }
+
+namespace std
+{
+	inline void swap(s3d::LineString& a, s3d::LineString& b)
+	{
+		a.swap(b);
+	}
+}
+
 
 //////////////////////////////////////////////////////////////////////////////
 //

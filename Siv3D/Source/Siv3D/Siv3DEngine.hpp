@@ -26,6 +26,7 @@ namespace s3d
 	class ISiv3DCursor;
 	class ISiv3DKeyboard;
 	class ISiv3DMouse;
+	class ISiv3DAudioFormat;
 	class ISiv3DTextInput;
 	class ISiv3DGraphics;
 	class ISiv3DTexture;
@@ -97,6 +98,8 @@ namespace s3d
 		Siv3DComponent<ISiv3DMouse> m_mouse;
 
 		Siv3DComponent<ISiv3DTextInput> m_textInput;
+
+		Siv3DComponent<ISiv3DAudioFormat> m_audioFormat;
 
 		Siv3DComponent<ISiv3DGraphics> m_graphics;
 
@@ -188,6 +191,11 @@ namespace s3d
 		static ISiv3DTextInput* GetTextInput()
 		{
 			return pEngine->m_textInput.get();
+		}
+
+		static ISiv3DAudioFormat* GetAudioFormat()
+		{
+			return pEngine->m_audioFormat.get();
 		}
 
 		static ISiv3DGraphics* GetGraphics()
