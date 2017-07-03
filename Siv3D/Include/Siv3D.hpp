@@ -80,6 +80,8 @@
 	# include "Siv3D/HashMap.hpp"
 	// 範囲
 	# include "Siv3D/Step.hpp"
+	// 二次元の範囲
+	# include "Siv3D/Step2D.hpp"
 	// 無限リスト
 	# include "Siv3D/InfiniteList.hpp"
 	// 二次元配列
@@ -253,8 +255,8 @@
 	//# include "Siv3D/Ellipse.hpp"
 	// 三角形
 	# include "Siv3D/Triangle.hpp"
-	//// 四角形
-	//# include "Siv3D/Quad.hpp"
+	// 四角形
+	# include "Siv3D/Quad.hpp"
 	//// 角丸長方形
 	//# include "Siv3D/RoundRect.hpp"
 	//// 連続した複数の線分

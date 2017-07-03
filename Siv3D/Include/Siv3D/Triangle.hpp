@@ -27,6 +27,16 @@ namespace s3d
 		using value_type = position_type::value_type;
 
 		position_type p0, p1, p2;
+		
+		position_type& p(size_t index)
+		{
+			return (&p0)[index];
+		}
+		
+		const position_type& p(size_t index) const
+		{
+			return (&p0)[index];
+		}
 
 		Triangle() = default;
 
@@ -125,7 +135,7 @@ namespace s3d
 
 		Triangle rotatedAt(value_type x, value_type y, value_type angle) const noexcept
 		{
-			return rotatedAt(Vec2(x, y), angle);
+			return rotatedAt(position_type(x, y), angle);
 		}
 
 		Triangle rotatedAt(const position_type& pos, value_type angle) const noexcept;

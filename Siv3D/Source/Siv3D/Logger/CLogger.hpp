@@ -12,6 +12,7 @@
 # pragma once
 # include <mutex>
 # include <Siv3D/TextWriter.hpp>
+# include <Siv3D/Logger.hpp>
 # include "ILogger.hpp"
 
 namespace s3d
@@ -24,6 +25,18 @@ namespace s3d
 
 		std::mutex m_mutex;
 
+		OutputLevel m_outputLevel =
+
+# ifdef _DEBUG
+
+			OutputLevel::More;
+
+# else
+
+			OutputLevel::Normal;
+
+# endif
+
 		bool m_initialized = false;
 
 		bool m_hasImportantLog = false;
@@ -31,6 +44,8 @@ namespace s3d
 		bool m_removeFileOnExit = false;
 
 		void outputLicenses();
+
+		bool suppress(LogDescription desc) const;
 
 	public:
 
@@ -40,7 +55,11 @@ namespace s3d
 
 		bool init() override;
 
+		void setOutputLevel(OutputLevel level) override;
+
 		void write(LogDescription desc, const String& str) override;
+
+		void writeRawHTML(const String& str);
 
 		void removeLogOnExit() override;
 	};

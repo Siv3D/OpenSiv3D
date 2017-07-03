@@ -234,6 +234,78 @@ THE SOFTWARE.<br>
 
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
+u8R"-(<div class="c0">GLEW</div>
+<div class="c1">Copyright(C) 2008 - 2015, Nigel Stewart &lt;nigels[]users sourceforge net&gt;</div>
+<div class="c1">Copyright(C) 2002 - 2008, Milan Ikits &lt;milan ikits[]ieee org&gt;</div>
+<div class="c1">Copyright(C) 2002 - 2008, Marcelo E.Magallon &lt;mmagallo[]debian org&gt;</div>
+<div class="c1">Copyright(C) 2002, Lev Povalahev</div>
+<div class="c1">All rights reserved.</div>
+<div class="c2">
+Redistribution and use in source and binary forms, with or without<br>
+modification, are permitted provided that the following conditions are met :<br>
+<br>
+* Redistributions of source code must retain the above copyright notice,<br>
+  this list of conditions and the following disclaimer.<br>
+* Redistributions in binary form must reproduce the above copyright notice,<br>
+  this list of conditions and the following disclaimer in the documentation<br>
+  and/or other materials provided with the distribution.<br>
+* The name of the author may be used to endorse or promote products<br>
+  derived from this software without specific prior written permission.<br>
+<br>
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"<br>
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE<br>
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE<br>
+ARE DISCLAIMED.IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE<br>
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR<br>
+CONSEQUENTIAL DAMAGES(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF<br>
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS<br>
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN<br>
+CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE)<br>
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF<br>
+THE POSSIBILITY OF SUCH DAMAGE.<br>
+</div>
+<div class="c1">Copyright (C) 1999-2007  Brian Paul   All Rights Reserved.</div>
+<div class="c2">
+Permission is hereby granted, free of charge, to any person obtaining a<br>
+copy of this software and associated documentation files (the "Software"),<br>
+to deal in the Software without restriction, including without limitation<br>
+the rights to use, copy, modify, merge, publish, distribute, sublicense,<br>
+and/or sell copies of the Software, and to permit persons to whom the<br>
+Software is furnished to do so, subject to the following conditions:<br>
+<br>
+The above copyright notice and this permission notice shall be included<br>
+in all copies or substantial portions of the Software.<br>
+<br>
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS<br>
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,<br>
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL<br>
+BRIAN PAUL BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN<br>
+AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN<br>
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.<br>
+</div>
+<div class="c1">Copyright (c) 2007 The Khronos Group Inc.</div>
+<div class="c2">
+Permission is hereby granted, free of charge, to any person obtaining a<br>
+copy of this software and/or associated documentation files (the<br>
+"Materials"), to deal in the Materials without restriction, including<br>
+without limitation the rights to use, copy, modify, merge, publish,<br>
+distribute, sublicense, and/or sell copies of the Materials, and to<br>
+permit persons to whom the Materials are furnished to do so, subject to<br>
+the following conditions:<br>
+<br>
+The above copyright notice and this permission notice shall be included<br>
+in all copies or substantial portions of the Materials.<br>
+<br>
+THE MATERIALS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,<br>
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF<br>
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.<br>
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY<br>
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,<br>
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE<br>
+MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.<br>
+</div>)-"
+
+
 u8R"-(<div class="c0">GLFW</div>
 <div class="c1">Copyright (c) 2002 - 2006 Marcus Geelnard</div>
 <div class="c1">Copyright (c) 2006 - 2016 Camilla Löwy &lt;elmindreda@glfw.org&gt;</div>

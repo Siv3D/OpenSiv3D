@@ -326,6 +326,12 @@
     <Filter Include="Source\Siv3D\Renderer2D\GL">
       <UniqueIdentifier>{c5f70fd1-88bd-445e-b0bb-9d0e09a54a7f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\HTMLWriter">
+      <UniqueIdentifier>{34b60c8d-b89b-4f3d-8e3f-8351f9243d4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Quad">
+      <UniqueIdentifier>{cb8a143f-1b40-41d3-a93d-30c2c3850107}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1216,6 +1222,15 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Vertex2D.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\HTMLWriter\CHTMLWriter.hpp">
+      <Filter>Source\Siv3D\HTMLWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Step2D.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Quad.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -1835,6 +1850,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Renderer2D\GL\CRenderer2D_GL.cpp">
       <Filter>Source\Siv3D\Renderer2D\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\HTMLWriter\CHTMLWriter.cpp">
+      <Filter>Source\Siv3D\HTMLWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\HTMLWriter\SivHTMLWriter.cpp">
+      <Filter>Source\Siv3D\HTMLWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Quad\SivQuad.cpp">
+      <Filter>Source\Siv3D\Quad</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

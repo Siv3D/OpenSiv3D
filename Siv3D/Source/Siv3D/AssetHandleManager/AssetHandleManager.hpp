@@ -13,6 +13,7 @@
 # include <memory>
 # include <Siv3D/HashMap.hpp>
 # include <Siv3D/String.hpp>
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -44,6 +45,8 @@ namespace s3d
 		void setNullData(const Data& data)
 		{
 			m_data.emplace(NullID, data);
+
+			LOG_DEBUG(L"💠 Created {0}[0(null)]"_fmt(m_assetTypeName));
 		}
 
 		const Data& operator [](const IDType id)
@@ -62,11 +65,15 @@ namespace s3d
 			{
 				m_data.emplace(m_idCount, data);
 
+				LOG_DEBUG(L"💠 Created {0}[{1}]"_fmt(m_assetTypeName, m_idCount));
+
 				return m_idCount;
 			}
 
 			if (m_data.size() == m_data.max_size())
 			{
+				LOG_FAIL(L"❌ No more {0}s can be created"_fmt(m_assetTypeName));
+
 				return NullID;
 			}
 
@@ -75,6 +82,8 @@ namespace s3d
 				if (m_data.find(++m_idCount) == m_data.end())
 				{
 					m_data.emplace(m_idCount, data);
+
+					LOG_DEBUG(L"💠 Created {0}[{1}]"_fmt(m_assetTypeName, m_idCount));
 
 					return m_idCount;
 				}
@@ -92,6 +101,8 @@ namespace s3d
 
 			assert(it != m_data.end());
 
+			LOG_DEBUG(L"♻️ Released {0}[{1}]"_fmt(m_assetTypeName, id));
+
 			m_data.erase(it);
 		}
 
@@ -101,11 +112,11 @@ namespace s3d
 			{
 				if (const auto id = data.first)
 				{
-					
+					LOG_DEBUG(L"♻️ Released {0}[{1}]"_fmt(m_assetTypeName, id));
 				}
 				else
 				{
-					
+					LOG_DEBUG(L"♻️ Released {0}[0(null)]"_fmt(m_assetTypeName));
 				}
 			}
 

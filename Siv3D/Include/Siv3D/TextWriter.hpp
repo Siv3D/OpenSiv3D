@@ -216,26 +216,9 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void write(const wchar* str)
+		void write(const wchar* const str)
 		{
 			write(StringView(str));
-		}
-
-		/// <summary>
-		/// ファイルに文字列を書き込みます。
-		/// </summary>
-		/// <param name="str">
-		/// 書き込む文字列の先頭ポインタ
-		/// </param>
-		/// <param name="length">
-		/// 書き込む文字列の長さ
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void write(const wchar* str, size_t length)
-		{
-			write(StringView(str, length));
 		}
 
 		/// <summary>
@@ -254,21 +237,19 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// データを文字列に変換し、ファイルに書き込みます。
+		/// ファイルに文字列を書き込み、改行します。
 		/// </summary>
-		/// <param name="ilist">
-		/// 書き込むデータ
+		/// <param name="str">
+		/// 書き込む文字列
 		/// </param>
 		/// <returns>
 		/// なし
 		/// </returns>
-		template <class Type>
-		void write(std::initializer_list<Type> ilist)
+		void writeln(const StringView str)
 		{
-			for (const auto& elem : ilist)
-			{
-				write(Format(elem));
-			}
+			write(str);
+
+			write(L"\r\n");
 		}
 
 		/// <summary>
@@ -332,25 +313,6 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// ファイルに文字列を書き込み、改行します。
-		/// </summary>
-		/// <param name="str">
-		/// 書き込む文字列の先頭ポインタ
-		/// </param>
-		/// <param name="length">
-		/// 書き込む文字列の長さ
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
-		void writeln(const wchar* const str, size_t length)
-		{
-			write(str, length);
-
-			write(L"\r\n");
-		}
-
-		/// <summary>
 		/// データを文字列に変換し、ファイルに書き込み、改行します。
 		/// </summary>
 		/// <param name="args">
@@ -363,24 +325,6 @@ namespace s3d
 		void writeln(const Args& ... args)
 		{
 			writeln(Format(args...));
-		}
-
-		/// <summary>
-		/// データを文字列に変換し、ファイルに書き込み、改行します。
-		/// </summary>
-		/// <param name="ilist">
-		/// 書き込むデータ
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
-		template <class Type>
-		void writeln(std::initializer_list<Type> ilist)
-		{
-			for (const auto& elem : ilist)
-			{
-				writeln(Format(elem));
-			}
 		}
 
 		/// <summary>

@@ -24,17 +24,11 @@ namespace s3d
 
 		virtual bool init() = 0;
 
+		virtual void setOutputLevel(OutputLevel level) = 0;
+
 		virtual void write(LogDescription desc, const String& str) = 0;
 
-		//virtual void write(LogDescription desc, const Image& image, const String& str) = 0;
-
-		//virtual void writeRaw(const String& str) = 0;
-
-		//virtual void writeOnce(LogDescription desc, const String& str, int32 id) = 0;
-
-		//virtual void writeOnce(LogDescription desc, const Image& image, const String& str, int32 id) = 0;
-
-		//virtual const wchar* getMessage(uint32 index) const = 0;
+		virtual void writeRawHTML(const String& str) = 0;
 
 		virtual void removeLogOnExit() = 0;
 	};
