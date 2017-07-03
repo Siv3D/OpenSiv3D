@@ -124,7 +124,7 @@ namespace s3d
 
 		template <class InputIt>
 		Wave(InputIt first, InputIt last, uint32 samplingRate = Wave::DefaultSamplingRate)
-			: m_data(first, last)
+			: base_type(first, last)
 			, m_samplingRate(samplingRate) {}
 
 		explicit Wave(const Array<WaveSample>& samples, uint32 samplingRate = Wave::DefaultSamplingRate)
