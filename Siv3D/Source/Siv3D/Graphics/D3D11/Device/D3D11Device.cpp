@@ -149,6 +149,8 @@ namespace s3d
 
 		if (!m_d3d11)
 		{
+			LOG_FAIL(L"❌ Failed to load \"d3d11.dll\"");
+
 			return false;
 		}
 
@@ -161,11 +163,15 @@ namespace s3d
 
 		if (FAILED(m_device.Get()->QueryInterface(__uuidof(IDXGIDevice1), &pDXGI)))
 		{
+			LOG_FAIL(L"❌ ID3D11Device::QueryInterface() failed");
+
 			return false;
 		}
 
 		if (FAILED(pDXGI->GetAdapter(&m_adapter)))
 		{
+			LOG_FAIL(L"❌ IDXGIDevice1::GetAdapter() failed");
+
 			return false;
 		}
 
@@ -173,7 +179,7 @@ namespace s3d
 
 		if (SUCCEEDED(m_adapter->GetDesc(&adapterDesc)))
 		{
-			Log(L"Graphics adapter:\n", adapterDesc.Description);
+			LOG_INFO(L"🆗 Graphics adapter: {0}"_fmt(adapterDesc.Description));
 		}
 
 		return true;
@@ -250,11 +256,11 @@ namespace s3d
 			return false;
 		}
 
-		Log << L"Available graphics adapters:";
+		LOG_INFO(L"Available graphics adapters:");
 
 		for (const auto& adapter : adapters)
 		{
-			Log << adapter.desc.Description;
+			LOG_INFO(adapter.desc.Description);
 		}
 
 		const std::array<D3D_FEATURE_LEVEL, 3> featureLevels =
@@ -276,6 +282,12 @@ namespace s3d
 			creationFlags |= D3D11_CREATE_DEVICE_DEBUG;
 
 			::FreeLibrary(D3D11_1SDKLayersLibrary);
+
+			LOG_INFO(L"🆗 D3D11 debug layer supported");
+		}
+		else
+		{
+			LOG_INFO(L"ℹ️ D3D11 debug layer not supported");
 		}
 
 	# endif
@@ -313,15 +325,15 @@ namespace s3d
 					|| adapter.vendor == detail::AdapterVendor::AMD
 					|| adapter.vendor == detail::AdapterVendor::Intel)
 				{
-					Log(L"Direct3D 11 driver type: Hardware (feature level: " + detail::ToString(m_featureLevel) + L')');
-
 					m_driverType = D3D_DRIVER_TYPE_HARDWARE;
+					
+					LOG_INFO(L"✅ D3D11 device created. Driver type: Hardware (feature level {0})"_fmt(detail::ToString(m_featureLevel)));
 				}
 				else
 				{
-					Log(L"Direct3D 11 driver type: Unknown (feature level: " + detail::ToString(m_featureLevel) + L')');
-
 					m_driverType = D3D_DRIVER_TYPE_UNKNOWN;
+
+					LOG_INFO(L"✅ D3D11 device created. Driver type: Unknown (feature level {0})"_fmt(detail::ToString(m_featureLevel)));
 				}
 
 				return true;
@@ -344,9 +356,9 @@ namespace s3d
 				&m_featureLevel,
 				&m_context)))
 			{
-				Log(L"Direct3D 11 driver type: Hardware (feature level: " + detail::ToString(m_featureLevel) + L')');
-
 				m_driverType = D3D_DRIVER_TYPE_HARDWARE;
+
+				LOG_INFO(L"✅ D3D11 device created. Driver type: Hardware (feature level {0})"_fmt(detail::ToString(m_featureLevel)));
 
 				return true;
 			}
@@ -370,9 +382,9 @@ namespace s3d
 				&m_featureLevel,
 				&m_context)))
 			{
-				Log(L"Direct3D 11 driver type: WARP (feature level: " + detail::ToString(m_featureLevel) + L')');
-
 				m_driverType = D3D_DRIVER_TYPE_WARP;
+
+				LOG_INFO(L"✅ D3D11 device created. Driver type: WARP (feature level {0})"_fmt(detail::ToString(m_featureLevel)));
 
 				return true;
 			}
@@ -396,14 +408,16 @@ namespace s3d
 				&m_featureLevel,
 				&m_context)))
 			{
-				Log(L"Direct3D 11 driver type: Reference (feature level: " + detail::ToString(m_featureLevel) + L')');
-
 				m_driverType = D3D_DRIVER_TYPE_REFERENCE;
+
+				LOG_WARNING(L"✅⚠️ D3D11 device created. Driver type: Reference (feature level {0})"_fmt(detail::ToString(m_featureLevel)));
 
 				return true;
 			}
 			else
 			{
+				LOG_FAIL(L"❌ Failed to create D3D11 device (Driver type: Reference)");
+
 				return false;
 			}
 		}
@@ -422,14 +436,16 @@ namespace s3d
 				&m_featureLevel,
 				&m_context)))
 			{
-				Log(L"Direct3D 11 driver type: NULL (feature level: " + detail::ToString(m_featureLevel) + L')');
-
 				m_driverType = D3D_DRIVER_TYPE_NULL;
+
+				LOG_WARNING(L"✅⚠️ D3D11 device created. Driver type: NULL (feature level {0})"_fmt(detail::ToString(m_featureLevel)));
 
 				return true;
 			}
 			else
 			{
+				LOG_FAIL(L"❌ Failed to create D3D11 device (Driver type: NULL)");
+
 				return false;
 			}
 		}
