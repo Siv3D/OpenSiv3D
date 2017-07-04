@@ -46,7 +46,7 @@ namespace s3d
 
 	const Array<String>& ImageFormat_GIF::possibleExtexsions() const
 	{
-		static const Array<String> extensions = { L"gif" };
+		static const Array<String> extensions = { S3DSTR("gif") };
 
 		return extensions;
 	}

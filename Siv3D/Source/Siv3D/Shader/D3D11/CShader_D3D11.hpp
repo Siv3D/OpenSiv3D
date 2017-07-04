@@ -19,8 +19,6 @@
 # define  _WIN32_WINNT _WIN32_WINNT_WIN7
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
-# include <wrl.h>
-using namespace Microsoft::WRL;
 # include <d3d11.h>
 # include <d3dcompiler.h>
 # include "../IShader.hpp"
@@ -42,9 +40,9 @@ namespace s3d
 
 		decltype(D3DCompile2)* p_D3DCompile2 = nullptr;
 
-		AssetHandleManager<VertexShader::IDType, std::shared_ptr<VertexShader_D3D11>> m_vertexShaders{ L"VertexShader" };
+		AssetHandleManager<VertexShader::IDType, std::shared_ptr<VertexShader_D3D11>> m_vertexShaders{ S3DSTR("VertexShader") };
 
-		AssetHandleManager<PixelShader::IDType, std::shared_ptr<PixelShader_D3D11>> m_pixelShaders{ L"PixelShader" };
+		AssetHandleManager<PixelShader::IDType, std::shared_ptr<PixelShader_D3D11>> m_pixelShaders{ S3DSTR("PixelShader") };
 
 		VertexShader::IDType m_currentVS = VertexShader::IDType(-1);
 
@@ -54,6 +52,8 @@ namespace s3d
 
 		Array<PixelShader> m_standardPSs;
 
+		bool compileHLSL(IReader& reader, ByteArray& to, const char* filePath, const char* entryPoint, const char* target);
+			
 		bool compileHLSLToFile(const FilePath& hlsl, const FilePath& to, const char* entryPoint, const char* target);
 
 	public:
@@ -64,11 +64,25 @@ namespace s3d
 
 		bool init(ID3D11Device* device, ID3D11DeviceContext* context);
 
-		bool compileHLSL(IReader& reader, ByteArray& to, const char* filePath, const char* entryPoint, const char* target) override;
-
 		VertexShader::IDType createVS(ByteArray&& binary) override;
 
+		VertexShader::IDType createVSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints) override;
+		
+		VertexShader::IDType createVSFromSource(const String&, const Array<BindingPoint>&) override
+		{
+			// [Siv3D ToDo];
+			return 0;
+		}
+
 		PixelShader::IDType createPS(ByteArray&& binary) override;
+
+		PixelShader::IDType createPSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints) override;
+		
+		PixelShader::IDType createPSFromSource(const String&, const Array<BindingPoint>&) override
+		{
+			// [Siv3D ToDo];
+			return 0;
+		}
 
 		void releaseVS(VertexShader::IDType handleID) override;
 

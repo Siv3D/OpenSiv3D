@@ -30,24 +30,24 @@ namespace s3d
 				switch (ch)
 				{
 				case L'\n':
-					new_string.append(L"<br>", 4);
+					new_string.append(S3DSTR("<br>"), 4);
 					break;
 				case L'\r':
 					break;
 				case L'\"':
-					new_string.append(L"&quot;", 6);
+					new_string.append(S3DSTR("&quot;"), 6);
 					break;
 				case L'&':
-					new_string.append(L"&amp;", 5);
+					new_string.append(S3DSTR("&amp;"), 5);
 					break;
 				case L'\'':
-					new_string.append(L"&apos;", 6);
+					new_string.append(S3DSTR("&apos;"), 6);
 					break;
 				case L'<':
-					new_string.append(L"&lt;", 4);
+					new_string.append(S3DSTR("&lt;"), 4);
 					break;
 				case L'>':
-					new_string.append(L"&gt;", 4);
+					new_string.append(S3DSTR("&gt;"), 4);
 					break;
 				default:
 					new_string.push_back(ch);
@@ -60,7 +60,7 @@ namespace s3d
 
 		static String GetColorCode(const Color& color)
 		{
-			return L"#" + color.toHex();
+			return S3DSTR("#") + color.toHex();
 		}
 	}
 
@@ -97,7 +97,7 @@ namespace s3d
 
 	void HTMLWriter::writeParagraph(const StringView view, const Color& color)
 	{
-		pImpl->writeElementRaw(detail::HTMLEscape(view), L"p", { { L"color", detail::GetColorCode(color) } });
+		pImpl->writeElementRaw(detail::HTMLEscape(view), S3DSTR("p"), { { S3DSTR("color"), detail::GetColorCode(color) } });
 	}
 
 	void HTMLWriter::writeHeader(const StringView view, int32 level)
@@ -107,91 +107,91 @@ namespace s3d
 
 	void HTMLWriter::writeList(const Array<String>& items)
 	{
-		pImpl->writeRaw(L"<ul>\n");
+		pImpl->writeRaw(S3DSTR("<ul>\n"));
 		{
 			for (const auto& item : items)
 			{
-				pImpl->writeElementRaw(detail::HTMLEscape(item), L"li");
+				pImpl->writeElementRaw(detail::HTMLEscape(item), S3DSTR("li"));
 			}
 		}
-		pImpl->writeRaw(L"</ul>\n");
+		pImpl->writeRaw(S3DSTR("</ul>\n"));
 	}
 
 	void HTMLWriter::writeOrderedList(const Array<String>& items)
 	{
-		pImpl->writeRaw(L"<ol>\n");
+		pImpl->writeRaw(S3DSTR("<ol>\n"));
 		{
 			for (const auto& item : items)
 			{
-				pImpl->writeElementRaw(detail::HTMLEscape(item), L"li");
+				pImpl->writeElementRaw(detail::HTMLEscape(item), S3DSTR("li"));
 			}
 		}
-		pImpl->writeRaw(L"</ol>\n");
+		pImpl->writeRaw(S3DSTR("</ol>\n"));
 	}
 
 	void HTMLWriter::writeTable(const Grid<String>& items, const bool hasHeader)
 	{
-		pImpl->writeRaw(L"<table>\n");
+		pImpl->writeRaw(S3DSTR("<table>\n"));
 		{
 			if (items.isEmpty())
 			{
-				return pImpl->writeRaw(L"</table>\n");
+				return pImpl->writeRaw(S3DSTR("</table>\n"));
 			}
 
 			if (hasHeader)
 			{
-				pImpl->writeRaw(L"<tr>\n");
+				pImpl->writeRaw(S3DSTR("<tr>\n"));
 				{
 					for (size_t x = 0; x < items.width(); ++x)
 					{
-						pImpl->writeElementRaw(detail::HTMLEscape(items[0][x]), L"th");
+						pImpl->writeElementRaw(detail::HTMLEscape(items[0][x]), S3DSTR("th"));
 					}
 				}
-				pImpl->writeRaw(L"</tr>\n");
+				pImpl->writeRaw(S3DSTR("</tr>\n"));
 			}
 
 			for (size_t y = hasHeader; y < items.height(); ++y)
 			{
-				pImpl->writeRaw(L"<tr>\n");
+				pImpl->writeRaw(S3DSTR("<tr>\n"));
 				{
 					for (size_t x = 0; x < items.width(); ++x)
 					{
-						pImpl->writeElementRaw(detail::HTMLEscape(items[y][x]), L"td");
+						pImpl->writeElementRaw(detail::HTMLEscape(items[y][x]), S3DSTR("td"));
 					}
 				}
-				pImpl->writeRaw(L"</tr>\n");
+				pImpl->writeRaw(S3DSTR("</tr>\n"));
 			}
 		}
-		pImpl->writeRaw(L"</table>\n");
+		pImpl->writeRaw(S3DSTR("</table>\n"));
 	}
 
 	void HTMLWriter::writeLine(int32 thickness, const Color& color)
 	{
-		pImpl->writeRaw(Format(L"<hr style=\"height:", thickness, L"px; background-color:", detail::GetColorCode(color), L"; border: 0;\">\n"));
+		pImpl->writeRaw(Format(S3DSTR("<hr style=\"height:"), thickness, S3DSTR("px; background-color:"), detail::GetColorCode(color), S3DSTR("; border: 0;\">\n")));
 	}
 
 	void HTMLWriter::writeImage(const Image& image, const Optional<Size>& size)
 	{
-		pImpl->writeRaw(L"<img src=\"data:image/png;base64,");
+		pImpl->writeRaw(S3DSTR("<img src=\"data:image/png;base64,"));
 
 		pImpl->writeRaw(Base64::Encode(image.encode(ImageFormat::PNG).getView()));
 
 		const Size s = size.value_or(image.size());
 
-		pImpl->writeRaw(L"\" width=\"" + Format(s.x) + L"\" height=\"" + Format(s.y) + L"\">\n");
+		pImpl->writeRaw(S3DSTR("\" width=\"") + Format(s.x) + S3DSTR("\" height=\"") + Format(s.y) + S3DSTR("\">\n"));
 	}
 
 	void HTMLWriter::writeImage(const FilePath& url, const Optional<Size>& size)
 	{
-		pImpl->writeRaw(L"<img src=\"" + url);
+		pImpl->writeRaw(S3DSTR("<img src=\"") + url);
 
 		if (size)
 		{
-			pImpl->writeRaw(L"\" width=\"" + Format(size->x) + L"\" height=\"" + Format(size->y) + L"\">\n");
+			pImpl->writeRaw(S3DSTR("\" width=\"") + Format(size->x) + S3DSTR("\" height=\"") + Format(size->y) + S3DSTR("\">\n"));
 		}
 		else
 		{
-			pImpl->writeRaw(L"\">\n");
+			pImpl->writeRaw(S3DSTR("\">\n"));
 		}
 	}
 

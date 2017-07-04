@@ -10,10 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
-
-S3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
-# include "../hopscotch_map/hopscotch_map.h"
-S3D_DISABLE_MSVC_WARNINGS_POP()
+# include "../ThirdParty/hopscotch_map/hopscotch_map.h"
 
 namespace s3d
 {

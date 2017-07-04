@@ -13,6 +13,7 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_WINDOWS)
 
+# include <Siv3D/Fwd.hpp>
 # include <Siv3D/HashMap.hpp>
 # define  NOMINMAX
 # define  STRICT
@@ -21,8 +22,9 @@
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
 # include <wrl.h>
-using namespace Microsoft::WRL;
 # include <d3d11.h>
+
+using namespace Microsoft::WRL;
 
 namespace s3d
 {
@@ -60,7 +62,7 @@ namespace s3d
 
 		D3D_DRIVER_TYPE getDriverType() const;
 
-		DXGI_SAMPLE_DESC getBestMSAA(DXGI_FORMAT format);
+		DXGI_SAMPLE_DESC getBestMSAA(DXGI_FORMAT format, uint32 maxSample);
 	};
 }
 

@@ -58,13 +58,13 @@ th,td{
 		/// </summary>
 		~HTMLWriter();
 
-		HTMLWriter(const FilePath& path, const String& title = L"Untitled", const StringView styleSheet = DefaultStyle())
+		HTMLWriter(const FilePath& path, const String& title = S3DSTR("Untitled"), const StringView styleSheet = DefaultStyle())
 			: HTMLWriter()
 		{
 			open(path, title, styleSheet);
 		}
 
-		bool open(const FilePath& path, const String& title = L"Untitled", const StringView styleSheet = DefaultStyle());
+		bool open(const FilePath& path, const String& title = S3DSTR("Untitled"), const StringView styleSheet = DefaultStyle());
 
 		void close();
 

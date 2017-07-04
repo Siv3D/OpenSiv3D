@@ -88,8 +88,10 @@ namespace s3d
 		//
 		//	 D3D11RenderTarget
 		//
+		const DXGI_SAMPLE_DESC sample2D = m_device->getBestMSAA(DXGI_FORMAT_R8G8B8A8_UNORM, 4);
+
 		m_renderTarget = std::make_unique<D3D11RenderTarget>(m_device->getDevice(),
-			m_device->getContext(), m_swapChain->getSwapChain(), m_texture);
+			m_device->getContext(), m_swapChain->getSwapChain(), m_texture, sample2D);
 
 		if (!m_renderTarget->init())
 		{
@@ -119,6 +121,12 @@ namespace s3d
 		//	 D3D11SamplerState
 		//
 		m_pSamplerState = std::make_unique<D3D11SamplerState>(m_device->getDevice(), m_device->getContext());
+
+		//////////////////////////////////////////////////////
+		//
+		//	 D3D11ScreenCapture
+		//
+		m_screenCapture = std::make_unique<D3D11ScreenCapture>(m_device->getDevice(), m_device->getContext());
 
 		//////////////////////////////////////////////////////
 		//
@@ -155,14 +163,25 @@ namespace s3d
 		m_renderTarget->setClearColor(color);
 	}
 
-	bool CGraphics_D3D11::setFullScreen(bool fullScreen, const Size& size, size_t displayIndex, double refreshRateHz)
+	bool CGraphics_D3D11::setFullScreen(bool fullScreen, const Size& size, const size_t displayIndex, const double refreshRateHz)
 	{
 		return m_swapChain->setFullScreen(fullScreen, size, displayIndex, refreshRateHz);
 	}
 
 	bool CGraphics_D3D11::present()
 	{
-		return m_swapChain->present();
+		if (!m_swapChain->present())
+		{
+			return false;
+		}
+
+		if (m_screenCapture->isRequested())
+		{
+			m_screenCapture->capture(m_texture,
+				m_renderTarget->getBackBufferTexture().id(), m_renderTarget->getCurrentRenderTargetSize());
+		}
+
+		return true;
 	}
 
 	void CGraphics_D3D11::clear()
@@ -180,21 +199,48 @@ namespace s3d
 		return m_renderTarget->endResize(size);
 	}
 
-	void CGraphics_D3D11::setVSyncEnabled(const bool enabled)
+	void CGraphics_D3D11::setTargetFrameRateHz(const Optional<double>& targetFrameRateHz)
 	{
-		m_swapChain->setVSyncEnabled(enabled);
+		m_swapChain->setTargetFrameRateHz(targetFrameRateHz);
 	}
 
-	bool CGraphics_D3D11::isVSyncEnabled() const
+	Optional<double> CGraphics_D3D11::getTargetFrameRateHz() const
 	{
-		return m_swapChain->isVSyncEnabled();
+		return m_swapChain->getTargetFrameRateHz();
+	}
+
+	double CGraphics_D3D11::getDisplayRefreshRateHz() const
+	{
+		return m_swapChain->getDisplayRefreshRateHz();
 	}
 
 	bool CGraphics_D3D11::flush()
 	{
-		//m_renderer2D->flush();
+		m_renderer2D->flush();
+
+		m_renderTarget->resolve();
 
 		return true;
+	}
+
+	const Size& CGraphics_D3D11::getCurrentRenderTargetSize() const
+	{
+		return m_renderTarget->getCurrentRenderTargetSize();
+	}
+
+	const RenderTexture& CGraphics_D3D11::getBackBuffer2D() const
+	{
+		return m_renderTarget->getBackBuffer2D();
+	}
+
+	void CGraphics_D3D11::requestScreenCapture()
+	{
+		m_screenCapture->request();
+	}
+
+	const Image& CGraphics_D3D11::getScreenCapture() const
+	{
+		return m_screenCapture->getImage();
 	}
 }
 

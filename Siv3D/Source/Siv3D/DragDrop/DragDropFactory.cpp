@@ -17,19 +17,19 @@ namespace s3d
 {
 	ISiv3DDragDrop* ISiv3DDragDrop::Create()
 	{
-		# if defined(SIV3D_TARGET_WINDOWS)
+	# if defined(SIV3D_TARGET_WINDOWS)
 
-			return new CDragDrop_Windows;
+		return new CDragDrop_Windows;
 
-		# elif defined(SIV3D_TARGET_MACOS)
+	# elif defined(SIV3D_TARGET_MACOS)
 		
-			return new CDragDrop_macOS;
+		return new CDragDrop_macOS;
 		
-		# elif defined(SIV3D_TARGET_LINUX)
+	# elif defined(SIV3D_TARGET_LINUX)
 		
-			return new CDragDrop_Linux;
+		return new CDragDrop_Linux;
 		
-		# endif
+	# endif
 	}
 }
 

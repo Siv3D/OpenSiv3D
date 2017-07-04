@@ -12,9 +12,85 @@
 # pragma once
 # include "Fwd.hpp"
 # include "PointVector.hpp"
+# include "Geometry2D.hpp"
 
 namespace s3d
 {
+	struct LineStyle
+	{
+		struct Parameters
+		{
+			double dotOffset;
+
+			bool hasCap;
+
+			bool isRound;
+
+			bool isDotted;
+
+			bool hasAlignedDot;
+
+			constexpr Parameters operator ()(double _dotOffset) const
+			{
+				return Parameters{ _dotOffset, hasCap, isRound, isDotted, false };
+			}
+		};
+
+		double dotOffset = 0.0;
+
+		bool hasCap = true;
+
+		bool isRound = false;
+
+		bool isDotted = false;
+
+		bool hasAlignedDot = true;
+
+		constexpr LineStyle(const Parameters& params)
+			: dotOffset(params.dotOffset)
+			, hasCap(params.hasCap)
+			, isRound(params.isRound)
+			, isDotted(params.isDotted)
+			, hasAlignedDot(params.hasAlignedDot) {}
+
+		constexpr bool isSquareCap() const noexcept
+		{
+			return hasCap && !isRound && !isDotted;
+		}
+
+		constexpr bool isRoundCap() const noexcept
+		{
+			return hasCap && isRound && !isDotted;
+		}
+
+		constexpr bool isNoCap() const noexcept
+		{
+			return !hasCap && !isRound && !isDotted;
+		}
+
+		constexpr bool isSquareDot() const noexcept
+		{
+			return hasCap && !isRound && isDotted;
+		}
+
+		constexpr bool isRoundDot() const noexcept
+		{
+			return hasCap && isRound && isDotted;
+		}
+
+		static constexpr Parameters SquareCap{ 0.0, true, false, false, false };
+
+		static constexpr Parameters RoundCap{ 0.0, true, true, false, false };
+
+		static constexpr Parameters NoCap{ 0.0, false, false, false, false };
+
+		static constexpr Parameters SquareDot{ 0.0, true, false, true, false };
+
+		static constexpr Parameters RoundDot{ 0.0, true, true, true, true };
+
+		static constexpr Parameters Default = SquareCap;
+	};
+
 	struct Line
 	{
 		using position_type = Vec2;
@@ -99,14 +175,28 @@ namespace s3d
 		
 		constexpr Line& moveBy(value_type x, value_type y) noexcept
 		{
-			begin.movedBy(x, y);
-			end.movedBy(x, y);
+			begin.moveBy(x, y);
+			end.moveBy(x, y);
 			return *this;
 		}
 		
 		constexpr Line& moveBy(const position_type& v) noexcept
 		{
 			return moveBy(v.x, v.y);
+		}
+
+		Line stretched(const value_type length) const noexcept
+		{
+			const position_type v = vector().setLength(length);
+
+			return Line(begin - v, end + v);
+		}
+
+		Line stretched(const value_type lengthBegin, const value_type lengthEnd) const noexcept
+		{
+			const position_type v = vector().normalized();
+
+			return Line(begin - v * lengthBegin, end + v * lengthEnd);
 		}
 		
 		constexpr position_type vector() const noexcept
@@ -122,17 +212,17 @@ namespace s3d
 			return *this;
 		}
 		
-		constexpr Line reversed() const
+		constexpr Line reversed() const noexcept
 		{
 			return{ end, begin };
 		}
 		
-		value_type length() const
+		value_type length() const noexcept
 		{
 			return begin.distanceFrom(end);
 		}
 		
-		constexpr value_type lengthSq() const
+		constexpr value_type lengthSq() const noexcept
 		{
 			return begin.distanceFromSq(end);
 		}
@@ -142,10 +232,20 @@ namespace s3d
 			return (begin + end) * 0.5;
 		}
 		
-		position_type closest(const position_type& pos) const;
+		position_type closest(const position_type& pos) const noexcept;
 
-		// intersects
+		template <class Shape2DType>
+		bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
+		{
+			return Geometry2D::Intersect(*this, shape);
+		}
 		
+		template <class Shape2DType>
+		Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::IntersectAt(*this, shape)))
+		{
+			return Geometry2D::IntersectAt(*this, shape);
+		}
+
 		Optional<position_type> intersectsAt(const Line& line) const;
 
 		Optional<position_type> intersectsAtPrecise(const Line& line) const;
@@ -162,10 +262,32 @@ namespace s3d
 		
 		// overpaintArrow
 		
-		// draw
-		
-		// drawArrow
-		
+		const Line& draw(const ColorF& color = Palette::White) const
+		{
+			return draw(LineStyle::Default, 1.0, color);
+		}
+
+		const Line& draw(const ColorF(&colors)[2]) const
+		{
+			return draw(LineStyle::Default, 1.0, colors);
+		}
+
+		const Line& draw(double thickness, const ColorF& color = Palette::White) const
+		{
+			return draw(LineStyle::Default, thickness, color);
+		}
+
+		const Line& draw(double thickness, const ColorF(&colors)[2]) const
+		{
+			return draw(LineStyle::Default, thickness, colors);
+		}
+
+		const Line& draw(const LineStyle& style, double thickness, const ColorF& color = Palette::White) const;
+
+		const Line& draw(const LineStyle& style, double thickness, const ColorF(&colors)[2]) const;
+
+		const Line& drawArrow(double width = 1.0, const Vec2& headSize = Vec2(5.0, 5.0), const ColorF& color = Palette::White) const;
+
 		// asPolygon;
 	};
 }
@@ -241,7 +363,7 @@ namespace fmt
 	{
 		const auto tag = s3d::detail::GetTag(format_str);
 
-		const auto fmt = L"({" + tag + L"},{" + tag + L"},{" + tag + L"},{" + tag + L"})";
+		const auto fmt = S3DSTR("({") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("})");
 
 		f.writer().write(fmt, line.begin.x, line.begin.y, line.end.x, line.end.y);
 	}

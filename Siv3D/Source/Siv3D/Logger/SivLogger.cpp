@@ -24,15 +24,15 @@ namespace s3d
 
 		const static String bytesUnits[9] =
 		{
-			L"B",
-			L"KiB",
-			L"MiB",
-			L"GiB",
-			L"TiB",
-			L"PiB",
-			L"EiB",
-			L"ZiB",
-			L"YiB"
+			S3DSTR("B"),
+			S3DSTR("KiB"),
+			S3DSTR("MiB"),
+			S3DSTR("GiB"),
+			S3DSTR("TiB"),
+			S3DSTR("PiB"),
+			S3DSTR("EiB"),
+			S3DSTR("ZiB"),
+			S3DSTR("YiB")
 		};
 	}
 

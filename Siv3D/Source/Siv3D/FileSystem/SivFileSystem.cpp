@@ -31,7 +31,7 @@ namespace s3d
 	{
 		static String ToUniqueFileName(const uint64 value)
 		{
-			constexpr wchar hex[] = L"0123456789abcdef";
+			constexpr wchar hex[] = S3DSTR("0123456789abcdef");
 
 			String name(19, L'-');
 
@@ -75,7 +75,7 @@ namespace s3d
 				return String();
 			}
 
-			const size_t sepPos = path.lastIndexOfAny(L"/\\");
+			const size_t sepPos = path.lastIndexOfAny(S3DSTR("/\\"));
 
 			if (sepPos != String::npos && dotPos < sepPos)
 			{
@@ -235,7 +235,7 @@ namespace s3d
 
 			if (path == start)
 			{
-				return L"./";
+				return S3DSTR("./");
 			}
 
 			fs::path p(path.str()), base(start.str());
@@ -373,7 +373,7 @@ namespace s3d
 
 			for (uint64 n = ud(rng);; ++n)
 			{
-				const FilePath path = directoryPath + detail::ToUniqueFileName(n) + L".tmp";
+				const FilePath path = directoryPath + detail::ToUniqueFileName(n) + S3DSTR(".tmp");
 
 				if (!Exists(path))
 				{

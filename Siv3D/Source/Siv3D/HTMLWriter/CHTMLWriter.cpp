@@ -35,13 +35,13 @@ namespace s3d
 			return false;
 		}
 
-		m_textWriter.writeln(L"<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\" />");
+		m_textWriter.writeln(S3DSTR("<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\" />"));
 
-		writeElementRaw(title.xml_escaped(), L"title");
+		writeElementRaw(title.xml_escaped(), S3DSTR("title"));
 
-		writeElementRaw(styleSheet, L"style");
+		writeElementRaw(styleSheet, S3DSTR("style"));
 
-		m_textWriter.writeln(L"</head>\n<body>");
+		m_textWriter.writeln(S3DSTR("</head>\n<body>"));
 
 		return true;
 	}
@@ -53,7 +53,7 @@ namespace s3d
 			return;
 		}
 
-		m_textWriter.writeln(L"</body>\n</html>");
+		m_textWriter.writeln(S3DSTR("</body>\n</html>"));
 
 		m_textWriter.close();
 	}
@@ -85,23 +85,23 @@ namespace s3d
 			return;
 		}
 
-		m_textWriter.write(L"<" + startTag + L">");
+		m_textWriter.write(S3DSTR("<") + startTag + S3DSTR(">"));
 
 		m_textWriter.write(content);
 
-		m_textWriter.write(L"</" + endTag + L">\n");
+		m_textWriter.write(S3DSTR("</") + endTag + S3DSTR(">\n"));
 	}
 
 	void HTMLWriter::CHTMLWriter::writeElementRaw(const StringView content, const String& tag, const Array<std::pair<String, String>>& styles)
 	{
 		const String startTag =
 			styles.map([](const std::pair<String, String>& keyValue) {
-			return keyValue.first + L":" + keyValue.second + L";";
-		}).join(L" ", tag + L" style=\"", L"\"");
+			return keyValue.first + S3DSTR(":") + keyValue.second + S3DSTR(";");
+		}).join(S3DSTR(" "), tag + S3DSTR(" style=\""), S3DSTR("\""));
 
 		if (content.isEmpty())
 		{
-			writeRaw(L"<" + startTag + L">");
+			writeRaw(S3DSTR("<") + startTag + S3DSTR(">"));
 		}
 		else
 		{

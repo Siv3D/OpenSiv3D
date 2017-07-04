@@ -249,7 +249,7 @@ namespace s3d
 		{
 			write(str);
 
-			write(L"\r\n");
+			write(S3DSTR("\r\n"));
 		}
 
 		/// <summary>
@@ -265,14 +265,14 @@ namespace s3d
 		{
 			write(ch);
 
-			write(L"\r\n");
+			write(S3DSTR("\r\n"));
 		}
 
 		void writeln(char32_t ch)
 		{
 			write(ch);
 
-			write(L"\r\n");
+			write(S3DSTR("\r\n"));
 		}
 
 		void writeln(char ch) = delete;
@@ -290,7 +290,7 @@ namespace s3d
 		{
 			write(str);
 
-			write(L"\r\n");
+			write(S3DSTR("\r\n"));
 		}
 
 		/// <summary>
@@ -309,7 +309,7 @@ namespace s3d
 		{
 			write(str);
 
-			write(L"\r\n");
+			write(S3DSTR("\r\n"));
 		}
 
 		/// <summary>

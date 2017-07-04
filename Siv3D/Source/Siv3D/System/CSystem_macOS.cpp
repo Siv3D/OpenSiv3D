@@ -15,6 +15,7 @@
 # include "../Siv3DEngine.hpp"
 # include "CSystem_macOS.hpp"
 # include "../Logger/ILogger.hpp"
+# include "../CPU/ICPU.hpp"
 # include "../ImageFormat/IImageFormat.hpp"
 # include "../Window/IWindow.hpp"
 # include "../Profiler/IProfiler.hpp"
@@ -23,15 +24,17 @@
 # include "../Cursor/ICursor.hpp"
 # include "../Keyboard/IKeyboard.hpp"
 # include "../Mouse/IMouse.hpp"
+# include "../TextInput/ITextInput.hpp"
+# include "../AudioFormat/IAudioFormat.hpp"
+# include "../Audio/IAudio.hpp"
 # include "../Graphics/IGraphics.hpp"
+# include "../Font/IFont.hpp"
+# include "../Print/IPrint.hpp"
+# include "../ScreenCapture/IScreenCapture.hpp"
+# include "../Effect/IEffect.hpp"
 
 namespace s3d
 {
-	namespace WindowEvent
-	{
-		static constexpr uint32 ExitFlag = 0x10000000;
-	}
-
 	CSystem_macOS::CSystem_macOS()
 	{
 
@@ -45,6 +48,11 @@ namespace s3d
 	bool CSystem_macOS::init()
 	{
 		if (!Siv3DEngine::GetLogger()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetCPU()->init())
 		{
 			return false;
 		}
@@ -88,6 +96,21 @@ namespace s3d
 		{
 			return false;
 		}
+		
+		if (!Siv3DEngine::GetTextInput()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetAudioFormat()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetAudio()->init())
+		{
+			return false;
+		}
 
 		if (!Siv3DEngine::GetGraphics()->init())
 		{
@@ -96,12 +119,27 @@ namespace s3d
 		
 		Siv3DEngine::GetGraphics()->clear();
 
-		return true;
-	}
+		if (!Siv3DEngine::GetFont()->init())
+		{
+			return false;
+		}
 
-	void CSystem_macOS::exit()
-	{
-		m_event |= WindowEvent::ExitFlag;
+		if (!Siv3DEngine::GetPrint()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetScreenCapture()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetEffect()->init())
+		{
+			return false;
+		}
+
+		return true;
 	}
 
 	bool CSystem_macOS::update()
@@ -113,6 +151,8 @@ namespace s3d
 			return false;
 		}
 
+		Siv3DEngine::GetPrint()->draw();
+
 		if (!Siv3DEngine::GetGraphics()->flush())
 		{
 			return false;
@@ -123,6 +163,16 @@ namespace s3d
 		Siv3DEngine::GetGraphics()->present();
 
 		Siv3DEngine::GetProfiler()->beginFrame();
+
+		if (!Siv3DEngine::GetScreenCapture()->update())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetProfiler()->reportAssetNextFrame())
+		{
+			return false;
+		}
 
 		++m_systemFrameCount;
 		++m_userFrameCount;
@@ -144,13 +194,13 @@ namespace s3d
 			return false;
 		}
 
-		Siv3DEngine::GetClipboard()->update();
-
 		Siv3DEngine::GetCursor()->update();
 
 		Siv3DEngine::GetKeyboard()->update();
 
 		Siv3DEngine::GetMouse()->update();
+
+		Siv3DEngine::GetTextInput()->update();
 		
 		return true;
 	}
@@ -158,6 +208,16 @@ namespace s3d
 	void CSystem_macOS::reportEvent(const uint32 windowEventFlag)
 	{
 		m_event |= windowEventFlag;
+	}
+
+	void CSystem_macOS::setExitEvent(const uint32 windowEventFlag)
+	{
+		m_exitEvent = windowEventFlag;
+	}
+
+	uint32 CSystem_macOS::getPreviousEvent() const
+	{
+		return m_previousEvent;
 	}
 
 	uint64 CSystem_macOS::getSystemFrameCount() const noexcept

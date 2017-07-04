@@ -137,13 +137,13 @@ namespace s3d
 			}
 
 			wchar_t* first_digit = p;
-			const wchar_t a = upperCase ? L'A' : L'a';
+			const wchar_t a = upperCase ? S3DCHAR('A') : S3DCHAR('a');
 
 			do
 			{
 				const UnsignedInteger digit = static_cast<UnsignedInteger>(remaining % static_cast<UnsignedInteger>(radix));
 				remaining /= static_cast<UnsignedInteger>(radix);
-				*p++ = static_cast<wchar_t>(digit < 10 ? (L'0' + digit) : (a + digit - 10));
+				*p++ = static_cast<wchar_t>(digit < 10 ? (S3DCHAR('0') + digit) : (a + digit - 10));
 				++length;
 			} while (remaining > 0);
 

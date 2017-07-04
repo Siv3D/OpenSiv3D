@@ -55,7 +55,7 @@ namespace s3d
     
     void BinaryReader::CBinaryReader::close()
     {
-        if (isOpened())
+        if (!isOpened())
         {
             return;
         }

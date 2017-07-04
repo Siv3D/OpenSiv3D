@@ -99,6 +99,7 @@
 
 # endif
 
+
 # if defined(SIV3D_TARGET_WINDOWS)
 
     # define S3D_EXCEPTION_ABI
@@ -106,6 +107,17 @@
 # else
 
     # define S3D_EXCEPTION_ABI		__attribute__ ((__visibility__("default")))
+
+# endif
+
+
+# if defined(SIV3D_TARGET_WINDOWS)
+
+	# define S3D_MAYBE_UNUSED
+
+# else
+
+	# define S3D_MAYBE_UNUSED		[[maybe_unused]]
 
 # endif
 

@@ -300,7 +300,7 @@ namespace s3d
 	template <class Iterator>
 	inline void Formatter(FormatData& formatData, Iterator begin, Iterator end)
 	{
-		formatData.string.push_back(L'{');
+		formatData.string.push_back(S3DCHAR('{'));
 
 		bool isFirst = true;
 
@@ -312,7 +312,7 @@ namespace s3d
 			}
 			else
 			{
-				formatData.string.push_back(L',');
+				formatData.string.push_back(S3DCHAR(','));
 			}
 
 			Formatter(formatData, *begin);
@@ -320,7 +320,7 @@ namespace s3d
 			++begin;
 		}
 
-		formatData.string.push_back(L'}');
+		formatData.string.push_back(S3DCHAR('}'));
 	}
 
 	template <class Type, size_t N>
@@ -350,15 +350,15 @@ namespace s3d
 	template <class Fitrst, class Second>
 	inline void Formatter(FormatData& formatData, const std::pair<Fitrst, Second>& pair)
 	{
-		formatData.string.push_back(L'{');
+		formatData.string.push_back(S3DCHAR('{'));
 
 		Formatter(formatData, pair.first);
 
-		formatData.string.push_back(L',');
+		formatData.string.push_back(S3DCHAR(','));
 	
 		Formatter(formatData, pair.second);
 
-		formatData.string.push_back(L'}');
+		formatData.string.push_back(S3DCHAR('}'));
 	}
 
 	template <class Type>
@@ -411,7 +411,7 @@ namespace s3d
 				++end;
 			}
 
-			if (*end != L'}')
+			if (*end != Char('}'))
 			{
 				FMT_THROW(fmt::FormatError("missing '}' in format string"));
 			}
@@ -449,7 +449,7 @@ namespace s3d
 {
 	inline void Formatter(FormatData& formatData, None_t)
 	{
-		formatData.string.append(L"none", 4);
+		formatData.string.append(S3DSTR("none"), 4);
 	}
 
 	template <class CharType>
@@ -481,13 +481,13 @@ namespace s3d
 	{
 		if (opt)
 		{
-			formatData.string.append(L"Optional ", 9);
+			formatData.string.append(S3DSTR("Optional "), 9);
 
 			Formatter(formatData, opt.value());
 		}
 		else
 		{
-			formatData.string.append(L"none", 4);
+			formatData.string.append(S3DSTR("none"), 4);
 		}
 	}
 
@@ -537,7 +537,7 @@ namespace fmt
 	{
 		const auto tag = s3d::detail::GetTag(format_str);
 
-		const auto fmt = L"{" + tag + L"}";
+		const auto fmt = S3DSTR("{") + tag + S3DSTR("}");
 				
 		f.writer().write(fmt, str.str());
 	}
@@ -571,7 +571,7 @@ namespace fmt
 	{
 		const auto tag = s3d::detail::GetTag(format_str);
 
-		const auto fmt = L"{" + tag + L"}";
+		const auto fmt = S3DSTR("{") + tag + S3DSTR("}");
 
 		f.writer().write(fmt, std::wstring(str.begin(), str.end()));
 	}

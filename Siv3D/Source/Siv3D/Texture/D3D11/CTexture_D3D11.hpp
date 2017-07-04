@@ -36,7 +36,7 @@ namespace s3d
 
 		IDXGISwapChain* m_swapChain = nullptr;
 
-		AssetHandleManager<Texture::IDType, std::shared_ptr<Texture_D3D11>> m_textures{ L"Texture" };
+		AssetHandleManager<Texture::IDType, std::shared_ptr<Texture_D3D11>> m_textures{ S3DSTR("Texture") };
 
 	public:
 
@@ -46,17 +46,41 @@ namespace s3d
 
 		Texture::IDType createFromBackBuffer() override;
 
+		Texture::IDType create(const Image& image, TextureDesc desc) override;
+
+		Texture::IDType create(const Image& image, const Array<Image>& mipmaps, TextureDesc desc) override;
+
+		Texture::IDType createDynamic(const Size& size, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc) override;
+
+		Texture::IDType createDynamic(const Size& size, const ColorF& color, TextureFormat format, TextureDesc desc) override;
+
+		Texture::IDType createRT(const Size& size, uint32 multisampleCount) override;
+
 		void release(Texture::IDType handleID) override;
 
 		Size getSize(Texture::IDType handleID) override;
 
-		void clearRT(Texture::IDType handleID, const ColorF& color);
+		TextureDesc getDesc(Texture::IDType handleID) override;
 
-		void beginResize(Texture::IDType handleID);
+		void clearRT(Texture::IDType handleID, const ColorF& color) override;
 
-		bool endResizeBackBuffer(Texture::IDType handleID);
+		void beginResize(Texture::IDType handleID) override;
+
+		bool endResizeRT(Texture::IDType handleID, const Size& size, uint32 multisampleCount) override;
+
+		bool endResizeBackBuffer(Texture::IDType handleID) override;
+
+		ID3D11Texture2D* getTexture(Texture::IDType handleID);
 
 		ID3D11RenderTargetView* getRTV(Texture::IDType handleID);
+
+
+
+		void setPS(uint32 slot, Texture::IDType handleID) override;
+
+		bool fill(Texture::IDType handleID, const ColorF& color, bool wait) override;
+
+		bool fill(Texture::IDType handleID, const void* src, uint32 stride, bool wait) override;
 	};
 }
 

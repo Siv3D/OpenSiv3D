@@ -76,7 +76,7 @@ namespace s3d
 		/// <summary>
 		/// デフォルトのクライアント解像度
 		/// </summary>
-		constexpr Size DefaultClientSize(640, 480);
+		constexpr s3d::Size DefaultClientSize(640, 480);
 
 		void SetTitle(const String& title);
 
@@ -87,6 +87,61 @@ namespace s3d
 		}
 		
 		const WindowState& GetState();
+
+		/// <summary>
+		/// ウィンドウのクライアント領域のサイズを返します。
+		/// </summary>
+		/// <returns>
+		/// ウィンドウのクライアント領域のサイズ
+		/// </returns>
+		inline s3d::Size Size()
+		{
+			return GetState().clientSize;
+		}
+
+		/// <summary>
+		/// ウィンドウのクライアント領域の中央の座標を返します。
+		/// </summary>
+		/// <returns>
+		/// ウィンドウのクライアント領域の中央の座標
+		/// </returns>
+		inline Point Center()
+		{
+			return GetState().clientSize / 2;
+		}
+
+		/// <summary>
+		/// ウィンドウのクライアント領域の幅を返します。
+		/// </summary>
+		/// <returns>
+		/// ウィンドウのクライアント領域の幅(ピクセル）
+		/// </returns>
+		inline int32 Width()
+		{
+			return GetState().clientSize.x;
+		}
+
+		/// <summary>
+		/// ウィンドウのクライアント領域の高さを返します。
+		/// </summary>
+		/// <returns>
+		/// ウィンドウのクライアント領域の高さ(ピクセル）
+		/// </returns>
+		inline int32 Height()
+		{
+			return GetState().clientSize.y;
+		}
+
+		/// <summary>
+		/// ウィンドウのクライアント領域と同じサイズの Rect を返します。
+		/// </summary>
+		/// <returns>
+		/// ウィンドウのクライアント領域と同じサイズの Rect
+		/// </returns>
+		inline Rect ClientRect()
+		{
+			return Rect(GetState().clientSize);
+		}
 
 		void SetPos(const Point& pos);
 
@@ -130,6 +185,25 @@ namespace s3d
 		inline bool Resize(const s3d::Size& size, bool centering = true)
 		{
 			return Resize(size.x, size.y, centering);
+		}
+
+		void SetBaseSize(const s3d::Size& size);
+
+		s3d::Size BaseSize();
+
+		inline Point BaseCenter()
+		{
+			return BaseSize() / 2;
+		}
+
+		inline int32 BaseWidth()
+		{
+			return BaseSize().x;
+		}
+
+		inline int32 BaseHeight()
+		{
+			return BaseSize().y;
 		}
 	}
 }

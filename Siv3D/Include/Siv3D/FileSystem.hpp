@@ -133,7 +133,7 @@ namespace s3d
 		bool IsResource(const FilePath& path);
 
 		/// <summary>
-		/// 指定したファイルの絶対パスを返します。（例: L"C:/Users/Siv/Desktop/picture.png"）
+		/// 指定したファイルの絶対パスを返します。（例: "C:/Users/Siv/Desktop/picture.png"）
 		/// </summary>
 		/// <param name="path">
 		/// パス
@@ -144,7 +144,7 @@ namespace s3d
 		FilePath FullPath(const FilePath& path);
 
 		/// <summary>
-		/// 指定したファイルの .を含まない拡張子を小文字にして返します。（例: L"png"）
+		/// 指定したファイルの .を含まない拡張子を小文字にして返します。（例: "png"）
 		/// </summary>
 		/// <param name="path">
 		/// パス
@@ -155,7 +155,7 @@ namespace s3d
 		String Extension(const FilePath& path);
 
 		/// <summary>
-		/// 指定したファイルの、親ディレクトリを含まずに、拡張子を含んだ名前を返します。（例: L"picture.png"）
+		/// 指定したファイルの、親ディレクトリを含まずに、拡張子を含んだ名前を返します。（例: "picture.png"）
 		/// </summary>
 		/// <param name="path">
 		/// パス
@@ -166,7 +166,7 @@ namespace s3d
 		String FileName(const FilePath& path);
 
 		/// <summary>
-		/// 指定したファイルの、親ディレクトリと拡張子を含まない名前を返します。（例: L"picture"）
+		/// 指定したファイルの、親ディレクトリと拡張子を含まない名前を返します。（例: "picture"）
 		/// </summary>
 		/// <param name="path">
 		/// パス
@@ -177,7 +177,7 @@ namespace s3d
 		String BaseName(const FilePath& path);
 
 		/// <summary>
-		/// 指定したファイルの親ディレクトリを返します。（例: L"C:/Users/Siv/Desktop/"）
+		/// 指定したファイルの親ディレクトリを返します。（例: "C:/Users/Siv/Desktop/"）
 		/// </summary>
 		/// <param name="path">
 		/// パス
@@ -188,7 +188,7 @@ namespace s3d
 		FilePath ParentPath(const FilePath& path, size_t level = 0, FilePath* baseFullPath = nullptr);
 
 		/// <summary>
-		/// 指定したファイルのドライブのパスを返します。（例: L"C:/"）
+		/// 指定したファイルのドライブのパスを返します。（例: "C:/"）
 		/// </summary>
 		/// <param name="path">
 		/// パス
@@ -322,7 +322,7 @@ namespace s3d
 		FilePath SpecialFolderPath(SpecialFolder folder);
 
 		/// <summary>
-		/// 一時ファイル用のディレクトリのパスを返します。パスの末尾には L'/' が付きます。
+		/// 一時ファイル用のディレクトリのパスを返します。パスの末尾には '/' が付きます。
 		/// </summary>
 		/// <returns>
 		/// 一時ファイル用のディレクトリのパス
@@ -344,7 +344,7 @@ namespace s3d
 		FilePath RelativePath(const FilePath& path, const FilePath& start = FileSystem::CurrentPath());
 
 		/// <summary>
-		/// 一時ファイル用の固有なファイルパスを返します。拡張子は L".tmp" です。
+		/// 一時ファイル用の固有なファイルパスを返します。拡張子は ".tmp" です。
 		/// </summary>
 		/// <returns>
 		/// 一時ファイル用のファイルパス

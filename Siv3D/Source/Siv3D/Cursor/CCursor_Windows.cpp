@@ -34,15 +34,146 @@ namespace s3d
 
 		update();
 
-		m_previousScreenPos = m_screenPos;
-		m_previousClientPos = m_screenPos;
-		m_screenDelta.set(0, 0);
-		m_clientDelta.set(0, 0);
+		m_screen.previous = m_screen.current;
+		m_client_raw.previous = m_client_raw.current;
+		m_client_transformed.previous = m_client_transformed.current;
+		m_client_transformedF.previous = m_client_transformedF.current;
+
+		m_cursorStyles[size_t(CursorStyle::Arrow)] = ::LoadCursorW(nullptr, IDC_ARROW);
+		m_cursorStyles[size_t(CursorStyle::IBeam)] = ::LoadCursorW(nullptr, IDC_IBEAM);
+		m_cursorStyles[size_t(CursorStyle::Cross)] = ::LoadCursorW(nullptr, IDC_CROSS);
+		m_cursorStyles[size_t(CursorStyle::Hand)] = ::LoadCursorW(nullptr, IDC_HAND);
+		m_cursorStyles[size_t(CursorStyle::NotAllowed)] = ::LoadCursorW(nullptr, IDC_NO);
+		m_cursorStyles[size_t(CursorStyle::ResizeUpDown)] = ::LoadCursorW(nullptr, IDC_SIZENS);
+		m_cursorStyles[size_t(CursorStyle::ResizeLeftRight)] = ::LoadCursorW(nullptr, IDC_SIZEWE);
+		m_cursorStyles[size_t(CursorStyle::Hidden)] = nullptr;
+
+		::SetCursor(m_cursorStyles[0]);
 
 		return true;
 	}
 
 	void CCursor_Windows::update()
+	{
+		updateClip();
+
+		POINT screenPos;
+		::GetCursorPos(&screenPos);
+		m_screen.previous = m_screen.current;
+		m_screen.current.set(screenPos.x, screenPos.y);
+		m_screen.delta = m_screen.current - m_screen.previous;
+
+		POINT clientPos = screenPos;
+		::ScreenToClient(m_hWnd, &clientPos);
+		m_client_raw.previous = m_client_raw.current;
+		m_client_raw.current.set(clientPos.x, clientPos.y);
+		m_client_raw.delta = m_client_raw.current - m_client_raw.previous;
+
+		m_client_transformedF.previous = m_client_transformedF.current;
+		m_client_transformedF.current = m_transformInv.transform(m_client_raw.current);
+		m_client_transformedF.delta = m_client_transformedF.current - m_client_transformedF.previous;
+
+		m_client_transformed.previous = m_client_transformedF.previous.asPoint();
+		m_client_transformed.current = m_client_transformedF.current.asPoint();
+		m_client_transformed.delta = m_client_transformedF.delta.asPoint();
+
+		::SetCursor(m_cursorStyles[static_cast<size_t>(m_curerntCursorStyle)]);
+	}
+
+	const CursorState<Point>& CCursor_Windows::screen() const
+	{
+		return m_screen;
+	}
+
+	const CursorState<Point>& CCursor_Windows::clientRaw() const
+	{
+		return m_client_raw;
+	}
+
+	const CursorState<Vec2>& CCursor_Windows::clientTransformedF() const
+	{
+		return m_client_transformedF;
+	}
+
+	const CursorState<Point>& CCursor_Windows::clientTransformed() const
+	{
+		return m_client_transformed;
+	}
+
+	void CCursor_Windows::setPos(const int32 x, const int32 y)
+	{
+		POINT point{ x, y };
+		::ClientToScreen(m_hWnd, &point);
+		::SetCursorPos(point.x, point.y);
+		
+		m_screen.current.set(point.x, point.y);
+		m_screen.delta = m_screen.current - m_screen.previous;
+
+		m_client_raw.current.set(x, y);
+		m_client_raw.delta = m_client_raw.current - m_client_raw.previous;
+
+		m_client_transformedF.current = m_transformInv.transform(m_client_raw.current);
+		m_client_transformedF.delta = m_client_transformedF.current - m_client_transformedF.previous;
+
+		m_client_transformed.current = m_client_transformedF.current.asPoint();
+		m_client_transformed.delta = m_client_transformedF.delta.asPoint();
+	}
+
+	void CCursor_Windows::setTransform(const Mat3x2& matrix)
+	{
+		if (!::memcmp(&m_transform, &matrix, sizeof(Mat3x2)))
+		{
+			return;
+		}
+
+		m_transform = matrix;
+		m_transformInv = m_transform.inverse();
+
+		m_client_transformedF.current = m_transformInv.transform(m_client_raw.current);
+		m_client_transformedF.delta = m_client_transformedF.current - m_client_transformedF.previous;
+
+		m_client_transformed.current = m_client_transformedF.current.asPoint();
+		m_client_transformed.delta = m_client_transformedF.delta.asPoint();
+	}
+
+	const Mat3x2& CCursor_Windows::getTransform() const
+	{
+		return m_transform;
+	}
+
+	void CCursor_Windows::clipClientRect(const bool clip)
+	{
+		if (clip != m_clipClientRect)
+		{
+			updateClip();
+		}
+
+		m_clipClientRect = clip;
+	}
+
+	void CCursor_Windows::clip(const Optional<Rect>& rect)
+	{
+		m_clipRect = rect;
+	}
+
+	void CCursor_Windows::setStyle(const CursorStyle style)
+	{
+		if (style == m_curerntCursorStyle)
+		{
+			return;
+		}
+
+		::SetCursor(m_cursorStyles[static_cast<size_t>(style)]);
+
+		m_curerntCursorStyle = style;
+	}
+
+	CursorStyle CCursor_Windows::getStyle()
+	{
+		return m_curerntCursorStyle;
+	}
+
+	void CCursor_Windows::updateClip()
 	{
 		if (m_clipRect)
 		{
@@ -54,68 +185,23 @@ namespace s3d
 				leftTop.y + std::max(m_clipRect->h - 1, 0) };
 			::ClipCursor(&clipRect);
 		}
+		else if (m_clipClientRect)
+		{
+			RECT clientRect;
+			::GetClientRect(m_hWnd, &clientRect);
+
+			POINT leftTop{ clientRect.left, clientRect.top };
+			::ClientToScreen(m_hWnd, &leftTop);
+
+			RECT clipRect{ leftTop.x, leftTop.y,
+				leftTop.x + std::max<int32>(clientRect.right - 1, 0),
+				leftTop.y + std::max<int32>(clientRect.bottom - 1, 0) };
+			::ClipCursor(&clipRect);
+		}
 		else
 		{
 			::ClipCursor(nullptr);
 		}
-
-		POINT screenPos;
-
-		::GetCursorPos(&screenPos);
-		m_screenPos.set(screenPos.x, screenPos.y);
-		m_screenDelta = m_screenPos - m_previousScreenPos;
-		m_previousScreenPos = m_screenPos;
-
-		POINT clientPos = screenPos;
-		::ScreenToClient(m_hWnd, &clientPos);
-		m_clientPos.set(clientPos.x, clientPos.y);
-		m_clientDelta = m_clientPos - m_previousClientPos;
-		m_previousClientPos = m_clientPos;
-	}
-
-	const Point& CCursor_Windows::previousScreenPos() const
-	{
-		return m_previousScreenPos;
-	}
-
-	const Point& CCursor_Windows::screenPos() const
-	{
-		return m_screenPos;
-	}
-
-	const Point& CCursor_Windows::screenDelta() const
-	{
-		return m_screenDelta;
-	}
-
-	const Point& CCursor_Windows::previousClientPos() const
-	{
-		return m_previousClientPos;
-	}
-
-	const Point& CCursor_Windows::clientPos() const
-	{
-		return m_previousClientPos;
-	}
-
-	const Point& CCursor_Windows::clientDelta() const
-	{
-		return m_clientDelta;
-	}
-
-	void CCursor_Windows::setPos(const int32 x, const int32 y)
-	{
-		POINT point{ x, y };
-		::ClientToScreen(m_hWnd, &point);
-		::SetCursorPos(point.x, point.y);
-		
-		m_clientPos.set(x, y);
-		m_screenPos.set(point.x, point.y);
-	}
-
-	void CCursor_Windows::clip(const Optional<Rect>& rect)
-	{
-		m_clipRect = rect;
 	}
 }
 

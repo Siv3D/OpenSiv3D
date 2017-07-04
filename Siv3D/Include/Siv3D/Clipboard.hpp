@@ -24,17 +24,11 @@ namespace s3d
 	{
 		bool HasChanged();
 
-		bool HasText();
-
-		bool HasImage();
-
-		bool HasFilePaths();
-
-		const String& GetText();
-
-		const Image& GetImage();
-
-		const Array<FilePath>& GetFilePaths();
+		bool GetText(String& text);
+		
+		bool GetImage(Image& image);
+		
+		bool GetFilePaths(Array<FilePath>& paths);
 
 		void SetText(const String& text);
 

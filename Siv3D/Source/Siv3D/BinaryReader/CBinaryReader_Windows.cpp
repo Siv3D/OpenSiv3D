@@ -40,7 +40,7 @@ namespace s3d
 		{
 			HMODULE hModule = ::GetModuleHandleW(nullptr);
 
-			if (HRSRC hrs = ::FindResourceW(hModule, &path[1], L"FILE"))
+			if (HRSRC hrs = ::FindResourceW(hModule, &path[1], S3DWSTR("FILE")))
 			{
 				m_pResource = ::LockResource(::LoadResource(hModule, hrs));
 
@@ -101,7 +101,7 @@ namespace s3d
 
 			LOG_DEBUG(L"📥 BinaryReader: Closed resource \"{0}\""_fmt(m_fullPath));
 		}
-		else
+		else if(m_handle != INVALID_HANDLE_VALUE)
 		{
 			::CloseHandle(m_handle);
 

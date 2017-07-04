@@ -185,7 +185,7 @@ namespace s3d
 		/// <returns>
 		/// フォーマットされた日付と時刻
 		/// </returns>
-		String format(const String& pattern = L"yyyy/M/d HH:mm:ss") const;
+		String format(const String& pattern = S3DSTR("yyyy/M/d HH:mm:ss")) const;
 
 		/// <summary>
 		/// 日付と時刻を進めます。
@@ -468,7 +468,7 @@ namespace s3d
 	/// 日付と時刻
 	/// </param>
 	/// <remarks>
-	/// L"yyyy/M/d HH:mm:ss" 形式でフォーマットされます。
+	/// "yyyy/M/d HH:mm:ss" 形式でフォーマットされます。
 	/// </remarks>
 	/// <returns>
 	/// 渡した後の出力ストリーム

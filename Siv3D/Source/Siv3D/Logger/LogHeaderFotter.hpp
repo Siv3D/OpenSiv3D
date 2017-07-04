@@ -77,7 +77,31 @@ const static char footer[] =
 u8R"-(</div>
 <h3>Licenses</h3>
 <div class="c0">Siv3D Engine</div>
-<div class="c1">Copyright (c) 2008-2017 Ryo Suzuki<br>Copyright (c) 2016-2017 OpenSiv3D Project</div>
+<div class="c1">Copyright (c) 2008-2017 Ryo Suzuki<br>
+Copyright (c) 2016-2017 OpenSiv3D Project</div>
+<div class="c2">
+Permission is hereby granted, free of charge, to any person obtaining a copy<br>
+of this software and associated documentation files (the “Software”), to deal<br>
+in the Software without restriction, including without limitation the rights<br>
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell<br>
+copies of the Software, and to permit persons to whom the Software is<br>
+furnished to do so, subject to the following conditions:<br>
+<br>
+The above copyright notice and this permission notice shall be included in all<br>
+copies or substantial portions of the Software.<br>
+<br>
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR<br>
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,<br>
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE<br>
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER<br>
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br>
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE<br>
+SOFTWARE.<br>
+</div>)-"
+
+
+u8R"-(<div class="c0">HamFramework</div>
+<div class="c1">Copyright (c) 20014-2017 HAMSTRO</div>
 <div class="c2">
 Permission is hereby granted, free of charge, to any person obtaining a copy<br>
 of this software and associated documentation files (the “Software”), to deal<br>
@@ -116,9 +140,61 @@ limitations under the License.<br>
 </div>)-"
 
 
+u8R"-(<div class="c0">clip2tri</div>
+<div class="c1">Copyright (c) 2014 Bitfighter developers</div>
+<div class="c2">
+Permission is hereby granted, free of charge, to any person obtaining a copy<br>
+of this software and associated documentation files (the “Software”), to deal<br>
+in the Software without restriction, including without limitation the rights<br>
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell<br>
+copies of the Software, and to permit persons to whom the Software is<br>
+furnished to do so, subject to the following conditions:<br>
+<br>
+The above copyright notice and this permission notice shall be included in all<br>
+copies or substantial portions of the Software.<br>
+<br>
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR<br>
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,<br>
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE<br>
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER<br>
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br>
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE<br>
+SOFTWARE.<br>
+</div>)-"
+
+
+u8R"-(<div class="c0">Clipper</div>
+<div class="c1">Copyright (c) 2010-2014 Angus Johnson</div>
+<div class="c2">Released under the Boost Software License - Version 1.0 - August 17th, 2003<br>
+http://www.boost.org/LICENSE_1_0.txt <br>
+</div>)-"
+
+
 u8R"-(<div class="c0">Convenient Constructs For Stepping Through a Range of Values</div>
 <div class="c1">Copyright (c) Mikhail Semenov</div>
 <div class="c2">Licenced with the Code Project Open Licence (CPOL) http://www.codeproject.com/info/cpol10.aspx <br>
+</div>)-"
+
+
+u8R"-(<div class="c0">DirectXMath</div>
+<div class="c1">Copyright (c) 2017 Microsoft Corp</div>
+<div class="c2">
+Permission is hereby granted, free of charge, to any person obtaining a copy of this<br>
+software and associated documentation files (the "Software"), to deal in the Software<br>
+without restriction, including without limitation the rights to use, copy, modify,<br>
+merge, publish, distribute, sublicense, and/or sell copies of the Software, and to<br>
+permit persons to whom the Software is furnished to do so, subject to the following<br>
+conditions:<br>
+<br>
+The above copyright notice and this permission notice shall be included in all copies<br>
+or substantial portions of the Software.<br>
+<br>
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,<br>
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A<br>
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT<br>
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF<br>
+CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE<br>
+OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.<br>
 </div>)-"
 
 
@@ -209,6 +285,17 @@ u8R"-(<div class="c0">fmt</div>
 </div>)-"
 
 
+u8R"-(<div class="c0">Font Awesome</div>
+<div class="c2">Licensed under SIL Open Font License v1.1.<br>
+</div>)-"
+
+
+u8R"-(<div class="c0">FreeType</div>
+<div class="c2">
+This software is based in part of the work of the FreeType Team.<br>
+</div>)-"
+
+
 u8R"-(<div class="c0">giflib</div>
 <div class="c1">The GIFLIB distribution is Copyright(c) 1997  Eric S.Raymond</div>
 <div class="c2">
@@ -235,11 +322,11 @@ THE SOFTWARE.<br>
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 u8R"-(<div class="c0">GLEW</div>
-<div class="c1">Copyright(C) 2008 - 2015, Nigel Stewart &lt;nigels[]users sourceforge net&gt;</div>
-<div class="c1">Copyright(C) 2002 - 2008, Milan Ikits &lt;milan ikits[]ieee org&gt;</div>
-<div class="c1">Copyright(C) 2002 - 2008, Marcelo E.Magallon &lt;mmagallo[]debian org&gt;</div>
-<div class="c1">Copyright(C) 2002, Lev Povalahev</div>
-<div class="c1">All rights reserved.</div>
+<div class="c1">Copyright(C) 2008 - 2015, Nigel Stewart &lt;nigels[]users sourceforge net&gt;<br>
+Copyright(C) 2002 - 2008, Milan Ikits &lt;milan ikits[]ieee org&gt;<br>
+Copyright(C) 2002 - 2008, Marcelo E.Magallon &lt;mmagallo[]debian org&gt;<br>
+Copyright(C) 2002, Lev Povalahev<br>
+All rights reserved.</div>
 <div class="c2">
 Redistribution and use in source and binary forms, with or without<br>
 modification, are permitted provided that the following conditions are met :<br>
@@ -307,8 +394,8 @@ MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.<br>
 
 
 u8R"-(<div class="c0">GLFW</div>
-<div class="c1">Copyright (c) 2002 - 2006 Marcus Geelnard</div>
-<div class="c1">Copyright (c) 2006 - 2016 Camilla Löwy &lt;elmindreda@glfw.org&gt;</div>
+<div class="c1">Copyright (c) 2002 - 2006 Marcus Geelnard<br>
+Copyright (c) 2006 - 2016 Camilla Löwy &lt;elmindreda@glfw.org&gt;</div>
 <div class="c2">
 This software is provided 'as-is', without any express or implied<br>
 warranty.In no event will the authors be held liable for any damages<br>
@@ -350,6 +437,39 @@ limitations under the License.<br>
 </div>)-"
 
 
+u8R"-(<div class="c0">HarfBuzz</div>
+<div class="c1">Copyright © 2010,2011,2012  Google, Inc.<br>
+Copyright (c) 2012  Mozilla Foundation<br>
+Copyright (c) 2011  Codethink Limited<br>
+Copyright (c) 2008,2010  Nokia Corporation and/or its subsidiary(-ies)<br>
+Copyright (c) 2009  Keith Stribley<br>
+Copyright (c) 2009  Martin Hosken and SIL International<br>
+Copyright (c) 2007  Chris Wilson<br>
+Copyright (c) 2006  Behdad Esfahbod<br>
+Copyright (c) 2005  David Turner<br>
+Copyright (c) 2004,2007,2008,2009,2010  Red Hat, Inc.<br>
+Copyright (c) 1998-2004  David Turner and Werner Lemberg</div>
+<div class="c2">
+Permission is hereby granted, without written agreement and without<br>
+license or royalty fees, to use, copy, modify, and distribute this<br>
+software and its documentation for any purpose, provided that the<br>
+above copyright notice and the following two paragraphs appear in<br>
+all copies of this software.<br>
+<br>
+IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE TO ANY PARTY FOR<br>
+DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES<br>
+ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN<br>
+IF THE COPYRIGHT HOLDER HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH<br>
+DAMAGE.<br>
+<br>
+THE COPYRIGHT HOLDER SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING,<br>
+BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND<br>
+FITNESS FOR A PARTICULAR PURPOSE.  THE SOFTWARE PROVIDED HEREUNDER IS<br>
+ON AN "AS IS" BASIS, AND THE COPYRIGHT HOLDER HAS NO OBLIGATION TO<br>
+PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.<br>
+</div>)-"
+
+
 u8R"-(<div class="c0">hopscotch-map</div>
 <div class="c1">Copyright (c) 2017 Tessil</div>
 <div class="c2">
@@ -373,53 +493,63 @@ SOFTWARE.<br>
 </div>)-"
 
 
-u8R"-(<div class="c0">LineSegmentIntersection</div>
-<div class="c1">Copyright (c) 2015 Kristian Lindberg Vinther</div>
-<div class="c2">Licenced with the Code Project Open Licence (CPOL) http://www.codeproject.com/info/cpol10.aspx <br>
+u8R"-(<div class="c0">kld-intersections</div>
+<div class="c1">Copyright (c) 2013, Kevin Lindsey. All rights reserved.</div>
+<div class="c2">
+Redistribution and use in source and binary forms, with or without modification,<br>
+are permitted provided that the following conditions are met:<br>
+<br>
+  Redistributions of source code must retain the above copyright notice, this<br>
+  list of conditions and the following disclaimer.<br>
+<br>
+  Redistributions in binary form must reproduce the above copyright notice, this<br>
+  list of conditions and the following disclaimer in the documentation and/or<br>
+  other materials provided with the distribution.<br>
+<br>
+  Neither the name of the {organization} nor the names of its<br>
+  contributors may be used to endorse or promote products derived from<br>
+  this software without specific prior written permission.<br>
+<br>
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND<br>
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED<br>
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE<br>
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR<br>
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES<br>
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;<br>
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON<br>
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT<br>
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS<br>
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<br>
 </div>)-"
 
 
-u8R"-(<div class="c0">miniutf</div>
-<div class="c1">Copyright (c) 2013 Dropbox, Inc.</div>
+u8R"-(<div class="c0">kld-polynomial</div>
+<div class="c1">Copyright (c) 2013, Kevin Lindsey. All rights reserved.</div>
 <div class="c2">
-Permission is hereby granted, free of charge, to any person obtaining a copy<br>
-of this software and associated documentation files (the "Software"), to deal<br>
-in the Software without restriction, including without limitation the rights<br>
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell<br>
-copies of the Software, and to permit persons to whom the Software is<br>
-furnished to do so, subject to the following conditions:<br>
+Redistribution and use in source and binary forms, with or without modification,<br>
+are permitted provided that the following conditions are met:<br>
 <br>
-The above copyright notice and this permission notice shall be included in<br>
-all copies or substantial portions of the Software.<br>
+  Redistributions of source code must retain the above copyright notice, this<br>
+  list of conditions and the following disclaimer.<br>
 <br>
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR<br>
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,<br>
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE<br>
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER<br>
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br>
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN<br>
-THE SOFTWARE.<br>
-</div>)-"
-
-
-u8R"-(<div class="c0">muparser</div>
-<div class="c1">Copyright (c) 2011 Ingo Berg</div>
-<div class="c2">
-Permission is hereby granted, free of charge, to any person obtaining a copy of this<br>
-software and associated documentation files(the "Software"), to deal in the Software<br>
-without restriction, including without limitation the rights to use, copy, modify,<br>
-merge, publish, distribute, sublicense, and / or sell copies of the Software, and to<br>
-permit persons to whom the Software is furnished to do so, subject to the following conditions :<br>
+  Redistributions in binary form must reproduce the above copyright notice, this<br>
+  list of conditions and the following disclaimer in the documentation and/or<br>
+  other materials provided with the distribution.<br>
 <br>
-The above copyright notice and this permission notice shall be included in all copies or<br>
-substantial portions of the Software.<br>
+  Neither the name of the {organization} nor the names of its<br>
+  contributors may be used to endorse or promote products derived from<br>
+  this software without specific prior written permission.<br>
 <br>
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT<br>
-NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND<br>
-NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,<br>
-DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br>
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.<br>
-OR OTHER DEALINGS IN THE SOFTWARE.<br>
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND<br>
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED<br>
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE<br>
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR<br>
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES<br>
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;<br>
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON<br>
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT<br>
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS<br>
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<br>
 </div>)-"
 
 
@@ -480,6 +610,144 @@ to the following restrictions:<br>
 <br>
   3. This Copyright notice may not be removed or altered from any<br>
      source or altered source distribution.<br>
+</div>)-"
+
+
+u8R"-(<div class="c0">LineSegmentIntersection</div>
+<div class="c1">Copyright (c) 2015 Kristian Lindberg Vinther</div>
+<div class="c2">Licenced with the Code Project Open Licence (CPOL) http://www.codeproject.com/info/cpol10.aspx <br>
+</div>)-"
+
+
+u8R"-(<div class="c0">Noto Fonts</div>
+<div class="c2">Licensed under SIL Open Font License v1.1.<br>
+</div>)-"
+
+
+u8R"-(<div class="c0">miniutf</div>
+<div class="c1">Copyright (c) 2013 Dropbox, Inc.</div>
+<div class="c2">
+Permission is hereby granted, free of charge, to any person obtaining a copy<br>
+of this software and associated documentation files (the "Software"), to deal<br>
+in the Software without restriction, including without limitation the rights<br>
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell<br>
+copies of the Software, and to permit persons to whom the Software is<br>
+furnished to do so, subject to the following conditions:<br>
+<br>
+The above copyright notice and this permission notice shall be included in<br>
+all copies or substantial portions of the Software.<br>
+<br>
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR<br>
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,<br>
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE<br>
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER<br>
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br>
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN<br>
+THE SOFTWARE.<br>
+</div>)-"
+
+
+# if defined(SIV3D_TARGET_WINDOWS)
+
+u8R"-(<div class="c0">msinttypes r29</div>
+<div class="c1">Copyright (c) 2006-2013 Alexander Chemeris </div>
+<div class="c2">
+Redistribution and use in source and binary forms, with or without<br>
+modification, are permitted provided that the following conditions are met:<br>
+<br>
+- Redistributions of source code must retain the above copyright notice,<br>
+  this list of conditions and the following disclaimer.<br>
+- Redistributions in binary form must reproduce the above copyright notice,<br>
+  this list of conditions and the following disclaimer in the documentation<br>
+  and/or other materials provided with the distribution.<br>
+- Neither the name of copyright holder nor the names of its contributors<br>
+  may be used to endorse or promote products derived from this software<br>
+  without specific prior written permission.<br>
+<br>
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS",<br>
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE<br>
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE<br>
+ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE<br>
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR<br>
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF<br>
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS<br>
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN<br>
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)<br>
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE<br>
+POSSIBILITY OF SUCH DAMAGE.<br>
+</div>)-"
+
+# endif
+
+
+u8R"-(<div class="c0">muparser</div>
+<div class="c1">Copyright (c) 2011 Ingo Berg</div>
+<div class="c2">
+Permission is hereby granted, free of charge, to any person obtaining a copy of this<br>
+software and associated documentation files(the "Software"), to deal in the Software<br>
+without restriction, including without limitation the rights to use, copy, modify,<br>
+merge, publish, distribute, sublicense, and / or sell copies of the Software, and to<br>
+permit persons to whom the Software is furnished to do so, subject to the following conditions:<br>
+<br>
+The above copyright notice and this permission notice shall be included in all copies or<br>
+substantial portions of the Software.<br>
+<br>
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT<br>
+NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND<br>
+NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,<br>
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br>
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.<br>
+OR OTHER DEALINGS IN THE SOFTWARE.<br>
+</div>)-"
+
+
+u8R"-(<div class="c0">Poly2Tri</div>
+<div class="c1">Copyright (c) 2009-2010, Poly2Tri Contributors. All rights reserved.</div>
+<div class="c2">
+Redistribution and use in source and binary forms, with or without modification,<br>
+are permitted provided that the following conditions are met:<br>
+<br>
+* Redistributions of source code must retain the above copyright notice,<br>
+  this list of conditions and the following disclaimer.<br>
+* Redistributions in binary form must reproduce the above copyright notice,<br>
+  this list of conditions and the following disclaimer in the documentation<br>
+  and/or other materials provided with the distribution.<br>
+* Neither the name of Poly2Tri nor the names of its contributors may be<br>
+  used to endorse or promote products derived from this software without specific<br>
+  prior written permission.<br>
+<br>
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS<br>
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT<br>
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR<br>
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR<br>
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,<br>
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,<br>
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR<br>
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF<br>
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING<br>
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS<br>
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<br>
+</div>)-"
+
+
+u8R"-(<div class="c0">RapidJSON</div>
+<div class="c1">Copyright (c) 2015 THL A29 Limited, a Tencent company, and Milo Yip.  All rights reserved.</div>
+<div class="c2">
+Permission is hereby granted, free of charge, to any person obtaining a copy of this<br>
+software and associated documentation files(the "Software"), to deal in the Software<br>
+without restriction, including without limitation the rights to use, copy, modify,<br>
+merge, publish, distribute, sublicense, and / or sell copies of the Software, and to<br>
+permit persons to whom the Software is furnished to do so, subject to the following conditions:<br>
+<br>
+The above copyright notice and this permission notice shall be included in all copies or<br>
+substantial portions of the Software.<br>
+<br>
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT<br>
+NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND<br>
+NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,<br>
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br>
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.<br>
+OR OTHER DEALINGS IN THE SOFTWARE.<br>
 </div>)-"
 
 

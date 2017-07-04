@@ -34,5 +34,12 @@ namespace s3d
 		/// 色
 		/// </summary>
 		Float4 color;
+
+		void set(const Float2& _pos, const Float2& _tex, const Float4& _color)
+		{
+			pos = _pos;
+			tex = _tex;
+			color = _color;
+		}
 	};
 }

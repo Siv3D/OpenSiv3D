@@ -20,6 +20,15 @@
 
 namespace s3d
 {
+	enum class MouseButtonState
+	{
+		Released,
+		
+		Pressed,
+		
+		Tapped,
+	};
+	
 	class CMouse_macOS : public ISiv3DMouse
 	{
 	private:
@@ -30,11 +39,17 @@ namespace s3d
 		
 		std::mutex m_scrollMutex;
 		
+		std::mutex m_buttonMutex;
+		
 		Vec2 m_scrollInternal{ 0.0, 0.0 };
 
 		Vec2 m_scroll{ 0.0, 0.0 };
 		
+		std::array<MouseButtonState, MouseButtonCount> m_buttonsInternal;
+		
 		static void OnScroll(WindowHandle, double h, double v);
+		
+		static void OnMouseButtonUpdated(WindowHandle, int button, int action, int mods);
 		
 	public:
 
@@ -57,6 +72,8 @@ namespace s3d
 		const Vec2& wheel() const override;
 		
 		void onScroll(double v, double h) override;
+		
+		void onMouseButtonUpdated(int32 index, bool pressed) override;
 	};
 }
 

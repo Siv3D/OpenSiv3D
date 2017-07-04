@@ -16,6 +16,9 @@
 # include "../IShader.hpp"
 # include <Siv3D/Array.hpp>
 # include <Siv3D/ByteArrayView.hpp>
+# include "VertexShader_GL.hpp"
+# include "PixelShader_GL.hpp"
+# include "../../AssetHandleManager/AssetHandleManager.hpp"
 
 namespace s3d
 {
@@ -26,6 +29,10 @@ namespace s3d
 		Array<VertexShader> m_standardVSs;
 
 		Array<PixelShader> m_standardPSs;
+		
+		AssetHandleManager<VertexShader::IDType, std::shared_ptr<VertexShader_GL>> m_vertexShaders{ S3DSTR("VertexShader") };
+		
+		AssetHandleManager<PixelShader::IDType, std::shared_ptr<PixelShader_GL>> m_pixelShaders{ S3DSTR("PixelShader") };
 
 	public:
 
@@ -35,25 +42,28 @@ namespace s3d
 
 		bool init();
 
-		bool compileHLSL(IReader& reader, ByteArray& to, const char* filePath, const char* entryPoint, const char*target) override
-		{
-			return false;
-		}
+		VertexShader::IDType createVS(ByteArray&&) override { return 0; }
 
-		VertexShader::IDType createVS(ByteArray&& binary) override { return 0; }
+		VertexShader::IDType createVSFromFile(const FilePath&, const Array<BindingPoint>&) override { return 0; }
+		
+		VertexShader::IDType createVSFromSource(const String& source, const Array<BindingPoint>& bindingPoints) override;
 
-		PixelShader::IDType createPS(ByteArray&& binary) override { return 0; }
+		PixelShader::IDType createPS(ByteArray&&) override { return 0; }
 
-		void releaseVS(VertexShader::IDType handleID) override {}
+		PixelShader::IDType createPSFromFile(const FilePath&, const Array<BindingPoint>&) override { return 0; }
+		
+		PixelShader::IDType createPSFromSource(const String& source, const Array<BindingPoint>& bindingPoints) override;
 
-		void releasePS(PixelShader::IDType handleID) override {}
+		void releaseVS(VertexShader::IDType handleID) override;
 
-		ByteArrayView getBinaryViewVS(VertexShader::IDType handleID) override
+		void releasePS(PixelShader::IDType handleID) override;
+		
+		ByteArrayView getBinaryViewVS(VertexShader::IDType) override
 		{
 			return ByteArrayView();
 		}
 
-		ByteArrayView getBinaryViewPS(PixelShader::IDType handleID) override
+		ByteArrayView getBinaryViewPS(PixelShader::IDType) override
 		{
 			return ByteArrayView();
 		}
@@ -67,10 +77,16 @@ namespace s3d
 		{
 			return m_standardPSs[index];
 		}
+		
+		void setVS(VertexShader::IDType) override {}
 
-		void setVS(VertexShader::IDType handleID) override {}
-
-		void setPS(PixelShader::IDType handleID) override {}
+		void setPS(PixelShader::IDType) override {}
+		
+		GLuint getVSProgram(VertexShader::IDType handleID);
+		
+		GLuint getPSProgram(PixelShader::IDType handleID);
+		
+		void setPSSamplerUniform(PixelShader::IDType handleID);
 	};
 }
 

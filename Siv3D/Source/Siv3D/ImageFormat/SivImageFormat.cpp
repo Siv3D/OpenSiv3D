@@ -17,7 +17,7 @@
 
 namespace s3d
 {
-	namespace Imaging
+	namespace ImageProcessing
 	{
 		ImageFormat GetFormat(const FilePath& path)
 		{

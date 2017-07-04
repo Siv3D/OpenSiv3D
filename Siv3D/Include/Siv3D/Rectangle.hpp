@@ -14,7 +14,10 @@
 # include "NamedParameter.hpp"
 # include "PointVector.hpp"
 # include "Line.hpp"
+# include "Intersection.hpp"
+# include "Geometry2D.hpp"
 # include "Quad.hpp"
+# include "Color.hpp"
 
 namespace s3d
 {
@@ -425,6 +428,22 @@ namespace s3d
 			: pos(bottomRight->x - _size.x, bottomRight->y - _size.y)
 			, size(_size.x, _size.y) {}
 
+		constexpr Rectangle(Arg::topCenter_<position_type> topCenter, value_type _w, value_type _h) noexcept
+			: pos(topCenter->x - _w / 2, topCenter->y)
+			, size(_w, _h) {}
+
+		constexpr Rectangle(Arg::topCenter_<position_type> topCenter, size_type _size) noexcept
+			: pos(topCenter->x - _size.x / 2, topCenter->y)
+			, size(_size.x, _size.y) {}
+
+		constexpr Rectangle(Arg::bottomCenter_<position_type> bottomCenter, value_type _w, value_type _h) noexcept
+			: pos(bottomCenter->x - _w / 2, bottomCenter->y - _h)
+			, size(_w, _h) {}
+
+		constexpr Rectangle(Arg::bottomCenter_<position_type> bottomCenter, size_type _size) noexcept
+			: pos(bottomCenter->x - _size.x / 2, bottomCenter->y - _size.y)
+			, size(_size.x, _size.y) {}
+
 		constexpr bool operator ==(const Rectangle& rect) const noexcept
 		{
 			return pos == rect.pos
@@ -540,7 +559,19 @@ namespace s3d
 			pos.set(bottomRight->x - w, bottomRight->y - h);
 			return *this;
 		}
-	
+
+		constexpr Rectangle& setPos(Arg::topCenter_<position_type> topCenter) noexcept
+		{
+			pos.set(topCenter->x - w / 2, topCenter->y);
+			return *this;
+		}
+
+		constexpr Rectangle& setPos(Arg::bottomCenter_<position_type> bottomCenter) noexcept
+		{
+			pos.set(bottomCenter->x - w / 2, bottomCenter->y - h);
+			return *this;
+		}
+
 		/// <summary>
 		/// 中心位置を指定して長方形を移動させます。
 		/// </summary>
@@ -604,9 +635,6 @@ namespace s3d
 		{
 			return setSize(_size.x, _size.y);
 		}
-
-
-
 
 		/// <summary>
 		/// 長方形を設定します。
@@ -1013,6 +1041,26 @@ namespace s3d
 			return set(bottomRight->x - _size.x, bottomRight->y - _size.y, _size.x, _size.y);
 		}
 
+		constexpr Rectangle& set(Arg::topCenter_<position_type> topCenter, value_type _w, value_type _h) noexcept
+		{
+			return set(topCenter->x - _w / 2, topCenter->y, _w, _h);
+		}
+
+		constexpr Rectangle& set(Arg::topCenter_<position_type> topCenter, size_type _size) noexcept
+		{
+			return set(topCenter->x - _size.x / 2, topCenter->y, _size.x, _size.y);
+		}
+
+		constexpr Rectangle& set(Arg::bottomCenter_<position_type> bottomCenter, value_type _w, value_type _h) noexcept
+		{
+			return set(bottomCenter->x - _w / 2, bottomCenter->y - _h, _w, _h);
+		}
+
+		constexpr Rectangle& set(Arg::bottomCenter_<position_type> bottomCenter, size_type _size) noexcept
+		{
+			return set(bottomCenter->x - _size.x / 2, bottomCenter->y - _size.y, _size.x, _size.y);
+		}
+
 		/// <summary>
 		/// 移動した長方形を返します。
 		/// </summary>
@@ -1265,7 +1313,7 @@ namespace s3d
 		/// <returns>
 		/// 回転した四角形
 		/// </returns>
-		Quad rotated(double angle) const
+		Quad rotated(double angle) const noexcept
 		{
 			const Vec2 cent(x + w * 0.5, y + h * 0.5);
 			const double cx = cent.x;
@@ -1302,7 +1350,7 @@ namespace s3d
 		/// <returns>
 		/// 回転した四角形
 		/// </returns>
-		Quad rotatedAt(double _x, double _y, double angle) const
+		Quad rotatedAt(double _x, double _y, double angle) const noexcept
 		{
 			return rotatedAt({ _x, _y }, angle);
 		}
@@ -1319,7 +1367,7 @@ namespace s3d
 		/// <returns>
 		/// 回転した四角形
 		/// </returns>
-		Quad rotatedAt(const Vec2& _pos, double angle) const
+		Quad rotatedAt(const Vec2& _pos, double angle) const noexcept
 		{
 			Vec2 pts[4] = { { x, y },{ x + w, y },{ x + w, y + h },{ x, y + h } };
 
@@ -1360,15 +1408,37 @@ namespace s3d
 				Vec2(x, y + h - vy) };
 		}
 
-		// intersects
+		template <class Shape2DType>
+		bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
+		{
+			return Geometry2D::Intersect(*this, shape);
+		}
 
-		// contains
+		template <class Shape2DType>
+		Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::IntersectAt(*this, shape)))
+		{
+			return Geometry2D::IntersectAt(*this, shape);
+		}
 
-		// leftClicked() leftPressed() leftReleased()
+		template <class Shape2DType>
+		bool contains(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Contains(*this, shape)))
+		{
+			return Geometry2D::Contains(*this, shape);
+		}
 
-		// rightClicked() rightPressed() rightReleased()
+		bool leftClicked() const;
 
-		// mouseOver()
+		bool leftPressed() const;
+
+		bool leftReleased() const;
+
+		bool rightClicked() const;
+
+		bool rightPressed() const;
+
+		bool rightReleased() const;
+
+		bool mouseOver() const;
 
 		// paint
 
@@ -1378,15 +1448,119 @@ namespace s3d
 
 		// overpaintFrame
 
-		// draw
+		/// <summary>
+		/// 長方形を描きます。
+		/// </summary>
+		/// <param name="color">
+		/// 色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Rectangle& draw(const ColorF& color = Palette::White) const;
 
-		// drawFrame
+		/// <summary>
+		/// 長方形を描きます。
+		/// </summary>
+		/// <param name="colors">
+		/// 各頂点の色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Rectangle& draw(const ColorF(&colors)[4]) const;
 
-		// drawShadow
+		/// <summary>
+		/// 長方形を描きます。
+		/// </summary>
+		/// <param name="topColor">
+		/// 上側の色
+		/// </param>
+		/// <param name="bottomColor">
+		/// 下側の色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Rectangle& draw(Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const
+		{
+			return draw({ *topColor, *topColor, *bottomColor, *bottomColor });
+		}
 
-		// TexturedQuad operator()(const Texture& texture) const;
+		/// <summary>
+		/// 長方形を描きます。
+		/// </summary>
+		/// <param name="leftColor">
+		/// 左側の色
+		/// </param>
+		/// <param name="rightColor">
+		/// 右側の色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Rectangle& draw(Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const
+		{
+			return draw({ *leftColor, *rightColor, *rightColor, *leftColor });
+		}
 
-		// TexturedQuad operator()(const TextureRegion& textureRegion) const;
+		/// <summary>
+		/// 長方形の枠を描きます。
+		/// </summary>
+		/// <param name="thickness">
+		/// 枠の太さ
+		/// </param>
+		/// <param name="color">
+		/// 色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Rectangle& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const
+		{
+			return drawFrame(thickness * 0.5, thickness * 0.5, color);
+		}
+
+		/// <summary>
+		/// 長方形の枠を描きます。
+		/// </summary>
+		/// <param name="innerThickness">
+		/// 内側の太さ
+		/// </param>
+		/// <param name="outerThickness">
+		/// 外側の太さ
+		/// </param>
+		/// <param name="color">
+		/// 色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Rectangle& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
+
+		/// <summary>
+		/// 長方形の影を描きます。
+		/// </summary>
+		/// <param name="offset">
+		/// 影の移動量（ピクセル）
+		/// </param>
+		/// <param name="blurRadius">
+		/// 影のぼかしの大きさ（ピクセル）
+		/// </param>
+		/// <param name="spread">
+		/// 長方形の広がり（ピクセル）
+		/// </param>
+		/// <param name="color">
+		/// 影の色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Rectangle& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF(0.0, 0.5)) const;
+
+		 TexturedQuad operator ()(const Texture& texture) const;
+
+		 TexturedQuad operator ()(const TextureRegion& textureRegion) const;
 
 		// Polygon asPolygon() const;
 	};
@@ -1472,7 +1646,7 @@ namespace fmt
 	{
 		const auto tag = s3d::detail::GetTag(format_str);
 
-		const auto fmt = L"({" + tag + L"},{" + tag + L"},{" + tag + L"},{" + tag + L"})";
+		const auto fmt = S3DSTR("({") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("})");
 
 		f.writer().write(fmt, rect.x, rect.y, rect.w, rect.h);
 	}

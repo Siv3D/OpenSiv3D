@@ -202,7 +202,7 @@ namespace s3d
 
 		m_size = m_reader ? m_reader->size() : reader->size();
 
-		m_fullPath = L"(Archived File)";
+		m_fullPath = S3DSTR("(Archived File)");
 
 		return m_opened;
 	}

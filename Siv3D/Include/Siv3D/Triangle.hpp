@@ -128,6 +128,8 @@ namespace s3d
 			return (p0 + p1 + p2) / 3.0;
 		}
 
+		Triangle stretched(value_type size) const noexcept;
+
 		Triangle rotated(value_type angle) const noexcept
 		{
 			return rotatedAt(centroid(), angle);
@@ -144,15 +146,41 @@ namespace s3d
 
 		value_type perimeter() const noexcept;
 
-		// intersects, contains
+		template <class Shape2DType>
+		bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
+		{
+			return Geometry2D::Intersect(*this, shape);
+		}
 
-		// leftClicked() leftPressed() leftReleased()
+		template <class Shape2DType>
+		bool contains(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Contains(*this, shape)))
+		{
+			return Geometry2D::Contains(*this, shape);
+		}
 
-		// rightClicked() rightPressed() rightReleased()
+		bool leftClicked() const;
 
-		// mouseOver()
+		bool leftPressed() const;
+
+		bool leftReleased() const;
+
+		bool rightClicked() const;
+
+		bool rightPressed() const;
+
+		bool rightReleased() const;
+
+		bool mouseOver() const;
 
 		// paint~ overpaint~ draw~
+
+		const Triangle& draw(const ColorF& color = Palette::White) const;
+
+		const Triangle& draw(const ColorF(&colors)[3]) const;
+
+		const Triangle& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
+
+		const Triangle& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
 
 		// Polygon asPolygon() const;
 	};
@@ -224,7 +252,7 @@ namespace fmt
 	{
 		const auto tag = s3d::detail::GetTag(format_str);
 
-		const auto fmt = L"({" + tag + L"},{" + tag + L"},{" + tag + L"})";
+		const auto fmt = S3DSTR("({") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("})");
 
 		f.writer().write(fmt, triangle.p0, triangle.p1, triangle.p2);
 	}

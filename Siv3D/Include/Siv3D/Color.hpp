@@ -128,7 +128,7 @@ namespace s3d
 		/// 色をカラーコードから作成します。
 		/// </summary>
 		/// <param name="code">
-		/// L"#FFF" または L"#FFFFFF" のように # から始まるカラーコード
+		/// "#FFF" または "#FFFFFF" のように # から始まるカラーコード
 		/// </param>
 		explicit Color(StringView code) noexcept;
 
@@ -437,7 +437,7 @@ namespace s3d
 		/// 色をカラーコードから作成します。
 		/// </summary>
 		/// <param name="code">
-		/// L"#FFF" または L"#FFFFFF" のように # から始まるカラーコード
+		/// "#FFF" または "#FFFFFF" のように # から始まるカラーコード
 		/// </param>
 		explicit ColorF(StringView code) noexcept
 			: ColorF(Color(code)) {}
@@ -680,6 +680,10 @@ namespace s3d
 					   , b >= 1.0 ? 255 : b <= 0.0 ? 0 : static_cast<uint8>(b * 255.0 + 0.5)
 					   , a >= 1.0 ? 255 : a <= 0.0 ? 0 : static_cast<uint8>(a * 255.0 + 0.5));
 		}
+
+		Float4 toFloat4() const;
+
+		Vec4 toVec4() const;
 
 		/// <summary>
 		/// ガンマを適用した値を返します。
@@ -1002,7 +1006,7 @@ namespace fmt
 	{
 		const auto tag = s3d::detail::GetTag(format_str);
 
-		const auto fmt = L"({" + tag + L"},{" + tag + L"},{" + tag + L"},{" + tag + L"})";
+		const auto fmt = S3DSTR("({") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("})");
 
 		f.writer().write(fmt, color.r, color.g, color.b, color.a);
 	}

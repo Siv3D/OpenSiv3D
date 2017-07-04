@@ -13,9 +13,10 @@
 # include "TypeTraits.hpp"
 # include "Point.hpp"
 # include "Vector2D.hpp"
-# include "Point.inl"
+# include "Point.ipp"
 # include "Vector3D.hpp"
 # include "Vector4D.hpp"
+# include "Color.hpp"
 
 namespace s3d
 {

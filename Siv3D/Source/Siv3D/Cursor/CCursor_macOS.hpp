@@ -16,6 +16,8 @@
 # include "ICursor.hpp"
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/Rectangle.hpp>
+# include <Siv3D/Mat3x2.hpp>
+# include <Siv3D/Cursor.hpp>
 # include "../Window/IWindow.hpp"
 
 namespace s3d
@@ -26,19 +28,21 @@ namespace s3d
 
 		WindowHandle m_glfwWindow = nullptr;
 
-		Point m_previousScreenPos{ 0, 0 };
+		CursorState<Point> m_screen;
 
-		Point m_screenPos{ 0, 0 };
+		CursorState<Point> m_client_raw;
 
-		Point m_screenDelta{ 0, 0 };
+		CursorState<Vec2> m_client_transformedF;
 
-		Point m_previousClientPos{ 0, 0 };
+		CursorState<Point> m_client_transformed;
 
-		Point m_clientPos{ 0, 0 };
+		Mat3x2 m_transform = Mat3x2::Identity();
 
-		Point m_clientDelta{ 0, 0 };
+		Mat3x2 m_transformInv = Mat3x2::Identity();
 
 		Optional<Rect> m_clipRect;
+
+		CursorStyle m_curerntCursorStyle = CursorStyle::Default;
 
 	public:
 
@@ -50,21 +54,30 @@ namespace s3d
 
 		void update() override;
 
-		const Point& previousScreenPos() const override;
+		const CursorState<Point>& screen() const override;
 
-		const Point& screenPos() const override;
+		const CursorState<Point>& clientRaw() const override;
 
-		const Point& screenDelta() const override;
+		const CursorState<Vec2>& clientTransformedF() const override;
 
-		const Point& previousClientPos() const override;
-
-		const Point& clientPos() const override;
-
-		const Point& clientDelta() const override;
+		const CursorState<Point>& clientTransformed() const override;
 
 		void setPos(int32 x, int32 y) override;
 
+		void setTransform(const Mat3x2& matrix) override;
+
+		const Mat3x2& getTransform() const override;
+
+		void clipClientRect(bool) override
+		{
+			// [Siv3D ToDo]
+		}
+
 		void clip(const Optional<Rect>& rect) override;
+
+		void setStyle(CursorStyle style) override;
+
+		CursorStyle getStyle() override;
 	};
 }
 

@@ -44,9 +44,16 @@ namespace s3d
 			}
 
 			const Rect workArea = monitors[System::GetCurrentMonitorIndex()].workArea;
-			const Size windowSize = Siv3DEngine::GetWindow()->getState().windowSize;
+			const s3d::Size windowSize = Siv3DEngine::GetWindow()->getState().windowSize;
+			
+			Point pos = workArea.pos + (workArea.size - windowSize) / 2;
 
-			SetPos(workArea.pos + (workArea.size - windowSize) / 2);
+			if (pos.y < 0)
+			{
+				pos.y = 0;
+			}
+
+			SetPos(pos);
 		}
 
 		bool Resize(const int32 width, const int32 height, const bool centering)
@@ -58,7 +65,7 @@ namespace s3d
 				return false;
 			}
 
-			const Size newSize(width, height);
+			const s3d::Size newSize(width, height);
 
 			bool result = true;
 
@@ -73,6 +80,16 @@ namespace s3d
 			}
 
 			return result;
+		}
+
+		void SetBaseSize(const s3d::Size& size)
+		{
+			Siv3DEngine::GetWindow()->setBaseSize(size);
+		}
+
+		s3d::Size BaseSize()
+		{
+			return Siv3DEngine::GetWindow()->getBaseSize();
 		}
 	}
 }

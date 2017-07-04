@@ -38,11 +38,11 @@ namespace s3d
 		m_glfwWindow = Siv3DEngine::GetWindow()->getHandle();
 
 		update();
-
-		m_previousScreenPos = m_screenPos;
-		m_previousClientPos = m_screenPos;
-		m_screenDelta.set(0, 0);
-		m_clientDelta.set(0, 0);
+		 
+		m_screen.previous = m_screen.current;
+		m_client_raw.previous = m_client_raw.current;
+		m_client_transformed.previous = m_client_transformed.current;
+		m_client_transformedF.previous = m_client_transformedF.current;
 
 		return true;
 	}
@@ -106,51 +106,84 @@ namespace s3d
 
 		double clientX, clientY;
 		::glfwGetCursorPos(m_glfwWindow, &clientX, &clientY);
-		m_clientPos.set(static_cast<int32>(clientX), static_cast<int32>(clientY));
-		m_previousClientPos = m_clientPos;
+		m_screen.previous = m_screen.current;
+		m_screen.currentset(static_cast<int32>(clientX), static_cast<int32>(clientY));
+		m_screen.delta = m_screen.current - m_screen.previous;
 
-		m_screenPos.set(static_cast<int32>(clientX), static_cast<int32>(clientY));
-		m_previousScreenPos = m_screenPos;
+		m_client_raw.previous = m_client_raw.current;
+		m_client_raw.current.set(static_cast<int32>(clientX), static_cast<int32>(clientY));
+		m_client_raw.delta = m_client_raw.current - m_client_raw.previous;
+
+		m_client_transformedF.previous = m_client_transformedF.current;
+		m_client_transformedF.current = m_transformInv.transform(m_client_raw.current);
+		m_client_transformedF.delta = m_client_transformedF.current - m_client_transformedF.previous;
+
+		m_client_transformed.previous = m_client_transformedF.previous.asPoint();
+		m_client_transformed.current = m_client_transformedF.current.asPoint();
+		m_client_transformed.delta = m_client_transformedF.delta.asPoint();
 	}
 
-	const Point& CCursor_Linux::previousScreenPos() const
+	const CursorState<Point>& CCursor_Linux::screen() const
 	{
-		return m_previousScreenPos;
+		return m_screen;
 	}
 
-	const Point& CCursor_Linux::screenPos() const
+	const CursorState<Point>& CCursor_Linux::clientRaw() const
 	{
-		return m_screenPos;
+		return m_client_raw;
 	}
 
-	const Point& CCursor_Linux::screenDelta() const
+	const CursorState<Vec2>& CCursor_Linux::clientTransformedF() const
 	{
-		return m_screenDelta;
+		return m_client_transformedF;
 	}
 
-	const Point& CCursor_Linux::previousClientPos() const
+	const CursorState<Point>& CCursor_Linux::clientTransformed() const
 	{
-		return m_previousClientPos;
-	}
-
-	const Point& CCursor_Linux::clientPos() const
-	{
-		return m_previousClientPos;
-	}
-
-	const Point& CCursor_Linux::clientDelta() const
-	{
-		return m_clientDelta;
+		return m_client_transformed;
 	}
 
 	void CCursor_Linux::setPos(const int32 x, const int32 y)
 	{
-		::glfwSetCursorPos(m_glfwWindow, x, y);
+		// [Siv3D ToDo]
+	}
+
+	void CCursor_macOS::setTransform(const Mat3x2& matrix)
+	{
+		if (!::memcmp(&m_transform, &matrix, sizeof(Mat3x2)))
+		{
+			return;
+		}
+
+		m_transform = matrix;
+		m_transformInv = m_transform.inverse();
+
+		m_client_transformedF.current = m_transformInv.transform(m_client_raw.current);
+		m_client_transformedF.delta = m_client_transformedF.current - m_client_transformedF.previous;
+
+		m_client_transformed.current = m_client_transformedF.current.asPoint();
+		m_client_transformed.delta = m_client_transformedF.delta.asPoint();
+	}
+
+	const Mat3x2& CCursor_macOS::getTransform() const
+	{
+		return m_transform;
 	}
 
 	void CCursor_Linux::clip(const Optional<Rect>& rect)
 	{
 		m_clipRect = rect;
+	}
+
+	void CCursor_Linux::setStyle(CursorStyle style)
+	{
+		// [Siv3D ToDo]
+	}
+
+	CursorStyle CCursor_Linux::getStyle()
+	{
+		// [Siv3D ToDo]
+		return CursorStyle::Default;
 	}
 }
 

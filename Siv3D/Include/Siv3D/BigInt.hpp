@@ -11,7 +11,7 @@
 
 # pragma once
 
-// boost 1.64.0 beta workaround
+// boost 1.64.0 workaround
 # ifndef _HAS_AUTO_PTR_ETC
 #	define _HAS_AUTO_PTR_ETC 1
 # endif
@@ -563,7 +563,7 @@ namespace fmt
 	{
 		const auto tag = s3d::detail::GetTag(format_str);
 
-		const auto fmt = L"{" + tag + L"}";
+		const auto fmt = S3DSTR("{") + tag + S3DSTR("}");
 
 		f.writer().write(fmt, i.str().str());
 	}
