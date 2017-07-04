@@ -1,9 +1,31 @@
-# Linux版Siv3Dについて
+# OpenSiv3D Linux版について
+諸事情により実装を見送っている機能を除くと、現在のバージョンは0.0.9相当です。
 
-Linuxへの移植は以下の環境で行っています。
-- Arch Linux (カーネル 4.10.3)
-- clang 3.9.1
-- boost 1.63.0
+## サポート環境
+サポートしているディスプレイサーバはX11のみです。
+`CMakeLists.txt`にWaylandとMir向けにコンパイルするオプションがありますが、
+サポートはしておりませんのでご注意ください。
+
+## 依存ライブラリ・パッケージ
+コンパイルと実行には以下のライブラリやパッケージが必要です。
+- CMake 2.8 or newer
+- GCC
+  - バージョンの相性問題でClang, LLVMからGCCに移行しました
+- boost
+- boost-system
+- boost-filesystem
+- glib2
+- OpenGL
+- GLEW
+- libpng
+- libjpeg (turbojpeg)
+- libgif
+- X11
+- X11 Input extension (Xi)
+- X11 RandR extension (Xrandr)
+- X11 Xinerama extension (Xinerama)
+- X11 cursor management library (XCursor)
+
 
 ## コンパイル
 以下のコマンドで行なえます。
@@ -14,22 +36,25 @@ make
 ```
 
 正常にコンパイルが終了すると作業ディレクトリに
-「libsiv3d.a」というファイルができているはずです。
+「libSiv3D.a」というファイルができているはずです。
 
 cmakeコマンドを実行するときに`-DCMAKE_BUILD_TYPE=Debug`もしくは`Release`を適用すると
 それに対応したオプションがコンパイラに渡されるMakefileが生成されます。
 
-「libsiv3d.a」をリンクしてSiv3Dを使ったプログラムをコンパイルする時には、
-その他リンクするライブラリとして、
-`-lboost_filesystem -lboost_system -lglib-2.0 -lgio-2.0 -lgobject-2.0 -lpthread -lGL -lpng -lturbojpeg -lX11 -lXi -lXrandr -lXinerama -lXcursor -ldl`を指定する必要があります。
+「libSiv3D.a」をリンクしてSiv3Dを使ったプログラムをコンパイルする時には、
+`-lsiv3d`オプションでOpenSiv3Dのライブラリをリンクする他に、依存ライブラリとして、
+`-lboost_filesystem -lboost_system -lglib-2.0 -lgio-2.0 -lgobject-2.0 -lpthread -lGL -lGLEW -lpng -lturbojpeg -lgif -lX11 -lXi -lXrandr -lXinerama -lXcursor -ldl`を指定する必要があります。
 
-## 現状の本家OpenSiv3Dとの相違点
+## 現状のOpenSiv3D Windows/macOS版との相違点
 - Cursor::sceenPos()とCursor::previousScreenPos()はそれぞれCursor::clientPos()とCursor::previsouClientPos()と同じ値を返します。(Linuxではディスプレイマネージャによって画面上のどこにカーソルがあるか取得する機能があったりなかったりするため。)
 - Monitor::workAreaはMonitor::displayRectと同じ値になっています。(X11環境で各モニタのワークエリアを取得するのが難しいため。)
+- Cursor::clip()は動作しますが、clipする領域が黒で塗りつぶされます。(clip領域として指定するのに使っているWindowを透明に描画するするコードが上手く動かないため。)対策が分かり次第修正予定です。
+- リソースファイルは実行ファイルと同階層の「resource」ディレクトリ内に配置されます。
 
 ## テスト
 テストコードは `Linux/Test` 以下にあります。
-CMakeLists.txtでは、libsiv3d.aが `Linux/Debug` にあることを想定しているため、
-`Linux/Debug` にlibsiv3d.aを配置するか、
-別の場所にlibsiv3d.aを配置する場合はCMakeLists.txtを編集してください。
+CMakeLists.txtでは、libSiv3D.aが `Linux/Debug` にあることを想定しているため、
+`Linux/Debug` にlibSiv3D.aを配置するか、
+別の場所にlibSiv3D.aを配置する場合はCMakeLists.txtを編集してください。
 
+また、`MSVC`以下にある`example`ディレクトリのある階層でテストプログラムを実行する必要があります。

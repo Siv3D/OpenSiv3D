@@ -1,11 +1,13 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(open_siv3d_linux CXX)
+find_package(PkgConfig)
+
+project(OpenSiv3D_Linux CXX)
 enable_language(C)
 
-set(CMAKE_CXX_COMPILER "clang++")
-#set(CMAKE_CXX_COMPILER "g++")
-set(CMAKE_CXX_FLAGS "-std=c++14 -Wall -Wextra -Wno-unknown-pragmas")
+#set(CMAKE_CXX_COMPILER "clang++")
+set(CMAKE_CXX_COMPILER "g++")
+set(CMAKE_CXX_FLAGS "-std=c++17 -Wall -Wextra -Wno-unknown-pragmas")
 set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG -march=native")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -Og -pg")
@@ -33,6 +35,7 @@ elseif (_SIV3D_LINUX_WINDOW_API_MIR)
 endif()
 configure_file(./Siv3D_Linux_GLFW_Window_API.h.in ${CMAKE_CURRENT_SOURCE_DIR}/Siv3D_Linux_GLFW_Window_API.h)
 
+pkg_check_modules(LIBSIV3D REQUIRED glib-2.0 gobject-2.0 gio-2.0 gl libpng libjpeg x11 xi xinerama xcursor xrandr)
 include_directories(
 	"/usr/include"
 
@@ -42,8 +45,7 @@ include_directories(
 	"../Siv3D/Source/ThirdParty/zstd/common"
 	"../Siv3D/Source/ThirdParty/"
 
-	"/usr/include/glib-2.0"
-	"/usr/lib/glib-2.0/include"
+	${LIBSIV3D_INCLUDE_DIRS}
 )
 
 set(SOURCE_FILES
@@ -58,6 +60,9 @@ set(SOURCE_FILES
 	"../Siv3D/Source/Siv3D/ByteArray/SivByteArray.cpp"
 	"../Siv3D/Source/Siv3D/CharacterSet/SivCharacterSet.cpp"
 	"../Siv3D/Source/Siv3D/Circle/SivCircle.cpp"
+	"../Siv3D/Source/Siv3D/Clipboard/CClipboard_Linux.cpp"
+	"../Siv3D/Source/Siv3D/Clipboard/ClipboardFactory.cpp"
+	"../Siv3D/Source/Siv3D/Clipboard/SivClipboard.cpp"
 	"../Siv3D/Source/Siv3D/Color/SivColor.cpp"
 	"../Siv3D/Source/Siv3D/Compression/SivCompression.cpp"
 	"../Siv3D/Source/Siv3D/Console/CConsole.cpp"
@@ -85,11 +90,13 @@ set(SOURCE_FILES
 	"../Siv3D/Source/Siv3D/Graphics/GL/CGraphics_GL.cpp"
 	"../Siv3D/Source/Siv3D/Graphics/GraphicsFactory.cpp"
 	"../Siv3D/Source/Siv3D/Graphics/SivGraphics.cpp"
+	"../Siv3D/Source/Siv3D/Geometry2D/SivGeometry2D.cpp"
 	"../Siv3D/Source/Siv3D/HSV/SivHSV.cpp"
 	"../Siv3D/Source/Siv3D/INIReader/CINIReader.cpp"
 	"../Siv3D/Source/Siv3D/INIReader/SivINIReader.cpp"
 	"../Siv3D/Source/Siv3D/Image/SivImage.cpp"
 	"../Siv3D/Source/Siv3D/ImageFormat/BMP/ImageFormat_BMP.cpp"
+	"../Siv3D/Source/Siv3D/ImageFormat/GIF/ImageFormat_GIF.cpp"
 	"../Siv3D/Source/Siv3D/ImageFormat/JPEG/ImageFormat_JPEG.cpp"
 	"../Siv3D/Source/Siv3D/ImageFormat/PNG/ImageFormat_PNG.cpp"
 	"../Siv3D/Source/Siv3D/ImageFormat/CImageFormat.cpp"
@@ -107,14 +114,27 @@ set(SOURCE_FILES
 	"../Siv3D/Source/Siv3D/MathParser/SivMathParser.cpp"
 	"../Siv3D/Source/Siv3D/MemoryMapping/CMemoryMapping.cpp"
 	"../Siv3D/Source/Siv3D/MemoryMapping/SivMemoryMapping.cpp"
+	"../Siv3D/Source/Siv3D/MemoryWriter/CMemoryWriter.cpp"
+	"../Siv3D/Source/Siv3D/MemoryWriter/SivMemoryWriter.cpp"
+	"../Siv3D/Source/Siv3D/MessageBox/SivMessageBox_Linux.cpp"
 	"../Siv3D/Source/Siv3D/Monitor/SivMonitor.cpp"
 	"../Siv3D/Source/Siv3D/Mouse/CMouse_Linux.cpp"
 	"../Siv3D/Source/Siv3D/Mouse/MouseFactory.cpp"
 	"../Siv3D/Source/Siv3D/Mouse/SivMouse.cpp"
 	"../Siv3D/Source/Siv3D/ParseFloat/SivParseFloat.cpp"
 	"../Siv3D/Source/Siv3D/PerlinNoise/SivPerlinNoise.cpp"
+	"../Siv3D/Source/Siv3D/PixelShader/SivPixelShader.cpp"
 	"../Siv3D/Source/Siv3D/Point/SivPoint.cpp"
+	"../Siv3D/Source/Siv3D/Profiler/CProfiler.cpp"
+	"../Siv3D/Source/Siv3D/Profiler/ProfilerFactory.cpp"
+	"../Siv3D/Source/Siv3D/Profiler/SivProfiler.cpp"
 	"../Siv3D/Source/Siv3D/Rectangle/SivRectangle.cpp"
+	"../Siv3D/Source/Siv3D/Renderer2D/GL/CRenderer2D_GL.cpp"
+	"../Siv3D/Source/Siv3D/Renderer2D/Renderer2DFactory.cpp"
+	"../Siv3D/Source/Siv3D/Resource/SivResource.cpp"
+	"../Siv3D/Source/Siv3D/Shader/GL/CShader_GL.cpp"
+	"../Siv3D/Source/Siv3D/Shader/ShaderFactory.cpp"
+	"../Siv3D/Source/Siv3D/Shader/SivShader.cpp"
 	"../Siv3D/Source/Siv3D/Siv3DEngine.cpp"
 	"../Siv3D/Source/Siv3D/Stopwatch/SivStopwatch.cpp"
 	"../Siv3D/Source/Siv3D/String/SivString.cpp"
@@ -127,6 +147,9 @@ set(SOURCE_FILES
 	"../Siv3D/Source/Siv3D/TextReader/SivTextReader.cpp"
 	"../Siv3D/Source/Siv3D/TextWriter/CTextWriter.cpp"
 	"../Siv3D/Source/Siv3D/TextWriter/SivTextWriter.cpp"
+	"../Siv3D/Source/Siv3D/Texture/GL/CTextureGL.cpp"
+	"../Siv3D/Source/Siv3D/Texture/SivTexture.cpp"
+	"../Siv3D/Source/Siv3D/Texture/TextureFactory.cpp"
 	"../Siv3D/Source/Siv3D/Threading/SivThreading.cpp"
 	"../Siv3D/Source/Siv3D/Time/SivTime.cpp"
 	"../Siv3D/Source/Siv3D/TimeProfiler/SivTimeProfiler.cpp"
@@ -134,6 +157,7 @@ set(SOURCE_FILES
 	"../Siv3D/Source/Siv3D/Vector2D/SivVector2D.cpp"
 	"../Siv3D/Source/Siv3D/Vector3D/SivVector3D.cpp"
 	"../Siv3D/Source/Siv3D/Vector4D/SivVector4D.cpp"
+	"../Siv3D/Source/Siv3D/VertexShader/SivVertexShader.cpp"
 	"../Siv3D/Source/Siv3D/Window/CWindow_Linux.cpp"
 	"../Siv3D/Source/Siv3D/Window/SivWindow.cpp"
 	"../Siv3D/Source/Siv3D/Window/WindowFactory.cpp"
@@ -236,8 +260,8 @@ elseif (_SIV3D_LINUX_WINDOW_API_MIR)
 	)
 endif()
 
-add_library(siv3d STATIC ${SOURCE_FILES})
+add_library(Siv3D STATIC ${SOURCE_FILES})
 
-target_link_libraries(siv3d
+target_link_libraries(Siv3D
 )
 

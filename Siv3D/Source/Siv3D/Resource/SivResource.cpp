@@ -88,9 +88,9 @@ namespace s3d
 			paths.remove(resourcePath + S3DSTR("icon.icns"));
 
 			paths.remove_if([](const FilePath& path){ return FileSystem::IsDirectory(path); });
-			
+
 			paths.sort();
-			
+
 			return paths;
 		}
 	}
@@ -123,25 +123,39 @@ namespace s3d
 
 namespace s3d
 {
+	namespace detail
+	{
+		static Array<FilePath> GetResourceFilePaths()
+		{
+			const FilePath resourcePath = FileSystem::ModulePath() + L"/resources/";
+
+			Array<FilePath> paths = FileSystem::DirectoryContents(resourcePath, true);
+
+			paths.remove_if([](const FilePath& path){ return FileSystem::IsDirectory(path); });
+
+			paths.sort();
+
+			return paths;
+		}
+	}
+
 	const Array<FilePath>& EnumResourceFiles()
 	{
-		// [Siv3D ToDo]
-
-		static Array<FilePath> paths;
+		static Array<FilePath> paths = detail::GetResourceFilePaths();
 
 		return paths;
 	}
 
 	FilePath Resource(const FilePath& path)
 	{
-		// [Siv3D ToDo]
-
 		if (FileSystem::IsResource(path))
 		{
 			return path;
 		}
 
-		return path;
+		const FilePath resourcePath = FileSystem::ModulePath() + L"/resources/";
+
+		return resourcePath + path;
 	}
 }
 

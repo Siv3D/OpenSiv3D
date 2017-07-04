@@ -14,8 +14,8 @@
 
 # include <cstring>
 # include <sstream>
-# include <unicode/ucnv.h>
-# include <unicode/ucsdet.h>
+//# include <unicode/ucnv.h>
+//# include <unicode/ucsdet.h>
 
 //constexpr size_t bufferLength = 1024;
 

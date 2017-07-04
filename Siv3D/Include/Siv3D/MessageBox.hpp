@@ -22,9 +22,9 @@ namespace s3d
 		Info,
 
 		Warning,
-		
+
 		Error,
-		
+
 		Question,
 	};
 
