@@ -11,6 +11,7 @@
 
 # pragma once
 # include <Siv3D/Fwd.hpp>
+# include <Siv3D/Audio.hpp>
 
 namespace s3d
 {
@@ -23,5 +24,9 @@ namespace s3d
 		virtual ~ISiv3DAudio() = default;
 
 		virtual bool init() = 0;
+
+		virtual Audio::IDType create(const Wave& wave) = 0;
+
+		virtual void release(Audio::IDType handleID) = 0;
 	};
 }

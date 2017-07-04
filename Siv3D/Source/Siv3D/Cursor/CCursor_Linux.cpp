@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -38,7 +38,7 @@ namespace s3d
 		m_glfwWindow = Siv3DEngine::GetWindow()->getHandle();
 
 		update();
-		 
+
 		m_screen.previous = m_screen.current;
 		m_client_raw.previous = m_client_raw.current;
 		m_client_transformed.previous = m_client_transformed.current;
@@ -56,7 +56,7 @@ namespace s3d
 		{
 			Display* display = ::glfwGetX11Display();
 			Window parent = ::glfwGetX11Window(m_glfwWindow);
-			if(m_grabbing == false)
+			if (m_grabbing == false)
 			{
 				//子ウィンドウを作成しそのウィンドウ内にポインタをgrabする
 				//Mapしていないウィンドウでgrabしようとすると失敗する
@@ -95,7 +95,7 @@ namespace s3d
 		}
 		else
 		{
-			if(m_grabbing == true)
+			if (m_grabbing == true)
 			{
 				Display* display = ::glfwGetX11Display();
 				::XUngrabPointer(display, CurrentTime);

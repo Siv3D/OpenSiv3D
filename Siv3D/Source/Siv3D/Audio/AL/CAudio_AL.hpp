@@ -28,6 +28,10 @@ namespace s3d
 		~CAudio_AL() override;
 
 		bool init() override;
+
+		Audio::IDType create(const Wave& wave) override;
+
+		void release(Audio::IDType handleID) override;
 	};
 }
 
