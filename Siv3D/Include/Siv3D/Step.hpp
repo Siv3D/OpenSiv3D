@@ -410,7 +410,7 @@ namespace s3d
 		constexpr auto sum() const
 		{
 			using result_type = decltype(std::declval<T>() + std::declval<S>());
-			
+
 			if constexpr (std::is_scalar<result_type>::value)
 			{
 				const auto n = count();

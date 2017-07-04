@@ -13,6 +13,9 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_LINUX)
 
+// XGrabPointer関数
+# include <X11/Xlib.h>
+
 # include "ICursor.hpp"
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/Rectangle.hpp>
@@ -41,6 +44,8 @@ namespace s3d
 		Mat3x2 m_transformInv = Mat3x2::Identity();
 
 		Optional<Rect> m_clipRect;
+
+		bool m_grabbing = false;
 
 	public:
 
