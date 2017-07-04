@@ -19,6 +19,7 @@
 # define  NTDDI_VERSION NTDDI_WIN8
 # include <Windows.h>
 # include "CAudio_XAudio28.hpp"
+# include "../../EngineUtility.hpp"
 
 namespace s3d
 {
@@ -41,13 +42,56 @@ namespace s3d
 
 	CAudio_XAudio28::~CAudio_XAudio28()
 	{
+		m_audios.destroy();
 
+		m_device.release();
+
+		::FreeLibrary(m_xaudio28);
 	}
 
 	bool CAudio_XAudio28::init()
 	{
+		m_xaudio28 = ::LoadLibraryW(L"xaudio2_8.dll");
+
+		if (!m_xaudio28)
+		{
+			return false;
+		}
+		else
+		{
+			
+		}
+
+		p_XAudio2Create = FunctionPointer(m_xaudio28, "XAudio2Create");
+
+		if (!p_XAudio2Create)
+		{
+			return false;
+		}
+
+		if (FAILED(p_XAudio2Create(&m_device.xAudio2, 0, XAUDIO2_DEFAULT_PROCESSOR)))
+		{
+			return false;
+		}
+
+		if (FAILED(m_device.xAudio2->CreateMasteringVoice(&m_device.masteringVoice)))
+		{
+			//LOG_FAIL(L"XAudio2: マスターボイスの作成に失敗しました。サウンドデバイスが有効か確認してください。");
+
+			return false;
+		}
 
 		return true;
+	}
+
+	Audio::IDType CAudio_XAudio28::create(const Wave& wave)
+	{
+		return Audio::NullHandleID;
+	}
+
+	void CAudio_XAudio28::release(const Audio::IDType handleID)
+	{
+
 	}
 }
 
