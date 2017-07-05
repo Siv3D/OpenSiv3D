@@ -220,6 +220,7 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\AudioFormat\WAVE\AudioFormat_WAVE.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\AL\CAudio_AL.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\IAudio.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\Null\CAudio_Null.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\XAudio27\CAudio_XAudio27.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\XAudio28\CAudio_XAudio28.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BigFloat\CBigFloat.hpp" />
@@ -479,6 +480,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\AudioFormat\WAVE\AudioFormat_WAVE.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\AL\CAudio_AL.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\AudioFactory.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\Null\CAudio_Null.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\SivAudio.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\XAudio27\CAudio_XAudio27.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\XAudio28\CAudio_XAudio28.cpp" />

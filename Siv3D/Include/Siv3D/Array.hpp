@@ -436,9 +436,42 @@ namespace s3d
 		/// <returns>
 		/// ランダムに選択された要素への参照
 		/// </returns>
+		Type& choice()
+		{
+			return choice(GetDefaultRNG());
+		}
+
+		/// <summary>
+		/// 配列の要素をランダムに 1 つ選択します。
+		/// </summary>
+		/// <returns>
+		/// ランダムに選択された要素への参照
+		/// </returns>
 		const Type& choice() const
 		{
 			return choice(GetDefaultRNG());
+		}
+
+		/// <summary>
+		/// 配列の要素をランダムに 1 つ選択します。
+		/// </summary>
+		/// <param name="rbg">
+		/// 選択に用いるランダムビット列生成エンジン
+		/// </param>
+		/// <returns>
+		/// ランダムに選択された要素への参照
+		/// </returns>
+		template <class URBG, std::enable_if_t<!std::is_scalar<URBG>::value>* = nullptr>
+		Type& choice(URBG&& rbg)
+		{
+			if (empty())
+			{
+				throw std::out_of_range("Array::choice() choice from empty Array");
+			}
+
+			const size_t index = std::uniform_int_distribution<size_t>(0, size() - 1)(rbg);
+
+			return operator[](index);
 		}
 
 		/// <summary>

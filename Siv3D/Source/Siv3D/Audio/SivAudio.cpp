@@ -35,8 +35,8 @@ namespace s3d
 
 	}
 
-	Audio::Audio(const Wave& wave)
-		: m_handle(std::make_shared<AudioHandle>(Siv3DEngine::GetAudio()->create(wave)))
+	Audio::Audio(Wave&& wave)
+		: m_handle(std::make_shared<AudioHandle>(Siv3DEngine::GetAudio()->create(std::move(wave))))
 	{
 		ASSET_CREATION();
 	}
@@ -75,5 +75,30 @@ namespace s3d
 	bool Audio::operator !=(const Audio& audio) const
 	{
 		return m_handle->getID() != audio.m_handle->getID();
+	}
+
+	bool Audio::play(const SecondsF& fadeinDuration) const
+	{
+		return Siv3DEngine::GetAudio()->play(m_handle->getID(), fadeinDuration);
+	}
+
+	void Audio::pause(const SecondsF& fadeoutDuration) const
+	{
+		return Siv3DEngine::GetAudio()->pause(m_handle->getID(), fadeoutDuration);
+	}
+
+	void Audio::stop(const SecondsF& fadeoutDuration) const
+	{
+		Siv3DEngine::GetAudio()->stop(m_handle->getID(), fadeoutDuration);
+	}
+
+	int64 Audio::samplesPlayed() const
+	{
+		return Siv3DEngine::GetAudio()->samplesPlayed(m_handle->getID());
+	}
+
+	int64 Audio::streamPosSample() const
+	{
+		return Siv3DEngine::GetAudio()->streamPosSample(m_handle->getID());
 	}
 }

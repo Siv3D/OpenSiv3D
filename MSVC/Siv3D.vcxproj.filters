@@ -506,6 +506,9 @@
     <Filter Include="Source\Siv3D\Audio\AL">
       <UniqueIdentifier>{26078f50-90b4-4786-a2b0-c6dbf55e4821}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Audio\Null">
+      <UniqueIdentifier>{e3c8dca7-553c-459e-b0bb-e5db29413178}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1864,6 +1867,9 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\XAudio27\CAudio_XAudio27.hpp">
       <Filter>Source\Siv3D\Audio\XAudio27</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\Null\CAudio_Null.hpp">
+      <Filter>Source\Siv3D\Audio\Null</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2730,14 +2736,17 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\AudioFactory.cpp">
       <Filter>Source\Siv3D\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\XAudio28\CAudio_XAudio28.cpp">
-      <Filter>Source\Siv3D\Audio\XAudio28</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\AL\CAudio_AL.cpp">
       <Filter>Source\Siv3D\Audio\AL</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\XAudio27\CAudio_XAudio27.cpp">
       <Filter>Source\Siv3D\Audio\XAudio27</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\Null\CAudio_Null.cpp">
+      <Filter>Source\Siv3D\Audio\Null</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\XAudio28\CAudio_XAudio28.cpp">
+      <Filter>Source\Siv3D\Audio\XAudio28</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

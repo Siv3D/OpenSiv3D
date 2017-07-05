@@ -23,6 +23,24 @@
 
 namespace s3d
 {
+	std::atomic_bool CAudio_XAudio28::fadeManagementEnabled{ true };
+
+	namespace detail
+	{
+		static void FadingManagement(int)
+		{
+			for (;;)
+			{
+				if (!Siv3DEngine::GetAudio()->updateFade())
+				{
+					break;
+				}
+
+				::Sleep(20);
+			}
+		}
+	}
+
 	bool CAudio_XAudio28::IsAvalibale()
 	{
 		if (HINSTANCE xaudio28 = ::LoadLibraryW(L"xaudio2_8.dll"))
@@ -37,11 +55,42 @@ namespace s3d
 
 	CAudio_XAudio28::CAudio_XAudio28()
 	{
+		m_xaudio28 = ::LoadLibraryW(L"xaudio2_8.dll");
 
+		if (!m_xaudio28)
+		{
+			return;
+		}
+
+		p_XAudio2Create = FunctionPointer(m_xaudio28, "XAudio2Create");
+
+		if (!p_XAudio2Create)
+		{
+			return;
+		}
+
+		if (FAILED(p_XAudio2Create(&m_device.xAudio2, 0, XAUDIO2_DEFAULT_PROCESSOR)))
+		{
+			return;
+		}
+
+		if (FAILED(m_device.xAudio2->CreateMasteringVoice(&m_device.masteringVoice)))
+		{
+			return;
+		}
+
+		m_hasAudioDevice = true;
 	}
 
 	CAudio_XAudio28::~CAudio_XAudio28()
 	{
+		fadeManagementEnabled = false;
+
+		if (m_fadeManagingThread.joinable())
+		{
+			m_fadeManagingThread.join();
+		}
+
 		m_audios.destroy();
 
 		m_device.release();
@@ -49,49 +98,131 @@ namespace s3d
 		::FreeLibrary(m_xaudio28);
 	}
 
+	bool CAudio_XAudio28::hasAudioDevice() const
+	{
+		return m_hasAudioDevice;
+	}
+
 	bool CAudio_XAudio28::init()
 	{
-		m_xaudio28 = ::LoadLibraryW(L"xaudio2_8.dll");
-
-		if (!m_xaudio28)
-		{
-			return false;
-		}
-		else
-		{
-			
-		}
-
-		p_XAudio2Create = FunctionPointer(m_xaudio28, "XAudio2Create");
-
-		if (!p_XAudio2Create)
+		if (FAILED(m_device.masteringVoice->GetChannelMask(&m_device.channelMask)))
 		{
 			return false;
 		}
 
-		if (FAILED(p_XAudio2Create(&m_device.xAudio2, 0, XAUDIO2_DEFAULT_PROCESSOR)))
+		const auto nullAudio = std::make_shared<Audio_XAudio28>(
+			Wave(22050, WaveSample::Zero()),
+			&m_device,
+			none,
+			1.0);
+
+		if (!nullAudio->isInitialized())
 		{
 			return false;
 		}
 
-		if (FAILED(m_device.xAudio2->CreateMasteringVoice(&m_device.masteringVoice)))
-		{
-			//LOG_FAIL(L"XAudio2: マスターボイスの作成に失敗しました。サウンドデバイスが有効か確認してください。");
+		m_audios.setNullData(nullAudio);
 
-			return false;
-		}
+		m_fadeManagingThread = std::thread(detail::FadingManagement, 0);
 
 		return true;
 	}
 
-	Audio::IDType CAudio_XAudio28::create(const Wave& wave)
+	Audio::IDType CAudio_XAudio28::create(Wave&& wave)
 	{
-		return Audio::NullHandleID;
+		if (!wave)
+		{
+			return Audio::NullHandleID;
+		}
+
+		const auto audio = std::make_shared<Audio_XAudio28>(
+			std::move(wave),
+			&m_device,
+			none,
+			1.0);
+
+		if (!audio->isInitialized())
+		{
+			return Audio::NullHandleID;
+		}
+
+		return m_audios.add(audio);
 	}
 
 	void CAudio_XAudio28::release(const Audio::IDType handleID)
 	{
+		m_audios.erase(handleID);
+	}
 
+	bool CAudio_XAudio28::play(const Audio::IDType handleID, const SecondsF& fadeinDuration)
+	{
+		std::lock_guard<std::mutex> lock(m_mutex);
+
+		const double fadeSec = std::max(static_cast<double>(fadeinDuration.count()), 0.0);
+
+		return m_audios[handleID]->changeState(
+			fadeSec > 0.0 ? AudioControlState::PlayWithFade : AudioControlState::PlayImmediately,
+			fadeSec);
+	}
+
+	void CAudio_XAudio28::pause(const Audio::IDType handleID, const SecondsF& fadeoutDuration)
+	{
+		std::lock_guard<std::mutex> lock(m_mutex);
+
+		const double fadeSec = std::max(static_cast<double>(fadeoutDuration.count()), 0.0);
+
+		m_audios[handleID]->changeState(
+			fadeSec > 0.0 ? AudioControlState::PauseWithFade : AudioControlState::PauseImmediately,
+			fadeSec);
+	}
+
+	void CAudio_XAudio28::stop(const Audio::IDType handleID, const SecondsF& fadeoutDuration)
+	{
+		std::lock_guard<std::mutex> lock(m_mutex);
+
+		const double fadeSec = std::max(static_cast<double>(fadeoutDuration.count()), 0.0);
+
+		m_audios[handleID]->changeState(
+			fadeSec > 0.0 ? AudioControlState::StopWithFade : AudioControlState::StopImmediately,
+			fadeSec);
+	}
+
+	uint64 CAudio_XAudio28::samplesPlayed(const Audio::IDType handleID)
+	{
+		std::lock_guard<std::mutex> lock(m_mutex);
+
+		return m_audios[handleID]->samplesPlayed();
+	}
+
+	uint64 CAudio_XAudio28::streamPosSample(const Audio::IDType handleID)
+	{
+		std::lock_guard<std::mutex> lock(m_mutex);
+
+		return m_audios[handleID]->streamPosSample();
+	}
+
+	bool CAudio_XAudio28::updateFade()
+	{
+		std::lock_guard<std::mutex> lock(m_mutex);
+
+		for (const auto& audio : m_audios)
+		{
+			audio.second->updateFadeManager();
+		}
+
+		return fadeManagementEnabled;
+	}
+
+	void CAudio_XAudio28::fadeMasterVolume()
+	{
+		while (m_masterVolume > 0.0005)
+		{
+			m_masterVolume *= 0.75;
+
+			m_device.masteringVoice->SetVolume(static_cast<float>(m_masterVolume));
+
+			::Sleep(10);
+		}
 	}
 }
 

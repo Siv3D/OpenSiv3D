@@ -29,9 +29,23 @@ namespace s3d
 
 		bool init() override;
 
-		Audio::IDType create(const Wave& wave) override;
+		Audio::IDType create(Wave&& wave) override;
 
 		void release(Audio::IDType handleID) override;
+
+		bool play(Audio::IDType handleID, const SecondsF& fadeinDuration) override;
+
+		void pause(Audio::IDType handleID, const SecondsF& fadeoutDuration) override;
+
+		void stop(Audio::IDType handleID, const SecondsF& fadeoutDuration) override;
+
+		uint64 samplesPlayed(Audio::IDType handleID) override;
+
+		uint64 streamPosSample(Audio::IDType handleID) override;
+
+		bool updateFade() override;
+
+		void fadeMasterVolume() override;
 	};
 }
 

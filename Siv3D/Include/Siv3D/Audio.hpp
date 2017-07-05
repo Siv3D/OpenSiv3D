@@ -14,6 +14,7 @@
 # include "Fwd.hpp"
 # include "AssetHandle.hpp"
 # include "Wave.hpp"
+# include "Duration.hpp"
 
 namespace s3d
 {
@@ -40,7 +41,7 @@ namespace s3d
 		/// </summary>
 		Audio();
 
-		explicit Audio(const Wave& wave);
+		explicit Audio(Wave&& wave);
 
 		explicit Audio(const FilePath& path);
 
@@ -104,5 +105,21 @@ namespace s3d
 		/// 2 つの Audio が異なる場合 true, それ以外の場合は false
 		/// </returns>
 		bool operator !=(const Audio& audio) const;
+
+		bool play(const SecondsF& fadeinDuration = SecondsF(0.0)) const;
+
+		void pause(const SecondsF& fadeoutDuration = SecondsF(0.0)) const;
+
+		void stop(const SecondsF& fadeoutDuration = SecondsF(0.0)) const;
+
+		/// <summary>
+		/// ループを含めた再生済みのサンプル数を返します。
+		/// </summary>
+		int64 samplesPlayed() const;
+
+		/// <summary>
+		/// 再生バッファに送信済みのサウンドの位置（サンプル）を返します。
+		/// </summary>
+		int64 streamPosSample() const;
 	};
 }

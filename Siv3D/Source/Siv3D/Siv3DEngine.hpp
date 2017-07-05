@@ -206,6 +206,8 @@ namespace s3d
 			return pEngine->m_audio.get();
 		}
 
+		static void CreateNullAudio();
+
 		static ISiv3DGraphics* GetGraphics()
 		{
 			return pEngine->m_graphics.get();

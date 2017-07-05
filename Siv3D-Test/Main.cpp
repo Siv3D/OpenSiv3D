@@ -2,8 +2,20 @@
 
 void Main()
 {
+	const Audio audio(L"test.wav");
+
+	audio.play();
+
 	while (System::Update())
 	{	
-		
+		if (Key1.down())
+		{
+			audio.play(1s);
+		}
+
+		if (Key2.down())
+		{
+			audio.pause(1s);
+		}
 	}
 }

@@ -10,24 +10,20 @@
 //-----------------------------------------------
 
 # pragma once
-# include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_WINDOWS)
 
 # include "../IAudio.hpp"
 
 namespace s3d
 {
-	class CAudio_XAudio27 : public ISiv3DAudio
+	class CAudio_Null : public ISiv3DAudio
 	{
 	private:
 
-		bool m_hasAudioDevice = false;
-
 	public:
 
-		CAudio_XAudio27();
+		CAudio_Null();
 
-		~CAudio_XAudio27() override;
+		~CAudio_Null() override;
 
 		bool hasAudioDevice() const override;
 
@@ -53,4 +49,3 @@ namespace s3d
 	};
 }
 
-# endif

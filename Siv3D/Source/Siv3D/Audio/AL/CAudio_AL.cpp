@@ -26,13 +26,19 @@ namespace s3d
 
 	}
 
+	bool CAudio_AL::hasAudioDevice() const
+	{
+		// [Siv3D ToDo]
+		return true;
+	}
+
 	bool CAudio_AL::init()
 	{
 
 		return true;
 	}
 
-	Audio::IDType CAudio_AL::create(const Wave& wave)
+	Audio::IDType CAudio_AL::create(Wave&& wave)
 	{
 		return Audio::NullHandleID;
 	}
@@ -40,6 +46,29 @@ namespace s3d
 	void CAudio_AL::release(const Audio::IDType handleID)
 	{
 
+	}
+
+	uint64 CAudio_AL::samplesPlayed(const Audio::IDType handleID)
+	{
+		// [Siv3D ToDo]
+		return 0;
+	}
+
+	uint64 CAudio_AL::streamPosSample(const Audio::IDType handleID)
+	{
+		// [Siv3D ToDo]
+		return 0;
+	}
+
+	bool CAudio_AL::updateFade()
+	{
+		// [Siv3D ToDo]
+		return true;
+	}
+
+	void CAudio_AL::fadeMasterVolume()
+	{
+		// [Siv3D ToDo]
 	}
 }
 

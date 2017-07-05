@@ -136,6 +136,11 @@ namespace s3d
 			: base_type(std::move(samples))
 			, m_samplingRate(samplingRate) {}
 
+		uint32 samplingRate() const noexcept
+		{
+			return m_samplingRate;
+		}
+
 		Wave& operator <<(const WaveSample& sample)
 		{
 			base_type::push_back(sample);
