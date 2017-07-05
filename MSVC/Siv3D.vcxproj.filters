@@ -1870,6 +1870,12 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\Null\CAudio_Null.hpp">
       <Filter>Source\Siv3D\Audio\Null</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\XAudio28\Audio_XAudio28.hpp">
+      <Filter>Source\Siv3D\Audio\XAudio28</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\AudioControlManager.hpp">
+      <Filter>Source\Siv3D\Audio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">

@@ -10,12 +10,17 @@ void Main()
 	{	
 		if (Key1.down())
 		{
-			audio.play(1s);
+			audio.play(0.1s);
 		}
 
 		if (Key2.down())
 		{
 			audio.pause(1s);
+		}
+
+		if (Key3.down())
+		{
+			audio.stop(1s);
 		}
 	}
 }
