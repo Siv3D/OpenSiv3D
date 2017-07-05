@@ -26,6 +26,8 @@ namespace s3d
 		CAudio_AL();
 
 		~CAudio_AL() override;
+		
+		bool hasAudioDevice() const override;
 
 		bool init() override;
 

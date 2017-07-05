@@ -48,6 +48,22 @@ namespace s3d
 
 	}
 
+	bool CAudio_AL::play(Audio::IDType handleID, const SecondsF& fadeinDuration)
+	{
+		// [Siv3D ToDo]
+		return true;
+	}
+	
+	void CAudio_AL::pause(Audio::IDType handleID, const SecondsF& fadeoutDuration)
+	{
+		// [Siv3D ToDo]
+	}
+	
+	void CAudio_AL::stop(Audio::IDType handleID, const SecondsF& fadeoutDuration)
+	{
+		// [Siv3D ToDo]
+	}
+	
 	uint64 CAudio_AL::samplesPlayed(const Audio::IDType handleID)
 	{
 		// [Siv3D ToDo]
