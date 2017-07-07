@@ -99,7 +99,7 @@ namespace s3d
 		return 0;
 	}
 
-	void CAudio_AL::setVolumeconst(Audio::IDType handleID, const std::pair<double, double>& volume)
+	void CAudio_AL::setVolume(const Audio::IDType handleID, const std::pair<double, double>& volume)
 	{
 		// [Siv3D ToDo]
 	}
