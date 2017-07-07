@@ -188,15 +188,22 @@ namespace s3d
 		return true;
 	}
 
-	void CWindow_Windows::show()
+	void CWindow_Windows::show(const bool show)
 	{
-		::ShowWindow(m_hWnd, SW_SHOW);
+		if (show)
+		{
+			::ShowWindow(m_hWnd, SW_SHOW);
 
-		::ValidateRect(m_hWnd, 0);
+			::ValidateRect(m_hWnd, 0);
 
-		::UpdateWindow(m_hWnd);
+			::UpdateWindow(m_hWnd);
 
-		::SetForegroundWindow(m_hWnd);
+			::SetForegroundWindow(m_hWnd);
+		}
+		else
+		{
+			::ShowWindow(m_hWnd, SW_HIDE);		
+		}
 	}
 
 	bool CWindow_Windows::update()

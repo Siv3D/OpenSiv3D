@@ -269,8 +269,6 @@ namespace s3d
 
 	bool CDragDrop_Windows::init()
 	{
-		::OleInitialize(nullptr);
-
 		HWND hWnd = Siv3DEngine::GetWindow()->getHandle();
 
 		detail::DropTarget* p = new detail::DropTarget(hWnd);

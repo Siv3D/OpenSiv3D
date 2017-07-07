@@ -113,7 +113,7 @@ namespace s3d
 
 		inline void DrawBlackBars(const ColorF& color = Palette::Black, const Size& baseSize = Window::BaseSize())
 		{
-			const Transformer2D transformer(Graphics2D::GetTransform().inverse());
+			const Transformer2D transformer(Graphics2D::GetTransform().inversed());
 
 			for (const auto& bar : GetBlackBars(baseSize))
 			{

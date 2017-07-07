@@ -14,6 +14,8 @@
 # include <Siv3D/System.hpp>
 # include "../Siv3DEngine.hpp"
 # include "../System/ISystem.hpp"
+# include "../Window/IWindow.hpp"
+# include "../Audio/IAudio.hpp"
 # include "../EngineDirectory/EngineDirectory.hpp"
 
 namespace s3d
@@ -22,7 +24,16 @@ namespace s3d
 	{
 		bool Update()
 		{
-			return Siv3DEngine::GetSystem()->update();
+			if (!Siv3DEngine::GetSystem()->update())
+			{
+				Siv3DEngine::GetWindow()->show(false);
+
+				Siv3DEngine::GetAudio()->fadeMasterVolume();
+
+				return false;
+			}
+
+			return true;
 		}
 
 		void Exit()
