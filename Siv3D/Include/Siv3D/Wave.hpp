@@ -13,6 +13,7 @@
 # include "Array.hpp"
 # include "WaveSample.hpp"
 # include "AudioFormat.hpp"
+# include "Duration.hpp"
 
 namespace s3d
 {
@@ -39,7 +40,6 @@ namespace s3d
 		using typename base_type::difference_type;
 		using typename base_type::allocator_type;
 
-		using base_type::Array;
 		using base_type::operator=;
 		using base_type::assign;
 		using base_type::get_allocator;
@@ -100,20 +100,21 @@ namespace s3d
 
 		Wave() = default;
 
-		explicit Wave(size_t num_samples)
-			: base_type(num_samples) {}
-
-		//explicit Wave(const SecondsF& length);
-
-		Wave(size_t num_samples, uint32 samplingRate)
+		explicit Wave(size_t num_samples, uint32 samplingRate = DefaultSamplingRate)
 			: base_type(num_samples)
 			, m_samplingRate(samplingRate) {}
 
-		//Wave(size_t sample, std::function<double(double)> generator, uint32 samplingRate = Wave::DefaultSamplingRate);
+		explicit Wave(const SecondsF& length, uint32 samplingRate = DefaultSamplingRate);
 
-		//Wave(const SecondsF& length, uint32 samplingRate);
+		Wave(size_t num_samples, const WaveSample& sample, uint32 samplingRate = DefaultSamplingRate)
+			: base_type(num_samples, sample)
+			, m_samplingRate(samplingRate) {}
 
-		//Wave(const SecondsF& length, std::function<double(double)> generator, uint32 samplingRate = Wave::DefaultSamplingRate);
+		Wave(const SecondsF& length, const WaveSample& sample, uint32 samplingRate = DefaultSamplingRate);
+
+		Wave(size_t num_samples, Arg::generator_<std::function<double(double)>> generator, uint32 samplingRate = Wave::DefaultSamplingRate);
+
+		Wave(const SecondsF& length, Arg::generator_<std::function<double(double)>> generator, uint32 samplingRate = Wave::DefaultSamplingRate);
 
 		explicit Wave(const FilePath& path);
 

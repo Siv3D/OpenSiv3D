@@ -23,6 +23,11 @@ void Main()
 		Print << c;
 		Print << max << L"/"  << audio.samples();
 
+		if (Key0.down())
+		{
+			audio.play();
+		}
+
 		if (Key1.down())
 		{
 			audio.play(0.1s);

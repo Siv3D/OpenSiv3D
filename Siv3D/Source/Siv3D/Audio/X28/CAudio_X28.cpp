@@ -20,6 +20,7 @@
 # include <Windows.h>
 # include "CAudio_X28.hpp"
 # include "../../EngineUtility.hpp"
+# include <Siv3D/MathConstants.hpp>
 
 namespace s3d
 {
@@ -116,7 +117,8 @@ namespace s3d
 		}
 
 		const auto nullAudio = std::make_shared<Audio_X28>(
-			Wave(22050, WaveSample::Zero()),
+			Wave(SecondsF(0.5), Arg::generator = [](double t) {
+				return 0.5 * std::sin(t * Math::TwoPi) * std::sin(t * Math::TwoPi * 220.0 * (t * 4.0 + 1.0)); }),
 			&m_device,
 			none,
 			1.0);
