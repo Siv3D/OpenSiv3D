@@ -15,6 +15,7 @@
 # include "AssetHandle.hpp"
 # include "Wave.hpp"
 # include "Duration.hpp"
+# include "NamedParameter.hpp"
 
 namespace s3d
 {
@@ -43,7 +44,27 @@ namespace s3d
 
 		explicit Audio(Wave&& wave);
 
+		Audio(Wave&& wave, Arg::loop_<bool> loop);
+
+		Audio(Wave&& wave, Arg::loopBegin_<uint64> loopBegin);
+
+		Audio(Wave&& wave, Arg::loopBegin_<uint64> loopBegin, Arg::loopEnd_<uint64> loopEnd);
+
+		Audio(Wave&& wave, Arg::loopBegin_<SecondsF> loopBegin);
+
+		Audio(Wave&& wave, Arg::loopBegin_<SecondsF> loopBegin, Arg::loopEnd_<SecondsF> loopEnd);
+
 		explicit Audio(const FilePath& path);
+
+		Audio(const FilePath& path, Arg::loop_<bool> loop);
+
+		Audio(const FilePath& path, Arg::loopBegin_<uint64> loopBegin);
+
+		Audio(const FilePath& path, Arg::loopBegin_<uint64> loopBegin, Arg::loopEnd_<uint64> loopEnd);
+
+		Audio(const FilePath& path, Arg::loopBegin_<SecondsF> loopBegin);
+
+		Audio(const FilePath& path, Arg::loopBegin_<SecondsF> loopBegin, Arg::loopEnd_<SecondsF> loopEnd);
 
 		//explicit Audio(IReader&& reader);
 
@@ -106,6 +127,20 @@ namespace s3d
 		/// </returns>
 		bool operator !=(const Audio& audio) const;
 
+		uint32 samplingRate() const;
+
+		size_t samples() const;
+
+		void setLoop(bool loop);
+
+		void setLoop(Arg::loopBegin_<uint64> loopBegin);
+
+		void setLoop(Arg::loopBegin_<uint64> loopBegin, Arg::loopEnd_<uint64> loopEnd);
+
+		void setLoop(Arg::loopBegin_<SecondsF> loopBegin);
+
+		void setLoop(Arg::loopBegin_<SecondsF> loopBegin, Arg::loopEnd_<SecondsF> loopEnd);
+
 		bool play(const SecondsF& fadeinDuration = SecondsF(0.0)) const;
 
 		void pause(const SecondsF& fadeoutDuration = SecondsF(0.0)) const;
@@ -113,13 +148,18 @@ namespace s3d
 		void stop(const SecondsF& fadeoutDuration = SecondsF(0.0)) const;
 
 		/// <summary>
-		/// ループを含めた再生済みのサンプル数を返します。
+		/// 再生位置（サンプル）を返します。
 		/// </summary>
-		int64 samplesPlayed() const;
+		int64 posSample() const;
 
 		/// <summary>
 		/// 再生バッファに送信済みのサウンドの位置（サンプル）を返します。
 		/// </summary>
 		int64 streamPosSample() const;
+
+		/// <summary>
+		/// ループを含めた再生済みのサンプル数を返します。
+		/// </summary>
+		int64 samplesPlayed() const;
 	};
 }

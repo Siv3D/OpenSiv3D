@@ -2,12 +2,27 @@
 
 void Main()
 {
-	const Audio audio(L"test.wav");
+	const Audio audio(L"example/test.wav", Arg::loopBegin = 1.5s, Arg::loopEnd = 44.5s);
 
 	audio.play();
 
+	uint64 max = 0, previous = 0;
+
 	while (System::Update())
 	{	
+		const uint64 c = audio.posSample();
+
+		if (c < previous)
+		{
+			max = previous;
+		}
+
+		previous = c;
+
+		ClearPrint();
+		Print << c;
+		Print << max << L"/"  << audio.samples();
+
 		if (Key1.down())
 		{
 			audio.play(0.1s);

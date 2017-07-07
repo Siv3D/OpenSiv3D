@@ -37,15 +37,23 @@ namespace s3d
 
 		void release(Audio::IDType handleID) override;
 
+		uint32 samplingRate(Audio::IDType handleID) override;
+
+		size_t samples(Audio::IDType handleID) override;
+
+		void setLoop(Audio::IDType handleID, bool loop, int64 loopBeginSample, int64 loopEndSample) override;
+
 		bool play(Audio::IDType handleID, const SecondsF& fadeinDuration) override;
 
 		void pause(Audio::IDType handleID, const SecondsF& fadeoutDuration) override;
 
 		void stop(Audio::IDType handleID, const SecondsF& fadeoutDuration) override;
 
-		uint64 samplesPlayed(Audio::IDType handleID) override;
+		uint64 posSample(Audio::IDType handleID) override;
 
 		uint64 streamPosSample(Audio::IDType handleID) override;
+
+		uint64 samplesPlayed(Audio::IDType handleID) override;
 
 		bool updateFade() override;
 

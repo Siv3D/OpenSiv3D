@@ -44,6 +44,23 @@ namespace s3d
 
 	}
 
+	uint32 CAudio_Null::samplingRate(const Audio::IDType handleID)
+	{
+		// [Siv3D ToDo]
+		return 0;
+	}
+
+	size_t CAudio_Null::samples(const Audio::IDType handleID)
+	{
+		// [Siv3D ToDo]
+		return 0;
+	}
+
+	void CAudio_Null::setLoop(const Audio::IDType handleID, const bool loop, const int64 loopBeginSample, const int64 loopEndSample)
+	{
+		// [Siv3D ToDo]
+	}
+
 	bool CAudio_Null::play(Audio::IDType handleID, const SecondsF& fadeinDuration)
 	{
 		// [Siv3D ToDo]
@@ -60,13 +77,19 @@ namespace s3d
 		// [Siv3D ToDo]
 	}
 
-	uint64 CAudio_Null::samplesPlayed(const Audio::IDType handleID)
+	uint64 CAudio_Null::posSample(const Audio::IDType handleID)
 	{
 		// [Siv3D ToDo]
 		return 0;
 	}
 
 	uint64 CAudio_Null::streamPosSample(const Audio::IDType handleID)
+	{
+		// [Siv3D ToDo]
+		return 0;
+	}
+
+	uint64 CAudio_Null::samplesPlayed(const Audio::IDType handleID)
 	{
 		// [Siv3D ToDo]
 		return 0;

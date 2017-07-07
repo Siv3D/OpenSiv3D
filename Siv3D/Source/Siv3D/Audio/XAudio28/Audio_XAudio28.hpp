@@ -76,6 +76,12 @@ namespace s3d
 
 		uint64 m_samplesSent = 0;
 
+		uint64 m_samplesOffsetP = 0;
+
+		uint64 m_samplesOffsetN = 0;
+
+		uint64 m_loopCount = 0;
+
 		int64 m_readPos = 0;
 
 		int64 m_writePos = 0;
@@ -96,7 +102,7 @@ namespace s3d
 		{
 			//LOG_TEST(L"OnVoiceProcessingPassStart: {} bytes required"_fmt(bytes_required));
 
-			const uint64 samplesPlayed = calculateSamplesPlayed();
+			const uint64 samplesPlayed = getSamplesPlayed();
 			const uint64 samples_bufferTarget = m_pWave->samplingRate() / 30;
 			const uint64 samples_buffer = m_samplesSent - samplesPlayed;
 
@@ -134,7 +140,7 @@ namespace s3d
 				}
 				else
 				{
-					// [Siv3D ToDo]
+					processBufferLoop(samples_toWrite);
 				}
 			}
 		}
@@ -153,6 +159,9 @@ namespace s3d
 			m_isActive = false;
 			m_isPaused = false;
 			m_isEnd = true;
+			m_samplesOffsetP = 0;
+			m_samplesOffsetN = 0;
+			m_loopCount = 0;
 			m_readPos = 0;
 			m_writePos = 0;
 			m_samplesSent = 0;
@@ -211,6 +220,47 @@ namespace s3d
 			}
 		}
 
+		void processBufferLoop(uint64 samples_toRead)
+		{
+			while (samples_toRead)
+			{
+				const uint64 samples_readable = m_loop->second - m_readPos;
+				const uint64 samples_read = std::min<uint64>(samples_toRead, samples_readable);
+
+				if (samples_read)
+				{
+					const XAUDIO2_BUFFER buffer =
+					{
+						static_cast<UINT32>(XAUDIO2_END_OF_STREAM) * 0,
+						static_cast<UINT32>(samples_read * sizeof(WaveSample)),
+						static_cast<const uint8*>(static_cast<const void*>(m_pWave->data())) + m_readPos * sizeof(WaveSample),
+						0,
+						static_cast<UINT32>(samples_read),
+						0,
+						0,
+						XAUDIO2_NO_LOOP_REGION,
+						nullptr
+					};
+
+					m_sourceVoice->SubmitSourceBuffer(&buffer);
+					m_samplesSent += samples_read;
+
+					samples_toRead -= samples_read;
+				}
+
+				if ((m_readPos += samples_read) == m_loop->second)
+				{
+					m_samplesOffsetN = m_samplesSent;
+
+					m_readPos = m_loop->first;
+
+					++m_loopCount;
+
+					m_samplesOffsetP = 0;
+				}
+			}
+		}
+
 	public:
 
 		VoiceStream28() = default;
@@ -252,6 +302,9 @@ namespace s3d
 			m_isActive = false;
 			m_isEnd = false;
 			m_isPaused = false;
+			m_samplesOffsetP = 0;
+			m_samplesOffsetN = 0;
+			m_loopCount = 0;
 			m_readPos = 0;
 			m_writePos = 0;
 			m_samplesSent = 0;
@@ -277,6 +330,20 @@ namespace s3d
 		void setFadeVolume(const double volume)
 		{
 			m_sourceVoice->SetVolume(static_cast<float>(volume));
+		}
+
+		void setLoop(const bool loop, const int64 loopBeginSample, const int64 loopEndSample)
+		{
+			if (!loop)
+			{
+				m_loop.reset();
+			}
+			else
+			{
+				m_loop.emplace(loopBeginSample, loopEndSample);
+			}
+
+			stop();
 		}
 
 		const Optional<std::pair<int64, int64>>& getLoop() const
@@ -329,7 +396,32 @@ namespace s3d
 			create(m_is3D, m_maxSpeed);
 		}
 
-		uint64 calculateSamplesPlayed()
+		uint64 calculatePosSample()
+		{
+			XAUDIO2_VOICE_STATE state;
+
+			m_sourceVoice->GetState(&state);
+
+			const uint64 tp = state.SamplesPlayed + m_samplesOffsetP + ((m_loop && m_loopCount) ? m_loop->first : 0);
+
+			if (tp < m_samplesOffsetN)
+			{
+				if (m_loop)
+				{
+					return m_loop->second - (m_samplesOffsetN - tp);
+				}
+				else
+				{
+					return m_pWave->size() - (m_samplesOffsetN - tp);
+				}
+			}
+			else
+			{
+				return tp - m_samplesOffsetN;
+			}
+		}
+
+		uint64 getSamplesPlayed()
 		{
 			XAUDIO2_VOICE_STATE state;
 
@@ -341,6 +433,10 @@ namespace s3d
 		void setReadPos(const int64 posSample)
 		{
 			m_readPos = posSample;
+
+			m_samplesOffsetP = posSample;
+
+			m_loopCount = 0;
 		}
 
 		uint64 streamPosSample() const
@@ -423,6 +519,21 @@ namespace s3d
 			return m_initialized;
 		}
 
+		uint32 samplingRate() const
+		{
+			return m_wave.samplingRate();
+		}
+
+		size_t samples() const
+		{
+			return m_wave.size();
+		}
+
+		void setLoop(const bool loop, const int64 loopBeginSample, const int64 loopEndSample)
+		{
+			m_stream.setLoop(loop, loopBeginSample, loopEndSample);
+		}
+
 		bool changeState(const AudioControlState state, const double durationSec)
 		{
 			const auto currentState = m_audioControl.m_state;
@@ -458,247 +569,247 @@ namespace s3d
 			switch (m_audioControl.m_state)
 			{
 			case AudioControlState::PlayImmediately:
-			{
-				if (m_audioControl.m_stopwatch.isStarted())
 				{
-					m_audioControl.m_stopwatch.reset();
-				}
-
-				if (m_audioControl.m_currentVolume != 1.0)
-				{
-					m_audioControl.m_currentVolume = 1.0;
-
-					setFadeVolume(1.0);
-				}
-
-				if (m_audioControl.voiceState == VoiceState::Ready)
-				{
-					if (m_audioControl.m_seekBegin)
+					if (m_audioControl.m_stopwatch.isStarted())
 					{
-						m_audioControl.m_seekBegin = false;
-
-						setPosSample(0);
+						m_audioControl.m_stopwatch.reset();
 					}
 
-					m_audioControl.voiceState = VoiceState::Done;
-
-					m_stream.play();
-				}
-				else if (m_audioControl.voiceState == VoiceState::Done)
-				{
-					if (m_stream.readchedEnd())
+					if (m_audioControl.m_currentVolume != 1.0)
 					{
-						m_audioControl.voiceState = VoiceState::EndOfStream;
+						m_audioControl.m_currentVolume = 1.0;
+
+						setFadeVolume(1.0);
 					}
-					else
+
+					if (m_audioControl.voiceState == VoiceState::Ready)
+					{
+						if (m_audioControl.m_seekBegin)
+						{
+							m_audioControl.m_seekBegin = false;
+
+							setPosSample(0);
+						}
+
+						m_audioControl.voiceState = VoiceState::Done;
+
+						m_stream.play();
+					}
+					else if (m_audioControl.voiceState == VoiceState::Done)
+					{
+						if (m_stream.readchedEnd())
+						{
+							m_audioControl.voiceState = VoiceState::EndOfStream;
+						}
+						else
+						{
+
+						}
+					}
+					else if (m_audioControl.voiceState == VoiceState::EndOfStream)
 					{
 
 					}
-				}
-				else if (m_audioControl.voiceState == VoiceState::EndOfStream)
-				{
 
+					break;
 				}
-
-				break;
-			}
 			case AudioControlState::PlayWithFade:
-			{
-				if (!m_audioControl.m_stopwatch.isStarted())
 				{
-					m_audioControl.m_stopwatch.restart();
-				}
-
-				const double tVolume = std::min(m_audioControl.m_stopwatch.sF() / m_audioControl.m_durationSec, 1.0);
-
-				if (tVolume != m_audioControl.m_currentVolume)
-				{
-					setFadeVolume(m_audioControl.m_currentVolume = tVolume);
-				}
-
-				if (m_audioControl.voiceState == VoiceState::Ready)
-				{
-					if (m_audioControl.m_seekBegin)
+					if (!m_audioControl.m_stopwatch.isStarted())
 					{
-						m_audioControl.m_seekBegin = false;
-
-						setPosSample(0);
+						m_audioControl.m_stopwatch.restart();
 					}
 
-					m_audioControl.voiceState = VoiceState::Done;
+					const double tVolume = std::min(m_audioControl.m_stopwatch.sF() / m_audioControl.m_durationSec, 1.0);
 
-					m_stream.play();
-				}
-				else if (m_audioControl.voiceState == VoiceState::Done)
-				{
-					if (m_stream.readchedEnd())
+					if (tVolume != m_audioControl.m_currentVolume)
 					{
-						m_audioControl.voiceState = VoiceState::EndOfStream;
+						setFadeVolume(m_audioControl.m_currentVolume = tVolume);
 					}
-					else
+
+					if (m_audioControl.voiceState == VoiceState::Ready)
+					{
+						if (m_audioControl.m_seekBegin)
+						{
+							m_audioControl.m_seekBegin = false;
+
+							setPosSample(0);
+						}
+
+						m_audioControl.voiceState = VoiceState::Done;
+
+						m_stream.play();
+					}
+					else if (m_audioControl.voiceState == VoiceState::Done)
+					{
+						if (m_stream.readchedEnd())
+						{
+							m_audioControl.voiceState = VoiceState::EndOfStream;
+						}
+						else
+						{
+
+						}
+					}
+					else if (m_audioControl.voiceState == VoiceState::EndOfStream)
 					{
 
 					}
-				}
-				else if (m_audioControl.voiceState == VoiceState::EndOfStream)
-				{
 
+					break;
 				}
-
-				break;
-			}
 			case AudioControlState::PauseImmediately:
-			{
-				if (m_audioControl.m_stopwatch.isStarted())
 				{
-					m_audioControl.m_stopwatch.reset();
-				}
+					if (m_audioControl.m_stopwatch.isStarted())
+					{
+						m_audioControl.m_stopwatch.reset();
+					}
 
-				if (m_audioControl.m_currentVolume != 0.0)
-				{
-					m_audioControl.m_currentVolume = 0.0;
+					if (m_audioControl.m_currentVolume != 0.0)
+					{
+						m_audioControl.m_currentVolume = 0.0;
 
-					setFadeVolume(0.0);
-				}
+						setFadeVolume(0.0);
+					}
 
-				if (m_audioControl.voiceState == VoiceState::Ready)
-				{
-					m_audioControl.voiceState = VoiceState::Done;
-
-					m_stream.pause();
-				}
-				else if (m_audioControl.voiceState == VoiceState::Done)
-				{
-
-				}
-				else if (m_audioControl.voiceState == VoiceState::EndOfStream)
-				{
-
-				}
-
-				break;
-			}
-			case AudioControlState::PauseWithFade:
-			{
-				if (!m_audioControl.m_stopwatch.isStarted())
-				{
-					m_audioControl.m_stopwatch.restart();
-				}
-
-				const double elapsedSec = m_audioControl.m_stopwatch.sF();
-				const double tVolume = 1.0 - std::min(elapsedSec / m_audioControl.m_durationSec, 1.0);
-
-				if (std::min(tVolume, m_audioControl.m_currentVolume) != m_audioControl.m_currentVolume)
-				{
-					setFadeVolume(m_audioControl.m_currentVolume = tVolume);
-				}
-
-				if (m_audioControl.voiceState == VoiceState::Ready)
-				{
-					m_audioControl.voiceState = VoiceState::Waiting;
-				}
-				else if (m_audioControl.voiceState == VoiceState::Waiting)
-				{
-					if (elapsedSec >= m_audioControl.m_durationSec)
+					if (m_audioControl.voiceState == VoiceState::Ready)
 					{
 						m_audioControl.voiceState = VoiceState::Done;
 
 						m_stream.pause();
 					}
-					else
+					else if (m_audioControl.voiceState == VoiceState::Done)
 					{
 
 					}
+					else if (m_audioControl.voiceState == VoiceState::EndOfStream)
+					{
+
+					}
+
+					break;
 				}
-				else if (m_audioControl.voiceState == VoiceState::Done)
+			case AudioControlState::PauseWithFade:
 				{
+					if (!m_audioControl.m_stopwatch.isStarted())
+					{
+						m_audioControl.m_stopwatch.restart();
+					}
 
+					const double elapsedSec = m_audioControl.m_stopwatch.sF();
+					const double tVolume = 1.0 - std::min(elapsedSec / m_audioControl.m_durationSec, 1.0);
+
+					if (std::min(tVolume, m_audioControl.m_currentVolume) != m_audioControl.m_currentVolume)
+					{
+						setFadeVolume(m_audioControl.m_currentVolume = tVolume);
+					}
+
+					if (m_audioControl.voiceState == VoiceState::Ready)
+					{
+						m_audioControl.voiceState = VoiceState::Waiting;
+					}
+					else if (m_audioControl.voiceState == VoiceState::Waiting)
+					{
+						if (elapsedSec >= m_audioControl.m_durationSec)
+						{
+							m_audioControl.voiceState = VoiceState::Done;
+
+							m_stream.pause();
+						}
+						else
+						{
+
+						}
+					}
+					else if (m_audioControl.voiceState == VoiceState::Done)
+					{
+
+					}
+					else if (m_audioControl.voiceState == VoiceState::EndOfStream)
+					{
+
+					}
+
+					break;
 				}
-				else if (m_audioControl.voiceState == VoiceState::EndOfStream)
-				{
-
-				}
-
-				break;
-			}
 			case AudioControlState::StopImmediately:
-			{
-				if (m_audioControl.m_stopwatch.isStarted())
 				{
-					m_audioControl.m_stopwatch.reset();
-				}
+					if (m_audioControl.m_stopwatch.isStarted())
+					{
+						m_audioControl.m_stopwatch.reset();
+					}
 
-				if (m_audioControl.m_currentVolume != 0.0)
-				{
-					m_audioControl.m_currentVolume = 0.0;
+					if (m_audioControl.m_currentVolume != 0.0)
+					{
+						m_audioControl.m_currentVolume = 0.0;
 
-					setFadeVolume(0.0);
-				}
+						setFadeVolume(0.0);
+					}
 
-				if (m_audioControl.voiceState == VoiceState::Ready)
-				{
-					m_audioControl.voiceState = VoiceState::Done;
-
-					m_stream.stop();
-				}
-				else if (m_audioControl.voiceState == VoiceState::Done)
-				{
-
-				}
-				else if (m_audioControl.voiceState == VoiceState::EndOfStream)
-				{
-
-				}
-
-				break;
-			}
-			case AudioControlState::StopWithFade:
-			{
-				if (!m_audioControl.m_stopwatch.isStarted())
-				{
-					m_audioControl.m_stopwatch.restart();
-				}
-
-				const double elapsedSec = m_audioControl.m_stopwatch.sF();
-				const double tVolume = 1.0 - std::min(elapsedSec / m_audioControl.m_durationSec, 1.0);
-
-				if (std::min(tVolume, m_audioControl.m_currentVolume) != m_audioControl.m_currentVolume)
-				{
-					setFadeVolume(m_audioControl.m_currentVolume = tVolume);
-				}
-
-				if (m_audioControl.voiceState == VoiceState::Ready)
-				{
-					m_audioControl.m_seekBegin = true;
-
-					m_audioControl.voiceState = VoiceState::Waiting;
-				}
-				else if (m_audioControl.voiceState == VoiceState::Waiting)
-				{
-					if (elapsedSec >= m_audioControl.m_durationSec)
+					if (m_audioControl.voiceState == VoiceState::Ready)
 					{
 						m_audioControl.voiceState = VoiceState::Done;
 
 						m_stream.stop();
-
-						m_audioControl.m_seekBegin = false;
 					}
-					else
+					else if (m_audioControl.voiceState == VoiceState::Done)
 					{
 
 					}
+					else if (m_audioControl.voiceState == VoiceState::EndOfStream)
+					{
+
+					}
+
+					break;
 				}
-				else if (m_audioControl.voiceState == VoiceState::Done)
+				case AudioControlState::StopWithFade:
 				{
+					if (!m_audioControl.m_stopwatch.isStarted())
+					{
+						m_audioControl.m_stopwatch.restart();
+					}
 
+					const double elapsedSec = m_audioControl.m_stopwatch.sF();
+					const double tVolume = 1.0 - std::min(elapsedSec / m_audioControl.m_durationSec, 1.0);
+
+					if (std::min(tVolume, m_audioControl.m_currentVolume) != m_audioControl.m_currentVolume)
+					{
+						setFadeVolume(m_audioControl.m_currentVolume = tVolume);
+					}
+
+					if (m_audioControl.voiceState == VoiceState::Ready)
+					{
+						m_audioControl.m_seekBegin = true;
+
+						m_audioControl.voiceState = VoiceState::Waiting;
+					}
+					else if (m_audioControl.voiceState == VoiceState::Waiting)
+					{
+						if (elapsedSec >= m_audioControl.m_durationSec)
+						{
+							m_audioControl.voiceState = VoiceState::Done;
+
+							m_stream.stop();
+
+							m_audioControl.m_seekBegin = false;
+						}
+						else
+						{
+
+						}
+					}
+					else if (m_audioControl.voiceState == VoiceState::Done)
+					{
+
+					}
+					else if (m_audioControl.voiceState == VoiceState::EndOfStream)
+					{
+
+					}
+
+					break;
 				}
-				else if (m_audioControl.voiceState == VoiceState::EndOfStream)
-				{
-
-				}
-
-				break;
-			}
 			}
 
 			return true;
@@ -725,14 +836,19 @@ namespace s3d
 			m_stream.setReadPos(posSample);
 		}
 
-		uint64 samplesPlayed()
+		uint64 posSample()
 		{
-			return m_stream.calculateSamplesPlayed();
+			return m_stream.calculatePosSample();
 		}
 
 		uint64 streamPosSample() const
 		{
 			return m_stream.streamPosSample();
+		}
+
+		uint64 samplesPlayed()
+		{
+			return m_stream.getSamplesPlayed();
 		}
 	};
 }

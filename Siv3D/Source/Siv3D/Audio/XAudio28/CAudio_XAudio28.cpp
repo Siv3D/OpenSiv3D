@@ -154,6 +154,23 @@ namespace s3d
 		m_audios.erase(handleID);
 	}
 
+	uint32 CAudio_XAudio28::samplingRate(const Audio::IDType handleID)
+	{
+		return m_audios[handleID]->samplingRate();
+	}
+
+	size_t CAudio_XAudio28::samples(const Audio::IDType handleID)
+	{
+		return m_audios[handleID]->samples();
+	}
+
+	void CAudio_XAudio28::setLoop(const Audio::IDType handleID, const bool loop, const int64 loopBeginSample, const int64 loopEndSample)
+	{
+		std::lock_guard<std::mutex> lock(m_mutex);
+
+		m_audios[handleID]->setLoop(loop, loopBeginSample, loopEndSample);
+	}
+
 	bool CAudio_XAudio28::play(const Audio::IDType handleID, const SecondsF& fadeinDuration)
 	{
 		std::lock_guard<std::mutex> lock(m_mutex);
@@ -187,11 +204,11 @@ namespace s3d
 			fadeSec);
 	}
 
-	uint64 CAudio_XAudio28::samplesPlayed(const Audio::IDType handleID)
+	uint64 CAudio_XAudio28::posSample(const Audio::IDType handleID)
 	{
 		std::lock_guard<std::mutex> lock(m_mutex);
 
-		return m_audios[handleID]->samplesPlayed();
+		return m_audios[handleID]->posSample();
 	}
 
 	uint64 CAudio_XAudio28::streamPosSample(const Audio::IDType handleID)
@@ -199,6 +216,13 @@ namespace s3d
 		std::lock_guard<std::mutex> lock(m_mutex);
 
 		return m_audios[handleID]->streamPosSample();
+	}
+	
+	uint64 CAudio_XAudio28::samplesPlayed(const Audio::IDType handleID)
+	{
+		std::lock_guard<std::mutex> lock(m_mutex);
+
+		return m_audios[handleID]->samplesPlayed();
 	}
 
 	bool CAudio_XAudio28::updateFade()
