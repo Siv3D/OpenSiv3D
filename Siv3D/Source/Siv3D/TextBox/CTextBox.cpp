@@ -24,8 +24,8 @@ namespace s3d
 		: m_font(font)
 		, m_pos(x, y)
 		, m_textUTF32(defaultText.toUTF32())
-		, m_cursorIndex(m_textUTF32.length())
 		, m_description(description)
+		, m_cursorIndex(m_textUTF32.length())
 	{
 		m_boxState.width = width;
 		updateBox();
@@ -37,7 +37,7 @@ namespace s3d
 
 		const RectF rect = m_boxState.getRect(m_pos);
 
-		const Transformer2D transformer(Graphics2D::GetTransform().inverse(), Cursor::GetTransform().inverse());
+		const Transformer2D transformer(Graphics2D::GetTransform().inversed(), Cursor::GetTransform().inversed());
 
 		if (m_active)
 		{
@@ -121,7 +121,7 @@ namespace s3d
 
 	void TextBox::CTextBox::drawGlow(const double blurRadius, const double spread, const ColorF& color) const
 	{
-		const Transformer2D transformer(Graphics2D::GetTransform().inverse());
+		const Transformer2D transformer(Graphics2D::GetTransform().inversed());
 		
 		if (m_active)
 		{
@@ -131,7 +131,7 @@ namespace s3d
 
 	void TextBox::CTextBox::drawBox(const ColorF& boxColor) const
 	{
-		const Transformer2D transformer(Graphics2D::GetTransform().inverse());
+		const Transformer2D transformer(Graphics2D::GetTransform().inversed());
 		
 		const RectF rect = m_boxState.getRect(m_pos);
 
@@ -145,7 +145,7 @@ namespace s3d
 
 	void TextBox::CTextBox::drawText(const ColorF& textColor, const ColorF& markedTextColor, const ColorF& descriptionColor) const
 	{
-		const Transformer2D transformer(Graphics2D::GetTransform().inverse());
+		const Transformer2D transformer(Graphics2D::GetTransform().inversed());
 			
 		const double offsetX = m_boxState.textOffsetX;
 
