@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include "XAudio28/CAudio_XAudio28.hpp"
+# include "X28/CAudio_X28.hpp"
 # include "XAudio27/CAudio_XAudio27.hpp"
 # include "AL/CAudio_AL.hpp"
 # include "Null/CAudio_Null.hpp"
@@ -22,9 +22,9 @@ namespace s3d
 
 		ISiv3DAudio* pAudio = nullptr;
 
-		if (CAudio_XAudio28::IsAvalibale())
+		if (CAudio_X28::IsAvalibale())
 		{
-			pAudio = new CAudio_XAudio28;
+			pAudio = new CAudio_X28;
 		}
 		else
 		{

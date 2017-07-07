@@ -24,11 +24,11 @@
 # include <X3DAudio.h>
 # include "../IAudio.hpp"
 # include "../../AssetHandleManager/AssetHandleManager.hpp"
-# include "Audio_XAudio28.hpp"
+# include "Audio_X28.hpp"
 
 namespace s3d
 {
-	class CAudio_XAudio28 : public ISiv3DAudio
+	class CAudio_X28 : public ISiv3DAudio
 	{
 	private:
 
@@ -38,11 +38,11 @@ namespace s3d
 
 		bool m_hasAudioDevice = false;
 
-		AudioDevice28 m_device;
+		AudioDevice_X28 m_device;
 
 		double m_masterVolume = 1.0;
 
-		AssetHandleManager<Audio::IDType, std::shared_ptr<Audio_XAudio28>> m_audios{ S3DSTR("Audio") };
+		AssetHandleManager<Audio::IDType, std::shared_ptr<Audio_X28>> m_audios{ S3DSTR("Audio") };
 
 		static std::atomic_bool fadeManagementEnabled;
 
@@ -54,9 +54,9 @@ namespace s3d
 
 		static bool IsAvalibale();
 
-		CAudio_XAudio28();
+		CAudio_X28();
 
-		~CAudio_XAudio28() override;
+		~CAudio_X28() override;
 
 		bool hasAudioDevice() const override;
 
@@ -83,6 +83,16 @@ namespace s3d
 		uint64 streamPosSample(Audio::IDType handleID) override;
 
 		uint64 samplesPlayed(Audio::IDType handleID) override;
+
+		void setVolume(Audio::IDType handleID, const std::pair<double, double>& volume) override;
+
+		std::pair<double, double> getVolume(Audio::IDType handleID) override;
+
+		void setSpeed(Audio::IDType handleID, double speed) override;
+
+		double getSpeed(Audio::IDType handleID) override;
+
+		std::pair<double, double> getMinMaxSpeed(Audio::IDType handleID) override;
 
 		bool updateFade() override;
 		

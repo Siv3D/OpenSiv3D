@@ -55,6 +55,16 @@ namespace s3d
 
 		uint64 samplesPlayed(Audio::IDType handleID) override;
 
+		void setVolume(Audio::IDType handleID, const std::pair<double, double>& volume) override;
+
+		std::pair<double, double> getVolume(Audio::IDType handleID) override;
+
+		void setSpeed(Audio::IDType handleID, double speed) override;
+
+		double getSpeed(Audio::IDType handleID) override;
+
+		std::pair<double, double> getMinMaxSpeed(Audio::IDType handleID) override;
+
 		bool updateFade() override;
 
 		void fadeMasterVolume() override;

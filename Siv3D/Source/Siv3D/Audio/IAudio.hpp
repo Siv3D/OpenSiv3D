@@ -49,6 +49,16 @@ namespace s3d
 
 		virtual uint64 samplesPlayed(Audio::IDType handleID) = 0;
 
+		virtual void setVolume(Audio::IDType handleID, const std::pair<double, double>& volume) = 0;
+
+		virtual std::pair<double, double> getVolume(Audio::IDType handleID) = 0;
+
+		virtual void setSpeed(Audio::IDType handleID, double speed) = 0;
+
+		virtual double getSpeed(Audio::IDType handleID) = 0;
+
+		virtual std::pair<double, double> getMinMaxSpeed(Audio::IDType handleID) = 0;
+
 		virtual bool updateFade() = 0;
 
 		virtual void fadeMasterVolume() = 0;

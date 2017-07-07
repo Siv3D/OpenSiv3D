@@ -222,9 +222,11 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\AudioControlManager.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\IAudio.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\Null\CAudio_Null.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\X28\AudioDevice_X28 .hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\X28\Audio_X28.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\X28\CAudio_X28.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\X28\VoiceStream_X28.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\XAudio27\CAudio_XAudio27.hpp" />
-    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\XAudio28\Audio_XAudio28.hpp" />
-    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\XAudio28\CAudio_XAudio28.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BigFloat\CBigFloat.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BigInt\CBigInt.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\BinaryReader\CBinaryReader_Linux.hpp" />
@@ -484,8 +486,9 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\AudioFactory.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\Null\CAudio_Null.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\SivAudio.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\X28\Audio_X28.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\X28\CAudio_X28.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\XAudio27\CAudio_XAudio27.cpp" />
-    <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\XAudio28\CAudio_XAudio28.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Base64\SivBase64.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Bezier2\SivBezier2.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Bezier3\SivBezier3.cpp" />

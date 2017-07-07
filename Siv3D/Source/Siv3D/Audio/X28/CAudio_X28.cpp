@@ -18,12 +18,12 @@
 # define  _WIN32_WINNT _WIN32_WINNT_WIN8
 # define  NTDDI_VERSION NTDDI_WIN8
 # include <Windows.h>
-# include "CAudio_XAudio28.hpp"
+# include "CAudio_X28.hpp"
 # include "../../EngineUtility.hpp"
 
 namespace s3d
 {
-	std::atomic_bool CAudio_XAudio28::fadeManagementEnabled{ true };
+	std::atomic_bool CAudio_X28::fadeManagementEnabled{ true };
 
 	namespace detail
 	{
@@ -41,7 +41,7 @@ namespace s3d
 		}
 	}
 
-	bool CAudio_XAudio28::IsAvalibale()
+	bool CAudio_X28::IsAvalibale()
 	{
 		if (HINSTANCE xaudio28 = ::LoadLibraryW(L"xaudio2_8.dll"))
 		{
@@ -53,7 +53,7 @@ namespace s3d
 		return false;
 	}
 
-	CAudio_XAudio28::CAudio_XAudio28()
+	CAudio_X28::CAudio_X28()
 	{
 		m_xaudio28 = ::LoadLibraryW(L"xaudio2_8.dll");
 
@@ -82,7 +82,7 @@ namespace s3d
 		m_hasAudioDevice = true;
 	}
 
-	CAudio_XAudio28::~CAudio_XAudio28()
+	CAudio_X28::~CAudio_X28()
 	{
 		fadeManagementEnabled = false;
 
@@ -98,19 +98,19 @@ namespace s3d
 		::FreeLibrary(m_xaudio28);
 	}
 
-	bool CAudio_XAudio28::hasAudioDevice() const
+	bool CAudio_X28::hasAudioDevice() const
 	{
 		return m_hasAudioDevice;
 	}
 
-	bool CAudio_XAudio28::init()
+	bool CAudio_X28::init()
 	{
 		if (FAILED(m_device.masteringVoice->GetChannelMask(&m_device.channelMask)))
 		{
 			return false;
 		}
 
-		const auto nullAudio = std::make_shared<Audio_XAudio28>(
+		const auto nullAudio = std::make_shared<Audio_X28>(
 			Wave(22050, WaveSample::Zero()),
 			&m_device,
 			none,
@@ -128,14 +128,14 @@ namespace s3d
 		return true;
 	}
 
-	Audio::IDType CAudio_XAudio28::create(Wave&& wave)
+	Audio::IDType CAudio_X28::create(Wave&& wave)
 	{
 		if (!wave)
 		{
 			return Audio::NullHandleID;
 		}
 
-		const auto audio = std::make_shared<Audio_XAudio28>(
+		const auto audio = std::make_shared<Audio_X28>(
 			std::move(wave),
 			&m_device,
 			none,
@@ -149,29 +149,29 @@ namespace s3d
 		return m_audios.add(audio);
 	}
 
-	void CAudio_XAudio28::release(const Audio::IDType handleID)
+	void CAudio_X28::release(const Audio::IDType handleID)
 	{
 		m_audios.erase(handleID);
 	}
 
-	uint32 CAudio_XAudio28::samplingRate(const Audio::IDType handleID)
+	uint32 CAudio_X28::samplingRate(const Audio::IDType handleID)
 	{
 		return m_audios[handleID]->samplingRate();
 	}
 
-	size_t CAudio_XAudio28::samples(const Audio::IDType handleID)
+	size_t CAudio_X28::samples(const Audio::IDType handleID)
 	{
 		return m_audios[handleID]->samples();
 	}
 
-	void CAudio_XAudio28::setLoop(const Audio::IDType handleID, const bool loop, const int64 loopBeginSample, const int64 loopEndSample)
+	void CAudio_X28::setLoop(const Audio::IDType handleID, const bool loop, const int64 loopBeginSample, const int64 loopEndSample)
 	{
 		std::lock_guard<std::mutex> lock(m_mutex);
 
 		m_audios[handleID]->setLoop(loop, loopBeginSample, loopEndSample);
 	}
 
-	bool CAudio_XAudio28::play(const Audio::IDType handleID, const SecondsF& fadeinDuration)
+	bool CAudio_X28::play(const Audio::IDType handleID, const SecondsF& fadeinDuration)
 	{
 		std::lock_guard<std::mutex> lock(m_mutex);
 
@@ -182,7 +182,7 @@ namespace s3d
 			fadeSec);
 	}
 
-	void CAudio_XAudio28::pause(const Audio::IDType handleID, const SecondsF& fadeoutDuration)
+	void CAudio_X28::pause(const Audio::IDType handleID, const SecondsF& fadeoutDuration)
 	{
 		std::lock_guard<std::mutex> lock(m_mutex);
 
@@ -193,7 +193,7 @@ namespace s3d
 			fadeSec);
 	}
 
-	void CAudio_XAudio28::stop(const Audio::IDType handleID, const SecondsF& fadeoutDuration)
+	void CAudio_X28::stop(const Audio::IDType handleID, const SecondsF& fadeoutDuration)
 	{
 		std::lock_guard<std::mutex> lock(m_mutex);
 
@@ -204,28 +204,63 @@ namespace s3d
 			fadeSec);
 	}
 
-	uint64 CAudio_XAudio28::posSample(const Audio::IDType handleID)
+	uint64 CAudio_X28::posSample(const Audio::IDType handleID)
 	{
 		std::lock_guard<std::mutex> lock(m_mutex);
 
 		return m_audios[handleID]->posSample();
 	}
 
-	uint64 CAudio_XAudio28::streamPosSample(const Audio::IDType handleID)
+	uint64 CAudio_X28::streamPosSample(const Audio::IDType handleID)
 	{
 		std::lock_guard<std::mutex> lock(m_mutex);
 
 		return m_audios[handleID]->streamPosSample();
 	}
 	
-	uint64 CAudio_XAudio28::samplesPlayed(const Audio::IDType handleID)
+	uint64 CAudio_X28::samplesPlayed(const Audio::IDType handleID)
 	{
 		std::lock_guard<std::mutex> lock(m_mutex);
 
 		return m_audios[handleID]->samplesPlayed();
 	}
 
-	bool CAudio_XAudio28::updateFade()
+	void CAudio_X28::setVolume(const Audio::IDType handleID, const std::pair<double, double>& volume)
+	{
+		std::lock_guard<std::mutex> lock(m_mutex);
+
+		m_audios[handleID]->setVolume(volume);
+	}
+
+	std::pair<double, double> CAudio_X28::getVolume(const Audio::IDType handleID)
+	{
+		std::lock_guard<std::mutex> lock(m_mutex);
+
+		return m_audios[handleID]->getVolume();
+	}
+
+	void CAudio_X28::setSpeed(const Audio::IDType handleID, const double speed)
+	{
+		std::lock_guard<std::mutex> lock(m_mutex);
+
+		m_audios[handleID]->setSpeed(speed);
+	}
+
+	double CAudio_X28::getSpeed(const Audio::IDType handleID)
+	{
+		std::lock_guard<std::mutex> lock(m_mutex);
+
+		return m_audios[handleID]->getSpeed();
+	}
+
+	std::pair<double, double> CAudio_X28::getMinMaxSpeed(const Audio::IDType handleID)
+	{
+		std::lock_guard<std::mutex> lock(m_mutex);
+
+		return m_audios[handleID]->getMinMaxSpeed();
+	}
+
+	bool CAudio_X28::updateFade()
 	{
 		std::lock_guard<std::mutex> lock(m_mutex);
 
@@ -237,7 +272,7 @@ namespace s3d
 		return fadeManagementEnabled;
 	}
 
-	void CAudio_XAudio28::fadeMasterVolume()
+	void CAudio_X28::fadeMasterVolume()
 	{
 		while (m_masterVolume > 0.0005)
 		{

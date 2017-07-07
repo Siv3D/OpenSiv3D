@@ -248,4 +248,15 @@ namespace s3d
 	{
 		return Siv3DEngine::GetAudio()->samplesPlayed(m_handle->getID());
 	}
+
+	void Audio::setVolumeLR(const double left, const double right) const
+	{
+		const std::pair<double, double> volume =
+		{
+			Clamp(left, 0.0, 1.0),
+			Clamp(right, 0.0, 1.0)
+		};
+
+		Siv3DEngine::GetAudio()->setVolume(m_handle->getID(), volume);
+	}
 }

@@ -95,6 +95,34 @@ namespace s3d
 		return 0;
 	}
 
+	void CAudio_Null::setVolume(const Audio::IDType handleID, const std::pair<double, double>& volume)
+	{
+		// [Siv3D ToDo]
+	}
+
+	std::pair<double, double> CAudio_Null::getVolume(const Audio::IDType handleID)
+	{
+		// [Siv3D ToDo]
+		return{ 1.0,1.0 };
+	}
+
+	void CAudio_Null::setSpeed(const Audio::IDType handleID, const double speed)
+	{
+		// [Siv3D ToDo]
+	}
+
+	double CAudio_Null::getSpeed(const Audio::IDType handleID)
+	{
+		// [Siv3D ToDo]
+		return 1.0;
+	}
+
+	std::pair<double, double> CAudio_Null::getMinMaxSpeed(const Audio::IDType handleID)
+	{
+		// [Siv3D ToDo]
+		return{ 1.0,1.0 };
+	}
+
 	bool CAudio_Null::updateFade()
 	{
 		// [Siv3D ToDo]
