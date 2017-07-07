@@ -13,21 +13,44 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_WINDOWS)
 
+# define  NOMINMAX
+# define  STRICT
+# define  WIN32_LEAN_AND_MEAN
+# define  _WIN32_WINNT _WIN32_WINNT_WIN8
+# define  NTDDI_VERSION NTDDI_WIN8
+# include <Windows.h>
+# include "../../../ThirdParty/XAudio2_7/XAudio2.h"
+# include "../../../ThirdParty/XAudio2_7/XAudio2fx.h"
+# include "../../../ThirdParty/XAudio2_7/X3DAudio.h"
 # include "../IAudio.hpp"
+# include "../../AssetHandleManager/AssetHandleManager.hpp"
+# include "Audio_X27.hpp"
 
 namespace s3d
 {
-	class CAudio_XAudio27 : public ISiv3DAudio
+	class CAudio_X27 : public ISiv3DAudio
 	{
 	private:
 
 		bool m_hasAudioDevice = false;
 
+		AudioDevice_X27 m_device;
+
+		double m_masterVolume = 1.0;
+
+		AssetHandleManager<Audio::IDType, std::shared_ptr<Audio_X27>> m_audios{ S3DSTR("Audio") };
+
+		static std::atomic_bool fadeManagementEnabled;
+
+		std::thread m_fadeManagingThread;
+
+		std::mutex m_mutex;
+
 	public:
 
-		CAudio_XAudio27();
+		CAudio_X27();
 
-		~CAudio_XAudio27() override;
+		~CAudio_X27() override;
 
 		bool hasAudioDevice() const override;
 
@@ -66,7 +89,7 @@ namespace s3d
 		std::pair<double, double> getMinMaxSpeed(Audio::IDType handleID) override;
 
 		bool updateFade() override;
-
+		
 		void fadeMasterVolume() override;
 	};
 }

@@ -52,8 +52,6 @@ namespace s3d
 
 	public:
 
-		static bool IsAvalibale();
-
 		CAudio_X28();
 
 		~CAudio_X28() override;

@@ -9,26 +9,35 @@
 //
 //-----------------------------------------------
 
-# include "X28/CAudio_X28.hpp"
-# include "XAudio27/CAudio_XAudio27.hpp"
 # include "AL/CAudio_AL.hpp"
 # include "Null/CAudio_Null.hpp"
 
 namespace s3d
 {
+# if defined(SIV3D_TARGET_WINDOWS)
+
+	namespace detail
+	{
+		bool CAudio_X28_IsAvailable();
+		ISiv3DAudio* CreateCAudio_X28();
+		ISiv3DAudio* CreateCAudio_X27();
+	}
+
+# endif
+
 	ISiv3DAudio* ISiv3DAudio::Create()
 	{
 	# if defined(SIV3D_TARGET_WINDOWS)
 
 		ISiv3DAudio* pAudio = nullptr;
 
-		if (CAudio_X28::IsAvalibale())
+		if (detail::CAudio_X28_IsAvailable())
 		{
-			pAudio = new CAudio_X28;
+			pAudio = detail::CreateCAudio_X28();
 		}
 		else
 		{
-			pAudio = new CAudio_XAudio27;
+			pAudio = detail::CreateCAudio_X27();
 		}
 
 		if (!pAudio->hasAudioDevice())
