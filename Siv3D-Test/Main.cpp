@@ -2,7 +2,7 @@
 
 void Main()
 {
-	const Audio audio(L"example/test.wav", Arg::loopBegin = 1.5s, Arg::loopEnd = 44.5s);
+	const Audio audio(L"example/test.wav");
 
 	audio.play();
 
