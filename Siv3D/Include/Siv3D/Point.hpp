@@ -189,18 +189,18 @@ namespace s3d
 			return *this = p;
 		}
 
-		constexpr Point movedBy(const int32 _x, const int32 _y) const noexcept
+		S3D_NODISCARD constexpr Point movedBy(const int32 _x, const int32 _y) const noexcept
 		{
 			return{ x + _x, y + _y };
 		}
 
-		constexpr Point movedBy(const Point& p) const noexcept
+		S3D_NODISCARD constexpr Point movedBy(const Point& p) const noexcept
 		{
 			return{ x + p.x, y + p.y };
 		}
 
 		template <class Type>
-		constexpr Vector2D<Type> movedBy(const Vector2D<Type>& v) const noexcept;
+		S3D_NODISCARD constexpr Vector2D<Type> movedBy(const Vector2D<Type>& v) const noexcept;
 
 		constexpr Point& moveBy(int32 _x, int32 _y) noexcept
 		{

@@ -7,7 +7,7 @@ class FID
 private:
 	const size_t smallSize = 8; // lg(n) / 2
 	const size_t largeSize = 256; // lg(n) ^ 2
-	const size_t popCountLength = 256; // 2^smallSize
+	//const size_t popCountLength = 256; // 2^smallSize
 
 	uint16_t* blockLarge; // lg n bit per element
 	uint8_t* blockSmall; // lg largeSize bit per element
