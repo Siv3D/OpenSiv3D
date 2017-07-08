@@ -12,6 +12,7 @@
 # pragma once
 # include <cmath>
 # include <utility>
+# include "Platform.hpp"
 # include "Fwd.hpp"
 # include "Point.hpp"
 # include "Format.hpp"
@@ -317,7 +318,11 @@ namespace s3d
 		}
 
 		template <class Shape2DType>
+# if defined (SIV3D_TARGET_LINUX)
+		bool intersects(const Shape2DType& shape)
+# else
 		bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
+# endif
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
