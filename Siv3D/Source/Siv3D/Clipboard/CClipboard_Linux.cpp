@@ -12,6 +12,9 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_LINUX)
 
+# include <GL/glew.h>
+# include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
+# include "../Siv3DEngine.hpp"
 # include "CClipboard_Linux.hpp"
 
 namespace s3d
@@ -28,7 +31,8 @@ namespace s3d
 
 	bool CClipboard_Linux::init()
 	{
-		// [Siv3D ToDo]
+		m_glfwWindow = Siv3DEngine::GetWindow()->getHandle();
+
 		return true;
 	}
 
@@ -38,10 +42,16 @@ namespace s3d
 		return false;
 	}
 
-	bool CClipboard_Linux::getText(String&)
+	bool CClipboard_Linux::getText(String& text)
 	{
-		// [Siv3D ToDo]
-		return false;
+		const char* glfwText = glfwGetClipboardString(m_glfwWindow);
+		if (glfwText == nullptr)
+			return false;
+		else
+		{
+			text = CharacterSet::Widen(glfwText);
+			return true;
+		}
 	}
 
 	bool CClipboard_Linux::getImage(Image&)
@@ -58,7 +68,7 @@ namespace s3d
 
 	void CClipboard_Linux::setText(const String& text)
 	{
-		// [Siv3D ToDo]
+		glfwSetClipboardString(m_glfwWindow, text.narrow().c_str());
 	}
 
 	void CClipboard_Linux::setImage(const Image& image)
@@ -68,7 +78,7 @@ namespace s3d
 
 	void CClipboard_Linux::clear()
 	{
-		// [Siv3D ToDo]
+		glfwSetClipboardString(m_glfwWindow, "");
 	}
 }
 
