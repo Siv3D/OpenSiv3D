@@ -129,11 +129,34 @@ namespace s3d
 
 		constexpr iterator end() const noexcept { return m_end_iterator; }
 
-		constexpr Point first_value() const noexcept { return m_start; }
+		constexpr Point startValue() const noexcept { return m_start; }
 		
-		constexpr Size size() const noexcept { return m_step_count; }
-		
-		constexpr Size step_length() const noexcept { return m_step_length; }
+		constexpr Size count() const noexcept { return m_step_count; }
+
+		constexpr int32 num_elements() const noexcept { return m_step_count.x * m_step_count.y; }
+
+		constexpr Size step() const noexcept { return m_step_length; }
+
+		constexpr bool isEmpty() const { return (m_step_count.x == 0 || m_step_count.y == 0); }
+
+		Array<Point> asArray() const
+		{
+			Array<Point> new_array;
+
+			if (isEmpty())
+			{
+				return new_array;
+			}
+
+			new_array.reserve(num_elements());
+
+			for (auto it = m_start_iterator; it != m_end_iterator; ++it)
+			{
+				new_array.push_back(*it);
+			}
+
+			return new_array;
+		}
 	};
 
 	inline constexpr auto step(Size n) noexcept
@@ -154,5 +177,20 @@ namespace s3d
 	inline constexpr auto step_backward(Size n) noexcept
 	{
 		return steps_class2D(n - Point(1, 1), n, Size(-1, -1));
+	}
+
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	//               Iota [beg, end)
+	//
+
+	inline constexpr auto Iota2D(Size end)
+	{
+		return steps_class2D(Point(0, 0), end, Point(1, 1));
+	}
+
+	inline constexpr auto Iota2D(int32 xEnd, int32 yEnd)
+	{
+		return Iota2D(Size(xEnd, yEnd));
 	}
 }

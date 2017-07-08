@@ -10,13 +10,25 @@
 //-----------------------------------------------
 
 # include <Siv3D/Vector2D.hpp>
+# include <Siv3D/Rectangle.hpp>
 
 namespace s3d
 {
-# ifndef SIV3D_TARGET_LINUX
-	template Float2;
-	template Vec2;
-# endif
+	template <class Type>
+	Vector2D<Type>& Vector2D<Type>::clamp(const RectF& rect) noexcept
+	{
+		x = Clamp(x, static_cast<value_type>(rect.x), static_cast<value_type>(rect.x + rect.w));
+		y = Clamp(y, static_cast<value_type>(rect.y), static_cast<value_type>(rect.y + rect.h));
+		return *this;
+	}
+
+	template <class Type>
+	Vector2D<Type> Vector2D<Type>::clamped(const RectF& rect) noexcept
+	{
+		return{ 
+			Clamp(x, static_cast<value_type>(rect.x), static_cast<value_type>(rect.x + rect.w)),
+			Clamp(y, static_cast<value_type>(rect.y), static_cast<value_type>(rect.y + rect.h)) };
+	}
 
 	void Formatter(FormatData& formatData, const Float2& value)
 	{
@@ -31,4 +43,7 @@ namespace s3d
 		formatData.string.append(ToString(value.y, formatData.decimalPlace.value));
 		formatData.string.push_back(L')');
 	}
+	
+	template struct Vector2D<float>;
+	template struct Vector2D<double>;
 }

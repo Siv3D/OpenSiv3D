@@ -126,7 +126,7 @@ namespace s3d
 
 		String name() const
 		{
-			return m_keys.join(L"|") + m_keyConjunctions.join(L"|");
+			return m_keys.join(S3DSTR("|")) + m_keyConjunctions.join(S3DSTR("|"));
 		}
 	};
 

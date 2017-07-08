@@ -15,6 +15,7 @@
 # include "../Siv3DEngine.hpp"
 # include "CSystem_Windows.hpp"
 # include "../Logger/ILogger.hpp"
+# include "../CPU/ICPU.hpp"
 # include "../ImageFormat/IImageFormat.hpp"
 # include "../Window/IWindow.hpp"
 # include "../Profiler/IProfiler.hpp"
@@ -23,17 +24,19 @@
 # include "../Cursor/ICursor.hpp"
 # include "../Keyboard/IKeyboard.hpp"
 # include "../Mouse/IMouse.hpp"
+# include "../TextInput/ITextInput.hpp"
+# include "../AudioFormat/IAudioFormat.hpp"
+# include "../Audio/IAudio.hpp"
 # include "../Graphics/IGraphics.hpp"
+# include "../Font/IFont.hpp"
+# include "../Print/IPrint.hpp"
+# include "../ScreenCapture/IScreenCapture.hpp"
+# include "../Effect/IEffect.hpp"
 
 # include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
-	namespace WindowEvent
-	{
-		static constexpr uint32 ExitFlag = 0x10000000;
-	}
-
 	CSystem_Windows::CSystem_Windows()
 	{
 
@@ -47,6 +50,11 @@ namespace s3d
 	bool CSystem_Windows::init()
 	{
 		if (!Siv3DEngine::GetLogger()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetCPU()->init())
 		{
 			return false;
 		}
@@ -91,21 +99,60 @@ namespace s3d
 			return false;
 		}
 
+		if (!Siv3DEngine::GetTextInput()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetAudioFormat()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetAudio()->init())
+		{
+			return false;
+		}
+
 		if (!Siv3DEngine::GetGraphics()->init())
 		{
 			return false;
 		}
 
-		return true;
-	}
+		if (!Siv3DEngine::GetFont()->init())
+		{
+			return false;
+		}
 
-	void CSystem_Windows::exit()
-	{
-		m_event |= WindowEvent::ExitFlag;
+		if (!Siv3DEngine::GetPrint()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetScreenCapture()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetEffect()->init())
+		{
+			return false;
+		}
+
+		m_setupState = SetupState::Initialized;
+
+		return true;
 	}
 
 	bool CSystem_Windows::update()
 	{
+		if (m_setupState == SetupState::Initialized)
+		{
+			Siv3DEngine::GetWindow()->show();
+
+			m_setupState = SetupState::Displayed;
+		}
+
 		m_previousEvent = m_event.exchange(0);
 
 		if (const auto event = m_previousEvent & (WindowEvent::ExitFlag | m_exitEvent))
@@ -117,6 +164,8 @@ namespace s3d
 		{
 			return false;
 		}
+
+		Siv3DEngine::GetPrint()->draw();
 
 		if (!Siv3DEngine::GetGraphics()->flush())
 		{
@@ -132,6 +181,16 @@ namespace s3d
 
 		Siv3DEngine::GetProfiler()->beginFrame();
 
+		if (!Siv3DEngine::GetScreenCapture()->update())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetProfiler()->reportAssetNextFrame())
+		{
+			return false;
+		}
+
 		++m_systemFrameCount;
 		++m_userFrameCount;
 
@@ -144,13 +203,13 @@ namespace s3d
 
 		Siv3DEngine::GetDragDrop()->update();
 
-		Siv3DEngine::GetClipboard()->update();
-
 		Siv3DEngine::GetCursor()->update();
 
 		Siv3DEngine::GetKeyboard()->update();
 
 		Siv3DEngine::GetMouse()->update();
+
+		Siv3DEngine::GetTextInput()->update();
 
 		return true;
 	}
@@ -158,6 +217,16 @@ namespace s3d
 	void CSystem_Windows::reportEvent(const uint32 windowEventFlag)
 	{
 		m_event |= windowEventFlag;
+	}
+
+	void CSystem_Windows::setExitEvent(const uint32 windowEventFlag)
+	{
+		m_exitEvent = windowEventFlag;
+	}
+
+	uint32 CSystem_Windows::getPreviousEvent() const
+	{
+		return m_previousEvent;
 	}
 
 	uint64 CSystem_Windows::getSystemFrameCount() const noexcept

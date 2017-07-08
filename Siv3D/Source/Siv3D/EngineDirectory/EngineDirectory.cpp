@@ -19,12 +19,12 @@ namespace s3d
 	{
 		FilePath CurrectVersionCommon()
 		{
-			return FileSystem::SpecialFolderPath(SpecialFolder::LocalAppData) + L"Siv3D/OpenSiv3D" Siv3DVersion L"/";
+			return FileSystem::SpecialFolderPath(SpecialFolder::LocalAppData) + S3DSTR("Siv3D/") Siv3DVersion S3DSTR("/");
 		}
 
 		FilePath LicensePath()
 		{
-			return CurrectVersionCommon() + L"Licenses.html";
+			return CurrectVersionCommon() + S3DSTR("Licenses.html");
 		}
 	}
 }

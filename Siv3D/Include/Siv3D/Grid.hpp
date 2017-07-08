@@ -243,11 +243,14 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の要素への参照
 		/// </returns>
-		Type& at(const size_type y, const size_type x)
+		Type& at(const size_type y, const size_type x) &
 		{
-			// See "Avoid Duplication in const and Non-const Member Function," on pp. 23,
-			// in Item 3 "Use const whenever possible," in Effective C++ 3rd edition, by Scott Meyers.
-			return const_cast<Type&>(static_cast<const Grid&>(*this).at(y, x));
+			if (!inBounds(y, x))
+			{
+				throw std::out_of_range("Grid::at() index out of range");
+			}
+
+			return m_data[y * m_width + x];
 		}
 		
 		/// <summary>
@@ -265,7 +268,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の要素への参照
 		/// </returns>
-		const Type& at(const size_type y, const size_type x) const
+		const Type& at(const size_type y, const size_type x) const &
 		{
 			if (!inBounds(y, x))
 			{
@@ -276,10 +279,13 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// 指定した位置の要素への参照を返します。
+		/// 指定した位置の要素を取得します。
 		/// </summary>
-		/// <param name="pos">
-		/// 位置(列と行)
+		/// <param name="y">
+		/// 位置(行)
+		/// </param>
+		/// <param name="x">
+		/// 位置(列)
 		/// </param>
 		/// <exception cref="std::out_of_range">
 		/// 範囲外アクセスの場合 throw されます。
@@ -287,9 +293,14 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の要素への参照
 		/// </returns>
-		Type& at(const Point& pos)
+		Type at(const size_type y, const size_type x) &&
 		{
-			return const_cast<Type&>(static_cast<const Grid&>(*this).at(pos));
+			if (!inBounds(y, x))
+			{
+				throw std::out_of_range("Grid::at() index out of range");
+			}
+
+			return std::move(m_data[y * m_width + x]);
 		}
 
 		/// <summary>
@@ -304,7 +315,41 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の要素への参照
 		/// </returns>
-		const Type& at(const Point& pos) const
+		Type& at(const Point& pos) &
+		{
+			return at(pos.y, pos.x);
+		}
+
+		/// <summary>
+		/// 指定した位置の要素への参照を返します。
+		/// </summary>
+		/// <param name="pos">
+		/// 位置(列と行)
+		/// </param>
+		/// <exception cref="std::out_of_range">
+		/// 範囲外アクセスの場合 throw されます。
+		/// </exception>
+		/// <returns>
+		/// 指定した位置の要素への参照
+		/// </returns>
+		const Type& at(const Point& pos) const &
+		{
+			return at(pos.y, pos.x);
+		}
+
+		/// <summary>
+		/// 指定した位置の要素を取得します。
+		/// </summary>
+		/// <param name="pos">
+		/// 位置(列と行)
+		/// </param>
+		/// <exception cref="std::out_of_range">
+		/// 範囲外アクセスの場合 throw されます。
+		/// </exception>
+		/// <returns>
+		/// 指定した位置の要素への参照
+		/// </returns>
+		Type at(const Point& pos) &&
 		{
 			return at(pos.y, pos.x);
 		}
@@ -323,7 +368,7 @@ namespace s3d
 		/// </returns>
 		Type* operator[](const size_t index)
 		{
-			return const_cast<Type&>(static_cast<const Grid&>(*this)[index]);
+			return &m_data[index * m_width];
 		}
 
 		/// <summary>
@@ -352,9 +397,9 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の要素への参照
 		/// </returns>
-		Type& operator[](const Point& pos)
+		Type& operator[](const Point& pos) &
 		{
-			return const_cast<Type&>(static_cast<const Grid&>(*this)[pos]);
+			return m_data[pos.y * m_width + pos.x];
 		}
 
 		/// <summary>
@@ -366,9 +411,23 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の要素への参照
 		/// </returns>
-		const Type& operator[](const Point& pos) const
+		const Type& operator[](const Point& pos) const &
 		{
 			return m_data[pos.y * m_width + pos.x];
+		}
+
+		/// <summary>
+		/// 指定した位置の要素を取得します。
+		/// </summary>
+		/// <param name="pos">
+		/// 位置(列と行)
+		/// </param>
+		/// <returns>
+		/// 指定した位置の要素
+		/// </returns>
+		Type operator[](const Point& pos) &&
+		{
+			return std::move(m_data[pos.y * m_width + pos.x]);
 		}
 
 		bool inBounds(const int64 y, const int64 x) const noexcept
@@ -939,9 +998,9 @@ namespace s3d
 			{
 				pointer p = m_data.data();
 
-				for (int32 y = 0; y < m_height; ++y)
+				for (size_t y = 0; y < m_height; ++y)
 				{
-					for (int32 x = 0; x < m_width; ++x)
+					for (size_t x = 0; x < m_width; ++x)
 					{
 						f({ x,y }, *p++);
 					}
@@ -958,9 +1017,9 @@ namespace s3d
 			{
 				const_pointer p = m_data.data();
 
-				for (int32 y = 0; y < m_height; ++y)
+				for (size_t y = 0; y < m_height; ++y)
 				{
-					for (int32 x = 0; x < m_width; ++x)
+					for (size_t x = 0; x < m_width; ++x)
 					{
 						f({ x,y }, *p++);
 					}
@@ -1393,7 +1452,7 @@ namespace s3d
 	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
 	inline void Formatter(FormatData& formatData, const Grid<Type, Allocator>& grid)
 	{
-		formatData.string.push_back(L'{');
+		formatData.string.push_back(S3DCHAR('{'));
 
 		bool isFirst = true;
 
@@ -1405,15 +1464,15 @@ namespace s3d
 			}
 			else
 			{
-				formatData.string.push_back(L',');
+				formatData.string.push_back(S3DCHAR(','));
 
-				formatData.string.push_back(L'\n');
+				formatData.string.push_back(S3DCHAR('\n'));
 			}
 
 			Formatter(formatData, grid[y], grid[y] + grid.width());
 		}
 
-		formatData.string.push_back(L'}');
+		formatData.string.push_back(S3DCHAR('}'));
 	}
 
 	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>

@@ -24,10 +24,8 @@ namespace s3d
 		close();
 	}
 
-	bool INIReader::CINIReader::open(const FilePath& path, const bool trackFile)
+	bool INIReader::CINIReader::open(const FilePath& path, const bool)
 	{
-		trackFile;
-
 		close();
 
 		TextReader textReader(path);

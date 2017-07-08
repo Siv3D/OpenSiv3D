@@ -60,4 +60,19 @@ namespace s3d
 	/// 文字
 	/// </summary>
 	using wchar = wchar_t;
+
+	/// <summary>
+	/// 文字プレフィックス
+	/// </summary>
+	# define S3DCHAR(x)      L ## x
+
+	/// <summary>
+	/// 文字列プレフィックス
+	/// </summary>
+	# define S3DSTR(x)      L ## x
+
+	/// <summary>
+	/// 文字列プレフィックス
+	/// </summary>
+	# define S3DWSTR(x)      L ## x
 }

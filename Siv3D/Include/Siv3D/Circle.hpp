@@ -13,6 +13,8 @@
 # include "Fwd.hpp"
 # include "PointVector.hpp"
 # include "Line.hpp"
+# include "Array.hpp"
+# include "Geometry2D.hpp"
 # include "MathConstants.hpp"
 # include "NamedParameter.hpp"
 
@@ -185,6 +187,14 @@ namespace s3d
 			: center(bottomRight->x - _r, bottomRight->y - _r)
 			, r(_r) {}
 
+		constexpr Circle(Arg::topCenter_<position_type> topCenter, size_type _r) noexcept
+			: center(topCenter->x, topCenter->y + _r)
+			, r(_r) {}
+
+		constexpr Circle(Arg::bottomCenter_<position_type> bottomCenter, size_type _r) noexcept
+			: center(bottomCenter->x, bottomCenter->y - _r)
+			, r(_r) {}
+
 		Circle(const position_type& p0, const position_type& p1) noexcept
 			: center((p0 + p1) / 2.0)
 			, r(p0.distanceFrom(p1) / 2.0) {}
@@ -246,6 +256,16 @@ namespace s3d
 			return set(bottomRight->x - _r, bottomRight->y - _r, _r);
 		}
 
+		constexpr Circle& set(Arg::topCenter_<position_type> topCenter, size_type _r) noexcept
+		{
+			return set(topCenter->x, topCenter->y + _r, _r);
+		}
+
+		constexpr Circle& set(Arg::bottomCenter_<position_type> bottomCenter, size_type _r) noexcept
+		{
+			return set(bottomCenter->x, bottomCenter->y - _r, _r);
+		}
+
 		constexpr Circle& set(const Circle& circle) noexcept
 		{
 			return *this = circle;
@@ -297,6 +317,16 @@ namespace s3d
 			return setCenter(bottomRight->x - r, bottomRight->y - r);
 		}
 
+		constexpr Circle& setPos(Arg::topCenter_<position_type> topCenter) noexcept
+		{
+			return setCenter(topCenter->x, topCenter->y + r);
+		}
+
+		constexpr Circle& setPos(Arg::bottomCenter_<position_type> bottomCenter) noexcept
+		{
+			return setCenter(bottomCenter->x, bottomCenter->y - r);
+		}
+
 		constexpr Circle& setR(double _r) noexcept
 		{
 			r = _r;
@@ -329,20 +359,14 @@ namespace s3d
 			return Circle(center, r + size);
 		}
 
-		//constexpr Ellipse stretched(double _x, double _y) const noexcept
-		//{
-		//	return Ellipse(center, r + _x, r + _y);
-		//}
+		Ellipse stretched(double _x, double _y) const noexcept;
 
 		constexpr Circle scaled(double s) const noexcept
 		{
 			return Circle(center, r * s);
 		}
 
-		//constexpr Ellipse scaled(double sx, double sy) const noexcept
-		//{
-		//	return Ellipse(center, r * sx, r * sy);
-		//}
+		Ellipse scaled(double sx, double sy) const noexcept;
 
 		constexpr position_type top() const noexcept
 		{
@@ -364,7 +388,7 @@ namespace s3d
 			return{ center.x - r, center.y };
 		}
 
-		constexpr Line diameter() const noexcept
+		constexpr Line lineDiameter() const noexcept
 		{
 			return{ left(), right() };
 		}
@@ -379,17 +403,168 @@ namespace s3d
 			return 2 * r * Math::Pi;
 		}
 
-		// intersects
+		template <class Shape2DType>
+		bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
+		{
+			return Geometry2D::Intersect(*this, shape);
+		}
 
-		// contains
+		template <class Shape2DType>
+		Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::IntersectAt(*this, shape)))
+		{
+			return Geometry2D::IntersectAt(*this, shape);
+		}
 
-		// leftClicked() leftPressed() leftReleased()
+		template <class Shape2DType>
+		bool contains(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Contains(*this, shape)))
+		{
+			return Geometry2D::Contains(*this, shape);
+		}
 
-		// rightClicked() rightPressed() rightReleased()
+		bool leftClicked() const;
 
-		// mouseOver()
+		bool leftPressed() const;
+
+		bool leftReleased() const;
+
+		bool rightClicked() const;
+
+		bool rightPressed() const;
+
+		bool rightReleased() const;
+
+		bool mouseOver() const;
 
 		// paint~ overpaint~ draw~
+
+		/// <summary>
+		/// 円を描きます。
+		/// </summary>
+		/// <param name="color">
+		/// 色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Circle& draw(const ColorF& color = Palette::White) const;
+
+		/// <summary>
+		/// 円の枠を描きます。
+		/// </summary>
+		/// <param name="thickness">
+		/// 枠の太さ
+		/// </param>
+		/// <param name="color">
+		/// 色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Circle& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const
+		{
+			return drawFrame(thickness * 0.5, thickness * 0.5, color);
+		}
+
+		/// <summary>
+		/// 円の枠を描きます。
+		/// </summary>
+		/// <param name="innerThickness">
+		/// 内側の太さ
+		/// </param>
+		/// <param name="outerThickness">
+		/// 外側の太さ
+		/// </param>
+		/// <param name="color">
+		/// 色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Circle& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
+
+		/// <summary>
+		/// 円の枠を描きます。
+		/// </summary>
+		/// <param name="innerThickness">
+		/// 内側の太さ
+		/// </param>
+		/// <param name="outerThickness">
+		/// 外側の太さ
+		/// </param>
+		/// <param name="innerColor">
+		/// 色
+		/// </param>
+		/// <param name="outerColor">
+		/// 色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Circle& drawFrame(double innerThickness, double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const;
+
+		/// <summary>
+		/// 扇形を描きます。
+		/// </summary>
+		/// <param name="startAngle">
+		/// 開始角度
+		/// </param>
+		/// <param name="angle">
+		/// 角度
+		/// </param>
+		/// <param name="color">
+		/// 色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Circle& drawPie(double startAngle, double angle, const ColorF& color = Palette::White) const;
+
+		/// <summary>
+		/// 弧を描きます。
+		/// </summary>
+		/// <param name="startAngle">
+		/// 開始角度
+		/// </param>
+		/// <param name="angle">
+		/// 角度
+		/// </param>
+		/// <param name="innerThickness">
+		/// 内側の太さ
+		/// </param>
+		/// <param name="outerThickness">
+		/// 外側の太さ
+		/// </param>
+		/// <param name="color">
+		/// 色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Circle& drawArc(double startAngle, double angle, double innerThickness = 1.0, double outerThickness = 0.0, const ColorF& color = Palette::White) const;
+
+		/// <summary>
+		/// 円の影を描きます。
+		/// </summary>
+		/// <param name="offset">
+		/// 影の移動量（ピクセル）
+		/// </param>
+		/// <param name="blurRadius">
+		/// 影のぼかしの大きさ（ピクセル）
+		/// </param>
+		/// <param name="spread">
+		/// 長方形の広がり（ピクセル）
+		/// </param>
+		/// <param name="color">
+		/// 影の色
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		const Circle& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF(0.0, 0.5)) const;
+
+		TexturedCircle operator ()(const Texture& texture) const;
+
+		TexturedCircle operator ()(const TextureRegion& textureRegion) const;
 
 		// Polygon asPolygon() const;
 	};
@@ -464,7 +639,7 @@ namespace fmt
 	{
 		const auto tag = s3d::detail::GetTag(format_str);
 
-		const auto fmt = L"({" + tag + L"},{" + tag + L"},{" + tag + L"})";
+		const auto fmt = S3DSTR("({") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("})");
 
 		f.writer().write(fmt, circle.x, circle.y, circle.r);
 	}

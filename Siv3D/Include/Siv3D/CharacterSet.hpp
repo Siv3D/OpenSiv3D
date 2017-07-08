@@ -210,6 +210,8 @@ namespace s3d
 
 		std::array<char16_t, 2> GetUTF16CodePoint(char32_t ch);
 
+		size_t CountCodePoints(StringView str);
+
 		/// <summary>
 		/// 文字列をパーセントエンコードします。
 		/// </summary>

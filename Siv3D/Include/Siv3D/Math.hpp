@@ -19,8 +19,6 @@ namespace s3d
 {
 	namespace detail
 	{
-		constexpr double cRadians = Math::TwoPi / 360.0;
-		constexpr double cDegrees = 360.0 / Math::TwoPi;
 		constexpr __m128d cV0{ 0.0, 0.0 };
 		constexpr __m128d cV0_5{ 0.5, 0.5 };
 		constexpr __m128d cV1{ 1.0, 1.0 };
@@ -756,6 +754,641 @@ namespace s3d
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		//
 
+		/// <summary>
+		/// 符号を示す値を返します。
+		/// </summary>
+		inline constexpr float Sign(float x) noexcept
+		{
+			return x < 0.0f ? -1.0f : x > 0.0f ? 1.0f : 0.0f;
+		}
 
+		/// <summary>
+		/// 符号を示す値を返します。
+		/// </summary>
+		inline constexpr double Sign(double x) noexcept
+		{
+			return x < 0.0 ? -1.0 : x > 0.0 ? 1.0 : 0.0;
+		}
+
+		/// <summary>
+		/// 符号を示す値を返します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		inline constexpr double Sign(Type x) noexcept
+		{
+			return Sign(static_cast<double>(x));
+		}
+
+		/// <summary>
+		/// 符号を示す値を返します。
+		/// </summary>
+		inline constexpr Vec2 Sign(const Point& v) noexcept
+		{
+			return{ Sign(v.x), Sign(v.y) };
+		}
+
+		/// <summary>
+		/// 符号を示す値を返します。
+		/// </summary>
+		inline constexpr Float2 Sign(const Float2& v) noexcept
+		{
+			return{ Sign(v.x), Sign(v.y) };
+		}
+
+		/// <summary>
+		/// 符号を示す値を返します。
+		/// </summary>
+		inline constexpr Float3 Sign(const Float3& v) noexcept
+		{
+			return{ Sign(v.x), Sign(v.y), Sign(v.z) };
+		}
+
+		/// <summary>
+		/// 符号を示す値を返します。
+		/// </summary>
+		inline constexpr Float4 Sign(const Float4& v) noexcept
+		{
+			return{ Sign(v.x), Sign(v.y), Sign(v.z), Sign(v.w) };
+		}
+
+		/// <summary>
+		/// 符号を示す値を返します。
+		/// </summary>
+		inline constexpr Vec2 Sign(const Vec2& v) noexcept
+		{
+			return{ Sign(v.x), Sign(v.y) };
+		}
+
+		/// <summary>
+		/// 符号を示す値を返します。
+		/// </summary>
+		inline constexpr Vec3 Sign(const Vec3& v) noexcept
+		{
+			return{ Sign(v.x), Sign(v.y), Sign(v.z) };
+		}
+
+		/// <summary>
+		/// 符号を示す値を返します。
+		/// </summary>
+		inline constexpr Vec4 Sign(const Vec4& v) noexcept
+		{
+			return{ Sign(v.x), Sign(v.y), Sign(v.z), Sign(v.w) };
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// 度数法からラジアンに変換します。
+		/// </summary>
+		inline constexpr float Radians(float x) noexcept
+		{
+			return x * (PiF / 180.0f);
+		}
+
+		/// <summary>
+		/// 度数法からラジアンに変換します。
+		/// </summary>
+		inline constexpr double Radians(double x) noexcept
+		{
+			return x * (Pi / 180.0);
+		}
+
+		/// <summary>
+		/// 度数法からラジアンに変換します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		inline constexpr double Radians(Type x) noexcept
+		{
+			return Radians(static_cast<double>(x));
+		}
+
+		/// <summary>
+		/// 度数法からラジアンに変換します。
+		/// </summary>
+		inline constexpr Vec2 Radians(const Point& v) noexcept
+		{
+			return{ Radians(v.x), Radians(v.y) };
+		}
+
+		/// <summary>
+		/// 度数法からラジアンに変換します。
+		/// </summary>
+		inline constexpr Float2 Radians(const Float2& v) noexcept
+		{
+			return{ Radians(v.x), Radians(v.y) };
+		}
+
+		/// <summary>
+		/// 度数法からラジアンに変換します。
+		/// </summary>
+		inline constexpr Float3 Radians(const Float3& v) noexcept
+		{
+			return{ Radians(v.x), Radians(v.y), Radians(v.z) };
+		}
+
+		/// <summary>
+		/// 度数法からラジアンに変換します。
+		/// </summary>
+		inline constexpr Float4 Radians(const Float4& v) noexcept
+		{
+			return{ Radians(v.x), Radians(v.y), Radians(v.z), Radians(v.w) };
+		}
+
+		/// <summary>
+		/// 度数法からラジアンに変換します。
+		/// </summary>
+		inline constexpr Vec2 Radians(const Vec2& v) noexcept
+		{
+			return{ Radians(v.x), Radians(v.y) };
+		}
+
+		/// <summary>
+		/// 度数法からラジアンに変換します。
+		/// </summary>
+		inline constexpr Vec3 Radians(const Vec3& v) noexcept
+		{
+			return{ Radians(v.x), Radians(v.y), Radians(v.z) };
+		}
+
+		/// <summary>
+		/// 度数法からラジアンに変換します。
+		/// </summary>
+		inline constexpr Vec4 Radians(const Vec4& v) noexcept
+		{
+			return{ Radians(v.x), Radians(v.y), Radians(v.z), Radians(v.w) };
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// ラジアンから度数法に変換します。
+		/// </summary>
+		inline constexpr float Degrees(float x) noexcept
+		{
+			return x * (180.0f / PiF);
+		}
+
+		/// <summary>
+		/// ラジアンから度数法に変換します。
+		/// </summary>
+		inline constexpr double Degrees(double x) noexcept
+		{
+			return x * (180.0 / Pi);
+		}
+
+		/// <summary>
+		/// ラジアンから度数法に変換します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		inline constexpr double Degrees(Type x) noexcept
+		{
+			return Degrees(static_cast<double>(x));
+		}
+
+		/// <summary>
+		/// ラジアンから度数法に変換します。
+		/// </summary>
+		inline constexpr Vec2 Degrees(const Point& v) noexcept
+		{
+			return{ Degrees(v.x), Degrees(v.y) };
+		}
+
+		/// <summary>
+		/// ラジアンから度数法に変換します。
+		/// </summary>
+		inline constexpr Float2 Degrees(const Float2& v) noexcept
+		{
+			return{ Degrees(v.x), Degrees(v.y) };
+		}
+
+		/// <summary>
+		/// ラジアンから度数法に変換します。
+		/// </summary>
+		inline constexpr Float3 Degrees(const Float3& v) noexcept
+		{
+			return{ Degrees(v.x), Degrees(v.y), Degrees(v.z) };
+		}
+
+		/// <summary>
+		/// ラジアンから度数法に変換します。
+		/// </summary>
+		inline constexpr Float4 Degrees(const Float4& v) noexcept
+		{
+			return{ Degrees(v.x), Degrees(v.y), Degrees(v.z), Degrees(v.w) };
+		}
+
+		/// <summary>
+		/// ラジアンから度数法に変換します。
+		/// </summary>
+		inline constexpr Vec2 Degrees(const Vec2& v) noexcept
+		{
+			return{ Degrees(v.x), Degrees(v.y) };
+		}
+
+		/// <summary>
+		/// ラジアンから度数法に変換します。
+		/// </summary>
+		inline constexpr Vec3 Degrees(const Vec3& v) noexcept
+		{
+			return{ Degrees(v.x), Degrees(v.y), Degrees(v.z) };
+		}
+
+		/// <summary>
+		/// ラジアンから度数法に変換します。
+		/// </summary>
+		inline constexpr Vec4 Degrees(const Vec4& v) noexcept
+		{
+			return{ Degrees(v.x), Degrees(v.y), Degrees(v.z), Degrees(v.w) };
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// 絶対値を返します。
+		/// </summary>
+		inline constexpr float Abs(float x) noexcept
+		{
+			return x >= 0.0f ? x : -x;
+		}
+
+		/// <summary>
+		/// 絶対値を返します。
+		/// </summary>
+		inline constexpr double Abs(double x) noexcept
+		{
+			return x >= 0.0 ? x : -x;
+		}
+
+		/// <summary>
+		/// 絶対値を返します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_signed<Type>::value>* = nullptr>
+		inline constexpr Type Abs(Type x) noexcept
+		{
+			return x >= Type(0) ? x : -x;
+		}
+
+		/// <summary>
+		/// 絶対値を返します。
+		/// </summary>
+		inline constexpr Vec2 Abs(const Point& v) noexcept
+		{
+			return{ Abs(v.x), Abs(v.y) };
+		}
+
+		/// <summary>
+		/// 絶対値を返します。
+		/// </summary>
+		inline constexpr Float2 Abs(const Float2& v) noexcept
+		{
+			return{ Abs(v.x), Abs(v.y) };
+		}
+
+		/// <summary>
+		/// 絶対値を返します。
+		/// </summary>
+		inline constexpr Float3 Abs(const Float3& v) noexcept
+		{
+			return{ Abs(v.x), Abs(v.y), Abs(v.z) };
+		}
+
+		/// <summary>
+		/// 絶対値を返します。
+		/// </summary>
+		inline constexpr Float4 Abs(const Float4& v) noexcept
+		{
+			return{ Abs(v.x), Abs(v.y), Abs(v.z), Abs(v.w) };
+		}
+
+		/// <summary>
+		/// 絶対値を返します。
+		/// </summary>
+		inline constexpr Vec2 Abs(const Vec2& v) noexcept
+		{
+			return{ Abs(v.x), Abs(v.y) };
+		}
+
+		/// <summary>
+		/// 絶対値を返します。
+		/// </summary>
+		inline constexpr Vec3 Abs(const Vec3& v) noexcept
+		{
+			return{ Abs(v.x), Abs(v.y), Abs(v.z) };
+		}
+
+		/// <summary>
+		/// 絶対値を返します。
+		/// </summary>
+		inline constexpr Vec4 Abs(const Vec4& v) noexcept
+		{
+			return{ Abs(v.x), Abs(v.y), Abs(v.z), Abs(v.w) };
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// 平方を計算します。
+		/// </summary>
+		inline constexpr float Square(float x) noexcept
+		{
+			return x * x;
+		}
+
+		/// <summary>
+		/// 平方を計算します。
+		/// </summary>
+		inline constexpr double Square(double x) noexcept
+		{
+			return x * x;
+		}
+
+		/// <summary>
+		/// 平方を計算します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		inline constexpr double Square(Type x) noexcept
+		{
+			return Square(static_cast<double>(x));
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// e^x を計算します。
+		/// </summary>
+		inline float Exp(float x)
+		{
+			return std::exp(x);
+		}
+
+		/// <summary>
+		/// e^x を計算します。
+		/// </summary>
+		inline double Exp(double x)
+		{
+			return std::exp(x);
+		}
+
+		/// <summary>
+		/// e^x を計算します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		inline double Exp(Type x)
+		{
+			return Exp(static_cast<double>(x));
+		}
+
+		/// <summary>
+		/// e^x を計算します。
+		/// </summary>
+		inline Vec2 Exp(const Point& v)
+		{
+			return{ Exp(v.x), Exp(v.y) };
+		}
+
+		/// <summary>
+		/// e^x を計算します。
+		/// </summary>
+		inline Float2 Exp(const Float2& v)
+		{
+			return{ Exp(v.x), Exp(v.y) };
+		}
+
+		/// <summary>
+		/// e^x を計算します。
+		/// </summary>
+		inline Float3 Exp(const Float3& v)
+		{
+			return{ Exp(v.x), Exp(v.y), Exp(v.z) };
+		}
+
+		/// <summary>
+		/// e^x を計算します。
+		/// </summary>
+		inline Float4 Exp(const Float4& v)
+		{
+			return{ Exp(v.x), Exp(v.y), Exp(v.z), Exp(v.w) };
+		}
+
+		/// <summary>
+		/// e^x を計算します。
+		/// </summary>
+		inline Vec2 Exp(const Vec2& v)
+		{
+			return{ Exp(v.x), Exp(v.y) };
+		}
+
+		/// <summary>
+		/// e^x を計算します。
+		/// </summary>
+		inline Vec3 Exp(const Vec3& v)
+		{
+			return{ Exp(v.x), Exp(v.y), Exp(v.z) };
+		}
+
+		/// <summary>
+		/// e^x を計算します。
+		/// </summary>
+		inline Vec4 Exp(const Vec4& v)
+		{
+			return{ Exp(v.x), Exp(v.y), Exp(v.z), Exp(v.w) };
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// 2^x を計算します。
+		/// </summary>
+		inline float Exp2(float x)
+		{
+			return std::exp2(x);
+		}
+
+		/// <summary>
+		/// 2^x を計算します。
+		/// </summary>
+		inline double Exp2(double x)
+		{
+			return std::exp2(x);
+		}
+
+		/// <summary>
+		/// 2^x を計算します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		inline double Exp2(Type x)
+		{
+			return Exp2(static_cast<double>(x));
+		}
+
+		/// <summary>
+		/// 2^x を計算します。
+		/// </summary>
+		inline Vec2 Exp2(const Point& v)
+		{
+			return{ Exp2(v.x), Exp2(v.y) };
+		}
+
+		/// <summary>
+		/// 2^x を計算します。
+		/// </summary>
+		inline Float2 Exp2(const Float2& v)
+		{
+			return{ Exp2(v.x), Exp2(v.y) };
+		}
+
+		/// <summary>
+		/// 2^x を計算します。
+		/// </summary>
+		inline Float3 Exp2(const Float3& v)
+		{
+			return{ Exp2(v.x), Exp2(v.y), Exp2(v.z) };
+		}
+
+		/// <summary>
+		/// 2^x を計算します。
+		/// </summary>
+		inline Float4 Exp2(const Float4& v)
+		{
+			return{ Exp2(v.x), Exp2(v.y), Exp2(v.z), Exp2(v.w) };
+		}
+
+		/// <summary>
+		/// 2^x を計算します。
+		/// </summary>
+		inline Vec2 Exp2(const Vec2& v)
+		{
+			return{ Exp2(v.x), Exp2(v.y) };
+		}
+
+		/// <summary>
+		/// 2^x を計算します。
+		/// </summary>
+		inline Vec3 Exp2(const Vec3& v)
+		{
+			return{ Exp2(v.x), Exp2(v.y), Exp2(v.z) };
+		}
+
+		/// <summary>
+		/// 2^x を計算します。
+		/// </summary>
+		inline Vec4 Exp2(const Vec4& v)
+		{
+			return{ Exp2(v.x), Exp2(v.y), Exp2(v.z), Exp2(v.w) };
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+
+
+
+
+		// Rsqrt
+		// Sqrt
+		// Ceil
+		// Floor
+		// Clamp
+		// Saturate
+		// Acos
+		// Asin
+		// Atan
+		// Atan2
+		// Cos
+		// Cosh
+		// Sin
+		// Sinh
+		// Tan
+		// Tanh
+		// Normalize
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// エルミート補間した結果を返します。
+		/// </summary>
+		inline constexpr float Smoothstep(float min, float max, float x) noexcept
+		{
+			if (x <= min)
+			{
+				return 0.0f;
+			}
+			else if (max <= x)
+			{
+				return 1.0f;
+			}
+
+			x = (x - min) / (max - min);
+
+			return x * x * (3.0f - 2.0f * x);
+		}
+
+		/// <summary>
+		/// エルミート補間した結果を返します。
+		/// </summary>
+		inline constexpr double Smoothstep(double min, double max, double x) noexcept
+		{
+			if (x <= min)
+			{
+				return 0.0;
+			}
+			else if (max <= x)
+			{
+				return 1.0;
+			}
+
+			x = (x - min) / (max - min);
+
+			return x * x * (3.0 - 2.0 * x);
+		}
+
+		/// <summary>
+		/// エルミート補間した結果を返します。
+		/// </summary>
+		inline constexpr float Smoothstep(float x) noexcept
+		{
+			if (x <= 0.0f)
+			{
+				return 0.0f;
+			}
+			else if (1.0f <= x)
+			{
+				return 1.0f;
+			}
+
+			return x * x * (3.0f - 2.0f * x);
+		}
+
+		/// <summary>
+		/// エルミート補間した結果を返します。
+		/// </summary>
+		inline constexpr double Smoothstep(double x) noexcept
+		{
+			if (x <= 0.0)
+			{
+				return 0.0;
+			}
+			else if (1.0 <= x)
+			{
+				return 1.0;
+			}
+
+			return x * x * (3.0 - 2.0 * x);
+		}
 	}
 }

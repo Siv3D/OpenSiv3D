@@ -801,6 +801,23 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
         [markedText initWithAttributedString:string];
     else
         [markedText initWithString:string];
+	
+	//-----------------------------------------------
+	//
+	//	[Siv3D]
+	//
+	if ([markedText length] > 0)
+	{
+		NSString *selectedText = markedText.string;
+
+		s3d_OnHaveMarkedText([selectedText cStringUsingEncoding:NSUTF8StringEncoding]);
+	}
+	else
+	{
+		s3d_OnHaveMarkedText(NULL);
+	}
+	//
+	//-----------------------------------------------
 }
 
 - (void)unmarkText
@@ -855,6 +872,15 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
 
         _glfwInputChar(window, codepoint, mods, plain);
     }
+	
+	//-----------------------------------------------
+	//
+	//	[Siv3D]
+	//
+	[self unmarkText];
+	s3d_OnHaveMarkedText(NULL);
+	//
+	//-----------------------------------------------
 }
 
 - (void)doCommandBySelector:(SEL)selector

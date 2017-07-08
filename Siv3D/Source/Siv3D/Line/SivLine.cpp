@@ -12,6 +12,9 @@
 # include <Siv3D/Line.hpp>
 # include <Siv3D/MathConstants.hpp>
 # include <Siv3D/XXHash.hpp>
+# include <Siv3D/Shape2D.hpp>
+# include "../Siv3DEngine.hpp"
+# include "../Renderer2D/IRenderer2D.hpp"
 
 namespace s3d
 {
@@ -41,13 +44,13 @@ namespace s3d
 			}
 		}
 
-		static bool IsZero(const double x)
+		static bool IsZero(const double x) noexcept
 		{
 			return std::abs(x) < 1e-10;
 		}
 	}
 
-	Line::position_type Line::closest(const position_type& pos) const
+	Line::position_type Line::closest(const position_type& pos) const noexcept
 	{
 		Vec2 v = end - begin;
 		const double d = v.length();
@@ -149,5 +152,32 @@ namespace s3d
 				return b.intersectsAt(a);
 			}
 		}
+	}
+
+	const Line& Line::draw(const LineStyle& style, double thickness, const ColorF& color) const
+	{
+		const Float4 colorF = color.toFloat4();
+
+		Siv3DEngine::GetRenderer2D()->addLine(style, begin, end, static_cast<float>(thickness), { colorF, colorF });
+
+		return *this;
+	}
+
+	const Line& Line::draw(const LineStyle& style, double thickness, const ColorF(&colors)[2]) const
+	{
+		Siv3DEngine::GetRenderer2D()->addLine(style, begin, end, static_cast<float>(thickness),
+		{
+			colors[0].toFloat4(),
+			colors[1].toFloat4()
+		});
+
+		return *this;
+	}
+
+	const Line& Line::drawArrow(double width, const Vec2& headSize, const ColorF& color) const
+	{
+		Shape2D::Arrow(begin, end, width, headSize).draw(color);
+
+		return *this;
 	}
 }

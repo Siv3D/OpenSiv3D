@@ -226,62 +226,78 @@ namespace s3d
 		return true;
 	}
 
-	void CClipboard_Windows::update()
+	bool CClipboard_Windows::hasChanged()
 	{
 		const uint32 currentSequenceNumber = ::GetClipboardSequenceNumber();
 
-		m_hasChanged = (currentSequenceNumber != m_sequenceNumber);
+		const bool hasChanged = (currentSequenceNumber != m_sequenceNumber);
 
 		m_sequenceNumber = currentSequenceNumber;
 
-		if (!m_hasChanged)
-		{
-			return;
-		}
+		return hasChanged;
+	}
 
-		m_text.clear();
-		m_image.clear();
-		m_filePaths.clear();
+	bool CClipboard_Windows::getText(String& text)
+	{
+		text.clear();
 
-		if (::IsClipboardFormatAvailable(CF_TEXT))
+		if (::IsClipboardFormatAvailable(CF_UNICODETEXT))
 		{
 			if (!::OpenClipboard(nullptr))
 			{
-				return;
+				return false;
 			}
 
-			if (const HGLOBAL hGlobal = static_cast<HGLOBAL>(::GetClipboardData(CF_TEXT)))
+			if (const HGLOBAL hGlobal = static_cast<HGLOBAL>(::GetClipboardData(CF_UNICODETEXT)))
 			{
-				m_text = CharacterSet::Widen(static_cast<char*>(::GlobalLock(hGlobal)));
+				text = static_cast<const wchar_t*>(::GlobalLock(hGlobal));
 
 				::GlobalUnlock(hGlobal);
+
+				text.remove(L'\r');
 			}
 
 			::CloseClipboard();
 		}
-		else if (::IsClipboardFormatAvailable(CF_DIB))
+
+		return !text.isEmpty();
+	}
+
+	bool CClipboard_Windows::getImage(Image& image)
+	{
+		image.clear();
+
+		if (::IsClipboardFormatAvailable(CF_DIB))
 		{
 			if (!::OpenClipboard(nullptr))
 			{
-				return;
+				return false;
 			}
-			
-			detail::LoadImageFromClipboard(m_image);
+
+			detail::LoadImageFromClipboard(image);
 
 			::CloseClipboard();
 		}
-		else if (::IsClipboardFormatAvailable(CF_HDROP))
+
+		return !image.isEmpty();
+	}
+
+	bool CClipboard_Windows::getFilePaths(Array<FilePath>& paths)
+	{
+		paths.clear();
+
+		if (::IsClipboardFormatAvailable(CF_HDROP))
 		{
 			if (!::OpenClipboard(nullptr))
 			{
-				return;
+				return false;
 			}
 
 			if (const HDROP hDrop = (HDROP)::GetClipboardData(CF_HDROP))
 			{
 				const uint32 dropSize = ::DragQueryFileW(hDrop, ~0u, nullptr, 0);
 
-				m_filePaths.reserve(dropSize);
+				paths.reserve(dropSize);
 
 				wchar_t tmpFilePath[MAX_PATH];
 
@@ -289,47 +305,14 @@ namespace s3d
 				{
 					::DragQueryFileW(hDrop, i, tmpFilePath, MAX_PATH);
 
-					m_filePaths.push_back(FileSystem::FullPath(tmpFilePath));
+					paths.push_back(FileSystem::FullPath(tmpFilePath));
 				}
 			}
 
 			::CloseClipboard();
 		}
-	}
 
-	bool CClipboard_Windows::hasChanged()
-	{
-		return m_hasChanged;
-	}
-
-	bool CClipboard_Windows::hasText()
-	{
-		return !m_text.isEmpty();
-	}
-
-	bool CClipboard_Windows::hasImage()
-	{
-		return !m_image.isEmpty();
-	}
-
-	bool CClipboard_Windows::hasFilePaths()
-	{
-		return !m_filePaths.isEmpty();
-	}
-
-	const String& CClipboard_Windows::getText()
-	{
-		return m_text;
-	}
-
-	const Image& CClipboard_Windows::getImage()
-	{
-		return m_image;
-	}
-
-	const Array<FilePath>& CClipboard_Windows::getFilePaths()
-	{
-		return m_filePaths;
+		return !paths.isEmpty();
 	}
 
 	void CClipboard_Windows::setText(const String& text)
@@ -351,10 +334,6 @@ namespace s3d
 			::CloseClipboard();
 
 			m_sequenceNumber = ::GetClipboardSequenceNumber();
-			m_hasChanged = true;
-			m_text = text;
-			m_image.clear();
-			m_filePaths.clear();
 		}
 
 		::GlobalFree(hData);
@@ -405,10 +384,6 @@ namespace s3d
 			detail::WriteBitmapToClipboard(hBitmap, image.size());
 
 			m_sequenceNumber = ::GetClipboardSequenceNumber();
-			m_hasChanged = true;
-			m_text.clear();
-			m_image = image;
-			m_filePaths.clear();
 		}
 
 		::DeleteObject(hBitmap);
@@ -424,10 +399,6 @@ namespace s3d
 		}
 	
 		m_sequenceNumber = ::GetClipboardSequenceNumber();
-		m_hasChanged = false;
-		m_text.clear();
-		m_image.clear();
-		m_filePaths.clear();
 	}
 }
 

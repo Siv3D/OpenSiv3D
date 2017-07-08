@@ -30,15 +30,20 @@ namespace s3d
 		{
 			return Siv3DEngine::GetGraphics()->setFullScreen(fullScreen, size, displayIndex, refreshRateHz);
 		}
-		
-		void SetVSyncEnabled(const bool enabled)
+
+		void SetTargetFrameRateHz(const Optional<double>& targetFrameRateHz)
 		{
-			Siv3DEngine::GetGraphics()->setVSyncEnabled(enabled);
+			Siv3DEngine::GetGraphics()->setTargetFrameRateHz(targetFrameRateHz);
 		}
-		
-		bool IsVSyncEnabled()
+
+		Optional<double> GetTargetFrameRateHz()
 		{
-			return Siv3DEngine::GetGraphics()->isVSyncEnabled();
+			return Siv3DEngine::GetGraphics()->getTargetFrameRateHz();
+		}
+
+		double GetDisplayRefreshRateHz()
+		{
+			return Siv3DEngine::GetGraphics()->getDisplayRefreshRateHz();
 		}
 	}
 }

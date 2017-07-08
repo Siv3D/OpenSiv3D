@@ -26,21 +26,13 @@ namespace s3d
 
 		virtual bool init() = 0;
 
-		virtual void update() = 0;
-
 		virtual bool hasChanged() = 0;
 
-		virtual bool hasText() = 0;
-
-		virtual bool hasImage() = 0;
-
-		virtual bool hasFilePaths() = 0;
-
-		virtual const String& getText() = 0;
-
-		virtual const Image& getImage() = 0;
-
-		virtual const Array<FilePath>& getFilePaths() = 0;
+		virtual bool getText(String& text) = 0;
+		
+		virtual bool getImage(Image& image) = 0;
+		
+		virtual bool getFilePaths(Array<FilePath>& paths) = 0;
 
 		virtual void setText(const String& text) = 0;
 

@@ -30,7 +30,7 @@ namespace s3d
 
 	const Array<String>& ImageFormat_JPEG::possibleExtexsions() const
 	{
-		static const Array<String> extensions = { L"jpg", L"jpeg" };
+		static const Array<String> extensions = { S3DSTR("jpg"), S3DSTR("jpeg") };
 
 		return extensions;
 	}

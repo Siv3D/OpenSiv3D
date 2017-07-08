@@ -23,12 +23,12 @@ namespace s3d
 
 		position_type p0, p1, p2, p3;
 		
-		position_type& p(size_t index)
+		position_type& p(size_t index) noexcept
 		{
 			return (&p0)[index];
 		}
 		
-		const position_type& p(size_t index) const
+		const position_type& p(size_t index) const noexcept
 		{
 			return (&p0)[index];
 		}
@@ -94,6 +94,8 @@ namespace s3d
 			return moveBy(v.x, v.y);
 		}
 
+		Quad stretched(value_type size) const noexcept;
+
 		Quad rotatedAt(value_type x, value_type y, value_type angle) const noexcept
 		{
 			return rotatedAt(position_type(x, y), angle);
@@ -105,15 +107,45 @@ namespace s3d
 
 		value_type perimeter() const noexcept;
 
-		// intersects, contains
+		template <class Shape2DType>
+		bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
+		{
+			return Geometry2D::Intersect(*this, shape);
+		}
 
-		// leftClicked() leftPressed() leftReleased()
+		template <class Shape2DType>
+		bool contains(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Contains(*this, shape)))
+		{
+			return Geometry2D::Contains(*this, shape);
+		}
 
-		// rightClicked() rightPressed() rightReleased()
+		bool leftClicked() const;
 
-		// mouseOver()
+		bool leftPressed() const;
+
+		bool leftReleased() const;
+
+		bool rightClicked() const;
+
+		bool rightPressed() const;
+
+		bool rightReleased() const;
+
+		bool mouseOver() const;
 
 		// paint~ overpaint~ draw~
+
+		const Quad& draw(const ColorF& color = Palette::White) const;
+
+		const Quad& draw(const ColorF(&colors)[4]) const;
+
+		const Quad& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
+
+		const Quad& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
+
+		TexturedQuad operator ()(const Texture& texture) const;
+
+		TexturedQuad operator ()(const TextureRegion& textureRegion) const;
 
 		// Polygon asPolygon() const;
 	};
@@ -135,13 +167,13 @@ namespace s3d
 	void Formatter(FormatData& formatData, const Quad& value);
 
 	/// <summary>
-	/// 出力ストリームに三角形を渡します。
+	/// 出力ストリームに四角形を渡します。
 	/// </summary>
 	/// <param name="os">
 	/// 出力ストリーム
 	/// </param>
 	/// <param name="quad">
-	/// 三角形
+	/// 四角形
 	/// </param>
 	/// <returns>
 	/// 渡した後の出力ストリーム
@@ -157,13 +189,13 @@ namespace s3d
 	}
 
 	/// <summary>
-	/// 入力ストリームに三角形を渡します。
+	/// 入力ストリームに四角形を渡します。
 	/// </summary>
 	/// <param name="is">
 	/// 入力ストリーム
 	/// </param>
 	/// <param name="quad">
-	/// 三角形
+	/// 四角形
 	/// </param>
 	/// <returns>
 	/// 渡した後の入力ストリーム
@@ -187,7 +219,7 @@ namespace fmt
 	{
 		const auto tag = s3d::detail::GetTag(format_str);
 
-		const auto fmt = L"({" + tag + L"},{" + tag + L"},{" + tag + L"},{" + tag + L"})";
+		const auto fmt = S3DSTR("({") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("})");
 
 		f.writer().write(fmt, quad.p0, quad.p1, quad.p2, quad.p3);
 	}

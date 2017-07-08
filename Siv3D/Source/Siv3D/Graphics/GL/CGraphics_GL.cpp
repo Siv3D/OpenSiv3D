@@ -12,6 +12,7 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
+# include <unistd.h>
 # include "../../Siv3DEngine.hpp"
 # include "../../Window/IWindow.hpp"
 # include "../../Shader/IShader.hpp"
@@ -19,6 +20,7 @@
 # include <Siv3D/Window.hpp>
 # include <Siv3D/CharacterSet.hpp>
 # include <Siv3D/System.hpp>
+# include <Siv3D/Time.hpp>
 
 namespace s3d
 {
@@ -36,11 +38,11 @@ namespace s3d
 	{
 		m_glfwWindow = Siv3DEngine::GetWindow()->getHandle();
 		
-		::glfwSwapInterval(m_vsync);
+		::glfwSwapInterval(true);
 
 		//////////////////////////////////////////////////////
 		//
-		//	 CTextureGL
+		//	 CTexture_GL
 		//
 		m_texture = dynamic_cast<CTexture_GL*>(Siv3DEngine::GetTexture());
 
@@ -56,9 +58,37 @@ namespace s3d
 		
 		//////////////////////////////////////////////////////
 		//
-		//	 Shader
+		//	 CShader_GL
 		//
+		m_shader = dynamic_cast<CShader_GL*>(Siv3DEngine::GetShader());
 		
+		if (!m_shader)
+		{
+			return false;
+		}
+		
+		if (!m_shader->init())
+		{
+			return false;
+		}
+		
+		//////////////////////////////////////////////////////
+		//
+		//	 GLBlendState
+		//
+		m_pBlendState = std::make_unique<GLBlendState>();
+		
+		//////////////////////////////////////////////////////
+		//
+		//	 GLRasterizerState
+		//
+		m_pRasterizerState = std::make_unique<GLRasterizerState>();
+		
+		//////////////////////////////////////////////////////
+		//
+		//	 GLSamplerState
+		//
+		m_pSamplerState = std::make_unique<GLSamplerState>();
 		
 		
 		//////////////////////////////////////////////////////
@@ -76,8 +106,6 @@ namespace s3d
 		{
 			return false;
 		}
-		
-		
 		
 		return true;
 	}
@@ -137,12 +165,16 @@ namespace s3d
 	{
 		if (!fullScreen)
 		{
-			::glfwSetWindowSize(m_glfwWindow, size.x, size.y);
-			
+			::glfwSetWindowMonitor(m_glfwWindow, nullptr, 0, 0, size.x, size.y, GLFW_DONT_CARE);
+
 			Siv3DEngine::GetWindow()->setTitle(Siv3DEngine::GetWindow()->getState().title, true);
+			
+			Siv3DEngine::GetWindow()->updateClientSize(false, size);
 		}
 		else
 		{
+			// [Siv3D ToDo] 対応しない解像度の場合 return false;
+			
 			int32 numMonitors;
 			GLFWmonitor** monitors = ::glfwGetMonitors(&numMonitors);
 			
@@ -152,23 +184,60 @@ namespace s3d
 			}
 			
 			::glfwSetWindowMonitor(m_glfwWindow, monitors[displayIndex], 0, 0, size.x, size.y, refreshRateHz);
+			
+			Siv3DEngine::GetWindow()->updateClientSize(true, size);
 		}
 		
-		Siv3DEngine::GetWindow()->updateClientSize(fullScreen, size);
+		m_currentRenderTargetSize = size;
 
 		return true;
 	}
 	
 	bool CGraphics_GL::present()
 	{
-		::glfwSwapBuffers(m_glfwWindow);
+		const bool vSync = !m_targetFrameRateHz.has_value();
 		
-		if (::glfwGetWindowAttrib(m_glfwWindow, GLFW_ICONIFIED)
-			|| !::glfwGetWindowAttrib(m_glfwWindow, GLFW_VISIBLE)
-			|| !::glfwGetWindowAttrib(m_glfwWindow, GLFW_FOCUSED) // work around
-			)
+		if (vSync)
 		{
-			System::Sleep(16);
+			::glfwSwapBuffers(m_glfwWindow);
+			
+			if (::glfwGetWindowAttrib(m_glfwWindow, GLFW_ICONIFIED)
+				|| !::glfwGetWindowAttrib(m_glfwWindow, GLFW_VISIBLE)
+				|| !::glfwGetWindowAttrib(m_glfwWindow, GLFW_FOCUSED) // work around
+				)
+			{
+				System::Sleep(16);
+			}
+		}
+		else
+		{
+			const double targetRefreshRateHz = m_targetFrameRateHz.value();
+			const double targetRefreshPeriodMillisec = (1000.0f / targetRefreshRateHz);
+
+			::glfwSwapBuffers(m_glfwWindow);
+			
+			double timeToSleepMillisec;
+			double countMillisec;
+			
+			do
+			{
+				countMillisec = (Time::GetMicrosec() / 1000.0);
+				const double timeSinceFlipMillisec = countMillisec - m_lastFlipTimeMillisec;
+				
+				timeToSleepMillisec = (targetRefreshPeriodMillisec - timeSinceFlipMillisec);
+				
+				if (timeToSleepMillisec > 0.0)
+				{
+					::usleep(static_cast<uint32>(std::floor(timeToSleepMillisec) * 1000));
+				}
+			} while (timeToSleepMillisec > 0.0);
+			
+			m_lastFlipTimeMillisec = countMillisec;
+		}
+		
+		if (m_screenCapture.isRequested())
+		{
+			m_screenCapture.capture(m_currentRenderTargetSize);
 		}
 		
 		return true;
@@ -185,28 +254,41 @@ namespace s3d
 		::glClear(GL_COLOR_BUFFER_BIT);
 	}
 	
-	void CGraphics_GL::setVSyncEnabled(const bool enabled)
+	void CGraphics_GL::setTargetFrameRateHz(const Optional<double>& targetFrameRateHz)
 	{
-		if (enabled == m_vsync)
+		if (m_targetFrameRateHz != targetFrameRateHz)
 		{
-			return;
+			::glfwSwapInterval(!targetFrameRateHz.has_value());
 		}
 		
-		m_vsync = enabled;
-		
-		::glfwSwapInterval(m_vsync);
+		m_targetFrameRateHz = targetFrameRateHz;
 	}
 	
-	bool CGraphics_GL::isVSyncEnabled() const
+	Optional<double> CGraphics_GL::getTargetFrameRateHz() const
 	{
-		return m_vsync;
+		return m_targetFrameRateHz;
 	}
 	
 	bool CGraphics_GL::flush()
 	{
-		//m_renderer2D->flush();
+		m_renderer2D->flush();
 		
 		return true;
+	}
+	
+	const Size& CGraphics_GL::getCurrentRenderTargetSize() const
+	{
+		return m_currentRenderTargetSize;
+	}
+	
+	void CGraphics_GL::requestScreenCapture()
+	{
+		m_screenCapture.request();
+	}
+	
+	const Image& CGraphics_GL::getScreenCapture() const
+	{
+		return m_screenCapture.getImage();
 	}
 }
 

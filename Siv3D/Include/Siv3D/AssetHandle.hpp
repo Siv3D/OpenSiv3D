@@ -19,7 +19,7 @@ namespace s3d
 	{
 	public:
 
-		using IDType = size_t;
+		using IDType = uint32;
 
 		enum : IDType { NullID = 0 };
 

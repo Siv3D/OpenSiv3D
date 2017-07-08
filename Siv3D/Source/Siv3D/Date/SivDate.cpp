@@ -34,26 +34,26 @@ namespace s3d
 	{
 		static const String DayOfWeekJapanese[8]
 		{
-			L"日",
-			L"月",
-			L"火",
-			L"水",
-			L"木",
-			L"金",
-			L"土",
-			L"null",
+			S3DSTR("日"),
+			S3DSTR("月"),
+			S3DSTR("火"),
+			S3DSTR("水"),
+			S3DSTR("木"),
+			S3DSTR("金"),
+			S3DSTR("土"),
+			S3DSTR("null"),
 		};
 
 		static const String DayOfWeekEnglish[8]
 		{
-			L"Sunday",
-			L"Monday",
-			L"Tuesday",
-			L"Wednesday",
-			L"Thursday",
-			L"Friday",
-			L"Saturday",
-			L"null",
+			S3DSTR("Sunday"),
+			S3DSTR("Monday"),
+			S3DSTR("Tuesday"),
+			S3DSTR("Wednesday"),
+			S3DSTR("Thursday"),
+			S3DSTR("Friday"),
+			S3DSTR("Saturday"),
+			S3DSTR("null"),
 		};
 
 		static constexpr bool IsLeapYear(const int32 year)

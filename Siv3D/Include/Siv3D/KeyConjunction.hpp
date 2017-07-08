@@ -100,7 +100,7 @@ namespace s3d
 
 		String name() const
 		{
-			return m_key1.name() + L"+" + m_key2.name();
+			return m_key1.name() + S3DCHAR('+') + m_key2.name();
 		}
 	};
 

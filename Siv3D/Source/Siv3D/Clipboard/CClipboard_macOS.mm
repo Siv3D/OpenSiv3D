@@ -63,6 +63,75 @@ namespace s3d
 			}
 		}
 		
+		
+		bool ClipboardGetText_macOS(String& text)
+		{
+			text.clear();
+			
+			NSPasteboard* pasteboard	= [NSPasteboard generalPasteboard];
+			NSDictionary* options		= [NSDictionary dictionary];
+			NSArray* stringClassArray	= [NSArray arrayWithObject:[NSString class]];
+
+			if ([pasteboard canReadObjectForClasses:stringClassArray options:options])
+			{
+				NSArray* content = [pasteboard readObjectsForClasses:stringClassArray options:options];
+				
+				if (NSString* str = [content firstObject])
+				{
+					text = CharacterSet::Widen([str UTF8String]);
+				}
+			}
+			
+			return !text.isEmpty();
+		}
+		
+		bool ClipboardGetImage_macOS(Image& image)
+		{
+			image.clear();
+
+			NSPasteboard* pasteboard	= [NSPasteboard generalPasteboard];
+			NSDictionary* options		= [NSDictionary dictionary];
+			NSArray* imageClassArray	= [NSArray arrayWithObject:[NSImage class]];
+
+			if ([pasteboard canReadObjectForClasses:imageClassArray options:options])
+			{
+				NSArray* content = [pasteboard readObjectsForClasses:imageClassArray options:options];
+				
+				if ([content count] > 0)
+				{
+					NSImage* img = [content objectAtIndex:0];
+					NSBitmapImageRep* rep = [NSBitmapImageRep imageRepWithData:[img TIFFRepresentation]];
+					
+					image.resize([rep pixelsWide], [rep pixelsHigh]);
+					::memcpy(image.data(), [rep bitmapData], image.size_bytes());
+				}
+			}
+			
+			return !image.isEmpty();
+		}
+		
+		bool ClipboardGetFilePaths_macOS(Array<FilePath>& filePaths)
+		{
+			filePaths.clear();
+			
+			NSPasteboard* pasteboard	= [NSPasteboard generalPasteboard];
+			NSDictionary* options		= [NSDictionary dictionary];
+			NSArray* urlClassArray		= [NSArray arrayWithObject:[NSURL class]];
+			
+			if ([pasteboard canReadObjectForClasses:urlClassArray options:options])
+			{
+				NSArray* content = [pasteboard readObjectsForClasses:urlClassArray options:options];
+				
+				for (NSURL* url in content)
+				{
+					filePaths.push_back(CharacterSet::Widen([url.absoluteString UTF8String]));
+				}
+			}
+			
+			return !filePaths.isEmpty();
+		}
+		
+		
 		void ClipboardSetText_macOS(const String& text)
 		{
 			NSPasteboard* pasteboard	= [NSPasteboard generalPasteboard];

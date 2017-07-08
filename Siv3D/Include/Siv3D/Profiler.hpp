@@ -29,5 +29,7 @@ namespace s3d
 		/// フレームレート
 		/// </returns>
 		int32 FPS();
+
+		void EnableAssetCreationWarning(bool enabled);
 	}
 }

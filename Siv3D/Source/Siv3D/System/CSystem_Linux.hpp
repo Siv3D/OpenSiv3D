@@ -45,11 +45,13 @@ namespace s3d
 
 		bool init() override;
 
-		void exit() override;
-
 		bool update() override;
 
 		void reportEvent(uint32 windowEventFlag) override;
+
+		void setExitEvent(uint32 windowEventFlag) override;
+
+		uint32 getPreviousEvent() const override;
 
 		uint64 getSystemFrameCount() const noexcept override;
 

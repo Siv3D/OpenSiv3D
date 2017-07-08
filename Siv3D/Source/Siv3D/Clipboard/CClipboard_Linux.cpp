@@ -28,47 +28,32 @@ namespace s3d
 
 	bool CClipboard_Linux::init()
 	{
+		// [Siv3D ToDo]
 		return true;
-	}
-
-	void CClipboard_Linux::update()
-	{
-
 	}
 
 	bool CClipboard_Linux::hasChanged()
 	{
-		return m_hasChanged;
+		// [Siv3D ToDo]
+		return false;
 	}
 
-	bool CClipboard_Linux::hasText()
+	bool CClipboard_Linux::getText(String&)
 	{
-		return !m_text.isEmpty();
+		// [Siv3D ToDo]
+		return false;
 	}
 
-	bool CClipboard_Linux::hasImage()
+	bool CClipboard_Linux::getImage(Image&)
 	{
-		return !m_image.isEmpty();
+		// [Siv3D ToDo]
+		return false;
 	}
 
-	bool CClipboard_Linux::hasFilePaths()
+	bool CClipboard_Linux::getFilePaths(Array<FilePath>&)
 	{
-		return !m_filePaths.isEmpty();
-	}
-
-	const String& CClipboard_Linux::getText()
-	{
-		return m_text;
-	}
-
-	const Image& CClipboard_Linux::getImage()
-	{
-		return m_image;
-	}
-
-	const Array<FilePath>& CClipboard_Linux::getFilePaths()
-	{
-		return m_filePaths;
+		// [Siv3D ToDo]
+		return false;
 	}
 
 	void CClipboard_Linux::setText(const String& text)
@@ -84,10 +69,6 @@ namespace s3d
 	void CClipboard_Linux::clear()
 	{
 		// [Siv3D ToDo]
-		m_hasChanged = false;
-		m_text.clear();
-		m_image.clear();
-		m_filePaths.clear();
 	}
 }
 

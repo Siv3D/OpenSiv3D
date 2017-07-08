@@ -13,9 +13,38 @@
 # if defined(SIV3D_TARGET_WINDOWS)
 
 # include "CTexture_D3D11.hpp"
+# include <Siv3D/Image.hpp>
+# include <Siv3D/ImageProcessing.hpp>
+# include <Siv3D/TextureFormat.hpp>
 
 namespace s3d
 {
+	namespace detail
+	{
+		Array<Byte> GenerateInitialColorBuffer(const Size& size, const ColorF& color, const TextureFormat format)
+		{
+			const size_t num_pixels = size.x * size.y;
+
+			if (format == TextureFormat::R8G8B8A8_Unorm)
+			{
+				Array<Byte> bytes(num_pixels * sizeof(uint32));
+
+				const uint32 value = Color(color).asUint32();
+
+				uint32* pDst = static_cast<uint32*>(static_cast<void*>(bytes.data()));
+
+				for (size_t i = 0; i < num_pixels; ++i)
+				{
+					*pDst++ = value;
+				}
+
+				return bytes;
+			}
+
+			return Array<Byte>();
+		}
+	}
+
 	CTexture_D3D11::~CTexture_D3D11()
 	{
 		m_textures.destroy();
@@ -45,7 +74,72 @@ namespace s3d
 
 		if (!texture->isInitialized())
 		{
-			return 0;
+			return Texture::NullHandleID;
+		}
+
+		return m_textures.add(texture);
+	}
+
+	Texture::IDType CTexture_D3D11::create(const Image& image, const TextureDesc desc)
+	{
+		if (!image)
+		{
+			return Texture::NullHandleID;
+		}
+
+		const auto texture = std::make_shared<Texture_D3D11>(m_device, image, desc);
+
+		if (!texture->isInitialized())
+		{
+			return Texture::NullHandleID;
+		}
+
+		return m_textures.add(texture);
+	}
+
+	Texture::IDType CTexture_D3D11::create(const Image& image, const Array<Image>& mipmaps, TextureDesc desc)
+	{
+		if (!image)
+		{
+			return Texture::NullHandleID;
+		}
+
+		const auto texture = std::make_shared<Texture_D3D11>(m_device, image, mipmaps, desc);
+
+		if (!texture->isInitialized())
+		{
+			return Texture::NullHandleID;
+		}
+
+		return m_textures.add(texture);
+	}
+
+	Texture::IDType CTexture_D3D11::createDynamic(const Size& size, const void* pData, const uint32 stride, const TextureFormat format, const TextureDesc desc)
+	{
+		const auto texture = std::make_shared<Texture_D3D11>(Texture_D3D11::Dynamic{}, m_device, size, pData, stride, format, desc);
+
+		if (!texture->isInitialized())
+		{
+			return Texture::NullHandleID;
+		}
+
+		return m_textures.add(texture);
+	}
+
+	Texture::IDType CTexture_D3D11::createDynamic(const Size& size, const ColorF& color, const TextureFormat format, const TextureDesc desc)
+	{
+		const Array<Byte> initialData = detail::GenerateInitialColorBuffer(size, color, format);
+
+		return createDynamic(size, initialData.data(), static_cast<uint32>(initialData.size() / size.y), format, desc);
+	}
+
+	Texture::IDType CTexture_D3D11::createRT(const Size& size, const uint32 multisampleCount)
+	{
+		const auto texture = std::make_shared<Texture_D3D11>(Texture_D3D11::Render{}, m_device, size, multisampleCount);
+
+		if (!texture->isInitialized())
+		{
+			return Texture::NullHandleID;
 		}
 
 		return m_textures.add(texture);
@@ -59,6 +153,11 @@ namespace s3d
 	Size CTexture_D3D11::getSize(const Texture::IDType handleID)
 	{
 		return m_textures[handleID]->getSize();
+	}
+
+	TextureDesc CTexture_D3D11::getDesc(Texture::IDType handleID)
+	{
+		return m_textures[handleID]->getDesc();
 	}
 
 	void CTexture_D3D11::clearRT(Texture::IDType handleID, const ColorF& color)
@@ -76,9 +175,36 @@ namespace s3d
 		return m_textures[handleID]->endResize(Texture_D3D11::BackBuffer{}, m_device, m_swapChain);
 	}
 
+	bool CTexture_D3D11::endResizeRT(const Texture::IDType handleID, const Size& size, const uint32 multisampleCount)
+	{
+		return m_textures[handleID]->endResize(Texture_D3D11::Render{}, m_device, size, multisampleCount);
+	}
+
+	ID3D11Texture2D* CTexture_D3D11::getTexture(const Texture::IDType handleID)
+	{
+		return m_textures[handleID]->getTexture();
+	}
+
 	ID3D11RenderTargetView* CTexture_D3D11::getRTV(const Texture::IDType handleID)
 	{
 		return m_textures[handleID]->getRTV();
+	}
+
+
+
+	void CTexture_D3D11::setPS(const uint32 slot, const Texture::IDType handleID)
+	{
+		m_context->PSSetShaderResources(slot, 1, m_textures[handleID]->getSRVPtr());
+	}
+
+	bool CTexture_D3D11::fill(const Texture::IDType handleID, const ColorF& color, const bool wait)
+	{
+		return m_textures[handleID]->fill(m_context, color, wait);
+	}
+
+	bool CTexture_D3D11::fill(const Texture::IDType handleID, const void* const src, const uint32 stride, const bool wait)
+	{
+		return m_textures[handleID]->fill(m_context, src, stride, wait);
 	}
 }
 

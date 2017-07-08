@@ -15,10 +15,14 @@
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/System.hpp>
 # include <Siv3D/Monitor.hpp>
+# include <Siv3D/Logger.hpp>
 # include "../Siv3DEngine.hpp"
 # include "CWindow_Windows.hpp"
 # include "../System/ISystem.hpp"
 # include "../Mouse/IMouse.hpp"
+# include "../TextInput/ITextInput.hpp"
+
+# include "../Graphics/D3D11/CGraphics_D3D11.hpp"
 
 namespace s3d
 {
@@ -28,42 +32,102 @@ namespace s3d
 		{
 			switch (message)
 			{
-			case WM_CLOSE:
-
-				Siv3DEngine::GetSystem()->reportEvent(WindowEvent::CloseButton);
-
-				return 0; // WM_DESTROY を発生させない
-
-			case WM_DESTROY:
-
-				::PostQuitMessage(0);
-
-				return 0;
-
-			case WM_KEYDOWN:
-
-				if (wParam == VK_ESCAPE)
+				case WM_CLOSE:
 				{
-					Siv3DEngine::GetSystem()->reportEvent(WindowEvent::AnyKey | WindowEvent::EscapeKey);
+					Siv3DEngine::GetSystem()->reportEvent(WindowEvent::CloseButton);
+
+					return 0; // WM_DESTROY を発生させない
 				}
-				else if (VK_BACK <= wParam) // マウス以外のキー入力
+				case WM_KILLFOCUS:
 				{
-					Siv3DEngine::GetSystem()->reportEvent(WindowEvent::AnyKey);
+					Siv3DEngine::GetSystem()->reportEvent(WindowEvent::Unfocus);
+
+					break;
 				}
+				case WM_DESTROY:
+				{
+					::PostQuitMessage(0);
 
-				break;
+					return 0;
+				}
+				case WM_SIZING:
+				{
+					if (CWindow_Windows* window = dynamic_cast<CWindow_Windows*>(Siv3DEngine::GetWindow()))
+					{
+						window->requestResize();
+					}
 
-			case WM_MOUSEWHEEL:
+					break;
+				}
+				case WM_SIZE:
+				{
+					if (wParam == SIZE_RESTORED)
+					{
+						if (CWindow_Windows* window = dynamic_cast<CWindow_Windows*>(Siv3DEngine::GetWindow()))
+						{
+							window->requestResize();
+						}
 
-				Siv3DEngine::GetMouse()->onScroll(static_cast<short>(HIWORD(wParam)) / -double(WHEEL_DELTA), 0);
+						return 0;
+					}
+					else if (wParam == SIZE_MINIMIZED)
+					{
+						break;
+					}
+					else if (wParam == SIZE_MAXIMIZED)
+					{
+						if (CWindow_Windows* window = dynamic_cast<CWindow_Windows*>(Siv3DEngine::GetWindow()))
+						{
+							window->requestResize();
+						}
 
-				return 0;
+						return 0;
+					}
 
-			case WM_MOUSEHWHEEL:
+					break;
+				}
+				case WM_KEYDOWN:
+				{
+					if (wParam == VK_ESCAPE)
+					{
+						Siv3DEngine::GetSystem()->reportEvent(WindowEvent::AnyKey | WindowEvent::EscapeKey);
+					}
+					else if (VK_BACK <= wParam) // マウス以外のキー入力
+					{
+						Siv3DEngine::GetSystem()->reportEvent(WindowEvent::AnyKey);
+					}
 
-				Siv3DEngine::GetMouse()->onScroll(0, static_cast<short>(HIWORD(wParam)) / double(WHEEL_DELTA));
+					break;
+				}
+				case WM_MOUSEWHEEL:
+				{
+					Siv3DEngine::GetMouse()->onScroll(static_cast<short>(HIWORD(wParam)) / -double(WHEEL_DELTA), 0);
 
-				return 0;
+					return 0;
+				}
+				case WM_MOUSEHWHEEL:
+				{
+					Siv3DEngine::GetMouse()->onScroll(0, static_cast<short>(HIWORD(wParam)) / double(WHEEL_DELTA));
+
+					return 0;
+				}
+				case WM_CHAR:
+				{
+					Siv3DEngine::GetTextInput()->pushChar(static_cast<uint32>(wParam));
+
+					return 0;
+				}
+				case WM_UNICHAR:
+				{
+					if (wParam == UNICODE_NOCHAR)
+					{
+						return true;
+					}
+
+					Siv3DEngine::GetTextInput()->pushChar(static_cast<uint32>(wParam));
+
+					return 0;
+				}
 			}
 
 			return ::DefWindowProcW(hWnd, message, wParam, lParam);
@@ -123,7 +187,18 @@ namespace s3d
 
 		return true;
 	}
-	
+
+	void CWindow_Windows::show()
+	{
+		::ShowWindow(m_hWnd, SW_SHOW);
+
+		::ValidateRect(m_hWnd, 0);
+
+		::UpdateWindow(m_hWnd);
+
+		::SetForegroundWindow(m_hWnd);
+	}
+
 	bool CWindow_Windows::update()
 	{
 		// ウィンドウが最小化、最大化されているかどうかチェック
@@ -135,12 +210,51 @@ namespace s3d
 			: ShowState::Normal;
 
 		m_state.focused = (m_hWnd == ::GetForegroundWindow());
-		m_state.fullScreen = false;
-
+	
 		// ウィンドウの大きさを更新
 		RECT rc;
 		::GetWindowRect(m_hWnd, &rc);
 		m_state.pos.set(rc.left, rc.top);
+
+		CGraphics_D3D11* graphics = dynamic_cast<CGraphics_D3D11*>(Siv3DEngine::GetGraphics());
+		const auto shouldResize = graphics->shouldResize();
+		const bool resizeRequest = std::exchange(m_resizeRequest, false);
+
+		if (resizeRequest && shouldResize)
+		{
+			RECT wnRec;
+			::GetWindowRect(m_hWnd, &wnRec);
+			RECT area{ 0, 0, wnRec.right - wnRec.left, wnRec.bottom - wnRec.top };
+			m_state.windowSize.set(area.right - area.left, area.bottom - area.top);
+			m_state.clientSize.set(wnRec.right - wnRec.left, wnRec.bottom - wnRec.top);
+
+			// ウィンドウの枠やタイトルバーの幅を再度取得
+			if (const int32 addedBorder = ::GetSystemMetrics(SM_CXPADDEDBORDER))
+			{
+				m_state.frameSize.x = ::GetSystemMetrics(SM_CXFRAME) + addedBorder;
+				m_state.frameSize.y = ::GetSystemMetrics(SM_CYFRAME) + addedBorder;
+			}
+			else
+			{
+				m_state.frameSize.x = ::GetSystemMetrics(SM_CXFIXEDFRAME);
+				m_state.frameSize.y = ::GetSystemMetrics(SM_CYFIXEDFRAME);
+			}
+
+			m_state.titleBarHeight = ::GetSystemMetrics(SM_CYCAPTION) + m_state.frameSize.y;
+
+			if (!(m_style & WS_POPUP))
+			{
+				m_state.clientSize -= { m_state.frameSize.x * 2, m_state.frameSize.y + m_state.titleBarHeight };
+			}
+
+			const Size availableSize = m_state.clientSize;
+
+			graphics->resizeTargetWindowed(availableSize);
+
+			m_resizeRequest = false;
+
+			::SetWindowPos(m_hWnd, nullptr, wnRec.left, wnRec.top, m_state.windowSize.x, m_state.windowSize.y, SWP_DEFERERASE | SWP_NOOWNERZORDER | SWP_NOZORDER);
+		}
 
 		return true;
 	}
@@ -184,12 +298,32 @@ namespace s3d
 
 	void CWindow_Windows::updateClientSize(const bool fullScreen, const Size& size)
 	{
-		m_state.clientSize.set(size);
+		m_state.clientSize = size;
 		m_state.fullScreen = fullScreen;
 
-		RECT windowRect = { 0, 0, m_state.clientSize.x, m_state.clientSize.y };
+		RECT windowRect = { 0, 0, size.x, size.y };
 		::AdjustWindowRectEx(&windowRect, m_style, FALSE, 0);
 		m_state.windowSize.set(windowRect.right - windowRect.left, windowRect.bottom - windowRect.top);
+
+		if (!fullScreen)
+		{
+			::SetWindowPos(m_hWnd, nullptr, m_state.pos.x, m_state.pos.y, m_state.windowSize.x, m_state.windowSize.y, SWP_DEFERERASE | SWP_NOOWNERZORDER | SWP_NOZORDER);
+		}
+	}
+
+	void CWindow_Windows::setBaseSize(const Size& size)
+	{
+		m_baseSize = size;
+	}
+
+	Size CWindow_Windows::getBaseSize() const
+	{
+		return m_baseSize;
+	}
+
+	void CWindow_Windows::requestResize()
+	{
+		m_resizeRequest = true;
 	}
 
 	void CWindow_Windows::initState()
@@ -200,7 +334,7 @@ namespace s3d
 		m_style = WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
 
 		m_state.clientSize.set(Window::DefaultClientSize);
-		m_state.title = L"Siv3D App";
+		m_state.title = S3DSTR("Siv3D App");
 		m_state.showState = ShowState::Normal;
 		m_state.focused = false;
 
@@ -209,7 +343,7 @@ namespace s3d
 		m_state.windowSize.set(windowRect.right - windowRect.left, windowRect.bottom - windowRect.top);
 
 		// ウィンドウの枠やタイトルバーの幅を取得
-		if (const int addedBorder = ::GetSystemMetrics(SM_CXPADDEDBORDER))
+		if (const int32 addedBorder = ::GetSystemMetrics(SM_CXPADDEDBORDER))
 		{
 			m_state.frameSize.x = ::GetSystemMetrics(SM_CXFRAME) + addedBorder;
 			m_state.frameSize.y = ::GetSystemMetrics(SM_CYFRAME) + addedBorder;
@@ -222,17 +356,18 @@ namespace s3d
 
 		m_state.titleBarHeight = ::GetSystemMetrics(SM_CYCAPTION) + m_state.frameSize.y;
 
-		if (const auto monitors = System::EnumActiveMonitors())
+		m_state.pos.set(100, 100);
+
+		for (const auto& monitor : System::EnumActiveMonitors())
 		{
 			// プライマリモニターの中央に位置するようにウィンドウを配置
-			const auto& primaryMonitior = monitors[0];
-			const int32 xOffset = (primaryMonitior.workArea.w - m_state.windowSize.x) / 2;
-			const int32 yOffset = (primaryMonitior.workArea.h - m_state.windowSize.y) / 2;
-			m_state.pos.set(std::max(primaryMonitior.workArea.x + xOffset, 0), std::max(primaryMonitior.workArea.y + yOffset, 0));			
-		}
-		else
-		{
-			m_state.pos.set(100, 100);
+			if (monitor.isPrimary)
+			{
+				const int32 xOffset = (monitor.workArea.w - m_state.windowSize.x) / 2;
+				const int32 yOffset = (monitor.workArea.h - m_state.windowSize.y) / 2;
+				m_state.pos.set(std::max(monitor.workArea.x + xOffset, 0), std::max(monitor.workArea.y + yOffset, 0));
+				break;
+			}
 		}
 	}
 
@@ -244,7 +379,7 @@ namespace s3d
 		windowClass.lpfnWndProc		= detail::WindowProc;
 		windowClass.hInstance		= ::GetModuleHandleW(nullptr);
 		windowClass.hIcon			= ::LoadIconW(::GetModuleHandleW(nullptr), MAKEINTRESOURCEW(100));
-		windowClass.hCursor			= ::LoadCursorW(nullptr, IDC_ARROW);
+		windowClass.hCursor			= nullptr;
 		windowClass.hbrBackground	= static_cast<HBRUSH>(::GetStockObject(DKGRAY_BRUSH));
 		windowClass.lpszClassName	= m_windowClassName.c_str();
 
@@ -278,7 +413,7 @@ namespace s3d
 			return false;
 		}
 
-		::ShowWindow(m_hWnd, SW_SHOW);
+		//::ShowWindow(m_hWnd, SW_SHOW);
 
 		return true;
 	}

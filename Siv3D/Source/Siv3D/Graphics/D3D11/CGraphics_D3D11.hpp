@@ -24,6 +24,7 @@
 # include "RasterizerState/D3D11RasterizerState.hpp"
 # include "DepthStencilState/D3D11DepthStencilState.hpp"
 # include "SamplerState/D3D11SamplerState.hpp"
+# include "ScreenCapture/D3D11ScreenCapture.hpp"
 # include "../../Renderer2D/D3D11/CRenderer2D_D3D11.hpp"
 
 namespace s3d
@@ -50,6 +51,8 @@ namespace s3d
 
 		std::unique_ptr<D3D11SamplerState> m_pSamplerState;
 
+		std::unique_ptr<D3D11ScreenCapture> m_screenCapture;
+
 		CRenderer2D_D3D11* m_renderer2D = nullptr;
 
 	public:
@@ -59,6 +62,18 @@ namespace s3d
 		~CGraphics_D3D11() override;
 
 		bool init() override;
+
+		ID3D11Device* getDevice() const { return m_device->getDevice(); }
+
+		ID3D11DeviceContext* getContext() const { return m_device->getContext(); }
+
+		D3D11RenderTarget* getRenderTarget() const { return m_renderTarget.get(); }
+
+		D3D11BlendState* getBlendState() const { return m_pBlendState.get(); }
+
+		D3D11RasterizerState* getRasterizerState() const { return m_pRasterizerState.get(); }
+
+		D3D11SamplerState* getSamplerState() const { return m_pSamplerState.get(); }
 
 		void setClearColor(const ColorF& color) override;
 
@@ -73,12 +88,32 @@ namespace s3d
 		void beginResize() override;
 
 		bool endResize(const Size& size) override;
-		
-		void setVSyncEnabled(bool enabled) override;
-		
-		bool isVSyncEnabled() const override;
+
+		void setTargetFrameRateHz(const Optional<double>& targetFrameRateHz) override;
+
+		Optional<double> getTargetFrameRateHz() const override;
+
+		double getDisplayRefreshRateHz() const override;
 
 		bool flush() override;
+
+		const Size& getCurrentRenderTargetSize() const override;
+
+		const RenderTexture& getBackBuffer2D() const override;
+
+		bool resizeTargetWindowed(const Size& size)
+		{
+			return m_swapChain->resizeTargetWindowed(size);
+		}
+
+		Optional<Size> shouldResize() const
+		{
+			return m_swapChain->shouldResize();
+		}
+		
+		void requestScreenCapture() override;
+		
+		const Image& getScreenCapture() const override;
 	};
 }
 

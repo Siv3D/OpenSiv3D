@@ -38,7 +38,7 @@ MEM_STATIC void ZSTD_rescaleFreqs(seqStore_t* ssPtr, const BYTE* src, size_t src
 
     ssPtr->cachedLiterals = NULL;
     ssPtr->cachedPrice = ssPtr->cachedLitLength = 0;
-    ssPtr->staticPrices = 0; 
+    ssPtr->staticPrices = 0;
 
     if (ssPtr->litLengthSum == 0) {
         if (srcSize <= 1024) ssPtr->staticPrices = 1;
@@ -56,7 +56,7 @@ MEM_STATIC void ZSTD_rescaleFreqs(seqStore_t* ssPtr, const BYTE* src, size_t src
 
         for (u=0; u<=MaxLit; u++) {
             ssPtr->litFreq[u] = 1 + (ssPtr->litFreq[u]>>ZSTD_FREQ_DIV);
-            ssPtr->litSum += ssPtr->litFreq[u]; 
+            ssPtr->litSum += ssPtr->litFreq[u];
         }
         for (u=0; u<=MaxLL; u++)
             ssPtr->litLengthFreq[u] = 1;
@@ -175,10 +175,10 @@ MEM_STATIC void ZSTD_updatePrice(seqStore_t* seqStorePtr, U32 litLength, const B
     }
 
     /* match offset */
-	{   BYTE const offCode = (BYTE)ZSTD_highbit32(offset+1);
-		seqStorePtr->offCodeSum++;
-		seqStorePtr->offCodeFreq[offCode]++;
-	}
+    {   BYTE const offCode = (BYTE)ZSTD_highbit32(offset+1);
+        seqStorePtr->offCodeSum++;
+        seqStorePtr->offCodeFreq[offCode]++;
+    }
 
     /* match Length */
     {   const BYTE ML_deltaCode = 36;
@@ -203,7 +203,7 @@ MEM_STATIC void ZSTD_updatePrice(seqStore_t* seqStorePtr, U32 litLength, const B
 
 
 /* Update hashTable3 up to ip (excluded)
-   Assumption : always within prefix (ie. not within extDict) */
+   Assumption : always within prefix (i.e. not within extDict) */
 FORCE_INLINE
 U32 ZSTD_insertAndFindFirstIndexHash3 (ZSTD_CCtx* zc, const BYTE* ip)
 {
@@ -360,6 +360,7 @@ static U32 ZSTD_BtGetAllMatches_selectMLS (
     default :
     case 4 : return ZSTD_BtGetAllMatches(zc, ip, iHighLimit, maxNbAttempts, 4, matches, minMatchLen);
     case 5 : return ZSTD_BtGetAllMatches(zc, ip, iHighLimit, maxNbAttempts, 5, matches, minMatchLen);
+    case 7 :
     case 6 : return ZSTD_BtGetAllMatches(zc, ip, iHighLimit, maxNbAttempts, 6, matches, minMatchLen);
     }
 }
@@ -387,6 +388,7 @@ static U32 ZSTD_BtGetAllMatches_selectMLS_extDict (
     default :
     case 4 : return ZSTD_BtGetAllMatches_extDict(zc, ip, iHighLimit, maxNbAttempts, 4, matches, minMatchLen);
     case 5 : return ZSTD_BtGetAllMatches_extDict(zc, ip, iHighLimit, maxNbAttempts, 5, matches, minMatchLen);
+    case 7 :
     case 6 : return ZSTD_BtGetAllMatches_extDict(zc, ip, iHighLimit, maxNbAttempts, 6, matches, minMatchLen);
     }
 }
@@ -634,7 +636,7 @@ _storeSequence:   /* cur, last_pos, best_mlen, best_off have to be set */
     }    }   /* for (cur=0; cur < last_pos; ) */
 
     /* Save reps for next block */
-    { int i; for (i=0; i<ZSTD_REP_NUM; i++) ctx->savedRep[i] = rep[i]; }
+    { int i; for (i=0; i<ZSTD_REP_NUM; i++) ctx->repToConfirm[i] = rep[i]; }
 
     /* Last Literals */
     {   size_t const lastLLSize = iend - anchor;
@@ -825,7 +827,7 @@ void ZSTD_compressBlock_opt_extDict_generic(ZSTD_CCtx* ctx,
 
             match_num = ZSTD_BtGetAllMatches_selectMLS_extDict(ctx, inr, iend, maxSearches, mls, matches, minMatch);
 
-            if (match_num > 0 && matches[match_num-1].len > sufficient_len) {
+            if (match_num > 0 && (matches[match_num-1].len > sufficient_len || cur + matches[match_num-1].len >= ZSTD_OPT_NUM)) {
                 best_mlen = matches[match_num-1].len;
                 best_off = matches[match_num-1].off;
                 last_pos = cur + 1;
@@ -835,7 +837,7 @@ void ZSTD_compressBlock_opt_extDict_generic(ZSTD_CCtx* ctx,
             /* set prices using matches at position = cur */
             for (u = 0; u < match_num; u++) {
                 mlen = (u>0) ? matches[u-1].len+1 : best_mlen;
-                best_mlen = (cur + matches[u].len < ZSTD_OPT_NUM) ? matches[u].len : ZSTD_OPT_NUM - cur;
+                best_mlen = matches[u].len;
 
                 while (mlen <= best_mlen) {
                     if (opt[cur].mlen == 1) {
@@ -907,7 +909,7 @@ _storeSequence:   /* cur, last_pos, best_mlen, best_off have to be set */
     }    }   /* for (cur=0; cur < last_pos; ) */
 
     /* Save reps for next block */
-    { int i; for (i=0; i<ZSTD_REP_NUM; i++) ctx->savedRep[i] = rep[i]; }
+    { int i; for (i=0; i<ZSTD_REP_NUM; i++) ctx->repToConfirm[i] = rep[i]; }
 
     /* Last Literals */
     {   size_t lastLLSize = iend - anchor;

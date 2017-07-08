@@ -29,13 +29,13 @@ namespace s3d
 	{
 		const static String logLevelStr[] =
 		{
-			L"[error] ",
-			L"[fail] ",
-			L"[warning] ",
-			L"[script] ",
-			L"",
-			L"[info] ",
-			L"[debug] ",
+			S3DSTR("[error] "),
+			S3DSTR("[fail] "),
+			S3DSTR("[warning] "),
+			S3DSTR("[script] "),
+			S3DSTR(""),
+			S3DSTR("[info] "),
+			S3DSTR("[debug] "),
 		};
 
 		static void OutputDebug(const LogDescription desc, const String& str)
@@ -116,7 +116,7 @@ namespace s3d
 		const String fileName = FileSystem::BaseName(FileSystem::ModulePath()).xml_escaped();
 		const std::string titleUTF8 = CharacterSet::ToUTF8(fileName) + " Log";
 
-		m_writer.open(fileName + L"_log.html", CharacterEncoding::UTF8_BOM);
+		m_writer.open(fileName + S3DSTR("_log.html"), CharacterEncoding::UTF8_BOM);
 		m_writer.writeUTF8(headerA);
 		m_writer.writeUTF8(titleUTF8);
 		m_writer.writeUTF8(headerB);

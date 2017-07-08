@@ -58,7 +58,7 @@ namespace s3d
 
 		static Array<Adapter> EnumAdapters()
 		{
-			HINSTANCE dxgi = ::LoadLibraryW(L"dxgi.dll");
+			HINSTANCE dxgi = ::LoadLibraryW(S3DWSTR("dxgi.dll"));
 
 			if (!dxgi)
 			{
@@ -127,13 +127,13 @@ namespace s3d
 			switch (featureLevel)
 			{
 			case D3D_FEATURE_LEVEL_11_0:
-				return L"11_0";
+				return S3DSTR("11_0");
 			case D3D_FEATURE_LEVEL_10_1:
-				return L"10_1";
+				return S3DSTR("10_1");
 			case D3D_FEATURE_LEVEL_10_0:
-				return L"10_0";
+				return S3DSTR("10_0");
 			default:
-				return L"UNKNOWN";
+				return S3DSTR("UNKNOWN");
 			}
 		}
 	}
@@ -145,7 +145,7 @@ namespace s3d
 
 	bool D3D11Device::init()
 	{
-		m_d3d11 = ::LoadLibraryW(L"d3d11.dll");
+		m_d3d11 = ::LoadLibraryW(S3DWSTR("d3d11.dll"));
 
 		if (!m_d3d11)
 		{
@@ -205,7 +205,7 @@ namespace s3d
 		return m_driverType;
 	}
 
-	DXGI_SAMPLE_DESC D3D11Device::getBestMSAA(DXGI_FORMAT format)
+	DXGI_SAMPLE_DESC D3D11Device::getBestMSAA(const DXGI_FORMAT format, const uint32 maxSample)
 	{
 		const auto it = m_bestMSAAs.find(format);
 
@@ -216,17 +216,16 @@ namespace s3d
 
 		DXGI_SAMPLE_DESC desc{ 1,0 };
 
-		for (uint32 count = D3D11_MAX_MULTISAMPLE_SAMPLE_COUNT; count > 0; count /= 2)
+		for (uint32 count = std::min<uint32>(D3D11_MAX_MULTISAMPLE_SAMPLE_COUNT, maxSample); count > 0; count /= 2)
 		{
 			uint32 quality;
 
-			if (SUCCEEDED(m_device->CheckMultisampleQualityLevels(DXGI_FORMAT_R8G8B8A8_UNORM, count, &quality)))
+			if (SUCCEEDED(m_device->CheckMultisampleQualityLevels(format, count, &quality)))
 			{
 				if (quality > 0)
 				{
 					desc.Count = count;
 					desc.Quality = quality - 1;
-					//Log(L"MSAA x", count, L" (quality: ", quality, L")");
 
 					m_bestMSAAs.emplace(format, desc);
 
@@ -277,7 +276,7 @@ namespace s3d
 
 	# ifdef _DEBUG
 
-		if (HINSTANCE D3D11_1SDKLayersLibrary = ::LoadLibraryW(L"D3D11_1SDKLayers.dll"))
+		if (HINSTANCE D3D11_1SDKLayersLibrary = ::LoadLibraryW(S3DWSTR("D3D11_1SDKLayers.dll")))
 		{
 			creationFlags |= D3D11_CREATE_DEVICE_DEBUG;
 

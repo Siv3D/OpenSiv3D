@@ -18,8 +18,13 @@ namespace s3d
 {
 	namespace detail
 	{
-		void ClipboardGetItem_macOS(String& text, Image& image, Array<FilePath>& filePaths);
-	
+		bool ClipboardGetText_macOS(String& text);
+		
+		bool ClipboardGetImage_macOS(Image& image);
+		
+		bool ClipboardGetFilePaths_macOS(Array<FilePath>& filePaths);
+		
+		
 		void ClipboardSetText_macOS(const String& text);
 
 		void ClipboardSetImage_macOS(const Image& image);
@@ -46,55 +51,30 @@ namespace s3d
 		return true;
 	}
 
-	void CClipboard_macOS::update()
+	bool CClipboard_macOS::hasChanged()
 	{
 		const uint64 currentChangeCount = detail::ClipboardGetChangeCount_macOS();
 		
-		m_hasChanged = (currentChangeCount != m_changeCount);
+		const bool hasChanged = (currentChangeCount != m_changeCount);
 		
 		m_changeCount = currentChangeCount;
 		
-		if (!m_hasChanged)
-		{
-			return;
-		}
-
-		detail::ClipboardGetItem_macOS(m_text, m_image, m_filePaths);
+		return hasChanged;
 	}
 
-	bool CClipboard_macOS::hasChanged()
+	bool CClipboard_macOS::getText(String& text)
 	{
-		return m_hasChanged;
+		return detail::ClipboardGetText_macOS(text);
 	}
-
-	bool CClipboard_macOS::hasText()
+	
+	bool CClipboard_macOS::getImage(Image& image)
 	{
-		return !m_text.isEmpty();
+		return detail::ClipboardGetImage_macOS(image);
 	}
-
-	bool CClipboard_macOS::hasImage()
+	
+	bool CClipboard_macOS::getFilePaths(Array<FilePath>& paths)
 	{
-		return !m_image.isEmpty();
-	}
-
-	bool CClipboard_macOS::hasFilePaths()
-	{
-		return !m_filePaths.isEmpty();
-	}
-
-	const String& CClipboard_macOS::getText()
-	{
-		return m_text;
-	}
-
-	const Image& CClipboard_macOS::getImage()
-	{
-		return m_image;
-	}
-
-	const Array<FilePath>& CClipboard_macOS::getFilePaths()
-	{
-		return m_filePaths;
+		return detail::ClipboardGetFilePaths_macOS(paths);
 	}
 
 	void CClipboard_macOS::setText(const String& text)
@@ -102,10 +82,6 @@ namespace s3d
 		detail::ClipboardSetText_macOS(text);
 
 		m_changeCount = detail::ClipboardGetChangeCount_macOS();
-		m_hasChanged = true;
-		m_text = text;
-		m_image.clear();
-		m_filePaths.clear();
 	}
 
 	void CClipboard_macOS::setImage(const Image& image)
@@ -113,10 +89,6 @@ namespace s3d
 		detail::ClipboardSetImage_macOS(image);
 
 		m_changeCount = detail::ClipboardGetChangeCount_macOS();
-		m_hasChanged = true;
-		m_text.clear();
-		m_image = image;
-		m_filePaths.clear();
 	}
 
 	void CClipboard_macOS::clear()
@@ -124,10 +96,6 @@ namespace s3d
 		detail::ClipboardClear_macOS();
 		
 		m_changeCount = detail::ClipboardGetChangeCount_macOS();
-		m_hasChanged = false;
-		m_text.clear();
-		m_image.clear();
-		m_filePaths.clear();
 	}
 }
 

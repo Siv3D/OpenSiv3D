@@ -25,6 +25,26 @@ namespace s3d
 			return Siv3DEngine::GetSystem()->update();
 		}
 
+		void Exit()
+		{
+			Siv3DEngine::GetSystem()->reportEvent(WindowEvent::ExitFlag);
+		}
+
+		void SetExitEvent(const uint32 windowEventFlag)
+		{
+			Siv3DEngine::GetSystem()->setExitEvent(windowEventFlag);
+		}
+
+		uint32 GetPreviousEvent()
+		{
+			return Siv3DEngine::GetSystem()->getPreviousEvent();
+		}
+		
+		double DeltaTime(const double maxDuration)
+		{
+			return std::min(Siv3DEngine::GetSystem()->getDeltaTime(), maxDuration);
+		}
+
 		int32 FrameCount()
 		{
 			return Siv3DEngine::GetSystem()->getUserFrameCount();
@@ -33,11 +53,6 @@ namespace s3d
 		void SetFrameCount(const int32 count)
 		{
 			Siv3DEngine::GetSystem()->setUserFrameCount(count);
-		}
-
-		double DeltaTime()
-		{
-			return Siv3DEngine::GetSystem()->getDeltaTime();
 		}
 
 		void ShowLicenses()
@@ -78,17 +93,17 @@ namespace s3d
 		bool LaunchBrowser(const FilePath& url)
 		{
 			// Web 上のコンテンツもしくは HTML ファイルでなければ処理を返す
-			if (!url.starts_with(L"http://") && !url.starts_with(L"https://"))
+			if (!url.starts_with(S3DSTR("http://")) && !url.starts_with(S3DSTR("https://")))
 			{
 				const String extension = FileSystem::Extension(url);
 
-				if (extension != L"html" && extension != L"htm")
+				if (extension != S3DSTR("html") && extension != S3DSTR("htm"))
 				{
 					return false;
 				}		
 			}
 
-			return reinterpret_cast<size_t>(::ShellExecuteW(nullptr, L"open", url.c_str(), nullptr, nullptr, SW_SHOWNORMAL)) > 32;
+			return reinterpret_cast<size_t>(::ShellExecuteW(nullptr, S3DWSTR("open"), url.c_str(), nullptr, nullptr, SW_SHOWNORMAL)) > 32;
 		}
 	}
 }
@@ -118,16 +133,16 @@ namespace s3d
 		{
 			FilePath url = _url;
 			
-			if (!url.starts_with(L"http://") && !url.starts_with(L"https://"))
+			if (!url.starts_with(S3DSTR("http://")) && !url.starts_with(S3DSTR("https://")))
 			{
 				const String extension = FileSystem::Extension(url);
 				
-				if (extension != L"html" && extension != L"htm")
+				if (extension != S3DSTR("html") && extension != S3DSTR("htm"))
 				{
 					return false;
 				}
 				
-				url.insert(0, L"file://");
+				url.insert(0, S3DSTR("file://"));
 			}
 			
 			return macOS_LaunchBrowser(url.narrow().c_str());
@@ -159,16 +174,16 @@ namespace s3d
 		{
 			FilePath url = _url;
 			
-			if (!url.starts_with(L"http://") && !url.starts_with(L"https://"))
+			if (!url.starts_with(S3DSTR("http://")) && !url.starts_with(S3DSTR("https://")))
 			{
 				const String extension = FileSystem::Extension(url);
 				
-				if (extension != L"html" && extension != L"htm")
+				if (extension != S3DSTR("html") && extension != S3DSTR("htm"))
 				{
 					return false;
 				}
 				
-				url.insert(0, L"file://");
+				url.insert(0, S3DSTR("file://"));
 			}
 
 			if (system("which xdg-open >/dev/null 2>&1"))
@@ -177,9 +192,9 @@ namespace s3d
 				return false;
 			}
 
-			String command = L"xdg-open ";
+			String command = S3DSTR("xdg-open ");
 			command += url;
-			command += L" >/dev/null 2>&1";
+			command += S3DSTR(" >/dev/null 2>&1");
 			if (system(command.narrow().c_str()) == 0)
 			{
 				return true;

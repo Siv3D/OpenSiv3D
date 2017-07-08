@@ -19,11 +19,16 @@
 # define  NTDDI_VERSION NTDDI_WIN7
 # include <Windows.h>
 # include <wrl.h>
-using namespace Microsoft::WRL;
 # include <d3d11.h>
+# include <Siv3D/HashMap.hpp>
+# include <Siv3D/BlendState.hpp>
+
+using namespace Microsoft::WRL;
 
 namespace s3d
 {
+	const BlendState NullBlendState(false, Blend(0));
+
 	class D3D11BlendState
 	{
 	private:
@@ -32,11 +37,19 @@ namespace s3d
 
 		ID3D11DeviceContext* m_context = nullptr;
 
-		ComPtr<ID3D11BlendState> m_state;
+		using BlendStateList = HashMap<BlendState, ComPtr<ID3D11BlendState>>;
+
+		BlendStateList m_states;
+
+		BlendState m_currentState = NullBlendState;
+
+		BlendStateList::iterator create(const BlendState& state);
 
 	public:
 
 		D3D11BlendState(ID3D11Device* device, ID3D11DeviceContext* context);
+
+		void set(const BlendState& state);
 	};
 }
 

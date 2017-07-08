@@ -123,7 +123,7 @@ namespace s3d
 
 		bool IsResource(const FilePath& path)
 		{
-			static const FilePath resourcePath = FileSystem::ModulePath() + L"/Contents/Resources/";
+			static const FilePath resourcePath = FileSystem::ModulePath() + S3DSTR("/Contents/Resources/");
 			
 			return path.starts_with(resourcePath) && Exists(path);
 		}
@@ -147,7 +147,7 @@ namespace s3d
 
 		FilePath VolumePath(const FilePath& path)
 		{
-			// [Siv3D*TODO]
+			// [Siv3D ToDo]
 			return FilePath(1, L'/');
 		}
 
@@ -174,7 +174,7 @@ namespace s3d
 			}
 			else
 			{
-				// [Siv3D*TODO]
+				// [Siv3D ToDo]
 				return false;
 			}
 		}
@@ -216,7 +216,7 @@ namespace s3d
 			}
 			else
 			{
-				// [Siv3D*TODO]
+				// [Siv3D ToDo]
 				return 0;
 			}
 		}

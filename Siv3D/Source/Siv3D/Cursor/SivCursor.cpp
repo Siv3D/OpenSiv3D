@@ -13,41 +13,71 @@
 # include "ICursor.hpp"
 # include "../Window/IWindow.hpp"
 # include <Siv3D/Cursor.hpp>
-# include <Siv3D/Geometry2D.hpp>
+# include <Siv3D/Intersection.hpp>
 # include <Siv3D/Window.hpp>
 
 namespace s3d
 {
 	namespace Cursor
 	{
-		const Point& Pos()
+		Point Pos()
 		{
-			return Siv3DEngine::GetCursor()->clientPos();
+			return Siv3DEngine::GetCursor()->clientTransformed().current;
 		}
 
-		const Point& PreviousPos()
+		Point PreviousPos()
 		{
-			return Siv3DEngine::GetCursor()->previousClientPos();
+			return Siv3DEngine::GetCursor()->clientTransformed().previous;
 		}
 
-		const Point& Delta()
+		Point Delta()
 		{
-			return Siv3DEngine::GetCursor()->clientDelta();
+			return Siv3DEngine::GetCursor()->clientTransformed().delta;
 		}
 
-		const Point& ScreenPos()
+		Vec2 PosF()
 		{
-			return Siv3DEngine::GetCursor()->screenPos();
+			return Siv3DEngine::GetCursor()->clientTransformedF().current;
 		}
 
-		const Point& PreviousScreenPos()
+		Vec2 PreviousPosF()
 		{
-			return Siv3DEngine::GetCursor()->previousScreenPos();
+			return Siv3DEngine::GetCursor()->clientTransformedF().previous;
 		}
 
-		const Point& ScreenDelta()
+		Vec2 DeltaF()
 		{
-			return Siv3DEngine::GetCursor()->screenDelta();
+			return Siv3DEngine::GetCursor()->clientTransformedF().delta;
+		}
+
+		Point PosRaw()
+		{
+			return Siv3DEngine::GetCursor()->clientRaw().current;
+		}
+
+		Point PreviousPosRaw()
+		{
+			return Siv3DEngine::GetCursor()->clientRaw().previous;
+		}
+
+		Point DeltaRaw()
+		{
+			return Siv3DEngine::GetCursor()->clientRaw().delta;
+		}
+
+		Point ScreenPos()
+		{
+			return Siv3DEngine::GetCursor()->screen().current;
+		}
+
+		Point PreviousScreenPos()
+		{
+			return Siv3DEngine::GetCursor()->screen().previous;
+		}
+
+		Point ScreenDelta()
+		{
+			return Siv3DEngine::GetCursor()->screen().delta;
 		}
 
 		void SetPos(const int32 x, const int32 y)
@@ -55,13 +85,41 @@ namespace s3d
 			Siv3DEngine::GetCursor()->setPos(x, y);
 		}
 
-		bool OnClient()
+		bool OnClientRect()
 		{
-			return Geometry2D::Intersect(Siv3DEngine::GetCursor()->clientPos(),
+			return Geometry2D::Intersect(Siv3DEngine::GetCursor()->clientRaw().current,
 				Rect(Siv3DEngine::GetWindow()->getState().clientSize));
 		}
 
-		void Clip(const Optional<Rect>& rect)
+		void SetTransform(const Mat3x2& matrix) 
+		{
+			Siv3DEngine::GetCursor()->setTransform(matrix);
+		}
+
+		const Mat3x2& GetTransform()
+		{
+			return Siv3DEngine::GetCursor()->getTransform();
+		}
+
+		void ClipClientRect(bool clip)
+		{
+			Siv3DEngine::GetCursor()->clipClientRect(clip);
+		}
+
+		void SetStyle(const CursorStyle style)
+		{
+			Siv3DEngine::GetCursor()->setStyle(style);
+		}
+
+		CursorStyle GetStyle()
+		{
+			return Siv3DEngine::GetCursor()->getStyle();
+		}
+	}
+
+	namespace win::Cursor
+	{
+		void ClipRect(const Optional<Rect>& rect)
 		{
 			Siv3DEngine::GetCursor()->clip(rect);
 		}

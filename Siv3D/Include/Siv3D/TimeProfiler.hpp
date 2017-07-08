@@ -59,7 +59,7 @@ namespace s3d
 
 	public:
 
-		TimeProfiler(const String& name = L"Profiler")
+		TimeProfiler(const String& name = S3DSTR("Profiler"))
 			: m_name(name)
 			, m_index(0)
 			, m_start(Time::GetNanosec()) {}

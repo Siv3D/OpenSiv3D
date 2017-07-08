@@ -141,7 +141,7 @@ namespace s3d
 		virtual bool save(const Image& image, const FilePath& path) const = 0;
 	};
 
-	namespace Imaging
+	namespace ImageProcessing
 	{
 		ImageFormat GetFormat(const FilePath& path);
 

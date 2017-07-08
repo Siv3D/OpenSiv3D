@@ -22,6 +22,8 @@ S3D_DISABLE_MSVC_WARNINGS_POP()
 # include <Siv3D/MemoryWriter.hpp>
 # include <Siv3D/Number.hpp>
 # include <Siv3D/Logger.hpp>
+# include <Siv3D/Emoji.hpp>
+# include <Siv3D/Icon.hpp>
 
 namespace s3d
 {
@@ -67,8 +69,6 @@ namespace s3d
 			rgb.emplace_back(image.width(), image.height());
 			rgb.emplace_back(image.width(), image.height());
 			rgb.emplace_back(image.width(), image.height());
-
-			//Log << L"bp" << rgb[0].bytes_per_row();
 
 			double table[256];
 			for (int i = 0; i < 256; ++i) {
@@ -199,6 +199,16 @@ namespace s3d
 		}
 	}
 
+	Image::Image(const Emoji& emoji)
+	{
+		*this = Emoji::LoadImage(emoji.codePoints);
+	}
+
+	Image::Image(const Icon& icon)
+	{
+		*this = Icon::LoadImage(icon.code, icon.size);
+	}
+
 	Image::Image(const Grid<Color>& grid)
 		: Image(grid.width(), grid.height())
 	{
@@ -277,6 +287,30 @@ namespace s3d
 		m_height = static_cast<uint32>(height);
 	}
 
+	void Image::resizeRows(const size_t rows, const Color& fillColor)
+	{
+		if (rows == m_height)
+		{
+			return;
+		}
+
+		if (!detail::IsValidSize(m_width, rows))
+		{
+			return clear();
+		}
+
+		if (rows < m_height)
+		{
+			m_data.resize(m_width * rows);
+		}
+		else
+		{
+			m_data.insert(m_data.end(), m_width * (rows - m_height), fillColor);
+		}
+
+		m_height = static_cast<uint32>(rows);
+	}
+
 	bool Image::applyAlphaFromRChannel(const FilePath& alpha)
 	{
 		if (isEmpty())
@@ -315,6 +349,71 @@ namespace s3d
 		}
 
 		return true;
+	}
+
+	Image& Image::mirror()
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			const int32 h = m_height, w = m_width, wHalf = m_width / 2;	
+			Color* line = m_data.data();		
+
+			for (int32 y = 0; y < h; ++y)
+			{
+				Color* lineA = line;
+				Color* lineB = line + w - 1;;
+
+				for (int32 x = 0; x < wHalf; ++x)
+				{
+					std::swap(*lineA, *lineB);
+					++lineA;
+					--lineB;
+				}
+
+				line += w;
+			}
+		}
+
+		return *this;
+	}
+	
+	Image& Image::flip()
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+		
+		// 2. 処理
+		{
+			const int32 h = m_height, s = stride();
+			Array<Color> line(m_width);
+			Color* lineU = m_data.data();
+			Color* lineB = lineU + m_width * (h - 1);
+			
+			for (int32 y = 0; y < h / 2; ++y)
+			{
+				::memcpy(line.data(), lineU, s);
+				::memcpy(lineU, lineB, s);
+				::memcpy(lineB, line.data(), s);
+				
+				lineU += m_width;
+				lineB -= m_width;
+			}
+		}
+		
+		return *this;
 	}
 
 	bool Image::save(const FilePath& path, ImageFormat format) const
@@ -394,7 +493,7 @@ namespace s3d
 		return Siv3DEngine::GetImageFormat()->encode(*this, format);
 	}
 
-	namespace Imaging
+	namespace ImageProcessing
 	{
 		double PerceivedDifferences(const Image& a, const Image& b)
 		{

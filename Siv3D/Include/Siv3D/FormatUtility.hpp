@@ -34,7 +34,7 @@ namespace s3d
 	}
 
 	template <class Type, std::enable_if_t<std::is_integral<Type>::value || IsBigInt<Type>::value>* = nullptr>
-	inline String ThousandsSeparate(const Type& value, const String& separator = L",")
+	inline String ThousandsSeparate(const Type& value, const String& separator = S3DSTR(","))
 	{
 		String result = Format(value);
 
@@ -42,7 +42,7 @@ namespace s3d
 
 		for (size_t i = result.size(); i != 0; --i)
 		{
-			if (++count == 4 && !(i == 1 && result[0] == L'-'))
+			if (++count == 4 && !(i == 1 && result[0] == S3DCHAR('-')))
 			{
 				result.insert(i, separator);
 
@@ -54,17 +54,17 @@ namespace s3d
 	}
 
 	template <class Type, std::enable_if_t<std::is_floating_point<Type>::value>* = nullptr>
-	inline String ThousandsSeparate(const Type& value, const int32 decimalPlace = 3, bool fixed = false, const String& separator = L",")
+	inline String ThousandsSeparate(const Type& value, const int32 decimalPlace = 3, bool fixed = false, const String& separator = S3DSTR(","))
 	{
 		String result = fixed ? ToFixed(value, decimalPlace) : ToString(value, decimalPlace);
 
-		const size_t zeroPos = result.lastIndexOf(L'.');
+		const size_t zeroPos = result.lastIndexOf(S3DCHAR('.'));
 
 		size_t count = 0;
 
 		for (size_t i = (zeroPos == String::npos) ? result.size() : zeroPos; i != 0; --i)
 		{
-			if (++count == 4 && !(i == 1 && result[0] == L'-'))
+			if (++count == 4 && !(i == 1 && result[0] == S3DCHAR('-')))
 			{
 				result.insert(i, separator);
 

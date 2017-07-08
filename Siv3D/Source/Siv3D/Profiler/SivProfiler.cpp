@@ -21,5 +21,10 @@ namespace s3d
 		{
 			return Siv3DEngine::GetProfiler()->getFPS();
 		}
+
+		void EnableAssetCreationWarning(const bool enabled)
+		{
+			Siv3DEngine::GetProfiler()->setAssetCreationWarningEnabled(enabled);
+		}
 	}
 }

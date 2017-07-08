@@ -50,17 +50,17 @@ namespace s3d
 
 	# if defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64)
 
-		m_d3dcompiler = ::LoadLibraryW(L"dll_x64/d3d/d3dcompiler_47.dll");
+		m_d3dcompiler = ::LoadLibraryW(S3DWSTR("dll_x64/d3d/d3dcompiler_47.dll"));
 
 	# elif defined(SIV3D_TARGET_WINDOWS_DESKTOP_X86)
 
-		m_d3dcompiler = ::LoadLibraryW(L"dll_x86/d3d/d3dcompiler_47.dll");
+		m_d3dcompiler = ::LoadLibraryW(S3DWSTR("dll_x86/d3d/d3dcompiler_47.dll"));
 
 	# endif
 
 		if (!m_d3dcompiler)
 		{
-			::LoadLibraryW(L"d3dcompiler_47.dll");
+			::LoadLibraryW(S3DWSTR("d3dcompiler_47.dll"));
 		}
 
 		if (m_d3dcompiler)
@@ -90,64 +90,24 @@ namespace s3d
 			m_pixelShaders.setNullData(nullPixelShader);
 		}
 
-		/*
-		
-		compileHLSLToFile(L"engine/shader/sprite.hlsl", L"engine/shader/sprite.vs", "VS", "vs_4_0");
-		compileHLSLToFile(L"engine/shader/sprite.hlsl", L"engine/shader/sprite.ps", "PS", "ps_4_0");
-		compileHLSLToFile(L"engine/shader/shape.hlsl", L"engine/shader/shape.ps", "PS", "ps_4_0");
-
+		///*	
+		//compileHLSLToFile(S3DSTR("engine/shader/sprite.hlsl"), S3DSTR("engine/shader/sprite.vs"), "VS", "vs_4_0");
+		//compileHLSLToFile(S3DSTR("engine/shader/sprite.hlsl"), S3DSTR("engine/shader/shape.ps"), "PS_Shape", "ps_4_0");
+		//compileHLSLToFile(S3DSTR("engine/shader/sprite.hlsl"), S3DSTR("engine/shader/line_dot.ps"), "PS_LineDot", "ps_4_0");
+		//compileHLSLToFile(S3DSTR("engine/shader/sprite.hlsl"), S3DSTR("engine/shader/line_round_dot.ps"), "PS_LineRoundDot", "ps_4_0");
+		//compileHLSLToFile(S3DSTR("engine/shader/sprite.hlsl"), S3DSTR("engine/shader/sprite.ps"), "PS_Sprite", "ps_4_0");
+		//compileHLSLToFile(S3DSTR("engine/shader/sprite.hlsl"), S3DSTR("engine/shader/sprite_sdf.ps"), "PS_SDF", "ps_4_0");
 		//*/
 
-		m_standardVSs.push_back(VertexShader(Resource(L"engine/shader/sprite.vs")));
-		m_standardPSs.push_back(PixelShader(Resource(L"engine/shader/shape.ps")));
-		m_standardPSs.push_back(PixelShader(Resource(L"engine/shader/sprite.ps")));
+# define RSC(path) Resource(path)
+//# define RSC(path) path
 
-		return true;
-	}
-
-	bool CShader_D3D11::compileHLSL(IReader& reader, ByteArray& to, const char* filePath, const char* entryPoint, const char* target)
-	{
-		if (!p_D3DCompile2)
-		{
-			return false;
-		}
-
-		Array<Byte> data(static_cast<size_t>(reader.size()));
-
-		reader.read(data.data(), data.size());
-
-		const bool preferFlow = false;
-		const uint32 flags =
-			D3DCOMPILE_ENABLE_STRICTNESS
-			| D3DCOMPILE_OPTIMIZATION_LEVEL3
-			| D3DCOMPILE_WARNINGS_ARE_ERRORS
-			| (preferFlow ? D3DCOMPILE_PREFER_FLOW_CONTROL : 0);
-
-		ID3DBlob* pBlobOut = nullptr;
-		ID3DBlob* pErrorBlob = nullptr;
-		const HRESULT hr = p_D3DCompile2(data.data(), data.size(), filePath, nullptr, nullptr,
-			entryPoint, target, flags, 0, 0, nullptr, 0, &pBlobOut, &pErrorBlob);
-
-		if (pErrorBlob)
-		{
-			::OutputDebugStringA((const char*)pErrorBlob->GetBufferPointer());
-
-			pErrorBlob->Release();
-		}
-
-		if (FAILED(hr))
-		{
-			if (pBlobOut)
-			{
-				pBlobOut->Release();
-			}
-
-			return false;
-		}
-
-		to.create(pBlobOut->GetBufferPointer(), pBlobOut->GetBufferSize());
-
-		pBlobOut->Release();
+		m_standardVSs.push_back(VertexShader(RSC(S3DSTR("engine/shader/sprite.vs"))));
+		m_standardPSs.push_back(PixelShader(RSC(S3DSTR("engine/shader/shape.ps"))));
+		m_standardPSs.push_back(PixelShader(RSC(S3DSTR("engine/shader/line_dot.ps"))));
+		m_standardPSs.push_back(PixelShader(RSC(S3DSTR("engine/shader/line_round_dot.ps"))));
+		m_standardPSs.push_back(PixelShader(RSC(S3DSTR("engine/shader/sprite.ps"))));
+		m_standardPSs.push_back(PixelShader(RSC(S3DSTR("engine/shader/sprite_sdf.ps"))));
 
 		return true;
 	}
@@ -158,10 +118,43 @@ namespace s3d
 
 		if (!vertexShader->isInitialized())
 		{
-			return VertexShader::IDType(0);
+			return VertexShader::NullHandleID;
 		}
 
 		return m_vertexShaders.add(vertexShader);
+	}
+
+	VertexShader::IDType CShader_D3D11::createVSFromFile(const FilePath& path, const Array<BindingPoint>&)
+	{
+		BinaryReader reader(path);
+
+		if (!reader.isOpened() || reader.size() == 0 || !reader.supportsLookahead())
+		{
+			return VertexShader::NullHandleID;
+		}
+
+		static constexpr uint8 dxbc[4] = { 'D', 'X', 'B', 'C' };
+		uint8 fourcc[4];
+
+		if (!reader.lookahead(fourcc))
+		{
+			return VertexShader::NullHandleID;
+		}
+
+		const bool isBinary = (::memcmp(dxbc, fourcc, 4) == 0);
+
+		ByteArray memory;
+
+		if (isBinary)
+		{
+			memory = reader.readAll();
+		}
+		else if (!compileHLSL(reader, memory, reader.path().narrow().c_str(), "VS", "vs_4_0"))
+		{
+			return VertexShader::NullHandleID;
+		}
+
+		return createVS(std::move(memory));
 	}
 
 	PixelShader::IDType CShader_D3D11::createPS(ByteArray&& binary)
@@ -170,10 +163,43 @@ namespace s3d
 
 		if (!pixelShader->isInitialized())
 		{
-			return PixelShader::IDType(0);
+			return PixelShader::NullHandleID;
 		}
 
 		return m_pixelShaders.add(pixelShader);
+	}
+
+	PixelShader::IDType CShader_D3D11::createPSFromFile(const FilePath& path, const Array<BindingPoint>&)
+	{
+		BinaryReader reader(path);
+
+		if (!reader.isOpened() || reader.size() == 0 || !reader.supportsLookahead())
+		{
+			return PixelShader::IDType(0);
+		}
+
+		static constexpr uint8 dxbc[4] = { 'D', 'X', 'B', 'C' };
+		uint8 fourcc[4];
+
+		if (!reader.lookahead(fourcc))
+		{
+			return PixelShader::NullHandleID;
+		}
+
+		const bool isBinary = (::memcmp(dxbc, fourcc, 4) == 0);
+
+		ByteArray memory;
+
+		if (isBinary)
+		{
+			memory = reader.readAll();
+		}
+		else if (!compileHLSL(reader, memory, reader.path().narrow().c_str(), "PS", "ps_4_0"))
+		{
+			return PixelShader::NullHandleID;
+		}
+
+		return createPS(std::move(memory));
 	}
 
 	void CShader_D3D11::releaseVS(const VertexShader::IDType handleID)
@@ -229,6 +255,53 @@ namespace s3d
 
 		m_currentPS = handleID;
 	}
+	
+	bool CShader_D3D11::compileHLSL(IReader& reader, ByteArray& to, const char* filePath, const char* entryPoint, const char* target)
+	{
+		if (!p_D3DCompile2)
+		{
+			return false;
+		}
+		
+		Array<Byte> data(static_cast<size_t>(reader.size()));
+		
+		reader.read(data.data(), data.size());
+		
+		const bool preferFlow = false;
+		const uint32 flags =
+		D3DCOMPILE_ENABLE_STRICTNESS
+		| D3DCOMPILE_OPTIMIZATION_LEVEL3
+		| D3DCOMPILE_WARNINGS_ARE_ERRORS
+		| (preferFlow ? D3DCOMPILE_PREFER_FLOW_CONTROL : 0);
+		
+		ID3DBlob* pBlobOut = nullptr;
+		ID3DBlob* pErrorBlob = nullptr;
+		const HRESULT hr = p_D3DCompile2(data.data(), data.size(), filePath, nullptr, nullptr,
+										 entryPoint, target, flags, 0, 0, nullptr, 0, &pBlobOut, &pErrorBlob);
+		
+		if (pErrorBlob)
+		{
+			::OutputDebugStringA((const char*)pErrorBlob->GetBufferPointer());
+			
+			pErrorBlob->Release();
+		}
+		
+		if (FAILED(hr))
+		{
+			if (pBlobOut)
+			{
+				pBlobOut->Release();
+			}
+			
+			return false;
+		}
+		
+		to.create(pBlobOut->GetBufferPointer(), pBlobOut->GetBufferSize());
+		
+		pBlobOut->Release();
+		
+		return true;
+	}	
 
 	bool CShader_D3D11::compileHLSLToFile(const FilePath& hlsl, const FilePath& to, const char* entryPoint, const char* target)
 	{

@@ -16,6 +16,7 @@ namespace s3d
 {
 	class ISiv3DLogger;
 	class ISiv3DSystem;
+	class ISiv3DCPU;
 	class ISiv3DConsole;
 	class ISiv3DImageFormat;
 	class ISiv3DWindow;
@@ -25,10 +26,17 @@ namespace s3d
 	class ISiv3DCursor;
 	class ISiv3DKeyboard;
 	class ISiv3DMouse;
+	class ISiv3DTextInput;
+	class ISiv3DAudioFormat;
+	class ISiv3DAudio;
 	class ISiv3DGraphics;
 	class ISiv3DTexture;
 	class ISiv3DShader;
 	class ISiv3DRenderer2D;
+	class ISiv3DFont;
+	class ISiv3DPrint;
+	class ISiv3DScreenCapture;
+	class ISiv3DEffect;
 
 	template <class Interface>
 	class Siv3DComponent
@@ -70,6 +78,8 @@ namespace s3d
 
 		Siv3DComponent<ISiv3DSystem> m_system;
 
+		Siv3DComponent<ISiv3DCPU> m_cpu;
+
 		Siv3DComponent<ISiv3DConsole> m_console;
 
 		Siv3DComponent<ISiv3DImageFormat> m_imageFormat;
@@ -88,6 +98,12 @@ namespace s3d
 
 		Siv3DComponent<ISiv3DMouse> m_mouse;
 
+		Siv3DComponent<ISiv3DTextInput> m_textInput;
+
+		Siv3DComponent<ISiv3DAudioFormat> m_audioFormat;
+
+		Siv3DComponent<ISiv3DAudio> m_audio;
+
 		Siv3DComponent<ISiv3DGraphics> m_graphics;
 
 		Siv3DComponent<ISiv3DTexture> m_texture;
@@ -95,6 +111,14 @@ namespace s3d
 		Siv3DComponent<ISiv3DShader> m_shader;
 
 		Siv3DComponent<ISiv3DRenderer2D> m_renderer2D;
+
+		Siv3DComponent<ISiv3DFont> m_font;
+
+		Siv3DComponent<ISiv3DPrint> m_print;
+
+		Siv3DComponent<ISiv3DScreenCapture> m_screenCapture;
+
+		Siv3DComponent<ISiv3DEffect> m_effect;
 
 	public:
 
@@ -115,6 +139,11 @@ namespace s3d
 		static ISiv3DSystem* GetSystem()
 		{
 			return pEngine->m_system.get();
+		}
+
+		static ISiv3DCPU* GetCPU()
+		{
+			return pEngine->m_cpu.get();
 		}
 
 		static ISiv3DConsole* GetConsole()
@@ -162,6 +191,21 @@ namespace s3d
 			return pEngine->m_mouse.get();
 		}
 
+		static ISiv3DTextInput* GetTextInput()
+		{
+			return pEngine->m_textInput.get();
+		}
+
+		static ISiv3DAudioFormat* GetAudioFormat()
+		{
+			return pEngine->m_audioFormat.get();
+		}
+
+		static ISiv3DAudio* GetAudio()
+		{
+			return pEngine->m_audio.get();
+		}
+
 		static ISiv3DGraphics* GetGraphics()
 		{
 			return pEngine->m_graphics.get();
@@ -180,6 +224,26 @@ namespace s3d
 		static ISiv3DRenderer2D* GetRenderer2D()
 		{
 			return pEngine->m_renderer2D.get();
+		}
+
+		static ISiv3DFont* GetFont()
+		{
+			return pEngine->m_font.get();
+		}
+
+		static ISiv3DPrint* GetPrint()
+		{
+			return pEngine->m_print.get();
+		}
+
+		static ISiv3DScreenCapture* GetScreenCapture()
+		{
+			return pEngine->m_screenCapture.get();
+		}
+
+		static ISiv3DEffect* GetEffect()
+		{
+			return pEngine->m_effect.get();
 		}
 	};
 }

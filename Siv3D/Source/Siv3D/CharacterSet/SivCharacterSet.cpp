@@ -640,7 +640,7 @@ namespace s3d
 				return String();
 			}
 
-			String result(length, L'\0');
+			String result(length, S3DCHAR('\0'));
 
 			if (length != ::MultiByteToWideChar(
 				code,
@@ -670,7 +670,7 @@ namespace s3d
 			const char* const begin = asciiStr.begin();
 			const char* const end = asciiStr.end();
 
-			String result(asciiStr.length(), L'\0');
+			String result(asciiStr.length(), S3DCHAR('\0'));
 			wchar* dst = &result[0];
 
 			for (auto it = begin; it != end; ++it)
@@ -699,7 +699,7 @@ namespace s3d
 			const wchar* const begin = asciiStr.begin();
 			const wchar* const end = asciiStr.end();
 
-			std::string result(asciiStr.length(), L'\0');
+			std::string result(asciiStr.length(), '\0');
 			char* dst = &result[0];
 
 			for (auto it = begin; it != end; ++it)
@@ -849,19 +849,32 @@ namespace s3d
 		{
 			if (codePoint < 0x10000)
 			{
-				return{ static_cast<char16_t>(codePoint), 0 };
+				return{{ static_cast<char16_t>(codePoint), char16_t(0) }};
 			}
 			else if (codePoint < 0x110000)
 			{
-				return{
+				return{{
 					static_cast<char16_t>(((codePoint - 0x10000) >> 10) + 0xD800),
 					static_cast<char16_t>((codePoint & 0x3FF) + 0xDC00)
-				};
+				}};
 			}
 			else
 			{
-				return{ static_cast<char16_t>(0xFFFD), 0 };
+				return{{ static_cast<char16_t>(0xFFFD), 0 }};
 			}
+		}
+
+		size_t CountCodePoints(StringView str)
+		{
+		# if defined(SIV3D_TARGET_WINDOWS)
+
+			return  detail::UTF16ToUTF32_Length(str.begin(), str.end());
+
+		# else
+
+			return str.size();
+	
+		# endif	
 		}
 
 		String PercentEncode(const StringView str, const Arg::upperCase_<bool> upperCase)
@@ -884,7 +897,7 @@ namespace s3d
 
 			const char* const table = detail::hexTable[*upperCase];
 
-			String result(length, L'\0');
+			String result(length, S3DCHAR('\0'));
 			wchar* dst = &result[0];
 
 			for (const uint8 ch : utf8)
@@ -895,7 +908,7 @@ namespace s3d
 				}
 				else
 				{
-					*dst++ = L'%';
+					*dst++ = S3DCHAR('%');
 
 					*dst++ = table[ch >> 4];
 

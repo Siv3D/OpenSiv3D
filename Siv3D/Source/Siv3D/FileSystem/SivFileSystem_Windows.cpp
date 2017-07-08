@@ -49,7 +49,7 @@ namespace s3d
 
 		inline bool ResourceExists(const FilePath& path)
 		{
-			return ::FindResourceW(::GetModuleHandleW(nullptr), &path[1], L"FILE") != nullptr;
+			return ::FindResourceW(::GetModuleHandleW(nullptr), &path[1], S3DWSTR("FILE")) != nullptr;
 		}
 
 		static FilePath NormalizePath(FilePath path, const bool skipDirectoryCheck = false)
@@ -299,7 +299,7 @@ namespace s3d
 			{
 				HMODULE module = ::GetModuleHandleW(nullptr);
 
-				if (HRSRC hrs = ::FindResourceW(module, (L'#' + path.substr(1)).c_str(), L"FILE"))
+				if (HRSRC hrs = ::FindResourceW(module, (L'#' + path.substr(1)).c_str(), S3DWSTR("FILE")))
 				{
 					return ::SizeofResource(module, hrs) == 0;
 				}
@@ -389,7 +389,7 @@ namespace s3d
 			{
 				HMODULE module = ::GetModuleHandleW(nullptr);
 
-				if (HRSRC hrs = ::FindResourceW(module, (L'#' + path.substr(1)).c_str(), L"FILE"))
+				if (HRSRC hrs = ::FindResourceW(module, (L'#' + path.substr(1)).c_str(), S3DWSTR("FILE")))
 				{
 					return ::SizeofResource(module, hrs);
 				}
@@ -559,7 +559,7 @@ namespace s3d
 
 		FilePath TempDirectoryPath()
 		{
-			return FileSystem::SpecialFolderPath(SpecialFolder::LocalAppData) + L"Temp/";
+			return FileSystem::SpecialFolderPath(SpecialFolder::LocalAppData) + S3DSTR("Temp/");
 		}
 
 		bool Remove(const FilePath& path, const bool allowUndo)

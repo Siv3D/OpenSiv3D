@@ -12,7 +12,9 @@
 # pragma once
 # include <type_traits>
 # include <stdexcept>
+# include <memory>
 # include <cassert>
+# include "Platform.hpp"
 
 //////////////////////////////////////////////////////////////////////////////
 //

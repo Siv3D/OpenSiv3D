@@ -13,6 +13,10 @@
 # include <memory>
 # include "Fwd.hpp"
 # include "AssetHandle.hpp"
+# include "String.hpp"
+# include "NamedParameter.hpp"
+# include "Array.hpp"
+# include "Shader.hpp"
 
 namespace s3d
 {
@@ -32,9 +36,13 @@ namespace s3d
 
 		using IDType = PixelShaderHandle::IDType;
 
+		static constexpr IDType NullHandleID = PixelShaderHandle::NullID;
+
 		PixelShader();
 
-		explicit PixelShader(const FilePath& path);
+		explicit PixelShader(const FilePath& path, const Array<BindingPoint>& bindingPoints = {});
+		
+		explicit PixelShader(Arg::source_<String> source, const Array<BindingPoint>& bindingPoints = {});
 
 		virtual ~PixelShader();
 

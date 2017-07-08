@@ -316,7 +316,7 @@ namespace s3d
 		/// <returns>
 		/// フォーマットされた経過時間
 		/// </returns>
-		String format(const String& pattern = L"H:mm:ss.xx") const;
+		String format(const String& pattern = S3DSTR("H:mm:ss.xx")) const;
 	};
 
 	inline bool operator <(const Stopwatch& s, const MicrosecondsF& time)

@@ -83,292 +83,292 @@ namespace s3d
 			switch (m_code)
 			{
 			case 0x00:
-				return L"";
+				return S3DSTR("");
 			case 0x03:
-				return L"Cancel";
+				return S3DSTR("Cancel");
 			case 0x08:
-				return L"Backspace";
+				return S3DSTR("Backspace");
 			case 0x09:
-				return L"Tab";
+				return S3DSTR("Tab");
 			case 0x0C:
-				return L"Clear";
+				return S3DSTR("Clear");
 			case 0x0D:
-				return L"Enter";
+				return S3DSTR("Enter");
 			case 0x10:
-				return L"Shift";
+				return S3DSTR("Shift");
 			case 0x11:
-				return L"Control";
+				return S3DSTR("Control");
 			case 0x12:
-				return L"Alt";
+				return S3DSTR("Alt");
 			case 0x13:
-				return L"Pause";
+				return S3DSTR("Pause");
 			case 0x1B:
-				return L"Escape";
+				return S3DSTR("Escape");
 			case 0x20:
-				return L"Space";
+				return S3DSTR("Space");
 			case 0x21:
-				return L"PageUp";
+				return S3DSTR("PageUp");
 			case 0x22:
-				return L"PageDown";
+				return S3DSTR("PageDown");
 			case 0x23:
-				return L"End";
+				return S3DSTR("End");
 			case 0x24:
-				return L"Home";
+				return S3DSTR("Home");
 			case 0x25:
-				return L"Left";
+				return S3DSTR("Left");
 			case 0x26:
-				return L"Up";
+				return S3DSTR("Up");
 			case 0x27:
-				return L"Right";
+				return S3DSTR("Right");
 			case 0x28:
-				return L"Down";
+				return S3DSTR("Down");
 			case 0x2C:
-				return L"PrintScreen";
+				return S3DSTR("PrintScreen");
 			case 0x2D:
-				return L"Insert";
+				return S3DSTR("Insert");
 			case 0x2E:
-				return L"Delete";
+				return S3DSTR("Delete");
 			case 0x30:
-				return L"0";
+				return S3DSTR("0");
 			case 0x31:
-				return L"1";
+				return S3DSTR("1");
 			case 0x32:
-				return L"2";
+				return S3DSTR("2");
 			case 0x33:
-				return L"3";
+				return S3DSTR("3");
 			case 0x34:
-				return L"4";
+				return S3DSTR("4");
 			case 0x35:
-				return L"5";
+				return S3DSTR("5");
 			case 0x36:
-				return L"6";
+				return S3DSTR("6");
 			case 0x37:
-				return L"7";
+				return S3DSTR("7");
 			case 0x38:
-				return L"8";
+				return S3DSTR("8");
 			case 0x39:
-				return L"9";
+				return S3DSTR("9");
 			case 0x41:
-				return L"A";
+				return S3DSTR("A");
 			case 0x42:
-				return L"B";
+				return S3DSTR("B");
 			case 0x43:
-				return L"C";
+				return S3DSTR("C");
 			case 0x44:
-				return L"D";
+				return S3DSTR("D");
 			case 0x45:
-				return L"E";
+				return S3DSTR("E");
 			case 0x46:
-				return L"F";
+				return S3DSTR("F");
 			case 0x47:
-				return L"G";
+				return S3DSTR("G");
 			case 0x48:
-				return L"H";
+				return S3DSTR("H");
 			case 0x49:
-				return L"I";
+				return S3DSTR("I");
 			case 0x4A:
-				return L"J";
+				return S3DSTR("J");
 			case 0x4B:
-				return L"K";
+				return S3DSTR("K");
 			case 0x4C:
-				return L"L";
+				return S3DSTR("L");
 			case 0x4D:
-				return L"M";
+				return S3DSTR("M");
 			case 0x4E:
-				return L"N";
+				return S3DSTR("N");
 			case 0x4F:
-				return L"O";
+				return S3DSTR("O");
 			case 0x50:
-				return L"P";
+				return S3DSTR("P");
 			case 0x51:
-				return L"Q";
+				return S3DSTR("Q");
 			case 0x52:
-				return L"R";
+				return S3DSTR("R");
 			case 0x53:
-				return L"S";
+				return S3DSTR("S");
 			case 0x54:
-				return L"T";
+				return S3DSTR("T");
 			case 0x55:
-				return L"U";
+				return S3DSTR("U");
 			case 0x56:
-				return L"V";
+				return S3DSTR("V");
 			case 0x57:
-				return L"W";
+				return S3DSTR("W");
 			case 0x58:
-				return L"X";
+				return S3DSTR("X");
 			case 0x59:
-				return L"Y";
+				return S3DSTR("Y");
 			case 0x5A:
-				return L"Z";
+				return S3DSTR("Z");
 			case 0x60:
-				return L"Numpad0";
+				return S3DSTR("Numpad0");
 			case 0x61:
-				return L"Numpad1";
+				return S3DSTR("Numpad1");
 			case 0x62:
-				return L"Numpad2";
+				return S3DSTR("Numpad2");
 			case 0x63:
-				return L"Numpad3";
+				return S3DSTR("Numpad3");
 			case 0x64:
-				return L"Numpad4";
+				return S3DSTR("Numpad4");
 			case 0x65:
-				return L"Numpad5";
+				return S3DSTR("Numpad5");
 			case 0x66:
-				return L"Numpad6";
+				return S3DSTR("Numpad6");
 			case 0x67:
-				return L"Numpad7";
+				return S3DSTR("Numpad7");
 			case 0x68:
-				return L"Numpad8";
+				return S3DSTR("Numpad8");
 			case 0x69:
-				return L"Numpad9";
+				return S3DSTR("Numpad9");
 			case 0x6A:
-				return L"Numpad*";
+				return S3DSTR("Numpad*");
 			case 0x6B:
-				return L"Numpad+";
+				return S3DSTR("Numpad+");
 			case 0x6C:
-				return L"NumpadEnter";
+				return S3DSTR("NumpadEnter");
 			case 0x6D:
-				return L"Numpad-";
+				return S3DSTR("Numpad-");
 			case 0x6E:
-				return L"Numpad.";
+				return S3DSTR("Numpad.");
 			case 0x6F:
-				return L"Numpad/";
+				return S3DSTR("Numpad/");
 			case 0x70:
-				return L"F1";
+				return S3DSTR("F1");
 			case 0x71:
-				return L"F2";
+				return S3DSTR("F2");
 			case 0x72:
-				return L"F3";
+				return S3DSTR("F3");
 			case 0x73:
-				return L"F4";
+				return S3DSTR("F4");
 			case 0x74:
-				return L"F5";
+				return S3DSTR("F5");
 			case 0x75:
-				return L"F6";
+				return S3DSTR("F6");
 			case 0x76:
-				return L"F7";
+				return S3DSTR("F7");
 			case 0x77:
-				return L"F8";
+				return S3DSTR("F8");
 			case 0x78:
-				return L"F9";
+				return S3DSTR("F9");
 			case 0x79:
-				return L"F10";
+				return S3DSTR("F10");
 			case 0x7A:
-				return L"F11";
+				return S3DSTR("F11");
 			case 0x7B:
-				return L"F12";
+				return S3DSTR("F12");
 			case 0x7C:
-				return L"F13";
+				return S3DSTR("F13");
 			case 0x7D:
-				return L"F14";
+				return S3DSTR("F14");
 			case 0x7E:
-				return L"F15";
+				return S3DSTR("F15");
 			case 0x7F:
-				return L"F16";
+				return S3DSTR("F16");
 			case 0x80:
-				return L"F17";
+				return S3DSTR("F17");
 			case 0x81:
-				return L"F18";
+				return S3DSTR("F18");
 			case 0x82:
-				return L"F19";
+				return S3DSTR("F19");
 			case 0x83:
-				return L"F20";
+				return S3DSTR("F20");
 			case 0x84:
-				return L"F21";
+				return S3DSTR("F21");
 			case 0x85:
-				return L"F22";
+				return S3DSTR("F22");
 			case 0x86:
-				return L"F23";
+				return S3DSTR("F23");
 			case 0x87:
-				return L"F24";
+				return S3DSTR("F24");
 			case 0x90:
-				return L"NumLock";
+				return S3DSTR("NumLock");
 			case 0xA0:
-				return L"LeftShift";
+				return S3DSTR("LeftShift");
 			case 0xA1:
-				return L"RightShift";
+				return S3DSTR("RightShift");
 			case 0xA2:
-				return L"LeftControl";
+				return S3DSTR("LeftControl");
 			case 0xA3:
-				return L"RightControl";
+				return S3DSTR("RightControl");
 			case 0xA4:
-				return L"LeftAlt";
+				return S3DSTR("LeftAlt");
 			case 0xA5:
-				return L"RightAlt";
+				return S3DSTR("RightAlt");
 			case 0xB0:
-				return L"NextTrack";
+				return S3DSTR("NextTrack");
 			case 0xB1:
-				return L"PreviousTrack";
+				return S3DSTR("PreviousTrack");
 			case 0xB2:
-				return L"StopMedia";
+				return S3DSTR("StopMedia");
 			case 0xB3:
-				return L"PlayPauseMedia";
+				return S3DSTR("PlayPauseMedia");
 			case 0xBA:
-				return L";(US)";
+				return S3DSTR(";(US)");
 			case 0xBB:
-				return L"=(US)";
+				return S3DSTR("=(US)");
 			case 0xBC:
-				return L",";
+				return S3DSTR(",");
 			case 0xBD:
-				return L"-";
+				return S3DSTR("-");
 			case 0xBE:
-				return L".";
+				return S3DSTR(".");
 			case 0xBF:
-				return L"/";
+				return S3DSTR("/");
 			case 0xC0:
-				return L"`";
+				return S3DSTR("`");
 			case 0xD8:
-				return L"Command";
+				return S3DSTR("Command");
 			case 0xD9:
-				return L"LeftCommand";
+				return S3DSTR("LeftCommand");
 			case 0xDA:
-				return L"RightCommand";
+				return S3DSTR("RightCommand");
 			case 0xDB:
-				return L"[";
+				return S3DSTR("[");
 			case 0xDC:
-				return L"\\(US)";
+				return S3DSTR("\\(US)");
 			case 0xDD:
-				return L"]";
+				return S3DSTR("]");
 			case 0xDE:
-				return L"'(US)";
+				return S3DSTR("'(US)");
 			case 0xE2:
-				return L"\\(JP)";
+				return S3DSTR("\\(JP)");
 			}
 
-			return L"Key-Unknown";
+			return S3DSTR("Key-Unknown");
 		}
 		else if (m_device == InputDevice::Mouse)
 		{
 			switch (m_code)
 			{
 			case 0:
-				return L"MouseLeft";
+				return S3DSTR("MouseLeft");
 			case 1:
-				return L"MouseRight";
+				return S3DSTR("MouseRight");
 			case 2:
-				return L"MouseMiddle";
+				return S3DSTR("MouseMiddle");
 			case 3:
-				return L"MouseX1";
+				return S3DSTR("MouseX1");
 			case 4:
-				return L"MouseX2";
+				return S3DSTR("MouseX2");
 			case 5:
-				return L"MouseX3";
+				return S3DSTR("MouseX3");
 			case 6:
-				return L"MouseX4";
+				return S3DSTR("MouseX4");
 			case 7:
-				return L"MouseX5";
+				return S3DSTR("MouseX5");
 			}
 
-			return L"Mouse-Unknown";
+			return S3DSTR("Mouse-Unknown");
 		}
 		else if (m_device == InputDevice::Gamepad)
 		{
-			return L"Gamepad-Unknown";
+			return S3DSTR("Gamepad-Unknown");
 		}
 		else if (m_device == InputDevice::XInput)
 		{
-			return L"XInput-Unknown";
+			return S3DSTR("XInput-Unknown");
 		}
 
-		return String(L"Unknown");
+		return S3DSTR("Unknown");
 	}
 }

@@ -112,6 +112,16 @@ namespace s3d
 		return *this = hsv.toColorF();
 	}
 
+	Float4 ColorF::toFloat4() const
+	{
+		return Float4(r, g, b, a);
+	}
+
+	Vec4 ColorF::toVec4() const
+	{
+		return Vec4(r, g, b, a);
+	}
+
 	ColorF ColorF::gamma(const double gamma) const noexcept
 	{
 		if (gamma <= 0.0)

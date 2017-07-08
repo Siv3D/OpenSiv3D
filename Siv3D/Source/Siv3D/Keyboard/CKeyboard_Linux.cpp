@@ -14,6 +14,8 @@
 
 # include "../Siv3DEngine.hpp"
 # include "CKeyboard_Linux.hpp"
+# include "../System/ISystem.hpp"
+# include <Siv3D/System.hpp>
 # include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 
 namespace s3d
@@ -168,6 +170,8 @@ namespace s3d
 
 	void CKeyboard_Linux::update()
 	{
+		bool anyKeyDown = false;
+
 		const char* keys = ::glfwGetKeysSiv3D(m_glfwWindow);
 
 		for (const auto& keyPair : detail::KeyConversionTable)
@@ -175,6 +179,8 @@ namespace s3d
 			const bool pressed = (keys[keyPair.second] == GLFW_PRESS);
 			
 			m_states[keyPair.first].update(pressed);
+
+			anyKeyDown |= m_states[keyPair.first].down;
 		}
 		
 		const bool shiftPressed =
@@ -196,6 +202,11 @@ namespace s3d
 			(keys[GLFW_KEY_LEFT_SUPER] == GLFW_PRESS) || (keys[GLFW_KEY_RIGHT_SUPER] == GLFW_PRESS);
 		
 		m_states[0xD8].update(commandPressed);
+
+		if (anyKeyDown)
+		{
+			Siv3DEngine::GetSystem()->reportEvent(WindowEvent::AnyKey);
+		}
 	}
 	
 	bool CKeyboard_Linux::down(const uint32 index) const

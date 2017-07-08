@@ -28,15 +28,7 @@ namespace s3d
 	{
 	private:
 
-		String m_text;
-
-		Image m_image;
-
-		Array<FilePath> m_filePaths;
-
 		uint32 m_sequenceNumber = 0;
-		
-		bool m_hasChanged = false;
 
 	public:
 
@@ -46,21 +38,13 @@ namespace s3d
 
 		bool init() override;
 
-		void update() override;
-
 		bool hasChanged() override;
 
-		bool hasText() override;
+		bool getText(String& text) override;
 
-		bool hasImage() override;
+		bool getImage(Image& image) override;
 
-		bool hasFilePaths() override;
-
-		const String& getText() override;
-
-		const Image& getImage() override;
-
-		const Array<FilePath>& getFilePaths() override;
+		bool getFilePaths(Array<FilePath>& paths) override;
 
 		void setText(const String& text) override;
 

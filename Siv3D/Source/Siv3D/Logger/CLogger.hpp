@@ -27,7 +27,7 @@ namespace s3d
 
 		OutputLevel m_outputLevel =
 
-# ifdef _DEBUG
+# if defined(_DEBUG) || defined(DEBUG)
 
 			OutputLevel::More;
 
@@ -59,7 +59,7 @@ namespace s3d
 
 		void write(LogDescription desc, const String& str) override;
 
-		void writeRawHTML(const String& str);
+		void writeRawHTML(const String& str) override;
 
 		void removeLogOnExit() override;
 	};

@@ -13,11 +13,6 @@
 
 namespace s3d
 {
-# ifndef SIV3D_TARGET_LINUX
-	template Float4;
-	template Vec4;
-# endif
-	
 	void Formatter(FormatData& formatData, const Float4& value)
 	{
 		Formatter(formatData, Vec4(value));
@@ -35,4 +30,7 @@ namespace s3d
 		formatData.string.append(ToString(value.w, formatData.decimalPlace.value));
 		formatData.string.push_back(L')');
 	}
+	
+	template struct Vector4D<float>;
+	template struct Vector4D<double>;
 }
