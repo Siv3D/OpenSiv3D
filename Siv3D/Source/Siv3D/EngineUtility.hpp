@@ -19,10 +19,10 @@ namespace s3d
 	struct FunctionPointer
 	{
 		FunctionPointer(HMODULE module, const char* name)
-			: p(::GetProcAddress(module, name)) {}
+			: p(reinterpret_cast<void*>(::GetProcAddress(module, name))) {}
 
 		template <class Type>
-		operator Type() const { return static_cast<Type>(p); }
+		operator Type() const { return reinterpret_cast<Type>(p); }
 
 		void* p;
 	};
