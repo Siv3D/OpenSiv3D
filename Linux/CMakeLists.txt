@@ -196,7 +196,7 @@ set(SOURCE_FILES
 	"../Siv3D/Source/Siv3D/CharacterEncoding/SivCharacterEncoding.cpp"
 	"../Siv3D/Source/Siv3D/TextBox/CTextBox.cpp"
 	"../Siv3D/Source/Siv3D/TextBox/SivTextBox.cpp"
-	"../Siv3D/Source/Siv3D/TextInput/CTextInput_Windows.cpp"
+	"../Siv3D/Source/Siv3D/TextInput/CTextInput_macOS.cpp"
 	"../Siv3D/Source/Siv3D/TextInput/SivTextInput.cpp"
 	"../Siv3D/Source/Siv3D/TextInput/TextInputFactory.cpp"
 	"../Siv3D/Source/Siv3D/TextReader/CTextReader.cpp"
