@@ -122,7 +122,7 @@
 # endif
 
 
-# if defined(SIV3D_TARGET_WINDOWS)
+# if defined(SIV3D_TARGET_WINDOWS) && defined(_MSC_VER)
 
     # define S3D_DISABLE_MSVC_WARNINGS_PUSH(warnings)	\
 			 __pragma(warning(push))					\

@@ -136,8 +136,8 @@ namespace s3d
 		{
 			const std::uint32_t codePoint = *(it++);
 
-			const uint16_t from = trieTree->select(currentNode - 1, 0) + 1;
-			const uint16_t to = trieTree->select(currentNode + 1 - 1, 0);
+			const uint16_t from = trieTree->select(static_cast<int>(currentNode - 1), 0) + 1;
+			const uint16_t to = trieTree->select(static_cast<int>(currentNode + 1 - 1), 0);
 
 			/* ノードがない場合は探索を打ち切る。*/
 			if (from == to) break;

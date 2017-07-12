@@ -22,7 +22,7 @@ namespace s3d
 
 	void Sprite::draw(const Texture& texture) const
 	{
-		Siv3DEngine::GetRenderer2D()->addSprite(texture, *this, 0, indices.size());
+		Siv3DEngine::GetRenderer2D()->addSprite(texture, *this, 0, static_cast<uint32>(indices.size()));
 	}
 
 	void Sprite::drawSubset(const uint32 startIndex, const uint32 indexCount) const

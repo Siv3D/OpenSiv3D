@@ -235,11 +235,7 @@ namespace s3d
 		constexpr Vector2D<Type> lerp(const Vector2D<Type>& other, const double f) const noexcept;
 
 		template <class Shape2DType>
-# if defined (SIV3D_TARGET_LINUX)
 		bool intersects(const Shape2DType& shape) const
-# else
-		bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
-# endif
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}

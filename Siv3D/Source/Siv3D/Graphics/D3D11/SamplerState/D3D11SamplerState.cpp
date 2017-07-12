@@ -112,10 +112,10 @@ namespace s3d
 		desc.MipLODBias		= state.lodBias;
 		desc.ComparisonFunc	= D3D11_COMPARISON_NEVER;
 		desc.MaxAnisotropy	= state.maxAnisotropy;
-		desc.BorderColor[0] = state.borderColor.x;
-		desc.BorderColor[1] = state.borderColor.y;
-		desc.BorderColor[2] = state.borderColor.z;
-		desc.BorderColor[3] = state.borderColor.w;
+		desc.BorderColor[0] = state.borderColor[0];
+		desc.BorderColor[1] = state.borderColor[1];
+		desc.BorderColor[2] = state.borderColor[2];
+		desc.BorderColor[3] = state.borderColor[3];
 		desc.MinLOD			= -D3D11_FLOAT32_MAX;
 		desc.MaxLOD			= D3D11_FLOAT32_MAX;
 

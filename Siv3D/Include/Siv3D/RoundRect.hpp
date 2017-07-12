@@ -30,10 +30,7 @@ namespace s3d
 
 		union
 		{
-			struct
-			{
-				RectF rect;
-			};
+			RectF rect;
 			
 			struct
 			{
@@ -186,13 +183,13 @@ namespace s3d
 		}
 
 		template <class Shape2DType>
-		bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
+		bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
 
 		template <class Shape2DType>
-		bool contains(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Contains(*this, shape)))
+		bool contains(const Shape2DType& shape) const
 		{
 			return Geometry2D::Contains(*this, shape);
 		}

@@ -318,11 +318,7 @@ namespace s3d
 		}
 
 		template <class Shape2DType>
-# if defined (SIV3D_TARGET_LINUX)
-		bool intersects(const Shape2DType& shape)
-# else
-		bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
-# endif
+		bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
