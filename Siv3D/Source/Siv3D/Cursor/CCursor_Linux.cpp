@@ -107,7 +107,7 @@ namespace s3d
 		double clientX, clientY;
 		::glfwGetCursorPos(m_glfwWindow, &clientX, &clientY);
 		m_screen.previous = m_screen.current;
-		m_screen.currentset(static_cast<int32>(clientX), static_cast<int32>(clientY));
+		m_screen.current.set(static_cast<int32>(clientX), static_cast<int32>(clientY));
 		m_screen.delta = m_screen.current - m_screen.previous;
 
 		m_client_raw.previous = m_client_raw.current;
@@ -148,7 +148,7 @@ namespace s3d
 		// [Siv3D ToDo]
 	}
 
-	void CCursor_macOS::setTransform(const Mat3x2& matrix)
+	void CCursor_Linux::setTransform(const Mat3x2& matrix)
 	{
 		if (!::memcmp(&m_transform, &matrix, sizeof(Mat3x2)))
 		{
@@ -165,7 +165,7 @@ namespace s3d
 		m_client_transformed.delta = m_client_transformedF.delta.asPoint();
 	}
 
-	const Mat3x2& CCursor_macOS::getTransform() const
+	const Mat3x2& CCursor_Linux::getTransform() const
 	{
 		return m_transform;
 	}
