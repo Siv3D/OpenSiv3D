@@ -28,7 +28,7 @@ namespace s3d
 	struct ChunkHeader
 	{
 		uint8 chunkID[4];
-		int32 chunkSize;
+		uint32 chunkSize;
 	};
 
 	struct FormatHeader

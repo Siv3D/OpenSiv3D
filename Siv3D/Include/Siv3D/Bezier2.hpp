@@ -49,21 +49,13 @@ namespace s3d
 		LineString getLineString(double start, double end, uint32 quality = 24) const;
 
 		template <class Shape2DType>
-# if defined (SIV3D_TARGET_LINUX)
 		bool intersects(const Shape2DType& shape) const
-# else
-		bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
-# endif
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
 
 		template <class Shape2DType>
-# if defined (SIV3D_TARGET_LINUX)
 		Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
-# else
-		Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::IntersectAt(*this, shape)))
-# endif
 		{
 			return Geometry2D::IntersectAt(*this, shape);
 		}

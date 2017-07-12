@@ -64,10 +64,18 @@ namespace s3d
 
 # if defined(SIV3D_TARGET_WINDOWS)
 
-# define  NOMINMAX
-# define  STRICT
-# define  _WIN32_WINNT _WIN32_WINNT_WIN7
-# define  NTDDI_VERSION NTDDI_WIN7
+# ifndef NOMINMAX
+#	define  NOMINMAX
+# endif
+# ifndef STRICT
+#	define  STRICT
+# endif
+# ifndef _WIN32_WINNT
+#	define  _WIN32_WINNT _WIN32_WINNT_WIN7
+# endif
+# ifndef NTDDI_VERSION
+#	define  NTDDI_VERSION NTDDI_WIN7
+# endif
 # include <Windows.h>
 # include <Siv3D/FileSystem.hpp>
 

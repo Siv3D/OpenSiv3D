@@ -38,6 +38,7 @@ configure_file(./Siv3D_Linux_GLFW_Window_API.h.in ${CMAKE_CURRENT_SOURCE_DIR}/Si
 pkg_check_modules(LIBSIV3D REQUIRED glib-2.0 gobject-2.0 gio-2.0 gl libpng libjpeg x11 xi xinerama xcursor xrandr)
 include_directories(
 	"/usr/include"
+	"/usr/include/freetype2"
 
 	"."
 	"../Siv3D/Include"

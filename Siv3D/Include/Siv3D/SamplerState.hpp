@@ -118,7 +118,7 @@ namespace s3d
 				// [Siv3D ToDo] HalFloat に
 				int16 lodBias;
 
-				Float4 borderColor;
+				float borderColor[4];
 			};
 
 			StorageType _data;
@@ -144,7 +144,7 @@ namespace s3d
 			, mip(_mip)
 			, maxAnisotropy(_maxAnisotropy)
 			, lodBias(_lodBias)
-			, borderColor(_borderColor) {}
+			, borderColor{ _borderColor.x, _borderColor.y, _borderColor.z, _borderColor.w } {}
 
 		SamplerState(Predefined predefined);
 
