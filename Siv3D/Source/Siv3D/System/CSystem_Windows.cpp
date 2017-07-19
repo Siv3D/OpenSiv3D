@@ -208,11 +208,13 @@ namespace s3d
 
 		Siv3DEngine::GetDragDrop()->update();
 
+		Siv3DEngine::GetMouse()->update();
+
 		Siv3DEngine::GetCursor()->update();
 
 		Siv3DEngine::GetKeyboard()->update();
 
-		Siv3DEngine::GetMouse()->update();
+
 
 		Siv3DEngine::GetTextInput()->update();
 

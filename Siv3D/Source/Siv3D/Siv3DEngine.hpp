@@ -37,6 +37,7 @@ namespace s3d
 	class ISiv3DPrint;
 	class ISiv3DScreenCapture;
 	class ISiv3DEffect;
+	class ISiv3DScript;
 
 	template <class Interface>
 	class Siv3DComponent
@@ -119,6 +120,8 @@ namespace s3d
 		Siv3DComponent<ISiv3DScreenCapture> m_screenCapture;
 
 		Siv3DComponent<ISiv3DEffect> m_effect;
+
+		Siv3DComponent<ISiv3DScript> m_script;
 
 	public:
 
@@ -246,6 +249,11 @@ namespace s3d
 		static ISiv3DEffect* GetEffect()
 		{
 			return pEngine->m_effect.get();
+		}
+
+		static ISiv3DScript* GetScript()
+		{
+			return pEngine->m_script.get();
 		}
 	};
 }

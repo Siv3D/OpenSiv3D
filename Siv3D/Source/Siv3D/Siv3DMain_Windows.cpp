@@ -27,6 +27,7 @@
 # include "Logger/ILogger.hpp"
 # include "System/ISystem.hpp"
 # include "Window/IWindow.hpp"
+# include "Script/IScript.hpp"
 
 void Main();
 
@@ -51,6 +52,11 @@ namespace s3d
 		{
 			PEXCEPTION_POINTERS ex = nullptr;
 
+			if (!Siv3DEngine::GetScript()->init())
+			{
+				return;
+			}
+
 			__try
 			{
 				Main();
@@ -59,6 +65,8 @@ namespace s3d
 			{
 				ShowException(ex->ExceptionRecord->ExceptionCode);
 			}
+
+			Siv3DEngine::GetScript()->shutdown();
 		}
 
 		enum class MessageResult

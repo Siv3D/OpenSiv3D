@@ -63,10 +63,20 @@ namespace s3d
 		return{ x + v.x, y + v.y };
 	}
 
+	inline double Point::distanceFrom(const Point& p) const noexcept
+	{
+		return distanceFrom(Vec2(p));
+	}
+
 	template <class Type>
 	Type Point::distanceFrom(const Vector2D<Type>& p) const noexcept
 	{
 		return std::sqrt(distanceFromSq(p));
+	}
+
+	inline constexpr double Point::distanceFromSq(const Point& p) const noexcept
+	{
+		return distanceFromSq(Vec2(p));
 	}
 
 	template <class Type>

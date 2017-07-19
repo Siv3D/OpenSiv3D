@@ -444,6 +444,22 @@ namespace s3d
 			: pos(bottomCenter->x - _size.x / 2, bottomCenter->y - _size.y)
 			, size(_size.x, _size.y) {}
 
+		constexpr Rectangle(Arg::leftCenter_<position_type> leftCenter, value_type _w, value_type _h) noexcept
+			: pos(leftCenter->x, leftCenter->y - _h / 2)
+			, size(_w, _h) {}
+
+		constexpr Rectangle(Arg::leftCenter_<position_type> leftCenter, size_type _size) noexcept
+			: pos(leftCenter->x, leftCenter->y - _size.y / 2)
+			, size(_size.x, _size.y) {}
+
+		constexpr Rectangle(Arg::rightCenter_<position_type> rightCenter, value_type _w, value_type _h) noexcept
+			: pos(rightCenter->x - _w, rightCenter->y - _h / 2)
+			, size(_w, _h) {}
+
+		constexpr Rectangle(Arg::rightCenter_<position_type> rightCenter, size_type _size) noexcept
+			: pos(rightCenter->x - _size.x, rightCenter->y - _size.y / 2)
+			, size(_size.x, _size.y) {}
+
 		constexpr bool operator ==(const Rectangle& rect) const noexcept
 		{
 			return pos == rect.pos
@@ -569,6 +585,18 @@ namespace s3d
 		constexpr Rectangle& setPos(Arg::bottomCenter_<position_type> bottomCenter) noexcept
 		{
 			pos.set(bottomCenter->x - w / 2, bottomCenter->y - h);
+			return *this;
+		}
+
+		constexpr Rectangle& setPos(Arg::leftCenter_<position_type> leftCenter) noexcept
+		{
+			pos.set(leftCenter->x, leftCenter->y - h / 2);
+			return *this;
+		}
+
+		constexpr Rectangle& setPos(Arg::rightCenter_<position_type> rightCenter) noexcept
+		{
+			pos.set(rightCenter->x - w, rightCenter->y - h / 2);
 			return *this;
 		}
 
@@ -1059,6 +1087,26 @@ namespace s3d
 		constexpr Rectangle& set(Arg::bottomCenter_<position_type> bottomCenter, size_type _size) noexcept
 		{
 			return set(bottomCenter->x - _size.x / 2, bottomCenter->y - _size.y, _size.x, _size.y);
+		}
+
+		constexpr Rectangle& set(Arg::leftCenter_<position_type> leftCenter, value_type _w, value_type _h) noexcept
+		{
+			return set(leftCenter->x, leftCenter->y - _h / 2, _w, _h);
+		}
+
+		constexpr Rectangle& set(Arg::leftCenter_<position_type> leftCenter, size_type _size) noexcept
+		{
+			return set(leftCenter->x, leftCenter->y - _size.y / 2, _size.x, _size.y);
+		}
+
+		constexpr Rectangle& set(Arg::rightCenter_<position_type> rightCenter, value_type _w, value_type _h) noexcept
+		{
+			return set(rightCenter->x - _w, rightCenter->y - _h / 2, _w, _h);
+		}
+
+		constexpr Rectangle& set(Arg::rightCenter_<position_type> rightCenter, size_type _size) noexcept
+		{
+			return set(rightCenter->x - _size.x, rightCenter->y - _size.y / 2, _size.x, _size.y);
 		}
 
 		/// <summary>

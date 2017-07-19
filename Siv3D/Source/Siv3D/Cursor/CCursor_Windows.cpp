@@ -15,6 +15,7 @@
 # include "../Siv3DEngine.hpp"
 # include "../Window/IWindow.hpp"
 # include "CCursor_Windows.hpp"
+# include "../Mouse/CMouse_Windows.hpp"
 
 namespace s3d
 {
@@ -58,7 +59,17 @@ namespace s3d
 		updateClip();
 
 		POINT screenPos;
-		::GetCursorPos(&screenPos);
+
+		if (const auto touchPos = dynamic_cast<CMouse_Windows*>(Siv3DEngine::GetMouse())->getPrimaryTouchPos())
+		{
+			screenPos.x = touchPos->x;
+			screenPos.y = touchPos->y;
+		}
+		else
+		{
+			::GetCursorPos(&screenPos);
+		}
+		
 		m_screen.previous = m_screen.current;
 		m_screen.current.set(screenPos.x, screenPos.y);
 		m_screen.delta = m_screen.current - m_screen.previous;
