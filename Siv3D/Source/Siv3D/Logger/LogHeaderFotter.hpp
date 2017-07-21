@@ -123,6 +123,30 @@ SOFTWARE.<br>
 </div>)-"
 
 
+u8R"-(<div class="c0">AngelCode Scripting Library</div>
+<div class="c1">Copyright (c) 2003-2017 Andreas Jonsson</div>
+<div class="c2">
+This software is provided 'as-is', without any express or implied<br>
+warranty. In no event will the authors be held liable for any<br>
+damages arising from the use of this software.<br>
+<br>
+Permission is granted to anyone to use this software for any<br>
+purpose, including commercial applications, and to alter it and<br>
+redistribute it freely, subject to the following restrictions:<br>
+<br>
+1. The origin of this software must not be misrepresented; you<br>
+    must not claim that you wrote the original software. If you use<br>
+    this software in a product, an acknowledgment in the product<br>
+    documentation would be appreciated but is not required.<br>
+<br>
+2. Altered source versions must be plainly marked as such, and<br>
+    must not be misrepresented as being the original software.<br>
+<br>
+3. This notice may not be removed or altered from any source<br>
+    distribution.<br>
+</div>)-"
+
+
 u8R"-(<div class="c0">butteraugli</div>
 <div class="c1">Copyright (c) 2016 Google Inc. All Rights Reserved.</div>
 <div class="c2">

@@ -33,6 +33,7 @@
 # include "Print/IPrint.hpp"
 # include "ScreenCapture/IScreenCapture.hpp"
 # include "Effect/IEffect.hpp"
+# include "Script/IScript.hpp"
 
 namespace s3d
 {
@@ -45,6 +46,7 @@ namespace s3d
 
 	Siv3DEngine::~Siv3DEngine()
 	{
+		m_script.release();
 		m_effect.release();
 		m_screenCapture.release();
 		m_print.release();

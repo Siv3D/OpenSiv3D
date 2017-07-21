@@ -2,50 +2,16 @@
 
 void Main()
 {
-	const Audio audio(L"example/test.wav");
-
-	audio.play();
-
-	uint64 max = 0, previous = 0;
-
+	Script script(L"example/script.txt");
+	
+	auto GetNumber = script.getFunction<int32(void)>(L"GetNumber");
+	
+	auto DrawCircle = script.getFunction<void(const Circle&, const ColorF&)>(L"DrawCircle");
+	
+	Print << GetNumber();
+	
 	while (System::Update())
 	{	
-		const uint64 c = audio.posSample();
-
-		if (c < previous)
-		{
-			max = previous;
-		}
-
-		previous = c;
-
-		ClearPrint();
-		Print << c;
-		Print << max << L"/"  << audio.samples();
-
-		if (Key0.down())
-		{
-			audio.play();
-		}
-
-		if (Key1.down())
-		{
-			audio.play(0.1s);
-		}
-
-		if (Key2.down())
-		{
-			audio.pause(1s);
-		}
-
-		if (Key3.down())
-		{
-			audio.stop(1s);
-		}
-
-		if (Key4.down())
-		{
-			audio.setVolume_dB(-12);
-		}
+		DrawCircle(Circle(Cursor::Pos(), 50), ColorF(1.0, 0.0, 0.0, 0.5));
 	}
 }

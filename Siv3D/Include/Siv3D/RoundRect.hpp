@@ -30,11 +30,8 @@ namespace s3d
 
 		union
 		{
-			struct
-			{
-				RectF rect;
-			};
-			
+			RectF rect;
+
 			struct
 			{
 				value_type x, y, w, h;
@@ -126,7 +123,18 @@ namespace s3d
 
 		constexpr RoundRect& setPos(const position_type& _center) noexcept
 		{
-			return setCenter(_center.x, _center.y);
+			return setPos(_center.x, _center.y);
+		}
+
+		constexpr RoundRect& setSize(value_type _w, value_type _h) noexcept
+		{
+			rect.setSize(_w, _h);
+			return *this;
+		}
+
+		constexpr RoundRect& setSize(const size_type& _size) noexcept
+		{
+			return setSize(_size.x, _size.y);
 		}
 
 		constexpr RoundRect movedBy(value_type _x, value_type _y) const noexcept

@@ -218,8 +218,12 @@ namespace s3d
 			return x == 0 && y == 0;
 		}
 
+		double distanceFrom(const Point& p) const noexcept;
+
 		template <class Type>
 		Type distanceFrom(const Vector2D<Type>& p) const noexcept;
+
+		constexpr double distanceFromSq(const Point& p) const noexcept;
 
 		template <class Type>
 		constexpr Type distanceFromSq(const Vector2D<Type>& p) const noexcept;
