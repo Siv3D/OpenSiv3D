@@ -120,6 +120,11 @@ namespace s3d
 			{
 				return;
 			}
+			
+			if(!FileSystem::IsFile(path))
+			{
+				return;
+			}
 
 			m_compileOption = compileOption;
 
@@ -242,6 +247,8 @@ namespace s3d
 
 		AssetHandleManager<Script::IDType, std::shared_ptr<ScriptData>> m_scripts{ S3DSTR("Script") };
 
+		bool m_shutDown = true;
+		
 	public:
 
 		CScript();

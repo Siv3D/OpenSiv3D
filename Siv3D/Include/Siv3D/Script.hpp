@@ -13,6 +13,7 @@
 # include <memory>
 # include "Fwd.hpp"
 # include "String.hpp"
+# include "System.hpp"
 # include "MessageBox.hpp"
 # include "AssetHandle.hpp"
 # include "NamedParameter.hpp"
@@ -37,18 +38,169 @@ namespace s3d
 	namespace detail
 	{
 		extern uint64 scriptStepCounter;
-	}
 
-	inline void LineCallback(AngelScript::asIScriptContext* ctx, unsigned long*)
-	{
-		++detail::scriptStepCounter;
-
-		if (detail::scriptStepCounter > 1'000'000)
+		inline void LineCallback(AngelScript::asIScriptContext* ctx, unsigned long*)
 		{
-			ctx->Suspend();
+			++detail::scriptStepCounter;
+			
+			if (detail::scriptStepCounter > 1'000'000)
+			{
+				ctx->Suspend();
+			}
+		}
+		
+		template <class Type>
+		inline void SetArg(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const Type& value)
+		{
+			moduleData->context->SetArgObject(argIndex, const_cast<Type*>(&value));
+		}
+		
+		template <>
+		inline void SetArg<bool>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const bool& value)
+		{
+			moduleData->context->SetArgByte(argIndex, value);
+		}
+		
+		template <>
+		inline void SetArg<int8>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const int8& value)
+		{
+			moduleData->context->SetArgByte(argIndex, value);
+		}
+		
+		template <>
+		inline void SetArg<uint8>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const uint8& value)
+		{
+			moduleData->context->SetArgByte(argIndex, value);
+		}
+		
+		template <>
+		inline void SetArg<int16>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const int16& value)
+		{
+			moduleData->context->SetArgWord(argIndex, value);
+		}
+		
+		template <>
+		inline void SetArg<uint16>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const uint16& value)
+		{
+			moduleData->context->SetArgWord(argIndex, value);
+		}
+		
+		template <>
+		inline void SetArg<int32>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const int32& value)
+		{
+			moduleData->context->SetArgDWord(argIndex, value);
+		}
+		
+		template <>
+		inline void SetArg<uint32>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const uint32& value)
+		{
+			moduleData->context->SetArgDWord(argIndex, value);
+		}
+		
+		template <>
+		inline void SetArg<int64>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const int64& value)
+		{
+			moduleData->context->SetArgQWord(argIndex, value);
+		}
+		
+		template <>
+		inline void SetArg<uint64>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const uint64& value)
+		{
+			moduleData->context->SetArgQWord(argIndex, value);
+		}
+		
+		template <>
+		inline void SetArg<float>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const float& value)
+		{
+			moduleData->context->SetArgFloat(argIndex, value);
+		}
+		
+		template <>
+		inline void SetArg<double>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const double& value)
+		{
+			moduleData->context->SetArgDouble(argIndex, value);
+		}
+		
+		template <class Type>
+		inline Type GetReturnValue(const std::shared_ptr<ScriptModuleData>& moduleData)
+		{
+			return *static_cast<Type*>(moduleData->context->GetReturnObject());
+		}
+		
+		template <>
+		inline void GetReturnValue<void>(const std::shared_ptr<ScriptModuleData>&)
+		{
+			return;
+		}
+		
+		template <>
+		inline bool GetReturnValue<bool>(const std::shared_ptr<ScriptModuleData>& moduleData)
+		{
+			return !!moduleData->context->GetReturnByte();
+		}
+		
+		template <>
+		inline int8 GetReturnValue<int8>(const std::shared_ptr<ScriptModuleData>& moduleData)
+		{
+			return moduleData->context->GetReturnByte();
+		}
+		
+		template <>
+		inline uint8 GetReturnValue<uint8>(const std::shared_ptr<ScriptModuleData>& moduleData)
+		{
+			return moduleData->context->GetReturnByte();
+		}
+		
+		template <>
+		inline int16 GetReturnValue<int16>(const std::shared_ptr<ScriptModuleData>& moduleData)
+		{
+			return moduleData->context->GetReturnWord();
+		}
+		
+		template <>
+		inline uint16 GetReturnValue<uint16>(const std::shared_ptr<ScriptModuleData>& moduleData)
+		{
+			return moduleData->context->GetReturnWord();
+		}
+		
+		template <>
+		inline int32 GetReturnValue<int32>(const std::shared_ptr<ScriptModuleData>& moduleData)
+		{
+			return moduleData->context->GetReturnDWord();
+		}
+		
+		template <>
+		inline uint32 GetReturnValue<uint32>(const std::shared_ptr<ScriptModuleData>& moduleData)
+		{
+			return moduleData->context->GetReturnDWord();
+		}
+		
+		template <>
+		inline int64 GetReturnValue<int64>(const std::shared_ptr<ScriptModuleData>& moduleData)
+		{
+			return moduleData->context->GetReturnQWord();
+		}
+		
+		template <>
+		inline uint64 GetReturnValue<uint64>(const std::shared_ptr<ScriptModuleData>& moduleData)
+		{
+			return moduleData->context->GetReturnQWord();
+		}
+		
+		template <>
+		inline float GetReturnValue<float>(const std::shared_ptr<ScriptModuleData>& moduleData)
+		{
+			return moduleData->context->GetReturnFloat();
+		}
+		
+		template <>
+		inline double GetReturnValue<double>(const std::shared_ptr<ScriptModuleData>& moduleData)
+		{
+			return moduleData->context->GetReturnDouble();
 		}
 	}
 
+	
 	template <class Type>
 	struct ScriptFunction;
 
@@ -61,8 +213,8 @@ namespace s3d
 
 		AngelScript::asIScriptFunction* m_function = nullptr;
 
-		template <class Type, class ... Args>
-		void setArgs(uint32 argIndex, const Type& value, const Args& ... args) const
+		template <class Type, class ... Args2>
+		void setArgs(uint32 argIndex, const Type& value, const Args2& ... args) const
 		{
 			setArg(argIndex++, value);
 
@@ -83,178 +235,40 @@ namespace s3d
 		template <class Type>
 		void setArg(uint32 argIndex, const Type& value) const
 		{
-			m_moduleData->context->SetArgObject(argIndex, const_cast<Type*>(&value));
+			detail::SetArg(m_moduleData, argIndex, value);
 		}
-
-		template <>
-		void setArg<bool>(uint32 argIndex, const bool& value) const
-		{
-			m_moduleData->context->SetArgByte(argIndex, value);
-		}
-
-		template <>
-		void setArg<int8>(uint32 argIndex, const int8& value) const
-		{
-			m_moduleData->context->SetArgByte(argIndex, value);
-		}
-
-		template <>
-		void setArg<uint8>(uint32 argIndex, const uint8& value) const
-		{
-			m_moduleData->context->SetArgByte(argIndex, value);
-		}
-
-		template <>
-		void setArg<int16>(uint32 argIndex, const int16& value) const
-		{
-			m_moduleData->context->SetArgWord(argIndex, value);
-		}
-
-		template <>
-		void setArg<uint16>(uint32 argIndex, const uint16& value) const
-		{
-			m_moduleData->context->SetArgWord(argIndex, value);
-		}
-
-		template <>
-		void setArg<int32>(uint32 argIndex, const int32& value) const
-		{
-			m_moduleData->context->SetArgDWord(argIndex, value);
-		}
-
-		template <>
-		void setArg<uint32>(uint32 argIndex, const uint32& value) const
-		{
-			m_moduleData->context->SetArgDWord(argIndex, value);
-		}
-
-		template <>
-		void setArg<int64>(uint32 argIndex, const int64& value) const
-		{
-			m_moduleData->context->SetArgQWord(argIndex, value);
-		}
-
-		template <>
-		void setArg<uint64>(uint32 argIndex, const uint64& value) const
-		{
-			m_moduleData->context->SetArgQWord(argIndex, value);
-		}
-
-		template <>
-		void setArg<float>(uint32 argIndex, const float& value) const
-		{
-			m_moduleData->context->SetArgFloat(argIndex, value);
-		}
-
-		template <>
-		void setArg<double>(uint32 argIndex, const double& value) const
-		{
-			m_moduleData->context->SetArgDouble(argIndex, value);
-		}
-
+		
 		bool execute() const
 		{
 			int32 steps = 0;
 
 			if (!m_moduleData->withoutLineCues)
 			{
-				m_moduleData->context->SetLineCallback(asFUNCTION(LineCallback), &steps, AngelScript::asCALL_CDECL);
+				m_moduleData->context->SetLineCallback(asFUNCTION(detail::LineCallback), &steps, AngelScript::asCALL_CDECL);
 			}
 
 			const int r = m_moduleData->context->Execute();
 
 			if (r != AngelScript::asEXECUTION_FINISHED && r == AngelScript::asEXECUTION_EXCEPTION)
 			{
-				Log(L"[script error]An exception '{}' occurred. Please correct the code and try again."_fmt(
-					CharacterSet::Widen(m_moduleData->context->GetExceptionString())));
+				//Log(L"[script error]An exception '{}' occurred. Please correct the code and try again."_fmt(
+				//	CharacterSet::Widen(m_moduleData->context->GetExceptionString())));
 
 				return false;
 			}
 			else if (r != AngelScript::asEXECUTION_FINISHED && r == AngelScript::asEXECUTION_SUSPENDED)
 			{
-				System::ShowMessageBox(L"現在の設定では 100 万回以上の処理はできません。");
+				//System::ShowMessageBox(L"現在の設定では 100 万回以上の処理はできません。");
 				System::Exit();
 			}
 
 			return true;
 		}
-
+		
 		template <class Type>
 		Type getReturn() const
 		{
-			return *static_cast<Type*>(m_moduleData->context->GetReturnObject());
-		}
-
-		template <>
-		void getReturn<void>() const
-		{
-			return;
-		}
-
-		template <>
-		bool getReturn<bool>() const
-		{
-			return !!m_moduleData->context->GetReturnByte();
-		}
-
-		template <>
-		int8 getReturn<int8>() const
-		{
-			return m_moduleData->context->GetReturnByte();
-		}
-
-		template <>
-		uint8 getReturn<uint8>() const
-		{
-			return m_moduleData->context->GetReturnByte();
-		}
-
-		template <>
-		int16 getReturn<int16>() const
-		{
-			return m_moduleData->context->GetReturnWord();
-		}
-
-		template <>
-		uint16 getReturn<uint16>() const
-		{
-			return m_moduleData->context->GetReturnWord();
-		}
-
-		template <>
-		int32 getReturn<int32>() const
-		{
-			return m_moduleData->context->GetReturnDWord();
-		}
-
-		template <>
-		uint32 getReturn<uint32>() const
-		{
-			return m_moduleData->context->GetReturnDWord();
-		}
-
-		template <>
-		int64 getReturn<int64>() const
-		{
-			return m_moduleData->context->GetReturnQWord();
-		}
-
-		template <>
-		uint64 getReturn<uint64>() const
-		{
-			return m_moduleData->context->GetReturnQWord();
-		}
-
-		template <>
-		float getReturn<float>() const
-		{
-			return m_moduleData->context->GetReturnFloat();
-		}
-
-		template <>
-		double getReturn<double>() const
-		{
-			return m_moduleData->context->GetReturnDouble();
+			return detail::GetReturnValue<Type>(m_moduleData);
 		}
 
 	public:

@@ -9,12 +9,6 @@
 //
 //-----------------------------------------------
 
-# define  NOMINMAX
-# define  STRICT
-# define  WIN32_LEAN_AND_MEAN
-# define  _WIN32_WINNT _WIN32_WINNT_WIN7
-# define  NTDDI_VERSION NTDDI_WIN7
-# include <Windows.h>
 # include "CScript.hpp"
 
 # include "Bind/ScriptBind.hpp"
@@ -33,9 +27,9 @@ namespace s3d
 			else if (msg->type == AngelScript::asMSGTYPE_INFORMATION)
 				type = "INFO";
 
-			char buf[512];
+			//char buf[512];
 
-			sprintf_s(buf, "%s (%d, %d) : %s : %s\n", msg->section, msg->row, msg->col, type, msg->message);
+			//sprintf_s(buf, "%s (%d, %d) : %s : %s\n", msg->section, msg->row, msg->col, type, msg->message);
 
 			String type_s = L"エラー";
 			if (msg->type == AngelScript::asMSGTYPE_WARNING)
@@ -43,9 +37,11 @@ namespace s3d
 			else if (msg->type == AngelScript::asMSGTYPE_INFORMATION)
 				type_s = L"通知";
 
-			//Println(PyFmt, L"{} : ({} 行目) : {}", type_s, msg->row, CharacterSet::Widen(msg->message));
+			Log(L"{} : ({} 行目) : {}"_fmt(type_s, msg->row, CharacterSet::Widen(msg->message)));
 
-			::OutputDebugStringA(buf);
+			//std::cout << buf;
+			
+			//::OutputDebugStringA(buf);
 
 			//Siv3DEngine::GetLogger()->writeRaw(L"<p class=\"fail\">" + CharacterSet::Widen(buf).xmlEscape() + L"</p>\n");
 		}
@@ -66,7 +62,7 @@ namespace s3d
 
 	CScript::~CScript()
 	{
-
+		shutdown();
 	}
 
 	bool CScript::init()
@@ -130,14 +126,23 @@ namespace s3d
 
 		m_scripts.setNullData(nullScript);
 
+		m_shutDown = false;
+		
 		return true;
 	}
 
 	void CScript::shutdown()
 	{
+		if (m_shutDown)
+		{
+			return;
+		}
+		
 		m_scripts.destroy();
 
 		m_engine->ShutDownAndRelease();
+		
+		m_shutDown = true;
 	}
 
 	Script::IDType CScript::createFromCode(const String& code, const int32 compileOption)
