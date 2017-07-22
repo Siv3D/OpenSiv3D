@@ -4,32 +4,23 @@
 void Main()
 {
 	Window::Resize(1280, 720);
-
 	Graphics::SetBackground(Palette::Darkgreen);
 
-	const PlayingCard::Pack cardsPack(70, Palette::Red);
-
-	Array<PlayingCard::Card> cards = PlayingCard::CreateDeck(13);
+	const PlayingCard::Pack pack(75, Palette::Red);
+	Array<PlayingCard::Card> cards = PlayingCard::CreateDeck(2);
 
 	while (System::Update())
 	{
-		size_t index = 0;
-
-		for (auto y : step(5))
+		for (auto i : step(13 * 4 + 2))
 		{
-			for (auto x : step(13))
+			const Vec2 center(100 + i % 13 * 90, 100 + (i / 13) * 130);
+
+			if (pack.regionAt(center).leftClicked())
 			{
-				const Vec2 pos(50 + 85 * x, 25 + 125 * y);
-
-				if (cardsPack.region(pos).leftClicked())
-				{
-					cards[index].flip();
-				}
-
-				cardsPack(cards[index]).draw(pos);
-
-				++index;
+				cards[i].flip();
 			}
+
+			pack(cards[i]).drawAt(center);
 		}
 	}
 }

@@ -294,6 +294,8 @@ namespace s3d
 
 			Font m_font;
 
+			Font m_fontLarge;
+
 			Vec2 m_cardSize;
 
 			ColorF m_backSideColor;
@@ -325,9 +327,10 @@ namespace s3d
 			/// <param name="backSideColor">
 			/// 裏面の色
 			/// </param>
-			CardInfo(const Card& card, const Font& font, const Vec2& size, double frameThickness, const ColorF& backSideColor)
+			CardInfo(const Card& card, const Font& font, const Font& fontLarge, const Vec2& size, double frameThickness, const ColorF& backSideColor)
 				: m_card(card)
 				, m_font(font)
+				, m_fontLarge(fontLarge)
 				, m_cardSize(size)
 				, m_backSideColor(backSideColor)
 				, m_frameThickness(frameThickness)
@@ -513,7 +516,7 @@ namespace s3d
 
 				const Vec2 center = pos + m_cardSize * 0.5;
 				const Vec2 centering = m_cardSize * 0.1;
-				const double drawSize = 0.34;
+				const double drawSize = 0.34 / 0.467;
 				const ColorF color = m_card.isRed() ? Palette::Red : Palette::Black;
 
 				RoundRect(pos, m_cardSize, m_cardSize.x * corner)
@@ -533,7 +536,7 @@ namespace s3d
 						t.flip().mirror().drawAt(pos - drawpos - Vec2(0, a * height * 1.2) + m_cardSize, color);
 					}
 
-					m_font.getGlyph(U'♋').texture.drawAt(center, color);
+					m_fontLarge.getGlyph(U'♋').texture.scale(0.9).drawAt(center, color);
 
 					return;
 				}
@@ -541,50 +544,49 @@ namespace s3d
 				const Glyph suitGlyph = m_font.getGlyph(Card::GetSuit(m_card.suit));
 				const Glyph rankGlyph = m_font.getGlyph(Card::GetRank(m_card.rank)[0]);
 				const Vec2 suitpos(0.0, m_cardSize.y * 0.13888);
-				const double suitSize = drawSize * 1.4;
 
 				suitGlyph.texture.scale(drawSize).drawAt(pos.movedBy(centering + suitpos), color);
-				suitGlyph.texture.flip().mirror().scale(drawSize).drawAt(pos + m_cardSize - centering - suitpos, color);
+				suitGlyph.texture.scale(drawSize).flip().mirror().drawAt(pos + m_cardSize - centering - suitpos, color);
 
 				if (m_card.rank == 10)
 				{
 					const auto zerotexture = m_font.getGlyph(U'0');
-					const Vec2 rankSize = Vec2(rankGlyph.texture.size.x * 2.2 / 3.0, rankGlyph.texture.size.y)* drawSize;
+					const Vec2 rankSize = Vec2(rankGlyph.texture.size.x * 2.2 / 3.0, rankGlyph.texture.size.y) * drawSize;
 
 					rankGlyph.texture.resize(rankSize)
-						.drawAt(pos + centering - Vec2(rankSize.x * 1.2, 0), color);
-					rankGlyph.texture.flip().mirror().resize(rankSize.x / 2, rankSize.y)
-						.drawAt(pos + m_cardSize - centering + Vec2(rankSize.x * 1.2, 0), color);
+						.drawAt(pos + centering - Vec2(rankSize.x * 1.1, 0), color);
+					rankGlyph.texture.resize(rankSize)
+						.flip().mirror()
+						.drawAt(pos + m_cardSize - centering + Vec2(rankSize.x * 1.1, 0), color);
 
-					zerotexture.texture.scale(drawSize*0.8, drawSize)
+					zerotexture.texture.scale(drawSize * 0.8, drawSize)
 						.drawAt(pos + centering + Vec2(rankGlyph.texture.size.x * drawSize - rankSize.x / 1.55, 0), color);
-					zerotexture.texture.flip().mirror().scale(drawSize*0.8, drawSize)
+					zerotexture.texture.scale(drawSize * 0.8, drawSize)
+						.flip().mirror()
 						.drawAt(pos - centering + Vec2(-rankGlyph.texture.size.x * drawSize + rankSize.x / 1.55, 0) + m_cardSize, color);
 				}
 				else
 				{
 					rankGlyph.texture.scale(drawSize).drawAt(pos + centering, color);
-					rankGlyph.texture.flip().mirror().scale(drawSize).drawAt(pos + m_cardSize - centering, color);
+					rankGlyph.texture.scale(drawSize).flip().mirror().drawAt(pos + m_cardSize - centering, color);
 				}
-
-				const TextureRegion smallSuit = suitGlyph.texture.scale(suitSize);
 
 				if (InRange(m_card.rank, 2, 10))
 				{
 					for (const auto a : drawInfos[m_card.rank - 2])
 					{
-						smallSuit.flip(a.flip).drawAt(center.movedBy(m_cardSize.x * a.offset.x, m_cardSize.y * a.offset.y), color);
+						suitGlyph.texture.flip(a.flip).drawAt(center.movedBy(m_cardSize.x * a.offset.x, m_cardSize.y * a.offset.y), color);
 					}
 				}
 				else
 				{
 					const char32_t c[4] = { Card::GetSuit(m_card.suit), U'💂', U'👸', U'👴' };
 
-					m_font.getGlyph(c[(m_card.rank - 1) % 9]).texture.drawAt(center.movedBy(m_card.rank == 13 ? Vec2(0, m_cardSize.y / 12 - m_cardSize.y / 21) : Vec2::Zero()), color);
+					m_fontLarge.getGlyph(c[(m_card.rank - 1) % 9]).texture.drawAt(center.movedBy(m_card.rank == 13 ? Vec2(0, m_cardSize.y / 12 - m_cardSize.y / 21) : Vec2::Zero()), color);
 
 					if (m_card.isKing())
 					{
-						m_font.getGlyph(U'👑').texture.scale(0.6).drawAt(center.movedBy(0, -m_cardSize.y / 7 - m_cardSize.y / 21), color);
+						m_fontLarge.getGlyph(U'👑').texture.scale(0.6).drawAt(center.movedBy(0, -m_cardSize.y / 7 - m_cardSize.y / 21), color);
 					}
 				}
 			}
@@ -664,12 +666,12 @@ namespace s3d
 						const wchar suit = Card::GetSuit(m_card.suit);
 						const String rank = Card::GetRank(m_card.rank);
 
-						m_font(suit).drawAt(pos.movedBy(m_cardSize.x * 0.5, m_cardSize.y * 0.3333), color);
-						m_font(rank).drawAt(pos.movedBy(m_cardSize.x * 0.5, m_cardSize.y * 2.0 * 0.3333), color);
+						m_fontLarge(suit).drawAt(pos.movedBy(m_cardSize.x * 0.5, m_cardSize.y * 0.3), color);
+						m_fontLarge(rank).drawAt(pos.movedBy(m_cardSize.x * 0.5, m_cardSize.y * 0.67), color);
 					}
 					else
 					{
-						m_font.getGlyph(U'♋').texture.resize(m_cardSize.xx() * 0.90909).drawAt(rect.center(), Palette::Black);
+						m_fontLarge.getGlyph(U'♋').texture.scale(0.9).drawAt(rect.center(), Palette::Black);
 					}
 				}
 				else
@@ -742,7 +744,7 @@ namespace s3d
 		/// </returns>
 		constexpr inline int32 CalculateFontSize(double cardWidth) noexcept
 		{
-			return std::max(static_cast<int32>(cardWidth * 0.666667), 1);
+			return std::max(static_cast<int32>(cardWidth * (2.0 / 3.0)), 1);
 		}
 
 		/// <summary>
@@ -753,6 +755,8 @@ namespace s3d
 		private:
 
 			Font m_font;
+
+			Font m_fontLarge;
 
 			Vec2 m_cardSize = { 0, 0 };
 
@@ -771,7 +775,10 @@ namespace s3d
 			/// カードを扱うための構造体を作成します。
 			/// </summary>
 			/// <param name="font">
-			/// フォントデータ
+			/// 小さいフォント
+			/// </param>
+			/// <param name="fontLarge">
+			/// 大きいフォント
 			/// </param>
 			/// <param name="cardWidth">
 			/// カードの幅
@@ -785,8 +792,9 @@ namespace s3d
 			/// <remarks>
 			/// フォントの大きさは BestFontSize() を使って計算します。
 			/// </remarks>
-			explicit Pack(const Font& font, double cardWidth = 50, const ColorF& backSideColor = Palette::Blue, double frameThickness = 1.0)
+			explicit Pack(const Font& font, const Font& fontLarge, double cardWidth = 50, const ColorF& backSideColor = Palette::Blue, double frameThickness = 1.0)
 				: m_font(font)
+				, m_fontLarge(fontLarge)
 				, m_cardSize(cardWidth, cardWidth * 1.618)
 				, m_backSideColor(backSideColor)
 				, m_framethickness(frameThickness) {}
@@ -804,7 +812,8 @@ namespace s3d
 			/// カードの枠の太さ
 			/// </param>
 			explicit Pack(double cardWidth, const ColorF& backSideColor = Palette::Blue, double frameThickness = 1.0)
-				: m_font(CalculateFontSize(cardWidth))
+				: m_font(CalculateFontSize(cardWidth * 0.475))
+				, m_fontLarge(CalculateFontSize(cardWidth))
 				, m_cardSize(cardWidth, cardWidth * 1.618)
 				, m_backSideColor(backSideColor)
 				, m_framethickness(frameThickness) {}
@@ -840,7 +849,7 @@ namespace s3d
 			/// </returns>
 			CardInfo operator ()(const Card& card) const
 			{
-				return CardInfo(card, m_font, m_cardSize, m_framethickness, m_backSideColor);
+				return CardInfo(card, m_font, m_fontLarge, m_cardSize, m_framethickness, m_backSideColor);
 			}
 
 			/// <summary>
@@ -984,32 +993,23 @@ namespace s3d
 void Main()
 {
 	Window::Resize(1280, 720);
-
 	Graphics::SetBackground(Palette::Darkgreen);
 
-	const PlayingCard::Pack cardsPack(70, Palette::Red);
-
-	Array<PlayingCard::Card> cards = PlayingCard::CreateDeck(13);
+	const PlayingCard::Pack pack(75, Palette::Red);
+	Array<PlayingCard::Card> cards = PlayingCard::CreateDeck(2);
 
 	while (System::Update())
 	{
-		size_t index = 0;
-
-		for (auto y : step(5))
+		for (auto i : step(13 * 4 + 2))
 		{
-			for (auto x : step(13))
+			const Vec2 center(100 + i % 13 * 90, 100 + (i / 13) * 130);
+
+			if (pack.regionAt(center).leftClicked())
 			{
-				const Vec2 pos(50 + 85 * x, 25 + 125 * y);
-
-				if (cardsPack.region(pos).leftClicked())
-				{
-					cards[index].flip();
-				}
-
-				cardsPack(cards[index]).draw(pos);
-				
-				++index;
+				cards[i].flip();
 			}
+
+			pack(cards[i]).drawAt(center);
 		}
 	}
 }
