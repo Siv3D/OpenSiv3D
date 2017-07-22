@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the HamFramework for Siv3D.
 //
@@ -44,11 +44,11 @@ namespace s3d
 
 			if (sx <= sy)
 			{
-				return Transformer2D(Mat3x2::Scale(s).translate(0, (Window::Height() - baseSize.y * s) * 0.5), true);
+				return Transformer2D(Mat3x2::Scale(s).translated(0, (Window::Height() - baseSize.y * s) * 0.5), true);
 			}
 			else
 			{
-				return Transformer2D(Mat3x2::Scale(s).translate((Window::Width() - baseSize.x * s) * 0.5, 0), true);
+				return Transformer2D(Mat3x2::Scale(s).translated((Window::Width() - baseSize.x * s) * 0.5, 0), true);
 			}
 		}
 

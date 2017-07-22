@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the HamFramework for Siv3D.
 //
@@ -58,7 +58,7 @@ namespace s3d
 
 		Mat3x2 getMat3x2() const
 		{
-			return Mat3x2::Scale(m_scale).translate(Window::BaseSize() * 0.5 - m_scale * m_pos);
+			return Mat3x2::Scale(m_scale).translated(Window::BaseSize() * 0.5 - m_scale * m_pos);
 		}
 
 		Transformer2D createTransformer() const
@@ -71,42 +71,59 @@ namespace s3d
 	{
 	private:
 
-		void controlWithKeyboard(double speed, double scaleRatio)
+		bool m_keyControlEnabled = true;
+
+		bool m_mouseControlEnabled = true;
+
+		double m_speed = 10.0;
+
+		double m_scaleRatio = 1.1;
+
+		double m_mouseSpeedRatio = 0.01;
+
+		double m_lerpRatio = 0.2;
+
+		void controlWithKeyboard()
 		{
-			if (m_keyConfig[0].pressed())
+			if (!m_keyControlEnabled)
 			{
-				m_targetPos.y -= (speed / m_targetScale);
+				return;
 			}
 
-			if (m_keyConfig[1].pressed())
+			if (m_controls[0]())
 			{
-				m_targetPos.x -= (speed / m_targetScale);
+				m_targetPos.y -= (m_speed / m_targetScale);
 			}
 
-			if (m_keyConfig[2].pressed())
+			if (m_controls[1]())
 			{
-				m_targetPos.y += (speed / m_targetScale);
+				m_targetPos.x -= (m_speed / m_targetScale);
 			}
 
-			if (m_keyConfig[3].pressed())
+			if (m_controls[2]())
 			{
-				m_targetPos.x += (speed / m_targetScale);
+				m_targetPos.y += (m_speed / m_targetScale);
 			}
 
-			if (m_keyConfig[4].pressed())
+			if (m_controls[3]())
 			{
-				m_targetScale *= scaleRatio;
+				m_targetPos.x += (m_speed / m_targetScale);
 			}
 
-			if (m_keyConfig[5].pressed())
+			if (m_controls[4]())
 			{
-				m_targetScale /= scaleRatio;
+				m_targetScale *= m_scaleRatio;
+			}
+
+			if (m_controls[5]())
+			{
+				m_targetScale /= m_scaleRatio;
 			}
 		}
 
-		void controlWithMouse(bool useMouseControl, double speed, double scaleRatio, double mouseSpeedRatio)
+		void controlWithMouse()
 		{
-			if (!useMouseControl)
+			if (!m_mouseControlEnabled)
 			{
 				m_grabPos = none;
 
@@ -124,7 +141,7 @@ namespace s3d
 				{
 					const Point delta = Cursor::Pos() - m_grabPos.value();
 
-					m_targetPos += mouseSpeedRatio * speed * delta / m_targetScale;
+					m_targetPos += m_mouseSpeedRatio * m_speed * delta / m_targetScale;
 
 					if (MouseR.up())
 					{
@@ -137,11 +154,11 @@ namespace s3d
 
 			if (wheel < 0.0)
 			{
-				m_targetScale *= scaleRatio;
+				m_targetScale *= m_scaleRatio;
 			}
 			else if (wheel > 0.0)
 			{
-				m_targetScale /= scaleRatio;
+				m_targetScale /= m_scaleRatio;
 			}
 		}
 
@@ -151,10 +168,13 @@ namespace s3d
 
 		double m_targetScale = BasicCamera2D::m_scale;
 
-		std::array<Key, 6> m_keyConfig =
-		{
-			{ KeyW, KeyA, KeyS, KeyD, KeyUp, KeyDown }
-		};
+		std::array<std::function<bool()>, 6> m_controls =
+		{{ [](){ return KeyW.pressed(); }
+		,  [](){ return KeyA.pressed(); }
+		,  [](){ return KeyS.pressed(); }
+		,  [](){ return KeyD.pressed(); }
+		,  [](){ return KeyUp.pressed(); }
+		,  [](){ return KeyDown.pressed(); }}};
 
 		Optional<Point> m_grabPos;
 
@@ -162,31 +182,32 @@ namespace s3d
 
 		Camera2D() = default;
 
-		Camera2D(const Vec2& pos, double scale)
+
+		Camera2D(const Vec2& pos, double scale, bool keyControlEnabled = true, bool mouseControlEnabled = true, double speed = 10.0, double scaleRatio = 1.1, double lerpRatio = 0.2)
 			: BasicCamera2D(pos, scale)
 			, m_targetPos(pos)
 			, m_targetScale(scale)
+			, m_keyControlEnabled(keyControlEnabled)
+			, m_mouseControlEnabled(mouseControlEnabled)
+			, m_speed(speed)
+			, m_scaleRatio(scaleRatio)
+			, m_lerpRatio(lerpRatio)
 		{
 
 		}
 
-		virtual ~Camera2D() {}
+		virtual ~Camera2D() = default;
 
-		void update(double speed = 10.0, double scaleRatio = 1.1, double mouseSpeedRatio = 0.01, double lerpRatio = 0.2, bool useKeyControl = true, bool useMouseControl = true)
+
+		void update()
 		{
-			if (useKeyControl)
-			{
-				controlWithKeyboard(speed, scaleRatio);
-			}
+			controlWithKeyboard();
 
-			if (useMouseControl)
-			{
-				controlWithMouse(useMouseControl, speed, scaleRatio, mouseSpeedRatio);
-			}
+			controlWithMouse();
 
-			m_pos = Math::Lerp(m_pos, m_targetPos, lerpRatio);
+			m_pos = Math::Lerp(m_pos, m_targetPos, m_lerpRatio);
 
-			m_scale = Math::Lerp(m_scale, m_targetScale, lerpRatio);
+			m_scale = Math::Lerp(m_scale, m_targetScale, m_lerpRatio);
 		}
 
 		void draw(const ColorF& color = Palette::White) const
@@ -219,19 +240,79 @@ namespace s3d
 			}
 		}
 
-		void setKeyConfig(const std::array<Key, 6>& keys)
+		void setControls(const std::array<std::function<bool()>, 6>& controls)
 		{
-			m_keyConfig = keys;
+			m_controls = controls;
 		}
 
-		void setTargetPos(const Vec2& targetPos)
+		void setTargetPos(const Vec2& targetPos) noexcept
 		{
 			m_targetPos = targetPos;
 		}
 
-		void setTargetScale(const double targetScale)
+		void setTargetScale(double targetScale) noexcept
 		{
 			m_targetScale = targetScale;
+		}
+
+		void setSpeed(double speed) noexcept
+		{
+			m_speed = speed;
+		}
+
+		double getSpeed() const noexcept
+		{
+			return m_speed;
+		}
+
+		void setScaleRatio(double scaleRatio) noexcept
+		{
+			m_scaleRatio = scaleRatio;
+		}
+
+		double getScaleRatio() const noexcept
+		{
+			return m_scaleRatio;
+		}
+
+		void setMouseSpeedRatio(double mouseSpeedRatio) noexcept
+		{
+			m_mouseSpeedRatio = mouseSpeedRatio;
+		}
+
+		double getMouseSpeedRatio() const noexcept
+		{
+			return m_mouseSpeedRatio;
+		}
+
+		void setLerpRatio(double lerpRatio) noexcept
+		{
+			m_lerpRatio = lerpRatio;
+		}
+
+		double getLerpRatio() const noexcept
+		{
+			return m_lerpRatio;
+		}
+
+		void enableKeyControl(bool enable) noexcept
+		{
+			m_keyControlEnabled = enable;
+		}
+
+		bool keyControlEnabled() const noexcept
+		{
+			return m_keyControlEnabled;
+		}
+
+		void enableMouseControl(bool enable) noexcept
+		{
+			m_mouseControlEnabled = enable;
+		}
+
+		bool mouseControlEnabled() const noexcept
+		{
+			return m_mouseControlEnabled;
 		}
 	};
 }
