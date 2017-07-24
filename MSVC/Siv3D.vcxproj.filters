@@ -1948,6 +1948,9 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Script\AngelScript\scriptbuilder.h">
       <Filter>Source\Siv3D\Script\AngelScript</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\HamFramework\PlayingCard.hpp">
+      <Filter>Include\HamFramework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">

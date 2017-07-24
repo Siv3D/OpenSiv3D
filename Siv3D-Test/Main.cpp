@@ -1,17 +1,26 @@
-﻿# include <Siv3D.hpp> // OpenSiv3D v0.1.6
+﻿# include <Siv3D.hpp>
+# include <HamFramework.hpp>
 
 void Main()
 {
-	Script script(L"example/script.txt");
-	
-	auto GetNumber = script.getFunction<int32(void)>(L"GetNumber");
-	
-	auto DrawCircle = script.getFunction<void(const Circle&, const ColorF&)>(L"DrawCircle");
-	
-	Print << GetNumber();
-	
+	Window::Resize(1280, 720);
+	Graphics::SetBackground(Palette::Darkgreen);
+
+	const PlayingCard::Pack pack(75, Palette::Red);
+	Array<PlayingCard::Card> cards = PlayingCard::CreateDeck(2);
+
 	while (System::Update())
-	{	
-		DrawCircle(Circle(Cursor::Pos(), 50), ColorF(1.0, 0.0, 0.0, 0.5));
+	{
+		for (auto i : step(13 * 4 + 2))
+		{
+			const Vec2 center(100 + i % 13 * 90, 100 + (i / 13) * 130);
+
+			if (pack.regionAt(center).leftClicked())
+			{
+				cards[i].flip();
+			}
+
+			pack(cards[i]).drawAt(center);
+		}
 	}
 }
