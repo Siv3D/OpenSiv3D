@@ -76,9 +76,9 @@ namespace s3d
 			/// <returns>
 			/// スートの文字
 			/// </returns>
-			static constexpr wchar GetSuit(const Suit suit)
+			static constexpr char32_t GetSuit(const Suit suit)
 			{
-				return L"♠♥♣♦"[static_cast<size_t>(suit)];
+				return U"♠♥♣♦"[static_cast<size_t>(suit)];
 			}
 
 			/// <summary>
@@ -132,8 +132,8 @@ namespace s3d
 			/// 表向きであるか
 			/// </param>
 			constexpr Card(Suit _suit, int32 _rank, bool _isFaceSide = true) noexcept
-				: suit(_suit)
-				, rank(suit == Suit::Joker ? 0 : _rank)
+				: rank(_suit == Suit::Joker ? 0 : _rank)
+				, suit(_suit)
 				, isFaceSide(_isFaceSide) {}
 
 			/// <summary>

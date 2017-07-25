@@ -20,6 +20,33 @@ namespace s3d
 	/// State にはシーンを区別するキーの型、Data にはシーン間で共有するデータの型を指定します。
 	/// </remarks>
 	template <class State, class Data> class SceneManager;
+	
+	namespace detail
+	{
+		template <class Type>
+		inline String GetSceneName(const Type& state)
+		{
+			return Format(L'[', static_cast<int32>(state), L']');
+		}
+		
+		template <>
+		inline String GetSceneName<String>(const String& state)
+		{
+			return Format(L'[', state, L']');
+		}
+		
+		template <class Type>
+		inline std::shared_ptr<Type> MakeSharedData()
+		{
+			return std::make_shared<Type>();
+		}
+		
+		template <>
+		inline std::shared_ptr<void> MakeSharedData()
+		{
+			return std::shared_ptr<void>(nullptr);
+		}
+	}
 
 	/// <summary>
 	/// シーン・インタフェース
@@ -97,7 +124,7 @@ namespace s3d
 		{
 			draw();
 
-			Transformer2D transform(Graphics2D::GetTransform().inverse());
+			Transformer2D transform(Graphics2D::GetTransform().inversed());
 
 			Window::ClientRect().draw(m_manager->getFadeColor().setA(1.0 - t));
 		}
@@ -115,7 +142,7 @@ namespace s3d
 		{
 			draw();
 
-			Transformer2D transform(Graphics2D::GetTransform().inverse());
+			Transformer2D transform(Graphics2D::GetTransform().inversed());
 
 			Window::ClientRect().draw(m_manager->getFadeColor().setA(t));
 		}
@@ -331,38 +358,14 @@ namespace s3d
 			}
 		}
 
-		template <class Type>
-		String getSceneName() const
-		{
-			return Format(L'[', static_cast<int32>(m_currentState), L']');
-		}
-
-		template <>
-		String getSceneName<String>() const
-		{
-			return Format(L'[', m_currentState, L']');
-		}
-
 		void drawSceneName() const
 		{
-			//PutText(getSceneName<State>()).at(Window::Center());
+			//PutText(detail::GetSceneName<State>()).at(Window::Center());
 		}
 
 		bool hasError() const
 		{
 			return m_error;
-		}
-
-		template <class Type>
-		std::shared_ptr<Type> MakeShared() const
-		{
-			return std::make_shared<Data>();
-		}
-
-		template <>
-		std::shared_ptr<void> MakeShared() const
-		{
-			return std::shared_ptr<void>(nullptr);
 		}
 
 	public:
@@ -379,7 +382,7 @@ namespace s3d
 		/// シーン管理のオプション
 		/// </param>
 		explicit SceneManager(SceneManagerOption option = SceneManagerOption::None)
-			: m_data(MakeShared<Data>())
+			: m_data(detail::MakeSharedData<Data>())
 			, m_option(option) {}
 
 		/// <summary>
