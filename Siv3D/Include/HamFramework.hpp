@@ -37,3 +37,4 @@
 # include "HamFramework/MiniScene.hpp"
 # include "HamFramework/Rx.hpp"
 # include "HamFramework/ScalableWindow.hpp"
+# include "HamFramework/SceneManager.hpp"

@@ -205,5 +205,10 @@ namespace s3d
 		{
 			return BaseSize().y;
 		}
+
+		inline Rect BaseClientRect()
+		{
+			return Rect(BaseSize());
+		}
 	}
 }
