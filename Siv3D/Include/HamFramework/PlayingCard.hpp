@@ -663,7 +663,7 @@ namespace s3d
 					if (!m_card.isJoker())
 					{
 						const ColorF color = m_card.isRed() ? Palette::Red : Palette::Black;
-						const wchar suit = Card::GetSuit(m_card.suit);
+						const wchar suit = static_cast<wchar>(Card::GetSuit(m_card.suit));
 						const String rank = Card::GetRank(m_card.rank);
 
 						m_fontLarge(suit).drawAt(pos.movedBy(m_cardSize.x * 0.5, m_cardSize.y * 0.3), color);

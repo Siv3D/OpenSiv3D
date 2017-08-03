@@ -269,7 +269,7 @@ namespace s3d
 		return m_targetFrameRateHz;
 	}
 	
-	bool CGraphics_GL::flush()
+	bool CGraphics_GL::flush(bool clearGraphics)
 	{
 		m_renderer2D->flush();
 		

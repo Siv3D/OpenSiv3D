@@ -22,9 +22,9 @@ namespace s3d
 {
 	namespace System
 	{
-		bool Update()
+		bool Update(bool clearGraphics)
 		{
-			if (!Siv3DEngine::GetSystem()->update())
+			if (!Siv3DEngine::GetSystem()->update(clearGraphics))
 			{
 				Siv3DEngine::GetWindow()->show(false);
 

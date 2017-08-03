@@ -148,7 +148,7 @@ namespace s3d
 		return true;
 	}
 
-	bool CSystem_macOS::update()
+	bool CSystem_macOS::update(bool clearGraphics)
 	{
 		m_previousEvent = m_event.exchange(0);
 

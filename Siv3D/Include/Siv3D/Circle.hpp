@@ -79,35 +79,12 @@ namespace s3d
 		/// <param name="_y">
 		/// 円の中心の Y 座標
 		/// </param>
-		constexpr Circle(value_type _x, value_type _y) noexcept
-			: center(_x, _y)
-			, r(0.0) {}
-
-		/// <summary>
-		/// 円を作成します。
-		/// </summary>
-		/// <param name="_x">
-		/// 円の中心の X 座標
-		/// </param>
-		/// <param name="_y">
-		/// 円の中心の Y 座標
-		/// </param>
 		/// <param name="_r">
 		/// 円の半径
 		/// </param>
 		constexpr Circle(value_type _x, value_type _y, size_type _r) noexcept
 			: center(_x, _y)
 			, r(_r) {}
-
-		/// <summary>
-		/// 円を作成します。
-		/// </summary>
-		/// <param name="_center">
-		/// 円の中心の座標
-		/// </param>
-		explicit constexpr Circle(const position_type& _center) noexcept
-			: center(_center)
-			, r(0.0) {}
 
 		/// <summary>
 		/// 円を作成します。

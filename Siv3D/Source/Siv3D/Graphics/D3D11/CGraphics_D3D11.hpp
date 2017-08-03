@@ -95,7 +95,7 @@ namespace s3d
 
 		double getDisplayRefreshRateHz() const override;
 
-		bool flush() override;
+		bool flush(bool clearGraphics) override;
 
 		const Size& getCurrentRenderTargetSize() const override;
 

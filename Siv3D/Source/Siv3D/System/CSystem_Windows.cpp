@@ -149,7 +149,7 @@ namespace s3d
 		return true;
 	}
 
-	bool CSystem_Windows::update()
+	bool CSystem_Windows::update(bool clearGraphics)
 	{
 		if (m_setupState == SetupState::Initialized)
 		{
@@ -172,7 +172,7 @@ namespace s3d
 
 		Siv3DEngine::GetPrint()->draw();
 
-		if (!Siv3DEngine::GetGraphics()->flush())
+		if (!Siv3DEngine::GetGraphics()->flush(clearGraphics))
 		{
 			return false;
 		}
