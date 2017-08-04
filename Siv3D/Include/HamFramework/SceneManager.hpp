@@ -418,21 +418,21 @@ namespace s3d
 		template <class Scene>
 		SceneManager& add(const State& state)
 		{
+			typename Scene::InitData initData{ state, m_data, this };
+			
+			auto factory = [=](){
+				return MakeShared<Scene>(initData);
+			};
+		
 			auto it = m_factories.find(state);
-
+			
 			if (it != m_factories.end())
 			{
-				it.value() = [=]()
-				{
-					return std::make_shared<Scene>(IScene<State, Data>::InitData{ state, m_data, this });
-				};
+				it.value() = factory;
 			}
 			else
 			{
-				m_factories.emplace(state, [=]()
-				{
-					return std::make_shared<Scene>(IScene<State, Data>::InitData{ state, m_data, this });
-				});
+				m_factories.emplace(state, factory);
 
 				if (!m_first)
 				{
