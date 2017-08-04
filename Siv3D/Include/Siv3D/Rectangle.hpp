@@ -651,6 +651,21 @@ namespace s3d
 		/// <summary>
 		/// 長方形の大きさを変更します。
 		/// </summary>
+		/// <param name="_size">
+		/// 新しい幅と高さ
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		constexpr Rectangle& setSize(value_type _size) noexcept
+		{
+			size.set(_size, _size);
+			return *this;
+		}
+
+		/// <summary>
+		/// 長方形の大きさを変更します。
+		/// </summary>
 		/// <param name="_w">
 		/// 新しい幅
 		/// </param>
