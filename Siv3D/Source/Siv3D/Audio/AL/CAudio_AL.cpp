@@ -13,6 +13,7 @@
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 # include "CAudio_AL.hpp"
+# include <Siv3D/MathConstants.hpp>
 
 namespace s3d
 {
@@ -23,6 +24,8 @@ namespace s3d
 
 	CAudio_AL::~CAudio_AL()
 	{
+		m_audios.destroy();
+		
 		if (m_context)
 		{
 			m_device = ::alcGetContextsDevice(m_context);
@@ -61,63 +64,62 @@ namespace s3d
 		{
 			return false;
 		}
+		
+		const auto nullAudio = std::make_shared<Audio_AL>(
+			Wave(SecondsF(0.5), Arg::generator = [](double t) {
+				return 0.5 * std::sin(t * Math::TwoPi) * std::sin(t * Math::TwoPi * 220.0 * (t * 4.0 + 1.0)); }));
+		
+		if (!nullAudio->isInitialized())
+		{
+			return false;
+		}
+		
+		m_audios.setNullData(nullAudio);
 
-		
-		::alListener3f(AL_POSITION, 0, 0, 1.0f);
-		::alListener3f(AL_VELOCITY, 0, 0, 0);
-		const ALfloat listenerOri[] = { 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f };
-		::alListenerfv(AL_ORIENTATION, listenerOri);
-		
-		/*
-		ALuint bufferID, source;
-		
-		::alGenSources(1, &source);
-		::alSourcef(source, AL_PITCH, 1);
-		::alSourcef(source, AL_GAIN, 1);
-		::alSource3f(source, AL_POSITION, 0, 0, 0);
-		::alSource3f(source, AL_VELOCITY, 0, 0, 0);
-		::alSourcei(source, AL_LOOPING, AL_FALSE);
-		::alGenBuffers(1, &bufferID);
-		
-		::alDeleteBuffers(1, &bufferID);
-		::alDeleteSources(1, &source);
-		
-		 */
-		 
 		return true;
 	}
 
 	Audio::IDType CAudio_AL::create(Wave&& wave)
 	{
-		return Audio::NullHandleID;
+		if (!wave)
+		{
+			return Audio::NullHandleID;
+		}
+		
+		const auto audio = std::make_shared<Audio_AL>(std::move(wave));
+		
+		if (!audio->isInitialized())
+		{
+			return Audio::NullHandleID;
+		}
+		
+		return m_audios.add(audio);
 	}
 
 	void CAudio_AL::release(const Audio::IDType handleID)
 	{
-
+		m_audios.erase(handleID);
 	}
 
 	uint32 CAudio_AL::samplingRate(const Audio::IDType handleID)
 	{
-		// [Siv3D ToDo]
-		return 0;
+		return m_audios[handleID]->samplingRate();
 	}
 
 	size_t CAudio_AL::samples(const Audio::IDType handleID)
 	{
-		// [Siv3D ToDo]
-		return 0;
+		return m_audios[handleID]->samples();
 	}
 
 	void CAudio_AL::setLoop(const Audio::IDType handleID, const bool loop, const int64 loopBeginSample, const int64 loopEndSample)
 	{
-		// [Siv3D ToDo]
+		return m_audios[handleID]->setLoop(loop);
 	}
 
 	bool CAudio_AL::play(Audio::IDType handleID, const SecondsF& fadeinDuration)
 	{
 		// [Siv3D ToDo]
-		return true;
+		return m_audios[handleID]->play();
 	}
 	
 	void CAudio_AL::pause(Audio::IDType handleID, const SecondsF& fadeoutDuration)
@@ -162,9 +164,7 @@ namespace s3d
 
 	const Wave& CAudio_AL::getWave(Audio::IDType handleID)
 	{
-		// [Siv3D ToDo]
-		static Wave wave;
-		return wave;
+		return m_audios[handleID]->getWave();
 	}
 
 	void CAudio_AL::setVolume(const Audio::IDType handleID, const std::pair<double, double>& volume)

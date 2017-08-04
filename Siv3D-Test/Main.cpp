@@ -3,6 +3,8 @@
 
 void Main()
 {
+	Audio audio(L"short.wav", Arg::loop = true);
+	audio.play();
 	const Texture texture(Emoji(L"👨‍🚀"), TextureDesc::Mipped);
 	Graphics::SetBackground(Palette::Skyblue);
 	
