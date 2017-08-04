@@ -134,7 +134,7 @@ namespace s3d
 		return true;
 	}
 	
-	void CRenderer2D_GL::flush(bool)
+	void CRenderer2D_GL::flush(const bool clearGraphics)
 	{
 		CGraphics_GL* const graphics = dynamic_cast<CGraphics_GL* const>(Siv3DEngine::GetGraphics());
 		CShader_GL* const shader = dynamic_cast<CShader_GL* const>(Siv3DEngine::GetShader());
@@ -290,9 +290,12 @@ namespace s3d
 		
 		::glBindVertexArray(0);
 
-		m_spriteBatch.clear();
-		
-		m_commandManager.reset();
+		if (clearGraphics)
+		{
+			m_spriteBatch.clear();
+
+			m_commandManager.reset();
+		}
 
 		/*
 		GLenum err;

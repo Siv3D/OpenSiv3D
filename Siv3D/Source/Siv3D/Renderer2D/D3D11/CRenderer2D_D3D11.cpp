@@ -149,7 +149,7 @@ namespace s3d
 		return true;
 	}
 
-	void CRenderer2D_D3D11::flush(bool clearGraphics)
+	void CRenderer2D_D3D11::flush(const bool clearGraphics)
 	{
 		CGraphics_D3D11* const pGraphics = dynamic_cast<CGraphics_D3D11* const>(Siv3DEngine::GetGraphics());
 		CTexture_D3D11* const pTexture = dynamic_cast<CTexture_D3D11* const>(Siv3DEngine::GetTexture());
