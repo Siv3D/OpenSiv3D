@@ -101,7 +101,7 @@ namespace s3d
 
 		bool init();
 
-		void flush() override;
+		void flush(bool clearGraphics) override;
 
 		void setBlendState(const BlendState& state) override;
 

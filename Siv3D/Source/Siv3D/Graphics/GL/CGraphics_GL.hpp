@@ -182,7 +182,7 @@ namespace s3d
 			return 60.0;
 		}
 
-		bool flush() override;
+		bool flush(bool clearGraphics) override;
 		
 		const Size& getCurrentRenderTargetSize() const override;
 

@@ -25,6 +25,7 @@
     <ClInclude Include="..\Siv3D\Include\HamFramework\PlayingCard.hpp" />
     <ClInclude Include="..\Siv3D\Include\HamFramework\Rx.hpp" />
     <ClInclude Include="..\Siv3D\Include\HamFramework\ScalableWindow.hpp" />
+    <ClInclude Include="..\Siv3D\Include\HamFramework\SceneManager.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\AlignedAllocator.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\AlignedMemory.hpp" />

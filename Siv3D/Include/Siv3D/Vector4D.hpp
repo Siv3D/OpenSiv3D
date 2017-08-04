@@ -644,7 +644,7 @@ namespace s3d
 	template <class Type, class U>
 	inline constexpr Vector3D<Type> operator *(U s, const Vector4D<Type>& v) noexcept
 	{
-		return v * s;
+		return v * static_cast<Type>(s);
 	}
 
 	using Float4	= Vector4D<float>;
