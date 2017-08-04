@@ -3,14 +3,46 @@
 
 void Main()
 {
-	const Texture texture(Emoji(L"😆"), TextureDesc::Mipped);
+	ScalableWindow::SetBaseSize(640, 480);
+
+	Window::Resize(1280, 640);
+
+	const int32 dotSize = 40;
+
+	Grid<int32> dots(Window::BaseSize() / dotSize);
+
+	Graphics::SetBackground(Palette::White);
+
+	Circle circle(320, 240, 80);
 
 	while (System::Update())
 	{
-		const Vec2 c = Cursor::Pos();
 
-		Shape2D::RectBalloon(Rect(Arg::center(Window::Center()), 240, 120), Window::Center().lerp(c, 0.7)).draw();
+		const auto transformer = ScalableWindow::CreateTransformer();
 
-		texture.scale(0.7).drawAt(c);
+		for (auto p : step(dots.size()))
+		{
+			const Rect rect(p * dotSize, dotSize);
+
+			if (rect.leftClicked())
+			{
+				++dots[p] %= 4;
+			}
+
+			rect.stretched(-1).draw(ColorF(0.95 - dots[p] * 0.3));
+		}
+
+
+
+		circle.moveBy(Cursor::DeltaF());
+
+		Print << L"----";
+		Print << Cursor::PreviousPos() << Cursor::Pos() << Cursor::Delta();
+		Print << Cursor::PreviousPosF() << Cursor::PosF() << Cursor::DeltaF();// circle;
+
+		circle.draw();
+
+
+		ScalableWindow::DrawBlackBars(HSV(40, 0.2, 0.9));
 	}
 }
