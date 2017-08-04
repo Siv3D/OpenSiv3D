@@ -845,6 +845,7 @@
 		2CAE4DF71EE2D7770057BE7E /* TexturedRoundRect.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAE4DF61EE2D7770057BE7E /* TexturedRoundRect.hpp */; };
 		2CAE4DFB1EE3AC080057BE7E /* Print.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAE4DFA1EE3AC080057BE7E /* Print.hpp */; };
 		2CC7F9531F3489610071A239 /* Transition.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F9521F3489610071A239 /* Transition.hpp */; };
+		2CC7F9561F34A6A20071A239 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC7F9541F34A5840071A239 /* OpenAL.framework */; };
 		2CCA356F1EC6BBA900078678 /* ImageProcessing.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */; };
 		2CCA35871EC86CD600078678 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA357F1EC86CD600078678 /* format.h */; };
 		2CCA35881EC86CD600078678 /* ostream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA35811EC86CD600078678 /* ostream.h */; };
@@ -1830,6 +1831,7 @@
 		2CAE4DF61EE2D7770057BE7E /* TexturedRoundRect.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TexturedRoundRect.hpp; sourceTree = "<group>"; };
 		2CAE4DFA1EE3AC080057BE7E /* Print.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Print.hpp; sourceTree = "<group>"; };
 		2CC7F9521F3489610071A239 /* Transition.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Transition.hpp; sourceTree = "<group>"; };
+		2CC7F9541F34A5840071A239 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageProcessing.hpp; sourceTree = "<group>"; };
 		2CCA357F1EC86CD600078678 /* format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
 		2CCA35801EC86CD600078678 /* LICENSE.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.rst; sourceTree = "<group>"; };
@@ -1946,6 +1948,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CC7F9561F34A6A20071A239 /* OpenAL.framework in Frameworks */,
 				2C1585831F21FDBA002687D2 /* langelscript.a in Frameworks */,
 				2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */,
 				2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */,
@@ -3722,6 +3725,7 @@
 		2C15857F1F21FD87002687D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2CC7F9541F34A5840071A239 /* OpenAL.framework */,
 				2C1585821F21FDBA002687D2 /* langelscript.a */,
 				2C1585801F21FD87002687D2 /* libangelscript.a */,
 			);

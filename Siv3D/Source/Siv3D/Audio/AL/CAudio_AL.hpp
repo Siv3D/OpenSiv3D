@@ -14,12 +14,18 @@
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 # include "../IAudio.hpp"
+# include <OpenAL/al.h>
+# include <OpenAL/alc.h>
 
 namespace s3d
 {
 	class CAudio_AL : public ISiv3DAudio
 	{
 	private:
+		
+		ALCdevice* m_device = nullptr;
+		
+		ALCcontext* m_context = nullptr;
 
 	public:
 

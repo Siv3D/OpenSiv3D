@@ -23,7 +23,16 @@ namespace s3d
 
 	CAudio_AL::~CAudio_AL()
 	{
+		if (m_context)
+		{
+			m_device = ::alcGetContextsDevice(m_context);
+			
+			::alcMakeContextCurrent(nullptr);
 
+			::alcDestroyContext(m_context);
+			
+			::alcCloseDevice(m_device);
+		}
 	}
 
 	bool CAudio_AL::hasAudioDevice() const
@@ -34,7 +43,47 @@ namespace s3d
 
 	bool CAudio_AL::init()
 	{
+		m_device = ::alcOpenDevice(nullptr);
+		
+		if (!m_device)
+		{
+			return false;
+		}
+		
+		m_context = ::alcCreateContext(m_device, nullptr);
+		
+		if (!m_context)
+		{
+			return false;
+		}
+		
+		if (!::alcMakeContextCurrent(m_context))
+		{
+			return false;
+		}
 
+		
+		::alListener3f(AL_POSITION, 0, 0, 1.0f);
+		::alListener3f(AL_VELOCITY, 0, 0, 0);
+		const ALfloat listenerOri[] = { 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f };
+		::alListenerfv(AL_ORIENTATION, listenerOri);
+		
+		/*
+		ALuint bufferID, source;
+		
+		::alGenSources(1, &source);
+		::alSourcef(source, AL_PITCH, 1);
+		::alSourcef(source, AL_GAIN, 1);
+		::alSource3f(source, AL_POSITION, 0, 0, 0);
+		::alSource3f(source, AL_VELOCITY, 0, 0, 0);
+		::alSourcei(source, AL_LOOPING, AL_FALSE);
+		::alGenBuffers(1, &bufferID);
+		
+		::alDeleteBuffers(1, &bufferID);
+		::alDeleteSources(1, &source);
+		
+		 */
+		 
 		return true;
 	}
 
