@@ -24,18 +24,6 @@ namespace s3d
 	namespace detail
 	{
 		template <class Type>
-		inline String GetSceneName(const Type& state)
-		{
-			return Format(L'[', static_cast<int32>(state), L']');
-		}
-		
-		template <>
-		inline String GetSceneName<String>(const String& state)
-		{
-			return Format(L'[', state, L']');
-		}
-		
-		template <class Type>
 		inline std::shared_ptr<Type> MakeSharedData()
 		{
 			return MakeShared<Type>();
