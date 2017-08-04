@@ -3,24 +3,14 @@
 
 void Main()
 {
-	Window::Resize(1280, 720);
-	Graphics::SetBackground(Palette::Darkgreen);
-
-	const PlayingCard::Pack pack(75, Palette::Red);
-	Array<PlayingCard::Card> cards = PlayingCard::CreateDeck(2);
+	const Texture texture(Emoji(L"😆"), TextureDesc::Mipped);
 
 	while (System::Update())
 	{
-		for (auto i : step(13 * 4 + 2))
-		{
-			const Vec2 center(100 + i % 13 * 90, 100 + (i / 13) * 130);
+		const Vec2 c = Cursor::Pos();
 
-			if (pack.regionAt(center).leftClicked())
-			{
-				cards[i].flip();
-			}
+		Shape2D::RectBalloon(Rect(Arg::center(Window::Center()), 240, 120), Window::Center().lerp(c, 0.7)).draw();
 
-			pack(cards[i]).drawAt(center);
-		}
+		texture.scale(0.7).drawAt(c);
 	}
 }
