@@ -81,6 +81,18 @@ namespace s3d
 		// [Siv3D ToDo]
 	}
 
+	bool CAudio_AL::isPlaying(Audio::IDType handleID)
+	{
+		// [Siv3D ToDo]
+		return false;
+	}
+
+	bool CAudio_AL::isPaused(Audio::IDType handleID)
+	{
+		// [Siv3D ToDo]
+		return false;
+	}
+
 	uint64 CAudio_AL::posSample(const Audio::IDType handleID)
 	{
 		// [Siv3D ToDo]
@@ -97,6 +109,13 @@ namespace s3d
 	{
 		// [Siv3D ToDo]
 		return 0;
+	}
+
+	const Wave& CAudio_AL::getWave(Audio::IDType handleID)
+	{
+		// [Siv3D ToDo]
+		static Wave wave;
+		return wave;
 	}
 
 	void CAudio_AL::setVolume(const Audio::IDType handleID, const std::pair<double, double>& volume)

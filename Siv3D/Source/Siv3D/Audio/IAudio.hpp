@@ -43,11 +43,17 @@ namespace s3d
 
 		virtual void stop(Audio::IDType handleID, const SecondsF& fadeoutDuration) = 0;
 
+		virtual bool isPlaying(Audio::IDType handleID) = 0;
+
+		virtual bool isPaused(Audio::IDType handleID) = 0;
+
 		virtual uint64 posSample(Audio::IDType handleID) = 0;
 
 		virtual uint64 streamPosSample(Audio::IDType handleID) = 0;
 
 		virtual uint64 samplesPlayed(Audio::IDType handleID) = 0;
+
+		virtual const Wave& getWave(Audio::IDType handleID) = 0;
 
 		virtual void setVolume(Audio::IDType handleID, const std::pair<double, double>& volume) = 0;
 

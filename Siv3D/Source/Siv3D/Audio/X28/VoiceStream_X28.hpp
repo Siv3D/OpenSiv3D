@@ -391,6 +391,16 @@ namespace s3d
 			create(m_is3D, m_maxSpeed);
 		}
 
+		bool isPlaying() const
+		{
+			return m_isActive && !m_isPaused;
+		}
+
+		bool isPaused() const
+		{
+			return m_isPaused;
+		}
+
 		uint64 calculatePosSample()
 		{
 			const uint64 samplesPlayed = getSamplesPlayed();

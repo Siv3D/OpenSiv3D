@@ -196,6 +196,20 @@ namespace s3d
 			fadeSec);
 	}
 
+	bool CAudio_X27::isPlaying(const Audio::IDType handleID)
+	{
+		std::lock_guard<std::mutex> lock(m_mutex);
+
+		return m_audios[handleID]->isPlaying();
+	}
+
+	bool CAudio_X27::isPaused(const Audio::IDType handleID)
+	{
+		std::lock_guard<std::mutex> lock(m_mutex);
+
+		return m_audios[handleID]->isPaused();
+	}
+
 	uint64 CAudio_X27::posSample(const Audio::IDType handleID)
 	{
 		std::lock_guard<std::mutex> lock(m_mutex);
@@ -215,6 +229,11 @@ namespace s3d
 		std::lock_guard<std::mutex> lock(m_mutex);
 
 		return m_audios[handleID]->samplesPlayed();
+	}
+
+	const Wave& CAudio_X27::getWave(const Audio::IDType handleID)
+	{
+		return m_audios[handleID]->getWave();
 	}
 
 	void CAudio_X27::setVolume(const Audio::IDType handleID, const std::pair<double, double>& volume)
