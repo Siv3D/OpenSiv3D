@@ -14,7 +14,7 @@
 namespace s3d
 {
 	/// <summary>
-	/// シーケンス管理
+	/// シーン管理
 	/// </summary>
 	/// <remarks>
 	/// State にはシーンを区別するキーの型、Data にはシーン間で共有するデータの型を指定します。
@@ -38,7 +38,7 @@ namespace s3d
 		template <class Type>
 		inline std::shared_ptr<Type> MakeSharedData()
 		{
-			return std::make_shared<Type>();
+			return MakeShared<Type>();
 		}
 		
 		template <>
@@ -52,32 +52,39 @@ namespace s3d
 	/// シーン・インタフェース
 	/// </summary>
 	template <class State, class Data>
-	class SceneBase : Uncopyable
+	class IScene : Uncopyable
 	{
 	public:
-
-		using Manager_t = SceneManager<State, Data>;
 
 		using State_t = State;
 
 		using Data_t = Data;
 
-		virtual ~SceneBase() = default;
-
-		void setData(Manager_t* pManager, const std::shared_ptr<Data>& data)
+		using InitData = struct
 		{
-			m_manager = pManager;
+			State_t state;
 
-			m_data = data;
-		}
+			std::shared_ptr<Data_t> _s;
 
-		/// <summary>
-		/// クラスの初期化時に一度だけ呼ばれます。
-		/// </summary>
-		/// <returns>
-		/// なし
-		/// </returns>
-		virtual void init() {}
+			SceneManager<State_t, Data_t>* _m;
+		};
+
+	private:
+
+		State_t m_state;
+
+		std::shared_ptr<Data_t> m_data;
+
+		SceneManager<State_t, Data_t>* m_manager;
+
+	public:
+
+		IScene(const InitData& init)
+			: m_state(init.state)
+			, m_data(init._s)
+			, m_manager(init._m) {}
+
+		virtual ~IScene() = default;
 
 		/// <summary>
 		/// フェードイン時の更新
@@ -149,10 +156,42 @@ namespace s3d
 
 	protected:
 
+		const State_t& getState() const
+		{
+			return m_state;
+		}
+
 		/// <summary>
-		/// 共有データへのポインタ
+		/// 共有データへの参照を取得します。
 		/// </summary>
-		std::shared_ptr<Data> m_data;
+		/// </param>
+		/// <returns>
+		/// 共有データへの参照
+		/// </returns>
+		Data_t& getData() const
+		{
+			return *m_data;
+		}
+
+		/// <summary>
+		/// シーンの変更を通知します。
+		/// </summary>
+		/// <param name="state">
+		/// 次のシーンのキー
+		/// </param>
+		/// <param name="transitionTime">
+		/// フェードイン・アウトの時間
+		/// </param>
+		/// <param name="crossFade">
+		/// クロスフェードを有効にするか
+		/// </param>
+		/// <returns>
+		/// シーンの変更が可能でフェードイン・アウトが開始される場合 true, それ以外の場合は false
+		/// </returns>
+		bool changeScene(const State_t& state, const MillisecondsF& transitionTime = 1000ms, bool crossFade = false)
+		{
+			return changeScene(state, static_cast<int32>(transitionTime.count()), crossFade);
+		}
 
 		/// <summary>
 		/// シーンの変更を通知します。
@@ -169,7 +208,7 @@ namespace s3d
 		/// <returns>
 		/// シーンの変更が可能でフェードイン・アウトが開始される場合 true, それ以外の場合は false
 		/// </returns>
-		bool changeScene(const State& state, int32 transitionTimeMillisec = 1000, bool crossFade = false)
+		bool changeScene(const State_t& state, int32 transitionTimeMillisec, bool crossFade = false)
 		{
 			return m_manager->changeScene(state, transitionTimeMillisec, crossFade);
 		}
@@ -187,30 +226,10 @@ namespace s3d
 		{
 			return m_manager->notifyError();
 		}
-
-	private:
-
-		Manager_t* m_manager = nullptr;
 	};
 
 	/// <summary>
-	/// シーン管理のオプション
-	/// </summary>
-	enum class SceneManagerOption
-	{
-		/// <summary>
-		/// なし
-		/// </summary>
-		None,
-
-		/// <summary>
-		/// シーン名をデバッグ表示
-		/// </summary>
-		ShowSceneName,
-	};
-
-	/// <summary>
-	/// シーケンス管理
+	/// シーン管理
 	/// </summary>
 	/// <remarks>
 	/// State にはシーンを区別するキーの型、Data にはシーン間で共有するデータの型を指定します。
@@ -220,7 +239,7 @@ namespace s3d
 	{
 	private:
 
-		using Scene_t = std::shared_ptr<SceneBase<State, Data>>;
+		using Scene_t = std::shared_ptr<IScene<State, Data>>;
 
 		using FactoryFunction_t = std::function<Scene_t()>;
 
@@ -258,23 +277,19 @@ namespace s3d
 
 		ColorF m_fadeColor = Palette::Black;
 
-		SceneManagerOption m_option = SceneManagerOption::None;
-
 		bool m_crossFade = false;
 
 		bool m_error = false;
 
 		bool updateSingle()
 		{
-			int32 elapsed = m_stopwatch.ms();
+			double elapsed = m_stopwatch.msF();
 
 			if (m_transitionState == TransitionState::FadeOut && elapsed >= m_transitionTimeMillisec)
 			{
 				m_current = nullptr;
 
 				m_current = m_factories[m_nextState]();
-
-				m_current->init();
 
 				if (hasError())
 				{
@@ -287,7 +302,7 @@ namespace s3d
 
 				m_stopwatch.restart();
 
-				elapsed = 0;
+				elapsed = 0.0;
 			}
 
 			if (m_transitionState == TransitionState::FadeIn && elapsed >= m_transitionTimeMillisec)
@@ -301,14 +316,14 @@ namespace s3d
 			{
 			case TransitionState::FadeIn:
 				assert(m_transitionTimeMillisec);
-				m_current->updateFadeIn(static_cast<double>(elapsed) / m_transitionTimeMillisec);
+				m_current->updateFadeIn(elapsed / m_transitionTimeMillisec);
 				return !hasError();
 			case TransitionState::Active:
 				m_current->update();
 				return !hasError();
 			case TransitionState::FadeOut:
 				assert(m_transitionTimeMillisec);
-				m_current->updateFadeOut(static_cast<double>(elapsed) / m_transitionTimeMillisec);
+				m_current->updateFadeOut(elapsed / m_transitionTimeMillisec);
 				return !hasError();
 			default:
 				return false;
@@ -317,7 +332,7 @@ namespace s3d
 
 		bool updateCross()
 		{
-			const int32 elapsed = m_stopwatch.ms();
+			const double elapsed = m_stopwatch.msF();
 
 			if (m_transitionState == TransitionState::FadeInOut)
 			{
@@ -343,7 +358,7 @@ namespace s3d
 			{
 				assert(m_transitionTimeMillisec);
 
-				const double t = static_cast<double>(elapsed) / m_transitionTimeMillisec;
+				const double t = elapsed / m_transitionTimeMillisec;
 
 				m_current->updateFadeOut(t);
 
@@ -358,12 +373,7 @@ namespace s3d
 			}
 		}
 
-		void drawSceneName() const
-		{
-			//PutText(detail::GetSceneName<State>()).at(Window::Center());
-		}
-
-		bool hasError() const
+		bool hasError() const noexcept
 		{
 			return m_error;
 		}
@@ -373,7 +383,7 @@ namespace s3d
 		/// <summary>
 		/// シーンのインタフェース
 		/// </summary>
-		using Scene = SceneBase<State, Data>;
+		using Scene = IScene<State, Data>;
 
 		/// <summary>
 		/// シーン管理を初期化します。
@@ -381,9 +391,8 @@ namespace s3d
 		/// <param name="option">
 		/// シーン管理のオプション
 		/// </param>
-		explicit SceneManager(SceneManagerOption option = SceneManagerOption::None)
-			: m_data(detail::MakeSharedData<Data>())
-			, m_option(option) {}
+		SceneManager()
+			: m_data(detail::MakeSharedData<Data>()) {}
 
 		/// <summary>
 		/// シーン管理を初期化します。
@@ -394,9 +403,8 @@ namespace s3d
 		/// <param name="option">
 		/// シーン管理のオプション
 		/// </param>
-		explicit SceneManager(const std::shared_ptr<Data>& data, SceneManagerOption option = SceneManagerOption::None)
-			: m_data(data)
-			, m_option(option) {}
+		explicit SceneManager(const std::shared_ptr<Data>& data)
+			: m_data(data) {}
 
 		/// <summary>
 		/// シーンを追加します。
@@ -408,28 +416,31 @@ namespace s3d
 		/// 追加に成功した場合 true, それ以外の場合は false
 		/// </returns>
 		template <class Scene>
-		bool add(const State& state)
+		SceneManager& add(const State& state)
 		{
-			if (m_factories.find(state) != m_factories.end())
+			auto it = m_factories.find(state);
+
+			if (it != m_factories.end())
 			{
-				return false;
+				it.value() = [=]()
+				{
+					return std::make_shared<Scene>(IScene<State, Data>::InitData{ state, m_data, this });
+				};
+			}
+			else
+			{
+				m_factories.emplace(state, [=]()
+				{
+					return std::make_shared<Scene>(IScene<State, Data>::InitData{ state, m_data, this });
+				});
+
+				if (!m_first)
+				{
+					m_first = state;
+				}
 			}
 
-			m_factories.emplace(state, [&]()
-			{
-				auto m = std::make_shared<Scene>();
-
-				m->setData(this, m_data);
-
-				return m;
-			});
-
-			if (!m_first)
-			{
-				m_first = state;
-			}
-
-			return true;
+			return *this;
 		}
 
 		/// <summary>
@@ -459,8 +470,6 @@ namespace s3d
 
 			m_current = it->second();
 
-			m_current->init();
-
 			if (hasError())
 			{
 				return false;
@@ -479,7 +488,7 @@ namespace s3d
 		/// <returns>
 		/// シーンの更新に成功した場合 true, それ以外の場合は false
 		/// </returns>
-		bool update()
+		bool updateScene()
 		{
 			if (hasError())
 			{
@@ -514,7 +523,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void draw() const
+		void drawScene() const
 		{
 			if (!m_current)
 			{
@@ -524,30 +533,25 @@ namespace s3d
 			if (m_transitionState == TransitionState::Active || !m_transitionTimeMillisec)
 			{
 				m_current->draw();
-
-				if (m_option == SceneManagerOption::ShowSceneName)
-				{
-					drawSceneName();
-				}
 			}
 
-			const int32 elapsed = m_stopwatch.ms();
+			const double elapsed = m_stopwatch.msF();
 
 			if (m_transitionState == TransitionState::FadeIn)
 			{
-				m_current->drawFadeIn(static_cast<double>(elapsed) / m_transitionTimeMillisec);
+				m_current->drawFadeIn(elapsed / m_transitionTimeMillisec);
 			}
 			else if (m_transitionState == TransitionState::FadeOut)
 			{
-				m_current->drawFadeOut(static_cast<double>(elapsed) / m_transitionTimeMillisec);
+				m_current->drawFadeOut(elapsed / m_transitionTimeMillisec);
 			}
 			else if (m_transitionState == TransitionState::FadeInOut)
 			{
-				m_current->drawFadeOut(static_cast<double>(elapsed) / m_transitionTimeMillisec);
+				m_current->drawFadeOut(elapsed / m_transitionTimeMillisec);
 
 				if (m_next)
 				{
-					m_next->drawFadeIn(static_cast<double>(elapsed) / m_transitionTimeMillisec);
+					m_next->drawFadeIn(elapsed / m_transitionTimeMillisec);
 				}
 			}
 		}
@@ -558,14 +562,14 @@ namespace s3d
 		/// <returns>
 		/// シーンの更新に成功した場合 true, それ以外の場合は false
 		/// </returns>
-		bool updateAndDraw()
+		bool update()
 		{
-			if (!update())
+			if (!updateScene())
 			{
 				return false;
 			}
 
-			draw();
+			drawScene();
 
 			return true;
 		}
@@ -631,8 +635,6 @@ namespace s3d
 
 				m_next = m_factories[m_nextState]();
 
-				m_next->init();
-
 				if (hasError())
 				{
 					return false;
@@ -697,5 +699,107 @@ namespace s3d
 
 /* example
 
+# include <Siv3D.hpp>
+# include <HamFramework.hpp>
+
+struct GameData
+{
+	Font font = Font(50);
+
+	int32 score = 0;
+};
+
+using MyApp = SceneManager<String, GameData>;
+
+struct Title : MyApp::Scene
+{
+	Title(const InitData& init)
+		: IScene(init)
+	{
+		Print << getState();
+	}
+
+	void update() override
+	{
+		if (MouseL.down())
+		{
+			changeScene(L"Game", 2s);
+		}
+	}
+
+	void draw() const override
+	{
+		getData().font(L"Title").drawAt(Window::BaseCenter());
+	}
+};
+
+struct Game : MyApp::Scene
+{
+	Game(const InitData& init)
+		: IScene(init)
+	{
+		Print << getState();
+		
+		getData().score = 0;
+	}
+
+	void update() override
+	{
+		if (MouseL.down())
+		{
+			changeScene(L"Result", 2s);
+		}
+
+		++getData().score;
+	}
+
+	void draw() const override
+	{
+		getData().font(L"Game").drawAt(Window::BaseCenter());
+
+		getData().font(getData().score).drawAt(Window::BaseCenter().movedBy(0, 60));
+	}
+};
+
+struct Result : MyApp::Scene
+{
+	Result(const InitData& init)
+		: IScene(init)
+	{
+		Print << getState();
+	}
+
+	void update() override
+	{
+		if (MouseL.down())
+		{
+			changeScene(L"Title", 2000);
+		}
+	}
+
+	void draw() const override
+	{
+		getData().font(L"Result").drawAt(Window::BaseCenter());
+
+		getData().font(getData().score).drawAt(Window::BaseCenter().movedBy(0, 60));
+	}
+};
+
+void Main()
+{
+	MyApp manager;
+	manager
+		.add<Title>(L"Title")
+		.add<Game>(L"Game")
+		.add<Result>(L"Result");
+
+	while (System::Update())
+	{
+		if (!manager.update())
+		{
+			break;
+		}
+	}
+}
 
 */

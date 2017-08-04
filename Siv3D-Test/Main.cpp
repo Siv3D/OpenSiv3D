@@ -1,48 +1,102 @@
 ﻿# include <Siv3D.hpp>
 # include <HamFramework.hpp>
 
+struct GameData
+{
+	Font font = Font(50);
+
+	int32 score = 0;
+};
+
+using MyApp = SceneManager<String, GameData>;
+
+struct Title : MyApp::Scene
+{
+	Title(const InitData& init)
+		: IScene(init)
+	{
+		Print << getState();
+	}
+
+	void update() override
+	{
+		if (MouseL.down())
+		{
+			changeScene(L"Game", 2s);
+		}
+	}
+
+	void draw() const override
+	{
+		getData().font(L"Title").drawAt(Window::BaseCenter());
+	}
+};
+
+struct Game : MyApp::Scene
+{
+	Game(const InitData& init)
+		: IScene(init)
+	{
+		Print << getState();
+		
+		getData().score = 0;
+	}
+
+	void update() override
+	{
+		if (MouseL.down())
+		{
+			changeScene(L"Result", 2s);
+		}
+
+		++getData().score;
+	}
+
+	void draw() const override
+	{
+		getData().font(L"Game").drawAt(Window::BaseCenter());
+
+		getData().font(getData().score).drawAt(Window::BaseCenter().movedBy(0, 60));
+	}
+};
+
+struct Result : MyApp::Scene
+{
+	Result(const InitData& init)
+		: IScene(init)
+	{
+		Print << getState();
+	}
+
+	void update() override
+	{
+		if (MouseL.down())
+		{
+			changeScene(L"Title", 2000);
+		}
+	}
+
+	void draw() const override
+	{
+		getData().font(L"Result").drawAt(Window::BaseCenter());
+
+		getData().font(getData().score).drawAt(Window::BaseCenter().movedBy(0, 60));
+	}
+};
+
 void Main()
 {
-	ScalableWindow::SetBaseSize(640, 480);
-
-	Window::Resize(1280, 640);
-
-	const int32 dotSize = 40;
-
-	Grid<int32> dots(Window::BaseSize() / dotSize);
-
-	Graphics::SetBackground(Palette::White);
-
-	Circle circle(320, 240, 80);
+	MyApp manager;
+	manager
+		.add<Title>(L"Title")
+		.add<Game>(L"Game")
+		.add<Result>(L"Result");
 
 	while (System::Update())
 	{
-
-		const auto transformer = ScalableWindow::CreateTransformer();
-
-		for (auto p : step(dots.size()))
+		if (!manager.update())
 		{
-			const Rect rect(p * dotSize, dotSize);
-
-			if (rect.leftClicked())
-			{
-				++dots[p] %= 4;
-			}
-
-			rect.stretched(-1).draw(ColorF(0.95 - dots[p] * 0.3));
+			break;
 		}
-
-
-
-		circle.moveBy(Cursor::DeltaF());
-
-		Print << L"----";
-		Print << Cursor::PreviousPos() << Cursor::Pos() << Cursor::Delta();
-		Print << Cursor::PreviousPosF() << Cursor::PosF() << Cursor::DeltaF();// circle;
-
-		circle.draw();
-
-
-		ScalableWindow::DrawBlackBars(HSV(40, 0.2, 0.9));
 	}
 }
