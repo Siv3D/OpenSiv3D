@@ -3,21 +3,13 @@
 
 void Main()
 {
-	Transition t0(0.2s, 0.5s), t1(0.2s, 0.1s);
-
-	bool on = false;
-
+	const Texture texture(Emoji(L"👨‍🚀"), TextureDesc::Mipped);
+	Graphics::SetBackground(Palette::Skyblue);
+	
 	while (System::Update())
 	{
-		const RectF rect(Arg::center = Window::Center(), 100 + t0.easeInOut() * 50);
-
-		t0.update(on);
-
-		t1.update(rect.mouseOver());
-
-		if (rect.draw(Palette::White.lerp(Palette::Skyblue, t1.value())).leftClicked())
-		{
-			on = !on;
-		}
+		RenderStateBlock2D rb(SamplerState::ClampNearest);
+		
+		texture.scale(3.3).drawAt(Window::Center());
 	}
 }
