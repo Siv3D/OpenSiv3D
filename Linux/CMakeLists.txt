@@ -7,7 +7,7 @@ enable_language(C)
 
 #set(CMAKE_CXX_COMPILER "clang++")
 set(CMAKE_CXX_COMPILER "g++")
-set(CMAKE_CXX_FLAGS "-std=c++17 -Wall -Wextra -Wno-unknown-pragmas")
+set(CMAKE_CXX_FLAGS "-std=c++17 -Wall -Wextra -Wno-unknown-pragmas -fPIC")
 set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG -march=native")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -Og -pg")
@@ -196,7 +196,7 @@ set(SOURCE_FILES
 	"../Siv3D/Source/Siv3D/CharacterEncoding/SivCharacterEncoding.cpp"
 	"../Siv3D/Source/Siv3D/TextBox/CTextBox.cpp"
 	"../Siv3D/Source/Siv3D/TextBox/SivTextBox.cpp"
-	"../Siv3D/Source/Siv3D/TextInput/CTextInput_Windows.cpp"
+	"../Siv3D/Source/Siv3D/TextInput/CTextInput_macOS.cpp"
 	"../Siv3D/Source/Siv3D/TextInput/SivTextInput.cpp"
 	"../Siv3D/Source/Siv3D/TextInput/TextInputFactory.cpp"
 	"../Siv3D/Source/Siv3D/TextReader/CTextReader.cpp"
