@@ -309,3 +309,4 @@ siv3d.a
 CMakeCache.txt
 CMakeFiles
 Makefile
+*.swp
