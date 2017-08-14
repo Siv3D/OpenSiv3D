@@ -3,13 +3,13 @@
 
 void Main()
 {
-	Audio audio(L"example/test.mp3");
+	Audio audio(L"example/test.wav");
 	audio.play();
 
 	Window::SetTitle(audio.lengthSec());
 
 	while (System::Update())
 	{
-		Print << audio.posSample();
+		//Print << audio.posSample();
 	}
 }
