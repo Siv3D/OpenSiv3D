@@ -4,7 +4,27 @@ OpenSiv3D Linux版をコンパイルして実行ファイルを作成するま�
 
 現状 Ubuntu 16.04 LTS での導入手順しかありませんが、今後他のディストリビューションの情報も追加予定です。
 
-## Ubuntu 16.04 LTS (最終更新 : 2017/08/09)
+
+## Linux版において描画がされない問題への対処
+
+OpenSiv3D Linux版には画面に何も描画されないという問題がありましたが原因が判明して一応解決済みです。
+この不具合を解決するための修正は[本家リポジトリ(Siv3D/OpenSiv3D.git)](https://github.com/Siv3D/OpenSiv3D.git)で行われましたが、
+[移植作業を行っているリポジトリ(wynd2608/OpenSiv3D.git)](https://github.com/wynd2608/OpenSiv3D.git)にはまだ取り込まれていません。
+そのため、最新の移植済みコードを利用する場合には `git clone` で取ってきたソースコードに
+以下の修正を行う必要があります。
+
+- `OpenSiv3D/Siv3D/Source/Siv3D/Shader/GL/CShader_GL.cpp` で宣言されている文字列 `const String vsCode` 内にある「`out vec4 gl_Position;`」の行を削除する。
+
+
+## インストール方法
+
+現在、以下のディストリビューションでのインストール方法が執筆済みです。
+
+- [Ubuntu 16.04 LTS](#user-content-ubunt16.04lts)
+- [Fedora 26](#user-content-fedora26)
+
+
+## <a name="ubuntu16.04lts"> Ubuntu 16.04 LTS でのインストール方法 (最終更新 : 2017/08/09)
 ### 必要なパッケージのインストール
     $ sudo apt install git cmake libx11-dev libxi-dev libxinerama-dev libxcursor-dev libxrandr-dev libjpeg-dev libpng16-dev libgl1-mesa-dev libglu1-mesa-dev libglib2.0-dev libfreetype6-dev
 
@@ -20,7 +40,7 @@ OpenSiv3D Linux版をコンパイルして実行ファイルを作成するま�
 ### boostのインストール
 バージョン 0.15.0 ではboost 1.64.0が必要なのでコンパイルしてインストールします。
 
-	1.64.0のソースコードをダウンロードして解答した階層で
+	1.64.0のソースコードをダウンロードして解凍した階層で
 	$ cd boost_1_64_0
 	$ ./bootstrap
 	$ sudo ./b2 install --prefix=/usr
@@ -59,6 +79,54 @@ OpenSiv3D Linux版をコンパイルして実行ファイルを作成するま�
 ビルドが成功すると、ビルドを行ったディレクトリに `libSiv3D.a` ができます。
 これがOpenSiv3Dのスタティックライブラリになります。
 
-### アプリケーションのコンパイル
+
+## <a name="fedora26"> Fedora 26 でのインストール方法 (最終更新 : 2017/08/14)
+
+### 必要なパッケージのインストール
+```sh
+$ sudo dnf install git cmake gcc-c++ libX11-devel libXi-devel libXinerama-devel libXcursor-devel libXrandr-devel turbojpeg-devel libpng-devel glib2-devel mesa-libGL-devel mesa-libGLU-devel freetype-devel
+```
+
+### boostのインストール
+バージョン 0.15.0 ではboost 1.64.0が必要なのでコンパイルしてインストールします。
+
+	1.64.0のソースコードをダウンロードして解凍した階層で
+	$ cd boost_1_64_0
+	$ ./bootstrap
+	$ sudo ./b2 install --prefix=/usr
+
+上の例ではインストールprefixが `/usr` になっていますが、既に別バージョンのboostがインストールされている等の場合は適宜変更してください。
+
+また、Fedora Rawhide向けですがboost 1.64.0のRPM自体は存在します。
+直接インストールすることも可能かもしれませんがうまく動作するかは未確認です。
+
+### OpenSiv3D Linux版のビルド
+ソースコードをクローンします。
+`https://github.com/Siv3D/OpenSiv3D.git` からもcloneできますが、最新のLinux版のソースコードは `wynd2608` の方に置いてあります。
+
+	$ git clone https://github.com/wynd2608/OpenSiv3D.git
+	$ cd OpenSiv3D/Linux
+
+また、boost 1.64.0のインストール先を変更した場合はCMakeLists.txtの `include_directories` にインストール先のヘッダファイルのあるディレクトリを追加する必要があります。
+
+デバッグビルドの場合は以下のような感じでOKです。
+
+	$ mkdir Debug
+	$ cd Debug
+	$ cmake -DCMAKE_BUILD_TYPE=Debug ..
+	$ make
+
+リリースビルドの場合もほぼ同様です。
+
+	$ mkdir Release
+	$ cd Release
+	$ cmake -DCMAKE_BUILD_TYPE=Release ..
+	$ make
+
+ビルドが成功すると、ビルドを行ったディレクトリに `libSiv3D.a` ができます。
+これがOpenSiv3Dのスタティックライブラリになります。
+
+
+## アプリケーションのコンパイル
 依存ライブラリが多いのでコンパイルオプションがだいぶ長くなります。
 `Linux/make_debug.sh` と `Linux/make_release.sh` が1つの.cppファイルからアプリケーションをコンパイルするシェルスクリプトの例としてリポジトリに含まれているので使い回したり参考にしたり等してもらえればと思います。
