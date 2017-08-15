@@ -199,7 +199,7 @@ namespace s3d
 			{
 				timespec ts;
 				clock_gettime(CLOCK_MONOTONIC, &ts);
-				return static_cast<uint64>(ts.tv_sec << 32 | ts.tv_nsec);
+				return static_cast<uint64>(ts.tv_sec * 1e9 + ts.tv_nsec);
 			}
 		}
 
