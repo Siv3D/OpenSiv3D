@@ -2,8 +2,6 @@
 
 OpenSiv3D Linux版をコンパイルして実行ファイルを作成するまでの手順を説明します。
 
-現状 Ubuntu 16.04 LTS での導入手順しかありませんが、今後他のディストリビューションの情報も追加予定です。
-
 
 ## Linux版において描画がされない問題への対処
 
@@ -14,6 +12,7 @@ OpenSiv3D Linux版には画面に何も描画されないという問題があ�
 以下の修正を行う必要があります。
 
 - `OpenSiv3D/Siv3D/Source/Siv3D/Shader/GL/CShader_GL.cpp` で宣言されている文字列 `const String vsCode` 内にある「`out vec4 gl_Position;`」の行を削除する。
+- `OpenSiv3D/Siv3D/Source/Siv3D/Renderer2D/GL/GLSpriteBatch.hpp` 内の `setBuffers` 関数内、 `void* pDst  ...` で始まる行を含むブロック冒頭に `if (vertexsize)` と付け足す(該当箇所は2箇所あります)。
 
 
 ## インストール方法
