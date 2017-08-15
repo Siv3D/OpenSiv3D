@@ -10,6 +10,9 @@
 //-----------------------------------------------
 
 # pragma once
+# include <Siv3D/Platform.hpp>
+# if defined(SIV3D_TARGET_WINDOWS)
+
 # include <Siv3D/Wave.hpp>
 # include <Siv3D/AudioFormat.hpp>
 
@@ -32,3 +35,5 @@ namespace s3d
 		//bool save(const Image& image, const FilePath& path) const override;
 	};
 }
+
+# endif

@@ -9,7 +9,10 @@
 //
 //-----------------------------------------------
 
-# include "AudioFormat_MP3.hpp"
+# include <Siv3D/Platform.hpp>
+# if defined(SIV3D_TARGET_WINDOWS)
+
+# include "AudioFormat_MP3_Windows.hpp"
 # include "../../Siv3DEngine.hpp"
 # include "../../Codec/ICodec.hpp"
 # include <Siv3D/IReader.hpp>
@@ -44,3 +47,5 @@ namespace s3d
 		return Siv3DEngine::GetCodec()->decode(reader);
 	}
 }
+
+# endif

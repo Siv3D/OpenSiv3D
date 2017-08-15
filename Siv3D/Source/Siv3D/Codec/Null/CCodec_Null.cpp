@@ -29,7 +29,6 @@ namespace s3d
 
 	bool CCodec_Null::init()
 	{
-
 		return true;
 	}
 

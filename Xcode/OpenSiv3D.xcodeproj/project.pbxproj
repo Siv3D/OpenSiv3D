@@ -846,8 +846,8 @@
 		2CAE4DFB1EE3AC080057BE7E /* Print.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAE4DFA1EE3AC080057BE7E /* Print.hpp */; };
 		2CC7F9531F3489610071A239 /* Transition.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F9521F3489610071A239 /* Transition.hpp */; };
 		2CC7F9561F34A6A20071A239 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC7F9541F34A5840071A239 /* OpenAL.framework */; };
-		2CC7F95B1F41EF120071A239 /* AudioFormat_MP3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7F9591F41EF120071A239 /* AudioFormat_MP3.cpp */; };
-		2CC7F95C1F41EF120071A239 /* AudioFormat_MP3.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F95A1F41EF120071A239 /* AudioFormat_MP3.hpp */; };
+		2CC7F95B1F41EF120071A239 /* AudioFormat_MP3_Windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7F9591F41EF120071A239 /* AudioFormat_MP3_Windows.cpp */; };
+		2CC7F95C1F41EF120071A239 /* AudioFormat_MP3_Windows.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F95A1F41EF120071A239 /* AudioFormat_MP3_Windows.hpp */; };
 		2CC7F9671F41EF2B0071A239 /* CodecFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7F95E1F41EF2B0071A239 /* CodecFactory.cpp */; };
 		2CC7F9681F41EF2B0071A239 /* ICodec.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F95F1F41EF2B0071A239 /* ICodec.hpp */; };
 		2CC7F9691F41EF2B0071A239 /* CCodec_MF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7F9611F41EF2B0071A239 /* CCodec_MF.cpp */; };
@@ -855,6 +855,8 @@
 		2CC7F96B1F41EF2B0071A239 /* MFRenderStream.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F9631F41EF2B0071A239 /* MFRenderStream.hpp */; };
 		2CC7F96C1F41EF2B0071A239 /* CCodec_Null.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7F9651F41EF2B0071A239 /* CCodec_Null.cpp */; };
 		2CC7F96D1F41EF2B0071A239 /* CCodec_Null.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F9661F41EF2B0071A239 /* CCodec_Null.hpp */; };
+		2CC7F97C1F420EF90071A239 /* AudioFormat_MP3_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7F97A1F420EF90071A239 /* AudioFormat_MP3_macOS.cpp */; };
+		2CC7F97D1F420EF90071A239 /* AudioFormat_MP3_macOS.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F97B1F420EF90071A239 /* AudioFormat_MP3_macOS.hpp */; };
 		2CCA356F1EC6BBA900078678 /* ImageProcessing.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */; };
 		2CCA35871EC86CD600078678 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA357F1EC86CD600078678 /* format.h */; };
 		2CCA35881EC86CD600078678 /* ostream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA35811EC86CD600078678 /* ostream.h */; };
@@ -1841,8 +1843,8 @@
 		2CAE4DFA1EE3AC080057BE7E /* Print.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Print.hpp; sourceTree = "<group>"; };
 		2CC7F9521F3489610071A239 /* Transition.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Transition.hpp; sourceTree = "<group>"; };
 		2CC7F9541F34A5840071A239 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
-		2CC7F9591F41EF120071A239 /* AudioFormat_MP3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioFormat_MP3.cpp; sourceTree = "<group>"; };
-		2CC7F95A1F41EF120071A239 /* AudioFormat_MP3.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AudioFormat_MP3.hpp; sourceTree = "<group>"; };
+		2CC7F9591F41EF120071A239 /* AudioFormat_MP3_Windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioFormat_MP3_Windows.cpp; sourceTree = "<group>"; };
+		2CC7F95A1F41EF120071A239 /* AudioFormat_MP3_Windows.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AudioFormat_MP3_Windows.hpp; sourceTree = "<group>"; };
 		2CC7F95E1F41EF2B0071A239 /* CodecFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CodecFactory.cpp; sourceTree = "<group>"; };
 		2CC7F95F1F41EF2B0071A239 /* ICodec.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ICodec.hpp; sourceTree = "<group>"; };
 		2CC7F9611F41EF2B0071A239 /* CCodec_MF.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCodec_MF.cpp; sourceTree = "<group>"; };
@@ -1850,6 +1852,8 @@
 		2CC7F9631F41EF2B0071A239 /* MFRenderStream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MFRenderStream.hpp; sourceTree = "<group>"; };
 		2CC7F9651F41EF2B0071A239 /* CCodec_Null.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCodec_Null.cpp; sourceTree = "<group>"; };
 		2CC7F9661F41EF2B0071A239 /* CCodec_Null.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CCodec_Null.hpp; sourceTree = "<group>"; };
+		2CC7F97A1F420EF90071A239 /* AudioFormat_MP3_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioFormat_MP3_macOS.cpp; sourceTree = "<group>"; };
+		2CC7F97B1F420EF90071A239 /* AudioFormat_MP3_macOS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AudioFormat_MP3_macOS.hpp; sourceTree = "<group>"; };
 		2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageProcessing.hpp; sourceTree = "<group>"; };
 		2CCA357F1EC86CD600078678 /* format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
 		2CCA35801EC86CD600078678 /* LICENSE.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.rst; sourceTree = "<group>"; };
@@ -4452,8 +4456,10 @@
 		2CC7F9581F41EF120071A239 /* MP3 */ = {
 			isa = PBXGroup;
 			children = (
-				2CC7F9591F41EF120071A239 /* AudioFormat_MP3.cpp */,
-				2CC7F95A1F41EF120071A239 /* AudioFormat_MP3.hpp */,
+				2CC7F97A1F420EF90071A239 /* AudioFormat_MP3_macOS.cpp */,
+				2CC7F97B1F420EF90071A239 /* AudioFormat_MP3_macOS.hpp */,
+				2CC7F9591F41EF120071A239 /* AudioFormat_MP3_Windows.cpp */,
+				2CC7F95A1F41EF120071A239 /* AudioFormat_MP3_Windows.hpp */,
 			);
 			path = MP3;
 			sourceTree = "<group>";
@@ -5046,6 +5052,7 @@
 				2CCA356F1EC6BBA900078678 /* ImageProcessing.hpp in Headers */,
 				2C2E82A91EAA1B3A0057BDAF /* istreamwrapper.h in Headers */,
 				2C81C0741E89F8E300D27E52 /* png.h in Headers */,
+				2CC7F97D1F420EF90071A239 /* AudioFormat_MP3_macOS.hpp in Headers */,
 				2CCA36711ECC748F00078678 /* svsfnt.h in Headers */,
 				2C0C7DA81EBCC39B00386CBB /* TextReader.hpp in Headers */,
 				2C1585231F0F7099002687D2 /* Audio_X27.hpp in Headers */,
@@ -5178,7 +5185,7 @@
 				2CAAB1161EF4EB5A0000A06D /* CPU.hpp in Headers */,
 				2CCA36661ECC748F00078678 /* svgldict.h in Headers */,
 				2C2E82A51EAA1B3A0057BDAF /* stack.h in Headers */,
-				2CC7F95C1F41EF120071A239 /* AudioFormat_MP3.hpp in Headers */,
+				2CC7F95C1F41EF120071A239 /* AudioFormat_MP3_Windows.hpp in Headers */,
 				2C81C06F1E89F8E300D27E52 /* quantize.h in Headers */,
 				2C0C7D871EBCC39B00386CBB /* ParseBool.hpp in Headers */,
 				2C15846D1F0D3B46002687D2 /* CProfiler.hpp in Headers */,
@@ -5537,7 +5544,7 @@
 				2C15840A1F0D3B46002687D2 /* D3D11SamplerState.cpp in Sources */,
 				2C1585281F0F7099002687D2 /* Audio_X28.cpp in Sources */,
 				2C1583B61F0D3B46002687D2 /* SivClipboard.cpp in Sources */,
-				2CC7F95B1F41EF120071A239 /* AudioFormat_MP3.cpp in Sources */,
+				2CC7F95B1F41EF120071A239 /* AudioFormat_MP3_Windows.cpp in Sources */,
 				2C8E40B41EFAD70900F30069 /* pool.c in Sources */,
 				2C15841F1F0D3B46002687D2 /* SivHTMLWriter.cpp in Sources */,
 				2C1584C71F0D3B46002687D2 /* SivTexturedRoundRect.cpp in Sources */,
@@ -5683,6 +5690,7 @@
 				2C81C07B1E89F8E300D27E52 /* muParserBase.cpp in Sources */,
 				2C81C06C1E89F8E300D27E52 /* quality.cc in Sources */,
 				2C2126541E8CB7B5006F8101 /* gif_hash.c in Sources */,
+				2CC7F97C1F420EF90071A239 /* AudioFormat_MP3_macOS.cpp in Sources */,
 				2C1583A81F0D3B46002687D2 /* SivByteArray.cpp in Sources */,
 				2C2126521E8CB7B5006F8101 /* gif_err.c in Sources */,
 				2C1584C81F0D3B46002687D2 /* SivTextureRegion.cpp in Sources */,
@@ -5757,7 +5765,10 @@
 				);
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = ../Siv3D/Lib/macOS;
+				LIBRARY_SEARCH_PATHS = (
+					../Siv3D/Lib/macOS,
+					"$(PROJECT_DIR)/bin",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -5816,7 +5827,10 @@
 				);
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = ../Siv3D/Lib/macOS;
+				LIBRARY_SEARCH_PATHS = (
+					../Siv3D/Lib/macOS,
+					"$(PROJECT_DIR)/bin",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_CPLUSPLUSFLAGS = (

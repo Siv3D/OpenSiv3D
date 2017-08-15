@@ -11,7 +11,8 @@
 
 # include "CAudioFormat.hpp"
 # include "WAVE/AudioFormat_WAVE.hpp"
-# include "MP3/AudioFormat_MP3.hpp"
+# include "MP3/AudioFormat_MP3_Windows.hpp"
+# include "MP3/AudioFormat_MP3_macOS.hpp"
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/FileSystem.hpp>
