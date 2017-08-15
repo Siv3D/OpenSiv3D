@@ -12,7 +12,7 @@ OpenSiv3D Linux版には画面に何も描画されないという問題があ�
 以下の修正を行う必要があります。
 
 - `OpenSiv3D/Siv3D/Source/Siv3D/Shader/GL/CShader_GL.cpp` で宣言されている文字列 `const String vsCode` 内にある「`out vec4 gl_Position;`」の行を削除する。
-- `OpenSiv3D/Siv3D/Source/Siv3D/Renderer2D/GL/GLSpriteBatch.hpp` 内の `setBuffers` 関数内、 `void* pDst  ...` で始まる行を含むブロック冒頭に `if (vertexsize)` と付け足す(該当箇所は2箇所あります)。
+- `OpenSiv3D/Siv3D/Source/Siv3D/Renderer2D/GL/GLSpriteBatch.hpp` 内の `setBuffers` 関数内、 `void* pDst  ...` で始まる行を含むブロック冒頭に `if (vertexSize)` と付け足す(該当箇所は2箇所あります)。
 
 
 ## インストール方法
