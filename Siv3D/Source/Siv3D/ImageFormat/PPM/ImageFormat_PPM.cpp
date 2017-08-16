@@ -10,7 +10,6 @@
 //-----------------------------------------------
 
 # include <string>
-# include <Siv3D\Logger.hpp>
 # include "ImageFormat_PPM.hpp"
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/IWriter.hpp>
@@ -370,7 +369,7 @@ namespace s3d
 
 		if (byteSizeOfPixel != 1)
 		{
-			LOG_ERROR(L"PNM形式では輝度の最大値は255までしか扱えません");
+			//LOG_ERROR(L"PNM形式では輝度の最大値は255までしか扱えません");
 			return Image();
 		}
 
@@ -409,7 +408,7 @@ namespace s3d
 
 		if (byteSizeOfPixel != 1)
 		{
-			LOG_ERROR(L"PNM形式では輝度の最大値は255までしか扱えません");
+			//LOG_ERROR(L"PNM形式では輝度の最大値は255までしか扱えません");
 			return Image();
 		}
 
@@ -425,7 +424,7 @@ namespace s3d
 			{
 				if (1 != reader.read(&cr, 1) || 1 != reader.read(&cg, 1) || 1 != reader.read(&cb, 1))
 				{
-					LOG_ERROR(L"データ形式が不正です");
+					//LOG_ERROR(L"データ形式が不正です");
 					return Image();
 				}
 
@@ -666,29 +665,29 @@ namespace s3d
 
 	bool ImageFormat_PPM::encode(const Image& image, IWriter& writer) const
 	{
-		return encode(image, writer, PPM::Header::P6);
+		return encode(image, writer, PPMType::P6);
 	}
 
-	bool ImageFormat_PPM::encode(const Image & image, IWriter & writer, PPM::Header header) const
+	bool ImageFormat_PPM::encode(const Image & image, IWriter & writer, PPMType format) const
 	{
 		if (!writer.isOpened())
 		{
 			return false;
 		}
 
-		switch (header)
+		switch (format)
 		{
-		case PPM::Header::P1://P1 Portable bitmap ASCII
+		case PPMType::P1://P1 Portable bitmap ASCII
 			return writeP1(image, writer);
-		case PPM::Header::P2://P2 Portable graymap ASCII
+		case PPMType::P2://P2 Portable graymap ASCII
 			return writeP2(image, writer);
-		case PPM::Header::P3://P3 Portable pixmap ASCII
+		case PPMType::P3://P3 Portable pixmap ASCII
 			return writeP3(image, writer);
-		case PPM::Header::P4://P4 Portable bitmap Binary
+		case PPMType::P4://P4 Portable bitmap Binary
 			return writeP4(image, writer);
-		case PPM::Header::P5://P5 Portable graymap Binary
+		case PPMType::P5://P5 Portable graymap Binary
 			return writeP5(image, writer);
-		case PPM::Header::P6://P6 Portable pixmap Binary
+		case PPMType::P6://P6 Portable pixmap Binary
 			return writeP6(image, writer);
 		default:
 			return false;
@@ -697,13 +696,13 @@ namespace s3d
 
 	bool ImageFormat_PPM::save(const Image& image, const FilePath& path) const
 	{
-		return save(image, path, PPM::Header::P6);
+		return save(image, path, PPMType::P6);
 	}
 
-	bool ImageFormat_PPM::save(const Image & image, const FilePath & path, PPM::Header header) const
+	bool ImageFormat_PPM::save(const Image & image, const FilePath & path, PPMType format) const
 	{
 		BinaryWriter writer(path);
 
-		return encode(image, writer, header);
+		return encode(image, writer, format);
 	}
 }

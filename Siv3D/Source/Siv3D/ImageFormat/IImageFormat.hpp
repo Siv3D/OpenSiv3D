@@ -42,6 +42,6 @@ namespace s3d
 
 		virtual bool encodeJPEG(IWriter& writer, const Image& image, int32 quality) const = 0;
 
-		virtual bool encodePPM(IWriter& writer, const Image& image, PPM::Header header) const = 0;
+		virtual bool encodePPM(IWriter& writer, const Image& image, PPMType format) const = 0;
 	};
 }

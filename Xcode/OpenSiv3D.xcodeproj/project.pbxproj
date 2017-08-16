@@ -857,6 +857,8 @@
 		2CC7F96D1F41EF2B0071A239 /* CCodec_Null.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F9661F41EF2B0071A239 /* CCodec_Null.hpp */; };
 		2CC7F97C1F420EF90071A239 /* AudioFormat_MP3_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7F97A1F420EF90071A239 /* AudioFormat_MP3_macOS.cpp */; };
 		2CC7F97D1F420EF90071A239 /* AudioFormat_MP3_macOS.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F97B1F420EF90071A239 /* AudioFormat_MP3_macOS.hpp */; };
+		2CC7F9811F443F150071A239 /* ImageFormat_PPM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7F97F1F443F150071A239 /* ImageFormat_PPM.cpp */; };
+		2CC7F9821F443F150071A239 /* ImageFormat_PPM.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F9801F443F150071A239 /* ImageFormat_PPM.hpp */; };
 		2CCA356F1EC6BBA900078678 /* ImageProcessing.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */; };
 		2CCA35871EC86CD600078678 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA357F1EC86CD600078678 /* format.h */; };
 		2CCA35881EC86CD600078678 /* ostream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA35811EC86CD600078678 /* ostream.h */; };
@@ -1854,6 +1856,8 @@
 		2CC7F9661F41EF2B0071A239 /* CCodec_Null.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CCodec_Null.hpp; sourceTree = "<group>"; };
 		2CC7F97A1F420EF90071A239 /* AudioFormat_MP3_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioFormat_MP3_macOS.cpp; sourceTree = "<group>"; };
 		2CC7F97B1F420EF90071A239 /* AudioFormat_MP3_macOS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AudioFormat_MP3_macOS.hpp; sourceTree = "<group>"; };
+		2CC7F97F1F443F150071A239 /* ImageFormat_PPM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageFormat_PPM.cpp; sourceTree = "<group>"; };
+		2CC7F9801F443F150071A239 /* ImageFormat_PPM.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageFormat_PPM.hpp; sourceTree = "<group>"; };
 		2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageProcessing.hpp; sourceTree = "<group>"; };
 		2CCA357F1EC86CD600078678 /* format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
 		2CCA35801EC86CD600078678 /* LICENSE.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.rst; sourceTree = "<group>"; };
@@ -2932,6 +2936,7 @@
 		2C1582721F0D3B46002687D2 /* ImageFormat */ = {
 			isa = PBXGroup;
 			children = (
+				2CC7F97E1F443F150071A239 /* PPM */,
 				2C1582731F0D3B46002687D2 /* BMP */,
 				2C1582761F0D3B46002687D2 /* CImageFormat.cpp */,
 				2C1582771F0D3B46002687D2 /* CImageFormat.hpp */,
@@ -4494,6 +4499,15 @@
 			path = Null;
 			sourceTree = "<group>";
 		};
+		2CC7F97E1F443F150071A239 /* PPM */ = {
+			isa = PBXGroup;
+			children = (
+				2CC7F97F1F443F150071A239 /* ImageFormat_PPM.cpp */,
+				2CC7F9801F443F150071A239 /* ImageFormat_PPM.hpp */,
+			);
+			path = PPM;
+			sourceTree = "<group>";
+		};
 		2CCA357D1EC86CD600078678 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
@@ -4867,6 +4881,7 @@
 				2C0C7DAE1EBCC39B00386CBB /* TimeProfiler.hpp in Headers */,
 				2C0C7DB61EBCC39B00386CBB /* Vector2D.hpp in Headers */,
 				2C8E40CA1EFAD70900F30069 /* zstd.h in Headers */,
+				2CC7F9821F443F150071A239 /* ImageFormat_PPM.hpp in Headers */,
 				2CCA36271ECC748E00078678 /* ftoption.h in Headers */,
 				2C8E40751EF95B9400F30069 /* shapes.h in Headers */,
 				2C1584051F0D3B46002687D2 /* D3D11Device.hpp in Headers */,
@@ -5466,6 +5481,7 @@
 				2C15843F1F0D3B46002687D2 /* SivLineString.cpp in Sources */,
 				2C81C0631E89F8E300D27E52 /* jpeg_huffman_decode.cc in Sources */,
 				2C1583BD1F0D3B46002687D2 /* SivConsole.cpp in Sources */,
+				2CC7F9811F443F150071A239 /* ImageFormat_PPM.cpp in Sources */,
 				2C81C0581E89F8E300D27E52 /* jpeg_data.cc in Sources */,
 				2C1584651F0D3B46002687D2 /* SivPowerStatus.cpp in Sources */,
 				2C1583ED1F0D3B46002687D2 /* SivFileSystem_macOS.cpp in Sources */,
