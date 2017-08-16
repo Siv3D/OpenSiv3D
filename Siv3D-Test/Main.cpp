@@ -3,8 +3,23 @@
 
 void Main()
 {
+	Audio audio(L"example/test.mp3");
+	audio.play();
+
+	Window::SetTitle(audio.lengthSec());
+
 	while (System::Update())
 	{
-		Circle(Cursor::Pos(), 100).draw();
+		if (KeyP.down())
+		{
+			audio.play();
+		}
+		else if (KeyQ.down())
+		{
+			audio.pause();
+		}
+		
+		//Print << audio.posSample();
+		Print << audio.samplesPlayed();
 	}
 }

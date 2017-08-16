@@ -524,6 +524,18 @@
     <Filter Include="Source\Siv3D\Audio\X27">
       <UniqueIdentifier>{58d1d4a4-e0b9-427e-9bd8-51cd4f8c1037}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Codec">
+      <UniqueIdentifier>{b2eec315-fb67-4958-98c9-32abfe3b28cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Codec\MF">
+      <UniqueIdentifier>{59a49ffe-9904-498a-a761-5b0abef1a1c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Codec\Null">
+      <UniqueIdentifier>{2f23e7cc-f055-466b-84ad-26a7648c0a4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\AudioFormat\MP3">
+      <UniqueIdentifier>{7f5614ab-bbf3-4782-8e96-3fc0ddb85fca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1957,6 +1969,21 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\Transition.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Codec\ICodec.hpp">
+      <Filter>Source\Siv3D\Codec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Codec\Null\CCodec_Null.hpp">
+      <Filter>Source\Siv3D\Codec\Null</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Codec\MF\CCodec_MF.hpp">
+      <Filter>Source\Siv3D\Codec\MF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Codec\MF\MFRenderStream.hpp">
+      <Filter>Source\Siv3D\Codec\MF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\AudioFormat\MP3\AudioFormat_MP3.hpp">
+      <Filter>Source\Siv3D\AudioFormat\MP3</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2909,6 +2936,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\GL\CTexture_GL.cpp">
       <Filter>Source\Siv3D\Texture\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Codec\CodecFactory.cpp">
+      <Filter>Source\Siv3D\Codec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Codec\Null\CCodec_Null.cpp">
+      <Filter>Source\Siv3D\Codec\Null</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Codec\MF\CCodec_MF.cpp">
+      <Filter>Source\Siv3D\Codec\MF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\AudioFormat\MP3\AudioFormat_MP3.cpp">
+      <Filter>Source\Siv3D\AudioFormat\MP3</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

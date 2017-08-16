@@ -519,7 +519,7 @@ namespace s3d
 
 			for (size_t i = 0; i < group; ++i)
 			{
-				const size_t length = div + (mod > 0 && mod > index);
+				const size_t length = div + (mod > 0 && mod > i);
 
 				result.push_back(slice(index, length));
 

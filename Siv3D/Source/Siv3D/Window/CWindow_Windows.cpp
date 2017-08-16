@@ -152,6 +152,17 @@ namespace s3d
 
 					break;
 				}
+				case WM_SYSCOMMAND:
+				{
+					switch (wParam & 0xffF0)
+					{
+					case SC_SCREENSAVE:
+					case SC_MONITORPOWER:
+						return 0;
+					}
+
+					break;
+				}
 			}
 
 			return ::DefWindowProcW(hWnd, message, wParam, lParam);
