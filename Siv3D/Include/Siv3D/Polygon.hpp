@@ -59,6 +59,10 @@ namespace s3d
 
 		const Array<Array<Vec2>>& inners() const;
 
+		const Array<Float2>& vertices() const;
+		
+		const Array<uint32>& indices() const;
+		
 		const RectF& boundingRect() const;
 
 		size_t num_triangles() const;
