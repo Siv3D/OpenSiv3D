@@ -10,6 +10,16 @@ void Main()
 
 	while (System::Update())
 	{
+		if (KeyP.down())
+		{
+			audio.play();
+		}
+		else if (KeyQ.down())
+		{
+			audio.pause();
+		}
+		
 		//Print << audio.posSample();
+		Print << audio.samplesPlayed();
 	}
 }

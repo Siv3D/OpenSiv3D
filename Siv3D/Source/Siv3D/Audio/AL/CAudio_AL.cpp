@@ -119,12 +119,15 @@ namespace s3d
 	bool CAudio_AL::play(Audio::IDType handleID, const SecondsF& fadeinDuration)
 	{
 		// [Siv3D ToDo]
-		return m_audios[handleID]->play();
+		m_audios[handleID]->changeState(AudioControlState::Playing);
+		
+		return true;
 	}
 	
 	void CAudio_AL::pause(Audio::IDType handleID, const SecondsF& fadeoutDuration)
 	{
 		// [Siv3D ToDo]
+		m_audios[handleID]->changeState(AudioControlState::Paused);
 	}
 	
 	void CAudio_AL::stop(Audio::IDType handleID, const SecondsF& fadeoutDuration)
@@ -159,7 +162,7 @@ namespace s3d
 	uint64 CAudio_AL::samplesPlayed(const Audio::IDType handleID)
 	{
 		// [Siv3D ToDo]
-		return 0;
+		return m_audios[handleID]->getSamplesPlayed();
 	}
 
 	const Wave& CAudio_AL::getWave(Audio::IDType handleID)

@@ -13,6 +13,7 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
+# include <unistd.h>
 # include <OpenAL/al.h>
 # include <OpenAL/alc.h>
 # include "../IAudio.hpp"
@@ -20,6 +21,13 @@
 
 namespace s3d
 {
+	enum class AudioControlState
+	{
+		Paused,
+		
+		Playing,
+	};
+	
 	class Audio_AL
 	{
 	private:
@@ -31,6 +39,64 @@ namespace s3d
 		ALuint m_bufferID = 0;
 		
 		ALuint m_source = 0;
+		
+		std::atomic<AudioControlState> m_state = { AudioControlState::Paused };
+		
+		bool m_isPlaying = false;
+		
+		std::thread m_thread;
+		
+		std::atomic<bool> m_abort = { false };
+		
+		std::atomic<int64> m_samplesPlayed = { 0 };
+		
+		void onUpdate()
+		{
+			for (;;)
+			{
+				::usleep(10 * 1000);
+				
+				ALint sampleOffset = 0;
+				::alGetSourcei(m_source, AL_SAMPLE_OFFSET, &sampleOffset);
+				m_samplesPlayed = sampleOffset;
+			
+				if (!m_source)
+				{
+					continue;
+				}
+				
+				if (m_abort)
+				{
+					break;
+				}
+				
+				switch (m_state)
+				{
+					case AudioControlState::Paused:
+					{
+						if (m_isPlaying)
+						{
+							::alSourcePause(m_source);
+							
+							m_isPlaying = false;
+						}
+						
+						break;
+					}
+					case AudioControlState::Playing:
+					{
+						if (!m_isPlaying)
+						{
+							::alSourcePlay(m_source);
+							
+							m_isPlaying = true;
+						}
+						
+						break;
+					}
+				}
+			}
+		}
 		
 	public:
 		
@@ -71,10 +137,22 @@ namespace s3d
 			::alSourcei(m_source, AL_BUFFER, m_bufferID);
 			
 			m_initialized = true;
+			
+			m_thread = std::thread(&Audio_AL::onUpdate, this);
 		}
 		
 		~Audio_AL()
 		{
+			if (!m_abort)
+			{
+				m_abort = true;
+			}
+			
+			if (m_thread.joinable())
+			{
+				m_thread.join();
+			}
+
 			if (m_source)
 			{
 				::alSourceStop(m_source);
@@ -92,17 +170,20 @@ namespace s3d
 		{
 			return m_initialized;
 		}
-		
-		bool play()
+	
+		void changeState(const AudioControlState state)
 		{
 			if (!m_source)
 			{
-				return false;
+				return;
 			}
 			
-			::alSourcePlay(m_source);
-			
-			return true;
+			m_state = state;
+		}
+		
+		int64 getSamplesPlayed() const
+		{
+			return m_samplesPlayed;
 		}
 		
 		uint32 samplingRate() const
