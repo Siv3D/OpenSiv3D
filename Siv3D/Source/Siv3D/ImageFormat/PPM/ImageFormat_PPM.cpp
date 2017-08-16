@@ -9,6 +9,7 @@
 //
 //-----------------------------------------------
 
+# include <string>
 # include <Siv3D\Logger.hpp>
 # include "ImageFormat_PPM.hpp"
 # include <Siv3D/IReader.hpp>
@@ -150,78 +151,6 @@ namespace
 
 		return size;
 	}
-
-	/*
-	s3d::Size readSize(s3d::IReader& reader)
-	{
-	bool inComment = false;
-	bool expectHeight = false;
-
-	s3d::Size size(0, 0);
-
-	s3d::uint8 c;
-	for (s3d::int64 offset = 0; 1 == reader.read(&c, offset, 1); ++offset)
-	{
-	if (inComment)
-	{
-	inComment = (c != '\n');
-	continue;
-	}
-	if (c == '#')
-	{
-	inComment = true;
-	}
-
-	//タブは不要？
-	if (c == ' ' || c == '\t')
-	{
-	expectHeight = true;
-	continue;
-	}
-
-	//読み込み終了
-	if (expectHeight && c == '\n')
-	{
-	break;
-	}
-
-	if (!expectHeight)
-	{
-	size.x = size.x * 10 + (c - '0');
-	}
-	else
-	{
-	size.y = size.y * 10 + (c - '0');
-	}
-	}
-
-	return size;
-	}
-
-	void readImage(Kind kind, bool isAscii)
-	{
-	//ascii
-	if (isAscii)
-	{
-	switch (kind)
-	{
-	case Kind::BitMap:
-	break;
-	case Kind::GrayMap:
-	break;
-	case Kind::PixMap:
-	break;
-	default:
-	break;
-	}
-	}
-	//binary
-	else
-	{
-
-	}
-	}
-	*/
 }
 
 namespace s3d
@@ -640,102 +569,194 @@ namespace s3d
 
 	bool writeP1(const Image& image, IWriter& writer)
 	{
-		writer.write("P1", 2);
+		writer.write("P1\n", 3);
+		writer.write(std::to_string(image.width()));
+		writer.write(' ');
+		writer.write(std::to_string(image.height()));
+		writer.write('\n');
+
+		for (int y = 0; y < image.height(); ++y)
+		{
+			for (int x = 0; x + 1 < image.width(); ++x)
+			{
+				writer.write(image[y][x].grayscale_0_255() < 128 ? '0' : '1');
+				writer.write(' ');
+			}
+
+			if (1 <= image.width())
+			{
+				writer.write(image[y][image.width() - 1].grayscale_0_255() < 128 ? '0' : '1');
+				writer.write('\n');
+			}
+		}
+		
 		return true;
 	}
 
 	bool writeP2(const Image& image, IWriter& writer)
 	{
-		writer.write(0x5032);
+		writer.write("P2\n", 3);
+		writer.write(std::to_string(image.width()));
+		writer.write(' ');
+		writer.write(std::to_string(image.height()));
+		writer.write('\n');
+		writer.write("255\n", 4);
+
+		for (int y = 0; y < image.height(); ++y)
+		{
+			for (int x = 0; x + 1 < image.width(); ++x)
+			{
+				writer.write(std::to_string(image[y][x].grayscale_0_255()));
+				writer.write(' ');
+			}
+
+			if (1 <= image.width())
+			{
+				writer.write(std::to_string(image[y][image.width() - 1].grayscale_0_255()));
+				writer.write('\n');
+			}
+		}
+
 		return true;
 	}
 
 	bool writeP3(const Image& image, IWriter& writer)
 	{
-		writer.write(0x5033);
+		writer.write("P3\n", 3);
+		writer.write(std::to_string(image.width()));
+		writer.write(' ');
+		writer.write(std::to_string(image.height()));
+		writer.write('\n');
+		writer.write("255\n", 4);
+
+		for (int y = 0; y < image.height(); ++y)
+		{
+			for (int x = 0; x + 1 < image.width(); ++x)
+			{
+				const Color& c = image[y][x];
+				writer.write(std::to_string(c.r));
+				writer.write(' ');
+				writer.write(std::to_string(c.g));
+				writer.write(' ');
+				writer.write(std::to_string(c.b));
+				writer.write(' ');
+			}
+
+			if (1 <= image.width())
+			{
+				const Color& c = image[y][image.width() - 1];
+				writer.write(std::to_string(c.r));
+				writer.write(' ');
+				writer.write(std::to_string(c.g));
+				writer.write(' ');
+				writer.write(std::to_string(c.b));
+				writer.write('\n');
+			}
+		}
+
 		return true;
 	}
 
 	bool writeP4(const Image& image, IWriter& writer)
 	{
-		writer.write(0x5034);
+		writer.write("P4\n", 3);
+		writer.write(std::to_string(image.width()));
+		writer.write(' ');
+		writer.write(std::to_string(image.height()));
+		writer.write('\n');
+
+		for (int32 y = 0; y < image.height(); ++y)
+		{
+			int32 x = 0;
+			for (; x + 7 < image.width(); x += 8)
+			{
+				const uint8 c =
+					image[y][x].grayscale_0_255() < 128 ? 0 : 128 +
+					image[y][x + 1].grayscale_0_255() < 128 ? 0 : 64 +
+					image[y][x + 2].grayscale_0_255() < 128 ? 0 : 32 +
+					image[y][x + 3].grayscale_0_255() < 128 ? 0 : 16 +
+					image[y][x + 4].grayscale_0_255() < 128 ? 0 : 8 +
+					image[y][x + 5].grayscale_0_255() < 128 ? 0 : 4 +
+					image[y][x + 6].grayscale_0_255() < 128 ? 0 : 2 +
+					image[y][x + 7].grayscale_0_255() < 128 ? 0 : 1;
+
+				writer.write(c);
+			}
+
+			uint8 c = 0;
+			for (uint8 i = 128; x < image.width(); ++x, i >>= 1)
+			{
+				c += image[y][x].grayscale_0_255() < 128 ? 0 : i;
+			}
+
+			if (1 <= image.width())
+			{
+				writer.write(c);
+			}
+		}
+
 		return true;
 	}
 
 	bool writeP5(const Image& image, IWriter& writer)
 	{
-		writer.write(0x5035);
+		writer.write("P5\n", 3);
+		writer.write(std::to_string(image.width()));
+		writer.write(' ');
+		writer.write(std::to_string(image.height()));
+		writer.write('\n');
+		writer.write("255\n", 4);
+
+		for (int y = 0; y < image.height(); ++y)
+		{
+			for (int x = 0; x + 1 < image.width(); ++x)
+			{
+				writer.write(image[y][x].grayscale_0_255());
+			}
+
+			if (1 <= image.width())
+			{
+				writer.write(image[y][image.width() - 1].grayscale_0_255());
+			}
+		}
+
 		return true;
 	}
 
 	bool writeP6(const Image& image, IWriter& writer)
 	{
-		writer.write(0x5036);
+		writer.write("P6\n", 3);
+		writer.write(std::to_string(image.width()));
+		writer.write(' ');
+		writer.write(std::to_string(image.height()));
+		writer.write('\n');
+		writer.write("255\n", 4);
+
+		for (int y = 0; y < image.height(); ++y)
+		{
+			for (int x = 0; x + 1 < image.width(); ++x)
+			{
+				const Color& c = image[y][x];
+				writer.write(static_cast<uint8>(c.r));
+				writer.write(static_cast<uint8>(c.g));
+				writer.write(static_cast<uint8>(c.b));
+			}
+
+			if (1 <= image.width())
+			{
+				const Color& c = image[y][image.width() - 1];
+				writer.write(static_cast<uint8>(c.r));
+				writer.write(static_cast<uint8>(c.g));
+				writer.write(static_cast<uint8>(c.b));
+			}
+		}
+
 		return true;
 	}
 
 	bool ImageFormat_PPM::encode(const Image& image, IWriter& writer) const
 	{
-		return encode(image, writer, PPM::Header::P1);
-		/*
-		if (!writer.isOpened())
-		{
-		return false;
-		}
-
-		const int32 width		= image.width();
-		const int32 height		= image.height();
-		const uint32 rowSize	= width * 3 + width % 4;
-		const uint32 bmpsize	= rowSize * height;
-
-		const BMPHeader hed =
-		{
-		0x4d42,
-		static_cast<uint32>(bmpsize + sizeof(BMPHeader)),
-		0,
-		0,
-		sizeof(BMPHeader),
-		40,
-		width,
-		height,
-		1,
-		24,
-		0,
-		bmpsize,
-		0,
-		0,
-		0,
-		0
-		};
-
-		writer.write(hed);
-
-		const Color* pSrcLine = image[height - 1];
-
-		uint8* const line = static_cast<uint8*>(::calloc(rowSize, sizeof(uint8)));
-
-		for (int32 y = 0; y < height; ++y)
-		{
-		uint8* pDst = line;
-		const Color* pSrc = pSrcLine;
-
-		for (int32 x = 0; x < width; ++x)
-		{
-		*pDst++ = pSrc->b;
-		*pDst++ = pSrc->g;
-		*pDst++ = pSrc->r;
-		++pSrc;
-		}
-
-		writer.write(line, rowSize);
-
-		pSrcLine -= width;
-		}
-
-		::free(line);
-
-		return true;
-		*/
+		return encode(image, writer, PPM::Header::P6);
 	}
 
 	bool ImageFormat_PPM::encode(const Image & image, IWriter & writer, PPM::Header header) const
@@ -768,7 +789,7 @@ namespace s3d
 
 	bool ImageFormat_PPM::save(const Image& image, const FilePath& path) const
 	{
-		return save(image, path, PPM::Header::P1);
+		return save(image, path, PPM::Header::P6);
 	}
 
 	bool ImageFormat_PPM::save(const Image & image, const FilePath & path, PPM::Header header) const
