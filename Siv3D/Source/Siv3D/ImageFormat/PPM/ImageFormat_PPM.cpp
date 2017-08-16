@@ -36,8 +36,6 @@ namespace
 		return i;
 	};
 
-	enum class Kind { BitMap, GrayMap, PixMap };
-
 	void skipComment(s3d::IReader& reader)
 	{
 		uint8 c;
@@ -63,8 +61,6 @@ namespace
 		uint8 c;
 		if (0 == reader.lookahead(&c, 1) || !IsWhiteSpace(c))
 		{
-			//LOG_INFO(Format(L"character:", c));
-			//LOG_INFO(Format(L"skipWhiteSpaces A:", reader.getPos()));
 			return false;
 		}
 
@@ -74,12 +70,10 @@ namespace
 			{
 				//空白以外の文字を読んだら一つ戻って帰る
 				reader.setPos(reader.getPos() - 1);
-				//LOG_INFO(Format(L"skipWhiteSpaces B:", reader.getPos()));
 				return true;
 			}
 		}
 
-		//LOG_INFO(Format(L"skipWhiteSpaces C:", reader.getPos()));
 		//終端にたどり着いた
 		return true;
 	}
@@ -106,17 +100,13 @@ namespace
 
 	s3d::Size readSize(s3d::IReader& reader)
 	{
-		//LOG_INFO(Format(L"p1:", reader.getPos()));
 		skipComment(reader);
-
-		LOG_INFO(Format(L"pos before readsize:", reader.getPos()));
 
 		bool expectHeight = false;
 
 		s3d::Size size(0, 0);
 
 		s3d::uint8 c;
-		//for (s3d::int64 offset = 0; 1 == reader.read(&c, offset, 1); ++offset)
 		while (1 == reader.read(&c, 1))
 		{
 			//読み込み終了
@@ -126,14 +116,11 @@ namespace
 				break;
 			}
 
-			//LOG_INFO(Format(L"p3:", reader.getPos()));
 			if (IsWhiteSpace(c))
 			{
-				//LOG_INFO(Format(L"before skip:", reader.getPos()));
 				//Whitespaceは連続する可能性がある
 				skipWhiteSpaces(reader);
 				expectHeight = true;
-				//LOG_INFO(Format(L"after skip:", reader.getPos()));
 				continue;
 			}
 
@@ -146,8 +133,6 @@ namespace
 				size.y = size.y * 10 + (c - '0');
 			}
 		}
-		LOG_INFO(Format(L"size:", size));
-		LOG_INFO(Format(L"pos after readsize:", reader.getPos()));
 
 		return size;
 	}
@@ -169,12 +154,6 @@ namespace s3d
 
 	bool ImageFormat_PPM::isHeader(const uint8(&bytes)[16]) const
 	{
-		/*
-		static constexpr uint8 signature[] = { 0x42, 0x4d };
-
-		return ::memcmp(bytes, signature, sizeof(signature)) == 0;
-		*/
-
 		return false;
 	}
 
@@ -226,7 +205,6 @@ namespace s3d
 
 	Image readP1(IReader& reader, const Size& size)
 	{
-		LOG_INFO(Format(L"P1:", reader.getPos()));
 		Image image(size);
 
 		Size pos(0, 0);
@@ -245,7 +223,6 @@ namespace s3d
 				continue;
 			}
 
-			//LOG_INFO(Format(L"pos:", pos, L", col:", bit));
 			image[pos] = bit == 0 ? Palette::Black : Palette::White;
 
 			++pos.x;
@@ -256,11 +233,7 @@ namespace s3d
 
 	Image readP2(IReader& reader, const Size& size)
 	{
-		LOG_INFO(Format(L"P2:", reader.getPos()));
-
 		const uint32 maxValue = readNum(reader);
-		//LOG_INFO(Format(L"P2 maxval:", maxValue));
-		//LOG_INFO(Format(L"P2 B:", reader.getPos()));
 
 		Image image(size);
 
@@ -273,7 +246,6 @@ namespace s3d
 			const uint8 bit = c - '0';
 			if (c == '\n')
 			{
-				//LOG_INFO(Format(L"pos:", pos, L", col:", color));
 				image[pos] = ColorF(static_cast<double>(color) / maxValue);
 				++pos.y;
 				pos.x = 0;
@@ -282,14 +254,12 @@ namespace s3d
 			}
 			if (c == ' ')
 			{
-				//LOG_INFO(Format(L"pos:", pos, L", col:", color));
 				image[pos] = ColorF(static_cast<double>(color) / maxValue);
 				++pos.x;
 				color = 0;
 				continue;
 			}
 
-			//LOG_INFO(Format(L"c0:", color, L", bit:", bit, L", c1:", color * 10 + bit));
 			color = color * 10 + bit;
 		}
 
@@ -298,17 +268,13 @@ namespace s3d
 
 	Image readP3(IReader& reader, const Size& size)
 	{
-		LOG_INFO(Format(L"P3:", reader.getPos()));
-
 		const uint32 maxValue = readNum(reader);
-		LOG_INFO(Format(L"P3 maxval:", maxValue));
-		LOG_INFO(Format(L"P3 B:", reader.getPos()));
 
 		Image image(size);
 
 		uint8* data = image.dataAsUint8();
 		const auto currentIndex = [&]() {return data - image.dataAsUint8(); };
-		const auto toInteger = [&](double r) {return r >= 1.0 ? 255 : r <= 0.0 ? 0 : static_cast<uint8>(r * 255.0 + 0.5); };
+		const auto toInteger = [&](double r)->uint8 {return r >= 1.0 ? 255 : r <= 0.0 ? 0 : static_cast<uint8>(r * 255.0 + 0.5); };
 
 		Size pos(0, 0);
 		uint8 c;
@@ -318,38 +284,27 @@ namespace s3d
 			const uint8 bit = c - '0';
 			if (c == '\n')
 			{
-				//LOG_INFO(Format(L"pos:", pos, L", col:", color));
-				//r >= 1.0 ? 255 : r <= 0.0 ? 0 : static_cast<uint8>(r * 255.0 + 0.5)
-				//image[pos.y][pos.x / 3] = ColorF(static_cast<double>(color) / maxValue);
 				*data = toInteger(static_cast<double>(color) / maxValue);
-				LOG_INFO(Format(L"pos:", pos, L", val:", *data));
 				color = 0;
 				++data;
 				if (currentIndex() % 4 == 3)
 				{
 					*data = 255u;
-					LOG_INFO(Format(L"pos:", pos, L", val:", *data));
 					++data;
 					++pos.y;
 					pos.x = 0;
-
 				}
 
 				continue;
 			}
 			if (c == ' ')
 			{
-				//LOG_INFO(Format(L"pos:", pos, L", col:", color));
-				pos.x % 3;
-				//image[pos.y][pos.x / 3] = ColorF(static_cast<double>(color) / maxValue);
 				*data = toInteger(static_cast<double>(color) / maxValue);
-				LOG_INFO(Format(L"pos:", pos, L", val:", *data));
 				++data;
 				color = 0;
 				if (currentIndex() % 4 == 3)
 				{
 					*data = 255u;
-					LOG_INFO(Format(L"pos:", pos, L", val:", *data));
 					++data;
 					++pos.x;
 				}
@@ -357,7 +312,6 @@ namespace s3d
 				continue;
 			}
 
-			//LOG_INFO(Format(L"c0:", color, L", bit:", bit, L", c1:", color * 10 + bit));
 			color = color * 10 + bit;
 		}
 
@@ -366,30 +320,23 @@ namespace s3d
 
 	Image readP4(IReader& reader, const Size& size)
 	{
-		LOG_INFO(Format(L"P4:", reader.getPos()));
-
-		LOG_INFO(Format(L"P4 B:", reader.getPos()));
-
 		Image image(size);
 
 		const uint8 reminder = (image.width() % 8 == 0 ? 0 : 1);
-		const uint8 bytesOfRow = image.width() / 8 + reminder;
+		const uint32 bytesOfRow = static_cast<uint32>(image.width()) / 8 + reminder;
 
 		Color* data = image.data();
 
 		Size pos(0, 0);
 		uint8 c;
-		uint32 color = 0u;
 		while (pos.y < image.height())
 		{
-			LOG_INFO(Format(L"P4 y:", pos.y, L" of ", image.height()));
 			for (uint32 byte = 0; byte < bytesOfRow && 1 == reader.read(&c, 1); ++byte)
 			{
 				for (uint8 bit = 7; pos.x < image.width(); --bit)
 				{
 					const int currentBits = byte * 8 + (7u - bit);
 					const uint8 flag = 1u << bit;
-					LOG_INFO(Format(L"P4 x:", pos.x, L" of ", image.width(), L", currentBits: ", currentBits, L", c: ", c, L", flag: ", flag, L", c & flag: ", (c & flag)));
 
 					if (image.width() <= currentBits)
 					{
@@ -417,14 +364,9 @@ namespace s3d
 
 	Image readP5(IReader& reader, const Size& size)
 	{
-		LOG_INFO(Format(L"P5:", reader.getPos()));
-
 		const uint32 maxValue = readNum(reader);
-		LOG_INFO(Format(L"P5 maxval:", maxValue));
-		LOG_INFO(Format(L"P5 B:", reader.getPos()));
 
-		const uint8 byteSizeOfPixel = requiredBytes(maxValue);
-		LOG_INFO(Format(L"P5 requiredBytes:", byteSizeOfPixel));
+		const uint32 byteSizeOfPixel = requiredBytes(maxValue);
 
 		if (byteSizeOfPixel != 1)
 		{
@@ -435,8 +377,7 @@ namespace s3d
 		Image image(size);
 
 		uint8* data = image.dataAsUint8();
-		//const auto currentIndex = [&]() {return data - image.dataAsUint8(); };
-		const auto toInteger = [&](double r) {return r >= 1.0 ? 255 : r <= 0.0 ? 0 : static_cast<uint8>(r * 255.0 + 0.5); };
+		const auto toInteger = [&](double r)->uint8 {return r >= 1.0 ? 255 : r <= 0.0 ? 0 : static_cast<uint8>(r * 255.0 + 0.5); };
 
 		Size pos(0, 0);
 		uint8 c;
@@ -446,12 +387,9 @@ namespace s3d
 			{
 				if (1 != reader.read(&c, 1))
 				{
-					LOG_ERROR(L"データ形式が不正です");
 					return Image();
 				}
 
-				LOG_INFO(Format(L"P5 x:", pos.x, L" of ", image.width(), L", y: ", pos.y, L" of ", image.height(),
-					L", c: ", c, L", maxValue: ", maxValue, L", color: ", toInteger(static_cast<double>(c) / maxValue)));
 				data[0] = data[1] = data[2] = toInteger(static_cast<double>(c) / maxValue);
 				data[3] = 255u;
 				data += 4;
@@ -465,14 +403,9 @@ namespace s3d
 
 	Image readP6(IReader& reader, const Size& size)
 	{
-		LOG_INFO(Format(L"P6:", reader.getPos()));
-
 		const uint32 maxValue = readNum(reader);
-		LOG_INFO(Format(L"P6 maxval:", maxValue));
-		LOG_INFO(Format(L"P6 B:", reader.getPos()));
 
-		const uint8 byteSizeOfPixel = requiredBytes(maxValue);
-		LOG_INFO(Format(L"P6 requiredBytes:", byteSizeOfPixel));
+		const uint32 byteSizeOfPixel = requiredBytes(maxValue);
 
 		if (byteSizeOfPixel != 1)
 		{
@@ -483,7 +416,6 @@ namespace s3d
 		Image image(size);
 
 		Color* data = image.data();
-		const auto toInteger = [&](double r) {return r >= 1.0 ? 255 : r <= 0.0 ? 0 : static_cast<uint8>(r * 255.0 + 0.5); };
 
 		Size pos(0, 0);
 		uint8 cr, cg, cb;
@@ -497,71 +429,11 @@ namespace s3d
 					return Image();
 				}
 
-				LOG_INFO(Format(L"P6 x:", pos.x, L" of ", image.width(), L", y: ", pos.y, L" of ", image.height(), L", maxValue: ", maxValue,
-					L", cr: ", cr, L", cg: ", cg, L", cb: ", cb,
-					L", color: ", toInteger(static_cast<double>(cr) / maxValue), L", ", toInteger(static_cast<double>(cg) / maxValue), L", ", toInteger(static_cast<double>(cb) / maxValue)));
-
-				/*
-				data[0] = toInteger(static_cast<double>(cr) / maxValue);
-				data[1] = toInteger(static_cast<double>(cg) / maxValue);
-				data[2] = toInteger(static_cast<double>(cb) / maxValue);
-				data[3] = 255u;
-				data += 4;
-				//*/
 				*data = ColorF(static_cast<double>(cr) / maxValue, static_cast<double>(cg) / maxValue, static_cast<double>(cb) / maxValue);
 				++data;
 			}
 
 			++pos.y;
-		}
-
-		return image;
-	}
-
-	Image ImageFormat_PPM::decode(IReader& reader) const
-	{
-		volatile int a = 0;
-		LOG_INFO(Format(a));
-		Image image;
-
-		/*uint16 type;
-		if (!reader.read(type))
-		{
-		return image;
-		}
-		LOG_INFO(Format(L"type:", type));*/
-		uint8 type1, type2;
-		if (!reader.read(type1) || !reader.read(type2))
-		{
-			return image;
-		}
-		//LOG_INFO(Format(L"type1:", type1));
-		//LOG_INFO(Format(L"type2:", type2));
-
-		const uint16 type = (static_cast<uint16>(type1) << 8) + type2;
-		LOG_INFO(Format(L"type:", type));
-
-		//Line Feed
-		reader.skip(1);
-
-		const Size size = readSize(reader);
-
-		switch (type)
-		{
-		case 0x5031://P1 Portable bitmap ASCII
-			return readP1(reader, size);
-		case 0x5032://P2 Portable graymap ASCII
-			return readP2(reader, size);
-		case 0x5033://P3 Portable pixmap ASCII
-			return readP3(reader, size);
-		case 0x5034://P4 Portable bitmap Binary
-			return readP4(reader, size);
-		case 0x5035://P5 Portable graymap Binary
-			return readP5(reader, size);
-		case 0x5036://P6 Portable pixmap Binary
-			return readP6(reader, size);
-		default:
-			return image;
 		}
 
 		return image;
@@ -589,7 +461,7 @@ namespace s3d
 				writer.write('\n');
 			}
 		}
-		
+
 		return true;
 	}
 
@@ -665,20 +537,22 @@ namespace s3d
 		writer.write(std::to_string(image.height()));
 		writer.write('\n');
 
+		const auto binarize = [&](const Color& c)->bool {return 128000 <= 299*c.r + 587*c.g + 114*c.b; };
+
 		for (int32 y = 0; y < image.height(); ++y)
 		{
 			int32 x = 0;
 			for (; x + 7 < image.width(); x += 8)
 			{
 				const uint8 c =
-					image[y][x].grayscale_0_255() < 128 ? 0 : 128 +
-					image[y][x + 1].grayscale_0_255() < 128 ? 0 : 64 +
-					image[y][x + 2].grayscale_0_255() < 128 ? 0 : 32 +
-					image[y][x + 3].grayscale_0_255() < 128 ? 0 : 16 +
-					image[y][x + 4].grayscale_0_255() < 128 ? 0 : 8 +
-					image[y][x + 5].grayscale_0_255() < 128 ? 0 : 4 +
-					image[y][x + 6].grayscale_0_255() < 128 ? 0 : 2 +
-					image[y][x + 7].grayscale_0_255() < 128 ? 0 : 1;
+					binarize(image[y][x]) ? 128 : 0 +
+					binarize(image[y][x + 1]) ? 64 : 0 +
+					binarize(image[y][x + 2]) ? 32 : 0 +
+					binarize(image[y][x + 3]) ? 16 : 0 +
+					binarize(image[y][x + 4]) ? 8 : 0 +
+					binarize(image[y][x + 5]) ? 4 : 0 +
+					binarize(image[y][x + 6]) ? 2 : 0 +
+					binarize(image[y][x + 7]) ? 1 : 0;
 
 				writer.write(c);
 			}
@@ -686,7 +560,7 @@ namespace s3d
 			uint8 c = 0;
 			for (uint8 i = 128; x < image.width(); ++x, i >>= 1)
 			{
-				c += image[y][x].grayscale_0_255() < 128 ? 0 : i;
+				c += binarize(image[y][x]) ? i : 0;
 			}
 
 			if (1 <= image.width())
@@ -754,6 +628,42 @@ namespace s3d
 		return true;
 	}
 
+	Image ImageFormat_PPM::decode(IReader& reader) const
+	{
+		Image image;
+
+		uint8 type1, type2;
+		if (!reader.read(type1) || !reader.read(type2))
+		{
+			return image;
+		}
+
+		const uint16 type = (static_cast<uint16>(type1) << 8) + type2;
+
+		//Line Feed
+		reader.skip(1);
+
+		const Size size = readSize(reader);
+
+		switch (type)
+		{
+		case 0x5031://P1 Portable bitmap ASCII
+			return readP1(reader, size);
+		case 0x5032://P2 Portable graymap ASCII
+			return readP2(reader, size);
+		case 0x5033://P3 Portable pixmap ASCII
+			return readP3(reader, size);
+		case 0x5034://P4 Portable bitmap Binary
+			return readP4(reader, size);
+		case 0x5035://P5 Portable graymap Binary
+			return readP5(reader, size);
+		case 0x5036://P6 Portable pixmap Binary
+			return readP6(reader, size);
+		default:
+			return image;
+		}
+	}
+
 	bool ImageFormat_PPM::encode(const Image& image, IWriter& writer) const
 	{
 		return encode(image, writer, PPM::Header::P6);
@@ -783,8 +693,6 @@ namespace s3d
 		default:
 			return false;
 		}
-
-		return false;
 	}
 
 	bool ImageFormat_PPM::save(const Image& image, const FilePath& path) const
