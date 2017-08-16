@@ -536,6 +536,9 @@
     <Filter Include="Source\Siv3D\AudioFormat\MP3">
       <UniqueIdentifier>{7f5614ab-bbf3-4782-8e96-3fc0ddb85fca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\ThirdParty\mpg123">
+      <UniqueIdentifier>{6593f260-9f37-4fe7-9284-22c90889abde}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1981,8 +1984,17 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Codec\MF\MFRenderStream.hpp">
       <Filter>Source\Siv3D\Codec\MF</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\Source\Siv3D\AudioFormat\MP3\AudioFormat_MP3.hpp">
+    <ClInclude Include="..\Siv3D\Source\Siv3D\AudioFormat\MP3\AudioFormat_MP3_Windows.hpp">
       <Filter>Source\Siv3D\AudioFormat\MP3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\AudioFormat\MP3\AudioFormat_MP3_macOS.hpp">
+      <Filter>Source\Siv3D\AudioFormat\MP3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\mpg123\fmt123.h">
+      <Filter>Source\ThirdParty\mpg123</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\mpg123\mpg123.h">
+      <Filter>Source\ThirdParty\mpg123</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2946,7 +2958,10 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Codec\MF\CCodec_MF.cpp">
       <Filter>Source\Siv3D\Codec\MF</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\Siv3D\AudioFormat\MP3\AudioFormat_MP3.cpp">
+    <ClCompile Include="..\Siv3D\Source\Siv3D\AudioFormat\MP3\AudioFormat_MP3_Windows.cpp">
+      <Filter>Source\Siv3D\AudioFormat\MP3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\AudioFormat\MP3\AudioFormat_MP3_macOS.cpp">
       <Filter>Source\Siv3D\AudioFormat\MP3</Filter>
     </ClCompile>
   </ItemGroup>
