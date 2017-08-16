@@ -539,6 +539,9 @@
     <Filter Include="Source\ThirdParty\mpg123">
       <UniqueIdentifier>{6593f260-9f37-4fe7-9284-22c90889abde}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\ImageFormat\PPM">
+      <UniqueIdentifier>{8a896298-79db-432e-ae1b-863064dda50f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1996,6 +1999,9 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\mpg123\mpg123.h">
       <Filter>Source\ThirdParty\mpg123</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\PPM\ImageFormat_PPM.hpp">
+      <Filter>Source\Siv3D\ImageFormat\PPM</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2963,6 +2969,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\AudioFormat\MP3\AudioFormat_MP3_macOS.cpp">
       <Filter>Source\Siv3D\AudioFormat\MP3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\PPM\ImageFormat_PPM.cpp">
+      <Filter>Source\Siv3D\ImageFormat\PPM</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

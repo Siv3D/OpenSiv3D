@@ -14,6 +14,7 @@
 # include "PNG/ImageFormat_PNG.hpp"
 # include "JPEG/ImageFormat_JPEG.hpp"
 # include "GIF/ImageFormat_GIF.hpp"
+# include "PPM/ImageFormat_PPM.hpp"
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/MemoryWriter.hpp>
@@ -37,6 +38,7 @@ namespace s3d
 		m_imageFormats.push_back(std::make_unique<ImageFormat_PNG>());
 		m_imageFormats.push_back(std::make_unique<ImageFormat_JPEG>());
 		m_imageFormats.push_back(std::make_unique<ImageFormat_GIF>());
+		m_imageFormats.push_back(std::make_unique<ImageFormat_PPM>());
 
 		return true;
 	}
@@ -157,6 +159,23 @@ namespace s3d
 		if (const ImageFormat_JPEG* jpeg = dynamic_cast<ImageFormat_JPEG*>(p->get()))
 		{
 			return jpeg->encode(image, writer, quality);
+		}
+
+		return false;
+	}
+
+	bool CImageFormat::encodePPM(IWriter & writer, const Image & image, PPM::Header header) const
+	{
+		const auto p = findFormat(ImageFormat::PPM);
+
+		if (p == m_imageFormats.end())
+		{
+			return false;
+		}
+
+		if (const ImageFormat_PPM* ppm = dynamic_cast<ImageFormat_PPM*>(p->get()))
+		{
+			return ppm->encode(image, writer, header);
 		}
 
 		return false;
