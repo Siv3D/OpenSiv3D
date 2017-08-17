@@ -232,7 +232,13 @@ namespace s3d
 
 		Optional<Rect> m_currentViewport;
 		
-		Mat3x2 m_currentTransform = Mat3x2::Identity();
+		Mat3x2 m_currentTransformLocal = Mat3x2::Identity();
+
+		Mat3x2 m_currentTransformCamera = Mat3x2::Identity();
+
+		Mat3x2 m_currentTransformScreen = Mat3x2::Identity();
+
+		Mat3x2 m_currentTransformAll = Mat3x2::Identity();
 		
 		float m_currentMaxScaling = 1.0f;
 		
@@ -327,7 +333,7 @@ namespace s3d
 			
 			{
 				GLRender2DCommand<GLRender2DInstruction::Transform> command;
-				command.matrix = m_currentTransform;
+				command.matrix = m_currentTransformAll;
 				writeCommand(command);
 			}
 			
@@ -446,22 +452,64 @@ namespace s3d
 			
 			m_currentViewport = viewport;
 		}
-		
-		void pushTransform(const Mat3x2& matrix)
+
+		void pushTransformLocal(const Mat3x2& matrix)
 		{
-			if (!::memcmp(&matrix, &m_currentTransform, sizeof(Mat3x2)))
+			if (!::memcmp(&matrix, &m_currentTransformLocal, sizeof(Mat3x2)))
 			{
 				return;
 			}
-			
+
+			m_currentTransformLocal = matrix;
+
+			m_currentTransformAll = m_currentTransformLocal * m_currentTransformCamera * m_currentTransformScreen;
+
 			GLRender2DCommand<GLRender2DInstruction::Transform> command;
-			command.matrix = matrix;
+			command.matrix = m_currentTransformAll;
 			writeCommand(command);
-			
-			m_currentTransform = matrix;
-			
-			const Float2 sa = matrix.transform(Float2(0.0f, 0.0f));
-			const Float2 sb = matrix.transform(Float2(1.0f, 1.0f));
+
+			const Float2 sa = m_currentTransformAll.transform(Float2(0.0f, 0.0f));
+			const Float2 sb = m_currentTransformAll.transform(Float2(1.0f, 1.0f));
+			m_currentMaxScaling = sa.distanceFrom(sb) / 1.4142135623730950488016887f;
+		}
+
+		void pushTransformCamera(const Mat3x2& matrix)
+		{
+			if (!::memcmp(&matrix, &m_currentTransformCamera, sizeof(Mat3x2)))
+			{
+				return;
+			}
+
+			m_currentTransformCamera = matrix;
+
+			m_currentTransformAll = m_currentTransformLocal * m_currentTransformCamera * m_currentTransformScreen;
+
+			GLRender2DCommand<GLRender2DInstruction::Transform> command;
+			command.matrix = m_currentTransformAll;
+			writeCommand(command);
+
+			const Float2 sa = m_currentTransformAll.transform(Float2(0.0f, 0.0f));
+			const Float2 sb = m_currentTransformAll.transform(Float2(1.0f, 1.0f));
+			m_currentMaxScaling = sa.distanceFrom(sb) / 1.4142135623730950488016887f;
+		}
+
+		void pushTransformScreen(const Mat3x2& matrix)
+		{
+			if (!::memcmp(&matrix, &m_currentTransformScreen, sizeof(Mat3x2)))
+			{
+				return;
+			}
+
+			m_currentTransformScreen = matrix;
+
+			m_currentTransformAll = m_currentTransformLocal * m_currentTransformCamera * m_currentTransformScreen;
+
+			GLRender2DCommand<GLRender2DInstruction::Transform> command;
+			command.matrix = m_currentTransformAll;
+			writeCommand(command);
+
+			const Float2 sa = m_currentTransformAll.transform(Float2(0.0f, 0.0f));
+			const Float2 sb = m_currentTransformAll.transform(Float2(1.0f, 1.0f));
 			m_currentMaxScaling = sa.distanceFrom(sb) / 1.4142135623730950488016887f;
 		}
 		
@@ -514,9 +562,19 @@ namespace s3d
 			return m_currentViewport;
 		}
 		
-		const Mat3x2& getCurrentTransform() const
+		const Mat3x2& getCurrentTransformLocal() const
 		{
-			return m_currentTransform;
+			return m_currentTransformLocal;
+		}
+
+		const Mat3x2& getCurrentTransformCamera() const
+		{
+			return m_currentTransformCamera;
+		}
+
+		const Mat3x2& getCurrentTransformScreen() const
+		{
+			return m_currentTransformScreen;
 		}
 		
 		float getCurrentMaxScaling() const noexcept

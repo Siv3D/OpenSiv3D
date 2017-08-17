@@ -115,7 +115,7 @@ namespace s3d
 		m_client_raw.delta = m_client_raw.current - m_client_raw.previous;
 
 		m_client_transformedF.previous = m_client_transformedF.current;
-		m_client_transformedF.current = m_transformInv.transform(m_client_raw.current);
+		m_client_transformedF.current = m_transformAllInv.transform(m_client_raw.current);
 		m_client_transformedF.delta = m_client_transformedF.current - m_client_transformedF.previous;
 
 		m_client_transformed.previous = m_client_transformedF.previous.asPoint();
@@ -148,18 +148,20 @@ namespace s3d
 		// [Siv3D ToDo]
 	}
 
-	void CCursor_macOS::setTransform(const Mat3x2& matrix)
+	void CCursor_Linux::setTransformLocal(const Mat3x2& matrix)
 	{
-		if (!::memcmp(&m_transform, &matrix, sizeof(Mat3x2)))
+		if (!::memcmp(&m_transformLocal, &matrix, sizeof(Mat3x2)))
 		{
 			return;
 		}
 
-		m_transform = matrix;
-		m_transformInv = m_transform.inversed();
+		m_transformLocal = matrix;
 
-		m_client_transformedF.previous = m_transformInv.transform(m_client_raw.previous);
-		m_client_transformedF.current = m_transformInv.transform(m_client_raw.current);
+		m_transformAll = m_transformLocal * m_transformCamera * m_transformScreen;
+		m_transformAllInv = m_transformAll.inversed();
+
+		m_client_transformedF.previous = m_transformAllInv.transform(m_client_raw.previous);
+		m_client_transformedF.current = m_transformAllInv.transform(m_client_raw.current);
 		m_client_transformedF.delta = m_client_transformedF.current - m_client_transformedF.previous;
 
 		m_client_transformed.previous = m_client_transformedF.previous.asPoint();
@@ -167,9 +169,61 @@ namespace s3d
 		m_client_transformed.delta = m_client_transformedF.delta.asPoint();
 	}
 
-	const Mat3x2& CCursor_macOS::getTransform() const
+	void CCursor_Linux::setTransformCamera(const Mat3x2& matrix)
 	{
-		return m_transform;
+		if (!::memcmp(&m_transformCamera, &matrix, sizeof(Mat3x2)))
+		{
+			return;
+		}
+
+		m_transformCamera = matrix;
+
+		m_transformAll = m_transformLocal * m_transformCamera * m_transformScreen;
+		m_transformAllInv = m_transformAll.inversed();
+
+		m_client_transformedF.previous = m_transformAllInv.transform(m_client_raw.previous);
+		m_client_transformedF.current = m_transformAllInv.transform(m_client_raw.current);
+		m_client_transformedF.delta = m_client_transformedF.current - m_client_transformedF.previous;
+
+		m_client_transformed.previous = m_client_transformedF.previous.asPoint();
+		m_client_transformed.current = m_client_transformedF.current.asPoint();
+		m_client_transformed.delta = m_client_transformedF.delta.asPoint();
+	}
+
+	void CCursor_Linux::setTransformScreen(const Mat3x2& matrix)
+	{
+		if (!::memcmp(&m_transformScreen, &matrix, sizeof(Mat3x2)))
+		{
+			return;
+		}
+
+		m_transformScreen = matrix;
+
+		m_transformAll = m_transformLocal * m_transformCamera * m_transformScreen;
+		m_transformAllInv = m_transformAll.inversed();
+
+		m_client_transformedF.previous = m_transformAllInv.transform(m_client_raw.previous);
+		m_client_transformedF.current = m_transformAllInv.transform(m_client_raw.current);
+		m_client_transformedF.delta = m_client_transformedF.current - m_client_transformedF.previous;
+
+		m_client_transformed.previous = m_client_transformedF.previous.asPoint();
+		m_client_transformed.current = m_client_transformedF.current.asPoint();
+		m_client_transformed.delta = m_client_transformedF.delta.asPoint();
+	}
+
+	const Mat3x2& CCursor_Linux::getTransformLocal() const
+	{
+		return m_transformLocal;
+	}
+
+	const Mat3x2& CCursor_Linux::getTransformCamera() const
+	{
+		return m_transformCamera;
+	}
+
+	const Mat3x2& CCursor_Linux::getTransformScreen() const
+	{
+		return m_transformScreen;
 	}
 
 	void CCursor_Linux::clip(const Optional<Rect>& rect)

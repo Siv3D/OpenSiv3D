@@ -388,14 +388,34 @@ namespace s3d
 		return m_commandManager.getCurrentViewport();
 	}
 
-	void CRenderer2D_D3D11::setTransform(const Mat3x2& matrix)
+	void CRenderer2D_D3D11::setTransformLocal(const Mat3x2& matrix)
 	{
-		m_commandManager.pushTransform(matrix);
+		m_commandManager.pushTransformLocal(matrix);
 	}
 
-	const Mat3x2& CRenderer2D_D3D11::getTransform() const
+	void CRenderer2D_D3D11::setTransformCamera(const Mat3x2& matrix)
 	{
-		return m_commandManager.getCurrentTransform();
+		m_commandManager.pushTransformCamera(matrix);
+	}
+
+	void CRenderer2D_D3D11::setTransformScreen(const Mat3x2& matrix)
+	{
+		m_commandManager.pushTransformScreen(matrix);
+	}
+
+	const Mat3x2& CRenderer2D_D3D11::getTransformLocal() const
+	{
+		return m_commandManager.getCurrentTransformLocal();
+	}
+
+	const Mat3x2& CRenderer2D_D3D11::getTransformCamera() const
+	{
+		return m_commandManager.getCurrentTransformCamera();
+	}
+
+	const Mat3x2& CRenderer2D_D3D11::getTransformScreen() const
+	{
+		return m_commandManager.getCurrentTransformScreen();
 	}
 
 	float CRenderer2D_D3D11::getMaxScaling() const

@@ -259,7 +259,13 @@ namespace s3d
 
 		Optional<Rect> m_currentViewport;
 
-		Mat3x2 m_currentTransform = Mat3x2::Identity();
+		Mat3x2 m_currentTransformLocal = Mat3x2::Identity();
+
+		Mat3x2 m_currentTransformCamera = Mat3x2::Identity();
+
+		Mat3x2 m_currentTransformScreen = Mat3x2::Identity();
+
+		Mat3x2 m_currentTransformAll = Mat3x2::Identity();
 
 		float m_currentMaxScaling = 1.0f;
 
@@ -327,7 +333,11 @@ namespace s3d
 
 		void pushViewport(const Optional<Rect>& viewport);
 
-		void pushTransform(const Mat3x2& matrix);
+		void pushTransformLocal(const Mat3x2& matrix);
+
+		void pushTransformCamera(const Mat3x2& matrix);
+
+		void pushTransformScreen(const Mat3x2& matrix);
 
 		void pushPSTexture(const uint32 slot, const Texture& texture);
 
@@ -363,9 +373,19 @@ namespace s3d
 			return m_currentViewport;
 		}
 
-		const Mat3x2& getCurrentTransform() const
+		const Mat3x2& getCurrentTransformLocal() const
 		{
-			return m_currentTransform;
+			return m_currentTransformLocal;
+		}
+
+		const Mat3x2& getCurrentTransformCamera() const
+		{
+			return m_currentTransformCamera;
+		}
+
+		const Mat3x2& getCurrentTransformScreen() const
+		{
+			return m_currentTransformScreen;
 		}
 
 		float getCurrentMaxScaling() const noexcept

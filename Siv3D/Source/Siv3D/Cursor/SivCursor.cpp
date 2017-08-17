@@ -91,14 +91,34 @@ namespace s3d
 				Rect(Siv3DEngine::GetWindow()->getState().clientSize));
 		}
 
-		void SetTransform(const Mat3x2& matrix) 
+		void SetTransformLocal(const Mat3x2& matrix) 
 		{
-			Siv3DEngine::GetCursor()->setTransform(matrix);
+			Siv3DEngine::GetCursor()->setTransformLocal(matrix);
 		}
 
-		const Mat3x2& GetTransform()
+		void SetTransformCamera(const Mat3x2& matrix)
 		{
-			return Siv3DEngine::GetCursor()->getTransform();
+			Siv3DEngine::GetCursor()->setTransformCamera(matrix);
+		}
+
+		void SetTransformScreen(const Mat3x2& matrix)
+		{
+			Siv3DEngine::GetCursor()->setTransformScreen(matrix);
+		}
+
+		const Mat3x2& GetTransformLocal()
+		{
+			return Siv3DEngine::GetCursor()->getTransformLocal();
+		}
+
+		const Mat3x2& GetTransformCamera()
+		{
+			return Siv3DEngine::GetCursor()->getTransformCamera();
+		}
+
+		const Mat3x2& GetTransformScreen()
+		{
+			return Siv3DEngine::GetCursor()->getTransformScreen();
 		}
 
 		void ClipClientRect(bool clip)
