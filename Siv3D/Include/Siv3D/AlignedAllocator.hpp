@@ -38,7 +38,7 @@ namespace s3d
 		template <class Other>
 		AlignedAllocator(const AlignedAllocator<Other>&) noexcept {}
 
-		Type* allocate(const size_t n, const void* = nullptr)
+		[[nodiscard]] Type* allocate(const size_t n, const void* = nullptr)
 		{
 			return AlignedMalloc<Type, Alignment>(n);
 		}
@@ -50,13 +50,13 @@ namespace s3d
 	};
 
 	template <class Type, class Other>
-	inline constexpr bool operator ==(const AlignedAllocator<Type>&, const AlignedAllocator<Other>&) noexcept
+	[[nodiscard]] inline constexpr bool operator ==(const AlignedAllocator<Type>&, const AlignedAllocator<Other>&) noexcept
 	{
 		return true;
 	}
 
 	template <class Type, class Other>
-	inline constexpr bool operator !=(const AlignedAllocator<Type>&, const AlignedAllocator<Other>&) noexcept
+	[[nodiscard]] inline constexpr bool operator !=(const AlignedAllocator<Type>&, const AlignedAllocator<Other>&) noexcept
 	{
 		return false;
 	}
