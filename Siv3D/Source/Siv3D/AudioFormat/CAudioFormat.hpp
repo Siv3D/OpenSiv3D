@@ -41,5 +41,7 @@ namespace s3d
 		Wave load(const FilePath& path) const override;
 
 		Wave decode(IReader&& reader, AudioFormat format) const override;
+
+		bool encodeWAVE(IWriter& writer, const Wave& wave, WAVEFormat format) const override;
 	};
 }
