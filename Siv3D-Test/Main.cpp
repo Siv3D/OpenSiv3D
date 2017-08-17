@@ -13,7 +13,7 @@ void Main()
 
 	const Texture texture(L"example/windmill.png");
 
-	TextBox textbox(Font(40), 40, 40, 200);
+	TextBox textbox(Font(40), 240, 40, 200);
 
 	while (System::Update())
 	{

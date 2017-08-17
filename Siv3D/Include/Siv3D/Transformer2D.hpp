@@ -88,6 +88,9 @@ namespace s3d
 		
 		Transformer2D() = default;
 		
+		Transformer2D(const Mat3x2& transform, Target target)
+			: Transformer2D(transform, false, target) {}
+		
 		explicit Transformer2D(const Mat3x2& transform, bool transformCursor = false, Target target = Target::PushLocal)
 			: m_target(target)
 			, m_oldGraphics2DMatrix(getGraphics2DTransform())

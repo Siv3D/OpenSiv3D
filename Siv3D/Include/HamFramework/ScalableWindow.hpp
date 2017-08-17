@@ -113,9 +113,9 @@ namespace s3d
 
 		inline void DrawBlackBars(const ColorF& color = Palette::Black, const Size& baseSize = Window::BaseSize())
 		{
-			const Transformer2D transformerLocal(Mat3x2::Identity(), false, Transformer2D::Target::SetLocal);
-			const Transformer2D transformerCamera(Mat3x2::Identity(), false, Transformer2D::Target::SetCamera);
-			const Transformer2D transformerScreen(Mat3x2::Identity(), false, Transformer2D::Target::SetScreen);
+			const Transformer2D transformerLocal(Mat3x2::Identity(), Transformer2D::Target::SetLocal);
+			const Transformer2D transformerCamera(Mat3x2::Identity(), Transformer2D::Target::SetCamera);
+			const Transformer2D transformerScreen(Mat3x2::Identity(), Transformer2D::Target::SetScreen);
 
 			for (const auto& bar : GetBlackBars(baseSize))
 			{

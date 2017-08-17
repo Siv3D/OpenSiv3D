@@ -119,7 +119,7 @@ namespace s3d
 		{
 			draw();
 
-			Transformer2D transform(Mat3x2::Identity(), false, Transformer2D::Target::SetLocal);
+			Transformer2D transform(Mat3x2::Identity(), Transformer2D::Target::SetLocal);
 
 			Window::ClientRect().draw(m_manager->getFadeColor().setA(1.0 - t));
 		}
@@ -137,7 +137,7 @@ namespace s3d
 		{
 			draw();
 
-			Transformer2D transform(Mat3x2::Identity(), false, Transformer2D::Target::SetLocal);
+			Transformer2D transform(Mat3x2::Identity(), Transformer2D::Target::SetLocal);
 
 			Window::ClientRect().draw(m_manager->getFadeColor().setA(t));
 		}
