@@ -643,11 +643,6 @@ u8R"-(<div class="c0">LineSegmentIntersection</div>
 </div>)-"
 
 
-u8R"-(<div class="c0">Noto Fonts</div>
-<div class="c2">Licensed under SIL Open Font License v1.1.<br>
-</div>)-"
-
-
 u8R"-(<div class="c0">miniutf</div>
 <div class="c1">Copyright (c) 2013 Dropbox, Inc.</div>
 <div class="c2">
@@ -669,6 +664,17 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN<br>
 THE SOFTWARE.<br>
 </div>)-"
+
+
+# if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
+
+u8R"-(<div class="c0">mpg123</div>
+<div class="c1">Copyright (c) 1995-2013 by Michael Hipp and others<br>
+<div class="c2">
+free software under the terms of the LGPL v2.1<br>
+</div>)-"
+
+# endif
 
 
 # if defined(SIV3D_TARGET_WINDOWS)
@@ -722,6 +728,11 @@ NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR
 DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br>
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.<br>
 OR OTHER DEALINGS IN THE SOFTWARE.<br>
+</div>)-"
+
+
+u8R"-(<div class="c0">Noto Fonts</div>
+<div class="c2">Licensed under SIL Open Font License v1.1.<br>
 </div>)-"
 
 

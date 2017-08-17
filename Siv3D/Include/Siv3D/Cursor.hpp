@@ -143,7 +143,11 @@ namespace s3d
 
 		bool OnClientRect();
 
-		void SetTransform(const Mat3x2& matrix);
+		void SetTransformLocal(const Mat3x2& matrix);
+
+		void SetTransformCamera(const Mat3x2& matrix);
+
+		void SetTransformScreen(const Mat3x2& matrix);
 
 		/// <summary>
 		/// クライアント座標系のカーソル位置に適用されている座標変換を返します。
@@ -151,7 +155,11 @@ namespace s3d
 		/// <returns>
 		/// 適用されている座標変換
 		/// </returns>
-		const Mat3x2& GetTransform();
+		const Mat3x2& GetTransformLocal();
+
+		const Mat3x2& GetTransformCamera();
+
+		const Mat3x2& GetTransformScreen();
 
 		/// <summary>
 		/// マウスカーソルの移動範囲をクライアント画面に制限します
