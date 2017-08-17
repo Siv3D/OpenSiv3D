@@ -1,21 +1,22 @@
 ﻿# include <Siv3D.hpp> // OpenSiv3D v0.1.7
 
+[[nodiscard]] int GetFive()
+{
+	return 5;
+}
+
 void Main()
 {
-	Graphics::SetBackground(ColorF(0.8, 0.9, 1.0));
+	Point pos(200, 400);
 
-	const Font font(50);
-
-	const Texture textureCat(Emoji(L"🐈"), TextureDesc::Mipped);
+	GetFive();
 
 	while (System::Update())
 	{
-		font(L"Hello, Siv3D!🐣").drawAt(Window::Center(), Palette::Black);
+		pos.movedBy(10, 20);
 
-		font(Cursor::Pos()).draw(20, 400, ColorF(0.6));
+		Point(20, 20).movedBy(2, 2);
 
-		textureCat.resize(80).draw(540, 380);
-
-		Circle(Cursor::Pos(), 60).draw(ColorF(1, 0, 0, 0.5));
+		Point::One();
 	}
 }
