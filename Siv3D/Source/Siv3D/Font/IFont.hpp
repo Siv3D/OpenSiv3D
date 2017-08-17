@@ -59,6 +59,6 @@ namespace s3d
 
 		virtual Image getAwesomeIcon(uint16 code, int32 size) = 0;
 
-		virtual size_t checkEmoji(std::vector<char32_t>::const_iterator it, std::vector<char32_t>::const_iterator itEnd) const = 0;
+		//virtual size_t checkEmoji(std::vector<char32_t>::const_iterator it, std::vector<char32_t>::const_iterator itEnd) const = 0;
 	};
 }

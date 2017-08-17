@@ -19,6 +19,7 @@
 
 namespace s3d
 {
+	/*
 	class EmojiDatabase
 	{
 	private:
@@ -26,7 +27,7 @@ namespace s3d
 		FID* trieTree;
 
 		uint32_t* edgeCodePoint;
-		size_t edgeCodePointLength = 1; /* 0番ノードに対応する親への辺は存在しないため飛ばす。 */
+		size_t edgeCodePointLength = 1; // 0番ノードに対応する親への辺は存在しないため飛ばす。
 
 		uint8_t* isEmoji;
 		size_t isEmojiLength = 0;
@@ -42,6 +43,7 @@ namespace s3d
 
 		size_t check(std::vector<char32_t>::const_iterator it, std::vector<char32_t>::const_iterator itEnd) const;
 	};
+	*/
 /*
 	class EmojiDataHelper
 	{
