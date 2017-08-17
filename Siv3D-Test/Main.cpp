@@ -13,10 +13,18 @@ void Main()
 
 	const Texture texture(L"example/windmill.png");
 
+	const Audio audio(L"example/test.mp3");
+	audio.play();
+	
 	TextBox textbox(Font(40), 240, 40, 200);
 
 	while (System::Update())
 	{
+		Window::SetTitle(audio.isPlaying(), L" ", audio.isPaused());
+		if(Key1.down()) audio.play();
+		if(Key2.down()) audio.pause();
+		if(Key3.down()) audio.stop();
+		
 		auto tc = camera.createTransformer();
 		auto ts = ScalableWindow::CreateTransformer();
 		camera.update();
