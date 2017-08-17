@@ -1,7 +1,10 @@
 ﻿# include <Siv3D.hpp> // OpenSiv3D v0.1.7
+# include "Test/Siv3DTest.hpp"
 
 void Main()
 {
+	RunTest();
+
 	auto p0 = MakeShared<__m128>();
 	auto p1 = MakeShared<__m128>();
 	auto p2 = MakeShared<__m128>();

@@ -1138,6 +1138,7 @@ namespace s3d
 			{
 				return std::forward<Type>(x);
 			}
+
 			constexpr Id_impl operator()(None_t) const
 			{
 				return Id_impl();

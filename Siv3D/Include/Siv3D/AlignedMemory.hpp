@@ -184,7 +184,7 @@ namespace s3d
 	/// 構築した unique_ptr
 	/// </returns>
 	template <class Type, class ...Args>
-	[[nodiscard]] std::unique_ptr<Type> MakeUnique(Args&&... args)
+	[[nodiscard]] auto MakeUnique(Args&&... args)
 	{
 		if constexpr (IsOverAligned<Type>::value)
 		{
@@ -206,7 +206,7 @@ namespace s3d
 	/// 構築した shared_ptr
 	/// </returns>
 	template <class Type, class ...Args>
-	[[nodiscard]] std::shared_ptr<Type> MakeShared(Args&&... args)
+	[[nodiscard]] auto MakeShared(Args&&... args)
 	{
 		if constexpr (IsOverAligned<Type>::value)
 		{
