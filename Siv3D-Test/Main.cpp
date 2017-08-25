@@ -1,20 +1,25 @@
 ﻿# include <Siv3D.hpp> // OpenSiv3D v0.1.7
-# include "Test/Siv3DTest.hpp"
 
 void Main()
 {
-	RunTest();
+	const Vec2 p1(0, 1);
+	const Vec2 p2(1, 1);
 
-	auto p0 = MakeShared<__m128>();
-	auto p1 = MakeShared<__m128>();
-	auto p2 = MakeShared<__m128>();
+	LineString lineString;
 
-	Print << (size_t)p0.get() % 16;
-	Print << (size_t)p1.get() % 16;
-	Print << (size_t)p2.get() % 16;
+	for (double x = 0; x <= 1.0; x += 0.01)
+		lineString.emplace_back(p1.lerp(p2, x).movedBy(0, 1.0*(pow(0.5 - x, 2.0) - 0.25)));
 
 	while (System::Update())
 	{
+		const auto t = Transformer2D(Mat3x2::Scale(300));
 
+		//描画されない
+		lineString.draw(0.1);
+
+		//描画される
+		if(MouseL.pressed())
+		for (int i = 0; i < int(lineString.size() - 1); i++)
+			Line(lineString[i], lineString[i + 1]).draw(0.1);
 	}
 }

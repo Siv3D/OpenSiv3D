@@ -15,7 +15,7 @@
 # define SIV3D_TARGET_LINUX
 # endif
 
-///*
+/*
 # define SIV3D_DO_TEST
 //*/
 
@@ -23,6 +23,7 @@
 
 # define NO_S3D_USING
 # include <Siv3D.hpp>
+# include <HamFramework.hpp>
 # include <gtest/gtest.h>
 
 # if defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64)

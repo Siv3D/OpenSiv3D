@@ -1140,7 +1140,7 @@ namespace s3d
 		
 		// 大昔に書いたコードなので整理したい
 		
-		const float th2 = 0.01f;
+		const float th2 = 0.01f / getMaxScaling();
 		
 		Array<Float2> buf;
 		{
@@ -1531,7 +1531,7 @@ namespace s3d
 		
 		// 大昔に書いたコードなので整理したい
 		
-		const float th2 = 0.01f;
+		const float th2 = 0.01f / getMaxScaling();
 		
 		Array<Float2> buf;
 		{
