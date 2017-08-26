@@ -874,16 +874,17 @@ namespace s3d
 			constexpr BinaryModulusX(const TypeY& _y) noexcept
 				: y(_y) {}
 
-			template <class TypeX, std::enable_if_t<!std::is_floating_point<TypeX>::value && !std::is_floating_point<TypeY>::value>* = nullptr>
-			constexpr auto operator()(TypeX&& x) const noexcept(noexcept(std::forward<TypeX>(x) % y))
-			{
-				return std::forward<TypeX>(x) % y;
-			}
-
-			template <class TypeX, std::enable_if_t<std::is_floating_point<TypeX>::value || std::is_floating_point<TypeY>::value>* = nullptr>
+			template <class TypeX>
 			constexpr auto operator()(TypeX&& x) const
 			{
-				return std::fmod(x, y);
+				if constexpr (!std::is_floating_point<TypeX>::value && !std::is_floating_point<TypeY>::value)
+				{
+					return std::forward<TypeX>(x) % y;
+				}
+				else
+				{
+					return std::fmod(x, y);
+				}
 			}
 		};
 
@@ -895,38 +896,40 @@ namespace s3d
 			constexpr BinaryModulusY(const TypeX& _x) noexcept
 				: x(_x) {}
 
-			template <class TypeY, std::enable_if_t<!std::is_floating_point<TypeX>::value && !std::is_floating_point<TypeY>::value>* = nullptr>
-			constexpr auto operator()(TypeY&& y) const noexcept(noexcept(x % std::forward<TypeY>(y)))
-			{
-				return x % std::forward<TypeY>(y);
-			}
-
-			template <class TypeY, std::enable_if_t<std::is_floating_point<TypeX>::value || std::is_floating_point<TypeY>::value>* = nullptr>
+			template <class TypeY>
 			constexpr auto operator()(TypeY&& y) const
 			{
-				return std::fmod(x, y);
+				if constexpr (!std::is_floating_point<TypeX>::value && !std::is_floating_point<TypeY>::value)
+				{
+					return x % std::forward<TypeY>(y);
+				}
+				else
+				{
+					return std::fmod(x, y);
+				}
 			}
 		};
-        
-        struct ModulusF
-        {
-            template <class TypeX, class TypeY, std::enable_if_t<!std::is_floating_point<TypeX>::value && !std::is_floating_point<TypeY>::value>* = nullptr>
-            constexpr auto operator() (TypeX&& x, TypeY&& y) const noexcept(noexcept(x % y))
-            {
-                return x % y;
-            }
-            
-            template <class TypeX, class TypeY, std::enable_if_t<std::is_floating_point<TypeX>::value || std::is_floating_point<TypeY>::value>* = nullptr>
-            auto operator() (TypeX&& x, TypeY&& y) const
-            {
-                return std::fmod(x, y);
-            }
-        };
+
+		struct ModulusF
+		{
+			template <class TypeX, class TypeY>
+			constexpr auto operator() (TypeX&& x, TypeY&& y) const
+			{
+				if constexpr (!std::is_floating_point<TypeX>::value && !std::is_floating_point<TypeY>::value)
+				{
+					return x % y;
+				}
+				else
+				{
+					return std::fmod(x, y);
+				}
+			}
+		};
 	}
 
 	inline constexpr auto Modulus() noexcept
 	{
-        return detail::ModulusF();
+		return detail::ModulusF();
 	}
 
 	template <class TypeY>
@@ -935,12 +938,12 @@ namespace s3d
 		return detail::BinaryModulusX<TypeY>{y};
 	}
 
-    template <class TypeX, class TypeY>
-    inline constexpr auto Modulus(TypeX&& x, TypeY&& y) noexcept(noexcept(detail::ModulusF()(std::forward<TypeX>(x), std::forward<TypeY>(y))))
-    {
-        return detail::ModulusF()(std::forward<TypeX>(x), std::forward<TypeY>(y));
-    }
-    
+	template <class TypeX, class TypeY>
+	inline constexpr auto Modulus(TypeX&& x, TypeY&& y) noexcept(noexcept(detail::ModulusF()(std::forward<TypeX>(x), std::forward<TypeY>(y))))
+	{
+		return detail::ModulusF()(std::forward<TypeX>(x), std::forward<TypeY>(y));
+	}
+
 	template <class TypeY>
 	inline constexpr auto Modulus(None_t, TypeY&& y) noexcept
 	{
