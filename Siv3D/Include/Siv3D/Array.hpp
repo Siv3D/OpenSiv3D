@@ -877,7 +877,7 @@ namespace s3d
 		/// <returns>
 		/// 配列が昇順にソートされている場合 true, それ以外の場合 false
 		/// </returns>
-		template <class T = Type, std::enable_if_t<Concept::HasLessThan<T>::value>* = nullptr>
+		template <class T = Type, std::enable_if_t<Concept::HasLessThan_v<T>>* = nullptr>
 		bool isSorted() const
 		{
 			const size_t size_ = size();
@@ -1660,7 +1660,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		template <class T = Type, std::enable_if_t<Concept::HasLessThan<T>::value>* = nullptr>
+		template <class T = Type, std::enable_if_t<Concept::HasLessThan_v<T>>* = nullptr>
 		Array& sort()
 		{
 			std::sort(begin(), end());
@@ -1691,7 +1691,7 @@ namespace s3d
 		/// <returns>
 		/// ソート済みの配列
 		/// </returns>
-		template <class T = Type, std::enable_if_t<Concept::HasLessThan<T>::value>* = nullptr>
+		template <class T = Type, std::enable_if_t<Concept::HasLessThan_v<T>>* = nullptr>
 		Array sorted() const &
 		{
 			return Array(*this).sort();
@@ -1703,7 +1703,7 @@ namespace s3d
 		/// <returns>
 		/// ソート済みの配列
 		/// </returns>
-		template <class T = Type, std::enable_if_t<Concept::HasLessThan<T>::value>* = nullptr>
+		template <class T = Type, std::enable_if_t<Concept::HasLessThan_v<T>>* = nullptr>
 		Array sorted() &&
 		{
 			sort();
@@ -1749,7 +1749,7 @@ namespace s3d
 		/// <returns>
 		/// 配列の全要素の合計
 		/// </returns>
-		template <class T = Type, std::enable_if_t<Concept::HasPlus<T>::value && Concept::HasPlusAssign<T>::value>* = nullptr>
+		template <class T = Type, std::enable_if_t<Concept::HasPlus_v<T> && Concept::HasPlusAssign_v<T>>* = nullptr>
 		auto sum() const
 		{
 			decltype(std::declval<T>() + std::declval<T>()) result{};
@@ -1768,7 +1768,7 @@ namespace s3d
 		/// <returns>
 		/// 配列の全要素の合計
 		/// </returns>
-		template <class T = Type, std::enable_if_t<Concept::HasPlus<T>::value && !Concept::HasPlusAssign<T>::value>* = nullptr>
+		template <class T = Type, std::enable_if_t<Concept::HasPlus_v<T> && !Concept::HasPlusAssign_v<T>>* = nullptr>
 		auto sum() const
 		{
 			decltype(std::declval<T>() + std::declval<T>()) result{};
@@ -1782,7 +1782,7 @@ namespace s3d
 		}
 
 		// do nothing
-		template <class T = Type, std::enable_if_t<!Concept::HasPlus<T>::value>* = nullptr>
+		template <class T = Type, std::enable_if_t<!Concept::HasPlus_v<T>>* = nullptr>
 		const Array& sum() const
 		{
 			return *this;

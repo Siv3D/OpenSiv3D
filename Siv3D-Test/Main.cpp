@@ -3,6 +3,8 @@
 
 void Main()
 {
+	RunTest();
+
 	Print << Byte(20);
 
 	Print << Concept::HasPlus_v<int32>;
