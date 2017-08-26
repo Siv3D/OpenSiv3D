@@ -7,7 +7,7 @@
 - double-conversion https://github.com/google/double-conversion
 - Easing Equations http://robertpenner.com/easing/
 - FeatureDetector https://github.com/Mysticial/FeatureDetector
-- fmt 3.0.2 https://github.com/fmtlib/fmt/releases
+- fmt 4.0.0 https://github.com/fmtlib/fmt/releases
 - FreeType 2.8 https://www.freetype.org/
 - giflib 5.1.4 https://sourceforge.net/projects/giflib/
 - GLEW 2.0.0 https://github.com/nigels-com/glew/releases
