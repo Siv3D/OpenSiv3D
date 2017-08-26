@@ -5,16 +5,11 @@ void Main()
 {
 	RunTest();
 
-	Print << Byte(20);
+	auto [val, exp] = Math::Frexp(L"3.0"_bigF);
 
-	Print << Concept::HasPlus_v<int32>;
+	Print << val;
 
-	Print << Concept::HasPlus_v<Wave>;
-
-	if constexpr (Concept::HasPlus_v<int32, String>)
-	{
-		Print << L"hi";
-	}
+	Print << exp;
 
 	while (System::Update())
 	{

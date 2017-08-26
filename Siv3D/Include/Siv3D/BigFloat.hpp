@@ -225,6 +225,9 @@ namespace s3d
 		}
 
 		void swap(BigFloat& other) noexcept;
+
+		CBigFloat& detail();
+		const CBigFloat& detail() const;
 	};
 
 	template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
@@ -407,65 +410,67 @@ namespace s3d
 
 	namespace Math
 	{
-		//BigFloat Abs(const BigFloat& x);
+		BigFloat Abs(const BigFloat& x);
 
-		//BigFloat Sqrt(const BigFloat& x);
+		BigFloat Sqrt(const BigFloat& x);
 
-		//BigFloat Floor(const BigFloat& x);
+		BigFloat Floor(const BigFloat& x);
 
-		//BigFloat Ceil(const BigFloat& x);
+		BigFloat Ceil(const BigFloat& x);
 
-		//BigFloat Round(const BigFloat& x);
-		//
-		//BigFloat Exp(const BigFloat& x);
+		BigFloat Round(const BigFloat& x);
 
-		//BigFloat Exp2(const BigFloat& x);
+		BigFloat Exp(const BigFloat& x);
 
-		//BigFloat Log(const BigFloat& x);
+		BigFloat Exp2(const BigFloat& x);
 
-		//BigFloat Log2(const BigFloat& x);
+		BigFloat Log(const BigFloat& x);
 
-		//BigFloat Log10(const BigFloat& x);
+		BigFloat Log2(const BigFloat& x);
 
-		//BigFloat Cos(const BigFloat& x);
+		BigFloat Log10(const BigFloat& x);
 
-		//BigFloat Sin(const BigFloat& x);
+		BigFloat Cos(const BigFloat& x);
 
-		//BigFloat Tan(const BigFloat& x);
+		BigFloat Sin(const BigFloat& x);
 
-		//BigFloat Acos(const BigFloat& x);
+		BigFloat Tan(const BigFloat& x);
 
-		//BigFloat Asin(const BigFloat& x);
+		BigFloat Acos(const BigFloat& x);
 
-		//BigFloat Atan(const BigFloat& x);
+		BigFloat Asin(const BigFloat& x);
 
-		//BigFloat Cosh(const BigFloat& x);
+		BigFloat Atan(const BigFloat& x);
 
-		//BigFloat Sinh(const BigFloat& x);
+		BigFloat Cosh(const BigFloat& x);
 
-		//BigFloat Tanh(const BigFloat& x);
+		BigFloat Sinh(const BigFloat& x);
 
-		//BigFloat Ldexp(const BigFloat& x, const BigFloat& y);
+		BigFloat Tanh(const BigFloat& x);
 
-		//BigFloat Frexp(const BigFloat& x, BigFloat& y);
+		BigFloat Ldexp(const BigFloat& x, int64 exp);
 
-		//BigFloat Pow(const BigFloat& x, const BigFloat& y);
+		std::pair<BigFloat, int32> Frexp(const BigFloat& x);
 
-		//BigFloat Fmod(const BigFloat& x, const BigFloat& y);
+		BigFloat Frexp(const BigFloat& x, int32& exp);
 
-		//BigFloat Atan2(const BigFloat& x, const BigFloat& y);
+		BigFloat Pow(const BigFloat& x, const BigFloat& y);
 
-		//BigFloat Sign(const BigFloat& x);
+		BigFloat Fmod(const BigFloat& x, const BigFloat& y);
 
-		//BigFloat Radians(const BigFloat& x);
+		BigFloat Atan2(const BigFloat& x, const BigFloat& y);
 
-		//BigFloat Degrees(const BigFloat& x);
+		BigFloat Sign(const BigFloat& x);
 
-		//BigFloat Square(const BigFloat& x);
+		BigFloat Radians(const BigFloat& x);
 
-		//BigFloat Rsqrt(const BigFloat& x);
+		BigFloat Degrees(const BigFloat& x);
 
-		//BigFloat Saturate(const BigFloat& x);
+		BigFloat Square(const BigFloat& x);
+
+		BigFloat Rsqrt(const BigFloat& x);
+
+		BigFloat Saturate(const BigFloat& x);
 	}
 }
 
