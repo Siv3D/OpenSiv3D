@@ -3,13 +3,9 @@
 
 void Main()
 {
-	RunTest();
+	Print << Math::GoldenRatio;
 
-	auto [val, exp] = Math::Frexp(L"3.0"_bigF);
-
-	Print << val;
-
-	Print << exp;
+	Print << Math::E;
 
 	while (System::Update())
 	{
