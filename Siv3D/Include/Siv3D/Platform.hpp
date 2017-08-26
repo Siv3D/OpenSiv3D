@@ -73,6 +73,17 @@
 # endif
 
 
+# if defined(_DEBUG) || defined(DEBUG)
+
+	# define SIV3D_IS_DEBUG		1
+
+# else
+
+	# define SIV3D_IS_DEBUG		0
+
+# endif
+
+
 # if defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64)
 
 	# define SIV3D_PLATFORM_PTR_SIZE		8

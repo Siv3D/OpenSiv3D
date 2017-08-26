@@ -4,12 +4,12 @@
 
 void Main()
 {
-	Print << Math::GoldenRatio;
-
-	Print << Math::E;
-
 	while (System::Update())
 	{
 
+		if (MouseL.down())
+		{
+			Window::SetTitle(L"My Game");
+		}
 	}
 }
