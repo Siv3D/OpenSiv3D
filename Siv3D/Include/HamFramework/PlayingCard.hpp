@@ -1034,7 +1034,7 @@ namespace s3d
 		/// <returns>
 		/// カードの山札
 		/// </returns>
-		Array<Card> CreateDeck(size_t num_jokers = 0, bool isFaceSide = Card::Front)
+		inline Array<Card> CreateDeck(size_t num_jokers = 0, bool isFaceSide = Card::Front)
 		{
 			Array<Card> cards;
 

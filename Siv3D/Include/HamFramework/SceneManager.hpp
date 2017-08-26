@@ -176,7 +176,7 @@ namespace s3d
 		/// <returns>
 		/// シーンの変更が可能でフェードイン・アウトが開始される場合 true, それ以外の場合は false
 		/// </returns>
-		bool changeScene(const State_t& state, const MillisecondsF& transitionTime = 1000ms, bool crossFade = false)
+		bool changeScene(const State_t& state, const MillisecondsF& transitionTime = MillisecondsF(1000), bool crossFade = false)
 		{
 			return changeScene(state, static_cast<int32>(transitionTime.count()), crossFade);
 		}
