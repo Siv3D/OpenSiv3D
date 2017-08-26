@@ -28,27 +28,27 @@ namespace s3d
 		/// <summary>
 		/// UTF-8
 		/// </summary>
-		UTF8,
+		UTF8_NO_BOM,
 
 		/// <summary>
 		/// UTF-8 with BOM
 		/// </summary>
-		UTF8_BOM,
+		UTF8,
 
 		/// <summary>
 		/// UTF-16(LE) with BOM
 		/// </summary>
-		UTF16LE_BOM,
+		UTF16LE,
 
 		/// <summary>
 		/// UTF-16(BE) with BOM
 		/// </summary>
-		UTF16BE_BOM,
+		UTF16BE,
 
 		/// <summary>
 		/// デフォルト [UTF-8]
 		/// </summary>
-		Default = UTF8_BOM,		
+		Default = UTF8,		
 	};
 
 	namespace CharacterSet
@@ -89,8 +89,8 @@ namespace s3d
 		/// </returns>
 		inline constexpr int32 GetBOMSize(CharacterEncoding encoding)
 		{
-			return encoding == CharacterEncoding::UTF8_BOM ? 3
-				: (encoding == CharacterEncoding::UTF16LE_BOM || encoding == CharacterEncoding::UTF16BE_BOM) ? 2 : 0;
+			return encoding == CharacterEncoding::UTF8 ? 3
+				: (encoding == CharacterEncoding::UTF16LE || encoding == CharacterEncoding::UTF16BE) ? 2 : 0;
 		}
 	}
 }

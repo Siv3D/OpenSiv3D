@@ -170,7 +170,7 @@ int CScriptBuilder::LoadScriptSection(const s3d::FilePath& path)
 
 	const auto encoding = s3d::CharacterSet::GetEncoding(reader);
 
-	if (encoding == s3d::CharacterEncoding::UTF8 || encoding == s3d::CharacterEncoding::UTF8_BOM)
+	if (encoding == s3d::CharacterEncoding::UTF8_NO_BOM || encoding == s3d::CharacterEncoding::UTF8)
 	{
 		s3d::int32 bomSize = s3d::CharacterSet::GetBOMSize(encoding);
 

@@ -62,9 +62,9 @@ namespace s3d
 			return false;
 		}
 
-		const bool addBOM = (m_encoding == CharacterEncoding::UTF8_BOM)
-			|| (m_encoding == CharacterEncoding::UTF16LE_BOM)
-			|| (m_encoding == CharacterEncoding::UTF16BE_BOM);
+		const bool addBOM = (m_encoding == CharacterEncoding::UTF8)
+			|| (m_encoding == CharacterEncoding::UTF16LE)
+			|| (m_encoding == CharacterEncoding::UTF16BE);
 
 		if (!addBOM || m_binaryWriter.size() != 0)
 		{
@@ -73,7 +73,7 @@ namespace s3d
 
 		switch (m_encoding)
 		{
-		case CharacterEncoding::UTF8_BOM:
+		case CharacterEncoding::UTF8:
 			{
 				const uint8 utf8BOM[] = { 0xEF, 0xBB, 0xBF };
 
@@ -81,7 +81,7 @@ namespace s3d
 
 				break;
 			}
-		case CharacterEncoding::UTF16LE_BOM:
+		case CharacterEncoding::UTF16LE:
 			{
 				const uint8 utf16LEBOM[] = { 0xFF, 0xFE };
 
@@ -89,7 +89,7 @@ namespace s3d
 
 				break;
 			}
-		case CharacterEncoding::UTF16BE_BOM:
+		case CharacterEncoding::UTF16BE:
 			{
 				const uint8 utf16BEBOM[] = { 0xFE, 0xFF };
 
@@ -160,8 +160,8 @@ namespace s3d
 
 				break;
 			}
+		case CharacterEncoding::UTF8_NO_BOM:
 		case CharacterEncoding::UTF8:
-		case CharacterEncoding::UTF8_BOM:
 			{
 				char previous = '\0';
 
@@ -181,7 +181,7 @@ namespace s3d
 
 				break;
 			}
-		case CharacterEncoding::UTF16LE_BOM:
+		case CharacterEncoding::UTF16LE:
 			{
 				# if defined(SIV3D_TARGET_WINDOWS)
 
@@ -227,7 +227,7 @@ namespace s3d
 
 				break;
 			}
-		case CharacterEncoding::UTF16BE_BOM:
+		case CharacterEncoding::UTF16BE:
 			{
 				# if defined(SIV3D_TARGET_WINDOWS)
 
@@ -286,8 +286,8 @@ namespace s3d
 		switch (m_encoding)
 		{
 		case CharacterEncoding::Unknown:
+		case CharacterEncoding::UTF8_NO_BOM:
 		case CharacterEncoding::UTF8:
-		case CharacterEncoding::UTF8_BOM:
 			{
 				char previous = '\0';
 
@@ -307,7 +307,7 @@ namespace s3d
 
 				break;
 			}
-		case CharacterEncoding::UTF16LE_BOM:
+		case CharacterEncoding::UTF16LE:
 			{
 				char16_t previous = '\0';
 
@@ -329,7 +329,7 @@ namespace s3d
 
 				break;
 			}
-		case CharacterEncoding::UTF16BE_BOM:
+		case CharacterEncoding::UTF16BE:
 			{
 				char16_t previous = '\0';
 
