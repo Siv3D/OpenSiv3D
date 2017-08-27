@@ -25,6 +25,7 @@
 - muparser V2.2.5 https://github.com/beltoforion/muparser/releases
 - Poly2Tri https://github.com/jhasse/poly2tri
 - RapidJSON https://github.com/miloyip/rapidjson/releases
+- SFMT 1.5.1 http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/index.html
 - xxHash v0.6.2 https://github.com/Cyan4973/xxHash/releases
 - zlib 1.2.11 http://www.zlib.net/
 - Zstandard v1.2.0 https://github.com/facebook/zstd/releases

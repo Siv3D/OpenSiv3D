@@ -15,6 +15,7 @@
 # include <array>
 # include "Fwd.hpp"
 # include "HardwareRNG.hpp"
+# include "SFMT.hpp"
 
 namespace s3d
 {
@@ -130,6 +131,19 @@ namespace s3d
 		result_type operator()()
 		{
 			return m_engine();
+		}
+
+		/// <summary>
+		/// [0, 1) の範囲の乱数を生成します。
+		/// </summary>
+		/// <returns>
+		/// [0, 1) の範囲の乱数
+		/// </returns>
+		double generateReal()
+		{
+			const uint32 a = m_engine();
+			const uint32 b = m_engine();
+			return detail::sfmt_to_res53_mix(a, b);
 		}
 
 		std::string serialize() const
@@ -256,6 +270,19 @@ namespace s3d
 		result_type operator()()
 		{
 			return m_engine();
+		}
+
+		/// <summary>
+		/// [0, 1) の範囲の乱数を生成します。
+		/// </summary>
+		/// <returns>
+		/// [0, 1) の範囲の乱数
+		/// </returns>
+		double generateReal()
+		{
+			const uint32 a = m_engine();
+			const uint32 b = m_engine();
+			return detail::sfmt_to_res53_mix(a, b);
 		}
 
 		std::string serialize() const
@@ -391,6 +418,17 @@ namespace s3d
 			return m_engine();
 		}
 
+		/// <summary>
+		/// [0, 1) の範囲の乱数を生成します。
+		/// </summary>
+		/// <returns>
+		/// [0, 1) の範囲の乱数
+		/// </returns>
+		double generateReal()
+		{
+			return detail::sfmt_to_res53(m_engine());
+		}
+
 		std::string serialize() const
 		{
 			std::ostringstream os;
@@ -403,6 +441,4 @@ namespace s3d
 			std::istringstream(representation) >> m_engine;
 		}
 	};
-
-
 }
