@@ -343,6 +343,26 @@ namespace s3d
 			return FilePath(fs::temp_directory_path().wstring());
 		}
 
+		bool Copy(const FilePath& from, const FilePath& to, const CopyOption copyOption)
+		{
+			if (from.isEmpty() || to.isEmpty())
+			{
+				return false;
+			}
+
+			if (detail::IsResourcePath(from) || detail::IsResourcePath(to))
+			{
+				return false;
+			}
+
+			if (copyOption == CopyOption::Fail_if_Exists && !detail::IsNotFound(to))
+			{
+				return false;
+			}
+
+			return false;
+		}
+
 		bool Remove(const FilePath& path, const bool allowUndo)
 		{
 			if (path.isEmpty())
