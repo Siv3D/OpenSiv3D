@@ -17,20 +17,20 @@ namespace s3d
 {
 	namespace detail
 	{
-		struct LogBuffer
+		struct LoggerBuffer
 		{
 			std::unique_ptr<FormatData> formatData;
 
-			LogBuffer()
+			LoggerBuffer()
 				: formatData(std::make_unique<FormatData>()) {}
 
-			LogBuffer(LogBuffer&& other)
+			LoggerBuffer(LoggerBuffer&& other)
 				: formatData(std::move(other.formatData)) {}
 
-			~LogBuffer();
+			~LoggerBuffer();
 
 			template <class Type>
-			LogBuffer& operator <<(const Type& value)
+			LoggerBuffer& operator <<(const Type& value)
 			{
 				Formatter(*formatData, value);
 
@@ -38,11 +38,11 @@ namespace s3d
 			}
 		};
 
-		struct Log_impl
+		struct Logger_impl
 		{
 			void writeln(const String& text) const;
 
-			const Log_impl& operator()(const String& text) const
+			const Logger_impl& operator()(const String& text) const
 			{
 				writeln(text);
 
@@ -50,7 +50,7 @@ namespace s3d
 			}
 
 			template <class... Args>
-			const Log_impl& operator()(const Args&... args) const
+			const Logger_impl& operator()(const Args&... args) const
 			{
 				writeln(Format(args...));
 
@@ -58,7 +58,7 @@ namespace s3d
 			}
 
 			template <class Type>
-			LogBuffer operator <<(const Type& value) const
+			LoggerBuffer operator <<(const Type& value) const
 			{
 				LogBuffer buf;
 
@@ -69,15 +69,15 @@ namespace s3d
 		};
 	}
 
-	constexpr auto Log = detail::Log_impl();
+	constexpr auto Output = detail::Logger_impl();
 
 	namespace detail
 	{
-		inline LogBuffer::~LogBuffer()
+		inline LoggerBuffer::~LoggerBuffer()
 		{
 			if (formatData)
 			{
-				Log.writeln(formatData->string);
+				Output.writeln(formatData->string);
 			}
 		}
 	}

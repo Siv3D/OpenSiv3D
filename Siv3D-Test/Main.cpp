@@ -4,10 +4,22 @@
 
 void Main()
 {
-	__m128 v = { 0.0f, 0.1f, 0.2f, 0.3f };
+	Print << Square(1.5);
 
-	Print << v;
+	Print << Square(20);
 
+	Print << Square("1.00001"_bigF);
+
+	Range(0, 10).map([](int n) {return Vec2(std::sin(n), std::cos(n)); }).each(Output);
+
+	Print << L"--";
+
+	Range(0, 10).map([](int n) {return Vec2(std::sin(n), std::cos(n)); }).map(Abs).each(Output);
+
+	Print << Abs(Point(-2, 3));
+
+	Print << Id("-1.00001"_bigF);
+	
 	while (System::Update())
 	{
 

@@ -55,7 +55,7 @@ namespace s3d
 
 		String toString(const uint64 ns) const;
 
-		void log(const uint64 end) const;
+		void output(const uint64 end) const;
 
 	public:
 
