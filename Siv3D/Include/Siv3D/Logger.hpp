@@ -60,7 +60,7 @@ namespace s3d
 			template <class Type>
 			LoggerBuffer operator <<(const Type& value) const
 			{
-				LogBuffer buf;
+				LoggerBuffer buf;
 
 				Formatter(*buf.formatData, value);
 
