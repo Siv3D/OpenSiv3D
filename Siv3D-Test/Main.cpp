@@ -4,10 +4,6 @@
 
 void Main()
 {
-	//Print << FileSystem::Copy(L"example/windmill.png", L"copy/windmill.png", CopyOption::Fail_if_Exists);
-
-	//Print << FileSystem::Copy(L"example/", L"copy/folder/", CopyOption::Rename_if_Exists);
-
 	while (System::Update())
 	{
 
