@@ -267,6 +267,8 @@ namespace s3d
         Formatter(formatData, static_cast<double>(value));
     }
 
+	void Formatter(FormatData& formatData, __m128 value);
+
 	inline void Formatter(FormatData& formatData, const FormatData::DecimalPlace decimalPlace)
 	{
 		formatData.decimalPlace = decimalPlace;
@@ -370,24 +372,6 @@ namespace s3d
 
 		formatData.string.append(wos.str());
 	}
-
-	/*
-	void Formatter(FormatData& formatData, const __m128& value);
-	void Formatter(FormatData& formatData, const Circular& value);
-	void Formatter(FormatData& formatData, const LineInt& value);
-	void Formatter(FormatData& formatData, const Line& value);
-	void Formatter(FormatData& formatData, const Rect& value);
-	void Formatter(FormatData& formatData, const RectF& value);
-	void Formatter(FormatData& formatData, const Circle& value);
-	void Formatter(FormatData& formatData, const Ellipse& value);
-	void Formatter(FormatData& formatData, const Triangle& value);
-	void Formatter(FormatData& formatData, const Quad& value);
-	void Formatter(FormatData& formatData, const RoundRect& value);
-	void Formatter(FormatData& formatData, const Mat3x2& value);
-	void Formatter(FormatData& formatData, const Quaternion& value);
-	void Formatter(FormatData& formatData, const Mat4x4& value);
-	void Formatter(FormatData& formatData, const Ray& value);
-	*/
 }
 
 namespace s3d
