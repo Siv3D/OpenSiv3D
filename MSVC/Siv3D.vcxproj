@@ -156,6 +156,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\SamplerState.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ScreenCapture.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Script.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\SFMT.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Shader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Shape2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\SIMDMath.hpp" />

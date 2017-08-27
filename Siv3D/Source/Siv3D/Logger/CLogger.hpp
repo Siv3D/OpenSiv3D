@@ -25,17 +25,7 @@ namespace s3d
 
 		std::mutex m_mutex;
 
-		OutputLevel m_outputLevel =
-
-# if defined(_DEBUG) || defined(DEBUG)
-
-			OutputLevel::More;
-
-# else
-
-			OutputLevel::Normal;
-
-# endif
+		OutputLevel m_outputLevel = SIV3D_IS_DEBUG ? OutputLevel::More : OutputLevel::Normal;
 
 		bool m_initialized = false;
 

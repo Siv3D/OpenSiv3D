@@ -15,11 +15,12 @@
 # include <array>
 # include "Fwd.hpp"
 # include "HardwareRNG.hpp"
+# include "SFMT.hpp"
 
 namespace s3d
 {
 	/// <summary>
-	/// 乱数生成エンジン MT 11213b (周期 2^11213-1, メモリ消費 2816B)
+	/// 乱数生成エンジン MT 11213b (周期 2^11213-1, メモリ消費 2,816 bytes)
 	/// </summary>
 	class MT11213b
 	{
@@ -132,6 +133,19 @@ namespace s3d
 			return m_engine();
 		}
 
+		/// <summary>
+		/// [0, 1) の範囲の乱数を生成します。
+		/// </summary>
+		/// <returns>
+		/// [0, 1) の範囲の乱数
+		/// </returns>
+		double generateReal()
+		{
+			const uint32 a = m_engine();
+			const uint32 b = m_engine();
+			return detail::sfmt_to_res53_mix(a, b);
+		}
+
 		std::string serialize() const
 		{
 			std::ostringstream os;
@@ -146,7 +160,7 @@ namespace s3d
 	};
 
 	/// <summary>
-	/// 乱数生成エンジン MT 19937 (周期 2^19937-1, メモリ消費 5000B)
+	/// 乱数生成エンジン MT 19937 (周期 2^19937-1, メモリ消費 5,000 bytes)
 	/// </summary>
 	class MT19937
 	{
@@ -258,6 +272,19 @@ namespace s3d
 			return m_engine();
 		}
 
+		/// <summary>
+		/// [0, 1) の範囲の乱数を生成します。
+		/// </summary>
+		/// <returns>
+		/// [0, 1) の範囲の乱数
+		/// </returns>
+		double generateReal()
+		{
+			const uint32 a = m_engine();
+			const uint32 b = m_engine();
+			return detail::sfmt_to_res53_mix(a, b);
+		}
+
 		std::string serialize() const
 		{
 			std::ostringstream os;
@@ -272,7 +299,7 @@ namespace s3d
 	};
 
 	/// <summary>
-	/// 乱数生成エンジン MT 19937-64 (周期 2^19937-1, メモリ消費 5008B)
+	/// 乱数生成エンジン MT 19937-64 (周期 2^19937-1, メモリ消費 5,008 bytes)
 	/// </summary>
 	class MT19937_64
 	{
@@ -389,6 +416,17 @@ namespace s3d
 		result_type operator()()
 		{
 			return m_engine();
+		}
+
+		/// <summary>
+		/// [0, 1) の範囲の乱数を生成します。
+		/// </summary>
+		/// <returns>
+		/// [0, 1) の範囲の乱数
+		/// </returns>
+		double generateReal()
+		{
+			return detail::sfmt_to_res53(m_engine());
 		}
 
 		std::string serialize() const

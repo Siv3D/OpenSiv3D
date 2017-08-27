@@ -135,7 +135,7 @@ namespace s3d
 # define LOG_SCRIPT(MESSAGE)	s3d::Logger::OutputLog(s3d::LogDescription::Script,MESSAGE)
 # define LOG_INFO(MESSAGE)		s3d::Logger::OutputLog(s3d::LogDescription::Info,MESSAGE)
 
-# if defined(_DEBUG) || defined(DEBUG)
+# if (SIV3D_IS_DEBUG)
 
 	# define LOG_DEBUG(MESSAGE)	s3d::Logger::OutputLog(s3d::LogDescription::Debug,MESSAGE)
 	# define LOG_TEST(MESSAGE)	s3d::Logger::OutputLog(s3d::LogDescription::Debug,MESSAGE)
