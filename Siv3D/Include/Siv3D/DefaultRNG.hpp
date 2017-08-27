@@ -12,6 +12,7 @@
 # pragma once
 # include "Fwd.hpp"
 # include "MersenneTwister.hpp"
+# include "SFMT.hpp"
 
 namespace s3d
 {

@@ -19,7 +19,7 @@
 namespace s3d
 {
 	/// <summary>
-	/// 乱数生成エンジン MT 11213b (周期 2^11213-1, メモリ消費 2816B)
+	/// 乱数生成エンジン MT 11213b (周期 2^11213-1, メモリ消費 2,816 bytes)
 	/// </summary>
 	class MT11213b
 	{
@@ -146,7 +146,7 @@ namespace s3d
 	};
 
 	/// <summary>
-	/// 乱数生成エンジン MT 19937 (周期 2^19937-1, メモリ消費 5000B)
+	/// 乱数生成エンジン MT 19937 (周期 2^19937-1, メモリ消費 5,000 bytes)
 	/// </summary>
 	class MT19937
 	{
@@ -272,7 +272,7 @@ namespace s3d
 	};
 
 	/// <summary>
-	/// 乱数生成エンジン MT 19937-64 (周期 2^19937-1, メモリ消費 5008B)
+	/// 乱数生成エンジン MT 19937-64 (周期 2^19937-1, メモリ消費 5,008 bytes)
 	/// </summary>
 	class MT19937_64
 	{
@@ -403,4 +403,6 @@ namespace s3d
 			std::istringstream(representation) >> m_engine;
 		}
 	};
+
+
 }

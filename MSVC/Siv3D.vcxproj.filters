@@ -2002,6 +2002,9 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\PPM\ImageFormat_PPM.hpp">
       <Filter>Source\Siv3D\ImageFormat\PPM</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\SFMT.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
