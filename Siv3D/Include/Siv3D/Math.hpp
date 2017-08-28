@@ -1115,9 +1115,9 @@ namespace s3d
 		/// 平方を計算します。
 		/// </summary>
 		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
-		inline constexpr double Square(Type x) noexcept
+		inline constexpr Type Square(Type x) noexcept
 		{
-			return Square(static_cast<double>(x));
+			return x * x;
 		}
 
 		//
