@@ -636,6 +636,7 @@
 		2C316EA51E9F022A0011CAAE /* glxew.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C316EA11E9F022A0011CAAE /* glxew.h */; };
 		2C316EA61E9F022A0011CAAE /* wglew.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C316EA21E9F022A0011CAAE /* wglew.h */; };
 		2C316EAF1E9F0AAD0011CAAE /* lGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C316EAE1E9F0AAD0011CAAE /* lGLEW.a */; };
+		2C3490701F54A8CB0053C3D8 /* Evaluater.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C34906F1F54A8CB0053C3D8 /* Evaluater.hpp */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
 		2C81C0021E89F8E300D27E52 /* butteraugli.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C81BE141E89F8E300D27E52 /* butteraugli.cc */; };
@@ -1625,6 +1626,7 @@
 		2C316EA11E9F022A0011CAAE /* glxew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glxew.h; sourceTree = "<group>"; };
 		2C316EA21E9F022A0011CAAE /* wglew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wglew.h; sourceTree = "<group>"; };
 		2C316EAE1E9F0AAD0011CAAE /* lGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lGLEW.a; sourceTree = "<group>"; };
+		2C34906F1F54A8CB0053C3D8 /* Evaluater.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Evaluater.hpp; sourceTree = "<group>"; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
 		2C5869261E3F0C620028B9F0 /* lpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lpng.a; sourceTree = "<group>"; };
@@ -2075,6 +2077,7 @@
 				2C8E40E61F01415100F30069 /* Effect.hpp */,
 				2C0C7CB11EBCC39B00386CBB /* Ellipse.hpp */,
 				2CA6355C1ED3C30E00B851BC /* Emoji.hpp */,
+				2C34906F1F54A8CB0053C3D8 /* Evaluater.hpp */,
 				2C0C7CB21EBCC39B00386CBB /* FileSystem.hpp */,
 				2C0C7CB31EBCC39B00386CBB /* FloatQuad.hpp */,
 				2C0C7CB41EBCC39B00386CBB /* FloatRect.hpp */,
@@ -5207,6 +5210,7 @@
 				2C81C06F1E89F8E300D27E52 /* quantize.h in Headers */,
 				2C0C7D871EBCC39B00386CBB /* ParseBool.hpp in Headers */,
 				2C15846D1F0D3B46002687D2 /* CProfiler.hpp in Headers */,
+				2C3490701F54A8CB0053C3D8 /* Evaluater.hpp in Headers */,
 				2C1584151F0D3B46002687D2 /* GLRasterizerState.hpp in Headers */,
 				2C114C881EE3DBEB00A198BB /* Icon.hpp in Headers */,
 				2C0C7D8F1EBCC39B00386CBB /* PointVector.hpp in Headers */,
