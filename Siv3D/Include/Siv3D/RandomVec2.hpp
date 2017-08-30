@@ -51,12 +51,12 @@ namespace s3d
 		return RandomVec2({ 0.0, xMax }, { 0.0, yMax });
 	}
 
-	//inline Vec2 RandomVec2(const Circle& circle)
-	//{
-	//	const double r = sqrt(Random()) * circle.r;
-	//	const double theta = Random(Math::TwoPi);
-	//	return circle.center.movedBy(std::cos(theta)*r, std::sin(theta)*r);
-	//}
+	inline Vec2 RandomVec2(const Circle& circle)
+	{
+		const double r = std::sqrt(Random()) * circle.r;
+		const double theta = Random(Math::TwoPi);
+		return circle.center.movedBy(std::cos(theta) * r, std::sin(theta) * r);
+	}
 
 	inline Vec2 RandomVec2(const RectF& rect)
 	{
