@@ -33,6 +33,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\AudioFormat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\CPU.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Effect.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Evaluater.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Icon.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Intersection.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Polygon.hpp" />
