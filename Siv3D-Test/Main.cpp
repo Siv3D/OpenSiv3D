@@ -13,11 +13,11 @@ void Main()
 
 	while (System::Update())
 	{
-		triangle.draw(Color(100));
+		triangle.draw(ColorF(0.4));
 
 		for (const auto& point : points)
 		{
-			Circle(point, 1).draw();
+			Circle(point, 1).draw(ColorF(0.0, 1.0, 0.5));
 		}
 	}
 }
