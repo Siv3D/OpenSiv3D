@@ -838,7 +838,7 @@ namespace std
 	template <>
 	struct hash<s3d::Color>
 	{
-		size_t operator()(const s3d::Color& keyVal) const
+		size_t operator()(const s3d::Color& keyVal) const noexcept
 		{
 			return hash<s3d::uint32>()(*((s3d::uint32*)&keyVal));
 		}

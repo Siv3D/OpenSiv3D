@@ -344,7 +344,7 @@ namespace std
 	template <>
 	struct hash<s3d::Point>
 	{
-		[[nodiscard]] size_t operator()(const s3d::Point& keyVal) const
+		[[nodiscard]] size_t operator()(const s3d::Point& keyVal) const noexcept
 		{
 			return hash<s3d::uint64>()(*((s3d::uint64*)&keyVal));
 		}
