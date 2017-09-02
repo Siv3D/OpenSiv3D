@@ -28,6 +28,7 @@
 # include "Threading.hpp"
 # include "BigInt.hpp"
 # include "Format.hpp"
+# include "Functor.hpp"
 
 S3D_DISABLE_MSVC_WARNINGS_PUSH(4100)
 
@@ -1231,9 +1232,6 @@ namespace s3d
 			Apply_impl<Fty, ValueType, 0, Tuple, std::decay_t<decltype(std::get<0>(std::declval<Tuple>()))>>(f, value, tuple);
 		}
 
-
-
-
 		template <class Fty, class ResultType, class ValueType, size_t Index, class Tuple, class Next>
 		constexpr void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
 		{
@@ -1286,6 +1284,8 @@ namespace s3d
 
 			using value_type = ValueType;
 
+			using functions_type = Tuple;
+
 			F_Step(StepClass stepClass, Tuple functions)
 				: m_base(stepClass)
 				, m_functions(functions) {}
@@ -1323,6 +1323,14 @@ namespace s3d
 				m_base.each([f, functions = m_functions](const auto& value)
 				{
 					Apply(f, value, functions);
+				});
+			}
+
+			void evaluate() const
+			{
+				m_base.each([functions = m_functions](const auto& value)
+				{
+					Apply(Id, value, functions);
 				});
 			}
 

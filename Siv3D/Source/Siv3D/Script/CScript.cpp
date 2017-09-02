@@ -37,7 +37,7 @@ namespace s3d
 			else if (msg->type == AngelScript::asMSGTYPE_INFORMATION)
 				type_s = L"通知";
 
-			Log(L"{} : ({} 行目) : {}"_fmt(type_s, msg->row, CharacterSet::Widen(msg->message)));
+			Output(L"{} : ({} 行目) : {}"_fmt(type_s, msg->row, CharacterSet::Widen(msg->message)));
 
 			//std::cout << buf;
 			

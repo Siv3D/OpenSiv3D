@@ -1364,7 +1364,7 @@ namespace s3d
 				key = rng();
 			}
 
-			detail::sfmt_init_by_array(&m_sfmt, keys, std::size(keys));
+			detail::sfmt_init_by_array(&m_sfmt, keys, 16);
 		}
 
 		/// <summary>
@@ -1402,7 +1402,7 @@ namespace s3d
 		{
 			uint32 keys[2] = { static_cast<uint32>(seed >> 32), static_cast<uint32>(seed & 0xffFFffFF) };
 
-			detail::sfmt_init_by_array(&m_sfmt, keys, std::size(keys));
+			detail::sfmt_init_by_array(&m_sfmt, keys, 2);
 		}
 
 		/// <summary>
@@ -1425,7 +1425,7 @@ namespace s3d
 				keys[i * 2 + 1] = static_cast<uint32>(seeds[i] & 0xffFFffFF);
 			}
 
-			detail::sfmt_init_by_array(&m_sfmt, keys, std::size(seeds));
+			detail::sfmt_init_by_array(&m_sfmt, keys, 16);
 		}
 
 		/// <summary>

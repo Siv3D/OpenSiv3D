@@ -409,7 +409,7 @@ namespace std
 	template <class CharType>
 	struct hash<s3d::BasicStringView<CharType>>
 	{
-		size_t operator()(const s3d::BasicStringView<CharType>& keyVal) const
+		size_t operator()(const s3d::BasicStringView<CharType>& keyVal) const noexcept
 		{
 			return s3d::Hash::FNV1a(keyVal.data(), keyVal.length() * sizeof(CharType));
 		}

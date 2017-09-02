@@ -64,7 +64,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void log() const { Log(cycles(), S3DSTR("cycles")); }
+		void output() const { Output(cycles(), S3DSTR("cycles")); }
 
 		/// <summary>
 		/// 経過時間をデバッグ表示します。
