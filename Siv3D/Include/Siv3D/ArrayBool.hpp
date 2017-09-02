@@ -994,8 +994,23 @@ namespace s3d
 			return *this;
 		}
 
+		Array& stable_sort()
+		{
+			std::sort(begin(), end());
+
+			return *this;
+		}
+
 		template <class Fty>
 		Array& sort_by(Fty f)
+		{
+			std::sort(begin(), end(), f);
+
+			return *this;
+		}
+
+		template <class Fty>
+		Array& stable_sort_by(Fty f)
 		{
 			std::sort(begin(), end(), f);
 
@@ -1007,7 +1022,19 @@ namespace s3d
 			return Array(*this).sort();
 		}
 
+		[[nodiscard]] Array stable_sorted() const &
+		{
+			return Array(*this).sort();
+		}
+
 		[[nodiscard]] Array sorted() &&
+		{
+			sort();
+
+			return std::move(*this);
+		}
+
+		[[nodiscard]] Array stable_sorted() &&
 		{
 			sort();
 
@@ -1021,7 +1048,21 @@ namespace s3d
 		}
 
 		template <class Fty>
+		[[nodiscard]] Array stable_sorted_by(Fty f) const &
+		{
+			return Array(*this).sort_by(f);
+		}
+
+		template <class Fty>
 		[[nodiscard]] Array sorted_by(Fty f) &&
+		{
+			sort_by(f);
+
+			return std::move(*this);
+		}
+
+		template <class Fty>
+		[[nodiscard]] Array stable_sorted_by(Fty f) &&
 		{
 			sort_by(f);
 

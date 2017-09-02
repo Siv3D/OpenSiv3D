@@ -1669,6 +1669,20 @@ namespace s3d
 		}
 
 		/// <summary>
+		/// 配列を &lt; 比較で安定ソートします。
+		/// </summary>
+		/// <returns>
+		/// *this
+		/// </returns>
+		template <class T = Type, std::enable_if_t<Concept::HasLessThan_v<T>>* = nullptr>
+		Array& stable_sort()
+		{
+			std::stable_sort(begin(), end());
+
+			return *this;
+		}
+
+		/// <summary>
 		/// 配列を指定された比較関数でソートします。
 		/// </summary>
 		/// <param name="f">
@@ -1686,6 +1700,23 @@ namespace s3d
 		}
 
 		/// <summary>
+		/// 配列を指定された比較関数で安定ソートします。
+		/// </summary>
+		/// <param name="f">
+		/// 使用する比較関数
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		template <class Fty>
+		Array& stable_sort_by(Fty f)
+		{
+			std::stable_sort(begin(), end(), f);
+
+			return *this;
+		}
+
+		/// <summary>
 		/// 配列を &lt; 比較でソートした新しい配列を返します。
 		/// </summary>
 		/// <returns>
@@ -1698,6 +1729,18 @@ namespace s3d
 		}
 
 		/// <summary>
+		/// 配列を &lt; 比較で安定ソートした新しい配列を返します。
+		/// </summary>
+		/// <returns>
+		/// ソート済みの配列
+		/// </returns>
+		template <class T = Type, std::enable_if_t<Concept::HasLessThan_v<T>>* = nullptr>
+		[[nodiscard]] Array stable_sorted() const &
+		{
+			return Array(*this).stable_sort();
+		}
+
+		/// <summary>
 		/// 配列を &lt; 比較でソートした新しい配列を返します。
 		/// </summary>
 		/// <returns>
@@ -1707,6 +1750,20 @@ namespace s3d
 		[[nodiscard]] Array sorted() &&
 		{
 			sort();
+
+			return std::move(*this);
+		}
+
+		/// <summary>
+		/// 配列を &lt; 比較で安定ソートした新しい配列を返します。
+		/// </summary>
+		/// <returns>
+		/// ソート済みの配列
+		/// </returns>
+		template <class T = Type, std::enable_if_t<Concept::HasLessThan_v<T>>* = nullptr>
+		[[nodiscard]] Array stable_sorted() &&
+		{
+			stable_sort();
 
 			return std::move(*this);
 		}
@@ -1727,6 +1784,21 @@ namespace s3d
 		}
 
 		/// <summary>
+		/// 配列を指定された比較関数で安定ソートした新しい配列を返します。
+		/// </summary>
+		/// <param name="f">
+		/// 使用する比較関数
+		/// </param>
+		/// <returns>
+		/// ソート済みの配列
+		/// </returns>
+		template <class Fty>
+		[[nodiscard]] Array stable_sorted_by(Fty f) const &
+		{
+			return Array(*this).stable_sort_by(f);
+		}
+
+		/// <summary>
 		/// 配列を指定された比較関数でソートした新しい配列を返します。
 		/// </summary>
 		/// <param name="f">
@@ -1739,6 +1811,23 @@ namespace s3d
 		[[nodiscard]] Array sorted_by(Fty f) &&
 		{
 			sort_by(f);
+
+			return std::move(*this);
+		}
+
+		/// <summary>
+		/// 配列を指定された比較関数で安定ソートした新しい配列を返します。
+		/// </summary>
+		/// <param name="f">
+		/// 使用する比較関数
+		/// </param>
+		/// <returns>
+		/// ソート済みの配列
+		/// </returns>
+		template <class Fty>
+		[[nodiscard]] Array stable_sorted_by(Fty f) &&
+		{
+			stable_sort_by(f);
 
 			return std::move(*this);
 		}

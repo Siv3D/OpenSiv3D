@@ -1,23 +1,16 @@
 ﻿# include <Siv3D.hpp> // OpenSiv3D v0.1.7
+# include <HamFramework.hpp>
 
 void Main()
 {
-	const Triangle triangle({ 40, 100 }, { 400, 20 }, { 200, 250 });
+	const auto[displayIndex, displayMode] = OptimalScreen::Get(OptimalScreen::Preference::Min, Size(1280, 720));
 
-	Array<Vec2> points;
+	Print << displayIndex << L":" << displayMode.size << L"@" << displayMode.refreshRateHz;
 
-	for (auto i : step(2000))
-	{
-		points << RandomVec2(triangle);
-	}
+	Graphics::SetFullScreen(true, displayMode.size, displayIndex, displayMode.refreshRateHz);
 
 	while (System::Update())
 	{
-		triangle.draw(ColorF(0.4));
-
-		for (const auto& point : points)
-		{
-			Circle(point, 1).draw(ColorF(0.0, 1.0, 0.5));
-		}
+		Circle(Cursor::Pos(), 100).draw(ColorF(1.0, 0.0, 0.0, 0.5));
 	}
 }
