@@ -210,7 +210,7 @@ namespace s3d
 		shape.m_vertices[2 + indexOffset] += pointingRootCenter + offset;
 
 		std::array<uint32, 4> rectIndices;
-		size_t i = 0;
+		uint32 i = 0;
 
 		for (size_t rectIndex = 0; rectIndex < 4; ++rectIndex)
 		{
