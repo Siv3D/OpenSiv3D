@@ -25,7 +25,7 @@ namespace s3d
 
 		explicit CTobii(const FilePath&)
 		{
-			LOG_FAILED(L"❌ Tobii is not supported on macOS");
+			LOG_FAIL(L"❌ Tobii is not supported on macOS");
 		}
 
 		~CTobii()

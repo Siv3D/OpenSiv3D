@@ -84,7 +84,7 @@ namespace s3d
 
 				if (targetDisplayIndex && results.count_if([index = *targetDisplayIndex](const auto& result){ return result.displayIndex == index; }))
 				{
-					results.removed_if([index = *targetDisplayIndex](const auto& result){ return result.displayIndex == index; });
+					results.remove_if([index = *targetDisplayIndex](const auto& result){ return result.displayIndex != index; });
 				}
 			}
 

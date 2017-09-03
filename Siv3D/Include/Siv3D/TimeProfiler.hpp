@@ -68,7 +68,7 @@ namespace s3d
 		{
 			const uint64 end = Time::GetNanosec();
 
-			log(end);
+			output(end);
 		}
 
 		void begin(const String& label)

@@ -638,6 +638,12 @@
 		2C316EAF1E9F0AAD0011CAAE /* lGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C316EAE1E9F0AAD0011CAAE /* lGLEW.a */; };
 		2C3490701F54A8CB0053C3D8 /* Evaluater.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C34906F1F54A8CB0053C3D8 /* Evaluater.hpp */; };
 		2C3490721F5B0C170053C3D8 /* OptimalScreen.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490711F5B0C170053C3D8 /* OptimalScreen.hpp */; };
+		2C3490741F5C92370053C3D8 /* Tobii.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490731F5C92370053C3D8 /* Tobii.hpp */; };
+		2C34907B1F5C92560053C3D8 /* CTobii_Linux.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490761F5C92560053C3D8 /* CTobii_Linux.hpp */; };
+		2C34907C1F5C92560053C3D8 /* CTobii_macOS.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490771F5C92560053C3D8 /* CTobii_macOS.hpp */; };
+		2C34907D1F5C92560053C3D8 /* CTobii_Windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C3490781F5C92560053C3D8 /* CTobii_Windows.cpp */; };
+		2C34907E1F5C92560053C3D8 /* CTobii_Windows.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490791F5C92560053C3D8 /* CTobii_Windows.hpp */; };
+		2C34907F1F5C92560053C3D8 /* SivTobii.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C34907A1F5C92560053C3D8 /* SivTobii.cpp */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
 		2C81C0021E89F8E300D27E52 /* butteraugli.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C81BE141E89F8E300D27E52 /* butteraugli.cc */; };
@@ -1629,6 +1635,12 @@
 		2C316EAE1E9F0AAD0011CAAE /* lGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lGLEW.a; sourceTree = "<group>"; };
 		2C34906F1F54A8CB0053C3D8 /* Evaluater.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Evaluater.hpp; sourceTree = "<group>"; };
 		2C3490711F5B0C170053C3D8 /* OptimalScreen.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OptimalScreen.hpp; sourceTree = "<group>"; };
+		2C3490731F5C92370053C3D8 /* Tobii.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Tobii.hpp; sourceTree = "<group>"; };
+		2C3490761F5C92560053C3D8 /* CTobii_Linux.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTobii_Linux.hpp; sourceTree = "<group>"; };
+		2C3490771F5C92560053C3D8 /* CTobii_macOS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTobii_macOS.hpp; sourceTree = "<group>"; };
+		2C3490781F5C92560053C3D8 /* CTobii_Windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTobii_Windows.cpp; sourceTree = "<group>"; };
+		2C3490791F5C92560053C3D8 /* CTobii_Windows.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTobii_Windows.hpp; sourceTree = "<group>"; };
+		2C34907A1F5C92560053C3D8 /* SivTobii.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTobii.cpp; sourceTree = "<group>"; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
 		2C5869261E3F0C620028B9F0 /* lpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lpng.a; sourceTree = "<group>"; };
@@ -2202,6 +2214,7 @@
 				2C0C7D0E1EBCC39B00386CBB /* Time.hpp */,
 				2C0C7D0F1EBCC39B00386CBB /* TimeProfiler.hpp */,
 				2C0C7D101EBCC39B00386CBB /* Timer.hpp */,
+				2C3490731F5C92370053C3D8 /* Tobii.hpp */,
 				2CAAB12E1EF513B90000A06D /* Transformer2D.hpp */,
 				2CC7F9521F3489610071A239 /* Transition.hpp */,
 				2C0C7D111EBCC39B00386CBB /* Triangle.hpp */,
@@ -2240,6 +2253,7 @@
 		2C1581851F0D3B46002687D2 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C3490751F5C92560053C3D8 /* Tobii */,
 				2CC7F95D1F41EF2B0071A239 /* Codec */,
 				2C1585401F21ECA6002687D2 /* Script */,
 				2C1585011F0F7099002687D2 /* Audio */,
@@ -3926,6 +3940,18 @@
 			path = glew;
 			sourceTree = "<group>";
 		};
+		2C3490751F5C92560053C3D8 /* Tobii */ = {
+			isa = PBXGroup;
+			children = (
+				2C3490761F5C92560053C3D8 /* CTobii_Linux.hpp */,
+				2C3490771F5C92560053C3D8 /* CTobii_macOS.hpp */,
+				2C3490781F5C92560053C3D8 /* CTobii_Windows.cpp */,
+				2C3490791F5C92560053C3D8 /* CTobii_Windows.hpp */,
+				2C34907A1F5C92560053C3D8 /* SivTobii.cpp */,
+			);
+			path = Tobii;
+			sourceTree = "<group>";
+		};
 		2C38B1471CDEB45C007A7E9F /* Lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -4851,6 +4877,7 @@
 				2C1584971F0D3B46002687D2 /* Siv3D_macOS.h in Headers */,
 				2CAAB10D1EF289A10000A06D /* TextBox.hpp in Headers */,
 				2C1585241F0F7099002687D2 /* AudioDevice_X27 .hpp in Headers */,
+				2C3490741F5C92370053C3D8 /* Tobii.hpp in Headers */,
 				2CCA36501ECC748F00078678 /* fttypes.h in Headers */,
 				2CCA36241ECC748E00078678 /* ftconfig.h in Headers */,
 				2C81C0481E89F8E300D27E52 /* color_transform.h in Headers */,
@@ -4940,6 +4967,7 @@
 				2C1584031F0D3B46002687D2 /* D3D11DepthStencilState.hpp in Headers */,
 				2CCA35B41ECC73EE00078678 /* Font.hpp in Headers */,
 				2C0C7D451EBCC39B00386CBB /* ConcurrentTask.hpp in Headers */,
+				2C34907B1F5C92560053C3D8 /* CTobii_Linux.hpp in Headers */,
 				2C1584561F0D3B46002687D2 /* CMouse_Linux.hpp in Headers */,
 				2C0C7D721EBCC39B00386CBB /* KeyConjunction.hpp in Headers */,
 				2C0C7DA21EBCC39B00386CBB /* Step2D.hpp in Headers */,
@@ -5155,6 +5183,7 @@
 				2C15840F1F0D3B46002687D2 /* D3D11SwapChain.hpp in Headers */,
 				2C0C7D8A1EBCC39B00386CBB /* PerlinNoise.hpp in Headers */,
 				2C15844E1F0D3B46002687D2 /* CMemoryWriter.hpp in Headers */,
+				2C34907C1F5C92560053C3D8 /* CTobii_macOS.hpp in Headers */,
 				2C0C7D831EBCC39B00386CBB /* NamedParameter.hpp in Headers */,
 				2C1581551F0A15D3002687D2 /* AudioFormat.hpp in Headers */,
 				2C81C0611E89F8E300D27E52 /* jpeg_data_writer.h in Headers */,
@@ -5196,6 +5225,7 @@
 				2C15848D1F0D3B46002687D2 /* VertexShader_D3D11.hpp in Headers */,
 				2C1584DA1F0D3B46002687D2 /* CWindow_Windows.hpp in Headers */,
 				2C0C7D301EBCC39B00386CBB /* ArrayBool.hpp in Headers */,
+				2C34907E1F5C92560053C3D8 /* CTobii_Windows.hpp in Headers */,
 				2CC7F96D1F41EF2B0071A239 /* CCodec_Null.hpp in Headers */,
 				2CCA362B1ECC748E00078678 /* ftautoh.h in Headers */,
 				2CCA36551ECC748F00078678 /* ftdriver.h in Headers */,
@@ -5416,6 +5446,7 @@
 				2C15856D1F21ECA6002687D2 /* Script_Line.cpp in Sources */,
 				2C1584361F0D3B46002687D2 /* CKeyboard_Linux.cpp in Sources */,
 				2C1584C61F0D3B46002687D2 /* SivTexturedQuad.cpp in Sources */,
+				2C34907D1F5C92560053C3D8 /* CTobii_Windows.cpp in Sources */,
 				2C1584061F0D3B46002687D2 /* D3D11RasterizerState.cpp in Sources */,
 				2C1583EA1F0D3B46002687D2 /* SivFileSystem.cpp in Sources */,
 				2C1583AC1F0D3B46002687D2 /* SivCircle.cpp in Sources */,
@@ -5489,6 +5520,7 @@
 				2C2126531E8CB7B5006F8101 /* gif_font.c in Sources */,
 				2C1583EC1F0D3B46002687D2 /* SivFileSystem_Linux.cpp in Sources */,
 				2C15849F1F0D3B46002687D2 /* SivString.cpp in Sources */,
+				2C34907F1F5C92560053C3D8 /* SivTobii.cpp in Sources */,
 				2C1583CA1F0D3B46002687D2 /* CCursor_macOS.cpp in Sources */,
 				2C15843F1F0D3B46002687D2 /* SivLineString.cpp in Sources */,
 				2C81C0631E89F8E300D27E52 /* jpeg_huffman_decode.cc in Sources */,
