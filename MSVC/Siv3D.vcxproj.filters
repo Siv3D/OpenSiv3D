@@ -542,6 +542,12 @@
     <Filter Include="Source\Siv3D\ImageFormat\PPM">
       <UniqueIdentifier>{8a896298-79db-432e-ae1b-863064dda50f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Tobii">
+      <UniqueIdentifier>{6416253a-f1c6-42e2-b860-329a9f6a6c33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ThirdParty\tobii">
+      <UniqueIdentifier>{1d406378-258c-4948-954f-291b60557ef8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -2011,6 +2017,27 @@
     <ClInclude Include="..\Siv3D\Include\HamFramework\OptimalScreen.hpp">
       <Filter>Include\HamFramework</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Tobii.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\tobii\tobii.h">
+      <Filter>Source\ThirdParty\tobii</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\tobii\tobii_streams.h">
+      <Filter>Source\ThirdParty\tobii</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\tobii\tobii_wearable.h">
+      <Filter>Source\ThirdParty\tobii</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Tobii\CTobii_Windows.hpp">
+      <Filter>Source\Siv3D\Tobii</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Tobii\CTobii_macOS.hpp">
+      <Filter>Source\Siv3D\Tobii</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Tobii\CTobii_Linux.hpp">
+      <Filter>Source\Siv3D\Tobii</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2981,6 +3008,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\PPM\ImageFormat_PPM.cpp">
       <Filter>Source\Siv3D\ImageFormat\PPM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Tobii\SivTobii.cpp">
+      <Filter>Source\Siv3D\Tobii</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Tobii\CTobii_Windows.cpp">
+      <Filter>Source\Siv3D\Tobii</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -463,8 +463,8 @@
 	//# include "Siv3D/KinectV1.hpp"
 	//// Kinect V2
 	//# include "Siv3D/KinectV2.hpp"
-	//// Tobii EyeX
-	//# include "Siv3D/TobiiEyeX.hpp"
+	// Tobii
+	# include "Siv3D/Tobii.hpp"
 //
 // オーディオ
 //
