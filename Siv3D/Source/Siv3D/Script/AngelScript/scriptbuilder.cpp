@@ -19,7 +19,7 @@ using namespace std;
 # include <Siv3D/Filesystem.hpp>
 # include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/TextReader.hpp>
-# include <Siv3D/Characterset.hpp>
+# include <Siv3D/CharacterSet.hpp>
 
 BEGIN_AS_NAMESPACE
 
