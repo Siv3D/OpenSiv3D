@@ -166,6 +166,7 @@ namespace s3d
 		if (!fullScreen)
 		{
 			::glfwSetWindowMonitor(m_glfwWindow, nullptr, 0, 0, size.x, size.y, GLFW_DONT_CARE);
+			::glfwSetWindowSize(m_glfwWindow, size.x, size.y);
 
 			Siv3DEngine::GetWindow()->setTitle(Siv3DEngine::GetWindow()->getState().title, true);
 			

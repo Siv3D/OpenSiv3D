@@ -146,6 +146,7 @@ namespace s3d
 	void CCursor_Linux::setPos(const int32 x, const int32 y)
 	{
 		// [Siv3D ToDo]
+		// ::glfwSetCursorPos(m_glfwwindow, x, y);
 	}
 
 	void CCursor_Linux::setTransform(const Mat3x2& matrix)
