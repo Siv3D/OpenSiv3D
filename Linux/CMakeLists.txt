@@ -38,7 +38,6 @@ configure_file(./Siv3D_Linux_GLFW_Window_API.h.in ${CMAKE_CURRENT_SOURCE_DIR}/Si
 pkg_check_modules(LIBSIV3D REQUIRED glib-2.0 gobject-2.0 gio-2.0 gl libpng libjpeg x11 xi xinerama xcursor xrandr gl glu freetype2)
 include_directories(
 	"/usr/include"
-	"/usr/include/freetype2"
 
 	"."
 	"../Siv3D/Include"
@@ -289,7 +288,6 @@ set(SOURCE_FILES
 	"../Siv3D/Source/ThirdParty/guetzli/processor.cc"
 	"../Siv3D/Source/ThirdParty/guetzli/quality.cc"
 	"../Siv3D/Source/ThirdParty/guetzli/quantize.cc"
-	"../Siv3D/Source/ThirdParty/guetzli/score.cc"
 	"../Siv3D/Source/ThirdParty/guetzli/score.cc"
 	"../Siv3D/Source/ThirdParty/poly2tri/common/shapes.cc"
 	"../Siv3D/Source/ThirdParty/poly2tri/sweep/advancing_front.cc"
