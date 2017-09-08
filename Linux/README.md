@@ -5,6 +5,7 @@
 OpenSiv3D Linux版をビルドしてアプリケーションを作成するまでの手順を[こちら](INSTALL.md)にまとめてあります。
 
 現状 Ubuntu 16.04 LTS での導入手順しかありませんが、今後他のディストリビューションの情報も追加予定です。
+現在インストール方法が執筆されているディストリビューションは Ubuntu 16.04 LTS と Fedora 26 です。
 
 ## サポート環境
 サポートしているディスプレイサーバはX11のみです。
@@ -21,6 +22,7 @@ OpenSiv3D Linux版をビルドしてアプリケーションを作成するま�
 - boost-filesystem
 - glib2
 - OpenGL
+- GLU
 - GLEW
 - libpng
 - libjpeg (turbojpeg)
@@ -30,25 +32,8 @@ OpenSiv3D Linux版をビルドしてアプリケーションを作成するま�
 - X11 RandR extension (Xrandr)
 - X11 Xinerama extension (Xinerama)
 - X11 cursor management library (XCursor)
+- FreeType2
 
-
-## コンパイル
-以下のコマンドで行なえます。
-```
-cd [適当な作業ディレクトリ]
-cmake [CMakeLists.txtのあるディレクトリへのパス]
-make
-```
-
-正常にコンパイルが終了すると作業ディレクトリに
-「libSiv3D.a」というファイルができているはずです。
-
-cmakeコマンドを実行するときに`-DCMAKE_BUILD_TYPE=Debug`もしくは`Release`を適用すると
-それに対応したオプションがコンパイラに渡されるMakefileが生成されます。
-
-「libSiv3D.a」をリンクしてSiv3Dを使ったプログラムをコンパイルする時には、
-`-lSiv3D`オプションでOpenSiv3Dのライブラリをリンクする他に、依存ライブラリとして、
-`-lboost_filesystem -lboost_system -lglib-2.0 -lgio-2.0 -lgobject-2.0 -lpthread -lGL -lGLEW -lpng -lturbojpeg -lgif -lX11 -lXi -lXrandr -lXinerama -lXcursor -ldl`を指定する必要があります。
 
 ## 現状のOpenSiv3D Windows/macOS版との相違点
 - Cursor::sceenPos()とCursor::previousScreenPos()はそれぞれCursor::clientPos()とCursor::previsouClientPos()と同じ値を返します。(Linuxではディスプレイマネージャによって画面上のどこにカーソルがあるか取得する機能があったりなかったりするため。)
@@ -56,10 +41,3 @@ cmakeコマンドを実行するときに`-DCMAKE_BUILD_TYPE=Debug`もしくは`
 - Cursor::clip()は動作しますが、clipする領域が黒で塗りつぶされます。(clip領域として指定するのに使っているWindowを透明に描画するするコードが上手く動かないため。)対策が分かり次第修正予定です。
 - リソースファイルは実行ファイルと同階層の「resource」ディレクトリ内に配置されます。
 
-## テスト
-テストコードは `Linux/Test` 以下にあります。
-CMakeLists.txtでは、libSiv3D.aが `Linux/Debug` にあることを想定しているため、
-`Linux/Debug` にlibSiv3D.aを配置するか、
-別の場所にlibSiv3D.aを配置する場合はCMakeLists.txtを編集してください。
-
-また、`MSVC`以下にある`example`ディレクトリのある階層でテストプログラムを実行する必要があります。

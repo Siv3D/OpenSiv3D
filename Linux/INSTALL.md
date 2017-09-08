@@ -5,14 +5,7 @@ OpenSiv3D Linux版をコンパイルして実行ファイルを作成するま�
 
 ## Linux版において描画がされない問題への対処
 
-OpenSiv3D Linux版には画面に何も描画されないという問題がありましたが原因が判明して一応解決済みです。
-この不具合を解決するための修正は[本家リポジトリ(Siv3D/OpenSiv3D.git)](https://github.com/Siv3D/OpenSiv3D.git)で行われましたが、
-[移植作業を行っているリポジトリ(wynd2608/OpenSiv3D.git)](https://github.com/wynd2608/OpenSiv3D.git)にはまだ取り込まれていません。
-そのため、最新の移植済みコードを利用する場合には `git clone` で取ってきたソースコードに
-以下の修正を行う必要があります。
-
-- `OpenSiv3D/Siv3D/Source/Siv3D/Shader/GL/CShader_GL.cpp` で宣言されている文字列 `const String vsCode` 内にある「`out vec4 gl_Position;`」の行を削除する。
-- `OpenSiv3D/Siv3D/Source/Siv3D/Renderer2D/GL/GLSpriteBatch.hpp` 内の `setBuffers` 関数内、 `void* pDst  ...` で始まる行を含むブロック冒頭に `if (vertexSize)` と付け足す(該当箇所は2箇所あります)。
+OpenSiv3D Linux版には画面に何も描画されないという問題がありましたが原因が判明して解決済みです(2017/09/08)。
 
 
 ## インストール方法
