@@ -122,3 +122,8 @@ $ sudo dnf install git cmake gcc-c++ libX11-devel libXi-devel libXinerama-devel 
 ## アプリケーションのコンパイル
 依存ライブラリが多いのでコンパイルオプションがだいぶ長くなります。
 `Linux/make_debug.sh` と `Linux/make_release.sh` が1つの.cppファイルからアプリケーションをコンパイルするシェルスクリプトの例としてリポジトリに含まれているので使い回したり参考にしたり等してもらえればと思います。
+
+
+## アプリケーションの実行
+`OpenSiv3D/Linux` ディレクトリ内に `resource` という名前のディレクトリがあります。
+OpenSiv3Dを利用したアプリケーションの実行にはこの `resource` ディレクトリがアプリケーションと同階層に配置されている必要があります。
