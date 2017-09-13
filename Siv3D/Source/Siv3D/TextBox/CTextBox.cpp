@@ -51,7 +51,7 @@ namespace s3d
 			m_markedText = TextInput::GetMarkedText();
 
 			if (!m_markedText &&
-				((MouseL.down() && !rect.mouseOver()) || raw.includes(S3DCHAR('\r')) || raw.includes(S3DCHAR('\t'))))
+				((MouseL.down() && !rect.mouseOver()) || raw.includes(S3DCHAR('\r'))))
 			{
 				m_active = false;
 
@@ -186,6 +186,23 @@ namespace s3d
 	bool TextBox::CTextBox::isActive() const noexcept
 	{
 		return m_active;
+	}
+
+	bool TextBox::CTextBox::hasMarkedText() const noexcept
+	{
+		return !m_markedText.isEmpty();
+	}
+
+	bool TextBox::CTextBox::setActive(const bool active)
+	{
+		if (hasMarkedText())
+		{
+			return false;
+		}
+
+		m_active = active;
+
+		return true;
 	}
 
 	void TextBox::CTextBox::setPos(const Vec2& pos) noexcept
