@@ -12,20 +12,13 @@
 # pragma once
 # include <cfloat>
 # include <emmintrin.h>
+# include "Utility.hpp"
 # include "BigFloat.hpp"
 # include "PointVector.hpp"
 # include "MathConstants.hpp"
 
 namespace s3d
 {
-	namespace detail
-	{
-		constexpr __m128d cV0{ 0.0, 0.0 };
-		constexpr __m128d cV0_5{ 0.5, 0.5 };
-		constexpr __m128d cV1{ 1.0, 1.0 };
-		constexpr __m128d cV3{ 3.0, 3.0 };
-	}
-
 	namespace Math
 	{
 		/// <summary>
@@ -1294,27 +1287,1450 @@ namespace s3d
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		//
 
+		/// <summary>
+		/// 平方根の逆数を計算します。
+		/// </summary>
+		inline float Rsqrt(float x)
+		{
+			return 1.0f / std::sqrt(x);
+		}
 
+		/// <summary>
+		/// 平方根の逆数を計算します。
+		/// </summary>
+		inline double Rsqrt(double x)
+		{
+			return 1.0 / std::sqrt(x);
+		}
 
+		/// <summary>
+		/// 平方根の逆数を計算します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		inline double Rsqrt(Type x)
+		{
+			return Rsqrt(static_cast<double>(x));
+		}
 
+		/// <summary>
+		/// 平方根の逆数を計算します。
+		/// </summary>
+		inline Vec2 Rsqrt(const Point& v)
+		{
+			return{ Rsqrt(v.x), Rsqrt(v.y) };
+		}
 
-		// Rsqrt
-		// Sqrt
-		// Ceil
-		// Floor
-		// Clamp
-		// Saturate
-		// Acos
-		// Asin
-		// Atan
-		// Atan2
-		// Cos
-		// Cosh
-		// Sin
-		// Sinh
-		// Tan
-		// Tanh
-		// Normalize
+		/// <summary>
+		/// 平方根の逆数を計算します。
+		/// </summary>
+		inline Float2 Rsqrt(const Float2& v)
+		{
+			return{ Rsqrt(v.x), Rsqrt(v.y) };
+		}
+
+		/// <summary>
+		/// 平方根の逆数を計算します。
+		/// </summary>
+		inline Float3 Rsqrt(const Float3& v)
+		{
+			return{ Rsqrt(v.x), Rsqrt(v.y), Rsqrt(v.z) };
+		}
+
+		/// <summary>
+		/// 平方根の逆数を計算します。
+		/// </summary>
+		inline Float4 Rsqrt(const Float4& v)
+		{
+			return{ Rsqrt(v.x), Rsqrt(v.y), Rsqrt(v.z), Rsqrt(v.w) };
+		}
+
+		/// <summary>
+		/// 平方根の逆数を計算します。
+		/// </summary>
+		inline Vec2 Rsqrt(const Vec2& v)
+		{
+			return{ Rsqrt(v.x), Rsqrt(v.y) };
+		}
+
+		/// <summary>
+		/// 平方根の逆数を計算します。
+		/// </summary>
+		inline Vec3 Rsqrt(const Vec3& v)
+		{
+			return{ Rsqrt(v.x), Rsqrt(v.y), Rsqrt(v.z) };
+		}
+
+		/// <summary>
+		/// 平方根の逆数を計算します。
+		/// </summary>
+		inline Vec4 Rsqrt(const Vec4& v)
+		{
+			return{ Rsqrt(v.x), Rsqrt(v.y), Rsqrt(v.z), Rsqrt(v.w) };
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// 平方根を計算します。
+		/// </summary>
+		inline float Sqrt(float x)
+		{
+			return std::sqrt(x);
+		}
+
+		/// <summary>
+		/// 平方根を計算します。
+		/// </summary>
+		inline double Sqrt(double x)
+		{
+			return std::sqrt(x);
+		}
+
+		/// <summary>
+		/// 平方根を計算します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		inline double Sqrt(Type x)
+		{
+			return Sqrt(static_cast<double>(x));
+		}
+
+		/// <summary>
+		/// 平方根を計算します。
+		/// </summary>
+		inline Vec2 Sqrt(const Point& v)
+		{
+			return{ Sqrt(v.x), Sqrt(v.y) };
+		}
+
+		/// <summary>
+		/// 平方根を計算します。
+		/// </summary>
+		inline Float2 Sqrt(const Float2& v)
+		{
+			return{ Sqrt(v.x), Sqrt(v.y) };
+		}
+
+		/// <summary>
+		/// 平方根を計算します。
+		/// </summary>
+		inline Float3 Sqrt(const Float3& v)
+		{
+			return{ Sqrt(v.x), Sqrt(v.y), Sqrt(v.z) };
+		}
+
+		/// <summary>
+		/// 平方根を計算します。
+		/// </summary>
+		inline Float4 Sqrt(const Float4& v)
+		{
+			return{ Sqrt(v.x), Sqrt(v.y), Sqrt(v.z), Sqrt(v.w) };
+		}
+
+		/// <summary>
+		/// 平方根を計算します。
+		/// </summary>
+		inline Vec2 Sqrt(const Vec2& v)
+		{
+			return{ Sqrt(v.x), Sqrt(v.y) };
+		}
+
+		/// <summary>
+		/// 平方根を計算します。
+		/// </summary>
+		inline Vec3 Sqrt(const Vec3& v)
+		{
+			return{ Sqrt(v.x), Sqrt(v.y), Sqrt(v.z) };
+		}
+
+		/// <summary>
+		/// 平方根を計算します。
+		/// </summary>
+		inline Vec4 Sqrt(const Vec4& v)
+		{
+			return{ Sqrt(v.x), Sqrt(v.y), Sqrt(v.z), Sqrt(v.w) };
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// 現在の値以上の最小の整数を返します。
+		/// </summary>
+		inline float Ceil(float x)
+		{
+			return std::ceil(x);
+		}
+
+		/// <summary>
+		/// 現在の値以上の最小の整数を返します。
+		/// </summary>
+		inline double Ceil(double x)
+		{
+			return std::ceil(x);
+		}
+
+		/// <summary>
+		/// 現在の値以上の最小の整数を返します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		inline double Ceil(Type x)
+		{
+			return Ceil(static_cast<double>(x));
+		}
+
+		/// <summary>
+		/// 現在の値以上の最小の整数を返します。
+		/// </summary>
+		inline Vec2 Ceil(const Point& v)
+		{
+			return{ Ceil(v.x), Ceil(v.y) };
+		}
+
+		/// <summary>
+		/// 現在の値以上の最小の整数を返します。
+		/// </summary>
+		inline Float2 Ceil(const Float2& v)
+		{
+			return{ Ceil(v.x), Ceil(v.y) };
+		}
+
+		/// <summary>
+		/// 現在の値以上の最小の整数を返します。
+		/// </summary>
+		inline Float3 Ceil(const Float3& v)
+		{
+			return{ Ceil(v.x), Ceil(v.y), Ceil(v.z) };
+		}
+
+		/// <summary>
+		/// 現在の値以上の最小の整数を返します。
+		/// </summary>
+		inline Float4 Ceil(const Float4& v)
+		{
+			return{ Ceil(v.x), Ceil(v.y), Ceil(v.z), Ceil(v.w) };
+		}
+
+		/// <summary>
+		/// 現在の値以上の最小の整数を返します。
+		/// </summary>
+		inline Vec2 Ceil(const Vec2& v)
+		{
+			return{ Ceil(v.x), Ceil(v.y) };
+		}
+
+		/// <summary>
+		/// 現在の値以上の最小の整数を返します。
+		/// </summary>
+		inline Vec3 Ceil(const Vec3& v)
+		{
+			return{ Ceil(v.x), Ceil(v.y), Ceil(v.z) };
+		}
+
+		/// <summary>
+		/// 現在の値以上の最小の整数を返します。
+		/// </summary>
+		inline Vec4 Ceil(const Vec4& v)
+		{
+			return{ Ceil(v.x), Ceil(v.y), Ceil(v.z), Ceil(v.w) };
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// 現在の値以下の最大の整数を返します。
+		/// </summary>
+		inline float Floor(float x)
+		{
+			return std::floor(x);
+		}
+
+		/// <summary>
+		/// 現在の値以下の最大の整数を返します。
+		/// </summary>
+		inline double Floor(double x)
+		{
+			return std::floor(x);
+		}
+
+		/// <summary>
+		/// 現在の値以下の最大の整数を返します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		inline double Floor(Type x)
+		{
+			return Floor(static_cast<double>(x));
+		}
+
+		/// <summary>
+		/// 現在の値以下の最大の整数を返します。
+		/// </summary>
+		inline Vec2 Floor(const Point& v)
+		{
+			return{ Floor(v.x), Floor(v.y) };
+		}
+
+		/// <summary>
+		/// 現在の値以下の最大の整数を返します。
+		/// </summary>
+		inline Float2 Floor(const Float2& v)
+		{
+			return{ Floor(v.x), Floor(v.y) };
+		}
+
+		/// <summary>
+		/// 現在の値以下の最大の整数を返します。
+		/// </summary>
+		inline Float3 Floor(const Float3& v)
+		{
+			return{ Floor(v.x), Floor(v.y), Floor(v.z) };
+		}
+
+		/// <summary>
+		/// 現在の値以下の最大の整数を返します。
+		/// </summary>
+		inline Float4 Floor(const Float4& v)
+		{
+			return{ Floor(v.x), Floor(v.y), Floor(v.z), Floor(v.w) };
+		}
+
+		/// <summary>
+		/// 現在の値以下の最大の整数を返します。
+		/// </summary>
+		inline Vec2 Floor(const Vec2& v)
+		{
+			return{ Floor(v.x), Floor(v.y) };
+		}
+
+		/// <summary>
+		/// 現在の値以下の最大の整数を返します。
+		/// </summary>
+		inline Vec3 Floor(const Vec3& v)
+		{
+			return{ Floor(v.x), Floor(v.y), Floor(v.z) };
+		}
+
+		/// <summary>
+		/// 現在の値以下の最大の整数を返します。
+		/// </summary>
+		inline Vec4 Floor(const Vec4& v)
+		{
+			return{ Floor(v.x), Floor(v.y), Floor(v.z), Floor(v.w) };
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// 四捨五入した値を返します。
+		/// </summary>
+		inline float Round(float x)
+		{
+			return std::round(x);
+		}
+
+		/// <summary>
+		/// 四捨五入した値を返します。
+		/// </summary>
+		inline double Round(double x)
+		{
+			return std::round(x);
+		}
+
+		/// <summary>
+		/// 四捨五入した値を返します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		inline double Round(Type x)
+		{
+			return Round(static_cast<double>(x));
+		}
+
+		/// <summary>
+		/// 四捨五入した値を返します。
+		/// </summary>
+		inline Vec2 Round(const Point& v)
+		{
+			return{ Round(v.x), Round(v.y) };
+		}
+
+		/// <summary>
+		/// 四捨五入した値を返します。
+		/// </summary>
+		inline Float2 Round(const Float2& v)
+		{
+			return{ Round(v.x), Round(v.y) };
+		}
+
+		/// <summary>
+		/// 四捨五入した値を返します。
+		/// </summary>
+		inline Float3 Round(const Float3& v)
+		{
+			return{ Round(v.x), Round(v.y), Round(v.z) };
+		}
+
+		/// <summary>
+		/// 四捨五入した値を返します。
+		/// </summary>
+		inline Float4 Round(const Float4& v)
+		{
+			return{ Round(v.x), Round(v.y), Round(v.z), Round(v.w) };
+		}
+
+		/// <summary>
+		/// 四捨五入した値を返します。
+		/// </summary>
+		inline Vec2 Round(const Vec2& v)
+		{
+			return{ Round(v.x), Round(v.y) };
+		}
+
+		/// <summary>
+		/// 四捨五入した値を返します。
+		/// </summary>
+		inline Vec3 Round(const Vec3& v)
+		{
+			return{ Round(v.x), Round(v.y), Round(v.z) };
+		}
+
+		/// <summary>
+		/// 四捨五入した値を返します。
+		/// </summary>
+		inline Vec4 Round(const Vec4& v)
+		{
+			return{ Round(v.x), Round(v.y), Round(v.z), Round(v.w) };
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// 最小値と最大値の範囲にクランプした値を返します。
+		/// </summary>
+		inline constexpr Point Clamp(const Point& v, int32 min, int32 max)
+		{
+			return{ s3d::Clamp(v.x, min, max), s3d::Clamp(v.y, min, max) };
+		}
+
+		/// <summary>
+		/// 最小値と最大値の範囲にクランプした値を返します。
+		/// </summary>
+		inline constexpr Float2 Clamp(const Float2& v, float min, float max)
+		{
+			return{ s3d::Clamp(v.x, min, max), s3d::Clamp(v.y, min, max) };
+		}
+
+		/// <summary>
+		/// 最小値と最大値の範囲にクランプした値を返します。
+		/// </summary>
+		inline constexpr Float3 Clamp(const Float3& v, float min, float max)
+		{
+			return{ s3d::Clamp(v.x, min, max), s3d::Clamp(v.y, min, max), s3d::Clamp(v.z, min, max) };
+		}
+
+		/// <summary>
+		/// 最小値と最大値の範囲にクランプした値を返します。
+		/// </summary>
+		inline constexpr Float4 Clamp(const Float4& v, float min, float max)
+		{
+			return{ s3d::Clamp(v.x, min, max), s3d::Clamp(v.y, min, max), s3d::Clamp(v.z, min, max), s3d::Clamp(v.w, min, max) };
+		}
+
+		/// <summary>
+		/// 最小値と最大値の範囲にクランプした値を返します。
+		/// </summary>
+		inline constexpr Vec2 Clamp(const Vec2& v, double min, double max)
+		{
+			return{ s3d::Clamp(v.x, min, max), s3d::Clamp(v.y, min, max) };
+		}
+
+		/// <summary>
+		/// 最小値と最大値の範囲にクランプした値を返します。
+		/// </summary>
+		inline constexpr Vec3 Clamp(const Vec3& v, double min, double max)
+		{
+			return{ s3d::Clamp(v.x, min, max), s3d::Clamp(v.y, min, max), s3d::Clamp(v.z, min, max) };
+		}
+
+		/// <summary>
+		/// 最小値と最大値の範囲にクランプした値を返します。
+		/// </summary>
+		inline constexpr Vec4 Clamp(const Vec4& v, double min, double max)
+		{
+			return{ s3d::Clamp(v.x, min, max), s3d::Clamp(v.y, min, max), s3d::Clamp(v.z, min, max), s3d::Clamp(v.w, min, max) };
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// 成分を [0, 1] の範囲にクランプした値を返します。
+		/// </summary>
+		inline constexpr float Saturate(float x)
+		{
+			return s3d::Clamp(x, 0.0f, 1.0f);
+		}
+
+		/// <summary>
+		/// 成分を [0, 1] の範囲にクランプした値を返します。
+		/// </summary>
+		inline constexpr double Saturate(double x)
+		{
+			return s3d::Clamp(x, 0.0, 1.0);
+		}
+
+		/// <summary>
+		/// 成分を [0, 1] の範囲にクランプした値を返します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		inline constexpr double Saturate(Type x)
+		{
+			return Saturate(static_cast<double>(x));
+		}
+
+		/// <summary>
+		/// 成分を [0, 1] の範囲にクランプした値を返します。
+		/// </summary>
+		inline constexpr Vec2 Saturate(const Point& v)
+		{
+			return{ Saturate(v.x), Saturate(v.y) };
+		}
+
+		/// <summary>
+		/// 成分を [0, 1] の範囲にクランプした値を返します。
+		/// </summary>
+		inline constexpr Float2 Saturate(const Float2& v)
+		{
+			return{ Saturate(v.x), Saturate(v.y) };
+		}
+
+		/// <summary>
+		/// 成分を [0, 1] の範囲にクランプした値を返します。
+		/// </summary>
+		inline constexpr Float3 Saturate(const Float3& v)
+		{
+			return{ Saturate(v.x), Saturate(v.y), Saturate(v.z) };
+		}
+
+		/// <summary>
+		/// 成分を [0, 1] の範囲にクランプした値を返します。
+		/// </summary>
+		inline constexpr Float4 Saturate(const Float4& v)
+		{
+			return{ Saturate(v.x), Saturate(v.y), Saturate(v.z), Saturate(v.w) };
+		}
+
+		/// <summary>
+		/// 成分を [0, 1] の範囲にクランプした値を返します。
+		/// </summary>
+		inline constexpr Vec2 Saturate(const Vec2& v)
+		{
+			return{ Saturate(v.x), Saturate(v.y) };
+		}
+
+		/// <summary>
+		/// 成分を [0, 1] の範囲にクランプした値を返します。
+		/// </summary>
+		inline constexpr Vec3 Saturate(const Vec3& v)
+		{
+			return{ Saturate(v.x), Saturate(v.y), Saturate(v.z) };
+		}
+
+		/// <summary>
+		/// 成分を [0, 1] の範囲にクランプした値を返します。
+		/// </summary>
+		inline constexpr Vec4 Saturate(const Vec4& v)
+		{
+			return{ Saturate(v.x), Saturate(v.y), Saturate(v.z), Saturate(v.w) };
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// アークコサインを計算します。
+		/// </summary>
+		inline float Acos(float x)
+		{
+			return std::acos(x);
+		}
+
+		/// <summary>
+		/// アークコサインを計算します。
+		/// </summary>
+		inline double Acos(double x)
+		{
+			return std::acos(x);
+		}
+
+		/// <summary>
+		/// アークコサインを計算します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		inline double Acos(Type x)
+		{
+			return Acos(static_cast<double>(x));
+		}
+
+		/// <summary>
+		/// アークコサインを計算します。
+		/// </summary>
+		inline Vec2 Acos(const Point& v)
+		{
+			return{ Acos(v.x), Acos(v.y) };
+		}
+
+		/// <summary>
+		/// アークコサインを計算します。
+		/// </summary>
+		inline Float2 Acos(const Float2& v)
+		{
+			return{ Acos(v.x), Acos(v.y) };
+		}
+
+		/// <summary>
+		/// アークコサインを計算します。
+		/// </summary>
+		inline Float3 Acos(const Float3& v)
+		{
+			return{ Acos(v.x), Acos(v.y), Acos(v.z) };
+		}
+
+		/// <summary>
+		/// アークコサインを計算します。
+		/// </summary>
+		inline Float4 Acos(const Float4& v)
+		{
+			return{ Acos(v.x), Acos(v.y), Acos(v.z), Acos(v.w) };
+		}
+
+		/// <summary>
+		/// アークコサインを計算します。
+		/// </summary>
+		inline Vec2 Acos(const Vec2& v)
+		{
+			return{ Acos(v.x), Acos(v.y) };
+		}
+
+		/// <summary>
+		/// アークコサインを計算します。
+		/// </summary>
+		inline Vec3 Acos(const Vec3& v)
+		{
+			return{ Acos(v.x), Acos(v.y), Acos(v.z) };
+		}
+
+		/// <summary>
+		/// アークコサインを計算します。
+		/// </summary>
+		inline Vec4 Acos(const Vec4& v)
+		{
+			return{ Acos(v.x), Acos(v.y), Acos(v.z), Acos(v.w) };
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// アークサインを計算します。
+		/// </summary>
+		inline float Asin(float x)
+		{
+			return std::asin(x);
+		}
+
+		/// <summary>
+		/// アークサインを計算します。
+		/// </summary>
+		inline double Asin(double x)
+		{
+			return std::asin(x);
+		}
+
+		/// <summary>
+		/// アークサインを計算します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		inline double Asin(Type x)
+		{
+			return Asin(static_cast<double>(x));
+		}
+
+		/// <summary>
+		/// アークサインを計算します。
+		/// </summary>
+		inline Vec2 Asin(const Point& v)
+		{
+			return{ Asin(v.x), Asin(v.y) };
+		}
+
+		/// <summary>
+		/// アークサインを計算します。
+		/// </summary>
+		inline Float2 Asin(const Float2& v)
+		{
+			return{ Asin(v.x), Asin(v.y) };
+		}
+
+		/// <summary>
+		/// アークサインを計算します。
+		/// </summary>
+		inline Float3 Asin(const Float3& v)
+		{
+			return{ Asin(v.x), Asin(v.y), Asin(v.z) };
+		}
+
+		/// <summary>
+		/// アークサインを計算します。
+		/// </summary>
+		inline Float4 Asin(const Float4& v)
+		{
+			return{ Asin(v.x), Asin(v.y), Asin(v.z), Asin(v.w) };
+		}
+
+		/// <summary>
+		/// アークサインを計算します。
+		/// </summary>
+		inline Vec2 Asin(const Vec2& v)
+		{
+			return{ Asin(v.x), Asin(v.y) };
+		}
+
+		/// <summary>
+		/// アークサインを計算します。
+		/// </summary>
+		inline Vec3 Asin(const Vec3& v)
+		{
+			return{ Asin(v.x), Asin(v.y), Asin(v.z) };
+		}
+
+		/// <summary>
+		/// アークサインを計算します。
+		/// </summary>
+		inline Vec4 Asin(const Vec4& v)
+		{
+			return{ Asin(v.x), Asin(v.y), Asin(v.z), Asin(v.w) };
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// アークタンジェントを計算します。
+		/// </summary>
+		inline float Atan(float x)
+		{
+			return std::atan(x);
+		}
+
+		/// <summary>
+		/// アークタンジェントを計算します。
+		/// </summary>
+		inline double Atan(double x)
+		{
+			return std::atan(x);
+		}
+
+		/// <summary>
+		/// アークタンジェントを計算します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		inline double Atan(Type x)
+		{
+			return Atan(static_cast<double>(x));
+		}
+
+		/// <summary>
+		/// アークタンジェントを計算します。
+		/// </summary>
+		inline Vec2 Atan(const Point& v)
+		{
+			return{ Atan(v.x), Atan(v.y) };
+		}
+
+		/// <summary>
+		/// アークタンジェントを計算します。
+		/// </summary>
+		inline Float2 Atan(const Float2& v)
+		{
+			return{ Atan(v.x), Atan(v.y) };
+		}
+
+		/// <summary>
+		/// アークタンジェントを計算します。
+		/// </summary>
+		inline Float3 Atan(const Float3& v)
+		{
+			return{ Atan(v.x), Atan(v.y), Atan(v.z) };
+		}
+
+		/// <summary>
+		/// アークタンジェントを計算します。
+		/// </summary>
+		inline Float4 Atan(const Float4& v)
+		{
+			return{ Atan(v.x), Atan(v.y), Atan(v.z), Atan(v.w) };
+		}
+
+		/// <summary>
+		/// アークタンジェントを計算します。
+		/// </summary>
+		inline Vec2 Atan(const Vec2& v)
+		{
+			return{ Atan(v.x), Atan(v.y) };
+		}
+
+		/// <summary>
+		/// アークタンジェントを計算します。
+		/// </summary>
+		inline Vec3 Atan(const Vec3& v)
+		{
+			return{ Atan(v.x), Atan(v.y), Atan(v.z) };
+		}
+
+		/// <summary>
+		/// アークタンジェントを計算します。
+		/// </summary>
+		inline Vec4 Atan(const Vec4& v)
+		{
+			return{ Atan(v.x), Atan(v.y), Atan(v.z), Atan(v.w) };
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// y/x のアークタンジェントを計算します。
+		/// </summary>
+		inline float Atan2(float y, float x)
+		{
+			return std::atan2(y, x);
+		}
+
+		/// <summary>
+		/// y/x のアークタンジェントを計算します。
+		/// </summary>
+		inline double Atan2(double y, double x)
+		{
+			return std::atan2(y, x);
+		}
+
+		/// <summary>
+		/// y/x のアークタンジェントを計算します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		inline double Atan2(Type y, Type x)
+		{
+			return Atan2(static_cast<double>(y), static_cast<double>(x));
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// コサインを計算します。
+		/// </summary>
+		inline float Cos(float x)
+		{
+			return std::cos(x);
+		}
+
+		/// <summary>
+		/// コサインを計算します。
+		/// </summary>
+		inline double Cos(double x)
+		{
+			return std::cos(x);
+		}
+
+		/// <summary>
+		/// コサインを計算します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		inline double Cos(Type x)
+		{
+			return Cos(static_cast<double>(x));
+		}
+
+		/// <summary>
+		/// コサインを計算します。
+		/// </summary>
+		inline Vec2 Cos(const Point& v)
+		{
+			return{ Cos(v.x), Cos(v.y) };
+		}
+
+		/// <summary>
+		/// コサインを計算します。
+		/// </summary>
+		inline Float2 Cos(const Float2& v)
+		{
+			return{ Cos(v.x), Cos(v.y) };
+		}
+
+		/// <summary>
+		/// コサインを計算します。
+		/// </summary>
+		inline Float3 Cos(const Float3& v)
+		{
+			return{ Cos(v.x), Cos(v.y), Cos(v.z) };
+		}
+
+		/// <summary>
+		/// コサインを計算します。
+		/// </summary>
+		inline Float4 Cos(const Float4& v)
+		{
+			return{ Cos(v.x), Cos(v.y), Cos(v.z), Cos(v.w) };
+		}
+
+		/// <summary>
+		/// コサインを計算します。
+		/// </summary>
+		inline Vec2 Cos(const Vec2& v)
+		{
+			return{ Cos(v.x), Cos(v.y) };
+		}
+
+		/// <summary>
+		/// コサインを計算します。
+		/// </summary>
+		inline Vec3 Cos(const Vec3& v)
+		{
+			return{ Cos(v.x), Cos(v.y), Cos(v.z) };
+		}
+
+		/// <summary>
+		/// コサインを計算します。
+		/// </summary>
+		inline Vec4 Cos(const Vec4& v)
+		{
+			return{ Cos(v.x), Cos(v.y), Cos(v.z), Cos(v.w) };
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// ハイパボリックコサインを計算します。
+		/// </summary>
+		inline float Cosh(float x)
+		{
+			return std::cosh(x);
+		}
+
+		/// <summary>
+		/// ハイパボリックコサインを計算します。
+		/// </summary>
+		inline double Cosh(double x)
+		{
+			return std::cosh(x);
+		}
+
+		/// <summary>
+		/// ハイパボリックコサインを計算します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		inline double Cosh(Type x)
+		{
+			return Cosh(static_cast<double>(x));
+		}
+
+		/// <summary>
+		/// ハイパボリックコサインを計算します。
+		/// </summary>
+		inline Vec2 Cosh(const Point& v)
+		{
+			return{ Cosh(v.x), Cosh(v.y) };
+		}
+
+		/// <summary>
+		/// ハイパボリックコサインを計算します。
+		/// </summary>
+		inline Float2 Cosh(const Float2& v)
+		{
+			return{ Cosh(v.x), Cosh(v.y) };
+		}
+
+		/// <summary>
+		/// ハイパボリックコサインを計算します。
+		/// </summary>
+		inline Float3 Cosh(const Float3& v)
+		{
+			return{ Cosh(v.x), Cosh(v.y), Cosh(v.z) };
+		}
+
+		/// <summary>
+		/// ハイパボリックコサインを計算します。
+		/// </summary>
+		inline Float4 Cosh(const Float4& v)
+		{
+			return{ Cosh(v.x), Cosh(v.y), Cosh(v.z), Cosh(v.w) };
+		}
+
+		/// <summary>
+		/// ハイパボリックコサインを計算します。
+		/// </summary>
+		inline Vec2 Cosh(const Vec2& v)
+		{
+			return{ Cosh(v.x), Cosh(v.y) };
+		}
+
+		/// <summary>
+		/// ハイパボリックコサインを計算します。
+		/// </summary>
+		inline Vec3 Cosh(const Vec3& v)
+		{
+			return{ Cosh(v.x), Cosh(v.y), Cosh(v.z) };
+		}
+
+		/// <summary>
+		/// ハイパボリックコサインを計算します。
+		/// </summary>
+		inline Vec4 Cosh(const Vec4& v)
+		{
+			return{ Cosh(v.x), Cosh(v.y), Cosh(v.z), Cosh(v.w) };
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// サインを計算します。
+		/// </summary>
+		inline float Sin(float x)
+		{
+			return std::sin(x);
+		}
+
+		/// <summary>
+		/// サインを計算します。
+		/// </summary>
+		inline double Sin(double x)
+		{
+			return std::sin(x);
+		}
+
+		/// <summary>
+		/// サインを計算します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		inline double Sin(Type x)
+		{
+			return Sin(static_cast<double>(x));
+		}
+
+		/// <summary>
+		/// サインを計算します。
+		/// </summary>
+		inline Vec2 Sin(const Point& v)
+		{
+			return{ Sin(v.x), Sin(v.y) };
+		}
+
+		/// <summary>
+		/// サインを計算します。
+		/// </summary>
+		inline Float2 Sin(const Float2& v)
+		{
+			return{ Sin(v.x), Sin(v.y) };
+		}
+
+		/// <summary>
+		/// サインを計算します。
+		/// </summary>
+		inline Float3 Sin(const Float3& v)
+		{
+			return{ Sin(v.x), Sin(v.y), Sin(v.z) };
+		}
+
+		/// <summary>
+		/// サインを計算します。
+		/// </summary>
+		inline Float4 Sin(const Float4& v)
+		{
+			return{ Sin(v.x), Sin(v.y), Sin(v.z), Sin(v.w) };
+		}
+
+		/// <summary>
+		/// サインを計算します。
+		/// </summary>
+		inline Vec2 Sin(const Vec2& v)
+		{
+			return{ Sin(v.x), Sin(v.y) };
+		}
+
+		/// <summary>
+		/// サインを計算します。
+		/// </summary>
+		inline Vec3 Sin(const Vec3& v)
+		{
+			return{ Sin(v.x), Sin(v.y), Sin(v.z) };
+		}
+
+		/// <summary>
+		/// サインを計算します。
+		/// </summary>
+		inline Vec4 Sin(const Vec4& v)
+		{
+			return{ Sin(v.x), Sin(v.y), Sin(v.z), Sin(v.w) };
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// ハイパボリックサインを計算します。
+		/// </summary>
+		inline float Sinh(float x)
+		{
+			return std::sinh(x);
+		}
+
+		/// <summary>
+		/// ハイパボリックサインを計算します。
+		/// </summary>
+		inline double Sinh(double x)
+		{
+			return std::sinh(x);
+		}
+
+		/// <summary>
+		/// ハイパボリックサインを計算します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		inline double Sinh(Type x)
+		{
+			return Sinh(static_cast<double>(x));
+		}
+
+		/// <summary>
+		/// ハイパボリックサインを計算します。
+		/// </summary>
+		inline Vec2 Sinh(const Point& v)
+		{
+			return{ Sinh(v.x), Sinh(v.y) };
+		}
+
+		/// <summary>
+		/// ハイパボリックサインを計算します。
+		/// </summary>
+		inline Float2 Sinh(const Float2& v)
+		{
+			return{ Sinh(v.x), Sinh(v.y) };
+		}
+
+		/// <summary>
+		/// ハイパボリックサインを計算します。
+		/// </summary>
+		inline Float3 Sinh(const Float3& v)
+		{
+			return{ Sinh(v.x), Sinh(v.y), Sinh(v.z) };
+		}
+
+		/// <summary>
+		/// ハイパボリックサインを計算します。
+		/// </summary>
+		inline Float4 Sinh(const Float4& v)
+		{
+			return{ Sinh(v.x), Sinh(v.y), Sinh(v.z), Sinh(v.w) };
+		}
+
+		/// <summary>
+		/// ハイパボリックサインを計算します。
+		/// </summary>
+		inline Vec2 Sinh(const Vec2& v)
+		{
+			return{ Sinh(v.x), Sinh(v.y) };
+		}
+
+		/// <summary>
+		/// ハイパボリックサインを計算します。
+		/// </summary>
+		inline Vec3 Sinh(const Vec3& v)
+		{
+			return{ Sinh(v.x), Sinh(v.y), Sinh(v.z) };
+		}
+
+		/// <summary>
+		/// ハイパボリックサインを計算します。
+		/// </summary>
+		inline Vec4 Sinh(const Vec4& v)
+		{
+			return{ Sinh(v.x), Sinh(v.y), Sinh(v.z), Sinh(v.w) };
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// タンジェントを計算します。
+		/// </summary>
+		inline float Tan(float x)
+		{
+			return std::tan(x);
+		}
+
+		/// <summary>
+		/// タンジェントを計算します。
+		/// </summary>
+		inline double Tan(double x)
+		{
+			return std::tan(x);
+		}
+
+		/// <summary>
+		/// タンジェントを計算します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		inline double Tan(Type x)
+		{
+			return Tan(static_cast<double>(x));
+		}
+
+		/// <summary>
+		/// タンジェントを計算します。
+		/// </summary>
+		inline Vec2 Tan(const Point& v)
+		{
+			return{ Tan(v.x), Tan(v.y) };
+		}
+
+		/// <summary>
+		/// タンジェントを計算します。
+		/// </summary>
+		inline Float2 Tan(const Float2& v)
+		{
+			return{ Tan(v.x), Tan(v.y) };
+		}
+
+		/// <summary>
+		/// タンジェントを計算します。
+		/// </summary>
+		inline Float3 Tan(const Float3& v)
+		{
+			return{ Tan(v.x), Tan(v.y), Tan(v.z) };
+		}
+
+		/// <summary>
+		/// タンジェントを計算します。
+		/// </summary>
+		inline Float4 Tan(const Float4& v)
+		{
+			return{ Tan(v.x), Tan(v.y), Tan(v.z), Tan(v.w) };
+		}
+
+		/// <summary>
+		/// タンジェントを計算します。
+		/// </summary>
+		inline Vec2 Tan(const Vec2& v)
+		{
+			return{ Tan(v.x), Tan(v.y) };
+		}
+
+		/// <summary>
+		/// タンジェントを計算します。
+		/// </summary>
+		inline Vec3 Tan(const Vec3& v)
+		{
+			return{ Tan(v.x), Tan(v.y), Tan(v.z) };
+		}
+
+		/// <summary>
+		/// タンジェントを計算します。
+		/// </summary>
+		inline Vec4 Tan(const Vec4& v)
+		{
+			return{ Tan(v.x), Tan(v.y), Tan(v.z), Tan(v.w) };
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// ハイパボリックタンジェントを計算します。
+		/// </summary>
+		inline float Tanh(float x)
+		{
+			return std::tanh(x);
+		}
+
+		/// <summary>
+		/// ハイパボリックタンジェントを計算します。
+		/// </summary>
+		inline double Tanh(double x)
+		{
+			return std::tanh(x);
+		}
+
+		/// <summary>
+		/// ハイパボリックタンジェントを計算します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		inline double Tanh(Type x)
+		{
+			return Tanh(static_cast<double>(x));
+		}
+
+		/// <summary>
+		/// ハイパボリックタンジェントを計算します。
+		/// </summary>
+		inline Vec2 Tanh(const Point& v)
+		{
+			return{ Tanh(v.x), Tanh(v.y) };
+		}
+
+		/// <summary>
+		/// ハイパボリックタンジェントを計算します。
+		/// </summary>
+		inline Float2 Tanh(const Float2& v)
+		{
+			return{ Tanh(v.x), Tanh(v.y) };
+		}
+
+		/// <summary>
+		/// ハイパボリックタンジェントを計算します。
+		/// </summary>
+		inline Float3 Tanh(const Float3& v)
+		{
+			return{ Tanh(v.x), Tanh(v.y), Tanh(v.z) };
+		}
+
+		/// <summary>
+		/// ハイパボリックタンジェントを計算します。
+		/// </summary>
+		inline Float4 Tanh(const Float4& v)
+		{
+			return{ Tanh(v.x), Tanh(v.y), Tanh(v.z), Tanh(v.w) };
+		}
+
+		/// <summary>
+		/// ハイパボリックタンジェントを計算します。
+		/// </summary>
+		inline Vec2 Tanh(const Vec2& v)
+		{
+			return{ Tanh(v.x), Tanh(v.y) };
+		}
+
+		/// <summary>
+		/// ハイパボリックタンジェントを計算します。
+		/// </summary>
+		inline Vec3 Tanh(const Vec3& v)
+		{
+			return{ Tanh(v.x), Tanh(v.y), Tanh(v.z) };
+		}
+
+		/// <summary>
+		/// ハイパボリックタンジェントを計算します。
+		/// </summary>
+		inline Vec4 Tanh(const Vec4& v)
+		{
+			return{ Tanh(v.x), Tanh(v.y), Tanh(v.z), Tanh(v.w) };
+		}
+
+		//
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+
+		/// <summary>
+		/// 正規化したベクトルを返します。
+		/// </summary>
+		inline float Normalize(float x)
+		{
+			return x ? 1.0f : 0.0f;
+		}
+
+		/// <summary>
+		/// 正規化したベクトルを返します。
+		/// </summary>
+		inline double Normalize(double x)
+		{
+			return x ? 1.0 : 0.0;
+		}
+
+		/// <summary>
+		/// 正規化したベクトルを返します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		inline double Normalize(Type x)
+		{
+			return Normalize(static_cast<double>(x));
+		}
+
+		/// <summary>
+		/// 正規化したベクトルを返します。
+		/// </summary>
+		inline Vec2 Normalize(const Point& v)
+		{
+			return Vec2(v).normalized();
+		}
+
+		/// <summary>
+		/// 正規化したベクトルを返します。
+		/// </summary>
+		inline Float2 Normalize(const Float2& v)
+		{
+			return v.normalized();
+		}
+
+		/// <summary>
+		/// 正規化したベクトルを返します。
+		/// </summary>
+		inline Float3 Normalize(const Float3& v)
+		{
+			return v.normalized();
+		}
+
+		/// <summary>
+		/// 正規化したベクトルを返します。
+		/// </summary>
+		inline Float4 Normalize(const Float4& v)
+		{
+			return v.normalized();
+		}
+
+		/// <summary>
+		/// 正規化したベクトルを返します。
+		/// </summary>
+		inline Vec2 Normalize(const Vec2& v)
+		{
+			return v.normalized();
+		}
+
+		/// <summary>
+		/// 正規化したベクトルを返します。
+		/// </summary>
+		inline Vec3 Normalize(const Vec3& v)
+		{
+			return v.normalized();
+		}
+
+		/// <summary>
+		/// 正規化したベクトルを返します。
+		/// </summary>
+		inline Vec4 Normalize(const Vec4& v)
+		{
+			return v.normalized();
+		}
 
 		//
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
