@@ -644,6 +644,9 @@
 		2C34907D1F5C92560053C3D8 /* CTobii_Windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C3490781F5C92560053C3D8 /* CTobii_Windows.cpp */; };
 		2C34907E1F5C92560053C3D8 /* CTobii_Windows.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490791F5C92560053C3D8 /* CTobii_Windows.hpp */; };
 		2C34907F1F5C92560053C3D8 /* SivTobii.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C34907A1F5C92560053C3D8 /* SivTobii.cpp */; };
+		2C3490841F6C07CA0053C3D8 /* tobii.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490811F6C07CA0053C3D8 /* tobii.h */; };
+		2C3490851F6C07CA0053C3D8 /* tobii_streams.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490821F6C07CA0053C3D8 /* tobii_streams.h */; };
+		2C3490861F6C07CA0053C3D8 /* tobii_wearable.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490831F6C07CA0053C3D8 /* tobii_wearable.h */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
 		2C81C0021E89F8E300D27E52 /* butteraugli.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C81BE141E89F8E300D27E52 /* butteraugli.cc */; };
@@ -1641,6 +1644,9 @@
 		2C3490781F5C92560053C3D8 /* CTobii_Windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTobii_Windows.cpp; sourceTree = "<group>"; };
 		2C3490791F5C92560053C3D8 /* CTobii_Windows.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTobii_Windows.hpp; sourceTree = "<group>"; };
 		2C34907A1F5C92560053C3D8 /* SivTobii.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTobii.cpp; sourceTree = "<group>"; };
+		2C3490811F6C07CA0053C3D8 /* tobii.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tobii.h; sourceTree = "<group>"; };
+		2C3490821F6C07CA0053C3D8 /* tobii_streams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tobii_streams.h; sourceTree = "<group>"; };
+		2C3490831F6C07CA0053C3D8 /* tobii_wearable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tobii_wearable.h; sourceTree = "<group>"; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
 		2C5869261E3F0C620028B9F0 /* lpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lpng.a; sourceTree = "<group>"; };
@@ -3952,6 +3958,16 @@
 			path = Tobii;
 			sourceTree = "<group>";
 		};
+		2C3490801F6C07CA0053C3D8 /* tobii */ = {
+			isa = PBXGroup;
+			children = (
+				2C3490811F6C07CA0053C3D8 /* tobii.h */,
+				2C3490821F6C07CA0053C3D8 /* tobii_streams.h */,
+				2C3490831F6C07CA0053C3D8 /* tobii_wearable.h */,
+			);
+			path = tobii;
+			sourceTree = "<group>";
+		};
 		2C38B1471CDEB45C007A7E9F /* Lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -4004,6 +4020,7 @@
 		2C81BE121E89F8E300D27E52 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				2C3490801F6C07CA0053C3D8 /* tobii */,
 				2C15852E1F0F70AB002687D2 /* XAudio2_7 */,
 				2C15814E1F0A048F002687D2 /* FID */,
 				2C8E40871EFAD70900F30069 /* zstd */,
@@ -4863,6 +4880,7 @@
 				2C1584B01F0D3B46002687D2 /* CTextInput_Windows.hpp in Headers */,
 				2CCA365D1ECC748F00078678 /* ftstream.h in Headers */,
 				2C3490721F5B0C170053C3D8 /* OptimalScreen.hpp in Headers */,
+				2C3490841F6C07CA0053C3D8 /* tobii.h in Headers */,
 				2CCA36621ECC748F00078678 /* pshints.h in Headers */,
 				2C0C7DAB1EBCC39B00386CBB /* TextWriter.hpp in Headers */,
 				2CCA36391ECC748E00078678 /* ftgxval.h in Headers */,
@@ -4993,6 +5011,7 @@
 				2C81C0641E89F8E300D27E52 /* jpeg_huffman_decode.h in Headers */,
 				2CCA36571ECC748F00078678 /* fthash.h in Headers */,
 				2C1584B51F0D3B46002687D2 /* CTextReader.hpp in Headers */,
+				2C3490851F6C07CA0053C3D8 /* tobii_streams.h in Headers */,
 				2C0C7DB11EBCC39B00386CBB /* Types.hpp in Headers */,
 				2C0C7D641EBCC39B00386CBB /* HashSet.hpp in Headers */,
 				2C1583D91F0D3B46002687D2 /* CDragDrop_Windows.hpp in Headers */,
@@ -5040,6 +5059,7 @@
 				2C2E829B1EAA1B3A0057BDAF /* filewritestream.h in Headers */,
 				2C81C0561E89F8E300D27E52 /* idct.h in Headers */,
 				2C8E40B71EFAD70900F30069 /* threading.h in Headers */,
+				2C3490861F6C07CA0053C3D8 /* tobii_wearable.h in Headers */,
 				2C0C7D351EBCC39B00386CBB /* BinaryReader.hpp in Headers */,
 				2C0C7DAD1EBCC39B00386CBB /* Time.hpp in Headers */,
 				2CCA358B1EC86CD600078678 /* hopscotch_set.h in Headers */,
