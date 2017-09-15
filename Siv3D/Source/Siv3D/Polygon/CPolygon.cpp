@@ -82,7 +82,7 @@ namespace s3d
 			return;
 		}
 
-		m_holes.removed_if([](const Array<Vec2>& hole) { return hole.size() < 3; });
+		m_holes.remove_if([](const Array<Vec2>& hole) { return hole.size() < 3; });
 
 		m_polygon.outer().assign(pVertex, pVertex + vertexSize);
 

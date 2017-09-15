@@ -68,6 +68,7 @@ namespace s3d
 
 		static Shape2D RectBalloon(const RectF& rect, const Vec2& target, double pointingRootRatio = 0.5);
 
+		static Shape2D Stairs(const Vec2& base, double w, double h, int32 steps, bool upStairs = true);
 
 		//static Shape2D DoubleArrow(const Vec2& a, const Vec2& b, double width, const Vec2& headSize);		
 
