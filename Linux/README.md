@@ -21,6 +21,7 @@ OpenSiv3D Linux版をビルドしてアプリケーションを作成するま�
 - boost
 - boost-system
 - boost-filesystem
+  - 必要なboostのバージョンについては `OpenSiv3D/Dependencies/README.md` を参照してください。
 - glib2
 - OpenGL
 - GLU
