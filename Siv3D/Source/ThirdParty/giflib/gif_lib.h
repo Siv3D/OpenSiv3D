@@ -4,6 +4,18 @@ gif_lib.h - service library for decoding and encoding GIF images
                                                                              
 *****************************************************************************/
 
+//-----------------------------------------------
+//
+//  [Siv3D]
+//
+//  This file is modified for the Siv3D Engine.
+//
+//  Copyright (C) 2008-2017 Ryo Suzuki
+//  Copyright (C) 2016-2017 OpenSiv3D Project
+//
+//-----------------------------------------------
+
+
 #ifndef _GIF_LIB_H_
 #define _GIF_LIB_H_ 1
 
@@ -244,8 +256,14 @@ extern ColorMapObject *GifUnionColorMap(const ColorMapObject *ColorIn1,
                                      GifPixelType ColorTransIn2[]);
 extern int GifBitSize(int n);
 
-extern void *
-reallocarray(void *optr, size_t nmemb, size_t size);
+//-----------------------------------------------
+//
+//  [Siv3D]
+//
+// extern void *reallocarray(void *optr, size_t nmemb, size_t size);
+extern void *reallocarray(void *optr, size_t nmemb, size_t size) noexcept;
+//
+//-----------------------------------------------
 
 /******************************************************************************
  Support for the in-core structures allocation (slurp mode).              
