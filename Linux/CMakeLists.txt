@@ -5,13 +5,13 @@ find_package(PkgConfig)
 project(OpenSiv3D_Linux CXX)
 enable_language(C)
 
-#set(CMAKE_CXX_COMPILER "clang++")
-set(CMAKE_CXX_COMPILER "g++")
+set(CMAKE_CXX_COMPILER "clang++")
+#set(CMAKE_CXX_COMPILER "g++")
 set(CMAKE_CXX_FLAGS "-std=c++17 -Wall -Wextra -Wno-unknown-pragmas -fPIC")
 set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg")
-set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG -march=native")
+set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG -march=x86_64")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -Og -pg")
-set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -DNDEBUG -march=native")
+set(CMAKE_CXX_FLAGS_MINSIZEREL "-O2 -DNDEBUG -march=x86_64")
 
 #set(CMAKE_BUILD_TYPE Release)
 

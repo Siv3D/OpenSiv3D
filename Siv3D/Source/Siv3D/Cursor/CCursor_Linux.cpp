@@ -49,60 +49,21 @@ namespace s3d
 
 	void CCursor_Linux::update()
 	{
-		// [TODO] : 子ウィンドウを透明に描画できるようにする
-		static Window grabWindow;
-		static GC gc;
-		if (m_clipRect)
+		// グラブ処理
+		if (!m_grabbing_old && m_grabbing)
 		{
 			Display* display = ::glfwGetX11Display();
-			Window parent = ::glfwGetX11Window(m_glfwWindow);
-			if(m_grabbing == false)
-			{
-				//子ウィンドウを作成しそのウィンドウ内にポインタをgrabする
-				//Mapしていないウィンドウでgrabしようとすると失敗する
-				//そのため子ウィンドウは透明にして見えなくする
-				XVisualInfo vinfo;
-				::XMatchVisualInfo(display, DefaultScreen(display), 32, TrueColor, &vinfo);
-				::XSetWindowAttributes attr;
-				attr.colormap = XCreateColormap(display, DefaultRootWindow(display), vinfo.visual, AllocNone);
-				attr.background_pixmap = None;
-				attr.border_pixel = 0;
-				attr.background_pixel = 0;
-				printf("depth : %d\n", vinfo.depth);
+			Window window = ::glfwGetX11Window(m_glfwWindow);
 
-				grabWindow = ::XCreateWindow(display, parent,
-					m_clipRect->x, m_clipRect->y, m_clipRect->w, m_clipRect->h, 0,
-					vinfo.depth, InputOutput, vinfo.visual,
-					CWColormap | CWBorderPixel | CWBackPixel, &attr);
-				//gc = ::XCreateGC(display, grabWindow, 0, 0);
-				::XMapSubwindows(display, parent);
-
-				XWindowAttributes xwa;
-				XGetWindowAttributes(display, grabWindow, &xwa);
-				printf("depth : %d\n", xwa.depth);
-			}
-			else
-			{
-				//m_clipRectが変更された場合子ウィンドウもそれに合わせて変更する
-				::XMoveResizeWindow(display, grabWindow,
-					m_clipRect->x, m_clipRect->y, m_clipRect->w, m_clipRect->h);
-			}
-
-			::XGrabPointer(display, parent, True, 0,
-				GrabModeAsync, GrabModeAsync, grabWindow, None, CurrentTime);
-
-			m_grabbing = true;
+			::XGrabPointer(display, window, True, 0,
+				GrabModeAsync, GrabModeAsync, window, None, CurrentTime);
 		}
-		else
+		else if(m_grabbing_old && !m_grabbing)
 		{
-			if(m_grabbing == true)
-			{
-				Display* display = ::glfwGetX11Display();
-				::XUngrabPointer(display, CurrentTime);
-				::XDestroyWindow(display, grabWindow);
-				m_grabbing = false;
-			}
+			Display* display = ::glfwGetX11Display();
+			::XUngrabPointer(display, CurrentTime);
 		}
+		m_grabbing_old = m_grabbing;
 
 		double clientX, clientY;
 		::glfwGetCursorPos(m_glfwWindow, &clientX, &clientY);
@@ -171,9 +132,14 @@ namespace s3d
 		return m_transform;
 	}
 
+	void CCursor_Linux::clipClientRect(bool grab)
+	{
+		m_grabbing = !m_grabbing;
+	}
+
 	void CCursor_Linux::clip(const Optional<Rect>& rect)
 	{
-		m_clipRect = rect;
+		// OpenSiv3D for Linux doesn't support Cursor::Clip()
 	}
 
 	void CCursor_Linux::setStyle(CursorStyle style)
