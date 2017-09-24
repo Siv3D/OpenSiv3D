@@ -38,7 +38,7 @@ int main(int, char* argv[])
 {
 	using namespace s3d;
 
-	std::cout << "Siv3D for Linux\n";
+	std::cout << "OpenSiv3D for Linux\n";
 
 	const FilePath path = CharacterSet::Widen(argv[0]);
 	FilePath modulePath = FileSystem::ParentPath(path, 0);
