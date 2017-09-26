@@ -21,7 +21,7 @@ namespace s3d
 
 	# define S3D_TOBII_DEFAULT_DLL_PATH	S3DSTR("dll_x86/tobii/tobii_stream_engine.dll")
 
-# elif defined(SIV3D_TARGET_WINDOWS_DESKTOP_X86)
+# elif defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64)
 
 	# define S3D_TOBII_DEFAULT_DLL_PATH S3DSTR("dll_x64/tobii/tobii_stream_engine.dll")
 
