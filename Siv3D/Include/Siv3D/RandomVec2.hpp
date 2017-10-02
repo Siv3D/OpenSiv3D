@@ -13,6 +13,7 @@
 # include "Random.hpp"
 # include "PointVector.hpp"
 # include "Rectangle.hpp"
+# include "Triangle.hpp"
 # include "MathConstants.hpp"
 
 namespace s3d
@@ -51,12 +52,12 @@ namespace s3d
 		return RandomVec2({ 0.0, xMax }, { 0.0, yMax });
 	}
 
-	//inline Vec2 RandomVec2(const Circle& circle)
-	//{
-	//	const double r = sqrt(Random()) * circle.r;
-	//	const double theta = Random(Math::TwoPi);
-	//	return circle.center.movedBy(std::cos(theta)*r, std::sin(theta)*r);
-	//}
+	inline Vec2 RandomVec2(const Circle& circle)
+	{
+		const double r = std::sqrt(Random()) * circle.r;
+		const double theta = Random(Math::TwoPi);
+		return circle.center.movedBy(std::cos(theta) * r, std::sin(theta) * r);
+	}
 
 	inline Vec2 RandomVec2(const RectF& rect)
 	{
@@ -64,5 +65,22 @@ namespace s3d
 		p.x = Random(rect.x, rect.x + rect.w);
 		p.y = Random(rect.y, rect.y + rect.h);
 		return p;
+	}
+
+	inline Vec2 RandomVec2(const Triangle& triangle)
+	{
+		const Vec2 v0 = triangle.p1 - triangle.p0;
+		const Vec2 v1 = triangle.p2 - triangle.p0;
+
+		double u = Random();
+		double v = Random();
+
+		if (u + v > 1.0)
+		{
+			u = 1.0 - u;
+			v = 1.0 - v;
+		}
+
+		return triangle.p0 + u * v0 + v * v1;
 	}
 }

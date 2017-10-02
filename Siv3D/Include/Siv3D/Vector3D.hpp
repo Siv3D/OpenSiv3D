@@ -320,12 +320,12 @@ namespace s3d
 			return *this;
 		}
 
-		S3D_NODISCARD constexpr Vector3D movedBy(value_type _x, value_type _y, value_type _z) const noexcept
+		[[nodiscard]] constexpr Vector3D movedBy(value_type _x, value_type _y, value_type _z) const noexcept
 		{
 			return{ x + _x, y + _y, z + _z };
 		}
 
-		S3D_NODISCARD constexpr Vector3D movedBy(const Vector3D& v) const noexcept
+		[[nodiscard]] constexpr Vector3D movedBy(const Vector3D& v) const noexcept
 		{
 			return{ x + v.x, y + v.y, z + v.z };
 		}
@@ -402,7 +402,7 @@ namespace s3d
 			return (*this - v).lengthSq();
 		}
 
-		S3D_NODISCARD Vector3D normalized() const noexcept
+		[[nodiscard]] Vector3D normalized() const noexcept
 		{
 			return *this * lengthInv();
 		}
@@ -412,7 +412,7 @@ namespace s3d
 			return *this *= lengthInv();
 		}
 
-		S3D_NODISCARD constexpr Vector3D lerp(const Vector3D& other, double f) const noexcept
+		[[nodiscard]] constexpr Vector3D lerp(const Vector3D& other, double f) const noexcept
 		{
 			return Vector3D(x + (other.x - x) * f, y + (other.y - y) * f, z + (other.z - z) * f);
 		}
@@ -517,7 +517,7 @@ namespace s3d
 	template <class Type, class U>
 	inline constexpr Vector3D<Type> operator *(U s, const Vector3D<Type>& v) noexcept
 	{
-		return v * s;
+		return v * static_cast<Type>(s);
 	}
 
 	using Float3	= Vector3D<float>;
@@ -529,7 +529,7 @@ namespace std
 	template <class Type>
 	struct hash<s3d::Vector3D<Type>>
 	{
-		size_t operator()(const s3d::Vector3D<Type>& keyVal) const
+		size_t operator()(const s3d::Vector3D<Type>& keyVal) const noexcept
 		{
 			return s3d::Hash::FNV1a(keyVal);
 		}

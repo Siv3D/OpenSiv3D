@@ -119,6 +119,22 @@ namespace s3d
 			Default = None | Sub | Up | Avg | Paeth,
 		};
 	};
+	
+	enum class PPMType
+	{
+		P1,
+		P2,
+		P3,
+		P4,
+		P5,
+		P6,
+		Ascii01 = P1,
+		AsciiGray = P2,
+		AsciiRGB = P3,
+		Binary01 = P4,
+		BinaryGray = P5,
+		BinaryRGB = P6
+	};
 
 	class IImageFormat
 	{

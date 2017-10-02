@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the HamFramework for Siv3D.
 //
@@ -44,11 +44,11 @@ namespace s3d
 
 			if (sx <= sy)
 			{
-				return Transformer2D(Mat3x2::Scale(s).translate(0, (Window::Height() - baseSize.y * s) * 0.5), true);
+				return Transformer2D(Mat3x2::Scale(s).translated(0, (Window::Height() - baseSize.y * s) * 0.5), true, Transformer2D::Target::PushScreen);
 			}
 			else
 			{
-				return Transformer2D(Mat3x2::Scale(s).translate((Window::Width() - baseSize.x * s) * 0.5, 0), true);
+				return Transformer2D(Mat3x2::Scale(s).translated((Window::Width() - baseSize.x * s) * 0.5, 0), true, Transformer2D::Target::PushScreen);
 			}
 		}
 
@@ -102,7 +102,7 @@ namespace s3d
 			}
 			else
 			{
-				return{};
+				return Array<RectF>();
 			}
 		}
 
@@ -113,7 +113,9 @@ namespace s3d
 
 		inline void DrawBlackBars(const ColorF& color = Palette::Black, const Size& baseSize = Window::BaseSize())
 		{
-			const Transformer2D transformer(Graphics2D::GetTransform().inversed());
+			const Transformer2D transformerLocal(Mat3x2::Identity(), Transformer2D::Target::SetLocal);
+			const Transformer2D transformerCamera(Mat3x2::Identity(), Transformer2D::Target::SetCamera);
+			const Transformer2D transformerScreen(Mat3x2::Identity(), Transformer2D::Target::SetScreen);
 
 			for (const auto& bar : GetBlackBars(baseSize))
 			{

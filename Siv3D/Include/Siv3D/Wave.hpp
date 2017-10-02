@@ -142,6 +142,21 @@ namespace s3d
 			return m_samplingRate;
 		}
 
+		void setSamplingRate(uint32 samplingRate) noexcept
+		{
+			m_samplingRate = samplingRate;
+		}
+
+		size_t lengthSample() const noexcept
+		{
+			return size();
+		}
+
+		double lengthSec() const noexcept
+		{
+			return static_cast<double>(size()) / m_samplingRate;
+		}
+
 		Wave& operator <<(const WaveSample& sample)
 		{
 			base_type::push_back(sample);
@@ -198,6 +213,8 @@ namespace s3d
 		{
 			return Wave(base_type::slice(index, length), m_samplingRate);
 		}
+
+		bool saveWAVE(const FilePath& path, WAVEFormat format = WAVEFormat::Default);
 	};
 }
 

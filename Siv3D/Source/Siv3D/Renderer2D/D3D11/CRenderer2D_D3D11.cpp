@@ -149,7 +149,7 @@ namespace s3d
 		return true;
 	}
 
-	void CRenderer2D_D3D11::flush()
+	void CRenderer2D_D3D11::flush(const bool clearGraphics)
 	{
 		CGraphics_D3D11* const pGraphics = dynamic_cast<CGraphics_D3D11* const>(Siv3DEngine::GetGraphics());
 		CTexture_D3D11* const pTexture = dynamic_cast<CTexture_D3D11* const>(Siv3DEngine::GetTexture());
@@ -315,9 +315,12 @@ namespace s3d
 			commandPointer += header->commandSize;
 		}
 
-		m_spriteBatch.clear();
+		if (clearGraphics)
+		{
+			m_spriteBatch.clear();
 
-		m_commandManager.reset();
+			m_commandManager.reset();
+		}
 	}
 
 	void CRenderer2D_D3D11::setBlendState(const BlendState& state)
@@ -385,14 +388,34 @@ namespace s3d
 		return m_commandManager.getCurrentViewport();
 	}
 
-	void CRenderer2D_D3D11::setTransform(const Mat3x2& matrix)
+	void CRenderer2D_D3D11::setTransformLocal(const Mat3x2& matrix)
 	{
-		m_commandManager.pushTransform(matrix);
+		m_commandManager.pushTransformLocal(matrix);
 	}
 
-	const Mat3x2& CRenderer2D_D3D11::getTransform() const
+	void CRenderer2D_D3D11::setTransformCamera(const Mat3x2& matrix)
 	{
-		return m_commandManager.getCurrentTransform();
+		m_commandManager.pushTransformCamera(matrix);
+	}
+
+	void CRenderer2D_D3D11::setTransformScreen(const Mat3x2& matrix)
+	{
+		m_commandManager.pushTransformScreen(matrix);
+	}
+
+	const Mat3x2& CRenderer2D_D3D11::getTransformLocal() const
+	{
+		return m_commandManager.getCurrentTransformLocal();
+	}
+
+	const Mat3x2& CRenderer2D_D3D11::getTransformCamera() const
+	{
+		return m_commandManager.getCurrentTransformCamera();
+	}
+
+	const Mat3x2& CRenderer2D_D3D11::getTransformScreen() const
+	{
+		return m_commandManager.getCurrentTransformScreen();
 	}
 
 	float CRenderer2D_D3D11::getMaxScaling() const
@@ -1151,7 +1174,7 @@ namespace s3d
 
 		// 大昔に書いたコードなので整理したい
 
-		const float th2 = 0.01f;
+		const float th2 = 0.01f / getMaxScaling();
 
 		Array<Float2> buf;
 		{
@@ -1542,7 +1565,7 @@ namespace s3d
 
 		// 大昔に書いたコードなので整理したい
 
-		const float th2 = 0.01f;
+		const float th2 = 0.01f / getMaxScaling();
 
 		Array<Float2> buf;
 		{

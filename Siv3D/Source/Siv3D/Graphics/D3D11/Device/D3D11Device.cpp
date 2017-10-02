@@ -276,18 +276,18 @@ namespace s3d
 
 	# ifdef _DEBUG
 
-		if (HINSTANCE D3D11_1SDKLayersLibrary = ::LoadLibraryW(S3DWSTR("D3D11_1SDKLayers.dll")))
-		{
-			creationFlags |= D3D11_CREATE_DEVICE_DEBUG;
+		//if (HINSTANCE D3D11_1SDKLayersLibrary = ::LoadLibraryW(S3DWSTR("D3D11_1SDKLayers.dll")))
+		//{
+		//	creationFlags |= D3D11_CREATE_DEVICE_DEBUG;
 
-			::FreeLibrary(D3D11_1SDKLayersLibrary);
+		//	::FreeLibrary(D3D11_1SDKLayersLibrary);
 
-			LOG_INFO(L"🆗 D3D11 debug layer supported");
-		}
-		else
-		{
-			LOG_INFO(L"ℹ️ D3D11 debug layer not supported");
-		}
+		//	LOG_INFO(L"🆗 D3D11 debug layer supported");
+		//}
+		//else
+		//{
+		//	LOG_INFO(L"ℹ️ D3D11 debug layer not supported");
+		//}
 
 	# endif
 

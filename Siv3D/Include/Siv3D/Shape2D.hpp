@@ -66,8 +66,9 @@ namespace s3d
 
 		static Shape2D Rhombus(double w, double h, const Vec2& center = Vec2(0, 0), double angle = 0.0);
 
-		//static Shape2D RectBaloon(const RectF& rect, const Vec2& pointingPos = Vec2(0.0, 0.0), double tailRatio = 0.5, double angle = 0.0);
-		
+		static Shape2D RectBalloon(const RectF& rect, const Vec2& target, double pointingRootRatio = 0.5);
+
+		static Shape2D Stairs(const Vec2& base, double w, double h, int32 steps, bool upStairs = true);
 
 		//static Shape2D DoubleArrow(const Vec2& a, const Vec2& b, double width, const Vec2& headSize);		
 

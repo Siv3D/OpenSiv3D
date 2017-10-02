@@ -46,7 +46,7 @@ namespace s3d
 
 		virtual double getDisplayRefreshRateHz() const = 0;
 
-		virtual bool flush() = 0;
+		virtual bool flush(bool clearGraphics) = 0;
 
 		virtual const Size& getCurrentRenderTargetSize() const = 0;
 

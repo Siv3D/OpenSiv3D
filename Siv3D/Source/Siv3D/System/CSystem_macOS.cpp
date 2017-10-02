@@ -25,6 +25,7 @@
 # include "../Keyboard/IKeyboard.hpp"
 # include "../Mouse/IMouse.hpp"
 # include "../TextInput/ITextInput.hpp"
+# include "../Codec/ICodec.hpp"
 # include "../AudioFormat/IAudioFormat.hpp"
 # include "../Audio/IAudio.hpp"
 # include "../Graphics/IGraphics.hpp"
@@ -103,6 +104,11 @@ namespace s3d
 			return false;
 		}
 
+		if (!Siv3DEngine::GetCodec()->init())
+		{
+			return false;
+		}
+
 		if (!Siv3DEngine::GetAudioFormat()->init())
 		{
 			return false;
@@ -148,7 +154,7 @@ namespace s3d
 		return true;
 	}
 
-	bool CSystem_macOS::update()
+	bool CSystem_macOS::update(bool clearGraphics)
 	{
 		m_previousEvent = m_event.exchange(0);
 
@@ -159,7 +165,7 @@ namespace s3d
 
 		Siv3DEngine::GetPrint()->draw();
 
-		if (!Siv3DEngine::GetGraphics()->flush())
+		if (!Siv3DEngine::GetGraphics()->flush(clearGraphics))
 		{
 			return false;
 		}

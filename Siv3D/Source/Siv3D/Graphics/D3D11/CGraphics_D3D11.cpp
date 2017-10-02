@@ -214,9 +214,9 @@ namespace s3d
 		return m_swapChain->getDisplayRefreshRateHz();
 	}
 
-	bool CGraphics_D3D11::flush()
+	bool CGraphics_D3D11::flush(bool clearGraphics)
 	{
-		m_renderer2D->flush();
+		m_renderer2D->flush(clearGraphics);
 
 		m_renderTarget->resolve();
 

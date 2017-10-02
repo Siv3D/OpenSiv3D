@@ -15,6 +15,7 @@
 # include "RasterizerState.hpp"
 # include "SamplerState.hpp"
 # include "Rectangle.hpp"
+# include "Mat3x2.hpp"
 
 namespace s3d
 {
@@ -114,8 +115,16 @@ namespace s3d
 
 		Optional<Rect> GetViewport();
 		
-		void SetTransform(const Mat3x2& matrix);
+		void SetTransformLocal(const Mat3x2& matrix);
+
+		void SetTransformCamera(const Mat3x2& matrix);
+
+		void SetTransformScreen(const Mat3x2& matrix);
 		
-		const Mat3x2& GetTransform();
+		const Mat3x2& GetTransformLocal();
+
+		const Mat3x2& GetTransformCamera();
+
+		const Mat3x2& GetTransformScreen();
 	}
 }

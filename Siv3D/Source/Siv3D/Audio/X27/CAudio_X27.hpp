@@ -72,11 +72,17 @@ namespace s3d
 
 		void stop(Audio::IDType handleID, const SecondsF& fadeoutDuration) override;
 
+		bool isPlaying(Audio::IDType handleID) override;
+
+		bool isPaused(Audio::IDType handleID) override;
+
 		uint64 posSample(Audio::IDType handleID) override;
 
 		uint64 streamPosSample(Audio::IDType handleID) override;
 
 		uint64 samplesPlayed(Audio::IDType handleID) override;
+
+		const Wave& getWave(Audio::IDType handleID) override;
 
 		void setVolume(Audio::IDType handleID, const std::pair<double, double>& volume) override;
 

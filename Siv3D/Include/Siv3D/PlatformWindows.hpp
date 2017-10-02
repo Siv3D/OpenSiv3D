@@ -18,9 +18,9 @@
 
 # endif
 
-# if(_MSC_FULL_VER < 191025017)
+# if(_MSC_FULL_VER < 191125506)
 
-	# error Visual Studio 2017 が必要です | Visual Studio 2017 or later is required
+	# error Visual Studio 2017 version 15.3 が必要です | Visual Studio 2017 version 15.3 or later is required
 
 # endif
 
@@ -89,3 +89,5 @@
 # pragma comment (lib, "winmm")
 # pragma comment (lib, "Dwmapi")
 # pragma comment (lib, "imm32")
+# pragma comment (lib, "Shlwapi")
+# pragma comment (lib, "mfuuid")

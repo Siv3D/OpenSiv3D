@@ -30,6 +30,7 @@
 # include "../Keyboard/IKeyboard.hpp"
 # include "../Mouse/IMouse.hpp"
 # include "../TextInput/ITextInput.hpp"
+# include "../Codec/ICodec.hpp"
 # include "../AudioFormat/IAudioFormat.hpp"
 # include "../Audio/IAudio.hpp"
 # include "../Graphics/IGraphics.hpp"
@@ -109,6 +110,11 @@ namespace s3d
 			return false;
 		}
 
+		if (!Siv3DEngine::GetCodec()->init())
+		{
+			return false;
+		}
+
 		if (!Siv3DEngine::GetAudioFormat()->init())
 		{
 			return false;
@@ -149,7 +155,7 @@ namespace s3d
 		return true;
 	}
 
-	bool CSystem_Windows::update()
+	bool CSystem_Windows::update(bool clearGraphics)
 	{
 		if (m_setupState == SetupState::Initialized)
 		{
@@ -172,7 +178,7 @@ namespace s3d
 
 		Siv3DEngine::GetPrint()->draw();
 
-		if (!Siv3DEngine::GetGraphics()->flush())
+		if (!Siv3DEngine::GetGraphics()->flush(clearGraphics))
 		{
 			return false;
 		}

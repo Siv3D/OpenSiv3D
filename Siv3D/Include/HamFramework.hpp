@@ -34,5 +34,8 @@
 
 # include "HamFramework/Camera2D.hpp"
 # include "HamFramework/MiniScene.hpp"
+# include "HamFramework/OptimalScreen.hpp"
+# include "HamFramework/PlayingCard.hpp"
 # include "HamFramework/Rx.hpp"
 # include "HamFramework/ScalableWindow.hpp"
+# include "HamFramework/SceneManager.hpp"

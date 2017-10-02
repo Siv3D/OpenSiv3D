@@ -12,6 +12,7 @@
 # pragma once
 # include <Siv3D/Fwd.hpp>
 # include <Siv3D/String.hpp>
+# include <Siv3D/ImageFormat.hpp>
 
 namespace s3d
 {
@@ -40,5 +41,7 @@ namespace s3d
 		virtual MemoryWriter encode(const Image& image, ImageFormat format) const = 0;
 
 		virtual bool encodeJPEG(IWriter& writer, const Image& image, int32 quality) const = 0;
+
+		virtual bool encodePPM(IWriter& writer, const Image& image, PPMType format) const = 0;
 	};
 }

@@ -319,6 +319,15 @@ namespace s3d
 		/// </returns>
 		FilePath CurrentPath();
 
+		/// <summary>
+		/// 特殊フォルダのパスを返します。
+		/// </summary>
+		/// <param name="folder">
+		/// 特殊フォルダのジャンル
+		/// </param>
+		/// <returns>
+		/// 特殊フォルダのパス
+		/// </returns>
 		FilePath SpecialFolderPath(SpecialFolder folder);
 
 		/// <summary>
@@ -388,7 +397,7 @@ namespace s3d
 		/// <returns>
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
-		//bool Copy(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_Exists);
+		bool Copy(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_Exists);
 
 		/// <summary>
 		/// ファイルまたはディレクトリを削除します。

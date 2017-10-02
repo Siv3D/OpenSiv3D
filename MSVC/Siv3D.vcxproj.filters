@@ -524,6 +524,30 @@
     <Filter Include="Source\Siv3D\Audio\X27">
       <UniqueIdentifier>{58d1d4a4-e0b9-427e-9bd8-51cd4f8c1037}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\Codec">
+      <UniqueIdentifier>{b2eec315-fb67-4958-98c9-32abfe3b28cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Codec\MF">
+      <UniqueIdentifier>{59a49ffe-9904-498a-a761-5b0abef1a1c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Codec\Null">
+      <UniqueIdentifier>{2f23e7cc-f055-466b-84ad-26a7648c0a4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\AudioFormat\MP3">
+      <UniqueIdentifier>{7f5614ab-bbf3-4782-8e96-3fc0ddb85fca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ThirdParty\mpg123">
+      <UniqueIdentifier>{6593f260-9f37-4fe7-9284-22c90889abde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\ImageFormat\PPM">
+      <UniqueIdentifier>{8a896298-79db-432e-ae1b-863064dda50f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Tobii">
+      <UniqueIdentifier>{6416253a-f1c6-42e2-b860-329a9f6a6c33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ThirdParty\tobii">
+      <UniqueIdentifier>{1d406378-258c-4948-954f-291b60557ef8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -1948,6 +1972,72 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Script\AngelScript\scriptbuilder.h">
       <Filter>Source\Siv3D\Script\AngelScript</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\HamFramework\PlayingCard.hpp">
+      <Filter>Include\HamFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\HamFramework\SceneManager.hpp">
+      <Filter>Include\HamFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Transition.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Codec\ICodec.hpp">
+      <Filter>Source\Siv3D\Codec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Codec\Null\CCodec_Null.hpp">
+      <Filter>Source\Siv3D\Codec\Null</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Codec\MF\CCodec_MF.hpp">
+      <Filter>Source\Siv3D\Codec\MF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Codec\MF\MFRenderStream.hpp">
+      <Filter>Source\Siv3D\Codec\MF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\AudioFormat\MP3\AudioFormat_MP3_Windows.hpp">
+      <Filter>Source\Siv3D\AudioFormat\MP3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\AudioFormat\MP3\AudioFormat_MP3_macOS.hpp">
+      <Filter>Source\Siv3D\AudioFormat\MP3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\mpg123\fmt123.h">
+      <Filter>Source\ThirdParty\mpg123</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\mpg123\mpg123.h">
+      <Filter>Source\ThirdParty\mpg123</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\ImageFormat\PPM\ImageFormat_PPM.hpp">
+      <Filter>Source\Siv3D\ImageFormat\PPM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\SFMT.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Evaluater.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\HamFramework\OptimalScreen.hpp">
+      <Filter>Include\HamFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Tobii.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\tobii\tobii.h">
+      <Filter>Source\ThirdParty\tobii</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\tobii\tobii_streams.h">
+      <Filter>Source\ThirdParty\tobii</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\tobii\tobii_wearable.h">
+      <Filter>Source\ThirdParty\tobii</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Tobii\CTobii_Windows.hpp">
+      <Filter>Source\Siv3D\Tobii</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Tobii\CTobii_macOS.hpp">
+      <Filter>Source\Siv3D\Tobii</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Tobii\CTobii_Linux.hpp">
+      <Filter>Source\Siv3D\Tobii</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -2900,6 +2990,30 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\GL\CTexture_GL.cpp">
       <Filter>Source\Siv3D\Texture\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Codec\CodecFactory.cpp">
+      <Filter>Source\Siv3D\Codec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Codec\Null\CCodec_Null.cpp">
+      <Filter>Source\Siv3D\Codec\Null</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Codec\MF\CCodec_MF.cpp">
+      <Filter>Source\Siv3D\Codec\MF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\AudioFormat\MP3\AudioFormat_MP3_Windows.cpp">
+      <Filter>Source\Siv3D\AudioFormat\MP3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\AudioFormat\MP3\AudioFormat_MP3_macOS.cpp">
+      <Filter>Source\Siv3D\AudioFormat\MP3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\ImageFormat\PPM\ImageFormat_PPM.cpp">
+      <Filter>Source\Siv3D\ImageFormat\PPM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Tobii\SivTobii.cpp">
+      <Filter>Source\Siv3D\Tobii</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Tobii\CTobii_Windows.cpp">
+      <Filter>Source\Siv3D\Tobii</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

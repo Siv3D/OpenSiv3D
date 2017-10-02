@@ -86,7 +86,7 @@ namespace s3d
 
 		{
 			D3D11Render2DCommand<D3D11Render2DInstruction::Transform> command;
-			command.matrix = m_currentTransform;
+			command.matrix = m_currentTransformAll;
 			writeCommand(command);
 		}
 
@@ -206,21 +206,63 @@ namespace s3d
 		m_currentViewport = viewport;
 	}
 
-	void D3D11Render2DCommandManager::pushTransform(const Mat3x2& matrix)
+	void D3D11Render2DCommandManager::pushTransformLocal(const Mat3x2& matrix)
 	{
-		if (!::memcmp(&matrix, &m_currentTransform, sizeof(Mat3x2)))
+		if (!::memcmp(&matrix, &m_currentTransformLocal, sizeof(Mat3x2)))
 		{
 			return;
 		}
 
+		m_currentTransformLocal = matrix;
+		
+		m_currentTransformAll = m_currentTransformLocal * m_currentTransformCamera * m_currentTransformScreen;
+
 		D3D11Render2DCommand<D3D11Render2DInstruction::Transform> command;
-		command.matrix = matrix;
+		command.matrix = m_currentTransformAll;
 		writeCommand(command);
 
-		m_currentTransform = matrix;
+		const Float2 sa = m_currentTransformAll.transform(Float2(0.0f, 0.0f));
+		const Float2 sb = m_currentTransformAll.transform(Float2(1.0f, 1.0f));
+		m_currentMaxScaling = sa.distanceFrom(sb) / 1.4142135623730950488016887f;
+	}
 
-		const Float2 sa = matrix.transform(Float2(0.0f, 0.0f));
-		const Float2 sb = matrix.transform(Float2(1.0f, 1.0f));
+	void D3D11Render2DCommandManager::pushTransformCamera(const Mat3x2& matrix)
+	{
+		if (!::memcmp(&matrix, &m_currentTransformCamera, sizeof(Mat3x2)))
+		{
+			return;
+		}
+
+		m_currentTransformCamera = matrix;
+
+		m_currentTransformAll = m_currentTransformLocal * m_currentTransformCamera * m_currentTransformScreen;
+
+		D3D11Render2DCommand<D3D11Render2DInstruction::Transform> command;
+		command.matrix = m_currentTransformAll;
+		writeCommand(command);
+
+		const Float2 sa = m_currentTransformAll.transform(Float2(0.0f, 0.0f));
+		const Float2 sb = m_currentTransformAll.transform(Float2(1.0f, 1.0f));
+		m_currentMaxScaling = sa.distanceFrom(sb) / 1.4142135623730950488016887f;
+	}
+
+	void D3D11Render2DCommandManager::pushTransformScreen(const Mat3x2& matrix)
+	{
+		if (!::memcmp(&matrix, &m_currentTransformScreen, sizeof(Mat3x2)))
+		{
+			return;
+		}
+
+		m_currentTransformScreen = matrix;
+
+		m_currentTransformAll = m_currentTransformLocal * m_currentTransformCamera * m_currentTransformScreen;
+
+		D3D11Render2DCommand<D3D11Render2DInstruction::Transform> command;
+		command.matrix = m_currentTransformAll;
+		writeCommand(command);
+
+		const Float2 sa = m_currentTransformAll.transform(Float2(0.0f, 0.0f));
+		const Float2 sb = m_currentTransformAll.transform(Float2(1.0f, 1.0f));
 		m_currentMaxScaling = sa.distanceFrom(sb) / 1.4142135623730950488016887f;
 	}
 

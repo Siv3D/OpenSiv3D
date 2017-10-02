@@ -490,12 +490,12 @@ namespace s3d
 			return *this;
 		}
 
-		S3D_NODISCARD constexpr Vector4D movedBy(value_type _x, value_type _y, value_type _z, value_type _w) const noexcept
+		[[nodiscard]] constexpr Vector4D movedBy(value_type _x, value_type _y, value_type _z, value_type _w) const noexcept
 		{
 			return{ x + _x, y + _y, z + _z, w + _w };
 		}
 
-		S3D_NODISCARD constexpr Vector4D movedBy(const Vector4D& v) const noexcept
+		[[nodiscard]] constexpr Vector4D movedBy(const Vector4D& v) const noexcept
 		{
 			return{ x + v.x, y + v.y, z + v.z, w + v.w };
 		}
@@ -569,7 +569,7 @@ namespace s3d
 			return (*this - v).lengthSq();
 		}
 
-		S3D_NODISCARD Vector4D normalized() const noexcept
+		[[nodiscard]] Vector4D normalized() const noexcept
 		{
 			return *this * lengthInv();
 		}
@@ -579,7 +579,7 @@ namespace s3d
 			return *this *= lengthInv();
 		}
 
-		S3D_NODISCARD constexpr Vector4D lerp(const Vector4D& other, double f) const noexcept
+		[[nodiscard]] constexpr Vector4D lerp(const Vector4D& other, double f) const noexcept
 		{
 			return Vector4D(x + (other.x - x) * f, y + (other.y - y) * f, z + (other.z - z) * f, w + (other.w - w) * f);
 		}
@@ -644,7 +644,7 @@ namespace s3d
 	template <class Type, class U>
 	inline constexpr Vector3D<Type> operator *(U s, const Vector4D<Type>& v) noexcept
 	{
-		return v * s;
+		return v * static_cast<Type>(s);
 	}
 
 	using Float4	= Vector4D<float>;
@@ -656,7 +656,7 @@ namespace std
 	template <class Type>
 	struct hash<s3d::Vector4D<Type>>
 	{
-		size_t operator()(const s3d::Vector4D<Type>& keyVal) const
+		size_t operator()(const s3d::Vector4D<Type>& keyVal) const noexcept
 		{
 			return s3d::Hash::FNV1a(keyVal);
 		}

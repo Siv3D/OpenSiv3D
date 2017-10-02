@@ -130,6 +130,55 @@ namespace s3d
 
 			return path;
 		}
+		
+		bool CopyDirectory(const fs::path& source, const fs::path& destination)
+		{
+			try
+			{
+				if (!fs::exists(source) || !fs::is_directory(source) )
+				{
+					return false;
+				}
+				
+				if (!fs::exists(destination))
+				{
+					if (!fs::create_directory(destination))
+					{
+						return false;
+					}
+				}
+			}
+			catch (fs::filesystem_error&)
+			{
+				return false;
+			}
+			
+			for (fs::directory_iterator file(source); file != fs::directory_iterator(); ++file)
+			{
+				try
+				{
+					fs::path current(file->path());
+					
+					if (boost::filesystem::is_directory(current))
+					{
+						if (!CopyDirectory(current, destination / current.filename()))
+						{
+							return false;
+						}
+					}
+					else
+					{
+						fs::copy_file(current, destination / current.filename(), fs::copy_option::overwrite_if_exists);
+					}
+				}
+				catch (const fs::filesystem_error&)
+				{
+					return false;
+				}
+			}
+			
+			return true;
+		}
 
 		namespace init
 		{
@@ -395,6 +444,80 @@ namespace s3d
 		FilePath TempDirectoryPath()
 		{
 			return FilePath(fs::temp_directory_path().wstring());
+		}
+		
+		bool Copy(const FilePath& from, const FilePath& _to, const CopyOption copyOption)
+		{
+			if (from.isEmpty() || _to.isEmpty())
+			{
+				return false;
+			}
+			
+			//if (detail::IsResourcePath(from) || detail::IsResourcePath(_to))
+			//{
+			//	return false;
+			//}
+			
+			const bool exists = !detail::IsNotFound(_to);
+			
+			if (copyOption == CopyOption::Fail_if_Exists && exists)
+			{
+				return false;
+			}
+			
+			FilePath to = _to;
+			
+			if (copyOption == CopyOption::Rename_if_Exists && exists)
+			{
+				const FilePath head = ParentPath(_to) + FileName(_to);
+				String ext = Extension(_to);
+				
+				if (!ext.isEmpty())
+				{
+					ext.push_front(S3DCHAR('.'));
+				}
+				
+				for (size_t i = 1;; ++i)
+				{
+					if (i == 1)
+					{
+						to = head + L" - Copy" + ext;
+					}
+					else
+					{
+						to = head + L" - Copy(" + Format(i) + L")" + ext;
+					}
+					
+					if (detail::IsNotFound(to))
+					{
+						break;
+					}
+				}
+			}
+			
+			CreateParentDirectories(to);
+			
+			if (IsFile(from))
+			{
+				const fs::copy_option option =
+				copyOption == CopyOption::Overwrite_if_Exists ? fs::copy_option::overwrite_if_exists
+				: fs::copy_option::fail_if_exists;
+				
+				try
+				{
+					fs::copy_file(fs::path(from.str()), fs::path(to.str()), option);
+				}
+				catch (const fs::filesystem_error&)
+				{
+					return false;
+				}
+			}
+			else
+			{
+				return detail::CopyDirectory(fs::path(from.str()), fs::path(to.str()));
+			}
+			
+			return true;
 		}
 
 		bool Remove(const FilePath& path, const bool allowUndo)

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C0849F51F274C10008757F9 /* PlayingCard.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0849F41F274C10008757F9 /* PlayingCard.hpp */; };
+		2C0849F71F274C18008757F9 /* SceneManager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0849F61F274C18008757F9 /* SceneManager.hpp */; };
 		2C0C7D261EBCC39B00386CBB /* MiniScene.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7C831EBCC39A00386CBB /* MiniScene.hpp */; };
 		2C0C7D271EBCC39B00386CBB /* Rx.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7C841EBCC39A00386CBB /* Rx.hpp */; };
 		2C0C7D281EBCC39B00386CBB /* HamFramework.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0C7C851EBCC39B00386CBB /* HamFramework.hpp */; };
@@ -634,6 +636,17 @@
 		2C316EA51E9F022A0011CAAE /* glxew.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C316EA11E9F022A0011CAAE /* glxew.h */; };
 		2C316EA61E9F022A0011CAAE /* wglew.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C316EA21E9F022A0011CAAE /* wglew.h */; };
 		2C316EAF1E9F0AAD0011CAAE /* lGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C316EAE1E9F0AAD0011CAAE /* lGLEW.a */; };
+		2C3490701F54A8CB0053C3D8 /* Evaluater.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C34906F1F54A8CB0053C3D8 /* Evaluater.hpp */; };
+		2C3490721F5B0C170053C3D8 /* OptimalScreen.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490711F5B0C170053C3D8 /* OptimalScreen.hpp */; };
+		2C3490741F5C92370053C3D8 /* Tobii.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490731F5C92370053C3D8 /* Tobii.hpp */; };
+		2C34907B1F5C92560053C3D8 /* CTobii_Linux.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490761F5C92560053C3D8 /* CTobii_Linux.hpp */; };
+		2C34907C1F5C92560053C3D8 /* CTobii_macOS.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490771F5C92560053C3D8 /* CTobii_macOS.hpp */; };
+		2C34907D1F5C92560053C3D8 /* CTobii_Windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C3490781F5C92560053C3D8 /* CTobii_Windows.cpp */; };
+		2C34907E1F5C92560053C3D8 /* CTobii_Windows.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490791F5C92560053C3D8 /* CTobii_Windows.hpp */; };
+		2C34907F1F5C92560053C3D8 /* SivTobii.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C34907A1F5C92560053C3D8 /* SivTobii.cpp */; };
+		2C3490841F6C07CA0053C3D8 /* tobii.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490811F6C07CA0053C3D8 /* tobii.h */; };
+		2C3490851F6C07CA0053C3D8 /* tobii_streams.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490821F6C07CA0053C3D8 /* tobii_streams.h */; };
+		2C3490861F6C07CA0053C3D8 /* tobii_wearable.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490831F6C07CA0053C3D8 /* tobii_wearable.h */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
 		2C81C0021E89F8E300D27E52 /* butteraugli.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C81BE141E89F8E300D27E52 /* butteraugli.cc */; };
@@ -842,6 +855,22 @@
 		2CAE4DF01EE276490057BE7E /* lharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CAE4DEF1EE276490057BE7E /* lharfbuzz.a */; };
 		2CAE4DF71EE2D7770057BE7E /* TexturedRoundRect.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAE4DF61EE2D7770057BE7E /* TexturedRoundRect.hpp */; };
 		2CAE4DFB1EE3AC080057BE7E /* Print.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CAE4DFA1EE3AC080057BE7E /* Print.hpp */; };
+		2CC7F9531F3489610071A239 /* Transition.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F9521F3489610071A239 /* Transition.hpp */; };
+		2CC7F9561F34A6A20071A239 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC7F9541F34A5840071A239 /* OpenAL.framework */; };
+		2CC7F95B1F41EF120071A239 /* AudioFormat_MP3_Windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7F9591F41EF120071A239 /* AudioFormat_MP3_Windows.cpp */; };
+		2CC7F95C1F41EF120071A239 /* AudioFormat_MP3_Windows.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F95A1F41EF120071A239 /* AudioFormat_MP3_Windows.hpp */; };
+		2CC7F9671F41EF2B0071A239 /* CodecFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7F95E1F41EF2B0071A239 /* CodecFactory.cpp */; };
+		2CC7F9681F41EF2B0071A239 /* ICodec.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F95F1F41EF2B0071A239 /* ICodec.hpp */; };
+		2CC7F9691F41EF2B0071A239 /* CCodec_MF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7F9611F41EF2B0071A239 /* CCodec_MF.cpp */; };
+		2CC7F96A1F41EF2B0071A239 /* CCodec_MF.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F9621F41EF2B0071A239 /* CCodec_MF.hpp */; };
+		2CC7F96B1F41EF2B0071A239 /* MFRenderStream.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F9631F41EF2B0071A239 /* MFRenderStream.hpp */; };
+		2CC7F96C1F41EF2B0071A239 /* CCodec_Null.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7F9651F41EF2B0071A239 /* CCodec_Null.cpp */; };
+		2CC7F96D1F41EF2B0071A239 /* CCodec_Null.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F9661F41EF2B0071A239 /* CCodec_Null.hpp */; };
+		2CC7F97C1F420EF90071A239 /* AudioFormat_MP3_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7F97A1F420EF90071A239 /* AudioFormat_MP3_macOS.cpp */; };
+		2CC7F97D1F420EF90071A239 /* AudioFormat_MP3_macOS.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F97B1F420EF90071A239 /* AudioFormat_MP3_macOS.hpp */; };
+		2CC7F9811F443F150071A239 /* ImageFormat_PPM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7F97F1F443F150071A239 /* ImageFormat_PPM.cpp */; };
+		2CC7F9821F443F150071A239 /* ImageFormat_PPM.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F9801F443F150071A239 /* ImageFormat_PPM.hpp */; };
+		2CC7F98A1F52EA210071A239 /* SFMT.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F9891F52EA210071A239 /* SFMT.hpp */; };
 		2CCA356F1EC6BBA900078678 /* ImageProcessing.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */; };
 		2CCA35871EC86CD600078678 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA357F1EC86CD600078678 /* format.h */; };
 		2CCA35881EC86CD600078678 /* ostream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA35811EC86CD600078678 /* ostream.h */; };
@@ -952,6 +981,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C0849F41F274C10008757F9 /* PlayingCard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PlayingCard.hpp; sourceTree = "<group>"; };
+		2C0849F61F274C18008757F9 /* SceneManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SceneManager.hpp; sourceTree = "<group>"; };
 		2C0C7C831EBCC39A00386CBB /* MiniScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MiniScene.hpp; sourceTree = "<group>"; };
 		2C0C7C841EBCC39A00386CBB /* Rx.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Rx.hpp; sourceTree = "<group>"; };
 		2C0C7C851EBCC39B00386CBB /* HamFramework.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HamFramework.hpp; sourceTree = "<group>"; };
@@ -1605,6 +1636,17 @@
 		2C316EA11E9F022A0011CAAE /* glxew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glxew.h; sourceTree = "<group>"; };
 		2C316EA21E9F022A0011CAAE /* wglew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wglew.h; sourceTree = "<group>"; };
 		2C316EAE1E9F0AAD0011CAAE /* lGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lGLEW.a; sourceTree = "<group>"; };
+		2C34906F1F54A8CB0053C3D8 /* Evaluater.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Evaluater.hpp; sourceTree = "<group>"; };
+		2C3490711F5B0C170053C3D8 /* OptimalScreen.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OptimalScreen.hpp; sourceTree = "<group>"; };
+		2C3490731F5C92370053C3D8 /* Tobii.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Tobii.hpp; sourceTree = "<group>"; };
+		2C3490761F5C92560053C3D8 /* CTobii_Linux.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTobii_Linux.hpp; sourceTree = "<group>"; };
+		2C3490771F5C92560053C3D8 /* CTobii_macOS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTobii_macOS.hpp; sourceTree = "<group>"; };
+		2C3490781F5C92560053C3D8 /* CTobii_Windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTobii_Windows.cpp; sourceTree = "<group>"; };
+		2C3490791F5C92560053C3D8 /* CTobii_Windows.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTobii_Windows.hpp; sourceTree = "<group>"; };
+		2C34907A1F5C92560053C3D8 /* SivTobii.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTobii.cpp; sourceTree = "<group>"; };
+		2C3490811F6C07CA0053C3D8 /* tobii.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tobii.h; sourceTree = "<group>"; };
+		2C3490821F6C07CA0053C3D8 /* tobii_streams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tobii_streams.h; sourceTree = "<group>"; };
+		2C3490831F6C07CA0053C3D8 /* tobii_wearable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tobii_wearable.h; sourceTree = "<group>"; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
 		2C5869261E3F0C620028B9F0 /* lpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lpng.a; sourceTree = "<group>"; };
@@ -1824,6 +1866,22 @@
 		2CAE4DEF1EE276490057BE7E /* lharfbuzz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lharfbuzz.a; sourceTree = "<group>"; };
 		2CAE4DF61EE2D7770057BE7E /* TexturedRoundRect.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TexturedRoundRect.hpp; sourceTree = "<group>"; };
 		2CAE4DFA1EE3AC080057BE7E /* Print.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Print.hpp; sourceTree = "<group>"; };
+		2CC7F9521F3489610071A239 /* Transition.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Transition.hpp; sourceTree = "<group>"; };
+		2CC7F9541F34A5840071A239 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		2CC7F9591F41EF120071A239 /* AudioFormat_MP3_Windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioFormat_MP3_Windows.cpp; sourceTree = "<group>"; };
+		2CC7F95A1F41EF120071A239 /* AudioFormat_MP3_Windows.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AudioFormat_MP3_Windows.hpp; sourceTree = "<group>"; };
+		2CC7F95E1F41EF2B0071A239 /* CodecFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CodecFactory.cpp; sourceTree = "<group>"; };
+		2CC7F95F1F41EF2B0071A239 /* ICodec.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ICodec.hpp; sourceTree = "<group>"; };
+		2CC7F9611F41EF2B0071A239 /* CCodec_MF.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCodec_MF.cpp; sourceTree = "<group>"; };
+		2CC7F9621F41EF2B0071A239 /* CCodec_MF.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CCodec_MF.hpp; sourceTree = "<group>"; };
+		2CC7F9631F41EF2B0071A239 /* MFRenderStream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MFRenderStream.hpp; sourceTree = "<group>"; };
+		2CC7F9651F41EF2B0071A239 /* CCodec_Null.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCodec_Null.cpp; sourceTree = "<group>"; };
+		2CC7F9661F41EF2B0071A239 /* CCodec_Null.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CCodec_Null.hpp; sourceTree = "<group>"; };
+		2CC7F97A1F420EF90071A239 /* AudioFormat_MP3_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioFormat_MP3_macOS.cpp; sourceTree = "<group>"; };
+		2CC7F97B1F420EF90071A239 /* AudioFormat_MP3_macOS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AudioFormat_MP3_macOS.hpp; sourceTree = "<group>"; };
+		2CC7F97F1F443F150071A239 /* ImageFormat_PPM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageFormat_PPM.cpp; sourceTree = "<group>"; };
+		2CC7F9801F443F150071A239 /* ImageFormat_PPM.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageFormat_PPM.hpp; sourceTree = "<group>"; };
+		2CC7F9891F52EA210071A239 /* SFMT.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SFMT.hpp; sourceTree = "<group>"; };
 		2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageProcessing.hpp; sourceTree = "<group>"; };
 		2CCA357F1EC86CD600078678 /* format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
 		2CCA35801EC86CD600078678 /* LICENSE.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.rst; sourceTree = "<group>"; };
@@ -1940,6 +1998,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CC7F9561F34A6A20071A239 /* OpenAL.framework in Frameworks */,
 				2C1585831F21FDBA002687D2 /* langelscript.a in Frameworks */,
 				2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */,
 				2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */,
@@ -1981,8 +2040,11 @@
 			children = (
 				2CAAB1321EF54DAA0000A06D /* Camera2D.hpp */,
 				2C0C7C831EBCC39A00386CBB /* MiniScene.hpp */,
+				2C3490711F5B0C170053C3D8 /* OptimalScreen.hpp */,
+				2C0849F41F274C10008757F9 /* PlayingCard.hpp */,
 				2C0C7C841EBCC39A00386CBB /* Rx.hpp */,
 				2CAAB1301EF51ACC0000A06D /* ScalableWindow.hpp */,
+				2C0849F61F274C18008757F9 /* SceneManager.hpp */,
 			);
 			path = HamFramework;
 			sourceTree = "<group>";
@@ -2036,6 +2098,7 @@
 				2C8E40E61F01415100F30069 /* Effect.hpp */,
 				2C0C7CB11EBCC39B00386CBB /* Ellipse.hpp */,
 				2CA6355C1ED3C30E00B851BC /* Emoji.hpp */,
+				2C34906F1F54A8CB0053C3D8 /* Evaluater.hpp */,
 				2C0C7CB21EBCC39B00386CBB /* FileSystem.hpp */,
 				2C0C7CB31EBCC39B00386CBB /* FloatQuad.hpp */,
 				2C0C7CB41EBCC39B00386CBB /* FloatRect.hpp */,
@@ -2128,6 +2191,7 @@
 				2C0C7DF61EC0BBC600386CBB /* SamplerState.hpp */,
 				2CAAB0FA1EEEC3CD0000A06D /* ScreenCapture.hpp */,
 				2C15853E1F21EC87002687D2 /* Script.hpp */,
+				2CC7F9891F52EA210071A239 /* SFMT.hpp */,
 				2C0C7DE91EC03A6B00386CBB /* Shader.hpp */,
 				2C0C7DD91EBEFE8500386CBB /* Shape2D.hpp */,
 				2CCA358E1EC8833F00078678 /* SIMDMath.hpp */,
@@ -2156,7 +2220,9 @@
 				2C0C7D0E1EBCC39B00386CBB /* Time.hpp */,
 				2C0C7D0F1EBCC39B00386CBB /* TimeProfiler.hpp */,
 				2C0C7D101EBCC39B00386CBB /* Timer.hpp */,
+				2C3490731F5C92370053C3D8 /* Tobii.hpp */,
 				2CAAB12E1EF513B90000A06D /* Transformer2D.hpp */,
+				2CC7F9521F3489610071A239 /* Transition.hpp */,
 				2C0C7D111EBCC39B00386CBB /* Triangle.hpp */,
 				2C0C7D121EBCC39B00386CBB /* Types.hpp */,
 				2C0C7D131EBCC39B00386CBB /* TypeTraits.hpp */,
@@ -2193,6 +2259,8 @@
 		2C1581851F0D3B46002687D2 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C3490751F5C92560053C3D8 /* Tobii */,
+				2CC7F95D1F41EF2B0071A239 /* Codec */,
 				2C1585401F21ECA6002687D2 /* Script */,
 				2C1585011F0F7099002687D2 /* Audio */,
 				2C15818C1F0D3B46002687D2 /* AssetHandleManager */,
@@ -2321,6 +2389,7 @@
 		2C15819E1F0D3B46002687D2 /* AudioFormat */ = {
 			isa = PBXGroup;
 			children = (
+				2CC7F9581F41EF120071A239 /* MP3 */,
 				2C15819F1F0D3B46002687D2 /* AudioFormatFactory.cpp */,
 				2C1581A01F0D3B46002687D2 /* CAudioFormat.cpp */,
 				2C1581A11F0D3B46002687D2 /* CAudioFormat.hpp */,
@@ -2896,6 +2965,7 @@
 		2C1582721F0D3B46002687D2 /* ImageFormat */ = {
 			isa = PBXGroup;
 			children = (
+				2CC7F97E1F443F150071A239 /* PPM */,
 				2C1582731F0D3B46002687D2 /* BMP */,
 				2C1582761F0D3B46002687D2 /* CImageFormat.cpp */,
 				2C1582771F0D3B46002687D2 /* CImageFormat.hpp */,
@@ -3713,6 +3783,7 @@
 		2C15857F1F21FD87002687D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2CC7F9541F34A5840071A239 /* OpenAL.framework */,
 				2C1585821F21FDBA002687D2 /* langelscript.a */,
 				2C1585801F21FD87002687D2 /* libangelscript.a */,
 			);
@@ -3875,6 +3946,28 @@
 			path = glew;
 			sourceTree = "<group>";
 		};
+		2C3490751F5C92560053C3D8 /* Tobii */ = {
+			isa = PBXGroup;
+			children = (
+				2C3490761F5C92560053C3D8 /* CTobii_Linux.hpp */,
+				2C3490771F5C92560053C3D8 /* CTobii_macOS.hpp */,
+				2C3490781F5C92560053C3D8 /* CTobii_Windows.cpp */,
+				2C3490791F5C92560053C3D8 /* CTobii_Windows.hpp */,
+				2C34907A1F5C92560053C3D8 /* SivTobii.cpp */,
+			);
+			path = Tobii;
+			sourceTree = "<group>";
+		};
+		2C3490801F6C07CA0053C3D8 /* tobii */ = {
+			isa = PBXGroup;
+			children = (
+				2C3490811F6C07CA0053C3D8 /* tobii.h */,
+				2C3490821F6C07CA0053C3D8 /* tobii_streams.h */,
+				2C3490831F6C07CA0053C3D8 /* tobii_wearable.h */,
+			);
+			path = tobii;
+			sourceTree = "<group>";
+		};
 		2C38B1471CDEB45C007A7E9F /* Lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -3927,6 +4020,7 @@
 		2C81BE121E89F8E300D27E52 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				2C3490801F6C07CA0053C3D8 /* tobii */,
 				2C15852E1F0F70AB002687D2 /* XAudio2_7 */,
 				2C15814E1F0A048F002687D2 /* FID */,
 				2C8E40871EFAD70900F30069 /* zstd */,
@@ -4416,6 +4510,56 @@
 			path = harfbuzz;
 			sourceTree = "<group>";
 		};
+		2CC7F9581F41EF120071A239 /* MP3 */ = {
+			isa = PBXGroup;
+			children = (
+				2CC7F97A1F420EF90071A239 /* AudioFormat_MP3_macOS.cpp */,
+				2CC7F97B1F420EF90071A239 /* AudioFormat_MP3_macOS.hpp */,
+				2CC7F9591F41EF120071A239 /* AudioFormat_MP3_Windows.cpp */,
+				2CC7F95A1F41EF120071A239 /* AudioFormat_MP3_Windows.hpp */,
+			);
+			path = MP3;
+			sourceTree = "<group>";
+		};
+		2CC7F95D1F41EF2B0071A239 /* Codec */ = {
+			isa = PBXGroup;
+			children = (
+				2CC7F95E1F41EF2B0071A239 /* CodecFactory.cpp */,
+				2CC7F95F1F41EF2B0071A239 /* ICodec.hpp */,
+				2CC7F9601F41EF2B0071A239 /* MF */,
+				2CC7F9641F41EF2B0071A239 /* Null */,
+			);
+			path = Codec;
+			sourceTree = "<group>";
+		};
+		2CC7F9601F41EF2B0071A239 /* MF */ = {
+			isa = PBXGroup;
+			children = (
+				2CC7F9611F41EF2B0071A239 /* CCodec_MF.cpp */,
+				2CC7F9621F41EF2B0071A239 /* CCodec_MF.hpp */,
+				2CC7F9631F41EF2B0071A239 /* MFRenderStream.hpp */,
+			);
+			path = MF;
+			sourceTree = "<group>";
+		};
+		2CC7F9641F41EF2B0071A239 /* Null */ = {
+			isa = PBXGroup;
+			children = (
+				2CC7F9651F41EF2B0071A239 /* CCodec_Null.cpp */,
+				2CC7F9661F41EF2B0071A239 /* CCodec_Null.hpp */,
+			);
+			path = Null;
+			sourceTree = "<group>";
+		};
+		2CC7F97E1F443F150071A239 /* PPM */ = {
+			isa = PBXGroup;
+			children = (
+				2CC7F97F1F443F150071A239 /* ImageFormat_PPM.cpp */,
+				2CC7F9801F443F150071A239 /* ImageFormat_PPM.hpp */,
+			);
+			path = PPM;
+			sourceTree = "<group>";
+		};
 		2CCA357D1EC86CD600078678 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
@@ -4735,6 +4879,8 @@
 				2C1584271F0D3B46002687D2 /* ImageFormat_GIF.hpp in Headers */,
 				2C1584B01F0D3B46002687D2 /* CTextInput_Windows.hpp in Headers */,
 				2CCA365D1ECC748F00078678 /* ftstream.h in Headers */,
+				2C3490721F5B0C170053C3D8 /* OptimalScreen.hpp in Headers */,
+				2C3490841F6C07CA0053C3D8 /* tobii.h in Headers */,
 				2CCA36621ECC748F00078678 /* pshints.h in Headers */,
 				2C0C7DAB1EBCC39B00386CBB /* TextWriter.hpp in Headers */,
 				2CCA36391ECC748E00078678 /* ftgxval.h in Headers */,
@@ -4749,6 +4895,7 @@
 				2C1584971F0D3B46002687D2 /* Siv3D_macOS.h in Headers */,
 				2CAAB10D1EF289A10000A06D /* TextBox.hpp in Headers */,
 				2C1585241F0F7099002687D2 /* AudioDevice_X27 .hpp in Headers */,
+				2C3490741F5C92370053C3D8 /* Tobii.hpp in Headers */,
 				2CCA36501ECC748F00078678 /* fttypes.h in Headers */,
 				2CCA36241ECC748E00078678 /* ftconfig.h in Headers */,
 				2C81C0481E89F8E300D27E52 /* color_transform.h in Headers */,
@@ -4789,6 +4936,7 @@
 				2C0C7DAE1EBCC39B00386CBB /* TimeProfiler.hpp in Headers */,
 				2C0C7DB61EBCC39B00386CBB /* Vector2D.hpp in Headers */,
 				2C8E40CA1EFAD70900F30069 /* zstd.h in Headers */,
+				2CC7F9821F443F150071A239 /* ImageFormat_PPM.hpp in Headers */,
 				2CCA36271ECC748E00078678 /* ftoption.h in Headers */,
 				2C8E40751EF95B9400F30069 /* shapes.h in Headers */,
 				2C1584051F0D3B46002687D2 /* D3D11Device.hpp in Headers */,
@@ -4802,6 +4950,7 @@
 				2C0C7DBB1EBCC39B00386CBB /* VertexShader.hpp in Headers */,
 				2CCA36791ECC748F00078678 /* t1tables.h in Headers */,
 				2C0C7D281EBCC39B00386CBB /* HamFramework.hpp in Headers */,
+				2C0849F51F274C10008757F9 /* PlayingCard.hpp in Headers */,
 				2C15842B1F0D3B46002687D2 /* ImageFormat_JPEG.hpp in Headers */,
 				2C1581581F0A15E3002687D2 /* Wave.hpp in Headers */,
 				2C2E82B41EAA1B3A0057BDAF /* stream.h in Headers */,
@@ -4836,6 +4985,7 @@
 				2C1584031F0D3B46002687D2 /* D3D11DepthStencilState.hpp in Headers */,
 				2CCA35B41ECC73EE00078678 /* Font.hpp in Headers */,
 				2C0C7D451EBCC39B00386CBB /* ConcurrentTask.hpp in Headers */,
+				2C34907B1F5C92560053C3D8 /* CTobii_Linux.hpp in Headers */,
 				2C1584561F0D3B46002687D2 /* CMouse_Linux.hpp in Headers */,
 				2C0C7D721EBCC39B00386CBB /* KeyConjunction.hpp in Headers */,
 				2C0C7DA21EBCC39B00386CBB /* Step2D.hpp in Headers */,
@@ -4861,6 +5011,7 @@
 				2C81C0641E89F8E300D27E52 /* jpeg_huffman_decode.h in Headers */,
 				2CCA36571ECC748F00078678 /* fthash.h in Headers */,
 				2C1584B51F0D3B46002687D2 /* CTextReader.hpp in Headers */,
+				2C3490851F6C07CA0053C3D8 /* tobii_streams.h in Headers */,
 				2C0C7DB11EBCC39B00386CBB /* Types.hpp in Headers */,
 				2C0C7D641EBCC39B00386CBB /* HashSet.hpp in Headers */,
 				2C1583D91F0D3B46002687D2 /* CDragDrop_Windows.hpp in Headers */,
@@ -4908,6 +5059,7 @@
 				2C2E829B1EAA1B3A0057BDAF /* filewritestream.h in Headers */,
 				2C81C0561E89F8E300D27E52 /* idct.h in Headers */,
 				2C8E40B71EFAD70900F30069 /* threading.h in Headers */,
+				2C3490861F6C07CA0053C3D8 /* tobii_wearable.h in Headers */,
 				2C0C7D351EBCC39B00386CBB /* BinaryReader.hpp in Headers */,
 				2C0C7DAD1EBCC39B00386CBB /* Time.hpp in Headers */,
 				2CCA358B1EC86CD600078678 /* hopscotch_set.h in Headers */,
@@ -4973,6 +5125,7 @@
 				2CCA356F1EC6BBA900078678 /* ImageProcessing.hpp in Headers */,
 				2C2E82A91EAA1B3A0057BDAF /* istreamwrapper.h in Headers */,
 				2C81C0741E89F8E300D27E52 /* png.h in Headers */,
+				2CC7F97D1F420EF90071A239 /* AudioFormat_MP3_macOS.hpp in Headers */,
 				2CCA36711ECC748F00078678 /* svsfnt.h in Headers */,
 				2C0C7DA81EBCC39B00386CBB /* TextReader.hpp in Headers */,
 				2C1585231F0F7099002687D2 /* Audio_X27.hpp in Headers */,
@@ -4997,6 +5150,7 @@
 				2CAAB1351EF55B960000A06D /* Polygon.hpp in Headers */,
 				2C15843B1F0D3B46002687D2 /* CKeyboard_Windows.hpp in Headers */,
 				2C2E82981EAA1B3A0057BDAF /* en.h in Headers */,
+				2CC7F96A1F41EF2B0071A239 /* CCodec_MF.hpp in Headers */,
 				2C1584BD1F0D3B46002687D2 /* Texture_D3D11.hpp in Headers */,
 				2C1584441F0D3B46002687D2 /* LogHeaderFotter.hpp in Headers */,
 				2C0C7D801EBCC39B00386CBB /* MessageBox.hpp in Headers */,
@@ -5013,6 +5167,7 @@
 				2C15840D1F0D3B46002687D2 /* D3D11ScreenCapture.hpp in Headers */,
 				2C8E40B31EFAD70900F30069 /* mem.h in Headers */,
 				2C15852A1F0F7099002687D2 /* AudioDevice_X28 .hpp in Headers */,
+				2CC7F9531F3489610071A239 /* Transition.hpp in Headers */,
 				2C0C7D7D1EBCC39B00386CBB /* MemoryMapping.hpp in Headers */,
 				2C0C7D791EBCC39B00386CBB /* Math.hpp in Headers */,
 				2C0C7D261EBCC39B00386CBB /* MiniScene.hpp in Headers */,
@@ -5036,6 +5191,7 @@
 				2C15851B1F0F7099002687D2 /* CAudio_AL.hpp in Headers */,
 				2C0C7D4A1EBCC39B00386CBB /* DateTime.hpp in Headers */,
 				2C2E82A11EAA1B3A0057BDAF /* itoa.h in Headers */,
+				2CC7F9681F41EF2B0071A239 /* ICodec.hpp in Headers */,
 				2C1583C11F0D3B46002687D2 /* GLConstantBuffer.hpp in Headers */,
 				2C1583B31F0D3B46002687D2 /* CClipboard_Windows.hpp in Headers */,
 				2C114C8D1EE432A100A198BB /* TextInput.hpp in Headers */,
@@ -5047,6 +5203,7 @@
 				2C15840F1F0D3B46002687D2 /* D3D11SwapChain.hpp in Headers */,
 				2C0C7D8A1EBCC39B00386CBB /* PerlinNoise.hpp in Headers */,
 				2C15844E1F0D3B46002687D2 /* CMemoryWriter.hpp in Headers */,
+				2C34907C1F5C92560053C3D8 /* CTobii_macOS.hpp in Headers */,
 				2C0C7D831EBCC39B00386CBB /* NamedParameter.hpp in Headers */,
 				2C1581551F0A15D3002687D2 /* AudioFormat.hpp in Headers */,
 				2C81C0611E89F8E300D27E52 /* jpeg_data_writer.h in Headers */,
@@ -5088,6 +5245,8 @@
 				2C15848D1F0D3B46002687D2 /* VertexShader_D3D11.hpp in Headers */,
 				2C1584DA1F0D3B46002687D2 /* CWindow_Windows.hpp in Headers */,
 				2C0C7D301EBCC39B00386CBB /* ArrayBool.hpp in Headers */,
+				2C34907E1F5C92560053C3D8 /* CTobii_Windows.hpp in Headers */,
+				2CC7F96D1F41EF2B0071A239 /* CCodec_Null.hpp in Headers */,
 				2CCA362B1ECC748E00078678 /* ftautoh.h in Headers */,
 				2CCA36551ECC748F00078678 /* ftdriver.h in Headers */,
 				2C0C7D4B1EBCC39B00386CBB /* DefaultRNG.hpp in Headers */,
@@ -5101,9 +5260,11 @@
 				2CAAB1161EF4EB5A0000A06D /* CPU.hpp in Headers */,
 				2CCA36661ECC748F00078678 /* svgldict.h in Headers */,
 				2C2E82A51EAA1B3A0057BDAF /* stack.h in Headers */,
+				2CC7F95C1F41EF120071A239 /* AudioFormat_MP3_Windows.hpp in Headers */,
 				2C81C06F1E89F8E300D27E52 /* quantize.h in Headers */,
 				2C0C7D871EBCC39B00386CBB /* ParseBool.hpp in Headers */,
 				2C15846D1F0D3B46002687D2 /* CProfiler.hpp in Headers */,
+				2C3490701F54A8CB0053C3D8 /* Evaluater.hpp in Headers */,
 				2C1584151F0D3B46002687D2 /* GLRasterizerState.hpp in Headers */,
 				2C114C881EE3DBEB00A198BB /* Icon.hpp in Headers */,
 				2C0C7D8F1EBCC39B00386CBB /* PointVector.hpp in Headers */,
@@ -5133,6 +5294,7 @@
 				2C0C7DB31EBCC39B00386CBB /* Uncopyable.hpp in Headers */,
 				2C1584891F0D3B46002687D2 /* CShader_D3D11.hpp in Headers */,
 				2C1583951F0D3B46002687D2 /* CBigInt.hpp in Headers */,
+				2CC7F98A1F52EA210071A239 /* SFMT.hpp in Headers */,
 				2C0C7D591EBCC39B00386CBB /* FormatLiteral.hpp in Headers */,
 				2C0C7D561EBCC39B00386CBB /* FormatBool.hpp in Headers */,
 				2CCA367E1ECC748F00078678 /* ft2build.h in Headers */,
@@ -5146,6 +5308,7 @@
 				2C316EA41E9F022A0011CAAE /* glew.h in Headers */,
 				2C0C7D5B1EBCC39B00386CBB /* Functor.hpp in Headers */,
 				2CAE4DF71EE2D7770057BE7E /* TexturedRoundRect.hpp in Headers */,
+				2C0849F71F274C18008757F9 /* SceneManager.hpp in Headers */,
 				2C2E82991EAA1B3A0057BDAF /* error.h in Headers */,
 				2C81C0151E89F8E300D27E52 /* utils.h in Headers */,
 				2C0C7D3F1EBCC39B00386CBB /* Circular.hpp in Headers */,
@@ -5162,6 +5325,7 @@
 				2CCA36421ECC748E00078678 /* ftmodapi.h in Headers */,
 				2CCA366B1ECC748F00078678 /* svotval.h in Headers */,
 				2C0C7D971EBCC39B00386CBB /* RandomVec4.hpp in Headers */,
+				2CC7F96B1F41EF2B0071A239 /* MFRenderStream.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5302,6 +5466,7 @@
 				2C15856D1F21ECA6002687D2 /* Script_Line.cpp in Sources */,
 				2C1584361F0D3B46002687D2 /* CKeyboard_Linux.cpp in Sources */,
 				2C1584C61F0D3B46002687D2 /* SivTexturedQuad.cpp in Sources */,
+				2C34907D1F5C92560053C3D8 /* CTobii_Windows.cpp in Sources */,
 				2C1584061F0D3B46002687D2 /* D3D11RasterizerState.cpp in Sources */,
 				2C1583EA1F0D3B46002687D2 /* SivFileSystem.cpp in Sources */,
 				2C1583AC1F0D3B46002687D2 /* SivCircle.cpp in Sources */,
@@ -5320,6 +5485,7 @@
 				2C1584511F0D3B46002687D2 /* SivMessageBox_macOS.cpp in Sources */,
 				2C1584211F0D3B46002687D2 /* SivImage.cpp in Sources */,
 				2C1584DE1F0D3B46002687D2 /* CWritableMemoryMapping.cpp in Sources */,
+				2CC7F96C1F41EF2B0071A239 /* CCodec_Null.cpp in Sources */,
 				2C1584B21F0D3B46002687D2 /* SivTextInput.cpp in Sources */,
 				2C81C0551E89F8E300D27E52 /* idct.cc in Sources */,
 				2C1584D71F0D3B46002687D2 /* CWindow_macOS.cpp in Sources */,
@@ -5374,10 +5540,12 @@
 				2C2126531E8CB7B5006F8101 /* gif_font.c in Sources */,
 				2C1583EC1F0D3B46002687D2 /* SivFileSystem_Linux.cpp in Sources */,
 				2C15849F1F0D3B46002687D2 /* SivString.cpp in Sources */,
+				2C34907F1F5C92560053C3D8 /* SivTobii.cpp in Sources */,
 				2C1583CA1F0D3B46002687D2 /* CCursor_macOS.cpp in Sources */,
 				2C15843F1F0D3B46002687D2 /* SivLineString.cpp in Sources */,
 				2C81C0631E89F8E300D27E52 /* jpeg_huffman_decode.cc in Sources */,
 				2C1583BD1F0D3B46002687D2 /* SivConsole.cpp in Sources */,
+				2CC7F9811F443F150071A239 /* ImageFormat_PPM.cpp in Sources */,
 				2C81C0581E89F8E300D27E52 /* jpeg_data.cc in Sources */,
 				2C1584651F0D3B46002687D2 /* SivPowerStatus.cpp in Sources */,
 				2C1583ED1F0D3B46002687D2 /* SivFileSystem_macOS.cpp in Sources */,
@@ -5416,6 +5584,7 @@
 				2C1585621F21ECA6002687D2 /* scriptbuilder.cpp in Sources */,
 				2C1584491F0D3B46002687D2 /* SivMD5.cpp in Sources */,
 				2C1584931F0D3B46002687D2 /* ShaderFactory.cpp in Sources */,
+				2CC7F9691F41EF2B0071A239 /* CCodec_MF.cpp in Sources */,
 				2C8E40C51EFAD70900F30069 /* cover.c in Sources */,
 				2C1584A81F0D3B46002687D2 /* SivSystem.mm in Sources */,
 				2C15842E1F0D3B46002687D2 /* SivImageFormat.cpp in Sources */,
@@ -5455,6 +5624,7 @@
 				2C15840A1F0D3B46002687D2 /* D3D11SamplerState.cpp in Sources */,
 				2C1585281F0F7099002687D2 /* Audio_X28.cpp in Sources */,
 				2C1583B61F0D3B46002687D2 /* SivClipboard.cpp in Sources */,
+				2CC7F95B1F41EF120071A239 /* AudioFormat_MP3_Windows.cpp in Sources */,
 				2C8E40B41EFAD70900F30069 /* pool.c in Sources */,
 				2C15841F1F0D3B46002687D2 /* SivHTMLWriter.cpp in Sources */,
 				2C1584C71F0D3B46002687D2 /* SivTexturedRoundRect.cpp in Sources */,
@@ -5519,6 +5689,7 @@
 				2C1584611F0D3B46002687D2 /* SivPoint.cpp in Sources */,
 				2C1583EB1F0D3B46002687D2 /* SivFileSystem.mm in Sources */,
 				2C8E40B81EFAD70900F30069 /* xxhash.c in Sources */,
+				2CC7F9671F41EF2B0071A239 /* CodecFactory.cpp in Sources */,
 				2C1584B81F0D3B46002687D2 /* TextReader.mm in Sources */,
 				2C15851D1F0F7099002687D2 /* AudioFactory.cpp in Sources */,
 				2C15856A1F21ECA6002687D2 /* Script_Format.cpp in Sources */,
@@ -5599,6 +5770,7 @@
 				2C81C07B1E89F8E300D27E52 /* muParserBase.cpp in Sources */,
 				2C81C06C1E89F8E300D27E52 /* quality.cc in Sources */,
 				2C2126541E8CB7B5006F8101 /* gif_hash.c in Sources */,
+				2CC7F97C1F420EF90071A239 /* AudioFormat_MP3_macOS.cpp in Sources */,
 				2C1583A81F0D3B46002687D2 /* SivByteArray.cpp in Sources */,
 				2C2126521E8CB7B5006F8101 /* gif_err.c in Sources */,
 				2C1584C81F0D3B46002687D2 /* SivTextureRegion.cpp in Sources */,
@@ -5669,11 +5841,14 @@
 				HEADER_SEARCH_PATHS = (
 					../Siv3D/Include,
 					"../Siv3D-Test/Include",
-					../Dependencies/boost_1_64_0,
+					../Dependencies/boost_1_65_0,
 				);
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = ../Siv3D/Lib/macOS;
+				LIBRARY_SEARCH_PATHS = (
+					../Siv3D/Lib/macOS,
+					"$(PROJECT_DIR)/bin",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -5728,11 +5903,14 @@
 				HEADER_SEARCH_PATHS = (
 					../Siv3D/Include,
 					"../Siv3D-Test/Include",
-					../Dependencies/boost_1_64_0,
+					../Dependencies/boost_1_65_0,
 				);
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = ../Siv3D/Lib/macOS;
+				LIBRARY_SEARCH_PATHS = (
+					../Siv3D/Lib/macOS,
+					"$(PROJECT_DIR)/bin",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -5839,7 +6017,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					../Dependencies/boost_1_64_0,
+					../Dependencies/boost_1_65_0,
 					../Siv3D/Include,
 					../Siv3D/Source/ThirdParty,
 					../Siv3D/Source/ThirdParty/freetype,
@@ -5894,7 +6072,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					../Dependencies/boost_1_64_0,
+					../Dependencies/boost_1_65_0,
 					../Siv3D/Include,
 					../Siv3D/Source/ThirdParty,
 					../Siv3D/Source/ThirdParty/freetype,

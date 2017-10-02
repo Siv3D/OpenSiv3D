@@ -9,7 +9,6 @@
 //
 //-----------------------------------------------
 
-# pragma once
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_WINDOWS)
 
@@ -364,6 +363,16 @@ namespace s3d
 		m_stream.setReadPos(posSample);
 	}
 
+	bool Audio_X27::isPlaying() const
+	{
+		return m_stream.isPlaying();
+	}
+
+	bool Audio_X27::isPaused() const
+	{
+		return m_stream.isPaused();
+	}
+
 	uint64 Audio_X27::posSample()
 	{
 		return m_stream.calculatePosSample();
@@ -377,6 +386,11 @@ namespace s3d
 	uint64 Audio_X27::samplesPlayed()
 	{
 		return m_stream.getSamplesPlayed();
+	}
+
+	const Wave& Audio_X27::getWave() const
+	{
+		return m_wave;
 	}
 
 	void Audio_X27::setVolume(const std::pair<double, double>& volume)

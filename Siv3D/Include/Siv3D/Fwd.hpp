@@ -438,6 +438,12 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	SFMT.hpp
+	//
+	class SFMT19937_64;
+
+	//////////////////////////////////////////////////////
+	//
 	//	MersenneTwister.hpp
 	//
 	class MT11213b;
@@ -448,14 +454,19 @@ namespace s3d
 	//
 	//	DefaultRNG.hpp
 	//
-	using DefaultRNGType = MT11213b;
-
+	using DefaultRNGType = SFMT19937_64;
 
 	//////////////////////////////////////////////////////
 	//
 	//	EasingController.hpp
 	//
 	template <class Type> class EasingController;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Transition.hpp
+	//
+	class Transition;
 
 	//////////////////////////////////////////////////////
 	//
@@ -502,6 +513,7 @@ namespace s3d
 	//	ImageFormat.hpp
 	//
 	enum class ImageFormat;
+	enum class PPMType;
 	class IImageFormat;
 
 	//////////////////////////////////////////////////////
@@ -530,7 +542,8 @@ namespace s3d
 	//	AudioFormat.hpp
 	//
 	enum class AudioFormat;
-
+	enum class WAVEFormat;
+	class IAudioFormat;
 
 	//////////////////////////////////////////////////////
 	//
@@ -614,6 +627,13 @@ namespace s3d
 	//
 	enum class TextInputMode;
 
+
+	//////////////////////////////////////////////////////
+	//
+	//	Tobii.hpp
+	//
+	struct GazeInfo;
+	class Tobii;
 
 
 	//////////////////////////////////////////////////////

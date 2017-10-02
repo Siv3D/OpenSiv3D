@@ -69,14 +69,34 @@ namespace s3d
 			return Siv3DEngine::GetRenderer2D()->getViewport();
 		}
 		
-		void SetTransform(const Mat3x2& matrix)
+		void SetTransformLocal(const Mat3x2& matrix)
 		{
-			Siv3DEngine::GetRenderer2D()->setTransform(matrix);
+			Siv3DEngine::GetRenderer2D()->setTransformLocal(matrix);
+		}
+
+		void SetTransformCamera(const Mat3x2& matrix)
+		{
+			Siv3DEngine::GetRenderer2D()->setTransformCamera(matrix);
+		}
+
+		void SetTransformScreen(const Mat3x2& matrix)
+		{
+			Siv3DEngine::GetRenderer2D()->setTransformScreen(matrix);
 		}
 		
-		const Mat3x2& GetTransform()
+		const Mat3x2& GetTransformLocal()
 		{
-			return Siv3DEngine::GetRenderer2D()->getTransform();
+			return Siv3DEngine::GetRenderer2D()->getTransformLocal();
+		}
+
+		const Mat3x2& GetTransformCamera()
+		{
+			return Siv3DEngine::GetRenderer2D()->getTransformCamera();
+		}
+
+		const Mat3x2& GetTransformScreen()
+		{
+			return Siv3DEngine::GetRenderer2D()->getTransformScreen();
 		}
 	}
 }

@@ -1,5 +1,6 @@
-﻿# include <Siv3D.hpp> // OpenSiv3D v0.1.6
-# include "cpptoml/cpptoml.h"
+# include <Siv3D.hpp>
+# include <HamFramework.hpp>
+# include "cpptoml\cpptoml.h"
 
 namespace toml
 {

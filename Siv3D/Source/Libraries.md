@@ -1,4 +1,4 @@
-- Boost 1.64.0 http://www.boost.org/users/history/version_1_64_0.html
+- Boost 1.65.0 http://www.boost.org/users/history/version_1_65_0.html
 - butteraugli https://github.com/google/butteraugli
 - clip2tri https://github.com/raptor/clip2tri
 - Clipper http://www.angusj.com/delphi/clipper.php
@@ -7,7 +7,7 @@
 - double-conversion https://github.com/google/double-conversion
 - Easing Equations http://robertpenner.com/easing/
 - FeatureDetector https://github.com/Mysticial/FeatureDetector
-- fmt 3.0.2 https://github.com/fmtlib/fmt/releases
+- fmt 4.0.0 https://github.com/fmtlib/fmt/releases
 - FreeType 2.8 https://www.freetype.org/
 - giflib 5.1.4 https://sourceforge.net/projects/giflib/
 - GLEW 2.0.0 https://github.com/nigels-com/glew/releases
@@ -21,9 +21,11 @@
 - libpng 1.6.28 http://www.libpng.org/pub/png/libpng.html
 - LineSegmentIntersection https://www.codeproject.com/Tips/862988/Find-the-Intersection-Point-of-Two-Line-Segments
 - miniutf https://github.com/dropbox/miniutf
+- mpg123 1.25.6 https://www.mpg123.de/
 - muparser V2.2.5 https://github.com/beltoforion/muparser/releases
 - Poly2Tri https://github.com/jhasse/poly2tri
 - RapidJSON https://github.com/miloyip/rapidjson/releases
+- SFMT 1.5.1 http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/index.html
 - xxHash v0.6.2 https://github.com/Cyan4973/xxHash/releases
 - zlib 1.2.11 http://www.zlib.net/
 - Zstandard v1.2.0 https://github.com/facebook/zstd/releases

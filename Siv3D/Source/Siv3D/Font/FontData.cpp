@@ -560,6 +560,8 @@ namespace s3d
 			else
 			{
 				m_texture = DynamicTexture(m_image);
+
+				LOG_DEBUG(L"ℹ️ Changed font texture size to {}"_fmt(m_image.size()));
 			}
 		}
 
@@ -622,18 +624,18 @@ namespace s3d
 			const int32 advanceY = static_cast<int32>(slot->metrics.vertAdvance / 64);
 
 			m_penPos.y += advanceY + padding * 2;
+		}
 
-			if (m_penPos.y + (bitmapHeight + padding) > m_image.height())
+		if (m_penPos.y + (bitmapHeight + padding) > m_image.height())
+		{
+			const int32 newHeight = ((m_penPos.y + (bitmapHeight + padding)) + 255) / 256 * 256;
+
+			if (newHeight > 4096)
 			{
-				const int32 newHeight = ((m_penPos.y + (bitmapHeight + padding)) + 255) / 256 * 256;
-
-				if (newHeight > 4096)
-				{
-					return false;
-				}
-
-				m_image.resizeRows(newHeight, Color(0, 0));
+				return false;
 			}
+
+			m_image.resizeRows(newHeight, Color(0, 0));
 		}
 
 		GlyphInfo info;

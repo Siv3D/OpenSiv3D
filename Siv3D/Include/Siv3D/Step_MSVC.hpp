@@ -28,6 +28,7 @@
 # include "Threading.hpp"
 # include "BigInt.hpp"
 # include "Format.hpp"
+# include "Functor.hpp"
 
 S3D_DISABLE_MSVC_WARNINGS_PUSH(4100)
 
@@ -1192,38 +1193,37 @@ namespace s3d
 		template <class F>
 		struct IsMap : std::conditional_t<F::isMap::value, std::true_type, std::false_type> {};
 
-		template <class Fty, class ValueType, size_t Index, class Tuple,
-			class Next, std::enable_if_t<!IsMap<Next>::value && (Index + 1 == std::tuple_size<Tuple>::value)>* = nullptr>
-			void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
+		template <class Fty, class ValueType, size_t Index, class Tuple, class Next>
+		constexpr void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
 		{
-			if (std::get<Index>(tuple)(value))
+			if constexpr (IsMap<Next>::value)
 			{
-				f(value);
+				if constexpr (Index + 1 == std::tuple_size<Tuple>::value)
+				{
+					f(std::get<Index>(tuple)(value));
+				}
+				else
+				{
+					Apply_impl<Fty, decltype(std::get<Index>(tuple)(value)), Index + 1, Tuple, std::decay_t<decltype(std::get<Index + 1>(std::declval<Tuple>()))>>(f, std::get<Index>(tuple)(value), tuple);
+				}
 			}
-		}
-
-		template <class Fty, class ValueType, size_t Index, class Tuple,
-			class Next, std::enable_if_t<!IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
-			void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
-		{
-			if (std::get<Index>(tuple)(value))
+			else
 			{
-				Apply_impl<Fty, ValueType, Index + 1, Tuple, std::decay_t<decltype(std::get<Index + 1>(std::declval<Tuple>()))>>(f, value, tuple);
+				if constexpr (Index + 1 == std::tuple_size<Tuple>::value)
+				{
+					if (std::get<Index>(tuple)(value))
+					{
+						f(value);
+					}
+				}
+				else
+				{
+					if (std::get<Index>(tuple)(value))
+					{
+						Apply_impl<Fty, ValueType, Index + 1, Tuple, std::decay_t<decltype(std::get<Index + 1>(std::declval<Tuple>()))>>(f, value, tuple);
+					}
+				}
 			}
-		}
-
-		template <class Fty, class ValueType, size_t Index, class Tuple,
-			class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 == std::tuple_size<Tuple>::value)>* = nullptr>
-			void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
-		{
-			f(std::get<Index>(tuple)(value));
-		}
-
-		template <class Fty, class ValueType, size_t Index, class Tuple,
-			class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
-			void Apply_impl(Fty f, const ValueType& value, const Tuple& tuple)
-		{
-			Apply_impl<Fty, decltype(std::get<Index>(tuple)(value)), Index + 1, Tuple, std::decay_t<decltype(std::get<Index + 1>(std::declval<Tuple>()))>>(f, std::get<Index>(tuple)(value), tuple);
 		}
 
 		template <class Fty, class ValueType, class Tuple>
@@ -1232,41 +1232,37 @@ namespace s3d
 			Apply_impl<Fty, ValueType, 0, Tuple, std::decay_t<decltype(std::get<0>(std::declval<Tuple>()))>>(f, value, tuple);
 		}
 
-
-
-
-		template <class Fty, class ResultType, class ValueType, size_t Index, class Tuple,
-			class Next, std::enable_if_t<!IsMap<Next>::value && (Index + 1 == std::tuple_size<Tuple>::value)>* = nullptr>
-			void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
+		template <class Fty, class ResultType, class ValueType, size_t Index, class Tuple, class Next>
+		constexpr void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
 		{
-			if (std::get<Index>(tuple)(value))
+			if constexpr (IsMap<Next>::value)
 			{
-				result = f(result, value);
+				if constexpr (Index + 1 == std::tuple_size<Tuple>::value)
+				{
+					result = f(result, std::get<Index>(tuple)(value));
+				}
+				else
+				{
+					Reduce_impl<Fty, ResultType, decltype(std::get<Index>(tuple)(value)), Index + 1, Tuple, std::decay_t<decltype(std::get<Index + 1>(std::declval<Tuple>()))>>(f, result, std::get<Index>(tuple)(value), tuple);
+				}
 			}
-		}
-
-		template <class Fty, class ResultType, class ValueType, size_t Index, class Tuple,
-			class Next, std::enable_if_t<!IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
-			void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
-		{
-			if (std::get<Index>(tuple)(value))
+			else
 			{
-				Reduce_impl<Fty, ResultType, ValueType, Index + 1, Tuple, std::decay_t<decltype(std::get<Index + 1>(std::declval<Tuple>()))>>(f, result, value, tuple);
+				if constexpr (Index + 1 == std::tuple_size<Tuple>::value)
+				{
+					if (std::get<Index>(tuple)(value))
+					{
+						result = f(result, value);
+					}
+				}
+				else
+				{
+					if (std::get<Index>(tuple)(value))
+					{
+						Reduce_impl<Fty, ResultType, ValueType, Index + 1, Tuple, std::decay_t<decltype(std::get<Index + 1>(std::declval<Tuple>()))>>(f, result, value, tuple);
+					}
+				}
 			}
-		}
-
-		template <class Fty, class ResultType, class ValueType, size_t Index, class Tuple,
-			class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 == std::tuple_size<Tuple>::value)>* = nullptr>
-			void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
-		{
-			result = f(result, std::get<Index>(tuple)(value));
-		}
-
-		template <class Fty, class ResultType, class ValueType, size_t Index, class Tuple,
-			class Next, std::enable_if_t<IsMap<Next>::value && (Index + 1 != std::tuple_size<Tuple>::value)>* = nullptr>
-			void Reduce_impl(Fty f, ResultType& result, const ValueType& value, const Tuple& tuple)
-		{
-			Reduce_impl<Fty, ResultType, decltype(std::get<Index>(tuple)(value)), Index + 1, Tuple, std::decay_t<decltype(std::get<Index + 1>(std::declval<Tuple>()))>>(f, result, std::get<Index>(tuple)(value), tuple);
 		}
 
 		template <class Fty, class ResultType, class ValueType, class Tuple>
@@ -1287,6 +1283,8 @@ namespace s3d
 		public:
 
 			using value_type = ValueType;
+
+			using functions_type = Tuple;
 
 			F_Step(StepClass stepClass, Tuple functions)
 				: m_base(stepClass)
@@ -1325,6 +1323,14 @@ namespace s3d
 				m_base.each([f, functions = m_functions](const auto& value)
 				{
 					Apply(f, value, functions);
+				});
+			}
+
+			void evaluate() const
+			{
+				m_base.each([functions = m_functions](const auto& value)
+				{
+					Apply(Id, value, functions);
 				});
 			}
 

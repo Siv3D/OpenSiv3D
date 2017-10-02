@@ -478,6 +478,23 @@ namespace s3d
 		return true;
 	}
 
+	bool Image::savePPM(const FilePath& path, PPMType format) const
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		BinaryWriter writer(path);
+
+		if (!writer)
+		{
+			return false;
+		}
+
+		return Siv3DEngine::GetImageFormat()->encodePPM(writer, *this, format);
+	}
+
 	MemoryWriter Image::encode(ImageFormat format) const
 	{
 		if (isEmpty())

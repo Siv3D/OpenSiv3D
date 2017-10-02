@@ -37,7 +37,9 @@ namespace s3d
 
 		const RectF rect = m_boxState.getRect(m_pos);
 
-		const Transformer2D transformer(Graphics2D::GetTransform().inversed(), Cursor::GetTransform().inversed());
+		const Transformer2D transformerLocal(Mat3x2::Identity(), Mat3x2::Identity(), Transformer2D::Target::SetLocal);
+		const Transformer2D transformerCamera(Mat3x2::Identity(), Mat3x2::Identity(), Transformer2D::Target::SetCamera);
+		const Transformer2D transformerScreen(Mat3x2::Identity(), Mat3x2::Identity(), Transformer2D::Target::SetScreen);
 
 		if (m_active)
 		{
@@ -49,7 +51,7 @@ namespace s3d
 			m_markedText = TextInput::GetMarkedText();
 
 			if (!m_markedText &&
-				((MouseL.down() && !rect.mouseOver()) || raw.includes(S3DCHAR('\r')) || raw.includes(S3DCHAR('\t'))))
+				((MouseL.down() && !rect.mouseOver()) || raw.includes(S3DCHAR('\r'))))
 			{
 				m_active = false;
 
@@ -121,7 +123,9 @@ namespace s3d
 
 	void TextBox::CTextBox::drawGlow(const double blurRadius, const double spread, const ColorF& color) const
 	{
-		const Transformer2D transformer(Graphics2D::GetTransform().inversed());
+		const Transformer2D transformerLocal(Mat3x2::Identity(), Mat3x2::Identity(), Transformer2D::Target::SetLocal);
+		const Transformer2D transformerCamera(Mat3x2::Identity(), Mat3x2::Identity(), Transformer2D::Target::SetCamera);
+		const Transformer2D transformerScreen(Mat3x2::Identity(), Mat3x2::Identity(), Transformer2D::Target::SetScreen);
 		
 		if (m_active)
 		{
@@ -131,7 +135,9 @@ namespace s3d
 
 	void TextBox::CTextBox::drawBox(const ColorF& boxColor) const
 	{
-		const Transformer2D transformer(Graphics2D::GetTransform().inversed());
+		const Transformer2D transformerLocal(Mat3x2::Identity(), Mat3x2::Identity(), Transformer2D::Target::SetLocal);
+		const Transformer2D transformerCamera(Mat3x2::Identity(), Mat3x2::Identity(), Transformer2D::Target::SetCamera);
+		const Transformer2D transformerScreen(Mat3x2::Identity(), Mat3x2::Identity(), Transformer2D::Target::SetScreen);
 		
 		const RectF rect = m_boxState.getRect(m_pos);
 
@@ -145,7 +151,9 @@ namespace s3d
 
 	void TextBox::CTextBox::drawText(const ColorF& textColor, const ColorF& markedTextColor, const ColorF& descriptionColor) const
 	{
-		const Transformer2D transformer(Graphics2D::GetTransform().inversed());
+		const Transformer2D transformerLocal(Mat3x2::Identity(), Mat3x2::Identity(), Transformer2D::Target::SetLocal);
+		const Transformer2D transformerCamera(Mat3x2::Identity(), Mat3x2::Identity(), Transformer2D::Target::SetCamera);
+		const Transformer2D transformerScreen(Mat3x2::Identity(), Mat3x2::Identity(), Transformer2D::Target::SetScreen);
 			
 		const double offsetX = m_boxState.textOffsetX;
 
@@ -178,6 +186,23 @@ namespace s3d
 	bool TextBox::CTextBox::isActive() const noexcept
 	{
 		return m_active;
+	}
+
+	bool TextBox::CTextBox::hasMarkedText() const noexcept
+	{
+		return !m_markedText.isEmpty();
+	}
+
+	bool TextBox::CTextBox::setActive(const bool active)
+	{
+		if (hasMarkedText())
+		{
+			return false;
+		}
+
+		m_active = active;
+
+		return true;
 	}
 
 	void TextBox::CTextBox::setPos(const Vec2& pos) noexcept

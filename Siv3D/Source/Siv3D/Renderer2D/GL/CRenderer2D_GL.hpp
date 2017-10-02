@@ -101,7 +101,7 @@ namespace s3d
 
 		bool init();
 
-		void flush() override;
+		void flush(bool clearGraphics) override;
 
 		void setBlendState(const BlendState& state) override;
 
@@ -123,9 +123,17 @@ namespace s3d
 
 		Optional<Rect> getViewport() const override;
 
-		void setTransform(const Mat3x2& matrix) override;
+		void setTransformLocal(const Mat3x2& matrix) override;
 
-		const Mat3x2& getTransform() const override;
+		void setTransformCamera(const Mat3x2& matrix) override;
+
+		void setTransformScreen(const Mat3x2& matrix) override;
+
+		const Mat3x2& getTransformLocal() const override;
+
+		const Mat3x2& getTransformCamera() const override;
+
+		const Mat3x2& getTransformScreen() const override;
 
 		float getMaxScaling() const override;
 

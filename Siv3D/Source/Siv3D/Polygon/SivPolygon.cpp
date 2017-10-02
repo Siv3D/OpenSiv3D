@@ -84,6 +84,16 @@ namespace s3d
 	{
 		return pImpl->inners();
 	}
+	
+	const Array<Float2>& Polygon::vertices() const
+	{
+		return pImpl->vertices();
+	}
+	
+	const Array<uint32>& Polygon::indices() const
+	{
+		return pImpl->indices();
+	}
 
 	const RectF& Polygon::boundingRect() const
 	{

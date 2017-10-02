@@ -1668,7 +1668,8 @@ namespace std
 		using result_type = typename hash<Type>::result_type;
 		using argument_type = s3d::Optional<Type>;
 
-		constexpr result_type operator()(argument_type const& arg) const {
+		constexpr result_type operator()(argument_type const& arg) const noexcept
+		{
 			return arg ? std::hash<Type>{}(*arg) : result_type{};
 		}
 	};
@@ -1679,7 +1680,7 @@ namespace std
 		using result_type = typename hash<Type>::result_type;
 		using argument_type = s3d::Optional<Type&>;
 
-		constexpr result_type operator()(argument_type const& arg) const
+		constexpr result_type operator()(argument_type const& arg) const noexcept
 		{
 			return arg ? std::hash<Type>{}(*arg) : result_type{};
 		}

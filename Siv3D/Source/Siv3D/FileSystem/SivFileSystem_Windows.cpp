@@ -566,6 +566,37 @@ namespace s3d
 			return FileSystem::SpecialFolderPath(SpecialFolder::LocalAppData) + S3DSTR("Temp/");
 		}
 
+		bool Copy(const FilePath& from, const FilePath& to, const CopyOption copyOption)
+		{
+			if (from.isEmpty() || to.isEmpty())
+			{
+				return false;
+			}
+
+			if (detail::IsResourcePath(from) || detail::IsResourcePath(to))
+			{
+				return false;
+			}
+
+			if (copyOption == CopyOption::Fail_if_Exists && fs::exists(fs::path(to.str())))
+			{
+				return false;
+			}
+
+			const String fromStr = (from + (is_regular_file(fs::path(from.str())) ? L"" : L"\\*") + L'\0').replace(L'/', L'\\');
+			const String toStr = (to + L'\0').replace(L'/', L'\\'); // pTo ÇÕê‚ëŒÉpÉXÇ… \\ ÇóvãÅ
+
+			SHFILEOPSTRUCTW fileOption{};
+			fileOption.wFunc = FO_COPY;
+			fileOption.fFlags = FOF_NOERRORUI | FOF_SILENT | FOF_NOCONFIRMMKDIR
+				| ((copyOption == CopyOption::Overwrite_if_Exists) ? FOF_NOCONFIRMATION : 0)
+				| ((copyOption == CopyOption::Rename_if_Exists) ? FOF_RENAMEONCOLLISION : 0);
+			fileOption.pFrom = fromStr.c_str();
+			fileOption.pTo = toStr.c_str();
+
+			return ::SHFileOperationW(&fileOption) == 0 && !fileOption.fAnyOperationsAborted;
+		}
+
 		bool Remove(const FilePath& path, const bool allowUndo)
 		{
 			if (path.isEmpty())

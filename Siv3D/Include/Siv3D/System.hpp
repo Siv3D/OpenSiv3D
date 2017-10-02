@@ -66,7 +66,7 @@ namespace s3d
 		/// <returns>
 		/// アプリケーションが続行できる場合 true, アプリケーションを終了する場合 false
 		/// </returns>
-		bool Update();
+		bool Update(bool clearGraphics = true);
 
 		/// <summary>
 		/// アプリケーションの終了をエンジンに伝えます。

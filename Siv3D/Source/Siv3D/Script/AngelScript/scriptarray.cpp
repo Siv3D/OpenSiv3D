@@ -5,7 +5,7 @@
 #include <stdio.h> // sprintf
 #include <string>
 
-#include "scriptArray.h"
+#include "scriptarray.h"
 
 using namespace std;
 
@@ -28,7 +28,6 @@ void CScriptArray::SetMemoryFunctions(asALLOCFUNC_t allocFunc, asFREEFUNC_t free
 }
 
 static void RegisterScriptArray_Native(asIScriptEngine *engine);
-static void RegisterScriptArray_Generic(asIScriptEngine *engine);
 
 struct SArrayBuffer
 {

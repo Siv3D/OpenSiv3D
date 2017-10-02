@@ -643,11 +643,6 @@ u8R"-(<div class="c0">LineSegmentIntersection</div>
 </div>)-"
 
 
-u8R"-(<div class="c0">Noto Fonts</div>
-<div class="c2">Licensed under SIL Open Font License v1.1.<br>
-</div>)-"
-
-
 u8R"-(<div class="c0">miniutf</div>
 <div class="c1">Copyright (c) 2013 Dropbox, Inc.</div>
 <div class="c2">
@@ -669,6 +664,17 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN<br>
 THE SOFTWARE.<br>
 </div>)-"
+
+
+# if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
+
+u8R"-(<div class="c0">mpg123</div>
+<div class="c1">Copyright (c) 1995-2013 by Michael Hipp and others<br>
+<div class="c2">
+free software under the terms of the LGPL v2.1<br>
+</div>)-"
+
+# endif
 
 
 # if defined(SIV3D_TARGET_WINDOWS)
@@ -725,6 +731,11 @@ OR OTHER DEALINGS IN THE SOFTWARE.<br>
 </div>)-"
 
 
+u8R"-(<div class="c0">Noto Fonts</div>
+<div class="c2">Licensed under SIL Open Font License v1.1.<br>
+</div>)-"
+
+
 u8R"-(<div class="c0">Poly2Tri</div>
 <div class="c1">Copyright (c) 2009-2010, Poly2Tri Contributors. All rights reserved.</div>
 <div class="c2">
@@ -772,6 +783,40 @@ NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR
 DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br>
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.<br>
 OR OTHER DEALINGS IN THE SOFTWARE.<br>
+</div>)-"
+
+
+u8R"-(<div class="c0">SFMT</div>
+<div class="c1">Copyright (c) 2006,2007 Mutsuo Saito, Makoto Matsumoto and Hiroshima University.<br>
+Copyright (c) 2012 Mutsuo Saito, Makoto Matsumoto, Hiroshima University and The University of Tokyo.<br>
+All rights reserved.</div>
+<div class="c2">
+Redistribution and use in source and binary forms, with or without<br>
+modification, are permitted provided that the following conditions are<br>
+met:<br>
+<br>
+    * Redistributions of source code must retain the above copyright<br>
+      notice, this list of conditions and the following disclaimer.<br>
+    * Redistributions in binary form must reproduce the above<br>
+      copyright notice, this list of conditions and the following<br>
+      disclaimer in the documentation and/or other materials provided<br>
+      with the distribution.<br>
+    * Neither the names of Hiroshima University, The University of<br>
+      Tokyo nor the names of its contributors may be used to endorse<br>
+      or promote products derived from this software without specific<br>
+      prior written permission.<br>
+<br>
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS<br>
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT<br>
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR<br>
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT<br>
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,<br>
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT<br>
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,<br>
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY<br>
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT<br>
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE<br>
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<br>
 </div>)-"
 
 

@@ -73,6 +73,17 @@
 # endif
 
 
+# if defined(_DEBUG) || defined(DEBUG)
+
+	# define SIV3D_IS_DEBUG		1
+
+# else
+
+	# define SIV3D_IS_DEBUG		0
+
+# endif
+
+
 # if defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64)
 
 	# define SIV3D_PLATFORM_PTR_SIZE		8
@@ -107,19 +118,6 @@
 # else
 
     # define S3D_EXCEPTION_ABI		__attribute__ ((__visibility__("default")))
-
-# endif
-
-
-# if defined(SIV3D_TARGET_WINDOWS)
-
-	# define S3D_MAYBE_UNUSED
-	# define S3D_NODISCARD
-
-# else
-
-	# define S3D_MAYBE_UNUSED		[[maybe_unused]]
-	# define S3D_NODISCARD			[[nodiscard]]
 
 # endif
 

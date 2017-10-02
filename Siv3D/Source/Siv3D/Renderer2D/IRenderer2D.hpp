@@ -27,7 +27,7 @@ namespace s3d
 
 		virtual ~ISiv3DRenderer2D() = default;
 
-		virtual void flush() = 0;
+		virtual void flush(bool clearGraphics) = 0;
 
 		virtual void setBlendState(const BlendState& state) = 0;
 
@@ -49,9 +49,17 @@ namespace s3d
 
 		virtual Optional<Rect> getViewport() const = 0;
 
-		virtual void setTransform(const Mat3x2& matrix) = 0;
+		virtual void setTransformLocal(const Mat3x2& matrix) = 0;
 
-		virtual const Mat3x2& getTransform() const = 0;
+		virtual void setTransformCamera(const Mat3x2& matrix) = 0;
+
+		virtual void setTransformScreen(const Mat3x2& matrix) = 0;
+
+		virtual const Mat3x2& getTransformLocal() const = 0;
+
+		virtual const Mat3x2& getTransformCamera() const = 0;
+
+		virtual const Mat3x2& getTransformScreen() const = 0;
 
 		virtual float getMaxScaling() const = 0;
 
