@@ -1,26 +1,33 @@
 ﻿# include <Siv3D.hpp> // OpenSiv3D v0.1.6
 # include "cpptoml/cpptoml.h"
 
-namespace test {
+namespace toml
+{
+	class TOMLValue;
+}
+
+namespace s3d
+{
+	void Formatter(FormatData& formatData, const toml::TOMLValue& value);
+}
+
+namespace toml {
 	enum class TOMLValueType {
 		Empty,
 		Table,
 		Array,
+		TableArray,
 		String,
 		Number,
 		Bool,
-		DateTime
+		Date,
+		DateTime,
+		Unknown
 	};
 
 	class TOMLValue;
-
-	struct TOMLTableMember
-	{
-		String name;
-
-		TOMLValue value;
-	};
-
+	struct TOMLTableMember;
+	
 	class TOMLTableIterator
 	{
 	private:
@@ -40,7 +47,7 @@ namespace test {
 
 			return *this;
 		}
-		
+
 		TOMLTableIterator operator ++(int)
 		{
 			auto tmp = m_detail;
@@ -50,9 +57,7 @@ namespace test {
 			return TOMLTableIterator(tmp);
 		}
 
-		TOMLTableMember operator *() const {
-			return { CharacterSet::FromUTF8(m_detail->first), m_detail->second };
-		}
+		TOMLTableMember operator *() const;
 
 		bool operator ==(const TOMLTableIterator& other) const noexcept
 		{
@@ -75,7 +80,7 @@ namespace test {
 	public:
 
 		TOMLTableView() = default;
-		TOMLTableView(cpptoml::table::iterator begin, cpptoml::table::iterator end) noexcept
+		TOMLTableView(const TOMLTableIterator& begin, const TOMLTableIterator& end) noexcept
 			: m_begin(begin)
 			, m_end(end) {}
 
@@ -83,7 +88,7 @@ namespace test {
 		{
 			return m_begin;
 		}
-		
+
 		TOMLTableIterator end() const
 		{
 			return m_end;
@@ -124,10 +129,7 @@ namespace test {
 			return TOMLArrayIterator(m_detail + index);
 		}
 
-		TOMLValue operator *() const
-		{
-			return *m_detail;
-		}
+		TOMLValue operator *() const;
 
 		bool operator ==(const TOMLArrayIterator& other) const noexcept
 		{
@@ -164,33 +166,142 @@ namespace test {
 			return m_end;
 		}
 
-		TOMLValue operator [](size_t index) const
-		{
-			return *(m_begin + index);
-		}
+		TOMLValue operator [](size_t index) const;
 	};
 
-	class TOMLValue {
+	class TOMLTableArrayIterator
+	{
+	private:
+
+		cpptoml::table_array::iterator m_detail;
+
+	public:
+
+		TOMLTableArrayIterator() = default;
+
+		explicit TOMLTableArrayIterator(const cpptoml::table_array::iterator& itr)
+			: m_detail(itr) {}
+
+		TOMLTableArrayIterator operator ++()
+		{
+			++m_detail;
+
+			return *this;
+		}
+
+		TOMLTableArrayIterator operator ++(int)
+		{
+			auto tmp = m_detail;
+
+			++m_detail;
+
+			return TOMLTableArrayIterator(tmp);
+		}
+
+		TOMLTableArrayIterator operator +(size_t index) const
+		{
+			return TOMLTableArrayIterator(m_detail + index);
+		}
+
+		TOMLValue operator *() const;
+
+		bool operator ==(const TOMLTableArrayIterator& other) const noexcept
+		{
+			return m_detail == other.m_detail;
+		}
+
+		bool operator !=(const TOMLTableArrayIterator& other) const noexcept
+		{
+			return m_detail != other.m_detail;
+		}
+
+	};
+
+	class TOMLTableArrayView
+	{
+	private:
+
+		TOMLTableArrayIterator m_begin, m_end;
+
+	public:
+
+		TOMLTableArrayView() = default;
+		TOMLTableArrayView(cpptoml::table_array::iterator begin, cpptoml::table_array::iterator end) noexcept
+			: m_begin(begin)
+			, m_end(end) {}
+
+		TOMLTableArrayIterator begin() const
+		{
+			return m_begin;
+		}
+
+		TOMLTableArrayIterator end() const
+		{
+			return m_end;
+		}
+
+		TOMLValue operator [](size_t index) const;
+	};
+
+	class TOMLValue
+	{
 	protected:
 
 		std::shared_ptr<cpptoml::base> m_detail;
 
-		template<class Type, std::enable_if_t<!std::is_arithmetic<Type>::value>* = nullptr>
+		template<class Type, std::enable_if_t<!std::is_integral<Type>::value>* = nullptr>
 		Optional<Type> getOpt_() const
 		{
-			return ParseOpt<Type>(getString());
+			if (auto p = m_detail->as<Type>())
+			{
+				return p->get();
+			}
+
+			return none;
 		}
 
-		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
-		Optional<Type> getOpt_() const = delete;
+		template <class Type, std::enable_if_t<std::is_integral<Type>::value>* = nullptr>
+		Optional<Type> getOpt_() const
+		{
+			if (auto p = m_detail->as<bool>())
+			{
+				return p->get();
+			}
+			if (auto p = m_detail->as<int64_t>())
+			{
+				return static_cast<Type>(p->get());
+			}
+			if (auto p = m_detail->as<double>())
+			{
+				return static_cast<Type>(p->get());
+			}
+
+			return none;
+		}
+
+		friend void s3d::Formatter(FormatData& formatData, const TOMLValue& value);
+
+		struct Visitor
+		{
+			String& str;
+
+			template <typename Type>
+			void visit(Type&& val) const
+			{
+				std::stringstream ss;
+				ss << val;
+
+				str = CharacterSet::FromUTF8(ss.str());
+			}
+		};
 
 	public:
 
 		TOMLValue()
-			: m_detail(std::make_shared<cpptoml::base>()) {}
+			: m_detail(nullptr) {}
 
-		TOMLValue(const std::shared_ptr<cpptoml::base>& p)
-			: m_detail(std::make_shared<cpptoml::base>(*p)) {}
+		explicit TOMLValue(const std::shared_ptr<cpptoml::base>& p)
+			: m_detail(p) {}
 
 		template <typename Type>
 		Type get() const
@@ -210,11 +321,13 @@ namespace test {
 			return getOpt_<Type>();
 		}
 
-		bool isEmpty() const {
+		bool isEmpty() const
+		{
 			return m_detail == nullptr;
 		}
 
-		TOMLValueType getType() const {
+		TOMLValueType getType() const
+		{
 			if (isEmpty())
 			{
 				return TOMLValueType::Empty;
@@ -224,9 +337,13 @@ namespace test {
 			{
 				return TOMLValueType::Table;
 			}
-			if (m_detail->is_array() || m_detail->is_table_array())
+			if (m_detail->is_array())
 			{
 				return TOMLValueType::Array;
+			}
+			if (m_detail->is_table_array())
+			{
+				return TOMLValueType::TableArray;
 			}
 			if (m_detail->is_value())
 			{
@@ -242,27 +359,48 @@ namespace test {
 				{
 					return TOMLValueType::Bool;
 				}
+
+				if (m_detail->as<cpptoml::local_date>())
+				{
+					return TOMLValueType::Date;
+				}
+
+				return TOMLValueType::DateTime;
 			}
 
-			return TOMLValueType::DateTime;
+			return TOMLValueType::Unknown;
 		}
 
-		bool isTable() const {
+		bool isTable() const
+		{
 			return getType() == TOMLValueType::Table;
 		}
-		bool isArray() const {
+		bool isArray() const
+		{
 			return getType() == TOMLValueType::Array;
 		}
-		bool isString() const {
+		bool isTableArray() const
+		{
+			return getType() == TOMLValueType::TableArray;
+		}
+		bool isString() const
+		{
 			return getType() == TOMLValueType::String;
 		}
-		bool isBool() const {
+		bool isBool() const
+		{
 			return getType() == TOMLValueType::Bool;
 		}
-		bool isNumber() const {
+		bool isNumber() const
+		{
 			return getType() == TOMLValueType::Number;
 		}
-		bool isDateTime() const {
+		bool isDate() const
+		{
+			return getType() == TOMLValueType::Date;
+		}
+		bool isDateTime() const
+		{
 			return getType() == TOMLValueType::DateTime;
 		}
 
@@ -271,7 +409,13 @@ namespace test {
 		//  Table
 		//
 
-		size_t memberCount() const {
+		size_t memberCount() const
+		{
+			if (isEmpty())
+			{
+				return 0;
+			}
+
 			if (auto&& table = m_detail->as_table())
 			{
 				return table->size();
@@ -280,7 +424,13 @@ namespace test {
 			return 0;
 		}
 
-		bool hasMember(const String& name) const {
+		bool hasMember(const String& name) const
+		{
+			if (isEmpty())
+			{
+				return false;
+			}
+
 			if (auto&& table = m_detail->as_table())
 			{
 				return table->contains(name.toUTF8());
@@ -289,10 +439,16 @@ namespace test {
 			return false;
 		}
 
-		TOMLTableView objectView() const {
+		TOMLTableView tableView() const
+		{
+			if (isEmpty())
+			{
+				return TOMLTableView();
+			}
+
 			if (auto&& table = m_detail->as_table())
 			{
-				return TOMLTableView(table->begin(), table->end());
+				return TOMLTableView(TOMLTableIterator(table->begin()), TOMLTableIterator(table->end()));
 			}
 
 			return TOMLTableView();
@@ -322,11 +478,21 @@ namespace test {
 
 		////////////////////////////////
 		//
-		//  Array
+		//  Array/TableArray
 		//
-		
-		size_t arrayCount() const {
+
+		size_t arrayCount() const
+		{
+			if (isEmpty())
+			{
+				return 0;
+			}
+
 			if (auto&& arr = m_detail->as_array())
+			{
+				return arr->get().size();
+			}
+			if (auto&& arr = m_detail->as_table_array())
 			{
 				return arr->get().size();
 			}
@@ -336,12 +502,32 @@ namespace test {
 
 		TOMLArrayView arrayView() const
 		{
+			if (isEmpty())
+			{
+				return TOMLArrayView();
+			}
+
 			if (auto&& arr = m_detail->as_array())
 			{
 				return TOMLArrayView(arr->begin(), arr->end());
 			}
-			
+
 			return TOMLArrayView();
+		}
+
+		TOMLTableArrayView tableArrayView() const
+		{
+			if (isEmpty())
+			{
+				return TOMLTableArrayView();
+			}
+
+			if (auto&& arr = m_detail->as_table_array())
+			{
+				return TOMLTableArrayView(arr->begin(), arr->end());
+			}
+
+			return TOMLTableArrayView();
 		}
 
 		////////////////////////////////
@@ -351,6 +537,11 @@ namespace test {
 
 		String getString() const
 		{
+			if (isEmpty())
+			{
+				return String();
+			}
+
 			if (auto&& str = m_detail->as<std::string>())
 			{
 				return CharacterSet::FromUTF8(str->get());
@@ -361,11 +552,16 @@ namespace test {
 
 		////////////////////////////////
 		//
-		//  DateTime
+		//  Date
 		//
 
 		Date getDate()
 		{
+			if (isEmpty())
+			{
+				return Date();
+			}
+
 			if (auto&& date_ = m_detail->as<cpptoml::local_date>())
 			{
 				auto&& date = date_->get();
@@ -376,21 +572,33 @@ namespace test {
 			return Date();
 		}
 
+		////////////////////////////////
+		//
+		//  DateTime
+		//
+
 		DateTime getDateTime()
 		{
-			if (auto&& dateTime_ = m_detail->as<cpptoml::datetime>())
+			if (isEmpty())
+			{
+				return DateTime();
+			}
+
+			if (auto&& dateTime_ = m_detail->as<cpptoml::offset_datetime>())
 			{
 				auto& dateTime = dateTime_->get();
 				const int32 offset = dateTime.hour_offset * 60 + dateTime.minute_offset;
-				
+
 				DateTime ret(
+					dateTime.year,
+					dateTime.month,
 					dateTime.day,
 					dateTime.hour,
 					dateTime.minute,
 					dateTime.second,
 					dateTime.microsecond / 1000
 				);
-				
+
 				ret += std::chrono::minutes(Time::UtcOffsetMinutes() - offset);
 
 				return ret;
@@ -401,6 +609,8 @@ namespace test {
 				auto& localDateTime = localDateTime_->get();
 
 				return DateTime(
+					localDateTime.year,
+					localDateTime.month,
 					localDateTime.day,
 					localDateTime.hour,
 					localDateTime.minute,
@@ -411,53 +621,39 @@ namespace test {
 
 			return DateTime();
 		}
+
 	};
 
-	template <>
-	Optional<String> TOMLValue::getOpt<String>() const
+	TOMLValue TOMLArrayIterator::operator *() const
 	{
-		if (!isString())
-		{
-			return none;
-		}
-
-		return Optional<String>(in_place, getString());
+		return TOMLValue(*m_detail);
 	}
 
-	template <>
-	Optional<int64> TOMLValue::getOpt<int64>() const
+	TOMLValue TOMLArrayView::operator [](size_t index) const
 	{
-		std::shared_ptr<cpptoml::value<std::int64_t>> ptr;
-		if (isNumber() && (ptr = m_detail->as<int64_t>()))
-		{
-			return Optional<int64>(in_place, static_cast<int64>(ptr->get()));
-		}
-
-		return none;
+		return TOMLValue(*(m_begin + index));
 	}
 
-	template <>
-	Optional<double> TOMLValue::getOpt<double>() const
+	TOMLValue TOMLTableArrayIterator::operator *() const
 	{
-		std::shared_ptr<cpptoml::value<double>> ptr;
-		if (isNumber() && (ptr = m_detail->as<double>()))
-		{
-			return Optional<double>(in_place, static_cast<double>(ptr->get()));
-		}
-
-		return none;
+		return TOMLValue(*m_detail);
 	}
 
-	template <>
-	Optional<bool> TOMLValue::getOpt<bool>() const
+	TOMLValue TOMLTableArrayView::operator [](size_t index) const
 	{
-		std::shared_ptr<cpptoml::value<bool>> ptr;
-		if (isNumber() && (ptr = m_detail->as<bool>()))
-		{
-			return Optional<bool>(in_place, static_cast<bool>(ptr->get()));
-		}
+		return TOMLValue(*(m_begin + index));
+	}
 
-		return none;
+	struct TOMLTableMember
+	{
+		String name;
+
+		TOMLValue value;
+	};
+
+	TOMLTableMember TOMLTableIterator::operator *() const
+	{
+		return { CharacterSet::FromUTF8(m_detail->first), TOMLValue(m_detail->second) };
 	}
 
 	class TOMLReader : public TOMLValue
@@ -488,7 +684,14 @@ namespace test {
 
 		bool open(const FilePath& path)
 		{
-			m_detail = cpptoml::parse_file(path.toUTF8());
+			try {
+				m_detail = cpptoml::parse_file(path.toUTF8());
+			}
+			catch (...) {
+				return false;
+			}
+
+			return !isEmpty();
 		}
 
 		bool open(const std::shared_ptr<IReader>& reader)
@@ -501,7 +704,12 @@ namespace test {
 			std::stringstream ss;
 			ss << TextReader(reader).readAll();
 
-			m_detail = cpptoml::parser(ss).parse();
+			try {
+				m_detail = cpptoml::parser(ss).parse();
+			}
+			catch (...) {
+				return false;
+			}
 
 			return m_detail != nullptr;
 		}
@@ -523,9 +731,84 @@ namespace test {
 	};
 }
 
+namespace s3d
+{
+	void Formatter(FormatData& formatData, const toml::TOMLValue& value)
+	{
+		if (value.isEmpty())
+		{
+			return;
+		}
+
+		String str;
+		value.m_detail->accept(toml::TOMLValue::Visitor{ str });
+
+		formatData.string.append(str.c_str());
+	}
+
+	void Formatter(FormatData& formatData, const toml::TOMLReader& reader)
+	{
+		if (reader.isEmpty())
+		{
+			return;
+		}
+
+		Formatter(formatData, static_cast<toml::TOMLValue>(reader));
+	}
+}
+
 void Main()
 {
+	Window::Resize(640, 640);
+
+	const toml::TOMLReader reader(L"test.toml");
+
 	while (System::Update())
 	{
+		if (!reader)
+		{
+			Print << L"Failed to load.";
+			continue;
+		}
+
+		Print << L"\n";
+		// key access
+		Print << L"table.key = " << reader[L"table"][L"key"].getString();
+		// chained key access
+		Print << L"table.subtable.key = " << reader[L"table.subtable.key"].getString();
+
+		// each table access and get integer
+		for (auto&& p : reader[L"integer"].tableView())
+		{
+			if (p.value.isNumber())
+			{
+				Print << L"integer." + p.name + L" = " << p.value.get<int64>();
+			}
+		}
+
+		// get floating number
+		Print << L"float.fractional.key1 = " << reader[L"float.fractional.key1"].get<double>();
+
+		// get boolean
+		Print << L"boolean.True = " << reader[L"boolean.True"].get<bool>();
+
+		// get datetime
+		Print << L"datetime.key1 = " << reader[L"datetime.key1"].getDateTime();
+
+		// get array (and formatting)
+		Print << L"array.key1 = " << reader[L"array.key1"];
+
+		// get table array
+		Print << L"products = {";
+		for (auto&& t : reader[L"products"].tableArrayView())
+		{
+			Print << L"\t{";
+			for (auto&& e : t.tableView())
+			{
+				Print << L"\t\t" << e.value << L",";
+			}
+			Print << L"\t},";
+		}
+		Print << L"}";
 	}
 }
