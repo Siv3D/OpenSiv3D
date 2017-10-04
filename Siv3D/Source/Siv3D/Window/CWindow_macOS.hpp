@@ -39,7 +39,7 @@ namespace s3d
 
 		bool init() override;
 
-		void show() override;
+		void show(bool show) override;
 		
 		bool update() override;
 		

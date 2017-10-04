@@ -665,6 +665,11 @@
 	//# include "Siv3D/Serialization.hpp"
 	// GPU の使用
 	# include "Siv3D/HighPerfoemanceGPU.hpp"
+//
+// スクリプト
+//
+	// スクリプト
+	# include "Siv3D/Script.hpp"
 
 # ifndef NO_S3D_USING
 

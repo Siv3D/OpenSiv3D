@@ -12,6 +12,11 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_WINDOWS)
 
+# define  NOMINMAX
+# define  STRICT
+# define  _WIN32_WINNT _WIN32_WINNT_WIN7
+# define  NTDDI_VERSION NTDDI_WIN7
+# include <Windows.h>
 # include "../Siv3DEngine.hpp"
 # include "CSystem_Windows.hpp"
 # include "../Logger/ILogger.hpp"
@@ -39,12 +44,12 @@ namespace s3d
 {
 	CSystem_Windows::CSystem_Windows()
 	{
-
+		::OleInitialize(nullptr);
 	}
 
 	CSystem_Windows::~CSystem_Windows()
 	{
-
+		::OleUninitialize();
 	}
 
 	bool CSystem_Windows::init()
@@ -148,7 +153,7 @@ namespace s3d
 	{
 		if (m_setupState == SetupState::Initialized)
 		{
-			Siv3DEngine::GetWindow()->show();
+			Siv3DEngine::GetWindow()->show(true);
 
 			m_setupState = SetupState::Displayed;
 		}
@@ -203,11 +208,13 @@ namespace s3d
 
 		Siv3DEngine::GetDragDrop()->update();
 
+		Siv3DEngine::GetMouse()->update();
+
 		Siv3DEngine::GetCursor()->update();
 
 		Siv3DEngine::GetKeyboard()->update();
 
-		Siv3DEngine::GetMouse()->update();
+
 
 		Siv3DEngine::GetTextInput()->update();
 

@@ -33,43 +33,43 @@ namespace s3d
 			, _31{ _31 }
 			, _32{ _32 } {}
 
-		static constexpr Mat3x2 Identity()
+		S3D_NODISCARD static constexpr Mat3x2 Identity()
 		{
 			return Mat3x2(1.0f, 0.0f,
 						  0.0f, 1.0f,
 						  0.0f, 0.0f);
 		}
 
-		static constexpr Mat3x2 Translate(const Float2& v)
+		S3D_NODISCARD static constexpr Mat3x2 Translate(const Float2& v)
 		{
 			return Mat3x2(1.0f, 0.0f,
 						  0.0f, 1.0f,
 						  v.x, v.y);
 		}
 
-		static constexpr Mat3x2 Translate(double x, double y)
+		S3D_NODISCARD static constexpr Mat3x2 Translate(double x, double y)
 		{
 			return Translate({ x, y });
 		}
 
-		static constexpr Mat3x2 Scale(const Float2& scale, const Float2& center = { 0,0 })
+		S3D_NODISCARD static constexpr Mat3x2 Scale(const Float2& scale, const Float2& center = { 0,0 })
 		{
 			return Mat3x2(scale.x, 0.0f,
 						  0.0f, scale.y,
 						  center.x - scale.x * center.x, center.y - scale.x * center.y);
 		}
 
-		static constexpr Mat3x2 Scale(double s, const Float2& center = { 0,0 })
+		S3D_NODISCARD static constexpr Mat3x2 Scale(double s, const Float2& center = { 0,0 })
 		{
 			return Scale({ s, s }, center);
 		}
 
-		static constexpr Mat3x2 Scale(double sx, double sy, const Float2& center = { 0,0 })
+		S3D_NODISCARD static constexpr Mat3x2 Scale(double sx, double sy, const Float2& center = { 0,0 })
 		{
 			return Scale({ sx, sy }, center);
 		}
 
-		static Mat3x2 Rotate(double angle, const Float2& center = { 0,0 })
+		S3D_NODISCARD static Mat3x2 Rotate(double angle, const Float2& center = { 0,0 })
 		{
 			Mat3x2 m;
 			const float s = std::sin(static_cast<float>(angle));
@@ -83,60 +83,60 @@ namespace s3d
 			return m;
 		}
 
-		static constexpr Mat3x2 Screen(double width, double height)
+		S3D_NODISCARD static constexpr Mat3x2 Screen(double width, double height)
 		{
 			return Screen({ width, height });
 		}
 		
-		static constexpr Mat3x2 Screen(const Float2& size)
+		S3D_NODISCARD static constexpr Mat3x2 Screen(const Float2& size)
 		{
 			return Mat3x2(2.0f / size.x, 0.0f,
 						  0.0f, -2.0f / size.y,
 						  -1.0f, 1.0f);
 		}
 
-		Mat3x2 translate(const Float2& v) const
+		S3D_NODISCARD Mat3x2 translated(const Float2& v) const
 		{
 			Mat3x2 result;
 			result.setProduct(*this, Translate(v));
 			return result;
 		}
 
-		Mat3x2 translate(double x, double y) const
+		S3D_NODISCARD Mat3x2 translated(double x, double y) const
 		{
-			return translate({ x, y });
+			return translated({ x, y });
 		}
 
-		Mat3x2 scale(double s, const Float2& center = { 0,0 }) const
+		S3D_NODISCARD Mat3x2 scaled(double s, const Float2& center = { 0,0 }) const
 		{
-			return scale({ s, s }, center);
+			return scaled({ s, s }, center);
 		}
 
-		Mat3x2 scale(const Float2& scale, const Float2& center = { 0,0 }) const
+		S3D_NODISCARD Mat3x2 scaled(const Float2& scale, const Float2& center = { 0,0 }) const
 		{
 			Mat3x2 result;
 			result.setProduct(*this, Scale(scale, center));
 			return result;
 		}
 
-		Mat3x2 scale(double sx, double sy, const Float2& center = { 0,0 }) const
+		S3D_NODISCARD Mat3x2 scaled(double sx, double sy, const Float2& center = { 0,0 }) const
 		{
-			return scale({ sx, sy }, center);
+			return scaled({ sx, sy }, center);
 		}
 
-		Mat3x2 rotate(double angle, const Float2& center = { 0,0 }) const
+		S3D_NODISCARD Mat3x2 rotated(double angle, const Float2& center = { 0,0 }) const
 		{
 			Mat3x2 result;
 			result.setProduct(*this, Rotate(angle, center));
 			return result;
 		}
 
-		constexpr float determinant() const
+		S3D_NODISCARD constexpr float determinant() const
 		{
 			return (_11 * _22) - (_12 * _21);
 		}
 
-		Mat3x2 inverse() const
+		S3D_NODISCARD Mat3x2 inversed() const
 		{
 			const float det = determinant();
 			assert(det != 0.0f);
@@ -162,14 +162,14 @@ namespace s3d
 			_32 = a._31 * b._12 + a._32 * b._22 + b._32;
 		}
 
-		Mat3x2 operator *(const Mat3x2 &matrix) const
+		S3D_NODISCARD Mat3x2 operator *(const Mat3x2 &matrix) const
 		{
 			Mat3x2 result;
 			result.setProduct(*this, matrix);
 			return result;
 		}
 
-		constexpr Float2 transform(const Point& pos) const
+		S3D_NODISCARD constexpr Float2 transform(const Point& pos) const
 		{
 			return
 			{
@@ -178,7 +178,7 @@ namespace s3d
 			};
 		}
 
-		constexpr Float2 transform(const Float2& pos) const
+		S3D_NODISCARD constexpr Float2 transform(const Float2& pos) const
 		{
 			return
 			{
@@ -187,7 +187,7 @@ namespace s3d
 			};
 		}
 
-		constexpr Vec2 transform(const Vec2& pos) const
+		S3D_NODISCARD constexpr Vec2 transform(const Vec2& pos) const
 		{
 			return
 			{

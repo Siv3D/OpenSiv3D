@@ -20,6 +20,7 @@
 # include "CWindow_Windows.hpp"
 # include "../System/ISystem.hpp"
 # include "../Mouse/IMouse.hpp"
+# include "../Mouse/CMouse_Windows.hpp"
 # include "../TextInput/ITextInput.hpp"
 
 # include "../Graphics/D3D11/CGraphics_D3D11.hpp"
@@ -128,6 +129,29 @@ namespace s3d
 
 					return 0;
 				}
+				case WM_TOUCH:
+				{
+					if (const size_t num_inputs = LOWORD(wParam))
+					{
+						Array<TOUCHINPUT> touchInputs(num_inputs);
+
+						if (::GetTouchInputInfo(reinterpret_cast<HTOUCHINPUT>(lParam),
+							static_cast<uint32>(touchInputs.size()), touchInputs.data(),
+							sizeof(TOUCHINPUT)))
+						{
+							if (auto pMouse = dynamic_cast<CMouse_Windows*>(Siv3DEngine::GetMouse()))
+							{
+								pMouse->onTouchInput(touchInputs);
+							}
+
+							::CloseTouchInputHandle(reinterpret_cast<HTOUCHINPUT>(lParam));
+
+							return 0;
+						}
+					}
+
+					break;
+				}
 			}
 
 			return ::DefWindowProcW(hWnd, message, wParam, lParam);
@@ -188,15 +212,22 @@ namespace s3d
 		return true;
 	}
 
-	void CWindow_Windows::show()
+	void CWindow_Windows::show(const bool show)
 	{
-		::ShowWindow(m_hWnd, SW_SHOW);
+		if (show)
+		{
+			::ShowWindow(m_hWnd, SW_SHOW);
 
-		::ValidateRect(m_hWnd, 0);
+			::ValidateRect(m_hWnd, 0);
 
-		::UpdateWindow(m_hWnd);
+			::UpdateWindow(m_hWnd);
 
-		::SetForegroundWindow(m_hWnd);
+			::SetForegroundWindow(m_hWnd);
+		}
+		else
+		{
+			::ShowWindow(m_hWnd, SW_HIDE);		
+		}
 	}
 
 	bool CWindow_Windows::update()

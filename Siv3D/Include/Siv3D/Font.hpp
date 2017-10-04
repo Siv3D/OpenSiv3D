@@ -104,7 +104,7 @@ namespace s3d
 
 		Font();
 
-		Font(int32 fontSize, Typeface typeface = Typeface::Default, FontStyle style = FontStyle::Default);
+		explicit Font(int32 fontSize, Typeface typeface = Typeface::Default, FontStyle style = FontStyle::Default);
 
 		Font(int32 fontSize, const FilePath& path, FontStyle style = FontStyle::Default);
 
@@ -298,6 +298,16 @@ namespace s3d
 			return boundingRect(bottomCenter->movedBy(-region().w * 0.5, -region().h));
 		}
 
+		RectF boundingRect(Arg::leftCenter_<Vec2> leftCenter) const
+		{
+			return boundingRect(leftCenter->movedBy(0, -region().h * 0.5));
+		}
+
+		RectF boundingRect(Arg::rightCenter_<Vec2> rightCenter) const
+		{
+			return boundingRect(rightCenter->movedBy(-region().w, -region().h * 0.5));
+		}
+
 		RectF boundingRect(Arg::center_<Vec2> center) const
 		{
 			return boundingRectAt(*center);
@@ -350,6 +360,16 @@ namespace s3d
 		RectF region(Arg::bottomCenter_<Vec2> bottomCenter) const
 		{
 			return region(bottomCenter->movedBy(-region().w * 0.5, -region().h));
+		}
+
+		RectF region(Arg::leftCenter_<Vec2> leftCenter) const
+		{
+			return region(leftCenter->movedBy(0, -region().h * 0.5));
+		}
+
+		RectF region(Arg::rightCenter_<Vec2> rightCenter) const
+		{
+			return region(rightCenter->movedBy(-region().w, -region().h * 0.5));
 		}
 
 		RectF region(Arg::center_<Vec2> center) const
@@ -406,6 +426,16 @@ namespace s3d
 		RectF draw(Arg::bottomCenter_<Vec2> bottomCenter, const ColorF& color = Palette::White) const
 		{
 			return draw(bottomCenter->movedBy(-region().w * 0.5, -region().h), color);
+		}
+
+		RectF draw(Arg::leftCenter_<Vec2> leftCenter, const ColorF& color = Palette::White) const
+		{
+			return draw(leftCenter->movedBy(0, -region().h * 0.5), color);
+		}
+
+		RectF draw(Arg::rightCenter_<Vec2> rightCenter, const ColorF& color = Palette::White) const
+		{
+			return draw(rightCenter->movedBy(-region().w, -region().h * 0.5), color);
 		}
 
 		RectF draw(Arg::center_<Vec2> center, const ColorF& color = Palette::White) const

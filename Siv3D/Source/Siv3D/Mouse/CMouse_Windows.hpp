@@ -32,6 +32,7 @@
 # endif
 # include <Windows.h>
 # include "IMouse.hpp"
+# include <Siv3D/Array.hpp>
 # include <Siv3D/PointVector.hpp>
 
 namespace s3d
@@ -46,9 +47,17 @@ namespace s3d
 
 		std::mutex m_scrollMutex;
 
+		std::mutex m_touchMutex;
+
 		Vec2 m_scrollInternal{ 0.0, 0.0 };
 
 		Vec2 m_scroll{ 0.0, 0.0 };
+
+		bool m_touchAvailable = false;
+
+		Optional<DWORD> m_currentPrimaryTouchID;
+
+		Optional<Point> m_primaryTouchPos; // Screen
 
 	public:
 
@@ -73,6 +82,10 @@ namespace s3d
 		void onScroll(double v, double h) override;
 		
 		void onMouseButtonUpdated(int32, bool) override {}
+
+		void onTouchInput(const Array<TOUCHINPUT>& touchInputs);
+
+		Optional<Point> getPrimaryTouchPos();
 	};
 }
 

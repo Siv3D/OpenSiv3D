@@ -195,6 +195,14 @@ namespace s3d
 			: center(bottomCenter->x, bottomCenter->y - _r)
 			, r(_r) {}
 
+		constexpr Circle(Arg::leftCenter_<position_type> leftCenter, size_type _r) noexcept
+			: center(leftCenter->x + _r, leftCenter->y)
+			, r(_r) {}
+
+		constexpr Circle(Arg::rightCenter_<position_type> rightCenter, size_type _r) noexcept
+			: center(rightCenter->x - _r, rightCenter->y)
+			, r(_r) {}
+
 		Circle(const position_type& p0, const position_type& p1) noexcept
 			: center((p0 + p1) / 2.0)
 			, r(p0.distanceFrom(p1) / 2.0) {}
@@ -266,6 +274,16 @@ namespace s3d
 			return set(bottomCenter->x, bottomCenter->y - _r, _r);
 		}
 
+		constexpr Circle& set(Arg::leftCenter_<position_type> leftCenter, size_type _r) noexcept
+		{
+			return set(leftCenter->x + _r, leftCenter->y, _r);
+		}
+
+		constexpr Circle& set(Arg::rightCenter_<position_type> rightCenter, size_type _r) noexcept
+		{
+			return set(rightCenter->x - _r, rightCenter->y, _r);
+		}
+
 		constexpr Circle& set(const Circle& circle) noexcept
 		{
 			return *this = circle;
@@ -325,6 +343,16 @@ namespace s3d
 		constexpr Circle& setPos(Arg::bottomCenter_<position_type> bottomCenter) noexcept
 		{
 			return setCenter(bottomCenter->x, bottomCenter->y - r);
+		}
+
+		constexpr Circle& setPos(Arg::leftCenter_<position_type> leftCenter) noexcept
+		{
+			return setCenter(leftCenter->x + r, leftCenter->y);
+		}
+
+		constexpr Circle& setPos(Arg::rightCenter_<position_type> rightCenter) noexcept
+		{
+			return setCenter(rightCenter->x - r, rightCenter->y);
 		}
 
 		constexpr Circle& setR(double _r) noexcept

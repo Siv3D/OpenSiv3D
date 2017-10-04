@@ -38,6 +38,13 @@ namespace s3d
 	{
 		m_hWnd = Siv3DEngine::GetWindow()->getHandle();
 
+		if (::GetSystemMetrics(SM_DIGITIZER) & NID_MULTI_INPUT)
+		{
+			::RegisterTouchWindow(m_hWnd, TWF_WANTPALM);
+
+			m_touchAvailable = true;
+		}
+
 		return true;
 	}
 
@@ -47,9 +54,20 @@ namespace s3d
 
 		for (size_t i = 0; i < std::size(detail::buttonIndex); ++i)
 		{
-			const bool pressed = keyboard->pressed(detail::buttonIndex[i]);
+			if (i == 0)
+			{
+				std::lock_guard<std::mutex> lock(m_touchMutex);
 
-			m_states[i].update(pressed);
+				const bool pressed = keyboard->pressed(detail::buttonIndex[i]) || m_primaryTouchPos.has_value();
+
+				m_states[i].update(pressed);
+			}
+			else
+			{
+				const bool pressed = keyboard->pressed(detail::buttonIndex[i]);
+
+				m_states[i].update(pressed);
+			}
 		}
 
 		{
@@ -91,6 +109,48 @@ namespace s3d
 		std::lock_guard<std::mutex> lock(m_scrollMutex);
 		
 		m_scrollInternal.moveBy(h, v);
+	}
+
+	void CMouse_Windows::onTouchInput(const Array<TOUCHINPUT>& touchInputs)
+	{
+		std::lock_guard<std::mutex> lock(m_touchMutex);
+
+		for (size_t i = 0; i < touchInputs.size(); ++i)
+		{
+			if (!m_currentPrimaryTouchID && !(touchInputs[i].dwFlags & TOUCHEVENTF_UP))
+			{
+				m_currentPrimaryTouchID = touchInputs[i].dwID;
+
+				break;
+			}
+
+			if (touchInputs[0].dwFlags & TOUCHEVENTF_UP)
+			{
+				m_currentPrimaryTouchID.reset();
+			}
+		}
+
+		m_primaryTouchPos.reset();
+
+		if (m_currentPrimaryTouchID)
+		{
+			for (const auto& touchInput : touchInputs)
+			{
+				if (touchInput.dwID == m_currentPrimaryTouchID)
+				{
+					const POINT screenPos = { touchInput.x / 100, touchInput.y / 100 };
+
+					m_primaryTouchPos.emplace(screenPos.x, screenPos.y);
+				}
+			}
+		}
+	}
+
+	Optional<Point> CMouse_Windows::getPrimaryTouchPos()
+	{
+		std::lock_guard<std::mutex> lock(m_touchMutex);
+
+		return m_primaryTouchPos;
 	}
 }
 

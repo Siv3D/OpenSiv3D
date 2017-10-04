@@ -78,7 +78,7 @@ namespace s3d
 		return true;
 	}
 
-	void CWindow_macOS::show()
+	void CWindow_macOS::show(bool)
 	{
 
 	}

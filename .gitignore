@@ -295,6 +295,7 @@ Siv3D.lib
 libSiv3D.a
 siv3d.a
 *.html
+AS_DEBUG/
 
 # Xcode
 **/*.xcodeproj/*

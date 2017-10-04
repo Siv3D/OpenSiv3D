@@ -497,14 +497,32 @@
     <Filter Include="Source\Siv3D\Audio">
       <UniqueIdentifier>{99cd9e07-b004-48f9-9066-037795bde8da}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Siv3D\Audio\XAudio28">
-      <UniqueIdentifier>{3fb94954-c10a-4f23-b33e-15b14dcc8857}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Siv3D\Audio\XAudio27">
-      <UniqueIdentifier>{58d1d4a4-e0b9-427e-9bd8-51cd4f8c1037}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Siv3D\Audio\AL">
       <UniqueIdentifier>{26078f50-90b4-4786-a2b0-c6dbf55e4821}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Audio\Null">
+      <UniqueIdentifier>{e3c8dca7-553c-459e-b0bb-e5db29413178}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Audio\X28">
+      <UniqueIdentifier>{3fb94954-c10a-4f23-b33e-15b14dcc8857}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ThirdParty\XAudio2_7">
+      <UniqueIdentifier>{f9553d3f-c020-4ce9-b204-76c9010b44de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Script">
+      <UniqueIdentifier>{b06c7e18-911b-49bd-9c56-239a402d7459}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Script\AngelScript">
+      <UniqueIdentifier>{b0c416d9-7164-4a32-adf1-5b0fa6b2230e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\ThirdParty\angelscript">
+      <UniqueIdentifier>{6197ff49-4a4b-40b1-b3d8-e46d70bd7c7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Script\Bind">
+      <UniqueIdentifier>{6af3adb2-5581-4469-bde0-f8cfea3cf057}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Siv3D\Audio\X27">
+      <UniqueIdentifier>{58d1d4a4-e0b9-427e-9bd8-51cd4f8c1037}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1852,17 +1870,83 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\IAudio.hpp">
       <Filter>Source\Siv3D\Audio</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\XAudio28\CAudio_XAudio28.hpp">
-      <Filter>Source\Siv3D\Audio\XAudio28</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\Include\Siv3D\Audio.hpp">
       <Filter>Include\Siv3D</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\AL\CAudio_AL.hpp">
       <Filter>Source\Siv3D\Audio\AL</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\XAudio27\CAudio_XAudio27.hpp">
-      <Filter>Source\Siv3D\Audio\XAudio27</Filter>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\Null\CAudio_Null.hpp">
+      <Filter>Source\Siv3D\Audio\Null</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\AudioControlManager.hpp">
+      <Filter>Source\Siv3D\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\X28\AudioDevice_X28 .hpp">
+      <Filter>Source\Siv3D\Audio\X28</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\X28\CAudio_X28.hpp">
+      <Filter>Source\Siv3D\Audio\X28</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\X28\VoiceStream_X28.hpp">
+      <Filter>Source\Siv3D\Audio\X28</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\X28\Audio_X28.hpp">
+      <Filter>Source\Siv3D\Audio\X28</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\XAudio2_7\X3DAudio.h">
+      <Filter>Source\ThirdParty\XAudio2_7</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\XAudio2_7\XAudio2.h">
+      <Filter>Source\ThirdParty\XAudio2_7</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\XAudio2_7\XAudio2fx.h">
+      <Filter>Source\ThirdParty\XAudio2_7</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\XAudio2_7\xma2defs.h">
+      <Filter>Source\ThirdParty\XAudio2_7</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\XAudio2_7\audiodefs.h">
+      <Filter>Source\ThirdParty\XAudio2_7</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\XAudio2_7\comdecl.h">
+      <Filter>Source\ThirdParty\XAudio2_7</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\X27\CAudio_X27.hpp">
+      <Filter>Source\Siv3D\Audio\X27</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\X27\VoiceStream_X27.hpp">
+      <Filter>Source\Siv3D\Audio\X27</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\X27\Audio_X27.hpp">
+      <Filter>Source\Siv3D\Audio\X27</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Audio\X27\AudioDevice_X27 .hpp">
+      <Filter>Source\Siv3D\Audio\X27</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Script\CScript.hpp">
+      <Filter>Source\Siv3D\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Script\IScript.hpp">
+      <Filter>Source\Siv3D\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Script.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Script\AngelScript\scriptarray.h">
+      <Filter>Source\Siv3D\Script\AngelScript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\ThirdParty\angelscript\angelscript.h">
+      <Filter>Include\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Script\AngelScript\scriptstdstring.h">
+      <Filter>Source\Siv3D\Script\AngelScript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Script\Bind\ScriptBind.hpp">
+      <Filter>Source\Siv3D\Script\Bind</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Script\AngelScript\scriptbuilder.h">
+      <Filter>Source\Siv3D\Script\AngelScript</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2457,9 +2541,6 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Quad\SivQuad.cpp">
       <Filter>Source\Siv3D\Quad</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\GL\CTextureGL.cpp">
-      <Filter>Source\Siv3D\Texture\GL</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\JSONReader\SivJSONReader.cpp">
       <Filter>Source\Siv3D\JSONReader</Filter>
     </ClCompile>
@@ -2730,14 +2811,95 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\AudioFactory.cpp">
       <Filter>Source\Siv3D\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\XAudio28\CAudio_XAudio28.cpp">
-      <Filter>Source\Siv3D\Audio\XAudio28</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\AL\CAudio_AL.cpp">
       <Filter>Source\Siv3D\Audio\AL</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\XAudio27\CAudio_XAudio27.cpp">
-      <Filter>Source\Siv3D\Audio\XAudio27</Filter>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\Null\CAudio_Null.cpp">
+      <Filter>Source\Siv3D\Audio\Null</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\X28\CAudio_X28.cpp">
+      <Filter>Source\Siv3D\Audio\X28</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\X28\Audio_X28.cpp">
+      <Filter>Source\Siv3D\Audio\X28</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\X27\CAudio_X27.cpp">
+      <Filter>Source\Siv3D\Audio\X27</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Audio\X27\Audio_X27.cpp">
+      <Filter>Source\Siv3D\Audio\X27</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Script\CScript.cpp">
+      <Filter>Source\Siv3D\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Script\ScriptFactory.cpp">
+      <Filter>Source\Siv3D\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Script\SivScript.cpp">
+      <Filter>Source\Siv3D\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Script\AngelScript\scriptarray.cpp">
+      <Filter>Source\Siv3D\Script\AngelScript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Script\AngelScript\scriptstdstring.cpp">
+      <Filter>Source\Siv3D\Script\AngelScript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Script\Bind\Script_Types.cpp">
+      <Filter>Source\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Script\AngelScript\scriptbuilder.cpp">
+      <Filter>Source\Siv3D\Script\AngelScript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Script\Bind\Script_Format.cpp">
+      <Filter>Source\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Script\Bind\Script_Color.cpp">
+      <Filter>Source\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Script\Bind\Script_ColorF.cpp">
+      <Filter>Source\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Script\Bind\Script_HSV.cpp">
+      <Filter>Source\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Script\Bind\Script_Point.cpp">
+      <Filter>Source\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Script\Bind\Script_Vec2.cpp">
+      <Filter>Source\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Script\Bind\Script_RectF.cpp">
+      <Filter>Source\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Script\Bind\Script_Triangle.cpp">
+      <Filter>Source\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Script\Bind\Script_Circle.cpp">
+      <Filter>Source\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Script\Bind\Script_Line.cpp">
+      <Filter>Source\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Script\Bind\Script_Quad.cpp">
+      <Filter>Source\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Script\Bind\Script_Rect.cpp">
+      <Filter>Source\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Script\Bind\Script_Graphics.cpp">
+      <Filter>Source\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Script\Bind\Script_RoundRect.cpp">
+      <Filter>Source\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Script\Bind\Script_Random.cpp">
+      <Filter>Source\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Script\Bind\Script_Cursor.cpp">
+      <Filter>Source\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Texture\GL\CTexture_GL.cpp">
+      <Filter>Source\Siv3D\Texture\GL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
