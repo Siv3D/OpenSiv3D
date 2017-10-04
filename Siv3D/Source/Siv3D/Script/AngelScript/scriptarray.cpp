@@ -5,7 +5,7 @@
 #include <stdio.h> // sprintf
 #include <string>
 
-#include "scriptArray.h"
+#include "scriptarray.h"
 
 using namespace std;
 
