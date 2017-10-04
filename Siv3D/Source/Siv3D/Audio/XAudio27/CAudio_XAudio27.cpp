@@ -31,6 +31,16 @@ namespace s3d
 
 		return true;
 	}
+
+	Audio::IDType CAudio_XAudio27::create(const Wave& wave)
+	{
+		return Audio::NullHandleID;
+	}
+
+	void CAudio_XAudio27::release(const Audio::IDType handleID)
+	{
+
+	}
 }
 
 # endif

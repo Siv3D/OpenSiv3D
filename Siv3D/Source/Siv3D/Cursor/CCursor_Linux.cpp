@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -38,7 +38,7 @@ namespace s3d
 		m_glfwWindow = Siv3DEngine::GetWindow()->getHandle();
 
 		update();
-		 
+
 		m_screen.previous = m_screen.current;
 		m_client_raw.previous = m_client_raw.current;
 		m_client_transformed.previous = m_client_transformed.current;
