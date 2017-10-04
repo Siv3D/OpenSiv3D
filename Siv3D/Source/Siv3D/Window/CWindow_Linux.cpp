@@ -78,7 +78,7 @@ namespace s3d
 		return true;
 	}
 
-	void CWindow_Linux::show()
+	void CWindow_Linux::show(bool)
 	{
 
 	}

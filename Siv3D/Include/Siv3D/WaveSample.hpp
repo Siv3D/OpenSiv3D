@@ -67,5 +67,10 @@ namespace s3d
 		{
 			return WaveSampleS16{ static_cast<int16>(left * 32767), static_cast<int16>(right * 32767) };
 		}
+
+		static constexpr WaveSample Zero()
+		{
+			return{ 0.0f, 0.0f };
+		}
 	};
 }

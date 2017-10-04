@@ -305,9 +305,27 @@ namespace s3d
 			return *this;
 		}
 
+		bool& choice()
+		{
+			return choice(GetDefaultRNG());
+		}
+
 		const bool& choice() const
 		{
 			return choice(GetDefaultRNG());
+		}
+
+		template <class URBG, std::enable_if_t<!std::is_scalar<URBG>::value>* = nullptr>
+		bool& choice(URBG&& rbg)
+		{
+			if (empty())
+			{
+				throw std::out_of_range("Array::choice() choice from empty Array");
+			}
+
+			const size_t index = std::uniform_int_distribution<size_t>(0, size() - 1)(rbg);
+
+			return operator[](index);
 		}
 
 		template <class URBG, std::enable_if_t<!std::is_scalar<URBG>::value>* = nullptr>

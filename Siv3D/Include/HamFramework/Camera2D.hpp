@@ -114,7 +114,7 @@ namespace s3d
 			}
 
 			{
-				const Transformer2D transformer(Mat3x2::Identity(), Cursor::GetTransform().inverse());
+				const Transformer2D transformer(Mat3x2::Identity(), Cursor::GetTransform().inversed());
 
 				if (MouseR.down())
 				{
@@ -196,7 +196,7 @@ namespace s3d
 				return;
 			}
 
-			const Transformer2D transformer(Graphics2D::GetTransform().inverse(), true);
+			const Transformer2D transformer(Graphics2D::GetTransform().inversed(), true);
 
 			const double radius = 12.0;
 			const Point delta = Cursor::Pos() - m_grabPos.value();

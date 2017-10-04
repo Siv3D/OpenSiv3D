@@ -25,8 +25,42 @@ namespace s3d
 
 		virtual bool init() = 0;
 
-		virtual Audio::IDType create(const Wave& wave) = 0;
+		virtual bool hasAudioDevice() const = 0;
+
+		virtual Audio::IDType create(Wave&& wave) = 0;
 
 		virtual void release(Audio::IDType handleID) = 0;
+
+		virtual uint32 samplingRate(Audio::IDType handleID) = 0;
+
+		virtual size_t samples(Audio::IDType handleID) = 0;
+
+		virtual void setLoop(Audio::IDType handleID, bool loop, int64 loopBeginSample, int64 loopEndSample) = 0;
+
+		virtual bool play(Audio::IDType handleID, const SecondsF& fadeinDuration) = 0;
+
+		virtual void pause(Audio::IDType handleID, const SecondsF& fadeoutDuration) = 0;
+
+		virtual void stop(Audio::IDType handleID, const SecondsF& fadeoutDuration) = 0;
+
+		virtual uint64 posSample(Audio::IDType handleID) = 0;
+
+		virtual uint64 streamPosSample(Audio::IDType handleID) = 0;
+
+		virtual uint64 samplesPlayed(Audio::IDType handleID) = 0;
+
+		virtual void setVolume(Audio::IDType handleID, const std::pair<double, double>& volume) = 0;
+
+		virtual std::pair<double, double> getVolume(Audio::IDType handleID) = 0;
+
+		virtual void setSpeed(Audio::IDType handleID, double speed) = 0;
+
+		virtual double getSpeed(Audio::IDType handleID) = 0;
+
+		virtual std::pair<double, double> getMinMaxSpeed(Audio::IDType handleID) = 0;
+
+		virtual bool updateFade() = 0;
+
+		virtual void fadeMasterVolume() = 0;
 	};
 }

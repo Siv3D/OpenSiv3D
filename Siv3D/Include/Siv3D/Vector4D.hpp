@@ -490,12 +490,12 @@ namespace s3d
 			return *this;
 		}
 
-		constexpr Vector4D movedBy(value_type _x, value_type _y, value_type _z, value_type _w) const noexcept
+		S3D_NODISCARD constexpr Vector4D movedBy(value_type _x, value_type _y, value_type _z, value_type _w) const noexcept
 		{
 			return{ x + _x, y + _y, z + _z, w + _w };
 		}
 
-		constexpr Vector4D movedBy(const Vector4D& v) const noexcept
+		S3D_NODISCARD constexpr Vector4D movedBy(const Vector4D& v) const noexcept
 		{
 			return{ x + v.x, y + v.y, z + v.z, w + v.w };
 		}
@@ -569,7 +569,7 @@ namespace s3d
 			return (*this - v).lengthSq();
 		}
 
-		Vector4D normalized() const noexcept
+		S3D_NODISCARD Vector4D normalized() const noexcept
 		{
 			return *this * lengthInv();
 		}
@@ -579,7 +579,7 @@ namespace s3d
 			return *this *= lengthInv();
 		}
 
-		constexpr Vector4D lerp(const Vector4D& other, double f) const noexcept
+		S3D_NODISCARD constexpr Vector4D lerp(const Vector4D& other, double f) const noexcept
 		{
 			return Vector4D(x + (other.x - x) * f, y + (other.y - y) * f, z + (other.z - z) * f, w + (other.w - w) * f);
 		}

@@ -118,7 +118,7 @@ namespace s3d
 		}
 
 		m_transform = matrix;
-		m_transformInv = m_transform.inverse();
+		m_transformInv = m_transform.inversed();
 
 		m_client_transformedF.current = m_transformInv.transform(m_client_raw.current);
 		m_client_transformedF.delta = m_client_transformedF.current - m_client_transformedF.previous;
