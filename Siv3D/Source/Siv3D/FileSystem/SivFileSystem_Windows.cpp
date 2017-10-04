@@ -73,6 +73,8 @@ namespace s3d
 
 		static int64 DirectorySizeRecursive(FilePath directory)
 		{
+			directory = NormalizePath(directory, true);
+
 			WIN32_FIND_DATAW data;
 			HANDLE sh = ::FindFirstFileW((directory + L'*').c_str(), &data);
 
@@ -117,6 +119,8 @@ namespace s3d
 
 		static void DirectoryContentsRecursive(FilePath directory, Array<FilePath>& paths, bool recursive = true)
 		{
+			directory = NormalizePath(directory, true);
+
 			WIN32_FIND_DATAW data;
 			HANDLE sh = ::FindFirstFileW((directory + L'*').c_str(), &data);
 

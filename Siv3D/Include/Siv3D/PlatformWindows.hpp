@@ -46,6 +46,7 @@
 		# pragma comment (lib, "Windows(x64)/libjpeg-turbo/turbojpeg-static_d")
 		# pragma comment (lib, "Windows(x64)/freetype/freetype28MTd")
 		# pragma comment (lib, "Windows(x64)/harfbuzz/harfbuzz_d")
+		# pragma comment (lib, "Windows(x64)/angelscript/angelscript64d")
 
 	# else
 
@@ -55,6 +56,7 @@
 		# pragma comment (lib, "Windows(x64)/libjpeg-turbo/turbojpeg-static")
 		# pragma comment (lib, "Windows(x64)/freetype/freetype28MT")
 		# pragma comment (lib, "Windows(x64)/harfbuzz/harfbuzz")
+		# pragma comment (lib, "Windows(x64)/angelscript/angelscript64")
 
 	# endif
 
@@ -68,6 +70,7 @@
 		# pragma comment (lib, "Windows(x86)/libjpeg-turbo/turbojpeg-static_d")
 		# pragma comment (lib, "Windows(x86)/freetype/freetype28MTd")
 		# pragma comment (lib, "Windows(x86)/harfbuzz/harfbuzz_d")
+		# pragma comment (lib, "Windows(x86)/angelscript/angelscriptd")
 
 	# else
 
@@ -77,6 +80,7 @@
 		# pragma comment (lib, "Windows(x86)/libjpeg-turbo/turbojpeg-static")
 		# pragma comment (lib, "Windows(x86)/freetype/freetype28MT")
 		# pragma comment (lib, "Windows(x86)/harfbuzz/harfbuzz")
+		# pragma comment (lib, "Windows(x86)/angelscript/angelscript")
 
 	# endif
 

@@ -345,6 +345,16 @@ namespace s3d
 			return draw(bottomCenter->x - width() * 0.5, bottomCenter->y - height(), diffuse);
 		}
 
+		RectF draw(Arg::leftCenter_<Vec2> leftCenter, const ColorF& diffuse = Palette::White) const
+		{
+			return draw(leftCenter->x, leftCenter->y - height() * 0.5, diffuse);
+		}
+
+		RectF draw(Arg::rightCenter_<Vec2>rightCenter, const ColorF& diffuse = Palette::White) const
+		{
+			return draw(rightCenter->x - width(), rightCenter->y - height() * 0.5, diffuse);
+		}
+
 		RectF draw(Arg::center_<Vec2> center, const ColorF& diffuse = Palette::White) const
 		{
 			return drawAt(center->x, center->y, diffuse);
