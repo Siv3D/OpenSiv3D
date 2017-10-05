@@ -17,6 +17,7 @@
 # include "Point.hpp"
 # include "Format.hpp"
 # include "Hash.hpp"
+# include "MathConstants.hpp"
 
 namespace s3d
 {
@@ -305,6 +306,16 @@ namespace s3d
 		Vector2D& rotate(value_type angle) noexcept
 		{
 			return *this = rotated(angle);
+		}
+		
+		S3D_NODISCARD value_type getAngle(const Vector2D& v) const
+		{
+			if (isZero() || v.isZero())
+			{
+				return static_cast<value_type>(Math::NaN);
+			}
+
+			return std::atan2(cross(v), dot(v));
 		}
 
 		S3D_NODISCARD constexpr Vector2D projection(const Vector2D& onto) const noexcept
