@@ -578,7 +578,7 @@ namespace s3d
 				}
 				else
 				{
-					const char32_t c[4] = { Card::GetSuit(m_card.suit), U'💂', U'👸', U'👴' };
+					const char32_t c[4] = { static_cast<char32_t>(Card::GetSuit(m_card.suit)), U'💂', U'👸', U'👴' };
 
 					m_font.getGlyph(c[(m_card.rank - 1) % 9]).texture.drawAt(center.movedBy(m_card.rank == 13 ? Vec2(0, m_cardSize.y / 12 - m_cardSize.y / 21) : Vec2::Zero()), color);
 
