@@ -229,6 +229,10 @@
 	//# include "Siv3D/ZIPWriter.hpp"
 	// HTML ファイルの書き出し
 	# include "Siv3D/HTMLWriter.hpp"
+	// TOML ファイルの読み込み
+	# include "Siv3D/TOMLReader.hpp"
+	//// TOML ファイルの書き出し
+	//# include "Siv3D/TOMLWriter.hpp"
 //
 // 色
 //

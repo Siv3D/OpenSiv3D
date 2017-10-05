@@ -808,4 +808,11 @@ namespace s3d
 	//
 	struct IEffect;
 	class Effect;
+
+	//////////////////////////////////////////////////////
+	//
+	//	TOMLReader.hpp
+	//
+	class TOMLValue;
+	struct TOMLTableMember;
 }
