@@ -149,7 +149,7 @@ namespace s3d
 		return true;
 	}
 
-	void CRenderer2D_D3D11::flush()
+	void CRenderer2D_D3D11::flush(bool clearGraphics)
 	{
 		CGraphics_D3D11* const pGraphics = dynamic_cast<CGraphics_D3D11* const>(Siv3DEngine::GetGraphics());
 		CTexture_D3D11* const pTexture = dynamic_cast<CTexture_D3D11* const>(Siv3DEngine::GetTexture());
@@ -315,9 +315,12 @@ namespace s3d
 			commandPointer += header->commandSize;
 		}
 
-		m_spriteBatch.clear();
+		if (clearGraphics)
+		{
+			m_spriteBatch.clear();
 
-		m_commandManager.reset();
+			m_commandManager.reset();
+		}
 	}
 
 	void CRenderer2D_D3D11::setBlendState(const BlendState& state)

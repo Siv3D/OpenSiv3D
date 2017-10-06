@@ -148,7 +148,7 @@ namespace s3d
 		return true;
 	}
 
-	bool CSystem_Linux::update()
+	bool CSystem_Linux::update(bool clearGraphics)
 	{
 		m_previousEvent = m_event.exchange(0);
 
@@ -159,7 +159,7 @@ namespace s3d
 
 		Siv3DEngine::GetPrint()->draw();
 		
-		if (!Siv3DEngine::GetGraphics()->flush())
+		if (!Siv3DEngine::GetGraphics()->flush(clearGraphics))
 		{
 			return false;
 		}

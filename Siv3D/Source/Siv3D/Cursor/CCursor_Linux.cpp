@@ -120,9 +120,11 @@ namespace s3d
 		m_transform = matrix;
 		m_transformInv = m_transform.inversed();
 
+		m_client_transformedF.previous = m_transformInv.transform(m_client_raw.previous);
 		m_client_transformedF.current = m_transformInv.transform(m_client_raw.current);
 		m_client_transformedF.delta = m_client_transformedF.current - m_client_transformedF.previous;
 
+		m_client_transformed.previous = m_client_transformedF.previous.asPoint();
 		m_client_transformed.current = m_client_transformedF.current.asPoint();
 		m_client_transformed.delta = m_client_transformedF.delta.asPoint();
 	}

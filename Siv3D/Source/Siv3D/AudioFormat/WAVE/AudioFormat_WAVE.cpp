@@ -88,7 +88,7 @@ namespace s3d
 
 	bool AudioFormat_WAVE::isHeader(const uint8(&bytes)[16]) const
 	{
-		static constexpr uint8 signature[] = { 0x42, 0x4d };
+		static constexpr uint8 signature[] = { 0x52, 0x49, 0x46, 0x46 };
 
 		return ::memcmp(bytes, signature, sizeof(signature)) == 0;
 	}

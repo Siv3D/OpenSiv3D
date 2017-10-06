@@ -56,7 +56,7 @@ namespace s3d
 		{
 			return Mat3x2(scale.x, 0.0f,
 						  0.0f, scale.y,
-						  center.x - scale.x * center.x, center.y - scale.x * center.y);
+						  center.x - scale.x * center.x, center.y - scale.y * center.y);
 		}
 
 		S3D_NODISCARD static constexpr Mat3x2 Scale(double s, const Float2& center = { 0,0 })

@@ -35,7 +35,7 @@ elseif (_SIV3D_LINUX_WINDOW_API_MIR)
 endif()
 configure_file(./Siv3D_Linux_GLFW_Window_API.h.in ${CMAKE_CURRENT_SOURCE_DIR}/Siv3D_Linux_GLFW_Window_API.h)
 
-pkg_check_modules(LIBSIV3D REQUIRED glib-2.0 gobject-2.0 gio-2.0 gl libpng libjpeg x11 xi xinerama xcursor xrandr gl glu freetype2)
+pkg_check_modules(LIBSIV3D REQUIRED glib-2.0 gobject-2.0 gio-2.0 gl libpng libturbojpeg x11 xi xinerama xcursor xrandr gl glu freetype2)
 include_directories(
 	"/usr/include"
 

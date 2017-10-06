@@ -53,7 +53,7 @@ namespace s3d
 
 		bool init() override;
 
-		bool update() override;
+		bool update(bool clearGraphics) override;
 
 		void reportEvent(uint32 windowEventFlag) override;
 
