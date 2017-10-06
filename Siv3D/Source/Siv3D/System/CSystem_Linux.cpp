@@ -159,7 +159,7 @@ namespace s3d
 
 		Siv3DEngine::GetPrint()->draw();
 		
-		if (!Siv3DEngine::GetGraphics()->flush())
+		if (!Siv3DEngine::GetGraphics()->flush(clearGraphics))
 		{
 			return false;
 		}
