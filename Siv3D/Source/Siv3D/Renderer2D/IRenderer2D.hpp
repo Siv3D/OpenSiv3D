@@ -27,7 +27,7 @@ namespace s3d
 
 		virtual ~ISiv3DRenderer2D() = default;
 
-		virtual void flush() = 0;
+		virtual void flush(bool clearGraphics) = 0;
 
 		virtual void setBlendState(const BlendState& state) = 0;
 

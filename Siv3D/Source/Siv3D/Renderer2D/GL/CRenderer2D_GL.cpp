@@ -134,7 +134,7 @@ namespace s3d
 		return true;
 	}
 	
-	void CRenderer2D_GL::flush()
+	void CRenderer2D_GL::flush(bool)
 	{
 		CGraphics_GL* const graphics = dynamic_cast<CGraphics_GL* const>(Siv3DEngine::GetGraphics());
 		CShader_GL* const shader = dynamic_cast<CShader_GL* const>(Siv3DEngine::GetShader());

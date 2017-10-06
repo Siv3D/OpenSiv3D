@@ -23,19 +23,9 @@ namespace s3d
 		new(self) ShapeType(r);
 	}
 
-	static void ConstructDD(double x, double y, ShapeType* self)
-	{
-		new(self) ShapeType(x, y);
-	}
-
 	static void ConstructDDD(double x, double y, double r, ShapeType* self)
 	{
 		new(self) ShapeType(x, y, r);
-	}
-
-	static void ConstructV(const Vec2& center, Rect* self)
-	{
-		new(self) ShapeType(center);
 	}
 
 	static void ConstructVD(const Vec2& center, double r, ShapeType* self)
@@ -53,9 +43,7 @@ namespace s3d
 		r = engine->RegisterObjectProperty(TypeName, "Vec2 center", asOFFSET(ShapeType, center)); assert(r >= 0);
 
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(double r)", asFUNCTION(ConstructD), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(double x, double y)", asFUNCTION(ConstructDD), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(double x, double y, double r)", asFUNCTION(ConstructDDD), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Vec2&in center)", asFUNCTION(ConstructV), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Vec2&in center, double r)", asFUNCTION(ConstructVD), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Circle& setPos(double x, double y)", asMETHODPR(ShapeType, setPos, (double, double), ShapeType&), asCALL_THISCALL); assert(r >= 0);

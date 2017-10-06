@@ -185,13 +185,13 @@ namespace s3d
 
 		Camera2D(const Vec2& pos, double scale, bool keyControlEnabled = true, bool mouseControlEnabled = true, double speed = 10.0, double scaleRatio = 1.1, double lerpRatio = 0.2)
 			: BasicCamera2D(pos, scale)
-			, m_targetPos(pos)
-			, m_targetScale(scale)
 			, m_keyControlEnabled(keyControlEnabled)
 			, m_mouseControlEnabled(mouseControlEnabled)
 			, m_speed(speed)
 			, m_scaleRatio(scaleRatio)
 			, m_lerpRatio(lerpRatio)
+			, m_targetPos(pos)
+			, m_targetScale(scale)
 		{
 
 		}

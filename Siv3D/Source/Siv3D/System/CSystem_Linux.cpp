@@ -148,7 +148,7 @@ namespace s3d
 		return true;
 	}
 
-	bool CSystem_Linux::update()
+	bool CSystem_Linux::update(bool clearGraphics)
 	{
 		m_previousEvent = m_event.exchange(0);
 

@@ -185,6 +185,59 @@ namespace s3d
 		return shape;
 	}
 
+	Shape2D Shape2D::RectBalloon(const RectF& rect, const Vec2& target, const double _pointingRootRatio)
+	{
+		const Float2 center = rect.center();
+
+		Shape2D shape(7, 9, center, 0);
+		const float h = static_cast<float>(rect.h);
+		const float w = static_cast<float>(rect.w);
+		const float prf = static_cast<float>(_pointingRootRatio);
+
+		constexpr std::array<int32, 2> sign{ 1, -1 };
+		const float firstAngle = std::atan2(h, w);
+		const Float2 direction = target - center;
+		const float flagAngle = std::fmod(std::atan2(direction.y, direction.x) + Math::TwoPiF, Math::TwoPiF);
+		const float remainderAngle = std::fmod(flagAngle + Math::HalfPiF, Math::HalfPiF);
+		const int32 dividedAngleIndex = static_cast<int32>(flagAngle / Math::HalfPiF);
+		const int32 a = ((dividedAngleIndex % 2 == 0) ? (remainderAngle > firstAngle) : (remainderAngle > Math::HalfPiF - firstAngle)) + dividedAngleIndex * 2;
+		const Float2 pointingRootCenter(sign[((a + 2) / 4) % 2] * w * 0.25f * (1.0f + ((a + 3) / 2) % 2), sign[((a) / 4) % 2] * h * 0.25f * (1.0f + ((a + 1) / 2) % 2));
+		const Float2 offset = sign[(((a + 3) % 8) / 4) % 2] * ((((a + 1) / 2) % 2) ? Float2(w * 0.25f * prf, 0.0f) : Float2(0.0f, h * 0.25f * prf));
+		const uint32 indexOffset = ((a + 1) / 2) % 4;
+
+		shape.m_vertices[0 + indexOffset] += pointingRootCenter - offset;
+		shape.m_vertices[1 + indexOffset] = target;
+		shape.m_vertices[2 + indexOffset] += pointingRootCenter + offset;
+
+		std::array<uint32, 4> rectIndices;
+		size_t i = 0;
+
+		for (size_t rectIndex = 0; rectIndex < 4; ++rectIndex)
+		{
+			if (indexOffset == rectIndex)
+			{
+				i += 3;
+			}
+
+			rectIndices[rectIndex] = i;
+
+			shape.m_vertices[i++] += Float2(sign[((rectIndex + 1) / 2) % 2] * w * 0.5f, sign[((rectIndex) / 2) % 2] * h * 0.5f);
+		}
+
+		uint32* pIndex = shape.m_indices.data();
+		(*pIndex++) = 0 + indexOffset;
+		(*pIndex++) = 1 + indexOffset;
+		(*pIndex++) = 2 + indexOffset;
+		(*pIndex++) = rectIndices[0];
+		(*pIndex++) = rectIndices[1];
+		(*pIndex++) = rectIndices[2];
+		(*pIndex++) = rectIndices[0];
+		(*pIndex++) = rectIndices[2];
+		(*pIndex++) = rectIndices[3];
+
+		return shape;
+	}
+
 	//Shape2D Shape2D::DoubleArrow(const Vec2& a, const Vec2& b, double width, const Vec2& headSize)
 	//{
 	//	return Shape2D();

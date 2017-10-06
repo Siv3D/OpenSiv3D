@@ -81,7 +81,7 @@ namespace s3d
 
 		bool init(ID3D11Device* device, ID3D11DeviceContext* context);
 
-		void flush() override;
+		void flush(bool clearGraphics) override;
 
 		void setBlendState(const BlendState& state) override;
 

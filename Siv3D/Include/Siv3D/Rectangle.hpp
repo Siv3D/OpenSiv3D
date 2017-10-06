@@ -1358,12 +1358,12 @@ namespace s3d
 
 		constexpr Line bottom() const noexcept
 		{
-			return{ br(), bl() };
+			return{ bl(), br() };
 		}
 
 		constexpr Line left() const noexcept
 		{
-			return{ bl(), tl() };
+			return{ tl(), bl() };
 		}
 
 		/// <summary>
