@@ -29,3 +29,24 @@ namespace s3d
 }
 
 # endif
+
+
+# if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
+
+# include <dlfcn.h>
+
+namespace s3d
+{
+	struct FunctionPointer
+	{
+		FunctionPointer(void* module, const char* name)
+		: p(dlsym(module, name)) {}
+		
+		template <class Type>
+		operator Type() const { return reinterpret_cast<Type>(p); }
+		
+		void* p;
+	};
+}
+
+# endif

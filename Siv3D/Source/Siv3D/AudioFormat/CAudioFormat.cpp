@@ -11,6 +11,8 @@
 
 # include "CAudioFormat.hpp"
 # include "WAVE/AudioFormat_WAVE.hpp"
+# include "MP3/AudioFormat_MP3_Windows.hpp"
+# include "MP3/AudioFormat_MP3_macOS.hpp"
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/FileSystem.hpp>
@@ -30,6 +32,7 @@ namespace s3d
 	bool CAudioFormat::init()
 	{
 		m_audioFormats.push_back(std::make_unique<AudioFormat_WAVE>());
+		m_audioFormats.push_back(std::make_unique<AudioFormat_MP3>());
 
 		return true;
 	}

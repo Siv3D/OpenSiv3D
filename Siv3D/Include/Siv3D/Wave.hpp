@@ -142,6 +142,11 @@ namespace s3d
 			return m_samplingRate;
 		}
 
+		void setSamplingRate(uint32 samplingRate) noexcept
+		{
+			m_samplingRate = samplingRate;
+		}
+
 		size_t lengthSample() const noexcept
 		{
 			return size();
