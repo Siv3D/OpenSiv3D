@@ -363,6 +363,16 @@ namespace s3d
 		m_stream.setReadPos(posSample);
 	}
 
+	bool Audio_X28::isPlaying() const
+	{
+		return m_stream.isPlaying();
+	}
+
+	bool Audio_X28::isPaused() const
+	{
+		return m_stream.isPaused();
+	}
+
 	uint64 Audio_X28::posSample()
 	{
 		return m_stream.calculatePosSample();
@@ -376,6 +386,11 @@ namespace s3d
 	uint64 Audio_X28::samplesPlayed()
 	{
 		return m_stream.getSamplesPlayed();
+	}
+
+	const Wave& Audio_X28::getWave() const
+	{
+		return m_wave;
 	}
 
 	void Audio_X28::setVolume(const std::pair<double, double>& volume)

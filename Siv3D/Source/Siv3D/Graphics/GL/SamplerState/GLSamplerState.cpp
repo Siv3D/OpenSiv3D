@@ -65,14 +65,15 @@ namespace s3d
 		std::unique_ptr<SamplerState_GL> samplerState = std::make_unique<SamplerState_GL>();
 
 		const GLuint sampler = samplerState->m_sampler;
-		static const GLfloat border[] = { state.borderColor[0], state.borderColor[1], state.borderColor[2], state.borderColor[3] };
+		static const GLfloat border[] = { state.borderColor.x, state.borderColor.y, state.borderColor.z, state.borderColor.w };
+		static const GLuint wraps[] = { GL_REPEAT, GL_MIRRORED_REPEAT, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_BORDER };
 		
 		::glSamplerParameteri(sampler, GL_TEXTURE_MIN_FILTER,
 							  detail::minmipTable[(static_cast<int32>(state.min) << 1) | (static_cast<int32>(state.mip))]);
 		::glSamplerParameteri(sampler, GL_TEXTURE_MAG_FILTER, static_cast<bool>(state.mag) ? GL_LINEAR : GL_NEAREST);
-		::glSamplerParameteri(sampler, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		::glSamplerParameteri(sampler, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		::glSamplerParameteri(sampler, GL_TEXTURE_WRAP_R, GL_REPEAT);
+		::glSamplerParameteri(sampler, GL_TEXTURE_WRAP_S, wraps[static_cast<int32>(state.addressU)]);
+		::glSamplerParameteri(sampler, GL_TEXTURE_WRAP_T, wraps[static_cast<int32>(state.addressV)]);
+		::glSamplerParameteri(sampler, GL_TEXTURE_WRAP_R, wraps[static_cast<int32>(state.addressW)]);
 		::glSamplerParameterf(sampler, GL_TEXTURE_LOD_BIAS, state.lodBias);
 		::glSamplerParameteri(sampler, GL_TEXTURE_COMPARE_MODE, GL_NONE);
 		::glSamplerParameterf(sampler, GL_TEXTURE_MAX_ANISOTROPY_EXT, state.maxAnisotropy);

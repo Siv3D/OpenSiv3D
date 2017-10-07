@@ -16,6 +16,7 @@
 # include <GL/glew.h>
 # include "../../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 # include <Siv3D/Fwd.hpp>
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -68,7 +69,7 @@ namespace s3d
 				
 				::glGetProgramInfoLog(m_vsProgram, logLen, &logLen, &log[0]);
 				
-				//Log << CharacterSet::Widen(log);
+				LOG_FAIL(L"❌ Vertex shader compilation failed: {0}"_fmt(CharacterSet::Widen(log)));
 			}
 			
 			if (status == GL_FALSE)

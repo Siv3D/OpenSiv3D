@@ -69,11 +69,17 @@ namespace s3d
 
 		void setPosSample(int64 posSample);
 
+		bool isPlaying() const;
+
+		bool isPaused() const;
+
 		uint64 posSample();
 
 		uint64 streamPosSample() const;
 
 		uint64 samplesPlayed();
+
+		const Wave& getWave() const;
 
 		void setVolume(const std::pair<double, double>& volume);
 
