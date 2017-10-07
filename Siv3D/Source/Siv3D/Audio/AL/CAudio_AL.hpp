@@ -11,12 +11,23 @@
 
 # pragma once
 # include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
+# if defined(SIV3D_TARGET_MACOS)
 
 # include <OpenAL/al.h>
 # include <OpenAL/alc.h>
 # include "../IAudio.hpp"
 # include "../../AssetHandleManager/AssetHandleManager.hpp"
+
+# elif defined(SIV3D_TARGET_LINUX)
+
+# include <AL/al.h>
+# include <AL/alc.h>
+# include "../IAudio.hpp"
+# include "../../AssetHandleManager/AssetHandleManager.hpp"
+
+# endif
+
+# if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 namespace s3d
 {
