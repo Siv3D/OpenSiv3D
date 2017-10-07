@@ -267,7 +267,7 @@ namespace s3d
 				
 				const uint32 indexOffset = m_indexBufferWritePos;
 
-				if (vertexSize)
+				if (indexSize)
 				{
 					void* pDst = ::glMapBufferRange(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32) * m_indexBufferWritePos, sizeof(uint32) * indexSize,
 													GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);

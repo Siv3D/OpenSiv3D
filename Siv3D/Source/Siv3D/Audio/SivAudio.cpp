@@ -234,6 +234,16 @@ namespace s3d
 		Siv3DEngine::GetAudio()->stop(m_handle->getID(), fadeoutDuration);
 	}
 
+	bool Audio::isPlaying() const
+	{
+		return Siv3DEngine::GetAudio()->isPlaying(m_handle->getID());
+	}
+
+	bool Audio::isPaused() const
+	{
+		return Siv3DEngine::GetAudio()->isPaused(m_handle->getID());
+	}
+
 	int64 Audio::posSample() const
 	{
 		return Siv3DEngine::GetAudio()->posSample(m_handle->getID());
@@ -242,6 +252,16 @@ namespace s3d
 	int64 Audio::streamPosSample() const
 	{
 		return Siv3DEngine::GetAudio()->streamPosSample(m_handle->getID());
+	}
+
+	double Audio::lengthSec() const
+	{
+		return static_cast<double>(samples()) / samplingRate();
+	}
+
+	const Wave& Audio::getWave() const
+	{
+		return Siv3DEngine::GetAudio()->getWave(m_handle->getID());
 	}
 
 	int64 Audio::samplesPlayed() const

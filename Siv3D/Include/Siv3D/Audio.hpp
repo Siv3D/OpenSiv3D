@@ -148,6 +148,16 @@ namespace s3d
 		void stop(const SecondsF& fadeoutDuration = SecondsF(0.0)) const;
 
 		/// <summary>
+		/// サウンドが再生中であるかを返します。
+		/// </summary>
+		bool isPlaying() const;
+
+		/// <summary>
+		/// サウンドが一時停止中であるかを返します。
+		/// </summary>
+		bool isPaused() const;
+
+		/// <summary>
 		/// 再生位置（サンプル）を返します。
 		/// </summary>
 		int64 posSample() const;
@@ -161,6 +171,19 @@ namespace s3d
 		/// ループを含めた再生済みのサンプル数を返します。
 		/// </summary>
 		int64 samplesPlayed() const;
+
+		/// <summary>
+		/// サウンドの長さ（秒）を返します。
+		/// </summary>
+		double lengthSec() const;
+
+		/// <summary>
+		/// 波形データにアクセスします。
+		/// </summary>
+		/// <returns>
+		/// サウンドの波形データへの参照
+		/// </returns>
+		const Wave& getWave() const;
 
 		/// <summary>
 		/// 音量を変更します。

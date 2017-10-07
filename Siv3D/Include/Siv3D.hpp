@@ -313,6 +313,8 @@
 	# include "Siv3D/Easing.hpp"
 	// イージング ユーティリティ
 	# include "Siv3D/EasingController.hpp"
+	// トランジション
+	# include "Siv3D/Transition.hpp"
 	// 2D 交差判定
 	# include "Siv3D/Intersection.hpp"
 	// 2D 幾何
