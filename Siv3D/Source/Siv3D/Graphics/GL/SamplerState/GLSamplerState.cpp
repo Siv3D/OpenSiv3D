@@ -65,7 +65,7 @@ namespace s3d
 		std::unique_ptr<SamplerState_GL> samplerState = std::make_unique<SamplerState_GL>();
 
 		const GLuint sampler = samplerState->m_sampler;
-		static const GLfloat border[] = { state.borderColor.x, state.borderColor.y, state.borderColor.z, state.borderColor.w };
+		static const GLfloat border[] = { state.borderColor[0], state.borderColor[1], state.borderColor[2], state.borderColor[3] };
 		static const GLuint wraps[] = { GL_REPEAT, GL_MIRRORED_REPEAT, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_BORDER };
 		
 		::glSamplerParameteri(sampler, GL_TEXTURE_MIN_FILTER,
