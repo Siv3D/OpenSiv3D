@@ -21,6 +21,7 @@
 
 # elif defined(SIV3D_TARGET_LINUX)
 
+# include <unistd.h>
 # include <AL/al.h>
 # include <AL/alc.h>
 # include "../IAudio.hpp"
