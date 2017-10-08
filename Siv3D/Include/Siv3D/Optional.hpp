@@ -674,139 +674,27 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// 中身がある場合に、その値を引数に関数 f を呼びます。
+		/// 中身がある場合に、その値の参照を引数に関数 f を呼びます。
 		/// </summary>
 		/// <param name="f">
-		/// 中身の値と同じ型を引数にとる関数
+		/// 中身の値と同じ型の参照を引数にとる関数
 		/// </param>
 		/// <returns>
-		/// 中身がある場合は関数 f の戻り値の Optional, それ以外の場合は none
+		/// *this
 		/// </returns>
-		template <class Fty, std::enable_if_t<detail::is_optional<std::result_of_t<Fty(Type)>>::value>* = nullptr>
-		std::result_of_t<Fty(Type)> then(Fty f)
-		{
-			if (has_value())
-			{
-				return f(value());
-			}
-			else
-			{
-				return none;
-			}
-		}
-
-		/// <summary>
-		/// 中身がある場合に、その値を引数に関数 f を呼びます。
-		/// </summary>
-		/// <param name="f">
-		/// 中身の値と同じ型を引数にとる関数
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
-		template <class Fty, std::enable_if_t<
-			   !detail::is_optional<std::result_of_t<Fty(Type)>>::value
-			&& std::is_void<std::result_of_t<Fty(Type)>>::value>* = nullptr>
-		void then(Fty f)
+		template <class Fty>
+		Optional<Type>& then(Fty f)
 		{
 			if (has_value())
 			{
 				f(value());
 			}
+
+			return *this;
 		}
 
 		/// <summary>
-		/// 中身がある場合に、その値を引数に関数 f を呼びます。
-		/// </summary>
-		/// <param name="f">
-		/// 中身の値と同じ型を引数にとる関数
-		/// </param>
-		/// <returns>
-		/// 中身がある場合は関数 f の戻り値の Optional, それ以外の場合は none
-		/// </returns>
-		template <class Fty, std::enable_if_t<
-			   !detail::is_optional<std::result_of_t<Fty(Type)>>::value
-			&& !std::is_void<std::result_of_t<Fty(Type)>>::value>* = nullptr>
-		Optional<std::result_of_t<Fty(Type)>> then(Fty f)
-		{
-			if (has_value())
-			{
-				return f(value());
-			}
-			else
-			{
-				return none;
-			}
-		}
-
-		/// <summary>
-		/// 中身がある場合に、その値を引数に関数 f を呼びます。
-		/// </summary>
-		/// <param name="f">
-		/// 中身の値と同じ型を引数にとる関数
-		/// </param>
-		/// <returns>
-		/// 中身がある場合は関数 f の戻り値, それ以外の場合は none
-		/// </returns>
-		template <class Fty, std::enable_if_t<detail::is_optional<std::result_of_t<Fty(Type)>>::value>* = nullptr>
-		std::result_of_t<Fty(Type)> then(Fty f) const
-		{
-			if (has_value())
-			{
-				return f(value());
-			}
-			else
-			{
-				return none;
-			}
-		}
-
-		/// <summary>
-		/// 中身がある場合に、その値を引数に関数 f を呼びます。
-		/// </summary>
-		/// <param name="f">
-		/// 中身の値と同じ型を引数にとる関数
-		/// </param>
-		/// <returns>
-		/// なし
-		/// </returns>
-		template <class Fty, std::enable_if_t<
-			   !detail::is_optional<std::result_of_t<Fty(Type)>>::value
-			&& std::is_void<std::result_of_t<Fty(Type)>>::value>* = nullptr>
-		void then(Fty f) const
-		{
-			if (has_value())
-			{
-				f(value());
-			}
-		}
-
-		/// <summary>
-		/// 中身がある場合に、その値を引数に関数 f を呼びます。
-		/// </summary>
-		/// <param name="f">
-		/// 中身の値と同じ型を引数にとる関数
-		/// </param>
-		/// <returns>
-		/// 中身がある場合は関数 f の戻り値の Optional, それ以外の場合は none
-		/// </returns>
-		template <class Fty, std::enable_if_t<
-			   !detail::is_optional<std::result_of_t<Fty(Type)>>::value
-			&& !std::is_void<std::result_of_t<Fty(Type)>>::value>* = nullptr>
-		Optional<std::result_of_t<Fty(Type)>> then(Fty f) const
-		{
-			if (has_value())
-			{
-				return f(value());
-			}
-			else
-			{
-				return none;
-			}
-		}
-
-		/// <summary>
-		/// 中身がある場合に、その値を引数に関数 f1 を呼び、それ以外の場合に関数 f2 を呼びます。
+		/// 中身がある場合に、その値の参照を引数に関数 f1 を呼び、それ以外の場合に関数 f2 を呼びます。
 		/// </summary>
 		/// <param name="f1">
 		/// 中身があるときに呼び出す関数
@@ -816,10 +704,10 @@ namespace s3d
 		/// 中身が無いときに呼び出す関数
 		/// </param>
 		/// <returns>
-		/// なし
+		/// *this
 		/// </returns>
 		template <class HasFty, class NoneFty>
-		void then(HasFty f1, NoneFty f2)
+		Optional<Type>& then(HasFty f1, NoneFty f2)
 		{
 			if (has_value())
 			{
@@ -829,10 +717,35 @@ namespace s3d
 			{
 				f2();
 			}
+
+			return *this;
 		}
 
 		/// <summary>
-		/// 中身がある場合に、その値を引数に関数 f1 を呼び、それ以外の場合に関数 f2 を呼びます。
+		/// 中身がある場合にはその値を引数に関数 f を呼んだ戻り値、ない場合は none を値とする Optional を返します。
+		/// </summary>
+		/// <param name="f">
+		/// 中身の値と同じ型を引数にとる関数
+		/// </param>
+		/// <returns>
+		/// 中身がある場合は関数 f の戻り値を Optional にしたもの, それ以外の場合は none
+		/// </returns>
+		template <class Fty>
+		auto map(Fty f) const
+			-> Optional<decltype(f(value()))>
+		{
+			if (has_value())
+			{
+				return f(value());
+			}
+			else
+			{
+				return none;
+			}
+		}
+
+		/// <summary>
+		/// 中身がある場合に、その値を引数に関数 f1 を、それ以外の場合に関数 f2 を呼び、その戻り値を返します
 		/// </summary>
 		/// <param name="f1">
 		/// 中身があるときに呼び出す関数
@@ -842,18 +755,19 @@ namespace s3d
 		/// 中身が無いときに呼び出す関数
 		/// </param>
 		/// <returns>
-		/// なし
+		/// f1、または f2 の戻り値を Optional にしたもの
 		/// </returns>
 		template <class HasFty, class NoneFty>
-		void then(HasFty f1, NoneFty f2) const
+		auto map(HasFty f1, NoneFty f2) const
+			-> std::common_type_t<decltype(f1(value())), decltype(f2())>
 		{
 			if (has_value())
 			{
-				f1(value());
+				return f1(value());
 			}
 			else
 			{
-				f2();
+				return f2();
 			}
 		}
 	};
