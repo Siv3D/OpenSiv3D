@@ -1,10 +1,21 @@
-ï»¿# include <Siv3D.hpp>
+# include <Siv3D.hpp>
 # include <HamFramework.hpp>
 
 void Main()
 {
-	while (System::Update())
-	{
+	Optional<int> x = 1, y = none;
+	
+	Print << x
+		.then([](int& a) { a += 5; })
+		.map([](int a) { return L"value is " + ToString(a); })
+		.map([](const String& s) { return s.length(); }, []() { return -1; });
 
+	// size_t ‚Æ -1 ‚Ì common_type ‚ðŽæ‚é‚½‚ßA-1 ‚ª size_t ‚ÉƒLƒƒƒXƒg‚³‚ê‚Ä‚µ‚Ü‚¤
+	Print << y
+		.then([](int& a) { a += 5; })
+		.map([](int a) { return ToString(a); })
+		.map([](const String& s) { return s.length(); }, []() { return -1; });
+
+	while (System::Update()) {
 	}
 }

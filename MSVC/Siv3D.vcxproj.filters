@@ -548,6 +548,9 @@
     <Filter Include="Source\ThirdParty\tobii">
       <UniqueIdentifier>{1d406378-258c-4948-954f-291b60557ef8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Siv3D\TOMLReader">
+      <UniqueIdentifier>{e83fdd31-a52e-467d-81c5-aff96414fc0c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\Include\Siv3D.hpp">
@@ -2038,6 +2041,9 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Tobii\CTobii_Linux.hpp">
       <Filter>Source\Siv3D\Tobii</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\Include\Siv3D\TOMLReader.hpp">
+      <Filter>Include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\Source\ThirdParty\double-conversion\diy-fp.cc">
@@ -3014,6 +3020,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\Source\Siv3D\Tobii\CTobii_Windows.cpp">
       <Filter>Source\Siv3D\Tobii</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\Source\Siv3D\TOMLReader\SivTOMLReader.cpp">
+      <Filter>Source\Siv3D\TOMLReader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

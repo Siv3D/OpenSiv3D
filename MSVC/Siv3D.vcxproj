@@ -176,6 +176,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextureRegion.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Threading.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Tobii.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\TOMLReader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Transformer2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Transition.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Triangle.hpp" />
@@ -757,6 +758,7 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Time\SivTime.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Tobii\CTobii_Windows.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Tobii\SivTobii.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\TOMLReader\SivTOMLReader.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Triangle\SivTriangle.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Vector2D\SivVector2D.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Vector3D\SivVector3D.cpp" />
