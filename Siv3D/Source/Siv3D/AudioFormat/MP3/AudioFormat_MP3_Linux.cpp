@@ -10,9 +10,9 @@
 //-----------------------------------------------
 
 # include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_MACOS)
+# if defined(SIV3D_TARGET_LINUX)
 
-# include "AudioFormat_MP3_macOS.hpp"
+# include "AudioFormat_MP3_Linux.hpp"
 # include "../../Siv3DEngine.hpp"
 # include "../../Codec/ICodec.hpp"
 # include "../../EngineUtility.hpp"
@@ -83,7 +83,7 @@ namespace s3d
 	
 	AudioFormat_MP3::AudioFormat_MP3()
 	{
-		const FilePath libPath = Resource(L"engine/lib/mpg123/libmpg123.0.dylib");
+		const FilePath libPath = Resource(L"engine/lib/mpg123/libmpg123.so");
 		
 		m_mpg123 = dlopen(libPath.narrow().c_str(), RTLD_LOCAL | RTLD_LAZY);
 		

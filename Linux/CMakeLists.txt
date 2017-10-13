@@ -55,7 +55,7 @@ set(SOURCE_FILES
 	"../Siv3D/Source/Siv3D/AudioFormat/AudioFormatFactory.cpp"
 	"../Siv3D/Source/Siv3D/AudioFormat/CAudioFormat.cpp"
 	"../Siv3D/Source/Siv3D/AudioFormat/SivAudioFormat.cpp"
-	"../Siv3D/Source/Siv3D/AudioFormat/MP3/AudioFormat_MP3_macOS.cpp"
+	"../Siv3D/Source/Siv3D/AudioFormat/MP3/AudioFormat_MP3_Linux.cpp"
 	"../Siv3D/Source/Siv3D/AudioFormat/WAVE/AudioFormat_WAVE.cpp"
 	"../Siv3D/Source/Siv3D/Base64/SivBase64.cpp"
 	"../Siv3D/Source/Siv3D/Bezier2/SivBezier2.cpp"
