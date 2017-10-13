@@ -30,7 +30,12 @@ namespace s3d
 		/// </summary>
 		WAVE,
 
-		//mp3, ogg, opus, aac, ...
+		/// <summary>
+		/// MP3
+		/// </summary>
+		MP3,
+
+		//ogg, opus, aac, ...
 
 		/// <summary>
 		/// 指定しない / データと拡張子から判断

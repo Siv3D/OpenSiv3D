@@ -542,13 +542,13 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// 配列を指定された数に分割した、配列の配列を返します。
+		/// 配列を指定された要素数づつに分割した、配列の配列を返します。
 		/// </summary>
-		/// <param name="n">
-		/// 配列の分割数
+		/// <param name="group">
+		/// 一つの分割された配列に含まれる要素数
 		/// </param>
 		/// <returns>
-		/// 指定された分割数に分割した配列の配列
+		/// 指定された要素数づつに分割された配列の配列
 		/// </returns>
 		Array<Array<Type, Allocator>, std::allocator<Array<Type, Allocator>>> chunk(const size_t n) const
 		{
@@ -801,13 +801,13 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// 配列を指定された要素数づつに分割した、配列の配列を返します。
+		/// 配列を指定された数に分割した、配列の配列を返します。
 		/// </summary>
-		/// <param name="group">
-		/// 一つの分割された配列に含まれる要素数
+		/// <param name="n">
+		/// 配列の分割数
 		/// </param>
 		/// <returns>
-		/// 指定された要素数づつに分割された配列の配列
+		/// 指定された分割数に分割した配列の配列
 		/// </returns>
 		Array<Array<Type, Allocator>, std::allocator<Array<Type, Allocator>>> in_groups(const size_t group) const
 		{
@@ -824,7 +824,7 @@ namespace s3d
 
 			for (size_t i = 0; i < group; ++i)
 			{
-				const size_t length = div + (mod > 0 && mod > index);
+				const size_t length = div + (mod > 0 && mod > i);
 
 				result.push_back(slice(index, length));
 
