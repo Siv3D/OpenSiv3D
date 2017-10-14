@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -14,6 +14,7 @@
 # include <string>
 # include <string_view>
 # include <algorithm>
+# include <iostream>
 # include "Types.hpp"
 # include "Hash.hpp"
 
@@ -50,7 +51,8 @@ namespace s3d
 
 			while (*pSrc != value_type())
 			{
-				++count, ++pSrc;
+				++count;
+				++pSrc;
 			}
 
 			return count;
@@ -65,7 +67,9 @@ namespace s3d
 					return ((*pSrc1 < *pSrc2) ? -1 : +1);
 				}
 
-				--count, ++pSrc1, ++pSrc2;
+				--count;
+				++pSrc1;
+				++pSrc2;
 			}
 
 			return 0;
@@ -80,7 +84,8 @@ namespace s3d
 					return pSrc;
 				}
 
-				--count, ++pSrc;
+				--count;
+				++pSrc;
 			}
 
 			return nullptr;

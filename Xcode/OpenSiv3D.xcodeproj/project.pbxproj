@@ -10,7 +10,6 @@
 		2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
 		2C316E1B1E9B3B260011CAAE /* engine in Resources */ = {isa = PBXBuildFile; fileRef = 2C316E1A1E9B3B260011CAAE /* engine */; };
-		2C8588E51F928FCC000DA815 /* Siv3DMain_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8588E31F928F81000DA815 /* Siv3DMain_macOS.cpp */; };
 		2C8588EC1F929277000DA815 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2C8588EB1F929277000DA815 /* icon.icns */; };
 		2CC7F9561F34A6A20071A239 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC7F9541F34A5840071A239 /* OpenAL.framework */; };
 /* End PBXBuildFile section */
@@ -21,8 +20,33 @@
 		2C1778B21CE0D5DB00BB8AD0 /* Siv3D-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Siv3D-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C1778BF1CE0D5DB00BB8AD0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C316E1A1E9B3B260011CAAE /* engine */ = {isa = PBXFileReference; lastKnownFileType = folder; name = engine; path = bin/engine; sourceTree = SOURCE_ROOT; };
-		2C8588E31F928F81000DA815 /* Siv3DMain_macOS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DMain_macOS.cpp; sourceTree = "<group>"; };
 		2C8588EB1F929277000DA815 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
+		2C8588F21F929911000DA815 /* SivByte.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SivByte.cpp; sourceTree = "<group>"; };
+		2C8588F41F929911000DA815 /* SivFormatLiteral.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SivFormatLiteral.cpp; sourceTree = "<group>"; };
+		2C8588F61F929911000DA815 /* SivText.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SivText.cpp; sourceTree = "<group>"; };
+		2C8588F81F929911000DA815 /* SivUnicode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SivUnicode.cpp; sourceTree = "<group>"; };
+		2C8588F91F929911000DA815 /* Siv3DMain_macOS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DMain_macOS.cpp; sourceTree = "<group>"; };
+		2C8588FA1F929911000DA815 /* Siv3DMain_Windows.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Siv3DMain_Windows.cpp; sourceTree = "<group>"; };
+		2C8588FD1F929911000DA815 /* format.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = format.cc; sourceTree = "<group>"; };
+		2C8589011F929911000DA815 /* Byte.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Byte.hpp; sourceTree = "<group>"; };
+		2C8589021F929911000DA815 /* ByteArrayView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ByteArrayView.hpp; sourceTree = "<group>"; };
+		2C8589031F929911000DA815 /* Char.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Char.hpp; sourceTree = "<group>"; };
+		2C8589041F929911000DA815 /* FormatLiteral.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FormatLiteral.hpp; sourceTree = "<group>"; };
+		2C8589051F929911000DA815 /* Functor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Functor.hpp; sourceTree = "<group>"; };
+		2C8589061F929911000DA815 /* Fwd.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Fwd.hpp; sourceTree = "<group>"; };
+		2C8589071F929911000DA815 /* Hash.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Hash.hpp; sourceTree = "<group>"; };
+		2C8589081F929911000DA815 /* Meta.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Meta.hpp; sourceTree = "<group>"; };
+		2C8589091F929911000DA815 /* PlaceHolder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PlaceHolder.hpp; sourceTree = "<group>"; };
+		2C85890A1F929911000DA815 /* Platform.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Platform.hpp; sourceTree = "<group>"; };
+		2C85890B1F929911000DA815 /* String.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = String.hpp; sourceTree = "<group>"; };
+		2C85890C1F929911000DA815 /* StringView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = StringView.hpp; sourceTree = "<group>"; };
+		2C85890D1F929911000DA815 /* Types.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Types.hpp; sourceTree = "<group>"; };
+		2C85890E1F929911000DA815 /* Uncopyable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Uncopyable.hpp; sourceTree = "<group>"; };
+		2C85890F1F929911000DA815 /* Unicode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Unicode.hpp; sourceTree = "<group>"; };
+		2C8589101F929911000DA815 /* Utility.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Utility.hpp; sourceTree = "<group>"; };
+		2C8589111F929911000DA815 /* Version.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Version.hpp; sourceTree = "<group>"; };
+		2C8589121F929911000DA815 /* Siv3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Siv3D.hpp; sourceTree = "<group>"; };
+		2C8589151F929911000DA815 /* format.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
 		2CC7F9541F34A5840071A239 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -58,12 +82,124 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		2C8588E21F928F81000DA815 /* src */ = {
+		2C8588EF1F929911000DA815 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				2C8588E31F928F81000DA815 /* Siv3DMain_macOS.cpp */,
+				2C8588F01F929911000DA815 /* Siv3D */,
+				2C8588F91F929911000DA815 /* Siv3DMain_macOS.cpp */,
+				2C8588FA1F929911000DA815 /* Siv3DMain_Windows.cpp */,
+				2C8588FB1F929911000DA815 /* ThirdParty */,
 			);
 			path = src;
+			sourceTree = "<group>";
+		};
+		2C8588F01F929911000DA815 /* Siv3D */ = {
+			isa = PBXGroup;
+			children = (
+				2C8588F11F929911000DA815 /* Byte */,
+				2C8588F31F929911000DA815 /* FormatLiteral */,
+				2C8588F51F929911000DA815 /* String */,
+				2C8588F71F929911000DA815 /* Unicode */,
+			);
+			path = Siv3D;
+			sourceTree = "<group>";
+		};
+		2C8588F11F929911000DA815 /* Byte */ = {
+			isa = PBXGroup;
+			children = (
+				2C8588F21F929911000DA815 /* SivByte.cpp */,
+			);
+			path = Byte;
+			sourceTree = "<group>";
+		};
+		2C8588F31F929911000DA815 /* FormatLiteral */ = {
+			isa = PBXGroup;
+			children = (
+				2C8588F41F929911000DA815 /* SivFormatLiteral.cpp */,
+			);
+			path = FormatLiteral;
+			sourceTree = "<group>";
+		};
+		2C8588F51F929911000DA815 /* String */ = {
+			isa = PBXGroup;
+			children = (
+				2C8588F61F929911000DA815 /* SivText.cpp */,
+			);
+			path = String;
+			sourceTree = "<group>";
+		};
+		2C8588F71F929911000DA815 /* Unicode */ = {
+			isa = PBXGroup;
+			children = (
+				2C8588F81F929911000DA815 /* SivUnicode.cpp */,
+			);
+			path = Unicode;
+			sourceTree = "<group>";
+		};
+		2C8588FB1F929911000DA815 /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				2C8588FC1F929911000DA815 /* fmt */,
+			);
+			path = ThirdParty;
+			sourceTree = "<group>";
+		};
+		2C8588FC1F929911000DA815 /* fmt */ = {
+			isa = PBXGroup;
+			children = (
+				2C8588FD1F929911000DA815 /* format.cc */,
+			);
+			path = fmt;
+			sourceTree = "<group>";
+		};
+		2C8588FE1F929911000DA815 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				2C8588FF1F929911000DA815 /* Siv3D */,
+				2C8589121F929911000DA815 /* Siv3D.hpp */,
+				2C8589131F929911000DA815 /* ThirdParty */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		2C8588FF1F929911000DA815 /* Siv3D */ = {
+			isa = PBXGroup;
+			children = (
+				2C8589011F929911000DA815 /* Byte.hpp */,
+				2C8589021F929911000DA815 /* ByteArrayView.hpp */,
+				2C8589031F929911000DA815 /* Char.hpp */,
+				2C8589041F929911000DA815 /* FormatLiteral.hpp */,
+				2C8589051F929911000DA815 /* Functor.hpp */,
+				2C8589061F929911000DA815 /* Fwd.hpp */,
+				2C8589071F929911000DA815 /* Hash.hpp */,
+				2C8589081F929911000DA815 /* Meta.hpp */,
+				2C8589091F929911000DA815 /* PlaceHolder.hpp */,
+				2C85890A1F929911000DA815 /* Platform.hpp */,
+				2C85890B1F929911000DA815 /* String.hpp */,
+				2C85890C1F929911000DA815 /* StringView.hpp */,
+				2C85890D1F929911000DA815 /* Types.hpp */,
+				2C85890E1F929911000DA815 /* Uncopyable.hpp */,
+				2C85890F1F929911000DA815 /* Unicode.hpp */,
+				2C8589101F929911000DA815 /* Utility.hpp */,
+				2C8589111F929911000DA815 /* Version.hpp */,
+			);
+			path = Siv3D;
+			sourceTree = "<group>";
+		};
+		2C8589131F929911000DA815 /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				2C8589141F929911000DA815 /* fmt */,
+			);
+			path = ThirdParty;
+			sourceTree = "<group>";
+		};
+		2C8589141F929911000DA815 /* fmt */ = {
+			isa = PBXGroup;
+			children = (
+				2C8589151F929911000DA815 /* format.h */,
+			);
+			path = fmt;
 			sourceTree = "<group>";
 		};
 		2CA7F7321CA7F34200495647 = {
@@ -100,7 +236,8 @@
 		2CA7F7641CA7F44F00495647 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
-				2C8588E21F928F81000DA815 /* src */,
+				2C8588FE1F929911000DA815 /* include */,
+				2C8588EF1F929911000DA815 /* src */,
 			);
 			name = Siv3D;
 			path = ../Siv3D;
@@ -213,7 +350,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C8588E51F928FCC000DA815 /* Siv3DMain_macOS.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

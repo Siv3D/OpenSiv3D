@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -11,6 +11,7 @@
 
 # pragma once
 # include <initializer_list>
+# include <algorithm>
 # include "PlaceHolder.hpp"
 
 namespace s3d
@@ -225,7 +226,7 @@ namespace s3d
 	}
 
 	template <class Type>
-	[[nodiscard]] inline constexpr bool InRange(PlaceHolder_t, const Type& min, const Type& max) noexcept(noexcept(x < min))
+	[[nodiscard]] inline constexpr bool InRange(PlaceHolder_t, const Type& min, const Type& max) noexcept
 	{
 		return detail::InRange_impl<Type>(min, max);
 	}

@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <functional>
 # include "PlaceHolder.hpp"
 
 namespace s3d

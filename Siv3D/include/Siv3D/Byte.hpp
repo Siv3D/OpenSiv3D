@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -56,7 +56,7 @@ namespace s3d
 	}
 
 	template <class Integer, std::enable_if_t<std::is_integral_v<Integer>>* = nullptr>
-	inline constexpr Byte& operator>>=(Byte& _Arg, const Integer shift) noexcept
+	inline constexpr Byte& operator>>=(Byte& value, const Integer shift) noexcept
 	{
 		return value = (value >> shift);
 	}
