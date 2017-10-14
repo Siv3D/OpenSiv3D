@@ -20,61 +20,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D-Test\Main.cpp" />
-    <ClCompile Include="..\Siv3D-Test\Test\Siv3DTest_OSX.cpp" />
-    <ClCompile Include="..\Siv3D-Test\Test\Siv3DTest_Windows.cpp" />
-    <ClCompile Include="..\Siv3D-Test\Test\TestAlignedMemory.cpp" />
-    <ClCompile Include="..\Siv3D-Test\Test\TestArray.cpp" />
-    <ClCompile Include="..\Siv3D-Test\Test\TestCharacterSet.cpp" />
-    <ClCompile Include="..\Siv3D-Test\Test\TestConcept.cpp" />
-    <ClCompile Include="..\Siv3D-Test\Test\TestFileSystem.cpp" />
-    <ClCompile Include="..\Siv3D-Test\Test\TestFormatBool.cpp" />
-    <ClCompile Include="..\Siv3D-Test\Test\TestFormatFloat.cpp" />
-    <ClCompile Include="..\Siv3D-Test\Test\TestFormatInt.cpp" />
-    <ClCompile Include="..\Siv3D-Test\Test\TestMath.cpp" />
-    <ClCompile Include="..\Siv3D-Test\Test\TestNamedParameter.cpp" />
-    <ClCompile Include="..\Siv3D-Test\Test\TestOptional.cpp" />
-    <ClCompile Include="..\Siv3D-Test\Test\TestStep.cpp" />
-    <ClCompile Include="..\Siv3D-Test\Test\TestString.cpp" />
-    <ClCompile Include="..\Siv3D-Test\Test\TestTypes.cpp" />
-    <ClCompile Include="..\Siv3D-Test\Test\TestUtility.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Siv3D-Test\Include\gtest\gtest-death-test.h" />
-    <ClInclude Include="..\Siv3D-Test\Include\gtest\gtest-message.h" />
-    <ClInclude Include="..\Siv3D-Test\Include\gtest\gtest-param-test.h" />
-    <ClInclude Include="..\Siv3D-Test\Include\gtest\gtest-printers.h" />
-    <ClInclude Include="..\Siv3D-Test\Include\gtest\gtest-spi.h" />
-    <ClInclude Include="..\Siv3D-Test\Include\gtest\gtest-test-part.h" />
-    <ClInclude Include="..\Siv3D-Test\Include\gtest\gtest-typed-test.h" />
-    <ClInclude Include="..\Siv3D-Test\Include\gtest\gtest.h" />
-    <ClInclude Include="..\Siv3D-Test\Include\gtest\gtest_pred_impl.h" />
-    <ClInclude Include="..\Siv3D-Test\Include\gtest\gtest_prod.h" />
-    <ClInclude Include="..\Siv3D-Test\Include\gtest\internal\custom\gtest-port.h" />
-    <ClInclude Include="..\Siv3D-Test\Include\gtest\internal\custom\gtest-printers.h" />
-    <ClInclude Include="..\Siv3D-Test\Include\gtest\internal\custom\gtest.h" />
-    <ClInclude Include="..\Siv3D-Test\Include\gtest\internal\gtest-death-test-internal.h" />
-    <ClInclude Include="..\Siv3D-Test\Include\gtest\internal\gtest-filepath.h" />
-    <ClInclude Include="..\Siv3D-Test\Include\gtest\internal\gtest-internal.h" />
-    <ClInclude Include="..\Siv3D-Test\Include\gtest\internal\gtest-linked_ptr.h" />
-    <ClInclude Include="..\Siv3D-Test\Include\gtest\internal\gtest-param-util-generated.h" />
-    <ClInclude Include="..\Siv3D-Test\Include\gtest\internal\gtest-param-util.h" />
-    <ClInclude Include="..\Siv3D-Test\Include\gtest\internal\gtest-port-arch.h" />
-    <ClInclude Include="..\Siv3D-Test\Include\gtest\internal\gtest-port.h" />
-    <ClInclude Include="..\Siv3D-Test\Include\gtest\internal\gtest-string.h" />
-    <ClInclude Include="..\Siv3D-Test\Include\gtest\internal\gtest-type-util.h" />
-    <ClInclude Include="..\Siv3D-Test\Test\Siv3DTest.hpp" />
+    <Image Include="App\Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Resource.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="icon.ico" />
+    <ResourceCompile Include="App\Resource.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{160BF0EC-EEAE-497B-8AA5-CB2941E393B2}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Siv3DTest</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -123,31 +80,35 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)$(ProjectName)\Debug-x86\</OutDir>
-    <IntDir>$(SolutionDir)$(ProjectName)\Intermediate\Debug-x86\</IntDir>
-    <IncludePath>$(SolutionDir)\..\Siv3D\Include;$(SolutionDir)\..\Siv3D-Test\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\..\Siv3D\Lib;$(SolutionDir)\..\Siv3D-Test\Lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)Intermediate\$(ProjectName)\Debug-x86\</OutDir>
+    <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Debug-x86\Intermediate\</IntDir>
+    <IncludePath>$(SolutionDir)\..\Siv3D\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\..\Siv3D\lib\Windows(x86);$(LibraryPath)</LibraryPath>
+    <TargetName>$(ProjectName)(debug_32-bit)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)$(ProjectName)\Debug-x64\</OutDir>
-    <IntDir>$(SolutionDir)$(ProjectName)\Intermediate\Debug-x64\</IntDir>
-    <IncludePath>$(SolutionDir)\..\Siv3D\Include;$(SolutionDir)\..\Siv3D-Test\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\..\Siv3D\Lib;$(SolutionDir)\..\Siv3D-Test\Lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)Intermediate\$(ProjectName)\Debug-x64\</OutDir>
+    <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Debug-x64\Intermediate\</IntDir>
+    <IncludePath>$(SolutionDir)\..\Siv3D\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\..\Siv3D\lib\Windows(x64);$(LibraryPath)</LibraryPath>
+    <TargetName>$(ProjectName)(debug_64-bit)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)$(ProjectName)\Release-x86\</OutDir>
-    <IntDir>$(SolutionDir)$(ProjectName)\Intermediate\Release-x86\</IntDir>
-    <IncludePath>$(SolutionDir)\..\Siv3D\Include;$(SolutionDir)\..\Siv3D-Test\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\..\Siv3D\Lib;$(SolutionDir)\..\Siv3D-Test\Lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)Intermediate\$(ProjectName)\Release-x86\</OutDir>
+    <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Release-x86\Intermediate\</IntDir>
+    <IncludePath>$(SolutionDir)\..\Siv3D\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\..\Siv3D\lib\Windows(x86);$(LibraryPath)</LibraryPath>
+    <TargetName>$(ProjectName)(32-bit)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)$(ProjectName)\Release-x64\</OutDir>
-    <IntDir>$(SolutionDir)$(ProjectName)\Intermediate\Release-x64\</IntDir>
-    <IncludePath>$(SolutionDir)\..\Siv3D\Include;$(SolutionDir)\..\Siv3D-Test\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\..\Siv3D\Lib;$(SolutionDir)\..\Siv3D-Test\Lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)Intermediate\$(ProjectName)\Release-x64\</OutDir>
+    <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Release-x64\Intermediate\</IntDir>
+    <IncludePath>$(SolutionDir)\..\Siv3D\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\..\Siv3D\lib\Windows(x64);$(LibraryPath)</LibraryPath>
+    <TargetName>$(ProjectName)(64-bit)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -170,6 +131,9 @@
     <Manifest>
       <EnableDpiAwareness>false</EnableDpiAwareness>
     </Manifest>
+    <PostBuildEvent>
+      <Command>xcopy /I /D /Y "$(OutDir)$(TargetFileName)" "$(SolutionDir)App"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -189,6 +153,9 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /I /D /Y "$(OutDir)$(TargetFileName)" "$(SolutionDir)App"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -211,6 +178,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /I /D /Y "$(OutDir)$(TargetFileName)" "$(SolutionDir)App"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -233,6 +203,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /I /D /Y "$(OutDir)$(TargetFileName)" "$(SolutionDir)App"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
