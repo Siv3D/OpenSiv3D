@@ -34,7 +34,7 @@ namespace s3d
 			return SetBaseSize({ width, height });
 		}
 
-		inline Transformer2D CreateTransformer(const Size& baseSize, ContentScale contentScale = ContentScale::Default)
+		inline Mat3x2 GetTransform(const Size& baseSize, ContentScale contentScale = ContentScale::Default)
 		{
 			const double sx = static_cast<double>(Window::Width()) / baseSize.x;
 
@@ -44,12 +44,17 @@ namespace s3d
 
 			if (sx <= sy)
 			{
-				return Transformer2D(Mat3x2::Scale(s).translated(0, (Window::Height() - baseSize.y * s) * 0.5), true, Transformer2D::Target::PushScreen);
+				return Mat3x2::Scale(s).translated(0, (Window::Height() - baseSize.y * s) * 0.5);
 			}
 			else
 			{
-				return Transformer2D(Mat3x2::Scale(s).translated((Window::Width() - baseSize.x * s) * 0.5, 0), true, Transformer2D::Target::PushScreen);
+				return Mat3x2::Scale(s).translated((Window::Width() - baseSize.x * s) * 0.5, 0);
 			}
+		}
+
+		inline Transformer2D CreateTransformer(const Size& baseSize, ContentScale contentScale = ContentScale::Default)
+		{
+			return Transformer2D(GetTransform(baseSize, contentScale), true, Transformer2D::Target::PushScreen);
 		}
 
 		inline Transformer2D CreateTransformer(int32 width, int32 height, ContentScale contentScale = ContentScale::Default)

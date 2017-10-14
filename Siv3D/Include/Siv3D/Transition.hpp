@@ -28,7 +28,7 @@ namespace s3d
 
 	public:
 
-		explicit constexpr Transition(const MillisecondsF& inDuration = MillisecondsF(0.2), const MillisecondsF& outDuration = MillisecondsF(0.1), double initialValue = 0.0) noexcept
+		explicit constexpr Transition(const MillisecondsF& inDuration = SecondsF(0.2), const MillisecondsF& outDuration = SecondsF(0.1), double initialValue = 0.0) noexcept
 			: m_inDurationMillisec(static_cast<double>(inDuration.count()))
 			, m_outDurationMillisec(static_cast<double>(outDuration.count()))
 			, m_value(initialValue) {}
