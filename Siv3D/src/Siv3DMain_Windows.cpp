@@ -9,6 +9,9 @@
 //
 //-----------------------------------------------
 
+# include <Siv3D/Platform.hpp>
+# if defined(SIV3D_TARGET_WINDOWS)
+
 # include <crtdbg.h>
 # include <future>
 # define  NOMINMAX
@@ -64,3 +67,5 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 
 	return 0;
 }
+
+# endif

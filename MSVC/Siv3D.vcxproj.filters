@@ -14,10 +14,111 @@
     <Filter Include="src\Siv3D">
       <UniqueIdentifier>{7c7c8ca2-939d-4c72-ae8c-3bc61a196fd4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\ThirdParty">
+      <UniqueIdentifier>{0c9878b6-8ed3-4f3f-a248-823bb820bad5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Siv3D">
+      <UniqueIdentifier>{fd49617a-39f7-4e0a-a9a8-266927a0d94b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ThirdParty\fmt">
+      <UniqueIdentifier>{1bcefa11-d10c-48bb-bf2b-a17112b11c75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty">
+      <UniqueIdentifier>{fbee8520-2bd3-49b4-b46d-e9f81004c739}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\fmt">
+      <UniqueIdentifier>{cf3549d2-f9fc-401f-b3aa-1b936127cf11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Byte">
+      <UniqueIdentifier>{9ac4cadf-d8b2-4d11-8157-244f965f99ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Unicode">
+      <UniqueIdentifier>{6af17e65-9e57-48a6-89ef-3a204fd5d4d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\FormatLiteral">
+      <UniqueIdentifier>{cb49e296-3480-4012-a752-39d5545d31fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\String">
+      <UniqueIdentifier>{670d2c7b-194f-47a9-a462-827f7e943f44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3DMain_Windows.cpp">
       <Filter>src\Siv3D</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
+      <Filter>src\Siv3D\Byte</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Unicode\SivUnicode.cpp">
+      <Filter>src\Siv3D\Unicode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\fmt\format.cc">
+      <Filter>src\ThirdParty\fmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\FormatLiteral\SivFormatLiteral.cpp">
+      <Filter>src\Siv3D\FormatLiteral</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\String\SivText.cpp">
+      <Filter>src\Siv3D\String</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\format.h">
+      <Filter>include\ThirdParty\fmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Char.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\FormatLiteral.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Functor.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Fwd.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Hash.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Meta.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\PlaceHolder.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Platform.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\StringView.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Types.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Uncopyable.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Unicode.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Utility.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Version.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Byte.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ByteArrayView.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\String.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
