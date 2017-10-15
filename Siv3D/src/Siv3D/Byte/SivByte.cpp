@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -9,8 +9,8 @@
 //
 //-----------------------------------------------
 
-# pragma once
 # include <array>
+# include <iostream>
 # include "Siv3D/Byte.hpp"
 
 namespace s3d
@@ -25,9 +25,9 @@ namespace s3d
 				'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
 			};
 
-			return{
+			return{{
 				static_cast<CharType>(s[static_cast<uint8>(value) >> 4]),
-				static_cast<CharType>(s[static_cast<uint8>(value) & 0xF]) };
+				static_cast<CharType>(s[static_cast<uint8>(value) & 0xF]) }};
 		}
 	}
 

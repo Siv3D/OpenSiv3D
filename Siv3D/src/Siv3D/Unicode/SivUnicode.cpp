@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -9,7 +9,6 @@
 //
 //-----------------------------------------------
 
-# pragma once
 # include "Siv3D/String.hpp"
 # include "Siv3D/Unicode.hpp"
 
@@ -549,7 +548,7 @@ namespace s3d
 
 		# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
-			return detail::ToUTF8(view);
+			return ToUTF8(view);
 
 		# endif
 		}

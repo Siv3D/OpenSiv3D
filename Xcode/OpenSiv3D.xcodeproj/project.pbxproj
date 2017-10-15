@@ -11,6 +11,33 @@
 		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
 		2C316E1B1E9B3B260011CAAE /* engine in Resources */ = {isa = PBXBuildFile; fileRef = 2C316E1A1E9B3B260011CAAE /* engine */; };
 		2C8588EC1F929277000DA815 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2C8588EB1F929277000DA815 /* icon.icns */; };
+		2C8589171F93DE31000DA815 /* Siv3DMain_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8588F91F929911000DA815 /* Siv3DMain_macOS.cpp */; };
+		2C8589181F93DE36000DA815 /* Siv3DMain_Windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8588FA1F929911000DA815 /* Siv3DMain_Windows.cpp */; };
+		2C8589191F93DE3F000DA815 /* format.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C8588FD1F929911000DA815 /* format.cc */; };
+		2C85891A1F93DE47000DA815 /* SivUnicode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8588F81F929911000DA815 /* SivUnicode.cpp */; };
+		2C85891B1F93DE4B000DA815 /* SivText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8588F61F929911000DA815 /* SivText.cpp */; };
+		2C85891C1F93DE50000DA815 /* SivFormatLiteral.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8588F41F929911000DA815 /* SivFormatLiteral.cpp */; };
+		2C85891D1F93DE54000DA815 /* SivByte.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C8588F21F929911000DA815 /* SivByte.cpp */; };
+		2C85891E1F93DE5C000DA815 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C8589151F929911000DA815 /* format.h */; };
+		2C85891F1F93DE60000DA815 /* Siv3D.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8589121F929911000DA815 /* Siv3D.hpp */; };
+		2C8589201F93DE67000DA815 /* NamedParameter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8589161F93DDB4000DA815 /* NamedParameter.hpp */; };
+		2C8589211F93DE67000DA815 /* Byte.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8589011F929911000DA815 /* Byte.hpp */; };
+		2C8589221F93DE67000DA815 /* ByteArrayView.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8589021F929911000DA815 /* ByteArrayView.hpp */; };
+		2C8589231F93DE67000DA815 /* Char.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8589031F929911000DA815 /* Char.hpp */; };
+		2C8589241F93DE67000DA815 /* FormatLiteral.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8589041F929911000DA815 /* FormatLiteral.hpp */; };
+		2C8589251F93DE67000DA815 /* Functor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8589051F929911000DA815 /* Functor.hpp */; };
+		2C8589261F93DE67000DA815 /* Fwd.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8589061F929911000DA815 /* Fwd.hpp */; };
+		2C8589271F93DE67000DA815 /* Hash.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8589071F929911000DA815 /* Hash.hpp */; };
+		2C8589281F93DE67000DA815 /* Meta.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8589081F929911000DA815 /* Meta.hpp */; };
+		2C8589291F93DE67000DA815 /* PlaceHolder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8589091F929911000DA815 /* PlaceHolder.hpp */; };
+		2C85892A1F93DE67000DA815 /* Platform.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C85890A1F929911000DA815 /* Platform.hpp */; };
+		2C85892B1F93DE67000DA815 /* String.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C85890B1F929911000DA815 /* String.hpp */; };
+		2C85892C1F93DE67000DA815 /* StringView.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C85890C1F929911000DA815 /* StringView.hpp */; };
+		2C85892D1F93DE67000DA815 /* Types.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C85890D1F929911000DA815 /* Types.hpp */; };
+		2C85892E1F93DE67000DA815 /* Uncopyable.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C85890E1F929911000DA815 /* Uncopyable.hpp */; };
+		2C85892F1F93DE67000DA815 /* Unicode.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C85890F1F929911000DA815 /* Unicode.hpp */; };
+		2C8589301F93DE67000DA815 /* Utility.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8589101F929911000DA815 /* Utility.hpp */; };
+		2C8589311F93DE67000DA815 /* Version.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C8589111F929911000DA815 /* Version.hpp */; };
 		2CC7F9561F34A6A20071A239 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC7F9541F34A5840071A239 /* OpenAL.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +74,7 @@
 		2C8589111F929911000DA815 /* Version.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Version.hpp; sourceTree = "<group>"; };
 		2C8589121F929911000DA815 /* Siv3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Siv3D.hpp; sourceTree = "<group>"; };
 		2C8589151F929911000DA815 /* format.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
+		2C8589161F93DDB4000DA815 /* NamedParameter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NamedParameter.hpp; sourceTree = "<group>"; };
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
 		2CC7F9541F34A5840071A239 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -165,6 +193,7 @@
 		2C8588FF1F929911000DA815 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C8589161F93DDB4000DA815 /* NamedParameter.hpp */,
 				2C8589011F929911000DA815 /* Byte.hpp */,
 				2C8589021F929911000DA815 /* ByteArrayView.hpp */,
 				2C8589031F929911000DA815 /* Char.hpp */,
@@ -250,6 +279,26 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C85892F1F93DE67000DA815 /* Unicode.hpp in Headers */,
+				2C85891F1F93DE60000DA815 /* Siv3D.hpp in Headers */,
+				2C8589281F93DE67000DA815 /* Meta.hpp in Headers */,
+				2C85892A1F93DE67000DA815 /* Platform.hpp in Headers */,
+				2C8589201F93DE67000DA815 /* NamedParameter.hpp in Headers */,
+				2C8589301F93DE67000DA815 /* Utility.hpp in Headers */,
+				2C85892D1F93DE67000DA815 /* Types.hpp in Headers */,
+				2C8589251F93DE67000DA815 /* Functor.hpp in Headers */,
+				2C8589291F93DE67000DA815 /* PlaceHolder.hpp in Headers */,
+				2C85892C1F93DE67000DA815 /* StringView.hpp in Headers */,
+				2C8589261F93DE67000DA815 /* Fwd.hpp in Headers */,
+				2C8589311F93DE67000DA815 /* Version.hpp in Headers */,
+				2C8589271F93DE67000DA815 /* Hash.hpp in Headers */,
+				2C8589211F93DE67000DA815 /* Byte.hpp in Headers */,
+				2C8589221F93DE67000DA815 /* ByteArrayView.hpp in Headers */,
+				2C8589241F93DE67000DA815 /* FormatLiteral.hpp in Headers */,
+				2C85892E1F93DE67000DA815 /* Uncopyable.hpp in Headers */,
+				2C8589231F93DE67000DA815 /* Char.hpp in Headers */,
+				2C85891E1F93DE5C000DA815 /* format.h in Headers */,
+				2C85892B1F93DE67000DA815 /* String.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +399,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C85891D1F93DE54000DA815 /* SivByte.cpp in Sources */,
+				2C85891A1F93DE47000DA815 /* SivUnicode.cpp in Sources */,
+				2C8589191F93DE3F000DA815 /* format.cc in Sources */,
+				2C8589181F93DE36000DA815 /* Siv3DMain_Windows.cpp in Sources */,
+				2C85891C1F93DE50000DA815 /* SivFormatLiteral.cpp in Sources */,
+				2C85891B1F93DE4B000DA815 /* SivText.cpp in Sources */,
+				2C8589171F93DE31000DA815 /* Siv3DMain_macOS.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
