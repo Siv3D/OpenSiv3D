@@ -30,11 +30,11 @@ namespace s3d
 		explicit constexpr NamedParameter(Type value)
 			: m_value(value) {}
 
-		template <class U, class V = Type, std::enable_if_t<std::is_convertible<U, V>::value>* = nullptr>
+		template <class U, class V = Type, std::enable_if_t<std::is_convertible_v<U, V>>* = nullptr>
 		constexpr NamedParameter(const NamedParameter<Tag, U>& other)
 			: m_value(other.value()) {}
 
-		template <class... Args, class V = Type, std::enable_if_t<std::is_constructible<V, Args...>::value>* = nullptr>
+		template <class... Args, class V = Type, std::enable_if_t<std::is_constructible_v<V, Args...>>* = nullptr>
 		constexpr NamedParameter(const NamedParameter<Tag, std::tuple<Args...>>& tuple)
 			: m_value(std::make_from_tuple<Type>(tuple.value())) {}
 

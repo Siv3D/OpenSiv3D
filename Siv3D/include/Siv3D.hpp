@@ -39,11 +39,11 @@
 //
 //////////////////////////////////////////////////
 
-	// Library version
-	# include "Siv3D/Version.hpp"
-
 	// Platform
 	# include "Siv3D/Platform.hpp"
+
+	// Library version
+	# include "Siv3D/Version.hpp"
 
 	// Types
 	# include "Siv3D/Types.hpp"
@@ -75,6 +75,60 @@
 	// ByteArray view
 	# include "Siv3D/ByteArrayView.hpp"
 
+	// Thread
+	# include "Siv3D/Threading.hpp"
+
+	// Task
+	# include "Siv3D/ConcurrentTask.hpp"
+
+	// Memory alignment
+	# include "Siv3D/AlignedMemory.hpp"	
+
+	// Aligned allocator
+	# include "Siv3D/AlignedAllocator.hpp"
+
+	// Array
+	//# include "Siv3D/Array.hpp"
+
+	//// ハッシュマップ
+	//# include "Siv3D/HashMap.hpp"
+
+	//// ハッシュセット
+	//# include "Siv3D/HashSet.hpp"
+
+	//// 範囲
+	//# include "Siv3D/Step.hpp"
+
+	//// 二次元の範囲
+	//# include "Siv3D/Step2D.hpp"
+
+	//// 無限リスト
+	//# include "Siv3D/InfiniteList.hpp"
+
+	//// 二次元配列
+	//# include "Siv3D/Grid.hpp"
+
+	//// Optional
+	//# include "Siv3D/Optional.hpp"
+
+	//// unspecified
+	//# include "Siv3D/Unspecified.hpp"
+
+	//// 型特性
+	//# include "Siv3D/TypeTraits.hpp"
+
+	//// イテレータによる範囲の表現
+	//# include "Siv3D/IteratorRange.hpp"
+
+	//// map 省略表記
+	//# include "Siv3D/Evaluater.hpp"
+
+//////////////////////////////////////////////////
+//
+//	String and Value
+//
+//////////////////////////////////////////////////
+
 	// Character
 	# include "Siv3D/Char.hpp"
 
@@ -90,43 +144,6 @@
 	// Formatting literal
 	# include "Siv3D/FormatLiteral.hpp"
 
-	// マルチスレッド
-	//# include "Siv3D/Threading.hpp"
-
-	// マルチスレッドタスク
-	//# include "Siv3D/ConcurrentTask.hpp"
-
-	// メモリアライメント
-	//# include "Siv3D/AlignedMemory.hpp"	
-
-	// アライメント対応アロケータ
-	//# include "Siv3D/AlignedAllocator.hpp"
-
-	// 動的配列
-	//# include "Siv3D/Array.hpp"
-
-	//// ハッシュマップ
-	//# include "Siv3D/HashMap.hpp"
-	//// ハッシュセット
-	//# include "Siv3D/HashSet.hpp"
-	//// 範囲
-	//# include "Siv3D/Step.hpp"
-	//// 二次元の範囲
-	//# include "Siv3D/Step2D.hpp"
-	//// 無限リスト
-	//# include "Siv3D/InfiniteList.hpp"
-	//// 二次元配列
-	//# include "Siv3D/Grid.hpp"
-	//// Optional
-	//# include "Siv3D/Optional.hpp"
-	//// unspecified
-	//# include "Siv3D/Unspecified.hpp"
-	//// 型特性
-	//# include "Siv3D/TypeTraits.hpp"
-	//// イテレータによる範囲の表現
-	//# include "Siv3D/IteratorRange.hpp"
-	//// map 省略表記
-	//# include "Siv3D/Evaluater.hpp"
 
 //////////////////////////////////////////////////
 //

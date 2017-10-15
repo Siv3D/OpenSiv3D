@@ -41,6 +41,9 @@
     <Filter Include="src\Siv3D\String">
       <UniqueIdentifier>{670d2c7b-194f-47a9-a462-827f7e943f44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Threading">
+      <UniqueIdentifier>{89f6c98a-b6e9-4324-b0e2-f77de63b49e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3DMain_Windows.cpp">
@@ -60,6 +63,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\String\SivText.cpp">
       <Filter>src\Siv3D\String</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Threading\SivThreading.cpp">
+      <Filter>src\Siv3D\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3DMain_macOS.cpp">
+      <Filter>src\Siv3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +130,18 @@
       <Filter>include\Siv3D</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\NamedParameter.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ConcurrentTask.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Threading.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\AlignedMemory.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\AlignedAllocator.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
