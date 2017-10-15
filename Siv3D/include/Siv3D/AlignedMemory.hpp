@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -38,7 +38,7 @@ namespace s3d
 
 	# else
 
-		if constexpr (Alignment > SIV3D_PLATFORM_PTR_SIZE)
+		if constexpr (Alignment > Platform::AllocatorAlignment)
 		{
 			void* p;
 			::posix_memalign(&p, Alignment, sizeof(Type) * n);
