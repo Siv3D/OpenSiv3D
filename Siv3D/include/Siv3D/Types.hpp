@@ -94,7 +94,7 @@ namespace s3d
 
 	using WIStream = std::wistream;
 
-	using IStream = std::basic_istream<char32>;
+	using C32IStream = std::basic_istream<char32>;
 
 
 //////////////////////////////////////////////////
@@ -107,5 +107,5 @@ namespace s3d
 
 	using WOStream = std::wostream;
 
-	using OStream = std::basic_ostream<char32>;
+	using C32OStream = std::basic_ostream<char32>;
 }

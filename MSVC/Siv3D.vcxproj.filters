@@ -120,5 +120,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\String.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\NamedParameter.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

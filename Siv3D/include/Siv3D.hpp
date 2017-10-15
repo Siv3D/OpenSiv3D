@@ -58,7 +58,7 @@
 	# include "Siv3D/Uncopyable.hpp"
 
 	// Named parameter
-	//# include "Siv3D/NamedParameter.hpp"
+	# include "Siv3D/NamedParameter.hpp"
 
 	// Meta
 	# include "Siv3D/Meta.hpp"
@@ -83,6 +83,9 @@
 
 	// String
 	# include "Siv3D/String.hpp"
+
+	// Unicode
+	# include "Siv3D/Unicode.hpp"
 
 	// Formatting literal
 	# include "Siv3D/FormatLiteral.hpp"

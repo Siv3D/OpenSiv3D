@@ -87,5 +87,5 @@ namespace s3d
 
 	WOStream& operator <<(WOStream& os, const Byte& value);
 
-	OStream& operator <<(OStream& os, const Byte& value);
+	C32OStream& operator <<(C32OStream& os, const Byte& value);
 }
