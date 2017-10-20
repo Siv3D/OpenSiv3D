@@ -20,12 +20,12 @@ namespace s3d
 		{
 			if (!reader.isOpened())
 			{
-				return CharacterEncoding::UTF8;
+				return CharacterEncoding::UTF8_NO_BOM;
 			}
 
 			if (reader.size() == 0)
 			{
-				return CharacterEncoding::UTF8;
+				return CharacterEncoding::UTF8_NO_BOM;
 			}
 
 			{
@@ -34,15 +34,15 @@ namespace s3d
 
 				if (bom[0] == 0xEF && bom[1] == 0xBB && bom[2] == 0xBF)
 				{
-					return CharacterEncoding::UTF8_BOM;
+					return CharacterEncoding::UTF8;
 				}
 				else if (bom[0] == 0xFF && bom[1] == 0xFE)
 				{
-					return CharacterEncoding::UTF16LE_BOM;
+					return CharacterEncoding::UTF16LE;
 				}
 				else if (bom[0] == 0xFE && bom[1] == 0xFF)
 				{
-					return CharacterEncoding::UTF16BE_BOM;
+					return CharacterEncoding::UTF16BE;
 				}
 			}
 
@@ -120,7 +120,7 @@ namespace s3d
 				}
 			}
 
-			return CharacterEncoding::UTF8;
+			return CharacterEncoding::UTF8_NO_BOM;
 		}
 	}
 }

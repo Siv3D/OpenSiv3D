@@ -274,7 +274,7 @@ namespace s3d
 			{
 				char32_t codePoint = 0;
 
-				if (m_encoding == CharacterEncoding::UTF16LE_BOM)
+				if (m_encoding == CharacterEncoding::UTF16LE)
 				{
 					char16_t c0 = 0, c1 = 0;
 					reader.read(c0);
@@ -289,7 +289,7 @@ namespace s3d
 						codePoint = c0;
 					}
 				}
-				else if (m_encoding == CharacterEncoding::UTF16BE_BOM)
+				else if (m_encoding == CharacterEncoding::UTF16BE)
 				{
 					char16_t c0 = 0, c1 = 0;
 					reader.read(c0);
@@ -307,7 +307,7 @@ namespace s3d
 						codePoint = c0;
 					}
 				}
-				else // UTF8, UTF8_BOM
+				else // UTF8, UTF8
 				{
 					char buffer[6] = {};
 					const size_t readSize = static_cast<size_t>(reader.lookahead(buffer, sizeof(buffer)));
@@ -469,7 +469,7 @@ namespace s3d
 
 	char32_t TextReader::CTextReader::readCodePoint()
 	{
-		if (m_encoding == CharacterEncoding::UTF16LE_BOM)
+		if (m_encoding == CharacterEncoding::UTF16LE)
 		{
 			char16_t c0 = 0, c1 = 0;
 			m_reader->read(c0);
@@ -482,7 +482,7 @@ namespace s3d
 
 			return c0;
 		}
-		else if (m_encoding == CharacterEncoding::UTF16BE_BOM)
+		else if (m_encoding == CharacterEncoding::UTF16BE)
 		{
 			char16_t c0 = 0, c1 = 0;
 			m_reader->read(c0);

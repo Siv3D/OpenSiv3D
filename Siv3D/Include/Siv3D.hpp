@@ -284,6 +284,8 @@
 	# include "Siv3D/HardwareRNG.hpp"
 	// 乱数生成エンジン (Xorshift)
 	# include "Siv3D/Xorshift.hpp"
+	// 乱数生成エンジン (SFMT)
+	# include "Siv3D/SFMT.hpp"
 	// 乱数生成エンジン (Mersenne Twister)
 	# include "Siv3D/MersenneTwister.hpp"
 	// デフォルトの乱数生成エンジン

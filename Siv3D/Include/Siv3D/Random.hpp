@@ -17,17 +17,17 @@
 namespace s3d
 {
 	/// <summary>
-	/// [0.0-1.0] の範囲の乱数を返します。
+	/// [0, 1) の範囲の乱数を返します。
 	/// </summary>
 	/// <remarks>
 	/// グローバルな乱数エンジンを使用します。
 	/// </remarks>
 	/// <returns>
-	/// [0.0-1.0] の範囲の乱数
+	/// [0, 1) の範囲の乱数
 	/// </returns>
 	inline double Random()
 	{
-		return GetDefaultRNG()() / static_cast<double>(0xffFFffFFu);
+		return GetDefaultRNG().generateReal();
 	}
 
 	/// <summary>
@@ -104,7 +104,7 @@ namespace s3d
 	/// </returns>
 	inline bool RandomBool(const double p = 0.5)
 	{
-		return std::bernoulli_distribution(p)(GetDefaultRNG());
+		return GetDefaultRNG().generateReal() < p;
 	}
 
 	/// <summary>

@@ -859,6 +859,7 @@
 		2CC7F97D1F420EF90071A239 /* AudioFormat_MP3_macOS.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F97B1F420EF90071A239 /* AudioFormat_MP3_macOS.hpp */; };
 		2CC7F9811F443F150071A239 /* ImageFormat_PPM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7F97F1F443F150071A239 /* ImageFormat_PPM.cpp */; };
 		2CC7F9821F443F150071A239 /* ImageFormat_PPM.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F9801F443F150071A239 /* ImageFormat_PPM.hpp */; };
+		2CC7F98A1F52EA210071A239 /* SFMT.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F9891F52EA210071A239 /* SFMT.hpp */; };
 		2CCA356F1EC6BBA900078678 /* ImageProcessing.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */; };
 		2CCA35871EC86CD600078678 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA357F1EC86CD600078678 /* format.h */; };
 		2CCA35881EC86CD600078678 /* ostream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA35811EC86CD600078678 /* ostream.h */; };
@@ -1858,6 +1859,7 @@
 		2CC7F97B1F420EF90071A239 /* AudioFormat_MP3_macOS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AudioFormat_MP3_macOS.hpp; sourceTree = "<group>"; };
 		2CC7F97F1F443F150071A239 /* ImageFormat_PPM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageFormat_PPM.cpp; sourceTree = "<group>"; };
 		2CC7F9801F443F150071A239 /* ImageFormat_PPM.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageFormat_PPM.hpp; sourceTree = "<group>"; };
+		2CC7F9891F52EA210071A239 /* SFMT.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SFMT.hpp; sourceTree = "<group>"; };
 		2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageProcessing.hpp; sourceTree = "<group>"; };
 		2CCA357F1EC86CD600078678 /* format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
 		2CCA35801EC86CD600078678 /* LICENSE.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.rst; sourceTree = "<group>"; };
@@ -2165,6 +2167,7 @@
 				2C0C7DF61EC0BBC600386CBB /* SamplerState.hpp */,
 				2CAAB0FA1EEEC3CD0000A06D /* ScreenCapture.hpp */,
 				2C15853E1F21EC87002687D2 /* Script.hpp */,
+				2CC7F9891F52EA210071A239 /* SFMT.hpp */,
 				2C0C7DE91EC03A6B00386CBB /* Shader.hpp */,
 				2C0C7DD91EBEFE8500386CBB /* Shape2D.hpp */,
 				2CCA358E1EC8833F00078678 /* SIMDMath.hpp */,
@@ -5233,6 +5236,7 @@
 				2C0C7DB31EBCC39B00386CBB /* Uncopyable.hpp in Headers */,
 				2C1584891F0D3B46002687D2 /* CShader_D3D11.hpp in Headers */,
 				2C1583951F0D3B46002687D2 /* CBigInt.hpp in Headers */,
+				2CC7F98A1F52EA210071A239 /* SFMT.hpp in Headers */,
 				2C0C7D591EBCC39B00386CBB /* FormatLiteral.hpp in Headers */,
 				2C0C7D561EBCC39B00386CBB /* FormatBool.hpp in Headers */,
 				2CCA367E1ECC748F00078678 /* ft2build.h in Headers */,
