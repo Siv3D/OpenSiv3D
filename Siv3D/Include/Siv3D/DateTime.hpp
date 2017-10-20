@@ -433,7 +433,7 @@ namespace std
 	template <>
 	struct hash<s3d::DateTime>
 	{
-		size_t operator()(const s3d::DateTime& dateTime) const
+		size_t operator()(const s3d::DateTime& dateTime) const noexcept
 		{
 			return s3d::Hash::FNV1a(dateTime);
 		}

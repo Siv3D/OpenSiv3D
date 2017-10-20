@@ -432,7 +432,7 @@ namespace std
 	template <>
 	struct hash<s3d::Date>
 	{
-		size_t operator()(const s3d::Date& date) const
+		size_t operator()(const s3d::Date& date) const noexcept
 		{
 			return s3d::Hash::FNV1a(date);
 		}

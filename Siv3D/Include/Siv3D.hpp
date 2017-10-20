@@ -96,6 +96,8 @@
 	# include "Siv3D/TypeTraits.hpp"
 	// イテレータによる範囲の表現
 	# include "Siv3D/IteratorRange.hpp"
+	// map 省略表記
+	# include "Siv3D/Evaluater.hpp"
 //
 // 文字列と数値
 //

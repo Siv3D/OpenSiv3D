@@ -43,19 +43,15 @@ namespace s3d
 		{
 			void writeln(const String& text) const;
 
-			const Print_impl& operator()(const String& text) const
+			void operator()(const String& text) const
 			{
 				writeln(text);
-
-				return *this;
 			}
 
 			template <class... Args>
-			const Print_impl& operator()(const Args&... args) const
+			void operator()(const Args&... args) const
 			{
 				writeln(Format(args...));
-
-				return *this;
 			}
 
 			template <class Type>

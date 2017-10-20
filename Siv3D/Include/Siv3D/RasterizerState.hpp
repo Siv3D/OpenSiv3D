@@ -244,7 +244,7 @@ namespace std
 	template <>
 	struct hash<s3d::RasterizerState>
 	{
-		size_t operator()(const s3d::RasterizerState& keyVal) const
+		size_t operator()(const s3d::RasterizerState& keyVal) const noexcept
 		{
 			return hash<s3d::RasterizerState::StorageType>()(keyVal._data);
 		}

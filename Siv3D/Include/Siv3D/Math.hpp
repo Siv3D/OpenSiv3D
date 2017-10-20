@@ -12,6 +12,7 @@
 # pragma once
 # include <cfloat>
 # include <emmintrin.h>
+# include "BigFloat.hpp"
 # include "PointVector.hpp"
 # include "MathConstants.hpp"
 
@@ -1037,7 +1038,7 @@ namespace s3d
 		/// <summary>
 		/// 絶対値を返します。
 		/// </summary>
-		inline constexpr Vec2 Abs(const Point& v) noexcept
+		inline constexpr Point Abs(const Point& v) noexcept
 		{
 			return{ Abs(v.x), Abs(v.y) };
 		}
@@ -1114,9 +1115,9 @@ namespace s3d
 		/// 平方を計算します。
 		/// </summary>
 		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
-		inline constexpr double Square(Type x) noexcept
+		inline constexpr Type Square(Type x) noexcept
 		{
-			return Square(static_cast<double>(x));
+			return x * x;
 		}
 
 		//
@@ -1391,4 +1392,60 @@ namespace s3d
 			return x * x * (3.0 - 2.0 * x);
 		}
 	}
+
+	////////////////////////////////////////////////////////////////
+	//
+	//		Abs
+	//
+	////////////////////////////////////////////////////////////////
+
+	namespace detail
+	{
+		struct Abs_impl
+		{
+			template <class Type>
+			constexpr auto operator()(const Type& x) const
+			{
+				return Math::Abs(x);
+			}
+
+			constexpr Abs_impl operator()(None_t) const
+			{
+				return Abs_impl();
+			}
+		};
+	}
+
+	/// <summary>
+	/// 絶対値を返します。
+	/// </summary>
+	constexpr auto Abs = detail::Abs_impl();
+
+	////////////////////////////////////////////////////////////////
+	//
+	//		Square
+	//
+	////////////////////////////////////////////////////////////////
+
+	namespace detail
+	{
+		struct Square_impl
+		{
+			template <class Type>
+			constexpr auto operator()(const Type& x) const
+			{
+				return Math::Square(x);
+			}
+
+			constexpr Square_impl operator()(None_t) const
+			{
+				return Square_impl();
+			}
+		};
+	}
+
+	/// <summary>
+	/// 平方を計算します。
+	/// </summary>
+	constexpr auto Square = detail::Square_impl();
 }

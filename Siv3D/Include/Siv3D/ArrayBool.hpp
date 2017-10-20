@@ -305,18 +305,18 @@ namespace s3d
 			return *this;
 		}
 
-		bool& choice()
+		[[nodiscard]] bool& choice()
 		{
 			return choice(GetDefaultRNG());
 		}
 
-		const bool& choice() const
+		[[nodiscard]] const bool& choice() const
 		{
 			return choice(GetDefaultRNG());
 		}
 
 		template <class URBG, std::enable_if_t<!std::is_scalar<URBG>::value>* = nullptr>
-		bool& choice(URBG&& rbg)
+		[[nodiscard]] bool& choice(URBG&& rbg)
 		{
 			if (empty())
 			{
@@ -329,7 +329,7 @@ namespace s3d
 		}
 
 		template <class URBG, std::enable_if_t<!std::is_scalar<URBG>::value>* = nullptr>
-		const bool& choice(URBG&& rbg) const
+		[[nodiscard]] const bool& choice(URBG&& rbg) const
 		{
 			if (empty())
 			{
@@ -342,13 +342,13 @@ namespace s3d
 		}
 
 		template <class Size_t, std::enable_if_t<std::is_scalar<Size_t>::value>* = nullptr>
-		Array choice(const Size_t n) const
+		[[nodiscard]] Array choice(const Size_t n) const
 		{
 			return choice(n, GetDefaultRNG());
 		}
 
 		template <class URBG>
-		Array choice(const size_t n, URBG&& rbg) const
+		[[nodiscard]] Array choice(const size_t n, URBG&& rbg) const
 		{
 			Array result;
 
@@ -359,7 +359,7 @@ namespace s3d
 			return result;
 		}
 
-		Array<Array<bool>, std::allocator<Array<bool>>> chunk(const size_t n) const
+		[[nodiscard]] Array<Array<bool>, std::allocator<Array<bool>>> chunk(const size_t n) const
 		{
 			Array<Array<bool>, std::allocator<Array<bool>>> result;
 
@@ -376,7 +376,7 @@ namespace s3d
 			return result;
 		}
 
-		size_t count(const bool& value) const
+		[[nodiscard]] size_t count(const bool& value) const
 		{
 			size_t result = 0;
 
@@ -392,7 +392,7 @@ namespace s3d
 		}
 
 		template <class Fty>
-		size_t count_if(Fty f) const
+		[[nodiscard]] size_t count_if(Fty f) const
 		{
 			size_t result = 0;
 
@@ -407,7 +407,7 @@ namespace s3d
 			return result;
 		}
 
-		Array drop(const size_t n) const
+		[[nodiscard]] Array drop(const size_t n) const
 		{
 			if (n >= size())
 			{
@@ -418,7 +418,7 @@ namespace s3d
 		}
 
 		template <class Fty>
-		Array drop_while(Fty f) const
+		[[nodiscard]] Array drop_while(Fty f) const
 		{
 			return Array(std::find_if_not(begin(), end(), f), end());
 		}
@@ -471,7 +471,7 @@ namespace s3d
 			return *this;
 		}
 
-		const bool& fetch(const size_t index, const bool& defaultValue) const
+		[[nodiscard]] const bool& fetch(const size_t index, const bool& defaultValue) const
 		{
 			if (index >= size())
 			{
@@ -489,7 +489,7 @@ namespace s3d
 		}
 
 		template <class Fty>
-		Array filter(Fty f) const
+		[[nodiscard]] Array filter(Fty f) const
 		{
 			Array new_array;
 
@@ -504,7 +504,7 @@ namespace s3d
 			return new_array;
 		}
 
-		Array<Array<bool>, std::allocator<Array<bool>>> in_groups(const size_t group) const
+		[[nodiscard]] Array<Array<bool>, std::allocator<Array<bool>>> in_groups(const size_t group) const
 		{
 			Array<Array<bool>, std::allocator<Array<bool>>> result;
 
@@ -529,7 +529,7 @@ namespace s3d
 			return result;
 		}
 
-		bool include(const bool& value) const
+		[[nodiscard]] bool include(const bool& value) const
 		{
 			for (const auto& v : *this)
 			{
@@ -543,12 +543,12 @@ namespace s3d
 		}
 
 		template <class Fty>
-		bool include_if(Fty f) const
+		[[nodiscard]] bool include_if(Fty f) const
 		{
 			return any(f);
 		}
 
-		bool isSorted() const
+		[[nodiscard]] bool isSorted() const
 		{
 			const size_t size_ = size();
 
@@ -570,7 +570,7 @@ namespace s3d
 			return true;
 		}
 
-		String join(const String& sep = S3DSTR(","), const String& begin = S3DSTR("{"), const String& end = S3DSTR("}")) const
+		[[nodiscard]] String join(const String& sep = S3DSTR(","), const String& begin = S3DSTR("{"), const String& end = S3DSTR("}")) const
 		{
 			String s;
 
@@ -674,7 +674,7 @@ namespace s3d
 			return *this;
 		}
 
-		Array removed(const bool& value) const &
+		[[nodiscard]] Array removed(const bool& value) const &
 		{
 			Array new_array;
 
@@ -689,7 +689,7 @@ namespace s3d
 			return new_array;
 		}
 
-		Array removed(const bool& value) &&
+		[[nodiscard]] Array removed(const bool& value) &&
 		{
 			erase(std::remove(begin(), end(), value), end());
 
@@ -710,7 +710,7 @@ namespace s3d
 			return *this;
 		}
 
-		Array removed_at(const size_t index) const
+		[[nodiscard]] Array removed_at(const size_t index) const
 		{
 			if (index >= size())
 			{
@@ -737,7 +737,7 @@ namespace s3d
 		}
 
 		template <class Fty>
-		Array removed_if(Fty f) const &
+		[[nodiscard]] Array removed_if(Fty f) const &
 		{
 			Array new_array;
 
@@ -753,7 +753,7 @@ namespace s3d
 		}
 
 		template <class Fty>
-		Array removed_if(Fty f) &&
+		[[nodiscard]] Array removed_if(Fty f) &&
 		{
 			erase(std::remove_if(begin(), end(), f), end());
 
@@ -775,7 +775,7 @@ namespace s3d
 			return *this;
 		}
 
-		Array replaced(const bool& oldValue, const bool& newValue) const &
+		[[nodiscard]] Array replaced(const bool& oldValue, const bool& newValue) const &
 		{
 			Array new_array;
 
@@ -796,7 +796,7 @@ namespace s3d
 			return new_array;
 		}
 
-		Array replaced(const bool& oldValue, const bool& newValue) &&
+		[[nodiscard]] Array replaced(const bool& oldValue, const bool& newValue) &&
 		{
 			replace(oldValue, newValue);
 
@@ -818,7 +818,7 @@ namespace s3d
 		}
 
 		template <class Fty>
-		Array replaced_if(Fty f, const bool& newValue) const &
+		[[nodiscard]] Array replaced_if(Fty f, const bool& newValue) const &
 		{
 			Array new_array;
 
@@ -840,7 +840,7 @@ namespace s3d
 		}
 
 		template <class Fty>
-		Array replaced_if(Fty f, const bool& newValue) &&
+		[[nodiscard]] Array replaced_if(Fty f, const bool& newValue) &&
 		{
 			replace_if(f, newValue);
 
@@ -854,12 +854,12 @@ namespace s3d
 			return *this;
 		}
 
-		Array reversed() const &
+		[[nodiscard]] Array reversed() const &
 		{
 			return Array(rbegin(), rend());
 		}
 
-		Array reversed() &&
+		[[nodiscard]] Array reversed() &&
 		{
 			reverse();
 
@@ -918,12 +918,12 @@ namespace s3d
 			return *this;
 		}
 
-		Array rotated(const std::ptrdiff_t count = 1) const &
+		[[nodiscard]] Array rotated(const std::ptrdiff_t count = 1) const &
 		{
 			return Array(*this).rotate(count);
 		}
 
-		Array rotated(const std::ptrdiff_t count = 1) &&
+		[[nodiscard]] Array rotated(const std::ptrdiff_t count = 1) &&
 		{
 			rotate(count);
 
@@ -943,31 +943,31 @@ namespace s3d
 			return *this;
 		}
 
-		Array shuffled() const &
+		[[nodiscard]] Array shuffled() const &
 		{
 			return shuffled(GetDefaultRNG());
 		}
 
-		Array shuffled() &&
+		[[nodiscard]] Array shuffled() &&
 		{
 			return shuffled(GetDefaultRNG());
 		}
 
 		template <class URBG>
-		Array shuffled(URBG&& rbg) const &
+		[[nodiscard]] Array shuffled(URBG&& rbg) const &
 		{
 			return Array(*this).shuffle(std::forward<URBG>(rbg));
 		}
 
 		template <class URBG>
-		Array shuffled(URBG&& rbg) &&
+		[[nodiscard]] Array shuffled(URBG&& rbg) &&
 		{
 			shuffle(std::forward<URBG>(rbg));
 
 			return std::move(*this);
 		}
 
-		Array slice(const size_t index) const
+		[[nodiscard]] Array slice(const size_t index) const
 		{
 			if (index >= size())
 			{
@@ -977,7 +977,7 @@ namespace s3d
 			return Array(begin() + index, end());
 		}
 
-		Array slice(const size_t index, const size_t length) const
+		[[nodiscard]] Array slice(const size_t index, const size_t length) const
 		{
 			if (index >= size())
 			{
@@ -994,6 +994,13 @@ namespace s3d
 			return *this;
 		}
 
+		Array& stable_sort()
+		{
+			std::sort(begin(), end());
+
+			return *this;
+		}
+
 		template <class Fty>
 		Array& sort_by(Fty f)
 		{
@@ -1002,12 +1009,32 @@ namespace s3d
 			return *this;
 		}
 
-		Array sorted() const &
+		template <class Fty>
+		Array& stable_sort_by(Fty f)
+		{
+			std::sort(begin(), end(), f);
+
+			return *this;
+		}
+
+		[[nodiscard]] Array sorted() const &
 		{
 			return Array(*this).sort();
 		}
 
-		Array sorted() &&
+		[[nodiscard]] Array stable_sorted() const &
+		{
+			return Array(*this).sort();
+		}
+
+		[[nodiscard]] Array sorted() &&
+		{
+			sort();
+
+			return std::move(*this);
+		}
+
+		[[nodiscard]] Array stable_sorted() &&
 		{
 			sort();
 
@@ -1015,13 +1042,27 @@ namespace s3d
 		}
 
 		template <class Fty>
-		Array sorted_by(Fty f) const &
+		[[nodiscard]] Array sorted_by(Fty f) const &
 		{
 			return Array(*this).sort_by(f);
 		}
 
 		template <class Fty>
-		Array sorted_by(Fty f) &&
+		[[nodiscard]] Array stable_sorted_by(Fty f) const &
+		{
+			return Array(*this).sort_by(f);
+		}
+
+		template <class Fty>
+		[[nodiscard]] Array sorted_by(Fty f) &&
+		{
+			sort_by(f);
+
+			return std::move(*this);
+		}
+
+		template <class Fty>
+		[[nodiscard]] Array stable_sorted_by(Fty f) &&
 		{
 			sort_by(f);
 
@@ -1033,13 +1074,13 @@ namespace s3d
 			return count(true);
 		}
 
-		Array take(const size_t n) const
+		[[nodiscard]] Array take(const size_t n) const
 		{
 			return Array(begin(), begin() + std::min(n, size()));
 		}
 
 		template <class Fty>
-		Array take_while(Fty f) const
+		[[nodiscard]] Array take_while(Fty f) const
 		{
 			return Array(begin(), std::find_if_not(begin(), end(), f));
 		}
@@ -1053,12 +1094,12 @@ namespace s3d
 			return *this;
 		}
 
-		Array uniqued() const &
+		[[nodiscard]] Array uniqued() const &
 		{
 			return Array(*this).unique();
 		}
 
-		Array uniqued() &&
+		[[nodiscard]] Array uniqued() &&
 		{
 			sort();
 
@@ -1069,7 +1110,7 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		Array values_at(std::initializer_list<size_t> indices) const
+		[[nodiscard]] Array values_at(std::initializer_list<size_t> indices) const
 		{
 			Array new_array;
 

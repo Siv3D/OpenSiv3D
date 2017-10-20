@@ -27,7 +27,7 @@ namespace s3d
 
 	# if defined(SIV3D_TARGET_X86)
 
-		inline uint32 MurmurHash2(const void* key, int32 len, uint32 seed)
+		inline uint32 MurmurHash2(const void* key, int32 len, uint32 seed) noexcept
 		{
 			// 'm' and 'r' are mixing constants generated offline.
 			// They're not really 'magic', they just happen to work well.
@@ -80,7 +80,7 @@ namespace s3d
 
 	# else
 
-		inline uint64 MurmurHash64A(const void* key, int32 len, uint64 seed)
+		inline uint64 MurmurHash64A(const void* key, int32 len, uint64 seed) noexcept
 		{
 			const uint64 m = 0xc6a4a7935bd1e995ULL;
 			const int r = 47;
@@ -128,7 +128,7 @@ namespace s3d
 
 	namespace Hash
 	{
-		inline constexpr size_t FNV1a(const ByteArrayView view)
+		inline constexpr size_t FNV1a(const ByteArrayView view) noexcept
 		{
 			const Byte* data = view.data();
 
@@ -155,7 +155,7 @@ namespace s3d
 			return result;
 		}
 
-		inline size_t Murmur2(const ByteArrayView view)
+		inline size_t Murmur2(const ByteArrayView view) noexcept
 		{
 			constexpr uint32 seed = 11111111;
 
@@ -174,7 +174,7 @@ namespace s3d
 	template <class Type>
 	struct FNV1aHash
 	{
-		size_t operator()(const Type& keyVal) const
+		size_t operator()(const Type& keyVal) const noexcept
 		{
 			return Hash::FNV1a(keyVal);
 		}
@@ -183,7 +183,7 @@ namespace s3d
 	template <class Type>
 	struct Murmur2Hash
 	{
-		size_t operator()(const Type& keyVal) const
+		size_t operator()(const Type& keyVal) const noexcept
 		{
 			return Hash::Murmur2(keyVal);
 		}
@@ -195,7 +195,7 @@ namespace std
 	template <>
 	struct hash<s3d::ByteArrayView>
 	{
-		size_t operator()(const s3d::ByteArrayView& keyVal) const
+		size_t operator()(const s3d::ByteArrayView& keyVal) const noexcept
 		{
 			return s3d::Hash::FNV1a(keyVal);
 		}
