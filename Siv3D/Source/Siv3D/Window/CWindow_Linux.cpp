@@ -116,8 +116,6 @@ namespace s3d
 		int32 windowSizeX, windowSizeY;
 		::glfwGetWindowSize(m_glfwWindow, &windowSizeX, &windowSizeY);
 		m_state.windowSize.set(windowSizeX, windowSizeY);
-
-		m_state.focused;
 		
 		return true;
 	}
