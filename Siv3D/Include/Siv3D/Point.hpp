@@ -55,7 +55,7 @@ namespace s3d
 		/// <summary>
 		/// Point{ x, x }
 		/// </summary>
-		constexpr Point xx() const noexcept
+		[[nodiscard]] constexpr Point xx() const noexcept
 		{
 			return{ x, x };
 		}
@@ -63,7 +63,7 @@ namespace s3d
 		/// <summary>
 		/// Point{ x, y }
 		/// </summary>
-		constexpr Point xy() const noexcept
+		[[nodiscard]] constexpr Point xy() const noexcept
 		{
 			return *this;
 		}
@@ -71,7 +71,7 @@ namespace s3d
 		/// <summary>
 		/// Point{ y, x }
 		/// </summary>
-		constexpr Point yx() const noexcept
+		[[nodiscard]] constexpr Point yx() const noexcept
 		{
 			return{ y, x };
 		}
@@ -79,70 +79,70 @@ namespace s3d
 		/// <summary>
 		/// Point{ y, y }
 		/// </summary>
-		constexpr Point yy() const noexcept
+		[[nodiscard]] constexpr Point yy() const noexcept
 		{
 			return{ y, y };
 		}
 
-		constexpr Point operator +() const noexcept
+		[[nodiscard]] constexpr Point operator +() const noexcept
 		{
 			return *this;
 		}
 
-		constexpr Point operator -() const noexcept
+		[[nodiscard]] constexpr Point operator -() const noexcept
 		{
 			return{ -x, -y };
 		}
 
-		constexpr Point operator +(const Point& p) const noexcept
+		[[nodiscard]] constexpr Point operator +(const Point& p) const noexcept
 		{
 			return{ x + p.x, y + p.y };
 		}
 
-		constexpr Point operator -(const Point& p) const noexcept
+		[[nodiscard]] constexpr Point operator -(const Point& p) const noexcept
 		{
 			return{ x - p.x, y - p.y };
 		}
 
 		template <class Type>
-		constexpr Vector2D<Type> operator +(const Vector2D<Type>& v) const noexcept;
+		[[nodiscard]] constexpr Vector2D<Type> operator +(const Vector2D<Type>& v) const noexcept;
 
 		template <class Type>
-		constexpr Vector2D<Type> operator -(const Vector2D<Type>& v) const noexcept;
+		[[nodiscard]] constexpr Vector2D<Type> operator -(const Vector2D<Type>& v) const noexcept;
 
-		constexpr Point operator *(const int32 s) const noexcept
+		[[nodiscard]] constexpr Point operator *(const int32 s) const noexcept
 		{
 			return{ x * s, y * s };
 		}
 
-		constexpr Float2 operator *(float s) const noexcept;
+		[[nodiscard]] constexpr Float2 operator *(float s) const noexcept;
 
-		constexpr Vec2 operator *(double s) const noexcept;
+		[[nodiscard]] constexpr Vec2 operator *(double s) const noexcept;
 
-		constexpr Point operator *(const Point& p) const noexcept
+		[[nodiscard]] constexpr Point operator *(const Point& p) const noexcept
 		{
 			return{ x * p.x, y * p.y };
 		}
 
 		template <class Type>
-		constexpr Vector2D<Type> operator *(const Vector2D<Type>& v) const noexcept;
+		[[nodiscard]] constexpr Vector2D<Type> operator *(const Vector2D<Type>& v) const noexcept;
 
-		constexpr Point operator /(const int32 s) const noexcept
+		[[nodiscard]] constexpr Point operator /(const int32 s) const noexcept
 		{
 			return{ x / s, y / s };
 		}
 
-		constexpr Point operator /(const Point& p) const noexcept
+		[[nodiscard]] constexpr Point operator /(const Point& p) const noexcept
 		{
 			return{ x / p.x, y / p.y };
 		}
 
 		template <class Type>
-		constexpr Vector2D<Type> operator /(const Vector2D<Type>& v) const noexcept;
+		[[nodiscard]] constexpr Vector2D<Type> operator /(const Vector2D<Type>& v) const noexcept;
 
-		constexpr Float2 operator /(float s) const noexcept;
+		[[nodiscard]] constexpr Float2 operator /(float s) const noexcept;
 
-		constexpr Vec2 operator /(double s) const noexcept;
+		[[nodiscard]] constexpr Vec2 operator /(double s) const noexcept;
 
 		constexpr Point& operator +=(const Point& p) noexcept
 		{
@@ -169,12 +169,12 @@ namespace s3d
 			return *this;
 		}
 
-		constexpr bool operator ==(const Point& p) const noexcept
+		[[nodiscard]] constexpr bool operator ==(const Point& p) const noexcept
 		{
 			return x == p.x && y == p.y;
 		}
 
-		constexpr bool operator !=(const Point& p) const noexcept
+		[[nodiscard]] constexpr bool operator !=(const Point& p) const noexcept
 		{
 			return x != p.x || y != p.y;
 		}
@@ -190,18 +190,18 @@ namespace s3d
 			return *this = p;
 		}
 
-		S3D_NODISCARD constexpr Point movedBy(const int32 _x, const int32 _y) const noexcept
+		[[nodiscard]] constexpr Point movedBy(const int32 _x, const int32 _y) const noexcept
 		{
 			return{ x + _x, y + _y };
 		}
 
-		S3D_NODISCARD constexpr Point movedBy(const Point& p) const noexcept
+		[[nodiscard]] constexpr Point movedBy(const Point& p) const noexcept
 		{
 			return{ x + p.x, y + p.y };
 		}
 
 		template <class Type>
-		S3D_NODISCARD constexpr Vector2D<Type> movedBy(const Vector2D<Type>& v) const noexcept;
+		[[nodiscard]] constexpr Vector2D<Type> movedBy(const Vector2D<Type>& v) const noexcept;
 
 		constexpr Point& moveBy(int32 _x, int32 _y) noexcept
 		{
@@ -214,54 +214,54 @@ namespace s3d
 			return *this += p;
 		}
 
-		constexpr bool isZero() const noexcept
+		[[nodiscard]] constexpr bool isZero() const noexcept
 		{
 			return x == 0 && y == 0;
 		}
 
-		double distanceFrom(const Point& p) const noexcept;
+		[[nodiscard]] double distanceFrom(const Point& p) const noexcept;
 
 		template <class Type>
-		Type distanceFrom(const Vector2D<Type>& p) const noexcept;
+		[[nodiscard]] Type distanceFrom(const Vector2D<Type>& p) const noexcept;
 
-		constexpr double distanceFromSq(const Point& p) const noexcept;
+		[[nodiscard]] constexpr double distanceFromSq(const Point& p) const noexcept;
 
 		template <class Type>
-		constexpr Type distanceFromSq(const Vector2D<Type>& p) const noexcept;
+		[[nodiscard]] constexpr Type distanceFromSq(const Vector2D<Type>& p) const noexcept;
 
 		template <class Type = double>
-		Type length() const noexcept;
+		[[nodiscard]] Type length() const noexcept;
 
 		template <class Type = double>
-		constexpr Type lengthSq() const noexcept;
+		[[nodiscard]] constexpr Type lengthSq() const noexcept;
 
 		template <class Type>
-		constexpr Vector2D<Type> lerp(const Vector2D<Type>& other, const double f) const noexcept;
+		[[nodiscard]] constexpr Vector2D<Type> lerp(const Vector2D<Type>& other, const double f) const noexcept;
 
 		template <class Shape2DType>
-		bool intersects(const Shape2DType& shape) const
+		[[nodiscard]] bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
 
-		bool leftClicked() const;
+		[[nodiscard]] bool leftClicked() const;
 
-		bool leftPressed() const;
+		[[nodiscard]] bool leftPressed() const;
 
-		bool leftReleased() const;
+		[[nodiscard]] bool leftReleased() const;
 
-		bool rightClicked() const;
+		[[nodiscard]] bool rightClicked() const;
 
-		bool rightPressed() const;
+		[[nodiscard]] bool rightPressed() const;
 
-		bool rightReleased() const;
+		[[nodiscard]] bool rightReleased() const;
 
-		bool mouseOver() const;
+		[[nodiscard]] bool mouseOver() const;
 
 		/// <summary>
 		/// Point{ 0, 0 }
 		/// </summary>
-		static constexpr Point Zero() noexcept
+		[[nodiscard]] static constexpr Point Zero() noexcept
 		{
 			return{ 0, 0 };
 		}
@@ -269,7 +269,7 @@ namespace s3d
 		/// <summary>
 		/// Point{ 1, 1 }
 		/// </summary>
-		static constexpr Point One() noexcept
+		[[nodiscard]] static constexpr Point One() noexcept
 		{
 			return{ 1, 1 };
 		}
@@ -277,7 +277,7 @@ namespace s3d
 		/// <summary>
 		/// Point{ value, value }
 		/// </summary>
-		static constexpr Point All(const value_type value = 1) noexcept
+		[[nodiscard]] static constexpr Point All(const value_type value = 1) noexcept
 		{
 			return{ value, value };
 		}
@@ -285,7 +285,7 @@ namespace s3d
 		/// <summary>
 		/// Point{ 1, 0 }
 		/// </summary>
-		static constexpr Point UnitX() noexcept
+		[[nodiscard]] static constexpr Point UnitX() noexcept
 		{
 			return{ 1, 0 };
 		}
@@ -293,7 +293,7 @@ namespace s3d
 		/// <summary>
 		/// Point{ 0, 1 }
 		/// </summary>
-		static constexpr Point UnitY() noexcept
+		[[nodiscard]] static constexpr Point UnitY() noexcept
 		{
 			return{ 0, 1 };
 		}
@@ -301,7 +301,7 @@ namespace s3d
 		/// <summary>
 		/// Point{ -length, 0 }
 		/// </summary>
-		static constexpr Point Left(const value_type length = 1) noexcept
+		[[nodiscard]] static constexpr Point Left(const value_type length = 1) noexcept
 		{
 			return{ -length, 0 };
 		}
@@ -309,7 +309,7 @@ namespace s3d
 		/// <summary>
 		/// Point{ length, 0 }
 		/// </summary>
-		static constexpr Point Right(const value_type length = 1) noexcept
+		[[nodiscard]] static constexpr Point Right(const value_type length = 1) noexcept
 		{
 			return{ length, 0 };
 		}
@@ -317,7 +317,7 @@ namespace s3d
 		/// <summary>
 		/// Point{ 0, -length }
 		/// </summary>
-		static constexpr Point Up(const value_type length = 1) noexcept
+		[[nodiscard]] static constexpr Point Up(const value_type length = 1) noexcept
 		{
 			return{ 0, -length };
 		}
@@ -325,17 +325,17 @@ namespace s3d
 		/// <summary>
 		/// Point{ 0, length }
 		/// </summary>
-		static constexpr Point Down(const value_type length = 1) noexcept
+		[[nodiscard]] static constexpr Point Down(const value_type length = 1) noexcept
 		{
 			return{ 0, length };
 		}
 	};
 
-	inline constexpr Point operator *(int32 s, const Point& p) noexcept;
+	[[nodiscard]] inline constexpr Point operator *(int32 s, const Point& p) noexcept;
 
-	inline constexpr Float2 operator *(float s, const Point& p) noexcept;
+	[[nodiscard]] inline constexpr Float2 operator *(float s, const Point& p) noexcept;
 
-	inline constexpr Vec2 operator *(double s, const Point& p) noexcept;
+	[[nodiscard]] inline constexpr Vec2 operator *(double s, const Point& p) noexcept;
 
 	using Size = Point;
 }
@@ -345,7 +345,7 @@ namespace std
 	template <>
 	struct hash<s3d::Point>
 	{
-		size_t operator()(const s3d::Point& keyVal) const
+		[[nodiscard]] size_t operator()(const s3d::Point& keyVal) const
 		{
 			return hash<s3d::uint64>()(*((s3d::uint64*)&keyVal));
 		}

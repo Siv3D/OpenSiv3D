@@ -297,13 +297,13 @@ namespace s3d
 		return detail::Sample_impl(first, last, out, n, rbg);
 	}
 
-	template <class Type, std::enable_if_t<!Concept::HasOverloadedAddressOf<Type>::value>* = nullptr>
+	template <class Type, std::enable_if_t<!Concept::HasOverloadedAddressOf_v<Type>>* = nullptr>
 	constexpr Type* AddressOf(Type& ref)
 	{
 		return &ref;
 	}
 
-	template <class Type, std::enable_if_t<Concept::HasOverloadedAddressOf<Type>::value>* = nullptr>
+	template <class Type, std::enable_if_t<Concept::HasOverloadedAddressOf_v<Type>>* = nullptr>
 	Type* AddressOf(Type& ref)
 	{
 		return std::addressof(ref);

@@ -29,7 +29,7 @@ namespace s3d
 
 		FontFace m_awesomeIcon;
 
-		EmojiDatabase m_emojiDataBase;
+		//EmojiDatabase m_emojiDataBase;
 
 		//EmojiDatabase2 m_emojiDataBase2;
 
@@ -79,6 +79,6 @@ namespace s3d
 
 		Image getAwesomeIcon(uint16 code, int32 size) override;
 
-		size_t checkEmoji(std::vector<char32_t>::const_iterator it, std::vector<char32_t>::const_iterator itEnd) const override;
+		//size_t checkEmoji(std::vector<char32_t>::const_iterator it, std::vector<char32_t>::const_iterator itEnd) const override;
 	};
 }

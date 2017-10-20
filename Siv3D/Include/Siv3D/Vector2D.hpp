@@ -192,12 +192,12 @@ namespace s3d
 			return *this = v;
 		}
 
-		S3D_NODISCARD constexpr Vector2D movedBy(value_type _x, value_type _y) const noexcept
+		[[nodiscard]] constexpr Vector2D movedBy(value_type _x, value_type _y) const noexcept
 		{
 			return{ x + _x, y + _y };
 		}
 
-		S3D_NODISCARD constexpr Vector2D movedBy(const Vector2D& v) const noexcept
+		[[nodiscard]] constexpr Vector2D movedBy(const Vector2D& v) const noexcept
 		{
 			return{ x + v.x, y + v.y };
 		}
@@ -215,7 +215,7 @@ namespace s3d
 
 		Vector2D& clamp(const RectF& rect) noexcept;
 
-		S3D_NODISCARD Vector2D clamped(const RectF& rect) noexcept;
+		[[nodiscard]] Vector2D clamped(const RectF& rect) noexcept;
 
 		constexpr bool isZero() const noexcept
 		{
@@ -286,7 +286,7 @@ namespace s3d
 			return (*this - v).lengthSq();
 		}
 
-		S3D_NODISCARD Vector2D normalized() const noexcept
+		[[nodiscard]] Vector2D normalized() const noexcept
 		{
 			return *this * lengthInv();
 		}
@@ -296,7 +296,7 @@ namespace s3d
 			return *this *= lengthInv();
 		}
 
-		S3D_NODISCARD Vector2D rotated(value_type angle) const noexcept
+		[[nodiscard]] Vector2D rotated(value_type angle) const noexcept
 		{
 			const value_type s = std::sin(angle);
 			const value_type c = std::cos(angle);
@@ -308,7 +308,7 @@ namespace s3d
 			return *this = rotated(angle);
 		}
 		
-		S3D_NODISCARD value_type getAngle(const Vector2D& v) const
+		[[nodiscard]] value_type getAngle(const Vector2D& v) const
 		{
 			if (isZero() || v.isZero())
 			{
@@ -318,12 +318,12 @@ namespace s3d
 			return std::atan2(cross(v), dot(v));
 		}
 
-		S3D_NODISCARD constexpr Vector2D projection(const Vector2D& onto) const noexcept
+		[[nodiscard]] constexpr Vector2D projection(const Vector2D& onto) const noexcept
 		{
 			return onto.lengthSq() ? onto * dot(onto) / onto.lengthSq() : Zero();
 		}
 
-		S3D_NODISCARD constexpr Vector2D lerp(const Vector2D& other, double f) const noexcept
+		[[nodiscard]] constexpr Vector2D lerp(const Vector2D& other, double f) const noexcept
 		{
 			return Vector2D(x + (other.x - x) * f, y + (other.y - y) * f);
 		}

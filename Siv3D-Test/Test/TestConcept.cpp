@@ -27,439 +27,439 @@ struct CustomAddressOf
 
 TEST(Concept, HasUnaryPlus)
 {
-	EXPECT_EQ(Concept::HasUnaryPlus<int32>::value, true);
-	EXPECT_EQ(Concept::HasUnaryPlus<float>::value, true);
-	EXPECT_EQ(Concept::HasUnaryPlus<String>::value, false);
-	EXPECT_EQ(Concept::HasUnaryPlus<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasUnaryPlus<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasUnaryPlus<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasUnaryPlus<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasUnaryPlus_v<int32>, true);
+	EXPECT_EQ(Concept::HasUnaryPlus_v<float>, true);
+	EXPECT_EQ(Concept::HasUnaryPlus_v<String>, false);
+	EXPECT_EQ(Concept::HasUnaryPlus_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasUnaryPlus_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasUnaryPlus_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasUnaryPlus_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasNegate)
 {
-	EXPECT_EQ(Concept::HasNegate<int32>::value, true);
-	EXPECT_EQ(Concept::HasNegate<float>::value, true);
-	EXPECT_EQ(Concept::HasNegate<String>::value, false);
-	EXPECT_EQ(Concept::HasNegate<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasNegate<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasNegate<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasNegate<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasNegate_v<int32>, true);
+	EXPECT_EQ(Concept::HasNegate_v<float>, true);
+	EXPECT_EQ(Concept::HasNegate_v<String>, false);
+	EXPECT_EQ(Concept::HasNegate_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasNegate_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasNegate_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasNegate_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasPreIncrement)
 {
-	EXPECT_EQ(Concept::HasPreIncrement<int32>::value, true);
-	EXPECT_EQ(Concept::HasPreIncrement<float>::value, true);
-	EXPECT_EQ(Concept::HasPreIncrement<String>::value, false);
-	EXPECT_EQ(Concept::HasPreIncrement<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasPreIncrement<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasPreIncrement<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasPreIncrement<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasPreIncrement_v<int32>, true);
+	EXPECT_EQ(Concept::HasPreIncrement_v<float>, true);
+	EXPECT_EQ(Concept::HasPreIncrement_v<String>, false);
+	EXPECT_EQ(Concept::HasPreIncrement_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasPreIncrement_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasPreIncrement_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasPreIncrement_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasPreDecrement)
 {
-	EXPECT_EQ(Concept::HasPreDecrement<int32>::value, true);
-	EXPECT_EQ(Concept::HasPreDecrement<float>::value, true);
-	EXPECT_EQ(Concept::HasPreDecrement<String>::value, false);
-	EXPECT_EQ(Concept::HasPreDecrement<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasPreDecrement<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasPreDecrement<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasPreDecrement<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasPreDecrement_v<int32>, true);
+	EXPECT_EQ(Concept::HasPreDecrement_v<float>, true);
+	EXPECT_EQ(Concept::HasPreDecrement_v<String>, false);
+	EXPECT_EQ(Concept::HasPreDecrement_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasPreDecrement_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasPreDecrement_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasPreDecrement_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasPostIncrement)
 {
-	EXPECT_EQ(Concept::HasPostIncrement<int32>::value, true);
-	EXPECT_EQ(Concept::HasPostIncrement<float>::value, true);
-	EXPECT_EQ(Concept::HasPostIncrement<String>::value, false);
-	EXPECT_EQ(Concept::HasPostIncrement<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasPostIncrement<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasPostIncrement<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasPostIncrement<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasPostIncrement_v<int32>, true);
+	EXPECT_EQ(Concept::HasPostIncrement_v<float>, true);
+	EXPECT_EQ(Concept::HasPostIncrement_v<String>, false);
+	EXPECT_EQ(Concept::HasPostIncrement_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasPostIncrement_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasPostIncrement_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasPostIncrement_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasOperatorBool)
 {
-	EXPECT_EQ(Concept::HasOperatorBool<int32>::value, true);
-	EXPECT_EQ(Concept::HasOperatorBool<float>::value, true);
-	EXPECT_EQ(Concept::HasOperatorBool<String>::value, true);
-	EXPECT_EQ(Concept::HasOperatorBool<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasOperatorBool<Optional<double>>::value, true);
-	EXPECT_EQ(Concept::HasOperatorBool<Array<Date>>::value, true);
-	EXPECT_EQ(Concept::HasOperatorBool<BinaryReader>::value, true);
+	EXPECT_EQ(Concept::HasOperatorBool_v<int32>, true);
+	EXPECT_EQ(Concept::HasOperatorBool_v<float>, true);
+	EXPECT_EQ(Concept::HasOperatorBool_v<String>, true);
+	EXPECT_EQ(Concept::HasOperatorBool_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasOperatorBool_v<Optional<double>>, true);
+	EXPECT_EQ(Concept::HasOperatorBool_v<Array<Date>>, true);
+	EXPECT_EQ(Concept::HasOperatorBool_v<BinaryReader>, true);
 }
 
 TEST(Concept, HasLogicalNot)
 {
-	EXPECT_EQ(Concept::HasLogicalNot<int32>::value, true);
-	EXPECT_EQ(Concept::HasLogicalNot<float>::value, true);
-	EXPECT_EQ(Concept::HasLogicalNot<String>::value, true);
-	EXPECT_EQ(Concept::HasLogicalNot<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasLogicalNot<Optional<double>>::value, true);
-	EXPECT_EQ(Concept::HasLogicalNot<Array<Date>>::value, true);
-	EXPECT_EQ(Concept::HasLogicalNot<BinaryReader>::value, true);
+	EXPECT_EQ(Concept::HasLogicalNot_v<int32>, true);
+	EXPECT_EQ(Concept::HasLogicalNot_v<float>, true);
+	EXPECT_EQ(Concept::HasLogicalNot_v<String>, true);
+	EXPECT_EQ(Concept::HasLogicalNot_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasLogicalNot_v<Optional<double>>, true);
+	EXPECT_EQ(Concept::HasLogicalNot_v<Array<Date>>, true);
+	EXPECT_EQ(Concept::HasLogicalNot_v<BinaryReader>, true);
 }
 
 TEST(Concept, HasComplement)
 {
-	EXPECT_EQ(Concept::HasComplement<int32>::value, true);
-	EXPECT_EQ(Concept::HasComplement<float>::value, false);
-	EXPECT_EQ(Concept::HasComplement<String>::value, false);
-	EXPECT_EQ(Concept::HasComplement<BigInt>::value, false);
-	EXPECT_EQ(Concept::HasComplement<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasComplement<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasComplement<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasComplement_v<int32>, true);
+	EXPECT_EQ(Concept::HasComplement_v<float>, false);
+	EXPECT_EQ(Concept::HasComplement_v<String>, false);
+	EXPECT_EQ(Concept::HasComplement_v<BigInt>, false);
+	EXPECT_EQ(Concept::HasComplement_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasComplement_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasComplement_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasAddressOf)
 {
-	EXPECT_EQ(Concept::HasAddressOf<int32>::value, true);
-	EXPECT_EQ(Concept::HasAddressOf<float>::value, true);
-	EXPECT_EQ(Concept::HasAddressOf<String>::value, true);
-	EXPECT_EQ(Concept::HasAddressOf<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasAddressOf<Optional<double>>::value, true);
-	EXPECT_EQ(Concept::HasAddressOf<Array<Date>>::value, true);
-	EXPECT_EQ(Concept::HasAddressOf<BinaryReader>::value, true);
+	EXPECT_EQ(Concept::HasAddressOf_v<int32>, true);
+	EXPECT_EQ(Concept::HasAddressOf_v<float>, true);
+	EXPECT_EQ(Concept::HasAddressOf_v<String>, true);
+	EXPECT_EQ(Concept::HasAddressOf_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasAddressOf_v<Optional<double>>, true);
+	EXPECT_EQ(Concept::HasAddressOf_v<Array<Date>>, true);
+	EXPECT_EQ(Concept::HasAddressOf_v<BinaryReader>, true);
 
-	EXPECT_EQ(Concept::HasAddressOf<CustomAddressOf>::value, true);
+	EXPECT_EQ(Concept::HasAddressOf_v<CustomAddressOf>, true);
 }
 
 TEST(Concept, HasOverloadedAddressOf)
 {
-	EXPECT_EQ(Concept::HasOverloadedAddressOf<int32>::value, false);
-	EXPECT_EQ(Concept::HasOverloadedAddressOf<float>::value, false);
-	EXPECT_EQ(Concept::HasOverloadedAddressOf<String>::value, false);
-	EXPECT_EQ(Concept::HasOverloadedAddressOf<BigInt>::value, false);
-	EXPECT_EQ(Concept::HasOverloadedAddressOf<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasOverloadedAddressOf<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasOverloadedAddressOf<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasOverloadedAddressOf_v<int32>, false);
+	EXPECT_EQ(Concept::HasOverloadedAddressOf_v<float>, false);
+	EXPECT_EQ(Concept::HasOverloadedAddressOf_v<String>, false);
+	EXPECT_EQ(Concept::HasOverloadedAddressOf_v<BigInt>, false);
+	EXPECT_EQ(Concept::HasOverloadedAddressOf_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasOverloadedAddressOf_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasOverloadedAddressOf_v<BinaryReader>, false);
 
-	EXPECT_EQ(Concept::HasOverloadedAddressOf<CustomAddressOf>::value, true);
+	EXPECT_EQ(Concept::HasOverloadedAddressOf_v<CustomAddressOf>, true);
 }
 
 TEST(Concept, HasPostDecrement)
 {
-	EXPECT_EQ(Concept::HasPostDecrement<int32>::value, true);
-	EXPECT_EQ(Concept::HasPostDecrement<float>::value, true);
-	EXPECT_EQ(Concept::HasPostDecrement<String>::value, false);
-	EXPECT_EQ(Concept::HasPostDecrement<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasPostDecrement<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasPostDecrement<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasPostDecrement<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasPostDecrement_v<int32>, true);
+	EXPECT_EQ(Concept::HasPostDecrement_v<float>, true);
+	EXPECT_EQ(Concept::HasPostDecrement_v<String>, false);
+	EXPECT_EQ(Concept::HasPostDecrement_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasPostDecrement_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasPostDecrement_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasPostDecrement_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasPlus)
 {
-	EXPECT_EQ(Concept::HasPlus<int32>::value, true);
-	EXPECT_EQ(Concept::HasPlus<float>::value, true);
-	EXPECT_EQ(Concept::HasPlus<String>::value, true);
-	EXPECT_EQ(Concept::HasPlus<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasPlus<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasPlus<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasPlus<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasPlus_v<int32>, true);
+	EXPECT_EQ(Concept::HasPlus_v<float>, true);
+	EXPECT_EQ(Concept::HasPlus_v<String>, true);
+	EXPECT_EQ(Concept::HasPlus_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasPlus_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasPlus_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasPlus_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasMinus)
 {
-	EXPECT_EQ(Concept::HasMinus<int32>::value, true);
-	EXPECT_EQ(Concept::HasMinus<float>::value, true);
-	EXPECT_EQ(Concept::HasMinus<String>::value, false);
-	EXPECT_EQ(Concept::HasMinus<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasMinus<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasMinus<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasMinus<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasMinus_v<int32>, true);
+	EXPECT_EQ(Concept::HasMinus_v<float>, true);
+	EXPECT_EQ(Concept::HasMinus_v<String>, false);
+	EXPECT_EQ(Concept::HasMinus_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasMinus_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasMinus_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasMinus_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasMultiply)
 {
-	EXPECT_EQ(Concept::HasMultiply<int32>::value, true);
-	EXPECT_EQ(Concept::HasMultiply<float>::value, true);
-	EXPECT_EQ(Concept::HasMultiply<String>::value, false);
-	EXPECT_EQ(Concept::HasMultiply<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasMultiply<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasMultiply<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasMultiply<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasMultiply_v<int32>, true);
+	EXPECT_EQ(Concept::HasMultiply_v<float>, true);
+	EXPECT_EQ(Concept::HasMultiply_v<String>, false);
+	EXPECT_EQ(Concept::HasMultiply_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasMultiply_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasMultiply_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasMultiply_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasDivide)
 {
-	EXPECT_EQ(Concept::HasDivide<int32>::value, true);
-	EXPECT_EQ(Concept::HasDivide<float>::value, true);
-	EXPECT_EQ(Concept::HasDivide<String>::value, false);
-	EXPECT_EQ(Concept::HasDivide<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasDivide<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasDivide<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasDivide<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasDivide_v<int32>, true);
+	EXPECT_EQ(Concept::HasDivide_v<float>, true);
+	EXPECT_EQ(Concept::HasDivide_v<String>, false);
+	EXPECT_EQ(Concept::HasDivide_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasDivide_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasDivide_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasDivide_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasModulus)
 {
-	EXPECT_EQ(Concept::HasModulus<int32>::value, true);
-	EXPECT_EQ(Concept::HasModulus<float>::value, false);
-	EXPECT_EQ(Concept::HasModulus<String>::value, false);
-	EXPECT_EQ(Concept::HasModulus<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasModulus<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasModulus<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasModulus<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasModulus_v<int32>, true);
+	EXPECT_EQ(Concept::HasModulus_v<float>, false);
+	EXPECT_EQ(Concept::HasModulus_v<String>, false);
+	EXPECT_EQ(Concept::HasModulus_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasModulus_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasModulus_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasModulus_v<BinaryReader>, false);
 }
 
 
 TEST(Concept, HasPlusAssign)
 {
-	EXPECT_EQ(Concept::HasPlusAssign<int32>::value, true);
-	EXPECT_EQ(Concept::HasPlusAssign<float>::value, true);
-	EXPECT_EQ(Concept::HasPlusAssign<String>::value, true);
-	EXPECT_EQ(Concept::HasPlusAssign<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasPlusAssign<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasPlusAssign<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasPlusAssign<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasPlusAssign_v<int32>, true);
+	EXPECT_EQ(Concept::HasPlusAssign_v<float>, true);
+	EXPECT_EQ(Concept::HasPlusAssign_v<String>, true);
+	EXPECT_EQ(Concept::HasPlusAssign_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasPlusAssign_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasPlusAssign_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasPlusAssign_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasMinusAssign)
 {
-	EXPECT_EQ(Concept::HasMinusAssign<int32>::value, true);
-	EXPECT_EQ(Concept::HasMinusAssign<float>::value, true);
-	EXPECT_EQ(Concept::HasMinusAssign<String>::value, false);
-	EXPECT_EQ(Concept::HasMinusAssign<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasMinusAssign<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasMinusAssign<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasMinusAssign<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasMinusAssign_v<int32>, true);
+	EXPECT_EQ(Concept::HasMinusAssign_v<float>, true);
+	EXPECT_EQ(Concept::HasMinusAssign_v<String>, false);
+	EXPECT_EQ(Concept::HasMinusAssign_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasMinusAssign_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasMinusAssign_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasMinusAssign_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasMultiplyAssign)
 {
-	EXPECT_EQ(Concept::HasMultiplyAssign<int32>::value, true);
-	EXPECT_EQ(Concept::HasMultiplyAssign<float>::value, true);
-	EXPECT_EQ(Concept::HasMultiplyAssign<String>::value, false);
-	EXPECT_EQ(Concept::HasMultiplyAssign<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasMultiplyAssign<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasMultiplyAssign<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasMultiplyAssign<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasMultiplyAssign_v<int32>, true);
+	EXPECT_EQ(Concept::HasMultiplyAssign_v<float>, true);
+	EXPECT_EQ(Concept::HasMultiplyAssign_v<String>, false);
+	EXPECT_EQ(Concept::HasMultiplyAssign_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasMultiplyAssign_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasMultiplyAssign_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasMultiplyAssign_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasDivideAssign)
 {
-	EXPECT_EQ(Concept::HasDivideAssign<int32>::value, true);
-	EXPECT_EQ(Concept::HasDivideAssign<float>::value, true);
-	EXPECT_EQ(Concept::HasDivideAssign<String>::value, false);
-	EXPECT_EQ(Concept::HasDivideAssign<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasDivideAssign<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasDivideAssign<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasDivideAssign<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasDivideAssign_v<int32>, true);
+	EXPECT_EQ(Concept::HasDivideAssign_v<float>, true);
+	EXPECT_EQ(Concept::HasDivideAssign_v<String>, false);
+	EXPECT_EQ(Concept::HasDivideAssign_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasDivideAssign_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasDivideAssign_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasDivideAssign_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasModulesAssign)
 {
-	EXPECT_EQ(Concept::HasModulusAssign<int32>::value, true);
-	EXPECT_EQ(Concept::HasModulusAssign<float>::value, false);
-	EXPECT_EQ(Concept::HasModulusAssign<String>::value, false);
-	EXPECT_EQ(Concept::HasModulusAssign<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasModulusAssign<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasModulusAssign<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasModulusAssign<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasModulusAssign_v<int32>, true);
+	EXPECT_EQ(Concept::HasModulusAssign_v<float>, false);
+	EXPECT_EQ(Concept::HasModulusAssign_v<String>, false);
+	EXPECT_EQ(Concept::HasModulusAssign_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasModulusAssign_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasModulusAssign_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasModulusAssign_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasEqualTo)
 {
-	EXPECT_EQ(Concept::HasEqualTo<int32>::value, true);
-	EXPECT_EQ(Concept::HasEqualTo<float>::value, true);
-	EXPECT_EQ(Concept::HasEqualTo<String>::value, true);
-	EXPECT_EQ(Concept::HasEqualTo<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasEqualTo<Optional<double>>::value, true);
-	EXPECT_EQ(Concept::HasEqualTo<Array<Date>>::value, true);
-	EXPECT_EQ(Concept::HasEqualTo<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasEqualTo_v<int32>, true);
+	EXPECT_EQ(Concept::HasEqualTo_v<float>, true);
+	EXPECT_EQ(Concept::HasEqualTo_v<String>, true);
+	EXPECT_EQ(Concept::HasEqualTo_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasEqualTo_v<Optional<double>>, true);
+	EXPECT_EQ(Concept::HasEqualTo_v<Array<Date>>, true);
+	EXPECT_EQ(Concept::HasEqualTo_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasNotEqualTo)
 {
-	EXPECT_EQ(Concept::HasNotEqualTo<int32>::value, true);
-	EXPECT_EQ(Concept::HasNotEqualTo<float>::value, true);
-	EXPECT_EQ(Concept::HasNotEqualTo<String>::value, true);
-	EXPECT_EQ(Concept::HasNotEqualTo<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasNotEqualTo<Optional<double>>::value, true);
-	EXPECT_EQ(Concept::HasNotEqualTo<Array<Date>>::value, true);
-	EXPECT_EQ(Concept::HasNotEqualTo<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasNotEqualTo_v<int32>, true);
+	EXPECT_EQ(Concept::HasNotEqualTo_v<float>, true);
+	EXPECT_EQ(Concept::HasNotEqualTo_v<String>, true);
+	EXPECT_EQ(Concept::HasNotEqualTo_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasNotEqualTo_v<Optional<double>>, true);
+	EXPECT_EQ(Concept::HasNotEqualTo_v<Array<Date>>, true);
+	EXPECT_EQ(Concept::HasNotEqualTo_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasLessThan)
 {
-	EXPECT_EQ(Concept::HasLessThan<int32>::value, true);
-	EXPECT_EQ(Concept::HasLessThan<float>::value, true);
-	EXPECT_EQ(Concept::HasLessThan<String>::value, true);
-	EXPECT_EQ(Concept::HasLessThan<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasLessThan<Optional<double>>::value, true);
-	EXPECT_EQ(Concept::HasLessThan<Array<Date>>::value, true);
-	EXPECT_EQ(Concept::HasLessThan<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasLessThan_v<int32>, true);
+	EXPECT_EQ(Concept::HasLessThan_v<float>, true);
+	EXPECT_EQ(Concept::HasLessThan_v<String>, true);
+	EXPECT_EQ(Concept::HasLessThan_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasLessThan_v<Optional<double>>, true);
+	EXPECT_EQ(Concept::HasLessThan_v<Array<Date>>, true);
+	EXPECT_EQ(Concept::HasLessThan_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasLessThanEqual)
 {
-	EXPECT_EQ(Concept::HasLessThanEqual<int32>::value, true);
-	EXPECT_EQ(Concept::HasLessThanEqual<float>::value, true);
-	EXPECT_EQ(Concept::HasLessThanEqual<String>::value, true);
-	EXPECT_EQ(Concept::HasLessThanEqual<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasLessThanEqual<Optional<double>>::value, true);
-	EXPECT_EQ(Concept::HasLessThanEqual<Array<Date>>::value, true);
-	EXPECT_EQ(Concept::HasLessThanEqual<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasLessThanEqual_v<int32>, true);
+	EXPECT_EQ(Concept::HasLessThanEqual_v<float>, true);
+	EXPECT_EQ(Concept::HasLessThanEqual_v<String>, true);
+	EXPECT_EQ(Concept::HasLessThanEqual_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasLessThanEqual_v<Optional<double>>, true);
+	EXPECT_EQ(Concept::HasLessThanEqual_v<Array<Date>>, true);
+	EXPECT_EQ(Concept::HasLessThanEqual_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasGreaterThan)
 {
-	EXPECT_EQ(Concept::HasGreaterThan<int32>::value, true);
-	EXPECT_EQ(Concept::HasGreaterThan<float>::value, true);
-	EXPECT_EQ(Concept::HasGreaterThan<String>::value, true);
-	EXPECT_EQ(Concept::HasGreaterThan<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasGreaterThan<Optional<double>>::value, true);
-	EXPECT_EQ(Concept::HasGreaterThan<Array<Date>>::value, true);
-	EXPECT_EQ(Concept::HasGreaterThan<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasGreaterThan_v<int32>, true);
+	EXPECT_EQ(Concept::HasGreaterThan_v<float>, true);
+	EXPECT_EQ(Concept::HasGreaterThan_v<String>, true);
+	EXPECT_EQ(Concept::HasGreaterThan_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasGreaterThan_v<Optional<double>>, true);
+	EXPECT_EQ(Concept::HasGreaterThan_v<Array<Date>>, true);
+	EXPECT_EQ(Concept::HasGreaterThan_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasGreaterThanEqual)
 {
-	EXPECT_EQ(Concept::HasGreaterThanEqual<int32>::value, true);
-	EXPECT_EQ(Concept::HasGreaterThanEqual<float>::value, true);
-	EXPECT_EQ(Concept::HasGreaterThanEqual<String>::value, true);
-	EXPECT_EQ(Concept::HasGreaterThanEqual<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasGreaterThanEqual<Optional<double>>::value, true);
-	EXPECT_EQ(Concept::HasGreaterThanEqual<Array<Date>>::value, true);
-	EXPECT_EQ(Concept::HasGreaterThanEqual<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasGreaterThanEqual_v<int32>, true);
+	EXPECT_EQ(Concept::HasGreaterThanEqual_v<float>, true);
+	EXPECT_EQ(Concept::HasGreaterThanEqual_v<String>, true);
+	EXPECT_EQ(Concept::HasGreaterThanEqual_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasGreaterThanEqual_v<Optional<double>>, true);
+	EXPECT_EQ(Concept::HasGreaterThanEqual_v<Array<Date>>, true);
+	EXPECT_EQ(Concept::HasGreaterThanEqual_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasBitwiseAnd)
 {
-	EXPECT_EQ(Concept::HasBitwiseAnd<int32>::value, true);
-	EXPECT_EQ(Concept::HasBitwiseAnd<float>::value, false);
-	EXPECT_EQ(Concept::HasBitwiseAnd<String>::value, false);
-	EXPECT_EQ(Concept::HasBitwiseAnd<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasBitwiseAnd<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasBitwiseAnd<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasBitwiseAnd<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasBitwiseAnd_v<int32>, true);
+	EXPECT_EQ(Concept::HasBitwiseAnd_v<float>, false);
+	EXPECT_EQ(Concept::HasBitwiseAnd_v<String>, false);
+	EXPECT_EQ(Concept::HasBitwiseAnd_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasBitwiseAnd_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasBitwiseAnd_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasBitwiseAnd_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasBitwiseOr)
 {
-	EXPECT_EQ(Concept::HasBitwiseOr<int32>::value, true);
-	EXPECT_EQ(Concept::HasBitwiseOr<float>::value, false);
-	EXPECT_EQ(Concept::HasBitwiseOr<String>::value, false);
-	EXPECT_EQ(Concept::HasBitwiseOr<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasBitwiseOr<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasBitwiseOr<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasBitwiseOr<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasBitwiseOr_v<int32>, true);
+	EXPECT_EQ(Concept::HasBitwiseOr_v<float>, false);
+	EXPECT_EQ(Concept::HasBitwiseOr_v<String>, false);
+	EXPECT_EQ(Concept::HasBitwiseOr_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasBitwiseOr_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasBitwiseOr_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasBitwiseOr_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasBitwiseXor)
 {
-	EXPECT_EQ(Concept::HasBitwiseXor<int32>::value, true);
-	EXPECT_EQ(Concept::HasBitwiseXor<float>::value, false);
-	EXPECT_EQ(Concept::HasBitwiseXor<String>::value, false);
-	EXPECT_EQ(Concept::HasBitwiseXor<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasBitwiseXor<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasBitwiseXor<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasBitwiseXor<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasBitwiseXor_v<int32>, true);
+	EXPECT_EQ(Concept::HasBitwiseXor_v<float>, false);
+	EXPECT_EQ(Concept::HasBitwiseXor_v<String>, false);
+	EXPECT_EQ(Concept::HasBitwiseXor_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasBitwiseXor_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasBitwiseXor_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasBitwiseXor_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasBitwiseAndAssign)
 {
-	EXPECT_EQ(Concept::HasBitwiseAndAssign<int32>::value, true);
-	EXPECT_EQ(Concept::HasBitwiseAndAssign<float>::value, false);
-	EXPECT_EQ(Concept::HasBitwiseAndAssign<String>::value, false);
-	EXPECT_EQ(Concept::HasBitwiseAndAssign<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasBitwiseAndAssign<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasBitwiseAndAssign<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasBitwiseAndAssign<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasBitwiseAndAssign_v<int32>, true);
+	EXPECT_EQ(Concept::HasBitwiseAndAssign_v<float>, false);
+	EXPECT_EQ(Concept::HasBitwiseAndAssign_v<String>, false);
+	EXPECT_EQ(Concept::HasBitwiseAndAssign_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasBitwiseAndAssign_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasBitwiseAndAssign_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasBitwiseAndAssign_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasBitwiseOrAssign)
 {
-	EXPECT_EQ(Concept::HasBitwiseOrAssign<int32>::value, true);
-	EXPECT_EQ(Concept::HasBitwiseOrAssign<float>::value, false);
-	EXPECT_EQ(Concept::HasBitwiseOrAssign<String>::value, false);
-	EXPECT_EQ(Concept::HasBitwiseOrAssign<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasBitwiseOrAssign<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasBitwiseOrAssign<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasBitwiseOrAssign<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasBitwiseOrAssign_v<int32>, true);
+	EXPECT_EQ(Concept::HasBitwiseOrAssign_v<float>, false);
+	EXPECT_EQ(Concept::HasBitwiseOrAssign_v<String>, false);
+	EXPECT_EQ(Concept::HasBitwiseOrAssign_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasBitwiseOrAssign_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasBitwiseOrAssign_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasBitwiseOrAssign_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasBitwiseXorAssign)
 {
-	EXPECT_EQ(Concept::HasBitwiseXorAssign<int32>::value, true);
-	EXPECT_EQ(Concept::HasBitwiseXorAssign<float>::value, false);
-	EXPECT_EQ(Concept::HasBitwiseXorAssign<String>::value, false);
-	EXPECT_EQ(Concept::HasBitwiseXorAssign<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasBitwiseXorAssign<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasBitwiseXorAssign<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasBitwiseXorAssign<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasBitwiseXorAssign_v<int32>, true);
+	EXPECT_EQ(Concept::HasBitwiseXorAssign_v<float>, false);
+	EXPECT_EQ(Concept::HasBitwiseXorAssign_v<String>, false);
+	EXPECT_EQ(Concept::HasBitwiseXorAssign_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasBitwiseXorAssign_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasBitwiseXorAssign_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasBitwiseXorAssign_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasLeftShift)
 {
-	EXPECT_EQ(Concept::HasLeftShift<int32>::value, true);
-	EXPECT_EQ(Concept::HasLeftShift<float>::value, false);
-	EXPECT_EQ(Concept::HasLeftShift<String>::value, false);
-	EXPECT_EQ(Concept::HasLeftShift<BigInt>::value, false);
-	EXPECT_EQ(Concept::HasLeftShift<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasLeftShift<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasLeftShift<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasLeftShift_v<int32>, true);
+	EXPECT_EQ(Concept::HasLeftShift_v<float>, false);
+	EXPECT_EQ(Concept::HasLeftShift_v<String>, false);
+	EXPECT_EQ(Concept::HasLeftShift_v<BigInt>, false);
+	EXPECT_EQ(Concept::HasLeftShift_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasLeftShift_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasLeftShift_v<BinaryReader>, false);
 
-	const bool b = Concept::HasLeftShift<String, wchar>::value;
+	const bool b = Concept::HasLeftShift_v<String, wchar>;
 	EXPECT_EQ(b, true);
 }
 
 TEST(Concept, HasRightShift)
 {
-	EXPECT_EQ(Concept::HasRightShift<int32>::value, true);
-	EXPECT_EQ(Concept::HasRightShift<float>::value, false);
-	EXPECT_EQ(Concept::HasRightShift<String>::value, false);
-	EXPECT_EQ(Concept::HasRightShift<BigInt>::value, false);
-	EXPECT_EQ(Concept::HasRightShift<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasRightShift<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasRightShift<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasRightShift_v<int32>, true);
+	EXPECT_EQ(Concept::HasRightShift_v<float>, false);
+	EXPECT_EQ(Concept::HasRightShift_v<String>, false);
+	EXPECT_EQ(Concept::HasRightShift_v<BigInt>, false);
+	EXPECT_EQ(Concept::HasRightShift_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasRightShift_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasRightShift_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasLeftShiftAssign)
 {
-	EXPECT_EQ(Concept::HasLeftShiftAssign<int32>::value, true);
-	EXPECT_EQ(Concept::HasLeftShiftAssign<float>::value, false);
-	EXPECT_EQ(Concept::HasLeftShiftAssign<String>::value, false);
-	EXPECT_EQ(Concept::HasLeftShiftAssign<BigInt>::value, false);
-	EXPECT_EQ(Concept::HasLeftShiftAssign<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasLeftShiftAssign<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasLeftShiftAssign<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasLeftShiftAssign_v<int32>, true);
+	EXPECT_EQ(Concept::HasLeftShiftAssign_v<float>, false);
+	EXPECT_EQ(Concept::HasLeftShiftAssign_v<String>, false);
+	EXPECT_EQ(Concept::HasLeftShiftAssign_v<BigInt>, false);
+	EXPECT_EQ(Concept::HasLeftShiftAssign_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasLeftShiftAssign_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasLeftShiftAssign_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasRightShiftAssign)
 {
-	EXPECT_EQ(Concept::HasRightShiftAssign<int32>::value, true);
-	EXPECT_EQ(Concept::HasRightShiftAssign<float>::value, false);
-	EXPECT_EQ(Concept::HasRightShiftAssign<String>::value, false);
-	EXPECT_EQ(Concept::HasRightShiftAssign<BigInt>::value, false);
-	EXPECT_EQ(Concept::HasRightShiftAssign<Optional<double>>::value, false);
-	EXPECT_EQ(Concept::HasRightShiftAssign<Array<Date>>::value, false);
-	EXPECT_EQ(Concept::HasRightShiftAssign<BinaryReader>::value, false);
+	EXPECT_EQ(Concept::HasRightShiftAssign_v<int32>, true);
+	EXPECT_EQ(Concept::HasRightShiftAssign_v<float>, false);
+	EXPECT_EQ(Concept::HasRightShiftAssign_v<String>, false);
+	EXPECT_EQ(Concept::HasRightShiftAssign_v<BigInt>, false);
+	EXPECT_EQ(Concept::HasRightShiftAssign_v<Optional<double>>, false);
+	EXPECT_EQ(Concept::HasRightShiftAssign_v<Array<Date>>, false);
+	EXPECT_EQ(Concept::HasRightShiftAssign_v<BinaryReader>, false);
 }
 
 TEST(Concept, HasLogicalAnd)
 {
-	EXPECT_EQ(Concept::HasLogicalAnd<int32>::value, true);
-	EXPECT_EQ(Concept::HasLogicalAnd<float>::value, true);
-	EXPECT_EQ(Concept::HasLogicalAnd<String>::value, true);
-	EXPECT_EQ(Concept::HasLogicalAnd<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasLogicalAnd<Optional<double>>::value, true);
-	EXPECT_EQ(Concept::HasLogicalAnd<Array<Date>>::value, true);
-	EXPECT_EQ(Concept::HasLogicalAnd<BinaryReader>::value, true);
+	EXPECT_EQ(Concept::HasLogicalAnd_v<int32>, true);
+	EXPECT_EQ(Concept::HasLogicalAnd_v<float>, true);
+	EXPECT_EQ(Concept::HasLogicalAnd_v<String>, true);
+	EXPECT_EQ(Concept::HasLogicalAnd_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasLogicalAnd_v<Optional<double>>, true);
+	EXPECT_EQ(Concept::HasLogicalAnd_v<Array<Date>>, true);
+	EXPECT_EQ(Concept::HasLogicalAnd_v<BinaryReader>, true);
 }
 
 TEST(Concept, HasLogicalOr)
 {
-	EXPECT_EQ(Concept::HasLogicalOr<int32>::value, true);
-	EXPECT_EQ(Concept::HasLogicalOr<float>::value, true);
-	EXPECT_EQ(Concept::HasLogicalOr<String>::value, true);
-	EXPECT_EQ(Concept::HasLogicalOr<BigInt>::value, true);
-	EXPECT_EQ(Concept::HasLogicalOr<Optional<double>>::value, true);
-	EXPECT_EQ(Concept::HasLogicalOr<Array<Date>>::value, true);
-	EXPECT_EQ(Concept::HasLogicalOr<BinaryReader>::value, true);
+	EXPECT_EQ(Concept::HasLogicalOr_v<int32>, true);
+	EXPECT_EQ(Concept::HasLogicalOr_v<float>, true);
+	EXPECT_EQ(Concept::HasLogicalOr_v<String>, true);
+	EXPECT_EQ(Concept::HasLogicalOr_v<BigInt>, true);
+	EXPECT_EQ(Concept::HasLogicalOr_v<Optional<double>>, true);
+	EXPECT_EQ(Concept::HasLogicalOr_v<Array<Date>>, true);
+	EXPECT_EQ(Concept::HasLogicalOr_v<BinaryReader>, true);
 }
 
 # endif

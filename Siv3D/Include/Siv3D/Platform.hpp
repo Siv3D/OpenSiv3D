@@ -113,19 +113,6 @@
 
 # if defined(SIV3D_TARGET_WINDOWS)
 
-	# define S3D_MAYBE_UNUSED
-	# define S3D_NODISCARD
-
-# else
-
-	# define S3D_MAYBE_UNUSED		[[maybe_unused]]
-	# define S3D_NODISCARD			[[nodiscard]]
-
-# endif
-
-
-# if defined(SIV3D_TARGET_WINDOWS) && defined(_MSC_VER)
-
     # define S3D_DISABLE_MSVC_WARNINGS_PUSH(warnings)	\
 			 __pragma(warning(push))					\
 			 __pragma(warning(disable: warnings))
