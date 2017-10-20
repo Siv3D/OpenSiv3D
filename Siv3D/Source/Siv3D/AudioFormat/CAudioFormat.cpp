@@ -99,6 +99,23 @@ namespace s3d
 		return (*it)->decode(reader);
 	}
 
+	bool CAudioFormat::encodeWAVE(IWriter& writer, const Wave& wave, const WAVEFormat format) const
+	{
+		const auto p = findFormat(AudioFormat::WAVE);
+
+		if (p == m_audioFormats.end())
+		{
+			return false;
+		}
+
+		if (const AudioFormat_WAVE* wav = dynamic_cast<AudioFormat_WAVE*>(p->get()))
+		{
+			return wav->encode(wave, writer, format);
+		}
+
+		return false;
+	}
+
 	Array<std::unique_ptr<IAudioFormat>>::const_iterator CAudioFormat::findFormat(const AudioFormat format) const
 	{
 		for (auto it = m_audioFormats.begin(); it != m_audioFormats.end(); ++it)

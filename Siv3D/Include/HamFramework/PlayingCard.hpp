@@ -281,6 +281,16 @@ namespace s3d
 			}
 		};
 
+		inline constexpr bool operator ==(const Card& a, const Card& b) noexcept
+		{
+			return a.rank == b.rank && a.suit == b.suit;
+		}
+
+		inline constexpr bool operator !=(const Card& a, const Card& b) noexcept
+		{
+			return a.rank != b.rank || a.suit != b.suit;
+		}
+
 		/// <summary>
 		/// カードの描画用の情報
 		/// </summary>
@@ -355,6 +365,11 @@ namespace s3d
 					.rect.stretched(m_cardSize.x * -0.1).draw(m_backSideColor);
 			}
 
+			void drawBack(double x, double y) const
+			{
+				drawBack(Vec2(x, y));
+			}
+
 			/// <summary>
 			/// カードの裏面を描画します。
 			/// </summary>
@@ -374,6 +389,11 @@ namespace s3d
 				drawBack(pos);
 			}
 
+			void drawBack(double x, double y, double angle) const
+			{
+				drawBack(Vec2(x, y), angle);
+			}
+
 			/// <summary>
 			/// 中心座標を指定してカードの裏面を描画します。
 			/// </summary>
@@ -386,6 +406,11 @@ namespace s3d
 			void drawBackAt(const Vec2& center) const
 			{
 				drawBack(center - m_cardSize * 0.5);
+			}
+
+			void drawBackAt(double x, double y) const
+			{
+				drawBackAt(Vec2(x, y));
 			}
 
 			/// <summary>
@@ -405,6 +430,11 @@ namespace s3d
 				const Transformer2D transformer(Mat3x2::Rotate(angle, center));
 
 				drawBackAt(center);
+			}
+
+			void drawBackAt(double x, double y, double angle) const
+			{
+				drawBackAt(Vec2(x, y), angle);
 			}
 
 			/// <summary>
@@ -591,6 +621,11 @@ namespace s3d
 				}
 			}
 
+			void draw(double x, double y) const
+			{
+				draw(Vec2(x, y));
+			}
+
 			/// <summary>
 			/// カードを描画します。
 			/// </summary>
@@ -610,6 +645,11 @@ namespace s3d
 				draw(pos);
 			}
 
+			void draw(double x, double y, double angle) const
+			{
+				draw(Vec2(x, y), angle);
+			}
+
 			/// <summary>
 			/// 中心座標を指定してカードを描画します。
 			/// </summary>
@@ -622,6 +662,11 @@ namespace s3d
 			void drawAt(const Vec2& center) const
 			{
 				draw(center - m_cardSize * 0.5);
+			}
+
+			void drawAt(double x, double y) const
+			{
+				drawAt(Vec2(x, y));
 			}
 
 			/// <summary>
@@ -641,6 +686,11 @@ namespace s3d
 				const Transformer2D trans(Mat3x2::Rotate(angle, center));
 
 				draw(center - m_cardSize * 0.5);
+			}
+
+			void drawAt(double x, double y, double angle) const
+			{
+				drawAt(Vec2(x, y), angle);
 			}
 
 			/// <summary>
@@ -680,6 +730,11 @@ namespace s3d
 				}
 			}
 
+			void drawSimple(double x, double y) const
+			{
+				drawSimple(Vec2(x, y));
+			}
+
 			/// <summary>
 			/// シンプルなデザインの描画を行います。
 			/// </summary>
@@ -699,6 +754,11 @@ namespace s3d
 				drawSimple(pos);
 			}
 
+			void drawSimple(double x, double y, double angle) const
+			{
+				drawSimple(Vec2(x, y), angle);
+			}
+
 			/// <summary>
 			/// 中心座標を指定してシンプルなデザインの描画を行います。
 			/// </summary>
@@ -711,6 +771,11 @@ namespace s3d
 			void drawSimpleAt(const Vec2& center) const
 			{
 				drawSimple(center - m_cardSize * 0.5);
+			}
+
+			void drawSimpleAt(double x, double y) const
+			{
+				drawSimpleAt(Vec2(x, y));
 			}
 
 			/// <summary>
@@ -730,6 +795,11 @@ namespace s3d
 				const Transformer2D trans(Mat3x2::Rotate(angle, center));
 
 				drawSimple(center - m_cardSize * 0.5);
+			}
+
+			void drawSimpleAt(double x, double y, double angle) const
+			{
+				drawSimpleAt(Vec2(x, y), angle);
 			}
 		};
 

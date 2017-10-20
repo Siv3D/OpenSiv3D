@@ -51,9 +51,15 @@ namespace s3d
 
 		CursorState<Point> m_client_transformed;
 
-		Mat3x2 m_transform = Mat3x2::Identity();
+		Mat3x2 m_transformLocal = Mat3x2::Identity();
 
-		Mat3x2 m_transformInv = Mat3x2::Identity();
+		Mat3x2 m_transformCamera = Mat3x2::Identity();
+
+		Mat3x2 m_transformScreen = Mat3x2::Identity();
+
+		Mat3x2 m_transformAll = Mat3x2::Identity();
+
+		Mat3x2 m_transformAllInv = Mat3x2::Identity();
 
 		Optional<Rect> m_clipRect;
 
@@ -85,9 +91,17 @@ namespace s3d
 
 		void setPos(int32 x, int32 y) override;
 
-		void setTransform(const Mat3x2& matrix) override;
+		void setTransformLocal(const Mat3x2& matrix) override;
 
-		const Mat3x2& getTransform() const override;
+		void setTransformCamera(const Mat3x2& matrix) override;
+
+		void setTransformScreen(const Mat3x2& matrix) override;
+
+		const Mat3x2& getTransformLocal() const override;
+
+		const Mat3x2& getTransformCamera() const override;
+
+		const Mat3x2& getTransformScreen() const override;
 
 		void clipClientRect(bool clip) override;
 

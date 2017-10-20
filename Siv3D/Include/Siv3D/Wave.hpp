@@ -213,6 +213,8 @@ namespace s3d
 		{
 			return Wave(base_type::slice(index, length), m_samplingRate);
 		}
+
+		bool saveWAVE(const FilePath& path, WAVEFormat format = WAVEFormat::Default);
 	};
 }
 

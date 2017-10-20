@@ -507,6 +507,7 @@ namespace s3d
 	//	ImageFormat.hpp
 	//
 	enum class ImageFormat;
+	enum class PPMType;
 	class IImageFormat;
 
 	//////////////////////////////////////////////////////
@@ -535,7 +536,8 @@ namespace s3d
 	//	AudioFormat.hpp
 	//
 	enum class AudioFormat;
-
+	enum class WAVEFormat;
+	class IAudioFormat;
 
 	//////////////////////////////////////////////////////
 	//

@@ -32,5 +32,7 @@ namespace s3d
 		virtual Wave load(const FilePath& path) const = 0;
 
 		virtual Wave decode(IReader&& reader, AudioFormat format) const = 0;
+
+		virtual bool encodeWAVE(IWriter& writer, const Wave& wave, WAVEFormat format) const = 0;
 	};
 }

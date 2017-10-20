@@ -164,7 +164,7 @@ namespace s3d
 		return false;
 	}
 
-	bool CImageFormat::encodePPM(IWriter & writer, const Image & image, PPM::Header header) const
+	bool CImageFormat::encodePPM(IWriter & writer, const Image & image, const PPMType type) const
 	{
 		const auto p = findFormat(ImageFormat::PPM);
 
@@ -175,7 +175,7 @@ namespace s3d
 
 		if (const ImageFormat_PPM* ppm = dynamic_cast<ImageFormat_PPM*>(p->get()))
 		{
-			return ppm->encode(image, writer, header);
+			return ppm->encode(image, writer, type);
 		}
 
 		return false;

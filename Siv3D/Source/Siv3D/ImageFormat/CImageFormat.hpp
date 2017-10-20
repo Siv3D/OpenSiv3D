@@ -50,6 +50,6 @@ namespace s3d
 
 		bool encodeJPEG(IWriter& writer, const Image& image, int32 quality) const override;
 
-		bool encodePPM(IWriter& writer, const Image& image, PPM::Header header) const override;
+		bool encodePPM(IWriter& writer, const Image& image, PPMType format) const override;
 	};
 }
