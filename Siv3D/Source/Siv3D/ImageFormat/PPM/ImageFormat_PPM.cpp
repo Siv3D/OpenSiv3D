@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # include <string>
-# include <Siv3D\Logger.hpp>
+# include <Siv3D/Logger.hpp>
 # include "ImageFormat_PPM.hpp"
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/IWriter.hpp>
@@ -545,14 +545,14 @@ namespace s3d
 			for (; x + 7 < image.width(); x += 8)
 			{
 				const uint8 c =
-					binarize(image[y][x]) ? 128 : 0 +
-					binarize(image[y][x + 1]) ? 64 : 0 +
-					binarize(image[y][x + 2]) ? 32 : 0 +
-					binarize(image[y][x + 3]) ? 16 : 0 +
-					binarize(image[y][x + 4]) ? 8 : 0 +
-					binarize(image[y][x + 5]) ? 4 : 0 +
-					binarize(image[y][x + 6]) ? 2 : 0 +
-					binarize(image[y][x + 7]) ? 1 : 0;
+					(binarize(image[y][x]) ? 128 : 0) +
+					(binarize(image[y][x + 1]) ? 64 : 0) +
+					(binarize(image[y][x + 2]) ? 32 : 0) +
+					(binarize(image[y][x + 3]) ? 16 : 0) +
+					(binarize(image[y][x + 4]) ? 8 : 0) +
+					(binarize(image[y][x + 5]) ? 4 : 0) +
+					(binarize(image[y][x + 6]) ? 2 : 0) +
+					(binarize(image[y][x + 7]) ? 1 : 0);
 
 				writer.write(c);
 			}
