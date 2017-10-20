@@ -12,6 +12,7 @@
 # include <Siv3D/Rectangle.hpp>
 # include <Siv3D/Format.hpp>
 # include <Siv3D/FloatRect.hpp>
+# include <Siv3D/RoundRect.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/TextureRegion.hpp>
@@ -22,6 +23,12 @@
 
 namespace s3d
 {
+	template <class SizeType>
+	RoundRect Rectangle<SizeType>::rounded(const double r) const noexcept
+	{
+		return RoundRect(*this, r);
+	}
+
 	template <class SizeType>
 	bool Rectangle<SizeType>::leftClicked() const
 	{

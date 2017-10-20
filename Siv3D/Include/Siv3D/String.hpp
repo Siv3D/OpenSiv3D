@@ -841,7 +841,7 @@ namespace s3d
 		/// <returns>
 		/// 文字列の先頭位置のイテレータ
 		/// </returns>
-		iterator begin() noexcept { return m_string.begin(); }
+		[[nodiscard]] iterator begin() noexcept { return m_string.begin(); }
 
 		/// <summary>
 		/// 文字列の先頭位置のイテレータを返します。
@@ -849,7 +849,7 @@ namespace s3d
 		/// <returns>
 		/// 文字列の先頭位置のイテレータ
 		/// </returns>
-		const_iterator begin() const noexcept { return m_string.begin(); }
+		[[nodiscard]] const_iterator begin() const noexcept { return m_string.begin(); }
 
 		/// <summary>
 		/// 文字列の先頭位置のイテレータを返します。
@@ -857,7 +857,7 @@ namespace s3d
 		/// <returns>
 		/// 文字列の先頭位置のイテレータ
 		/// </returns>
-		const_iterator cbegin() const noexcept { return m_string.cbegin(); }
+		[[nodiscard]] const_iterator cbegin() const noexcept { return m_string.cbegin(); }
 
 		/// <summary>
 		/// 文字列の終了位置のイテレータを返します。
@@ -865,7 +865,7 @@ namespace s3d
 		/// <returns>
 		/// 文字列の終了位置のイテレータ
 		/// </returns>
-		iterator end() noexcept { return m_string.end(); }
+		[[nodiscard]] iterator end() noexcept { return m_string.end(); }
 
 		/// <summary>
 		/// 文字列の終了位置のイテレータを返します。
@@ -873,7 +873,7 @@ namespace s3d
 		/// <returns>
 		/// 文字列の終了位置のイテレータ
 		/// </returns>
-		const_iterator end() const noexcept { return m_string.end(); }
+		[[nodiscard]] const_iterator end() const noexcept { return m_string.end(); }
 
 		/// <summary>
 		/// 文字列の終了位置のイテレータを返します。
@@ -881,7 +881,7 @@ namespace s3d
 		/// <returns>
 		/// 文字列の終了位置のイテレータ
 		/// </returns>
-		const_iterator cend() const noexcept { return m_string.cend(); }
+		[[nodiscard]] const_iterator cend() const noexcept { return m_string.cend(); }
 
 		/// <summary>
 		/// 文字列の末尾のリバースイテレータを返します。
@@ -889,7 +889,7 @@ namespace s3d
 		/// <returns>
 		/// 文字列の末尾のリバースイテレータ
 		/// </returns>
-		reverse_iterator rbegin() noexcept { return m_string.rbegin(); }
+		[[nodiscard]] reverse_iterator rbegin() noexcept { return m_string.rbegin(); }
 
 		/// <summary>
 		/// 文字列の末尾のリバースイテレータを返します。
@@ -897,7 +897,7 @@ namespace s3d
 		/// <returns>
 		/// 文字列の末尾のリバースイテレータ
 		/// </returns>
-		const_reverse_iterator rbegin() const noexcept { return m_string.rbegin(); }
+		[[nodiscard]] const_reverse_iterator rbegin() const noexcept { return m_string.rbegin(); }
 
 		/// <summary>
 		/// 文字列の末尾のリバースイテレータを返します。
@@ -905,7 +905,7 @@ namespace s3d
 		/// <returns>
 		/// 文字列の末尾のリバースイテレータ
 		/// </returns>
-		const_reverse_iterator crbegin() const noexcept { return m_string.crbegin(); }
+		[[nodiscard]] const_reverse_iterator crbegin() const noexcept { return m_string.crbegin(); }
 
 		/// <summary>
 		/// 文字列の先頭の前へのリバースイテレータを返します。
@@ -913,7 +913,7 @@ namespace s3d
 		/// <returns>
 		/// 文字列の先頭の前へのリバースイテレータ
 		/// </returns>
-		reverse_iterator rend() noexcept { return m_string.rend(); }
+		[[nodiscard]] reverse_iterator rend() noexcept { return m_string.rend(); }
 
 		/// <summary>
 		/// 文字列の先頭の前へのリバースイテレータを返します。
@@ -921,7 +921,7 @@ namespace s3d
 		/// <returns>
 		/// 文字列の先頭の前へのリバースイテレータ
 		/// </returns>
-		const_reverse_iterator rend() const noexcept { return m_string.rend(); }
+		[[nodiscard]] const_reverse_iterator rend() const noexcept { return m_string.rend(); }
 
 		/// <summary>
 		/// 文字列の先頭の前へのリバースイテレータを返します。
@@ -929,7 +929,7 @@ namespace s3d
 		/// <returns>
 		/// 文字列の先頭の前へのリバースイテレータ
 		/// </returns>
-		const_reverse_iterator crend() const noexcept { return m_string.crend(); }
+		[[nodiscard]] const_reverse_iterator crend() const noexcept { return m_string.crend(); }
 
 		/// <summary>
 		/// 文字列の不要なメモリを解放します。
@@ -959,7 +959,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の文字への参照
 		/// </returns>
-		value_type& at(const size_t offset) & { return m_string.at(offset); }
+		[[nodiscard]] value_type& at(const size_t offset) & { return m_string.at(offset); }
 
 		/// <summary>
 		/// 指定した位置の文字への参照を返します。
@@ -973,7 +973,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の文字への参照
 		/// </returns>
-		const value_type& at(const size_t offset) const & { return m_string.at(offset); }
+		[[nodiscard]] const value_type& at(const size_t offset) const & { return m_string.at(offset); }
 
 		/// <summary>
 		/// 指定した位置の文字を取得します。
@@ -987,7 +987,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の文字への参照
 		/// </returns>
-		value_type at(const size_t offset) && { return m_string.at(offset); }
+		[[nodiscard]] value_type at(const size_t offset) && { return m_string.at(offset); }
 
 		/// <summary>
 		/// 指定した位置の文字への参照を返します。
@@ -998,7 +998,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の文字への参照
 		/// </returns>
-		value_type& operator[](const size_t offset) & { return m_string[offset]; }
+		[[nodiscard]] value_type& operator[](const size_t offset) & { return m_string[offset]; }
 
 		/// <summary>
 		/// 指定した位置の文字への参照を返します。
@@ -1009,7 +1009,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の文字への参照
 		/// </returns>
-		const value_type& operator[](const size_t offset) const & { return m_string[offset]; }
+		[[nodiscard]] const value_type& operator[](const size_t offset) const & { return m_string[offset]; }
 
 		/// <summary>
 		/// 指定した位置の文字を取得します。
@@ -1020,7 +1020,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の文字への参照
 		/// </returns>
-		value_type operator[](const size_t offset) && { return std::move(m_string[offset]); }
+		[[nodiscard]] value_type operator[](const size_t offset) && { return std::move(m_string[offset]); }
 
 		/// <summary>
 		/// 先頭に文字を追加します。
@@ -1066,7 +1066,7 @@ namespace s3d
 		/// <returns>
 		/// 先頭の文字への参照
 		/// </returns>
-		value_type& front() { return m_string.front(); }
+		[[nodiscard]] value_type& front() { return m_string.front(); }
 
 		/// <summary>
 		/// 先頭の文字への参照を返します。
@@ -1074,7 +1074,7 @@ namespace s3d
 		/// <returns>
 		/// 先頭の文字への参照
 		/// </returns>
-		const value_type& front() const { return m_string.front(); }
+		[[nodiscard]] const value_type& front() const { return m_string.front(); }
 
 		/// <summary>
 		/// 末尾の文字への参照を返します。
@@ -1082,7 +1082,7 @@ namespace s3d
 		/// <returns>
 		/// 末尾の文字への参照
 		/// </returns>
-		value_type& back() { return m_string.back(); }
+		[[nodiscard]] value_type& back() { return m_string.back(); }
 
 		/// <summary>
 		/// 末尾の文字への参照を返します。
@@ -1090,7 +1090,7 @@ namespace s3d
 		/// <returns>
 		/// 末尾の文字への参照
 		/// </returns>
-		const value_type& back() const { return m_string.back(); }
+		[[nodiscard]] const value_type& back() const { return m_string.back(); }
 
 		/// <summary>
 		/// C スタイル文字列の先頭のポインタを返します。
@@ -1098,7 +1098,7 @@ namespace s3d
 		/// <returns>
 		/// C スタイル文字列の先頭のポインタ
 		/// </returns>
-		const value_type* c_str() const noexcept { return m_string.c_str(); }
+		[[nodiscard]] const value_type* c_str() const noexcept { return m_string.c_str(); }
 
 		/// <summary>
 		/// 文字列の先頭のポインタを返します。
@@ -1106,7 +1106,7 @@ namespace s3d
 		/// <returns>
 		/// 文字列の先頭へのポインタ
 		/// </returns>
-		const value_type* data() const noexcept { return m_string.data(); }
+		[[nodiscard]] const value_type* data() const noexcept { return m_string.data(); }
 
 		/// <summary>
 		/// 文字列の先頭のポインタを返します。
@@ -1114,7 +1114,7 @@ namespace s3d
 		/// <returns>
 		/// 文字列の先頭へのポインタ
 		/// </returns>
-		value_type* data() noexcept { return &m_string[0]; }
+		[[nodiscard]] value_type* data() noexcept { return &m_string[0]; }
 
 		/// <summary>
 		/// wstring 型の内部データの参照を返します。
@@ -1122,7 +1122,7 @@ namespace s3d
 		/// <returns>
 		/// wstring 型の内部データの参照
 		/// </returns>
-		string_type& str() { return m_string; }
+		[[nodiscard]] string_type& str() { return m_string; }
 
 		/// <summary>
 		/// wstring 型の内部データの参照を返します。
@@ -1130,7 +1130,7 @@ namespace s3d
 		/// <returns>
 		/// wstring 型の内部データの参照
 		/// </returns>
-		const string_type& str() const noexcept { return m_string; }
+		[[nodiscard]] const string_type& str() const noexcept { return m_string; }
 
 		/// <summary>
 		/// 文字列の長さを示します。
@@ -1138,7 +1138,7 @@ namespace s3d
 		/// <remarks>
 		/// 終端の '\0' を含みません。
 		/// </remarks>
-		size_t length() const noexcept { return m_string.length(); }
+		[[nodiscard]] size_t length() const noexcept { return m_string.length(); }
 
 		/// <summary>
 		/// 文字列の長さを示します。
@@ -1146,21 +1146,21 @@ namespace s3d
 		/// <remarks>
 		/// 終端の '\0' を含みません。
 		/// </remarks>
-		size_t size() const noexcept { return m_string.size(); }
+		[[nodiscard]] size_t size() const noexcept { return m_string.size(); }
 
-		size_t size_bytes() const noexcept { return m_string.size() * sizeof(value_type); }
+		[[nodiscard]] size_t size_bytes() const noexcept { return m_string.size() * sizeof(value_type); }
 
-		size_t num_codePoints() const;
-
-		/// <summary>
-		/// 空の文字列であるかを示します。
-		/// </summary>
-		bool empty() const noexcept { return m_string.empty(); }
+		[[nodiscard]] size_t num_codePoints() const;
 
 		/// <summary>
 		/// 空の文字列であるかを示します。
 		/// </summary>
-		bool isEmpty() const noexcept { return m_string.empty(); }
+		[[nodiscard]] bool empty() const noexcept { return m_string.empty(); }
+
+		/// <summary>
+		/// 空の文字列であるかを示します。
+		/// </summary>
+		[[nodiscard]] bool isEmpty() const noexcept { return m_string.empty(); }
 
 		/// <summary>
 		/// 文字列に要素が含まれているかを示します。
@@ -1173,12 +1173,12 @@ namespace s3d
 		/// <summary>
 		/// メモリ上に確保可能な最大の文字列の長さを示します。
 		/// </summary>
-		size_t maxSize() const noexcept { return m_string.max_size(); }
+		[[nodiscard]] size_t maxSize() const noexcept { return m_string.max_size(); }
 
 		/// <summary>
 		/// メモリを再確保せずに持てる文字列の長さを示します。
 		/// </summary>
-		size_t capacity() const noexcept { return m_string.capacity(); }
+		[[nodiscard]] size_t capacity() const noexcept { return m_string.capacity(); }
 
 		/// <summary>
 		/// 文字列のサイズを変更します。
@@ -1239,7 +1239,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した範囲の文字列
 		/// </returns>
-		String substr(const size_t offset = 0, const size_t count = npos) const
+		[[nodiscard]] String substr(const size_t offset = 0, const size_t count = npos) const
 		{
 			return m_string.substr(offset, count);
 		}
@@ -1256,7 +1256,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字列が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t indexOf(const String& str, const size_t offset = 0) const noexcept
+		[[nodiscard]] size_t indexOf(const String& str, const size_t offset = 0) const noexcept
 		{
 			return m_string.find(str.data(), offset, str.length());
 		}
@@ -1276,7 +1276,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字列が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t indexOf(const value_type* str, const size_t offset = 0) const
+		[[nodiscard]] size_t indexOf(const value_type* str, const size_t offset = 0) const
 		{
 			return m_string.find(str, offset, traits_type::length(str));
 		}
@@ -1293,7 +1293,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t indexOf(const value_type ch, const size_t offset = 0) const
+		[[nodiscard]] size_t indexOf(const value_type ch, const size_t offset = 0) const
 		{
 			return m_string.find(ch, offset);
 		}
@@ -1310,7 +1310,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字とは異なる文字が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t indexOfNot(const value_type ch, const size_t offset = 0) const
+		[[nodiscard]] size_t indexOfNot(const value_type ch, const size_t offset = 0) const
 		{
 			return m_string.find_first_not_of(ch, offset);
 		}
@@ -1327,7 +1327,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字列が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t lastIndexOf(const String& str, const size_t offset = npos) const
+		[[nodiscard]] size_t lastIndexOf(const String& str, const size_t offset = npos) const
 		{
 			return m_string.rfind(str.data(), offset, str.length());
 		}
@@ -1347,7 +1347,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字列が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t lastIndexOf(const value_type* str, const size_t offset = npos) const
+		[[nodiscard]] size_t lastIndexOf(const value_type* str, const size_t offset = npos) const
 		{
 			return m_string.rfind(str, offset, traits_type::length(str));
 		}
@@ -1364,7 +1364,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t lastIndexOf(const value_type ch, const size_t offset = npos) const
+		[[nodiscard]] size_t lastIndexOf(const value_type ch, const size_t offset = npos) const
 		{
 			return m_string.rfind(ch, offset);
 		}
@@ -1381,7 +1381,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字とは異なる文字が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t lastIndexNotOf(const value_type ch, const size_t offset = npos) const
+		[[nodiscard]] size_t lastIndexNotOf(const value_type ch, const size_t offset = npos) const
 		{
 			return m_string.find_last_not_of(ch, offset);
 		}
@@ -1398,7 +1398,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t indexOfAny(const String& anyof, const size_t offset = 0) const
+		[[nodiscard]] size_t indexOfAny(const String& anyof, const size_t offset = 0) const
 		{
 			return m_string.find_first_of(anyof.data(), offset, anyof.length());
 		}
@@ -1418,7 +1418,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t indexOfAny(const value_type* anyof, const size_t offset = 0) const
+		[[nodiscard]] size_t indexOfAny(const value_type* anyof, const size_t offset = 0) const
 		{
 			return m_string.find_first_of(anyof, offset, traits_type::length(anyof));
 		}
@@ -1435,7 +1435,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t lastIndexOfAny(const String& anyof, const size_t offset = npos) const
+		[[nodiscard]] size_t lastIndexOfAny(const String& anyof, const size_t offset = npos) const
 		{
 			return m_string.find_last_of(anyof.data(), offset, anyof.length());
 		}
@@ -1455,7 +1455,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t lastIndexOfAny(const value_type* anyof, const size_t offset = npos) const
+		[[nodiscard]] size_t lastIndexOfAny(const value_type* anyof, const size_t offset = npos) const
 		{
 			return m_string.find_last_of(anyof, offset, traits_type::length(anyof));
 		}
@@ -1472,7 +1472,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字とは異なる文字が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t indexNotOfAny(const String& anyof, const size_t offset = 0) const
+		[[nodiscard]] size_t indexNotOfAny(const String& anyof, const size_t offset = 0) const
 		{
 			return m_string.find_first_not_of(anyof.data(), offset, anyof.length());
 		}
@@ -1492,7 +1492,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字とは異なる文字が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t indexNotOfAny(const value_type* anyof, const size_t offset = 0) const
+		[[nodiscard]] size_t indexNotOfAny(const value_type* anyof, const size_t offset = 0) const
 		{
 			return m_string.find_first_not_of(anyof, offset, traits_type::length(anyof));
 		}
@@ -1509,7 +1509,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字とは異なる文字が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t lastIndexNotOfAny(const String& anyof, const size_t offset = npos) const
+		[[nodiscard]] size_t lastIndexNotOfAny(const String& anyof, const size_t offset = npos) const
 		{
 			return m_string.find_last_not_of(anyof.data(), offset, anyof.length());
 		}
@@ -1529,7 +1529,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字とは異なる文字が最初に現れた位置。見つからなかった場合は npos
 		/// </returns>
-		size_t lastIndexNotOfAny(const value_type* anyof, const size_t offset = npos) const
+		[[nodiscard]] size_t lastIndexNotOfAny(const value_type* anyof, const size_t offset = npos) const
 		{
 			return m_string.find_last_not_of(anyof, offset, traits_type::length(anyof));
 		}
@@ -1543,7 +1543,7 @@ namespace s3d
 		/// <returns>
 		/// 比較結果。等しければ 0, 小さければ &lt;0, 大きければ &gt;0
 		/// </returns>
-		int32 compare(const String& str) const noexcept
+		[[nodiscard]] int32 compare(const String& str) const noexcept
 		{
 			return m_string.compare(str.m_string);
 		}
@@ -1557,7 +1557,7 @@ namespace s3d
 		/// <returns>
 		/// 比較結果。等しければ 0, 小さければ &lt;0, 大きければ &gt;0
 		/// </returns>
-		int32 case_insensitive_compare(const String& str) const noexcept
+		[[nodiscard]] int32 case_insensitive_compare(const String& str) const noexcept
 		{
 			auto first1 = begin(), last1 = end();
 			auto first2 = str.begin(), last2 = str.end();
@@ -1595,7 +1595,7 @@ namespace s3d
 		/// <returns>
 		/// 英字の大小を無視した時に文字列が等しい場合 true, それ以外の場合は false
 		/// </returns>
-		bool case_insensitive_equals(const String& str) const noexcept
+		[[nodiscard]] bool case_insensitive_equals(const String& str) const noexcept
 		{
 			if (length() != str.length())
 			{
@@ -1630,7 +1630,7 @@ namespace s3d
 		/// <returns>
 		/// 比較結果。等しければ 0, 小さければ &lt;0, 大きければ &gt;0
 		/// </returns>
-		int32 compare(const value_type* str) const
+		[[nodiscard]] int32 compare(const value_type* str) const
 		{
 			return m_string.compare(str);
 		}
@@ -1644,7 +1644,7 @@ namespace s3d
 		/// <returns>
 		/// 等しければ true, それ以外の場合は false
 		/// </returns>
-		bool operator == (const String& str) const
+		[[nodiscard]] bool operator == (const String& str) const
 		{
 			return m_string == str.m_string;
 		}
@@ -1658,7 +1658,7 @@ namespace s3d
 		/// <returns>
 		/// 等しくなければ true, それ以外の場合は false
 		/// </returns>
-		bool operator != (const String& str) const
+		[[nodiscard]] bool operator != (const String& str) const
 		{
 			return m_string != str.m_string;
 		}
@@ -1672,7 +1672,7 @@ namespace s3d
 		/// <returns>
 		/// 比較結果
 		/// </returns>
-		bool operator < (const String& str) const
+		[[nodiscard]] bool operator < (const String& str) const
 		{
 			return m_string < str.m_string;
 		}
@@ -1686,7 +1686,7 @@ namespace s3d
 		/// <returns>
 		/// 比較結果
 		/// </returns>
-		bool operator > (const String& str) const
+		[[nodiscard]] bool operator > (const String& str) const
 		{
 			return m_string > str.m_string;
 		}
@@ -1700,7 +1700,7 @@ namespace s3d
 		/// <returns>
 		/// 比較結果
 		/// </returns>
-		bool operator <= (const String& str) const
+		[[nodiscard]] bool operator <= (const String& str) const
 		{
 			return m_string <= str.m_string;
 		}
@@ -1714,7 +1714,7 @@ namespace s3d
 		/// <returns>
 		/// 比較結果
 		/// </returns>
-		bool operator >= (const String& str) const
+		[[nodiscard]] bool operator >= (const String& str) const
 		{
 			return m_string >= str.m_string;
 		}
@@ -1729,7 +1729,7 @@ namespace s3d
 		/// 条件を満たさない文字が 1 つでもあれば false, それ以外の場合は true
 		/// </returns>
 		template <class Fty = decltype(Id)>
-		bool all(Fty f = Id) const
+		[[nodiscard]] bool all(Fty f = Id) const
 		{
 			for (const auto v : m_string)
 			{
@@ -1752,7 +1752,7 @@ namespace s3d
 		/// 条件を満たす文字が 1 つでもあれば true, それ以外の場合は false
 		/// </returns>
 		template <class Fty = decltype(Id)>
-		bool any(Fty f = Id) const
+		[[nodiscard]] bool any(Fty f = Id) const
 		{
 			for (const auto v : m_string)
 			{
@@ -1795,7 +1795,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String capitalized() const &
+		[[nodiscard]] String capitalized() const &
 		{
 			return String(*this).capitalize();
 		}
@@ -1806,7 +1806,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String capitalized() &&
+		[[nodiscard]] String capitalized() &&
 		{
 			capitalize();
 
@@ -1822,7 +1822,7 @@ namespace s3d
 		/// <returns>
 		/// 文字列の長さ
 		/// </returns>
-		size_t count() const noexcept
+		[[nodiscard]] size_t count() const noexcept
 		{
 			return m_string.length();
 		}
@@ -1836,7 +1836,7 @@ namespace s3d
 		/// <returns>
 		/// 見つかった文字の個数
 		/// </returns>
-		size_t count(const value_type ch) const
+		[[nodiscard]] size_t count(const value_type ch) const
 		{
 			size_t count = 0;
 
@@ -1863,7 +1863,7 @@ namespace s3d
 		/// <returns>
 		/// 見つかった文字列の個数
 		/// </returns>
-		size_t count(StringView str) const;
+		[[nodiscard]] size_t count(StringView str) const;
 
 		/// <summary>
 		/// 条件に合う文字の個数を数えます。
@@ -1875,7 +1875,7 @@ namespace s3d
 		/// 見つかった文字の個数
 		/// </returns>
 		template <class Fty>
-		size_t count_if(Fty f) const
+		[[nodiscard]] size_t count_if(Fty f) const
 		{
 			size_t result = 0;
 
@@ -1899,7 +1899,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String drop(const size_t n) const
+		[[nodiscard]] String drop(const size_t n) const
 		{
 			if (n >= m_string.size())
 			{
@@ -1919,7 +1919,7 @@ namespace s3d
 		/// 新しい文字列
 		/// </returns>
 		template <class Fty>
-		String drop_while(Fty f) const
+		[[nodiscard]] String drop_while(Fty f) const
 		{
 			return String(std::find_if_not(m_string.begin(), m_string.end(), f), m_string.end());
 		}
@@ -2017,7 +2017,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した文字で終わる場合 true, それ以外の場合は false
 		/// </returns>
-		bool ends_with(const value_type ch) const
+		[[nodiscard]] bool ends_with(const value_type ch) const
 		{
 			return !m_string.empty() && (m_string[m_string.size() - 1] == ch);
 		}
@@ -2031,7 +2031,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した文字列で終わる場合 true, それ以外の場合は false
 		/// </returns>
-		bool ends_with(StringView str) const;
+		[[nodiscard]] bool ends_with(StringView str) const;
 
 		/// <summary>
 		/// タブ文字を半角空白に置換した文字列を返します。
@@ -2042,7 +2042,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String expand_tabs(const size_t tabSize = 4) const
+		[[nodiscard]] String expand_tabs(const size_t tabSize = 4) const
 		{
 			const size_t new_size = m_string.length() + (count(value_type('\t')) * tabSize);
 
@@ -2080,7 +2080,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した位置の文字への参照、もしくはデフォルト値
 		/// </returns>
-		const value_type& fetch(const size_t index, const value_type& defaultValue) const
+		[[nodiscard]] const value_type& fetch(const size_t index, const value_type& defaultValue) const
 		{
 			if (index >= size())
 			{
@@ -2116,7 +2116,7 @@ namespace s3d
 		/// 新しい文字列
 		/// </returns>
 		template <class Fty>
-		String filter(Fty f) const
+		[[nodiscard]] String filter(Fty f) const
 		{
 			String new_array;
 
@@ -2140,7 +2140,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字が見つかった場合 true, それ以外の場合は false
 		/// </returns>
-		bool includes(const value_type ch) const
+		[[nodiscard]] bool includes(const value_type ch) const
 		{
 			return indexOf(ch) != String::npos;
 		}
@@ -2157,7 +2157,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字列が見つかった場合 true, それ以外の場合は false
 		/// </returns>
-		bool includes(const value_type* str) const
+		[[nodiscard]] bool includes(const value_type* str) const
 		{
 			return indexOf(str) != String::npos;
 		}
@@ -2171,7 +2171,7 @@ namespace s3d
 		/// <returns>
 		/// 検索した文字列が見つかった場合 true, それ以外の場合は false
 		/// </returns>
-		bool includes(const String& str) const
+		[[nodiscard]] bool includes(const String& str) const
 		{
 			return indexOf(str) != String::npos;
 		}
@@ -2186,7 +2186,7 @@ namespace s3d
 		/// 検索した文字が見つかった場合 true, それ以外の場合は false
 		/// </returns>
 		template <class Fty>
-		bool includes_if(Fty f) const
+		[[nodiscard]] bool includes_if(Fty f) const
 		{
 			return any(f);
 		}
@@ -2207,7 +2207,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String layout(const size_t width) const
+		[[nodiscard]] String layout(const size_t width) const
 		{
 			String result;
 
@@ -2266,7 +2266,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String lowercased() const &
+		[[nodiscard]] String lowercased() const &
 		{
 			return String(*this).lowercase();
 		}
@@ -2277,7 +2277,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String lowercased() &&
+		[[nodiscard]] String lowercased() &&
 		{
 			lowercase();
 
@@ -2326,7 +2326,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String lpadded(const size_t length, const value_type fillChar = value_type(' ')) const &
+		[[nodiscard]] String lpadded(const size_t length, const value_type fillChar = value_type(' ')) const &
 		{
 			if (length <= m_string.length())
 			{
@@ -2359,7 +2359,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String lpadded(const size_t length, const value_type fillChar = value_type(' ')) &&
+		[[nodiscard]] String lpadded(const size_t length, const value_type fillChar = value_type(' ')) &&
 		{
 			lpad(length, fillChar);
 
@@ -2385,7 +2385,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String ltrimmed() const &
+		[[nodiscard]] String ltrimmed() const &
 		{
 			return String(std::find_if_not(m_string.begin(), m_string.end(), detail::IsTrimmable), m_string.end());
 		}
@@ -2396,7 +2396,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String ltrimmed() &&
+		[[nodiscard]] String ltrimmed() &&
 		{
 			ltrim();
 
@@ -2435,7 +2435,7 @@ namespace s3d
 		/// <returns>
 		/// 変換されたマルチバイト文字列
 		/// </returns>
-		std::string narrow() const;
+		[[nodiscard]] std::string narrow() const;
 
 		/// <summary>
 		/// 全ての文字が条件を満たさないかを返します。
@@ -2447,7 +2447,7 @@ namespace s3d
 		/// 条件を満たす文字が 1 つでもあれば false, それ以外の場合は true
 		/// </returns>
 		template <class Fty = decltype(Id)>
-		bool none(Fty f = Id) const
+		[[nodiscard]] bool none(Fty f = Id) const
 		{
 			for (const auto v : m_string)
 			{
@@ -2499,7 +2499,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String removed(const value_type ch) const &
+		[[nodiscard]] String removed(const value_type ch) const &
 		{
 			String new_string;
 
@@ -2523,7 +2523,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String removed(const value_type ch) &&
+		[[nodiscard]] String removed(const value_type ch) &&
 		{
 			remove(ch);
 
@@ -2539,7 +2539,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String removed(const StringView str) const;
+		[[nodiscard]] String removed(const StringView str) const;
 
 		/// <summary>
 		/// 指定したインデックスの文字を文字列から削除します。
@@ -2571,7 +2571,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String removed_at(const size_t index) const &
+		[[nodiscard]] String removed_at(const size_t index) const &
 		{
 			if (m_string.size() <= index)
 			{
@@ -2598,7 +2598,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String removed_at(const size_t index) &&
+		[[nodiscard]] String removed_at(const size_t index) &&
 		{
 			remove_at(index);
 
@@ -2632,7 +2632,7 @@ namespace s3d
 		/// 新しい文字列
 		/// </returns>
 		template <class Fty>
-		String removed_if(Fty f) const &
+		[[nodiscard]] String removed_if(Fty f) const &
 		{
 			String new_string;
 
@@ -2657,7 +2657,7 @@ namespace s3d
 		/// 新しい文字列
 		/// </returns>
 		template <class Fty>
-		String removed_if(Fty f) &&
+		[[nodiscard]] String removed_if(Fty f) &&
 		{
 			remove_if(f);
 
@@ -2718,7 +2718,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String replaced(const value_type oldChar, const value_type newChar) const &
+		[[nodiscard]] String replaced(const value_type oldChar, const value_type newChar) const &
 		{
 			return String(*this).replace(oldChar, newChar);
 		}
@@ -2735,7 +2735,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String replaced(const value_type oldChar, const value_type newChar) &&
+		[[nodiscard]] String replaced(const value_type oldChar, const value_type newChar) &&
 		{
 			replace(oldChar, newChar);
 
@@ -2754,7 +2754,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String replaced(const String& oldStr, const String& newStr) const
+		[[nodiscard]] String replaced(const String& oldStr, const String& newStr) const
 		{
 			String new_string;
 
@@ -2819,7 +2819,7 @@ namespace s3d
 		/// *this
 		/// </returns>
 		template <class Fty>
-		String replaced_if(Fty f, const value_type newChar) const &&
+		[[nodiscard]] String replaced_if(Fty f, const value_type newChar) const &&
 		{
 			return String(*this).replace_if(f, newChar);
 		}
@@ -2837,7 +2837,7 @@ namespace s3d
 		/// 指定した条件を満たす文字を別の文字に置き換えた新しい文字列
 		/// </returns>
 		template <class Fty>
-		String replaced_if(Fty f, const value_type newChar) &
+		[[nodiscard]] String replaced_if(Fty f, const value_type newChar) &
 		{
 			replace_if(f, newChar);
 
@@ -2863,7 +2863,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String reversed() const &
+		[[nodiscard]] String reversed() const &
 		{
 			return String(m_string.rbegin(), m_string.rend());
 		}
@@ -2874,7 +2874,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String reversed() &&
+		[[nodiscard]] String reversed() &&
 		{
 			reverse();
 
@@ -2969,7 +2969,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String rotated(const std::ptrdiff_t count = 1) const &
+		[[nodiscard]] String rotated(const std::ptrdiff_t count = 1) const &
 		{
 			return String(*this).rotate(count);
 		}
@@ -2983,7 +2983,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String rotated(const std::ptrdiff_t count = 1) &&
+		[[nodiscard]] String rotated(const std::ptrdiff_t count = 1) &&
 		{
 			rotate(count);
 
@@ -3032,7 +3032,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String rpadded(const size_t length, const value_type fillChar = value_type(' ')) const &
+		[[nodiscard]] String rpadded(const size_t length, const value_type fillChar = value_type(' ')) const &
 		{
 			if (length <= m_string.length())
 			{
@@ -3065,7 +3065,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String rpadded(const size_t length, const value_type fillChar = value_type(' ')) &&
+		[[nodiscard]] String rpadded(const size_t length, const value_type fillChar = value_type(' ')) &&
 		{
 			rpad(length, fillChar);
 
@@ -3091,7 +3091,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String rtrimmed() const &
+		[[nodiscard]] String rtrimmed() const &
 		{
 			return String(m_string.begin(), std::find_if_not(m_string.rbegin(), m_string.rend(), detail::IsTrimmable).base());
 		}
@@ -3102,7 +3102,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String rtrimmed() &&
+		[[nodiscard]] String rtrimmed() &&
 		{
 			rtrim();
 
@@ -3143,7 +3143,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		String shuffled() const &
+		[[nodiscard]] String shuffled() const &
 		{
 			return shuffled(GetDefaultRNG());
 		}
@@ -3154,7 +3154,7 @@ namespace s3d
 		/// <returns>
 		/// ランダムに並び替えられた文字列
 		/// </returns>
-		String shuffled() &&
+		[[nodiscard]] String shuffled() &&
 		{
 			return shuffled(GetDefaultRNG());
 		}
@@ -3169,7 +3169,7 @@ namespace s3d
 		/// ランダムに並び替えられた文字列
 		/// </returns>
 		template <class URBG>
-		String shuffled(URBG&& rbg) const &
+		[[nodiscard]] String shuffled(URBG&& rbg) const &
 		{
 			return String(*this).shuffle(std::forward<URBG>(rbg));
 		}
@@ -3184,7 +3184,7 @@ namespace s3d
 		/// ランダムに並び替えられた文字列
 		/// </returns>
 		template <class URBG>
-		String shuffled(URBG&& rbg) &&
+		[[nodiscard]] String shuffled(URBG&& rbg) &&
 		{
 			std::shuffle(m_string.begin(), m_string.end(), std::forward<URBG>(rbg));
 
@@ -3200,14 +3200,14 @@ namespace s3d
 		/// <returns>
 		/// 分割された文字列
 		/// </returns>
-		Array<String, std::allocator<String>> split(value_type ch) const;
+		[[nodiscard]] Array<String, std::allocator<String>> split(value_type ch) const;
 
-		std::pair<String, String> split_at(const size_t pos) const
+		[[nodiscard]] std::pair<String, String> split_at(const size_t pos) const
 		{
 			return{ substr(0, pos), substr(pos) };
 		}
 
-		Array<String, std::allocator<String>> split_lines() const;
+		[[nodiscard]] Array<String, std::allocator<String>> split_lines() const;
 
 		/// <summary>
 		/// 指定した文字から始まるかを調べます。
@@ -3218,7 +3218,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した文字から始まる場合 true, それ以外の場合は false
 		/// </returns>
-		bool starts_with(const value_type ch) const
+		[[nodiscard]] bool starts_with(const value_type ch) const
 		{
 			return !m_string.empty() && (m_string[0] == ch);
 		}
@@ -3232,7 +3232,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した文字列から始まる場合 true, それ以外の場合は false
 		/// </returns>
-		bool starts_with(const StringView str) const;
+		[[nodiscard]] bool starts_with(const StringView str) const;
 
 		/// <summary>
 		/// 英字の大文字と小文字を入れ替えます。
@@ -3263,7 +3263,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String swapcased() const &
+		[[nodiscard]] String swapcased() const &
 		{
 			return String(*this).swapcase();
 		}
@@ -3274,7 +3274,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String swapcased() &&
+		[[nodiscard]] String swapcased() &&
 		{
 			swapcase();
 
@@ -3302,7 +3302,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String trimmed() const &
+		[[nodiscard]] String trimmed() const &
 		{
 			return String(std::find_if_not(m_string.begin(), m_string.end(), detail::IsTrimmable), std::find_if_not(m_string.rbegin(), m_string.rend(), detail::IsTrimmable).base());
 		}
@@ -3313,7 +3313,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String trimmed() &&
+		[[nodiscard]] String trimmed() &&
 		{
 			trim();
 
@@ -3345,7 +3345,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String uppercased() const &
+		[[nodiscard]] String uppercased() const &
 		{
 			return String(*this).uppercase();
 		}
@@ -3356,7 +3356,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String uppercased() &&
+		[[nodiscard]] String uppercased() &&
 		{
 			uppercase();
 
@@ -3369,7 +3369,7 @@ namespace s3d
 		/// <returns>
 		/// UTF8 でエンコードされた std::string
 		/// </returns>
-		std::string toUTF8() const;
+		[[nodiscard]] std::string toUTF8() const;
 
 		/// <summary>
 		/// 文字列を UTF16 の std::u16string にエンコードします。
@@ -3377,7 +3377,7 @@ namespace s3d
 		/// <returns>
 		/// UTF16 でエンコードされた std::u16string
 		/// </returns>
-		std::u16string toUTF16() const;
+		[[nodiscard]] std::u16string toUTF16() const;
 
 		/// <summary>
 		/// 文字列を UTF32 の std::u32string にエンコードします。
@@ -3385,7 +3385,7 @@ namespace s3d
 		/// <returns>
 		/// UTF32 でエンコードされた std::u32string
 		/// </returns>
-		std::u32string toUTF32() const;
+		[[nodiscard]] std::u32string toUTF32() const;
 
 		/// <summary>
 		/// 文字列を辞書順でソートします。
@@ -3423,7 +3423,7 @@ namespace s3d
 		/// <returns>
 		/// ソート済みの文字列
 		/// </returns>
-		String sorted() const &
+		[[nodiscard]] String sorted() const &
 		{
 			return String(*this).sort();
 		}
@@ -3434,7 +3434,7 @@ namespace s3d
 		/// <returns>
 		/// ソート済みの文字列
 		/// </returns>
-		String sorted() &&
+		[[nodiscard]] String sorted() &&
 		{
 			std::sort(m_string.begin(), m_string.end());
 
@@ -3451,7 +3451,7 @@ namespace s3d
 		/// ソート済みの文字列
 		/// </returns>
 		template <class Fty>
-		String sorted_by(Fty f) const &
+		[[nodiscard]] String sorted_by(Fty f) const &
 		{
 			return String(*this).sort_by(f);
 		}
@@ -3466,7 +3466,7 @@ namespace s3d
 		/// ソート済みの文字列
 		/// </returns>
 		template <class Fty>
-		String sorted_by(Fty f) &&
+		[[nodiscard]] String sorted_by(Fty f) &&
 		{
 			std::sort(m_string.begin(), m_string.end(), f);
 
@@ -3482,7 +3482,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String take(size_t n) const
+		[[nodiscard]] String take(size_t n) const
 		{
 			return String(m_string.begin(), m_string.begin() + std::min(n, m_string.size()));
 		}
@@ -3497,7 +3497,7 @@ namespace s3d
 		/// 新しい文字列
 		/// </returns>
 		template <class Fty>
-		String take_while(Fty f) const
+		[[nodiscard]] String take_while(Fty f) const
 		{
 			return String(m_string.begin(), std::find_if_not(m_string.begin(), m_string.end(), f));
 		}
@@ -3523,7 +3523,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String uniqued() const &
+		[[nodiscard]] String uniqued() const &
 		{
 			return String(*this).unique();
 		}
@@ -3534,7 +3534,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String uniqued() &&
+		[[nodiscard]] String uniqued() &&
 		{
 			sort();
 
@@ -3557,7 +3557,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String values_at(std::initializer_list<size_t> indices) const
+		[[nodiscard]] String values_at(std::initializer_list<size_t> indices) const
 		{
 			String new_array;
 
@@ -3599,7 +3599,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		String xml_escaped() const
+		[[nodiscard]] String xml_escaped() const
 		{
 			String new_string;
 
@@ -3687,87 +3687,87 @@ namespace s3d
 
 
 
-	inline String operator +(const String& lhs, const String& rhs)
+	[[nodiscard]] inline String operator +(const String& lhs, const String& rhs)
 	{
 		return lhs.str() + rhs.str();
 	}
 
-	inline String operator +(const String::value_type* lhs, const String& rhs)
+	[[nodiscard]]inline String operator +(const String::value_type* lhs, const String& rhs)
 	{
 		return lhs + rhs.str();
 	}
 
-	inline String operator +(const String::value_type lhs, const String& rhs)
+	[[nodiscard]]inline String operator +(const String::value_type lhs, const String& rhs)
 	{
 		return lhs + rhs.str();
 	}
 
-	inline String operator +(const String& lhs, const String::value_type* rhs)
+	[[nodiscard]]inline String operator +(const String& lhs, const String::value_type* rhs)
 	{
 		return lhs.str() + rhs;
 	}
 
-	inline String operator +(const String& lhs, const String::value_type rhs)
+	[[nodiscard]]inline String operator +(const String& lhs, const String::value_type rhs)
 	{
 		return lhs.str() + rhs;
 	}
 
-	inline bool operator ==(const String::value_type* lhs, const String& rhs)
+	[[nodiscard]]inline bool operator ==(const String::value_type* lhs, const String& rhs)
 	{
 		return lhs == rhs.str();
 	}
 
-	inline bool operator ==(const String& lhs, const String::value_type* rhs)
+	[[nodiscard]]inline bool operator ==(const String& lhs, const String::value_type* rhs)
 	{
 		return lhs.str() == rhs;
 	}
 
-	inline bool operator !=(const String::value_type* lhs, const String& rhs)
+	[[nodiscard]]inline bool operator !=(const String::value_type* lhs, const String& rhs)
 	{
 		return lhs != rhs.str();
 	}
 
-	inline bool operator !=(const String& lhs, const String::value_type* rhs)
+	[[nodiscard]]inline bool operator !=(const String& lhs, const String::value_type* rhs)
 	{
 		return lhs.str() != rhs;
 	}
 
-	inline bool operator <(const String::value_type* lhs, const String& rhs)
+	[[nodiscard]]inline bool operator <(const String::value_type* lhs, const String& rhs)
 	{
 		return lhs < rhs.str();
 	}
 
-	inline bool operator <(const String& lhs, const String::value_type* rhs)
+	[[nodiscard]]inline bool operator <(const String& lhs, const String::value_type* rhs)
 	{
 		return lhs.str() < rhs;
 	}
 
-	inline bool operator >(const String::value_type* lhs, const String& rhs)
+	[[nodiscard]]inline bool operator >(const String::value_type* lhs, const String& rhs)
 	{
 		return lhs > rhs.str();
 	}
 
-	inline bool operator >(const String& lhs, const String::value_type* rhs)
+	[[nodiscard]]inline bool operator >(const String& lhs, const String::value_type* rhs)
 	{
 		return lhs.str() > rhs;
 	}
 
-	inline bool operator <=(const String::value_type* lhs, const String& rhs)
+	[[nodiscard]]inline bool operator <=(const String::value_type* lhs, const String& rhs)
 	{
 		return lhs <= rhs.str();
 	}
 
-	inline bool operator <=(const String& lhs, const String::value_type* rhs)
+	[[nodiscard]]inline bool operator <=(const String& lhs, const String::value_type* rhs)
 	{
 		return lhs.str() <= rhs;
 	}
 
-	inline bool operator >=(const String::value_type* lhs, const String& rhs)
+	[[nodiscard]]inline bool operator >=(const String::value_type* lhs, const String& rhs)
 	{
 		return lhs >= rhs.str();
 	}
 
-	inline bool operator >=(const String& lhs, const String::value_type* rhs)
+	[[nodiscard]]inline bool operator >=(const String& lhs, const String::value_type* rhs)
 	{
 		return lhs.str() >= rhs;
 	}
@@ -3783,7 +3783,7 @@ namespace std
 	template <>
 	struct hash<s3d::String>
 	{
-		size_t operator()(const s3d::String& keyVal) const
+		size_t operator()(const s3d::String& keyVal) const noexcept
 		{
 			return hash<s3d::String::string_type>()(keyVal.str());
 		}
@@ -3879,7 +3879,7 @@ namespace s3d
 	template <>
 	struct FNV1aHash<String>
 	{
-		size_t operator()(const String& keyVal) const
+		size_t operator()(const String& keyVal) const noexcept
 		{
 			return Hash::FNV1a(keyVal);
 		}
@@ -3888,7 +3888,7 @@ namespace s3d
 	template <>
 	struct Murmur2Hash<String>
 	{
-		size_t operator()(const String& keyVal) const
+		size_t operator()(const String& keyVal) const noexcept
 		{
 			return Hash::Murmur2(keyVal);
 		}

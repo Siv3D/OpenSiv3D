@@ -636,6 +636,17 @@
 		2C316EA51E9F022A0011CAAE /* glxew.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C316EA11E9F022A0011CAAE /* glxew.h */; };
 		2C316EA61E9F022A0011CAAE /* wglew.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C316EA21E9F022A0011CAAE /* wglew.h */; };
 		2C316EAF1E9F0AAD0011CAAE /* lGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C316EAE1E9F0AAD0011CAAE /* lGLEW.a */; };
+		2C3490701F54A8CB0053C3D8 /* Evaluater.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C34906F1F54A8CB0053C3D8 /* Evaluater.hpp */; };
+		2C3490721F5B0C170053C3D8 /* OptimalScreen.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490711F5B0C170053C3D8 /* OptimalScreen.hpp */; };
+		2C3490741F5C92370053C3D8 /* Tobii.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490731F5C92370053C3D8 /* Tobii.hpp */; };
+		2C34907B1F5C92560053C3D8 /* CTobii_Linux.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490761F5C92560053C3D8 /* CTobii_Linux.hpp */; };
+		2C34907C1F5C92560053C3D8 /* CTobii_macOS.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490771F5C92560053C3D8 /* CTobii_macOS.hpp */; };
+		2C34907D1F5C92560053C3D8 /* CTobii_Windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C3490781F5C92560053C3D8 /* CTobii_Windows.cpp */; };
+		2C34907E1F5C92560053C3D8 /* CTobii_Windows.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490791F5C92560053C3D8 /* CTobii_Windows.hpp */; };
+		2C34907F1F5C92560053C3D8 /* SivTobii.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C34907A1F5C92560053C3D8 /* SivTobii.cpp */; };
+		2C3490841F6C07CA0053C3D8 /* tobii.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490811F6C07CA0053C3D8 /* tobii.h */; };
+		2C3490851F6C07CA0053C3D8 /* tobii_streams.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490821F6C07CA0053C3D8 /* tobii_streams.h */; };
+		2C3490861F6C07CA0053C3D8 /* tobii_wearable.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C3490831F6C07CA0053C3D8 /* tobii_wearable.h */; };
 		2C5869231E3F0B980028B9F0 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869221E3F0B980028B9F0 /* libz.a */; };
 		2C5869271E3F0C620028B9F0 /* lpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5869261E3F0C620028B9F0 /* lpng.a */; };
 		2C81C0021E89F8E300D27E52 /* butteraugli.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2C81BE141E89F8E300D27E52 /* butteraugli.cc */; };
@@ -859,6 +870,7 @@
 		2CC7F97D1F420EF90071A239 /* AudioFormat_MP3_macOS.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F97B1F420EF90071A239 /* AudioFormat_MP3_macOS.hpp */; };
 		2CC7F9811F443F150071A239 /* ImageFormat_PPM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7F97F1F443F150071A239 /* ImageFormat_PPM.cpp */; };
 		2CC7F9821F443F150071A239 /* ImageFormat_PPM.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F9801F443F150071A239 /* ImageFormat_PPM.hpp */; };
+		2CC7F98A1F52EA210071A239 /* SFMT.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CC7F9891F52EA210071A239 /* SFMT.hpp */; };
 		2CCA356F1EC6BBA900078678 /* ImageProcessing.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */; };
 		2CCA35871EC86CD600078678 /* format.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA357F1EC86CD600078678 /* format.h */; };
 		2CCA35881EC86CD600078678 /* ostream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CCA35811EC86CD600078678 /* ostream.h */; };
@@ -1624,6 +1636,17 @@
 		2C316EA11E9F022A0011CAAE /* glxew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glxew.h; sourceTree = "<group>"; };
 		2C316EA21E9F022A0011CAAE /* wglew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wglew.h; sourceTree = "<group>"; };
 		2C316EAE1E9F0AAD0011CAAE /* lGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lGLEW.a; sourceTree = "<group>"; };
+		2C34906F1F54A8CB0053C3D8 /* Evaluater.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Evaluater.hpp; sourceTree = "<group>"; };
+		2C3490711F5B0C170053C3D8 /* OptimalScreen.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = OptimalScreen.hpp; sourceTree = "<group>"; };
+		2C3490731F5C92370053C3D8 /* Tobii.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Tobii.hpp; sourceTree = "<group>"; };
+		2C3490761F5C92560053C3D8 /* CTobii_Linux.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTobii_Linux.hpp; sourceTree = "<group>"; };
+		2C3490771F5C92560053C3D8 /* CTobii_macOS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTobii_macOS.hpp; sourceTree = "<group>"; };
+		2C3490781F5C92560053C3D8 /* CTobii_Windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTobii_Windows.cpp; sourceTree = "<group>"; };
+		2C3490791F5C92560053C3D8 /* CTobii_Windows.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CTobii_Windows.hpp; sourceTree = "<group>"; };
+		2C34907A1F5C92560053C3D8 /* SivTobii.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivTobii.cpp; sourceTree = "<group>"; };
+		2C3490811F6C07CA0053C3D8 /* tobii.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tobii.h; sourceTree = "<group>"; };
+		2C3490821F6C07CA0053C3D8 /* tobii_streams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tobii_streams.h; sourceTree = "<group>"; };
+		2C3490831F6C07CA0053C3D8 /* tobii_wearable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tobii_wearable.h; sourceTree = "<group>"; };
 		2C38B14A1CDEB45C007A7E9F /* gtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = gtest.a; sourceTree = "<group>"; };
 		2C5869221E3F0B980028B9F0 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libz.a; sourceTree = "<group>"; };
 		2C5869261E3F0C620028B9F0 /* lpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lpng.a; sourceTree = "<group>"; };
@@ -1858,6 +1881,7 @@
 		2CC7F97B1F420EF90071A239 /* AudioFormat_MP3_macOS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AudioFormat_MP3_macOS.hpp; sourceTree = "<group>"; };
 		2CC7F97F1F443F150071A239 /* ImageFormat_PPM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageFormat_PPM.cpp; sourceTree = "<group>"; };
 		2CC7F9801F443F150071A239 /* ImageFormat_PPM.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageFormat_PPM.hpp; sourceTree = "<group>"; };
+		2CC7F9891F52EA210071A239 /* SFMT.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SFMT.hpp; sourceTree = "<group>"; };
 		2CCA356E1EC6BBA900078678 /* ImageProcessing.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageProcessing.hpp; sourceTree = "<group>"; };
 		2CCA357F1EC86CD600078678 /* format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = format.h; sourceTree = "<group>"; };
 		2CCA35801EC86CD600078678 /* LICENSE.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.rst; sourceTree = "<group>"; };
@@ -2016,6 +2040,7 @@
 			children = (
 				2CAAB1321EF54DAA0000A06D /* Camera2D.hpp */,
 				2C0C7C831EBCC39A00386CBB /* MiniScene.hpp */,
+				2C3490711F5B0C170053C3D8 /* OptimalScreen.hpp */,
 				2C0849F41F274C10008757F9 /* PlayingCard.hpp */,
 				2C0C7C841EBCC39A00386CBB /* Rx.hpp */,
 				2CAAB1301EF51ACC0000A06D /* ScalableWindow.hpp */,
@@ -2073,6 +2098,7 @@
 				2C8E40E61F01415100F30069 /* Effect.hpp */,
 				2C0C7CB11EBCC39B00386CBB /* Ellipse.hpp */,
 				2CA6355C1ED3C30E00B851BC /* Emoji.hpp */,
+				2C34906F1F54A8CB0053C3D8 /* Evaluater.hpp */,
 				2C0C7CB21EBCC39B00386CBB /* FileSystem.hpp */,
 				2C0C7CB31EBCC39B00386CBB /* FloatQuad.hpp */,
 				2C0C7CB41EBCC39B00386CBB /* FloatRect.hpp */,
@@ -2165,6 +2191,7 @@
 				2C0C7DF61EC0BBC600386CBB /* SamplerState.hpp */,
 				2CAAB0FA1EEEC3CD0000A06D /* ScreenCapture.hpp */,
 				2C15853E1F21EC87002687D2 /* Script.hpp */,
+				2CC7F9891F52EA210071A239 /* SFMT.hpp */,
 				2C0C7DE91EC03A6B00386CBB /* Shader.hpp */,
 				2C0C7DD91EBEFE8500386CBB /* Shape2D.hpp */,
 				2CCA358E1EC8833F00078678 /* SIMDMath.hpp */,
@@ -2193,6 +2220,7 @@
 				2C0C7D0E1EBCC39B00386CBB /* Time.hpp */,
 				2C0C7D0F1EBCC39B00386CBB /* TimeProfiler.hpp */,
 				2C0C7D101EBCC39B00386CBB /* Timer.hpp */,
+				2C3490731F5C92370053C3D8 /* Tobii.hpp */,
 				2CAAB12E1EF513B90000A06D /* Transformer2D.hpp */,
 				2CC7F9521F3489610071A239 /* Transition.hpp */,
 				2C0C7D111EBCC39B00386CBB /* Triangle.hpp */,
@@ -2231,6 +2259,7 @@
 		2C1581851F0D3B46002687D2 /* Siv3D */ = {
 			isa = PBXGroup;
 			children = (
+				2C3490751F5C92560053C3D8 /* Tobii */,
 				2CC7F95D1F41EF2B0071A239 /* Codec */,
 				2C1585401F21ECA6002687D2 /* Script */,
 				2C1585011F0F7099002687D2 /* Audio */,
@@ -3917,6 +3946,28 @@
 			path = glew;
 			sourceTree = "<group>";
 		};
+		2C3490751F5C92560053C3D8 /* Tobii */ = {
+			isa = PBXGroup;
+			children = (
+				2C3490761F5C92560053C3D8 /* CTobii_Linux.hpp */,
+				2C3490771F5C92560053C3D8 /* CTobii_macOS.hpp */,
+				2C3490781F5C92560053C3D8 /* CTobii_Windows.cpp */,
+				2C3490791F5C92560053C3D8 /* CTobii_Windows.hpp */,
+				2C34907A1F5C92560053C3D8 /* SivTobii.cpp */,
+			);
+			path = Tobii;
+			sourceTree = "<group>";
+		};
+		2C3490801F6C07CA0053C3D8 /* tobii */ = {
+			isa = PBXGroup;
+			children = (
+				2C3490811F6C07CA0053C3D8 /* tobii.h */,
+				2C3490821F6C07CA0053C3D8 /* tobii_streams.h */,
+				2C3490831F6C07CA0053C3D8 /* tobii_wearable.h */,
+			);
+			path = tobii;
+			sourceTree = "<group>";
+		};
 		2C38B1471CDEB45C007A7E9F /* Lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -3969,6 +4020,7 @@
 		2C81BE121E89F8E300D27E52 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				2C3490801F6C07CA0053C3D8 /* tobii */,
 				2C15852E1F0F70AB002687D2 /* XAudio2_7 */,
 				2C15814E1F0A048F002687D2 /* FID */,
 				2C8E40871EFAD70900F30069 /* zstd */,
@@ -4827,6 +4879,8 @@
 				2C1584271F0D3B46002687D2 /* ImageFormat_GIF.hpp in Headers */,
 				2C1584B01F0D3B46002687D2 /* CTextInput_Windows.hpp in Headers */,
 				2CCA365D1ECC748F00078678 /* ftstream.h in Headers */,
+				2C3490721F5B0C170053C3D8 /* OptimalScreen.hpp in Headers */,
+				2C3490841F6C07CA0053C3D8 /* tobii.h in Headers */,
 				2CCA36621ECC748F00078678 /* pshints.h in Headers */,
 				2C0C7DAB1EBCC39B00386CBB /* TextWriter.hpp in Headers */,
 				2CCA36391ECC748E00078678 /* ftgxval.h in Headers */,
@@ -4841,6 +4895,7 @@
 				2C1584971F0D3B46002687D2 /* Siv3D_macOS.h in Headers */,
 				2CAAB10D1EF289A10000A06D /* TextBox.hpp in Headers */,
 				2C1585241F0F7099002687D2 /* AudioDevice_X27 .hpp in Headers */,
+				2C3490741F5C92370053C3D8 /* Tobii.hpp in Headers */,
 				2CCA36501ECC748F00078678 /* fttypes.h in Headers */,
 				2CCA36241ECC748E00078678 /* ftconfig.h in Headers */,
 				2C81C0481E89F8E300D27E52 /* color_transform.h in Headers */,
@@ -4930,6 +4985,7 @@
 				2C1584031F0D3B46002687D2 /* D3D11DepthStencilState.hpp in Headers */,
 				2CCA35B41ECC73EE00078678 /* Font.hpp in Headers */,
 				2C0C7D451EBCC39B00386CBB /* ConcurrentTask.hpp in Headers */,
+				2C34907B1F5C92560053C3D8 /* CTobii_Linux.hpp in Headers */,
 				2C1584561F0D3B46002687D2 /* CMouse_Linux.hpp in Headers */,
 				2C0C7D721EBCC39B00386CBB /* KeyConjunction.hpp in Headers */,
 				2C0C7DA21EBCC39B00386CBB /* Step2D.hpp in Headers */,
@@ -4955,6 +5011,7 @@
 				2C81C0641E89F8E300D27E52 /* jpeg_huffman_decode.h in Headers */,
 				2CCA36571ECC748F00078678 /* fthash.h in Headers */,
 				2C1584B51F0D3B46002687D2 /* CTextReader.hpp in Headers */,
+				2C3490851F6C07CA0053C3D8 /* tobii_streams.h in Headers */,
 				2C0C7DB11EBCC39B00386CBB /* Types.hpp in Headers */,
 				2C0C7D641EBCC39B00386CBB /* HashSet.hpp in Headers */,
 				2C1583D91F0D3B46002687D2 /* CDragDrop_Windows.hpp in Headers */,
@@ -5002,6 +5059,7 @@
 				2C2E829B1EAA1B3A0057BDAF /* filewritestream.h in Headers */,
 				2C81C0561E89F8E300D27E52 /* idct.h in Headers */,
 				2C8E40B71EFAD70900F30069 /* threading.h in Headers */,
+				2C3490861F6C07CA0053C3D8 /* tobii_wearable.h in Headers */,
 				2C0C7D351EBCC39B00386CBB /* BinaryReader.hpp in Headers */,
 				2C0C7DAD1EBCC39B00386CBB /* Time.hpp in Headers */,
 				2CCA358B1EC86CD600078678 /* hopscotch_set.h in Headers */,
@@ -5145,6 +5203,7 @@
 				2C15840F1F0D3B46002687D2 /* D3D11SwapChain.hpp in Headers */,
 				2C0C7D8A1EBCC39B00386CBB /* PerlinNoise.hpp in Headers */,
 				2C15844E1F0D3B46002687D2 /* CMemoryWriter.hpp in Headers */,
+				2C34907C1F5C92560053C3D8 /* CTobii_macOS.hpp in Headers */,
 				2C0C7D831EBCC39B00386CBB /* NamedParameter.hpp in Headers */,
 				2C1581551F0A15D3002687D2 /* AudioFormat.hpp in Headers */,
 				2C81C0611E89F8E300D27E52 /* jpeg_data_writer.h in Headers */,
@@ -5186,6 +5245,7 @@
 				2C15848D1F0D3B46002687D2 /* VertexShader_D3D11.hpp in Headers */,
 				2C1584DA1F0D3B46002687D2 /* CWindow_Windows.hpp in Headers */,
 				2C0C7D301EBCC39B00386CBB /* ArrayBool.hpp in Headers */,
+				2C34907E1F5C92560053C3D8 /* CTobii_Windows.hpp in Headers */,
 				2CC7F96D1F41EF2B0071A239 /* CCodec_Null.hpp in Headers */,
 				2CCA362B1ECC748E00078678 /* ftautoh.h in Headers */,
 				2CCA36551ECC748F00078678 /* ftdriver.h in Headers */,
@@ -5204,6 +5264,7 @@
 				2C81C06F1E89F8E300D27E52 /* quantize.h in Headers */,
 				2C0C7D871EBCC39B00386CBB /* ParseBool.hpp in Headers */,
 				2C15846D1F0D3B46002687D2 /* CProfiler.hpp in Headers */,
+				2C3490701F54A8CB0053C3D8 /* Evaluater.hpp in Headers */,
 				2C1584151F0D3B46002687D2 /* GLRasterizerState.hpp in Headers */,
 				2C114C881EE3DBEB00A198BB /* Icon.hpp in Headers */,
 				2C0C7D8F1EBCC39B00386CBB /* PointVector.hpp in Headers */,
@@ -5233,6 +5294,7 @@
 				2C0C7DB31EBCC39B00386CBB /* Uncopyable.hpp in Headers */,
 				2C1584891F0D3B46002687D2 /* CShader_D3D11.hpp in Headers */,
 				2C1583951F0D3B46002687D2 /* CBigInt.hpp in Headers */,
+				2CC7F98A1F52EA210071A239 /* SFMT.hpp in Headers */,
 				2C0C7D591EBCC39B00386CBB /* FormatLiteral.hpp in Headers */,
 				2C0C7D561EBCC39B00386CBB /* FormatBool.hpp in Headers */,
 				2CCA367E1ECC748F00078678 /* ft2build.h in Headers */,
@@ -5404,6 +5466,7 @@
 				2C15856D1F21ECA6002687D2 /* Script_Line.cpp in Sources */,
 				2C1584361F0D3B46002687D2 /* CKeyboard_Linux.cpp in Sources */,
 				2C1584C61F0D3B46002687D2 /* SivTexturedQuad.cpp in Sources */,
+				2C34907D1F5C92560053C3D8 /* CTobii_Windows.cpp in Sources */,
 				2C1584061F0D3B46002687D2 /* D3D11RasterizerState.cpp in Sources */,
 				2C1583EA1F0D3B46002687D2 /* SivFileSystem.cpp in Sources */,
 				2C1583AC1F0D3B46002687D2 /* SivCircle.cpp in Sources */,
@@ -5477,6 +5540,7 @@
 				2C2126531E8CB7B5006F8101 /* gif_font.c in Sources */,
 				2C1583EC1F0D3B46002687D2 /* SivFileSystem_Linux.cpp in Sources */,
 				2C15849F1F0D3B46002687D2 /* SivString.cpp in Sources */,
+				2C34907F1F5C92560053C3D8 /* SivTobii.cpp in Sources */,
 				2C1583CA1F0D3B46002687D2 /* CCursor_macOS.cpp in Sources */,
 				2C15843F1F0D3B46002687D2 /* SivLineString.cpp in Sources */,
 				2C81C0631E89F8E300D27E52 /* jpeg_huffman_decode.cc in Sources */,

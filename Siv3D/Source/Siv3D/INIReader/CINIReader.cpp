@@ -55,7 +55,7 @@ namespace s3d
 
 	bool INIReader::CINIReader::isOpened() const
 	{
-		return m_keys.isEmpty();
+		return !m_keys.isEmpty();
 	}
 
 	const FilePath& INIReader::CINIReader::path() const

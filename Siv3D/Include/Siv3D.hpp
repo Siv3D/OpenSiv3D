@@ -96,6 +96,8 @@
 	# include "Siv3D/TypeTraits.hpp"
 	// イテレータによる範囲の表現
 	# include "Siv3D/IteratorRange.hpp"
+	// map 省略表記
+	# include "Siv3D/Evaluater.hpp"
 //
 // 文字列と数値
 //
@@ -284,6 +286,8 @@
 	# include "Siv3D/HardwareRNG.hpp"
 	// 乱数生成エンジン (Xorshift)
 	# include "Siv3D/Xorshift.hpp"
+	// 乱数生成エンジン (SFMT)
+	# include "Siv3D/SFMT.hpp"
 	// 乱数生成エンジン (Mersenne Twister)
 	# include "Siv3D/MersenneTwister.hpp"
 	// デフォルトの乱数生成エンジン
@@ -459,8 +463,8 @@
 	//# include "Siv3D/KinectV1.hpp"
 	//// Kinect V2
 	//# include "Siv3D/KinectV2.hpp"
-	//// Tobii EyeX
-	//# include "Siv3D/TobiiEyeX.hpp"
+	// Tobii
+	# include "Siv3D/Tobii.hpp"
 //
 // オーディオ
 //

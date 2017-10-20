@@ -210,7 +210,7 @@ namespace s3d
 		shape.m_vertices[2 + indexOffset] += pointingRootCenter + offset;
 
 		std::array<uint32, 4> rectIndices;
-		size_t i = 0;
+		uint32 i = 0;
 
 		for (size_t rectIndex = 0; rectIndex < 4; ++rectIndex)
 		{
@@ -234,6 +234,39 @@ namespace s3d
 		(*pIndex++) = rectIndices[0];
 		(*pIndex++) = rectIndices[2];
 		(*pIndex++) = rectIndices[3];
+
+		return shape;
+	}
+
+	Shape2D Shape2D::Stairs(const Vec2& base, const double w, const double h, const int32 steps, const bool upStairs)
+	{
+		if (steps <= 0)
+		{
+			return Shape2D();
+		}
+
+		Shape2D shape(2 + 2 * steps, 3 * 2 * steps);
+
+		const float offsetX = w / steps;
+		const float offsetY = h / steps;
+
+		shape.m_vertices[0] = base;
+		shape.m_vertices[1] = base + Float2(upStairs ? -w : w, 0);
+
+		for (size_t i = 0; i < steps; ++i)
+		{
+			const int32 offsetIndex = i + 1;
+
+			shape.m_vertices[offsetIndex * 2] = shape.m_vertices[1] + Float2(upStairs ? offsetX * i : -offsetX * i, -offsetY * offsetIndex);
+			shape.m_vertices[offsetIndex * 2 + 1] = shape.m_vertices[1] + Float2(upStairs ? offsetX * offsetIndex : -offsetX * offsetIndex, -offsetY * offsetIndex);
+
+			shape.m_indices[6 * i] = 0;
+			shape.m_indices[6 * i + 1] = 1 + 2 * i;
+			shape.m_indices[6 * i + 2] = 2 + 2 * i;
+			shape.m_indices[6 * i + 3] = 0;
+			shape.m_indices[6 * i + 4] = 2 + 2 * i;
+			shape.m_indices[6 * i + 5] = 3 + 2 * i;
+		}
 
 		return shape;
 	}

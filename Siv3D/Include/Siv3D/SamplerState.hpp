@@ -251,7 +251,7 @@ namespace std
 	template <>
 	struct hash<s3d::SamplerState>
 	{
-		size_t operator()(const s3d::SamplerState& keyVal) const
+		size_t operator()(const s3d::SamplerState& keyVal) const noexcept
 		{
 			return s3d::Hash::FNV1a(keyVal._data);
 		}

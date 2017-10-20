@@ -243,6 +243,8 @@ namespace s3d
 
 	bool CWindow_Windows::update()
 	{
+		m_state.screenSize.set(::GetSystemMetrics(SM_CXSCREEN), ::GetSystemMetrics(SM_CYSCREEN));
+
 		// ウィンドウが最小化、最大化されているかどうかチェック
 		WINDOWPLACEMENT wpl = { sizeof(WINDOWPLACEMENT), };
 		::GetWindowPlacement(m_hWnd, &wpl);
@@ -315,7 +317,16 @@ namespace s3d
 
 		m_state.title = title;
 
-		::SetWindowTextW(m_hWnd, m_state.title.c_str());
+		if constexpr (SIV3D_IS_DEBUG)
+		{
+			const String titleDebug = m_state.title + S3DSTR(" [Debug Build]");
+
+			::SetWindowTextW(m_hWnd, titleDebug.c_str());
+		}
+		else
+		{
+			::SetWindowTextW(m_hWnd, m_state.title.c_str());
+		}
 	}
 	
 	const WindowState& CWindow_Windows::getState() const
@@ -375,8 +386,9 @@ namespace s3d
 
 		m_style = WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
 
+		m_state.screenSize.set(::GetSystemMetrics(SM_CXSCREEN), ::GetSystemMetrics(SM_CYSCREEN));
 		m_state.clientSize.set(Window::DefaultClientSize);
-		m_state.title = S3DSTR("Siv3D App");
+		m_state.title = SIV3D_IS_DEBUG ? S3DSTR("Siv3D App [Debug Build]") : S3DSTR("Siv3D App");
 		m_state.showState = ShowState::Normal;
 		m_state.focused = false;
 

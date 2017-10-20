@@ -15,6 +15,7 @@
 # include "RasterizerState.hpp"
 # include "SamplerState.hpp"
 # include "Rectangle.hpp"
+# include "Mat3x2.hpp"
 
 namespace s3d
 {

@@ -1507,6 +1507,8 @@ namespace s3d
 				Vec2(x, y + h - vy) };
 		}
 
+		RoundRect rounded(double r) const noexcept;
+
 		template <class Shape2DType>
 		bool intersects(const Shape2DType& shape) const
 		{

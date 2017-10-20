@@ -255,8 +255,8 @@ namespace s3d
 
 			m_fullScreen = true;
 
-			m_currentDisplayRefreshRateHz = static_cast<double>(bestMode->first.RefreshRate.Denominator) / bestMode->first.RefreshRate.Numerator;
-		
+			m_currentDisplayRefreshRateHz = static_cast<double>(bestMode->first.RefreshRate.Numerator) / bestMode->first.RefreshRate.Denominator;
+
 			Siv3DEngine::GetWindow()->updateClientSize(true, size);
 		}
 		else
@@ -298,9 +298,11 @@ namespace s3d
 		if (vSync)
 		{
 			const HRESULT hr = m_swapChain->Present(1, 0);
-			
+
 			if (FAILED(hr))
 			{
+				LOG_FAIL(L"❌ D3D11SwapChain: IDXGISwapChain::Present() failed");
+				
 				return false;
 			}
 			else if (hr == DXGI_STATUS_OCCLUDED)
@@ -355,6 +357,8 @@ namespace s3d
 			
 			if (FAILED(hr))
 			{
+				LOG_FAIL(L"❌ D3D11SwapChain: IDXGISwapChain::Present() failed");
+
 				return false;
 			}
 			

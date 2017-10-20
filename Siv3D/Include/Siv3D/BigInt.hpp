@@ -11,7 +11,7 @@
 
 # pragma once
 
-// boost 1.64.0 workaround
+// boost 1.65.0 workaround
 # ifndef _HAS_AUTO_PTR_ETC
 #	define _HAS_AUTO_PTR_ETC 1
 # endif

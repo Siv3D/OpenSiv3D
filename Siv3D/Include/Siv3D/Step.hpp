@@ -33,6 +33,7 @@
 # include "Types.hpp"
 # include "BigInt.hpp"
 # include "Format.hpp"
+# include "Functor.hpp"
 
 namespace s3d
 {
@@ -842,6 +843,8 @@ namespace s3d
 
 			using value_type = ValueType;
 
+			using functions_type = Tuple;
+
 			constexpr F_Step(StepClass stepClass, Tuple functions)
 				: m_base(stepClass)
 				, m_functions(functions) {}
@@ -879,6 +882,14 @@ namespace s3d
 				m_base.each([f, functions = m_functions](const auto& value)
 				{
 					Apply(f, value, functions);
+				});
+			}
+
+			void evaluate() const
+			{
+				m_base.each([functions = m_functions](const auto& value)
+				{
+					Apply(Id, value, functions);
 				});
 			}
 

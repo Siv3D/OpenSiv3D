@@ -436,7 +436,7 @@ namespace s3d
 		/// <returns>
 		/// ランダムに選択された要素への参照
 		/// </returns>
-		Type& choice()
+		[[nodiscard]] Type& choice()
 		{
 			return choice(GetDefaultRNG());
 		}
@@ -447,7 +447,7 @@ namespace s3d
 		/// <returns>
 		/// ランダムに選択された要素への参照
 		/// </returns>
-		const Type& choice() const
+		[[nodiscard]] const Type& choice() const
 		{
 			return choice(GetDefaultRNG());
 		}
@@ -462,7 +462,7 @@ namespace s3d
 		/// ランダムに選択された要素への参照
 		/// </returns>
 		template <class URBG, std::enable_if_t<!std::is_scalar<URBG>::value>* = nullptr>
-		Type& choice(URBG&& rbg)
+		[[nodiscard]] Type& choice(URBG&& rbg)
 		{
 			if (empty())
 			{
@@ -484,7 +484,7 @@ namespace s3d
 		/// ランダムに選択された要素への参照
 		/// </returns>
 		template <class URBG, std::enable_if_t<!std::is_scalar<URBG>::value>* = nullptr>
-		const Type& choice(URBG&& rbg) const
+		[[nodiscard]] const Type& choice(URBG&& rbg) const
 		{
 			if (empty())
 			{
@@ -509,7 +509,7 @@ namespace s3d
 		/// ランダムに選択された要素
 		/// </returns>
 		template <class Size_t, std::enable_if_t<std::is_scalar<Size_t>::value>* = nullptr>
-		Array choice(const Size_t n) const
+		[[nodiscard]] Array choice(const Size_t n) const
 		{
 			return choice(n, GetDefaultRNG());
 		}
@@ -530,7 +530,7 @@ namespace s3d
 		/// ランダムに選択された要素
 		/// </returns>
 		template <class URBG>
-		Array choice(const size_t n, URBG&& rbg) const
+		[[nodiscard]] Array choice(const size_t n, URBG&& rbg) const
 		{
 			Array result;		
 
@@ -550,7 +550,7 @@ namespace s3d
 		/// <returns>
 		/// 指定された要素数づつに分割された配列の配列
 		/// </returns>
-		Array<Array<Type, Allocator>, std::allocator<Array<Type, Allocator>>> chunk(const size_t n) const
+		[[nodiscard]] Array<Array<Type, Allocator>, std::allocator<Array<Type, Allocator>>> chunk(const size_t n) const
 		{
 			Array<Array<Type, Allocator>, std::allocator<Array<Type, Allocator>>> result;
 
@@ -576,7 +576,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した値を持つ要素の個数
 		/// </returns>
-		size_t count(const Type& value) const
+		[[nodiscard]] size_t count(const Type& value) const
 		{
 			size_t result = 0;
 
@@ -601,7 +601,7 @@ namespace s3d
 		/// 指定した条件を満たす要素の個数
 		/// </returns>
 		template <class Fty>
-		size_t count_if(Fty f) const
+		[[nodiscard]] size_t count_if(Fty f) const
 		{
 			size_t result = 0;
 
@@ -628,7 +628,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した個数だけ先頭から要素を除いた新しい配列
 		/// </returns>
-		Array drop(const size_t n) const
+		[[nodiscard]] Array drop(const size_t n) const
 		{
 			if (n >= size())
 			{
@@ -648,7 +648,7 @@ namespace s3d
 		/// 指定した条件が真になる要素を先頭から除いた新しい配列
 		/// </returns>
 		template <class Fty>
-		Array drop_while(Fty f) const
+		[[nodiscard]] Array drop_while(Fty f) const
 		{
 			return Array(std::find_if_not(begin(), end(), f), end());
 		}
@@ -749,7 +749,7 @@ namespace s3d
 		/// <returns>
 		/// 指定したインデックスの要素か、インデックスが範囲外の場合は defaultValue
 		/// </returns>
-		const Type& fetch(const size_t index, const Type& defaultValue) const
+		[[nodiscard]] const Type& fetch(const size_t index, const Type& defaultValue) const
 		{
 			if (index >= size())
 			{
@@ -785,7 +785,7 @@ namespace s3d
 		/// 条件を満たす要素のみからなる新しい配列
 		/// </returns>
 		template <class Fty>
-		Array filter(Fty f) const
+		[[nodiscard]] Array filter(Fty f) const
 		{
 			Array new_array;
 
@@ -809,7 +809,7 @@ namespace s3d
 		/// <returns>
 		/// 指定された分割数に分割した配列の配列
 		/// </returns>
-		Array<Array<Type, Allocator>, std::allocator<Array<Type, Allocator>>> in_groups(const size_t group) const
+		[[nodiscard]] Array<Array<Type, Allocator>, std::allocator<Array<Type, Allocator>>> in_groups(const size_t group) const
 		{
 			Array<Array<Type, Allocator>, std::allocator<Array<Type, Allocator>>> result;
 
@@ -843,7 +843,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した要素を含む場合は true, それ以外の場合は false
 		/// </returns>
-		bool include(const Type& value) const
+		[[nodiscard]] bool include(const Type& value) const
 		{
 			for (const auto& v : *this)
 			{
@@ -866,7 +866,7 @@ namespace s3d
 		/// 指定した条件を満たす要素が含まれる場合は true, それ以外の場合は false
 		/// </returns>
 		template <class Fty>
-		bool include_if(Fty f) const
+		[[nodiscard]] bool include_if(Fty f) const
 		{
 			return any(f);
 		}
@@ -878,7 +878,7 @@ namespace s3d
 		/// 配列が昇順にソートされている場合 true, それ以外の場合 false
 		/// </returns>
 		template <class T = Type, std::enable_if_t<Concept::HasLessThan_v<T>>* = nullptr>
-		bool isSorted() const
+		[[nodiscard]] bool isSorted() const
 		{
 			const size_t size_ = size();
 
@@ -915,7 +915,7 @@ namespace s3d
 		/// <returns>
 		/// 要素を指定した文字列で連結した結果の文字列
 		/// </returns>
-		String join(const String& sep = S3DSTR(","), const String& begin = S3DSTR("{"), const String& end = S3DSTR("}")) const
+		[[nodiscard]] String join(const String& sep = S3DSTR(","), const String& begin = S3DSTR("{"), const String& end = S3DSTR("}")) const
 		{
 			String s;
 
@@ -1086,7 +1086,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した値を持つ要素を配列から削除した新しい配列
 		/// </returns>
-		Array removed(const Type& value) const &
+		[[nodiscard]] Array removed(const Type& value) const &
 		{
 			Array new_array;
 
@@ -1110,7 +1110,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した値を持つ要素を配列から削除した新しい配列
 		/// </returns>
-		Array removed(const Type& value) &&
+		[[nodiscard]] Array removed(const Type& value) &&
 		{
 			erase(std::remove(begin(), end(), value), end());
 
@@ -1149,7 +1149,7 @@ namespace s3d
 		/// <returns>
 		/// 指定したインデックスの要素を削除した新しい配列
 		/// </returns>
-		Array removed_at(const size_t index) const
+		[[nodiscard]] Array removed_at(const size_t index) const
 		{
 			if (index >= size())
 			{
@@ -1194,7 +1194,7 @@ namespace s3d
 		/// 指定した条件を満たす要素を削除した新しい配列
 		/// </returns>
 		template <class Fty>
-		Array removed_if(Fty f) const &
+		[[nodiscard]] Array removed_if(Fty f) const &
 		{
 			Array new_array;
 
@@ -1219,7 +1219,7 @@ namespace s3d
 		/// 指定した条件を満たす要素を削除した新しい配列
 		/// </returns>
 		template <class Fty>
-		Array removed_if(Fty f) &&
+		[[nodiscard]] Array removed_if(Fty f) &&
 		{
 			erase(std::remove_if(begin(), end(), f), end());
 
@@ -1265,7 +1265,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した値を持つ要素を別の値に置き換えた新しい配列
 		/// </returns>
-		Array replaced(const Type& oldValue, const Type& newValue) const &
+		[[nodiscard]] Array replaced(const Type& oldValue, const Type& newValue) const &
 		{
 			Array new_array;
 
@@ -1298,7 +1298,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した値を持つ要素を別の値に置き換えた新しい配列
 		/// </returns>
-		Array replaced(const Type& oldValue, const Type& newValue) &&
+		[[nodiscard]] Array replaced(const Type& oldValue, const Type& newValue) &&
 		{
 			replace(oldValue, newValue);
 
@@ -1344,7 +1344,7 @@ namespace s3d
 		/// 指定した条件を満たす要素を別の値に置き換えた新しい配列
 		/// </returns>
 		template <class Fty>
-		Array replaced_if(Fty f, const Type& newValue) const &
+		[[nodiscard]] Array replaced_if(Fty f, const Type& newValue) const &
 		{
 			Array new_array;
 
@@ -1378,7 +1378,7 @@ namespace s3d
 		/// 指定した条件を満たす要素を別の値に置き換えた新しい配列
 		/// </returns>
 		template <class Fty>
-		Array replaced_if(Fty f, const Type& newValue) &&
+		[[nodiscard]] Array replaced_if(Fty f, const Type& newValue) &&
 		{
 			replace_if(f, newValue);
 
@@ -1404,7 +1404,7 @@ namespace s3d
 		/// <returns>
 		/// 要素の順番を反転させた新しい配列
 		/// </returns>
-		Array reversed() const &
+		[[nodiscard]] Array reversed() const &
 		{
 			return Array(rbegin(), rend());
 		}
@@ -1415,7 +1415,7 @@ namespace s3d
 		/// <returns>
 		/// 要素の順番を反転させた新しい配列
 		/// </returns>
-		Array reversed() &&
+		[[nodiscard]] Array reversed() &&
 		{
 			reverse();
 
@@ -1510,7 +1510,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい配列
 		/// </returns>
-		Array rotated(const std::ptrdiff_t count = 1) const &
+		[[nodiscard]] Array rotated(const std::ptrdiff_t count = 1) const &
 		{
 			return Array(*this).rotate(count);
 		}
@@ -1524,7 +1524,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい配列
 		/// </returns>
-		Array rotated(const std::ptrdiff_t count = 1) &&
+		[[nodiscard]] Array rotated(const std::ptrdiff_t count = 1) &&
 		{
 			rotate(count);
 
@@ -1565,7 +1565,7 @@ namespace s3d
 		/// <returns>
 		/// ランダムに並び替えられた配列
 		/// </returns>
-		Array shuffled() const &
+		[[nodiscard]] Array shuffled() const &
 		{
 			return shuffled(GetDefaultRNG());
 		}
@@ -1576,7 +1576,7 @@ namespace s3d
 		/// <returns>
 		/// ランダムに並び替えられた配列
 		/// </returns>
-		Array shuffled() &&
+		[[nodiscard]] Array shuffled() &&
 		{
 			return shuffled(GetDefaultRNG());
 		}
@@ -1591,7 +1591,7 @@ namespace s3d
 		/// ランダムに並び替えられた配列
 		/// </returns>
 		template <class URBG>
-		Array shuffled(URBG&& rbg) const &
+		[[nodiscard]] Array shuffled(URBG&& rbg) const &
 		{
 			return Array(*this).shuffle(std::forward<URBG>(rbg));
 		}
@@ -1606,7 +1606,7 @@ namespace s3d
 		/// ランダムに並び替えられた配列
 		/// </returns>
 		template <class URBG>
-		Array shuffled(URBG&& rbg) &&
+		[[nodiscard]] Array shuffled(URBG&& rbg) &&
 		{
 			shuffle(std::forward<URBG>(rbg));
 
@@ -1622,7 +1622,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい配列
 		/// </returns>
-		Array slice(const size_t index) const
+		[[nodiscard]] Array slice(const size_t index) const
 		{
 			if (index >= size())
 			{
@@ -1644,7 +1644,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい配列
 		/// </returns>
-		Array slice(const size_t index, const size_t length) const
+		[[nodiscard]] Array slice(const size_t index, const size_t length) const
 		{
 			if (index >= size())
 			{
@@ -1669,6 +1669,20 @@ namespace s3d
 		}
 
 		/// <summary>
+		/// 配列を &lt; 比較で安定ソートします。
+		/// </summary>
+		/// <returns>
+		/// *this
+		/// </returns>
+		template <class T = Type, std::enable_if_t<Concept::HasLessThan_v<T>>* = nullptr>
+		Array& stable_sort()
+		{
+			std::stable_sort(begin(), end());
+
+			return *this;
+		}
+
+		/// <summary>
 		/// 配列を指定された比較関数でソートします。
 		/// </summary>
 		/// <param name="f">
@@ -1686,15 +1700,20 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// 配列を &lt; 比較でソートした新しい配列を返します。
+		/// 配列を指定された比較関数で安定ソートします。
 		/// </summary>
+		/// <param name="f">
+		/// 使用する比較関数
+		/// </param>
 		/// <returns>
-		/// ソート済みの配列
+		/// *this
 		/// </returns>
-		template <class T = Type, std::enable_if_t<Concept::HasLessThan_v<T>>* = nullptr>
-		Array sorted() const &
+		template <class Fty>
+		Array& stable_sort_by(Fty f)
 		{
-			return Array(*this).sort();
+			std::stable_sort(begin(), end(), f);
+
+			return *this;
 		}
 
 		/// <summary>
@@ -1704,9 +1723,47 @@ namespace s3d
 		/// ソート済みの配列
 		/// </returns>
 		template <class T = Type, std::enable_if_t<Concept::HasLessThan_v<T>>* = nullptr>
-		Array sorted() &&
+		[[nodiscard]] Array sorted() const &
+		{
+			return Array(*this).sort();
+		}
+
+		/// <summary>
+		/// 配列を &lt; 比較で安定ソートした新しい配列を返します。
+		/// </summary>
+		/// <returns>
+		/// ソート済みの配列
+		/// </returns>
+		template <class T = Type, std::enable_if_t<Concept::HasLessThan_v<T>>* = nullptr>
+		[[nodiscard]] Array stable_sorted() const &
+		{
+			return Array(*this).stable_sort();
+		}
+
+		/// <summary>
+		/// 配列を &lt; 比較でソートした新しい配列を返します。
+		/// </summary>
+		/// <returns>
+		/// ソート済みの配列
+		/// </returns>
+		template <class T = Type, std::enable_if_t<Concept::HasLessThan_v<T>>* = nullptr>
+		[[nodiscard]] Array sorted() &&
 		{
 			sort();
+
+			return std::move(*this);
+		}
+
+		/// <summary>
+		/// 配列を &lt; 比較で安定ソートした新しい配列を返します。
+		/// </summary>
+		/// <returns>
+		/// ソート済みの配列
+		/// </returns>
+		template <class T = Type, std::enable_if_t<Concept::HasLessThan_v<T>>* = nullptr>
+		[[nodiscard]] Array stable_sorted() &&
+		{
+			stable_sort();
 
 			return std::move(*this);
 		}
@@ -1721,9 +1778,24 @@ namespace s3d
 		/// ソート済みの配列
 		/// </returns>
 		template <class Fty>
-		Array sorted_by(Fty f) const &
+		[[nodiscard]] Array sorted_by(Fty f) const &
 		{
 			return Array(*this).sort_by(f);
+		}
+
+		/// <summary>
+		/// 配列を指定された比較関数で安定ソートした新しい配列を返します。
+		/// </summary>
+		/// <param name="f">
+		/// 使用する比較関数
+		/// </param>
+		/// <returns>
+		/// ソート済みの配列
+		/// </returns>
+		template <class Fty>
+		[[nodiscard]] Array stable_sorted_by(Fty f) const &
+		{
+			return Array(*this).stable_sort_by(f);
 		}
 
 		/// <summary>
@@ -1736,9 +1808,26 @@ namespace s3d
 		/// ソート済みの配列
 		/// </returns>
 		template <class Fty>
-		Array sorted_by(Fty f) &&
+		[[nodiscard]] Array sorted_by(Fty f) &&
 		{
 			sort_by(f);
+
+			return std::move(*this);
+		}
+
+		/// <summary>
+		/// 配列を指定された比較関数で安定ソートした新しい配列を返します。
+		/// </summary>
+		/// <param name="f">
+		/// 使用する比較関数
+		/// </param>
+		/// <returns>
+		/// ソート済みの配列
+		/// </returns>
+		template <class Fty>
+		[[nodiscard]] Array stable_sorted_by(Fty f) &&
+		{
+			stable_sort_by(f);
 
 			return std::move(*this);
 		}
@@ -1795,7 +1884,7 @@ namespace s3d
 		/// 高精度な配列の全要素の合計
 		/// </returns>
 		template <class T = Type, std::enable_if_t<std::is_floating_point<T>::value>* = nullptr>
-		auto sumF() const &
+		[[nodiscard]] auto sumF() const &
 		{
 			T s = 0.0;
 			T err = 0.0;
@@ -1820,7 +1909,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい配列
 		/// </returns>
-		Array take(const size_t n) const
+		[[nodiscard]] Array take(const size_t n) const
 		{
 			return Array(begin(), begin() + std::min(n, size()));
 		}
@@ -1835,7 +1924,7 @@ namespace s3d
 		/// 新しい配列
 		/// </returns>
 		template <class Fty>
-		Array take_while(Fty f) const
+		[[nodiscard]] Array take_while(Fty f) const
 		{
 			return Array(begin(), std::find_if_not(begin(), end(), f));
 		}
@@ -1861,7 +1950,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい配列
 		/// </returns>
-		Array uniqued() const &
+		[[nodiscard]] Array uniqued() const &
 		{
 			return Array(*this).unique();
 		}
@@ -1872,7 +1961,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい配列
 		/// </returns>
-		Array uniqued() &&
+		[[nodiscard]] Array uniqued() &&
 		{
 			sort();
 
@@ -1895,7 +1984,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい配列
 		/// </returns>
-		Array values_at(std::initializer_list<size_t> indices) const
+		[[nodiscard]] Array values_at(std::initializer_list<size_t> indices) const
 		{
 			Array new_array;
 

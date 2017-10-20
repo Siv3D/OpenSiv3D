@@ -134,11 +134,11 @@ namespace s3d
 		return result;
 	}
 
-	void TimeProfiler::log(const uint64 end) const
+	void TimeProfiler::output(const uint64 end) const
 	{
 		if (m_data.empty())
 		{
-			Log(toString(end - m_start));
+			Output(toString(end - m_start));
 
 			return;
 		}
@@ -160,9 +160,9 @@ namespace s3d
 			its[it->second.index] = it;
 		}
 
-		Log(S3DCHAR('['), m_name, S3DCHAR(']'));
+		Output(S3DCHAR('['), m_name, S3DCHAR(']'));
 
-		Log(String(maxLabelLength, S3DCHAR(' ')), S3DSTR(" |  avg   |  min   |  max   |"));
+		Output(String(maxLabelLength, S3DCHAR(' ')), S3DSTR(" |  avg   |  min   |  max   |"));
 
 		for (const auto& it : its)
 		{
@@ -172,7 +172,7 @@ namespace s3d
 			{
 				const uint64 average = data.second.sum / data.second.count;
 
-				Log(data.first.rpadded(maxLabelLength), S3DSTR(" | "), toString(average).rpad(6), S3DSTR(" | "), toString(data.second.min).rpad(6), S3DSTR(" | "), toString(data.second.max).rpad(6), S3DSTR(" |"));
+				Output(data.first.rpadded(maxLabelLength), S3DSTR(" | "), toString(average).rpad(6), S3DSTR(" | "), toString(data.second.min).rpad(6), S3DSTR(" | "), toString(data.second.max).rpad(6), S3DSTR(" |"));
 			}
 		}
 	}

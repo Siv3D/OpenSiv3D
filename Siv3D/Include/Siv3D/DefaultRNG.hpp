@@ -11,11 +11,12 @@
 
 # pragma once
 # include "Fwd.hpp"
+# include "SFMT.hpp"
 # include "MersenneTwister.hpp"
 
 namespace s3d
 {
-	using DefaultRNGType = MT11213b;
+	using DefaultRNGType = SFMT19937_64;
 
 	inline DefaultRNGType& GetDefaultRNG()
 	{

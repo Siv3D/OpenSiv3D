@@ -60,6 +60,16 @@ namespace s3d
 		return pImpl->isActive();
 	}
 
+	bool TextBox::hasMarkedText() const noexcept
+	{
+		return pImpl->hasMarkedText();
+	}
+
+	bool TextBox::setActive(bool active)
+	{
+		return pImpl->setActive(active);
+	}
+
 	void TextBox::setPos(const Vec2& pos) noexcept
 	{
 		pImpl->setPos(pos);

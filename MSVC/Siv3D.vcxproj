@@ -22,6 +22,7 @@
     <ClInclude Include="..\Siv3D\Include\HamFramework.hpp" />
     <ClInclude Include="..\Siv3D\Include\HamFramework\Camera2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\HamFramework\MiniScene.hpp" />
+    <ClInclude Include="..\Siv3D\Include\HamFramework\OptimalScreen.hpp" />
     <ClInclude Include="..\Siv3D\Include\HamFramework\PlayingCard.hpp" />
     <ClInclude Include="..\Siv3D\Include\HamFramework\Rx.hpp" />
     <ClInclude Include="..\Siv3D\Include\HamFramework\ScalableWindow.hpp" />
@@ -33,6 +34,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\AudioFormat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\CPU.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Effect.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Evaluater.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Icon.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Intersection.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Polygon.hpp" />
@@ -156,6 +158,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\SamplerState.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\ScreenCapture.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Script.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\SFMT.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Shader.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Shape2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\SIMDMath.hpp" />
@@ -172,6 +175,7 @@
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextureFormat.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\TextureRegion.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Threading.hpp" />
+    <ClInclude Include="..\Siv3D\Include\Siv3D\Tobii.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Transformer2D.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Transition.hpp" />
     <ClInclude Include="..\Siv3D\Include\Siv3D\Triangle.hpp" />
@@ -361,6 +365,9 @@
     <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\GL\Texture_GL.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Texture\ITexture.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\TextWriter\CTextWriter.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Tobii\CTobii_Linux.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Tobii\CTobii_macOS.hpp" />
+    <ClInclude Include="..\Siv3D\Source\Siv3D\Tobii\CTobii_Windows.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Window\CWindow_Linux.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Window\CWindow_macOS.hpp" />
     <ClInclude Include="..\Siv3D\Source\Siv3D\Window\CWindow_Windows.hpp" />
@@ -484,6 +491,9 @@
     <ClInclude Include="..\Siv3D\Source\ThirdParty\rapidjson\stream.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\rapidjson\stringbuffer.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\rapidjson\writer.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\tobii\tobii.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\tobii\tobii_streams.h" />
+    <ClInclude Include="..\Siv3D\Source\ThirdParty\tobii\tobii_wearable.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\XAudio2_7\audiodefs.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\XAudio2_7\comdecl.h" />
     <ClInclude Include="..\Siv3D\Source\ThirdParty\XAudio2_7\X3DAudio.h" />
@@ -745,6 +755,8 @@
     <ClCompile Include="..\Siv3D\Source\Siv3D\Threading\SivThreading.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\TimeProfiler\SivTimeProfiler.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Time\SivTime.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Tobii\CTobii_Windows.cpp" />
+    <ClCompile Include="..\Siv3D\Source\Siv3D\Tobii\SivTobii.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Triangle\SivTriangle.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Vector2D\SivVector2D.cpp" />
     <ClCompile Include="..\Siv3D\Source\Siv3D\Vector3D\SivVector3D.cpp" />
