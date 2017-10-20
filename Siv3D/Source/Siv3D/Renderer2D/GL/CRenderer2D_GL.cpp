@@ -356,14 +356,34 @@ namespace s3d
 		return m_commandManager.getCurrentViewport();
 	}
 
-	void CRenderer2D_GL::setTransform(const Mat3x2& matrix)
+	void CRenderer2D_GL::setTransformLocal(const Mat3x2& matrix)
 	{
-		m_commandManager.pushTransform(matrix);
+		m_commandManager.pushTransformLocal(matrix);
 	}
 
-	const Mat3x2& CRenderer2D_GL::getTransform() const
+	void CRenderer2D_GL::setTransformCamera(const Mat3x2& matrix)
 	{
-		return m_commandManager.getCurrentTransform();
+		m_commandManager.pushTransformCamera(matrix);
+	}
+
+	void CRenderer2D_GL::setTransformScreen(const Mat3x2& matrix)
+	{
+		m_commandManager.pushTransformScreen(matrix);
+	}
+
+	const Mat3x2& CRenderer2D_GL::getTransformLocal() const
+	{
+		return m_commandManager.getCurrentTransformLocal();
+	}
+
+	const Mat3x2& CRenderer2D_GL::getTransformCamera() const
+	{
+		return m_commandManager.getCurrentTransformCamera();
+	}
+
+	const Mat3x2& CRenderer2D_GL::getTransformScreen() const
+	{
+		return m_commandManager.getCurrentTransformScreen();
 	}
 
 	float CRenderer2D_GL::getMaxScaling() const
@@ -1120,7 +1140,7 @@ namespace s3d
 		
 		// 大昔に書いたコードなので整理したい
 		
-		const float th2 = 0.01f;
+		const float th2 = 0.01f / getMaxScaling();
 		
 		Array<Float2> buf;
 		{
@@ -1511,7 +1531,7 @@ namespace s3d
 		
 		// 大昔に書いたコードなので整理したい
 		
-		const float th2 = 0.01f;
+		const float th2 = 0.01f / getMaxScaling();
 		
 		Array<Float2> buf;
 		{

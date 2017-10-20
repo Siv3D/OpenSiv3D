@@ -31,10 +31,10 @@ namespace s3d
 
 		bool encode(const Image& image, IWriter& writer) const override;
 
-		bool encode(const Image& image, IWriter& writer, PPM::Header header) const;
+		bool encode(const Image& image, IWriter& writer, PPMType format) const;
 
 		bool save(const Image& image, const FilePath& path) const override;
 
-		bool save(const Image& image, const FilePath& path, PPM::Header header) const;
+		bool save(const Image& image, const FilePath& path, PPMType format) const;
 	};
 }

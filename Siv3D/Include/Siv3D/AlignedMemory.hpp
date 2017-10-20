@@ -29,8 +29,8 @@ namespace s3d
 	/// <returns>
 	/// 確保したメモリ領域の先頭ポインタ
 	/// </returns>
-	template <class Type, size_t Alignment = alignof(Type), std::enable_if_t<(Alignment > SIV3D_PLATFORM_PTR_SIZE)>* = nullptr>
-	inline Type* AlignedMalloc(const size_t n = 1)
+	template <class Type, size_t Alignment = alignof(Type)>
+	[[nodiscard]] inline Type* AlignedMalloc(const size_t n = 1)
 	{
 	# if defined(SIV3D_TARGET_WINDOWS)
 
@@ -38,37 +38,18 @@ namespace s3d
 
 	# else
 
-		void* p;
-		::posix_memalign(&p, Alignment, sizeof(Type) * n);
-		return static_cast<Type*>(p);
+		if constexpr (Alignment > SIV3D_PLATFORM_PTR_SIZE)
+		{
+			void* p;
+			::posix_memalign(&p, Alignment, sizeof(Type) * n);
+			return static_cast<Type*>(p);
+		}
+		else
+		{
+			return static_cast<Type*>(::malloc(sizeof(Type) * n));
+		}
 	
 	# endif	
-	}
-	
-	/// <summary>
-	/// アライメントを考慮して、指定した型のためのメモリ領域を確保します。
-	/// </summary>
-	/// <param name="n">
-	/// 要素数。デフォルトは 1
-	/// </param>
-	/// <remarks>
-	/// 確保したポインタは AlignedFree() で解放する必要があります。
-	/// </remarks>
-	/// <returns>
-	/// 確保したメモリ領域の先頭ポインタ
-	/// </returns>
-	template <class Type, size_t Alignment = alignof(Type), std::enable_if_t<(Alignment <= SIV3D_PLATFORM_PTR_SIZE)>* = nullptr>
-	inline Type* AlignedMalloc(const size_t n = 1)
-	{
-	# if defined(SIV3D_TARGET_WINDOWS)
-		
-		return static_cast<Type*>(::_aligned_malloc(sizeof(Type) * n, Alignment));
-		
-	# else
-		
-		return static_cast<Type*>(::malloc(sizeof(Type) * n));
-		
-	# endif
 	}
 
 	/// <summary>
@@ -109,7 +90,7 @@ namespace s3d
 	/// 確保したメモリ領域の先頭ポインタ
 	/// </returns>
 	template <class Type, class ...Args>
-	inline Type* AlignedNew(Args&&... args)
+	[[nodiscard]] inline Type* AlignedNew(Args&&... args)
 	{
 		Type* p = AlignedMalloc<Type>();
 
@@ -169,7 +150,7 @@ namespace s3d
 	/// <returns>
 	/// アライメントされている場合 true, それ以外の場合は false
 	/// </returns>
-	inline bool IsAligned(const void* const p, const size_t alignment) noexcept
+	[[nodiscard]] inline bool IsAligned(const void* const p, const size_t alignment) noexcept
 	{
 		return (reinterpret_cast<size_t>(p) % alignment) == 0;
 	}
@@ -202,25 +183,17 @@ namespace s3d
 	/// <returns>
 	/// 構築した unique_ptr
 	/// </returns>
-	template <class Type, class ...Args, std::enable_if_t<!IsOverAligned<Type>::value>* = nullptr>
-	std::unique_ptr<Type> MakeUnique(Args&&... args)
+	template <class Type, class ...Args>
+	[[nodiscard]] auto MakeUnique(Args&&... args)
 	{
-		return std::make_unique<Type>(std::forward<Args>(args)...);
-	}
-
-	/// <summary>
-	/// アライメントを考慮して、unique_ptr を構築します。
-	/// </summary>
-	/// <param name="args">
-	/// コンストラクタ引数
-	/// </param>
-	/// <returns>
-	/// 構築した unique_ptr
-	/// </returns>
-	template <class Type, class ...Args, std::enable_if_t<IsOverAligned<Type>::value>* = nullptr>
-	std::unique_ptr<Type, AlignedDeleter<Type>> MakeUnique(Args&&... args)
-	{
-		return std::unique_ptr<Type, AlignedDeleter<Type>>(AlignedNew<Type>(std::forward<Args>(args)...));
+		if constexpr (IsOverAligned<Type>::value)
+		{
+			return std::unique_ptr<Type, AlignedDeleter<Type>>(AlignedNew<Type>(std::forward<Args>(args)...));
+		}
+		else
+		{
+			return std::make_unique<Type>(std::forward<Args>(args)...);
+		}		
 	}
 
 	/// <summary>
@@ -232,24 +205,16 @@ namespace s3d
 	/// <returns>
 	/// 構築した shared_ptr
 	/// </returns>
-	template <class Type, class ...Args, std::enable_if_t<!IsOverAligned<Type>::value>* = nullptr>
-	std::shared_ptr<Type> MakeShared(Args&&... args)
+	template <class Type, class ...Args>
+	[[nodiscard]] auto MakeShared(Args&&... args)
 	{
-		return std::make_shared<Type>(std::forward<Args>(args)...);
-	}
-
-	/// <summary>
-	/// アライメントを考慮して、shared_ptr を構築します。
-	/// </summary>
-	/// <param name="args">
-	/// コンストラクタ引数
-	/// </param>
-	/// <returns>
-	/// 構築した shared_ptr
-	/// </returns>
-	template <class Type, class ...Args, std::enable_if_t<IsOverAligned<Type>::value>* = nullptr>
-	std::shared_ptr<Type> MakeShared(Args&&... args)
-	{
-		return std::shared_ptr<Type>(AlignedNew<Type>(std::forward<Args>(args)...), AlignedDeleter<Type>());
+		if constexpr (IsOverAligned<Type>::value)
+		{
+			return std::shared_ptr<Type>(AlignedNew<Type>(std::forward<Args>(args)...), AlignedDeleter<Type>());
+		}
+		else
+		{
+			return std::make_shared<Type>(std::forward<Args>(args)...);
+		}	
 	}
 }

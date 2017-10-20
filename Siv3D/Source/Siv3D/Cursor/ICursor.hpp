@@ -46,9 +46,17 @@ namespace s3d
 
 		virtual void setPos(int32 x, int32 y) = 0;
 
-		virtual void setTransform(const Mat3x2& matrix) = 0;
+		virtual void setTransformLocal(const Mat3x2& matrix) = 0;
 
-		virtual const Mat3x2& getTransform() const = 0;
+		virtual void setTransformCamera(const Mat3x2& matrix) = 0;
+
+		virtual void setTransformScreen(const Mat3x2& matrix) = 0;
+
+		virtual const Mat3x2& getTransformLocal() const = 0;
+
+		virtual const Mat3x2& getTransformCamera() const = 0;
+
+		virtual const Mat3x2& getTransformScreen() const = 0;
 
 		virtual void clipClientRect(bool clip) = 0;
 

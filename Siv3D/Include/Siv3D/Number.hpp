@@ -75,18 +75,19 @@ namespace s3d
     /// <returns>
     /// 数値が有限値である場合 true, それ以外の場合は false
     /// </returns>
-    template <class Type, std::enable_if_t<std::is_floating_point<Type>::value>* = nullptr>
-    inline bool IsFinite(const Type value)
+    template <class Type>
+    inline bool IsFinite([[maybe_unused]] const Type value)
     {
-        return std::isfinite(value);
+		if constexpr (std::is_floating_point<Type>::value)
+		{
+			return std::isfinite(value);
+		}
+		else
+		{
+			return true;
+		}
     }
 
-	template <class Type, std::enable_if_t<!std::is_floating_point<Type>::value>* = nullptr>
-	inline bool IsFinite(const Type)
-	{
-		return true;
-	}
-    
     /// <summary>
     /// 数値が無限であるかを示します。
     /// </summary>
@@ -96,15 +97,16 @@ namespace s3d
     /// <returns>
     /// 数値が無限である場合 true, それ以外の場合は false
     /// </returns>
-    template <class Type, std::enable_if_t<std::is_floating_point<Type>::value>* = nullptr>
-    inline bool IsInfinity(const Type value)
+    template <class Type>
+    inline bool IsInfinity([[maybe_unused]] const Type value)
     {
-        return std::isinf(value);
+		if constexpr (std::is_floating_point<Type>::value)
+		{
+			return std::isinf(value);
+		}
+		else
+		{
+			return false;
+		}
     }
-
-	template <class Type, std::enable_if_t<!std::is_floating_point<Type>::value>* = nullptr>
-	inline bool IsInfinity(const Type)
-	{
-		return false;
-	}
 }

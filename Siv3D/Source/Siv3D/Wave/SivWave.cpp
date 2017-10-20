@@ -12,6 +12,7 @@
 # include "../Siv3DEngine.hpp"
 # include "../AudioFormat/IAudioFormat.hpp"
 # include <Siv3D/Wave.hpp>
+# include <Siv3D/BinaryWriter.hpp>
 
 namespace s3d
 {
@@ -69,5 +70,22 @@ namespace s3d
 		, m_samplingRate(wave.m_samplingRate)
 	{
 
+	}
+
+	bool Wave::saveWAVE(const FilePath& path, const WAVEFormat format)
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		BinaryWriter writer(path);
+
+		if (!writer)
+		{
+			return false;
+		}
+
+		return Siv3DEngine::GetAudioFormat()->encodeWAVE(writer, *this, format);
 	}
 }

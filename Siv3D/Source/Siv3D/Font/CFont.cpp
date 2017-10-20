@@ -370,10 +370,12 @@ namespace s3d
 		return image;
 	}
 
+	/*
 	size_t CFont::checkEmoji(std::vector<char32_t>::const_iterator it, std::vector<char32_t>::const_iterator itEnd) const
 	{
 		return m_emojiDataBase.check(it, itEnd);
 	}
+	*/
 
 	bool CFont::loadColorEmojiFace()
 	{

@@ -43,6 +43,32 @@ namespace s3d
 		Unspecified = Unknown,
 	};
 
+	/// <summary>
+	/// WAVE の保存形式
+	/// </summary>
+	enum class WAVEFormat
+	{
+		/// <summary>
+		/// 8bit ステレオ
+		/// </summary>
+		Stereo8U,
+
+		/// <summary>
+		/// 16bit ステレオ
+		/// </summary>
+		Stereo16S,
+
+		/// <summary>
+		/// 32bit float ステレオ
+		/// </summary>
+		Stereo32F,
+
+		/// <summary>
+		/// デフォルト（16bit ステレオ）
+		/// </summary>
+		Default = Stereo16S,
+	};
+
 	class IAudioFormat
 	{
 	public:
@@ -57,9 +83,9 @@ namespace s3d
 
 		virtual Wave decode(IReader& reader) const = 0;
 
-		//virtual bool encode(const Image& image, IWriter& writer) const = 0;
+		//virtual bool encode(const Wave& wave, IWriter& writer) const = 0;
 
-		//virtual bool save(const Image& image, const FilePath& path) const = 0;
+		//virtual bool save(const Wave& wave, const FilePath& path) const = 0;
 	};
 
 	namespace AudioProcessing

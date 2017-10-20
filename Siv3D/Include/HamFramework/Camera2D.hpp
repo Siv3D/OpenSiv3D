@@ -63,7 +63,7 @@ namespace s3d
 
 		Transformer2D createTransformer() const
 		{
-			return Transformer2D(getMat3x2(), true);
+			return Transformer2D(getMat3x2(), true, Transformer2D::Target::PushCamera);
 		}
 	};
 
@@ -131,7 +131,9 @@ namespace s3d
 			}
 
 			{
-				const Transformer2D transformer(Mat3x2::Identity(), Cursor::GetTransform().inversed());
+				const Transformer2D transformerLocal(Mat3x2::Identity(), true, Transformer2D::Target::SetLocal);
+				const Transformer2D transformerCamera(Mat3x2::Identity(), true, Transformer2D::Target::SetCamera);
+				const Transformer2D transformerScreen(Mat3x2::Identity(), true, Transformer2D::Target::SetScreen);
 
 				if (MouseR.down())
 				{
@@ -217,7 +219,9 @@ namespace s3d
 				return;
 			}
 
-			const Transformer2D transformer(Graphics2D::GetTransform().inversed(), true);
+			const Transformer2D transformerLocal(Mat3x2::Identity(), true, Transformer2D::Target::SetLocal);
+			const Transformer2D transformerCamera(Mat3x2::Identity(), true, Transformer2D::Target::SetCamera);
+			const Transformer2D transformerScreen(Mat3x2::Identity(), true, Transformer2D::Target::SetScreen);
 
 			const double radius = 12.0;
 			const Point delta = Cursor::Pos() - m_grabPos.value();

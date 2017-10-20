@@ -38,6 +38,8 @@ namespace s3d
 		Paused,
 		
 		Playing,
+		
+		Stopped,
 	};
 	
 	class Audio_AL
@@ -54,7 +56,9 @@ namespace s3d
 		
 		std::atomic<AudioControlState> m_state = { AudioControlState::Paused };
 		
-		bool m_isPlaying = false;
+		bool m_isActive = false;
+		
+		bool m_isPaused = false;
 		
 		std::thread m_thread;
 		
@@ -68,13 +72,23 @@ namespace s3d
 			{
 				::usleep(10 * 1000);
 				
-				ALint sampleOffset = 0;
-				::alGetSourcei(m_source, AL_SAMPLE_OFFSET, &sampleOffset);
-				m_samplesPlayed = sampleOffset;
-			
 				if (!m_source)
 				{
 					continue;
+				}
+				
+				ALint sampleOffset = 0;
+				::alGetSourcei(m_source, AL_SAMPLE_OFFSET, &sampleOffset);
+				m_samplesPlayed = sampleOffset;
+				
+				ALint currentState = 0;
+				alGetSourcei(m_source, AL_SOURCE_STATE, &currentState);
+				
+				if (m_isActive && currentState == AL_STOPPED)
+				{
+					m_isActive = false;
+					m_isPaused = false;
+					m_state = AudioControlState::Stopped;
 				}
 				
 				if (m_abort)
@@ -86,22 +100,35 @@ namespace s3d
 				{
 					case AudioControlState::Paused:
 					{
-						if (m_isPlaying)
+						if (m_isActive && !m_isPaused)
 						{
 							::alSourcePause(m_source);
 							
-							m_isPlaying = false;
+							m_isPaused = true;
 						}
 						
 						break;
 					}
 					case AudioControlState::Playing:
 					{
-						if (!m_isPlaying)
+						if (!m_isActive || m_isPaused)
 						{
 							::alSourcePlay(m_source);
 							
-							m_isPlaying = true;
+							m_isActive = true;
+							m_isPaused = false;
+						}
+						
+						break;
+					}
+					case AudioControlState::Stopped:
+					{
+						if (m_isActive)
+						{
+							::alSourceStop(m_source);
+							
+							m_isActive = false;
+							m_isPaused = false;
 						}
 						
 						break;
@@ -191,6 +218,16 @@ namespace s3d
 			}
 			
 			m_state = state;
+		}
+		
+		bool isPlaying() const
+		{
+			return m_isActive && !m_isPaused;
+		}
+		
+		bool isPaused() const
+		{
+			return m_isPaused;
 		}
 		
 		int64 getSamplesPlayed() const

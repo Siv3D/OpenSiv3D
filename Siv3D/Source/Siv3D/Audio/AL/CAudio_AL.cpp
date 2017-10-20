@@ -116,7 +116,7 @@ namespace s3d
 		return m_audios[handleID]->setLoop(loop);
 	}
 
-	bool CAudio_AL::play(Audio::IDType handleID, const SecondsF& fadeinDuration)
+	bool CAudio_AL::play(const Audio::IDType handleID, const SecondsF& fadeinDuration)
 	{
 		// [Siv3D ToDo]
 		m_audios[handleID]->changeState(AudioControlState::Playing);
@@ -124,27 +124,26 @@ namespace s3d
 		return true;
 	}
 	
-	void CAudio_AL::pause(Audio::IDType handleID, const SecondsF& fadeoutDuration)
+	void CAudio_AL::pause(const Audio::IDType handleID, const SecondsF& fadeoutDuration)
 	{
 		// [Siv3D ToDo]
 		m_audios[handleID]->changeState(AudioControlState::Paused);
 	}
 	
-	void CAudio_AL::stop(Audio::IDType handleID, const SecondsF& fadeoutDuration)
+	void CAudio_AL::stop(const Audio::IDType handleID, const SecondsF& fadeoutDuration)
 	{
 		// [Siv3D ToDo]
+		m_audios[handleID]->changeState(AudioControlState::Stopped);
 	}
 
-	bool CAudio_AL::isPlaying(Audio::IDType handleID)
+	bool CAudio_AL::isPlaying(const Audio::IDType handleID)
 	{
-		// [Siv3D ToDo]
-		return false;
+		return m_audios[handleID]->isPlaying();
 	}
 
-	bool CAudio_AL::isPaused(Audio::IDType handleID)
+	bool CAudio_AL::isPaused(const Audio::IDType handleID)
 	{
-		// [Siv3D ToDo]
-		return false;
+		return m_audios[handleID]->isPaused();
 	}
 
 	uint64 CAudio_AL::posSample(const Audio::IDType handleID)

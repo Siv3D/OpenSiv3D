@@ -27,8 +27,6 @@ namespace s3d
 
 		Wave decode(IReader& reader) const override;
 
-		//bool encode(const Image& image, IWriter& writer) const override;
-
-		//bool save(const Image& image, const FilePath& path) const override;
+		bool encode(const Wave& wave, IWriter& writer, WAVEFormat format) const;
 	};
 }
