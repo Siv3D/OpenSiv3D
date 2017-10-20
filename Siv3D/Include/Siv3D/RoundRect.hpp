@@ -64,8 +64,8 @@ namespace s3d
 			: rect(_center, _w, _h)
 			, r(_r) {}
 
-		constexpr RoundRect(Arg::center_<position_type> _center, value_type _size, value_type _r) noexcept
-			: rect(_center, _size)
+		constexpr RoundRect(Arg::center_<position_type> _center, const size_type& size, value_type _r) noexcept
+			: rect(_center, size)
 			, r(_r) {}
 
 		constexpr RoundRect(const RectF& _rect, value_type _r) noexcept
