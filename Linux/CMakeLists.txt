@@ -136,6 +136,7 @@ set(SOURCE_FILES
 	"../Siv3D/Source/Siv3D/ImageFormat/GIF/ImageFormat_GIF.cpp"
 	"../Siv3D/Source/Siv3D/ImageFormat/JPEG/ImageFormat_JPEG.cpp"
 	"../Siv3D/Source/Siv3D/ImageFormat/PNG/ImageFormat_PNG.cpp"
+	"../Siv3D/Source/Siv3D/ImageFormat/PPM/ImageFormat_PPM.cpp"
 	"../Siv3D/Source/Siv3D/ImageFormat/CImageFormat.cpp"
 	"../Siv3D/Source/Siv3D/ImageFormat/ImageFormatFactory.cpp"
 	"../Siv3D/Source/Siv3D/ImageFormat/SivImageFormat.cpp"
