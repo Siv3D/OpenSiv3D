@@ -28,7 +28,7 @@ namespace s3d
 	struct ChunkHeader
 	{
 		uint8 chunkID[4];
-		int32 chunkSize;
+		uint32 chunkSize;
 	};
 
 	struct FormatHeader
@@ -370,7 +370,7 @@ namespace s3d
 		const ChunkHeader chunkHeader2
 		{
 			{ 'd', 'a', 't', 'a' },
-			static_cast<int32>(waveSize),
+			static_cast<uint32>(waveSize),
 		};
 
 		writer.write(&riffHeader, sizeof(riffHeader));
