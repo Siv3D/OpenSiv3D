@@ -52,6 +52,10 @@ namespace s3d
 
 		bool isActive() const noexcept;
 
+		bool hasMarkedText() const noexcept;
+
+		bool setActive(bool active);
+
 		void setPos(const Vec2& pos) noexcept;
 
 		const Vec2& getPos() const noexcept;

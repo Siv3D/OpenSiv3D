@@ -26,12 +26,21 @@ namespace s3d
 			AspectMax,
 		};
 
-		inline Array<std::pair<size_t, DisplayMode>> Enum(
+		struct Setting
+		{
+			size_t displayIndex;
+
+			DisplayMode dislayMode;
+
+			double xScale;
+		};
+
+		inline Array<Setting> Enum(
 			const Optional<Size>& targetResolution = none,
 			const Optional<int32>& targetRefreshRate = 60,
 			const Optional<size_t>& targetDisplayIndex = 0)
 		{
-			Array<std::pair<size_t, DisplayMode>> results;
+			Array<Setting> results;
 			{
 				const auto outputs = Graphics::EnumOutputs();
 
@@ -50,39 +59,43 @@ namespace s3d
 						}
 					}
 
+					const double screenAspect = static_cast<double>(maxResolution.x) / maxResolution.y;
+
 					for (const auto& mode : output.displayModes)
 					{
+						const double aspect = static_cast<double>(mode.size.x) / mode.size.y;
+
 						if (targetResolution)
 						{
 							if ((mode.size.x >= targetResolution->x && mode.size.y >= targetResolution->y)
 								|| mode.size == maxResolution)
 							{
-								results.emplace_back(displayIndex, mode);
+								results.push_back({ displayIndex, mode, screenAspect / aspect });
 							}
 						}
 						else
 						{
-							results.emplace_back(displayIndex, mode);
+							results.push_back({ displayIndex, mode, screenAspect / aspect });
 						}
 					}
 
 					++displayIndex;
 				}
 
-				if (targetDisplayIndex && results.count_if([index = *targetDisplayIndex](const auto& result){ return result.first == index; }))
+				if (targetDisplayIndex && results.count_if([index = *targetDisplayIndex](const auto& result){ return result.displayIndex == index; }))
 				{
-					results.removed_if([index = *targetDisplayIndex](const auto& result){ return result.first == index; });
+					results.remove_if([index = *targetDisplayIndex](const auto& result){ return result.displayIndex != index; });
 				}
 			}
 
-			Array<std::pair<size_t, DisplayMode>> results2;
+			Array<Setting> results2;
 			{
-				Array<std::pair<size_t, DisplayMode>> tmps;
+				Array<Setting> tmps;
 				std::pair<size_t, Size> previous(0, Size(0, 0));
 
 				for (const auto& result : results)
 				{
-					const auto current = std::make_pair(result.first, result.second.size);
+					const auto current = std::make_pair(result.displayIndex, result.dislayMode.size);
 
 					if (previous == current)
 					{
@@ -94,18 +107,19 @@ namespace s3d
 						{
 							if (targetRefreshRate)
 							{
-								results2.push_back(
-									tmps.sorted_by([target = *targetRefreshRate](const auto& a, const auto& b)
+								results2.push_back(tmps.sorted_by([target = *targetRefreshRate](const auto& a, const auto& b)
 								{
-									return std::abs(target - a.second.refreshRateHz) < std::abs(target - b.second.refreshRateHz);
+									return std::abs(target - a.dislayMode.refreshRateHz) < std::abs(target - b.dislayMode.refreshRateHz);
 								}).front());
 
 								tmps.clear();
 							}
 							else
 							{
-								results2.push_back(
-									tmps.sorted_by([](const auto& a, const auto& b) { return a.second.refreshRateHz < b.second.refreshRateHz; }).back());
+								results2.push_back(tmps.sorted_by([](const auto& a, const auto& b)
+								{
+									return a.dislayMode.refreshRateHz < b.dislayMode.refreshRateHz;
+								}).back());
 
 								tmps.clear();
 							}
@@ -127,16 +141,17 @@ namespace s3d
 				{
 					if (targetRefreshRate)
 					{
-						results2.push_back(
-							tmps.sorted_by([target = *targetRefreshRate](const auto& a, const auto& b)
+						results2.push_back(tmps.sorted_by([target = *targetRefreshRate](const auto& a, const auto& b)
 						{
-							return std::abs(target - a.second.refreshRateHz) < std::abs(target - b.second.refreshRateHz);
+							return std::abs(target - a.dislayMode.refreshRateHz) < std::abs(target - b.dislayMode.refreshRateHz);
 						}).front());
 					}
 					else
 					{
-						results2.push_back(
-							tmps.sorted_by([](const auto& a, const auto& b) { return a.second.refreshRateHz < b.second.refreshRateHz; }).back());
+						results2.push_back(tmps.sorted_by([](const auto& a, const auto& b)
+						{
+							return a.dislayMode.refreshRateHz < b.dislayMode.refreshRateHz;
+						}).back());
 					}
 				}
 				else if (tmps.size() == 1)
@@ -154,11 +169,13 @@ namespace s3d
 			const Optional<int32>& targetRefreshRate = 60,
 			const Optional<size_t>& targetDisplayIndex = 0)
 		{
-			Array<std::pair<size_t, DisplayMode>> results = Enum(targetResolution, targetRefreshRate, targetDisplayIndex);
+			Array<Setting> results = Enum(targetResolution, targetRefreshRate, targetDisplayIndex);
 
 			if (results.size() == 1)
 			{
-				return results.front();
+				const auto& reuslt = results.front();
+
+				return{ reuslt.displayIndex, reuslt.dislayMode };
 			}
 
 			if (!targetResolution)
@@ -175,50 +192,49 @@ namespace s3d
 
 			if (preference == Preference::Min)
 			{
-				return results.stable_sort_by([](const auto& a, const auto& b)
+				const auto& reuslt = results.stable_sort_by([](const auto& a, const auto& b)
 				{
-					return (a.second.size.x * a.second.size.y) < (b.second.size.x * b.second.size.y);
+					return (a.dislayMode.size.x * a.dislayMode.size.y) < (b.dislayMode.size.x * b.dislayMode.size.y);
 				}).front();
+
+				return{ reuslt.displayIndex, reuslt.dislayMode };
 			}
 			else if (preference == Preference::Max)
 			{
-				return results.stable_sort_by([](const auto& a, const auto& b)
+				const auto& reuslt = results.stable_sort_by([](const auto& a, const auto& b)
 				{
-					return (a.second.size.x * a.second.size.y) > (b.second.size.x * b.second.size.y);
+					return (a.dislayMode.size.x * a.dislayMode.size.y) > (b.dislayMode.size.x * b.dislayMode.size.y);
 				}).front();
+
+				return{ reuslt.displayIndex, reuslt.dislayMode };
 			}
-			else
+			else if (preference == Preference::AspectMin)
 			{
-				const double targetAspect = static_cast<double>(targetResolution->y) / targetResolution->x;
-
-				if (preference == Preference::AspectMin)
+				results.stable_sort_by([](const auto& a, const auto& b)
 				{
-					results.stable_sort_by([](const auto& a, const auto& b)
-					{
-						return (a.second.size.x * a.second.size.y) < (b.second.size.x * b.second.size.y);
-					});
+					return (a.dislayMode.size.x * a.dislayMode.size.y) < (b.dislayMode.size.x * b.dislayMode.size.y);
+				});
 
-					return results.stable_sort_by([targetAspect](const auto& a, const auto& b)
-					{
-						const double aspectA = static_cast<double>(a.second.size.y) / a.second.size.x;
-						const double aspectB = static_cast<double>(b.second.size.y) / b.second.size.x;
-						return std::abs(targetAspect - aspectA) < std::abs(targetAspect - aspectB);
-					}).front();
-				}
-				else // preference == Preference::AspectMax
+				const auto& reuslt = results.stable_sort_by([](const auto& a, const auto& b)
 				{
-					results.stable_sort_by([](const auto& a, const auto& b)
-					{
-						return (a.second.size.x * a.second.size.y) > (b.second.size.x * b.second.size.y);
-					});
+					return std::abs(1.0 - a.xScale) < std::abs(1.0 - b.xScale);
+				}).front();
 
-					return results.stable_sort_by([targetAspect](const auto& a, const auto& b)
-					{
-						const double aspectA = static_cast<double>(a.second.size.y) / a.second.size.x;
-						const double aspectB = static_cast<double>(b.second.size.y) / b.second.size.x;
-						return std::abs(targetAspect - aspectA) < std::abs(targetAspect - aspectB);
-					}).front();
-				}
+				return{ reuslt.displayIndex, reuslt.dislayMode };
+			}
+			else // preference == Preference::AspectMax
+			{
+				results.stable_sort_by([](const auto& a, const auto& b)
+				{
+					return (a.dislayMode.size.x * a.dislayMode.size.y) > (b.dislayMode.size.x * b.dislayMode.size.y);
+				});
+
+				const auto& reuslt = results.stable_sort_by([](const auto& a, const auto& b)
+				{
+					return std::abs(1.0 - a.xScale) < std::abs(1.0 - b.xScale);
+				}).front();
+
+				return{ reuslt.displayIndex, reuslt.dislayMode };
 			}
 		}
 	}

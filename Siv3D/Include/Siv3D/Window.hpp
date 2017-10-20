@@ -31,6 +31,11 @@ namespace s3d
 	struct WindowState
 	{
 		/// <summary>
+		/// スクリーンの幅と高さ
+		/// </summary>
+		Size screenSize;
+
+		/// <summary>
 		/// クライアント画面（描画可能域）の幅と高さ
 		/// </summary>
 		Size clientSize;

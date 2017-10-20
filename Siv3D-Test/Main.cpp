@@ -1,4 +1,4 @@
-﻿# include <Siv3D.hpp> // OpenSiv3D v0.1.7
+﻿# include <Siv3D.hpp>
 # include <HamFramework.hpp>
 
 void Main()
