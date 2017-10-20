@@ -120,6 +120,24 @@ namespace s3d
 		};
 	};
 
+	namespace PPM
+	{
+		enum Header
+		{
+			P1, P2, P3, P4, P5, P6
+		};
+
+		enum Kind
+		{
+			AsciiBitmap = Header::P1,
+			AsciiGraymap = Header::P2,
+			AsciiPixmap = Header::P3,
+			BinaryBitmap = Header::P4,
+			BinaryGraymap = Header::P5,
+			BinaryPixmap = Header::P6
+		};
+	}
+
 	class IImageFormat
 	{
 	public:
