@@ -184,7 +184,6 @@ namespace s3d
 	}
 
 	const Mat3x2& CCursor_Linux::getTransformScreen() const
->>>>>>> 211caee7
 	{
 		return m_transformScreen;
 	}
