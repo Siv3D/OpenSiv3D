@@ -370,7 +370,7 @@ namespace s3d
 		const ChunkHeader chunkHeader2
 		{
 			{ 'd', 'a', 't', 'a' },
-			static_cast<int32>(waveSize),
+			static_cast<uint32>(waveSize),
 		};
 
 		writer.write(&riffHeader, sizeof(riffHeader));
