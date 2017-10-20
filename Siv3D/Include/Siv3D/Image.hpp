@@ -749,6 +749,8 @@ namespace s3d
 
 		bool savePerceptualJPEG(const FilePath& path, double butteraugliTarget = 1.0) const;
 
+		bool savePPM(const FilePath& path, PPM::Kind kind = PPM::AsciiPixmap) const;
+
 		MemoryWriter encode(ImageFormat format = ImageFormat::PNG) const;
 	};
 

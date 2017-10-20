@@ -21,6 +21,7 @@
 - libpng 1.6.28 http://www.libpng.org/pub/png/libpng.html
 - LineSegmentIntersection https://www.codeproject.com/Tips/862988/Find-the-Intersection-Point-of-Two-Line-Segments
 - miniutf https://github.com/dropbox/miniutf
+- mpg123 1.25.6 https://www.mpg123.de/
 - muparser V2.2.5 https://github.com/beltoforion/muparser/releases
 - Poly2Tri https://github.com/jhasse/poly2tri
 - RapidJSON https://github.com/miloyip/rapidjson/releases

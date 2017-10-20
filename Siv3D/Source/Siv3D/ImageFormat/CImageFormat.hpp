@@ -49,5 +49,7 @@ namespace s3d
 		MemoryWriter encode(const Image& image, ImageFormat format) const override;
 
 		bool encodeJPEG(IWriter& writer, const Image& image, int32 quality) const override;
+
+		bool encodePPM(IWriter& writer, const Image& image, PPM::Header header) const override;
 	};
 }
