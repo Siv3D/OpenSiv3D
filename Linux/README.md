@@ -27,7 +27,7 @@ OpenSiv3D Linux版をビルドしてアプリケーションを作成するま�
 - GLU
 - GLEW
 - libpng
-- libjpeg (turbojpeg)
+- libturbojpeg
 - libgif
 - X11
 - X11 Input extension (Xi)
@@ -35,6 +35,7 @@ OpenSiv3D Linux版をビルドしてアプリケーションを作成するま�
 - X11 Xinerama extension (Xinerama)
 - X11 cursor management library (XCursor)
 - FreeType2
+- OpenAL
 
 
 ## 現状のOpenSiv3D Windows/macOS版との相違点
