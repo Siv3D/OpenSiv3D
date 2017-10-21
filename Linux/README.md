@@ -15,9 +15,9 @@ OpenSiv3D Linux版をビルドしてアプリケーションを作成するま�
 ## 依存ライブラリ・パッケージ
 コンパイルと実行には以下のライブラリやパッケージが必要です。
 - CMake 2.8 以上
-- Clang 5, LLVM または GCC 7.1 以上
+- Clang 5, LLVM ~~~または GCC 7.1 以上~~~
   - 開発にはClang 5とLLVMを使っています
-  - CMakeLists.txt を編集すればGCCでもビルドできます
+  - CMakeLists.txt を編集すればGCCをコンパイラに指定できますが現時点ではエラーが出ます
 - boost
 - boost-system
 - boost-filesystem
@@ -27,7 +27,7 @@ OpenSiv3D Linux版をビルドしてアプリケーションを作成するま�
 - GLU
 - GLEW
 - libpng
-- libjpeg (turbojpeg)
+- libturbojpeg
 - libgif
 - X11
 - X11 Input extension (Xi)
@@ -35,6 +35,7 @@ OpenSiv3D Linux版をビルドしてアプリケーションを作成するま�
 - X11 Xinerama extension (Xinerama)
 - X11 cursor management library (XCursor)
 - FreeType2
+- OpenAL
 
 
 ## 現状のOpenSiv3D Windows/macOS版との相違点
