@@ -11,7 +11,7 @@
 
 # include <array>
 # include <iostream>
-# include "Siv3D/Byte.hpp"
+# include <Siv3D/Byte.hpp>
 
 namespace s3d
 {

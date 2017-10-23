@@ -35,6 +35,25 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	ConcurrentTask.hpp
+	//
+	template <class Type> class ConcurrentTask;
+
+	//////////////////////////////////////////////////////
+	//
+	//	AlignedAllocator.hpp
+	//
+	template <class Type, size_t Alignment> class AlignedAllocator;
+	template <class Type> struct DefaultAllocator;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Array.hpp
+	//
+	template <class Type, class Allocator> class Array;
+
+	//////////////////////////////////////////////////////
+	//
 	//	StringView.hpp
 	//
 	class StringView;

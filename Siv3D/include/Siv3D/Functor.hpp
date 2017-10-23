@@ -15,11 +15,11 @@
 
 namespace s3d
 {
-////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////
 //
 //	==
 //
-////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////
 
 	namespace detail
 	{
@@ -89,4 +89,30 @@ namespace s3d
 	{
 		return std::equal_to<Type>();
 	}
+
+
+//////////////////////////////////////////////////
+//
+//	Id
+//
+//////////////////////////////////////////////////
+
+	namespace detail
+	{
+		struct Id_impl
+		{
+			template <class Type>
+			constexpr decltype(auto) operator()(Type&& x) const noexcept
+			{
+				return std::forward<Type>(x);
+			}
+
+			constexpr Id_impl operator()(PlaceHolder_t) const noexcept
+			{
+				return Id_impl();
+			}
+		};
+	}
+
+	constexpr auto Id = detail::Id_impl();
 }

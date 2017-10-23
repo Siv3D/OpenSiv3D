@@ -88,13 +88,13 @@
 	# include "Siv3D/AlignedAllocator.hpp"
 
 	// Array
-	//# include "Siv3D/Array.hpp"
+	# include "Siv3D/Array.hpp"
 
-	//// ハッシュマップ
-	//# include "Siv3D/HashMap.hpp"
+	// ハッシュテーブル
+	# include "Siv3D/HashTable.hpp"
 
-	//// ハッシュセット
-	//# include "Siv3D/HashSet.hpp"
+	// ハッシュセット
+	# include "Siv3D/HashSet.hpp"
 
 	//// 範囲
 	//# include "Siv3D/Step.hpp"
@@ -143,6 +143,35 @@
 
 	// Formatting literal
 	# include "Siv3D/FormatLiteral.hpp"
+
+
+	// Number
+	# include "Siv3D/Number.hpp"
+
+
+//////////////////////////////////////////////////
+//
+//	Random number
+//
+//////////////////////////////////////////////////
+
+	// Distribution
+	# include "Siv3D/Distribution.hpp"
+	
+	// Hardware RNG
+	# include "Siv3D/HardwareRNG.hpp"
+	
+	// Xorshift RNG
+	# include "Siv3D/Xorshift.hpp"
+	
+	// SFMT RNG
+	# include "Siv3D/SFMT.hpp"
+	
+	// Mersenne Twister RNG
+	# include "Siv3D/MersenneTwister.hpp"
+	
+	// Default RNG
+	# include "Siv3D/DefaultRNG.hpp"
 
 
 //////////////////////////////////////////////////
