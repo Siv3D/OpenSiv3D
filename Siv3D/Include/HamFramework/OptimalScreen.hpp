@@ -217,7 +217,20 @@ namespace s3d
 
 				const auto& reuslt = results.stable_sort_by([](const auto& a, const auto& b)
 				{
-					return std::abs(1.0 - a.xScale) < std::abs(1.0 - b.xScale);
+					double ar = std::abs(1.0 - a.xScale);
+					double br = std::abs(1.0 - b.xScale);
+					
+					if (ar < 0.005)
+					{
+						ar = 0.0;
+					}
+
+					if (br < 0.005)
+					{
+						br = 0.0;
+					}
+
+					return ar < br;
 				}).front();
 
 				return{ reuslt.displayIndex, reuslt.dislayMode };
@@ -231,7 +244,20 @@ namespace s3d
 
 				const auto& reuslt = results.stable_sort_by([](const auto& a, const auto& b)
 				{
-					return std::abs(1.0 - a.xScale) < std::abs(1.0 - b.xScale);
+					double ar = std::abs(1.0 - a.xScale);
+					double br = std::abs(1.0 - b.xScale);
+
+					if (ar < 0.005)
+					{
+						ar = 0.0;
+					}
+
+					if (br < 0.005)
+					{
+						br = 0.0;
+					}
+
+					return ar < br;
 				}).front();
 
 				return{ reuslt.displayIndex, reuslt.dislayMode };
