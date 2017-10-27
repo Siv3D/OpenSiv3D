@@ -1067,6 +1067,11 @@ namespace s3d
 		return m_string;
 	}
 
+	std::wstring String::toWstr() const
+	{
+		return Unicode::ToWString(*this);
+	}
+
 	String& String::sort()
 	{
 		std::sort(m_string.begin(), m_string.end());
@@ -1172,5 +1177,47 @@ namespace s3d
 		}
 
 		return new_string;
+	}
+
+	COStream& operator <<(COStream& output, const String& value)
+	{
+		return output << value.narrow();
+	}
+
+	WOStream& operator <<(WOStream& output, const String& value)
+	{
+		return output << value.toWstr();
+	}
+
+	C32OStream& operator <<(C32OStream& output, const String& value)
+	{
+		return output << value.str();
+	}
+
+	CIStream& operator >>(CIStream& input, String& value)
+	{
+		std::string s;
+
+		input >> s;
+
+		value = Unicode::Widen(s);
+
+		return input;
+	}
+
+	WIStream& operator >>(WIStream& input, String& value)
+	{
+		std::wstring s;
+
+		input >> s;
+
+		value = Unicode::FromWString(s);
+
+		return input;
+	}
+
+	C32IStream& operator >>(C32IStream& input, String& value)
+	{
+		return input >> value.str();
 	}
 }

@@ -471,9 +471,9 @@ namespace s3d
 //
 //////////////////////////////////////////////////
 
-	inline std::basic_ostream<char32_t>& operator <<(std::basic_ostream<char32_t>& os, const StringView& value)
+	inline C32OStream& operator <<(C32OStream& output, const StringView& value)
 	{
-		return os.write(value.data(), value.length());
+		return output.write(value.data(), value.length());
 	}
 }
 

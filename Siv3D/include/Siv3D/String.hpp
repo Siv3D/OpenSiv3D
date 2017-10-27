@@ -21,14 +21,9 @@ namespace s3d
 {
 	class String
 	{
-	private:
-
-		using string_type = std::u32string;
-
-		string_type m_string;
-
 	public:
 		
+		using string_type				= std::u32string;
 		using traits_type				= typename string_type::traits_type;
 		using allocator_type			= typename string_type::allocator_type;
 		using value_type				= typename string_type::value_type;
@@ -43,8 +38,16 @@ namespace s3d
 		using reverse_iterator			= typename string_type::reverse_iterator;
 		using const_reverse_iterator	= typename string_type::const_reverse_iterator;
 
-		static constexpr size_type npos = size_type{ static_cast<size_type>(-1) };
+	private:
 
+		using string_type = std::u32string;
+
+		string_type m_string;
+
+	public:
+
+		static constexpr size_type npos = size_type{ static_cast<size_type>(-1) };
+		
 		/// <summary>
 		/// default constructor
 		/// </summary>
@@ -2530,6 +2533,14 @@ namespace s3d
 		[[nodiscard]] const std::u32string& toUTF32() const;
 
 		/// <summary>
+		/// 文字列を std::wstring にエンコードします。
+		/// </summary>
+		/// <returns>
+		/// 変換された std::wstring
+		/// </returns>
+		[[nodiscard]] std::wstring toWstr() const;
+
+		/// <summary>
 		/// 文字列を辞書順でソートします。
 		/// </summary>
 		/// <returns>
@@ -2687,5 +2698,212 @@ namespace s3d
 		/// 新しい文字列
 		/// </returns>
 		[[nodiscard]] String xml_escaped() const;
+	};
+
+	[[nodiscard]] inline String operator +(const String& lhs, const String& rhs)
+	{
+		return lhs.str() + rhs.str();
+	}
+
+	[[nodiscard]]inline String operator +(const String::value_type* lhs, const String& rhs)
+	{
+		return lhs + rhs.str();
+	}
+
+	[[nodiscard]]inline String operator +(const String::value_type lhs, const String& rhs)
+	{
+		return lhs + rhs.str();
+	}
+
+	[[nodiscard]]inline String operator +(const String& lhs, const String::value_type* rhs)
+	{
+		return lhs.str() + rhs;
+	}
+
+	[[nodiscard]]inline String operator +(const String& lhs, const String::value_type rhs)
+	{
+		return lhs.str() + rhs;
+	}
+
+	[[nodiscard]] inline String operator +(String&& lhs, const String& rhs)
+	{
+		return std::move(lhs.append(rhs));
+	}
+
+	[[nodiscard]] inline String operator +(const String& lhs, String&& rhs)
+	{
+		return std::move(rhs.insert(0, lhs));
+	}
+
+	[[nodiscard]] inline String operator +(String&& lhs, String&& rhs)
+	{
+		if (rhs.size() <= lhs.capacity() - lhs.size() || rhs.capacity() - rhs.size() < lhs.size())
+		{
+			return std::move(lhs.append(rhs));
+		}
+		else
+		{
+			return std::move(rhs.insert(0, lhs));
+		}
+	}
+
+	[[nodiscard]]inline String operator +(const String::value_type* lhs, String&& rhs)
+	{
+		return std::move(rhs.insert(0, lhs));
+	}
+
+	[[nodiscard]]inline String operator +(const String::value_type lhs, String&& rhs)
+	{
+		rhs.push_front(lhs);
+
+		return std::move(rhs);
+	}
+
+	[[nodiscard]]inline String operator +(String&& lhs, const String::value_type* rhs)
+	{
+		return std::move(lhs.append(rhs));
+	}
+
+	[[nodiscard]]inline String operator +(String&& lhs, const String::value_type rhs)
+	{
+		return std::move(lhs << rhs);
+	}
+
+	[[nodiscard]]inline bool operator ==(const String::value_type* lhs, const String& rhs)
+	{
+		return lhs == rhs.str();
+	}
+
+	[[nodiscard]]inline bool operator ==(const String& lhs, const String::value_type* rhs)
+	{
+		return lhs.str() == rhs;
+	}
+
+	[[nodiscard]]inline bool operator !=(const String::value_type* lhs, const String& rhs)
+	{
+		return lhs != rhs.str();
+	}
+
+	[[nodiscard]]inline bool operator !=(const String& lhs, const String::value_type* rhs)
+	{
+		return lhs.str() != rhs;
+	}
+
+	[[nodiscard]]inline bool operator <(const String::value_type* lhs, const String& rhs)
+	{
+		return lhs < rhs.str();
+	}
+
+	[[nodiscard]]inline bool operator <(const String& lhs, const String::value_type* rhs)
+	{
+		return lhs.str() < rhs;
+	}
+
+	[[nodiscard]]inline bool operator >(const String::value_type* lhs, const String& rhs)
+	{
+		return lhs > rhs.str();
+	}
+
+	[[nodiscard]]inline bool operator >(const String& lhs, const String::value_type* rhs)
+	{
+		return lhs.str() > rhs;
+	}
+
+	[[nodiscard]]inline bool operator <=(const String::value_type* lhs, const String& rhs)
+	{
+		return lhs <= rhs.str();
+	}
+
+	[[nodiscard]]inline bool operator <=(const String& lhs, const String::value_type* rhs)
+	{
+		return lhs.str() <= rhs;
+	}
+
+	[[nodiscard]]inline bool operator >=(const String::value_type* lhs, const String& rhs)
+	{
+		return lhs >= rhs.str();
+	}
+
+	[[nodiscard]]inline bool operator >=(const String& lhs, const String::value_type* rhs)
+	{
+		return lhs.str() >= rhs;
+	}
+
+
+	/// <summary>
+	/// 出力ストリームに文字列を渡します。
+	/// </summary>
+	/// <param name="output">
+	/// 出力ストリーム
+	/// </param>
+	/// <param name="value">
+	/// 文字列
+	/// </param>
+	/// <returns>
+	/// 渡した後の出力ストリーム
+	/// </returns>
+	COStream& operator <<(COStream& output, const String& value);
+
+	/// <summary>
+	/// 出力ストリームに文字列を渡します。
+	/// </summary>
+	/// <param name="output">
+	/// 出力ストリーム
+	/// </param>
+	/// <param name="value">
+	/// 文字列
+	/// </param>
+	/// <returns>
+	/// 渡した後の出力ストリーム
+	/// </returns>
+	WOStream& operator <<(WOStream& output, const String& value);
+
+	/// <summary>
+	/// 出力ストリームに文字列を渡します。
+	/// </summary>
+	/// <param name="output">
+	/// 出力ストリーム
+	/// </param>
+	/// <param name="value">
+	/// 文字列
+	/// </param>
+	/// <returns>
+	/// 渡した後の出力ストリーム
+	/// </returns>
+	C32OStream& operator <<(C32OStream& output, const String& value);
+
+	/// <summary>
+	/// 入力ストリームに文字列を渡します。
+	/// </summary>
+	/// <param name="input">
+	/// 入力ストリーム
+	/// </param>
+	/// <param name="value">
+	/// 文字列
+	/// </param>
+	/// <returns>
+	/// 渡した後の入力ストリーム
+	/// </returns>
+	CIStream& operator >>(CIStream& input, String& value);
+
+	WIStream& operator >>(WIStream& input, String& value);
+
+	C32IStream& operator >>(C32IStream& input, String& value);
+}
+
+namespace std
+{
+	inline void swap(s3d::String& a, s3d::String& b) noexcept
+	{
+		a.swap(b);
+	}
+
+	template <>
+	struct hash<s3d::String>
+	{
+		[[nodiscard]] size_t operator()(const s3d::String& value) const noexcept
+		{
+			return s3d::Hash::FNV1a(s3d::ByteArrayView(value.data(), value.size_bytes()));
+		}
 	};
 }
