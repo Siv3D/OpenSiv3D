@@ -96,6 +96,9 @@
 	// ハッシュセット
 	# include "Siv3D/HashSet.hpp"
 
+	// Indexed iterator
+	# include "Siv3D/Indexed.hpp"
+
 	//// 範囲
 	//# include "Siv3D/Step.hpp"
 

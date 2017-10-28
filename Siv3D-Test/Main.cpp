@@ -3,16 +3,17 @@
 
 void Main()
 {
-	String text = U"Siv3D あいうえお　漢字𩸽abc";
+	const String text = U"あいうえお";
 
-	Unicode::Translator_UTF32toUTF8 translator;
-
-	std::string utf8Text;
-
-	for (const auto ch : text)
+	for (auto [i, ch] : Indexed(text))
 	{
-		utf8Text.append(translator.begin(), translator.begin() + translator.put(ch));
+
 	}
 
-	String text2 = Unicode::FromUTF8(utf8Text);
+	HashTable<int32, String> m = { { 1, U"Aaaa" },{ 2, U"Bbbb" },{ 3, U"Cccc" } };
+
+	for (const auto[i, p] : Indexed(m))
+	{
+
+	}
 }

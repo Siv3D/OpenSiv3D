@@ -46,6 +46,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Hash.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\HashSet.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\HashTable.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Indexed.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MersenneTwister.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Meta.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\NamedParameter.hpp" />
@@ -61,8 +62,10 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Unicode.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Utility.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Version.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Windows.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Xorshift.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\format.h" />
+    <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\ostream.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\hopscotch-map\hopscotch_hash.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\hopscotch-map\hopscotch_map.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\hopscotch-map\hopscotch_set.h" />

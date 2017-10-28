@@ -11,11 +11,10 @@
 
 # pragma once
 # include <string>
-# include "Types.hpp"
+# include "Fwd.hpp"
 # include "Char.hpp"
 # include "StringView.hpp"
 # include "Functor.hpp"
-# include "Array.hpp"
 
 namespace s3d
 {

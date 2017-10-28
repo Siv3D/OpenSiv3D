@@ -288,6 +288,12 @@ namespace s3d
 		template <class Type, class Arg>
 		struct HasLogicalOr<Type, Arg, std::void_t<decltype(std::declval<Type&>() || std::declval<Arg&>())>> : std::true_type {};
 
+		template <class Type>
+		struct IsPair : std::false_type {};
+
+		template <class T, class U>
+		struct IsPair<std::pair<T, U>> : std::true_type {};
+
 		template <class Type> constexpr bool HasUnaryPlus_v				= HasUnaryPlus<Type>::value;
 		template <class Type> constexpr bool HasNegate_v				= HasNegate<Type>::value;
 		template <class Type> constexpr bool HasPreIncrement_v			= HasPreIncrement<Type>::value;
@@ -327,5 +333,6 @@ namespace s3d
 		template <class Type, class Arg = Type> constexpr bool HasRightShiftAssign_v	= HasRightShiftAssign<Type, Arg>::value;
 		template <class Type, class Arg = Type> constexpr bool HasLogicalAnd_v			= HasLogicalAnd<Type, Arg>::value;
 		template <class Type, class Arg = Type> constexpr bool HasLogicalOr_v			= HasLogicalOr<Type, Arg>::value;
+		template <class Type> constexpr bool IsPair_v									= IsPair<Type>::value;
 	}
 }

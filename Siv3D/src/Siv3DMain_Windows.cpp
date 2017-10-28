@@ -14,11 +14,7 @@
 
 # include <crtdbg.h>
 # include <future>
-# define  NOMINMAX
-# define  STRICT
-# define  _WIN32_WINNT _WIN32_WINNT_WIN7
-# define  NTDDI_VERSION NTDDI_WIN7
-# include <Windows.h>
+# include <Siv3D/Windows.hpp>
 
 void Main();
 
