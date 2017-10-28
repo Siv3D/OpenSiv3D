@@ -260,8 +260,17 @@ extern int GifBitSize(int n);
 //
 //  [Siv3D]
 //
-// extern void *reallocarray(void *optr, size_t nmemb, size_t size);
+
+# if defined(__linux__)
+
+// [Siv3D TODO] linux workaround
 extern void *reallocarray(void *optr, size_t nmemb, size_t size) noexcept;
+
+# else
+
+extern void *reallocarray(void *optr, size_t nmemb, size_t size);
+
+# endif
 //
 //-----------------------------------------------
 
