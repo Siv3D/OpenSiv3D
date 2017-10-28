@@ -123,8 +123,6 @@ namespace s3d
 
 		Wave(const Wave& wave) = default;
 
-		Wave(Wave&& wave) noexcept;
-
 		template <class InputIt>
 		Wave(InputIt first, InputIt last, uint32 samplingRate = Wave::DefaultSamplingRate)
 			: base_type(first, last)
