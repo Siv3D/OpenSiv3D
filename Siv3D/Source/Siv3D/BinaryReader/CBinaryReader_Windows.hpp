@@ -13,11 +13,21 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_WINDOWS)
 
-# define  NOMINMAX
-# define  STRICT
-# define  WIN32_LEAN_AND_MEAN
-# define  _WIN32_WINNT _WIN32_WINNT_WIN7
-# define  NTDDI_VERSION NTDDI_WIN7
+# ifndef NOMINMAX
+#	define  NOMINMAX
+# endif
+# ifndef STRICT
+#	define  STRICT
+# endif
+# ifndef WIN32_LEAN_AND_MEAN
+#	define  WIN32_LEAN_AND_MEAN
+# endif
+# ifndef _WIN32_WINNT
+#	define  _WIN32_WINNT _WIN32_WINNT_WIN7
+# endif
+# ifndef NTDDI_VERSION
+#	define  NTDDI_VERSION NTDDI_WIN7
+# endif
 # include <Windows.h>
 # include <Siv3D/String.hpp>
 # include <Siv3D/BinaryReader.hpp>
@@ -34,7 +44,7 @@ namespace s3d
 
 		FilePath m_fullPath;
 
-		const void* m_pResource = false;
+		const void* m_pResource = nullptr;
 
 		int64 m_resourcePos = 0;
 

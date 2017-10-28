@@ -85,13 +85,25 @@ namespace s3d
 
 		LineString() = default;
 
-		LineString(const Array<Vec2>& points)
-			: base_type(points)
+		LineString(const LineString& lines)
+			: base_type(lines.begin(), lines.end())
 		{
 
 		}
 
-		LineString(Array<Vec2>&& points)
+		LineString(LineString&& lines)
+			: base_type(std::move(lines))
+		{
+
+		}
+		
+		explicit LineString(const Array<Vec2>& points)
+			: base_type(points.begin(), points.end())
+		{
+
+		}
+
+		explicit LineString(Array<Vec2>&& points)
 			: base_type(std::move(points))
 		{
 
@@ -176,12 +188,12 @@ namespace s3d
 
 		LineString slice(const size_t index) const
 		{
-			return base_type::slice(index);
+			return LineString(base_type::slice(index));
 		}
 
 		LineString slice(const size_t index, const size_t length) const
 		{
-			return base_type::slice(index, length);
+			return LineString(base_type::slice(index, length));
 		}
 
 		size_t num_lines() const noexcept
@@ -222,7 +234,7 @@ namespace s3d
 		RectF calculateBoundingRect() const noexcept;
 
 		template <class Shape2DType>
-		bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
+		bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}

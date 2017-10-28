@@ -13,6 +13,8 @@
 # if defined(SIV3D_TARGET_LINUX)
 
 # include "CWindow_Linux.hpp"
+# include "../Siv3DEngine.hpp"
+# include "../System/ISystem.hpp"
 # include <Siv3D/System.hpp>
 
 namespace s3d
@@ -114,8 +116,6 @@ namespace s3d
 		int32 windowSizeX, windowSizeY;
 		::glfwGetWindowSize(m_glfwWindow, &windowSizeX, &windowSizeY);
 		m_state.windowSize.set(windowSizeX, windowSizeY);
-
-		m_state.focused;
 		
 		return true;
 	}

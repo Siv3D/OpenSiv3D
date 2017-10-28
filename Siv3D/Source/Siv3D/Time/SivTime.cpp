@@ -13,11 +13,21 @@
 # if defined(SIV3D_TARGET_WINDOWS)
 
 # include <ctime>
-# define  NOMINMAX
-# define  STRICT
-# define  WIN32_LEAN_AND_MEAN
-# define  _WIN32_WINNT _WIN32_WINNT_WIN7
-# define  NTDDI_VERSION NTDDI_WIN7
+# ifndef NOMINMAX
+#	define  NOMINMAX
+# endif
+# ifndef STRICT
+#	define  STRICT
+# endif
+# ifndef WIN32_LEAN_AND_MEAN
+#	define  WIN32_LEAN_AND_MEAN
+# endif
+# ifndef _WIN32_WINNT
+#	define  _WIN32_WINNT _WIN32_WINNT_WIN7
+# endif
+# ifndef NTDDI_VERSION
+#	define  NTDDI_VERSION NTDDI_WIN7
+# endif
 # include <Windows.h>
 # include <Siv3D/Fwd.hpp>
 
@@ -189,7 +199,7 @@ namespace s3d
 			{
 				timespec ts;
 				clock_gettime(CLOCK_MONOTONIC, &ts);
-				return static_cast<uint64>(ts.tv_sec << 32 | ts.tv_nsec);
+				return static_cast<uint64>(ts.tv_sec * 1e9 + ts.tv_nsec);
 			}
 		}
 

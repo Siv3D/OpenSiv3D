@@ -11,6 +11,7 @@
 
 # pragma once
 # include <array>
+# include <cstring>
 # include "Fwd.hpp"
 # include "HardwareRNG.hpp"
 

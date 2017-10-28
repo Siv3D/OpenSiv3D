@@ -145,7 +145,7 @@ namespace s3d
 		// ok
 		double eval(const double x) const
 		{
-			assert(!isnan(x));
+			assert(!std::isnan(x));
 
 			double result = 0;
 
@@ -273,7 +273,7 @@ namespace s3d
 		// ok
 		double trapezoid(const double min, const double max, const int32 n)
 		{
-			assert(!isnan(min) && !isnan(max));
+			assert(!std::isnan(min) && !std::isnan(max));
 
 			const double range = max - min;
 

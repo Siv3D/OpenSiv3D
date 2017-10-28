@@ -33,6 +33,7 @@
 # include "../Print/IPrint.hpp"
 # include "../ScreenCapture/IScreenCapture.hpp"
 # include "../Effect/IEffect.hpp"
+# include "../Script/IScript.hpp"
 
 namespace s3d
 {
@@ -145,6 +146,11 @@ namespace s3d
 			return false;
 		}
 
+		if (!Siv3DEngine::GetScript()->init())
+		{
+			return false;
+		}
+
 		return true;
 	}
 
@@ -159,7 +165,7 @@ namespace s3d
 
 		Siv3DEngine::GetPrint()->draw();
 		
-		if (!Siv3DEngine::GetGraphics()->flush())
+		if (!Siv3DEngine::GetGraphics()->flush(clearGraphics))
 		{
 			return false;
 		}

@@ -15,12 +15,14 @@
 
 # include "IClipboard.hpp"
 # include <Siv3D/Image.hpp>
+# include "../Window/IWindow.hpp"
 
 namespace s3d
 {
 	class CClipboard_Linux : public ISiv3DClipboard
 	{
 	private:
+		WindowHandle m_glfwWindow = nullptr;
 
 	public:
 

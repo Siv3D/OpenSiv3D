@@ -310,3 +310,4 @@ AS_DEBUG/
 CMakeCache.txt
 CMakeFiles
 Makefile
+*.swp

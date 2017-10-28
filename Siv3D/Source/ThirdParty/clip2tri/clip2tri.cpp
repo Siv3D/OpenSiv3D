@@ -197,9 +197,9 @@ namespace s3d
 
 			for (auto& currentTriangle : cdt.GetTriangles())
 			{
-				*pDstIndex++ = currentTriangle->GetPoint(0) - begin;
-				*pDstIndex++ = currentTriangle->GetPoint(1) - begin;
-				*pDstIndex++ = currentTriangle->GetPoint(2) - begin;
+				*pDstIndex++ = static_cast<uint32>(currentTriangle->GetPoint(0) - begin);
+				*pDstIndex++ = static_cast<uint32>(currentTriangle->GetPoint(1) - begin);
+				*pDstIndex++ = static_cast<uint32>(currentTriangle->GetPoint(2) - begin);
 			}
 
 			break;

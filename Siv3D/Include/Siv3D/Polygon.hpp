@@ -102,7 +102,7 @@ namespace s3d
 		//Polygon simplified(double maxDistance = 2.0) const;
 
 		template <class Shape2DType>
-		bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
+		bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
@@ -110,7 +110,7 @@ namespace s3d
 		bool intersects(const Polygon& polygon) const;
 
 		template <class Shape2DType>
-		bool contains(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Contains(*this, shape)))
+		bool contains(const Shape2DType& shape) const
 		{
 			return Geometry2D::Contains(*this, shape);
 		}

@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
+# if defined(SIV3D_TARGET_MACOS)
 
 # include "AudioFormat_MP3_macOS.hpp"
 # include "../../Siv3DEngine.hpp"

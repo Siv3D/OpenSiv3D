@@ -52,6 +52,7 @@ namespace s3d
 		Optional<Rect> m_clipRect;
 
 		bool m_grabbing = false;
+		bool m_grabbing_old = false;
 
 	public:
 
@@ -85,10 +86,7 @@ namespace s3d
 
 		const Mat3x2& getTransformScreen() const override;
 
-		void clipClientRect(bool clip) override
-		{
-			// [Siv3D ToDo]
-		}
+		void clipClientRect(bool clip) override;
 
 		void clip(const Optional<Rect>& rect) override;
 

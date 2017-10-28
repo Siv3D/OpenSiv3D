@@ -16,7 +16,7 @@ using namespace std;
 #endif
 
 # include <Siv3D/String.hpp>
-# include <Siv3D/Filesystem.hpp>
+# include <Siv3D/FileSystem.hpp>
 # include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/TextReader.hpp>
 # include <Siv3D/CharacterSet.hpp>

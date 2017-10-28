@@ -12,6 +12,7 @@
 # pragma once
 # include <cmath>
 # include <utility>
+# include "Platform.hpp"
 # include "Fwd.hpp"
 # include "Point.hpp"
 # include "Format.hpp"
@@ -328,7 +329,7 @@ namespace s3d
 		}
 
 		template <class Shape2DType>
-		bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
+		bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
