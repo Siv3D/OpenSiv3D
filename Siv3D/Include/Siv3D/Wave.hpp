@@ -40,6 +40,7 @@ namespace s3d
 		using typename base_type::difference_type;
 		using typename base_type::allocator_type;
 
+		using base_type::Array;
 		using base_type::operator=;
 		using base_type::assign;
 		using base_type::get_allocator;
@@ -100,13 +101,13 @@ namespace s3d
 
 		Wave() = default;
 
-		explicit Wave(size_t num_samples, uint32 samplingRate = DefaultSamplingRate)
+		explicit Wave(size_t num_samples, uint32 samplingRate)
 			: base_type(num_samples)
 			, m_samplingRate(samplingRate) {}
 
 		explicit Wave(const SecondsF& length, uint32 samplingRate = DefaultSamplingRate);
 
-		Wave(size_t num_samples, const WaveSample& sample, uint32 samplingRate = DefaultSamplingRate)
+		Wave(size_t num_samples, const WaveSample& sample, uint32 samplingRate)
 			: base_type(num_samples, sample)
 			, m_samplingRate(samplingRate) {}
 
