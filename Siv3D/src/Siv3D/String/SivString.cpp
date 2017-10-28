@@ -497,7 +497,7 @@ namespace s3d
 
 	String& String::keep_if(std::function<bool(value_type)> f)
 	{
-		m_string.erase(std::remove_if(m_string.begin(), m_string.end(), std::not1(f)), m_string.end());
+		m_string.erase(std::remove_if(m_string.begin(), m_string.end(), std::not_fn(f)), m_string.end());
 
 		return *this;
 	}
