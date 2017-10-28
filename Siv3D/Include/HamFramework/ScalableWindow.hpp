@@ -52,6 +52,16 @@ namespace s3d
 			}
 		}
 
+		inline Mat3x2 GetTransform(int32 width, int32 height, ContentScale contentScale = ContentScale::Default)
+		{
+			return GetTransform({ width, height }, contentScale);
+		}
+
+		inline Mat3x2 GetTransform(ContentScale contentScale = ContentScale::Default)
+		{
+			return GetTransform(Window::BaseSize(), contentScale);
+		}
+
 		inline Transformer2D CreateTransformer(const Size& baseSize, ContentScale contentScale = ContentScale::Default)
 		{
 			return Transformer2D(GetTransform(baseSize, contentScale), true, Transformer2D::Target::PushScreen);
