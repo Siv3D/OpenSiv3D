@@ -2,11 +2,7 @@
 
 OpenSiv3D Linux版をコンパイルして実行ファイルを作成するまでの手順を説明します。
 
-
-## Linux版において描画がされない問題への対処
-
-OpenSiv3D Linux版には画面に何も描画されないという問題がありましたが原因が判明して解決済みです(2017/09/08)。
-
+少し古いので近々更新する予定です。
 
 ## インストール方法
 
@@ -56,6 +52,7 @@ OpenSiv3D Linux版には画面に何も描画されないという問題があ�
 
 デバッグビルドの場合は以下のような感じでOKです。
 
+	OpenSiv3D/Linux の階層で
 	$ mkdir Debug
 	$ cd Debug
 	$ cmake -DCMAKE_BUILD_TYPE=Debug ..
@@ -63,6 +60,7 @@ OpenSiv3D Linux版には画面に何も描画されないという問題があ�
 
 リリースビルドの場合もほぼ同様です。
 
+	OpenSiv3D/Linux の階層で
 	$ mkdir Release
 	$ cd Release
 	$ cmake -DCMAKE_BUILD_TYPE=Release ..
@@ -103,6 +101,7 @@ $ sudo dnf install git cmake gcc-c++ libX11-devel libXi-devel libXinerama-devel 
 
 デバッグビルドの場合は以下のような感じでOKです。
 
+	OpenSiv3D/Linux の階層で
 	$ mkdir Debug
 	$ cd Debug
 	$ cmake -DCMAKE_BUILD_TYPE=Debug ..
@@ -110,6 +109,7 @@ $ sudo dnf install git cmake gcc-c++ libX11-devel libXi-devel libXinerama-devel 
 
 リリースビルドの場合もほぼ同様です。
 
+	OpenSiv3D/Linux の階層で
 	$ mkdir Release
 	$ cd Release
 	$ cmake -DCMAKE_BUILD_TYPE=Release ..
