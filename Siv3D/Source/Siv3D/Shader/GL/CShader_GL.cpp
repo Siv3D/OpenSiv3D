@@ -30,7 +30,7 @@ layout(location = 2) in vec4 VertexColor;
 		
 layout(location = 0) out vec4 Color;
 layout(location = 1) out vec2 Tex;
-//out vec4 gl_Position;
+out vec4 gl_Position;
 		
 layout(std140) uniform SpriteCB
 {

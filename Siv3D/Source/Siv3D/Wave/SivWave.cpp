@@ -65,13 +65,6 @@ namespace s3d
 
 	}
 
-	Wave::Wave(Wave&& wave) noexcept
-		: base_type(std::move(wave))
-		, m_samplingRate(wave.m_samplingRate)
-	{
-
-	}
-
 	bool Wave::saveWAVE(const FilePath& path, const WAVEFormat format)
 	{
 		if (isEmpty())
