@@ -239,7 +239,7 @@ namespace s3d
 		[[nodiscard]] constexpr Vector2D<Type> lerp(const Vector2D<Type>& other, const double f) const noexcept;
 
 		template <class Shape2DType>
-		[[nodiscard]] bool intersects(const Shape2DType& shape) const noexcept(noexcept(Geometry2D::Intersect(*this, shape)))
+		[[nodiscard]] bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
