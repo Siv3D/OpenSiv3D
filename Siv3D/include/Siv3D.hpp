@@ -99,8 +99,8 @@
 	// Indexed iterator
 	# include "Siv3D/Indexed.hpp"
 
-	//// 範囲
-	//# include "Siv3D/Step.hpp"
+	// 範囲
+	# include "Siv3D/Step.hpp"
 
 	//// 二次元の範囲
 	//# include "Siv3D/Step2D.hpp"
@@ -108,8 +108,8 @@
 	//// 無限リスト
 	//# include "Siv3D/InfiniteList.hpp"
 
-	//// 二次元配列
-	//# include "Siv3D/Grid.hpp"
+	// 二次元配列
+	# include "Siv3D/Grid.hpp"
 
 	// Optional
 	# include "Siv3D/Optional.hpp"
@@ -153,6 +153,12 @@
 	// Number
 	# include "Siv3D/Number.hpp"
 
+	// 多倍長整数
+	# include "Siv3D/BigInt.hpp"
+
+	// 多倍長浮動小数点数
+	# include "Siv3D/BigFloat.hpp"
+
 
 //////////////////////////////////////////////////
 //
@@ -178,6 +184,10 @@
 	// Default RNG
 	# include "Siv3D/DefaultRNG.hpp"
 
+
+
+	// ベクトル
+	# include "Siv3D/PointVector.hpp"
 
 //////////////////////////////////////////////////
 //

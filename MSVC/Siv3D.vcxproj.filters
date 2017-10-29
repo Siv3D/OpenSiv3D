@@ -62,6 +62,12 @@
     <Filter Include="src\ThirdParty\double-conversion">
       <UniqueIdentifier>{8c4498f8-7c4b-458d-8291-a39be6d2396d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\BigInt">
+      <UniqueIdentifier>{36084d59-6066-41df-bb94-81a267585734}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\BigFloat">
+      <UniqueIdentifier>{2e791686-ee71-4e13-bbd9-caf867d8e6e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3DMain_Windows.cpp">
@@ -123,6 +129,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\bignum-dtoa.cc">
       <Filter>src\ThirdParty\double-conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\BigInt\SivBigInt.cpp">
+      <Filter>src\Siv3D\BigInt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\BigInt\CBigInt.cpp">
+      <Filter>src\Siv3D\BigInt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\BigFloat\SivBigFloat.cpp">
+      <Filter>src\Siv3D\BigFloat</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -296,6 +311,30 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\bignum-dtoa.h">
       <Filter>src\ThirdParty\double-conversion</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Grid.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\PointVector.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\BigFloat.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\BigInt.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\BigInt\CBigInt.hpp">
+      <Filter>src\Siv3D\BigInt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\BigFloat\CBigFloat.hpp">
+      <Filter>src\Siv3D\BigFloat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Step.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Step_MSVC.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

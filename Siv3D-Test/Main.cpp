@@ -3,5 +3,7 @@
 
 void Main()
 {
-	constexpr auto k = (+_)(20);
+	step(100_big, 100, 1);
+
+	100_big;
 }
