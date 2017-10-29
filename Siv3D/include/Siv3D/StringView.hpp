@@ -471,10 +471,9 @@ namespace s3d
 //
 //////////////////////////////////////////////////
 
-	inline C32OStream& operator <<(C32OStream& output, const StringView& value)
-	{
-		return output.write(value.data(), value.length());
-	}
+	COStream& operator <<(COStream& output, const StringView& value);
+				
+	WOStream& operator <<(WOStream& output, const StringView& value);
 }
 
 

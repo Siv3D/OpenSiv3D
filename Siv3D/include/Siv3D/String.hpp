@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -38,8 +38,6 @@ namespace s3d
 		using const_reverse_iterator	= typename string_type::const_reverse_iterator;
 
 	private:
-
-		using string_type = std::u32string;
 
 		string_type m_string;
 
@@ -2858,20 +2856,6 @@ namespace s3d
 	WOStream& operator <<(WOStream& output, const String& value);
 
 	/// <summary>
-	/// 出力ストリームに文字列を渡します。
-	/// </summary>
-	/// <param name="output">
-	/// 出力ストリーム
-	/// </param>
-	/// <param name="value">
-	/// 文字列
-	/// </param>
-	/// <returns>
-	/// 渡した後の出力ストリーム
-	/// </returns>
-	C32OStream& operator <<(C32OStream& output, const String& value);
-
-	/// <summary>
 	/// 入力ストリームに文字列を渡します。
 	/// </summary>
 	/// <param name="input">
@@ -2886,8 +2870,6 @@ namespace s3d
 	CIStream& operator >>(CIStream& input, String& value);
 
 	WIStream& operator >>(WIStream& input, String& value);
-
-	C32IStream& operator >>(C32IStream& input, String& value);
 }
 
 namespace std

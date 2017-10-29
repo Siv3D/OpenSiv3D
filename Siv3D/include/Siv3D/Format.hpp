@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -15,6 +15,7 @@
 # include "BoolFormat.hpp"
 # include "IntFormat.hpp"
 # include "FloatFormat.hpp"
+# include "FormatLiteral.hpp"
 # include "String.hpp"
 
 namespace s3d
@@ -136,7 +137,7 @@ namespace s3d
 			}
 
 			template <class... Args, std::enable_if_t<!format_validation<Args...>::value>* = nullptr>
-			String operator ()(const Args&... args) const
+			String operator ()(const Args&...) const
 			{
 				static_assert(format_validation<Args...>::value, "type \"char* or wchar_t*\" cannot be used in Format()");
 				
@@ -414,10 +415,26 @@ namespace s3d
 	template <class Type>
 	inline void Formatter(FormatData& formatData, const Type& value)
 	{
-		C32OStream os;
+		formatData, value;
+		//C32OStream os;
 
-		os << value;
+		//os << value;
 
-		formatData.string.append(os.str());
+		//formatData.string.append(os.str());
+	}
+}
+
+namespace fmt
+{
+	template <typename Char, typename ArgFormatter_, typename T>
+	void format_arg(BasicFormatter<Char, ArgFormatter_> &f, const Char *&format_str, const T &value)
+	{
+		const s3d::String us = s3d::Format(value);
+		
+		BasicStringRef<Char> str(&us[0], us.size());
+		
+		typedef internal::MakeArg< BasicFormatter<Char> > MakeArg;
+		
+		format_str = f.format(format_str, MakeArg(str));
 	}
 }

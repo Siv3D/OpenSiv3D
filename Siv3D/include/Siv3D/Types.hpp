@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -94,8 +94,6 @@ namespace s3d
 
 	using WIStream = std::wistream;
 
-	using C32IStream = std::basic_istream<char32>;
-
 
 //////////////////////////////////////////////////
 //
@@ -106,6 +104,4 @@ namespace s3d
 	using COStream = std::ostream;
 
 	using WOStream = std::wostream;
-
-	using C32OStream = std::basic_ostream<char32>;
 }

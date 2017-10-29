@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -75,7 +75,7 @@ namespace s3d
 		BigFloat& assign(const char32* number);
 		BigFloat& assign(const std::string& number);
 		BigFloat& assign(const std::wstring& number);
-		BigFloat& assign(const String& number) { return assign(number.str()); }
+		BigFloat& assign(const String& number);
 		BigFloat& assign(const BigFloat& other);
 		BigFloat& assign(BigFloat&& other);
 
@@ -486,13 +486,9 @@ namespace s3d
 
 	WOStream& operator <<(WOStream& output, const BigFloat& value);
 
-	C32OStream& operator <<(C32OStream& output, const BigFloat& value);
-
 	CIStream& operator >>(CIStream& input, BigFloat& value);
 
 	WIStream& operator >>(WIStream& input, BigFloat& value);
-
-	C32IStream& operator >>(C32IStream& input, BigFloat& value);
 }
 
 //namespace fmt

@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -302,7 +302,7 @@ namespace s3d
 			return false;
 		}
 
-		String join(const String& sep = S3DSTR(","), const String& begin = S3DSTR("{"), const String& end = S3DSTR("}")) const
+		String join(const String& sep = U",", const String& begin = U"{", const String& end = U"}") const
 		{
 			String s;
 
@@ -973,7 +973,7 @@ namespace s3d
 				return false;
 			}
 
-			String join(const String& sep = S3DSTR(","), const String& begin = S3DSTR("{"), const String& end = S3DSTR("}")) const
+			String join(const String& sep = U",", const String& begin = U"{", const String& end = U"}") const
 			{
 				String s;
 				s.append(begin);

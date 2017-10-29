@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -147,6 +147,12 @@ namespace s3d
 	}
 
 	BigFloat& BigFloat::assign(const std::wstring& number)
+	{
+		this->pImpl->data.assign(std::string(number.begin(), number.end()));
+		return *this;
+	}
+	
+	BigFloat& BigFloat::assign(const String& number)
 	{
 		this->pImpl->data.assign(std::string(number.begin(), number.end()));
 		return *this;
@@ -663,11 +669,6 @@ namespace s3d
 		return output << value.stdWstr();
 	}
 
-	C32OStream& operator <<(C32OStream& output, const BigFloat& value)
-	{
-		return output << value.str();
-	}
-
 	CIStream& operator >>(CIStream& input, BigFloat& value)
 	{
 		std::string s;
@@ -682,17 +683,6 @@ namespace s3d
 	WIStream& operator >>(WIStream& input, BigFloat& value)
 	{
 		std::wstring s;
-
-		input >> s;
-
-		value.assign(s);
-
-		return input;
-	}
-
-	C32IStream& operator >>(C32IStream& input, BigFloat& value)
-	{
-		std::u32string s;
 
 		input >> s;
 

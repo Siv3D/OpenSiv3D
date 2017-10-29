@@ -11,6 +11,7 @@
 
 # pragma once
 # include <functional>
+# include <cmath>
 # include "PlaceHolder.hpp"
 
 namespace s3d
@@ -1144,7 +1145,7 @@ namespace s3d
 	template <class Type = void, class TypeX, class TypeY>
 	[[nodiscard]] inline constexpr auto Modulus(TypeX&& x, TypeY&& y) noexcept(noexcept(std::plus<Type>()(std::forward<TypeX>(x), std::forward<TypeY>(y))))
 	{
-		return detail::ModulusF()(std::forward<TypeX>(x), std::forward<TypeY>(y));
+		return detail::ModulusF_impl()(std::forward<TypeX>(x), std::forward<TypeY>(y));
 	}
 
 	template <class TypeY>
@@ -1162,7 +1163,7 @@ namespace s3d
 	template <class Type = void>
 	[[nodiscard]] inline constexpr auto Modulus(PlaceHolder_t, PlaceHolder_t) noexcept
 	{
-		return detail::ModulusF();
+		return detail::ModulusF_impl();
 	}
 
 	template <class TypeY>

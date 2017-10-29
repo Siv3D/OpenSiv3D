@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -2260,7 +2260,7 @@ namespace s3d
 		bool is_SPRP(uint32 n, uint32 a)
 		{
 			uint32 d = n - 1, s = 0;
-			while ((d & 1) == 0) ++s, d >>= 1;
+			while ((d & 1) == 0) static_cast<void>(++s), d >>= 1;
 			uint64 cur = 1, pw = d;
 			while (pw) {
 				if (pw & 1) cur = (cur*a) % n;
@@ -2339,11 +2339,6 @@ namespace s3d
 		return output << value.stdWstr();
 	}
 
-	C32OStream& operator <<(C32OStream& output, const BigInt& value)
-	{
-		return output << value.str();
-	}
-
 	CIStream& operator >>(CIStream& input, BigInt& value)
 	{
 		std::string s;
@@ -2358,17 +2353,6 @@ namespace s3d
 	WIStream& operator >>(WIStream& input, BigInt& value)
 	{
 		std::wstring s;
-
-		input >> s;
-
-		value.assign(s);
-
-		return input;
-	}
-
-	C32IStream& operator >>(C32IStream& input, BigInt& value)
-	{
-		std::u32string s;
 
 		input >> s;
 

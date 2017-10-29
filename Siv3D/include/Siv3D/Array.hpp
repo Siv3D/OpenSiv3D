@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -2268,11 +2268,5 @@ namespace s3d
 	inline WOStream & operator <<(WOStream& output, const Array<Type, Allocator>& value)
 	{
 		return output << Format(value).toWstr();
-	}
-
-	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
-	inline C32OStream & operator <<(C32OStream& output, const Array<Type, Allocator>& value)
-	{
-		return output << Format(value);
 	}
 }

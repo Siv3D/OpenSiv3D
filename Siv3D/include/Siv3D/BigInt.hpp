@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -517,13 +517,9 @@ namespace s3d
 
 	WOStream& operator <<(WOStream& output, const BigInt& value);
 
-	C32OStream& operator <<(C32OStream& output, const BigInt& value);
-
 	CIStream& operator >>(CIStream& input, BigInt& value);
 
 	WIStream& operator >>(WIStream& input, BigInt& value);
-
-	C32IStream& operator >>(C32IStream& input, BigInt& value);
 }
 
 //namespace fmt

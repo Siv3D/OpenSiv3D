@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -12,7 +12,6 @@
 # pragma once
 # include "String.hpp"
 # include "ThirdParty/fmt/format.h"
-# include "ThirdParty/fmt/ostream.h"
 
 namespace s3d
 {

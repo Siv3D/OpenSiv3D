@@ -1190,11 +1190,6 @@ namespace s3d
 		return output << value.toWstr();
 	}
 
-	C32OStream& operator <<(C32OStream& output, const String& value)
-	{
-		return output << value.str();
-	}
-
 	CIStream& operator >>(CIStream& input, String& value)
 	{
 		std::string s;
@@ -1215,10 +1210,5 @@ namespace s3d
 		value = Unicode::FromWString(s);
 
 		return input;
-	}
-
-	C32IStream& operator >>(C32IStream& input, String& value)
-	{
-		return input >> value.str();
 	}
 }

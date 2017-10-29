@@ -44,11 +44,4 @@ namespace s3d
 
 		return os.write(hex.data(), 2);
 	}
-
-	C32OStream& operator <<(C32OStream& os, const Byte& value)
-	{
-		const auto hex = detail::ToHex<char32>(value);
-
-		return os.write(hex.data(), 2);
-	}
 }
