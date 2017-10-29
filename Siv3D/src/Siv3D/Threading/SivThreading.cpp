@@ -9,14 +9,19 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_MACOS)
+//# include <thread>
+# include <algorithm>
+# include <Siv3D/Threading.hpp>
 
-void Main();
-
-int main()
+namespace s3d
 {
-	Main();
+	namespace Threading
+	{
+		size_t GetConcurrency() noexcept
+		{
+			//static const size_t n = std::max<size_t>(1, std::thread::hardware_concurrency());
+			return 4;
+			//return n;
+		}
+	}
 }
-
-# endif

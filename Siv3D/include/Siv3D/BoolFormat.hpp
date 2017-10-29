@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -9,14 +9,11 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_MACOS)
+# pragma once
+# include "Fwd.hpp"
+# include "LetterCase.hpp"
 
-void Main();
-
-int main()
+namespace s3d
 {
-	Main();
+	[[nodiscard]] String ToString(bool value, LetterCase letterCase = LetterCase::Lower);
 }
-
-# endif
