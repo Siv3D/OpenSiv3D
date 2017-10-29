@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -415,12 +415,11 @@ namespace s3d
 	template <class Type>
 	inline void Formatter(FormatData& formatData, const Type& value)
 	{
-		formatData, value;
-		//C32OStream os;
+		std::wostringstream wos;
 
-		//os << value;
+		wos << value;
 
-		//formatData.string.append(os.str());
+		formatData.string.append(Unicode::FromWString(wos.str()));
 	}
 }
 

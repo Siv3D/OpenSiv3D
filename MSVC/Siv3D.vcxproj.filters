@@ -252,9 +252,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Number.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\ostream.h">
-      <Filter>include\ThirdParty\fmt</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Indexed.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>

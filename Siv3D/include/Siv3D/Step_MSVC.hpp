@@ -1666,12 +1666,6 @@ namespace s3d
 	{
 		return output << value.join().toWstr();
 	}
-
-	template <class T, class N, class S, bool isScalar>
-	inline C32OStream& operator <<(C32OStream& output, const steps_class<T, N, S, isScalar>& value)
-	{
-		return output << value.join();
-	}
 }
 //
 //////////////////////////////////////////////////////////////////////////////
@@ -1705,12 +1699,6 @@ namespace s3d
 	inline WOStream& operator <<(WOStream& output, const detail::F_Step<StepClass, ValueType, Tuple>& value)
 	{
 		return output << value.join().toWstr();
-	}
-
-	template <class StepClass, class ValueType, class Tuple>
-	inline C32OStream& operator <<(C32OStream& output, const detail::F_Step<StepClass, ValueType, Tuple>& value)
-	{
-		return output << value.join();
 	}
 }
 //
