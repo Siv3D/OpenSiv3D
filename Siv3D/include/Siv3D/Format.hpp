@@ -13,6 +13,8 @@
 # include <xmmintrin.h>
 # include "Fwd.hpp"
 # include "BoolFormat.hpp"
+# include "IntFormat.hpp"
+# include "FloatFormat.hpp"
 # include "String.hpp"
 
 namespace s3d

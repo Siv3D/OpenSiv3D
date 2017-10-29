@@ -99,7 +99,7 @@ namespace s3d
 		/// <remarks>
 		/// 各要素の値をジェネレータ関数により初期化します。
 		/// </remarks>
-		template <class Fty, class R = Type, std::enable_if_t<std::is_convertible<std::result_of_t<Fty()>, R>::value>* = nullptr>
+		template <class Fty, class R = Type, std::enable_if_t<std::is_convertible_v<std::result_of_t<Fty()>, R>>* = nullptr>
 		Array(const size_type size, Arg::generator_<Fty> generator)
 			: Array(Generate<Fty>(size, *generator)) {}
 
@@ -118,7 +118,7 @@ namespace s3d
 		/// <returns>
 		/// 作成した配列
 		/// </returns>
-		template <class Fty, class R = Type, std::enable_if_t<std::is_convertible<std::result_of_t<Fty()>, R>::value>* = nullptr>
+		template <class Fty, class R = Type, std::enable_if_t<std::is_convertible_v<std::result_of_t<Fty()>, R>>* = nullptr>
 		static Array Generate(const size_type size, Fty generator)
 		{
 			Array new_array(size);
@@ -199,7 +199,7 @@ namespace s3d
 		/// </returns>
 		[[nodiscard]] size_t size_bytes() const noexcept
 		{
-			static_assert(std::is_trivially_copyable<value_type>::value, "Array::size_bytes() value_type must be trivially copyable.");
+			static_assert(std::is_trivially_copyable_v<value_type>, "Array::size_bytes() value_type must be trivially copyable.");
 
 			return size() * sizeof(value_type);
 		}
@@ -461,7 +461,7 @@ namespace s3d
 		/// <returns>
 		/// ランダムに選択された要素への参照
 		/// </returns>
-		template <class URBG, std::enable_if_t<!std::is_scalar<URBG>::value>* = nullptr>
+		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG>>* = nullptr>
 		[[nodiscard]] value_type& choice(URBG&& rbg)
 		{
 			if (empty())
@@ -483,7 +483,7 @@ namespace s3d
 		/// <returns>
 		/// ランダムに選択された要素への参照
 		/// </returns>
-		template <class URBG, std::enable_if_t<!std::is_scalar<URBG>::value>* = nullptr>
+		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG>>* = nullptr>
 		[[nodiscard]] const value_type& choice(URBG&& rbg) const
 		{
 			if (empty())
@@ -1883,7 +1883,7 @@ namespace s3d
 		/// <returns>
 		/// 高精度な配列の全要素の合計
 		/// </returns>
-		template <class T = Type, std::enable_if_t<std::is_floating_point<T>::value>* = nullptr>
+		template <class T = Type, std::enable_if_t<std::is_floating_point_v<T>>* = nullptr>
 		[[nodiscard]] auto sumF() const &
 		{
 			T s = 0.0;

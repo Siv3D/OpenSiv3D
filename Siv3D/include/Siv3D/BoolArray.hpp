@@ -87,11 +87,11 @@ namespace s3d
 		Array(std::initializer_list<value_type> init)
 			: base_type(init.begin(), init.end()) {}
 
-		template <class Fty, std::enable_if_t<std::is_convertible<std::result_of_t<Fty()>, value_type>::value>* = nullptr>
+		template <class Fty, std::enable_if_t<std::is_convertible_v<std::result_of_t<Fty()>, value_type>>* = nullptr>
 		Array(const size_type size, Arg::generator_<Fty> generator)
 			: Array(Generate<Fty>(size, *generator)) {}
 
-		template <class Fty, std::enable_if_t<std::is_convertible<std::result_of_t<Fty()>, value_type>::value>* = nullptr>
+		template <class Fty, std::enable_if_t<std::is_convertible_v<std::result_of_t<Fty()>, value_type>>* = nullptr>
 		static Array Generate(const size_type size, Fty generator)
 		{
 			Array new_array(size);
@@ -315,7 +315,7 @@ namespace s3d
 			return choice(GetDefaultRNG());
 		}
 
-		template <class URBG, std::enable_if_t<!std::is_scalar<URBG>::value>* = nullptr>
+		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG>>* = nullptr>
 		[[nodiscard]] value_type& choice(URBG&& rbg)
 		{
 			if (empty())
@@ -328,7 +328,7 @@ namespace s3d
 			return operator[](index);
 		}
 
-		template <class URBG, std::enable_if_t<!std::is_scalar<URBG>::value>* = nullptr>
+		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG>>* = nullptr>
 		[[nodiscard]] const value_type& choice(URBG&& rbg) const
 		{
 			if (empty())
@@ -341,7 +341,7 @@ namespace s3d
 			return operator[](index);
 		}
 
-		template <class Size_t, std::enable_if_t<std::is_scalar<Size_t>::value>* = nullptr>
+		template <class Size_t, std::enable_if_t<std::is_scalar_v<Size_t>>* = nullptr>
 		[[nodiscard]] Array choice(const Size_t n) const
 		{
 			return choice(n, GetDefaultRNG());

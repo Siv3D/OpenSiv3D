@@ -27,7 +27,7 @@ namespace s3d
 	{
 	private:
 
-		using distribution_type = std::conditional_t<std::is_floating_point<Type>::value,
+		using distribution_type = std::conditional_t<std::is_floating_point_v<Type>,
 			std::uniform_real_distribution<Type>, std::uniform_int_distribution<Type>>;
 
 		distribution_type m_distribution;
