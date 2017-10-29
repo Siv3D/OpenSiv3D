@@ -3,17 +3,13 @@
 
 void Main()
 {
-	const String text = U"あいうえお";
+	const Array<int32> v = { 10,20,30 };
 
-	for (auto [i, ch] : Indexed(text))
-	{
+	auto v2 = v.map(Format(_, U"m"));
 
-	}
+	v2.size();
 
-	HashTable<int32, String> m = { { 1, U"Aaaa" },{ 2, U"Bbbb" },{ 3, U"Cccc" } };
+	size_t s = v.count_if(_ == 50);
 
-	for (const auto[i, p] : Indexed(m))
-	{
-
-	}
+	s;
 }

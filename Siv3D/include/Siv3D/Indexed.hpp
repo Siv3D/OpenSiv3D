@@ -45,7 +45,7 @@ namespace s3d
 			return *this;
 		}
 
-		auto operator *() const noexcept
+		[[nodiscard]] auto operator *() const noexcept
 		{
 			if constexpr (std::is_lvalue_reference_v<decltype(*m_it)>)
 			{
@@ -57,12 +57,12 @@ namespace s3d
 			}
 		}
 
-		bool operator ==(const IndexedIterator& other) const
+		[[nodiscard]] bool operator ==(const IndexedIterator& other) const
 		{
 			return m_it == other.m_it;
 		}
 
-		bool operator !=(const IndexedIterator& other) const
+		[[nodiscard]] bool operator !=(const IndexedIterator& other) const
 		{
 			return m_it != other.m_it;
 		}
@@ -82,12 +82,12 @@ namespace s3d
 			Indexed_impl(const Range& range)
 				: m_range(range) {}
 
-			auto begin() const
+			[[nodiscard]] auto begin() const
 			{
 				return IndexedIterator<decltype(std::begin(m_range))>(0, std::begin(m_range));
 			}
 
-			auto end() const
+			[[nodiscard]] auto end() const
 			{
 				return IndexedIterator<decltype(std::begin(m_range))>(std::size(m_range), std::end(m_range));
 			}
@@ -95,7 +95,7 @@ namespace s3d
 	}
 
 	template <class Range>
-	inline detail::Indexed_impl<Range> Indexed(const Range& range)
+	[[nodiscard]] inline detail::Indexed_impl<Range> Indexed(const Range& range)
 	{
 		return detail::Indexed_impl<Range>(range);
 	}

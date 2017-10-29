@@ -179,21 +179,25 @@ namespace s3d
 	{
 	# if defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64)
 
+		# define SIV3D_PLATFORM_PTR_SIZE	8
 		constexpr size_t PointerSize		= 8;
 		constexpr size_t AllocatorAlignment	= 16;
 
 	# elif defined(SIV3D_TARGET_WINDOWS_DESKTOP_X86)
 
+		# define SIV3D_PLATFORM_PTR_SIZE	4
 		constexpr size_t PointerSize		= 4;
 		constexpr size_t AllocatorAlignment	= 8;
 
 	# elif defined(SIV3D_TARGET_MACOS)
 
+		# define SIV3D_PLATFORM_PTR_SIZE	8
 		constexpr size_t PointerSize		= 8;
 		constexpr size_t AllocatorAlignment	= 16;
 
 	# elif defined(SIV3D_TARGET_LINUX)
 
+		# define SIV3D_PLATFORM_PTR_SIZE	8
 		constexpr size_t PointerSize		= 8;
 		constexpr size_t AllocatorAlignment	= 16;
 

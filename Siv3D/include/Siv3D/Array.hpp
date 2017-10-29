@@ -21,8 +21,8 @@
 # include "Threading.hpp"
 # include "String.hpp"
 # include "Functor.hpp"
-//# include "Format.hpp"
-//# include "DefaultRNG.hpp"
+# include "Format.hpp"
+# include "DefaultRNG.hpp"
 
 namespace s3d
 {
@@ -199,7 +199,7 @@ namespace s3d
 		/// </returns>
 		[[nodiscard]] size_t size_bytes() const noexcept
 		{
-			static_assert(std::is_trivially_copyable<Type>::value, "Array::size_bytes() Type must be trivially copyable.");
+			static_assert(std::is_trivially_copyable<value_type>::value, "Array::size_bytes() value_type must be trivially copyable.");
 
 			return size() * sizeof(value_type);
 		}
@@ -213,7 +213,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void push_front(const Type& value)
+		void push_front(const value_type& value)
 		{
 			insert(begin(), value);
 		}
@@ -227,7 +227,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void push_front(Type&& value)
+		void push_front(value_type&& value)
 		{
 			insert(begin(), std::move(value));
 		}
@@ -252,7 +252,7 @@ namespace s3d
 		/// <returns>
 		/// 要素への参照
 		/// </returns>
-		[[nodiscard]] const Type& operator[](size_t index) const &
+		[[nodiscard]] const value_type& operator[](size_t index) const &
 		{
 			return base_type::operator[](index);
 		}
@@ -266,7 +266,7 @@ namespace s3d
 		/// <returns>
 		/// 要素への参照
 		/// </returns>
-		[[nodiscard]] Type& operator[](size_t index) &
+		[[nodiscard]] value_type& operator[](size_t index) &
 		{
 			return base_type::operator[](index);
 		}
@@ -280,7 +280,7 @@ namespace s3d
 		/// <returns>
 		/// 要素
 		/// </returns>
-		[[nodiscard]] Type operator[](size_t index) &&
+		[[nodiscard]] value_type operator[](size_t index) &&
 		{
 			return std::move(base_type::operator[](index));
 		}
@@ -297,7 +297,7 @@ namespace s3d
 		/// <returns>
 		/// 要素への参照
 		/// </returns>
-		const Type& at(size_t index) const &
+		const value_type& at(size_t index) const &
 		{
 			return base_type::at(index);
 		}
@@ -314,7 +314,7 @@ namespace s3d
 		/// <returns>
 		/// 要素への参照
 		/// </returns>
-		Type& at(size_t index) &
+		value_type& at(size_t index) &
 		{
 			return base_type::at(index);
 		}
@@ -331,7 +331,7 @@ namespace s3d
 		/// <returns>
 		/// 要素
 		/// </returns>
-		Type at(size_t index) &&
+		value_type at(size_t index) &&
 		{
 			return std::move(base_type::at(index));
 		}
@@ -345,7 +345,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		Array& operator <<(const Type& value)
+		Array& operator <<(const value_type& value)
 		{
 			push_back(value);
 
@@ -361,9 +361,9 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		Array& operator <<(Type&& value)
+		Array& operator <<(value_type&& value)
 		{
-			push_back(std::forward<Type>(value));
+			push_back(std::forward<value_type>(value));
 
 			return *this;
 		}
@@ -436,7 +436,7 @@ namespace s3d
 		/// <returns>
 		/// ランダムに選択された要素への参照
 		/// </returns>
-		[[nodiscard]] Type& choice()
+		[[nodiscard]] value_type& choice()
 		{
 			return choice(GetDefaultRNG());
 		}
@@ -447,7 +447,7 @@ namespace s3d
 		/// <returns>
 		/// ランダムに選択された要素への参照
 		/// </returns>
-		[[nodiscard]] const Type& choice() const
+		[[nodiscard]] const value_type& choice() const
 		{
 			return choice(GetDefaultRNG());
 		}
@@ -462,7 +462,7 @@ namespace s3d
 		/// ランダムに選択された要素への参照
 		/// </returns>
 		template <class URBG, std::enable_if_t<!std::is_scalar<URBG>::value>* = nullptr>
-		[[nodiscard]] Type& choice(URBG&& rbg)
+		[[nodiscard]] value_type& choice(URBG&& rbg)
 		{
 			if (empty())
 			{
@@ -484,7 +484,7 @@ namespace s3d
 		/// ランダムに選択された要素への参照
 		/// </returns>
 		template <class URBG, std::enable_if_t<!std::is_scalar<URBG>::value>* = nullptr>
-		[[nodiscard]] const Type& choice(URBG&& rbg) const
+		[[nodiscard]] const value_type& choice(URBG&& rbg) const
 		{
 			if (empty())
 			{
@@ -508,7 +508,7 @@ namespace s3d
 		/// <returns>
 		/// ランダムに選択された要素
 		/// </returns>
-		template <class Size_t, std::enable_if_t<std::is_scalar<Size_t>::value>* = nullptr>
+		template <class Size_t, std::enable_if_t<std::is_scalar_v<Size_t>>* = nullptr>
 		[[nodiscard]] Array choice(const Size_t n) const
 		{
 			return choice(n, GetDefaultRNG());
@@ -550,9 +550,9 @@ namespace s3d
 		/// <returns>
 		/// 指定された要素数づつに分割された配列の配列
 		/// </returns>
-		[[nodiscard]] Array<Array<Type, Allocator>, std::allocator<Array<Type, Allocator>>> chunk(const size_t n) const
+		[[nodiscard]] Array<Array<value_type, allocator_type>, std::allocator<Array<value_type, allocator_type>>> chunk(const size_t n) const
 		{
-			Array<Array<Type, Allocator>, std::allocator<Array<Type, Allocator>>> result;
+			Array<Array<value_type, allocator_type>, std::allocator<Array<value_type, allocator_type>>> result;
 
 			if (n == 0)
 			{
@@ -576,7 +576,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した値を持つ要素の個数
 		/// </returns>
-		[[nodiscard]] size_t count(const Type& value) const
+		[[nodiscard]] size_t count(const value_type& value) const
 		{
 			size_t result = 0;
 
@@ -749,7 +749,7 @@ namespace s3d
 		/// <returns>
 		/// 指定したインデックスの要素か、インデックスが範囲外の場合は defaultValue
 		/// </returns>
-		[[nodiscard]] const Type& fetch(const size_t index, const Type& defaultValue) const
+		[[nodiscard]] const value_type& fetch(const size_t index, const value_type& defaultValue) const
 		{
 			if (index >= size())
 			{
@@ -768,7 +768,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		Array& fill(const Type& value)
+		Array& fill(const value_type& value)
 		{
 			std::fill(begin(), end(), value);
 
@@ -809,9 +809,9 @@ namespace s3d
 		/// <returns>
 		/// 指定された分割数に分割した配列の配列
 		/// </returns>
-		[[nodiscard]] Array<Array<Type, Allocator>, std::allocator<Array<Type, Allocator>>> in_groups(const size_t group) const
+		[[nodiscard]] Array<Array<value_type, allocator_type>, std::allocator<Array<value_type, allocator_type>>> in_groups(const size_t group) const
 		{
-			Array<Array<Type, Allocator>, std::allocator<Array<Type, Allocator>>> result;
+			Array<Array<value_type, allocator_type>, std::allocator<Array<value_type, allocator_type>>> result;
 
 			if (group == 0)
 			{
@@ -843,7 +843,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した要素を含む場合は true, それ以外の場合は false
 		/// </returns>
-		[[nodiscard]] bool include(const Type& value) const
+		[[nodiscard]] bool include(const value_type& value) const
 		{
 			for (const auto& v : *this)
 			{
@@ -887,7 +887,7 @@ namespace s3d
 				return true;
 			}
 
-			const Type* p = data();
+			const value_type* p = data();
 
 			for (size_t i = 0; i < size_ - 1; ++i)
 			{
@@ -951,7 +951,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		Array& keep_if(std::function<bool(const Type&)> f)
+		Array& keep_if(std::function<bool(const value_type&)> f)
 		{
 			erase(std::remove_if(begin(), end(), std::not1(f)), end());
 
@@ -1019,7 +1019,7 @@ namespace s3d
 		/// 最終的に得られた単一の値
 		/// </returns>
 		template <class Fty>
-		auto reduce(Fty f, std::result_of_t<Fty(Type, Type)> init) const
+		auto reduce(Fty f, std::result_of_t<Fty(value_type, value_type)> init) const
 		{
 			auto value = init;
 
@@ -1051,7 +1051,7 @@ namespace s3d
 			auto it = begin();
 			const auto itEnd = end();
 
-			std::result_of_t<Fty(Type, Type)> value = *it++;
+			std::result_of_t<Fty(value_type, value_type)> value = *it++;
 
 			while (it != itEnd)
 			{
@@ -1070,7 +1070,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		Array& remove(const Type& value)
+		Array& remove(const value_type& value)
 		{
 			erase(std::remove(begin(), end(), value), end());
 
@@ -1086,7 +1086,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した値を持つ要素を配列から削除した新しい配列
 		/// </returns>
-		[[nodiscard]] Array removed(const Type& value) const &
+		[[nodiscard]] Array removed(const value_type& value) const &
 		{
 			Array new_array;
 
@@ -1110,7 +1110,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した値を持つ要素を配列から削除した新しい配列
 		/// </returns>
-		[[nodiscard]] Array removed(const Type& value) &&
+		[[nodiscard]] Array removed(const value_type& value) &&
 		{
 			erase(std::remove(begin(), end(), value), end());
 
@@ -1240,7 +1240,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		Array& replace(const Type& oldValue, const Type& newValue)
+		Array& replace(const value_type& oldValue, const value_type& newValue)
 		{
 			for (auto& v : *this)
 			{
@@ -1265,7 +1265,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した値を持つ要素を別の値に置き換えた新しい配列
 		/// </returns>
-		[[nodiscard]] Array replaced(const Type& oldValue, const Type& newValue) const &
+		[[nodiscard]] Array replaced(const value_type& oldValue, const value_type& newValue) const &
 		{
 			Array new_array;
 
@@ -1298,7 +1298,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した値を持つ要素を別の値に置き換えた新しい配列
 		/// </returns>
-		[[nodiscard]] Array replaced(const Type& oldValue, const Type& newValue) &&
+		[[nodiscard]] Array replaced(const value_type& oldValue, const value_type& newValue) &&
 		{
 			replace(oldValue, newValue);
 
@@ -1318,7 +1318,7 @@ namespace s3d
 		/// *this
 		/// </returns>
 		template <class Fty>
-		Array& replace_if(Fty f, const Type& newValue)
+		Array& replace_if(Fty f, const value_type& newValue)
 		{
 			for (auto& v : *this)
 			{
@@ -1344,7 +1344,7 @@ namespace s3d
 		/// 指定した条件を満たす要素を別の値に置き換えた新しい配列
 		/// </returns>
 		template <class Fty>
-		[[nodiscard]] Array replaced_if(Fty f, const Type& newValue) const &
+		[[nodiscard]] Array replaced_if(Fty f, const value_type& newValue) const &
 		{
 			Array new_array;
 
@@ -1378,7 +1378,7 @@ namespace s3d
 		/// 指定した条件を満たす要素を別の値に置き換えた新しい配列
 		/// </returns>
 		template <class Fty>
-		[[nodiscard]] Array replaced_if(Fty f, const Type& newValue) &&
+		[[nodiscard]] Array replaced_if(Fty f, const value_type& newValue) &&
 		{
 			replace_if(f, newValue);
 
@@ -2201,4 +2201,78 @@ namespace s3d
 			return new_array;
 		}
 	};
+
+	template <class Type, class Allocator>
+	[[nodiscard]] inline bool operator ==(const Array<Type, Allocator>& a, const Array<Type, Allocator>& b)
+	{
+		return ((a.size() == b.size()) && std::equal(a.begin(), a.end(), b.begin()));
+	}
+
+	template <class Type, class Allocator>
+	[[nodiscard]] inline bool operator !=(const Array<Type, Allocator>& a, const Array<Type, Allocator>& b)
+	{
+		return ((a.size() != b.size()) || !std::equal(a.begin(), a.end(), b.begin()));
+	}
+
+	template <class Type, class Allocator>
+	[[nodiscard]] inline bool operator <(const Array<Type, Allocator>& a, const Array<Type, Allocator>& b)
+	{
+		return std::lexicographical_compare(a.begin(), a.end(), b.begin(), b.end());
+	}
+
+	template <class Type, class Allocator>
+	[[nodiscard]] inline bool operator >(const Array<Type, Allocator>& a, const Array<Type, Allocator>& b)
+	{
+		return b < a;
+	}
+
+	template <class Type, class Allocator>
+	[[nodiscard]] inline bool operator <=(const Array<Type, Allocator>& a, const Array<Type, Allocator>& b)
+	{
+		return !(b < a);
+	}
+
+	template <class Type, class Allocator>
+	[[nodiscard]] inline bool operator >=(const Array<Type, Allocator>& a, const Array<Type, Allocator>& b)
+	{
+		return !(a < b);
+	}
+}
+
+namespace std
+{
+	template <class Type, class Allocator>
+	inline void swap(s3d::Array<Type, Allocator>& a, s3d::Array<Type, Allocator>& b) noexcept(noexcept(a.swap(b)))
+	{
+		a.swap(b);
+	}
+}
+
+# include "BoolArray.hpp"
+
+namespace s3d
+{
+	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
+	inline void Formatter(FormatData& formatData, const Array<Type, Allocator>& value)
+	{
+		Formatter(formatData, value.begin(), value.end());
+	}
+
+	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
+	inline COStream & operator <<(COStream& output, const Array<Type, Allocator>& value)
+	{
+		return output << Format(value).narrow();
+	}
+
+	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
+	inline WOStream & operator <<(WOStream& output, const Array<Type, Allocator>& value)
+	{
+		return output << Format(value).toWstr();
+	}
+
+	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
+	inline C32OStream & operator <<(C32OStream& output, const Array<Type, Allocator>& value)
+	{
+		return output << Format(value);
+	}
 }

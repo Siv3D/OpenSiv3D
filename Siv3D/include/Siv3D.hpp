@@ -90,10 +90,10 @@
 	// Array
 	# include "Siv3D/Array.hpp"
 
-	// ハッシュテーブル
+	// Hash table
 	# include "Siv3D/HashTable.hpp"
 
-	// ハッシュセット
+	// Hash set
 	# include "Siv3D/HashSet.hpp"
 
 	// Indexed iterator
@@ -111,8 +111,8 @@
 	//// 二次元配列
 	//# include "Siv3D/Grid.hpp"
 
-	//// Optional
-	//# include "Siv3D/Optional.hpp"
+	// Optional
+	# include "Siv3D/Optional.hpp"
 
 	//// unspecified
 	//# include "Siv3D/Unspecified.hpp"
@@ -147,6 +147,8 @@
 	// Formatting literal
 	# include "Siv3D/FormatLiteral.hpp"
 
+	// Format
+	# include "Siv3D/Format.hpp"
 
 	// Number
 	# include "Siv3D/Number.hpp"

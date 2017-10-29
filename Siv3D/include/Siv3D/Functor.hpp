@@ -90,6 +90,12 @@ namespace s3d
 		return std::equal_to<Type>();
 	}
 
+	template <class TypeY>
+	[[nodiscard]] inline constexpr auto operator ==(PlaceHolder_t, TypeY&& y) noexcept
+	{
+		return detail::BinaryEqualX_impl<TypeY>(std::forward<TypeY>(y));
+	}
+
 
 //////////////////////////////////////////////////
 //

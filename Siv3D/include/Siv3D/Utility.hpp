@@ -61,9 +61,9 @@ namespace s3d
 	}
 
 	template <class Type>
-	[[nodiscard]] constexpr detail::Max1_impl<Type> Max(PlaceHolder_t, const Type& x) noexcept
+	[[nodiscard]] constexpr detail::Max1_impl<Type> Max(PlaceHolder_t, const Type& y) noexcept
 	{
-		return detail::Max1_impl<Type>(x);
+		return detail::Max1_impl<Type>(y);
 	}
 
 	[[nodiscard]] constexpr detail::Max2_impl Max(PlaceHolder_t, PlaceHolder_t) noexcept
@@ -129,9 +129,9 @@ namespace s3d
 	}
 
 	template <class Type>
-	[[nodiscard]] constexpr detail::Min1_impl<Type> Min(PlaceHolder_t, const Type& x) noexcept
+	[[nodiscard]] constexpr detail::Min1_impl<Type> Min(PlaceHolder_t, const Type& y) noexcept
 	{
-		return detail::Min1_impl<Type>(x);
+		return detail::Min1_impl<Type>(y);
 	}
 
 	[[nodiscard]] constexpr detail::Min2_impl Min(PlaceHolder_t, PlaceHolder_t) noexcept
