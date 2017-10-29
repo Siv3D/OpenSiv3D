@@ -11,12 +11,14 @@
 
 # pragma once
 # include <xmmintrin.h>
+# include <sstream>
 # include "Fwd.hpp"
 # include "BoolFormat.hpp"
 # include "IntFormat.hpp"
 # include "FloatFormat.hpp"
 # include "FormatLiteral.hpp"
 # include "String.hpp"
+# include "Unicode.hpp"
 
 namespace s3d
 {
