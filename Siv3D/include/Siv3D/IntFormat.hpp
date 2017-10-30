@@ -117,7 +117,7 @@ namespace s3d
 		//////////////////////////////////////////////////////////////////////////////
 
 		template <class UnsignedInteger>
-		inline String ItoW(const UnsignedInteger value, const unsigned radix, const bool isNegative, const bool upperCase)
+		[[nodiscard]] inline String ItoW(const UnsignedInteger value, const unsigned radix, const bool isNegative, const bool upperCase)
 		{
 			if (radix < 2 || 36 < radix)
 			{
@@ -169,7 +169,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToString(const int8 value)
+	[[nodiscard]] inline String ToString(const int8 value)
 	{
 		return detail::IntFormatter(static_cast<int32>(value)).str();
 	}
@@ -183,7 +183,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToString(const uint8 value)
+	[[nodiscard]] inline String ToString(const uint8 value)
 	{
 		return detail::IntFormatter(static_cast<uint32>(value)).str();
 	}
@@ -197,7 +197,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToString(const int16 value)
+	[[nodiscard]] inline String ToString(const int16 value)
 	{
 		return detail::IntFormatter(static_cast<int32>(value)).str();
 	}
@@ -211,7 +211,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToString(const uint16 value)
+	[[nodiscard]] inline String ToString(const uint16 value)
 	{
 		return detail::IntFormatter(static_cast<uint32>(value)).str();
 	}
@@ -225,7 +225,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToString(const int32 value)
+	[[nodiscard]] inline String ToString(const int32 value)
 	{
 		return detail::IntFormatter(value).str();
 	}
@@ -239,7 +239,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToString(const uint32 value)
+	[[nodiscard]] inline String ToString(const uint32 value)
 	{
 		return detail::IntFormatter(value).str();
 	}
@@ -253,7 +253,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToString(const long value)
+	[[nodiscard]] inline String ToString(const long value)
 	{
 		return detail::IntFormatter(static_cast<int64>(value)).str();
 	}
@@ -267,7 +267,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToString(const unsigned long value)
+	[[nodiscard]] inline String ToString(const unsigned long value)
 	{
 		return detail::IntFormatter(static_cast<uint64>(value)).str();
 	}
@@ -281,7 +281,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToString(const long long value)
+	[[nodiscard]] inline String ToString(const long long value)
 	{
 		return detail::IntFormatter(static_cast<int64>(value)).str();
 	}
@@ -295,231 +295,231 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToString(const unsigned long long value)
+	[[nodiscard]] inline String ToString(const unsigned long long value)
 	{
 		return detail::IntFormatter(static_cast<uint64>(value)).str();
 	}
 
-	inline String ToString(const char value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	[[nodiscard]] inline String ToString(const char value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return detail::ItoW(static_cast<int8>(value), radix.value(), (radix.value() == 10 && value < 0), *upperCase);
 	}
 
-	inline String ToString(const int8 value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	[[nodiscard]] inline String ToString(const int8 value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return detail::ItoW(static_cast<uint8>(value), radix.value(), (radix.value() == 10 && value < 0), *upperCase);
 	}
 
-	inline String ToString(const uint8 value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	[[nodiscard]] inline String ToString(const uint8 value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return detail::ItoW(value, radix.value(), false, *upperCase);
 	}
 
-	inline String ToString(const int16 value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	[[nodiscard]] inline String ToString(const int16 value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return detail::ItoW(static_cast<uint16>(value), radix.value(), (radix.value() == 10 && value < 0), *upperCase);
 	}
 
-	inline String ToString(const uint16 value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	[[nodiscard]] inline String ToString(const uint16 value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return detail::ItoW(value, radix.value(), false, *upperCase);
 	}
 
-	inline String ToString(const int32 value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	[[nodiscard]] inline String ToString(const int32 value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return detail::ItoW(static_cast<uint32>(value), radix.value(), (radix.value() == 10 && value < 0), *upperCase);
 	}
 
-	inline String ToString(const uint32 value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	[[nodiscard]] inline String ToString(const uint32 value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return detail::ItoW(value, radix.value(), false, *upperCase);
 	}
 
-	inline String ToString(const long value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	[[nodiscard]] inline String ToString(const long value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return detail::ItoW(static_cast<uint32>(value), radix.value(), (radix.value() == 10 && value < 0), *upperCase);
 	}
 
-	inline String ToString(const unsigned long value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	[[nodiscard]] inline String ToString(const unsigned long value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return detail::ItoW(value, radix.value(), false, *upperCase);
 	}
 
-	inline String ToString(const long long value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	[[nodiscard]] inline String ToString(const long long value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return detail::ItoW(static_cast<uint64>(value), radix.value(), (radix.value() == 10 && value < 0), *upperCase);
 	}
 
-	inline String ToString(const unsigned long long value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	[[nodiscard]] inline String ToString(const unsigned long long value, Arg::radix_<uint32> radix, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return detail::ItoW(value, radix.value(), false, *upperCase);
 	}
 
 
 
-	inline String ToBinary(const char value)
+	[[nodiscard]] inline String ToBinary(const char value)
 	{
 		return ToString(value, Arg::radix = 2);
 	}
 
-	inline String ToBinary(const int8 value)
+	[[nodiscard]] inline String ToBinary(const int8 value)
 	{
 		return ToString(value, Arg::radix = 2);
 	}
 
-	inline String ToBinary(const uint8 value)
+	[[nodiscard]] inline String ToBinary(const uint8 value)
 	{
 		return ToString(value, Arg::radix = 2);
 	}
 
-	inline String ToBinary(const int16 value)
+	[[nodiscard]] inline String ToBinary(const int16 value)
 	{
 		return ToString(value, Arg::radix = 2);
 	}
 
-	inline String ToBinary(const uint16 value)
+	[[nodiscard]] inline String ToBinary(const uint16 value)
 	{
 		return ToString(value, Arg::radix = 2);
 	}
 
-	inline String ToBinary(const int32 value)
+	[[nodiscard]] inline String ToBinary(const int32 value)
 	{
 		return ToString(value, Arg::radix = 2);
 	}
 
-	inline String ToBinary(const uint32 value)
+	[[nodiscard]] inline String ToBinary(const uint32 value)
 	{
 		return ToString(value, Arg::radix = 2);
 	}
 
-	inline String ToBinary(const long value)
+	[[nodiscard]] inline String ToBinary(const long value)
 	{
 		return ToString(value, Arg::radix = 2);
 	}
 
-	inline String ToBinary(const unsigned long value)
+	[[nodiscard]] inline String ToBinary(const unsigned long value)
 	{
 		return ToString(value, Arg::radix = 2);
 	}
 
-	inline String ToBinary(const long long value)
+	[[nodiscard]] inline String ToBinary(const long long value)
 	{
 		return ToString(value, Arg::radix = 2);
 	}
 
-	inline String ToBinary(const unsigned long long value)
+	[[nodiscard]] inline String ToBinary(const unsigned long long value)
 	{
 		return ToString(value, Arg::radix = 2);
 	}
 
 
-	inline String ToOctal(const char value)
+	[[nodiscard]] inline String ToOctal(const char value)
 	{
 		return ToString(value, Arg::radix = 8);
 	}
 
-	inline String ToOctal(const int8 value)
+	[[nodiscard]] inline String ToOctal(const int8 value)
 	{
 		return ToString(value, Arg::radix = 8);
 	}
 
-	inline String ToOctal(const uint8 value)
+	[[nodiscard]] inline String ToOctal(const uint8 value)
 	{
 		return ToString(value, Arg::radix = 8);
 	}
 
-	inline String ToOctal(const int16 value)
+	[[nodiscard]] inline String ToOctal(const int16 value)
 	{
 		return ToString(value, Arg::radix = 8);
 	}
 
-	inline String ToOctal(const uint16 value)
+	[[nodiscard]] inline String ToOctal(const uint16 value)
 	{
 		return ToString(value, Arg::radix = 8);
 	}
 
-	inline String ToOctal(const int32 value)
+	[[nodiscard]] inline String ToOctal(const int32 value)
 	{
 		return ToString(value, Arg::radix = 8);
 	}
 
-	inline String ToOctal(const uint32 value)
+	[[nodiscard]] inline String ToOctal(const uint32 value)
 	{
 		return ToString(value, Arg::radix = 8);
 	}
 
-	inline String ToOctal(const long value)
+	[[nodiscard]] inline String ToOctal(const long value)
 	{
 		return ToString(value, Arg::radix = 8);
 	}
 
-	inline String ToOctal(const unsigned long value)
+	[[nodiscard]] inline String ToOctal(const unsigned long value)
 	{
 		return ToString(value, Arg::radix = 8);
 	}
 
-	inline String ToOctal(const long long value)
+	[[nodiscard]] inline String ToOctal(const long long value)
 	{
 		return ToString(value, Arg::radix = 8);
 	}
 
-	inline String ToOctal(const unsigned long long value)
+	[[nodiscard]] inline String ToOctal(const unsigned long long value)
 	{
 		return ToString(value, Arg::radix = 8);
 	}
 
 
-	inline String ToHex(const char value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	[[nodiscard]] inline String ToHex(const char value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return ToString(value, Arg::radix = 16, upperCase);
 	}
 
-	inline String ToHex(const int8 value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	[[nodiscard]] inline String ToHex(const int8 value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return ToString(value, Arg::radix = 16, upperCase);
 	}
 
-	inline String ToHex(const uint8 value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	[[nodiscard]] inline String ToHex(const uint8 value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return ToString(value, Arg::radix = 16, upperCase);
 	}
 
-	inline String ToHex(const int16 value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	[[nodiscard]] inline String ToHex(const int16 value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return ToString(value, Arg::radix = 16, upperCase);
 	}
 
-	inline String ToHex(const uint16 value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	[[nodiscard]] inline String ToHex(const uint16 value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return ToString(value, Arg::radix = 16, upperCase);
 	}
 
-	inline String ToHex(const int32 value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	[[nodiscard]] inline String ToHex(const int32 value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return ToString(value, Arg::radix = 16, upperCase);
 	}
 
-	inline String ToHex(const uint32 value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	[[nodiscard]] inline String ToHex(const uint32 value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return ToString(value, Arg::radix = 16, upperCase);
 	}
 
-	inline String ToHex(const long value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	[[nodiscard]] inline String ToHex(const long value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return ToString(value, Arg::radix = 16, upperCase);
 	}
 
-	inline String ToHex(const unsigned long value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	[[nodiscard]] inline String ToHex(const unsigned long value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return ToString(value, Arg::radix = 16, upperCase);
 	}
 
-	inline String ToHex(const long long value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	[[nodiscard]] inline String ToHex(const long long value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return ToString(value, Arg::radix = 16, upperCase);
 	}
 
-	inline String ToHex(const unsigned long long value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
+	[[nodiscard]] inline String ToHex(const unsigned long long value, Arg::upperCase_<bool> upperCase = (Arg::upperCase = false))
 	{
 		return ToString(value, Arg::radix = 16, upperCase);
 	}

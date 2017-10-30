@@ -13,10 +13,22 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_WINDOWS)
 
-# define  NOMINMAX
-# define  STRICT
-# define  _WIN32_WINNT _WIN32_WINNT_WIN8
-# define  NTDDI_VERSION NTDDI_WIN8
+# ifndef NOMINMAX
+#	define	NOMINMAX
+# endif
+
+# ifndef STRICT
+#	define	STRICT
+# endif
+
+# ifndef _WIN32_WINNT
+#	define	_WIN32_WINNT _WIN32_WINNT_WIN8
+# endif
+
+# ifndef NTDDI_VERSION
+#	define	NTDDI_VERSION NTDDI_WIN8
+# endif
+
 # include <Windows.h>
 
 # endif

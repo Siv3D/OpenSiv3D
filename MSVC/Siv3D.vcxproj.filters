@@ -68,6 +68,15 @@
     <Filter Include="src\Siv3D\BigFloat">
       <UniqueIdentifier>{2e791686-ee71-4e13-bbd9-caf867d8e6e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\ParseFloat">
+      <UniqueIdentifier>{35d0599a-83eb-4818-bb73-a7ac5eaaffed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ParseInt">
+      <UniqueIdentifier>{77b53cac-f86e-4e3f-b07b-b4a4916c7a22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ParseBool">
+      <UniqueIdentifier>{dd521b0b-d3d2-4a70-bb8e-b6007e0f2d98}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3DMain_Windows.cpp">
@@ -138,6 +147,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\BigFloat\SivBigFloat.cpp">
       <Filter>src\Siv3D\BigFloat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ParseFloat\SivParseFloat.cpp">
+      <Filter>src\Siv3D\ParseFloat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ParseInt\SivParseInt.cpp">
+      <Filter>src\Siv3D\ParseInt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ParseBool\SivParseBool.cpp">
+      <Filter>src\Siv3D\ParseBool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -331,6 +349,42 @@
       <Filter>include\Siv3D</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Step_MSVC.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\InfiniteList.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Step2D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Unspecified.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\RangeIterator.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TypeTraits.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Evaluater.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\FormatUtility.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ParseFloat.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ParseInt.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ParseBool.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Parse.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\BigNumber.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>

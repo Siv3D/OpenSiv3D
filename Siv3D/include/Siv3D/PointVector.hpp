@@ -17,6 +17,22 @@ namespace s3d
 	struct Point
 	{
 		int32 x, y;
+
+		Point() = default;
+
+		constexpr Point(int32 _x, int32 _y)
+			: x(_x)
+			, y(_y) {}
+
+		constexpr bool operator ==(const Point& other) const
+		{
+			return x == other.x && y == other.y;
+		}
+
+		constexpr bool operator !=(const Point& other) const
+		{
+			return x != other.x || y != other.y;
+		}
 	};
 
 	using Size = Point;

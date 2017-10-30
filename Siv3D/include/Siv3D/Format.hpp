@@ -129,7 +129,7 @@ namespace s3d
 			/// 引数を文字列に変換して連結した文字列
 			/// </returns>
 			template <class... Args, std::enable_if_t<format_validation<Args...>::value>* = nullptr>
-			String operator ()(const Args&... args) const
+			[[nodiscard]] String operator ()(const Args&... args) const
 			{
 				FormatData formatData;
 				
@@ -139,7 +139,7 @@ namespace s3d
 			}
 
 			template <class... Args, std::enable_if_t<!format_validation<Args...>::value>* = nullptr>
-			String operator ()(const Args&...) const
+			[[nodiscard]] String operator ()(const Args&...) const
 			{
 				static_assert(format_validation<Args...>::value, "type \"char* or wchar_t*\" cannot be used in Format()");
 				
@@ -155,7 +155,7 @@ namespace s3d
 			/// <returns>
 			/// 引数を文字列に変換した文字列
 			/// </returns>
-			String operator ()(const char32 ch) const
+			[[nodiscard]] String operator ()(const char32 ch) const
 			{
 				return String(1, ch);
 			}
@@ -169,7 +169,7 @@ namespace s3d
 			/// <returns>
 			/// 引数を文字列に変換した文字列
 			/// </returns>
-			String operator ()(const char32* const text) const
+			[[nodiscard]] String operator ()(const char32* const text) const
 			{
 				return String(text);
 			}
@@ -183,7 +183,7 @@ namespace s3d
 			/// <returns>
 			/// 引数を文字列に変換した文字列
 			/// </returns>
-			const String& operator ()(const String& text) const
+			[[nodiscard]] const String& operator ()(const String& text) const
 			{
 				return text;
 			}
@@ -197,30 +197,30 @@ namespace s3d
 			/// <returns>
 			/// 引数を文字列に変換した文字列
 			/// </returns>
-			String operator ()(String&& text) const noexcept
+			[[nodiscard]] String operator ()(String&& text) const noexcept
 			{
 				return std::move(text);
 			}
 		
-			constexpr Format_impl operator ()(PlaceHolder_t) const
+			[[nodiscard]] constexpr Format_impl operator ()(PlaceHolder_t) const
 			{
 				return detail::Format_impl();
 			}
 
 			template <class Head>
-			FormatPlaceholder_impl operator ()(Head&& head, PlaceHolder_t) const
+			[[nodiscard]] FormatPlaceholder_impl operator ()(Head&& head, PlaceHolder_t) const
 			{
 				return FormatPlaceholder_impl(operator()(std::forward<Head>(head)), String());
 			}
 
 			template <class Tail>
-			FormatPlaceholder_impl operator ()(PlaceHolder_t, Tail&& tail) const
+			[[nodiscard]] FormatPlaceholder_impl operator ()(PlaceHolder_t, Tail&& tail) const
 			{
 				return FormatPlaceholder_impl(String(), operator()(std::forward<Tail>(tail)));
 			}
 
 			template <class Head, class Tail>
-			FormatPlaceholder_impl operator ()(Head&& head, PlaceHolder_t, Tail&& tail) const
+			[[nodiscard]] FormatPlaceholder_impl operator ()(Head&& head, PlaceHolder_t, Tail&& tail) const
 			{
 				return FormatPlaceholder_impl(operator()(std::forward<Head>(head)), operator()(std::forward<Tail>(tail)));
 			}

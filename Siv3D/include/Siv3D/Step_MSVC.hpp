@@ -26,7 +26,7 @@
 # include <type_traits>
 # include "Types.hpp"
 # include "Threading.hpp"
-# include "BigInt.hpp"
+# include "BigNumber.hpp"
 # include "Format.hpp"
 # include "Functor.hpp"
 
@@ -1072,7 +1072,7 @@ namespace s3d
 	template <class T, class U, class S = int32, class StartType = std::common_type_t<T, U>, class CounterType = std::common_type_t<std::size_t, StartType>>
 	inline constexpr auto step_to(T a, U b, S s = 1)
 	{
-		static_assert(std::is_integral_v<StartType> || IsBigInt<StartType>::value, "step_to requires integral parameters");
+		static_assert(std::is_integral_v<StartType> || IsBigInt_v<StartType>, "step_to requires integral parameters");
 		CounterType  n = 0;
 		using DiffType = std::common_type_t<int64, StartType>;
 
@@ -1099,7 +1099,7 @@ namespace s3d
 	template<class T, class U, class S = int32, class StartType = std::common_type_t<T, U>, class CounterType = std::common_type_t<std::size_t, StartType>>
 	inline constexpr auto step_until(T a, U b, S s = 1)
 	{
-		static_assert(std::is_integral_v<StartType> || IsBigInt<StartType>::value, "step_until requires integral parameters");
+		static_assert(std::is_integral_v<StartType> || IsBigInt_v<StartType>, "step_until requires integral parameters");
 		CounterType  n;
 		using DiffType = std::common_type_t<int64, StartType>;
 
