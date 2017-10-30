@@ -77,6 +77,15 @@
     <Filter Include="src\Siv3D\ParseBool">
       <UniqueIdentifier>{dd521b0b-d3d2-4a70-bb8e-b6007e0f2d98}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\miniutf">
+      <UniqueIdentifier>{41c36567-e68f-4b9b-a530-935b7979a57e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\abseil">
+      <UniqueIdentifier>{4efe770f-5443-4944-9e8d-3b4e3f4a1ae9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ThirdParty\SFMT">
+      <UniqueIdentifier>{22f731e3-38b7-4aea-9895-0593c46f7b69}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3DMain_Windows.cpp">
@@ -386,6 +395,15 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\BigNumber.hpp">
       <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\miniutf\miniutf.hpp">
+      <Filter>src\ThirdParty\miniutf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\abseil\numbers.hpp">
+      <Filter>src\ThirdParty\abseil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\SFMT\SFMT.hpp">
+      <Filter>include\ThirdParty\SFMT</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
