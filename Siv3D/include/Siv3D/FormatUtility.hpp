@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -42,7 +42,7 @@ namespace s3d
 
 		for (size_t i = result.size(); i != 0; --i)
 		{
-			if (++count == 4 && !(i == 1 && result[0] == S3DCHAR('-')))
+			if (++count == 4 && !(i == 1 && result[0] == U'-'))
 			{
 				result.insert(i, separator);
 
@@ -58,13 +58,13 @@ namespace s3d
 	{
 		String result = fixed ? ToFixed(value, decimalPlace) : ToString(value, decimalPlace);
 
-		const size_t zeroPos = result.lastIndexOf(S3DCHAR('.'));
+		const size_t zeroPos = result.lastIndexOf(U'.');
 
 		size_t count = 0;
 
 		for (size_t i = (zeroPos == String::npos) ? result.size() : zeroPos; i != 0; --i)
 		{
-			if (++count == 4 && !(i == 1 && result[0] == S3DCHAR('-')))
+			if (++count == 4 && !(i == 1 && result[0] == U'-'))
 			{
 				result.insert(i, separator);
 

@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -38,7 +38,7 @@ namespace s3d
 	{
 		Type to;
 
-		std::wistringstream ws(text.str());
+		std::wistringstream ws(text.toWstr());
 
 		if (ws >> to)
 		{
@@ -118,7 +118,7 @@ namespace s3d
 	{
 		Type to;
 
-		if (std::wistringstream{ text.str() } >> to)
+		if (std::wistringstream{ text.toWstr() } >> to)
 		{
 			return Optional<Type>(std::move(to));
 		}

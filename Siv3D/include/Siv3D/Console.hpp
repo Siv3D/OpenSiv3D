@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -67,7 +67,7 @@ namespace s3d
 			template <class... Args>
 			void writeln(const Args&... args) const
 			{
-				return write(Format(args..., S3DCHAR('\n')));
+				return write(Format(args..., U'\n'));
 			}
 
 			void operator()(const String& text) const
