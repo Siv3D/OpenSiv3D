@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -238,7 +238,7 @@ namespace s3d
 				return U"./";
 			}
 
-			fs::path p(path.str()), base(start.str());
+			fs::path p(path.toWstr()), base(start.toWstr());
 			fs::path from_path, from_base, output;
 			fs::path::iterator path_it = p.begin(), path_end = p.end();
 			fs::path::iterator base_it = base.begin(), base_end = base.end();
@@ -294,7 +294,8 @@ namespace s3d
 				from_path /= fs::path(*path_it);
 				from_base /= fs::path(*base_it);
 
-				++path_it, ++base_it;
+				++path_it;
+				++base_it;
 			}
 
 			return Unicode::Widen(output.string()).replace(U'\\', U'/');
@@ -318,7 +319,7 @@ namespace s3d
 
 			try
 			{
-				if (fs::create_directories(fs::path(path.str())))
+				if (fs::create_directories(fs::path(path.toWstr())))
 				{
 					return true;
 				}

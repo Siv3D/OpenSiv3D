@@ -82,7 +82,7 @@ namespace s3d
 	{
 		static bool GetStat(const FilePath& path, struct stat& s)
 		{
-			return (::stat(path.replaced(L'\\', L'/').narrow().c_str(), &s) == 0);
+			return (::stat(path.replaced(U'\\', U'/').narrow().c_str(), &s) == 0);
 		}
 
 		static bool IsNotFound(const FilePath& path)
@@ -117,15 +117,15 @@ namespace s3d
 		{
 			for (auto& ch : path)
 			{
-				if (ch == L'\\')
+				if (ch == U'\\')
 				{
-					ch = L'/';
+					ch = U'/';
 				}
 			}
 
-			if (!path.ends_with(L'/') && (skipDirectoryCheck || IsDirectory(path)))
+			if (!path.ends_with(U'/') && (skipDirectoryCheck || IsDirectory(path)))
 			{
-				path.push_back(L'/');
+				path.push_back(U'/');
 			}
 
 			return path;
@@ -182,7 +182,7 @@ namespace s3d
 
 		namespace init
 		{
-			const static FilePath g_initialPath = NormalizePath(fs::current_path().wstring());
+			const static FilePath g_initialPath = NormalizePath(Unicode::Widen(fs::current_path().string()));
 
 			static FilePath g_modulePath;
 
@@ -227,7 +227,7 @@ namespace s3d
 
 		bool IsResource(const FilePath& path)
 		{
-			static const FilePath resourcePath = FileSystem::ModulePath() + L"/resources/";
+			static const FilePath resourcePath = FileSystem::ModulePath() + U"/resources/";
 
 			return path.starts_with(resourcePath) && Exists(path);
 		}
@@ -241,17 +241,17 @@ namespace s3d
 
 			if (detail::IsNotFound(path))
 			{
-				return detail::NormalizePath(fs::weakly_canonical(fs::system_complete(fs::path(path.str()))).wstring());
+				return detail::NormalizePath(Unicode::Widen(fs::weakly_canonical(fs::system_complete(fs::path(path.toWstr()))).string()));
 			}
 			else
 			{
-				return detail::NormalizePath(fs::canonical(fs::path(path.str())).wstring());
+				return detail::NormalizePath(Unicode::Widen(fs::canonical(fs::path(path.toWstr())).string()));
 			}
 		}
 
-		FilePath VolumePath(const FilePath& path)
+		FilePath VolumePath(const FilePath&)
 		{
-			// [Siv3D*TODO]
+			// [Siv3D ToDo]
 			return FilePath(1, L'/');
 		}
 
@@ -274,11 +274,11 @@ namespace s3d
 			}
 			else if (S_ISDIR(s.st_mode))
 			{
-				return fs::directory_iterator(fs::path(path.str())) == fs::directory_iterator();
+				return fs::directory_iterator(fs::path(path.toWstr())) == fs::directory_iterator();
 			}
 			else
 			{
-				// [Siv3D*TODO]
+				// [Siv3D ToDo]
 				return false;
 			}
 		}
@@ -304,7 +304,7 @@ namespace s3d
 			{
 				int64 result = 0;
 
-				for (const auto& v : fs::recursive_directory_iterator(path.str()))
+				for (const auto& v : fs::recursive_directory_iterator(path.toWstr()))
 				{
 					struct stat s;
 
@@ -320,7 +320,7 @@ namespace s3d
 			}
 			else
 			{
-				// [Siv3D*TODO]
+				// [Siv3D ToDo]
 				return 0;
 			}
 		}
@@ -405,16 +405,16 @@ namespace s3d
 
 			if (recursive)
 			{
-				for (const auto& v : fs::recursive_directory_iterator(path.str()))
+				for (const auto& v : fs::recursive_directory_iterator(path.toWstr()))
 				{
-					paths.push_back(FullPath(v.path().wstring()));
+					paths.push_back(FullPath(Unicode::Widen(v.path().string())));
 				}
 			}
 			else
 			{
 				for (const auto& v : fs::directory_iterator(path.str()))
 				{
-					paths.push_back(FullPath(v.path().wstring()));
+					paths.push_back(FullPath(Unicode::Widen(v.path().string())));
 				}
 			}
 
@@ -433,17 +433,17 @@ namespace s3d
 
 		FilePath CurrentPath()
 		{
-			return detail::NormalizePath(fs::current_path().wstring());
+			return detail::NormalizePath(Unicode::Widen(fs::current_path().string()));
 		}
 
 		FilePath SpecialFolderPath(const SpecialFolder folder)
 		{
-			return CharacterSet::Widen(Linux_SpecialFolder(static_cast<int>(folder))) << L'/';
+			return Unicode::Widen(Linux_SpecialFolder(static_cast<int>(folder))) << U'/';
 		}
 
 		FilePath TempDirectoryPath()
 		{
-			return FilePath(fs::temp_directory_path().wstring());
+			return Unicode::Widen(fs::temp_directory_path().string());
 		}
 		
 		bool Copy(const FilePath& from, const FilePath& _to, const CopyOption copyOption)
@@ -474,18 +474,18 @@ namespace s3d
 				
 				if (!ext.isEmpty())
 				{
-					ext.push_front(S3DCHAR('.'));
+					ext.push_front(U'.');
 				}
 				
 				for (size_t i = 1;; ++i)
 				{
 					if (i == 1)
 					{
-						to = head + L" - Copy" + ext;
+						to = head + U" - Copy" + ext;
 					}
 					else
 					{
-						to = head + L" - Copy(" + Format(i) + L")" + ext;
+						to = head + U" - Copy(" + Format(i) + U")" + ext;
 					}
 					
 					if (detail::IsNotFound(to))
@@ -505,7 +505,7 @@ namespace s3d
 				
 				try
 				{
-					fs::copy_file(fs::path(from.str()), fs::path(to.str()), option);
+					fs::copy_file(fs::path(from.toWstr()), fs::path(to.toWstr()), option);
 				}
 				catch (const fs::filesystem_error&)
 				{
@@ -514,7 +514,7 @@ namespace s3d
 			}
 			else
 			{
-				return detail::CopyDirectory(fs::path(from.str()), fs::path(to.str()));
+				return detail::CopyDirectory(fs::path(from.toWstr()), fs::path(to.toWstr()));
 			}
 			
 			return true;
