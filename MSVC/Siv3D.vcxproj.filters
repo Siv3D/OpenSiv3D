@@ -89,6 +89,21 @@
     <Filter Include="src\Siv3D\Console">
       <UniqueIdentifier>{780ad6cd-f6eb-44d5-9092-8db340101b06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Date">
+      <UniqueIdentifier>{1b9815df-0930-4186-9b5d-35f645f839cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\DateTime">
+      <UniqueIdentifier>{03ac4bbc-16b7-4717-8232-cd4756fe7502}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Time">
+      <UniqueIdentifier>{688f6288-0a15-4274-bb63-843f3caf9cd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Stopwatch">
+      <UniqueIdentifier>{b5932cc2-d714-403f-a496-5a724d1a33fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\TimeProfiler">
+      <UniqueIdentifier>{63da0a58-fea5-499b-baa0-ba245322be93}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -180,6 +195,21 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Siv3DEngine.cpp">
       <Filter>src\Siv3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Date\SivDate.cpp">
+      <Filter>src\Siv3D\Date</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\DateTime\SivDateTime.cpp">
+      <Filter>src\Siv3D\DateTime</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Stopwatch\SivStopwatch.cpp">
+      <Filter>src\Siv3D\Stopwatch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Time\SivTime.cpp">
+      <Filter>src\Siv3D\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TimeProfiler\SivTimeProfiler.cpp">
+      <Filter>src\Siv3D\TimeProfiler</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -431,6 +461,39 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Siv3DEngine.hpp">
       <Filter>src\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\DateTime.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Duration.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Date.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Stopwatch.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Time.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Timer.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\CustomStopwatch.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\RDTSCClock.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TimeProfiler.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\MicrosecClock.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\MillisecClock.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

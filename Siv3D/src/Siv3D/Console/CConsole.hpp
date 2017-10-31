@@ -11,14 +11,7 @@
 
 # pragma once
 # include "IConsole.hpp"
-
-# if defined(SIV3D_TARGET_WINDOWS)
-
-	# include <cstdio>
-	# include <iostream>
-	# include <Siv3D/Windows.hpp>
-
-# endif
+# include <cstdio>
 
 namespace s3d
 {

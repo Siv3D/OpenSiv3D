@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include "CConsole.hpp"
+# include <Siv3D/Windows.hpp>
 
 namespace s3d
 {

@@ -195,24 +195,38 @@
 //
 //////////////////////////////////////////////////
 
-	//// 時間の単位
-	//# include "Siv3D/Duration.hpp"
-	//// 日付
-	//# include "Siv3D/Date.hpp"
-	//// 日付と時刻
-	//# include "Siv3D/DateTime.hpp"
-	//// 時間
-	//# include "Siv3D/Time.hpp"
-	//// ストップウォッチ
-	//# include "Siv3D/Stopwatch.hpp"
-	//// スピードを変更可能なストップウォッチ
-	//# include "Siv3D/SpeedStopwatch.hpp"
-	//// タイマー
-	//# include "Siv3D/Timer.hpp"
-	//// 処理にかかった時間の測定
-	//# include "Siv3D/TimeProfiler.hpp"
-	//// 処理にかかった CPU サイクル数の測定
-	//# include "Siv3D/RDTSCClock.hpp"
+	// 時間の単位
+	# include "Siv3D/Duration.hpp"
+
+	// 日付
+	# include "Siv3D/Date.hpp"
+
+	// 日付と時刻
+	# include "Siv3D/DateTime.hpp"
+
+	// 時間
+	# include "Siv3D/Time.hpp"
+
+	// ストップウォッチ
+	# include "Siv3D/Stopwatch.hpp"
+
+	// スピードを変更可能なストップウォッチ
+	# include "Siv3D/CustomStopwatch.hpp"
+
+	// タイマー
+	# include "Siv3D/Timer.hpp"
+
+	// Profiler
+	# include "Siv3D/TimeProfiler.hpp"
+
+	// 処理にかかった時間の測定
+	# include "Siv3D/MillisecClock.hpp"
+
+	// 処理にかかった時間の測定
+	# include "Siv3D/MicrosecClock.hpp"
+
+	// 処理にかかった CPU サイクル数の測定
+	# include "Siv3D/RDTSCClock.hpp"
 
 //////////////////////////////////////////////////
 //

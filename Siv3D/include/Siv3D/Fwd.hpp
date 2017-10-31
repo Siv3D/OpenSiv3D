@@ -68,4 +68,8 @@ namespace s3d
 	
 	class BigInt;
 	class BigFloat;
+
+
+	struct Date;
+	struct DateTime;
 }

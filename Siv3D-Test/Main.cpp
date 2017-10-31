@@ -5,6 +5,4 @@
 void Main()
 {
 	Siv3D_RunTest();
-
-
 }
