@@ -63,6 +63,7 @@ namespace s3d
 	//	String.hpp
 	//
 	class String;
+
 	
 	
 	

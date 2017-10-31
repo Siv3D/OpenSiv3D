@@ -234,8 +234,8 @@
 //
 //////////////////////////////////////////////////
 
-	//// ファイルとディレクトリ
-	//# include "Siv3D/FileSystem.hpp"
+	// ファイルとディレクトリ
+	# include "Siv3D/FileSystem.hpp"
 	//// リソースファイル
 	//# include "Siv3D/Resource.hpp"
 	////// ファイルとディレクトリの変更の監視
@@ -382,8 +382,8 @@
 	// Default RNG
 	# include "Siv3D/DefaultRNG.hpp"
 
-	//// 乱数ユーティリティ
-	//# include "Siv3D/Random.hpp"
+	// 乱数ユーティリティ
+	# include "Siv3D/Random.hpp"
 	//// ランダムな Point の作成
 	//# include "Siv3D/RandomPoint.hpp"
 	//// ランダムな Vec2 の作成

@@ -104,6 +104,9 @@
     <Filter Include="src\Siv3D\TimeProfiler">
       <UniqueIdentifier>{63da0a58-fea5-499b-baa0-ba245322be93}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\FileSystem">
+      <UniqueIdentifier>{041392e8-593f-4aef-95d9-e388ec565c72}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -210,6 +213,21 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\TimeProfiler\SivTimeProfiler.cpp">
       <Filter>src\Siv3D\TimeProfiler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Siv3DMain_Linux.cpp">
+      <Filter>src\Siv3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_macOS.cpp">
+      <Filter>src\Siv3D\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_Windows.cpp">
+      <Filter>src\Siv3D\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem.cpp">
+      <Filter>src\Siv3D\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_Linux.cpp">
+      <Filter>src\Siv3D\FileSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -495,5 +513,16 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\MillisecClock.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\FileSystem.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Random.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_macOS.mm">
+      <Filter>src\Siv3D\FileSystem</Filter>
+    </None>
   </ItemGroup>
 </Project>
