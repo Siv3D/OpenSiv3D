@@ -28,8 +28,7 @@ OpenSiv3D Linux版をビルドしてアプリケーションを作成するま�
 - GLU
 - GLEW
 - libpng
-- libturbojpeg
-- libgif
+- turbojpeg
 - X11
 - X11 Input extension (Xi)
 - X11 RandR extension (Xrandr)
@@ -40,8 +39,8 @@ OpenSiv3D Linux版をビルドしてアプリケーションを作成するま�
 
 
 ## 現状のOpenSiv3D Windows/macOS版との相違点
-- Cursor::sceenPos()とCursor::previousScreenPos()はそれぞれCursor::clientPos()とCursor::previsouClientPos()と同じ値を返します。(Linuxではディスプレイマネージャによって画面上のどこにカーソルがあるか取得する機能があったりなかったりするため。)
+- Cursor::ScreenPos()とCursor::PreviousScreenPos()はそれぞれCursor::Pos()とCursor::PreviousPos()と同じ値を返します。(Linuxではディスプレイマネージャによって画面上のどこにカーソルがあるか取得する機能があったりなかったりするため。)
 - Monitor::workAreaはMonitor::displayRectと同じ値になっています。(X11環境で各モニタのワークエリアを取得するのが難しいため。)
-- Cursor::clip()は動作しますが、clipする領域が黒で塗りつぶされます。(clip領域として指定するのに使っているWindowを透明に描画するするコードが上手く動かないため。)対策が分かり次第修正予定です。
+- Cursor::ClipClientRect()は動作しますが、clipする領域が黒で塗りつぶされます。(clip領域として指定するのに使っているWindowを透明に描画するするコードが上手く動かないため。)対策が分かり次第修正予定です。
 - リソースファイルは実行ファイルと同階層の「resource」ディレクトリ内に配置されます。
 
