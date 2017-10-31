@@ -86,11 +86,11 @@
     <Filter Include="include\ThirdParty\SFMT">
       <UniqueIdentifier>{22f731e3-38b7-4aea-9895-0593c46f7b69}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Console">
+      <UniqueIdentifier>{780ad6cd-f6eb-44d5-9092-8db340101b06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Siv3D\src\Siv3DMain_Windows.cpp">
-      <Filter>src\Siv3D</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
       <Filter>src\Siv3D\Byte</Filter>
     </ClCompile>
@@ -105,9 +105,6 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Threading\SivThreading.cpp">
       <Filter>src\Siv3D\Threading</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3DMain_macOS.cpp">
-      <Filter>src\Siv3D</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\String\SivString.cpp">
       <Filter>src\Siv3D\String</Filter>
@@ -165,6 +162,24 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseBool\SivParseBool.cpp">
       <Filter>src\Siv3D\ParseBool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Console\CConsole.cpp">
+      <Filter>src\Siv3D\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Console\ConsoleFactory.cpp">
+      <Filter>src\Siv3D\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Console\SivConsole.cpp">
+      <Filter>src\Siv3D\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Siv3DMain_macOS.cpp">
+      <Filter>src\Siv3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Siv3DMain_Windows.cpp">
+      <Filter>src\Siv3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Siv3DEngine.cpp">
+      <Filter>src\Siv3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -404,6 +419,18 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\ThirdParty\SFMT\SFMT.hpp">
       <Filter>include\ThirdParty\SFMT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Console\CConsole.hpp">
+      <Filter>src\Siv3D\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Console\IConsole.hpp">
+      <Filter>src\Siv3D\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Console.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Siv3DEngine.hpp">
+      <Filter>src\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

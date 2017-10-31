@@ -15,6 +15,7 @@
 # include <crtdbg.h>
 # include <future>
 # include <Siv3D/Windows.hpp>
+# include "Siv3DEngine.hpp"
 
 void Main();
 
@@ -45,9 +46,13 @@ namespace s3d
 
 int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 {
+	using namespace s3d;
+
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 	::OutputDebugStringW(L"Siv3D for Windows\n");
+
+	Siv3DEngine engine;
 
 	// Running main thread
 	{

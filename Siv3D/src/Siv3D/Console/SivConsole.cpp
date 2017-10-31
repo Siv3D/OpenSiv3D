@@ -9,13 +9,17 @@
 //
 //-----------------------------------------------
 
-# pragma once
-# include "Fwd.hpp"
-# include "Optional.hpp"
+# include <Siv3D/Console.hpp>
+# include "../Siv3DEngine.hpp"
+# include "IConsole.hpp"
 
 namespace s3d
 {
-	[[nodiscard]] bool ParseBool(StringView view);
-
-	[[nodiscard]] Optional<bool> ParseBoolOpt(StringView view);
+	namespace detail
+	{
+		void Console_impl::open() const
+		{
+			Siv3DEngine::GetConsole()->open();
+		}
+	}
 }

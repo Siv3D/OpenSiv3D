@@ -10,12 +10,20 @@
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
-# include "Optional.hpp"
+# include <Siv3D/Fwd.hpp>
 
 namespace s3d
 {
-	[[nodiscard]] bool ParseBool(StringView view);
+	class ISiv3DConsole
+	{
+	public:
 
-	[[nodiscard]] Optional<bool> ParseBoolOpt(StringView view);
+		static ISiv3DConsole* Create();
+
+		virtual ~ISiv3DConsole() = default;
+
+		virtual void open() = 0;
+
+		virtual void close() = 0;
+	};
 }

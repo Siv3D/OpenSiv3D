@@ -477,6 +477,13 @@
 	//// TCP クライアント
 	//# include "Siv3D/TCPClient.hpp"
 
+
+
+
+	// コンソールウィンドウ
+	# include "Siv3D/Console.hpp"
+
+
 //////////////////////////////////////////////////
 //
 //	Namespace
