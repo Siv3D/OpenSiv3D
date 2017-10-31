@@ -28,8 +28,7 @@ OpenSiv3D Linux版をビルドしてアプリケーションを作成するま�
 - GLU
 - GLEW
 - libpng
-- libturbojpeg
-- libgif
+- turbojpeg
 - X11
 - X11 Input extension (Xi)
 - X11 RandR extension (Xrandr)
