@@ -43,7 +43,7 @@ namespace s3d
 	template <class Type>
 	inline constexpr Type&& constexpr_forward(typename std::remove_reference_t<Type>&& t) noexcept
 	{
-		static_assert(!std::is_lvalue_reference<Type>::value);
+		static_assert(!std::is_lvalue_reference_v<Type>);
 		return static_cast<Type&&>(t);
 	}
 

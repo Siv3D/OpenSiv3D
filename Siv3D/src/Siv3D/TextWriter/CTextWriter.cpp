@@ -33,15 +33,15 @@ namespace s3d
 		if (openMode == OpenMode::Append)
 		{
 			m_encoding = Unicode::GetTextEncoding(path);
-            
-            # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
-            
-                if (m_encoding == TextEncoding::Unknown)
-                {
-                    return false;
-                }
-            
-            # endif
+
+		# if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
+
+			if (m_encoding == TextEncoding::Unknown)
+			{
+				return false;
+			}
+
+		# endif
 		}
 		else
 		{
