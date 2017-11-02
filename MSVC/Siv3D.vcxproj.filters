@@ -134,6 +134,12 @@
     <Filter Include="src\Siv3D\TextEncoding">
       <UniqueIdentifier>{bdbfb8ae-c3d1-4bc7-8c7a-6c4234557d9f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\TextReader">
+      <UniqueIdentifier>{9de7f3b4-015f-4013-a243-271fd078c422}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\TextWriter">
+      <UniqueIdentifier>{9c93d7a0-2016-4b9f-a24f-ef002162c476}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -312,6 +318,21 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\TextEncoding\SivTextEncoding.cpp">
       <Filter>src\Siv3D\TextEncoding</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextReader\CTextReader_Linux.cpp">
+      <Filter>src\Siv3D\TextReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextReader\SivTextReader.cpp">
+      <Filter>src\Siv3D\TextReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextReader\CTextReader.cpp">
+      <Filter>src\Siv3D\TextReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextWriter\CTextWriter.cpp">
+      <Filter>src\Siv3D\TextWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextWriter\SivTextWriter.cpp">
+      <Filter>src\Siv3D\TextWriter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -690,6 +711,18 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\TextEncoding.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TextWriter.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TextReader.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\TextReader\CTextReader.hpp">
+      <Filter>src\Siv3D\TextReader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\TextWriter\CTextWriter.hpp">
+      <Filter>src\Siv3D\TextWriter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_macOS.mm">
@@ -697,6 +730,9 @@
     </None>
     <None Include="..\Siv3D\include\Siv3D\Point.ipp">
       <Filter>include\Siv3D</Filter>
+    </None>
+    <None Include="..\Siv3D\src\Siv3D\TextReader\CTextReader_macOS.mm">
+      <Filter>src\Siv3D\TextReader</Filter>
     </None>
   </ItemGroup>
 </Project>
