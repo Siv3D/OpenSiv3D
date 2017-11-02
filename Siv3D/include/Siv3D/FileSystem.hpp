@@ -97,7 +97,7 @@ namespace s3d
 		/// <returns>
 		/// 存在する場合は true, それ以外の場合は false
 		/// </returns>
-		bool Exists(const FilePath& path);
+		[[nodiscard]] bool Exists(const FilePath& path);
 
 		/// <summary>
 		/// 指定したパスがディレクトリであるかを返します。
@@ -108,7 +108,7 @@ namespace s3d
 		/// <returns>
 		/// ディレクトリである場合は true, それ以外の場合は false
 		/// </returns>
-		bool IsDirectory(const FilePath& path);
+		[[nodiscard]] bool IsDirectory(const FilePath& path);
 
 		/// <summary>
 		/// 指定したパスがファイルであるかを返します。
@@ -119,7 +119,7 @@ namespace s3d
 		/// <returns>
 		/// ファイルである場合は true, それ以外の場合は false
 		/// </returns>
-		bool IsFile(const FilePath& path);
+		[[nodiscard]] bool IsFile(const FilePath& path);
 
 		/// <summary>
 		/// 指定したパスが exe に埋め込まれたリソースであるかを返します。
@@ -130,7 +130,7 @@ namespace s3d
 		/// <returns>
 		/// リソースである場合は true, それ以外の場合は false
 		/// </returns>
-		bool IsResource(const FilePath& path);
+		[[nodiscard]] bool IsResource(const FilePath& path);
 
 		/// <summary>
 		/// 指定したファイルの絶対パスを返します。（例: "C:/Users/Siv/Desktop/picture.png"）
@@ -141,7 +141,7 @@ namespace s3d
 		/// <returns>
 		/// ファイルの絶対パス。失敗した場合は空の文字列
 		/// </returns>
-		FilePath FullPath(const FilePath& path);
+		[[nodiscard]] FilePath FullPath(const FilePath& path);
 
 		/// <summary>
 		/// 指定したファイルの .を含まない拡張子を小文字にして返します。（例: "png"）
@@ -152,7 +152,7 @@ namespace s3d
 		/// <returns>
 		/// 小文字の拡張子。失敗した場合は空の文字列
 		/// </returns>
-		String Extension(const FilePath& path);
+		[[nodiscard]] String Extension(const FilePath& path);
 
 		/// <summary>
 		/// 指定したファイルの、親ディレクトリを含まずに、拡張子を含んだ名前を返します。（例: "picture.png"）
@@ -163,7 +163,7 @@ namespace s3d
 		/// <returns>
 		/// ファイル名。失敗した場合は空の文字列
 		/// </returns>
-		String FileName(const FilePath& path);
+		[[nodiscard]] String FileName(const FilePath& path);
 
 		/// <summary>
 		/// 指定したファイルの、親ディレクトリと拡張子を含まない名前を返します。（例: "picture"）
@@ -174,7 +174,7 @@ namespace s3d
 		/// <returns>
 		/// ファイル名。失敗した場合は空の文字列
 		/// </returns>
-		String BaseName(const FilePath& path);
+		[[nodiscard]] String BaseName(const FilePath& path);
 
 		/// <summary>
 		/// 指定したファイルの親ディレクトリを返します。（例: "C:/Users/Siv/Desktop/"）
@@ -185,7 +185,7 @@ namespace s3d
 		/// <returns>
 		/// 親ディレクトリ。失敗した場合は空の文字列
 		/// </returns>
-		FilePath ParentPath(const FilePath& path, size_t level = 0, FilePath* baseFullPath = nullptr);
+		[[nodiscard]] FilePath ParentPath(const FilePath& path, size_t level = 0, FilePath* baseFullPath = nullptr);
 
 		/// <summary>
 		/// 指定したファイルのドライブのパスを返します。（例: "C:/"）
@@ -196,7 +196,7 @@ namespace s3d
 		/// <returns>
 		/// ドライブのパス。失敗した場合は空の文字列
 		/// </returns>
-		FilePath VolumePath(const FilePath& path);
+		[[nodiscard]] FilePath VolumePath(const FilePath& path);
 
 		/// <summary>
 		/// 指定したファイルのパスを正規化します
@@ -207,7 +207,7 @@ namespace s3d
 		/// <returns>
 		/// 正規化したパス
 		/// </returns>
-		inline FilePath NormalizedPath(const FilePath& path)
+		[[nodiscard]] inline FilePath NormalizedPath(const FilePath& path)
 		{
 			return FullPath(path).lowercased();
 		}
@@ -221,7 +221,7 @@ namespace s3d
 		/// <returns>
 		/// 成功の場合は true, それ以外の場合は false
 		/// </returns>
-		bool IsEmpty(const FilePath& path);
+		[[nodiscard]] bool IsEmpty(const FilePath& path);
 
 		/// <summary>
 		/// 指定したファイルかディレクトリのサイズを返します。
@@ -235,7 +235,7 @@ namespace s3d
 		/// <returns>
 		/// サイズ
 		/// </returns>
-		int64 Size(const FilePath& path);
+		[[nodiscard]] int64 Size(const FilePath& path);
 
 		/// <summary>
 		/// 指定したファイルのサイズを返します。
@@ -249,7 +249,7 @@ namespace s3d
 		/// <returns>
 		/// サイズ
 		/// </returns>
-		int64 FileSize(const FilePath& path);
+		[[nodiscard]] int64 FileSize(const FilePath& path);
 
 		/// <summary>
 		/// ファイルまたはディレクトリの作成日時を返します。
@@ -260,7 +260,7 @@ namespace s3d
 		/// <returns>
 		/// 作成日時。ファイルが存在しない場合 none
 		/// </returns>
-		Optional<DateTime> CreationTime(const FilePath& path);
+		[[nodiscard]] Optional<DateTime> CreationTime(const FilePath& path);
 
 		/// <summary>
 		/// ファイルまたはディレクトリの更新日時を返します。
@@ -271,7 +271,7 @@ namespace s3d
 		/// <returns>
 		/// 更新日時。ファイルが存在しない場合 none
 		/// </returns>
-		Optional<DateTime> WriteTime(const FilePath& path);
+		[[nodiscard]] Optional<DateTime> WriteTime(const FilePath& path);
 
 		/// <summary>
 		/// ファイルまたはディレクトリのアクセス日時を返します。
@@ -282,7 +282,7 @@ namespace s3d
 		/// <returns>
 		/// アクセス日時。ファイルが存在しない場合 none
 		/// </returns>
-		Optional<DateTime> AccessTime(const FilePath& path);
+		[[nodiscard]] Optional<DateTime> AccessTime(const FilePath& path);
 
 		/// <summary>
 		/// 指定したディレクトリにあるファイルとディレクトリの一覧を返します。
@@ -293,7 +293,7 @@ namespace s3d
 		/// <returns>
 		/// ファイルとディレクトリの一覧
 		/// </returns>
-		Array<FilePath> DirectoryContents(const FilePath& path, bool recursive = true);
+		[[nodiscard]] Array<FilePath> DirectoryContents(const FilePath& path, bool recursive = true);
 
 		/// <summary>
 		/// プログラムが起動したパスを返します。
@@ -301,7 +301,7 @@ namespace s3d
 		/// <returns>
 		/// プログラムが起動したパス
 		/// </returns>
-		const FilePath& InitialPath();
+		[[nodiscard]] const FilePath& InitialPath();
 
 		/// <summary>
 		/// 現在のアプリケーションの実行可能ファイル (.exe) の完全パスを返します。
@@ -309,7 +309,7 @@ namespace s3d
 		/// <returns>
 		/// 現在のアプリケーションの完全パス
 		/// </returns>
-		const FilePath& ModulePath();
+		[[nodiscard]] const FilePath& ModulePath();
 
 		/// <summary>
 		/// カレントパスを返します。
@@ -317,7 +317,7 @@ namespace s3d
 		/// <returns>
 		/// カレントパス
 		/// </returns>
-		FilePath CurrentPath();
+		[[nodiscard]] FilePath CurrentPath();
 
 		/// <summary>
 		/// 特殊フォルダのパスを返します。
@@ -328,7 +328,7 @@ namespace s3d
 		/// <returns>
 		/// 特殊フォルダのパス
 		/// </returns>
-		FilePath SpecialFolderPath(SpecialFolder folder);
+		[[nodiscard]] FilePath SpecialFolderPath(SpecialFolder folder);
 
 		/// <summary>
 		/// 一時ファイル用のディレクトリのパスを返します。パスの末尾には '/' が付きます。
@@ -336,7 +336,7 @@ namespace s3d
 		/// <returns>
 		/// 一時ファイル用のディレクトリのパス
 		/// </returns>
-		FilePath TempDirectoryPath();
+		[[nodiscard]] FilePath TempDirectoryPath();
 
 		/// <summary>
 		/// 指定したパスを相対パスに変換します。
@@ -350,7 +350,7 @@ namespace s3d
 		/// <returns>
 		/// 相対パス
 		/// </returns>
-		FilePath RelativePath(const FilePath& path, const FilePath& start = FileSystem::CurrentPath());
+		[[nodiscard]] FilePath RelativePath(const FilePath& path, const FilePath& start = FileSystem::CurrentPath());
 
 		/// <summary>
 		/// 一時ファイル用の固有なファイルパスを返します。拡張子は ".tmp" です。
@@ -358,7 +358,7 @@ namespace s3d
 		/// <returns>
 		/// 一時ファイル用のファイルパス
 		/// </returns>
-		FilePath UniqueFilePath(const FilePath& directory = TempDirectoryPath());
+		[[nodiscard]] FilePath UniqueFilePath(const FilePath& directory = TempDirectoryPath());
 
 		/// <summary>
 		/// ディレクトリを作成します。

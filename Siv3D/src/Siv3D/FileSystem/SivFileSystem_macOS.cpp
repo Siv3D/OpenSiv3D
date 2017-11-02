@@ -27,7 +27,7 @@ namespace s3d
 	{
 		static bool GetStat(const FilePath& path, struct stat& s)
 		{
-			return (::stat(path.replaced(L'\\', L'/').narrow().c_str(), &s) == 0);
+			return (::stat(path.replaced(U'\\', U'/').narrow().c_str(), &s) == 0);
 		}
 
 		static bool IsNotFound(const FilePath& path)
@@ -69,15 +69,15 @@ namespace s3d
 		{
 			for (auto& ch : path)
 			{
-				if (ch == L'\\')
+				if (ch == U'\\')
 				{
-					ch = L'/';
+					ch = U'/';
 				}
 			}
 
-			if (!path.ends_with(L'/') && (skipDirectoryCheck || IsDirectory(path)))
+			if (!path.ends_with(U'/') && (skipDirectoryCheck || IsDirectory(path)))
 			{
-				path.push_back(L'/');
+				path.push_back(U'/');
 			}
 
 			return path;
@@ -202,7 +202,7 @@ namespace s3d
 		FilePath VolumePath(const FilePath&)
 		{
 			// [Siv3D ToDo]
-			return FilePath(1, L'/');
+			return FilePath(1, U'/');
 		}
 
 		bool IsEmpty(const FilePath& path)

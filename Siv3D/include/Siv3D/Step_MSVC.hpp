@@ -1636,17 +1636,6 @@ namespace s3d
 	}
 }
 
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Formatting steps_class
-//
-//	[x] Siv3D Formatter
-//	[x] ostream
-//	[x] wostream
-//	[ ] istream
-//	[ ] wistream
-//	[p] fmtlib BasicFormatter<wchar>
-//
 namespace s3d
 {
 	template <class T, class N, class S, bool isScalar>
@@ -1667,20 +1656,7 @@ namespace s3d
 		return output << value.join().toWstr();
 	}
 }
-//
-//////////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////////
-//
-//	Formatting F_Step
-//
-//	[x] Siv3D Formatter
-//	[x] ostream
-//	[x] wostream
-//	[ ] istream
-//	[ ] wistream
-//	[p] fmtlib BasicFormatter<wchar>
-//
 namespace s3d
 {
 	template <class StepClass, class ValueType, class Tuple>
@@ -1701,7 +1677,5 @@ namespace s3d
 		return output << value.join().toWstr();
 	}
 }
-//
-//////////////////////////////////////////////////////////////////////////////
 
 S3D_DISABLE_MSVC_WARNINGS_POP()

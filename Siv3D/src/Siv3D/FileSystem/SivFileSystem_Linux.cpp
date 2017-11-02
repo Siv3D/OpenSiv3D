@@ -252,7 +252,7 @@ namespace s3d
 		FilePath VolumePath(const FilePath&)
 		{
 			// [Siv3D ToDo]
-			return FilePath(1, L'/');
+			return FilePath(1, U'/');
 		}
 
 		bool IsEmpty(const FilePath& path)

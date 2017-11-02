@@ -236,30 +236,30 @@
 
 	// ファイルとディレクトリ
 	# include "Siv3D/FileSystem.hpp"
-	//// リソースファイル
-	//# include "Siv3D/Resource.hpp"
+	// リソースファイル
+	# include "Siv3D/Resource.hpp"
 	////// ファイルとディレクトリの変更の監視
 	////# include "Siv3D/FileMonitor.hpp"
-	//// IReader インタフェース
-	//# include "Siv3D/IReader.hpp"
-	//// IWriter インタフェース
-	//# include "Siv3D/IWriter.hpp"
-	//// メモリ範囲への Reader インタフェース
-	//# include "Siv3D/ReaderView.hpp"
-	//// メモリマップトファイル
-	//# include "Siv3D/MemoryMapping.hpp"
-	//// 書き込み可能なメモリマップトファイル
-	//# include "Siv3D/WritableMemoryMapping.hpp"
-	//// 読み込み用バッファ
-	//# include "Siv3D/ByteArray.hpp"
-	//// 書き込み用バッファ
-	//# include "Siv3D/MemoryWriter.hpp"
-	//// バイナリファイルの読み込み
-	//# include "Siv3D/BinaryReader.hpp"
-	//// バイナリファイルの書き込み
-	//# include "Siv3D/BinaryWriter.hpp"
-	//// テキストのエンコード
-	//# include "Siv3D/CharacterEncoding.hpp"
+	// IReader インタフェース
+	# include "Siv3D/IReader.hpp"
+	// IWriter インタフェース
+	# include "Siv3D/IWriter.hpp"
+	// メモリ範囲への Reader インタフェース
+	# include "Siv3D/ReaderView.hpp"
+	// メモリマップトファイル
+	# include "Siv3D/MemoryMapping.hpp"
+	// 書き込み可能なメモリマップトファイル
+	# include "Siv3D/WritableMemoryMapping.hpp"
+	// 読み込み用バッファ
+	# include "Siv3D/ByteArray.hpp"
+	// 書き込み用バッファ
+	# include "Siv3D/MemoryWriter.hpp"
+	// バイナリファイルの読み込み
+	# include "Siv3D/BinaryReader.hpp"
+	// バイナリファイルの書き込み
+	# include "Siv3D/BinaryWriter.hpp"
+	// テキストのエンコード
+	# include "Siv3D/TextEncoding.hpp"
 	//// テキストファイルの読み込み
 	//# include "Siv3D/TextReader.hpp"
 	//// テキストファイルの書き込み
@@ -307,10 +307,10 @@
 //
 //////////////////////////////////////////////////
 
-	//// RGB カラー
-	//# include "Siv3D/Color.hpp"
-	//// HSV カラー
-	//# include "Siv3D/HSV.hpp"
+	// RGB color
+	# include "Siv3D/Color.hpp"
+	// HSV color
+	# include "Siv3D/HSV.hpp"
 
 //////////////////////////////////////////////////
 //
@@ -398,8 +398,8 @@
 //
 // 数学
 //
-	//// 数学定数
-	//# include "Siv3D/MathConstants.hpp"
+	// 数学定数
+	# include "Siv3D/MathConstants.hpp"
 	//// 数学関数
 	//# include "Siv3D/Math.hpp"
 	//// 線形補間

@@ -61,7 +61,7 @@ namespace s3d
 			}
 
 			if (!path.ends_with(U'/')
-				&& (skipDirectoryCheck || IsDirectory(fs::status(fs::path(path.str())))))
+				&& (skipDirectoryCheck || IsDirectory(fs::status(fs::path(path.toWstr())))))
 			{
 				path.push_back(U'/');
 			}
@@ -198,7 +198,7 @@ namespace s3d
 				return detail::ResourceExists(path);
 			}
 
-			return !detail::IsNotFound(fs::status(fs::path(path.str())));
+			return !detail::IsNotFound(fs::status(fs::path(path.toWstr())));
 		}
 
 		bool IsDirectory(const FilePath& path)
@@ -213,7 +213,7 @@ namespace s3d
 				return false;
 			}
 
-			return detail::IsDirectory(fs::status(fs::path(path.str())));
+			return detail::IsDirectory(fs::status(fs::path(path.toWstr())));
 		}
 
 		bool IsFile(const FilePath& path)
@@ -228,7 +228,7 @@ namespace s3d
 				return detail::ResourceExists(path);
 			}
 
-			return detail::IsRegular(fs::status(fs::path(path.str())));
+			return detail::IsRegular(fs::status(fs::path(path.toWstr())));
 		}
 
 		bool IsResource(const FilePath& path)
@@ -311,7 +311,7 @@ namespace s3d
 				}
 			}
 
-			const auto fpath = fs::path(path.str());
+			const auto fpath = fs::path(path.toWstr());
 			const auto status = fs::status(fpath);
 
 			if (detail::IsNotFound(status))
@@ -354,7 +354,7 @@ namespace s3d
 				return FileSize(path);
 			}
 
-			const auto fpath = fs::path(path.str());
+			const auto fpath = fs::path(path.toWstr());
 			const auto status = fs::status(fpath);
 
 			if (detail::IsRegular(status))
@@ -497,7 +497,7 @@ namespace s3d
 				return paths;
 			}
 
-			if (detail::IsRegular(fs::status(fs::path(path.str()))))
+			if (detail::IsRegular(fs::status(fs::path(path.toWstr()))))
 			{
 				return paths;
 			}
@@ -576,12 +576,12 @@ namespace s3d
 				return false;
 			}
 
-			if (copyOption == CopyOption::Fail_if_Exists && fs::exists(fs::path(to.str())))
+			if (copyOption == CopyOption::Fail_if_Exists && fs::exists(fs::path(to.toWstr())))
 			{
 				return false;
 			}
 
-			const std::wstring fromStr = (from + (is_regular_file(fs::path(from.str())) ? U"" : U"\\*") + U'\0').replace(U'/', U'\\').toWstr();
+			const std::wstring fromStr = (from + (is_regular_file(fs::path(from.toWstr())) ? U"" : U"\\*") + U'\0').replace(U'/', U'\\').toWstr();
 			const std::wstring toStr = (to + U'\0').replace(U'/', U'\\').toWstr(); // pTo ÇÕê‚ëŒÉpÉXÇ… \\ ÇóvãÅ
 
 			SHFILEOPSTRUCTW fileOption{};

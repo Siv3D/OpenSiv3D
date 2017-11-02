@@ -15,33 +15,76 @@
 # include <crtdbg.h>
 # include <future>
 # include <Siv3D/Windows.hpp>
+# include <Siv3D/String.hpp>
+# include <Siv3D/Format.hpp>
+# include <Siv3D/FormatUtility.hpp>
+# include <Siv3D/FileSystem.hpp>
 # include "Siv3DEngine.hpp"
 
 void Main();
 
-namespace s3d
+namespace s3d::detail
 {
-	namespace detail
+	namespace init
 	{
-		static void ShowException(const DWORD)
-		{
-
-		}
-
-		static void MainThread()
-		{
-			PEXCEPTION_POINTERS ex = nullptr;
-
-			__try
-			{
-				Main();
-			}
-			__except (ex = GetExceptionInformation(), EXCEPTION_EXECUTE_HANDLER)
-			{
-				ShowException(ex->ExceptionRecord->ExceptionCode);
-			}
-		}
+		void SetModulePath();
 	}
+
+	static void ShowException(const DWORD _code)
+	{
+		const String code = (_code == EXCEPTION_ACCESS_VIOLATION) ? U"EXCEPTION_ACCESS_VIOLATION"
+			: Format(U"0x", Pad(ToHex(_code), { 8, U'0' }));
+
+		//LOG_ERROR(L"🛑 Application terminated due to an exception. Exception code: {0}"_fmt(code));
+	}
+
+	static void MainThread()
+	{
+		PEXCEPTION_POINTERS ex = nullptr;
+
+		__try
+		{
+			Main();
+		}
+		__except (ex = GetExceptionInformation(), EXCEPTION_EXECUTE_HANDLER)
+		{
+			ShowException(ex->ExceptionRecord->ExceptionCode);
+		}
+
+		//Siv3DEngine::GetScript()->shutdown();
+	}
+
+	//enum class MessageResult
+	//{
+	//	Quit,
+
+	//	Dispatched,
+
+	//	NoMessage,
+	//};
+
+	//static MessageResult HandleMessage()
+	//{
+	//	MSG message;
+
+	//	if (::PeekMessageW(&message, 0, 0, 0, PM_REMOVE))
+	//	{
+	//		if (message.message == WM_QUIT)
+	//		{
+	//			return MessageResult::Quit;
+	//		}
+	//		else
+	//		{
+	//			::TranslateMessage(&message);
+
+	//			::DispatchMessageW(&message);
+	//		}
+
+	//		return MessageResult::Dispatched;
+	//	}
+
+	//	return MessageResult::NoMessage;
+	//}
 }
 
 int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
@@ -50,9 +93,32 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
+	detail::init::SetModulePath();
+	{
+		int nArgs = 0;
+
+		LPWSTR* szArglist = ::CommandLineToArgvW(::GetCommandLineW(), &nArgs);
+
+		if (nArgs >= 2 && FileSystem::Exists(Unicode::FromWString(szArglist[1])))
+		{
+			::SetCurrentDirectoryW(FileSystem::ParentPath(FileSystem::ModulePath()).toWstr().c_str());
+		}
+
+		::LocalFree(szArglist);
+	}
+
 	::OutputDebugStringW(L"Siv3D for Windows\n");
 
 	Siv3DEngine engine;
+
+	//if (!Siv3DEngine::GetSystem()->init())
+	//{
+	//	LOG_ERROR(L"🛑 Application cannot start due to an initialization error");
+
+	//	return false;
+	//}
+
+	//Logger::WriteRawHTML(S3DSTR("<hr width=\"99%\">"));
 
 	// Running main thread
 	{
@@ -65,6 +131,8 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 			::Sleep(1);
 		}
 	}
+
+	//Logger::WriteRawHTML(S3DSTR("<hr width=\"99%\">"));
 
 	return 0;
 }

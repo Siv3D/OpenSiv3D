@@ -63,7 +63,7 @@ namespace s3d
 	//	String.hpp
 	//
 	class String;
-
+	using FilePath = String;
 	
 	
 	
@@ -73,4 +73,60 @@ namespace s3d
 
 	struct Date;
 	struct DateTime;
+
+
+	//////////////////////////////////////////////////////
+	//
+	//	MemoryMapping.hpp
+	//
+	class MemoryMapping;
+
+	//////////////////////////////////////////////////////
+	//
+	//	WritableMemoryMapping.hpp
+	//
+	class WritableMemoryMapping;
+	enum class MMFOpenMode_if_Exists;
+	enum class MMFOpenMode_if_NotFound;
+
+
+	//////////////////////////////////////////////////////
+	//
+	//	Color.hpp
+	//
+	struct Color;
+	struct ColorF;
+
+	//////////////////////////////////////////////////////
+	//
+	//	HSV.hpp
+	//
+	struct HSV;
+
+	//////////////////////////////////////////////////////
+	//
+	//	PointVector.hpp
+	//
+	struct Point;
+	using Size = Point;
+	template <class Type> struct Vector2D;
+	template <class Type> struct Vector3D;
+	template <class Type> struct Vector4D;
+	using Float2	= Vector2D<float>;
+	using Vec2		= Vector2D<double>;
+	using Float3	= Vector3D<float>;
+	using Vec3		= Vector3D<double>;
+	using Float4	= Vector4D<float>;
+	using Vec4		= Vector4D<double>;
+
+
+
+
+	//////////////////////////////////////////////////////
+	//
+	//	Rectangle.hpp
+	//
+	template <class SizeType> struct Rectangle;
+	using Rect = Rectangle<Point>;
+	using RectF = Rectangle<Vec2>;
 }

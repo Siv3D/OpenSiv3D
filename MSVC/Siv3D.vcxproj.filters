@@ -107,6 +107,33 @@
     <Filter Include="src\Siv3D\FileSystem">
       <UniqueIdentifier>{041392e8-593f-4aef-95d9-e388ec565c72}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Resource">
+      <UniqueIdentifier>{596d95e7-7fa9-4c85-8126-8162a96c9970}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\MemoryMapping">
+      <UniqueIdentifier>{ab331ccd-c1f5-4f2d-b50b-54d4c6eb556e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\WritableMemoryMapping">
+      <UniqueIdentifier>{9a2c3829-e00d-4f2a-abbd-766c04802c67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ByteArray">
+      <UniqueIdentifier>{f0c0f929-a5fa-4cec-8b41-97b76792dbd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ByteArrayView">
+      <UniqueIdentifier>{0fc6a6dc-84e7-4f0c-9b85-dd3e269b909d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\MemoryWriter">
+      <UniqueIdentifier>{ad7a0476-7e9c-48cd-85aa-70ca38554c05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\BinaryReader">
+      <UniqueIdentifier>{c64aad09-5741-48e5-ac36-84e07eea1f5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\BinaryWriter">
+      <UniqueIdentifier>{4fa5be1c-0d07-4ee6-b8d3-50314da37c1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\TextEncoding">
+      <UniqueIdentifier>{bdbfb8ae-c3d1-4bc7-8c7a-6c4234557d9f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -228,6 +255,63 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_Linux.cpp">
       <Filter>src\Siv3D\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Resource\SivResource.cpp">
+      <Filter>src\Siv3D\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MemoryMapping\CMemoryMapping.cpp">
+      <Filter>src\Siv3D\MemoryMapping</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MemoryMapping\SivMemoryMapping.cpp">
+      <Filter>src\Siv3D\MemoryMapping</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\WritableMemoryMapping\SivWritableMemoryMapping.cpp">
+      <Filter>src\Siv3D\WritableMemoryMapping</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\WritableMemoryMapping\CWritableMemoryMapping.cpp">
+      <Filter>src\Siv3D\WritableMemoryMapping</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ByteArray\SivByteArray.cpp">
+      <Filter>src\Siv3D\ByteArray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ByteArray\CByteArray.cpp">
+      <Filter>src\Siv3D\ByteArray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ByteArrayView\SivByteArrayView.cpp">
+      <Filter>src\Siv3D\ByteArrayView</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MemoryWriter\CMemoryWriter.cpp">
+      <Filter>src\Siv3D\MemoryWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MemoryWriter\SivMemoryWriter.cpp">
+      <Filter>src\Siv3D\MemoryWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\BinaryReader\CBinaryReader_macOS.cpp">
+      <Filter>src\Siv3D\BinaryReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\BinaryReader\CBinaryReader_Windows.cpp">
+      <Filter>src\Siv3D\BinaryReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\BinaryReader\SivBinaryReader.cpp">
+      <Filter>src\Siv3D\BinaryReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\BinaryReader\CBinaryReader_Linux.cpp">
+      <Filter>src\Siv3D\BinaryReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\BinaryWriter\CBinaryWriter_macOS.cpp">
+      <Filter>src\Siv3D\BinaryWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\BinaryWriter\CBinaryWriter_Windows.cpp">
+      <Filter>src\Siv3D\BinaryWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\BinaryWriter\SivBinaryWriter.cpp">
+      <Filter>src\Siv3D\BinaryWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\BinaryWriter\CBinaryWriter_Linux.cpp">
+      <Filter>src\Siv3D\BinaryWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextEncoding\SivTextEncoding.cpp">
+      <Filter>src\Siv3D\TextEncoding</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -519,10 +603,100 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Random.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Point.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Vector2D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Vector3D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Vector4D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\HSV.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Color.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ColorPalette.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\MathConstants.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Resource.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\IReader.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\IWriter.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ReaderView.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\MemoryMapping.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\WritableMemoryMapping.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\MemoryMapping\CMemoryMapping.hpp">
+      <Filter>src\Siv3D\MemoryMapping</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\WritableMemoryMapping\CWritableMemoryMapping.hpp">
+      <Filter>src\Siv3D\WritableMemoryMapping</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ByteArray.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\ByteArray\CByteArray.hpp">
+      <Filter>src\Siv3D\ByteArray</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\BinaryReader.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\BinaryWriter.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\MemoryWriter.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\MemoryWriter\CMemoryWriter.hpp">
+      <Filter>src\Siv3D\MemoryWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\BinaryReader\CBinaryReader_Linux.hpp">
+      <Filter>src\Siv3D\BinaryReader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\BinaryReader\CBinaryReader_macOS.hpp">
+      <Filter>src\Siv3D\BinaryReader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\BinaryReader\CBinaryReader_Windows.hpp">
+      <Filter>src\Siv3D\BinaryReader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\BinaryWriter\CBinaryWriter_macOS.hpp">
+      <Filter>src\Siv3D\BinaryWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\BinaryWriter\CBinaryWriter_Windows.hpp">
+      <Filter>src\Siv3D\BinaryWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\BinaryWriter\CBinaryWriter_Linux.hpp">
+      <Filter>src\Siv3D\BinaryWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TextEncoding.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_macOS.mm">
       <Filter>src\Siv3D\FileSystem</Filter>
+    </None>
+    <None Include="..\Siv3D\include\Siv3D\Point.ipp">
+      <Filter>include\Siv3D</Filter>
     </None>
   </ItemGroup>
 </Project>
