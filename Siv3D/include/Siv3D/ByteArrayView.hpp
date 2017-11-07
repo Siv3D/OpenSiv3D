@@ -13,6 +13,8 @@
 # include <iterator>
 # include <type_traits>
 # include <algorithm>
+# include <cstring>
+# include <array>
 # include "Byte.hpp"
 
 namespace s3d

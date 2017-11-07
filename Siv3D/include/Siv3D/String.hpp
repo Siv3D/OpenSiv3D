@@ -11,6 +11,7 @@
 
 # pragma once
 # include <string>
+# include <cwctype>
 # include "Fwd.hpp"
 # include "Char.hpp"
 # include "StringView.hpp"
