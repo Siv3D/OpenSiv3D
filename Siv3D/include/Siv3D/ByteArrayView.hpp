@@ -13,6 +13,7 @@
 # include <iterator>
 # include <type_traits>
 # include <algorithm>
+# include "Fwd.hpp"
 # include "Byte.hpp"
 
 namespace s3d
@@ -150,14 +151,16 @@ namespace s3d
 			return len;
 		}
 
-		[[nodiscard]] constexpr ByteArrayView substr(const size_type pos = 0, const size_type size = npos) const
+		[[nodiscard]] constexpr ByteArrayView subView(const size_type pos = 0, const size_type size = npos) const
 		{
 			if (pos > m_size)
 			{
-				throw std::out_of_range("ByteArrayView::substr()");
+				throw std::out_of_range("ByteArrayView::subView()");
 			}
 
 			return ByteArrayView(m_data + pos, std::min(size, m_size - pos));
 		}
+
+		[[nodiscard]] String toHex() const;
 	};
 }

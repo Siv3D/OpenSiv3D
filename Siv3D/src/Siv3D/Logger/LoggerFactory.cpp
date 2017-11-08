@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -9,14 +9,12 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_MACOS)
+# include "CLogger.hpp"
 
-void Main();
-
-int main()
+namespace s3d
 {
-	Main();
+	ISiv3DLogger* ISiv3DLogger::Create()
+	{
+		return new CLogger;
+	}
 }
-
-# endif

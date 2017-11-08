@@ -25,6 +25,16 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+# include <Siv3D/Platform.hpp>
+S3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
+//
+//-----------------------------------------------
+
+
 #include <climits>
 #include <locale>
 #include <cmath>
@@ -1015,4 +1025,28 @@ float StringToDoubleConverter::StringToFloat(
                                          processed_characters_count));
 }
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+double StringToDoubleConverter::Siv3D_StringToIeee(const char32_t* start_pointer,
+	int length,
+	bool read_as_double,
+	int* processed_characters_count) const
+{
+	return StringToIeee(start_pointer, length, read_as_double,
+		processed_characters_count);
+}
+//
+//-----------------------------------------------
+
+
 }  // namespace double_conversion
+
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+S3D_DISABLE_MSVC_WARNINGS_POP()
+//
+//-----------------------------------------------

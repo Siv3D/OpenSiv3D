@@ -1,13 +1,10 @@
 
 # include <Siv3D.hpp>
+# include "Test/Test.hpp"
 
 void Main()
 {
-	step(100_big, 100, 1);
+	Siv3D_RunTest();
 
-	String s = U"12345ABCDE";
-	
-	
-	
-	std::cout << U"{}"_fmt(s);
+	Logger << MD5::FromFile(U"example/windmill.png");
 }
