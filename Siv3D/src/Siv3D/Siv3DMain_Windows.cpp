@@ -21,8 +21,7 @@
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Logger.hpp>
 # include "Siv3DEngine.hpp"
-
-#include "Logger/ILogger.hpp"
+# include "System/ISystem.hpp"
 
 void Main();
 
@@ -114,17 +113,12 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 
 	Siv3DEngine engine;
 
-	if (!Siv3DEngine::GetLogger()->init())
+	if (!Siv3DEngine::GetSystem()->init())
 	{
+		LOG_ERROR(U"🛑 Application cannot start due to an initialization error");
+
 		return false;
 	}
-
-	//if (!Siv3DEngine::GetSystem()->init())
-	//{
-	//	LOG_ERROR(L"🛑 Application cannot start due to an initialization error");
-
-	//	return false;
-	//}
 
 	Logger.writeRawHTML_UTF8(u8"<hr width=\"99%\">");
 

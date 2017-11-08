@@ -71,6 +71,11 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Siv3DMain_Windows.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Stopwatch\SivStopwatch.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\String\SivString.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\System\CSystem_Linux.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\System\CSystem_macOS.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\System\CSystem_Windows.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\System\SivSystem.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\System\SystemFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TextEncoding\SivTextEncoding.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TextReader\CTextReader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TextReader\CTextReader_Linux.cpp" />
@@ -173,6 +178,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Stopwatch.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\StringView.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\String.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\System.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextEncoding.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextWriter.hpp" />
@@ -217,6 +223,10 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\MemoryMapping\CMemoryMapping.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\MemoryWriter\CMemoryWriter.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Siv3DEngine.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\System\CSystem_Linux.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\System\CSystem_macOS.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\System\CSystem_Windows.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\System\ISystem.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\TextReader\CTextReader.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\TextWriter\CTextWriter.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\WritableMemoryMapping\CWritableMemoryMapping.hpp" />
@@ -237,6 +247,7 @@
   <ItemGroup>
     <None Include="..\Siv3D\include\Siv3D\Point.ipp" />
     <None Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_macOS.mm" />
+    <None Include="..\Siv3D\src\Siv3D\System\SivSystem.mm" />
     <None Include="..\Siv3D\src\Siv3D\TextReader\CTextReader_macOS.mm" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

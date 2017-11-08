@@ -158,6 +158,9 @@
     <Filter Include="src\Siv3D\LicenseManager">
       <UniqueIdentifier>{548f25dd-4057-41d8-9b31-3b0ba7e366c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\System">
+      <UniqueIdentifier>{bc332514-bce1-40c7-b5b2-4a82a19ab95a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -378,6 +381,21 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\LicenseManager\CLicenseManager.cpp">
       <Filter>src\Siv3D\LicenseManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\System\CSystem_Windows.cpp">
+      <Filter>src\Siv3D\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\System\SivSystem.cpp">
+      <Filter>src\Siv3D\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\System\SystemFactory.cpp">
+      <Filter>src\Siv3D\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\System\CSystem_Linux.cpp">
+      <Filter>src\Siv3D\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\System\CSystem_macOS.cpp">
+      <Filter>src\Siv3D\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -798,6 +816,21 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\LicenseManager\LicenseList.hpp">
       <Filter>src\Siv3D\LicenseManager</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\System.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\System\CSystem_macOS.hpp">
+      <Filter>src\Siv3D\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\System\CSystem_Windows.hpp">
+      <Filter>src\Siv3D\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\System\ISystem.hpp">
+      <Filter>src\Siv3D\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\System\CSystem_Linux.hpp">
+      <Filter>src\Siv3D\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_macOS.mm">
@@ -808,6 +841,9 @@
     </None>
     <None Include="..\Siv3D\src\Siv3D\TextReader\CTextReader_macOS.mm">
       <Filter>src\Siv3D\TextReader</Filter>
+    </None>
+    <None Include="..\Siv3D\src\Siv3D\System\SivSystem.mm">
+      <Filter>src\Siv3D\System</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -496,6 +496,9 @@
 
 
 
+	# include "Siv3D/System.hpp"
+
+
 	// コンソールウィンドウ
 	# include "Siv3D/Console.hpp"
 
