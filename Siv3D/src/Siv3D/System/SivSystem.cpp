@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -140,12 +140,12 @@ namespace s3d
 
 		bool LaunchBrowser(const FilePath& _url)
 		{
-			const bool isWebPage = url.starts_with(U"http://") || url.starts_with(U"https://");
+			const bool isWebPage = _url.starts_with(U"http://") || _url.starts_with(U"https://");
 			FilePath url = _url;
 			
 			if (!isWebPage)
 			{
-				const String extension = FileSystem::Extension(url);
+				const String extension = FileSystem::Extension(_url);
 				
 				if (extension != U"html" && extension != U"htm")
 				{
@@ -182,12 +182,12 @@ namespace s3d
 
 		bool LaunchBrowser(const FilePath& _url)
 		{
-			const bool isWebPage = url.starts_with(U"http://") || url.starts_with(U"https://");
+			const bool isWebPage = _url.starts_with(U"http://") || _url.starts_with(U"https://");
 			FilePath url = _url;
 			
 			if (!isWebPage)
 			{
-				const String extension = FileSystem::Extension(url);
+				const String extension = FileSystem::Extension(_url);
 				
 				if (extension != U"html" && extension != U"htm")
 				{
