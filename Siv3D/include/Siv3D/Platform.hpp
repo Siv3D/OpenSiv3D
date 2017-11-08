@@ -160,7 +160,7 @@
 //
 //////////////////////////////////////////////////
 
-# if defined(SIV3D_TARGET_WINDOWS) && (_MSC_FULL_VER < 191225816)
+# if defined(SIV3D_TARGET_WINDOWS) && (_MSC_FULL_VER < 191225827)
 
 	# error Visual Studio 2017 version 15.5 or later is required
 
