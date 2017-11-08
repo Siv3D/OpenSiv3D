@@ -12,6 +12,7 @@
 # pragma once
 # include "Fwd.hpp"
 # include "String.hpp"
+# include "Format.hpp"
 # include "ByteArrayView.hpp"
 
 namespace s3d
@@ -96,4 +97,18 @@ namespace s3d
 		/// </returns>
 		[[nodiscard]] MD5Value FromFile(const FilePath& path);
 	};
+}
+
+namespace s3d
+{
+	inline void Formatter(FormatData& formatData, const MD5Value& value)
+	{
+		formatData.string.append(value.asString());
+	}
+
+	template <class CharType>
+	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> output, const MD5Value& value)
+	{
+		return output << value.asString();
+	}
 }

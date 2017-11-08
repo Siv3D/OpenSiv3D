@@ -149,6 +149,12 @@
     <Filter Include="src\Siv3D\MD5">
       <UniqueIdentifier>{01fff7e2-fd0c-4b12-be7b-17520174d970}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\FormatUtility">
+      <UniqueIdentifier>{35649599-b87a-4268-8461-7f1ee7c0e797}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Logger">
+      <UniqueIdentifier>{39551d3a-c035-4491-8a5e-3d162c65b451}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -348,6 +354,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\MD5\SivMD5.cpp">
       <Filter>src\Siv3D\MD5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\FormatUtility\SivFormatUtility.cpp">
+      <Filter>src\Siv3D\FormatUtility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Logger\SivLogger.cpp">
+      <Filter>src\Siv3D\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Logger\CLogger.cpp">
+      <Filter>src\Siv3D\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Logger\LoggerFactory.cpp">
+      <Filter>src\Siv3D\Logger</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -746,6 +764,15 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\ThirdParty\RFC1321\RFC1321.hpp">
       <Filter>src\ThirdParty\RFC1321</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Logger.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Logger\CLogger.hpp">
+      <Filter>src\Siv3D\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Logger\ILogger.hpp">
+      <Filter>src\Siv3D\Logger</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

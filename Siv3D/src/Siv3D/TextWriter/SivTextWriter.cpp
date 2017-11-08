@@ -83,6 +83,13 @@ namespace s3d
 		pImpl->writeUTF8(view);
 	}
 
+	void TextWriter::writelnUTF8(const std::string_view view)
+	{
+		pImpl->writeUTF8(view);
+
+		pImpl->writeNewLine();
+	}
+
 	const FilePath& TextWriter::path() const
 	{
 		return pImpl->path();

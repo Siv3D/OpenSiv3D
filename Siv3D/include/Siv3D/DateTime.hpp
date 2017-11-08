@@ -442,9 +442,9 @@ namespace std
 
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const DateTime& dateTime)
+	inline void Formatter(FormatData& formatData, const DateTime& value)
 	{
-		formatData.string.append(dateTime.format());
+		formatData.string.append(value.format());
 	}
 
 	/// <summary>
@@ -463,8 +463,8 @@ namespace s3d
 	/// 渡した後の出力ストリーム
 	/// </returns>
 	template <class CharType>
-	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> output, const DateTime& dateTime)
+	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> output, const DateTime& value)
 	{
-		return output << dateTime.format();
+		return output << value.format();
 	}
 }

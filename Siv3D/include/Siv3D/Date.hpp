@@ -441,14 +441,14 @@ namespace std
 
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const Date& date)
+	inline void Formatter(FormatData& formatData, const Date& value)
 	{
-		formatData.string.append(date.format());
+		formatData.string.append(value.format());
 	}
 
 	template <class CharType>
-	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> output, const Date& date)
+	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> output, const Date& value)
 	{
-		return output << date.format();
+		return output << value.format();
 	}
 }

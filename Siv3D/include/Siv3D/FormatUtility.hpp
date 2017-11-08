@@ -74,4 +74,6 @@ namespace s3d
 
 		return result;
 	}
+
+	[[nodiscard]] String FormatDataSize(int64 bytes);
 }

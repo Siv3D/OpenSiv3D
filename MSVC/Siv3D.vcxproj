@@ -47,8 +47,12 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_Windows.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FloatFormat\SivFloatFormat.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FormatLiteral\SivFormatLiteral.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\FormatUtility\SivFormatUtility.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Format\SivFormat.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\IntFormat\SivIntFormat.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Logger\CLogger.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Logger\LoggerFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Logger\SivLogger.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MD5\SivMD5.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MemoryMapping\CMemoryMapping.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MemoryMapping\SivMemoryMapping.cpp" />
@@ -132,6 +136,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\IReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\LetterCase.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Logger.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MathConstants.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MD5.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MemoryMapping.hpp" />
@@ -200,6 +205,8 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\ByteArray\CByteArray.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Console\CConsole.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Console\IConsole.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Logger\CLogger.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Logger\ILogger.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\MemoryMapping\CMemoryMapping.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\MemoryWriter\CMemoryWriter.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Siv3DEngine.hpp" />

@@ -270,8 +270,8 @@
 	# include "Siv3D/MD5.hpp"
 	//// xxHash
 	//# include "Siv3D/XXHash.hpp"
-	//// ログファイル
-	//# include "Siv3D/Logger.hpp"
+	// ログファイル
+	# include "Siv3D/Logger.hpp"
 	////// AES128 による暗号化
 	////# include "Siv3D/Crypto.hpp"
 	//// Zstandard によるデータの圧縮・展開

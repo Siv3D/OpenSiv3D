@@ -287,6 +287,8 @@ namespace s3d
 		/// </returns>
 		void writeUTF8(std::string_view view);
 
+		void writelnUTF8(std::string_view view);
+
 		/// <summary>
 		/// オープンしているファイルのパスを返します。
 		/// </summary>
