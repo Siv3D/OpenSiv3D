@@ -13,6 +13,14 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG -march=x86-64")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -Og -pg")
 set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -DNDEBUG -march=x86-64")
 
+set(CMAKE_C_COMPILER "clang")
+#set(CMAKE_C_COMPILER "gcc")
+set(CMAKE_C_FLAGS "-Wall -Wextra -Wno-unknown-pragmas -fPIC")
+set(CMAKE_C_FLAGS_DEBUG "-g3 -O0 -pg")
+set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG -march=x86-64")
+set(CMAKE_C_FLAGS_RELWITHDEBINFO "-g3 -Og -pg")
+set(CMAKE_C_FLAGS_MINSIZEREL "-Os -DNDEBUG -march=x86-64")
+
 #set(CMAKE_BUILD_TYPE Release)
 
 # In current version, Wayland and Mir are not supported.
@@ -260,10 +268,14 @@ set(SOURCE_FILES
 	"../Siv3D/Source/Siv3D/Siv3DMain_Linux.cpp"
 
 	"../Siv3D/Source/ThirdParty/FID/FID.cpp"
+
 	"../Siv3D/Source/ThirdParty/FeatureDetector/cpu_x86.cpp"
 	"../Siv3D/Source/ThirdParty/FeatureDetector/cpu_x86_Linux.ipp"
+
 	"../Siv3D/Source/ThirdParty/clip2tri/clip2tri.cpp"
+
 	"../Siv3D/Source/ThirdParty/clipper/clipper.cpp"
+
 	"../Siv3D/Source/ThirdParty/double-conversion/bignum-dtoa.cc"
 	"../Siv3D/Source/ThirdParty/double-conversion/bignum.cc"
 	"../Siv3D/Source/ThirdParty/double-conversion/cached-powers.cc"
@@ -272,8 +284,11 @@ set(SOURCE_FILES
 	"../Siv3D/Source/ThirdParty/double-conversion/fast-dtoa.cc"
 	"../Siv3D/Source/ThirdParty/double-conversion/fixed-dtoa.cc"
 	"../Siv3D/Source/ThirdParty/double-conversion/strtod.cc"
+
 	"../Siv3D/Source/ThirdParty/fmt/format.cc"
+
 	"../Siv3D/Source/ThirdParty/md5/md5.cpp"
+
 	"../Siv3D/Source/ThirdParty/muparser/muParser.cpp"
 	"../Siv3D/Source/ThirdParty/muparser/muParserBase.cpp"
 	"../Siv3D/Source/ThirdParty/muparser/muParserBytecode.cpp"
@@ -282,6 +297,7 @@ set(SOURCE_FILES
 	"../Siv3D/Source/ThirdParty/muparser/muParserError.cpp"
 	"../Siv3D/Source/ThirdParty/muparser/muParserInt.cpp"
 	"../Siv3D/Source/ThirdParty/muparser/muParserTokenReader.cpp"
+
 	"../Siv3D/Source/ThirdParty/zstd/common/entropy_common.c"
 	"../Siv3D/Source/ThirdParty/zstd/common/error_private.c"
 	"../Siv3D/Source/ThirdParty/zstd/common/fse_decompress.c"
@@ -298,7 +314,9 @@ set(SOURCE_FILES
 	"../Siv3D/Source/ThirdParty/zstd/dictBuilder/cover.c"
 	"../Siv3D/Source/ThirdParty/zstd/dictBuilder/divsufsort.c"
 	"../Siv3D/Source/ThirdParty/zstd/dictBuilder/zdict.c"
+
 	"../Siv3D/Source/ThirdParty/butteraugli/butteraugli.cc"
+
 	"../Siv3D/Source/ThirdParty/guetzli/butteraugli_comparator.cc"
 	"../Siv3D/Source/ThirdParty/guetzli/dct_double.cc"
 	"../Siv3D/Source/ThirdParty/guetzli/debug_print.cc"
@@ -318,6 +336,7 @@ set(SOURCE_FILES
 	"../Siv3D/Source/ThirdParty/guetzli/quality.cc"
 	"../Siv3D/Source/ThirdParty/guetzli/quantize.cc"
 	"../Siv3D/Source/ThirdParty/guetzli/score.cc"
+
 	"../Siv3D/Source/ThirdParty/poly2tri/common/shapes.cc"
 	"../Siv3D/Source/ThirdParty/poly2tri/sweep/advancing_front.cc"
 	"../Siv3D/Source/ThirdParty/poly2tri/sweep/cdt.cc"

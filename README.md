@@ -20,7 +20,7 @@ In development for release in 2017. Successor to the current <a href="https://gi
 |:---------------:|:---------------:|:-------------:|
 | Windows Desktop | Direct3D 11 | XAudio2 |
 | macOS           | OpenGL 4.1 | OpenAL |
-| Linux           | OpenGL 4.1  |  |   
+| Linux           | OpenGL 4.1 | OpenAL |
  
 ---------------------------
 

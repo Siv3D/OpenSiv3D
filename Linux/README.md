@@ -4,9 +4,6 @@
 ## 導入手順
 OpenSiv3D Linux版をビルドしてアプリケーションを作成するまでの手順を[こちら](INSTALL.md)にまとめてあります。
 
-現状 Ubuntu 16.04 LTS での導入手順しかありませんが、今後他のディストリビューションの情報も追加予定です。
-現在インストール方法が執筆されているディストリビューションは Ubuntu 16.04 LTS と Fedora 26 です。
-
 ## サポート環境
 サポートしているディスプレイサーバはX11のみです。
 `CMakeLists.txt`にWaylandとMir向けにコンパイルするオプションがありますが、
@@ -15,20 +12,18 @@ OpenSiv3D Linux版をビルドしてアプリケーションを作成するま�
 ## 依存ライブラリ・パッケージ
 コンパイルと実行には以下のライブラリやパッケージが必要です。
 - CMake 2.8 以上
-- Clang 5, LLVM ~~~または GCC 7.1 以上~~~
+- Clang 5, LLVM または GCC 7.2.0 以上
   - 開発にはClang 5とLLVMを使っています
-  - CMakeLists.txt を編集すればGCCをコンパイラに指定できますが現時点ではエラーが出ます
+  - CMakeLists.txt を編集すればGCCをコンパイラに指定できます
+  - C++17に対応しているGCC 7.1.0 でもコンパイルできるかもしれません（未確認）
 - boost
-- boost-system
-- boost-filesystem
   - 必要なboostのバージョンについては `OpenSiv3D/Dependencies/README.md` を参照してください。
 - glib2
 - OpenGL
 - GLU
 - GLEW
 - libpng
-- libturbojpeg
-- libgif
+- turbojpeg
 - X11
 - X11 Input extension (Xi)
 - X11 RandR extension (Xrandr)
