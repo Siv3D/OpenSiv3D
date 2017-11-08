@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
+		2C8588EC1F929277000DA815 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2C8588EB1F929277000DA815 /* icon.icns */; };
 		2CC7F9561F34A6A20071A239 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC7F9541F34A5840071A239 /* OpenAL.framework */; };
 		2CF1C6B61FB38F2500FC903E /* SivBase64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CF1C5A11FB38F2400FC903E /* SivBase64.cpp */; };
 		2CF1C6B71FB38F2500FC903E /* CBigFloat.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2CF1C5A31FB38F2400FC903E /* CBigFloat.hpp */; };
@@ -242,7 +243,6 @@
 		2CF1C7A01FB394ED00FC903E /* lboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF1C79F1FB394ED00FC903E /* lboost_filesystem.a */; };
 		2CF1C7A21FB3956900FC903E /* lboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF1C7A11FB3956900FC903E /* lboost_system.a */; };
 		2CF1C7A41FB3963000FC903E /* engine in Resources */ = {isa = PBXBuildFile; fileRef = 2CF1C7A31FB3963000FC903E /* engine */; };
-		2CF1C7A61FB3973500FC903E /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2CF1C7A51FB3973400FC903E /* icon.icns */; };
 		2CFC56421FA8C0BE008A4B3E /* Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC56401FA8C0BE008A4B3E /* Test.cpp */; };
 /* End PBXBuildFile section */
 
@@ -251,6 +251,7 @@
 		2C1585821F21FDBA002687D2 /* langelscript.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = langelscript.a; path = ../Siv3D/Lib/macOS/angelscript/langelscript.a; sourceTree = "<group>"; };
 		2C1778B21CE0D5DB00BB8AD0 /* Siv3D-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Siv3D-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C1778BF1CE0D5DB00BB8AD0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2C8588EB1F929277000DA815 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
 		2CC7F9541F34A5840071A239 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -488,7 +489,6 @@
 		2CF1C79F1FB394ED00FC903E /* lboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = lboost_filesystem.a; path = ../Siv3D/lib/macOS/boost/lboost_filesystem.a; sourceTree = "<group>"; };
 		2CF1C7A11FB3956900FC903E /* lboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = lboost_system.a; path = ../Siv3D/lib/macOS/boost/lboost_system.a; sourceTree = "<group>"; };
 		2CF1C7A31FB3963000FC903E /* engine */ = {isa = PBXFileReference; lastKnownFileType = folder; name = engine; path = App/engine; sourceTree = SOURCE_ROOT; };
-		2CF1C7A51FB3973400FC903E /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = icon.icns; path = App/icon.icns; sourceTree = "<group>"; };
 		2CFC563F1FA8C0BE008A4B3E /* catch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = catch.hpp; sourceTree = "<group>"; };
 		2CFC56401FA8C0BE008A4B3E /* Test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Test.cpp; sourceTree = "<group>"; };
 		2CFC56411FA8C0BE008A4B3E /* Test.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Test.hpp; sourceTree = "<group>"; };
@@ -536,7 +536,7 @@
 		2CA7F7321CA7F34200495647 = {
 			isa = PBXGroup;
 			children = (
-				2CF1C7A51FB3973400FC903E /* icon.icns */,
+				2C8588EB1F929277000DA815 /* icon.icns */,
 				2C1778BF1CE0D5DB00BB8AD0 /* Info.plist */,
 				2CA7F7641CA7F44F00495647 /* Siv3D */,
 				2CA7F74D1CA7F43D00495647 /* Siv3D-Test */,
@@ -1469,7 +1469,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CF1C7A41FB3963000FC903E /* engine in Resources */,
-				2CF1C7A61FB3973500FC903E /* icon.icns in Resources */,
+				2C8588EC1F929277000DA815 /* icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
