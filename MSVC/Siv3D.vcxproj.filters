@@ -155,6 +155,9 @@
     <Filter Include="src\Siv3D\Logger">
       <UniqueIdentifier>{39551d3a-c035-4491-8a5e-3d162c65b451}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\LicenseManager">
+      <UniqueIdentifier>{548f25dd-4057-41d8-9b31-3b0ba7e366c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -366,6 +369,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Logger\LoggerFactory.cpp">
       <Filter>src\Siv3D\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\LicenseManager\LicenseManagerFactory.cpp">
+      <Filter>src\Siv3D\LicenseManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\LicenseManager\SivLicenseManager.cpp">
+      <Filter>src\Siv3D\LicenseManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\LicenseManager\CLicenseManager.cpp">
+      <Filter>src\Siv3D\LicenseManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -773,6 +785,18 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Logger\ILogger.hpp">
       <Filter>src\Siv3D\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\LicenseManager.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\LicenseManager\ILicenseManager.hpp">
+      <Filter>src\Siv3D\LicenseManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\LicenseManager\CLicenseManager.hpp">
+      <Filter>src\Siv3D\LicenseManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\LicenseManager\LicenseList.hpp">
+      <Filter>src\Siv3D\LicenseManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

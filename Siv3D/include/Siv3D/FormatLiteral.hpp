@@ -56,3 +56,9 @@ namespace s3d
 		}
 	}
 }
+
+# ifndef NO_S3D_USING
+
+	using namespace s3d::literals;
+
+# endif

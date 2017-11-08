@@ -270,6 +270,8 @@
 	# include "Siv3D/MD5.hpp"
 	//// xxHash
 	//# include "Siv3D/XXHash.hpp"
+	// License
+	# include "Siv3D/LicenseManager.hpp"
 	// ログファイル
 	# include "Siv3D/Logger.hpp"
 	////// AES128 による暗号化

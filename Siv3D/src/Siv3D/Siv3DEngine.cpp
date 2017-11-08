@@ -10,8 +10,9 @@
 //-----------------------------------------------
 
 # include "Siv3DEngine.hpp"
-# include "Console/IConsole.hpp"
+# include "LicenseManager/ILicenseManager.hpp"
 # include "Logger/ILogger.hpp"
+# include "Console/IConsole.hpp"
 
 namespace s3d
 {
@@ -24,6 +25,7 @@ namespace s3d
 	{
 		m_console.release();
 		m_logger.release();
+		m_licenseManager.release();
 
 		pEngine = nullptr;
 	}

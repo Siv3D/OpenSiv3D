@@ -13,6 +13,7 @@
 # include <memory>
 # include "Fwd.hpp"
 # include "Format.hpp"
+# include "FormatUtility.hpp"
 
 namespace s3d
 {
@@ -121,3 +122,21 @@ namespace s3d
 		}
 	}
 }
+
+# define FMTBYTES(size)			s3d::FormatDataSize(size)
+# define LOG_ERROR(MESSAGE)		s3d::Logger.outputLog(s3d::LogDescription::Error,MESSAGE)
+# define LOG_FAIL(MESSAGE)		s3d::Logger.outputLog(s3d::LogDescription::Fail,MESSAGE)
+# define LOG_WARNING(MESSAGE)	s3d::Logger.outputLog(s3d::LogDescription::Warning,MESSAGE)
+# define LOG_SCRIPT(MESSAGE)	s3d::Logger.outputLog(s3d::LogDescription::Script,MESSAGE)
+# define LOG_INFO(MESSAGE)		s3d::Logger.outputLog(s3d::LogDescription::Info,MESSAGE)
+
+# if (SIV3D_IS_DEBUG)
+
+	# define LOG_DEBUG(MESSAGE)	s3d::Logger.outputLog(s3d::LogDescription::Debug,MESSAGE)
+	# define LOG_TEST(MESSAGE)	s3d::Logger.outputLog(s3d::LogDescription::Debug,MESSAGE)
+
+# else
+
+	# define LOG_DEBUG(...)		((void)0)
+
+# endif

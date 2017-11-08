@@ -14,6 +14,7 @@
 
 namespace s3d
 {
+	class ISiv3DLicenseManager;
 	class ISiv3DLogger;
 	class ISiv3DConsole;
 
@@ -53,6 +54,8 @@ namespace s3d
 
 		inline static Siv3DEngine* pEngine = nullptr;
 
+		Siv3DComponent<ISiv3DLicenseManager> m_licenseManager;
+
 		Siv3DComponent<ISiv3DLogger> m_logger;
 
 		Siv3DComponent<ISiv3DConsole> m_console;
@@ -66,6 +69,11 @@ namespace s3d
 		static bool isActive()
 		{
 			return pEngine != nullptr;
+		}
+
+		static ISiv3DLicenseManager* GetLicenseManager()
+		{
+			return pEngine->m_licenseManager.get();
 		}
 
 		static ISiv3DLogger* GetLogger()

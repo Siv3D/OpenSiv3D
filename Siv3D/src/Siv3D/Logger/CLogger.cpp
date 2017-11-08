@@ -11,7 +11,11 @@
 
 # include <Siv3D/Logger.hpp>
 # include "CLogger.hpp"
+# include "../Siv3DEngine.hpp"
+# include "../LicenseManager/ILicenseManager.hpp"
 
+namespace s3d
+{
 constexpr static char headerA[] =
 u8R"(<!DOCTYPE html>
 <html lang="ja">
@@ -71,12 +75,22 @@ const static std::string logLevel[]{
 	u8R"(<div class="debug">)",
 };
 
-constexpr static char divEnd[] = u8"</div>\n";
+constexpr static char8 divEnd[] = u8"</div>\n";
 
-constexpr static char footer[] = 
+constexpr static char8 licenseC0[] = u8R"-(<div class="c0">)-";
+
+constexpr static char8 licenseC1[] = u8R"-(<div class="c1">)-";
+
+constexpr static char8 licenseC2[] = u8R"-(<div class="c2">)-";
+
+constexpr static char8 footerA[] =
 u8R"-(</div><br>
-</body>
+<h3>Licenses</h3>)-";
+
+constexpr static char8 footerB[] =
+u8R"-(</body>
 </html>)-";
+}
 
 # if defined(SIV3D_TARGET_WINDOWS)
 
@@ -156,7 +170,11 @@ namespace s3d
 	{
 		m_initialized = false;
 
-		m_writer.writeUTF8(footer);
+		m_writer.writeUTF8(footerA);
+
+		outputLicenses();
+
+		m_writer.writeUTF8(footerB);
 
 		const FilePath path = m_writer.path();
 
@@ -170,8 +188,6 @@ namespace s3d
 
 	bool CLogger::init()
 	{
-		outputLicenses();
-
 		const String fileName = FileSystem::BaseName(FileSystem::ModulePath()).xml_escaped();
 		const std::string titleUTF8 = Unicode::ToUTF8(fileName) + " Log";
 
@@ -244,10 +260,25 @@ namespace s3d
 
 	void CLogger::outputLicenses()
 	{
-		//TextWriter writer(EngineDirectory::LicensePath());
-		//writer.writeUTF8(headerA);
-		//writer.writeUTF8(headerD);
-		//writer.writeUTF8(footer);
+		if (m_removeFileOnExit)
+		{
+			return;
+		}
+
+		for (const auto& license : Siv3DEngine::GetLicenseManager()->enumLicenses())
+		{
+			m_writer.writelnUTF8(licenseC0);
+			m_writer.writeln(license.name);
+			m_writer.writelnUTF8(divEnd);
+
+			m_writer.writelnUTF8(licenseC1);
+			m_writer.writeln(license.copyright.replaced(U"\n", U"<br>"));
+			m_writer.writelnUTF8(divEnd);
+
+			m_writer.writelnUTF8(licenseC2);
+			m_writer.writeln(license.text.replaced(U"\n", U"<br>"));
+			m_writer.writelnUTF8(divEnd);
+		}
 	}
 
 	bool CLogger::suppressed(const LogDescription desc) const
