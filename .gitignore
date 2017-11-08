@@ -297,14 +297,15 @@ siv3d.a
 *.html
 AS_DEBUG/
 *.exe
+Xcode/[Aa]pp/*
 
 # Xcode
 **/*.xcodeproj/*
 !**/*.xcodeproj/project.pbxproj
 !**/*.xcodeproj/project.xcworkspace/contents.xcoworkspacedata
-!Xcode/bin/engine/
-!Xcode/bin/example/
-!Xcode/bin/test/
+!Xcode/[Aa]pp/engine/
+!Xcode/[Aa]pp/example/
+!Xcode/[Aa]pp/test/
 
 # Linux
 # =========================
