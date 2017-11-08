@@ -4,9 +4,6 @@
 ## 導入手順
 OpenSiv3D Linux版をビルドしてアプリケーションを作成するまでの手順を[こちら](INSTALL.md)にまとめてあります。
 
-現在インストール方法が執筆されているディストリビューションは Ubuntu 16.04 LTS と Fedora 26 です。
-今後他のディストリビューションの情報も追加予定です。
-
 ## サポート環境
 サポートしているディスプレイサーバはX11のみです。
 `CMakeLists.txt`にWaylandとMir向けにコンパイルするオプションがありますが、
@@ -20,8 +17,6 @@ OpenSiv3D Linux版をビルドしてアプリケーションを作成するま�
   - CMakeLists.txt を編集すればGCCをコンパイラに指定できます
   - C++17に対応しているGCC 7.1.0 でもコンパイルできるかもしれません（未確認）
 - boost
-- boost-system
-- boost-filesystem
   - 必要なboostのバージョンについては `OpenSiv3D/Dependencies/README.md` を参照してください。
 - glib2
 - OpenGL
