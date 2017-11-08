@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C09854D1FB3A149001AC929 /* engine in Resources */ = {isa = PBXBuildFile; fileRef = 2C09854C1FB3A149001AC929 /* engine */; };
 		2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
 		2C8588EC1F929277000DA815 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2C8588EB1F929277000DA815 /* icon.icns */; };
@@ -242,11 +243,11 @@
 		2CF1C79C1FB3915800FC903E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF1C79B1FB3915100FC903E /* Foundation.framework */; };
 		2CF1C7A01FB394ED00FC903E /* lboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF1C79F1FB394ED00FC903E /* lboost_filesystem.a */; };
 		2CF1C7A21FB3956900FC903E /* lboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF1C7A11FB3956900FC903E /* lboost_system.a */; };
-		2CF1C7A41FB3963000FC903E /* engine in Resources */ = {isa = PBXBuildFile; fileRef = 2CF1C7A31FB3963000FC903E /* engine */; };
 		2CFC56421FA8C0BE008A4B3E /* Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC56401FA8C0BE008A4B3E /* Test.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C09854C1FB3A149001AC929 /* engine */ = {isa = PBXFileReference; lastKnownFileType = folder; name = engine; path = bin/engine; sourceTree = SOURCE_ROOT; };
 		2C1585801F21FD87002687D2 /* libangelscript.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libangelscript.a; path = ../Siv3D/Lib/macOS/angelscript/libangelscript.a; sourceTree = "<group>"; };
 		2C1585821F21FDBA002687D2 /* langelscript.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = langelscript.a; path = ../Siv3D/Lib/macOS/angelscript/langelscript.a; sourceTree = "<group>"; };
 		2C1778B21CE0D5DB00BB8AD0 /* Siv3D-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Siv3D-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -488,7 +489,6 @@
 		2CF1C79D1FB394C300FC903E /* libboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_filesystem.a; path = ../Siv3D/lib/macOS/boost/libboost_filesystem.a; sourceTree = "<group>"; };
 		2CF1C79F1FB394ED00FC903E /* lboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = lboost_filesystem.a; path = ../Siv3D/lib/macOS/boost/lboost_filesystem.a; sourceTree = "<group>"; };
 		2CF1C7A11FB3956900FC903E /* lboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = lboost_system.a; path = ../Siv3D/lib/macOS/boost/lboost_system.a; sourceTree = "<group>"; };
-		2CF1C7A31FB3963000FC903E /* engine */ = {isa = PBXFileReference; lastKnownFileType = folder; name = engine; path = App/engine; sourceTree = SOURCE_ROOT; };
 		2CFC563F1FA8C0BE008A4B3E /* catch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = catch.hpp; sourceTree = "<group>"; };
 		2CFC56401FA8C0BE008A4B3E /* Test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Test.cpp; sourceTree = "<group>"; };
 		2CFC56411FA8C0BE008A4B3E /* Test.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Test.hpp; sourceTree = "<group>"; };
@@ -557,7 +557,7 @@
 		2CA7F74D1CA7F43D00495647 /* Siv3D-Test */ = {
 			isa = PBXGroup;
 			children = (
-				2CF1C7A31FB3963000FC903E /* engine */,
+				2C09854C1FB3A149001AC929 /* engine */,
 				2CFC563D1FA8C0BE008A4B3E /* Test */,
 				2CA7F74E1CA7F43D00495647 /* Main.cpp */,
 			);
@@ -1468,7 +1468,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CF1C7A41FB3963000FC903E /* engine in Resources */,
+				2C09854D1FB3A149001AC929 /* engine in Resources */,
 				2C8588EC1F929277000DA815 /* icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1597,7 +1597,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/App/";
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1655,7 +1655,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/App/";
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;

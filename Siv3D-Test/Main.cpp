@@ -7,4 +7,5 @@ void Main()
 	Siv3D_RunTest();
 
 	Logger << MD5::FromFile(U"example/windmill.png");
+	
 }
