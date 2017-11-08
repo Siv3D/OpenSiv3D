@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -237,13 +237,13 @@ namespace s3d
 
 		template <class Type>
 		[[nodiscard]] constexpr Vector2D<Type> lerp(const Vector2D<Type>& other, const double f) const noexcept;
-
+/*
 		template <class Shape2DType>
 		[[nodiscard]] bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
-
+*/
 		[[nodiscard]] bool leftClicked() const;
 
 		[[nodiscard]] bool leftPressed() const;

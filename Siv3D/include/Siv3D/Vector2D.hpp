@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -327,13 +327,13 @@ namespace s3d
 		{
 			return Vector2D(x + (other.x - x) * f, y + (other.y - y) * f);
 		}
-
+/*
 		template <class Shape2DType>
 		bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
-
+ */
 		/// <summary>
 		/// Vector2D{ 0, 0 }
 		/// </summary>

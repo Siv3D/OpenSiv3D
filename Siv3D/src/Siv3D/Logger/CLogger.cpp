@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -111,12 +111,14 @@ namespace s3d
 			L"[debug] ",
 		};
 
-		static void OutputDebug(const LogDescription desc, const std::wstring& text)
+		static void OutputDebug(const LogDescription desc, const String& text)
 		{
+			const std::wstring textW = text.toWstr();
+			
 			std::wstring output;
-			output.reserve(logLevelStr[static_cast<size_t>(desc)].length() + text.length() + 1);
+			output.reserve(logLevelStr[static_cast<size_t>(desc)].length() + textW.length() + 1);
 			output.append(logLevelStr[static_cast<size_t>(desc)]);
-			output.append(text);
+			output.append(textW);
 			output.push_back(L'\n');
 
 			::OutputDebugStringW(output.c_str());
@@ -128,7 +130,7 @@ namespace s3d
 
 # include <iostream>
 # include <locale>
-# include <Siv3D/CharacterSet.hpp>
+# include <Siv3D/Unicode.hpp>
 
 namespace s3d
 {
@@ -225,7 +227,7 @@ namespace s3d
 
 		std::lock_guard<std::mutex> lock(m_mutex);
 
-		detail::OutputDebug(desc, text.toWstr());
+		detail::OutputDebug(desc, text);
 
 		m_writer.writeUTF8(logLevel[static_cast<size_t>(desc)]);
 
