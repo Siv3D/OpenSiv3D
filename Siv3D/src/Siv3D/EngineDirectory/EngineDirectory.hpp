@@ -10,12 +10,14 @@
 //-----------------------------------------------
 
 # pragma once
-# include "Fwd.hpp"
+# include <Siv3D/Fwd.hpp>
 
 namespace s3d
 {
-	namespace System
+	namespace EngineDirectory
 	{
-		bool LaunchBrowser(const FilePath& url);
+		FilePath CurrectVersionCommon();
+
+		FilePath LicensePath();
 	}
 }

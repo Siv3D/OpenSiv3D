@@ -161,6 +161,9 @@
     <Filter Include="src\Siv3D\System">
       <UniqueIdentifier>{bc332514-bce1-40c7-b5b2-4a82a19ab95a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\EngineDirectory">
+      <UniqueIdentifier>{ab111490-39d7-4b44-9a25-535410f6dcf9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -396,6 +399,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\System\CSystem_macOS.cpp">
       <Filter>src\Siv3D\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\EngineDirectory\EngineDirectory.cpp">
+      <Filter>src\Siv3D\EngineDirectory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -830,6 +836,9 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\System\CSystem_Linux.hpp">
       <Filter>src\Siv3D\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\EngineDirectory\EngineDirectory.hpp">
+      <Filter>src\Siv3D\EngineDirectory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
