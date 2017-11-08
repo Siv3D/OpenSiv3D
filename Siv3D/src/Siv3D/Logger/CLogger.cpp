@@ -51,20 +51,6 @@ u8R"(</h2>
 <div class="messages">
 )";
 
-constexpr static char headerD[] =
-u8R"(Licenses</title>
-<style>
-body		{ background-color: #f9f9f9; font-family: 'Segoe UI','メイリオ','Meiryo','ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','Osaka','ＭＳ Ｐゴシック','MS PGothic','Arial',sans-serif; }
-h3			{ color: #333333; text-align: center; font-size: 28px; }
-div			{ font-size: 14px; line-height: 2; word-wrap: break-word; }
-div.c0		{ color: #333333; text-align: center; font-size: 20px; }
-div.c1		{ padding-bottom: 8px; color: #555555; text-align: center; font-size: 12px; }
-div.c2		{ padding-bottom: 24px; color: #888888; text-align: center; font-size: 9px; }
-</style>
-</head>
-<body>
-<div>)";
-
 const static std::string logLevel[]{
 	u8R"(<div class="error">)",
 	u8R"(<div class="fail">)",
