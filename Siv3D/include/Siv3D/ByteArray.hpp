@@ -78,6 +78,11 @@ namespace s3d
 			create(std::move(data));
 		}
 
+		operator ByteArrayView() const noexcept
+		{
+			return view();
+		}
+
 		/// <summary>
 		/// データをコピーして読み込み用バッファを作成します。
 		/// </summary>

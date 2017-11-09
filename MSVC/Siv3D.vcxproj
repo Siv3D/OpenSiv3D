@@ -36,6 +36,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ByteArray\CByteArray.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ByteArray\SivByteArray.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Compression\SivCompression.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Console\CConsole.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Console\ConsoleFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Console\SivConsole.cpp" />
@@ -98,6 +99,27 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\fixed-dtoa.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\strtod.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\fmt\format.cc" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\entropy_common.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\error_private.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\fse_decompress.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\pool.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\threading.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\xxhash.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\zstd_common.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\fse_compress.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\huf_compress.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\zstdmt_compress.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_compress.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_double_fast.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_fast.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_lazy.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_ldm.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_opt.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\decompress\huf_decompress.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\decompress\zstd_decompress.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\cover.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\divsufsort.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\zdict.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp" />
@@ -118,6 +140,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Char.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Color.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ColorPalette.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Compression.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ConcurrentTask.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Console.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Date.hpp" />
@@ -245,6 +268,27 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\utils.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\miniutf\miniutf.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\RFC1321\RFC1321.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\bitstream.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\compiler.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\error_private.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\fse.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\huf.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\mem.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\pool.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\threading.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\xxhash.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\zstd_errors.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\zstd_internal.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstdmt_compress.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_compress.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_double_fast.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_fast.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_lazy.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_ldm.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_opt.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\divsufsort.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\zdict.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\zstd.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\include\Siv3D\Point.ipp" />

@@ -174,19 +174,19 @@
 	// Format
 	# include "Siv3D/FormatUtility.hpp"
 	
-	// 文字列 -> ブール値 の変換
+	// Text to bool conversion
 	# include "Siv3D/ParseBool.hpp"
 	
-	// 文字列 -> 整数 の変換
+	// Text to integer conversion
 	# include "Siv3D/ParseInt.hpp"
 	
-	// 文字列 -> 浮動小数点数 の変換
+	// Text to float conversion
 	# include "Siv3D/ParseFloat.hpp"
 	
-	// 文字列 -> データ の変換
+	// Text to value conversion
 	# include "Siv3D/Parse.hpp"
 
-	//// 正規表現
+	//// Regular expression
 	//# include "Siv3D/Regex.hpp"
 
 //////////////////////////////////////////////////
@@ -195,25 +195,25 @@
 //
 //////////////////////////////////////////////////
 
-	// 時間の単位
+	// Duration
 	# include "Siv3D/Duration.hpp"
 
-	// 日付
+	// Date
 	# include "Siv3D/Date.hpp"
 
-	// 日付と時刻
+	// Date and time
 	# include "Siv3D/DateTime.hpp"
 
 	// 時間
 	# include "Siv3D/Time.hpp"
 
-	// ストップウォッチ
+	// Stopwatch
 	# include "Siv3D/Stopwatch.hpp"
 
 	// スピードを変更可能なストップウォッチ
 	# include "Siv3D/CustomStopwatch.hpp"
 
-	// タイマー
+	// Countdown timer
 	# include "Siv3D/Timer.hpp"
 
 	// Profiler
@@ -234,72 +234,105 @@
 //
 //////////////////////////////////////////////////
 
-	// ファイルとディレクトリ
+	// Files and directories
 	# include "Siv3D/FileSystem.hpp"
-	// リソースファイル
+
+	// Resource files
 	# include "Siv3D/Resource.hpp"
+
 	////// ファイルとディレクトリの変更の監視
 	////# include "Siv3D/FileMonitor.hpp"
-	// IReader インタフェース
+
+	// IReader interface
 	# include "Siv3D/IReader.hpp"
-	// IWriter インタフェース
+
+	// IWriter interface
 	# include "Siv3D/IWriter.hpp"
+
 	// メモリ範囲への Reader インタフェース
 	# include "Siv3D/ReaderView.hpp"
-	// メモリマップトファイル
+
+	// Memory mapped file
 	# include "Siv3D/MemoryMapping.hpp"
-	// 書き込み可能なメモリマップトファイル
+
+	// Writable memory mapped file
 	# include "Siv3D/WritableMemoryMapping.hpp"
+
 	// 読み込み用バッファ
 	# include "Siv3D/ByteArray.hpp"
+
 	// 書き込み用バッファ
 	# include "Siv3D/MemoryWriter.hpp"
-	// バイナリファイルの読み込み
+
+	// Binary file reader
 	# include "Siv3D/BinaryReader.hpp"
-	// バイナリファイルの書き込み
+
+	// Binary file writer
 	# include "Siv3D/BinaryWriter.hpp"
-	// テキストのエンコード
+
+	// Text encoding
 	# include "Siv3D/TextEncoding.hpp"
-	// テキストファイルの読み込み
+
+	//Text file reader
 	# include "Siv3D/TextReader.hpp"
-	// テキストファイルの書き込み
+
+	// Text file writer
 	# include "Siv3D/TextWriter.hpp"
+
 	// Base64
 	# include "Siv3D/Base64.hpp"
+
 	// MD5
 	# include "Siv3D/MD5.hpp"
+
 	//// xxHash
 	//# include "Siv3D/XXHash.hpp"
-	// License
+
+	// License management
 	# include "Siv3D/LicenseManager.hpp"
-	// ログファイル
+
+	// Logger
 	# include "Siv3D/Logger.hpp"
+
 	////// AES128 による暗号化
 	////# include "Siv3D/Crypto.hpp"
-	//// Zstandard によるデータの圧縮・展開
-	//# include "Siv3D/Compression.hpp"
+
+	// Lossless compression with Zstandard algorithm
+	# include "Siv3D/Compression.hpp"
+
 	////// アーカイブファイルからの読み込み
 	////# include "Siv3D/ArchivedFileReader.hpp"
+
 	////// アーカイブファイル
 	////# include "Siv3D/FileArchive.hpp"
+
 	////// CSV ファイルの読み込み
 	////# include "Siv3D/CSVReader.hpp"
+
 	////// CSV ファイルの書き出し
 	////# include "Siv3D/CSVWriter.hpp"
+
 	//// INI ファイルの読み込み
 	//# include "Siv3D/INIReader.hpp"
+
 	////// INI ファイルの書き出し
 	////# include "Siv3D/INIWriter.hpp"
+
 	////// XML ファイルの読み込み
 	////# include "Siv3D/XMLReader.hpp"
+
 	//// JSON ファイルの読み込み
 	//# include "Siv3D/JSONReader.hpp"
+
 	////// JSON ファイルの書き出し
 	////# include "Siv3D/JSONWriter.hpp"
+
 	////// ZIP 圧縮ファイルの読み込み
 	////# include "Siv3D/ZIPReader.hpp"
+
 	////// ZIP 圧縮ファイルの書き出し
 	////# include "Siv3D/ZIPWriter.hpp"
+
 	//// HTML ファイルの書き出し
 	//# include "Siv3D/HTMLWriter.hpp"
 
@@ -311,6 +344,7 @@
 
 	// RGB color
 	# include "Siv3D/Color.hpp"
+
 	// HSV color
 	# include "Siv3D/HSV.hpp"
 
