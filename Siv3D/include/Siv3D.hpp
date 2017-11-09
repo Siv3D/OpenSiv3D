@@ -363,12 +363,15 @@
 	// 円座標
 	# include "Siv3D/OffsetCircular.hpp"
 
-	//// 円柱座標
-	//# include "Siv3D/Cylindrical.hpp"
-	//// 球面座標
-	//# include "Siv3D/Spherical.hpp"
-	//// 3x2 行列
-	//# include "Siv3D/Mat3x2.hpp"
+	// 円柱座標
+	# include "Siv3D/Cylindrical.hpp"
+
+	// 球面座標
+	# include "Siv3D/Spherical.hpp"
+
+	// 3x2 matrix
+	# include "Siv3D/Mat3x2.hpp"
+
 	//// 線分
 	//# include "Siv3D/Line.hpp"
 	//// 長方形
