@@ -140,8 +140,52 @@ namespace s3d
 	using Float4	= Vector4D<float>;
 	using Vec4		= Vector4D<double>;
 
+	//////////////////////////////////////////////////////
+	//
+	//	Circular.hpp
+	//
+	template <int32 Oclock> struct CircularBase;
+	using Circular  = CircularBase<0>;
+	using Circular0 = CircularBase<0>;
+	using Circular3 = CircularBase<3>;
+	using Circular6 = CircularBase<6>;
+	using Circular9 = CircularBase<9>;
+		
+	//////////////////////////////////////////////////////
+	//
+	//	OffsetCircular.hpp
+	//
+	template <int32 Oclock> struct OffsetCircularBase;
+	using OffsetCircular  = OffsetCircularBase<0>;
+	using OffsetCircular0 = OffsetCircularBase<0>;
+	using OffsetCircular3 = OffsetCircularBase<3>;
+	using OffsetCircular6 = OffsetCircularBase<6>;
+	using OffsetCircular9 = OffsetCircularBase<9>;
 
+	//////////////////////////////////////////////////////
+	//
+	//	Cylindrical.hpp
+	//
+	struct Cylindrical;
 
+	//////////////////////////////////////////////////////
+	//
+	//	Spherical.hpp
+	//
+	struct Spherical;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Mat3x2.hpp
+	//
+	struct Mat3x2;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Line.hpp
+	//
+	struct LineStyle;
+	struct Line;
 
 	//////////////////////////////////////////////////////
 	//
@@ -150,4 +194,46 @@ namespace s3d
 	template <class SizeType> struct Rectangle;
 	using Rect = Rectangle<Point>;
 	using RectF = Rectangle<Vec2>;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Circle.hpp
+	//
+	struct Circle;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Ellipse.hpp
+	//
+	struct Ellipse;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Triangle.hpp
+	//
+	struct Triangle;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Quad.hpp
+	//
+	struct Quad;
+
+	//////////////////////////////////////////////////////
+	//
+	//	RoundRect.hpp
+	//
+	struct RoundRect;
+
+	//////////////////////////////////////////////////////
+	//
+	//	LineString.hpp
+	//
+	class LineString;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Polygon.hpp
+	//
+	class Polygon;
 }

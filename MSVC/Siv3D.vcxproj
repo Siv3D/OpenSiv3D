@@ -55,6 +55,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\LicenseManager\CLicenseManager.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\LicenseManager\LicenseManagerFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\LicenseManager\SivLicenseManager.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Line\SivLine.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Logger\CLogger.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Logger\LoggerFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Logger\SivLogger.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ByteArray.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ByteArrayView.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Char.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Circle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Circular.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Color.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ColorPalette.hpp" />
@@ -151,6 +153,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\DefaultRNG.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Distribution.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Duration.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Ellipse.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Evaluater.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FileSystem.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FloatFormat.hpp" />
@@ -159,6 +162,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\FormatUtility.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Functor.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Fwd.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Geometry2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Grid.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\HardwareRNG.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Hash.hpp" />
@@ -167,11 +171,13 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\HSV.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Indexed.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\InfiniteList.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Intersection.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IntFormat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\LetterCase.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\LicenseManager.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Line.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Logger.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Mat3x2.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MathConstants.hpp" />
@@ -194,11 +200,19 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Platform.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Point.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PointVector.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Quad.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Random.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\RandomColor.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\RandomPoint.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\RandomVec2.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\RandomVec3.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\RandomVec4.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RangeIterator.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RDTSCClock.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ReaderView.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Rectangle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Resource.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\RoundRect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SFMT.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\CustomStopwatch.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Spherical.hpp" />
@@ -216,6 +230,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Time.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TimeProfiler.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Timer.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Triangle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Types.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TypeTraits.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Uncopyable.hpp" />

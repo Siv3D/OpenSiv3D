@@ -372,35 +372,50 @@
 	// 3x2 matrix
 	# include "Siv3D/Mat3x2.hpp"
 
-	//// 線分
-	//# include "Siv3D/Line.hpp"
-	//// 長方形
-	//# include "Siv3D/Rectangle.hpp"
-	//// 円
-	//# include "Siv3D/Circle.hpp"
-	//// 楕円
-	//# include "Siv3D/Ellipse.hpp"
-	//// 三角形
-	//# include "Siv3D/Triangle.hpp"
-	//// 四角形
-	//# include "Siv3D/Quad.hpp"
-	//// 角丸長方形
-	//# include "Siv3D/RoundRect.hpp"
+	// 線分
+	# include "Siv3D/Line.hpp"
+
+	// 長方形
+	# include "Siv3D/Rectangle.hpp"
+
+	// 円
+	# include "Siv3D/Circle.hpp"
+
+	// 楕円
+	# include "Siv3D/Ellipse.hpp"
+
+	// 三角形
+	# include "Siv3D/Triangle.hpp"
+
+	// 四角形
+	# include "Siv3D/Quad.hpp"
+
+	// 角丸長方形
+	# include "Siv3D/RoundRect.hpp"
+
 	//// 連続した複数の線分
 	//# include "Siv3D/LineString.hpp"
 	//// 多角形
 	//# include "Siv3D/Polygon.hpp"
+
 	////// 多角形の集合
 	////# include "Siv3D/MultiPolygon.hpp"
+
 	//// Float 型の長方形
 	//# include "Siv3D/FloatRect.hpp"
 	//// Float 型の四角形
 	//# include "Siv3D/FloatQuad.hpp"
+
 	//// 2D 形状
 	//# include "Siv3D/Shape2D.hpp"
 	////// 2D 図形の Variant
 	////# include "Siv3D/ShapeVariant2D.hpp"
 
+	// 
+	# include "Siv3D/Intersection.hpp"
+
+	// 
+	# include "Siv3D/Geometry2D.hpp"
 
 //////////////////////////////////////////////////
 //
@@ -428,16 +443,21 @@
 
 	// 乱数ユーティリティ
 	# include "Siv3D/Random.hpp"
-	//// ランダムな Point の作成
-	//# include "Siv3D/RandomPoint.hpp"
-	//// ランダムな Vec2 の作成
-	//# include "Siv3D/RandomVec2.hpp"
-	//// ランダムな Vec3 の作成
-	//# include "Siv3D/RandomVec3.hpp"
-	//// ランダムな Vec4 の作成
-	//# include "Siv3D/RandomVec4.hpp"
-	//// ランダムな色の作成
-	//# include "Siv3D/RandomColor.hpp"
+
+	// ランダムな Point の作成
+	# include "Siv3D/RandomPoint.hpp"
+
+	// ランダムな Vec2 の作成
+	# include "Siv3D/RandomVec2.hpp"
+
+	// ランダムな Vec3 の作成
+	# include "Siv3D/RandomVec3.hpp"
+
+	// ランダムな Vec4 の作成
+	# include "Siv3D/RandomVec4.hpp"
+
+	// ランダムな色の作成
+	# include "Siv3D/RandomColor.hpp"
 
 //
 // 数学
