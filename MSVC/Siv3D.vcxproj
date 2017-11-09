@@ -139,6 +139,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ByteArray.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ByteArrayView.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Char.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Circular.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Color.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ColorPalette.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Compression.hpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\MillisecClock.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\NamedParameter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Number.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\OffsetCircular.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Optional.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Parse.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ParseBool.hpp" />

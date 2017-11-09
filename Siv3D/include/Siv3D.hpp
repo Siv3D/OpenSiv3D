@@ -354,10 +354,15 @@
 //
 //////////////////////////////////////////////////
 
-	// ベクトル
+	// Vector
 	# include "Siv3D/PointVector.hpp"
-	//// 円座標
-	//# include "Siv3D/Circular.hpp"
+
+	// 円座標
+	# include "Siv3D/Circular.hpp"
+
+	// 円座標
+	# include "Siv3D/OffsetCircular.hpp"
+
 	//// 円柱座標
 	//# include "Siv3D/Cylindrical.hpp"
 	//// 球面座標
