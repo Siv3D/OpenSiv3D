@@ -182,6 +182,9 @@
     <Filter Include="src\Siv3D\Compression">
       <UniqueIdentifier>{b737cfb1-37e6-4c17-a324-3027aafe4cb2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\XXHash">
+      <UniqueIdentifier>{2ffefd2f-20f1-41ec-bf78-7029053f6c86}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -486,6 +489,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Compression\SivCompression.cpp">
       <Filter>src\Siv3D\Compression</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\XXHash\SivXXHash.cpp">
+      <Filter>src\Siv3D\XXHash</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -988,6 +994,9 @@
       <Filter>src\ThirdParty\zstd</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Compression.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\XXHash.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>

@@ -285,8 +285,8 @@
 	// MD5
 	# include "Siv3D/MD5.hpp"
 
-	//// xxHash
-	//# include "Siv3D/XXHash.hpp"
+	// xxHash
+	# include "Siv3D/XXHash.hpp"
 
 	// License management
 	# include "Siv3D/LicenseManager.hpp"
