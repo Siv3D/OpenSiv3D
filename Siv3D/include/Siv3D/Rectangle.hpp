@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -1742,6 +1742,7 @@ namespace s3d
 
 namespace fmt
 {
+	/*
 	template <class ArgFormatter, class SizeType>
 	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Rectangle<SizeType>& rect)
 	{
@@ -1751,6 +1752,7 @@ namespace fmt
 
 		f.writer().write(fmt, rect.x, rect.y, rect.w, rect.h);
 	}
+	 */
 }
 //
 //////////////////////////////////////////////////////////////////////////////

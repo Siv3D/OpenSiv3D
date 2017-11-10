@@ -115,7 +115,7 @@ namespace s3d
 
 		[[nodiscard]] constexpr OffsetCircularBase movedBy(double x, double y) const noexcept
 		{
-			return OffsetCircularBase(*this).moveBy(v);
+			return OffsetCircularBase(*this).moveBy(x, y);
 		}
 
 		[[nodiscard]] constexpr OffsetCircularBase movedBy(const Vec2& v) const noexcept
@@ -143,7 +143,7 @@ namespace s3d
 
 		constexpr OffsetCircularBase& rotate(double angle) noexcept
 		{
-			polar.theta += angle;
+			theta += angle;
 
 			return *this;
 		}

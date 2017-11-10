@@ -214,6 +214,7 @@ namespace s3d
 
 namespace fmt
 {
+	/*
 	template <class ArgFormatter>
 	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Quad& quad)
 	{
@@ -223,6 +224,7 @@ namespace fmt
 
 		f.writer().write(fmt, quad.p0, quad.p1, quad.p2, quad.p3);
 	}
+	 */
 }
 //
 //////////////////////////////////////////////////////////////////////////////

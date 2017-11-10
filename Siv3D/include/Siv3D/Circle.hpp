@@ -639,6 +639,7 @@ namespace s3d
 
 namespace fmt
 {
+	/*
 	template <class ArgFormatter>
 	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Circle& circle)
 	{
@@ -648,6 +649,7 @@ namespace fmt
 
 		f.writer().write(fmt, circle.x, circle.y, circle.r);
 	}
+	 */
 }
 //
 //////////////////////////////////////////////////////////////////////////////

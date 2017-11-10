@@ -341,6 +341,7 @@ namespace s3d
 
 namespace fmt
 {
+	/*
 	template <class ArgFormatter>
 	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Ellipse& ellipse)
 	{
@@ -350,6 +351,7 @@ namespace fmt
 
 		f.writer().write(fmt, ellipse.x, ellipse.y, ellipse.a, ellipse.b);
 	}
+	 */
 }
 //
 //////////////////////////////////////////////////////////////////////////////

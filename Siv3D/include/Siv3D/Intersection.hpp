@@ -19,7 +19,7 @@ namespace s3d
 	/// </summary>
 	namespace Geometry2D
 	{
-		//bool Intersect(const Point& a, const Point&			b) noexcept;
+		bool Intersect(const Point& a, const Point&			b) noexcept;
 		//bool Intersect(const Point& a, const Vec2&			b) noexcept;
 		//bool Intersect(const Point& a, const Line&			b) noexcept;
 		////bool Intersect(const Point& a, const Bezier2&		 b);
@@ -259,6 +259,6 @@ namespace s3d
 		////bool Intersect(const LineString& a, const MultiPolygon&	b);
 		////bool Intersect(const LineString& a, const LineString&	b);
 
-		//bool Contains(const Rect& a, const Point& b);
+		bool Contains(const Rect& a, const Point& b);
 	}
 }

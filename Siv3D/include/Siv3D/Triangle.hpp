@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -247,6 +247,7 @@ namespace s3d
 
 namespace fmt
 {
+	/*
 	template <class ArgFormatter>
 	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Triangle& triangle)
 	{
@@ -255,7 +256,7 @@ namespace fmt
 		const auto fmt = S3DSTR("({") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("})");
 
 		f.writer().write(fmt, triangle.p0, triangle.p1, triangle.p2);
-	}
+	}*/
 }
 //
 //////////////////////////////////////////////////////////////////////////////

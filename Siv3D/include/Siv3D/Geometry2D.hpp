@@ -22,7 +22,7 @@ namespace s3d
 	/// </summary>
 	namespace Geometry2D
 	{
-		//Optional<Array<Vec2>> IntersectAt(const Line& a, const Rect& b);
+		Optional<Array<Vec2>> IntersectAt(const Line& a, const Rect& b);
 		//Optional<Array<Vec2>> IntersectAt(const Line& a, const RectF& b);
 		//Optional<Array<Vec2>> IntersectAt(const Line& a, const Circle& b);
 		//Optional<Array<Vec2>> IntersectAt(const Line& a, const Ellipse& b);
