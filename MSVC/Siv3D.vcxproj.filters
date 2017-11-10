@@ -188,6 +188,48 @@
     <Filter Include="src\Siv3D\Line">
       <UniqueIdentifier>{fb79d3fe-ce6e-4773-8162-6dd05776cedd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Point">
+      <UniqueIdentifier>{c798dfc8-d5dd-44e9-9d8e-cf80afd0eae0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Vector2D">
+      <UniqueIdentifier>{1eb810c1-fa2c-4999-8248-f0ba563809d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Vector3D">
+      <UniqueIdentifier>{3c9daccd-e402-4d6b-bde0-1e765721c58f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Vector4D">
+      <UniqueIdentifier>{bef57d96-fbaa-4275-b6b8-61b59eedf7a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Rectangle">
+      <UniqueIdentifier>{221feb30-c46c-4eb5-926b-193bcbe2b911}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Circle">
+      <UniqueIdentifier>{85d1b2de-2c3b-45a1-8e30-7f6da9d86cc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Ellipse">
+      <UniqueIdentifier>{3fc435f1-6c0b-44f8-8aaa-c29105c0c4a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Triangle">
+      <UniqueIdentifier>{1eef6de3-1913-4495-83ea-a57431950ddc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Quad">
+      <UniqueIdentifier>{3f624364-950d-4236-85c4-fd20784395e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\RoundRect">
+      <UniqueIdentifier>{7718604f-0a91-4bfc-b89d-dfcb68130dcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\LineString">
+      <UniqueIdentifier>{56c6b7a4-b890-4b13-a861-0d3b0d1398ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Polygon">
+      <UniqueIdentifier>{114a0ae0-a6ee-4fa6-9df9-6da8b2b28ea9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\INIReader">
+      <UniqueIdentifier>{17b85511-7a50-4449-a9ed-ae4ad41f9f92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\INIWriter">
+      <UniqueIdentifier>{8c1ddf5c-5a4b-4bfb-bc58-095f927c1eb5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -498,6 +540,45 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Line\SivLine.cpp">
       <Filter>src\Siv3D\Line</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Circle\SivCircle.cpp">
+      <Filter>src\Siv3D\Circle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Ellipse\SivEllipse.cpp">
+      <Filter>src\Siv3D\Ellipse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\RoundRect\SivRoundRect.cpp">
+      <Filter>src\Siv3D\RoundRect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Quad\SivQuad.cpp">
+      <Filter>src\Siv3D\Quad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Triangle\SivTriangle.cpp">
+      <Filter>src\Siv3D\Triangle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Rectangle\SivRectangle.cpp">
+      <Filter>src\Siv3D\Rectangle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Vector4D\SivVector4D.cpp">
+      <Filter>src\Siv3D\Vector4D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Vector3D\SivVector3D.cpp">
+      <Filter>src\Siv3D\Vector3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Vector2D\SivVector2D.cpp">
+      <Filter>src\Siv3D\Vector2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Point\SivPoint.cpp">
+      <Filter>src\Siv3D\Point</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\INIReader\CINIReader.cpp">
+      <Filter>src\Siv3D\INIReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\INIReader\SivINIReader.cpp">
+      <Filter>src\Siv3D\INIReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\INIWriter\SivINIWriter.cpp">
+      <Filter>src\Siv3D\INIWriter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1060,6 +1141,15 @@
       <Filter>include\Siv3D</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Intersection.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\INIReader\CINIReader.hpp">
+      <Filter>src\Siv3D\INIReader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\INIReader.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\INIWriter.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>

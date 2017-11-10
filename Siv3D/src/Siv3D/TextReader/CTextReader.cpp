@@ -14,6 +14,8 @@
 # include <Siv3D/ByteArray.hpp>
 # include "CTextReader.hpp"
 
+# include <Siv3D/Logger.hpp>
+
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 std::string ConvertLine(const std::string& line);
@@ -285,7 +287,7 @@ namespace s3d
 				{
 					char8 buffer[4] = {};
 					
-					const size_t readSize = static_cast<size_t>(reader.lookahead(buffer));
+					const size_t readSize = static_cast<size_t>(reader.lookahead(buffer, sizeof(buffer)));
 					
 					Unicode::Translator_UTF8toUTF32 translator;
 
@@ -481,7 +483,7 @@ namespace s3d
 		{
 			char8 buffer[4] = {};
 
-			const size_t readSize = static_cast<size_t>(m_reader->lookahead(buffer));
+			const size_t readSize = static_cast<size_t>(m_reader->lookahead(buffer, sizeof(buffer)));
 
 			Unicode::Translator_UTF8toUTF32 translator;
 

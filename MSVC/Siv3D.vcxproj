@@ -36,12 +36,14 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ByteArray\CByteArray.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ByteArray\SivByteArray.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Circle\SivCircle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Compression\SivCompression.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Console\CConsole.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Console\ConsoleFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Console\SivConsole.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DateTime\SivDateTime.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Date\SivDate.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Ellipse\SivEllipse.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\EngineDirectory\EngineDirectory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_Linux.cpp" />
@@ -51,6 +53,9 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\FormatLiteral\SivFormatLiteral.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FormatUtility\SivFormatUtility.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Format\SivFormat.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\INIReader\CINIReader.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\INIReader\SivINIReader.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\INIWriter\SivINIWriter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\IntFormat\SivIntFormat.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\LicenseManager\CLicenseManager.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\LicenseManager\LicenseManagerFactory.cpp" />
@@ -67,7 +72,11 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseBool\SivParseBool.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseFloat\SivParseFloat.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseInt\SivParseInt.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Point\SivPoint.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Quad\SivQuad.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Rectangle\SivRectangle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Resource\SivResource.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\RoundRect\SivRoundRect.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Siv3DEngine.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Siv3DMain_Linux.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Siv3DMain_macOS.cpp" />
@@ -88,7 +97,11 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Threading\SivThreading.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TimeProfiler\SivTimeProfiler.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Time\SivTime.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Triangle\SivTriangle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Unicode\SivUnicode.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Vector2D\SivVector2D.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Vector3D\SivVector3D.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Vector4D\SivVector4D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\WritableMemoryMapping\CWritableMemoryMapping.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\WritableMemoryMapping\SivWritableMemoryMapping.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\XXHash\SivXXHash.cpp" />
@@ -171,6 +184,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\HSV.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Indexed.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\InfiniteList.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\INIReader.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\INIWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Intersection.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IntFormat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IReader.hpp" />
@@ -262,6 +277,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Console\CConsole.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Console\IConsole.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\EngineDirectory\EngineDirectory.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\INIReader\CINIReader.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\LicenseManager\CLicenseManager.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\LicenseManager\ILicenseManager.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\LicenseManager\LicenseList.hpp" />

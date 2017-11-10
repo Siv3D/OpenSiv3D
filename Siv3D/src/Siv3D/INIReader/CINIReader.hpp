@@ -1,0 +1,55 @@
+﻿//-----------------------------------------------
+//
+//	This file is part of the Siv3D Engine.
+//
+//	Copyright (c) 2008-2017 Ryo Suzuki
+//	Copyright (c) 2016-2017 OpenSiv3D Project
+//
+//	Licensed under the MIT License.
+//
+//-----------------------------------------------
+
+# pragma once
+# include <Siv3D/INIReader.hpp>
+# include <Siv3D/Array.hpp>
+# include <Siv3D/TextEncoding.hpp>
+
+namespace s3d
+{
+	class INIReader::CINIReader
+	{
+	private:
+
+		Array<String> m_sections;
+
+		Array<INIKey> m_keys;
+
+		FilePath m_path;
+
+		TextEncoding m_encoding = TextEncoding::Default;
+
+		bool load(TextReader& reader);
+
+	public:
+
+		CINIReader();
+
+		~CINIReader();
+
+		bool open(const FilePath& path, bool trackFile);
+
+		bool open(const std::shared_ptr<IReader>& reader);
+
+		void close();
+
+		bool isOpened() const;
+
+		const FilePath& path() const;
+
+		TextEncoding encoding() const;
+
+		const Array<Section>& getSections() const;
+
+		const Array<INIKey>& getKeys() const;
+	};
+}

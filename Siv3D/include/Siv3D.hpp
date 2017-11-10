@@ -312,11 +312,11 @@
 	////// CSV ファイルの書き出し
 	////# include "Siv3D/CSVWriter.hpp"
 
-	//// INI ファイルの読み込み
-	//# include "Siv3D/INIReader.hpp"
+	// INI ファイルの読み込み
+	# include "Siv3D/INIReader.hpp"
 
-	////// INI ファイルの書き出し
-	////# include "Siv3D/INIWriter.hpp"
+	// INI ファイルの書き出し
+	# include "Siv3D/INIWriter.hpp"
 
 	////// XML ファイルの読み込み
 	////# include "Siv3D/XMLReader.hpp"
@@ -411,10 +411,10 @@
 	////// 2D 図形の Variant
 	////# include "Siv3D/ShapeVariant2D.hpp"
 
-	// 
+	// 2D 交差判定
 	# include "Siv3D/Intersection.hpp"
 
-	// 
+	// 2D 幾何
 	# include "Siv3D/Geometry2D.hpp"
 
 //////////////////////////////////////////////////
@@ -474,10 +474,6 @@
 	//# include "Siv3D/EasingController.hpp"
 	//// トランジション
 	//# include "Siv3D/Transition.hpp"
-	//// 2D 交差判定
-	//# include "Siv3D/Intersection.hpp"
-	//// 2D 幾何
-	//# include "Siv3D/Geometry2D.hpp"
 	//// Perlin Noise
 	//# include "Siv3D/PerlinNoise.hpp"
 	//// スプライン

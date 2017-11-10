@@ -1527,137 +1527,137 @@ namespace s3d
 			return Geometry2D::Contains(*this, shape);
 		}
 
-		bool leftClicked() const;
+		//bool leftClicked() const;
 
-		bool leftPressed() const;
+		//bool leftPressed() const;
 
-		bool leftReleased() const;
+		//bool leftReleased() const;
 
-		bool rightClicked() const;
+		//bool rightClicked() const;
 
-		bool rightPressed() const;
+		//bool rightPressed() const;
 
-		bool rightReleased() const;
+		//bool rightReleased() const;
 
-		bool mouseOver() const;
+		//bool mouseOver() const;
 
-		// paint
+		//// paint
 
-		// overpaint
+		//// overpaint
 
-		// paintFrame
+		//// paintFrame
 
-		// overpaintFrame
+		//// overpaintFrame
 
-		/// <summary>
-		/// 長方形を描きます。
-		/// </summary>
-		/// <param name="color">
-		/// 色
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
-		const Rectangle& draw(const ColorF& color = Palette::White) const;
+		///// <summary>
+		///// 長方形を描きます。
+		///// </summary>
+		///// <param name="color">
+		///// 色
+		///// </param>
+		///// <returns>
+		///// *this
+		///// </returns>
+		//const Rectangle& draw(const ColorF& color = Palette::White) const;
 
-		/// <summary>
-		/// 長方形を描きます。
-		/// </summary>
-		/// <param name="colors">
-		/// 各頂点の色
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
-		const Rectangle& draw(const ColorF(&colors)[4]) const;
+		///// <summary>
+		///// 長方形を描きます。
+		///// </summary>
+		///// <param name="colors">
+		///// 各頂点の色
+		///// </param>
+		///// <returns>
+		///// *this
+		///// </returns>
+		//const Rectangle& draw(const ColorF(&colors)[4]) const;
 
-		/// <summary>
-		/// 長方形を描きます。
-		/// </summary>
-		/// <param name="topColor">
-		/// 上側の色
-		/// </param>
-		/// <param name="bottomColor">
-		/// 下側の色
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
-		const Rectangle& draw(Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const
-		{
-			return draw({ *topColor, *topColor, *bottomColor, *bottomColor });
-		}
+		///// <summary>
+		///// 長方形を描きます。
+		///// </summary>
+		///// <param name="topColor">
+		///// 上側の色
+		///// </param>
+		///// <param name="bottomColor">
+		///// 下側の色
+		///// </param>
+		///// <returns>
+		///// *this
+		///// </returns>
+		//const Rectangle& draw(Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const
+		//{
+		//	return draw({ *topColor, *topColor, *bottomColor, *bottomColor });
+		//}
 
-		/// <summary>
-		/// 長方形を描きます。
-		/// </summary>
-		/// <param name="leftColor">
-		/// 左側の色
-		/// </param>
-		/// <param name="rightColor">
-		/// 右側の色
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
-		const Rectangle& draw(Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const
-		{
-			return draw({ *leftColor, *rightColor, *rightColor, *leftColor });
-		}
+		///// <summary>
+		///// 長方形を描きます。
+		///// </summary>
+		///// <param name="leftColor">
+		///// 左側の色
+		///// </param>
+		///// <param name="rightColor">
+		///// 右側の色
+		///// </param>
+		///// <returns>
+		///// *this
+		///// </returns>
+		//const Rectangle& draw(Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const
+		//{
+		//	return draw({ *leftColor, *rightColor, *rightColor, *leftColor });
+		//}
 
-		/// <summary>
-		/// 長方形の枠を描きます。
-		/// </summary>
-		/// <param name="thickness">
-		/// 枠の太さ
-		/// </param>
-		/// <param name="color">
-		/// 色
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
-		const Rectangle& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const
-		{
-			return drawFrame(thickness * 0.5, thickness * 0.5, color);
-		}
+		///// <summary>
+		///// 長方形の枠を描きます。
+		///// </summary>
+		///// <param name="thickness">
+		///// 枠の太さ
+		///// </param>
+		///// <param name="color">
+		///// 色
+		///// </param>
+		///// <returns>
+		///// *this
+		///// </returns>
+		//const Rectangle& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const
+		//{
+		//	return drawFrame(thickness * 0.5, thickness * 0.5, color);
+		//}
 
-		/// <summary>
-		/// 長方形の枠を描きます。
-		/// </summary>
-		/// <param name="innerThickness">
-		/// 内側の太さ
-		/// </param>
-		/// <param name="outerThickness">
-		/// 外側の太さ
-		/// </param>
-		/// <param name="color">
-		/// 色
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
-		const Rectangle& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
+		///// <summary>
+		///// 長方形の枠を描きます。
+		///// </summary>
+		///// <param name="innerThickness">
+		///// 内側の太さ
+		///// </param>
+		///// <param name="outerThickness">
+		///// 外側の太さ
+		///// </param>
+		///// <param name="color">
+		///// 色
+		///// </param>
+		///// <returns>
+		///// *this
+		///// </returns>
+		//const Rectangle& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
 
-		/// <summary>
-		/// 長方形の影を描きます。
-		/// </summary>
-		/// <param name="offset">
-		/// 影の移動量（ピクセル）
-		/// </param>
-		/// <param name="blurRadius">
-		/// 影のぼかしの大きさ（ピクセル）
-		/// </param>
-		/// <param name="spread">
-		/// 長方形の広がり（ピクセル）
-		/// </param>
-		/// <param name="color">
-		/// 影の色
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
-		const Rectangle& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF(0.0, 0.5)) const;
+		///// <summary>
+		///// 長方形の影を描きます。
+		///// </summary>
+		///// <param name="offset">
+		///// 影の移動量（ピクセル）
+		///// </param>
+		///// <param name="blurRadius">
+		///// 影のぼかしの大きさ（ピクセル）
+		///// </param>
+		///// <param name="spread">
+		///// 長方形の広がり（ピクセル）
+		///// </param>
+		///// <param name="color">
+		///// 影の色
+		///// </param>
+		///// <returns>
+		///// *this
+		///// </returns>
+		//const Rectangle& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF(0.0, 0.5)) const;
 
 		//TexturedQuad operator ()(const Texture& texture) const;
 
