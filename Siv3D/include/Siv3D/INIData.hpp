@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -15,6 +15,7 @@
 # include "Array.hpp"
 # include "Optional.hpp"
 # include "HashTable.hpp"
+# include "Parse.hpp"
 
 namespace s3d
 {
@@ -82,6 +83,8 @@ namespace s3d
 
 		String& getValue(const Section& section, const Name& name);
 
+		Optional<String> getValueOpt(const Section& section, const Name& name) const;
+		
 		bool loadFromTextReader(TextReader& reader);
 
 		static std::pair<Section, Name> Split(const String& section_and_name);
@@ -170,7 +173,7 @@ namespace s3d
 		template <class Type>
 		Optional<Type> getOpt(const Section& section, const Name& name) const
 		{
-			if (const auto value = getValue(section, name))
+			if (const auto value = getValueOpt(section, name))
 			{
 				return ParseOpt<Type>(value.value());
 			}

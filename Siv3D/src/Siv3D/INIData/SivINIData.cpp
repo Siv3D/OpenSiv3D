@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -68,7 +68,7 @@ namespace s3d
 		}
 		else // Section が存在しない
 		{
-			m_sections.emplace_back(INISection{ section });
+			m_sections.emplace_back(INISection{ section, {}});
 
 			const size_t sectionIndex = m_sections.size() - 1;
 
@@ -80,6 +80,23 @@ namespace s3d
 
 			return m_sections[sectionIndex].keys[keyIndex].value;
 		}
+	}
+	
+	Optional<String> INIData::getValueOpt(const Section& section, const Name& name) const
+	{
+		if (auto itSection = m_keyIndices.find(section); itSection != m_keyIndices.end()) // Section が存在
+		{
+			const size_t sectionIndex = itSection->second.first;
+			
+			if (auto itKey = itSection->second.second.find(name); itKey != itSection->second.second.end()) // Key が存在
+			{
+				const size_t keyIndex = itKey->second;
+				
+				return m_sections[sectionIndex].keys[keyIndex].value;
+			}
+		}
+		
+		return none;
 	}
 
 	bool INIData::loadFromTextReader(TextReader& reader)

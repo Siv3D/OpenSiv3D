@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -23,6 +23,7 @@ namespace s3d
 {
 	namespace detail
 	{
+		/*
 		static constexpr int32 CaluculateFanQuality(const double r) noexcept
 		{
 			return r <= 1.0 ? 3
@@ -30,6 +31,7 @@ namespace s3d
 				: r <= 12.0 ? 8
 				: static_cast<int32>(std::min(64.0, r * 0.2 + 6));
 		}
+		 */
 
 		//static Array<Vec2> GetOuterVertices(const RoundRect& rect, const double offset)
 		//{
