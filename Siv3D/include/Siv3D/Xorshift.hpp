@@ -126,7 +126,7 @@ namespace s3d
 		/// <returns>
 		/// 生成される乱数の最小値
 		/// </returns>
-		static constexpr uint64 min()
+		[[nodiscard]] static constexpr uint64 min()
 		{
 			return Smallest<uint64>();
 		}
@@ -137,7 +137,7 @@ namespace s3d
 		/// <returns>
 		/// 生成される乱数の最大値
 		/// </returns>
-		static constexpr uint64 max()
+		[[nodiscard]] static constexpr uint64 max()
 		{
 			return Largest<uint64>();
 		}
@@ -151,7 +151,7 @@ namespace s3d
 			return (m_seeds[1] = (s1 ^ s0 ^ (s1 >> 17) ^ (s0 >> 26))) + s0; // b, c
 		}
 
-		std::array<uint64, 2> currentSeed() const
+		[[nodiscard]] std::array<uint64, 2> currentSeed() const
 		{
 			return m_seeds;
 		}
@@ -205,7 +205,7 @@ namespace s3d
 		/// <returns>
 		/// 生成される乱数の最小値
 		/// </returns>
-		static constexpr uint64 min()
+		[[nodiscard]] static constexpr uint64 min()
 		{
 			return Smallest<uint64>();
 		}
@@ -216,7 +216,7 @@ namespace s3d
 		/// <returns>
 		/// 生成される乱数の最大値
 		/// </returns>
-		static constexpr uint64 max()
+		[[nodiscard]] static constexpr uint64 max()
 		{
 			return Largest<uint64>();
 		}
@@ -237,7 +237,7 @@ namespace s3d
 			return (m_seeds[p] = s0 ^ s1) * 1181783497276652981LL;
 		}
 
-		std::array<uint64, 16> currentSeed() const
+		[[nodiscard]] std::array<uint64, 16> currentSeed() const
 		{
 			return m_seeds;
 		}

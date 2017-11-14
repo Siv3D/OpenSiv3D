@@ -12,11 +12,17 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_LINUX)
 
-void Main();
+# include <cstring>
+# include <sstream>
+//# include <unicode/ucnv.h>
+//# include <unicode/ucsdet.h>
 
-int main()
+//constexpr size_t bufferLength = 1024;
+
+// TODO
+std::string ConvertLine(const std::string& line)
 {
-	Main();
+	return std::string(line);
 }
 
 # endif

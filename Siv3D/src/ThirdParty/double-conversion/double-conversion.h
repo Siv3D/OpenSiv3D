@@ -525,6 +525,19 @@ class StringToDoubleConverter {
                       int length,
                       int* processed_characters_count) const;
 
+
+  //-----------------------------------------------
+  //
+  //	[Siv3D]
+  //
+  double Siv3D_StringToIeee(const char32_t* start_pointer,
+	  int length,
+	  bool read_as_double,
+	  int* processed_characters_count) const;
+  //
+  //-----------------------------------------------
+
+
  private:
   const int flags_;
   const double empty_string_value_;

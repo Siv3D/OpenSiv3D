@@ -89,7 +89,7 @@ namespace s3d
 		/// <summary>
 		/// 生成する乱数の最小値
 		/// </summary>
-		result_type min() const
+		[[nodiscard]] result_type min() const
 		{
 			return m_distribution.min();
 		}
@@ -97,7 +97,7 @@ namespace s3d
 		/// <summary>
 		/// 生成する乱数の最大値
 		/// </summary>
-		result_type max() const
+		[[nodiscard]] result_type max() const
 		{
 			return m_distribution.max();
 		}
@@ -169,7 +169,7 @@ namespace s3d
 		/// <summary>
 		/// 平均
 		/// </summary>
-		result_type mean() const
+		[[nodiscard]] result_type mean() const
 		{
 			return m_distribution.mean();
 		}
@@ -177,7 +177,7 @@ namespace s3d
 		/// <summary>
 		/// 標準偏差
 		/// </summary>
-		result_type sigma() const
+		[[nodiscard]] result_type sigma() const
 		{
 			return m_distribution.sigma();
 		}

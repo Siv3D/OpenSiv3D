@@ -17,9 +17,9 @@ namespace s3d
 {
 	namespace detail
 	{
-		String FormatFloat(double value, int32 decimalPlace, bool fixed);
+		[[nodiscard]] String FormatFloat(double value, int32 decimalPlace, bool fixed);
 
-		size_t FormatFloat(char32(&dst)[384], double value, int32 decimalPlace, bool fixed);
+		[[nodiscard]] size_t FormatFloat(char32(&dst)[384], double value, int32 decimalPlace, bool fixed);
 	}
 
 	/// <summary>
@@ -34,7 +34,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToString(const float value, const int32 decimalPlace = 3)
+	[[nodiscard]] inline String ToString(const float value, const int32 decimalPlace = 3)
 	{
 		return detail::FormatFloat(value, decimalPlace, false);
 	}
@@ -51,7 +51,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToString(const double value, const int32 decimalPlace = 3)
+	[[nodiscard]] inline String ToString(const double value, const int32 decimalPlace = 3)
 	{
 		return detail::FormatFloat(value, decimalPlace, false);
 	}
@@ -68,7 +68,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToString(const long double value, const int32 decimalPlace = 3)
+	[[nodiscard]] inline String ToString(const long double value, const int32 decimalPlace = 3)
 	{
 		return detail::FormatFloat(static_cast<double>(value), decimalPlace, false);
 	}
@@ -85,7 +85,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToFixed(const float value, const int32 decimalPlace = 3)
+	[[nodiscard]] inline String ToFixed(const float value, const int32 decimalPlace = 3)
 	{
 		return detail::FormatFloat(value, decimalPlace, true);
 	}
@@ -102,7 +102,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToFixed(const double value, const int32 decimalPlace = 3)
+	[[nodiscard]] inline String ToFixed(const double value, const int32 decimalPlace = 3)
 	{
 		return detail::FormatFloat(value, decimalPlace, true);
 	}
@@ -119,7 +119,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToFixed(const long double value, const int32 decimalPlace = 3)
+	[[nodiscard]] inline String ToFixed(const long double value, const int32 decimalPlace = 3)
 	{
 		return detail::FormatFloat(static_cast<double>(value), decimalPlace, true);
 	}
@@ -139,7 +139,7 @@ namespace s3d
 	/// <returns>
 	/// ビット列を整数として解釈した値
 	/// </returns>
-	inline uint32 AsUint(const float value) noexcept
+	[[nodiscard]] inline uint32 AsUint(const float value) noexcept
 	{
 		static_assert(sizeof(uint32) == sizeof(float));
 		return *static_cast<const uint32*>(static_cast<const void*>(&value));
@@ -154,7 +154,7 @@ namespace s3d
 	/// <returns>
 	/// ビット列を整数として解釈した値
 	/// </returns>
-	inline uint64 AsUint(const double value) noexcept
+	[[nodiscard]] inline uint64 AsUint(const double value) noexcept
 	{
 		static_assert(sizeof(uint64) == sizeof(double));
 		return *static_cast<const uint64*>(static_cast<const void*>(&value));
@@ -169,7 +169,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToBinary(const float value)
+	[[nodiscard]] inline String ToBinary(const float value)
 	{
 		return ToBinary(AsUint(value));
 	}
@@ -183,7 +183,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToBinary(const double value)
+	[[nodiscard]] inline String ToBinary(const double value)
 	{
 		return ToBinary(AsUint(value));
 	}
@@ -197,7 +197,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToOctal(const float value)
+	[[nodiscard]] inline String ToOctal(const float value)
 	{
 		return ToOctal(AsUint(value));
 	}
@@ -211,7 +211,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToOctal(const double value)
+	[[nodiscard]] inline String ToOctal(const double value)
 	{
 		return ToOctal(AsUint(value));
 	}
@@ -225,7 +225,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToHex(const float value)
+	[[nodiscard]] inline String ToHex(const float value)
 	{
 		return ToHex(AsUint(value));
 	}
@@ -239,7 +239,7 @@ namespace s3d
 	/// <returns>
 	/// 変換した文字列
 	/// </returns>
-	inline String ToHex(const double value)
+	[[nodiscard]] inline String ToHex(const double value)
 	{
 		return ToHex(AsUint(value));
 	}

@@ -2871,6 +2871,8 @@ namespace s3d
 	CIStream& operator >>(CIStream& input, String& value);
 
 	WIStream& operator >>(WIStream& input, String& value);
+
+	using FilePath = String;
 }
 
 namespace std

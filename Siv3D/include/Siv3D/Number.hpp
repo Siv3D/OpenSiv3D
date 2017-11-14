@@ -22,7 +22,7 @@ namespace s3d
 	/// 表現できる最大の数値
 	/// </returns>
 	template <class Type>
-	inline constexpr Type Largest()
+	[[nodiscard]] inline constexpr Type Largest()
 	{
 		return std::numeric_limits<Type>::max();
 	}
@@ -34,7 +34,7 @@ namespace s3d
 	/// 表現できる最小の数値
 	/// </returns>
 	template <class Type>
-	inline constexpr Type Smallest()
+	[[nodiscard]] inline constexpr Type Smallest()
 	{
 		return std::numeric_limits<Type>::lowest();
 	}
@@ -46,7 +46,7 @@ namespace s3d
 	/// 正の無限大
 	/// </returns>
 	template <class Type, std::enable_if_t<std::is_floating_point_v<Type>>* = nullptr>
-	inline constexpr Type Infinity()
+	[[nodiscard]] inline constexpr Type Infinity()
 	{
 		return std::numeric_limits<Type>::infinity();
 	}
@@ -61,7 +61,7 @@ namespace s3d
     /// 数値が非数 (NaN) である場合 true, それ以外の場合は false
     /// </returns>
     template <class Type, std::enable_if_t<std::is_floating_point_v<Type>>* = nullptr>
-    inline bool IsNaN(const Type value)
+	[[nodiscard]] inline bool IsNaN(const Type value)
     {
         return std::isnan(value);
     }
@@ -76,7 +76,7 @@ namespace s3d
     /// 数値が有限値である場合 true, それ以外の場合は false
     /// </returns>
     template <class Type>
-    inline bool IsFinite([[maybe_unused]] const Type value)
+	[[nodiscard]] inline bool IsFinite([[maybe_unused]] const Type value)
     {
 		if constexpr (std::is_floating_point_v<Type>)
 		{
@@ -98,9 +98,9 @@ namespace s3d
     /// 数値が無限である場合 true, それ以外の場合は false
     /// </returns>
     template <class Type>
-    inline bool IsInfinity([[maybe_unused]] const Type value)
+	[[nodiscard]] inline bool IsInfinity([[maybe_unused]] const Type value)
     {
-		if constexpr (std::is_floating_point<Type>::value)
+		if constexpr (std::is_floating_point_v<Type>)
 		{
 			return std::isinf(value);
 		}

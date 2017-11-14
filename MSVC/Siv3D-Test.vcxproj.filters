@@ -13,10 +13,19 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Test">
+      <UniqueIdentifier>{70c214ab-8251-4921-a38b-f64a6237f229}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test\Catch">
+      <UniqueIdentifier>{ab15e8b1-3ae3-4546-b26b-5fcacfed87a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D-Test\Main.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D-Test\Test\Test.cpp">
+      <Filter>Test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -28,5 +37,13 @@
     <ResourceCompile Include="App\Resource.rc">
       <Filter>リソース ファイル</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Siv3D-Test\Test\Test.hpp">
+      <Filter>Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D-Test\Test\Catch\catch.hpp">
+      <Filter>Test\Catch</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
