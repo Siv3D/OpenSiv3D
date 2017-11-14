@@ -41,7 +41,7 @@ namespace s3d
 		/// <returns>
 		/// 生成される乱数の最小値
 		/// </returns>
-		static constexpr result_type min()
+		[[nodiscard]] static constexpr result_type min()
 		{
 			return engine_type::min();
 		}
@@ -52,7 +52,7 @@ namespace s3d
 		/// <returns>
 		/// 生成される乱数の最大値
 		/// </returns>
-		static constexpr result_type max()
+		[[nodiscard]] static constexpr result_type max()
 		{
 			return engine_type::max();
 		}

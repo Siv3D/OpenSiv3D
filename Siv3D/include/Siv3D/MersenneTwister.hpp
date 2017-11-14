@@ -106,7 +106,7 @@ namespace s3d
 		/// <returns>
 		/// 生成される乱数の最小値
 		/// </returns>
-		static constexpr result_type min()
+		[[nodiscard]] static constexpr result_type min()
 		{
 			return engine_type::min();
 		}
@@ -117,7 +117,7 @@ namespace s3d
 		/// <returns>
 		/// 生成される乱数の最大値
 		/// </returns>
-		static constexpr result_type max()
+		[[nodiscard]] static constexpr result_type max()
 		{
 			return engine_type::max();
 		}
@@ -146,7 +146,7 @@ namespace s3d
 			return detail::sfmt_to_res53_mix(a, b);
 		}
 
-		std::string serialize() const
+		[[nodiscard]] std::string serialize() const
 		{
 			std::ostringstream os;
 			os << m_engine;
@@ -245,7 +245,7 @@ namespace s3d
 		/// <returns>
 		/// 生成される乱数の最小値
 		/// </returns>
-		static constexpr result_type min()
+		[[nodiscard]] static constexpr result_type min()
 		{
 			return engine_type::min();
 		}
@@ -256,7 +256,7 @@ namespace s3d
 		/// <returns>
 		/// 生成される乱数の最大値
 		/// </returns>
-		static constexpr result_type max()
+		[[nodiscard]] static constexpr result_type max()
 		{
 			return engine_type::max();
 		}
@@ -285,7 +285,7 @@ namespace s3d
 			return detail::sfmt_to_res53_mix(a, b);
 		}
 
-		std::string serialize() const
+		[[nodiscard]] std::string serialize() const
 		{
 			std::ostringstream os;
 			os << m_engine;
@@ -391,7 +391,7 @@ namespace s3d
 		/// <returns>
 		/// 生成される乱数の最小値
 		/// </returns>
-		static constexpr result_type min()
+		[[nodiscard]] static constexpr result_type min()
 		{
 			return engine_type::min();
 		}
@@ -402,7 +402,7 @@ namespace s3d
 		/// <returns>
 		/// 生成される乱数の最大値
 		/// </returns>
-		static constexpr result_type max()
+		[[nodiscard]] static constexpr result_type max()
 		{
 			return engine_type::max();
 		}
@@ -429,7 +429,7 @@ namespace s3d
 			return detail::sfmt_to_res53(m_engine());
 		}
 
-		std::string serialize() const
+		[[nodiscard]] std::string serialize() const
 		{
 			std::ostringstream os;
 			os << m_engine;

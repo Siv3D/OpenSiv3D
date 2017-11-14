@@ -93,11 +93,11 @@ namespace s3d
 	{
 	# if (SIV3D_PLATFORM_PTR_SIZE == 4)
 
-		formatData.string.append(ToHex(reinterpret_cast<uint32>(value)).lpad(8, L'0'));
+		formatData.string.append(ToHex(reinterpret_cast<uint32>(value)).lpad(8, U'0'));
 
 	# elif (SIV3D_PLATFORM_PTR_SIZE == 8)
 
-		formatData.string.append(ToHex(reinterpret_cast<uint64>(value)).lpad(16, L'0'));
+		formatData.string.append(ToHex(reinterpret_cast<uint64>(value)).lpad(16, U'0'));
 
 	# endif
 	}

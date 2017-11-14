@@ -38,17 +38,17 @@ namespace s3d
 		constexpr NamedParameter(const NamedParameter<Tag, std::tuple<Args...>>& tuple)
 			: m_value(std::make_from_tuple<Type>(tuple.value())) {}
 
-		constexpr const Type* operator-> () const
+		constexpr const Type* operator ->() const
 		{
 			return std::addressof(m_value);
 		}
 
-		constexpr const Type& operator* () const
+		[[nodiscard]] constexpr const Type& operator *() const
 		{
 			return m_value;
 		}
 
-		constexpr const Type& value() const
+		[[nodiscard]] constexpr const Type& value() const
 		{
 			return m_value;
 		}
@@ -69,17 +69,17 @@ namespace s3d
 		constexpr NamedParameter(Type& value) noexcept
 			: m_ref(std::addressof(value)) {}
 
-		constexpr Type* operator-> () const
+		constexpr Type* operator ->() const
 		{
 			return m_ref;
 		}
 
-		constexpr Type& operator* () const
+		[[nodiscard]] constexpr Type& operator *() const
 		{
 			return *m_ref;
 		}
 
-		constexpr Type& value() const
+		[[nodiscard]] constexpr Type& value() const
 		{
 			return *m_ref;
 		}

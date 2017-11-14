@@ -493,12 +493,6 @@ namespace s3d
 	{
 		return b.compare(a) >= 0;
 	}
-
-	template <class Type>
-	struct IsBigInt : std::false_type {};
-
-	template <>
-	struct IsBigInt<BigInt> : std::true_type {};
 }
 
 namespace std
