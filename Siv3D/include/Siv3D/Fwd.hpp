@@ -175,6 +175,21 @@ namespace s3d
 	enum class LogDescription;
 
 
+
+	//////////////////////////////////////////////////////
+	//
+	//	JSONReader.hpp
+	//
+	enum class JSONValueType;
+	class JSONArrayIterator;
+	class JSONObjectIterator;
+	class JSONArrayView;
+	class JSONObjectView;
+	class JSONValue;
+	struct JSONObjectMember;
+	class JSONReader;
+
+
 	//////////////////////////////////////////////////////
 	//
 	//	Color.hpp

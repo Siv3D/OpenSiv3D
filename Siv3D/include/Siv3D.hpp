@@ -315,8 +315,8 @@
 	////// XML ファイルの読み込み
 	////# include "Siv3D/XMLReader.hpp"
 
-	//// JSON ファイルの読み込み
-	//# include "Siv3D/JSONReader.hpp"
+	// JSON ファイルの読み込み
+	# include "Siv3D/JSONReader.hpp"
 
 	////// JSON ファイルの書き出し
 	////# include "Siv3D/JSONWriter.hpp"

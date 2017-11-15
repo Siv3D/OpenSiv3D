@@ -230,6 +230,27 @@
     <Filter Include="src\Siv3D\CSVData">
       <UniqueIdentifier>{0b62a519-0c05-4dc7-b49b-9adc3c4fcd22}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\rapidjson">
+      <UniqueIdentifier>{d2618fed-977b-4af9-a75c-01e4f4d5fb30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\rapidjson\error">
+      <UniqueIdentifier>{f20d9d60-42ed-4797-a881-a2b52c191af9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\rapidjson\internal">
+      <UniqueIdentifier>{278cf52d-ebf2-42b9-a6b1-daf591c9eaf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\rapidjson\msinttypes">
+      <UniqueIdentifier>{6519f0b2-dc13-4843-bd20-b0888105d171}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\JSONReader">
+      <UniqueIdentifier>{f935e936-1bed-4a77-accb-518c4e4cbf05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Color">
+      <UniqueIdentifier>{d14bfaa5-c2a3-45cb-8f8b-172483bf2c38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\HSV">
+      <UniqueIdentifier>{272fd6f4-60ef-4cf7-9de6-72d63afc521d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -576,6 +597,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\CSVData\SivCSVData.cpp">
       <Filter>src\Siv3D\CSVData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\JSONReader\SivJSONReader.cpp">
+      <Filter>src\Siv3D\JSONReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Color\SivColor.cpp">
+      <Filter>src\Siv3D\Color</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\HSV\SivHSV.cpp">
+      <Filter>src\Siv3D\HSV</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1144,6 +1174,114 @@
       <Filter>include\Siv3D</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\CSVData.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\error\en.h">
+      <Filter>src\ThirdParty\rapidjson\error</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\error\error.h">
+      <Filter>src\ThirdParty\rapidjson\error</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\internal\biginteger.h">
+      <Filter>src\ThirdParty\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\internal\diyfp.h">
+      <Filter>src\ThirdParty\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\internal\dtoa.h">
+      <Filter>src\ThirdParty\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\internal\ieee754.h">
+      <Filter>src\ThirdParty\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\internal\itoa.h">
+      <Filter>src\ThirdParty\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\internal\meta.h">
+      <Filter>src\ThirdParty\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\internal\pow10.h">
+      <Filter>src\ThirdParty\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\internal\regex.h">
+      <Filter>src\ThirdParty\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\internal\stack.h">
+      <Filter>src\ThirdParty\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\internal\strfunc.h">
+      <Filter>src\ThirdParty\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\internal\strtod.h">
+      <Filter>src\ThirdParty\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\internal\swap.h">
+      <Filter>src\ThirdParty\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\msinttypes\inttypes.h">
+      <Filter>src\ThirdParty\rapidjson\msinttypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\msinttypes\stdint.h">
+      <Filter>src\ThirdParty\rapidjson\msinttypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\encodings.h">
+      <Filter>src\ThirdParty\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\filereadstream.h">
+      <Filter>src\ThirdParty\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\filewritestream.h">
+      <Filter>src\ThirdParty\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\fwd.h">
+      <Filter>src\ThirdParty\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\istreamwrapper.h">
+      <Filter>src\ThirdParty\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\memorybuffer.h">
+      <Filter>src\ThirdParty\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\memorystream.h">
+      <Filter>src\ThirdParty\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\ostreamwrapper.h">
+      <Filter>src\ThirdParty\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\pointer.h">
+      <Filter>src\ThirdParty\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\prettywriter.h">
+      <Filter>src\ThirdParty\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\rapidjson.h">
+      <Filter>src\ThirdParty\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\reader.h">
+      <Filter>src\ThirdParty\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\schema.h">
+      <Filter>src\ThirdParty\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\stream.h">
+      <Filter>src\ThirdParty\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\stringbuffer.h">
+      <Filter>src\ThirdParty\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\writer.h">
+      <Filter>src\ThirdParty\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\allocators.h">
+      <Filter>src\ThirdParty\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\document.h">
+      <Filter>src\ThirdParty\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\encodedstream.h">
+      <Filter>src\ThirdParty\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\JSONReader.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>

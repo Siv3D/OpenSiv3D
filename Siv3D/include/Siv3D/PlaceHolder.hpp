@@ -23,5 +23,5 @@ namespace s3d
 	/// <summary>
 	/// Place holder
 	/// </summary>
-	constexpr PlaceHolder_t _{ PlaceHolder_t::init_t{} };
+	inline constexpr PlaceHolder_t _{ PlaceHolder_t::init_t{} };
 }

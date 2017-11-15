@@ -86,9 +86,9 @@ namespace s3d
 		}
 	}
 
-	constexpr struct trivial_init_t {} trivial_init{};
+	inline constexpr struct trivial_init_t {} trivial_init{};
 
-	constexpr struct in_place_t {} in_place{};
+	inline constexpr struct in_place_t {} in_place{};
 
 	struct None_t
 	{
@@ -100,7 +100,7 @@ namespace s3d
 	/// <summary>
 	/// 無効値
 	/// </summary>
-	constexpr None_t none{ None_t::init() };
+	inline constexpr None_t none{ None_t::init() };
 
 	class S3D_EXCEPTION_ABI bad_optional_access : public std::logic_error
 	{
