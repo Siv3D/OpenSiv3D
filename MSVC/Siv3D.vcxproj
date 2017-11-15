@@ -41,6 +41,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Console\CConsole.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Console\ConsoleFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Console\SivConsole.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\CSVData\SivCSVData.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DateTime\SivDateTime.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Date\SivDate.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Ellipse\SivEllipse.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Compression.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ConcurrentTask.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Console.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\CSVData.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Cylindrical.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Date.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\DateTime.hpp" />

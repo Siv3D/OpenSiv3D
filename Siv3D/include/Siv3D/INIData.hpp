@@ -115,30 +115,30 @@ namespace s3d
 
 		void clear();
 
-		bool isEmpty() const;
+		[[nodiscard]] bool isEmpty() const;
 
-		explicit operator bool() const { return isEmpty(); }
+		[[nodiscard]] explicit operator bool() const { return isEmpty(); }
 
-		bool hasSection(const Section& section) const;
+		[[nodiscard]] bool hasSection(const Section& section) const;
 
-		bool hasValue(const Section& section, const Name& name) const;
+		[[nodiscard]] bool hasValue(const Section& section, const Name& name) const;
 
-		bool hasGlobalValue(const Name& name) const;
+		[[nodiscard]] bool hasGlobalValue(const Name& name) const;
 
-		const Array<INISection>& sections() const;
+		[[nodiscard]] const Array<INISection>& sections() const;
 
-		const INISection& getSection(const Section& section) const;
+		[[nodiscard]] const INISection& getSection(const Section& section) const;
 
-		const String& getValue(const Section& section, const Name& name) const;
+		[[nodiscard]] const String& getValue(const Section& section, const Name& name) const;
 
-		const String& getGlobalVaue(const Name& name);
+		[[nodiscard]] const String& getGlobalVaue(const Name& name);
 
-		const Value& operator [](const String& section_and_name) const;
+		[[nodiscard]] const Value& operator [](const String& section_and_name) const;
 
-		INIValueWrapper operator [](const String& section_and_name);
+		[[nodiscard]] INIValueWrapper operator [](const String& section_and_name);
 
 		template <class Type>
-		Type get(const Section& section, const Name& name) const
+		[[nodiscard]] Type get(const Section& section, const Name& name) const
 		{
 			if (const auto opt = getOpt<Type>(section, name))
 			{
@@ -149,7 +149,7 @@ namespace s3d
 		}
 
 		template <class Type>
-		Type get(const String& section_and_name) const
+		[[nodiscard]] Type get(const String& section_and_name) const
 		{
 			const auto[section, name] = Split(section_and_name);
 
@@ -157,13 +157,13 @@ namespace s3d
 		}
 
 		template <class Type>
-		Type getOr(const Section& section, const Name& name, Type&& defaultValue) const
+		[[nodiscard]] Type getOr(const Section& section, const Name& name, Type&& defaultValue) const
 		{
 			return getOpt<Type>(section, name).value_or(std::forward<Type>(defaultValue));
 		}
 
 		template <class Type>
-		Type getOr(const String& section_and_name, Type&& defaultValue) const
+		[[nodiscard]] Type getOr(const String& section_and_name, Type&& defaultValue) const
 		{
 			const auto[section, name] = Split(section_and_name);
 
@@ -171,7 +171,7 @@ namespace s3d
 		}
 
 		template <class Type>
-		Optional<Type> getOpt(const Section& section, const Name& name) const
+		[[nodiscard]] Optional<Type> getOpt(const Section& section, const Name& name) const
 		{
 			if (const auto value = getValueOpt(section, name))
 			{
@@ -182,7 +182,7 @@ namespace s3d
 		}
 
 		template <class Type>
-		Optional<Type> getOpt(const String& section_and_name) const
+		[[nodiscard]] Optional<Type> getOpt(const String& section_and_name) const
 		{
 			const auto[section, name] = Split(section_and_name);
 
@@ -190,6 +190,8 @@ namespace s3d
 		}
 
 		void addSection(const Section& section);
+
+		void removeSection(const Section& section);
 
 		void write(const Section& section, const Name& name, const Value& value);
 

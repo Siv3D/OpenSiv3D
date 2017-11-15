@@ -101,6 +101,11 @@ namespace s3d
 
 	bool INIData::loadFromTextReader(TextReader& reader)
 	{
+		if (!reader)
+		{
+			return false;
+		}
+
 		const char32 semicolon	= U';';
 		const char32 hash		= U'#';
 		const char32 lbracket	= U'[';
@@ -351,6 +356,26 @@ namespace s3d
 		const size_t sectionIndex = m_sections.size() - 1;
 
 		m_keyIndices.emplace(section, std::pair<size_t, HashTable<Name, size_t>>{ sectionIndex, {}});
+	}
+
+	void INIData::removeSection(const Section& section)
+	{
+		if (auto itSection = m_keyIndices.find(section); itSection != m_keyIndices.end())
+		{
+			const size_t removedSectionIndex = itSection->second.first;
+
+			m_keyIndices.erase(itSection);
+
+			m_sections.remove_at(removedSectionIndex);
+
+			for (auto it = m_keyIndices.begin(); it != m_keyIndices.end(); ++it)
+			{
+				if (const size_t sectionIndex = it->second.first; sectionIndex > removedSectionIndex)
+				{
+					--it.value().first;
+				}
+			}
+		}
 	}
 
 	void INIData::write(const Section& section, const Name& name, const Value& value)

@@ -442,6 +442,20 @@ namespace s3d
 
 	char32 TextReader::CTextReader::readCodePoint()
 	{
+		if (m_encoding == TextEncoding::Unknown)
+		{
+			char8 ch = '\0';
+
+			m_ifs.get(ch);
+
+			return ch; // [Siv3D TODO]
+		}
+		
+		if (m_reader->getPos() == m_reader->size())
+		{
+			return U'\0';
+		}
+
 		if (m_encoding == TextEncoding::UTF16LE)
 		{
 			char16 c0 = 0, c1 = 0;
@@ -470,14 +484,6 @@ namespace s3d
 			}
 
 			return c0;
-		}
-		else if (m_encoding == TextEncoding::Unknown)
-		{
-			char8 ch = '\0';
-			
-			m_ifs.get(ch);
-			
-			return ch; // [Siv3D TODO]
 		}
 		else // UTF-8
 		{

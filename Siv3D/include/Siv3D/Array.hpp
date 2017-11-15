@@ -843,7 +843,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した要素を含む場合は true, それ以外の場合は false
 		/// </returns>
-		[[nodiscard]] bool include(const value_type& value) const
+		[[nodiscard]] bool includes(const value_type& value) const
 		{
 			for (const auto& v : *this)
 			{
@@ -866,7 +866,7 @@ namespace s3d
 		/// 指定した条件を満たす要素が含まれる場合は true, それ以外の場合は false
 		/// </returns>
 		template <class Fty>
-		[[nodiscard]] bool include_if(Fty f) const
+		[[nodiscard]] bool includes_if(Fty f) const
 		{
 			return any(f);
 		}

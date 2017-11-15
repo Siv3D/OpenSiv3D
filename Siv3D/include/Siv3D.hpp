@@ -306,11 +306,8 @@
 	////// アーカイブファイル
 	////# include "Siv3D/FileArchive.hpp"
 
-	////// CSV ファイルの読み込み
-	////# include "Siv3D/CSVReader.hpp"
-
-	////// CSV ファイルの書き出し
-	////# include "Siv3D/CSVWriter.hpp"
+	// CSV ファイルデータの読み書き
+	# include "Siv3D/CSVData.hpp"
 
 	// INI ファイルデータの読み書き
 	# include "Siv3D/INIData.hpp"
