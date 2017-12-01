@@ -20,8 +20,11 @@ namespace s3d
 		explicit constexpr PlaceHolder_t(init_t) {}
 	};
 
-	/// <summary>
-	/// Place holder
-	/// </summary>
-	inline constexpr PlaceHolder_t _{ PlaceHolder_t::init_t{} };
+	namespace Lambda
+	{
+		/// <summary>
+		/// Place holder
+		/// </summary>
+		inline constexpr PlaceHolder_t _{ PlaceHolder_t::init_t{} };
+	}
 }
