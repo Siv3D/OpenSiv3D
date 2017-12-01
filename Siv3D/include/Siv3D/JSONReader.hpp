@@ -155,7 +155,7 @@ namespace s3d
 
 		std::shared_ptr<detail::JSONValueDetail> m_detail;
 
-		template<class Type, std::enable_if_t<!std::is_arithmetic_v<Type>>* = nullptr>
+		template <class Type, std::enable_if_t<!std::is_arithmetic_v<Type>>* = nullptr>
 		Optional<Type> getOpt_() const
 		{
 			return ParseOpt<Type>(getString());

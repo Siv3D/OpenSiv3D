@@ -606,30 +606,29 @@ namespace s3d
 				return +(std::forward<TypeX>(x));
 			}
 		};
+
+		struct UnaryPlus_impl
+		{
+			template <class Type = void>
+			[[nodiscard]] constexpr auto operator ()(PlaceHolder_t) const noexcept
+			{
+				return detail::UnaryPlusX<Type>();
+			}
+
+			template <class TypeX>
+			[[nodiscard]] constexpr auto operator ()(TypeX&& x) const noexcept(noexcept(+(std::forward<TypeX>(x))))
+			{
+				return +(std::forward<TypeX>(x));
+			}
+		};
 	}
 
-	template <class Type = void>
-	[[nodiscard]] inline constexpr auto UnaryPlus() noexcept
-	{
-		return detail::UnaryPlusX<Type>();
-	}
-
-	template <class Type = void>
-	[[nodiscard]] inline constexpr auto UnaryPlus(PlaceHolder_t) noexcept
-	{
-		return detail::UnaryPlusX<Type>();
-	}
-
-	template <class TypeX>
-	[[nodiscard]] inline constexpr auto UnaryPlus(TypeX&& x) noexcept(noexcept(+(std::forward<TypeX>(x))))
-	{
-		return +(std::forward<TypeX>(x));
-	}
+	constexpr auto UnaryPlus = detail::UnaryPlus_impl();
 
 	template <class Type = void>
 	[[nodiscard]] inline constexpr auto operator +(PlaceHolder_t) noexcept
 	{
-		return UnaryPlus(Lambda::_);
+		return detail::UnaryPlusX<Type>();
 	}
 
 
@@ -659,30 +658,29 @@ namespace s3d
 				return -(std::forward<TypeX>(x));
 			}
 		};
+
+		struct Negate_impl
+		{
+			template <class Type = void>
+			[[nodiscard]] constexpr auto operator ()(PlaceHolder_t) const noexcept
+			{
+				return detail::UnaryMinusX<Type>();
+			}
+
+			template <class TypeX>
+			[[nodiscard]] constexpr auto operator ()(TypeX&& x) const noexcept(noexcept(-(std::forward<TypeX>(x))))
+			{
+				return -(std::forward<TypeX>(x));
+			}
+		};
 	}
 
-	template <class Type = void>
-	[[nodiscard]] inline constexpr auto Negate() noexcept
-	{
-		return detail::UnaryMinusX<Type>();
-	}
-
-	template <class Type = void>
-	[[nodiscard]] inline constexpr auto Negate(PlaceHolder_t) noexcept
-	{
-		return detail::UnaryMinusX<Type>();
-	}
-
-	template <class TypeX>
-	[[nodiscard]] inline constexpr auto Negate(TypeX&& x) noexcept(noexcept(-(std::forward<TypeX>(x))))
-	{
-		return -(std::forward<TypeX>(x));
-	}
+	constexpr auto Negate = detail::Negate_impl();
 
 	template <class Type = void>
 	[[nodiscard]] inline constexpr auto operator -(PlaceHolder_t) noexcept
 	{
-		return Negate(Lambda::_);
+		return detail::UnaryMinusX<Type>();
 	}
 
 
@@ -1143,7 +1141,7 @@ namespace s3d
 	}
 
 	template <class Type = void, class TypeX, class TypeY>
-	[[nodiscard]] inline constexpr auto Modulus(TypeX&& x, TypeY&& y) noexcept(noexcept(std::plus<Type>()(std::forward<TypeX>(x), std::forward<TypeY>(y))))
+	[[nodiscard]] inline constexpr auto Modulus(TypeX&& x, TypeY&& y) noexcept(noexcept(detail::ModulusF_impl()(std::forward<TypeX>(x), std::forward<TypeY>(y))))
 	{
 		return detail::ModulusF_impl()(std::forward<TypeX>(x), std::forward<TypeY>(y));
 	}
@@ -1211,30 +1209,29 @@ namespace s3d
 				return !(std::forward<TypeX>(x));
 			}
 		};
+
+		struct UnaryNot_impl
+		{
+			template <class Type = void>
+			[[nodiscard]] constexpr auto operator ()(PlaceHolder_t) const noexcept
+			{
+				return detail::UnaryNotX<Type>();
+			}
+
+			template <class TypeX>
+			[[nodiscard]] constexpr auto operator ()(TypeX&& x) const noexcept(noexcept(!(std::forward<TypeX>(x))))
+			{
+				return !(std::forward<TypeX>(x));
+			}
+		};
 	}
 
-	template <class Type = void>
-	[[nodiscard]] inline constexpr auto Not() noexcept
-	{
-		return detail::UnaryNotX<Type>();
-	}
-
-	template <class Type = void>
-	[[nodiscard]] inline constexpr auto Not(PlaceHolder_t) noexcept
-	{
-		return detail::UnaryNotX<Type>();
-	}
-
-	template <class TypeX>
-	[[nodiscard]] inline constexpr auto Not(TypeX&& x) noexcept(noexcept(!(std::forward<TypeX>(x))))
-	{
-		return !(std::forward<TypeX>(x));
-	}
+	constexpr auto Not = detail::UnaryNot_impl();
 
 	template <class Type = void>
 	[[nodiscard]] inline constexpr auto operator !(PlaceHolder_t) noexcept
 	{
-		return Not(Lambda::_);
+		return detail::UnaryNotX<Type>();
 	}
 
 

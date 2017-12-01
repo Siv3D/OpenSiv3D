@@ -458,10 +458,10 @@
 //
 	// 数学定数
 	# include "Siv3D/MathConstants.hpp"
-	//// 数学関数
-	//# include "Siv3D/Math.hpp"
-	//// 線形補間
-	//# include "Siv3D/Lerp.hpp"
+	// 数学関数
+	# include "Siv3D/Math.hpp"
+	// 線形補間
+	# include "Siv3D/Lerp.hpp"
 	//// イージング関数
 	//# include "Siv3D/Easing.hpp"
 	//// イージング ユーティリティ
