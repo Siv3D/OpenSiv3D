@@ -18,4 +18,14 @@ void Main()
 	Logger << Math::Lerp(0, 100, 0.3);
 
 	Logger << Math::Lerp(Vec2(0, 0), Vec2(100, 100), 0.3);
+
+
+	Logger << Parse<int32>(U"123");
+
+	Logger << Parse<double>(U"123.456");
+
+	Logger << Parse<Point>(U"(12, 34)");
+
+	Logger << Parse<bool>(U"true");
+
 }
