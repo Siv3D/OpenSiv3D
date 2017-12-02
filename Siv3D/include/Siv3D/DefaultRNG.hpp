@@ -18,7 +18,7 @@ namespace s3d
 {
 	using DefaultRNGType = SFMT19937_64;
 
-	inline DefaultRNGType& GetDefaultRNG()
+	[[nodiscard]] inline DefaultRNGType& GetDefaultRNG()
 	{
 		static thread_local DefaultRNGType rng;
 		return rng;
