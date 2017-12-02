@@ -1,8 +1,11 @@
 
 # include <Siv3D.hpp>
+# include "Test/Test.hpp"
 
 void Main()
 {
+	Siv3D_RunTest();
+
 	using s3d::Lambda::_;
 
 	const Array<double> v = { 0.0, 0.1, 0.2, 0.3, 1.0, 1.1, 1.2, 1.3 };
@@ -20,9 +23,6 @@ void Main()
 	Logger << Math::Lerp(Vec2(0, 0), Vec2(100, 100), 0.3);
 
 
-	Logger << Parse<int32>(U"123");
-
-	Logger << Parse<double>(U"123.456");
 
 	Logger << Parse<Point>(U"(12, 34)");
 

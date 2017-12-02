@@ -192,4 +192,103 @@ TEST_CASE("AlignedMalloc", "[normal]")
 	}
 }
 
+TEST_CASE("Parse", "[normal]")
+{
+	SECTION("Parse<bool>()")
+	{
+		REQUIRE(Parse<bool>(U"true") == true);
+		REQUIRE(Parse<bool>(U"True") == true);
+		REQUIRE(Parse<bool>(U"TRUE") == true);
+
+		REQUIRE(Parse<bool>(U"false") == false);
+		REQUIRE(Parse<bool>(U"False") == false);
+		REQUIRE(Parse<bool>(U"FALSE") == false);
+
+		REQUIRE(Parse<bool>(U" true") == true);
+		REQUIRE(Parse<bool>(U"True ") == true);
+		REQUIRE(Parse<bool>(U" TRUE ") == true);
+
+		REQUIRE(Parse<bool>(U" false") == false);
+		REQUIRE(Parse<bool>(U"False ") == false);
+		REQUIRE(Parse<bool>(U" FALSE ") == false);
+
+		REQUIRE(Parse<bool>(U"") == false);
+		REQUIRE(Parse<bool>(U"___") == false);
+		REQUIRE(Parse<bool>(U"truetrue") == false);
+		REQUIRE(Parse<bool>(U"True false") == false);
+	}
+
+	SECTION("Parse<int32>()")
+	{
+		REQUIRE(Parse<int32>(U"0") == 0);
+		REQUIRE(Parse<int32>(U"-0") == 0);
+		REQUIRE(Parse<int32>(U"123") == 123);
+		REQUIRE(Parse<int32>(U"-123") == -123);
+		REQUIRE(Parse<int32>(U"123456789") == 123456789);
+		REQUIRE(Parse<int32>(U"-123456789") == -123456789);
+		REQUIRE(Parse<int32>(U"123456789012345") == 0);
+		REQUIRE(Parse<int32>(U"-123456789012345") == 0);
+
+		REQUIRE(Parse<int32>(U"  123") == 123);
+		REQUIRE(Parse<int32>(U"-123   ") == -123);
+		REQUIRE(Parse<int32>(U"  123 ") == 123);
+		REQUIRE(Parse<int32>(U"  +123 ") == 123);
+
+		REQUIRE(Parse<int32>(U"0.0") == 0);
+		REQUIRE(Parse<int32>(U"-0.0") == 0);
+		REQUIRE(Parse<int32>(U"0.987") == 0);
+		REQUIRE(Parse<int32>(U"-0.987") == 0);
+		REQUIRE(Parse<int32>(U"123.4") == 0);
+		REQUIRE(Parse<int32>(U"-123.4") == 0);
+
+		REQUIRE(Parse<int32>(U"011") == 9);
+		REQUIRE(Parse<int32>(U"0123456") == 42798);
+		REQUIRE(Parse<int32>(U"0xFF") == 255);
+		REQUIRE(Parse<int32>(U"0x12FA") == 4858);
+
+		REQUIRE(Parse<int32>(U"123 123") == 0);
+		REQUIRE(Parse<int32>(U"123_123") == 0);
+	}
+
+	SECTION("Parse<double>()")
+	{
+		REQUIRE(Parse<double>(U"0") == 0.0);
+		REQUIRE(Parse<double>(U"-0") == 0.0);
+		REQUIRE(Parse<double>(U"123") == 123.0);
+		REQUIRE(Parse<double>(U"-123") == -123.0);
+		REQUIRE(Parse<double>(U"123456789") == 123456789.0);
+		REQUIRE(Parse<double>(U"-123456789") == -123456789.0);
+		REQUIRE(Parse<double>(U"123456789012345") == 123456789012345.0);
+		REQUIRE(Parse<double>(U"-123456789012345") == -123456789012345.0);
+
+		REQUIRE(Parse<double>(U"  123") == 123.0);
+		REQUIRE(Parse<double>(U"-123   ") == -123.0);
+		REQUIRE(Parse<double>(U"  123 ") == 123.0);
+		REQUIRE(Parse<double>(U"  +123 ") == 123.0);
+
+		REQUIRE(Parse<double>(U"0.0") == 0.0);
+		REQUIRE(Parse<double>(U"-0.0") == 0.0);
+		REQUIRE(Parse<double>(U"0.987") == 0.987);
+		REQUIRE(Parse<double>(U"-0.987") == -0.987);
+		REQUIRE(Parse<double>(U"123.4") == 123.4);
+		REQUIRE(Parse<double>(U"-123.4") == -123.4);
+	}
+}
+
+TEST_CASE("Format", "[normal]")
+{
+	REQUIRE(Format((int8)123) == U"123");
+	REQUIRE(Format((uint8)123) == U"123");
+	REQUIRE(Format((int16)123) == U"123");
+	REQUIRE(Format((uint16)123) == U"123");
+	REQUIRE(Format((int32)123) == U"123");
+	REQUIRE(Format((uint32)123) == U"123");
+	REQUIRE(Format((int64)123) == U"123");
+	REQUIRE(Format((uint64)123) == U"123");
+	REQUIRE(Format((long)123) == U"123");
+	REQUIRE(Format(123.0f) == U"123");
+	REQUIRE(Format(123.0) == U"123");
+
+}
+
 # endif
