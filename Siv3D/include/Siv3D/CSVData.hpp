@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -14,6 +14,7 @@
 # include "String.hpp"
 # include "Array.hpp"
 # include "Optional.hpp"
+# include "Parse.hpp"
 
 namespace s3d
 {
