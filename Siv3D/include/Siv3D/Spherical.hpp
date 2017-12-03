@@ -170,6 +170,6 @@ namespace fmt
 
 		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"})";
 
-		f.writer().write(fmt, s.r, s.theta, s.phi);
+		f.writer().write(fmt, value.r, value.theta, value.phi);
 	}
 }
