@@ -1683,7 +1683,7 @@ namespace s3d
 		{
 			const CharType opt[] = { 'O','p','t','i','o','n','a','l', ' ', '\0' };
 
-			return output << opt << x.value();
+			return output << opt << value.value();
 		}
 		else
 		{
