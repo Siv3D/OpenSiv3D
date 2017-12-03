@@ -389,6 +389,7 @@
 
 	//// 連続した複数の線分
 	//# include "Siv3D/LineString.hpp"
+
 	//// 多角形
 	//# include "Siv3D/Polygon.hpp"
 
@@ -494,8 +495,8 @@
 	// 半精度浮動小数点数
 	# include "Siv3D/HalfFloat.hpp"
 
-	//// 数式パーサ
-	//# include "Siv3D/MathParser.hpp"
+	// 数式パーサ
+	# include "Siv3D/MathParser.hpp"
 
 //
 // 画像処理
