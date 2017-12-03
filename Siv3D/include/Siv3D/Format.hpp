@@ -419,7 +419,7 @@ namespace s3d
 	template <class Type>
 	inline void Formatter(FormatData& formatData, const Optional<Type>& value)
 	{
-		if (opt)
+		if (value)
 		{
 			formatData.string.append(U"Optional ", 9);
 
