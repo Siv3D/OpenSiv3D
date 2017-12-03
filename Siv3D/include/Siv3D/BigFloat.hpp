@@ -11,7 +11,7 @@
 
 # pragma once
 
-// boost 1.65.0 workaround
+// boost 1.65.1 workaround
 # ifndef _HAS_AUTO_PTR_ETC
 #	define _HAS_AUTO_PTR_ETC 1
 # endif
@@ -221,6 +221,8 @@ namespace s3d
 		[[nodiscard]] String str() const;
 
 		void swap(BigFloat& other) noexcept;
+
+		size_t hash() const;
 
 		CBigFloat& detail();
 		const CBigFloat& detail() const;
@@ -455,13 +457,11 @@ namespace s3d
 	}
 }
 
-namespace std
-{
-	void inline swap(s3d::BigFloat& a, s3d::BigFloat& b) noexcept(noexcept(a.swap(b)))
-	{
-		a.swap(b);
-	}
-}
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
 
 namespace s3d
 {
@@ -476,15 +476,34 @@ namespace s3d
 	std::wistream& operator >>(std::wistream& input, BigFloat& value);
 }
 
-//namespace fmt
-//{
-//	template <class ArgFormatter>
-//	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::BigFloat& value)
-//	{
-//		const auto tag = s3d::detail::GetTag(format_str);
+//////////////////////////////////////////////////
 //
-//		const auto fmt = S3DSTR("{") + tag + S3DSTR("}");
+//	Hash
 //
-//		f.writer().write(fmt, value.str().str());
-//	}
-//}
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <>
+	struct hash<s3d::BigFloat>
+	{
+		[[nodiscard]] size_t operator()(const s3d::BigFloat& value) const noexcept
+		{
+			return value.hash();
+		}
+	};
+}
+
+//////////////////////////////////////////////////
+//
+//	Swap
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	void inline swap(s3d::BigFloat& a, s3d::BigFloat& b) noexcept(noexcept(a.swap(b)))
+	{
+		a.swap(b);
+	}
+}

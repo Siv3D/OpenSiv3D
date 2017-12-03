@@ -123,7 +123,16 @@ namespace s3d
 			}
 		}
 	}
+}
 
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
+
+namespace s3d
+{
 	inline void Formatter(FormatData& formatData, const Days& days)
 	{
 		Formatter(formatData, days.count());
