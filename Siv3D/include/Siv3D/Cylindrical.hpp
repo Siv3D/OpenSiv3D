@@ -102,6 +102,12 @@ namespace s3d
 	};
 }
 
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
+
 namespace s3d
 {
 	inline void Formatter(FormatData& formatData, const Cylindrical& value)
@@ -109,18 +115,6 @@ namespace s3d
 		Formatter(formatData, Vec3(value.r, value.phi, value.y));
 	}
 
-	/// <summary>
-	/// 出力ストリームに円柱座標を渡します。
-	/// </summary>
-	/// <param name="os">
-	/// 出力ストリーム
-	/// </param>
-	/// <param name="c">
-	/// 円柱座標
-	/// </param>
-	/// <returns>
-	/// 渡した後の出力ストリーム
-	/// </returns>
 	template <class CharType>
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Cylindrical& value)
 	{
@@ -130,18 +124,6 @@ namespace s3d
 			<< value.y		<< CharType(')');
 	}
 
-	/// <summary>
-	/// 入力ストリームに円柱座標を渡します。
-	/// </summary>
-	/// <param name="is">
-	/// 入力ストリーム
-	/// </param>
-	/// <param name="c">
-	/// 円柱座標
-	/// </param>
-	/// <returns>
-	/// 渡した後の入力ストリーム
-	/// </returns>
 	template <class CharType>
 	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Cylindrical& value)
 	{
@@ -153,15 +135,39 @@ namespace s3d
 	}
 }
 
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <>
+	struct hash<s3d::Cylindrical>
+	{
+		[[nodiscard]] size_t operator ()(const s3d::Cylindrical& value) const noexcept
+		{
+			return s3d::Hash::FNV1a(value);
+		}
+	};
+}
+
+//////////////////////////////////////////////////
+//
+//	fmt
+//
+//////////////////////////////////////////////////
+
 namespace fmt
 {
-	//template <class ArgFormatter>
-	//void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::Cylindrical& value)
-	//{
-	//	const auto tag = s3d::detail::GetTag(format_str);
+	template <class ArgFormatter>
+	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Cylindrical& value)
+	{
+		const auto tag = s3d::detail::GetTag(format_str);
 
-	//	const auto fmt = S3DSTR("({") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("})");
+		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"})";
 
-	//	f.writer().write(fmt, c.r, c.phi, c.y);
-	//}
+		f.writer().write(fmt, c.r, c.phi, c.y);
+	}
 }
