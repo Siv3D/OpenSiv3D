@@ -524,66 +524,61 @@ namespace s3d
 	using Vec3		= Vector3D<double>;
 }
 
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
+
+namespace s3d
+{
+	void Formatter(FormatData& formatData, const Float3& value);
+
+	void Formatter(FormatData& formatData, const Vec3& value);
+
+	template <class CharType, class Type>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Vector3D<Type>& value)
+	{
+		return output << CharType('(')
+			<< value.x << CharType(',')
+			<< value.y << CharType(',')
+			<< value.z << CharType(')');
+	}
+
+	template <class CharType, class Type>
+	inline std::basic_istream<CharType>& operator >> (std::basic_istream<CharType>& input, Vector3D<Type>& value)
+	{
+		CharType unused;
+		return input >> unused
+			>> value.x >> unused
+			>> value.y >> unused
+			>> value.z >> unused;
+	}
+}
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
 namespace std
 {
 	template <class Type>
 	struct hash<s3d::Vector3D<Type>>
 	{
-		size_t operator()(const s3d::Vector3D<Type>& keyVal) const noexcept
+		[[nodiscard]] size_t operator()(const s3d::Vector3D<Type>& value) const noexcept
 		{
-			return s3d::Hash::FNV1a(keyVal);
+			return s3d::Hash::FNV1a(value);
 		}
 	};
 }
 
-namespace s3d
-{
-	void Formatter(FormatData& formatData, const Float3& value);
-	void Formatter(FormatData& formatData, const Vec3& value);
-
-	/// <summary>
-	/// 出力ストリームに 3 次元ベクトルを渡します。
-	/// </summary>
-	/// <param name="os">
-	/// 出力ストリーム
-	/// </param>
-	/// <param name="v">
-	/// 3 次元ベクトル
-	/// </param>
-	/// <returns>
-	/// 渡した後の出力ストリーム
-	/// </returns>
-	template <class CharType, class Type>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const Vector3D<Type>& v)
-	{
-		return os << CharType('(')
-			<< v.x << CharType(',')
-			<< v.y << CharType(',')
-			<< v.z << CharType(')');
-	}
-
-	/// <summary>
-	/// 入力ストリームに 3 次元ベクトルを渡します。
-	/// </summary>
-	/// <param name="is">
-	/// 入力ストリーム
-	/// </param>
-	/// <param name="v">
-	/// 3 次元ベクトル
-	/// </param>
-	/// <returns>
-	/// 渡した後の入力ストリーム
-	/// </returns>
-	template <class CharType, class Type>
-	inline std::basic_istream<CharType>& operator >> (std::basic_istream<CharType>& is, Vector3D<Type>& v)
-	{
-		CharType unused;
-		return is >> unused
-			>> v.x >> unused
-			>> v.y >> unused
-			>> v.z >> unused;
-	}
-}
+//////////////////////////////////////////////////
+//
+//	fmt
+//
+//////////////////////////////////////////////////
 
 namespace fmt
 {

@@ -179,6 +179,11 @@ namespace s3d
 		return{ a, b, g, r };
 	}
 
+	size_t ColorF::hash() const
+	{
+		return std::hash<s3d::Vec4>()(rgba());
+	}
+
 	void Formatter(FormatData& formatData, const ColorF& value)
 	{
 		Formatter(formatData, value.rgba());

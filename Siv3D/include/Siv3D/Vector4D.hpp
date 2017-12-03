@@ -651,68 +651,63 @@ namespace s3d
 	using Vec4		= Vector4D<double>;
 }
 
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
+
+namespace s3d
+{
+	void Formatter(FormatData& formatData, const Float4& value);
+	
+	void Formatter(FormatData& formatData, const Vec4& value);
+
+	template <class CharType, class Type>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Vector4D<Type>& value)
+	{
+		return output << CharType('(')
+			<< value.x << CharType(',')
+			<< value.y << CharType(',')
+			<< value.z << CharType(',')
+			<< value.w << CharType(')');
+	}
+
+	template <class CharType, class Type>
+	inline std::basic_istream<CharType>& operator >> (std::basic_istream<CharType>& input, Vector4D<Type>& value)
+	{
+		CharType unused;
+		return input >> unused
+			>> value.x >> unused
+			>> value.y >> unused
+			>> value.z >> unused
+			>> value.w >> unused;
+	}
+}
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
 namespace std
 {
 	template <class Type>
 	struct hash<s3d::Vector4D<Type>>
 	{
-		size_t operator()(const s3d::Vector4D<Type>& keyVal) const noexcept
+		size_t operator()(const s3d::Vector4D<Type>& value) const noexcept
 		{
-			return s3d::Hash::FNV1a(keyVal);
+			return s3d::Hash::FNV1a(value);
 		}
 	};
 }
 
-namespace s3d
-{
-	void Formatter(FormatData& formatData, const Float4& value);
-	void Formatter(FormatData& formatData, const Vec4& value);
-
-	/// <summary>
-	/// 出力ストリームに 4 次元ベクトルを渡します。
-	/// </summary>
-	/// <param name="os">
-	/// 出力ストリーム
-	/// </param>
-	/// <param name="v">
-	/// 4 次元ベクトル
-	/// </param>
-	/// <returns>
-	/// 渡した後の出力ストリーム
-	/// </returns>
-	template <class CharType, class Type>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const Vector4D<Type>& v)
-	{
-		return os << CharType('(')
-			<< v.x << CharType(',')
-			<< v.y << CharType(',')
-			<< v.z << CharType(',')
-			<< v.w << CharType(')');
-	}
-
-	/// <summary>
-	/// 入力ストリームに 4 次元ベクトルを渡します。
-	/// </summary>
-	/// <param name="is">
-	/// 入力ストリーム
-	/// </param>
-	/// <param name="v">
-	/// 4 次元ベクトル
-	/// </param>
-	/// <returns>
-	/// 渡した後の入力ストリーム
-	/// </returns>
-	template <class CharType, class Type>
-	inline std::basic_istream<CharType>& operator >> (std::basic_istream<CharType>& is, Vector4D<Type>& v)
-	{
-		CharType unused;
-		return is >> unused
-			>> v.x >> unused
-			>> v.y >> unused
-			>> v.z >> unused
-			>> v.w >> unused;
-	}
-}
+//////////////////////////////////////////////////
+//
+//	fmt
+//
+//////////////////////////////////////////////////
 
 namespace fmt
 {

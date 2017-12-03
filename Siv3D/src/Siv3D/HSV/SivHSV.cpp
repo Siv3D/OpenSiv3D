@@ -155,4 +155,9 @@ namespace s3d
 	{
 		return{ h, s, v, a };
 	}
+
+	size_t HSV::hash() const
+	{
+		return std::hash<s3d::Vec4>()(hsva());
+	}
 }
