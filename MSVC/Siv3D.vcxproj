@@ -185,6 +185,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Fwd.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Geometry2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Grid.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\HalfFloat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\HardwareRNG.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Hash.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\HashSet.hpp" />
@@ -241,6 +242,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\RoundRect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SFMT.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\CustomStopwatch.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\SIMDMath.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Spherical.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Step.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Step2D.hpp" />

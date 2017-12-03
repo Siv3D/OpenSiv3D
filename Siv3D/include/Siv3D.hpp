@@ -488,11 +488,11 @@
 	// スプライン
 	# include "Siv3D/Spline.hpp"
 
-	//// SIMD
-	//# include "Siv3D/SIMDMath.hpp"
+	// SIMD
+	# include "Siv3D/SIMDMath.hpp"
 
-	//// 半精度浮動小数点数
-	//# include "Siv3D/HalfFloat.hpp"
+	// 半精度浮動小数点数
+	# include "Siv3D/HalfFloat.hpp"
 
 	//// 数式パーサ
 	//# include "Siv3D/MathParser.hpp"
