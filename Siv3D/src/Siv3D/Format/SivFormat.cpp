@@ -12,6 +12,7 @@
 # include <Siv3D/Format.hpp>
 # include <Siv3D/IntFormat.hpp>
 # include <Siv3D/FloatFormat.hpp>
+# include <Siv3D/PointVector.hpp>
 
 namespace s3d
 {
@@ -129,16 +130,16 @@ namespace s3d
 		}
 	}
 
-	//void Formatter(FormatData& formatData, __m128 value)
-	//{
-	//# if defined(SIV3D_TARGET_WINDOWS)
+	void Formatter(FormatData& formatData, __m128 value)
+	{
+	# if defined(SIV3D_TARGET_WINDOWS)
 
-	//	Formatter(formatData, Vec4(value.m128_f32[0], value.m128_f32[1], value.m128_f32[2], value.m128_f32[3]));
+		Formatter(formatData, Vec4(value.m128_f32[0], value.m128_f32[1], value.m128_f32[2], value.m128_f32[3]));
 
-	//# else
+	# else
 
-	//	Formatter(formatData, Vec4(value[0], value[1], value[2], value[3]));
-	//
-	//# endif	
-	//}
+		Formatter(formatData, Vec4(value[0], value[1], value[2], value[3]));
+	
+	# endif	
+	}
 }

@@ -620,7 +620,7 @@ namespace s3d
 			shrink_to_fit();
 		}
 
-		void swap(Grid& other) noexcept(noexcept(m_data.swap(other.m_data)))
+		void swap(Grid& other) noexcept
 		{
 			m_data.swap(other.m_data);
 
@@ -1426,14 +1426,11 @@ namespace s3d
 	}
 }
 
-namespace std
-{
-	template <class Type>
-	inline void swap(s3d::Grid<Type>& a, s3d::Grid<Type>& b) noexcept(noexcept(a.swap(b)))
-	{
-		a.swap(b);
-	}
-}
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
 
 namespace s3d
 {
@@ -1464,14 +1461,29 @@ namespace s3d
 	}
 
 	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
-	inline COStream & operator <<(COStream& output, const Grid<Type, Allocator>& value)
+	inline std::ostream & operator <<(std::ostream& output, const Grid<Type, Allocator>& value)
 	{
 		return output << Format(value).narrow();
 	}
 
 	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
-	inline WOStream & operator <<(WOStream& output, const Grid<Type, Allocator>& value)
+	inline std::wostream & operator <<(std::wostream& output, const Grid<Type, Allocator>& value)
 	{
 		return output << Format(value).toWstr();
+	}
+}
+
+//////////////////////////////////////////////////
+//
+//	Swap
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <class Type>
+	inline void swap(s3d::Grid<Type>& a, s3d::Grid<Type>& b) noexcept
+	{
+		a.swap(b);
 	}
 }

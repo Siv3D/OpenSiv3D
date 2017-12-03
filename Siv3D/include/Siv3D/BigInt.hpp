@@ -507,13 +507,13 @@ namespace s3d
 {
 	void Formatter(FormatData& formatData, const BigInt& value);
 
-	COStream& operator <<(COStream output, const BigInt& value);
+	std::ostream& operator <<(std::ostream output, const BigInt& value);
 
-	WOStream& operator <<(WOStream& output, const BigInt& value);
+	std::wostream& operator <<(std::wostream& output, const BigInt& value);
 
-	CIStream& operator >>(CIStream& input, BigInt& value);
+	std::istream& operator >>(std::istream& input, BigInt& value);
 
-	WIStream& operator >>(WIStream& input, BigInt& value);
+	std::wistream& operator >>(std::wistream& input, BigInt& value);
 }
 
 //namespace fmt

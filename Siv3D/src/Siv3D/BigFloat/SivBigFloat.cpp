@@ -659,17 +659,17 @@ namespace s3d
 		formatData.string.append(value.str());
 	}
 
-	COStream& operator <<(COStream output, const BigFloat& value)
+	std::ostream& operator <<(std::ostream output, const BigFloat& value)
 	{
 		return output << value.stdStr();
 	}
 
-	WOStream& operator <<(WOStream& output, const BigFloat& value)
+	std::wostream& operator <<(std::wostream& output, const BigFloat& value)
 	{
 		return output << value.stdWstr();
 	}
 
-	CIStream& operator >>(CIStream& input, BigFloat& value)
+	std::istream& operator >>(std::istream& input, BigFloat& value)
 	{
 		std::string s;
 
@@ -680,7 +680,7 @@ namespace s3d
 		return input;
 	}
 
-	WIStream& operator >>(WIStream& input, BigFloat& value)
+	std::wistream& operator >>(std::wistream& input, BigFloat& value)
 	{
 		std::wstring s;
 

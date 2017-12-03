@@ -28,4 +28,7 @@ void Main()
 
 	Logger << Parse<bool>(U"true");
 
+	Logger << Parse<Byte>(U"FE");
+	
+
 }

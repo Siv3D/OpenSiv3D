@@ -251,6 +251,9 @@
     <Filter Include="src\Siv3D\HSV">
       <UniqueIdentifier>{272fd6f4-60ef-4cf7-9de6-72d63afc521d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\StringView">
+      <UniqueIdentifier>{fa530276-1441-4015-b1c0-584a1f3b0a45}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -606,6 +609,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\HSV\SivHSV.cpp">
       <Filter>src\Siv3D\HSV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\StringView\SivStringView.cpp">
+      <Filter>src\Siv3D\StringView</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

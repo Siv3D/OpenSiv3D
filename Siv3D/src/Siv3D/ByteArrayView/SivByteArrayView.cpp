@@ -12,6 +12,7 @@
 # include <Siv3D/ByteArrayView.hpp>
 # include <Siv3D/String.hpp>
 # include <Siv3D/Byte.hpp>
+# include <Siv3D/Format.hpp>
 
 namespace s3d
 {
@@ -58,5 +59,20 @@ namespace s3d
 		result.push_back(U'}');
 
 		return result;
+	}
+
+	void Formatter(FormatData& formatData, const ByteArrayView& value)
+	{
+		formatData.string.append(value.toHex());
+	}
+
+	std::ostream& operator <<(std::ostream& output, const ByteArrayView& value)
+	{
+		return output << value.toHex();
+	}
+
+	std::wostream& operator <<(std::wostream& output, const ByteArrayView& value)
+	{
+		return output << value.toHex();
 	}
 }
