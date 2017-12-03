@@ -254,6 +254,9 @@
     <Filter Include="src\Siv3D\StringView">
       <UniqueIdentifier>{fa530276-1441-4015-b1c0-584a1f3b0a45}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\PerlinNoise">
+      <UniqueIdentifier>{461a14cc-ffe0-454d-9117-5ed45ba7a985}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -612,6 +615,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\StringView\SivStringView.cpp">
       <Filter>src\Siv3D\StringView</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\PerlinNoise\SivPerlinNoise.cpp">
+      <Filter>src\Siv3D\PerlinNoise</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1294,6 +1300,21 @@
       <Filter>include\Siv3D</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Lerp.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Easing.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\EasingController.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Transition.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\PerlinNoise.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OpenSiv3D\Siv3D\Include\Siv3D\Spline.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>

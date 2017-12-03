@@ -392,21 +392,24 @@
 	//// 多角形
 	//# include "Siv3D/Polygon.hpp"
 
-	////// 多角形の集合
-	////# include "Siv3D/MultiPolygon.hpp"
+	//// 多角形の集合
+	//# include "Siv3D/MultiPolygon.hpp"
 
 	//// 2 次ベジェ曲線
 	//# include "Siv3D/Bezier2.hpp"
+
 	//// 3 次ベジェ曲線
 	//# include "Siv3D/Bezier3.hpp"
 
 	//// Float 型の長方形
 	//# include "Siv3D/FloatRect.hpp"
+
 	//// Float 型の四角形
 	//# include "Siv3D/FloatQuad.hpp"
 
 	//// 2D 形状
 	//# include "Siv3D/Shape2D.hpp"
+
 	////// 2D 図形の Variant
 	////# include "Siv3D/ShapeVariant2D.hpp"
 
@@ -463,26 +466,37 @@
 //
 	// 数学定数
 	# include "Siv3D/MathConstants.hpp"
+
 	// 数学関数
 	# include "Siv3D/Math.hpp"
+
 	// 線形補間
 	# include "Siv3D/Lerp.hpp"
-	//// イージング関数
-	//# include "Siv3D/Easing.hpp"
-	//// イージング ユーティリティ
-	//# include "Siv3D/EasingController.hpp"
-	//// トランジション
-	//# include "Siv3D/Transition.hpp"
-	//// Perlin Noise
-	//# include "Siv3D/PerlinNoise.hpp"
-	//// スプライン
-	//# include "Siv3D/Spline.hpp"
+
+	// イージング関数
+	# include "Siv3D/Easing.hpp"
+
+	// イージング ユーティリティ
+	# include "Siv3D/EasingController.hpp"
+
+	// トランジション
+	# include "Siv3D/Transition.hpp"
+
+	// Perlin Noise
+	# include "Siv3D/PerlinNoise.hpp"
+
+	// スプライン
+	# include "Siv3D/Spline.hpp"
+
 	//// SIMD
 	//# include "Siv3D/SIMDMath.hpp"
+
 	//// 半精度浮動小数点数
 	//# include "Siv3D/HalfFloat.hpp"
+
 	//// 数式パーサ
 	//# include "Siv3D/MathParser.hpp"
+
 //
 // 画像処理
 //
@@ -546,11 +560,7 @@
 	//// TCP クライアント
 	//# include "Siv3D/TCPClient.hpp"
 
-
-
-
 	# include "Siv3D/System.hpp"
-
 
 	// コンソールウィンドウ
 	# include "Siv3D/Console.hpp"

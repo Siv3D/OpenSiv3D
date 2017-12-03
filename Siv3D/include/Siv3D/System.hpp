@@ -17,5 +17,11 @@ namespace s3d
 	namespace System
 	{
 		bool LaunchBrowser(const FilePath& url);
+
+		// [Siv3D ToDo]
+		inline double DeltaTime()
+		{
+			return 0.016;
+		}
 	}
 }

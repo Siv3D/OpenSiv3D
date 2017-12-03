@@ -956,6 +956,16 @@ namespace std
 namespace fmt
 {
 	template <class ArgFormatter>
+	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Color& value)
+	{
+		const auto tag = s3d::detail::GetTag(format_str);
+
+		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"},{" + tag + U"})";
+
+		f.writer().write(fmt, value.r, value.g, value.b, value.a);
+	}
+
+	template <class ArgFormatter>
 	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::ColorF& value)
 	{
 		const auto tag = s3d::detail::GetTag(format_str);
