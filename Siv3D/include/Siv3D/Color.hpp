@@ -909,11 +909,11 @@ namespace s3d
 
 		if (unused == CharType(','))
 		{
-			input >> color.a >> unused;
+			input >> value.a >> unused;
 		}
 		else
 		{
-			color.a = 1.0;
+			value.a = 1.0;
 		}
 
 		return input;
