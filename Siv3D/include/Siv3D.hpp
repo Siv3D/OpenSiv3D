@@ -411,8 +411,8 @@
 	//// 2D 形状
 	//# include "Siv3D/Shape2D.hpp"
 
-	////// 2D 図形の Variant
-	////# include "Siv3D/ShapeVariant2D.hpp"
+	//// 2D 図形の Variant
+	//# include "Siv3D/ShapeVariant2D.hpp"
 
 	// 2D 交差判定
 	# include "Siv3D/Intersection.hpp"
