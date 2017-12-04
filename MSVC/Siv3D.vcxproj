@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Base64\SivBase64.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Bezier2\SivBezier2.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Bezier3\SivBezier3.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\BigFloat\SivBigFloat.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\BigInt\CBigInt.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\BigInt\SivBigInt.cpp" />
@@ -65,6 +67,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\LicenseManager\CLicenseManager.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\LicenseManager\LicenseManagerFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\LicenseManager\SivLicenseManager.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\LineString\SivLineString.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Line\SivLine.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Logger\CLogger.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Logger\LoggerFactory.cpp" />
@@ -161,6 +164,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\AlignedMemory.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Array.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Base64.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Bezier2.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Bezier3.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\BigFloat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\BigInt.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\BigNumber.hpp" />
@@ -193,6 +198,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Evaluater.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FileSystem.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FloatFormat.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\FloatQuad.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\FloatRect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Format.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FormatLiteral.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FormatUtility.hpp" />
@@ -218,6 +225,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\LetterCase.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\LicenseManager.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Line.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\LineString.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Logger.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Mat3x2.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Math.hpp" />

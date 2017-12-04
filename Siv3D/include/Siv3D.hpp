@@ -387,8 +387,8 @@
 	// 角丸長方形
 	# include "Siv3D/RoundRect.hpp"
 
-	//// 連続した複数の線分
-	//# include "Siv3D/LineString.hpp"
+	// 連続した複数の線分
+	# include "Siv3D/LineString.hpp"
 
 	//// 多角形
 	//# include "Siv3D/Polygon.hpp"
@@ -396,17 +396,17 @@
 	//// 多角形の集合
 	//# include "Siv3D/MultiPolygon.hpp"
 
-	//// 2 次ベジェ曲線
-	//# include "Siv3D/Bezier2.hpp"
+	// 2 次ベジェ曲線
+	# include "Siv3D/Bezier2.hpp"
 
-	//// 3 次ベジェ曲線
-	//# include "Siv3D/Bezier3.hpp"
+	// 3 次ベジェ曲線
+	# include "Siv3D/Bezier3.hpp"
 
-	//// Float 型の長方形
-	//# include "Siv3D/FloatRect.hpp"
+	// Float 型の長方形
+	# include "Siv3D/FloatRect.hpp"
 
-	//// Float 型の四角形
-	//# include "Siv3D/FloatQuad.hpp"
+	// Float 型の四角形
+	# include "Siv3D/FloatQuad.hpp"
 
 	//// 2D 形状
 	//# include "Siv3D/Shape2D.hpp"
@@ -503,20 +503,28 @@
 //
 	//// 画像
 	//# include "Siv3D/Image.hpp"
+
 	//// 画像デコーダ・エンコーダインタフェース
 	//# include "Siv3D/ImageFormat.hpp"
+
 	//// 画像処理
 	//# include "Siv3D/ImageProcessing.hpp"
+
 	//// 画像のフォーマット
 	//# include "Siv3D/TextureFormat.hpp"
+
 	//// カスタムカラーフォーマット
 	//# include "Siv3D/CustomColor.hpp"
+
 	//// カスタムカラーフォーマットの画像
 	//# include "Siv3D/CustomImage.hpp"
+
 	//// QR コードの作成と認識
 	//# include "Siv3D/QR.hpp"
+
 	//// 手書き文字認識
 	//# include "Siv3D/HandwritingRecognizer.hpp"
+
 	//// 手書き文字認識用の学習データ作成
 	//# include "Siv3D/HandwritingTrainer.hpp"
 //
