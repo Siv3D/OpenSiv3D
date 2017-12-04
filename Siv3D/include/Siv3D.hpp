@@ -393,9 +393,6 @@
 	// 多角形
 	# include "Siv3D/Polygon.hpp"
 
-	//// 多角形の集合
-	//# include "Siv3D/MultiPolygon.hpp"
-
 	// 2 次ベジェ曲線
 	# include "Siv3D/Bezier2.hpp"
 
