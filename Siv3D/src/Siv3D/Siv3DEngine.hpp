@@ -17,6 +17,7 @@ namespace s3d
 	class ISiv3DLicenseManager;
 	class ISiv3DLogger;
 	class ISiv3DSystem;
+	class ISiv3DCPU;
 	class ISiv3DConsole;
 
 	template <class Interface>
@@ -61,6 +62,8 @@ namespace s3d
 
 		Siv3DComponent<ISiv3DSystem> m_system;
 
+		Siv3DComponent<ISiv3DCPU> m_cpu;
+
 		Siv3DComponent<ISiv3DConsole> m_console;
 
 	public:
@@ -87,6 +90,11 @@ namespace s3d
 		static ISiv3DSystem* GetSystem()
 		{
 			return pEngine->m_system.get();
+		}
+
+		static ISiv3DCPU* GetCPU()
+		{
+			return pEngine->m_cpu.get();
 		}
 
 		static ISiv3DConsole* GetConsole()

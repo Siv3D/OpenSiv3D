@@ -561,7 +561,11 @@
 	//// TCP クライアント
 	//# include "Siv3D/TCPClient.hpp"
 
+	// システム
 	# include "Siv3D/System.hpp"
+
+	// CPU
+	# include "Siv3D/CPU.hpp"
 
 	// コンソールウィンドウ
 	# include "Siv3D/Console.hpp"

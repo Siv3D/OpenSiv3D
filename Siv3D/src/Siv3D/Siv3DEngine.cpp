@@ -13,6 +13,7 @@
 # include "LicenseManager/ILicenseManager.hpp"
 # include "Logger/ILogger.hpp"
 # include "System/ISystem.hpp"
+# include "CPU/ICPU.hpp"
 # include "Console/IConsole.hpp"
 
 namespace s3d
@@ -25,6 +26,7 @@ namespace s3d
 	Siv3DEngine::~Siv3DEngine()
 	{
 		m_console.release();
+		m_cpu.release();
 		m_system.release();
 		m_logger.release();
 		m_licenseManager.release();

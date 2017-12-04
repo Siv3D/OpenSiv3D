@@ -15,7 +15,7 @@
 # include "../Siv3DEngine.hpp"
 # include "CSystem_macOS.hpp"
 # include "../Logger/ILogger.hpp"
-//# include "../CPU/ICPU.hpp"
+# include "../CPU/ICPU.hpp"
 //# include "../ImageFormat/IImageFormat.hpp"
 //# include "../Window/IWindow.hpp"
 //# include "../Profiler/IProfiler.hpp"
@@ -54,10 +54,10 @@ namespace s3d
 			return false;
 		}
 
-		//if (!Siv3DEngine::GetCPU()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetCPU()->init())
+		{
+			return false;
+		}
 
 		//if (!Siv3DEngine::GetImageFormat()->init())
 		//{

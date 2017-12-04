@@ -42,6 +42,9 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Console\CConsole.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Console\ConsoleFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Console\SivConsole.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\CPU\CCPU.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\CPU\CPUFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\CPU\SivCPU.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\CSVData\SivCSVData.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DateTime\SivDateTime.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Date\SivDate.cpp" />
@@ -119,6 +122,7 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\fast-dtoa.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\fixed-dtoa.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\strtod.cc" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\fmt\format.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParser.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParserBase.cpp" />
@@ -175,6 +179,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Compression.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ConcurrentTask.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Console.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\CPU.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\CSVData.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Cylindrical.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Date.hpp" />
@@ -301,6 +306,8 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\ByteArray\CByteArray.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Console\CConsole.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Console\IConsole.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\CPU\CCPU.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\CPU\ICPU.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\EngineDirectory\EngineDirectory.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\LicenseManager\CLicenseManager.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\LicenseManager\ILicenseManager.hpp" />
@@ -329,6 +336,7 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\ieee.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\strtod.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\utils.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\miniutf\miniutf.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\muparser\muParser.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\muparser\muParserBase.h" />
@@ -406,6 +414,8 @@
     <None Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_macOS.mm" />
     <None Include="..\Siv3D\src\Siv3D\System\SivSystem.mm" />
     <None Include="..\Siv3D\src\Siv3D\TextReader\CTextReader_macOS.mm" />
+    <None Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86_Linux.ipp" />
+    <None Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86_Windows.ipp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5EC743E4-1657-41A6-BBE5-A0E2B135885C}</ProjectGuid>

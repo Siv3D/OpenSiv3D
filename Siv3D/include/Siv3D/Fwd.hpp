@@ -460,4 +460,11 @@ namespace s3d
 	class MathParser;
 
 
+
+	//////////////////////////////////////////////////////
+	//
+	//	CPU.hpp
+	//
+	enum class CPUVendor;
+	struct CPUFeature;
 }

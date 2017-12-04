@@ -263,6 +263,12 @@
     <Filter Include="src\ThirdParty\muparser">
       <UniqueIdentifier>{8d1b4dc5-237f-4e90-8833-6f94f49c632a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\CPU">
+      <UniqueIdentifier>{a01cd29e-e0cb-4f3c-8be8-1a5238bbc07e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\FeatureDetector">
+      <UniqueIdentifier>{876f82af-32ce-441c-af7a-6b35e3b8ec31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -654,6 +660,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParserBytecode.cpp">
       <Filter>src\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\CPU\CCPU.cpp">
+      <Filter>src\Siv3D\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\CPU\CPUFactory.cpp">
+      <Filter>src\Siv3D\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\CPU\SivCPU.cpp">
+      <Filter>src\Siv3D\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86.cpp">
+      <Filter>src\ThirdParty\FeatureDetector</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1404,6 +1422,18 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\muparser\muParserBytecode.h">
       <Filter>src\ThirdParty\muparser</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\CPU.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\CPU\CCPU.hpp">
+      <Filter>src\Siv3D\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\CPU\ICPU.hpp">
+      <Filter>src\Siv3D\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86.h">
+      <Filter>src\ThirdParty\FeatureDetector</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_macOS.mm">
@@ -1417,6 +1447,12 @@
     </None>
     <None Include="..\Siv3D\src\Siv3D\System\SivSystem.mm">
       <Filter>src\Siv3D\System</Filter>
+    </None>
+    <None Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86_Linux.ipp">
+      <Filter>src\ThirdParty\FeatureDetector</Filter>
+    </None>
+    <None Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86_Windows.ipp">
+      <Filter>src\ThirdParty\FeatureDetector</Filter>
     </None>
   </ItemGroup>
 </Project>
