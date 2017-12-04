@@ -29,7 +29,7 @@ namespace s3d
 		setExpression(expression);
 	}
 
-	const String& MathParser::getErrorMessage() const
+	String MathParser::getErrorMessage() const
 	{
 		return pImpl->getErrorMessage();
 	}

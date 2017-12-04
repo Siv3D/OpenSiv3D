@@ -275,6 +275,21 @@
     <Filter Include="src\Siv3D\Bezier3">
       <UniqueIdentifier>{667f3a88-6dfe-4d5e-a0d8-d94502718d0c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\clip2tri">
+      <UniqueIdentifier>{3096db35-a97d-4487-b9c3-ea7c3eeec6c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\clipper">
+      <UniqueIdentifier>{94ae00e0-45c3-4099-8c74-1306456fb44e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\poly2tri">
+      <UniqueIdentifier>{79102f72-11ae-454a-be4c-317a2fa8f969}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\poly2tri\common">
+      <UniqueIdentifier>{e45de078-0132-40ff-be18-f3452127dd3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\poly2tri\sweep">
+      <UniqueIdentifier>{c31a0ce5-8187-411b-9713-decf46ada09a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -687,6 +702,33 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Bezier3\SivBezier3.cpp">
       <Filter>src\Siv3D\Bezier3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\SivPolygon.cpp">
+      <Filter>src\Siv3D\Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\CPolygon.cpp">
+      <Filter>src\Siv3D\Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\clip2tri\clip2tri.cpp">
+      <Filter>src\ThirdParty\clip2tri</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\clipper\clipper.cpp">
+      <Filter>src\ThirdParty\clipper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\poly2tri\common\shapes.cc">
+      <Filter>src\ThirdParty\poly2tri\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\cdt.cc">
+      <Filter>src\ThirdParty\poly2tri\sweep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\sweep.cc">
+      <Filter>src\ThirdParty\poly2tri\sweep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\sweep_context.cc">
+      <Filter>src\ThirdParty\poly2tri\sweep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\advancing_front.cc">
+      <Filter>src\ThirdParty\poly2tri\sweep</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1463,6 +1505,39 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\LineString.hpp">
       <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Polygon.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Polygon\CPolygon.hpp">
+      <Filter>src\Siv3D\Polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\clip2tri\clip2tri.h">
+      <Filter>src\ThirdParty\clip2tri</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\clipper\clipper.hpp">
+      <Filter>src\ThirdParty\clipper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\common\shapes.h">
+      <Filter>src\ThirdParty\poly2tri\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\common\utils.h">
+      <Filter>src\ThirdParty\poly2tri\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\cdt.h">
+      <Filter>src\ThirdParty\poly2tri\sweep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\sweep.h">
+      <Filter>src\ThirdParty\poly2tri\sweep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\sweep_context.h">
+      <Filter>src\ThirdParty\poly2tri\sweep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\advancing_front.h">
+      <Filter>src\ThirdParty\poly2tri\sweep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\poly2tri.h">
+      <Filter>src\ThirdParty\poly2tri</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

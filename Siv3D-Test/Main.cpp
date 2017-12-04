@@ -30,6 +30,4 @@ void Main()
 
 	Logger << Parse<Byte>(U"FE");
 	
-
-	std::hash<LineString>()(LineString{ Vec2(0,0),Vec2(10,20) });
 }

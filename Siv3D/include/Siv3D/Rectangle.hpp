@@ -1509,23 +1509,23 @@ namespace s3d
 
 		RoundRect rounded(double r) const noexcept;
 
-		template <class Shape2DType>
-		bool intersects(const Shape2DType& shape) const
-		{
-			return Geometry2D::Intersect(*this, shape);
-		}
+		//template <class Shape2DType>
+		//bool intersects(const Shape2DType& shape) const
+		//{
+		//	return Geometry2D::Intersect(*this, shape);
+		//}
 
-		template <class Shape2DType>
-		Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
-		{
-			return Geometry2D::IntersectAt(*this, shape);
-		}
+		//template <class Shape2DType>
+		//Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
+		//{
+		//	return Geometry2D::IntersectAt(*this, shape);
+		//}
 
-		template <class Shape2DType>
-		bool contains(const Shape2DType& shape) const
-		{
-			return Geometry2D::Contains(*this, shape);
-		}
+		//template <class Shape2DType>
+		//bool contains(const Shape2DType& shape) const
+		//{
+		//	return Geometry2D::Contains(*this, shape);
+		//}
 
 		//bool leftClicked() const;
 

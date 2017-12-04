@@ -48,7 +48,7 @@ namespace s3d
 
 		explicit MathParser(const String& expression);
 
-		[[nodiscard]] const String& getErrorMessage() const;
+		[[nodiscard]] String getErrorMessage() const;
 
 		void setExpression(const String& expression);
 
