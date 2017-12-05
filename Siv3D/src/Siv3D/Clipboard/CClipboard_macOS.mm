@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -49,7 +49,7 @@ namespace s3d
 				
 				for (NSURL* url in content)
 				{
-					filePaths.push_back(CharacterSet::Widen([url.absoluteString UTF8String]));
+					filePaths.push_back(Unicode::Widen([url.absoluteString UTF8String]));
 				}
 			}
 			else if ([pasteboard canReadObjectForClasses:stringClassArray options:options])
@@ -58,7 +58,7 @@ namespace s3d
 				
 				if (NSString* str = [content firstObject])
 				{
-					text = CharacterSet::Widen([str UTF8String]);
+					text = Unicode::Widen([str UTF8String]);
 				}
 			}
 		}
@@ -78,7 +78,7 @@ namespace s3d
 				
 				if (NSString* str = [content firstObject])
 				{
-					text = CharacterSet::Widen([str UTF8String]);
+					text = Unicode::Widen([str UTF8String]);
 				}
 			}
 			
@@ -124,7 +124,7 @@ namespace s3d
 				
 				for (NSURL* url in content)
 				{
-					filePaths.push_back(CharacterSet::Widen([url.absoluteString UTF8String]));
+					filePaths.push_back(Unicode::Widen([url.absoluteString UTF8String]));
 				}
 			}
 			
