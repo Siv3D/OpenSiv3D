@@ -71,6 +71,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\PNG\ImageFormat_PNG.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\PPM\ImageFormat_PPM.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\SivImageFormat.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageProcessing\SivImageProcessing.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Image\SivImage.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\INIData\SivINIData.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\IntFormat\SivIntFormat.cpp" />
