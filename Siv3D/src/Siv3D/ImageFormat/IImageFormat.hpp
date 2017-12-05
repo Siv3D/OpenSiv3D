@@ -40,6 +40,8 @@ namespace s3d
 
 		virtual MemoryWriter encode(const Image& image, ImageFormat format) const = 0;
 
+		virtual bool encodePNG(IWriter& writer, const Image& image, int32 filterFlag) const = 0;
+
 		virtual bool encodeJPEG(IWriter& writer, const Image& image, int32 quality) const = 0;
 
 		virtual bool encodePPM(IWriter& writer, const Image& image, PPMType format) const = 0;

@@ -147,6 +147,23 @@ namespace s3d
 		return writer;
 	}
 
+	bool CImageFormat::encodePNG(IWriter& writer, const Image& image, int32 filterFlag) const
+	{
+		const auto p = findFormat(ImageFormat::PNG);
+
+		if (p == m_imageFormats.end())
+		{
+			return false;
+		}
+
+		if (const ImageFormat_PNG* png = dynamic_cast<ImageFormat_PNG*>(p->get()))
+		{
+			return png->encode(image, writer, filterFlag);
+		}
+
+		return false;
+	}
+
 	bool CImageFormat::encodeJPEG(IWriter& writer, const Image& image, const int32 quality) const
 	{
 		const auto p = findFormat(ImageFormat::JPEG);

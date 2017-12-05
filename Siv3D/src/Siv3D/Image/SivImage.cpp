@@ -357,6 +357,23 @@ namespace s3d
 		return Siv3DEngine::GetImageFormat()->save(*this, format, path);
 	}
 
+	bool Image::savePNG(const FilePath& path, const PNGFilter::Flag filterFlag) const
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		BinaryWriter writer(path);
+
+		if (!writer)
+		{
+			return false;
+		}
+
+		return Siv3DEngine::GetImageFormat()->encodePNG(writer, *this, filterFlag);
+	}
+
 	bool Image::saveJPEG(const FilePath& path, const int32 quality) const
 	{
 		if (isEmpty())

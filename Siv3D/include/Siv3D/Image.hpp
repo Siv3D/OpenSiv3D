@@ -745,6 +745,8 @@ namespace s3d
 		
 		bool save(const FilePath& path, ImageFormat format = ImageFormat::Unspecified) const;
 
+		bool savePNG(const FilePath& path, PNGFilter::Flag filterFlag = PNGFilter::Default) const;
+
 		bool saveJPEG(const FilePath& path, int32 quality = 90) const;
 
 		bool savePPM(const FilePath& path, PPMType format = PPMType::AsciiRGB) const;
