@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -37,6 +37,14 @@ std::string macOS_SpecialFolder(const int folder)
 	NSArray* paths = NSSearchPathForDirectoriesInDomains(folders[folder], NSUserDomainMask, YES);
     
 	NSString* directory = [paths objectAtIndex:0];
+	
+	// NSCachesDirectory
+	if (folder == 2)
+	{
+		NSString* bundleID = [[NSBundle mainBundle] bundleIdentifier];
+		directory = [directory stringByAppendingString:@"/Siv3DApp/"];
+		directory = [directory stringByAppendingString:bundleID];
+	}
 
 	return [directory UTF8String];
 }

@@ -871,6 +871,7 @@
 		2C22E1151FD5B9B6002735AB /* hopscotch_map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hopscotch_map.h; sourceTree = "<group>"; };
 		2C22E1161FD5B9B6002735AB /* hopscotch_set.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hopscotch_set.h; sourceTree = "<group>"; };
 		2C22E1181FD5B9B6002735AB /* SFMT.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SFMT.hpp; sourceTree = "<group>"; };
+		2C22E2C11FD5BAF0002735AB /* Siv3D-Test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Siv3D-Test.entitlements"; sourceTree = SOURCE_ROOT; };
 		2C8588EB1F929277000DA815 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
@@ -2130,6 +2131,7 @@
 		2CA7F74D1CA7F43D00495647 /* Siv3D-Test */ = {
 			isa = PBXGroup;
 			children = (
+				2C22E2C11FD5BAF0002735AB /* Siv3D-Test.entitlements */,
 				2C09854C1FB3A149001AC929 /* engine */,
 				2CFC563D1FA8C0BE008A4B3E /* Test */,
 				2CA7F74E1CA7F43D00495647 /* Main.cpp */,
@@ -2495,6 +2497,11 @@
 				TargetAttributes = {
 					2C1778B11CE0D5DB00BB8AD0 = {
 						CreatedOnToolsVersion = 7.3.1;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 					2CA7F73C1CA7F3B100495647 = {
 						CreatedOnToolsVersion = 7.2.1;

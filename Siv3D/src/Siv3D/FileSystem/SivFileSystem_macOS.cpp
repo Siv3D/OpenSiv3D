@@ -487,6 +487,11 @@ namespace s3d
 
 			return macOS_TrashFile(utf8Path.c_str(), utf8Path.length(), IsDirectory(path));
 		}
+		
+		bool IsSandBoxed()
+		{
+			return SpecialFolderPath(SpecialFolder::Caches).includes(U"/Library/Containers/");
+		}
 	}
 }
 
