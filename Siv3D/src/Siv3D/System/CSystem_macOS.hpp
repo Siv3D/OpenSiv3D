@@ -13,9 +13,9 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_MACOS)
 
-# include <atomic>
 # include <Siv3D/System.hpp>
 # include "ISystem.hpp"
+# include "SystemUtility.hpp"
 
 namespace s3d
 {
@@ -23,11 +23,7 @@ namespace s3d
 	{
 	private:
 
-		std::atomic<uint32> m_event = {0};
-
-		uint32 m_previousEvent = 0;
-
-		uint32 m_exitEvent = WindowEvent::Default;
+		ExitEventManager m_exitEventManager;
 
 		//uint64 m_systemFrameCount = 0;
 
@@ -49,9 +45,9 @@ namespace s3d
 
 		void reportEvent(uint32 windowEventFlag) override;
 
-		//void setExitEvent(uint32 windowEventFlag) override;
+		void setExitEvent(uint32 windowEventFlag) override;
 
-		//uint32 getPreviousEvent() const override;
+		uint32 getPreviousEvent() const override;
 
 		//uint64 getSystemFrameCount() const noexcept override;
 

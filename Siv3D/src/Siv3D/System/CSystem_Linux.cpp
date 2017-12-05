@@ -156,9 +156,7 @@ namespace s3d
 
 	bool CSystem_Linux::update(bool clearGraphics)
 	{
-		m_previousEvent = m_event.exchange(0);
-
-		if (const auto event = m_previousEvent & (WindowEvent::ExitFlag | m_exitEvent))
+		if (const uint32 event = m_exitEventManager.checkExitEvent())
 		{
 			return false;
 		}
@@ -219,18 +217,18 @@ namespace s3d
 
 	void CSystem_Linux::reportEvent(const uint32 windowEventFlag)
 	{
-		m_event |= windowEventFlag;
+		m_exitEventManager.reportEvent(windowEventFlag);
 	}
 
-	//void CSystem_Linux::setExitEvent(const uint32 windowEventFlag)
-	//{
-	//	m_exitEvent = windowEventFlag;
-	//}
+	void CSystem_Linux::setExitEvent(const uint32 windowEventFlag)
+	{
+		m_exitEventManager.setExitEvent(windowEventFlag);
+	}
 
-	//uint32 CSystem_Linux::getPreviousEvent() const
-	//{
-	//	return m_previousEvent;
-	//}
+	uint32 CSystem_Linux::getPreviousEvent() const
+	{
+		return m_exitEventManager.getPreviousEvent();
+	}
 
 	//uint64 CSystem_Linux::getSystemFrameCount() const noexcept
 	//{

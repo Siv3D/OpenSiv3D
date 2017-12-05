@@ -1833,6 +1833,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Clipboard\CClipboard_Linux.hpp">
       <Filter>src\Siv3D\Clipboard</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\System\SystemUtility.hpp">
+      <Filter>src\Siv3D\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_macOS.mm">

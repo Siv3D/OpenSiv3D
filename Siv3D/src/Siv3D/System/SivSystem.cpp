@@ -12,6 +12,7 @@
 # include <Siv3D/Fwd.hpp>
 # include <Siv3D/String.hpp>
 # include <Siv3D/System.hpp>
+# include "SystemUtility.hpp"
 # include "../Siv3DEngine.hpp"
 # include "../System/ISystem.hpp"
 # include "../Window/IWindow.hpp"
@@ -36,21 +37,21 @@ namespace s3d
 			return true;
 		}
 
-		//void Exit()
-		//{
-		//	Siv3DEngine::GetSystem()->reportEvent(WindowEvent::ExitFlag);
-		//}
+		void Exit()
+		{
+			Siv3DEngine::GetSystem()->reportEvent(WindowEvent::ExitFlag);
+		}
 
-		//void SetExitEvent(const uint32 windowEventFlag)
-		//{
-		//	Siv3DEngine::GetSystem()->setExitEvent(windowEventFlag);
-		//}
+		void SetExitEvent(const uint32 windowEventFlag)
+		{
+			Siv3DEngine::GetSystem()->setExitEvent(windowEventFlag);
+		}
 
-		//uint32 GetPreviousEvent()
-		//{
-		//	return Siv3DEngine::GetSystem()->getPreviousEvent();
-		//}
-		//
+		uint32 GetPreviousEvent()
+		{
+			return Siv3DEngine::GetSystem()->getPreviousEvent();
+		}
+		
 		//double DeltaTime(const double maxDuration)
 		//{
 		//	return std::min(Siv3DEngine::GetSystem()->getDeltaTime(), maxDuration);

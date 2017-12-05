@@ -67,6 +67,34 @@ namespace s3d
 		/// </returns>
 		bool Update(bool clearGraphics = true);
 
+		/// <summary>
+		/// アプリケーションの終了をエンジンに伝えます。
+		/// 次の System::Update() は必ず false を返します。
+		/// </summary>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void Exit();
+
+		/// <summary>
+		/// アプリケーションを終了させるウィンドウイベントを設定します。
+		/// </summary>
+		/// <param name="windowEventFlag">
+		/// WindowEvent::Flag の組み合わせ
+		/// </param>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void SetExitEvent(uint32 windowEventFlag);
+
+		/// <summary>
+		/// 直前のフレームで発生したウィンドウイベントを返します。
+		/// </summary>
+		/// <returns>
+		/// 直前のフレームで発生したウィンドウイベントを表す WindowEvent::Flag の組み合わせ
+		/// </returns>
+		uint32 GetPreviousEvent();
+
 		bool LaunchBrowser(const FilePath& url);
 
 		// [Siv3D ToDo]
