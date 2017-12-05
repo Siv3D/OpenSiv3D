@@ -32,11 +32,11 @@ namespace s3d
 
 		virtual uint32 getPreviousEvent() const = 0;
 
-		//virtual uint64 getSystemFrameCount() const noexcept = 0;
+		virtual uint64 getSystemFrameCount() const noexcept = 0;
 
-		//virtual int32 getUserFrameCount() const noexcept = 0;
+		virtual int32 getUserFrameCount() const noexcept = 0;
 
-		//virtual void setUserFrameCount(int32 count) noexcept = 0;
+		virtual void setUserFrameCount(int32 count) noexcept = 0;
 
 		//virtual double getDeltaTime() const noexcept = 0;
 	};

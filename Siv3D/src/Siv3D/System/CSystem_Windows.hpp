@@ -33,9 +33,7 @@ namespace s3d
 
 		ExitEventManager m_exitEventManager;
 
-		//uint64 m_systemFrameCount = 0;
-
-		//int32 m_userFrameCount = 0;
+		FrameCounter m_frameCounter;
 
 		//double m_currentDeltaTimeSec = 0.0;
 
@@ -57,11 +55,11 @@ namespace s3d
 
 		uint32 getPreviousEvent() const override;
 
-		//uint64 getSystemFrameCount() const noexcept override;
+		uint64 getSystemFrameCount() const noexcept override;
 
-		//int32 getUserFrameCount() const noexcept override;
+		int32 getUserFrameCount() const noexcept override;
 
-		//void setUserFrameCount(int32 count) noexcept override;
+		void setUserFrameCount(int32 count) noexcept override;
 
 		//double getDeltaTime() const noexcept override;
 	};

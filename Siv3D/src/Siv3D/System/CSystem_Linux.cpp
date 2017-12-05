@@ -184,8 +184,7 @@ namespace s3d
 	//		return false;
 	//	}
 
-	//	++m_systemFrameCount;
-	//	++m_userFrameCount;
+		++m_frameCounter;
 
 	//	const uint64 currentNanoSec = Time::GetNanosec();
 	//	m_currentDeltaTimeSec = m_previousFrameTimeNanosec ?
@@ -230,21 +229,21 @@ namespace s3d
 		return m_exitEventManager.getPreviousEvent();
 	}
 
-	//uint64 CSystem_Linux::getSystemFrameCount() const noexcept
-	//{
-	//	return m_systemFrameCount;
-	//}
+	uint64 CSystem_Linux::getSystemFrameCount() const noexcept
+	{
+		return m_frameCounter.getSystemFrameCount();
+	}
 
-	//int32 CSystem_Linux::getUserFrameCount() const noexcept
-	//{
-	//	return m_userFrameCount;
-	//}
+	int32 CSystem_Linux::getUserFrameCount() const noexcept
+	{
+		return m_frameCounter.getUserFrameCount();
+	}
 
-	//void CSystem_Linux::setUserFrameCount(const int32 count) noexcept
-	//{
-	//	m_userFrameCount = count;
-	//}
-	//
+	void CSystem_Linux::setUserFrameCount(const int32 count) noexcept
+	{
+		m_frameCounter.setUserFrameCount(count);
+	}
+
 	//double CSystem_Linux::getDeltaTime() const noexcept
 	//{
 	//	return m_currentDeltaTimeSec;
