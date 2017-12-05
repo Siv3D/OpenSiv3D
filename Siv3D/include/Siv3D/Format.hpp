@@ -249,6 +249,8 @@ namespace s3d
 
 	void Formatter(FormatData& formatData, const char* str) = delete;
 
+	void Formatter(FormatData& formatData, const wchar_t* str) = delete;
+
 	void Formatter(FormatData& formatData, char16_t ch);
 
 	void Formatter(FormatData& formatData, char32_t ch);
