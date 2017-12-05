@@ -318,17 +318,17 @@
 	// JSON ファイルの読み込み
 	# include "Siv3D/JSONReader.hpp"
 
-	////// JSON ファイルの書き出し
-	////# include "Siv3D/JSONWriter.hpp"
+	//// JSON ファイルの書き出し
+	//# include "Siv3D/JSONWriter.hpp"
 
-	////// ZIP 圧縮ファイルの読み込み
-	////# include "Siv3D/ZIPReader.hpp"
+	//// ZIP 圧縮ファイルの読み込み
+	//# include "Siv3D/ZIPReader.hpp"
 
-	////// ZIP 圧縮ファイルの書き出し
-	////# include "Siv3D/ZIPWriter.hpp"
+	//// ZIP 圧縮ファイルの書き出し
+	//# include "Siv3D/ZIPWriter.hpp"
 
-	//// HTML ファイルの書き出し
-	//# include "Siv3D/HTMLWriter.hpp"
+	// HTML ファイルの書き出し
+	# include "Siv3D/HTMLWriter.hpp"
 
 //////////////////////////////////////////////////
 //

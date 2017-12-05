@@ -151,7 +151,7 @@ namespace s3d
 		return extensions;
 	}
 
-	bool ImageFormat_PPM::isHeader(const uint8(&bytes)[16]) const
+	bool ImageFormat_PPM::isHeader(const uint8(&)[16]) const
 	{
 		return false;
 	}

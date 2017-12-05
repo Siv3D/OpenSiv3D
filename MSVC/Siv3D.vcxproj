@@ -61,6 +61,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\FormatUtility\SivFormatUtility.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Format\SivFormat.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\HSV\SivHSV.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\HTMLWriter\CHTMLWriter.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\HTMLWriter\SivHTMLWriter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\BMP\ImageFormat_BMP.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\CImageFormat.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\GIF\ImageFormat_GIF.cpp" />
@@ -240,6 +242,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\HashSet.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\HashTable.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\HSV.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\HTMLWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Image.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageProcessing.hpp" />
@@ -349,6 +352,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\CPU\CCPU.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\CPU\ICPU.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\EngineDirectory\EngineDirectory.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\HTMLWriter\CHTMLWriter.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\BMP\ImageFormat_BMP.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\CImageFormat.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\GIF\ImageFormat_GIF.hpp" />

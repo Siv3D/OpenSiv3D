@@ -323,6 +323,9 @@
     <Filter Include="src\Siv3D\Image">
       <UniqueIdentifier>{dcff4c4f-178a-4197-9375-496ab360296e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\HTMLWriter">
+      <UniqueIdentifier>{35c1e1b0-c9ef-4393-9799-6c0696ca2fc2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -816,6 +819,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Image\SivImage.cpp">
       <Filter>src\Siv3D\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\HTMLWriter\CHTMLWriter.cpp">
+      <Filter>src\Siv3D\HTMLWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\HTMLWriter\SivHTMLWriter.cpp">
+      <Filter>src\Siv3D\HTMLWriter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1679,6 +1688,12 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\ThirdParty\libjpeg-turbo\turbojpeg.h">
       <Filter>src\ThirdParty\libjpeg-turbo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\HTMLWriter.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\HTMLWriter\CHTMLWriter.hpp">
+      <Filter>src\Siv3D\HTMLWriter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
