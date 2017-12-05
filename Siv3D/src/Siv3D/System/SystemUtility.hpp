@@ -12,6 +12,7 @@
 # pragma once
 # include <atomic>
 # include <Siv3D/Fwd.hpp>
+# include <Siv3D/Time.hpp>
 
 namespace s3d
 {
@@ -85,6 +86,32 @@ namespace s3d
 		void setUserFrameCount(const int32 count) noexcept
 		{
 			m_userFrameCount = count;
+		}
+	};
+
+	class FrameDelta
+	{
+	private:
+
+		double m_currentDeltaTimeSec = 0.0;
+
+		uint64 m_previousFrameTimeNanosec = 0;
+
+	public:
+
+		void update()
+		{
+			const uint64 currentNanoSec = Time::GetNanosec();
+			
+			m_currentDeltaTimeSec = m_previousFrameTimeNanosec ?
+				(currentNanoSec - m_previousFrameTimeNanosec) / 1'000'000'000.0 : 0.0;
+			
+			m_previousFrameTimeNanosec = currentNanoSec;
+		}
+
+		double getDeltaTimeSec() const noexcept
+		{
+			return m_currentDeltaTimeSec;
 		}
 	};
 }

@@ -198,10 +198,7 @@ namespace s3d
 
 		++m_frameCounter;
 
-	//	const uint64 currentNanoSec = Time::GetNanosec();
-	//	m_currentDeltaTimeSec = m_previousFrameTimeNanosec ?
-	//		(currentNanoSec - m_previousFrameTimeNanosec) / 1'000'000'000.0 : 0.0;
-	//	m_previousFrameTimeNanosec = currentNanoSec;
+		m_frameDelta.update();
 
 	//	Siv3DEngine::GetGraphics()->clear();
 
@@ -250,10 +247,10 @@ namespace s3d
 		m_frameCounter.setUserFrameCount(count);
 	}
 
-	//double CSystem_Windows::getDeltaTime() const noexcept
-	//{
-	//	return m_currentDeltaTimeSec;
-	//}
+	double CSystem_Windows::getDeltaTime() const noexcept
+	{
+		return m_frameDelta.getDeltaTimeSec();
+	}
 }
 
 # endif

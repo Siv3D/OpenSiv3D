@@ -27,9 +27,7 @@ namespace s3d
 		
 		FrameCounter m_frameCounter;
 
-		//double m_currentDeltaTimeSec = 0.0;
-
-		//uint64 m_previousFrameTimeNanosec = 0;
+		FrameDelta m_frameDelta;
 
 	public:
 
@@ -53,7 +51,7 @@ namespace s3d
 
 		void setUserFrameCount(int32 count) noexcept override;
 
-		//double getDeltaTime() const noexcept override;
+		double getDeltaTime() const noexcept override;
 	};
 }
 

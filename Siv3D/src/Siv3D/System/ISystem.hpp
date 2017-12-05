@@ -38,6 +38,6 @@ namespace s3d
 
 		virtual void setUserFrameCount(int32 count) noexcept = 0;
 
-		//virtual double getDeltaTime() const noexcept = 0;
+		virtual double getDeltaTime() const noexcept = 0;
 	};
 }
