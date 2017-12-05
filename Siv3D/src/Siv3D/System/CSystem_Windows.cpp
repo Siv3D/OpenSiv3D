@@ -20,8 +20,8 @@
 # include "../ImageFormat/IImageFormat.hpp"
 # include "../Window/IWindow.hpp"
 //# include "../Profiler/IProfiler.hpp"
-//# include "../DragDrop/IDragDrop.hpp"
-//# include "../Clipboard/IClipboard.hpp"
+# include "../Clipboard/IClipboard.hpp"
+# include "../DragDrop/IDragDrop.hpp"
 //# include "../Cursor/ICursor.hpp"
 //# include "../Keyboard/IKeyboard.hpp"
 //# include "../Mouse/IMouse.hpp"
@@ -76,15 +76,15 @@ namespace s3d
 		//	return false;
 		//}
 
-		//if (!Siv3DEngine::GetDragDrop()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetClipboard()->init())
+		{
+			return false;
+		}
 
-		//if (!Siv3DEngine::GetClipboard()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetDragDrop()->init())
+		{
+			return false;
+		}
 
 		//if (!Siv3DEngine::GetCursor()->init())
 		//{

@@ -21,6 +21,7 @@ namespace s3d
 	class ISiv3DConsole;
 	class ISiv3DImageFormat;
 	class ISiv3DWindow;
+	class ISiv3DClipboard;
 	class ISiv3DDragDrop;
 
 	template <class Interface>
@@ -73,6 +74,8 @@ namespace s3d
 
 		Siv3DComponent<ISiv3DWindow> m_window;
 
+		Siv3DComponent<ISiv3DClipboard> m_clipboard;
+
 		Siv3DComponent<ISiv3DDragDrop> m_dragdrop;
 		
 	public:
@@ -119,6 +122,11 @@ namespace s3d
 		static ISiv3DWindow* GetWindow()
 		{
 			return pEngine->m_window.get();
+		}
+
+		static ISiv3DClipboard* GetClipboard()
+		{
+			return pEngine->m_clipboard.get();
 		}
 		
 		static ISiv3DDragDrop* GetDragDrop()

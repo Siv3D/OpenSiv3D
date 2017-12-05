@@ -539,4 +539,29 @@ namespace s3d
 	//
 	enum class ShowState;
 	struct WindowState;
+
+	//////////////////////////////////////////////////////
+	//
+	//	MessageBox.hpp
+	//
+	enum class MessageBoxStyle;
+	enum class MessageBoxButtons;
+	enum class MessageBoxSelection;
+
+	//////////////////////////////////////////////////////
+	//
+	//	DragDrop.hpp
+	//
+	enum class DragItemType;
+	struct DragStatus;
+	struct DroppedFilePath;
+	struct DroppedText;
+
+	//////////////////////////////////////////////////////
+	//
+	//	PowerStatus.hpp
+	//
+	enum class ACLineStatus;
+	enum class BatteryStatus;
+	struct PowerStatus;
 }

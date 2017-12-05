@@ -591,16 +591,21 @@
 	// Window
 	# include "Siv3D/Window.hpp"
 	
-	//// メッセージボックス
-	//# include "Siv3D/MessageBox.hpp"
-	//// クリップボード
-	//# include "Siv3D/Clipboard.hpp"
-	//// ドラッグ & ドロップ
-	//# include "Siv3D/DragDrop.hpp"
+	// メッセージボックス
+	# include "Siv3D/MessageBox.hpp"
+
+	// クリップボード
+	# include "Siv3D/Clipboard.hpp"
+	
+	// ドラッグ & ドロップ
+	# include "Siv3D/DragDrop.hpp"
+	
 	////// ダイアログ
 	////# include "Siv3D/Dialog.hpp"
-	//// システムの電源の情報
-	//# include "Siv3D/PowerStatus.hpp"
+
+	// システムの電源の情報
+	# include "Siv3D/PowerStatus.hpp"
+
 	//// プロファイリング
 	//# include "Siv3D/Profiler.hpp"
 	//// アセットハンドル

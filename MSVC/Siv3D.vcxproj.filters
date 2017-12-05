@@ -335,6 +335,18 @@
     <Filter Include="src\Siv3D\Monitor">
       <UniqueIdentifier>{bb65b1ee-c76f-42fd-af00-c9eb72179dd9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\DragDrop">
+      <UniqueIdentifier>{b918f213-e0b8-4bcd-a453-d1c5840d32f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\MessageBox">
+      <UniqueIdentifier>{2b413029-913d-46a8-9a09-501ff8f828b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Clipboard">
+      <UniqueIdentifier>{19b24e9f-fa74-4c5e-a326-e82b74a95865}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\PowerStatus">
+      <UniqueIdentifier>{d778a460-a5e6-4f3a-a4e9-e0a841bd55ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -855,6 +867,48 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\CWindow_Linux.cpp">
       <Filter>src\Siv3D\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_Windows.cpp">
+      <Filter>src\Siv3D\DragDrop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\DragDropFactory.cpp">
+      <Filter>src\Siv3D\DragDrop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\SivDragDrop.cpp">
+      <Filter>src\Siv3D\DragDrop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_Linux.cpp">
+      <Filter>src\Siv3D\DragDrop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_macOS.cpp">
+      <Filter>src\Siv3D\DragDrop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MessageBox\SivMessageBox_Linux.cpp">
+      <Filter>src\Siv3D\MessageBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MessageBox\SivMessageBox_macOS.cpp">
+      <Filter>src\Siv3D\MessageBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MessageBox\SivMessageBox_Windows.cpp">
+      <Filter>src\Siv3D\MessageBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Clipboard\CClipboard_Windows.cpp">
+      <Filter>src\Siv3D\Clipboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Clipboard\ClipboardFactory.cpp">
+      <Filter>src\Siv3D\Clipboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Clipboard\SivClipboard.cpp">
+      <Filter>src\Siv3D\Clipboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Clipboard\CClipboard_Linux.cpp">
+      <Filter>src\Siv3D\Clipboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Clipboard\CClipboard_macOS.cpp">
+      <Filter>src\Siv3D\Clipboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\PowerStatus\SivPowerStatus.cpp">
+      <Filter>src\Siv3D\PowerStatus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1743,6 +1797,42 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Window\IWindow.hpp">
       <Filter>src\Siv3D\Window</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\DragDrop.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_Windows.hpp">
+      <Filter>src\Siv3D\DragDrop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\DragDrop\IDragDrop.hpp">
+      <Filter>src\Siv3D\DragDrop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_Linux.hpp">
+      <Filter>src\Siv3D\DragDrop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_macOS.hpp">
+      <Filter>src\Siv3D\DragDrop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\MessageBox.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\PowerStatus.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Clipboard.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Clipboard\CClipboard_macOS.hpp">
+      <Filter>src\Siv3D\Clipboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Clipboard\CClipboard_Windows.hpp">
+      <Filter>src\Siv3D\Clipboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Clipboard\IClipboard.hpp">
+      <Filter>src\Siv3D\Clipboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Clipboard\CClipboard_Linux.hpp">
+      <Filter>src\Siv3D\Clipboard</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_macOS.mm">
@@ -1762,6 +1852,15 @@
     </None>
     <None Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86_Windows.ipp">
       <Filter>src\ThirdParty\FeatureDetector</Filter>
+    </None>
+    <None Include="..\Siv3D\src\Siv3D\MessageBox\SivMessageBox_macOS.mm">
+      <Filter>src\Siv3D\MessageBox</Filter>
+    </None>
+    <None Include="..\Siv3D\src\Siv3D\Clipboard\CClipboard_macOS.mm">
+      <Filter>src\Siv3D\Clipboard</Filter>
+    </None>
+    <None Include="..\Siv3D\src\Siv3D\PowerStatus\SivPowerStatus.mm">
+      <Filter>src\Siv3D\PowerStatus</Filter>
     </None>
   </ItemGroup>
 </Project>

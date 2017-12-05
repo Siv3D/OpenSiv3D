@@ -13,11 +13,7 @@
 # if defined(SIV3D_TARGET_WINDOWS)
 
 # include <atomic>
-# define  NOMINMAX
-# define  STRICT
-# define  _WIN32_WINNT _WIN32_WINNT_WIN7
-# define  NTDDI_VERSION NTDDI_WIN7
-# include <Windows.h>
+# include <Siv3D/Windows.hpp>
 # include <shlobj.h>
 # include "../Siv3DEngine.hpp"
 # include "../Window/IWindow.hpp"
@@ -197,7 +193,7 @@ namespace s3d
 					{
 						if (const LPVOID pData = ::GlobalLock(medium.hGlobal))
 						{
-							m_droppedTexts.push_back({ String(static_cast<const wchar*>(pData)), m_dragOverPos, timeMillisec });
+							m_droppedTexts.push_back({ Unicode::FromWString(static_cast<const wchar_t*>(pData)), m_dragOverPos, timeMillisec });
 
 							::GlobalUnlock(medium.hGlobal);
 						}
@@ -208,13 +204,13 @@ namespace s3d
 						{
 							const size_t num_drops = ::DragQueryFileW(hDrop, 0xffFFffFF, nullptr, 0);
 
-							wchar tmpFilePath[MAX_PATH];
+							wchar_t tmpFilePath[MAX_PATH];
 
 							for (uint32 i = 0; i < num_drops; ++i)
 							{
 								::DragQueryFileW(hDrop, i, tmpFilePath, MAX_PATH);
 
-								m_droppedFilePaths.push_back({ FileSystem::FullPath(tmpFilePath), m_dragOverPos, timeMillisec });
+								m_droppedFilePaths.push_back({ FileSystem::FullPath(Unicode::FromWString(tmpFilePath)), m_dragOverPos, timeMillisec });
 							}
 
 							::GlobalUnlock(medium.hGlobal);

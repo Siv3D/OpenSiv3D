@@ -13,11 +13,7 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_WINDOWS)
 
-# define  NOMINMAX
-# define  STRICT
-# define  _WIN32_WINNT _WIN32_WINNT_WIN7
-# define  NTDDI_VERSION NTDDI_WIN7
-# include <Windows.h>
+# include <Siv3D/Windows.hpp>
 # include "IDragDrop.hpp"
 
 namespace s3d

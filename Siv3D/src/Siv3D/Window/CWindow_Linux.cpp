@@ -44,7 +44,7 @@ namespace s3d
 		::glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 		
 		m_state.clientSize.set(Window::DefaultClientSize);
-		m_state.title = SIV3D_IS_DEBUG ? S3DSTR("Siv3D App [Debug Build]") : S3DSTR("Siv3D App");
+		m_state.title = SIV3D_IS_DEBUG ? U"Siv3D App [Debug Build]" : U"Siv3D App";
 		m_state.showState = ShowState::Normal;
 		m_state.focused = false;
 		m_state.fullScreen = false;
@@ -135,7 +135,7 @@ namespace s3d
 
 		if constexpr (SIV3D_IS_DEBUG)
 		{
-			const String titleDebug = m_state.title + S3DSTR(" [Debug Build]");
+			const String titleDebug = m_state.title + U" [Debug Build]";
 
 			::glfwSetWindowTitle(m_glfwWindow, titleDebug.narrow().c_str());
 		}
