@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -21,6 +21,7 @@ namespace s3d
 	class ISiv3DConsole;
 	class ISiv3DImageFormat;
 	class ISiv3DWindow;
+	class ISiv3DDragDrop;
 
 	template <class Interface>
 	class Siv3DComponent
@@ -72,6 +73,8 @@ namespace s3d
 
 		Siv3DComponent<ISiv3DWindow> m_window;
 
+		Siv3DComponent<ISiv3DDragDrop> m_dragdrop;
+		
 	public:
 
 		Siv3DEngine();
@@ -116,6 +119,11 @@ namespace s3d
 		static ISiv3DWindow* GetWindow()
 		{
 			return pEngine->m_window.get();
+		}
+		
+		static ISiv3DDragDrop* GetDragDrop()
+		{
+			return pEngine->m_dragdrop.get();
 		}
 	};
 }

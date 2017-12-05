@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -185,7 +185,7 @@ namespace s3d
 				GLFWmonitor* monitor = monitors[i];
 				
 				Monitor result;
-				result.name = CharacterSet::Widen(::glfwGetMonitorName(monitor));
+				result.name = Unicode::Widen(::glfwGetMonitorName(monitor));
 				
 				uint32 displayID, unitNumber;
 				int32 xPos, yPos, width, height;

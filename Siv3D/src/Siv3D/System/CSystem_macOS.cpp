@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -17,7 +17,7 @@
 # include "../Logger/ILogger.hpp"
 # include "../CPU/ICPU.hpp"
 # include "../ImageFormat/IImageFormat.hpp"
-//# include "../Window/IWindow.hpp"
+# include "../Window/IWindow.hpp"
 //# include "../Profiler/IProfiler.hpp"
 //# include "../DragDrop/IDragDrop.hpp"
 //# include "../Clipboard/IClipboard.hpp"
@@ -64,10 +64,10 @@ namespace s3d
 			return false;
 		}
 
-		//if (!Siv3DEngine::GetWindow()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetWindow()->init())
+		{
+			return false;
+		}
 
 		//if (!Siv3DEngine::GetProfiler()->init())
 		//{
@@ -154,14 +154,14 @@ namespace s3d
 		return true;
 	}
 
-	//bool CSystem_macOS::update(bool clearGraphics)
-	//{
-	//	m_previousEvent = m_event.exchange(0);
+	bool CSystem_macOS::update(bool clearGraphics)
+	{
+		m_previousEvent = m_event.exchange(0);
 
-	//	if (const auto event = m_previousEvent & (WindowEvent::ExitFlag | m_exitEvent))
-	//	{
-	//		return false;
-	//	}
+		if (const auto event = m_previousEvent & (WindowEvent::ExitFlag | m_exitEvent))
+		{
+			return false;
+		}
 
 	//	Siv3DEngine::GetPrint()->draw();
 
@@ -194,10 +194,10 @@ namespace s3d
 	//		(currentNanoSec - m_previousFrameTimeNanosec) / 1'000'000'000.0 : 0.0;
 	//	m_previousFrameTimeNanosec = currentNanoSec;
 
-	//	if (!Siv3DEngine::GetWindow()->update())
-	//	{
-	//		return false;
-	//	}
+		if (!Siv3DEngine::GetWindow()->update())
+		{
+				return false;
+		}
 	//	
 	//	Siv3DEngine::GetGraphics()->clear();
 	//	
@@ -214,13 +214,13 @@ namespace s3d
 
 	//	Siv3DEngine::GetTextInput()->update();
 	//	
-	//	return true;
-	//}
+		return true;
+	}
 
-	//void CSystem_macOS::reportEvent(const uint32 windowEventFlag)
-	//{
-	//	m_event |= windowEventFlag;
-	//}
+	void CSystem_macOS::reportEvent(const uint32 windowEventFlag)
+	{
+		m_event |= windowEventFlag;
+	}
 
 	//void CSystem_macOS::setExitEvent(const uint32 windowEventFlag)
 	//{

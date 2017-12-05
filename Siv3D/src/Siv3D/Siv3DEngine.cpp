@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -17,6 +17,7 @@
 # include "Console/IConsole.hpp"
 # include "ImageFormat/IImageFormat.hpp"
 # include "Window/IWindow.hpp"
+# include "DragDrop/IDragDrop.hpp"
 
 namespace s3d
 {
@@ -27,6 +28,7 @@ namespace s3d
 
 	Siv3DEngine::~Siv3DEngine()
 	{
+		m_dragdrop.release();
 		m_window.release();
 		m_imageFormat.release();
 		m_console.release();
