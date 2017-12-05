@@ -20,6 +20,7 @@ namespace s3d
 	class ISiv3DCPU;
 	class ISiv3DConsole;
 	class ISiv3DImageFormat;
+	class ISiv3DWindow;
 
 	template <class Interface>
 	class Siv3DComponent
@@ -69,6 +70,8 @@ namespace s3d
 
 		Siv3DComponent<ISiv3DImageFormat> m_imageFormat;
 
+		Siv3DComponent<ISiv3DWindow> m_window;
+
 	public:
 
 		Siv3DEngine();
@@ -108,6 +111,11 @@ namespace s3d
 		static ISiv3DImageFormat* GetImageFormat()
 		{
 			return pEngine->m_imageFormat.get();
+		}
+
+		static ISiv3DWindow* GetWindow()
+		{
+			return pEngine->m_window.get();
 		}
 	};
 }

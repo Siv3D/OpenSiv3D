@@ -63,3 +63,14 @@ namespace s3d
 		size_t GetCurrentMonitorIndex();
 	}
 }
+
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
+
+namespace s3d
+{
+	void Formatter(FormatData& formatData, const Monitor& value);
+}

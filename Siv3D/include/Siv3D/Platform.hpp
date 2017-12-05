@@ -269,6 +269,8 @@ namespace s3d
 
 # if defined(SIV3D_TARGET_WINDOWS)
 
+	# pragma comment (lib, "winmm")
+
 	# if (SIV3D_IS_DEBUG)
 
 		# pragma comment (lib, "Siv3D_d")

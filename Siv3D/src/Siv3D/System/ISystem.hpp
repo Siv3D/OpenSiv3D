@@ -29,9 +29,9 @@ namespace s3d
 
 		virtual bool init() = 0;
 
-		//virtual bool update(bool clearGraphics) = 0;
+		virtual bool update(bool clearGraphics) = 0;
 
-		//virtual void reportEvent(uint32 windowEventFlag) = 0;
+		virtual void reportEvent(uint32 windowEventFlag) = 0;
 
 		//virtual void setExitEvent(uint32 windowEventFlag) = 0;
 

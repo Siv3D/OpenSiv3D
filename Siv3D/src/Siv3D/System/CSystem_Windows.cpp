@@ -18,7 +18,7 @@
 # include "../Logger/ILogger.hpp"
 # include "../CPU/ICPU.hpp"
 # include "../ImageFormat/IImageFormat.hpp"
-//# include "../Window/IWindow.hpp"
+# include "../Window/IWindow.hpp"
 //# include "../Profiler/IProfiler.hpp"
 //# include "../DragDrop/IDragDrop.hpp"
 //# include "../Clipboard/IClipboard.hpp"
@@ -66,10 +66,10 @@ namespace s3d
 			return false;
 		}
 
-		//if (!Siv3DEngine::GetWindow()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetWindow()->init())
+		{
+			return false;
+		}
 
 		//if (!Siv3DEngine::GetProfiler()->init())
 		//{
@@ -146,31 +146,31 @@ namespace s3d
 		//	return false;
 		//}
 
-		//m_setupState = SetupState::Initialized;
+		m_setupState = SetupState::Initialized;
 
 		return true;
 	}
 
-	//bool CSystem_Windows::update(bool clearGraphics)
-	//{
-	//	if (m_setupState == SetupState::Initialized)
-	//	{
-	//		Siv3DEngine::GetWindow()->show(true);
+	bool CSystem_Windows::update(bool clearGraphics)
+	{
+		if (m_setupState == SetupState::Initialized)
+		{
+			Siv3DEngine::GetWindow()->show(true);
 
-	//		m_setupState = SetupState::Displayed;
-	//	}
+			m_setupState = SetupState::Displayed;
+		}
 
-	//	m_previousEvent = m_event.exchange(0);
+		m_previousEvent = m_event.exchange(0);
 
-	//	if (const auto event = m_previousEvent & (WindowEvent::ExitFlag | m_exitEvent))
-	//	{
-	//		return false;
-	//	}
+		if (const auto event = m_previousEvent & (WindowEvent::ExitFlag | m_exitEvent))
+		{
+			return false;
+		}
 
-	//	if (!Siv3DEngine::GetWindow()->update())
-	//	{
-	//		return false;
-	//	}
+		if (!Siv3DEngine::GetWindow()->update())
+		{
+			return false;
+		}
 
 	//	Siv3DEngine::GetPrint()->draw();
 
@@ -220,13 +220,13 @@ namespace s3d
 
 	//	Siv3DEngine::GetTextInput()->update();
 
-	//	return true;
-	//}
+		return true;
+	}
 
-	//void CSystem_Windows::reportEvent(const uint32 windowEventFlag)
-	//{
-	//	m_event |= windowEventFlag;
-	//}
+	void CSystem_Windows::reportEvent(const uint32 windowEventFlag)
+	{
+		m_event |= windowEventFlag;
+	}
 
 	//void CSystem_Windows::setExitEvent(const uint32 windowEventFlag)
 	//{

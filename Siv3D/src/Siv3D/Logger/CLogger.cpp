@@ -217,11 +217,14 @@ namespace s3d
 
 		detail::OutputDebug(desc, text);
 
-		m_writer.writeUTF8(logLevel[static_cast<size_t>(desc)]);
+		if (m_initialized)
+		{
+			m_writer.writeUTF8(logLevel[static_cast<size_t>(desc)]);
 
-		m_writer.write(text.xml_escaped());
+			m_writer.write(text.xml_escaped());
 
-		m_writer.writeUTF8(divEnd);
+			m_writer.writeUTF8(divEnd);
+		}
 
 		if (desc == LogDescription::Error)
 		{
@@ -231,6 +234,11 @@ namespace s3d
 
 	void CLogger::writeRawHTML(const String& htmlText)
 	{
+		if (!m_initialized)
+		{
+			return;
+		}
+
 		std::lock_guard<std::mutex> lock(m_mutex);
 
 		m_writer.writeln(htmlText);
@@ -238,6 +246,11 @@ namespace s3d
 
 	void CLogger::writeRawHTML_UTF8(const std::string_view htmlText)
 	{
+		if (!m_initialized)
+		{
+			return;
+		}
+
 		std::lock_guard<std::mutex> lock(m_mutex);
 
 		m_writer.writelnUTF8(htmlText);

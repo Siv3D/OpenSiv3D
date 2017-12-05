@@ -14,7 +14,7 @@
 # include <Siv3D/System.hpp>
 # include "../Siv3DEngine.hpp"
 # include "../System/ISystem.hpp"
-//# include "../Window/IWindow.hpp"
+# include "../Window/IWindow.hpp"
 //# include "../Audio/IAudio.hpp"
 //# include "../EngineDirectory/EngineDirectory.hpp"
 
@@ -22,19 +22,19 @@ namespace s3d
 {
 	namespace System
 	{
-		//bool Update(bool clearGraphics)
-		//{
-		//	if (!Siv3DEngine::GetSystem()->update(clearGraphics))
-		//	{
-		//		Siv3DEngine::GetWindow()->show(false);
+		bool Update(bool clearGraphics)
+		{
+			if (!Siv3DEngine::GetSystem()->update(clearGraphics))
+			{
+				Siv3DEngine::GetWindow()->show(false);
 
-		//		Siv3DEngine::GetAudio()->fadeMasterVolume();
+				//Siv3DEngine::GetAudio()->fadeMasterVolume();
 
-		//		return false;
-		//	}
+				return false;
+			}
 
-		//	return true;
-		//}
+			return true;
+		}
 
 		//void Exit()
 		//{
@@ -82,20 +82,20 @@ namespace s3d
 {
 	namespace System
 	{
-		//void Sleep(int32 milliseconds)
-		//{
-		//	if (milliseconds < 0)
-		//	{
-		//		return;
-		//	}
+		void Sleep(int32 milliseconds)
+		{
+			if (milliseconds < 0)
+			{
+				return;
+			}
 
-		//	// システムクロックの精度を上げる
-		//	::timeBeginPeriod(1);
+			// システムクロックの精度を上げる
+			::timeBeginPeriod(1);
 
-		//	::Sleep(milliseconds);
+			::Sleep(milliseconds);
 
-		//	::timeEndPeriod(1);
-		//}
+			::timeEndPeriod(1);
+		}
 
 		bool LaunchBrowser(const FilePath& url)
 		{
@@ -128,15 +128,15 @@ namespace s3d
 {
 	namespace System
 	{
-		//void Sleep(int32 milliseconds)
-		//{
-		//	if (milliseconds < 0)
-		//	{
-		//		return;
-		//	}
+		void Sleep(int32 milliseconds)
+		{
+			if (milliseconds < 0)
+			{
+				return;
+			}
 
-		//	::usleep(static_cast<uint32>(milliseconds) * 1000);
-		//}
+			::usleep(static_cast<uint32>(milliseconds) * 1000);
+		}
 
 		bool LaunchBrowser(const FilePath& _url)
 		{
@@ -170,15 +170,15 @@ namespace s3d
 {
 	namespace System
 	{
-		//void Sleep(int32 milliseconds)
-		//{
-		//	if (milliseconds < 0)
-		//	{
-		//		return;
-		//	}
+		void Sleep(int32 milliseconds)
+		{
+			if (milliseconds < 0)
+			{
+				return;
+			}
 
-		//	::usleep(static_cast<uint32>(milliseconds) * 1000);
-		//}
+			::usleep(static_cast<uint32>(milliseconds) * 1000);
+		}
 
 		bool LaunchBrowser(const FilePath& _url)
 		{

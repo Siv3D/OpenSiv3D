@@ -838,6 +838,24 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageProcessing\SivImageProcessing.cpp">
       <Filter>src\Siv3D\ImageProcessing</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Monitor\SivMonitor.cpp">
+      <Filter>src\Siv3D\Monitor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Window\CWindow_macOS.cpp">
+      <Filter>src\Siv3D\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Window\CWindow_Windows.cpp">
+      <Filter>src\Siv3D\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Window\SivWindow.cpp">
+      <Filter>src\Siv3D\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Window\WindowFactory.cpp">
+      <Filter>src\Siv3D\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Window\CWindow_Linux.cpp">
+      <Filter>src\Siv3D\Window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -1712,6 +1730,18 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Monitor.hpp">
       <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Window\CWindow_Linux.hpp">
+      <Filter>src\Siv3D\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Window\CWindow_macOS.hpp">
+      <Filter>src\Siv3D\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Window\CWindow_Windows.hpp">
+      <Filter>src\Siv3D\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Window\IWindow.hpp">
+      <Filter>src\Siv3D\Window</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -23,19 +23,19 @@ namespace s3d
 	{
 	private:
 
-		//enum class SetupState
-		//{
-		//	Uninitialized,
-		//	Initialized,
-		//	Displayed,
-		//	DisplayedWaitKey,
-		//} m_setupState = SetupState::Uninitialized;
+		enum class SetupState
+		{
+			Uninitialized,
+			Initialized,
+			Displayed,
+			DisplayedWaitKey,
+		} m_setupState = SetupState::Uninitialized;
 
-		//std::atomic<uint32> m_event = {0};
+		std::atomic<uint32> m_event = {0};
 
-		//uint32 m_previousEvent = 0;
+		uint32 m_previousEvent = 0;
 
-		//uint32 m_exitEvent = WindowEvent::Default;
+		uint32 m_exitEvent = WindowEvent::Default;
 
 		//uint64 m_systemFrameCount = 0;
 
@@ -53,9 +53,9 @@ namespace s3d
 
 		bool init() override;
 
-		//bool update(bool clearGraphics) override;
+		bool update(bool clearGraphics) override;
 
-		//void reportEvent(uint32 windowEventFlag) override;
+		void reportEvent(uint32 windowEventFlag) override;
 
 		//void setExitEvent(uint32 windowEventFlag) override;
 
