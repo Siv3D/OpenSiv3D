@@ -14,5 +14,8 @@
 
 namespace s3d
 {
-
+	namespace System
+	{
+		bool LaunchBrowser(const FilePath& url);
+	}
 }

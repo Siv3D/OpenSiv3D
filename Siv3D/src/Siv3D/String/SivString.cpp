@@ -94,6 +94,13 @@ namespace s3d
 		return *this;
 	}
 
+	String& String::append(const value_type ch)
+	{
+		m_string.push_back(ch);
+
+		return *this;
+	}
+
 	String& String::append(const value_type* text)
 	{
 		m_string.append(text);

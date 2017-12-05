@@ -529,7 +529,7 @@ namespace s3d
 			return result;
 		}
 
-		[[nodiscard]] bool include(const value_type& value) const
+		[[nodiscard]] bool includes(const value_type& value) const
 		{
 			for (const auto& v : *this)
 			{
@@ -543,7 +543,7 @@ namespace s3d
 		}
 
 		template <class Fty>
-		[[nodiscard]] bool include_if(Fty f) const
+		[[nodiscard]] bool includes_if(Fty f) const
 		{
 			return any(f);
 		}

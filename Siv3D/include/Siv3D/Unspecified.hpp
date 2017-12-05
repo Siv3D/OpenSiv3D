@@ -17,5 +17,5 @@ namespace s3d
 	/// <summary>
 	/// 特に指定しないことを表す無効値
 	/// </summary>
-	constexpr None_t unspecified{ none };
+	inline constexpr None_t unspecified{ none };
 }

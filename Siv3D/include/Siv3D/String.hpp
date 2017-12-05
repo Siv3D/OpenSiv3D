@@ -181,6 +181,11 @@ namespace s3d
 			return append(text);
 		}
 
+		String& operator +=(const value_type ch)
+		{
+			return append(ch);
+		}
+
 		String& operator +=(const value_type* text)
 		{
 			return append(text);
@@ -199,6 +204,8 @@ namespace s3d
 		String& append(const String& text);
 
 		String& append(const string_type& text);
+
+		String& append(const value_type ch);
 
 		String& append(const value_type* text);
 

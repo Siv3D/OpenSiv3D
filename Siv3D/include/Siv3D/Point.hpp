@@ -17,7 +17,7 @@
 # include "Fwd.hpp"
 # include "Format.hpp"
 # include "Color.hpp"
-//# include "Intersection.hpp"
+# include "Intersection.hpp"
 
 namespace s3d
 {

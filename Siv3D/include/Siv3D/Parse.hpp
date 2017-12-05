@@ -33,31 +33,30 @@ namespace s3d
 	/// <returns>
 	/// 文字列から変換されたデータ
 	/// </returns>
-	template <class Type, std::enable_if_t<!std::is_arithmetic_v<Type>>* = nullptr>
+	template <class Type>
 	[[nodiscard]] inline Type Parse(const String& text)
 	{
-		Type to;
-
-		std::wistringstream ws(text.toWstr());
-
-		if (ws >> to)
+		if constexpr (std::is_integral_v<Type>)
 		{
+			return ParseInt<Type>(text);
+		}
+		else if constexpr (std::is_floating_point_v<Type>)
+		{
+			return ParseFloat<Type>(text);
+		}
+		else
+		{
+			Type to;
+
+			std::wistringstream ws(text.toWstr());
+
+			if (ws >> to)
+			{
+				return to;
+			}
+
 			return to;
 		}
-
-		return to;
-	}
-
-	template <class IntegerType, std::enable_if_t<std::is_integral_v<IntegerType>>* = nullptr>
-	[[nodiscard]] inline IntegerType Parse(const String& text)
-	{
-		return ParseInt<IntegerType>(text);
-	}
-
-	template <class FloatType, std::enable_if_t<std::is_floating_point_v<FloatType>>* = nullptr>
-	[[nodiscard]] inline FloatType Parse(const String& text)
-	{
-		return ParseFloat<FloatType>(text);
 	}
 
 	template <>
@@ -113,29 +112,28 @@ namespace s3d
 	/// <returns>
 	/// 文字列から変換されたデータの Optional, 失敗した場合は none
 	/// </returns>
-	template <class Type, std::enable_if_t<!std::is_arithmetic_v<Type>>* = nullptr>
+	template <class Type>
 	[[nodiscard]] inline Optional<Type> ParseOpt(const String& text)
 	{
-		Type to;
-
-		if (std::wistringstream{ text.toWstr() } >> to)
+		if constexpr (std::is_integral_v<Type>)
 		{
-			return Optional<Type>(std::move(to));
+			return ParseIntOpt<Type>(text);
 		}
+		else if constexpr (std::is_floating_point_v<Type>)
+		{
+			return ParseFloatOpt<Type>(text);
+		}
+		else
+		{
+			Type to;
 
-		return none;
-	}
+			if (std::wistringstream{ text.toWstr() } >> to)
+			{
+				return Optional<Type>(std::move(to));
+			}
 
-	template <class IntegerType, std::enable_if_t<std::is_integral_v<IntegerType>>* = nullptr>
-	[[nodiscard]] inline Optional<IntegerType> ParseOpt(const String& text)
-	{
-		return ParseIntOpt<IntegerType>(text);
-	}
-
-	template <class FloatType, std::enable_if_t<std::is_floating_point_v<FloatType>>* = nullptr>
-	[[nodiscard]] inline Optional<FloatType> ParseOpt(const String& text)
-	{
-		return ParseFloatOpt<FloatType>(text);
+			return none;
+		}
 	}
 
 	template <>
