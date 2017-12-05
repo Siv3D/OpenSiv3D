@@ -17,7 +17,7 @@
 # include "CSystem_Windows.hpp"
 # include "../Logger/ILogger.hpp"
 # include "../CPU/ICPU.hpp"
-//# include "../ImageFormat/IImageFormat.hpp"
+# include "../ImageFormat/IImageFormat.hpp"
 //# include "../Window/IWindow.hpp"
 //# include "../Profiler/IProfiler.hpp"
 //# include "../DragDrop/IDragDrop.hpp"
@@ -61,10 +61,10 @@ namespace s3d
 			return false;
 		}
 
-		//if (!Siv3DEngine::GetImageFormat()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetImageFormat()->init())
+		{
+			return false;
+		}
 
 		//if (!Siv3DEngine::GetWindow()->init())
 		//{

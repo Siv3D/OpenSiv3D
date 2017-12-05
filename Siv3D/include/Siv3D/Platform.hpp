@@ -272,10 +272,16 @@ namespace s3d
 	# if (SIV3D_IS_DEBUG)
 
 		# pragma comment (lib, "Siv3D_d")
+		# pragma comment (lib, "zlib/zlib_d")
+		# pragma comment (lib, "libpng/libpng16_d")
+		# pragma comment (lib, "libjpeg-turbo/turbojpeg-static_d")
 
 	# else
 
 		# pragma comment (lib, "Siv3D")
+		# pragma comment (lib, "zlib/zlib")
+		# pragma comment (lib, "libpng/libpng16")
+		# pragma comment (lib, "libjpeg-turbo/turbojpeg-static")
 
 	# endif
 

@@ -15,6 +15,7 @@
 # include "System/ISystem.hpp"
 # include "CPU/ICPU.hpp"
 # include "Console/IConsole.hpp"
+# include "ImageFormat/IImageFormat.hpp"
 
 namespace s3d
 {
@@ -25,6 +26,7 @@ namespace s3d
 
 	Siv3DEngine::~Siv3DEngine()
 	{
+		m_imageFormat.release();
 		m_console.release();
 		m_cpu.release();
 		m_system.release();
