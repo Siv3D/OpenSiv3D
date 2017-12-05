@@ -272,6 +272,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Meta.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MicrosecClock.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MillisecClock.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Monitor.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\NamedParameter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Number.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OffsetCircular.hpp" />
@@ -330,6 +331,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Vector3D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Vector4D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Version.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Window.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Windows.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\WritableMemoryMapping.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Xorshift.hpp" />

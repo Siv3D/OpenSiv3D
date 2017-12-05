@@ -329,6 +329,12 @@
     <Filter Include="src\Siv3D\ImageProcessing">
       <UniqueIdentifier>{c048d738-e371-4a4f-bfc4-e8e4e231c32c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Window">
+      <UniqueIdentifier>{1f38ecb7-5fbf-4044-aa47-c043939d2b6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Monitor">
+      <UniqueIdentifier>{bb65b1ee-c76f-42fd-af00-c9eb72179dd9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -1700,6 +1706,12 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\HTMLWriter\CHTMLWriter.hpp">
       <Filter>src\Siv3D\HTMLWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Window.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Monitor.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

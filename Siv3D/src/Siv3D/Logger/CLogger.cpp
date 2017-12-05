@@ -196,6 +196,8 @@ namespace s3d
 
 		m_initialized = true;
 
+		LOG_INFO(U"ℹ️ Logger initialized");
+
 		return true;
 	}
 

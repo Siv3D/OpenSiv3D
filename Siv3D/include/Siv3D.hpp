@@ -576,19 +576,21 @@
 	//// TCP クライアント
 	//# include "Siv3D/TCPClient.hpp"
 
-	// システム
+	// System
 	# include "Siv3D/System.hpp"
 
 	// CPU
 	# include "Siv3D/CPU.hpp"
 
-	// コンソールウィンドウ
+	// Console Output
 	# include "Siv3D/Console.hpp"
 
-	//// 接続されているモニタの情報
-	//# include "Siv3D/Monitor.hpp"
-	//// ウィンドウ
-	//# include "Siv3D/Window.hpp"
+	// Monitor Information
+	# include "Siv3D/Monitor.hpp"
+	
+	// Window
+	# include "Siv3D/Window.hpp"
+	
 	//// メッセージボックス
 	//# include "Siv3D/MessageBox.hpp"
 	//// クリップボード
@@ -659,7 +661,7 @@
 	//// デプスステートとステンシルステート
 	//# include "Siv3D/DepthStencilState.hpp"
 	// サンプラーステート
-	# include "Siv3D/SamplerState.hpp"
+	//# include "Siv3D/SamplerState.hpp"
 	// シェーダ
 	//# include "Siv3D/Shader.hpp"
 	// 頂点シェーダ

@@ -19,6 +19,7 @@
 # include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/MemoryWriter.hpp>
 # include <Siv3D/FileSystem.hpp>
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -39,6 +40,8 @@ namespace s3d
 		m_imageFormats.push_back(std::make_unique<ImageFormat_JPEG>());
 		m_imageFormats.push_back(std::make_unique<ImageFormat_GIF>());
 		m_imageFormats.push_back(std::make_unique<ImageFormat_PPM>());
+
+		LOG_INFO(U"ℹ️ Image decoder/encoder initialized");
 
 		return true;
 	}

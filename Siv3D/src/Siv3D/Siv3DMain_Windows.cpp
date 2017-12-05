@@ -37,7 +37,7 @@ namespace s3d::detail
 		const String code = (_code == EXCEPTION_ACCESS_VIOLATION) ? U"EXCEPTION_ACCESS_VIOLATION"
 			: Format(U"0x", Pad(ToHex(_code), { 8, U'0' }));
 
-		//LOG_ERROR(L"🛑 Application terminated due to an exception. Exception code: {0}"_fmt(code));
+		LOG_ERROR(U"🛑 Application terminated due to an exception. Exception code: {0}"_fmt(code));
 	}
 
 	static void MainThread()
