@@ -550,6 +550,7 @@
 		2C22EC4A1FD749F9002735AB /* hopscotch_map.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C22EA1D1FD749F8002735AB /* hopscotch_map.h */; };
 		2C22EC4B1FD749F9002735AB /* hopscotch_set.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C22EA1E1FD749F8002735AB /* hopscotch_set.h */; };
 		2C22EC4C1FD749F9002735AB /* SFMT.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C22EA201FD749F8002735AB /* SFMT.hpp */; };
+		2C22EC4E1FD75CFB002735AB /* SystemUtility.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C22EC4D1FD75CFB002735AB /* SystemUtility.hpp */; };
 		2C8588EC1F929277000DA815 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2C8588EB1F929277000DA815 /* icon.icns */; };
 		2CFC56421FA8C0BE008A4B3E /* Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC56401FA8C0BE008A4B3E /* Test.cpp */; };
 /* End PBXBuildFile section */
@@ -1098,6 +1099,7 @@
 		2C22EA1D1FD749F8002735AB /* hopscotch_map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hopscotch_map.h; sourceTree = "<group>"; };
 		2C22EA1E1FD749F8002735AB /* hopscotch_set.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hopscotch_set.h; sourceTree = "<group>"; };
 		2C22EA201FD749F8002735AB /* SFMT.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SFMT.hpp; sourceTree = "<group>"; };
+		2C22EC4D1FD75CFB002735AB /* SystemUtility.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SystemUtility.hpp; sourceTree = "<group>"; };
 		2C8588EB1F929277000DA815 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		2CA7F73D1CA7F3B100495647 /* libSiv3D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSiv3D.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
@@ -1878,6 +1880,7 @@
 				2C22E85E1FD749F8002735AB /* SivSystem.cpp */,
 				2C22E85F1FD749F8002735AB /* SivSystem.mm */,
 				2C22E8601FD749F8002735AB /* SystemFactory.cpp */,
+				2C22EC4D1FD75CFB002735AB /* SystemUtility.hpp */,
 			);
 			path = System;
 			sourceTree = "<group>";
@@ -2851,6 +2854,7 @@
 				2C22EB711FD749F8002735AB /* stack.h in Headers */,
 				2C22EC361FD749F8002735AB /* Transition.hpp in Headers */,
 				2C22EBC01FD749F8002735AB /* Circle.hpp in Headers */,
+				2C22EC4E1FD75CFB002735AB /* SystemUtility.hpp in Headers */,
 				2C22EBBE1FD749F8002735AB /* ByteArrayView.hpp in Headers */,
 				2C22EBDE1FD749F8002735AB /* Fwd.hpp in Headers */,
 				2C22EC441FD749F8002735AB /* WritableMemoryMapping.hpp in Headers */,
