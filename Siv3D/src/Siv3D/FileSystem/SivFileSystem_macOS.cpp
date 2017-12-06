@@ -18,6 +18,7 @@
 
 bool macOS_TrashFile(const char* path, unsigned long pathLength, bool isDirectory);
 std::string macOS_SpecialFolder(int folder);
+std::string macOS_FullPath(const char* path, bool isRelative);
 
 namespace s3d
 {
@@ -137,10 +138,14 @@ namespace s3d
 			const static FilePath g_initialPath = NormalizePath(Unicode::Widen(fs::current_path().string()));
 
 			static FilePath g_modulePath;
+			
+			static bool g_isSandBoxed;
 
 			void SetModulePath(const FilePath& path)
 			{
 				g_modulePath = path;
+				
+				g_isSandBoxed = FileSystem::SpecialFolderPath(SpecialFolder::Caches).includes(U"/Library/Containers/");
 			}
 		}
 	}
@@ -189,6 +194,31 @@ namespace s3d
 				return path;
 			}
 
+			if (IsSandBoxed())
+			{
+				FilePath src;
+				bool isRelative = false;
+				
+				if (path.starts_with(U"/Users/"))
+				{
+					src = path;
+				}
+				else
+				{
+					src = U"../" + path;
+					isRelative = true;
+				}
+					
+				FilePath result = Unicode::Widen(macOS_FullPath(src.toUTF8().c_str(), isRelative));
+				
+				if (result.starts_with(U"file://"))
+				{
+					result.erase(result.begin(), result.begin() + 7);
+				}
+				
+				return result;
+			}
+			
 			if (detail::IsNotFound(path))
 			{
 				return detail::NormalizePath(Unicode::Widen(fs::weakly_canonical(fs::system_complete(fs::path(path.toWstr()))).string()));
@@ -198,7 +228,7 @@ namespace s3d
 				return detail::NormalizePath(Unicode::Widen(fs::canonical(fs::path(path.toWstr())).string()));
 			}
 		}
-
+		
 		FilePath VolumePath(const FilePath&)
 		{
 			// [Siv3D ToDo]
@@ -490,7 +520,7 @@ namespace s3d
 		
 		bool IsSandBoxed()
 		{
-			return SpecialFolderPath(SpecialFolder::Caches).includes(U"/Library/Containers/");
+			return detail::init::g_isSandBoxed;
 		}
 	}
 }

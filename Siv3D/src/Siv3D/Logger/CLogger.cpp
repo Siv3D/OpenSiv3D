@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -178,8 +178,26 @@ namespace s3d
 	{
 		const String fileName = FileSystem::BaseName(FileSystem::ModulePath()).xml_escaped();
 		const std::string titleUTF8 = Unicode::ToUTF8(fileName) + " Log";
-
+		
+	# if defined(SIV3D_TARGET_MACOS)
+		
+		if (FileSystem::IsSandBoxed())
+		{
+			const FilePath path = FileSystem::SpecialFolderPath(SpecialFolder::LocalAppData) + fileName + U"_log.html";
+			
+			m_writer.open(path, TextEncoding::UTF8);
+		}
+		else
+		{
+			m_writer.open(fileName + U"_log.html", TextEncoding::UTF8);
+		}
+		
+	# else
+		
 		m_writer.open(fileName + U"_log.html", TextEncoding::UTF8);
+		
+	# endif
+
 		m_writer.writeUTF8(headerA);
 		m_writer.writeUTF8(titleUTF8);
 		m_writer.writeUTF8(headerB);

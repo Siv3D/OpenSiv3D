@@ -48,3 +48,22 @@ std::string macOS_SpecialFolder(const int folder)
 
 	return [directory UTF8String];
 }
+
+std::string macOS_FullPath(const char* _path, bool isRelative)
+{
+	NSString* path = [NSString stringWithUTF8String:_path];
+	
+	if (isRelative)
+	{
+		NSURL* bundle = [[NSBundle mainBundle] bundleURL];
+		NSURL* file = [NSURL URLWithString:path relativeToURL:bundle];
+		NSURL* absolutePath = [file absoluteURL];
+		return [absolutePath.absoluteString UTF8String];
+	}
+	else
+	{
+		NSURL* file = [NSURL URLWithString:path];
+		NSURL* absolutePath = [file absoluteURL];
+		return [absolutePath.absoluteString UTF8String];
+	}
+}

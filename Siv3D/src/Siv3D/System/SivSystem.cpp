@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -33,6 +33,9 @@ namespace s3d
 
 				return false;
 			}
+			
+			// [Siv3D ToDo] remove later
+			Sleep(16);
 
 			return true;
 		}
