@@ -27,6 +27,8 @@ namespace s3d
 	class ISiv3DCursor;
 	class ISiv3DKeyboard;
 	class ISiv3DMouse;
+	class ISiv3DCodec;
+	class ISiv3DAudioFormat;
 
 	template <class Interface>
 	class Siv3DComponent
@@ -89,6 +91,10 @@ namespace s3d
 		Siv3DComponent<ISiv3DKeyboard> m_keyboard;
 
 		Siv3DComponent<ISiv3DMouse> m_mouse;
+
+		Siv3DComponent<ISiv3DCodec> m_codec;
+
+		Siv3DComponent<ISiv3DAudioFormat> m_audioFormat;
 		
 	public:
 
@@ -164,6 +170,16 @@ namespace s3d
 		static ISiv3DMouse* GetMouse()
 		{
 			return pEngine->m_mouse.get();
+		}
+
+		static ISiv3DCodec* GetCodec()
+		{
+			return pEngine->m_codec.get();
+		}
+
+		static ISiv3DAudioFormat* GetAudioFormat()
+		{
+			return pEngine->m_audioFormat.get();
 		}
 	};
 }

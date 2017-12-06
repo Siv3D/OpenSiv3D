@@ -19,6 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\AudioFormatFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\CAudioFormat.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_Linux.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_macOS.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_Windows.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\SivAudioFormat.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\WAVE\AudioFormat_WAVE.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Base64\SivBase64.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Bezier2\SivBezier2.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Bezier3\SivBezier3.cpp" />
@@ -44,6 +51,9 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Clipboard\CClipboard_Windows.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Clipboard\ClipboardFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Clipboard\SivClipboard.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Codec\CodecFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Codec\MF\CCodec_MF.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Codec\Null\CCodec_Null.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Color\SivColor.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Compression\SivCompression.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Console\CConsole.cpp" />
@@ -163,6 +173,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Vector2D\SivVector2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Vector3D\SivVector3D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Vector4D\SivVector4D.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Wave\SivWave.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\CWindow_Linux.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\CWindow_macOS.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\CWindow_Windows.cpp" />
@@ -233,6 +244,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\AlignedAllocator.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AlignedMemory.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Array.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Base64.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Bezier2.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Bezier3.hpp" />
@@ -382,6 +394,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Vector3D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Vector4D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Version.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Wave.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\WaveSample.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Window.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Windows.hpp" />
@@ -393,6 +406,12 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\hopscotch-map\hopscotch_map.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\hopscotch-map\hopscotch_set.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\SFMT\SFMT.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\CAudioFormat.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\IAudioFormat.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_Linux.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_macOS.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_Windows.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\WAVE\AudioFormat_WAVE.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\BigFloat\CBigFloat.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\BigInt\CBigInt.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\BinaryReader\CBinaryReader_Linux.hpp" />
@@ -406,6 +425,10 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Clipboard\CClipboard_macOS.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Clipboard\CClipboard_Windows.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Clipboard\IClipboard.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Codec\ICodec.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Codec\MF\CCodec_MF.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Codec\MF\MFRenderStream.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Codec\Null\CCodec_Null.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Console\CConsole.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Console\IConsole.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\CPU\CCPU.hpp" />
@@ -419,6 +442,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_Windows.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\DragDrop\IDragDrop.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\EngineDirectory\EngineDirectory.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\EngineUtility.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Geometry2D\Polynomial.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\HTMLWriter\CHTMLWriter.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\BMP\ImageFormat_BMP.hpp" />

@@ -23,6 +23,8 @@
 # include "Cursor/ICursor.hpp"
 # include "Keyboard/IKeyboard.hpp"
 # include "Mouse/IMouse.hpp"
+# include "Codec/ICodec.hpp"
+# include "AudioFormat/IAudioFormat.hpp"
 
 namespace s3d
 {
@@ -33,6 +35,8 @@ namespace s3d
 
 	Siv3DEngine::~Siv3DEngine()
 	{
+		m_audioFormat.release();
+		m_codec.release();
 		m_mouse.release();
 		m_keyboard.release();
 		m_cursor.release();

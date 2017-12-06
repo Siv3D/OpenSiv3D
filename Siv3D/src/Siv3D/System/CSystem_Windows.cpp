@@ -26,8 +26,8 @@
 # include "../Keyboard/IKeyboard.hpp"
 # include "../Mouse/IMouse.hpp"
 //# include "../TextInput/ITextInput.hpp"
-//# include "../Codec/ICodec.hpp"
-//# include "../AudioFormat/IAudioFormat.hpp"
+# include "../Codec/ICodec.hpp"
+# include "../AudioFormat/IAudioFormat.hpp"
 //# include "../Audio/IAudio.hpp"
 //# include "../Graphics/IGraphics.hpp"
 //# include "../Font/IFont.hpp"
@@ -110,15 +110,15 @@ namespace s3d
 		//	return false;
 		//}
 
-		//if (!Siv3DEngine::GetCodec()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetCodec()->init())
+		{
+			return false;
+		}
 
-		//if (!Siv3DEngine::GetAudioFormat()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetAudioFormat()->init())
+		{
+			return false;
+		}
 
 		//if (!Siv3DEngine::GetAudio()->init())
 		//{

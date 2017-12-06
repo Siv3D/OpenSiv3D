@@ -13,22 +13,7 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_WINDOWS)
 
-# ifndef NOMINMAX
-#	define  NOMINMAX
-# endif
-# ifndef STRICT
-#	define  STRICT
-# endif
-# ifndef WIN32_LEAN_AND_MEAN
-#	define  WIN32_LEAN_AND_MEAN
-# endif
-# ifndef _WIN32_WINNT
-#	define  _WIN32_WINNT _WIN32_WINNT_WIN7
-# endif
-# ifndef NTDDI_VERSION
-#	define  NTDDI_VERSION NTDDI_WIN7
-# endif
-# include <Windows.h>
+# include <Siv3D/Windows.hpp>
 # include "ICursor.hpp"
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/Rectangle.hpp>
