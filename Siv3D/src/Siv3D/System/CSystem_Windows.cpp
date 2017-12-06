@@ -22,9 +22,9 @@
 # include "../Profiler/IProfiler.hpp"
 # include "../Clipboard/IClipboard.hpp"
 # include "../DragDrop/IDragDrop.hpp"
-//# include "../Cursor/ICursor.hpp"
-//# include "../Keyboard/IKeyboard.hpp"
-//# include "../Mouse/IMouse.hpp"
+# include "../Cursor/ICursor.hpp"
+# include "../Keyboard/IKeyboard.hpp"
+# include "../Mouse/IMouse.hpp"
 //# include "../TextInput/ITextInput.hpp"
 //# include "../Codec/ICodec.hpp"
 //# include "../AudioFormat/IAudioFormat.hpp"
@@ -90,20 +90,20 @@ namespace s3d
 			return false;
 		}
 
-		//if (!Siv3DEngine::GetCursor()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetCursor()->init())
+		{
+			return false;
+		}
 
-		//if (!Siv3DEngine::GetKeyboard()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetKeyboard()->init())
+		{
+			return false;
+		}
 
-		//if (!Siv3DEngine::GetMouse()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetMouse()->init())
+		{
+			return false;
+		}
 
 		//if (!Siv3DEngine::GetTextInput()->init())
 		//{
@@ -217,11 +217,11 @@ namespace s3d
 
 	//	Siv3DEngine::GetDragDrop()->update();
 
-	//	Siv3DEngine::GetMouse()->update();
+		Siv3DEngine::GetMouse()->update();
 
-	//	Siv3DEngine::GetCursor()->update();
+		Siv3DEngine::GetCursor()->update();
 
-	//	Siv3DEngine::GetKeyboard()->update();
+		Siv3DEngine::GetKeyboard()->update();
 
 
 

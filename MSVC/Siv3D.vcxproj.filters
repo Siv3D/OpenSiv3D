@@ -350,6 +350,21 @@
     <Filter Include="src\Siv3D\Profiler">
       <UniqueIdentifier>{a8feb8f0-3d50-4b72-90c2-e0594f90d582}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Cursor">
+      <UniqueIdentifier>{80420dec-430e-4131-b7e3-d09d43fdb5a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Geometry2D">
+      <UniqueIdentifier>{4c9195e3-143e-4482-b3d1-4c969254eac7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Mouse">
+      <UniqueIdentifier>{c99bc62d-bdb6-47a1-b873-ddba407365ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Keyboard">
+      <UniqueIdentifier>{c1808edd-e999-46ae-89df-320f827b1537}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Key">
+      <UniqueIdentifier>{4101905f-6acb-4695-955d-fe6b5b61476f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -924,6 +939,54 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\WindowProc.cpp">
       <Filter>src\Siv3D\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Cursor\CCursor_macOS.cpp">
+      <Filter>src\Siv3D\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Cursor\CCursor_Windows.cpp">
+      <Filter>src\Siv3D\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Cursor\CursorFactory.cpp">
+      <Filter>src\Siv3D\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Cursor\SivCursor.cpp">
+      <Filter>src\Siv3D\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Cursor\CCursor_Linux.cpp">
+      <Filter>src\Siv3D\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Geometry2D\SivGeometry2D.cpp">
+      <Filter>src\Siv3D\Geometry2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\CMouse_macOS.cpp">
+      <Filter>src\Siv3D\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\CMouse_Windows.cpp">
+      <Filter>src\Siv3D\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\MouseFactory.cpp">
+      <Filter>src\Siv3D\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\SivMouse.cpp">
+      <Filter>src\Siv3D\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\CMouse_Linux.cpp">
+      <Filter>src\Siv3D\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Keyboard\KeyboardFactory.cpp">
+      <Filter>src\Siv3D\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Keyboard\CKeyboard_Linux.cpp">
+      <Filter>src\Siv3D\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Keyboard\CKeyboard_macOS.cpp">
+      <Filter>src\Siv3D\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Keyboard\CKeyboard_Windows.cpp">
+      <Filter>src\Siv3D\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Key\SivKey.cpp">
+      <Filter>src\Siv3D\Key</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1863,6 +1926,66 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\WaveSample.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Cursor.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Cursor\CCursor_macOS.hpp">
+      <Filter>src\Siv3D\Cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Cursor\CCursor_Windows.hpp">
+      <Filter>src\Siv3D\Cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Cursor\ICursor.hpp">
+      <Filter>src\Siv3D\Cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Cursor\CCursor_Linux.hpp">
+      <Filter>src\Siv3D\Cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Geometry2D\Polynomial.hpp">
+      <Filter>src\Siv3D\Geometry2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Mouse\CMouse_macOS.hpp">
+      <Filter>src\Siv3D\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Mouse\CMouse_Windows.hpp">
+      <Filter>src\Siv3D\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Mouse\IMouse.hpp">
+      <Filter>src\Siv3D\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Mouse\CMouse_Linux.hpp">
+      <Filter>src\Siv3D\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Keyboard\IKeyboard.hpp">
+      <Filter>src\Siv3D\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Keyboard\CKeyboard_Linux.hpp">
+      <Filter>src\Siv3D\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Keyboard\CKeyboard_macOS.hpp">
+      <Filter>src\Siv3D\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Keyboard\CKeyboard_Windows.hpp">
+      <Filter>src\Siv3D\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Mouse.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Key.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Keyboard.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\KeyConjunction.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\KeyGroup.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Key\InputState.hpp">
+      <Filter>src\Siv3D\Key</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_macOS.mm">
@@ -1891,6 +2014,9 @@
     </None>
     <None Include="..\Siv3D\src\Siv3D\PowerStatus\SivPowerStatus.mm">
       <Filter>src\Siv3D\PowerStatus</Filter>
+    </None>
+    <None Include="..\Siv3D\src\Siv3D\Cursor\CCursor_macOS.mm">
+      <Filter>src\Siv3D\Cursor</Filter>
     </None>
   </ItemGroup>
 </Project>
