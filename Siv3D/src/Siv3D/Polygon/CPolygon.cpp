@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -199,15 +199,15 @@ namespace s3d
 		return Polygon(result);
 	}
 
-	//bool Polygon::CPolygon::intersects(const CPolygon& other) const
-	//{
-	//	if (outer().isEmpty() || other.outer().isEmpty() || !m_boundingRect.intersects(other.m_boundingRect))
-	//	{
-	//		return false;
-	//	}
+	bool Polygon::CPolygon::intersects(const CPolygon& other) const
+	{
+		if (outer().isEmpty() || other.outer().isEmpty() || !m_boundingRect.intersects(other.m_boundingRect))
+		{
+			return false;
+		}
 
-	//	return boost::geometry::intersects(m_polygon, other.m_polygon);
-	//}
+		return boost::geometry::intersects(m_polygon, other.m_polygon);
+	}
 
 	const Array<Vec2>& Polygon::CPolygon::outer() const
 	{
