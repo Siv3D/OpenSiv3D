@@ -4,9 +4,11 @@
 
 void Main()
 {
-	//Siv3D_RunTest();
+	using s3d::Lambda::_;
 
-	System::EnumActiveMonitors().each(Logger);
+	Array<double> v{ 0.0, -0.1, 0.2, -0.3 };
+	
+	v >> Abs(_) >> Logger;
 
 	while (System::Update())
 	{

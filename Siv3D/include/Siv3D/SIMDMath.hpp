@@ -47,7 +47,7 @@ namespace s3d
 			uint32 Result;
 
 			uint32 IValue = reinterpret_cast<const uint32*>(&value)[0];
-			uint32 Sign = (IValue & 0x80000000U) >> 16U;
+			uint32 sign = (IValue & 0x80000000U) >> 16U;
 			IValue = IValue & 0x7FFFFFFFU;      // Hack off the sign
 
 			if (IValue > 0x477FE000U)
@@ -80,7 +80,7 @@ namespace s3d
 				Result = ((IValue + 0x0FFFU + ((IValue >> 13U) & 1U)) >> 13U) & 0x7FFFU;
 			}
 
-			return static_cast<uint16>(Result | Sign);
+			return static_cast<uint16>(Result | sign);
 		}
 
 		inline float HalfToFloat(const uint16 value) noexcept
