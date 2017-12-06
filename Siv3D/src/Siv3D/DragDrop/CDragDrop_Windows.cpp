@@ -20,6 +20,7 @@
 # include "CDragDrop_Windows.hpp"
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Time.hpp>
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -280,6 +281,8 @@ namespace s3d
 		}
 
 		m_pDropTarget->Release();
+
+		LOG_INFO(U"ℹ️ DragDrop initialized");
 
 		return true;
 	}

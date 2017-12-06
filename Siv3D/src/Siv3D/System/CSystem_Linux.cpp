@@ -34,6 +34,7 @@
 //# include "../ScreenCapture/IScreenCapture.hpp"
 //# include "../Effect/IEffect.hpp"
 //# include "../Script/IScript.hpp"
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -44,7 +45,7 @@ namespace s3d
 
 	CSystem_Linux::~CSystem_Linux()
 	{
-
+		FinalLogMessage();
 	}
 
 	bool CSystem_Linux::init()
@@ -53,6 +54,8 @@ namespace s3d
 		{
 			return false;
 		}
+
+		InitialLogMessage();
 
 		if (!Siv3DEngine::GetCPU()->init())
 		{
@@ -150,6 +153,8 @@ namespace s3d
 		//{
 		//	return false;
 		//}
+
+		LOG_INFO(U"✅ Siv3D engine setup completed");
 
 		return true;
 	}

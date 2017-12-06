@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -16,6 +16,7 @@
 # include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 # include "../Siv3DEngine.hpp"
 # include "CClipboard_Linux.hpp"
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -32,6 +33,8 @@ namespace s3d
 	bool CClipboard_Linux::init()
 	{
 		m_glfwWindow = Siv3DEngine::GetWindow()->getHandle();
+
+		LOG_INFO(U"ℹ️ Clipboard initialized");
 
 		return true;
 	}

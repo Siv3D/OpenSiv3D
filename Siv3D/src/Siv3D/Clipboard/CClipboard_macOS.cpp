@@ -13,6 +13,7 @@
 # if defined(SIV3D_TARGET_MACOS)
 
 # include "CClipboard_macOS.hpp"
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -48,6 +49,8 @@ namespace s3d
 	{
 		m_changeCount = detail::ClipboardGetChangeCount_macOS();
 		
+		LOG_INFO(U"ℹ️ Clipboard initialized");
+
 		return true;
 	}
 

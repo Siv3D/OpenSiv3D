@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -18,6 +18,7 @@
 # include "../Siv3D_macOS.h"
 # include <Siv3D/Time.hpp>
 # include <Siv3D/FileSystem.hpp>
+# include <Siv3D/Logger.hpp>
 
 extern "C"
 {
@@ -87,6 +88,8 @@ namespace s3d
 
 	bool CDragDrop_macOS::init()
 	{
+		LOG_INFO(U"ℹ️ DragDrop initialized");
+
 		return true;
 	}
 	

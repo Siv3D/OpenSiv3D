@@ -16,6 +16,7 @@
 # include "../Siv3DEngine.hpp"
 # include "../System/ISystem.hpp"
 # include <Siv3D/System.hpp>
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -74,6 +75,8 @@ namespace s3d
 		}
 		
 		//m_state.titleBarHeight
+
+		LOG_INFO(U"ℹ️ Window initialized");
 		
 		return true;
 	}

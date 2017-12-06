@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -34,6 +34,7 @@
 //# include "../ScreenCapture/IScreenCapture.hpp"
 //# include "../Effect/IEffect.hpp"
 //# include "../Script/IScript.hpp"
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -44,7 +45,7 @@ namespace s3d
 
 	CSystem_macOS::~CSystem_macOS()
 	{
-
+		FinalLogMessage();
 	}
 
 	bool CSystem_macOS::init()
@@ -53,6 +54,8 @@ namespace s3d
 		{
 			return false;
 		}
+
+		InitialLogMessage();
 
 		if (!Siv3DEngine::GetCPU()->init())
 		{
@@ -151,6 +154,8 @@ namespace s3d
 		//	return false;
 		//}
 
+		LOG_INFO(U"✅ Siv3D engine setup completed");
+
 		return true;
 	}
 
@@ -208,6 +213,7 @@ namespace s3d
 
 	//	Siv3DEngine::GetTextInput()->update();
 	//	
+
 		return true;
 	}
 

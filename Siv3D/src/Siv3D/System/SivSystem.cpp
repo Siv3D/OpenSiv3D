@@ -52,25 +52,20 @@ namespace s3d
 			return Siv3DEngine::GetSystem()->getPreviousEvent();
 		}
 		
-		//double DeltaTime(const double maxDuration)
-		//{
-		//	return std::min(Siv3DEngine::GetSystem()->getDeltaTime(), maxDuration);
-		//}
+		double DeltaTime(const double maxDuration)
+		{
+			return std::min(Siv3DEngine::GetSystem()->getDeltaTime(), maxDuration);
+		}
 
-		//int32 FrameCount()
-		//{
-		//	return Siv3DEngine::GetSystem()->getUserFrameCount();
-		//}
+		int32 FrameCount()
+		{
+			return Siv3DEngine::GetSystem()->getUserFrameCount();
+		}
 
-		//void SetFrameCount(const int32 count)
-		//{
-		//	Siv3DEngine::GetSystem()->setUserFrameCount(count);
-		//}
-
-		//void ShowLicenses()
-		//{
-		//	LaunchBrowser(EngineDirectory::LicensePath());
-		//}
+		void SetFrameCount(const int32 count)
+		{
+			Siv3DEngine::GetSystem()->setUserFrameCount(count);
+		}
 	}
 }
 

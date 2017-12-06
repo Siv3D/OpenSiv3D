@@ -13,6 +13,9 @@
 # include <atomic>
 # include <Siv3D/Fwd.hpp>
 # include <Siv3D/Time.hpp>
+# include <Siv3D/DateTime.hpp>
+# include <Siv3D/Version.hpp>
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -114,4 +117,28 @@ namespace s3d
 			return m_currentDeltaTimeSec;
 		}
 	};
+
+	inline void InitialLogMessage()
+	{
+		LOG_INFO(U"ℹ️ {}"_fmt(DateTime::Now().format()));
+
+		LOG_INFO(U"⌛ Preparing for setup...");
+
+	# ifdef _DEBUG
+		
+		LOG_INFO(U"ℹ️ Siv3D Engine (Debug build) version " Siv3D_Version U" (" Siv3DPlatform U")");
+	
+	# else
+	
+		LOG_INFO(U"ℹ️ Siv3D Engine version " Siv3D_Version U" (" Siv3DPlatform U")");
+
+	# endif
+	}
+
+	inline void FinalLogMessage()
+	{
+		LOG_INFO(U"✅ Siv3D engine has terminated");
+
+		LOG_INFO(U"ℹ️ {}"_fmt(DateTime::Now().format()));
+	}
 }

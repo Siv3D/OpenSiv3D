@@ -18,6 +18,7 @@
 # include "CClipboard_Windows.hpp"
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/ReaderView.hpp>
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -218,6 +219,8 @@ namespace s3d
 	bool CClipboard_Windows::init()
 	{
 		m_sequenceNumber = ::GetClipboardSequenceNumber();
+
+		LOG_INFO(U"ℹ️ Clipboard initialized");
 
 		return true;
 	}

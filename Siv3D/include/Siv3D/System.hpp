@@ -11,6 +11,7 @@
 
 # pragma once
 # include "Fwd.hpp"
+# include "Duration.hpp"
 
 namespace s3d
 {
@@ -95,12 +96,52 @@ namespace s3d
 		/// </returns>
 		uint32 GetPreviousEvent();
 
-		bool LaunchBrowser(const FilePath& url);
+		double DeltaTime(double maxDuration = 0.1);
 
-		// [Siv3D ToDo]
-		inline double DeltaTime()
+		/// <summary>
+		/// 指定したミリ秒だけ処理を停止します。
+		/// </summary>
+		/// <param name="milliseconds">
+		/// 処理を停止する時間（ミリ秒）
+		/// </param>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void Sleep(int32 milliseconds);
+
+		/// <summary>
+		/// 指定したミリ秒だけ処理を停止します。
+		/// </summary>
+		/// <param name="milliseconds">
+		/// 処理を停止する時間（ミリ秒）
+		/// </param>
+		/// <returns>
+		/// なし
+		/// </returns>
+		inline void Sleep(const MillisecondsF& milliseconds)
 		{
-			return 0.016;
+			Sleep(static_cast<int32>(milliseconds.count()));
 		}
+
+		/// <summary>
+		/// System::Update() が呼ばれた回数（＝更新したフレーム数）を返します。
+		/// </summary>
+		/// <returns>
+		/// System::Update() が呼ばれた回数
+		/// </returns>
+		int32 FrameCount();
+
+		/// <summary>
+		/// フレームカウントを変更します。
+		/// </summary>
+		/// <param name="count">
+		/// 設定する値
+		/// </param>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void SetFrameCount(int32 count);
+
+		bool LaunchBrowser(const FilePath& url);
 	}
 }

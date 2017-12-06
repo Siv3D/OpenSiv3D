@@ -19,6 +19,7 @@
 # include <Siv3D/Time.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Cursor.hpp>
+# include <Siv3D/Logger.hpp>
 
 extern "C"
 {
@@ -73,6 +74,8 @@ namespace s3d
 
 	bool CDragDrop_Linux::init()
 	{
+		LOG_INFO(U"ℹ️ DragDrop initialized");
+
 		return true;
 	}
 	

@@ -47,6 +47,8 @@ namespace s3d
 	CSystem_Windows::~CSystem_Windows()
 	{
 		::OleUninitialize();
+
+		FinalLogMessage();
 	}
 
 	bool CSystem_Windows::init()
@@ -55,6 +57,8 @@ namespace s3d
 		{
 			return false;
 		}
+
+		InitialLogMessage();
 
 		if (!Siv3DEngine::GetCPU()->init())
 		{
@@ -147,6 +151,8 @@ namespace s3d
 		//}
 
 		m_setupState = SetupState::Initialized;
+
+		LOG_INFO(U"✅ Siv3D engine setup completed");
 
 		return true;
 	}
