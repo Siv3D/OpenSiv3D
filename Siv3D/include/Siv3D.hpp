@@ -537,8 +537,9 @@
 //
 //////////////////////////////////////////////////
 
-	//// 音声波形のサンプル
-	//# include "Siv3D/WaveSample.hpp"
+	// 音声波形のサンプル
+	# include "Siv3D/WaveSample.hpp"
+
 	//// 波形デコーダ・エンコーダインタフェース
 	//# include "Siv3D/AudioFormat.hpp"
 	//// 音声波形
@@ -576,6 +577,12 @@
 	//// TCP クライアント
 	//# include "Siv3D/TCPClient.hpp"
 
+//////////////////////////////////////////////////
+//
+//	System and Window
+//
+//////////////////////////////////////////////////
+
 	// System
 	# include "Siv3D/System.hpp"
 
@@ -600,8 +607,8 @@
 	// ドラッグ & ドロップ
 	# include "Siv3D/DragDrop.hpp"
 	
-	////// ダイアログ
-	////# include "Siv3D/Dialog.hpp"
+	//// ダイアログ
+	//# include "Siv3D/Dialog.hpp"
 
 	// システムの電源の情報
 	# include "Siv3D/PowerStatus.hpp"
@@ -611,9 +618,13 @@
 
 	//// アセットハンドル
 	//# include "Siv3D/AssetHandle.hpp"
+
+//////////////////////////////////////////////////
 //
-// 入力デバイス
+//	Input Device
 //
+//////////////////////////////////////////////////
+
 	// カーソル
 	//# include "Siv3D/Cursor.hpp"
 	// 入力状態

@@ -19,7 +19,7 @@
 # include "../CPU/ICPU.hpp"
 # include "../ImageFormat/IImageFormat.hpp"
 # include "../Window/IWindow.hpp"
-//# include "../Profiler/IProfiler.hpp"
+# include "../Profiler/IProfiler.hpp"
 # include "../Clipboard/IClipboard.hpp"
 # include "../DragDrop/IDragDrop.hpp"
 //# include "../Cursor/ICursor.hpp"
@@ -75,10 +75,10 @@ namespace s3d
 			return false;
 		}
 
-		//if (!Siv3DEngine::GetProfiler()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetProfiler()->init())
+		{
+			return false;
+		}
 
 		if (!Siv3DEngine::GetClipboard()->init())
 		{
@@ -192,21 +192,19 @@ namespace s3d
 	//		return false;
 	//	}
 
-	//	Siv3DEngine::GetProfiler()->endFrame();
+		Siv3DEngine::GetProfiler()->endFrame();
 
 	//	if (!Siv3DEngine::GetGraphics()->present())
 	//	{
 	//		return false;
 	//	}
 
-	//	Siv3DEngine::GetProfiler()->beginFrame();
+		if (!Siv3DEngine::GetProfiler()->beginFrame())
+		{
+			return false;
+		}
 
 	//	if (!Siv3DEngine::GetScreenCapture()->update())
-	//	{
-	//		return false;
-	//	}
-
-	//	if (!Siv3DEngine::GetProfiler()->reportAssetNextFrame())
 	//	{
 	//		return false;
 	//	}

@@ -347,6 +347,9 @@
     <Filter Include="src\Siv3D\PowerStatus">
       <UniqueIdentifier>{d778a460-a5e6-4f3a-a4e9-e0a841bd55ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Profiler">
+      <UniqueIdentifier>{a8feb8f0-3d50-4b72-90c2-e0594f90d582}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -909,6 +912,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\PowerStatus\SivPowerStatus.cpp">
       <Filter>src\Siv3D\PowerStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\ProfilerFactory.cpp">
+      <Filter>src\Siv3D\Profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\SivProfiler.cpp">
+      <Filter>src\Siv3D\Profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\CProfiler.cpp">
+      <Filter>src\Siv3D\Profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Window\WindowProc.cpp">
+      <Filter>src\Siv3D\Window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1837,6 +1852,15 @@
       <Filter>src\Siv3D\System</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Profiler.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Profiler\IProfiler.hpp">
+      <Filter>src\Siv3D\Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Profiler\CProfiler.hpp">
+      <Filter>src\Siv3D\Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\WaveSample.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>

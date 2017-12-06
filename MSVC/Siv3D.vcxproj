@@ -113,6 +113,9 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\CPolygon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\SivPolygon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\PowerStatus\SivPowerStatus.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\CProfiler.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\ProfilerFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\SivProfiler.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Quad\SivQuad.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Rectangle\SivRectangle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Resource\SivResource.cpp" />
@@ -149,6 +152,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\CWindow_Windows.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\SivWindow.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\WindowFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Window\WindowProc.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\WritableMemoryMapping\CWritableMemoryMapping.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\WritableMemoryMapping\SivWritableMemoryMapping.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\XXHash\SivXXHash.cpp" />
@@ -356,6 +360,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Vector3D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Vector4D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Version.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\WaveSample.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Window.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Windows.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\WritableMemoryMapping.hpp" />
@@ -405,6 +410,8 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\MemoryMapping\CMemoryMapping.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\MemoryWriter\CMemoryWriter.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Polygon\CPolygon.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Profiler\CProfiler.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Profiler\IProfiler.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Siv3DEngine.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\System\CSystem_Linux.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\System\CSystem_macOS.hpp" />
