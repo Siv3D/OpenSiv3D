@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include "CPolygon.hpp"
+S3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
 S3D_DISABLE_MSVC_WARNINGS_PUSH(4245)
 S3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry/algorithms/intersects.hpp>
@@ -18,6 +19,7 @@ S3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry/algorithms/convex_hull.hpp>
 # include <boost/geometry/algorithms/simplify.hpp>
 # include <boost/geometry/algorithms/buffer.hpp>
+S3D_DISABLE_MSVC_WARNINGS_POP()
 S3D_DISABLE_MSVC_WARNINGS_POP()
 S3D_DISABLE_MSVC_WARNINGS_POP()
 # include "../../ThirdParty/clip2tri/clip2tri.h"

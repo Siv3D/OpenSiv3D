@@ -1926,9 +1926,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\WaveSample.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\Siv3D\Cursor.hpp">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Cursor\CCursor_macOS.hpp">
       <Filter>src\Siv3D\Cursor</Filter>
     </ClInclude>
@@ -1985,6 +1982,9 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Key\InputState.hpp">
       <Filter>src\Siv3D\Key</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Cursor.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
