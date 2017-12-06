@@ -2381,7 +2381,7 @@ namespace s3d
 		/// <summary>
 		/// 成分を [0, 1] の範囲にクランプした値を返します。
 		/// </summary>
-		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
 		[[nodiscard]] inline constexpr double Saturate(Type x)
 		{
 			return Saturate(static_cast<double>(x));
@@ -2491,7 +2491,7 @@ namespace s3d
 		/// <summary>
 		/// アークコサインを計算します。
 		/// </summary>
-		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
 		[[nodiscard]] inline double Acos(Type x)
 		{
 			return Acos(static_cast<double>(x));
@@ -2601,7 +2601,7 @@ namespace s3d
 		/// <summary>
 		/// アークサインを計算します。
 		/// </summary>
-		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
 		[[nodiscard]] inline double Asin(Type x)
 		{
 			return Asin(static_cast<double>(x));
@@ -2711,7 +2711,7 @@ namespace s3d
 		/// <summary>
 		/// アークタンジェントを計算します。
 		/// </summary>
-		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
 		[[nodiscard]] inline double Atan(Type x)
 		{
 			return Atan(static_cast<double>(x));
@@ -2821,7 +2821,7 @@ namespace s3d
 		/// <summary>
 		/// y/x のアークタンジェントを計算します。
 		/// </summary>
-		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
 		[[nodiscard]] inline double Atan2(Type y, Type x)
 		{
 			return Atan2(static_cast<double>(y), static_cast<double>(x));
@@ -2855,7 +2855,7 @@ namespace s3d
 		/// <summary>
 		/// コサインを計算します。
 		/// </summary>
-		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
 		[[nodiscard]] inline double Cos(Type x)
 		{
 			return Cos(static_cast<double>(x));
@@ -2965,7 +2965,7 @@ namespace s3d
 		/// <summary>
 		/// ハイパボリックコサインを計算します。
 		/// </summary>
-		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
 		[[nodiscard]] inline double Cosh(Type x)
 		{
 			return Cosh(static_cast<double>(x));
@@ -3075,7 +3075,7 @@ namespace s3d
 		/// <summary>
 		/// サインを計算します。
 		/// </summary>
-		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
 		[[nodiscard]] inline double Sin(Type x)
 		{
 			return Sin(static_cast<double>(x));
@@ -3185,7 +3185,7 @@ namespace s3d
 		/// <summary>
 		/// ハイパボリックサインを計算します。
 		/// </summary>
-		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
 		[[nodiscard]] inline double Sinh(Type x)
 		{
 			return Sinh(static_cast<double>(x));
@@ -3295,7 +3295,7 @@ namespace s3d
 		/// <summary>
 		/// タンジェントを計算します。
 		/// </summary>
-		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
 		[[nodiscard]] inline double Tan(Type x)
 		{
 			return Tan(static_cast<double>(x));
@@ -3405,7 +3405,7 @@ namespace s3d
 		/// <summary>
 		/// ハイパボリックタンジェントを計算します。
 		/// </summary>
-		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
 		[[nodiscard]] inline double Tanh(Type x)
 		{
 			return Tanh(static_cast<double>(x));
@@ -3515,7 +3515,7 @@ namespace s3d
 		/// <summary>
 		/// 正規化したベクトルを返します。
 		/// </summary>
-		template <class Type, std::enable_if_t<std::is_arithmetic<Type>::value>* = nullptr>
+		template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
 		[[nodiscard]] inline double Normalize(Type x)
 		{
 			return Normalize(static_cast<double>(x));
