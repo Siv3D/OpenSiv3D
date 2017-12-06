@@ -11,7 +11,7 @@
 
 # pragma once
 # include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_LINUX)
+# if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 # include "../../../ThirdParty/mpg123/mpg123.h"
 # include <Siv3D/Wave.hpp>
@@ -24,11 +24,11 @@ namespace s3d
 	class AudioFormat_MP3 : public IAudioFormat
 	{
 	private:
-		
+
 		void* m_mpg123 = nullptr;
-		
+
 		mpg123_handle* m_handle = nullptr;
-		
+
 		decltype(mpg123_init)* p_mpg123_init = nullptr;
 		decltype(mpg123_new)* p_mpg123_new = nullptr;
 		decltype(mpg123_delete)* p_mpg123_delete = nullptr;
@@ -47,15 +47,15 @@ namespace s3d
 		decltype(mpg123_open_handle)* p_mpg123_open_handle = nullptr;
 		decltype(mpg123_close)* p_mpg123_close = nullptr;
 		decltype(mpg123_info)* p_mpg123_info = nullptr;
-		
+
 		bool m_libmpg123Available = false;
-		
+
 	public:
-		
+
 		AudioFormat_MP3();
 
 		~AudioFormat_MP3();
-		
+
 		AudioFormat format() const override;
 
 		const Array<String>& possibleExtexsions() const override;

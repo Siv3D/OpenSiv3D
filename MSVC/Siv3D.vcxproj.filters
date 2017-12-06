@@ -1012,13 +1012,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Wave\SivWave.cpp">
       <Filter>src\Siv3D\Wave</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_macOS.cpp">
-      <Filter>src\Siv3D\AudioFormat\MP3</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_Windows.cpp">
-      <Filter>src\Siv3D\AudioFormat\MP3</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_Linux.cpp">
       <Filter>src\Siv3D\AudioFormat\MP3</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\WAVE\AudioFormat_WAVE.cpp">
@@ -1041,6 +1035,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Codec\CodecFactory.cpp">
       <Filter>src\Siv3D\Codec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_mpg123.cpp">
+      <Filter>src\Siv3D\AudioFormat\MP3</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2046,13 +2043,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_macOS.hpp">
-      <Filter>src\Siv3D\AudioFormat\MP3</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_Windows.hpp">
-      <Filter>src\Siv3D\AudioFormat\MP3</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_Linux.hpp">
       <Filter>src\Siv3D\AudioFormat\MP3</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\WAVE\AudioFormat_WAVE.hpp">
@@ -2078,6 +2069,9 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\EngineUtility.hpp">
       <Filter>src\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_mpg123.hpp">
+      <Filter>src\Siv3D\AudioFormat\MP3</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
