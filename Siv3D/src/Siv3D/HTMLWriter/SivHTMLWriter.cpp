@@ -29,24 +29,24 @@ namespace s3d
 			{
 				switch (ch)
 				{
-				case L'\n':
+				case U'\n':
 					new_string.append(U"<br>", 4);
 					break;
-				case L'\r':
+				case U'\r':
 					break;
-				case L'\"':
+				case U'\"':
 					new_string.append(U"&quot;", 6);
 					break;
-				case L'&':
+				case U'&':
 					new_string.append(U"&amp;", 5);
 					break;
-				case L'\'':
+				case U'\'':
 					new_string.append(U"&apos;", 6);
 					break;
-				case L'<':
+				case U'<':
 					new_string.append(U"&lt;", 4);
 					break;
-				case L'>':
+				case U'>':
 					new_string.append(U"&gt;", 4);
 					break;
 				default:

@@ -58,7 +58,7 @@ namespace s3d
 			return path;
 		}
 
-		return L'/' + path;
+		return U'/' + path;
 	}
 }
 

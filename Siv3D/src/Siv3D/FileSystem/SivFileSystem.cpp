@@ -367,9 +367,9 @@ namespace s3d
 
 			FilePath directoryPath = directory;
 
-			if (!directoryPath.isEmpty() && !directoryPath.ends_with(L'/'))
+			if (!directoryPath.isEmpty() && !directoryPath.ends_with(U'/'))
 			{
-				directoryPath.push_back(L'/');
+				directoryPath.push_back(U'/');
 			}
 
 			for (uint64 n = ud(rng);; ++n)

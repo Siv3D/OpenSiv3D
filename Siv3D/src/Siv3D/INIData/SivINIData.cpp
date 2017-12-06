@@ -200,7 +200,7 @@ namespace s3d
 
 	std::pair<INIData::Section, INIData::Name> INIData::Split(const String& section_and_name)
 	{
-		const size_t dot = section_and_name.indexOf(L'.');
+		const size_t dot = section_and_name.indexOf(U'.');
 
 		if (dot == String::npos)
 		{

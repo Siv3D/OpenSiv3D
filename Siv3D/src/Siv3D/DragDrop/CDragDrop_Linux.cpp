@@ -204,12 +204,12 @@ namespace s3d
 		}
 		if (m_internal.itemType == DragItemType::FilePaths)
 		{
-			Array<FilePath> paths = text.split(L'\n');
+			Array<FilePath> paths = text.split(U'\n');
 			auto itr = paths.begin();
 			while (itr != paths.end())
 			{
 				(*itr).trim();
-				if ((*itr).isEmpty() || (*itr)[0] == L'#')
+				if ((*itr).isEmpty() || (*itr)[0] == U'#')
 				{
 					itr = paths.erase(itr);
 				}

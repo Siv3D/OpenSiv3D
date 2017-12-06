@@ -74,7 +74,7 @@ namespace s3d
 
 	String Color::toHex() const
 	{
-		return ToHex(r).lpad(2, L'0') + ToHex(g).lpad(2, L'0') + ToHex(b).lpad(2, L'0');
+		return ToHex(r).lpad(2, U'0') + ToHex(g).lpad(2, U'0') + ToHex(b).lpad(2, U'0');
 	}
 
 	void Formatter(FormatData& formatData, const Color& value)

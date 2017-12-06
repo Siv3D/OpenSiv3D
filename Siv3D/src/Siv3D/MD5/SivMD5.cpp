@@ -24,7 +24,7 @@ namespace s3d
 
 		for (const auto& v : value)
 		{
-			s.append(Pad(ToHex(v), { 2, L'0' }));
+			s.append(Pad(ToHex(v), { 2, U'0' }));
 		}
 
 		return s;
