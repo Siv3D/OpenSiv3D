@@ -264,7 +264,7 @@ namespace s3d
 				GLFWmonitor* monitor = monitors[i];
 				
 				Monitor result;
-				result.name = CharacterSet::Widen(::glfwGetMonitorName(monitor));
+				result.name = Unicode::Widen(::glfwGetMonitorName(monitor));
 				
 				uint32 displayID;
 				int32 xPos, yPos, width, height;
@@ -274,7 +274,7 @@ namespace s3d
 										 &xPos, &yPos, &width, &height,
 										 &wx, &wy, &ww, &wh);
 				result.id = Format(displayID);
-				result.displayDeviceName = CharacterSet::Widen(name);
+				result.displayDeviceName = Unicode::Widen(name);
 				result.displayRect.x = xPos;
 				result.displayRect.y = yPos;
 				result.displayRect.w = width;

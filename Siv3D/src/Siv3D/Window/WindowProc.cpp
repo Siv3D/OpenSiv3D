@@ -17,6 +17,9 @@
 # include "../Siv3DEngine.hpp"
 # include "../System/ISystem.hpp"
 # include "CWindow_Windows.hpp"
+//# include "../Mouse/IMouse.hpp"
+//# include "../Mouse/CMouse_Windows.hpp"
+//# include "../TextInput/ITextInput.hpp"
 
 namespace s3d
 {

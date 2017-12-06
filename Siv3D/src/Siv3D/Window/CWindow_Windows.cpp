@@ -17,9 +17,6 @@
 # include <Siv3D/Logger.hpp>
 # include "../Siv3DEngine.hpp"
 # include "CWindow_Windows.hpp"
-//# include "../Mouse/IMouse.hpp"
-//# include "../Mouse/CMouse_Windows.hpp"
-//# include "../TextInput/ITextInput.hpp"
 //# include "../Graphics/D3D11/CGraphics_D3D11.hpp"
 
 namespace s3d
@@ -285,9 +282,8 @@ namespace s3d
 			// プライマリモニターの中央に位置するようにウィンドウを配置
 			if (monitor.isPrimary)
 			{
-				const int32 xOffset = (monitor.workArea.w - m_state.windowSize.x) / 2;
-				const int32 yOffset = (monitor.workArea.h - m_state.windowSize.y) / 2;
-				m_state.pos.set(std::max(monitor.workArea.x + xOffset, 0), std::max(monitor.workArea.y + yOffset, 0));
+				const Point offset = (monitor.workArea.size - m_state.windowSize) / 2;
+				m_state.pos.set(std::max(monitor.workArea.x + offset.x, 0), std::max(monitor.workArea.y + offset.y, 0));
 				break;
 			}
 		}
@@ -334,8 +330,6 @@ namespace s3d
 		{
 			return false;
 		}
-
-		//::ShowWindow(m_hWnd, SW_SHOW);
 
 		return true;
 	}

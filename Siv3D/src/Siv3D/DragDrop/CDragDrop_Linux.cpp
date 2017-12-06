@@ -55,7 +55,7 @@ extern "C"
 	{
 		if (pDragDrop)
 		{
-			pDragDrop->internal_dataDropped(CharacterSet::Widen(text), Cursor::Pos());
+			pDragDrop->internal_dataDropped(Unicode::Widen(text), Cursor::Pos());
 		}
 	}
 }

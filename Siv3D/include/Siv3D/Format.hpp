@@ -339,12 +339,12 @@ namespace s3d
 
 	//inline void Formatter(FormatData& formatData, const char16_t* const str)
 	//{
-	//	formatData.string.append(CharacterSet::FromUTF16(str));
+	//	formatData.string.append(Unicode::FromUTF16(str));
 	//}
 
 	//inline void Formatter(FormatData& formatData, const std::u16string& str)
 	//{
-	//	formatData.string.append(CharacterSet::FromUTF16(str));
+	//	formatData.string.append(Unicode::FromUTF16(str));
 	//}
 
 	template <class Iterator>

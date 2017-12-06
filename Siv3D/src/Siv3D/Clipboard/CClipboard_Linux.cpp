@@ -52,7 +52,7 @@ namespace s3d
 			return false;
 		else
 		{
-			text = CharacterSet::Widen(glfwText);
+			text = Unicode::Widen(glfwText);
 			return true;
 		}
 	}
