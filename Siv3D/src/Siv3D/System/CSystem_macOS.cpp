@@ -161,8 +161,17 @@ namespace s3d
 
 	bool CSystem_macOS::update(bool clearGraphics)
 	{
+		if (!m_updateSucceeded)
+		{
+			return false;
+		}
+
+		m_updateSucceeded = false;
+
 		if (const uint32 event = m_exitEventManager.checkExitEvent())
 		{
+			m_exitEventManager.logExitEvent(event);
+
 			return false;
 		}
 
@@ -214,7 +223,7 @@ namespace s3d
 	//	Siv3DEngine::GetTextInput()->update();
 	//	
 
-		return true;
+		return m_updateSucceeded = true;
 	}
 
 	void CSystem_macOS::reportEvent(const uint32 windowEventFlag)

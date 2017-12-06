@@ -606,8 +606,9 @@
 	// システムの電源の情報
 	# include "Siv3D/PowerStatus.hpp"
 
-	//// プロファイリング
-	//# include "Siv3D/Profiler.hpp"
+	// プロファイリング
+	# include "Siv3D/Profiler.hpp"
+
 	//// アセットハンドル
 	//# include "Siv3D/AssetHandle.hpp"
 //

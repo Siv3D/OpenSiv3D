@@ -29,6 +29,8 @@ namespace s3d
 
 		FrameDelta m_frameDelta;
 
+		bool m_updateSucceeded = true;
+
 	public:
 
 		CSystem_macOS();

@@ -15,6 +15,7 @@
 # include <Siv3D/Time.hpp>
 # include <Siv3D/DateTime.hpp>
 # include <Siv3D/Version.hpp>
+# include <Siv3D/System.hpp>
 # include <Siv3D/Logger.hpp>
 
 namespace s3d
@@ -56,6 +57,30 @@ namespace s3d
 		uint32 getPreviousEvent() const
 		{
 			return m_previousEvent;
+		}
+
+		void logExitEvent(const uint32 exitEvent)
+		{
+			if (exitEvent & WindowEvent::CloseButton)
+			{
+				LOG_INFO(U"🚪 System::Update(): `WindowEvent::CloseButton` has occurred");
+			}
+			else if (exitEvent & WindowEvent::EscapeKey)
+			{
+				LOG_INFO(U"🚪 System::Update(): `WindowEvent::EscapeKey` has occurred");
+			}
+			else if (exitEvent & WindowEvent::Unfocus)
+			{
+				LOG_INFO(U"🚪 System::Update(): `WindowEvent::Unfocus` has occurred");
+			}
+			else if (exitEvent & WindowEvent::AnyKey)
+			{
+				LOG_INFO(U"🚪 System::Update(): `WindowEvent::AnyKey` has occurred");
+			}
+			else if (exitEvent & WindowEvent::ExitFlag)
+			{
+				LOG_INFO(U"🚪 System::Update(): System::Exit() has been called");
+			}
 		}
 	};
 

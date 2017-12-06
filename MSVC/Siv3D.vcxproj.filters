@@ -1836,6 +1836,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\System\SystemUtility.hpp">
       <Filter>src\Siv3D\System</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Profiler.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_macOS.mm">
