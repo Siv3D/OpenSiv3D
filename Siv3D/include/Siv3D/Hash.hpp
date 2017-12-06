@@ -186,3 +186,21 @@ namespace s3d
 		}
 	};
 }
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <>
+	struct hash<s3d::ByteArrayView>
+	{
+		[[nodiscard]] size_t operator()(const s3d::ByteArrayView& value) const noexcept
+		{
+			return s3d::Hash::FNV1a(value);
+		}
+	};
+}

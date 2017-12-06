@@ -313,7 +313,7 @@ namespace s3d
 					}
 				}
 
-				if (codePoint != L'\r')
+				if (codePoint != U'\r')
 				{
 					out.push_back(codePoint);
 				}
@@ -348,7 +348,7 @@ namespace s3d
 				}
 				else
 				{
-					out.push_back(L'\n');
+					out.push_back(U'\n');
 				}
 			}
 		}

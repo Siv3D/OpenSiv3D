@@ -463,19 +463,22 @@ namespace s3d
 	{
 		return x.compare(y) >= 0;
 	}
-
-
-//////////////////////////////////////////////////
-//
-//	Streams
-//
-//////////////////////////////////////////////////
-
-	COStream& operator <<(COStream& output, const StringView& value);
-				
-	WOStream& operator <<(WOStream& output, const StringView& value);
 }
 
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
+
+namespace s3d
+{
+	void Formatter(FormatData& formatData, const StringView& value);
+
+	std::ostream& operator <<(std::ostream& output, const StringView& value);
+
+	std::wostream& operator <<(std::wostream& output, const StringView& value);
+}
 
 //////////////////////////////////////////////////
 //
@@ -493,4 +496,19 @@ namespace std
 			return s3d::Hash::FNV1a(s3d::ByteArrayView(value.data(), value.size_bytes()));
 		}
 	};
+}
+
+//////////////////////////////////////////////////
+//
+//	Swap
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <class Type>
+	inline void swap(s3d::StringView& a, s3d::StringView& b) noexcept
+	{
+		a.swap(b);
+	}
 }

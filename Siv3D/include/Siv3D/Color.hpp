@@ -759,6 +759,8 @@ namespace s3d
 		/// Vec4(a, b, g, r)
 		/// </summary>
 		Vec4 abgr() const noexcept;
+
+		size_t hash() const;
 	};
 
 	/// <summary>
@@ -833,157 +835,143 @@ namespace s3d
 	}
 }
 
-namespace std
-{
-	template <>
-	struct hash<s3d::Color>
-	{
-		size_t operator()(const s3d::Color& keyVal) const noexcept
-		{
-			return hash<s3d::uint32>()(*((s3d::uint32*)&keyVal));
-		}
-	};
-}
-
 # include "ColorPalette.hpp"
+
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
 
 namespace s3d
 {
 	void Formatter(FormatData& formatData, const Color& value);
 
-	/// <summary>
-	/// 出力ストリームに色を渡します。
-	/// </summary>
-	/// <param name="os">
-	/// 出力ストリーム
-	/// </param>
-	/// <param name="color">
-	/// 色
-	/// </param>
-	/// <returns>
-	/// 渡した後の出力ストリーム
-	/// </returns>
+	void Formatter(FormatData& formatData, const ColorF& value);
+
 	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const Color& color)
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Color& value)
 	{
-		return os << CharType('(')
-			<< color.r << CharType(',')
-			<< color.g << CharType(',')
-			<< color.b << CharType(',')
-			<< color.a << CharType(')');
+		return output << CharType('(')
+			<< value.r << CharType(',')
+			<< value.g << CharType(',')
+			<< value.b << CharType(',')
+			<< value.a << CharType(')');
 	}
 
-	/// <summary>
-	/// 入力ストリームに色を渡します。
-	/// </summary>
-	/// <param name="is">
-	/// 入力ストリーム
-	/// </param>
-	/// <param name="color">
-	/// 色
-	/// </param>
-	/// <returns>
-	/// 渡した後の入力ストリーム
-	/// </returns>
 	template <class CharType>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& is, Color& color)
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const ColorF& value)
+	{
+		return output << CharType('(')
+			<< value.r << CharType(',')
+			<< value.g << CharType(',')
+			<< value.b << CharType(',')
+			<< value.a << CharType(')');
+	}
+
+	template <class CharType>
+	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Color& value)
 	{
 		uint32 cols[4];
 		CharType unused;
 
-		is >> unused
+		input >> unused
 			>> cols[0] >> unused
 			>> cols[1] >> unused
 			>> cols[2] >> unused;
 
 		if (unused == CharType(','))
 		{
-			is >> cols[3] >> unused;
+			input >> cols[3] >> unused;
 		}
 		else
 		{
 			cols[3] = 255;
 		}
 
-		color.r = cols[0];
-		color.g = cols[1];
-		color.b = cols[2];
-		color.a = cols[3];
+		value.r = cols[0];
+		value.g = cols[1];
+		value.b = cols[2];
+		value.a = cols[3];
 
-		return is;
-	}
-}
-
-namespace s3d
-{
-	void Formatter(FormatData& formatData, const ColorF& value);
-
-	/// <summary>
-	/// 出力ストリームに色を渡します。
-	/// </summary>
-	/// <param name="os">
-	/// 出力ストリーム
-	/// </param>
-	/// <param name="color">
-	/// 色
-	/// </param>
-	/// <returns>
-	/// 渡した後の出力ストリーム
-	/// </returns>
-	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const ColorF& color)
-	{
-		return os << CharType('(')
-			<< color.r << CharType(',')
-			<< color.g << CharType(',')
-			<< color.b << CharType(',')
-			<< color.a << CharType(')');
+		return input;
 	}
 
-	/// <summary>
-	/// 入力ストリームに色を渡します。
-	/// </summary>
-	/// <param name="is">
-	/// 入力ストリーム
-	/// </param>
-	/// <param name="color">
-	/// 色
-	/// </param>
-	/// <returns>
-	/// 渡した後の入力ストリーム
-	/// </returns>
 	template <class CharType>
-	inline std::basic_istream<CharType>& operator >> (std::basic_istream<CharType>& is, ColorF& color)
+	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, ColorF& value)
 	{
 		CharType unused;
 
-		is >> unused
-			>> color.r >> unused
-			>> color.g >> unused
-			>> color.b >> unused;
+		input >> unused
+			>> value.r >> unused
+			>> value.g >> unused
+			>> value.b >> unused;
 
 		if (unused == CharType(','))
 		{
-			is >> color.a >> unused;
+			input >> value.a >> unused;
 		}
 		else
 		{
-			color.a = 1.0;
+			value.a = 1.0;
 		}
 
-		return is;
+		return input;
 	}
 }
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <>
+	struct hash<s3d::Color>
+	{
+		[[nodiscard]] size_t operator ()(const s3d::Color& value) const noexcept
+		{
+			return hash<s3d::uint32>()(*((s3d::uint32*)&value));
+		}
+	};
+
+	template <>
+	struct hash<s3d::ColorF>
+	{
+		[[nodiscard]] size_t operator ()(const s3d::ColorF& value) const noexcept
+		{
+			return value.hash();
+		}
+	};
+}
+
+//////////////////////////////////////////////////
+//
+//	fmt
+//
+//////////////////////////////////////////////////
 
 namespace fmt
 {
 	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::ColorF& color)
+	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Color& value)
 	{
 		const auto tag = s3d::detail::GetTag(format_str);
 
 		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"},{" + tag + U"})";
 
-		f.writer().write(fmt, color.r, color.g, color.b, color.a);
+		f.writer().write(fmt, value.r, value.g, value.b, value.a);
+	}
+
+	template <class ArgFormatter>
+	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::ColorF& value)
+	{
+		const auto tag = s3d::detail::GetTag(format_str);
+
+		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"},{" + tag + U"})";
+
+		f.writer().write(fmt, value.r, value.g, value.b, value.a);
 	}
 }

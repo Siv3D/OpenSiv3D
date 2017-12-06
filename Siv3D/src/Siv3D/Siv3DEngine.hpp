@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -17,7 +17,13 @@ namespace s3d
 	class ISiv3DLicenseManager;
 	class ISiv3DLogger;
 	class ISiv3DSystem;
+	class ISiv3DCPU;
 	class ISiv3DConsole;
+	class ISiv3DImageFormat;
+	class ISiv3DWindow;
+	class ISiv3DProfiler;
+	class ISiv3DClipboard;
+	class ISiv3DDragDrop;
 
 	template <class Interface>
 	class Siv3DComponent
@@ -61,8 +67,20 @@ namespace s3d
 
 		Siv3DComponent<ISiv3DSystem> m_system;
 
+		Siv3DComponent<ISiv3DCPU> m_cpu;
+
 		Siv3DComponent<ISiv3DConsole> m_console;
 
+		Siv3DComponent<ISiv3DImageFormat> m_imageFormat;
+
+		Siv3DComponent<ISiv3DWindow> m_window;
+
+		Siv3DComponent<ISiv3DProfiler> m_profiler;
+
+		Siv3DComponent<ISiv3DClipboard> m_clipboard;
+
+		Siv3DComponent<ISiv3DDragDrop> m_dragdrop;
+		
 	public:
 
 		Siv3DEngine();
@@ -89,9 +107,39 @@ namespace s3d
 			return pEngine->m_system.get();
 		}
 
+		static ISiv3DCPU* GetCPU()
+		{
+			return pEngine->m_cpu.get();
+		}
+
 		static ISiv3DConsole* GetConsole()
 		{
 			return pEngine->m_console.get();
+		}
+
+		static ISiv3DImageFormat* GetImageFormat()
+		{
+			return pEngine->m_imageFormat.get();
+		}
+
+		static ISiv3DWindow* GetWindow()
+		{
+			return pEngine->m_window.get();
+		}
+
+		static ISiv3DProfiler* GetProfiler()
+		{
+			return pEngine->m_profiler.get();
+		}
+
+		static ISiv3DClipboard* GetClipboard()
+		{
+			return pEngine->m_clipboard.get();
+		}
+		
+		static ISiv3DDragDrop* GetDragDrop()
+		{
+			return pEngine->m_dragdrop.get();
 		}
 	};
 }

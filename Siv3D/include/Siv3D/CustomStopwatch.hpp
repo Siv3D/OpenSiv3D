@@ -416,9 +416,24 @@ namespace s3d
 	{
 		return time >= s.elapsedF();
 	}
+}
 
-	inline void Formatter(FormatData& formatData, const CustomStopwatch& stopwatch)
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
+
+namespace s3d
+{
+	inline void Formatter(FormatData& formatData, const CustomStopwatch& value)
 	{
-		formatData.string.append(stopwatch.format());
+		formatData.string.append(value.format());
+	}
+
+	template <class CharType>
+	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> output, const CustomStopwatch& value)
+	{
+		return output << value.format();
 	}
 }

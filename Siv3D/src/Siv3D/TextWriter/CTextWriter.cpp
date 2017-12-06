@@ -148,7 +148,7 @@ namespace s3d
 				{
 					if (ch == '\n' && previous != '\r')
 					{
-						m_binaryWriter.write("\r\n", sizeof(char) * 2);
+						m_binaryWriter.write(u8"\r\n", sizeof(char) * 2);
 					}
 					else
 					{
@@ -177,7 +177,7 @@ namespace s3d
 
 						if (ch == '\n' && previous != '\r')
 						{
-							m_binaryWriter.write("\r\n", 2);
+							m_binaryWriter.write(u8"\r\n", 2);
 						}
 						else
 						{
@@ -198,7 +198,7 @@ namespace s3d
 			}
 		case TextEncoding::UTF16LE:
 			{
-				char16 previous = L'\0';
+				char16 previous = u'\0';
 
 				Unicode::Translator_UTF32toUTF16 translator;
 
@@ -210,9 +210,9 @@ namespace s3d
 					{
 						const char16 ch = translator.get()[0];
 
-						if (ch == L'\n' && previous != L'\r')
+						if (ch == u'\n' && previous != u'\r')
 						{
-							m_binaryWriter.write(L"\r\n", 4);
+							m_binaryWriter.write(u"\r\n", 4);
 						}
 						else
 						{
@@ -233,7 +233,7 @@ namespace s3d
 			}
 		case TextEncoding::UTF16BE:
 			{
-				char16 previous = L'\0';
+				char16 previous = u'\0';
 
 				Unicode::Translator_UTF32toUTF16 translator;
 
@@ -245,7 +245,7 @@ namespace s3d
 					{
 						const char16 ch = translator.get()[0];
 
-						if (ch == L'\n' && previous != L'\r')
+						if (ch == u'\n' && previous != u'\r')
 						{
 							const uint8 newLine[] = { 0x00, 0x0D, 0x00, 0x0A };
 							m_binaryWriter.write(newLine);
@@ -289,12 +289,12 @@ namespace s3d
 		case TextEncoding::UTF8_NO_BOM:
 		case TextEncoding::UTF8:
 			{
-				m_binaryWriter.write("\r\n", 2);
+				m_binaryWriter.write(u8"\r\n", 2);
 				break;
 			}
 		case TextEncoding::UTF16LE:
 			{
-				m_binaryWriter.write(L"\r\n", 4);
+				m_binaryWriter.write(u"\r\n", 4);
 				break;
 			}
 		case TextEncoding::UTF16BE:
@@ -325,7 +325,7 @@ namespace s3d
 				{
 					if (ch == '\n' && previous != '\r')
 					{
-						m_binaryWriter.write("\r\n", sizeof(char) * 2);
+						m_binaryWriter.write(u8"\r\n", sizeof(char) * 2);
 					}
 					else
 					{

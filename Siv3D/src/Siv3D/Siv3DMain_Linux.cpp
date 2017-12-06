@@ -3,7 +3,7 @@
 //	This file is part of the Siv3D Engine.
 //
 //	Copyright (c) 2008-2017 Ryo Suzuki
-//	Copyright (c) 2016 OpenSiv3D Project
+//	Copyright (c) 2016-2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -42,7 +42,7 @@ int main(int, char* argv[])
 	const FilePath path = Unicode::Widen(argv[0]);
 	FilePath modulePath = FileSystem::ParentPath(path, 0);
 
-	if (modulePath.ends_with(L'/'))
+	if (modulePath.ends_with(U'/'))
 	{
 		modulePath.pop_back();
 	}

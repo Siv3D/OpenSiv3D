@@ -1658,14 +1658,50 @@ namespace s3d
 	template <class Type> constexpr bool IsOptional_v = IsOptional<Type>::value;
 }
 
-namespace std
+# undef OPTIONAL_REQUIRES
+
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
+
+namespace s3d
 {
-	template <class Type>
-	void swap(s3d::Optional<Type>& a, s3d::Optional<Type>& b) noexcept(noexcept(a.swap(b)))
+	template <class CharType>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const None_t&)
 	{
-		a.swap(b);
+		const CharType no[] = { 'n','o','n','e','\0' };
+
+		return output << no;
 	}
 
+	template <class CharType, class Type>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Optional<Type>& value)
+	{
+		if (value)
+		{
+			const CharType opt[] = { 'O','p','t','i','o','n','a','l', ' ', '\0' };
+
+			return output << opt << value.value();
+		}
+		else
+		{
+			const CharType no[] = { 'n','o','n','e','\0' };
+
+			return output << no;
+		}
+	}
+}
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
 	template <class Type>
 	struct hash<s3d::Optional<Type>>
 	{
@@ -1691,7 +1727,20 @@ namespace std
 	};
 }
 
-# undef OPTIONAL_REQUIRES
+//////////////////////////////////////////////////
+//
+//	Swap
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <class Type>
+	void swap(s3d::Optional<Type>& a, s3d::Optional<Type>& b) noexcept(noexcept(a.swap(b)))
+	{
+		a.swap(b);
+	}
+}
 
 //
 //////////////////////////////////////////////////////////////////////////////

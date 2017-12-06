@@ -178,8 +178,26 @@ namespace s3d
 	{
 		const String fileName = FileSystem::BaseName(FileSystem::ModulePath()).xml_escaped();
 		const std::string titleUTF8 = Unicode::ToUTF8(fileName) + " Log";
-
+		
+	# if defined(SIV3D_TARGET_MACOS)
+		
+		if (FileSystem::IsSandBoxed())
+		{
+			const FilePath path = FileSystem::SpecialFolderPath(SpecialFolder::LocalAppData) + fileName + U"_log.html";
+			
+			m_writer.open(path, TextEncoding::UTF8);
+		}
+		else
+		{
+			m_writer.open(fileName + U"_log.html", TextEncoding::UTF8);
+		}
+		
+	# else
+		
 		m_writer.open(fileName + U"_log.html", TextEncoding::UTF8);
+		
+	# endif
+
 		m_writer.writeUTF8(headerA);
 		m_writer.writeUTF8(titleUTF8);
 		m_writer.writeUTF8(headerB);
@@ -195,6 +213,8 @@ namespace s3d
 		//write(LogDescription::Warning, L"Warning Message");
 
 		m_initialized = true;
+
+		LOG_INFO(U"ℹ️ Logger initialized");
 
 		return true;
 	}
@@ -215,11 +235,14 @@ namespace s3d
 
 		detail::OutputDebug(desc, text);
 
-		m_writer.writeUTF8(logLevel[static_cast<size_t>(desc)]);
+		if (m_initialized)
+		{
+			m_writer.writeUTF8(logLevel[static_cast<size_t>(desc)]);
 
-		m_writer.write(text.xml_escaped());
+			m_writer.write(text.xml_escaped());
 
-		m_writer.writeUTF8(divEnd);
+			m_writer.writeUTF8(divEnd);
+		}
 
 		if (desc == LogDescription::Error)
 		{
@@ -229,6 +252,11 @@ namespace s3d
 
 	void CLogger::writeRawHTML(const String& htmlText)
 	{
+		if (!m_initialized)
+		{
+			return;
+		}
+
 		std::lock_guard<std::mutex> lock(m_mutex);
 
 		m_writer.writeln(htmlText);
@@ -236,6 +264,11 @@ namespace s3d
 
 	void CLogger::writeRawHTML_UTF8(const std::string_view htmlText)
 	{
+		if (!m_initialized)
+		{
+			return;
+		}
+
 		std::lock_guard<std::mutex> lock(m_mutex);
 
 		m_writer.writelnUTF8(htmlText);

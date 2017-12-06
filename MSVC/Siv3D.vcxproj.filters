@@ -251,6 +251,105 @@
     <Filter Include="src\Siv3D\HSV">
       <UniqueIdentifier>{272fd6f4-60ef-4cf7-9de6-72d63afc521d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\StringView">
+      <UniqueIdentifier>{fa530276-1441-4015-b1c0-584a1f3b0a45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\PerlinNoise">
+      <UniqueIdentifier>{461a14cc-ffe0-454d-9117-5ed45ba7a985}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\MathParser">
+      <UniqueIdentifier>{8b91d0ca-3172-40b0-b3f6-ccd285c1ff27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\muparser">
+      <UniqueIdentifier>{8d1b4dc5-237f-4e90-8833-6f94f49c632a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\CPU">
+      <UniqueIdentifier>{a01cd29e-e0cb-4f3c-8be8-1a5238bbc07e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\FeatureDetector">
+      <UniqueIdentifier>{876f82af-32ce-441c-af7a-6b35e3b8ec31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Bezier2">
+      <UniqueIdentifier>{a270c218-dbb7-47b5-8c81-864533eebbc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Bezier3">
+      <UniqueIdentifier>{667f3a88-6dfe-4d5e-a0d8-d94502718d0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\clip2tri">
+      <UniqueIdentifier>{3096db35-a97d-4487-b9c3-ea7c3eeec6c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\clipper">
+      <UniqueIdentifier>{94ae00e0-45c3-4099-8c74-1306456fb44e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\poly2tri">
+      <UniqueIdentifier>{79102f72-11ae-454a-be4c-317a2fa8f969}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\poly2tri\common">
+      <UniqueIdentifier>{e45de078-0132-40ff-be18-f3452127dd3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\poly2tri\sweep">
+      <UniqueIdentifier>{c31a0ce5-8187-411b-9713-decf46ada09a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Shape2D">
+      <UniqueIdentifier>{41c79d94-b0a5-4587-8833-0a3df14c686e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ImageFormat">
+      <UniqueIdentifier>{4da31012-85d0-403a-9c0b-478ca632ac46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ImageFormat\BMP">
+      <UniqueIdentifier>{1255af0a-9e54-4d6d-8a2e-7329806baefc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ImageFormat\GIF">
+      <UniqueIdentifier>{f1db9ab0-500d-4559-8657-ddbe6fc5c75e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ImageFormat\JPEG">
+      <UniqueIdentifier>{4efbe948-be96-4b7b-b41d-cd0b73c4e8f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ImageFormat\PNG">
+      <UniqueIdentifier>{c1ff91d8-fb49-4356-8e74-109764945416}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ImageFormat\PPM">
+      <UniqueIdentifier>{075daf43-937d-42f9-af38-5b7f43c247d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\giflib">
+      <UniqueIdentifier>{3771d01b-d42a-4108-8969-28bd4cb2443c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\libpng">
+      <UniqueIdentifier>{206ee70e-820c-461a-9f13-2273a3c8ad4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\libjpeg-turbo">
+      <UniqueIdentifier>{b95f2c5c-d4a6-4fc6-adee-bbd8883215fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Image">
+      <UniqueIdentifier>{dcff4c4f-178a-4197-9375-496ab360296e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\HTMLWriter">
+      <UniqueIdentifier>{35c1e1b0-c9ef-4393-9799-6c0696ca2fc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ImageProcessing">
+      <UniqueIdentifier>{c048d738-e371-4a4f-bfc4-e8e4e231c32c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Window">
+      <UniqueIdentifier>{1f38ecb7-5fbf-4044-aa47-c043939d2b6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Monitor">
+      <UniqueIdentifier>{bb65b1ee-c76f-42fd-af00-c9eb72179dd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\DragDrop">
+      <UniqueIdentifier>{b918f213-e0b8-4bcd-a453-d1c5840d32f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\MessageBox">
+      <UniqueIdentifier>{2b413029-913d-46a8-9a09-501ff8f828b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Clipboard">
+      <UniqueIdentifier>{19b24e9f-fa74-4c5e-a326-e82b74a95865}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\PowerStatus">
+      <UniqueIdentifier>{d778a460-a5e6-4f3a-a4e9-e0a841bd55ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Profiler">
+      <UniqueIdentifier>{a8feb8f0-3d50-4b72-90c2-e0594f90d582}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -606,6 +705,225 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\HSV\SivHSV.cpp">
       <Filter>src\Siv3D\HSV</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\StringView\SivStringView.cpp">
+      <Filter>src\Siv3D\StringView</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\PerlinNoise\SivPerlinNoise.cpp">
+      <Filter>src\Siv3D\PerlinNoise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MathParser\SivMathParser.cpp">
+      <Filter>src\Siv3D\MathParser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MathParser\CMathParser.cpp">
+      <Filter>src\Siv3D\MathParser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParserCallback.cpp">
+      <Filter>src\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParserDLL.cpp">
+      <Filter>src\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParserError.cpp">
+      <Filter>src\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParserInt.cpp">
+      <Filter>src\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParserTokenReader.cpp">
+      <Filter>src\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParser.cpp">
+      <Filter>src\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParserBase.cpp">
+      <Filter>src\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParserBytecode.cpp">
+      <Filter>src\ThirdParty\muparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\CPU\CCPU.cpp">
+      <Filter>src\Siv3D\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\CPU\CPUFactory.cpp">
+      <Filter>src\Siv3D\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\CPU\SivCPU.cpp">
+      <Filter>src\Siv3D\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86.cpp">
+      <Filter>src\ThirdParty\FeatureDetector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\LineString\SivLineString.cpp">
+      <Filter>src\Siv3D\LineString</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Bezier2\SivBezier2.cpp">
+      <Filter>src\Siv3D\Bezier2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Bezier3\SivBezier3.cpp">
+      <Filter>src\Siv3D\Bezier3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\SivPolygon.cpp">
+      <Filter>src\Siv3D\Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\CPolygon.cpp">
+      <Filter>src\Siv3D\Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\clip2tri\clip2tri.cpp">
+      <Filter>src\ThirdParty\clip2tri</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\clipper\clipper.cpp">
+      <Filter>src\ThirdParty\clipper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\poly2tri\common\shapes.cc">
+      <Filter>src\ThirdParty\poly2tri\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\cdt.cc">
+      <Filter>src\ThirdParty\poly2tri\sweep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\sweep.cc">
+      <Filter>src\ThirdParty\poly2tri\sweep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\sweep_context.cc">
+      <Filter>src\ThirdParty\poly2tri\sweep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\advancing_front.cc">
+      <Filter>src\ThirdParty\poly2tri\sweep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Shape2D\SivShape2D.cpp">
+      <Filter>src\Siv3D\Shape2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\ImageFormatFactory.cpp">
+      <Filter>src\Siv3D\ImageFormat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\SivImageFormat.cpp">
+      <Filter>src\Siv3D\ImageFormat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\CImageFormat.cpp">
+      <Filter>src\Siv3D\ImageFormat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\BMP\ImageFormat_BMP.cpp">
+      <Filter>src\Siv3D\ImageFormat\BMP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\GIF\ImageFormat_GIF.cpp">
+      <Filter>src\Siv3D\ImageFormat\GIF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\JPEG\ImageFormat_JPEG.cpp">
+      <Filter>src\Siv3D\ImageFormat\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\PNG\ImageFormat_PNG.cpp">
+      <Filter>src\Siv3D\ImageFormat\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\PPM\ImageFormat_PPM.cpp">
+      <Filter>src\Siv3D\ImageFormat\PPM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\gif_font.c">
+      <Filter>src\ThirdParty\giflib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\gif_hash.c">
+      <Filter>src\ThirdParty\giflib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\gif_quantize.c">
+      <Filter>src\ThirdParty\giflib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\gifalloc.c">
+      <Filter>src\ThirdParty\giflib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\openbsd-reallocarray.c">
+      <Filter>src\ThirdParty\giflib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\dgif_lib.c">
+      <Filter>src\ThirdParty\giflib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\egif_lib.c">
+      <Filter>src\ThirdParty\giflib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\gif_err.c">
+      <Filter>src\ThirdParty\giflib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Image\SivImage.cpp">
+      <Filter>src\Siv3D\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\HTMLWriter\CHTMLWriter.cpp">
+      <Filter>src\Siv3D\HTMLWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\HTMLWriter\SivHTMLWriter.cpp">
+      <Filter>src\Siv3D\HTMLWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageProcessing\SivImageProcessing.cpp">
+      <Filter>src\Siv3D\ImageProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Monitor\SivMonitor.cpp">
+      <Filter>src\Siv3D\Monitor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Window\CWindow_macOS.cpp">
+      <Filter>src\Siv3D\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Window\CWindow_Windows.cpp">
+      <Filter>src\Siv3D\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Window\SivWindow.cpp">
+      <Filter>src\Siv3D\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Window\WindowFactory.cpp">
+      <Filter>src\Siv3D\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Window\CWindow_Linux.cpp">
+      <Filter>src\Siv3D\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_Windows.cpp">
+      <Filter>src\Siv3D\DragDrop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\DragDropFactory.cpp">
+      <Filter>src\Siv3D\DragDrop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\SivDragDrop.cpp">
+      <Filter>src\Siv3D\DragDrop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_Linux.cpp">
+      <Filter>src\Siv3D\DragDrop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_macOS.cpp">
+      <Filter>src\Siv3D\DragDrop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MessageBox\SivMessageBox_Linux.cpp">
+      <Filter>src\Siv3D\MessageBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MessageBox\SivMessageBox_macOS.cpp">
+      <Filter>src\Siv3D\MessageBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MessageBox\SivMessageBox_Windows.cpp">
+      <Filter>src\Siv3D\MessageBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Clipboard\CClipboard_Windows.cpp">
+      <Filter>src\Siv3D\Clipboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Clipboard\ClipboardFactory.cpp">
+      <Filter>src\Siv3D\Clipboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Clipboard\SivClipboard.cpp">
+      <Filter>src\Siv3D\Clipboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Clipboard\CClipboard_Linux.cpp">
+      <Filter>src\Siv3D\Clipboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Clipboard\CClipboard_macOS.cpp">
+      <Filter>src\Siv3D\Clipboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\PowerStatus\SivPowerStatus.cpp">
+      <Filter>src\Siv3D\PowerStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\ProfilerFactory.cpp">
+      <Filter>src\Siv3D\Profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\SivProfiler.cpp">
+      <Filter>src\Siv3D\Profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\CProfiler.cpp">
+      <Filter>src\Siv3D\Profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Window\WindowProc.cpp">
+      <Filter>src\Siv3D\Window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1290,6 +1608,261 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Lerp.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Easing.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\EasingController.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Transition.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\PerlinNoise.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OpenSiv3D\Siv3D\Include\Siv3D\Spline.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\HalfFloat.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\SIMDMath.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\MathParser.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\MathParser\CMathParser.hpp">
+      <Filter>src\Siv3D\MathParser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\muparser\muParserCallback.h">
+      <Filter>src\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\muparser\muParserDef.h">
+      <Filter>src\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\muparser\muParserDLL.h">
+      <Filter>src\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\muparser\muParserError.h">
+      <Filter>src\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\muparser\muParserFixes.h">
+      <Filter>src\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\muparser\muParserInt.h">
+      <Filter>src\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\muparser\muParserStack.h">
+      <Filter>src\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\muparser\muParserTemplateMagic.h">
+      <Filter>src\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\muparser\muParserToken.h">
+      <Filter>src\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\muparser\muParserTokenReader.h">
+      <Filter>src\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\muparser\muParser.h">
+      <Filter>src\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\muparser\muParserBase.h">
+      <Filter>src\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\muparser\muParserBytecode.h">
+      <Filter>src\ThirdParty\muparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\CPU.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\CPU\CCPU.hpp">
+      <Filter>src\Siv3D\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\CPU\ICPU.hpp">
+      <Filter>src\Siv3D\CPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86.h">
+      <Filter>src\ThirdParty\FeatureDetector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\FloatQuad.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\FloatRect.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Bezier2.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Bezier3.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\LineString.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Polygon.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Polygon\CPolygon.hpp">
+      <Filter>src\Siv3D\Polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\clip2tri\clip2tri.h">
+      <Filter>src\ThirdParty\clip2tri</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\clipper\clipper.hpp">
+      <Filter>src\ThirdParty\clipper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\common\shapes.h">
+      <Filter>src\ThirdParty\poly2tri\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\common\utils.h">
+      <Filter>src\ThirdParty\poly2tri\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\cdt.h">
+      <Filter>src\ThirdParty\poly2tri\sweep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\sweep.h">
+      <Filter>src\ThirdParty\poly2tri\sweep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\sweep_context.h">
+      <Filter>src\ThirdParty\poly2tri\sweep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\advancing_front.h">
+      <Filter>src\ThirdParty\poly2tri\sweep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\poly2tri.h">
+      <Filter>src\ThirdParty\poly2tri</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Shape2D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageProcessing.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Image.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\IImageFormat.hpp">
+      <Filter>src\Siv3D\ImageFormat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\CImageFormat.hpp">
+      <Filter>src\Siv3D\ImageFormat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\BMP\ImageFormat_BMP.hpp">
+      <Filter>src\Siv3D\ImageFormat\BMP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\GIF\ImageFormat_GIF.hpp">
+      <Filter>src\Siv3D\ImageFormat\GIF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\JPEG\ImageFormat_JPEG.hpp">
+      <Filter>src\Siv3D\ImageFormat\JPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\PNG\ImageFormat_PNG.hpp">
+      <Filter>src\Siv3D\ImageFormat\PNG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\PPM\ImageFormat_PPM.hpp">
+      <Filter>src\Siv3D\ImageFormat\PPM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\giflib\gif_hash.h">
+      <Filter>src\ThirdParty\giflib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\giflib\gif_lib.h">
+      <Filter>src\ThirdParty\giflib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\giflib\gif_lib_private.h">
+      <Filter>src\ThirdParty\giflib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\libpng\png.h">
+      <Filter>src\ThirdParty\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\libpng\pngconf.h">
+      <Filter>src\ThirdParty\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\libpng\pnglibconf.h">
+      <Filter>src\ThirdParty\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\libjpeg-turbo\turbojpeg.h">
+      <Filter>src\ThirdParty\libjpeg-turbo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\HTMLWriter.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\HTMLWriter\CHTMLWriter.hpp">
+      <Filter>src\Siv3D\HTMLWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Window.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Monitor.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Window\CWindow_Linux.hpp">
+      <Filter>src\Siv3D\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Window\CWindow_macOS.hpp">
+      <Filter>src\Siv3D\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Window\CWindow_Windows.hpp">
+      <Filter>src\Siv3D\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Window\IWindow.hpp">
+      <Filter>src\Siv3D\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\DragDrop.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_Windows.hpp">
+      <Filter>src\Siv3D\DragDrop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\DragDrop\IDragDrop.hpp">
+      <Filter>src\Siv3D\DragDrop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_Linux.hpp">
+      <Filter>src\Siv3D\DragDrop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_macOS.hpp">
+      <Filter>src\Siv3D\DragDrop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\MessageBox.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\PowerStatus.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Clipboard.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Clipboard\CClipboard_macOS.hpp">
+      <Filter>src\Siv3D\Clipboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Clipboard\CClipboard_Windows.hpp">
+      <Filter>src\Siv3D\Clipboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Clipboard\IClipboard.hpp">
+      <Filter>src\Siv3D\Clipboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Clipboard\CClipboard_Linux.hpp">
+      <Filter>src\Siv3D\Clipboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\System\SystemUtility.hpp">
+      <Filter>src\Siv3D\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Profiler.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Profiler\IProfiler.hpp">
+      <Filter>src\Siv3D\Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Profiler\CProfiler.hpp">
+      <Filter>src\Siv3D\Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\WaveSample.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_macOS.mm">
@@ -1303,6 +1876,21 @@
     </None>
     <None Include="..\Siv3D\src\Siv3D\System\SivSystem.mm">
       <Filter>src\Siv3D\System</Filter>
+    </None>
+    <None Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86_Linux.ipp">
+      <Filter>src\ThirdParty\FeatureDetector</Filter>
+    </None>
+    <None Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86_Windows.ipp">
+      <Filter>src\ThirdParty\FeatureDetector</Filter>
+    </None>
+    <None Include="..\Siv3D\src\Siv3D\MessageBox\SivMessageBox_macOS.mm">
+      <Filter>src\Siv3D\MessageBox</Filter>
+    </None>
+    <None Include="..\Siv3D\src\Siv3D\Clipboard\CClipboard_macOS.mm">
+      <Filter>src\Siv3D\Clipboard</Filter>
+    </None>
+    <None Include="..\Siv3D\src\Siv3D\PowerStatus\SivPowerStatus.mm">
+      <Filter>src\Siv3D\PowerStatus</Filter>
     </None>
   </ItemGroup>
 </Project>

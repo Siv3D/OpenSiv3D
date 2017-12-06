@@ -163,3 +163,33 @@ namespace s3d
 		[[nodiscard]] String toHex() const;
 	};
 }
+
+//////////////////////////////////////////////////
+//
+//	Utility
+//
+//////////////////////////////////////////////////
+
+namespace s3d
+{
+	void Formatter(FormatData& formatData, const ByteArrayView& value);
+
+	std::ostream& operator <<(std::ostream& output, const ByteArrayView& value);
+
+	std::wostream& operator <<(std::wostream& output, const ByteArrayView& value);
+}
+
+//////////////////////////////////////////////////
+//
+//	Swap
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <class Type>
+	inline void swap(s3d::ByteArrayView& a, s3d::ByteArrayView& b) noexcept
+	{
+		a.swap(b);
+	}
+}

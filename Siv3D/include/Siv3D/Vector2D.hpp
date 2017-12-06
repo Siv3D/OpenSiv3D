@@ -417,64 +417,59 @@ namespace s3d
 	using Vec2		= Vector2D<double>;
 }
 
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
+
+namespace s3d
+{
+	void Formatter(FormatData& formatData, const Float2& value);
+
+	void Formatter(FormatData& formatData, const Vec2& value);
+
+	template <class CharType, class Type>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const Vector2D<Type>& value)
+	{
+		return os << CharType('(')
+			<< value.x << CharType(',')
+			<< value.y << CharType(')');
+	}
+
+	template <class CharType, class Type>
+	inline std::basic_istream<CharType>& operator >> (std::basic_istream<CharType>& is, Vector2D<Type>& value)
+	{
+		CharType unused;
+		return is >> unused
+			>> value.x >> unused
+			>> value.y >> unused;
+	}
+}
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
 namespace std
 {
 	template <class Type>
 	struct hash<s3d::Vector2D<Type>>
 	{
-		size_t operator()(const s3d::Vector2D<Type>& keyVal) const noexcept
+		[[nodiscard]] size_t operator()(const s3d::Vector2D<Type>& value) const noexcept
 		{
-			return s3d::Hash::FNV1a(keyVal);
+			return s3d::Hash::FNV1a(value);
 		}
 	};
 }
 
-namespace s3d
-{
-	void Formatter(FormatData& formatData, const Float2& value);
-	void Formatter(FormatData& formatData, const Vec2& value);
-
-	/// <summary>
-	/// 出力ストリームに 2 次元ベクトルを渡します。
-	/// </summary>
-	/// <param name="os">
-	/// 出力ストリーム
-	/// </param>
-	/// <param name="v">
-	/// 2 次元ベクトル
-	/// </param>
-	/// <returns>
-	/// 渡した後の出力ストリーム
-	/// </returns>
-	template <class CharType, class Type>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const Vector2D<Type>& v)
-	{
-		return os << CharType('(')
-			<< v.x << CharType(',')
-			<< v.y << CharType(')');
-	}
-
-	/// <summary>
-	/// 入力ストリームに 2 次元ベクトルを渡します。
-	/// </summary>
-	/// <param name="is">
-	/// 入力ストリーム
-	/// </param>
-	/// <param name="v">
-	/// 2 次元ベクトル
-	/// </param>
-	/// <returns>
-	/// 渡した後の入力ストリーム
-	/// </returns>
-	template <class CharType, class Type>
-	inline std::basic_istream<CharType>& operator >> (std::basic_istream<CharType>& is, Vector2D<Type>& v)
-	{
-		CharType unused;
-		return is >> unused
-			>> v.x >> unused
-			>> v.y >> unused;
-	}
-}
+//////////////////////////////////////////////////
+//
+//	fmt
+//
+//////////////////////////////////////////////////
 
 namespace fmt
 {

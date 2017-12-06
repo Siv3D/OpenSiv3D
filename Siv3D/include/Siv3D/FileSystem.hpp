@@ -480,5 +480,7 @@ namespace s3d
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
 		//bool MoveContents(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_Exists);
+		
+		bool IsSandBoxed();
 	}
 }

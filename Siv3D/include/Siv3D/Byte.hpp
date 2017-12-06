@@ -11,7 +11,8 @@
 
 # pragma once
 # include <type_traits>
-# include "Types.hpp"
+# include <functional>
+# include "Fwd.hpp"
 
 namespace s3d
 {
@@ -74,16 +75,42 @@ namespace s3d
 	inline constexpr Byte& operator ^=(Byte& x, const Byte y) noexcept
 	{
 		return x = (x ^ y);
-	}
-
+	}	
+}
 
 //////////////////////////////////////////////////
 //
-//	Streams
+//	Format
 //
 //////////////////////////////////////////////////
 
-	COStream& operator <<(COStream& os, const Byte& value);
+namespace s3d
+{
+	void Formatter(FormatData& formatData, const Byte& value);
 
-	WOStream& operator <<(WOStream& os, const Byte& value);
+	std::ostream& operator <<(std::ostream& output, const Byte& value);
+
+	std::wostream& operator <<(std::wostream& output, const Byte& value);
+
+	std::istream& operator >>(std::istream& input, Byte& value);
+
+	std::wistream& operator >>(std::wistream& input, Byte& value);
+}
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <>
+	struct hash<s3d::Byte>
+	{
+		[[nodiscard]] size_t operator()(const s3d::Byte& value) const noexcept
+		{
+			return hash<s3d::uint8>()(static_cast<s3d::uint8>(value));
+		}
+	};
 }

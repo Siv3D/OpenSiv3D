@@ -10,7 +10,6 @@
 //-----------------------------------------------
 
 # pragma once
-# include <cstddef>
 
 //////////////////////////////////////////////////
 //
@@ -160,7 +159,7 @@
 //
 //////////////////////////////////////////////////
 
-# if defined(SIV3D_TARGET_WINDOWS) && (_MSC_FULL_VER < 191225827)
+# if defined(SIV3D_TARGET_WINDOWS) && (_MSC_FULL_VER < 191225830)
 
 	# error Visual Studio 2017 version 15.5 or later is required
 
@@ -172,6 +171,10 @@
 //	Pointer and Allocation
 //
 //////////////////////////////////////////////////
+
+# ifdef __cplusplus
+
+# include <cstddef>
 
 namespace s3d
 {
@@ -208,6 +211,7 @@ namespace s3d
 	# endif
 	}
 }
+# endif
 
 
 //////////////////////////////////////////////////
@@ -269,13 +273,21 @@ namespace s3d
 
 # if defined(SIV3D_TARGET_WINDOWS)
 
+	# pragma comment (lib, "winmm")
+
 	# if (SIV3D_IS_DEBUG)
 
 		# pragma comment (lib, "Siv3D_d")
+		# pragma comment (lib, "zlib/zlib_d")
+		# pragma comment (lib, "libpng/libpng16_d")
+		# pragma comment (lib, "libjpeg-turbo/turbojpeg-static_d")
 
 	# else
 
 		# pragma comment (lib, "Siv3D")
+		# pragma comment (lib, "zlib/zlib")
+		# pragma comment (lib, "libpng/libpng16")
+		# pragma comment (lib, "libjpeg-turbo/turbojpeg-static")
 
 	# endif
 
