@@ -555,6 +555,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.)-"
 },
 
+# if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
+
 {
 UR"-(mpg123)-",
 
@@ -562,6 +564,8 @@ UR"-(Copyright (c) 1995-2013 by Michael Hipp and others)-",
 
 UR"-(free software under the terms of the LGPL v2.1)-"
 },
+
+# endif
 
 # if defined(SIV3D_TARGET_WINDOWS)
 
