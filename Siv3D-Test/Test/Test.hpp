@@ -1,5 +1,5 @@
 
-# define SIV3D_DO_TEST
+//# define SIV3D_DO_TEST
 
 # if defined(SIV3D_DO_TEST)
 

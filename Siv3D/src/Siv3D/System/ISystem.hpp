@@ -14,11 +14,6 @@
 
 namespace s3d
 {
-	namespace WindowEvent
-	{
-		static constexpr uint32 ExitFlag = 0x10000000;
-	}
-
 	class ISiv3DSystem
 	{
 	public:
@@ -29,20 +24,20 @@ namespace s3d
 
 		virtual bool init() = 0;
 
-		//virtual bool update(bool clearGraphics) = 0;
+		virtual bool update(bool clearGraphics) = 0;
 
-		//virtual void reportEvent(uint32 windowEventFlag) = 0;
+		virtual void reportEvent(uint32 windowEventFlag) = 0;
 
-		//virtual void setExitEvent(uint32 windowEventFlag) = 0;
+		virtual void setExitEvent(uint32 windowEventFlag) = 0;
 
-		//virtual uint32 getPreviousEvent() const = 0;
+		virtual uint32 getPreviousEvent() const = 0;
 
-		//virtual uint64 getSystemFrameCount() const noexcept = 0;
+		virtual uint64 getSystemFrameCount() const noexcept = 0;
 
-		//virtual int32 getUserFrameCount() const noexcept = 0;
+		virtual int32 getUserFrameCount() const noexcept = 0;
 
-		//virtual void setUserFrameCount(int32 count) noexcept = 0;
+		virtual void setUserFrameCount(int32 count) noexcept = 0;
 
-		//virtual double getDeltaTime() const noexcept = 0;
+		virtual double getDeltaTime() const noexcept = 0;
 	};
 }

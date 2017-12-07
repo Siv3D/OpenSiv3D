@@ -1175,7 +1175,16 @@ namespace s3d
 		const auto tuple = std::make_tuple(detail::MapFunction<Fty>{ f });
 		return detail::F_Step<steps_class, Ret, decltype(tuple)>(*this, tuple);
 	}
+}
 
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
+
+namespace s3d
+{
 	template <class T, class N, class S>
 	inline void Formatter(FormatData& formatData, const steps_class<T, N, S>& s)
 	{
@@ -1186,6 +1195,30 @@ namespace s3d
 	inline void Formatter(FormatData& formatData, const detail::F_Step<StepClass, ValueType, Tuple>& s)
 	{
 		Formatter(formatData, s.join());
+	}
+
+	template <class T, class N, class S>
+	inline std::ostream& operator <<(std::ostream& output, const steps_class<T, N, S>& value)
+	{
+		return output << value.join().narrow();
+	}
+
+	template <class T, class N, class S>
+	inline std::wostream& operator <<(std::wostream& output, const steps_class<T, N, S>& value)
+	{
+		return output << value.join().toWstr();
+	}
+
+	template <class StepClass, class ValueType, class Tuple>
+	inline std::ostream& operator <<(std::ostream& output, const detail::F_Step<StepClass, ValueType, Tuple>& value)
+	{
+		return output << value.join().narrow();
+	}
+
+	template <class StepClass, class ValueType, class Tuple>
+	inline std::wostream& operator <<(std::wostream& output, const detail::F_Step<StepClass, ValueType, Tuple>& value)
+	{
+		return output << value.join().toWstr();
 	}
 }
 

@@ -42,7 +42,7 @@ int main(int, char* argv[])
 	const FilePath path = Unicode::Widen(argv[0]);
 	FilePath modulePath = FileSystem::ParentPath(path, 0);
 
-	if (modulePath.ends_with(L'/'))
+	if (modulePath.ends_with(U'/'))
 	{
 		modulePath.pop_back();
 	}

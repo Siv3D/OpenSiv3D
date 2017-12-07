@@ -151,80 +151,71 @@ namespace s3d
 	};
 }
 
-//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////
 //
-//	Formatting Quad
+//	Format
 //
-//	[x] Siv3D Formatter
-//	[x] ostream
-//	[x] wostream
-//	[x] istream
-//	[x] wistream
-//	[x] fmtlib BasicFormatter<wchar>
-//
+//////////////////////////////////////////////////
+
 namespace s3d
 {
 	void Formatter(FormatData& formatData, const Quad& value);
 
-	/// <summary>
-	/// 出力ストリームに四角形を渡します。
-	/// </summary>
-	/// <param name="os">
-	/// 出力ストリーム
-	/// </param>
-	/// <param name="quad">
-	/// 四角形
-	/// </param>
-	/// <returns>
-	/// 渡した後の出力ストリーム
-	/// </returns>
 	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const Quad& quad)
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Quad& value)
 	{
-		return	os << CharType('(')
-			<< quad.p0 << CharType(',')
-			<< quad.p1 << CharType(',')
-			<< quad.p2 << CharType(',')
-			<< quad.p3 << CharType(')');
+		return	output << CharType('(')
+			<< value.p0 << CharType(',')
+			<< value.p1 << CharType(',')
+			<< value.p2 << CharType(',')
+			<< value.p3 << CharType(')');
 	}
 
-	/// <summary>
-	/// 入力ストリームに四角形を渡します。
-	/// </summary>
-	/// <param name="is">
-	/// 入力ストリーム
-	/// </param>
-	/// <param name="quad">
-	/// 四角形
-	/// </param>
-	/// <returns>
-	/// 渡した後の入力ストリーム
-	/// </returns>
 	template <class CharType>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& is, Quad& quad)
+	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Quad& value)
 	{
 		CharType unused;
-		return	is >> unused
-			>> quad.p0 >> unused
-			>> quad.p1 >> unused
-			>> quad.p2 >> unused
-			>> quad.p3 >> unused;
+		return	input >> unused
+			>> value.p0 >> unused
+			>> value.p1 >> unused
+			>> value.p2 >> unused
+			>> value.p3 >> unused;
 	}
 }
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <>
+	struct hash<s3d::Quad>
+	{
+		[[nodiscard]] size_t operator ()(const s3d::Quad& value) const noexcept
+		{
+			return s3d::Hash::FNV1a(value);
+		}
+	};
+}
+
+//////////////////////////////////////////////////
+//
+//	fmt
+//
+//////////////////////////////////////////////////
 
 namespace fmt
 {
-	/*
 	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Quad& quad)
+	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Quad& value)
 	{
 		const auto tag = s3d::detail::GetTag(format_str);
 
-		const auto fmt = S3DSTR("({") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("})");
+		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"},{" + tag + U"})";
 
-		f.writer().write(fmt, quad.p0, quad.p1, quad.p2, quad.p3);
+		f.writer().write(fmt, value.p0, value.p1, value.p2, value.p3);
 	}
-	 */
 }
-//
-//////////////////////////////////////////////////////////////////////////////

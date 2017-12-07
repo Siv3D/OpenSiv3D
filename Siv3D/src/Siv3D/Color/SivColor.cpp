@@ -74,7 +74,7 @@ namespace s3d
 
 	String Color::toHex() const
 	{
-		return ToHex(r).lpad(2, L'0') + ToHex(g).lpad(2, L'0') + ToHex(b).lpad(2, L'0');
+		return ToHex(r).lpad(2, U'0') + ToHex(g).lpad(2, U'0') + ToHex(b).lpad(2, U'0');
 	}
 
 	void Formatter(FormatData& formatData, const Color& value)
@@ -177,6 +177,11 @@ namespace s3d
 	Vec4 ColorF::abgr() const noexcept
 	{
 		return{ a, b, g, r };
+	}
+
+	size_t ColorF::hash() const
+	{
+		return std::hash<s3d::Vec4>()(rgba());
 	}
 
 	void Formatter(FormatData& formatData, const ColorF& value)

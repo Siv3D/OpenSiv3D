@@ -295,6 +295,8 @@ namespace s3d
 
 		void swap(BigInt& other) noexcept;
 
+		size_t hash() const;
+
 		friend BigInt GCD(const BigInt&, const BigInt&);
 		friend BigInt LCM(const BigInt&, const BigInt&);
 	};
@@ -495,36 +497,53 @@ namespace s3d
 	}
 }
 
-namespace std
-{
-	void inline swap(s3d::BigInt& a, s3d::BigInt& b) noexcept(noexcept(a.swap(b)))
-	{
-		a.swap(b);
-	}
-}
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
 
 namespace s3d
 {
 	void Formatter(FormatData& formatData, const BigInt& value);
 
-	COStream& operator <<(COStream output, const BigInt& value);
+	std::ostream& operator <<(std::ostream output, const BigInt& value);
 
-	WOStream& operator <<(WOStream& output, const BigInt& value);
+	std::wostream& operator <<(std::wostream& output, const BigInt& value);
 
-	CIStream& operator >>(CIStream& input, BigInt& value);
+	std::istream& operator >>(std::istream& input, BigInt& value);
 
-	WIStream& operator >>(WIStream& input, BigInt& value);
+	std::wistream& operator >>(std::wistream& input, BigInt& value);
 }
 
-//namespace fmt
-//{
-//	template <class ArgFormatter>
-//	void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::BigInt& value)
-//	{
-//		const auto tag = s3d::detail::GetTag(format_str);
+//////////////////////////////////////////////////
 //
-//		const auto fmt = U"{" + tag + U"}";
+//	Hash
 //
-//		f.writer().write(fmt, value.str().str());
-//	}
-//}
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <>
+	struct hash<s3d::BigInt>
+	{
+		[[nodiscard]] size_t operator()(const s3d::BigInt& value) const noexcept
+		{
+			return value.hash();
+		}
+	};
+}
+
+//////////////////////////////////////////////////
+//
+//	Swap
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	void inline swap(s3d::BigInt& a, s3d::BigInt& b) noexcept
+	{
+		a.swap(b);
+	}
+}

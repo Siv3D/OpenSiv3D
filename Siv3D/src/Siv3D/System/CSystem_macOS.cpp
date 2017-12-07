@@ -15,12 +15,12 @@
 # include "../Siv3DEngine.hpp"
 # include "CSystem_macOS.hpp"
 # include "../Logger/ILogger.hpp"
-//# include "../CPU/ICPU.hpp"
-//# include "../ImageFormat/IImageFormat.hpp"
-//# include "../Window/IWindow.hpp"
-//# include "../Profiler/IProfiler.hpp"
-//# include "../DragDrop/IDragDrop.hpp"
-//# include "../Clipboard/IClipboard.hpp"
+# include "../CPU/ICPU.hpp"
+# include "../ImageFormat/IImageFormat.hpp"
+# include "../Window/IWindow.hpp"
+# include "../Profiler/IProfiler.hpp"
+# include "../Clipboard/IClipboard.hpp"
+# include "../DragDrop/IDragDrop.hpp"
 //# include "../Cursor/ICursor.hpp"
 //# include "../Keyboard/IKeyboard.hpp"
 //# include "../Mouse/IMouse.hpp"
@@ -34,6 +34,7 @@
 //# include "../ScreenCapture/IScreenCapture.hpp"
 //# include "../Effect/IEffect.hpp"
 //# include "../Script/IScript.hpp"
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -44,7 +45,7 @@ namespace s3d
 
 	CSystem_macOS::~CSystem_macOS()
 	{
-
+		FinalLogMessage();
 	}
 
 	bool CSystem_macOS::init()
@@ -54,35 +55,37 @@ namespace s3d
 			return false;
 		}
 
-		//if (!Siv3DEngine::GetCPU()->init())
-		//{
-		//	return false;
-		//}
+		InitialLogMessage();
 
-		//if (!Siv3DEngine::GetImageFormat()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetCPU()->init())
+		{
+			return false;
+		}
 
-		//if (!Siv3DEngine::GetWindow()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetImageFormat()->init())
+		{
+			return false;
+		}
 
-		//if (!Siv3DEngine::GetProfiler()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetWindow()->init())
+		{
+			return false;
+		}
 
-		//if (!Siv3DEngine::GetDragDrop()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetProfiler()->init())
+		{
+			return false;
+		}
 
-		//if (!Siv3DEngine::GetClipboard()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetClipboard()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetDragDrop()->init())
+		{
+			return false;
+		}
 
 		//if (!Siv3DEngine::GetCursor()->init())
 		//{
@@ -151,17 +154,26 @@ namespace s3d
 		//	return false;
 		//}
 
+		LOG_INFO(U"✅ Siv3D engine setup completed");
+
 		return true;
 	}
 
-	//bool CSystem_macOS::update(bool clearGraphics)
-	//{
-	//	m_previousEvent = m_event.exchange(0);
+	bool CSystem_macOS::update(bool clearGraphics)
+	{
+		if (!m_updateSucceeded)
+		{
+			return false;
+		}
 
-	//	if (const auto event = m_previousEvent & (WindowEvent::ExitFlag | m_exitEvent))
-	//	{
-	//		return false;
-	//	}
+		m_updateSucceeded = false;
+
+		if (const uint32 event = m_exitEventManager.checkExitEvent())
+		{
+			m_exitEventManager.logExitEvent(event);
+
+			return false;
+		}
 
 	//	Siv3DEngine::GetPrint()->draw();
 
@@ -170,34 +182,28 @@ namespace s3d
 	//		return false;
 	//	}
 	//	
-	//	Siv3DEngine::GetProfiler()->endFrame();
+		Siv3DEngine::GetProfiler()->endFrame();
 
 	//	Siv3DEngine::GetGraphics()->present();
 
-	//	Siv3DEngine::GetProfiler()->beginFrame();
+		if (!Siv3DEngine::GetProfiler()->beginFrame())
+		{
+			return false;
+		}
 
 	//	if (!Siv3DEngine::GetScreenCapture()->update())
 	//	{
 	//		return false;
 	//	}
 
-	//	if (!Siv3DEngine::GetProfiler()->reportAssetNextFrame())
-	//	{
-	//		return false;
-	//	}
+		++m_frameCounter;
 
-	//	++m_systemFrameCount;
-	//	++m_userFrameCount;
+		m_frameDelta.update();
 
-	//	const uint64 currentNanoSec = Time::GetNanosec();
-	//	m_currentDeltaTimeSec = m_previousFrameTimeNanosec ?
-	//		(currentNanoSec - m_previousFrameTimeNanosec) / 1'000'000'000.0 : 0.0;
-	//	m_previousFrameTimeNanosec = currentNanoSec;
-
-	//	if (!Siv3DEngine::GetWindow()->update())
-	//	{
-	//		return false;
-	//	}
+		if (!Siv3DEngine::GetWindow()->update())
+		{
+			return false;
+		}
 	//	
 	//	Siv3DEngine::GetGraphics()->clear();
 	//	
@@ -214,43 +220,44 @@ namespace s3d
 
 	//	Siv3DEngine::GetTextInput()->update();
 	//	
-	//	return true;
-	//}
 
-	//void CSystem_macOS::reportEvent(const uint32 windowEventFlag)
-	//{
-	//	m_event |= windowEventFlag;
-	//}
+		return m_updateSucceeded = true;
+	}
 
-	//void CSystem_macOS::setExitEvent(const uint32 windowEventFlag)
-	//{
-	//	m_exitEvent = windowEventFlag;
-	//}
+	void CSystem_macOS::reportEvent(const uint32 windowEventFlag)
+	{
+		m_exitEventManager.reportEvent(windowEventFlag);
+	}
 
-	//uint32 CSystem_macOS::getPreviousEvent() const
-	//{
-	//	return m_previousEvent;
-	//}
+	void CSystem_macOS::setExitEvent(const uint32 windowEventFlag)
+	{
+		m_exitEventManager.setExitEvent(windowEventFlag);
+	}
 
-	//uint64 CSystem_macOS::getSystemFrameCount() const noexcept
-	//{
-	//	return m_systemFrameCount;
-	//}
+	uint32 CSystem_macOS::getPreviousEvent() const
+	{
+		return m_exitEventManager.getPreviousEvent();
+	}
 
-	//int32 CSystem_macOS::getUserFrameCount() const noexcept
-	//{
-	//	return m_userFrameCount;
-	//}
+	uint64 CSystem_macOS::getSystemFrameCount() const noexcept
+	{
+		return m_frameCounter.getSystemFrameCount();
+	}
 
-	//void CSystem_macOS::setUserFrameCount(const int32 count) noexcept
-	//{
-	//	m_userFrameCount = count;
-	//}
-	//
-	//double CSystem_macOS::getDeltaTime() const noexcept
-	//{
-	//	return m_currentDeltaTimeSec;
-	//}
+	int32 CSystem_macOS::getUserFrameCount() const noexcept
+	{
+		return m_frameCounter.getUserFrameCount();
+	}
+
+	void CSystem_macOS::setUserFrameCount(const int32 count) noexcept
+	{
+		m_frameCounter.setUserFrameCount(count);
+	}
+
+	double CSystem_macOS::getDeltaTime() const noexcept
+	{
+		return m_frameDelta.getDeltaTimeSec();
+	}
 }
 
 # endif

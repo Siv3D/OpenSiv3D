@@ -101,37 +101,37 @@ namespace s3d
 
 		# endif
 
-			const FilePath fullPath = FullPath(path);
+			//const FilePath fullPath = FullPath(path);
 
-			if (fullPath.isEmpty())
+			if (path.isEmpty())
 			{
 				return String();
 			}
 
-			if (fullPath.ends_with(U'/'))
+			if (path.ends_with(U'/'))
 			{
-				const size_t sepPos = fullPath.lastIndexOf(U'/', fullPath.length() - 2);
+				const size_t sepPos = path.lastIndexOf(U'/', path.length() - 2);
 
 				if (sepPos == String::npos)
 				{
-					return String(fullPath.begin(), fullPath.end() - 1);
+					return String(path.begin(), path.end() - 1);
 				}
 				else
 				{
-					return String(fullPath.begin() + sepPos + 1, fullPath.end() - 1);
+					return String(path.begin() + sepPos + 1, path.end() - 1);
 				}
 			}
 			else
 			{
-				const size_t sepPos = fullPath.lastIndexOf(U'/');
+				const size_t sepPos = path.lastIndexOf(U'/');
 
 				if (sepPos == String::npos)
 				{
-					return fullPath;
+					return path;
 				}
 				else
 				{
-					return String(fullPath.begin() + sepPos + 1, fullPath.end());
+					return String(path.begin() + sepPos + 1, path.end());
 				}
 			}
 		}
@@ -367,9 +367,9 @@ namespace s3d
 
 			FilePath directoryPath = directory;
 
-			if (!directoryPath.isEmpty() && !directoryPath.ends_with(L'/'))
+			if (!directoryPath.isEmpty() && !directoryPath.ends_with(U'/'))
 			{
-				directoryPath.push_back(L'/');
+				directoryPath.push_back(U'/');
 			}
 
 			for (uint64 n = ud(rng);; ++n)

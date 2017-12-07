@@ -2834,61 +2834,34 @@ namespace s3d
 		return lhs.str() >= rhs;
 	}
 
-
-	/// <summary>
-	/// 出力ストリームに文字列を渡します。
-	/// </summary>
-	/// <param name="output">
-	/// 出力ストリーム
-	/// </param>
-	/// <param name="value">
-	/// 文字列
-	/// </param>
-	/// <returns>
-	/// 渡した後の出力ストリーム
-	/// </returns>
-	COStream& operator <<(COStream& output, const String& value);
-
-	/// <summary>
-	/// 出力ストリームに文字列を渡します。
-	/// </summary>
-	/// <param name="output">
-	/// 出力ストリーム
-	/// </param>
-	/// <param name="value">
-	/// 文字列
-	/// </param>
-	/// <returns>
-	/// 渡した後の出力ストリーム
-	/// </returns>
-	WOStream& operator <<(WOStream& output, const String& value);
-
-	/// <summary>
-	/// 入力ストリームに文字列を渡します。
-	/// </summary>
-	/// <param name="input">
-	/// 入力ストリーム
-	/// </param>
-	/// <param name="value">
-	/// 文字列
-	/// </param>
-	/// <returns>
-	/// 渡した後の入力ストリーム
-	/// </returns>
-	CIStream& operator >>(CIStream& input, String& value);
-
-	WIStream& operator >>(WIStream& input, String& value);
-
 	using FilePath = String;
 }
 
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
+
+namespace s3d
+{
+	std::ostream& operator <<(std::ostream& output, const String& value);
+
+	std::wostream& operator <<(std::wostream& output, const String& value);
+
+	std::istream& operator >>(std::istream& input, String& value);
+
+	std::wistream& operator >>(std::wistream& input, String& value);
+}
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
 namespace std
 {
-	inline void swap(s3d::String& a, s3d::String& b) noexcept
-	{
-		a.swap(b);
-	}
-
 	template <>
 	struct hash<s3d::String>
 	{
@@ -2897,4 +2870,18 @@ namespace std
 			return s3d::Hash::FNV1a(s3d::ByteArrayView(value.data(), value.size_bytes()));
 		}
 	};
+}
+
+//////////////////////////////////////////////////
+//
+//	Swap
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	inline void swap(s3d::String& a, s3d::String& b) noexcept
+	{
+		a.swap(b);
+	}
 }

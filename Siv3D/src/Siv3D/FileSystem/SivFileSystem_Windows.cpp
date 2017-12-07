@@ -609,6 +609,11 @@ namespace s3d
 
 			return detail::Remove(path, allowUndo);
 		}
+		
+		bool IsSandBoxed()
+		{
+			return false;
+		}
 	}
 }
 

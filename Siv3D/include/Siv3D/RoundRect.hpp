@@ -255,83 +255,73 @@ namespace s3d
 	};
 }
 
-//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////
 //
-//	Formatting RoundRect
+//	Format
 //
-//	[x] Siv3D Formatter
-//	[x] ostream
-//	[x] wostream
-//	[x] istream
-//	[x] wistream
-//	[x] fmtlib BasicFormatter<wchar>
-//
+//////////////////////////////////////////////////
+
 namespace s3d
 {
 	void Formatter(FormatData& formatData, const RoundRect& value);
 
-	/// <summary>
-	/// 出力ストリームに角丸長方形を渡します。
-	/// </summary>
-	/// <param name="os">
-	/// 出力ストリーム
-	/// </param>
-	/// <param name="roundRect">
-	/// 角丸長方形
-	/// </param>
-	/// <returns>
-	/// 渡した後の出力ストリーム
-	/// </returns>
 	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const RoundRect& roundRect)
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const RoundRect& value)
 	{
-		return	os << CharType('(')
-			<< roundRect.x << CharType(',')
-			<< roundRect.y << CharType(',')
-			<< roundRect.w << CharType(',')
-			<< roundRect.h << CharType(',')
-			<< roundRect.r << CharType(')');
+		return	output << CharType('(')
+			<< value.x << CharType(',')
+			<< value.y << CharType(',')
+			<< value.w << CharType(',')
+			<< value.h << CharType(',')
+			<< value.r << CharType(')');
 	}
 
-	/// <summary>
-	/// 入力ストリームに角丸長方形を渡します。
-	/// </summary>
-	/// <param name="is">
-	/// 入力ストリーム
-	/// </param>
-	/// <param name="roundRect">
-	/// 角丸長方形
-	/// </param>
-	/// <returns>
-	/// 渡した後の入力ストリーム
-	/// </returns>
 	template <class CharType>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& is, RoundRect& roundRect)
+	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, RoundRect& value)
 	{
 		CharType unused;
-		return	is >> unused
-			>> roundRect.x >> unused
-			>> roundRect.y >> unused
-			>> roundRect.w >> unused
-			>> roundRect.h >> unused
-			>> roundRect.r >> unused;
+		return	input >> unused
+			>> value.x >> unused
+			>> value.y >> unused
+			>> value.w >> unused
+			>> value.h >> unused
+			>> value.r >> unused;
 	}
 }
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <>
+	struct hash<s3d::RoundRect>
+	{
+		[[nodiscard]] size_t operator ()(const s3d::RoundRect& value) const noexcept
+		{
+			return s3d::Hash::FNV1a(value);
+		}
+	};
+}
+
+//////////////////////////////////////////////////
+//
+//	fmt
+//
+//////////////////////////////////////////////////
 
 namespace fmt
 {
-	/*
 	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::RoundRect& roundRect)
+	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::RoundRect& value)
 	{
 		const auto tag = s3d::detail::GetTag(format_str);
 
-		const auto fmt = S3DSTR("({") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("})");
+		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"},{" + tag + U"},{" + tag + U"})";
 
-		f.writer().write(fmt, roundRect.x, roundRect.y, roundRect.w, roundRect.h, roundRect.r);
-	}
-	 */
+		f.writer().write(fmt, value.x, value.y, value.w, value.h, value.r);
+	} 
 }
-//
-//////////////////////////////////////////////////////////////////////////////
-

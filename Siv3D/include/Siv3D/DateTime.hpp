@@ -428,17 +428,11 @@ namespace s3d
 	}
 }
 
-namespace std
-{
-	template <>
-	struct hash<s3d::DateTime>
-	{
-		size_t operator()(const s3d::DateTime& dateTime) const noexcept
-		{
-			return s3d::Hash::FNV1a(dateTime);
-		}
-	};
-}
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
 
 namespace s3d
 {
@@ -447,24 +441,27 @@ namespace s3d
 		formatData.string.append(value.format());
 	}
 
-	/// <summary>
-	/// 出力ストリームに日付と時刻を渡します。
-	/// </summary>
-	/// <param name="os">
-	/// 出力ストリーム
-	/// </param>
-	/// <param name="dateTime">
-	/// 日付と時刻
-	/// </param>
-	/// <remarks>
-	/// "yyyy/M/d HH:mm:ss" 形式でフォーマットされます。
-	/// </remarks>
-	/// <returns>
-	/// 渡した後の出力ストリーム
-	/// </returns>
 	template <class CharType>
 	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> output, const DateTime& value)
 	{
 		return output << value.format();
 	}
+}
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <>
+	struct hash<s3d::DateTime>
+	{
+		[[nodiscard]] size_t operator()(const s3d::DateTime& value) const noexcept
+		{
+			return s3d::Hash::FNV1a(value);
+		}
+	};
 }

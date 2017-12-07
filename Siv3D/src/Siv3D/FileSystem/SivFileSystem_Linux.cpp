@@ -536,6 +536,11 @@ namespace s3d
 
 			return Linux_TrashFile(utf8Path.c_str());
 		}
+		
+		bool IsSandBoxed()
+		{
+			return false;
+		}
 	}
 }
 

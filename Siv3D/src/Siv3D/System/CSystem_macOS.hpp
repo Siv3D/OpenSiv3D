@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -13,9 +13,9 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_MACOS)
 
-# include <atomic>
 # include <Siv3D/System.hpp>
 # include "ISystem.hpp"
+# include "SystemUtility.hpp"
 
 namespace s3d
 {
@@ -23,19 +23,13 @@ namespace s3d
 	{
 	private:
 
-		//std::atomic<uint32> m_event = {0};
+		ExitEventManager m_exitEventManager;
 
-		//uint32 m_previousEvent = 0;
+		FrameCounter m_frameCounter;
 
-		//uint32 m_exitEvent = WindowEvent::Default;
+		FrameDelta m_frameDelta;
 
-		//uint64 m_systemFrameCount = 0;
-
-		//int32 m_userFrameCount = 0;
-
-		//double m_currentDeltaTimeSec = 0.0;
-
-		//uint64 m_previousFrameTimeNanosec = 0;
+		bool m_updateSucceeded = true;
 
 	public:
 
@@ -45,21 +39,21 @@ namespace s3d
 
 		bool init() override;
 
-		//bool update(bool clearGraphics) override;
+		bool update(bool clearGraphics) override;
 
-		//void reportEvent(uint32 windowEventFlag) override;
+		void reportEvent(uint32 windowEventFlag) override;
 
-		//void setExitEvent(uint32 windowEventFlag) override;
+		void setExitEvent(uint32 windowEventFlag) override;
 
-		//uint32 getPreviousEvent() const override;
+		uint32 getPreviousEvent() const override;
 
-		//uint64 getSystemFrameCount() const noexcept override;
+		uint64 getSystemFrameCount() const noexcept override;
 
-		//int32 getUserFrameCount() const noexcept override;
+		int32 getUserFrameCount() const noexcept override;
 
-		//void setUserFrameCount(int32 count) noexcept override;
+		void setUserFrameCount(int32 count) noexcept override;
 
-		//double getDeltaTime() const noexcept override;
+		double getDeltaTime() const noexcept override;
 	};
 }
 

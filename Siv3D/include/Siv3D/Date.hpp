@@ -427,17 +427,11 @@ namespace s3d
 	}
 }
 
-namespace std
-{
-	template <>
-	struct hash<s3d::Date>
-	{
-		size_t operator()(const s3d::Date& date) const noexcept
-		{
-			return s3d::Hash::FNV1a(date);
-		}
-	};
-}
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
 
 namespace s3d
 {
@@ -451,4 +445,22 @@ namespace s3d
 	{
 		return output << value.format();
 	}
+}
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <>
+	struct hash<s3d::Date>
+	{
+		[[nodiscard]] size_t operator()(const s3d::Date& value) const noexcept
+		{
+			return s3d::Hash::FNV1a(value);
+		}
+	};
 }

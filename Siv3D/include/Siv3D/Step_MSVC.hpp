@@ -1636,6 +1636,12 @@ namespace s3d
 	}
 }
 
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
+
 namespace s3d
 {
 	template <class T, class N, class S, bool isScalar>
@@ -1644,35 +1650,32 @@ namespace s3d
 		Formatter(formatData, value.join());
 	}
 
-	template <class T, class N, class S, bool isScalar>
-	inline COStream& operator <<(COStream& output, const steps_class<T, N, S, isScalar>& value)
-	{
-		return output << value.join().narrow();
-	}
-
-	template <class T, class N, class S, bool isScalar>
-	inline WOStream& operator <<(WOStream& output, const steps_class<T, N, S, isScalar>& value)
-	{
-		return output << value.join().toWstr();
-	}
-}
-
-namespace s3d
-{
 	template <class StepClass, class ValueType, class Tuple>
 	inline void Formatter(FormatData& formatData, const detail::F_Step<StepClass, ValueType, Tuple>& value)
 	{
 		Formatter(formatData, value.join());
 	}
 
+	template <class T, class N, class S, bool isScalar>
+	inline std::ostream& operator <<(std::ostream& output, const steps_class<T, N, S, isScalar>& value)
+	{
+		return output << value.join().narrow();
+	}
+
+	template <class T, class N, class S, bool isScalar>
+	inline std::wostream& operator <<(std::wostream& output, const steps_class<T, N, S, isScalar>& value)
+	{
+		return output << value.join().toWstr();
+	}
+
 	template <class StepClass, class ValueType, class Tuple>
-	inline COStream& operator <<(COStream& output, const detail::F_Step<StepClass, ValueType, Tuple>& value)
+	inline std::ostream& operator <<(std::ostream& output, const detail::F_Step<StepClass, ValueType, Tuple>& value)
 	{
 		return output << value.join().narrow();
 	}
 
 	template <class StepClass, class ValueType, class Tuple>
-	inline WOStream& operator <<(WOStream& output, const detail::F_Step<StepClass, ValueType, Tuple>& value)
+	inline std::wostream& operator <<(std::wostream& output, const detail::F_Step<StepClass, ValueType, Tuple>& value)
 	{
 		return output << value.join().toWstr();
 	}
