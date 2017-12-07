@@ -16,7 +16,6 @@
 # include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 # include "../Siv3DEngine.hpp"
 # include "CMouse_macOS.hpp"
-
 # include <Siv3D/Logger.hpp>
 
 namespace s3d
@@ -40,6 +39,8 @@ namespace s3d
 		::glfwSetScrollCallback(m_glfwWindow, OnScroll);
 		
 		::glfwSetMouseButtonCallback(m_glfwWindow, OnMouseButtonUpdated);
+
+		LOG_INFO(U"ℹ️ Mouse initialized");
 		
 		return true;
 	}

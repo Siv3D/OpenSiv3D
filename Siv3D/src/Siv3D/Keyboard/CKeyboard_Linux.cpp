@@ -17,6 +17,7 @@
 # include "../System/ISystem.hpp"
 # include <Siv3D/System.hpp>
 # include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -164,6 +165,8 @@ namespace s3d
 	bool CKeyboard_Linux::init()
 	{
 		m_glfwWindow = Siv3DEngine::GetWindow()->getHandle();
+
+		LOG_INFO(U"ℹ️ Keyboard initialized");
 
 		return true;
 	}

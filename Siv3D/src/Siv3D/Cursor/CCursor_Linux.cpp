@@ -17,6 +17,7 @@
 # include "../../ThirdParty/GLFW/include/GLFW/glfw3native.h"
 # include "../Siv3DEngine.hpp"
 # include "CCursor_Linux.hpp"
+# include <Siv3D/Logger.hpp>
 
 // TODO : implemantation
 void Linux_GetScreenCursorPos(double* xpos, double* ypos) { }
@@ -43,6 +44,8 @@ namespace s3d
 		m_client_raw.previous = m_client_raw.current;
 		m_client_transformed.previous = m_client_transformed.current;
 		m_client_transformedF.previous = m_client_transformedF.current;
+
+		LOG_INFO(U"ℹ️ Cursor initialized");
 
 		return true;
 	}

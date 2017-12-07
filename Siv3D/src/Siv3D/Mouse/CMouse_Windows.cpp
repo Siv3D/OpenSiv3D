@@ -16,6 +16,7 @@
 # include "../Window/IWindow.hpp"
 # include "../Keyboard/IKeyboard.hpp"
 # include "CMouse_Windows.hpp"
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -44,6 +45,8 @@ namespace s3d
 
 			m_touchAvailable = true;
 		}
+
+		LOG_INFO(U"ℹ️ Mouse initialized");
 
 		return true;
 	}

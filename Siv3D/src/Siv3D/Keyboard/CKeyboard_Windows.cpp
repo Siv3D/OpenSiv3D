@@ -15,6 +15,7 @@
 # include "../Siv3DEngine.hpp"
 # include "../Window/IWindow.hpp"
 # include "CKeyboard_Windows.hpp"
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -31,6 +32,8 @@ namespace s3d
 	bool CKeyboard_Windows::init()
 	{
 		m_hWnd = Siv3DEngine::GetWindow()->getHandle();
+
+		LOG_INFO(U"ℹ️ Keyboard initialized");
 
 		return true;
 	}

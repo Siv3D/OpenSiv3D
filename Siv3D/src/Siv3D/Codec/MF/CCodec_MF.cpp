@@ -16,6 +16,7 @@
 # include "MFRenderStream.hpp"
 # include "../../EngineUtility.hpp"
 # include <Siv3D/Wave.hpp>
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -251,6 +252,8 @@ namespace s3d
 		}
 
 		m_initialized = true;
+
+		LOG_INFO(U"ℹ️ Codec_MF initialized");
 
 		return true;
 	}

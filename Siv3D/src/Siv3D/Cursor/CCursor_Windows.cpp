@@ -16,6 +16,7 @@
 # include "../Window/IWindow.hpp"
 # include "CCursor_Windows.hpp"
 # include "../Mouse/CMouse_Windows.hpp"
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -50,6 +51,8 @@ namespace s3d
 		m_cursorStyles[size_t(CursorStyle::Hidden)] = nullptr;
 
 		::SetCursor(m_cursorStyles[0]);
+
+		LOG_INFO(U"ℹ️ Cursor initialized");
 
 		return true;
 	}

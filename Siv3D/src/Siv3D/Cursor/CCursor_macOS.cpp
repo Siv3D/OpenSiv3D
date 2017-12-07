@@ -18,6 +18,7 @@
 # include "CCursor_macOS.hpp"
 # include <Siv3D/Optional.hpp>
 # include <Siv3D/Window.hpp>
+# include <Siv3D/Logger.hpp>
 
 void macOS_GetScreenCursorPos(double* xpos, double* ypos);
 
@@ -52,6 +53,8 @@ namespace s3d
 		m_client_raw.previous = m_client_raw.current;
 		m_client_transformed.previous = m_client_transformed.current;
 		m_client_transformedF.previous = m_client_transformedF.current;
+
+		LOG_INFO(U"ℹ️ Cursor initialized");
 
 		return true;
 	}

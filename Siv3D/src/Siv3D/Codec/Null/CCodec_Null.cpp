@@ -14,6 +14,7 @@
 
 # include "CCodec_Null.hpp"
 # include <Siv3D/Wave.hpp>
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -29,6 +30,8 @@ namespace s3d
 
 	bool CCodec_Null::init()
 	{
+		LOG_INFO(U"ℹ️ Codec_Null initialized");
+
 		return true;
 	}
 

@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -16,6 +16,7 @@
 # include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 # include "../Siv3DEngine.hpp"
 # include "CMouse_Linux.hpp"
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -34,6 +35,8 @@ namespace s3d
 		m_glfwWindow = Siv3DEngine::GetWindow()->getHandle();
 
 		::glfwSetScrollCallback(m_glfwWindow, OnScroll);
+
+		LOG_INFO(U"ℹ️ Mouse initialized");
 
 		return true;
 	}
