@@ -207,10 +207,10 @@ namespace s3d
 	//	
 	//	Siv3DEngine::GetGraphics()->clear();
 	//	
-	//	if (!Siv3DEngine::GetDragDrop()->update())
-	//	{
-	//		return false;
-	//	}
+		if (!Siv3DEngine::GetDragDrop()->update())
+		{
+			return false;
+		}
 
 		Siv3DEngine::GetCursor()->update();
 

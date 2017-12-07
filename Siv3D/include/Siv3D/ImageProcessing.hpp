@@ -13,7 +13,6 @@
 # include "Fwd.hpp"
 # include "Array.hpp"
 # include "Image.hpp"
-//# include "Texture.hpp"
 
 namespace s3d
 {
@@ -34,11 +33,6 @@ namespace s3d
 
 			return numLevels;
 		}
-
-		//inline constexpr bool IsMipped(const TextureDesc desc)
-		//{
-		//	return (desc == TextureDesc::Mipped) || (desc == TextureDesc::MippedSRGB);
-		//}
 
 		[[nodiscard]] Array<Image> GenerateMips(const Image& src);
 

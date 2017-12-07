@@ -25,6 +25,8 @@
 # include "Mouse/IMouse.hpp"
 # include "Codec/ICodec.hpp"
 # include "AudioFormat/IAudioFormat.hpp"
+# include "Graphics/IGraphics.hpp"
+# include "Texture/ITexture.hpp"
 
 namespace s3d
 {
@@ -35,6 +37,8 @@ namespace s3d
 
 	Siv3DEngine::~Siv3DEngine()
 	{
+		m_texture.release();
+		m_graphics.release();
 		m_audioFormat.release();
 		m_codec.release();
 		m_mouse.release();

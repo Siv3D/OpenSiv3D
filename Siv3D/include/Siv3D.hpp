@@ -516,8 +516,8 @@
 	// 画像処理
 	# include "Siv3D/ImageProcessing.hpp"
 
-	//// 画像のフォーマット
-	//# include "Siv3D/TextureFormat.hpp"
+	// 画像のフォーマット
+	# include "Siv3D/TextureFormat.hpp"
 
 	//// カスタムカラーフォーマット
 	//# include "Siv3D/CustomColor.hpp"
@@ -680,56 +680,72 @@
 // グラフィックス
 //
 	// 2D 頂点データ
-	//# include "Siv3D/Vertex2D.hpp"
+	# include "Siv3D/Vertex2D.hpp"
+
 	// 2D スプライト
 	//# include "Siv3D/Sprite.hpp"
+
 	// ブレンドステート
 	//# include "Siv3D/BlendState.hpp"
+
 	// ラスタライザーステート
 	//# include "Siv3D/RasterizerState.hpp"
+
 	//// デプスステートとステンシルステート
 	//# include "Siv3D/DepthStencilState.hpp"
+
 	// サンプラーステート
 	//# include "Siv3D/SamplerState.hpp"
+
 	// シェーダ
 	//# include "Siv3D/Shader.hpp"
+
 	// 頂点シェーダ
 	//# include "Siv3D/VertexShader.hpp"
+
 	// ピクセルシェーダ
 	//# include "Siv3D/PixelShader.hpp"
+
 	// 定数バッファ
 	//# include "Siv3D/ConstantBuffer.hpp"
+
 	//// 頂点レイアウト
 	//# include "Siv3D/InputLayout.hpp"
+
 	// グラフィックス全般
 	//# include "Siv3D/Graphics.hpp"
+
 	// スクリーンショット
 	//# include "Siv3D/ScreenCapture.hpp"
+
 	// 2D グラフィックス設定
-	//# include "Siv3D/Graphics2D.hpp"
+	# include "Siv3D/Graphics2D.hpp"
+
 	// 2D グラフィックス設定
 	//# include "Siv3D/RenderStateBlock2D.hpp"
+
 	// 2D グラフィックス設定
 	//# include "Siv3D/ViewportBlock2D.hpp"
+
 	// 2D 座標変換
 	//# include "Siv3D/Transformer2D.hpp"
 //
 // テクスチャ
 //
 	// テクスチャ
-	//# include "Siv3D/Texture.hpp"
+	# include "Siv3D/Texture.hpp"
 	// 領域を指定したテクスチャ
-	//# include "Siv3D/TextureRegion.hpp"
+	# include "Siv3D/TextureRegion.hpp"
 	// 円に貼り付けたテクスチャ
-	//# include "Siv3D/TexturedCircle.hpp"
+	# include "Siv3D/TexturedCircle.hpp"
 	// 四角形に貼り付けたテクスチャ
-	//# include "Siv3D/TexturedQuad.hpp"
+	# include "Siv3D/TexturedQuad.hpp"
 	// 角丸長方形に貼り付けたテクスチャ
-	//# include "Siv3D/TexturedRoundRect.hpp"
+	# include "Siv3D/TexturedRoundRect.hpp"
 	// 動的テクスチャ
-	//# include "Siv3D/DynamicTexture.hpp"
+	# include "Siv3D/DynamicTexture.hpp"
 	// レンダーテクスチャ
-	//# include "Siv3D/RenderTexture.hpp"
+	# include "Siv3D/RenderTexture.hpp"
 //
 // フォント
 //

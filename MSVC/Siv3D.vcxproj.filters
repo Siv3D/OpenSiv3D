@@ -392,6 +392,69 @@
     <Filter Include="src\ThirdParty\FID">
       <UniqueIdentifier>{960b1592-5551-480a-8f86-1492de09d2f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Graphics">
+      <UniqueIdentifier>{72c2cd19-55c4-4121-8005-742de0dffd51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Graphics2D">
+      <UniqueIdentifier>{0b8030c4-179d-4478-8f09-2f31943e83f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Graphics\D3D11">
+      <UniqueIdentifier>{cb25b588-580e-43fb-aefc-5458fb584c6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Graphics\GL">
+      <UniqueIdentifier>{8e5e21e8-a209-4133-9338-294514e0c6a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Graphics\D3D11\BlendState">
+      <UniqueIdentifier>{5d660c4c-adf3-46a2-9226-fe7542f6c8ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Graphics\D3D11\DepthStencilState">
+      <UniqueIdentifier>{9335afca-7723-477e-a790-811c6d8eb24b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Graphics\D3D11\Device">
+      <UniqueIdentifier>{c9601b1e-7b1e-48fc-a1a5-ef7bafec8d3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Graphics\D3D11\RasterizerState">
+      <UniqueIdentifier>{42436a49-6886-4ff5-b905-1b072be0f811}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Graphics\D3D11\RenderTarget">
+      <UniqueIdentifier>{16926ef3-db7d-4bc5-b01a-0d4b3fe0eae3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Graphics\D3D11\SamplerState">
+      <UniqueIdentifier>{d036f5ed-5e13-488b-89bd-95ce6ad17980}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Graphics\D3D11\ScreenCapture">
+      <UniqueIdentifier>{0dad0905-6cdb-4dfc-bb4a-b8309fd2fca0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Graphics\D3D11\SwapChain">
+      <UniqueIdentifier>{5b53a561-ac4b-4757-b79e-3ca9f43e4eca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Texture">
+      <UniqueIdentifier>{fb44ca78-7a35-4555-9688-64e38350c099}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\TexturedCircle">
+      <UniqueIdentifier>{72675915-bb9f-4acc-a159-5315b93967d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\TexturedQuad">
+      <UniqueIdentifier>{c6753305-15d3-45a8-b7b1-0877b269b8c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\TexturedRoundRect">
+      <UniqueIdentifier>{03277a4e-923a-4196-a0c2-32238f82c365}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\TextureRegion">
+      <UniqueIdentifier>{cf446c7e-5c22-44af-a7e4-2d61b6d1bde8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Texture\D3D11">
+      <UniqueIdentifier>{c6467fe4-b61b-4d9d-a96d-4f13b15aff07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Texture\GL">
+      <UniqueIdentifier>{98a0ba1d-909d-416a-8381-8f63848059ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\AssetHandleManager">
+      <UniqueIdentifier>{9e50c485-fbe3-41ae-9126-403b8d6ad34a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\RenderTexture">
+      <UniqueIdentifier>{6526b541-5f01-401f-8fd6-b3138a99edc1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -1053,6 +1116,66 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\FID\FID.cpp">
       <Filter>src\ThirdParty\FID</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\SivGraphics.cpp">
+      <Filter>src\Siv3D\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\GraphicsFactory.cpp">
+      <Filter>src\Siv3D\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\CGraphics_D3D11.cpp">
+      <Filter>src\Siv3D\Graphics\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextureRegion\SivTextureRegion.cpp">
+      <Filter>src\Siv3D\TextureRegion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TexturedQuad\SivTexturedQuad.cpp">
+      <Filter>src\Siv3D\TexturedQuad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TexturedCircle\SivTexturedCircle.cpp">
+      <Filter>src\Siv3D\TexturedCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TexturedRoundRect\SivTexturedRoundRect.cpp">
+      <Filter>src\Siv3D\TexturedRoundRect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Texture\SivTexture.cpp">
+      <Filter>src\Siv3D\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Texture\TextureFactory.cpp">
+      <Filter>src\Siv3D\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Texture\D3D11\CTexture_D3D11.cpp">
+      <Filter>src\Siv3D\Texture\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Texture\D3D11\Texture_D3D11.cpp">
+      <Filter>src\Siv3D\Texture\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\BlendState\D3D11BlendState.cpp">
+      <Filter>src\Siv3D\Graphics\D3D11\BlendState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\DepthStencilState\D3D11DepthStencilState.cpp">
+      <Filter>src\Siv3D\Graphics\D3D11\DepthStencilState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\Device\D3D11Device.cpp">
+      <Filter>src\Siv3D\Graphics\D3D11\Device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\RasterizerState\D3D11RasterizerState.cpp">
+      <Filter>src\Siv3D\Graphics\D3D11\RasterizerState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\RenderTarget\D3D11RenderTarget.cpp">
+      <Filter>src\Siv3D\Graphics\D3D11\RenderTarget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\SamplerState\D3D11SamplerState.cpp">
+      <Filter>src\Siv3D\Graphics\D3D11\SamplerState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\ScreenCapture\D3D11ScreenCapture.cpp">
+      <Filter>src\Siv3D\Graphics\D3D11\ScreenCapture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\SwapChain\D3D11SwapChain.cpp">
+      <Filter>src\Siv3D\Graphics\D3D11\SwapChain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\RenderTexture\SivRenderTexture.cpp">
+      <Filter>src\Siv3D\RenderTexture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2101,6 +2224,96 @@
       <Filter>include\Siv3D</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\AssetHandle.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\IGraphics.hpp">
+      <Filter>src\Siv3D\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\CGraphics_D3D11.hpp">
+      <Filter>src\Siv3D\Graphics\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Graphics.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Graphics2D.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TexturedCircle.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TexturedQuad.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TexturedRoundRect.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TextureFormat.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TextureRegion.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Texture.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\RenderTexture.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\DynamicTexture.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Texture\ITexture.hpp">
+      <Filter>src\Siv3D\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Texture\D3D11\BackBufferTexture.hpp">
+      <Filter>src\Siv3D\Texture\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Texture\D3D11\CTexture_D3D11.hpp">
+      <Filter>src\Siv3D\Texture\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Texture\D3D11\Texture_D3D11.hpp">
+      <Filter>src\Siv3D\Texture\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\AssetHandleManager\AssetHandleManager.hpp">
+      <Filter>src\Siv3D\AssetHandleManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\BlendState.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\RasterizerState.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\SamplerState.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\BlendState\D3D11BlendState.hpp">
+      <Filter>src\Siv3D\Graphics\D3D11\BlendState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\DepthStencilState\D3D11DepthStencilState.hpp">
+      <Filter>src\Siv3D\Graphics\D3D11\DepthStencilState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\Device\D3D11Device.hpp">
+      <Filter>src\Siv3D\Graphics\D3D11\Device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\RasterizerState\D3D11RasterizerState.hpp">
+      <Filter>src\Siv3D\Graphics\D3D11\RasterizerState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\RenderTarget\D3D11RenderTarget.hpp">
+      <Filter>src\Siv3D\Graphics\D3D11\RenderTarget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\SamplerState\D3D11SamplerState.hpp">
+      <Filter>src\Siv3D\Graphics\D3D11\SamplerState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\ScreenCapture\D3D11ScreenCapture.hpp">
+      <Filter>src\Siv3D\Graphics\D3D11\ScreenCapture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\SwapChain\D3D11SwapChain.hpp">
+      <Filter>src\Siv3D\Graphics\D3D11\SwapChain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\HighPerfoemanceGPU.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TextureDesc.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
