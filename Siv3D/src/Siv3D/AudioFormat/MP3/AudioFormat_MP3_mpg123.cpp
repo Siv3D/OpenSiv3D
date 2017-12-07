@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -12,7 +12,7 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
-# include "AudioFormat_MP3_Linux.hpp"
+# include "AudioFormat_MP3_mpg123.hpp"
 # include "../../Siv3DEngine.hpp"
 # include "../../Codec/ICodec.hpp"
 # include "../../EngineUtility.hpp"
@@ -97,6 +97,8 @@ namespace s3d
 
 		if (!m_mpg123)
 		{
+			LOG_FAIL(U"❌ AudioFormat_MP3: Failed to load \"{0}\""_fmt(libPath));
+			
 			return;
 		}
 

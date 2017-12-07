@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -34,6 +34,8 @@ namespace s3d
 		m_audioFormats.push_back(std::make_unique<AudioFormat_WAVE>());
 		m_audioFormats.push_back(std::make_unique<AudioFormat_MP3>());
 
+		LOG_INFO(U"ℹ️ AudioFormat initialized");
+		
 		return true;
 	}
 
