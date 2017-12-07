@@ -17,8 +17,8 @@
 # include "../Siv3DEngine.hpp"
 # include "../System/ISystem.hpp"
 # include "CWindow_Windows.hpp"
-//# include "../Mouse/IMouse.hpp"
-//# include "../Mouse/CMouse_Windows.hpp"
+# include "../Mouse/IMouse.hpp"
+# include "../Mouse/CMouse_Windows.hpp"
 //# include "../TextInput/ITextInput.hpp"
 
 namespace s3d
@@ -98,13 +98,13 @@ namespace s3d
 			}
 			case WM_MOUSEWHEEL:
 			{
-				//Siv3DEngine::GetMouse()->onScroll(static_cast<short>(HIWORD(wParam)) / -double(WHEEL_DELTA), 0);
+				Siv3DEngine::GetMouse()->onScroll(static_cast<short>(HIWORD(wParam)) / -double(WHEEL_DELTA), 0);
 
 				return 0;
 			}
 			case WM_MOUSEHWHEEL:
 			{
-				//Siv3DEngine::GetMouse()->onScroll(0, static_cast<short>(HIWORD(wParam)) / double(WHEEL_DELTA));
+				Siv3DEngine::GetMouse()->onScroll(0, static_cast<short>(HIWORD(wParam)) / double(WHEEL_DELTA));
 
 				return 0;
 			}
@@ -127,24 +127,24 @@ namespace s3d
 			}
 			case WM_TOUCH:
 			{
-				//if (const size_t num_inputs = LOWORD(wParam))
-				//{
-				//	Array<TOUCHINPUT> touchInputs(num_inputs);
+				if (const size_t num_inputs = LOWORD(wParam))
+				{
+					Array<TOUCHINPUT> touchInputs(num_inputs);
 
-				//	if (::GetTouchInputInfo(reinterpret_cast<HTOUCHINPUT>(lParam),
-				//		static_cast<uint32>(touchInputs.size()), touchInputs.data(),
-				//		sizeof(TOUCHINPUT)))
-				//	{
-				//		if (auto pMouse = dynamic_cast<CMouse_Windows*>(Siv3DEngine::GetMouse()))
-				//		{
-				//			pMouse->onTouchInput(touchInputs);
-				//		}
+					if (::GetTouchInputInfo(reinterpret_cast<HTOUCHINPUT>(lParam),
+						static_cast<uint32>(touchInputs.size()), touchInputs.data(),
+						sizeof(TOUCHINPUT)))
+					{
+						if (auto pMouse = dynamic_cast<CMouse_Windows*>(Siv3DEngine::GetMouse()))
+						{
+							pMouse->onTouchInput(touchInputs);
+						}
 
-				//		::CloseTouchInputHandle(reinterpret_cast<HTOUCHINPUT>(lParam));
+						::CloseTouchInputHandle(reinterpret_cast<HTOUCHINPUT>(lParam));
 
-				//		return 0;
-				//	}
-				//}
+						return 0;
+					}
+				}
 
 				break;
 			}

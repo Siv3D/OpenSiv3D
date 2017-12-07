@@ -22,12 +22,12 @@
 # include "../Profiler/IProfiler.hpp"
 # include "../Clipboard/IClipboard.hpp"
 # include "../DragDrop/IDragDrop.hpp"
-//# include "../Cursor/ICursor.hpp"
-//# include "../Keyboard/IKeyboard.hpp"
-//# include "../Mouse/IMouse.hpp"
+# include "../Cursor/ICursor.hpp"
+# include "../Keyboard/IKeyboard.hpp"
+# include "../Mouse/IMouse.hpp"
 //# include "../TextInput/ITextInput.hpp"
-//# include "../Codec/ICodec.hpp"
-//# include "../AudioFormat/IAudioFormat.hpp"
+# include "../Codec/ICodec.hpp"
+# include "../AudioFormat/IAudioFormat.hpp"
 //# include "../Audio/IAudio.hpp"
 //# include "../Graphics/IGraphics.hpp"
 //# include "../Font/IFont.hpp"
@@ -90,35 +90,35 @@ namespace s3d
 			return false;
 		}
 
-		//if (!Siv3DEngine::GetCursor()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetCursor()->init())
+		{
+			return false;
+		}
 
-		//if (!Siv3DEngine::GetKeyboard()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetKeyboard()->init())
+		{
+			return false;
+		}
 
-		//if (!Siv3DEngine::GetMouse()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetMouse()->init())
+		{
+			return false;
+		}
 
 		//if (!Siv3DEngine::GetTextInput()->init())
 		//{
 		//	return false;
 		//}
 
-		//if (!Siv3DEngine::GetCodec()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetCodec()->init())
+		{
+			return false;
+		}
 
-		//if (!Siv3DEngine::GetAudioFormat()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetAudioFormat()->init())
+		{
+			return false;
+		}
 
 		//if (!Siv3DEngine::GetAudio()->init())
 		//{
@@ -217,11 +217,11 @@ namespace s3d
 
 	//	Siv3DEngine::GetDragDrop()->update();
 
-	//	Siv3DEngine::GetMouse()->update();
+		Siv3DEngine::GetMouse()->update();
 
-	//	Siv3DEngine::GetCursor()->update();
+		Siv3DEngine::GetCursor()->update();
 
-	//	Siv3DEngine::GetKeyboard()->update();
+		Siv3DEngine::GetKeyboard()->update();
 
 
 

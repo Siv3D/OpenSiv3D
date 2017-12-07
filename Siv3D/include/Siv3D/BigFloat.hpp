@@ -502,7 +502,7 @@ namespace std
 
 namespace std
 {
-	void inline swap(s3d::BigFloat& a, s3d::BigFloat& b) noexcept(noexcept(a.swap(b)))
+	void inline swap(s3d::BigFloat& a, s3d::BigFloat& b) noexcept
 	{
 		a.swap(b);
 	}

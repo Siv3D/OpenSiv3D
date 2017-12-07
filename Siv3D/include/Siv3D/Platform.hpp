@@ -274,6 +274,10 @@ namespace s3d
 # if defined(SIV3D_TARGET_WINDOWS)
 
 	# pragma comment (lib, "winmm")
+	# pragma comment (lib, "Dwmapi")
+	# pragma comment (lib, "imm32")
+	# pragma comment (lib, "Shlwapi")
+	# pragma comment (lib, "mfuuid")
 
 	# if (SIV3D_IS_DEBUG)
 

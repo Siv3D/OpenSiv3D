@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include "CPolygon.hpp"
+S3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
 S3D_DISABLE_MSVC_WARNINGS_PUSH(4245)
 S3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry/algorithms/intersects.hpp>
@@ -18,6 +19,7 @@ S3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry/algorithms/convex_hull.hpp>
 # include <boost/geometry/algorithms/simplify.hpp>
 # include <boost/geometry/algorithms/buffer.hpp>
+S3D_DISABLE_MSVC_WARNINGS_POP()
 S3D_DISABLE_MSVC_WARNINGS_POP()
 S3D_DISABLE_MSVC_WARNINGS_POP()
 # include "../../ThirdParty/clip2tri/clip2tri.h"
@@ -199,15 +201,15 @@ namespace s3d
 		return Polygon(result);
 	}
 
-	//bool Polygon::CPolygon::intersects(const CPolygon& other) const
-	//{
-	//	if (outer().isEmpty() || other.outer().isEmpty() || !m_boundingRect.intersects(other.m_boundingRect))
-	//	{
-	//		return false;
-	//	}
+	bool Polygon::CPolygon::intersects(const CPolygon& other) const
+	{
+		if (outer().isEmpty() || other.outer().isEmpty() || !m_boundingRect.intersects(other.m_boundingRect))
+		{
+			return false;
+		}
 
-	//	return boost::geometry::intersects(m_polygon, other.m_polygon);
-	//}
+		return boost::geometry::intersects(m_polygon, other.m_polygon);
+	}
 
 	const Array<Vec2>& Polygon::CPolygon::outer() const
 	{
