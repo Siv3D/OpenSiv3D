@@ -386,6 +386,12 @@
     <Filter Include="src\Siv3D\Codec\Null">
       <UniqueIdentifier>{aff373ad-3d40-46ee-b087-51a176359025}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\EmojiDictionary">
+      <UniqueIdentifier>{46fdde9e-b432-4619-aadc-7604445991e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\FID">
+      <UniqueIdentifier>{960b1592-5551-480a-8f86-1492de09d2f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -1038,6 +1044,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_mpg123.cpp">
       <Filter>src\Siv3D\AudioFormat\MP3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\EmojiDictionary\CEmojiDictionary.cpp">
+      <Filter>src\Siv3D\EmojiDictionary</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\EmojiDictionary\SivEmojiDictionary.cpp">
+      <Filter>src\Siv3D\EmojiDictionary</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FID\FID.cpp">
+      <Filter>src\ThirdParty\FID</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2072,6 +2087,15 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_mpg123.hpp">
       <Filter>src\Siv3D\AudioFormat\MP3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\EmojiDictionary.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\EmojiDictionary\CEmojiDictionary.hpp">
+      <Filter>src\Siv3D\EmojiDictionary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\FID\FID.h">
+      <Filter>src\ThirdParty\FID</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

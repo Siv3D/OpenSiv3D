@@ -189,6 +189,9 @@
 	//// Regular expression
 	//# include "Siv3D/Regex.hpp"
 
+	// Emoji formatting
+	# include "Siv3D/EmojiDictionary.hpp"
+
 //////////////////////////////////////////////////
 //
 //	Time and Date
