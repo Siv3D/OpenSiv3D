@@ -621,8 +621,8 @@
 	// プロファイリング
 	# include "Siv3D/Profiler.hpp"
 
-	//// アセットハンドル
-	//# include "Siv3D/AssetHandle.hpp"
+	// アセットハンドル
+	# include "Siv3D/AssetHandle.hpp"
 
 //////////////////////////////////////////////////
 //

@@ -567,6 +567,12 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	AssetHandle.hpp
+	//
+	template <class Type> class AssetHandle;
+
+	//////////////////////////////////////////////////////
+	//
 	//	Cursor.hpp
 	//
 	enum class CursorStyle;
@@ -589,4 +595,11 @@ namespace s3d
 	//	KeyGroup.hpp
 	//
 	class KeyGroup;
+
+
+	//////////////////////////////////////////////////////
+	//
+	//	Vertex2D.hpp
+	//
+	struct Vertex2D;
 }

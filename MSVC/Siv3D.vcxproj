@@ -246,6 +246,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\AlignedAllocator.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AlignedMemory.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Array.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\AssetHandle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Base64.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Bezier2.hpp" />
@@ -397,6 +398,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Vector3D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Vector4D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Version.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Vertex2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Wave.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\WaveSample.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Window.hpp" />
