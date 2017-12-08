@@ -130,6 +130,8 @@ namespace s3d
 
 			m_boxShadowTexture = Texture(boxShadowImage, boxShadowImageMips);
 		}
+		
+		LOG_INFO(U"ℹ️ Renderer2D initialized");
 
 		return true;
 	}

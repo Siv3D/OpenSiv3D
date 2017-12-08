@@ -65,6 +65,20 @@ namespace s3d
 		m_standardPSs.push_back(PixelShader(Resource(U"engine/shader/sprite.frag")));
 		m_standardPSs.push_back(PixelShader(Resource(U"engine/shader/sprite_sdf.frag")));
 		
+		if (m_standardVSs.count_if(!Lambda::_) > 1)
+		{
+			LOG_FAIL(U"❌ CShader_GL: Failed to load standard vertex shaders");
+			return false;
+		}
+
+		if (m_standardPSs.count_if(!Lambda::_) > 1)
+		{
+			LOG_FAIL(U"❌ CShader_GL: Failed to load standard pixel shaders");
+			return false;
+		}
+		
+		LOG_INFO(U"ℹ️ Shader initialized");
+		
 		return true;
 	}
 	

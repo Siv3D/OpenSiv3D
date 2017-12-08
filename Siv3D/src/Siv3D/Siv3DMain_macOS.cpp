@@ -17,6 +17,7 @@
 # include <Siv3D/String.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Unicode.hpp>
+# include <Siv3D/Logger.hpp>
 # include "Siv3DEngine.hpp"
 # include "System/ISystem.hpp"
 
@@ -57,8 +58,12 @@ int main(int, char* argv[])
 	{
 		return -1;
 	}
+	
+	Logger.writeRawHTML_UTF8(u8"<hr width=\"99%\">");
 
 	Main();
+	
+	Logger.writeRawHTML_UTF8(u8"<hr width=\"99%\">");
 }
 
 # endif

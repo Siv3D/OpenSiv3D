@@ -14,6 +14,7 @@
 
 # include "CTexture_GL.hpp"
 # include <Siv3D/PointVector.hpp>
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -58,6 +59,8 @@ namespace s3d
 		}
 		
 		m_textures.setNullData(nullTexture);
+		
+		LOG_INFO(U"ℹ️ Texture initialized");
 		
 		return true;
 	}
