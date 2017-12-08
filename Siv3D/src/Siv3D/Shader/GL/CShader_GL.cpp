@@ -86,7 +86,7 @@ namespace s3d
 		
 		if (!vertexShader->isInitialized())
 		{
-			return VertexShaderID(0);
+			return VertexShaderID::NullAsset();
 		}
 		
 		for (const auto& bindingPoint : bindingPoints)
@@ -115,7 +115,7 @@ namespace s3d
 		
 		if (!pixelShader->isInitialized())
 		{
-			return PixelShaderID(0);
+			return PixelShaderID::NullAsset();
 		}
 		
 		for (const auto& bindingPoint : bindingPoints)
