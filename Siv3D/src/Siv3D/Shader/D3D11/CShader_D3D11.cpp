@@ -109,6 +109,8 @@ namespace s3d
 		m_standardPSs.push_back(PixelShader(RSC(U"engine/shader/sprite.ps")));
 		m_standardPSs.push_back(PixelShader(RSC(U"engine/shader/sprite_sdf.ps")));
 
+		LOG_INFO(U"ℹ️ Shader initialized");
+
 		return true;
 	}
 
