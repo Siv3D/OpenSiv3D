@@ -34,9 +34,6 @@ namespace s3d
 				return false;
 			}
 			
-			// [Siv3D ToDo] remove later
-			Sleep(16);
-
 			return true;
 		}
 

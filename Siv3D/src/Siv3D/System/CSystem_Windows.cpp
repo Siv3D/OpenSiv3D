@@ -29,7 +29,7 @@
 # include "../Codec/ICodec.hpp"
 # include "../AudioFormat/IAudioFormat.hpp"
 //# include "../Audio/IAudio.hpp"
-//# include "../Graphics/IGraphics.hpp"
+# include "../Graphics/IGraphics.hpp"
 //# include "../Font/IFont.hpp"
 //# include "../Print/IPrint.hpp"
 //# include "../ScreenCapture/IScreenCapture.hpp"
@@ -125,10 +125,10 @@ namespace s3d
 		//	return false;
 		//}
 
-		//if (!Siv3DEngine::GetGraphics()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetGraphics()->init())
+		{
+			return false;
+		}
 
 		//if (!Siv3DEngine::GetFont()->init())
 		//{
@@ -187,17 +187,17 @@ namespace s3d
 
 	//	Siv3DEngine::GetPrint()->draw();
 
-	//	if (!Siv3DEngine::GetGraphics()->flush(clearGraphics))
-	//	{
-	//		return false;
-	//	}
+		if (!Siv3DEngine::GetGraphics()->flush(clearGraphics))
+		{
+			return false;
+		}
 
 		Siv3DEngine::GetProfiler()->endFrame();
 
-	//	if (!Siv3DEngine::GetGraphics()->present())
-	//	{
-	//		return false;
-	//	}
+		if (!Siv3DEngine::GetGraphics()->present())
+		{
+			return false;
+		}
 
 		if (!Siv3DEngine::GetProfiler()->beginFrame())
 		{
@@ -213,9 +213,9 @@ namespace s3d
 
 		m_frameDelta.update();
 
-	//	Siv3DEngine::GetGraphics()->clear();
+		Siv3DEngine::GetGraphics()->clear();
 
-	//	Siv3DEngine::GetDragDrop()->update();
+		Siv3DEngine::GetDragDrop()->update();
 
 		Siv3DEngine::GetMouse()->update();
 
