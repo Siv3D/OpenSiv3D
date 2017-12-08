@@ -197,7 +197,7 @@ namespace s3d
 			sizeof(D3D11Render2DCommand<D3D11Render2DInstruction::PixelShader>)
 		};
 
-		PixelShader::IDType psID;
+		PixelShaderID psID;
 	};
 
 	template <>
@@ -212,7 +212,7 @@ namespace s3d
 
 		uint32 slot;
 
-		Texture::IDType textureID;
+		TextureID textureID;
 	};
 
 	template <>
@@ -225,7 +225,7 @@ namespace s3d
 			sizeof(D3D11Render2DCommand<D3D11Render2DInstruction::RenderTarget>)
 		};
 
-		Texture::IDType textureID;
+		TextureID textureID;
 	};
 
 	class D3D11Render2DCommandManager
@@ -266,9 +266,9 @@ namespace s3d
 
 		Optional<D3D11Render2DPixelShaderType> m_currentPSType;
 
-		HashTable<Texture::IDType, Texture> m_reservedTextures;
+		HashTable<TextureID, Texture> m_reservedTextures;
 
-		std::array<Texture::IDType, MaxSamplerCount> m_currentPSTextures;
+		std::array<TextureID, MaxSamplerCount> m_currentPSTextures;
 
 		RenderTexture m_currentRenderTarget;
 

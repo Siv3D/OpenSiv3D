@@ -99,7 +99,7 @@ namespace s3d
 
 		bool flush(bool clearGraphics) override;
 
-		//const Size& getCurrentRenderTargetSize() const override;
+		const Size& getCurrentRenderTargetSize() const override;
 
 		const RenderTexture& getBackBuffer2D() const override;
 

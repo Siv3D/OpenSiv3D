@@ -30,9 +30,9 @@ namespace s3d
 
 		Array<PixelShader> m_standardPSs;
 		
-		AssetHandleManager<VertexShader::IDType, VertexShader_GL> m_vertexShaders{ U"VertexShader" };
+		AssetHandleManager<VertexShaderID, VertexShader_GL> m_vertexShaders{ U"VertexShader" };
 		
-		AssetHandleManager<PixelShader::IDType, PixelShader_GL> m_pixelShaders{ U"PixelShader" };
+		AssetHandleManager<PixelShaderID, PixelShader_GL> m_pixelShaders{ U"PixelShader" };
 
 	public:
 
@@ -42,28 +42,28 @@ namespace s3d
 
 		bool init();
 
-		VertexShader::IDType createVS(ByteArray&&) override { return VertexShaderID::NullAsset(); }
+		VertexShaderID createVS(ByteArray&&) override { return VertexShaderID::NullAsset(); }
 
-		VertexShader::IDType createVSFromFile(const FilePath&, const Array<BindingPoint>&) override { return VertexShaderID::NullAsset(); }
+		VertexShaderID createVSFromFile(const FilePath&, const Array<BindingPoint>&) override { return VertexShaderID::NullAsset(); }
 		
-		VertexShader::IDType createVSFromSource(const String& source, const Array<BindingPoint>& bindingPoints) override;
+		VertexShaderID createVSFromSource(const String& source, const Array<BindingPoint>& bindingPoints) override;
 
-		PixelShader::IDType createPS(ByteArray&&) override { return PixelShaderID::NullAsset(); }
+		PixelShaderID createPS(ByteArray&&) override { return PixelShaderID::NullAsset(); }
 
-		PixelShader::IDType createPSFromFile(const FilePath&, const Array<BindingPoint>&) override { return PixelShaderID::NullAsset(); }
+		PixelShaderID createPSFromFile(const FilePath&, const Array<BindingPoint>&) override { return PixelShaderID::NullAsset(); }
 		
-		PixelShader::IDType createPSFromSource(const String& source, const Array<BindingPoint>& bindingPoints) override;
+		PixelShaderID createPSFromSource(const String& source, const Array<BindingPoint>& bindingPoints) override;
 
-		void releaseVS(VertexShader::IDType handleID) override;
+		void releaseVS(VertexShaderID handleID) override;
 
-		void releasePS(PixelShader::IDType handleID) override;
+		void releasePS(PixelShaderID handleID) override;
 		
-		ByteArrayView getBinaryViewVS(VertexShader::IDType) override
+		ByteArrayView getBinaryViewVS(VertexShaderID) override
 		{
 			return ByteArrayView();
 		}
 
-		ByteArrayView getBinaryViewPS(PixelShader::IDType) override
+		ByteArrayView getBinaryViewPS(PixelShaderID) override
 		{
 			return ByteArrayView();
 		}
@@ -78,15 +78,15 @@ namespace s3d
 			return m_standardPSs[index];
 		}
 		
-		void setVS(VertexShader::IDType) override {}
+		void setVS(VertexShaderID) override {}
 
-		void setPS(PixelShader::IDType) override {}
+		void setPS(PixelShaderID) override {}
 		
-		GLuint getVSProgram(VertexShader::IDType handleID);
+		GLuint getVSProgram(VertexShaderID handleID);
 		
-		GLuint getPSProgram(PixelShader::IDType handleID);
+		GLuint getPSProgram(PixelShaderID handleID);
 		
-		void setPSSamplerUniform(PixelShader::IDType handleID);
+		void setPSSamplerUniform(PixelShaderID handleID);
 	};
 }
 

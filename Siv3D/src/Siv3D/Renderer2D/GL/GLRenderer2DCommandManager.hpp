@@ -190,7 +190,7 @@ namespace s3d
 			sizeof(GLRender2DCommand<GLRender2DInstruction::PixelShader>)
 		};
 
-		PixelShader::IDType psID;
+		PixelShaderID psID;
 	};
 	
 	template <>
@@ -205,7 +205,7 @@ namespace s3d
 		
 		uint32 slot;
 		
-		Texture::IDType textureID;
+		TextureID textureID;
 	};
 
 	class GLRender2DCommandManager
@@ -244,9 +244,9 @@ namespace s3d
 		
 		Optional<GLRender2DPixelShaderType> m_currentPSType;
 
-		HashTable<Texture::IDType, Texture> m_reservedTextures;
+		HashTable<TextureID, Texture> m_reservedTextures;
 		
-		std::array<Texture::IDType, MaxSamplerCount> m_currentPSTextures;
+		std::array<TextureID, MaxSamplerCount> m_currentPSTextures;
 		
 		template <class Command>
 		void writeCommand(const Command& command)

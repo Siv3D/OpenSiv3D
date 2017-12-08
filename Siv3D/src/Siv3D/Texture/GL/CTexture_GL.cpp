@@ -62,12 +62,12 @@ namespace s3d
 		return true;
 	}
 	
-	Texture::IDType CTexture_GL::createFromBackBuffer()
+	TextureID CTexture_GL::createFromBackBuffer()
 	{
 		return TextureID::NullAsset();
 	}
 	
-	Texture::IDType CTexture_GL::create(const Image& image, const TextureDesc desc)
+	TextureID CTexture_GL::create(const Image& image, const TextureDesc desc)
 	{
 		if (!image)
 		{
@@ -84,7 +84,7 @@ namespace s3d
 		return m_textures.add(texture);
 	}
 
-	Texture::IDType CTexture_GL::create(const Image& image, const Array<Image>& mipmaps, const TextureDesc desc)
+	TextureID CTexture_GL::create(const Image& image, const Array<Image>& mipmaps, const TextureDesc desc)
 	{
 		if (!image)
 		{
@@ -101,7 +101,7 @@ namespace s3d
 		return m_textures.add(texture);
 	}
 
-	Texture::IDType CTexture_GL::createDynamic(const Size& size, const void* pData, const uint32 stride, const TextureFormat format, const TextureDesc desc)
+	TextureID CTexture_GL::createDynamic(const Size& size, const void* pData, const uint32 stride, const TextureFormat format, const TextureDesc desc)
 	{
 		const auto texture = std::make_shared<Texture_GL>(size, pData, stride, format, desc);
 		
@@ -113,46 +113,46 @@ namespace s3d
 		return m_textures.add(texture);
 	}
 
-	Texture::IDType CTexture_GL::createDynamic(const Size& size, const ColorF& color, const TextureFormat format, const TextureDesc desc)
+	TextureID CTexture_GL::createDynamic(const Size& size, const ColorF& color, const TextureFormat format, const TextureDesc desc)
 	{
 		const Array<Byte> initialData = detail::GenerateInitialColorBuffer(size, color, format);
 		
 		return createDynamic(size, initialData.data(), static_cast<uint32>(initialData.size() / size.y), format, desc);
 	}
 
-	Texture::IDType CTexture_GL::createRT(const Size&, const uint32)
+	TextureID CTexture_GL::createRT(const Size&, const uint32)
 	{
 		return TextureID::NullAsset();
 	}
 	
-	void CTexture_GL::release(const Texture::IDType handleID)
+	void CTexture_GL::release(const TextureID handleID)
 	{
 		m_textures.erase(handleID);
 	}
 	
-	Size CTexture_GL::getSize(const Texture::IDType handleID)
+	Size CTexture_GL::getSize(const TextureID handleID)
 	{
 		return m_textures[handleID]->getSize();
 	}
 
-	TextureDesc CTexture_GL::getDesc(Texture::IDType handleID)
+	TextureDesc CTexture_GL::getDesc(TextureID handleID)
 	{
 		return m_textures[handleID]->getDesc();
 	}
 	
 	
-	void CTexture_GL::setPS(const uint32 slot, const Texture::IDType handleID)
+	void CTexture_GL::setPS(const uint32 slot, const TextureID handleID)
 	{
 		::glActiveTexture(GL_TEXTURE0 + slot);
 		::glBindTexture(GL_TEXTURE_2D, m_textures[handleID]->getTexture());
 	}
 
-	bool CTexture_GL::fill(const Texture::IDType handleID, const ColorF& color, const bool wait)
+	bool CTexture_GL::fill(const TextureID handleID, const ColorF& color, const bool wait)
 	{
 		return m_textures[handleID]->fill(color, wait);
 	}
 
-	bool CTexture_GL::fill(const Texture::IDType handleID, const void* const src, const uint32 stride, const bool wait)
+	bool CTexture_GL::fill(const TextureID handleID, const void* const src, const uint32 stride, const bool wait)
 	{
 		return m_textures[handleID]->fill(src, stride, wait);
 	}

@@ -237,13 +237,13 @@ void main()
 		return true;
 	}
 	
-	VertexShader::IDType CShader_GL::createVSFromSource(const String& source, const Array<BindingPoint>& bindingPoints)
+	VertexShaderID CShader_GL::createVSFromSource(const String& source, const Array<BindingPoint>& bindingPoints)
 	{
 		const auto vertexShader = std::make_shared<VertexShader_GL>(source);
 		
 		if (!vertexShader->isInitialized())
 		{
-			return VertexShader::IDType(0);
+			return VertexShaderID(0);
 		}
 		
 		for (const auto& bindingPoint : bindingPoints)
@@ -254,13 +254,13 @@ void main()
 		return m_vertexShaders.add(vertexShader);
 	}
 	
-	PixelShader::IDType CShader_GL::createPSFromSource(const String& source, const Array<BindingPoint>& bindingPoints)
+	PixelShaderID CShader_GL::createPSFromSource(const String& source, const Array<BindingPoint>& bindingPoints)
 	{
 		const auto pixelShader = std::make_shared<PixelShader_GL>(source);
 		
 		if (!pixelShader->isInitialized())
 		{
-			return PixelShader::IDType(0);
+			return PixelShaderID(0);
 		}
 		
 		for (const auto& bindingPoint : bindingPoints)
@@ -271,27 +271,27 @@ void main()
 		return m_pixelShaders.add(pixelShader);
 	}
 	
-	void CShader_GL::releaseVS(const VertexShader::IDType handleID)
+	void CShader_GL::releaseVS(const VertexShaderID handleID)
 	{
 		m_vertexShaders.erase(handleID);
 	}
 	
-	void CShader_GL::releasePS(const PixelShader::IDType handleID)
+	void CShader_GL::releasePS(const PixelShaderID handleID)
 	{
 		m_pixelShaders.erase(handleID);
 	}
 	
-	GLuint CShader_GL::getVSProgram(const VertexShader::IDType handleID)
+	GLuint CShader_GL::getVSProgram(const VertexShaderID handleID)
 	{
 		return m_vertexShaders[handleID]->getProgram();
 	}
 	
-	GLuint CShader_GL::getPSProgram(const PixelShader::IDType handleID)
+	GLuint CShader_GL::getPSProgram(const PixelShaderID handleID)
 	{
 		return m_pixelShaders[handleID]->getProgram();
 	}
 	
-	void CShader_GL::setPSSamplerUniform(const PixelShader::IDType handleID)
+	void CShader_GL::setPSSamplerUniform(const PixelShaderID handleID)
 	{
 		m_pixelShaders[handleID]->setPSSamplerUniform();
 	}

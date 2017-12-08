@@ -23,7 +23,7 @@ namespace s3d
 	{
 	private:
 		
-		AssetHandleManager<Texture::IDType, Texture_GL> m_textures{ U"Texture" };
+		AssetHandleManager<TextureID, Texture_GL> m_textures{ U"Texture" };
 		
 	public:
 
@@ -31,52 +31,52 @@ namespace s3d
 		
 		bool init();
 
-		Texture::IDType createFromBackBuffer() override;
+		TextureID createFromBackBuffer() override;
 
-		Texture::IDType create(const Image&, TextureDesc) override;
+		TextureID create(const Image&, TextureDesc) override;
 
-		Texture::IDType create(const Image& image, const Array<Image>& mipmaps, TextureDesc desc) override;
+		TextureID create(const Image& image, const Array<Image>& mipmaps, TextureDesc desc) override;
 
-		Texture::IDType createDynamic(const Size& size, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc) override;
+		TextureID createDynamic(const Size& size, const void* pData, uint32 stride, TextureFormat format, TextureDesc desc) override;
 
-		Texture::IDType createDynamic(const Size& size, const ColorF& color, TextureFormat format, TextureDesc desc) override;
+		TextureID createDynamic(const Size& size, const ColorF& color, TextureFormat format, TextureDesc desc) override;
 
-		Texture::IDType createRT(const Size& size, uint32 multisampleCount) override;
+		TextureID createRT(const Size& size, uint32 multisampleCount) override;
 
-		void release(Texture::IDType handleID) override;
+		void release(TextureID handleID) override;
 
-		Size getSize(Texture::IDType handleID) override;
+		Size getSize(TextureID handleID) override;
 
-		TextureDesc getDesc(Texture::IDType handleID) override;
+		TextureDesc getDesc(TextureID handleID) override;
 
-		void clearRT(Texture::IDType, const ColorF&) override
+		void clearRT(TextureID, const ColorF&) override
 		{
 			// [Siv3D ToDo]
 		}
 
-		void beginResize(Texture::IDType) override
+		void beginResize(TextureID) override
 		{
 			// [Siv3D ToDo]
 		}
 
-		bool endResizeRT(Texture::IDType, const Size&, const uint32) override
-		{
-			// [Siv3D ToDo]
-			return false;
-		}
-
-		bool endResizeBackBuffer(Texture::IDType) override
+		bool endResizeRT(TextureID, const Size&, const uint32) override
 		{
 			// [Siv3D ToDo]
 			return false;
 		}
 
+		bool endResizeBackBuffer(TextureID) override
+		{
+			// [Siv3D ToDo]
+			return false;
+		}
 
-		void setPS(uint32 slot, Texture::IDType handleID) override;
 
-		bool fill(Texture::IDType handleID, const ColorF& color, bool wait) override;
+		void setPS(uint32 slot, TextureID handleID) override;
 
-		bool fill(Texture::IDType handleID, const void* src, uint32 stride, bool wait) override;
+		bool fill(TextureID handleID, const ColorF& color, bool wait) override;
+
+		bool fill(TextureID handleID, const void* src, uint32 stride, bool wait) override;
 	};
 }
 
