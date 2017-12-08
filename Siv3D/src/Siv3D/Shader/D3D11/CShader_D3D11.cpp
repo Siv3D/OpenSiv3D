@@ -91,12 +91,12 @@ namespace s3d
 		}
 
 		///*	
-		//compileHLSLToFile(S3DSTR("engine/shader/sprite.hlsl"), S3DSTR("engine/shader/sprite.vs"), "VS", "vs_4_0");
-		//compileHLSLToFile(S3DSTR("engine/shader/sprite.hlsl"), S3DSTR("engine/shader/shape.ps"), "PS_Shape", "ps_4_0");
-		//compileHLSLToFile(S3DSTR("engine/shader/sprite.hlsl"), S3DSTR("engine/shader/line_dot.ps"), "PS_LineDot", "ps_4_0");
-		//compileHLSLToFile(S3DSTR("engine/shader/sprite.hlsl"), S3DSTR("engine/shader/line_round_dot.ps"), "PS_LineRoundDot", "ps_4_0");
-		//compileHLSLToFile(S3DSTR("engine/shader/sprite.hlsl"), S3DSTR("engine/shader/sprite.ps"), "PS_Sprite", "ps_4_0");
-		//compileHLSLToFile(S3DSTR("engine/shader/sprite.hlsl"), S3DSTR("engine/shader/sprite_sdf.ps"), "PS_SDF", "ps_4_0");
+		//compileHLSLToFile(U"engine/shader/sprite.hlsl", U"engine/shader/sprite.vs", "VS", "vs_4_0");
+		//compileHLSLToFile(U"engine/shader/sprite.hlsl", U"engine/shader/shape.ps", "PS_Shape", "ps_4_0");
+		//compileHLSLToFile(U"engine/shader/sprite.hlsl", U"engine/shader/line_dot.ps", "PS_LineDot", "ps_4_0");
+		//compileHLSLToFile(U"engine/shader/sprite.hlsl", U"engine/shader/line_round_dot.ps", "PS_LineRoundDot", "ps_4_0");
+		//compileHLSLToFile(U"engine/shader/sprite.hlsl", U"engine/shader/sprite.ps", "PS_Sprite", "ps_4_0");
+		//compileHLSLToFile(U"engine/shader/sprite.hlsl", U"engine/shader/sprite_sdf.ps", "PS_SDF", "ps_4_0");
 		//*/
 
 # define RSC(path) Resource(path)
