@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -92,7 +92,7 @@ namespace s3d
 				newVertexSize *= 2;
 			}
 			
-			LOG_DEBUG(L"ℹ️ Resized 2D vertex array (size: {0})"_fmt(newVertexSize));
+			LOG_DEBUG(U"ℹ️ Resized 2D vertex array (size: {0})"_fmt(newVertexSize));
 
 			m_vertices.resize(newVertexSize);
 		}
@@ -106,7 +106,7 @@ namespace s3d
 				newIndexSize *= 2;
 			}
 			
-			LOG_DEBUG(L"ℹ️ Resized 2D index array (size: {0})"_fmt(newIndexSize));
+			LOG_DEBUG(U"ℹ️ Resized 2D index array (size: {0})"_fmt(newIndexSize));
 
 			m_indices.resize(newIndexSize);
 		}

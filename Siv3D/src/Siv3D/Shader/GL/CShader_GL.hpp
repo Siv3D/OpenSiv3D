@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -30,9 +30,9 @@ namespace s3d
 
 		Array<PixelShader> m_standardPSs;
 		
-		AssetHandleManager<VertexShader::IDType, std::shared_ptr<VertexShader_GL>> m_vertexShaders{ S3DSTR("VertexShader") };
+		AssetHandleManager<VertexShader::IDType, VertexShader_GL> m_vertexShaders{ U"VertexShader" };
 		
-		AssetHandleManager<PixelShader::IDType, std::shared_ptr<PixelShader_GL>> m_pixelShaders{ S3DSTR("PixelShader") };
+		AssetHandleManager<PixelShader::IDType, PixelShader_GL> m_pixelShaders{ U"PixelShader" };
 
 	public:
 
@@ -42,15 +42,15 @@ namespace s3d
 
 		bool init();
 
-		VertexShader::IDType createVS(ByteArray&&) override { return 0; }
+		VertexShader::IDType createVS(ByteArray&&) override { return VertexShaderID::NullAsset(); }
 
-		VertexShader::IDType createVSFromFile(const FilePath&, const Array<BindingPoint>&) override { return 0; }
+		VertexShader::IDType createVSFromFile(const FilePath&, const Array<BindingPoint>&) override { return VertexShaderID::NullAsset(); }
 		
 		VertexShader::IDType createVSFromSource(const String& source, const Array<BindingPoint>& bindingPoints) override;
 
-		PixelShader::IDType createPS(ByteArray&&) override { return 0; }
+		PixelShader::IDType createPS(ByteArray&&) override { return PixelShaderID::NullAsset(); }
 
-		PixelShader::IDType createPSFromFile(const FilePath&, const Array<BindingPoint>&) override { return 0; }
+		PixelShader::IDType createPSFromFile(const FilePath&, const Array<BindingPoint>&) override { return PixelShaderID::NullAsset(); }
 		
 		PixelShader::IDType createPSFromSource(const String& source, const Array<BindingPoint>& bindingPoints) override;
 

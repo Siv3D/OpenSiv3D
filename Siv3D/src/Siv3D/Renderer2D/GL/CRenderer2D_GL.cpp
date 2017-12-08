@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -117,15 +117,15 @@ namespace s3d
 		m_commandManager.reset();
 
 		{
-			const Image boxShadowImage(Resource(L"engine/texture/box-shadow/256.png"));
+			const Image boxShadowImage(Resource(U"engine/texture/box-shadow/256.png"));
 
 			const Array<Image> boxShadowImageMips =
 			{
-				Image(Resource(L"engine/texture/box-shadow/128.png")),
-				Image(Resource(L"engine/texture/box-shadow/64.png")),
-				Image(Resource(L"engine/texture/box-shadow/32.png")),
-				Image(Resource(L"engine/texture/box-shadow/16.png")),
-				Image(Resource(L"engine/texture/box-shadow/8.png")),
+				Image(Resource(U"engine/texture/box-shadow/128.png")),
+				Image(Resource(U"engine/texture/box-shadow/64.png")),
+				Image(Resource(U"engine/texture/box-shadow/32.png")),
+				Image(Resource(U"engine/texture/box-shadow/16.png")),
+				Image(Resource(U"engine/texture/box-shadow/8.png")),
 			};
 
 			m_boxShadowTexture = Texture(boxShadowImage, boxShadowImageMips);

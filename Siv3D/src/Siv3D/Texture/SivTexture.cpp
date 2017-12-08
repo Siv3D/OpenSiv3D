@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -11,7 +11,7 @@
 
 # include "../Siv3DEngine.hpp"
 # include "ITexture.hpp"
-//# include "../Renderer2D/IRenderer2D.hpp"
+# include "../Renderer2D/IRenderer2D.hpp"
 # include "../Profiler/IProfiler.hpp"
 # include <Siv3D/Texture.hpp>
 # include <Siv3D/TextureRegion.hpp>
@@ -182,35 +182,35 @@ namespace s3d
 		return (desc == TextureDesc::SDF);
 	}
 
-	//RectF Texture::draw(const double x, const double y, const ColorF& diffuse) const
-	//{
-	//	const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());
+	RectF Texture::draw(const double x, const double y, const ColorF& diffuse) const
+	{
+		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());
 
-	//	Siv3DEngine::GetRenderer2D()->addTextureRegion(
-	//		*this,
-	//		FloatRect(x, y, x + size.x, y + size.y),
-	//		FloatRect(0.0f, 0.0f, 1.0f, 1.0f),
-	//		diffuse.toFloat4()
-	//	);
+		Siv3DEngine::GetRenderer2D()->addTextureRegion(
+			*this,
+			FloatRect(x, y, x + size.x, y + size.y),
+			FloatRect(0.0f, 0.0f, 1.0f, 1.0f),
+			diffuse.toFloat4()
+		);
 
-	//	return RectF(x, y, size);
-	//}
+		return RectF(x, y, size);
+	}
 
-	//RectF Texture::drawAt(const double x, const double y, const ColorF& diffuse) const
-	//{
-	//	const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());
-	//	const double wHalf = size.x * 0.5;
-	//	const double hHalf = size.y * 0.5;
+	RectF Texture::drawAt(const double x, const double y, const ColorF& diffuse) const
+	{
+		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());
+		const double wHalf = size.x * 0.5;
+		const double hHalf = size.y * 0.5;
 
-	//	Siv3DEngine::GetRenderer2D()->addTextureRegion(
-	//		*this,
-	//		{ x - wHalf, y - hHalf, x + wHalf, y + hHalf },
-	//		{ 0.0f, 0.0f, 1.0f, 1.0f },
-	//		diffuse.toFloat4()
-	//	);
+		Siv3DEngine::GetRenderer2D()->addTextureRegion(
+			*this,
+			{ x - wHalf, y - hHalf, x + wHalf, y + hHalf },
+			{ 0.0f, 0.0f, 1.0f, 1.0f },
+			diffuse.toFloat4()
+		);
 
-	//	return RectF(x - wHalf, y - hHalf, size);
-	//}
+		return RectF(x - wHalf, y - hHalf, size);
+	}
 
 	TextureRegion Texture::operator ()(const double x, const double y, const double w, const double h) const
 	{

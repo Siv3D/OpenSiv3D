@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -21,7 +21,7 @@ namespace s3d
 # if defined(SIV3D_TARGET_MACOS)
 		
 		const String vsCode =
-		LR"(
+		UR"(
 #version 410
 		
 layout(location = 0) in vec2 VertexPosition;
@@ -49,7 +49,7 @@ void main()
 # else
 		
 		const String vsCode =
-		LR"(
+		UR"(
 #version 410
 		
 layout(location = 0) in vec2 VertexPosition;
@@ -78,7 +78,7 @@ void main()
 		
 		
 		const String psCodeShape =
-		LR"(
+		UR"(
 #version 410
 		
 layout(location = 0) in vec4 Color;
@@ -93,7 +93,7 @@ void main()
 
 		
 		const String psCodeLineDot =
-		LR"(
+		UR"(
 #version 410
 		
 layout(location = 0) in vec4 Color;
@@ -112,7 +112,7 @@ void main()
 )";
 		
 		const String psCodeLineRoundDot =
-		LR"(
+		UR"(
 #version 410
 		
 layout(location = 0) in vec4 Color;
@@ -133,7 +133,7 @@ void main()
 )";
 		
 		const String psCodeSprite =
-		LR"(
+		UR"(
 #version 410
 		
 layout(location = 0) in vec4 Color;
@@ -150,7 +150,7 @@ void main()
 )";
 	
 		const String psCodeSpriteSDF =
-		LR"(
+		UR"(
 #version 410
 		
 layout(location = 0) in vec4 Color;
@@ -227,7 +227,7 @@ void main()
 			m_pixelShaders.setNullData(nullPixelShader);
 		}
 		
-		m_standardVSs.push_back(VertexShader(Arg::source = detail::vsCode, { { S3DSTR("SpriteCB"), 0 } }));
+		m_standardVSs.push_back(VertexShader(Arg::source = detail::vsCode, { { U"SpriteCB", 0 } }));
 		m_standardPSs.push_back(PixelShader(Arg::source = detail::psCodeShape));
 		m_standardPSs.push_back(PixelShader(Arg::source = detail::psCodeLineDot));
 		m_standardPSs.push_back(PixelShader(Arg::source = detail::psCodeLineRoundDot));

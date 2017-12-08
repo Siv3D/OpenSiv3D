@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -69,7 +69,7 @@ namespace s3d
 				
 				::glGetProgramInfoLog(m_vsProgram, logLen, &logLen, &log[0]);
 				
-				LOG_FAIL(L"❌ Vertex shader compilation failed: {0}"_fmt(CharacterSet::Widen(log)));
+				LOG_FAIL(U"❌ Vertex shader compilation failed: {0}"_fmt(Unicode::Widen(log)));
 			}
 			
 			if (status == GL_FALSE)

@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -23,7 +23,7 @@ namespace s3d
 	{
 	private:
 		
-		AssetHandleManager<Texture::IDType, std::shared_ptr<Texture_GL>> m_textures{ S3DSTR("Texture") };
+		AssetHandleManager<Texture::IDType, Texture_GL> m_textures{ U"Texture" };
 		
 	public:
 

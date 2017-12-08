@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -18,7 +18,7 @@
 # include "../../Shader/IShader.hpp"
 # include "CGraphics_GL.hpp"
 # include <Siv3D/Window.hpp>
-# include <Siv3D/CharacterSet.hpp>
+# include <Siv3D/Unicode.hpp>
 # include <Siv3D/System.hpp>
 # include <Siv3D/Time.hpp>
 
@@ -123,7 +123,7 @@ namespace s3d
 			
 			DisplayOutput output;
 			
-			output.name = CharacterSet::Widen(::glfwGetMonitorName(monitor));
+			output.name = Unicode::Widen(::glfwGetMonitorName(monitor));
 			
 			int32 xPos, yPos, width, height;
 			
@@ -282,6 +282,7 @@ namespace s3d
 		return m_currentRenderTargetSize;
 	}
 	
+	/*
 	void CGraphics_GL::requestScreenCapture()
 	{
 		m_screenCapture.request();
@@ -291,6 +292,7 @@ namespace s3d
 	{
 		return m_screenCapture.getImage();
 	}
+	 */
 }
 
 # endif

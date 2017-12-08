@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -64,21 +64,21 @@ namespace s3d
 	
 	Texture::IDType CTexture_GL::createFromBackBuffer()
 	{
-		return Texture::NullHandleID;
+		return TextureID::NullAsset();
 	}
 	
 	Texture::IDType CTexture_GL::create(const Image& image, const TextureDesc desc)
 	{
 		if (!image)
 		{
-			return Texture::NullHandleID;
+			return TextureID::NullAsset();
 		}
 		
 		const auto texture = std::make_shared<Texture_GL>(image, desc);
 		
 		if (!texture->isInitialized())
 		{
-			return Texture::NullHandleID;
+			return TextureID::NullAsset();
 		}
 		
 		return m_textures.add(texture);
@@ -88,14 +88,14 @@ namespace s3d
 	{
 		if (!image)
 		{
-			return Texture::NullHandleID;
+			return TextureID::NullAsset();
 		}
 		
 		const auto texture = std::make_shared<Texture_GL>(image, mipmaps, desc);
 		
 		if (!texture->isInitialized())
 		{
-			return Texture::NullHandleID;
+			return TextureID::NullAsset();
 		}
 		
 		return m_textures.add(texture);
@@ -107,7 +107,7 @@ namespace s3d
 		
 		if (!texture->isInitialized())
 		{
-			return Texture::NullHandleID;
+			return TextureID::NullAsset();
 		}
 		
 		return m_textures.add(texture);
@@ -122,7 +122,7 @@ namespace s3d
 
 	Texture::IDType CTexture_GL::createRT(const Size&, const uint32)
 	{
-		return Texture::NullHandleID;
+		return TextureID::NullAsset();
 	}
 	
 	void CTexture_GL::release(const Texture::IDType handleID)

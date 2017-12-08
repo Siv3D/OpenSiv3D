@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -192,9 +192,9 @@ namespace s3d
 			return *m_unused;
 		}
 		
-		void requestScreenCapture() override;
+		//void requestScreenCapture() override;
 
-		const Image& getScreenCapture() const override;
+		//const Image& getScreenCapture() const override;
 	};
 }
 

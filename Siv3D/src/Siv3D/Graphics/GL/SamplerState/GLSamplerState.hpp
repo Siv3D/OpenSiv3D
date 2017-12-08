@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -13,7 +13,7 @@
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 # include <cfloat>
-# include <Siv3D/HashMap.hpp>
+# include <Siv3D/HashTable.hpp>
 # include <Siv3D/SamplerState.hpp>
 
 namespace s3d
@@ -50,7 +50,7 @@ namespace s3d
 	{
 	private:
 		
-		using SamplerStateList = HashMap<SamplerState, std::unique_ptr<SamplerState_GL>>;
+		using SamplerStateList = HashTable<SamplerState, std::unique_ptr<SamplerState_GL>>;
 		
 		SamplerStateList m_states;
 		

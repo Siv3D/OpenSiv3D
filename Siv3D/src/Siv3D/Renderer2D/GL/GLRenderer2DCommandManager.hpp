@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -22,7 +22,7 @@
 # include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/PixelShader.hpp>
 # include <Siv3D/Texture.hpp>
-# include <Siv3D/HashMap.hpp>
+# include <Siv3D/HashTable.hpp>
 # include "../../Siv3DEngine.hpp"
 # include "../../Shader/IShader.hpp"
 
@@ -244,7 +244,7 @@ namespace s3d
 		
 		Optional<GLRender2DPixelShaderType> m_currentPSType;
 
-		HashMap<Texture::IDType, Texture> m_reservedTextures;
+		HashTable<Texture::IDType, Texture> m_reservedTextures;
 		
 		std::array<Texture::IDType, MaxSamplerCount> m_currentPSTextures;
 		
@@ -341,10 +341,10 @@ namespace s3d
 			
 			for (uint32 slot = 0; slot < m_currentPSTextures.size(); ++slot)
 			{
-				m_currentPSTextures[slot] = Texture::NullHandleID;
+				m_currentPSTextures[slot] = TextureID::NullAsset();
 				GLRender2DCommand<GLRender2DInstruction::PSTexture> command;
 				command.slot = slot;
-				command.textureID = Texture::NullHandleID;
+				command.textureID = TextureID::NullAsset();
 				writeCommand(command);
 			}
 		}

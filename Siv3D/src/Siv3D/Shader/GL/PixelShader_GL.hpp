@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -16,6 +16,7 @@
 # include <GL/glew.h>
 # include "../../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 # include <Siv3D/Fwd.hpp>
+# include <Siv3D/Optional.hpp>
 # include <Siv3D/Logger.hpp>
 
 namespace s3d
@@ -71,7 +72,7 @@ namespace s3d
 				
 				::glGetProgramInfoLog(m_psProgram, logLen, &logLen, &log[0]);
 				
-				LOG_FAIL(L"❌ Pixel shader compilation failed: {0}"_fmt(CharacterSet::Widen(log)));
+				LOG_FAIL(U"❌ Pixel shader compilation failed: {0}"_fmt(Unicode::Widen(log)));
 			}
 			
 			if (status == GL_FALSE)

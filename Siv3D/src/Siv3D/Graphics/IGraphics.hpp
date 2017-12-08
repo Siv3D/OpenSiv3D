@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -48,7 +48,7 @@ namespace s3d
 
 		virtual bool flush(bool clearGraphics) = 0;
 
-		//virtual const Size& getCurrentRenderTargetSize() const = 0;
+		virtual const Size& getCurrentRenderTargetSize() const = 0;
 
 		virtual const RenderTexture& getBackBuffer2D() const = 0;
 		//
