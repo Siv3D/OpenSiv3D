@@ -76,7 +76,7 @@ namespace s3d
 
 		if (!texture->isInitialized())
 		{
-			return TextureID::Null();
+			return TextureID::NullAsset();
 		}
 
 		return m_textures.add(texture);
@@ -86,14 +86,14 @@ namespace s3d
 	{
 		if (!image)
 		{
-			return TextureID::Null();
+			return TextureID::NullAsset();
 		}
 
 		const auto texture = std::make_shared<Texture_D3D11>(m_device, image, desc);
 
 		if (!texture->isInitialized())
 		{
-			return TextureID::Null();
+			return TextureID::NullAsset();
 		}
 
 		return m_textures.add(texture);
@@ -103,14 +103,14 @@ namespace s3d
 	{
 		if (!image)
 		{
-			return TextureID::Null();
+			return TextureID::NullAsset();
 		}
 
 		const auto texture = std::make_shared<Texture_D3D11>(m_device, image, mipmaps, desc);
 
 		if (!texture->isInitialized())
 		{
-			return TextureID::Null();
+			return TextureID::NullAsset();
 		}
 
 		return m_textures.add(texture);
@@ -122,7 +122,7 @@ namespace s3d
 
 		if (!texture->isInitialized())
 		{
-			return TextureID::Null();
+			return TextureID::NullAsset();
 		}
 
 		return m_textures.add(texture);
@@ -141,7 +141,7 @@ namespace s3d
 
 		if (!texture->isInitialized())
 		{
-			return TextureID::Null();
+			return TextureID::NullAsset();
 		}
 
 		return m_textures.add(texture);

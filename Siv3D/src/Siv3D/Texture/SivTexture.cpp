@@ -130,7 +130,7 @@ namespace s3d
 
 	bool Texture::isEmpty() const
 	{
-		return m_handle->id().isNull();
+		return m_handle->id().isNullAsset();
 	}
 
 	TextureID Texture::id() const

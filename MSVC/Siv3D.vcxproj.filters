@@ -455,6 +455,21 @@
     <Filter Include="src\Siv3D\RenderTexture">
       <UniqueIdentifier>{6526b541-5f01-401f-8fd6-b3138a99edc1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Shader">
+      <UniqueIdentifier>{01f6a409-a966-4f46-9117-29f437bc394d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Shader\D3D11">
+      <UniqueIdentifier>{6df7763f-d170-4fed-a25a-78116ce9d806}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Shader\GL">
+      <UniqueIdentifier>{1579cd10-9237-466d-ba04-bcaf8f99b480}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\PixelShader">
+      <UniqueIdentifier>{ac2b1e56-58c2-4bf5-8a09-0bba71b47be4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\VertexShader">
+      <UniqueIdentifier>{41308e95-134f-4f0d-a32f-a3c6e60220fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -1176,6 +1191,27 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\RenderTexture\SivRenderTexture.cpp">
       <Filter>src\Siv3D\RenderTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Shader\ShaderFactory.cpp">
+      <Filter>src\Siv3D\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Shader\SivShader.cpp">
+      <Filter>src\Siv3D\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Shader\D3D11\PixelShader_D3D11.cpp">
+      <Filter>src\Siv3D\Shader\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Shader\D3D11\VertexShader_D3D11.cpp">
+      <Filter>src\Siv3D\Shader\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Shader\D3D11\CShader_D3D11.cpp">
+      <Filter>src\Siv3D\Shader\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\VertexShader\SivVertexShader.cpp">
+      <Filter>src\Siv3D\VertexShader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\PixelShader\SivPixelShader.cpp">
+      <Filter>src\Siv3D\PixelShader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2315,6 +2351,27 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\TextureDesc.hpp">
       <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\PixelShader.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Shader.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\VertexShader.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Shader\IShader.hpp">
+      <Filter>src\Siv3D\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Shader\D3D11\CShader_D3D11.hpp">
+      <Filter>src\Siv3D\Shader\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Shader\D3D11\PixelShader_D3D11.hpp">
+      <Filter>src\Siv3D\Shader\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Shader\D3D11\VertexShader_D3D11.hpp">
+      <Filter>src\Siv3D\Shader\D3D11</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

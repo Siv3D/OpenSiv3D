@@ -21,11 +21,11 @@ namespace s3d
 
 		using ValueType = uint32;
 
-		enum : ValueType { NullID = 0 };
+		enum : ValueType { NullAssetID = 0, InvalidID = 0xffFFffFF };
 
 	private:
 
-		ValueType m_value = NullID;
+		ValueType m_value = NullAssetID;
 
 	public:
 
@@ -39,9 +39,9 @@ namespace s3d
 			return m_value;
 		}
 
-		constexpr bool isNull() const noexcept
+		constexpr bool isNullAsset() const noexcept
 		{
-			return m_value == NullID;
+			return m_value == NullAssetID;
 		}
 
 		constexpr bool operator ==(const AssetIDWrapper& other) const noexcept
@@ -54,9 +54,14 @@ namespace s3d
 			return m_value != other.m_value;
 		}
 
-		static constexpr AssetIDWrapper Null() noexcept
+		static constexpr AssetIDWrapper NullAsset() noexcept
 		{
-			return AssetIDWrapper(NullID);
+			return AssetIDWrapper(NullAssetID);
+		}
+
+		static constexpr AssetIDWrapper InvalidValue() noexcept
+		{
+			return AssetIDWrapper(InvalidID);
 		}
 	};
 

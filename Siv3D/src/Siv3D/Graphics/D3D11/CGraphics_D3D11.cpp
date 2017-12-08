@@ -14,7 +14,7 @@
 
 # include "../../Siv3DEngine.hpp"
 # include "CGraphics_D3D11.hpp"
-//# include "../../Shader/IShader.hpp"
+# include "../../Shader/IShader.hpp"
 
 namespace s3d
 {
@@ -72,17 +72,17 @@ namespace s3d
 		//
 		//	 CShader_D3D11
 		//
-		//m_shader = dynamic_cast<CShader_D3D11*>(Siv3DEngine::GetShader());
+		m_shader = dynamic_cast<CShader_D3D11*>(Siv3DEngine::GetShader());
 
-		//if (!m_shader)
-		//{
-		//	return false;
-		//}
+		if (!m_shader)
+		{
+			return false;
+		}
 
-		//if (!m_shader->init(m_device->getDevice(), m_device->getContext()))
-		//{
-		//	return false;
-		//}
+		if (!m_shader->init(m_device->getDevice(), m_device->getContext()))
+		{
+			return false;
+		}
 
 		//////////////////////////////////////////////////////
 		//

@@ -147,6 +147,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseFloat\SivParseFloat.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseInt\SivParseInt.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\PerlinNoise\SivPerlinNoise.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\PixelShader\SivPixelShader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Point\SivPoint.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\CPolygon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\SivPolygon.cpp" />
@@ -159,6 +160,11 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\RenderTexture\SivRenderTexture.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Resource\SivResource.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\RoundRect\SivRoundRect.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Shader\D3D11\CShader_D3D11.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Shader\D3D11\PixelShader_D3D11.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Shader\D3D11\VertexShader_D3D11.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Shader\ShaderFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Shader\SivShader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Shape2D\SivShape2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Siv3DEngine.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Siv3DMain_Linux.cpp" />
@@ -194,6 +200,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Vector2D\SivVector2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Vector3D\SivVector3D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Vector4D\SivVector4D.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\VertexShader\SivVertexShader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Wave\SivWave.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\CWindow_Linux.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\CWindow_macOS.cpp" />
@@ -372,6 +379,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ParseFloat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ParseInt.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PerlinNoise.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\PixelShader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PlaceHolder.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Platform.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Point.hpp" />
@@ -397,6 +405,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\SamplerState.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SFMT.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\CustomStopwatch.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Shader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Shape2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SIMDMath.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Spherical.hpp" />
@@ -434,6 +443,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Vector4D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Version.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Vertex2D.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\VertexShader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Wave.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\WaveSample.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Window.hpp" />
@@ -523,6 +533,10 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Polygon\CPolygon.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Profiler\CProfiler.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Profiler\IProfiler.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Shader\D3D11\CShader_D3D11.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Shader\D3D11\PixelShader_D3D11.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Shader\D3D11\VertexShader_D3D11.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Shader\IShader.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Siv3DEngine.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\System\CSystem_Linux.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\System\CSystem_macOS.hpp" />

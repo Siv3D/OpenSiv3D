@@ -698,13 +698,13 @@
 	//# include "Siv3D/SamplerState.hpp"
 
 	// シェーダ
-	//# include "Siv3D/Shader.hpp"
+	# include "Siv3D/Shader.hpp"
 
 	// 頂点シェーダ
-	//# include "Siv3D/VertexShader.hpp"
+	# include "Siv3D/VertexShader.hpp"
 
 	// ピクセルシェーダ
-	//# include "Siv3D/PixelShader.hpp"
+	# include "Siv3D/PixelShader.hpp"
 
 	// 定数バッファ
 	//# include "Siv3D/ConstantBuffer.hpp"

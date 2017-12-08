@@ -31,6 +31,7 @@ namespace s3d
 	class ISiv3DAudioFormat;
 	class ISiv3DGraphics;
 	class ISiv3DTexture;
+	class ISiv3DShader;
 
 	template <class Interface>
 	class Siv3DComponent
@@ -101,6 +102,8 @@ namespace s3d
 		Siv3DComponent<ISiv3DGraphics> m_graphics;
 
 		Siv3DComponent<ISiv3DTexture> m_texture;
+
+		Siv3DComponent<ISiv3DShader> m_shader;
 		
 	public:
 
@@ -196,6 +199,11 @@ namespace s3d
 		static ISiv3DTexture* GetTexture()
 		{
 			return pEngine->m_texture.get();
+		}
+
+		static ISiv3DShader* GetShader()
+		{
+			return pEngine->m_shader.get();
 		}
 	};
 }

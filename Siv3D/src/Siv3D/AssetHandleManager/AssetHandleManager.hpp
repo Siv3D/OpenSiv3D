@@ -98,7 +98,7 @@ namespace s3d
 
 		void erase(const IDType id)
 		{
-			if (id.isNull())
+			if (id.isNullAsset())
 			{
 				return;
 			}
@@ -122,7 +122,7 @@ namespace s3d
 
 			for (const auto& data : m_data)
 			{
-				if (const auto id = data.first; !id.isNull())
+				if (const auto id = data.first; !id.isNullAsset())
 				{
 					LOG_DEBUG(U"♻️ Released {0}[{1}]"_fmt(m_assetTypeName, id.value()));
 				}
