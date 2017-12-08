@@ -350,6 +350,42 @@
     <Filter Include="src\Siv3D\Profiler">
       <UniqueIdentifier>{a8feb8f0-3d50-4b72-90c2-e0594f90d582}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Cursor">
+      <UniqueIdentifier>{80420dec-430e-4131-b7e3-d09d43fdb5a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Geometry2D">
+      <UniqueIdentifier>{4c9195e3-143e-4482-b3d1-4c969254eac7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Mouse">
+      <UniqueIdentifier>{c99bc62d-bdb6-47a1-b873-ddba407365ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Keyboard">
+      <UniqueIdentifier>{c1808edd-e999-46ae-89df-320f827b1537}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Key">
+      <UniqueIdentifier>{4101905f-6acb-4695-955d-fe6b5b61476f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Wave">
+      <UniqueIdentifier>{81f62fd0-ad2c-4957-a62e-aff2501ebe77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\AudioFormat">
+      <UniqueIdentifier>{6c8945a0-a466-4645-a8ce-0c17bc1154b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\AudioFormat\MP3">
+      <UniqueIdentifier>{3d68f216-a92b-4835-aed4-464574bb638f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\AudioFormat\WAVE">
+      <UniqueIdentifier>{dfa31588-dbb7-4ac7-b2b6-770d59c00088}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Codec">
+      <UniqueIdentifier>{56cc4250-6229-4c19-bda8-39b655ffbad7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Codec\MF">
+      <UniqueIdentifier>{206de7ff-f8ff-4522-9b40-86f1c768c458}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Codec\Null">
+      <UniqueIdentifier>{aff373ad-3d40-46ee-b087-51a176359025}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -924,6 +960,84 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\WindowProc.cpp">
       <Filter>src\Siv3D\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Cursor\CCursor_macOS.cpp">
+      <Filter>src\Siv3D\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Cursor\CCursor_Windows.cpp">
+      <Filter>src\Siv3D\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Cursor\CursorFactory.cpp">
+      <Filter>src\Siv3D\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Cursor\SivCursor.cpp">
+      <Filter>src\Siv3D\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Cursor\CCursor_Linux.cpp">
+      <Filter>src\Siv3D\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Geometry2D\SivGeometry2D.cpp">
+      <Filter>src\Siv3D\Geometry2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\CMouse_macOS.cpp">
+      <Filter>src\Siv3D\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\CMouse_Windows.cpp">
+      <Filter>src\Siv3D\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\MouseFactory.cpp">
+      <Filter>src\Siv3D\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\SivMouse.cpp">
+      <Filter>src\Siv3D\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\CMouse_Linux.cpp">
+      <Filter>src\Siv3D\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Keyboard\KeyboardFactory.cpp">
+      <Filter>src\Siv3D\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Keyboard\CKeyboard_Linux.cpp">
+      <Filter>src\Siv3D\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Keyboard\CKeyboard_macOS.cpp">
+      <Filter>src\Siv3D\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Keyboard\CKeyboard_Windows.cpp">
+      <Filter>src\Siv3D\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Key\SivKey.cpp">
+      <Filter>src\Siv3D\Key</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Wave\SivWave.cpp">
+      <Filter>src\Siv3D\Wave</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_Windows.cpp">
+      <Filter>src\Siv3D\AudioFormat\MP3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\WAVE\AudioFormat_WAVE.cpp">
+      <Filter>src\Siv3D\AudioFormat\WAVE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\SivAudioFormat.cpp">
+      <Filter>src\Siv3D\AudioFormat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\AudioFormatFactory.cpp">
+      <Filter>src\Siv3D\AudioFormat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\CAudioFormat.cpp">
+      <Filter>src\Siv3D\AudioFormat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Codec\MF\CCodec_MF.cpp">
+      <Filter>src\Siv3D\Codec\MF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Codec\Null\CCodec_Null.cpp">
+      <Filter>src\Siv3D\Codec\Null</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Codec\CodecFactory.cpp">
+      <Filter>src\Siv3D\Codec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_mpg123.cpp">
+      <Filter>src\Siv3D\AudioFormat\MP3</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1863,6 +1977,102 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\WaveSample.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Cursor\CCursor_macOS.hpp">
+      <Filter>src\Siv3D\Cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Cursor\CCursor_Windows.hpp">
+      <Filter>src\Siv3D\Cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Cursor\ICursor.hpp">
+      <Filter>src\Siv3D\Cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Cursor\CCursor_Linux.hpp">
+      <Filter>src\Siv3D\Cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Geometry2D\Polynomial.hpp">
+      <Filter>src\Siv3D\Geometry2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Mouse\CMouse_macOS.hpp">
+      <Filter>src\Siv3D\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Mouse\CMouse_Windows.hpp">
+      <Filter>src\Siv3D\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Mouse\IMouse.hpp">
+      <Filter>src\Siv3D\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Mouse\CMouse_Linux.hpp">
+      <Filter>src\Siv3D\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Keyboard\IKeyboard.hpp">
+      <Filter>src\Siv3D\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Keyboard\CKeyboard_Linux.hpp">
+      <Filter>src\Siv3D\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Keyboard\CKeyboard_macOS.hpp">
+      <Filter>src\Siv3D\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Keyboard\CKeyboard_Windows.hpp">
+      <Filter>src\Siv3D\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Mouse.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Key.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Keyboard.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\KeyConjunction.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\KeyGroup.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Key\InputState.hpp">
+      <Filter>src\Siv3D\Key</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Cursor.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Wave.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_Windows.hpp">
+      <Filter>src\Siv3D\AudioFormat\MP3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\WAVE\AudioFormat_WAVE.hpp">
+      <Filter>src\Siv3D\AudioFormat\WAVE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\CAudioFormat.hpp">
+      <Filter>src\Siv3D\AudioFormat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\IAudioFormat.hpp">
+      <Filter>src\Siv3D\AudioFormat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Codec\MF\CCodec_MF.hpp">
+      <Filter>src\Siv3D\Codec\MF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Codec\MF\MFRenderStream.hpp">
+      <Filter>src\Siv3D\Codec\MF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Codec\Null\CCodec_Null.hpp">
+      <Filter>src\Siv3D\Codec\Null</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Codec\ICodec.hpp">
+      <Filter>src\Siv3D\Codec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\EngineUtility.hpp">
+      <Filter>src\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_mpg123.hpp">
+      <Filter>src\Siv3D\AudioFormat\MP3</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_macOS.mm">
@@ -1891,6 +2101,9 @@
     </None>
     <None Include="..\Siv3D\src\Siv3D\PowerStatus\SivPowerStatus.mm">
       <Filter>src\Siv3D\PowerStatus</Filter>
+    </None>
+    <None Include="..\Siv3D\src\Siv3D\Cursor\CCursor_macOS.mm">
+      <Filter>src\Siv3D\Cursor</Filter>
     </None>
   </ItemGroup>
 </Project>

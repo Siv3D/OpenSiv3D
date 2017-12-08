@@ -540,10 +540,12 @@
 	// 音声波形のサンプル
 	# include "Siv3D/WaveSample.hpp"
 
-	//// 波形デコーダ・エンコーダインタフェース
-	//# include "Siv3D/AudioFormat.hpp"
-	//// 音声波形
-	//# include "Siv3D/Wave.hpp"
+	// 波形デコーダ・エンコーダインタフェース
+	# include "Siv3D/AudioFormat.hpp"
+
+	// 音声波形
+	# include "Siv3D/Wave.hpp"
+
 	//// 音声波形のテンポ・ピッチ変更
 	//# include "Siv3D/WaveStretcher.hpp"
 	//// FFT
@@ -625,20 +627,27 @@
 //
 //////////////////////////////////////////////////
 
-	// カーソル
-	//# include "Siv3D/Cursor.hpp"
+	// Mouse Cursor
+	# include "Siv3D/Cursor.hpp"
+	
 	// 入力状態
-	//# include "Siv3D/Key.hpp"
+	# include "Siv3D/Key.hpp"
+	
 	// 2 つのキーの組み合わせ
-	//# include "Siv3D/KeyConjunction.hpp"
+	# include "Siv3D/KeyConjunction.hpp"
+	
 	// 2 つ以上のキーの組み合わせ
-	//# include "Siv3D/KeyGroup.hpp"
+	# include "Siv3D/KeyGroup.hpp"
+	
 	// キーボード
-	//# include "Siv3D/Keyboard.hpp"
+	# include "Siv3D/Keyboard.hpp"
+	
 	// マウス
-	//# include "Siv3D/Mouse.hpp"
+	# include "Siv3D/Mouse.hpp"
+	
 	// テキスト入力
 	//# include "Siv3D/TextInput.hpp"
+	
 	//// ゲームパッド
 	//# include "Siv3D/Gamepad.hpp"
 	//// XInput 対応ゲームコントローラー
