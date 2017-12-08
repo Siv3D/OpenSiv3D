@@ -9,21 +9,7 @@
 
 # if defined(SIV3D_TARGET_LINUX)
 
-# include <Siv3D_Linux_GLFW_Window_API.h>
-
-	# if defined(_SIV3D_LINUX_WINDOW_API_X11)
-
-		# define _GLFW_X11
-
-	# elif defined(_SIV3D_LINUX_WINDOW_API_WAYLAND)
-
-		# define _GLFW_WAYLAND
-
-	# elif defined(_SIV3D_LINUX_WINDOW_API_MIR)
-
-		# define _GLFW_MIR
-
-	# endif
+# define _GLFW_X11
 
 # endif
 
