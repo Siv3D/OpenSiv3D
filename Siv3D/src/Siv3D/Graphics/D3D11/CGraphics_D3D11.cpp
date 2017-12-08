@@ -14,7 +14,6 @@
 
 # include "../../Siv3DEngine.hpp"
 # include "CGraphics_D3D11.hpp"
-# include "../../Shader/IShader.hpp"
 
 namespace s3d
 {
@@ -132,17 +131,17 @@ namespace s3d
 		//
 		//	 CRenderer2D_D3D11
 		//
-		//m_renderer2D = dynamic_cast<CRenderer2D_D3D11*>(Siv3DEngine::GetRenderer2D());
+		m_renderer2D = dynamic_cast<CRenderer2D_D3D11*>(Siv3DEngine::GetRenderer2D());
 
-		//if (!m_renderer2D)
-		//{
-		//	return false;
-		//}
+		if (!m_renderer2D)
+		{
+			return false;
+		}
 
-		//if (!m_renderer2D->init(m_device->getDevice(), m_device->getContext()))
-		//{
-		//	return false;
-		//}
+		if (!m_renderer2D->init(m_device->getDevice(), m_device->getContext()))
+		{
+			return false;
+		}
 
 		//////////////////////////////////////////////////////
 		//
@@ -216,24 +215,24 @@ namespace s3d
 		return m_swapChain->getDisplayRefreshRateHz();
 	}
 
-	//bool CGraphics_D3D11::flush(bool clearGraphics)
-	//{
-	//	m_renderer2D->flush(clearGraphics);
+	bool CGraphics_D3D11::flush(bool clearGraphics)
+	{
+		m_renderer2D->flush(clearGraphics);
 
-	//	m_renderTarget->resolve();
+		m_renderTarget->resolve();
 
-	//	return true;
-	//}
+		return true;
+	}
 
 	//const Size& CGraphics_D3D11::getCurrentRenderTargetSize() const
 	//{
 	//	return m_renderTarget->getCurrentRenderTargetSize();
 	//}
 
-	//const RenderTexture& CGraphics_D3D11::getBackBuffer2D() const
-	//{
-	//	return m_renderTarget->getBackBuffer2D();
-	//}
+	const RenderTexture& CGraphics_D3D11::getBackBuffer2D() const
+	{
+		return m_renderTarget->getBackBuffer2D();
+	}
 
 	//void CGraphics_D3D11::requestScreenCapture()
 	//{

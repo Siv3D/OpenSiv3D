@@ -25,7 +25,7 @@
 # include "DepthStencilState/D3D11DepthStencilState.hpp"
 # include "SamplerState/D3D11SamplerState.hpp"
 # include "ScreenCapture/D3D11ScreenCapture.hpp"
-//# include "../../Renderer2D/D3D11/CRenderer2D_D3D11.hpp"
+# include "../../Renderer2D/D3D11/CRenderer2D_D3D11.hpp"
 
 namespace s3d
 {
@@ -53,7 +53,7 @@ namespace s3d
 
 		std::unique_ptr<D3D11ScreenCapture> m_screenCapture;
 
-		//CRenderer2D_D3D11* m_renderer2D = nullptr;
+		CRenderer2D_D3D11* m_renderer2D = nullptr;
 
 	public:
 
@@ -97,11 +97,11 @@ namespace s3d
 
 		double getDisplayRefreshRateHz() const override;
 
-		//bool flush(bool clearGraphics) override;
+		bool flush(bool clearGraphics) override;
 
 		//const Size& getCurrentRenderTargetSize() const override;
 
-		//const RenderTexture& getBackBuffer2D() const override;
+		const RenderTexture& getBackBuffer2D() const override;
 
 		//void requestScreenCapture() override;
 		//

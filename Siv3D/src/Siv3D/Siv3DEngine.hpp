@@ -32,6 +32,7 @@ namespace s3d
 	class ISiv3DGraphics;
 	class ISiv3DTexture;
 	class ISiv3DShader;
+	class ISiv3DRenderer2D;
 
 	template <class Interface>
 	class Siv3DComponent
@@ -104,6 +105,8 @@ namespace s3d
 		Siv3DComponent<ISiv3DTexture> m_texture;
 
 		Siv3DComponent<ISiv3DShader> m_shader;
+
+		Siv3DComponent<ISiv3DRenderer2D> m_renderer2D;
 		
 	public:
 
@@ -204,6 +207,11 @@ namespace s3d
 		static ISiv3DShader* GetShader()
 		{
 			return pEngine->m_shader.get();
+		}
+
+		static ISiv3DRenderer2D* GetRenderer2D()
+		{
+			return pEngine->m_renderer2D.get();
 		}
 	};
 }

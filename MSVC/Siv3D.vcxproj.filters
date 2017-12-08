@@ -470,6 +470,36 @@
     <Filter Include="src\Siv3D\VertexShader">
       <UniqueIdentifier>{41308e95-134f-4f0d-a32f-a3c6e60220fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Renderer2D">
+      <UniqueIdentifier>{c3f90fc2-074f-4fed-bee1-82428c79312d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Renderer2D\D3D11">
+      <UniqueIdentifier>{e1682454-e309-4f12-b893-d1fbd992ff8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Renderer2D\GL">
+      <UniqueIdentifier>{76c59e64-cca8-4890-b437-e38e8515131e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ConstantBuffer">
+      <UniqueIdentifier>{af3a1378-d15d-47a4-b6e3-35598625ea26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ConstantBuffer\D3D11">
+      <UniqueIdentifier>{68e88097-c471-4f8a-902d-5f1e0d23ffc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\ConstantBuffer\GL">
+      <UniqueIdentifier>{22c3060f-e915-4244-8763-8967aad94d93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\BlendState">
+      <UniqueIdentifier>{ec4aaf26-e0e1-4d27-ae70-9768e9db844e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\RasterizerState">
+      <UniqueIdentifier>{f52e1e41-0159-4ae7-bab4-0b9eb5ef4743}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\SamplerState">
+      <UniqueIdentifier>{88f4188c-3501-4f17-848b-43a380532173}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Sprite">
+      <UniqueIdentifier>{03c632c3-cffb-459c-b8d9-216d2623da22}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -1212,6 +1242,36 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\PixelShader\SivPixelShader.cpp">
       <Filter>src\Siv3D\PixelShader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Renderer2D\Renderer2DFactory.cpp">
+      <Filter>src\Siv3D\Renderer2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Renderer2D\D3D11\D3D11Renderer2DCommandManager.cpp">
+      <Filter>src\Siv3D\Renderer2D\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Renderer2D\D3D11\CRenderer2D_D3D11.cpp">
+      <Filter>src\Siv3D\Renderer2D\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ConstantBuffer\SivConstantBuffer.cpp">
+      <Filter>src\Siv3D\ConstantBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ConstantBuffer\D3D11\D3D11ConstantBuffer.cpp">
+      <Filter>src\Siv3D\ConstantBuffer\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\BlendState\SivBlendState.cpp">
+      <Filter>src\Siv3D\BlendState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\RasterizerState\SivRasterizerState.cpp">
+      <Filter>src\Siv3D\RasterizerState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\SamplerState\SivSamplerState.cpp">
+      <Filter>src\Siv3D\SamplerState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Graphics2D\SivGraphics2D.cpp">
+      <Filter>src\Siv3D\Graphics2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Sprite\SivSprite.cpp">
+      <Filter>src\Siv3D\Sprite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2372,6 +2432,27 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Shader\D3D11\VertexShader_D3D11.hpp">
       <Filter>src\Siv3D\Shader\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Renderer2D\IRenderer2D.hpp">
+      <Filter>src\Siv3D\Renderer2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Renderer2D\D3D11\CRenderer2D_D3D11.hpp">
+      <Filter>src\Siv3D\Renderer2D\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Renderer2D\D3D11\D3D11Renderer2DCommandManager.hpp">
+      <Filter>src\Siv3D\Renderer2D\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Renderer2D\D3D11\D3D11SpriteBatch.hpp">
+      <Filter>src\Siv3D\Renderer2D\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\ConstantBuffer\D3D11\D3D11ConstantBuffer.hpp">
+      <Filter>src\Siv3D\ConstantBuffer\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ConstantBuffer.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Sprite.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

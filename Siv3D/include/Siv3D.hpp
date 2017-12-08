@@ -683,19 +683,19 @@
 	# include "Siv3D/Vertex2D.hpp"
 
 	// 2D スプライト
-	//# include "Siv3D/Sprite.hpp"
+	# include "Siv3D/Sprite.hpp"
 
 	// ブレンドステート
-	//# include "Siv3D/BlendState.hpp"
+	# include "Siv3D/BlendState.hpp"
 
 	// ラスタライザーステート
-	//# include "Siv3D/RasterizerState.hpp"
+	# include "Siv3D/RasterizerState.hpp"
 
 	//// デプスステートとステンシルステート
 	//# include "Siv3D/DepthStencilState.hpp"
 
 	// サンプラーステート
-	//# include "Siv3D/SamplerState.hpp"
+	# include "Siv3D/SamplerState.hpp"
 
 	// シェーダ
 	# include "Siv3D/Shader.hpp"
@@ -707,7 +707,7 @@
 	# include "Siv3D/PixelShader.hpp"
 
 	// 定数バッファ
-	//# include "Siv3D/ConstantBuffer.hpp"
+	# include "Siv3D/ConstantBuffer.hpp"
 
 	//// 頂点レイアウト
 	//# include "Siv3D/InputLayout.hpp"

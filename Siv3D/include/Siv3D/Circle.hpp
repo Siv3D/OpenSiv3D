@@ -567,9 +567,9 @@ namespace s3d
 		/// </returns>
 		const Circle& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF(0.0, 0.5)) const;
 
-		//TexturedCircle operator ()(const Texture& texture) const;
+		TexturedCircle operator ()(const Texture& texture) const;
 
-		//TexturedCircle operator ()(const TextureRegion& textureRegion) const;
+		TexturedCircle operator ()(const TextureRegion& textureRegion) const;
 
 		// Polygon asPolygon() const;
 	};
