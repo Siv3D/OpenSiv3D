@@ -11,11 +11,11 @@
 
 # include <Siv3D/Triangle.hpp>
 # include <Siv3D/Circular.hpp>
-//# include <Siv3D/Mouse.hpp>
-//# include <Siv3D/Cursor.hpp>
+# include <Siv3D/Mouse.hpp>
+# include <Siv3D/Cursor.hpp>
 # include <Siv3D/Line.hpp>
 # include "../Siv3DEngine.hpp"
-//# include "../Renderer2D/IRenderer2D.hpp"
+# include "../Renderer2D/IRenderer2D.hpp"
 
 namespace s3d
 {
@@ -83,77 +83,77 @@ namespace s3d
 		return p0.distanceFrom(p1) + p1.distanceFrom(p2) + p2.distanceFrom(p0);
 	}
 
-	//bool Triangle::leftClicked() const
-	//{
-	//	return MouseL.down() && mouseOver();
-	//}
+	bool Triangle::leftClicked() const
+	{
+		return MouseL.down() && mouseOver();
+	}
 
-	//bool Triangle::leftPressed() const
-	//{
-	//	return MouseL.pressed() && mouseOver();
-	//}
+	bool Triangle::leftPressed() const
+	{
+		return MouseL.pressed() && mouseOver();
+	}
 
-	//bool Triangle::leftReleased() const
-	//{
-	//	return MouseL.up() && mouseOver();
-	//}
+	bool Triangle::leftReleased() const
+	{
+		return MouseL.up() && mouseOver();
+	}
 
-	//bool Triangle::rightClicked() const
-	//{
-	//	return MouseR.down() && mouseOver();
-	//}
+	bool Triangle::rightClicked() const
+	{
+		return MouseR.down() && mouseOver();
+	}
 
-	//bool Triangle::rightPressed() const
-	//{
-	//	return MouseR.pressed() && mouseOver();
-	//}
+	bool Triangle::rightPressed() const
+	{
+		return MouseR.pressed() && mouseOver();
+	}
 
-	//bool Triangle::rightReleased() const
-	//{
-	//	return MouseR.up() && mouseOver();
-	//}
+	bool Triangle::rightReleased() const
+	{
+		return MouseR.up() && mouseOver();
+	}
 
-	//bool Triangle::mouseOver() const
-	//{
-	//	return Geometry2D::Intersect(Cursor::PosF(), *this);
-	//}
+	bool Triangle::mouseOver() const
+	{
+		return Geometry2D::Intersect(Cursor::PosF(), *this);
+	}
 
-	//const Triangle& Triangle::draw(const ColorF& color) const
-	//{
-	//	Siv3DEngine::GetRenderer2D()->addTriangle({ p0, p1, p2 }, color.toFloat4());
+	const Triangle& Triangle::draw(const ColorF& color) const
+	{
+		Siv3DEngine::GetRenderer2D()->addTriangle({ p0, p1, p2 }, color.toFloat4());
 
-	//	return *this;
-	//}
+		return *this;
+	}
 
-	//const Triangle& Triangle::draw(const ColorF(&colors)[3]) const
-	//{
-	//	Siv3DEngine::GetRenderer2D()->addTriangle(	
-	//		{ p0, p1, p2 },
-	//		{ colors[0].toFloat4(), colors[1].toFloat4(), colors[2].toFloat4() });
+	const Triangle& Triangle::draw(const ColorF(&colors)[3]) const
+	{
+		Siv3DEngine::GetRenderer2D()->addTriangle(	
+			{ p0, p1, p2 },
+			{ colors[0].toFloat4(), colors[1].toFloat4(), colors[2].toFloat4() });
 
-	//	return *this;
-	//}
+		return *this;
+	}
 
-	//const Triangle& Triangle::drawFrame(double thickness, const ColorF& color) const
-	//{
-	//	Siv3DEngine::GetRenderer2D()->addLineString(LineStyle::SquareCap, &p0, 3, none,
-	//		static_cast<float>(thickness), false, color.toFloat4(), true);
+	const Triangle& Triangle::drawFrame(double thickness, const ColorF& color) const
+	{
+		Siv3DEngine::GetRenderer2D()->addLineString(LineStyle::SquareCap, &p0, 3, none,
+			static_cast<float>(thickness), false, color.toFloat4(), true);
 
-	//	return *this;
-	//}
+		return *this;
+	}
 
-	//const Triangle& Triangle::drawFrame(double innerThickness, double outerThickness, const ColorF& color) const
-	//{
-	//	const double offset = (outerThickness - innerThickness) * 0.5;
+	const Triangle& Triangle::drawFrame(double innerThickness, double outerThickness, const ColorF& color) const
+	{
+		const double offset = (outerThickness - innerThickness) * 0.5;
 
-	//	const Triangle t = stretched(offset);
+		const Triangle t = stretched(offset);
 
-	//	Siv3DEngine::GetRenderer2D()->addLineString(LineStyle::SquareCap, &t.p0, 3, none,
-	//		static_cast<float>(innerThickness + outerThickness),
-	//		outerThickness == 0.0, color.toFloat4(), true);
+		Siv3DEngine::GetRenderer2D()->addLineString(LineStyle::SquareCap, &t.p0, 3, none,
+			static_cast<float>(innerThickness + outerThickness),
+			outerThickness == 0.0, color.toFloat4(), true);
 
-	//	return *this;
-	//}
+		return *this;
+	}
 
 	void Formatter(FormatData& formatData, const Triangle& value)
 	{

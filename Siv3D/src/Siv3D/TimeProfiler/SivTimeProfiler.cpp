@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/TimeProfiler.hpp>
-//# include <Siv3D/Logger.hpp>
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -134,46 +134,46 @@ namespace s3d
 		return result;
 	}
 
-	//void TimeProfiler::output(const uint64 end) const
-	//{
-	//	if (m_data.empty())
-	//	{
-	//		Output(toString(end - m_start));
+	void TimeProfiler::log(const uint64 end) const
+	{
+		if (m_data.empty())
+		{
+			Logger(toString(end - m_start));
 
-	//		return;
-	//	}
+			return;
+		}
 
-	//	size_t maxLabelLength = 0;
+		size_t maxLabelLength = 0;
 
-	//	for (const auto& data : m_data)
-	//	{
-	//		if (data.second.count)
-	//		{
-	//			maxLabelLength = std::max(maxLabelLength, data.first.length());
-	//		}
-	//	}
+		for (const auto& data : m_data)
+		{
+			if (data.second.count)
+			{
+				maxLabelLength = std::max(maxLabelLength, data.first.length());
+			}
+		}
 
-	//	Array<decltype(m_data)::const_iterator> its(m_index);
+		Array<decltype(m_data)::const_iterator> its(m_index);
 
-	//	for (auto it = m_data.begin(); it != m_data.end(); ++it)
-	//	{
-	//		its[it->second.index] = it;
-	//	}
+		for (auto it = m_data.begin(); it != m_data.end(); ++it)
+		{
+			its[it->second.index] = it;
+		}
 
-	//	Output(U'[', m_name, U']');
+		Logger(U'[', m_name, U']');
 
-	//	Output(String(maxLabelLength, U' '), U" |  avg   |  min   |  max   |");
+		Logger(String(maxLabelLength, U' '), U" |  avg   |  min   |  max   |");
 
-	//	for (const auto& it : its)
-	//	{
-	//		const auto& data = *it;
+		for (const auto& it : its)
+		{
+			const auto& data = *it;
 
-	//		if (data.second.count)
-	//		{
-	//			const uint64 average = data.second.sum / data.second.count;
+			if (data.second.count)
+			{
+				const uint64 average = data.second.sum / data.second.count;
 
-	//			Output(data.first.rpadded(maxLabelLength), U" | "), toString(average).rpad(6), U" | "), toString(data.second.min).rpad(6), U" | "), toString(data.second.max).rpad(6), U" |"));
-	//		}
-	//	}
-	//}
+				Logger(data.first.rpadded(maxLabelLength), U" | ", toString(average).rpad(6), U" | ", toString(data.second.min).rpad(6), U" | ", toString(data.second.max).rpad(6), U" |");
+			}
+		}
+	}
 }

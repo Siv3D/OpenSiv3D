@@ -14,7 +14,7 @@
 # include <Siv3D/Rectangle.hpp>
 # include <Siv3D/Spline.hpp>
 # include "../Siv3DEngine.hpp"
-//# include "../Renderer2D/IRenderer2D.hpp"
+# include "../Renderer2D/IRenderer2D.hpp"
 
 namespace s3d
 {
@@ -118,29 +118,29 @@ namespace s3d
 		return splinePoints;
 	}
 
-	//const LineString& LineString::draw(const LineStyle& style, const double thickness, const ColorF& color, const bool isClosed) const
-	//{
-	//	if (size() < 2)
-	//	{
-	//		return *this;
-	//	}
+	const LineString& LineString::draw(const LineStyle& style, const double thickness, const ColorF& color, const bool isClosed) const
+	{
+		if (size() < 2)
+		{
+			return *this;
+		}
 
-	//	Siv3DEngine::GetRenderer2D()->addLineString(
-	//		style,
-	//		data(),
-	//		static_cast<uint32>(size()),
-	//		s3d::none,
-	//		static_cast<float>(thickness),
-	//		false,
-	//		color.toFloat4(),
-	//		isClosed
-	//	);
+		Siv3DEngine::GetRenderer2D()->addLineString(
+			style,
+			data(),
+			static_cast<uint32>(size()),
+			s3d::none,
+			static_cast<float>(thickness),
+			false,
+			color.toFloat4(),
+			isClosed
+		);
 
-	//	return *this;
-	//}
+		return *this;
+	}
 
-	//void LineString::drawCatmullRom(const LineStyle& style, const double thickness, const ColorF& color, const bool isClosed, const int32 interpolation) const
-	//{
-	//	catmullRom(isClosed, interpolation).draw(style, thickness, color, isClosed);
-	//}
+	void LineString::drawCatmullRom(const LineStyle& style, const double thickness, const ColorF& color, const bool isClosed, const int32 interpolation) const
+	{
+		catmullRom(isClosed, interpolation).draw(style, thickness, color, isClosed);
+	}
 }
