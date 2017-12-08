@@ -713,7 +713,7 @@
 	//# include "Siv3D/InputLayout.hpp"
 
 	// グラフィックス全般
-	//# include "Siv3D/Graphics.hpp"
+	# include "Siv3D/Graphics.hpp"
 
 	// スクリーンショット
 	//# include "Siv3D/ScreenCapture.hpp"

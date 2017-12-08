@@ -26,7 +26,7 @@ namespace s3d
 
 		const IDType NullID = IDType(0);
 
-		using MapType = HashTable<IDType, Data>;
+		using MapType = HashTable<IDType, std::shared_ptr<Data>>;
 
 		MapType m_data;
 
@@ -36,6 +36,8 @@ namespace s3d
 
 		bool m_idFilled = false;
 
+		std::mutex m_mutex;
+
 	public:
 
 		using iterator			= typename MapType::iterator;
@@ -44,20 +46,22 @@ namespace s3d
 		explicit AssetHandleManager(const String& name)
 			: m_assetTypeName(name) {}
 
-		void setNullData(const Data& data)
+		void setNullData(const std::shared_ptr<Data>& data)
 		{
 			m_data.emplace(NullID, data);
 
 			LOG_DEBUG(U"💠 Created {0}[0(null)]"_fmt(m_assetTypeName));
 		}
 
-		const Data& operator [](const IDType id)
+		Data* operator [](const IDType id)
 		{
-			return m_data[id];
+			return m_data[id].get();
 		}
 
-		IDType add(const Data& data)
+		IDType add(const std::shared_ptr<Data>& data)
 		{
+			std::lock_guard<std::mutex> lock(m_mutex);
+
 			if (++m_idCount == 0)
 			{
 				m_idFilled = true;
@@ -99,6 +103,8 @@ namespace s3d
 				return;
 			}
 
+			std::lock_guard<std::mutex> lock(m_mutex);
+
 			const auto it = m_data.find(id);
 
 			assert(it != m_data.end());
@@ -112,6 +118,8 @@ namespace s3d
 
 		void destroy()
 		{
+			std::lock_guard<std::mutex> lock(m_mutex);
+
 			for (const auto& data : m_data)
 			{
 				if (const auto id = data.first; !id.isNull())
