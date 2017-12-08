@@ -103,9 +103,9 @@ namespace s3d
 
 		const RenderTexture& getBackBuffer2D() const override;
 
-		//void requestScreenCapture() override;
-		//
-		//const Image& getScreenCapture() const override;
+		void requestScreenCapture() override;
+		
+		const Image& getScreenCapture() const override;
 	};
 }
 

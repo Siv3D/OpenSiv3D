@@ -716,7 +716,7 @@
 	# include "Siv3D/Graphics.hpp"
 
 	// スクリーンショット
-	//# include "Siv3D/ScreenCapture.hpp"
+	# include "Siv3D/ScreenCapture.hpp"
 
 	// 2D グラフィックス設定
 	# include "Siv3D/Graphics2D.hpp"

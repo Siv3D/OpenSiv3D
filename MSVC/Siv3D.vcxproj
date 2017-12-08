@@ -77,6 +77,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_Windows.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\DragDropFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\SivDragDrop.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\DynamicTexture\SivDynamicTexture.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Ellipse\SivEllipse.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\EmojiDictionary\CEmojiDictionary.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\EmojiDictionary\SivEmojiDictionary.cpp" />
@@ -174,6 +175,9 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Resource\SivResource.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\RoundRect\SivRoundRect.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\SamplerState\SivSamplerState.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ScreenCapture\CScreenCapture.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ScreenCapture\ScreenCaptureFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ScreenCapture\SivScreenCapture.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Shader\D3D11\CShader_D3D11.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Shader\D3D11\PixelShader_D3D11.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Shader\D3D11\VertexShader_D3D11.cpp" />
@@ -286,7 +290,6 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\zdict.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\OpenSiv3D\Siv3D\Include\Siv3D\Spline.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AlignedAllocator.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AlignedMemory.hpp" />
@@ -320,6 +323,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\CPU.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\CSVData.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Cursor.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\CustomStopwatch.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Cylindrical.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Date.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\DateTime.hpp" />
@@ -422,19 +426,20 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Resource.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RoundRect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SamplerState.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ScreenCapture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SFMT.hpp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\CustomStopwatch.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Shader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Shape2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SIMDMath.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Spherical.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Spline.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Sprite.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Step.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Step2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Step_MSVC.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Stopwatch.hpp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\StringView.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\String.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\StringView.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\System.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextEncoding.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextReader.hpp" />
@@ -565,6 +570,8 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Renderer2D\GL\GLRenderer2DCommandManager.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Renderer2D\GL\GLSpriteBatch.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Renderer2D\IRenderer2D.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\ScreenCapture\CScreenCapture.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\ScreenCapture\IScreenCapture.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Shader\D3D11\CShader_D3D11.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Shader\D3D11\PixelShader_D3D11.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Shader\D3D11\VertexShader_D3D11.hpp" />
