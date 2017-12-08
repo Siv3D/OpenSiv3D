@@ -44,13 +44,13 @@ namespace s3d
 
 		VertexShaderID createVS(ByteArray&&) override { return VertexShaderID::NullAsset(); }
 
-		VertexShaderID createVSFromFile(const FilePath&, const Array<BindingPoint>&) override { return VertexShaderID::NullAsset(); }
+		VertexShaderID createVSFromFile(const FilePath& path, const Array<BindingPoint>&) override;
 		
 		VertexShaderID createVSFromSource(const String& source, const Array<BindingPoint>& bindingPoints) override;
 
 		PixelShaderID createPS(ByteArray&&) override { return PixelShaderID::NullAsset(); }
 
-		PixelShaderID createPSFromFile(const FilePath&, const Array<BindingPoint>&) override { return PixelShaderID::NullAsset(); }
+		PixelShaderID createPSFromFile(const FilePath& path, const Array<BindingPoint>&) override;
 		
 		PixelShaderID createPSFromSource(const String& source, const Array<BindingPoint>& bindingPoints) override;
 
