@@ -373,24 +373,21 @@ namespace s3d
 
 	[[nodiscard]] bool IsPrime(uint64 n);
 
-	inline namespace literals
+	namespace Literals
 	{
-		inline namespace bigint_literals
+		[[nodiscard]] inline BigInt operator ""_big(unsigned long long int i)
 		{
-			[[nodiscard]] inline BigInt operator ""_big(unsigned long long int i)
-			{
-				return BigInt(i);
-			}
+			return BigInt(i);
+		}
 
-			[[nodiscard]] inline BigInt operator ""_big(const char* number, size_t)
-			{
-				return BigInt(number);
-			}
+		[[nodiscard]] inline BigInt operator ""_big(const char* number, size_t)
+		{
+			return BigInt(number);
+		}
 
-			[[nodiscard]] inline BigInt operator ""_big(const char32* number, size_t)
-			{
-				return BigInt(number);
-			}
+		[[nodiscard]] inline BigInt operator ""_big(const char32* number, size_t)
+		{
+			return BigInt(number);
 		}
 	}
 

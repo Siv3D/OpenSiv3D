@@ -108,19 +108,16 @@ namespace s3d
 		return std::chrono::duration_cast<DurationTo>(duration);
 	}
 
-	inline namespace literals
+	namespace Literals
 	{
-		inline namespace chrono_literals
+		[[nodiscard]] inline constexpr Days operator ""_d(unsigned long long days)
 		{
-			[[nodiscard]] inline constexpr Days operator ""_d(unsigned long long days)
-			{
-				return Days(days);
-			}
+			return Days(days);
+		}
 
-			[[nodiscard]] inline constexpr DaysF operator ""_d(long double days)
-			{
-				return DaysF(days);
-			}
+		[[nodiscard]] inline constexpr DaysF operator ""_d(long double days)
+		{
+			return DaysF(days);
 		}
 	}
 }

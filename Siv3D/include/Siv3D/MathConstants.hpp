@@ -91,32 +91,27 @@ namespace s3d
 		constexpr double E = 2.7182818284590452354;
 	}
 
-	inline namespace literals
+	namespace Literals
 	{
-		inline namespace math_literals
+		constexpr double operator ""_pi(long double x)
 		{
-			constexpr double operator ""_pi(long double x)
-			{
-				return static_cast<double>(x * Math::Pi);
-			}
-
-			constexpr double operator ""_pi(unsigned long long x)
-			{
-				return static_cast<double>(x * Math::Pi);
-			}
+			return static_cast<double>(x * Math::Pi);
 		}
 
-		inline namespace angle_literals
+		constexpr double operator ""_pi(unsigned long long x)
 		{
-			constexpr double operator ""_deg(long double deg)
-			{
-				return static_cast<double>(deg * Math::Pi / 180);
-			}
+			return static_cast<double>(x * Math::Pi);
+		}
 
-			constexpr double operator ""_deg(unsigned long long deg)
-			{
-				return static_cast<double>(deg * Math::Pi / 180);
-			}
+		constexpr double operator ""_deg(long double deg)
+		{
+			return static_cast<double>(deg * Math::Pi / 180);
+		}
+
+		constexpr double operator ""_deg(unsigned long long deg)
+		{
+			return static_cast<double>(deg * Math::Pi / 180);
 		}
 	}
 }
+

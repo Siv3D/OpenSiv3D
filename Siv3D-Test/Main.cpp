@@ -4,14 +4,21 @@
 
 void Main()
 {
-	Graphics::SetBackground(ColorF(0.3, 0.7, 1.0));
+	Graphics::SetBackground(Palette::White);
 
-	const Texture texture(U"example/windmill.png");
-	
+	double t = 0.0;
+
 	while (System::Update())
 	{
-		texture.draw(10, 20);
-		
-		Circle(Cursor::Pos(), 50).draw();
+		t += System::DeltaTime();
+
+		for (int32 i = 0; i < 36; ++i)
+		{
+			const double angle = i * 10_deg + t * 30_deg;
+
+			const Vec2 pos = OffsetCircular(Window::Center(), 200, angle);
+
+			RectF(25).setCenter(pos).rotated(angle).draw(HSV(i * 10));
+		}
 	}
 }

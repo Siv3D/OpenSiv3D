@@ -907,6 +907,6 @@
 # ifndef NO_S3D_USING
 
 	using namespace s3d;
-	using namespace s3d::literals;
+	using namespace s3d::Literals;
 
 # endif
