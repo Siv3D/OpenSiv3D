@@ -142,7 +142,7 @@ namespace s3d
 			return FontID::NullAsset();
 		}
 
-		return m_fonts.add(font);
+		return m_fonts.add(font, U"(`{0} {1}` size: {2})"_fmt(font->getFamilyName(), font->getStyleName(),fontSize));
 	}
 
 	void CFont::release(const FontID handleID)

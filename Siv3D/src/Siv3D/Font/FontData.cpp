@@ -559,9 +559,20 @@ namespace s3d
 			}
 			else
 			{
+				const bool hasTexture = !!m_texture;
+				const Size previousSize = m_texture.size();
+				const Size newSize = m_image.size();
+
 				m_texture = DynamicTexture(m_image);
 
-				LOG_DEBUG(U"ℹ️ Changed font texture size to {}"_fmt(m_image.size()));
+				if (hasTexture)
+				{
+					LOG_DEBUG(U"ℹ️ Font texture resized ({0}x{1} -> {2}x{3})"_fmt(previousSize.x, previousSize.y, newSize.x, newSize.y));
+				}
+				else
+				{
+					LOG_DEBUG(U"ℹ️ Created font texture (size: {0}x{1})"_fmt(newSize.x, newSize.y));
+				}
 			}
 		}
 
