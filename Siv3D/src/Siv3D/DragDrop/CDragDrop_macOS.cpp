@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -42,7 +42,7 @@ extern "C"
 		}
 	}
 	
-	void s3d_DraggingExited()
+	void s3d_DraggingExited(void)
 	{
 		if (pDragDrop)
 		{

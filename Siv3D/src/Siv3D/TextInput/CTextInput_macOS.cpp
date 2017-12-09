@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -69,7 +69,7 @@ namespace s3d
 		{
 			std::lock_guard<std::mutex> lock(m_mutex);
 		
-			m_chars = CharacterSet::UTF16ToUTF32(m_internalChars);
+			m_chars = Unicode::FromUTF16(m_internalChars);
 		
 			m_internalChars.clear();
 		}
@@ -93,19 +93,19 @@ namespace s3d
 		{
 			if (m_chars.empty() && (KeyEnter.down() || (KeyEnter.pressedDuration() > SecondsF(0.33) && m_enterPress > SecondsF(0.06))))
 			{
-				m_chars.push_back(S3DCHAR('\r'));
+				m_chars.push_back(U'\r');
 				m_enterPress.restart();
 			}
 		
 			if (KeyTab.down() || (KeyTab.pressedDuration() > SecondsF(0.33) && m_tabPress > SecondsF(0.06)))
 			{
-				m_chars.push_back(S3DCHAR('\t'));
+				m_chars.push_back(U'\t');
 				m_tabPress.restart();
 			}
 		
 			if (KeyBackspace.down() || (KeyBackspace.pressedDuration() > SecondsF(0.33) && m_backSpacePress > SecondsF(0.06)))
 			{
-				m_chars.push_back(S3DCHAR('\b'));
+				m_chars.push_back(U'\b');
 				m_backSpacePress.restart();
 			}
 		}
@@ -118,7 +118,7 @@ namespace s3d
 		m_internalChars.push_back(static_cast<char16_t>(ch));
 	}
 
-	const std::u32string& CTextInput_macOS::getChars() const
+	const String& CTextInput_macOS::getChars() const
 	{
 		return m_chars;
 	}
@@ -141,7 +141,7 @@ namespace s3d
 		
 		if (m_haveMarkedText)
 		{
-			m_internalMarkedText = CharacterSet::FromUTF8(text);
+			m_internalMarkedText = Unicode::FromUTF8(text);
 		}
 		else
 		{
