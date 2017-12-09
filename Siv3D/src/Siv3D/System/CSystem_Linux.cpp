@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -24,7 +24,7 @@
 # include "../Cursor/ICursor.hpp"
 # include "../Keyboard/IKeyboard.hpp"
 # include "../Mouse/IMouse.hpp"
-//# include "../TextInput/ITextInput.hpp"
+# include "../TextInput/ITextInput.hpp"
 # include "../Codec/ICodec.hpp"
 # include "../AudioFormat/IAudioFormat.hpp"
 //# include "../Audio/IAudio.hpp"
@@ -102,10 +102,10 @@ namespace s3d
 			return false;
 		}
 		
-		//if (!Siv3DEngine::GetTextInput()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetTextInput()->init())
+		{
+			return false;
+		}
 
 		if (!Siv3DEngine::GetCodec()->init())
 		{
