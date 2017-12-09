@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -12,6 +12,7 @@
 # pragma once
 # include <type_traits>
 # include <limits>
+# include <cmath>
 
 namespace s3d
 {
