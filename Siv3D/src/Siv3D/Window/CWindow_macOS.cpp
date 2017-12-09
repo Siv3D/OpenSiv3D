@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -68,6 +68,8 @@ namespace s3d
 		m_state.windowSize.set(windowSizeX, windowSizeY);
 		
 		::glfwMakeContextCurrent(m_glfwWindow);
+		
+		::glewExperimental = GL_TRUE;
 		
 		if (::glewInit() != GLEW_OK)
 		{

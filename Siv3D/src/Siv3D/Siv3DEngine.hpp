@@ -29,6 +29,10 @@ namespace s3d
 	class ISiv3DMouse;
 	class ISiv3DCodec;
 	class ISiv3DAudioFormat;
+	class ISiv3DGraphics;
+	class ISiv3DTexture;
+	class ISiv3DShader;
+	class ISiv3DRenderer2D;
 
 	template <class Interface>
 	class Siv3DComponent
@@ -95,6 +99,14 @@ namespace s3d
 		Siv3DComponent<ISiv3DCodec> m_codec;
 
 		Siv3DComponent<ISiv3DAudioFormat> m_audioFormat;
+
+		Siv3DComponent<ISiv3DGraphics> m_graphics;
+
+		Siv3DComponent<ISiv3DTexture> m_texture;
+
+		Siv3DComponent<ISiv3DShader> m_shader;
+
+		Siv3DComponent<ISiv3DRenderer2D> m_renderer2D;
 		
 	public:
 
@@ -180,6 +192,26 @@ namespace s3d
 		static ISiv3DAudioFormat* GetAudioFormat()
 		{
 			return pEngine->m_audioFormat.get();
+		}
+
+		static ISiv3DGraphics* GetGraphics()
+		{
+			return pEngine->m_graphics.get();
+		}
+
+		static ISiv3DTexture* GetTexture()
+		{
+			return pEngine->m_texture.get();
+		}
+
+		static ISiv3DShader* GetShader()
+		{
+			return pEngine->m_shader.get();
+		}
+
+		static ISiv3DRenderer2D* GetRenderer2D()
+		{
+			return pEngine->m_renderer2D.get();
 		}
 	};
 }

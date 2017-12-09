@@ -17,7 +17,7 @@
 # include <Siv3D/Logger.hpp>
 # include "../Siv3DEngine.hpp"
 # include "CWindow_Windows.hpp"
-//# include "../Graphics/D3D11/CGraphics_D3D11.hpp"
+# include "../Graphics/D3D11/CGraphics_D3D11.hpp"
 
 namespace s3d
 {
@@ -125,45 +125,45 @@ namespace s3d
 		::GetWindowRect(m_hWnd, &rc);
 		m_state.pos.set(rc.left, rc.top);
 
-		//CGraphics_D3D11* graphics = dynamic_cast<CGraphics_D3D11*>(Siv3DEngine::GetGraphics());
-		//const auto shouldResize = graphics->shouldResize();
-		//const bool resizeRequest = std::exchange(m_resizeRequest, false);
+		CGraphics_D3D11* graphics = dynamic_cast<CGraphics_D3D11*>(Siv3DEngine::GetGraphics());
+		const auto shouldResize = graphics->getSwapChain()->pendingResize();
+		const bool resizeRequest = std::exchange(m_resizeRequest, false);
 
-		//if (resizeRequest && shouldResize)
-		//{
-		//	RECT wnRec;
-		//	::GetWindowRect(m_hWnd, &wnRec);
-		//	RECT area{ 0, 0, wnRec.right - wnRec.left, wnRec.bottom - wnRec.top };
-		//	m_state.windowSize.set(area.right - area.left, area.bottom - area.top);
-		//	m_state.clientSize.set(wnRec.right - wnRec.left, wnRec.bottom - wnRec.top);
+		if (resizeRequest && shouldResize)
+		{
+			RECT wnRec;
+			::GetWindowRect(m_hWnd, &wnRec);
+			RECT area{ 0, 0, wnRec.right - wnRec.left, wnRec.bottom - wnRec.top };
+			m_state.windowSize.set(area.right - area.left, area.bottom - area.top);
+			m_state.clientSize.set(wnRec.right - wnRec.left, wnRec.bottom - wnRec.top);
 
-		//	// ウィンドウの枠やタイトルバーの幅を再度取得
-		//	if (const int32 addedBorder = ::GetSystemMetrics(SM_CXPADDEDBORDER))
-		//	{
-		//		m_state.frameSize.x = ::GetSystemMetrics(SM_CXFRAME) + addedBorder;
-		//		m_state.frameSize.y = ::GetSystemMetrics(SM_CYFRAME) + addedBorder;
-		//	}
-		//	else
-		//	{
-		//		m_state.frameSize.x = ::GetSystemMetrics(SM_CXFIXEDFRAME);
-		//		m_state.frameSize.y = ::GetSystemMetrics(SM_CYFIXEDFRAME);
-		//	}
+			// ウィンドウの枠やタイトルバーの幅を再度取得
+			if (const int32 addedBorder = ::GetSystemMetrics(SM_CXPADDEDBORDER))
+			{
+				m_state.frameSize.x = ::GetSystemMetrics(SM_CXFRAME) + addedBorder;
+				m_state.frameSize.y = ::GetSystemMetrics(SM_CYFRAME) + addedBorder;
+			}
+			else
+			{
+				m_state.frameSize.x = ::GetSystemMetrics(SM_CXFIXEDFRAME);
+				m_state.frameSize.y = ::GetSystemMetrics(SM_CYFIXEDFRAME);
+			}
 
-		//	m_state.titleBarHeight = ::GetSystemMetrics(SM_CYCAPTION) + m_state.frameSize.y;
+			m_state.titleBarHeight = ::GetSystemMetrics(SM_CYCAPTION) + m_state.frameSize.y;
 
-		//	if (!(m_style & WS_POPUP))
-		//	{
-		//		m_state.clientSize -= { m_state.frameSize.x * 2, m_state.frameSize.y + m_state.titleBarHeight };
-		//	}
+			if (!(m_style & WS_POPUP))
+			{
+				m_state.clientSize -= { m_state.frameSize.x * 2, m_state.frameSize.y + m_state.titleBarHeight };
+			}
 
-		//	const Size availableSize = m_state.clientSize;
+			const Size availableSize = m_state.clientSize;
 
-		//	graphics->resizeTargetWindowed(availableSize);
+			graphics->getSwapChain()->resizeTargetWindowed(availableSize);
 
-		//	m_resizeRequest = false;
+			m_resizeRequest = false;
 
-		//	::SetWindowPos(m_hWnd, nullptr, wnRec.left, wnRec.top, m_state.windowSize.x, m_state.windowSize.y, SWP_DEFERERASE | SWP_NOOWNERZORDER | SWP_NOZORDER);
-		//}
+			::SetWindowPos(m_hWnd, nullptr, wnRec.left, wnRec.top, m_state.windowSize.x, m_state.windowSize.y, SWP_DEFERERASE | SWP_NOOWNERZORDER | SWP_NOZORDER);
+		}
 
 		return true;
 	}
