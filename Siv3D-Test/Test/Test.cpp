@@ -1,4 +1,4 @@
-
+﻿
 # include "Test.hpp"
 
 
@@ -288,6 +288,10 @@ TEST_CASE("Format", "[normal]")
 	REQUIRE(Format((long)123) == U"123");
 	REQUIRE(Format(123.0f) == U"123");
 	REQUIRE(Format(123.0) == U"123");
+
+	REQUIRE(Format(U'あ') == U"あ");
+	REQUIRE(Format(Byte(0xFF)) == U"ff");
+	REQUIRE(Format(ByteArrayView("012345XYZ", 9)) == U"{30,31,32,33,34,35,58,59,5a}");
 
 }
 

@@ -186,77 +186,69 @@ namespace s3d
 	};
 }
 
-//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////
 //
-//	Formatting Triangle
+//	Format
 //
-//	[x] Siv3D Formatter
-//	[x] ostream
-//	[x] wostream
-//	[x] istream
-//	[x] wistream
-//	[x] fmtlib BasicFormatter<wchar>
-//
+//////////////////////////////////////////////////
+
 namespace s3d
 {
 	void Formatter(FormatData& formatData, const Triangle& value);
 
-	/// <summary>
-	/// 出力ストリームに三角形を渡します。
-	/// </summary>
-	/// <param name="os">
-	/// 出力ストリーム
-	/// </param>
-	/// <param name="triangle">
-	/// 三角形
-	/// </param>
-	/// <returns>
-	/// 渡した後の出力ストリーム
-	/// </returns>
 	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const Triangle& triangle)
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Triangle& value)
 	{
-		return	os << CharType('(')
-			<< triangle.p0 << CharType(',')
-			<< triangle.p1 << CharType(',')
-			<< triangle.p2 << CharType(')');
+		return output << CharType('(')
+			<< value.p0 << CharType(',')
+			<< value.p1 << CharType(',')
+			<< value.p2 << CharType(')');
 	}
 
-	/// <summary>
-	/// 入力ストリームに三角形を渡します。
-	/// </summary>
-	/// <param name="is">
-	/// 入力ストリーム
-	/// </param>
-	/// <param name="triangle">
-	/// 三角形
-	/// </param>
-	/// <returns>
-	/// 渡した後の入力ストリーム
-	/// </returns>
 	template <class CharType>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& is, Triangle& triangle)
+	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Triangle& value)
 	{
 		CharType unused;
-		return	is >> unused
-			>> triangle.p0 >> unused
-			>> triangle.p1 >> unused
-			>> triangle.p2 >> unused;
+		return input >> unused
+			>> value.p0 >> unused
+			>> value.p1 >> unused
+			>> value.p2 >> unused;
 	}
 }
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <>
+	struct hash<s3d::Triangle>
+	{
+		[[nodiscard]] size_t operator ()(const s3d::Triangle& value) const noexcept
+		{
+			return s3d::Hash::FNV1a(value);
+		}
+	};
+}
+
+//////////////////////////////////////////////////
+//
+//	fmt
+//
+//////////////////////////////////////////////////
 
 namespace fmt
 {
-	/*
 	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Triangle& triangle)
+	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Triangle& value)
 	{
 		const auto tag = s3d::detail::GetTag(format_str);
 
-		const auto fmt = S3DSTR("({") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("})");
+		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"})";
 
-		f.writer().write(fmt, triangle.p0, triangle.p1, triangle.p2);
-	}*/
+		f.writer().write(fmt, value.p0, value.p1, value.p2);
+	}
 }
-//
-//////////////////////////////////////////////////////////////////////////////

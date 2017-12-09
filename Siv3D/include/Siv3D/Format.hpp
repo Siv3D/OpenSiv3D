@@ -332,24 +332,19 @@ namespace s3d
 		formatData.string.append(str);
 	}
 
+	inline void Formatter(FormatData& formatData, const std::u32string& str)
+	{
+		formatData.string.append(str.begin(), str.end());
+	}
+
 	//inline void Formatter(FormatData& formatData, const char16_t* const str)
 	//{
-	//	formatData.string.append(CharacterSet::FromUTF16(str));
+	//	formatData.string.append(Unicode::FromUTF16(str));
 	//}
 
 	//inline void Formatter(FormatData& formatData, const std::u16string& str)
 	//{
-	//	formatData.string.append(CharacterSet::FromUTF16(str));
-	//}
-
-	//inline void Formatter(FormatData& formatData, const char32_t* const str)
-	//{
-	//	formatData.string.append(CharacterSet::FromUTF32(str));
-	//}
-
-	//inline void Formatter(FormatData& formatData, const std::u32string& str)
-	//{
-	//	formatData.string.append(CharacterSet::FromUTF32(str));
+	//	formatData.string.append(Unicode::FromUTF16(str));
 	//}
 
 	template <class Iterator>
@@ -416,6 +411,31 @@ namespace s3d
 		formatData.string.push_back(U'}');
 	}
 
+	inline void Formatter(FormatData& formatData, const None_t&)
+	{
+		formatData.string.append(U"none", 4);
+	}
+
+	template <class Type>
+	inline void Formatter(FormatData& formatData, const Optional<Type>& value)
+	{
+		if (value)
+		{
+			formatData.string.append(U"Optional ", 9);
+
+			Formatter(formatData, value.value());
+		}
+		else
+		{
+			formatData.string.append(U"none", 4);
+		}
+	}
+
+	inline void Formatter(FormatData& formatData, const String& value)
+	{
+		formatData.string.append(value);
+	}
+
 	template <class Type>
 	inline void Formatter(FormatData& formatData, const Type& value)
 	{
@@ -425,33 +445,36 @@ namespace s3d
 
 		formatData.string.append(Unicode::FromWString(wos.str()));
 	}
-	
+}
+
+namespace s3d
+{
 	namespace detail
 	{
 		template <class Char>
 		std::basic_string<Char> GetTag(const Char*& format_str)
 		{
 			const Char* beg = format_str;
-			
+
 			if (*format_str == Char(':'))
 			{
 				++format_str;
 			}
-			
+
 			const Char *end = format_str;
-			
+
 			while (*end && *end != Char('}'))
 			{
 				++end;
 			}
-			
+
 			if (*end != Char('}'))
 			{
 				FMT_THROW(fmt::FormatError("missing '}' in format string"));
 			}
-			
+
 			format_str = end + 1;
-			
+
 			return std::basic_string<Char>(beg, end);
 		}
 	}
@@ -459,14 +482,34 @@ namespace s3d
 
 namespace fmt
 {
-	template <typename Char, typename ArgFormatter_, typename T>
-	void format_arg(BasicFormatter<Char, ArgFormatter_> &f, const Char *&format_str, const T &value)
+	template <class ArgFormatter>
+	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::StringView& value)
+	{
+		const auto tag = s3d::detail::GetTag(format_str);
+
+		const auto fmt = U"{" + tag + U"}";
+
+		f.writer().write(fmt, value.to_string());
+	}
+
+	template <class ArgFormatter>
+	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::String& value)
+	{
+		const auto tag = s3d::detail::GetTag(format_str);
+
+		const auto fmt = U"{" + tag + U"}";
+
+		f.writer().write(fmt, value.str());
+	}
+
+	template <class Char, class ArgFormatter, class Type>
+	void format_arg(BasicFormatter<Char, ArgFormatter> &f, const Char*& format_str, const Type &value)
 	{
 		const s3d::String us = s3d::Format(value);
 		
 		BasicStringRef<Char> str(&us[0], us.size());
 		
-		typedef internal::MakeArg< BasicFormatter<Char> > MakeArg;
+		using MakeArg = internal::MakeArg<BasicFormatter<Char>>;
 		
 		format_str = f.format(format_str, MakeArg(str));
 	}

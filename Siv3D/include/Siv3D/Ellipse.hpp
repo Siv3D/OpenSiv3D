@@ -275,17 +275,12 @@ namespace s3d
 	};
 }
 
-//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////
 //
-//	Formatting Ellipse
+//	Format
 //
-//	[x] Siv3D Formatter
-//	[x] ostream
-//	[x] wostream
-//	[x] istream
-//	[x] wistream
-//	[x] fmtlib BasicFormatter<wchar>
-//
+//////////////////////////////////////////////////
+
 namespace s3d
 {
 	inline void Formatter(FormatData& formatData, const Ellipse& value)
@@ -293,66 +288,61 @@ namespace s3d
 		Formatter(formatData, Vec4(value.x, value.y, value.a, value.b));
 	}
 
-	/// <summary>
-	/// 出力ストリームに楕円を渡します。
-	/// </summary>
-	/// <param name="os">
-	/// 出力ストリーム
-	/// </param>
-	/// <param name="ellipse">
-	/// 楕円
-	/// </param>
-	/// <returns>
-	/// 渡した後の出力ストリーム
-	/// </returns>
 	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const Ellipse& ellipse)
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Ellipse& value)
 	{
-		return	os << CharType('(')
-			<< ellipse.x << CharType(',')
-			<< ellipse.y << CharType(',')
-			<< ellipse.a << CharType(',')
-			<< ellipse.b << CharType(')');
+		return output << CharType('(')
+			<< value.x << CharType(',')
+			<< value.y << CharType(',')
+			<< value.a << CharType(',')
+			<< value.b << CharType(')');
 	}
 
-	/// <summary>
-	/// 入力ストリームに楕円を渡します。
-	/// </summary>
-	/// <param name="is">
-	/// 入力ストリーム
-	/// </param>
-	/// <param name="ellipse">
-	/// 楕円
-	/// </param>
-	/// <returns>
-	/// 渡した後の入力ストリーム
-	/// </returns>
 	template <class CharType>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& is, Ellipse& ellipse)
+	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Ellipse& value)
 	{
 		CharType unused;
-		return	is >> unused
-			>> ellipse.x >> unused
-			>> ellipse.y >> unused
-			>> ellipse.a >> unused
-			>> ellipse.b >> unused;
+		return input >> unused
+			>> value.x >> unused
+			>> value.y >> unused
+			>> value.a >> unused
+			>> value.b >> unused;
 	}
 }
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <>
+	struct hash<s3d::Ellipse>
+	{
+		[[nodiscard]] size_t operator ()(const s3d::Ellipse& value) const noexcept
+		{
+			return s3d::Hash::FNV1a(value);
+		}
+	};
+}
+
+//////////////////////////////////////////////////
+//
+//	fmt
+//
+//////////////////////////////////////////////////
 
 namespace fmt
 {
-	/*
 	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Ellipse& ellipse)
+	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Ellipse& value)
 	{
 		const auto tag = s3d::detail::GetTag(format_str);
 
-		const auto fmt = S3DSTR("({") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("})");
+		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"},{" + tag + U"})";
 
-		f.writer().write(fmt, ellipse.x, ellipse.y, ellipse.a, ellipse.b);
-	}
-	 */
+		f.writer().write(fmt, value.x, value.y, value.a, value.b);
+	} 
 }
-//
-//////////////////////////////////////////////////////////////////////////////
-

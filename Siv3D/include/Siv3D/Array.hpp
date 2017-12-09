@@ -140,7 +140,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void swap(Array& other)
+		void swap(Array& other) noexcept
 		{
 			base_type::swap(other);
 		}
@@ -2239,16 +2239,13 @@ namespace s3d
 	}
 }
 
-namespace std
-{
-	template <class Type, class Allocator>
-	inline void swap(s3d::Array<Type, Allocator>& a, s3d::Array<Type, Allocator>& b) noexcept(noexcept(a.swap(b)))
-	{
-		a.swap(b);
-	}
-}
-
 # include "BoolArray.hpp"
+
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
 
 namespace s3d
 {
@@ -2259,14 +2256,29 @@ namespace s3d
 	}
 
 	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
-	inline COStream & operator <<(COStream& output, const Array<Type, Allocator>& value)
+	inline std::ostream& operator <<(std::ostream& output, const Array<Type, Allocator>& value)
 	{
 		return output << Format(value).narrow();
 	}
 
 	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
-	inline WOStream & operator <<(WOStream& output, const Array<Type, Allocator>& value)
+	inline std::wostream& operator <<(std::wostream& output, const Array<Type, Allocator>& value)
 	{
 		return output << Format(value).toWstr();
+	}
+}
+
+//////////////////////////////////////////////////
+//
+//	Swap
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <class Type, class Allocator>
+	inline void swap(s3d::Array<Type, Allocator>& a, s3d::Array<Type, Allocator>& b) noexcept
+	{
+		a.swap(b);
 	}
 }

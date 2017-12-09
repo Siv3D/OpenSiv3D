@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -13,7 +13,18 @@
 # include "LicenseManager/ILicenseManager.hpp"
 # include "Logger/ILogger.hpp"
 # include "System/ISystem.hpp"
+# include "CPU/ICPU.hpp"
 # include "Console/IConsole.hpp"
+# include "ImageFormat/IImageFormat.hpp"
+# include "Window/IWindow.hpp"
+# include "Profiler/IProfiler.hpp"
+# include "Clipboard/IClipboard.hpp"
+# include "DragDrop/IDragDrop.hpp"
+# include "Cursor/ICursor.hpp"
+# include "Keyboard/IKeyboard.hpp"
+# include "Mouse/IMouse.hpp"
+# include "Codec/ICodec.hpp"
+# include "AudioFormat/IAudioFormat.hpp"
 
 namespace s3d
 {
@@ -24,7 +35,18 @@ namespace s3d
 
 	Siv3DEngine::~Siv3DEngine()
 	{
+		m_audioFormat.release();
+		m_codec.release();
+		m_mouse.release();
+		m_keyboard.release();
+		m_cursor.release();
+		m_dragdrop.release();
+		m_clipboard.release();
+		m_profiler.release();
+		m_window.release();
+		m_imageFormat.release();
 		m_console.release();
+		m_cpu.release();
 		m_system.release();
 		m_logger.release();
 		m_licenseManager.release();

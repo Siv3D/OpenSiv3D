@@ -27,7 +27,7 @@ link_directories(
 	"../Debug"
 )
 
-add_executable(siv3d_test
+add_executable(Siv3D_Test
 	"../../Siv3D-Test/Main.cpp"
 	"../../Siv3D-Test/Test/Test.cpp"
 
@@ -54,7 +54,7 @@ add_executable(siv3d_test
 #	"../../Siv3D-Test/Test/Siv3DTest_Windows.cpp"
 )
 
-target_link_libraries(siv3d_test
+target_link_libraries(Siv3D_Test
 #	gtest
 #	gtest_main
 	Siv3D
@@ -62,6 +62,7 @@ target_link_libraries(siv3d_test
 	boost_system
 	pthread
 	GL
+	GLEW
 	glib-2.0
 	gobject-2.0
 	gio-2.0

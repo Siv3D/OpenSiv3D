@@ -12,6 +12,8 @@
 # include <array>
 # include <iostream>
 # include <Siv3D/Byte.hpp>
+# include <Siv3D/Format.hpp>
+# include <Siv3D/ParseInt.hpp>
 
 namespace s3d
 {
@@ -31,17 +33,46 @@ namespace s3d
 		}
 	}
 
-	COStream& operator <<(COStream& os, const Byte& value)
+	void Formatter(FormatData& formatData, const Byte& value)
+	{
+		const auto hex = detail::ToHex<char32>(value);
+
+		formatData.string.append(hex.begin(), hex.end());
+	}
+
+	std::ostream& operator <<(std::ostream& output, const Byte& value)
 	{
 		const auto hex = detail::ToHex<char>(value);
 
-		return os.write(hex.data(), 2);
+		return output.write(hex.data(), 2);
 	}
 
-	WOStream& operator <<(WOStream& os, const Byte& value)
+	std::wostream& operator <<(std::wostream& output, const Byte& value)
 	{
 		const auto hex = detail::ToHex<wchar_t>(value);
 
-		return os.write(hex.data(), 2);
+		return output.write(hex.data(), 2);
+	}
+
+	std::istream& operator >>(std::istream& input, Byte& value)
+	{
+		std::string in;
+
+		input >> in;
+
+		value = Byte(ParseInt<uint8>(Unicode::FromUTF8(in), Arg::radix = 16));
+
+		return input;
+	}
+
+	std::wistream& operator >>(std::wistream& input, Byte& value)
+	{
+		std::wstring in;
+
+		input >> in;
+
+		value = Byte(ParseInt<uint8>(Unicode::FromWString(in), Arg::radix = 16));
+
+		return input;
 	}
 }

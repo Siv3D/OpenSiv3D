@@ -237,13 +237,13 @@ namespace s3d
 
 		template <class Type>
 		[[nodiscard]] constexpr Vector2D<Type> lerp(const Vector2D<Type>& other, const double f) const noexcept;
-/*
+
 		template <class Shape2DType>
 		[[nodiscard]] bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
-*/
+
 		[[nodiscard]] bool leftClicked() const;
 
 		[[nodiscard]] bool leftPressed() const;
@@ -340,6 +340,40 @@ namespace s3d
 	using Size = Point;
 }
 
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
+
+namespace s3d
+{
+	void Formatter(FormatData& formatData, const Point& value);
+
+	template <class CharType>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Point& value)
+	{
+		return output << CharType('(')
+			<< value.x << CharType(',')
+			<< value.y << CharType(')');
+	}
+
+	template <class CharType>
+	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Point& value)
+	{
+		CharType unused;
+		return input >> unused
+			>> value.x >> unused
+			>> value.y >> unused;
+	}
+}
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
 namespace std
 {
 	template <>
@@ -352,51 +386,11 @@ namespace std
 	};
 }
 
-namespace s3d
-{
-	void Formatter(FormatData& formatData, const Point& value);
-
-	/// <summary>
-	/// 出力ストリームに点を渡します。
-	/// </summary>
-	/// <param name="os">
-	/// 出力ストリーム
-	/// </param>
-	/// <param name="v">
-	/// 点
-	/// </param>
-	/// <returns>
-	/// 渡した後の出力ストリーム
-	/// </returns>
-	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Point& value)
-	{
-		return output << CharType('(')
-			<< value.x << CharType(',')
-			<< value.y << CharType(')');
-	}
-
-	/// <summary>
-	/// 入力ストリームに点を渡します。
-	/// </summary>
-	/// <param name="is">
-	/// 入力ストリーム
-	/// </param>
-	/// <param name="v">
-	/// 点
-	/// </param>
-	/// <returns>
-	/// 渡した後の入力ストリーム
-	/// </returns>
-	template <class CharType>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Point& value)
-	{
-		CharType unused;
-		return input >> unused
-			>> value.x >> unused
-			>> value.y >> unused;
-	}
-}
+//////////////////////////////////////////////////
+//
+//	fmt
+//
+//////////////////////////////////////////////////
 
 namespace fmt
 {

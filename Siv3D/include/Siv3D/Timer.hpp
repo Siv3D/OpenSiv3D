@@ -472,9 +472,24 @@ namespace s3d
 	{
 		return time >= timer.remainingF();
 	}
+}
 
-	inline void Formatter(FormatData& formatData, const Timer& timer)
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
+
+namespace s3d
+{
+	inline void Formatter(FormatData& formatData, const Timer& value)
 	{
-		formatData.string.append(timer.format());
+		formatData.string.append(value.format());
+	}
+
+	template <class CharType>
+	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> output, const Timer& value)
+	{
+		return output << value.format();
 	}
 }

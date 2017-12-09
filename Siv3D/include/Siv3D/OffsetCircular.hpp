@@ -176,6 +176,12 @@ namespace s3d
 	using OffsetCircular9 = OffsetCircularBase<9>;
 }
 
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
+
 namespace s3d
 {
 	template <int32 Oclock>
@@ -184,18 +190,6 @@ namespace s3d
 		Formatter(formatData, Vec4(value.center, value.r, value.theta));
 	}
 
-	/// <summary>
-	/// 出力ストリームに円座標を渡します。
-	/// </summary>
-	/// <param name="os">
-	/// 出力ストリーム
-	/// </param>
-	/// <param name="c">
-	/// 円座標
-	/// </param>
-	/// <returns>
-	/// 渡した後の出力ストリーム
-	/// </returns>
 	template <class CharType, int32 Oclock>
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const OffsetCircularBase<Oclock>& value)
 	{
@@ -206,18 +200,6 @@ namespace s3d
 			<< value.theta << CharType(')');
 	}
 
-	/// <summary>
-	/// 入力ストリームに円座標を渡します。
-	/// </summary>
-	/// <param name="is">
-	/// 入力ストリーム
-	/// </param>
-	/// <param name="c">
-	/// 円座標
-	/// </param>
-	/// <returns>
-	/// 渡した後の入力ストリーム
-	/// </returns>
 	template <class CharType, int32 Oclock>
 	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, OffsetCircularBase<Oclock>& value)
 	{
@@ -230,15 +212,39 @@ namespace s3d
 	}
 }
 
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <s3d::int32 Oclock>
+	struct hash<s3d::OffsetCircularBase<Oclock>>
+	{
+		[[nodiscard]] size_t operator ()(const s3d::OffsetCircularBase<Oclock>& value) const noexcept
+		{
+			return s3d::Hash::FNV1a(value);
+		}
+	};
+}
+
+//////////////////////////////////////////////////
+//
+//	fmt
+//
+//////////////////////////////////////////////////
+
 namespace fmt
 {
-	//template <class ArgFormatter, s3d::int32 Oclock>
-	//void format_arg(BasicFormatter<s3d::wchar, ArgFormatter>& f, const s3d::wchar*& format_str, const s3d::OffsetCircularBase<Oclock>& c)
-	//{
-	//	const auto tag = s3d::detail::GetTag(format_str);
+	template <class ArgFormatter, s3d::int32 Oclock>
+	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::OffsetCircularBase<Oclock>& value)
+	{
+		const auto tag = s3d::detail::GetTag(format_str);
 
-	//	const auto fmt = S3DSTR("({") + tag + S3DSTR("},{") + tag + S3DSTR("})");
+		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"},{" + tag + U"})";
 
-	//	f.writer().write(fmt, c.r, c.theta);
-	//}
+		f.writer().write(fmt, value.x, value.y, value.r, value.theta);
+	}
 }

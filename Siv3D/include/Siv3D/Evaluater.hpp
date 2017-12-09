@@ -10,10 +10,24 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Array.hpp"
 # include "Step.hpp"
 
 namespace s3d
 {
+	template <class Type, class Allocator, class Fty, class Ret = std::result_of_t<Fty(Type)>>
+	auto operator >>(const Array<Type, Allocator>& array, Fty f)
+	{
+		if constexpr (std::is_same_v<Ret, void>)
+		{
+			array.each(f);
+		}
+		else
+		{
+			return array.map(f);
+		}
+	}
+
 	namespace detail
 	{
 		template <class StepClass, class ValueType, class Tuple>

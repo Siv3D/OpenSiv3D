@@ -575,17 +575,12 @@ namespace s3d
 	};
 }
 
-//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////
 //
-//	Formatting Circle
+//	Format
 //
-//	[x] Siv3D Formatter
-//	[x] ostream
-//	[x] wostream
-//	[x] istream
-//	[x] wistream
-//	[x] fmtlib BasicFormatter<wchar>
-//
+//////////////////////////////////////////////////
+
 namespace s3d
 {
 	inline void Formatter(FormatData& formatData, const Circle& value)
@@ -593,63 +588,59 @@ namespace s3d
 		Formatter(formatData, Vec3(value.x, value.y, value.r));
 	}
 
-	/// <summary>
-	/// 出力ストリームに円を渡します。
-	/// </summary>
-	/// <param name="os">
-	/// 出力ストリーム
-	/// </param>
-	/// <param name="circle">
-	/// 円
-	/// </param>
-	/// <returns>
-	/// 渡した後の出力ストリーム
-	/// </returns>
 	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const Circle& circle)
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Circle& value)
 	{
-		return	os << CharType('(')
-			<< circle.x << CharType(',')
-			<< circle.y << CharType(',')
-			<< circle.r << CharType(')');
+		return output << CharType('(')
+			<< value.x << CharType(',')
+			<< value.y << CharType(',')
+			<< value.r << CharType(')');
 	}
 
-	/// <summary>
-	/// 入力ストリームに円を渡します。
-	/// </summary>
-	/// <param name="is">
-	/// 入力ストリーム
-	/// </param>
-	/// <param name="circle">
-	/// 円
-	/// </param>
-	/// <returns>
-	/// 渡した後の入力ストリーム
-	/// </returns>
 	template <class CharType>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& is, Circle& circle)
+	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Circle& value)
 	{
 		CharType unused;
-		return	is >> unused
-			>> circle.x >> unused
-			>> circle.y >> unused
-			>> circle.r >> unused;
+		return input >> unused
+			>> value.x >> unused
+			>> value.y >> unused
+			>> value.r >> unused;
 	}
 }
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <>
+	struct hash<s3d::Circle>
+	{
+		[[nodiscard]] size_t operator ()(const s3d::Circle& value) const noexcept
+		{
+			return s3d::Hash::FNV1a(value);
+		}
+	};
+}
+
+//////////////////////////////////////////////////
+//
+//	fmt
+//
+//////////////////////////////////////////////////
 
 namespace fmt
 {
-	/*
 	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Circle& circle)
+	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Circle& value)
 	{
 		const auto tag = s3d::detail::GetTag(format_str);
 
-		const auto fmt = S3DSTR("({") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("})");
+		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"})";
 
-		f.writer().write(fmt, circle.x, circle.y, circle.r);
+		f.writer().write(fmt, value.x, value.y, value.r);
 	}
-	 */
 }
-//
-//////////////////////////////////////////////////////////////////////////////

@@ -221,6 +221,8 @@ namespace s3d
 		/// Vector4D{ h, s, v, a }
 		/// </summary>
 		Vec4 hsva() const noexcept;
+
+		size_t hash() const;
 	};
 
 	/// <summary>
@@ -246,66 +248,72 @@ namespace s3d
 	ColorF HueToColorF(double hue) noexcept;
 }
 
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
+
 namespace s3d
 {
 	void Formatter(FormatData& formatData, const HSV& value);
 
-	/// <summary>
-	/// 出力ストリームに色を渡します。
-	/// </summary>
-	/// <param name="os">
-	/// 出力ストリーム
-	/// </param>
-	/// <param name="hsv">
-	/// 色
-	/// </param>
-	/// <returns>
-	/// 渡した後の出力ストリーム
-	/// </returns>
 	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const HSV& hsv)
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const HSV& value)
 	{
-		return os << CharType('(')
-			<< hsv.h << CharType(',')
-			<< hsv.s << CharType(',')
-			<< hsv.v << CharType(')')
-			<< hsv.a << CharType(')');
+		return output << CharType('(')
+			<< value.h << CharType(',')
+			<< value.s << CharType(',')
+			<< value.v << CharType(')')
+			<< value.a << CharType(')');
 	}
 
-	/// <summary>
-	/// 入力ストリームに色を渡します。
-	/// </summary>
-	/// <param name="is">
-	/// 入力ストリーム
-	/// </param>
-	/// <param name="hsv">
-	/// 色
-	/// </param>
-	/// <returns>
-	/// 渡した後の入力ストリーム
-	/// </returns>
 	template <class CharType>
-	inline std::basic_istream<CharType>& operator >> (std::basic_istream<CharType>& is, HSV& hsv)
+	inline std::basic_istream<CharType>& operator >> (std::basic_istream<CharType>& input, HSV& value)
 	{
 		CharType unused;
 
-		is >> unused
-			>> hsv.h >> unused
-			>> hsv.s >> unused
-			>> hsv.v >> unused;
+		input >> unused
+			>> value.h >> unused
+			>> value.s >> unused
+			>> value.v >> unused;
 
 		if (unused == CharType(','))
 		{
-			is >> hsv.a >> unused;
+			input >> value.a >> unused;
 		}
 		else
 		{
-			hsv.a = 1.0;
+			value.a = 1.0;
 		}
 
-		return is;
+		return input;
 	}
 }
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <>
+	struct hash<s3d::HSV>
+	{
+		[[nodiscard]] size_t operator ()(const s3d::HSV& value) const noexcept
+		{
+			return value.hash();
+		}
+	};
+}
+
+//////////////////////////////////////////////////
+//
+//	fmt
+//
+//////////////////////////////////////////////////
 
 namespace fmt
 {

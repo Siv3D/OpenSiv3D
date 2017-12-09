@@ -1677,82 +1677,73 @@ namespace s3d
 	using RectF = Rectangle<Vec2>;
 }
 
-//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////
 //
-//	Formatting Rectangle
+//	Format
 //
-//	[x] Siv3D Formatter
-//	[x] ostream
-//	[x] wostream
-//	[x] istream
-//	[x] wistream
-//	[x] fmtlib BasicFormatter<wchar>
-//
+//////////////////////////////////////////////////
+
 namespace s3d
 {
 	void Formatter(FormatData& formatData, const Rect& value);
 
 	void Formatter(FormatData& formatData, const RectF& value);
 
-	/// <summary>
-	/// 出力ストリームに長方形を渡します。
-	/// </summary>
-	/// <param name="os">
-	/// 出力ストリーム
-	/// </param>
-	/// <param name="rect">
-	/// 長方形
-	/// </param>
-	/// <returns>
-	/// 渡した後の出力ストリーム
-	/// </returns>
 	template <class CharType, class SizeType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const Rectangle<SizeType>& rect)
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Rectangle<SizeType>& value)
 	{
-		return	os << CharType('(')
-			<< rect.x << CharType(',')
-			<< rect.y << CharType(',')
-			<< rect.w << CharType(',')
-			<< rect.h << CharType(')');
+		return output << CharType('(')
+			<< value.x << CharType(',')
+			<< value.y << CharType(',')
+			<< value.w << CharType(',')
+			<< value.h << CharType(')');
 	}
 
-	/// <summary>
-	/// 入力ストリームに長方形を渡します。
-	/// </summary>
-	/// <param name="is">
-	/// 入力ストリーム
-	/// </param>
-	/// <param name="rect">
-	/// 長方形
-	/// </param>
-	/// <returns>
-	/// 渡した後の入力ストリーム
-	/// </returns>
 	template <class CharType, class SizeType>
-	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& is, Rectangle<SizeType>& rect)
+	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Rectangle<SizeType>& value)
 	{
 		CharType unused;
-		return	is >> unused
-			>> rect.x >> unused
-			>> rect.y >> unused
-			>> rect.w >> unused
-			>> rect.h >> unused;
+		return input >> unused
+			>> value.x >> unused
+			>> value.y >> unused
+			>> value.w >> unused
+			>> value.h >> unused;
 	}
 }
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	template <class SizeType>
+	struct hash<s3d::Rectangle<SizeType>>
+	{
+		[[nodiscard]] size_t operator ()(const s3d::Rectangle<SizeType>& value) const noexcept
+		{
+			return s3d::Hash::FNV1a(value);
+		}
+	};
+}
+
+//////////////////////////////////////////////////
+//
+//	fmt
+//
+//////////////////////////////////////////////////
 
 namespace fmt
 {
-	/*
 	template <class ArgFormatter, class SizeType>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Rectangle<SizeType>& rect)
+	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Rectangle<SizeType>& value)
 	{
 		const auto tag = s3d::detail::GetTag(format_str);
 
-		const auto fmt = S3DSTR("({") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("},{") + tag + S3DSTR("})");
+		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"},{" + tag + U"})";
 
-		f.writer().write(fmt, rect.x, rect.y, rect.w, rect.h);
+		f.writer().write(fmt, value.x, value.y, value.w, value.h);
 	}
-	 */
 }
-//
-//////////////////////////////////////////////////////////////////////////////

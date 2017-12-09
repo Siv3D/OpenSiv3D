@@ -37,7 +37,7 @@ namespace s3d::detail
 		const String code = (_code == EXCEPTION_ACCESS_VIOLATION) ? U"EXCEPTION_ACCESS_VIOLATION"
 			: Format(U"0x", Pad(ToHex(_code), { 8, U'0' }));
 
-		//LOG_ERROR(L"🛑 Application terminated due to an exception. Exception code: {0}"_fmt(code));
+		LOG_ERROR(U"🛑 Application terminated due to an exception. Exception code: {0}"_fmt(code));
 	}
 
 	static void MainThread()
@@ -56,37 +56,37 @@ namespace s3d::detail
 		//Siv3DEngine::GetScript()->shutdown();
 	}
 
-	//enum class MessageResult
-	//{
-	//	Quit,
+	enum class MessageResult
+	{
+		Quit,
 
-	//	Dispatched,
+		Dispatched,
 
-	//	NoMessage,
-	//};
+		NoMessage,
+	};
 
-	//static MessageResult HandleMessage()
-	//{
-	//	MSG message;
+	static MessageResult HandleMessage()
+	{
+		MSG message;
 
-	//	if (::PeekMessageW(&message, 0, 0, 0, PM_REMOVE))
-	//	{
-	//		if (message.message == WM_QUIT)
-	//		{
-	//			return MessageResult::Quit;
-	//		}
-	//		else
-	//		{
-	//			::TranslateMessage(&message);
+		if (::PeekMessageW(&message, 0, 0, 0, PM_REMOVE))
+		{
+			if (message.message == WM_QUIT)
+			{
+				return MessageResult::Quit;
+			}
+			else
+			{
+				::TranslateMessage(&message);
 
-	//			::DispatchMessageW(&message);
-	//		}
+				::DispatchMessageW(&message);
+			}
 
-	//		return MessageResult::Dispatched;
-	//	}
+			return MessageResult::Dispatched;
+		}
 
-	//	return MessageResult::NoMessage;
-	//}
+		return MessageResult::NoMessage;
+	}
 }
 
 int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
@@ -129,6 +129,25 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 		for (bool done = false; !done;)
 		{
 			done = f._Is_ready();
+
+			for (int32 i = 0; !done && i < 100; ++i)
+			{
+				const auto result = detail::HandleMessage();
+
+				if (result == detail::MessageResult::Quit)
+				{
+					done = true;
+				}
+				else if (result == detail::MessageResult::NoMessage)
+				{
+					break;
+				}
+			}
+
+			if (done)
+			{
+				break;
+			}
 
 			::Sleep(1);
 		}

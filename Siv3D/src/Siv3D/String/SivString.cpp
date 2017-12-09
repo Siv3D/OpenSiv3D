@@ -1187,17 +1187,17 @@ namespace s3d
 		return new_string;
 	}
 
-	COStream& operator <<(COStream& output, const String& value)
+	std::ostream& operator <<(std::ostream& output, const String& value)
 	{
 		return output << value.narrow();
 	}
 
-	WOStream& operator <<(WOStream& output, const String& value)
+	std::wostream& operator <<(std::wostream& output, const String& value)
 	{
 		return output << value.toWstr();
 	}
 
-	CIStream& operator >>(CIStream& input, String& value)
+	std::istream& operator >>(std::istream& input, String& value)
 	{
 		std::string s;
 
@@ -1208,7 +1208,7 @@ namespace s3d
 		return input;
 	}
 
-	WIStream& operator >>(WIStream& input, String& value)
+	std::wistream& operator >>(std::wistream& input, String& value)
 	{
 		std::wstring s;
 

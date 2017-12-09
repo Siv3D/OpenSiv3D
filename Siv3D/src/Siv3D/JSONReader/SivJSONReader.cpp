@@ -193,7 +193,7 @@ namespace s3d
 
 		auto value = m_detail->value;
 
-		for (const auto& p : path.split(L'.'))
+		for (const auto& p : path.split(U'.'))
 		{
 			if (!value->HasMember(p.c_str()))
 			{

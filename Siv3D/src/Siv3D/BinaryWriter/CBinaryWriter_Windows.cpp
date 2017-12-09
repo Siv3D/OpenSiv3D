@@ -12,6 +12,7 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_WINDOWS)
 
+# include <Siv3D/Logger.hpp>
 # include "CBinaryWriter_Windows.hpp"
 
 namespace s3d
@@ -49,6 +50,8 @@ namespace s3d
 
 		if (path.isEmpty())
 		{
+			LOG_FAIL(U"❌ BinaryWriter: path is empty");
+
 			return false;
 		}
 
@@ -58,6 +61,8 @@ namespace s3d
 
 		if (!FileSystem::Exists(parentFilePath) && !FileSystem::CreateDirectories(parentFilePath))
 		{
+			LOG_FAIL(U"❌ BinaryWriter: Failed to create parent directories \"{0}\""_fmt(parentFilePath));
+
 			return false;
 		}
 
@@ -69,6 +74,8 @@ namespace s3d
 
 		if (!m_opened)
 		{
+			LOG_FAIL(U"❌ BinaryWriter: Failed to open file \"{0}\""_fmt(path));
+
 			return false;
 		}
 
@@ -80,6 +87,8 @@ namespace s3d
 		}
 
 		m_fullPath = fullPath;
+
+		LOG_DEBUG(U"📤 BinaryReader: Opened file \"{0}\""_fmt(m_fullPath));
 
 		return true;
 	}
@@ -116,6 +125,8 @@ namespace s3d
 		m_handle = INVALID_HANDLE_VALUE;
 
 		m_opened = false;
+
+		LOG_DEBUG(U"📥 BinaryWriter: Closed file \"{0}\""_fmt(m_fullPath));
 
 		m_fullPath.clear();
 	}
