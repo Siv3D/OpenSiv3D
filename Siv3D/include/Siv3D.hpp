@@ -649,7 +649,7 @@
 	# include "Siv3D/Mouse.hpp"
 	
 	// テキスト入力
-	//# include "Siv3D/TextInput.hpp"
+	# include "Siv3D/TextInput.hpp"
 	
 	//// ゲームパッド
 	//# include "Siv3D/Gamepad.hpp"

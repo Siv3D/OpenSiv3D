@@ -551,6 +551,9 @@
     <Filter Include="include\HamFramework">
       <UniqueIdentifier>{9c75a1ca-2bbb-42b4-aef5-ec2f13264a91}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\TextInput">
+      <UniqueIdentifier>{6ad946f1-542d-4569-bde0-957130ed459e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -1398,6 +1401,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Icon\SivIcon.cpp">
       <Filter>src\Siv3D\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextInput\SivTextInput.cpp">
+      <Filter>src\Siv3D\TextInput</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextInput\TextInputFactory.cpp">
+      <Filter>src\Siv3D\TextInput</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextInput\CTextInput_macOS.cpp">
+      <Filter>src\Siv3D\TextInput</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextInput\CTextInput_Windows.cpp">
+      <Filter>src\Siv3D\TextInput</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -3008,6 +3023,18 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\HamFramework.hpp">
       <Filter>include\HamFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TextInput.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\TextInput\CTextInput_Windows.hpp">
+      <Filter>src\Siv3D\TextInput</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\TextInput\ITextInput.hpp">
+      <Filter>src\Siv3D\TextInput</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\TextInput\CTextInput_macOS.hpp">
+      <Filter>src\Siv3D\TextInput</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

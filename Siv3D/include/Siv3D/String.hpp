@@ -831,8 +831,6 @@ namespace s3d
 			return m_string.size() * sizeof(value_type);
 		}
 
-		[[nodiscard]] size_t num_codePoints() const noexcept;
-
 		/// <summary>
 		/// 空の文字列であるかを示します。
 		/// </summary>
