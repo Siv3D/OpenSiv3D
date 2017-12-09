@@ -784,4 +784,15 @@ namespace s3d
 	//	RenderTexture.hpp
 	//
 	class RenderTexture;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Font.hpp
+	//
+	enum class Typeface;
+	enum class FontStyle : uint32;
+	struct Glyph;
+	class Font;
+	class GlyphIterator;
+	struct DrawableText;
 }
