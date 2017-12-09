@@ -65,15 +65,7 @@ namespace s3d
 		{
 			::hb_buffer_reset(buffer);
 
-		# if defined(SIV3D_TARGET_WINDOWS)
-	
-			::hb_buffer_add_utf16(buffer, reinterpret_cast<const uint16*>(view.data()), static_cast<int32>(view.length()), 0, static_cast<int32>(view.length()));
-
-		# else
-
 			::hb_buffer_add_utf32(buffer, reinterpret_cast<const uint32*>(view.data()), static_cast<int32>(view.length()), 0, static_cast<int32>(view.length()));
-
-		# endif	
 
 			::hb_buffer_guess_segment_properties(buffer);
 
