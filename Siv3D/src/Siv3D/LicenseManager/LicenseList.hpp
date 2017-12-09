@@ -263,6 +263,22 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.)-"
 },
 
 {
+UR"-(Font Awesome)-",
+
+UR"-()-",
+
+UR"-(Licensed under SIL Open Font License v1.1.)-"
+},
+
+{
+UR"-(FreeType)-",
+
+UR"-()-",
+
+UR"-(This software is based in part of the work of the FreeType Team.)-"
+},
+
+{
 UR"-(giflib)-",
 
 UR"-(The GIFLIB distribution is Copyright(c) 1997 Eric S.Raymond)-",
@@ -396,6 +412,40 @@ distribution.)-"
 },
 
 # endif
+
+{
+UR"-(HarfBuzz)-",
+
+UR"-(Copyright © 2010,2011,2012 Google, Inc.
+Copyright (c) 2012 Mozilla Foundation
+Copyright (c) 2011 Codethink Limited
+Copyright (c) 2008,2010 Nokia Corporation and/or its subsidiary(-ies)
+Copyright (c) 2009 Keith Stribley
+Copyright (c) 2009 Martin Hosken and SIL International
+Copyright (c) 2007 Chris Wilson
+Copyright (c) 2006 Behdad Esfahbod
+Copyright (c) 2005 David Turner
+Copyright (c) 2004,2007,2008,2009,2010 Red Hat, Inc.
+Copyright (c) 1998-2004 David Turner and Werner Lemberg)-",
+
+UR"-(Permission is hereby granted, without written agreement and without
+license or royalty fees, to use, copy, modify, and distribute this
+software and its documentation for any purpose, provided that the
+above copyright notice and the following two paragraphs appear in
+all copies of this software.
+
+IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE TO ANY PARTY FOR
+DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES
+ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN
+IF THE COPYRIGHT HOLDER HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH
+DAMAGE.
+
+THE COPYRIGHT HOLDER SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING,
+BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS
+ON AN "AS IS" BASIS, AND THE COPYRIGHT HOLDER HAS NO OBLIGATION TO
+PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.)-"
+},
 
 {
 UR"-(hopscotch-map)-",
@@ -645,6 +695,14 @@ NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR
 DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 OR OTHER DEALINGS IN THE SOFTWARE.)-"
+},
+
+{
+UR"-(Noto Fonts)-",
+
+UR"-()-",
+
+UR"-(Licensed under SIL Open Font License v1.1.)-"
 },
 
 {

@@ -34,6 +34,8 @@ namespace s3d
 
 		m_effects.setNullData(nullEffect);
 
+		LOG_INFO(U"ℹ️ Effect initialized");
+
 		return true;
 	}
 

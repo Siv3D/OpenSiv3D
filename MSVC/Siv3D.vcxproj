@@ -85,6 +85,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Ellipse\SivEllipse.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\EmojiDictionary\CEmojiDictionary.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\EmojiDictionary\SivEmojiDictionary.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Emoji\SivEmoji.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\EngineDirectory\EngineDirectory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_Linux.cpp" />
@@ -118,6 +119,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\HSV\SivHSV.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\HTMLWriter\CHTMLWriter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\HTMLWriter\SivHTMLWriter.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Icon\SivIcon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\BMP\ImageFormat_BMP.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\CImageFormat.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\GIF\ImageFormat_GIF.cpp" />
@@ -347,6 +349,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\EasingController.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Effect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Ellipse.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Emoji.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\EmojiDictionary.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Evaluater.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FileSystem.hpp" />
@@ -371,6 +374,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\HighPerfoemanceGPU.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\HSV.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\HTMLWriter.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Icon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Image.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageProcessing.hpp" />

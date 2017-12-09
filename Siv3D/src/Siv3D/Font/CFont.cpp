@@ -121,6 +121,8 @@ namespace s3d
 
 		}
 
+		LOG_INFO(U"ℹ️ Font initialized");
+
 		return true;
 	}
 

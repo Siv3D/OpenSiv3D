@@ -542,6 +542,12 @@
     <Filter Include="src\Siv3D\Print">
       <UniqueIdentifier>{33290a91-1851-4c77-8fcf-4ee85ee8bef4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Emoji">
+      <UniqueIdentifier>{260265ae-b752-44ad-84ba-6df3e72ba849}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Icon">
+      <UniqueIdentifier>{55386892-c094-49f3-87c1-e40d749675b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -1383,6 +1389,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Print\CPrint.cpp">
       <Filter>src\Siv3D\Print</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Emoji\SivEmoji.cpp">
+      <Filter>src\Siv3D\Emoji</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Icon\SivIcon.cpp">
+      <Filter>src\Siv3D\Icon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2963,6 +2975,12 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Print\CPrint.hpp">
       <Filter>src\Siv3D\Print</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Icon.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Emoji.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

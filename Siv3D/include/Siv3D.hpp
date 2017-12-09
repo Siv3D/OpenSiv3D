@@ -775,10 +775,10 @@
 	# include "Siv3D/Font.hpp"
 	
 	// 絵文字コレクション
-	//# include "Siv3D/Emoji.hpp"
+	# include "Siv3D/Emoji.hpp"
 	
 	// アイコンコレクション
-	//# include "Siv3D/Icon.hpp"
+	# include "Siv3D/Icon.hpp"
 
 //
 // 独立 GUI
