@@ -907,9 +907,11 @@
 // ユーティリティ
 //
 	// デバッグ出力
-	//# include "Siv3D/Print.hpp"
+	# include "Siv3D/Print.hpp"
+	
 	//// アドオン
 	//# include "Siv3D/Addon.hpp"
+	
 	//// シリアライゼーション
 	//# include "Siv3D/Serialization.hpp"
 

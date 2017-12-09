@@ -91,6 +91,10 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_macOS.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_Windows.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FloatFormat\SivFloatFormat.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Font\CFont.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Font\FontData.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Font\FontFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Font\SivFont.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FormatLiteral\SivFormatLiteral.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FormatUtility\SivFormatUtility.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Format\SivFormat.cpp" />
@@ -165,6 +169,9 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\CPolygon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Polygon\SivPolygon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\PowerStatus\SivPowerStatus.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Print\CPrint.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Print\PrintFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Print\SivPrint.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\CProfiler.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\ProfilerFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\SivProfiler.cpp" />
@@ -415,6 +422,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\PointVector.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Polygon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PowerStatus.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Print.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Profiler.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Quad.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Random.hpp" />
@@ -532,6 +540,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\EmojiDictionary\CEmojiDictionary.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\EngineDirectory\EngineDirectory.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\EngineUtility.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Font\CFont.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Font\FontData.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Font\IFont.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Geometry2D\Polynomial.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\BlendState\D3D11BlendState.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\CGraphics_D3D11.hpp" />
@@ -573,6 +584,8 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Mouse\CMouse_Windows.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Mouse\IMouse.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Polygon\CPolygon.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Print\CPrint.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Print\IPrint.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Profiler\CProfiler.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Profiler\IProfiler.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Renderer2D\D3D11\CRenderer2D_D3D11.hpp" />

@@ -34,7 +34,9 @@ namespace s3d
 	class ISiv3DShader;
 	class ISiv3DRenderer2D;
 	class ISiv3DScreenCapture;
+	class ISiv3DFont;
 	class ISiv3DEffect;
+	class ISiv3DPrint;
 
 	template <class Interface>
 	class Siv3DComponent
@@ -111,6 +113,10 @@ namespace s3d
 		Siv3DComponent<ISiv3DRenderer2D> m_renderer2D;
 
 		Siv3DComponent<ISiv3DScreenCapture> m_screenCapture;
+
+		Siv3DComponent<ISiv3DFont> m_font;
+
+		Siv3DComponent<ISiv3DPrint> m_print;
 
 		Siv3DComponent<ISiv3DEffect> m_effect;
 		
@@ -223,6 +229,16 @@ namespace s3d
 		static ISiv3DScreenCapture* GetScreenCapture()
 		{
 			return pEngine->m_screenCapture.get();
+		}
+
+		static ISiv3DFont* GetFont()
+		{
+			return pEngine->m_font.get();
+		}
+
+		static ISiv3DPrint* GetPrint()
+		{
+			return pEngine->m_print.get();
 		}
 
 		static ISiv3DEffect* GetEffect()

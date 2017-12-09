@@ -29,9 +29,9 @@
 # include "../AudioFormat/IAudioFormat.hpp"
 //# include "../Audio/IAudio.hpp"
 # include "../Graphics/IGraphics.hpp"
-//# include "../Font/IFont.hpp"
-//# include "../Print/IPrint.hpp"
 # include "../ScreenCapture/IScreenCapture.hpp"
+# include "../Font/IFont.hpp"
+# include "../Print/IPrint.hpp"
 # include "../Effect/IEffect.hpp"
 //# include "../Script/IScript.hpp"
 # include <Siv3D/Logger.hpp>
@@ -129,17 +129,17 @@ namespace s3d
 
 		Siv3DEngine::GetGraphics()->clear();
 
-		//if (!Siv3DEngine::GetFont()->init())
-		//{
-		//	return false;
-		//}
-
-		//if (!Siv3DEngine::GetPrint()->init())
-		//{
-		//	return false;
-		//}
-
 		if (!Siv3DEngine::GetScreenCapture()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetFont()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetPrint()->init())
 		{
 			return false;
 		}
@@ -175,8 +175,8 @@ namespace s3d
 			return false;
 		}
 
-	//	Siv3DEngine::GetPrint()->draw();
-	//	
+		Siv3DEngine::GetPrint()->draw();
+		
 		if (!Siv3DEngine::GetGraphics()->flush(clearGraphics))
 		{
 			return false;

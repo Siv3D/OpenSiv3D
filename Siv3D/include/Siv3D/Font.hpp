@@ -68,7 +68,7 @@ namespace s3d
 	{
 		TextureRegion texture;
 
-		char32_t codePoint = U'\0';
+		char32 codePoint = U'\0';
 
 		Point offset = Point(0, 0);
 
@@ -135,7 +135,7 @@ namespace s3d
 
 		int32 height() const;
 
-		Glyph getGlyph(char32_t codePoint) const;
+		Glyph getGlyph(char32 codePoint) const;
 
 		Array<Glyph> getGlyphs(const String& text) const;
 
