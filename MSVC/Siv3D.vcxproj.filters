@@ -548,6 +548,9 @@
     <Filter Include="src\Siv3D\Icon">
       <UniqueIdentifier>{55386892-c094-49f3-87c1-e40d749675b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\HamFramework">
+      <UniqueIdentifier>{9c75a1ca-2bbb-42b4-aef5-ec2f13264a91}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -2981,6 +2984,30 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Emoji.hpp">
       <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\HamFramework\Rx.hpp">
+      <Filter>include\HamFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\HamFramework\ScalableWindow.hpp">
+      <Filter>include\HamFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\HamFramework\SceneManager.hpp">
+      <Filter>include\HamFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\HamFramework\Camera2D.hpp">
+      <Filter>include\HamFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\HamFramework\MiniScene.hpp">
+      <Filter>include\HamFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\HamFramework\OptimalScreen.hpp">
+      <Filter>include\HamFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\HamFramework\PlayingCard.hpp">
+      <Filter>include\HamFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\HamFramework.hpp">
+      <Filter>include\HamFramework</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

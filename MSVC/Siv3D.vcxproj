@@ -303,6 +303,14 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\zdict.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Siv3D\include\HamFramework.hpp" />
+    <ClInclude Include="..\Siv3D\include\HamFramework\Camera2D.hpp" />
+    <ClInclude Include="..\Siv3D\include\HamFramework\MiniScene.hpp" />
+    <ClInclude Include="..\Siv3D\include\HamFramework\OptimalScreen.hpp" />
+    <ClInclude Include="..\Siv3D\include\HamFramework\PlayingCard.hpp" />
+    <ClInclude Include="..\Siv3D\include\HamFramework\Rx.hpp" />
+    <ClInclude Include="..\Siv3D\include\HamFramework\ScalableWindow.hpp" />
+    <ClInclude Include="..\Siv3D\include\HamFramework\SceneManager.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AlignedAllocator.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AlignedMemory.hpp" />
