@@ -1,0 +1,9 @@
+﻿int GetNumber()
+{
+	return 123;
+}
+
+void DrawCircle(const Circle &in circle, const ColorF &in color)
+{
+	circle.draw(color);
+}
