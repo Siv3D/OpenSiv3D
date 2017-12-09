@@ -11,6 +11,7 @@
 
 # pragma once
 # include <memory>
+# include <mutex>
 # include <Siv3D/HashTable.hpp>
 # include <Siv3D/String.hpp>
 # include <Siv3D/Logger.hpp>

@@ -722,30 +722,38 @@
 	# include "Siv3D/Graphics2D.hpp"
 
 	// 2D グラフィックス設定
-	//# include "Siv3D/RenderStateBlock2D.hpp"
+	# include "Siv3D/RenderStateBlock2D.hpp"
 
 	// 2D グラフィックス設定
-	//# include "Siv3D/ViewportBlock2D.hpp"
+	# include "Siv3D/ViewportBlock2D.hpp"
 
 	// 2D 座標変換
-	//# include "Siv3D/Transformer2D.hpp"
+	# include "Siv3D/Transformer2D.hpp"
 //
 // テクスチャ
 //
+
 	// テクスチャ
 	# include "Siv3D/Texture.hpp"
+	
 	// 領域を指定したテクスチャ
 	# include "Siv3D/TextureRegion.hpp"
+	
 	// 円に貼り付けたテクスチャ
 	# include "Siv3D/TexturedCircle.hpp"
+	
 	// 四角形に貼り付けたテクスチャ
 	# include "Siv3D/TexturedQuad.hpp"
+	
 	// 角丸長方形に貼り付けたテクスチャ
 	# include "Siv3D/TexturedRoundRect.hpp"
+	
 	// 動的テクスチャ
 	# include "Siv3D/DynamicTexture.hpp"
+	
 	// レンダーテクスチャ
 	# include "Siv3D/RenderTexture.hpp"
+
 //
 // フォント
 //
@@ -764,7 +772,7 @@
 // エフェクト
 //
 	// エフェクト
-	//# include "Siv3D/Effect.hpp"
+	# include "Siv3D/Effect.hpp"
 //
 // 標準 GUI
 //

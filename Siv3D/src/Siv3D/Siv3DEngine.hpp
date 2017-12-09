@@ -34,6 +34,7 @@ namespace s3d
 	class ISiv3DShader;
 	class ISiv3DRenderer2D;
 	class ISiv3DScreenCapture;
+	class ISiv3DEffect;
 
 	template <class Interface>
 	class Siv3DComponent
@@ -110,6 +111,8 @@ namespace s3d
 		Siv3DComponent<ISiv3DRenderer2D> m_renderer2D;
 
 		Siv3DComponent<ISiv3DScreenCapture> m_screenCapture;
+
+		Siv3DComponent<ISiv3DEffect> m_effect;
 		
 	public:
 
@@ -220,6 +223,11 @@ namespace s3d
 		static ISiv3DScreenCapture* GetScreenCapture()
 		{
 			return pEngine->m_screenCapture.get();
+		}
+
+		static ISiv3DEffect* GetEffect()
+		{
+			return pEngine->m_effect.get();
 		}
 	};
 }

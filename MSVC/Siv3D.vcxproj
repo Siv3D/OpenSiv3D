@@ -78,6 +78,10 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\DragDropFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\SivDragDrop.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DynamicTexture\SivDynamicTexture.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Effect\CEffect.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Effect\EffectData.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Effect\EffectFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Effect\SivEffect.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Ellipse\SivEllipse.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\EmojiDictionary\CEmojiDictionary.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\EmojiDictionary\SivEmojiDictionary.cpp" />
@@ -334,6 +338,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\DynamicTexture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Easing.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\EasingController.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Effect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Ellipse.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\EmojiDictionary.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Evaluater.hpp" />
@@ -422,6 +427,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\RDTSCClock.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ReaderView.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Rectangle.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\RenderStateBlock2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RenderTexture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Resource.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RoundRect.hpp" />
@@ -455,6 +461,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Time.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TimeProfiler.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Timer.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Transformer2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Transition.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Triangle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Types.hpp" />
@@ -469,6 +476,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Version.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Vertex2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\VertexShader.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ViewportBlock2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Wave.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\WaveSample.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Window.hpp" />
@@ -517,6 +525,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_macOS.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_Windows.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\DragDrop\IDragDrop.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Effect\CEffect.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Effect\EffectData.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Effect\IEffect.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\EmojiDictionary\CEmojiDictionary.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\EngineDirectory\EngineDirectory.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\EngineUtility.hpp" />
