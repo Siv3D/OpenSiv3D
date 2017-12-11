@@ -103,7 +103,7 @@ namespace s3d
 	TOMLTableMember TOMLTableIterator::operator *() const
 	{
 		return TOMLTableMember{
-			CharacterSet::FromUTF8(m_detail->it->first),
+			Unicode::FromUTF8(m_detail->it->first),
 			TOMLValue(detail::TOMLValueDetail(m_detail->it->second))
 		};
 	}
@@ -487,7 +487,7 @@ namespace s3d
 
 		if (auto&& str = m_detail->ptr->as<std::string>())
 		{
-			return CharacterSet::FromUTF8(str->get());
+			return Unicode::FromUTF8(str->get());
 		}
 
 		return String();
@@ -564,7 +564,7 @@ namespace s3d
 				dateTime.microsecond / 1000
 			);
 
-			ret += std::chrono::minutes(Time::UtcOffsetMinutes() - offset);
+			ret += std::chrono::minutes(Time::UTCOffsetMinutes() - offset);
 
 			return ret;
 		}
@@ -606,7 +606,7 @@ namespace s3d
 	bool TOMLReader::open(const FilePath& path)
 	{
 		try {
-			m_detail = std::make_shared<detail::TOMLValueDetail>(std::shared_ptr<cpptoml::base>(cpptoml::parse_file(path.toUTF8())));
+			m_detail = std::make_shared<detail::TOMLValueDetail>(std::shared_ptr<cpptoml::base>(cpptoml::parse_file(path.narrow())));
 		}
 		catch (...) {
 			return false;

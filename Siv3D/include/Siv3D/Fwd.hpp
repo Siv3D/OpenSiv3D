@@ -784,4 +784,11 @@ namespace s3d
 	//	RenderTexture.hpp
 	//
 	class RenderTexture;
+
+	//////////////////////////////////////////////////////
+	//
+	//	TOMLReader.hpp
+	//
+	class TOMLValue;
+	struct TOMLTableMember;
 }

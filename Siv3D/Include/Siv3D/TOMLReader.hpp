@@ -231,7 +231,7 @@ namespace s3d
 				std::stringstream ss;
 				ss << val;
 
-				str = CharacterSet::FromUTF8(ss.str());
+				str = Unicode::FromUTF8(ss.str());
 			}
 		};
 

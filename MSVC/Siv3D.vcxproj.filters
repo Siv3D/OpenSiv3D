@@ -509,6 +509,9 @@
     <Filter Include="src\Siv3D\Graphics\GL\SamplerState">
       <UniqueIdentifier>{c3d87299-1da9-4df8-b26e-f99ca7700292}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\TOMLReader">
+      <UniqueIdentifier>{e3b7a1a8-64a2-4ac9-a032-5fbed2a2b158}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -1305,6 +1308,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\GL\SamplerState\GLSamplerState.cpp">
       <Filter>src\Siv3D\Graphics\GL\SamplerState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TOMLReader\SivTOMLReader.cpp">
+      <Filter>src\Siv3D\TOMLReader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2522,6 +2528,9 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\GL\SamplerState\GLSamplerState.hpp">
       <Filter>src\Siv3D\Graphics\GL\SamplerState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TOMLReader.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
