@@ -76,7 +76,7 @@ namespace s3d
 
 					if (hasEditingTarget)
 					{
-						font((i + 1), U"  ").draw(posNumber, candidateTextColor);
+						font(i + 1).draw(posNumber, candidateTextColor);
 					}
 
 					font(text).draw(posLabel, candidateTextColor);
@@ -87,18 +87,23 @@ namespace s3d
 	# endif
 	}
 
-	TextEditor::TextEditor()
-		: m_cursorStopwatch(true) {}
+	TextEditor::TextEditor(const bool active)
+		: m_cursorStopwatch(true)
+		, m_active(active)
+	{
+	
+	}
 
 	void TextEditor::update(const Font& font,
 		const Font& fontCabdidate,
-		const Vec2& initialPos,
+		const RectF& rect,
 		const ColorF& textColor,
-		const ColorF& editingTextColor)
+		const ColorF& editingTextColor,
+		const TextInputMode mode)
 	{
 		if (m_active)
 		{
-			m_cursorIndex = TextInput::UpdateText(m_text, m_cursorIndex);
+			m_cursorIndex = TextInput::UpdateText(m_text, m_cursorIndex, mode);
 
 			if (0 < m_cursorIndex && (KeyLeft.down() || (KeyLeft.pressedDuration() > SecondsF(0.33) && m_leftPressStopwatch > SecondsF(0.06))))
 			{
@@ -113,7 +118,7 @@ namespace s3d
 			}
 		}
 
-		drawText(font, fontCabdidate, initialPos, textColor, editingTextColor);
+		drawText(font, fontCabdidate, rect, textColor, editingTextColor);
 	}
 
 	void TextEditor::setActive(bool active) noexcept
@@ -155,7 +160,7 @@ namespace s3d
 
 	void TextEditor::drawText(const Font& font,
 		const Font& fontCabdidate,
-		const Vec2& initialPos,
+		const RectF& rect,
 		const ColorF& textColor,
 		const ColorF& editingTextColor)
 	{
@@ -180,13 +185,15 @@ namespace s3d
 
 		m_locked = !editingText.isEmpty();
 
-		Vec2 pos(initialPos);
+		const double right = rect.x + rect.w;
+		Vec2 pos(rect.pos);
 
 		for (auto glyph : font(textHeader))
 		{
-			if (glyph.codePoint == U'\n')
+			if (glyph.codePoint == U'\n'
+				|| ((glyph.xAdvance <= rect.w) && (right < pos.x + glyph.xAdvance)))
 			{
-				pos.x = initialPos.x;
+				pos.x = rect.x;
 				pos.y += fontHeight;
 			}
 
@@ -221,9 +228,10 @@ namespace s3d
 
 		for (auto glyph : font(textTail))
 		{
-			if (glyph.codePoint == U'\n')
+			if (glyph.codePoint == U'\n'
+				|| ((glyph.xAdvance <= rect.w) && (right < pos.x + glyph.xAdvance)))
 			{
-				pos.x = initialPos.x;
+				pos.x = rect.x;
 				pos.y += fontHeight;
 			}
 

@@ -12,6 +12,7 @@
 # include "../Siv3DEngine.hpp"
 # include "ITextInput.hpp"
 # include <Siv3D/TextInput.hpp>
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -34,6 +35,7 @@ namespace s3d
 			const bool allowEnter = static_cast<uint32>(mode) & static_cast<uint32>(TextInputMode::AllowEnter);
 			const bool allowTab = static_cast<uint32>(mode) & static_cast<uint32>(TextInputMode::AllowTab);
 			const bool allowBackSpace = static_cast<uint32>(mode) & static_cast<uint32>(TextInputMode::AllowBackSpace);
+			const bool allowDelete = static_cast<uint32>(mode) & static_cast<uint32>(TextInputMode::AllowDelete);
 
 			if (text.size() < cursorPos)
 			{
@@ -64,6 +66,13 @@ namespace s3d
 					{
 						text.insert(text.begin() + cursorPos, U'\t');
 						++cursorPos;
+					}
+				}
+				else if (ch == char32(0x7F))
+				{
+					if (allowDelete && cursorPos < text.size())
+					{
+						text.erase(text.begin() + cursorPos);
 					}
 				}
 				else if (!IsControl(ch))

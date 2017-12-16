@@ -18,6 +18,7 @@
 # include "../Window/IWindow.hpp"
 # include <Siv3D/Array.hpp>
 # include <Siv3D/String.hpp>
+# include <Siv3D/Stopwatch.hpp>
 # include "WindowsIME.h"
 
 namespace s3d
@@ -31,6 +32,8 @@ namespace s3d
 		HIMC m_hImc = nullptr;
 
 		std::mutex m_mutex;
+
+		Stopwatch m_deletePress;
 
 
 		String m_internalEditingText;

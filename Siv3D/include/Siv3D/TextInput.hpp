@@ -18,23 +18,31 @@ namespace s3d
 {
 	enum class TextInputMode
 	{
-		DenyControl				= 0x00,
+		DenyControl		= 0x00,
 
-		AllowEnter				= 0x01,
+		AllowEnter		= 0x01,
 
-		AllowTab				= 0x02,
+		AllowTab		= 0x02,
 
-		AllowBackSpace			= 0x04,
+		AllowBackSpace	= 0x04,
 
-		AllowEnterTab			= AllowEnter | AllowTab,
+		AllowDelete		= 0x08,
 
-		AllowEnterBackSpace		= AllowEnter | AllowBackSpace,
+		AllowEnterTab					= AllowEnter | AllowTab,
 
-		AllowTabBackSpace		= AllowTab | AllowBackSpace,
+		AllowEnterBackSpace				= AllowEnter | AllowBackSpace,
 
-		AllowEnterTabBackSpace	= AllowEnter | AllowTab | AllowBackSpace,
+		AllowEnterBackSpaceDelete		= AllowEnter | AllowBackSpace | AllowDelete,
 
-		Default					= AllowEnterTabBackSpace,
+		AllowTabBackSpace				= AllowTab | AllowBackSpace,
+
+		AllowTabBackSpaceDelete			= AllowTab | AllowBackSpace | AllowDelete,
+
+		AllowEnterTabBackSpace			= AllowEnter | AllowTab | AllowBackSpace,
+
+		AllowEnterTabBackSpaceDelete	= AllowEnter | AllowTab | AllowBackSpace | AllowDelete,
+
+		Default					= AllowEnterTabBackSpaceDelete,
 	};
 
 	namespace TextInput

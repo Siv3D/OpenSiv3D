@@ -57,7 +57,7 @@ namespace s3d
 			return m_data[id].get();
 		}
 
-		IDType add(const std::shared_ptr<Data>& data, const String& info = U"")
+		IDType add(const std::shared_ptr<Data>& data, [[maybe_unused]] const String& info = U"")
 		{
 			std::lock_guard<std::mutex> lock(m_mutex);
 

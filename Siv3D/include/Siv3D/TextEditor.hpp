@@ -12,6 +12,7 @@
 # pragma once
 # include "Fwd.hpp"
 # include "String.hpp"
+# include "TextInput.hpp"
 # include "Stopwatch.hpp"
 # include "Color.hpp"
 
@@ -35,19 +36,20 @@ namespace s3d
 
 		void drawText(const Font& font,
 			const Font& fontCabdidate,
-			const Vec2& initialPos,
+			const RectF& rect,
 			const ColorF& textColor,
 			const ColorF& editingTextColor);
 
 	public:
 
-		TextEditor();
+		TextEditor(bool active = false);
 
 		void update(const Font& font,
 			const Font& fontCabdidate,
-			const Vec2& initialPos,
+			const RectF& rect,
 			const ColorF& textColor = ColorF(0.0),
-			const ColorF& editingTextColor = ColorF(0.5));
+			const ColorF& editingTextColor = ColorF(0.5),
+			TextInputMode mode = TextInputMode::Default);
 
 		void setActive(bool active) noexcept;
 

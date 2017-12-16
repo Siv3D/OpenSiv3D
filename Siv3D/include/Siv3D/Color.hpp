@@ -809,6 +809,20 @@ namespace s3d
 	}
 
 	/// <summary>
+	/// ColorF(1.0, 1.0, 1.0, 1.0 - transparency) を返します。
+	/// </summary>
+	/// <param name="transparency">
+	/// 透明度 [0.0, 1.0]
+	/// </param>
+	/// <returns>
+	/// ColorF(1.0, 1.0, 1.0, 1.0 - transparency)
+	/// </returns>
+	inline constexpr ColorF Transparency(const double transparency) noexcept
+	{
+		return ColorF(1.0, 1.0 - transparency);
+	}
+
+	/// <summary>
 	/// 色をコピーします。
 	/// </summary>
 	/// <param name="color">

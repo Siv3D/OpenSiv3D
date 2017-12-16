@@ -8,11 +8,18 @@ void Main()
 
 	const Font font(24);
 	const Font font2(18);
-	TextEditor editor;
+	TextEditor editor(true);
+
+	String text;
+	size_t cursorPos = 0;
 
 	while (System::Update())
 	{
-		editor.update(font, font2, Vec2(10, 50));
+		const RectF rect(10, 50, 200, 200);
+
+		rect.draw(ColorF(0.9));
+
+		editor.update(font, font2, rect);
 
 		if (editor.isLocked())
 		{

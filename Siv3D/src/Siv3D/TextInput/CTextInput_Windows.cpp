@@ -16,6 +16,7 @@
 # include <imm.h>
 # include "../Siv3DEngine.hpp"
 # include "CTextInput_Windows.hpp"
+# include <Siv3D/Keyboard.hpp>
 # include <Siv3D/Logger.hpp>
 
 namespace s3d
@@ -66,6 +67,15 @@ namespace s3d
 			m_chars = m_internalChars;
 
 			m_internalChars.clear();
+		}
+
+		if (!m_editingText)
+		{
+			if (KeyDelete.down() || (KeyDelete.pressedDuration() > SecondsF(0.33) && m_deletePress > SecondsF(0.06)))
+			{
+				m_chars.push_back(char32(0x7F));
+				m_deletePress.restart();
+			}
 		}
 	}
 
