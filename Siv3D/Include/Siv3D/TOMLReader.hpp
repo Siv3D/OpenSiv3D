@@ -9,9 +9,11 @@
 //
 //-----------------------------------------------
 
-#pragma once
-#include "Fwd.hpp"
-#include "String.hpp"
+# pragma once
+# include "Fwd.hpp"
+# include "String.hpp"
+# include "Optional.hpp"
+# include "Unicode.hpp"
 
 namespace s3d
 {
@@ -367,7 +369,7 @@ namespace s3d
 
 		explicit TOMLReader(const std::shared_ptr<IReader>& reader);
 
-		template <class Reader, std::enable_if_t<std::is_base_of<IReader, Reader>::value && !std::is_lvalue_reference<Reader>::value, nullptr_t>* = nullptr>
+		template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader> && !std::is_lvalue_reference_v<Reader>>* = nullptr>
 		explicit TOMLReader(Reader&& reader)
 		{
 			open(std::make_shared<Reader>(std::forward<Reader>(reader)));
