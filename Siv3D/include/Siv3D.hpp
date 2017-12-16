@@ -324,6 +324,9 @@
 	//// JSON ファイルの書き出し
 	//# include "Siv3D/JSONWriter.hpp"
 
+	// TOML ファイルの読み込み
+	# include "Siv3D/TOMLReader.hpp"
+
 	//// ZIP 圧縮ファイルの読み込み
 	//# include "Siv3D/ZIPReader.hpp"
 
