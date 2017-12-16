@@ -429,6 +429,7 @@ namespace s3d
 		{
 			return arr->get().size();
 		}
+
 		if (auto&& arr = m_detail->ptr->as_table_array())
 		{
 			return arr->get().size();

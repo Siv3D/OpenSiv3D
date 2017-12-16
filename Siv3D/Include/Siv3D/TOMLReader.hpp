@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -226,6 +226,12 @@ namespace s3d
 			}
 
 			return none;
+		}
+
+		template <class Type, std::enable_if_t<!std::is_arithmetic_v<Type>>* = nullptr>
+		Optional<Type> getOpt_() const
+		{
+			return ParseOpt<Type>(getString());
 		}
 
 		struct Visitor
