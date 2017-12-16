@@ -201,11 +201,6 @@ namespace s3d
 		m_string.shrink_to_fit();
 	}
 
-	size_t String::num_codePoints() const noexcept
-	{
-		return Unicode::CountCodePoints(*this);
-	}
-
 	void String::release()
 	{
 		clear();

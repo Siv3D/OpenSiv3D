@@ -278,6 +278,7 @@ namespace s3d
 	# pragma comment (lib, "imm32")
 	# pragma comment (lib, "Shlwapi")
 	# pragma comment (lib, "mfuuid")
+	# pragma comment(lib,"version")
 
 	# if (SIV3D_IS_DEBUG)
 
@@ -285,6 +286,8 @@ namespace s3d
 		# pragma comment (lib, "zlib/zlib_d")
 		# pragma comment (lib, "libpng/libpng16_d")
 		# pragma comment (lib, "libjpeg-turbo/turbojpeg-static_d")
+		# pragma comment (lib, "freetype/freetype28MTd")
+		# pragma comment (lib, "harfbuzz/harfbuzz_d")
 
 	# else
 
@@ -292,6 +295,8 @@ namespace s3d
 		# pragma comment (lib, "zlib/zlib")
 		# pragma comment (lib, "libpng/libpng16")
 		# pragma comment (lib, "libjpeg-turbo/turbojpeg-static")
+		# pragma comment (lib, "freetype/freetype28MT")
+		# pragma comment (lib, "harfbuzz/harfbuzz")
 
 	# endif
 

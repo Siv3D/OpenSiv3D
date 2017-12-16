@@ -12,6 +12,7 @@
 # pragma once
 # include <type_traits>
 # include <limits>
+# include <cmath>
 
 namespace s3d
 {

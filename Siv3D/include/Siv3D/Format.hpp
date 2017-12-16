@@ -55,14 +55,11 @@ namespace s3d
 		return FormatData::DecimalPlace(width);
 	}
 
-	inline namespace literals
+	namespace Literals
 	{
-		inline namespace formatting_literals
+		[[nodiscard]] inline constexpr FormatData::DecimalPlace operator ""_dp(unsigned long long width)
 		{
-			[[nodiscard]] inline constexpr FormatData::DecimalPlace operator ""_dp(unsigned long long width)
-			{
-				return DecimalPlace(static_cast<int32>(width));
-			}
+			return DecimalPlace(static_cast<int32>(width));
 		}
 	}
 

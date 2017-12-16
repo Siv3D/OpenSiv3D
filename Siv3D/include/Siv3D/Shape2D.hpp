@@ -11,7 +11,6 @@
 
 # pragma once
 # include "Fwd.hpp"
-//# include "Vertex2D.hpp"
 # include "Array.hpp"
 # include "Line.hpp"
 

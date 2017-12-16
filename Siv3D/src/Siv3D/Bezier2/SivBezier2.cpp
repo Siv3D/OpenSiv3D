@@ -30,10 +30,10 @@ namespace s3d
 		return pts;
 	}
 
-	//const Bezier2& Bezier2::draw(const double thickness, const ColorF& color) const
-	//{
-	//	getLineString().draw(thickness, color);
+	const Bezier2& Bezier2::draw(const double thickness, const ColorF& color) const
+	{
+		getLineString().draw(thickness, color);
 
-	//	return *this;
-	//}
+		return *this;
+	}
 }

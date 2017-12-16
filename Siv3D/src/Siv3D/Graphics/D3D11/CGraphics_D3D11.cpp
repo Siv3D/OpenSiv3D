@@ -234,15 +234,15 @@ namespace s3d
 		return m_renderTarget->getBackBuffer2D();
 	}
 
-	//void CGraphics_D3D11::requestScreenCapture()
-	//{
-	//	m_screenCapture->request();
-	//}
+	void CGraphics_D3D11::requestScreenCapture()
+	{
+		m_screenCapture->request();
+	}
 
-	//const Image& CGraphics_D3D11::getScreenCapture() const
-	//{
-	//	return m_screenCapture->getImage();
-	//}
+	const Image& CGraphics_D3D11::getScreenCapture() const
+	{
+		return m_screenCapture->getImage();
+	}
 }
 
 # endif

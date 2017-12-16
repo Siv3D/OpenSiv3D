@@ -810,11 +810,11 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
 	{
 		NSString *selectedText = markedText.string;
 
-		//s3d_OnHaveMarkedText([selectedText cStringUsingEncoding:NSUTF8StringEncoding]);
+		s3d_OnHaveMarkedText([selectedText cStringUsingEncoding:NSUTF8StringEncoding]);
 	}
 	else
 	{
-		//s3d_OnHaveMarkedText(NULL);
+		s3d_OnHaveMarkedText(NULL);
 	}
 	//
 	//-----------------------------------------------
@@ -878,7 +878,7 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
 	//	[Siv3D]
 	//
 	[self unmarkText];
-	//s3d_OnHaveMarkedText(NULL);
+	s3d_OnHaveMarkedText(NULL);
 	//
 	//-----------------------------------------------
 }

@@ -217,9 +217,9 @@ namespace s3d
 		/// </remarks>
 		Image(const Color& rgb, const FilePath& alpha);
 
-		//explicit Image(const Emoji& emoji);
+		explicit Image(const Emoji& emoji);
 
-		//explicit Image(const Icon& icon);
+		explicit Image(const Icon& icon);
 
 		explicit Image(const Grid<Color>& grid);
 

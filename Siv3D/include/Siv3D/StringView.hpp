@@ -416,14 +416,11 @@ namespace s3d
 //
 //////////////////////////////////////////////////
 
-	inline namespace literals
+	namespace Literals
 	{
-		inline namespace stringview_literals
+		[[nodiscard]] constexpr StringView operator ""_sv(const char32_t* text, const size_t length) noexcept
 		{
-			[[nodiscard]] constexpr StringView operator ""_sv(const char32_t* text, const size_t length) noexcept
-			{
-				return StringView(text, length);
-			}
+			return StringView(text, length);
 		}
 	}
 

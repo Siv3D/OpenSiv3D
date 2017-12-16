@@ -311,6 +311,21 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	TOMLReader.hpp
+	//
+	enum class TOMLValueType;
+	class TOMLTableIterator;
+	class TOMLTableView;
+	class TOMLArrayIterator;
+	class TOMLArrayView;
+	class TOMLTableArrayIterator;
+	class TOMLTableArrayView;
+	class TOMLValue;
+	struct TOMLTableMember;
+	class TOMLReader;
+
+	//////////////////////////////////////////////////////
+	//
 	//	HTMLWriter.hpp
 	//
 	class HTMLWriter;
@@ -655,6 +670,11 @@ namespace s3d
 	//
 	class KeyGroup;
 
+	//////////////////////////////////////////////////////
+	//
+	//	TextInput.hpp
+	//
+	enum class TextInputMode;
 
 	//////////////////////////////////////////////////////
 	//
@@ -784,4 +804,33 @@ namespace s3d
 	//	RenderTexture.hpp
 	//
 	class RenderTexture;
+  
+	//////////////////////////////////////////////////////
+	//
+	//	Font.hpp
+	//
+	enum class Typeface;
+	enum class FontStyle : uint32;
+	struct Glyph;
+	class Font;
+	class GlyphIterator;
+	struct DrawableText;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Emoji.hpp
+	//
+	struct Emoji;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Icon.hpp
+	//
+	struct Icon;
+
+	//////////////////////////////////////////////////////
+	//
+	//	TextEditor.hpp
+	//
+	class TextEditor;
 }
