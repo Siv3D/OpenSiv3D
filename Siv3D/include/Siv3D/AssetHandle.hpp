@@ -11,6 +11,7 @@
 
 # pragma once
 # include "Fwd.hpp"
+# include "Number.hpp"
 
 namespace s3d
 {
@@ -21,7 +22,9 @@ namespace s3d
 
 		using ValueType = uint32;
 
-		enum : ValueType { NullAssetID = 0, InvalidID = 0xffFFffFF };
+		inline static const ValueType NullAssetID = 0;
+
+		inline static const  ValueType InvalidID = Largest<ValueType>();
 
 	private:
 

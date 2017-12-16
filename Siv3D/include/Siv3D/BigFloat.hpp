@@ -268,24 +268,21 @@ namespace s3d
 	[[nodiscard]] BigFloat operator /(uint64 a, const BigFloat& b);
 	[[nodiscard]] BigFloat operator /(long double a, const BigFloat& b);
 
-	inline namespace literals
+	namespace Literals
 	{
-		inline namespace bigfloat_literals
+		[[nodiscard]] inline BigFloat operator ""_bigF(unsigned long long int i)
 		{
-			[[nodiscard]] inline BigFloat operator ""_bigF(unsigned long long int i)
-			{
-				return BigFloat(i);
-			}
+			return BigFloat(i);
+		}
 
-			[[nodiscard]] inline BigFloat operator ""_bigF(const char* number, size_t)
-			{
-				return BigFloat(number);
-			}
+		[[nodiscard]] inline BigFloat operator ""_bigF(const char* number, size_t)
+		{
+			return BigFloat(number);
+		}
 
-			[[nodiscard]] inline BigFloat operator ""_bigF(const char32* number, size_t)
-			{
-				return BigFloat(number);
-			}
+		[[nodiscard]] inline BigFloat operator ""_bigF(const char32* number, size_t)
+		{
+			return BigFloat(number);
 		}
 	}
 

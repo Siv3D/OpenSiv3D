@@ -10,9 +10,9 @@
 //-----------------------------------------------
 
 # include "CPolygon.hpp"
-//# include <Siv3D/Shape2D.hpp>
-//# include <Siv3D/Mouse.hpp>
-//# include <Siv3D/Cursor.hpp>
+# include <Siv3D/Shape2D.hpp>
+# include <Siv3D/Mouse.hpp>
+# include <Siv3D/Cursor.hpp>
 
 namespace s3d
 {
@@ -40,11 +40,11 @@ namespace s3d
 
 	}
 
-	//Polygon::Polygon(const Shape2D& shape)
-	//	: pImpl(std::make_unique<CPolygon>(shape.vertices().data(), shape.vertices().size(), shape.indices()))
-	//{
+	Polygon::Polygon(const Shape2D& shape)
+		: pImpl(std::make_unique<CPolygon>(shape.vertices().data(), shape.vertices().size(), shape.indices()))
+	{
 
-	//}
+	}
 
 	Polygon::~Polygon()
 	{
@@ -158,52 +158,52 @@ namespace s3d
 		return pImpl->intersects(*polygon.pImpl);
 	}
 
-	//bool Polygon::leftClicked() const
-	//{
-	//	return MouseL.down() && mouseOver();
-	//}
+	bool Polygon::leftClicked() const
+	{
+		return MouseL.down() && mouseOver();
+	}
 
-	//bool Polygon::leftPressed() const
-	//{
-	//	return MouseL.pressed() && mouseOver();
-	//}
+	bool Polygon::leftPressed() const
+	{
+		return MouseL.pressed() && mouseOver();
+	}
 
-	//bool Polygon::leftReleased() const
-	//{
-	//	return MouseL.up() && mouseOver();
-	//}
+	bool Polygon::leftReleased() const
+	{
+		return MouseL.up() && mouseOver();
+	}
 
-	//bool Polygon::rightClicked() const
-	//{
-	//	return MouseR.down() && mouseOver();
-	//}
+	bool Polygon::rightClicked() const
+	{
+		return MouseR.down() && mouseOver();
+	}
 
-	//bool Polygon::rightPressed() const
-	//{
-	//	return MouseR.pressed() && mouseOver();
-	//}
+	bool Polygon::rightPressed() const
+	{
+		return MouseR.pressed() && mouseOver();
+	}
 
-	//bool Polygon::rightReleased() const
-	//{
-	//	return MouseR.up() && mouseOver();
-	//}
+	bool Polygon::rightReleased() const
+	{
+		return MouseR.up() && mouseOver();
+	}
 
-	//bool Polygon::mouseOver() const
-	//{
-	//	return Geometry2D::Intersect(Cursor::PosF(), *this);
-	//}
+	bool Polygon::mouseOver() const
+	{
+		return Geometry2D::Intersect(Cursor::PosF(), *this);
+	}
 
-	//const Polygon& Polygon::draw(const ColorF& color) const
-	//{
-	//	pImpl->draw(color);
+	const Polygon& Polygon::draw(const ColorF& color) const
+	{
+		pImpl->draw(color);
 
-	//	return *this;
-	//}
+		return *this;
+	}
 
-	//const Polygon& Polygon::drawFrame(const double thickness, const ColorF& color) const
-	//{
-	//	pImpl->drawFrame(thickness, color);
+	const Polygon& Polygon::drawFrame(const double thickness, const ColorF& color) const
+	{
+		pImpl->drawFrame(thickness, color);
 
-	//	return *this;
-	//}
+		return *this;
+	}
 }

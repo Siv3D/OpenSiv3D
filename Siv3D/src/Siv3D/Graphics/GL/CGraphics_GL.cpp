@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -282,7 +282,6 @@ namespace s3d
 		return m_currentRenderTargetSize;
 	}
 	
-	/*
 	void CGraphics_GL::requestScreenCapture()
 	{
 		m_screenCapture.request();
@@ -291,8 +290,7 @@ namespace s3d
 	const Image& CGraphics_GL::getScreenCapture() const
 	{
 		return m_screenCapture.getImage();
-	}
-	 */
+	} 
 }
 
 # endif

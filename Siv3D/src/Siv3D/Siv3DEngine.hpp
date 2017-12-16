@@ -27,12 +27,17 @@ namespace s3d
 	class ISiv3DCursor;
 	class ISiv3DKeyboard;
 	class ISiv3DMouse;
+	class ISiv3DTextInput;
 	class ISiv3DCodec;
 	class ISiv3DAudioFormat;
 	class ISiv3DGraphics;
 	class ISiv3DTexture;
 	class ISiv3DShader;
 	class ISiv3DRenderer2D;
+	class ISiv3DScreenCapture;
+	class ISiv3DFont;
+	class ISiv3DEffect;
+	class ISiv3DPrint;
 
 	template <class Interface>
 	class Siv3DComponent
@@ -96,6 +101,8 @@ namespace s3d
 
 		Siv3DComponent<ISiv3DMouse> m_mouse;
 
+		Siv3DComponent<ISiv3DTextInput> m_textInput;
+
 		Siv3DComponent<ISiv3DCodec> m_codec;
 
 		Siv3DComponent<ISiv3DAudioFormat> m_audioFormat;
@@ -107,6 +114,14 @@ namespace s3d
 		Siv3DComponent<ISiv3DShader> m_shader;
 
 		Siv3DComponent<ISiv3DRenderer2D> m_renderer2D;
+
+		Siv3DComponent<ISiv3DScreenCapture> m_screenCapture;
+
+		Siv3DComponent<ISiv3DFont> m_font;
+
+		Siv3DComponent<ISiv3DPrint> m_print;
+
+		Siv3DComponent<ISiv3DEffect> m_effect;
 		
 	public:
 
@@ -184,6 +199,11 @@ namespace s3d
 			return pEngine->m_mouse.get();
 		}
 
+		static ISiv3DTextInput* GetTextInput()
+		{
+			return pEngine->m_textInput.get();
+		}
+
 		static ISiv3DCodec* GetCodec()
 		{
 			return pEngine->m_codec.get();
@@ -212,6 +232,26 @@ namespace s3d
 		static ISiv3DRenderer2D* GetRenderer2D()
 		{
 			return pEngine->m_renderer2D.get();
+		}
+
+		static ISiv3DScreenCapture* GetScreenCapture()
+		{
+			return pEngine->m_screenCapture.get();
+		}
+
+		static ISiv3DFont* GetFont()
+		{
+			return pEngine->m_font.get();
+		}
+
+		static ISiv3DPrint* GetPrint()
+		{
+			return pEngine->m_print.get();
+		}
+
+		static ISiv3DEffect* GetEffect()
+		{
+			return pEngine->m_effect.get();
 		}
 	};
 }

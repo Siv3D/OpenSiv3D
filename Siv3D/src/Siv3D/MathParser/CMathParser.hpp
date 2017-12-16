@@ -11,7 +11,9 @@
 
 # pragma once
 # include <Siv3D/MathParser.hpp>
+S3D_DISABLE_MSVC_WARNINGS_PUSH(4310)
 # include "../../ThirdParty/muparser/muParser.h"
+S3D_DISABLE_MSVC_WARNINGS_POP()
 
 namespace s3d
 {

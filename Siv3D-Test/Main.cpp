@@ -2,7 +2,7 @@
 
 void Main()
 {
-	const TOMLReader reader(U"ƒeƒXƒg(ƒ³ƒÖƒ³).toml");
+	const TOMLReader reader(U"MSVC/ãƒ†ã‚¹ãƒˆ(Î¦Ï‰Î¦).toml");
 	TextWriter writer(U"test.txt");
 
 	if (!reader)
@@ -52,5 +52,6 @@ void Main()
 
 	while (System::Update())
 	{
+
 	}
 }

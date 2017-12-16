@@ -18,8 +18,8 @@
 # include <Siv3D/TexturedQuad.hpp>
 # include <Siv3D/Image.hpp>
 # include <Siv3D/ImageProcessing.hpp>
-//# include <Siv3D/Emoji.hpp>
-//# include <Siv3D/Icon.hpp>
+# include <Siv3D/Emoji.hpp>
+# include <Siv3D/Icon.hpp>
 
 namespace s3d
 {
@@ -106,17 +106,17 @@ namespace s3d
 
 	}
 
-	//Texture::Texture(const Emoji& emoji, TextureDesc desc)
-	//	: Texture(Emoji::LoadImage(emoji.codePoints), desc)
-	//{
+	Texture::Texture(const Emoji& emoji, TextureDesc desc)
+		: Texture(Emoji::LoadImage(emoji.codePoints), desc)
+	{
 
-	//}
+	}
 
-	//Texture::Texture(const Icon& icon, TextureDesc desc)
-	//	: Texture(Icon::LoadImage(icon.code, icon.size), desc)
-	//{
+	Texture::Texture(const Icon& icon, TextureDesc desc)
+		: Texture(Icon::LoadImage(icon.code, icon.size), desc)
+	{
 
-	//}
+	}
 
 	Texture::~Texture()
 	{
