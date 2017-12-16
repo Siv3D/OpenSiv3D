@@ -563,6 +563,21 @@
     <Filter Include="src\ThirdParty\cpptoml">
       <UniqueIdentifier>{97824583-caa4-4083-a79e-2b81bc868583}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\ThirdParty\cereal">
+      <UniqueIdentifier>{1d7b1d92-33c1-400f-825f-0ae0738f0ded}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ThirdParty\cereal\archives">
+      <UniqueIdentifier>{69e43a5a-10bc-439e-8fbc-9b13ed33b143}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ThirdParty\cereal\details">
+      <UniqueIdentifier>{db5dcbd8-3591-4aec-b44e-54ac4f792484}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ThirdParty\cereal\types">
+      <UniqueIdentifier>{9dcbca4d-bbdd-4788-a7b4-dcb8ddbdde44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ThirdParty\cereal\types\concepts">
+      <UniqueIdentifier>{6b384f41-c889-48db-bd10-ef723f1edba0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -3065,6 +3080,117 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\ThirdParty\cpptoml\cpptoml.h">
       <Filter>src\ThirdParty\cpptoml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\archives\binary.hpp">
+      <Filter>include\ThirdParty\cereal\archives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\archives\portable_binary.hpp">
+      <Filter>include\ThirdParty\cereal\archives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\details\polymorphic_impl.hpp">
+      <Filter>include\ThirdParty\cereal\details</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\details\polymorphic_impl_fwd.hpp">
+      <Filter>include\ThirdParty\cereal\details</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\details\static_object.hpp">
+      <Filter>include\ThirdParty\cereal\details</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\details\traits.hpp">
+      <Filter>include\ThirdParty\cereal\details</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\details\util.hpp">
+      <Filter>include\ThirdParty\cereal\details</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\details\helpers.hpp">
+      <Filter>include\ThirdParty\cereal\details</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\cereal.hpp">
+      <Filter>include\ThirdParty\cereal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\macros.hpp">
+      <Filter>include\ThirdParty\cereal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\access.hpp">
+      <Filter>include\ThirdParty\cereal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\chrono.hpp">
+      <Filter>include\ThirdParty\cereal\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\common.hpp">
+      <Filter>include\ThirdParty\cereal\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\complex.hpp">
+      <Filter>include\ThirdParty\cereal\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\deque.hpp">
+      <Filter>include\ThirdParty\cereal\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\forward_list.hpp">
+      <Filter>include\ThirdParty\cereal\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\functional.hpp">
+      <Filter>include\ThirdParty\cereal\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\list.hpp">
+      <Filter>include\ThirdParty\cereal\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\map.hpp">
+      <Filter>include\ThirdParty\cereal\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\memory.hpp">
+      <Filter>include\ThirdParty\cereal\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\polymorphic.hpp">
+      <Filter>include\ThirdParty\cereal\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\queue.hpp">
+      <Filter>include\ThirdParty\cereal\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\set.hpp">
+      <Filter>include\ThirdParty\cereal\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\stack.hpp">
+      <Filter>include\ThirdParty\cereal\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\string.hpp">
+      <Filter>include\ThirdParty\cereal\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\tuple.hpp">
+      <Filter>include\ThirdParty\cereal\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\unordered_map.hpp">
+      <Filter>include\ThirdParty\cereal\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\unordered_set.hpp">
+      <Filter>include\ThirdParty\cereal\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\utility.hpp">
+      <Filter>include\ThirdParty\cereal\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\valarray.hpp">
+      <Filter>include\ThirdParty\cereal\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\vector.hpp">
+      <Filter>include\ThirdParty\cereal\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\array.hpp">
+      <Filter>include\ThirdParty\cereal\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\base_class.hpp">
+      <Filter>include\ThirdParty\cereal\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\bitset.hpp">
+      <Filter>include\ThirdParty\cereal\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\boost_variant.hpp">
+      <Filter>include\ThirdParty\cereal\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\concepts\pair_associative_container.hpp">
+      <Filter>include\ThirdParty\cereal\types\concepts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Serialize.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

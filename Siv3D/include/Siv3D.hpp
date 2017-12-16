@@ -918,8 +918,8 @@
 	//// アドオン
 	//# include "Siv3D/Addon.hpp"
 	
-	//// シリアライゼーション
-	//# include "Siv3D/Serialization.hpp"
+	// シリアライズ
+	# include "Siv3D/Serialize.hpp"
 
 	// GPU の使用
 	# include "Siv3D/HighPerfoemanceGPU.hpp"
