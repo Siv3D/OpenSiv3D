@@ -76,9 +76,31 @@ namespace s3d
 			return cursorPos;
 		}
 		
-		String GetMarkedText()
+		String GetEditingText()
 		{
-			return Siv3DEngine::GetTextInput()->getMarkedText();
+			return Siv3DEngine::GetTextInput()->getEditingText();
 		}
 	}
+
+# if defined(SIV3D_TARGET_WINDOWS)
+
+	namespace win::TextInput
+	{
+		void DisableIME()
+		{
+			Siv3DEngine::GetTextInput()->enableIME(false);
+		}
+
+		const Array<String>& GetCandidates()
+		{
+			return Siv3DEngine::GetTextInput()->getCandidates();
+		}
+
+		std::pair<int32, int32> GetCursorIndex()
+		{
+			return Siv3DEngine::GetTextInput()->getCursorIndex();
+		}
+	}
+
+# endif
 }

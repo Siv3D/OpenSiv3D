@@ -76,6 +76,8 @@ namespace s3d
 
 		int32 xAdvance = 0;
 
+		int32 index = 0;
+
 		Glyph()
 		{
 			texture.uvRect = FloatRect(0.0f, 0.0f, 0.0f, 0.0f);
@@ -178,9 +180,11 @@ namespace s3d
 	{
 	private:
 
-		Font font;
+		Font m_font;
 
-		String::const_iterator textIterator;
+		String::const_iterator m_iterator;
+
+		int32 m_index = 0;
 
 	public:
 
@@ -188,32 +192,39 @@ namespace s3d
 
 		GlyphIterator(const GlyphIterator&) = default;
 
-		GlyphIterator(const Font& _font, String::const_iterator _it)
-			: font(_font)
-			, textIterator(_it) {}
+		GlyphIterator(const Font& font, String::const_iterator it, int32 index)
+			: m_font(font)
+			, m_iterator(it)
+			, m_index(index) {}
 
 		GlyphIterator& operator =(const GlyphIterator&) = default;
 
 		GlyphIterator& operator ++()
 		{
-			++textIterator;
+			++m_iterator;
+
+			++m_index;
 
 			return *this;
 		}
 
 		Glyph operator *() const
 		{
-			return font.getGlyph(*textIterator);
+			Glyph glyph = m_font.getGlyph(*m_iterator);
+
+			glyph.index = m_index;
+
+			return glyph;
 		}
 
 		bool operator ==(const GlyphIterator& other) const
 		{
-			return textIterator == other.textIterator;
+			return m_iterator == other.m_iterator;
 		}
 		
 		bool operator !=(const GlyphIterator& other) const
 		{
-			return textIterator != other.textIterator;
+			return m_iterator != other.m_iterator;
 		}
 	};
 
@@ -235,12 +246,12 @@ namespace s3d
 
 		GlyphIterator begin() const
 		{
-			return GlyphIterator(font, codePoints.begin());
+			return GlyphIterator(font, codePoints.begin(), 0);
 		}
 
 		GlyphIterator end() const
 		{
-			return GlyphIterator(font, codePoints.end());
+			return GlyphIterator(font, codePoints.end(), static_cast<int32>(codePoints.size()));
 		}
 
 		RectF boundingRect(double x, double y) const

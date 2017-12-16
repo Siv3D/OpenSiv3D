@@ -12,6 +12,7 @@
 # pragma once
 # include <string>
 # include <Siv3D/Fwd.hpp>
+# include <Siv3D/Array.hpp>
 
 namespace s3d
 {
@@ -31,6 +32,12 @@ namespace s3d
 
 		virtual const String& getChars() const = 0;
 		
-		virtual const String& getMarkedText() const = 0;
+		virtual const String& getEditingText() const = 0;
+
+		virtual void enableIME(bool enabled) = 0;
+
+		virtual const Array<String>& getCandidates() const = 0;
+
+		virtual std::pair<int32, int32> getCursorIndex() const = 0;
 	};
 }

@@ -807,4 +807,10 @@ namespace s3d
 	//	Icon.hpp
 	//
 	struct Icon;
+
+	//////////////////////////////////////////////////////
+	//
+	//	TextEditor.hpp
+	//
+	class TextEditor;
 }

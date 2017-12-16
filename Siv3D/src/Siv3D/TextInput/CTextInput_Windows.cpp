@@ -21,12 +21,15 @@
 namespace s3d
 {
 	CTextInput_Windows::CTextInput_Windows()
+		: m_pVideo(std::make_unique<SDL_VideoData>())
 	{
 
 	}
 
 	CTextInput_Windows::~CTextInput_Windows()
 	{
+		IME_Quit(m_pVideo.get());
+
 		::ImmReleaseContext(m_hWnd, m_hImc);
 	}
 
@@ -36,6 +39,14 @@ namespace s3d
 
 		m_hImc = ::ImmGetContext(m_hWnd);
 
+		m_pVideo->pTextInput = this;
+
+		WIN_InitKeyboard(m_pVideo.get());
+
+		IME_Init(m_pVideo.get(), m_hWnd);
+
+		IME_Enable(m_pVideo.get(), m_hWnd);
+
 		return true;
 	}
 
@@ -44,21 +55,18 @@ namespace s3d
 		{
 			std::lock_guard<std::mutex> lock(m_mutex);
 
+			m_editingText = m_internalEditingText;
+
+			m_cursorPos = m_internalCursorPos;
+
+			m_targetLength = m_internalTargetLength;
+
+			m_candidates = m_internalCandidates;
+
 			m_chars = m_internalChars;
 
 			m_internalChars.clear();
 		}
-
-		wchar_t result[512] = {};
-		
-		if (const int32 size = ::ImmGetCompositionStringW(m_hImc, GCS_COMPSTR, result, 512))
-		{
-			m_markedText = Unicode::FromWString(result);
-		}
-		else
-		{
-			m_markedText.clear();
-		}	
 	}
 
 	void CTextInput_Windows::pushChar(const uint32 ch)
@@ -73,9 +81,69 @@ namespace s3d
 		return m_chars;
 	}
 	
-	const String& CTextInput_Windows::getMarkedText() const
+	const String& CTextInput_Windows::getEditingText() const
 	{
-		return m_markedText;
+		return m_editingText;
+	}
+
+	void CTextInput_Windows::enableIME(bool enabled)
+	{
+		if (m_enabled == enabled)
+		{
+			return;
+		}
+
+		if (!enabled)
+		{
+			WIN_StopTextInput(m_pVideo.get(), m_hWnd);
+		}
+		else
+		{
+			// [Siv3D ToDo] does not work
+			WIN_StartTextInput(m_pVideo.get(), m_hWnd);
+		}
+
+		m_enabled = enabled;
+	}
+
+	std::pair<int32, int32> CTextInput_Windows::getCursorIndex() const
+	{
+		return{ m_cursorPos, m_targetLength };
+	}
+
+	const Array<String>& CTextInput_Windows::getCandidates() const
+	{
+		return m_candidates;
+	}
+
+	bool CTextInput_Windows::process(UINT msg, WPARAM wParam, LPARAM *lParam)
+	{
+		return IME_HandleMessage(m_hWnd, msg, wParam, lParam, m_pVideo.get());
+	}
+
+	void CTextInput_Windows::sendEditingText(const String& text, const int32 cursorPos, const int32 targetLength)
+	{
+		std::lock_guard<std::mutex> lock(m_mutex);
+
+		m_internalEditingText = text;
+
+		m_internalCursorPos = cursorPos;
+
+		m_internalTargetLength = targetLength;
+	}
+
+	void CTextInput_Windows::sendCandidates(const Array<String>& candidates)
+	{
+		std::lock_guard<std::mutex> lock(m_mutex);
+
+		m_internalCandidates = candidates;
+	}
+
+	void CTextInput_Windows::sendInputText(const String& text)
+	{
+		std::lock_guard<std::mutex> lock(m_mutex);
+
+		m_internalChars.append(text);
 	}
 }
 

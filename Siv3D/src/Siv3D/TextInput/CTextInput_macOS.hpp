@@ -61,7 +61,13 @@ namespace s3d
 
 		const String& getChars() const override;
 		
-		const String& getMarkedText() const override;
+		const String& getEditingText() const override;
+
+		void enableIME(bool) override {}
+
+		std::pair<int32, int32> getCursorIndex() const { return{ 0,0 }; }
+
+		const Array<String>& getCandidates() const;
 		
 		static void OnCharacterInput(WindowHandle, uint32 codePoint);
 		

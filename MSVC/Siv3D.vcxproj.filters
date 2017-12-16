@@ -554,6 +554,9 @@
     <Filter Include="src\Siv3D\TextInput">
       <UniqueIdentifier>{6ad946f1-542d-4569-bde0-957130ed459e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\TextEditor">
+      <UniqueIdentifier>{8439d53d-ca31-45ff-8b83-378ecb608dfb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -1413,6 +1416,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\TextInput\CTextInput_Windows.cpp">
       <Filter>src\Siv3D\TextInput</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextInput\WindowsIME.cpp">
+      <Filter>src\Siv3D\TextInput</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextEditor\SivTextEditor.cpp">
+      <Filter>src\Siv3D\TextEditor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -3035,6 +3044,12 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\TextInput\CTextInput_macOS.hpp">
       <Filter>src\Siv3D\TextInput</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\TextInput\WindowsIME.h">
+      <Filter>src\Siv3D\TextInput</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TextEditor.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

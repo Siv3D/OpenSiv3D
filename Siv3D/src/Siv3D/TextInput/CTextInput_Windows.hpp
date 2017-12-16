@@ -16,7 +16,9 @@
 # include <mutex>
 # include "ITextInput.hpp"
 # include "../Window/IWindow.hpp"
+# include <Siv3D/Array.hpp>
 # include <Siv3D/String.hpp>
+# include "WindowsIME.h"
 
 namespace s3d
 {
@@ -30,11 +32,32 @@ namespace s3d
 
 		std::mutex m_mutex;
 
+
+		String m_internalEditingText;
+
+		int32 m_internalCursorPos = 0;
+
+		int32 m_internalTargetLength = 0;
+
+		Array<String> m_internalCandidates;
+
 		String m_internalChars;
+
+
+		String m_editingText;
+
+		int32 m_cursorPos = 0;
+
+		int32 m_targetLength = 0;
+
+		Array<String> m_candidates;
 
 		String m_chars;
 			
-		String m_markedText;
+		
+		bool m_enabled = true;
+
+		std::unique_ptr<SDL_VideoData> m_pVideo;
 
 	public:
 
@@ -50,7 +73,21 @@ namespace s3d
 
 		const String& getChars() const override;
 
-		const String& getMarkedText() const override;
+		const String& getEditingText() const override;
+
+		void enableIME(bool enabled) override;
+
+		std::pair<int32, int32> getCursorIndex() const override;
+
+		const Array<String>& getCandidates() const;
+
+		bool process(UINT msg, WPARAM wParam, LPARAM *lParam);
+
+		void sendEditingText(const String& text, int32 cursorPos, int32 targetLength);
+
+		void sendCandidates(const Array<String>& list);
+
+		void sendInputText(const String& text);
 	};
 }
 

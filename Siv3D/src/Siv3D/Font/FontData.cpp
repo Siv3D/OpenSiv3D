@@ -106,11 +106,13 @@ namespace s3d
 		}
 
 		Array<Glyph> glyphs;
+		int32 index = 0;
 
 		for (const auto codePoint : codePoints)
 		{
 			Glyph glyph;
-			glyph.codePoint = codePoint;
+			glyph.codePoint	= codePoint;
+			glyph.index		= index;
 
 			if (codePoint == U'\n')
 			{
@@ -120,7 +122,7 @@ namespace s3d
 			{
 				glyph.xAdvance = m_tabWidth;
 			}
-			if (IsControl(codePoint))
+			else if (IsControl(codePoint))
 			{
 
 			}
@@ -134,6 +136,8 @@ namespace s3d
 			}
 
 			glyphs.push_back(glyph);
+
+			++index;
 		}
 
 		return glyphs;

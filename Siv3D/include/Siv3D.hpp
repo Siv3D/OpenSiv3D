@@ -783,6 +783,9 @@
 //
 // 独立 GUI
 //
+	// Text Editor
+	# include "Siv3D/TextEditor.hpp"
+
 	// テキストボックス
 	//# include "Siv3D/TextBox.hpp"
 //

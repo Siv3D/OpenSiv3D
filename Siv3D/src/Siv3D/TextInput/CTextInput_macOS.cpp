@@ -123,9 +123,15 @@ namespace s3d
 		return m_chars;
 	}
 	
-	const String& CTextInput_macOS::getMarkedText() const
+	const String& CTextInput_macOS::getEditingText() const
 	{
 		return m_markedText;
+	}
+
+	const Array<String>& CTextInput_macOS::getCandidates() const
+	{
+		static const Array<String> dummy;
+		return dummy;
 	}
 	
 	void CTextInput_macOS::OnCharacterInput(WindowHandle, const uint32 codePoint)

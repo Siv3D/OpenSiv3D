@@ -12,6 +12,7 @@
 # pragma once
 # include "Fwd.hpp"
 # include "String.hpp"
+# include "Array.hpp"
 
 namespace s3d
 {
@@ -47,6 +48,19 @@ namespace s3d
 			UpdateText(text, text.length(), mode);
 		}
 		
-		String GetMarkedText();
+		String GetEditingText();
 	}
+
+# if defined(SIV3D_TARGET_WINDOWS)
+
+	namespace win::TextInput
+	{
+		void DisableIME();
+
+		const Array<String>& GetCandidates();
+
+		std::pair<int32, int32> GetCursorIndex();
+	}
+
+# endif
 }
