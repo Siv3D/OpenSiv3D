@@ -959,23 +959,23 @@
     <OutDir>..\Siv3D\lib\Windows(x64)\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Debug-x64\Intermediate\</IntDir>
-    <IncludePath>..\Siv3D\include;..\dependencies\boost_1_65_1;..\Siv3D\src\ThirdParty\zstd;..\Siv3D\src\ThirdParty\zstd\common;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\include;..\dependencies\boost_1_65_1;..\Siv3D\src\ThirdParty\zstd;..\Siv3D\src\ThirdParty\zstd\common;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;..\Siv3D\include\ThirdParty;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Release-x64\Intermediate\</IntDir>
     <OutDir>..\Siv3D\lib\Windows(x64)\</OutDir>
-    <IncludePath>..\Siv3D\include;..\dependencies\boost_1_65_1;..\Siv3D\src\ThirdParty\zstd;..\Siv3D\src\ThirdParty\zstd\common;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\include;..\dependencies\boost_1_65_1;..\Siv3D\src\ThirdParty\zstd;..\Siv3D\src\ThirdParty\zstd\common;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;..\Siv3D\include\ThirdParty;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>..\Siv3D\lib\Windows(x86)\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Release-x86\Intermediate\</IntDir>
-    <IncludePath>..\Siv3D\include;..\dependencies\boost_1_65_1;..\Siv3D\src\ThirdParty\zstd;..\Siv3D\src\ThirdParty\zstd\common;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\include;..\dependencies\boost_1_65_1;..\Siv3D\src\ThirdParty\zstd;..\Siv3D\src\ThirdParty\zstd\common;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;..\Siv3D\include\ThirdParty;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\Siv3D\lib\Windows(x86)\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Debug-x86\Intermediate\</IntDir>
-    <IncludePath>..\Siv3D\include;..\dependencies\boost_1_65_1;..\Siv3D\src\ThirdParty\zstd;..\Siv3D\src\ThirdParty\zstd\common;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\include;..\dependencies\boost_1_65_1;..\Siv3D\src\ThirdParty\zstd;..\Siv3D\src\ThirdParty\zstd\common;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;..\Siv3D\include\ThirdParty;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
