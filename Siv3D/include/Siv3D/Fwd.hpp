@@ -311,6 +311,21 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	TOMLReader.hpp
+	//
+	enum class TOMLValueType;
+	class TOMLTableIterator;
+	class TOMLTableView;
+	class TOMLArrayIterator;
+	class TOMLArrayView;
+	class TOMLTableArrayIterator;
+	class TOMLTableArrayView;
+	class TOMLValue;
+	struct TOMLTableMember;
+	class TOMLReader;
+
+	//////////////////////////////////////////////////////
+	//
 	//	HTMLWriter.hpp
 	//
 	class HTMLWriter;
@@ -789,13 +804,6 @@ namespace s3d
 	//	RenderTexture.hpp
 	//
 	class RenderTexture;
-
-	//////////////////////////////////////////////////////
-	//
-	//	TOMLReader.hpp
-	//
-	class TOMLValue;
-	struct TOMLTableMember;
   
 	//////////////////////////////////////////////////////
 	//
