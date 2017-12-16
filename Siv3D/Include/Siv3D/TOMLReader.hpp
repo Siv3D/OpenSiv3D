@@ -15,28 +15,34 @@
 
 namespace s3d
 {
-	void Formatter(FormatData& formatData, const TOMLValue& value);
-}
-
-namespace s3d
-{
-	namespace detail {
+	namespace detail
+	{
 		struct TOMLTableIteratorDetail;
 		struct TOMLArrayIteratorDetail;
 		struct TOMLTableArrayIteratorDetail;
 		struct TOMLValueDetail;
 	}
 
-	enum class TOMLValueType {
+	enum class TOMLValueType
+	{
 		Empty,
+	
 		Table,
+		
 		Array,
+		
 		TableArray,
+		
 		String,
+		
 		Number,
+		
 		Bool,
+		
 		Date,
+		
 		DateTime,
+		
 		Unknown
 	};
 
@@ -61,7 +67,6 @@ namespace s3d
 		bool operator ==(const TOMLTableIterator& other) const noexcept;
 
 		bool operator !=(const TOMLTableIterator& other) const noexcept;
-
 	};
 
 	class TOMLTableView
@@ -73,6 +78,7 @@ namespace s3d
 	public:
 
 		TOMLTableView() = default;
+		
 		TOMLTableView(const TOMLTableIterator& begin, const TOMLTableIterator& end) noexcept
 			: m_begin(begin)
 			, m_end(end) {}
@@ -122,6 +128,7 @@ namespace s3d
 	public:
 
 		TOMLArrayView() = default;
+		
 		TOMLArrayView(const TOMLArrayIterator& begin, const TOMLArrayIterator& end) noexcept
 			: m_begin(begin)
 			, m_end(end) {}
@@ -162,7 +169,6 @@ namespace s3d
 		bool operator ==(const TOMLTableArrayIterator& other) const noexcept;
 
 		bool operator !=(const TOMLTableArrayIterator& other) const noexcept;
-
 	};
 
 	class TOMLTableArrayView
@@ -174,6 +180,7 @@ namespace s3d
 	public:
 
 		TOMLTableArrayView() = default;
+
 		TOMLTableArrayView(const TOMLTableArrayIterator& begin, const TOMLTableArrayIterator& end) noexcept
 			: m_begin(begin)
 			, m_end(end) {}
@@ -218,17 +225,16 @@ namespace s3d
 
 			return none;
 		}
-		
-		friend void s3d::Formatter(FormatData& formatData, const TOMLValue& value);
 
 		struct Visitor
 		{
 			String& str;
 
-			template <typename Type>
+			template <class Type>
 			void visit(Type&& val) const
 			{
 				std::stringstream ss;
+				
 				ss << val;
 
 				str = Unicode::FromUTF8(ss.str());
@@ -241,19 +247,19 @@ namespace s3d
 
 		explicit TOMLValue(const detail::TOMLValueDetail&);
 
-		template <typename Type>
+		template <class Type>
 		Type get() const
 		{
 			return getOpt<Type>().value_or(Type());
 		}
 
-		template <typename Type, typename U>
+		template <class Type, class U>
 		Type getOr(U&& defaultValue) const
 		{
 			return getOpt<Type>().value_or(std::forward<U>(defaultValue));
 		}
 
-		template <typename Type>
+		template <class Type>
 		Optional<Type> getOpt() const
 		{
 			return getOpt_<Type>();
@@ -263,43 +269,45 @@ namespace s3d
 
 		TOMLValueType getType() const;
 
-		bool isTable() const
+		bool isTable() const noexcept
 		{
 			return getType() == TOMLValueType::Table;
 		}
-		bool isArray() const
+		
+		bool isArray() const noexcept
 		{
 			return getType() == TOMLValueType::Array;
 		}
-		bool isTableArray() const
+
+		bool isTableArray() const noexcept
 		{
 			return getType() == TOMLValueType::TableArray;
 		}
-		bool isString() const
+
+		bool isString() const noexcept
 		{
 			return getType() == TOMLValueType::String;
 		}
-		bool isBool() const
+
+		bool isBool() const noexcept
 		{
 			return getType() == TOMLValueType::Bool;
 		}
-		bool isNumber() const
+
+		bool isNumber() const noexcept
 		{
 			return getType() == TOMLValueType::Number;
 		}
-		bool isDate() const
+
+		bool isDate() const noexcept
 		{
 			return getType() == TOMLValueType::Date;
 		}
-		bool isDateTime() const
+
+		bool isDateTime() const noexcept
 		{
 			return getType() == TOMLValueType::DateTime;
 		}
-
-		////////////////////////////////
-		//
-		//  Table
-		//
 
 		size_t memberCount() const;
 
@@ -309,38 +317,19 @@ namespace s3d
 
 		TOMLValue operator [](const String& path) const;
 
-		////////////////////////////////
-		//
-		//  Array/TableArray
-		//
-
 		size_t arrayCount() const;
 
 		TOMLArrayView arrayView() const;
 
 		TOMLTableArrayView tableArrayView() const;
 
-		////////////////////////////////
-		//
-		//  String
-		//
-
 		String getString() const;
-
-		////////////////////////////////
-		//
-		//  Date
-		//
 
 		Date getDate() const;
 
-		////////////////////////////////
-		//
-		//  DateTime
-		//
-
 		DateTime getDateTime() const;
 
+		String format() const;
 	};
 
 	template <>
@@ -372,41 +361,31 @@ namespace s3d
 	{
 	public:
 
-		TOMLReader()
-			: TOMLValue() {}
+		TOMLReader() = default;
 
-		explicit TOMLReader(const FilePath& path)
-			: TOMLReader()
-		{
-			open(path);
-		}
+		explicit TOMLReader(const FilePath& path);
 
-		template <typename Reader, std::enable_if_t<std::is_base_of<IReader, Reader>::value && !std::is_lvalue_reference<Reader>::value, nullptr_t>* = nullptr>
+		explicit TOMLReader(const std::shared_ptr<IReader>& reader);
+
+		template <class Reader, std::enable_if_t<std::is_base_of<IReader, Reader>::value && !std::is_lvalue_reference<Reader>::value, nullptr_t>* = nullptr>
 		explicit TOMLReader(Reader&& reader)
-			: TOMLReader()
 		{
-			open(std::forward<Reader>(reader));
-		}
-
-		explicit TOMLReader(const std::shared_ptr<IReader>& reader)
-			: TOMLReader()
-		{
-			open(reader);
+			open(std::make_shared<Reader>(std::forward<Reader>(reader)));
 		}
 
 		bool open(const FilePath& path);
 
 		bool open(const std::shared_ptr<IReader>& reader);
 
-		void close()
+		template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader> && !std::is_lvalue_reference_v<Reader>>* = nullptr>
+		bool open(Reader&& reader)
 		{
-			m_detail.reset();
+			return open(std::make_shared<Reader>(std::forward<Reader>(reader)));
 		}
 
-		bool isOpened() const noexcept
-		{
-			return m_detail != nullptr;
-		}
+		void close();
+
+		bool isOpened() const noexcept;
 
 		explicit operator bool() const noexcept
 		{

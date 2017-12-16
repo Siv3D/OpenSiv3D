@@ -491,6 +491,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Time.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TimeProfiler.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Timer.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\TOMLReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Transformer2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Transition.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Triangle.hpp" />
@@ -651,6 +652,7 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\abseil\numbers.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\clip2tri\clip2tri.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\clipper\clipper.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\cpptoml\cpptoml.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\bignum-dtoa.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\bignum.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\cached-powers.h" />

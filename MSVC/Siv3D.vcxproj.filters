@@ -557,6 +557,12 @@
     <Filter Include="src\Siv3D\TextEditor">
       <UniqueIdentifier>{8439d53d-ca31-45ff-8b83-378ecb608dfb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\TOMLReader">
+      <UniqueIdentifier>{3c667abd-ea24-4cdb-8a04-f6516a7e5063}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\cpptoml">
+      <UniqueIdentifier>{97824583-caa4-4083-a79e-2b81bc868583}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -1422,6 +1428,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\TextEditor\SivTextEditor.cpp">
       <Filter>src\Siv3D\TextEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TOMLReader\SivTOMLReader.cpp">
+      <Filter>src\Siv3D\TOMLReader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -3051,6 +3060,12 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\TextEditor.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TOMLReader.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\cpptoml\cpptoml.h">
+      <Filter>src\ThirdParty\cpptoml</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_macOS.mm">
@@ -3059,5 +3074,13 @@
     <None Include="..\Siv3D\include\Siv3D\Point.ipp">
       <Filter>include\Siv3D</Filter>
     </None>
+    <None Include="..\Siv3D\src\Siv3D\Clipboard\CClipboard_macOS.mm" />
+    <None Include="..\Siv3D\src\Siv3D\Cursor\CCursor_macOS.mm" />
+    <None Include="..\Siv3D\src\Siv3D\MessageBox\SivMessageBox_macOS.mm" />
+    <None Include="..\Siv3D\src\Siv3D\PowerStatus\SivPowerStatus.mm" />
+    <None Include="..\Siv3D\src\Siv3D\System\SivSystem.mm" />
+    <None Include="..\Siv3D\src\Siv3D\TextReader\CTextReader_macOS.mm" />
+    <None Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86_Linux.ipp" />
+    <None Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86_Windows.ipp" />
   </ItemGroup>
 </Project>

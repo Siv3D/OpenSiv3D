@@ -9,14 +9,14 @@
 //
 //-----------------------------------------------
 
-#include "../../ThirdParty/cpptoml/cpptoml.h"
-#include <Siv3D/TOMLReader.hpp>
-#include <Siv3D/Optional.hpp>
-#include <Siv3D/String.hpp>
-#include <Siv3D/Time.hpp>
-#include <Siv3D/DateTime.hpp>
-#include <Siv3D/TextReader.hpp>
-#include <Siv3D/Format.hpp>
+# include "../../ThirdParty/cpptoml/cpptoml.h"
+# include <Siv3D/TOMLReader.hpp>
+# include <Siv3D/Optional.hpp>
+# include <Siv3D/String.hpp>
+# include <Siv3D/Time.hpp>
+# include <Siv3D/DateTime.hpp>
+# include <Siv3D/TextReader.hpp>
+# include <Siv3D/Format.hpp>
 
 namespace s3d
 {
@@ -587,6 +587,20 @@ namespace s3d
 		return DateTime();
 	}
 
+	String TOMLValue::format() const
+	{
+		if (isEmpty())
+		{
+			return String();
+		}
+
+		String str;
+
+		m_detail->ptr->accept(TOMLValue::Visitor{ str });
+
+		return str;
+	}
+
 	template <>
 	Optional<DateTime> TOMLValue::getOpt<DateTime>() const
 	{
@@ -602,17 +616,36 @@ namespace s3d
 	//
 	//  TOMLReader
 	//
+	TOMLReader::TOMLReader(const FilePath& path)
+	{
+		open(path);
+	}
+
+	TOMLReader::TOMLReader(const std::shared_ptr<IReader>& reader)
+	{
+		open(reader);
+	}
 
 	bool TOMLReader::open(const FilePath& path)
 	{
-		try {
-			m_detail = std::make_shared<detail::TOMLValueDetail>(std::shared_ptr<cpptoml::base>(cpptoml::parse_file(path.narrow())));
+		if (isOpened())
+		{
+			close();
 		}
-		catch (...) {
+
+		std::stringstream ss;
+		ss << TextReader(path).readAll().toUTF8();
+
+		try
+		{
+			m_detail = std::make_shared<detail::TOMLValueDetail>(std::shared_ptr<cpptoml::base>(cpptoml::parser(ss).parse()));
+		}
+		catch (...)
+		{
 			return false;
 		}
 
-		return !isEmpty();
+		return m_detail != nullptr;
 	}
 
 	bool TOMLReader::open(const std::shared_ptr<IReader>& reader)
@@ -623,15 +656,27 @@ namespace s3d
 		}
 
 		std::stringstream ss;
-		ss << TextReader(reader).readAll();
+		ss << TextReader(reader).readAll().toUTF8();
 
-		try {
+		try
+		{
 			m_detail = std::make_shared<detail::TOMLValueDetail>(std::shared_ptr<cpptoml::base>(cpptoml::parser(ss).parse()));
 		}
-		catch (...) {
+		catch (...)
+		{
 			return false;
 		}
 
+		return m_detail != nullptr;
+	}
+
+	void TOMLReader::close()
+	{
+		m_detail.reset();
+	}
+
+	bool TOMLReader::isOpened() const noexcept
+	{
 		return m_detail != nullptr;
 	}
 
@@ -642,15 +687,6 @@ namespace s3d
 
 	void Formatter(FormatData& formatData, const TOMLValue& value)
 	{
-		if (value.isEmpty())
-		{
-			return;
-		}
-
-		String str;
-		value.m_detail->ptr->accept(TOMLValue::Visitor{ str });
-
-		formatData.string.append(str.c_str());
+		formatData.string.append(value.format());
 	}
-
 }
