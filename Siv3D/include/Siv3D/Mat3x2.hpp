@@ -207,7 +207,37 @@ namespace s3d
 
 namespace s3d
 {
+	void Formatter(FormatData& formatData, const Mat3x2& value);
 
+	template <class CharType>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Mat3x2& value)
+	{
+		return output << CharType('(')
+			<< Float2(value._11, value._12) << CharType(',')
+			<< Float2(value._21, value._22) << CharType(',')
+			<< Float2(value._31, value._32) << CharType(')');
+	}
+
+	template <class CharType>
+	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Mat3x2& value)
+	{
+		CharType unused;
+		Float2 r1, r2, r3;
+
+		input >> unused
+			>> r1 >> unused
+			>> r2 >> unused
+			>> r3 >> unused;
+
+		value._11 = r1.x;
+		value._12 = r1.y;
+		value._21 = r2.x;
+		value._22 = r2.y;
+		value._31 = r3.x;
+		value._32 = r3.y;
+
+		return is;
+	}
 }
 
 //////////////////////////////////////////////////

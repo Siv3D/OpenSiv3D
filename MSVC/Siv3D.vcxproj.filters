@@ -578,6 +578,9 @@
     <Filter Include="include\ThirdParty\cereal\types\concepts">
       <UniqueIdentifier>{6b384f41-c889-48db-bd10-ef723f1edba0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Mat3x2">
+      <UniqueIdentifier>{a09dad9c-04e5-49a0-a5e1-0f2538912400}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -1446,6 +1449,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\TOMLReader\SivTOMLReader.cpp">
       <Filter>src\Siv3D\TOMLReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OpenSiv3D\Siv3D\Source\Siv3D\Mat3x2\SivMat3x2.cpp">
+      <Filter>src\Siv3D\Mat3x2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

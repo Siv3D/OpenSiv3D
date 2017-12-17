@@ -18,17 +18,15 @@ void Main()
 {
 	{
 		Serializer<BinaryWriter> writer(U"serialize-test.bin");
-		const Widget w = { U"Siv3D App", Rect(100, 100, 200, 400), ColorF(0.3, 0.6, 1.0),{ 11,22,33,44 } };
-		writer(w);
+		Mat3x2 value = Mat3x2::Identity();
+		Print << value;
+		writer(value);
 	}
 	{
 		Deserializer<BinaryReader> reader(U"serialize-test.bin");
-		Widget w;
-		reader(w);	
-		Print << w.title;
-		Print << w.rect;
-		Print << w.color;
-		Print << w.values;
+		Mat3x2 value;
+		reader(value);
+		Print << value;
 	}
 
 	while (System::Update())

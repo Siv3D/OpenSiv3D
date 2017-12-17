@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\OpenSiv3D\Siv3D\Source\Siv3D\Mat3x2\SivMat3x2.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\AudioFormatFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\CAudioFormat.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_mpg123.cpp" />

@@ -13,10 +13,14 @@
 # define SIV3D_SERIALIZE		siv3d_serialize
 # define SIV3D_SERIALIZE_LOAD	siv3d_serialize_save
 # define SIV3D_SERIALIZE_SAVE	siv3d_serialize_load
+# define SIV3D_SERIALIZE_LOAD_M	siv3d_serialize_save_minimal
+# define SIV3D_SERIALIZE_SAVE_M	siv3d_serialize_load_minimal
 
-# define CEREAL_SERIALIZE_FUNCTION_NAME SIV3D_SERIALIZE
-# define CEREAL_LOAD_FUNCTION_NAME	SIV3D_SERIALIZE_LOAD
-# define CEREAL_SAVE_FUNCTION_NAME	SIV3D_SERIALIZE_SAVE
+# define CEREAL_SERIALIZE_FUNCTION_NAME		SIV3D_SERIALIZE
+# define CEREAL_LOAD_FUNCTION_NAME			SIV3D_SERIALIZE_LOAD
+# define CEREAL_SAVE_FUNCTION_NAME			SIV3D_SERIALIZE_SAVE
+# define CEREAL_SAVE_MINIMAL_FUNCTION_NAME	SIV3D_SERIALIZE_LOAD_M
+# define CEREAL_LOAD_MINIMAL_FUNCTION_NAME	SIV3D_SERIALIZE_SAVE_M
 
 # include "../ThirdParty/cereal/cereal.hpp"
 # include "../ThirdParty/cereal/archives/binary.hpp"
@@ -173,6 +177,22 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	Byte
+	//
+	template <class Archive>
+	inline uint8 SIV3D_SERIALIZE_LOAD_M(const Archive&, const Byte& value)
+	{
+		return static_cast<uint8>(value);
+	}
+
+	template <class Archive>
+	inline void SIV3D_SERIALIZE_SAVE_M(const Archive&, Byte& value, const uint8& data)
+	{
+		value = Byte{ data };
+	}
+
+	//////////////////////////////////////////////////////
+	//
 	//	Array
 	//
 	template <class Archive, class Type, std::enable_if_t<std::is_trivially_copyable_v<Type>>* = nullptr>
@@ -217,6 +237,97 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	Grid
+	//
+	template <class Archive, class Type, std::enable_if_t<std::is_trivially_copyable_v<Type>>* = nullptr>
+	inline void SIV3D_SERIALIZE_SAVE(Archive& archive, const Grid<Type>& value)
+	{
+		archive(cereal::make_size_tag(static_cast<cereal::size_type>(value.width())));
+		archive(cereal::make_size_tag(static_cast<cereal::size_type>(value.height())));
+		archive(cereal::binary_data(value.data(), value.size_elements() * sizeof(Array<Type>::value_type)));
+	}
+
+	template <class Archive, class Type, std::enable_if_t<std::is_trivially_copyable_v<Type>>* = nullptr>
+	inline void SIV3D_SERIALIZE_LOAD(Archive& archive, Grid<Type>& value)
+	{
+		cereal::size_type width, height;
+		archive(cereal::make_size_tag(width));
+		archive(cereal::make_size_tag(height));
+		value.resize(static_cast<size_t>(width), static_cast<size_t>(height));
+		archive(cereal::binary_data(value.data(), static_cast<size_t>(width * height * sizeof(Array<Type>::value_type))));
+	}
+
+	template <class Archive, class Type, std::enable_if_t<!std::is_trivially_copyable_v<Type>>* = nullptr>
+	inline void SIV3D_SERIALIZE_SAVE(Archive& archive, const Grid<Type>& value)
+	{
+		archive(cereal::make_size_tag(static_cast<cereal::size_type>(value.width())));
+		archive(cereal::make_size_tag(static_cast<cereal::size_type>(value.height())));
+
+		for (auto && v : value)
+		{
+			archive(v);
+		}
+	}
+
+	template <class Archive, class Type, std::enable_if_t<!std::is_trivially_copyable_v<Type>>* = nullptr>
+	inline void SIV3D_SERIALIZE_LOAD(Archive& archive, Grid<Type>& value)
+	{
+		cereal::size_type width, height;
+		archive(cereal::make_size_tag(width));
+		archive(cereal::make_size_tag(height));
+		value.resize(static_cast<size_t>(width), static_cast<size_t>(height));
+
+		for (auto && v : value)
+		{
+			archive(v);
+		}
+	}
+
+	//////////////////////////////////////////////////////
+	//
+	//	Optional
+	//
+	template <class Archive, class Type>
+	inline void SIV3D_SERIALIZE_SAVE(Archive& archive, const Optional<Type>& value)
+	{
+		if (value)
+		{
+			archive(true);
+			archive(*value);
+		}
+		else
+		{
+			archive(false);
+		}
+	}
+
+	template <class Archive, class Type>
+	inline void SIV3D_SERIALIZE_LOAD(Archive& archive, Optional<Type>& value)
+	{
+		bool hasValue = false;
+		archive(hasValue);
+
+		if (hasValue)
+		{
+			if (value)
+			{
+				archive(value.value());
+			}
+			else
+			{
+				Type t;
+				archive(t);
+				value = std::move(t);
+			}
+		}
+		else
+		{
+			value.reset();
+		}
+	}
+
+	//////////////////////////////////////////////////////
+	//
 	//	String
 	//
 	template <class Archive>
@@ -233,6 +344,36 @@ namespace s3d
 		archive(cereal::make_size_tag(size));
 		value.resize(static_cast<size_t>(size));
 		archive(cereal::binary_data(value.data(), static_cast<size_t>(size * sizeof(String::value_type))));
+	}
+
+	//////////////////////////////////////////////////////
+	//
+	//	Date
+	//
+	template <class Archive>
+	inline void SIV3D_SERIALIZE(Archive& archive, Date& value)
+	{
+		archive(value.year, value.month, value.day);
+	}
+
+	//////////////////////////////////////////////////////
+	//
+	//	DateTime
+	//
+	template <class Archive>
+	inline void SIV3D_SERIALIZE(Archive& archive, DateTime& value)
+	{
+		archive(value.year, value.month, value.day, value.hour, value.minute, value.second, value.milliseconds);
+	}
+
+	//////////////////////////////////////////////////////
+	//
+	//	MD5Value
+	//
+	template <class Archive>
+	inline void SIV3D_SERIALIZE(Archive& archive, MD5Value& value)
+	{
+		archive(value.value);
 	}
 
 	//////////////////////////////////////////////////////
@@ -303,6 +444,56 @@ namespace s3d
 	inline void SIV3D_SERIALIZE(Archive& archive, Vec4& value)
 	{
 		archive(value.x, value.y, value.z, value.w);
+	}
+
+	//////////////////////////////////////////////////////
+	//
+	//	CircularBase
+	//
+	template <class Archive, int Oclock>
+	inline void SIV3D_SERIALIZE(Archive& archive, CircularBase<Oclock>& value)
+	{
+		archive(value.r, value.theta);
+	}
+
+	//////////////////////////////////////////////////////
+	//
+	//	OffsetCircularBase
+	//
+	template <class Archive, int Oclock>
+	inline void SIV3D_SERIALIZE(Archive& archive, OffsetCircularBase<Oclock>& value)
+	{
+		archive(value.center, value.r, value.theta);
+	}
+
+	//////////////////////////////////////////////////////
+	//
+	//	Cylindrical
+	//
+	template <class Archive>
+	inline void SIV3D_SERIALIZE(Archive& archive, Cylindrical& value)
+	{
+		archive(value.r, value.phi, value.y);
+	}
+
+	//////////////////////////////////////////////////////
+	//
+	//	Spherical
+	//
+	template <class Archive>
+	inline void SIV3D_SERIALIZE(Archive& archive, Spherical& value)
+	{
+		archive(value.r, value.theta, value.phi);
+	}
+
+	//////////////////////////////////////////////////////
+	//
+	//	Mat3x2
+	//
+	template <class Archive>
+	inline void SIV3D_SERIALIZE(Archive& archive, Mat3x2& value)
+	{
+		archive(cereal::binary_data(&value, sizeof(value)));
 	}
 
 	//////////////////////////////////////////////////////
@@ -384,3 +575,6 @@ CEREAL_REGISTER_ARCHIVE(s3d::Serializer<s3d::BinaryWriter>)
 CEREAL_REGISTER_ARCHIVE(s3d::Deserializer<s3d::BinaryReader>)
 CEREAL_REGISTER_ARCHIVE(s3d::Serializer<s3d::MemoryWriter>)
 CEREAL_REGISTER_ARCHIVE(s3d::Deserializer<s3d::ByteArray>)
+
+CEREAL_SETUP_ARCHIVE_TRAITS(s3d::Deserializer<s3d::BinaryReader>, s3d::Serializer<s3d::BinaryWriter>)
+CEREAL_SETUP_ARCHIVE_TRAITS(s3d::Deserializer<s3d::ByteArray>, s3d::Serializer<s3d::MemoryWriter>)
