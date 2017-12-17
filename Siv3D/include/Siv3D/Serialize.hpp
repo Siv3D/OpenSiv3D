@@ -378,6 +378,35 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	Color
+	//
+	template <class Archive>
+	inline void SIV3D_SERIALIZE(Archive& archive, Color& value)
+	{
+		archive(value.r, value.g, value.b, value.a);
+	}
+
+	//////////////////////////////////////////////////////
+	//
+	//	ColorF
+	//
+	template <class Archive>
+	inline void SIV3D_SERIALIZE(Archive& archive, ColorF& value)
+	{
+		archive(value.r, value.g, value.b, value.a);
+	}
+
+	//////////////////////////////////////////////////////
+	//
+	//	HSV
+	//
+	template <class Archive>
+	inline void SIV3D_SERIALIZE(Archive& archive, HSV& value)
+	{
+		archive(value.h, value.s, value.v, value.a);
+	}
+	//////////////////////////////////////////////////////
+	//
 	//	Point
 	//
 	template <class Archive>
@@ -508,16 +537,6 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
-	//	Circle
-	//
-	template <class Archive>
-	inline void SIV3D_SERIALIZE(Archive& archive, Circle& value)
-	{
-		archive(value.center, value.r);
-	}
-
-	//////////////////////////////////////////////////////
-	//
 	//	Rect
 	//
 	template <class Archive>
@@ -536,38 +555,74 @@ namespace s3d
 		archive(value.pos, value.size);
 	}
 
-
-
-
-
 	//////////////////////////////////////////////////////
 	//
-	//	Color
+	//	Circle
 	//
 	template <class Archive>
-	inline void SIV3D_SERIALIZE(Archive& archive, Color& value)
+	inline void SIV3D_SERIALIZE(Archive& archive, Circle& value)
 	{
-		archive(value.r, value.g, value.b, value.a);
+		archive(value.center, value.r);
 	}
 
 	//////////////////////////////////////////////////////
 	//
-	//	ColorF
+	//	Ellipse
 	//
 	template <class Archive>
-	inline void SIV3D_SERIALIZE(Archive& archive, ColorF& value)
+	inline void SIV3D_SERIALIZE(Archive& archive, Ellipse& value)
 	{
-		archive(value.r, value.g, value.b, value.a);
+		archive(value.center, value.a, value.b);
 	}
 
 	//////////////////////////////////////////////////////
 	//
-	//	HSV
+	//	Triangle
 	//
 	template <class Archive>
-	inline void SIV3D_SERIALIZE(Archive& archive, HSV& value)
+	inline void SIV3D_SERIALIZE(Archive& archive, Triangle& value)
 	{
-		archive(value.h, value.s, value.v, value.a);
+		archive(value.p0, value.p1, value.p2);
+	}
+
+	//////////////////////////////////////////////////////
+	//
+	//	Quad
+	//
+	template <class Archive>
+	inline void SIV3D_SERIALIZE(Archive& archive, Quad& value)
+	{
+		archive(value.p0, value.p1, value.p2, value.p3);
+	}
+
+	//////////////////////////////////////////////////////
+	//
+	//	RoundRect
+	//
+	template <class Archive>
+	inline void SIV3D_SERIALIZE(Archive& archive, RoundRect& value)
+	{
+		archive(value.rect, value.r);
+	}
+
+	//////////////////////////////////////////////////////
+	//
+	//	Bezier2
+	//
+	template <class Archive>
+	inline void SIV3D_SERIALIZE(Archive& archive, Bezier2& value)
+	{
+		archive(value.p0, value.p1, value.p2);
+	}
+
+	//////////////////////////////////////////////////////
+	//
+	//	Bezier3
+	//
+	template <class Archive>
+	inline void SIV3D_SERIALIZE(Archive& archive, Bezier3& value)
+	{
+		archive(value.p0, value.p1, value.p2, value.p3);
 	}
 }
 
