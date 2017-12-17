@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -48,13 +48,6 @@
 // # include "../ThirdParty/cereal/types/valarray.hpp"
 # include "../ThirdParty/cereal/types/vector.hpp"
 
-# include <Siv3D/Array.hpp>
-# include <Siv3D/String.hpp>
-# include <Siv3D/PointVector.hpp>
-# include <Siv3D/Line.hpp>
-# include <Siv3D/Circle.hpp>
-# include <Siv3D/Rectangle.hpp>
-
 namespace s3d
 {
 	template <class Writer>
@@ -68,7 +61,7 @@ namespace s3d
 
 		template <class ...Args>
 		Serializer(Args&&... args)
-			: OutputArchive<Serializer<Writer>, cereal::AllowEmptyClassElision>(this)
+			: cereal::OutputArchive<Serializer<Writer>, cereal::AllowEmptyClassElision>(this)
 			, m_writer(std::make_shared<Writer>(std::forward<Args>(args)...))
 		{
 
@@ -101,7 +94,7 @@ namespace s3d
 
 		template <class ...Args>
 		Deserializer(Args&&... args)
-			: InputArchive<Deserializer<Reader>, cereal::AllowEmptyClassElision>(this)
+			: cereal::InputArchive<Deserializer<Reader>, cereal::AllowEmptyClassElision>(this)
 			, m_reader(std::make_shared<Reader>(std::forward<Args>(args)...))
 		{
 

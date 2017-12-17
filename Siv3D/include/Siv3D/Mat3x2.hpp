@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -236,7 +236,7 @@ namespace s3d
 		value._31 = r3.x;
 		value._32 = r3.y;
 
-		return is;
+		return input;
 	}
 }
 
