@@ -3206,13 +3206,29 @@
     <None Include="..\Siv3D\include\Siv3D\Point.ipp">
       <Filter>include\Siv3D</Filter>
     </None>
-    <None Include="..\Siv3D\src\Siv3D\Clipboard\CClipboard_macOS.mm" />
-    <None Include="..\Siv3D\src\Siv3D\Cursor\CCursor_macOS.mm" />
-    <None Include="..\Siv3D\src\Siv3D\MessageBox\SivMessageBox_macOS.mm" />
-    <None Include="..\Siv3D\src\Siv3D\PowerStatus\SivPowerStatus.mm" />
-    <None Include="..\Siv3D\src\Siv3D\System\SivSystem.mm" />
-    <None Include="..\Siv3D\src\Siv3D\TextReader\CTextReader_macOS.mm" />
-    <None Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86_Linux.ipp" />
-    <None Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86_Windows.ipp" />
+    <None Include="..\Siv3D\src\Siv3D\Clipboard\CClipboard_macOS.mm">
+      <Filter>src\Siv3D\Clipboard</Filter>
+    </None>
+    <None Include="..\Siv3D\src\Siv3D\Cursor\CCursor_macOS.mm">
+      <Filter>src\Siv3D\Cursor</Filter>
+    </None>
+    <None Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86_Linux.ipp">
+      <Filter>src\ThirdParty\FeatureDetector</Filter>
+    </None>
+    <None Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86_Windows.ipp">
+      <Filter>src\ThirdParty\FeatureDetector</Filter>
+    </None>
+    <None Include="..\Siv3D\src\Siv3D\MessageBox\SivMessageBox_macOS.mm">
+      <Filter>src\Siv3D\MessageBox</Filter>
+    </None>
+    <None Include="..\Siv3D\src\Siv3D\PowerStatus\SivPowerStatus.mm">
+      <Filter>src\Siv3D\PowerStatus</Filter>
+    </None>
+    <None Include="..\Siv3D\src\Siv3D\System\SivSystem.mm">
+      <Filter>src\Siv3D\System</Filter>
+    </None>
+    <None Include="..\Siv3D\src\Siv3D\TextReader\CTextReader_macOS.mm">
+      <Filter>src\Siv3D\TextReader</Filter>
+    </None>
   </ItemGroup>
 </Project>
