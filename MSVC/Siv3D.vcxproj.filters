@@ -581,6 +581,9 @@
     <Filter Include="src\Siv3D\Mat3x2">
       <UniqueIdentifier>{a09dad9c-04e5-49a0-a5e1-0f2538912400}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Asset">
+      <UniqueIdentifier>{9febfe59-29aa-4029-af3a-57570671d736}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -1452,6 +1455,15 @@
     </ClCompile>
     <ClCompile Include="..\..\OpenSiv3D\Siv3D\Source\Siv3D\Mat3x2\SivMat3x2.cpp">
       <Filter>src\Siv3D\Mat3x2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Asset\AssetFactory.cpp">
+      <Filter>src\Siv3D\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Asset\CAsset.cpp">
+      <Filter>src\Siv3D\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Asset\SivAsset.cpp">
+      <Filter>src\Siv3D\Asset</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -3197,6 +3209,15 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Serialize.hpp">
       <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Asset.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Asset\CAsset.hpp">
+      <Filter>src\Siv3D\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Asset\IAsset.hpp">
+      <Filter>src\Siv3D\Asset</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -20,6 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\OpenSiv3D\Siv3D\Source\Siv3D\Mat3x2\SivMat3x2.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Asset\AssetFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Asset\CAsset.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Asset\SivAsset.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\AudioFormatFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\CAudioFormat.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_mpg123.cpp" />
@@ -323,6 +326,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\AlignedAllocator.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AlignedMemory.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Array.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Asset.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AssetHandle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Base64.hpp" />
@@ -559,6 +563,8 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\hopscotch-map\hopscotch_set.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\SFMT\SFMT.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AssetHandleManager\AssetHandleManager.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Asset\CAsset.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Asset\IAsset.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\CAudioFormat.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\IAudioFormat.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_mpg123.hpp" />
@@ -1005,7 +1011,8 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_LIB;_SCL_SECURE_NO_WARNINGS;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <DebugInformationFormat />
+      <DebugInformationFormat>
+      </DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MinimalRebuild>false</MinimalRebuild>

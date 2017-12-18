@@ -833,4 +833,17 @@ namespace s3d
 	//	TextEditor.hpp
 	//
 	class TextEditor;
+
+
+
+
+
+	//////////////////////////////////////////////////////
+	//
+	//	Asset.hpp
+	//
+	struct AssetParameter;
+	class IAsset;
+	//TextureAssetData
+	//TextureAsset
 }
