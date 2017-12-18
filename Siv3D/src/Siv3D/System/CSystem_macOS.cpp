@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -29,6 +29,7 @@
 # include "../AudioFormat/IAudioFormat.hpp"
 //# include "../Audio/IAudio.hpp"
 # include "../Graphics/IGraphics.hpp"
+# include "../Texture/ITexture.hpp"
 # include "../ScreenCapture/IScreenCapture.hpp"
 # include "../Font/IFont.hpp"
 # include "../Print/IPrint.hpp"
@@ -213,6 +214,8 @@ namespace s3d
 		
 		Siv3DEngine::GetGraphics()->clear();
 		
+		Siv3DEngine::GetTexture()->update(4);
+		
 		if (!Siv3DEngine::GetDragDrop()->update())
 		{
 			return false;
@@ -226,7 +229,7 @@ namespace s3d
 
 		Siv3DEngine::GetTextInput()->update();
 		
-
+		
 		return m_updateSucceeded = true;
 	}
 

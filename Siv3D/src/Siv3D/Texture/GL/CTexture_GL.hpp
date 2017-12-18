@@ -13,9 +13,14 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
+# include <thread>
+# include <atomic>
+# include <mutex>
 # include "../ITexture.hpp"
 # include "Texture_GL.hpp"
 # include "../../AssetHandleManager/AssetHandleManager.hpp"
+
+# include <Siv3D/System.hpp>
 
 namespace s3d
 {
@@ -25,11 +30,68 @@ namespace s3d
 		
 		AssetHandleManager<TextureID, Texture_GL> m_textures{ U"Texture" };
 		
+		const std::thread::id m_id = std::this_thread::get_id();
+	
+		struct Request
+		{
+			const Image *pImage = nullptr;
+			
+			const Array<Image> *pMipmaps = nullptr;
+			
+			const TextureDesc* pDesc = nullptr;
+			
+			std::reference_wrapper<TextureID> idResult;
+			
+			std::reference_wrapper<std::atomic<bool>> waiting;
+		};
+		
+		Array<Request> m_requests;
+
+		std::mutex m_requestsMutex;
+		
+		TextureID pushRequest(const Image& image, const Array<Image>& mipmaps, const TextureDesc desc)
+		{
+			std::atomic<bool> waiting = true;
+			
+			TextureID result = TextureID::NullAsset();
+			
+			{
+				std::lock_guard<std::mutex> lock(m_requestsMutex);
+				
+				m_requests.push_back(Request{ &image, &mipmaps, &desc, std::ref(result), std::ref(waiting) });
+			}
+
+			while (waiting)
+			{
+				System::Sleep(3);
+			}
+			
+			return result;
+		}
+		
 	public:
 
 		~CTexture_GL();
 		
 		bool init();
+		
+		void update(size_t maxUpdate) override
+		{
+			std::lock_guard<std::mutex> lock(m_requestsMutex);
+			
+			const size_t toProcess = std::min<size_t>(maxUpdate, m_requests.size());
+			
+			for (size_t i = 0; i < toProcess; ++i)
+			{
+				auto& request = m_requests[i];
+				
+				request.idResult.get() = create(*request.pImage, *request.pMipmaps, TextureDesc::Mipped);
+				
+				request.waiting.get() = false;
+			}
+			
+			m_requests.erase(m_requests.begin(), m_requests.begin() + toProcess);
+		}
 
 		TextureID createFromBackBuffer() override;
 

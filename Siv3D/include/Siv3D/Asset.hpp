@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -168,6 +168,25 @@ namespace s3d
 			m_loadingThread.reset();
 		}
 
+		virtual bool stillOnLoadingAsync()
+		{
+			if (m_state != State::PreloadingAsync)
+			{
+				return false;
+			}
+			
+			if (isReady())
+			{
+				m_state = m_loadingThread->get() ? State::LoadScceeded : State::LoadFailed;
+				
+				m_loadingThread.reset();
+				
+				return false;
+			}
+			
+			return false;
+		}
+		
 		virtual bool isPreloaded() const
 		{
 			return (m_state == State::LoadScceeded || m_state == State::LoadFailed);

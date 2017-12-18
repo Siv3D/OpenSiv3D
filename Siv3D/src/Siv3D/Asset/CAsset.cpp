@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -10,6 +10,8 @@
 //-----------------------------------------------
 
 # include "CAsset.hpp"
+# include "../Siv3DEngine.hpp"
+# include "../Texture/ITexture.hpp"
 # include <Siv3D/Logger.hpp>
 
 namespace s3d
@@ -30,6 +32,8 @@ namespace s3d
 
 	CAsset::~CAsset()
 	{
+		Siv3DEngine::GetTexture()->update(Largest<size_t>());
+		
 		// wait for all
 		for (auto& assetList : m_assetLists)
 		{
@@ -99,7 +103,10 @@ namespace s3d
 
 		if (!pAsset->isPreloaded())
 		{
-			pAsset->wait();
+			if (pAsset->stillOnLoadingAsync())
+			{
+				return nullptr;
+			}
 
 			if (!pAsset->preload())
 			{

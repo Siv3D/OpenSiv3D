@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -89,6 +89,11 @@ namespace s3d
 
 	TextureID CTexture_GL::create(const Image& image, const Array<Image>& mipmaps, const TextureDesc desc)
 	{
+		if(std::this_thread::get_id() != m_id)
+		{
+			return pushRequest(image, mipmaps, desc);
+		}
+		
 		if (!image)
 		{
 			return TextureID::NullAsset();
