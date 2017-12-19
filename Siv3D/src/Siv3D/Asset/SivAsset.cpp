@@ -81,11 +81,20 @@ namespace s3d
 		Siv3DEngine::GetAsset()->release(AssetType::Texture, name);
 	}
 
+	void TextureAsset::ReleaseAll()
+	{
+		Siv3DEngine::GetAsset()->releaseAll(AssetType::Texture);
+	}
+
 	void TextureAsset::Unregister(const AssetName& name)
 	{
 		Siv3DEngine::GetAsset()->unregister(AssetType::Texture, name);
 	}
 
+	void TextureAsset::UnregisterAll()
+	{
+		Siv3DEngine::GetAsset()->unregisterAll(AssetType::Texture);
+	}
 
 	bool TextureAsset::IsReady(const AssetName& name)
 	{

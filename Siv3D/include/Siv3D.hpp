@@ -680,7 +680,7 @@
 //////////////////////////////////////////////////
 
 	// オーディオ
-	//# include "Siv3D/Audio.hpp"
+	# include "Siv3D/Audio.hpp"
 	//// サウンドの拍カウント
 	//# include "Siv3D/SoundBeat.hpp"
 

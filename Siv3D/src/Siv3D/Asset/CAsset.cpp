@@ -167,8 +167,6 @@ namespace s3d
 		pAsset->wait();
 
 		pAsset->release();
-
-		//assetList.erase(it);
 	}
 
 	void CAsset::releaseAll(const AssetType assetType)

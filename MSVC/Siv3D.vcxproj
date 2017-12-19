@@ -328,6 +328,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Array.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Asset.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AssetHandle.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Audio.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioFormat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Base64.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Bezier2.hpp" />
