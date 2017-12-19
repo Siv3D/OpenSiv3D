@@ -49,25 +49,9 @@ namespace s3d
 
 		std::mutex m_requestsMutex;
 		
-		TextureID pushRequest(const Image& image, const Array<Image>& mipmaps, const TextureDesc desc)
-		{
-			std::atomic<bool> waiting = true;
-			
-			TextureID result = TextureID::NullAsset();
-			
-			{
-				std::lock_guard<std::mutex> lock(m_requestsMutex);
-				
-				m_requests.push_back(Request{ &image, &mipmaps, &desc, std::ref(result), std::ref(waiting) });
-			}
+		bool isMainThread() const;
 
-			while (waiting)
-			{
-				System::Sleep(3);
-			}
-			
-			return result;
-		}
+		TextureID pushRequest(const Image& image, const Array<Image>& mipmaps, const TextureDesc desc);
 		
 	public:
 
@@ -75,23 +59,7 @@ namespace s3d
 		
 		bool init();
 		
-		void update(size_t maxUpdate) override
-		{
-			std::lock_guard<std::mutex> lock(m_requestsMutex);
-			
-			const size_t toProcess = std::min<size_t>(maxUpdate, m_requests.size());
-			
-			for (size_t i = 0; i < toProcess; ++i)
-			{
-				auto& request = m_requests[i];
-				
-				request.idResult.get() = create(*request.pImage, *request.pMipmaps, TextureDesc::Mipped);
-				
-				request.waiting.get() = false;
-			}
-			
-			m_requests.erase(m_requests.begin(), m_requests.begin() + toProcess);
-		}
+		void update(size_t maxUpdate) override;
 
 		TextureID createFromBackBuffer() override;
 

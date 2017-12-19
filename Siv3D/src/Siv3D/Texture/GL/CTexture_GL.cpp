@@ -64,6 +64,31 @@ namespace s3d
 		
 		return true;
 	}
+
+	void CTexture_GL::update(const size_t maxUpdate)
+	{
+		std::lock_guard<std::mutex> lock(m_requestsMutex);
+
+		const size_t toProcess = std::min<size_t>(maxUpdate, m_requests.size());
+
+		for (size_t i = 0; i < toProcess; ++i)
+		{
+			auto& request = m_requests[i];
+
+			if (*request.pMipmaps)
+			{
+				request.idResult.get() = create(*request.pImage, *request.pMipmaps, *request.pDesc);
+			}
+			else
+			{
+				request.idResult.get() = create(*request.pImage, *request.pDesc);
+			}
+
+			request.waiting.get() = false;
+		}
+
+		m_requests.erase(m_requests.begin(), m_requests.begin() + toProcess);
+	}
 	
 	TextureID CTexture_GL::createFromBackBuffer()
 	{
@@ -75,6 +100,11 @@ namespace s3d
 		if (!image)
 		{
 			return TextureID::NullAsset();
+		}
+
+		if (!isMainThread())
+		{
+			return pushRequest(image, Array<Image>(), desc);
 		}
 		
 		const auto texture = std::make_shared<Texture_GL>(image, desc);
@@ -88,17 +118,17 @@ namespace s3d
 	}
 
 	TextureID CTexture_GL::create(const Image& image, const Array<Image>& mipmaps, const TextureDesc desc)
-	{
-		if(std::this_thread::get_id() != m_id)
-		{
-			return pushRequest(image, mipmaps, desc);
-		}
-		
+	{		
 		if (!image)
 		{
 			return TextureID::NullAsset();
 		}
-		
+	
+		if (!isMainThread())
+		{
+			return pushRequest(image, mipmaps, desc);
+		}
+
 		const auto texture = std::make_shared<Texture_GL>(image, mipmaps, desc);
 		
 		if (!texture->isInitialized())
@@ -163,6 +193,31 @@ namespace s3d
 	bool CTexture_GL::fill(const TextureID handleID, const void* const src, const uint32 stride, const bool wait)
 	{
 		return m_textures[handleID]->fill(src, stride, wait);
+	}
+
+	bool CTexture_GL::isMainThread() const
+	{
+		return std::this_thread::get_id() == m_id;
+	}
+
+	TextureID CTexture_GL::pushRequest(const Image& image, const Array<Image>& mipmaps, const TextureDesc desc)
+	{
+		std::atomic<bool> waiting = true;
+
+		TextureID result = TextureID::NullAsset();
+
+		{
+			std::lock_guard<std::mutex> lock(m_requestsMutex);
+
+			m_requests.push_back(Request{ &image, &mipmaps, &desc, std::ref(result), std::ref(waiting) });
+		}
+
+		while (waiting)
+		{
+			System::Sleep(3);
+		}
+
+		return result;
 	}
 }
 

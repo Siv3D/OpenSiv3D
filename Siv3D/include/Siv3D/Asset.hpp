@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -103,9 +103,9 @@ namespace s3d
 		} m_state = State::Uninitialized;
 
 		template <class Fty>
-		void launchLoading(Fty fty)
+		void launchLoading(Fty&& fty)
 		{
-			m_loadingThread = std::make_unique<std::future<bool>>(std::async(std::launch::async, fty));
+			m_loadingThread = std::make_unique<std::future<bool>>(std::async(std::launch::async, std::forward<Fty>(fty)));
 		}
 
 	public:
@@ -138,7 +138,7 @@ namespace s3d
 			return parameter;
 		}
 
-		virtual bool isReady()
+		virtual bool isReady() const
 		{
 			if (!m_loadingThread)
 			{
@@ -156,7 +156,7 @@ namespace s3d
 		# endif	
 		}
 
-		virtual void wait()
+		void wait()
 		{
 			if (m_state != State::PreloadingAsync)
 			{
@@ -168,7 +168,7 @@ namespace s3d
 			m_loadingThread.reset();
 		}
 
-		virtual bool stillOnLoadingAsync()
+		bool isLoadingAsync()
 		{
 			if (m_state != State::PreloadingAsync)
 			{
@@ -187,9 +187,14 @@ namespace s3d
 			return false;
 		}
 		
-		virtual bool isPreloaded() const
+		bool isPreloaded() const
 		{
 			return (m_state == State::LoadScceeded || m_state == State::LoadFailed);
+		}
+
+		bool loadScceeded() const
+		{
+			return (m_state == State::LoadScceeded);
 		}
 	};
 
@@ -273,12 +278,26 @@ namespace s3d
 
 		bool update() override
 		{
-			return onPreload(*this);
+			if (!isPreloaded())
+			{
+				return false;
+			}
+
+			return onUpdate(*this);
 		}
 
 		bool release() override
 		{
-			return onRelease(*this);
+			if (m_state == State::Uninitialized)
+			{
+				return true;
+			}
+
+			const bool result = onRelease(*this);
+
+			m_state = State::Uninitialized;
+
+			return result;
 		}
 	};
 
@@ -301,19 +320,19 @@ namespace s3d
 
 		static bool Preload(const AssetName& name);
 
-		static bool PreloadByTag(const AssetTag& tag);
+		//static bool PreloadByTag(const AssetTag& tag);
 
-		static bool PreloadAll();
+		//static bool PreloadAll();
 
 		static void Release(const AssetName& name);
 
-		static void ReleaseByTag(const AssetTag& tag);
+		//static void ReleaseByTag(const AssetTag& tag);
 
 		static void ReleaseAll();
 
 		static void Unregister(const AssetName& name);
 
-		static void UnregisterByTag(const AssetTag& tag);
+		//static void UnregisterByTag(const AssetTag& tag);
 
 		static void UnregisterAll();
 

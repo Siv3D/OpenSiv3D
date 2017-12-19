@@ -66,7 +66,25 @@ namespace s3d
 		return Siv3DEngine::GetAsset()->registerAsset(AssetType::Texture, name, std::make_unique<TextureAssetData>(data));
 	}
 
+	bool TextureAsset::IsRegistered(const AssetName& name)
+	{
+		return Siv3DEngine::GetAsset()->isRegistered(AssetType::Texture, name);
+	}
 
+	bool TextureAsset::Preload(const AssetName& name)
+	{
+		return Siv3DEngine::GetAsset()->preload(AssetType::Texture, name);
+	}
+
+	void TextureAsset::Release(const AssetName& name)
+	{
+		Siv3DEngine::GetAsset()->release(AssetType::Texture, name);
+	}
+
+	void TextureAsset::Unregister(const AssetName& name)
+	{
+		Siv3DEngine::GetAsset()->unregister(AssetType::Texture, name);
+	}
 
 
 	bool TextureAsset::IsReady(const AssetName& name)

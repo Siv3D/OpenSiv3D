@@ -38,6 +38,18 @@ namespace s3d
 
 		IAsset* getAsset(AssetType assetType, const String& name) override;
 
-		bool isReady(AssetType assetType, const String& name) override;
+		bool isRegistered(AssetType assetType, const String& name) const override;
+
+		bool preload(AssetType assetType, const String& name) override;
+
+		void release(AssetType assetType, const String& name) override;
+
+		void releaseAll(AssetType assetType) override;
+
+		void unregister(AssetType assetType, const String& name) override;
+
+		void unregisterAll(AssetType assetType) override;
+
+		bool isReady(AssetType assetType, const String& name) const override;
 	};
 }

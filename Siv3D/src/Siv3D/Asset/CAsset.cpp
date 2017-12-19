@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -103,7 +103,7 @@ namespace s3d
 
 		if (!pAsset->isPreloaded())
 		{
-			if (pAsset->stillOnLoadingAsync())
+			if (pAsset->isLoadingAsync())
 			{
 				return nullptr;
 			}
@@ -117,7 +117,109 @@ namespace s3d
 		return pAsset;
 	}
 
-	bool CAsset::isReady(const AssetType assetType, const String& name)
+	bool CAsset::isRegistered(AssetType assetType, const String& name) const
+	{
+		const auto& assetList = m_assetLists[static_cast<size_t>(assetType)];
+
+		return assetList.find(name) != assetList.end();
+	}
+
+	bool CAsset::preload(AssetType assetType, const String& name)
+	{
+		const auto& assetList = m_assetLists[static_cast<size_t>(assetType)];
+
+		const auto it = assetList.find(name);
+
+		if (it == assetList.end())
+		{
+			//LOG_FAIL_ONCE(L"登録されていない ", groupName, L" アセット \"", name, L"\" を取得しようとしました。");
+
+			return false;
+		}
+
+		IAsset* pAsset = it->second.get();
+
+		if (!pAsset->isPreloaded())
+		{
+			pAsset->wait();
+
+			pAsset->preload();
+		}
+
+		return pAsset->loadScceeded();
+	}
+
+	void CAsset::release(AssetType assetType, const String& name)
+	{
+		const auto& assetList = m_assetLists[static_cast<size_t>(assetType)];
+
+		const auto it = assetList.find(name);
+
+		if (it == assetList.end())
+		{
+			//LOG_FAIL_ONCE(L"登録されていない ", groupName, L" アセット \"", name, L"\" を取得しようとしました。");
+
+			return;
+		}
+
+		IAsset* pAsset = it->second.get();
+
+		pAsset->wait();
+
+		pAsset->release();
+
+		//assetList.erase(it);
+	}
+
+	void CAsset::releaseAll(const AssetType assetType)
+	{
+		auto& assetList = m_assetLists[static_cast<size_t>(assetType)];
+
+		for (auto& asset : assetList)
+		{
+			asset.second->wait();
+
+			asset.second->release();
+		}
+	}
+
+	void CAsset::unregister(AssetType assetType, const String& name)
+	{
+		auto& assetList = m_assetLists[static_cast<size_t>(assetType)];
+
+		const auto it = assetList.find(name);
+
+		if (it == assetList.end())
+		{
+			//LOG_FAIL_ONCE(L"登録されていない ", groupName, L" アセット \"", name, L"\" を取得しようとしました。");
+
+			return;
+		}
+
+		IAsset* pAsset = it->second.get();
+
+		pAsset->wait();
+
+		pAsset->release();
+
+		assetList.erase(it);
+	}
+
+	void CAsset::unregisterAll(const AssetType assetType)
+	{
+		auto& assetList = m_assetLists[static_cast<size_t>(assetType)];
+
+		for (auto& asset : assetList)
+		{
+			asset.second->wait();
+
+			asset.second->release();
+		}
+
+		assetList.clear();
+	}
+
+	bool CAsset::isReady(const AssetType assetType, const String& name) const
 	{
 		const auto& assetList = m_assetLists[static_cast<size_t>(assetType)];
 

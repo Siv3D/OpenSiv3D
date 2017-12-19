@@ -36,6 +36,18 @@ namespace s3d
 
 		virtual IAsset* getAsset(AssetType assetType, const String& name) = 0;
 
-		virtual bool isReady(AssetType assetType, const String& name) = 0;
+		virtual bool isRegistered(AssetType assetType, const String& name) const = 0;
+
+		virtual bool preload(AssetType assetType, const String& name) = 0;
+
+		virtual void release(AssetType assetType, const String& name) = 0;
+
+		virtual void releaseAll(AssetType assetType) = 0;
+
+		virtual void unregister(AssetType assetType, const String& name) = 0;
+
+		virtual void unregisterAll(AssetType assetType) = 0;
+
+		virtual bool isReady(AssetType assetType, const String& name) const = 0;
 	};
 }
