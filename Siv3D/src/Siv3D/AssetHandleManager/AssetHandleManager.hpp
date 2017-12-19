@@ -54,6 +54,8 @@ namespace s3d
 
 		Data* operator [](const IDType id)
 		{
+			std::lock_guard<std::mutex> lock(m_mutex);
+
 			return m_data[id].get();
 		}
 

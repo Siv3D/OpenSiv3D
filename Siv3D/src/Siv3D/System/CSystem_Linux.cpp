@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -29,11 +29,13 @@
 # include "../AudioFormat/IAudioFormat.hpp"
 //# include "../Audio/IAudio.hpp"
 # include "../Graphics/IGraphics.hpp"
+# include "../Texture/ITexture.hpp"
 # include "../ScreenCapture/IScreenCapture.hpp"
 # include "../Font/IFont.hpp"
 # include "../Print/IPrint.hpp"
 # include "../Effect/IEffect.hpp"
 //# include "../Script/IScript.hpp"
+# include "../Asset/IAsset.hpp"
 # include <Siv3D/Logger.hpp>
 
 namespace s3d
@@ -154,6 +156,11 @@ namespace s3d
 		//	return false;
 		//}
 
+		if (!Siv3DEngine::GetAsset()->init())
+		{
+			return false;
+		}
+
 		LOG_INFO(U"✅ Siv3D engine setup completed");
 
 		return true;
@@ -206,6 +213,8 @@ namespace s3d
 		}
 
 		Siv3DEngine::GetGraphics()->clear();
+		
+		Siv3DEngine::GetTexture()->update();
 
 		if (!Siv3DEngine::GetDragDrop()->update())
 		{

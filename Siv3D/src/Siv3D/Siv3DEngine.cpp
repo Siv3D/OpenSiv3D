@@ -34,6 +34,7 @@
 # include "Font/IFont.hpp"
 # include "Print/IPrint.hpp"
 # include "Effect/IEffect.hpp"
+# include "Asset/IAsset.hpp"
 
 namespace s3d
 {
@@ -44,6 +45,7 @@ namespace s3d
 
 	Siv3DEngine::~Siv3DEngine()
 	{
+		m_asset.release();
 		m_effect.release();
 		m_print.release();
 		m_font.release();

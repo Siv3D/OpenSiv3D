@@ -22,7 +22,7 @@ namespace s3d
 	/// </summary>
 	struct MD5Value
 	{
-		uint8 value[16];
+		std::array<uint8, 16> value;
 
 		String asString() const;
 
