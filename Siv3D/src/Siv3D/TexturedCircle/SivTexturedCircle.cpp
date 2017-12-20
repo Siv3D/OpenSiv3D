@@ -10,25 +10,25 @@
 //-----------------------------------------------
 
 # include "../Siv3DEngine.hpp"
-//# include "../Renderer2D/IRenderer2D.hpp"
+# include "../Renderer2D/IRenderer2D.hpp"
 # include <Siv3D/Texture.hpp>
 # include <Siv3D/TexturedCircle.hpp>
 
 namespace s3d
 {
-	//const Circle& TexturedCircle::draw(const ColorF& diffuse) const
-	//{
-	//	Siv3DEngine::GetRenderer2D()->addTexturedCircle(texture, circle, uvRect, diffuse.toFloat4());
+	const Circle& TexturedCircle::draw(const ColorF& diffuse) const
+	{
+		Siv3DEngine::GetRenderer2D()->addTexturedCircle(texture, circle, uvRect, diffuse.toFloat4());
 
-	//	return circle;
-	//}
+		return circle;
+	}
 
-	//Circle TexturedCircle::draw(const double x, const double y, const ColorF& diffuse) const
-	//{
-	//	const Circle c(x, y, circle.r);
+	Circle TexturedCircle::draw(const double x, const double y, const ColorF& diffuse) const
+	{
+		const Circle c(x, y, circle.r);
 
-	//	Siv3DEngine::GetRenderer2D()->addTexturedCircle(texture, c, uvRect, diffuse.toFloat4());
+		Siv3DEngine::GetRenderer2D()->addTexturedCircle(texture, c, uvRect, diffuse.toFloat4());
 
-	//	return c;
-	//}
+		return c;
+	}
 }

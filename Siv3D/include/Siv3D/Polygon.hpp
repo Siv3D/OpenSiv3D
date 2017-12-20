@@ -38,7 +38,7 @@ namespace s3d
 		explicit Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes = {})
 			: Polygon(outer.data(), outer.size(), holes) {}
 
-		//explicit Polygon(const Shape2D& shape);
+		explicit Polygon(const Shape2D& shape);
 
 		explicit Polygon(std::initializer_list<Vec2> outer)
 			: Polygon(outer.begin(), outer.size()) {}
@@ -103,19 +103,19 @@ namespace s3d
 
 		//Polygon simplified(double maxDistance = 2.0) const;
 
-		//template <class Shape2DType>
-		//bool intersects(const Shape2DType& shape) const
-		//{
-		//	return Geometry2D::Intersect(*this, shape);
-		//}
+		template <class Shape2DType>
+		bool intersects(const Shape2DType& shape) const
+		{
+			return Geometry2D::Intersect(*this, shape);
+		}
 
 		bool intersects(const Polygon& polygon) const;
 
-		//template <class Shape2DType>
-		//bool contains(const Shape2DType& shape) const
-		//{
-		//	return Geometry2D::Contains(*this, shape);
-		//}
+		template <class Shape2DType>
+		bool contains(const Shape2DType& shape) const
+		{
+			return Geometry2D::Contains(*this, shape);
+		}
 
 		bool leftClicked() const;
 

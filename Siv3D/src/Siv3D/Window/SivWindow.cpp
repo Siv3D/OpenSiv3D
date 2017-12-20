@@ -13,7 +13,7 @@
 # include "IWindow.hpp"
 # include <Siv3D/Window.hpp>
 # include <Siv3D/Monitor.hpp>
-//# include <Siv3D/Graphics.hpp>
+# include <Siv3D/Graphics.hpp>
 
 namespace s3d
 {
@@ -56,31 +56,31 @@ namespace s3d
 			SetPos(pos);
 		}
 
-		//bool Resize(const int32 width, const int32 height, const bool centering)
-		//{
-		//	const auto& state = Siv3DEngine::GetWindow()->getState();
+		bool Resize(const int32 width, const int32 height, const bool centering)
+		{
+			const auto& state = Siv3DEngine::GetWindow()->getState();
 
-		//	if (state.fullScreen)
-		//	{
-		//		return false;
-		//	}
+			if (state.fullScreen)
+			{
+				return false;
+			}
 
-		//	const s3d::Size newSize(width, height);
+			const s3d::Size newSize(width, height);
 
-		//	bool result = true;
+			bool result = true;
 
-		//	if (state.clientSize != newSize)
-		//	{
-		//		result = Graphics::SetFullScreen(false, newSize, System::GetCurrentMonitorIndex());
-		//	}
+			if (state.clientSize != newSize)
+			{
+				result = Graphics::SetFullScreen(false, newSize, System::GetCurrentMonitorIndex());
+			}
 
-		//	if (centering)
-		//	{
-		//		Centering();
-		//	}
+			if (centering)
+			{
+				Centering();
+			}
 
-		//	return result;
-		//}
+			return result;
+		}
 
 		void SetBaseSize(const s3d::Size& size)
 		{

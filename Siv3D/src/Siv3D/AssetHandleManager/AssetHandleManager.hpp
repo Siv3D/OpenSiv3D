@@ -11,6 +11,7 @@
 
 # pragma once
 # include <memory>
+# include <mutex>
 # include <Siv3D/HashTable.hpp>
 # include <Siv3D/String.hpp>
 # include <Siv3D/Logger.hpp>
@@ -23,8 +24,6 @@ namespace s3d
 	class AssetHandleManager
 	{
 	private:
-
-		const IDType NullID = IDType(0);
 
 		using MapType = HashTable<IDType, std::shared_ptr<Data>>;
 
@@ -48,7 +47,7 @@ namespace s3d
 
 		void setNullData(const std::shared_ptr<Data>& data)
 		{
-			m_data.emplace(NullID, data);
+			m_data.emplace(IDType(IDType::NullAssetID), data);
 
 			LOG_DEBUG(U"💠 Created {0}[0(null)]"_fmt(m_assetTypeName));
 		}
@@ -58,41 +57,47 @@ namespace s3d
 			return m_data[id].get();
 		}
 
-		IDType add(const std::shared_ptr<Data>& data)
+		IDType add(const std::shared_ptr<Data>& data, [[maybe_unused]] const String& info = U"")
 		{
 			std::lock_guard<std::mutex> lock(m_mutex);
 
-			if (++m_idCount == 0)
+			if (++m_idCount == IDType::InvalidID)
 			{
 				m_idFilled = true;
+
+				m_idCount = 0;
 			}
 
 			if (!m_idFilled)
 			{
 				m_data.emplace(m_idCount, data);
 
-				LOG_DEBUG(U"💠 Created {0}[{1}]"_fmt(m_assetTypeName, m_idCount));
+				LOG_DEBUG(U"💠 Created {0}[{1}] {2}"_fmt(m_assetTypeName, m_idCount, info));
 
 				return IDType(m_idCount);
 			}
-
-			if (m_data.size() == m_data.max_size())
+			else
 			{
-				LOG_FAIL(U"❌ No more {0}s can be created"_fmt(m_assetTypeName));
-
-				return NullID;
-			}
-
-			for (;;)
-			{
-				if (m_data.find(IDType(++m_idCount)) == m_data.end())
+				if (m_data.size() == (IDType::InvalidID - 1))
 				{
-					m_data.emplace(m_idCount, data);
+					LOG_FAIL(U"❌ No more {0}s can be created"_fmt(m_assetTypeName));
 
-					LOG_DEBUG(U"💠 Created {0}[{1}]"_fmt(m_assetTypeName, m_idCount));
-
-					return IDType(m_idCount);
+					return IDType(IDType::NullAssetID);
 				}
+
+				while (++m_idCount < IDType::InvalidID)
+				{
+					if (m_data.find(IDType(++m_idCount)) == m_data.end())
+					{
+						m_data.emplace(m_idCount, data);
+
+						LOG_DEBUG(U"💠 Created {0}[{1}] {2}"_fmt(m_assetTypeName, m_idCount, info));
+
+						return IDType(m_idCount);
+					}
+				}
+
+				return IDType(IDType::NullAssetID);
 			}
 		}
 

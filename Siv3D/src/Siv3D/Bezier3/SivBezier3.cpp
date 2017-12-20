@@ -29,8 +29,8 @@ namespace s3d
 		return pts;
 	}
 
-	//void Bezier3::draw(const double thickness, const ColorF& color) const
-	//{
-	//	getLineString().draw(thickness, color);
-	//}
+	void Bezier3::draw(const double thickness, const ColorF& color) const
+	{
+		getLineString().draw(thickness, color);
+	}
 }

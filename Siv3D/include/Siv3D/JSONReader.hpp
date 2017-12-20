@@ -303,24 +303,16 @@ namespace s3d
 
 		JSONReader();
 
-		explicit JSONReader(const FilePath& path)
-			: JSONReader()
-		{
-			open(path);
-		}
+		explicit JSONReader(const FilePath& path);
 
 		template <class Reader, std::enable_if_t<std::is_base_of_v<IReader, Reader> && !std::is_lvalue_reference_v<Reader>>* = nullptr>
 		explicit JSONReader(Reader&& reader)
 			: JSONReader()
 		{
-			open(std::forward<Reader>(reader));
+			open(std::make_shared<Reader>(std::forward<Reader>(reader)));
 		}
 
-		explicit JSONReader(const std::shared_ptr<IReader>& reader)
-			: JSONReader()
-		{
-			open(reader);
-		}
+		explicit JSONReader(const std::shared_ptr<IReader>& reader);
 
 		bool open(const FilePath& path);
 

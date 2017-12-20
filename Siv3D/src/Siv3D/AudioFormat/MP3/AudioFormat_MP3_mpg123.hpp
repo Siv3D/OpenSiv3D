@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -26,8 +26,6 @@ namespace s3d
 	private:
 
 		void* m_mpg123 = nullptr;
-
-		mpg123_handle* m_handle = nullptr;
 
 		decltype(mpg123_init)* p_mpg123_init = nullptr;
 		decltype(mpg123_new)* p_mpg123_new = nullptr;
