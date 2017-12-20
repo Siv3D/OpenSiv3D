@@ -2,33 +2,18 @@
 
 void Main()
 {
-	Window::Resize(1280, 720);
+	const Audio audio(U"example/test.mp3", Arg::loop = true);
 
-	Graphics::SetBackground(Palette::White);
-
-	for (auto i : step(36))
-	{
-		const String name = Format(i);
-
-		TextureAsset::Register(name, U"test/image/p/" + name + U".png", TextureDesc::Mipped, AssetParameter::LoadAsync());
-	}
+	audio.play();
 
 	while (System::Update())
 	{
-		for (auto i : step(36))
-		{
-			const String name = Format(i);
+		ClearPrint();
 
-			const Rect rect(6 + i % 6 * 206, 6 + i / 6 * 118, 200, 112);
+		Print << audio.streamPosSample();
 
-			if (TextureAsset::IsReady(name))
-			{
-				rect(TextureAsset(name)).draw();
-			}
-			else
-			{
-				rect.draw(ColorF(0.7));
-			}
-		}
+		Print << audio.posSample();
+
+		Print << audio.samplesPlayed();
 	}
 }

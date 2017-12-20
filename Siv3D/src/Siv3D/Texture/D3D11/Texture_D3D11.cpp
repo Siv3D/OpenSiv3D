@@ -127,7 +127,7 @@ namespace s3d
 
 	Texture_D3D11::Texture_D3D11(Dynamic, ID3D11Device* const device, const Size& size, const void* pData, const uint32 stride, const TextureFormat format, const TextureDesc _desc)
 	{
-		if (!InRange(size.x, 1, MaxImageSize) || !InRange(size.y, 1, MaxImageSize))
+		if (!InRange(size.x, 1, Image::MaxWidth) || !InRange(size.y, 1, Image::MaxHeight))
 		{
 			return;
 		}

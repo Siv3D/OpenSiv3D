@@ -27,7 +27,7 @@
 # include "../TextInput/ITextInput.hpp"
 # include "../Codec/ICodec.hpp"
 # include "../AudioFormat/IAudioFormat.hpp"
-//# include "../Audio/IAudio.hpp"
+# include "../Audio/IAudio.hpp"
 # include "../Graphics/IGraphics.hpp"
 # include "../Texture/ITexture.hpp"
 # include "../ScreenCapture/IScreenCapture.hpp"
@@ -119,10 +119,10 @@ namespace s3d
 			return false;
 		}
 
-		//if (!Siv3DEngine::GetAudio()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetAudio()->init())
+		{
+			return false;
+		}
 
 		if (!Siv3DEngine::GetGraphics()->init())
 		{
