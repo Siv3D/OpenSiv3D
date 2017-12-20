@@ -20,6 +20,7 @@ set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -DNDEBUG -march=x86-64")
 include_directories(
 	"/usr/include"
 	"../../Siv3D/include"
+	"../../Siv3D/include/ThirdParty"
 )
 
 link_directories(
