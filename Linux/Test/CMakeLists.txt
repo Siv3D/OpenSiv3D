@@ -75,5 +75,7 @@ target_link_libraries(Siv3D_Test
 	Xcursor
 	dl
 	gif
+	freetype
+	harfbuzz
 )
 
