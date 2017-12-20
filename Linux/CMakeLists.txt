@@ -38,6 +38,9 @@ include_directories(
 )
 
 set(SOURCE_FILES
+	"../Siv3D/src/Siv3D/Asset/AssetFactory.cpp"
+	"../Siv3D/src/Siv3D/Asset/CAsset.cpp"
+	"../Siv3D/src/Siv3D/Asset/SivAsset.cpp"
 	"../Siv3D/src/Siv3D/AudioFormat/AudioFormatFactory.cpp"
 	"../Siv3D/src/Siv3D/AudioFormat/CAudioFormat.cpp"
 	"../Siv3D/src/Siv3D/AudioFormat/SivAudioFormat.cpp"

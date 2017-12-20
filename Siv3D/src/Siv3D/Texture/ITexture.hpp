@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -22,6 +22,8 @@ namespace s3d
 		static ISiv3DTexture* Create();
 
 		virtual ~ISiv3DTexture() = default;
+		
+		virtual void update(size_t maxUpdate) = 0;
 
 		virtual TextureID createFromBackBuffer() = 0;
 

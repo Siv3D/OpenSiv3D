@@ -32,7 +32,7 @@ namespace s3d
 
 	bool MD5Value::operator ==(const MD5Value& other) const noexcept
 	{
-		return ::memcmp(value, other.value, sizeof(value)) == 0;
+		return ::memcmp(value.data(), other.value.data(), sizeof(value)) == 0;
 	}
 
 	bool MD5Value::operator !=(const MD5Value& other) const noexcept
@@ -49,7 +49,7 @@ namespace s3d
 
 			MD5_Init(&ctx);
 			MD5_Update(&ctx, data, static_cast<uint32>(size));
-			MD5_Final(result.value, &ctx);
+			MD5_Final(result.value.data(), &ctx);
 
 			return result;
 		}
@@ -85,7 +85,7 @@ namespace s3d
 				MD5_Update(&ctx, buffer, static_cast<uint32>(readSize));
 			}
 			
-			MD5_Final(result.value, &ctx);
+			MD5_Final(result.value.data(), &ctx);
 
 			return result;
 		}

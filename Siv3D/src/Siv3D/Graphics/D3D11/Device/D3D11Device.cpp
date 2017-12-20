@@ -272,7 +272,7 @@ namespace s3d
 		Optional<size_t> adapterIndexFromConfig;
 		const bool favor_iGPU = false;
 
-		uint32 creationFlags = D3D11_CREATE_DEVICE_SINGLETHREADED;
+		uint32 creationFlags = 0;
 
 		if (!adapterIndexFromConfig && favor_iGPU)
 		{

@@ -886,27 +886,37 @@ namespace s3d
 	template <class CharType>
 	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, Color& value)
 	{
-		uint32 cols[4];
 		CharType unused;
+		input >> unused;
 
-		input >> unused
-			>> cols[0] >> unused
-			>> cols[1] >> unused
-			>> cols[2] >> unused;
-
-		if (unused == CharType(','))
+		if (unused == CharType('#'))
 		{
-			input >> cols[3] >> unused;
+			String code;
+			input >> code;
+			value = ColorF(U'#' + code);
 		}
 		else
 		{
-			cols[3] = 255;
-		}
+			uint32 cols[4];
+			input
+				>> cols[0] >> unused
+				>> cols[1] >> unused
+				>> cols[2] >> unused;
 
-		value.r = cols[0];
-		value.g = cols[1];
-		value.b = cols[2];
-		value.a = cols[3];
+			if (unused == CharType(','))
+			{
+				input >> cols[3] >> unused;
+			}
+			else
+			{
+				cols[3] = 255;
+			}
+
+			value.r = cols[0];
+			value.g = cols[1];
+			value.b = cols[2];
+			value.a = cols[3];
+		}
 
 		return input;
 	}
@@ -915,19 +925,28 @@ namespace s3d
 	inline std::basic_istream<CharType>& operator >>(std::basic_istream<CharType>& input, ColorF& value)
 	{
 		CharType unused;
-
-		input >> unused
-			>> value.r >> unused
-			>> value.g >> unused
-			>> value.b >> unused;
-
-		if (unused == CharType(','))
+		input >> unused;
+		
+		if (unused == CharType('#'))
 		{
-			input >> value.a >> unused;
+			String code;
+			input >> code;
+			value = ColorF(U'#' + code);
 		}
-		else
+		else 
 		{
-			value.a = 1.0;
+			input >> value.r >> unused
+				>> value.g >> unused
+				>> value.b >> unused;
+
+			if (unused == CharType(','))
+			{
+				input >> value.a >> unused;
+			}
+			else
+			{
+				value.a = 1.0;
+			}
 		}
 
 		return input;

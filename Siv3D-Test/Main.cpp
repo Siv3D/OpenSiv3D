@@ -2,48 +2,33 @@
 
 void Main()
 {
-	Graphics::SetBackground(ColorF(0.1, 0.4, 0.6));
+	Window::Resize(1280, 720);
 
-	const Texture cookie(Emoji(U"🍪"), TextureDesc::Mipped);
-	const Font font(40, Typeface::Heavy);
+	Graphics::SetBackground(Palette::White);
 
-	Array<Vec2> cookies(300, Arg::generator = []() {
-		return RandomVec2({ 0, 640 }, { -20, 500 }); });
-	double t = 0, s = 0, v = 0;
-	int32 count = 0;
+	for (auto i : step(36))
+	{
+		const String name = Format(i);
+
+		TextureAsset::Register(name, U"test/image/p/" + name + U".png", TextureDesc::Mipped, AssetParameter::LoadAsync());
+	}
 
 	while (System::Update())
 	{
-		const double d = System::DeltaTime();
-		t += d;
-
-		for (auto& c : cookies)
+		for (auto i : step(36))
 		{
-			cookie.resize(40).drawAt(c, ColorF(0.8));
-			c.y += d * 30.0;
+			const String name = Format(i);
 
-			if (c.y > 500)
+			const Rect rect(6 + i % 6 * 206, 6 + i / 6 * 118, 200, 112);
+
+			if (TextureAsset::IsReady(name))
 			{
-				c.y -= 520;
+				rect(TextureAsset(name)).draw();
+			}
+			else
+			{
+				rect.draw(ColorF(0.7));
 			}
 		}
-
-		Rect(0, 360, 640, 120).draw(Arg::top = ColorF(0.5, 0.25, 0.1, 0.8),
-			Arg::bottom = ColorF(0.5, 0.25, 0.1, 1.0));
-
-		Rect(0, 50, 640, 50).draw(ColorF(0.0, 0.4));
-		font(U"{} cookies"_fmt(count)).drawAt(320, 77);
-
-		const Circle circle(320, 240, 80 + s * 0.5);
-		circle.drawShadow(Vec2(2, 2), 12);
-		Shape2D::NStar(10, 160, 70, circle.center, t * 0.2).draw(AlphaF(0.2));
-		Shape2D::NStar(9, 140, 70, circle.center, -t * 0.2).draw(AlphaF(0.2));
-		cookie.resize(156 + s).drawAt(circle.center);
-
-		Cursor::SetStyle(circle.mouseOver() ? CursorStyle::Hand : CursorStyle::Default);
-		count += circle.leftClicked();
-
-		v = (v - s) * 0.6;
-		s = circle.leftPressed() ? -16.0 : (s + v);
 	}
 }

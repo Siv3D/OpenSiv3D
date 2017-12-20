@@ -38,6 +38,7 @@ namespace s3d
 	class ISiv3DFont;
 	class ISiv3DEffect;
 	class ISiv3DPrint;
+	class ISiv3DAsset;
 
 	template <class Interface>
 	class Siv3DComponent
@@ -122,6 +123,8 @@ namespace s3d
 		Siv3DComponent<ISiv3DPrint> m_print;
 
 		Siv3DComponent<ISiv3DEffect> m_effect;
+
+		Siv3DComponent<ISiv3DAsset> m_asset;
 		
 	public:
 
@@ -252,6 +255,11 @@ namespace s3d
 		static ISiv3DEffect* GetEffect()
 		{
 			return pEngine->m_effect.get();
+		}
+
+		static ISiv3DAsset* GetAsset()
+		{
+			return pEngine->m_asset.get();
 		}
 	};
 }
