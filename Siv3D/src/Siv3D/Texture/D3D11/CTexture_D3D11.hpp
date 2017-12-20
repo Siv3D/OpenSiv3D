@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -39,6 +39,8 @@ namespace s3d
 
 		bool init(ID3D11Device* device, ID3D11DeviceContext* context, IDXGISwapChain* swapChain);
 
+		void update(size_t) override {}
+		
 		TextureID createFromBackBuffer() override;
 
 		TextureID create(const Image& image, TextureDesc desc) override;

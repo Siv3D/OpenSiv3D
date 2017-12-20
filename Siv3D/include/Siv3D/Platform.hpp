@@ -278,7 +278,7 @@ namespace s3d
 	# pragma comment (lib, "imm32")
 	# pragma comment (lib, "Shlwapi")
 	# pragma comment (lib, "mfuuid")
-	# pragma comment(lib,"version")
+	# pragma comment (lib,"version")
 
 	# if (SIV3D_IS_DEBUG)
 
