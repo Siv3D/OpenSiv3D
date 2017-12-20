@@ -214,7 +214,7 @@ namespace s3d
 
 		Siv3DEngine::GetGraphics()->clear();
 		
-		Siv3DEngine::GetTexture()->update();
+		Siv3DEngine::GetTexture()->update(4);
 
 		if (!Siv3DEngine::GetDragDrop()->update())
 		{
