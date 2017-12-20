@@ -22,13 +22,13 @@ extern "C"
 	
 	void s3d_DraggingUpdated(int x, int y);
 
-	void s3d_DraggingExited();
+	void s3d_DraggingExited(void);
 	
 	void s3d_TextDropped(const char* text, int x, int y);
 
 	void s3d_FilePathsDropped(int count, const char** paths, int x, int y);
 	
-	//void s3d_OnHaveMarkedText(const char* text);
+	void s3d_OnHaveMarkedText(const char* text);
 	
 #ifdef __cplusplus
 

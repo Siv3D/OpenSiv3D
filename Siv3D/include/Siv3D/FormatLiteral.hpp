@@ -48,17 +48,14 @@ namespace s3d
 //
 //////////////////////////////////////////////////
 
-	inline namespace literals
+	namespace Literals
 	{
-		inline namespace formatting_literals
-		{
-			[[nodiscard]] detail::FormatHelper operator ""_fmt(const char32* text, size_t);
-		}
+		[[nodiscard]] detail::FormatHelper operator ""_fmt(const char32* text, size_t);
 	}
 }
 
 # ifndef NO_S3D_USING
 
-	using namespace s3d::literals;
+	using namespace s3d::Literals;
 
 # endif

@@ -439,6 +439,18 @@ namespace s3d
 
 	}
 
+	JSONReader::JSONReader(const FilePath& path)
+		: JSONReader()
+	{
+		open(path);
+	}
+
+	JSONReader::JSONReader(const std::shared_ptr<IReader>& reader)
+		: JSONReader()
+	{
+		open(reader);
+	}
+
 	bool JSONReader::open(const FilePath& path)
 	{
 		if (isOpend())

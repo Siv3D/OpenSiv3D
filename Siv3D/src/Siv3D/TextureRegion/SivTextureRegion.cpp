@@ -10,45 +10,45 @@
 //-----------------------------------------------
 
 # include "../Siv3DEngine.hpp"
-//# include "../Renderer2D/IRenderer2D.hpp"
+# include "../Renderer2D/IRenderer2D.hpp"
 # include <Siv3D/Texture.hpp>
 # include <Siv3D/TextureRegion.hpp>
 # include <Siv3D/TexturedQuad.hpp>
 
 namespace s3d
 {
-	//RectF TextureRegion::draw(const double x, const double y, const ColorF& diffuse) const
-	//{
-	//	Siv3DEngine::GetRenderer2D()->addTextureRegion(
-	//		texture,
-	//		{ x, y, x + size.x, y + size.y },
-	//		uvRect,
-	//		diffuse.toFloat4()
-	//	);
+	RectF TextureRegion::draw(const double x, const double y, const ColorF& diffuse) const
+	{
+		Siv3DEngine::GetRenderer2D()->addTextureRegion(
+			texture,
+			{ x, y, x + size.x, y + size.y },
+			uvRect,
+			diffuse.toFloat4()
+		);
 
-	//	return RectF{ x, y, size };
-	//}
+		return RectF{ x, y, size };
+	}
 
-	//RectF TextureRegion::drawAt(const double x, const double y, const ColorF& diffuse) const
-	//{
-	//	const Vec2 sizeHalf = size * 0.5;
+	RectF TextureRegion::drawAt(const double x, const double y, const ColorF& diffuse) const
+	{
+		const Vec2 sizeHalf = size * 0.5;
 
-	//	Siv3DEngine::GetRenderer2D()->addTextureRegion(
-	//		texture,
-	//		{ x - sizeHalf.x, y - sizeHalf.y, x + sizeHalf.x, y + sizeHalf.y },
-	//		uvRect,
-	//		diffuse.toFloat4()
-	//	);
+		Siv3DEngine::GetRenderer2D()->addTextureRegion(
+			texture,
+			{ x - sizeHalf.x, y - sizeHalf.y, x + sizeHalf.x, y + sizeHalf.y },
+			uvRect,
+			diffuse.toFloat4()
+		);
 
-	//	return RectF{ x - sizeHalf.x, y - sizeHalf.y, size };
-	//}
+		return RectF{ x - sizeHalf.x, y - sizeHalf.y, size };
+	}
 
-	//TextureRegion TextureRegion::mirror() const
-	//{
-	//	return TextureRegion{ texture,
-	//		uvRect.right, uvRect.top, uvRect.left, uvRect.bottom,
-	//		size };
-	//}
+	TextureRegion TextureRegion::mirror() const
+	{
+		return TextureRegion{ texture,
+			uvRect.right, uvRect.top, uvRect.left, uvRect.bottom,
+			size };
+	}
 
 	TextureRegion TextureRegion::mirror(const bool doMirror) const
 	{

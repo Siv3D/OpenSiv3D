@@ -124,9 +124,9 @@ namespace s3d
 		/// </remarks>
 		Texture(const Color& rgb, const FilePath& alpha, TextureDesc desc = TextureDesc::Unmipped);
 
-		//explicit Texture(const Emoji& emoji, TextureDesc desc = TextureDesc::Unmipped);
+		explicit Texture(const Emoji& emoji, TextureDesc desc = TextureDesc::Unmipped);
 
-		//explicit Texture(const Icon& icon, TextureDesc desc = TextureDesc::Unmipped);
+		explicit Texture(const Icon& icon, TextureDesc desc = TextureDesc::Unmipped);
 
 		/// <summary>
 		/// デストラクタ

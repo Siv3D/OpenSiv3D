@@ -17,7 +17,6 @@
 # include "../System/ISystem.hpp"
 # include "../Window/IWindow.hpp"
 //# include "../Audio/IAudio.hpp"
-//# include "../EngineDirectory/EngineDirectory.hpp"
 
 namespace s3d
 {

@@ -10,45 +10,45 @@
 //-----------------------------------------------
 
 # include <Siv3D/Point.hpp>
-//# include <Siv3D/Mouse.hpp>
-//# include <Siv3D/Cursor.hpp>
+# include <Siv3D/Mouse.hpp>
+# include <Siv3D/Cursor.hpp>
 
 namespace s3d
 {
-	//bool Point::leftClicked() const
-	//{
-	//	return MouseL.down() && mouseOver();
-	//}
+	bool Point::leftClicked() const
+	{
+		return MouseL.down() && mouseOver();
+	}
 
-	//bool Point::leftPressed() const
-	//{
-	//	return MouseL.pressed() && mouseOver();
-	//}
+	bool Point::leftPressed() const
+	{
+		return MouseL.pressed() && mouseOver();
+	}
 
-	//bool Point::leftReleased() const
-	//{
-	//	return MouseL.up() && mouseOver();
-	//}
+	bool Point::leftReleased() const
+	{
+		return MouseL.up() && mouseOver();
+	}
 
-	//bool Point::rightClicked() const
-	//{
-	//	return MouseR.down() && mouseOver();
-	//}
+	bool Point::rightClicked() const
+	{
+		return MouseR.down() && mouseOver();
+	}
 
-	//bool Point::rightPressed() const
-	//{
-	//	return MouseR.pressed() && mouseOver();
-	//}
+	bool Point::rightPressed() const
+	{
+		return MouseR.pressed() && mouseOver();
+	}
 
-	//bool Point::rightReleased() const
-	//{
-	//	return MouseR.up() && mouseOver();
-	//}
+	bool Point::rightReleased() const
+	{
+		return MouseR.up() && mouseOver();
+	}
 
-	//bool Point::mouseOver() const
-	//{
-	//	return Geometry2D::Intersect(*this, Cursor::PosF());
-	//}
+	bool Point::mouseOver() const
+	{
+		return Geometry2D::Intersect(*this, Cursor::PosF());
+	}
 
 	void Formatter(FormatData& formatData, const Point& value)
 	{

@@ -19,7 +19,8 @@
 # include "CWindow_Windows.hpp"
 # include "../Mouse/IMouse.hpp"
 # include "../Mouse/CMouse_Windows.hpp"
-//# include "../TextInput/ITextInput.hpp"
+# include "../TextInput/ITextInput.hpp"
+# include "../TextInput/CTextInput_Windows.hpp"
 
 namespace s3d
 {
@@ -27,6 +28,14 @@ namespace s3d
 	{
 		LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
+			if (auto textinput = dynamic_cast<CTextInput_Windows*>(Siv3DEngine::GetTextInput()))
+			{
+				if (textinput->process(message, wParam, &lParam))
+				{
+					return 0;
+				}
+			}
+				
 			switch (message)
 			{
 			case WM_CLOSE:
@@ -110,7 +119,7 @@ namespace s3d
 			}
 			case WM_CHAR:
 			{
-				//Siv3DEngine::GetTextInput()->pushChar(static_cast<uint32>(wParam));
+				Siv3DEngine::GetTextInput()->pushChar(static_cast<uint32>(wParam));
 
 				return 0;
 			}
@@ -121,7 +130,7 @@ namespace s3d
 					return true;
 				}
 
-				//Siv3DEngine::GetTextInput()->pushChar(static_cast<uint32>(wParam));
+				Siv3DEngine::GetTextInput()->pushChar(static_cast<uint32>(wParam));
 
 				return 0;
 			}

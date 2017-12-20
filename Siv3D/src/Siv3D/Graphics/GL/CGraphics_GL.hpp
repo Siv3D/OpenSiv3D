@@ -192,9 +192,9 @@ namespace s3d
 			return *m_unused;
 		}
 		
-		//void requestScreenCapture() override;
+		void requestScreenCapture() override;
 
-		//const Image& getScreenCapture() const override;
+		const Image& getScreenCapture() const override;
 	};
 }
 

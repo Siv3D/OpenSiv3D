@@ -23,14 +23,11 @@ namespace s3d
 		return detail::FormatHelper{ text };
 	}
 
-	inline namespace literals
+	namespace Literals
 	{
-		inline namespace formatting_literals
+		detail::FormatHelper operator ""_fmt(const char32* text, size_t)
 		{
-			detail::FormatHelper operator ""_fmt(const char32* text, size_t)
-			{
-				return detail::FormatHelper{ text };
-			}
+			return detail::FormatHelper{ text };
 		}
 	}
 }

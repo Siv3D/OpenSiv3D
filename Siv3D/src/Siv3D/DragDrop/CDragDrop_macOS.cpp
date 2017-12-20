@@ -42,7 +42,7 @@ extern "C"
 		}
 	}
 	
-	void s3d_DraggingExited()
+	void s3d_DraggingExited(void)
 	{
 		if (pDragDrop)
 		{

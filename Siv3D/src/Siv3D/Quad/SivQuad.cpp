@@ -11,13 +11,13 @@
 
 # include <Siv3D/Quad.hpp>
 # include <Siv3D/Line.hpp>
-//# include <Siv3D/FloatQuad.hpp>
-//# include <Siv3D/Mouse.hpp>
-//# include <Siv3D/Cursor.hpp>
-//# include <Siv3D/TextureRegion.hpp>
-//# include <Siv3D/TexturedQuad.hpp>
-//# include "../Siv3DEngine.hpp"
-//# include "../Renderer2D/IRenderer2D.hpp"
+# include <Siv3D/FloatQuad.hpp>
+# include <Siv3D/Mouse.hpp>
+# include <Siv3D/Cursor.hpp>
+# include <Siv3D/TextureRegion.hpp>
+# include <Siv3D/TexturedQuad.hpp>
+# include "../Siv3DEngine.hpp"
+# include "../Renderer2D/IRenderer2D.hpp"
 
 namespace s3d
 {
@@ -83,96 +83,96 @@ namespace s3d
 		return p0.distanceFrom(p1) + p1.distanceFrom(p2) + p2.distanceFrom(p3) + p3.distanceFrom(p0);
 	}
 
-	//bool Quad::leftClicked() const
-	//{
-	//	return MouseL.down() && mouseOver();
-	//}
+	bool Quad::leftClicked() const
+	{
+		return MouseL.down() && mouseOver();
+	}
 
-	//bool Quad::leftPressed() const
-	//{
-	//	return MouseL.pressed() && mouseOver();
-	//}
+	bool Quad::leftPressed() const
+	{
+		return MouseL.pressed() && mouseOver();
+	}
 
-	//bool Quad::leftReleased() const
-	//{
-	//	return MouseL.up() && mouseOver();
-	//}
+	bool Quad::leftReleased() const
+	{
+		return MouseL.up() && mouseOver();
+	}
 
-	//bool Quad::rightClicked() const
-	//{
-	//	return MouseR.down() && mouseOver();
-	//}
+	bool Quad::rightClicked() const
+	{
+		return MouseR.down() && mouseOver();
+	}
 
-	//bool Quad::rightPressed() const
-	//{
-	//	return MouseR.pressed() && mouseOver();
-	//}
+	bool Quad::rightPressed() const
+	{
+		return MouseR.pressed() && mouseOver();
+	}
 
-	//bool Quad::rightReleased() const
-	//{
-	//	return MouseR.up() && mouseOver();
-	//}
+	bool Quad::rightReleased() const
+	{
+		return MouseR.up() && mouseOver();
+	}
 
-	//bool Quad::mouseOver() const
-	//{
-	//	return Geometry2D::Intersect(Cursor::PosF(), *this);
-	//}
+	bool Quad::mouseOver() const
+	{
+		return Geometry2D::Intersect(Cursor::PosF(), *this);
+	}
 
-	//const Quad& Quad::draw(const ColorF& color) const
-	//{
-	//	Siv3DEngine::GetRenderer2D()->addQuad(FloatQuad(p0, p1, p2, p3), color.toFloat4());
+	const Quad& Quad::draw(const ColorF& color) const
+	{
+		Siv3DEngine::GetRenderer2D()->addQuad(FloatQuad(p0, p1, p2, p3), color.toFloat4());
 
-	//	return *this;
-	//}
+		return *this;
+	}
 
-	//const Quad& Quad::draw(const ColorF(&colors)[4]) const
-	//{
-	//	Siv3DEngine::GetRenderer2D()->addQuad(FloatQuad(p0, p1, p2, p3),
-	//		{ colors[0].toFloat4(), colors[1].toFloat4(), colors[2].toFloat4(), colors[3].toFloat4() });
+	const Quad& Quad::draw(const ColorF(&colors)[4]) const
+	{
+		Siv3DEngine::GetRenderer2D()->addQuad(FloatQuad(p0, p1, p2, p3),
+			{ colors[0].toFloat4(), colors[1].toFloat4(), colors[2].toFloat4(), colors[3].toFloat4() });
 
-	//	return *this;
-	//}
+		return *this;
+	}
 
-	//const Quad& Quad::drawFrame(double thickness, const ColorF& color) const
-	//{
-	//	Siv3DEngine::GetRenderer2D()->addLineString(LineStyle::SquareCap, &p0, 4, s3d::none,
-	//		static_cast<float>(thickness), false, color.toFloat4(), true);
+	const Quad& Quad::drawFrame(double thickness, const ColorF& color) const
+	{
+		Siv3DEngine::GetRenderer2D()->addLineString(LineStyle::SquareCap, &p0, 4, s3d::none,
+			static_cast<float>(thickness), false, color.toFloat4(), true);
 
-	//	return *this;
-	//}
+		return *this;
+	}
 
-	//const Quad& Quad::drawFrame(double innerThickness, double outerThickness, const ColorF& color) const
-	//{
-	//	const double offset = (outerThickness - innerThickness) * 0.5;
+	const Quad& Quad::drawFrame(double innerThickness, double outerThickness, const ColorF& color) const
+	{
+		const double offset = (outerThickness - innerThickness) * 0.5;
 
-	//	const Quad t = stretched(offset);
+		const Quad t = stretched(offset);
 
-	//	Siv3DEngine::GetRenderer2D()->addLineString(LineStyle::SquareCap, &t.p0, 4, none,
-	//		static_cast<float>(innerThickness + outerThickness),
-	//		outerThickness == 0.0, color.toFloat4(), true);
+		Siv3DEngine::GetRenderer2D()->addLineString(LineStyle::SquareCap, &t.p0, 4, none,
+			static_cast<float>(innerThickness + outerThickness),
+			outerThickness == 0.0, color.toFloat4(), true);
 
-	//	return *this;
-	//}
+		return *this;
+	}
 
-	//TexturedQuad Quad::operator ()(const Texture& texture) const
-	//{
-	//	const Vec2 center = (p0 + p1 + p2 + p3) * 0.25;
+	TexturedQuad Quad::operator ()(const Texture& texture) const
+	{
+		const Vec2 center = (p0 + p1 + p2 + p3) * 0.25;
 
-	//	return TexturedQuad(texture,
-	//		0.0f, 0.0f, 1.0f, 1.0f,
-	//		*this,
-	//		center);
-	//}
+		return TexturedQuad(texture,
+			0.0f, 0.0f, 1.0f, 1.0f,
+			*this,
+			center);
+	}
 
-	//TexturedQuad Quad::operator ()(const TextureRegion& textureRegion) const
-	//{
-	//	const Vec2 center = (p0 + p1 + p2 + p3) * 0.25;
+	TexturedQuad Quad::operator ()(const TextureRegion& textureRegion) const
+	{
+		const Vec2 center = (p0 + p1 + p2 + p3) * 0.25;
 
-	//	return TexturedQuad(textureRegion.texture,
-	//		textureRegion.uvRect,
-	//		*this,
-	//		center);
-	//}
+		return TexturedQuad(textureRegion.texture,
+			textureRegion.uvRect,
+			*this,
+			center);
+	}
 
 	void Formatter(FormatData& formatData, const Quad& value)
 	{

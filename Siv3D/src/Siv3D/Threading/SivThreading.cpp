@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-//# include <thread>
+# include <thread>
 # include <algorithm>
 # include <Siv3D/Threading.hpp>
 
@@ -19,9 +19,8 @@ namespace s3d
 	{
 		size_t GetConcurrency() noexcept
 		{
-			//static const size_t n = std::max<size_t>(1, std::thread::hardware_concurrency());
-			return 4;
-			//return n;
+			static const size_t n = std::max<size_t>(1, std::thread::hardware_concurrency());
+			return n;
 		}
 	}
 }

@@ -79,7 +79,7 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 
-		return m_textures.add(texture);
+		return m_textures.add(texture, U"(Back buffer)");
 	}
 
 	TextureID CTexture_D3D11::create(const Image& image, const TextureDesc desc)
@@ -96,7 +96,7 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 
-		return m_textures.add(texture);
+		return m_textures.add(texture, U"(size:{0}x{1})"_fmt(image.width(), image.height()));
 	}
 
 	TextureID CTexture_D3D11::create(const Image& image, const Array<Image>& mipmaps, TextureDesc desc)
@@ -113,7 +113,7 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 
-		return m_textures.add(texture);
+		return m_textures.add(texture, U"(size:{0}x{1})"_fmt(image.width(), image.height()));
 	}
 
 	TextureID CTexture_D3D11::createDynamic(const Size& size, const void* pData, const uint32 stride, const TextureFormat format, const TextureDesc desc)
@@ -125,7 +125,7 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 
-		return m_textures.add(texture);
+		return m_textures.add(texture, U"(Dynamic, size:{0}x{1})"_fmt(size.x, size.y));
 	}
 
 	TextureID CTexture_D3D11::createDynamic(const Size& size, const ColorF& color, const TextureFormat format, const TextureDesc desc)
@@ -144,7 +144,7 @@ namespace s3d
 			return TextureID::NullAsset();
 		}
 
-		return m_textures.add(texture);
+		return m_textures.add(texture, U"(Render target, size:{0}x{1})"_fmt(size.x, size.y));
 	}
 
 	void CTexture_D3D11::release(const TextureID handleID)

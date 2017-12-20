@@ -25,15 +25,15 @@
 # include "../Cursor/ICursor.hpp"
 # include "../Keyboard/IKeyboard.hpp"
 # include "../Mouse/IMouse.hpp"
-//# include "../TextInput/ITextInput.hpp"
+# include "../TextInput/ITextInput.hpp"
 # include "../Codec/ICodec.hpp"
 # include "../AudioFormat/IAudioFormat.hpp"
 //# include "../Audio/IAudio.hpp"
 # include "../Graphics/IGraphics.hpp"
-//# include "../Font/IFont.hpp"
-//# include "../Print/IPrint.hpp"
-//# include "../ScreenCapture/IScreenCapture.hpp"
-//# include "../Effect/IEffect.hpp"
+# include "../ScreenCapture/IScreenCapture.hpp"
+# include "../Font/IFont.hpp"
+# include "../Print/IPrint.hpp"
+# include "../Effect/IEffect.hpp"
 
 # include <Siv3D/Logger.hpp>
 
@@ -105,10 +105,10 @@ namespace s3d
 			return false;
 		}
 
-		//if (!Siv3DEngine::GetTextInput()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetTextInput()->init())
+		{
+			return false;
+		}
 
 		if (!Siv3DEngine::GetCodec()->init())
 		{
@@ -130,25 +130,25 @@ namespace s3d
 			return false;
 		}
 
-		//if (!Siv3DEngine::GetFont()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetScreenCapture()->init())
+		{
+			return false;
+		}
 
-		//if (!Siv3DEngine::GetPrint()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetFont()->init())
+		{
+			return false;
+		}
 
-		//if (!Siv3DEngine::GetScreenCapture()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetPrint()->init())
+		{
+			return false;
+		}
 
-		//if (!Siv3DEngine::GetEffect()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetEffect()->init())
+		{
+			return false;
+		}
 
 		m_setupState = SetupState::Initialized;
 
@@ -185,7 +185,7 @@ namespace s3d
 			return false;
 		}
 
-	//	Siv3DEngine::GetPrint()->draw();
+		Siv3DEngine::GetPrint()->draw();
 
 		if (!Siv3DEngine::GetGraphics()->flush(clearGraphics))
 		{
@@ -204,10 +204,10 @@ namespace s3d
 			return false;
 		}
 
-	//	if (!Siv3DEngine::GetScreenCapture()->update())
-	//	{
-	//		return false;
-	//	}
+		if (!Siv3DEngine::GetScreenCapture()->update())
+		{
+			return false;
+		}
 
 		++m_frameCounter;
 
@@ -225,7 +225,7 @@ namespace s3d
 
 
 
-	//	Siv3DEngine::GetTextInput()->update();
+		Siv3DEngine::GetTextInput()->update();
 
 		return m_updateSucceeded = true;
 	}

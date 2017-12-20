@@ -12,7 +12,7 @@
 # pragma once
 # include "Fwd.hpp"
 # include "Time.hpp"
-//# include "Logger.hpp"
+# include "Logger.hpp"
 
 namespace s3d
 {
@@ -44,7 +44,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		//void output() const { Output(cycles(), U"us"); }
+		void log() const { Logger(cycles(), U"us"); }
 
 		/// <summary>
 		/// 経過時間をデバッグ表示します。
