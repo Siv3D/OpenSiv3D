@@ -955,6 +955,7 @@
 		2C0FE8DD1FEB110D00A128B9 /* SivWritableMemoryMapping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FE74E1FEB110C00A128B9 /* SivWritableMemoryMapping.cpp */; };
 		2C0FE8DE1FEB110D00A128B9 /* SivXXHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FE7501FEB110C00A128B9 /* SivXXHash.cpp */; };
 		2C0FE8DF1FEB11AF00A128B9 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC7F9541F34A5840071A239 /* OpenAL.framework */; };
+		2C0FE8E11FED9B8000A128B9 /* Audio_AL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FE8E01FED9B7F00A128B9 /* Audio_AL.hpp */; };
 		2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
 		2C22E75E1FD73C8D002735AB /* lGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C22E7561FD73C37002735AB /* lGLEW.a */; };
@@ -1914,6 +1915,7 @@
 		2C0FE74D1FEB110C00A128B9 /* CWritableMemoryMapping.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CWritableMemoryMapping.hpp; sourceTree = "<group>"; };
 		2C0FE74E1FEB110C00A128B9 /* SivWritableMemoryMapping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivWritableMemoryMapping.cpp; sourceTree = "<group>"; };
 		2C0FE7501FEB110C00A128B9 /* SivXXHash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivXXHash.cpp; sourceTree = "<group>"; };
+		2C0FE8E01FED9B7F00A128B9 /* Audio_AL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Audio_AL.hpp; sourceTree = "<group>"; };
 		2C1778B21CE0D5DB00BB8AD0 /* Siv3D-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Siv3D-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C1778BF1CE0D5DB00BB8AD0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C22E2C11FD5BAF0002735AB /* Siv3D-Test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Siv3D-Test.entitlements"; sourceTree = SOURCE_ROOT; };
@@ -3093,6 +3095,7 @@
 		2C0FE5361FEB110C00A128B9 /* AL */ = {
 			isa = PBXGroup;
 			children = (
+				2C0FE8E01FED9B7F00A128B9 /* Audio_AL.hpp */,
 				2C0FE5371FEB110C00A128B9 /* CAudio_AL.cpp */,
 				2C0FE5381FEB110C00A128B9 /* CAudio_AL.hpp */,
 			);
@@ -4713,6 +4716,7 @@
 				2C0FE51D1FEB110300A128B9 /* queue.hpp in Headers */,
 				2C0FE5191FEB110300A128B9 /* list.hpp in Headers */,
 				2C0FE7A11FEB110C00A128B9 /* CCodec_MF.hpp in Headers */,
+				2C0FE8E11FED9B8000A128B9 /* Audio_AL.hpp in Headers */,
 				2C0FE5041FEB110300A128B9 /* binary.hpp in Headers */,
 				2C0FE46F1FEB110300A128B9 /* FloatRect.hpp in Headers */,
 				2C0FE86F1FEB110C00A128B9 /* D3D11Renderer2DCommandManager.hpp in Headers */,
