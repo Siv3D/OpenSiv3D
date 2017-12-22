@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -83,14 +83,14 @@ namespace s3d
 	{
 		if (!wave)
 		{
-			return Audio::NullHandleID;
+			return AudioID::NullAsset();
 		}
 		
 		const auto audio = std::make_shared<Audio_AL>(std::move(wave));
 		
 		if (!audio->isInitialized())
 		{
-			return Audio::NullHandleID;
+			return AudioID::NullAsset();
 		}
 		
 		return m_audios.add(audio);
@@ -135,6 +135,16 @@ namespace s3d
 		// [Siv3D ToDo]
 		m_audios[handleID]->changeState(AudioControlState::Stopped);
 	}
+	
+	void CAudio_AL::playOneShot(const AudioID handleID, const double volume, const double pitch)
+	{
+		// [Siv3D ToDo]
+	}
+	
+	void CAudio_AL::stopAllShots(const AudioID handleID)
+	{
+		// [Siv3D ToDo]
+	}
 
 	bool CAudio_AL::isPlaying(const AudioID handleID)
 	{
@@ -149,19 +159,19 @@ namespace s3d
 	uint64 CAudio_AL::posSample(const AudioID handleID)
 	{
 		// [Siv3D ToDo]
-		return 0;
+		return m_audios[handleID]->getPosSample();
 	}
 
 	uint64 CAudio_AL::streamPosSample(const AudioID handleID)
 	{
 		// [Siv3D ToDo]
-		return 0;
+		return m_audios[handleID]->getPosSample();
 	}
 
 	uint64 CAudio_AL::samplesPlayed(const AudioID handleID)
 	{
 		// [Siv3D ToDo]
-		return m_audios[handleID]->getSamplesPlayed();
+		return 0;
 	}
 
 	const Wave& CAudio_AL::getWave(AudioID handleID)

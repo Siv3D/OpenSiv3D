@@ -1,10 +1,10 @@
-﻿# include <Siv3D.hpp>
+# include <Siv3D.hpp>
 
 void Main()
 {
 	const Audio audio(U"example/test.mp3", Arg::loop = true);
 
-	const Audio sound(U"example/sound.mp3");
+	const Audio sound(U"example/shot.mp3");
 
 	audio.play();
 

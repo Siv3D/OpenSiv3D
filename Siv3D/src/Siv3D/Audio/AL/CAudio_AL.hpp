@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -54,7 +54,7 @@ namespace s3d
 		
 		ALuint m_source = 0;
 		
-		std::atomic<AudioControlState> m_state = { AudioControlState::Paused };
+		std::atomic<AudioControlState> m_state = AudioControlState::Paused;
 		
 		bool m_isActive = false;
 		
@@ -62,9 +62,9 @@ namespace s3d
 		
 		std::thread m_thread;
 		
-		std::atomic<bool> m_abort = { false };
+		std::atomic<bool> m_abort = false;
 		
-		std::atomic<int64> m_samplesPlayed = { 0 };
+		std::atomic<int64> m_posSample = 0;
 		
 		void onUpdate()
 		{
@@ -79,7 +79,7 @@ namespace s3d
 				
 				ALint sampleOffset = 0;
 				::alGetSourcei(m_source, AL_SAMPLE_OFFSET, &sampleOffset);
-				m_samplesPlayed = sampleOffset;
+				m_posSample = sampleOffset;
 				
 				ALint currentState = 0;
 				alGetSourcei(m_source, AL_SOURCE_STATE, &currentState);
@@ -142,7 +142,7 @@ namespace s3d
 		Audio_AL() = default;
 		
 		Audio_AL(Wave&& wave)
-		: m_wave(std::move(wave))
+			: m_wave(std::move(wave))
 		{
 			::alListener3f(AL_POSITION, 0, 0, 1.0f);
 			::alListener3f(AL_VELOCITY, 0, 0, 0);
@@ -161,7 +161,7 @@ namespace s3d
 			Array<WaveSampleS16> buffer;
 			buffer.reserve(m_wave.size());
 			
-			for(const auto& sample : m_wave)
+			for (const auto& sample : m_wave)
 			{
 				buffer.push_back(sample.asS16());
 			}
@@ -230,9 +230,9 @@ namespace s3d
 			return m_isPaused;
 		}
 		
-		int64 getSamplesPlayed() const
+		int64 getPosSample() const
 		{
-			return m_samplesPlayed;
+			return m_posSample;
 		}
 		
 		uint32 samplingRate() const
@@ -293,6 +293,10 @@ namespace s3d
 
 		void stop(AudioID handleID, const SecondsF& fadeoutDuration) override;
 
+		void playOneShot(AudioID handleID, double volume, double pitch) override;
+		
+		void stopAllShots(AudioID handleID) override;
+		
 		bool isPlaying(AudioID handleID) override;
 
 		bool isPaused(AudioID handleID) override;
