@@ -74,6 +74,10 @@ namespace s3d
 
 		void stop(AudioID handleID, const SecondsF& fadeoutDuration) override;
 
+		void playOneShot(AudioID handleID, double volume, double pitch) override;
+
+		void stopAllShots(AudioID handleID) override;
+
 		bool isPlaying(AudioID handleID) override;
 
 		bool isPaused(AudioID handleID) override;

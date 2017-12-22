@@ -105,6 +105,21 @@ namespace s3d
 		return updateFade();
 	}
 
+	void Audio_X27::playOneShot(const double volume, const double pitch)
+	{
+		if (m_voiceShots.size() + 1 >= MaxVoiceShots)
+		{
+			m_voiceShots.pop_front();
+		}
+
+		m_voiceShots.push_back(std::make_shared<SimpleVoice_X27>(m_device->xAudio2, m_wave, volume, pitch));
+	}
+
+	void Audio_X27::stopAllShots()
+	{
+		m_voiceShots.clear();
+	}
+
 	bool Audio_X27::updateFade()
 	{
 		switch (m_audioControl.m_state)

@@ -41,6 +41,10 @@ namespace s3d
 
 		AudioControlManager m_audioControl;
 
+		static constexpr size_t MaxVoiceShots = 32;
+
+		Array<std::shared_ptr<SimpleVoice_X28>> m_voiceShots;
+
 		bool m_is3D = false;
 
 		bool m_initialized = false;
@@ -66,6 +70,10 @@ namespace s3d
 		void setPosSample(int64 posSample);
 
 		bool changeState(const AudioControlState state, const double durationSec);
+
+		void playOneShot(double volume, double pitch);
+
+		void stopAllShots();
 
 		bool updateFade();
 	};

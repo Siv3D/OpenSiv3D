@@ -112,6 +112,10 @@ namespace s3d
 
 		void stop(const SecondsF& fadeoutDuration = SecondsF(0.0)) const;
 
+		void playOneShot(double volume = 1.0, double pitch = 1.0) const;
+
+		void stopAllShots() const;
+
 		/// <summary>
 		/// サウンドが再生中であるかを返します。
 		/// </summary>

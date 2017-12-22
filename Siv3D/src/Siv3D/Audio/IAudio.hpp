@@ -43,6 +43,10 @@ namespace s3d
 
 		virtual void stop(AudioID handleID, const SecondsF& fadeoutDuration) = 0;
 
+		virtual void playOneShot(AudioID handleID, double volume, double pitch) = 0;
+
+		virtual void stopAllShots(AudioID handleID) = 0;
+
 		virtual bool isPlaying(AudioID handleID) = 0;
 
 		virtual bool isPaused(AudioID handleID) = 0;

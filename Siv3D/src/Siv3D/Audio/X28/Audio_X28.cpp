@@ -33,11 +33,15 @@ namespace s3d
 			return;
 		}
 
+		m_voiceShots.reserve(MaxVoiceShots);
+
 		m_initialized = true;
 	}
 
 	Audio_X28::~Audio_X28()
 	{
+		m_voiceShots.clear();
+
 		m_stream.destroy();
 	}
 
@@ -101,6 +105,21 @@ namespace s3d
 		m_audioControl.m_stopwatch.reset();
 
 		return updateFade();
+	}
+
+	void Audio_X28::playOneShot(const double volume, const double pitch)
+	{
+		if (m_voiceShots.size() + 1 >= MaxVoiceShots)
+		{
+			m_voiceShots.pop_front();
+		}
+
+		m_voiceShots.push_back(std::make_shared<SimpleVoice_X28>(m_device->xAudio2, m_wave, volume, pitch));
+	}
+
+	void Audio_X28::stopAllShots()
+	{
+		m_voiceShots.clear();
 	}
 
 	bool Audio_X28::updateFade()

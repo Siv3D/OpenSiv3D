@@ -190,6 +190,20 @@ namespace s3d
 			fadeSec);
 	}
 
+	void CAudio_X28::playOneShot(const AudioID handleID, const double volume, const double pitch)
+	{
+		std::lock_guard<std::mutex> lock(m_mutex);
+
+		m_audios[handleID]->playOneShot(volume, pitch);
+	}
+
+	void CAudio_X28::stopAllShots(const AudioID handleID)
+	{
+		std::lock_guard<std::mutex> lock(m_mutex);
+
+		m_audios[handleID]->stopAllShots();
+	}
+
 	bool CAudio_X28::isPlaying(const AudioID handleID)
 	{
 		std::lock_guard<std::mutex> lock(m_mutex);

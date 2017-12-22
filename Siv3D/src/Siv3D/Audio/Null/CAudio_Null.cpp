@@ -77,6 +77,16 @@ namespace s3d
 		// [Siv3D ToDo]
 	}
 
+	void CAudio_Null::playOneShot(AudioID, double, double)
+	{
+		// [Siv3D ToDo]
+	}
+
+	void CAudio_Null::stopAllShots(AudioID)
+	{
+		// [Siv3D ToDo]
+	}
+
 	bool CAudio_Null::isPlaying(const AudioID)
 	{
 		// [Siv3D ToDo]

@@ -21,16 +21,92 @@
 # include <Windows.h>
 # include <XAudio2.h>
 # include <Siv3D/Optional.hpp>
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
+	class SimpleVoice_X28
+	{
+	private:
+
+		IXAudio2SourceVoice* m_sourceVoice = nullptr;
+
+	public:
+
+		SimpleVoice_X28() = default;
+
+		SimpleVoice_X28(IXAudio2* const xAudio2, const Wave& wave, const double volume, const double pitch)
+		{
+			const WAVEFORMATEX waveFormat =
+			{
+				static_cast<WORD>(WAVE_FORMAT_IEEE_FLOAT),
+				2,
+				wave.samplingRate(),
+				wave.samplingRate() * sizeof(WaveSample),
+				static_cast<WORD>(sizeof(WaveSample)),
+				static_cast<WORD>(32),
+				static_cast<WORD>(0)
+			};
+
+			if (FAILED(xAudio2->CreateSourceVoice(
+				&m_sourceVoice,
+				&waveFormat,
+				0,
+				std::max<float>(1.0f, static_cast<float>(pitch)),
+				nullptr,
+				nullptr
+			)))
+			{
+				return;
+			}
+
+			const XAUDIO2_BUFFER buffer
+			{
+				XAUDIO2_END_OF_STREAM,
+				static_cast<UINT32>(wave.size_bytes()),
+				static_cast<const uint8*>(static_cast<const void*>(wave.data())),
+				0,
+				0,
+				0,
+				0,
+				XAUDIO2_NO_LOOP_REGION,
+				nullptr
+			};
+
+			m_sourceVoice->SubmitSourceBuffer(&buffer);
+
+			if (volume != 1.0)
+			{
+				m_sourceVoice->SetVolume(static_cast<float>(volume));
+			}
+
+			if (pitch != 1.0)
+			{
+				m_sourceVoice->SetFrequencyRatio(static_cast<float>(pitch));
+			}	
+
+			m_sourceVoice->Start();
+		}
+
+		~SimpleVoice_X28()
+		{
+			m_sourceVoice->Stop();
+
+			m_sourceVoice->FlushSourceBuffers();
+	
+			m_sourceVoice->DestroyVoice();
+
+			m_sourceVoice = nullptr;
+		}
+	};
+
 	class VoiceStream_X28 : public IXAudio2VoiceCallback
 	{
 	private:
 
 		IXAudio2* m_xAudio2 = nullptr;
 
-		const Wave* m_pWave;
+		const Wave* m_pWave = nullptr;
 
 		Wave m_buffer;
 

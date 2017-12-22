@@ -234,6 +234,16 @@ namespace s3d
 		Siv3DEngine::GetAudio()->stop(m_handle->id(), fadeoutDuration);
 	}
 
+	void Audio::playOneShot(const double volume, const double pitch) const
+	{
+		Siv3DEngine::GetAudio()->playOneShot(m_handle->id(), volume, pitch);
+	}
+
+	void Audio::stopAllShots() const
+	{
+		Siv3DEngine::GetAudio()->stopAllShots(m_handle->id());
+	}
+
 	bool Audio::isPlaying() const
 	{
 		return Siv3DEngine::GetAudio()->isPlaying(m_handle->id());
