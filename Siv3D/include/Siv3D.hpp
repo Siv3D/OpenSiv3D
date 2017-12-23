@@ -941,5 +941,6 @@
 
 	using namespace s3d;
 	using namespace s3d::Literals;
+	using namespace std::literals;
 
 # endif

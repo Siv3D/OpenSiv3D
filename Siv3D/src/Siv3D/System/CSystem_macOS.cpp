@@ -175,13 +175,6 @@ namespace s3d
 
 		m_updateSucceeded = false;
 
-		if (const uint32 event = m_exitEventManager.checkExitEvent())
-		{
-			m_exitEventManager.logExitEvent(event);
-
-			return false;
-		}
-
 		Siv3DEngine::GetPrint()->draw();
 
 		if (!Siv3DEngine::GetGraphics()->flush(clearGraphics))
@@ -193,12 +186,19 @@ namespace s3d
 
 		Siv3DEngine::GetGraphics()->present();
 
-		if (!Siv3DEngine::GetProfiler()->beginFrame())
+		if (!Siv3DEngine::GetScreenCapture()->update())
 		{
 			return false;
 		}
 
-		if (!Siv3DEngine::GetScreenCapture()->update())
+		if (const uint32 event = m_exitEventManager.checkExitEvent())
+		{
+			m_exitEventManager.logExitEvent(event);
+
+			return false;
+		}
+
+		if (!Siv3DEngine::GetProfiler()->beginFrame())
 		{
 			return false;
 		}
