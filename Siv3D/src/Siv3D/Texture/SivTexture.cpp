@@ -260,18 +260,18 @@ namespace s3d
 		return operator ()(rect.x, rect.y, rect.w, rect.h);
 	}
 
-	TextureRegion Texture::mirror() const
+	TextureRegion Texture::mirrored() const
 	{
 		return TextureRegion(*this,
 			{ 1.0f, 0.0f, 0.0f, 1.0f },
 			size());
 	}
 
-	TextureRegion Texture::mirror(const bool doMirror) const
+	TextureRegion Texture::mirrored(const bool doMirror) const
 	{
 		if (doMirror)
 		{
-			return mirror();
+			return mirrored();
 		}
 		else
 		{
@@ -279,18 +279,18 @@ namespace s3d
 		}
 	}
 
-	TextureRegion Texture::flip() const
+	TextureRegion Texture::flipped() const
 	{
 		return TextureRegion(*this,
 			{ 0.0f, 1.0f, 1.0f, 0.0f },
 			size());
 	}
 
-	TextureRegion Texture::flip(const bool doFlip) const
+	TextureRegion Texture::flipped(const bool doFlip) const
 	{
 		if (doFlip)
 		{
-			return flip();
+			return flipped();
 		}
 		else
 		{
@@ -298,12 +298,12 @@ namespace s3d
 		}
 	}
 
-	TextureRegion Texture::scale(const double s) const
+	TextureRegion Texture::scaled(const double s) const
 	{
-		return scale({ s, s });
+		return scaled({ s, s });
 	}
 
-	TextureRegion Texture::scale(const double sx, const double sy) const
+	TextureRegion Texture::scaled(const double sx, const double sy) const
 	{
 		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());
 
@@ -312,31 +312,31 @@ namespace s3d
 			size.x * sx, size.y * sy);
 	}
 
-	TextureRegion Texture::scale(const Vec2& s) const
+	TextureRegion Texture::scaled(const Vec2& s) const
 	{
-		return scale(s.x, s.y);
+		return scaled(s.x, s.y);
 	}
 
-	TextureRegion Texture::resize(const double size) const
+	TextureRegion Texture::resized(const double size) const
 	{
 		const Size texSize = Siv3DEngine::GetTexture()->getSize(m_handle->id());
 
-		return scale(static_cast<double>(size) / std::max(texSize.x, texSize.y));
+		return scaled(static_cast<double>(size) / std::max(texSize.x, texSize.y));
 	}
 
-	TextureRegion Texture::resize(const double width, const double height) const
+	TextureRegion Texture::resized(const double width, const double height) const
 	{
 		return TextureRegion(*this,
 			0.0f, 0.0f, 1.0f, 1.0f,
 			width, height);
 	}
 
-	TextureRegion Texture::resize(const Vec2& size) const
+	TextureRegion Texture::resized(const Vec2& size) const
 	{
-		return resize(size.x, size.y);
+		return resized(size.x, size.y);
 	}
 
-	TextureRegion Texture::repeat(const double xRepeat, const double yRepeat) const
+	TextureRegion Texture::repeated(const double xRepeat, const double yRepeat) const
 	{
 		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());
 
@@ -345,12 +345,12 @@ namespace s3d
 			size.x * xRepeat, size.y * yRepeat);
 	}
 
-	TextureRegion Texture::repeat(const Vec2& _repeat) const
+	TextureRegion Texture::repeated(const Vec2& _repeat) const
 	{
-		return repeat(_repeat.x, _repeat.y);
+		return repeated(_repeat.x, _repeat.y);
 	}
 
-	TextureRegion Texture::map(const double width, const double height) const
+	TextureRegion Texture::mapped(const double width, const double height) const
 	{
 		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());
 
@@ -359,12 +359,12 @@ namespace s3d
 			width, height);
 	}
 
-	TextureRegion Texture::map(const Vec2& size) const
+	TextureRegion Texture::mapped(const Vec2& size) const
 	{
-		return map(size.x, size.y);
+		return mapped(size.x, size.y);
 	}
 
-	TexturedQuad Texture::rotate(const double angle) const
+	TexturedQuad Texture::rotated(const double angle) const
 	{
 		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());
 
@@ -374,7 +374,7 @@ namespace s3d
 			Float2(size.x * 0.5, size.y * 0.5));
 	}
 
-	TexturedQuad Texture::rotateAt(const double x, const double y, const double angle) const
+	TexturedQuad Texture::rotatedAt(const double x, const double y, const double angle) const
 	{
 		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());
 
@@ -384,8 +384,8 @@ namespace s3d
 			Float2(x, y));
 	}
 
-	TexturedQuad Texture::rotateAt(const Vec2& pos, const double angle) const
+	TexturedQuad Texture::rotatedAt(const Vec2& pos, const double angle) const
 	{
-		return rotateAt(pos.x, pos.y, angle);
+		return rotatedAt(pos.x, pos.y, angle);
 	}
 }

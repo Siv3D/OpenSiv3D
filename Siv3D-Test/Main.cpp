@@ -1,24 +1,17 @@
-# include <Siv3D.hpp>
+﻿# include <Siv3D.hpp>
 
 void Main()
 {
-	const Audio audio(U"example/test.mp3", Arg::loop = true);
+	Print << 90_deg;
 
-	const Audio sound(U"example/shot.mp3");
+	Print << Sin(30_deg);
 
-	audio.play();
+	const Texture texture(Emoji(U"🐕"));
 
 	while (System::Update())
 	{
-		ClearPrint();
+		Rect(Arg::center = Window::Center(), 100).rotated(45_deg).draw();
 
-		Print << audio.streamPosSample();
-
-		Print << audio.posSample();
-
-		Print << audio.samplesPlayed();
-
-		if (KeySpace.down())
-			sound.playOneShot(0.5, Random(0.8,1.2));
+		texture.rotated(-0.1_deg * Time::GetMillisec()).drawAt(150, 350);
 	}
 }
