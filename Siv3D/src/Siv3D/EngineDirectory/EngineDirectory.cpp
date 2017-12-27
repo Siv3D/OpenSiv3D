@@ -19,7 +19,7 @@ namespace s3d
 	{
 		FilePath CurrectVersionCommon()
 		{
-			return FileSystem::SpecialFolderPath(SpecialFolder::LocalAppData) + U"Siv3D/" Siv3D_Version U"/";
+			return FileSystem::SpecialFolderPath(SpecialFolder::LocalAppData) + U"Siv3D/" SIV3D_VERSION U"/";
 		}
 
 		FilePath LicensePath()
