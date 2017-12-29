@@ -1356,6 +1356,26 @@ namespace s3d
 			return{ x + w, y + h };
 		}
 
+		constexpr Vec2 topCenter() const noexcept
+		{
+			return{ x + w * 0.5, y };
+		}
+
+		constexpr Vec2 bottomCenter() const noexcept
+		{
+			return{ x + w * 0.5, y + h };
+		}
+
+		constexpr Vec2 leftCenter() const noexcept
+		{
+			return{ x, y + h * 0.5 };
+		}
+
+		constexpr Vec2 rightCenter() const noexcept
+		{
+			return{ x + w, y + h * 0.5 };
+		}
+
 		constexpr Vec2 center() const noexcept
 		{
 			return{ x + w * 0.5, y + h * 0.5 };
