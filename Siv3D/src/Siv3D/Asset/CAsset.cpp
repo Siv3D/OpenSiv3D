@@ -46,7 +46,6 @@ namespace s3d
 
 	bool CAsset::init()
 	{
-	
 		LOG_INFO(U"ℹ️ Asset initialized");
 
 		return true;
@@ -63,14 +62,14 @@ namespace s3d
 
 		if (assetList.find(name) != assetList.end())
 		{
-			LOG_FAIL(U"{}Asset: Asset Name \"{}\" is already reserved. Use another name"_fmt(detail::GetAssetTypeName(assetType), name));
+			LOG_FAIL(U"❌ {}Asset: Asset Name \"{}\" is already reserved. Use another name"_fmt(detail::GetAssetTypeName(assetType), name));
 
 			return false;
 		}
 
 		auto result = assetList.emplace(name, std::move(asset));
 
-		LOG_DEBUG(U"{}Asset: Asset \"{}\" was registered"_fmt(detail::GetAssetTypeName(assetType), name));
+		LOG_DEBUG(U"{}Asset: Asset \"{}\" registered"_fmt(detail::GetAssetTypeName(assetType), name));
 
 		if (result.first.value()->getParameter().loadAsync)
 		{
@@ -94,7 +93,7 @@ namespace s3d
 
 		if (it == assetList.end())
 		{
-			//LOG_FAIL_ONCE(L"登録されていない ", groupName, L" アセット \"", name, L"\" を取得しようとしました。");
+			LOG_FAIL_ONCE(U"❌ CAsset::getAsset(): Unregistered {}Asset \"{}\""_fmt(detail::GetAssetTypeName(assetType), name));
 
 			return nullptr;
 		}
@@ -132,7 +131,7 @@ namespace s3d
 
 		if (it == assetList.end())
 		{
-			//LOG_FAIL_ONCE(L"登録されていない ", groupName, L" アセット \"", name, L"\" を取得しようとしました。");
+			LOG_FAIL_ONCE(U"❌ CAsset::preload(): Unregistered {}Asset: \"{}\""_fmt(detail::GetAssetTypeName(assetType), name));
 
 			return false;
 		}
@@ -144,6 +143,8 @@ namespace s3d
 			pAsset->wait();
 
 			pAsset->preload();
+
+			LOG_DEBUG(U"{}Asset: \"{}\" preloaded"_fmt(detail::GetAssetTypeName(assetType), name));
 		}
 
 		return pAsset->loadScceeded();
@@ -157,7 +158,7 @@ namespace s3d
 
 		if (it == assetList.end())
 		{
-			//LOG_FAIL_ONCE(L"登録されていない ", groupName, L" アセット \"", name, L"\" を取得しようとしました。");
+			LOG_FAIL_ONCE(U"❌ CAsset::release(): Unregistered {}Asset: \"{}\""_fmt(detail::GetAssetTypeName(assetType), name));
 
 			return;
 		}
@@ -167,6 +168,8 @@ namespace s3d
 		pAsset->wait();
 
 		pAsset->release();
+
+		LOG_DEBUG(U"{}Asset: \"{}\" released"_fmt(detail::GetAssetTypeName(assetType), name));
 	}
 
 	void CAsset::releaseAll(const AssetType assetType)
@@ -189,7 +192,7 @@ namespace s3d
 
 		if (it == assetList.end())
 		{
-			//LOG_FAIL_ONCE(L"登録されていない ", groupName, L" アセット \"", name, L"\" を取得しようとしました。");
+			LOG_FAIL_ONCE(U"❌ CAsset::unregister(): Unregistered {}Asset: \"{}\""_fmt(detail::GetAssetTypeName(assetType), name));
 
 			return;
 		}
@@ -201,6 +204,8 @@ namespace s3d
 		pAsset->release();
 
 		assetList.erase(it);
+
+		LOG_DEBUG(U"{}Asset: \"{}\" unregistered"_fmt(detail::GetAssetTypeName(assetType), name));
 	}
 
 	void CAsset::unregisterAll(const AssetType assetType)
@@ -225,7 +230,7 @@ namespace s3d
 
 		if (it == assetList.end())
 		{
-			//LOG_FAIL_ONCE(L"登録されていない ", groupName, L" アセット \"", name, L"\" を取得しようとしました。");
+			LOG_FAIL_ONCE(U"❌ CAsset::isReady(): Unregistered {}Asset: \"{}\""_fmt(detail::GetAssetTypeName(assetType), name));
 
 			return false;
 		}

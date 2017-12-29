@@ -218,37 +218,28 @@ namespace s3d
 			return drawAt(pos.x, pos.y, diffuse);
 		}
 
-		TextureRegion mirror() const;
+		TextureRegion mirrored() const;
 
-		TextureRegion mirror(bool doMirror) const;
+		TextureRegion mirrored(bool doMirror) const;
 
-		TextureRegion flip() const;
+		TextureRegion flipped() const;
 
-		TextureRegion flip(bool doFlip) const;
+		TextureRegion flipped(bool doFlip) const;
 
-		TextureRegion scale(double s) const
-		{
-			return scale(s, s);
-		}
+		TextureRegion scaled(double s) const;
 
-		TextureRegion scale(double sx, double sy) const;
+		TextureRegion scaled(double sx, double sy) const;
 
-		TextureRegion scale(const Vec2& s) const
-		{
-			return scale(s.x, s.y);
-		}
+		TextureRegion scaled(const Vec2& s) const;
 
-		TextureRegion resize(double width, double height) const;
+		TextureRegion resized(double width, double height) const;
 
-		TextureRegion resize(const Vec2& _size) const
-		{
-			return resize(_size.x, _size.y);
-		}
+		TextureRegion resized(const Vec2& _size) const;
 
-		TexturedQuad rotate(double angle) const;
+		TexturedQuad rotated(double angle) const;
 
-		TexturedQuad rotateAt(double x, double y, double angle) const;
+		TexturedQuad rotatedAt(double x, double y, double angle) const;
 
-		TexturedQuad rotateAt(const Vec2& pos, double angle) const;
+		TexturedQuad rotatedAt(const Vec2& pos, double angle) const;
 	};
 }

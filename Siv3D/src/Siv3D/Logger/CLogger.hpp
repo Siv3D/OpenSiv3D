@@ -13,6 +13,7 @@
 # include <mutex>
 # include <Siv3D/TextWriter.hpp>
 # include <Siv3D/Logger.hpp>
+# include <Siv3D/HashSet.hpp>
 # include "ILogger.hpp"
 
 namespace s3d
@@ -22,6 +23,8 @@ namespace s3d
 	private:
 
 		TextWriter m_writer;
+
+		HashSet<uint32> m_onceFlags;
 
 		std::mutex m_mutex;
 
@@ -48,6 +51,8 @@ namespace s3d
 		void setOutputLevel(OutputLevel level) override;
 
 		void write(LogDescription desc, const String& text) override;
+
+		void writeOnce(LogDescription desc, uint32 id, const String& text) override;
 
 		void writeRawHTML(const String& htmlText) override;
 

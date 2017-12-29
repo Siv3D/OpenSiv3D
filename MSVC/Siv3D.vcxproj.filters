@@ -584,6 +584,24 @@
     <Filter Include="src\Siv3D\Asset">
       <UniqueIdentifier>{9febfe59-29aa-4029-af3a-57570671d736}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Audio">
+      <UniqueIdentifier>{d76795e0-6f09-41d0-8fad-a942c2419755}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Audio\AL">
+      <UniqueIdentifier>{791c2fe2-f933-436d-8b73-9a7860ad2541}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Audio\NULL">
+      <UniqueIdentifier>{01047b48-2e26-4dc4-8a30-2f1eec5918e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Audio\X27">
+      <UniqueIdentifier>{f41979ee-8b35-4b3b-bcba-6062eae5161b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Audio\X28">
+      <UniqueIdentifier>{d9fb6d09-e648-41c9-9cdf-15886dcf524f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\XAudio2_7">
+      <UniqueIdentifier>{f0d67fa2-d82f-4940-b1dc-fb3440d5720f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -1464,6 +1482,30 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Asset\SivAsset.cpp">
       <Filter>src\Siv3D\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Audio\AudioFactory.cpp">
+      <Filter>src\Siv3D\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Audio\SivAudio.cpp">
+      <Filter>src\Siv3D\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Audio\X27\Audio_X27.cpp">
+      <Filter>src\Siv3D\Audio\X27</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Audio\X27\CAudio_X27.cpp">
+      <Filter>src\Siv3D\Audio\X27</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Audio\X28\Audio_X28.cpp">
+      <Filter>src\Siv3D\Audio\X28</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Audio\X28\CAudio_X28.cpp">
+      <Filter>src\Siv3D\Audio\X28</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Audio\AL\CAudio_AL.cpp">
+      <Filter>src\Siv3D\Audio\AL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Audio\Null\CAudio_Null.cpp">
+      <Filter>src\Siv3D\Audio\NULL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -3221,6 +3263,63 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Audio.hpp">
       <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\IAudio.hpp">
+      <Filter>src\Siv3D\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\AudioControlManager.hpp">
+      <Filter>src\Siv3D\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\X27\AudioDevice_X27 .hpp">
+      <Filter>src\Siv3D\Audio\X27</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\X27\Audio_X27.hpp">
+      <Filter>src\Siv3D\Audio\X27</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\X27\CAudio_X27.hpp">
+      <Filter>src\Siv3D\Audio\X27</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\X27\VoiceStream_X27.hpp">
+      <Filter>src\Siv3D\Audio\X27</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\X28\AudioDevice_X28 .hpp">
+      <Filter>src\Siv3D\Audio\X28</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\X28\Audio_X28.hpp">
+      <Filter>src\Siv3D\Audio\X28</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\X28\CAudio_X28.hpp">
+      <Filter>src\Siv3D\Audio\X28</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\X28\VoiceStream_X28.hpp">
+      <Filter>src\Siv3D\Audio\X28</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\AL\CAudio_AL.hpp">
+      <Filter>src\Siv3D\Audio\AL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\Null\CAudio_Null.hpp">
+      <Filter>src\Siv3D\Audio\NULL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\XAudio2_7\audiodefs.h">
+      <Filter>src\ThirdParty\XAudio2_7</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\XAudio2_7\comdecl.h">
+      <Filter>src\ThirdParty\XAudio2_7</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\XAudio2_7\X3DAudio.h">
+      <Filter>src\ThirdParty\XAudio2_7</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\XAudio2_7\XAudio2.h">
+      <Filter>src\ThirdParty\XAudio2_7</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\XAudio2_7\XAudio2fx.h">
+      <Filter>src\ThirdParty\XAudio2_7</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\XAudio2_7\xma2defs.h">
+      <Filter>src\ThirdParty\XAudio2_7</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Audio\AL\Audio_AL.hpp">
+      <Filter>src\Siv3D\Audio\AL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

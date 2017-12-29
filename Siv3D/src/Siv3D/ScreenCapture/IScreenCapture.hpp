@@ -26,6 +26,8 @@ namespace s3d
 
 		virtual bool update() = 0;
 
+		virtual const FilePath& getDefaultScreenshotDirectory() const = 0;
+
 		virtual void requestScreenCapture(const FilePath& path) = 0;
 	};
 }

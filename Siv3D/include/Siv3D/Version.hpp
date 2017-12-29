@@ -21,9 +21,12 @@
 	/// <summary>
 	/// Version text
 	/// </summary>
-	# define Siv3D_Version	U"0.2.0"
+	# define SIV3D_VERSION	U"0.2.0"
 
+namespace s3d
+{
 	/// <summary>
-	/// Version ID value
+	/// Version value
 	/// </summary>
-	constexpr s3d::uint32 Siv3D_VersionID = 200'002'000;
+	constexpr uint32 Siv3DVersion = 200'002'000;
+}

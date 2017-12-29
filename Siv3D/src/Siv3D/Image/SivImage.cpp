@@ -26,7 +26,7 @@ namespace s3d
 	{
 		static constexpr bool IsValidSize(const size_t width, const size_t height)
 		{
-			return width <= MaxImageSize && height <= MaxImageSize;
+			return width <= Image::MaxWidth && height <= Image::MaxHeight;
 		}
 	}
 
