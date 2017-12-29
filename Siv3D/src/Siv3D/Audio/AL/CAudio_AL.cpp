@@ -65,6 +65,11 @@ namespace s3d
 			return false;
 		}
 		
+		::alListener3f(AL_POSITION, 0, 0, 1.0f);
+		::alListener3f(AL_VELOCITY, 0, 0, 0);
+		const ALfloat listenerOri[] = { 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f };
+		::alListenerfv(AL_ORIENTATION, listenerOri);
+		
 		const auto nullAudio = std::make_shared<Audio_AL>(
 			Wave(SecondsF(0.5), Arg::generator = [](double t) {
 				return 0.5 * std::sin(t * Math::TwoPi) * std::sin(t * Math::TwoPi * 220.0 * (t * 4.0 + 1.0)); }));
@@ -103,37 +108,35 @@ namespace s3d
 
 	uint32 CAudio_AL::samplingRate(const AudioID handleID)
 	{
-		return m_audios[handleID]->samplingRate();
+		return m_audios[handleID]->getWave().samplingRate();
 	}
 
 	size_t CAudio_AL::samples(const AudioID handleID)
 	{
-		return m_audios[handleID]->samples();
+		return m_audios[handleID]->getWave().size();
 	}
 
 	void CAudio_AL::setLoop(const AudioID handleID, const bool loop, const int64 loopBeginSample, const int64 loopEndSample)
 	{
-		return m_audios[handleID]->setLoop(loop);
+		return m_audios[handleID]->getStream().setLoop(loop, loopBeginSample, loopEndSample);
 	}
 
 	bool CAudio_AL::play(const AudioID handleID, const SecondsF& fadeinDuration)
 	{
 		// [Siv3D ToDo]
-		m_audios[handleID]->changeState(AudioControlState::Playing);
-		
-		return true;
+		return m_audios[handleID]->getStream().play();
 	}
 	
 	void CAudio_AL::pause(const AudioID handleID, const SecondsF& fadeoutDuration)
 	{
 		// [Siv3D ToDo]
-		m_audios[handleID]->changeState(AudioControlState::Paused);
+		m_audios[handleID]->getStream().pause();
 	}
 	
 	void CAudio_AL::stop(const AudioID handleID, const SecondsF& fadeoutDuration)
 	{
 		// [Siv3D ToDo]
-		m_audios[handleID]->changeState(AudioControlState::Stopped);
+		m_audios[handleID]->getStream().stop();
 	}
 	
 	void CAudio_AL::playOneShot(const AudioID handleID, const double volume, const double pitch)
@@ -148,27 +151,27 @@ namespace s3d
 
 	bool CAudio_AL::isPlaying(const AudioID handleID)
 	{
-		return m_audios[handleID]->isPlaying();
+		return m_audios[handleID]->getStream().isPlaying();
 	}
 
 	bool CAudio_AL::isPaused(const AudioID handleID)
 	{
-		return m_audios[handleID]->isPaused();
+		return m_audios[handleID]->getStream().isPaused();
 	}
 
 	uint64 CAudio_AL::posSample(const AudioID handleID)
 	{
-		return m_audios[handleID]->getPosSample();
+		return m_audios[handleID]->getStream().getPosSample();
 	}
 
 	uint64 CAudio_AL::streamPosSample(const AudioID handleID)
 	{
-		return m_audios[handleID]->streamPosSample();
+		return m_audios[handleID]->getStream().streamPosSample();
 	}
 
 	uint64 CAudio_AL::samplesPlayed(const AudioID handleID)
 	{
-		return m_audios[handleID]->samplesPlayed();
+		return m_audios[handleID]->getStream().samplesPlayed();
 	}
 
 	const Wave& CAudio_AL::getWave(AudioID handleID)
@@ -178,30 +181,28 @@ namespace s3d
 
 	void CAudio_AL::setVolume(const AudioID handleID, const std::pair<double, double>& volume)
 	{
-		// [Siv3D ToDo]
+		m_audios[handleID]->getStream().setVolume(volume);
 	}
 
 	std::pair<double, double> CAudio_AL::getVolume(const AudioID handleID)
 	{
-		// [Siv3D ToDo]
-		return{ 1.0,1.0 };
+		return m_audios[handleID]->getStream().getVolume();
 	}
 
 	void CAudio_AL::setSpeed(const AudioID handleID, const double speed)
 	{
-		// [Siv3D ToDo]
+		m_audios[handleID]->getStream().setSpeed(speed);
 	}
 
 	double CAudio_AL::getSpeed(const AudioID handleID)
 	{
-		// [Siv3D ToDo]
-		return 1.0;
+		return m_audios[handleID]->getStream().getSpeed();
 	}
 
-	std::pair<double, double> CAudio_AL::getMinMaxSpeed(const AudioID handleID)
+	std::pair<double, double> CAudio_AL::getMinMaxSpeed(const AudioID)
 	{
 		// [Siv3D ToDo]
-		return{ 1.0,1.0 };
+		return{ 1.0 / 1024.0 , 2.0 };
 	}
 
 	bool CAudio_AL::updateFade()

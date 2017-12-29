@@ -28,43 +28,29 @@
 
 # endif
 
+# include "../AudioControlManager.hpp"
+# include <Siv3D/Optional.hpp>
 # include <Siv3D/Wave.hpp>
 # include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
-	enum class AudioControlState
-	{
-		Paused,
-		
-		Playing,
-		
-		Stopped,
-	};
-	
 	class VoiceStream_AL
 	{
 	private:
 		
-	public:
-		
-	};
-	
-	class Audio_AL
-	{
-	private:
-	
-		Wave m_wave;
-		
-		bool m_initialized = false;
+		const Wave* m_pWave = nullptr;
 		
 		ALuint m_source = 0;
 		
-		std::atomic<AudioControlState> m_state = AudioControlState::Paused;
+		Optional<AudioLoopTiming> m_loop;
 		
+
 		bool m_isActive = false;
 		
 		bool m_isPaused = false;
+		
+		bool m_isEnd = false;
 		
 		
 		std::thread m_thread;
@@ -81,7 +67,7 @@ namespace s3d
 		
 		static constexpr size_t BufferSamples = 2048;
 		
-		std::array<WaveSampleS16, BufferSamples> m_tmpBuffer;
+		Array<WaveSampleS16> m_tmpBuffer;
 		
 		size_t m_freeBuffer = 2;
 		
@@ -96,9 +82,14 @@ namespace s3d
 		size_t m_currentBufferID = 0;
 		
 		
-		void feedDetail()
+		std::pair<double, double> m_volume = { 1.0, 1.0 };
+		
+		double m_speed = 1.0;
+		
+		
+		void feedDetailNonLoop()
 		{
-			const size_t samplesLeft = m_wave.size() - m_readPos;
+			const size_t samplesLeft = m_pWave->size() - m_readPos;
 			
 			if (samplesLeft == 0)
 			{
@@ -109,7 +100,7 @@ namespace s3d
 			
 			for (size_t i = 0; i < samplesToFeed; ++i)
 			{
-				const WaveSample& src = m_wave[m_readPos + i];
+				const WaveSample& src = (*m_pWave)[m_readPos + i];
 				
 				m_tmpBuffer[i] = src.asS16();
 			}
@@ -119,7 +110,7 @@ namespace s3d
 			const size_t samplesWritten = samplesToFeed;
 			
 			::alBufferData(m_buffers[m_currentBufferID], AL_FORMAT_STEREO16, m_tmpBuffer.data(),
-						   static_cast<ALsizei>(samplesWritten * sizeof(WaveSampleS16)), m_wave.samplingRate());
+						   static_cast<ALsizei>(samplesWritten * sizeof(WaveSampleS16)), m_pWave->samplingRate());
 			
 			::alSourceQueueBuffers(m_source, 1, &m_buffers[m_currentBufferID]);
 			
@@ -129,14 +120,71 @@ namespace s3d
 			
 			--m_freeBuffer;
 			
-			//LOG_DEBUG(U"feed {} samples, pos: {}"_fmt(samplesToFeed, m_readPos));
+			LOG_DEBUG(U"feed {} samples, pos: {}"_fmt(samplesToFeed, m_readPos));
+		}
+		
+		void feedDetailLoop()
+		{
+			const size_t bufferSize = m_tmpBuffer.size();
+			size_t samplesFed = 0;
+			size_t tmpBufferPos = 0;
+			
+			while (samplesFed < bufferSize)
+			{
+				size_t samplesAvailable = m_loop->endPos - m_readPos;
+				
+				if (samplesAvailable == 0)
+				{
+					m_readPos = m_loop->beginPos;
+					
+					// [Siv3D ToDo] ループすると Audio::posSample() が Audio::streamPosSample() より大きくなる
+					m_posSmaplesAccumulated = m_loop->beginPos;
+					m_posSampleCurrentStream = 0;
+					
+					samplesAvailable = m_loop->endPos - m_loop->beginPos;
+				}
+				
+				const size_t samplesToFeed = std::min(samplesAvailable, bufferSize - samplesFed);
+				
+				for (size_t i = 0; i < samplesToFeed; ++i)
+				{
+					const WaveSample& src = (*m_pWave)[m_readPos + i];
+					
+					m_tmpBuffer[tmpBufferPos++] = src.asS16();
+				}
+				
+				samplesFed += samplesToFeed;
+				m_readPos += samplesToFeed;
+			}
+			
+			const size_t samplesWritten = samplesFed;
+			
+			::alBufferData(m_buffers[m_currentBufferID], AL_FORMAT_STEREO16, m_tmpBuffer.data(),
+						   static_cast<ALsizei>(samplesWritten * sizeof(WaveSampleS16)), m_pWave->samplingRate());
+			
+			::alSourceQueueBuffers(m_source, 1, &m_buffers[m_currentBufferID]);
+			
+			m_samplesQueued << samplesWritten;
+			
+			++m_currentBufferID %= 2;
+			
+			--m_freeBuffer;
+			
+			LOG_DEBUG(U"feed {} samples, pos: {}"_fmt(samplesFed, m_readPos));
 		}
 		
 		void feed()
 		{
 			if (m_freeBuffer > 0)
 			{
-				feedDetail();
+				if (m_loop)
+				{
+					feedDetailLoop();
+				}
+				else
+				{
+					feedDetailNonLoop();
+				}
 			}
 			
 			ALint processed = 0;
@@ -156,8 +204,32 @@ namespace s3d
 				
 				++m_freeBuffer;
 				
-				feedDetail();
+				if (m_loop)
+				{
+					feedDetailLoop();
+				}
+				else
+				{
+					feedDetailNonLoop();
+				}
 			}
+		}
+		
+		void onStreamEnd()
+		{
+			m_isActive = false;
+			m_isPaused = false;
+			m_isEnd = true;
+			
+			m_readPos  = 0;
+			m_posSmaplesAccumulated = 0;
+			m_samplesPlayedAccumulated = 0;
+			m_posSampleCurrentStream = 0;
+
+			m_volume = { 1.0, 1.0 };
+			m_speed = 1.0;
+			
+			LOG_TEST(U"End of Stream");
 		}
 		
 		void onUpdate()
@@ -169,105 +241,65 @@ namespace s3d
 					continue;
 				}
 				
-				if (m_state == AudioControlState::Playing)
+				if (m_isActive)
 				{
 					feed();
+					
+					ALint sampleOffset = 0;
+					::alGetSourcei(m_source, AL_SAMPLE_OFFSET, &sampleOffset);
+					m_posSampleCurrentStream = sampleOffset;
 				}
-				
-				ALint sampleOffset = 0;
-				::alGetSourcei(m_source, AL_SAMPLE_OFFSET, &sampleOffset);
-				m_posSampleCurrentStream = sampleOffset;
-				
+	
 				ALint currentState = 0;
 				::alGetSourcei(m_source, AL_SOURCE_STATE, &currentState);
 				
-				if (m_isActive && currentState == AL_STOPPED)
+				if (!m_isEnd && m_isActive && currentState == AL_STOPPED)
 				{
-					m_isActive = false;
-					m_isPaused = false;
-					m_readPos  = 0;
-					m_posSmaplesAccumulated = 0;
-					m_samplesPlayedAccumulated = 0;
-					m_state = AudioControlState::Stopped;
-					
-					LOG_TEST(U"End of Stream");
+					onStreamEnd();
 				}
 				
 				if (m_abort)
 				{
 					break;
 				}
-				
-				switch (m_state)
-				{
-					case AudioControlState::Paused:
-					{
-						if (m_isActive && !m_isPaused)
-						{
-							::alSourcePause(m_source);
-							
-							m_isPaused = true;
-						}
-						
-						break;
-					}
-					case AudioControlState::Playing:
-					{
-						if (!m_isActive || m_isPaused)
-						{
-							feed();
-							
-							::alSourcePlay(m_source);
 
-							m_isActive = true;
-							m_isPaused = false;
-						}
-						
-						break;
-					}
-					case AudioControlState::Stopped:
-					{
-						if (m_isActive)
-						{
-							::alSourceStop(m_source);
-							
-							m_isActive = false;
-							m_isPaused = false;
-						}
-						
-						break;
-					}
-				}
-				
 				::usleep(5 * 1000);
 			}
 		}
 		
+		void updateVolume()
+		{
+			// [Siv3D ToDo]
+			const float volume = static_cast<float>((m_volume.first + m_volume.second) * 0.5);
+			
+			::alSourcef(m_source, AL_GAIN, volume);
+		}
+		
+		void updatePitch()
+		{
+			::alSourcef(m_source, AL_PITCH, static_cast<float>(m_speed));
+		}
+		
 	public:
 		
-		Audio_AL() = default;
+		VoiceStream_AL() = default;
 		
-		Audio_AL(Wave&& wave)
-			: m_wave(std::move(wave))
+		VoiceStream_AL(const Wave& wave)
+			: m_pWave(&wave)
+			, m_tmpBuffer(BufferSamples)
 		{
-			::alListener3f(AL_POSITION, 0, 0, 1.0f);
-			::alListener3f(AL_VELOCITY, 0, 0, 0);
-			const ALfloat listenerOri[] = { 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f };
-			::alListenerfv(AL_ORIENTATION, listenerOri);
-			
 			::alGenBuffers(2, m_buffers.data());
-			
 			::alGenSources(1, &m_source);
-			::alSourcef(m_source, AL_PITCH, 1.0);
+			
 			::alSourcef(m_source, AL_GAIN, 1.0);
+			::alSourcef(m_source, AL_PITCH, 1.0);
+			
 			::alSource3f(m_source, AL_POSITION, 0, 0, 0);
 			::alSource3f(m_source, AL_VELOCITY, 0, 0, 0);
 			::alSourcei(m_source, AL_LOOPING, AL_FALSE);
-
-			m_initialized = true;
 		}
 		
-		~Audio_AL()
+		~VoiceStream_AL()
 		{
 			if (!m_abort)
 			{
@@ -278,39 +310,17 @@ namespace s3d
 			{
 				m_thread.join();
 			}
-
+			
 			if (m_source)
 			{
 				::alSourceStop(m_source);
-			
+				
 				::alDeleteSources(1, &m_source);
 			}
 			
 			if (m_buffers[0])
 			{
 				::alDeleteBuffers(2, &m_buffers[0]);
-			}
-		}
-		
-		bool isInitialized() const noexcept
-		{
-			return m_initialized;
-		}
-	
-		void changeState(const AudioControlState state)
-		{
-			if (!m_source)
-			{
-				return;
-			}
-			
-			m_state = state;
-			
-			if (!m_hasThread)
-			{
-				m_thread = std::thread(&Audio_AL::onUpdate, this);
-				
-				m_hasThread = true;
 			}
 		}
 		
@@ -339,24 +349,161 @@ namespace s3d
 			return m_samplesPlayedAccumulated + m_posSampleCurrentStream;
 		}
 		
-		uint32 samplingRate() const
+		void setVolume(const std::pair<double, double>& volume)
 		{
-			return m_wave.samplingRate();
+			if (volume == m_volume)
+			{
+				return;
+			}
+			
+			m_volume = volume;
+			
+			updateVolume();
 		}
 		
-		size_t samples() const
+		const std::pair<double, double> getVolume() const
 		{
-			return m_wave.size();
+			return m_volume;
 		}
 		
-		void setLoop(const bool loop)
+		void setSpeed(const double speed)
 		{
-			::alSourcei(m_source, AL_LOOPING, loop);
+			const double newSpeed = Clamp<double>(speed, 1.0 / 1024.0, 2.0);
+			
+			if (newSpeed == m_speed)
+			{
+				return;
+			}
+			
+			m_speed = newSpeed;
+			
+			updatePitch();
 		}
 		
+		double getSpeed() const
+		{
+			return m_speed;
+		}
+		
+		void setLoop(const bool loop, const int64 loopBeginSample, const int64 loopEndSample)
+		{
+			if (!loop)
+			{
+				m_loop.reset();
+			}
+			else
+			{
+				m_loop.emplace(loopBeginSample, loopEndSample);
+			}
+			
+			stop();
+		}
+		
+		const Optional<AudioLoopTiming>& getLoop() const
+		{
+			return m_loop;
+		}
+		
+		bool play()
+		{
+			if (m_isActive && !m_isPaused)
+			{
+				return true;
+			}
+			
+			feed();
+			
+			if (!m_hasThread)
+			{
+				m_thread = std::thread(&VoiceStream_AL::onUpdate, this);
+				
+				m_hasThread = true;
+			}
+
+			::alSourcePlay(m_source);
+			
+			m_isActive = true;
+			m_isPaused = false;
+			m_isEnd = false;
+			
+			return true;
+		}
+		
+		void pause()
+		{
+			if (!m_isActive)
+			{
+				return;
+			}
+			
+			::alSourcePause(m_source);
+			
+			m_isPaused = true;
+		}
+		
+		void stop()
+		{
+			if (!m_isActive)
+			{
+				return;
+			}
+			
+			::alSourceStop(m_source);
+			
+			//m_isActive = false;
+			//m_isPaused = false;
+		}
+		
+		bool reachedEnd() const
+		{
+			return m_isEnd;
+		}
+	};
+	
+	class Audio_AL
+	{
+	private:
+	
+		Wave m_wave;
+		
+		bool m_initialized = false;
+		
+		VoiceStream_AL m_stream;
+		
+	public:
+		
+		Audio_AL() = default;
+		
+		Audio_AL(Wave&& wave)
+			: m_wave(std::move(wave))
+			, m_stream(m_wave)
+		{
+			m_initialized = true;
+		}
+		
+		~Audio_AL()
+		{
+
+		}
+		
+		bool isInitialized() const noexcept
+		{
+			return m_initialized;
+		}
+
 		const Wave& getWave() const
 		{
 			return m_wave;
+		}
+		
+		VoiceStream_AL& getStream()
+		{
+			return m_stream;
+		}
+		
+		const VoiceStream_AL& getStream() const
+		{
+			return m_stream;
 		}
 	};
 }
