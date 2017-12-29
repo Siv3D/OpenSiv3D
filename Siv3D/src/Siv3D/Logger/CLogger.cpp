@@ -250,6 +250,39 @@ namespace s3d
 		}
 	}
 
+	void CLogger::writeOnce(const LogDescription desc, const uint32 id, const String& text)
+	{
+		if (suppressed(desc))
+		{
+			return;
+		}
+
+		std::lock_guard<std::mutex> lock(m_mutex);
+
+		if (m_onceFlags.find(id) != m_onceFlags.end())
+		{
+			return;
+		}
+
+		m_onceFlags.insert(id);
+
+		detail::OutputDebug(desc, text);
+
+		if (m_initialized)
+		{
+			m_writer.writeUTF8(logLevel[static_cast<size_t>(desc)]);
+
+			m_writer.write(text.xml_escaped());
+
+			m_writer.writeUTF8(divEnd);
+		}
+
+		if (desc == LogDescription::Error)
+		{
+			m_hasImportantLog = true;
+		}
+	}
+
 	void CLogger::writeRawHTML(const String& htmlText)
 	{
 		if (!m_initialized)

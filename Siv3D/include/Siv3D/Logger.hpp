@@ -99,7 +99,9 @@ namespace s3d
 
 			void setOutputLevel(OutputLevel level) const;
 
-			void outputLog(LogDescription desc, const String& text) const;
+			void _outputLog(LogDescription desc, const String& text) const;
+
+			void _outputLogOnce(LogDescription desc, uint32 id, const String& text) const;
 
 			void writeRawHTML(const String& htmlText) const;
 
@@ -124,11 +126,15 @@ namespace s3d
 }
 
 # define FMTBYTES(size)			s3d::FormatDataSize(size)
-# define LOG_ERROR(MESSAGE)		s3d::Logger.outputLog(s3d::LogDescription::Error,MESSAGE)
-# define LOG_FAIL(MESSAGE)		s3d::Logger.outputLog(s3d::LogDescription::Fail,MESSAGE)
-# define LOG_WARNING(MESSAGE)	s3d::Logger.outputLog(s3d::LogDescription::Warning,MESSAGE)
-# define LOG_SCRIPT(MESSAGE)	s3d::Logger.outputLog(s3d::LogDescription::Script,MESSAGE)
-# define LOG_INFO(MESSAGE)		s3d::Logger.outputLog(s3d::LogDescription::Info,MESSAGE)
+# define LOG_ERROR(MESSAGE)		s3d::Logger._outputLog(s3d::LogDescription::Error,MESSAGE)
+# define LOG_FAIL(MESSAGE)		s3d::Logger._outputLog(s3d::LogDescription::Fail,MESSAGE)
+# define LOG_WARNING(MESSAGE)	s3d::Logger._outputLog(s3d::LogDescription::Warning,MESSAGE)
+# define LOG_SCRIPT(MESSAGE)	s3d::Logger._outputLog(s3d::LogDescription::Script,MESSAGE)
+# define LOG_INFO(MESSAGE)		s3d::Logger._outputLog(s3d::LogDescription::Info,MESSAGE)
+
+# define LOG_ERROR_ONCE(MESSAGE)	s3d::Logger._outputLogOnce(s3d::LogDescription::Error,__COUNTER__,MESSAGE)
+# define LOG_FAIL_ONCE(MESSAGE)		s3d::Logger._outputLogOnce(s3d::LogDescription::Fail,__COUNTER__,MESSAGE)
+# define LOG_WARNING_ONCE(MESSAGE)	s3d::Logger._outputLogOnce(s3d::LogDescription::Warning,__COUNTER__,MESSAGE)
 
 # if (SIV3D_IS_DEBUG)
 
