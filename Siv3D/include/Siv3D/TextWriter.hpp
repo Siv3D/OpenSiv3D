@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -33,13 +33,13 @@ namespace s3d
 
 			TextWriterBuffer(TextWriter& writer)
 				: m_writer(writer)
-				, formatData(std::make_unique<FormatData>())
-				, m_isLast(true) {}
+				, m_isLast(true)
+				, formatData(std::make_unique<FormatData>()) {}
 
 			TextWriterBuffer(TextWriterBuffer&& other)
 				: m_writer(other.m_writer)
-				, formatData(std::move(other.formatData))
 				, m_isLast(true)
+				, formatData(std::move(other.formatData))
 			{
 				other.m_isLast = false;
 			}

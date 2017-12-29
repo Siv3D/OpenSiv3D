@@ -158,20 +158,17 @@ namespace s3d
 
 	uint64 CAudio_AL::posSample(const AudioID handleID)
 	{
-		// [Siv3D ToDo]
 		return m_audios[handleID]->getPosSample();
 	}
 
 	uint64 CAudio_AL::streamPosSample(const AudioID handleID)
 	{
-		// [Siv3D ToDo]
-		return m_audios[handleID]->getPosSample();
+		return m_audios[handleID]->streamPosSample();
 	}
 
 	uint64 CAudio_AL::samplesPlayed(const AudioID handleID)
 	{
-		// [Siv3D ToDo]
-		return 0;
+		return m_audios[handleID]->samplesPlayed();
 	}
 
 	const Wave& CAudio_AL::getWave(AudioID handleID)

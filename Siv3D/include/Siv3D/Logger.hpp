@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -138,8 +138,8 @@ namespace s3d
 
 # if (SIV3D_IS_DEBUG)
 
-	# define LOG_DEBUG(MESSAGE)	s3d::Logger.outputLog(s3d::LogDescription::Debug,MESSAGE)
-	# define LOG_TEST(MESSAGE)	s3d::Logger.outputLog(s3d::LogDescription::Debug,MESSAGE)
+	# define LOG_DEBUG(MESSAGE)	s3d::Logger._outputLog(s3d::LogDescription::Debug,MESSAGE)
+	# define LOG_TEST(MESSAGE)	s3d::Logger._outputLog(s3d::LogDescription::Debug,MESSAGE)
 
 # else
 
