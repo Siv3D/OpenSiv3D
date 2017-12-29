@@ -2,7 +2,7 @@
 
 void Main()
 {
-	const Audio audio(U"test.mp3", Arg::loopBegin = 2s, Arg::loopEnd = 8s);
+	const Audio audio(U"example/test.mp3", Arg::loopBegin = 1.5s, Arg::loopEnd = 44.5s);
 
 	const Audio sound(U"example/shot.mp3");
 
@@ -15,8 +15,6 @@ void Main()
 		Print << audio.streamPosSample();
 
 		Print << audio.posSample();
-
-		//Logger << audio.posSample();
 		
 		Print << audio.samplesPlayed();
 		
@@ -35,6 +33,11 @@ void Main()
 			audio.stop();
 		}
 		
+		if (KeyS.down())
+		{
+			sound.playOneShot(0.5, Random(0.2, 2.0));
+		}
+		
 		const double volume = Cursor::Pos().x / 640.0;
 		const double speed = 1.0 + (Cursor::Pos().y - 320) / 320.0;
 		
@@ -42,6 +45,5 @@ void Main()
 		Print << speed;
 		
 		audio.setVolume(volume);
-
 	}
 }

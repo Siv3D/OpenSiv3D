@@ -141,12 +141,12 @@ namespace s3d
 	
 	void CAudio_AL::playOneShot(const AudioID handleID, const double volume, const double pitch)
 	{
-		// [Siv3D ToDo]
+		m_audios[handleID]->playOneShot(volume, pitch);
 	}
 	
 	void CAudio_AL::stopAllShots(const AudioID handleID)
 	{
-		// [Siv3D ToDo]
+		m_audios[handleID]->stopAllShots();
 	}
 
 	bool CAudio_AL::isPlaying(const AudioID handleID)

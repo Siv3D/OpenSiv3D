@@ -35,6 +35,195 @@
 
 namespace s3d
 {
+	class SimpleVoice_AL
+	{
+	private:
+		
+		const Wave* m_pWave = nullptr;
+		
+		ALuint m_source = 0;
+		
+		
+		bool m_isActive = false;
+		
+		bool m_isPaused = false;
+		
+		bool m_isEnd = false;
+		
+
+		std::thread m_thread;
+		
+		std::atomic<bool> m_abort = false;
+		
+		
+		static constexpr size_t BufferSamples = 2048;
+		
+		Array<WaveSampleS16> m_tmpBuffer;
+		
+		size_t m_freeBuffer = 2;
+		
+		std::atomic<size_t> m_readPos = 0;
+		
+		std::array<ALuint, 2> m_buffers = {{ 0, 0 }};
+		
+		size_t m_currentBufferID = 0;
+		
+		
+		void feedDetailNonLoop()
+		{
+			const size_t samplesLeft = m_pWave->size() - m_readPos;
+			
+			if (samplesLeft == 0)
+			{
+				return;
+			}
+			
+			const size_t samplesToFeed = std::min(samplesLeft, m_tmpBuffer.size());
+			
+			for (size_t i = 0; i < samplesToFeed; ++i)
+			{
+				const WaveSample& src = (*m_pWave)[m_readPos + i];
+				
+				m_tmpBuffer[i] = src.asS16();
+			}
+			
+			m_readPos += samplesToFeed;
+			
+			const size_t samplesWritten = samplesToFeed;
+			
+			::alBufferData(m_buffers[m_currentBufferID], AL_FORMAT_STEREO16, m_tmpBuffer.data(),
+						   static_cast<ALsizei>(samplesWritten * sizeof(WaveSampleS16)), m_pWave->samplingRate());
+			
+			::alSourceQueueBuffers(m_source, 1, &m_buffers[m_currentBufferID]);
+			
+			++m_currentBufferID %= 2;
+			
+			--m_freeBuffer;
+			
+			//LOG_DEBUG(U"feed {} samples, pos: {}"_fmt(samplesToFeed, m_readPos));
+		}
+		
+		void feed()
+		{
+			if (m_freeBuffer > 0)
+			{
+				feedDetailNonLoop();
+			}
+			
+			ALint processed = 0;
+			::alGetSourcei(m_source, AL_BUFFERS_PROCESSED, &processed);
+			
+			while (processed--)
+			{
+				ALuint buffer = 0;
+				
+				::alSourceUnqueueBuffers(m_source, 1, &buffer);
+				
+				++m_freeBuffer;
+				
+				feedDetailNonLoop();
+			}
+		}
+		
+		void onStreamEnd()
+		{
+			m_isActive = false;
+			m_isPaused = false;
+			m_isEnd = true;
+			
+			m_readPos  = 0;
+			
+			//LOG_TEST(U"End of Stream");
+		}
+		
+		void onUpdate()
+		{
+			for (;;)
+			{
+				if (!m_source)
+				{
+					continue;
+				}
+				
+				if (m_isActive)
+				{
+					feed();
+					
+					ALint sampleOffset = 0;
+					::alGetSourcei(m_source, AL_SAMPLE_OFFSET, &sampleOffset);
+				}
+				
+				ALint currentState = 0;
+				::alGetSourcei(m_source, AL_SOURCE_STATE, &currentState);
+				
+				if (!m_isEnd && m_isActive && currentState == AL_STOPPED)
+				{
+					onStreamEnd();
+				}
+				
+				if (m_abort)
+				{
+					break;
+				}
+				
+				::usleep(5 * 1000);
+			}
+		}
+		
+	public:
+		
+		SimpleVoice_AL() = default;
+		
+		SimpleVoice_AL(const Wave& wave, const double volume, const double pitch)
+			: m_pWave(&wave)
+			, m_tmpBuffer(BufferSamples)
+		{
+			::alGenBuffers(2, m_buffers.data());
+			::alGenSources(1, &m_source);
+			
+			::alSourcef(m_source, AL_GAIN, static_cast<float>(volume));
+			::alSourcef(m_source, AL_PITCH, static_cast<float>(pitch));
+			
+			::alSource3f(m_source, AL_POSITION, 0, 0, 0);
+			::alSource3f(m_source, AL_VELOCITY, 0, 0, 0);
+			::alSourcei(m_source, AL_LOOPING, AL_FALSE);
+			
+			feed();
+
+			m_thread = std::thread(&SimpleVoice_AL::onUpdate, this);
+
+			::alSourcePlay(m_source);
+			
+			m_isActive = true;
+			m_isPaused = false;
+		}
+		
+		~SimpleVoice_AL()
+		{
+			if (!m_abort)
+			{
+				m_abort = true;
+			}
+			
+			if (m_thread.joinable())
+			{
+				m_thread.join();
+			}
+			
+			if (m_source)
+			{
+				::alSourceStop(m_source);
+				
+				::alDeleteSources(1, &m_source);
+			}
+			
+			if (m_buffers[0])
+			{
+				::alDeleteBuffers(2, &m_buffers[0]);
+			}
+		}
+	};
+	
 	class VoiceStream_AL
 	{
 	private:
@@ -43,7 +232,12 @@ namespace s3d
 		
 		ALuint m_source = 0;
 		
+		
 		Optional<AudioLoopTiming> m_loop;
+		
+		std::pair<double, double> m_volume = { 1.0, 1.0 };
+		
+		double m_speed = 1.0;
 		
 
 		bool m_isActive = false;
@@ -57,12 +251,16 @@ namespace s3d
 		
 		bool m_hasThread = false;
 		
-		
 		std::atomic<bool> m_abort = false;
+		
 		
 		std::atomic<int64> m_posSampleCurrentStream = 0;
 		
 		std::atomic<int64> m_samplesPlayedAccumulated = 0;
+		
+		std::atomic<size_t> m_posSmaplesAccumulated = 0;
+		
+		Array<size_t> m_samplesQueued;
 		
 		
 		static constexpr size_t BufferSamples = 2048;
@@ -73,18 +271,9 @@ namespace s3d
 		
 		std::atomic<size_t> m_readPos = 0;
 		
-		std::atomic<size_t> m_posSmaplesAccumulated = 0;
-		
-		Array<size_t> m_samplesQueued;
-		
 		std::array<ALuint, 2> m_buffers = {{ 0, 0 }};
 		
 		size_t m_currentBufferID = 0;
-		
-		
-		std::pair<double, double> m_volume = { 1.0, 1.0 };
-		
-		double m_speed = 1.0;
 		
 		
 		void feedDetailNonLoop()
@@ -470,6 +659,10 @@ namespace s3d
 		
 		VoiceStream_AL m_stream;
 		
+		static constexpr size_t MaxVoiceShots = 32;
+		
+		Array<std::shared_ptr<SimpleVoice_AL>> m_voiceShots;
+		
 	public:
 		
 		Audio_AL() = default;
@@ -479,11 +672,13 @@ namespace s3d
 			, m_stream(m_wave)
 		{
 			m_initialized = true;
+			
+			m_voiceShots.reserve(MaxVoiceShots);
 		}
 		
 		~Audio_AL()
 		{
-
+			m_voiceShots.clear();
 		}
 		
 		bool isInitialized() const noexcept
@@ -504,6 +699,21 @@ namespace s3d
 		const VoiceStream_AL& getStream() const
 		{
 			return m_stream;
+		}
+		
+		void playOneShot(const double volume, const double pitch)
+		{
+			if (m_voiceShots.size() + 1 >= MaxVoiceShots)
+			{
+				m_voiceShots.pop_front();
+			}
+			
+			m_voiceShots.push_back(std::make_shared<SimpleVoice_AL>(m_wave, volume, pitch));
+		}
+		
+		void stopAllShots()
+		{
+			m_voiceShots.clear();
 		}
 	};
 }
