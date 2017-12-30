@@ -38,6 +38,8 @@ namespace s3d
 
 		AllowTabBackSpaceDelete			= AllowTab | AllowBackSpace | AllowDelete,
 
+		AllowBackSpaceDelete			= AllowBackSpace | AllowDelete,
+
 		AllowEnterTabBackSpace			= AllowEnter | AllowTab | AllowBackSpace,
 
 		AllowEnterTabBackSpaceDelete	= AllowEnter | AllowTab | AllowBackSpace | AllowDelete,
