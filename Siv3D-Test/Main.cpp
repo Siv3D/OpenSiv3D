@@ -1,49 +1,24 @@
-# include <Siv3D.hpp>
+﻿# include <Siv3D.hpp>
 
 void Main()
 {
-	const Audio audio(U"example/test.mp3", Arg::loopBegin = 1.5s, Arg::loopEnd = 44.5s);
+	//const Script script(U"example/script.txt");	
+	const Script script(Arg::code = TextReader(U"example/script.txt").readAll());
 
-	const Audio sound(U"example/shot.mp3");
+	if (!script || !script.compiled())
+	{
+		return;
+	}
 
-	audio.play();
+	const auto GetNumber	= script.getFunction<int32(void)>(U"GetNumber");
+	const auto GetMessage	= script.getFunction<String(void)>(U"GetMessage");
+	const auto DrawCircle	= script.getFunction<void(const Circle&, const ColorF&)>(U"DrawCircle");
+
+	Print << GetNumber();
+	Print << GetMessage();
 
 	while (System::Update())
 	{
-		ClearPrint();
-
-		Print << audio.streamPosSample();
-
-		Print << audio.posSample();
-		
-		Print << audio.samplesPlayed();
-		
-		if (Key1.down())
-		{
-			audio.play();
-		}
-		
-		if (Key2.down())
-		{
-			audio.pause();
-		}
-		
-		if (Key3.down())
-		{
-			audio.stop();
-		}
-		
-		if (KeyS.down())
-		{
-			sound.playOneShot(0.5, Random(0.2, 2.0));
-		}
-		
-		const double volume = Cursor::Pos().x / 640.0;
-		const double speed = 1.0 + (Cursor::Pos().y - 320) / 320.0;
-		
-		Print << volume;
-		Print << speed;
-		
-		audio.setVolume(volume);
+		DrawCircle(Circle(Cursor::Pos(), 100), HSV(System::FrameCount()));
 	}
 }

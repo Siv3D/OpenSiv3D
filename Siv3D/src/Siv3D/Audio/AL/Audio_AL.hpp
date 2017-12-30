@@ -309,7 +309,7 @@ namespace s3d
 			
 			--m_freeBuffer;
 			
-			LOG_DEBUG(U"feed {} samples, pos: {}"_fmt(samplesToFeed, m_readPos));
+			//LOG_DEBUG(U"feed {} samples, pos: {}"_fmt(samplesToFeed, m_readPos));
 		}
 		
 		void feedDetailLoop()
@@ -359,7 +359,7 @@ namespace s3d
 			
 			--m_freeBuffer;
 			
-			LOG_DEBUG(U"feed {} samples, pos: {}"_fmt(samplesFed, m_readPos));
+			//LOG_DEBUG(U"feed {} samples, pos: {}"_fmt(samplesFed, m_readPos));
 		}
 		
 		void feed()
@@ -418,7 +418,7 @@ namespace s3d
 			m_volume = { 1.0, 1.0 };
 			m_speed = 1.0;
 			
-			LOG_TEST(U"End of Stream");
+			//LOG_TEST(U"End of Stream");
 		}
 		
 		void onUpdate()

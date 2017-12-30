@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -80,6 +80,8 @@ namespace s3d
 		}
 		
 		m_audios.setNullData(nullAudio);
+
+		LOG_INFO(U"ℹ️ Audio initialized");
 
 		return true;
 	}

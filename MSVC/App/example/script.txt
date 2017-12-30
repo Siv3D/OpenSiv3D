@@ -1,9 +1,17 @@
-﻿int GetNumber()
+﻿
+int32 GetNumber()
 {
-	return 123;
+	const int32 n = 10 * 10;
+
+	return n + 23;
 }
 
-void DrawCircle(const Circle &in circle, const ColorF &in color)
+String GetMessage()
+{
+	return "Hello!";
+}
+
+void DrawCircle(const Circle&in circle, const ColorF&in color)
 {
 	circle.draw(color);
 }

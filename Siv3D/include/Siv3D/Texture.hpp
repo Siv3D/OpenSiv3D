@@ -323,6 +323,13 @@ namespace s3d
 			return drawAt(center->x, center->y, diffuse);
 		}
 
+		RectF drawClipped(double x, double y, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;
+
+		RectF drawClipped(const Vec2& pos, const RectF& clipRect, const ColorF& diffuse = Palette::White) const
+		{
+			return drawClipped(pos.x, pos.y, clipRect, diffuse);
+		}
+
 		/// <summary>
 		/// 中心位置を指定してテクスチャを描きます。
 		/// </summary>
@@ -355,6 +362,13 @@ namespace s3d
 		RectF drawAt(const Vec2& pos, const ColorF& diffuse = Palette::White) const
 		{
 			return drawAt(pos.x, pos.y, diffuse);
+		}
+
+		RectF drawAtClipped(double x, double y, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;
+
+		RectF drawAtClipped(const Vec2& pos, const RectF& clipRect, const ColorF& diffuse = Palette::White) const
+		{
+			return drawAtClipped(pos.x, pos.y, clipRect, diffuse);
 		}
 
 		TextureRegion operator ()(double x, double y, double w, double h) const;
