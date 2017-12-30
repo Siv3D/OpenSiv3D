@@ -288,6 +288,7 @@ namespace s3d
 		# pragma comment (lib, "libjpeg-turbo/turbojpeg-static_d")
 		# pragma comment (lib, "freetype/freetype28MTd")
 		# pragma comment (lib, "harfbuzz/harfbuzz_d")
+		# pragma comment (lib, "angelscript/angelscriptd")
 
 	# else
 
@@ -297,6 +298,7 @@ namespace s3d
 		# pragma comment (lib, "libjpeg-turbo/turbojpeg-static")
 		# pragma comment (lib, "freetype/freetype28MT")
 		# pragma comment (lib, "harfbuzz/harfbuzz")
+		# pragma comment (lib, "angelscript/angelscript")
 
 	# endif
 

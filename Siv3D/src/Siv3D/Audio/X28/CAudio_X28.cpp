@@ -111,6 +111,8 @@ namespace s3d
 
 		m_fadeControllerThread = std::thread(detail::FadingController);
 
+		LOG_INFO(U"ℹ️ Audio initialized");
+
 		return true;
 	}
 
