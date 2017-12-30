@@ -2,48 +2,33 @@
 
 void Main()
 {
-	const Audio audio(U"example/test.mp3", Arg::loopBegin = 1.5s, Arg::loopEnd = 44.5s);
+	Graphics::SetBackground(Palette::Seagreen);
 
-	const Audio sound(U"example/shot.mp3");
+	const Font font(60, Typeface::Bold);
+	const Texture texture(U"example/windmill.png");
 
-	audio.play();
+	const Rect rectFont(100, 30, 400, 80);
+	const Rect rectTexture(100, 200, 300, 200);
 
+	Stopwatch stopwatch(true);
+	
 	while (System::Update())
 	{
-		ClearPrint();
+		const double t = stopwatch.sF();
+		const double a = 0;// (Math::Sin(t * 4.0) * 0.5 + 0.5) * 0.25;
 
-		Print << audio.streamPosSample();
+		rectFont.draw(ColorF(0.2)).drawFrame(0, 2);
+		rectTexture.draw(ColorF(0.2)).drawFrame(0, 2);
 
-		Print << audio.posSample();
-		
-		Print << audio.samplesPlayed();
-		
-		if (Key1.down())
+		Vec2 penPos(550 - t * 150, 27);
+		for (const auto& glyph : font(U"2017 ”N 12 ŒŽ 30 “ú (“y)"))
 		{
-			audio.play();
+			glyph.texture.draw(penPos + glyph.offset, AlphaF(a));
+			glyph.texture.drawClipped(penPos + glyph.offset, rectFont);
+			penPos.x += glyph.xAdvance;
 		}
-		
-		if (Key2.down())
-		{
-			audio.pause();
-		}
-		
-		if (Key3.down())
-		{
-			audio.stop();
-		}
-		
-		if (KeyS.down())
-		{
-			sound.playOneShot(0.5, Random(0.2, 2.0));
-		}
-		
-		const double volume = Cursor::Pos().x / 640.0;
-		const double speed = 1.0 + (Cursor::Pos().y - 320) / 320.0;
-		
-		Print << volume;
-		Print << speed;
-		
-		audio.setVolume(volume);
+
+		texture.draw(550 - t * 100, 150, AlphaF(a));
+		texture.drawClipped(550 - t * 100, 150, rectTexture);
 	}
 }

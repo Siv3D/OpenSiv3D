@@ -196,6 +196,46 @@ namespace s3d
 		return RectF(x, y, size);
 	}
 
+	RectF Texture::drawClipped(double x, double y, const RectF& clipRect, const ColorF& diffuse) const
+	{
+		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());
+
+		const double clipRight = clipRect.x + clipRect.w;
+		const double clipBottom = clipRect.y + clipRect.h;
+
+		const double left = std::max(x, clipRect.x);
+		const double right = std::min(x + size.x, clipRight);
+		const double top = std::max(y, clipRect.y);
+		const double bottom = std::min(y + size.y, clipBottom);
+
+		if (clipRight <= left
+			|| right <= clipRect.x
+			|| clipBottom <= top
+			|| bottom <= clipRect.y)
+		{
+			return RectF(left, top, 0, 0);
+		}
+
+		const double xLeftTrimmed = left - x;
+		const double xRightTrimmed = (x + size.x) - right;
+		const double yTopTrimmed = top - y;
+		const double yBottomTrimmed = (y + size.y) - bottom;
+
+		const double uLeftTrimmed = xLeftTrimmed / size.x;
+		const double uRightTrimmed = xRightTrimmed / size.x;
+		const double vTopTrimmed = yTopTrimmed / size.y;
+		const double vBottomTrimmed = yBottomTrimmed / size.y;
+
+		Siv3DEngine::GetRenderer2D()->addTextureRegion(
+			*this,
+			FloatRect(left, top, right, bottom),
+			FloatRect(uLeftTrimmed, vTopTrimmed, 1.0 - uRightTrimmed, 1.0 - vBottomTrimmed),
+			diffuse.toFloat4()
+		);
+
+		return RectF(left, top, right - left, bottom - top);
+	}
+
 	RectF Texture::drawAt(const double x, const double y, const ColorF& diffuse) const
 	{
 		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());
@@ -210,6 +250,15 @@ namespace s3d
 		);
 
 		return RectF(x - wHalf, y - hHalf, size);
+	}
+
+	RectF Texture::drawAtClipped(double x, double y, const RectF& clipRect, const ColorF& diffuse) const
+	{
+		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());
+		const double wHalf = size.x * 0.5;
+		const double hHalf = size.y * 0.5;
+
+		return drawClipped(x - wHalf, y - hHalf, clipRect, diffuse);
 	}
 
 	TextureRegion Texture::operator ()(const double x, const double y, const double w, const double h) const
