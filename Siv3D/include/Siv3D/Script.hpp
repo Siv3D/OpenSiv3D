@@ -340,7 +340,7 @@ namespace s3d
 
 		explicit Script(const FilePath& path, int32 compileOption = 0);
 
-		//explicit Script(Arg::code_<String> code, int32 compileOption = 0);
+		explicit Script(Arg::code_<String> code, int32 compileOption = 0);
 
 		/// <summary>
 		/// デストラクタ

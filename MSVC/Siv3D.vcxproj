@@ -224,6 +224,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Types.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Vec2.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\CScript.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\ScriptData.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\ScriptFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\SivScript.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Shader\D3D11\CShader_D3D11.cpp" />
@@ -715,6 +716,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptBind.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\CScript.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\IScript.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Script\ScriptData.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Shader\D3D11\CShader_D3D11.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Shader\D3D11\PixelShader_D3D11.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Shader\D3D11\VertexShader_D3D11.hpp" />

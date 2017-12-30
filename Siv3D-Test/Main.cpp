@@ -2,7 +2,13 @@
 
 void Main()
 {
-	Script script(U"example/script.txt");
+	//const Script script(U"example/script.txt");	
+	const Script script(Arg::code = TextReader(U"example/script.txt").readAll());
+
+	if (!script || !script.compiled())
+	{
+		return;
+	}
 
 	const auto GetNumber	= script.getFunction<int32(void)>(U"GetNumber");
 	const auto GetMessage	= script.getFunction<String(void)>(U"GetMessage");

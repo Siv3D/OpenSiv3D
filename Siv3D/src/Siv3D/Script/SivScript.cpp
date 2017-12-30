@@ -45,11 +45,11 @@ namespace s3d
 
 	}
 
-	//Script::Script(Arg::code_<String> code, const int32 compileOption)
-	//	: m_handle(std::make_shared<ScriptHandle>(Siv3DEngine::GetScript()->createFromCode(*code, compileOption)))
-	//{
+	Script::Script(Arg::code_<String> code, const int32 compileOption)
+		: m_handle(std::make_shared<ScriptHandle>(Siv3DEngine::GetScript()->createFromCode(*code, compileOption)))
+	{
 
-	//}
+	}
 
 	Script::~Script()
 	{
