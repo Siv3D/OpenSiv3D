@@ -60,6 +60,12 @@ public:
 	void       *At(asUINT index);
 	const void *At(asUINT index) const;
 
+	void       *AtFront();
+	const void *AtFront() const;
+
+	void       *AtBack();
+	const void *AtBack() const;
+
 	// Set value of an element. 
 	// The value arg should be a pointer to the value that will be copied to the element.
 	// Remember, if the array holds handles the value parameter should be the 
@@ -67,7 +73,7 @@ public:
 	void  SetValue(asUINT index, void *value);
 
 	// Copy the contents of one array to another (only if the types are the same)
-	CScriptArray &operator=(const CScriptArray&);
+	CScriptArray& operator=(const CScriptArray&);
 
 	// Compare two arrays
 	bool operator==(const CScriptArray &) const;
@@ -75,10 +81,14 @@ public:
 	// Array manipulation
 	void InsertAt(asUINT index, void *value);
 	void InsertAt(asUINT index, const CScriptArray &arr);
+	void InsertFirst(void *value);
 	void InsertLast(void *value);
+	CScriptArray& InsertLastRet(void *value);
 	void RemoveAt(asUINT index);
+	void RemoveFirst();
 	void RemoveLast();
 	void RemoveRange(asUINT start, asUINT count);
+	void RemoveAll();
 	void SortAsc();
 	void SortDesc();
 	void SortAsc(asUINT startAt, asUINT count);

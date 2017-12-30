@@ -114,27 +114,6 @@ static void DestructString(String *thisPointer)
 	thisPointer->~String();
 }
 
-static String &AddAssignStringToString(const String &str, String &dest)
-{
-	// We don't register the method directly because some compilers
-	// and standard libraries inline the definition, resulting in the
-	// linker being unable to find the declaration.
-	// Example: CLang/LLVM with XCode 4.3 on OSX 10.7
-	dest += str;
-	return dest;
-}
-
-// bool string::isEmpty()
-// bool string::empty() // if AS_USE_STLNAMES == 1
-static bool StringIsEmpty(const String &str)
-{
-	// We don't register the method directly because some compilers
-	// and standard libraries inline the definition, resulting in the
-	// linker being unable to find the declaration
-	// Example: CLang/LLVM with XCode 4.3 on OSX 10.7
-	return str.empty();
-}
-
 static CharType *StringCharAt(unsigned int i, String &str)
 {
 	if( i >= str.size() )
@@ -290,23 +269,10 @@ static bool StringEquals(const String& lhs, const String& rhs)
 	return lhs == rhs;
 }
 
-static String StringAdd(const String& lhs, const String& rhs)
-{
-	return lhs + rhs;
-}
-
 void RegisterStdString_Native(asIScriptEngine *engine)
 {
 	int r = 0;
 	UNUSED_VAR(r);
-
-	// Register the string type
-//#if AS_CAN_USE_CPP11
-//	// With C++11 it is possible to use asGetTypeTraits to automatically determine the correct flags to use
-//	r = engine->RegisterObjectType("string", sizeof(string), asOBJ_VALUE | asGetTypeTraits<string>()); assert( r >= 0 );
-//#else
-//	r = engine->RegisterObjectType("string", sizeof(string), asOBJ_VALUE | asOBJ_APP_CLASS_CDAK); assert( r >= 0 );
-//#endif
 
 	r = engine->RegisterStringFactory("String", &stringFactory);
 
@@ -315,32 +281,34 @@ void RegisterStdString_Native(asIScriptEngine *engine)
 	r = engine->RegisterObjectBehaviour("String", asBEHAVE_CONSTRUCT,  "void f(const String &in)",    asFUNCTION(CopyConstructString), asCALL_CDECL_OBJLAST); assert( r >= 0 );
 	r = engine->RegisterObjectBehaviour("String", asBEHAVE_DESTRUCT,   "void f()",                    asFUNCTION(DestructString),  asCALL_CDECL_OBJLAST); assert( r >= 0 );
 	r = engine->RegisterObjectMethod("String", "String &opAssign(const String &in)", asMETHODPR(String, operator =, (const String&), String&), asCALL_THISCALL); assert( r >= 0 );
-	// Need to use a wrapper on Mac OS X 10.7/XCode 4.3 and CLang/LLVM, otherwise the linker fails
-	r = engine->RegisterObjectMethod("String", "String &opAddAssign(const String &in)", asFUNCTION(AddAssignStringToString), asCALL_CDECL_OBJLAST); assert( r >= 0 );
-//	r = engine->RegisterObjectMethod("String", "String &opAddAssign(const String &in)", asMETHODPR(String, operator+=, (const String&), String&), asCALL_THISCALL); assert( r >= 0 );
+	r = engine->RegisterObjectMethod("String", "String &opAddAssign(const String &in)", asMETHODPR(String, operator+=, (const String&), String&), asCALL_THISCALL); assert( r >= 0 );
 
-	// Need to use a wrapper for operator== otherwise gcc 4.7 fails to compile
+	// operator[]
+	r = engine->RegisterObjectMethod("String", "uint32 &opIndex(uint)", asFUNCTION(StringCharAt), asCALL_CDECL_OBJLAST); assert(r >= 0);
+	r = engine->RegisterObjectMethod("String", "const uint32 &opIndex(uint) const", asFUNCTION(StringCharAt), asCALL_CDECL_OBJLAST); assert(r >= 0);
+
+	// operator==
 	r = engine->RegisterObjectMethod("String", "bool opEquals(const String &in) const", asFUNCTIONPR(StringEquals, (const String &, const String &), bool), asCALL_CDECL_OBJFIRST); assert( r >= 0 );
+	
+	// operator cmp
 	r = engine->RegisterObjectMethod("String", "int opCmp(const String &in) const", asFUNCTION(StringCmp), asCALL_CDECL_OBJFIRST); assert( r >= 0 );
-	r = engine->RegisterObjectMethod("String", "String opAdd(const String &in) const", asFUNCTIONPR(StringAdd, (const String &, const String &), String), asCALL_CDECL_OBJFIRST); assert( r >= 0 );
-	//r = engine->RegisterObjectMethod("String", "String opAdd(const String &in) const", asFUNCTIONPR(operator +, (const String &, const String &), String), asCALL_CDECL_OBJFIRST); assert( r >= 0 );
+	
+	// operator+
+	r = engine->RegisterObjectMethod("String", "String opAdd(const String &in) const", asFUNCTIONPR(operator +, (const String &, const String &), String), asCALL_CDECL_OBJFIRST); assert( r >= 0 );
 
-	// The string length can be accessed through methods or through virtual property
+	r = engine->RegisterObjectMethod("String", "uint size() const", asFUNCTION(StringLength), asCALL_CDECL_OBJLAST); assert(r >= 0);
 	r = engine->RegisterObjectMethod("String", "uint length() const", asFUNCTION(StringLength), asCALL_CDECL_OBJLAST); assert( r >= 0 );
 	r = engine->RegisterObjectMethod("String", "void resize(uint)", asFUNCTION(StringResize), asCALL_CDECL_OBJLAST); assert( r >= 0 );
-	r = engine->RegisterObjectMethod("String", "uint get_length() const", asFUNCTION(StringLength), asCALL_CDECL_OBJLAST); assert( r >= 0 );
-	r = engine->RegisterObjectMethod("String", "void set_length(uint)", asFUNCTION(StringResize), asCALL_CDECL_OBJLAST); assert( r >= 0 );
-	// Need to use a wrapper on Mac OS X 10.7/XCode 4.3 and CLang/LLVM, otherwise the linker fails
-//	r = engine->RegisterObjectMethod("String", "bool isEmpty() const", asMETHOD(String, empty), asCALL_THISCALL); assert( r >= 0 );
-	r = engine->RegisterObjectMethod("String", "bool isEmpty() const", asFUNCTION(StringIsEmpty), asCALL_CDECL_OBJLAST); assert( r >= 0 );
+	r = engine->RegisterObjectMethod("String", "bool empty() const", asMETHOD(String, empty), asCALL_THISCALL); assert(r >= 0);
+	r = engine->RegisterObjectMethod("String", "bool isEmpty() const", asMETHOD(String, empty), asCALL_THISCALL); assert( r >= 0 );
 
-	// Register the index operator, both as a mutator and as an inspector
-	// Note that we don't register the operator[] directly, as it doesn't do bounds checking
-	r = engine->RegisterObjectMethod("String", "uint8 &opIndex(uint)", asFUNCTION(StringCharAt), asCALL_CDECL_OBJLAST); assert( r >= 0 );
-	r = engine->RegisterObjectMethod("String", "const uint8 &opIndex(uint) const", asFUNCTION(StringCharAt), asCALL_CDECL_OBJLAST); assert( r >= 0 );
-
-	// Utilities
 	r = engine->RegisterObjectMethod("String", "String substr(uint start = 0, int count = -1) const", asFUNCTION(StringSubString), asCALL_CDECL_OBJLAST); assert( r >= 0 );
+	
+	// Same as findFirst
+	r = engine->RegisterObjectMethod("String", "int find(const String &in, uint start = 0) const", asFUNCTION(StringFindFirst), asCALL_CDECL_OBJLAST); assert(r >= 0);
+	// Same as findLast
+	r = engine->RegisterObjectMethod("String", "int rfind(const String &in, int start = -1) const", asFUNCTION(StringFindLast), asCALL_CDECL_OBJLAST); assert(r >= 0);
+
 	r = engine->RegisterObjectMethod("String", "int findFirst(const String &in, uint start = 0) const", asFUNCTION(StringFindFirst), asCALL_CDECL_OBJLAST); assert( r >= 0 );
 	r = engine->RegisterObjectMethod("String", "int findFirstOf(const String &in, uint start = 0) const", asFUNCTION(StringFindFirstOf), asCALL_CDECL_OBJLAST); assert(r >= 0);
 	r = engine->RegisterObjectMethod("String", "int findFirstNotOf(const String &in, uint start = 0) const", asFUNCTION(StringFindFirstNotOf), asCALL_CDECL_OBJLAST); assert(r >= 0);
@@ -349,22 +317,6 @@ void RegisterStdString_Native(asIScriptEngine *engine)
 	r = engine->RegisterObjectMethod("String", "int findLastNotOf(const String &in, int start = -1) const", asFUNCTION(StringFindLastNotOf), asCALL_CDECL_OBJLAST); assert(r >= 0);
 	r = engine->RegisterObjectMethod("String", "void insert(uint pos, const String &in other)", asFUNCTION(StringInsert), asCALL_CDECL_OBJLAST); assert(r >= 0);
 	r = engine->RegisterObjectMethod("String", "void erase(uint pos, int count = -1)", asFUNCTION(StringErase), asCALL_CDECL_OBJLAST); assert(r >= 0);
-
-#if AS_USE_STLNAMES == 1
-	// Same as length
-	r = engine->RegisterObjectMethod("String", "uint size() const", asFUNCTION(StringLength), asCALL_CDECL_OBJLAST); assert( r >= 0 );
-	// Same as isEmpty
-	r = engine->RegisterObjectMethod("String", "bool empty() const", asFUNCTION(StringIsEmpty), asCALL_CDECL_OBJLAST); assert( r >= 0 );
-	// Same as findFirst
-	r = engine->RegisterObjectMethod("String", "int find(const String &in, uint start = 0) const", asFUNCTION(StringFindFirst), asCALL_CDECL_OBJLAST); assert( r >= 0 );
-	// Same as findLast
-	r = engine->RegisterObjectMethod("String", "int rfind(const String &in, int start = -1) const", asFUNCTION(StringFindLast), asCALL_CDECL_OBJLAST); assert( r >= 0 );
-#endif
-
-	// TODO: Implement the following
-	// findAndReplace - replaces a text found in the string
-	// replaceRange - replaces a range of bytes in the string
-	// multiply/times/opMul/opMul_r - takes the string and multiplies it n times, e.g. "-".multiply(5) returns "-----"
 }
 
 void RegisterStdString(asIScriptEngine * engine)

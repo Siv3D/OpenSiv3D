@@ -4,11 +4,12 @@ void Main()
 {
 	Script script(U"example/script.txt");
 
-	auto f = script.getFunction<int(void)>(U"GetNumber");
+	const auto GetNumber	= script.getFunction<int32(void)>(U"GetNumber");
+	const auto GetMessage	= script.getFunction<String(void)>(U"GetMessage");
+	const auto DrawCircle	= script.getFunction<void(const Circle&, const ColorF&)>(U"DrawCircle");
 
-	auto DrawCircle = script.getFunction<void(const Circle&, const ColorF&)>(U"DrawCircle");
-
-	Print << f();
+	Print << GetNumber();
+	Print << GetMessage();
 
 	while (System::Update())
 	{
