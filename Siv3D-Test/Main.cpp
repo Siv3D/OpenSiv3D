@@ -8,8 +8,8 @@ void Main()
 	Array<TextBox> textBoxes;
 	textBoxes << TextBox(font, Vec2(50, 50), 200);
 	textBoxes << TextBox(font, Vec2(50, 100), 300);
-	textBoxes << TextBox(font, Vec2(50, 150), 200, 4);
-	textBoxes << TextBox(font, Vec2(50, 200), 200, none, U"Name");
+	textBoxes << TextBox(font, Vec2(50, 150), 200, 4); // 最大文字数を 4 文字に制限
+	textBoxes << TextBox(font, Vec2(50, 200), 200, none, U"Name"); // "Hello" をデフォルトのテキストに
 
 	while (System::Update())
 	{

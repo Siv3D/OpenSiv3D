@@ -1483,9 +1483,6 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\TOMLReader\SivTOMLReader.cpp">
       <Filter>src\Siv3D\TOMLReader</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\OpenSiv3D\Siv3D\Source\Siv3D\Mat3x2\SivMat3x2.cpp">
-      <Filter>src\Siv3D\Mat3x2</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Asset\AssetFactory.cpp">
       <Filter>src\Siv3D\Asset</Filter>
     </ClCompile>
@@ -1596,6 +1593,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\TextBox\CTextBox.cpp">
       <Filter>src\Siv3D\TextBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Mat3x2\SivMat3x2.cpp">
+      <Filter>src\Siv3D\Mat3x2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
