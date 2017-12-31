@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2017 Ryo Suzuki
-//	Copyright (c) 2016-2017 OpenSiv3D Project
+//	Copyright (c) 2008-2018 Ryo Suzuki
+//	Copyright (c) 2016-2018 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -18,8 +18,8 @@ const Array<LicenseInfo> licenses = {
 {
 UR"-(Siv3D Engine)-",
 
-UR"-(Copyright (c) 2008-2017 Ryo Suzuki
-Copyright (c) 2016-2017 OpenSiv3D Project)-",
+UR"-(Copyright (c) 2008-2018 Ryo Suzuki
+Copyright (c) 2016-2018 OpenSiv3D Project)-",
 
 UR"-(Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files(the “Software”), to deal
@@ -44,7 +44,7 @@ SOFTWARE.)-"
 UR"-(HamFramework)-",
 
 UR"-(Copyright (c) 2014-2017 HAMSTRO
-Copyright (c) 2016-2017 OpenSiv3D Project)-",
+Copyright (c) 2016-2018 OpenSiv3D Project)-",
 
 UR"-(Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files(the “Software”), to deal
