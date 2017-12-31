@@ -20,73 +20,6 @@
 
 namespace s3d
 {
-	namespace detail
-	{
-	# if defined(SIV3D_TARGET_WINDOWS)
-
-		void DrawCandidateWindow(const Font& font,
-			const Vec2& basePos,
-			const ColorF& candidateBoxColor = ColorF(1.0, 0.9),
-			const ColorF& candidateSelectedBackgroundColor = ColorF(0.55, 0.85, 1.0),
-			const ColorF& candidateBoxFrameColor = ColorF(0.75),
-			const ColorF& candidateTextColor = ColorF(0.0))
-		{
-			const double candidatesMargin = 4.0;
-			const String editingText = TextInput::GetEditingText();
-			const auto[editingCursorIndex, editingTargetlength] = win::TextInput::GetCursorIndex();
-			const bool hasEditingTarget = (editingTargetlength > 0);
-			const String editingTargetText = editingText.substr(editingCursorIndex, editingTargetlength);
-			const auto cadidates = win::TextInput::GetCandidates();
-			const double candidateItemHeight = font.height() + candidatesMargin;
-
-			double boxWidth = 0.0;
-
-			for (const auto& canditate : cadidates)
-			{
-				boxWidth = Max(boxWidth, font(canditate).region().w);
-			}
-
-			const double leftOffset = hasEditingTarget ? font(U"1  ").region().w : 0.0;
-			const Vec2 boxPos(Clamp(basePos.x - leftOffset, 7.0, Window::Width() - boxWidth - leftOffset - 12.0), basePos.y);
-
-			boxWidth += leftOffset + 5;
-
-			if (cadidates)
-			{
-				RectF(boxPos, boxWidth, candidateItemHeight * cadidates.size()).stretched(5, 0)
-					.draw(candidateBoxColor).drawFrame(1, 0, candidateBoxFrameColor);
-			}
-
-			for (auto[i, text] : Indexed(cadidates))
-			{
-				bool selected = false;
-
-				if (editingTargetText == text)
-				{
-					selected = true;
-
-					RectF(boxPos.x, boxPos.y + i * candidateItemHeight, boxWidth, candidateItemHeight)
-						.stretched(5, 0).draw(candidateSelectedBackgroundColor);
-				}
-
-				if (text)
-				{
-					const Vec2 posNumber(boxPos.x, boxPos.y + i * candidateItemHeight + (candidatesMargin) / 2);
-					const Vec2 posLabel(posNumber.x + leftOffset, posNumber.y);
-
-					if (hasEditingTarget)
-					{
-						font(i + 1).draw(posNumber, candidateTextColor);
-					}
-
-					font(text).draw(posLabel, candidateTextColor);
-				}
-			}
-		}
-
-	# endif
-	}
-
 	TextEditor::TextEditor(const bool active)
 		: m_cursorStopwatch(true)
 		, m_active(active)
@@ -241,7 +174,7 @@ namespace s3d
 
 	# if defined(SIV3D_TARGET_WINDOWS)
 
-		detail::DrawCandidateWindow(fontCabdidate, Vec2(begX + candidateWindowPosOffset.x * hasEditingTarget, pos.y + fontHeight + candidateWindowPosOffset.y));
+		win::TextInput::DrawCandidateWindow(fontCabdidate, Vec2(begX + candidateWindowPosOffset.x * hasEditingTarget, pos.y + fontHeight + candidateWindowPosOffset.y));
 
 	# endif
 	}

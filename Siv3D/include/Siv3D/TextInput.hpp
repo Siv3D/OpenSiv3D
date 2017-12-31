@@ -13,6 +13,7 @@
 # include "Fwd.hpp"
 # include "String.hpp"
 # include "Array.hpp"
+# include "Color.hpp"
 
 namespace s3d
 {
@@ -70,6 +71,13 @@ namespace s3d
 		const Array<String>& GetCandidates();
 
 		std::pair<int32, int32> GetCursorIndex();
+
+		void DrawCandidateWindow(const Font& font,
+			const Vec2& basePos,
+			const ColorF& boxColor = ColorF(1.0),
+			const ColorF& selectedBackgroundColor = ColorF(0.55, 0.85, 1.0),
+			const ColorF& frameColor = ColorF(0.75),
+			const ColorF& textColor = ColorF(0.0));
 	}
 
 # endif

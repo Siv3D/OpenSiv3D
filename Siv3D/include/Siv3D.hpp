@@ -790,7 +790,7 @@
 	# include "Siv3D/TextEditor.hpp"
 
 	// テキストボックス
-	//# include "Siv3D/TextBox.hpp"
+	# include "Siv3D/TextBox.hpp"
 //
 // エフェクト
 //
