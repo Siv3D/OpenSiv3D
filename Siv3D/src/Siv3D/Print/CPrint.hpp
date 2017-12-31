@@ -29,6 +29,8 @@ namespace s3d
 
 		Array<Array<std::pair<char32_t, int32>>> m_messageLines;
 
+		String m_unhandledEditingtext;
+
 	public:
 
 		CPrint();
@@ -42,5 +44,7 @@ namespace s3d
 		void draw() override;
 
 		void clear() override;
+
+		void showUnhandledEditingText(const String& text) override;
 	};
 }
