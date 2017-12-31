@@ -43,7 +43,7 @@ SOFTWARE.)-"
 {
 UR"-(HamFramework)-",
 
-UR"-(Copyright (c) 2014-2017 HAMSTRO
+UR"-(Copyright (c) 2014-2018 HAMSTRO
 Copyright (c) 2016-2018 OpenSiv3D Project)-",
 
 UR"-(Permission is hereby granted, free of charge, to any person obtaining a copy
