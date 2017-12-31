@@ -94,4 +94,9 @@ namespace s3d
 	{
 		return pImpl->getText();
 	}
+
+	size_t TextBox::getCursorIndex() const
+	{
+		return pImpl->getCursorIndex();
+	}
 }

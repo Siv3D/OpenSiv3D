@@ -174,6 +174,11 @@ namespace s3d
 		return m_text;
 	}
 
+	size_t TextBox::CTextBox::getCursorIndex() const
+	{
+		return m_cursorIndex;
+	}
+
 	void TextBox::CTextBox::drawGlow(const Style& style) const
 	{
 		if (m_active)

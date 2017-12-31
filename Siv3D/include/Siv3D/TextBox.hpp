@@ -100,5 +100,7 @@ namespace s3d
 		void setText(const String& text);
 
 		const String& getText() const;
+
+		size_t getCursorIndex() const;
 	};
 }
