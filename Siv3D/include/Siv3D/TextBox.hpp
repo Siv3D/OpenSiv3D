@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -43,6 +43,13 @@ namespace s3d
 			double blurRadius = 6;
 
 			double spread = 3;
+			
+			Style() = default;
+			
+			static Style Default()
+			{
+				return Style{};
+			}
 		};
 
 		enum class State
@@ -76,9 +83,9 @@ namespace s3d
 
 		State update(bool clicked = MouseL.down());
 
-		void draw(const Style& style = Style()) const;
+		void draw(const Style& style = Style::Default()) const;
 
-		void drawOverlay(const Style& style = Style()) const;
+		void drawOverlay(const Style& style = Style::Default()) const;
 
 		void setActive(bool active);
 
