@@ -6,10 +6,10 @@ void Main()
 	const Font font(25);
 
 	Array<TextBox> textBoxes;
-	textBoxes << TextBox(font, Vec2(80, 100), 200, 8, U"Hello!");
-	textBoxes << TextBox(font, Vec2(80, 150), 200, 4, U"");
-	textBoxes << TextBox(font, Vec2(80, 200), 200);
-	textBoxes << TextBox(font, Vec2(80, 250), 200);
+	textBoxes << TextBox(font, Vec2(50, 50), 200);
+	textBoxes << TextBox(font, Vec2(50, 100), 300);
+	textBoxes << TextBox(font, Vec2(50, 150), 200, 4);
+	textBoxes << TextBox(font, Vec2(50, 200), 200, none, U"Name");
 
 	while (System::Update())
 	{
