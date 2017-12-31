@@ -113,6 +113,13 @@ namespace s3d
 
 			++lineCount;
 		}
+
+		if (m_unhandledEditingtext)
+		{
+			m_font(m_unhandledEditingtext).region(1, 1).draw();
+
+			m_font(m_unhandledEditingtext).draw(1, 1, Palette::Black);
+		}
 	}
 
 	void CPrint::clear()
@@ -120,5 +127,10 @@ namespace s3d
 		m_messageLines.clear();
 
 		m_currentPosX = 0;
+	}
+
+	void CPrint::showUnhandledEditingText(const String& text)
+	{
+		m_unhandledEditingtext = text;
 	}
 }

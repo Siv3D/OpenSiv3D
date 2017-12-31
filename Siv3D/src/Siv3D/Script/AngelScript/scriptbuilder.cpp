@@ -1025,7 +1025,7 @@ string GetAbsolutePath(const string &file)
 
 	return str;
 }
-*/
+
 
 string GetCurrentDir()
 {
@@ -1079,7 +1079,7 @@ string GetCurrentDir()
 	return "";
 #endif
 }
-
+*/
 END_AS_NAMESPACE
 
 

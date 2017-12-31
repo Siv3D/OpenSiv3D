@@ -1,24 +1,21 @@
-﻿# include <Siv3D.hpp>
+﻿# include <Siv3D.hpp> // OpenSiv3D v0.2.0
 
 void Main()
 {
-	//const Script script(U"example/script.txt");	
-	const Script script(Arg::code = TextReader(U"example/script.txt").readAll());
+	Graphics::SetBackground(ColorF(0.8, 0.9, 1.0));
 
-	if (!script || !script.compiled())
-	{
-		return;
-	}
+	const Font font(50);
 
-	const auto GetNumber	= script.getFunction<int32(void)>(U"GetNumber");
-	const auto GetMessage	= script.getFunction<String(void)>(U"GetMessage");
-	const auto DrawCircle	= script.getFunction<void(const Circle&, const ColorF&)>(U"DrawCircle");
-
-	Print << GetNumber();
-	Print << GetMessage();
+	const Texture textureCat(Emoji(U"🐈"), TextureDesc::Mipped);
 
 	while (System::Update())
 	{
-		DrawCircle(Circle(Cursor::Pos(), 100), HSV(System::FrameCount()));
+		font(U"Hello, Siv3D!🐣").drawAt(Window::Center(), Palette::Black);
+
+		font(Cursor::Pos()).draw(20, 400, ColorF(0.6));
+
+		textureCat.resized(80).draw(540, 380);
+
+		Circle(Cursor::Pos(), 60).draw(ColorF(1, 0, 0, 0.5));
 	}
 }
