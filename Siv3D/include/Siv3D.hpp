@@ -96,6 +96,9 @@
 	// Hash set
 	# include "Siv3D/HashSet.hpp"
 
+	// kd-tree
+	# include "Siv3D/KDTree.hpp"
+
 	// Indexed iterator
 	# include "Siv3D/Indexed.hpp"
 

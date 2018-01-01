@@ -12,6 +12,7 @@
 # pragma once
 # include "Fwd.hpp"
 # include "Logger.hpp"
+# include "Print.hpp"
 
 namespace s3d
 {
@@ -72,6 +73,6 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		//void print() const { Println(cycles(), U"cycles"); }
+		void print() const { Print(cycles(), U"cycles"); }
 	};
 }

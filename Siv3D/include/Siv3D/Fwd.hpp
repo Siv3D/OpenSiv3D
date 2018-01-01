@@ -60,6 +60,13 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	KDTree.hpp
+	//
+	template <class DatasetAdapter> class KDAdapter;
+	template <class DatasetAdapter> class KDTree;
+
+	//////////////////////////////////////////////////////
+	//
 	//	InfiniteList.hpp
 	//
 	template <class Type> class infinite_list;

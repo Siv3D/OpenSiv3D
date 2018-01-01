@@ -52,6 +52,13 @@ namespace s3d
 		template <class X, class Y, std::enable_if_t<!std::is_integral_v<X> || !std::is_integral_v<Y>>* = nullptr>
 		constexpr Point(X _x, Y _y) noexcept = delete;
 
+		constexpr value_type elem(size_t index) const noexcept
+		{
+			return index == 0 ? x
+				: index == 1 ? y
+				: 0;
+		}
+
 		/// <summary>
 		/// Point{ x, x }
 		/// </summary>

@@ -68,6 +68,14 @@ namespace s3d
 			, y(static_cast<value_type>(v.y))
 			, z(static_cast<value_type>(v.z)) {}
 
+		constexpr value_type elem(size_t index) const noexcept
+		{
+			return index == 0 ? x
+				 : index == 1 ? y
+				 : index == 2 ? z
+				 : 0;
+		}
+
 		constexpr Vector3D operator +() const noexcept
 		{
 			return *this;

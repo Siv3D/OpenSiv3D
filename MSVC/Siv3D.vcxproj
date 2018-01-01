@@ -441,6 +441,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\IReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\JSONReader.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\KDTree.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Key.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Keyboard.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\KeyConjunction.hpp" />
@@ -558,6 +559,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\WritableMemoryMapping.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Xorshift.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\XXHash.hpp" />
+    <ClInclude Include="..\Siv3D\include\ThirdParty\angelscript\angelscript.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\access.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\archives\binary.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\archives\portable_binary.hpp" />
@@ -598,6 +600,7 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\hopscotch-map\hopscotch_hash.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\hopscotch-map\hopscotch_map.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\hopscotch-map\hopscotch_set.h" />
+    <ClInclude Include="..\Siv3D\include\ThirdParty\nanoflann\nanoflann.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\SFMT\SFMT.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AssetHandleManager\AssetHandleManager.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Asset\CAsset.hpp" />

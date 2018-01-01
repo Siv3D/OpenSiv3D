@@ -614,6 +614,12 @@
     <Filter Include="src\Siv3D\TextBox">
       <UniqueIdentifier>{70556f91-fd2b-4465-a689-6ab3c34fb8a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\ThirdParty\angelscript">
+      <UniqueIdentifier>{a8e93705-d7f7-4a08-a91a-f7ac05d7ca29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ThirdParty\nanoflann">
+      <UniqueIdentifier>{bde4f092-e865-4782-8164-0198e1e9a689}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -3440,6 +3446,15 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\TextBox\CTextBox.hpp">
       <Filter>src\Siv3D\TextBox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\angelscript\angelscript.h">
+      <Filter>include\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\nanoflann\nanoflann.hpp">
+      <Filter>include\ThirdParty\nanoflann</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\KDTree.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

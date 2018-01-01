@@ -59,6 +59,13 @@ namespace s3d
 			: x(static_cast<value_type>(v.x))
 			, y(static_cast<value_type>(v.y)) {}
 
+		constexpr value_type elem(size_t index) const noexcept
+		{
+			return index == 0 ? x
+				: index == 1 ? y
+				: 0;
+		}
+
 		constexpr Vector2D operator +() const noexcept
 		{
 			return *this;
