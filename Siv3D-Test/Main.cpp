@@ -36,12 +36,12 @@ struct MonsterAdapter
 		return &point.x;
 	}
 
-	static element_type GetElement(const dataset_type& dataset, size_t index, int32 dim)
+	static element_type GetElement(const dataset_type& dataset, size_t index, size_t dim)
 	{
 		return dataset[index].circle.center.elem(dim);
 	}
 
-	static element_type Distance(const dataset_type& dataset, size_t index, const element_type* other)
+	static element_type DistanceSq(const dataset_type& dataset, size_t index, const element_type* other)
 	{
 		return dataset[index].circle.center.distanceFromSq(Vec2(other[0], other[1]));
 	}

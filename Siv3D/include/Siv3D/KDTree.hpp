@@ -47,14 +47,14 @@ namespace s3d
 			return std::size(m_dataset);
 		}
 
-		element_type kdtree_get_pt(const size_t index, const int32 dim) const
+		element_type kdtree_get_pt(const size_t index, const size_t dim) const
 		{
 			return DatasetAdapter::GetElement(m_dataset, index, dim);
 		}
 
 		element_type kdtree_distance(const element_type* p0, const size_t index_p1, size_t) const
 		{
-			return DatasetAdapter::Distance(m_dataset, index_p1, p0);
+			return DatasetAdapter::DistanceSq(m_dataset, index_p1, p0);
 		}
 
 		template <class BBOX>
