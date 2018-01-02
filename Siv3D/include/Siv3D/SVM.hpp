@@ -32,6 +32,8 @@ namespace s3d
 			param.kernel_type	= RBF;
 			param.degree		= 3;
 			param.gamma			= 1.0 / maxIndex;
+			param.coef0			= 0;
+			param.nu			= 0.5;
 			param.cache_size	= 100;
 			param.C				= 1;
 			param.eps			= 1e-3;
