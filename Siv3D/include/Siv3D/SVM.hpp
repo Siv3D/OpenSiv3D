@@ -14,7 +14,6 @@
 # include "Fwd.hpp"
 # include "String.hpp"
 # include "Array.hpp"
-# include "MathConstants.hpp"
 
 S3D_DISABLE_MSVC_WARNINGS_PUSH(4458)
 # include "../ThirdParty/libsvm/svm.h"
@@ -24,6 +23,28 @@ namespace s3d
 {
 	namespace SVM
 	{
+		using Paramter = svm_parameter;
+
+		inline Paramter DefaultParameter(size_t maxIndex)
+		{
+			Paramter param;
+			param.svm_type		= C_SVC;
+			param.kernel_type	= RBF;
+			param.degree		= 3;
+			param.gamma			= 1.0 / maxIndex;
+			param.cache_size	= 100;
+			param.C				= 1;
+			param.eps			= 1e-3;
+			param.p				= 0.1;
+			param.shrinking		= 1;
+			param.probability	= 0;
+			param.nr_weight		= 0;
+			param.weight_label	= nullptr;
+			param.weight		= nullptr;
+
+			return param;
+		}
+
 		template <size_t _Dimensions>
 		struct SupportVector
 		{
@@ -34,194 +55,102 @@ namespace s3d
 			std::array<double, Dimensions> vector;
 		};
 
+		struct SparseSupportVector
+		{
+			double label;
+
+			Array<std::pair<int32, double>> vector;
+		};
+
+		SVM::SparseSupportVector ParseSVMLight(StringView view);
+
 		class Problem
 		{
 		private:
 
-			svm_problem m_problem = { 0, nullptr, nullptr };
+			class CProblem;
 
-			Array<svm_node> m_nodes;
-
-			bool m_hasData = false;
+			std::shared_ptr<CProblem> pImpl;
 
 		public:
 
-			Problem() = default;
+			Problem();
 
-			template <size_t D>
-			Problem(const Array<SupportVector<D>>& supportVectors)
+			template <size_t Dimensions>
+			Problem(const Array<SupportVector<Dimensions>>& supportVectors)
+				: Problem()
 			{
 				load(supportVectors);
 			}
 
-			~Problem()
-			{
-				release();
-			}
+			Problem(const double* pSupportVectors, size_t num_dataset, size_t dimensions);
+
+			Problem(const Array<SparseSupportVector>& supportVectors);
+
+			Problem(const FilePath& path);
+
+			~Problem();
 
 			template <size_t Dimensions>
 			bool load(const Array<SupportVector<Dimensions>>& supportVectors)
 			{
-				if (m_hasData)
-				{
-					release();
-				}
+				release();
 
 				if (supportVectors.isEmpty())
 				{
 					return false;
 				}
 
-				const size_t num_dataset = static_cast<int32>(supportVectors.size());
-
-				m_problem.l = static_cast<int32>(num_dataset);
-				m_problem.y = new double[num_dataset];
-				m_problem.x = new svm_node*[num_dataset];
-				m_nodes.resize((Dimensions + 1) * num_dataset);
-
-				for (int32 i = 0; i < num_dataset; ++i)
-				{
-					m_problem.y[i] = supportVectors[i].label;
-
-					const size_t indexOffset = (Dimensions + 1) * i;
-
-					for (int32 k = 0; k < Dimensions; ++k)
-					{
-						m_nodes[indexOffset + k].index = (k + 1);
-						m_nodes[indexOffset + k].value = supportVectors[i].vector[k];
-					}
-
-					m_nodes[indexOffset + Dimensions].index = -1;
-					m_problem.x[i] = &m_nodes[indexOffset];
-				}
-
-				m_hasData = true;
-
-				return true;
+				return load(&supportVectors[0].label, supportVectors.size(), Dimensions);
 			}
 
-			void release()
-			{
-				if (!m_hasData)
-				{
-					return;
-				}
+			bool load(const double* pSupportVectors, size_t num_dataset, size_t dimensions);
 
-				delete[] m_problem.y;
-				delete[] m_problem.x;
+			bool load(const Array<SparseSupportVector>& supportVectors);
 
-				m_problem.l = 0;
-				m_nodes.release();
+			bool load(const FilePath& path);
 
-				m_hasData = false;
-			}
+			void release();
 
-			explicit operator bool() const
-			{
-				return m_hasData;
-			}
+			explicit operator bool() const;
 
-			bool hasData() const
-			{
-				return m_hasData;
-			}
+			bool hasData() const;
 
-			bool saveModel(const FilePath& path, const svm_parameter& param) const
-			{
-				if (!m_hasData)
-				{
-					return false;
-				}
+			size_t num_SVs() const;
 
-				svm_model* model = svm_train(&m_problem, &param);
+			int32 getMaxIndex() const;
 
-				const int32 result = svm_save_model(path.narrow().c_str(), model);
-
-				svm_free_and_destroy_model(&model);
-
-				return (result == 0);
-			}
+			bool trainAndSaveModel(const FilePath& path, const Paramter& param) const;
 		};
 
 		class PredictModel
 		{
 		private:
 
-			svm_model * m_model = nullptr;
+			class CPredictModel;
+
+			std::shared_ptr<CPredictModel> pImpl;
 
 		public:
 
-			PredictModel() = default;
+			PredictModel();
 
-			PredictModel(const FilePath& path)
-			{
-				load(path);
-			}
+			PredictModel(const FilePath& path);
 
-			~PredictModel()
-			{
-				release();
-			}
+			~PredictModel();
+			explicit operator bool() const;
 
-			explicit operator bool() const
-			{
-				return (m_model != nullptr);
-			}
+			bool hasData() const;
 
-			bool load(const FilePath& path)
-			{
-				if (m_model)
-				{
-					release();
-				}
+			bool load(const FilePath& path);
 
-				m_model = svm_load_model(path.narrow().c_str());
+			void release();
 
-				return (m_model != nullptr);
-			}
+			int32 num_classes() const;
 
-			void release()
-			{
-				if (!m_model)
-				{
-					return;
-				}
+			double predict(const Array<double>& vector) const;
 
-				svm_free_and_destroy_model(&m_model);
-
-				m_model = nullptr;
-			}
-
-			int32 num_classes() const
-			{
-				if (!m_model)
-				{
-					return 0;
-				}
-
-				return m_model->nr_class;
-			}
-
-			double predict(const Array<double>& vector) const
-			{
-				if (!m_model)
-				{
-					return Math::NaN;
-				}
-
-				Array<svm_node> node(vector.size() + 1);
-
-				for (int32 i = 0; i < vector.size(); ++i)
-				{
-					node[i].index = i + 1;
-
-					node[i].value = vector[i];
-				}
-
-				node.back().index = -1;
-
-				return svm_predict(m_model, node.data());
-			}
+			double predict(const Array<std::pair<int32, double>>& vector) const;
 		};
 	}
 }
