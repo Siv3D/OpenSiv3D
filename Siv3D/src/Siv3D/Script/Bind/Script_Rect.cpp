@@ -9,7 +9,8 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D.hpp>
+# include <Siv3D/Script.hpp>
+# include <Siv3D/Rectangle.hpp>
 # include "ScriptBind.hpp"
 
 namespace s3d

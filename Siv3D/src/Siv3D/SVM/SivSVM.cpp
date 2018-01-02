@@ -9,16 +9,10 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D/Script.hpp>
-# include <Siv3D/Random.hpp>
-# include "ScriptBind.hpp"
+# include <Siv3D/SVM.hpp>
+# include "CSVM.hpp"
 
 namespace s3d
 {
-	using namespace AngelScript;
 
-	void RegisterRandom(asIScriptEngine*)
-	{
-
-	}
 }

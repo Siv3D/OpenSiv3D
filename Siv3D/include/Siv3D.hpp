@@ -915,6 +915,9 @@
 //
 // ユーティリティ
 //
+	// SVM
+	# include "Siv3D/SVM.hpp"
+
 	// デバッグ出力
 	# include "Siv3D/Print.hpp"
 	

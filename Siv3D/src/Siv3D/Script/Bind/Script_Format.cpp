@@ -9,7 +9,19 @@
 //
 //-----------------------------------------------
 
-# include <Siv3D.hpp>
+# include <Siv3D/Script.hpp>
+# include <Siv3D/Format.hpp>
+# include <Siv3D/Color.hpp>
+# include <Siv3D/HSV.hpp>
+# include <Siv3D/PointVector.hpp>
+# include <Siv3D/Circular.hpp>
+# include <Siv3D/Rectangle.hpp>
+# include <Siv3D/Circle.hpp>
+# include <Siv3D/Ellipse.hpp>
+# include <Siv3D/Line.hpp>
+# include <Siv3D/Triangle.hpp>
+# include <Siv3D/Quad.hpp>
+# include <Siv3D/RoundRect.hpp>
 # include "ScriptBind.hpp"
 
 namespace s3d

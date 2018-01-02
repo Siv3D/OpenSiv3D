@@ -620,6 +620,15 @@
     <Filter Include="include\ThirdParty\nanoflann">
       <UniqueIdentifier>{bde4f092-e865-4782-8164-0198e1e9a689}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\libsvm">
+      <UniqueIdentifier>{999adfc5-4afc-4d9e-8545-573970d3cb4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\SVM">
+      <UniqueIdentifier>{14e78a36-4dba-49dc-aaa7-53ea27bb5aca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ThirdParty\libsvm">
+      <UniqueIdentifier>{2a354651-aa1e-42ca-9647-b277b071389f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -1602,6 +1611,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Mat3x2\SivMat3x2.cpp">
       <Filter>src\Siv3D\Mat3x2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\SVM\CSVM.cpp">
+      <Filter>src\Siv3D\SVM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\SVM\SivSVM.cpp">
+      <Filter>src\Siv3D\SVM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\libsvm\svm.cpp">
+      <Filter>src\ThirdParty\libsvm</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -3455,6 +3473,15 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\KDTree.hpp">
       <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\SVM\CSVM.hpp">
+      <Filter>src\Siv3D\SVM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\SVM.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\libsvm\svm.h">
+      <Filter>include\ThirdParty\libsvm</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

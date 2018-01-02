@@ -242,6 +242,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Stopwatch\SivStopwatch.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\StringView\SivStringView.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\String\SivString.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\SVM\CSVM.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\SVM\SivSVM.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\System\CSystem_Linux.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\System\CSystem_macOS.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\System\CSystem_Windows.cpp" />
@@ -312,6 +314,7 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\gif_hash.c" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\gif_quantize.c" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\giflib\openbsd-reallocarray.c" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\libsvm\svm.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParser.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParserBase.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\muparser\muParserBytecode.cpp" />
@@ -517,6 +520,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Stopwatch.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\String.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\StringView.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\SVM.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\System.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextBox.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextEditor.hpp" />
@@ -600,6 +604,7 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\hopscotch-map\hopscotch_hash.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\hopscotch-map\hopscotch_map.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\hopscotch-map\hopscotch_set.h" />
+    <ClInclude Include="..\Siv3D\include\ThirdParty\libsvm\svm.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\nanoflann\nanoflann.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\SFMT\SFMT.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AssetHandleManager\AssetHandleManager.hpp" />
@@ -731,6 +736,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Shader\GL\VertexShader_GL.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Shader\IShader.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Siv3DEngine.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\SVM\CSVM.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\System\CSystem_Linux.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\System\CSystem_macOS.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\System\CSystem_Windows.hpp" />
