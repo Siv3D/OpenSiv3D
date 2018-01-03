@@ -164,6 +164,10 @@ namespace s3d
 			return pImpl->trainAndSaveModel(path, param);
 		}
 		
+		PredictModel Problem::trainAndCreateModel(const Paramter& param) const
+		{
+			return pImpl->trainAndCreateModel(param);
+		}
 
 
 		PredictModel::PredictModel()
@@ -176,6 +180,12 @@ namespace s3d
 			: PredictModel()
 		{
 			pImpl->load(path);
+		}
+
+		PredictModel::PredictModel(std::unique_ptr<svm_model*>&& ppModel)
+			: PredictModel()
+		{
+			pImpl->set(std::move(ppModel));
 		}
 
 		PredictModel::~PredictModel()
@@ -203,9 +213,14 @@ namespace s3d
 			pImpl->release();
 		}
 
-		int32 PredictModel::num_classes() const
+		size_t PredictModel::num_classes() const
 		{
 			return pImpl->num_classes();
+		}
+
+		Array<int32> PredictModel::getLabels() const
+		{
+			return pImpl->getLabels();
 		}
 
 		double PredictModel::predict(const Array<double>& vector) const
@@ -216,6 +231,32 @@ namespace s3d
 		double PredictModel::predict(const Array<std::pair<int32, double>>& vector) const
 		{
 			return pImpl->predict(vector);
+		}
+
+		Label PredictModel::predictProbability(const Array<double>& vector, Array<double>& probabilities) const
+		{
+			return pImpl->predictProbability(vector, probabilities);
+		}
+
+		double PredictModel::predictProbability(const Array<std::pair<int32, double>>& vector, Array<double>& probabilities) const
+		{
+			return pImpl->predictProbability(vector, probabilities);
+		}
+	}
+
+	void Formatter(FormatData& formatData, const SVM::SparseSupportVector& value)
+	{
+		formatData.string.append(ToString(value.label));
+		
+		for (const auto& elem : value.vector)
+		{
+			formatData.string.push_back(U' ');
+
+			formatData.string.append(ToString(elem.first));
+
+			formatData.string.push_back(U':');
+
+			formatData.string.append(ToString(elem.second));
 		}
 	}
 }

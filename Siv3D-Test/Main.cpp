@@ -6,10 +6,8 @@ void Main()
 	
 	const SVM::Paramter param = SVM::DefaultParameter(problem.getMaxIndex()); // パラメータ
 
-	problem.trainAndSaveModel(U"a1a.model.txt", param); // 学習 & モデルを保存
+	const SVM::PredictModel model = problem.trainAndCreateModel(param); // 学習 & モデルを保存
 	
-	const SVM::PredictModel model(U"a1a.model.txt"); // 予測モデルのロード
-
 	// テストデータの読み込み
 	TextReader reader(U"example/a1a.t");
 	String line;

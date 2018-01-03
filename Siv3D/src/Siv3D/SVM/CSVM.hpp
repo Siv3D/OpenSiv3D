@@ -55,6 +55,8 @@ namespace s3d
 			int32 getMaxIndex() const;
 
 			bool trainAndSaveModel(const FilePath& path, const Paramter& param) const;
+
+			PredictModel trainAndCreateModel(const Paramter& param) const;
 		};
 
 		class PredictModel::CPredictModel
@@ -73,13 +75,21 @@ namespace s3d
 
 			bool load(const FilePath& path);
 
+			bool set(std::unique_ptr<svm_model*>&& ppModel);
+
 			void release();
 
-			int32 num_classes() const;
+			size_t num_classes() const;
 
-			double predict(const Array<double>& vector) const;
+			Array<int32> getLabels() const;
 
-			double predict(const Array<std::pair<int32, double>>& vector) const;
+			Label predict(const Array<double>& vector) const;
+
+			Label predict(const Array<std::pair<int32, double>>& vector) const;
+
+			Label predictProbability(const Array<double>& vector, Array<double>& probabilities) const;
+
+			Label predictProbability(const Array<std::pair<int32, double>>& vector, Array<double>& probabilities) const;
 		};
 	}
 }

@@ -14,16 +14,15 @@
 # include "Fwd.hpp"
 # include "String.hpp"
 # include "Array.hpp"
-
-S3D_DISABLE_MSVC_WARNINGS_PUSH(4458)
 # include "../ThirdParty/libsvm/svm.h"
-S3D_DISABLE_MSVC_WARNINGS_POP()
 
 namespace s3d
 {
 	namespace SVM
 	{
 		using Paramter = svm_parameter;
+
+		using Label = double;
 
 		inline Paramter DefaultParameter(size_t maxIndex)
 		{
@@ -52,14 +51,14 @@ namespace s3d
 		{
 			static constexpr int32 Dimensions = _Dimensions;
 
-			double label;
+			Label label;
 
 			std::array<double, Dimensions> vector;
 		};
 
 		struct SparseSupportVector
 		{
-			double label;
+			Label label;
 
 			Array<std::pair<int32, double>> vector;
 		};
@@ -127,6 +126,8 @@ namespace s3d
 			int32 getMaxIndex() const;
 
 			bool trainAndSaveModel(const FilePath& path, const Paramter& param) const;
+
+			PredictModel trainAndCreateModel(const Paramter& param) const;
 		};
 
 		class PredictModel
@@ -143,6 +144,8 @@ namespace s3d
 
 			PredictModel(const FilePath& path);
 
+			PredictModel(std::unique_ptr<svm_model*>&& ppModel);
+
 			~PredictModel();
 			explicit operator bool() const;
 
@@ -152,11 +155,19 @@ namespace s3d
 
 			void release();
 
-			int32 num_classes() const;
+			size_t num_classes() const;
 
-			double predict(const Array<double>& vector) const;
+			Array<int32> getLabels() const;
 
-			double predict(const Array<std::pair<int32, double>>& vector) const;
+			Label predict(const Array<double>& vector) const;
+
+			Label predict(const Array<std::pair<int32, double>>& vector) const;
+
+			Label predictProbability(const Array<double>& vector, Array<double>& probabilities) const;
+
+			Label predictProbability(const Array<std::pair<int32, double>>& vector, Array<double>& probabilities) const;
 		};
 	}
+
+	void Formatter(FormatData& formatData, const SVM::SparseSupportVector& value);
 }

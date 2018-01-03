@@ -278,6 +278,16 @@ namespace s3d
 			return (result == 0);
 		}
 
+		PredictModel Problem::CProblem::trainAndCreateModel(const Paramter& param) const
+		{
+			if (!m_hasData)
+			{
+				return PredictModel();
+			}
+
+			return PredictModel(std::make_unique<svm_model*>(svm_train(&m_problem, &param)));
+		}
+
 		char* Problem::CProblem::readline(FILE *input)
 		{
 			int len;
@@ -327,6 +337,18 @@ namespace s3d
 			return (m_model != nullptr);
 		}
 
+		bool PredictModel::CPredictModel::set(std::unique_ptr<svm_model*>&& ppModel)
+		{
+			if (m_model)
+			{
+				release();
+			}
+
+			m_model = *ppModel;
+
+			return (m_model != nullptr);
+		}
+
 		void PredictModel::CPredictModel::release()
 		{
 			if (!m_model)
@@ -339,7 +361,7 @@ namespace s3d
 			m_model = nullptr;
 		}
 
-		int32 PredictModel::CPredictModel::num_classes() const
+		size_t PredictModel::CPredictModel::num_classes() const
 		{
 			if (!m_model)
 			{
@@ -349,7 +371,17 @@ namespace s3d
 			return m_model->nr_class;
 		}
 
-		double PredictModel::CPredictModel::predict(const Array<double>& vector) const
+		Array<int32> PredictModel::CPredictModel::getLabels() const
+		{
+			if (!m_model || !m_model->label)
+			{
+				return Array<int32>();
+			}
+
+			return Array<int32>(m_model->label, m_model->label + m_model->nr_class);
+		}
+
+		Label PredictModel::CPredictModel::predict(const Array<double>& vector) const
 		{
 			if (!m_model)
 			{
@@ -370,7 +402,7 @@ namespace s3d
 			return svm_predict(m_model, node.data());
 		}
 
-		double PredictModel::CPredictModel::predict(const Array<std::pair<int32, double>>& vector) const
+		Label PredictModel::CPredictModel::predict(const Array<std::pair<int32, double>>& vector) const
 		{
 			if (!m_model)
 			{
@@ -389,6 +421,56 @@ namespace s3d
 			node.back().index = -1;
 
 			return svm_predict(m_model, node.data());
+		}
+
+		Label PredictModel::CPredictModel::predictProbability(const Array<double>& vector, Array<double>& probabilities) const
+		{
+			if (!m_model)
+			{
+				probabilities.clear();
+
+				return Math::NaN;
+			}
+
+			Array<svm_node> node(vector.size() + 1);
+
+			for (int32 i = 0; i < vector.size(); ++i)
+			{
+				node[i].index = i + 1;
+
+				node[i].value = vector[i];
+			}
+
+			node.back().index = -1;
+
+			probabilities.resize(m_model->nr_class);
+
+			return svm_predict_probability(m_model, node.data(), probabilities.data());
+		}
+
+		Label PredictModel::CPredictModel::predictProbability(const Array<std::pair<int32, double>>& vector, Array<double>& probabilities) const
+		{
+			if (!m_model)
+			{
+				probabilities.clear();
+
+				return Math::NaN;
+			}
+
+			Array<svm_node> node(vector.size() + 1);
+
+			for (int32 i = 0; i < vector.size(); ++i)
+			{
+				node[i].index = vector[i].first;
+
+				node[i].value = vector[i].second;
+			}
+
+			node.back().index = -1;
+
+			probabilities.resize(m_model->nr_class, 3);
+
+			return svm_predict_probability(m_model, node.data(), probabilities.data());
 		}
 	}
 }
