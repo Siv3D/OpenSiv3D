@@ -16,6 +16,7 @@
 # include <imm.h>
 # include "../Siv3DEngine.hpp"
 # include "CTextInput_Windows.hpp"
+# include "../Print/IPrint.hpp"
 # include <Siv3D/Keyboard.hpp>
 # include <Siv3D/Logger.hpp>
 
@@ -53,6 +54,8 @@ namespace s3d
 
 	void CTextInput_Windows::update()
 	{
+		Siv3DEngine::GetPrint()->showUnhandledEditingText(m_editingTextHandled ? U"" : m_editingText);
+
 		{
 			std::lock_guard<std::mutex> lock(m_mutex);
 
@@ -67,6 +70,11 @@ namespace s3d
 			m_chars = m_internalChars;
 
 			m_internalChars.clear();
+		}
+
+		if (m_editingText)
+		{
+			m_editingTextHandled = false;
 		}
 
 		if (!m_editingText)
@@ -93,6 +101,8 @@ namespace s3d
 	
 	const String& CTextInput_Windows::getEditingText() const
 	{
+		m_editingTextHandled = true;
+
 		return m_editingText;
 	}
 
