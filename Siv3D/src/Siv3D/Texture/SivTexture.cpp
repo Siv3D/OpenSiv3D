@@ -196,6 +196,46 @@ namespace s3d
 		return RectF(x, y, size);
 	}
 
+	RectF Texture::drawClipped(double x, double y, const RectF& clipRect, const ColorF& diffuse) const
+	{
+		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());
+
+		const double clipRight = clipRect.x + clipRect.w;
+		const double clipBottom = clipRect.y + clipRect.h;
+
+		const double left = std::max(x, clipRect.x);
+		const double right = std::min(x + size.x, clipRight);
+		const double top = std::max(y, clipRect.y);
+		const double bottom = std::min(y + size.y, clipBottom);
+
+		if (clipRight <= left
+			|| right <= clipRect.x
+			|| clipBottom <= top
+			|| bottom <= clipRect.y)
+		{
+			return RectF(left, top, 0, 0);
+		}
+
+		const double xLeftTrimmed = left - x;
+		const double xRightTrimmed = (x + size.x) - right;
+		const double yTopTrimmed = top - y;
+		const double yBottomTrimmed = (y + size.y) - bottom;
+
+		const double uLeftTrimmed = xLeftTrimmed / size.x;
+		const double uRightTrimmed = xRightTrimmed / size.x;
+		const double vTopTrimmed = yTopTrimmed / size.y;
+		const double vBottomTrimmed = yBottomTrimmed / size.y;
+
+		Siv3DEngine::GetRenderer2D()->addTextureRegion(
+			*this,
+			FloatRect(left, top, right, bottom),
+			FloatRect(uLeftTrimmed, vTopTrimmed, 1.0 - uRightTrimmed, 1.0 - vBottomTrimmed),
+			diffuse.toFloat4()
+		);
+
+		return RectF(left, top, right - left, bottom - top);
+	}
+
 	RectF Texture::drawAt(const double x, const double y, const ColorF& diffuse) const
 	{
 		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());
@@ -210,6 +250,15 @@ namespace s3d
 		);
 
 		return RectF(x - wHalf, y - hHalf, size);
+	}
+
+	RectF Texture::drawAtClipped(double x, double y, const RectF& clipRect, const ColorF& diffuse) const
+	{
+		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());
+		const double wHalf = size.x * 0.5;
+		const double hHalf = size.y * 0.5;
+
+		return drawClipped(x - wHalf, y - hHalf, clipRect, diffuse);
 	}
 
 	TextureRegion Texture::operator ()(const double x, const double y, const double w, const double h) const
@@ -260,18 +309,18 @@ namespace s3d
 		return operator ()(rect.x, rect.y, rect.w, rect.h);
 	}
 
-	TextureRegion Texture::mirror() const
+	TextureRegion Texture::mirrored() const
 	{
 		return TextureRegion(*this,
 			{ 1.0f, 0.0f, 0.0f, 1.0f },
 			size());
 	}
 
-	TextureRegion Texture::mirror(const bool doMirror) const
+	TextureRegion Texture::mirrored(const bool doMirror) const
 	{
 		if (doMirror)
 		{
-			return mirror();
+			return mirrored();
 		}
 		else
 		{
@@ -279,18 +328,18 @@ namespace s3d
 		}
 	}
 
-	TextureRegion Texture::flip() const
+	TextureRegion Texture::flipped() const
 	{
 		return TextureRegion(*this,
 			{ 0.0f, 1.0f, 1.0f, 0.0f },
 			size());
 	}
 
-	TextureRegion Texture::flip(const bool doFlip) const
+	TextureRegion Texture::flipped(const bool doFlip) const
 	{
 		if (doFlip)
 		{
-			return flip();
+			return flipped();
 		}
 		else
 		{
@@ -298,12 +347,12 @@ namespace s3d
 		}
 	}
 
-	TextureRegion Texture::scale(const double s) const
+	TextureRegion Texture::scaled(const double s) const
 	{
-		return scale({ s, s });
+		return scaled({ s, s });
 	}
 
-	TextureRegion Texture::scale(const double sx, const double sy) const
+	TextureRegion Texture::scaled(const double sx, const double sy) const
 	{
 		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());
 
@@ -312,31 +361,31 @@ namespace s3d
 			size.x * sx, size.y * sy);
 	}
 
-	TextureRegion Texture::scale(const Vec2& s) const
+	TextureRegion Texture::scaled(const Vec2& s) const
 	{
-		return scale(s.x, s.y);
+		return scaled(s.x, s.y);
 	}
 
-	TextureRegion Texture::resize(const double size) const
+	TextureRegion Texture::resized(const double size) const
 	{
 		const Size texSize = Siv3DEngine::GetTexture()->getSize(m_handle->id());
 
-		return scale(static_cast<double>(size) / std::max(texSize.x, texSize.y));
+		return scaled(static_cast<double>(size) / std::max(texSize.x, texSize.y));
 	}
 
-	TextureRegion Texture::resize(const double width, const double height) const
+	TextureRegion Texture::resized(const double width, const double height) const
 	{
 		return TextureRegion(*this,
 			0.0f, 0.0f, 1.0f, 1.0f,
 			width, height);
 	}
 
-	TextureRegion Texture::resize(const Vec2& size) const
+	TextureRegion Texture::resized(const Vec2& size) const
 	{
-		return resize(size.x, size.y);
+		return resized(size.x, size.y);
 	}
 
-	TextureRegion Texture::repeat(const double xRepeat, const double yRepeat) const
+	TextureRegion Texture::repeated(const double xRepeat, const double yRepeat) const
 	{
 		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());
 
@@ -345,12 +394,12 @@ namespace s3d
 			size.x * xRepeat, size.y * yRepeat);
 	}
 
-	TextureRegion Texture::repeat(const Vec2& _repeat) const
+	TextureRegion Texture::repeated(const Vec2& _repeat) const
 	{
-		return repeat(_repeat.x, _repeat.y);
+		return repeated(_repeat.x, _repeat.y);
 	}
 
-	TextureRegion Texture::map(const double width, const double height) const
+	TextureRegion Texture::mapped(const double width, const double height) const
 	{
 		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());
 
@@ -359,12 +408,12 @@ namespace s3d
 			width, height);
 	}
 
-	TextureRegion Texture::map(const Vec2& size) const
+	TextureRegion Texture::mapped(const Vec2& size) const
 	{
-		return map(size.x, size.y);
+		return mapped(size.x, size.y);
 	}
 
-	TexturedQuad Texture::rotate(const double angle) const
+	TexturedQuad Texture::rotated(const double angle) const
 	{
 		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());
 
@@ -374,7 +423,7 @@ namespace s3d
 			Float2(size.x * 0.5, size.y * 0.5));
 	}
 
-	TexturedQuad Texture::rotateAt(const double x, const double y, const double angle) const
+	TexturedQuad Texture::rotatedAt(const double x, const double y, const double angle) const
 	{
 		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());
 
@@ -384,8 +433,8 @@ namespace s3d
 			Float2(x, y));
 	}
 
-	TexturedQuad Texture::rotateAt(const Vec2& pos, const double angle) const
+	TexturedQuad Texture::rotatedAt(const Vec2& pos, const double angle) const
 	{
-		return rotateAt(pos.x, pos.y, angle);
+		return rotatedAt(pos.x, pos.y, angle);
 	}
 }

@@ -17,6 +17,45 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		class TextWriterBuffer
+		{
+		private:
+
+			TextWriter& m_writer;
+
+			bool m_isLast = false;
+
+		public:
+
+			std::unique_ptr<FormatData> formatData;
+
+			TextWriterBuffer(TextWriter& writer)
+				: m_writer(writer)
+				, m_isLast(true)
+				, formatData(std::make_unique<FormatData>()) {}
+
+			TextWriterBuffer(TextWriterBuffer&& other)
+				: m_writer(other.m_writer)
+				, m_isLast(true)
+				, formatData(std::move(other.formatData))
+			{
+				other.m_isLast = false;
+			}
+
+			~TextWriterBuffer();
+
+			template <class Type>
+			TextWriterBuffer& operator <<(const Type& value)
+			{
+				Formatter(*formatData, value);
+
+				return *this;
+			}
+		};
+	}
+
 	/// <summary>
 	/// 書き込み用テキストファイル
 	/// </summary>
@@ -289,6 +328,16 @@ namespace s3d
 
 		void writelnUTF8(std::string_view view);
 
+		template <class Type>
+		detail::TextWriterBuffer operator <<(const Type& value)
+		{
+			detail::TextWriterBuffer buf(*this);
+
+			Formatter(*buf.formatData, value);
+
+			return buf;
+		}
+
 		/// <summary>
 		/// オープンしているファイルのパスを返します。
 		/// </summary>
@@ -297,4 +346,15 @@ namespace s3d
 		/// </remarks>
 		[[nodiscard]] const FilePath& path() const;
 	};
+
+	namespace detail
+	{
+		inline TextWriterBuffer::~TextWriterBuffer()
+		{
+			if (m_isLast)
+			{
+				m_writer.writeln(formatData->string);
+			}
+		}
+	}
 }

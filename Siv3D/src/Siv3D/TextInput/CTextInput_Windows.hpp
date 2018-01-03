@@ -60,6 +60,8 @@ namespace s3d
 		
 		bool m_enabled = true;
 
+		mutable bool m_editingTextHandled = true;
+
 		std::unique_ptr<SDL_VideoData> m_pVideo;
 
 	public:

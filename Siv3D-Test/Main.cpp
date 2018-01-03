@@ -1,34 +1,21 @@
-﻿# include <Siv3D.hpp>
+﻿# include <Siv3D.hpp> // OpenSiv3D v0.2.0
 
 void Main()
 {
-	Window::Resize(1280, 720);
+	Graphics::SetBackground(ColorF(0.8, 0.9, 1.0));
 
-	Graphics::SetBackground(Palette::White);
+	const Font font(50);
 
-	for (auto i : step(36))
-	{
-		const String name = Format(i);
-
-		TextureAsset::Register(name, U"test/image/p/" + name + U".png", TextureDesc::Mipped, AssetParameter::LoadAsync());
-	}
+	const Texture textureCat(Emoji(U"🐈"), TextureDesc::Mipped);
 
 	while (System::Update())
 	{
-		for (auto i : step(36))
-		{
-			const String name = Format(i);
+		font(U"Hello, Siv3D!🐣").drawAt(Window::Center(), Palette::Black);
 
-			const Rect rect(6 + i % 6 * 206, 6 + i / 6 * 118, 200, 112);
+		font(Cursor::Pos()).draw(20, 400, ColorF(0.6));
 
-			if (TextureAsset::IsReady(name))
-			{
-				rect(TextureAsset(name)).draw();
-			}
-			else
-			{
-				rect.draw(ColorF(0.7));
-			}
-		}
+		textureCat.resized(80).draw(540, 380);
+
+		Circle(Cursor::Pos(), 60).draw(ColorF(1, 0, 0, 0.5));
 	}
 }

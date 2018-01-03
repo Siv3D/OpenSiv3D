@@ -106,28 +106,28 @@
 	/// <summary>
 	/// Name of the Target Platform
 	/// </summary>
-	# define Siv3DPlatform	U"WindowsDesktop-x64"
+	# define SIV3D_PLATFORM_NAME	U"WindowsDesktop-x64"
 
 # elif defined(SIV3D_TARGET_WINDOWS_DESKTOP_X86)
 
 	/// <summary>
 	/// Name of the Target Platform
 	/// </summary>
-	# define Siv3DPlatform	U"WindowsDesktop-x86"
+	# define SIV3D_PLATFORM_NAME	U"WindowsDesktop-x86"
 
 # elif defined(SIV3D_TARGET_MACOS)
 
 	/// <summary>
 	/// Name of the Target Platform
 	/// </summary>
-	# define Siv3DPlatform	U"macOS"
+	# define SIV3D_PLATFORM_NAME	U"macOS"
 
 # elif defined(SIV3D_TARGET_LINUX)
 
 	/// <summary>
 	/// Name of the Target Platform
 	/// </summary>
-	# define Siv3DPlatform	U"Linux"
+	# define SIV3D_PLATFORM_NAME	U"Linux"
 
 # else
 
@@ -278,7 +278,7 @@ namespace s3d
 	# pragma comment (lib, "imm32")
 	# pragma comment (lib, "Shlwapi")
 	# pragma comment (lib, "mfuuid")
-	# pragma comment (lib,"version")
+	# pragma comment (lib, "version")
 
 	# if (SIV3D_IS_DEBUG)
 
@@ -288,6 +288,7 @@ namespace s3d
 		# pragma comment (lib, "libjpeg-turbo/turbojpeg-static_d")
 		# pragma comment (lib, "freetype/freetype28MTd")
 		# pragma comment (lib, "harfbuzz/harfbuzz_d")
+		# pragma comment (lib, "angelscript/angelscriptd")
 
 	# else
 
@@ -297,6 +298,7 @@ namespace s3d
 		# pragma comment (lib, "libjpeg-turbo/turbojpeg-static")
 		# pragma comment (lib, "freetype/freetype28MT")
 		# pragma comment (lib, "harfbuzz/harfbuzz")
+		# pragma comment (lib, "angelscript/angelscript")
 
 	# endif
 

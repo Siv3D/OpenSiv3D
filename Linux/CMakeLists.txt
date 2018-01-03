@@ -8,7 +8,7 @@ enable_language(C)
 set(CMAKE_CXX_COMPILER "clang++")
 #set(CMAKE_CXX_COMPILER "g++")
 set(CMAKE_CXX_FLAGS "-std=c++17 -Wall -Wextra -Wno-unknown-pragmas -fPIC")
-set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg")
+set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG -march=x86-64")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -Og -pg")
 set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -DNDEBUG -march=x86-64")
@@ -16,7 +16,7 @@ set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -DNDEBUG -march=x86-64")
 set(CMAKE_C_COMPILER "clang")
 #set(CMAKE_C_COMPILER "gcc")
 set(CMAKE_C_FLAGS "-Wall -Wextra -Wno-unknown-pragmas -fPIC")
-set(CMAKE_C_FLAGS_DEBUG "-g3 -O0 -pg")
+set(CMAKE_C_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
 set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG -march=x86-64")
 set(CMAKE_C_FLAGS_RELWITHDEBINFO "-g3 -Og -pg")
 set(CMAKE_C_FLAGS_MINSIZEREL "-Os -DNDEBUG -march=x86-64")
@@ -29,6 +29,7 @@ include_directories(
 
 	"."
 	"../Siv3D/include"
+	"../Siv3D/include/ThirdParty"
 	"../Siv3D/src/ThirdParty"
 
 	"../Siv3D/src/ThirdParty/zstd"
@@ -41,6 +42,11 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/Asset/AssetFactory.cpp"
 	"../Siv3D/src/Siv3D/Asset/CAsset.cpp"
 	"../Siv3D/src/Siv3D/Asset/SivAsset.cpp"
+	"../Siv3D/src/Siv3D/Audio/AL/CAudio_AL.cpp"
+	"../Siv3D/src/Siv3D/Audio/AudioControlManager.hpp"
+	"../Siv3D/src/Siv3D/Audio/AudioFactory.cpp"
+	"../Siv3D/src/Siv3D/Audio/SivAudio.cpp"
+	"../Siv3D/src/Siv3D/Audio/Null/CAudio_Null.cpp"
 	"../Siv3D/src/Siv3D/AudioFormat/AudioFormatFactory.cpp"
 	"../Siv3D/src/Siv3D/AudioFormat/CAudioFormat.cpp"
 	"../Siv3D/src/Siv3D/AudioFormat/SivAudioFormat.cpp"
@@ -145,6 +151,7 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/Logger/LoggerFactory.cpp"
 	"../Siv3D/src/Siv3D/Logger/SivLogger.cpp"
 	"../Siv3D/src/Siv3D/MD5/SivMD5.cpp"
+	"../Siv3D/src/Siv3D/Mat3x2/SivMat3x2.cpp"
 	"../Siv3D/src/Siv3D/MathParser/CMathParser.cpp"
 	"../Siv3D/src/Siv3D/MathParser/SivMathParser.cpp"
 	"../Siv3D/src/Siv3D/MemoryMapping/CMemoryMapping.cpp"
@@ -183,6 +190,31 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/ScreenCapture/CScreenCapture.cpp"
 	"../Siv3D/src/Siv3D/ScreenCapture/ScreenCaptureFactory.cpp"
 	"../Siv3D/src/Siv3D/ScreenCapture/SivScreenCapture.cpp"
+	"../Siv3D/src/Siv3D/Script/AngelScript/scriptarray.cpp"
+	"../Siv3D/src/Siv3D/Script/AngelScript/scriptbuilder.cpp"
+	"../Siv3D/src/Siv3D/Script/AngelScript/scriptstdstring.cpp"
+	"../Siv3D/src/Siv3D/Script/Bind/ScriptBind.hpp"
+	"../Siv3D/src/Siv3D/Script/Bind/Script_Circle.cpp"
+	"../Siv3D/src/Siv3D/Script/Bind/Script_Color.cpp"
+	"../Siv3D/src/Siv3D/Script/Bind/Script_ColorF.cpp"
+	"../Siv3D/src/Siv3D/Script/Bind/Script_Cursor.cpp"
+	"../Siv3D/src/Siv3D/Script/Bind/Script_Format.cpp"
+	"../Siv3D/src/Siv3D/Script/Bind/Script_Graphics.cpp"
+	"../Siv3D/src/Siv3D/Script/Bind/Script_HSV.cpp"
+	"../Siv3D/src/Siv3D/Script/Bind/Script_Line.cpp"
+	"../Siv3D/src/Siv3D/Script/Bind/Script_Point.cpp"
+	"../Siv3D/src/Siv3D/Script/Bind/Script_Quad.cpp"
+	"../Siv3D/src/Siv3D/Script/Bind/Script_Random.cpp"
+	"../Siv3D/src/Siv3D/Script/Bind/Script_Rect.cpp"
+	"../Siv3D/src/Siv3D/Script/Bind/Script_RectF.cpp"
+	"../Siv3D/src/Siv3D/Script/Bind/Script_RoundRect.cpp"
+	"../Siv3D/src/Siv3D/Script/Bind/Script_Triangle.cpp"
+	"../Siv3D/src/Siv3D/Script/Bind/Script_Types.cpp"
+	"../Siv3D/src/Siv3D/Script/Bind/Script_Vec2.cpp"
+	"../Siv3D/src/Siv3D/Script/CScript.cpp"
+	"../Siv3D/src/Siv3D/Script/ScriptData.cpp"
+	"../Siv3D/src/Siv3D/Script/ScriptFactory.cpp"
+	"../Siv3D/src/Siv3D/Script/SivScript.cpp"
 	"../Siv3D/src/Siv3D/Shader/GL/CShader_GL.cpp"
 	"../Siv3D/src/Siv3D/Shader/ShaderFactory.cpp"
 	"../Siv3D/src/Siv3D/Shader/SivShader.cpp"
@@ -195,6 +227,8 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/System/SivSystem.cpp"
 	"../Siv3D/src/Siv3D/System/SystemFactory.cpp"
 	"../Siv3D/src/Siv3D/TOMLReader/SivTOMLReader.cpp"
+	"../Siv3D/src/Siv3D/TextBox/CTextBox.cpp"
+	"../Siv3D/src/Siv3D/TextBox/SivTextBox.cpp"
 	"../Siv3D/src/Siv3D/TextEditor/SivTextEditor.cpp"
 	"../Siv3D/src/Siv3D/TextEncoding/SivTextEncoding.cpp"
 	"../Siv3D/src/Siv3D/TextInput/CTextInput_macOS.cpp"

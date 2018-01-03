@@ -26,6 +26,7 @@
 # include "TextInput/ITextInput.hpp"
 # include "Codec/ICodec.hpp"
 # include "AudioFormat/IAudioFormat.hpp"
+# include "Audio/IAudio.hpp"
 # include "Graphics/IGraphics.hpp"
 # include "Texture/ITexture.hpp"
 # include "Shader/IShader.hpp"
@@ -34,6 +35,7 @@
 # include "Font/IFont.hpp"
 # include "Print/IPrint.hpp"
 # include "Effect/IEffect.hpp"
+# include "Script/IScript.hpp"
 # include "Asset/IAsset.hpp"
 
 namespace s3d
@@ -46,6 +48,7 @@ namespace s3d
 	Siv3DEngine::~Siv3DEngine()
 	{
 		m_asset.release();
+		m_script.release();
 		m_effect.release();
 		m_print.release();
 		m_font.release();
@@ -54,6 +57,7 @@ namespace s3d
 		m_shader.release();
 		m_texture.release();
 		m_graphics.release();
+		m_audio.release();
 		m_audioFormat.release();
 		m_codec.release();
 		m_textInput.release();

@@ -30,6 +30,7 @@ namespace s3d
 	class ISiv3DTextInput;
 	class ISiv3DCodec;
 	class ISiv3DAudioFormat;
+	class ISiv3DAudio;
 	class ISiv3DGraphics;
 	class ISiv3DTexture;
 	class ISiv3DShader;
@@ -38,6 +39,7 @@ namespace s3d
 	class ISiv3DFont;
 	class ISiv3DEffect;
 	class ISiv3DPrint;
+	class ISiv3DScript;
 	class ISiv3DAsset;
 
 	template <class Interface>
@@ -108,6 +110,8 @@ namespace s3d
 
 		Siv3DComponent<ISiv3DAudioFormat> m_audioFormat;
 
+		Siv3DComponent<ISiv3DAudio> m_audio;
+
 		Siv3DComponent<ISiv3DGraphics> m_graphics;
 
 		Siv3DComponent<ISiv3DTexture> m_texture;
@@ -123,6 +127,8 @@ namespace s3d
 		Siv3DComponent<ISiv3DPrint> m_print;
 
 		Siv3DComponent<ISiv3DEffect> m_effect;
+
+		Siv3DComponent<ISiv3DScript> m_script;
 
 		Siv3DComponent<ISiv3DAsset> m_asset;
 		
@@ -217,6 +223,11 @@ namespace s3d
 			return pEngine->m_audioFormat.get();
 		}
 
+		static ISiv3DAudio* GetAudio()
+		{
+			return pEngine->m_audio.get();
+		}
+
 		static ISiv3DGraphics* GetGraphics()
 		{
 			return pEngine->m_graphics.get();
@@ -255,6 +266,11 @@ namespace s3d
 		static ISiv3DEffect* GetEffect()
 		{
 			return pEngine->m_effect.get();
+		}
+
+		static ISiv3DScript* GetScript()
+		{
+			return pEngine->m_script.get();
 		}
 
 		static ISiv3DAsset* GetAsset()

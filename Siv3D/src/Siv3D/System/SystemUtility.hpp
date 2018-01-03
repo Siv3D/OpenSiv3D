@@ -151,11 +151,11 @@ namespace s3d
 
 	# ifdef _DEBUG
 		
-		LOG_INFO(U"ℹ️ Siv3D Engine (Debug build) version " Siv3D_Version U" (" Siv3DPlatform U")");
+		LOG_INFO(U"ℹ️ Siv3D Engine (Debug build) version " SIV3D_VERSION U" (" SIV3D_PLATFORM_NAME U")");
 	
 	# else
 	
-		LOG_INFO(U"ℹ️ Siv3D Engine version " Siv3D_Version U" (" Siv3DPlatform U")");
+		LOG_INFO(U"ℹ️ Siv3D Engine version " SIV3D_VERSION U" (" SIV3D_PLATFORM_NAME U")");
 
 	# endif
 	}

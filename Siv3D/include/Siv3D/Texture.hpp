@@ -323,6 +323,13 @@ namespace s3d
 			return drawAt(center->x, center->y, diffuse);
 		}
 
+		RectF drawClipped(double x, double y, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;
+
+		RectF drawClipped(const Vec2& pos, const RectF& clipRect, const ColorF& diffuse = Palette::White) const
+		{
+			return drawClipped(pos.x, pos.y, clipRect, diffuse);
+		}
+
 		/// <summary>
 		/// 中心位置を指定してテクスチャを描きます。
 		/// </summary>
@@ -357,6 +364,13 @@ namespace s3d
 			return drawAt(pos.x, pos.y, diffuse);
 		}
 
+		RectF drawAtClipped(double x, double y, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;
+
+		RectF drawAtClipped(const Vec2& pos, const RectF& clipRect, const ColorF& diffuse = Palette::White) const
+		{
+			return drawAtClipped(pos.x, pos.y, clipRect, diffuse);
+		}
+
 		TextureRegion operator ()(double x, double y, double w, double h) const;
 
 		TextureRegion operator ()(const Vec2& xy, double w, double h) const;
@@ -382,39 +396,39 @@ namespace s3d
 
 		TextureRegion uv(const RectF& rect) const;
 
-		TextureRegion mirror() const;
+		TextureRegion mirrored() const;
 
-		TextureRegion mirror(bool doMirror) const;
+		TextureRegion mirrored(bool doMirror) const;
 
-		TextureRegion flip() const;
+		TextureRegion flipped() const;
 
-		TextureRegion flip(bool doFlip) const;
+		TextureRegion flipped(bool doFlip) const;
 
-		TextureRegion scale(double s) const;
+		TextureRegion scaled(double s) const;
 
-		TextureRegion scale(double xs, double ys) const;
+		TextureRegion scaled(double xs, double ys) const;
 
-		TextureRegion scale(const Vec2& s) const;
+		TextureRegion scaled(const Vec2& s) const;
 
-		TextureRegion resize(double size) const;
+		TextureRegion resized(double size) const;
 
-		TextureRegion resize(double width, double height) const;
+		TextureRegion resized(double width, double height) const;
 
-		TextureRegion resize(const Vec2& size) const;
+		TextureRegion resized(const Vec2& size) const;
 
-		TextureRegion repeat(double xRepeat, double yRepeat) const;
+		TextureRegion repeated(double xRepeat, double yRepeat) const;
 
-		TextureRegion repeat(const Vec2& _repeat) const;
+		TextureRegion repeated(const Vec2& _repeat) const;
 
-		TextureRegion map(double width, double height) const;
+		TextureRegion mapped(double width, double height) const;
 
-		TextureRegion map(const Vec2& size) const;
+		TextureRegion mapped(const Vec2& size) const;
 
-		TexturedQuad rotate(double angle) const;
+		TexturedQuad rotated(double angle) const;
 
-		TexturedQuad rotateAt(double x, double y, double angle) const;
+		TexturedQuad rotatedAt(double x, double y, double angle) const;
 
-		TexturedQuad rotateAt(const Vec2& pos, double angle) const;
+		TexturedQuad rotatedAt(const Vec2& pos, double angle) const;
 	};
 
 	using TextureID = Texture::IDType;

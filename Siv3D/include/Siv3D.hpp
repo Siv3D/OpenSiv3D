@@ -606,13 +606,13 @@
 	// Window
 	# include "Siv3D/Window.hpp"
 	
-	// メッセージボックス
+	// Message Box
 	# include "Siv3D/MessageBox.hpp"
 
-	// クリップボード
+	// Clipboard
 	# include "Siv3D/Clipboard.hpp"
 	
-	// ドラッグ & ドロップ
+	// Drag and Drop
 	# include "Siv3D/DragDrop.hpp"
 	
 	//// ダイアログ
@@ -790,7 +790,7 @@
 	# include "Siv3D/TextEditor.hpp"
 
 	// テキストボックス
-	//# include "Siv3D/TextBox.hpp"
+	# include "Siv3D/TextBox.hpp"
 //
 // エフェクト
 //
@@ -924,16 +924,20 @@
 	// GPU の使用
 	# include "Siv3D/HighPerfoemanceGPU.hpp"
 
-// スクリプト
+//////////////////////////////////////////////////
 //
-	// スクリプト
-	//# include "Siv3D/Script.hpp"
+//	Scripting
+//
+//////////////////////////////////////////////////
+
+	// Script
+	# include "Siv3D/Script.hpp"
 
 //////////////////////////////////////////////////
 //
 //	Namespace
 //
-//	* define NO_S3D_USING to avoid using namespace *
+//	* define NO_S3D_USING to disable using namespace *
 //
 //////////////////////////////////////////////////
 
@@ -941,5 +945,6 @@
 
 	using namespace s3d;
 	using namespace s3d::Literals;
+	using namespace std::literals;
 
 # endif

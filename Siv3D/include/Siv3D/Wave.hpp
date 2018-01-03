@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -145,6 +145,11 @@ namespace s3d
 		{
 			m_samplingRate = samplingRate;
 		}
+		
+		size_t samples() const noexcept
+		{
+			return size();
+		}
 
 		size_t lengthSample() const noexcept
 		{
@@ -155,7 +160,7 @@ namespace s3d
 		{
 			return static_cast<double>(size()) / m_samplingRate;
 		}
-
+		
 		Wave& operator <<(const WaveSample& sample)
 		{
 			base_type::push_back(sample);

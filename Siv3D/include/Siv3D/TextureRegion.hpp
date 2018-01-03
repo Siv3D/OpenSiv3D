@@ -184,6 +184,13 @@ namespace s3d
 			return drawAt(center->x, center->y, diffuse);
 		}
 
+		RectF drawClipped(double x, double y, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;
+
+		RectF drawClipped(const Vec2& pos, const RectF& clipRect, const ColorF& diffuse = Palette::White) const
+		{
+			return drawClipped(pos.x, pos.y, clipRect, diffuse);
+		}
+
 		/// <summary>
 		/// 中心位置を指定してテクスチャを描きます。
 		/// </summary>
@@ -218,37 +225,35 @@ namespace s3d
 			return drawAt(pos.x, pos.y, diffuse);
 		}
 
-		TextureRegion mirror() const;
+		RectF drawAtClipped(double x, double y, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;
 
-		TextureRegion mirror(bool doMirror) const;
-
-		TextureRegion flip() const;
-
-		TextureRegion flip(bool doFlip) const;
-
-		TextureRegion scale(double s) const
+		RectF drawAtClipped(const Vec2& pos, const RectF& clipRect, const ColorF& diffuse = Palette::White) const
 		{
-			return scale(s, s);
+			return drawAtClipped(pos.x, pos.y, clipRect, diffuse);
 		}
 
-		TextureRegion scale(double sx, double sy) const;
+		TextureRegion mirrored() const;
 
-		TextureRegion scale(const Vec2& s) const
-		{
-			return scale(s.x, s.y);
-		}
+		TextureRegion mirrored(bool doMirror) const;
 
-		TextureRegion resize(double width, double height) const;
+		TextureRegion flipped() const;
 
-		TextureRegion resize(const Vec2& _size) const
-		{
-			return resize(_size.x, _size.y);
-		}
+		TextureRegion flipped(bool doFlip) const;
 
-		TexturedQuad rotate(double angle) const;
+		TextureRegion scaled(double s) const;
 
-		TexturedQuad rotateAt(double x, double y, double angle) const;
+		TextureRegion scaled(double sx, double sy) const;
 
-		TexturedQuad rotateAt(const Vec2& pos, double angle) const;
+		TextureRegion scaled(const Vec2& s) const;
+
+		TextureRegion resized(double width, double height) const;
+
+		TextureRegion resized(const Vec2& _size) const;
+
+		TexturedQuad rotated(double angle) const;
+
+		TexturedQuad rotatedAt(double x, double y, double angle) const;
+
+		TexturedQuad rotatedAt(const Vec2& pos, double angle) const;
 	};
 }

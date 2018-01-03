@@ -20,6 +20,8 @@ namespace s3d
 	{
 	private:
 
+		FilePath m_defaultScreenshotDirectory;
+
 		Array<FilePath> m_requestedPaths;
 
 		bool m_hasRequest = false;
@@ -33,6 +35,8 @@ namespace s3d
 		bool init() override;
 
 		bool update() override;
+
+		const FilePath& getDefaultScreenshotDirectory() const override;
 
 		void requestScreenCapture(const FilePath& path) override;
 	};
