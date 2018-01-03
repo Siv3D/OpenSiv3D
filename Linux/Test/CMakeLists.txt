@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 
 find_package(PkgConfig)
 
-project(open_siv3d_linux_test CXX)
+project(Siv3D_Test CXX)
 enable_language(C)
 
 set(CMAKE_CXX_COMPILER "clang++")
@@ -56,28 +56,30 @@ add_executable(Siv3D_Test
 )
 
 target_link_libraries(Siv3D_Test
-#	gtest
-#	gtest_main
-	Siv3D
-	boost_filesystem
-	boost_system
-	pthread
-	GL
-	GLEW
-	glib-2.0
-	gobject-2.0
-	gio-2.0
-	png
-	turbojpeg
-	X11
-	Xi
-	Xrandr
-	Xinerama
-	Xcursor
-	dl
-	gif
-	freetype
-	harfbuzz
-	openal
+#	-lgtest
+#	-lgtest_main
+	-lSiv3D
+	-lboost_filesystem
+	-lboost_system
+	-lpthread
+	-lGL
+	-lGLEW
+	-lglib-2.0
+	-lgobject-2.0
+	-lgio-2.0
+	-lpng
+	-lturbojpeg
+	-lX11
+	-lXi
+	-lXrandr
+	-lXinerama
+	-lXcursor
+	-ldl
+	-lgif
+	-lfreetype
+	-lharfbuzz
+	-lopenal
+
+	${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Linux/angelscript/libangelscript.a
 )
 
