@@ -8,7 +8,7 @@ enable_language(C)
 set(CMAKE_CXX_COMPILER "clang++")
 #set(CMAKE_CXX_COMPILER "g++")
 set(CMAKE_CXX_FLAGS "-std=c++17 -Wall -Wextra -Wno-unknown-pragmas -fPIC")
-set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg")
+set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG -march=x86-64")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -Og -pg")
 set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -DNDEBUG -march=x86-64")
@@ -16,7 +16,7 @@ set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -DNDEBUG -march=x86-64")
 set(CMAKE_C_COMPILER "clang")
 #set(CMAKE_C_COMPILER "gcc")
 set(CMAKE_C_FLAGS "-Wall -Wextra -Wno-unknown-pragmas -fPIC")
-set(CMAKE_C_FLAGS_DEBUG "-g3 -O0 -pg")
+set(CMAKE_C_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
 set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG -march=x86-64")
 set(CMAKE_C_FLAGS_RELWITHDEBINFO "-g3 -Og -pg")
 set(CMAKE_C_FLAGS_MINSIZEREL "-Os -DNDEBUG -march=x86-64")
@@ -41,6 +41,11 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/Asset/AssetFactory.cpp"
 	"../Siv3D/src/Siv3D/Asset/CAsset.cpp"
 	"../Siv3D/src/Siv3D/Asset/SivAsset.cpp"
+	"../Siv3D/src/Siv3D/Audio/AL/CAudio_AL.cpp"
+	"../Siv3D/src/Siv3D/Audio/AudioControlManager.hpp"
+	"../Siv3D/src/Siv3D/Audio/AudioFactory.cpp"
+	"../Siv3D/src/Siv3D/Audio/SivAudio.cpp"
+	"../Siv3D/src/Siv3D/Audio/Null/CAudio_Null.cpp"
 	"../Siv3D/src/Siv3D/AudioFormat/AudioFormatFactory.cpp"
 	"../Siv3D/src/Siv3D/AudioFormat/CAudioFormat.cpp"
 	"../Siv3D/src/Siv3D/AudioFormat/SivAudioFormat.cpp"
