@@ -16,6 +16,7 @@
 # include <Siv3D/Keyboard.hpp>
 # include <Siv3D/KeyConjunction.hpp>
 # include <Siv3D/ScreenCapture.hpp>
+# include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Logger.hpp>
 
 namespace s3d
@@ -32,6 +33,24 @@ namespace s3d
 
 	bool CScreenCapture::init()
 	{
+	# if defined(SIV3D_TARGET_MACOS)
+		
+		const String appName = FileSystem::BaseName(FileSystem::ModulePath());
+		
+		if (FileSystem::IsSandBoxed())
+		{
+			m_defaultScreenshotDirectory = FileSystem::SpecialFolderPath(SpecialFolder::Pictures) + U"Screenshot/" + appName + U"/";
+		}
+		else
+		{
+			m_defaultScreenshotDirectory = FileSystem::InitialPath() + U"Screenshot/";
+		}
+
+	# else
+		
+		m_defaultScreenshotDirectory = FileSystem::InitialPath() + U"Screenshot/";
+		
+	# endif
 
 		return true;
 	}
@@ -69,6 +88,11 @@ namespace s3d
 	# endif
 
 		return true;
+	}
+
+	const FilePath& CScreenCapture::getDefaultScreenshotDirectory() const
+	{
+		return m_defaultScreenshotDirectory;
 	}
 
 	void CScreenCapture::requestScreenCapture(const FilePath& path)

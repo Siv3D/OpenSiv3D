@@ -28,7 +28,7 @@
 # include "../TextInput/ITextInput.hpp"
 # include "../Codec/ICodec.hpp"
 # include "../AudioFormat/IAudioFormat.hpp"
-//# include "../Audio/IAudio.hpp"
+# include "../Audio/IAudio.hpp"
 # include "../Graphics/IGraphics.hpp"
 # include "../ScreenCapture/IScreenCapture.hpp"
 # include "../Font/IFont.hpp"
@@ -121,10 +121,10 @@ namespace s3d
 			return false;
 		}
 
-		//if (!Siv3DEngine::GetAudio()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetAudio()->init())
+		{
+			return false;
+		}
 
 		if (!Siv3DEngine::GetGraphics()->init())
 		{
@@ -179,13 +179,6 @@ namespace s3d
 			m_setupState = SetupState::Displayed;
 		}
 
-		if (const uint32 event = m_exitEventManager.checkExitEvent())
-		{
-			m_exitEventManager.logExitEvent(event);
-
-			return false;
-		}
-
 		if (!Siv3DEngine::GetWindow()->update())
 		{
 			return false;
@@ -205,12 +198,19 @@ namespace s3d
 			return false;
 		}
 
-		if (!Siv3DEngine::GetProfiler()->beginFrame())
+		if (!Siv3DEngine::GetScreenCapture()->update())
 		{
 			return false;
 		}
 
-		if (!Siv3DEngine::GetScreenCapture()->update())
+		if (const uint32 event = m_exitEventManager.checkExitEvent())
+		{
+			m_exitEventManager.logExitEvent(event);
+
+			return false;
+		}
+
+		if (!Siv3DEngine::GetProfiler()->beginFrame())
 		{
 			return false;
 		}

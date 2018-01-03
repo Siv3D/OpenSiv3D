@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -65,9 +65,9 @@ namespace s3d
 
 		void enableIME(bool) override {}
 
-		std::pair<int32, int32> getCursorIndex() const { return{ 0,0 }; }
+		std::pair<int32, int32> getCursorIndex() const override { return{ 0,0 }; }
 
-		const Array<String>& getCandidates() const;
+		const Array<String>& getCandidates() const override;
 		
 		static void OnCharacterInput(WindowHandle, uint32 codePoint);
 		

@@ -43,18 +43,18 @@ namespace s3d
 		return RectF{ x - sizeHalf.x, y - sizeHalf.y, size };
 	}
 
-	TextureRegion TextureRegion::mirror() const
+	TextureRegion TextureRegion::mirrored() const
 	{
 		return TextureRegion{ texture,
 			uvRect.right, uvRect.top, uvRect.left, uvRect.bottom,
 			size };
 	}
 
-	TextureRegion TextureRegion::mirror(const bool doMirror) const
+	TextureRegion TextureRegion::mirrored(const bool doMirror) const
 	{
 		if (doMirror)
 		{
-			return mirror();
+			return mirrored();
 		}
 		else
 		{
@@ -62,18 +62,18 @@ namespace s3d
 		}
 	}
 
-	TextureRegion TextureRegion::flip() const
+	TextureRegion TextureRegion::flipped() const
 	{
 		return TextureRegion{ texture,
 			uvRect.left, uvRect.bottom, uvRect.right, uvRect.top,
 			size };
 	}
 
-	TextureRegion TextureRegion::flip(const bool doFlip) const
+	TextureRegion TextureRegion::flipped(const bool doFlip) const
 	{
 		if (doFlip)
 		{
-			return flip();
+			return flipped();
 		}
 		else
 		{
@@ -81,21 +81,36 @@ namespace s3d
 		}
 	}
 
-	TextureRegion TextureRegion::scale(const double sx, const double sy) const
+	TextureRegion TextureRegion::scaled(double s) const
+	{
+		return scaled(s, s);
+	}
+
+	TextureRegion TextureRegion::scaled(const double sx, const double sy) const
 	{
 		return TextureRegion{ texture,
 			uvRect,
 			size.x * sx, size.y*sy };
 	}
 
-	TextureRegion TextureRegion::resize(const double width, const double height) const
+	TextureRegion TextureRegion::scaled(const Vec2& s) const
+	{
+		return scaled(s.x, s.y);
+	}
+
+	TextureRegion TextureRegion::resized(const double width, const double height) const
 	{
 		return TextureRegion{ texture,
 			uvRect,
 			width, height };
 	}
 
-	TexturedQuad TextureRegion::rotate(const double angle) const
+	TextureRegion TextureRegion::resized(const Vec2& _size) const
+	{
+		return resized(_size.x, _size.y);
+	}
+
+	TexturedQuad TextureRegion::rotated(const double angle) const
 	{
 		return TexturedQuad(texture,
 			uvRect,
@@ -103,7 +118,7 @@ namespace s3d
 			size * 0.5f);
 	}
 
-	TexturedQuad TextureRegion::rotateAt(const double x, const double y, const double angle) const
+	TexturedQuad TextureRegion::rotatedAt(const double x, const double y, const double angle) const
 	{
 		return TexturedQuad(texture,
 			uvRect,
@@ -111,8 +126,8 @@ namespace s3d
 			Float2(x, y));
 	}
 
-	TexturedQuad TextureRegion::rotateAt(const Vec2& pos, const double angle) const
+	TexturedQuad TextureRegion::rotatedAt(const Vec2& pos, const double angle) const
 	{
-		return rotateAt(pos.x, pos.y, angle);
+		return rotatedAt(pos.x, pos.y, angle);
 	}
 }

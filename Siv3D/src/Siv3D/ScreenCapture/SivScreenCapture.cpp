@@ -12,7 +12,7 @@
 # include "../Siv3DEngine.hpp"
 # include "IScreenCapture.hpp"
 # include <Siv3D/ScreenCapture.hpp>
-# include <Siv3D/FileSystem.hpp>
+# include <Siv3D/DateTime.hpp>
 
 namespace s3d
 {
@@ -20,7 +20,7 @@ namespace s3d
 	{
 		void SaveCurrentFrame()
 		{
-			const FilePath path = FileSystem::InitialPath() + U"Screenshot/" + DateTime::Now().format(U"yyyyMMdd-HHmmss-SSS") + U".png";
+			const FilePath path = Siv3DEngine::GetScreenCapture()->getDefaultScreenshotDirectory() + DateTime::Now().format(U"yyyyMMdd-HHmmss-SSS") + U".png";
 
 			SaveCurrentFrame(path);
 		}

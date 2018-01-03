@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -27,7 +27,7 @@
 # include "../TextInput/ITextInput.hpp"
 # include "../Codec/ICodec.hpp"
 # include "../AudioFormat/IAudioFormat.hpp"
-//# include "../Audio/IAudio.hpp"
+# include "../Audio/IAudio.hpp"
 # include "../Graphics/IGraphics.hpp"
 # include "../Texture/ITexture.hpp"
 # include "../ScreenCapture/IScreenCapture.hpp"
@@ -119,10 +119,10 @@ namespace s3d
 			return false;
 		}
 
-		//if (!Siv3DEngine::GetAudio()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetAudio()->init())
+		{
+			return false;
+		}
 
 		if (!Siv3DEngine::GetGraphics()->init())
 		{
@@ -175,13 +175,6 @@ namespace s3d
 
 		m_updateSucceeded = false;
 
-		if (const uint32 event = m_exitEventManager.checkExitEvent())
-		{
-			m_exitEventManager.logExitEvent(event);
-
-			return false;
-		}
-
 		Siv3DEngine::GetPrint()->draw();
 
 		if (!Siv3DEngine::GetGraphics()->flush(clearGraphics))
@@ -193,12 +186,19 @@ namespace s3d
 
 		Siv3DEngine::GetGraphics()->present();
 
-		if (!Siv3DEngine::GetProfiler()->beginFrame())
+		if (!Siv3DEngine::GetScreenCapture()->update())
 		{
 			return false;
 		}
 
-		if (!Siv3DEngine::GetScreenCapture()->update())
+		if (const uint32 event = m_exitEventManager.checkExitEvent())
+		{
+			m_exitEventManager.logExitEvent(event);
+
+			return false;
+		}
+
+		if (!Siv3DEngine::GetProfiler()->beginFrame())
 		{
 			return false;
 		}

@@ -557,16 +557,16 @@ namespace s3d
 				{
 					const Array<Glyph> glyphs = m_font.getGlyphs(U"JOKER");
 					const double height = glyphs[0].texture.size.y * drawSize * 1.08;
-					const Vec2 drawpos(centering / 10 + Vec2(glyphs[0].texture.resize(Vec2(glyphs[0].texture.size) * drawSize).size.x, height * 0.5));
+					const Vec2 drawpos(centering / 10 + Vec2(glyphs[0].texture.resized(Vec2(glyphs[0].texture.size) * drawSize).size.x, height * 0.5));
 
 					for (const auto a : step(glyphs.size()))
 					{
-						const TextureRegion t = glyphs[a].texture.resize(Vec2(glyphs[0].texture.size) * drawSize);
+						const TextureRegion t = glyphs[a].texture.resized(Vec2(glyphs[0].texture.size) * drawSize);
 						t.drawAt(pos + drawpos + Vec2(0, a * height * 1.2), color);
 						t.flip().mirror().drawAt(pos - drawpos - Vec2(0, a * height * 1.2) + m_cardSize, color);
 					}
 
-					m_fontLarge.getGlyph(U'♋').texture.scale(0.9).drawAt(center, color);
+					m_fontLarge.getGlyph(U'♋').texture.scaled(0.9).drawAt(center, color);
 
 					return;
 				}
@@ -575,37 +575,37 @@ namespace s3d
 				const Glyph rankGlyph = m_font.getGlyph(Card::GetRank(m_card.rank)[0]);
 				const Vec2 suitpos(0.0, m_cardSize.y * 0.13888);
 
-				suitGlyph.texture.scale(drawSize).drawAt(pos.movedBy(centering + suitpos), color);
-				suitGlyph.texture.scale(drawSize).flip().mirror().drawAt(pos + m_cardSize - centering - suitpos, color);
+				suitGlyph.texture.scaled(drawSize).drawAt(pos.movedBy(centering + suitpos), color);
+				suitGlyph.texture.scaled(drawSize).flip().mirror().drawAt(pos + m_cardSize - centering - suitpos, color);
 
 				if (m_card.rank == 10)
 				{
 					const auto zerotexture = m_font.getGlyph(U'0');
 					const Vec2 rankSize = Vec2(rankGlyph.texture.size.x * 2.2 / 3.0, rankGlyph.texture.size.y) * drawSize;
 
-					rankGlyph.texture.resize(rankSize)
+					rankGlyph.texture.resized(rankSize)
 						.drawAt(pos + centering - Vec2(rankSize.x * 1.1, 0), color);
-					rankGlyph.texture.resize(rankSize)
+					rankGlyph.texture.resized(rankSize)
 						.flip().mirror()
 						.drawAt(pos + m_cardSize - centering + Vec2(rankSize.x * 1.1, 0), color);
 
-					zerotexture.texture.scale(drawSize * 0.8, drawSize)
+					zerotexture.texture.scaled(drawSize * 0.8, drawSize)
 						.drawAt(pos + centering + Vec2(rankGlyph.texture.size.x * drawSize - rankSize.x / 1.55, 0), color);
-					zerotexture.texture.scale(drawSize * 0.8, drawSize)
+					zerotexture.texture.scaled(drawSize * 0.8, drawSize)
 						.flip().mirror()
 						.drawAt(pos - centering + Vec2(-rankGlyph.texture.size.x * drawSize + rankSize.x / 1.55, 0) + m_cardSize, color);
 				}
 				else
 				{
-					rankGlyph.texture.scale(drawSize).drawAt(pos + centering, color);
-					rankGlyph.texture.scale(drawSize).flip().mirror().drawAt(pos + m_cardSize - centering, color);
+					rankGlyph.texture.scaled(drawSize).drawAt(pos + centering, color);
+					rankGlyph.texture.scaled(drawSize).flip().mirror().drawAt(pos + m_cardSize - centering, color);
 				}
 
 				if (InRange(m_card.rank, 2, 10))
 				{
 					for (const auto a : drawInfos[m_card.rank - 2])
 					{
-						suitGlyph.texture.flip(a.flip).drawAt(center.movedBy(m_cardSize.x * a.offset.x, m_cardSize.y * a.offset.y), color);
+						suitGlyph.texture.flipped(a.flip).drawAt(center.movedBy(m_cardSize.x * a.offset.x, m_cardSize.y * a.offset.y), color);
 					}
 				}
 				else
@@ -616,7 +616,7 @@ namespace s3d
 
 					if (m_card.isKing())
 					{
-						m_fontLarge.getGlyph(U'👑').texture.scale(0.6).drawAt(center.movedBy(0, -m_cardSize.y / 7 - m_cardSize.y / 21), color);
+						m_fontLarge.getGlyph(U'👑').texture.scaled(0.6).drawAt(center.movedBy(0, -m_cardSize.y / 7 - m_cardSize.y / 21), color);
 					}
 				}
 			}
@@ -721,7 +721,7 @@ namespace s3d
 					}
 					else
 					{
-						m_fontLarge.getGlyph(U'♋').texture.scale(0.9).drawAt(rect.center(), Palette::Black);
+						m_fontLarge.getGlyph(U'♋').texture.scaled(0.9).drawAt(rect.center(), Palette::Black);
 					}
 				}
 				else

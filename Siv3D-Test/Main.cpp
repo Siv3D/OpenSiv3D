@@ -1,34 +1,49 @@
-﻿# include <Siv3D.hpp>
+# include <Siv3D.hpp>
 
 void Main()
 {
-	Window::Resize(1280, 720);
+	const Audio audio(U"example/test.mp3", Arg::loopBegin = 1.5s, Arg::loopEnd = 44.5s);
 
-	Graphics::SetBackground(Palette::White);
+	const Audio sound(U"example/shot.mp3");
 
-	for (auto i : step(36))
-	{
-		const String name = Format(i);
-
-		TextureAsset::Register(name, U"test/image/p/" + name + U".png", TextureDesc::Mipped, AssetParameter::LoadAsync());
-	}
+	audio.play();
 
 	while (System::Update())
 	{
-		for (auto i : step(36))
+		ClearPrint();
+
+		Print << audio.streamPosSample();
+
+		Print << audio.posSample();
+		
+		Print << audio.samplesPlayed();
+		
+		if (Key1.down())
 		{
-			const String name = Format(i);
-
-			const Rect rect(6 + i % 6 * 206, 6 + i / 6 * 118, 200, 112);
-
-			if (TextureAsset::IsReady(name))
-			{
-				rect(TextureAsset(name)).draw();
-			}
-			else
-			{
-				rect.draw(ColorF(0.7));
-			}
+			audio.play();
 		}
+		
+		if (Key2.down())
+		{
+			audio.pause();
+		}
+		
+		if (Key3.down())
+		{
+			audio.stop();
+		}
+		
+		if (KeyS.down())
+		{
+			sound.playOneShot(0.5, Random(0.2, 2.0));
+		}
+		
+		const double volume = Cursor::Pos().x / 640.0;
+		const double speed = 1.0 + (Cursor::Pos().y - 320) / 320.0;
+		
+		Print << volume;
+		Print << speed;
+		
+		audio.setVolume(volume);
 	}
 }

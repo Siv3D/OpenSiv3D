@@ -29,6 +29,8 @@ namespace s3d
 
 		virtual void write(LogDescription desc, const String& text) = 0;
 
+		virtual void writeOnce(LogDescription desc, uint32 id, const String& text) = 0;
+
 		virtual void writeRawHTML(const String& htmlText) = 0;
 
 		virtual void writeRawHTML_UTF8(std::string_view htmlText) = 0;
