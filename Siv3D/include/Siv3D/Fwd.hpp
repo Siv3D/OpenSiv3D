@@ -847,9 +847,18 @@ namespace s3d
 	//
 	class TextEditor;
 
+	//////////////////////////////////////////////////////
+	//
+	//	TextBox.hpp
+	//
+	class TextBox;
 
-
-
+	//////////////////////////////////////////////////////
+	//
+	//	Effect.hpp
+	//
+	struct IEffect;
+	class Effect;
 
 	//////////////////////////////////////////////////////
 	//
@@ -857,6 +866,26 @@ namespace s3d
 	//
 	struct AssetParameter;
 	class IAsset;
-	//TextureAssetData
-	//TextureAsset
+	struct TextureAssetData;
+	class TextureAsset;
+
+	//////////////////////////////////////////////////////
+	//
+	//	SVM.hpp
+	//
+	namespace SVM
+	{
+		template <size_t _Dimensions> struct SupportVector;
+		struct SparseSupportVector;
+		class Problem;
+		class PredictModel;
+	}
+
+	//////////////////////////////////////////////////////
+	//
+	//	Script.hpp
+	//
+	struct ScriptModuleData;
+	template <class Type> struct ScriptFunction;
+	class Script;
 }

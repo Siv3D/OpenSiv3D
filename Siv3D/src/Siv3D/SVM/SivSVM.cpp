@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/SVM.hpp>
+# include <Siv3D/TextReader.hpp>
 # include <Siv3D/MathConstants.hpp>
 # include "CSVM.hpp"
 
@@ -17,11 +18,11 @@ namespace s3d
 {
 	namespace SVM
 	{
-		SVM::SparseSupportVector ParseSVMLight(StringView view)
+		SparseSupportVector ParseSVMLight(StringView view)
 		{
 			std::istringstream is(Unicode::NarrowAscii(view));
 
-			SVM::SparseSupportVector result;
+			SparseSupportVector result;
 
 			if (double label; is >> label)
 			{
@@ -43,6 +44,34 @@ namespace s3d
 			}
 
 			return result;
+		}
+
+		Array<SparseSupportVector> LoadSVMLight(const FilePath& path)
+		{
+			Array<SVM::SparseSupportVector> results;
+
+			TextReader reader(path);
+
+			String line;
+
+			while (reader.readLine(line))
+			{
+				results << ParseSVMLight(line);
+			}
+
+			return results;
+		}
+
+		double CalculateAccuracy(const PredictModel& model, const Array<SparseSupportVector>& testData)
+		{
+			int32 ok = 0, fail = 0;
+
+			for (const auto& sv : testData)
+			{
+				++(model.predict(sv.vector) == sv.label ? ok : fail);
+			}
+
+			return (static_cast<double>(ok) / (ok + fail));
 		}
 
 		Problem::Problem()

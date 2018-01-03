@@ -12,6 +12,7 @@
 # define _CRT_SECURE_NO_WARNINGS
 # include "CSVM.hpp"
 # include <Siv3D/MathConstants.hpp>
+# include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Logger.hpp>
 
 namespace s3d
@@ -262,6 +263,13 @@ namespace s3d
 			}
 
 			svm_model* model = svm_train(&m_problem, &param);
+
+			const FilePath parentFilePath = FileSystem::ParentPath(path);
+
+			if (!FileSystem::Exists(parentFilePath) && !FileSystem::CreateDirectories(parentFilePath))
+			{
+				return false;
+			}
 
 			const int32 result = svm_save_model(path.narrow().c_str(), model);
 

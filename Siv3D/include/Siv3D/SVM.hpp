@@ -64,7 +64,11 @@ namespace s3d
 			Array<std::pair<int32, double>> vector;
 		};
 
-		SVM::SparseSupportVector ParseSVMLight(StringView view);
+		SparseSupportVector ParseSVMLight(StringView view);
+
+		Array<SparseSupportVector> LoadSVMLight(const FilePath& path);
+
+		double CalculateAccuracy(const PredictModel& model, const Array<SparseSupportVector>& testData);
 
 		class Problem
 		{
