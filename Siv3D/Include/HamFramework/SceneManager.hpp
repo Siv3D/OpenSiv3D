@@ -29,11 +29,7 @@ namespace s3d
 			return MakeShared<Type>();
 		}
 		
-		template <>
-		inline std::shared_ptr<void> MakeSharedData()
-		{
-			return std::shared_ptr<void>(nullptr);
-		}
+		class UnitType{};
 	}
 
 	/// <summary>
@@ -222,7 +218,7 @@ namespace s3d
 	/// <remarks>
 	/// State にはシーンを区別するキーの型、Data にはシーン間で共有するデータの型を指定します。
 	/// </remarks>
-	template <class State, class Data = void>
+	template <class State, class Data = detail::UnitType>
 	class SceneManager
 	{
 	private:
