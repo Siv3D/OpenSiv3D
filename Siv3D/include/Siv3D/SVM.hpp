@@ -63,12 +63,6 @@ namespace s3d
 			Array<std::pair<int32, double>> vector;
 		};
 
-		SparseSupportVector ParseSVMLight(StringView view);
-
-		Array<SparseSupportVector> LoadSVMLight(const FilePath& path);
-
-		double CalculateAccuracy(const PredictModel& model, const Array<SparseSupportVector>& testData);
-
 		class Problem
 		{
 		private:
@@ -167,6 +161,14 @@ namespace s3d
 
 			Label predictProbability(const Array<std::pair<int32, double>>& vector, Array<double>& probabilities) const;
 		};
+
+		SparseSupportVector ParseSVMLight(StringView view);
+
+		Array<SparseSupportVector> LoadSVMLight(const FilePath& path);
+
+		bool SaveSVMLight(const FilePath& path, const Array<SparseSupportVector>& vector);
+
+		double CalculateAccuracy(const PredictModel& model, const Array<SparseSupportVector>& testData);
 	}
 
 	void Formatter(FormatData& formatData, const SVM::SparseSupportVector& value);

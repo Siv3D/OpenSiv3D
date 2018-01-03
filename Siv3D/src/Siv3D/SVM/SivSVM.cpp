@@ -11,6 +11,7 @@
 
 # include <Siv3D/SVM.hpp>
 # include <Siv3D/TextReader.hpp>
+# include <Siv3D/TextWriter.hpp>
 # include <Siv3D/MathConstants.hpp>
 # include "CSVM.hpp"
 
@@ -18,62 +19,6 @@ namespace s3d
 {
 	namespace SVM
 	{
-		SparseSupportVector ParseSVMLight(StringView view)
-		{
-			std::istringstream is(Unicode::NarrowAscii(view));
-
-			SparseSupportVector result;
-
-			if (double label; is >> label)
-			{
-				result.label = label;
-			}
-			else
-			{
-				result.label = Math::NaN;
-
-				return result;
-			}
-
-			char unused;
-			int32 index, value;
-
-			while (is >> index >> unused >> value)
-			{
-				result.vector.emplace_back(index, value);
-			}
-
-			return result;
-		}
-
-		Array<SparseSupportVector> LoadSVMLight(const FilePath& path)
-		{
-			Array<SVM::SparseSupportVector> results;
-
-			TextReader reader(path);
-
-			String line;
-
-			while (reader.readLine(line))
-			{
-				results << ParseSVMLight(line);
-			}
-
-			return results;
-		}
-
-		double CalculateAccuracy(const PredictModel& model, const Array<SparseSupportVector>& testData)
-		{
-			int32 ok = 0, fail = 0;
-
-			for (const auto& sv : testData)
-			{
-				++(model.predict(sv.vector) == sv.label ? ok : fail);
-			}
-
-			return (static_cast<double>(ok) / (ok + fail));
-		}
-
 		Problem::Problem()
 			: pImpl(std::make_shared<CProblem>())
 		{
@@ -241,6 +186,82 @@ namespace s3d
 		double PredictModel::predictProbability(const Array<std::pair<int32, double>>& vector, Array<double>& probabilities) const
 		{
 			return pImpl->predictProbability(vector, probabilities);
+		}
+
+
+
+
+		SparseSupportVector ParseSVMLight(StringView view)
+		{
+			std::istringstream is(Unicode::NarrowAscii(view));
+
+			SparseSupportVector result;
+
+			if (double label; is >> label)
+			{
+				result.label = label;
+			}
+			else
+			{
+				result.label = Math::NaN;
+
+				return result;
+			}
+
+			char unused;
+			int32 index, value;
+
+			while (is >> index >> unused >> value)
+			{
+				result.vector.emplace_back(index, value);
+			}
+
+			return result;
+		}
+
+		Array<SparseSupportVector> LoadSVMLight(const FilePath& path)
+		{
+			Array<SVM::SparseSupportVector> results;
+
+			TextReader reader(path);
+
+			String line;
+
+			while (reader.readLine(line))
+			{
+				results << ParseSVMLight(line);
+			}
+
+			return results;
+		}
+
+		bool SaveSVMLight(const FilePath& path, const Array<SparseSupportVector>& vector)
+		{
+			TextWriter writer(path, TextEncoding::UTF8_NO_BOM);
+
+			if (!writer)
+			{
+				return false;
+			}
+
+			for (const auto& v : vector)
+			{
+				writer.writeln(Format(v));
+			}
+
+			return true;
+		}
+
+		double CalculateAccuracy(const PredictModel& model, const Array<SparseSupportVector>& testData)
+		{
+			int32 ok = 0, fail = 0;
+
+			for (const auto& sv : testData)
+			{
+				++(model.predict(sv.vector) == sv.label ? ok : fail);
+			}
+
+			return (static_cast<double>(ok) / (ok + fail));
 		}
 	}
 
