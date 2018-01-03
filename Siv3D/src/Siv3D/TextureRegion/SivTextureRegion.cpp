@@ -29,6 +29,44 @@ namespace s3d
 		return RectF{ x, y, size };
 	}
 
+	RectF TextureRegion::drawClipped(const double x, const double y, const RectF& clipRect, const ColorF& diffuse) const
+	{
+		const double clipRight = clipRect.x + clipRect.w;
+		const double clipBottom = clipRect.y + clipRect.h;
+
+		const double left = std::max(x, clipRect.x);
+		const double right = std::min(x + size.x, clipRight);
+		const double top = std::max(y, clipRect.y);
+		const double bottom = std::min(y + size.y, clipBottom);
+
+		if (clipRight <= left
+			|| right <= clipRect.x
+			|| clipBottom <= top
+			|| bottom <= clipRect.y)
+		{
+			return RectF(left, top, 0, 0);
+		}
+
+		const float xLeftTrimmed	= static_cast<float>(left - x);
+		const float xRightTrimmed	= static_cast<float>((x + size.x) - right);
+		const float yTopTrimmed		= static_cast<float>(top - y);
+		const float yBottomTrimmed	= static_cast<float>((y + size.y) - bottom);
+
+		const float uLeftTrimmed	= xLeftTrimmed / size.x * (uvRect.right - uvRect.left);
+		const float uRightTrimmed	= xRightTrimmed / size.x * (uvRect.right - uvRect.left);
+		const float vTopTrimmed		= yTopTrimmed / size.y * (uvRect.bottom - uvRect.top);
+		const float vBottomTrimmed	= yBottomTrimmed / size.y * (uvRect.bottom - uvRect.top);
+
+		Siv3DEngine::GetRenderer2D()->addTextureRegion(
+			texture,
+			FloatRect(left, top, right, bottom),
+			FloatRect(uvRect.left + uLeftTrimmed, uvRect.top + vTopTrimmed, uvRect.right - uRightTrimmed, uvRect.bottom - vBottomTrimmed),
+			diffuse.toFloat4()
+		);
+
+		return RectF(left, top, right - left, bottom - top);
+	}
+
 	RectF TextureRegion::drawAt(const double x, const double y, const ColorF& diffuse) const
 	{
 		const Vec2 sizeHalf = size * 0.5;
@@ -41,6 +79,11 @@ namespace s3d
 		);
 
 		return RectF{ x - sizeHalf.x, y - sizeHalf.y, size };
+	}
+
+	RectF TextureRegion::drawAtClipped(const double x, const double y, const RectF& clipRect, const ColorF& diffuse) const
+	{
+		return drawClipped(x - size.x * 0.5, y - size.y * 0.5, clipRect, diffuse);
 	}
 
 	TextureRegion TextureRegion::mirrored() const

@@ -34,7 +34,7 @@
 # include "../Font/IFont.hpp"
 # include "../Print/IPrint.hpp"
 # include "../Effect/IEffect.hpp"
-//# include "../Script/IScript.hpp"
+# include "../Script/IScript.hpp"
 # include "../Asset/IAsset.hpp"
 # include <Siv3D/Logger.hpp>
 
@@ -151,10 +151,10 @@ namespace s3d
 			return false;
 		}
 		
-		//if (!Siv3DEngine::GetScript()->init())
-		//{
-		//	return false;
-		//}
+		if (!Siv3DEngine::GetScript()->init())
+		{
+			return false;
+		}
 
 		if (!Siv3DEngine::GetAsset()->init())
 		{
