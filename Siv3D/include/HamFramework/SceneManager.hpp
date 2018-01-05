@@ -22,13 +22,7 @@ namespace s3d
 	template <class State, class Data> class SceneManager;
 	
 	namespace detail
-	{
-		template <class Type>
-		inline std::shared_ptr<Type> MakeSharedData()
-		{
-			return MakeShared<Type>();
-		}
-		
+	{		
 		struct EmptyData{};
 	}
 
@@ -376,7 +370,7 @@ namespace s3d
 		/// シーン管理のオプション
 		/// </param>
 		SceneManager()
-			: m_data(detail::MakeSharedData<Data>()) {}
+			: m_data(MakeSharedData<Data>()) {}
 
 		/// <summary>
 		/// シーン管理を初期化します。
