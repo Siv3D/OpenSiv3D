@@ -209,7 +209,8 @@ namespace s3d
 			}
 
 			char unused;
-			int32 index, value;
+			int32 index;
+			double value;
 
 			while (is >> index >> unused >> value)
 			{
