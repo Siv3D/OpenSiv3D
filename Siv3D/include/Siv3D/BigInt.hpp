@@ -295,7 +295,7 @@ namespace s3d
 
 		void swap(BigInt& other) noexcept;
 
-		size_t hash() const;
+		//size_t hash() const;
 
 		friend BigInt GCD(const BigInt&, const BigInt&);
 		friend BigInt LCM(const BigInt&, const BigInt&);
@@ -519,17 +519,17 @@ namespace s3d
 //
 //////////////////////////////////////////////////
 
-namespace std
-{
-	template <>
-	struct hash<s3d::BigInt>
-	{
-		[[nodiscard]] size_t operator()(const s3d::BigInt& value) const noexcept
-		{
-			return value.hash();
-		}
-	};
-}
+//namespace std
+//{
+//	template <>
+//	struct hash<s3d::BigInt>
+//	{
+//		[[nodiscard]] size_t operator()(const s3d::BigInt& value) const noexcept
+//		{
+//			return value.hash();
+//		}
+//	};
+//}
 
 //////////////////////////////////////////////////
 //

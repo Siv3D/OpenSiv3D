@@ -654,10 +654,10 @@ namespace s3d
 	//
 	////////////////////////////////////////////////////////////////
 
-	size_t BigFloat::hash() const
-	{
-		return std::hash<boost::multiprecision::cpp_dec_float_100>()(this->pImpl->data);
-	}
+	//size_t BigFloat::hash() const
+	//{
+	//	return std::hash<boost::multiprecision::cpp_dec_float_100>()(this->pImpl->data);
+	//}
 
 	////////////////////////////////////////////////////////////////
 	//

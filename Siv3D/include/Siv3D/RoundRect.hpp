@@ -55,6 +55,10 @@ namespace s3d
 			: rect(_x, _y, size)
 			, r(_r) {}
 
+		constexpr RoundRect(const position_type& pos, const value_type& size, value_type _r) noexcept
+			: rect(pos, size)
+			, r(_r) {}
+
 		constexpr RoundRect(const position_type& pos, const size_type& size, value_type _r) noexcept
 			: rect(pos, size)
 			, r(_r) {}

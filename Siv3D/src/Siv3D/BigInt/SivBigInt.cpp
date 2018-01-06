@@ -831,10 +831,10 @@ namespace s3d
 	//
 	////////////////////////////////////////////////////////////////
 
-	size_t BigInt::hash() const
-	{
-		return std::hash<boost::multiprecision::cpp_int>()(this->pImpl->data);
-	}
+	//size_t BigInt::hash() const
+	//{
+	//	return std::hash<boost::multiprecision::cpp_int>()(this->pImpl->data);
+	//}
 
 	////////////////////////////////////////////////////////////////
 	//

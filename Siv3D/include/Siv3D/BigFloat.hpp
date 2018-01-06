@@ -222,7 +222,7 @@ namespace s3d
 
 		void swap(BigFloat& other) noexcept;
 
-		size_t hash() const;
+		//size_t hash() const;
 
 		CBigFloat& detail();
 		const CBigFloat& detail() const;
@@ -479,17 +479,17 @@ namespace s3d
 //
 //////////////////////////////////////////////////
 
-namespace std
-{
-	template <>
-	struct hash<s3d::BigFloat>
-	{
-		[[nodiscard]] size_t operator()(const s3d::BigFloat& value) const noexcept
-		{
-			return value.hash();
-		}
-	};
-}
+//namespace std
+//{
+//	template <>
+//	struct hash<s3d::BigFloat>
+//	{
+//		[[nodiscard]] size_t operator()(const s3d::BigFloat& value) const noexcept
+//		{
+//			return value.hash();
+//		}
+//	};
+//}
 
 //////////////////////////////////////////////////
 //
