@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the HamFramework for Siv3D.
 //
@@ -370,7 +370,7 @@ namespace s3d
 		/// シーン管理のオプション
 		/// </param>
 		SceneManager()
-			: m_data(MakeSharedData<Data>()) {}
+			: m_data(MakeShared<Data>()) {}
 
 		/// <summary>
 		/// シーン管理を初期化します。
