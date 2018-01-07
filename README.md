@@ -25,7 +25,8 @@ In development for release in 2018. Successor to the current <a href="https://gi
 ---------------------------
 
 <table>
-<tr><td align="center"> 📘 </td><td> <a href="https://github.com/Siv3D/OpenSiv3D/wiki">Reference</a> </td></tr>
-<tr><td align="center"> 🚧 </td><td> <a href="https://github.com/Siv3D/OpenSiv3D/wiki/Roadmap">Roadmap</a> </td></tr>
+<tr><td align="center"> 📘 </td><td> <a href="https://scrapbox.io/Siv3D/Siv3D%E3%83%AA%E3%83%95%E3%82%A1%E3%83%AC%E3%83%B3%E3%82%B9">リファレンス</a> </td></tr>
+<tr><td align="center"> 📘 </td><td> <a href="https://scrapbox.io/Siv3D-en/Siv3D_Reference">Reference</a> </td></tr>
+<tr><td align="center"> 🚧 </td><td> <a href="https://scrapbox.io/Siv3D-en/Roadmap">Roadmap</a> </td></tr>
 <tr><td align="center"> ❓  </td><td> <a href="https://siv3d-slackin.herokuapp.com/">Siv3D User Group (#Slack)</a> </td></tr>
 </table>
