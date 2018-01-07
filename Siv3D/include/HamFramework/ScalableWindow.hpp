@@ -146,6 +146,7 @@ namespace s3d
 }
 
 /* example
+
 # include <Siv3D.hpp>
 # include <HamFramework.hpp>
 
@@ -180,4 +181,5 @@ void Main()
 		ScalableWindow::DrawBlackBars(HSV(40, 0.2, 0.9));
 	}
 }
+
 */

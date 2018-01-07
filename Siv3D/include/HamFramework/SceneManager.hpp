@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the HamFramework for Siv3D.
 //
@@ -399,7 +399,7 @@ namespace s3d
 			typename Scene::InitData initData{ state, m_data, this };
 			
 			auto factory = [=](){
-				return MakeShared<Scene>(initData);
+				return std::make_shared<Scene>(initData);
 			};
 		
 			auto it = m_factories.find(state);
@@ -701,13 +701,13 @@ struct Title : MyApp::Scene
 	{
 		if (MouseL.down())
 		{
-			changeScene(L"Game", 2s);
+			changeScene(U"Game", 2s);
 		}
 	}
 
 	void draw() const override
 	{
-		getData().font(L"Title").drawAt(Window::BaseCenter());
+		getData().font(U"Title").drawAt(Window::BaseCenter());
 	}
 };
 
@@ -717,7 +717,7 @@ struct Game : MyApp::Scene
 		: IScene(init)
 	{
 		Print << getState();
-		
+
 		getData().score = 0;
 	}
 
@@ -725,7 +725,7 @@ struct Game : MyApp::Scene
 	{
 		if (MouseL.down())
 		{
-			changeScene(L"Result", 2s);
+			changeScene(U"Result", 2s);
 		}
 
 		++getData().score;
@@ -733,7 +733,7 @@ struct Game : MyApp::Scene
 
 	void draw() const override
 	{
-		getData().font(L"Game").drawAt(Window::BaseCenter());
+		getData().font(U"Game").drawAt(Window::BaseCenter());
 
 		getData().font(getData().score).drawAt(Window::BaseCenter().movedBy(0, 60));
 	}
@@ -751,13 +751,13 @@ struct Result : MyApp::Scene
 	{
 		if (MouseL.down())
 		{
-			changeScene(L"Title", 2000);
+			changeScene(U"Title", 2000);
 		}
 	}
 
 	void draw() const override
 	{
-		getData().font(L"Result").drawAt(Window::BaseCenter());
+		getData().font(U"Result").drawAt(Window::BaseCenter());
 
 		getData().font(getData().score).drawAt(Window::BaseCenter().movedBy(0, 60));
 	}
@@ -765,11 +765,13 @@ struct Result : MyApp::Scene
 
 void Main()
 {
+	const auto p = MakeShared<GameData>();
+
 	MyApp manager;
 	manager
-		.add<Title>(L"Title")
-		.add<Game>(L"Game")
-		.add<Result>(L"Result");
+		.add<Title>(U"Title")
+		.add<Game>(U"Game")
+		.add<Result>(U"Result");
 
 	while (System::Update())
 	{

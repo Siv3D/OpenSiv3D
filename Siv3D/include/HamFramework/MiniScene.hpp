@@ -80,7 +80,7 @@ void Main()
 
 	MiniScene<String> scene;
 
-	scene[L"Title"] = [&]()
+	scene[U"Title"] = [&]()
 	{
 		Circle(Cursor::Pos(), 100).draw();
 
@@ -92,11 +92,11 @@ void Main()
 			blocks = Iota2D(Window::Width() / blockSize.x, 5).asArray()
 				.map([=](Point p) { return Rect(p * blockSize, blockSize).moveBy(0, 60); });
 
-			scene.changeState(L"Game");
+			scene.changeState(U"Game");
 		}
 	};
 
-	scene[L"Game"] = [&]()
+	scene[U"Game"] = [&]()
 	{
 		const Rect bar(Arg::center(Cursor::Pos().x, 420), 60, 10);
 		ball.moveBy(ballSpeed * (System::DeltaTime() / 0.01667));
@@ -132,8 +132,9 @@ void Main()
 
 		if (ball.y > 500)
 		{
-			scene.changeState(L"Title");
+			scene.changeState(U"Title");
 		}
 	};
 }
+
 */
