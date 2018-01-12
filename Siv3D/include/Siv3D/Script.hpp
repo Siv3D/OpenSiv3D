@@ -18,7 +18,7 @@
 # include "AssetHandle.hpp"
 # include "NamedParameter.hpp"
 # define AS_USE_NAMESPACE
-# include "../../Include/ThirdParty/angelscript/angelscript.h"
+# include "../../include/ThirdParty/angelscript/angelscript.h"
 
 namespace s3d
 {
