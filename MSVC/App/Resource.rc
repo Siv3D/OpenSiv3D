@@ -1,0 +1,63 @@
+//////////////////////////////////////////////////////
+# define DefineResource(identifier,type,path) identifier type #path
+# define Resource(path) DefineResource(path, FILE, path)
+
+//////////////////////////////////////////////////////
+//
+// Siv3D Engine Resources (DO NOT REMOVE)
+//
+//////////////////////////////////////////////////////
+DefineResource(100, ICON, icon.ico)
+Resource(engine/shader/sprite.vs)
+Resource(engine/shader/shape.ps)
+Resource(engine/shader/line_dot.ps)
+Resource(engine/shader/line_round_dot.ps)
+Resource(engine/shader/sprite.ps)
+Resource(engine/shader/sprite_sdf.ps)
+Resource(engine/font/mplus/mplus-1p-regular.ttf.zst)
+Resource(engine/texture/box-shadow/256.png)
+Resource(engine/texture/box-shadow/128.png)
+Resource(engine/texture/box-shadow/64.png)
+Resource(engine/texture/box-shadow/32.png)
+Resource(engine/texture/box-shadow/16.png)
+Resource(engine/texture/box-shadow/8.png)
+
+//////////////////////////////////////////////////////
+//
+// Siv3D Engine Optional Resources (Can be removed if not required)
+//
+//////////////////////////////////////////////////////
+Resource(engine/font/mplus/mplus-1p-thin.ttf.zst)
+Resource(engine/font/mplus/mplus-1p-light.ttf.zst)
+Resource(engine/font/mplus/mplus-1p-medium.ttf.zst)
+Resource(engine/font/mplus/mplus-1p-bold.ttf.zst)
+Resource(engine/font/mplus/mplus-1p-heavy.ttf.zst)
+Resource(engine/font/mplus/mplus-1p-black.ttf.zst)
+Resource(engine/font/noto/NotoColorEmoji.ttf.zst)
+Resource(engine/font/noto/NotoEmoji-Regular.ttf.zst)
+Resource(engine/font/fontawesome/FontAwesome.otf.zst)
+
+//////////////////////////////////////////////////////
+//
+// Siv3D App Resources (Your application resources here)
+//
+//////////////////////////////////////////////////////
+
+
+
+/* 
+	//
+	// Define your resource path inside `Resource()` macro.
+	// No double quotation marks and white spaces may appear.
+	//
+	Resource(example/siv3d-kun.png)		// ok
+	Resource(example/windmill.png)		// ok
+	Resource(assets/a b c.txt)			// error: contains white spaces
+	Resource("example/windmill.png")	// error: contains double quotation marks
+
+	//
+	// If your file contains a white space, define the identifier without using Resource() macro.
+	//
+	MYIDENTIFIER_1 FILE "assets/a b c.txt"
+	MYIDENTIFIER_2 FILE "level 1/map.dat"
+*/

@@ -1,0 +1,1086 @@
+﻿//-----------------------------------------------
+//
+//	This file is part of the HamFramework for Siv3D.
+//
+//	Copyright (C) 2014-2018 HAMSTRO
+//	Copyright (c) 2017 OpenSiv3D Project
+//
+//	Licensed under the MIT License.
+//
+//-----------------------------------------------
+
+# pragma once
+# include <Siv3D.hpp>
+
+namespace s3d
+{
+	namespace PlayingCard
+	{
+		/// <summary>
+		/// カードのスート（絵柄のマーク）
+		/// </summary>
+		enum Suit : uint16
+		{
+			/// <summary>
+			/// ♠ スペード
+			/// </summary>
+			Spade,
+
+			/// <summary>
+			/// ♥ ハート
+			/// </summary>
+			Heart,
+
+			/// <summary>
+			/// ♣ クローバー
+			/// </summary>
+			Club,
+
+			/// <summary>
+			/// ♣ クローバー
+			/// </summary>
+			Clover = Club,
+
+			/// <summary>
+			/// ♦ ダイヤモンド
+			/// </summary>
+			Diamond,
+
+			/// <summary>
+			/// ジョーカー
+			/// </summary>
+			Joker,
+		};
+
+		/// <summary>
+		/// カードの番号、スート、裏表などのデータ
+		/// </summary>
+		struct Card
+		{
+			/// <summary>
+			/// 表向き
+			/// </summary>
+			static constexpr bool Front = true;
+
+			/// <summary>
+			/// 裏向き
+			/// </summary>
+			static constexpr bool Back = false;
+
+			/// <summary>
+			/// スートの文字を返します。
+			/// </summary>
+			/// <param name="suit">
+			/// スート
+			/// </param>
+			/// <returns>
+			/// スートの文字
+			/// </returns>
+			static constexpr char32 GetSuit(const Suit suit)
+			{
+				return U"♠♥♣♦"[static_cast<size_t>(suit)];
+			}
+
+			/// <summary>
+			/// 番号の文字列表現を返します。
+			/// </summary>
+			/// <param name="rank">
+			/// 番号
+			/// </param>
+			/// <returns>
+			/// 番号の文字列表現
+			/// </returns>
+			static String GetRank(const int32 rank)
+			{
+				assert(InRange(rank, 1, 13));
+
+				static const String ranks[13] = { U"A", U"2", U"3", U"4", U"5", U"6", U"7", U"8", U"9", U"10", U"J", U"Q", U"K" };
+
+				return ranks[rank - 1];
+			}
+
+			/// <summary>
+			/// 番号
+			/// </summary>
+			int32 rank;
+
+			/// <summary>
+			/// スート
+			/// </summary>
+			Suit suit;
+
+			/// <summary>
+			/// 表向きであるか
+			/// </summary>
+			bool isFaceSide;
+
+			/// <summary>
+			/// デフォルトコンストラクタ
+			/// </summary>
+			Card() = default;
+
+			/// <summary>
+			/// カードを作成します。
+			/// </summary>
+			/// <param name="_suit">
+			/// スート
+			/// </param>
+			/// <param name="_rank">
+			/// 番号
+			/// </param>
+			/// <param name="_isFaceSide">
+			/// 表向きであるか
+			/// </param>
+			constexpr Card(Suit _suit, int32 _rank, bool _isFaceSide = true) noexcept
+				: rank(_suit == Suit::Joker ? 0 : _rank)
+				, suit(_suit)
+				, isFaceSide(_isFaceSide) {}
+
+			/// <summary>
+			/// カードを裏表を反転します。
+			/// </summary>
+			/// <returns>
+			/// *this
+			/// </returns>
+			constexpr Card& flip() noexcept
+			{
+				isFaceSide = !isFaceSide;
+				return *this;
+			}
+
+			/// <summary>
+			/// カードが赤色のスート（ハートまたはダイヤモンド）かどうかを返します。
+			/// </summary>
+			/// <returns>
+			/// カードが赤色のスートの場合 true, それ以外の場合は false
+			/// </returns>
+			constexpr bool isRed() const noexcept
+			{
+				return suit == Heart || suit == Diamond;
+			}
+
+			/// <summary>
+			/// カードが黒色のスート（スペードまたはクローバー）かどうかを返します。
+			/// </summary>
+			/// <returns>
+			/// カードが黒色のスートの場合 true, それ以外の場合は false
+			/// </returns>
+			constexpr bool isBlack() const noexcept
+			{
+				return suit == Spade || suit == Club;
+			}
+
+			/// <summary>
+			/// カードのスートがスペードかどうかを返します。
+			/// </summary>
+			/// <returns>
+			/// カードのスートがスペードの場合 true, それ以外の場合は false
+			/// </returns>
+			constexpr bool isSpade() const noexcept
+			{
+				return suit == Spade;
+			}
+
+			/// <summary>
+			/// カードのスートがハートかどうかを返します。
+			/// </summary>
+			/// <returns>
+			/// カードのスートがハートの場合 true, それ以外の場合は false
+			/// </returns>
+			constexpr bool isHeart() const noexcept
+			{
+				return suit == Heart;
+			}
+
+			/// <summary>
+			/// カードのスートがクローバーかどうかを返します。
+			/// </summary>
+			/// <returns>
+			/// カードのスートがクローバーの場合 true, それ以外の場合は false
+			/// </returns>
+			constexpr bool isClub() const noexcept
+			{
+				return suit == Club;
+			}
+
+			/// <summary>
+			/// カードのスートがダイヤモンドかどうかを返します。
+			/// </summary>
+			/// <returns>
+			/// カードのスートがダイヤモンドの場合 true, それ以外の場合は false
+			/// </returns>
+			constexpr bool isDiamond() const noexcept
+			{
+				return suit == Diamond;
+			}
+
+			/// <summary>
+			/// カードがジョーカーかどうかを返します。
+			/// </summary>
+			/// <returns>
+			/// カードがジョーカーの場合 true, それ以外の場合は false
+			/// </returns>
+			constexpr bool isJoker() const noexcept
+			{
+				return suit == Joker;
+			}
+
+			/// <summary>
+			/// カードがエース (A) かどうかを返します。
+			/// </summary>
+			/// <returns>
+			/// カードがエース (A) の場合 true, それ以外の場合は false
+			/// </returns>
+			constexpr bool isAce() const noexcept
+			{
+				return rank == 1;
+			}
+
+			/// <summary>
+			/// カードがジャック (J) かどうかを返します。
+			/// </summary>
+			/// <returns>
+			/// カードがジャック (J) の場合 true, それ以外の場合は false
+			/// </returns>
+			constexpr bool isJack() const noexcept
+			{
+				return rank == 11;
+			}
+
+			/// <summary>
+			/// カードがクイーン (Q) かどうかを返します。
+			/// </summary>
+			/// <returns>
+			/// カードがクイーン (Q) の場合 true, それ以外の場合は false
+			/// </returns>
+			constexpr bool isQueen() const noexcept
+			{
+				return rank == 12;
+			}
+
+			/// <summary>
+			/// カードがキング (K) かどうかを返します。
+			/// </summary>
+			/// <returns>
+			/// カードがキング (K) の場合 true, それ以外の場合は false
+			/// </returns>
+			constexpr bool isKing() const noexcept
+			{
+				return rank == 13;
+			}
+
+			/// <summary>
+			/// カードの数字が有効な範囲 (1-13) かどうかを返します。
+			/// </summary>
+			/// <returns>
+			/// カードの数字が有効な範囲の場合 true, それ以外の場合は false
+			/// </returns>
+			constexpr bool isValid() const noexcept
+			{
+				return InRange(rank, 1, 13) || isJoker();
+			}
+		};
+
+		inline constexpr bool operator ==(const Card& a, const Card& b) noexcept
+		{
+			return a.rank == b.rank && a.suit == b.suit;
+		}
+
+		inline constexpr bool operator !=(const Card& a, const Card& b) noexcept
+		{
+			return a.rank != b.rank || a.suit != b.suit;
+		}
+
+		/// <summary>
+		/// カードの描画用の情報
+		/// </summary>
+		struct CardInfo
+		{
+		private:
+
+			static constexpr double corner = 0.045;
+
+			Card m_card;
+
+			Font m_font;
+
+			Font m_fontLarge;
+
+			Vec2 m_cardSize;
+
+			ColorF m_backSideColor;
+
+			double m_frameThickness;
+
+		public:
+
+			/// <summary>
+			/// デフォルトコンストラクタ
+			/// </summary>
+			CardInfo() = default;
+
+			/// <summary>
+			/// カードの情報を作成します。
+			/// </summary>
+			/// <param name="card">
+			/// カード
+			/// </param>
+			/// <param name="font">
+			/// 描画に使用するフォント
+			/// </param>
+			/// <param name="size">
+			/// カードの大きさ
+			/// </param>
+			/// <param name="frameThickness">
+			/// 枠の太さ
+			/// </param>
+			/// <param name="backSideColor">
+			/// 裏面の色
+			/// </param>
+			CardInfo(const Card& card, const Font& font, const Font& fontLarge, const Vec2& size, double frameThickness, const ColorF& backSideColor)
+				: m_card(card)
+				, m_font(font)
+				, m_fontLarge(fontLarge)
+				, m_cardSize(size)
+				, m_backSideColor(backSideColor)
+				, m_frameThickness(frameThickness)
+			{
+				assert(card.isValid());
+			}
+
+			/// <summary>
+			/// カードの裏面を描画します。
+			/// </summary>
+			/// <param name="pos">
+			/// カードの左上の座標
+			/// </param>
+			/// <returns>
+			/// なし
+			/// </returns>
+			void drawBack(const Vec2& pos) const
+			{
+				RoundRect(pos, m_cardSize, m_cardSize.x * corner)
+					.draw()
+					.drawFrame(0.0, m_frameThickness, Palette::Black)
+					.rect.stretched(m_cardSize.x * -0.1).draw(m_backSideColor);
+			}
+
+			void drawBack(double x, double y) const
+			{
+				drawBack(Vec2(x, y));
+			}
+
+			/// <summary>
+			/// カードの裏面を描画します。
+			/// </summary>
+			/// <param name="pos">
+			/// カードの左上の座標
+			/// </param>
+			/// <param name="angle">
+			/// カードの時計回りの回転
+			/// </param>
+			/// <returns>
+			/// なし
+			/// </returns>
+			void drawBack(const Vec2& pos, double angle) const
+			{
+				const Transformer2D transformer(Mat3x2::Rotate(angle, pos + m_cardSize / 2));
+
+				drawBack(pos);
+			}
+
+			void drawBack(double x, double y, double angle) const
+			{
+				drawBack(Vec2(x, y), angle);
+			}
+
+			/// <summary>
+			/// 中心座標を指定してカードの裏面を描画します。
+			/// </summary>
+			/// <param name="center">
+			/// カードの中心の座標
+			/// </param>
+			/// <returns>
+			/// なし
+			/// </returns>
+			void drawBackAt(const Vec2& center) const
+			{
+				drawBack(center - m_cardSize * 0.5);
+			}
+
+			void drawBackAt(double x, double y) const
+			{
+				drawBackAt(Vec2(x, y));
+			}
+
+			/// <summary>
+			/// 中心座標を指定してカードの裏面を描画します。
+			/// </summary>
+			/// <param name="center">
+			/// カードの中心の座標
+			/// </param>
+			/// <param name="angle">
+			/// カードの時計回りの回転
+			/// </param>
+			/// <returns>
+			/// なし
+			/// </returns>
+			void drawBackAt(const Vec2& center, double angle) const
+			{
+				const Transformer2D transformer(Mat3x2::Rotate(angle, center));
+
+				drawBackAt(center);
+			}
+
+			void drawBackAt(double x, double y, double angle) const
+			{
+				drawBackAt(Vec2(x, y), angle);
+			}
+
+			/// <summary>
+			/// カードを描画します。
+			/// </summary>
+			/// <param name="pos">
+			/// カードの左上の座標
+			/// </param>
+			/// <returns>
+			/// なし
+			/// </returns>
+			void draw(const Vec2& pos) const
+			{
+				if (!m_card.isFaceSide)
+				{
+					return drawBack(pos);
+				}
+
+				struct DrawInfo
+				{
+					bool flip;
+
+					Vec2 offset;
+				};
+
+				static const Array<DrawInfo> drawInfos[9] =
+				{
+					{	// 2
+						DrawInfo{ false, Vec2(0.0,-1.0 / 3.0) },
+						DrawInfo{ true, Vec2(0.0,1.0 / 3.0) }
+					},
+
+					{	// 3
+						DrawInfo{ false, Vec2(0.0,0.0) },
+						DrawInfo{ false, Vec2(0.0,-1.0 / 3.0) },
+						DrawInfo{ true, Vec2(0.0,1.0 / 3.0) }
+					},
+
+					{	// 4
+						DrawInfo{ false, Vec2(0.2,-1.0 / 3.0) },
+						DrawInfo{ true, Vec2(-0.2,1.0 / 3.0) },
+						DrawInfo{ true, Vec2(0.2,1.0 / 3.0) },
+						DrawInfo{ false, Vec2(-0.2,-1.0 / 3.0) }
+					},
+
+					{	// 5
+						DrawInfo{ false, Vec2(0.2,-1.0 / 3.0) },
+						DrawInfo{ true, Vec2(-0.2,1.0 / 3.0) },
+						DrawInfo{ true, Vec2(0.2,1.0 / 3.0) },
+						DrawInfo{ false, Vec2(-0.2,-1.0 / 3.0) },
+						DrawInfo{ false, Vec2(0.0,0.0) }
+					},
+
+					{	// 5
+						DrawInfo{ false, Vec2(-0.2, -1.0 / 3.0) },
+						DrawInfo{ false, Vec2(0.2, -1.0 / 3.0) },
+						DrawInfo{ false, Vec2(-0.2, 0.0) },
+						DrawInfo{ false, Vec2(0.2, 0.0) },
+						DrawInfo{ true, Vec2(-0.2, 1.0 / 3.0) },
+						DrawInfo{ true, Vec2(0.2, 1.0 / 3.0) },
+					},
+
+					{	// 6
+						DrawInfo{ false, Vec2(-0.2, -1.0 / 3.0) },
+						DrawInfo{ false, Vec2(0.2, -1.0 / 3.0) },
+						DrawInfo{ false, Vec2(-0.2, 0.0) },
+						DrawInfo{ false, Vec2(0.2, 0.0) },
+						DrawInfo{ true, Vec2(-0.2, 1.0 / 3.0) },
+						DrawInfo{ true, Vec2(0.2, 1.0 / 3.0) },
+						DrawInfo{ false, Vec2(0.0, -1.0 / 6.0) },
+					},
+
+					{	// 7
+						DrawInfo{ false, Vec2(-0.2, -1.0 / 3.0) },
+						DrawInfo{ false, Vec2(0.2, -1.0 / 3.0) },
+						DrawInfo{ false, Vec2(-0.2, 0.0) },
+						DrawInfo{ false, Vec2(0.2, 0.0) },
+						DrawInfo{ true, Vec2(-0.2, 1.0 / 3.0) },
+						DrawInfo{ true, Vec2(0.2, 1.0 / 3.0) },
+						DrawInfo{ false, Vec2(0.0, -1.0 / 6.0) },
+						DrawInfo{ true, Vec2(0.0, 1.0 / 6.0) },
+					},
+
+					{	// 8
+						DrawInfo{ false, Vec2(-0.2, -1.0 / 3.0) },
+						DrawInfo{ false, Vec2(0.2, -1.0 / 3.0) },
+						DrawInfo{ true, Vec2(-0.2, 1.0 / 3.0) },
+						DrawInfo{ true, Vec2(0.2, 1.0 / 3.0) },
+						DrawInfo{ false, Vec2(-0.2, -1.0 / 9.0) },
+						DrawInfo{ false, Vec2(0.2, -1.0 / 9.0) },
+						DrawInfo{ true, Vec2(-0.2, 1.0 / 9.0) },
+						DrawInfo{ true, Vec2(0.2, 1.0 / 9.0) },
+						DrawInfo{ false, Vec2(0.0, 0.0) },
+					},
+
+					{	// 9
+						DrawInfo{ false, Vec2(-0.2, -1.0 / 3.0) },
+						DrawInfo{ false, Vec2(0.2, -1.0 / 3.0) },
+						DrawInfo{ true, Vec2(-0.2, 1.0 / 3.0) },
+						DrawInfo{ true, Vec2(0.2, 1.0 / 3.0) },
+						DrawInfo{ false, Vec2(-0.2, -1.0 / 9.0) },
+						DrawInfo{ false, Vec2(0.2, -1.0 / 9.0) },
+						DrawInfo{ true, Vec2(-0.2, 1.0 / 9.0) },
+						DrawInfo{ true, Vec2(0.2, 1.0 / 9.0) },
+						DrawInfo{ false, Vec2(0.0, -1.0 / 4.5) },
+						DrawInfo{ true, Vec2(0.0, 1.0 / 4.5) }
+					},
+				};
+
+				const Vec2 center = pos + m_cardSize * 0.5;
+				const Vec2 centering = m_cardSize * 0.1;
+				const double drawSize = 0.34 / 0.467;
+				const ColorF color = m_card.isRed() ? Palette::Red : Palette::Black;
+
+				RoundRect(pos, m_cardSize, m_cardSize.x * corner)
+					.draw()
+					.drawFrame(0, m_frameThickness, Palette::Black);
+
+				if (m_card.isJoker())
+				{
+					const Array<Glyph> glyphs = m_font.getGlyphs(U"JOKER");
+					const double height = glyphs[0].texture.size.y * drawSize * 1.08;
+					const Vec2 drawpos(centering / 10 + Vec2(glyphs[0].texture.resized(Vec2(glyphs[0].texture.size) * drawSize).size.x, height * 0.5));
+
+					for (const auto a : step(glyphs.size()))
+					{
+						const TextureRegion t = glyphs[a].texture.resized(Vec2(glyphs[0].texture.size) * drawSize);
+						t.drawAt(pos + drawpos + Vec2(0, a * height * 1.2), color);
+						t.flipped().mirrored().drawAt(pos - drawpos - Vec2(0, a * height * 1.2) + m_cardSize, color);
+					}
+
+					m_fontLarge.getGlyph(U'♋').texture.scaled(0.9).drawAt(center, color);
+
+					return;
+				}
+
+				const Glyph suitGlyph = m_font.getGlyph(Card::GetSuit(m_card.suit));
+				const Glyph rankGlyph = m_font.getGlyph(Card::GetRank(m_card.rank)[0]);
+				const Vec2 suitpos(0.0, m_cardSize.y * 0.13888);
+
+				suitGlyph.texture.scaled(drawSize).drawAt(pos.movedBy(centering + suitpos), color);
+				suitGlyph.texture.scaled(drawSize).flipped().mirrored().drawAt(pos + m_cardSize - centering - suitpos, color);
+
+				if (m_card.rank == 10)
+				{
+					const auto zerotexture = m_font.getGlyph(U'0');
+					const Vec2 rankSize = Vec2(rankGlyph.texture.size.x * 2.2 / 3.0, rankGlyph.texture.size.y) * drawSize;
+
+					rankGlyph.texture.resized(rankSize)
+						.drawAt(pos + centering - Vec2(rankSize.x * 1.1, 0), color);
+					rankGlyph.texture.resized(rankSize)
+						.flipped().mirrored()
+						.drawAt(pos + m_cardSize - centering + Vec2(rankSize.x * 1.1, 0), color);
+
+					zerotexture.texture.scaled(drawSize * 0.8, drawSize)
+						.drawAt(pos + centering + Vec2(rankGlyph.texture.size.x * drawSize - rankSize.x / 1.55, 0), color);
+					zerotexture.texture.scaled(drawSize * 0.8, drawSize)
+						.flipped().mirrored()
+						.drawAt(pos - centering + Vec2(-rankGlyph.texture.size.x * drawSize + rankSize.x / 1.55, 0) + m_cardSize, color);
+				}
+				else
+				{
+					rankGlyph.texture.scaled(drawSize).drawAt(pos + centering, color);
+					rankGlyph.texture.scaled(drawSize).flipped().mirrored().drawAt(pos + m_cardSize - centering, color);
+				}
+
+				if (InRange(m_card.rank, 2, 10))
+				{
+					for (const auto a : drawInfos[m_card.rank - 2])
+					{
+						suitGlyph.texture.flipped(a.flip).drawAt(center.movedBy(m_cardSize.x * a.offset.x, m_cardSize.y * a.offset.y), color);
+					}
+				}
+				else
+				{
+					const char32_t c[4] = { static_cast<char32_t>(Card::GetSuit(m_card.suit)), U'💂', U'👸', U'👴' };
+
+					m_fontLarge.getGlyph(c[(m_card.rank - 1) % 9]).texture.drawAt(center.movedBy(m_card.rank == 13 ? Vec2(0, m_cardSize.y / 12 - m_cardSize.y / 21) : Vec2::Zero()), color);
+
+					if (m_card.isKing())
+					{
+						m_fontLarge.getGlyph(U'👑').texture.scaled(0.6).drawAt(center.movedBy(0, -m_cardSize.y / 7 - m_cardSize.y / 21), color);
+					}
+				}
+			}
+
+			void draw(double x, double y) const
+			{
+				draw(Vec2(x, y));
+			}
+
+			/// <summary>
+			/// カードを描画します。
+			/// </summary>
+			/// <param name="pos">
+			/// カードの左上の座標
+			/// </param>
+			/// <param name="angle">
+			/// カードの時計回りの回転
+			/// </param>
+			/// <returns>
+			/// なし
+			/// </returns>
+			void draw(const Vec2& pos, double angle) const
+			{
+				const Transformer2D trans(Mat3x2::Rotate(angle, pos + m_cardSize / 2));
+
+				draw(pos);
+			}
+
+			void draw(double x, double y, double angle) const
+			{
+				draw(Vec2(x, y), angle);
+			}
+
+			/// <summary>
+			/// 中心座標を指定してカードを描画します。
+			/// </summary>
+			/// <param name="center">
+			/// カードの中心の座標
+			/// </param>
+			/// <returns>
+			/// なし
+			/// </returns>
+			void drawAt(const Vec2& center) const
+			{
+				draw(center - m_cardSize * 0.5);
+			}
+
+			void drawAt(double x, double y) const
+			{
+				drawAt(Vec2(x, y));
+			}
+
+			/// <summary>
+			/// 中心座標を指定してカードを描画します。
+			/// </summary>
+			/// <param name="center">
+			/// カードの中心の座標
+			/// </param>
+			/// <param name="angle">
+			/// カードの時計回りの回転
+			/// </param>
+			/// <returns>
+			/// なし
+			/// </returns>
+			void drawAt(const Vec2& center, double angle) const
+			{
+				const Transformer2D trans(Mat3x2::Rotate(angle, center));
+
+				draw(center - m_cardSize * 0.5);
+			}
+
+			void drawAt(double x, double y, double angle) const
+			{
+				drawAt(Vec2(x, y), angle);
+			}
+
+			/// <summary>
+			/// シンプルなデザインの描画を行います。
+			/// </summary>
+			/// <param name="pos">
+			/// カードの左上の座標
+			/// </param>
+			/// <returns>
+			/// なし
+			/// </returns>
+			void drawSimple(const Vec2& pos) const
+			{
+				if (m_card.isFaceSide)
+				{
+					const RectF rect(pos, m_cardSize);
+
+					RoundRect(rect, rect.w*corner).draw().drawFrame(m_frameThickness, Palette::Black);
+
+					if (!m_card.isJoker())
+					{
+						const ColorF color = m_card.isRed() ? Palette::Red : Palette::Black;
+						const char32 suit = Card::GetSuit(m_card.suit);
+						const String rank = Card::GetRank(m_card.rank);
+
+						m_fontLarge(suit).drawAt(pos.movedBy(m_cardSize.x * 0.5, m_cardSize.y * 0.3), color);
+						m_fontLarge(rank).drawAt(pos.movedBy(m_cardSize.x * 0.5, m_cardSize.y * 0.67), color);
+					}
+					else
+					{
+						m_fontLarge.getGlyph(U'♋').texture.scaled(0.9).drawAt(rect.center(), Palette::Black);
+					}
+				}
+				else
+				{
+					drawBack(pos);
+				}
+			}
+
+			void drawSimple(double x, double y) const
+			{
+				drawSimple(Vec2(x, y));
+			}
+
+			/// <summary>
+			/// シンプルなデザインの描画を行います。
+			/// </summary>
+			/// <param name="pos">
+			/// カードの左上の座標
+			/// </param>
+			/// <param name="angle">
+			/// カードの時計回りの回転
+			/// </param>
+			/// <returns>
+			/// なし
+			/// </returns>
+			void drawSimple(const Vec2& pos, double angle) const
+			{
+				const Transformer2D trans(Mat3x2::Rotate(angle, pos + m_cardSize / 2));
+
+				drawSimple(pos);
+			}
+
+			void drawSimple(double x, double y, double angle) const
+			{
+				drawSimple(Vec2(x, y), angle);
+			}
+
+			/// <summary>
+			/// 中心座標を指定してシンプルなデザインの描画を行います。
+			/// </summary>
+			/// <param name="center">
+			/// カードの中心の座標
+			/// </param>
+			/// <returns>
+			/// なし
+			/// </returns>
+			void drawSimpleAt(const Vec2& center) const
+			{
+				drawSimple(center - m_cardSize * 0.5);
+			}
+
+			void drawSimpleAt(double x, double y) const
+			{
+				drawSimpleAt(Vec2(x, y));
+			}
+
+			/// <summary>
+			/// 中心座標を指定してシンプルなデザインの描画を行います。
+			/// </summary>
+			/// <param name="center">
+			/// カードの中心の座標
+			/// </param>
+			/// <param name="angle">
+			/// カードの時計回りの回転
+			/// </param>
+			/// <returns>
+			/// なし
+			/// </returns>
+			void drawSimpleAt(const Vec2& center, double angle) const
+			{
+				const Transformer2D trans(Mat3x2::Rotate(angle, center));
+
+				drawSimple(center - m_cardSize * 0.5);
+			}
+
+			void drawSimpleAt(double x, double y, double angle) const
+			{
+				drawSimpleAt(Vec2(x, y), angle);
+			}
+		};
+
+		/// <summary>
+		/// カードに用いるフォントの大きさを計算します。
+		/// </summary>
+		/// <param name="cardWidth">
+		/// カードの幅
+		/// </param>
+		/// <returns>
+		/// カードに用いるフォントの大きさ
+		/// </returns>
+		constexpr inline int32 CalculateFontSize(double cardWidth) noexcept
+		{
+			return std::max(static_cast<int32>(cardWidth * (2.0 / 3.0)), 1);
+		}
+
+		/// <summary>
+		/// カードを作成するクラス
+		/// </summary>
+		class Pack
+		{
+		private:
+
+			Font m_font;
+
+			Font m_fontLarge;
+
+			Vec2 m_cardSize = { 0, 0 };
+
+			ColorF m_backSideColor = Palette::Blue;
+
+			double m_framethickness = 0.0;
+
+		public:
+
+			/// <summary>
+			/// デフォルトコンストラクタ
+			/// </summary>
+			Pack() = default;
+
+			/// <summary>
+			/// カードを扱うための構造体を作成します。
+			/// </summary>
+			/// <param name="font">
+			/// 小さいフォント
+			/// </param>
+			/// <param name="fontLarge">
+			/// 大きいフォント
+			/// </param>
+			/// <param name="cardWidth">
+			/// カードの幅
+			/// </param>
+			/// <param name="backSideColor">
+			/// カード背面の色
+			/// </param>
+			/// <param name="frameThickness">
+			/// カードの枠の太さ
+			/// </param>
+			/// <remarks>
+			/// フォントの大きさは BestFontSize() を使って計算します。
+			/// </remarks>
+			explicit Pack(const Font& font, const Font& fontLarge, double cardWidth = 50, const ColorF& backSideColor = Palette::Blue, double frameThickness = 1.0)
+				: m_font(font)
+				, m_fontLarge(fontLarge)
+				, m_cardSize(cardWidth, cardWidth * Math::GoldenRatio)
+				, m_backSideColor(backSideColor)
+				, m_framethickness(frameThickness) {}
+
+			/// <summary>
+			/// カードを扱うための構造体を作成します。
+			/// </summary>
+			/// <param name="cardWidth">
+			/// カードの幅
+			/// </param>
+			/// <param name="backSideColor">
+			/// カード背面の色
+			/// </param>
+			/// <param name="frameThickness">
+			/// カードの枠の太さ
+			/// </param>
+			explicit Pack(double cardWidth, const ColorF& backSideColor = Palette::Blue, double frameThickness = 1.0)
+				: m_font(CalculateFontSize(cardWidth * 0.475))
+				, m_fontLarge(CalculateFontSize(cardWidth))
+				, m_cardSize(cardWidth, cardWidth * Math::GoldenRatio)
+				, m_backSideColor(backSideColor)
+				, m_framethickness(frameThickness) {}
+
+			/// <summary>
+			/// カードの描画用の情報を作成します。
+			/// </summary>
+			/// <param name="suit">
+			/// カードのスート
+			/// </param>
+			/// <param name="rank">
+			/// カードの数字
+			/// </param>
+			/// <param name="isFaceSide">
+			/// カードが表面かどうか
+			/// </param>
+			/// <returns>
+			/// カードの描画用の情報
+			/// </returns>
+			CardInfo operator ()(Suit suit, int32 rank = 1, bool isFaceSide = Card::Front) const
+			{
+				return operator()(Card(suit, rank, isFaceSide));
+			}
+
+			/// <summary>
+			/// カードの描画用の情報を作成します。
+			/// </summary>
+			/// <param name="card">
+			/// カード
+			/// </param>
+			/// <returns>
+			/// カードの描画用の情報
+			/// </returns>
+			CardInfo operator ()(const Card& card) const
+			{
+				return CardInfo(card, m_font, m_fontLarge, m_cardSize, m_framethickness, m_backSideColor);
+			}
+
+			/// <summary>
+			/// カードの大きさを返します。
+			/// </summary>
+			/// <returns>
+			/// カードの大きさ
+			/// </returns>
+			Vec2 size() const noexcept
+			{
+				return m_cardSize;
+			}
+
+			/// <summary>
+			/// カードの幅を返します。
+			/// </summary>
+			/// <returns>
+			/// カードの幅
+			/// </returns>
+			double width() const noexcept
+			{
+				return m_cardSize.x;
+			}
+
+			/// <summary>
+			/// カードの高さを返します。
+			/// </summary>
+			/// <returns>
+			/// カードの高さ
+			/// </returns>
+			double height() const noexcept
+			{
+				return m_cardSize.y;
+			}
+
+			/// <summary>
+			/// カードの領域を返します。
+			/// </summary>
+			/// <param name="pos">
+			/// カードの左上の座標
+			/// </param>
+			/// <returns>
+			/// カードの領域
+			/// </returns>
+			RectF region(const Vec2& pos) const
+			{
+				return RectF(pos, m_cardSize);
+			}
+
+			/// <summary>
+			/// カードの領域を返します。
+			/// </summary>
+			/// <param name="pos">
+			/// カードの左上の座標
+			/// </param>
+			/// <param name="angle">
+			/// カードの時計回りの回転
+			/// </param>
+			/// <returns>
+			/// カードの領域
+			/// </returns>
+			Quad region(const Vec2& pos, double angle) const
+			{
+				return RectF(pos, m_cardSize).rotated(angle);
+			}
+
+			/// <summary>
+			/// カードの領域を返します。
+			/// </summary>
+			/// <param name="pos">
+			/// カードの中心の座標
+			/// </param>
+			/// <returns>
+			/// カードの領域
+			/// </returns>
+			RectF regionAt(const Vec2& center) const
+			{
+				return RectF(Arg::center = center, m_cardSize);
+			}
+
+			/// <summary>
+			/// カードの領域を返します。
+			/// </summary>
+			/// <param name="pos">
+			/// カードの中心の座標
+			/// </param>
+			/// <param name="angle">
+			/// カードの時計回りの回転
+			/// </param>
+			/// <returns>
+			/// カードの領域
+			/// </returns>
+			Quad regionAt(const Vec2& center, double angle) const
+			{
+				return RectF(Arg::center = center, m_cardSize).rotated(angle);
+			}
+		};
+
+		/// <summary>
+		/// カードの山札を作ります。
+		/// </summary>
+		/// <param name="num_joker">
+		/// ジョーカーの枚数
+		/// </param>
+		/// <param name="isFaceSide">
+		/// 各カードの裏表の初期状態
+		/// </param>
+		/// <remarks>
+		/// ジョーカーは配列の最後に加えられます。
+		/// シャッフルしたい場合は、取得後に shuffle() します。
+		/// </remarks>
+		/// <returns>
+		/// カードの山札
+		/// </returns>
+		inline Array<Card> CreateDeck(size_t num_jokers = 0, bool isFaceSide = Card::Front)
+		{
+			Array<Card> cards;
+
+			cards.reserve(13 * 4 + num_jokers);
+
+			for (auto suit : step(4))
+			{
+				for (auto i : step(13))
+				{
+					cards.emplace_back(static_cast<Suit>(suit), i + 1, isFaceSide);
+				}
+			}
+
+			cards.insert(cards.end(), num_jokers, Card(Suit::Joker, 0, isFaceSide));
+
+			return cards;
+		}
+	}
+}
+
+/* example
+
+# include <Siv3D.hpp>
+# include <HamFramework.hpp>
+
+void Main()
+{
+	Window::Resize(1280, 720);
+	Graphics::SetBackground(Palette::Darkgreen);
+
+	const PlayingCard::Pack pack(75, Palette::Red);
+	Array<PlayingCard::Card> cards = PlayingCard::CreateDeck(2);
+
+	while (System::Update())
+	{
+		for (auto i : step(13 * 4 + 2))
+		{
+			const Vec2 center(100 + i % 13 * 90, 100 + (i / 13) * 130);
+
+			if (pack.regionAt(center).leftClicked())
+			{
+				cards[i].flip();
+			}
+
+			pack(cards[i]).drawAt(center);
+		}
+	}
+}
+*/
