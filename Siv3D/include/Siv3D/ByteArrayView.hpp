@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2017 Ryo Suzuki
-//	Copyright (c) 2016-2017 OpenSiv3D Project
+//	Copyright (c) 2008-2018 Ryo Suzuki
+//	Copyright (c) 2016-2018 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -69,16 +69,16 @@ namespace s3d
 
 		template <class Type, size_t N, std::enable_if_t<std::is_trivially_copyable_v<Type>>* = nullptr>
 		constexpr ByteArrayView(const Type(&arr)[N])
-			: ByteArrayView(std::addressof(arr[0]), N) {}
+			: ByteArrayView(std::addressof(arr[0]), sizeof(Type) * N) {}
 
 		template <class Type, size_t N, std::enable_if_t<std::is_trivially_copyable_v<Type>>* = nullptr>
 		constexpr ByteArrayView(const std::array<Type, N>& arr)
-			: ByteArrayView(arr.data(), N) {}
+			: ByteArrayView(arr.data(), sizeof(Type) * N) {}
 
 		template <class Container, std::enable_if_t<std::is_trivially_copyable_v<typename Container::value_type> &&
 			std::is_convertible_v<typename Container::pointer, decltype(std::declval<Container>().data())>>* = nullptr>
 		constexpr ByteArrayView(const Container& c)
-			: ByteArrayView(c.data(), c.size()) {}
+			: ByteArrayView(c.data(), sizeof(typename Container::value_type) * c.size()) {}
 
 		constexpr ByteArrayView& operator =(const ByteArrayView&) noexcept = default;
 

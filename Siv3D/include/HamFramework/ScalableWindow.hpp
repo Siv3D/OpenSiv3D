@@ -2,7 +2,7 @@
 //
 //	This file is part of the HamFramework for Siv3D.
 //
-//	Copyright (C) 2014-2017 HAMSTRO
+//	Copyright (C) 2014-2018 HAMSTRO
 //
 //	Licensed under the MIT License.
 //
@@ -146,6 +146,7 @@ namespace s3d
 }
 
 /* example
+
 # include <Siv3D.hpp>
 # include <HamFramework.hpp>
 
@@ -180,4 +181,5 @@ void Main()
 		ScalableWindow::DrawBlackBars(HSV(40, 0.2, 0.9));
 	}
 }
+
 */

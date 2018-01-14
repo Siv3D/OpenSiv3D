@@ -2,7 +2,7 @@
 //
 //	This file is part of the HamFramework for Siv3D.
 //
-//	Copyright (C) 2014-2017 HAMSTRO
+//	Copyright (C) 2014-2018 HAMSTRO
 //
 //	Licensed under the MIT License.
 //
@@ -394,4 +394,5 @@ void Main()
 		cps.update();
 	}
 }
+
 */

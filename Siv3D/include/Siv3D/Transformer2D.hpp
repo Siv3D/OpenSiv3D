@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2017 Ryo Suzuki
-//	Copyright (c) 2016-2017 OpenSiv3D Project
+//	Copyright (c) 2008-2018 Ryo Suzuki
+//	Copyright (c) 2016-2018 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -97,13 +97,13 @@ namespace s3d
 		{
 			if (isPush())
 			{
-				setGraphics2DTransform(m_oldGraphics2DMatrix.value() * transform);
+				setGraphics2DTransform(transform * m_oldGraphics2DMatrix.value());
 
 				if (transformCursor)
 				{
 					m_oldCursorMatrix = getCursorTransform();
 
-					setCursorTransform(m_oldCursorMatrix.value() * transform);
+					setCursorTransform(transform * m_oldCursorMatrix.value());
 				}
 			}
 			else
@@ -126,9 +126,9 @@ namespace s3d
 		{
 			if (isPush())
 			{
-				setGraphics2DTransform(m_oldGraphics2DMatrix.value() * graphics2DTransform);
+				setGraphics2DTransform(graphics2DTransform * m_oldGraphics2DMatrix.value());
 
-				setCursorTransform(m_oldCursorMatrix.value() * cursorTransform);
+				setCursorTransform(cursorTransform * m_oldCursorMatrix.value());
 			}
 			else
 			{

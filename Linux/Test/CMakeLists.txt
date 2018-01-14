@@ -25,7 +25,6 @@ include_directories(
 
 link_directories(
 	"/usr/lib"
-	"../Debug"
 )
 
 add_executable(Siv3D_Test
@@ -58,7 +57,6 @@ add_executable(Siv3D_Test
 target_link_libraries(Siv3D_Test
 #	-lgtest
 #	-lgtest_main
-	-lSiv3D
 	-lboost_filesystem
 	-lboost_system
 	-lpthread
@@ -80,6 +78,7 @@ target_link_libraries(Siv3D_Test
 	-lharfbuzz
 	-lopenal
 
+	${PROJECT_SOURCE_DIR}/../Debug/libSiv3D.a
 	${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Linux/angelscript/libangelscript.a
 )
 

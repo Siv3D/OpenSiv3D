@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2017 Ryo Suzuki
-//	Copyright (c) 2016-2017 OpenSiv3D Project
+//	Copyright (c) 2008-2018 Ryo Suzuki
+//	Copyright (c) 2016-2018 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -51,6 +51,13 @@ namespace s3d
 
 		template <class X, class Y, std::enable_if_t<!std::is_integral_v<X> || !std::is_integral_v<Y>>* = nullptr>
 		constexpr Point(X _x, Y _y) noexcept = delete;
+
+		constexpr value_type elem(size_t index) const noexcept
+		{
+			return index == 0 ? x
+				: index == 1 ? y
+				: 0;
+		}
 
 		/// <summary>
 		/// Point{ x, x }

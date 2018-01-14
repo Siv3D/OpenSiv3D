@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2017 Ryo Suzuki
-//	Copyright (c) 2016-2017 OpenSiv3D Project
+//	Copyright (c) 2008-2018 Ryo Suzuki
+//	Copyright (c) 2016-2018 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -58,6 +58,13 @@ namespace s3d
 		constexpr Vector2D(const Vector2D<U>& v) noexcept
 			: x(static_cast<value_type>(v.x))
 			, y(static_cast<value_type>(v.y)) {}
+
+		constexpr value_type elem(size_t index) const noexcept
+		{
+			return index == 0 ? x
+				: index == 1 ? y
+				: 0;
+		}
 
 		constexpr Vector2D operator +() const noexcept
 		{
