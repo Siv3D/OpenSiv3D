@@ -1,5 +1,6 @@
 # OpenSiv3D Linux版について
-このブランチはOpenSiv3Dのu_update及びv0.2.0系列に追従するためのブランチです。
+
+OpenSiv3D Linux版は基本的にOpenSiv3DのmacOS版をベースに手を加えてLinuxに移植したものです。
 
 ## 依存ライブラリ・パッケージ
 コンパイルと実行には以下のライブラリやパッケージが必要です。

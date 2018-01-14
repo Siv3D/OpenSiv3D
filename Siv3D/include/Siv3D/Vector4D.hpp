@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2017 Ryo Suzuki
-//	Copyright (c) 2016-2017 OpenSiv3D Project
+//	Copyright (c) 2008-2018 Ryo Suzuki
+//	Copyright (c) 2016-2018 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -99,6 +99,15 @@ namespace s3d
 			, y(static_cast<value_type>(v.y))
 			, z(static_cast<value_type>(v.z))
 			, w(static_cast<value_type>(v.w)) {}
+
+		constexpr value_type elem(size_t index) const noexcept
+		{
+			return index == 0 ? x
+				: index == 1 ? y
+				: index == 2 ? z
+				: index == 3 ? w
+				: 0;
+		}
 
 		constexpr Vector4D operator +() const noexcept
 		{

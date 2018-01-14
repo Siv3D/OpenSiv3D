@@ -1,7 +1,7 @@
 ﻿//----------------------------------------------------------------------------------------
 //
-//	Copyright (c) 2008-2017 Ryo Suzuki
-//	Copyright (c) 2016-2017 OpenSiv3D Project
+//	Copyright (c) 2008-2018 Ryo Suzuki
+//	Copyright (c) 2016-2018 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -95,6 +95,9 @@
 
 	// Hash set
 	# include "Siv3D/HashSet.hpp"
+
+	// kd-tree
+	# include "Siv3D/KDTree.hpp"
 
 	// Indexed iterator
 	# include "Siv3D/Indexed.hpp"
@@ -909,9 +912,31 @@
 	//# include "Siv3D/FontAsset.hpp"
 	//// GUI アセット
 	//# include "Siv3D/GUIAsset.hpp"
+
+//////////////////////////////////////////////////
 //
-// ユーティリティ
+//	Machine Learning
 //
+//////////////////////////////////////////////////
+
+	// SVM
+	# include "Siv3D/SVM.hpp"
+
+//////////////////////////////////////////////////
+//
+//	Scripting
+//
+//////////////////////////////////////////////////
+
+	// Script
+	# include "Siv3D/Script.hpp"
+
+//////////////////////////////////////////////////
+//
+//	Others
+//
+//////////////////////////////////////////////////
+
 	// デバッグ出力
 	# include "Siv3D/Print.hpp"
 	
@@ -923,15 +948,6 @@
 
 	// GPU の使用
 	# include "Siv3D/HighPerfoemanceGPU.hpp"
-
-//////////////////////////////////////////////////
-//
-//	Scripting
-//
-//////////////////////////////////////////////////
-
-	// Script
-	# include "Siv3D/Script.hpp"
 
 //////////////////////////////////////////////////
 //
