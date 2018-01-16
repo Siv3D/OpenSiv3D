@@ -1,21 +1,22 @@
-﻿# include <Siv3D.hpp> // OpenSiv3D v0.2.0
+﻿# include <Siv3D.hpp>
 
 void Main()
 {
-	Graphics::SetBackground(ColorF(0.8, 0.9, 1.0));
+	Window::Resize(1280, 480);
 
-	const Font font(50);
+	const Audio audio(U"example/test.mp3");
 
-	const Texture textureCat(Emoji(U"🐈"), TextureDesc::Mipped);
+	audio.play();
+
+	FFTResult result;
 
 	while (System::Update())
 	{
-		font(U"Hello, Siv3D!🐣").drawAt(Window::Center(), Palette::Black);
+		FFT::Analyze(result, audio);
 
-		font(Cursor::Pos()).draw(20, 400, ColorF(0.6));
-
-		textureCat.resized(80).draw(540, 380);
-
-		Circle(Cursor::Pos(), 60).draw(ColorF(1, 0, 0, 0.5));
+		for (auto i : step(Min(static_cast<int32>(result.buffer.size()), Window::Width() / 2)))
+		{
+			RectF(i * 2, Window::Height(), 2, -Pow(result.buffer[i], 0.6) * 1000).draw(HSV(240 - i));
+		}
 	}
 }
