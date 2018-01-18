@@ -464,7 +464,7 @@ namespace s3d
 			::alSourcef(m_source, AL_GAIN, volume);
 		}
 		
-		void updatePitch()
+		void updateSpeed()
 		{
 			::alSourcef(m_source, AL_PITCH, static_cast<float>(m_speed));
 		}
@@ -566,7 +566,7 @@ namespace s3d
 			
 			m_speed = newSpeed;
 			
-			updatePitch();
+			updateSpeed();
 		}
 		
 		double getSpeed() const

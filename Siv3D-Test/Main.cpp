@@ -3,10 +3,23 @@
 
 void Main()
 {
-	Font font(40);
+	const Audio audio(U"example/test.mp3");
+	
+	audio.play();
 	
 	while (System::Update())
 	{
-		font(U"㈱12345凾").draw();
+		if (Key1.down())
+		{
+			audio.setSpeed(0.5);
+		}
+		else if (Key2.down())
+		{
+			audio.setSpeed(1.0);
+		}
+		else if (Key3.down())
+		{
+			audio.setSpeed(1.2);
+		}
 	}
 }
