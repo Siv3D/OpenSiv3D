@@ -18,10 +18,17 @@ namespace s3d
 {
 	namespace detail
 	{
-		String GetAssetTypeName(AssetType)
+		String GetAssetTypeName(const AssetType assetType)
 		{
-			// [Siv3D ToDo]
-			return U"Texture";
+			switch (assetType)
+			{
+			case AssetType::Texture:
+				return U"Texture";
+			case AssetType::Font:
+				return U"Font";
+			default:
+				return U"";
+			}
 		}
 	}
 

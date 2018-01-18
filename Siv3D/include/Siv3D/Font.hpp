@@ -108,7 +108,7 @@ namespace s3d
 
 		Font(int32 fontSize, const FilePath& path, FontStyle style = FontStyle::Default);
 
-		~Font();
+		virtual ~Font();
 
 		void release();
 
@@ -323,7 +323,9 @@ namespace s3d
 			return region(Vec2(x, y));
 		}
 
-		RectF region(const Vec2& pos = Vec2(0, 0)) const;
+		Rect region(const Point& pos = Point(0, 0)) const;
+
+		RectF region(const Vec2& pos) const;
 
 		RectF region(Arg::topLeft_<Vec2> topLeft) const
 		{

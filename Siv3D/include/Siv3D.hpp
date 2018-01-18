@@ -584,8 +584,8 @@
 	//# include "Siv3D/Internet.hpp"
 	//// HTTP
 	//# include "Siv3D/HTTPClient.hpp"
-	//// Twitter
-	//# include "Siv3D/Twitter.hpp"
+	// Twitter
+	# include "Siv3D/Twitter.hpp"
 	//// ネットワーク
 	//# include "Siv3D/Network.hpp"
 	//// TCP サーバー
@@ -909,12 +909,12 @@
 //
 	// アセット管理
 	# include "Siv3D/Asset.hpp"
-	//// Sound アセット
-	//# include "Siv3D/SoundAsset.hpp"
-	//// Texture アセット
-	//# include "Siv3D/TextureAsset.hpp"
-	//// Font アセット
-	//# include "Siv3D/FontAsset.hpp"
+	//// Audio アセット
+	//# include "Siv3D/AudioAsset.hpp"
+	// Texture アセット
+	# include "Siv3D/TextureAsset.hpp"
+	// Font アセット
+	# include "Siv3D/FontAsset.hpp"
 	//// GUI アセット
 	//# include "Siv3D/GUIAsset.hpp"
 

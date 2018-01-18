@@ -641,6 +641,15 @@
     <Filter Include="src\Siv3D\Exif">
       <UniqueIdentifier>{b5557b4c-6810-4fcd-8517-1c846c9eb25e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\TextureAsset">
+      <UniqueIdentifier>{a088947e-8306-431e-8a31-890b2e185710}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\FontAsset">
+      <UniqueIdentifier>{68040bf2-d643-489f-8a47-0aaa131d7f13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Twitter">
+      <UniqueIdentifier>{8392ce79-b1f6-4fb0-8829-e3364ea8ace8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -1650,6 +1659,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Exif\SivExif.cpp">
       <Filter>src\Siv3D\Exif</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextureAsset\SivTextureAsset.cpp">
+      <Filter>src\Siv3D\TextureAsset</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\FontAsset\SivFontAsset.cpp">
+      <Filter>src\Siv3D\FontAsset</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Twitter\SivTwitter.cpp">
+      <Filter>src\Siv3D\Twitter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -3529,6 +3547,18 @@
       <Filter>src\ThirdParty\easyexif</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Exif.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TextureAsset.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\FontAsset.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OpenSiv3D\Siv3D\Include\Siv3D\Twitter.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Twitter.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
