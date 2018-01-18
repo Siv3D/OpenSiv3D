@@ -221,6 +221,16 @@ namespace s3d
 			const double right = std::pow(10.0, attenuationRight_dB / 20.0);
 			setVolumeLR(left, right);
 		}
+
+		void setSpeed(double speed) const;
+
+		void setSpeedBySemitone(int32 semitone) const;
+
+		double getSpeed() const;
+
+		double getMinSpeed() const;
+
+		double getMaxSpeed() const;
 	};
 
 	using AudioID = Audio::IDType;
