@@ -525,6 +525,9 @@
 	// 画像のフォーマット
 	# include "Siv3D/TextureFormat.hpp"
 
+	// Exif
+	# include "Siv3D/Exif.hpp"
+
 	//// カスタムカラーフォーマット
 	//# include "Siv3D/CustomColor.hpp"
 

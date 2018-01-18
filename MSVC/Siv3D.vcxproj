@@ -98,6 +98,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\EmojiDictionary\SivEmojiDictionary.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Emoji\SivEmoji.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\EngineDirectory\EngineDirectory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Exif\SivExif.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FFT\CFFT.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FFT\FFTFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FFT\SivFFT.cpp" />
@@ -306,6 +307,7 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\fast-dtoa.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\fixed-dtoa.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\strtod.cc" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\easyexif\exif.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\FID\FID.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\fmt\format.cc" />
@@ -414,6 +416,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Emoji.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\EmojiDictionary.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Evaluater.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Exif.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FFT.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FileSystem.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FloatFormat.hpp" />
@@ -781,6 +784,7 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\ieee.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\strtod.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\utils.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\easyexif\exif.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\FID\FID.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\config\ftconfig.h" />

@@ -635,6 +635,12 @@
     <Filter Include="src\Siv3D\FFT">
       <UniqueIdentifier>{2218a96a-5be7-44b4-b0a8-87372159329a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\easyexif">
+      <UniqueIdentifier>{36708b94-3618-487e-ad37-3c19ffcc2c92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Exif">
+      <UniqueIdentifier>{b5557b4c-6810-4fcd-8517-1c846c9eb25e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -1638,6 +1644,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\FFT\CFFT.cpp">
       <Filter>src\Siv3D\FFT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\easyexif\exif.cpp">
+      <Filter>src\ThirdParty\easyexif</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Exif\SivExif.cpp">
+      <Filter>src\Siv3D\Exif</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -3512,6 +3524,12 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\FFT\IFFT.hpp">
       <Filter>src\Siv3D\FFT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\easyexif\exif.h">
+      <Filter>src\ThirdParty\easyexif</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Exif.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
