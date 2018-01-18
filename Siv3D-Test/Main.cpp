@@ -3,12 +3,10 @@
 
 void Main()
 {
-	Twitter::OpenLikeWindow(944234954229211137);
-
-	Twitter::OpenFollowWindow(U"Reputeless");
-
+	Font font(40);
+	
 	while (System::Update())
 	{
-
+		font(U"㈱12345凾").draw();
 	}
 }
