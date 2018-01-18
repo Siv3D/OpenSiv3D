@@ -107,6 +107,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_macOS.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_Windows.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FloatFormat\SivFloatFormat.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\FontAsset\SivFontAsset.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\CFont.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\FontData.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Font\FontFactory.cpp" />
@@ -265,6 +266,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\TextReader\CTextReader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TextReader\CTextReader_Linux.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TextReader\SivTextReader.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextureAsset\SivTextureAsset.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TexturedCircle\SivTexturedCircle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TexturedQuad\SivTexturedQuad.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TexturedRoundRect\SivTexturedRoundRect.cpp" />
@@ -282,6 +284,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Time\SivTime.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TOMLReader\SivTOMLReader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Triangle\SivTriangle.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Twitter\SivTwitter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Unicode\SivUnicode.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Vector2D\SivVector2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Vector3D\SivVector3D.cpp" />
@@ -357,6 +360,7 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\zdict.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\OpenSiv3D\Siv3D\Include\Siv3D\Twitter.hpp" />
     <ClInclude Include="..\Siv3D\include\HamFramework.hpp" />
     <ClInclude Include="..\Siv3D\include\HamFramework\Camera2D.hpp" />
     <ClInclude Include="..\Siv3D\include\HamFramework\MiniScene.hpp" />
@@ -423,6 +427,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\FloatQuad.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FloatRect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Font.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\FontAsset.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Format.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FormatLiteral.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FormatUtility.hpp" />
@@ -536,6 +541,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\TextInput.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Texture.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\TextureAsset.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TexturedCircle.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextureDesc.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TexturedQuad.hpp" />
@@ -551,6 +557,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Transformer2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Transition.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Triangle.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Twitter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Types.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TypeTraits.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Uncopyable.hpp" />
