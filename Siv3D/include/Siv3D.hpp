@@ -525,6 +525,9 @@
 	// 画像のフォーマット
 	# include "Siv3D/TextureFormat.hpp"
 
+	// Exif
+	# include "Siv3D/Exif.hpp"
+
 	//// カスタムカラーフォーマット
 	//# include "Siv3D/CustomColor.hpp"
 
@@ -557,8 +560,10 @@
 
 	//// 音声波形のテンポ・ピッチ変更
 	//# include "Siv3D/WaveStretcher.hpp"
-	//// FFT
-	//# include "Siv3D/FFT.hpp"
+
+	// FFT
+	# include "Siv3D/FFT.hpp"
+
 //
 // 動画ファイル
 //
