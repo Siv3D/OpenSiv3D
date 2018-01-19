@@ -132,7 +132,7 @@ namespace s3d
 
 			for (const auto& canditate : cadidates)
 			{
-				boxWidth = Max(boxWidth, font(canditate).region().w);
+				boxWidth = Max<double>(boxWidth, font(canditate).region().w);
 			}
 
 			const double leftOffset = hasEditingTarget ? font(U"1  ").region().w : 0.0;

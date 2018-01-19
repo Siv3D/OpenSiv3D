@@ -18,6 +18,8 @@ namespace s3d
 	enum class AssetType
 	{
 		Texture,
+
+		Font,
 	};
 
 	class ISiv3DAsset

@@ -61,11 +61,11 @@ namespace s3d
 
 		template <class Type, std::enable_if_t<std::is_trivially_copyable_v<Type>>* = nullptr>
 		constexpr ByteArrayView(const Type& value)
-			: ByteArrayView(std::addressof(value), 1) {}
+			: ByteArrayView(std::addressof(value), sizeof(Type)) {}
 
 		template <class Type, std::enable_if_t<std::is_trivially_copyable_v<Type>>* = nullptr>
 		constexpr ByteArrayView(const Type* first, const Type* last)
-			: ByteArrayView(first, std::distance(first, last)) {}
+			: ByteArrayView(first, sizeof(Type) * std::distance(first, last)) {}
 
 		template <class Type, size_t N, std::enable_if_t<std::is_trivially_copyable_v<Type>>* = nullptr>
 		constexpr ByteArrayView(const Type(&arr)[N])

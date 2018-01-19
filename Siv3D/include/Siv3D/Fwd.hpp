@@ -879,6 +879,11 @@ namespace s3d
 	//
 	struct AssetParameter;
 	class IAsset;
+
+	//////////////////////////////////////////////////////
+	//
+	//	TextureAsset.hpp
+	//
 	struct TextureAssetData;
 	class TextureAsset;
 
