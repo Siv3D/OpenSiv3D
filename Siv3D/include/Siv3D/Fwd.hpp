@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2017 Ryo Suzuki
-//	Copyright (c) 2016-2017 OpenSiv3D Project
+//	Copyright (c) 2008-2018 Ryo Suzuki
+//	Copyright (c) 2016-2018 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -57,6 +57,13 @@ namespace s3d
 	//	Array.hpp
 	//
 	template <class Type, class Allocator> class Array;
+
+	//////////////////////////////////////////////////////
+	//
+	//	KDTree.hpp
+	//
+	template <class DatasetAdapter> class KDAdapter;
+	template <class DatasetAdapter> class KDTree;
 
 	//////////////////////////////////////////////////////
 	//
@@ -575,6 +582,12 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	Exif.hpp
+	//
+	struct ExifInfo;
+
+	//////////////////////////////////////////////////////
+	//
 	//	WaveSample.hpp
 	//
 	struct WaveSampleS16;
@@ -585,6 +598,13 @@ namespace s3d
 	//	Wave.hpp
 	//
 	class Wave;
+
+	//////////////////////////////////////////////////////
+	//
+	//	FFT.hpp
+	//
+	enum class FFTSampleLength;
+	struct FFTResult;
 
 	//////////////////////////////////////////////////////
 	//
@@ -840,9 +860,18 @@ namespace s3d
 	//
 	class TextEditor;
 
+	//////////////////////////////////////////////////////
+	//
+	//	TextBox.hpp
+	//
+	class TextBox;
 
-
-
+	//////////////////////////////////////////////////////
+	//
+	//	Effect.hpp
+	//
+	struct IEffect;
+	class Effect;
 
 	//////////////////////////////////////////////////////
 	//
@@ -850,6 +879,26 @@ namespace s3d
 	//
 	struct AssetParameter;
 	class IAsset;
-	//TextureAssetData
-	//TextureAsset
+	struct TextureAssetData;
+	class TextureAsset;
+
+	//////////////////////////////////////////////////////
+	//
+	//	SVM.hpp
+	//
+	namespace SVM
+	{
+		template <size_t _Dimensions> struct SupportVector;
+		struct SparseSupportVector;
+		class Problem;
+		class PredictModel;
+	}
+
+	//////////////////////////////////////////////////////
+	//
+	//	Script.hpp
+	//
+	struct ScriptModuleData;
+	template <class Type> struct ScriptFunction;
+	class Script;
 }

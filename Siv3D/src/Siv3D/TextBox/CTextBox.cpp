@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2017 Ryo Suzuki
-//	Copyright (c) 2016-2017 OpenSiv3D Project
+//	Copyright (c) 2008-2018 Ryo Suzuki
+//	Copyright (c) 2016-2018 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -172,6 +172,11 @@ namespace s3d
 	const String& TextBox::CTextBox::getText() const
 	{
 		return m_text;
+	}
+
+	size_t TextBox::CTextBox::getCursorIndex() const
+	{
+		return m_cursorIndex;
 	}
 
 	void TextBox::CTextBox::drawGlow(const Style& style) const

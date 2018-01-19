@@ -2,7 +2,7 @@
 //
 //	This file is part of the HamFramework for Siv3D.
 //
-//	Copyright (C) 2014-2017 HAMSTRO
+//	Copyright (C) 2014-2018 HAMSTRO
 //
 //	Licensed under the MIT License.
 //
@@ -22,18 +22,8 @@ namespace s3d
 	template <class State, class Data> class SceneManager;
 	
 	namespace detail
-	{
-		template <class Type>
-		inline std::shared_ptr<Type> MakeSharedData()
-		{
-			return MakeShared<Type>();
-		}
-		
-		template <>
-		inline std::shared_ptr<void> MakeSharedData()
-		{
-			return std::shared_ptr<void>(nullptr);
-		}
+	{		
+		struct EmptyData{};
 	}
 
 	/// <summary>
@@ -222,7 +212,7 @@ namespace s3d
 	/// <remarks>
 	/// State にはシーンを区別するキーの型、Data にはシーン間で共有するデータの型を指定します。
 	/// </remarks>
-	template <class State, class Data = void>
+	template <class State, class Data = detail::EmptyData>
 	class SceneManager
 	{
 	private:
@@ -380,7 +370,7 @@ namespace s3d
 		/// シーン管理のオプション
 		/// </param>
 		SceneManager()
-			: m_data(detail::MakeSharedData<Data>()) {}
+			: m_data(MakeShared<Data>()) {}
 
 		/// <summary>
 		/// シーン管理を初期化します。
@@ -409,7 +399,7 @@ namespace s3d
 			typename Scene::InitData initData{ state, m_data, this };
 			
 			auto factory = [=](){
-				return MakeShared<Scene>(initData);
+				return std::make_shared<Scene>(initData);
 			};
 		
 			auto it = m_factories.find(state);
@@ -711,13 +701,13 @@ struct Title : MyApp::Scene
 	{
 		if (MouseL.down())
 		{
-			changeScene(L"Game", 2s);
+			changeScene(U"Game", 2s);
 		}
 	}
 
 	void draw() const override
 	{
-		getData().font(L"Title").drawAt(Window::BaseCenter());
+		getData().font(U"Title").drawAt(Window::BaseCenter());
 	}
 };
 
@@ -727,7 +717,7 @@ struct Game : MyApp::Scene
 		: IScene(init)
 	{
 		Print << getState();
-		
+
 		getData().score = 0;
 	}
 
@@ -735,7 +725,7 @@ struct Game : MyApp::Scene
 	{
 		if (MouseL.down())
 		{
-			changeScene(L"Result", 2s);
+			changeScene(U"Result", 2s);
 		}
 
 		++getData().score;
@@ -743,7 +733,7 @@ struct Game : MyApp::Scene
 
 	void draw() const override
 	{
-		getData().font(L"Game").drawAt(Window::BaseCenter());
+		getData().font(U"Game").drawAt(Window::BaseCenter());
 
 		getData().font(getData().score).drawAt(Window::BaseCenter().movedBy(0, 60));
 	}
@@ -761,13 +751,13 @@ struct Result : MyApp::Scene
 	{
 		if (MouseL.down())
 		{
-			changeScene(L"Title", 2000);
+			changeScene(U"Title", 2000);
 		}
 	}
 
 	void draw() const override
 	{
-		getData().font(L"Result").drawAt(Window::BaseCenter());
+		getData().font(U"Result").drawAt(Window::BaseCenter());
 
 		getData().font(getData().score).drawAt(Window::BaseCenter().movedBy(0, 60));
 	}
@@ -775,11 +765,13 @@ struct Result : MyApp::Scene
 
 void Main()
 {
+	const auto p = MakeShared<GameData>();
+
 	MyApp manager;
 	manager
-		.add<Title>(L"Title")
-		.add<Game>(L"Game")
-		.add<Result>(L"Result");
+		.add<Title>(U"Title")
+		.add<Game>(U"Game")
+		.add<Result>(U"Result");
 
 	while (System::Update())
 	{

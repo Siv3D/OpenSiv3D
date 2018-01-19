@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2017 Ryo Suzuki
-//	Copyright (c) 2016-2017 OpenSiv3D Project
+//	Copyright (c) 2008-2018 Ryo Suzuki
+//	Copyright (c) 2016-2018 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,6 +13,7 @@
 # include "Fwd.hpp"
 # include "Time.hpp"
 # include "Logger.hpp"
+# include "Print.hpp"
 
 namespace s3d
 {
@@ -33,7 +34,7 @@ namespace s3d
 		/// <summary>
 		/// 経過時間（マイクロ秒）
 		/// </summary>
-		[[nodiscard]] uint64 cycles() const
+		[[nodiscard]] uint64 us() const
 		{
 			return Time::GetMicrosec() - m_start;
 		}
@@ -44,7 +45,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void log() const { Logger(cycles(), U"us"); }
+		void log() const { Logger(us(), U"us"); }
 
 		/// <summary>
 		/// 経過時間をデバッグ表示します。
@@ -52,6 +53,6 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		//void print() const { Println(cycles(), U"us"); }
+		void print() const { Print(us(), U"us"); }
 	};
 }

@@ -2,7 +2,7 @@
 //
 //	This file is part of the HamFramework for Siv3D.
 //
-//	Copyright (C) 2014-2017 HAMSTRO
+//	Copyright (C) 2014-2018 HAMSTRO
 //	Copyright (c) 2017 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
@@ -563,7 +563,7 @@ namespace s3d
 					{
 						const TextureRegion t = glyphs[a].texture.resized(Vec2(glyphs[0].texture.size) * drawSize);
 						t.drawAt(pos + drawpos + Vec2(0, a * height * 1.2), color);
-						t.flip().mirror().drawAt(pos - drawpos - Vec2(0, a * height * 1.2) + m_cardSize, color);
+						t.flipped().mirrored().drawAt(pos - drawpos - Vec2(0, a * height * 1.2) + m_cardSize, color);
 					}
 
 					m_fontLarge.getGlyph(U'♋').texture.scaled(0.9).drawAt(center, color);
@@ -576,7 +576,7 @@ namespace s3d
 				const Vec2 suitpos(0.0, m_cardSize.y * 0.13888);
 
 				suitGlyph.texture.scaled(drawSize).drawAt(pos.movedBy(centering + suitpos), color);
-				suitGlyph.texture.scaled(drawSize).flip().mirror().drawAt(pos + m_cardSize - centering - suitpos, color);
+				suitGlyph.texture.scaled(drawSize).flipped().mirrored().drawAt(pos + m_cardSize - centering - suitpos, color);
 
 				if (m_card.rank == 10)
 				{
@@ -586,19 +586,19 @@ namespace s3d
 					rankGlyph.texture.resized(rankSize)
 						.drawAt(pos + centering - Vec2(rankSize.x * 1.1, 0), color);
 					rankGlyph.texture.resized(rankSize)
-						.flip().mirror()
+						.flipped().mirrored()
 						.drawAt(pos + m_cardSize - centering + Vec2(rankSize.x * 1.1, 0), color);
 
 					zerotexture.texture.scaled(drawSize * 0.8, drawSize)
 						.drawAt(pos + centering + Vec2(rankGlyph.texture.size.x * drawSize - rankSize.x / 1.55, 0), color);
 					zerotexture.texture.scaled(drawSize * 0.8, drawSize)
-						.flip().mirror()
+						.flipped().mirrored()
 						.drawAt(pos - centering + Vec2(-rankGlyph.texture.size.x * drawSize + rankSize.x / 1.55, 0) + m_cardSize, color);
 				}
 				else
 				{
 					rankGlyph.texture.scaled(drawSize).drawAt(pos + centering, color);
-					rankGlyph.texture.scaled(drawSize).flip().mirror().drawAt(pos + m_cardSize - centering, color);
+					rankGlyph.texture.scaled(drawSize).flipped().mirrored().drawAt(pos + m_cardSize - centering, color);
 				}
 
 				if (InRange(m_card.rank, 2, 10))

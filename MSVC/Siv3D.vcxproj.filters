@@ -614,6 +614,33 @@
     <Filter Include="src\Siv3D\TextBox">
       <UniqueIdentifier>{70556f91-fd2b-4465-a689-6ab3c34fb8a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\ThirdParty\angelscript">
+      <UniqueIdentifier>{a8e93705-d7f7-4a08-a91a-f7ac05d7ca29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ThirdParty\nanoflann">
+      <UniqueIdentifier>{bde4f092-e865-4782-8164-0198e1e9a689}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\libsvm">
+      <UniqueIdentifier>{999adfc5-4afc-4d9e-8545-573970d3cb4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\SVM">
+      <UniqueIdentifier>{14e78a36-4dba-49dc-aaa7-53ea27bb5aca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ThirdParty\libsvm">
+      <UniqueIdentifier>{2a354651-aa1e-42ca-9647-b277b071389f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\pffft">
+      <UniqueIdentifier>{eae669d3-bdb7-4647-9afe-8a33a54ecb2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\FFT">
+      <UniqueIdentifier>{2218a96a-5be7-44b4-b0a8-87372159329a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\easyexif">
+      <UniqueIdentifier>{36708b94-3618-487e-ad37-3c19ffcc2c92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Exif">
+      <UniqueIdentifier>{b5557b4c-6810-4fcd-8517-1c846c9eb25e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -1596,6 +1623,33 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Mat3x2\SivMat3x2.cpp">
       <Filter>src\Siv3D\Mat3x2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\SVM\CSVM.cpp">
+      <Filter>src\Siv3D\SVM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\SVM\SivSVM.cpp">
+      <Filter>src\Siv3D\SVM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\libsvm\svm.cpp">
+      <Filter>src\ThirdParty\libsvm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\pffft\pffft.c">
+      <Filter>src\ThirdParty\pffft</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\FFT\FFTFactory.cpp">
+      <Filter>src\Siv3D\FFT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\FFT\SivFFT.cpp">
+      <Filter>src\Siv3D\FFT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\FFT\CFFT.cpp">
+      <Filter>src\Siv3D\FFT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\easyexif\exif.cpp">
+      <Filter>src\ThirdParty\easyexif</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Exif\SivExif.cpp">
+      <Filter>src\Siv3D\Exif</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -3440,6 +3494,42 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\TextBox\CTextBox.hpp">
       <Filter>src\Siv3D\TextBox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\angelscript\angelscript.h">
+      <Filter>include\ThirdParty\angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\nanoflann\nanoflann.hpp">
+      <Filter>include\ThirdParty\nanoflann</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\KDTree.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\SVM\CSVM.hpp">
+      <Filter>src\Siv3D\SVM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\SVM.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\libsvm\svm.h">
+      <Filter>include\ThirdParty\libsvm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\pffft\pffft.h">
+      <Filter>src\ThirdParty\pffft</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\FFT.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\FFT\CFFT.hpp">
+      <Filter>src\Siv3D\FFT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\FFT\IFFT.hpp">
+      <Filter>src\Siv3D\FFT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\easyexif\exif.h">
+      <Filter>src\ThirdParty\easyexif</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Exif.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

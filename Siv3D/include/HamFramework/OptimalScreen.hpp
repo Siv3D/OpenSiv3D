@@ -2,7 +2,7 @@
 //
 //	This file is part of the HamFramework for Siv3D.
 //
-//	Copyright (C) 2014-2017 HAMSTRO
+//	Copyright (C) 2014-2018 HAMSTRO
 //
 //	Licensed under the MIT License.
 //
@@ -275,7 +275,7 @@ void Main()
 {
 	const auto[displayIndex, displayMode] = OptimalScreen::Get(OptimalScreen::Preference::Min, Size(1280, 720));
 
-	Print << displayIndex << L":" << displayMode.size << L"@" << displayMode.refreshRateHz;
+	Print << displayIndex << U":" << displayMode.size << U"@" << displayMode.refreshRateHz;
 
 	Graphics::SetFullScreen(true, displayMode.size, displayIndex, displayMode.refreshRateHz);
 

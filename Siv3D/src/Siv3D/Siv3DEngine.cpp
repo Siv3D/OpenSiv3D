@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2017 Ryo Suzuki
-//	Copyright (c) 2016-2017 OpenSiv3D Project
+//	Copyright (c) 2008-2018 Ryo Suzuki
+//	Copyright (c) 2016-2018 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -27,6 +27,7 @@
 # include "Codec/ICodec.hpp"
 # include "AudioFormat/IAudioFormat.hpp"
 # include "Audio/IAudio.hpp"
+# include "FFT/IFFT.hpp"
 # include "Graphics/IGraphics.hpp"
 # include "Texture/ITexture.hpp"
 # include "Shader/IShader.hpp"
@@ -57,6 +58,7 @@ namespace s3d
 		m_shader.release();
 		m_texture.release();
 		m_graphics.release();
+		m_fft.release();
 		m_audio.release();
 		m_audioFormat.release();
 		m_codec.release();
