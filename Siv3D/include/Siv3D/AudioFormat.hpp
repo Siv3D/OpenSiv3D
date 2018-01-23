@@ -86,6 +86,8 @@ namespace s3d
 
 		virtual bool isHeader(const uint8(&bytes)[16]) const = 0;
 
+		virtual Wave decodeFromFile(const FilePath& path) const = 0;
+
 		virtual Wave decode(IReader& reader) const = 0;
 
 		//virtual bool encode(const Wave& wave, IWriter& writer) const = 0;

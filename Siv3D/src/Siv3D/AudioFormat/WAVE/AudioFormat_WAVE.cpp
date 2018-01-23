@@ -12,6 +12,7 @@
 # include "AudioFormat_WAVE.hpp"
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/IWriter.hpp>
+# include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/BinaryWriter.hpp>
 
 namespace s3d
@@ -93,6 +94,13 @@ namespace s3d
 		static constexpr uint8 signature[] = { 0x52, 0x49, 0x46, 0x46 };
 
 		return ::memcmp(bytes, signature, sizeof(signature)) == 0;
+	}
+
+	Wave AudioFormat_WAVE::decodeFromFile(const FilePath& path) const
+	{
+		BinaryReader reader(path);
+
+		return decode(reader);
 	}
 
 	Wave AudioFormat_WAVE::decode(IReader& reader) const

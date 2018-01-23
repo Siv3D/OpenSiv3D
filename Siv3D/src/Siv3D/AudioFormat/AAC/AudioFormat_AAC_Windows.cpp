@@ -17,6 +17,7 @@
 # include "../../Codec/ICodec.hpp"
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/IWriter.hpp>
+# include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/BinaryWriter.hpp>
 
 namespace s3d
@@ -47,6 +48,13 @@ namespace s3d
 		return (::memcmp(bytes + 4, M4V_SIGNx, sizeof(M4V_SIGNx)) == 0
 			|| ::memcmp(bytes + 4, M4A_SIGNx, sizeof(M4A_SIGNx)) == 0
 			|| ::memcmp(bytes + 4, MP4ISOM_SIGNx, sizeof(MP4ISOM_SIGNx)) == 0);
+	}
+
+	Wave AudioFormat_AAC::decodeFromFile(const FilePath& path) const
+	{
+		BinaryReader reader(path);
+
+		return decode(reader);
 	}
 
 	Wave AudioFormat_AAC::decode(IReader& reader) const

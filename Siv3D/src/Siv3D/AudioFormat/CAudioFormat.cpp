@@ -18,10 +18,47 @@
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/FileSystem.hpp>
+# include <Siv3D/WritableMemoryMapping.hpp>
 # include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
+	namespace detail
+	{
+		class TemporaryFile
+		{
+		private:
+
+			FilePath m_path;
+
+		public:
+
+			TemporaryFile(const IReader& reader)
+				: m_path(FileSystem::UniqueFilePath())
+			{
+				WritableMemoryMapping file(m_path);
+
+				const int64 size = reader.size();
+
+				file.map(0, size);
+
+				reader.lookahead(file.data(), size);
+
+				file.unmap();
+			}
+
+			~TemporaryFile()
+			{
+				FileSystem::Remove(m_path);
+			}
+
+			const FilePath& path() const
+			{
+				return m_path;
+			}
+		};
+	}
+
 	CAudioFormat::CAudioFormat()
 	{
 
@@ -84,6 +121,17 @@ namespace s3d
 			return Wave();
 		}
 
+	# if defined(SIV3D_TARGET_MACOS)
+
+		if ((*it)->format() == AudioFormat::AAC)
+		{
+			reader.close();
+
+			return (*it)->decodeFromFile(path);
+		}
+
+	# endif
+
 		return (*it)->decode(reader);
 	}
 
@@ -100,6 +148,17 @@ namespace s3d
 		{
 			return Wave();
 		}
+
+	# if defined(SIV3D_TARGET_MACOS)
+
+		if ((*it)->format() == AudioFormat::AAC)
+		{
+			TemporaryFile tmp(reader);
+			
+			return (*it)->decodeFromFile(tmp.path());
+		}
+
+	# endif
 
 		return (*it)->decode(reader);
 	}

@@ -28,6 +28,8 @@ namespace s3d
 
 		bool isHeader(const uint8(&bytes)[16]) const override;
 
+		Wave decodeFromFile(const FilePath& path) const override;
+
 		Wave decode(IReader& reader) const override;
 
 		//bool encode(const Image& image, IWriter& writer) const override;
