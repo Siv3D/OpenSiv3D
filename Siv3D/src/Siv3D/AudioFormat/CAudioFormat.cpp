@@ -13,6 +13,8 @@
 # include "WAVE/AudioFormat_WAVE.hpp"
 # include "MP3/AudioFormat_MP3_Windows.hpp"
 # include "MP3/AudioFormat_MP3_mpg123.hpp"
+# include "AAC/AudioFormat_AAC_Windows.hpp"
+# include "AAC/AudioFormat_AAC_macOS.hpp"
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/FileSystem.hpp>
@@ -34,6 +36,7 @@ namespace s3d
 	{
 		m_audioFormats.push_back(std::make_unique<AudioFormat_WAVE>());
 		m_audioFormats.push_back(std::make_unique<AudioFormat_MP3>());
+		m_audioFormats.push_back(std::make_unique<AudioFormat_AAC>());
 
 		LOG_INFO(U"ℹ️ AudioFormat initialized");
 		

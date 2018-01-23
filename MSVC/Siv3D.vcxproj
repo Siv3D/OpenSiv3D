@@ -22,6 +22,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Asset\AssetFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Asset\CAsset.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Asset\SivAsset.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\AAC\AudioFormat_AAC_macOS.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\AAC\AudioFormat_AAC_Windows.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\AudioFormatFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\CAudioFormat.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_mpg123.cpp" />
@@ -625,6 +627,8 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\AssetHandleManager\AssetHandleManager.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Asset\CAsset.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Asset\IAsset.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\AAC\AudioFormat_AAC_macOS.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\AAC\AudioFormat_AAC_Windows.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\CAudioFormat.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\IAudioFormat.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\MP3\AudioFormat_MP3_mpg123.hpp" />

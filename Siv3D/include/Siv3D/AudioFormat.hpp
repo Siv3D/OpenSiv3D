@@ -35,6 +35,11 @@ namespace s3d
 		/// </summary>
 		MP3,
 
+		/// <summary>
+		/// AAC
+		/// </summary>
+		AAC,
+
 		//ogg, opus, aac, ...
 
 		/// <summary>
