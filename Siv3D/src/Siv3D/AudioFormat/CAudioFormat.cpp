@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -120,6 +120,11 @@ namespace s3d
 		{
 			return Wave();
 		}
+		
+		if ((*it)->format() != AudioFormat::AAC)
+		{
+			return Wave();
+		}
 
 	# if defined(SIV3D_TARGET_MACOS)
 
@@ -153,7 +158,7 @@ namespace s3d
 
 		if ((*it)->format() == AudioFormat::AAC)
 		{
-			TemporaryFile tmp(reader);
+			detail::TemporaryFile tmp(reader);
 			
 			return (*it)->decodeFromFile(tmp.path());
 		}

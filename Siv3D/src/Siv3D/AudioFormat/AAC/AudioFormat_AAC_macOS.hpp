@@ -13,13 +13,14 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_MACOS)
 
+# include <Siv3D/Wave.hpp>
+# include <Siv3D/AudioFormat.hpp>
+# include <AudioToolbox/AudioConverter.h>
+
 namespace s3d
 {
 	class AudioFormat_AAC : public IAudioFormat
 	{
-	private:
-
-
 	public:
 
 		AudioFormat_AAC();
