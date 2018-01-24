@@ -653,6 +653,9 @@
     <Filter Include="src\Siv3D\AudioFormat\AAC">
       <UniqueIdentifier>{b2b8896c-813a-49c1-877a-5a769f492b24}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\ImageFormat\TGA">
+      <UniqueIdentifier>{ac743530-19ef-4434-8483-ac3219f40971}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -1677,6 +1680,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\AAC\AudioFormat_AAC_macOS.cpp">
       <Filter>src\Siv3D\AudioFormat\AAC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\TGA\ImageFormat_TGA.cpp">
+      <Filter>src\Siv3D\ImageFormat\TGA</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -3575,6 +3581,9 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\AAC\AudioFormat_AAC_Windows.hpp">
       <Filter>src\Siv3D\AudioFormat\AAC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\TGA\ImageFormat_TGA.hpp">
+      <Filter>src\Siv3D\ImageFormat\TGA</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

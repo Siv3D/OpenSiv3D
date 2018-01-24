@@ -146,6 +146,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\PNG\ImageFormat_PNG.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\PPM\ImageFormat_PPM.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\SivImageFormat.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ImageFormat\TGA\ImageFormat_TGA.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ImageProcessing\SivImageProcessing.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Image\SivImage.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\INIData\SivINIData.cpp" />
@@ -711,6 +712,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\JPEG\ImageFormat_JPEG.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\PNG\ImageFormat_PNG.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\PPM\ImageFormat_PPM.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\TGA\ImageFormat_TGA.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Keyboard\CKeyboard_Linux.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Keyboard\CKeyboard_macOS.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Keyboard\CKeyboard_Windows.hpp" />

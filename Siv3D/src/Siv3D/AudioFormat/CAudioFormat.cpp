@@ -73,7 +73,12 @@ namespace s3d
 	{
 		m_audioFormats.push_back(std::make_unique<AudioFormat_WAVE>());
 		m_audioFormats.push_back(std::make_unique<AudioFormat_MP3>());
+
+	# if defined(SIV3D_TARGET_WINDOWS) || defined(SIV3D_TARGET_MACOS)
+
 		m_audioFormats.push_back(std::make_unique<AudioFormat_AAC>());
+
+	# endif
 
 		LOG_INFO(U"ℹ️ AudioFormat initialized");
 		
