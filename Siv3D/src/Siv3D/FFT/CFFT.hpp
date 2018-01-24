@@ -26,7 +26,7 @@ namespace s3d
 
 		float* m_workBuffer = nullptr;
 
-		void doFFT(FFTResult& result, uint32 samplingRate, FFTSampleLength samplingLength);
+		void doFFT(FFTResult& result, uint32 samplingRate, FFTSampleLength sampleLength);
 
 	public:
 

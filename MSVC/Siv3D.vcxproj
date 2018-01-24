@@ -581,6 +581,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Window.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Windows.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\WritableMemoryMapping.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\XInput.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Xorshift.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\XXHash.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\angelscript\angelscript.h" />

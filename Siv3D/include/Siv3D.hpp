@@ -664,8 +664,10 @@
 	
 	//// ゲームパッド
 	//# include "Siv3D/Gamepad.hpp"
-	//// XInput 対応ゲームコントローラー
-	//# include "Siv3D/XInput.hpp"
+
+	// XInput 対応ゲームコントローラー
+	# include "Siv3D/XInput.hpp"
+
 	//// マイク入力
 	//# include "Siv3D/Recorder.hpp"
 	//// タッチ
