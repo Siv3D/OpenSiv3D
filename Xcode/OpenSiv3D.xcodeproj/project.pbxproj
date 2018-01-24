@@ -1807,6 +1807,7 @@
 		2CC785742018CE1300AB4824 /* CWritableMemoryMapping.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CWritableMemoryMapping.hpp; sourceTree = "<group>"; };
 		2CC785752018CE1300AB4824 /* SivWritableMemoryMapping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivWritableMemoryMapping.cpp; sourceTree = "<group>"; };
 		2CC785772018CE1300AB4824 /* SivXXHash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivXXHash.cpp; sourceTree = "<group>"; };
+		2CC7873C2018D4F500AB4824 /* AudioAsset.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AudioAsset.hpp; sourceTree = "<group>"; };
 		2CC7F9541F34A5840071A239 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		2CF1C7991FB3911100FC903E /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		2CF1C79B1FB3915100FC903E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -2550,6 +2551,7 @@
 				2C9DEFEB2010DC74002D3BDC /* Asset.hpp */,
 				2C9DEFEC2010DC74002D3BDC /* AssetHandle.hpp */,
 				2C9DEFED2010DC74002D3BDC /* Audio.hpp */,
+				2CC7873C2018D4F500AB4824 /* AudioAsset.hpp */,
 				2C9DEFEE2010DC74002D3BDC /* AudioFormat.hpp */,
 				2C9DEFEF2010DC74002D3BDC /* Base64.hpp */,
 				2C9DEFF02010DC74002D3BDC /* Bezier2.hpp */,
