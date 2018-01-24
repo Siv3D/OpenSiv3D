@@ -22,6 +22,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Asset\AssetFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Asset\CAsset.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Asset\SivAsset.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioAsset\SivAudioAsset.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\AAC\AudioFormat_AAC_macOS.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\AAC\AudioFormat_AAC_Windows.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\AudioFormatFactory.cpp" />

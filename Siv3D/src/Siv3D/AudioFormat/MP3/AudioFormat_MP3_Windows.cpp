@@ -20,6 +20,8 @@
 # include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/BinaryWriter.hpp>
 
+# include <Siv3D/Logger.hpp>
+
 namespace s3d
 {
 	AudioFormat AudioFormat_MP3::format() const

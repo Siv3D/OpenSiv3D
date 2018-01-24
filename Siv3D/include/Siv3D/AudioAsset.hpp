@@ -47,7 +47,7 @@ namespace s3d
 				return true;
 			}
 
-			asset.audio = Audio(asset.path/*, asset.loop*/);
+			asset.audio = Audio(asset.path, asset.loop);
 
 			return !asset.audio.isEmpty();
 		}

@@ -22,6 +22,8 @@ namespace s3d
 		{
 			switch (assetType)
 			{
+			case AssetType::Audio:
+				return U"Audio";
 			case AssetType::Texture:
 				return U"Texture";
 			case AssetType::Font:

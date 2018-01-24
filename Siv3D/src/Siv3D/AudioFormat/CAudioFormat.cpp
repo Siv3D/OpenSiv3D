@@ -126,11 +126,6 @@ namespace s3d
 			return Wave();
 		}
 		
-		if ((*it)->format() != AudioFormat::AAC)
-		{
-			return Wave();
-		}
-
 	# if defined(SIV3D_TARGET_MACOS)
 
 		if ((*it)->format() == AudioFormat::AAC)
