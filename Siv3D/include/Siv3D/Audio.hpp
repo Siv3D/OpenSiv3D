@@ -12,6 +12,7 @@
 # pragma once
 # include <memory>
 # include "Fwd.hpp"
+# include "Optional.hpp"
 # include "AssetHandle.hpp"
 # include "Wave.hpp"
 # include "Duration.hpp"
@@ -19,6 +20,25 @@
 
 namespace s3d
 {
+	struct AudioLoopTiming
+	{
+		int64 beginPos = 0;
+
+		int64 endPos = 0;
+
+		constexpr AudioLoopTiming() noexcept
+			: beginPos(0)
+			, endPos(0) {}
+
+		constexpr AudioLoopTiming(int64 _beginPos) noexcept
+			: beginPos(_beginPos)
+			, endPos(0) {}
+
+		constexpr AudioLoopTiming(int64 _beginPos, int64 _endPos) noexcept
+			: beginPos(_beginPos)
+			, endPos(_endPos) {}
+	};
+
 	class Audio
 	{
 	protected:
@@ -42,6 +62,8 @@ namespace s3d
 
 		explicit Audio(Wave&& wave);
 
+		Audio(Wave&& wave, const Optional<AudioLoopTiming>& loop);
+
 		Audio(Wave&& wave, Arg::loop_<bool> loop);
 
 		Audio(Wave&& wave, Arg::loopBegin_<uint64> loopBegin);
@@ -53,6 +75,8 @@ namespace s3d
 		Audio(Wave&& wave, Arg::loopBegin_<SecondsF> loopBegin, Arg::loopEnd_<SecondsF> loopEnd);
 
 		explicit Audio(const FilePath& path);
+
+		Audio(const FilePath& path, const Optional<AudioLoopTiming>& loop);
 
 		Audio(const FilePath& path, Arg::loop_<bool> loop);
 

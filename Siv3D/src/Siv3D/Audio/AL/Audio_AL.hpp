@@ -30,6 +30,7 @@
 
 # include "../AudioControlManager.hpp"
 # include <Siv3D/Optional.hpp>
+# include <Siv3D/Audio.hpp>
 # include <Siv3D/Wave.hpp>
 # include <Siv3D/Logger.hpp>
 

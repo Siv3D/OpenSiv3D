@@ -35,6 +35,11 @@ namespace s3d
 		/// </summary>
 		MP3,
 
+		/// <summary>
+		/// AAC
+		/// </summary>
+		AAC,
+
 		//ogg, opus, aac, ...
 
 		/// <summary>
@@ -80,6 +85,8 @@ namespace s3d
 		virtual const Array<String>& possibleExtexsions() const = 0;
 
 		virtual bool isHeader(const uint8(&bytes)[16]) const = 0;
+
+		virtual Wave decodeFromFile(const FilePath& path) const = 0;
 
 		virtual Wave decode(IReader& reader) const = 0;
 

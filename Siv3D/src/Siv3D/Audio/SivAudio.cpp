@@ -41,6 +41,22 @@ namespace s3d
 		ASSET_CREATION();
 	}
 
+	Audio::Audio(Wave&& wave, const Optional<AudioLoopTiming>& loop)
+		: Audio(std::move(wave))
+	{
+		if (loop)
+		{
+			if (loop->endPos)
+			{
+				setLoop(Arg::loopBegin = loop->beginPos, Arg::loopEnd = loop->endPos);
+			}
+			else
+			{
+				setLoop(Arg::loopBegin = loop->beginPos);
+			}
+		}
+	}
+
 	Audio::Audio(Wave&& wave, const Arg::loop_<bool> loop)
 		: Audio(std::move(wave))
 	{
@@ -78,6 +94,22 @@ namespace s3d
 		: Audio(Wave(path))
 	{
 
+	}
+
+	Audio::Audio(const FilePath& path, const Optional<AudioLoopTiming>& loop)
+		: Audio(path)
+	{
+		if (loop)
+		{
+			if (loop->endPos)
+			{
+				setLoop(Arg::loopBegin = loop->beginPos, Arg::loopEnd = loop->endPos);
+			}
+			else
+			{
+				setLoop(Arg::loopBegin = loop->beginPos);
+			}
+		}
 	}
 
 	Audio::Audio(const FilePath& path, const Arg::loop_<bool> loop)
