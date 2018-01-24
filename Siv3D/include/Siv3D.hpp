@@ -909,8 +909,8 @@
 //
 	// アセット管理
 	# include "Siv3D/Asset.hpp"
-	//// Audio アセット
-	//# include "Siv3D/AudioAsset.hpp"
+	// Audio アセット
+	# include "Siv3D/AudioAsset.hpp"
 	// Texture アセット
 	# include "Siv3D/TextureAsset.hpp"
 	// Font アセット

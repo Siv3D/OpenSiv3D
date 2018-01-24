@@ -19,6 +19,19 @@
 
 namespace s3d
 {
+	struct AudioLoopTiming
+	{
+		int64 beginPos = 0;
+
+		int64 endPos = 0;
+
+		AudioLoopTiming() = default;
+
+		constexpr AudioLoopTiming(int64 _beginPos, int64 _endPos) noexcept
+			: beginPos(_beginPos)
+			, endPos(_endPos) {}
+	};
+
 	class Audio
 	{
 	protected:

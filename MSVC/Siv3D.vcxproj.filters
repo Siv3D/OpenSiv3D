@@ -3585,6 +3585,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\ImageFormat\TGA\ImageFormat_TGA.hpp">
       <Filter>src\Siv3D\ImageFormat\TGA</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\AudioAsset.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_macOS.mm">
