@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -12,13 +12,13 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
-# include "CXInput.hpp"
+# include "CXInput_NULL.hpp"
 
 namespace s3d
 {
 	CXInput::CXInput()
-		: m_inputs{ detail::XInput_impl(0), detail::XInput_impl(1),
-					detail::XInput_impl(2), detail::XInput_impl(3) }
+		: m_inputs{{ detail::XInput_impl(0), detail::XInput_impl(1),
+					 detail::XInput_impl(2), detail::XInput_impl(3) }}
 	{
 
 	}
