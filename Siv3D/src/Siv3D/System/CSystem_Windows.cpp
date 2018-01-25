@@ -25,6 +25,7 @@
 # include "../Cursor/ICursor.hpp"
 # include "../Keyboard/IKeyboard.hpp"
 # include "../Mouse/IMouse.hpp"
+# include "../XInput/IXInput.hpp"
 # include "../TextInput/ITextInput.hpp"
 # include "../Codec/ICodec.hpp"
 # include "../AudioFormat/IAudioFormat.hpp"
@@ -103,6 +104,11 @@ namespace s3d
 		}
 
 		if (!Siv3DEngine::GetMouse()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetXInput()->init())
 		{
 			return false;
 		}
@@ -221,6 +227,8 @@ namespace s3d
 			return false;
 		}
 
+		const bool onDeviceChange = m_onDeviceChange.exchange(false);
+
 		++m_frameCounter;
 
 		m_frameDelta.update();
@@ -231,11 +239,11 @@ namespace s3d
 
 		Siv3DEngine::GetMouse()->update();
 
+		Siv3DEngine::GetXInput()->update(onDeviceChange);
+
 		Siv3DEngine::GetCursor()->update();
 
 		Siv3DEngine::GetKeyboard()->update();
-
-
 
 		Siv3DEngine::GetTextInput()->update();
 
@@ -275,6 +283,13 @@ namespace s3d
 	double CSystem_Windows::getDeltaTime() const noexcept
 	{
 		return m_frameDelta.getDeltaTimeSec();
+	}
+
+	void CSystem_Windows::onDeviceChange()
+	{
+		LOG_DEBUG(U"onDeviceChange");
+
+		m_onDeviceChange = true;
 	}
 }
 

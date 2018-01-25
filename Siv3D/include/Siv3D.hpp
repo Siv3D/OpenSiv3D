@@ -665,6 +665,9 @@
 	//// ゲームパッド
 	//# include "Siv3D/Gamepad.hpp"
 
+	// Joystick deadzone
+	# include "Siv3D/DeadZone.hpp"
+
 	// XInput 対応ゲームコントローラー
 	# include "Siv3D/XInput.hpp"
 

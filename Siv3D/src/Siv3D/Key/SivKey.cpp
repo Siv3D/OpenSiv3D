@@ -13,6 +13,7 @@
 # include "../Siv3DEngine.hpp"
 # include "../Mouse/IMouse.hpp"
 # include "../Keyboard/IKeyboard.hpp"
+# include "../XInput/IXInput.hpp"
 
 namespace s3d
 {
@@ -27,7 +28,7 @@ namespace s3d
 		case InputDevice::Gamepad:
 			return false;
 		default: // InputDevice::XInput
-			return false;
+			return Siv3DEngine::GetXInput()->down(m_userIndex, m_code);
 		}
 	}
 
@@ -42,7 +43,7 @@ namespace s3d
 		case InputDevice::Gamepad:
 			return false;
 		default: // InputDevice::XInput
-			return false;
+			return Siv3DEngine::GetXInput()->pressed(m_userIndex, m_code);
 		}
 	}
 
@@ -57,7 +58,7 @@ namespace s3d
 		case InputDevice::Gamepad:
 			return false;
 		default: // InputDevice::XInput
-			return false;
+			return Siv3DEngine::GetXInput()->up(m_userIndex, m_code);
 		}
 	}
 
@@ -72,7 +73,7 @@ namespace s3d
 		case InputDevice::Gamepad:
 			return MillisecondsF(0);
 		default: // InputDevice::XInput
-			return MillisecondsF(0);
+			return Siv3DEngine::GetXInput()->pressedDuration(m_userIndex, m_code);
 		}
 	}
 
@@ -366,7 +367,32 @@ namespace s3d
 		}
 		else if (m_device == InputDevice::XInput)
 		{
-			return U"XInput-Unknown";
+			if (m_code >= 16)
+			{
+				return U"XInput-Unknown";
+			}
+
+			static const String names[16] =
+			{
+				U"Dpad_Up",
+				U"Dpad_Down",
+				U"Dpad_Left",
+				U"Dpad_Right",
+				U"Start",
+				U"Back",
+				U"LT",
+				U"RT",
+				U"LB",
+				U"RB",
+				U"Unknown",
+				U"Unknown",
+				U"A",
+				U"B",
+				U"X",
+				U"Y",
+			};
+
+			return U"XInput-" + names[m_code];
 		}
 
 		return U"Unknown";

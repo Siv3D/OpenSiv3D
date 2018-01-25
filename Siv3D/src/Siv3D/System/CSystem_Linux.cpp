@@ -24,6 +24,7 @@
 # include "../Cursor/ICursor.hpp"
 # include "../Keyboard/IKeyboard.hpp"
 # include "../Mouse/IMouse.hpp"
+# include "../XInput/IXInput.hpp"
 # include "../TextInput/ITextInput.hpp"
 # include "../Codec/ICodec.hpp"
 # include "../AudioFormat/IAudioFormat.hpp"
@@ -104,7 +105,12 @@ namespace s3d
 		{
 			return false;
 		}
-		
+
+		if (!Siv3DEngine::GetXInput()->init())
+		{
+			return false;
+		}
+
 		if (!Siv3DEngine::GetTextInput()->init())
 		{
 			return false;
@@ -232,6 +238,8 @@ namespace s3d
 		Siv3DEngine::GetKeyboard()->update();
 
 		Siv3DEngine::GetMouse()->update();
+
+		Siv3DEngine::GetXInput()->update(false);
 
 		Siv3DEngine::GetTextInput()->update();
 		
