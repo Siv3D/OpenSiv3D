@@ -24,6 +24,7 @@
 # include "../Cursor/ICursor.hpp"
 # include "../Keyboard/IKeyboard.hpp"
 # include "../Mouse/IMouse.hpp"
+# include "../Gamepad/IGamepad.hpp"
 # include "../XInput/IXInput.hpp"
 # include "../TextInput/ITextInput.hpp"
 # include "../Codec/ICodec.hpp"
@@ -102,6 +103,11 @@ namespace s3d
 		}
 
 		if (!Siv3DEngine::GetMouse()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetGamepad()->init())
 		{
 			return false;
 		}
@@ -239,7 +245,9 @@ namespace s3d
 
 		Siv3DEngine::GetMouse()->update();
 
-		Siv3DEngine::GetXInput()->update(false);
+		Siv3DEngine::GetGamepad()->update(true);
+
+		Siv3DEngine::GetXInput()->update(true);
 
 		Siv3DEngine::GetTextInput()->update();
 		

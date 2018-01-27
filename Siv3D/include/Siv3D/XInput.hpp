@@ -21,8 +21,6 @@ namespace s3d
 	{
 		struct XInput_impl
 		{
-		public:
-
 			XInput_impl(size_t _userIndex);
 
 			bool isConnected() const;

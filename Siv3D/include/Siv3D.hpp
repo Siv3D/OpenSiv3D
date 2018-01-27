@@ -662,14 +662,17 @@
 	// テキスト入力
 	# include "Siv3D/TextInput.hpp"
 	
-	//// ゲームパッド
-	//# include "Siv3D/Gamepad.hpp"
+	// ゲームパッド
+	# include "Siv3D/Gamepad.hpp"
 
 	// Joystick deadzone
 	# include "Siv3D/DeadZone.hpp"
 
 	// XInput 対応ゲームコントローラー
 	# include "Siv3D/XInput.hpp"
+
+	// Joy-Con
+	# include "Siv3D/JoyCon.hpp"
 
 	//// マイク入力
 	//# include "Siv3D/Recorder.hpp"

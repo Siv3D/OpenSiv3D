@@ -76,8 +76,8 @@ namespace s3d
 	}
 
 	CXInput::CXInput()
-		: m_inputs{ detail::XInput_impl(0), detail::XInput_impl(1),
-					detail::XInput_impl(2), detail::XInput_impl(3) }
+		: m_inputs{{ detail::XInput_impl(0), detail::XInput_impl(1),
+					 detail::XInput_impl(2), detail::XInput_impl(3) }}
 	{
 
 	}

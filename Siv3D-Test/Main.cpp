@@ -1,117 +1,149 @@
 # include <Siv3D.hpp>
 
+ColorF Black(const Key& key)
+{
+	return key.pressed() ? ColorF(1.0, 0.8, 0.4) : ColorF(0.25);
+}
+
+ColorF PushE(const Key& key, const ColorF& color)
+{
+	return key.pressed() ? ColorF(1.0, 0.8, 0.4) : color;
+}
+
+void DrawJoyConL(const Vec2& pos, const JoyCon& joycon)
+{
+	const ColorF color(0.0, 0.75, 0.9);
+	const Vec2 size(500, 180);
+	const RectF base(pos, size);
+
+	base.rounded(90).drawShadow(Vec2(0, -5), 30, 10, ColorF(0.0, 0.3));
+	base.stretched(0, 0, -100, 0).draw(color);
+
+	Circle(base.bl().movedBy(100, -100), 100).drawPie(180_deg, 90_deg, color);
+	Circle(base.br().movedBy(-100, -100), 100).drawPie(90_deg, 90_deg, color);
+	RectF(base.bl().movedBy(100, -100), 300, 100).draw(color);
+	RectF(pos.movedBy(20, -10), 440, 10).draw(ColorF(0.25));
+
+	Circle(base.bl().movedBy(100, -100), 100).drawArc(180_deg, 90_deg, 10, 10, Black(joycon.buttonLR));
+	Circle(base.bl().movedBy(100, -100), 120).drawArc(220_deg, 50_deg, 10, 10, Black(joycon.buttonZLZR));
+
+	RectF(Arg::center(pos.movedBy(50, 35)), 10, 40).draw(Black(joycon.buttonMinus));
+	const Vec2 c = pos.movedBy(130, 90);
+	Circle(c, 45).draw(Black(joycon.buttonStick));
+	if (const auto d = joycon.povD8())
+	{
+		Circle(c + Circular(45, *d * 45_deg), 25).draw();
+	}
+
+	RectF(Arg::center(pos.movedBy(150, -10)), 50, 10).draw(PushE(joycon.buttonSL, color));
+	RectF(Arg::center(pos.movedBy(350, -10)), 50, 10).draw(PushE(joycon.buttonSR, color));
+
+	Circle(pos.movedBy(280, 50), 20).draw(Black(joycon.button3));
+	Circle(pos.movedBy(240, 90), 20).draw(Black(joycon.button2));
+	Circle(pos.movedBy(280, 130), 20).draw(Black(joycon.button0));
+	Circle(pos.movedBy(320, 90), 20).draw(Black(joycon.button1));
+
+	RectF(Arg::center(pos.movedBy(375, 55)), 30).draw(Black(joycon.buttonScreenshot));
+}
+
+void DrawJoyConR(const Vec2& pos, const JoyCon& joycon)
+{
+	const ColorF color(1.0, 0.4, 0.3);
+	const Vec2 size(500, 180);
+	const RectF base(pos, size);
+
+	base.rounded(90).drawShadow(Vec2(0, -5), 30, 10, ColorF(0.0, 0.3));
+	base.stretched(0, 0, -100, 0).draw(color);
+
+	Circle(base.bl().movedBy(100, -100), 100).drawPie(180_deg, 90_deg, color);
+	Circle(base.br().movedBy(-100, -100), 100).drawPie(90_deg, 90_deg, color);
+	RectF(base.bl().movedBy(100, -100), 300, 100).draw(color);
+	RectF(pos.movedBy(40, -10), 440, 10).draw(ColorF(0.25));
+
+	Circle(base.br().movedBy(-100, -100), 100).drawArc(90_deg, 90_deg, 10, 10, Black(joycon.buttonLR));
+	Circle(base.br().movedBy(-100, -100), 120).drawArc(90_deg, 50_deg, 10, 10, Black(joycon.buttonZLZR));
+
+	Shape2D::Plus(20, 10, base.tr().movedBy(-50, 35)).draw(Black(joycon.buttonPlus));
+	const Vec2 c = pos.movedBy(210, 90);
+	Circle(c, 45).draw(Black(joycon.buttonStick));
+	if (const auto d = joycon.povD8())
+	{
+		Circle(c + Circular(45, *d * 45_deg), 25).draw();
+	}
+
+	RectF(Arg::center(pos.movedBy(150, -10)), 50, 10).draw(PushE(joycon.buttonSL, color));
+	RectF(Arg::center(pos.movedBy(350, -10)), 50, 10).draw(PushE(joycon.buttonSR, color));
+
+	Circle(pos.movedBy(360, 50), 20).draw(Black(joycon.button3));
+	Circle(pos.movedBy(320, 90), 20).draw(Black(joycon.button2));
+	Circle(pos.movedBy(360, 130), 20).draw(Black(joycon.button0));
+	Circle(pos.movedBy(400, 90), 20).draw(Black(joycon.button1));
+
+	Circle(pos.movedBy(110, 55), 15).draw(Black(joycon.buttonHome));
+}
+
 void Main()
 {
-	Graphics::SetBackground(Color(160, 200, 100));
+	Graphics::SetBackground(ColorF(0.9));
 
-	//GUI guiControlloer(GUIStyle::Default);
-	//guiControlloer.addln(L"Controller", GUIRadioButton::Create(
-	//	{ L"1P", L"2P", L"3P", L"4P" }, 0u));
-	//guiControlloer.addln(GUIText::Create(L"DeadZone"));
-	//guiControlloer.addln(L"DeadZone", GUICheckBox::Create({ L"óLå¯" }));
+	Window::Resize(1280, 720);
 
-	//GUI guiVib(GUIStyle::Default);
-	//guiVib.addln(GUIText::Create(L"êUìÆÅ@í·é¸îg | çÇé¸îg"));
-	//guiVib.add(L"left", GUISlider::Create(0.0, 1.0, 0.0, 100));
-	//guiVib.addln(L"right", GUISlider::Create(0.0, 1.0, 0.0, 100));
-	//guiVib.setPos(210, 40);
+	Vec2 left(200, 200), right(1000, 400);
 
-	const Ellipse buttonLB(160, 140, 50, 24);
-	const Ellipse buttonRB(520, 140, 50, 24);
-
-	const RectF leftTrigger(150, 16, 40, 100);
-	const RectF rightTrigger(500, 16, 40, 100);
-
-	const Circle buttonLThumb(170, 250, 35);
-	const Circle buttonRThumb(420, 350, 35);
-	const Circle buttonDPad(260, 350, 40);
-
-	const Circle buttonA(510, 300, 20);
-	const Circle buttonB(560, 250, 20);
-	const Circle buttonX(460, 250, 20);
-	const Circle buttonY(510, 200, 20);
-	const Circle buttonBack(270, 250, 15);
-	const Circle buttonStart(410, 250, 15);
+	Effect effect;
 
 	while (System::Update())
 	{
-		const unsigned userIndex = 0;// guiControlloer.radioButton(L"Controller").checkedItem.value();
-		auto controller = XInput(userIndex);
+		Window::SetTitle(Profiler::FPS());
 
-		//if (guiControlloer.checkBox(L"DeadZone").checked(0))
+		for (size_t i = 0; i < Gamepad.MaxUserCount; ++i)
 		{
-			controller.setLeftTriggerDeadZone();
-			controller.setRightTriggerDeadZone();
-			controller.setLeftThumbDeadZone();
-			controller.setRightThumbDeadZone();
-		}
-		//else
-		//{
-		//	controller.setLeftTriggerDeadZone(DeadZone::None);
-		//	controller.setRightTriggerDeadZone(DeadZone::None);
-		//	controller.setLeftThumbDeadZone(DeadZone::None);
-		//	controller.setRightThumbDeadZone(DeadZone::None);
-		//}
+			if (JoyCon::IsJoyConL(Gamepad(i)))
+			{
+				const auto j = JoyCon(Gamepad(i));
 
-		const double lv = 0; //guiVib.slider(L"left").value;
-		const double rv = 0;// guiVib.slider(L"right").value;
-		controller.setVibration(lv, rv);
+				DrawJoyConL(Vec2(80, 480), j);
 
-		buttonLB.draw(Color(controller.buttonLB.pressed() ? 255 : 200));
-		buttonRB.draw(Color(controller.buttonRB.pressed() ? 255 : 200));
+				if (auto d = j.povD8())
+				{
+					left += Circular(4, *d * 45_deg);
+				}
 
-		Ellipse(340 + 3.0 * Random(lv + rv), 480, 300, 440).draw(Color(232));
-		Ellipse(340, 40, 220, 120).draw(Color(160, 200, 100));
-		Circle(340, 660, 240).draw(Color(160, 200, 100));
+				if (j.button2.down())
+				{
+					effect.add([center = left](double t) {
+						Circle(center, 20 + t * 200).drawFrame(10, 0, AlphaF(1.0 - t));
+						return t < 1.0;
+					});
+				}
+			}
+			else if (JoyCon::IsJoyConR(Gamepad(i)))
+			{
+				const auto j = JoyCon(Gamepad(i));
 
-		Circle(340, 250, 30).draw(Color(160));
+				DrawJoyConR(Vec2(700, 480), j);
 
-		if (controller.isConnected())
-		{
-			Circle(340, 250, 32).drawPie(-0.5_pi + 0.5_pi * controller.userIndex, 0.5_pi, Color(200, 255, 120));
-		}
+				if (auto d = j.povD8())
+				{
+					right += Circular(4, *d * 45_deg);
+				}
 
-		Circle(340, 250, 25).draw(Color(140));
-
-		leftTrigger.draw(Alpha(64));
-		leftTrigger.stretched((controller.leftTrigger - 1.0) * leftTrigger.h, 0, 0, 0).draw();
-
-		rightTrigger.draw(Alpha(64));
-		rightTrigger.stretched((controller.rightTrigger - 1.0) * rightTrigger.h, 0, 0, 0).draw();
-
-		buttonLThumb.draw(Color(controller.buttonLThumb.pressed() ? 220 : 127));
-		Circle(buttonLThumb.center + Vec2(controller.leftThumbX, -controller.leftThumbY) * 25, 20).draw();
-		if (const auto d = controller.leftThumbD8())
-		{
-			const Vec2 v = Circular(1, *d * 45_deg);
-			Line(buttonLThumb.center + v * buttonLThumb.r, buttonLThumb.center + v * (buttonLThumb.r + 20)).drawArrow(3, Vec2(8, 8), Palette::Orange);
+				if (j.button2.down())
+				{
+					effect.add([center = right](double t) {
+						Circle(center, 20 + t * 200).drawFrame(10, 0, AlphaF(1.0 - t));
+						return t < 1.0;
+					});
+				}
+			}
 		}
 
-		buttonRThumb.draw(Color(controller.buttonRThumb.pressed() ? 220 : 127));
-		Circle(buttonRThumb.center + Vec2(controller.rightThumbX, -controller.rightThumbY) * 25, 20).draw();
-		if (const auto d = controller.rightThumbD8())
-		{
-			const Vec2 v = Circular(1, *d * 45_deg);
-			Line(buttonRThumb.center + v * buttonRThumb.r, buttonRThumb.center + v * (buttonRThumb.r + 20)).drawArrow(3, Vec2(8, 8), Palette::Orange);
-		}
+		Rect(40, 40, 1200, 400).draw(ColorF(0.1, 0.3, 0.2));
 
-		buttonDPad.draw(Color(127));
+		Circle(left, 30).draw(ColorF(0.0, 0.75, 0.9));
 
-		const Vec2 direction(
-			controller.buttonRight.pressed() - controller.buttonLeft.pressed(),
-			controller.buttonDown.pressed() - controller.buttonUp.pressed());
+		Circle(right, 30).draw(ColorF(1.0, 0.4, 0.3));
 
-		if (!direction.isZero())
-		{
-			Circle(buttonDPad.center + direction.normalized() * 25, 15).draw();
-		}
-
-		buttonA.draw(Color(0, 255, 64).setA(controller.buttonA.pressed() ? 255 : 64));
-		buttonB.draw(Color(255, 0, 64).setA(controller.buttonB.pressed() ? 255 : 64));
-		buttonX.draw(Color(0, 64, 255).setA(controller.buttonX.pressed() ? 255 : 64));
-		buttonY.draw(Color(255, 127, 0).setA(controller.buttonY.pressed() ? 255 : 64));
-
-		buttonBack.draw(Color(controller.buttonBack.pressed() ? 255 : 200));
-		buttonStart.draw(Color(controller.buttonStart.pressed() ? 255 : 200));
+		effect.update();
 	}
 }

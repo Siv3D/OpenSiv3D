@@ -29,31 +29,31 @@ namespace s3d
 
 		~CXInput() override;
 
-		bool init();
+		bool init() override;
 
-		void update(bool deviceChanged);
+		void update(bool deviceChanged) override;
 
-		bool isConnected(size_t userIndex) const;
+		bool isConnected(size_t userIndex) const override;
 
-		void setDeadZone(size_t userIndex, DeadZoneIndex inputIndex, const DeadZone& deadZone);
+		void setDeadZone(size_t userIndex, DeadZoneIndex inputIndex, const DeadZone& deadZone) override;
 
-		void setVibration(size_t userIndex, double leftMotorSpeed, double rightMotorSpeed);
+		void setVibration(size_t userIndex, double leftMotorSpeed, double rightMotorSpeed) override;
 
-		std::pair<double, double> getVibration(size_t userIndex) const;
+		std::pair<double, double> getVibration(size_t userIndex) const override;
 
-		void pauseVibration(size_t userIndex);
+		void pauseVibration(size_t userIndex) override;
 
-		void resumeVibration(size_t userIndex);
+		void resumeVibration(size_t userIndex) override;
 
-		bool down(size_t userIndex, uint32 index) const;
+		bool down(size_t userIndex, uint32 index) const override;
 
-		bool pressed(size_t userIndex, uint32 index) const;
+		bool pressed(size_t userIndex, uint32 index) const override;
 
-		bool up(size_t userIndex, uint32 index) const;
+		bool up(size_t userIndex, uint32 index) const override;
 
-		MillisecondsF pressedDuration(size_t userIndex, uint32 index) const;
+		MillisecondsF pressedDuration(size_t userIndex, uint32 index) const override;
 
-		const detail::XInput_impl& getInput(size_t userIndex) const;
+		const detail::XInput_impl& getInput(size_t userIndex) const override;
 	};
 }
 

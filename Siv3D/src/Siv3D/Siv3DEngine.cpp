@@ -23,6 +23,7 @@
 # include "Cursor/ICursor.hpp"
 # include "Keyboard/IKeyboard.hpp"
 # include "Mouse/IMouse.hpp"
+# include "Gamepad/IGamepad.hpp"
 # include "XInput/IXInput.hpp"
 # include "TextInput/ITextInput.hpp"
 # include "Codec/ICodec.hpp"
@@ -65,6 +66,7 @@ namespace s3d
 		m_codec.release();
 		m_textInput.release();
 		m_xInput.release();
+		m_gamepad.release();
 		m_mouse.release();
 		m_keyboard.release();
 		m_cursor.release();
