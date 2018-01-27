@@ -10,8 +10,10 @@
 //-----------------------------------------------
 
 # include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
+# if defined(SIV3D_TARGET_LINUX)
 
+# include <GL/glew.h>
+# include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
 # include "CGamepad_NULL.hpp"
 # include <Siv3D/Logger.hpp>
 
@@ -46,14 +48,14 @@ namespace s3d
 
 	void CGamepad::update(const bool)
 	{
-
+		// [Siv3D ToDo]
 	}
 
 	bool CGamepad::isConnected([[maybe_unused]] const size_t userIndex) const
 	{
 		assert(userIndex < Gamepad.MaxUserCount);
 
-		return false;
+		return m_states[userIndex].connected;
 	}
 	
 	const GamepadInfo& CGamepad::getInfo(const size_t userIndex) const
@@ -63,37 +65,39 @@ namespace s3d
 		return m_states[userIndex].info;
 	}
 
-	bool CGamepad::down([[maybe_unused]] const size_t userIndex, const uint32) const
+	bool CGamepad::down([[maybe_unused]] const size_t userIndex, const uint32 index) const
 	{
 		assert(userIndex < Gamepad.MaxUserCount);
 
-		return false;
+		return m_states[userIndex].buttons[index].down;
 	}
 
-	bool CGamepad::pressed([[maybe_unused]] const size_t userIndex, const uint32) const
+	bool CGamepad::pressed([[maybe_unused]] const size_t userIndex, const uint32 index) const
 	{
 		assert(userIndex < Gamepad.MaxUserCount);
 
-		return false;
+		return m_states[userIndex].buttons[index].pressed;
 	}
 
-	bool CGamepad::up([[maybe_unused]] const size_t userIndex, const uint32) const
+	bool CGamepad::up([[maybe_unused]] const size_t userIndex, const uint32 index) const
 	{
 		assert(userIndex < Gamepad.MaxUserCount);
 
-		return false;
+		return m_states[userIndex].buttons[index].up;
 	}
 
-	MillisecondsF CGamepad::pressedDuration([[maybe_unused]] const size_t userIndex, const uint32) const
+	MillisecondsF CGamepad::pressedDuration([[maybe_unused]] const size_t userIndex, const uint32 index) const
 	{
 		assert(userIndex < Gamepad.MaxUserCount);
 
-		return MillisecondsF(0.0);
+		return m_states[userIndex].buttons[index].pressedDuration;
 	}
 
 	Optional<int32> CGamepad::povDegree([[maybe_unused]] const size_t userIndex) const
 	{
-		return none;
+		assert(userIndex < Gamepad.MaxUserCount);
+		
+		return m_states[userIndex].povDegree;
 	}
 
 	const detail::Gamepad_impl& CGamepad::getInput(const size_t userIndex) const

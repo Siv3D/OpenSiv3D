@@ -10,7 +10,8 @@
 //-----------------------------------------------
 
 # include "CGamepad_Windows.hpp"
-# include "CGamepad_NULL.hpp"
+# include "CGamepad_macOS.hpp"
+# include "CGamepad_Linux.hpp"
 
 namespace s3d
 {

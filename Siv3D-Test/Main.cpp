@@ -84,6 +84,11 @@ void DrawJoyConR(const Vec2& pos, const JoyCon& joycon)
 
 void Main()
 {
+	for (const auto& gamepad : System::EnumerateGamepads())
+	{
+		//Print << U"{}: vID[{:#x}] pID[{:#x}] name[{}]"_fmt(gamepad.index, gamepad.vendorID, gamepad.productID, gamepad.name);
+	}
+	
 	Graphics::SetBackground(ColorF(0.9));
 
 	Window::Resize(1280, 720);
@@ -94,7 +99,7 @@ void Main()
 
 	while (System::Update())
 	{
-		Window::SetTitle(Profiler::FPS());
+		//Window::SetTitle(Profiler::FPS());
 
 		for (size_t i = 0; i < Gamepad.MaxUserCount; ++i)
 		{

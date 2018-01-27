@@ -481,8 +481,6 @@
 		2C28CC04201C7D7D005D7501 /* SivFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C28C9C1201C7D7C005D7501 /* SivFormat.cpp */; };
 		2C28CC05201C7D7D005D7501 /* SivFormatLiteral.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C28C9C3201C7D7C005D7501 /* SivFormatLiteral.cpp */; };
 		2C28CC06201C7D7D005D7501 /* SivFormatUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C28C9C5201C7D7C005D7501 /* SivFormatUtility.cpp */; };
-		2C28CC07201C7D7D005D7501 /* CGamepad_NULL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C28C9C7201C7D7C005D7501 /* CGamepad_NULL.cpp */; };
-		2C28CC08201C7D7D005D7501 /* CGamepad_NULL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C28C9C8201C7D7C005D7501 /* CGamepad_NULL.hpp */; };
 		2C28CC09201C7D7D005D7501 /* CGamepad_Windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C28C9C9201C7D7C005D7501 /* CGamepad_Windows.cpp */; };
 		2C28CC0A201C7D7D005D7501 /* CGamepad_Windows.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C28C9CA201C7D7C005D7501 /* CGamepad_Windows.hpp */; };
 		2C28CC0B201C7D7D005D7501 /* GamepadFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C28C9CB201C7D7C005D7501 /* GamepadFactory.cpp */; };
@@ -780,6 +778,10 @@
 		2C28CD2F201C7D7D005D7501 /* SivXInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C28CB5B201C7D7C005D7501 /* SivXInput.cpp */; };
 		2C28CD30201C7D7D005D7501 /* XInputFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C28CB5C201C7D7C005D7501 /* XInputFactory.cpp */; };
 		2C28CD31201C7D7D005D7501 /* SivXXHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C28CB5E201C7D7C005D7501 /* SivXXHash.cpp */; };
+		2C28CE4F201CCFB2005D7501 /* CGamepad_macOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C28CE4D201CCFB1005D7501 /* CGamepad_macOS.cpp */; };
+		2C28CE50201CCFB2005D7501 /* CGamepad_macOS.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C28CE4E201CCFB1005D7501 /* CGamepad_macOS.hpp */; };
+		2C28CE53201CD032005D7501 /* CGamepad_Linux.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C28CE51201CD032005D7501 /* CGamepad_Linux.cpp */; };
+		2C28CE54201CD032005D7501 /* CGamepad_Linux.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C28CE52201CD032005D7501 /* CGamepad_Linux.hpp */; };
 		2C3D56AF1FFC163F00CBEE6B /* svm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C3D56AE1FFC163F00CBEE6B /* svm.cpp */; };
 		2C8588EC1F929277000DA815 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2C8588EB1F929277000DA815 /* icon.icns */; };
 		2C9DDF4E2010164E002D3BDC /* pffft.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9DDF4C2010164E002D3BDC /* pffft.c */; };
@@ -1266,8 +1268,6 @@
 		2C28C9C1201C7D7C005D7501 /* SivFormat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivFormat.cpp; sourceTree = "<group>"; };
 		2C28C9C3201C7D7C005D7501 /* SivFormatLiteral.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivFormatLiteral.cpp; sourceTree = "<group>"; };
 		2C28C9C5201C7D7C005D7501 /* SivFormatUtility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivFormatUtility.cpp; sourceTree = "<group>"; };
-		2C28C9C7201C7D7C005D7501 /* CGamepad_NULL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CGamepad_NULL.cpp; sourceTree = "<group>"; };
-		2C28C9C8201C7D7C005D7501 /* CGamepad_NULL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CGamepad_NULL.hpp; sourceTree = "<group>"; };
 		2C28C9C9201C7D7C005D7501 /* CGamepad_Windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CGamepad_Windows.cpp; sourceTree = "<group>"; };
 		2C28C9CA201C7D7C005D7501 /* CGamepad_Windows.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CGamepad_Windows.hpp; sourceTree = "<group>"; };
 		2C28C9CB201C7D7C005D7501 /* GamepadFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GamepadFactory.cpp; sourceTree = "<group>"; };
@@ -1833,6 +1833,10 @@
 		2C28CE48201C7D85005D7501 /* svm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svm.h; sourceTree = "<group>"; };
 		2C28CE4A201C7D85005D7501 /* nanoflann.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nanoflann.hpp; sourceTree = "<group>"; };
 		2C28CE4C201C7D85005D7501 /* SFMT.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SFMT.hpp; sourceTree = "<group>"; };
+		2C28CE4D201CCFB1005D7501 /* CGamepad_macOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CGamepad_macOS.cpp; sourceTree = "<group>"; };
+		2C28CE4E201CCFB1005D7501 /* CGamepad_macOS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CGamepad_macOS.hpp; sourceTree = "<group>"; };
+		2C28CE51201CD032005D7501 /* CGamepad_Linux.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CGamepad_Linux.cpp; sourceTree = "<group>"; };
+		2C28CE52201CD032005D7501 /* CGamepad_Linux.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CGamepad_Linux.hpp; sourceTree = "<group>"; };
 		2C3D56AE1FFC163F00CBEE6B /* svm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svm.cpp; sourceTree = "<group>"; };
 		2C8588EB1F929277000DA815 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		2C9DDF4C2010164E002D3BDC /* pffft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pffft.c; sourceTree = "<group>"; };
@@ -3238,8 +3242,10 @@
 		2C28C9C6201C7D7C005D7501 /* Gamepad */ = {
 			isa = PBXGroup;
 			children = (
-				2C28C9C7201C7D7C005D7501 /* CGamepad_NULL.cpp */,
-				2C28C9C8201C7D7C005D7501 /* CGamepad_NULL.hpp */,
+				2C28CE51201CD032005D7501 /* CGamepad_Linux.cpp */,
+				2C28CE52201CD032005D7501 /* CGamepad_Linux.hpp */,
+				2C28CE4D201CCFB1005D7501 /* CGamepad_macOS.cpp */,
+				2C28CE4E201CCFB1005D7501 /* CGamepad_macOS.hpp */,
 				2C28C9C9201C7D7C005D7501 /* CGamepad_Windows.cpp */,
 				2C28C9CA201C7D7C005D7501 /* CGamepad_Windows.hpp */,
 				2C28C9CB201C7D7C005D7501 /* GamepadFactory.cpp */,
@@ -4934,6 +4940,7 @@
 				2C28CC35201C7D7D005D7501 /* ImageFormat_BMP.hpp in Headers */,
 				2C0FC0151FDB71F400A128B9 /* hb-blob.h in Headers */,
 				2C0FBFBC1FDB71F400A128B9 /* svcid.h in Headers */,
+				2C28CE50201CCFB2005D7501 /* CGamepad_macOS.hpp in Headers */,
 				2C0FC0251FDB71F400A128B9 /* pnglibconf.h in Headers */,
 				2C9DDF4F2010164E002D3BDC /* pffft.h in Headers */,
 				2C28CD06201C7D7D005D7501 /* ITexture.hpp in Headers */,
@@ -5096,6 +5103,7 @@
 				2C0FBFB21FDB71F400A128B9 /* ftpic.h in Headers */,
 				2C0FC04D1FDB71F400A128B9 /* encodings.h in Headers */,
 				2C28CC76201C7D7D005D7501 /* IMouse.hpp in Headers */,
+				2C28CE54201CD032005D7501 /* CGamepad_Linux.hpp in Headers */,
 				2C0FBF801FDB71F400A128B9 /* ftstdlib.h in Headers */,
 				2C28CCA8201C7D7D005D7501 /* scriptbuilder.h in Headers */,
 				2C0FBF781FDB71F400A128B9 /* cpu_x86_Windows.ipp in Headers */,
@@ -5169,7 +5177,6 @@
 				2C0FBF991FDB71F400A128B9 /* ftmm.h in Headers */,
 				2C28CC15201C7D7D005D7501 /* D3D11DepthStencilState.hpp in Headers */,
 				2C0FC0261FDB71F400A128B9 /* miniutf.hpp in Headers */,
-				2C28CC08201C7D7D005D7501 /* CGamepad_NULL.hpp in Headers */,
 				2C0FC0781FDB71F400A128B9 /* pool.h in Headers */,
 				2C28CC5D201C7D7D005D7501 /* ILogger.hpp in Headers */,
 				2C28CB93201C7D7D005D7501 /* CBinaryReader_Linux.hpp in Headers */,
@@ -5374,7 +5381,7 @@
 				2C28CC7E201C7D7D005D7501 /* SivPoint.cpp in Sources */,
 				2C28CD30201C7D7D005D7501 /* XInputFactory.cpp in Sources */,
 				2C0FC08A1FDB71F400A128B9 /* zstd_ldm.c in Sources */,
-				2C28CC07201C7D7D005D7501 /* CGamepad_NULL.cpp in Sources */,
+				2C28CE53201CD032005D7501 /* CGamepad_Linux.cpp in Sources */,
 				2C28CB6E201C7D7C005D7501 /* Audio_X27.cpp in Sources */,
 				2C28CC3E201C7D7D005D7501 /* ImageFormat_PNG.cpp in Sources */,
 				2C0FBF6D1FDB71F400A128B9 /* fast-dtoa.cc in Sources */,
@@ -5619,6 +5626,7 @@
 				2C28CC00201C7D7D005D7501 /* FontFactory.cpp in Sources */,
 				2C28CBCD201C7D7D005D7501 /* CCursor_macOS.cpp in Sources */,
 				2C28CD0C201C7D7D005D7501 /* SivTexturedRoundRect.cpp in Sources */,
+				2C28CE4F201CCFB2005D7501 /* CGamepad_macOS.cpp in Sources */,
 				2C28CBFC201C7D7D005D7501 /* CFont.cpp in Sources */,
 				2C28CBFE201C7D7D005D7501 /* FontData.cpp in Sources */,
 				2C28CCE7201C7D7D005D7501 /* SivSystem.mm in Sources */,

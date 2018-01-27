@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -45,12 +45,13 @@ namespace s3d
 		::glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 		
 		m_state.clientSize.set(Window::DefaultClientSize);
-		m_state.title = SIV3D_IS_DEBUG ? U"Siv3D App [Debug Build]" : U"Siv3D App";
+		m_state.title = U"Siv3D App";
 		m_state.showState = ShowState::Normal;
 		m_state.focused = false;
 		m_state.fullScreen = false;
 
-		m_glfwWindow = ::glfwCreateWindow(Window::DefaultClientSize.x, Window::DefaultClientSize.y, m_state.title.narrow().c_str(), nullptr, nullptr);
+		const String title = m_state.title + (SIV3D_IS_DEBUG ? U" [Debug Build]" : U"");
+		m_glfwWindow = ::glfwCreateWindow(Window::DefaultClientSize.x, Window::DefaultClientSize.y, title.narrow().c_str(), nullptr, nullptr);
 		
 		if (!m_glfwWindow)
 		{

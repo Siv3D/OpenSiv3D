@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -202,13 +202,40 @@ namespace s3d
 
 # elif defined(SIV3D_TARGET_MACOS)
 
+# include <GL/glew.h>
+# include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
+# include <Siv3D/Unicode.hpp>
+
+extern "C" {
+GLFWAPI const char* siv3dGetJoystickInfo(int joy, unsigned* vendorID, unsigned* productID, unsigned* version);
+}
+
 namespace s3d
 {
 	namespace System
 	{
 		Array<GamepadInfo> EnumerateGamepads()
 		{
-			return{};
+			Array<GamepadInfo> results;
+			
+			unsigned vendorID = 0, productID = 0, version = 0;
+			
+			for (uint32 i = 0; i < Gamepad.MaxUserCount; ++i)
+			{
+				const char* name = siv3dGetJoystickInfo(i, &vendorID, &productID, &version);
+				
+				if (name)
+				{
+					GamepadInfo info;
+					info.index = i;
+					info.vendorID = vendorID;
+					info.productID = productID;
+					info.name = Unicode::Widen(name);
+					results << info;
+				}
+			}
+			
+			return results;
 		}
 	}
 }

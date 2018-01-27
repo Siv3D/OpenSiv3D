@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -11,7 +11,7 @@
 
 # pragma once
 # include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
+# if defined(SIV3D_TARGET_MACOS)
 
 # include <Siv3D/Optional.hpp>
 # include "IGamepad.hpp"
