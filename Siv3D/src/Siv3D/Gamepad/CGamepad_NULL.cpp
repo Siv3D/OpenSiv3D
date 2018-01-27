@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -13,6 +13,7 @@
 # if defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 # include "CGamepad_NULL.hpp"
+# include <Siv3D/Logger.hpp>
 
 namespace s3d
 {
@@ -53,6 +54,13 @@ namespace s3d
 		assert(userIndex < Gamepad.MaxUserCount);
 
 		return false;
+	}
+	
+	const GamepadInfo& CGamepad::getInfo(const size_t userIndex) const
+	{
+		assert(userIndex < Gamepad.MaxUserCount);
+		
+		return m_states[userIndex].info;
 	}
 
 	bool CGamepad::down([[maybe_unused]] const size_t userIndex, const uint32) const

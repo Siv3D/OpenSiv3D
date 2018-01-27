@@ -45,13 +45,6 @@ namespace s3d
 		return false;
 	}
 
-	const GamepadInfo& CGamepad::getInfo(const size_t userIndex) const
-	{
-		assert(userIndex < Gamepad.MaxUserCount);
-
-		return m_states[userIndex].info;
-	}
-
 	void CXInput::setDeadZone([[maybe_unused]] const size_t userIndex, const DeadZoneIndex, const DeadZone&)
 	{
 		assert(userIndex < XInput.MaxUserCount);
