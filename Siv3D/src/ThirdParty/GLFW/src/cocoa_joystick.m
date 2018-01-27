@@ -25,6 +25,17 @@
 //
 //========================================================================
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+//	This file is modified for the Siv3D Engine.
+//
+//	Copyright (C) 2008-2018 Ryo Suzuki
+//	Copyright (C) 2016-2018 OpenSiv3D Project
+//
+//-----------------------------------------------
+
 #include "internal.h"
 
 #include <unistd.h>
@@ -271,7 +282,13 @@ static void matchCallback(void* context,
                           void* sender,
                           IOHIDDeviceRef deviceRef)
 {
+	//-----------------------------------------------
+	//
+	//	[Siv3D]
+	//
     _GLFWjoystickNS* js;
+	uint32_t vendor = 0, product = 0, version = 0;
+	CFTypeRef property;
     int joy;
 
     for (joy = GLFW_JOYSTICK_1;  joy <= GLFW_JOYSTICK_LAST;  joy++)
@@ -293,18 +310,36 @@ static void matchCallback(void* context,
     js->present = GLFW_TRUE;
     js->deviceRef = deviceRef;
 
-    CFStringRef name = IOHIDDeviceGetProperty(deviceRef,
-                                              CFSTR(kIOHIDProductKey));
-    if (name)
-    {
-        CFStringGetCString(name,
-                           js->name,
-                           sizeof(js->name),
-                           kCFStringEncodingUTF8);
-    }
-    else
-        strncpy(js->name, "Unknown", sizeof(js->name));
-
+	CFStringRef name = IOHIDDeviceGetProperty(deviceRef,
+											  CFSTR(kIOHIDProductKey));
+	if (name)
+	{
+		CFStringGetCString(name,
+						   js->name,
+						   sizeof(js->name),
+						   kCFStringEncodingUTF8);
+	}
+	else
+		strncpy(js->name, "Unknown", sizeof(js->name));
+	
+	property = IOHIDDeviceGetProperty(deviceRef, CFSTR(kIOHIDVendorIDKey));
+	if (property)
+		CFNumberGetValue(property, kCFNumberSInt32Type, &vendor);
+	
+	property = IOHIDDeviceGetProperty(deviceRef, CFSTR(kIOHIDProductIDKey));
+	if (property)
+		CFNumberGetValue(property, kCFNumberSInt32Type, &product);
+	
+	property = IOHIDDeviceGetProperty(deviceRef, CFSTR(kIOHIDVersionNumberKey));
+	if (property)
+		CFNumberGetValue(property, kCFNumberSInt32Type, &version);
+	
+	js->vendor = vendor;
+	js->product = product;
+	js->version = version;
+	//
+	//-----------------------------------------------
+	
     js->axisElements = CFArrayCreateMutable(NULL, 0, NULL);
     js->buttonElements = CFArrayCreateMutable(NULL, 0, NULL);
     js->hatElements = CFArrayCreateMutable(NULL, 0, NULL);
@@ -489,15 +524,31 @@ const float* _glfwPlatformGetJoystickAxes(int joy, int* count)
     return js->axes;
 }
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+/*
 const unsigned char* _glfwPlatformGetJoystickButtons(int joy, int* count)
 {
-    _GLFWjoystickNS* js = _glfw.ns_js + joy;
-    if (!pollJoystickButtonEvents(js))
-        return NULL;
+	_GLFWjoystickNS* js = _glfw.ns_js + joy;
+	if (!pollJoystickButtonEvents(js))
+		return NULL;
+	
+	*count = (int) CFArrayGetCount(js->buttonElements) +
+	(int) CFArrayGetCount(js->hatElements) * 4;
+	return js->buttons;
+}
+ */
 
-    *count = (int) CFArrayGetCount(js->buttonElements) +
-             (int) CFArrayGetCount(js->hatElements) * 4;
-    return js->buttons;
+const unsigned char* _glfwPlatformGetJoystickButtons(int joy, int* count)
+{
+	_GLFWjoystickNS* js = _glfw.ns_js + joy;
+	if (!pollJoystickButtonEvents(js))
+		return NULL;
+	
+	*count = (int) CFArrayGetCount(js->buttonElements);
+	return js->buttons;
 }
 
 const char* _glfwPlatformGetJoystickName(int joy)
@@ -508,4 +559,65 @@ const char* _glfwPlatformGetJoystickName(int joy)
 
     return js->name;
 }
+
+int _siv3d_GetJoystickHat(int joy)
+{
+	_GLFWjoystickNS* js = _glfw.ns_js + joy;
+	if (!pollJoystickButtonEvents(js))
+		return -1;
+
+	const int button_count = (int) CFArrayGetCount(js->buttonElements);
+	const int hat_count = (int) CFArrayGetCount(js->hatElements);
+	
+	if (hat_count < 1)
+	{
+		return -1;
+	}
+	
+	const bool up = !!(js->buttons[button_count + 0] & GLFW_PRESS);
+	const bool left = !!(js->buttons[button_count + 1] & GLFW_PRESS);
+	const bool down = !!(js->buttons[button_count + 2] & GLFW_PRESS);
+	const bool right = !!(js->buttons[button_count + 3] & GLFW_PRESS);
+	
+	if (up && left)
+		return 1;
+	else if (up && right)
+		return 7;
+	else if (up)
+		return 0;
+	else if (down && left)
+		return 3;
+	else if (down && right)
+		return 5;
+	else if (down)
+		return 4;
+	else if (left)
+		return 2;
+	else if (right)
+		return 6;
+
+	return -1;
+}
+
+const char* _siv3d_PlatformGetJoystickInfo(int joy, unsigned* vendorID, unsigned* productID, unsigned* version)
+{
+	_GLFWjoystickNS* js = _glfw.ns_js + joy;
+	if (!js->present)
+		return NULL;
+	
+	if (vendorID)
+		*vendorID = js->vendor;
+	
+	if (productID)
+		*productID = js->product;
+	
+	if (version)
+		*version = js->version;
+	
+	return js->name;
+}
+
+//
+//-----------------------------------------------
+
 

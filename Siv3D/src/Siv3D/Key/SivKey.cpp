@@ -13,6 +13,8 @@
 # include "../Siv3DEngine.hpp"
 # include "../Mouse/IMouse.hpp"
 # include "../Keyboard/IKeyboard.hpp"
+# include "../Gamepad/IGamepad.hpp"
+# include "../XInput/IXInput.hpp"
 
 namespace s3d
 {
@@ -25,8 +27,10 @@ namespace s3d
 		case InputDevice::Mouse:
 			return Siv3DEngine::GetMouse()->down(m_code);
 		case InputDevice::Gamepad:
-			return false;
-		default: // InputDevice::XInput
+			return Siv3DEngine::GetGamepad()->down(m_userIndex, m_code);
+		case InputDevice::XInput:
+			return Siv3DEngine::GetXInput()->down(m_userIndex, m_code);
+		default:
 			return false;
 		}
 	}
@@ -40,8 +44,10 @@ namespace s3d
 		case InputDevice::Mouse:
 			return Siv3DEngine::GetMouse()->pressed(m_code);
 		case InputDevice::Gamepad:
-			return false;
-		default: // InputDevice::XInput
+			return Siv3DEngine::GetGamepad()->pressed(m_userIndex, m_code);
+		case InputDevice::XInput:
+			return Siv3DEngine::GetXInput()->pressed(m_userIndex, m_code);
+		default:
 			return false;
 		}
 	}
@@ -55,8 +61,10 @@ namespace s3d
 		case InputDevice::Mouse:
 			return Siv3DEngine::GetMouse()->up(m_code);
 		case InputDevice::Gamepad:
-			return false;
-		default: // InputDevice::XInput
+			return Siv3DEngine::GetGamepad()->up(m_userIndex, m_code);
+		case InputDevice::XInput:
+			return Siv3DEngine::GetXInput()->up(m_userIndex, m_code);
+		default:
 			return false;
 		}
 	}
@@ -70,9 +78,11 @@ namespace s3d
 		case InputDevice::Mouse:
 			return Siv3DEngine::GetMouse()->pressedDuration(m_code);
 		case InputDevice::Gamepad:
-			return MillisecondsF(0);
-		default: // InputDevice::XInput
-			return MillisecondsF(0);
+			return Siv3DEngine::GetGamepad()->pressedDuration(m_userIndex, m_code);
+		case InputDevice::XInput:
+			return Siv3DEngine::GetXInput()->pressedDuration(m_userIndex, m_code);
+		default:
+			return MillisecondsF(0.0);
 		}
 	}
 
@@ -362,11 +372,53 @@ namespace s3d
 		}
 		else if (m_device == InputDevice::Gamepad)
 		{
-			return U"Gamepad-Unknown";
+			if (InRange<uint8>(m_code, 0x80, 0x83))
+			{
+				static const String names[4] =
+				{
+					U"Up",
+					U"Right",
+					U"Down",
+					U"Left",
+				};
+
+				return U"Gamepad-POV_" + names[m_code - 0x80];
+			}
+
+			return U"Gamepad-Button" + ToString(m_code);
 		}
 		else if (m_device == InputDevice::XInput)
 		{
-			return U"XInput-Unknown";
+			if (m_code >= 16)
+			{
+				return U"XInput-Unknown";
+			}
+
+			static const String names[16] =
+			{
+				U"Dpad_Up",
+				U"Dpad_Down",
+				U"Dpad_Left",
+				U"Dpad_Right",
+				U"Start",
+				U"Back",
+				U"LT",
+				U"RT",
+				U"LB",
+				U"RB",
+				U"Unknown",
+				U"Unknown",
+				U"A",
+				U"B",
+				U"X",
+				U"Y",
+			};
+
+			return U"XInput-" + names[m_code];
+		}
+		else
+		{
+			return U"(Unmapped)";
 		}
 
 		return U"Unknown";
