@@ -1717,7 +1717,10 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Gamepad\GamepadFactory.cpp">
       <Filter>src\Siv3D\Gamepad</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Gamepad\CGamepad_NULL.cpp">
+    <ClCompile Include="..\Siv3D\src\Siv3D\Gamepad\CGamepad_macOS.cpp">
+      <Filter>src\Siv3D\Gamepad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Gamepad\CGamepad_Linux.cpp">
       <Filter>src\Siv3D\Gamepad</Filter>
     </ClCompile>
   </ItemGroup>
@@ -3651,7 +3654,10 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Gamepad\IGamepad.hpp">
       <Filter>src\Siv3D\Gamepad</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\src\Siv3D\Gamepad\CGamepad_NULL.hpp">
+    <ClInclude Include="..\Siv3D\src\Siv3D\Gamepad\CGamepad_Linux.hpp">
+      <Filter>src\Siv3D\Gamepad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Gamepad\CGamepad_macOS.hpp">
       <Filter>src\Siv3D\Gamepad</Filter>
     </ClInclude>
   </ItemGroup>

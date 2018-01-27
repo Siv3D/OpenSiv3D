@@ -84,7 +84,7 @@ void DrawJoyConR(const Vec2& pos, const JoyCon& joycon)
 
 void Main()
 {
-	for (const auto& gamepad : System::EnumerateGamepads())
+	//for (const auto& gamepad : System::EnumerateGamepads())
 	{
 		//Print << U"{}: vID[{:#x}] pID[{:#x}] name[{}]"_fmt(gamepad.index, gamepad.vendorID, gamepad.productID, gamepad.name);
 	}
