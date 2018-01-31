@@ -289,4 +289,29 @@ namespace s3d
 
 		Siv3DEngine::GetAudio()->setVolume(m_handle->id(), volume);
 	}
+
+	void Audio::setSpeed(const double speed) const
+	{
+		Siv3DEngine::GetAudio()->setSpeed(m_handle->id(), speed);
+	}
+
+	void Audio::setSpeedBySemitone(const int32 semitone) const
+	{
+		setSpeed(std::exp2(semitone / 12.0));
+	}
+
+	double Audio::getSpeed() const
+	{
+		return Siv3DEngine::GetAudio()->getSpeed(m_handle->id());
+	}
+
+	double Audio::getMinSpeed() const
+	{
+		return Siv3DEngine::GetAudio()->getMinMaxSpeed(m_handle->id()).first;
+	}
+
+	double Audio::getMaxSpeed() const
+	{
+		return Siv3DEngine::GetAudio()->getMinMaxSpeed(m_handle->id()).second;
+	}
 }
