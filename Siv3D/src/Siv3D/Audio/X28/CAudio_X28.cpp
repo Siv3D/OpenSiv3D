@@ -100,7 +100,7 @@ namespace s3d
 				return 0.5 * std::sin(t * Math::TwoPi) * std::sin(t * Math::TwoPi * 220.0 * (t * 4.0 + 1.0)); }),
 			&m_device,
 			none,
-			1.0);
+			2.0);
 
 		if (!nullAudio->isInitialized())
 		{
@@ -127,7 +127,7 @@ namespace s3d
 			std::move(wave),
 			&m_device,
 			none,
-			1.0);
+			2.0);
 
 		if (!audio->isInitialized())
 		{
