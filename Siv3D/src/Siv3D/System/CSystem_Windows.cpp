@@ -29,6 +29,7 @@
 # include "../Codec/ICodec.hpp"
 # include "../AudioFormat/IAudioFormat.hpp"
 # include "../Audio/IAudio.hpp"
+# include "../FFT/IFFT.hpp"
 # include "../Graphics/IGraphics.hpp"
 # include "../ScreenCapture/IScreenCapture.hpp"
 # include "../Font/IFont.hpp"
@@ -122,6 +123,11 @@ namespace s3d
 		}
 
 		if (!Siv3DEngine::GetAudio()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetFFT()->init())
 		{
 			return false;
 		}

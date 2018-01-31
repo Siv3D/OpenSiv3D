@@ -525,6 +525,9 @@
 	// 画像のフォーマット
 	# include "Siv3D/TextureFormat.hpp"
 
+	// Exif
+	# include "Siv3D/Exif.hpp"
+
 	//// カスタムカラーフォーマット
 	//# include "Siv3D/CustomColor.hpp"
 
@@ -557,8 +560,10 @@
 
 	//// 音声波形のテンポ・ピッチ変更
 	//# include "Siv3D/WaveStretcher.hpp"
-	//// FFT
-	//# include "Siv3D/FFT.hpp"
+
+	// FFT
+	# include "Siv3D/FFT.hpp"
+
 //
 // 動画ファイル
 //
@@ -579,8 +584,8 @@
 	//# include "Siv3D/Internet.hpp"
 	//// HTTP
 	//# include "Siv3D/HTTPClient.hpp"
-	//// Twitter
-	//# include "Siv3D/Twitter.hpp"
+	// Twitter
+	# include "Siv3D/Twitter.hpp"
 	//// ネットワーク
 	//# include "Siv3D/Network.hpp"
 	//// TCP サーバー
@@ -904,12 +909,12 @@
 //
 	// アセット管理
 	# include "Siv3D/Asset.hpp"
-	//// Sound アセット
-	//# include "Siv3D/SoundAsset.hpp"
-	//// Texture アセット
-	//# include "Siv3D/TextureAsset.hpp"
-	//// Font アセット
-	//# include "Siv3D/FontAsset.hpp"
+	//// Audio アセット
+	//# include "Siv3D/AudioAsset.hpp"
+	// Texture アセット
+	# include "Siv3D/TextureAsset.hpp"
+	// Font アセット
+	# include "Siv3D/FontAsset.hpp"
 	//// GUI アセット
 	//# include "Siv3D/GUIAsset.hpp"
 

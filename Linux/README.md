@@ -1,5 +1,4 @@
 # OpenSiv3D Linux版について
-
 OpenSiv3D Linux版は基本的にOpenSiv3DのmacOS版をベースに手を加えてLinuxに移植したものです。
 
 ## 依存ライブラリ・パッケージ
@@ -24,4 +23,3 @@ OpenSiv3D Linux版は基本的にOpenSiv3DのmacOS版をベースに手を加え
 - FreeType2
 - HarfBuzz
 - OpenAL
-

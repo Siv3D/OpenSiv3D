@@ -31,6 +31,7 @@ namespace s3d
 	class ISiv3DCodec;
 	class ISiv3DAudioFormat;
 	class ISiv3DAudio;
+	class ISiv3DFFT;
 	class ISiv3DGraphics;
 	class ISiv3DTexture;
 	class ISiv3DShader;
@@ -111,6 +112,8 @@ namespace s3d
 		Siv3DComponent<ISiv3DAudioFormat> m_audioFormat;
 
 		Siv3DComponent<ISiv3DAudio> m_audio;
+
+		Siv3DComponent<ISiv3DFFT> m_fft;
 
 		Siv3DComponent<ISiv3DGraphics> m_graphics;
 
@@ -226,6 +229,11 @@ namespace s3d
 		static ISiv3DAudio* GetAudio()
 		{
 			return pEngine->m_audio.get();
+		}
+
+		static ISiv3DFFT* GetFFT()
+		{
+			return pEngine->m_fft.get();
 		}
 
 		static ISiv3DGraphics* GetGraphics()

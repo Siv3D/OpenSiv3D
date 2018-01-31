@@ -123,6 +123,11 @@ namespace s3d
 		return Siv3DEngine::GetFont()->getBoundingRect(font.id(), codePoints, 1.0).moveBy(pos);
 	}
 
+	Rect DrawableText::region(const Point& pos) const
+	{
+		return Siv3DEngine::GetFont()->getRegion(font.id(), codePoints, 1.0).moveBy(pos);
+	}
+
 	RectF DrawableText::region(const Vec2& pos) const
 	{
 		return Siv3DEngine::GetFont()->getRegion(font.id(), codePoints, 1.0).moveBy(pos);
