@@ -40,7 +40,7 @@ namespace s3d
 
 	static_assert(sizeof(BMPHeader) == 54);
 
-# pragma pack ( pop )
+# pragma pack (pop)
 
 	ImageFormat ImageFormat_BMP::format() const
 	{

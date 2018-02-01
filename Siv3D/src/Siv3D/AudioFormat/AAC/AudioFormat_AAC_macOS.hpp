@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -11,16 +11,21 @@
 
 # pragma once
 # include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_WINDOWS)
+# if defined(SIV3D_TARGET_MACOS)
 
 # include <Siv3D/Wave.hpp>
 # include <Siv3D/AudioFormat.hpp>
+# include <AudioToolbox/AudioConverter.h>
 
 namespace s3d
 {
-	class AudioFormat_MP3 : public IAudioFormat
+	class AudioFormat_AAC : public IAudioFormat
 	{
 	public:
+
+		AudioFormat_AAC();
+
+		~AudioFormat_AAC();
 
 		AudioFormat format() const override;
 

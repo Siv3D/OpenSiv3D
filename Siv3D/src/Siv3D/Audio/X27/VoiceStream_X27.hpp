@@ -20,6 +20,7 @@
 # define  NTDDI_VERSION NTDDI_WIN8
 # include <Windows.h>
 # include "../../../ThirdParty/XAudio2_7/XAudio2.h"
+# include <Siv3D/Audio.hpp>
 # include <Siv3D/Optional.hpp>
 
 namespace s3d

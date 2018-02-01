@@ -21,6 +21,7 @@
 # include <Windows.h>
 # include <XAudio2.h>
 # include <Siv3D/Optional.hpp>
+# include <Siv3D/Audio.hpp>
 # include <Siv3D/Logger.hpp>
 
 namespace s3d

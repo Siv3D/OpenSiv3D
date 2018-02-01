@@ -18,7 +18,7 @@
 
 namespace s3d
 {
-	class AudioFormat_MP3 : public IAudioFormat
+	class AudioFormat_AAC : public IAudioFormat
 	{
 	public:
 
