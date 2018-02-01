@@ -22,7 +22,7 @@ namespace s3d
 	{
 	private:
 
-		std::array<HashTable<String, std::unique_ptr<IAsset>>, 2> m_assetLists;
+		std::array<HashTable<String, std::unique_ptr<IAsset>>, 3> m_assetLists;
 	
 	public:
 

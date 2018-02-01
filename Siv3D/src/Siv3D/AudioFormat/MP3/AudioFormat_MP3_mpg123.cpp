@@ -19,6 +19,7 @@
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/IWriter.hpp>
 # include <Siv3D/Logger.hpp>
+# include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/BinaryWriter.hpp>
 
 namespace s3d
@@ -165,8 +166,15 @@ namespace s3d
 		static constexpr uint8 MPEG1_SIGN[] = { 0xFF, 0xFB };
 		static constexpr uint8 MP3_SIGN[] = { 0x49, 0x44, 0x33 };
 
-		return ::memcmp(bytes, MPEG1_SIGN, sizeof(MPEG1_SIGN))
-			|| ::memcmp(bytes, MP3_SIGN, sizeof(MP3_SIGN));
+		return (::memcmp(bytes, MPEG1_SIGN, sizeof(MPEG1_SIGN)) == 0)
+			|| (::memcmp(bytes, MP3_SIGN, sizeof(MP3_SIGN)) == 0);
+	}
+
+	Wave AudioFormat_MP3::decodeFromFile(const FilePath& path) const
+	{
+		BinaryReader reader(path);
+
+		return decode(reader);
 	}
 
 	Wave AudioFormat_MP3::decode(IReader& reader) const

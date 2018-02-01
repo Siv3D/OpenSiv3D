@@ -17,6 +17,8 @@ namespace s3d
 {
 	enum class AssetType
 	{
+		Audio,
+
 		Texture,
 
 		Font,
