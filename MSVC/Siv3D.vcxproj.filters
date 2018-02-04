@@ -3663,6 +3663,9 @@
     <ClInclude Include="..\Siv3D\include\HamFramework.hpp">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\HamFramework\JoyConSymbol.hpp">
+      <Filter>include\HamFramework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_macOS.mm">

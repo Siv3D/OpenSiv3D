@@ -34,6 +34,7 @@
 
 # include "HamFramework/Camera2D.hpp"
 # include "HamFramework/InputDeviceSymbol.hpp"
+# include "HamFramework/JoyConSymbol.hpp"
 # include "HamFramework/MiniScene.hpp"
 # include "HamFramework/OptimalScreen.hpp"
 # include "HamFramework/PlayingCard.hpp"

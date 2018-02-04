@@ -3,40 +3,69 @@
 
 void Main()
 {
-	Graphics::SetBackground(Palette::Seagreen);
+	Graphics::SetBackground(ColorF(0.9));
+	Window::Resize(1280, 720);
+	Effect effect;
 
-	const Font font(30, Typeface::Medium);
-	const double keySize = font.fontSize() * 1.5;
+	Vec2 left(640 - 100, 100), right(640 + 100, 100);
+	double angle = 0_deg;
+	double scale = 400.0;
+	bool covered = true;
 
 	while (System::Update())
 	{
-		Vec2 penPos(40, 40);
+		scale += Mouse::Wheel() * -5;
+		angle += 1_deg * MouseR.pressed() -1_deg * MouseL.pressed();
+		if (KeyC.down())
+			covered = !covered;
 
-		for (const auto& glyph : font(U"$ OK  % Cancel  @ Menu"))
+		Circle(Vec2(640 - 300, 450), scale / 2).drawFrame(scale * 0.1);
+		Circle(Vec2(640 + 300, 450), scale / 2).drawFrame(scale * 0.1);
+
+		for (size_t i = 0; i < Gamepad.MaxUserCount; ++i)
 		{
-			if (glyph.codePoint == U'$')
+			if (JoyCon::IsJoyConL(Gamepad(i)))
 			{
-				penPos.x += InputDeviceSymbol::DrawAsGlyph(KeyZ, penPos, font, keySize);
-				continue;
-			}
-			else if (glyph.codePoint == U'%')
-			{
-				penPos.x += InputDeviceSymbol::DrawAsGlyph(KeyX, penPos, font, keySize);
-				continue;
-			}
-			else if (glyph.codePoint == U'@')
-			{
-				penPos.x += InputDeviceSymbol::DrawAsGlyph(KeyC, penPos, font, keySize);
-				continue;
-			}
+				const auto joy = JoyCon(Gamepad(i));
 
-			glyph.texture.draw(penPos + glyph.offset);
-			penPos.x += glyph.xAdvance;
+				JoyConSymbol::DrawLAt(joy, Vec2(640-300, 450), scale, -90_deg - angle, covered);
+
+				if (auto d = joy.povD8())
+				{
+					left += Circular(4, *d * 45_deg);
+				}
+
+				if (joy.button2.down())
+				{
+					effect.add([center = left](double t) {
+						Circle(center, 20 + t * 200).drawFrame(10, 0, AlphaF(1.0 - t));
+						return t < 1.0;
+					});
+				}
+			}
+			else if (JoyCon::IsJoyConR(Gamepad(i)))
+			{
+				const auto joy = JoyCon(Gamepad(i));
+
+				JoyConSymbol::DrawRAt(joy, Vec2(640 + 300, 450), scale, 90_deg + angle, covered);
+
+				if (auto d = joy.povD8())
+				{
+					right += Circular(4, *d * 45_deg);
+				}
+
+				if (joy.button2.down())
+				{
+					effect.add([center = right](double t) {
+						Circle(center, 20 + t * 200).drawFrame(10, 0, AlphaF(1.0 - t));
+						return t < 1.0;
+					});
+				}
+			}
 		}
 
-		InputDeviceSymbol::DrawInteractive(KeyF1, Vec2(100, 200), font, keySize);
-		InputDeviceSymbol::DrawInteractive(KeyUp, Vec2(100, 250), font, keySize);
-		InputDeviceSymbol::DrawInteractive(KeyEnter, Vec2(100, 300), font, keySize);
-		InputDeviceSymbol::DrawInteractive(KeyBackspace, Vec2(100, 350), font, keySize);
+		Circle(left, 30).draw(ColorF(0.0, 0.75, 0.9));
+		Circle(right, 30).draw(ColorF(1.0, 0.4, 0.3));
+		effect.update();
 	}
 }
