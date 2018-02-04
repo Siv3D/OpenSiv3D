@@ -376,6 +376,7 @@
     <ClInclude Include="..\..\OpenSiv3D\Siv3D\Include\Siv3D\Twitter.hpp" />
     <ClInclude Include="..\Siv3D\include\HamFramework.hpp" />
     <ClInclude Include="..\Siv3D\include\HamFramework\Camera2D.hpp" />
+    <ClInclude Include="..\Siv3D\include\HamFramework\InputDeviceSymbol.hpp" />
     <ClInclude Include="..\Siv3D\include\HamFramework\MiniScene.hpp" />
     <ClInclude Include="..\Siv3D\include\HamFramework\OptimalScreen.hpp" />
     <ClInclude Include="..\Siv3D\include\HamFramework\PlayingCard.hpp" />

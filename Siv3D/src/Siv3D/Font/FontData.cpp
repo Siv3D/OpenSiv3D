@@ -623,7 +623,7 @@ namespace s3d
 				m_fontSize <= 48 ? 1024 :
 				m_fontSize <= 64 ? 1536 : 2048;
 
-			m_image.resize(baseWidth, 256, Color(0, 0));
+			m_image.resize(baseWidth, 256, Color(255, 0));
 		}
 
 		m_penPos.x += padding;
@@ -650,7 +650,7 @@ namespace s3d
 				return false;
 			}
 
-			m_image.resizeRows(newHeight, Color(0, 0));
+			m_image.resizeRows(newHeight, Color(255, 0));
 		}
 
 		GlyphInfo info;

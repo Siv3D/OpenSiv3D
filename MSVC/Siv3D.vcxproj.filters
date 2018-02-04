@@ -3330,9 +3330,6 @@
     <ClInclude Include="..\Siv3D\include\HamFramework\PlayingCard.hpp">
       <Filter>include\HamFramework</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\include\HamFramework.hpp">
-      <Filter>include\HamFramework</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\TextInput.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
@@ -3659,6 +3656,12 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Gamepad\CGamepad_macOS.hpp">
       <Filter>src\Siv3D\Gamepad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\HamFramework\InputDeviceSymbol.hpp">
+      <Filter>include\HamFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\HamFramework.hpp">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
