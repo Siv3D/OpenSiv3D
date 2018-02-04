@@ -420,7 +420,5 @@ namespace s3d
 		{
 			return U"(Unmapped)";
 		}
-
-		return U"Unknown";
 	}
 }
