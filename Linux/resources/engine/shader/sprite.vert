@@ -12,6 +12,11 @@ layout(std140) uniform SpriteCB
 	vec4 g_transform[2];
 };
 		
+out gl_PerVertex
+{
+	vec4 gl_Position;
+};
+
 void main()
 {
 	Color = VertexColor;
