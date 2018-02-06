@@ -23,3 +23,6 @@ OpenSiv3D Linux版は基本的にOpenSiv3DのmacOS版をベースに手を加え
 - FreeType2
 - HarfBuzz
 - OpenAL
+
+# 注意点
+- ライセンス等の問題によりAACエンコーダ/デコーダが実装されていません。音声ファイルを再生する場合は別のフォーマットを使ってください。
