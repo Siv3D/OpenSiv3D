@@ -125,13 +125,13 @@ namespace s3d
 			case 0x24:
 				return U"Home";
 			case 0x25:
-				return U"Left";
+				return U"←";
 			case 0x26:
-				return U"Up";
+				return U"↑";
 			case 0x27:
-				return U"Right";
+				return U"→";
 			case 0x28:
-				return U"Down";
+				return U"↓";
 			case 0x2C:
 				return U"PrintScreen";
 			case 0x2D:
@@ -420,7 +420,5 @@ namespace s3d
 		{
 			return U"(Unmapped)";
 		}
-
-		return U"Unknown";
 	}
 }
