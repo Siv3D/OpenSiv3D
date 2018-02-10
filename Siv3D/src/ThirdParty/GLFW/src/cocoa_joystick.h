@@ -24,6 +24,17 @@
 //
 //========================================================================
 
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+//	This file is modified for the Siv3D Engine.
+//
+//	Copyright (C) 2008-2018 Ryo Suzuki
+//	Copyright (C) 2016-2018 OpenSiv3D Project
+//
+//-----------------------------------------------
+
 #ifndef _glfw3_cocoa_joystick_h_
 #define _glfw3_cocoa_joystick_h_
 
@@ -42,6 +53,14 @@ typedef struct _GLFWjoystickNS
 {
     GLFWbool        present;
     char            name[256];
+	
+	//-----------------------------------------------
+	//
+	//	[Siv3D]
+	//
+	uint32_t vendor, product, version;
+	//
+	//-----------------------------------------------
 
     IOHIDDeviceRef deviceRef;
 

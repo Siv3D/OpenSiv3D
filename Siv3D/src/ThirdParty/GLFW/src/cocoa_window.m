@@ -30,8 +30,8 @@
 //
 //	This file is modified for the Siv3D Engine.
 //
-//	Copyright (C) 2008-2017 Ryo Suzuki
-//	Copyright (C) 2016-2017 OpenSiv3D Project
+//	Copyright (C) 2008-2018 Ryo Suzuki
+//	Copyright (C) 2016-2018 OpenSiv3D Project
 //
 //-----------------------------------------------
 

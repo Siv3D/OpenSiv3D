@@ -659,6 +659,12 @@
     <Filter Include="src\Siv3D\AudioAsset">
       <UniqueIdentifier>{845000b9-84f9-457d-8cc7-db393489364d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\XInput">
+      <UniqueIdentifier>{baa6d113-bd45-4159-9c27-26cdfcc3612b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Gamepad">
+      <UniqueIdentifier>{f0574467-6fed-4357-a243-0348e806d04f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -1689,6 +1695,33 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\AudioAsset\SivAudioAsset.cpp">
       <Filter>src\Siv3D\AudioAsset</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\XInput\SivXInput.cpp">
+      <Filter>src\Siv3D\XInput</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\XInput\XInputFactory.cpp">
+      <Filter>src\Siv3D\XInput</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\XInput\CXInput_NULL.cpp">
+      <Filter>src\Siv3D\XInput</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\XInput\CXInput.cpp">
+      <Filter>src\Siv3D\XInput</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Gamepad\SivGamepad.cpp">
+      <Filter>src\Siv3D\Gamepad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Gamepad\CGamepad_Windows.cpp">
+      <Filter>src\Siv3D\Gamepad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Gamepad\GamepadFactory.cpp">
+      <Filter>src\Siv3D\Gamepad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Gamepad\CGamepad_macOS.cpp">
+      <Filter>src\Siv3D\Gamepad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Gamepad\CGamepad_Linux.cpp">
+      <Filter>src\Siv3D\Gamepad</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -3593,6 +3626,39 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\AudioAsset.hpp">
       <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\XInput.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\DeadZone.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\XInput\IXInput.hpp">
+      <Filter>src\Siv3D\XInput</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\XInput\CXInput_NULL.hpp">
+      <Filter>src\Siv3D\XInput</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\XInput\CXInput.hpp">
+      <Filter>src\Siv3D\XInput</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Gamepad.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\JoyCon.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Gamepad\CGamepad_Windows.hpp">
+      <Filter>src\Siv3D\Gamepad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Gamepad\IGamepad.hpp">
+      <Filter>src\Siv3D\Gamepad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Gamepad\CGamepad_Linux.hpp">
+      <Filter>src\Siv3D\Gamepad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Gamepad\CGamepad_macOS.hpp">
+      <Filter>src\Siv3D\Gamepad</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

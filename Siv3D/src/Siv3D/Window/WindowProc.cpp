@@ -16,6 +16,7 @@
 # include <Siv3D/System.hpp>
 # include "../Siv3DEngine.hpp"
 # include "../System/ISystem.hpp"
+# include "../System/CSystem_Windows.hpp"
 # include "CWindow_Windows.hpp"
 # include "../Mouse/IMouse.hpp"
 # include "../Mouse/CMouse_Windows.hpp"
@@ -164,6 +165,15 @@ namespace s3d
 				case SC_SCREENSAVE:
 				case SC_MONITORPOWER:
 					return 0;
+				}
+
+				break;
+			}
+			case WM_DEVICECHANGE:
+			{
+				if (CSystem_Windows* system = dynamic_cast<CSystem_Windows*>(Siv3DEngine::GetSystem()))
+				{
+					system->onDeviceChange();
 				}
 
 				break;

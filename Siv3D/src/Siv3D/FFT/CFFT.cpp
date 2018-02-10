@@ -89,11 +89,11 @@ namespace s3d
 		doFFT(result, samplingRate, sampleLength);
 	}
 
-	void CFFT::doFFT(FFTResult& result, const uint32 samplingRate, const FFTSampleLength samplingLength)
+	void CFFT::doFFT(FFTResult& result, const uint32 samplingRate, const FFTSampleLength sampleLength)
 	{
-		result.buffer.resize(128 << static_cast<int32>(samplingLength));
+		result.buffer.resize(128 << static_cast<int32>(sampleLength));
 
-		::pffft_transform_ordered(m_setups[static_cast<size_t>(samplingLength)], m_inoutBuffer, m_inoutBuffer, m_workBuffer, PFFFT_FORWARD);
+		::pffft_transform_ordered(m_setups[static_cast<size_t>(sampleLength)], m_inoutBuffer, m_inoutBuffer, m_workBuffer, PFFFT_FORWARD);
 
 		const float m = 1.0f / result.buffer.size();
 		const float* pSrc = m_inoutBuffer;
@@ -107,5 +107,6 @@ namespace s3d
 		}
 
 		result.samplingRate = samplingRate;
+		result.resolution = static_cast<double>(samplingRate) / (256 << static_cast<int32>(sampleLength));
 	}
 }

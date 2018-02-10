@@ -90,9 +90,10 @@ namespace s3d
 	{
 		Array<float> buffer;
 
+		double resolution = Wave::DefaultSamplingRate / 8192.0;
+
 		uint32 samplingRate = Wave::DefaultSamplingRate;
 	};
-
 
 	namespace FFT
 	{

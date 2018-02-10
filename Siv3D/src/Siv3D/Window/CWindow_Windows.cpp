@@ -253,7 +253,7 @@ namespace s3d
 
 		m_state.screenSize.set(::GetSystemMetrics(SM_CXSCREEN), ::GetSystemMetrics(SM_CYSCREEN));
 		m_state.clientSize.set(Window::DefaultClientSize);
-		m_state.title = SIV3D_IS_DEBUG ? U"Siv3D App [Debug Build]" : U"Siv3D App";
+		m_state.title = U"Siv3D App";
 		m_state.showState = ShowState::Normal;
 		m_state.focused = false;
 
@@ -311,10 +311,12 @@ namespace s3d
 
 	bool CWindow_Windows::createWindow()
 	{
+		const String title = m_state.title + (SIV3D_IS_DEBUG ? U" [Debug Build]" : U"");
+		
 		m_hWnd = ::CreateWindowExW(
 			0,
 			m_windowClassName.c_str(),
-			m_state.title.toWstr().c_str(),
+			title.toWstr().c_str(),
 			m_style,
 			m_state.pos.x,
 			m_state.pos.y,

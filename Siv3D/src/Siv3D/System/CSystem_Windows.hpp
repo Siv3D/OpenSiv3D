@@ -39,6 +39,8 @@ namespace s3d
 
 		bool m_updateSucceeded = true;
 
+		std::atomic<bool> m_onDeviceChange = { false };
+
 	public:
 
 		CSystem_Windows();
@@ -62,6 +64,8 @@ namespace s3d
 		void setUserFrameCount(int32 count) noexcept override;
 
 		double getDeltaTime() const noexcept override;
+
+		void onDeviceChange();
 	};
 }
 
