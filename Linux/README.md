@@ -23,6 +23,11 @@ OpenSiv3D Linux版は基本的にOpenSiv3DのmacOS版をベースに手を加え
 - FreeType2
 - HarfBuzz
 - OpenAL
+- udev
 
 # 注意点
+- Cursor::ScreenPos()とCursor::PreviousScreenPos()はそれぞれCursor::Pos()とCursor::PreviousPos()と同じ値を返します。(Linuxではディスプレイマネージャによって画面上のどこにカーソルがあるか取得する機能があったりなかったりするため。)
+- Monitor::workAreaはMonitor::displayRectと同じ値になっています。(X11環境で各モニタのワークエリアを取得するのが難しいため。)
+- リソースファイルは実行ファイルと同階層の「resource」ディレクトリ内に配置されます。
 - ライセンス等の問題によりAACエンコーダ/デコーダが実装されていません。音声ファイルを再生する場合は別のフォーマットを使ってください。
+- ジョイスティックのハットスイッチの情報は取得できませんが、追ってサポートする予定です。
