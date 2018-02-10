@@ -23,6 +23,7 @@ S3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry/algorithms/convex_hull.hpp>
 # include <boost/geometry/algorithms/simplify.hpp>
 # include <boost/geometry/algorithms/buffer.hpp>
+# include <boost/geometry/algorithms/union.hpp>
 S3D_DISABLE_MSVC_WARNINGS_POP()
 S3D_DISABLE_MSVC_WARNINGS_POP()
 S3D_DISABLE_MSVC_WARNINGS_POP()
@@ -86,12 +87,13 @@ namespace s3d
 	}
 
 	Polygon::CPolygon::CPolygon(const Vec2* const pVertex, const size_t vertexSize, Array<Array<Vec2>> _holes)
-		: m_holes(std::move(_holes))
 	{
 		if (vertexSize < 3)
 		{
 			return;
 		}
+
+		m_holes = std::move(_holes);
 
 		m_holes.remove_if([](const Array<Vec2>& hole) { return hole.size() < 3; });
 
@@ -105,6 +107,27 @@ namespace s3d
 		m_boundingRect = detail::CalculateBoundingRect(pVertex, vertexSize);
 
 		Triangulate(m_holes, Array<Vec2>(pVertex, pVertex + vertexSize), m_vertices, m_indices);
+	}
+
+	Polygon::CPolygon::CPolygon(const Vec2* pVertex, size_t vertexSize, const Array<Array<Vec2>>& holes, const Array<uint32>& indices, const RectF& boundingRect)
+	{
+		if (vertexSize < 3)
+		{
+			return;
+		}
+
+		m_holes = holes;
+
+		m_polygon.outer().assign(pVertex, pVertex + vertexSize);
+
+		for (const auto& hole : m_holes)
+		{
+			m_polygon.inners().push_back(gRing(hole.begin(), hole.end()));
+		}
+
+		m_boundingRect = boundingRect;
+
+		m_indices = indices;
 	}
 
 	Polygon::CPolygon::CPolygon(const Float2* const pVertex, const size_t vertexSize, const Array<uint32>& indices)
@@ -388,6 +411,98 @@ namespace s3d
 		return Polygon(outer, holes);
 	}
 
+	Polygon Polygon::CPolygon::simplified(const double maxDistance) const
+	{
+		using gLineString = boost::geometry::model::linestring<Vec2>;
+
+		gLineString result;
+		{
+			gLineString v(m_polygon.outer().begin(), m_polygon.outer().end());
+
+			v.push_back(v.front());
+
+			boost::geometry::simplify(v, result, maxDistance);
+
+			if (result.size() > 3)
+			{
+				result.pop_back();
+			}
+		}
+
+		Array<Array<Vec2>> holeResults;
+
+		for (auto& hole : m_polygon.inners())
+		{
+			gLineString v(hole.begin(), hole.end()), result2;
+
+			v.push_back(v.front());
+
+			boost::geometry::simplify(v, result2, maxDistance);
+
+			if (result2.size() > 3)
+			{
+				result2.pop_back();
+			}
+
+			holeResults.push_back(Array<Vec2>(result2.begin(), result2.end()));
+		}
+
+		return Polygon(Array<Vec2>(result.begin(), result.end()), holeResults);
+	}
+
+	bool Polygon::CPolygon::append(const Polygon& polygon)
+	{
+		std::vector<gPolygon> results;
+
+		boost::geometry::union_(m_polygon, polygon._detail()->getPolygon(), results);
+
+		if (results.size() != 1)
+		{
+			return false;
+		}
+
+		Array<Vec2> outer;
+
+		for (const auto& p : results[0].outer())
+		{
+			outer.push_back(p);
+		}
+
+		if (outer.size() > 2 && (outer.front().x == outer.back().x) && (outer.front().y == outer.back().y))
+		{
+			outer.pop_back();
+		}
+
+		//std::reverse(outer.begin(), outer.end());
+
+		Array<Array<Vec2>> holes;
+
+		const auto& result = results[0];
+
+		if (const size_t num_holes = result.inners().size())
+		{
+			holes.resize(num_holes);
+
+			for (size_t i = 0; i < num_holes; ++i)
+			{
+				const auto& resultHole = result.inners()[i];
+
+				auto& hole = holes[i];
+
+				for (size_t k = 0; k < resultHole.size(); ++k)
+				{
+					hole.push_back(resultHole[resultHole.size() - k - 1]);
+				}
+
+				hole.reverse();
+			}
+		}
+
+		*this = CPolygon(outer.data(), outer.size(), holes);
+
+		return true;
+	}
+
 	bool Polygon::CPolygon::intersects(const CPolygon& other) const
 	{
 		if (outer().isEmpty() || other.outer().isEmpty() || !m_boundingRect.intersects(other.m_boundingRect))
@@ -459,5 +574,10 @@ namespace s3d
 				true
 			);
 		}
+	}
+
+	const gPolygon& Polygon::CPolygon::getPolygon() const
+	{
+		return m_polygon;
 	}
 }

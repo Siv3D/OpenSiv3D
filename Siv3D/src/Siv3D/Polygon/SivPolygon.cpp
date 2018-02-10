@@ -40,6 +40,12 @@ namespace s3d
 
 	}
 
+	Polygon::Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<uint32>& indices, const RectF& boundingRect)
+		: pImpl(std::make_unique<CPolygon>(outer.data(), outer.size(), holes, indices, boundingRect))
+	{
+
+	}
+
 	Polygon::Polygon(const Shape2D& shape)
 		: pImpl(std::make_unique<CPolygon>(shape.vertices().data(), shape.vertices().size(), shape.indices()))
 	{
@@ -173,6 +179,16 @@ namespace s3d
 		return pImpl->calculateRoundBuffer(distance);
 	}
 
+	Polygon Polygon::simplified(const double maxDistance) const
+	{
+		return pImpl->simplified(maxDistance);
+	}
+
+	bool Polygon::append(const Polygon& polygon)
+	{
+		return pImpl->append(polygon);
+	}
+
 	bool Polygon::intersects(const Polygon& polygon) const
 	{
 		return pImpl->intersects(*polygon.pImpl);
@@ -225,5 +241,10 @@ namespace s3d
 		pImpl->drawFrame(thickness, color);
 
 		return *this;
+	}
+
+	const Polygon::CPolygon* Polygon::_detail() const
+	{
+		return pImpl.get();
 	}
 }

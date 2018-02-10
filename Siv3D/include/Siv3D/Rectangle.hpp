@@ -1683,7 +1683,7 @@ namespace s3d
 
 		TexturedQuad operator ()(const TextureRegion& textureRegion) const;
 
-		//Polygon asPolygon() const;
+		Polygon asPolygon() const;
 	};
 
 	/// <summary>

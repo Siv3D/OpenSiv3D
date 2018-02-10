@@ -2,41 +2,65 @@
 
 void Main()
 {
-	Graphics::SetBackground(ColorF(0.8));
+	Graphics::SetBackground(ColorF(0.25));
 
-	const Polygon star1(Shape2D::Star(100, Window::Center().movedBy(-160,0)));
-	const Polygon star2(Shape2D::Star(100, Window::Center().movedBy(160, 0)));
+	Polygon polygon;
 
-	double distance = -5;
+	int32 shapeIndex = 0;
 
 	while (System::Update())
 	{
-		distance += Mouse::Wheel();
-
-		ClearPrint();
-
-		if (distance > 0)
+		if (MouseR.down())
 		{
-			star1.calculateRoundBuffer(distance).draw(ColorF(0.0, 0.5, 1.0));
+			++shapeIndex %= 3;
 		}
 
-		star1.draw(ColorF(1.0, 0.9, 0.0));
+		polygon.drawFrame(7, Palette::Orange);
 
-		if (distance < 0)
+		polygon.draw(ColorF(0.8, 0.9, 1.0));
+
 		{
-			star1.calculateRoundBuffer(distance).draw(ColorF(0.0, 0.5, 1.0));
+			RenderStateBlock2D wireframe(RasterizerState::WireframeCullNone);
+
+			polygon.draw();
 		}
 
-		if (distance > 0)
+		polygon.boundingRect().drawFrame(2, Palette::Lightgreen);
+
+		polygon.computeConvexHull().drawFrame(4, Palette::Yellow);
+
+		if (shapeIndex == 0)
 		{
-			star2.calculateBuffer(distance).draw(ColorF(0.0, 0.5, 1.0));
+			const Rect rect(Arg::center(Cursor::Pos()), 80);
+
+			rect.drawFrame(2, Palette::Red);
+
+			if (MouseL.down())
+			{
+				polygon.append(rect.asPolygon());
+			}
 		}
-
-		star2.draw(ColorF(1.0, 0.9, 0.0));
-
-		if (distance < 0)
+		else if (shapeIndex == 1)
 		{
-			star2.calculateBuffer(distance).draw(ColorF(0.0, 0.5, 1.0));
+			const Shape2D shape = Shape2D::Plus(60, 40, Cursor::Pos());
+
+			shape.drawFrame(2, Palette::Red);
+
+			if (MouseL.down())
+			{
+				polygon.append(Polygon(shape));
+			}
+		}
+		else 
+		{
+			const Shape2D shape = Shape2D::Star(60, Cursor::Pos());
+
+			shape.drawFrame(2, Palette::Red);
+
+			if (MouseL.down())
+			{
+				polygon.append(Polygon(shape));
+			}
 		}
 	}
 }
