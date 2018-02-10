@@ -25,6 +25,17 @@
 //
 //========================================================================
 
+//-----------------------------------------------
+//
+//  [Siv3D]
+//
+//  This file is modified for the Siv3D Engine.
+//
+//  Copyright (C) 2008-2018 Ryo Suzuki
+//  Copyright (C) 2016-2018 OpenSiv3D Project
+//
+//-----------------------------------------------
+
 #include "internal.h"
 
 #if defined(__linux__)
@@ -40,6 +51,15 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+
+//-----------------------------------------------
+//
+//  [Siv3D]
+//
+#include <libgen.h>
+#include <libudev.h>
+//
+//-----------------------------------------------
 #endif // __linux__
 
 
@@ -92,6 +112,14 @@ static GLFWbool openJoystickDevice(const char* path)
     js->name = strdup(name);
     js->path = strdup(path);
     js->fd = fd;
+
+//-----------------------------------------------
+//
+//  [Siv3D]
+//
+	js->version = version;
+//
+//-----------------------------------------------
 
     ioctl(fd, JSIOCGAXES, &axisCount);
     js->axisCount = (int) axisCount;
@@ -339,3 +367,55 @@ const char* _glfwPlatformGetJoystickName(int joy)
     return js->name;
 }
 
+//-----------------------------------------------
+//
+//  [Siv3D]
+//
+
+int _siv3d_GetJoystickHat(int joy)
+{
+	// Linux does not seem to provide support for hat or POV switches in <linux/joystick.h> currently.
+	return -1;
+}
+
+const char* _siv3d_PlatformGetJoystickInfo(int joy, unsigned* vendorID, unsigned* productID, unsigned* version)
+{
+	_GLFWjoystickLinux* js = _glfw.linux_js.js + joy;
+	if (!pollJoystickEvents(js))
+		return NULL;
+
+	printf("Joystick Path : %s\n", js->path);
+	struct udev* udev = udev_new();
+	if (udev)
+	{
+		char* path = strdup(js->path);
+		char* sysname = basename(path);
+
+		struct udev_device *dev = udev_device_new_from_subsystem_sysname(udev, "input", sysname);
+		dev = udev_device_get_parent_with_subsystem_devtype(dev, "usb", "usb_device");
+
+		char* endp;
+		if(vendorID)
+			*vendorID = strtol(udev_device_get_sysattr_value(dev, "idVendor"), &endp, 16);
+		if(productID)
+			*productID = strtol(udev_device_get_sysattr_value(dev, "idProduct"), &endp, 16);
+
+		udev_device_unref(dev);
+		free(path);
+	}
+	else
+	{
+		if (vendorID) vendorID = 0;
+		if (productID) productID = 0;
+	}
+	udev_unref(udev);
+
+	// driver version
+	if (version)
+		*version = js->version;
+
+	return js->name;
+}
+
+//
+//-----------------------------------------------

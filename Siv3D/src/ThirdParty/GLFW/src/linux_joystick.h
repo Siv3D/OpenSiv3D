@@ -24,6 +24,17 @@
 //
 //========================================================================
 
+//-----------------------------------------------
+//
+//  [Siv3D]
+//
+//  This file is modified for the Siv3D Engine.
+//
+//  Copyright (C) 2008-2018 Ryo Suzuki
+//  Copyright (C) 2016-2018 OpenSiv3D Project
+//
+//-----------------------------------------------
+
 #ifndef _glfw3_linux_joystick_h_
 #define _glfw3_linux_joystick_h_
 
@@ -44,6 +55,14 @@ typedef struct _GLFWjoystickLinux
     int             buttonCount;
     char*           name;
     char*           path;
+
+//-----------------------------------------------
+//
+//  [Siv3D]
+//
+	int				version;
+//
+//-----------------------------------------------
 } _GLFWjoystickLinux;
 
 // Linux-specific joystick API data
