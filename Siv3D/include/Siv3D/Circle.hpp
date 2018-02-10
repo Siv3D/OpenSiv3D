@@ -440,7 +440,9 @@ namespace s3d
 
 		bool mouseOver() const;
 
-		// paint~ overpaint~ draw~
+		const Circle& paint(Image& dst, const Color& color, bool antialiased = true) const;
+
+		const Circle& overwrite(Image& dst, const Color& color) const;
 
 		/// <summary>
 		/// 円を描きます。
