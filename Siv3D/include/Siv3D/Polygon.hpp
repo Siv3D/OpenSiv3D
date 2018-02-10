@@ -101,6 +101,10 @@ namespace s3d
 
 		Polygon computeConvexHull() const;
 
+		Polygon calculateBuffer(double distance) const;
+
+		Polygon calculateRoundBuffer(double distance) const;
+
 		//Polygon simplified(double maxDistance = 2.0) const;
 
 		template <class Shape2DType>

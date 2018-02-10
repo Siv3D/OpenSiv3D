@@ -10,8 +10,12 @@
 //-----------------------------------------------
 
 # include "CPolygon.hpp"
+S3D_DISABLE_MSVC_WARNINGS_PUSH(4100)
+S3D_DISABLE_MSVC_WARNINGS_PUSH(4127)
 S3D_DISABLE_MSVC_WARNINGS_PUSH(4244)
 S3D_DISABLE_MSVC_WARNINGS_PUSH(4245)
+S3D_DISABLE_MSVC_WARNINGS_PUSH(4267)
+S3D_DISABLE_MSVC_WARNINGS_PUSH(4456)
 S3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry/algorithms/intersects.hpp>
 # include <boost/geometry/strategies/strategies.hpp>
@@ -19,6 +23,10 @@ S3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry/algorithms/convex_hull.hpp>
 # include <boost/geometry/algorithms/simplify.hpp>
 # include <boost/geometry/algorithms/buffer.hpp>
+S3D_DISABLE_MSVC_WARNINGS_POP()
+S3D_DISABLE_MSVC_WARNINGS_POP()
+S3D_DISABLE_MSVC_WARNINGS_POP()
+S3D_DISABLE_MSVC_WARNINGS_POP()
 S3D_DISABLE_MSVC_WARNINGS_POP()
 S3D_DISABLE_MSVC_WARNINGS_POP()
 S3D_DISABLE_MSVC_WARNINGS_POP()
@@ -198,6 +206,186 @@ namespace s3d
 		boost::geometry::convex_hull(m_polygon.outer(), result);
 		
 		return Polygon(result);
+	}
+
+	Polygon Polygon::CPolygon::calculateBuffer(const double distance) const
+	{
+		using polygon_t = boost::geometry::model::polygon<Vec2, true, false>;
+		const boost::geometry::strategy::buffer::distance_symmetric<double> distance_strategy(distance);
+		const boost::geometry::strategy::buffer::end_round end_strategy(0);
+		const boost::geometry::strategy::buffer::point_circle circle_strategy(0);
+		const boost::geometry::strategy::buffer::side_straight side_strategy;
+
+		const auto& src = m_polygon;
+
+		polygon_t in;
+		{
+			for (size_t i = 0; i < src.outer().size(); ++i)
+			{
+				in.outer().push_back(src.outer()[src.outer().size() - i - 1]);
+			}
+
+			if (src.outer().size() >= 2)
+			{
+				in.outer().push_back(src.outer()[src.outer().size() - 1]);
+
+				in.outer().push_back(src.outer()[src.outer().size() - 2]);
+			}
+		}
+
+		if (const size_t num_holes = src.inners().size())
+		{
+			in.inners().resize(num_holes);
+
+			for (size_t i = 0; i < num_holes; ++i)
+			{
+				for (size_t k = 0; k < src.inners()[i].size(); ++k)
+				{
+					in.inners()[i].push_back(src.inners()[i][src.inners()[i].size() - k - 1]);
+				}
+
+				if (!src.inners()[i].empty())
+				{
+					in.inners()[i].push_back(src.inners()[i][src.inners()[i].size() - 1]);
+				}
+			}
+		}
+
+		boost::geometry::model::multi_polygon<polygon_t> multiPolygon;
+		const boost::geometry::strategy::buffer::join_miter join_strategy;
+		boost::geometry::buffer(in, multiPolygon, distance_strategy, side_strategy, join_strategy, end_strategy, circle_strategy);
+
+		if (multiPolygon.size() != 1)
+		{
+			return Polygon();
+		}
+
+		Array<Vec2> outer;
+
+		for (const auto& p : multiPolygon[0].outer())
+		{
+			outer.push_back(p);
+		}
+
+		if (outer.size() > 2 && (outer.front().x == outer.back().x) && (outer.front().y == outer.back().y))
+		{
+			outer.pop_back();
+		}
+
+		std::reverse(outer.begin(), outer.end());
+
+		Array<Array<Vec2>> holes;
+
+		const auto& result = multiPolygon[0];
+
+		if (const size_t num_holes = result.inners().size())
+		{
+			holes.resize(num_holes);
+
+			for (size_t i = 0; i < num_holes; ++i)
+			{
+				const auto& resultHole = result.inners()[i];
+
+				auto& hole = holes[i];
+
+				for (size_t k = 0; k < resultHole.size(); ++k)
+				{
+					hole.push_back(resultHole[resultHole.size() - k - 1]);
+				}
+			}
+		}
+
+		return Polygon(outer, holes);
+	}
+
+	Polygon Polygon::CPolygon::calculateRoundBuffer(const double distance) const
+	{
+		using polygon_t = boost::geometry::model::polygon<Vec2, true, false>;
+		const boost::geometry::strategy::buffer::distance_symmetric<double> distance_strategy(distance);
+		const boost::geometry::strategy::buffer::end_round end_strategy(0);
+		const boost::geometry::strategy::buffer::point_circle circle_strategy(0);
+		const boost::geometry::strategy::buffer::side_straight side_strategy;
+
+		const auto& src = m_polygon;
+
+		polygon_t in;
+		{
+			for (size_t i = 0; i < src.outer().size(); ++i)
+			{
+				in.outer().push_back(src.outer()[src.outer().size() - i - 1]);
+			}
+
+			if (src.outer().size() >= 2)
+			{
+				in.outer().push_back(src.outer()[src.outer().size() - 1]);
+
+				in.outer().push_back(src.outer()[src.outer().size() - 2]);
+			}
+		}
+
+		if (const size_t num_holes = src.inners().size())
+		{
+			in.inners().resize(num_holes);
+
+			for (size_t i = 0; i < num_holes; ++i)
+			{
+				for (size_t k = 0; k < src.inners()[i].size(); ++k)
+				{
+					in.inners()[i].push_back(src.inners()[i][src.inners()[i].size() - k - 1]);
+				}
+
+				if (!src.inners()[i].empty())
+				{
+					in.inners()[i].push_back(src.inners()[i][src.inners()[i].size() - 1]);
+				}
+			}
+		}
+
+		boost::geometry::model::multi_polygon<polygon_t> multiPolygon;
+		const boost::geometry::strategy::buffer::join_round_by_divide join_strategy(4);
+		boost::geometry::buffer(in, multiPolygon, distance_strategy, side_strategy, join_strategy, end_strategy, circle_strategy);
+
+		if (multiPolygon.size() != 1)
+		{
+			return Polygon();
+		}
+
+		Array<Vec2> outer;
+
+		for (const auto& p : multiPolygon[0].outer())
+		{
+			outer.push_back(p);
+		}
+
+		if (outer.size() > 2 && (outer.front().x == outer.back().x) && (outer.front().y == outer.back().y))
+		{
+			outer.pop_back();
+		}
+
+		std::reverse(outer.begin(), outer.end());
+
+		Array<Array<Vec2>> holes;
+
+		const auto& result = multiPolygon[0];
+
+		if (const size_t num_holes = result.inners().size())
+		{
+			holes.resize(num_holes);
+
+			for (size_t i = 0; i < num_holes; ++i)
+			{
+				const auto& resultHole = result.inners()[i];
+
+				auto& hole = holes[i];
+
+				for (size_t k = 0; k < resultHole.size(); ++k)
+				{
+					hole.push_back(resultHole[resultHole.size() - k - 1]);
+				}
+			}
+		}
+
+		return Polygon(outer, holes);
 	}
 
 	bool Polygon::CPolygon::intersects(const CPolygon& other) const

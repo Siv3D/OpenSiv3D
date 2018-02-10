@@ -64,6 +64,10 @@ namespace s3d
 		
 		Polygon computeConvexHull() const;
 
+		Polygon calculateBuffer(double distance) const;
+
+		Polygon calculateRoundBuffer(double distance) const;
+
 		bool intersects(const CPolygon& other) const;
 
 		const Array<Vec2>& outer() const;

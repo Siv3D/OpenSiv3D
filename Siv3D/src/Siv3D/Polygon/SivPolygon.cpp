@@ -153,6 +153,26 @@ namespace s3d
 		return pImpl->computeConvexHull();
 	}
 
+	Polygon Polygon::calculateBuffer(const double distance) const
+	{
+		if (distance == 0.0)
+		{
+			return *this;
+		}
+
+		return pImpl->calculateBuffer(distance);
+	}
+
+	Polygon Polygon::calculateRoundBuffer(const double distance) const
+	{
+		if (distance == 0.0)
+		{
+			return *this;
+		}
+
+		return pImpl->calculateRoundBuffer(distance);
+	}
+
 	bool Polygon::intersects(const Polygon& polygon) const
 	{
 		return pImpl->intersects(*polygon.pImpl);

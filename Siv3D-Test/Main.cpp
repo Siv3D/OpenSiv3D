@@ -2,26 +2,41 @@
 
 void Main()
 {
-	Image image(256, 256, Color(11,22,33));
+	Graphics::SetBackground(ColorF(0.8));
 
-	DynamicTexture texture(image);
+	const Polygon star1(Shape2D::Star(100, Window::Center().movedBy(-160,0)));
+	const Polygon star2(Shape2D::Star(100, Window::Center().movedBy(160, 0)));
+
+	double distance = -5;
 
 	while (System::Update())
 	{
-		if (MouseL.down())
-		{
-			Circle(Cursor::Pos(), 80).paint(image, ColorF(1, 0.6));
+		distance += Mouse::Wheel();
 
-			texture.fill(image);
+		ClearPrint();
+
+		if (distance > 0)
+		{
+			star1.calculateRoundBuffer(distance).draw(ColorF(0.0, 0.5, 1.0));
 		}
 
-		if (MouseR.pressed())
+		star1.draw(ColorF(1.0, 0.9, 0.0));
+
+		if (distance < 0)
 		{
-			Circle(Cursor::Pos(), 80).draw(ColorF(1,0.6));
+			star1.calculateRoundBuffer(distance).draw(ColorF(0.0, 0.5, 1.0));
 		}
-		else
+
+		if (distance > 0)
 		{
-			texture.draw();
-		}		
+			star2.calculateBuffer(distance).draw(ColorF(0.0, 0.5, 1.0));
+		}
+
+		star2.draw(ColorF(1.0, 0.9, 0.0));
+
+		if (distance < 0)
+		{
+			star2.calculateBuffer(distance).draw(ColorF(0.0, 0.5, 1.0));
+		}
 	}
 }
