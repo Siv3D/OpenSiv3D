@@ -77,6 +77,7 @@ target_link_libraries(Siv3D_Test
 	-lfreetype
 	-lharfbuzz
 	-lopenal
+	-ludev
 	
 	${PROJECT_SOURCE_DIR}/../Debug/libSiv3D.a
 	${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Linux/angelscript/libangelscript.a
