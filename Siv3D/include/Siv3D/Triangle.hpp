@@ -182,7 +182,7 @@ namespace s3d
 
 		const Triangle& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
 
-		// Polygon asPolygon() const;
+		Polygon asPolygon() const;
 	};
 }
 

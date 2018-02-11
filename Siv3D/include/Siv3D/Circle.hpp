@@ -573,7 +573,7 @@ namespace s3d
 
 		TexturedCircle operator ()(const TextureRegion& textureRegion) const;
 
-		// Polygon asPolygon() const;
+		Polygon asPolygon(uint32 quality = 24) const;
 	};
 }
 

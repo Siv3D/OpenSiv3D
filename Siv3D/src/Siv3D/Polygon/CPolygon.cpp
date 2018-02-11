@@ -413,6 +413,11 @@ namespace s3d
 
 	Polygon Polygon::CPolygon::simplified(const double maxDistance) const
 	{
+		if (!m_polygon.outer())
+		{
+			return Polygon();
+		}
+
 		using gLineString = boost::geometry::model::linestring<Vec2>;
 
 		gLineString result;
