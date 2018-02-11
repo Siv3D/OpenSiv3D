@@ -30,33 +30,9 @@ link_directories(
 add_executable(Siv3D_Test
 	"../../Siv3D-Test/Main.cpp"
 	"../../Siv3D-Test/Test/Test.cpp"
-
-#	"../../Siv3D-Test/Test/TestAlignedMemory.cpp"
-#	"../../Siv3D-Test/Test/TestArray.cpp"
-#	"../../Siv3D-Test/Test/TestBase64.cpp"
-#	"../../Siv3D-Test/Test/TestCharacterSet.cpp"
-#	"../../Siv3D-Test/Test/TestConcept.cpp"
-#	"../../Siv3D-Test/Test/TestFileSystem.cpp"
-#	"../../Siv3D-Test/Test/TestFormatBool.cpp"
-#	"../../Siv3D-Test/Test/TestFormatFloat.cpp"
-#	"../../Siv3D-Test/Test/TestFormatInt.cpp"
-#	"../../Siv3D-Test/Test/TestMath.cpp"
-#	"../../Siv3D-Test/Test/TestNamedParameter.cpp"
-#	"../../Siv3D-Test/Test/TestOptional.cpp"
-#	"../../Siv3D-Test/Test/TestStep.cpp"
-#	"../../Siv3D-Test/Test/TestString.cpp"
-#	"../../Siv3D-Test/Test/TestTypes.cpp"
-#	"../../Siv3D-Test/Test/TestUtility.cpp"
-
-#	"../../Siv3D-Test/Test/Siv3DTest_Linux.cpp"
-
-#	"../../Siv3D-Test/Test/Siv3DTest_OSX.cpp"
-#	"../../Siv3D-Test/Test/Siv3DTest_Windows.cpp"
 )
 
 target_link_libraries(Siv3D_Test
-#	-lgtest
-#	-lgtest_main
 	-lboost_filesystem
 	-lboost_system
 	-lpthread

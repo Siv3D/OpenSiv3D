@@ -25,6 +25,8 @@ OpenSiv3D Linux版は基本的にOpenSiv3DのmacOS版をベースに手を加え
 - OpenAL
 - udev
 
+アプリケーションのコンパイル時のオプション等は`Linux/Test/CMakeLists.txt`を参考にしてください。
+
 # 注意点
 - Cursor::ScreenPos()とCursor::PreviousScreenPos()はそれぞれCursor::Pos()とCursor::PreviousPos()と同じ値を返します。(Linuxではディスプレイマネージャによって画面上のどこにカーソルがあるか取得する機能があったりなかったりするため。)
 - Monitor::workAreaはMonitor::displayRectと同じ値になっています。(X11環境で各モニタのワークエリアを取得するのが難しいため。)
