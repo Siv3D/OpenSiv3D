@@ -1561,9 +1561,9 @@ namespace s3d
 
 		bool mouseOver() const;
 
-		//// paint
+		const Rectangle& paint(Image& dst, const Color& color) const;
 
-		//// overpaint
+		const Rectangle& overwrite(Image& dst, const Color& color) const;
 
 		//// paintFrame
 
@@ -1683,7 +1683,7 @@ namespace s3d
 
 		TexturedQuad operator ()(const TextureRegion& textureRegion) const;
 
-		//Polygon asPolygon() const;
+		Polygon asPolygon() const;
 	};
 
 	/// <summary>

@@ -265,6 +265,10 @@ namespace s3d
 
 		[[nodiscard]] bool mouseOver() const;
 
+		const Point& paint(Image& dst, const Color& color) const;
+
+		const Point& overwrite(Image& dst, const Color& color) const;
+
 		/// <summary>
 		/// Point{ 0, 0 }
 		/// </summary>

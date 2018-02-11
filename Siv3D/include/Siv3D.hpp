@@ -492,6 +492,9 @@
 	// トランジション
 	# include "Siv3D/Transition.hpp"
 
+	// 周期関数
+	# include "Siv3D/Periodic.hpp"
+
 	// Perlin Noise
 	# include "Siv3D/PerlinNoise.hpp"
 

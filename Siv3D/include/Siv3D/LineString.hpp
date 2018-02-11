@@ -284,9 +284,9 @@ namespace s3d
 	}
 
 	template <class CharType>
-	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& os, const LineString& value)
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const LineString& value)
 	{
-		os << CharType('(');
+		output << CharType('(');
 
 		bool b = false;
 
@@ -294,13 +294,13 @@ namespace s3d
 		{
 			if (std::exchange(b, true))
 			{
-				os << CharType(',');
+				output << CharType(',');
 			}
 
-			os << point;
+			output << point;
 		}
 
-		return os << CharType(')');
+		return output << CharType(')');
 	}
 }
 
