@@ -24,6 +24,7 @@
 
 using gPolygon = boost::geometry::model::polygon<s3d::Vec2, false, false, s3d::Array, s3d::Array>;
 using gRing = boost::geometry::model::ring<s3d::Vec2, false, false, s3d::Array>;
+using gLineString = boost::geometry::model::linestring<s3d::Vec2, s3d::Array>;
 BOOST_GEOMETRY_REGISTER_POINT_2D(s3d::Vec2, double, boost::geometry::cs::cartesian, x, y)
 
 namespace s3d

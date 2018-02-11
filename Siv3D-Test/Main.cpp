@@ -2,19 +2,25 @@
 
 void Main()
 {
-	Grid<double> grid(16, 12);
-
-	for (auto& e : grid)
+	const LineString line
 	{
-		e = Random(0.4, 1.8);
-	}
+		Vec2(50, 100), Vec2(600, 100),
+		Vec2(50, 200), Vec2(600, 200),
+		Vec2(50, 300), Vec2(600, 300),
+		Vec2(50, 400)
+	};
+
+	const Polygon roundLine = line.calculateBuffer(15);
 
 	while (System::Update())
 	{
-		for (auto p : step(grid.size()))
+		if (Periodic::Square0_1(2.0s))
 		{
-			Circle(p * 40, 15).movedBy(20, 20)
-				.draw(ColorF(0.0, 1.0, 0.0, Periodic::Sine0_1(1s * grid[p])));
+			line.draw(30, Palette::Yellow);
+		}
+		else
+		{
+			roundLine.draw(Palette::Orange);
 		}
 	}
 }
