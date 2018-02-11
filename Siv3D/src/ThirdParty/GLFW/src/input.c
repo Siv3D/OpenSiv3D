@@ -623,6 +623,38 @@ GLFWAPI const char* glfwGetJoystickName(int joy)
     return _glfwPlatformGetJoystickName(joy);
 }
 
+
+//-----------------------------------------------
+//
+//	[Siv3D]
+//
+
+int _siv3d_GetJoystickHat(int joy);
+
+GLFWAPI int siv3dGetJoystickHat(int joy)
+{
+	return _siv3d_GetJoystickHat(joy);
+}
+
+const char* _siv3d_PlatformGetJoystickInfo(int joy, unsigned* vendorID, unsigned* productID, unsigned* version);
+
+GLFWAPI const char* siv3dGetJoystickInfo(int joy, unsigned* vendorID, unsigned* productID, unsigned* version)
+{
+	_GLFW_REQUIRE_INIT_OR_RETURN(NULL);
+	
+	if (joy < 0 || joy > GLFW_JOYSTICK_LAST)
+	{
+		_glfwInputError(GLFW_INVALID_ENUM, "Invalid joystick %i", joy);
+		return NULL;
+	}
+	
+	return _siv3d_PlatformGetJoystickInfo(joy, vendorID, productID, version);
+}
+
+//
+//-----------------------------------------------
+
+
 GLFWAPI GLFWjoystickfun glfwSetJoystickCallback(GLFWjoystickfun cbfun)
 {
     _GLFW_REQUIRE_INIT_OR_RETURN(NULL);

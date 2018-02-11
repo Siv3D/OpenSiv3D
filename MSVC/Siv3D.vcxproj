@@ -118,6 +118,11 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\FormatLiteral\SivFormatLiteral.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\FormatUtility\SivFormatUtility.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Format\SivFormat.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Gamepad\CGamepad_Linux.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Gamepad\CGamepad_macOS.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Gamepad\CGamepad_Windows.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Gamepad\GamepadFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Gamepad\SivGamepad.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Geometry2D\SivGeometry2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Graphics2D\SivGraphics2D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\BlendState\D3D11BlendState.cpp" />
@@ -183,6 +188,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\CMouse_Windows.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\MouseFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\SivMouse.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Painting\SivPainting.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseBool\SivParseBool.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseFloat\SivParseFloat.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseInt\SivParseInt.cpp" />
@@ -303,6 +309,10 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\WindowProc.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\WritableMemoryMapping\CWritableMemoryMapping.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\WritableMemoryMapping\SivWritableMemoryMapping.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\XInput\CXInput.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\XInput\CXInput_NULL.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\XInput\SivXInput.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\XInput\XInputFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\XXHash\SivXXHash.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\clip2tri\clip2tri.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\clipper\clipper.cpp" />
@@ -367,6 +377,8 @@
     <ClInclude Include="..\..\OpenSiv3D\Siv3D\Include\Siv3D\Twitter.hpp" />
     <ClInclude Include="..\Siv3D\include\HamFramework.hpp" />
     <ClInclude Include="..\Siv3D\include\HamFramework\Camera2D.hpp" />
+    <ClInclude Include="..\Siv3D\include\HamFramework\InputDeviceSymbol.hpp" />
+    <ClInclude Include="..\Siv3D\include\HamFramework\JoyConSymbol.hpp" />
     <ClInclude Include="..\Siv3D\include\HamFramework\MiniScene.hpp" />
     <ClInclude Include="..\Siv3D\include\HamFramework\OptimalScreen.hpp" />
     <ClInclude Include="..\Siv3D\include\HamFramework\PlayingCard.hpp" />
@@ -413,6 +425,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Cylindrical.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Date.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\DateTime.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\DeadZone.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\DefaultRNG.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Distribution.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\DragDrop.hpp" />
@@ -438,6 +451,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\FormatUtility.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Functor.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Fwd.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Gamepad.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Geometry2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Graphics.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Graphics2D.hpp" />
@@ -461,6 +475,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\IntFormat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IWriter.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\JoyCon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\JSONReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\KDTree.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Key.hpp" />
@@ -495,6 +510,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ParseBool.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ParseFloat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ParseInt.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Periodic.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PerlinNoise.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PixelShader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PlaceHolder.hpp" />
@@ -581,6 +597,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Window.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Windows.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\WritableMemoryMapping.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\XInput.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Xorshift.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\XXHash.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\angelscript\angelscript.h" />
@@ -691,6 +708,10 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\CFont.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\FontData.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Font\IFont.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Gamepad\CGamepad_Linux.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Gamepad\CGamepad_macOS.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Gamepad\CGamepad_Windows.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Gamepad\IGamepad.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Geometry2D\Polynomial.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\BlendState\D3D11BlendState.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\CGraphics_D3D11.hpp" />
@@ -785,6 +806,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Window\CWindow_Windows.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Window\IWindow.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\WritableMemoryMapping\CWritableMemoryMapping.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\XInput\CXInput.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\XInput\CXInput_NULL.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\XInput\IXInput.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\abseil\numbers.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\clip2tri\clip2tri.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\clipper\clipper.hpp" />

@@ -16,6 +16,7 @@
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/TextureRegion.hpp>
 # include <Siv3D/TexturedQuad.hpp>
+# include <Siv3D/Polygon.hpp>
 # include "../Siv3DEngine.hpp"
 # include "../Renderer2D/IRenderer2D.hpp"
 
@@ -172,6 +173,14 @@ namespace s3d
 			textureRegion.uvRect,
 			*this,
 			center);
+	}
+
+	Polygon Quad::asPolygon() const
+	{
+		const auto [xMin, xMax] = std::minmax({ p0.x, p1.x, p2.x, p3.x });
+		const auto [yMin, yMax] = std::minmax({ p0.y, p1.y, p2.y, p3.y });
+
+		return Polygon({ p0, p1, p2, p3 }, {}, { 0, 1, 3, 3, 1, 2 }, RectF(xMin, yMin, xMax - xMin, yMax - yMin));
 	}
 
 	void Formatter(FormatData& formatData, const Quad& value)

@@ -14,6 +14,7 @@
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/Line.hpp>
+# include <Siv3D/Polygon.hpp>
 # include "../Siv3DEngine.hpp"
 # include "../Renderer2D/IRenderer2D.hpp"
 
@@ -153,6 +154,14 @@ namespace s3d
 			outerThickness == 0.0, color.toFloat4(), true);
 
 		return *this;
+	}
+
+	Polygon Triangle::asPolygon() const
+	{
+		const auto [xMin, xMax] = std::minmax({ p0.x, p1.x, p2.x });
+		const auto [yMin, yMax] = std::minmax({ p0.y, p1.y, p2.y });
+
+		return Polygon({ p0, p1, p2 }, {}, { 0, 1, 2 },	RectF(xMin, yMin, xMax - xMin, yMax - yMin));
 	}
 
 	void Formatter(FormatData& formatData, const Triangle& value)

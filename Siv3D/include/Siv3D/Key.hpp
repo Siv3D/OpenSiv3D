@@ -17,6 +17,8 @@ namespace s3d
 {
 	enum class InputDevice : uint8
 	{
+		None,
+
 		Keyboard,
 
 		Mouse,
@@ -30,7 +32,7 @@ namespace s3d
 	{
 	private:
 
-		InputDevice m_device = InputDevice::Keyboard;
+		InputDevice m_device = InputDevice::None;
 
 		uint8 m_code = 0;
 
@@ -39,6 +41,8 @@ namespace s3d
 		[[maybe_unused]] uint8 m_reserved = 0;
 
 	public:
+
+		Key() = default;
 
 		constexpr Key(InputDevice device, uint8 code, uint8 userIndex = 0) noexcept
 			: m_device(device)

@@ -90,6 +90,7 @@
     <IncludePath>$(SolutionDir)\..\Siv3D\include;$(SolutionDir)\..\Siv3D\include\ThirdParty;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\..\Siv3D\lib\Windows(x86);$(LibraryPath)</LibraryPath>
     <TargetName>$(ProjectName)(debug_32-bit)</TargetName>
+    <LocalDebuggerWorkingDirectory>$(ProjectDir)App</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -98,6 +99,7 @@
     <IncludePath>$(SolutionDir)\..\Siv3D\include;$(SolutionDir)\..\Siv3D\include\ThirdParty;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\..\Siv3D\lib\Windows(x64);$(LibraryPath)</LibraryPath>
     <TargetName>$(ProjectName)(debug_64-bit)</TargetName>
+    <LocalDebuggerWorkingDirectory>$(ProjectDir)App</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -106,6 +108,7 @@
     <IncludePath>$(SolutionDir)\..\Siv3D\include;$(SolutionDir)\..\Siv3D\include\ThirdParty;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\..\Siv3D\lib\Windows(x86);$(LibraryPath)</LibraryPath>
     <TargetName>$(ProjectName)(32-bit)</TargetName>
+    <LocalDebuggerWorkingDirectory>$(ProjectDir)App</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -114,6 +117,7 @@
     <IncludePath>$(SolutionDir)\..\Siv3D\include;$(SolutionDir)\..\Siv3D\include\ThirdParty;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\..\Siv3D\lib\Windows(x64);$(LibraryPath)</LibraryPath>
     <TargetName>$(ProjectName)(64-bit)</TargetName>
+    <LocalDebuggerWorkingDirectory>$(ProjectDir)App</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

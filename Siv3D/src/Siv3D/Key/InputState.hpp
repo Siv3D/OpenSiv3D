@@ -56,5 +56,14 @@ namespace s3d
 				pressedDuration = MillisecondsF(0);
 			}
 		}
+
+		void clear()
+		{
+			pressedDuration = MillisecondsF(0);
+
+			stopwatch.restart();
+
+			up = pressed = down = false;
+		}
 	};
 }

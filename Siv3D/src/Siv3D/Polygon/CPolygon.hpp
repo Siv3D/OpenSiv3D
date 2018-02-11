@@ -48,6 +48,8 @@ namespace s3d
 
 		CPolygon(const Vec2* pVertex, size_t vertexSize, Array<Array<Vec2>> holes);
 
+		CPolygon(const Vec2* pVertex, size_t vertexSize, const Array<Array<Vec2>>& holes, const Array<uint32>& indices, const RectF& boundingRect);
+
 		CPolygon(const Float2* pVertex, size_t vertexSize, const Array<uint32>& indices);
 
 		void copyFrom(CPolygon& other);
@@ -64,6 +66,14 @@ namespace s3d
 		
 		Polygon computeConvexHull() const;
 
+		Polygon calculateBuffer(double distance) const;
+
+		Polygon calculateRoundBuffer(double distance) const;
+
+		Polygon simplified(double maxDistance) const;
+
+		bool append(const Polygon& polygon);
+
 		bool intersects(const CPolygon& other) const;
 
 		const Array<Vec2>& outer() const;
@@ -79,5 +89,7 @@ namespace s3d
 		void draw(const ColorF& color) const;
 
 		void drawFrame(double thickness, const ColorF& color) const;
+
+		const gPolygon& getPolygon() const;
 	};
 }
