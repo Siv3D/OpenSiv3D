@@ -384,7 +384,6 @@ const char* _siv3d_PlatformGetJoystickInfo(int joy, unsigned* vendorID, unsigned
 	if (!pollJoystickEvents(js))
 		return NULL;
 
-	printf("Joystick Path : %s\n", js->path);
 	struct udev* udev = udev_new();
 	if (udev)
 	{
