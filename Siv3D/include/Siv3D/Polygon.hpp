@@ -38,6 +38,8 @@ namespace s3d
 		explicit Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes = {})
 			: Polygon(outer.data(), outer.size(), holes) {}
 
+		Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<uint32>& indices, const RectF& boundingRect);
+
 		explicit Polygon(const Shape2D& shape);
 
 		explicit Polygon(std::initializer_list<Vec2> outer)
@@ -101,7 +103,13 @@ namespace s3d
 
 		Polygon computeConvexHull() const;
 
-		//Polygon simplified(double maxDistance = 2.0) const;
+		Polygon calculateBuffer(double distance) const;
+
+		Polygon calculateRoundBuffer(double distance) const;
+
+		Polygon simplified(double maxDistance = 2.0) const;
+
+		bool append(const Polygon& polygon);
 
 		template <class Shape2DType>
 		bool intersects(const Shape2DType& shape) const
@@ -138,6 +146,8 @@ namespace s3d
 		const Polygon& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
 		//const Polygon& drawWireframe(double thickness = 1.0, const ColorF& color = Palette::White) const;
+
+		const CPolygon* _detail() const;
 	};
 }
 
@@ -149,7 +159,62 @@ namespace s3d
 
 namespace s3d
 {
+	template <class CharType>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Polygon& value)
+	{
+		output << CharType('(');
 
+		output << CharType('(');
+
+		bool b = false;
+
+		for (const auto& point : value.outer())
+		{
+			if (std::exchange(b, true))
+			{
+				output << CharType(',');
+			}
+
+			output << point;
+		}
+
+		output << CharType(')');
+
+		if (value.inners())
+		{
+			output << CharType(',');
+
+			output << CharType('(');
+
+			b = false;
+
+			for (const auto& hole : value.inners())
+			{
+				if (std::exchange(b, true))
+				{
+					output << CharType(',');
+
+					output << CharType('(');
+				}
+
+				bool b2 = false;
+
+				for (const auto& point : hole)
+				{
+					if (std::exchange(b2, true))
+					{
+						output << CharType(',');
+					}
+
+					output << point;
+				}
+
+				output << CharType(')');
+			}
+		}
+
+		return output << CharType(')');
+	}
 }
 
 //////////////////////////////////////////////////

@@ -13,6 +13,7 @@
 # include <Siv3D/Rectangle.hpp>
 # include <Siv3D/Circular.hpp>
 # include <Siv3D/MathConstants.hpp>
+# include <Siv3D/Polygon.hpp>
 # include "../Siv3DEngine.hpp"
 # include "../Renderer2D/IRenderer2D.hpp"
 
@@ -290,5 +291,10 @@ namespace s3d
 			static_cast<float>(thickness), color.toFloat4());
 
 		return *this;
+	}
+
+	Polygon Shape2D::asPolygon() const
+	{
+		return Polygon(*this);
 	}
 }

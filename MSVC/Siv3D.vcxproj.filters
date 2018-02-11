@@ -665,6 +665,9 @@
     <Filter Include="src\Siv3D\Gamepad">
       <UniqueIdentifier>{f0574467-6fed-4357-a243-0348e806d04f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Painting">
+      <UniqueIdentifier>{878f6fb4-5ca8-488e-b5b4-e896c465bbf2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -1722,6 +1725,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Gamepad\CGamepad_Linux.cpp">
       <Filter>src\Siv3D\Gamepad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Painting\SivPainting.cpp">
+      <Filter>src\Siv3D\Painting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -3665,6 +3671,9 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\HamFramework\JoyConSymbol.hpp">
       <Filter>include\HamFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Periodic.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

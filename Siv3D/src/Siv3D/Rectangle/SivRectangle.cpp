@@ -18,6 +18,7 @@
 # include <Siv3D/TextureRegion.hpp>
 # include <Siv3D/TexturedQuad.hpp>
 # include <Siv3D/Sprite.hpp>
+# include <Siv3D/Polygon.hpp>
 # include "../Siv3DEngine.hpp"
 # include "../Renderer2D/IRenderer2D.hpp"
 
@@ -69,6 +70,118 @@ namespace s3d
 	bool Rectangle<SizeType>::mouseOver() const
 	{
 		return Geometry2D::Intersect(Cursor::PosF(), *this);
+	}
+
+	template <>
+	const Rectangle<Point>& Rectangle<Point>::paint(Image& dst, const Color& color) const
+	{
+		const int32 xBegin = std::max(x, 0);
+		const int32 xEnd = std::min(x + w, dst.width());
+		const int32 yBegin = std::max(y, 0);
+		const int32 yEnd = std::min(y + h, dst.height());
+		const int32 fillWidth = xEnd - xBegin;
+		const int32 fillHeight = yEnd - yBegin;
+
+		if (fillWidth <= 0 || fillHeight <= 0)
+		{
+			return *this;
+		}
+
+		Color* pDst = dst.data() + yBegin * dst.width() + xBegin;
+		const int32 stride = dst.width();
+		const int32 stepOffset = stride - fillWidth;
+
+		const uint32 srcBlend = color.a;
+
+		if (srcBlend == 255)
+		{
+			for (int32 _y = 0; _y < fillHeight; ++_y)
+			{
+				for (int32 _x = 0; _x < fillWidth; ++_x)
+				{
+					const uint8 a = pDst->a;
+					*pDst = color;
+					pDst->a = a;
+
+					++pDst;
+				}
+
+				pDst += stepOffset;
+			}
+		}
+		else
+		{
+			const uint32 premulSrcR = srcBlend * color.r;
+			const uint32 premulSrcG = srcBlend * color.g;
+			const uint32 premulSrcB = srcBlend * color.b;
+			const uint32 dstBlend = 255 - srcBlend;
+
+			for (int32 _y = 0; _y < fillHeight; ++_y)
+			{
+				for (int32 _x = 0; _x < fillWidth; ++_x)
+				{
+					pDst->r = (pDst->r * dstBlend + premulSrcR) / 255;
+					pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
+					pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
+
+					++pDst;
+				}
+
+				pDst += stepOffset;
+			}
+		}
+
+		return *this;
+	}
+
+	template <>
+	const Rectangle<Point>& Rectangle<Point>::overwrite(Image& dst, const Color& color) const
+	{
+		const int32 xBegin = std::max(x, 0);
+		const int32 xEnd = std::min(x + w, dst.width());
+		const int32 yBegin = std::max(y, 0);
+		const int32 yEnd = std::min(y + h, dst.height());
+		const int32 fillWidth = xEnd - xBegin;
+		const int32 fillHeight = yEnd - yBegin;
+
+		if (fillWidth <= 0 || fillHeight <= 0)
+		{
+			return *this;
+		}
+
+		Color* pDst = dst.data() + yBegin * dst.width() + xBegin;
+		const int32 stride = dst.width();
+		const int32 stepOffset = stride - fillWidth;
+
+		for (int32 _y = 0; _y < fillHeight; ++_y)
+		{
+			for (int32 _x = 0; _x < fillWidth; ++_x)
+			{
+				*pDst = color;
+
+				++pDst;
+			}
+
+			pDst += stepOffset;
+		}
+
+		return *this;
+	}
+
+	template <>
+	const Rectangle<Vec2>& Rectangle<Vec2>::paint(Image& dst, const Color& color) const
+	{
+		Rect(*this).paint(dst, color);
+
+		return *this;
+	}
+
+	template <>
+	const Rectangle<Vec2>& Rectangle<Vec2>::overwrite(Image& dst, const Color& color) const
+	{
+		Rect(*this).overwrite(dst, color);
+
+		return *this;
 	}
 
 	template <class SizeType>
@@ -176,6 +289,12 @@ namespace s3d
 			textureRegion.uvRect,
 			{ pos,{ x + w, y },{ x + w, y + h },{ x, y + h } },
 			center());
+	}
+
+	template <class SizeType>
+	Polygon Rectangle<SizeType>::asPolygon() const
+	{
+		return Polygon({ { x, y },{ x + w, y },{ x + w, y + h },{ x, y + h } }, {}, { 0, 1, 3, 3, 1, 2 }, *this);
 	}
 
 	void Formatter(FormatData& formatData, const Rect& value)

@@ -17,6 +17,8 @@
 # include <Siv3D/TexturedCircle.hpp>
 # include <Siv3D/TextureRegion.hpp>
 # include <Siv3D/Sprite.hpp>
+# include <Siv3D/Circular.hpp>
+# include <Siv3D/Polygon.hpp>
 # include "../Siv3DEngine.hpp"
 # include "../Renderer2D/IRenderer2D.hpp"
 
@@ -248,5 +250,51 @@ namespace s3d
 		return TexturedCircle(textureRegion.texture,
 			textureRegion.uvRect,
 			*this);
+	}
+
+	Polygon Circle::asPolygon(const uint32 quality) const
+	{
+		const uint32 n = std::max(quality, 3u);
+
+		Array<Vec2> vertices(n, center);
+		const Vec2 offset(center);
+		Vec2* pPos = vertices.data();
+
+		double xMin = center.x, xMax = center.x;
+		const double yMin = center.y - r;
+		double yMax = center.y;
+
+		for (uint32 i = 0; i < n; ++i)
+		{
+			*pPos += Circular(r, i * (Math::TwoPi / n));
+
+			if (pPos->x < xMin)
+			{
+				xMin = pPos->x;
+			}
+			else if (xMax < pPos->x)
+			{
+				xMax = pPos->x;
+			}
+
+			if (yMax < pPos->y)
+			{
+				yMax = pPos->y;
+			}
+
+			++pPos;
+		}
+
+		Array<uint32> indices(3 * (n - 2));
+		uint32* pIndex = indices.data();
+
+		for (uint32 i = 0; i < n - 2; ++i)
+		{
+			++pIndex;
+			(*pIndex++) = i + 1;
+			(*pIndex++) = i + 2;
+		}
+
+		return Polygon(vertices, {}, indices, RectF(xMin, yMin, xMax - xMin, yMax - yMin));
 	}
 }

@@ -188,6 +188,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\CMouse_Windows.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\MouseFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\SivMouse.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Painting\SivPainting.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseBool\SivParseBool.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseFloat\SivParseFloat.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseInt\SivParseInt.cpp" />
@@ -509,6 +510,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ParseBool.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ParseFloat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ParseInt.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Periodic.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PerlinNoise.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PixelShader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PlaceHolder.hpp" />
