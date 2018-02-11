@@ -2,25 +2,15 @@
 
 void Main()
 {
-	const LineString line
-	{
-		Vec2(50, 100), Vec2(600, 100),
-		Vec2(50, 200), Vec2(600, 200),
-		Vec2(50, 300), Vec2(600, 300),
-		Vec2(50, 400)
-	};
+	const Font font(40);
 
-	const Polygon roundLine = line.calculateBuffer(15);
+	const OutlineGlyph outline = font.getOutlineGlyph(U'T');
+
+	Print << outline.n_contours;
+	Print << outline.n_points;
 
 	while (System::Update())
 	{
-		if (Periodic::Square0_1(2.0s))
-		{
-			line.draw(30, Palette::Yellow);
-		}
-		else
-		{
-			roundLine.draw(Palette::Orange);
-		}
+		
 	}
 }

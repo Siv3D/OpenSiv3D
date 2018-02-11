@@ -143,6 +143,36 @@ namespace s3d
 		return glyphs;
 	}
 
+	OutlineGlyph FontData::getOutlineGlyph(const char32 codePoint)
+	{
+		OutlineGlyph outlineGlyph;
+
+		if (!m_faceText)
+		{
+			return outlineGlyph;
+		}
+
+		const FT_UInt glyphIndex = ::FT_Get_Char_Index(m_faceText.face, codePoint);
+
+		if (!glyphIndex)
+		{
+			return outlineGlyph;
+		}
+
+		if (const FT_Error error = FT_Load_Glyph(m_faceText.face, glyphIndex, FT_LOAD_NO_SCALE | FT_LOAD_NO_AUTOHINT | FT_LOAD_NO_BITMAP))
+		{
+			return outlineGlyph;
+		}
+
+		const FT_GlyphSlot& slot = m_faceText.face->glyph;
+		const FT_Outline& outline = slot->outline;
+
+		outlineGlyph.n_contours = outline.n_contours;
+		outlineGlyph.n_points = outline.n_points;
+
+		return outlineGlyph;
+	}
+
 	RectF FontData::getBoundingRect(const String& codePoints, const double lineSpacingScale)
 	{
 		if (!render(codePoints))

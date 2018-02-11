@@ -118,6 +118,11 @@ namespace s3d
 		return Siv3DEngine::GetFont()->getGlyphs(m_handle->id(), text);
 	}
 
+	OutlineGlyph Font::getOutlineGlyph(const char32 codePoint) const
+	{
+		return Siv3DEngine::GetFont()->getOutlineGlyph(m_handle->id(), codePoint);
+	}
+
 	RectF DrawableText::boundingRect(const Vec2& pos) const
 	{
 		return Siv3DEngine::GetFont()->getBoundingRect(font.id(), codePoints, 1.0).moveBy(pos);

@@ -20,6 +20,7 @@
 # include "Rectangle.hpp"
 # include "TextureRegion.hpp"
 # include "NamedParameter.hpp"
+# include "OutlineGlyph.hpp"
 
 namespace s3d
 {
@@ -140,6 +141,8 @@ namespace s3d
 		Glyph getGlyph(char32 codePoint) const;
 
 		Array<Glyph> getGlyphs(const String& text) const;
+
+		OutlineGlyph getOutlineGlyph(char32 codePoint) const;
 
 		/// <summary>
 		/// 描画するテキストを作成します。

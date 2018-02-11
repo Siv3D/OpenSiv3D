@@ -207,6 +207,8 @@ namespace s3d
 
 		Array<Glyph> getGlyphs(const String& codePoints);
 
+		OutlineGlyph getOutlineGlyph(char32 codePoint);
+
 		RectF getBoundingRect(const String& codePoints, double lineSpacingScale);
 
 		RectF getRegion(const String& codePoints, double lineSpacingScale);
