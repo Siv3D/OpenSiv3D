@@ -11,6 +11,7 @@
 
 # pragma once
 # include <freetype/ft2build.h>
+# include <freetype/ftoutln.h>
 # include FT_FREETYPE_H
 # include FT_SYNTHESIS_H
 # include FT_TRUETYPE_TABLES_H

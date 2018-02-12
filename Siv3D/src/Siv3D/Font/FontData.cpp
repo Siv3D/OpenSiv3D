@@ -18,6 +18,66 @@
 
 namespace s3d
 {
+	namespace detail
+	{
+		struct OutLineData
+		{
+			Array<Array<Array<Vec2>>> contourPaths;
+
+			Vec2 currentPos = Vec2(0, 0);
+		};
+
+		int32 MoveTo(const FT_Vector* to, void* user)
+		{
+			OutLineData* data = (OutLineData*)user;
+
+			data->contourPaths.emplace_back();
+
+			data->currentPos.set(to->x, to->y);
+
+			return 0;
+		}
+
+		int32 LineTo(const FT_Vector* to, void* user)
+		{
+			OutLineData* data = (OutLineData*)user;
+
+			Array<Vec2> line = { data->currentPos, Vec2(to->x, to->y) };
+
+			data->contourPaths.back() << std::move(line);
+
+			data->currentPos.set(to->x, to->y);
+
+			return 0;
+		}
+
+		int32 ConicTo(const FT_Vector* c, const FT_Vector* to, void* user)
+		{
+			OutLineData* data = (OutLineData*)user;
+
+			Array<Vec2> bezier2 = { data->currentPos, Vec2(c->x, c->y), Vec2(to->x, to->y) };
+
+			data->contourPaths.back() << std::move(bezier2);
+
+			data->currentPos.set(to->x, to->y);
+
+			return 0;
+		}
+
+		int32 CubicTo(const FT_Vector* c1, const FT_Vector* c2, const FT_Vector* to, void* user)
+		{
+			OutLineData* data = (OutLineData*)user;
+
+			Array<Vec2> bezier3 = { data->currentPos, Vec2(c1->x, c1->y), Vec2(c2->x, c2->y), Vec2(to->x, to->y) };
+
+			data->contourPaths.back() << std::move(bezier3);
+
+			data->currentPos.set(to->x, to->y);
+
+			return 0;
+		}
+	}
+
 	FontData::FontData(Null, FT_Library)
 	{
 		m_initialized = true;
@@ -159,16 +219,34 @@ namespace s3d
 			return outlineGlyph;
 		}
 
-		if (const FT_Error error = FT_Load_Glyph(m_faceText.face, glyphIndex, FT_LOAD_NO_SCALE | FT_LOAD_NO_AUTOHINT | FT_LOAD_NO_BITMAP))
+		if (const FT_Error error = FT_Load_Glyph(m_faceText.face, glyphIndex, FT_LOAD_NO_AUTOHINT | FT_LOAD_NO_BITMAP))
 		{
 			return outlineGlyph;
 		}
 
-		const FT_GlyphSlot& slot = m_faceText.face->glyph;
-		const FT_Outline& outline = slot->outline;
+		FT_Outline_Funcs funcs;
+		funcs.move_to	= detail::MoveTo;
+		funcs.line_to	= detail::LineTo;
+		funcs.conic_to	= detail::ConicTo;
+		funcs.cubic_to	= detail::CubicTo;
+		funcs.shift		= 0;
+		funcs.delta		= 0;
 
-		outlineGlyph.n_contours = outline.n_contours;
-		outlineGlyph.n_points = outline.n_points;
+		detail::OutLineData outlineData;
+		FT_Outline_Decompose(&m_faceText.face->glyph->outline, &funcs, &outlineData);
+		outlineGlyph.contourPaths = outlineData.contourPaths;
+
+		for (auto& contourPath : outlineGlyph.contourPaths)
+		{
+			for (auto& path : contourPath)
+			{
+				for (auto& point : path)
+				{
+					point.x /= 64.0;
+					point.y /= -64.0;
+				}
+			}
+		}
 
 		return outlineGlyph;
 	}

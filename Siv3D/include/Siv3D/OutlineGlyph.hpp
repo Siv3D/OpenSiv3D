@@ -11,15 +11,39 @@
 
 # pragma once
 # include "Fwd.hpp"
+# include "Array.hpp"
+# include "PointVector.hpp"
+# include "Bezier2.hpp"
+# include "Bezier3.hpp"
 
 namespace s3d
 {
 	struct OutlineGlyph
 	{
-		size_t n_contours = 0;
-
-		size_t n_points = 0;
+		Array<Array<Array<Vec2>>> contourPaths;
 
 		OutlineGlyph() = default;
+
+		//void draw(double thickness = 1.0, const ColorF& color = Palette::White) const
+		//{
+		//	for (const auto& contourPath : contourPaths)
+		//	{
+		//		for (const auto& path : contourPath)
+		//		{
+		//			if (path.size() == 2)
+		//			{
+		//				Line(path[0], path[1]).draw(thickness, color);
+		//			}
+		//			else if (path.size() == 3)
+		//			{
+		//				Bezier2(path[0], path[1], path[2]).draw(thickness, color);
+		//			}
+		//			else if (path.size() == 4)
+		//			{
+		//				Bezier3(path[0], path[1], path[2], path[3]).draw(thickness, color);
+		//			}
+		//		}
+		//	}
+		//}
 	};
 }
