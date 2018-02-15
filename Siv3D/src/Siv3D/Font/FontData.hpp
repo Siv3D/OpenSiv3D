@@ -11,6 +11,7 @@
 
 # pragma once
 # include <freetype/ft2build.h>
+# include <freetype/ftoutln.h>
 # include FT_FREETYPE_H
 # include FT_SYNTHESIS_H
 # include FT_TRUETYPE_TABLES_H
@@ -206,6 +207,8 @@ namespace s3d
 		}
 
 		Array<Glyph> getGlyphs(const String& codePoints);
+
+		OutlineGlyph getOutlineGlyph(char32 codePoint);
 
 		RectF getBoundingRect(const String& codePoints, double lineSpacingScale);
 
