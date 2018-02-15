@@ -146,6 +146,8 @@ namespace s3d
 				if (state.connected)
 				{
 					state.clear();
+
+					LOG_INFO(U"🎮 XInput({}) disconnected"_fmt(userIndex));
 				}
 
 				continue;
@@ -154,6 +156,8 @@ namespace s3d
 			if (!state.connected)
 			{
 				state.connected = true;
+
+				LOG_INFO(U"🎮 XInput({}) connected"_fmt(userIndex));
 			}
 
 			for (uint32 i = 0; i < state.buttons.size(); ++i)

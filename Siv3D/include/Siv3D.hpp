@@ -793,7 +793,10 @@
 //
 //////////////////////////////////////////////////
 
-	// フォント
+	// Outline Glyph
+	# include "Siv3D/OutlineGlyph.hpp"
+
+	// Font
 	# include "Siv3D/Font.hpp"
 	
 	// 絵文字コレクション

@@ -33,6 +33,8 @@ S3D_DISABLE_MSVC_WARNINGS_POP()
 S3D_DISABLE_MSVC_WARNINGS_POP()
 # include "../../ThirdParty/clip2tri/clip2tri.h"
 # include "../Siv3DEngine.hpp"
+# include <Siv3D/LineString.hpp>
+# include <Siv3D/Logger.hpp>
 # include "../Renderer2D/IRenderer2D.hpp"
 
 namespace s3d
@@ -238,6 +240,7 @@ namespace s3d
 		const boost::geometry::strategy::buffer::end_round end_strategy(0);
 		const boost::geometry::strategy::buffer::point_circle circle_strategy(0);
 		const boost::geometry::strategy::buffer::side_straight side_strategy;
+		const boost::geometry::strategy::buffer::join_miter join_strategy;
 
 		const auto& src = m_polygon;
 
@@ -274,8 +277,7 @@ namespace s3d
 			}
 		}
 
-		boost::geometry::model::multi_polygon<polygon_t> multiPolygon;
-		const boost::geometry::strategy::buffer::join_miter join_strategy;
+		boost::geometry::model::multi_polygon<gPolygon> multiPolygon;
 		boost::geometry::buffer(in, multiPolygon, distance_strategy, side_strategy, join_strategy, end_strategy, circle_strategy);
 
 		if (multiPolygon.size() != 1)
@@ -283,39 +285,22 @@ namespace s3d
 			return Polygon();
 		}
 
-		Array<Vec2> outer;
-
-		for (const auto& p : multiPolygon[0].outer())
-		{
-			outer.push_back(p);
-		}
+		auto& outer = multiPolygon[0].outer();
 
 		if (outer.size() > 2 && (outer.front().x == outer.back().x) && (outer.front().y == outer.back().y))
 		{
 			outer.pop_back();
 		}
 
-		std::reverse(outer.begin(), outer.end());
+		const auto& inners = multiPolygon[0].inners();
 
-		Array<Array<Vec2>> holes;
+		Array<Array<Vec2>> holes(inners.size());
 
-		const auto& result = multiPolygon[0];
-
-		if (const size_t num_holes = result.inners().size())
+		for (size_t i = 0; i < holes.size(); ++i)
 		{
-			holes.resize(num_holes);
+			const auto& resultHole = inners[i];
 
-			for (size_t i = 0; i < num_holes; ++i)
-			{
-				const auto& resultHole = result.inners()[i];
-
-				auto& hole = holes[i];
-
-				for (size_t k = 0; k < resultHole.size(); ++k)
-				{
-					hole.push_back(resultHole[resultHole.size() - k - 1]);
-				}
-			}
+			holes[i].assign(resultHole.rbegin(), resultHole.rend());
 		}
 
 		return Polygon(outer, holes);
@@ -328,6 +313,7 @@ namespace s3d
 		const boost::geometry::strategy::buffer::end_round end_strategy(0);
 		const boost::geometry::strategy::buffer::point_circle circle_strategy(0);
 		const boost::geometry::strategy::buffer::side_straight side_strategy;
+		const boost::geometry::strategy::buffer::join_round_by_divide join_strategy(4);
 
 		const auto& src = m_polygon;
 
@@ -364,8 +350,7 @@ namespace s3d
 			}
 		}
 
-		boost::geometry::model::multi_polygon<polygon_t> multiPolygon;
-		const boost::geometry::strategy::buffer::join_round_by_divide join_strategy(4);
+		boost::geometry::model::multi_polygon<gPolygon> multiPolygon;
 		boost::geometry::buffer(in, multiPolygon, distance_strategy, side_strategy, join_strategy, end_strategy, circle_strategy);
 
 		if (multiPolygon.size() != 1)
@@ -373,39 +358,22 @@ namespace s3d
 			return Polygon();
 		}
 
-		Array<Vec2> outer;
-
-		for (const auto& p : multiPolygon[0].outer())
-		{
-			outer.push_back(p);
-		}
+		auto& outer = multiPolygon[0].outer();
 
 		if (outer.size() > 2 && (outer.front().x == outer.back().x) && (outer.front().y == outer.back().y))
 		{
 			outer.pop_back();
 		}
 
-		std::reverse(outer.begin(), outer.end());
+		const auto& inners = multiPolygon[0].inners();
 
-		Array<Array<Vec2>> holes;
+		Array<Array<Vec2>> holes(inners.size());
 
-		const auto& result = multiPolygon[0];
-
-		if (const size_t num_holes = result.inners().size())
+		for (size_t i = 0; i < holes.size(); ++i)
 		{
-			holes.resize(num_holes);
+			const auto& resultHole = inners[i];
 
-			for (size_t i = 0; i < num_holes; ++i)
-			{
-				const auto& resultHole = result.inners()[i];
-
-				auto& hole = holes[i];
-
-				for (size_t k = 0; k < resultHole.size(); ++k)
-				{
-					hole.push_back(resultHole[resultHole.size() - k - 1]);
-				}
-			}
+			holes[i].assign(resultHole.rbegin(), resultHole.rend());
 		}
 
 		return Polygon(outer, holes);
@@ -417,8 +385,6 @@ namespace s3d
 		{
 			return Polygon();
 		}
-
-		using gLineString = boost::geometry::model::linestring<Vec2>;
 
 		gLineString result;
 		{
@@ -449,15 +415,15 @@ namespace s3d
 				result2.pop_back();
 			}
 
-			holeResults.push_back(Array<Vec2>(result2.begin(), result2.end()));
+			holeResults.push_back(std::move(result2));
 		}
 
-		return Polygon(Array<Vec2>(result.begin(), result.end()), holeResults);
+		return Polygon(result, holeResults);
 	}
 
 	bool Polygon::CPolygon::append(const Polygon& polygon)
 	{
-		std::vector<gPolygon> results;
+		Array<gPolygon> results;
 
 		boost::geometry::union_(m_polygon, polygon._detail()->getPolygon(), results);
 
@@ -466,19 +432,12 @@ namespace s3d
 			return false;
 		}
 
-		Array<Vec2> outer;
-
-		for (const auto& p : results[0].outer())
-		{
-			outer.push_back(p);
-		}
+		auto& outer = results[0].outer();
 
 		if (outer.size() > 2 && (outer.front().x == outer.back().x) && (outer.front().y == outer.back().y))
 		{
 			outer.pop_back();
 		}
-
-		//std::reverse(outer.begin(), outer.end());
 
 		Array<Array<Vec2>> holes;
 
@@ -492,14 +451,7 @@ namespace s3d
 			{
 				const auto& resultHole = result.inners()[i];
 
-				auto& hole = holes[i];
-
-				for (size_t k = 0; k < resultHole.size(); ++k)
-				{
-					hole.push_back(resultHole[resultHole.size() - k - 1]);
-				}
-
-				hole.reverse();
+				holes[i].assign(resultHole.begin(), resultHole.end());
 			}
 		}
 
@@ -584,5 +536,82 @@ namespace s3d
 	const gPolygon& Polygon::CPolygon::getPolygon() const
 	{
 		return m_polygon;
+	}
+
+	Polygon LineString::calculateBuffer(const double distance, const uint32 quality, const bool isClosed) const
+	{
+		if (size() < 2)
+		{
+			return Polygon();
+		}
+
+		const boost::geometry::strategy::buffer::distance_symmetric<double> distance_strategy(distance);
+		const boost::geometry::strategy::buffer::end_round end_strategy(quality);
+		const boost::geometry::strategy::buffer::point_circle circle_strategy(quality);
+		const boost::geometry::strategy::buffer::side_straight side_strategy;
+		const boost::geometry::strategy::buffer::join_round join_strategy(quality);
+
+		boost::geometry::model::multi_polygon<gPolygon> multiPolygon;
+
+		if (isClosed && size() > 2)
+		{
+			gLineString lines(begin(), end());
+
+			lines.push_back(front());
+
+			boost::geometry::buffer(lines, multiPolygon, distance_strategy, side_strategy, join_strategy, end_strategy, circle_strategy);
+		}
+		else
+		{
+			boost::geometry::buffer(gLineString(begin(), end()), multiPolygon, distance_strategy, side_strategy, join_strategy, end_strategy, circle_strategy);
+		}
+
+		if (multiPolygon.size() != 1)
+		{
+			return Polygon();
+		}
+
+		auto& resultOuter = multiPolygon[0].outer();
+
+		if (resultOuter.size() > 2 && (resultOuter.front().x == resultOuter.back().x) && (resultOuter.front().y == resultOuter.back().y))
+		{
+			resultOuter.pop_back();
+		}
+
+		Array<Array<Vec2>> holes;
+
+		const auto& result = multiPolygon[0];
+
+		if (const size_t num_holes = result.inners().size())
+		{
+			holes.resize(num_holes);
+
+			for (size_t i = 0; i < num_holes; ++i)
+			{
+				const auto& resultHole = result.inners()[i];
+
+				holes[i].assign(resultHole.begin(), resultHole.end());
+			}
+		}	
+
+		Array<Vec2> outer2;
+
+		outer2 << resultOuter[0];
+
+		Vec2 previous = resultOuter[0];
+
+		for (size_t i = 1; i < resultOuter.size(); ++i)
+		{
+			const Vec2 current = resultOuter[i];
+
+			if (previous != current)
+			{
+				outer2 << current;
+
+				previous = current;
+			}
+		}
+
+		return Polygon(outer2, holes);
 	}
 }
