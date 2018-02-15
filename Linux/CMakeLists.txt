@@ -184,6 +184,7 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/Polygon/CPolygon.cpp"
 	"../Siv3D/src/Siv3D/Polygon/SivPolygon.cpp"
 	"../Siv3D/src/Siv3D/PowerStatus/SivPowerStatus.cpp"
+	"../Siv3D/src/Siv3D/PowerStatus/SivPowerStatus_Linux.cpp"
 	"../Siv3D/src/Siv3D/Print/CPrint.cpp"
 	"../Siv3D/src/Siv3D/Print/PrintFactory.cpp"
 	"../Siv3D/src/Siv3D/Print/SivPrint.cpp"

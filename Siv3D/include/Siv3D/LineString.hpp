@@ -266,7 +266,7 @@ namespace s3d
 
 		// drawArray
 
-		// asPolygon
+		Polygon calculateBuffer(double distance, uint32 quality = 24, bool isClosed = false) const;
 	};
 }
 

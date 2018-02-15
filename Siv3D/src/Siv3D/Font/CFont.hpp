@@ -62,6 +62,8 @@ namespace s3d
 
 		Array<Glyph> getGlyphs(FontID handleID, const String& codePoints) override;
 
+		OutlineGlyph getOutlineGlyph(FontID handleID, char32 codePoint) override;
+
 		RectF getBoundingRect(FontID handleID, const String& codePoints, double lineSpacingScale) override;
 
 		RectF getRegion(FontID handleID, const String& codePoints, double lineSpacingScale) override;

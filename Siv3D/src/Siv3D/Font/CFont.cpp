@@ -175,17 +175,22 @@ namespace s3d
 		return m_fonts[handleID]->getDescent();
 	}
 
-	Array<Glyph> CFont::getGlyphs(FontID handleID, const String& codePoints)
+	Array<Glyph> CFont::getGlyphs(const FontID handleID, const String& codePoints)
 	{
 		return m_fonts[handleID]->getGlyphs(codePoints);
 	}
 
-	RectF CFont::getBoundingRect(FontID handleID, const String& codePoints, double lineSpacingScale)
+	OutlineGlyph CFont::getOutlineGlyph(const FontID handleID, const char32 codePoint)
+	{
+		return m_fonts[handleID]->getOutlineGlyph(codePoint);
+	}
+
+	RectF CFont::getBoundingRect(FontID handleID, const String& codePoints, const double lineSpacingScale)
 	{
 		return m_fonts[handleID]->getBoundingRect(codePoints, lineSpacingScale);
 	}
 
-	RectF CFont::getRegion(FontID handleID, const String& codePoints, double lineSpacingScale)
+	RectF CFont::getRegion(FontID handleID, const String& codePoints, const double lineSpacingScale)
 	{
 		return m_fonts[handleID]->getRegion(codePoints, lineSpacingScale);
 	}
@@ -200,7 +205,7 @@ namespace s3d
 		return m_fonts[handleID]->draw(codePoints, pos, color, lineSpacingScale);
 	}
 
-	bool CFont::draw(FontID handleID, const String& codePoints, const RectF& area, const ColorF& color, double lineSpacingScale)
+	bool CFont::draw(FontID handleID, const String& codePoints, const RectF& area, const ColorF& color, const double lineSpacingScale)
 	{
 		return m_fonts[handleID]->draw(codePoints, area, color, lineSpacingScale);
 	}
