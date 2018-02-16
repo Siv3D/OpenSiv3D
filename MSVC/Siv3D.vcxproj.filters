@@ -1729,6 +1729,12 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Painting\SivPainting.cpp">
       <Filter>src\Siv3D\Painting</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AudioFormat\AAC\AudioFormat_AAC_Linux.cpp">
+      <Filter>src\Siv3D\AudioFormat\AAC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\PowerStatus\SivPowerStatus_Linux.cpp">
+      <Filter>src\Siv3D\PowerStatus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3677,6 +3683,15 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\OutlineGlyph.hpp">
       <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\AudioFormat\AAC\AudioFormat_AAC_Linux.hpp">
+      <Filter>src\Siv3D\AudioFormat\AAC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Siv3D_Linux.h">
+      <Filter>src\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Siv3D_macOS.h">
+      <Filter>src\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
