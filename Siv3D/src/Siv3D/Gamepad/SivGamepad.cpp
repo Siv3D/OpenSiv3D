@@ -200,7 +200,7 @@ namespace s3d
 	}
 }
 
-# elif defined(SIV3D_TARGET_MACOS)
+# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
 
 # include <GL/glew.h>
 # include "../../ThirdParty/GLFW/include/GLFW/glfw3.h"
@@ -236,19 +236,6 @@ namespace s3d
 			}
 			
 			return results;
-		}
-	}
-}
-
-# elif defined(SIV3D_TARGET_LINUX)
-
-namespace s3d
-{
-	namespace System
-	{
-		Array<GamepadInfo> EnumerateGamepads()
-		{
-			return{};
 		}
 	}
 }

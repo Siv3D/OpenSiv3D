@@ -412,7 +412,7 @@ namespace s3d
 			}
 			else
 			{
-				for (const auto& v : fs::directory_iterator(path.str()))
+				for (const auto& v : fs::directory_iterator(path.toWstr()))
 				{
 					paths.push_back(FullPath(Unicode::Widen(v.path().string())));
 				}

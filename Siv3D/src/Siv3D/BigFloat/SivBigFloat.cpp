@@ -9,6 +9,7 @@
 //
 //-----------------------------------------------
 
+# include <cstring>
 # include <Siv3D/BigFloat.hpp>
 # include "CBigFloat.hpp"
 # include "../BigInt/CBigInt.hpp"
