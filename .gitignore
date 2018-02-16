@@ -296,6 +296,7 @@ libSiv3D.a
 siv3d.a
 *.html
 AS_DEBUG/
+*.exe
 
 # Xcode
 **/*.xcodeproj/*
@@ -311,3 +312,9 @@ CMakeCache.txt
 CMakeFiles
 Makefile
 *.swp
+*.cmake
+Linux/Test/engine
+Linux/Test/example
+Linux/Test/resources
+Linux/Test/Siv3D_Test
+
