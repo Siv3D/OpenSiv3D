@@ -30,7 +30,10 @@ std::string Linux_SpecialFolder(const int folder)
 		G_USER_DIRECTORY_DOCUMENTS, //dummy
 		G_USER_DIRECTORY_PICTURES,
 		G_USER_DIRECTORY_MUSIC,
-		G_USER_DIRECTORY_VIDEOS
+		G_USER_DIRECTORY_VIDEOS,
+		G_USER_DIRECTORY_DOCUMENTS, //dummy (System fonts)
+		G_USER_DIRECTORY_DOCUMENTS, //dummy (Local fonts)
+		G_USER_DIRECTORY_DOCUMENTS, //dummy (User fonts)
 	};
 
 	std::string sf_path = "";

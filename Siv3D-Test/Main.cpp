@@ -3,22 +3,24 @@
 
 void Main()
 {
-	const Texture texture1(U"example/windmill.png");
+	Print << FileSystem::SpecialFolderPath(SpecialFolder::SystemFonts);
+	Print << FileSystem::SpecialFolderPath(SpecialFolder::LocalFonts);
+	Print << FileSystem::SpecialFolderPath(SpecialFolder::UserFonts);
 	
-	const Texture texture2(Resource(U"engine/texture/box-shadow/128.png"));
-	
-	Print << U"Current:\n" << FileSystem::CurrentPath();
-	
-	Print << U"App:\n" << FileSystem::ModulePath();
-	
-	Print << U"texture1:\n" << FileSystem::FullPath(U"example/windmill.png");
-	
-	Print << U"texture2:\n" << Resource(U"picture/windmill2.png");
+	/*
+	const Font font1(45, FileSystem::SpecialFolderPath(SpecialFolder::SystemFonts) + U"ヒラギノ角ゴシック W5.ttc");
+	const Font font2(45, FileSystem::SpecialFolderPath(SpecialFolder::SystemFonts) + U"Helvetica.dfont");
+	const Font font3(45, FileSystem::SpecialFolderPath(SpecialFolder::UserFonts) + U"SourceCodePro-Regular.ttf");
+	*/
 	
 	while (System::Update())
 	{
-		texture1(0, 0, 100, 100).draw(0, 0);
+		/*
+		font1(U"ヒラギノ角ゴシック W5").draw(20, 40);
 		
-		texture2(0, 0, 100, 100).draw(100, 0);
+		font2(U"Helvetica").draw(20, 140);
+		
+		font3(U"SourceCodePro-Regular").draw(20, 230);
+		 */
 	}
 }

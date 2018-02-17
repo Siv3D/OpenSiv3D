@@ -31,7 +31,10 @@ std::string macOS_SpecialFolder(const int folder)
 		NSCachesDirectory,
 		NSMusicDirectory,
 		NSPicturesDirectory,
-		NSMoviesDirectory
+		NSMoviesDirectory,
+		NSLibraryDirectory, // (dummy)
+		NSLibraryDirectory, // (dummy)
+		NSLibraryDirectory, // (dummy)
 	};
 
 	NSArray* paths = NSSearchPathForDirectoriesInDomains(folders[folder], NSUserDomainMask, YES);
@@ -45,7 +48,19 @@ std::string macOS_SpecialFolder(const int folder)
 		directory = [directory stringByAppendingString:@"/Siv3DApp/"];
 		directory = [directory stringByAppendingString:bundleID];
 	}
-
+	else if (folder == 6)
+	{
+		directory = @"/System/Library/Fonts";
+	}
+	if (folder == 7)
+	{
+		directory = @"/Library/Fonts";
+	}
+	if (folder == 8)
+	{
+		directory = [directory stringByAppendingString:@"/Fonts"];
+	}
+	
 	return [directory UTF8String];
 }
 

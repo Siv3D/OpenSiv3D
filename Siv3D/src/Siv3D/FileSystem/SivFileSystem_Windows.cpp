@@ -544,7 +544,10 @@ namespace s3d
 				CSIDL_LOCAL_APPDATA,
 				CSIDL_MYPICTURES,
 				CSIDL_MYMUSIC,
-				CSIDL_MYVIDEO
+				CSIDL_MYVIDEO,
+				CSIDL_FONTS,
+				CSIDL_FONTS,
+				CSIDL_FONTS
 			};
 
 			assert(static_cast<size_t>(folder) < _countof(ids));
