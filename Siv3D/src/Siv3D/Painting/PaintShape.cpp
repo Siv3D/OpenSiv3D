@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# pragma once
+# include <cfloat>
 # include "PaintShape.hpp"
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/LineString.hpp>
