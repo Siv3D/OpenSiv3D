@@ -12,6 +12,7 @@
 # include "../Siv3DEngine.hpp"
 # include "../ImageFormat/IImageFormat.hpp"
 
+# include <opencv2/imgproc.hpp>
 # include <Siv3D/Image.hpp>
 # include <Siv3D/BinaryWriter.hpp>
 # include <Siv3D/MemoryWriter.hpp>
@@ -27,6 +28,21 @@ namespace s3d
 		static constexpr bool IsValidSize(const size_t width, const size_t height)
 		{
 			return width <= Image::MaxWidth && height <= Image::MaxHeight;
+		}
+
+		static constexpr int32 ConvertBorderType(const BorderType borderType)
+		{
+			switch (borderType)
+			{
+			case BorderType::Replicate:
+				return cv::BORDER_REPLICATE;
+			//case BorderType::Wrap:
+			//	return cv::BORDER_WRAP;
+			case BorderType::Reflect:
+				return cv::BORDER_REFLECT;
+			case BorderType::Reflect_101:
+				return cv::BORDER_REFLECT101;
+			}
 		}
 	}
 
@@ -421,5 +437,62 @@ namespace s3d
 		}
 
 		return Siv3DEngine::GetImageFormat()->encode(*this, format);
+	}
+
+	Image& Image::gaussianBlur(const int32 horizontal, const int32 vertical, const BorderType borderType)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if ((horizontal < 0 || vertical < 0) || (horizontal == 0 && vertical == 0))
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image tmp(m_width, m_height);
+
+			cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, static_cast<cv::Vec4b*>(static_cast<void*>(data())), stride());
+
+			cv::Mat_<cv::Vec4b> matDst(tmp.height(), tmp.width(), static_cast<cv::Vec4b*>(static_cast<void*>(tmp.data())), tmp.stride());
+
+			cv::GaussianBlur(matSrc, matDst, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), 0.0, 0.0, detail::ConvertBorderType(borderType));
+
+			swap(tmp);
+		}
+
+		return *this;
+	}
+
+	Image Image::gaussianBlurred(const int32 horizontal, const int32 vertical, const BorderType borderType) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if ((horizontal < 0 || vertical < 0) || (horizontal == 0 && vertical == 0))
+			{
+				return *this;
+			}
+		}
+
+		Image image(m_width, m_height);
+
+		cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
+
+		cv::Mat_<cv::Vec4b> matDst(image.height(), image.width(), static_cast<cv::Vec4b*>(static_cast<void*>(image.data())), image.stride());
+
+		cv::GaussianBlur(matSrc, matDst, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), 0.0, 0.0, detail::ConvertBorderType(borderType));
+
+		return image;
 	}
 }

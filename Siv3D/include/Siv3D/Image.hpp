@@ -21,6 +21,17 @@
 
 namespace s3d
 {
+	enum class BorderType
+	{
+		Replicate,
+
+		Reflect,
+
+		Reflect_101,
+
+		Default = Reflect_101,
+	};
+
 	/// <summary>
 	/// 画像
 	/// </summary>
@@ -754,6 +765,11 @@ namespace s3d
 		bool savePPM(const FilePath& path, PPMType format = PPMType::AsciiRGB) const;
 
 		MemoryWriter encode(ImageFormat format = ImageFormat::PNG) const;
+
+
+		Image& gaussianBlur(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Default);
+
+		Image gaussianBlurred(const int32 horizontal, const int32 vertical, BorderType borderType = BorderType::Default) const;
 	};
 }
 
