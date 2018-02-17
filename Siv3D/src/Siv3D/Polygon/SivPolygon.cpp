@@ -139,10 +139,10 @@ namespace s3d
 		return *this;
 	}
 
-	//double Polygon::area() const
-	//{
-	//	return pImpl->area();
-	//}
+	double Polygon::area() const
+	{
+		return pImpl->area();
+	}
 
 	//double Polygon::perimeter() const
 	//{
@@ -154,9 +154,9 @@ namespace s3d
 		return pImpl->centroid();
 	}
 	
-	Polygon Polygon::computeConvexHull() const
+	Polygon Polygon::calculateConvexHull() const
 	{
-		return pImpl->computeConvexHull();
+		return pImpl->calculateConvexHull();
 	}
 
 	Polygon Polygon::calculateBuffer(const double distance) const

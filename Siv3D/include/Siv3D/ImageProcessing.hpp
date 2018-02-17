@@ -13,6 +13,7 @@
 # include "Fwd.hpp"
 # include "Array.hpp"
 # include "Image.hpp"
+# include "Polygon.hpp"
 
 namespace s3d
 {
@@ -37,5 +38,73 @@ namespace s3d
 		[[nodiscard]] Array<Image> GenerateMips(const Image& src);
 
 		[[nodiscard]] Image GenerateSDF(const Image& image, const uint32 scale, const double spread = 16.0);
+
+		/// <summary>
+		/// 画像から最大の輪郭を抽出します。
+		/// </summary>
+		/// <param name="image">
+		/// 画像
+		/// </param>
+		/// <param name="useAlpha">
+		/// 輪郭抽出に画像のグレースケール値を使う場合は false, アルファ値を使う場合は true
+		/// </param>
+		/// <param name="threshold">
+		/// 閾値
+		/// </param>
+		/// <returns>
+		/// 輪郭から構成された Polygon
+		/// </returns>
+		Polygon FindExternalContour(const Image& image, bool useAlpha = false, uint32 threshold = 127);
+
+		/// <summary>
+		/// 画像から輪郭を抽出します。
+		/// </summary>
+		/// <param name="image">
+		/// 画像
+		/// </param>
+		/// <param name="useAlpha">
+		/// 輪郭抽出に画像のグレースケール値を使う場合は false, アルファ値を使う場合は true
+		/// </param>
+		/// <param name="threshold">
+		/// 閾値
+		/// </param>
+		/// <returns>
+		/// 輪郭から構成された Polygon の Array
+		/// </returns>
+		Array<Polygon> FindExternalContours(const Image& image, bool useAlpha = false, uint32 threshold = 127);
+
+		/// <summary>
+		/// 画像から穴を含む最大の輪郭を抽出します。
+		/// </summary>
+		/// <param name="image">
+		/// 画像
+		/// </param>
+		/// <param name="useAlpha">
+		/// 輪郭抽出に画像のグレースケール値を使う場合は false, アルファ値を使う場合は true
+		/// </param>
+		/// <param name="threshold">
+		/// 閾値
+		/// </param>
+		/// <returns>
+		/// 輪郭から構成された Polygon
+		/// </returns>
+		Polygon FindContour(const Image& image, bool useAlpha = false, uint32 threshold = 127);
+
+		/// <summary>
+		/// 画像から穴を含む輪郭を抽出します。
+		/// </summary>
+		/// <param name="image">
+		/// 画像
+		/// </param>
+		/// <param name="useAlpha">
+		/// 輪郭抽出に画像のグレースケール値を使う場合は false, アルファ値を使う場合は true
+		/// </param>
+		/// <param name="threshold">
+		/// 閾値
+		/// </param>
+		/// <returns>
+		/// 輪郭から構成された Polygon の Array
+		/// </returns>
+		Array<Polygon> FindContours(const Image& image, bool useAlpha = false, uint32 threshold = 127);
 	}
 }

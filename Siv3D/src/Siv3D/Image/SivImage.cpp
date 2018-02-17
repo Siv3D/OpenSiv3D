@@ -14,6 +14,7 @@
 
 # include <opencv2/imgproc.hpp>
 # include <Siv3D/Image.hpp>
+# include <Siv3D/ImageProcessing.hpp>
 # include <Siv3D/BinaryWriter.hpp>
 # include <Siv3D/MemoryWriter.hpp>
 # include <Siv3D/Number.hpp>
@@ -65,6 +66,50 @@ namespace s3d
 			for (size_t i = 0; i < 256; ++i)
 			{
 				table[i] = static_cast<uint8>(std::floor(i / 255.0 * levN + 0.5) / levN * 255);
+			}
+		}
+
+		static void ToBinaryFromR(const Image& from, cv::Mat_<uint8>& to, const uint32 threshold)
+		{
+			assert(from.width() == to.cols);
+			assert(from.height() == to.rows);
+
+			const Color* pSrc = from[0];
+
+			const int32 height = from.height(), width = from.width();
+
+			for (int32 y = 0; y < height; ++y)
+			{
+				uint8* line = &to(y, 0);
+
+				for (int32 x = 0; x < width; ++x)
+				{
+					line[x] = (pSrc->r <= threshold ? 0 : 255);
+
+					++pSrc;
+				}
+			}
+		}
+
+		static void ToBinaryFromA(const Image& from, cv::Mat_<uint8>& to, const uint32 threshold)
+		{
+			assert(from.width() == to.cols);
+			assert(from.height() == to.rows);
+
+			const Color* pSrc = from[0];
+
+			const int32 height = from.height(), width = from.width();
+
+			for (int32 y = 0; y < height; ++y)
+			{
+				uint8* line = &to(y, 0);
+
+				for (int32 x = 0; x < width; ++x)
+				{
+					line[x] = (pSrc->a <= threshold ? 0 : 255);
+
+					++pSrc;
+				}
 			}
 		}
 	}
@@ -783,5 +828,205 @@ namespace s3d
 		cv::GaussianBlur(matSrc, matDst, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), 0.0, 0.0, detail::ConvertBorderType(borderType));
 
 		return image;
+	}
+
+
+	namespace ImageProcessing
+	{
+		Polygon FindExternalContour(const Image& image, bool useAlpha, uint32 threshold)
+		{
+			const auto polygons = ImageProcessing::FindExternalContours(image, useAlpha, threshold);
+
+			if (polygons.isEmpty())
+			{
+				return Polygon();
+			}
+
+			if (polygons.size() == 1)
+			{
+				return polygons.front();
+			}
+
+			double maxArea = 0.0;
+
+			size_t index = 0;
+
+			for (size_t i = 0; i < polygons.size(); ++i)
+			{
+				const double area = polygons[i].area();
+
+				if (area > maxArea)
+				{
+					maxArea = area;
+
+					index = i;
+				}
+			}
+
+			return polygons[index];
+		}
+
+		Array<Polygon> FindExternalContours(const Image& image, bool useAlpha, uint32 threshold)
+		{
+			if (!image)
+			{
+				return{};
+			}
+
+			cv::Mat_<uint8> gray(image.height(), image.width());
+
+			if (useAlpha)
+			{
+				detail::ToBinaryFromA(image, gray, threshold);
+			}
+			else
+			{
+				detail::ToBinaryFromR(image, gray, threshold);
+			}
+
+			std::vector<std::vector<cv::Point>> contours;
+
+			try
+			{
+				cv::findContours(gray, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE, { 0, 0 });
+			}
+			catch (cv::Exception&)
+			{
+				//LOG_FAIL(LogMessage::Image003);
+
+				return{};
+			}
+
+			Array<Polygon> result;
+
+			for (const auto& contour : contours)
+			{
+				Array<Vec2> external;
+
+				external.reserve(contour.size());
+
+				for (int i = static_cast<int>(contour.size()) - 1; i >= 0; --i)
+				{
+					external.emplace_back(contour[i].x, contour[i].y);
+				}
+
+				if (external.size() >= 3)
+				{
+					result.emplace_back(external);
+				}
+			}
+
+			return result;
+		}
+
+		Polygon FindContour(const Image& image, bool useAlpha, uint32 threshold)
+		{
+			const auto polygons = ImageProcessing::FindContours(image, useAlpha, threshold);
+
+			if (polygons.isEmpty())
+			{
+				return Polygon();
+			}
+
+			if (polygons.size() == 1)
+			{
+				return polygons.front();
+			}
+
+			double maxArea = 0.0;
+
+			size_t index = 0;
+
+			for (size_t i = 0; i < polygons.size(); ++i)
+			{
+				const double area = polygons[i].area();
+
+				if (area > maxArea)
+				{
+					maxArea = area;
+
+					index = i;
+				}
+			}
+
+			return polygons[index];
+		}
+
+		Array<Polygon> FindContours(const Image& image, bool useAlpha, uint32 threshold)
+		{
+			if (!image)
+			{
+				return{};
+			}
+
+			cv::Mat_<uint8> gray(image.height(), image.width());
+
+			if (useAlpha)
+			{
+				detail::ToBinaryFromA(image, gray, threshold);
+			}
+			else
+			{
+				detail::ToBinaryFromR(image, gray, threshold);
+			}
+
+			std::vector<std::vector<cv::Point>> contours;
+
+			std::vector<cv::Vec4i> hierarchy;
+
+			try
+			{
+				cv::findContours(gray, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE, { 0, 0 });
+			}
+			catch (cv::Exception&)
+			{
+				//LOG_FAIL(LogMessage::Image003);
+
+				return{};
+			}
+
+			Array<Polygon> result;
+
+			for (size_t i = 0; i < contours.size(); i = hierarchy[i][0])
+			{
+				const auto& contour = contours[i];
+
+				Array<Vec2> external;
+
+				external.reserve(contour.size());
+
+				for (int k = static_cast<int>(contour.size()) - 1; k >= 0; --k)
+				{
+					external.emplace_back(contour[k].x, contour[k].y);
+				}
+
+				Array<Array<Vec2>> holes;
+
+				for (int k = hierarchy[i][2]; k != -1; k = hierarchy[k][0])
+				{
+					const auto& contour2 = contours[k];
+
+					Array<Vec2> hole;
+
+					hole.reserve(contour2.size());
+
+					for (const auto& p : contour2)
+					{
+						hole.emplace_back(p.x, p.y);
+					}
+
+					std::reverse(hole.begin(), hole.end());
+
+					holes.push_back(std::move(hole));
+				}
+
+				if (external.size() >= 3)
+				{
+					result.emplace_back(external, holes);
+				}
+			}
+
+			return result;
+		}
 	}
 }
