@@ -19,6 +19,7 @@
 bool macOS_TrashFile(const char* path, unsigned long pathLength, bool isDirectory);
 std::string macOS_SpecialFolder(int folder);
 std::string macOS_FullPath(const char* path, bool isRelative);
+std::string macOS_CurrentPath(bool sandboxed);
 
 namespace s3d
 {
@@ -414,7 +415,7 @@ namespace s3d
 
 		FilePath CurrentPath()
 		{
-			return detail::NormalizePath(Unicode::Widen(fs::current_path().string()));
+			return detail::NormalizePath(Unicode::Widen(macOS_CurrentPath(detail::init::g_isSandBoxed)));
 		}
 
 		FilePath SpecialFolderPath(const SpecialFolder folder)

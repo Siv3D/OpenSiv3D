@@ -67,3 +67,27 @@ std::string macOS_FullPath(const char* _path, bool isRelative)
 		return [absolutePath.absoluteString UTF8String];
 	}
 }
+
+std::string macOS_CurrentPath(bool sandboxed)
+{	
+	if (sandboxed)
+	{
+		NSDictionary* env = [[NSProcessInfo processInfo] environment];
+		
+		if (NSString* current = env[@"PWD"])
+		{
+			return [current UTF8String];
+		}
+		
+		return "";
+	}
+	else
+	{
+		if (NSString* current = [[NSFileManager defaultManager] currentDirectoryPath])
+		{
+			return [current UTF8String];
+		}
+		
+		return "";
+	}
+}
