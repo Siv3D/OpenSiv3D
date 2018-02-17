@@ -788,6 +788,124 @@
 		2C4F22D22036EAA1006CBCD1 /* SivXInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4F20F72036EAA0006CBCD1 /* SivXInput.cpp */; };
 		2C4F22D32036EAA1006CBCD1 /* XInputFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4F20F82036EAA0006CBCD1 /* XInputFactory.cpp */; };
 		2C4F22D42036EAA1006CBCD1 /* SivXXHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4F20FA2036EAA0006CBCD1 /* SivXXHash.cpp */; };
+		2C4F22DD20384C59006CBCD1 /* lopencv_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4F22DB20384C59006CBCD1 /* lopencv_core.a */; };
+		2C4F22DE20384C59006CBCD1 /* lopencv_imgproc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4F22DC20384C59006CBCD1 /* lopencv_imgproc.a */; };
+		2C4F236220384DB1006CBCD1 /* affine.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22E220384DB1006CBCD1 /* affine.hpp */; };
+		2C4F236320384DB1006CBCD1 /* base.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22E320384DB1006CBCD1 /* base.hpp */; };
+		2C4F236420384DB1006CBCD1 /* bufferpool.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22E420384DB1006CBCD1 /* bufferpool.hpp */; };
+		2C4F236520384DB1006CBCD1 /* core.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22E520384DB1006CBCD1 /* core.hpp */; };
+		2C4F236620384DB1006CBCD1 /* core_c.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22E620384DB1006CBCD1 /* core_c.h */; };
+		2C4F236720384DB1006CBCD1 /* block.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22E820384DB1006CBCD1 /* block.hpp */; };
+		2C4F236820384DB1006CBCD1 /* border_interpolate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22E920384DB1006CBCD1 /* border_interpolate.hpp */; };
+		2C4F236920384DB1006CBCD1 /* color.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22EA20384DB1006CBCD1 /* color.hpp */; };
+		2C4F236A20384DB1006CBCD1 /* common.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22EB20384DB1006CBCD1 /* common.hpp */; };
+		2C4F236B20384DB1006CBCD1 /* datamov_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22EC20384DB1006CBCD1 /* datamov_utils.hpp */; };
+		2C4F236C20384DB1006CBCD1 /* color_detail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22EE20384DB1006CBCD1 /* color_detail.hpp */; };
+		2C4F236D20384DB1006CBCD1 /* reduce.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22EF20384DB1006CBCD1 /* reduce.hpp */; };
+		2C4F236E20384DB1006CBCD1 /* reduce_key_val.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22F020384DB1006CBCD1 /* reduce_key_val.hpp */; };
+		2C4F236F20384DB1006CBCD1 /* transform_detail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22F120384DB1006CBCD1 /* transform_detail.hpp */; };
+		2C4F237020384DB1006CBCD1 /* type_traits_detail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22F220384DB1006CBCD1 /* type_traits_detail.hpp */; };
+		2C4F237120384DB1006CBCD1 /* vec_distance_detail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22F320384DB1006CBCD1 /* vec_distance_detail.hpp */; };
+		2C4F237220384DB1006CBCD1 /* dynamic_smem.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22F420384DB1006CBCD1 /* dynamic_smem.hpp */; };
+		2C4F237320384DB1006CBCD1 /* emulation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22F520384DB1006CBCD1 /* emulation.hpp */; };
+		2C4F237420384DB1006CBCD1 /* filters.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22F620384DB1006CBCD1 /* filters.hpp */; };
+		2C4F237520384DB1006CBCD1 /* funcattrib.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22F720384DB1006CBCD1 /* funcattrib.hpp */; };
+		2C4F237620384DB1006CBCD1 /* functional.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22F820384DB1006CBCD1 /* functional.hpp */; };
+		2C4F237720384DB1006CBCD1 /* limits.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22F920384DB1006CBCD1 /* limits.hpp */; };
+		2C4F237820384DB1006CBCD1 /* reduce.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22FA20384DB1006CBCD1 /* reduce.hpp */; };
+		2C4F237920384DB1006CBCD1 /* saturate_cast.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22FB20384DB1006CBCD1 /* saturate_cast.hpp */; };
+		2C4F237A20384DB1006CBCD1 /* scan.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22FC20384DB1006CBCD1 /* scan.hpp */; };
+		2C4F237B20384DB1006CBCD1 /* simd_functions.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22FD20384DB1006CBCD1 /* simd_functions.hpp */; };
+		2C4F237C20384DB1006CBCD1 /* transform.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22FE20384DB1006CBCD1 /* transform.hpp */; };
+		2C4F237D20384DB1006CBCD1 /* type_traits.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F22FF20384DB1006CBCD1 /* type_traits.hpp */; };
+		2C4F237E20384DB1006CBCD1 /* utility.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F230020384DB1006CBCD1 /* utility.hpp */; };
+		2C4F237F20384DB1006CBCD1 /* vec_distance.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F230120384DB1006CBCD1 /* vec_distance.hpp */; };
+		2C4F238020384DB1006CBCD1 /* vec_math.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F230220384DB1006CBCD1 /* vec_math.hpp */; };
+		2C4F238120384DB1006CBCD1 /* vec_traits.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F230320384DB1006CBCD1 /* vec_traits.hpp */; };
+		2C4F238220384DB1006CBCD1 /* warp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F230420384DB1006CBCD1 /* warp.hpp */; };
+		2C4F238320384DB1006CBCD1 /* warp_reduce.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F230520384DB1006CBCD1 /* warp_reduce.hpp */; };
+		2C4F238420384DB1006CBCD1 /* warp_shuffle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F230620384DB1006CBCD1 /* warp_shuffle.hpp */; };
+		2C4F238520384DB1006CBCD1 /* cuda.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F230720384DB1006CBCD1 /* cuda.hpp */; };
+		2C4F238620384DB1006CBCD1 /* cuda.inl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F230820384DB1006CBCD1 /* cuda.inl.hpp */; };
+		2C4F238720384DB1006CBCD1 /* cuda_stream_accessor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F230920384DB1006CBCD1 /* cuda_stream_accessor.hpp */; };
+		2C4F238820384DB1006CBCD1 /* cuda_types.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F230A20384DB1006CBCD1 /* cuda_types.hpp */; };
+		2C4F238920384DB1006CBCD1 /* cv_cpu_dispatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F230B20384DB1006CBCD1 /* cv_cpu_dispatch.h */; };
+		2C4F238A20384DB1006CBCD1 /* cv_cpu_helper.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F230C20384DB1006CBCD1 /* cv_cpu_helper.h */; };
+		2C4F238B20384DB1006CBCD1 /* cvdef.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F230D20384DB1006CBCD1 /* cvdef.h */; };
+		2C4F238C20384DB1006CBCD1 /* cvstd.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F230E20384DB1006CBCD1 /* cvstd.hpp */; };
+		2C4F238D20384DB1006CBCD1 /* cvstd.inl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F230F20384DB1006CBCD1 /* cvstd.inl.hpp */; };
+		2C4F238E20384DB1006CBCD1 /* directx.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F231020384DB1006CBCD1 /* directx.hpp */; };
+		2C4F238F20384DB1006CBCD1 /* eigen.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F231120384DB1006CBCD1 /* eigen.hpp */; };
+		2C4F239020384DB1006CBCD1 /* fast_math.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F231220384DB1006CBCD1 /* fast_math.hpp */; };
+		2C4F239120384DB1006CBCD1 /* hal.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F231420384DB1006CBCD1 /* hal.hpp */; };
+		2C4F239220384DB1006CBCD1 /* interface.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F231520384DB1006CBCD1 /* interface.h */; };
+		2C4F239320384DB1006CBCD1 /* intrin.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F231620384DB1006CBCD1 /* intrin.hpp */; };
+		2C4F239420384DB1006CBCD1 /* intrin_cpp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F231720384DB1006CBCD1 /* intrin_cpp.hpp */; };
+		2C4F239520384DB1006CBCD1 /* intrin_neon.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F231820384DB1006CBCD1 /* intrin_neon.hpp */; };
+		2C4F239620384DB1006CBCD1 /* intrin_sse.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F231920384DB1006CBCD1 /* intrin_sse.hpp */; };
+		2C4F239720384DB1006CBCD1 /* intrin_vsx.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F231A20384DB1006CBCD1 /* intrin_vsx.hpp */; };
+		2C4F239820384DB1006CBCD1 /* ippasync.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F231B20384DB1006CBCD1 /* ippasync.hpp */; };
+		2C4F239920384DB1006CBCD1 /* mat.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F231C20384DB1006CBCD1 /* mat.hpp */; };
+		2C4F239A20384DB1006CBCD1 /* mat.inl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F231D20384DB1006CBCD1 /* mat.inl.hpp */; };
+		2C4F239B20384DB1006CBCD1 /* matx.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F231E20384DB1006CBCD1 /* matx.hpp */; };
+		2C4F239C20384DB1006CBCD1 /* neon_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F231F20384DB1006CBCD1 /* neon_utils.hpp */; };
+		2C4F239D20384DB1006CBCD1 /* ocl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F232020384DB1006CBCD1 /* ocl.hpp */; };
+		2C4F239E20384DB1006CBCD1 /* ocl_genbase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F232120384DB1006CBCD1 /* ocl_genbase.hpp */; };
+		2C4F239F20384DB1006CBCD1 /* ocl_defs.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F232320384DB1006CBCD1 /* ocl_defs.hpp */; };
+		2C4F23A020384DB1006CBCD1 /* opencl_svm.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F232420384DB1006CBCD1 /* opencl_svm.hpp */; };
+		2C4F23A120384DB1006CBCD1 /* opencl_clamdblas.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F232720384DB1006CBCD1 /* opencl_clamdblas.hpp */; };
+		2C4F23A220384DB1006CBCD1 /* opencl_clamdfft.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F232820384DB1006CBCD1 /* opencl_clamdfft.hpp */; };
+		2C4F23A320384DB1006CBCD1 /* opencl_core.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F232920384DB1006CBCD1 /* opencl_core.hpp */; };
+		2C4F23A420384DB1006CBCD1 /* opencl_core_wrappers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F232A20384DB1006CBCD1 /* opencl_core_wrappers.hpp */; };
+		2C4F23A520384DB1006CBCD1 /* opencl_gl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F232B20384DB1006CBCD1 /* opencl_gl.hpp */; };
+		2C4F23A620384DB1006CBCD1 /* opencl_gl_wrappers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F232C20384DB1006CBCD1 /* opencl_gl_wrappers.hpp */; };
+		2C4F23A720384DB1006CBCD1 /* opencl_clamdblas.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F232D20384DB1006CBCD1 /* opencl_clamdblas.hpp */; };
+		2C4F23A820384DB1006CBCD1 /* opencl_clamdfft.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F232E20384DB1006CBCD1 /* opencl_clamdfft.hpp */; };
+		2C4F23A920384DB1006CBCD1 /* opencl_core.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F232F20384DB1006CBCD1 /* opencl_core.hpp */; };
+		2C4F23AA20384DB1006CBCD1 /* opencl_core_wrappers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F233020384DB1006CBCD1 /* opencl_core_wrappers.hpp */; };
+		2C4F23AB20384DB1006CBCD1 /* opencl_gl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F233120384DB1006CBCD1 /* opencl_gl.hpp */; };
+		2C4F23AC20384DB1006CBCD1 /* opencl_gl_wrappers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F233220384DB1006CBCD1 /* opencl_gl_wrappers.hpp */; };
+		2C4F23AD20384DB1006CBCD1 /* opencl_svm_20.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F233320384DB1006CBCD1 /* opencl_svm_20.hpp */; };
+		2C4F23AE20384DB1006CBCD1 /* opencl_svm_definitions.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F233420384DB1006CBCD1 /* opencl_svm_definitions.hpp */; };
+		2C4F23AF20384DB1006CBCD1 /* opencl_svm_hsa_extension.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F233520384DB1006CBCD1 /* opencl_svm_hsa_extension.hpp */; };
+		2C4F23B020384DB1006CBCD1 /* opengl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F233620384DB1006CBCD1 /* opengl.hpp */; };
+		2C4F23B120384DB1006CBCD1 /* ovx_defs.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F233820384DB1006CBCD1 /* ovx_defs.hpp */; };
+		2C4F23B220384DB1006CBCD1 /* operations.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F233920384DB1006CBCD1 /* operations.hpp */; };
+		2C4F23B320384DB1006CBCD1 /* optim.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F233A20384DB1006CBCD1 /* optim.hpp */; };
+		2C4F23B420384DB1006CBCD1 /* ovx.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F233B20384DB1006CBCD1 /* ovx.hpp */; };
+		2C4F23B520384DB1006CBCD1 /* persistence.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F233C20384DB1006CBCD1 /* persistence.hpp */; };
+		2C4F23B620384DB1006CBCD1 /* cv_cpu_include_simd_declarations.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F233E20384DB1006CBCD1 /* cv_cpu_include_simd_declarations.hpp */; };
+		2C4F23B720384DB1006CBCD1 /* private.cuda.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F233F20384DB1006CBCD1 /* private.cuda.hpp */; };
+		2C4F23B820384DB1006CBCD1 /* private.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F234020384DB1006CBCD1 /* private.hpp */; };
+		2C4F23B920384DB1006CBCD1 /* ptr.inl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F234120384DB1006CBCD1 /* ptr.inl.hpp */; };
+		2C4F23BA20384DB1006CBCD1 /* saturate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F234220384DB1006CBCD1 /* saturate.hpp */; };
+		2C4F23BB20384DB1006CBCD1 /* softfloat.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F234320384DB1006CBCD1 /* softfloat.hpp */; };
+		2C4F23BC20384DB1006CBCD1 /* sse_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F234420384DB1006CBCD1 /* sse_utils.hpp */; };
+		2C4F23BD20384DB1006CBCD1 /* traits.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F234520384DB1006CBCD1 /* traits.hpp */; };
+		2C4F23BE20384DB1006CBCD1 /* types.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F234620384DB1006CBCD1 /* types.hpp */; };
+		2C4F23BF20384DB1006CBCD1 /* types_c.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F234720384DB1006CBCD1 /* types_c.h */; };
+		2C4F23C020384DB1006CBCD1 /* utility.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F234820384DB1006CBCD1 /* utility.hpp */; };
+		2C4F23C120384DB1006CBCD1 /* configuration.private.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F234A20384DB1006CBCD1 /* configuration.private.hpp */; };
+		2C4F23C220384DB1006CBCD1 /* filesystem.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F234B20384DB1006CBCD1 /* filesystem.hpp */; };
+		2C4F23C320384DB1006CBCD1 /* filesystem.private.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F234C20384DB1006CBCD1 /* filesystem.private.hpp */; };
+		2C4F23C420384DB1006CBCD1 /* lock.private.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F234D20384DB1006CBCD1 /* lock.private.hpp */; };
+		2C4F23C520384DB1006CBCD1 /* logger.defines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F234E20384DB1006CBCD1 /* logger.defines.hpp */; };
+		2C4F23C620384DB1006CBCD1 /* logger.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F234F20384DB1006CBCD1 /* logger.hpp */; };
+		2C4F23C720384DB1006CBCD1 /* trace.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F235020384DB1006CBCD1 /* trace.hpp */; };
+		2C4F23C820384DB1006CBCD1 /* trace.private.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F235120384DB1006CBCD1 /* trace.private.hpp */; };
+		2C4F23C920384DB1006CBCD1 /* va_intel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F235220384DB1006CBCD1 /* va_intel.hpp */; };
+		2C4F23CA20384DB1006CBCD1 /* version.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F235320384DB1006CBCD1 /* version.hpp */; };
+		2C4F23CB20384DB1006CBCD1 /* vsx_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F235420384DB1006CBCD1 /* vsx_utils.hpp */; };
+		2C4F23CC20384DB1006CBCD1 /* wimage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F235520384DB1006CBCD1 /* wimage.hpp */; };
+		2C4F23CD20384DB1006CBCD1 /* core.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F235620384DB1006CBCD1 /* core.hpp */; };
+		2C4F23CE20384DB1006CBCD1 /* distortion_model.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F235920384DB1006CBCD1 /* distortion_model.hpp */; };
+		2C4F23CF20384DB1006CBCD1 /* hal.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F235B20384DB1006CBCD1 /* hal.hpp */; };
+		2C4F23D020384DB1006CBCD1 /* interface.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F235C20384DB1006CBCD1 /* interface.h */; };
+		2C4F23D120384DB1006CBCD1 /* imgproc.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F235D20384DB1006CBCD1 /* imgproc.hpp */; };
+		2C4F23D220384DB1006CBCD1 /* imgproc_c.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F235E20384DB1006CBCD1 /* imgproc_c.h */; };
+		2C4F23D320384DB1006CBCD1 /* types_c.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F235F20384DB1006CBCD1 /* types_c.h */; };
+		2C4F23D420384DB1006CBCD1 /* imgproc.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F236020384DB1006CBCD1 /* imgproc.hpp */; };
+		2C4F23D520384DB1006CBCD1 /* opencv_modules.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F236120384DB1006CBCD1 /* opencv_modules.hpp */; };
 		2C8588EC1F929277000DA815 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2C8588EB1F929277000DA815 /* icon.icns */; };
 		2C9DDF4E2010164E002D3BDC /* pffft.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9DDF4C2010164E002D3BDC /* pffft.c */; };
 		2C9DDF4F2010164E002D3BDC /* pffft.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C9DDF4D2010164E002D3BDC /* pffft.h */; };
@@ -1852,6 +1970,126 @@
 		2C4F20F72036EAA0006CBCD1 /* SivXInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivXInput.cpp; sourceTree = "<group>"; };
 		2C4F20F82036EAA0006CBCD1 /* XInputFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XInputFactory.cpp; sourceTree = "<group>"; };
 		2C4F20FA2036EAA0006CBCD1 /* SivXXHash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivXXHash.cpp; sourceTree = "<group>"; };
+		2C4F22D720384C31006CBCD1 /* libopencv_core.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_core.a; path = ../Siv3D/lib/macOS/opencv/libopencv_core.a; sourceTree = "<group>"; };
+		2C4F22D820384C31006CBCD1 /* libopencv_imgproc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_imgproc.a; path = ../Siv3D/lib/macOS/opencv/libopencv_imgproc.a; sourceTree = "<group>"; };
+		2C4F22DB20384C59006CBCD1 /* lopencv_core.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = lopencv_core.a; path = ../Siv3D/lib/macOS/opencv/lopencv_core.a; sourceTree = "<group>"; };
+		2C4F22DC20384C59006CBCD1 /* lopencv_imgproc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = lopencv_imgproc.a; path = ../Siv3D/lib/macOS/opencv/lopencv_imgproc.a; sourceTree = "<group>"; };
+		2C4F22E220384DB1006CBCD1 /* affine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = affine.hpp; sourceTree = "<group>"; };
+		2C4F22E320384DB1006CBCD1 /* base.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = base.hpp; sourceTree = "<group>"; };
+		2C4F22E420384DB1006CBCD1 /* bufferpool.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bufferpool.hpp; sourceTree = "<group>"; };
+		2C4F22E520384DB1006CBCD1 /* core.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = core.hpp; sourceTree = "<group>"; };
+		2C4F22E620384DB1006CBCD1 /* core_c.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = core_c.h; sourceTree = "<group>"; };
+		2C4F22E820384DB1006CBCD1 /* block.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = block.hpp; sourceTree = "<group>"; };
+		2C4F22E920384DB1006CBCD1 /* border_interpolate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = border_interpolate.hpp; sourceTree = "<group>"; };
+		2C4F22EA20384DB1006CBCD1 /* color.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = color.hpp; sourceTree = "<group>"; };
+		2C4F22EB20384DB1006CBCD1 /* common.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = common.hpp; sourceTree = "<group>"; };
+		2C4F22EC20384DB1006CBCD1 /* datamov_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = datamov_utils.hpp; sourceTree = "<group>"; };
+		2C4F22EE20384DB1006CBCD1 /* color_detail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = color_detail.hpp; sourceTree = "<group>"; };
+		2C4F22EF20384DB1006CBCD1 /* reduce.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = reduce.hpp; sourceTree = "<group>"; };
+		2C4F22F020384DB1006CBCD1 /* reduce_key_val.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = reduce_key_val.hpp; sourceTree = "<group>"; };
+		2C4F22F120384DB1006CBCD1 /* transform_detail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transform_detail.hpp; sourceTree = "<group>"; };
+		2C4F22F220384DB1006CBCD1 /* type_traits_detail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = type_traits_detail.hpp; sourceTree = "<group>"; };
+		2C4F22F320384DB1006CBCD1 /* vec_distance_detail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vec_distance_detail.hpp; sourceTree = "<group>"; };
+		2C4F22F420384DB1006CBCD1 /* dynamic_smem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = dynamic_smem.hpp; sourceTree = "<group>"; };
+		2C4F22F520384DB1006CBCD1 /* emulation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = emulation.hpp; sourceTree = "<group>"; };
+		2C4F22F620384DB1006CBCD1 /* filters.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = filters.hpp; sourceTree = "<group>"; };
+		2C4F22F720384DB1006CBCD1 /* funcattrib.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = funcattrib.hpp; sourceTree = "<group>"; };
+		2C4F22F820384DB1006CBCD1 /* functional.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = functional.hpp; sourceTree = "<group>"; };
+		2C4F22F920384DB1006CBCD1 /* limits.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = limits.hpp; sourceTree = "<group>"; };
+		2C4F22FA20384DB1006CBCD1 /* reduce.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = reduce.hpp; sourceTree = "<group>"; };
+		2C4F22FB20384DB1006CBCD1 /* saturate_cast.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = saturate_cast.hpp; sourceTree = "<group>"; };
+		2C4F22FC20384DB1006CBCD1 /* scan.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = scan.hpp; sourceTree = "<group>"; };
+		2C4F22FD20384DB1006CBCD1 /* simd_functions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = simd_functions.hpp; sourceTree = "<group>"; };
+		2C4F22FE20384DB1006CBCD1 /* transform.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transform.hpp; sourceTree = "<group>"; };
+		2C4F22FF20384DB1006CBCD1 /* type_traits.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = type_traits.hpp; sourceTree = "<group>"; };
+		2C4F230020384DB1006CBCD1 /* utility.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = utility.hpp; sourceTree = "<group>"; };
+		2C4F230120384DB1006CBCD1 /* vec_distance.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vec_distance.hpp; sourceTree = "<group>"; };
+		2C4F230220384DB1006CBCD1 /* vec_math.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vec_math.hpp; sourceTree = "<group>"; };
+		2C4F230320384DB1006CBCD1 /* vec_traits.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vec_traits.hpp; sourceTree = "<group>"; };
+		2C4F230420384DB1006CBCD1 /* warp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = warp.hpp; sourceTree = "<group>"; };
+		2C4F230520384DB1006CBCD1 /* warp_reduce.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = warp_reduce.hpp; sourceTree = "<group>"; };
+		2C4F230620384DB1006CBCD1 /* warp_shuffle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = warp_shuffle.hpp; sourceTree = "<group>"; };
+		2C4F230720384DB1006CBCD1 /* cuda.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cuda.hpp; sourceTree = "<group>"; };
+		2C4F230820384DB1006CBCD1 /* cuda.inl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cuda.inl.hpp; sourceTree = "<group>"; };
+		2C4F230920384DB1006CBCD1 /* cuda_stream_accessor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cuda_stream_accessor.hpp; sourceTree = "<group>"; };
+		2C4F230A20384DB1006CBCD1 /* cuda_types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cuda_types.hpp; sourceTree = "<group>"; };
+		2C4F230B20384DB1006CBCD1 /* cv_cpu_dispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cv_cpu_dispatch.h; sourceTree = "<group>"; };
+		2C4F230C20384DB1006CBCD1 /* cv_cpu_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cv_cpu_helper.h; sourceTree = "<group>"; };
+		2C4F230D20384DB1006CBCD1 /* cvdef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cvdef.h; sourceTree = "<group>"; };
+		2C4F230E20384DB1006CBCD1 /* cvstd.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cvstd.hpp; sourceTree = "<group>"; };
+		2C4F230F20384DB1006CBCD1 /* cvstd.inl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cvstd.inl.hpp; sourceTree = "<group>"; };
+		2C4F231020384DB1006CBCD1 /* directx.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = directx.hpp; sourceTree = "<group>"; };
+		2C4F231120384DB1006CBCD1 /* eigen.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = eigen.hpp; sourceTree = "<group>"; };
+		2C4F231220384DB1006CBCD1 /* fast_math.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fast_math.hpp; sourceTree = "<group>"; };
+		2C4F231420384DB1006CBCD1 /* hal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = hal.hpp; sourceTree = "<group>"; };
+		2C4F231520384DB1006CBCD1 /* interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interface.h; sourceTree = "<group>"; };
+		2C4F231620384DB1006CBCD1 /* intrin.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = intrin.hpp; sourceTree = "<group>"; };
+		2C4F231720384DB1006CBCD1 /* intrin_cpp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = intrin_cpp.hpp; sourceTree = "<group>"; };
+		2C4F231820384DB1006CBCD1 /* intrin_neon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = intrin_neon.hpp; sourceTree = "<group>"; };
+		2C4F231920384DB1006CBCD1 /* intrin_sse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = intrin_sse.hpp; sourceTree = "<group>"; };
+		2C4F231A20384DB1006CBCD1 /* intrin_vsx.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = intrin_vsx.hpp; sourceTree = "<group>"; };
+		2C4F231B20384DB1006CBCD1 /* ippasync.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ippasync.hpp; sourceTree = "<group>"; };
+		2C4F231C20384DB1006CBCD1 /* mat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mat.hpp; sourceTree = "<group>"; };
+		2C4F231D20384DB1006CBCD1 /* mat.inl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mat.inl.hpp; sourceTree = "<group>"; };
+		2C4F231E20384DB1006CBCD1 /* matx.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = matx.hpp; sourceTree = "<group>"; };
+		2C4F231F20384DB1006CBCD1 /* neon_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = neon_utils.hpp; sourceTree = "<group>"; };
+		2C4F232020384DB1006CBCD1 /* ocl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ocl.hpp; sourceTree = "<group>"; };
+		2C4F232120384DB1006CBCD1 /* ocl_genbase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ocl_genbase.hpp; sourceTree = "<group>"; };
+		2C4F232320384DB1006CBCD1 /* ocl_defs.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ocl_defs.hpp; sourceTree = "<group>"; };
+		2C4F232420384DB1006CBCD1 /* opencl_svm.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opencl_svm.hpp; sourceTree = "<group>"; };
+		2C4F232720384DB1006CBCD1 /* opencl_clamdblas.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opencl_clamdblas.hpp; sourceTree = "<group>"; };
+		2C4F232820384DB1006CBCD1 /* opencl_clamdfft.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opencl_clamdfft.hpp; sourceTree = "<group>"; };
+		2C4F232920384DB1006CBCD1 /* opencl_core.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opencl_core.hpp; sourceTree = "<group>"; };
+		2C4F232A20384DB1006CBCD1 /* opencl_core_wrappers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opencl_core_wrappers.hpp; sourceTree = "<group>"; };
+		2C4F232B20384DB1006CBCD1 /* opencl_gl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opencl_gl.hpp; sourceTree = "<group>"; };
+		2C4F232C20384DB1006CBCD1 /* opencl_gl_wrappers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opencl_gl_wrappers.hpp; sourceTree = "<group>"; };
+		2C4F232D20384DB1006CBCD1 /* opencl_clamdblas.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opencl_clamdblas.hpp; sourceTree = "<group>"; };
+		2C4F232E20384DB1006CBCD1 /* opencl_clamdfft.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opencl_clamdfft.hpp; sourceTree = "<group>"; };
+		2C4F232F20384DB1006CBCD1 /* opencl_core.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opencl_core.hpp; sourceTree = "<group>"; };
+		2C4F233020384DB1006CBCD1 /* opencl_core_wrappers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opencl_core_wrappers.hpp; sourceTree = "<group>"; };
+		2C4F233120384DB1006CBCD1 /* opencl_gl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opencl_gl.hpp; sourceTree = "<group>"; };
+		2C4F233220384DB1006CBCD1 /* opencl_gl_wrappers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opencl_gl_wrappers.hpp; sourceTree = "<group>"; };
+		2C4F233320384DB1006CBCD1 /* opencl_svm_20.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opencl_svm_20.hpp; sourceTree = "<group>"; };
+		2C4F233420384DB1006CBCD1 /* opencl_svm_definitions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opencl_svm_definitions.hpp; sourceTree = "<group>"; };
+		2C4F233520384DB1006CBCD1 /* opencl_svm_hsa_extension.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opencl_svm_hsa_extension.hpp; sourceTree = "<group>"; };
+		2C4F233620384DB1006CBCD1 /* opengl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opengl.hpp; sourceTree = "<group>"; };
+		2C4F233820384DB1006CBCD1 /* ovx_defs.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ovx_defs.hpp; sourceTree = "<group>"; };
+		2C4F233920384DB1006CBCD1 /* operations.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = operations.hpp; sourceTree = "<group>"; };
+		2C4F233A20384DB1006CBCD1 /* optim.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = optim.hpp; sourceTree = "<group>"; };
+		2C4F233B20384DB1006CBCD1 /* ovx.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ovx.hpp; sourceTree = "<group>"; };
+		2C4F233C20384DB1006CBCD1 /* persistence.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = persistence.hpp; sourceTree = "<group>"; };
+		2C4F233E20384DB1006CBCD1 /* cv_cpu_include_simd_declarations.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cv_cpu_include_simd_declarations.hpp; sourceTree = "<group>"; };
+		2C4F233F20384DB1006CBCD1 /* private.cuda.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = private.cuda.hpp; sourceTree = "<group>"; };
+		2C4F234020384DB1006CBCD1 /* private.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = private.hpp; sourceTree = "<group>"; };
+		2C4F234120384DB1006CBCD1 /* ptr.inl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ptr.inl.hpp; sourceTree = "<group>"; };
+		2C4F234220384DB1006CBCD1 /* saturate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = saturate.hpp; sourceTree = "<group>"; };
+		2C4F234320384DB1006CBCD1 /* softfloat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = softfloat.hpp; sourceTree = "<group>"; };
+		2C4F234420384DB1006CBCD1 /* sse_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sse_utils.hpp; sourceTree = "<group>"; };
+		2C4F234520384DB1006CBCD1 /* traits.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = traits.hpp; sourceTree = "<group>"; };
+		2C4F234620384DB1006CBCD1 /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
+		2C4F234720384DB1006CBCD1 /* types_c.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types_c.h; sourceTree = "<group>"; };
+		2C4F234820384DB1006CBCD1 /* utility.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = utility.hpp; sourceTree = "<group>"; };
+		2C4F234A20384DB1006CBCD1 /* configuration.private.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = configuration.private.hpp; sourceTree = "<group>"; };
+		2C4F234B20384DB1006CBCD1 /* filesystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = filesystem.hpp; sourceTree = "<group>"; };
+		2C4F234C20384DB1006CBCD1 /* filesystem.private.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = filesystem.private.hpp; sourceTree = "<group>"; };
+		2C4F234D20384DB1006CBCD1 /* lock.private.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = lock.private.hpp; sourceTree = "<group>"; };
+		2C4F234E20384DB1006CBCD1 /* logger.defines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = logger.defines.hpp; sourceTree = "<group>"; };
+		2C4F234F20384DB1006CBCD1 /* logger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = logger.hpp; sourceTree = "<group>"; };
+		2C4F235020384DB1006CBCD1 /* trace.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = trace.hpp; sourceTree = "<group>"; };
+		2C4F235120384DB1006CBCD1 /* trace.private.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = trace.private.hpp; sourceTree = "<group>"; };
+		2C4F235220384DB1006CBCD1 /* va_intel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = va_intel.hpp; sourceTree = "<group>"; };
+		2C4F235320384DB1006CBCD1 /* version.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = version.hpp; sourceTree = "<group>"; };
+		2C4F235420384DB1006CBCD1 /* vsx_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vsx_utils.hpp; sourceTree = "<group>"; };
+		2C4F235520384DB1006CBCD1 /* wimage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = wimage.hpp; sourceTree = "<group>"; };
+		2C4F235620384DB1006CBCD1 /* core.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = core.hpp; sourceTree = "<group>"; };
+		2C4F235920384DB1006CBCD1 /* distortion_model.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = distortion_model.hpp; sourceTree = "<group>"; };
+		2C4F235B20384DB1006CBCD1 /* hal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = hal.hpp; sourceTree = "<group>"; };
+		2C4F235C20384DB1006CBCD1 /* interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interface.h; sourceTree = "<group>"; };
+		2C4F235D20384DB1006CBCD1 /* imgproc.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = imgproc.hpp; sourceTree = "<group>"; };
+		2C4F235E20384DB1006CBCD1 /* imgproc_c.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgproc_c.h; sourceTree = "<group>"; };
+		2C4F235F20384DB1006CBCD1 /* types_c.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types_c.h; sourceTree = "<group>"; };
+		2C4F236020384DB1006CBCD1 /* imgproc.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = imgproc.hpp; sourceTree = "<group>"; };
+		2C4F236120384DB1006CBCD1 /* opencv_modules.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = opencv_modules.hpp; sourceTree = "<group>"; };
 		2C8588EB1F929277000DA815 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		2C9DDF4C2010164E002D3BDC /* pffft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pffft.c; sourceTree = "<group>"; };
 		2C9DDF4D2010164E002D3BDC /* pffft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pffft.h; sourceTree = "<group>"; };
@@ -1887,6 +2125,8 @@
 				2C22E7611FD73C9F002735AB /* libz.a in Frameworks */,
 				2C0FC1601FDB72B700A128B9 /* lfreetype.a in Frameworks */,
 				2C0FC1621FDB72BF00A128B9 /* lharfbuzz.a in Frameworks */,
+				2C4F22DD20384C59006CBCD1 /* lopencv_core.a in Frameworks */,
+				2C4F22DE20384C59006CBCD1 /* lopencv_imgproc.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1914,6 +2154,7 @@
 		2C0FBBC41FDB71F300A128B9 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				2C4F22E020384DB1006CBCD1 /* opencv2 */,
 				2C9DE99C20102ED6002D3BDC /* easyexif */,
 				2C9DDF4B2010164E002D3BDC /* pffft */,
 				2C3D56AD1FFC163F00CBEE6B /* libsvm */,
@@ -2914,6 +3155,10 @@
 		2C15857F1F21FD87002687D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C4F22DB20384C59006CBCD1 /* lopencv_core.a */,
+				2C4F22DC20384C59006CBCD1 /* lopencv_imgproc.a */,
+				2C4F22D720384C31006CBCD1 /* libopencv_core.a */,
+				2C4F22D820384C31006CBCD1 /* libopencv_imgproc.a */,
 				2CC7830E2017FE8200AB4824 /* AudioToolbox.framework */,
 				2C0FEEDB1FF7FA2000A128B9 /* langelscript.a */,
 				2C0FC1611FDB72BF00A128B9 /* lharfbuzz.a */,
@@ -4757,6 +5002,233 @@
 			path = XXHash;
 			sourceTree = "<group>";
 		};
+		2C4F22E020384DB1006CBCD1 /* opencv2 */ = {
+			isa = PBXGroup;
+			children = (
+				2C4F22E120384DB1006CBCD1 /* core */,
+				2C4F235620384DB1006CBCD1 /* core.hpp */,
+				2C4F235720384DB1006CBCD1 /* imgproc */,
+				2C4F236020384DB1006CBCD1 /* imgproc.hpp */,
+				2C4F236120384DB1006CBCD1 /* opencv_modules.hpp */,
+			);
+			path = opencv2;
+			sourceTree = "<group>";
+		};
+		2C4F22E120384DB1006CBCD1 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				2C4F22E220384DB1006CBCD1 /* affine.hpp */,
+				2C4F22E320384DB1006CBCD1 /* base.hpp */,
+				2C4F22E420384DB1006CBCD1 /* bufferpool.hpp */,
+				2C4F22E520384DB1006CBCD1 /* core.hpp */,
+				2C4F22E620384DB1006CBCD1 /* core_c.h */,
+				2C4F22E720384DB1006CBCD1 /* cuda */,
+				2C4F230720384DB1006CBCD1 /* cuda.hpp */,
+				2C4F230820384DB1006CBCD1 /* cuda.inl.hpp */,
+				2C4F230920384DB1006CBCD1 /* cuda_stream_accessor.hpp */,
+				2C4F230A20384DB1006CBCD1 /* cuda_types.hpp */,
+				2C4F230B20384DB1006CBCD1 /* cv_cpu_dispatch.h */,
+				2C4F230C20384DB1006CBCD1 /* cv_cpu_helper.h */,
+				2C4F230D20384DB1006CBCD1 /* cvdef.h */,
+				2C4F230E20384DB1006CBCD1 /* cvstd.hpp */,
+				2C4F230F20384DB1006CBCD1 /* cvstd.inl.hpp */,
+				2C4F231020384DB1006CBCD1 /* directx.hpp */,
+				2C4F231120384DB1006CBCD1 /* eigen.hpp */,
+				2C4F231220384DB1006CBCD1 /* fast_math.hpp */,
+				2C4F231320384DB1006CBCD1 /* hal */,
+				2C4F231B20384DB1006CBCD1 /* ippasync.hpp */,
+				2C4F231C20384DB1006CBCD1 /* mat.hpp */,
+				2C4F231D20384DB1006CBCD1 /* mat.inl.hpp */,
+				2C4F231E20384DB1006CBCD1 /* matx.hpp */,
+				2C4F231F20384DB1006CBCD1 /* neon_utils.hpp */,
+				2C4F232020384DB1006CBCD1 /* ocl.hpp */,
+				2C4F232120384DB1006CBCD1 /* ocl_genbase.hpp */,
+				2C4F232220384DB1006CBCD1 /* opencl */,
+				2C4F233620384DB1006CBCD1 /* opengl.hpp */,
+				2C4F233720384DB1006CBCD1 /* openvx */,
+				2C4F233920384DB1006CBCD1 /* operations.hpp */,
+				2C4F233A20384DB1006CBCD1 /* optim.hpp */,
+				2C4F233B20384DB1006CBCD1 /* ovx.hpp */,
+				2C4F233C20384DB1006CBCD1 /* persistence.hpp */,
+				2C4F233D20384DB1006CBCD1 /* private */,
+				2C4F233F20384DB1006CBCD1 /* private.cuda.hpp */,
+				2C4F234020384DB1006CBCD1 /* private.hpp */,
+				2C4F234120384DB1006CBCD1 /* ptr.inl.hpp */,
+				2C4F234220384DB1006CBCD1 /* saturate.hpp */,
+				2C4F234320384DB1006CBCD1 /* softfloat.hpp */,
+				2C4F234420384DB1006CBCD1 /* sse_utils.hpp */,
+				2C4F234520384DB1006CBCD1 /* traits.hpp */,
+				2C4F234620384DB1006CBCD1 /* types.hpp */,
+				2C4F234720384DB1006CBCD1 /* types_c.h */,
+				2C4F234820384DB1006CBCD1 /* utility.hpp */,
+				2C4F234920384DB1006CBCD1 /* utils */,
+				2C4F235220384DB1006CBCD1 /* va_intel.hpp */,
+				2C4F235320384DB1006CBCD1 /* version.hpp */,
+				2C4F235420384DB1006CBCD1 /* vsx_utils.hpp */,
+				2C4F235520384DB1006CBCD1 /* wimage.hpp */,
+			);
+			path = core;
+			sourceTree = "<group>";
+		};
+		2C4F22E720384DB1006CBCD1 /* cuda */ = {
+			isa = PBXGroup;
+			children = (
+				2C4F22E820384DB1006CBCD1 /* block.hpp */,
+				2C4F22E920384DB1006CBCD1 /* border_interpolate.hpp */,
+				2C4F22EA20384DB1006CBCD1 /* color.hpp */,
+				2C4F22EB20384DB1006CBCD1 /* common.hpp */,
+				2C4F22EC20384DB1006CBCD1 /* datamov_utils.hpp */,
+				2C4F22ED20384DB1006CBCD1 /* detail */,
+				2C4F22F420384DB1006CBCD1 /* dynamic_smem.hpp */,
+				2C4F22F520384DB1006CBCD1 /* emulation.hpp */,
+				2C4F22F620384DB1006CBCD1 /* filters.hpp */,
+				2C4F22F720384DB1006CBCD1 /* funcattrib.hpp */,
+				2C4F22F820384DB1006CBCD1 /* functional.hpp */,
+				2C4F22F920384DB1006CBCD1 /* limits.hpp */,
+				2C4F22FA20384DB1006CBCD1 /* reduce.hpp */,
+				2C4F22FB20384DB1006CBCD1 /* saturate_cast.hpp */,
+				2C4F22FC20384DB1006CBCD1 /* scan.hpp */,
+				2C4F22FD20384DB1006CBCD1 /* simd_functions.hpp */,
+				2C4F22FE20384DB1006CBCD1 /* transform.hpp */,
+				2C4F22FF20384DB1006CBCD1 /* type_traits.hpp */,
+				2C4F230020384DB1006CBCD1 /* utility.hpp */,
+				2C4F230120384DB1006CBCD1 /* vec_distance.hpp */,
+				2C4F230220384DB1006CBCD1 /* vec_math.hpp */,
+				2C4F230320384DB1006CBCD1 /* vec_traits.hpp */,
+				2C4F230420384DB1006CBCD1 /* warp.hpp */,
+				2C4F230520384DB1006CBCD1 /* warp_reduce.hpp */,
+				2C4F230620384DB1006CBCD1 /* warp_shuffle.hpp */,
+			);
+			path = cuda;
+			sourceTree = "<group>";
+		};
+		2C4F22ED20384DB1006CBCD1 /* detail */ = {
+			isa = PBXGroup;
+			children = (
+				2C4F22EE20384DB1006CBCD1 /* color_detail.hpp */,
+				2C4F22EF20384DB1006CBCD1 /* reduce.hpp */,
+				2C4F22F020384DB1006CBCD1 /* reduce_key_val.hpp */,
+				2C4F22F120384DB1006CBCD1 /* transform_detail.hpp */,
+				2C4F22F220384DB1006CBCD1 /* type_traits_detail.hpp */,
+				2C4F22F320384DB1006CBCD1 /* vec_distance_detail.hpp */,
+			);
+			path = detail;
+			sourceTree = "<group>";
+		};
+		2C4F231320384DB1006CBCD1 /* hal */ = {
+			isa = PBXGroup;
+			children = (
+				2C4F231420384DB1006CBCD1 /* hal.hpp */,
+				2C4F231520384DB1006CBCD1 /* interface.h */,
+				2C4F231620384DB1006CBCD1 /* intrin.hpp */,
+				2C4F231720384DB1006CBCD1 /* intrin_cpp.hpp */,
+				2C4F231820384DB1006CBCD1 /* intrin_neon.hpp */,
+				2C4F231920384DB1006CBCD1 /* intrin_sse.hpp */,
+				2C4F231A20384DB1006CBCD1 /* intrin_vsx.hpp */,
+			);
+			path = hal;
+			sourceTree = "<group>";
+		};
+		2C4F232220384DB1006CBCD1 /* opencl */ = {
+			isa = PBXGroup;
+			children = (
+				2C4F232320384DB1006CBCD1 /* ocl_defs.hpp */,
+				2C4F232420384DB1006CBCD1 /* opencl_svm.hpp */,
+				2C4F232520384DB1006CBCD1 /* runtime */,
+			);
+			path = opencl;
+			sourceTree = "<group>";
+		};
+		2C4F232520384DB1006CBCD1 /* runtime */ = {
+			isa = PBXGroup;
+			children = (
+				2C4F232620384DB1006CBCD1 /* autogenerated */,
+				2C4F232D20384DB1006CBCD1 /* opencl_clamdblas.hpp */,
+				2C4F232E20384DB1006CBCD1 /* opencl_clamdfft.hpp */,
+				2C4F232F20384DB1006CBCD1 /* opencl_core.hpp */,
+				2C4F233020384DB1006CBCD1 /* opencl_core_wrappers.hpp */,
+				2C4F233120384DB1006CBCD1 /* opencl_gl.hpp */,
+				2C4F233220384DB1006CBCD1 /* opencl_gl_wrappers.hpp */,
+				2C4F233320384DB1006CBCD1 /* opencl_svm_20.hpp */,
+				2C4F233420384DB1006CBCD1 /* opencl_svm_definitions.hpp */,
+				2C4F233520384DB1006CBCD1 /* opencl_svm_hsa_extension.hpp */,
+			);
+			path = runtime;
+			sourceTree = "<group>";
+		};
+		2C4F232620384DB1006CBCD1 /* autogenerated */ = {
+			isa = PBXGroup;
+			children = (
+				2C4F232720384DB1006CBCD1 /* opencl_clamdblas.hpp */,
+				2C4F232820384DB1006CBCD1 /* opencl_clamdfft.hpp */,
+				2C4F232920384DB1006CBCD1 /* opencl_core.hpp */,
+				2C4F232A20384DB1006CBCD1 /* opencl_core_wrappers.hpp */,
+				2C4F232B20384DB1006CBCD1 /* opencl_gl.hpp */,
+				2C4F232C20384DB1006CBCD1 /* opencl_gl_wrappers.hpp */,
+			);
+			path = autogenerated;
+			sourceTree = "<group>";
+		};
+		2C4F233720384DB1006CBCD1 /* openvx */ = {
+			isa = PBXGroup;
+			children = (
+				2C4F233820384DB1006CBCD1 /* ovx_defs.hpp */,
+			);
+			path = openvx;
+			sourceTree = "<group>";
+		};
+		2C4F233D20384DB1006CBCD1 /* private */ = {
+			isa = PBXGroup;
+			children = (
+				2C4F233E20384DB1006CBCD1 /* cv_cpu_include_simd_declarations.hpp */,
+			);
+			path = private;
+			sourceTree = "<group>";
+		};
+		2C4F234920384DB1006CBCD1 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				2C4F234A20384DB1006CBCD1 /* configuration.private.hpp */,
+				2C4F234B20384DB1006CBCD1 /* filesystem.hpp */,
+				2C4F234C20384DB1006CBCD1 /* filesystem.private.hpp */,
+				2C4F234D20384DB1006CBCD1 /* lock.private.hpp */,
+				2C4F234E20384DB1006CBCD1 /* logger.defines.hpp */,
+				2C4F234F20384DB1006CBCD1 /* logger.hpp */,
+				2C4F235020384DB1006CBCD1 /* trace.hpp */,
+				2C4F235120384DB1006CBCD1 /* trace.private.hpp */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
+		2C4F235720384DB1006CBCD1 /* imgproc */ = {
+			isa = PBXGroup;
+			children = (
+				2C4F235820384DB1006CBCD1 /* detail */,
+				2C4F235A20384DB1006CBCD1 /* hal */,
+				2C4F235D20384DB1006CBCD1 /* imgproc.hpp */,
+				2C4F235E20384DB1006CBCD1 /* imgproc_c.h */,
+				2C4F235F20384DB1006CBCD1 /* types_c.h */,
+			);
+			path = imgproc;
+			sourceTree = "<group>";
+		};
+		2C4F235820384DB1006CBCD1 /* detail */ = {
+			isa = PBXGroup;
+			children = (
+				2C4F235920384DB1006CBCD1 /* distortion_model.hpp */,
+			);
+			path = detail;
+			sourceTree = "<group>";
+		};
+		2C4F235A20384DB1006CBCD1 /* hal */ = {
+			isa = PBXGroup;
+			children = (
+				2C4F235B20384DB1006CBCD1 /* hal.hpp */,
+				2C4F235C20384DB1006CBCD1 /* interface.h */,
+			);
+			path = hal;
+			sourceTree = "<group>";
+		};
 		2C9DDF4B2010164E002D3BDC /* pffft */ = {
 			isa = PBXGroup;
 			children = (
@@ -4846,6 +5318,7 @@
 				2C0FC0731FDB71F400A128B9 /* fse.h in Headers */,
 				2C0FBFBE1FDB71F400A128B9 /* svgldict.h in Headers */,
 				2C4F22962036EAA1006CBCD1 /* ITextInput.hpp in Headers */,
+				2C4F236320384DB1006CBCD1 /* base.hpp in Headers */,
 				2C4F21662036EAA1006CBCD1 /* ICPU.hpp in Headers */,
 				2C4F22702036EAA1006CBCD1 /* IShader.hpp in Headers */,
 				2C4F22932036EAA1006CBCD1 /* CTextInput_macOS.hpp in Headers */,
@@ -4854,25 +5327,34 @@
 				2C0FBF6C1FDB71F400A128B9 /* double-conversion.h in Headers */,
 				2C0FBFC71FDB71F400A128B9 /* svpscmap.h in Headers */,
 				2C4F21562036EAA1006CBCD1 /* CCodec_Null.hpp in Headers */,
+				2C4F23B920384DB1006CBCD1 /* ptr.inl.hpp in Headers */,
+				2C4F238420384DB1006CBCD1 /* warp_shuffle.hpp in Headers */,
 				2C4F21822036EAA1006CBCD1 /* EffectData.hpp in Headers */,
+				2C4F236B20384DB1006CBCD1 /* datamov_utils.hpp in Headers */,
 				2C4F21902036EAA1006CBCD1 /* CFFT.hpp in Headers */,
 				2C0FC0941FDB71F400A128B9 /* divsufsort.h in Headers */,
 				2C0FC0871FDB71F400A128B9 /* zstd_fast.h in Headers */,
 				2C4F226E2036EAA1006CBCD1 /* PixelShader_GL.hpp in Headers */,
 				2C0FC0661FDB71F400A128B9 /* prettywriter.h in Headers */,
 				2C0FC0491FDB71F400A128B9 /* sweep_context.h in Headers */,
+				2C4F23BD20384DB1006CBCD1 /* traits.hpp in Headers */,
 				2C0FBFAA1FDB71F400A128B9 /* autohint.h in Headers */,
 				2C4F219F2036EAA1006CBCD1 /* IFont.hpp in Headers */,
 				2C4F22692036EAA1006CBCD1 /* PixelShader_D3D11.hpp in Headers */,
+				2C4F236920384DB1006CBCD1 /* color.hpp in Headers */,
 				2C4F214E2036EAA1006CBCD1 /* IClipboard.hpp in Headers */,
 				2C0FD5DB1FE55B4F00A128B9 /* cpptoml.h in Headers */,
+				2C4F23C320384DB1006CBCD1 /* filesystem.private.hpp in Headers */,
 				2C0FC0281FDB71F400A128B9 /* mpg123.h in Headers */,
+				2C4F23B820384DB1006CBCD1 /* private.hpp in Headers */,
 				2C4F21E12036EAA1006CBCD1 /* ImageFormat_PPM.hpp in Headers */,
+				2C4F23AF20384DB1006CBCD1 /* opencl_svm_hsa_extension.hpp in Headers */,
 				2C0FC0761FDB71F400A128B9 /* mem.h in Headers */,
 				2C4F21C52036EAA1006CBCD1 /* CGraphics_GL.hpp in Headers */,
 				2C4F21DD2036EAA1006CBCD1 /* ImageFormat_JPEG.hpp in Headers */,
 				2C4F22632036EAA1006CBCD1 /* ScriptData.hpp in Headers */,
 				2C0FC0171FDB71F400A128B9 /* hb-common.h in Headers */,
+				2C4F23CA20384DB1006CBCD1 /* version.hpp in Headers */,
 				2C0FBFCE1FDB71F400A128B9 /* sfnt.h in Headers */,
 				2C0FC0531FDB71F400A128B9 /* biginteger.h in Headers */,
 				2C0FC0401FDB71F400A128B9 /* utils.h in Headers */,
@@ -4881,12 +5363,18 @@
 				2C0FBFDD1FDB71F400A128B9 /* gif_lib.h in Headers */,
 				2C0FBFD61FDB71F400A128B9 /* ft2build.h in Headers */,
 				2C0FC04B1FDB71F400A128B9 /* document.h in Headers */,
+				2C4F239020384DB1006CBCD1 /* fast_math.hpp in Headers */,
+				2C4F238520384DB1006CBCD1 /* cuda.hpp in Headers */,
 				2C4F22A62036EAA1006CBCD1 /* CTexture_GL.hpp in Headers */,
+				2C4F23C220384DB1006CBCD1 /* filesystem.hpp in Headers */,
 				2C4F22A82036EAA1006CBCD1 /* Texture_GL.hpp in Headers */,
+				2C4F23AC20384DB1006CBCD1 /* opencl_gl_wrappers.hpp in Headers */,
 				2C0FC0331FDB71F400A128B9 /* muParserDLL.h in Headers */,
 				2C4F228C2036EAA1006CBCD1 /* SystemUtility.hpp in Headers */,
 				2C0FC0241FDB71F400A128B9 /* pngconf.h in Headers */,
 				2C4F21922036EAA1006CBCD1 /* IFFT.hpp in Headers */,
+				2C4F237C20384DB1006CBCD1 /* transform.hpp in Headers */,
+				2C4F237620384DB1006CBCD1 /* functional.hpp in Headers */,
 				2C0FBFC41FDB71F400A128B9 /* svpfr.h in Headers */,
 				2C4F214C2036EAA1006CBCD1 /* CClipboard_Windows.hpp in Headers */,
 				2C0FC0641FDB71F400A128B9 /* ostreamwrapper.h in Headers */,
@@ -4895,6 +5383,7 @@
 				2C4F212E2036EAA0006CBCD1 /* CBigInt.hpp in Headers */,
 				2C0FBF7F1FDB71F400A128B9 /* ftoption.h in Headers */,
 				2C0FC02A1FDB71F400A128B9 /* muParser.h in Headers */,
+				2C4F238320384DB1006CBCD1 /* warp_reduce.hpp in Headers */,
 				2C0FBFB81FDB71F400A128B9 /* internal.h in Headers */,
 				2C4F212B2036EAA0006CBCD1 /* CBigFloat.hpp in Headers */,
 				2C4F22132036EAA1006CBCD1 /* CMouse_macOS.hpp in Headers */,
@@ -4904,12 +5393,16 @@
 				2C0FBF941FDB71F400A128B9 /* ftincrem.h in Headers */,
 				2C4F21002036EAA0006CBCD1 /* AssetHandleManager.hpp in Headers */,
 				2C0FC0211FDB71F400A128B9 /* hb.h in Headers */,
+				2C4F23CD20384DB1006CBCD1 /* core.hpp in Headers */,
+				2C4F238D20384DB1006CBCD1 /* cvstd.inl.hpp in Headers */,
 				2C0FBFE71FDB71F400A128B9 /* glad.h in Headers */,
 				2C0FBFD11FDB71F400A128B9 /* t1tables.h in Headers */,
 				2C0FBFD51FDB71F400A128B9 /* ttunpat.h in Headers */,
 				2C4F21AC2036EAA1006CBCD1 /* IGamepad.hpp in Headers */,
+				2C4F239B20384DB1006CBCD1 /* matx.hpp in Headers */,
 				2C4F21082036EAA0006CBCD1 /* CAudio_Null.hpp in Headers */,
 				2C0FC0271FDB71F400A128B9 /* fmt123.h in Headers */,
+				2C4F238C20384DB1006CBCD1 /* cvstd.hpp in Headers */,
 				2C0FC0511FDB71F400A128B9 /* filewritestream.h in Headers */,
 				2C0FBFB31FDB71F400A128B9 /* ftrfork.h in Headers */,
 				2C0FBFE21FDB71F400A128B9 /* eglew.h in Headers */,
@@ -4932,7 +5425,9 @@
 				2C0FC0651FDB71F400A128B9 /* pointer.h in Headers */,
 				2C0FBFC31FDB71F400A128B9 /* svotval.h in Headers */,
 				2C4F210E2036EAA0006CBCD1 /* CAudio_X27.hpp in Headers */,
+				2C4F238920384DB1006CBCD1 /* cv_cpu_dispatch.h in Headers */,
 				2C4F22612036EAA1006CBCD1 /* IScript.hpp in Headers */,
+				2C4F238620384DB1006CBCD1 /* cuda.inl.hpp in Headers */,
 				2C0FC06F1FDB71F400A128B9 /* compiler.h in Headers */,
 				2C0FBF761FDB71F400A128B9 /* cpu_x86.h in Headers */,
 				2C4F22D12036EAA1006CBCD1 /* IXInput.hpp in Headers */,
@@ -4942,7 +5437,12 @@
 				2C0FBF6A1FDB71F400A128B9 /* diy-fp.h in Headers */,
 				2C0FBFC21FDB71F400A128B9 /* svmm.h in Headers */,
 				2C4F21122036EAA0006CBCD1 /* AudioDevice_X28 .hpp in Headers */,
+				2C4F23C520384DB1006CBCD1 /* logger.defines.hpp in Headers */,
+				2C4F23CC20384DB1006CBCD1 /* wimage.hpp in Headers */,
+				2C4F23A120384DB1006CBCD1 /* opencl_clamdblas.hpp in Headers */,
+				2C4F239A20384DB1006CBCD1 /* mat.inl.hpp in Headers */,
 				2C4F21B52036EAA1006CBCD1 /* D3D11DepthStencilState.hpp in Headers */,
+				2C4F236C20384DB1006CBCD1 /* color_detail.hpp in Headers */,
 				2C0FBFF61FDB71F400A128B9 /* glfw_config.h in Headers */,
 				2C0FBF821FDB71F400A128B9 /* ftadvanc.h in Headers */,
 				2C0FC0581FDB71F400A128B9 /* meta.h in Headers */,
@@ -4950,16 +5450,19 @@
 				2C4F210B2036EAA0006CBCD1 /* Audio_X27.hpp in Headers */,
 				2C0FC01B1FDB71F400A128B9 /* hb-ft.h in Headers */,
 				2C0FC05B1FDB71F400A128B9 /* stack.h in Headers */,
+				2C4F23AB20384DB1006CBCD1 /* opencl_gl.hpp in Headers */,
 				2C0FBFB51FDB71F400A128B9 /* ftstream.h in Headers */,
 				2C0FC0521FDB71F400A128B9 /* fwd.h in Headers */,
 				2C4F22B22036EAA1006CBCD1 /* CTextWriter.hpp in Headers */,
 				2C0FC0151FDB71F400A128B9 /* hb-blob.h in Headers */,
 				2C0FBFBC1FDB71F400A128B9 /* svcid.h in Headers */,
 				2C4F21D72036EAA1006CBCD1 /* CImageFormat.hpp in Headers */,
+				2C4F237320384DB1006CBCD1 /* emulation.hpp in Headers */,
 				2C0FC0251FDB71F400A128B9 /* pnglibconf.h in Headers */,
 				2C9DDF4F2010164E002D3BDC /* pffft.h in Headers */,
 				2C0FBF7D1FDB71F400A128B9 /* ftheader.h in Headers */,
 				2C4F229A2036EAA1006CBCD1 /* WindowsIME.h in Headers */,
+				2C4F237D20384DB1006CBCD1 /* type_traits.hpp in Headers */,
 				2C4F21152036EAA0006CBCD1 /* VoiceStream_X28.hpp in Headers */,
 				2C4F20FD2036EAA0006CBCD1 /* CAsset.hpp in Headers */,
 				2C0FC01F1FDB71F400A128B9 /* hb-unicode.h in Headers */,
@@ -4968,8 +5471,10 @@
 				2C0FC0681FDB71F400A128B9 /* reader.h in Headers */,
 				2C0FC0751FDB71F400A128B9 /* huf.h in Headers */,
 				2C0FC06C1FDB71F400A128B9 /* writer.h in Headers */,
+				2C4F239920384DB1006CBCD1 /* mat.hpp in Headers */,
 				2C0FBFFB1FDB71F400A128B9 /* internal.h in Headers */,
 				2C4F226B2036EAA1006CBCD1 /* VertexShader_D3D11.hpp in Headers */,
+				2C4F23B220384DB1006CBCD1 /* operations.hpp in Headers */,
 				2C4F21182036EAA0006CBCD1 /* AudioFormat_AAC_Linux.hpp in Headers */,
 				2C4F21EC2036EAA1006CBCD1 /* CKeyboard_Linux.hpp in Headers */,
 				2C0FC0971FDB71F400A128B9 /* zstd.h in Headers */,
@@ -4977,6 +5482,8 @@
 				2C4F22752036EAA1006CBCD1 /* Siv3D_macOS.h in Headers */,
 				2C4F218C2036EAA1006CBCD1 /* EngineDirectory.hpp in Headers */,
 				2C0FBFAE1FDB71F400A128B9 /* ftgloadr.h in Headers */,
+				2C4F239120384DB1006CBCD1 /* hal.hpp in Headers */,
+				2C4F23B620384DB1006CBCD1 /* cv_cpu_include_simd_declarations.hpp in Headers */,
 				2C4F21142036EAA0006CBCD1 /* CAudio_X28.hpp in Headers */,
 				2C0FBFE31FDB71F400A128B9 /* glew.h in Headers */,
 				2C0FC01D1FDB71F400A128B9 /* hb-shape-plan.h in Headers */,
@@ -4990,7 +5497,9 @@
 				2C4F21DA2036EAA1006CBCD1 /* IImageFormat.hpp in Headers */,
 				2C4F21AE2036EAA1006CBCD1 /* Polynomial.hpp in Headers */,
 				2C0FBFCA1FDB71F400A128B9 /* svttcmap.h in Headers */,
+				2C4F23C120384DB1006CBCD1 /* configuration.private.hpp in Headers */,
 				2C0FBFCB1FDB71F400A128B9 /* svtteng.h in Headers */,
+				2C4F237220384DB1006CBCD1 /* dynamic_smem.hpp in Headers */,
 				2C0FC08F1FDB71F400A128B9 /* zstdmt_compress.h in Headers */,
 				2C4F21F62036EAA1006CBCD1 /* LicenseList.hpp in Headers */,
 				2C0FC0361FDB71F400A128B9 /* muParserFixes.h in Headers */,
@@ -4998,15 +5507,24 @@
 				2C0FBF9D1FDB71F400A128B9 /* ftoutln.h in Headers */,
 				2C4F21802036EAA1006CBCD1 /* CEffect.hpp in Headers */,
 				2C4F22342036EAA1006CBCD1 /* CRenderer2D_D3D11.hpp in Headers */,
+				2C4F237B20384DB1006CBCD1 /* simd_functions.hpp in Headers */,
 				2C0FC05D1FDB71F400A128B9 /* strtod.h in Headers */,
+				2C4F238B20384DB1006CBCD1 /* cvdef.h in Headers */,
+				2C4F23D520384DB1006CBCD1 /* opencv_modules.hpp in Headers */,
+				2C4F237420384DB1006CBCD1 /* filters.hpp in Headers */,
 				2C0FBFDC1FDB71F400A128B9 /* gif_hash.h in Headers */,
+				2C4F239E20384DB1006CBCD1 /* ocl_genbase.hpp in Headers */,
+				2C4F23B320384DB1006CBCD1 /* optim.hpp in Headers */,
 				2C0FBFEB1FDB71F400A128B9 /* glfw3native.h in Headers */,
 				2C4F22482036EAA1006CBCD1 /* scriptarray.h in Headers */,
 				2C0FBF811FDB71F400A128B9 /* freetype.h in Headers */,
+				2C4F236E20384DB1006CBCD1 /* reduce_key_val.hpp in Headers */,
 				2C4F21842036EAA1006CBCD1 /* IEffect.hpp in Headers */,
+				2C4F237720384DB1006CBCD1 /* limits.hpp in Headers */,
 				2C4F222C2036EAA1006CBCD1 /* CProfiler.hpp in Headers */,
 				2C4F22092036EAA1006CBCD1 /* CMemoryWriter.hpp in Headers */,
 				2C0FC06B1FDB71F400A128B9 /* stringbuffer.h in Headers */,
+				2C4F238A20384DB1006CBCD1 /* cv_cpu_helper.h in Headers */,
 				2C4F22D02036EAA1006CBCD1 /* CXInput_NULL.hpp in Headers */,
 				2C4F21FC2036EAA1006CBCD1 /* CLogger.hpp in Headers */,
 				2C4F21A62036EAA1006CBCD1 /* CGamepad_Linux.hpp in Headers */,
@@ -5017,11 +5535,14 @@
 				2C0FC0691FDB71F400A128B9 /* schema.h in Headers */,
 				2C4F229C2036EAA1006CBCD1 /* CTextReader.hpp in Headers */,
 				2C4F215F2036EAA1006CBCD1 /* D3D11ConstantBuffer.hpp in Headers */,
+				2C4F236520384DB1006CBCD1 /* core.hpp in Headers */,
+				2C4F236820384DB1006CBCD1 /* border_interpolate.hpp in Headers */,
 				2C0FBFAB1FDB71F400A128B9 /* ftcalc.h in Headers */,
 				2C0FC07A1FDB71F400A128B9 /* threading.h in Headers */,
 				2C0FC01E1FDB71F400A128B9 /* hb-shape.h in Headers */,
 				2C4F20FE2036EAA0006CBCD1 /* IAsset.hpp in Headers */,
 				2C0FBF681FDB71F400A128B9 /* cached-powers.h in Headers */,
+				2C4F23A420384DB1006CBCD1 /* opencl_core_wrappers.hpp in Headers */,
 				2C0FC05F1FDB71F400A128B9 /* istreamwrapper.h in Headers */,
 				2C4F21B92036EAA1006CBCD1 /* D3D11RasterizerState.hpp in Headers */,
 				2C0FBF861FDB71F400A128B9 /* ftbitmap.h in Headers */,
@@ -5032,14 +5553,20 @@
 				2C4F21CB2036EAA1006CBCD1 /* IGraphics.hpp in Headers */,
 				2C0FBFE41FDB71F400A128B9 /* glxew.h in Headers */,
 				2C0FC0381FDB71F400A128B9 /* muParserInt.h in Headers */,
+				2C4F238120384DB1006CBCD1 /* vec_traits.hpp in Headers */,
 				2C0FBF901FDB71F400A128B9 /* ftglyph.h in Headers */,
 				2C4F21512036EAA1006CBCD1 /* ICodec.hpp in Headers */,
+				2C4F23A920384DB1006CBCD1 /* opencl_core.hpp in Headers */,
 				2C4F22C12036EAA1006CBCD1 /* CWindow_Linux.hpp in Headers */,
+				2C4F23C820384DB1006CBCD1 /* trace.private.hpp in Headers */,
 				2C4F222D2036EAA1006CBCD1 /* IProfiler.hpp in Headers */,
+				2C4F236220384DB1006CBCD1 /* affine.hpp in Headers */,
 				2C0FC0591FDB71F400A128B9 /* pow10.h in Headers */,
 				2C4F21312036EAA1006CBCD1 /* CBinaryReader_Linux.hpp in Headers */,
 				2C0FC0541FDB71F400A128B9 /* diyfp.h in Headers */,
 				2C4F21032036EAA0006CBCD1 /* CAudio_AL.hpp in Headers */,
+				2C4F23A220384DB1006CBCD1 /* opencl_clamdfft.hpp in Headers */,
+				2C4F23B120384DB1006CBCD1 /* ovx_defs.hpp in Headers */,
 				2C0FC0571FDB71F400A128B9 /* itoa.h in Headers */,
 				2C0FBF851FDB71F400A128B9 /* ftbdf.h in Headers */,
 				2C0FBFD41FDB71F400A128B9 /* tttags.h in Headers */,
@@ -5054,46 +5581,65 @@
 				2C0FBF8F1FDB71F400A128B9 /* ftgasp.h in Headers */,
 				2C4F219D2036EAA1006CBCD1 /* FontData.hpp in Headers */,
 				2C4F21062036EAA0006CBCD1 /* IAudio.hpp in Headers */,
+				2C4F23BB20384DB1006CBCD1 /* softfloat.hpp in Headers */,
 				2C4F210C2036EAA0006CBCD1 /* AudioDevice_X27 .hpp in Headers */,
+				2C4F23D120384DB1006CBCD1 /* imgproc.hpp in Headers */,
 				2C0FC05C1FDB71F400A128B9 /* strfunc.h in Headers */,
 				2C0FBF711FDB71F400A128B9 /* ieee.h in Headers */,
 				2C4F21A82036EAA1006CBCD1 /* CGamepad_macOS.hpp in Headers */,
 				2C0FC04A1FDB71F400A128B9 /* allocators.h in Headers */,
+				2C4F23AD20384DB1006CBCD1 /* opencl_svm_20.hpp in Headers */,
 				2C4F21FD2036EAA1006CBCD1 /* ILogger.hpp in Headers */,
 				2C0FBF8A1FDB71F400A128B9 /* ftchapters.h in Headers */,
 				2C0FBFF01FDB71F400A128B9 /* cocoa_platform.h in Headers */,
 				2C0FBFA01FDB71F400A128B9 /* ftrender.h in Headers */,
 				2C0FBF931FDB71F400A128B9 /* ftimage.h in Headers */,
 				2C0FC05E1FDB71F400A128B9 /* swap.h in Headers */,
+				2C4F23CB20384DB1006CBCD1 /* vsx_utils.hpp in Headers */,
+				2C4F23AA20384DB1006CBCD1 /* opencl_core_wrappers.hpp in Headers */,
 				2C0FC07F1FDB71F400A128B9 /* zstd_internal.h in Headers */,
 				2C0FC06A1FDB71F400A128B9 /* stream.h in Headers */,
+				2C4F238820384DB1006CBCD1 /* cuda_types.hpp in Headers */,
 				2C4F22952036EAA1006CBCD1 /* CTextInput_Windows.hpp in Headers */,
 				2C4F21352036EAA1006CBCD1 /* CBinaryReader_Windows.hpp in Headers */,
 				2C0FBF9E1FDB71F400A128B9 /* ftpcfdrv.h in Headers */,
+				2C4F23B020384DB1006CBCD1 /* opengl.hpp in Headers */,
 				2C0FBFA81FDB71F400A128B9 /* fttypes.h in Headers */,
 				2C4F21712036EAA1006CBCD1 /* ICursor.hpp in Headers */,
 				2C4F216F2036EAA1006CBCD1 /* CCursor_Windows.hpp in Headers */,
 				2C4F21112036EAA0006CBCD1 /* Audio_X28.hpp in Headers */,
 				2C4F21BB2036EAA1006CBCD1 /* D3D11RenderTarget.hpp in Headers */,
+				2C4F23C720384DB1006CBCD1 /* trace.hpp in Headers */,
+				2C4F23B420384DB1006CBCD1 /* ovx.hpp in Headers */,
+				2C4F236620384DB1006CBCD1 /* core_c.h in Headers */,
+				2C4F23A020384DB1006CBCD1 /* opencl_svm.hpp in Headers */,
 				2C4F21BF2036EAA1006CBCD1 /* D3D11ScreenCapture.hpp in Headers */,
 				2C4F21F12036EAA1006CBCD1 /* IKeyboard.hpp in Headers */,
 				2C0FC0221FDB71F400A128B9 /* turbojpeg.h in Headers */,
+				2C4F237120384DB1006CBCD1 /* vec_distance_detail.hpp in Headers */,
+				2C4F239420384DB1006CBCD1 /* intrin_cpp.hpp in Headers */,
 				2C0FBFC51FDB71F400A128B9 /* svpostnm.h in Headers */,
 				2C0FBFBA1FDB71F400A128B9 /* pshints.h in Headers */,
+				2C4F23D220384DB1006CBCD1 /* imgproc_c.h in Headers */,
 				2C0FBFCD1FDB71F400A128B9 /* svwinfnt.h in Headers */,
 				2C0FC0671FDB71F400A128B9 /* rapidjson.h in Headers */,
+				2C4F239320384DB1006CBCD1 /* intrin.hpp in Headers */,
+				2C4F23BF20384DB1006CBCD1 /* types_c.h in Headers */,
 				2C0FBF8D1FDB71F400A128B9 /* fterrors.h in Headers */,
 				2C0FBF841FDB71F400A128B9 /* ftbbox.h in Headers */,
+				2C4F23A820384DB1006CBCD1 /* opencl_clamdfft.hpp in Headers */,
 				2C0FBFED1FDB71F400A128B9 /* cocoa_joystick.h in Headers */,
 				2C0FBF6E1FDB71F400A128B9 /* fast-dtoa.h in Headers */,
 				2C0FBFB91FDB71F400A128B9 /* psaux.h in Headers */,
 				2C0FC0611FDB71F400A128B9 /* memorystream.h in Headers */,
+				2C4F237020384DB1006CBCD1 /* type_traits_detail.hpp in Headers */,
 				2C0FBFB11FDB71F400A128B9 /* ftobjs.h in Headers */,
 				2C0FC0311FDB71F400A128B9 /* muParserDef.h in Headers */,
 				2C4F21B32036EAA1006CBCD1 /* CGraphics_D3D11.hpp in Headers */,
 				2C4F22882036EAA1006CBCD1 /* ISystem.hpp in Headers */,
 				2C4F224C2036EAA1006CBCD1 /* scriptstdstring.h in Headers */,
 				2C0FC0301FDB71F400A128B9 /* muParserCallback.h in Headers */,
+				2C4F239F20384DB1006CBCD1 /* ocl_defs.hpp in Headers */,
 				2C4F219B2036EAA1006CBCD1 /* CFont.hpp in Headers */,
 				2C0FBF911FDB71F400A128B9 /* ftgxval.h in Headers */,
 				2C4F21B72036EAA1006CBCD1 /* D3D11Device.hpp in Headers */,
@@ -5101,12 +5647,20 @@
 				2C4F22062036EAA1006CBCD1 /* CMemoryMapping.hpp in Headers */,
 				2C4F22A22036EAA1006CBCD1 /* CTexture_D3D11.hpp in Headers */,
 				2C4F21C72036EAA1006CBCD1 /* GLRasterizerState.hpp in Headers */,
+				2C4F239220384DB1006CBCD1 /* interface.h in Headers */,
 				2C4F22C32036EAA1006CBCD1 /* CWindow_macOS.hpp in Headers */,
 				2C0FC0891FDB71F400A128B9 /* zstd_lazy.h in Headers */,
+				2C4F237E20384DB1006CBCD1 /* utility.hpp in Headers */,
 				2C0FC04F1FDB71F400A128B9 /* error.h in Headers */,
 				2C4F21612036EAA1006CBCD1 /* GLConstantBuffer.hpp in Headers */,
 				2C0FC0961FDB71F400A128B9 /* zdict.h in Headers */,
 				2C4F22362036EAA1006CBCD1 /* D3D11Renderer2DCommandManager.hpp in Headers */,
+				2C4F237F20384DB1006CBCD1 /* vec_distance.hpp in Headers */,
+				2C4F238F20384DB1006CBCD1 /* eigen.hpp in Headers */,
+				2C4F23C420384DB1006CBCD1 /* lock.private.hpp in Headers */,
+				2C4F239620384DB1006CBCD1 /* intrin_sse.hpp in Headers */,
+				2C4F238720384DB1006CBCD1 /* cuda_stream_accessor.hpp in Headers */,
+				2C4F237520384DB1006CBCD1 /* funcattrib.hpp in Headers */,
 				2C4F21422036EAA1006CBCD1 /* CByteArray.hpp in Headers */,
 				2C0FBF831FDB71F400A128B9 /* ftautoh.h in Headers */,
 				2C4F21D92036EAA1006CBCD1 /* ImageFormat_GIF.hpp in Headers */,
@@ -5123,11 +5677,14 @@
 				2C0FBF661FDB71F400A128B9 /* bignum.h in Headers */,
 				2C0FBF641FDB71F400A128B9 /* bignum-dtoa.h in Headers */,
 				2C4F21B12036EAA1006CBCD1 /* D3D11BlendState.hpp in Headers */,
+				2C4F23A720384DB1006CBCD1 /* opencl_clamdblas.hpp in Headers */,
+				2C4F239C20384DB1006CBCD1 /* neon_utils.hpp in Headers */,
 				2C0FBFE51FDB71F400A128B9 /* wglew.h in Headers */,
 				2C4F22CE2036EAA1006CBCD1 /* CXInput.hpp in Headers */,
 				2C0FBFE81FDB71F400A128B9 /* khrplatform.h in Headers */,
 				2C4F218D2036EAA1006CBCD1 /* EngineUtility.hpp in Headers */,
 				2C0FC0551FDB71F400A128B9 /* dtoa.h in Headers */,
+				2C4F23A320384DB1006CBCD1 /* opencl_core.hpp in Headers */,
 				2C4F21492036EAA1006CBCD1 /* CClipboard_macOS.hpp in Headers */,
 				2C0FBFBD1FDB71F400A128B9 /* svfntfmt.h in Headers */,
 				2C0FBFB21FDB71F400A128B9 /* ftpic.h in Headers */,
@@ -5142,9 +5699,12 @@
 				2C0FBFC91FDB71F400A128B9 /* svsfnt.h in Headers */,
 				2C0FBFC11FDB71F400A128B9 /* svmetric.h in Headers */,
 				2C4F211C2036EAA0006CBCD1 /* AudioFormat_AAC_Windows.hpp in Headers */,
+				2C4F238020384DB1006CBCD1 /* vec_math.hpp in Headers */,
 				2C4F22282036EAA1006CBCD1 /* IPrint.hpp in Headers */,
 				2C4F21782036EAA1006CBCD1 /* CDragDrop_macOS.hpp in Headers */,
+				2C4F23CF20384DB1006CBCD1 /* hal.hpp in Headers */,
 				2C0FBFAC1FDB71F400A128B9 /* ftdebug.h in Headers */,
+				2C4F237920384DB1006CBCD1 /* saturate_cast.hpp in Headers */,
 				2C4F22272036EAA1006CBCD1 /* CPrint.hpp in Headers */,
 				2C0FBFE91FDB71F400A128B9 /* linmath.h in Headers */,
 				2C0FBF7E1FDB71F400A128B9 /* ftmodule.h in Headers */,
@@ -5157,25 +5717,35 @@
 				2C9DE9A020102ED6002D3BDC /* exif.h in Headers */,
 				2C4F21C12036EAA1006CBCD1 /* D3D11SwapChain.hpp in Headers */,
 				2C0FBF771FDB71F400A128B9 /* cpu_x86_Linux.ipp in Headers */,
+				2C4F23BE20384DB1006CBCD1 /* types.hpp in Headers */,
 				2C4F21C92036EAA1006CBCD1 /* GLSamplerState.hpp in Headers */,
 				2C0FC01C1FDB71F400A128B9 /* hb-set.h in Headers */,
 				2C0FBF8B1FDB71F400A128B9 /* ftcid.h in Headers */,
 				2C0FBFBF1FDB71F400A128B9 /* svgxval.h in Headers */,
+				2C4F23D420384DB1006CBCD1 /* imgproc.hpp in Headers */,
+				2C4F239820384DB1006CBCD1 /* ippasync.hpp in Headers */,
 				2C4F22022036EAA1006CBCD1 /* CMathParser.hpp in Headers */,
+				2C4F23CE20384DB1006CBCD1 /* distortion_model.hpp in Headers */,
 				2C4F225E2036EAA1006CBCD1 /* ScriptBind.hpp in Headers */,
 				2C0FBFDE1FDB71F400A128B9 /* gif_lib_private.h in Headers */,
+				2C4F237A20384DB1006CBCD1 /* scan.hpp in Headers */,
 				2C0FC0161FDB71F400A128B9 /* hb-buffer.h in Headers */,
 				2C4F21F52036EAA1006CBCD1 /* ILicenseManager.hpp in Headers */,
 				2C4F226D2036EAA1006CBCD1 /* CShader_GL.hpp in Headers */,
 				2C4F22A92036EAA1006CBCD1 /* ITexture.hpp in Headers */,
 				2C4F215A2036EAA1006CBCD1 /* CConsole.hpp in Headers */,
 				2C4F216C2036EAA1006CBCD1 /* CCursor_macOS.hpp in Headers */,
+				2C4F237820384DB1006CBCD1 /* reduce.hpp in Headers */,
+				2C4F239720384DB1006CBCD1 /* intrin_vsx.hpp in Headers */,
+				2C4F23D020384DB1006CBCD1 /* interface.h in Headers */,
+				2C4F23BC20384DB1006CBCD1 /* sse_utils.hpp in Headers */,
 				2C0FC0471FDB71F400A128B9 /* sweep.h in Headers */,
 				2C4F228E2036EAA1006CBCD1 /* CTextBox.hpp in Headers */,
 				2C0FBFAD1FDB71F400A128B9 /* ftdriver.h in Headers */,
 				2C0FBFA41FDB71F400A128B9 /* ftsynth.h in Headers */,
 				2C0FBFD31FDB71F400A128B9 /* tttables.h in Headers */,
 				2C4F22852036EAA1006CBCD1 /* CSystem_macOS.hpp in Headers */,
+				2C4F23BA20384DB1006CBCD1 /* saturate.hpp in Headers */,
 				2C0FC03F1FDB71F400A128B9 /* shapes.h in Headers */,
 				2C0FBF891FDB71F400A128B9 /* ftcffdrv.h in Headers */,
 				2C4F22CB2036EAA1006CBCD1 /* CWritableMemoryMapping.hpp in Headers */,
@@ -5187,6 +5757,7 @@
 				2C4F211A2036EAA0006CBCD1 /* AudioFormat_AAC_macOS.hpp in Headers */,
 				2C0FC03B1FDB71F400A128B9 /* muParserToken.h in Headers */,
 				2C0FBFBB1FDB71F400A128B9 /* svbdf.h in Headers */,
+				2C4F23D320384DB1006CBCD1 /* types_c.h in Headers */,
 				2C4F21E92036EAA1006CBCD1 /* InputState.hpp in Headers */,
 				2C4F21E42036EAA1006CBCD1 /* ImageFormat_TGA.hpp in Headers */,
 				2C4F21012036EAA0006CBCD1 /* Audio_AL.hpp in Headers */,
@@ -5197,43 +5768,60 @@
 				2C4F210F2036EAA0006CBCD1 /* VoiceStream_X27.hpp in Headers */,
 				2C0FC0831FDB71F400A128B9 /* zstd_compress.h in Headers */,
 				2C0FC0351FDB71F400A128B9 /* muParserError.h in Headers */,
+				2C4F23A620384DB1006CBCD1 /* opencl_gl_wrappers.hpp in Headers */,
 				2C0FC08B1FDB71F400A128B9 /* zstd_ldm.h in Headers */,
 				2C4F21F42036EAA1006CBCD1 /* CLicenseManager.hpp in Headers */,
+				2C4F23C020384DB1006CBCD1 /* utility.hpp in Headers */,
 				2C0FBFA31FDB71F400A128B9 /* ftstroke.h in Headers */,
 				2C0FC06D1FDB71F400A128B9 /* RFC1321.hpp in Headers */,
+				2C4F23B720384DB1006CBCD1 /* private.cuda.hpp in Headers */,
 				2C4F21F02036EAA1006CBCD1 /* CKeyboard_Windows.hpp in Headers */,
 				2C0FBFA21FDB71F400A128B9 /* ftsnames.h in Headers */,
 				2C0FBF871FDB71F400A128B9 /* ftbzip2.h in Headers */,
+				2C4F239520384DB1006CBCD1 /* intrin_neon.hpp in Headers */,
 				2C0FBFCC1FDB71F400A128B9 /* svttglyf.h in Headers */,
+				2C4F23A520384DB1006CBCD1 /* opencl_gl.hpp in Headers */,
+				2C4F236D20384DB1006CBCD1 /* reduce.hpp in Headers */,
 				2C0FC0721FDB71F400A128B9 /* error_private.h in Headers */,
+				2C4F23B520384DB1006CBCD1 /* persistence.hpp in Headers */,
 				2C0FBF7C1FDB71F400A128B9 /* ftconfig.h in Headers */,
+				2C4F239D20384DB1006CBCD1 /* ocl.hpp in Headers */,
 				2C0FBFB71FDB71F400A128B9 /* ftvalid.h in Headers */,
 				2C4F21332036EAA1006CBCD1 /* CBinaryReader_macOS.hpp in Headers */,
 				2C0FC05A1FDB71F400A128B9 /* regex.h in Headers */,
+				2C4F23C620384DB1006CBCD1 /* logger.hpp in Headers */,
 				2C4F223A2036EAA1006CBCD1 /* GLRenderer2DCommandManager.hpp in Headers */,
 				2C0FBFD21FDB71F400A128B9 /* ttnameid.h in Headers */,
 				2C4F21532036EAA1006CBCD1 /* CCodec_MF.hpp in Headers */,
+				2C4F236720384DB1006CBCD1 /* block.hpp in Headers */,
+				2C4F236A20384DB1006CBCD1 /* common.hpp in Headers */,
 				2C4F21542036EAA1006CBCD1 /* MFRenderStream.hpp in Headers */,
 				2C4F21AA2036EAA1006CBCD1 /* CGamepad_Windows.hpp in Headers */,
 				2C0FBF991FDB71F400A128B9 /* ftmm.h in Headers */,
+				2C4F238E20384DB1006CBCD1 /* directx.hpp in Headers */,
+				2C4F236F20384DB1006CBCD1 /* transform_detail.hpp in Headers */,
 				2C0FC0261FDB71F400A128B9 /* miniutf.hpp in Headers */,
 				2C0FC0781FDB71F400A128B9 /* pool.h in Headers */,
 				2C0FC0431FDB71F400A128B9 /* advancing_front.h in Headers */,
 				2C0FC08D1FDB71F400A128B9 /* zstd_opt.h in Headers */,
 				2C4F21892036EAA1006CBCD1 /* CEmojiDictionary.hpp in Headers */,
 				2C4F22772036EAA1006CBCD1 /* Siv3DEngine.hpp in Headers */,
+				2C4F23AE20384DB1006CBCD1 /* opencl_svm_definitions.hpp in Headers */,
 				2C0FBF961FDB71F400A128B9 /* ftlist.h in Headers */,
 				2C0FBFA61FDB71F400A128B9 /* fttrigon.h in Headers */,
 				2C0FBFB61FDB71F400A128B9 /* fttrace.h in Headers */,
 				2C4F22A42036EAA1006CBCD1 /* Texture_D3D11.hpp in Headers */,
+				2C4F238220384DB1006CBCD1 /* warp.hpp in Headers */,
 				2C0FC03D1FDB71F400A128B9 /* muParserTokenReader.h in Headers */,
 				2C0FBFC01FDB71F400A128B9 /* svkern.h in Headers */,
 				2C0FBFA51FDB71F400A128B9 /* ftsystem.h in Headers */,
+				2C4F236420384DB1006CBCD1 /* bufferpool.hpp in Headers */,
 				2C0FC0451FDB71F400A128B9 /* cdt.h in Headers */,
 				2C4F224A2036EAA1006CBCD1 /* scriptbuilder.h in Headers */,
 				2C0FBF921FDB71F400A128B9 /* ftgzip.h in Headers */,
 				2C0FBF5E1FDB71F400A128B9 /* numbers.hpp in Headers */,
 				2C4F21DF2036EAA1006CBCD1 /* ImageFormat_PNG.hpp in Headers */,
+				2C4F23C920384DB1006CBCD1 /* va_intel.hpp in Headers */,
 				2C4F213C2036EAA1006CBCD1 /* CBinaryWriter_Windows.hpp in Headers */,
 				2C0FBFC61FDB71F400A128B9 /* svprop.h in Headers */,
 			);
