@@ -5,7 +5,7 @@ void Main()
 {
 	Image image(U"example/windmill.png");
 
-	image.gaussianBlur(10, 10);
+	image.brighten(80);
 
 	const Texture texture(image);
 

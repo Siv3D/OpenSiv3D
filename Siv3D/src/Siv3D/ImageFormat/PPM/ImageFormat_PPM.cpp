@@ -450,13 +450,13 @@ namespace s3d
 		{
 			for (int x = 0; x + 1 < image.width(); ++x)
 			{
-				writer.write(image[y][x].grayscale_0_255() < 128 ? '0' : '1');
+				writer.write(image[y][x].grayscale0_255() < 128 ? '0' : '1');
 				writer.write(' ');
 			}
 
 			if (1 <= image.width())
 			{
-				writer.write(image[y][image.width() - 1].grayscale_0_255() < 128 ? '0' : '1');
+				writer.write(image[y][image.width() - 1].grayscale0_255() < 128 ? '0' : '1');
 				writer.write('\n');
 			}
 		}
@@ -477,13 +477,13 @@ namespace s3d
 		{
 			for (int x = 0; x + 1 < image.width(); ++x)
 			{
-				writer.write(std::to_string(image[y][x].grayscale_0_255()));
+				writer.write(std::to_string(image[y][x].grayscale0_255()));
 				writer.write(' ');
 			}
 
 			if (1 <= image.width())
 			{
-				writer.write(std::to_string(image[y][image.width() - 1].grayscale_0_255()));
+				writer.write(std::to_string(image[y][image.width() - 1].grayscale0_255()));
 				writer.write('\n');
 			}
 		}
@@ -584,12 +584,12 @@ namespace s3d
 		{
 			for (int x = 0; x + 1 < image.width(); ++x)
 			{
-				writer.write(image[y][x].grayscale_0_255());
+				writer.write(image[y][x].grayscale0_255());
 			}
 
 			if (1 <= image.width())
 			{
-				writer.write(image[y][image.width() - 1].grayscale_0_255());
+				writer.write(image[y][image.width() - 1].grayscale0_255());
 			}
 		}
 

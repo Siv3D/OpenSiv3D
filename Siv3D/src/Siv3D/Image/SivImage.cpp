@@ -42,6 +42,29 @@ namespace s3d
 				return cv::BORDER_REFLECT;
 			case BorderType::Reflect_101:
 				return cv::BORDER_REFLECT101;
+			default:
+				return cv::BORDER_DEFAULT;
+			}
+		}
+
+		static void MakeSepia(const double levr, const double levg, const double levb, Color& pixel)
+		{
+			const double y = (0.299 * pixel.r + 0.587 * pixel.g + 0.114 * pixel.b);
+			const double r = levr + y;
+			const double g = levg + y;
+			const double b = levb + y;
+			pixel.r = r >= 255.0 ? 255 : r <= 0.0 ? 0 : static_cast<uint8>(r);
+			pixel.g = g >= 255.0 ? 255 : g <= 0.0 ? 0 : static_cast<uint8>(g);
+			pixel.b = b >= 255.0 ? 255 : b <= 0.0 ? 0 : static_cast<uint8>(b);
+		}
+
+		static void SetupPostarizeTable(const int32 level, uint8 table[256])
+		{
+			const int32 levN = Clamp(level, 2, 256) - 1;
+
+			for (size_t i = 0; i < 256; ++i)
+			{
+				table[i] = static_cast<uint8>(std::floor(i / 255.0 * levN + 0.5) / levN * 255);
 			}
 		}
 	}
@@ -292,72 +315,7 @@ namespace s3d
 
 		return true;
 	}
-
-	Image& Image::mirror()
-	{
-		// 1. パラメータチェック
-		{
-			if (isEmpty())
-			{
-				return *this;
-			}
-		}
-
-		// 2. 処理
-		{
-			const int32 h = m_height, w = m_width, wHalf = m_width / 2;	
-			Color* line = m_data.data();		
-
-			for (int32 y = 0; y < h; ++y)
-			{
-				Color* lineA = line;
-				Color* lineB = line + w - 1;;
-
-				for (int32 x = 0; x < wHalf; ++x)
-				{
-					std::swap(*lineA, *lineB);
-					++lineA;
-					--lineB;
-				}
-
-				line += w;
-			}
-		}
-
-		return *this;
-	}
 	
-	Image& Image::flip()
-	{
-		// 1. パラメータチェック
-		{
-			if (isEmpty())
-			{
-				return *this;
-			}
-		}
-		
-		// 2. 処理
-		{
-			const int32 h = m_height, s = stride();
-			Array<Color> line(m_width);
-			Color* lineU = m_data.data();
-			Color* lineB = lineU + m_width * (h - 1);
-			
-			for (int32 y = 0; y < h / 2; ++y)
-			{
-				::memcpy(line.data(), lineU, s);
-				::memcpy(lineU, lineB, s);
-				::memcpy(lineB, line.data(), s);
-				
-				lineU += m_width;
-				lineB -= m_width;
-			}
-		}
-		
-		return *this;
-	}
-
 	bool Image::save(const FilePath& path, ImageFormat format) const
 	{
 		if (isEmpty())
@@ -438,6 +396,337 @@ namespace s3d
 
 		return Siv3DEngine::GetImageFormat()->encode(*this, format);
 	}
+
+	Image& Image::negate()
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			for (auto& pixel : m_data)
+			{
+				pixel = ~pixel;
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::negated() const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		Image image(*this);
+
+		for (auto& pixel : image)
+		{
+			pixel = ~pixel;
+		}
+
+		return image;
+	}
+
+	Image& Image::grayscale()
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			for (auto& pixel : m_data)
+			{
+				pixel.r = pixel.g = pixel.b = pixel.grayscale0_255();
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::grayscaled() const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		Image image(*this);
+
+		for (auto& pixel : image)
+		{
+			pixel.r = pixel.g = pixel.b = pixel.grayscale0_255();
+		}
+
+		return image;
+	}
+
+	Image& Image::sepia(const int32 level)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			const double levn = Clamp(level, 0, 255);
+			const double levr = 0.956*levn;
+			const double levg = 0.274*levn;
+			const double levb = -1.108*levn;
+
+			for (auto& pixel : m_data)
+			{
+				detail::MakeSepia(levr, levg, levb, pixel);
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::sepiaed(const int32 level) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		Image image(*this);
+
+		const double levn = Clamp(level, 0, 255);
+		const double levr = 0.956*levn;
+		const double levg = 0.274*levn;
+		const double levb = -1.108*levn;
+
+		for (auto& pixel : image)
+		{
+			detail::MakeSepia(levr, levg, levb, pixel);
+		}
+
+		return image;
+	}
+
+	Image& Image::postarize(const int32 level)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			uint8 colorTable[256];
+
+			detail::SetupPostarizeTable(level, colorTable);
+
+			for (auto& pixel : m_data)
+			{
+				pixel.r = colorTable[pixel.r];
+				pixel.g = colorTable[pixel.g];
+				pixel.b = colorTable[pixel.b];
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::postarized(const int32 level) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		Image image(*this);
+
+		uint8 colorTable[256];
+
+		detail::SetupPostarizeTable(level, colorTable);
+
+		for (auto& pixel : image)
+		{
+			pixel.r = colorTable[pixel.r];
+			pixel.g = colorTable[pixel.g];
+			pixel.b = colorTable[pixel.b];
+		}
+
+		return image;
+	}
+
+	Image& Image::brighten(const int32 level)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			if (level < 0)
+			{
+				for (auto& pixel : m_data)
+				{
+					pixel.r = std::max(static_cast<int>(pixel.r) + level, 0);
+					pixel.g = std::max(static_cast<int>(pixel.g) + level, 0);
+					pixel.b = std::max(static_cast<int>(pixel.b) + level, 0);
+				}
+			}
+			else if (level > 0)
+			{
+				for (auto& pixel : m_data)
+				{
+					pixel.r = std::min(static_cast<int>(pixel.r) + level, 255);
+					pixel.g = std::min(static_cast<int>(pixel.g) + level, 255);
+					pixel.b = std::min(static_cast<int>(pixel.b) + level, 255);
+				}
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::brightened(const int32 level) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		Image image(*this);
+
+		if (level < 0)
+		{
+			for (auto& pixel : image)
+			{
+				pixel.r = std::max(static_cast<int>(pixel.r) + level, 0);
+				pixel.g = std::max(static_cast<int>(pixel.g) + level, 0);
+				pixel.b = std::max(static_cast<int>(pixel.b) + level, 0);
+			}
+		}
+		else if (level > 0)
+		{
+			for (auto& pixel : image)
+			{
+				pixel.r = std::min(static_cast<int>(pixel.r) + level, 255);
+				pixel.g = std::min(static_cast<int>(pixel.g) + level, 255);
+				pixel.b = std::min(static_cast<int>(pixel.b) + level, 255);
+			}
+		}
+
+		return image;
+	}
+
+
+
+
+
+
+
+
+
+
+	Image& Image::mirror()
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			const int32 h = m_height, w = m_width, wHalf = m_width / 2;
+			Color* line = m_data.data();
+
+			for (int32 y = 0; y < h; ++y)
+			{
+				Color* lineA = line;
+				Color* lineB = line + w - 1;;
+
+				for (int32 x = 0; x < wHalf; ++x)
+				{
+					std::swap(*lineA, *lineB);
+					++lineA;
+					--lineB;
+				}
+
+				line += w;
+			}
+		}
+
+		return *this;
+	}
+
+	Image& Image::flip()
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			const int32 h = m_height, s = stride();
+			Array<Color> line(m_width);
+			Color* lineU = m_data.data();
+			Color* lineB = lineU + m_width * (h - 1);
+
+			for (int32 y = 0; y < h / 2; ++y)
+			{
+				::memcpy(line.data(), lineU, s);
+				::memcpy(lineU, lineB, s);
+				::memcpy(lineB, line.data(), s);
+
+				lineU += m_width;
+				lineB -= m_width;
+			}
+		}
+
+		return *this;
+	}
+
+
 
 	Image& Image::gaussianBlur(const int32 horizontal, const int32 vertical, const BorderType borderType)
 	{
