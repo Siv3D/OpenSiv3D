@@ -3,14 +3,21 @@
 
 void Main()
 {
-	Image image(U"example/windmill.png");
+	Graphics::SetTargetFrameRateHz(300);
 
-	image.brighten(80);
+	Image image(Window::Size(), Palette::White);
 
-	const Texture texture(image);
+	DynamicTexture texture(image);
 
 	while (System::Update())
 	{
+		if (MouseL.pressed())
+		{
+			Line(Cursor::PreviousPos(), Cursor::Pos()).overwrite(image, 8, Palette::Orange);
+
+			texture.fill(image);
+		}
+
 		texture.draw();
 	}
 }

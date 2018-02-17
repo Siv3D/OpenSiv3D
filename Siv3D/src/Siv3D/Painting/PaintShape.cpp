@@ -9,7 +9,7 @@
 //
 //-----------------------------------------------
 
-# include <cfloat>
+# pragma once
 # include "PaintShape.hpp"
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/LineString.hpp>
@@ -627,69 +627,6 @@ namespace s3d
 		pBuffer.erase(std::unique(pBuffer.begin(), pBuffer.end()), pBuffer.end());
 	}
 
-	void PaintLineString(Array<unsigned>& pBuffer, const LineString& lineString, int width, int height, int thickness, bool isClosed)
-	{
-		if (lineString.size() == 0)
-		{
-			return;
-		}
-
-		Array<Point> pts;
-
-		for (size_t i = 0; i < lineString.size(); ++i)
-		{
-			pts.push_back(lineString[i].asPoint());
-		}
-
-		if (isClosed)
-		{
-			pts.push_back(lineString[0].asPoint());
-		}
-
-		PolyLine(pBuffer, width, height, pts, thickness);
-	}
-
-	void PaintLine(Array<unsigned>& pBuffer, const Line& line, int width, int height, int thickness)
-	{
-		const Array<Point> pts = { line.begin.asPoint(), line.end.asPoint() };
-
-		PolyLine(pBuffer, width, height, pts, thickness);
-	}
-
-	void PaintTriangle(Array<unsigned>& pBuffer, const Triangle& triangle, int width, int height)
-	{
-		Array<Point> pts =
-		{
-			triangle.p0.asPoint(),
-			triangle.p1.asPoint(),
-			triangle.p2.asPoint(),
-		};
-
-		FillConvexPoly(pBuffer, width, height, pts.data(), 3, 0);
-
-		std::sort(pBuffer.begin(), pBuffer.end());
-
-		pBuffer.erase(std::unique(pBuffer.begin(), pBuffer.end()), pBuffer.end());
-	}
-
-	void PaintQuad(Array<unsigned>& pBuffer, const Quad& quad, int width, int height)
-	{
-		Array<Point> pts =
-		{
-			quad.p0.asPoint(),
-			quad.p1.asPoint(),
-			quad.p2.asPoint(),
-			quad.p3.asPoint(),
-		};
-
-		FillConvexPoly(pBuffer, width, height, pts.data(), 4, 0);
-
-		std::sort(pBuffer.begin(), pBuffer.end());
-
-		pBuffer.erase(std::unique(pBuffer.begin(), pBuffer.end()), pBuffer.end());
-	}
-
-
 	struct PolyEdge
 	{
 		PolyEdge() : y0(0), y1(0), x(0), dx(0), next(0) {}
@@ -754,7 +691,7 @@ namespace s3d
 		}
 	};
 
-	static void FillEdgeCollection(Array<unsigned>& pBuffer, Array<PolyEdge>& edges, int width, int height)
+	static void FillEdgeCollection(Array<uint32>& pBuffer, Array<PolyEdge>& edges, int32 width, int32 height)
 	{
 		PolyEdge tmp;
 		int i, y, total = (int)edges.size();
@@ -896,28 +833,93 @@ namespace s3d
 		}
 	}
 
-	void PaintPolygon(Array<unsigned>& pBuffer, const Array<const Point*>& ptsList, const Array<int>& npts, int width, int height)
+	namespace PaintShape
 	{
-		const size_t ncontours = ptsList.size();
-
-		Array<PolyEdge> edges;
-
-		int i, total = 0;
-
-		for (i = 0; i < ncontours; i++)
-			total += npts[i];
-
-		edges.reserve(total + 1);
-
-		for (i = 0; i < ncontours; i++)
+		void PaintLineString(Array<unsigned>& pBuffer, const LineString& lineString, int width, int height, int thickness, bool isClosed)
 		{
-			CollectPolyEdges(pBuffer, ptsList[i], npts[i], edges, width, height);
+			if (lineString.size() == 0)
+			{
+				return;
+			}
+
+			Array<Point> pts;
+
+			for (size_t i = 0; i < lineString.size(); ++i)
+			{
+				pts.push_back(lineString[i].asPoint());
+			}
+
+			if (isClosed)
+			{
+				pts.push_back(lineString[0].asPoint());
+			}
+
+			PolyLine(pBuffer, width, height, pts, thickness);
 		}
 
-		FillEdgeCollection(pBuffer, edges, width, height);
+		void PaintLine(Array<unsigned>& pBuffer, const Line& line, int width, int height, int thickness)
+		{
+			const Array<Point> pts = { line.begin.asPoint(), line.end.asPoint() };
 
-		std::sort(pBuffer.begin(), pBuffer.end());
+			PolyLine(pBuffer, width, height, pts, thickness);
+		}
 
-		pBuffer.erase(std::unique(pBuffer.begin(), pBuffer.end()), pBuffer.end());
+		void PaintTriangle(Array<unsigned>& pBuffer, const Triangle& triangle, int width, int height)
+		{
+			Array<Point> pts =
+			{
+				triangle.p0.asPoint(),
+				triangle.p1.asPoint(),
+				triangle.p2.asPoint(),
+			};
+
+			FillConvexPoly(pBuffer, width, height, pts.data(), 3, 0);
+
+			std::sort(pBuffer.begin(), pBuffer.end());
+
+			pBuffer.erase(std::unique(pBuffer.begin(), pBuffer.end()), pBuffer.end());
+		}
+
+		void PaintQuad(Array<unsigned>& pBuffer, const Quad& quad, int width, int height)
+		{
+			Array<Point> pts =
+			{
+				quad.p0.asPoint(),
+				quad.p1.asPoint(),
+				quad.p2.asPoint(),
+				quad.p3.asPoint(),
+			};
+
+			FillConvexPoly(pBuffer, width, height, pts.data(), 4, 0);
+
+			std::sort(pBuffer.begin(), pBuffer.end());
+
+			pBuffer.erase(std::unique(pBuffer.begin(), pBuffer.end()), pBuffer.end());
+		}
+
+		void PaintPolygon(Array<uint32>& pBuffer, const Array<const Point*>& ptsList, const Array<int32>& npts, int32 width, int32 height)
+		{
+			const size_t ncontours = ptsList.size();
+
+			Array<PolyEdge> edges;
+
+			int i, total = 0;
+
+			for (i = 0; i < ncontours; i++)
+				total += npts[i];
+
+			edges.reserve(total + 1);
+
+			for (i = 0; i < ncontours; i++)
+			{
+				CollectPolyEdges(pBuffer, ptsList[i], npts[i], edges, width, height);
+			}
+
+			FillEdgeCollection(pBuffer, edges, width, height);
+
+			std::sort(pBuffer.begin(), pBuffer.end());
+
+			pBuffer.erase(std::unique(pBuffer.begin(), pBuffer.end()), pBuffer.end());
+		}
 	}
 }
