@@ -17,6 +17,7 @@
 # include <Siv3D/Ellipse.hpp>
 # include <Siv3D/Triangle.hpp>
 # include <Siv3D/Quad.hpp>
+# include <Siv3D/LineString.hpp>
 # include <Siv3D/Polygon.hpp>
 # include "PaintShape.hpp"
 
@@ -546,6 +547,54 @@ namespace s3d
 		cv::Mat_<cv::Vec4b> mat(dst.height(), dst.width(), static_cast<cv::Vec4b*>(static_cast<void*>(dst.data())), dst.stride());
 
 		cv::fillConvexPoly(mat, pts, 4, cv::Scalar(color.r, color.g, color.b, color.a), antialiased ? cv::LINE_AA : cv::LINE_8);
+
+		return *this;
+	}
+
+	const LineString& LineString::paint(Image& dst, const int32 thickness, const Color& color, const bool isClosed) const
+	{
+		if (!dst)
+		{
+			return *this;
+		}
+
+		Array<uint32> paintBuffer;
+
+		PaintShape::PaintLineString(paintBuffer, *this, dst.width(), dst.height(), thickness, isClosed);
+
+		if (paintBuffer.empty())
+		{
+			return *this;
+		}
+
+		detail::WritePaintBufferReference(dst[0], paintBuffer.data(), paintBuffer.size(), color);
+
+		return *this;
+	}
+
+	const LineString& LineString::overwrite(Image& dst, const int32 thickness, const Color& color, const bool isClosed, const bool antialiased) const
+	{
+		if (!dst || isEmpty())
+		{
+			return *this;
+		}
+
+		Array<cv::Point> points;
+
+		points.reserve(size());
+
+		for (const auto& p : *this)
+		{
+			points.emplace_back(static_cast<int32>(p.x), static_cast<int32>(p.y));
+		}
+
+		const int32 n = static_cast<int32>(points.size());
+		const cv::Point* ptr = points.data();
+		const cv::Point** pptr = &ptr;
+
+		cv::Mat_<cv::Vec4b> mat(dst.height(), dst.width(), static_cast<cv::Vec4b*>(static_cast<void*>(dst.data())), dst.stride());
+
+		cv::polylines(mat, pptr, &n, 1, isClosed, cv::Scalar(color.r, color.g, color.b, color.a), thickness, antialiased ? cv::LINE_AA : cv::LINE_8);
 
 		return *this;
 	}

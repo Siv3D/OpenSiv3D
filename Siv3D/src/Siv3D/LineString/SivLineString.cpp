@@ -118,6 +118,16 @@ namespace s3d
 		return splinePoints;
 	}
 
+	const LineString& LineString::paint(Image& dst, const Color& color, const bool isClosed) const
+	{
+		return paint(dst, 1, color, isClosed);
+	}
+
+	const LineString& LineString::overwrite(Image& dst, const Color& color, const bool isClosed, const bool antialiased) const
+	{
+		return overwrite(dst, 1, color, antialiased, isClosed);
+	}
+
 	const LineString& LineString::draw(const LineStyle& style, const double thickness, const ColorF& color, const bool isClosed) const
 	{
 		if (size() < 2)
