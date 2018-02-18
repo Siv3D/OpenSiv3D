@@ -468,6 +468,49 @@ namespace s3d
 		return *this;
 	}
 
+	const Quad& Quad::paint(Image& dst, const Color& color) const
+	{
+		if (!dst)
+		{
+			return *this;
+		}
+
+		Array<uint32> paintBuffer;
+
+		PaintShape::PaintQuad(paintBuffer, *this, dst.width(), dst.height());
+
+		if (paintBuffer.empty())
+		{
+			return *this;
+		}
+
+		detail::WritePaintBufferReference(dst[0], paintBuffer.data(), paintBuffer.size(), color);
+
+		return *this;
+	}
+
+	const Quad& Quad::overwrite(Image& dst, const Color& color, const bool antialiased) const
+	{
+		if (!dst)
+		{
+			return *this;
+		}
+
+		const cv::Point pts[4] =
+		{
+			cv::Point(static_cast<int32>(p0.x), static_cast<int32>(p0.y)),
+			cv::Point(static_cast<int32>(p1.x), static_cast<int32>(p1.y)),
+			cv::Point(static_cast<int32>(p2.x), static_cast<int32>(p2.y)),
+			cv::Point(static_cast<int32>(p3.x), static_cast<int32>(p3.y)),
+		};
+
+		cv::Mat_<cv::Vec4b> mat(dst.height(), dst.width(), static_cast<cv::Vec4b*>(static_cast<void*>(dst.data())), dst.stride());
+
+		cv::fillConvexPoly(mat, pts, 4, cv::Scalar(color.r, color.g, color.b, color.a), antialiased ? cv::LINE_AA : cv::LINE_8);
+
+		return *this;
+	}
+
 	const Polygon& Polygon::paint(Image& dst, const Color& color) const
 	{
 		if (!dst || isEmpty())

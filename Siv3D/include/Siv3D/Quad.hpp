@@ -133,7 +133,9 @@ namespace s3d
 
 		bool mouseOver() const;
 
-		// paint~ overpaint~ draw~
+		const Quad& paint(Image& dst, const Color& color) const;
+
+		const Quad& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
 
 		const Quad& draw(const ColorF& color = Palette::White) const;
 
