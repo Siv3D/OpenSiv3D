@@ -268,6 +268,55 @@ namespace s3d
 		pImpl->drawFrame(pos, thickness, color);
 	}
 
+	const Polygon& Polygon::drawWireframe(const double thickness, const ColorF& color) const
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		const auto& vertices = pImpl->vertices();
+		const auto& indices = pImpl->indices();
+
+		const size_t num_triangles = indices.size() / 3;
+		const Float2* pVertex = vertices.data();
+		const uint32* pIndex = indices.data();
+
+		for (size_t i = 0; i < num_triangles; ++i)
+		{
+			Triangle(pVertex[pIndex[i * 3]], pVertex[pIndex[i * 3 + 1]], pVertex[pIndex[i * 3 + 2]]).drawFrame(thickness, color);
+		}
+
+		return *this;
+	}
+
+	void Polygon::drawWireframe(const double x, const double y, const double thickness, const ColorF& color) const
+	{
+		drawWireframe(Vec2(x, y), thickness, color);
+	}
+
+	void Polygon::drawWireframe(const Vec2& pos, const double thickness, const ColorF& color) const
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+
+		const auto& vertices = pImpl->vertices();
+		const auto& indices = pImpl->indices();
+
+		const size_t num_triangles = indices.size() / 3;
+		const Float2* pVertex = vertices.data();
+		const uint32* pIndex = indices.data();
+
+		for (size_t i = 0; i < num_triangles; ++i)
+		{
+			Triangle(pVertex[pIndex[i * 3]], pVertex[pIndex[i * 3 + 1]], pVertex[pIndex[i * 3 + 2]])
+				.moveBy(pos)
+				.drawFrame(thickness, color);
+		}
+	}
+
 	const Polygon::CPolygon* Polygon::_detail() const
 	{
 		return pImpl.get();

@@ -159,6 +159,12 @@ namespace s3d
 
 		void drawFrame(const Vec2& pos, double thickness = 1.0, const ColorF& color = Palette::White) const;
 
+		const Polygon& drawWireframe(double thickness = 1.0, const ColorF& color = Palette::White) const;
+
+		void drawWireframe(double x, double y, double thickness = 1.0, const ColorF& color = Palette::White) const;
+
+		void drawWireframe(const Vec2& pos, double thickness = 1.0, const ColorF& color = Palette::White) const;
+
 		const CPolygon* _detail() const;
 	};
 }
