@@ -321,6 +321,103 @@ namespace s3d
 		m_height = static_cast<uint32>(rows);
 	}
 
+	Image Image::clipped(const Rect& rect) const
+	{
+		if (!detail::IsValidSize(rect.w, rect.h))
+		{
+			return Image();
+		}
+
+		Image tmp(rect.size, Color(0, 0));
+
+		const int32 h = static_cast<int32>(m_height);
+		const int32 w = static_cast<int32>(m_width);
+
+		// [Siv3D ToDo] 最適化
+		for (int32 y = 0; y < rect.h; ++y)
+		{
+			const int32 sy = y + rect.y;
+
+			if (0 <= sy && sy < h)
+			{
+				for (int32 x = 0; x < rect.w; ++x)
+				{
+					const int32 sx = x + rect.x;
+
+					if (0 <= sx && sx < w)
+					{
+						tmp[y][x] = operator[](sy)[sx];
+					}
+				}
+			}
+		}
+
+		return tmp;
+	}
+
+	ColorF Image::sample_Repeat(const double x, const double y) const
+	{
+		const int32 ix = static_cast<int32>(x);
+		const int32 iy = static_cast<int32>(y);
+
+		const Color& c1 = getPixel_Repeat(iy, ix);
+		const Color& c2 = getPixel_Repeat(iy, ix + 1);
+		const Color& c3 = getPixel_Repeat(iy + 1, ix);
+		const Color& c4 = getPixel_Repeat(iy + 1, ix + 1);
+
+		const double xr1 = x - ix;
+		const double yr1 = y - iy;
+
+		const double r = Biliner(c1.r, c2.r, c3.r, c4.r, xr1, yr1);
+		const double g = Biliner(c1.g, c2.g, c3.g, c4.g, xr1, yr1);
+		const double b = Biliner(c1.b, c2.b, c3.b, c4.b, xr1, yr1);
+		const double a = Biliner(c1.a, c2.a, c3.a, c4.a, xr1, yr1);
+
+		return{ r / 255.0, g / 255.0, b / 255.0, a / 255.0 };
+	}
+
+	ColorF Image::sample_Clamp(const double x, const double y) const
+	{
+		const int32 ix = static_cast<int32>(x);
+		const int32 iy = static_cast<int32>(y);
+
+		const Color& c1 = getPixel_Clamp(iy, ix);
+		const Color& c2 = getPixel_Clamp(iy, ix + 1);
+		const Color& c3 = getPixel_Clamp(iy + 1, ix);
+		const Color& c4 = getPixel_Clamp(iy + 1, ix + 1);
+
+		const double xr1 = x - ix;
+		const double yr1 = y - iy;
+
+		const double r = Biliner(c1.r, c2.r, c3.r, c4.r, xr1, yr1);
+		const double g = Biliner(c1.g, c2.g, c3.g, c4.g, xr1, yr1);
+		const double b = Biliner(c1.b, c2.b, c3.b, c4.b, xr1, yr1);
+		const double a = Biliner(c1.a, c2.a, c3.a, c4.a, xr1, yr1);
+
+		return{ r / 255.0, g / 255.0, b / 255.0, a / 255.0 };
+	}
+
+	ColorF Image::sample_Mirror(const double x, const double y) const
+	{
+		const int32 ix = static_cast<int32>(x);
+		const int32 iy = static_cast<int32>(y);
+
+		const Color& c1 = getPixel_Mirror(iy, ix);
+		const Color& c2 = getPixel_Mirror(iy, ix + 1);
+		const Color& c3 = getPixel_Mirror(iy + 1, ix);
+		const Color& c4 = getPixel_Mirror(iy + 1, ix + 1);
+
+		const double xr1 = x - ix;
+		const double yr1 = y - iy;
+
+		const double r = Biliner(c1.r, c2.r, c3.r, c4.r, xr1, yr1);
+		const double g = Biliner(c1.g, c2.g, c3.g, c4.g, xr1, yr1);
+		const double b = Biliner(c1.b, c2.b, c3.b, c4.b, xr1, yr1);
+		const double a = Biliner(c1.a, c2.a, c3.a, c4.a, xr1, yr1);
+
+		return{ r / 255.0, g / 255.0, b / 255.0, a / 255.0 };
+	}
+
 	bool Image::applyAlphaFromRChannel(const FilePath& alpha)
 	{
 		if (isEmpty())
@@ -644,18 +741,18 @@ namespace s3d
 			{
 				for (auto& pixel : m_data)
 				{
-					pixel.r = std::max(static_cast<int>(pixel.r) + level, 0);
-					pixel.g = std::max(static_cast<int>(pixel.g) + level, 0);
-					pixel.b = std::max(static_cast<int>(pixel.b) + level, 0);
+					pixel.r = std::max(static_cast<int32>(pixel.r) + level, 0);
+					pixel.g = std::max(static_cast<int32>(pixel.g) + level, 0);
+					pixel.b = std::max(static_cast<int32>(pixel.b) + level, 0);
 				}
 			}
 			else if (level > 0)
 			{
 				for (auto& pixel : m_data)
 				{
-					pixel.r = std::min(static_cast<int>(pixel.r) + level, 255);
-					pixel.g = std::min(static_cast<int>(pixel.g) + level, 255);
-					pixel.b = std::min(static_cast<int>(pixel.b) + level, 255);
+					pixel.r = std::min(static_cast<int32>(pixel.r) + level, 255);
+					pixel.g = std::min(static_cast<int32>(pixel.g) + level, 255);
+					pixel.b = std::min(static_cast<int32>(pixel.b) + level, 255);
 				}
 			}
 		}
@@ -679,32 +776,23 @@ namespace s3d
 		{
 			for (auto& pixel : image)
 			{
-				pixel.r = std::max(static_cast<int>(pixel.r) + level, 0);
-				pixel.g = std::max(static_cast<int>(pixel.g) + level, 0);
-				pixel.b = std::max(static_cast<int>(pixel.b) + level, 0);
+				pixel.r = std::max(static_cast<int32>(pixel.r) + level, 0);
+				pixel.g = std::max(static_cast<int32>(pixel.g) + level, 0);
+				pixel.b = std::max(static_cast<int32>(pixel.b) + level, 0);
 			}
 		}
 		else if (level > 0)
 		{
 			for (auto& pixel : image)
 			{
-				pixel.r = std::min(static_cast<int>(pixel.r) + level, 255);
-				pixel.g = std::min(static_cast<int>(pixel.g) + level, 255);
-				pixel.b = std::min(static_cast<int>(pixel.b) + level, 255);
+				pixel.r = std::min(static_cast<int32>(pixel.r) + level, 255);
+				pixel.g = std::min(static_cast<int32>(pixel.g) + level, 255);
+				pixel.b = std::min(static_cast<int32>(pixel.b) + level, 255);
 			}
 		}
 
 		return image;
 	}
-
-
-
-
-
-
-
-
-
 
 	Image& Image::mirror()
 	{
@@ -738,6 +826,33 @@ namespace s3d
 		}
 
 		return *this;
+	}
+
+	Image Image::mirrored() const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		Image image(size());
+
+		const Color* pSrc = data();
+		Color* pDst = image.data();
+		const size_t width = m_width;
+		
+		for (int32 y = 0; y < m_height; ++y)
+		{
+			for (int32 x = 0; x < m_width; ++x)
+			{
+				*(pDst + width * y + x) = *(pSrc + width * y + width - x - 1);
+			}
+		}
+
+		return image;
 	}
 
 	Image& Image::flip()

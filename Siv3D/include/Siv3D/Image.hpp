@@ -16,6 +16,7 @@
 # include "Color.hpp"
 # include "NamedParameter.hpp"
 # include "PointVector.hpp"
+# include "Rectangle.hpp"
 # include "Grid.hpp"
 # include "ImageFormat.hpp"
 
@@ -78,6 +79,18 @@ namespace s3d
 		static constexpr int32 Mod(int32 x, int32 y) noexcept
 		{
 			return x % y + ((x < 0) ? y : 0);
+		}
+
+		static constexpr int32 Mir(int32 x, int32 y) noexcept
+		{
+			const int32 t = Mod(x, y * 2);
+
+			return t > y ? (y * 2) - t : t;
+		}
+
+		static constexpr double Biliner(double c1, double c2, double c3, double c4, double px, double py)
+		{
+			return px * py * (c1 - c2 - c3 + c4) + px * (c2 - c1) + py * (c3 - c1) + c1;
 		}
 
 	public:
@@ -716,6 +729,104 @@ namespace s3d
 			return getPixel_Repeat(pos.x, pos.y);
 		}
 
+		const Color& getPixel_Clamp(int32 x, int32 y) const
+		{
+			y = Clamp(y, 0, static_cast<int32>(m_height) - 1);
+
+			x = Clamp(x, 0, static_cast<int32>(m_width) - 1);
+
+			return m_data[m_width * y + x];
+		}
+
+		const Color& getPixel_Clamp(const Point& pos) const
+		{
+			return getPixel_Clamp(pos.x, pos.y);
+		}
+
+		const Color& getPixel_Mirror(int32 x, int32 y) const
+		{
+			y = Mir(y, m_height);
+
+			x = Mir(x, m_width);
+
+			return m_data[m_width * y + x];
+		}
+
+		const Color& getPixel_Mirror(const Point& pos) const
+		{
+			return getPixel_Mirror(pos.x, pos.y);
+		}
+
+		ColorF sample_Repeat(double x, double y) const;
+
+		ColorF sample_Repeat(const Vec2& pos) const
+		{
+			return sample_Repeat(pos.x, pos.y);
+		}
+
+		ColorF sample_Clamp(double y, double x) const;
+
+		ColorF sample_Clamp(const Vec2& pos) const
+		{
+			return sample_Clamp(pos.x, pos.y);
+		}
+
+		ColorF sample_Mirror(double y, double x) const;
+
+		ColorF sample_Mirror(const Vec2& pos) const
+		{
+			return sample_Mirror(pos.x, pos.y);
+		}
+
+		/// <summary>
+		/// 画像の一部分をコピーした新しい画像を返します。
+		/// </summary>
+		/// <param name="rect">
+		/// 画像上の範囲
+		/// </param>
+		/// <returns>
+		/// 一部分をコピーした新しい画像
+		/// </returns>
+		Image clipped(const Rect& rect) const;
+
+		/// <summary>
+		/// 画像の一部分をコピーした新しい画像を返します。
+		/// </summary>
+		/// <param name="x">
+		/// 画像上の範囲の左上 X 座標
+		/// </param>
+		/// <param name="y">
+		/// 画像上の範囲の左上 Y 座標
+		/// </param>
+		/// <param name="w">
+		/// 画像上の範囲の幅
+		/// </param>
+		/// <param name="h">
+		/// 画像上の範囲の高さ
+		/// </param>
+		/// <returns>
+		/// 一部分をコピーした新しい画像
+		/// </returns>
+		Image clipped(int32 x, int32 y, int32 w, int32 h) const
+		{
+			return clipped(Rect(x, y, w, h));
+		}
+
+		Image clipped(const Point& pos, int32 w, int32 h) const
+		{
+			return clipped(Rect(pos, w, h));
+		}
+
+		Image clipped(int32 x, int32 y, const Size& size) const
+		{
+			return clipped(Rect(x, y, size));
+		}
+
+		Image clipped(const Point& pos, const Size& size) const
+		{
+			return clipped(Rect(pos, size));
+		}
+
 		/// <summary>
 		/// すべてのピクセルに変換関数を適用します。
 		/// </summary>
@@ -859,11 +970,11 @@ namespace s3d
 		Image brightened(int32 level) const;
 
 
-
-
-
-
 		Image& mirror();
+
+		Image mirrored() const;
+
+		
 
 		Image& flip();
 
