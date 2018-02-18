@@ -269,6 +269,10 @@ namespace s3d
 
 		bool mouseOver() const;
 
+		const Ellipse& paint(Image& dst, const Color& color) const;
+
+		const Ellipse& overwrite(Image& dst, const Color& color) const;
+
 		const Ellipse& draw(const ColorF& color = Palette::White) const;
 
 		const Ellipse& drawFrame(double innerThickness = 1.0, double outerThickness = 0.0, const ColorF& color = Palette::White) const;

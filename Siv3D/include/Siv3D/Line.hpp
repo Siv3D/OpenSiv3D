@@ -256,13 +256,13 @@ namespace s3d
 		
 		// rotatedAt
 		
-		const Line& paint(Image& dst, const Color& color = Palette::White) const;
+		const Line& paint(Image& dst, const Color& color) const;
 
-		const Line& paint(Image& dst, int32 thickness, const Color& color = Palette::White) const;
+		const Line& paint(Image& dst, int32 thickness, const Color& color) const;
 		
-		const Line& overwrite(Image& dst, const Color& color = Palette::White) const;
+		const Line& overwrite(Image& dst, const Color& color) const;
 
-		const Line& overwrite(Image& dst, int32 thickness, const Color& color = Palette::White) const;
+		const Line& overwrite(Image& dst, int32 thickness, const Color& color) const;
 
 		// overpaint
 		

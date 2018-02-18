@@ -14,6 +14,7 @@
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/Rectangle.hpp>
 # include <Siv3D/Circle.hpp>
+# include <Siv3D/Ellipse.hpp>
 # include <Siv3D/Polygon.hpp>
 # include "PaintShape.hpp"
 
@@ -292,6 +293,124 @@ namespace s3d
 			for (int32 _x = xBegin; _x < xEnd; ++_x)
 			{
 				if (center.distanceFromSq(Vec2(_x, _y)) <= lengthSq)
+				{
+					*pDst = color;
+				}
+
+				++pDst;
+			}
+
+			pDst += stepOffset;
+		}
+
+		return *this;
+	}
+
+	const Ellipse& Ellipse::paint(Image& dst, const Color& color) const
+	{
+		const int32 yBegin = std::max(static_cast<int32>(y - b), 0);
+		const int32 yEnd = std::min(static_cast<int32>(y + b + 1), dst.height());
+		const int32 xBegin = std::max(static_cast<int32>(x - a), 0);
+		const int32 xEnd = std::min(static_cast<int32>(x + a + 1), dst.width());
+		const int32 fillWidth = xEnd - xBegin;
+		const int32 fillHeight = yEnd - yBegin;
+
+		if (fillWidth <= 0 || fillHeight <= 0)
+		{
+			return *this;
+		}
+
+		const int32 stepOffset = dst.width() - fillWidth;
+		const double aa = ((a + 0.5) * (a + 0.5));
+		const double bb = ((b + 0.5) * (b + 0.5));
+		const double aabb = aa * bb;
+
+		Color* pDst = dst.data() + yBegin * dst.width() + xBegin;
+
+		const uint32 srcBlend = color.a;
+
+		if (srcBlend == 255)
+		{
+			for (int32 _y = yBegin; _y < yEnd; ++_y)
+			{
+				for (int32 _x = xBegin; _x < xEnd; ++_x)
+				{
+					const double xxh = (x - _x);
+					const double yyk = (y - _y);
+
+					if ((bb * xxh * xxh + aa * yyk * yyk) <= aabb)
+					{
+						const uint8 a = pDst->a;
+						*pDst = color;
+						pDst->a = a;
+					}
+
+					++pDst;
+				}
+
+				pDst += stepOffset;
+			}
+		}
+		else
+		{
+			const uint32 premulSrcR = srcBlend * color.r;
+			const uint32 premulSrcG = srcBlend * color.g;
+			const uint32 premulSrcB = srcBlend * color.b;
+			const uint32 dstBlend = 255 - srcBlend;
+
+			for (int32 _y = yBegin; _y < yEnd; ++_y)
+			{
+				for (int32 _x = xBegin; _x < xEnd; ++_x)
+				{
+					const double xxh = (x - _x);
+					const double yyk = (y - _y);
+
+					if ((bb * xxh * xxh + aa * yyk * yyk) <= aabb)
+					{
+						pDst->r = (pDst->r * dstBlend + premulSrcR) / 255;
+						pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
+						pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
+					}
+
+					++pDst;
+				}
+
+				pDst += stepOffset;
+			}
+		}
+
+		return *this;
+	}
+
+	const Ellipse& Ellipse::overwrite(Image& dst, const Color& color) const
+	{
+		const int32 yBegin	= std::max(static_cast<int32>(y - b), 0);
+		const int32 yEnd	= std::min(static_cast<int32>(y + b + 1), dst.height());
+		const int32 xBegin	= std::max(static_cast<int32>(x - a), 0);
+		const int32 xEnd	= std::min(static_cast<int32>(x + a + 1), dst.width());
+		const int32 fillWidth	= xEnd - xBegin;
+		const int32 fillHeight	= yEnd - yBegin;
+
+		if (fillWidth <= 0 || fillHeight <= 0)
+		{
+			return *this;
+		}
+
+		const int32 stepOffset = dst.width() - fillWidth;
+		const double aa = ((a + 0.5) * (a + 0.5));
+		const double bb = ((b + 0.5) * (b + 0.5));
+		const double aabb = aa * bb;
+
+		Color* pDst = dst.data() + yBegin * dst.width() + xBegin;
+
+		for (int32 _y = yBegin; _y < yEnd; ++_y)
+		{
+			for (int32 _x = xBegin; _x < xEnd; ++_x)
+			{
+				const double xxh = (x - _x);
+				const double yyk = (y - _y);
+
+				if ((bb * xxh * xxh + aa * yyk * yyk) <= aabb)
 				{
 					*pDst = color;
 				}

@@ -139,9 +139,9 @@ namespace s3d
 
 		bool mouseOver() const;
 
-		const Polygon& paint(Image& dst, const Color& color = Palette::White) const;
+		const Polygon& paint(Image& dst, const Color& color) const;
 
-		const Polygon& overwrite(Image& dst, const Color& color = Palette::White) const;
+		const Polygon& overwrite(Image& dst, const Color& color) const;
 
 		const Polygon& draw(const ColorF& color = Palette::White) const;
 
