@@ -89,13 +89,13 @@ namespace s3d
 			return moveBy(v.x, v.y);
 		}
 
-		//Polygon rotated(double angle) const:
+		Polygon rotated(double angle) const;
 
-		//Polygon rotatedAt(const Vec2& pos, double angle) const;
+		Polygon rotatedAt(const Vec2& pos, double angle) const;
 
-		//Polygon& rotate(double angle) const:
+		Polygon& rotate(double angle);
 
-		//Polygon& rotateAt(const Vec2& pos, double angle) const;
+		Polygon& rotateAt(const Vec2& pos, double angle);
 
 		double area() const;
 

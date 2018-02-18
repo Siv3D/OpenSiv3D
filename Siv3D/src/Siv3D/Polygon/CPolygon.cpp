@@ -215,6 +215,87 @@ namespace s3d
 		}
 	}
 
+	void Polygon::CPolygon::rotateAt(const Vec2& pos, const double angle)
+	{
+		if (!pos.isZero())
+		{
+			for (auto& point : m_polygon.outer())
+			{
+				point -= pos;
+			}
+
+			for (auto& hole : m_polygon.inners())
+			{
+				for (auto& point : hole)
+				{
+					point -= pos;
+				}
+			}
+
+			const Float2 posF = pos;
+
+			for (auto& vertex : m_vertices)
+			{
+				vertex -= posF;
+			}
+		}
+
+		const double s = std::sin(angle);
+		const double c = std::cos(angle);
+
+		for (auto& point : m_polygon.outer())
+		{
+			const double x = point.x * c - point.y * s;
+			const double y = point.x * s + point.y * c;
+			point.set(x, y);
+		}
+
+		for (auto& hole : m_polygon.inners())
+		{
+			for (auto& point : hole)
+			{
+				const double x = point.x * c - point.y * s;
+				const double y = point.x * s + point.y * c;
+				point.set(x, y);
+			}
+		}
+
+		const float sF = static_cast<float>(s);
+		const float cF = static_cast<float>(c);
+
+		for (auto& vertex : m_vertices)
+		{
+			const float x = vertex.x * cF - vertex.y * sF;
+			const float y = vertex.x * sF + vertex.y * cF;
+			vertex.set(x, y);
+		}
+
+		if (!pos.isZero())
+		{
+			for (auto& point : m_polygon.outer())
+			{
+				point += pos;
+			}
+
+			for (auto& hole : m_polygon.inners())
+			{
+				for (auto& point : hole)
+				{
+					point += pos;
+				}
+			}
+
+			const Float2 posF = pos;
+
+			for (auto& vertex : m_vertices)
+			{
+				vertex += posF;
+			}
+		}
+
+		m_boundingRect = detail::CalculateBoundingRect(m_vertices.data(), m_vertices.size());
+	}
+
 	double Polygon::CPolygon::area() const
 	{
 		const size_t _num_triangles = m_indices.size() / 3;

@@ -59,6 +59,8 @@ namespace s3d
 
 		void moveBy(double x, double y);
 
+		void rotateAt(const Vec2& pos, double angle);
+
 		double area() const;
 
 		double perimeter() const;

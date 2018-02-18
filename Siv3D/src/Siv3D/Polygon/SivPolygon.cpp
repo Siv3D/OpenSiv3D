@@ -144,6 +144,34 @@ namespace s3d
 		return *this;
 	}
 
+	Polygon Polygon::rotated(const double angle) const
+	{
+		return rotatedAt(Vec2(0, 0), angle);
+	}
+
+	Polygon Polygon::rotatedAt(const Vec2& pos, const double angle) const
+	{
+		Polygon result(*this);
+
+		result.rotateAt(pos, angle);
+
+		return result;
+	}
+
+	Polygon& Polygon::rotate(const double angle)
+	{
+		pImpl->rotateAt(Vec2(0, 0), angle);
+
+		return *this;
+	}
+
+	Polygon& Polygon::rotateAt(const Vec2& pos, const double angle)
+	{
+		pImpl->rotateAt(pos, angle);
+
+		return *this;
+	}
+
 	double Polygon::area() const
 	{
 		return pImpl->area();
