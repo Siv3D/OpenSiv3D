@@ -958,6 +958,81 @@ namespace s3d
 		return *this;
 	}
 
+	const Polygon& Polygon::paint(Image& dst, const double x, const double y, const Color& color) const
+	{
+		return paint(dst, Vec2(x, y), color);
+	}
+
+	const Polygon& Polygon::paint(Image& dst, const Vec2& pos, const Color& color) const
+	{
+		if (!dst || isEmpty())
+		{
+			return *this;
+		}
+
+		//
+		// outer
+		//
+		Array<Point> outerPts;
+
+		for (const auto& pt : outer())
+		{
+			outerPts.push_back((pt + pos).asPoint());
+		}
+
+		//
+		//	holes
+		//
+		Array<Array<Point>> holePtsList(inners().size());
+
+		uint32 holeIndex = 0;
+
+		for (const auto& hole : inners())
+		{
+			for (const auto& pt : hole)
+			{
+				holePtsList[holeIndex].push_back((pt + pos).asPoint());
+			}
+
+			++holeIndex;
+		}
+
+		cv::Mat_<cv::Vec4b> mat(dst.height(), dst.width(), static_cast<cv::Vec4b*>(static_cast<void*>(dst.data())), dst.stride());
+
+		Array<const Point*> ppts;
+		{
+			ppts.push_back(outerPts.data());
+
+			for (const auto& hole : holePtsList)
+			{
+				ppts.push_back(hole.data());
+			}
+		}
+
+		Array<int32> npts;
+		{
+			npts.push_back(static_cast<int32>(outerPts.size()));
+
+			for (const auto& hole : holePtsList)
+			{
+				npts.push_back(static_cast<int32>(hole.size()));
+			}
+		}
+
+		Array<uint32> paintBuffer;
+
+		PaintShape::PaintPolygon(paintBuffer, ppts, npts, dst.width(), dst.height());
+
+		if (paintBuffer.empty())
+		{
+			return *this;
+		}
+
+		detail::WritePaintBufferReference(dst[0], paintBuffer.data(), paintBuffer.size(), color);
+
+		return *this;
+	}
+
 	const Polygon& Polygon::overwrite(Image& dst, const Color& color, const bool antialiased) const
 	{
 		if (!dst || isEmpty())
@@ -987,6 +1062,74 @@ namespace s3d
 			for (const auto& pt : hole)
 			{
 				holePtsList[holeIndex].emplace_back(static_cast<int32>(pt.x), static_cast<int32>(pt.y));
+			}
+
+			++holeIndex;
+		}
+
+		cv::Mat_<cv::Vec4b> mat(dst.height(), dst.width(), static_cast<cv::Vec4b*>(static_cast<void*>(dst.data())), dst.stride());
+
+		Array<const cv::Point*> ppts;
+		{
+			ppts.push_back(outerPts.data());
+
+			for (const auto& hole : holePtsList)
+			{
+				ppts.push_back(hole.data());
+			}
+		}
+
+		Array<int32> npts;
+		{
+			npts.push_back(static_cast<int32>(outerPts.size()));
+
+			for (const auto& hole : holePtsList)
+			{
+				npts.push_back(static_cast<int32>(hole.size()));
+			}
+		}
+
+		cv::fillPoly(mat, ppts.data(), npts.data(), static_cast<int32>(ppts.size()),
+			cv::Scalar(color.r, color.g, color.b, color.a),
+			antialiased ? cv::LINE_AA : cv::LINE_8);
+
+		return *this;
+	}
+
+	const Polygon& Polygon::overwrite(Image& dst, const double x, const double y, const Color& color, const bool antialiased) const
+	{
+		return overwrite(dst, Vec2(x, y), color, antialiased);
+	}
+
+	const Polygon& Polygon::overwrite(Image& dst, const Vec2& pos, const Color& color, const bool antialiased) const
+	{
+		if (!dst || isEmpty())
+		{
+			return *this;
+		}
+
+		//
+		// outer
+		//
+		Array<cv::Point> outerPts;
+
+		for (const auto& pt : outer())
+		{
+			outerPts.emplace_back(static_cast<int32>(pt.x + pos.x), static_cast<int32>(pt.y + pos.y));
+		}
+
+		//
+		//	holes
+		//
+		Array<Array<cv::Point>> holePtsList(inners().size());
+
+		uint32 holeIndex = 0;
+
+		for (const auto& hole : inners())
+		{
+			for (const auto& pt : hole)
+			{
+				holePtsList[holeIndex].emplace_back(static_cast<int32>(pt.x + pos.x), static_cast<int32>(pt.y + pos.y));
 			}
 
 			++holeIndex;
