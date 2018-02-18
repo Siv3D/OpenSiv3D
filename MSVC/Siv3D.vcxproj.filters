@@ -1735,6 +1735,9 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\PowerStatus\SivPowerStatus_Linux.cpp">
       <Filter>src\Siv3D\PowerStatus</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Painting\PaintShape.cpp">
+      <Filter>src\Siv3D\Painting</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -3692,6 +3695,9 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Siv3D_macOS.h">
       <Filter>src\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Painting\PaintShape.hpp">
+      <Filter>src\Siv3D\Painting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

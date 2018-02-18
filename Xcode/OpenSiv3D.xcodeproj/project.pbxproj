@@ -788,6 +788,10 @@
 		2C4F22D22036EAA1006CBCD1 /* SivXInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4F20F72036EAA0006CBCD1 /* SivXInput.cpp */; };
 		2C4F22D32036EAA1006CBCD1 /* XInputFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4F20F82036EAA0006CBCD1 /* XInputFactory.cpp */; };
 		2C4F22D42036EAA1006CBCD1 /* SivXXHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4F20FA2036EAA0006CBCD1 /* SivXXHash.cpp */; };
+		2C4F22DD20384C59006CBCD1 /* lopencv_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4F22DB20384C59006CBCD1 /* lopencv_core.a */; };
+		2C4F22DE20384C59006CBCD1 /* lopencv_imgproc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4F22DC20384C59006CBCD1 /* lopencv_imgproc.a */; };
+		2C4F23D820386CE2006CBCD1 /* PaintShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C4F23D620386CE2006CBCD1 /* PaintShape.cpp */; };
+		2C4F23D920386CE2006CBCD1 /* PaintShape.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C4F23D720386CE2006CBCD1 /* PaintShape.hpp */; };
 		2C8588EC1F929277000DA815 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2C8588EB1F929277000DA815 /* icon.icns */; };
 		2C9DDF4E2010164E002D3BDC /* pffft.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9DDF4C2010164E002D3BDC /* pffft.c */; };
 		2C9DDF4F2010164E002D3BDC /* pffft.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C9DDF4D2010164E002D3BDC /* pffft.h */; };
@@ -1852,6 +1856,12 @@
 		2C4F20F72036EAA0006CBCD1 /* SivXInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivXInput.cpp; sourceTree = "<group>"; };
 		2C4F20F82036EAA0006CBCD1 /* XInputFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XInputFactory.cpp; sourceTree = "<group>"; };
 		2C4F20FA2036EAA0006CBCD1 /* SivXXHash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivXXHash.cpp; sourceTree = "<group>"; };
+		2C4F22D720384C31006CBCD1 /* libopencv_core.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_core.a; path = ../Siv3D/lib/macOS/opencv/libopencv_core.a; sourceTree = "<group>"; };
+		2C4F22D820384C31006CBCD1 /* libopencv_imgproc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_imgproc.a; path = ../Siv3D/lib/macOS/opencv/libopencv_imgproc.a; sourceTree = "<group>"; };
+		2C4F22DB20384C59006CBCD1 /* lopencv_core.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = lopencv_core.a; path = ../Siv3D/lib/macOS/opencv/lopencv_core.a; sourceTree = "<group>"; };
+		2C4F22DC20384C59006CBCD1 /* lopencv_imgproc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = lopencv_imgproc.a; path = ../Siv3D/lib/macOS/opencv/lopencv_imgproc.a; sourceTree = "<group>"; };
+		2C4F23D620386CE2006CBCD1 /* PaintShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PaintShape.cpp; sourceTree = "<group>"; };
+		2C4F23D720386CE2006CBCD1 /* PaintShape.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PaintShape.hpp; sourceTree = "<group>"; };
 		2C8588EB1F929277000DA815 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		2C9DDF4C2010164E002D3BDC /* pffft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pffft.c; sourceTree = "<group>"; };
 		2C9DDF4D2010164E002D3BDC /* pffft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pffft.h; sourceTree = "<group>"; };
@@ -1887,6 +1897,8 @@
 				2C22E7611FD73C9F002735AB /* libz.a in Frameworks */,
 				2C0FC1601FDB72B700A128B9 /* lfreetype.a in Frameworks */,
 				2C0FC1621FDB72BF00A128B9 /* lharfbuzz.a in Frameworks */,
+				2C4F22DD20384C59006CBCD1 /* lopencv_core.a in Frameworks */,
+				2C4F22DE20384C59006CBCD1 /* lopencv_imgproc.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2914,6 +2926,10 @@
 		2C15857F1F21FD87002687D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C4F22DB20384C59006CBCD1 /* lopencv_core.a */,
+				2C4F22DC20384C59006CBCD1 /* lopencv_imgproc.a */,
+				2C4F22D720384C31006CBCD1 /* libopencv_core.a */,
+				2C4F22D820384C31006CBCD1 /* libopencv_imgproc.a */,
 				2CC7830E2017FE8200AB4824 /* AudioToolbox.framework */,
 				2C0FEEDB1FF7FA2000A128B9 /* langelscript.a */,
 				2C0FC1611FDB72BF00A128B9 /* lharfbuzz.a */,
@@ -4116,6 +4132,8 @@
 		2C4F1FFE2036EAA0006CBCD1 /* Painting */ = {
 			isa = PBXGroup;
 			children = (
+				2C4F23D620386CE2006CBCD1 /* PaintShape.cpp */,
+				2C4F23D720386CE2006CBCD1 /* PaintShape.hpp */,
 				2C4F1FFF2036EAA0006CBCD1 /* SivPainting.cpp */,
 			);
 			path = Painting;
@@ -4904,6 +4922,7 @@
 				2C0FBF941FDB71F400A128B9 /* ftincrem.h in Headers */,
 				2C4F21002036EAA0006CBCD1 /* AssetHandleManager.hpp in Headers */,
 				2C0FC0211FDB71F400A128B9 /* hb.h in Headers */,
+				2C4F23D920386CE2006CBCD1 /* PaintShape.hpp in Headers */,
 				2C0FBFE71FDB71F400A128B9 /* glad.h in Headers */,
 				2C0FBFD11FDB71F400A128B9 /* t1tables.h in Headers */,
 				2C0FBFD51FDB71F400A128B9 /* ttunpat.h in Headers */,
@@ -5636,6 +5655,7 @@
 				2C4F21212036EAA0006CBCD1 /* AudioFormat_MP3_mpg123.cpp in Sources */,
 				2C0FBFEC1FDB71F400A128B9 /* cocoa_init.m in Sources */,
 				2C4F22D42036EAA1006CBCD1 /* SivXXHash.cpp in Sources */,
+				2C4F23D820386CE2006CBCD1 /* PaintShape.cpp in Sources */,
 				2C4F217D2036EAA1006CBCD1 /* SivDragDrop.cpp in Sources */,
 				2C4F22B32036EAA1006CBCD1 /* SivTextWriter.cpp in Sources */,
 				2C0FC0741FDB71F400A128B9 /* fse_decompress.c in Sources */,

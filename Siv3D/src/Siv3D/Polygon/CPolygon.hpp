@@ -59,13 +59,13 @@ namespace s3d
 
 		void moveBy(double x, double y);
 
-		//double area() const;
+		double area() const;
 
 		//double perimeter() const;
 
 		Vec2 centroid() const;
 		
-		Polygon computeConvexHull() const;
+		Polygon calculateConvexHull() const;
 
 		Polygon calculateBuffer(double distance) const;
 

@@ -95,13 +95,13 @@ namespace s3d
 
 		//Polygon& rotateAt(const Vec2& pos, double angle) const;
 
-		//double area() const;
+		double area() const;
 
 		//double perimeter() const;
 
 		Vec2 centroid() const;
 
-		Polygon computeConvexHull() const;
+		Polygon calculateConvexHull() const;
 
 		Polygon calculateBuffer(double distance) const;
 
@@ -138,6 +138,10 @@ namespace s3d
 		bool rightReleased() const;
 
 		bool mouseOver() const;
+
+		const Polygon& paint(Image& dst, const Color& color = Palette::White) const;
+
+		const Polygon& overwrite(Image& dst, const Color& color = Palette::White) const;
 
 		const Polygon& draw(const ColorF& color = Palette::White) const;
 

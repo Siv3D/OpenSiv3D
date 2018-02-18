@@ -12,7 +12,9 @@
 # include "../Siv3DEngine.hpp"
 # include "../ImageFormat/IImageFormat.hpp"
 
+# include <opencv2/imgproc.hpp>
 # include <Siv3D/Image.hpp>
+# include <Siv3D/ImageProcessing.hpp>
 # include <Siv3D/BinaryWriter.hpp>
 # include <Siv3D/MemoryWriter.hpp>
 # include <Siv3D/Number.hpp>
@@ -27,6 +29,88 @@ namespace s3d
 		static constexpr bool IsValidSize(const size_t width, const size_t height)
 		{
 			return width <= Image::MaxWidth && height <= Image::MaxHeight;
+		}
+
+		static constexpr int32 ConvertBorderType(const BorderType borderType)
+		{
+			switch (borderType)
+			{
+			case BorderType::Replicate:
+				return cv::BORDER_REPLICATE;
+			//case BorderType::Wrap:
+			//	return cv::BORDER_WRAP;
+			case BorderType::Reflect:
+				return cv::BORDER_REFLECT;
+			case BorderType::Reflect_101:
+				return cv::BORDER_REFLECT101;
+			default:
+				return cv::BORDER_DEFAULT;
+			}
+		}
+
+		static void MakeSepia(const double levr, const double levg, const double levb, Color& pixel)
+		{
+			const double y = (0.299 * pixel.r + 0.587 * pixel.g + 0.114 * pixel.b);
+			const double r = levr + y;
+			const double g = levg + y;
+			const double b = levb + y;
+			pixel.r = r >= 255.0 ? 255 : r <= 0.0 ? 0 : static_cast<uint8>(r);
+			pixel.g = g >= 255.0 ? 255 : g <= 0.0 ? 0 : static_cast<uint8>(g);
+			pixel.b = b >= 255.0 ? 255 : b <= 0.0 ? 0 : static_cast<uint8>(b);
+		}
+
+		static void SetupPostarizeTable(const int32 level, uint8 table[256])
+		{
+			const int32 levN = Clamp(level, 2, 256) - 1;
+
+			for (size_t i = 0; i < 256; ++i)
+			{
+				table[i] = static_cast<uint8>(std::floor(i / 255.0 * levN + 0.5) / levN * 255);
+			}
+		}
+
+		static void ToBinaryFromR(const Image& from, cv::Mat_<uint8>& to, const uint32 threshold)
+		{
+			assert(from.width() == to.cols);
+			assert(from.height() == to.rows);
+
+			const Color* pSrc = from[0];
+
+			const int32 height = from.height(), width = from.width();
+
+			for (int32 y = 0; y < height; ++y)
+			{
+				uint8* line = &to(y, 0);
+
+				for (int32 x = 0; x < width; ++x)
+				{
+					line[x] = (pSrc->r <= threshold ? 0 : 255);
+
+					++pSrc;
+				}
+			}
+		}
+
+		static void ToBinaryFromA(const Image& from, cv::Mat_<uint8>& to, const uint32 threshold)
+		{
+			assert(from.width() == to.cols);
+			assert(from.height() == to.rows);
+
+			const Color* pSrc = from[0];
+
+			const int32 height = from.height(), width = from.width();
+
+			for (int32 y = 0; y < height; ++y)
+			{
+				uint8* line = &to(y, 0);
+
+				for (int32 x = 0; x < width; ++x)
+				{
+					line[x] = (pSrc->a <= threshold ? 0 : 255);
+
+					++pSrc;
+				}
+			}
 		}
 	}
 
@@ -276,72 +360,7 @@ namespace s3d
 
 		return true;
 	}
-
-	Image& Image::mirror()
-	{
-		// 1. パラメータチェック
-		{
-			if (isEmpty())
-			{
-				return *this;
-			}
-		}
-
-		// 2. 処理
-		{
-			const int32 h = m_height, w = m_width, wHalf = m_width / 2;	
-			Color* line = m_data.data();		
-
-			for (int32 y = 0; y < h; ++y)
-			{
-				Color* lineA = line;
-				Color* lineB = line + w - 1;;
-
-				for (int32 x = 0; x < wHalf; ++x)
-				{
-					std::swap(*lineA, *lineB);
-					++lineA;
-					--lineB;
-				}
-
-				line += w;
-			}
-		}
-
-		return *this;
-	}
 	
-	Image& Image::flip()
-	{
-		// 1. パラメータチェック
-		{
-			if (isEmpty())
-			{
-				return *this;
-			}
-		}
-		
-		// 2. 処理
-		{
-			const int32 h = m_height, s = stride();
-			Array<Color> line(m_width);
-			Color* lineU = m_data.data();
-			Color* lineB = lineU + m_width * (h - 1);
-			
-			for (int32 y = 0; y < h / 2; ++y)
-			{
-				::memcpy(line.data(), lineU, s);
-				::memcpy(lineU, lineB, s);
-				::memcpy(lineB, line.data(), s);
-				
-				lineU += m_width;
-				lineB -= m_width;
-			}
-		}
-		
-		return *this;
-	}
-
 	bool Image::save(const FilePath& path, ImageFormat format) const
 	{
 		if (isEmpty())
@@ -421,5 +440,593 @@ namespace s3d
 		}
 
 		return Siv3DEngine::GetImageFormat()->encode(*this, format);
+	}
+
+	Image& Image::negate()
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			for (auto& pixel : m_data)
+			{
+				pixel = ~pixel;
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::negated() const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		Image image(*this);
+
+		for (auto& pixel : image)
+		{
+			pixel = ~pixel;
+		}
+
+		return image;
+	}
+
+	Image& Image::grayscale()
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			for (auto& pixel : m_data)
+			{
+				pixel.r = pixel.g = pixel.b = pixel.grayscale0_255();
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::grayscaled() const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		Image image(*this);
+
+		for (auto& pixel : image)
+		{
+			pixel.r = pixel.g = pixel.b = pixel.grayscale0_255();
+		}
+
+		return image;
+	}
+
+	Image& Image::sepia(const int32 level)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			const double levn = Clamp(level, 0, 255);
+			const double levr = 0.956*levn;
+			const double levg = 0.274*levn;
+			const double levb = -1.108*levn;
+
+			for (auto& pixel : m_data)
+			{
+				detail::MakeSepia(levr, levg, levb, pixel);
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::sepiaed(const int32 level) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		Image image(*this);
+
+		const double levn = Clamp(level, 0, 255);
+		const double levr = 0.956*levn;
+		const double levg = 0.274*levn;
+		const double levb = -1.108*levn;
+
+		for (auto& pixel : image)
+		{
+			detail::MakeSepia(levr, levg, levb, pixel);
+		}
+
+		return image;
+	}
+
+	Image& Image::postarize(const int32 level)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			uint8 colorTable[256];
+
+			detail::SetupPostarizeTable(level, colorTable);
+
+			for (auto& pixel : m_data)
+			{
+				pixel.r = colorTable[pixel.r];
+				pixel.g = colorTable[pixel.g];
+				pixel.b = colorTable[pixel.b];
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::postarized(const int32 level) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		Image image(*this);
+
+		uint8 colorTable[256];
+
+		detail::SetupPostarizeTable(level, colorTable);
+
+		for (auto& pixel : image)
+		{
+			pixel.r = colorTable[pixel.r];
+			pixel.g = colorTable[pixel.g];
+			pixel.b = colorTable[pixel.b];
+		}
+
+		return image;
+	}
+
+	Image& Image::brighten(const int32 level)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			if (level < 0)
+			{
+				for (auto& pixel : m_data)
+				{
+					pixel.r = std::max(static_cast<int>(pixel.r) + level, 0);
+					pixel.g = std::max(static_cast<int>(pixel.g) + level, 0);
+					pixel.b = std::max(static_cast<int>(pixel.b) + level, 0);
+				}
+			}
+			else if (level > 0)
+			{
+				for (auto& pixel : m_data)
+				{
+					pixel.r = std::min(static_cast<int>(pixel.r) + level, 255);
+					pixel.g = std::min(static_cast<int>(pixel.g) + level, 255);
+					pixel.b = std::min(static_cast<int>(pixel.b) + level, 255);
+				}
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::brightened(const int32 level) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		Image image(*this);
+
+		if (level < 0)
+		{
+			for (auto& pixel : image)
+			{
+				pixel.r = std::max(static_cast<int>(pixel.r) + level, 0);
+				pixel.g = std::max(static_cast<int>(pixel.g) + level, 0);
+				pixel.b = std::max(static_cast<int>(pixel.b) + level, 0);
+			}
+		}
+		else if (level > 0)
+		{
+			for (auto& pixel : image)
+			{
+				pixel.r = std::min(static_cast<int>(pixel.r) + level, 255);
+				pixel.g = std::min(static_cast<int>(pixel.g) + level, 255);
+				pixel.b = std::min(static_cast<int>(pixel.b) + level, 255);
+			}
+		}
+
+		return image;
+	}
+
+
+
+
+
+
+
+
+
+
+	Image& Image::mirror()
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			const int32 h = m_height, w = m_width, wHalf = m_width / 2;
+			Color* line = m_data.data();
+
+			for (int32 y = 0; y < h; ++y)
+			{
+				Color* lineA = line;
+				Color* lineB = line + w - 1;;
+
+				for (int32 x = 0; x < wHalf; ++x)
+				{
+					std::swap(*lineA, *lineB);
+					++lineA;
+					--lineB;
+				}
+
+				line += w;
+			}
+		}
+
+		return *this;
+	}
+
+	Image& Image::flip()
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			const int32 h = m_height, s = stride();
+			Array<Color> line(m_width);
+			Color* lineU = m_data.data();
+			Color* lineB = lineU + m_width * (h - 1);
+
+			for (int32 y = 0; y < h / 2; ++y)
+			{
+				::memcpy(line.data(), lineU, s);
+				::memcpy(lineU, lineB, s);
+				::memcpy(lineB, line.data(), s);
+
+				lineU += m_width;
+				lineB -= m_width;
+			}
+		}
+
+		return *this;
+	}
+
+
+
+	Image& Image::gaussianBlur(const int32 horizontal, const int32 vertical, const BorderType borderType)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if ((horizontal < 0 || vertical < 0) || (horizontal == 0 && vertical == 0))
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image tmp(m_width, m_height);
+
+			cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, static_cast<cv::Vec4b*>(static_cast<void*>(data())), stride());
+
+			cv::Mat_<cv::Vec4b> matDst(tmp.height(), tmp.width(), static_cast<cv::Vec4b*>(static_cast<void*>(tmp.data())), tmp.stride());
+
+			cv::GaussianBlur(matSrc, matDst, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), 0.0, 0.0, detail::ConvertBorderType(borderType));
+
+			swap(tmp);
+		}
+
+		return *this;
+	}
+
+	Image Image::gaussianBlurred(const int32 horizontal, const int32 vertical, const BorderType borderType) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if ((horizontal < 0 || vertical < 0) || (horizontal == 0 && vertical == 0))
+			{
+				return *this;
+			}
+		}
+
+		Image image(m_width, m_height);
+
+		cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
+
+		cv::Mat_<cv::Vec4b> matDst(image.height(), image.width(), static_cast<cv::Vec4b*>(static_cast<void*>(image.data())), image.stride());
+
+		cv::GaussianBlur(matSrc, matDst, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), 0.0, 0.0, detail::ConvertBorderType(borderType));
+
+		return image;
+	}
+
+
+	namespace ImageProcessing
+	{
+		Polygon FindExternalContour(const Image& image, bool useAlpha, uint32 threshold)
+		{
+			const auto polygons = ImageProcessing::FindExternalContours(image, useAlpha, threshold);
+
+			if (polygons.isEmpty())
+			{
+				return Polygon();
+			}
+
+			if (polygons.size() == 1)
+			{
+				return polygons.front();
+			}
+
+			double maxArea = 0.0;
+
+			size_t index = 0;
+
+			for (size_t i = 0; i < polygons.size(); ++i)
+			{
+				const double area = polygons[i].area();
+
+				if (area > maxArea)
+				{
+					maxArea = area;
+
+					index = i;
+				}
+			}
+
+			return polygons[index];
+		}
+
+		Array<Polygon> FindExternalContours(const Image& image, bool useAlpha, uint32 threshold)
+		{
+			if (!image)
+			{
+				return{};
+			}
+
+			cv::Mat_<uint8> gray(image.height(), image.width());
+
+			if (useAlpha)
+			{
+				detail::ToBinaryFromA(image, gray, threshold);
+			}
+			else
+			{
+				detail::ToBinaryFromR(image, gray, threshold);
+			}
+
+			std::vector<std::vector<cv::Point>> contours;
+
+			try
+			{
+				cv::findContours(gray, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE, { 0, 0 });
+			}
+			catch (cv::Exception&)
+			{
+				//LOG_FAIL(LogMessage::Image003);
+
+				return{};
+			}
+
+			Array<Polygon> result;
+
+			for (const auto& contour : contours)
+			{
+				Array<Vec2> external;
+
+				external.reserve(contour.size());
+
+				for (int i = static_cast<int>(contour.size()) - 1; i >= 0; --i)
+				{
+					external.emplace_back(contour[i].x, contour[i].y);
+				}
+
+				if (external.size() >= 3)
+				{
+					result.emplace_back(external);
+				}
+			}
+
+			return result;
+		}
+
+		Polygon FindContour(const Image& image, bool useAlpha, uint32 threshold)
+		{
+			const auto polygons = ImageProcessing::FindContours(image, useAlpha, threshold);
+
+			if (polygons.isEmpty())
+			{
+				return Polygon();
+			}
+
+			if (polygons.size() == 1)
+			{
+				return polygons.front();
+			}
+
+			double maxArea = 0.0;
+
+			size_t index = 0;
+
+			for (size_t i = 0; i < polygons.size(); ++i)
+			{
+				const double area = polygons[i].area();
+
+				if (area > maxArea)
+				{
+					maxArea = area;
+
+					index = i;
+				}
+			}
+
+			return polygons[index];
+		}
+
+		Array<Polygon> FindContours(const Image& image, bool useAlpha, uint32 threshold)
+		{
+			if (!image)
+			{
+				return{};
+			}
+
+			cv::Mat_<uint8> gray(image.height(), image.width());
+
+			if (useAlpha)
+			{
+				detail::ToBinaryFromA(image, gray, threshold);
+			}
+			else
+			{
+				detail::ToBinaryFromR(image, gray, threshold);
+			}
+
+			std::vector<std::vector<cv::Point>> contours;
+
+			std::vector<cv::Vec4i> hierarchy;
+
+			try
+			{
+				cv::findContours(gray, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE, { 0, 0 });
+			}
+			catch (cv::Exception&)
+			{
+				//LOG_FAIL(LogMessage::Image003);
+
+				return{};
+			}
+
+			Array<Polygon> result;
+
+			for (size_t i = 0; i < contours.size(); i = hierarchy[i][0])
+			{
+				const auto& contour = contours[i];
+
+				Array<Vec2> external;
+
+				external.reserve(contour.size());
+
+				for (int k = static_cast<int>(contour.size()) - 1; k >= 0; --k)
+				{
+					external.emplace_back(contour[k].x, contour[k].y);
+				}
+
+				Array<Array<Vec2>> holes;
+
+				for (int k = hierarchy[i][2]; k != -1; k = hierarchy[k][0])
+				{
+					const auto& contour2 = contours[k];
+
+					Array<Vec2> hole;
+
+					hole.reserve(contour2.size());
+
+					for (const auto& p : contour2)
+					{
+						hole.emplace_back(p.x, p.y);
+					}
+
+					std::reverse(hole.begin(), hole.end());
+
+					holes.push_back(std::move(hole));
+				}
+
+				if (external.size() >= 3)
+				{
+					result.emplace_back(external, holes);
+				}
+			}
+
+			return result;
+		}
 	}
 }

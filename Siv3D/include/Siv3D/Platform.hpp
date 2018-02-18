@@ -289,6 +289,8 @@ namespace s3d
 		# pragma comment (lib, "freetype/freetype28MTd")
 		# pragma comment (lib, "harfbuzz/harfbuzz_d")
 		# pragma comment (lib, "angelscript/angelscriptd")
+		# pragma comment (lib, "opencv/opencv_core340d")
+		# pragma comment (lib, "opencv/opencv_imgproc340d")
 
 	# else
 
@@ -299,6 +301,8 @@ namespace s3d
 		# pragma comment (lib, "freetype/freetype28MT")
 		# pragma comment (lib, "harfbuzz/harfbuzz")
 		# pragma comment (lib, "angelscript/angelscript")
+		# pragma comment (lib, "opencv/opencv_core340")
+		# pragma comment (lib, "opencv/opencv_imgproc340")
 
 	# endif
 

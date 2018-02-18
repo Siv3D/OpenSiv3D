@@ -78,6 +78,12 @@ namespace s3d
 		Caches = LocalAppData,
 
 		Movies = Videos,
+		
+		SystemFonts,
+		
+		LocalFonts,
+		
+		UserFonts,
 	};
 
 	/// <summary>

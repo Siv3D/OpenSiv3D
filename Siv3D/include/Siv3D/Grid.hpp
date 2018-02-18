@@ -174,6 +174,25 @@ namespace s3d
 			}
 		}
 
+		template <class Fty, class R = Type, std::enable_if_t<std::is_convertible_v<std::result_of_t<Fty()>, R>>* = nullptr>
+		static Grid Generate(const Size& size, Fty generator)
+		{
+			return Generate(size.x, size.y, generator);
+		}
+
+		template <class Fty, class R = Type, std::enable_if_t<std::is_convertible_v<std::result_of_t<Fty()>, R>>* = nullptr>
+		static Grid Generate(size_type w, size_type h, Fty generator)
+		{
+			Grid new_grid(w, h);
+
+			for (auto& value : new_grid)
+			{
+				value = generator();
+			}
+
+			return new_grid;
+		}
+
 		/// <summary>
 		/// コピー代入演算子
 		/// </summary>

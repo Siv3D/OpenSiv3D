@@ -81,6 +81,11 @@ namespace s3d
 
 			return RectF(left, top, right - left, bottom - top);
 		}
+
+		static double TriangleArea(const Float2& p0, const Float2& p1, const Float2& p2)
+		{
+			return std::abs((p0.x - p2.x) * (p1.y - p0.y) - (p0.x - p1.x) * (p2.y - p0.y)) * 0.5;
+		}
 	}
 
 	Polygon::CPolygon::CPolygon()
@@ -209,6 +214,29 @@ namespace s3d
 			point.moveBy(xf, yf);
 		}
 	}
+
+	double Polygon::CPolygon::area() const
+	{
+		const size_t _num_triangles = m_indices.size() / 3;
+
+		//const bool _hasHoles = !m_polygon.inners().empty();
+
+		double result = 0.0;
+
+		for (size_t index = 0; index < _num_triangles; ++index)
+		{
+			const uint32 indices[3] =
+			{
+				m_indices[index * 3 + 0],
+				m_indices[index * 3 + 1],
+				m_indices[index * 3 + 2],
+			};
+
+			result +=detail::TriangleArea(m_vertices[indices[0]], m_vertices[indices[1]], m_vertices[indices[2]]);
+		}
+
+		return result;
+	}
 	
 	Vec2 Polygon::CPolygon::centroid() const
 	{
@@ -224,7 +252,7 @@ namespace s3d
 		return centroid;
 	}
 	
-	Polygon Polygon::CPolygon::computeConvexHull() const
+	Polygon Polygon::CPolygon::calculateConvexHull() const
 	{
 		gRing result;
 		

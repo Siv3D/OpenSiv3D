@@ -564,6 +564,7 @@ namespace s3d
 	//
 	//	Image.hpp
 	//
+	enum class BorderType;
 	class Image;
 
 	//////////////////////////////////////////////////////
