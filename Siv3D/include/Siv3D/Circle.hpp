@@ -444,6 +444,10 @@ namespace s3d
 
 		const Circle& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
 
+		const Circle& paintFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color, bool antialiased = true) const;
+
+		const Circle& overwriteFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color, bool antialiased = true) const;
+
 		/// <summary>
 		/// 円を描きます。
 		/// </summary>

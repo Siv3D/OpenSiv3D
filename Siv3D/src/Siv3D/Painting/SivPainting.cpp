@@ -348,6 +348,295 @@ namespace s3d
 		return *this;
 	}
 
+	const Circle& Circle::paintFrame(Image& dst, const int32 innerThickness, const int32 outerThickness, const Color& color, const bool antialiased) const
+	{
+		const int32 yBegin	= std::max(static_cast<int32>(y - r - outerThickness), 0);
+		const int32 yEnd	= std::min(static_cast<int32>(y + r + 1 + outerThickness), dst.height());
+		const int32 xBegin	= std::max(static_cast<int32>(x - r - outerThickness), 0);
+		const int32 xEnd	= std::min(static_cast<int32>(x + r + 1 + outerThickness), dst.width());
+
+		const int32 fillWidth	= xEnd - xBegin;
+		const int32 fillHeight	= yEnd - yBegin;
+
+		if (fillWidth <= 0 || fillHeight <= 0)
+		{
+			return *this;
+		}
+
+		Color* pDst = dst.data() + yBegin * dst.width() + xBegin;
+		const int32 stepOffset = dst.width() - fillWidth;
+		const double lengthOuterSq = (r + outerThickness + 0.5) * (r + outerThickness + 0.5);
+		const double lengthInnerSq = (r - innerThickness + 0.5) * (r - innerThickness + 0.5);
+
+		const uint32 srcBlend = color.a;
+
+		if (antialiased)
+		{
+			const double lengthInner0 = std::sqrt(lengthInnerSq) - 0.5;
+			const double lengthInner1 = std::sqrt(lengthInnerSq) + 0.5;
+			const double lengthOuter0 = std::sqrt(lengthOuterSq) - 0.5;
+			const double lengthOuter1 = std::sqrt(lengthOuterSq) + 0.5;
+
+			if (srcBlend == 255)
+			{
+				for (int32 _y = yBegin; _y < yEnd; ++_y)
+				{
+					for (int32 _x = xBegin; _x < xEnd; ++_x)
+					{
+						const double length = center.distanceFrom({ _x, _y });
+
+						if (lengthInner0 < length && length < lengthOuter1)
+						{
+							if (length < lengthInner1)
+							{
+								const double d = length - lengthInner0;
+								const uint32 srcBlend2 = static_cast<uint32>(255 * d);
+								const uint32 premulSrcR = srcBlend2 * color.r;
+								const uint32 premulSrcG = srcBlend2 * color.g;
+								const uint32 premulSrcB = srcBlend2 * color.b;
+								const uint32 dstBlend = 255 - srcBlend2;
+
+								pDst->r = (pDst->r * dstBlend + premulSrcR) / 255;
+								pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
+								pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
+							}
+							else if (lengthOuter0 < length)
+							{
+								const double d = lengthOuter1 - length;
+								const uint32 srcBlend2 = static_cast<uint32>(255 * d);
+								const uint32 premulSrcR = srcBlend2 * color.r;
+								const uint32 premulSrcG = srcBlend2 * color.g;
+								const uint32 premulSrcB = srcBlend2 * color.b;
+								const uint32 dstBlend = 255 - srcBlend2;
+
+								pDst->r = (pDst->r * dstBlend + premulSrcR) / 255;
+								pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
+								pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
+							}
+							else
+							{
+								const uint8 a = pDst->a;
+								*pDst = color;
+								pDst->a = a;
+							}
+						}
+
+						++pDst;
+					}
+
+					pDst += stepOffset;
+				}
+			}
+			else
+			{
+				const uint32 dstBlend = 255 - srcBlend;
+				const uint32 premulSrcR = srcBlend * color.r;
+				const uint32 premulSrcG = srcBlend * color.g;
+				const uint32 premulSrcB = srcBlend * color.b;
+
+				for (int32 _y = yBegin; _y < yEnd; ++_y)
+				{
+					for (int32 _x = xBegin; _x < xEnd; ++_x)
+					{
+						const double length = center.distanceFrom({ _x, _y });
+
+						if (lengthInner0 < length && length < lengthOuter1)
+						{
+							if (length < lengthInner1)
+							{
+								const double d = length - lengthInner0;
+								const uint32 srcBlend2 = static_cast<uint32>(srcBlend * d);
+								const uint32 premulSrcR2 = srcBlend2 * color.r;
+								const uint32 premulSrcG2 = srcBlend2 * color.g;
+								const uint32 premulSrcB2 = srcBlend2 * color.b;
+								const uint32 dstBlend2 = 255 - srcBlend2;
+
+								pDst->r = (pDst->r * dstBlend2 + premulSrcR2) / 255;
+								pDst->g = (pDst->g * dstBlend2 + premulSrcG2) / 255;
+								pDst->b = (pDst->b * dstBlend2 + premulSrcB2) / 255;
+							}
+							else if (lengthOuter0 < length)
+							{
+								const double d = lengthOuter1 - length;
+								const uint32 srcBlend2 = static_cast<uint32>(srcBlend * d);
+								const uint32 premulSrcR2 = srcBlend2 * color.r;
+								const uint32 premulSrcG2 = srcBlend2 * color.g;
+								const uint32 premulSrcB2 = srcBlend2 * color.b;
+								const uint32 dstBlend2 = 255 - srcBlend2;
+
+								pDst->r = (pDst->r * dstBlend2 + premulSrcR2) / 255;
+								pDst->g = (pDst->g * dstBlend2 + premulSrcG2) / 255;
+								pDst->b = (pDst->b * dstBlend2 + premulSrcB2) / 255;
+							}
+							else
+							{
+								pDst->r = (pDst->r * dstBlend + premulSrcR) / 255;
+								pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
+								pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
+							}
+						}
+
+						++pDst;
+					}
+
+					pDst += stepOffset;
+				}
+			}
+		}
+		else
+		{
+			if (srcBlend == 255)
+			{
+				for (int32 _y = yBegin; _y < yEnd; ++_y)
+				{
+					for (int32 _x = xBegin; _x < xEnd; ++_x)
+					{
+						const double lengthSq = center.distanceFromSq({ _x, _y });
+
+						if (lengthInnerSq <= lengthSq && lengthSq <= lengthOuterSq)
+						{
+							const uint8 a = pDst->a;
+							*pDst = color;
+							pDst->a = a;
+						}
+
+						++pDst;
+					}
+
+					pDst += stepOffset;
+				}
+			}
+			else
+			{
+				const uint32 dstBlend = 255 - srcBlend;
+				const uint32 premulSrcR = srcBlend * color.r;
+				const uint32 premulSrcG = srcBlend * color.g;
+				const uint32 premulSrcB = srcBlend * color.b;
+
+				for (int32 _y = yBegin; _y < yEnd; ++_y)
+				{
+					for (int32 _x = xBegin; _x < xEnd; ++_x)
+					{
+						const double lengthSq = center.distanceFromSq({ _x, _y });
+
+						if (lengthInnerSq <= lengthSq && lengthSq <= lengthOuterSq)
+						{
+							pDst->r = (pDst->r * dstBlend + premulSrcR) / 255;
+							pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
+							pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
+						}
+
+						++pDst;
+					}
+
+					pDst += stepOffset;
+				}
+			}
+		}
+
+		return *this;
+	}
+
+	const Circle& Circle::overwriteFrame(Image& dst, const int32 innerThickness, const int32 outerThickness, const Color& color, const bool antialiased) const
+	{
+		const int32 yBegin	= std::max(static_cast<int32>(y - r - outerThickness), 0);
+		const int32 yEnd	= std::min(static_cast<int32>(y + r + 1 + outerThickness), dst.height());
+		const int32 xBegin	= std::max(static_cast<int32>(x - r - outerThickness), 0);
+		const int32 xEnd	= std::min(static_cast<int32>(x + r + 1 + outerThickness), dst.width());
+
+		const int32 fillWidth	= xEnd - xBegin;
+		const int32 fillHeight	= yEnd - yBegin;
+
+		if (fillWidth <= 0 || fillHeight <= 0)
+		{
+			return *this;
+		}
+
+		Color* pDst = dst.data() + yBegin * dst.width() + xBegin;
+		const int32 stepOffset = dst.width() - fillWidth;
+		const double lengthOuterSq = (r + outerThickness + 0.5) * (r + outerThickness + 0.5);
+		const double lengthInnerSq = (r - innerThickness + 0.5) * (r - innerThickness + 0.5);
+
+		if (antialiased)
+		{
+			const double lengthInner0 = std::sqrt(lengthInnerSq) - 0.5;
+			const double lengthInner1 = std::sqrt(lengthInnerSq) + 0.5;
+			const double lengthOuter0 = std::sqrt(lengthOuterSq) - 0.5;
+			const double lengthOuter1 = std::sqrt(lengthOuterSq) + 0.5;
+
+			for (int32 _y = yBegin; _y < yEnd; ++_y)
+			{
+				for (int32 _x = xBegin; _x < xEnd; ++_x)
+				{
+					const double length = center.distanceFrom({ _x, _y });
+
+					if (lengthInner0 < length && length < lengthOuter1)
+					{
+						if (length < lengthInner1)
+						{
+							const double d = length - lengthInner0;
+							const uint32 srcBlend2 = static_cast<uint32>(255 * d);
+							const uint32 premulSrcR = srcBlend2 * color.r;
+							const uint32 premulSrcG = srcBlend2 * color.g;
+							const uint32 premulSrcB = srcBlend2 * color.b;
+							const uint32 premulSrcA = srcBlend2 * color.a;
+							const uint32 dstBlend = 255 - srcBlend2;
+
+							pDst->r = (pDst->r * dstBlend + premulSrcR) / 255;
+							pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
+							pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
+							pDst->a = (pDst->a * dstBlend + premulSrcA) / 255;
+						}
+						else if (lengthOuter0 < length)
+						{
+							const double d = lengthOuter1 - length;
+							const uint32 srcBlend2 = static_cast<uint32>(255 * d);
+							const uint32 premulSrcR = srcBlend2 * color.r;
+							const uint32 premulSrcG = srcBlend2 * color.g;
+							const uint32 premulSrcB = srcBlend2 * color.b;
+							const uint32 premulSrcA = srcBlend2 * color.a;
+							const uint32 dstBlend = 255 - srcBlend2;
+
+							pDst->r = (pDst->r * dstBlend + premulSrcR) / 255;
+							pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
+							pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
+							pDst->a = (pDst->a * dstBlend + premulSrcA) / 255;
+						}
+						else
+						{
+							*pDst = color;
+						}
+					}
+
+					++pDst;
+				}
+
+				pDst += stepOffset;
+			}
+		}
+		else
+		{
+			for (int32 _y = yBegin; _y < yEnd; ++_y)
+			{
+				for (int32 _x = xBegin; _x < xEnd; ++_x)
+				{
+					const double lengthSq = center.distanceFromSq({ _x, _y });
+
+					if (lengthInnerSq <= lengthSq && lengthSq <= lengthOuterSq)
+					{
+						*pDst = color;
+					}
+
+					++pDst;
+				}
+
+				pDst += stepOffset;
+			}
+		}
+
+		return *this;
+	}
+
 	const Ellipse& Ellipse::paint(Image& dst, const Color& color) const
 	{
 		const int32 yBegin = std::max(static_cast<int32>(y - b), 0);
