@@ -1,11 +1,14 @@
 ﻿
 # include <Siv3D.hpp>
 
+
 void Main()
 {
 	Image image(U"example/windmill.png");
 
-	const Texture texture(image.mirrored());
+	Rect(0, 0, 400, 80).overwrite(image, Palette::Red);
+
+	const Texture texture(image.spreaded(8, 8));
 
 	while (System::Update())
 	{

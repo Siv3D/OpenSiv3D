@@ -564,7 +564,10 @@ namespace s3d
 	//
 	//	Image.hpp
 	//
+	enum class AdaptiveMethod;
 	enum class BorderType;
+	enum class FloodFillConnectivity;
+	enum class Interpolation;
 	class Image;
 
 	//////////////////////////////////////////////////////

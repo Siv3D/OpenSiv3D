@@ -74,7 +74,7 @@ namespace s3d
 			assert(from.width() == to.cols);
 			assert(from.height() == to.rows);
 
-			const Color* pSrc = from[0];
+			const Color* pSrc = from.data();
 
 			const int32 height = from.height(), width = from.width();
 
@@ -96,7 +96,7 @@ namespace s3d
 			assert(from.width() == to.cols);
 			assert(from.height() == to.rows);
 
-			const Color* pSrc = from[0];
+			const Color* pSrc = from.data();
 
 			const int32 height = from.height(), width = from.width();
 
@@ -110,6 +110,95 @@ namespace s3d
 
 					++pSrc;
 				}
+			}
+		}
+
+		static void ToGrayScale(const Image& from, cv::Mat_<uint8>& to)
+		{
+			assert(from.width() == to.cols);
+			assert(from.height() == to.rows);
+
+			const Color* pSrc = from.data();
+
+			const int32 height = from.height(), width = from.width();
+
+			for (int32 y = 0; y < height; ++y)
+			{
+				uint8* line = &to(y, 0);
+
+				for (int32 x = 0; x < width; ++x)
+				{
+					line[x] = pSrc->grayscale0_255();
+
+					++pSrc;
+				}
+			}
+		}
+
+		static void SetupGammmaTable(const double gamma, uint8 table[256])
+		{
+			const double gammaInv = 1.0 / gamma;
+
+			for (size_t i = 0; i < 256; ++i)
+			{
+				table[i] = static_cast<uint8>(std::pow(i / 255.0, gammaInv) * 255.0);
+			}
+		}
+
+		static Color GetAverage(const Image& src, const Rect& rect)
+		{
+			const int32 count = rect.area();
+
+			if (!count)
+			{
+				return Color(0);
+			}
+
+			int32 sumR = 0, sumG = 0, sumB = 0, sumA = 0;
+
+			const size_t imgWidth = src.width();
+			const int32 height = rect.h;
+			const int32 width = rect.w;
+
+			const Color* pLine = &src[rect.y][rect.x];
+
+			for (int32 y = 0; y < height; ++y)
+			{
+				const Color* pDst = pLine;
+
+				for (int32 x = 0; x < width; ++x)
+				{
+					sumR += pDst->r;
+					sumG += pDst->g;
+					sumB += pDst->b;
+					sumA += pDst->a;
+					++pDst;
+				}
+
+				pLine += imgWidth;
+			}
+
+			return Color(sumR / count, sumG / count, sumB / count, sumA / count);
+		}
+
+		static void FillRect(Image& dst, const Rect& rect, const Color& color)
+		{
+			const size_t imgWidth = dst.width();
+			const int32 height = rect.h;
+			const int32 width = rect.w;
+
+			Color* pLine = &dst[rect.y][rect.x];
+
+			for (int32 y = 0; y < height; ++y)
+			{
+				Color* pDst = pLine;
+
+				for (int32 x = 0; x < width; ++x)
+				{
+					(*pDst++) = color;
+				}
+
+				pLine += imgWidth;
 			}
 		}
 	}
@@ -838,15 +927,15 @@ namespace s3d
 			}
 		}
 
-		Image image(size());
+		Image image(m_width, m_height);
 
 		const Color* pSrc = data();
 		Color* pDst = image.data();
 		const size_t width = m_width;
 		
-		for (int32 y = 0; y < m_height; ++y)
+		for (uint32 y = 0; y < m_height; ++y)
 		{
-			for (int32 x = 0; x < m_width; ++x)
+			for (uint32 x = 0; x < m_width; ++x)
 			{
 				*(pDst + width * y + x) = *(pSrc + width * y + width - x - 1);
 			}
@@ -886,7 +975,378 @@ namespace s3d
 		return *this;
 	}
 
+	Image Image::flipped() const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
 
+		Image image(m_width, m_height);
+
+		const size_t _stride = stride();
+		const Color* pSrc = data() + (m_height - 1) * m_width;
+		Color* pDst = image.data();
+
+		for (uint32 y = 0; y < m_height; ++y)
+		{
+			::memcpy(pDst, pSrc, _stride);
+			pDst += m_width;
+			pSrc -= m_width;
+		}
+
+		return image;
+	}
+
+	Image& Image::rotate90()
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		// [Siv3D ToDo] 最適化
+		{
+			Image tmp(m_height, m_width);
+
+			for (uint32 y = 0; y < m_height; ++y)
+			{
+				for (uint32 x = 0; x < m_width; ++x)
+				{
+					tmp[x][m_height - y - 1] = (*this)[y][x];
+				}
+			}
+
+			swap(tmp);
+		}
+
+		return *this;
+	}
+
+	Image Image::rotated90() const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		Image image(m_height, m_width);
+
+		// [Siv3D ToDo] 最適化
+		for (uint32 y = 0; y < m_height; ++y)
+		{
+			for (uint32 x = 0; x < m_width; ++x)
+			{
+				image[x][m_height - y - 1] = (*this)[y][x];
+			}
+		}
+
+		return image;
+	}
+
+	Image& Image::rotate180()
+	{
+		std::reverse(begin(), end());
+
+		return *this;
+	}
+
+	Image Image::rotated180() const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		Image image(m_width, m_height);
+
+		const Color* pSrc = data() + num_pixels() - 1;
+
+		Color* pDst = image.data();
+
+		const Color* pDstEnd = pDst + image.num_pixels();
+
+		while (pDst != pDstEnd)
+		{
+			*pDst = *pSrc;
+
+			++pDst;
+
+			--pSrc;
+		}
+
+		return image;
+	}
+
+	Image& Image::rotate270()
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		// [Siv3D ToDo] 最適化
+		{
+			Image tmp(m_height, m_width);
+
+			for (uint32 y = 0; y < m_height; ++y)
+			{
+				for (uint32 x = 0; x < m_width; ++x)
+				{
+					tmp[m_width - x - 1][y] = (*this)[y][x];
+				}
+			}
+
+			swap(tmp);
+		}
+
+		return *this;
+	}
+
+	Image Image::rotated270() const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		Image image(m_height, m_width);
+
+		for (uint32 y = 0; y < m_height; ++y)
+		{
+			for (uint32 x = 0; x < m_width; ++x)
+			{
+				image[m_width - x - 1][y] = (*this)[y][x];
+			}
+		}
+
+		return image;
+	}
+
+	Image& Image::gammaCorrect(const double gamma)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			uint8 colorTable[256];
+
+			detail::SetupGammmaTable(gamma, colorTable);
+
+			for (auto& pixel : m_data)
+			{
+				pixel.r = colorTable[pixel.r];
+				pixel.g = colorTable[pixel.g];
+				pixel.b = colorTable[pixel.b];
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::gammaCorrected(const double gamma) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		Image image(*this);
+
+		uint8 colorTable[256];
+
+		detail::SetupGammmaTable(gamma, colorTable);
+
+		for (auto& pixel : image)
+		{
+			pixel.r = colorTable[pixel.r];
+			pixel.g = colorTable[pixel.g];
+			pixel.b = colorTable[pixel.b];
+		}
+
+		return image;
+	}
+
+	Image& Image::threshold(const uint8 threshold, const bool inverse)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			const uint32 a = inverse ? 0 : 0x00FFffFF, b = inverse ? 0x00FFffFF : 0;
+
+			Color* pDst = data();
+
+			const Color* pDstEnd = pDst + num_pixels();
+
+			const double thresholdF = threshold / 255.0;
+
+			while (pDst != pDstEnd)
+			{
+				*static_cast<uint32*>(static_cast<void*>(pDst)) = (thresholdF < pDst->grayscale() ? a : b) | (pDst->a << 24);
+
+				++pDst;
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::thresholded(const uint8 threshold, const bool inverse) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		Image image(*this);
+
+		const unsigned a = inverse ? 0 : 0x00FFffFF, b = inverse ? 0x00FFffFF : 0;
+
+		Color* pDst = image.data();
+
+		const Color* pDstEnd = pDst + num_pixels();
+
+		const double thresholdF = threshold / 255.0;
+
+		while (pDst != pDstEnd)
+		{
+			*static_cast<uint32*>(static_cast<void*>(pDst)) = (thresholdF < pDst->grayscale() ? a : b) | (pDst->a << 24);
+
+			++pDst;
+		}
+
+		return image;
+	}
+
+	Image& Image::adaptiveThreshold(const AdaptiveMethod method, int32 blockSize, const double c, const bool inverse)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if (blockSize % 2 == 0)
+			{
+				++blockSize;
+			}
+		}
+
+		// 2. 処理
+		{
+			static_assert((int32)AdaptiveMethod::Mean == cv::ADAPTIVE_THRESH_MEAN_C);
+			static_assert((int32)AdaptiveMethod::Gaussian == cv::ADAPTIVE_THRESH_GAUSSIAN_C);
+
+			cv::Mat_<uint8> gray(m_height, m_width);
+
+			detail::ToGrayScale(*this, gray);
+
+			cv::adaptiveThreshold(gray, gray, 255, static_cast<int32>(method), inverse ? CV_THRESH_BINARY_INV : CV_THRESH_BINARY, blockSize, c);
+
+			{
+				Color* pDst = m_data.data();
+
+				for (uint32 y = 0; y < m_height; ++y)
+				{
+					const uint8* line = &gray(y, 0);
+
+					for (uint32 x = 0; x < m_width; ++x)
+					{
+						pDst->r = pDst->g = pDst->b = line[x];
+
+						++pDst;
+					}
+				}
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::adaptiveThresholded(const AdaptiveMethod method, int32 blockSize, const double c, const bool inverse) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if (blockSize % 2 == 0)
+			{
+				++blockSize;
+			}
+		}
+
+		Image image(*this);
+
+		static_assert((int32)AdaptiveMethod::Mean == cv::ADAPTIVE_THRESH_MEAN_C);
+		static_assert((int32)AdaptiveMethod::Gaussian == cv::ADAPTIVE_THRESH_GAUSSIAN_C);
+
+		cv::Mat_<uint8> gray(m_height, m_width);
+
+		detail::ToGrayScale(*this, gray);
+
+		cv::adaptiveThreshold(gray, gray, 255, static_cast<int32>(method), inverse ? CV_THRESH_BINARY_INV : CV_THRESH_BINARY, blockSize, c);
+
+		{
+			Color* pDst = image.data();
+
+			for (uint32 y = 0; y < m_height; ++y)
+			{
+				const uint8* line = &gray(y, 0);
+
+				for (uint32 x = 0; x < m_width; ++x)
+				{
+					pDst->r = pDst->g = pDst->b = line[x];
+
+					++pDst;
+				}
+			}
+		}
+
+		return image;
+	}
 
 	Image& Image::gaussianBlur(const int32 horizontal, const int32 vertical, const BorderType borderType)
 	{
@@ -918,6 +1378,202 @@ namespace s3d
 
 		return *this;
 	}
+
+	Image& Image::mosaic(const int32 size)
+	{
+		return mosaic(size, size);
+	}
+
+	Image& Image::mosaic(const int32 horizontal, const int32 vertical)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if ((horizontal < 1 || vertical < 1) || (horizontal == 1 && vertical == 1))
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			const uint32 xPiece = m_width / horizontal;
+			const uint32 yPiece = m_height / vertical;
+			uint32 yP = 0, xP = 0;
+
+			for (yP = 0; yP < yPiece; ++yP)
+			{
+				for (xP = 0; xP < xPiece; ++xP)
+				{
+					const Rect rc(xP*horizontal, yP*vertical, horizontal, vertical);
+					detail::FillRect(*this, rc, detail::GetAverage(*this, rc));
+				}
+
+				const Rect rc(xP*horizontal, yP*vertical, m_width - xP * horizontal, vertical);
+				detail::FillRect(*this, rc, detail::GetAverage(*this, rc));
+			}
+
+			if (yP * vertical < m_height)
+			{
+				const int32 tY = m_height - yP * vertical;
+
+				for (xP = 0; xP < xPiece; ++xP)
+				{
+					const Rect rc(xP*horizontal, yP*vertical, horizontal, tY);
+					detail::FillRect(*this, rc, detail::GetAverage(*this, rc));
+				}
+
+				const Rect rc(xP*horizontal, yP*vertical, m_width - xP * horizontal, tY);
+				detail::FillRect(*this, rc, detail::GetAverage(*this, rc));
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::mosaiced(const int32 size) const
+	{
+		return mosaiced(size, size);
+	}
+
+	Image Image::mosaiced(const int32 horizontal, const int32 vertical) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if ((horizontal < 1 || vertical < 1) || (horizontal == 1 && vertical == 1))
+			{
+				return *this;
+			}
+		}
+
+		Image image(*this);
+
+		const uint32 xPiece = m_width / horizontal;
+		const uint32 yPiece = m_height / vertical;
+		uint32 yP = 0, xP = 0;
+
+		for (yP = 0; yP < yPiece; ++yP)
+		{
+			for (xP = 0; xP < xPiece; ++xP)
+			{
+				const Rect rc(xP*horizontal, yP*vertical, horizontal, vertical);
+				detail::FillRect(image, rc, detail::GetAverage(image, rc));
+			}
+
+			const Rect rc(xP*horizontal, yP*vertical, m_width - xP * horizontal, vertical);
+			detail::FillRect(image, rc, detail::GetAverage(image, rc));
+		}
+
+		if (yP*vertical < m_height)
+		{
+			const int32 tY = m_height - yP * vertical;
+
+			for (xP = 0; xP < xPiece; ++xP)
+			{
+				const Rect rc(xP*horizontal, yP*vertical, horizontal, tY);
+				detail::FillRect(image, rc, detail::GetAverage(image, rc));
+			}
+
+			const Rect rc(xP*horizontal, yP*vertical, m_width - xP * horizontal, tY);
+			detail::FillRect(image, rc, detail::GetAverage(image, rc));
+		}
+
+		return image;
+	}
+
+	Image& Image::spread(const int32 horizontal, const int32 vertical)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if ((horizontal < 0 || vertical < 0) || (horizontal == 0 && vertical == 0))
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		// [Siv3D ToDo] 最適化
+		{
+			Image tmp(m_width, m_height);
+
+			DefaultRNGType rng(12345);
+
+			const int32 h2 = horizontal * 2;
+
+			const int32 v2 = vertical * 2;
+
+			for (int32 y = 0; y < static_cast<int32>(m_height); ++y)
+			{
+				for (int32 x = 0; x < static_cast<int32>(m_width); ++x)
+				{
+					const int32 xpos = x + int32(rng() % (h2 + 1)) - horizontal;
+
+					const int32 ypos = y + int32(rng() % (v2 + 1)) - vertical;
+
+					tmp[y][x] = getPixel_Mirror(xpos, ypos);
+				}
+			}
+
+			swap(tmp);
+		}
+
+		return *this;
+	}
+
+	Image Image::spreaded(const int32 horizontal, const int32 vertical) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if ((horizontal < 0 || vertical < 0) || (horizontal == 0 && vertical == 0))
+			{
+				return *this;
+			}
+		}
+
+		Image image(m_width, m_height);
+
+		DefaultRNGType rng(12345);
+
+		const int32 h2 = horizontal * 2;
+
+		const int32 v2 = vertical * 2;
+
+		// [Siv3D ToDo] 最適化
+		for (int32 y = 0; y < static_cast<int32>(m_height); ++y)
+		{
+			for (int32 x = 0; x < static_cast<int32>(m_width); ++x)
+			{
+				const int32 xpos = x + int32(rng() % (h2 + 1)) - horizontal;
+
+				const int32 ypos = y + int32(rng() % (v2 + 1)) - vertical;
+
+				image[y][x] = getPixel_Mirror(xpos, ypos);
+			}
+		}
+
+		return image;
+	}
+
+
 
 	Image Image::gaussianBlurred(const int32 horizontal, const int32 vertical, const BorderType borderType) const
 	{
