@@ -11,6 +11,7 @@
 
 # include <Siv3D/Line.hpp>
 # include <Siv3D/Rectangle.hpp>
+# include <Siv3D/Polygon.hpp>
 # include <Siv3D/MathConstants.hpp>
 # include <Siv3D/XXHash.hpp>
 # include <Siv3D/Shape2D.hpp>
@@ -160,6 +161,20 @@ namespace s3d
 				return b.intersectsAt(a);
 			}
 		}
+	}
+
+	const Line& Line::paintArrow(Image& dst, const double width, const Vec2& headSize, const Color& color) const
+	{
+		Shape2D::Arrow(begin, end, width, headSize).asPolygon().paint(dst, color);
+
+		return *this;
+	}
+
+	const Line& Line::overwriteArrow(Image& dst, const double width, const Vec2& headSize, const Color& color) const
+	{
+		Shape2D::Arrow(begin, end, width, headSize).asPolygon().overwrite(dst, color);
+
+		return *this;
 	}
 
 	const Line& Line::draw(const LineStyle& style, double thickness, const ColorF& color) const

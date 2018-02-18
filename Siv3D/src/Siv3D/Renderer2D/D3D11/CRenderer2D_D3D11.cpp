@@ -1516,7 +1516,7 @@ namespace s3d
 		}
 	}
 
-	void CRenderer2D_D3D11::addShape2D(const Array<Float2>& vertices, const Array<uint32>& indices, const Float4& color)
+	void CRenderer2D_D3D11::addShape2D(const Array<Float2>& vertices, const Array<uint32>& indices, const Optional<Float2>& offset, const Float4& color)
 	{
 		if (vertices.isEmpty())
 		{
@@ -1537,11 +1537,25 @@ namespace s3d
 			const Float2* pSrc = vertices.data();
 			const Float2* pSrcEnd = pSrc + vertices.size();
 
-			while (pSrc != pSrcEnd)
+			if (offset)
 			{
-				pVertex->pos = *pSrc++;
-				pVertex->color = color;
-				++pVertex;
+				const Float2 _offset = offset.value();
+
+				while (pSrc != pSrcEnd)
+				{
+					pVertex->pos = _offset + *pSrc++;
+					pVertex->color = color;
+					++pVertex;
+				}
+			}
+			else
+			{
+				while (pSrc != pSrcEnd)
+				{
+					pVertex->pos = *pSrc++;
+					pVertex->color = color;
+					++pVertex;
+				}
 			}
 		}
 

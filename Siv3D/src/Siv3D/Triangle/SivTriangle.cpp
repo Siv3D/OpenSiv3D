@@ -161,7 +161,7 @@ namespace s3d
 		const auto [xMin, xMax] = std::minmax({ p0.x, p1.x, p2.x });
 		const auto [yMin, yMax] = std::minmax({ p0.y, p1.y, p2.y });
 
-		return Polygon({ p0, p1, p2 }, {}, { 0, 1, 2 },	RectF(xMin, yMin, xMax - xMin, yMax - yMin));
+		return Polygon({ p0, p1, p2 }, { 0, 1, 2 },	RectF(xMin, yMin, xMax - xMin, yMax - yMin));
 	}
 
 	void Formatter(FormatData& formatData, const Triangle& value)

@@ -38,7 +38,7 @@ namespace s3d
 		explicit Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes = {})
 			: Polygon(outer.data(), outer.size(), holes) {}
 
-		Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<uint32>& indices, const RectF& boundingRect);
+		Polygon(const Array<Vec2>& outer, const Array<uint32>& indices, const RectF& boundingRect);
 
 		explicit Polygon(const Shape2D& shape);
 
@@ -57,6 +57,8 @@ namespace s3d
 
 		bool hasHoles() const;
 
+		size_t num_holes() const;
+
 		void swap(Polygon& polygon) noexcept;
 
 		const Array<Vec2>& outer() const;
@@ -73,6 +75,10 @@ namespace s3d
 
 		Triangle triangle(size_t index) const;
 
+		Polygon& addHole(const Array<Vec2>& hole);
+
+		Polygon& addHoles(const Array<Array<Vec2>>& holes);
+
 		Polygon movedBy(double x, double y) const;
 
 		Polygon movedBy(const Vec2& v) const
@@ -87,17 +93,17 @@ namespace s3d
 			return moveBy(v.x, v.y);
 		}
 
-		//Polygon rotated(double angle) const:
+		Polygon rotated(double angle) const;
 
-		//Polygon rotatedAt(const Vec2& pos, double angle) const;
+		Polygon rotatedAt(const Vec2& pos, double angle) const;
 
-		//Polygon& rotate(double angle) const:
+		Polygon& rotate(double angle);
 
-		//Polygon& rotateAt(const Vec2& pos, double angle) const;
+		Polygon& rotateAt(const Vec2& pos, double angle);
 
 		double area() const;
 
-		//double perimeter() const;
+		double perimeter() const;
 
 		Vec2 centroid() const;
 
@@ -139,17 +145,29 @@ namespace s3d
 
 		bool mouseOver() const;
 
-		const Polygon& paint(Image& dst, const Color& color = Palette::White) const;
+		const Polygon& paint(Image& dst, const Color& color) const;
 
-		const Polygon& overwrite(Image& dst, const Color& color = Palette::White) const;
+		const Polygon& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
 
 		const Polygon& draw(const ColorF& color = Palette::White) const;
+
+		void draw(double x, double y, const ColorF& color = Palette::White) const;
+
+		void draw(const Vec2& pos, const ColorF& color = Palette::White) const;
 
 		//const Polygon& draw(const Array<ColorF>& colors) const;
 
 		const Polygon& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
-		//const Polygon& drawWireframe(double thickness = 1.0, const ColorF& color = Palette::White) const;
+		void drawFrame(double x, double y, double thickness = 1.0, const ColorF& color = Palette::White) const;
+
+		void drawFrame(const Vec2& pos, double thickness = 1.0, const ColorF& color = Palette::White) const;
+
+		const Polygon& drawWireframe(double thickness = 1.0, const ColorF& color = Palette::White) const;
+
+		void drawWireframe(double x, double y, double thickness = 1.0, const ColorF& color = Palette::White) const;
+
+		void drawWireframe(const Vec2& pos, double thickness = 1.0, const ColorF& color = Palette::White) const;
 
 		const CPolygon* _detail() const;
 	};

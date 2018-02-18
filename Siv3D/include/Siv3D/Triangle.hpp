@@ -172,7 +172,9 @@ namespace s3d
 
 		bool mouseOver() const;
 
-		// paint~ overpaint~ draw~
+		const Triangle& paint(Image& dst, const Color& color) const;
+
+		const Triangle& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
 
 		const Triangle& draw(const ColorF& color = Palette::White) const;
 

@@ -295,6 +295,6 @@ namespace s3d
 			(*pIndex++) = i + 2;
 		}
 
-		return Polygon(vertices, {}, indices, RectF(xMin, yMin, xMax - xMin, yMax - yMin));
+		return Polygon(vertices, indices, RectF(xMin, yMin, xMax - xMin, yMax - yMin));
 	}
 }

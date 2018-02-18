@@ -40,8 +40,8 @@ namespace s3d
 
 	}
 
-	Polygon::Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<uint32>& indices, const RectF& boundingRect)
-		: pImpl(std::make_unique<CPolygon>(outer.data(), outer.size(), holes, indices, boundingRect))
+	Polygon::Polygon(const Array<Vec2>& outer, const Array<uint32>& indices, const RectF& boundingRect)
+		: pImpl(std::make_unique<CPolygon>(outer.data(), outer.size(), indices, boundingRect))
 	{
 
 	}
@@ -79,6 +79,11 @@ namespace s3d
 	bool Polygon::hasHoles() const
 	{
 		return !pImpl->inners().isEmpty();
+	}
+
+	size_t Polygon::num_holes() const
+	{
+		return pImpl->inners().size();
 	}
 
 	void Polygon::swap(Polygon& polygon) noexcept
@@ -123,6 +128,28 @@ namespace s3d
 		return{ vertices[indices[index * 3]], vertices[indices[index * 3 + 1]], vertices[indices[index * 3 + 2]] };
 	}
 
+	Polygon& Polygon::addHole(const Array<Vec2>& hole)
+	{
+		const auto& outer = pImpl->outer();
+
+		Array<Array<Vec2>> inners = pImpl->inners();
+
+		inners.push_back(hole);
+
+		return *this = Polygon(outer, inners);
+	}
+
+	Polygon& Polygon::addHoles(const Array<Array<Vec2>>& holes)
+	{
+		const auto& outer = pImpl->outer();
+
+		Array<Array<Vec2>> inners = pImpl->inners();
+
+		inners.append(holes);
+
+		return *this = Polygon(outer, inners);
+	}
+
 	Polygon Polygon::movedBy(const double x, const double y) const
 	{
 		Polygon result(*this);
@@ -139,15 +166,43 @@ namespace s3d
 		return *this;
 	}
 
+	Polygon Polygon::rotated(const double angle) const
+	{
+		return rotatedAt(Vec2(0, 0), angle);
+	}
+
+	Polygon Polygon::rotatedAt(const Vec2& pos, const double angle) const
+	{
+		Polygon result(*this);
+
+		result.rotateAt(pos, angle);
+
+		return result;
+	}
+
+	Polygon& Polygon::rotate(const double angle)
+	{
+		pImpl->rotateAt(Vec2(0, 0), angle);
+
+		return *this;
+	}
+
+	Polygon& Polygon::rotateAt(const Vec2& pos, const double angle)
+	{
+		pImpl->rotateAt(pos, angle);
+
+		return *this;
+	}
+
 	double Polygon::area() const
 	{
 		return pImpl->area();
 	}
 
-	//double Polygon::perimeter() const
-	//{
-	//	return pImpl->perimeter();
-	//}
+	double Polygon::perimeter() const
+	{
+		return pImpl->perimeter();
+	}
 
 	Vec2 Polygon::centroid() const
 	{
@@ -236,11 +291,80 @@ namespace s3d
 		return *this;
 	}
 
+	void Polygon::draw(const double x, const double y, const ColorF& color) const
+	{
+		draw(Vec2(x, y), color);
+	}
+
+	void Polygon::draw(const Vec2& pos, const ColorF& color) const
+	{
+		pImpl->draw(pos, color);
+	}
+
 	const Polygon& Polygon::drawFrame(const double thickness, const ColorF& color) const
 	{
 		pImpl->drawFrame(thickness, color);
 
 		return *this;
+	}
+
+	void Polygon::drawFrame(const double x, const double y, const double thickness, const ColorF& color) const
+	{
+		drawFrame(Vec2(x, y), thickness, color);
+	}
+
+	void Polygon::drawFrame(const Vec2& pos, const double thickness, const ColorF& color) const
+	{
+		pImpl->drawFrame(pos, thickness, color);
+	}
+
+	const Polygon& Polygon::drawWireframe(const double thickness, const ColorF& color) const
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		const auto& vertices = pImpl->vertices();
+		const auto& indices = pImpl->indices();
+
+		const size_t num_triangles = indices.size() / 3;
+		const Float2* pVertex = vertices.data();
+		const uint32* pIndex = indices.data();
+
+		for (size_t i = 0; i < num_triangles; ++i)
+		{
+			Triangle(pVertex[pIndex[i * 3]], pVertex[pIndex[i * 3 + 1]], pVertex[pIndex[i * 3 + 2]]).drawFrame(thickness, color);
+		}
+
+		return *this;
+	}
+
+	void Polygon::drawWireframe(const double x, const double y, const double thickness, const ColorF& color) const
+	{
+		drawWireframe(Vec2(x, y), thickness, color);
+	}
+
+	void Polygon::drawWireframe(const Vec2& pos, const double thickness, const ColorF& color) const
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+
+		const auto& vertices = pImpl->vertices();
+		const auto& indices = pImpl->indices();
+
+		const size_t num_triangles = indices.size() / 3;
+		const Float2* pVertex = vertices.data();
+		const uint32* pIndex = indices.data();
+
+		for (size_t i = 0; i < num_triangles; ++i)
+		{
+			Triangle(pVertex[pIndex[i * 3]], pVertex[pIndex[i * 3 + 1]], pVertex[pIndex[i * 3 + 2]])
+				.moveBy(pos)
+				.drawFrame(thickness, color);
+		}
 	}
 
 	const Polygon::CPolygon* Polygon::_detail() const
