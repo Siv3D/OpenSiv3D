@@ -40,8 +40,8 @@ namespace s3d
 
 	}
 
-	Polygon::Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<uint32>& indices, const RectF& boundingRect)
-		: pImpl(std::make_unique<CPolygon>(outer.data(), outer.size(), holes, indices, boundingRect))
+	Polygon::Polygon(const Array<Vec2>& outer, const Array<uint32>& indices, const RectF& boundingRect)
+		: pImpl(std::make_unique<CPolygon>(outer.data(), outer.size(), indices, boundingRect))
 	{
 
 	}
@@ -126,6 +126,28 @@ namespace s3d
 		const auto& vertices = pImpl->vertices();
 		const auto& indices = pImpl->indices();
 		return{ vertices[indices[index * 3]], vertices[indices[index * 3 + 1]], vertices[indices[index * 3 + 2]] };
+	}
+
+	Polygon& Polygon::addHole(const Array<Vec2>& hole)
+	{
+		const auto& outer = pImpl->outer();
+
+		Array<Array<Vec2>> inners = pImpl->inners();
+
+		inners.push_back(hole);
+
+		return *this = Polygon(outer, inners);
+	}
+
+	Polygon& Polygon::addHoles(const Array<Array<Vec2>>& holes)
+	{
+		const auto& outer = pImpl->outer();
+
+		Array<Array<Vec2>> inners = pImpl->inners();
+
+		inners.append(holes);
+
+		return *this = Polygon(outer, inners);
 	}
 
 	Polygon Polygon::movedBy(const double x, const double y) const

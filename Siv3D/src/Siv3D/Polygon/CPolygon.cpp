@@ -93,7 +93,7 @@ namespace s3d
 
 	}
 
-	Polygon::CPolygon::CPolygon(const Vec2* const pVertex, const size_t vertexSize, Array<Array<Vec2>> _holes)
+	Polygon::CPolygon::CPolygon(const Vec2* const pOuterVertex, const size_t vertexSize, Array<Array<Vec2>> _holes)
 	{
 		if (vertexSize < 3)
 		{
@@ -104,51 +104,46 @@ namespace s3d
 
 		m_holes.remove_if([](const Array<Vec2>& hole) { return hole.size() < 3; });
 
-		m_polygon.outer().assign(pVertex, pVertex + vertexSize);
+		m_polygon.outer().assign(pOuterVertex, pOuterVertex + vertexSize);
 
 		for (const auto& hole : m_holes)
 		{
 			m_polygon.inners().push_back(gRing(hole.begin(), hole.end()));
 		}
 
-		m_boundingRect = detail::CalculateBoundingRect(pVertex, vertexSize);
+		m_boundingRect = detail::CalculateBoundingRect(pOuterVertex, vertexSize);
 
-		Triangulate(m_holes, Array<Vec2>(pVertex, pVertex + vertexSize), m_vertices, m_indices);
+		Triangulate(m_holes, m_polygon.outer(), m_vertices, m_indices);
 	}
 
-	Polygon::CPolygon::CPolygon(const Vec2* pVertex, size_t vertexSize, const Array<Array<Vec2>>& holes, const Array<uint32>& indices, const RectF& boundingRect)
+	Polygon::CPolygon::CPolygon(const Vec2* pOuterVertex, size_t vertexSize, const Array<uint32>& indices, const RectF& boundingRect)
 	{
 		if (vertexSize < 3)
 		{
 			return;
 		}
 
-		m_holes = holes;
-
-		m_polygon.outer().assign(pVertex, pVertex + vertexSize);
-
-		for (const auto& hole : m_holes)
-		{
-			m_polygon.inners().push_back(gRing(hole.begin(), hole.end()));
-		}
+		m_polygon.outer().assign(pOuterVertex, pOuterVertex + vertexSize);
 
 		m_boundingRect = boundingRect;
+
+		m_vertices.assign(pOuterVertex, pOuterVertex + vertexSize);
 
 		m_indices = indices;
 	}
 
-	Polygon::CPolygon::CPolygon(const Float2* const pVertex, const size_t vertexSize, const Array<uint32>& indices)
+	Polygon::CPolygon::CPolygon(const Float2* const pOuterVertex, const size_t vertexSize, const Array<uint32>& indices)
 	{
 		if (vertexSize < 3)
 		{
 			return;
 		}
 
-		m_polygon.outer().assign(pVertex, pVertex + vertexSize);
+		m_polygon.outer().assign(pOuterVertex, pOuterVertex + vertexSize);
 
-		m_boundingRect = detail::CalculateBoundingRect(pVertex, vertexSize);
+		m_boundingRect = detail::CalculateBoundingRect(pOuterVertex, vertexSize);
 
-		m_vertices.assign(pVertex, pVertex + vertexSize);
+		m_vertices.assign(pOuterVertex, pOuterVertex + vertexSize);
 
 		m_indices = indices;
 	}

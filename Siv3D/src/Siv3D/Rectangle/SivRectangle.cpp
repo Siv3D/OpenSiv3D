@@ -362,7 +362,7 @@ namespace s3d
 	template <class SizeType>
 	Polygon Rectangle<SizeType>::asPolygon() const
 	{
-		return Polygon({ { x, y },{ x + w, y },{ x + w, y + h },{ x, y + h } }, {}, { 0, 1, 3, 3, 1, 2 }, *this);
+		return Polygon({ { x, y },{ x + w, y },{ x + w, y + h },{ x, y + h } }, { 0, 1, 3, 3, 1, 2 }, *this);
 	}
 
 	void Formatter(FormatData& formatData, const Rect& value)
