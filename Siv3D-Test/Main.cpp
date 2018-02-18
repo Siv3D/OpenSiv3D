@@ -11,14 +11,14 @@ void Main()
 	{
 		if (MouseL.down())
 		{
-			Rect(Cursor::Pos(), 80).shearedX(30).paint(image, Color(255, 127, 0, 127));
+			Circle(Cursor::Pos(), 80).paint(image, Color(255, 127, 0, 127));
 
 			texture.fill(image);
 		}
 
 		if (MouseR.down())
 		{
-			Rect(Cursor::Pos(), 80).shearedX(30).overwrite(image, Color(255, 127, 0, 127));
+			Circle(Cursor::Pos(), 80).overwrite(image, Color(255, 127, 0, 127));
 
 			texture.fill(image);
 		}

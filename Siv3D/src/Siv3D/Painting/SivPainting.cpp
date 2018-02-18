@@ -124,7 +124,7 @@ namespace s3d
 		return *this;
 	}
 
-	const Circle& Circle::paint(Image& dst, const Color& color, bool antialiased) const
+	const Circle& Circle::paint(Image& dst, const Color& color, const bool antialiased) const
 	{
 		const int32 yBegin = std::max(static_cast<int32>(y - r - 1), 0);
 		const int32 yEnd = std::min(static_cast<int32>(y + r + 1), dst.height());
@@ -271,7 +271,7 @@ namespace s3d
 		return *this;
 	}
 
-	const Circle& Circle::overwrite(Image& dst, const Color& color) const
+	const Circle& Circle::overwrite(Image& dst, const Color& color, const bool antialiased) const
 	{
 		const int32 yBegin	= std::max(static_cast<int32>(y - r), 0);
 		const int32 yEnd	= std::min(static_cast<int32>(y + r + 1), dst.height());
@@ -290,19 +290,58 @@ namespace s3d
 
 		Color* pDst = dst.data() + yBegin * dst.width() + xBegin;
 
-		for (int32 _y = yBegin; _y < yEnd; ++_y)
+		if (antialiased)
 		{
-			for (int32 _x = xBegin; _x < xEnd; ++_x)
+			const Vec2 center2(center.movedBy(-0.5, -0.5));
+			const double length = std::sqrt(lengthSq);
+
+			for (int32 _y = yBegin; _y < yEnd; ++_y)
 			{
-				if (center.distanceFromSq(Vec2(_x, _y)) <= lengthSq)
+				for (int32 _x = xBegin; _x < xEnd; ++_x)
 				{
-					*pDst = color;
+					const double d = length - center2.distanceFrom(Vec2(_x, _y));
+
+					if (d > 1.0)
+					{
+						*pDst = color;
+					}
+					else if (d > 0.0)
+					{
+						const uint32 srcBlend2 = static_cast<uint32>(255 * d);
+						const uint32 premulSrcR = srcBlend2 * color.r;
+						const uint32 premulSrcG = srcBlend2 * color.g;
+						const uint32 premulSrcB = srcBlend2 * color.b;
+						const uint32 premulSrcA = srcBlend2 * color.a;
+						const uint32 dstBlend = 255 - srcBlend2;
+
+						pDst->r = (pDst->r * dstBlend + premulSrcR) / 255;
+						pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
+						pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
+						pDst->a = (pDst->a * dstBlend + premulSrcA) / 255;
+					}
+
+					++pDst;
 				}
 
-				++pDst;
+				pDst += stepOffset;
 			}
+		}
+		else
+		{
+			for (int32 _y = yBegin; _y < yEnd; ++_y)
+			{
+				for (int32 _x = xBegin; _x < xEnd; ++_x)
+				{
+					if (center.distanceFromSq(Vec2(_x, _y)) <= lengthSq)
+					{
+						*pDst = color;
+					}
 
-			pDst += stepOffset;
+					++pDst;
+				}
+
+				pDst += stepOffset;
+			}
 		}
 
 		return *this;
