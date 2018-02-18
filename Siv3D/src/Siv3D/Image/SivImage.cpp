@@ -1348,37 +1348,6 @@ namespace s3d
 		return image;
 	}
 
-	Image& Image::gaussianBlur(const int32 horizontal, const int32 vertical, const BorderType borderType)
-	{
-		// 1. パラメータチェック
-		{
-			if (isEmpty())
-			{
-				return *this;
-			}
-
-			if ((horizontal < 0 || vertical < 0) || (horizontal == 0 && vertical == 0))
-			{
-				return *this;
-			}
-		}
-
-		// 2. 処理
-		{
-			Image tmp(m_width, m_height);
-
-			cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, static_cast<cv::Vec4b*>(static_cast<void*>(data())), stride());
-
-			cv::Mat_<cv::Vec4b> matDst(tmp.height(), tmp.width(), static_cast<cv::Vec4b*>(static_cast<void*>(tmp.data())), tmp.stride());
-
-			cv::GaussianBlur(matSrc, matDst, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), 0.0, 0.0, detail::ConvertBorderType(borderType));
-
-			swap(tmp);
-		}
-
-		return *this;
-	}
-
 	Image& Image::mosaic(const int32 size)
 	{
 		return mosaic(size, size);
@@ -1490,6 +1459,11 @@ namespace s3d
 		return image;
 	}
 
+	Image& Image::spread(const int32 size)
+	{
+		return spread(size, size);
+	}
+
 	Image& Image::spread(const int32 horizontal, const int32 vertical)
 	{
 		// 1. パラメータチェック
@@ -1534,6 +1508,11 @@ namespace s3d
 		return *this;
 	}
 
+	Image Image::spreaded(const int32 size) const
+	{
+		return spreaded(size, size);
+	}
+
 	Image Image::spreaded(const int32 horizontal, const int32 vertical) const
 	{
 		// 1. パラメータチェック
@@ -1573,7 +1552,170 @@ namespace s3d
 		return image;
 	}
 
+	Image& Image::blur(const int32 size)
+	{
+		return blur(size, size);
+	}
 
+	Image& Image::blur(const int32 horizontal, const int32 vertical)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if ((horizontal < 0 || vertical < 0) || (horizontal == 0 && vertical == 0))
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image tmp(m_width, m_height);
+
+			cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, static_cast<cv::Vec4b*>(static_cast<void*>(data())), stride());
+
+			cv::Mat_<cv::Vec4b> matDst(tmp.height(), tmp.width(), static_cast<cv::Vec4b*>(static_cast<void*>(tmp.data())), tmp.stride());
+
+			cv::blur(matSrc, matDst, cv::Size(horizontal * 2 + 1, vertical * 2 + 1));
+
+			swap(tmp);
+		}
+
+		return *this;
+	}
+
+	Image Image::blurred(const int32 size) const
+	{
+		return blurred(size, size);
+	}
+
+	Image Image::blurred(const int32 horizontal, const int32 vertical) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if ((horizontal < 0 || vertical < 0) || (horizontal == 0 && vertical == 0))
+			{
+				return *this;
+			}
+		}
+
+		Image image(m_width, m_height);
+
+		cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
+
+		cv::Mat_<cv::Vec4b> matDst(image.height(), image.width(), static_cast<cv::Vec4b*>(static_cast<void*>(image.data())), image.stride());
+
+		cv::blur(matSrc, matDst, cv::Size(horizontal * 2 + 1, vertical * 2 + 1));
+
+		return image;
+	}
+
+	Image& Image::medianBlur(int32 apertureSize)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if (apertureSize < 1)
+			{
+				return *this;
+			}
+
+			if (apertureSize % 2 == 0)
+			{
+				++apertureSize;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image tmp(m_width, m_height);
+
+			cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, static_cast<cv::Vec4b*>(static_cast<void*>(data())), stride());
+
+			cv::Mat_<cv::Vec4b> matDst(tmp.height(), tmp.width(), static_cast<cv::Vec4b*>(static_cast<void*>(tmp.data())), tmp.stride());
+
+			cv::medianBlur(matSrc, matDst, apertureSize);
+
+			swap(tmp);
+		}
+
+		return *this;
+	}
+
+	Image Image::medianBlurred(int32 apertureSize) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if (apertureSize < 1)
+			{
+				return *this;
+			}
+
+			if (apertureSize % 2 == 0)
+			{
+				++apertureSize;
+			}
+		}
+
+		Image image(m_width, m_height);
+
+		cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
+
+		cv::Mat_<cv::Vec4b> matDst(image.height(), image.width(), static_cast<cv::Vec4b*>(static_cast<void*>(image.data())), image.stride());
+
+		cv::medianBlur(matSrc, matDst, apertureSize);
+
+		return image;
+	}
+
+	Image& Image::gaussianBlur(const int32 horizontal, const int32 vertical, const BorderType borderType)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if ((horizontal < 0 || vertical < 0) || (horizontal == 0 && vertical == 0))
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			Image tmp(m_width, m_height);
+
+			cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, static_cast<cv::Vec4b*>(static_cast<void*>(data())), stride());
+
+			cv::Mat_<cv::Vec4b> matDst(tmp.height(), tmp.width(), static_cast<cv::Vec4b*>(static_cast<void*>(tmp.data())), tmp.stride());
+
+			cv::GaussianBlur(matSrc, matDst, cv::Size(horizontal * 2 + 1, vertical * 2 + 1), 0.0, 0.0, detail::ConvertBorderType(borderType));
+
+			swap(tmp);
+		}
+
+		return *this;
+	}
 
 	Image Image::gaussianBlurred(const int32 horizontal, const int32 vertical, const BorderType borderType) const
 	{
@@ -1600,6 +1742,218 @@ namespace s3d
 
 		return image;
 	}
+
+	Image& Image::dilate(const int32 iterations)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			cv::Mat_<cv::Vec4b> mat(m_height, m_width, static_cast<cv::Vec4b*>(static_cast<void*>(data())), stride());
+			cv::dilate(mat, mat, cv::Mat(), cv::Point(-1, -1), iterations);
+		}
+
+		return *this;
+	}
+
+	Image Image::dilated(const int32 iterations) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		Image image(*this);
+
+		cv::Mat_<cv::Vec4b> mat(image.height(), image.width(), static_cast<cv::Vec4b*>(static_cast<void*>(image.data())), image.stride());
+		cv::dilate(mat, mat, cv::Mat(), cv::Point(-1, -1), iterations);
+
+		return image;
+	}
+
+	Image& Image::erode(const int32 iterations)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			cv::Mat_<cv::Vec4b> mat(m_height, m_width, static_cast<cv::Vec4b*>(static_cast<void*>(data())), stride());
+			cv::erode(mat, mat, cv::Mat(), cv::Point(-1, -1), iterations);
+		}
+
+		return *this;
+	}
+
+	Image Image::eroded(const int32 iterations) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+		}
+
+		Image image(*this);
+
+		cv::Mat_<cv::Vec4b> mat(image.height(), image.width(), static_cast<cv::Vec4b*>(static_cast<void*>(image.data())), image.stride());
+		cv::erode(mat, mat, cv::Mat(), cv::Point(-1, -1), iterations);
+
+		return image;
+	}
+
+	Image& Image::floodFill(const Point& pos, const Color& color, const FloodFillConnectivity connectivity, const int32 lowerDifference, const int32 upperDifference)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if (pos.x < 0 || static_cast<int32>(m_width) <= pos.x || pos.y < 0 || static_cast<int32>(m_height) <= pos.y)
+			{
+				return *this;
+			}
+		}
+
+		// 2. 処理
+		{
+			cv::Mat_<cv::Vec3b> mat(m_height, m_width);
+			{
+				const Color* pSrc = m_data.data();
+
+				for (uint32 y = 0; y < m_height; ++y)
+				{
+					auto* line = &mat(y, 0);
+
+					for (uint32 x = 0; x < m_width; ++x)
+					{
+						line[x][0] = pSrc->r;
+						line[x][1] = pSrc->g;
+						line[x][2] = pSrc->b;
+
+						++pSrc;
+					}
+				}
+			}
+
+			cv::floodFill(
+				mat,
+				{ pos.x, pos.y },
+				cv::Scalar(color.r, color.g, color.b),
+				nullptr,
+				cv::Scalar::all(lowerDifference),
+				cv::Scalar::all(upperDifference),
+				static_cast<int32>(connectivity) | cv::FLOODFILL_FIXED_RANGE | (255 << 8)
+			);
+
+			{
+				Color* pDst = m_data.data();
+
+				for (uint32 y = 0; y < m_height; ++y)
+				{
+					const auto* line = &mat(y, 0);
+
+					for (uint32 x = 0; x < m_width; ++x)
+					{
+						pDst->r = line[x][0];
+						pDst->g = line[x][1];
+						pDst->b = line[x][2];
+
+						++pDst;
+					}
+				}
+			}
+		}
+
+		return *this;
+	}
+
+	Image Image::floodFilled(const Point& pos, const Color& color, const FloodFillConnectivity connectivity, const int32 lowerDifference, const int32 upperDifference) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			if (pos.x < 0 || static_cast<int32>(m_width) <= pos.x || pos.y < 0 || static_cast<int32>(m_height) <= pos.y)
+			{
+				return *this;
+			}
+		}
+
+		Image image(*this);
+
+		{
+			cv::Mat_<cv::Vec3b> mat(m_height, m_width);
+			{
+				const Color* pSrc = &m_data[0];
+
+				for (uint32 y = 0; y < m_height; ++y)
+				{
+					auto* line = &mat(y, 0);
+
+					for (uint32 x = 0; x < m_width; ++x)
+					{
+						line[x][0] = pSrc->r;
+						line[x][1] = pSrc->g;
+						line[x][2] = pSrc->b;
+
+						++pSrc;
+					}
+				}
+			}
+
+			cv::floodFill(
+				mat,
+				{ pos.x, pos.y },
+				cv::Scalar(color.r, color.g, color.b),
+				nullptr,
+				cv::Scalar::all(lowerDifference),
+				cv::Scalar::all(upperDifference),
+				static_cast<int32>(connectivity) | cv::FLOODFILL_FIXED_RANGE
+			);
+
+			{
+				Color* pDst = image[0];
+
+				for (uint32 y = 0; y < m_height; ++y)
+				{
+					const auto* line = &mat(y, 0);
+
+					for (uint32 x = 0; x < m_width; ++x)
+					{
+						pDst->r = line[x][0];
+						pDst->g = line[x][1];
+						pDst->b = line[x][2];
+
+						++pDst;
+					}
+				}
+			}
+		}
+
+		return image;
+	}
+
 
 
 	namespace ImageProcessing
