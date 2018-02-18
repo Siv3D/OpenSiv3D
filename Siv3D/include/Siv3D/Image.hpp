@@ -16,11 +16,25 @@
 # include "Color.hpp"
 # include "NamedParameter.hpp"
 # include "PointVector.hpp"
+# include "Rectangle.hpp"
 # include "Grid.hpp"
 # include "ImageFormat.hpp"
 
 namespace s3d
 {
+	enum class AdaptiveMethod
+	{
+		/// <summary>
+		/// 
+		/// </summary>
+		Mean,
+
+		/// <summary>
+		/// 
+		/// </summary>
+		Gaussian,
+	};
+
 	enum class BorderType
 	{
 		Replicate,
@@ -30,6 +44,58 @@ namespace s3d
 		Reflect_101,
 
 		Default = Reflect_101,
+	};
+
+	/// <summary>
+	/// 塗りつぶしの連結性
+	/// </summary>
+	enum class FloodFillConnectivity
+	{
+		/// <summary>
+		/// 上下左右 4 ピクセル
+		/// </summary>
+		Value4 = 4,
+
+		/// <summary>
+		/// 周囲 8 ピクセル
+		/// </summary>
+		Value8 = 8,
+	};
+
+	/// <summary>
+	/// 画像拡大縮小の手法
+	/// </summary>
+	enum class Interpolation
+	{
+		/// <summary>
+		/// 最近傍補間
+		/// </summary>
+		Nearest,
+
+		/// <summary>
+		/// バイリニア補間
+		/// </summary>
+		Linear,
+
+		/// <summary>
+		/// バイキュービック補間
+		/// </summary>
+		Cubic,
+
+		/// <summary>
+		/// エリア（画像の大幅な縮小に適している）
+		/// </summary>
+		Area,
+
+		/// <summary>
+		/// Lanczos 法（拡大や、小幅な縮小に適している）
+		/// </summary>
+		Lanczos,
+
+		/// <summary>
+		/// 最適な手法を自動選択
+		/// </summary>
+		Unspecified,
 	};
 
 	/// <summary>
@@ -77,7 +143,19 @@ namespace s3d
 
 		static constexpr int32 Mod(int32 x, int32 y) noexcept
 		{
-			return x % y + ((x < 0) ? y : 0);
+			return (0 <= x) ? (x % y) : (y - ((-x - 1) % y) - 1);
+		}
+
+		static constexpr int32 Mir(int32 x, int32 y) noexcept
+		{
+			const int32 t = Mod(x, y * 2);
+
+			return (t < y) ? t : (y * 2 - 1) - t;
+		}
+
+		static constexpr double Biliner(double c1, double c2, double c3, double c4, double px, double py)
+		{
+			return px * py * (c1 - c2 - c3 + c4) + px * (c2 - c1) + py * (c3 - c1) + c1;
 		}
 
 	public:
@@ -716,6 +794,104 @@ namespace s3d
 			return getPixel_Repeat(pos.x, pos.y);
 		}
 
+		const Color& getPixel_Clamp(int32 x, int32 y) const
+		{
+			x = Clamp(x, 0, static_cast<int32>(m_width) - 1);
+
+			y = Clamp(y, 0, static_cast<int32>(m_height) - 1);
+
+			return m_data[m_width * y + x];
+		}
+
+		const Color& getPixel_Clamp(const Point& pos) const
+		{
+			return getPixel_Clamp(pos.x, pos.y);
+		}
+
+		const Color& getPixel_Mirror(int32 x, int32 y) const
+		{
+			x = Mir(x, m_width);
+
+			y = Mir(y, m_height);
+
+			return m_data[m_width * y + x];
+		}
+
+		const Color& getPixel_Mirror(const Point& pos) const
+		{
+			return getPixel_Mirror(pos.x, pos.y);
+		}
+
+		ColorF sample_Repeat(double x, double y) const;
+
+		ColorF sample_Repeat(const Vec2& pos) const
+		{
+			return sample_Repeat(pos.x, pos.y);
+		}
+
+		ColorF sample_Clamp(double y, double x) const;
+
+		ColorF sample_Clamp(const Vec2& pos) const
+		{
+			return sample_Clamp(pos.x, pos.y);
+		}
+
+		ColorF sample_Mirror(double y, double x) const;
+
+		ColorF sample_Mirror(const Vec2& pos) const
+		{
+			return sample_Mirror(pos.x, pos.y);
+		}
+
+		/// <summary>
+		/// 画像の一部分をコピーした新しい画像を返します。
+		/// </summary>
+		/// <param name="rect">
+		/// 画像上の範囲
+		/// </param>
+		/// <returns>
+		/// 一部分をコピーした新しい画像
+		/// </returns>
+		Image clipped(const Rect& rect) const;
+
+		/// <summary>
+		/// 画像の一部分をコピーした新しい画像を返します。
+		/// </summary>
+		/// <param name="x">
+		/// 画像上の範囲の左上 X 座標
+		/// </param>
+		/// <param name="y">
+		/// 画像上の範囲の左上 Y 座標
+		/// </param>
+		/// <param name="w">
+		/// 画像上の範囲の幅
+		/// </param>
+		/// <param name="h">
+		/// 画像上の範囲の高さ
+		/// </param>
+		/// <returns>
+		/// 一部分をコピーした新しい画像
+		/// </returns>
+		Image clipped(int32 x, int32 y, int32 w, int32 h) const
+		{
+			return clipped(Rect(x, y, w, h));
+		}
+
+		Image clipped(const Point& pos, int32 w, int32 h) const
+		{
+			return clipped(Rect(pos, w, h));
+		}
+
+		Image clipped(int32 x, int32 y, const Size& size) const
+		{
+			return clipped(Rect(x, y, size));
+		}
+
+		Image clipped(const Point& pos, const Size& size) const
+		{
+			return clipped(Rect(pos, size));
+		}
+
 		/// <summary>
 		/// すべてのピクセルに変換関数を適用します。
 		/// </summary>
@@ -859,18 +1035,151 @@ namespace s3d
 		Image brightened(int32 level) const;
 
 
-
-
-
-
 		Image& mirror();
+
+		Image mirrored() const;
 
 		Image& flip();
 
+		Image flipped() const;
+
+		Image& rotate90();
+
+		Image rotated90() const;
+
+		Image& rotate180();
+
+		Image rotated180() const;
+
+		Image& rotate270();
+
+		Image rotated270() const;
+
+		Image& gammaCorrect(double gamma);
+
+		Image gammaCorrected(double gamma) const;
+
+		Image& threshold(uint8 threshold, bool inverse = false);
+
+		Image thresholded(uint8 threshold, bool inverse = false) const;
+
+		/// <summary>
+		/// 適応的な閾値処理を行います。
+		/// </summary>
+		/// <param name="method">
+		/// 適応的閾値アルゴリズム
+		/// </param>
+		/// <param name="blockSize">
+		/// 閾値を求めるために利用される近傍領域のサイズ。奇数
+		/// </param>
+		/// <param name="c">
+		/// 平均または加重平均から引かれる定数
+		/// </param>
+		/// <param name="inverse">
+		/// 結果の白黒の反転
+		/// </param>
+		/// <remarks>
+		/// https://docs.opencv.org/3.4.0/d7/d1b/group__imgproc__misc.html#ga72b913f352e4a1b1b397736707afcde3 参照
+		/// </remarks>
+		/// <returns>
+		/// 
+		/// </returns>
+		Image& adaptiveThreshold(AdaptiveMethod method, int32 blockSize, double c, bool inverse = false);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="method">
+		/// 適応的閾値アルゴリズム
+		/// </param>
+		/// <param name="blockSize">
+		/// 閾値を求めるために利用される近傍領域のサイズ。奇数
+		/// </param>
+		/// <param name="c">
+		/// 平均または加重平均から引かれる定数
+		/// </param>
+		/// <param name="inverse">
+		/// 結果の白黒の反転
+		/// </param>
+		/// <remarks>
+		/// https://docs.opencv.org/3.4.0/d7/d1b/group__imgproc__misc.html#ga72b913f352e4a1b1b397736707afcde3 参照
+		/// </remarks>
+		/// <returns>
+		/// 
+		/// </returns>
+		Image adaptiveThresholded(AdaptiveMethod method, int32 blockSize, double c, bool inverse = false) const;
+
+		Image& mosaic(int32 size);
+
+		Image& mosaic(int32 horizontal, int32 vertical);
+
+		Image mosaiced(int32 size) const;
+
+		Image mosaiced(int32 horizontal, int32 vertical) const;
+
+		Image& spread(int32 size);
+
+		Image& spread(int32 horizontal, int32 vertical);
+
+		Image spreaded(int32 size) const;
+
+		Image spreaded(int32 horizontal, int32 vertical) const;
+
+		Image& blur(int32 size);
+
+		Image& blur(int32 horizontal, int32 vertical);
+
+		Image blurred(int32 size) const;
+
+		Image blurred(int32 horizontal, int32 vertical) const;
+
+		Image& medianBlur(int32 apertureSize);
+
+		Image medianBlurred(int32 apertureSize) const;
 
 		Image& gaussianBlur(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Default);
 
-		Image gaussianBlurred(const int32 horizontal, const int32 vertical, BorderType borderType = BorderType::Default) const;
+		Image gaussianBlurred(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Default) const;
+
+		Image& dilate(int32 iterations = 1);
+
+		Image dilated(int32 iterations = 1) const;
+
+		Image& erode(int32 iterations = 1);
+
+		Image eroded(int32 iterations = 1) const;
+
+		Image& floodFill(const Point& pos, const Color& color, FloodFillConnectivity connectivity = FloodFillConnectivity::Value4, int32 lowerDifference = 0, int32 upperDifference = 0);
+
+		Image floodFilled(const Point& pos, const Color& color, FloodFillConnectivity connectivity = FloodFillConnectivity::Value4, int32 lowerDifference = 0, int32 upperDifference = 0) const;
+
+		//Image& scale(int32 _width, int32 _height, Interpolation interpolation = Interpolation::Unspecified);
+
+		//Image scaled(int32 _width, int32 _height, Interpolation interpolation = Interpolation::Unspecified) const;
+
+		//Image& scale(const Size& size, Interpolation interpolation = Interpolation::Unspecified);
+
+		//Image scaled(const Size& size, Interpolation interpolation = Interpolation::Unspecified) const;
+
+		//Image& scale(double scaling, Interpolation interpolation = Interpolation::Unspecified);
+
+		//Image scaled(double scaling, Interpolation interpolation = Interpolation::Unspecified) const;
+
+		//Image& fit(int32 _width, int32 _height, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified);
+
+		//Image fitted(int32 _width, int32 _height, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified) const;
+
+		//Image& fit(const Size& size, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified);
+
+		//Image fitted(const Size& size, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified) const;
+
+		//Image& border(int32 thickness, const Color& color = Palette::White);
+
+		//Image bordered(int32 thickness, const Color& color = Palette::White) const;
+
+		//Image& border(int32 left, int32 top, int32 right, int32 bottom, const Color& color = Palette::White);
+
+		//Image bordered(int32 left, int32 top, int32 right, int32 bottom, const Color& color = Palette::White) const;
 	};
 }
 
