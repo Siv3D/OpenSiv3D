@@ -184,6 +184,74 @@ namespace s3d
 		return *this;
 	}
 
+	template <>
+	const Rectangle<Point>& Rectangle<Point>::paintFrame(Image& dst, const int32 innerThickness, const int32 outerThickness, const Color& color) const
+	{
+		if (w <= 0 || h <= 0)
+		{
+			return *this;
+		}
+
+		const int32 x0 = x - outerThickness;
+		const int32 x1 = x + innerThickness;
+		const int32 x2 = x + w - innerThickness;
+		const int32 x3 = x + w + outerThickness;
+
+		const int32 y0 = y - outerThickness;
+		const int32 y1 = y + innerThickness;
+		const int32 y2 = y + h - innerThickness;
+		const int32 y3 = y + h + outerThickness;
+
+		Rect(x0, y0, x3 - x0, y1 - y0).paint(dst, color);
+		Rect(x0, y1, x1 - x0, y2 - y1).paint(dst, color);
+		Rect(x2, y1, x3 - x2, y2 - y1).paint(dst, color);
+		Rect(x0, y2, x3 - x0, y3 - y2).paint(dst, color);
+
+		return *this;
+	}
+
+	template <>
+	const Rectangle<Point>& Rectangle<Point>::overwriteFrame(Image& dst, const int32 innerThickness, const int32 outerThickness, const Color& color) const
+	{
+		if (w <= 0 || h <= 0)
+		{
+			return *this;
+		}
+
+		const int32 x0 = x - outerThickness;
+		const int32 x1 = x + innerThickness;
+		const int32 x2 = x + w - innerThickness;
+		const int32 x3 = x + w + outerThickness;
+
+		const int32 y0 = y - outerThickness;
+		const int32 y1 = y + innerThickness;
+		const int32 y2 = y + h - innerThickness;
+		const int32 y3 = y + h + outerThickness;
+
+		Rect(x0, y0, x3 - x0, y1 - y0).overwrite(dst, color);
+		Rect(x0, y1, x1 - x0, y2 - y1).overwrite(dst, color);
+		Rect(x2, y1, x3 - x2, y2 - y1).overwrite(dst, color);
+		Rect(x0, y2, x3 - x0, y3 - y2).overwrite(dst, color);
+
+		return *this;
+	}
+
+	template <>
+	const Rectangle<Vec2>& Rectangle<Vec2>::paintFrame(Image& dst, const int32 innerThickness, const int32 outerThickness, const Color& color) const
+	{
+		Rect(*this).paintFrame(dst, innerThickness, outerThickness, color);
+
+		return *this;
+	}
+
+	template <>
+	const Rectangle<Vec2>& Rectangle<Vec2>::overwriteFrame(Image& dst, const int32 innerThickness, const int32 outerThickness, const Color& color) const
+	{
+		Rect(*this).overwriteFrame(dst, innerThickness, outerThickness, color);
+
+		return *this;
+	}
+
 	template <class SizeType>
 	const Rectangle<SizeType>& Rectangle<SizeType>::draw(const ColorF& color) const
 	{
