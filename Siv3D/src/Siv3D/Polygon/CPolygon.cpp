@@ -237,6 +237,35 @@ namespace s3d
 
 		return result;
 	}
+
+	double Polygon::CPolygon::perimeter() const
+	{
+		double result = 0.0;
+
+		{
+			const auto& outer = m_polygon.outer();
+			const size_t num_outer = outer.size();
+
+			for (size_t i = 0; i < num_outer; ++i)
+			{
+				result += outer[i].distanceFrom(outer[(i + 1) % num_outer]);
+			}
+		}
+
+		{
+			for (const auto& inner : m_polygon.inners())
+			{
+				const size_t num_inner = inner.size();
+
+				for (size_t i = 0; i < num_inner; ++i)
+				{
+					result += inner[i].distanceFrom(inner[(i + 1) % num_inner]);
+				}
+			}
+		}
+
+		return result;
+	}
 	
 	Vec2 Polygon::CPolygon::centroid() const
 	{

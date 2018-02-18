@@ -144,10 +144,10 @@ namespace s3d
 		return pImpl->area();
 	}
 
-	//double Polygon::perimeter() const
-	//{
-	//	return pImpl->perimeter();
-	//}
+	double Polygon::perimeter() const
+	{
+		return pImpl->perimeter();
+	}
 
 	Vec2 Polygon::centroid() const
 	{

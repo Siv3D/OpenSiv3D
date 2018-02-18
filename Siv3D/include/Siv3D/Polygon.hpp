@@ -97,7 +97,7 @@ namespace s3d
 
 		double area() const;
 
-		//double perimeter() const;
+		double perimeter() const;
 
 		Vec2 centroid() const;
 

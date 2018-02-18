@@ -340,9 +340,9 @@ namespace s3d
 
 					if ((bb * xxh * xxh + aa * yyk * yyk) <= aabb)
 					{
-						const uint8 a = pDst->a;
+						const uint8 ta = pDst->a;
 						*pDst = color;
-						pDst->a = a;
+						pDst->a = ta;
 					}
 
 					++pDst;
