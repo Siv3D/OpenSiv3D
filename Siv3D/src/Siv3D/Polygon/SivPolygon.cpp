@@ -241,11 +241,31 @@ namespace s3d
 		return *this;
 	}
 
+	void Polygon::draw(const double x, const double y, const ColorF& color) const
+	{
+		draw(Vec2(x, y), color);
+	}
+
+	void Polygon::draw(const Vec2& pos, const ColorF& color) const
+	{
+		pImpl->draw(pos, color);
+	}
+
 	const Polygon& Polygon::drawFrame(const double thickness, const ColorF& color) const
 	{
 		pImpl->drawFrame(thickness, color);
 
 		return *this;
+	}
+
+	void Polygon::drawFrame(const double x, const double y, const double thickness, const ColorF& color) const
+	{
+		drawFrame(Vec2(x, y), thickness, color);
+	}
+
+	void Polygon::drawFrame(const Vec2& pos, const double thickness, const ColorF& color) const
+	{
+		pImpl->drawFrame(pos, thickness, color);
 	}
 
 	const Polygon::CPolygon* Polygon::_detail() const

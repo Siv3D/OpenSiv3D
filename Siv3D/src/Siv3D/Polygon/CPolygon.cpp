@@ -554,7 +554,12 @@ namespace s3d
 
 	void Polygon::CPolygon::draw(const ColorF& color) const
 	{
-		Siv3DEngine::GetRenderer2D()->addShape2D(m_vertices, m_indices, color.toFloat4());
+		Siv3DEngine::GetRenderer2D()->addShape2D(m_vertices, m_indices, none, color.toFloat4());
+	}
+
+	void Polygon::CPolygon::draw(const Vec2& offset, const ColorF& color) const
+	{
+		Siv3DEngine::GetRenderer2D()->addShape2D(m_vertices, m_indices, Float2(offset), color.toFloat4());
 	}
 
 	void Polygon::CPolygon::drawFrame(double thickness, const ColorF& color) const
@@ -582,6 +587,39 @@ namespace s3d
 				hole.data(),
 				static_cast<uint32>(hole.size()),
 				none,
+				static_cast<float>(thickness),
+				false,
+				color.toFloat4(),
+				true
+			);
+		}
+	}
+
+	void Polygon::CPolygon::drawFrame(const Vec2& offset, double thickness, const ColorF& color) const
+	{
+		if (m_polygon.outer().isEmpty())
+		{
+			return;
+		}
+
+		Siv3DEngine::GetRenderer2D()->addLineString(
+			LineStyle::Default,
+			m_polygon.outer().data(),
+			static_cast<uint32>(m_polygon.outer().size()),
+			Float2(offset),
+			static_cast<float>(thickness),
+			false,
+			color.toFloat4(),
+			true
+		);
+
+		for (const auto& hole : m_polygon.inners())
+		{
+			Siv3DEngine::GetRenderer2D()->addLineString(
+				LineStyle::Default,
+				hole.data(),
+				static_cast<uint32>(hole.size()),
+				Float2(offset),
 				static_cast<float>(thickness),
 				false,
 				color.toFloat4(),
