@@ -11,14 +11,14 @@ void Main()
 	{
 		if (MouseL.down())
 		{
-			Line(Cursor::Pos(), 80, 40).paintArrow(image, 10, Vec2(10, 10), Color(255, 127, 0, 127));
+			Triangle(Cursor::Pos(), 80).paint(image, Color(255, 127, 0, 127));
 
 			texture.fill(image);
 		}
 
 		if (MouseR.down())
 		{
-			Line(Cursor::Pos(), 380, 40).overwriteArrow(image, 10, Vec2(10, 10), Color(255, 127, 0, 127));
+			Triangle(Cursor::Pos(), 80).overwrite(image, Color(255, 127, 0, 127));
 
 			texture.fill(image);
 		}

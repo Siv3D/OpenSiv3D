@@ -143,7 +143,7 @@ namespace s3d
 
 		const Polygon& paint(Image& dst, const Color& color) const;
 
-		const Polygon& overwrite(Image& dst, const Color& color) const;
+		const Polygon& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
 
 		const Polygon& draw(const ColorF& color = Palette::White) const;
 

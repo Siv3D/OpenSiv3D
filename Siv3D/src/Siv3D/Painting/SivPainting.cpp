@@ -15,6 +15,8 @@
 # include <Siv3D/Rectangle.hpp>
 # include <Siv3D/Circle.hpp>
 # include <Siv3D/Ellipse.hpp>
+# include <Siv3D/Triangle.hpp>
+# include <Siv3D/Quad.hpp>
 # include <Siv3D/Polygon.hpp>
 # include "PaintShape.hpp"
 
@@ -100,12 +102,12 @@ namespace s3d
 		return *this;
 	}
 
-	const Line& Line::overwrite(Image& dst, const Color& color) const
+	const Line& Line::overwrite(Image& dst, const Color& color, const bool antialiased) const
 	{
-		return overwrite(dst, 1, color);
+		return overwrite(dst, 1, color, antialiased);
 	}
 
-	const Line& Line::overwrite(Image& dst, int32 thickness, const Color& color) const
+	const Line& Line::overwrite(Image& dst, int32 thickness, const Color& color, const bool antialiased) const
 	{
 		if (!dst || thickness < 1)
 		{
@@ -117,7 +119,7 @@ namespace s3d
 		cv::line(mat,
 			{ static_cast<int32>(begin.x), static_cast<int32>(begin.y) },
 			{ static_cast<int32>(end.x), static_cast<int32>(end.y) },
-			cv::Scalar(color.r, color.g, color.b, color.a), thickness);
+			cv::Scalar(color.r, color.g, color.b, color.a), thickness, antialiased ? cv::LINE_AA : cv::LINE_8);
 
 		return *this;
 	}
@@ -424,6 +426,48 @@ namespace s3d
 		return *this;
 	}
 
+	const Triangle& Triangle::paint(Image& dst, const Color& color) const
+	{
+		if (!dst)
+		{
+			return *this;
+		}
+
+		Array<uint32> paintBuffer;
+
+		PaintShape::PaintTriangle(paintBuffer, *this, dst.width(), dst.height());
+
+		if (paintBuffer.empty())
+		{
+			return *this;
+		}
+
+		detail::WritePaintBufferReference(dst[0], paintBuffer.data(), paintBuffer.size(), color);
+
+		return *this;
+	}
+
+	const Triangle& Triangle::overwrite(Image& dst, const Color& color, const bool antialiased) const
+	{
+		if (!dst)
+		{
+			return *this;
+		}
+
+		const cv::Point pts[3] =
+		{
+			cv::Point(static_cast<int32>(p0.x), static_cast<int32>(p0.y)),
+			cv::Point(static_cast<int32>(p1.x), static_cast<int32>(p1.y)),
+			cv::Point(static_cast<int32>(p2.x), static_cast<int32>(p2.y)),
+		};
+
+		cv::Mat_<cv::Vec4b> mat(dst.height(), dst.width(), static_cast<cv::Vec4b*>(static_cast<void*>(dst.data())), dst.stride());
+
+		cv::fillConvexPoly(mat, pts, 3, cv::Scalar(color.r, color.g, color.b, color.a), antialiased ? cv::LINE_AA : cv::LINE_8);
+
+		return *this;
+	}
+
 	const Polygon& Polygon::paint(Image& dst, const Color& color) const
 	{
 		if (!dst || isEmpty())
@@ -494,7 +538,7 @@ namespace s3d
 		return *this;
 	}
 
-	const Polygon& Polygon::overwrite(Image& dst, const Color& color) const
+	const Polygon& Polygon::overwrite(Image& dst, const Color& color, const bool antialiased) const
 	{
 		if (!dst || isEmpty())
 		{
@@ -550,7 +594,9 @@ namespace s3d
 			}
 		}
 
-		cv::fillPoly(mat, ppts.data(), npts.data(), static_cast<int32>(ppts.size()), cv::Scalar(color.r, color.g, color.b, color.a));
+		cv::fillPoly(mat, ppts.data(), npts.data(), static_cast<int32>(ppts.size()),
+			cv::Scalar(color.r, color.g, color.b, color.a),
+			antialiased ? cv::LINE_AA : cv::LINE_8);
 
 		return *this;
 	}
