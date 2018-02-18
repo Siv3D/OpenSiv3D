@@ -264,9 +264,9 @@ namespace s3d
 
 		const Line& overwrite(Image& dst, int32 thickness, const Color& color) const;
 
-		// overpaint
+		const Line& paintArrow(Image& dst, double width, const Vec2& headSize, const Color& color) const;
 		
-		// overpaintArrow
+		const Line& overwriteArrow(Image& dst, double width, const Vec2& headSize, const Color& color) const;
 		
 		const Line& draw(const ColorF& color = Palette::White) const
 		{

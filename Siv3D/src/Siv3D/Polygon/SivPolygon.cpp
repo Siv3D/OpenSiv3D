@@ -81,6 +81,11 @@ namespace s3d
 		return !pImpl->inners().isEmpty();
 	}
 
+	size_t Polygon::num_holes() const
+	{
+		return pImpl->inners().size();
+	}
+
 	void Polygon::swap(Polygon& polygon) noexcept
 	{
 		std::swap(pImpl, polygon.pImpl);

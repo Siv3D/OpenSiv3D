@@ -57,6 +57,8 @@ namespace s3d
 
 		bool hasHoles() const;
 
+		size_t num_holes() const;
+
 		void swap(Polygon& polygon) noexcept;
 
 		const Array<Vec2>& outer() const;
