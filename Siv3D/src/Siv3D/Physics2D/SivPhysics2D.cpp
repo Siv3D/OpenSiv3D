@@ -111,6 +111,11 @@ namespace s3d
 		return pImpl->createCircle(*this, center, circle, material, filter, bodyType);
 	}
 
+	P2Body P2World::createPolygon(const Vec2& center, const Polygon& polygon, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	{
+		return pImpl->createPolygon(*this, center, polygon, material, filter, bodyType);
+	}
+
 
 
 	b2World& P2World::getData()
@@ -119,6 +124,11 @@ namespace s3d
 	}
 
 
+
+	P2BodyID P2World::CP2World::generateNextID()
+	{
+		return ++m_currentID;
+	}
 
 	P2World::CP2World::CP2World(const Vec2& gravity)
 		: m_world(detail::ToB2Vec2(gravity))
@@ -192,6 +202,21 @@ namespace s3d
 		return body;
 	}
 
+	P2Body P2World::CP2World::createPolygon(P2World& world, const Vec2& center, const Polygon& polygon, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	{
+		P2Body body(world, generateNextID(), center, bodyType);
+
+		body.addPolygon(polygon, material, filter);
+
+		return body;
+	}
+
+	b2World& P2World::CP2World::getData()
+	{
+		return m_world;
+	}
+
+
 	P2Body::P2Body()
 		: pImpl(std::make_shared<CP2Body>())
 	{
@@ -212,6 +237,11 @@ namespace s3d
 	bool P2Body::isEmpty() const
 	{
 		return (pImpl->id() == 0);
+	}
+
+	P2Body::operator bool() const
+	{
+		return !isEmpty();
 	}
 
 	P2Body& P2Body::addLine(const Line& line, const P2Material& material, const P2Filter& filter)
@@ -258,6 +288,18 @@ namespace s3d
 		}
 
 		pImpl->addCircle(circle, material, filter);
+
+		return *this;
+	}
+
+	P2Body& P2Body::addPolygon(const Polygon& polygon, const P2Material& material, const P2Filter& filter)
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		pImpl->addPolygon(polygon, material, filter);
 
 		return *this;
 	}
@@ -415,6 +457,46 @@ namespace s3d
 
 
 
+	P2Polygon::P2Polygon(b2Body& body, const Polygon& polygon, const P2Material& material, const P2Filter& filter)
+		: m_basePolygon(polygon)
+	{
+		b2PolygonShape m_shape;
+
+		for (size_t i = 0; i < polygon.num_triangles(); ++i)
+		{
+			const auto triangle = polygon.triangle(i);
+
+			const b2Vec2 points[3] = { detail::ToB2Vec2(triangle.p0), detail::ToB2Vec2(triangle.p1), detail::ToB2Vec2(triangle.p2) };
+
+			m_shape.Set(points, 3);
+
+			const b2FixtureDef fixtureDef = detail::MakeFixtureDef(&m_shape, material, filter);
+
+			m_fixtures.fixtures.push_back(body.CreateFixture(&fixtureDef));
+		}
+	}
+
+	P2ShapeType P2Polygon::getShapeType() const
+	{
+		return P2ShapeType::Polygon;
+	}
+
+	void P2Polygon::draw(const ColorF& color) const
+	{
+		const b2Transform& transform = m_fixtures.fixtures[0]->GetBody()->GetTransform();
+
+		m_basePolygon.drawTransformed(transform.q.s, transform.q.c, Vec2(transform.p.x, transform.p.y), color);
+	}
+
+	Polygon P2Polygon::getPolygon() const
+	{
+		const b2Transform& transform = m_fixtures.fixtures[0]->GetBody()->GetTransform();
+
+		return m_basePolygon.transformed(transform.q.s, transform.q.c, Vec2(transform.p.x, transform.p.y));
+	}
+
+
+
 	P2Body::CP2Body::CP2Body(P2World& world, P2BodyID id, const Vec2& center, P2BodyType bodyType)
 		: m_world(world)
 		, m_id(id)
@@ -459,6 +541,13 @@ namespace s3d
 		assert(m_body);
 
 		m_shapes.push_back(std::make_shared<P2Circle>(*m_body, circle, material, filter));
+	}
+
+	void P2Body::CP2Body::addPolygon(const Polygon& polygon, const P2Material& material, const P2Filter& filter)
+	{
+		assert(m_body);
+
+		m_shapes.push_back(std::make_shared<P2Polygon>(*m_body, polygon, material, filter));
 	}
 
 	const b2Body& P2Body::CP2Body::getBody() const

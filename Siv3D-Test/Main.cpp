@@ -18,7 +18,14 @@ void Main()
 
 		if (MouseL.down())
 		{
-			bodies << world.createCircle(Cursor::PosF(), 0.5);
+			bodies << world.createPolygon(Cursor::PosF(), Shape2D::Star(0.5).asPolygon());
+			//bodies << world.createCircle(Cursor::PosF(), 0.5);
+		}
+
+		if (MouseR.down())
+		{
+			bodies << world.createPolygon(Cursor::PosF(), Shape2D::Stairs(Vec2(-1, 1),2, 2, 4).asPolygon());
+			//bodies << world.createCircle(Cursor::PosF(), 0.5);
 		}
 
 		for (const auto& body : bodies)

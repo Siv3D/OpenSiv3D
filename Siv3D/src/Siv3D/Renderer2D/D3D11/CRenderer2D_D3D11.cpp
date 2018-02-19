@@ -1766,6 +1766,51 @@ namespace s3d
 		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
 	}
 
+	void CRenderer2D_D3D11::addShape2DTransformed(const Array<Float2>& vertices, const Array<uint32>& indices, float s, float c, const Float2& offset, const Float4& color)
+	{
+		if (vertices.isEmpty())
+		{
+			return;
+		}
+
+		const IndexType vertexSize = static_cast<IndexType>(vertices.size()), indexSize = static_cast<IndexType>(indices.size());
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+		{
+			return;
+		}
+
+		{
+			const Float2* pSrc = vertices.data();
+			const Float2* pSrcEnd = pSrc + vertices.size();
+
+			while (pSrc != pSrcEnd)
+			{
+				const Float2 v = *pSrc++;
+				const float x = v.x * c - v.y * s + offset.x;
+				const float y = v.x * s + v.y * c + offset.y;
+				pVertex->pos.set(x, y);
+				pVertex->color = color;
+				++pVertex;
+			}
+		}
+
+		static_assert(sizeof(IndexType) == sizeof(uint32));
+		{
+			::memcpy(pIndex, indices.data(), indices.size_bytes());
+		}
+
+		for (size_t i = 0; i < indexSize; ++i)
+		{
+			*(pIndex++) += indexOffset;
+		}
+
+		m_commandManager.pushDraw(indexSize, D3D11Render2DPixelShaderType::Shape);
+	}
+
 	void CRenderer2D_D3D11::addTextureRegion(const Texture& texture, const FloatRect& rect, const FloatRect& uv, const Float4& color)
 	{
 		constexpr IndexType vertexSize = 4, indexSize = 6;

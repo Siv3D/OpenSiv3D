@@ -291,6 +291,40 @@ namespace s3d
 		m_boundingRect = detail::CalculateBoundingRect(m_vertices.data(), m_vertices.size());
 	}
 
+	void Polygon::CPolygon::transform(const double s, const double c, const Vec2& pos)
+	{
+		for (auto& point : m_polygon.outer())
+		{
+			const double x = point.x * c - point.y * s + pos.x;
+			const double y = point.x * s + point.y * c + pos.y;
+			point.set(x, y);
+		}
+
+		for (auto& hole : m_polygon.inners())
+		{
+			for (auto& point : hole)
+			{
+				const double x = point.x * c - point.y * s + pos.x;
+				const double y = point.x * s + point.y * c + pos.y;
+				point.set(x, y);
+			}
+		}
+
+		const float sF = static_cast<float>(s);
+		const float cF = static_cast<float>(c);
+		const float xF = static_cast<float>(pos.x);
+		const float yF = static_cast<float>(pos.y);
+
+		for (auto& vertex : m_vertices)
+		{
+			const float x = vertex.x * cF - vertex.y * sF + xF;
+			const float y = vertex.x * sF + vertex.y * cF + yF;
+			vertex.set(x, y);
+		}
+
+		m_boundingRect = detail::CalculateBoundingRect(m_vertices.data(), m_vertices.size());
+	}
+
 	double Polygon::CPolygon::area() const
 	{
 		const size_t _num_triangles = m_indices.size() / 3;
@@ -702,6 +736,11 @@ namespace s3d
 				true
 			);
 		}
+	}
+
+	void Polygon::CPolygon::drawTransformed(const double s, const double c, const Vec2& pos, const ColorF& color) const
+	{
+		Siv3DEngine::GetRenderer2D()->addShape2DTransformed(m_vertices, m_indices, static_cast<float>(s), static_cast<float>(c), Float2(pos), color.toFloat4());
 	}
 
 	const gPolygon& Polygon::CPolygon::getPolygon() const

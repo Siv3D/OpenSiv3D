@@ -19,6 +19,10 @@
 # include "Line.hpp"
 # include "LineString.hpp"
 # include "Circle.hpp"
+# include "Rectangle.hpp"
+# include "Triangle.hpp"
+# include "Quad.hpp"
+# include "Polygon.hpp"
 # include "System.hpp"
 
 namespace s3d
@@ -125,6 +129,35 @@ namespace s3d
 		P2Body createCircle(const Vec2& center, const Circle& circle, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
 
+		//P2Body createRect(const Vec2& center, double size, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+
+		//P2Body createRect(const Vec2& center, const Vec2& size, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+
+		//P2Body createRect(const Vec2& center, const Vec2& size, const Vec2& offset, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+
+		//P2Body createRect(const Vec2& center, const RectF& rect, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+
+		//P2Body createTriangle(const Vec2& center, double sides, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+
+		//P2Body createTriangle(const Vec2& center, double sides, double angle, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+
+		//P2Body createTriangle(const Vec2& center, double sides, double angle, const Vec2& offset, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+
+		//P2Body createTriangle(const Vec2& center, const Vec2& p0, const Vec2& p1, const Vec2& p2, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+
+		//P2Body createTriangle(const Vec2& center, const Triangle& triangle, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+
+		//P2Body createQuad(const Vec2& center, const Vec2& p0, const Vec2& p1, const Vec2& p2, const Vec2& p3, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+
+		//P2Body createQuad(const Vec2& center, const Quad& quad, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+
+		//P2Body createPolygon(const Vec2& center, const Array<Vec2>& points, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+
+		P2Body createPolygon(const Vec2& center, const Polygon& polygon, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+
+
+
+
 		b2World& getData();
 	};
 
@@ -138,10 +171,7 @@ namespace s3d
 
 		std::atomic<P2BodyID> m_currentID = 0;
 
-		P2BodyID generateNextID()
-		{
-			return ++m_currentID;
-		}
+		P2BodyID generateNextID();
 
 	public:
 
@@ -167,12 +197,12 @@ namespace s3d
 
 		P2Body createCircle(P2World& world, const Vec2& center, const Circle& circle, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
 
+		P2Body createPolygon(P2World& world, const Vec2& center, const Polygon& polygon, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
+
+
 		//const Array<PhysicsContact>& getContacts() const;
 
-		b2World& getData()
-		{
-			return m_world;
-		}
+		b2World& getData();
 	};
 
 	class P2Body
@@ -195,10 +225,7 @@ namespace s3d
 
 		bool isEmpty() const;
 
-		explicit operator bool() const
-		{
-			return !isEmpty();
-		}
+		explicit operator bool() const;
 
 		P2Body& addLine(const Line& line, const P2Material& material, const P2Filter& filter);
 
@@ -208,6 +235,7 @@ namespace s3d
 
 		P2Body& addCircle(const Circle& circle, const P2Material& material, const P2Filter& filter);
 
+		P2Body& addPolygon(const Polygon& polygon, const P2Material& material, const P2Filter& filter);
 
 		//void setSleepingAllowed(bool allowed);
 
@@ -390,6 +418,23 @@ namespace s3d
 		Circle getCircle() const;
 	};
 
+	class P2Polygon : public P2Shape
+	{
+	private:
+
+		Polygon m_basePolygon;
+
+	public:
+
+		P2Polygon(b2Body& body, const Polygon& polygon, const P2Material& material, const P2Filter& filter);
+
+		P2ShapeType getShapeType() const override;
+
+		void draw(const ColorF& color = Palette::White) const override;
+
+		Polygon getPolygon() const;
+	};
+
 	class P2Body::CP2Body
 	{
 	private:
@@ -419,6 +464,8 @@ namespace s3d
 		void addLineString(const LineString& lines, bool closed, const P2Material& material, const P2Filter& filter);
 
 		void addCircle(const Circle& circle, const P2Material& material, const P2Filter& filter);
+
+		void addPolygon(const Polygon& polygon, const P2Material& material, const P2Filter& filter);
 
 		const b2Body& getBody() const;
 

@@ -194,6 +194,22 @@ namespace s3d
 		return *this;
 	}
 
+	Polygon Polygon::transformed(const double s, const double c, const Vec2& pos) const
+	{
+		Polygon result(*this);
+
+		result.transform(s, c, pos);
+
+		return result;
+	}
+
+	Polygon& Polygon::transform(const double s, const double c, const Vec2& pos)
+	{
+		pImpl->transform(s, c, pos);
+
+		return *this;
+	}
+
 	double Polygon::area() const
 	{
 		return pImpl->area();
@@ -365,6 +381,11 @@ namespace s3d
 				.moveBy(pos)
 				.drawFrame(thickness, color);
 		}
+	}
+
+	void Polygon::drawTransformed(const double s, const double c, const Vec2& pos, const ColorF& color) const
+	{
+		pImpl->drawTransformed(s, c, pos, color);
 	}
 
 	const Polygon::CPolygon* Polygon::_detail() const
