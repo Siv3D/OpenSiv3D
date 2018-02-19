@@ -111,6 +111,67 @@ namespace s3d
 		return pImpl->createCircle(*this, center, circle, material, filter, bodyType);
 	}
 
+	P2Body P2World::createRect(const Vec2& center, double size, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	{
+		return pImpl->createRect(*this, center, RectF(Arg::center(0, 0), size), material, filter, bodyType);
+	}
+
+	P2Body P2World::createRect(const Vec2& center, double w, double h, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	{
+		return pImpl->createRect(*this, center, RectF(Arg::center(0, 0), w, h), material, filter, bodyType);
+	}
+
+	P2Body P2World::createRect(const Vec2& center, const Vec2& size, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	{
+		return pImpl->createRect(*this, center, RectF(Arg::center(0, 0), size), material, filter, bodyType);
+	}
+
+	P2Body P2World::createRect(const Vec2& center, const Vec2& size, const Vec2& offset, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	{
+		return pImpl->createRect(*this, center, RectF(Arg::center(offset), size), material, filter, bodyType);
+	}
+
+	P2Body P2World::createRect(const Vec2& center, const RectF& rect, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	{
+		return pImpl->createRect(*this, center, rect, material, filter, bodyType);
+	}
+
+	P2Body P2World::createTriangle(const Vec2& center, double sides, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	{
+		return pImpl->createTriangle(*this, center, Triangle(sides), material, filter, bodyType);
+	}
+
+	P2Body P2World::createTriangle(const Vec2& center, double sides, double angle, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	{
+		return pImpl->createTriangle(*this, center, Triangle(sides, angle), material, filter, bodyType);
+	}
+
+	P2Body P2World::createTriangle(const Vec2& center, double sides, double angle, const Vec2& offset, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	{
+		return pImpl->createTriangle(*this, center, Triangle(offset, sides, angle), material, filter, bodyType);
+	}
+
+	P2Body P2World::createTriangle(const Vec2& center, const Vec2& p0, const Vec2& p1, const Vec2& p2, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	{
+		return pImpl->createTriangle(*this, center, Triangle(p0, p1, p2), material, filter, bodyType);
+	}
+
+	P2Body P2World::createTriangle(const Vec2& center, const Triangle& triangle, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	{
+		return pImpl->createTriangle(*this, center, triangle, material, filter, bodyType);
+	}
+
+	P2Body P2World::createQuad(const Vec2& center, const Vec2& p0, const Vec2& p1, const Vec2& p2, const Vec2& p3, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	{
+		return pImpl->createQuad(*this, center, Quad(p0, p1, p2, p3), material, filter, bodyType);
+	}
+
+	P2Body P2World::createQuad(const Vec2& center, const Quad& quad, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	{
+		return pImpl->createQuad(*this, center, quad, material, filter, bodyType);
+	}
+
+
 	P2Body P2World::createPolygon(const Vec2& center, const Polygon& polygon, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
 	{
 		return pImpl->createPolygon(*this, center, polygon, material, filter, bodyType);
@@ -202,6 +263,33 @@ namespace s3d
 		return body;
 	}
 
+	P2Body P2World::CP2World::createRect(P2World& world, const Vec2& center, const RectF& rect, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	{
+		P2Body body(world, generateNextID(), center, bodyType);
+
+		body.addRect(rect, material, filter);
+
+		return body;
+	}
+
+	P2Body P2World::CP2World::createTriangle(P2World& world, const Vec2& center, const Triangle& triangle, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	{
+		P2Body body(world, generateNextID(), center, bodyType);
+
+		body.addTriangle(triangle, material, filter);
+
+		return body;
+	}
+
+	P2Body P2World::CP2World::createQuad(P2World& world, const Vec2& center, const Quad& quad, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	{
+		P2Body body(world, generateNextID(), center, bodyType);
+
+		body.addQuad(quad, material, filter);
+
+		return body;
+	}
+
 	P2Body P2World::CP2World::createPolygon(P2World& world, const Vec2& center, const Polygon& polygon, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
 	{
 		P2Body body(world, generateNextID(), center, bodyType);
@@ -288,6 +376,42 @@ namespace s3d
 		}
 
 		pImpl->addCircle(circle, material, filter);
+
+		return *this;
+	}
+
+	P2Body& P2Body::addRect(const RectF& rect, const P2Material& material, const P2Filter& filter)
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		pImpl->addRect(rect, material, filter);
+
+		return *this;
+	}
+
+	P2Body& P2Body::addTriangle(const Triangle& triangle, const P2Material& material, const P2Filter& filter)
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		pImpl->addTriangle(triangle, material, filter);
+
+		return *this;
+	}
+
+	P2Body& P2Body::addQuad(const Quad& quad, const P2Material& material, const P2Filter& filter)
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		pImpl->addQuad(quad, material, filter);
 
 		return *this;
 	}
@@ -455,6 +579,114 @@ namespace s3d
 	}
 
 
+	P2Rect::P2Rect(b2Body& body, const RectF& rect, const P2Material& material, const P2Filter& filter)
+	{
+		m_shape.SetAsBox(static_cast<float32>(rect.w * 0.5f), static_cast<float32>(rect.h * 0.5f), detail::ToB2Vec2(rect.center()), 0.0f);
+
+		const b2FixtureDef fixtureDef = detail::MakeFixtureDef(&m_shape, material, filter);
+
+		m_fixtures.fixtures.push_back(body.CreateFixture(&fixtureDef));
+	}
+
+	P2ShapeType P2Rect::getShapeType() const
+	{
+		return P2ShapeType::Rect;
+	}
+
+	void P2Rect::draw(const ColorF& color) const
+	{
+		getQuad().draw(color);
+	}
+
+	Quad P2Rect::getQuad() const
+	{
+		const b2Transform& transform = m_fixtures.fixtures[0]->GetBody()->GetTransform();
+		const b2Vec2& pos0 = m_shape.m_vertices[0];
+		const b2Vec2& pos1 = m_shape.m_vertices[1];
+		const b2Vec2& pos2 = m_shape.m_vertices[2];
+		const b2Vec2& pos3 = m_shape.m_vertices[3];
+		return Quad
+		(
+			pos0.x * transform.q.c - pos0.y*transform.q.s + transform.p.x, pos0.x*transform.q.s + pos0.y*transform.q.c + transform.p.y,
+			pos1.x * transform.q.c - pos1.y*transform.q.s + transform.p.x, pos1.x*transform.q.s + pos1.y*transform.q.c + transform.p.y,
+			pos2.x * transform.q.c - pos2.y*transform.q.s + transform.p.x, pos2.x*transform.q.s + pos2.y*transform.q.c + transform.p.y,
+			pos3.x * transform.q.c - pos3.y*transform.q.s + transform.p.x, pos3.x*transform.q.s + pos3.y*transform.q.c + transform.p.y
+		);
+	}
+
+
+	P2Triangle::P2Triangle(b2Body& body, const Triangle& triangle, const P2Material& material, const P2Filter& filter)
+	{
+		const b2Vec2 points[3] = { detail::ToB2Vec2(triangle.p0), detail::ToB2Vec2(triangle.p1), detail::ToB2Vec2(triangle.p2) };
+
+		m_shape.Set(points, 3);
+
+		const b2FixtureDef fixtureDef = detail::MakeFixtureDef(&m_shape, material, filter);
+
+		m_fixtures.fixtures.push_back(body.CreateFixture(&fixtureDef));
+	}
+
+	P2ShapeType P2Triangle::getShapeType() const
+	{
+		return P2ShapeType::Triangle;
+	}
+
+	void P2Triangle::draw(const ColorF& color) const
+	{
+		getTriangle().draw(color);
+	}
+
+	Triangle P2Triangle::getTriangle() const
+	{
+		const b2Transform& transform = m_fixtures.fixtures[0]->GetBody()->GetTransform();
+		const b2Vec2& pos0 = m_shape.m_vertices[0];
+		const b2Vec2& pos1 = m_shape.m_vertices[1];
+		const b2Vec2& pos2 = m_shape.m_vertices[2];
+		return Triangle
+		(
+			pos0.x * transform.q.c - pos0.y*transform.q.s + transform.p.x, pos0.x*transform.q.s + pos0.y*transform.q.c + transform.p.y,
+			pos1.x * transform.q.c - pos1.y*transform.q.s + transform.p.x, pos1.x*transform.q.s + pos1.y*transform.q.c + transform.p.y,
+			pos2.x * transform.q.c - pos2.y*transform.q.s + transform.p.x, pos2.x*transform.q.s + pos2.y*transform.q.c + transform.p.y
+		);
+	}
+
+
+	P2Quad::P2Quad(b2Body& body, const Quad& quad, const P2Material& material, const P2Filter& filter)
+	{
+		const b2Vec2 points[4] = { detail::ToB2Vec2(quad.p0), detail::ToB2Vec2(quad.p1), detail::ToB2Vec2(quad.p2), detail::ToB2Vec2(quad.p3) };
+
+		m_shape.Set(points, 4);
+
+		const b2FixtureDef fixtureDef = detail::MakeFixtureDef(&m_shape, material, filter);
+
+		m_fixtures.fixtures.push_back(body.CreateFixture(&fixtureDef));
+	}
+
+	P2ShapeType P2Quad::getShapeType() const
+	{
+		return P2ShapeType::Quad;
+	}
+
+	void P2Quad::draw(const ColorF& color) const
+	{
+		getQuad().draw(color);
+	}
+
+	Quad P2Quad::getQuad() const
+	{
+		const b2Transform& transform = m_fixtures.fixtures[0]->GetBody()->GetTransform();
+		const b2Vec2& pos0 = m_shape.m_vertices[0];
+		const b2Vec2& pos1 = m_shape.m_vertices[1];
+		const b2Vec2& pos2 = m_shape.m_vertices[2];
+		const b2Vec2& pos3 = m_shape.m_vertices[3];
+		return Quad
+		(
+			pos0.x * transform.q.c - pos0.y*transform.q.s + transform.p.x, pos0.x*transform.q.s + pos0.y*transform.q.c + transform.p.y,
+			pos1.x * transform.q.c - pos1.y*transform.q.s + transform.p.x, pos1.x*transform.q.s + pos1.y*transform.q.c + transform.p.y,
+			pos2.x * transform.q.c - pos2.y*transform.q.s + transform.p.x, pos2.x*transform.q.s + pos2.y*transform.q.c + transform.p.y,
+			pos3.x * transform.q.c - pos3.y*transform.q.s + transform.p.x, pos3.x*transform.q.s + pos3.y*transform.q.c + transform.p.y
+		);
+	}
 
 
 	P2Polygon::P2Polygon(b2Body& body, const Polygon& polygon, const P2Material& material, const P2Filter& filter)
@@ -541,6 +773,27 @@ namespace s3d
 		assert(m_body);
 
 		m_shapes.push_back(std::make_shared<P2Circle>(*m_body, circle, material, filter));
+	}
+
+	void P2Body::CP2Body::addRect(const RectF& rect, const P2Material& material, const P2Filter& filter)
+	{
+		assert(m_body);
+
+		m_shapes.push_back(std::make_shared<P2Rect>(*m_body, rect, material, filter));
+	}
+
+	void P2Body::CP2Body::addTriangle(const Triangle& triangle, const P2Material& material, const P2Filter& filter)
+	{
+		assert(m_body);
+
+		m_shapes.push_back(std::make_shared<P2Triangle>(*m_body, triangle, material, filter));
+	}
+
+	void P2Body::CP2Body::addQuad(const Quad& quad, const P2Material& material, const P2Filter& filter)
+	{
+		assert(m_body);
+
+		m_shapes.push_back(std::make_shared<P2Quad>(*m_body, quad, material, filter));
 	}
 
 	void P2Body::CP2Body::addPolygon(const Polygon& polygon, const P2Material& material, const P2Filter& filter)

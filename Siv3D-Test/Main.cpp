@@ -5,37 +5,32 @@ void Main()
 {
 	P2World world;
 	Array<P2Body> bodies;
-	Array<Polygon> polys;
-	Array<Texture> textures;
-	HashTable<P2BodyID, size_t> table;
-	size_t index = 0;
+	bodies << world.createLine(Vec2(0, 0), Line(-4, -0.5, 4, 0), none, none, P2BodyType::Static);
+	bodies << world.createLineString(Vec2(0, 0), { Vec2(-6, 0), Vec2(-6, 2), Vec2(6, 2), Vec2(6, -2) }, none, none, P2BodyType::Static);
 	Camera2D camera(Vec2(0, 0), 20);
-	const P2Body line = world.createLine(Vec2(0, 0), Line(-12, 0, 12, 0), P2Material(1, 0.1, 0.95), none, P2BodyType::Static);
-
-	for (const auto& animal : { U"🐘", U"🐧", U"🐐", U"🐤" })
-	{
-		polys << ImageProcessing::FindExternalContour(Emoji::LoadImage(animal), true).moveBy(-68, -64).simplified(0.8).scale(0.04);
-		textures << Texture(Emoji(animal), TextureDesc::Mipped);
-	}
 
 	while (System::Update())
 	{
 		world.update();
 		camera.update();
+
 		auto t = camera.createTransformer();
 
 		if (MouseL.down())
 		{
-			bodies << world.createPolygon(Cursor::PosF(), polys[index], P2Material(0.1, 0.0, 0.2));
-			table.emplace(bodies.back().id(), std::exchange(index, Random(polys.size() - 1)));
+			bodies << world.createRect(Cursor::PosF(), 5, 1);
+		}
+
+		if (MouseR.down())
+		{
+			bodies << world.createQuad(Cursor::PosF(), Rect(Arg::center(0,0), 2).shearedX(1));
 		}
 
 		for (const auto& body : bodies)
 		{
-			textures[table[body.id()]].scaled(0.04).rotated(body.getAngle()).drawAt(body.getPos());
+			body.draw(HSV(body.id() * 30.0, 0.5, 1.0));
 		}
 
-		line.draw(Palette::Green);
-		textures[index].scaled(0.04).drawAt(Cursor::PosF());
+		camera.draw(Palette::Orange);
 	}
 }

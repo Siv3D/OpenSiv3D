@@ -128,30 +128,29 @@ namespace s3d
 
 		P2Body createCircle(const Vec2& center, const Circle& circle, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
+		P2Body createRect(const Vec2& center, double size, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		//P2Body createRect(const Vec2& center, double size, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		P2Body createRect(const Vec2& center, double w, double h, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		//P2Body createRect(const Vec2& center, const Vec2& size, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		P2Body createRect(const Vec2& center, const Vec2& size, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		//P2Body createRect(const Vec2& center, const Vec2& size, const Vec2& offset, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		P2Body createRect(const Vec2& center, const Vec2& size, const Vec2& offset, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		//P2Body createRect(const Vec2& center, const RectF& rect, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		P2Body createRect(const Vec2& center, const RectF& rect, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		//P2Body createTriangle(const Vec2& center, double sides, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		P2Body createTriangle(const Vec2& center, double sides, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		//P2Body createTriangle(const Vec2& center, double sides, double angle, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		P2Body createTriangle(const Vec2& center, double sides, double angle, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		//P2Body createTriangle(const Vec2& center, double sides, double angle, const Vec2& offset, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		P2Body createTriangle(const Vec2& center, double sides, double angle, const Vec2& offset, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		//P2Body createTriangle(const Vec2& center, const Vec2& p0, const Vec2& p1, const Vec2& p2, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		P2Body createTriangle(const Vec2& center, const Vec2& p0, const Vec2& p1, const Vec2& p2, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		//P2Body createTriangle(const Vec2& center, const Triangle& triangle, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		P2Body createTriangle(const Vec2& center, const Triangle& triangle, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		//P2Body createQuad(const Vec2& center, const Vec2& p0, const Vec2& p1, const Vec2& p2, const Vec2& p3, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		P2Body createQuad(const Vec2& center, const Vec2& p0, const Vec2& p1, const Vec2& p2, const Vec2& p3, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		//P2Body createQuad(const Vec2& center, const Quad& quad, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
-
-		//P2Body createPolygon(const Vec2& center, const Array<Vec2>& points, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		P2Body createQuad(const Vec2& center, const Quad& quad, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
 		P2Body createPolygon(const Vec2& center, const Polygon& polygon, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
@@ -197,6 +196,12 @@ namespace s3d
 
 		P2Body createCircle(P2World& world, const Vec2& center, const Circle& circle, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
 
+		P2Body createRect(P2World& world, const Vec2& center, const RectF& rect, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
+
+		P2Body createTriangle(P2World& world, const Vec2& center, const Triangle& triangle, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
+
+		P2Body createQuad(P2World& world, const Vec2& center, const Quad& quad, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
+
 		P2Body createPolygon(P2World& world, const Vec2& center, const Polygon& polygon, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
 
 
@@ -234,6 +239,12 @@ namespace s3d
 		P2Body& addClosedLineString(const LineString& lines, const P2Material& material, const P2Filter& filter);
 
 		P2Body& addCircle(const Circle& circle, const P2Material& material, const P2Filter& filter);
+
+		P2Body& addRect(const RectF& rect, const P2Material& material, const P2Filter& filter);
+
+		P2Body& addTriangle(const Triangle& triangle, const P2Material& material, const P2Filter& filter);
+
+		P2Body& addQuad(const Quad& quad, const P2Material& material, const P2Filter& filter);
 
 		P2Body& addPolygon(const Polygon& polygon, const P2Material& material, const P2Filter& filter);
 
@@ -418,6 +429,57 @@ namespace s3d
 		Circle getCircle() const;
 	};
 
+	class P2Rect : public P2Shape
+	{
+	private:
+
+		b2PolygonShape m_shape;
+
+	public:
+
+		P2Rect(b2Body& body, const RectF& rect, const P2Material& material, const P2Filter& filter);
+
+		P2ShapeType getShapeType() const override;
+
+		void draw(const ColorF& color = Palette::White) const override;
+
+		Quad getQuad() const;
+	};
+
+	class P2Triangle : public P2Shape
+	{
+	private:
+
+		b2PolygonShape m_shape;
+
+	public:
+
+		P2Triangle(b2Body& body, const Triangle& triangle, const P2Material& material, const P2Filter& filter);
+
+		P2ShapeType getShapeType() const override;
+
+		void draw(const ColorF& color = Palette::White) const override;
+
+		Triangle getTriangle() const;
+	};
+
+	class P2Quad : public P2Shape
+	{
+	private:
+
+		b2PolygonShape m_shape;
+
+	public:
+
+		P2Quad(b2Body& body, const Quad& quad, const P2Material& material, const P2Filter& filter);
+
+		P2ShapeType getShapeType() const override;
+
+		void draw(const ColorF& color = Palette::White) const override;
+
+		Quad getQuad() const;
+	};
+
 	class P2Polygon : public P2Shape
 	{
 	private:
@@ -464,6 +526,12 @@ namespace s3d
 		void addLineString(const LineString& lines, bool closed, const P2Material& material, const P2Filter& filter);
 
 		void addCircle(const Circle& circle, const P2Material& material, const P2Filter& filter);
+
+		void addRect(const RectF& rect, const P2Material& material, const P2Filter& filter);
+
+		void addTriangle(const Triangle& triangle, const P2Material& material, const P2Filter& filter);
+
+		void addQuad(const Quad& quad, const P2Material& material, const P2Filter& filter);
 
 		void addPolygon(const Polygon& polygon, const P2Material& material, const P2Filter& filter);
 
