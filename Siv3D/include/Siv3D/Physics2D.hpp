@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -329,15 +329,7 @@ namespace s3d
 		const P2Shape& shape(size_t index) const;
 
 		template <class PShape, std::enable_if_t<std::is_base_of_v<P2Shape, PShape>>* = nullptr>
-		std::shared_ptr<PShape> shapeAs(const size_t index) const
-		{
-			if (isEmpty())
-			{
-				throw std::out_of_range("P2Body::shapeAs() P2Body is empty.");
-			}
-
-			return std::dynamic_pointer_cast<PShape>(pImpl->getShapes()[index]);
-		}
+		std::shared_ptr<PShape> shapeAs(const size_t index) const;
 	};
 
 	struct P2Fixture
@@ -543,4 +535,15 @@ namespace s3d
 
 		const Array<std::shared_ptr<P2Shape>>& getShapes() const;
 	};
+	
+	template <class PShape, std::enable_if_t<std::is_base_of_v<P2Shape, PShape>>*>
+	inline std::shared_ptr<PShape> P2Body::shapeAs(const size_t index) const
+	{
+		if (isEmpty())
+		{
+			throw std::out_of_range("P2Body::shapeAs() P2Body is empty.");
+		}
+		
+		return std::dynamic_pointer_cast<PShape>(pImpl->getShapes()[index]);
+	}
 }
