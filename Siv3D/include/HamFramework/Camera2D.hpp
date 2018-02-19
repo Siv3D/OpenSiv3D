@@ -69,7 +69,7 @@ namespace s3d
 
 	class Camera2D : public BasicCamera2D
 	{
-	private:
+	protected:
 
 		bool m_keyControlEnabled = true;
 
@@ -200,7 +200,6 @@ namespace s3d
 
 		virtual ~Camera2D() = default;
 
-
 		void update()
 		{
 			controlWithKeyboard();
@@ -319,6 +318,119 @@ namespace s3d
 			return m_mouseControlEnabled;
 		}
 	};
+
+	//class Camera_YUp : public Camera2D
+	//{
+	//private:
+
+	//	void controlWithKeyboard()
+	//	{
+	//		if (!m_keyControlEnabled)
+	//		{
+	//			return;
+	//		}
+
+	//		if (m_controls[0]())
+	//		{
+	//			m_targetPos.y += (m_speed / m_targetScale);
+	//		}
+
+	//		if (m_controls[1]())
+	//		{
+	//			m_targetPos.x -= (m_speed / m_targetScale);
+	//		}
+
+	//		if (m_controls[2]())
+	//		{
+	//			m_targetPos.y -= (m_speed / m_targetScale);
+	//		}
+
+	//		if (m_controls[3]())
+	//		{
+	//			m_targetPos.x += (m_speed / m_targetScale);
+	//		}
+
+	//		if (m_controls[4]())
+	//		{
+	//			m_targetScale *= m_scaleRatio;
+	//		}
+
+	//		if (m_controls[5]())
+	//		{
+	//			m_targetScale /= m_scaleRatio;
+	//		}
+	//	}
+
+	//	void controlWithMouse()
+	//	{
+	//		if (!m_mouseControlEnabled)
+	//		{
+	//			m_grabPos = none;
+
+	//			return;
+	//		}
+
+	//		{
+	//			const Transformer2D transformerLocal(Mat3x2::Identity(), true, Transformer2D::Target::SetLocal);
+	//			const Transformer2D transformerCamera(Mat3x2::Identity(), true, Transformer2D::Target::SetCamera);
+	//			const Transformer2D transformerScreen(Mat3x2::Identity(), true, Transformer2D::Target::SetScreen);
+
+	//			if (MouseR.down())
+	//			{
+	//				m_grabPos = Cursor::Pos();
+	//			}
+	//			else if (m_grabPos)
+	//			{
+	//				const Point delta = Cursor::Pos() - m_grabPos.value();
+
+	//				m_targetPos += m_mouseSpeedRatio * m_speed * Point(delta.x, -delta.y) / m_targetScale;
+
+	//				if (MouseR.up())
+	//				{
+	//					m_grabPos = none;
+	//				}
+	//			}
+	//		}
+
+	//		const double wheel = Mouse::Wheel();
+
+	//		if (wheel < 0.0)
+	//		{
+	//			m_targetScale *= m_scaleRatio;
+	//		}
+	//		else if (wheel > 0.0)
+	//		{
+	//			m_targetScale /= m_scaleRatio;
+	//		}
+	//	}
+
+	//public:
+
+	//	using Camera2D::Camera2D;
+
+	//	virtual ~Camera_YUp() = default;
+
+	//	void update()
+	//	{
+	//		controlWithKeyboard();
+
+	//		controlWithMouse();
+
+	//		m_pos = Math::Lerp(m_pos, m_targetPos, m_lerpRatio);
+
+	//		m_scale = Math::Lerp(m_scale, m_targetScale, m_lerpRatio);
+	//	}
+
+	//	Mat3x2 getMat3x2() const
+	//	{
+	//		return Mat3x2::Scale(m_scale, -m_scale).translated(Window::BaseSize() * 0.5 - Vec2(m_scale, -m_scale) * m_pos);
+	//	}
+
+	//	Transformer2D createTransformer() const
+	//	{
+	//		return Transformer2D(getMat3x2(), true, Transformer2D::Target::PushCamera);
+	//	}
+	//};
 }
 
 /* example

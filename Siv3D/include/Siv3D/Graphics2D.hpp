@@ -126,5 +126,7 @@ namespace s3d
 		const Mat3x2& GetTransformCamera();
 
 		const Mat3x2& GetTransformScreen();
+
+		double GetMaxScaling();
 	}
 }

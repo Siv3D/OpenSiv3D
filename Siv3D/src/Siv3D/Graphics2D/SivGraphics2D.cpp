@@ -98,5 +98,10 @@ namespace s3d
 		{
 			return Siv3DEngine::GetRenderer2D()->getTransformScreen();
 		}
+
+		double GetMaxScaling()
+		{
+			return Siv3DEngine::GetRenderer2D()->getMaxScaling();
+		}
 	}
 }
