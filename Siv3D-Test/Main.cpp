@@ -5,7 +5,11 @@ void Main()
 {
 	Image image(U"example/windmill.png");
 
-	const Texture texture(image.border(20, 30, 40, 50));
+	Image result;
+
+	ImageProcessing::Canny(image, result, 5, 200);
+
+	const Texture texture(result);
 
 	while (System::Update())
 	{

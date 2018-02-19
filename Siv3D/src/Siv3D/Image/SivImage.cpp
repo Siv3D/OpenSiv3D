@@ -2432,5 +2432,179 @@ namespace s3d
 
 			return result;
 		}
+
+		void Sobel(const Image& src, Image& dst, const int32 dx, const int32 dy, int32 apertureSize)
+		{
+			// 1. パラメータチェック
+			{
+				if (!src)
+				{
+					return;
+				}
+
+				if (&src == &dst)
+				{
+					return;
+				}
+
+				if (apertureSize % 2 == 0)
+				{
+					++apertureSize;
+				}
+			}
+
+			// 2. 出力画像のサイズ変更
+			{
+				dst.resize(src.size());
+
+				::memcpy(dst.data(), src.data(), dst.size_bytes());
+			}
+
+			// 3. 処理
+			{
+				cv::Mat_<uint8> gray(src.height(), src.width());
+
+				detail::ToGrayScale(src, gray);
+
+				cv::Mat_<uint8> detected_edges;
+
+				cv::Sobel(gray, detected_edges, CV_8U, dx, dy, apertureSize);
+
+				{
+					Color* pDst = dst.data();
+
+					const int32 height = src.height(), width = src.width();
+
+					for (int32 y = 0; y < height; ++y)
+					{
+						const uint8* line = &detected_edges(y, 0);
+
+						for (int32 x = 0; x < width; ++x)
+						{
+							pDst->r = pDst->g = pDst->b = line[x];
+
+							++pDst;
+						}
+					}
+				}
+			}
+		}
+
+		void Laplacian(const Image& src, Image& dst, int32 apertureSize)
+		{
+			// 1. パラメータチェック
+			{
+				if (!src)
+				{
+					return;
+				}
+
+				if (&src == &dst)
+				{
+					return;
+				}
+
+				if (apertureSize % 2 == 0)
+				{
+					++apertureSize;
+				}
+			}
+
+			// 2. 出力画像のサイズ変更
+			{
+				dst.resize(src.size());
+
+				::memcpy(dst.data(), src.data(), dst.size_bytes());
+			}
+
+			// 3. 処理
+			{
+				cv::Mat_<uint8> gray(src.height(), src.width());
+
+				detail::ToGrayScale(src, gray);
+
+				cv::Mat_<uint8> detected_edges;
+
+				cv::Laplacian(gray, detected_edges, CV_8U, apertureSize);
+
+				{
+					Color* pDst = dst.data();
+
+					const int32 height = src.height(), width = src.width();
+
+					for (int32 y = 0; y < height; ++y)
+					{
+						const uint8* line = &detected_edges(y, 0);
+
+						for (int32 x = 0; x < width; ++x)
+						{
+							pDst->r = pDst->g = pDst->b = line[x];
+
+							++pDst;
+						}
+					}
+				}
+			}
+		}
+
+		void Canny(const Image& src, Image& dst, const uint8 lowThreshold, const uint8 highThreshold, int32 apertureSize, const bool useL2Gradient)
+		{
+			// 1. パラメータチェック
+			{
+				if (!src)
+				{
+					return;
+				}
+
+				if (&src == &dst)
+				{
+					return;
+				}
+
+				if (apertureSize % 2 == 0)
+				{
+					++apertureSize;
+				}
+			}
+
+			// 2. 出力画像のサイズ変更
+			{
+				dst.resize(src.size());
+
+				::memcpy(dst.data(), src.data(), dst.size_bytes());
+			}
+
+			// 3. 処理
+			{
+				cv::Mat_<uint8> gray(src.height(), src.width());
+
+				detail::ToGrayScale(src, gray);
+
+				cv::Mat_<uint8> detected_edges;
+
+				cv::blur(gray, detected_edges, cv::Size(3, 3));
+
+				cv::Canny(detected_edges, detected_edges, lowThreshold, highThreshold, apertureSize, useL2Gradient);
+
+				{
+					Color* pDst = dst.data();
+
+					const int32 height = src.height(), width = src.width();
+
+					for (int32 y = 0; y < height; ++y)
+					{
+						const uint8* line = &detected_edges(y, 0);
+
+						for (int32 x = 0; x < width; ++x)
+						{
+							pDst->r = pDst->g = pDst->b = line[x];
+
+							++pDst;
+						}
+					}
+				}
+			}
+		}
+
 	}
 }
