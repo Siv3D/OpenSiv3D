@@ -1034,7 +1034,6 @@ namespace s3d
 		/// </returns>
 		Image brightened(int32 level) const;
 
-
 		Image& mirror();
 
 		Image mirrored() const;
@@ -1153,33 +1152,33 @@ namespace s3d
 
 		Image floodFilled(const Point& pos, const Color& color, FloodFillConnectivity connectivity = FloodFillConnectivity::Value4, int32 lowerDifference = 0, int32 upperDifference = 0) const;
 
-		//Image& scale(int32 _width, int32 _height, Interpolation interpolation = Interpolation::Unspecified);
+		Image& scale(int32 width, int32 height, Interpolation interpolation = Interpolation::Unspecified);
 
-		//Image scaled(int32 _width, int32 _height, Interpolation interpolation = Interpolation::Unspecified) const;
+		Image scaled(int32 width, int32 height, Interpolation interpolation = Interpolation::Unspecified) const;
 
-		//Image& scale(const Size& size, Interpolation interpolation = Interpolation::Unspecified);
+		Image& scale(const Size& size, Interpolation interpolation = Interpolation::Unspecified);
 
-		//Image scaled(const Size& size, Interpolation interpolation = Interpolation::Unspecified) const;
+		Image scaled(const Size& size, Interpolation interpolation = Interpolation::Unspecified) const;
 
-		//Image& scale(double scaling, Interpolation interpolation = Interpolation::Unspecified);
+		Image& scale(double scaling, Interpolation interpolation = Interpolation::Unspecified);
 
-		//Image scaled(double scaling, Interpolation interpolation = Interpolation::Unspecified) const;
+		Image scaled(double scaling, Interpolation interpolation = Interpolation::Unspecified) const;
 
-		//Image& fit(int32 _width, int32 _height, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified);
+		Image& fit(int32 width, int32 height, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified);
 
-		//Image fitted(int32 _width, int32 _height, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified) const;
+		Image fitted(int32 width, int32 height, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified) const;
 
-		//Image& fit(const Size& size, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified);
+		Image& fit(const Size& size, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified);
 
-		//Image fitted(const Size& size, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified) const;
+		Image fitted(const Size& size, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified) const;
 
-		//Image& border(int32 thickness, const Color& color = Palette::White);
+		Image& border(int32 thickness, const Color& color = Palette::White);
 
-		//Image bordered(int32 thickness, const Color& color = Palette::White) const;
+		Image bordered(int32 thickness, const Color& color = Palette::White) const;
 
-		//Image& border(int32 left, int32 top, int32 right, int32 bottom, const Color& color = Palette::White);
+		Image& border(int32 top, int32 right, int32 bottom, int32 left, const Color& color = Palette::White);
 
-		//Image bordered(int32 left, int32 top, int32 right, int32 bottom, const Color& color = Palette::White) const;
+		Image bordered(int32 top, int32 right, int32 bottom, int32 left, const Color& color = Palette::White) const;
 	};
 }
 
