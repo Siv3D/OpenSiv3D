@@ -288,6 +288,18 @@ namespace s3d
 			}
 		}
 
+		m_holes.clear();
+
+		for (auto& hole : m_polygon.inners())
+		{
+			m_holes.emplace_back();
+
+			for (auto& point : hole)
+			{
+				m_holes.back().push_back(point);
+			}
+		}
+
 		m_boundingRect = detail::CalculateBoundingRect(m_vertices.data(), m_vertices.size());
 	}
 
@@ -322,6 +334,52 @@ namespace s3d
 			vertex.set(x, y);
 		}
 
+		m_holes.clear();
+
+		for (auto& hole : m_polygon.inners())
+		{
+			m_holes.emplace_back();
+
+			for (auto& point : hole)
+			{
+				m_holes.back().push_back(point);
+			}
+		}
+
+		m_boundingRect = detail::CalculateBoundingRect(m_vertices.data(), m_vertices.size());
+	}
+
+	void Polygon::CPolygon::scale(const double s)
+	{
+		for (auto& point : m_polygon.outer())
+		{
+			point *= s;
+		}
+
+		for (auto& hole : m_polygon.inners())
+		{
+			for (auto& point : hole)
+			{
+				point *= s;
+			}
+		}
+
+		for (auto& hole : m_holes)
+		{
+			for (auto& point : hole)
+			{
+				point *= s;
+			}
+		}
+
+		const float sf = static_cast<float>(s);
+
+		for (auto& point : m_vertices)
+		{
+			point *= sf;
+		}
+
+		// [Siv3D ToDo] 不要に
 		m_boundingRect = detail::CalculateBoundingRect(m_vertices.data(), m_vertices.size());
 	}
 

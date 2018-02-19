@@ -210,6 +210,22 @@ namespace s3d
 		return *this;
 	}
 
+	Polygon Polygon::scaled(const double s) const
+	{
+		Polygon result(*this);
+
+		result.scale(s);
+
+		return result;
+	}
+
+	Polygon& Polygon::scale(const double s)
+	{
+		pImpl->scale(s);
+
+		return *this;
+	}
+
 	double Polygon::area() const
 	{
 		return pImpl->area();

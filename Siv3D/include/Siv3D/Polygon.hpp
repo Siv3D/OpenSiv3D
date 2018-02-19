@@ -105,6 +105,9 @@ namespace s3d
 
 		Polygon& transform(double s, double c, const Vec2& pos);
 
+		Polygon scaled(double s) const;
+
+		Polygon& scale(double s);
 
 		double area() const;
 

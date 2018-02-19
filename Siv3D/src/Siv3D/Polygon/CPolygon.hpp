@@ -63,6 +63,8 @@ namespace s3d
 
 		void transform(double s, double c, const Vec2& pos);
 
+		void scale(double s);
+
 		double area() const;
 
 		double perimeter() const;
