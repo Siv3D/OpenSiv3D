@@ -803,6 +803,100 @@ namespace s3d
 		}
 	}
 
+	size_t P2Body::num_shapes() const
+	{
+		if (isEmpty())
+		{
+			return 0;
+		}
+
+		return pImpl->getShapes().size();
+	}
+
+	P2Shape& P2Body::shape(size_t index)
+	{
+		if (isEmpty())
+		{
+			throw std::out_of_range("P2Body::shape() P2Body is empty.");
+		}
+
+		return *pImpl->getShapes()[index];
+	}
+
+	const P2Shape& P2Body::shape(size_t index) const
+	{
+		if (isEmpty())
+		{
+			throw std::out_of_range("P2Body::shape() P2Body is empty.");
+		}
+
+		return *pImpl->getShapes()[index];
+	}
+
+
+	void P2Shape::setDensity(double density)
+	{
+		for (auto& fixture : m_fixtures.fixtures)
+		{
+			fixture->SetDensity(static_cast<float32>(density));
+		}
+	}
+
+	double P2Shape::getDensity() const
+	{
+		return m_fixtures.fixtures[0]->GetDensity();
+	}
+
+	void P2Shape::setFriction(double friction)
+	{
+		for (auto& fixture : m_fixtures.fixtures)
+		{
+			fixture->SetFriction(static_cast<float32>(friction));
+		}
+	}
+
+	double P2Shape::getFriction() const
+	{
+		return m_fixtures.fixtures[0]->GetFriction();
+	}
+
+	void P2Shape::setRestitution(double restitution)
+	{
+		for (auto& fixture : m_fixtures.fixtures)
+		{
+			fixture->SetRestitution(static_cast<float32>(restitution));
+		}
+	}
+
+	double P2Shape::getRestitution() const
+	{
+		return m_fixtures.fixtures[0]->GetRestitution();
+	}
+
+	void P2Shape::setFilter(const P2Filter& filter)
+	{
+		b2Filter filterData;
+		filterData.categoryBits	= filter.categoryBits;
+		filterData.maskBits		= filter.maskBits;
+		filterData.groupIndex	= filter.groupIndex;
+
+		for (auto& fixture : m_fixtures.fixtures)
+		{
+			fixture->SetFilterData(filterData);
+		}
+	}
+
+	P2Filter P2Shape::getFilter() const
+	{
+		const auto& filterData = m_fixtures.fixtures[0]->GetFilterData();
+		P2Filter filter;
+		filter.categoryBits	= filterData.categoryBits;
+		filter.maskBits		= filterData.maskBits;
+		filter.groupIndex	= filterData.groupIndex;
+		return filter;
+	}
+
+
 
 	P2Line::P2Line(b2Body& body, const Line& line, const P2Material& material, const P2Filter& filter)
 	{

@@ -322,14 +322,22 @@ namespace s3d
 
 		void draw(const ColorF& color = Palette::White) const;
 
-		//PhysicsShape& shape(size_t index);
+		size_t num_shapes() const;
 
-		//const PhysicsShape& shape(size_t index) const;
+		P2Shape& shape(size_t index);
 
-		//template <class PShape, std::enable_if_t<std::is_base_of<PhysicsShape, PShape>::value>* = nullptr>
-		//std::shared_ptr<PShape> shapeAs(const size_t index) const;
+		const P2Shape& shape(size_t index) const;
 
-		//size_t num_shapes() const;
+		template <class PShape, std::enable_if_t<std::is_base_of_v<P2Shape, PShape>>* = nullptr>
+		std::shared_ptr<PShape> shapeAs(const size_t index) const
+		{
+			if (isEmpty())
+			{
+				throw std::out_of_range("P2Body::shapeAs() P2Body is empty.");
+			}
+
+			return std::dynamic_pointer_cast<PShape>(pImpl->getShapes()[index]);
+		}
 	};
 
 	struct P2Fixture
@@ -351,21 +359,21 @@ namespace s3d
 
 		virtual void draw(const ColorF& color) const = 0;
 
-		//void setDensity(double density);
+		void setDensity(double density);
 
-		//double getDensity() const;
+		double getDensity() const;
 
-		//void setFriction(double friction);
+		void setFriction(double friction);
 
-		//double getFriction() const;
+		double getFriction() const;
 
-		//void setRestitution(double restitution);
+		void setRestitution(double restitution);
 
-		//double getRestitution() const;
+		double getRestitution() const;
 
-		//void setFilter(const P2Filter& filter);
+		void setFilter(const P2Filter& filter);
 
-		//P2Filter getFilter() const;
+		P2Filter getFilter() const;
 	};
 
 	class P2Line : public P2Shape
