@@ -48,22 +48,27 @@ namespace s3d
 
 	void P2World::setSleepEnabled(const bool enabled)
 	{
-		pImpl->setSleepEnabled(enabled);
+		getData().SetAllowSleeping(enabled);
 	}
 
 	bool P2World::getSleepEnabled() const
 	{
-		return pImpl->getSleepEnabled();
+		return getData().GetAllowSleeping();
 	}
 
 	void P2World::setGravity(const Vec2& gravity)
 	{
-		pImpl->setGravity(gravity);
+		getData().SetGravity(detail::ToB2Vec2(gravity));
 	}
 
 	Vec2 P2World::getGravity() const
 	{
-		return pImpl->getGravity();
+		return detail::ToVec2(getData().GetGravity());
+	}
+
+	void P2World::shiftOrigin(const Vec2& newOrigin)
+	{
+		getData().ShiftOrigin(detail::ToB2Vec2(newOrigin));
 	}
 
 	void P2World::update(const double timeStep, const int32 velocityIterations, const int32 positionIterations) const
@@ -184,6 +189,11 @@ namespace s3d
 		return pImpl->getData();
 	}
 
+	const b2World& P2World::getData() const
+	{
+		return pImpl->getData();
+	}
+
 
 
 	P2BodyID P2World::CP2World::generateNextID()
@@ -195,26 +205,6 @@ namespace s3d
 		: m_world(detail::ToB2Vec2(gravity))
 	{
 		//m_world->SetContactListener(&m_contactListner);
-	}
-
-	void P2World::CP2World::setSleepEnabled(bool enabled)
-	{
-		m_world.SetAllowSleeping(enabled);
-	}
-
-	bool P2World::CP2World::getSleepEnabled() const
-	{
-		return m_world.GetAllowSleeping();
-	}
-
-	void P2World::CP2World::setGravity(const Vec2& gravity)
-	{
-		m_world.SetGravity(detail::ToB2Vec2(gravity));
-	}
-
-	Vec2 P2World::CP2World::getGravity() const
-	{
-		return detail::ToVec2(m_world.GetGravity());
 	}
 
 	void P2World::CP2World::update(double timeStep, int32 velocityIterations, int32 positionIterations)
@@ -300,6 +290,11 @@ namespace s3d
 	}
 
 	b2World& P2World::CP2World::getData()
+	{
+		return m_world;
+	}
+
+	const b2World& P2World::CP2World::getData() const
 	{
 		return m_world;
 	}
@@ -428,6 +423,181 @@ namespace s3d
 		return *this;
 	}
 
+	void P2Body::setSleepEnabled(bool enabled)
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+
+		pImpl->getBody().SetSleepingAllowed(enabled);
+	}
+
+	bool P2Body::getSleepEnabled() const
+	{
+		if (isEmpty())
+		{
+			return true;
+		}
+
+		return pImpl->getBody().IsSleepingAllowed();
+	}
+
+	void P2Body::setAwake(bool awake)
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+
+		pImpl->getBody().SetAwake(awake);
+	}
+
+	bool P2Body::isAwake() const
+	{
+		if (isEmpty())
+		{
+			return true;
+		}
+
+		return pImpl->getBody().IsAwake();
+	}
+
+	void P2Body::setPos(double x, double y)
+	{
+		setPos(Vec2(x, y));
+	}
+
+	void P2Body::setPos(const Vec2& pos)
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+
+		pImpl->getBody().SetTransform(detail::ToB2Vec2(pos), pImpl->getBody().GetAngle());
+	}
+
+	void P2Body::moveBy(double x, double y)
+	{
+		moveBy(Vec2(x, y));
+	}
+
+	void P2Body::moveBy(const Vec2& v)
+	{
+		setPos(getPos() + v);
+	}
+
+	void P2Body::setAngle(double angle)
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+
+		pImpl->getBody().SetTransform(pImpl->getBody().GetPosition(), static_cast<float32>(angle));
+	}
+
+	void P2Body::rotateBy(double angle)
+	{
+		setAngle(getAngle() + angle);
+	}
+
+	void P2Body::setTransform(double x, double y, double angle)
+	{
+		setTransform(Vec2(x, y), angle);
+	}
+
+	void P2Body::setTransform(const Vec2& pos, double angle)
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+
+		pImpl->getBody().SetTransform(detail::ToB2Vec2(pos), static_cast<float32>(angle));
+	}
+
+	void P2Body::applyForce(const Vec2& force)
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+
+		pImpl->getBody().ApplyForceToCenter(detail::ToB2Vec2(force), true);
+	}
+
+	void P2Body::applyForce(const Vec2& force, const Vec2& offset)
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+
+		pImpl->getBody().ApplyForce(detail::ToB2Vec2(force), pImpl->getBody().GetWorldCenter() + detail::ToB2Vec2(offset), true);
+
+	}
+
+	void P2Body::applyForceAt(const Vec2& force, const Vec2& pos)
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+
+		pImpl->getBody().ApplyForce(detail::ToB2Vec2(force), detail::ToB2Vec2(pos), true);
+	}
+
+	void P2Body::applyLinearImpulse(const Vec2& force)
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+
+		pImpl->getBody().ApplyLinearImpulseToCenter(detail::ToB2Vec2(force), true);
+	}
+
+	void P2Body::applyLinearImpulse(const Vec2& force, const Vec2& offset)
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+
+		pImpl->getBody().ApplyLinearImpulse(detail::ToB2Vec2(force), pImpl->getBody().GetWorldCenter() + detail::ToB2Vec2(offset), true);
+	}
+
+	void P2Body::applyLinearImpulseAt(const Vec2& force, const Vec2& pos)
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+
+		pImpl->getBody().ApplyLinearImpulse(detail::ToB2Vec2(force), detail::ToB2Vec2(pos), true);
+	}
+
+	void P2Body::applyTorque(double torque)
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+
+		pImpl->getBody().ApplyTorque(static_cast<float32>(torque), true);
+	}
+
+	void P2Body::applyAngularImpulse(double torque)
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+
+		pImpl->getBody().ApplyAngularImpulse(static_cast<float32>(torque), true);
+	}
 
 	Vec2 P2Body::getPos() const
 	{
@@ -449,6 +619,177 @@ namespace s3d
 		return pImpl->getBody().GetAngle();
 	}
 
+	std::pair<Vec2, double> P2Body::getTransform() const
+	{
+		if (isEmpty())
+		{
+			return{ Vec2(0,0), 0.0 };
+		}
+
+		return{ detail::ToVec2(pImpl->getBody().GetPosition()), pImpl->getBody().GetAngle() };
+	}
+
+	void P2Body::setVelocity(const Vec2& v)
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+
+		return pImpl->getBody().SetLinearVelocity(detail::ToB2Vec2(v));
+	}
+
+	Vec2 P2Body::getVelocity() const
+	{
+		if (isEmpty())
+		{
+			return Vec2(0, 0);
+		}
+
+		return detail::ToVec2(pImpl->getBody().GetLinearVelocity());
+	}
+
+	void P2Body::setAngularVelocity(double omega)
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+
+		return pImpl->getBody().SetAngularVelocity(static_cast<float32>(omega));
+	}
+
+	double P2Body::getAngularVelocity() const
+	{
+		if (isEmpty())
+		{
+			return 0.0;
+		}
+
+		return pImpl->getBody().GetAngularVelocity();
+	}
+
+	void P2Body::setDamping(double damping)
+	{
+		if(isEmpty())
+		{
+			return;
+		}
+
+		pImpl->getBody().SetLinearDamping(static_cast<float32>(damping));
+	}
+
+	double P2Body::getDamping() const
+	{
+		if (isEmpty())
+		{
+			return 0.0;
+		}
+
+		return pImpl->getBody().GetLinearDamping();
+	}
+
+	void P2Body::setAngularDamping(double damping)
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+
+		pImpl->getBody().SetAngularDamping(static_cast<float32>(damping));
+	}
+
+	double P2Body::getAngularDamping() const
+	{
+		if (isEmpty())
+		{
+			return 0.0;
+		}
+
+		return pImpl->getBody().GetAngularDamping();
+	}
+
+	void P2Body::setGravityScale(double scale)
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+
+		pImpl->getBody().SetGravityScale(static_cast<float32>(scale));
+	}
+
+	double P2Body::getGravityScale() const
+	{
+		if (isEmpty())
+		{
+			return 1.0;
+		}
+
+		return pImpl->getBody().GetGravityScale();
+	}
+
+	double P2Body::getMass() const
+	{
+		if (isEmpty())
+		{
+			return 0.0;
+		}
+
+		return pImpl->getBody().GetMass();
+	}
+
+	double P2Body::getInertia() const
+	{
+		if (isEmpty())
+		{
+			return 0.0;
+		}
+
+		return pImpl->getBody().GetInertia();
+	}
+
+	void P2Body::setBodyType(P2BodyType bodyType)
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+
+		return pImpl->getBody().SetType(static_cast<b2BodyType>(bodyType));
+	}
+
+	P2BodyType P2Body::getBodyType() const
+	{
+		if (isEmpty())
+		{
+			return P2BodyType::Static;
+		}
+
+		return static_cast<P2BodyType>(pImpl->getBody().GetType());
+	}
+
+	void P2Body::setFixedRotation(bool fixedRotation)
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+
+		return pImpl->getBody().SetFixedRotation(fixedRotation);
+	}
+
+	bool P2Body::isFixedRotation() const
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		return pImpl->getBody().IsFixedRotation();
+	}
+
+
 	void P2Body::draw(const ColorF& color) const
 	{
 		if (isEmpty())
@@ -461,9 +802,6 @@ namespace s3d
 			shape->draw(color);
 		}
 	}
-
-
-
 
 
 	P2Line::P2Line(b2Body& body, const Line& line, const P2Material& material, const P2Filter& filter)
@@ -801,6 +1139,13 @@ namespace s3d
 		assert(m_body);
 
 		m_shapes.push_back(std::make_shared<P2Polygon>(*m_body, polygon, material, filter));
+	}
+
+	b2Body& P2Body::CP2Body::getBody()
+	{
+		assert(m_body);
+
+		return *m_body;
 	}
 
 	const b2Body& P2Body::CP2Body::getBody() const

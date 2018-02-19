@@ -110,6 +110,8 @@ namespace s3d
 
 		Vec2 getGravity() const;
 
+		void shiftOrigin(const Vec2& newOrigin);
+
 		void update(double timeStep = System::DeltaTime(), int32 velocityIterations = 6, int32 positionIterations = 2) const;
 
 		P2Body createEmpty(const Vec2& center, P2BodyType bodyType = P2BodyType::Dynamic);
@@ -154,10 +156,9 @@ namespace s3d
 
 		P2Body createPolygon(const Vec2& center, const Polygon& polygon, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-
-
-
 		b2World& getData();
+
+		const b2World& getData() const;
 	};
 
 	class P2World::CP2World
@@ -175,14 +176,6 @@ namespace s3d
 	public:
 
 		CP2World(const Vec2& gravity);
-
-		void setSleepEnabled(bool enabled);
-
-		bool getSleepEnabled() const;
-
-		void setGravity(const Vec2& gravity);
-
-		Vec2 getGravity() const;
 
 		void update(double timeStep, int32 velocityIterations, int32 positionIterations);
 
@@ -204,10 +197,11 @@ namespace s3d
 
 		P2Body createPolygon(P2World& world, const Vec2& center, const Polygon& polygon, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
 
-
 		//const Array<PhysicsContact>& getContacts() const;
 
 		b2World& getData();
+
+		const b2World& getData() const;
 	};
 
 	class P2Body
@@ -248,83 +242,83 @@ namespace s3d
 
 		P2Body& addPolygon(const Polygon& polygon, const P2Material& material, const P2Filter& filter);
 
-		//void setSleepingAllowed(bool allowed);
+		void setSleepEnabled(bool enabled);
 
-		//bool isSleepingAllowed() const;
+		bool getSleepEnabled() const;
 
-		//void setAwake(bool awake);
+		void setAwake(bool awake);
 
-		//bool isAwake() const;
+		bool isAwake() const;
 
-		//void setPos(double x, double y);
+		void setPos(double x, double y);
 
-		//void setPos(const Vec2& pos);
+		void setPos(const Vec2& pos);
 
-		//void moveBy(double x, double y);
+		void moveBy(double x, double y);
 
-		//void moveBy(const Vec2& v);
+		void moveBy(const Vec2& v);
 
-		//void setAngle(double angle);
+		void setAngle(double angle);
 
-		//void rotateBy(double angle);
+		void rotateBy(double angle);
 
-		//void setTransform(double x, double y, double angle);
+		void setTransform(double x, double y, double angle);
 
-		//void setTransform(const Vec2& pos, double angle);
+		void setTransform(const Vec2& pos, double angle);
 
-		//void applyForce(const Vec2& force);
+		void applyForce(const Vec2& force);
 
-		//void applyForce(const Vec2& force, const Vec2& offset);
+		void applyForce(const Vec2& force, const Vec2& offset);
 
-		//void applyForceAt(const Vec2& force, const Vec2& pos);
+		void applyForceAt(const Vec2& force, const Vec2& pos);
 
-		//void applyLinearImpulse(const Vec2& force);
+		void applyLinearImpulse(const Vec2& force);
 
-		//void applyLinearImpulse(const Vec2& force, const Vec2& offset);
+		void applyLinearImpulse(const Vec2& force, const Vec2& offset);
 
-		//void applyLinearImpulseAt(const Vec2& force, const Vec2& offset);
+		void applyLinearImpulseAt(const Vec2& force, const Vec2& pos);
 
-		//void applyTorque(double torque);
+		void applyTorque(double torque);
 
-		//void applyAngularImpulse(double torque);
+		void applyAngularImpulse(double torque);
 
 		Vec2 getPos() const;
 
 		double getAngle() const;
 
-		//std::pair<Vec2, double> getTransform() const;
+		std::pair<Vec2, double> getTransform() const;
 
-		//void setVelocity(const Vec2& v);
+		void setVelocity(const Vec2& v);
 
-		//Vec2 getVelocity() const;
+		Vec2 getVelocity() const;
 
-		//void setAngularVelocity(double omega);
+		void setAngularVelocity(double omega);
 
-		//double getAngularVelocity() const;
+		double getAngularVelocity() const;
 
-		//void setDamping(double damping);
+		void setDamping(double damping);
 
-		//double getDamping() const;
+		double getDamping() const;
 
-		//void setAngularDamping(double damping);
+		void setAngularDamping(double damping);
 
-		//double getAngularDamping() const;
+		double getAngularDamping() const;
 
-		//void setGravityScale(double scale);
+		void setGravityScale(double scale);
 
-		//double getGravityScale() const;
+		double getGravityScale() const;
 
-		//double getMass() const;
+		double getMass() const;
 
-		//double getInertia() const;
+		double getInertia() const;
 
-		//void setBodyType(PhysicsBodyType bodyType);
+		void setBodyType(P2BodyType bodyType);
 
-		//PhysicsBodyType getBodyType() const;
+		P2BodyType getBodyType() const;
 
-		//void setFixedRotation(bool fixedRotation);
+		void setFixedRotation(bool fixedRotation);
 
-		//bool isFixedRotation() const;
+		bool isFixedRotation() const;
 
 		void draw(const ColorF& color = Palette::White) const;
 
@@ -534,6 +528,8 @@ namespace s3d
 		void addQuad(const Quad& quad, const P2Material& material, const P2Filter& filter);
 
 		void addPolygon(const Polygon& polygon, const P2Material& material, const P2Filter& filter);
+
+		b2Body& getBody();
 
 		const b2Body& getBody() const;
 
