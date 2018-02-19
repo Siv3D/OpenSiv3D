@@ -106,5 +106,25 @@ namespace s3d
 		/// 輪郭から構成された Polygon の Array
 		/// </returns>
 		Array<Polygon> FindContours(const Image& image, bool useAlpha = false, uint32 threshold = 127);
+
+		void Sobel(const Image& src, Image& dst, int32 dx = 1, int32 dy = 1, int32 apertureSize = 3);
+
+		void Laplacian(const Image& src, Image& dst, int32 apertureSize = 3);
+
+		void Canny(const Image& src, Image& dst, uint8 lowThreshold, uint8 highThreshold, int32 apertureSize = 3, bool useL2Gradient = false);
+
+		//void EdgePreservingFilter(const Image& src, Image& dst, EdgePreservingFilterType filterType = EdgePreservingFilterType::Recursive, _Field_range_(0.0, 200.0) double sigma_s = 60, _Field_range_(0.0, 1.0) double sigma_r = 0.4);
+
+		//void DetailEnhance(const Image& src, Image& dst, _Field_range_(0.0, 200.0) double sigma_s = 10, _Field_range_(0.0, 1.0) double sigma_r = 0.15);
+
+		//void Stylization(const Image& src, Image& dst, _Field_range_(0.0, 200.0) double sigma_s = 60, _Field_range_(0.0, 1.0) double sigma_r = 0.07);
+
+		//ColorF SSIM(const Image& image1, const Image& image2);
+
+		//Array<Rect> DetectFaces(const Image& image, CascadeType cascadeType = CascadeType::Photo, int32 minNeighbors = 3, const Point& minSize = { 30, 30 }, const Point& maxSize = { 0, 0 });
+
+		//void Inpaint(const Image& image, const Image& maskImage, Image& result, int32 radius = 2);
+
+		//void Inpaint(const Image& image, const Grid<uint8>& maskImage, Image& result, int32 radius = 2);
 	}
 }

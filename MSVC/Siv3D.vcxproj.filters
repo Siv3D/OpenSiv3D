@@ -668,6 +668,57 @@
     <Filter Include="src\Siv3D\Painting">
       <UniqueIdentifier>{878f6fb4-5ca8-488e-b5b4-e896c465bbf2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\Box2D">
+      <UniqueIdentifier>{836e8609-c63b-421c-bd38-c0c887243d4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\Box2D\Collision">
+      <UniqueIdentifier>{4bd7806c-7f1c-4978-8496-4d7840aefb33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\Box2D\Common">
+      <UniqueIdentifier>{e8e43626-a945-484f-aacc-84dee79c1d3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\Box2D\Dynamics">
+      <UniqueIdentifier>{a99d7a84-571a-4da9-ac3d-3eab385f4e48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\Box2D\Rope">
+      <UniqueIdentifier>{e852c682-874f-431b-824d-3d2331c48801}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\Box2D\Collision\Shapes">
+      <UniqueIdentifier>{33c5971f-3e3a-44ab-af60-ad6d6dbf50a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\Box2D\Dynamics\Contacts">
+      <UniqueIdentifier>{aa56cb6e-72d3-480f-96fe-348e097bd7fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\Box2D\Dynamics\Joints">
+      <UniqueIdentifier>{87009ed8-e213-4a66-92e3-68e31ab81700}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ThirdParty\Box2D">
+      <UniqueIdentifier>{a9905dcc-f79d-46ff-a1dd-22c973a5700b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ThirdParty\Box2D\Collision">
+      <UniqueIdentifier>{7cdf9baa-e1b7-4934-a255-19658ffee0e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ThirdParty\Box2D\Collision\Shapes">
+      <UniqueIdentifier>{0e835f7b-5309-4add-893b-874ac8d89bbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ThirdParty\Box2D\Common">
+      <UniqueIdentifier>{ed404ed6-dc52-4660-a588-7c80d557405b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ThirdParty\Box2D\Dynamics">
+      <UniqueIdentifier>{4852edce-9dcf-40c6-b8fb-6f81ebd5653f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ThirdParty\Box2D\Rope">
+      <UniqueIdentifier>{2e6d1ffa-15cf-4136-8f40-2285aa459c58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ThirdParty\Box2D\Dynamics\Contacts">
+      <UniqueIdentifier>{28530b4a-78ca-4795-aed6-a1de06a37b25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ThirdParty\Box2D\Dynamics\Joints">
+      <UniqueIdentifier>{73286bee-fa5f-4cae-80af-fca1ae5aca34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Physics2D">
+      <UniqueIdentifier>{9e1d4459-8ce5-4187-844f-095699b5cb08}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -1737,6 +1788,147 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Painting\PaintShape.cpp">
       <Filter>src\Siv3D\Painting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Collision\Shapes\b2ChainShape.cpp">
+      <Filter>src\ThirdParty\Box2D\Collision\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Collision\Shapes\b2CircleShape.cpp">
+      <Filter>src\ThirdParty\Box2D\Collision\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Collision\Shapes\b2EdgeShape.cpp">
+      <Filter>src\ThirdParty\Box2D\Collision\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Collision\Shapes\b2PolygonShape.cpp">
+      <Filter>src\ThirdParty\Box2D\Collision\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Collision\b2CollideEdge.cpp">
+      <Filter>src\ThirdParty\Box2D\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Collision\b2CollidePolygon.cpp">
+      <Filter>src\ThirdParty\Box2D\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Collision\b2Collision.cpp">
+      <Filter>src\ThirdParty\Box2D\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Collision\b2Distance.cpp">
+      <Filter>src\ThirdParty\Box2D\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Collision\b2DynamicTree.cpp">
+      <Filter>src\ThirdParty\Box2D\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Collision\b2TimeOfImpact.cpp">
+      <Filter>src\ThirdParty\Box2D\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Collision\b2BroadPhase.cpp">
+      <Filter>src\ThirdParty\Box2D\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Collision\b2CollideCircle.cpp">
+      <Filter>src\ThirdParty\Box2D\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Common\b2Settings.cpp">
+      <Filter>src\ThirdParty\Box2D\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Common\b2StackAllocator.cpp">
+      <Filter>src\ThirdParty\Box2D\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Common\b2Timer.cpp">
+      <Filter>src\ThirdParty\Box2D\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Common\b2BlockAllocator.cpp">
+      <Filter>src\ThirdParty\Box2D\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Common\b2Draw.cpp">
+      <Filter>src\ThirdParty\Box2D\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Common\b2Math.cpp">
+      <Filter>src\ThirdParty\Box2D\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Contacts\b2CircleContact.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics\Contacts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Contacts\b2Contact.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics\Contacts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Contacts\b2ContactSolver.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics\Contacts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Contacts\b2EdgeAndCircleContact.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics\Contacts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Contacts\b2EdgeAndPolygonContact.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics\Contacts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Contacts\b2PolygonAndCircleContact.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics\Contacts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Contacts\b2PolygonContact.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics\Contacts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Contacts\b2ChainAndCircleContact.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics\Contacts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Contacts\b2ChainAndPolygonContact.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics\Contacts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Joints\b2RopeJoint.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics\Joints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Joints\b2RevoluteJoint.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics\Joints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Joints\b2PulleyJoint.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics\Joints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Joints\b2PrismaticJoint.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics\Joints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Joints\b2MouseJoint.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics\Joints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Joints\b2MotorJoint.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics\Joints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Joints\b2Joint.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics\Joints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Joints\b2GearJoint.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics\Joints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Joints\b2FrictionJoint.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics\Joints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Joints\b2DistanceJoint.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics\Joints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Joints\b2WheelJoint.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics\Joints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\Joints\b2WeldJoint.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics\Joints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\b2ContactManager.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\b2Fixture.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\b2Island.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\b2World.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\b2WorldCallbacks.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Dynamics\b2Body.cpp">
+      <Filter>src\ThirdParty\Box2D\Dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Rope\b2Rope.cpp">
+      <Filter>src\ThirdParty\Box2D\Rope</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\SivPhysics2D.cpp">
+      <Filter>src\Siv3D\Physics2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -3698,6 +3890,150 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Painting\PaintShape.hpp">
       <Filter>src\Siv3D\Painting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Collision\Shapes\b2ChainShape.h">
+      <Filter>include\ThirdParty\Box2D\Collision\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Collision\Shapes\b2CircleShape.h">
+      <Filter>include\ThirdParty\Box2D\Collision\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Collision\Shapes\b2EdgeShape.h">
+      <Filter>include\ThirdParty\Box2D\Collision\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Collision\Shapes\b2PolygonShape.h">
+      <Filter>include\ThirdParty\Box2D\Collision\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Collision\Shapes\b2Shape.h">
+      <Filter>include\ThirdParty\Box2D\Collision\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Collision\b2Collision.h">
+      <Filter>include\ThirdParty\Box2D\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Collision\b2Distance.h">
+      <Filter>include\ThirdParty\Box2D\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Collision\b2DynamicTree.h">
+      <Filter>include\ThirdParty\Box2D\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Collision\b2TimeOfImpact.h">
+      <Filter>include\ThirdParty\Box2D\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Collision\b2BroadPhase.h">
+      <Filter>include\ThirdParty\Box2D\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Common\b2GrowableStack.h">
+      <Filter>include\ThirdParty\Box2D\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Common\b2Math.h">
+      <Filter>include\ThirdParty\Box2D\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Common\b2Settings.h">
+      <Filter>include\ThirdParty\Box2D\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Common\b2StackAllocator.h">
+      <Filter>include\ThirdParty\Box2D\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Common\b2Timer.h">
+      <Filter>include\ThirdParty\Box2D\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Common\b2BlockAllocator.h">
+      <Filter>include\ThirdParty\Box2D\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Common\b2Draw.h">
+      <Filter>include\ThirdParty\Box2D\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\Contacts\b2CircleContact.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\Contacts\b2Contact.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\Contacts\b2ContactSolver.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\Contacts\b2EdgeAndCircleContact.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\Contacts\b2EdgeAndPolygonContact.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\Contacts\b2PolygonAndCircleContact.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\Contacts\b2PolygonContact.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\Contacts\b2ChainAndCircleContact.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\Contacts\b2ChainAndPolygonContact.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics\Contacts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\Joints\b2GearJoint.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics\Joints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\Joints\b2Joint.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics\Joints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\Joints\b2MotorJoint.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics\Joints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\Joints\b2MouseJoint.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics\Joints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\Joints\b2PrismaticJoint.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics\Joints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\Joints\b2PulleyJoint.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics\Joints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\Joints\b2RevoluteJoint.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics\Joints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\Joints\b2RopeJoint.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics\Joints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\Joints\b2WeldJoint.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics\Joints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\Joints\b2WheelJoint.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics\Joints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\Joints\b2DistanceJoint.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics\Joints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\Joints\b2FrictionJoint.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics\Joints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\b2Fixture.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\b2Island.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\b2TimeStep.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\b2World.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\b2WorldCallbacks.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\b2Body.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Dynamics\b2ContactManager.h">
+      <Filter>include\ThirdParty\Box2D\Dynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Rope\b2Rope.h">
+      <Filter>include\ThirdParty\Box2D\Rope</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\Box2D\Box2D.h">
+      <Filter>include\ThirdParty\Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Physics2D.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -61,6 +61,10 @@ namespace s3d
 
 		void rotateAt(const Vec2& pos, double angle);
 
+		void transform(double s, double c, const Vec2& pos);
+
+		void scale(double s);
+
 		double area() const;
 
 		double perimeter() const;
@@ -96,6 +100,8 @@ namespace s3d
 		void drawFrame(double thickness, const ColorF& color) const;
 
 		void drawFrame(const Vec2& offset, double thickness, const ColorF& color) const;
+
+		void drawTransformed(double s, double c, const Vec2& pos, const ColorF& color) const;
 
 		const gPolygon& getPolygon() const;
 	};
