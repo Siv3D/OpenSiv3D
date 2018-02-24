@@ -27,6 +27,8 @@
 
 namespace s3d
 {
+	class P2RevoluteJoint;
+
 	using P2BodyID = uint64;
 
 	struct P2Material
@@ -156,6 +158,8 @@ namespace s3d
 
 		P2Body createPolygon(const Vec2& center, const Polygon& polygon, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
+		P2RevoluteJoint createRevoluteJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos);
+
 		b2World& getData();
 
 		const b2World& getData() const;
@@ -196,6 +200,8 @@ namespace s3d
 		P2Body createQuad(P2World& world, const Vec2& center, const Quad& quad, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
 
 		P2Body createPolygon(P2World& world, const Vec2& center, const Polygon& polygon, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
+
+		P2RevoluteJoint createRevoluteJoint(P2World& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos);
 
 		//const Array<PhysicsContact>& getContacts() const;
 
@@ -330,6 +336,8 @@ namespace s3d
 
 		template <class PShape, std::enable_if_t<std::is_base_of_v<P2Shape, PShape>>* = nullptr>
 		std::shared_ptr<PShape> shapeAs(const size_t index) const;
+
+		b2Body* getBodyPtr() const;
 	};
 
 	struct P2Fixture
@@ -533,6 +541,8 @@ namespace s3d
 
 		const b2Body& getBody() const;
 
+		b2Body* getBodyPtr() const;
+
 		const Array<std::shared_ptr<P2Shape>>& getShapes() const;
 	};
 	
@@ -546,4 +556,52 @@ namespace s3d
 		
 		return std::dynamic_pointer_cast<PShape>(pImpl->getShapes()[index]);
 	}
+
+	class P2RevoluteJoint
+	{
+	private:
+
+		class CP2RevoluteJoint;
+
+		std::shared_ptr<CP2RevoluteJoint> pImpl;
+
+		friend class P2World;
+
+		P2RevoluteJoint(P2World& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos);
+
+	public:
+
+		P2RevoluteJoint() = default;
+
+		void setMotorEnabled(bool enabled);
+
+		bool getMotorEnabled() const;
+
+		void setMotorSpeed(double speed);
+
+		double getMotorSpeed() const;
+
+		void setMaxMotorTorque(double torque);
+
+		double getMaxMotorTorque() const;
+	};
+
+	class P2RevoluteJoint::CP2RevoluteJoint
+	{
+	private:
+
+		b2RevoluteJoint* m_joint = nullptr;
+
+		P2World m_world;
+
+	public:
+
+		CP2RevoluteJoint(P2World& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos);
+
+		~CP2RevoluteJoint();
+
+		b2RevoluteJoint& getJoint();
+
+		const b2RevoluteJoint& getJoint() const;
+	};
 }

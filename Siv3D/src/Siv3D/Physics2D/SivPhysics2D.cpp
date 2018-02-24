@@ -182,6 +182,11 @@ namespace s3d
 		return pImpl->createPolygon(*this, center, polygon, material, filter, bodyType);
 	}
 
+	P2RevoluteJoint P2World::createRevoluteJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos)
+	{
+		return pImpl->createRevoluteJoint(*this, bodyA, bodyB, anchorPos);
+	}
+
 
 
 	b2World& P2World::getData()
@@ -287,6 +292,11 @@ namespace s3d
 		body.addPolygon(polygon, material, filter);
 
 		return body;
+	}
+
+	P2RevoluteJoint P2World::CP2World::createRevoluteJoint(P2World& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos)
+	{
+		return P2RevoluteJoint(world, bodyA, bodyB, anchorPos);
 	}
 
 	b2World& P2World::CP2World::getData()
@@ -833,6 +843,11 @@ namespace s3d
 		return *pImpl->getShapes()[index];
 	}
 
+	b2Body* P2Body::getBodyPtr() const
+	{
+		return pImpl->getBodyPtr();
+	}
+
 
 	void P2Shape::setDensity(double density)
 	{
@@ -1249,8 +1264,113 @@ namespace s3d
 		return *m_body;
 	}
 
+	b2Body* P2Body::CP2Body::getBodyPtr() const
+	{
+		assert(m_body);
+
+		return m_body;
+	}
+
 	const Array<std::shared_ptr<P2Shape>>& P2Body::CP2Body::getShapes() const
 	{
 		return m_shapes;
+	}
+
+	P2RevoluteJoint::P2RevoluteJoint(P2World& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos)
+		: pImpl(std::make_shared<CP2RevoluteJoint>(world, bodyA, bodyB, anchorPos))
+	{
+
+	}
+
+	void P2RevoluteJoint::setMotorEnabled(bool enabled)
+	{
+		if (!pImpl)
+		{
+			return;
+		}
+
+		pImpl->getJoint().EnableMotor(enabled);
+	}
+
+	bool P2RevoluteJoint::getMotorEnabled() const
+	{
+		if (!pImpl)
+		{
+			return false;
+		}
+
+		return pImpl->getJoint().IsMotorEnabled();
+	}
+
+	void P2RevoluteJoint::setMotorSpeed(double speed)
+	{
+		if (!pImpl)
+		{
+			return;
+		}
+
+		pImpl->getJoint().SetMotorSpeed(static_cast<float32>(speed));
+	}
+
+	double P2RevoluteJoint::getMotorSpeed() const
+	{
+		if (!pImpl)
+		{
+			return 0.0;
+		}
+
+		return pImpl->getJoint().GetMotorSpeed();
+	}
+
+	void P2RevoluteJoint::setMaxMotorTorque(double torque)
+	{
+		if (!pImpl)
+		{
+			return;
+		}
+
+		pImpl->getJoint().SetMaxMotorTorque(static_cast<float32>(torque));
+	}
+
+	double P2RevoluteJoint::getMaxMotorTorque() const
+	{
+		if (!pImpl)
+		{
+			return 0.0;
+		}
+
+		return pImpl->getJoint().GetMaxMotorTorque();
+	}
+
+	P2RevoluteJoint::CP2RevoluteJoint::CP2RevoluteJoint(P2World& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos)
+		: m_world(world)
+	{
+		b2RevoluteJointDef def;
+		def.Initialize(bodyA.getBodyPtr(), bodyB.getBodyPtr(), detail::ToB2Vec2(anchorPos));
+		m_joint = static_cast<b2RevoluteJoint*>(world.getData().CreateJoint(&def));
+	}
+
+	P2RevoluteJoint::CP2RevoluteJoint::~CP2RevoluteJoint()
+	{
+		if (!m_joint)
+		{
+			return;
+		}
+
+		m_world.getData().DestroyJoint(m_joint);
+	}
+
+	b2RevoluteJoint& P2RevoluteJoint::CP2RevoluteJoint::getJoint()
+	{
+		assert(m_joint);
+
+		return *m_joint;
+	}
+
+	const b2RevoluteJoint& P2RevoluteJoint::CP2RevoluteJoint::getJoint() const
+	{
+		assert(m_joint);
+
+		return *m_joint;
 	}
 }
