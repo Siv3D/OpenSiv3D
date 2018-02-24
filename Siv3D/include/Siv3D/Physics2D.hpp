@@ -10,8 +10,6 @@
 //-----------------------------------------------
 
 # pragma once
-# include <atomic>
-# include <ThirdParty/Box2D/Box2D.h>
 # include "Fwd.hpp"
 # include "Optional.hpp"
 # include "Array.hpp"
@@ -25,10 +23,17 @@
 # include "Polygon.hpp"
 # include "System.hpp"
 
+// Box2D forward declaration
+class b2World;
+class b2Body;
+class b2Fixture;
+class b2EdgeShape;
+class b2ChainShape;
+class b2CircleShape;
+class b2PolygonShape;
+
 namespace s3d
 {
-	class P2RevoluteJoint;
-
 	using P2BodyID = uint64;
 
 	struct P2Material
@@ -160,54 +165,7 @@ namespace s3d
 
 		P2RevoluteJoint createRevoluteJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos);
 
-		b2World& getData();
-
-		const b2World& getData() const;
-	};
-
-	class P2World::CP2World
-	{
-	private:
-
-		b2World m_world;
-
-		//ContactListener m_contactListner;
-
-		std::atomic<P2BodyID> m_currentID = 0;
-
-		P2BodyID generateNextID();
-
-	public:
-
-		CP2World(const Vec2& gravity);
-
-		void update(double timeStep, int32 velocityIterations, int32 positionIterations);
-
-		P2Body createEmpty(P2World& world, const Vec2& center, P2BodyType bodyType);
-
-		P2Body createLine(P2World& world, const Vec2& center, const Line& line, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
-
-		P2Body createLineString(P2World& world, const Vec2& center, const LineString& lines, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
-
-		P2Body createClosedLineString(P2World& world, const Vec2& center, const LineString& lines, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
-
-		P2Body createCircle(P2World& world, const Vec2& center, const Circle& circle, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
-
-		P2Body createRect(P2World& world, const Vec2& center, const RectF& rect, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
-
-		P2Body createTriangle(P2World& world, const Vec2& center, const Triangle& triangle, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
-
-		P2Body createQuad(P2World& world, const Vec2& center, const Quad& quad, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
-
-		P2Body createPolygon(P2World& world, const Vec2& center, const Polygon& polygon, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
-
-		P2RevoluteJoint createRevoluteJoint(P2World& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos);
-
-		//const Array<PhysicsContact>& getContacts() const;
-
-		b2World& getData();
-
-		const b2World& getData() const;
+		b2World* getWorldPtr() const;
 	};
 
 	class P2Body
@@ -380,7 +338,7 @@ namespace s3d
 	{
 	private:
 
-		b2EdgeShape m_shape;
+		std::unique_ptr<b2EdgeShape> m_pShape;
 
 	public:
 
@@ -397,7 +355,7 @@ namespace s3d
 	{
 	private:
 
-		b2ChainShape m_shape;
+		std::unique_ptr<b2ChainShape> m_pShape;
 
 		mutable LineString m_lineString;
 
@@ -418,7 +376,7 @@ namespace s3d
 	{
 	private:
 
-		b2CircleShape m_shape;
+		std::unique_ptr<b2CircleShape> m_pShape;
 
 	public:
 
@@ -435,7 +393,7 @@ namespace s3d
 	{
 	private:
 
-		b2PolygonShape m_shape;
+		std::unique_ptr<b2PolygonShape> m_pShape;
 
 	public:
 
@@ -452,7 +410,7 @@ namespace s3d
 	{
 	private:
 
-		b2PolygonShape m_shape;
+		std::unique_ptr<b2PolygonShape> m_pShape;
 
 	public:
 
@@ -469,7 +427,7 @@ namespace s3d
 	{
 	private:
 
-		b2PolygonShape m_shape;
+		std::unique_ptr<b2PolygonShape> m_pShape;
 
 	public:
 
@@ -497,53 +455,6 @@ namespace s3d
 		void draw(const ColorF& color = Palette::White) const override;
 
 		Polygon getPolygon() const;
-	};
-
-	class P2Body::CP2Body
-	{
-	private:
-
-		P2World m_world;
-
-		Array<std::shared_ptr<P2Shape>> m_shapes;
-
-		b2Body* m_body = nullptr;
-
-		P2BodyID m_id = 0;
-
-		//PhysicsBodyInternalData* getInternalData();
-
-	public:
-
-		CP2Body() = default;
-
-		CP2Body(P2World& world, P2BodyID id, const Vec2& center, P2BodyType bodyType);
-
-		~CP2Body();
-
-		P2BodyID id() const;
-
-		void addLine(const Line& line, const P2Material& material, const P2Filter& filter);
-
-		void addLineString(const LineString& lines, bool closed, const P2Material& material, const P2Filter& filter);
-
-		void addCircle(const Circle& circle, const P2Material& material, const P2Filter& filter);
-
-		void addRect(const RectF& rect, const P2Material& material, const P2Filter& filter);
-
-		void addTriangle(const Triangle& triangle, const P2Material& material, const P2Filter& filter);
-
-		void addQuad(const Quad& quad, const P2Material& material, const P2Filter& filter);
-
-		void addPolygon(const Polygon& polygon, const P2Material& material, const P2Filter& filter);
-
-		b2Body& getBody();
-
-		const b2Body& getBody() const;
-
-		b2Body* getBodyPtr() const;
-
-		const Array<std::shared_ptr<P2Shape>>& getShapes() const;
 	};
 	
 	template <class PShape, std::enable_if_t<std::is_base_of_v<P2Shape, PShape>>*>
@@ -584,24 +495,5 @@ namespace s3d
 		void setMaxMotorTorque(double torque);
 
 		double getMaxMotorTorque() const;
-	};
-
-	class P2RevoluteJoint::CP2RevoluteJoint
-	{
-	private:
-
-		b2RevoluteJoint* m_joint = nullptr;
-
-		P2World m_world;
-
-	public:
-
-		CP2RevoluteJoint(P2World& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos);
-
-		~CP2RevoluteJoint();
-
-		b2RevoluteJoint& getJoint();
-
-		const b2RevoluteJoint& getJoint() const;
 	};
 }
