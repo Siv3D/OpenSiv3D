@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -833,7 +833,7 @@ namespace s3d
 
 		return pImpl->getBody().GetAngularDamping();
 	}
-
+	
 	void P2Body::setGravityScale(double scale)
 	{
 		if (isEmpty())
@@ -958,6 +958,11 @@ namespace s3d
 		return *pImpl->getShapes()[index];
 	}
 
+	std::shared_ptr<P2Shape> P2Body::shapePtr(const size_t index) const
+	{
+		return pImpl->getShapes()[index];
+	}
+	
 	b2Body* P2Body::getBodyPtr() const
 	{
 		return pImpl->getBodyPtr();

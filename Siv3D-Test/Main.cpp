@@ -1,4 +1,4 @@
-﻿# include <Siv3D.hpp>
+# include <Siv3D.hpp>
 # include <HamFramework.hpp>
 
 void Main()
@@ -10,7 +10,7 @@ void Main()
 	HashTable<P2BodyID, size_t> table;
 	size_t index = 0;
 	Camera2D camera(Vec2(0, 0), 20);
-	const P2Body line = world.createLine(Vec2(0, 0), Line(-12, 0, 12, 0), P2Material(1, 0.1, 0.95), none, P2BodyType::Static);
+	const P2Body line = world.createLine(Vec2(0, 0), Line(-12, 0, 12, 0), P2Material(1, 0.1, 1.0), none, P2BodyType::Static);
 
 	for (const auto& animal : { U"🐘", U"🐧", U"🐐", U"🐤" })
 	{
@@ -26,7 +26,7 @@ void Main()
 
 		if (MouseL.down())
 		{
-			bodies << world.createPolygon(Cursor::PosF(), polys[index], P2Material(0.1, 0.0, 0.2));
+			bodies << world.createPolygon(Cursor::PosF(), polys[index], P2Material(0.1, 0.0, 1.0));
 			table.emplace(bodies.back().id(), std::exchange(index, Random(polys.size() - 1)));
 		}
 
@@ -37,5 +37,7 @@ void Main()
 
 		line.draw(Palette::Green);
 		textures[index].scaled(0.04).drawAt(Cursor::PosF());
+		
+		camera.draw(Palette::Orange);
 	}
 }

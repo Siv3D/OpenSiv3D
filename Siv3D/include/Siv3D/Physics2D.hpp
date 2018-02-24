@@ -291,9 +291,19 @@ namespace s3d
 		P2Shape& shape(size_t index);
 
 		const P2Shape& shape(size_t index) const;
+		
+		std::shared_ptr<P2Shape> shapePtr(size_t index) const;
 
 		template <class PShape, std::enable_if_t<std::is_base_of_v<P2Shape, PShape>>* = nullptr>
-		std::shared_ptr<PShape> shapeAs(const size_t index) const;
+		std::shared_ptr<PShape> shapeAs(size_t index) const
+		{
+			if (isEmpty())
+			{
+				throw std::out_of_range("P2Body::shapeAs() P2Body is empty.");
+			}
+			
+			return std::dynamic_pointer_cast<PShape>(shapePtr(index));
+		}
 
 		b2Body* getBodyPtr() const;
 	};
@@ -457,17 +467,7 @@ namespace s3d
 		Polygon getPolygon() const;
 	};
 	
-	template <class PShape, std::enable_if_t<std::is_base_of_v<P2Shape, PShape>>*>
-	inline std::shared_ptr<PShape> P2Body::shapeAs(const size_t index) const
-	{
-		if (isEmpty())
-		{
-			throw std::out_of_range("P2Body::shapeAs() P2Body is empty.");
-		}
-		
-		return std::dynamic_pointer_cast<PShape>(pImpl->getShapes()[index]);
-	}
-
+	
 	class P2RevoluteJoint
 	{
 	private:
