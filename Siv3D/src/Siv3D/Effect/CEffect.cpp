@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include "CEffect.hpp"
+# include <Siv3D/Time.hpp>
 
 namespace s3d
 {
@@ -37,6 +38,27 @@ namespace s3d
 		LOG_INFO(U"ℹ️ Effect initialized");
 
 		return true;
+	}
+
+	void CEffect::update()
+	{
+		if (m_previousTimeUs == 0)
+		{
+			m_previousTimeUs = Time::GetMicrosec();
+		}
+		else
+		{
+			const uint64 currentTimeUs = Time::GetMicrosec();
+
+			const uint64 currentDeltaTimeUS = currentTimeUs - m_previousTimeUs;
+
+			m_previousTimeUs = currentTimeUs;
+
+			for (auto& data : m_effects)
+			{
+				data.second->setCurrectDeltaTimeUs(currentDeltaTimeUS);
+			}
+		}
 	}
 
 	EffectID CEffect::create()
@@ -96,7 +118,7 @@ namespace s3d
 		return m_effects[handleID]->getSpeed();
 	}
 
-	void CEffect::update(const EffectID handleID)
+	void CEffect::updateEffect(const EffectID handleID)
 	{
 		m_effects[handleID]->update();
 	}

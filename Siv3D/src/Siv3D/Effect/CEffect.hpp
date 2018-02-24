@@ -22,6 +22,8 @@ namespace s3d
 
 		AssetHandleManager<EffectID, EffectData> m_effects{ U"Effect" };
 
+		uint64 m_previousTimeUs = 0;
+
 	public:
 
 		CEffect();
@@ -29,6 +31,8 @@ namespace s3d
 		~CEffect() override;
 
 		bool init() override;
+
+		void update() override;
 
 		EffectID create() override;
 
@@ -48,7 +52,7 @@ namespace s3d
 
 		double getSpeed(EffectID handleID) override;
 
-		void update(EffectID handleID) override;
+		void updateEffect(EffectID handleID) override;
 
 		void clear(EffectID handleID) override;
 	};

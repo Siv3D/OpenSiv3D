@@ -10,7 +10,6 @@
 //-----------------------------------------------
 
 # include "CEffect.hpp"
-# include <Siv3D/Time.hpp>
 
 namespace s3d
 {
@@ -27,11 +26,6 @@ namespace s3d
 		}
 
 		m_effects.emplace_back(std::move(effect), 0);
-
-		if (m_previousTimeUs == 0)
-		{
-			m_previousTimeUs = Time::GetMicrosec();
-		}
 	}
 
 	size_t EffectData::num_effects() const
@@ -47,8 +41,6 @@ namespace s3d
 	void EffectData::resume()
 	{
 		m_paused = false;
-
-		m_previousTimeUs = Time::GetMicrosec();
 	}
 
 	void EffectData::setSpeed(const double speed)
@@ -56,19 +48,25 @@ namespace s3d
 		m_speed = speed;
 	}
 
+	void EffectData::setCurrectDeltaTimeUs(const uint64 currentDeltaUs)
+	{
+		const int64 deltaUs = m_paused ? 0 : static_cast<int64>(currentDeltaUs * m_speed);
+
+		m_lastDeltaSec = deltaUs / 1'000'000.0;
+	}
+
 	void EffectData::update()
 	{
-		const uint64 currentTimeUs = Time::GetMicrosec();
+		for (auto& effect : m_effects)
+		{
+			effect.second += m_lastDeltaSec;
+		}
 
-		const int64 deltaUs = m_paused ? 0 : static_cast<int64>((currentTimeUs - m_previousTimeUs) * m_speed);
-
-		const double deltaSec = deltaUs / 1'000'000.0;
-
-		m_previousTimeUs = currentTimeUs;
+		m_lastDeltaSec = 0.0;
 
 		for (auto it = m_effects.begin(); it != m_effects.end();)
 		{
-			const double timeSec = it->second += deltaSec;
+			const double timeSec = it->second;
 
 			if (timeSec < 0.0)
 			{
