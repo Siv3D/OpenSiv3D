@@ -1,4 +1,4 @@
-# include <Siv3D.hpp>
+﻿# include <Siv3D.hpp>
 # include <HamFramework.hpp>
 
 void Main()
