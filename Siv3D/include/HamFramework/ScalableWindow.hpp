@@ -24,14 +24,26 @@ namespace s3d
 			Default = EnsureFit
 		};
 
-		inline void SetBaseSize(const Size& baseSize = Size(640, 480))
+		inline void Resize(const Size& size, const Size& baseSize = Size(640, 480))
 		{
+			Window::Resize(size);
+
 			Window::SetBaseSize(baseSize);
 		}
 
-		inline void SetBaseSize(int32 width, int32 height)
+		inline void Resize(int32 width, int32 height, const Size& baseSize = Size(640, 480))
 		{
-			return SetBaseSize(Size(width, height));
+			return Resize(Size(width, height), baseSize);
+		}
+
+		inline void Resize(int32 width, int32 height, int32 baseWidth, int32 baseHeight)
+		{
+			return Resize(Size(width, height), Size(baseWidth, baseHeight));
+		}
+
+		inline void Resize(const Size& size, int32 baseWidth, int32 baseHeight)
+		{
+			return Resize(size, Size(baseWidth, baseHeight));
 		}
 
 		inline Mat3x2 GetTransform(const Size& baseSize, ContentScale contentScale = ContentScale::Default)
