@@ -12,7 +12,7 @@
 # include <atomic>
 # include <Siv3D/Physics2D.hpp>
 # include <Siv3D/Graphics2D.hpp>
-# include <ThirdParty/Box2D/Box2D.h>
+# include <Box2D/Box2D.h>
 
 namespace s3d
 {
