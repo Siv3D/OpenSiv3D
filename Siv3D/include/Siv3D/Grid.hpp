@@ -175,6 +175,14 @@ namespace s3d
 		}
 
 		template <class Fty, class R = Type, std::enable_if_t<std::is_convertible_v<std::result_of_t<Fty()>, R>>* = nullptr>
+		Grid(const size_type w, const size_type h, Arg::generator_<Fty> generator)
+			: Grid(Generate<Fty>(w, h, *generator)) {}
+
+		template <class Fty, class R = Type, std::enable_if_t<std::is_convertible_v<std::result_of_t<Fty()>, R>>* = nullptr>
+		Grid(const Size& size, Arg::generator_<Fty> generator)
+			: Grid(Generate<Fty>(size, *generator)) {}
+
+		template <class Fty, class R = Type, std::enable_if_t<std::is_convertible_v<std::result_of_t<Fty()>, R>>* = nullptr>
 		static Grid Generate(const Size& size, Fty generator)
 		{
 			return Generate(size.x, size.y, generator);

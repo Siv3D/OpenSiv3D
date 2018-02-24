@@ -11,8 +11,8 @@
 
 # pragma once
 # include <algorithm>
-# include <chrono>
 # include "Distribution.hpp"
+# include "Duration.hpp"
 # include "DefaultRNG.hpp"
 
 namespace s3d
@@ -106,12 +106,10 @@ namespace s3d
 	/// <returns>
 	/// 指定した型と範囲の乱数
 	/// </returns>
-	template <class Rep, class Period>
-	inline auto Random(const std::chrono::duration<Rep, Period>& min, const std::chrono::duration<Rep, Period>& max)
+	template <>
+	inline Duration Random<Duration>(const Duration& min, const Duration& max)
 	{
-		using rep_type = std::conditional_t<std::is_floating_point_v<Rep>, double, Rep>;
-		
-		return std::chrono::duration<rep_type, Period>(Random(min.count(), max.count()));
+		return Duration(Random(min.count(), max.count()));
 	}
 
 	/// <summary>
