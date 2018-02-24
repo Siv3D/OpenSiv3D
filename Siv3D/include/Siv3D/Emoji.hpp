@@ -13,6 +13,7 @@
 # include "Fwd.hpp"
 # include "Array.hpp"
 # include "String.hpp"
+# include "PointVector.hpp"
 # include "StringView.hpp"
 
 namespace s3d
@@ -23,6 +24,8 @@ namespace s3d
 	//
 	struct Emoji
 	{
+		static constexpr Size ImageSize = { 136, 128 };
+
 		String codePoints;
 
 		explicit Emoji(StringView emoji) noexcept
