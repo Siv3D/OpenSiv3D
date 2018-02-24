@@ -97,9 +97,9 @@ namespace s3d
 			return num;
 		}
 
-		MillisecondsF pressedDuration() const
+		Duration pressedDuration() const
 		{
-			MillisecondsF duration(0);
+			Duration duration(0);
 
 			for (const auto& key : m_keys)
 			{

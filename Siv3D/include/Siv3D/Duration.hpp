@@ -25,7 +25,7 @@ namespace s3d
 	/// <summary>
 	/// 日数
 	/// </summary>
-	using DaysF = std::chrono::duration<long double, std::ratio<86400>>;
+	using DaysF = std::chrono::duration<double, std::ratio<86400>>;
 
 
 	/// <summary>
@@ -36,7 +36,7 @@ namespace s3d
 	/// <summary>
 	/// 時間
 	/// </summary>
-	using HoursF = std::chrono::duration<long double, std::ratio<3600>>;
+	using HoursF = std::chrono::duration<double, std::ratio<3600>>;
 
 
 	/// <summary>
@@ -47,7 +47,7 @@ namespace s3d
 	/// <summary>
 	/// 分
 	/// </summary>
-	using MinutesF = std::chrono::duration<long double, std::ratio<60>>;
+	using MinutesF = std::chrono::duration<double, std::ratio<60>>;
 
 
 	/// <summary>
@@ -58,7 +58,7 @@ namespace s3d
 	/// <summary>
 	/// 秒
 	/// </summary>
-	using SecondsF = std::chrono::duration<long double>;
+	using SecondsF = std::chrono::duration<double>;
 
 
 	/// <summary>
@@ -69,7 +69,7 @@ namespace s3d
 	/// <summary>
 	/// ミリ秒
 	/// </summary>
-	using MillisecondsF = std::chrono::duration<long double, std::milli>;
+	using MillisecondsF = std::chrono::duration<double, std::milli>;
 
 
 	/// <summary>
@@ -80,7 +80,7 @@ namespace s3d
 	/// <summary>
 	/// マイクロ秒
 	/// </summary>
-	using MicrosecondsF = std::chrono::duration<long double, std::micro>;
+	using MicrosecondsF = std::chrono::duration<double, std::micro>;
 
 
 	/// <summary>
@@ -91,7 +91,9 @@ namespace s3d
 	/// <summary>
 	/// ナノ秒
 	/// </summary>
-	using NanosecondsF = std::chrono::duration<long double, std::nano>;
+	using NanosecondsF = std::chrono::duration<double, std::nano>;
+
+	using Duration = SecondsF;
 
 	/// <summary>
 	/// 時間の単位を変換します。

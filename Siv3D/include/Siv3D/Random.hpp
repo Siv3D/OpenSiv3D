@@ -11,6 +11,7 @@
 
 # pragma once
 # include <algorithm>
+# include <chrono>
 # include "Distribution.hpp"
 # include "DefaultRNG.hpp"
 
@@ -88,6 +89,27 @@ namespace s3d
 	inline char32 Random<char32>(const char32& min, const char32& max)
 	{
 		return static_cast<char32>(UniformDistribution<uint32>(min, max)(GetDefaultRNG()));
+	}
+
+	/// <summary>
+	/// 指定した型と範囲の乱数を返します。
+	/// </summary>
+	/// <param name="min">
+	/// 生成したい乱数の最小値
+	/// </param>
+	/// <param name="max">
+	/// 生成したい乱数の最大値
+	/// </param>
+	/// <remarks>
+	/// グローバルな乱数エンジンを使用します。
+	/// </remarks>
+	/// <returns>
+	/// 指定した型と範囲の乱数
+	/// </returns>
+	template <class Rep, class Period>
+	inline std::chrono::duration<Rep, Period> Random(const std::chrono::duration<Rep, Period>& min, const std::chrono::duration<Rep, Period>& max)
+	{
+		return std::chrono::duration<Rep, Period>(Random(min.count(), max.count()));
 	}
 
 	/// <summary>

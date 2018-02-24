@@ -225,7 +225,7 @@ namespace s3d
 
 	void Audio::setLoop(const Arg::loopBegin_<SecondsF> loopBegin)
 	{
-		const uint64 loopBeginSample = static_cast<uint64>(samplingRate() * std::max(loopBegin->count(), 0.0L));
+		const uint64 loopBeginSample = static_cast<uint64>(samplingRate() * std::max(loopBegin->count(), 0.0));
 		const uint64 loopEndSample = samples() - 1;
 
 		assert(loopBeginSample < loopEndSample);
@@ -239,8 +239,8 @@ namespace s3d
 
 	void Audio::setLoop(const Arg::loopBegin_<SecondsF> loopBegin, const Arg::loopEnd_<SecondsF> loopEnd)
 	{
-		const uint64 loopBeginSample = static_cast<uint64>(samplingRate() * std::max(loopBegin->count(), 0.0L));
-		const uint64 loopEndSample = std::min<uint64>(static_cast<uint64>(samplingRate() * std::max(loopEnd->count(), 0.0L)), samples() - 1);
+		const uint64 loopBeginSample = static_cast<uint64>(samplingRate() * std::max(loopBegin->count(), 0.0));
+		const uint64 loopEndSample = std::min<uint64>(static_cast<uint64>(samplingRate() * std::max(loopEnd->count(), 0.0)), samples() - 1);
 
 		assert(loopBeginSample < loopEndSample);
 
