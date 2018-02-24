@@ -251,6 +251,7 @@ namespace s3d
 
 		Siv3DEngine::GetTextInput()->update();
 		
+		Siv3DEngine::GetEffect()->update();
 		
 		return m_updateSucceeded = true;
 	}

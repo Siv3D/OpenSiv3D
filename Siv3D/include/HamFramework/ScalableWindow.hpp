@@ -31,7 +31,7 @@ namespace s3d
 
 		inline void SetBaseSize(int32 width, int32 height)
 		{
-			return SetBaseSize({ width, height });
+			return SetBaseSize(Size(width, height));
 		}
 
 		inline Mat3x2 GetTransform(const Size& baseSize, ContentScale contentScale = ContentScale::Default)
@@ -54,7 +54,7 @@ namespace s3d
 
 		inline Mat3x2 GetTransform(int32 width, int32 height, ContentScale contentScale = ContentScale::Default)
 		{
-			return GetTransform({ width, height }, contentScale);
+			return GetTransform(Size(width, height), contentScale);
 		}
 
 		inline Mat3x2 GetTransform(ContentScale contentScale = ContentScale::Default)
@@ -69,7 +69,7 @@ namespace s3d
 
 		inline Transformer2D CreateTransformer(int32 width, int32 height, ContentScale contentScale = ContentScale::Default)
 		{
-			return CreateTransformer({ width, height }, contentScale);
+			return CreateTransformer(Size(width, height), contentScale);
 		}
 
 		inline Transformer2D CreateTransformer(ContentScale contentScale = ContentScale::Default)
@@ -123,7 +123,7 @@ namespace s3d
 
 		inline Array<RectF> GetBlackBars(int32 width, int32 height)
 		{
-			return GetBlackBars({ width, height });
+			return GetBlackBars(Size(width, height));
 		}
 
 		inline void DrawBlackBars(const ColorF& color = Palette::Black, const Size& baseSize = Window::BaseSize())
@@ -140,7 +140,7 @@ namespace s3d
 
 		inline void DrawBlackBars(const ColorF& color, int32 width, int32 height)
 		{
-			return DrawBlackBars(color, { width, height });
+			return DrawBlackBars(color, Size(width, height));
 		}
 	}
 }

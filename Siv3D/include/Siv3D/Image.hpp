@@ -829,14 +829,14 @@ namespace s3d
 			return sample_Repeat(pos.x, pos.y);
 		}
 
-		ColorF sample_Clamp(double y, double x) const;
+		ColorF sample_Clamp(double x, double y) const;
 
 		ColorF sample_Clamp(const Vec2& pos) const
 		{
 			return sample_Clamp(pos.x, pos.y);
 		}
 
-		ColorF sample_Mirror(double y, double x) const;
+		ColorF sample_Mirror(double x, double y) const;
 
 		ColorF sample_Mirror(const Vec2& pos) const
 		{

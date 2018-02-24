@@ -97,7 +97,7 @@ namespace s3d
 
 	void Effect::update() const
 	{
-		Siv3DEngine::GetEffect()->update(m_handle->id());
+		Siv3DEngine::GetEffect()->updateEffect(m_handle->id());
 	}
 
 	void Effect::clear() const

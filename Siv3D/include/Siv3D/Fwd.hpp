@@ -945,6 +945,11 @@ namespace s3d
 	class P2Line;
 	class P2LineString;
 	class P2Circle;
+	class P2Rect;
+	class P2Triangle;
+	class P2Quad;
+	class P2Polygon;
+	class P2RevoluteJoint;
 
 	//////////////////////////////////////////////////////
 	//
