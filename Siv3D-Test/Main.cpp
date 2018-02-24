@@ -1,4 +1,4 @@
-﻿# include <Siv3D.hpp>
+# include <Siv3D.hpp>
 # include <HamFramework.hpp>
 
 void Main()
@@ -10,7 +10,7 @@ void Main()
 	Print << d;
 
 	for(auto i : step(10))
-		Print << Random(0.4s, 1.6s);
+		Print << Random(300.0ms, 500.0ms);
 
 	while (System::Update())
 	{

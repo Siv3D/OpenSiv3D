@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -107,9 +107,11 @@ namespace s3d
 	/// 指定した型と範囲の乱数
 	/// </returns>
 	template <class Rep, class Period>
-	inline std::chrono::duration<Rep, Period> Random(const std::chrono::duration<Rep, Period>& min, const std::chrono::duration<Rep, Period>& max)
+	inline auto Random(const std::chrono::duration<Rep, Period>& min, const std::chrono::duration<Rep, Period>& max)
 	{
-		return std::chrono::duration<Rep, Period>(Random(min.count(), max.count()));
+		using rep_type = std::conditional_t<std::is_floating_point_v<Rep>, double, Rep>;
+		
+		return std::chrono::duration<rep_type, Period>(Random(min.count(), max.count()));
 	}
 
 	/// <summary>
