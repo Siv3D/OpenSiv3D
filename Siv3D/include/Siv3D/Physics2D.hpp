@@ -111,61 +111,61 @@ namespace s3d
 
 		void setSleepEnabled(bool enabled);
 
-		bool getSleepEnabled() const;
+		[[nodiscard]] bool getSleepEnabled() const;
 
 		void setGravity(const Vec2& gravity);
 
-		Vec2 getGravity() const;
+		[[nodiscard]] Vec2 getGravity() const;
 
 		void shiftOrigin(const Vec2& newOrigin);
 
 		void update(double timeStep = System::DeltaTime(), int32 velocityIterations = 6, int32 positionIterations = 2) const;
 
-		P2Body createEmpty(const Vec2& center, P2BodyType bodyType = P2BodyType::Dynamic);
+		[[nodiscard]] P2Body createEmpty(const Vec2& center, P2BodyType bodyType = P2BodyType::Dynamic);
 
-		P2Body createLine(const Vec2& center, const Vec2& begin, const Vec2& end, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		[[nodiscard]] P2Body createLine(const Vec2& center, const Vec2& begin, const Vec2& end, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		P2Body createLine(const Vec2& center, const Line& line, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		[[nodiscard]] P2Body createLine(const Vec2& center, const Line& line, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		P2Body createLineString(const Vec2& center, const LineString& lines, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		[[nodiscard]] P2Body createLineString(const Vec2& center, const LineString& lines, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		P2Body createClosedLineString(const Vec2& center, const LineString& lines, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		[[nodiscard]] P2Body createClosedLineString(const Vec2& center, const LineString& lines, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		P2Body createCircle(const Vec2& center, double r, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		[[nodiscard]] P2Body createCircle(const Vec2& center, double r, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		P2Body createCircle(const Vec2& center, double r, const Vec2& offset, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		[[nodiscard]] P2Body createCircle(const Vec2& center, double r, const Vec2& offset, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		P2Body createCircle(const Vec2& center, const Circle& circle, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		[[nodiscard]] P2Body createCircle(const Vec2& center, const Circle& circle, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		P2Body createRect(const Vec2& center, double size, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		[[nodiscard]] P2Body createRect(const Vec2& center, double size, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		P2Body createRect(const Vec2& center, double w, double h, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		[[nodiscard]] P2Body createRect(const Vec2& center, double w, double h, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		P2Body createRect(const Vec2& center, const Vec2& size, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		[[nodiscard]] P2Body createRect(const Vec2& center, const Vec2& size, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		P2Body createRect(const Vec2& center, const Vec2& size, const Vec2& offset, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		[[nodiscard]] P2Body createRect(const Vec2& center, const Vec2& size, const Vec2& offset, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		P2Body createRect(const Vec2& center, const RectF& rect, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		[[nodiscard]] P2Body createRect(const Vec2& center, const RectF& rect, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		P2Body createTriangle(const Vec2& center, double sides, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		[[nodiscard]] P2Body createTriangle(const Vec2& center, double sides, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		P2Body createTriangle(const Vec2& center, double sides, double angle, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		[[nodiscard]] P2Body createTriangle(const Vec2& center, double sides, double angle, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		P2Body createTriangle(const Vec2& center, double sides, double angle, const Vec2& offset, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		[[nodiscard]] P2Body createTriangle(const Vec2& center, double sides, double angle, const Vec2& offset, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		P2Body createTriangle(const Vec2& center, const Vec2& p0, const Vec2& p1, const Vec2& p2, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		[[nodiscard]] P2Body createTriangle(const Vec2& center, const Vec2& p0, const Vec2& p1, const Vec2& p2, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		P2Body createTriangle(const Vec2& center, const Triangle& triangle, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		[[nodiscard]] P2Body createTriangle(const Vec2& center, const Triangle& triangle, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		P2Body createQuad(const Vec2& center, const Vec2& p0, const Vec2& p1, const Vec2& p2, const Vec2& p3, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		[[nodiscard]] P2Body createQuad(const Vec2& center, const Vec2& p0, const Vec2& p1, const Vec2& p2, const Vec2& p3, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		P2Body createQuad(const Vec2& center, const Quad& quad, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		[[nodiscard]] P2Body createQuad(const Vec2& center, const Quad& quad, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		P2Body createPolygon(const Vec2& center, const Polygon& polygon, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+		[[nodiscard]] P2Body createPolygon(const Vec2& center, const Polygon& polygon, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		P2RevoluteJoint createRevoluteJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos);
+		[[nodiscard]] P2RevoluteJoint createRevoluteJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos);
 
-		b2World* getWorldPtr() const;
+		[[nodiscard]] b2World* getWorldPtr() const;
 	};
 
 	class P2Body
@@ -184,11 +184,11 @@ namespace s3d
 
 		P2Body();
 
-		P2BodyID id() const;
+		[[nodiscard]] P2BodyID id() const;
 
-		bool isEmpty() const;
+		[[nodiscard]] bool isEmpty() const;
 
-		explicit operator bool() const;
+		[[nodiscard]] explicit operator bool() const;
 
 		P2Body& addLine(const Line& line, const P2Material& material, const P2Filter& filter);
 
@@ -208,11 +208,11 @@ namespace s3d
 
 		void setSleepEnabled(bool enabled);
 
-		bool getSleepEnabled() const;
+		[[nodiscard]] bool getSleepEnabled() const;
 
 		void setAwake(bool awake);
 
-		bool isAwake() const;
+		[[nodiscard]] bool isAwake() const;
 
 		void setPos(double x, double y);
 
@@ -246,53 +246,53 @@ namespace s3d
 
 		void applyAngularImpulse(double torque);
 
-		Vec2 getPos() const;
+		[[nodiscard]] 	Vec2 getPos() const;
 
-		double getAngle() const;
+		[[nodiscard]] double getAngle() const;
 
-		std::pair<Vec2, double> getTransform() const;
+		[[nodiscard]] std::pair<Vec2, double> getTransform() const;
 
 		void setVelocity(const Vec2& v);
 
-		Vec2 getVelocity() const;
+		[[nodiscard]] Vec2 getVelocity() const;
 
 		void setAngularVelocity(double omega);
 
-		double getAngularVelocity() const;
+		[[nodiscard]] double getAngularVelocity() const;
 
 		void setDamping(double damping);
 
-		double getDamping() const;
+		[[nodiscard]] double getDamping() const;
 
 		void setAngularDamping(double damping);
 
-		double getAngularDamping() const;
+		[[nodiscard]] double getAngularDamping() const;
 
 		void setGravityScale(double scale);
 
-		double getGravityScale() const;
+		[[nodiscard]] double getGravityScale() const;
 
-		double getMass() const;
+		[[nodiscard]] double getMass() const;
 
-		double getInertia() const;
+		[[nodiscard]] double getInertia() const;
 
 		void setBodyType(P2BodyType bodyType);
 
-		P2BodyType getBodyType() const;
+		[[nodiscard]] P2BodyType getBodyType() const;
 
 		void setFixedRotation(bool fixedRotation);
 
-		bool isFixedRotation() const;
+		[[nodiscard]] bool isFixedRotation() const;
 
 		void draw(const ColorF& color = Palette::White) const;
 
-		size_t num_shapes() const;
+		[[nodiscard]] size_t num_shapes() const;
 
-		P2Shape& shape(size_t index);
+		[[nodiscard]] P2Shape& shape(size_t index);
 
-		const P2Shape& shape(size_t index) const;
+		[[nodiscard]] const P2Shape& shape(size_t index) const;
 		
-		std::shared_ptr<P2Shape> shapePtr(size_t index) const;
+		[[nodiscard]] std::shared_ptr<P2Shape> shapePtr(size_t index) const;
 
 		template <class PShape, std::enable_if_t<std::is_base_of_v<P2Shape, PShape>>* = nullptr>
 		std::shared_ptr<PShape> shapeAs(size_t index) const
@@ -305,7 +305,7 @@ namespace s3d
 			return std::dynamic_pointer_cast<PShape>(shapePtr(index));
 		}
 
-		b2Body* getBodyPtr() const;
+		[[nodiscard]] b2Body* getBodyPtr() const;
 	};
 
 	struct P2Fixture
@@ -329,19 +329,19 @@ namespace s3d
 
 		void setDensity(double density);
 
-		double getDensity() const;
+		[[nodiscard]] double getDensity() const;
 
 		void setFriction(double friction);
 
-		double getFriction() const;
+		[[nodiscard]] double getFriction() const;
 
 		void setRestitution(double restitution);
 
-		double getRestitution() const;
+		[[nodiscard]] double getRestitution() const;
 
 		void setFilter(const P2Filter& filter);
 
-		P2Filter getFilter() const;
+		[[nodiscard]] P2Filter getFilter() const;
 	};
 
 	class P2Line : public P2Shape
@@ -354,11 +354,11 @@ namespace s3d
 
 		P2Line(b2Body& body, const Line& line, const P2Material& material, const P2Filter& filter);
 
-		P2ShapeType getShapeType() const override;
+		[[nodiscard]] P2ShapeType getShapeType() const override;
 
 		void draw(const ColorF& color = Palette::White) const override;
 
-		Line getLine() const;
+		[[nodiscard]] Line getLine() const;
 	};
 
 	class P2LineString : public P2Shape
@@ -375,11 +375,11 @@ namespace s3d
 
 		P2LineString(b2Body& body, const LineString& lines, bool closed, const P2Material& material, const P2Filter& filter);
 
-		P2ShapeType getShapeType() const override;
+		[[nodiscard]] P2ShapeType getShapeType() const override;
 
 		void draw(const ColorF& color = Palette::White) const override;
 
-		const LineString& getLineString() const;
+		[[nodiscard]] const LineString& getLineString() const;
 	};
 
 	class P2Circle : public P2Shape
@@ -392,11 +392,11 @@ namespace s3d
 
 		P2Circle(b2Body& body, const Circle& circle, const P2Material& material, const P2Filter& filter);
 
-		P2ShapeType getShapeType() const override;
+		[[nodiscard]] P2ShapeType getShapeType() const override;
 
 		void draw(const ColorF& color = Palette::White) const override;
 
-		Circle getCircle() const;
+		[[nodiscard]] Circle getCircle() const;
 	};
 
 	class P2Rect : public P2Shape
@@ -409,11 +409,11 @@ namespace s3d
 
 		P2Rect(b2Body& body, const RectF& rect, const P2Material& material, const P2Filter& filter);
 
-		P2ShapeType getShapeType() const override;
+		[[nodiscard]] P2ShapeType getShapeType() const override;
 
 		void draw(const ColorF& color = Palette::White) const override;
 
-		Quad getQuad() const;
+		[[nodiscard]] Quad getQuad() const;
 	};
 
 	class P2Triangle : public P2Shape
@@ -426,11 +426,11 @@ namespace s3d
 
 		P2Triangle(b2Body& body, const Triangle& triangle, const P2Material& material, const P2Filter& filter);
 
-		P2ShapeType getShapeType() const override;
+		[[nodiscard]] P2ShapeType getShapeType() const override;
 
 		void draw(const ColorF& color = Palette::White) const override;
 
-		Triangle getTriangle() const;
+		[[nodiscard]] Triangle getTriangle() const;
 	};
 
 	class P2Quad : public P2Shape
@@ -443,11 +443,11 @@ namespace s3d
 
 		P2Quad(b2Body& body, const Quad& quad, const P2Material& material, const P2Filter& filter);
 
-		P2ShapeType getShapeType() const override;
+		[[nodiscard]] P2ShapeType getShapeType() const override;
 
 		void draw(const ColorF& color = Palette::White) const override;
 
-		Quad getQuad() const;
+		[[nodiscard]] Quad getQuad() const;
 	};
 
 	class P2Polygon : public P2Shape
@@ -460,11 +460,11 @@ namespace s3d
 
 		P2Polygon(b2Body& body, const Polygon& polygon, const P2Material& material, const P2Filter& filter);
 
-		P2ShapeType getShapeType() const override;
+		[[nodiscard]] P2ShapeType getShapeType() const override;
 
 		void draw(const ColorF& color = Palette::White) const override;
 
-		Polygon getPolygon() const;
+		[[nodiscard]] Polygon getPolygon() const;
 	};
 	
 	
@@ -486,14 +486,14 @@ namespace s3d
 
 		void setMotorEnabled(bool enabled);
 
-		bool getMotorEnabled() const;
+		[[nodiscard]] bool getMotorEnabled() const;
 
 		void setMotorSpeed(double speed);
 
-		double getMotorSpeed() const;
+		[[nodiscard]] double getMotorSpeed() const;
 
 		void setMaxMotorTorque(double torque);
 
-		double getMaxMotorTorque() const;
+		[[nodiscard]] double getMaxMotorTorque() const;
 	};
 }
