@@ -18,9 +18,9 @@ namespace s3d
 		enum class ContentScale
 		{
 			EnsureFit,
-			
+
 			Maximize,
-			
+
 			Default = EnsureFit
 		};
 
@@ -119,13 +119,13 @@ namespace s3d
 			{
 				const double h = (Window::Height() - baseSize.y * s) * 0.5;
 
-				return{ RectF(0, 0, Window::Width(), h), RectF(0, Window::Height() - h,Window::Width(), h) };
+				return Array<RectF>{ RectF(0, 0, Window::Width(), h), RectF(0, Window::Height() - h,Window::Width(), h) };
 			}
 			else if (sx > sy)
 			{
 				const double w = (Window::Width() - baseSize.x * s) * 0.5;
 
-				return{ RectF(0, 0, w, Window::Height()), RectF(Window::Width() - w, 0, w, Window::Height()) };
+				return Array<RectF>{ RectF(0, 0, w, Window::Height()), RectF(Window::Width() - w, 0, w, Window::Height()) };
 			}
 			else
 			{
