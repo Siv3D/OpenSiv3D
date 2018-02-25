@@ -46,7 +46,7 @@ namespace s3d
 			return Resize(size, Size(baseWidth, baseHeight));
 		}
 
-		inline Mat3x2 GetTransform(const Size& baseSize, ContentScale contentScale = ContentScale::Default)
+		[[nodiscard]] inline Mat3x2 GetTransform(const Size& baseSize, ContentScale contentScale = ContentScale::Default)
 		{
 			const double sx = static_cast<double>(Window::Width()) / baseSize.x;
 
@@ -64,32 +64,32 @@ namespace s3d
 			}
 		}
 
-		inline Mat3x2 GetTransform(int32 width, int32 height, ContentScale contentScale = ContentScale::Default)
+		[[nodiscard]] inline Mat3x2 GetTransform(int32 width, int32 height, ContentScale contentScale = ContentScale::Default)
 		{
 			return GetTransform(Size(width, height), contentScale);
 		}
 
-		inline Mat3x2 GetTransform(ContentScale contentScale = ContentScale::Default)
+		[[nodiscard]] inline Mat3x2 GetTransform(ContentScale contentScale = ContentScale::Default)
 		{
 			return GetTransform(Window::BaseSize(), contentScale);
 		}
 
-		inline Transformer2D CreateTransformer(const Size& baseSize, ContentScale contentScale = ContentScale::Default)
+		[[nodiscard]] inline Transformer2D CreateTransformer(const Size& baseSize, ContentScale contentScale = ContentScale::Default)
 		{
 			return Transformer2D(GetTransform(baseSize, contentScale), true, Transformer2D::Target::PushScreen);
 		}
 
-		inline Transformer2D CreateTransformer(int32 width, int32 height, ContentScale contentScale = ContentScale::Default)
+		[[nodiscard]] inline Transformer2D CreateTransformer(int32 width, int32 height, ContentScale contentScale = ContentScale::Default)
 		{
 			return CreateTransformer(Size(width, height), contentScale);
 		}
 
-		inline Transformer2D CreateTransformer(ContentScale contentScale = ContentScale::Default)
+		[[nodiscard]] inline Transformer2D CreateTransformer(ContentScale contentScale = ContentScale::Default)
 		{
 			return CreateTransformer(Window::BaseSize(), contentScale);
 		}
 
-		inline RectF GetVirtualWindowArea(const Size& baseSize = Window::BaseSize())
+		[[nodiscard]] inline RectF GetVirtualWindowArea(const Size& baseSize = Window::BaseSize())
 		{
 			const double sx = static_cast<double>(Window::Width()) / baseSize.x;
 
@@ -107,7 +107,7 @@ namespace s3d
 			}
 		}
 
-		inline Array<RectF> GetBlackBars(const Size& baseSize = Window::BaseSize())
+		[[nodiscard]] inline Array<RectF> GetBlackBars(const Size& baseSize = Window::BaseSize())
 		{
 			const double sx = static_cast<double>(Window::Width()) / baseSize.x;
 
@@ -133,7 +133,7 @@ namespace s3d
 			}
 		}
 
-		inline Array<RectF> GetBlackBars(int32 width, int32 height)
+		[[nodiscard]] inline Array<RectF> GetBlackBars(int32 width, int32 height)
 		{
 			return GetBlackBars(Size(width, height));
 		}

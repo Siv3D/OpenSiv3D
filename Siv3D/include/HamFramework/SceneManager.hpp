@@ -134,7 +134,7 @@ namespace s3d
 
 	protected:
 
-		const State_t& getState() const
+		[[nodiscard]] const State_t& getState() const
 		{
 			return m_state;
 		}
@@ -146,7 +146,7 @@ namespace s3d
 		/// <returns>
 		/// 共有データへの参照
 		/// </returns>
-		Data_t& getData() const
+		[[nodiscard]] Data_t& getData() const
 		{
 			return *m_data;
 		}
@@ -558,7 +558,7 @@ namespace s3d
 		/// <returns>
 		/// 共有データへのポインタ
 		/// </returns>
-		std::shared_ptr<Data> get()
+		[[nodiscard]] std::shared_ptr<Data> get()
 		{
 			return m_data;
 		}
@@ -569,7 +569,7 @@ namespace s3d
 		/// <returns>
 		/// 共有データへのポインタ
 		/// </returns>
-		const std::shared_ptr<const Data> get() const
+		[[nodiscard]] const std::shared_ptr<const Data> get() const
 		{
 			return m_data;
 		}

@@ -46,22 +46,22 @@ namespace s3d
 			m_scale = scale;
 		}
 
-		double getScale() const noexcept
+		[[nodiscard]] double getScale() const noexcept
 		{
 			return m_scale;
 		}
 
-		RectF getCameraArea() const
+		[[nodiscard]] RectF getCameraArea() const
 		{
 			return RectF(m_pos - Window::BaseSize() * 0.5 / m_scale, Window::BaseSize() / m_scale);
 		}
 
-		Mat3x2 getMat3x2() const
+		[[nodiscard]] Mat3x2 getMat3x2() const
 		{
 			return Mat3x2::Scale(m_scale).translated(Window::BaseSize() * 0.5 - m_scale * m_pos);
 		}
 
-		Transformer2D createTransformer() const
+		[[nodiscard]] Transformer2D createTransformer() const
 		{
 			return Transformer2D(getMat3x2(), true, Transformer2D::Target::PushCamera);
 		}
@@ -184,7 +184,6 @@ namespace s3d
 
 		Camera2D() = default;
 
-
 		Camera2D(const Vec2& pos, double scale, bool keyControlEnabled = true, bool mouseControlEnabled = true, double speed = 10.0, double scaleRatio = 1.1, double lerpRatio = 0.2)
 			: BasicCamera2D(pos, scale)
 			, m_keyControlEnabled(keyControlEnabled)
@@ -193,10 +192,7 @@ namespace s3d
 			, m_scaleRatio(scaleRatio)
 			, m_lerpRatio(lerpRatio)
 			, m_targetPos(pos)
-			, m_targetScale(scale)
-		{
-
-		}
+			, m_targetScale(scale) {}
 
 		virtual ~Camera2D() = default;
 
@@ -273,7 +269,7 @@ namespace s3d
 			m_scaleRatio = scaleRatio;
 		}
 
-		double getScaleRatio() const noexcept
+		[[nodiscard]] double getScaleRatio() const noexcept
 		{
 			return m_scaleRatio;
 		}
@@ -283,7 +279,7 @@ namespace s3d
 			m_mouseSpeedRatio = mouseSpeedRatio;
 		}
 
-		double getMouseSpeedRatio() const noexcept
+		[[nodiscard]] double getMouseSpeedRatio() const noexcept
 		{
 			return m_mouseSpeedRatio;
 		}
@@ -293,7 +289,7 @@ namespace s3d
 			m_lerpRatio = lerpRatio;
 		}
 
-		double getLerpRatio() const noexcept
+		[[nodiscard]] double getLerpRatio() const noexcept
 		{
 			return m_lerpRatio;
 		}
@@ -303,7 +299,7 @@ namespace s3d
 			m_keyControlEnabled = enable;
 		}
 
-		bool keyControlEnabled() const noexcept
+		[[nodiscard]] bool keyControlEnabled() const noexcept
 		{
 			return m_keyControlEnabled;
 		}
@@ -313,7 +309,7 @@ namespace s3d
 			m_mouseControlEnabled = enable;
 		}
 
-		bool mouseControlEnabled() const noexcept
+		[[nodiscard]] bool mouseControlEnabled() const noexcept
 		{
 			return m_mouseControlEnabled;
 		}
@@ -421,12 +417,12 @@ namespace s3d
 	//		m_scale = Math::Lerp(m_scale, m_targetScale, m_lerpRatio);
 	//	}
 
-	//	Mat3x2 getMat3x2() const
+	//	[[nodiscard]] Mat3x2 getMat3x2() const
 	//	{
 	//		return Mat3x2::Scale(m_scale, -m_scale).translated(Window::BaseSize() * 0.5 - Vec2(m_scale, -m_scale) * m_pos);
 	//	}
 
-	//	Transformer2D createTransformer() const
+	//	[[nodiscard]] Transformer2D createTransformer() const
 	//	{
 	//		return Transformer2D(getMat3x2(), true, Transformer2D::Target::PushCamera);
 	//	}
