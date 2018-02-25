@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -257,7 +257,6 @@ namespace s3d
 		const uint32 n = std::max(quality, 3u);
 
 		Array<Vec2> vertices(n, center);
-		const Vec2 offset(center);
 		Vec2* pPos = vertices.data();
 
 		double xMin = center.x, xMax = center.x;

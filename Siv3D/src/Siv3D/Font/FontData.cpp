@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -672,8 +672,8 @@ namespace s3d
 			else
 			{
 				const bool hasTexture = !!m_texture;
-				const Size previousSize = m_texture.size();
-				const Size newSize = m_image.size();
+				[[maybe_unused]] const Size previousSize = m_texture.size();
+				[[maybe_unused]] const Size newSize = m_image.size();
 
 				m_texture = DynamicTexture(m_image);
 

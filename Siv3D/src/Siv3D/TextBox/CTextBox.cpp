@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -246,7 +246,6 @@ namespace s3d
 
 		m_locked = !editingText.isEmpty();
 
-		const double right = m_rect.x + m_rect.w;
 		Vec2 pos(m_rect.pos + Vec2(1 + m_rect.h * 0.16, 1));
 
 		for (auto glyph : m_font(textHeader))
