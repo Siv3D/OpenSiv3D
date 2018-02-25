@@ -46,9 +46,9 @@ namespace s3d
 			, m_a(a)
 			, m_b(b) {}
 
-		EasingController(double easingFunction(double), const Type& a, const Type& b, const MillisecondsF& duration = Milliseconds(1000))
+		EasingController(double easingFunction(double), const Type& a, const Type& b, const Duration& duration = Milliseconds(1000))
 			: m_easingFunction(easingFunction)
-			, m_durationMillisec(static_cast<double>(duration.count()))
+			, m_durationMillisec(static_cast<double>(duration.count() * 1000))
 			, m_a(a)
 			, m_b(b) {}
 

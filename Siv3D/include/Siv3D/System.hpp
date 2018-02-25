@@ -112,15 +112,15 @@ namespace s3d
 		/// <summary>
 		/// 指定したミリ秒だけ処理を停止します。
 		/// </summary>
-		/// <param name="milliseconds">
-		/// 処理を停止する時間（ミリ秒）
+		/// <param name="duration">
+		/// 処理を停止する時間
 		/// </param>
 		/// <returns>
 		/// なし
 		/// </returns>
-		inline void Sleep(const MillisecondsF& milliseconds)
+		inline void Sleep(const Duration& duration)
 		{
-			Sleep(static_cast<int32>(milliseconds.count()));
+			Sleep(static_cast<int32>(duration.count() * 1000));
 		}
 
 		/// <summary>

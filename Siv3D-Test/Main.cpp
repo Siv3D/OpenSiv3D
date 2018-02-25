@@ -1,43 +1,22 @@
-﻿# include <Siv3D.hpp>
-# include <HamFramework.hpp>
+﻿
+# include <Siv3D.hpp> // OpenSiv3D v0.2.3
 
 void Main()
 {
-	P2World world;
-	Array<P2Body> bodies;
-	Array<Polygon> polys;
-	Array<Texture> textures;
-	HashTable<P2BodyID, size_t> table;
-	size_t index = 0;
-	Camera2D camera(Vec2(0, 0), 20);
-	const P2Body line = world.createLine(Vec2(0, 0), Line(-12, 0, 12, 0), P2Material(1, 0.1, 1.0), none, P2BodyType::Static);
+	Graphics::SetBackground(ColorF(0.8, 0.9, 1.0));
 
-	for (const auto& animal : { U"🐘", U"🐧", U"🐐", U"🐤" })
-	{
-		polys << ImageProcessing::FindExternalContour(Emoji::LoadImage(animal), true).moveBy(-68, -64).simplified(0.8).scale(0.04);
-		textures << Texture(Emoji(animal), TextureDesc::Mipped);
-	}
+	const Font font(50);
+
+	const Texture textureCat(Emoji(U"🐈"), TextureDesc::Mipped);
 
 	while (System::Update())
 	{
-		world.update();
-		camera.update();
-		auto t = camera.createTransformer();
+		font(U"Hello, Siv3D!🐣").drawAt(Window::Center(), Palette::Black);
 
-		if (MouseL.down())
-		{
-			bodies << world.createPolygon(Cursor::PosF(), polys[index], P2Material(0.1, 0.0, 1.0));
-			table.emplace(bodies.back().id(), std::exchange(index, Random(polys.size() - 1)));
-		}
+		font(Cursor::Pos()).draw(20, 400, ColorF(0.6));
 
-		for (const auto& body : bodies)
-		{
-			textures[table[body.id()]].scaled(0.04).rotated(body.getAngle()).drawAt(body.getPos());
-		}
+		textureCat.resized(80).draw(540, 380);
 
-		line.draw(Palette::Green);
-		textures[index].scaled(0.04).drawAt(Cursor::PosF());
-		
-		camera.draw(Palette::Orange);
+		Circle(Cursor::Pos(), 60).draw(ColorF(1, 0, 0, 0.5));
 	}
 }

@@ -131,7 +131,7 @@ namespace s3d
 			/// <param name="_isFaceSide">
 			/// 表向きであるか
 			/// </param>
-			constexpr Card(Suit _suit, int32 _rank, bool _isFaceSide = true) noexcept
+			constexpr Card(Suit _suit, int32 _rank, bool _isFaceSide = Card::Front) noexcept
 				: rank(_suit == Suit::Joker ? 0 : _rank)
 				, suit(_suit)
 				, isFaceSide(_isFaceSide) {}
@@ -312,6 +312,13 @@ namespace s3d
 
 			double m_frameThickness;
 
+			struct DrawInfo
+			{
+				bool flip;
+
+				Vec2 offset;
+			};
+
 		public:
 
 			/// <summary>
@@ -452,13 +459,6 @@ namespace s3d
 				{
 					return drawBack(pos);
 				}
-
-				struct DrawInfo
-				{
-					bool flip;
-
-					Vec2 offset;
-				};
 
 				static const Array<DrawInfo> drawInfos[9] =
 				{
@@ -610,13 +610,13 @@ namespace s3d
 				}
 				else
 				{
-					const char32_t c[4] = { static_cast<char32_t>(Card::GetSuit(m_card.suit)), U'💂', U'👸', U'👴' };
+					const char32 c[4] = { static_cast<char32>(Card::GetSuit(m_card.suit)), U'\x1f482', U'\x1f478', U'\x1f474' };
 
 					m_fontLarge.getGlyph(c[(m_card.rank - 1) % 9]).texture.drawAt(center.movedBy(m_card.rank == 13 ? Vec2(0, m_cardSize.y / 12 - m_cardSize.y / 21) : Vec2::Zero()), color);
 
 					if (m_card.isKing())
 					{
-						m_fontLarge.getGlyph(U'👑').texture.scaled(0.6).drawAt(center.movedBy(0, -m_cardSize.y / 7 - m_cardSize.y / 21), color);
+						m_fontLarge.getGlyph(U'\x1f451').texture.scaled(0.6).drawAt(center.movedBy(0, -m_cardSize.y / 7 - m_cardSize.y / 21), color);
 					}
 				}
 			}

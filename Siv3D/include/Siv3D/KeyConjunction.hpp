@@ -69,7 +69,7 @@ namespace s3d
 			return m_key1.pressed() && m_key2.up();
 		}
 
-		MillisecondsF pressedDuration() const
+		Duration pressedDuration() const
 		{
 			const auto t1 = m_key1.pressedDuration();
 			const auto t2 = m_key2.pressedDuration();
@@ -77,7 +77,7 @@ namespace s3d
 
 			if (!pr || t1 < t2)
 			{
-				return MillisecondsF(0);
+				return Duration(0);
 			}
 
 			return t2;
