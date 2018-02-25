@@ -210,7 +210,7 @@
 	// Date and time
 	# include "Siv3D/DateTime.hpp"
 
-	// 時間
+	// Time
 	# include "Siv3D/Time.hpp"
 
 	// Stopwatch
@@ -567,18 +567,25 @@
 	// FFT
 	# include "Siv3D/FFT.hpp"
 
+//////////////////////////////////////////////////
 //
-// 動画ファイル
+//	Video File
 //
+//////////////////////////////////////////////////
+
 	//// GIF アニメーションの書き出し
 	//# include "Siv3D/AnimatedGIFWriter.hpp"
 	//// 動画ファイルの読み込み
 	//# include "Siv3D/VideoReader.hpp"
 	//// 動画ファイルの書き出し
 	//# include "Siv3D/VideoWriter.hpp"
+
+//////////////////////////////////////////////////
 //
-// ネットワーク・通信
+//	Network
 //
+//////////////////////////////////////////////////
+
 	//// シリアル通信
 	//# include "Siv3D/Serial.hpp"
 	//// パイプサーバー
@@ -635,9 +642,6 @@
 	// プロファイリング
 	# include "Siv3D/Profiler.hpp"
 
-	// アセットハンドル
-	# include "Siv3D/AssetHandle.hpp"
-
 //////////////////////////////////////////////////
 //
 //	Input Device
@@ -656,16 +660,16 @@
 	// 2 つ以上のキーの組み合わせ
 	# include "Siv3D/KeyGroup.hpp"
 	
-	// キーボード
+	// Keyboard
 	# include "Siv3D/Keyboard.hpp"
 	
-	// マウス
+	// Mouse
 	# include "Siv3D/Mouse.hpp"
 	
 	// テキスト入力
 	# include "Siv3D/TextInput.hpp"
 	
-	// ゲームパッド
+	// Gamepad
 	# include "Siv3D/Gamepad.hpp"
 
 	// Joystick deadzone
@@ -700,6 +704,7 @@
 
 	// オーディオ
 	# include "Siv3D/Audio.hpp"
+
 	//// サウンドの拍カウント
 	//# include "Siv3D/SoundBeat.hpp"
 
@@ -715,16 +720,16 @@
 	// 2D スプライト
 	# include "Siv3D/Sprite.hpp"
 
-	// ブレンドステート
+	// Blend State
 	# include "Siv3D/BlendState.hpp"
 
-	// ラスタライザーステート
+	// Rasterizer State
 	# include "Siv3D/RasterizerState.hpp"
 
 	//// デプスステートとステンシルステート
 	//# include "Siv3D/DepthStencilState.hpp"
 
-	// サンプラーステート
+	// Sampler State
 	# include "Siv3D/SamplerState.hpp"
 
 	// シェーダ
@@ -766,7 +771,7 @@
 //
 //////////////////////////////////////////////////
 
-	// テクスチャ
+	// Texture
 	# include "Siv3D/Texture.hpp"
 	
 	// 領域を指定したテクスチャ
@@ -799,28 +804,39 @@
 	// Font
 	# include "Siv3D/Font.hpp"
 	
-	// 絵文字コレクション
+	// Emoji
 	# include "Siv3D/Emoji.hpp"
 	
-	// アイコンコレクション
+	// Icon
 	# include "Siv3D/Icon.hpp"
 
+//////////////////////////////////////////////////
 //
-// 独立 GUI
+//	Stand-alone GUI
 //
+//////////////////////////////////////////////////
+
 	// Text Editor
 	# include "Siv3D/TextEditor.hpp"
 
-	// テキストボックス
+	// Text box
 	# include "Siv3D/TextBox.hpp"
+
+//////////////////////////////////////////////////
 //
-// エフェクト
+//	Effect
 //
-	// エフェクト
+//////////////////////////////////////////////////
+
+	// Effect
 	# include "Siv3D/Effect.hpp"
+
+//////////////////////////////////////////////////
 //
-// 標準 GUI
+//	Standard GUI
 //
+//////////////////////////////////////////////////
+
 	//// ウィジェットのスタイル
 	//# include "Siv3D/WidgetStyle.hpp"
 	//// IWidget インタフェース
@@ -851,23 +867,35 @@
 	//# include "Siv3D/GUIColorPalette.hpp"
 	//// GUI
 	//# include "Siv3D/GUI.hpp"
+
+//////////////////////////////////////////////////
 //
-// ムービー
+//	Movie
 //
+//////////////////////////////////////////////////
+
 	//// ムービー (AVI, WMV 等に対応)
 	//# include "Siv3D/VideoPlayer.hpp"
 	//// メディアプレイヤー (AVI, WMV, MP4 等に対応)
 	//# include "Siv3D/MediaPlayer.hpp"
+
+//////////////////////////////////////////////////
 //
-// Web カメラと AR
+//	Webcam and AR
 //
+//////////////////////////////////////////////////
+
 	//// Web カメラ
 	//# include "Siv3D/Webcam.hpp"
 	//// AR マーカー
 	//# include "Siv3D/AR.hpp"
+
+//////////////////////////////////////////////////
 //
-// 3D 幾何
+//	3D Shape
 //
+//////////////////////////////////////////////////
+
 	//// DirectXMath ユーティリティ
 	//# include "Siv3D/DirectXMathUtility.hpp"
 	//// クォータニオン
@@ -918,18 +946,29 @@
 	//# include "Siv3D/Graphics3D.hpp"
 	//// ポストエフェクト
 	//# include "Siv3D/PostEffect.hpp"
+
+//////////////////////////////////////////////////
 //
-// アセット
+//	Asset Management
 //
-	// アセット管理
+//////////////////////////////////////////////////
+
+	// アセットハンドル
+	# include "Siv3D/AssetHandle.hpp"
+
+	// Asset Management
 	# include "Siv3D/Asset.hpp"
-	// Audio アセット
+
+	// Audio Asset
 	# include "Siv3D/AudioAsset.hpp"
-	// Texture アセット
+
+	// Texture Asset
 	# include "Siv3D/TextureAsset.hpp"
-	// Font アセット
+
+	// Font Asset
 	# include "Siv3D/FontAsset.hpp"
-	//// GUI アセット
+
+	//// GUI Asset
 	//# include "Siv3D/GUIAsset.hpp"
 
 //////////////////////////////////////////////////
@@ -965,16 +1004,16 @@
 //
 //////////////////////////////////////////////////
 
-	// デバッグ出力
+	// Debug Output
 	# include "Siv3D/Print.hpp"
 	
-	//// アドオン
+	//// Add-on
 	//# include "Siv3D/Addon.hpp"
 	
-	// シリアライズ
+	// Serialization
 	# include "Siv3D/Serialize.hpp"
 
-	// GPU の使用
+	// GPU Driver
 	# include "Siv3D/HighPerfoemanceGPU.hpp"
 
 //////////////////////////////////////////////////
