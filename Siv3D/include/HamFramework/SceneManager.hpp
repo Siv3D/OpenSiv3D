@@ -38,13 +38,20 @@ namespace s3d
 
 		using Data_t = Data;
 
-		using InitData = struct
+		struct InitData
 		{
 			State_t state;
 
 			std::shared_ptr<Data_t> _s;
 
 			SceneManager<State_t, Data_t>* _m;
+
+			InitData() = default;
+
+			InitData(const State_t& _state, const std::shared_ptr<Data_t>& data, SceneManager<State_t, Data_t>* manager)
+				: state(_state)
+				, _s(data)
+				, _m(manager) {}
 		};
 
 	private:
@@ -396,7 +403,7 @@ namespace s3d
 		template <class Scene>
 		SceneManager& add(const State& state)
 		{
-			typename Scene::InitData initData{ state, m_data, this };
+			typename Scene::InitData initData(state, m_data, this);
 			
 			auto factory = [=](){
 				return std::make_shared<Scene>(initData);

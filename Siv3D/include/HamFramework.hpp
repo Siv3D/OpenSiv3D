@@ -25,7 +25,6 @@
 //----------------------------------------------------------------------------------------
 
 # pragma once
-
 # ifdef SIV3D_INCLUDED
 
 	# include <HamFramework/Camera2D.hpp>
