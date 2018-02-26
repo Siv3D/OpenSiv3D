@@ -93,7 +93,7 @@ namespace s3d
 
 	}
 
-	Polygon::CPolygon::CPolygon(const Vec2* const pVertex, const size_t vertexSize, Array<Array<Vec2>> _holes)
+	Polygon::CPolygon::CPolygon(const Vec2* const pOuterVertex, const size_t vertexSize, Array<Array<Vec2>> _holes)
 	{
 		if (vertexSize < 3)
 		{
@@ -104,51 +104,46 @@ namespace s3d
 
 		m_holes.remove_if([](const Array<Vec2>& hole) { return hole.size() < 3; });
 
-		m_polygon.outer().assign(pVertex, pVertex + vertexSize);
+		m_polygon.outer().assign(pOuterVertex, pOuterVertex + vertexSize);
 
 		for (const auto& hole : m_holes)
 		{
 			m_polygon.inners().push_back(gRing(hole.begin(), hole.end()));
 		}
 
-		m_boundingRect = detail::CalculateBoundingRect(pVertex, vertexSize);
+		m_boundingRect = detail::CalculateBoundingRect(pOuterVertex, vertexSize);
 
-		Triangulate(m_holes, Array<Vec2>(pVertex, pVertex + vertexSize), m_vertices, m_indices);
+		Triangulate(m_holes, m_polygon.outer(), m_vertices, m_indices);
 	}
 
-	Polygon::CPolygon::CPolygon(const Vec2* pVertex, size_t vertexSize, const Array<Array<Vec2>>& holes, const Array<uint32>& indices, const RectF& boundingRect)
+	Polygon::CPolygon::CPolygon(const Vec2* pOuterVertex, size_t vertexSize, const Array<uint32>& indices, const RectF& boundingRect)
 	{
 		if (vertexSize < 3)
 		{
 			return;
 		}
 
-		m_holes = holes;
-
-		m_polygon.outer().assign(pVertex, pVertex + vertexSize);
-
-		for (const auto& hole : m_holes)
-		{
-			m_polygon.inners().push_back(gRing(hole.begin(), hole.end()));
-		}
+		m_polygon.outer().assign(pOuterVertex, pOuterVertex + vertexSize);
 
 		m_boundingRect = boundingRect;
+
+		m_vertices.assign(pOuterVertex, pOuterVertex + vertexSize);
 
 		m_indices = indices;
 	}
 
-	Polygon::CPolygon::CPolygon(const Float2* const pVertex, const size_t vertexSize, const Array<uint32>& indices)
+	Polygon::CPolygon::CPolygon(const Float2* const pOuterVertex, const size_t vertexSize, const Array<uint32>& indices)
 	{
 		if (vertexSize < 3)
 		{
 			return;
 		}
 
-		m_polygon.outer().assign(pVertex, pVertex + vertexSize);
+		m_polygon.outer().assign(pOuterVertex, pOuterVertex + vertexSize);
 
-		m_boundingRect = detail::CalculateBoundingRect(pVertex, vertexSize);
+		m_boundingRect = detail::CalculateBoundingRect(pOuterVertex, vertexSize);
 
-		m_vertices.assign(pVertex, pVertex + vertexSize);
+		m_vertices.assign(pOuterVertex, pOuterVertex + vertexSize);
 
 		m_indices = indices;
 	}
@@ -215,6 +210,87 @@ namespace s3d
 		}
 	}
 
+	void Polygon::CPolygon::rotateAt(const Vec2& pos, const double angle)
+	{
+		if (!pos.isZero())
+		{
+			for (auto& point : m_polygon.outer())
+			{
+				point -= pos;
+			}
+
+			for (auto& hole : m_polygon.inners())
+			{
+				for (auto& point : hole)
+				{
+					point -= pos;
+				}
+			}
+
+			const Float2 posF = pos;
+
+			for (auto& vertex : m_vertices)
+			{
+				vertex -= posF;
+			}
+		}
+
+		const double s = std::sin(angle);
+		const double c = std::cos(angle);
+
+		for (auto& point : m_polygon.outer())
+		{
+			const double x = point.x * c - point.y * s;
+			const double y = point.x * s + point.y * c;
+			point.set(x, y);
+		}
+
+		for (auto& hole : m_polygon.inners())
+		{
+			for (auto& point : hole)
+			{
+				const double x = point.x * c - point.y * s;
+				const double y = point.x * s + point.y * c;
+				point.set(x, y);
+			}
+		}
+
+		const float sF = static_cast<float>(s);
+		const float cF = static_cast<float>(c);
+
+		for (auto& vertex : m_vertices)
+		{
+			const float x = vertex.x * cF - vertex.y * sF;
+			const float y = vertex.x * sF + vertex.y * cF;
+			vertex.set(x, y);
+		}
+
+		if (!pos.isZero())
+		{
+			for (auto& point : m_polygon.outer())
+			{
+				point += pos;
+			}
+
+			for (auto& hole : m_polygon.inners())
+			{
+				for (auto& point : hole)
+				{
+					point += pos;
+				}
+			}
+
+			const Float2 posF = pos;
+
+			for (auto& vertex : m_vertices)
+			{
+				vertex += posF;
+			}
+		}
+
+		m_boundingRect = detail::CalculateBoundingRect(m_vertices.data(), m_vertices.size());
+	}
+
 	double Polygon::CPolygon::area() const
 	{
 		const size_t _num_triangles = m_indices.size() / 3;
@@ -233,6 +309,35 @@ namespace s3d
 			};
 
 			result +=detail::TriangleArea(m_vertices[indices[0]], m_vertices[indices[1]], m_vertices[indices[2]]);
+		}
+
+		return result;
+	}
+
+	double Polygon::CPolygon::perimeter() const
+	{
+		double result = 0.0;
+
+		{
+			const auto& outer = m_polygon.outer();
+			const size_t num_outer = outer.size();
+
+			for (size_t i = 0; i < num_outer; ++i)
+			{
+				result += outer[i].distanceFrom(outer[(i + 1) % num_outer]);
+			}
+		}
+
+		{
+			for (const auto& inner : m_polygon.inners())
+			{
+				const size_t num_inner = inner.size();
+
+				for (size_t i = 0; i < num_inner; ++i)
+				{
+					result += inner[i].distanceFrom(inner[(i + 1) % num_inner]);
+				}
+			}
 		}
 
 		return result;
@@ -525,7 +630,12 @@ namespace s3d
 
 	void Polygon::CPolygon::draw(const ColorF& color) const
 	{
-		Siv3DEngine::GetRenderer2D()->addShape2D(m_vertices, m_indices, color.toFloat4());
+		Siv3DEngine::GetRenderer2D()->addShape2D(m_vertices, m_indices, none, color.toFloat4());
+	}
+
+	void Polygon::CPolygon::draw(const Vec2& offset, const ColorF& color) const
+	{
+		Siv3DEngine::GetRenderer2D()->addShape2D(m_vertices, m_indices, Float2(offset), color.toFloat4());
 	}
 
 	void Polygon::CPolygon::drawFrame(double thickness, const ColorF& color) const
@@ -553,6 +663,39 @@ namespace s3d
 				hole.data(),
 				static_cast<uint32>(hole.size()),
 				none,
+				static_cast<float>(thickness),
+				false,
+				color.toFloat4(),
+				true
+			);
+		}
+	}
+
+	void Polygon::CPolygon::drawFrame(const Vec2& offset, double thickness, const ColorF& color) const
+	{
+		if (m_polygon.outer().isEmpty())
+		{
+			return;
+		}
+
+		Siv3DEngine::GetRenderer2D()->addLineString(
+			LineStyle::Default,
+			m_polygon.outer().data(),
+			static_cast<uint32>(m_polygon.outer().size()),
+			Float2(offset),
+			static_cast<float>(thickness),
+			false,
+			color.toFloat4(),
+			true
+		);
+
+		for (const auto& hole : m_polygon.inners())
+		{
+			Siv3DEngine::GetRenderer2D()->addLineString(
+				LineStyle::Default,
+				hole.data(),
+				static_cast<uint32>(hole.size()),
+				Float2(offset),
 				static_cast<float>(thickness),
 				false,
 				color.toFloat4(),

@@ -241,9 +241,13 @@ namespace s3d
 
 		LineString catmullRom(bool isClosed = false, int32 interpolation = 24) const;
 
-		// paint
+		const LineString& paint(Image& dst, const Color& color, bool isClosed = false) const;
 
-		// overpaint
+		const LineString& paint(Image& dst, int32 thickness, const Color& color, bool isClosed = false) const;
+
+		const LineString& overwrite(Image& dst, const Color& color, bool isClosed = false, bool antialiased = true) const;
+
+		const LineString& overwrite(Image& dst, int32 thickness, const Color& color, bool isClosed = false, bool antialiased = true) const;
 
 		const LineString& draw(const ColorF& color = Palette::White, bool isClosed = false) const
 		{

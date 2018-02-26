@@ -49,9 +49,9 @@ namespace s3d
 
 		CPolygon(const Vec2* pVertex, size_t vertexSize, Array<Array<Vec2>> holes);
 
-		CPolygon(const Vec2* pVertex, size_t vertexSize, const Array<Array<Vec2>>& holes, const Array<uint32>& indices, const RectF& boundingRect);
+		CPolygon(const Vec2* pOuterVertex, size_t vertexSize, const Array<uint32>& indices, const RectF& boundingRect);
 
-		CPolygon(const Float2* pVertex, size_t vertexSize, const Array<uint32>& indices);
+		CPolygon(const Float2* pOuterVertex, size_t vertexSize, const Array<uint32>& indices);
 
 		void copyFrom(CPolygon& other);
 
@@ -59,9 +59,11 @@ namespace s3d
 
 		void moveBy(double x, double y);
 
+		void rotateAt(const Vec2& pos, double angle);
+
 		double area() const;
 
-		//double perimeter() const;
+		double perimeter() const;
 
 		Vec2 centroid() const;
 		
@@ -89,7 +91,11 @@ namespace s3d
 
 		void draw(const ColorF& color) const;
 
+		void draw(const Vec2& offset, const ColorF& color) const;
+
 		void drawFrame(double thickness, const ColorF& color) const;
+
+		void drawFrame(const Vec2& offset, double thickness, const ColorF& color) const;
 
 		const gPolygon& getPolygon() const;
 	};

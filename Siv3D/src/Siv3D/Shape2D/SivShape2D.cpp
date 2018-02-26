@@ -280,7 +280,7 @@ namespace s3d
 
 	const Shape2D& Shape2D::draw(const ColorF& color) const
 	{
-		Siv3DEngine::GetRenderer2D()->addShape2D(m_vertices, m_indices, color.toFloat4());
+		Siv3DEngine::GetRenderer2D()->addShape2D(m_vertices, m_indices, none, color.toFloat4());
 
 		return *this;
 	}
