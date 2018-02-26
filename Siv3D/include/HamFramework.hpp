@@ -25,19 +25,16 @@
 //----------------------------------------------------------------------------------------
 
 # pragma once
+# ifdef SIV3D_INCLUDED
 
-# ifndef SIV3D_INCLUDED
-
-#	error include <Siv3D.hpp> before <HamFramework.hpp>
+	# include <HamFramework/Camera2D.hpp>
+	# include <HamFramework/InputDeviceSymbol.hpp>
+	# include <HamFramework/JoyConSymbol.hpp>
+	# include <HamFramework/MiniScene.hpp>
+	# include <HamFramework/OptimalScreen.hpp>
+	# include <HamFramework/PlayingCard.hpp>
+	# include <HamFramework/Rx.hpp>
+	# include <HamFramework/ScalableWindow.hpp>
+	# include <HamFramework/SceneManager.hpp>
 
 # endif
-
-# include "HamFramework/Camera2D.hpp"
-# include "HamFramework/InputDeviceSymbol.hpp"
-# include "HamFramework/JoyConSymbol.hpp"
-# include "HamFramework/MiniScene.hpp"
-# include "HamFramework/OptimalScreen.hpp"
-# include "HamFramework/PlayingCard.hpp"
-# include "HamFramework/Rx.hpp"
-# include "HamFramework/ScalableWindow.hpp"
-# include "HamFramework/SceneManager.hpp"

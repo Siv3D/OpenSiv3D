@@ -77,57 +77,53 @@ namespace s3d
 
 			void update(const uint64 currentTimeMicrosec) override
 			{
-				S3D_DISABLE_MSVC_WARNINGS_PUSH(4127)
-
-					if (continuous)
+				if constexpr (continuous)
+				{
+					for (auto it = m_stream.begin(); it != m_stream.end();)
 					{
-						for (auto it = m_stream.begin(); it != m_stream.end();)
+						if ((currentTimeMicrosec - it->timeMicrosec) >= m_delayTimeMicrosec)
 						{
-							if ((currentTimeMicrosec - it->timeMicrosec) >= m_delayTimeMicrosec)
-							{
-								m_lastSentMessage = *it;
+							m_lastSentMessage = *it;
 
-								it = m_stream.erase(it);
-							}
-							else
-							{
-								++it;
-							}
+							it = m_stream.erase(it);
 						}
-
-						if (m_child && m_lastSentMessage)
+						else
 						{
-							m_child->send(*m_lastSentMessage);
+							++it;
 						}
 					}
-					else
+
+					if (m_child && m_lastSentMessage)
 					{
-						for (auto it = m_stream.begin(); it != m_stream.end();)
+						m_child->send(*m_lastSentMessage);
+					}
+				}
+				else
+				{
+					for (auto it = m_stream.begin(); it != m_stream.end();)
+					{
+						if ((currentTimeMicrosec - it->timeMicrosec) >= m_delayTimeMicrosec)
 						{
-							if ((currentTimeMicrosec - it->timeMicrosec) >= m_delayTimeMicrosec)
+							if (m_child)
 							{
-								if (m_child)
-								{
-									m_child->send(*it);
-								}
-
-								m_lastSentMessage = *it;
-
-								it = m_stream.erase(it);
+								m_child->send(*it);
 							}
-							else
-							{
-								++it;
-							}
+
+							m_lastSentMessage = *it;
+
+							it = m_stream.erase(it);
+						}
+						else
+						{
+							++it;
 						}
 					}
+				}
 
 				if (m_child)
 				{
 					m_child->update(currentTimeMicrosec);
 				}
-
-				S3D_DISABLE_MSVC_WARNINGS_POP()
 			}
 		};
 

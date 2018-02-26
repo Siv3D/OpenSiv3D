@@ -74,6 +74,8 @@ namespace s3d
 				result = Graphics::SetFullScreen(false, newSize, System::GetCurrentMonitorIndex());
 			}
 
+			Siv3DEngine::GetWindow()->setBaseSize(newSize);
+
 			if (centering)
 			{
 				Centering();

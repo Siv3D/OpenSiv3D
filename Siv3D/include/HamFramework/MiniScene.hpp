@@ -44,7 +44,7 @@ namespace s3d
 			}
 		}
 
-		SceneFunction& operator [](const State& state)
+		[[nodiscard]] SceneFunction& operator [](const State& state)
 		{
 			if (!m_currentState)
 			{

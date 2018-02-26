@@ -38,13 +38,20 @@ namespace s3d
 
 		using Data_t = Data;
 
-		using InitData = struct
+		struct InitData
 		{
 			State_t state;
 
 			std::shared_ptr<Data_t> _s;
 
 			SceneManager<State_t, Data_t>* _m;
+
+			InitData() = default;
+
+			InitData(const State_t& _state, const std::shared_ptr<Data_t>& data, SceneManager<State_t, Data_t>* manager)
+				: state(_state)
+				, _s(data)
+				, _m(manager) {}
 		};
 
 	private:
@@ -134,7 +141,7 @@ namespace s3d
 
 	protected:
 
-		const State_t& getState() const
+		[[nodiscard]] const State_t& getState() const
 		{
 			return m_state;
 		}
@@ -146,7 +153,7 @@ namespace s3d
 		/// <returns>
 		/// 共有データへの参照
 		/// </returns>
-		Data_t& getData() const
+		[[nodiscard]] Data_t& getData() const
 		{
 			return *m_data;
 		}
@@ -396,7 +403,7 @@ namespace s3d
 		template <class Scene>
 		SceneManager& add(const State& state)
 		{
-			typename Scene::InitData initData{ state, m_data, this };
+			typename Scene::InitData initData(state, m_data, this);
 			
 			auto factory = [=](){
 				return std::make_shared<Scene>(initData);
@@ -558,7 +565,7 @@ namespace s3d
 		/// <returns>
 		/// 共有データへのポインタ
 		/// </returns>
-		std::shared_ptr<Data> get()
+		[[nodiscard]] std::shared_ptr<Data> get()
 		{
 			return m_data;
 		}
@@ -569,7 +576,7 @@ namespace s3d
 		/// <returns>
 		/// 共有データへのポインタ
 		/// </returns>
-		const std::shared_ptr<const Data> get() const
+		[[nodiscard]] const std::shared_ptr<const Data> get() const
 		{
 			return m_data;
 		}

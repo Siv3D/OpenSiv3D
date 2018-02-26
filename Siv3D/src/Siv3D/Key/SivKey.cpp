@@ -69,7 +69,7 @@ namespace s3d
 		}
 	}
 
-	MillisecondsF Key::pressedDuration() const
+	Duration Key::pressedDuration() const
 	{
 		switch (m_device)
 		{
@@ -82,7 +82,7 @@ namespace s3d
 		case InputDevice::XInput:
 			return Siv3DEngine::GetXInput()->pressedDuration(m_userIndex, m_code);
 		default:
-			return MillisecondsF(0.0);
+			return Duration(0);
 		}
 	}
 

@@ -73,7 +73,7 @@ namespace s3d
 		/// </returns>
 		bool up() const;
 
-		MillisecondsF pressedDuration() const;
+		Duration pressedDuration() const;
 
 		constexpr InputDevice inputDevice() const noexcept
 		{

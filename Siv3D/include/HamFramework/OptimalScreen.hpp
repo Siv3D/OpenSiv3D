@@ -35,7 +35,7 @@ namespace s3d
 			double xScale;
 		};
 
-		inline Array<Setting> Enum(
+		[[nodiscard]] inline Array<Setting> Enum(
 			const Optional<Size>& targetResolution = none,
 			const Optional<int32>& targetRefreshRate = 60,
 			const Optional<size_t>& targetDisplayIndex = 0)
@@ -163,7 +163,7 @@ namespace s3d
 			return results2;
 		}
 
-		inline std::pair<size_t, DisplayMode> Get(
+		[[nodiscard]] inline std::pair<size_t, DisplayMode> Get(
 			Preference preference = Preference::AspectMin,
 			const Optional<Size>& targetResolution = none,
 			const Optional<int32>& targetRefreshRate = 60,
