@@ -21,6 +21,17 @@
 
 namespace s3d
 {
+	enum class BorderType
+	{
+		Replicate,
+
+		Reflect,
+
+		Reflect_101,
+
+		Default = Reflect_101,
+	};
+
 	/// <summary>
 	/// 画像
 	/// </summary>
@@ -738,13 +749,7 @@ namespace s3d
 
 		bool applyAlphaFromRChannel(const FilePath& alpha);
 
-		Image& mirror();
-
-		Image& flip();
-		
-		
-		
-		
+				
 		bool save(const FilePath& path, ImageFormat format = ImageFormat::Unspecified) const;
 
 		bool savePNG(const FilePath& path, PNGFilter::Flag filterFlag = PNGFilter::Default) const;
@@ -754,6 +759,118 @@ namespace s3d
 		bool savePPM(const FilePath& path, PPMType format = PPMType::AsciiRGB) const;
 
 		MemoryWriter encode(ImageFormat format = ImageFormat::PNG) const;
+
+		/// <summary>
+		/// ネガポジ反転処理を行います。
+		/// </summary>
+		/// <returns>
+		/// *this
+		/// </returns>
+		Image& negate();
+
+		/// <summary>
+		/// ネガポジ反転処理した画像を返します。
+		/// </summary>
+		/// <returns>
+		/// ネガポジ反転処理した画像
+		/// </returns>
+		Image negated() const;
+
+		/// <summary>
+		/// グレースケール変換を行います。
+		/// </summary>
+		/// <returns>
+		/// *this
+		/// </returns>
+		Image& grayscale();
+
+		/// <summary>
+		/// グレースケール変換した画像を返します。
+		/// </summary>
+		/// <returns>
+		/// グレースケール変換した画像
+		/// </returns>
+		Image grayscaled() const;
+
+		/// <summary>
+		/// セピア調変換を行います。
+		/// </summary>
+		/// <param name="level">
+		/// セピアの強さ [0,255]
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		Image& sepia(int32 level = 25);
+
+		/// <summary>
+		/// セピア調変換した画像を返します。
+		/// </summary>
+		/// <param name="level">
+		/// セピアの強さ [0,255]
+		/// </param>
+		/// <returns>
+		/// セピア調変換した画像
+		/// </returns>
+		Image sepiaed(int32 level = 25) const;
+
+		/// <summary>
+		/// ポスタライズ処理を行います。
+		/// </summary>
+		/// <param name="level">
+		/// 各チャンネルの段階数
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		Image& postarize(int32 level);
+
+		/// <summary>
+		/// ポスタライズ処理を行った画像を返します。
+		/// </summary>
+		/// <param name="level">
+		/// 各チャンネルの段階数
+		/// </param>
+		/// <returns>
+		/// ポスタライズ処理を行った画像
+		/// </returns>
+		Image postarized(int32 level) const;
+
+		/// <summary>
+		/// 明るさを変更します。
+		/// </summary>
+		/// <param name="level">
+		/// 変更レベル
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		Image& brighten(int32 level);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="level">
+		/// 
+		/// </param>
+		/// <returns>
+		/// 
+		/// </returns>
+		Image brightened(int32 level) const;
+
+
+
+
+
+
+		Image& mirror();
+
+		Image& flip();
+
+
+		Image& gaussianBlur(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Default);
+
+		Image gaussianBlurred(const int32 horizontal, const int32 vertical, BorderType borderType = BorderType::Default) const;
 	};
 }
 

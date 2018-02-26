@@ -267,7 +267,7 @@ namespace s3d
 		/// <returns>
 		/// グレースケール値
 		/// </returns>
-		constexpr uint8 grayscale_0_255() const noexcept
+		constexpr uint8 grayscale0_255() const noexcept
 		{
 			return static_cast<uint8>(0.299*r + 0.587*g + 0.114*b);
 		}

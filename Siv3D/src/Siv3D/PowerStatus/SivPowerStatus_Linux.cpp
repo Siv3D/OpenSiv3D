@@ -9,6 +9,9 @@
 //
 //-----------------------------------------------
 
+# include <Siv3D/Platform.hpp>
+# if defined(SIV3D_TARGET_LINUX)
+
 # include <algorithm>
 # include <string>
 # include <vector>
@@ -162,3 +165,5 @@ namespace s3d
 		}
 	}
 }
+
+# endif

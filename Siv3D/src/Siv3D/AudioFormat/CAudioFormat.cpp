@@ -38,7 +38,7 @@ namespace s3d
 			{
 				WritableMemoryMapping file(m_path);
 
-				const int64 size = reader.size();
+				const size_t size = static_cast<size_t>(reader.size());
 
 				file.map(0, size);
 

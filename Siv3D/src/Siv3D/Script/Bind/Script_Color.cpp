@@ -52,7 +52,7 @@ namespace s3d
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(uint32 rgb, uint32 a)", asFUNCTION(ConstructUU), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(uint32 r, uint32 g, uint32 b, uint32 a = 255)", asFUNCTION(ConstructUUUU), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "uint8 grayscale() const", asMETHOD(Color, grayscale_0_255), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "uint8 grayscale() const", asMETHOD(Color, grayscale0_255), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "double grayscaleF() const", asMETHOD(Color, grayscale), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->SetDefaultNamespace("Palette"); assert(r >= 0);
