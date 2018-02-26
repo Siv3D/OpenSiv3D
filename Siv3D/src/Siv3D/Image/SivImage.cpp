@@ -1954,6 +1954,285 @@ namespace s3d
 		return image;
 	}
 
+	Image& Image::scale(int32 width, int32 height, Interpolation interpolation)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			width = Clamp<int32>(width, 1, Image::MaxWidth);
+
+			height = Clamp<int32>(height, 1, Image::MaxHeight);
+
+			if (static_cast<int32>(m_width) == width && static_cast<int32>(m_height) == height)
+			{
+				return *this;
+			}
+		}
+
+		const uint32 targetWidth = width, targetHeight = height;
+
+		// 3. 処理
+		{
+			// TODO 再検討
+			if (interpolation == Interpolation::Unspecified)
+			{
+				if (targetWidth >= m_width && targetHeight >= m_height)
+				{
+					interpolation = Interpolation::Lanczos;
+				}
+				else if (targetWidth < m_width / 2 || targetHeight < m_height / 2)
+				{
+					interpolation = Interpolation::Area;
+				}
+				else
+				{
+					interpolation = Interpolation::Lanczos;
+				}
+			}
+
+			Image tmp(targetWidth, targetHeight);
+
+			cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
+			cv::Mat_<cv::Vec4b> matDst(tmp.height(), tmp.width(), static_cast<cv::Vec4b*>(static_cast<void*>(tmp.data())), tmp.stride());
+
+			cv::resize(matSrc, matDst, matDst.size(), 0, 0, static_cast<int32>(interpolation));
+
+			swap(tmp);
+		}
+
+		return *this;
+	}
+
+	Image Image::scaled(int32 width, int32 height, Interpolation interpolation) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			width = Clamp<int32>(width, 1, Image::MaxWidth);
+
+			height = Clamp<int32>(height, 1, Image::MaxHeight);
+
+			if (static_cast<int32>(m_width) == width && static_cast<int32>(m_height) == height)
+			{
+				return *this;
+			}
+		}
+
+		const uint32 targetWidth = width, targetHeight = height;
+
+		// 3. 処理
+		{
+			// TODO 再検討
+			if (interpolation == Interpolation::Unspecified)
+			{
+				if (targetWidth >= m_width && targetHeight >= m_height)
+				{
+					interpolation = Interpolation::Lanczos;
+				}
+				else if (targetWidth < m_width / 2 || targetHeight < m_height / 2)
+				{
+					interpolation = Interpolation::Area;
+				}
+				else
+				{
+					interpolation = Interpolation::Lanczos;
+				}
+			}
+
+			Image image(targetWidth, targetHeight);
+
+			cv::Mat_<cv::Vec4b> matSrc(m_height, m_width, const_cast<cv::Vec4b*>(static_cast<const cv::Vec4b*>(static_cast<const void*>(data()))), stride());
+			cv::Mat_<cv::Vec4b> matDst(image.height(), image.width(), static_cast<cv::Vec4b*>(static_cast<void*>(image.data())), image.stride());
+
+			cv::resize(matSrc, matDst, matDst.size(), 0, 0, static_cast<int32>(interpolation));
+
+			return image;
+		}
+	}
+
+	Image& Image::scale(const Size& size, const Interpolation interpolation)
+	{
+		return scale(size.x, size.y, interpolation);
+	}
+
+	Image Image::scaled(const Size& size, const Interpolation interpolation) const
+	{
+		return scaled(size.x, size.y, interpolation);
+	}
+
+	Image& Image::scale(const double scaling, const Interpolation interpolation)
+	{
+		return scale(static_cast<int32>(m_width * scaling), static_cast<int32>(m_height * scaling), interpolation);
+	}
+
+	Image Image::scaled(const double scaling, const Interpolation interpolation) const
+	{
+		return scaled(static_cast<int32>(m_width * scaling), static_cast<int32>(m_height * scaling), interpolation);
+	}
+
+	Image& Image::fit(int32 width, int32 height, const bool scaleUp, const Interpolation interpolation)
+	{
+		if (!scaleUp)
+		{
+			width	= std::min(width, static_cast<int32>(m_width));
+			height	= std::min(height, static_cast<int32>(m_height));
+		}
+
+		const int32 w = m_width;
+		const int32 h = m_height;
+		double ws = static_cast<double>(width) / w;	// 何% scalingするか
+		double hs = static_cast<double>(height) / h;
+
+		int32 targetWidth, targetHeight;
+
+		if (ws < hs)
+		{
+			targetWidth		= width;
+			targetHeight	= std::max(static_cast<int32>(h * ws), 1);
+		}
+		else
+		{
+			targetWidth		= std::max(static_cast<int32>(w * hs), 1);
+			targetHeight	= height;
+		}
+
+		return scale(targetWidth, targetHeight, interpolation);
+	}
+
+	Image Image::fitted(int32 width, int32 height, const bool scaleUp, const Interpolation interpolation) const
+	{
+		if (!scaleUp)
+		{
+			width	= std::min(width, static_cast<int32>(m_width));
+			height	= std::min(height, static_cast<int32>(m_height));
+		}
+
+		const int32 w = m_width;
+		const int32 h = m_height;
+		double ws = static_cast<double>(width) / w;	// 何% scalingするか
+		double hs = static_cast<double>(height) / h;
+
+		int32 targetWidth, targetHeight;
+
+		if (ws < hs)
+		{
+			targetWidth		= width;
+			targetHeight	= std::max(static_cast<int32>(h * ws), 1);
+		}
+		else
+		{
+			targetWidth		= std::max(static_cast<int32>(w * hs), 1);
+			targetHeight	= height;
+		}
+
+		return scaled(targetWidth, targetHeight, interpolation);
+	}
+
+	Image& Image::fit(const Size& size, const bool scaleUp, const Interpolation interpolation)
+	{
+		return fit(size.x, size.y, scaleUp, interpolation);
+	}
+
+	Image Image::fitted(const Size& size, const bool scaleUp, const Interpolation interpolation) const
+	{
+		return fitted(size.x, size.y, scaleUp, interpolation);
+	}
+
+	Image& Image::border(const int32 thickness, const Color& color)
+	{
+		return border(thickness, thickness, thickness, thickness, color);
+	}
+
+	Image Image::bordered(const int32 thickness, const Color& color) const
+	{
+		return bordered(thickness, thickness, thickness, thickness, color);
+	}
+
+	Image& Image::border(int32 top, int32 right, int32 bottom, int32 left, const Color& color)
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			top		= std::max(0, top);
+			right	= std::max(0, right);
+			bottom	= std::max(0, bottom);
+			left	= std::max(0, left);
+
+			if (top == 0 && right == 0 && bottom == 0 && left == 0)
+			{
+				return *this;
+			}
+		}
+
+		Image tmp(left + m_width + right, top + m_height + bottom, color);
+
+		const Color* pSrc = data();
+		const size_t srcStride = stride();
+		Color* pDst = tmp.data() + tmp.width() * top + left;
+		const size_t srcStep = m_width;
+		const size_t dstStep = tmp.width();
+
+		for (uint32 y = 0; y < m_height; ++y)
+		{
+			::memcpy(pDst, pSrc, srcStride);
+			pSrc += srcStep;
+			pDst += dstStep;
+		}
+
+		swap(tmp);
+
+		return *this;
+	}
+
+	Image Image::bordered(int32 top, int32 right, int32 bottom, int32 left, const Color& color) const
+	{
+		// 1. パラメータチェック
+		{
+			if (isEmpty())
+			{
+				return *this;
+			}
+
+			top = std::max(0, top);
+			right = std::max(0, right);
+			bottom = std::max(0, bottom);
+			left = std::max(0, left);
+
+			if (top == 0 && right == 0 && bottom == 0 && left == 0)
+			{
+				return *this;
+			}
+		}
+
+		Image image(left + m_width + right, top + m_height + bottom, color);
+
+		const Color* pSrc = data();
+		const size_t srcStride = stride();
+		Color* pDst = image.data() + image.width() * top + left;
+		const size_t srcStep = m_width;
+		const size_t dstStep = image.width();
+
+		for (uint32 y = 0; y < m_height; ++y)
+		{
+			::memcpy(pDst, pSrc, srcStride);
+			pSrc += srcStep;
+			pDst += dstStep;
+		}
+
+		return image;
+	}
 
 
 	namespace ImageProcessing
@@ -2153,5 +2432,179 @@ namespace s3d
 
 			return result;
 		}
+
+		void Sobel(const Image& src, Image& dst, const int32 dx, const int32 dy, int32 apertureSize)
+		{
+			// 1. パラメータチェック
+			{
+				if (!src)
+				{
+					return;
+				}
+
+				if (&src == &dst)
+				{
+					return;
+				}
+
+				if (apertureSize % 2 == 0)
+				{
+					++apertureSize;
+				}
+			}
+
+			// 2. 出力画像のサイズ変更
+			{
+				dst.resize(src.size());
+
+				::memcpy(dst.data(), src.data(), dst.size_bytes());
+			}
+
+			// 3. 処理
+			{
+				cv::Mat_<uint8> gray(src.height(), src.width());
+
+				detail::ToGrayScale(src, gray);
+
+				cv::Mat_<uint8> detected_edges;
+
+				cv::Sobel(gray, detected_edges, CV_8U, dx, dy, apertureSize);
+
+				{
+					Color* pDst = dst.data();
+
+					const int32 height = src.height(), width = src.width();
+
+					for (int32 y = 0; y < height; ++y)
+					{
+						const uint8* line = &detected_edges(y, 0);
+
+						for (int32 x = 0; x < width; ++x)
+						{
+							pDst->r = pDst->g = pDst->b = line[x];
+
+							++pDst;
+						}
+					}
+				}
+			}
+		}
+
+		void Laplacian(const Image& src, Image& dst, int32 apertureSize)
+		{
+			// 1. パラメータチェック
+			{
+				if (!src)
+				{
+					return;
+				}
+
+				if (&src == &dst)
+				{
+					return;
+				}
+
+				if (apertureSize % 2 == 0)
+				{
+					++apertureSize;
+				}
+			}
+
+			// 2. 出力画像のサイズ変更
+			{
+				dst.resize(src.size());
+
+				::memcpy(dst.data(), src.data(), dst.size_bytes());
+			}
+
+			// 3. 処理
+			{
+				cv::Mat_<uint8> gray(src.height(), src.width());
+
+				detail::ToGrayScale(src, gray);
+
+				cv::Mat_<uint8> detected_edges;
+
+				cv::Laplacian(gray, detected_edges, CV_8U, apertureSize);
+
+				{
+					Color* pDst = dst.data();
+
+					const int32 height = src.height(), width = src.width();
+
+					for (int32 y = 0; y < height; ++y)
+					{
+						const uint8* line = &detected_edges(y, 0);
+
+						for (int32 x = 0; x < width; ++x)
+						{
+							pDst->r = pDst->g = pDst->b = line[x];
+
+							++pDst;
+						}
+					}
+				}
+			}
+		}
+
+		void Canny(const Image& src, Image& dst, const uint8 lowThreshold, const uint8 highThreshold, int32 apertureSize, const bool useL2Gradient)
+		{
+			// 1. パラメータチェック
+			{
+				if (!src)
+				{
+					return;
+				}
+
+				if (&src == &dst)
+				{
+					return;
+				}
+
+				if (apertureSize % 2 == 0)
+				{
+					++apertureSize;
+				}
+			}
+
+			// 2. 出力画像のサイズ変更
+			{
+				dst.resize(src.size());
+
+				::memcpy(dst.data(), src.data(), dst.size_bytes());
+			}
+
+			// 3. 処理
+			{
+				cv::Mat_<uint8> gray(src.height(), src.width());
+
+				detail::ToGrayScale(src, gray);
+
+				cv::Mat_<uint8> detected_edges;
+
+				cv::blur(gray, detected_edges, cv::Size(3, 3));
+
+				cv::Canny(detected_edges, detected_edges, lowThreshold, highThreshold, apertureSize, useL2Gradient);
+
+				{
+					Color* pDst = dst.data();
+
+					const int32 height = src.height(), width = src.width();
+
+					for (int32 y = 0; y < height; ++y)
+					{
+						const uint8* line = &detected_edges(y, 0);
+
+						for (int32 x = 0; x < width; ++x)
+						{
+							pDst->r = pDst->g = pDst->b = line[x];
+
+							++pDst;
+						}
+					}
+				}
+			}
+		}
+
 	}
 }

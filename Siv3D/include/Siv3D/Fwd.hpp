@@ -933,6 +933,21 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	Physics2D.hpp
+	//
+	struct P2Material;
+	struct P2Filter;
+	enum class P2ShapeType;
+	class P2World;
+	class P2Body;
+	struct P2Fixture;
+	class P2Shape;
+	class P2Line;
+	class P2LineString;
+	class P2Circle;
+
+	//////////////////////////////////////////////////////
+	//
 	//	SVM.hpp
 	//
 	namespace SVM

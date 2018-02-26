@@ -101,6 +101,14 @@ namespace s3d
 
 		Polygon& rotateAt(const Vec2& pos, double angle);
 
+		Polygon transformed(double s, double c, const Vec2& pos) const;
+
+		Polygon& transform(double s, double c, const Vec2& pos);
+
+		Polygon scaled(double s) const;
+
+		Polygon& scale(double s);
+
 		double area() const;
 
 		double perimeter() const;
@@ -176,6 +184,8 @@ namespace s3d
 		void drawWireframe(double x, double y, double thickness = 1.0, const ColorF& color = Palette::White) const;
 
 		void drawWireframe(const Vec2& pos, double thickness = 1.0, const ColorF& color = Palette::White) const;
+
+		void drawTransformed(double s, double c, const Vec2& pos, const ColorF& color = Palette::White) const;
 
 		const CPolygon* _detail() const;
 	};
