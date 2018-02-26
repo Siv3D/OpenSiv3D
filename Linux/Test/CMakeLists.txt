@@ -56,6 +56,7 @@ target_link_libraries(Siv3D_Test
 	-ludev
 	-lopencv_core
 	-lopencv_imgproc
+	-lBox2D
 
 	${PROJECT_SOURCE_DIR}/../Debug/libSiv3D.a
 	${PROJECT_SOURCE_DIR}/../../Siv3D/lib/Linux/angelscript/libangelscript.a
