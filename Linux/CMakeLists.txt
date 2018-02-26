@@ -174,6 +174,7 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/Mouse/CMouse_Linux.cpp"
 	"../Siv3D/src/Siv3D/Mouse/MouseFactory.cpp"
 	"../Siv3D/src/Siv3D/Mouse/SivMouse.cpp"
+	"../Siv3D/src/Siv3D/Painting/PaintShape.cpp"
 	"../Siv3D/src/Siv3D/Painting/SivPainting.cpp"
 	"../Siv3D/src/Siv3D/ParseBool/SivParseBool.cpp"
 	"../Siv3D/src/Siv3D/ParseFloat/SivParseFloat.cpp"
