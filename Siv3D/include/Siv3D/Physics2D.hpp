@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -10,8 +10,6 @@
 //-----------------------------------------------
 
 # pragma once
-# include <atomic>
-# include <ThirdParty/Box2D/Box2D.h>
 # include "Fwd.hpp"
 # include "Optional.hpp"
 # include "Array.hpp"
@@ -24,6 +22,15 @@
 # include "Quad.hpp"
 # include "Polygon.hpp"
 # include "System.hpp"
+
+// Box2D forward declaration
+class b2World;
+class b2Body;
+class b2Fixture;
+class b2EdgeShape;
+class b2ChainShape;
+class b2CircleShape;
+class b2PolygonShape;
 
 namespace s3d
 {
@@ -156,52 +163,9 @@ namespace s3d
 
 		P2Body createPolygon(const Vec2& center, const Polygon& polygon, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
-		b2World& getData();
+		P2RevoluteJoint createRevoluteJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos);
 
-		const b2World& getData() const;
-	};
-
-	class P2World::CP2World
-	{
-	private:
-
-		b2World m_world;
-
-		//ContactListener m_contactListner;
-
-		std::atomic<P2BodyID> m_currentID = 0;
-
-		P2BodyID generateNextID();
-
-	public:
-
-		CP2World(const Vec2& gravity);
-
-		void update(double timeStep, int32 velocityIterations, int32 positionIterations);
-
-		P2Body createEmpty(P2World& world, const Vec2& center, P2BodyType bodyType);
-
-		P2Body createLine(P2World& world, const Vec2& center, const Line& line, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
-
-		P2Body createLineString(P2World& world, const Vec2& center, const LineString& lines, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
-
-		P2Body createClosedLineString(P2World& world, const Vec2& center, const LineString& lines, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
-
-		P2Body createCircle(P2World& world, const Vec2& center, const Circle& circle, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
-
-		P2Body createRect(P2World& world, const Vec2& center, const RectF& rect, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
-
-		P2Body createTriangle(P2World& world, const Vec2& center, const Triangle& triangle, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
-
-		P2Body createQuad(P2World& world, const Vec2& center, const Quad& quad, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
-
-		P2Body createPolygon(P2World& world, const Vec2& center, const Polygon& polygon, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
-
-		//const Array<PhysicsContact>& getContacts() const;
-
-		b2World& getData();
-
-		const b2World& getData() const;
+		b2World* getWorldPtr() const;
 	};
 
 	class P2Body
@@ -327,9 +291,21 @@ namespace s3d
 		P2Shape& shape(size_t index);
 
 		const P2Shape& shape(size_t index) const;
+		
+		std::shared_ptr<P2Shape> shapePtr(size_t index) const;
 
 		template <class PShape, std::enable_if_t<std::is_base_of_v<P2Shape, PShape>>* = nullptr>
-		std::shared_ptr<PShape> shapeAs(const size_t index) const;
+		std::shared_ptr<PShape> shapeAs(size_t index) const
+		{
+			if (isEmpty())
+			{
+				throw std::out_of_range("P2Body::shapeAs() P2Body is empty.");
+			}
+			
+			return std::dynamic_pointer_cast<PShape>(shapePtr(index));
+		}
+
+		b2Body* getBodyPtr() const;
 	};
 
 	struct P2Fixture
@@ -372,7 +348,7 @@ namespace s3d
 	{
 	private:
 
-		b2EdgeShape m_shape;
+		std::unique_ptr<b2EdgeShape> m_pShape;
 
 	public:
 
@@ -389,7 +365,7 @@ namespace s3d
 	{
 	private:
 
-		b2ChainShape m_shape;
+		std::unique_ptr<b2ChainShape> m_pShape;
 
 		mutable LineString m_lineString;
 
@@ -410,7 +386,7 @@ namespace s3d
 	{
 	private:
 
-		b2CircleShape m_shape;
+		std::unique_ptr<b2CircleShape> m_pShape;
 
 	public:
 
@@ -427,7 +403,7 @@ namespace s3d
 	{
 	private:
 
-		b2PolygonShape m_shape;
+		std::unique_ptr<b2PolygonShape> m_pShape;
 
 	public:
 
@@ -444,7 +420,7 @@ namespace s3d
 	{
 	private:
 
-		b2PolygonShape m_shape;
+		std::unique_ptr<b2PolygonShape> m_pShape;
 
 	public:
 
@@ -461,7 +437,7 @@ namespace s3d
 	{
 	private:
 
-		b2PolygonShape m_shape;
+		std::unique_ptr<b2PolygonShape> m_pShape;
 
 	public:
 
@@ -490,60 +466,34 @@ namespace s3d
 
 		Polygon getPolygon() const;
 	};
-
-	class P2Body::CP2Body
+	
+	
+	class P2RevoluteJoint
 	{
 	private:
 
-		P2World m_world;
+		class CP2RevoluteJoint;
 
-		Array<std::shared_ptr<P2Shape>> m_shapes;
+		std::shared_ptr<CP2RevoluteJoint> pImpl;
 
-		b2Body* m_body = nullptr;
+		friend class P2World;
 
-		P2BodyID m_id = 0;
-
-		//PhysicsBodyInternalData* getInternalData();
+		P2RevoluteJoint(P2World& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos);
 
 	public:
 
-		CP2Body() = default;
+		P2RevoluteJoint() = default;
 
-		CP2Body(P2World& world, P2BodyID id, const Vec2& center, P2BodyType bodyType);
+		void setMotorEnabled(bool enabled);
 
-		~CP2Body();
+		bool getMotorEnabled() const;
 
-		P2BodyID id() const;
+		void setMotorSpeed(double speed);
 
-		void addLine(const Line& line, const P2Material& material, const P2Filter& filter);
+		double getMotorSpeed() const;
 
-		void addLineString(const LineString& lines, bool closed, const P2Material& material, const P2Filter& filter);
+		void setMaxMotorTorque(double torque);
 
-		void addCircle(const Circle& circle, const P2Material& material, const P2Filter& filter);
-
-		void addRect(const RectF& rect, const P2Material& material, const P2Filter& filter);
-
-		void addTriangle(const Triangle& triangle, const P2Material& material, const P2Filter& filter);
-
-		void addQuad(const Quad& quad, const P2Material& material, const P2Filter& filter);
-
-		void addPolygon(const Polygon& polygon, const P2Material& material, const P2Filter& filter);
-
-		b2Body& getBody();
-
-		const b2Body& getBody() const;
-
-		const Array<std::shared_ptr<P2Shape>>& getShapes() const;
+		double getMaxMotorTorque() const;
 	};
-	
-	template <class PShape, std::enable_if_t<std::is_base_of_v<P2Shape, PShape>>*>
-	inline std::shared_ptr<PShape> P2Body::shapeAs(const size_t index) const
-	{
-		if (isEmpty())
-		{
-			throw std::out_of_range("P2Body::shapeAs() P2Body is empty.");
-		}
-		
-		return std::dynamic_pointer_cast<PShape>(pImpl->getShapes()[index]);
-	}
 }

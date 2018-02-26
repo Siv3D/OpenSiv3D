@@ -22,7 +22,7 @@ namespace s3d
 
 	Optional<ExifInfo> ExifInfo::Read(const IReader& reader)
 	{
-		Array<uint8> data(reader.size());
+		Array<uint8> data(static_cast<size_t>(reader.size()));
 
 		reader.lookahead(data.data(), data.size());
 

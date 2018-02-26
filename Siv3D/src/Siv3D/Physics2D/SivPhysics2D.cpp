@@ -9,8 +9,10 @@
 //
 //-----------------------------------------------
 
+# include <atomic>
 # include <Siv3D/Physics2D.hpp>
 # include <Siv3D/Graphics2D.hpp>
+# include <Box2D/Box2D.h>
 
 namespace s3d
 {
@@ -40,6 +42,121 @@ namespace s3d
 		}
 	}
 
+	class P2World::CP2World
+	{
+	private:
+
+		b2World m_world;
+
+		//ContactListener m_contactListner;
+
+		std::atomic<P2BodyID> m_currentID = 0;
+
+		P2BodyID generateNextID();
+
+	public:
+
+		CP2World(const Vec2& gravity);
+
+		void update(double timeStep, int32 velocityIterations, int32 positionIterations);
+
+		P2Body createEmpty(P2World& world, const Vec2& center, P2BodyType bodyType);
+
+		P2Body createLine(P2World& world, const Vec2& center, const Line& line, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
+
+		P2Body createLineString(P2World& world, const Vec2& center, const LineString& lines, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
+
+		P2Body createClosedLineString(P2World& world, const Vec2& center, const LineString& lines, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
+
+		P2Body createCircle(P2World& world, const Vec2& center, const Circle& circle, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
+
+		P2Body createRect(P2World& world, const Vec2& center, const RectF& rect, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
+
+		P2Body createTriangle(P2World& world, const Vec2& center, const Triangle& triangle, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
+
+		P2Body createQuad(P2World& world, const Vec2& center, const Quad& quad, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
+
+		P2Body createPolygon(P2World& world, const Vec2& center, const Polygon& polygon, const P2Material& material, const P2Filter& filter, P2BodyType bodyType);
+
+		P2RevoluteJoint createRevoluteJoint(P2World& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos);
+
+		//const Array<PhysicsContact>& getContacts() const;
+
+		b2World& getData();
+
+		const b2World& getData() const;
+
+		b2World* getWorldPtr();
+	};
+
+	class P2Body::CP2Body
+	{
+	private:
+
+		P2World m_world;
+
+		Array<std::shared_ptr<P2Shape>> m_shapes;
+
+		b2Body* m_body = nullptr;
+
+		P2BodyID m_id = 0;
+
+		//PhysicsBodyInternalData* getInternalData();
+
+	public:
+
+		CP2Body() = default;
+
+		CP2Body(P2World& world, P2BodyID id, const Vec2& center, P2BodyType bodyType);
+
+		~CP2Body();
+
+		P2BodyID id() const;
+
+		void addLine(const Line& line, const P2Material& material, const P2Filter& filter);
+
+		void addLineString(const LineString& lines, bool closed, const P2Material& material, const P2Filter& filter);
+
+		void addCircle(const Circle& circle, const P2Material& material, const P2Filter& filter);
+
+		void addRect(const RectF& rect, const P2Material& material, const P2Filter& filter);
+
+		void addTriangle(const Triangle& triangle, const P2Material& material, const P2Filter& filter);
+
+		void addQuad(const Quad& quad, const P2Material& material, const P2Filter& filter);
+
+		void addPolygon(const Polygon& polygon, const P2Material& material, const P2Filter& filter);
+
+		b2Body& getBody();
+
+		const b2Body& getBody() const;
+
+		b2Body* getBodyPtr() const;
+
+		const Array<std::shared_ptr<P2Shape>>& getShapes() const;
+	};
+
+	class P2RevoluteJoint::CP2RevoluteJoint
+	{
+	private:
+
+		b2RevoluteJoint * m_joint = nullptr;
+
+		P2World m_world;
+
+	public:
+
+		CP2RevoluteJoint(P2World& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos);
+
+		~CP2RevoluteJoint();
+
+		b2RevoluteJoint& getJoint();
+
+		const b2RevoluteJoint& getJoint() const;
+	};
+
+
+
 	P2World::P2World(const Vec2& gravity)
 		: pImpl(std::make_shared<CP2World>(gravity))
 	{
@@ -48,27 +165,27 @@ namespace s3d
 
 	void P2World::setSleepEnabled(const bool enabled)
 	{
-		getData().SetAllowSleeping(enabled);
+		pImpl->getData().SetAllowSleeping(enabled);
 	}
 
 	bool P2World::getSleepEnabled() const
 	{
-		return getData().GetAllowSleeping();
+		return pImpl->getData().GetAllowSleeping();
 	}
 
 	void P2World::setGravity(const Vec2& gravity)
 	{
-		getData().SetGravity(detail::ToB2Vec2(gravity));
+		pImpl->getData().SetGravity(detail::ToB2Vec2(gravity));
 	}
 
 	Vec2 P2World::getGravity() const
 	{
-		return detail::ToVec2(getData().GetGravity());
+		return detail::ToVec2(pImpl->getData().GetGravity());
 	}
 
 	void P2World::shiftOrigin(const Vec2& newOrigin)
 	{
-		getData().ShiftOrigin(detail::ToB2Vec2(newOrigin));
+		pImpl->getData().ShiftOrigin(detail::ToB2Vec2(newOrigin));
 	}
 
 	void P2World::update(const double timeStep, const int32 velocityIterations, const int32 positionIterations) const
@@ -182,16 +299,14 @@ namespace s3d
 		return pImpl->createPolygon(*this, center, polygon, material, filter, bodyType);
 	}
 
-
-
-	b2World& P2World::getData()
+	P2RevoluteJoint P2World::createRevoluteJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos)
 	{
-		return pImpl->getData();
+		return pImpl->createRevoluteJoint(*this, bodyA, bodyB, anchorPos);
 	}
 
-	const b2World& P2World::getData() const
+	b2World* P2World::getWorldPtr() const
 	{
-		return pImpl->getData();
+		return pImpl->getWorldPtr();
 	}
 
 
@@ -289,6 +404,11 @@ namespace s3d
 		return body;
 	}
 
+	P2RevoluteJoint P2World::CP2World::createRevoluteJoint(P2World& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos)
+	{
+		return P2RevoluteJoint(world, bodyA, bodyB, anchorPos);
+	}
+
 	b2World& P2World::CP2World::getData()
 	{
 		return m_world;
@@ -297,6 +417,11 @@ namespace s3d
 	const b2World& P2World::CP2World::getData() const
 	{
 		return m_world;
+	}
+
+	b2World* P2World::CP2World::getWorldPtr()
+	{
+		return &m_world;
 	}
 
 
@@ -708,7 +833,7 @@ namespace s3d
 
 		return pImpl->getBody().GetAngularDamping();
 	}
-
+	
 	void P2Body::setGravityScale(double scale)
 	{
 		if (isEmpty())
@@ -833,6 +958,16 @@ namespace s3d
 		return *pImpl->getShapes()[index];
 	}
 
+	std::shared_ptr<P2Shape> P2Body::shapePtr(const size_t index) const
+	{
+		return pImpl->getShapes()[index];
+	}
+	
+	b2Body* P2Body::getBodyPtr() const
+	{
+		return pImpl->getBodyPtr();
+	}
+
 
 	void P2Shape::setDensity(double density)
 	{
@@ -899,10 +1034,11 @@ namespace s3d
 
 
 	P2Line::P2Line(b2Body& body, const Line& line, const P2Material& material, const P2Filter& filter)
+		: m_pShape(std::make_unique<b2EdgeShape>())
 	{
-		m_shape.Set(detail::ToB2Vec2(line.begin), detail::ToB2Vec2(line.end));
+		m_pShape->Set(detail::ToB2Vec2(line.begin), detail::ToB2Vec2(line.end));
 
-		const b2FixtureDef fixtureDef = detail::MakeFixtureDef(&m_shape, material, filter);
+		const b2FixtureDef fixtureDef = detail::MakeFixtureDef(m_pShape.get(), material, filter);
 
 		m_fixtures.fixtures.push_back(body.CreateFixture(&fixtureDef));
 	}
@@ -920,14 +1056,15 @@ namespace s3d
 	Line P2Line::getLine() const
 	{
 		const b2Transform& transform = m_fixtures.fixtures[0]->GetBody()->GetTransform();
-		const Vec2 begin(m_shape.m_vertex1.x * transform.q.c - m_shape.m_vertex1.y * transform.q.s + transform.p.x, m_shape.m_vertex1.x * transform.q.s + m_shape.m_vertex1.y * transform.q.c + transform.p.y);
-		const Vec2 end(m_shape.m_vertex2.x * transform.q.c - m_shape.m_vertex2.y * transform.q.s + transform.p.x, m_shape.m_vertex2.x * transform.q.s + m_shape.m_vertex2.y * transform.q.c + transform.p.y);
+		const Vec2 begin(m_pShape->m_vertex1.x * transform.q.c - m_pShape->m_vertex1.y * transform.q.s + transform.p.x, m_pShape->m_vertex1.x * transform.q.s + m_pShape->m_vertex1.y * transform.q.c + transform.p.y);
+		const Vec2 end(m_pShape->m_vertex2.x * transform.q.c - m_pShape->m_vertex2.y * transform.q.s + transform.p.x, m_pShape->m_vertex2.x * transform.q.s + m_pShape->m_vertex2.y * transform.q.c + transform.p.y);
 		return Line(begin, end);
 	}
 
 
 
 	P2LineString::P2LineString(b2Body& body, const LineString& lines, bool closed, const P2Material& material, const P2Filter& filter)
+		: m_pShape(std::make_unique<b2ChainShape>())
 	{
 		Array<b2Vec2> points(lines.size());
 
@@ -942,14 +1079,14 @@ namespace s3d
 
 		if (closed)
 		{
-			m_shape.CreateLoop(points.data(), static_cast<int32>(points.size()));
+			m_pShape->CreateLoop(points.data(), static_cast<int32>(points.size()));
 		}
 		else
 		{
-			m_shape.CreateChain(points.data(), static_cast<int32>(points.size()));
+			m_pShape->CreateChain(points.data(), static_cast<int32>(points.size()));
 		}
 
-		const b2FixtureDef fixtureDef = detail::MakeFixtureDef(&m_shape, material, filter);
+		const b2FixtureDef fixtureDef = detail::MakeFixtureDef(m_pShape.get(), material, filter);
 
 		m_fixtures.fixtures.push_back(body.CreateFixture(&fixtureDef));
 	}
@@ -968,9 +1105,9 @@ namespace s3d
 	{
 		const b2Transform& transform = m_fixtures.fixtures[0]->GetBody()->GetTransform();
 
-		for (int32 i = 0; i < m_shape.m_count - m_closed; ++i)
+		for (int32 i = 0; i < m_pShape->m_count - m_closed; ++i)
 		{
-			const b2Vec2& pos = m_shape.m_vertices[i];
+			const b2Vec2& pos = m_pShape->m_vertices[i];
 			m_lineString[i].set(pos.x * transform.q.c - pos.y*transform.q.s + transform.p.x, pos.x*transform.q.s + pos.y*transform.q.c + transform.p.y);
 		}
 
@@ -983,12 +1120,13 @@ namespace s3d
 
 
 	P2Circle::P2Circle(b2Body& body, const Circle& circle, const P2Material& material, const P2Filter& filter)
+		: m_pShape(std::make_unique<b2CircleShape>())
 	{
-		m_shape.m_radius = static_cast<float32>(circle.r);
+		m_pShape->m_radius = static_cast<float32>(circle.r);
 
-		m_shape.m_p.Set(static_cast<float32>(circle.x), static_cast<float32>(circle.y));
+		m_pShape->m_p.Set(static_cast<float32>(circle.x), static_cast<float32>(circle.y));
 
-		const b2FixtureDef fixtureDef = detail::MakeFixtureDef(&m_shape, material, filter);
+		const b2FixtureDef fixtureDef = detail::MakeFixtureDef(m_pShape.get(), material, filter);
 
 		m_fixtures.fixtures.push_back(body.CreateFixture(&fixtureDef));
 	}
@@ -1006,16 +1144,17 @@ namespace s3d
 	Circle P2Circle::getCircle() const
 	{
 		const b2Transform& transform = m_fixtures.fixtures[0]->GetBody()->GetTransform();
-		const b2Vec2& pos = m_shape.m_p;
-		return Circle(pos.x * transform.q.c - pos.y*transform.q.s + transform.p.x, pos.x*transform.q.s + pos.y*transform.q.c + transform.p.y, m_shape.m_radius);
+		const b2Vec2& pos = m_pShape->m_p;
+		return Circle(pos.x * transform.q.c - pos.y*transform.q.s + transform.p.x, pos.x*transform.q.s + pos.y*transform.q.c + transform.p.y, m_pShape->m_radius);
 	}
 
 
 	P2Rect::P2Rect(b2Body& body, const RectF& rect, const P2Material& material, const P2Filter& filter)
+		: m_pShape(std::make_unique<b2PolygonShape>())
 	{
-		m_shape.SetAsBox(static_cast<float32>(rect.w * 0.5f), static_cast<float32>(rect.h * 0.5f), detail::ToB2Vec2(rect.center()), 0.0f);
+		m_pShape->SetAsBox(static_cast<float32>(rect.w * 0.5f), static_cast<float32>(rect.h * 0.5f), detail::ToB2Vec2(rect.center()), 0.0f);
 
-		const b2FixtureDef fixtureDef = detail::MakeFixtureDef(&m_shape, material, filter);
+		const b2FixtureDef fixtureDef = detail::MakeFixtureDef(m_pShape.get(), material, filter);
 
 		m_fixtures.fixtures.push_back(body.CreateFixture(&fixtureDef));
 	}
@@ -1033,10 +1172,10 @@ namespace s3d
 	Quad P2Rect::getQuad() const
 	{
 		const b2Transform& transform = m_fixtures.fixtures[0]->GetBody()->GetTransform();
-		const b2Vec2& pos0 = m_shape.m_vertices[0];
-		const b2Vec2& pos1 = m_shape.m_vertices[1];
-		const b2Vec2& pos2 = m_shape.m_vertices[2];
-		const b2Vec2& pos3 = m_shape.m_vertices[3];
+		const b2Vec2& pos0 = m_pShape->m_vertices[0];
+		const b2Vec2& pos1 = m_pShape->m_vertices[1];
+		const b2Vec2& pos2 = m_pShape->m_vertices[2];
+		const b2Vec2& pos3 = m_pShape->m_vertices[3];
 		return Quad
 		(
 			pos0.x * transform.q.c - pos0.y*transform.q.s + transform.p.x, pos0.x*transform.q.s + pos0.y*transform.q.c + transform.p.y,
@@ -1048,12 +1187,13 @@ namespace s3d
 
 
 	P2Triangle::P2Triangle(b2Body& body, const Triangle& triangle, const P2Material& material, const P2Filter& filter)
+		: m_pShape(std::make_unique<b2PolygonShape>())
 	{
 		const b2Vec2 points[3] = { detail::ToB2Vec2(triangle.p0), detail::ToB2Vec2(triangle.p1), detail::ToB2Vec2(triangle.p2) };
 
-		m_shape.Set(points, 3);
+		m_pShape->Set(points, 3);
 
-		const b2FixtureDef fixtureDef = detail::MakeFixtureDef(&m_shape, material, filter);
+		const b2FixtureDef fixtureDef = detail::MakeFixtureDef(m_pShape.get(), material, filter);
 
 		m_fixtures.fixtures.push_back(body.CreateFixture(&fixtureDef));
 	}
@@ -1071,9 +1211,9 @@ namespace s3d
 	Triangle P2Triangle::getTriangle() const
 	{
 		const b2Transform& transform = m_fixtures.fixtures[0]->GetBody()->GetTransform();
-		const b2Vec2& pos0 = m_shape.m_vertices[0];
-		const b2Vec2& pos1 = m_shape.m_vertices[1];
-		const b2Vec2& pos2 = m_shape.m_vertices[2];
+		const b2Vec2& pos0 = m_pShape->m_vertices[0];
+		const b2Vec2& pos1 = m_pShape->m_vertices[1];
+		const b2Vec2& pos2 = m_pShape->m_vertices[2];
 		return Triangle
 		(
 			pos0.x * transform.q.c - pos0.y*transform.q.s + transform.p.x, pos0.x*transform.q.s + pos0.y*transform.q.c + transform.p.y,
@@ -1084,12 +1224,13 @@ namespace s3d
 
 
 	P2Quad::P2Quad(b2Body& body, const Quad& quad, const P2Material& material, const P2Filter& filter)
+		: m_pShape(std::make_unique<b2PolygonShape>())
 	{
 		const b2Vec2 points[4] = { detail::ToB2Vec2(quad.p0), detail::ToB2Vec2(quad.p1), detail::ToB2Vec2(quad.p2), detail::ToB2Vec2(quad.p3) };
 
-		m_shape.Set(points, 4);
+		m_pShape->Set(points, 4);
 
-		const b2FixtureDef fixtureDef = detail::MakeFixtureDef(&m_shape, material, filter);
+		const b2FixtureDef fixtureDef = detail::MakeFixtureDef(m_pShape.get(), material, filter);
 
 		m_fixtures.fixtures.push_back(body.CreateFixture(&fixtureDef));
 	}
@@ -1107,10 +1248,10 @@ namespace s3d
 	Quad P2Quad::getQuad() const
 	{
 		const b2Transform& transform = m_fixtures.fixtures[0]->GetBody()->GetTransform();
-		const b2Vec2& pos0 = m_shape.m_vertices[0];
-		const b2Vec2& pos1 = m_shape.m_vertices[1];
-		const b2Vec2& pos2 = m_shape.m_vertices[2];
-		const b2Vec2& pos3 = m_shape.m_vertices[3];
+		const b2Vec2& pos0 = m_pShape->m_vertices[0];
+		const b2Vec2& pos1 = m_pShape->m_vertices[1];
+		const b2Vec2& pos2 = m_pShape->m_vertices[2];
+		const b2Vec2& pos3 = m_pShape->m_vertices[3];
 		return Quad
 		(
 			pos0.x * transform.q.c - pos0.y*transform.q.s + transform.p.x, pos0.x*transform.q.s + pos0.y*transform.q.c + transform.p.y,
@@ -1168,7 +1309,7 @@ namespace s3d
 		b2BodyDef bodyDef;
 		bodyDef.type = static_cast<b2BodyType>(bodyType);
 		bodyDef.position = detail::ToB2Vec2(center);
-		m_body = world.getData().CreateBody(&bodyDef);
+		m_body = world.getWorldPtr()->CreateBody(&bodyDef);
 	}
 
 	P2Body::CP2Body::~CP2Body()
@@ -1178,7 +1319,7 @@ namespace s3d
 			return;
 		}
 
-		m_world.getData().DestroyBody(m_body);
+		m_world.getWorldPtr()->DestroyBody(m_body);
 	}
 
 	P2BodyID P2Body::CP2Body::id() const
@@ -1249,8 +1390,113 @@ namespace s3d
 		return *m_body;
 	}
 
+	b2Body* P2Body::CP2Body::getBodyPtr() const
+	{
+		assert(m_body);
+
+		return m_body;
+	}
+
 	const Array<std::shared_ptr<P2Shape>>& P2Body::CP2Body::getShapes() const
 	{
 		return m_shapes;
+	}
+
+	P2RevoluteJoint::P2RevoluteJoint(P2World& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos)
+		: pImpl(std::make_shared<CP2RevoluteJoint>(world, bodyA, bodyB, anchorPos))
+	{
+
+	}
+
+	void P2RevoluteJoint::setMotorEnabled(bool enabled)
+	{
+		if (!pImpl)
+		{
+			return;
+		}
+
+		pImpl->getJoint().EnableMotor(enabled);
+	}
+
+	bool P2RevoluteJoint::getMotorEnabled() const
+	{
+		if (!pImpl)
+		{
+			return false;
+		}
+
+		return pImpl->getJoint().IsMotorEnabled();
+	}
+
+	void P2RevoluteJoint::setMotorSpeed(double speed)
+	{
+		if (!pImpl)
+		{
+			return;
+		}
+
+		pImpl->getJoint().SetMotorSpeed(static_cast<float32>(speed));
+	}
+
+	double P2RevoluteJoint::getMotorSpeed() const
+	{
+		if (!pImpl)
+		{
+			return 0.0;
+		}
+
+		return pImpl->getJoint().GetMotorSpeed();
+	}
+
+	void P2RevoluteJoint::setMaxMotorTorque(double torque)
+	{
+		if (!pImpl)
+		{
+			return;
+		}
+
+		pImpl->getJoint().SetMaxMotorTorque(static_cast<float32>(torque));
+	}
+
+	double P2RevoluteJoint::getMaxMotorTorque() const
+	{
+		if (!pImpl)
+		{
+			return 0.0;
+		}
+
+		return pImpl->getJoint().GetMaxMotorTorque();
+	}
+
+	P2RevoluteJoint::CP2RevoluteJoint::CP2RevoluteJoint(P2World& world, const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos)
+		: m_world(world)
+	{
+		b2RevoluteJointDef def;
+		def.Initialize(bodyA.getBodyPtr(), bodyB.getBodyPtr(), detail::ToB2Vec2(anchorPos));
+		m_joint = static_cast<b2RevoluteJoint*>(world.getWorldPtr()->CreateJoint(&def));
+	}
+
+	P2RevoluteJoint::CP2RevoluteJoint::~CP2RevoluteJoint()
+	{
+		if (!m_joint)
+		{
+			return;
+		}
+
+		m_world.getWorldPtr()->DestroyJoint(m_joint);
+	}
+
+	b2RevoluteJoint& P2RevoluteJoint::CP2RevoluteJoint::getJoint()
+	{
+		assert(m_joint);
+
+		return *m_joint;
+	}
+
+	const b2RevoluteJoint& P2RevoluteJoint::CP2RevoluteJoint::getJoint() const
+	{
+		assert(m_joint);
+
+		return *m_joint;
 	}
 }

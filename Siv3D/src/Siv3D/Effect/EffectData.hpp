@@ -22,7 +22,7 @@ namespace s3d
 
 		Array<std::pair<std::unique_ptr<IEffect>, double>> m_effects;
 
-		uint64 m_previousTimeUs = 0;
+		double m_lastDeltaSec = 0.0;
 
 		double m_speed = 1.0;
 
@@ -62,6 +62,8 @@ namespace s3d
 		{
 			return m_speed;
 		}
+
+		void setCurrectDeltaTimeUs(uint64 currentDeltaUs);
 
 		void update();
 

@@ -25,6 +25,8 @@ namespace s3d
 
 		virtual bool init() = 0;
 
+		virtual void update() = 0;
+
 		virtual EffectID create() = 0;
 
 		virtual void release(EffectID handleID) = 0;
@@ -43,7 +45,7 @@ namespace s3d
 
 		virtual double getSpeed(EffectID handleID) = 0;
 
-		virtual void update(EffectID handleID) = 0;
+		virtual void updateEffect(EffectID handleID) = 0;
 
 		virtual void clear(EffectID handleID) = 0;
 	};
