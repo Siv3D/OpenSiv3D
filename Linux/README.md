@@ -23,7 +23,10 @@ OpenSiv3D Linux版は基本的にOpenSiv3DのmacOS版をベースに手を加え
 - FreeType2
 - HarfBuzz
 - OpenAL
+- OpenCV
+- Box2D
 - udev
+  - ジョイスティックの情報取得のため
 - UPower
   - D-Bus越しに電源情報を取得します
 

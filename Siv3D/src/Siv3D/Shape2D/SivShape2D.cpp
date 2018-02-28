@@ -196,7 +196,7 @@ namespace s3d
 		const float w = static_cast<float>(rect.w);
 		const float prf = static_cast<float>(_pointingRootRatio);
 
-		constexpr std::array<int32, 2> sign{ 1, -1 };
+		constexpr std::array<int32, 2> sign{ { 1, -1 } };
 		const float firstAngle = std::atan2(h, w);
 		const Float2 direction = target - center;
 		const float flagAngle = std::fmod(std::atan2(direction.y, direction.x) + Math::TwoPiF, Math::TwoPiF);
