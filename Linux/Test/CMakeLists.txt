@@ -33,9 +33,11 @@ add_executable(Siv3D_Test
 )
 
 target_link_libraries(Siv3D_Test
+	-lstdc++
+	-lm
+	-lpthread
 	-lboost_filesystem
 	-lboost_system
-	-lpthread
 	-lGL
 	-lGLEW
 	-lglib-2.0
