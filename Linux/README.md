@@ -1,6 +1,11 @@
 # OpenSiv3D Linux版について
 OpenSiv3D Linux版は基本的にOpenSiv3DのmacOS版をベースに手を加えてLinuxに移植したものです。
 
+Linux版の開発ブランチが本家リポジトリに作成されました。
+最新の状態のものが必要な場合は以下のブランチを参照してください。
+<https://github.com/Siv3D/OpenSiv3D/tree/linux>
+
+
 ## 依存ライブラリ・パッケージ
 コンパイルと実行には以下のライブラリやパッケージが必要です。
 - CMake 2.8 以上
