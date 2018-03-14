@@ -58,6 +58,7 @@
 //
 #include <libgen.h>
 #include <libudev.h>
+#include <string.h>
 //
 //-----------------------------------------------
 #endif // __linux__
@@ -391,14 +392,35 @@ const char* _siv3d_PlatformGetJoystickInfo(int joy, unsigned* vendorID, unsigned
 		char* sysname = basename(path);
 
 		struct udev_device *dev = udev_device_new_from_subsystem_sysname(udev, "input", sysname);
-		dev = udev_device_get_parent_with_subsystem_devtype(dev, "usb", "usb_device");
+		struct udev_device *hid_dev = udev_device_get_parent_with_subsystem_devtype(dev, "hid", NULL);
 
-		char* endp;
-		if(vendorID)
-			*vendorID = strtol(udev_device_get_sysattr_value(dev, "idVendor"), &endp, 16);
-		if(productID)
-			*productID = strtol(udev_device_get_sysattr_value(dev, "idProduct"), &endp, 16);
+		const char *uevent_str = udev_device_get_sysattr_value(hid_dev, "uevent");
+		if (uevent_str)
+		{
+			char *temp = strdup(uevent_str);
+			char *saveptr, *line, *key, *value;
+			for(line = strtok_r(temp, "\n", &saveptr); line != NULL; line = strtok_r(NULL, "\n", &saveptr))
+			{
+				key = line;
+				value = strchr(line, '=');
+				if (value)
+				{
+					*value = '\0';
+					value++;
 
+					if (strcmp(key, "HID_ID") == 0)
+					{
+						int bus_type = 0;
+						sscanf(value, "%x:%x:%x", &bus_type, vendorID, productID);
+						break;
+					}
+				}
+			}
+
+			free(temp);
+		}
+
+		udev_device_unref(hid_dev);
 		udev_device_unref(dev);
 		free(path);
 	}

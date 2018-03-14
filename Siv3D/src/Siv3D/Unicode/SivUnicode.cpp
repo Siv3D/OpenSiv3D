@@ -136,7 +136,7 @@ namespace s3d::detail
 		return length;
 	}
 
-	[[nodiscard]] static constexpr size_t UTF16Length(const std::string_view view) noexcept
+	[[nodiscard]] static size_t UTF16Length(const std::string_view view) noexcept
 	{
 		size_t length = 0;
 

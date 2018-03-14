@@ -118,7 +118,9 @@ namespace s3d
 					// has connected
 					state.connected = true;
 
-					LOG_INFO(U"🎮 Gamepad({}) `{}` connected"_fmt(userIndex, state.info.name));
+					LOG_INFO(U"🎮 Gamepad({}) `{}` connected (vid: {:#x}, pid: {:#x})"_fmt(
+						userIndex, state.info.name, state.info.vendorID, state.info.productID
+					));
 				}
 
 				state.axes.clear();
