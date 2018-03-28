@@ -12,6 +12,7 @@
 # include <Siv3D/RoundRect.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
+# include <Siv3D/Polygon.hpp>
 # include <Siv3D/Sprite.hpp>
 # include <Siv3D/Circular.hpp>
 # include <Siv3D/TexturedRoundRect.hpp>
@@ -121,6 +122,19 @@ namespace s3d
 		return Geometry2D::Intersect(Cursor::PosF(), *this);
 	}
 
+	const RoundRect& RoundRect::paint(Image& dst, const Color& color) const
+	{
+		asPolygon().paint(dst, color);
+
+		return *this;
+	}
+
+	const RoundRect& RoundRect::overwrite(Image& dst, const Color& color, const bool antialiased) const
+	{
+		asPolygon().overwrite(dst, color, antialiased);
+
+		return *this;
+	}
 
 	const RoundRect& RoundRect::draw(const ColorF& color) const
 	{
@@ -395,6 +409,28 @@ namespace s3d
 		return TexturedRoundRect(textureRegion.texture,
 			textureRegion.uvRect,
 			*this);
+	}
+
+	Polygon RoundRect::asPolygon() const
+	{
+		const double rr = std::min({ rect.w * 0.5, rect.h * 0.5, r });
+
+		if (rr <= 0.0)
+		{
+			return Polygon();
+		}
+
+		const Array<Vec2> vertices = detail::GetOuterVertices(*this, 0.0);
+
+		Array<uint32> indices((vertices.size() - 2) * 3);
+
+		for (uint32 i = 0; i < (vertices.size() - 2); ++i)
+		{
+			indices[i * 3 + 1] = i;
+			indices[i * 3 + 2] = i + 1;
+		}
+
+		return Polygon(vertices, indices, rect);
 	}
 
 	void Formatter(FormatData& formatData, const RoundRect& value)

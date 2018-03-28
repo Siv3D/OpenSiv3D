@@ -16,6 +16,10 @@
 # include "Optional.hpp"
 # include "DateTime.hpp"
 
+# ifdef SetCurrentDirectory
+#	undef SetCurrentDirectory
+# endif
+
 namespace s3d
 {
 	/// <summary>
@@ -488,5 +492,12 @@ namespace s3d
 		//bool MoveContents(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_Exists);
 		
 		bool IsSandBoxed();
+	}
+
+	namespace win::FileSystem
+	{
+		[[nodiscard]] FilePath WorkingDirectory();
+
+		void SetCurrentDirectory(const FilePath& path);
 	}
 }
