@@ -167,9 +167,24 @@ namespace s3d
 		{
 			const static FilePath g_initialPath = NormalizePath(Unicode::FromWString(fs::current_path().wstring()));
 
+			static FilePath g_workingPath = FilePath();
+
 			static FilePath g_modulePath = FilePath();
 
-			void SetModulePath()
+			void GetWorkingDirectory()
+			{
+				wchar_t result[1024];
+				const DWORD length = ::GetCurrentDirectoryW(_countof(result), result);
+
+				if (length == 0 || length >= _countof(result))
+				{
+					return;
+				}
+
+				g_workingPath.assign(Unicode::FromWString(std::wstring_view(result, length))).replace(U'\\', U'/');
+			}
+
+			void GetModulePath()
 			{
 				wchar_t result[1024];
 				const DWORD length = ::GetModuleFileNameW(nullptr, result, _countof(result));
@@ -616,6 +631,19 @@ namespace s3d
 		bool IsSandBoxed()
 		{
 			return false;
+		}
+	}
+
+	namespace win::FileSystem
+	{
+		FilePath WorkingDirectory()
+		{
+			return detail::init::g_workingPath;
+		}
+
+		void SetCurrentDirectory(const FilePath& path)
+		{
+			::SetCurrentDirectoryW(path.toWstr().c_str());
 		}
 	}
 }

@@ -222,7 +222,9 @@ namespace s3d
 
 		bool mouseOver() const;
 
-		// paint / overpaint
+		const RoundRect& paint(Image& dst, const Color& color) const;
+
+		const RoundRect& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
 
 		const RoundRect& draw(const ColorF& color = Palette::White) const;
 
@@ -256,6 +258,8 @@ namespace s3d
 		TexturedRoundRect operator ()(const Texture& texture) const;
 
 		TexturedRoundRect operator ()(const TextureRegion& textureRegion) const;
+
+		Polygon asPolygon() const;
 	};
 }
 

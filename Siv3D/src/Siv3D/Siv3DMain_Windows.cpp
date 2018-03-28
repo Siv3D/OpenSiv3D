@@ -30,7 +30,9 @@ namespace s3d::detail
 {
 	namespace init
 	{
-		void SetModulePath();
+		void GetWorkingDirectory();
+
+		void GetModulePath();
 	}
 
 	static void ShowException(const DWORD _code)
@@ -101,7 +103,9 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-	detail::init::SetModulePath();
+	detail::init::GetWorkingDirectory();
+
+	detail::init::GetModulePath();
 	{
 		int nArgs = 0;
 
@@ -125,6 +129,8 @@ int WINAPI wWinMain(HINSTANCE, HINSTANCE, wchar_t*, int)
 
 		return false;
 	}
+
+	//LOG_ERROR(Unicode::FromWString(buf));
 
 	Logger.writeRawHTML_UTF8(u8"<hr width=\"99%\">");
 
