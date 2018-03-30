@@ -286,6 +286,10 @@ namespace s3d
 
 		void draw(const ColorF& color = Palette::White) const;
 
+		void drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
+
+		void drawWireframe(double thickness = 1.0, const ColorF& color = Palette::White) const;
+
 		[[nodiscard]] size_t num_shapes() const;
 
 		[[nodiscard]] P2Shape& shape(size_t index);
@@ -327,6 +331,10 @@ namespace s3d
 
 		virtual void draw(const ColorF& color) const = 0;
 
+		virtual void drawFrame(double thickness, const ColorF& color) const = 0;
+
+		virtual void drawWireframe(double thickness, const ColorF& color) const = 0;
+
 		void setDensity(double density);
 
 		[[nodiscard]] double getDensity() const;
@@ -358,6 +366,10 @@ namespace s3d
 
 		void draw(const ColorF& color = Palette::White) const override;
 
+		void drawFrame(double thickness, const ColorF& color = Palette::White) const override;
+
+		void drawWireframe(double thickness, const ColorF& color = Palette::White) const override;
+
 		[[nodiscard]] Line getLine() const;
 	};
 
@@ -379,6 +391,10 @@ namespace s3d
 
 		void draw(const ColorF& color = Palette::White) const override;
 
+		void drawFrame(double thickness, const ColorF& color = Palette::White) const override;
+
+		void drawWireframe(double thickness, const ColorF& color = Palette::White) const override;
+
 		[[nodiscard]] const LineString& getLineString() const;
 	};
 
@@ -395,6 +411,10 @@ namespace s3d
 		[[nodiscard]] P2ShapeType getShapeType() const override;
 
 		void draw(const ColorF& color = Palette::White) const override;
+
+		void drawFrame(double thickness, const ColorF& color = Palette::White) const override;
+
+		void drawWireframe(double thickness, const ColorF& color = Palette::White) const override;
 
 		[[nodiscard]] Circle getCircle() const;
 	};
@@ -413,6 +433,10 @@ namespace s3d
 
 		void draw(const ColorF& color = Palette::White) const override;
 
+		void drawFrame(double thickness, const ColorF& color = Palette::White) const override;
+
+		void drawWireframe(double thickness, const ColorF& color = Palette::White) const override;
+
 		[[nodiscard]] Quad getQuad() const;
 	};
 
@@ -429,6 +453,10 @@ namespace s3d
 		[[nodiscard]] P2ShapeType getShapeType() const override;
 
 		void draw(const ColorF& color = Palette::White) const override;
+
+		void drawFrame(double thickness, const ColorF& color = Palette::White) const override;
+
+		void drawWireframe(double thickness, const ColorF& color = Palette::White) const override;
 
 		[[nodiscard]] Triangle getTriangle() const;
 	};
@@ -447,6 +475,10 @@ namespace s3d
 
 		void draw(const ColorF& color = Palette::White) const override;
 
+		void drawFrame(double thickness, const ColorF& color = Palette::White) const override;
+
+		void drawWireframe(double thickness, const ColorF& color = Palette::White) const override;
+
 		[[nodiscard]] Quad getQuad() const;
 	};
 
@@ -463,6 +495,10 @@ namespace s3d
 		[[nodiscard]] P2ShapeType getShapeType() const override;
 
 		void draw(const ColorF& color = Palette::White) const override;
+
+		void drawFrame(double thickness, const ColorF& color = Palette::White) const override;
+
+		void drawWireframe(double thickness, const ColorF& color = Palette::White) const override;
 
 		[[nodiscard]] Polygon getPolygon() const;
 	};
