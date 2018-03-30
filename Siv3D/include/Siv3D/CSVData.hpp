@@ -90,10 +90,10 @@ namespace s3d
 			return Type();
 		}
 
-		template <class Type>
-		[[nodiscard]] Type getOr(size_t row, size_t column, Type&& defaultValue) const
+		template <class Type, class U>
+		[[nodiscard]] Type getOr(size_t row, size_t column, U&& defaultValue) const
 		{
-			return getOpt<Type>(row, column).value_or(std::move(defaultValue));
+			return getOpt<Type>(row, column).value_or(std::forward<U>(defaultValue));
 		}
 
 		template <class Type>
