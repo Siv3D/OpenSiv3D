@@ -1016,6 +1016,9 @@
 	// GPU Driver
 	# include "Siv3D/HighPerfoemanceGPU.hpp"
 
+
+# include "Siv3D/NavMesh.hpp"
+
 //////////////////////////////////////////////////
 //
 //	Namespace

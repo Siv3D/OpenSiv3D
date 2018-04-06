@@ -695,6 +695,15 @@
     <Filter Include="src\Siv3D\Physics2D">
       <UniqueIdentifier>{9e1d4459-8ce5-4187-844f-095699b5cb08}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\Detour">
+      <UniqueIdentifier>{a55bceeb-66b0-4243-a1d5-0aab500d3d6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\NavMesh">
+      <UniqueIdentifier>{38eba800-1a28-45fc-8f22-dad2055d2fa9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\Recast">
+      <UniqueIdentifier>{bc097409-dd9c-4662-b977-1b1baa53cfc0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -1905,6 +1914,66 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\SivPhysics2D.cpp">
       <Filter>src\Siv3D\Physics2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Detour\DetourCommon.cpp">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Detour\DetourNavMesh.cpp">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Detour\DetourNavMeshBuilder.cpp">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Detour\DetourNavMeshQuery.cpp">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Detour\DetourNode.cpp">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Detour\DetourAlloc.cpp">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Detour\DetourAssert.cpp">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\NavMesh\CNavMesh.cpp">
+      <Filter>src\Siv3D\NavMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\NavMesh\SivNavMesh.cpp">
+      <Filter>src\Siv3D\NavMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastArea.cpp">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastAssert.cpp">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastContour.cpp">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastFilter.cpp">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastLayers.cpp">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastMesh.cpp">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastMeshDetail.cpp">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastRasterization.cpp">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastRegion.cpp">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\Recast.cpp">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastAlloc.cpp">
+      <Filter>src\ThirdParty\Recast</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -4007,6 +4076,48 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\ThirdParty\Box2D\Box2D.h">
       <Filter>src\ThirdParty\Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Detour\DetourCommon.h">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Detour\DetourMath.h">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Detour\DetourNavMesh.h">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Detour\DetourNavMeshBuilder.h">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Detour\DetourNavMeshQuery.h">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Detour\DetourNode.h">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Detour\DetourStatus.h">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Detour\DetourAlloc.h">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Detour\DetourAssert.h">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\NavMesh.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\NavMesh\CNavMesh.hpp">
+      <Filter>src\Siv3D\NavMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Recast\RecastAssert.h">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Recast\Recast.h">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Recast\RecastAlloc.h">
+      <Filter>src\ThirdParty\Recast</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
