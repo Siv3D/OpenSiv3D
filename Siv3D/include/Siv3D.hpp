@@ -947,6 +947,9 @@
 	//// ポストエフェクト
 	//# include "Siv3D/PostEffect.hpp"
 
+	// Navigation Mesh
+	# include "Siv3D/NavMesh.hpp"
+
 //////////////////////////////////////////////////
 //
 //	Asset Management
@@ -1015,9 +1018,6 @@
 
 	// GPU Driver
 	# include "Siv3D/HighPerfoemanceGPU.hpp"
-
-
-# include "Siv3D/NavMesh.hpp"
 
 //////////////////////////////////////////////////
 //

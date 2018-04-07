@@ -152,7 +152,7 @@ namespace s3d
 	template <class Type = void>
 	[[nodiscard]] inline constexpr auto NotEqual() noexcept
 	{
-		return std::equal_to<Type>();
+		return std::not_equal_to<Type>();
 	}
 
 	template <class TypeX>
@@ -252,7 +252,7 @@ namespace s3d
 	template <class TypeX>
 	[[nodiscard]] inline constexpr auto LessThan(const TypeX& x) noexcept
 	{
-		return detail::BinaryLessThanY_impl<TypeX>(x);
+		return LessThan(Lambda::_, x);
 	}
 
 	template <class Type = void, class TypeX, class TypeY>
@@ -346,7 +346,7 @@ namespace s3d
 	template <class TypeX>
 	[[nodiscard]] inline constexpr auto LessThanEqual(const TypeX& x) noexcept
 	{
-		return detail::BinaryLessThanEqualY_impl<TypeX>(x);
+		return LessThanEqual(Lambda::_, x);
 	}
 
 	template <class Type = void, class TypeX, class TypeY>
@@ -440,7 +440,7 @@ namespace s3d
 	template <class TypeX>
 	[[nodiscard]] inline constexpr auto GreaterThan(const TypeX& x) noexcept
 	{
-		return detail::BinaryGreaterThanY_impl<TypeX>(x);
+		return GreaterThan(Lambda::_, x);
 	}
 
 	template <class Type = void, class TypeX, class TypeY>
@@ -534,7 +534,7 @@ namespace s3d
 	template <class TypeX>
 	[[nodiscard]] inline constexpr auto GreaterThanEqual(const TypeX& x) noexcept
 	{
-		return detail::BinaryGreaterThanEqualY_impl<TypeX>(x);
+		return GreaterThanEqual(Lambda::_, x);
 	}
 
 	template <class Type = void, class TypeX, class TypeY>
