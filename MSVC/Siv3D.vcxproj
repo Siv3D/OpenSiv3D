@@ -87,6 +87,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Cursor\SivCursor.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DateTime\SivDateTime.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Date\SivDate.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\DeadZone\SivDeadZone.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_Linux.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_macOS.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_Windows.cpp" />
@@ -592,6 +593,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Polygon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PowerStatus.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Print.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ProController.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Profiler.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Quad.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Random.hpp" />

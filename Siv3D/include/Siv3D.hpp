@@ -681,6 +681,9 @@
 	// Joy-Con
 	# include "Siv3D/JoyCon.hpp"
 
+	// Pro-Controller
+	# include "Siv3D/ProController.hpp"
+
 	//// マイク入力
 	//# include "Siv3D/Recorder.hpp"
 	//// タッチ

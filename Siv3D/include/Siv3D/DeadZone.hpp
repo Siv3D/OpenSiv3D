@@ -87,5 +87,9 @@ namespace s3d
 		{
 			return DeadZone{ 0.0, 1.0, DeadZoneType::None };
 		}
+
+		double apply(double value) const;
+
+		void apply(double& x, double& y) const;
 	};
 }

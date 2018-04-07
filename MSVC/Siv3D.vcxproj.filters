@@ -704,6 +704,9 @@
     <Filter Include="src\ThirdParty\Recast">
       <UniqueIdentifier>{bc097409-dd9c-4662-b977-1b1baa53cfc0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\DeadZone">
+      <UniqueIdentifier>{60531d9a-f8a5-4a24-9b5b-39c1f01d62c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -1974,6 +1977,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\divsufsort.c">
       <Filter>src\ThirdParty\zstd\dictBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\DeadZone\SivDeadZone.cpp">
+      <Filter>src\Siv3D\DeadZone</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -4121,6 +4127,9 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\zstd.h">
       <Filter>src\ThirdParty\zstd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ProController.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
