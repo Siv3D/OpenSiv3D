@@ -192,6 +192,113 @@ TEST_CASE("AlignedMalloc", "[normal]")
 	}
 }
 
+TEST_CASE("Functors", "[normal]")
+{
+	using namespace Lambda;
+
+	SECTION("Equal")
+	{
+		REQUIRE(Equal()(20, 20));
+		REQUIRE(Equal(20)(20));
+		REQUIRE(Equal(20, 20));
+		REQUIRE(Equal(_, 20)(20));
+		REQUIRE(Equal(20, _)(20));
+		REQUIRE(Equal(_, _)(20, 20));
+
+		REQUIRE_FALSE(Equal()(20, 21));
+		REQUIRE_FALSE(Equal(20)(21));
+		REQUIRE_FALSE(Equal(20, 21));
+		REQUIRE_FALSE(Equal(_, 20)(21));
+		REQUIRE_FALSE(Equal(20, _)(21));
+		REQUIRE_FALSE(Equal(_, _)(20, 21));
+	}
+	
+	SECTION("NotEqual")
+	{
+		REQUIRE_FALSE(NotEqual()(20, 20));
+		REQUIRE_FALSE(NotEqual(20)(20));
+		REQUIRE_FALSE(NotEqual(20, 20));
+		REQUIRE_FALSE(NotEqual(_, 20)(20));
+		REQUIRE_FALSE(NotEqual(20, _)(20));
+		REQUIRE_FALSE(NotEqual(_, _)(20, 20));
+
+		REQUIRE(NotEqual()(20, 21));
+		REQUIRE(NotEqual(20)(21));
+		REQUIRE(NotEqual(20, 21));
+		REQUIRE(NotEqual(_, 20)(21));
+		REQUIRE(NotEqual(20, _)(21));
+		REQUIRE(NotEqual(_, _)(20, 21));
+	}
+
+	SECTION("LessThan")
+	{
+		REQUIRE_FALSE(LessThan()(20, 20));
+		REQUIRE_FALSE(LessThan(20)(20));
+		REQUIRE_FALSE(LessThan(20, 20));
+		REQUIRE_FALSE(LessThan(_, 20)(20));
+		REQUIRE_FALSE(LessThan(20, _)(20));
+		REQUIRE_FALSE(LessThan(_, _)(20, 20));
+
+		REQUIRE(LessThan()(20, 21));
+		REQUIRE(LessThan(20)(19));
+		REQUIRE(LessThan(20, 21));
+		REQUIRE(LessThan(_, 20)(19));
+		REQUIRE(LessThan(20, _)(21));
+		REQUIRE(LessThan(_, _)(20, 21));
+	}
+
+	SECTION("LessThanEqual")
+	{
+		REQUIRE(LessThanEqual()(20, 20));
+		REQUIRE(LessThanEqual(20)(20));
+		REQUIRE(LessThanEqual(20, 20));
+		REQUIRE(LessThanEqual(_, 20)(20));
+		REQUIRE(LessThanEqual(20, _)(20));
+		REQUIRE(LessThanEqual(_, _)(20, 20));
+
+		REQUIRE(LessThanEqual()(20, 21));
+		REQUIRE(LessThanEqual(20)(19));
+		REQUIRE(LessThanEqual(20, 21));
+		REQUIRE(LessThanEqual(_, 20)(19));
+		REQUIRE(LessThanEqual(20, _)(21));
+		REQUIRE(LessThanEqual(_, _)(20, 21));
+	}
+
+	SECTION("GreaterThan")
+	{
+		REQUIRE_FALSE(GreaterThan()(20, 20));
+		REQUIRE_FALSE(GreaterThan(20)(20));
+		REQUIRE_FALSE(GreaterThan(20, 20));
+		REQUIRE_FALSE(GreaterThan(_, 20)(20));
+		REQUIRE_FALSE(GreaterThan(20, _)(20));
+		REQUIRE_FALSE(GreaterThan(_, _)(20, 20));
+
+		REQUIRE(GreaterThan()(20, 19));
+		REQUIRE(GreaterThan(20)(21));
+		REQUIRE(GreaterThan(20, 19));
+		REQUIRE(GreaterThan(_, 20)(21));
+		REQUIRE(GreaterThan(20, _)(19));
+		REQUIRE(GreaterThan(_, _)(20, 19));
+	}
+
+	SECTION("GreaterThanEqual")
+	{
+		REQUIRE(GreaterThanEqual()(20, 20));
+		REQUIRE(GreaterThanEqual(20)(20));
+		REQUIRE(GreaterThanEqual(20, 20));
+		REQUIRE(GreaterThanEqual(_, 20)(20));
+		REQUIRE(GreaterThanEqual(20, _)(20));
+		REQUIRE(GreaterThanEqual(_, _)(20, 20));
+
+		REQUIRE(GreaterThanEqual()(20, 19));
+		REQUIRE(GreaterThanEqual(20)(21));
+		REQUIRE(GreaterThanEqual(20, 19));
+		REQUIRE(GreaterThanEqual(_, 20)(21));
+		REQUIRE(GreaterThanEqual(20, _)(19));
+		REQUIRE(GreaterThanEqual(_, _)(20, 19));
+	}
+}
+
 TEST_CASE("Parse", "[normal]")
 {
 	SECTION("Parse<bool>()")

@@ -89,8 +89,8 @@ namespace s3d
 		template <class Z>
 		constexpr Vector4D(const Vector3D<value_type>& xyz, Z _z) noexcept
 			: x(static_cast<value_type>(xyz.x))
-			, y(static_cast<value_type>(xyz.z))
-			, z(static_cast<value_type>(xyz.w))
+			, y(static_cast<value_type>(xyz.y))
+			, z(static_cast<value_type>(xyz.z))
 			, w(static_cast<value_type>(_z)) {}
 
 		template <class U>

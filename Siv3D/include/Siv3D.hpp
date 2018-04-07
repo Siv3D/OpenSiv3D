@@ -947,6 +947,9 @@
 	//// ポストエフェクト
 	//# include "Siv3D/PostEffect.hpp"
 
+	// Navigation Mesh
+	# include "Siv3D/NavMesh.hpp"
+
 //////////////////////////////////////////////////
 //
 //	Asset Management
