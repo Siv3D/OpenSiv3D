@@ -15,9 +15,30 @@
 # include "Array.hpp"
 # include "PointVector.hpp"
 # include "Triangle.hpp"
+# include "MathConstants.hpp"
 
 namespace s3d
 {
+	struct NavMeshConfig
+	{
+		double cellSize = 1.0;
+
+		double cellHeight = 0.2;
+
+		double agentMaxSlope = 45_deg;
+
+		double agentHeight = 2.0;
+
+		double agentMaxClimb = 0.9;
+
+		double agentRadius = 0.25;
+
+		static constexpr NavMeshConfig Default()
+		{
+			return NavMeshConfig();
+		}
+	};
+
 	class NavMesh
 	{
 	private:
@@ -32,9 +53,9 @@ namespace s3d
 
 		~NavMesh();
 
-		bool build(const Array<Float3>& vertices, const Array<uint16>& indices, uint8 areaID = 1);
+		bool build(const Array<Float3>& vertices, const Array<uint16>& indices, const NavMeshConfig& config = NavMeshConfig::Default());
 
-		bool build(const Array<Float3>& vertices, const Array<uint16>& indices, const Array<uint8>& areaIDs);
+		bool build(const Array<Float3>& vertices, const Array<uint16>& indices, const Array<uint8>& areaIDs, const NavMeshConfig& config = NavMeshConfig::Default());
 
 		Array<Vec3> query(const Vec3& start, const Vec3& end) const;
 	};

@@ -27,32 +27,6 @@ namespace s3d
 	{
 	private:
 
-		float m_cellSize;
-		
-		float m_cellHeight;
-		
-		float m_agentMaxSlope;
-		
-		float m_agentHeight;
-		
-		float m_agentMaxClimb;
-		
-		float m_agentRadius;
-		
-		float m_edgeMaxLen;
-		
-		float m_edgeMaxError;
-		
-		float m_regionMinSize;
-		
-		float m_regionMergeSize;
-		
-		int32 m_vertsPerPoly;
-		
-		float m_detailSampleDist;
-		
-		float m_detailSampleMaxError;
-
 		rcContext m_ctx;
 		
 		rcHeightfield* m_hf = nullptr;
@@ -91,7 +65,7 @@ namespace s3d
 
 		void reset();
 
-		bool build();
+		bool build(const NavMeshConfig& config);
 
 	public:
 
@@ -99,8 +73,8 @@ namespace s3d
 
 		~CNavMesh();
 
-		bool build(const Array<Float3>& vertices, const Array<uint16>& indices, const Array<uint8>& areaIDs);
+		bool build(const Array<Float3>& vertices, const Array<uint16>& indices, const Array<uint8>& areaIDs, const NavMeshConfig& config);
 
-		Array<Vec3> query(const Vec3& start, const Vec3& end) const;
+		Array<Vec3> query(const Float3& start, const Float3& end) const;
 	};
 }

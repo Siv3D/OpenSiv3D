@@ -24,16 +24,16 @@ namespace s3d
 
 	}
 
-	bool NavMesh::build(const Array<Float3>& vertices, const Array<uint16>& indices, const uint8 areaID)
+	bool NavMesh::build(const Array<Float3>& vertices, const Array<uint16>& indices, const NavMeshConfig& config)
 	{
-		return build(vertices, indices, Array<uint8>(indices.size() / 3, areaID));
+		return build(vertices, indices, Array<uint8>(indices.size() / 3, 1), config);
 	}
 
-	bool NavMesh::build(const Array<Float3>& vertices, const Array<uint16>& indices, const Array<uint8>& areaIDs)
+	bool NavMesh::build(const Array<Float3>& vertices, const Array<uint16>& indices, const Array<uint8>& areaIDs, const NavMeshConfig& config)
 	{
 		pImpl = std::make_shared<CNavMesh>();
 
-		return pImpl->build(vertices, indices, areaIDs);
+		return pImpl->build(vertices, indices, areaIDs, config);
 	}
 
 	Array<Vec3> NavMesh::query(const Vec3& start, const Vec3& end) const

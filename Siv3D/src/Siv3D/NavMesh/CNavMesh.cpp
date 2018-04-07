@@ -9,31 +9,22 @@
 //
 //-----------------------------------------------
 
+# include <Siv3D/Logger.hpp>
 # include "CNavMesh.hpp"
 
 namespace s3d
 {
 	NavMesh::CNavMesh::CNavMesh()
-		: m_cellSize(0.3f)
-		, m_cellHeight(0.1f)
-		, m_agentMaxSlope(static_cast<float>(45_deg))
-		, m_agentHeight(2.0f)
-		, m_agentMaxClimb(0.9f)
-		, m_agentRadius(0.1f)
-		, m_edgeMaxLen(12)
-		, m_edgeMaxError(1.3f)
-		, m_regionMinSize(8)
-		, m_regionMergeSize(20)
-		, m_vertsPerPoly(6)
-		, m_detailSampleDist(6)
-		, m_detailSampleMaxError(1) {}
+	{
+	
+	}
 
 	NavMesh::CNavMesh::~CNavMesh()
 	{
 		destroy();
 	}
 
-	bool NavMesh::CNavMesh::build(const Array<Float3>& vertices, const Array<uint16>& indices, const Array<uint8>& areaIDs)
+	bool NavMesh::CNavMesh::build(const Array<Float3>& vertices, const Array<uint16>& indices, const Array<uint8>& areaIDs, const NavMeshConfig& config)
 	{
 		m_built = false;
 
@@ -65,7 +56,7 @@ namespace s3d
 
 		try
 		{
-			build();
+			build(config);
 		}
 		catch (...)
 		{
@@ -75,14 +66,14 @@ namespace s3d
 		return true;
 	}
 
-	Array<Vec3> NavMesh::CNavMesh::query(const Vec3& start, const Vec3& end) const
+	Array<Vec3> NavMesh::CNavMesh::query(const Float3& start, const Float3& end) const
 	{
 		if (!m_built)
 		{
 			return{};
 		}
 
-		Float3 startF(start), endF(end), extent(2.0f, 4.0f, 2.0f);
+		Float3 extent(2.0f, 4.0f, 2.0f);
 
 		dtNavMeshQuery navmeshquery;
 
@@ -94,12 +85,12 @@ namespace s3d
 		dtPolyRef startpoly, endpoly;
 		dtQueryFilter filter;
 
-		if (dtStatusFailed(navmeshquery.findNearestPoly(&startF.x, &extent.x, &filter, &startpoly, 0)))
+		if (dtStatusFailed(navmeshquery.findNearestPoly(&start.x, &extent.x, &filter, &startpoly, 0)))
 		{
 			return{};
 		}
 
-		if (dtStatusFailed(navmeshquery.findNearestPoly(&endF.x, &extent.x, &filter, &endpoly, 0)))
+		if (dtStatusFailed(navmeshquery.findNearestPoly(&end.x, &extent.x, &filter, &endpoly, 0)))
 		{
 			return{};
 		}
@@ -120,7 +111,7 @@ namespace s3d
 
 		Array<dtPolyRef> polys(buffersize);
 
-		if (dtStatus status = navmeshquery.findPath(startpoly, endpoly, &startF.x, &endF.x, &filter, polys.data(), &npolys, buffersize); dtStatusFailed(status))
+		if (dtStatus status = navmeshquery.findPath(startpoly, endpoly, &start.x, &end.x, &filter, polys.data(), &npolys, buffersize); dtStatusFailed(status))
 		{
 			return{};
 		}
@@ -130,12 +121,12 @@ namespace s3d
 			return{};
 		}
 
-		float end2[3] = { endF.x, endF.y, endF.z };
+		float end2[3] = { end.x, end.y, end.z };
 
 		if (polys[npolys - 1] != endpoly)
 		{
 			bool posOverPoly;
-			navmeshquery.closestPointOnPoly(polys[npolys - 1], &endF.x, end2, &posOverPoly);
+			navmeshquery.closestPointOnPoly(polys[npolys - 1], &end.x, end2, &posOverPoly);
 		}
 
 		constexpr int32 maxvertices = 8192;
@@ -144,7 +135,7 @@ namespace s3d
 
 		int32 nvertices = 0;
 
-		navmeshquery.findStraightPath(&startF.x, end2, polys.data(), npolys, &buffer[0].x, 0, 0, &nvertices, maxvertices);
+		navmeshquery.findStraightPath(&start.x, end2, polys.data(), npolys, &buffer[0].x, 0, 0, &nvertices, maxvertices);
 
 		Array<Vec3> vertices(nvertices);
 
@@ -244,42 +235,62 @@ namespace s3d
 		create();
 	}
 
-	bool NavMesh::CNavMesh::build()
+	bool NavMesh::CNavMesh::build(const NavMeshConfig& config)
 	{
+		const float cellSize		= static_cast<float>(config.cellSize);
+		const float cellHeight		= static_cast<float>(config.cellHeight);
+		const float agentMaxSlope	= static_cast<float>(config.agentMaxSlope);
+		const float agentHeight		= static_cast<float>(config.agentHeight);
+		const float agentMaxClimb	= static_cast<float>(config.agentMaxClimb);
+		const float agentRadius		= static_cast<float>(config.agentRadius);
+
+		constexpr float edgeMaxLen				= 12.0f;
+		constexpr float detailSampleDist		= 6.0f;
+		constexpr float detailSampleMaxError	= 1.0f;
+		constexpr float regionMinSize			= 8.0f;
+		constexpr float regionMergeSize			= 20.0f;
+
 		rcConfig cfg = {};
-		cfg.cs = m_cellSize;
-		cfg.ch = m_cellHeight;
-		cfg.walkableSlopeAngle = m_agentMaxSlope;
-		cfg.walkableHeight = (int32)ceilf(m_agentHeight / cfg.ch);
-		cfg.walkableClimb = (int32)floorf(m_agentMaxClimb / cfg.ch);
-		cfg.walkableRadius = (int32)ceilf(m_agentRadius / cfg.cs);
-		cfg.maxEdgeLen = (int32)(m_edgeMaxLen / m_cellSize);
-		cfg.maxSimplificationError = m_edgeMaxError;
-		cfg.minRegionArea = (int32)(m_regionMinSize*m_regionMinSize);		// Note: area = size*size
-		cfg.mergeRegionArea = (int32)(m_regionMergeSize*m_regionMergeSize);	// Note: area = size*size
-		cfg.maxVertsPerPoly = m_vertsPerPoly;
-		cfg.detailSampleDist = m_detailSampleDist < 0.9f ? 0 : m_cellSize * m_detailSampleDist;
-		cfg.detailSampleMaxError = m_cellHeight * m_detailSampleMaxError;
+		cfg.cs = cellSize;
+		cfg.ch = cellHeight;
+		cfg.walkableSlopeAngle		= agentMaxSlope;
+		cfg.walkableHeight			= static_cast<int32>(std::ceil(agentHeight / cellHeight));
+		cfg.walkableClimb			= static_cast<int32>(std::floor(agentMaxClimb / cellHeight));
+		cfg.walkableRadius			= static_cast<int32>(std::ceil(agentRadius / cellSize));
+		cfg.maxEdgeLen				= static_cast<int32>(edgeMaxLen / cellSize);
+		cfg.maxSimplificationError	= 1.3f;
+		cfg.minRegionArea			= static_cast<int32>(regionMinSize * regionMinSize);
+		cfg.mergeRegionArea			= static_cast<int32>(regionMergeSize * regionMergeSize);
+		cfg.maxVertsPerPoly			= 6;
+		cfg.detailSampleDist		= (detailSampleDist < 0.9f) ? 0 : cellSize * detailSampleDist;
+		cfg.detailSampleMaxError	= cellHeight * detailSampleMaxError;
 
 		rcVcopy(cfg.bmin, m_bmin);
 		rcVcopy(cfg.bmax, m_bmax);
-		cfg.bmin[0] -= cfg.borderSize * cfg.cs;
-		cfg.bmin[2] -= cfg.borderSize * cfg.cs;
-		cfg.bmax[0] += cfg.borderSize * cfg.cs;
-		cfg.bmax[2] += cfg.borderSize * cfg.cs;
+		cfg.bmin[0] -= cfg.borderSize * cellSize;
+		cfg.bmin[2] -= cfg.borderSize * cellSize;
+		cfg.bmax[0] += cfg.borderSize * cellSize;
+		cfg.bmax[2] += cfg.borderSize * cellSize;
 
-		rcCalcGridSize(cfg.bmin, cfg.bmax, cfg.cs, &cfg.width, &cfg.height);
+		rcCalcGridSize(cfg.bmin, cfg.bmax, cellSize, &cfg.width, &cfg.height);
 
 		if (cfg.maxVertsPerPoly > DT_VERTS_PER_POLYGON)
-			throw std::range_error("maxVertsPerPoly > 6");
+		{
+			return false;
+		}
 
-		cfg.width = static_cast<int32>((cfg.bmax[0] - cfg.bmin[0]) / cfg.cs + 1);
-		cfg.height = static_cast<int32>((cfg.bmax[2] - cfg.bmin[2]) / cfg.cs + 1);
+		//LOG_DEBUG(U"{0}x{1} cells"_fmt(cfg.width, cfg.height));
+		//LOG_DEBUG(U"{0} verts, {1} tris"_fmt(m_vertices.size(), m_indices.size() / 3));
+
+		cfg.width	= static_cast<int32>((cfg.bmax[0] - cfg.bmin[0]) / cellSize + 1);
+		cfg.height	= static_cast<int32>((cfg.bmax[2] - cfg.bmin[2]) / cellSize + 1);
 
 		reset();
 
 		if (!rcCreateHeightfield(&m_ctx, *m_hf, cfg.width, cfg.height, cfg.bmin, cfg.bmax, cfg.cs, cfg.ch))
-			throw std::bad_alloc();
+		{
+			return false;
+		}
 
 		const int32 flagMergeThreshold = 0;
 
@@ -291,27 +302,40 @@ namespace s3d
 		rcFilterWalkableLowHeightSpans(&m_ctx, cfg.walkableHeight, *m_hf);
 
 		if (!rcBuildCompactHeightfield(&m_ctx, cfg.walkableHeight, cfg.walkableClimb, *m_hf, *m_chf))
-			throw std::bad_alloc();
+		{
+			return false;
+		}
 
 		if (!rcErodeWalkableArea(&m_ctx, cfg.walkableRadius, *m_chf))
-			throw std::bad_alloc();
+		{
+			return false;
+		}
 
 		if (!rcBuildDistanceField(&m_ctx, *m_chf))
-			throw std::bad_alloc();
+		{
+			return false;
+		}
 
 		if (!rcBuildRegions(&m_ctx, *m_chf, 0 /* border size */, cfg.minRegionArea, cfg.mergeRegionArea))
-			throw std::bad_alloc();
+		{
+			return false;
+		}
 
 		if (!rcBuildContours(&m_ctx, *m_chf, cfg.maxSimplificationError, cfg.maxEdgeLen, *m_cset))
-			throw std::bad_alloc();
+		{
+			return false;
+		}
 
 		if (!rcBuildPolyMesh(&m_ctx, *m_cset, cfg.maxVertsPerPoly, *m_mesh))
-			throw std::bad_alloc();
+		{
+			return false;
+		}
 
 		if (!rcBuildPolyMeshDetail(&m_ctx, *m_mesh, *m_chf, cfg.detailSampleDist, cfg.detailSampleMaxError, *m_dmesh))
-			throw std::bad_alloc();
+		{
+			return false;
+		}
 
-		// TODO: changer les flags cf Sample_SoloMesh.cpp:594
 		for (int32 i = 0; i < m_mesh->npolys; ++i)
 		{
 			m_mesh->flags[i] = 1;
@@ -320,22 +344,22 @@ namespace s3d
 		dtNavMeshCreateParams params;
 		memset(&params, 0, sizeof(params));
 
-		params.verts = m_mesh->verts;
-		params.vertCount = m_mesh->nverts;
-		params.polys = m_mesh->polys;
-		params.polyAreas = m_mesh->areas;
-		params.polyFlags = m_mesh->flags;
-		params.polyCount = m_mesh->npolys;
-		params.nvp = m_mesh->nvp;
+		params.verts		= m_mesh->verts;
+		params.vertCount	= m_mesh->nverts;
+		params.polys		= m_mesh->polys;
+		params.polyAreas	= m_mesh->areas;
+		params.polyFlags	= m_mesh->flags;
+		params.polyCount	= m_mesh->npolys;
+		params.nvp			= m_mesh->nvp;
 
-		params.detailMeshes = m_dmesh->meshes;
-		params.detailVerts = m_dmesh->verts;
+		params.detailMeshes		= m_dmesh->meshes;
+		params.detailVerts		= m_dmesh->verts;
 		params.detailVertsCount = m_dmesh->nverts;
-		params.detailTris = m_dmesh->tris;
-		params.detailTriCount = m_dmesh->ntris;
+		params.detailTris		= m_dmesh->tris;
+		params.detailTriCount	= m_dmesh->ntris;
 
-		params.walkableHeight = static_cast<float>(cfg.walkableHeight);
-		params.walkableClimb = static_cast<float>(cfg.walkableClimb);
+		params.walkableHeight	= static_cast<float>(cfg.walkableHeight);
+		params.walkableClimb	= static_cast<float>(cfg.walkableClimb);
 		rcVcopy(params.bmin, m_mesh->bmin);
 		rcVcopy(params.bmax, m_mesh->bmax);
 		params.cs = cfg.cs;
@@ -343,7 +367,9 @@ namespace s3d
 		params.buildBvTree = true;
 
 		if (!dtCreateNavMeshData(&params, &m_navData, &m_navDataSize))
-			throw std::bad_alloc();
+		{
+			return false;
+		}
 
 		m_navmesh->init(m_navData, m_navDataSize, DT_TILE_FREE_DATA);
 
