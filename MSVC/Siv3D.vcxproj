@@ -1139,6 +1139,7 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\XAudio2_7\xma2defs.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\bitstream.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\compiler.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\cpu.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\error_private.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\fse.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\huf.h" />
@@ -1149,7 +1150,7 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\zstd_errors.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\zstd_internal.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstdmt_compress.h" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_compress.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_compress_internal.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_double_fast.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_fast.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_lazy.h" />
