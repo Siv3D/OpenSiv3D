@@ -260,48 +260,6 @@
 		2C0FC06B1FDB71F400A128B9 /* stringbuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBCF61FDB71F400A128B9 /* stringbuffer.h */; };
 		2C0FC06C1FDB71F400A128B9 /* writer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBCF71FDB71F400A128B9 /* writer.h */; };
 		2C0FC06D1FDB71F400A128B9 /* RFC1321.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBCF91FDB71F400A128B9 /* RFC1321.hpp */; };
-		2C0FC06E1FDB71F400A128B9 /* bitstream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBCFC1FDB71F400A128B9 /* bitstream.h */; };
-		2C0FC06F1FDB71F400A128B9 /* compiler.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBCFD1FDB71F400A128B9 /* compiler.h */; };
-		2C0FC0701FDB71F400A128B9 /* entropy_common.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBCFE1FDB71F400A128B9 /* entropy_common.c */; };
-		2C0FC0711FDB71F400A128B9 /* error_private.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBCFF1FDB71F400A128B9 /* error_private.c */; };
-		2C0FC0721FDB71F400A128B9 /* error_private.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBD001FDB71F400A128B9 /* error_private.h */; };
-		2C0FC0731FDB71F400A128B9 /* fse.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBD011FDB71F400A128B9 /* fse.h */; };
-		2C0FC0741FDB71F400A128B9 /* fse_decompress.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBD021FDB71F400A128B9 /* fse_decompress.c */; };
-		2C0FC0751FDB71F400A128B9 /* huf.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBD031FDB71F400A128B9 /* huf.h */; };
-		2C0FC0761FDB71F400A128B9 /* mem.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBD041FDB71F400A128B9 /* mem.h */; };
-		2C0FC0771FDB71F400A128B9 /* pool.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBD051FDB71F400A128B9 /* pool.c */; };
-		2C0FC0781FDB71F400A128B9 /* pool.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBD061FDB71F400A128B9 /* pool.h */; };
-		2C0FC0791FDB71F400A128B9 /* threading.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBD071FDB71F400A128B9 /* threading.c */; };
-		2C0FC07A1FDB71F400A128B9 /* threading.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBD081FDB71F400A128B9 /* threading.h */; };
-		2C0FC07B1FDB71F400A128B9 /* xxhash.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBD091FDB71F400A128B9 /* xxhash.c */; };
-		2C0FC07C1FDB71F400A128B9 /* xxhash.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBD0A1FDB71F400A128B9 /* xxhash.h */; };
-		2C0FC07D1FDB71F400A128B9 /* zstd_common.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBD0B1FDB71F400A128B9 /* zstd_common.c */; };
-		2C0FC07E1FDB71F400A128B9 /* zstd_errors.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBD0C1FDB71F400A128B9 /* zstd_errors.h */; };
-		2C0FC07F1FDB71F400A128B9 /* zstd_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBD0D1FDB71F400A128B9 /* zstd_internal.h */; };
-		2C0FC0801FDB71F400A128B9 /* fse_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBD0F1FDB71F400A128B9 /* fse_compress.c */; };
-		2C0FC0811FDB71F400A128B9 /* huf_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBD101FDB71F400A128B9 /* huf_compress.c */; };
-		2C0FC0821FDB71F400A128B9 /* zstd_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBD111FDB71F400A128B9 /* zstd_compress.c */; };
-		2C0FC0831FDB71F400A128B9 /* zstd_compress.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBD121FDB71F400A128B9 /* zstd_compress.h */; };
-		2C0FC0841FDB71F400A128B9 /* zstd_double_fast.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBD131FDB71F400A128B9 /* zstd_double_fast.c */; };
-		2C0FC0851FDB71F400A128B9 /* zstd_double_fast.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBD141FDB71F400A128B9 /* zstd_double_fast.h */; };
-		2C0FC0861FDB71F400A128B9 /* zstd_fast.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBD151FDB71F400A128B9 /* zstd_fast.c */; };
-		2C0FC0871FDB71F400A128B9 /* zstd_fast.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBD161FDB71F400A128B9 /* zstd_fast.h */; };
-		2C0FC0881FDB71F400A128B9 /* zstd_lazy.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBD171FDB71F400A128B9 /* zstd_lazy.c */; };
-		2C0FC0891FDB71F400A128B9 /* zstd_lazy.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBD181FDB71F400A128B9 /* zstd_lazy.h */; };
-		2C0FC08A1FDB71F400A128B9 /* zstd_ldm.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBD191FDB71F400A128B9 /* zstd_ldm.c */; };
-		2C0FC08B1FDB71F400A128B9 /* zstd_ldm.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBD1A1FDB71F400A128B9 /* zstd_ldm.h */; };
-		2C0FC08C1FDB71F400A128B9 /* zstd_opt.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBD1B1FDB71F400A128B9 /* zstd_opt.c */; };
-		2C0FC08D1FDB71F400A128B9 /* zstd_opt.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBD1C1FDB71F400A128B9 /* zstd_opt.h */; };
-		2C0FC08E1FDB71F400A128B9 /* zstdmt_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBD1D1FDB71F400A128B9 /* zstdmt_compress.c */; };
-		2C0FC08F1FDB71F400A128B9 /* zstdmt_compress.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBD1E1FDB71F400A128B9 /* zstdmt_compress.h */; };
-		2C0FC0901FDB71F400A128B9 /* huf_decompress.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBD201FDB71F400A128B9 /* huf_decompress.c */; };
-		2C0FC0911FDB71F400A128B9 /* zstd_decompress.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBD211FDB71F400A128B9 /* zstd_decompress.c */; };
-		2C0FC0921FDB71F400A128B9 /* cover.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBD231FDB71F400A128B9 /* cover.c */; };
-		2C0FC0931FDB71F400A128B9 /* divsufsort.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBD241FDB71F400A128B9 /* divsufsort.c */; };
-		2C0FC0941FDB71F400A128B9 /* divsufsort.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBD251FDB71F400A128B9 /* divsufsort.h */; };
-		2C0FC0951FDB71F400A128B9 /* zdict.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C0FBD261FDB71F400A128B9 /* zdict.c */; };
-		2C0FC0961FDB71F400A128B9 /* zdict.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBD271FDB71F400A128B9 /* zdict.h */; };
-		2C0FC0971FDB71F400A128B9 /* zstd.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBD281FDB71F400A128B9 /* zstd.h */; };
 		2C0FC1601FDB72B700A128B9 /* lfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0FC15F1FDB72B700A128B9 /* lfreetype.a */; };
 		2C0FC1621FDB72BF00A128B9 /* lharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0FC1611FDB72BF00A128B9 /* lharfbuzz.a */; };
 		2C0FD5DB1FE55B4F00A128B9 /* cpptoml.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FD5DA1FE55B4F00A128B9 /* cpptoml.h */; };
@@ -925,6 +883,49 @@
 		2C9DE99F20102ED6002D3BDC /* exif.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C9DE99D20102ED6002D3BDC /* exif.cpp */; };
 		2C9DE9A020102ED6002D3BDC /* exif.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C9DE99E20102ED6002D3BDC /* exif.h */; };
 		2CC7830F2017FE8200AB4824 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC7830E2017FE8200AB4824 /* AudioToolbox.framework */; };
+		2CD817EB2078DA2A009DA091 /* fse_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CD817BD2078DA2A009DA091 /* fse_compress.c */; };
+		2CD817EC2078DA2A009DA091 /* huf_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CD817BE2078DA2A009DA091 /* huf_compress.c */; };
+		2CD817ED2078DA2A009DA091 /* zstd_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CD817BF2078DA2A009DA091 /* zstd_compress.c */; };
+		2CD817EE2078DA2A009DA091 /* zstd_compress_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CD817C02078DA2A009DA091 /* zstd_compress_internal.h */; };
+		2CD817EF2078DA2A009DA091 /* zstd_double_fast.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CD817C12078DA2A009DA091 /* zstd_double_fast.c */; };
+		2CD817F02078DA2A009DA091 /* zstd_double_fast.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CD817C22078DA2A009DA091 /* zstd_double_fast.h */; };
+		2CD817F12078DA2A009DA091 /* zstd_fast.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CD817C32078DA2A009DA091 /* zstd_fast.c */; };
+		2CD817F22078DA2A009DA091 /* zstd_fast.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CD817C42078DA2A009DA091 /* zstd_fast.h */; };
+		2CD817F32078DA2A009DA091 /* zstd_lazy.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CD817C52078DA2A009DA091 /* zstd_lazy.c */; };
+		2CD817F42078DA2A009DA091 /* zstd_lazy.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CD817C62078DA2A009DA091 /* zstd_lazy.h */; };
+		2CD817F52078DA2A009DA091 /* zstd_ldm.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CD817C72078DA2A009DA091 /* zstd_ldm.c */; };
+		2CD817F62078DA2A009DA091 /* zstd_ldm.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CD817C82078DA2A009DA091 /* zstd_ldm.h */; };
+		2CD817F72078DA2A009DA091 /* zstd_opt.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CD817C92078DA2A009DA091 /* zstd_opt.c */; };
+		2CD817F82078DA2A009DA091 /* zstd_opt.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CD817CA2078DA2A009DA091 /* zstd_opt.h */; };
+		2CD817F92078DA2A009DA091 /* zstdmt_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CD817CB2078DA2A009DA091 /* zstdmt_compress.c */; };
+		2CD817FA2078DA2A009DA091 /* zstdmt_compress.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CD817CC2078DA2A009DA091 /* zstdmt_compress.h */; };
+		2CD817FB2078DA2A009DA091 /* cover.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CD817CE2078DA2A009DA091 /* cover.c */; };
+		2CD817FC2078DA2A009DA091 /* divsufsort.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CD817CF2078DA2A009DA091 /* divsufsort.c */; };
+		2CD817FD2078DA2A009DA091 /* divsufsort.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CD817D02078DA2A009DA091 /* divsufsort.h */; };
+		2CD817FE2078DA2A009DA091 /* zdict.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CD817D12078DA2A009DA091 /* zdict.c */; };
+		2CD817FF2078DA2A009DA091 /* zdict.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CD817D22078DA2A009DA091 /* zdict.h */; };
+		2CD818002078DA2A009DA091 /* huf_decompress.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CD817D42078DA2A009DA091 /* huf_decompress.c */; };
+		2CD818012078DA2A009DA091 /* zstd_decompress.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CD817D52078DA2A009DA091 /* zstd_decompress.c */; };
+		2CD818022078DA2A009DA091 /* bitstream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CD817D72078DA2A009DA091 /* bitstream.h */; };
+		2CD818032078DA2B009DA091 /* compiler.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CD817D82078DA2A009DA091 /* compiler.h */; };
+		2CD818042078DA2B009DA091 /* cpu.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CD817D92078DA2A009DA091 /* cpu.h */; };
+		2CD818052078DA2B009DA091 /* entropy_common.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CD817DA2078DA2A009DA091 /* entropy_common.c */; };
+		2CD818062078DA2B009DA091 /* error_private.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CD817DB2078DA2A009DA091 /* error_private.c */; };
+		2CD818072078DA2B009DA091 /* error_private.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CD817DC2078DA2A009DA091 /* error_private.h */; };
+		2CD818082078DA2B009DA091 /* fse.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CD817DD2078DA2A009DA091 /* fse.h */; };
+		2CD818092078DA2B009DA091 /* fse_decompress.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CD817DE2078DA2A009DA091 /* fse_decompress.c */; };
+		2CD8180A2078DA2B009DA091 /* huf.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CD817DF2078DA2A009DA091 /* huf.h */; };
+		2CD8180B2078DA2B009DA091 /* mem.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CD817E02078DA2A009DA091 /* mem.h */; };
+		2CD8180C2078DA2B009DA091 /* pool.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CD817E12078DA2A009DA091 /* pool.c */; };
+		2CD8180D2078DA2B009DA091 /* pool.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CD817E22078DA2A009DA091 /* pool.h */; };
+		2CD8180E2078DA2B009DA091 /* threading.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CD817E32078DA2A009DA091 /* threading.c */; };
+		2CD8180F2078DA2B009DA091 /* threading.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CD817E42078DA2A009DA091 /* threading.h */; };
+		2CD818102078DA2B009DA091 /* xxhash.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CD817E52078DA2A009DA091 /* xxhash.c */; };
+		2CD818112078DA2B009DA091 /* xxhash.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CD817E62078DA2A009DA091 /* xxhash.h */; };
+		2CD818122078DA2B009DA091 /* zstd_common.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CD817E72078DA2A009DA091 /* zstd_common.c */; };
+		2CD818132078DA2B009DA091 /* zstd_errors.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CD817E82078DA2A009DA091 /* zstd_errors.h */; };
+		2CD818142078DA2B009DA091 /* zstd_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CD817E92078DA2A009DA091 /* zstd_internal.h */; };
+		2CD818152078DA2B009DA091 /* zstd.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CD817EA2078DA2A009DA091 /* zstd.h */; };
 		2CFC56421FA8C0BE008A4B3E /* Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC56401FA8C0BE008A4B3E /* Test.cpp */; };
 /* End PBXBuildFile section */
 
@@ -1183,48 +1184,6 @@
 		2C0FBCF61FDB71F400A128B9 /* stringbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stringbuffer.h; sourceTree = "<group>"; };
 		2C0FBCF71FDB71F400A128B9 /* writer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = writer.h; sourceTree = "<group>"; };
 		2C0FBCF91FDB71F400A128B9 /* RFC1321.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RFC1321.hpp; sourceTree = "<group>"; };
-		2C0FBCFC1FDB71F400A128B9 /* bitstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitstream.h; sourceTree = "<group>"; };
-		2C0FBCFD1FDB71F400A128B9 /* compiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = compiler.h; sourceTree = "<group>"; };
-		2C0FBCFE1FDB71F400A128B9 /* entropy_common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = entropy_common.c; sourceTree = "<group>"; };
-		2C0FBCFF1FDB71F400A128B9 /* error_private.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = error_private.c; sourceTree = "<group>"; };
-		2C0FBD001FDB71F400A128B9 /* error_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error_private.h; sourceTree = "<group>"; };
-		2C0FBD011FDB71F400A128B9 /* fse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fse.h; sourceTree = "<group>"; };
-		2C0FBD021FDB71F400A128B9 /* fse_decompress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fse_decompress.c; sourceTree = "<group>"; };
-		2C0FBD031FDB71F400A128B9 /* huf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = huf.h; sourceTree = "<group>"; };
-		2C0FBD041FDB71F400A128B9 /* mem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mem.h; sourceTree = "<group>"; };
-		2C0FBD051FDB71F400A128B9 /* pool.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pool.c; sourceTree = "<group>"; };
-		2C0FBD061FDB71F400A128B9 /* pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pool.h; sourceTree = "<group>"; };
-		2C0FBD071FDB71F400A128B9 /* threading.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = threading.c; sourceTree = "<group>"; };
-		2C0FBD081FDB71F400A128B9 /* threading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = threading.h; sourceTree = "<group>"; };
-		2C0FBD091FDB71F400A128B9 /* xxhash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xxhash.c; sourceTree = "<group>"; };
-		2C0FBD0A1FDB71F400A128B9 /* xxhash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxhash.h; sourceTree = "<group>"; };
-		2C0FBD0B1FDB71F400A128B9 /* zstd_common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_common.c; sourceTree = "<group>"; };
-		2C0FBD0C1FDB71F400A128B9 /* zstd_errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_errors.h; sourceTree = "<group>"; };
-		2C0FBD0D1FDB71F400A128B9 /* zstd_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_internal.h; sourceTree = "<group>"; };
-		2C0FBD0F1FDB71F400A128B9 /* fse_compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fse_compress.c; sourceTree = "<group>"; };
-		2C0FBD101FDB71F400A128B9 /* huf_compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = huf_compress.c; sourceTree = "<group>"; };
-		2C0FBD111FDB71F400A128B9 /* zstd_compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_compress.c; sourceTree = "<group>"; };
-		2C0FBD121FDB71F400A128B9 /* zstd_compress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_compress.h; sourceTree = "<group>"; };
-		2C0FBD131FDB71F400A128B9 /* zstd_double_fast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_double_fast.c; sourceTree = "<group>"; };
-		2C0FBD141FDB71F400A128B9 /* zstd_double_fast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_double_fast.h; sourceTree = "<group>"; };
-		2C0FBD151FDB71F400A128B9 /* zstd_fast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_fast.c; sourceTree = "<group>"; };
-		2C0FBD161FDB71F400A128B9 /* zstd_fast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_fast.h; sourceTree = "<group>"; };
-		2C0FBD171FDB71F400A128B9 /* zstd_lazy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_lazy.c; sourceTree = "<group>"; };
-		2C0FBD181FDB71F400A128B9 /* zstd_lazy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_lazy.h; sourceTree = "<group>"; };
-		2C0FBD191FDB71F400A128B9 /* zstd_ldm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_ldm.c; sourceTree = "<group>"; };
-		2C0FBD1A1FDB71F400A128B9 /* zstd_ldm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_ldm.h; sourceTree = "<group>"; };
-		2C0FBD1B1FDB71F400A128B9 /* zstd_opt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_opt.c; sourceTree = "<group>"; };
-		2C0FBD1C1FDB71F400A128B9 /* zstd_opt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_opt.h; sourceTree = "<group>"; };
-		2C0FBD1D1FDB71F400A128B9 /* zstdmt_compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstdmt_compress.c; sourceTree = "<group>"; };
-		2C0FBD1E1FDB71F400A128B9 /* zstdmt_compress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstdmt_compress.h; sourceTree = "<group>"; };
-		2C0FBD201FDB71F400A128B9 /* huf_decompress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = huf_decompress.c; sourceTree = "<group>"; };
-		2C0FBD211FDB71F400A128B9 /* zstd_decompress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_decompress.c; sourceTree = "<group>"; };
-		2C0FBD231FDB71F400A128B9 /* cover.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cover.c; sourceTree = "<group>"; };
-		2C0FBD241FDB71F400A128B9 /* divsufsort.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = divsufsort.c; sourceTree = "<group>"; };
-		2C0FBD251FDB71F400A128B9 /* divsufsort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = divsufsort.h; sourceTree = "<group>"; };
-		2C0FBD261FDB71F400A128B9 /* zdict.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zdict.c; sourceTree = "<group>"; };
-		2C0FBD271FDB71F400A128B9 /* zdict.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zdict.h; sourceTree = "<group>"; };
-		2C0FBD281FDB71F400A128B9 /* zstd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd.h; sourceTree = "<group>"; };
 		2C0FC15F1FDB72B700A128B9 /* lfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = lfreetype.a; path = ../Siv3D/lib/macOS/freetype/lfreetype.a; sourceTree = "<group>"; };
 		2C0FC1611FDB72BF00A128B9 /* lharfbuzz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = lharfbuzz.a; path = ../Siv3D/lib/macOS/harfbuzz/lharfbuzz.a; sourceTree = "<group>"; };
 		2C0FD5DA1FE55B4F00A128B9 /* cpptoml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpptoml.h; sourceTree = "<group>"; };
@@ -2127,6 +2086,49 @@
 		2CA7F74E1CA7F43D00495647 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; usesTabs = 1; };
 		2CC7830E2017FE8200AB4824 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		2CC7F9541F34A5840071A239 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		2CD817BD2078DA2A009DA091 /* fse_compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fse_compress.c; sourceTree = "<group>"; };
+		2CD817BE2078DA2A009DA091 /* huf_compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = huf_compress.c; sourceTree = "<group>"; };
+		2CD817BF2078DA2A009DA091 /* zstd_compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_compress.c; sourceTree = "<group>"; };
+		2CD817C02078DA2A009DA091 /* zstd_compress_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_compress_internal.h; sourceTree = "<group>"; };
+		2CD817C12078DA2A009DA091 /* zstd_double_fast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_double_fast.c; sourceTree = "<group>"; };
+		2CD817C22078DA2A009DA091 /* zstd_double_fast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_double_fast.h; sourceTree = "<group>"; };
+		2CD817C32078DA2A009DA091 /* zstd_fast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_fast.c; sourceTree = "<group>"; };
+		2CD817C42078DA2A009DA091 /* zstd_fast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_fast.h; sourceTree = "<group>"; };
+		2CD817C52078DA2A009DA091 /* zstd_lazy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_lazy.c; sourceTree = "<group>"; };
+		2CD817C62078DA2A009DA091 /* zstd_lazy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_lazy.h; sourceTree = "<group>"; };
+		2CD817C72078DA2A009DA091 /* zstd_ldm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_ldm.c; sourceTree = "<group>"; };
+		2CD817C82078DA2A009DA091 /* zstd_ldm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_ldm.h; sourceTree = "<group>"; };
+		2CD817C92078DA2A009DA091 /* zstd_opt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_opt.c; sourceTree = "<group>"; };
+		2CD817CA2078DA2A009DA091 /* zstd_opt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_opt.h; sourceTree = "<group>"; };
+		2CD817CB2078DA2A009DA091 /* zstdmt_compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstdmt_compress.c; sourceTree = "<group>"; };
+		2CD817CC2078DA2A009DA091 /* zstdmt_compress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstdmt_compress.h; sourceTree = "<group>"; };
+		2CD817CE2078DA2A009DA091 /* cover.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cover.c; sourceTree = "<group>"; };
+		2CD817CF2078DA2A009DA091 /* divsufsort.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = divsufsort.c; sourceTree = "<group>"; };
+		2CD817D02078DA2A009DA091 /* divsufsort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = divsufsort.h; sourceTree = "<group>"; };
+		2CD817D12078DA2A009DA091 /* zdict.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zdict.c; sourceTree = "<group>"; };
+		2CD817D22078DA2A009DA091 /* zdict.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zdict.h; sourceTree = "<group>"; };
+		2CD817D42078DA2A009DA091 /* huf_decompress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = huf_decompress.c; sourceTree = "<group>"; };
+		2CD817D52078DA2A009DA091 /* zstd_decompress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_decompress.c; sourceTree = "<group>"; };
+		2CD817D72078DA2A009DA091 /* bitstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitstream.h; sourceTree = "<group>"; };
+		2CD817D82078DA2A009DA091 /* compiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = compiler.h; sourceTree = "<group>"; };
+		2CD817D92078DA2A009DA091 /* cpu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpu.h; sourceTree = "<group>"; };
+		2CD817DA2078DA2A009DA091 /* entropy_common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = entropy_common.c; sourceTree = "<group>"; };
+		2CD817DB2078DA2A009DA091 /* error_private.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = error_private.c; sourceTree = "<group>"; };
+		2CD817DC2078DA2A009DA091 /* error_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error_private.h; sourceTree = "<group>"; };
+		2CD817DD2078DA2A009DA091 /* fse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fse.h; sourceTree = "<group>"; };
+		2CD817DE2078DA2A009DA091 /* fse_decompress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fse_decompress.c; sourceTree = "<group>"; };
+		2CD817DF2078DA2A009DA091 /* huf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = huf.h; sourceTree = "<group>"; };
+		2CD817E02078DA2A009DA091 /* mem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mem.h; sourceTree = "<group>"; };
+		2CD817E12078DA2A009DA091 /* pool.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pool.c; sourceTree = "<group>"; };
+		2CD817E22078DA2A009DA091 /* pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pool.h; sourceTree = "<group>"; };
+		2CD817E32078DA2A009DA091 /* threading.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = threading.c; sourceTree = "<group>"; };
+		2CD817E42078DA2A009DA091 /* threading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = threading.h; sourceTree = "<group>"; };
+		2CD817E52078DA2A009DA091 /* xxhash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xxhash.c; sourceTree = "<group>"; };
+		2CD817E62078DA2A009DA091 /* xxhash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxhash.h; sourceTree = "<group>"; };
+		2CD817E72078DA2A009DA091 /* zstd_common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zstd_common.c; sourceTree = "<group>"; };
+		2CD817E82078DA2A009DA091 /* zstd_errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_errors.h; sourceTree = "<group>"; };
+		2CD817E92078DA2A009DA091 /* zstd_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd_internal.h; sourceTree = "<group>"; };
+		2CD817EA2078DA2A009DA091 /* zstd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstd.h; sourceTree = "<group>"; };
 		2CF1C7991FB3911100FC903E /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		2CF1C79B1FB3915100FC903E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2CF1C79F1FB394ED00FC903E /* lboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = lboost_filesystem.a; path = ../Siv3D/lib/macOS/boost/lboost_filesystem.a; sourceTree = "<group>"; };
@@ -2705,82 +2707,13 @@
 		2C0FBCFA1FDB71F400A128B9 /* zstd */ = {
 			isa = PBXGroup;
 			children = (
-				2C0FBCFB1FDB71F400A128B9 /* common */,
-				2C0FBD0E1FDB71F400A128B9 /* compress */,
-				2C0FBD1F1FDB71F400A128B9 /* decompress */,
-				2C0FBD221FDB71F400A128B9 /* dictBuilder */,
-				2C0FBD281FDB71F400A128B9 /* zstd.h */,
+				2CD817D62078DA2A009DA091 /* common */,
+				2CD817BC2078DA2A009DA091 /* compress */,
+				2CD817D32078DA2A009DA091 /* decompress */,
+				2CD817CD2078DA2A009DA091 /* dictBuilder */,
+				2CD817EA2078DA2A009DA091 /* zstd.h */,
 			);
 			path = zstd;
-			sourceTree = "<group>";
-		};
-		2C0FBCFB1FDB71F400A128B9 /* common */ = {
-			isa = PBXGroup;
-			children = (
-				2C0FBCFC1FDB71F400A128B9 /* bitstream.h */,
-				2C0FBCFD1FDB71F400A128B9 /* compiler.h */,
-				2C0FBCFE1FDB71F400A128B9 /* entropy_common.c */,
-				2C0FBCFF1FDB71F400A128B9 /* error_private.c */,
-				2C0FBD001FDB71F400A128B9 /* error_private.h */,
-				2C0FBD011FDB71F400A128B9 /* fse.h */,
-				2C0FBD021FDB71F400A128B9 /* fse_decompress.c */,
-				2C0FBD031FDB71F400A128B9 /* huf.h */,
-				2C0FBD041FDB71F400A128B9 /* mem.h */,
-				2C0FBD051FDB71F400A128B9 /* pool.c */,
-				2C0FBD061FDB71F400A128B9 /* pool.h */,
-				2C0FBD071FDB71F400A128B9 /* threading.c */,
-				2C0FBD081FDB71F400A128B9 /* threading.h */,
-				2C0FBD091FDB71F400A128B9 /* xxhash.c */,
-				2C0FBD0A1FDB71F400A128B9 /* xxhash.h */,
-				2C0FBD0B1FDB71F400A128B9 /* zstd_common.c */,
-				2C0FBD0C1FDB71F400A128B9 /* zstd_errors.h */,
-				2C0FBD0D1FDB71F400A128B9 /* zstd_internal.h */,
-			);
-			path = common;
-			sourceTree = "<group>";
-		};
-		2C0FBD0E1FDB71F400A128B9 /* compress */ = {
-			isa = PBXGroup;
-			children = (
-				2C0FBD0F1FDB71F400A128B9 /* fse_compress.c */,
-				2C0FBD101FDB71F400A128B9 /* huf_compress.c */,
-				2C0FBD111FDB71F400A128B9 /* zstd_compress.c */,
-				2C0FBD121FDB71F400A128B9 /* zstd_compress.h */,
-				2C0FBD131FDB71F400A128B9 /* zstd_double_fast.c */,
-				2C0FBD141FDB71F400A128B9 /* zstd_double_fast.h */,
-				2C0FBD151FDB71F400A128B9 /* zstd_fast.c */,
-				2C0FBD161FDB71F400A128B9 /* zstd_fast.h */,
-				2C0FBD171FDB71F400A128B9 /* zstd_lazy.c */,
-				2C0FBD181FDB71F400A128B9 /* zstd_lazy.h */,
-				2C0FBD191FDB71F400A128B9 /* zstd_ldm.c */,
-				2C0FBD1A1FDB71F400A128B9 /* zstd_ldm.h */,
-				2C0FBD1B1FDB71F400A128B9 /* zstd_opt.c */,
-				2C0FBD1C1FDB71F400A128B9 /* zstd_opt.h */,
-				2C0FBD1D1FDB71F400A128B9 /* zstdmt_compress.c */,
-				2C0FBD1E1FDB71F400A128B9 /* zstdmt_compress.h */,
-			);
-			path = compress;
-			sourceTree = "<group>";
-		};
-		2C0FBD1F1FDB71F400A128B9 /* decompress */ = {
-			isa = PBXGroup;
-			children = (
-				2C0FBD201FDB71F400A128B9 /* huf_decompress.c */,
-				2C0FBD211FDB71F400A128B9 /* zstd_decompress.c */,
-			);
-			path = decompress;
-			sourceTree = "<group>";
-		};
-		2C0FBD221FDB71F400A128B9 /* dictBuilder */ = {
-			isa = PBXGroup;
-			children = (
-				2C0FBD231FDB71F400A128B9 /* cover.c */,
-				2C0FBD241FDB71F400A128B9 /* divsufsort.c */,
-				2C0FBD251FDB71F400A128B9 /* divsufsort.h */,
-				2C0FBD261FDB71F400A128B9 /* zdict.c */,
-				2C0FBD271FDB71F400A128B9 /* zdict.h */,
-			);
-			path = dictBuilder;
 			sourceTree = "<group>";
 		};
 		2C0FD5D91FE55B4F00A128B9 /* cpptoml */ = {
@@ -5317,6 +5250,76 @@
 			path = ../Siv3D;
 			sourceTree = "<group>";
 		};
+		2CD817BC2078DA2A009DA091 /* compress */ = {
+			isa = PBXGroup;
+			children = (
+				2CD817BD2078DA2A009DA091 /* fse_compress.c */,
+				2CD817BE2078DA2A009DA091 /* huf_compress.c */,
+				2CD817BF2078DA2A009DA091 /* zstd_compress.c */,
+				2CD817C02078DA2A009DA091 /* zstd_compress_internal.h */,
+				2CD817C12078DA2A009DA091 /* zstd_double_fast.c */,
+				2CD817C22078DA2A009DA091 /* zstd_double_fast.h */,
+				2CD817C32078DA2A009DA091 /* zstd_fast.c */,
+				2CD817C42078DA2A009DA091 /* zstd_fast.h */,
+				2CD817C52078DA2A009DA091 /* zstd_lazy.c */,
+				2CD817C62078DA2A009DA091 /* zstd_lazy.h */,
+				2CD817C72078DA2A009DA091 /* zstd_ldm.c */,
+				2CD817C82078DA2A009DA091 /* zstd_ldm.h */,
+				2CD817C92078DA2A009DA091 /* zstd_opt.c */,
+				2CD817CA2078DA2A009DA091 /* zstd_opt.h */,
+				2CD817CB2078DA2A009DA091 /* zstdmt_compress.c */,
+				2CD817CC2078DA2A009DA091 /* zstdmt_compress.h */,
+			);
+			path = compress;
+			sourceTree = "<group>";
+		};
+		2CD817CD2078DA2A009DA091 /* dictBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				2CD817CE2078DA2A009DA091 /* cover.c */,
+				2CD817CF2078DA2A009DA091 /* divsufsort.c */,
+				2CD817D02078DA2A009DA091 /* divsufsort.h */,
+				2CD817D12078DA2A009DA091 /* zdict.c */,
+				2CD817D22078DA2A009DA091 /* zdict.h */,
+			);
+			path = dictBuilder;
+			sourceTree = "<group>";
+		};
+		2CD817D32078DA2A009DA091 /* decompress */ = {
+			isa = PBXGroup;
+			children = (
+				2CD817D42078DA2A009DA091 /* huf_decompress.c */,
+				2CD817D52078DA2A009DA091 /* zstd_decompress.c */,
+			);
+			path = decompress;
+			sourceTree = "<group>";
+		};
+		2CD817D62078DA2A009DA091 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				2CD817D72078DA2A009DA091 /* bitstream.h */,
+				2CD817D82078DA2A009DA091 /* compiler.h */,
+				2CD817D92078DA2A009DA091 /* cpu.h */,
+				2CD817DA2078DA2A009DA091 /* entropy_common.c */,
+				2CD817DB2078DA2A009DA091 /* error_private.c */,
+				2CD817DC2078DA2A009DA091 /* error_private.h */,
+				2CD817DD2078DA2A009DA091 /* fse.h */,
+				2CD817DE2078DA2A009DA091 /* fse_decompress.c */,
+				2CD817DF2078DA2A009DA091 /* huf.h */,
+				2CD817E02078DA2A009DA091 /* mem.h */,
+				2CD817E12078DA2A009DA091 /* pool.c */,
+				2CD817E22078DA2A009DA091 /* pool.h */,
+				2CD817E32078DA2A009DA091 /* threading.c */,
+				2CD817E42078DA2A009DA091 /* threading.h */,
+				2CD817E52078DA2A009DA091 /* xxhash.c */,
+				2CD817E62078DA2A009DA091 /* xxhash.h */,
+				2CD817E72078DA2A009DA091 /* zstd_common.c */,
+				2CD817E82078DA2A009DA091 /* zstd_errors.h */,
+				2CD817E92078DA2A009DA091 /* zstd_internal.h */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
 		2CFC563D1FA8C0BE008A4B3E /* Test */ = {
 			isa = PBXGroup;
 			children = (
@@ -5342,12 +5345,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C0FC0731FDB71F400A128B9 /* fse.h in Headers */,
 				2C76B0A720785C45008345FF /* scriptbuilder.h in Headers */,
 				2C4F2ACA204199ED006CBCD1 /* b2CircleContact.h in Headers */,
 				2C4F2A9D204199ED006CBCD1 /* b2Distance.h in Headers */,
 				2C0FBFBE1FDB71F400A128B9 /* svgldict.h in Headers */,
 				2C76B0BD20785C45008345FF /* CScript.hpp in Headers */,
+				2CD817F82078DA2A009DA091 /* zstd_opt.h in Headers */,
 				2C4F2ACC204199ED006CBCD1 /* b2Contact.h in Headers */,
 				2C0FBF971FDB71F400A128B9 /* ftlzw.h in Headers */,
 				2C0FBF6C1FDB71F400A128B9 /* double-conversion.h in Headers */,
@@ -5355,9 +5358,7 @@
 				2C0FBFC71FDB71F400A128B9 /* svpscmap.h in Headers */,
 				2C76B0FD20785C45008345FF /* BackBufferTexture.hpp in Headers */,
 				2C76B16320785C5B008345FF /* Recast.h in Headers */,
-				2C0FC0941FDB71F400A128B9 /* divsufsort.h in Headers */,
 				2C76B12820785C45008345FF /* CWritableMemoryMapping.hpp in Headers */,
-				2C0FC0871FDB71F400A128B9 /* zstd_fast.h in Headers */,
 				2C76AF7120785C45008345FF /* AudioFormat_AAC_macOS.hpp in Headers */,
 				2C0FC0661FDB71F400A128B9 /* prettywriter.h in Headers */,
 				2C0FC0491FDB71F400A128B9 /* sweep_context.h in Headers */,
@@ -5369,12 +5370,12 @@
 				2C76B16520785C5B008345FF /* RecastAlloc.h in Headers */,
 				2C0FC0281FDB71F400A128B9 /* mpg123.h in Headers */,
 				2C76B16820785C5B008345FF /* RecastAssert.h in Headers */,
-				2C0FC0761FDB71F400A128B9 /* mem.h in Headers */,
 				2C0FC0171FDB71F400A128B9 /* hb-common.h in Headers */,
 				2C0FBFCE1FDB71F400A128B9 /* sfnt.h in Headers */,
 				2C4F2ADE204199ED006CBCD1 /* b2Joint.h in Headers */,
 				2C76B0CD20785C45008345FF /* IShader.hpp in Headers */,
 				2C0FC0531FDB71F400A128B9 /* biginteger.h in Headers */,
+				2CD8180A2078DA2B009DA091 /* huf.h in Headers */,
 				2C76AF5D20785C45008345FF /* IAudio.hpp in Headers */,
 				2C76B11E20785C45008345FF /* CWindow_Linux.hpp in Headers */,
 				2C0FC0401FDB71F400A128B9 /* utils.h in Headers */,
@@ -5396,6 +5397,7 @@
 				2C76AFE020785C45008345FF /* CEmojiDictionary.hpp in Headers */,
 				2C76B0C020785C45008345FF /* ScriptData.hpp in Headers */,
 				2C4F2AEC204199ED006CBCD1 /* b2WeldJoint.h in Headers */,
+				2CD818032078DA2B009DA091 /* compiler.h in Headers */,
 				2C0FC0641FDB71F400A128B9 /* ostreamwrapper.h in Headers */,
 				2C76AFD720785C45008345FF /* CEffect.hpp in Headers */,
 				2C0FBF7F1FDB71F400A128B9 /* ftoption.h in Headers */,
@@ -5420,12 +5422,13 @@
 				2C0FBFB31FDB71F400A128B9 /* ftrfork.h in Headers */,
 				2C0FBFE21FDB71F400A128B9 /* eglew.h in Headers */,
 				2C76B10520785C45008345FF /* Texture_GL.hpp in Headers */,
-				2C0FC07C1FDB71F400A128B9 /* xxhash.h in Headers */,
 				2C0FC01A1FDB71F400A128B9 /* hb-font.h in Headers */,
 				2C76B0E920785C45008345FF /* SystemUtility.hpp in Headers */,
 				2C76B0D120785C45008345FF /* Siv3D_Linux.h in Headers */,
+				2CD818142078DA2B009DA091 /* zstd_internal.h in Headers */,
 				2C0FBFCF1FDB71F400A128B9 /* t1types.h in Headers */,
 				2C76B04820785C45008345FF /* IKeyboard.hpp in Headers */,
+				2CD817FD2078DA2A009DA091 /* divsufsort.h in Headers */,
 				2C4F2AD8204199ED006CBCD1 /* b2DistanceJoint.h in Headers */,
 				2C76AF9E20785C45008345FF /* CClipboard_Linux.hpp in Headers */,
 				2C76AF6B20785C45008345FF /* CAudio_X28.hpp in Headers */,
@@ -5433,11 +5436,12 @@
 				2C76B0E020785C45008345FF /* CSystem_Linux.hpp in Headers */,
 				2C76AF6520785C45008345FF /* CAudio_X27.hpp in Headers */,
 				2C0FC0411FDB71F400A128B9 /* poly2tri.h in Headers */,
+				2CD8180D2078DA2B009DA091 /* pool.h in Headers */,
 				2C76B14D20785C50008345FF /* DetourNavMeshBuilder.h in Headers */,
 				2C76B02720785C45008345FF /* CHTMLWriter.hpp in Headers */,
 				2C76B0C820785C45008345FF /* VertexShader_D3D11.hpp in Headers */,
+				2CD817F62078DA2A009DA091 /* zstd_ldm.h in Headers */,
 				2C76B0CB20785C45008345FF /* PixelShader_GL.hpp in Headers */,
-				2C0FC07E1FDB71F400A128B9 /* zstd_errors.h in Headers */,
 				2C76B04B20785C45008345FF /* CLicenseManager.hpp in Headers */,
 				2C4F2AA1204199ED006CBCD1 /* b2TimeOfImpact.h in Headers */,
 				2C76B05D20785C45008345FF /* CMemoryMapping.hpp in Headers */,
@@ -5458,7 +5462,7 @@
 				2C0FBFC31FDB71F400A128B9 /* svotval.h in Headers */,
 				2C76B02E20785C45008345FF /* CImageFormat.hpp in Headers */,
 				2C4F2ADA204199ED006CBCD1 /* b2FrictionJoint.h in Headers */,
-				2C0FC06F1FDB71F400A128B9 /* compiler.h in Headers */,
+				2CD818022078DA2A009DA091 /* bitstream.h in Headers */,
 				2C0FBF761FDB71F400A128B9 /* cpu_x86.h in Headers */,
 				2C76AFB820785C45008345FF /* GLConstantBuffer.hpp in Headers */,
 				2C76AF8A20785C45008345FF /* CBinaryReader_macOS.hpp in Headers */,
@@ -5475,6 +5479,7 @@
 				2C0FBF821FDB71F400A128B9 /* ftadvanc.h in Headers */,
 				2C4F2AEA204199ED006CBCD1 /* b2RopeJoint.h in Headers */,
 				2C0FC0581FDB71F400A128B9 /* meta.h in Headers */,
+				2CD8180F2078DA2B009DA091 /* threading.h in Headers */,
 				2C0FBF621FDB71F400A128B9 /* clipper.hpp in Headers */,
 				2C0FC01B1FDB71F400A128B9 /* hb-ft.h in Headers */,
 				2C0FC05B1FDB71F400A128B9 /* stack.h in Headers */,
@@ -5483,6 +5488,7 @@
 				2C76B00820785C45008345FF /* D3D11BlendState.hpp in Headers */,
 				2C0FC0521FDB71F400A128B9 /* fwd.h in Headers */,
 				2C0FC0151FDB71F400A128B9 /* hb-blob.h in Headers */,
+				2CD817FA2078DA2A009DA091 /* zstdmt_compress.h in Headers */,
 				2C76AF8520785C45008345FF /* CBigInt.hpp in Headers */,
 				2C4F2ABD204199ED006CBCD1 /* b2Fixture.h in Headers */,
 				2C0FBFBC1FDB71F400A128B9 /* svcid.h in Headers */,
@@ -5497,13 +5503,10 @@
 				2C4F2ABB204199ED006CBCD1 /* b2ContactManager.h in Headers */,
 				2C0FBF731FDB71F400A128B9 /* strtod.h in Headers */,
 				2C0FC0681FDB71F400A128B9 /* reader.h in Headers */,
-				2C0FC0751FDB71F400A128B9 /* huf.h in Headers */,
 				2C0FC06C1FDB71F400A128B9 /* writer.h in Headers */,
 				2C0FBFFB1FDB71F400A128B9 /* internal.h in Headers */,
 				2C76B0CC20785C45008345FF /* VertexShader_GL.hpp in Headers */,
 				2C76AFAD20785C45008345FF /* CCodec_Null.hpp in Headers */,
-				2C0FC0971FDB71F400A128B9 /* zstd.h in Headers */,
-				2C0FC06E1FDB71F400A128B9 /* bitstream.h in Headers */,
 				2C0FBFAE1FDB71F400A128B9 /* ftgloadr.h in Headers */,
 				2C0FBFE31FDB71F400A128B9 /* glew.h in Headers */,
 				2C76AFA820785C45008345FF /* ICodec.hpp in Headers */,
@@ -5512,6 +5515,7 @@
 				2C0FC01D1FDB71F400A128B9 /* hb-shape-plan.h in Headers */,
 				2C0FBFB01FDB71F400A128B9 /* ftmemory.h in Headers */,
 				2C0FC0201FDB71F400A128B9 /* hb-version.h in Headers */,
+				2CD817F02078DA2A009DA091 /* zstd_double_fast.h in Headers */,
 				2C76AF6220785C45008345FF /* Audio_X27.hpp in Headers */,
 				2C4F2AB3204199ED006CBCD1 /* b2Settings.h in Headers */,
 				2C0FBFA71FDB71F400A128B9 /* ftttdrv.h in Headers */,
@@ -5520,9 +5524,9 @@
 				2C76B06D20785C45008345FF /* IMouse.hpp in Headers */,
 				2C4F2AE4204199ED006CBCD1 /* b2PrismaticJoint.h in Headers */,
 				2C76B0EB20785C45008345FF /* CTextBox.hpp in Headers */,
+				2CD818132078DA2B009DA091 /* zstd_errors.h in Headers */,
 				2C0FBFCA1FDB71F400A128B9 /* svttcmap.h in Headers */,
 				2C0FBFCB1FDB71F400A128B9 /* svtteng.h in Headers */,
-				2C0FC08F1FDB71F400A128B9 /* zstdmt_compress.h in Headers */,
 				2C0FC0361FDB71F400A128B9 /* muParserFixes.h in Headers */,
 				2C0FC0561FDB71F400A128B9 /* ieee754.h in Headers */,
 				2C4F2ACE204199ED006CBCD1 /* b2ContactSolver.h in Headers */,
@@ -5542,13 +5546,13 @@
 				2C76B0C420785C45008345FF /* CShader_D3D11.hpp in Headers */,
 				2C0FC0191FDB71F400A128B9 /* hb-face.h in Headers */,
 				2C76AFC820785C45008345FF /* ICursor.hpp in Headers */,
-				2C0FC0851FDB71F400A128B9 /* zstd_double_fast.h in Headers */,
 				2C4F2AD0204199ED006CBCD1 /* b2EdgeAndCircleContact.h in Headers */,
+				2CD817F42078DA2A009DA091 /* zstd_lazy.h in Headers */,
 				2C0FC0691FDB71F400A128B9 /* schema.h in Headers */,
 				2C0FBFAB1FDB71F400A128B9 /* ftcalc.h in Headers */,
 				2C4F2AA3204199ED006CBCD1 /* b2ChainShape.h in Headers */,
-				2C0FC07A1FDB71F400A128B9 /* threading.h in Headers */,
 				2C4F2AEE204199ED006CBCD1 /* b2WheelJoint.h in Headers */,
+				2CD8180B2078DA2B009DA091 /* mem.h in Headers */,
 				2C0FC01E1FDB71F400A128B9 /* hb-shape.h in Headers */,
 				2C76AFD320785C45008345FF /* IDragDrop.hpp in Headers */,
 				2C0FBF681FDB71F400A128B9 /* cached-powers.h in Headers */,
@@ -5594,12 +5598,15 @@
 				2C0FC05C1FDB71F400A128B9 /* strfunc.h in Headers */,
 				2C76B0BE20785C45008345FF /* IScript.hpp in Headers */,
 				2C0FBF711FDB71F400A128B9 /* ieee.h in Headers */,
+				2CD818042078DA2B009DA091 /* cpu.h in Headers */,
 				2C76AF9920785C45008345FF /* CByteArray.hpp in Headers */,
 				2C0FC04A1FDB71F400A128B9 /* allocators.h in Headers */,
 				2C0FBF8A1FDB71F400A128B9 /* ftchapters.h in Headers */,
 				2C0FBFF01FDB71F400A128B9 /* cocoa_platform.h in Headers */,
 				2C76B0A120785C45008345FF /* IScreenCapture.hpp in Headers */,
 				2C76AF7E20785C45008345FF /* AudioFormat_WAVE.hpp in Headers */,
+				2CD818152078DA2B009DA091 /* zstd.h in Headers */,
+				2CD817FF2078DA2A009DA091 /* zdict.h in Headers */,
 				2C76B04D20785C45008345FF /* LicenseList.hpp in Headers */,
 				2C76AFA520785C45008345FF /* IClipboard.hpp in Headers */,
 				2C76B01420785C45008345FF /* D3D11SamplerState.hpp in Headers */,
@@ -5608,7 +5615,6 @@
 				2C0FBF931FDB71F400A128B9 /* ftimage.h in Headers */,
 				2C76AF6320785C45008345FF /* AudioDevice_X27 .hpp in Headers */,
 				2C0FC05E1FDB71F400A128B9 /* swap.h in Headers */,
-				2C0FC07F1FDB71F400A128B9 /* zstd_internal.h in Headers */,
 				2C0FC06A1FDB71F400A128B9 /* stream.h in Headers */,
 				2C76AF7320785C45008345FF /* AudioFormat_AAC_Windows.hpp in Headers */,
 				2C0FBF9E1FDB71F400A128B9 /* ftpcfdrv.h in Headers */,
@@ -5636,12 +5642,10 @@
 				2C76B14820785C50008345FF /* DetourCommon.h in Headers */,
 				2C0FC0301FDB71F400A128B9 /* muParserCallback.h in Headers */,
 				2C0FBF911FDB71F400A128B9 /* ftgxval.h in Headers */,
-				2C0FC0891FDB71F400A128B9 /* zstd_lazy.h in Headers */,
 				2C76B04520785C45008345FF /* CKeyboard_macOS.hpp in Headers */,
 				2C76AFCD20785C45008345FF /* CDragDrop_Linux.hpp in Headers */,
 				2C0FC04F1FDB71F400A128B9 /* error.h in Headers */,
 				2C76B04720785C45008345FF /* CKeyboard_Windows.hpp in Headers */,
-				2C0FC0961FDB71F400A128B9 /* zdict.h in Headers */,
 				2C0FBF831FDB71F400A128B9 /* ftautoh.h in Headers */,
 				2C0FBF9B1FDB71F400A128B9 /* ftmoderr.h in Headers */,
 				2C0FBFAF1FDB71F400A128B9 /* fthash.h in Headers */,
@@ -5666,6 +5670,7 @@
 				2C0FBFBD1FDB71F400A128B9 /* svfntfmt.h in Headers */,
 				2C0FBFB21FDB71F400A128B9 /* ftpic.h in Headers */,
 				2C76B0E420785C45008345FF /* CSystem_Windows.hpp in Headers */,
+				2CD818112078DA2B009DA091 /* xxhash.h in Headers */,
 				2C0FC04D1FDB71F400A128B9 /* encodings.h in Headers */,
 				2C0FBF801FDB71F400A128B9 /* ftstdlib.h in Headers */,
 				2C76B03120785C45008345FF /* IImageFormat.hpp in Headers */,
@@ -5680,12 +5685,14 @@
 				2C4F2AC2204199ED006CBCD1 /* b2World.h in Headers */,
 				2C4F2AC0204199ED006CBCD1 /* b2TimeStep.h in Headers */,
 				2C0FBFC11FDB71F400A128B9 /* svmetric.h in Headers */,
+				2CD817EE2078DA2A009DA091 /* zstd_compress_internal.h in Headers */,
 				2C0FBFAC1FDB71F400A128B9 /* ftdebug.h in Headers */,
 				2C0FBFE91FDB71F400A128B9 /* linmath.h in Headers */,
 				2C76B0E220785C45008345FF /* CSystem_macOS.hpp in Headers */,
 				2C76B14620785C50008345FF /* DetourAssert.h in Headers */,
 				2C76AF5420785C45008345FF /* CAsset.hpp in Headers */,
 				2C0FBF7E1FDB71F400A128B9 /* ftmodule.h in Headers */,
+				2CD818082078DA2B009DA091 /* fse.h in Headers */,
 				2C76B00120785C45008345FF /* CGamepad_Windows.hpp in Headers */,
 				2C0FBF701FDB71F400A128B9 /* fixed-dtoa.h in Headers */,
 				2C4F2AD6204199ED006CBCD1 /* b2PolygonContact.h in Headers */,
@@ -5732,11 +5739,9 @@
 				2C0FBF7A1FDB71F400A128B9 /* FID.h in Headers */,
 				2C76B03820785C45008345FF /* ImageFormat_PPM.hpp in Headers */,
 				2C0FC0181FDB71F400A128B9 /* hb-deprecated.h in Headers */,
-				2C0FC0831FDB71F400A128B9 /* zstd_compress.h in Headers */,
 				2C76AF8F20785C45008345FF /* CBinaryWriter_Linux.hpp in Headers */,
 				2C0FC0351FDB71F400A128B9 /* muParserError.h in Headers */,
 				2C76AFB120785C45008345FF /* CConsole.hpp in Headers */,
-				2C0FC08B1FDB71F400A128B9 /* zstd_ldm.h in Headers */,
 				2C76AFE720785C45008345FF /* CFFT.hpp in Headers */,
 				2C0FBFA31FDB71F400A128B9 /* ftstroke.h in Headers */,
 				2C76B0F020785C45008345FF /* CTextInput_macOS.hpp in Headers */,
@@ -5745,11 +5750,11 @@
 				2C4F2A94204199ED006CBCD1 /* Box2D.h in Headers */,
 				2C0FBFA21FDB71F400A128B9 /* ftsnames.h in Headers */,
 				2C76AFF220785C45008345FF /* CFont.hpp in Headers */,
+				2CD817F22078DA2A009DA091 /* zstd_fast.h in Headers */,
 				2C0FBF871FDB71F400A128B9 /* ftbzip2.h in Headers */,
 				2C0FBFCC1FDB71F400A128B9 /* svttglyf.h in Headers */,
 				2C76B10120785C45008345FF /* Texture_D3D11.hpp in Headers */,
 				2C76AFCF20785C45008345FF /* CDragDrop_macOS.hpp in Headers */,
-				2C0FC0721FDB71F400A128B9 /* error_private.h in Headers */,
 				2C0FBF7C1FDB71F400A128B9 /* ftconfig.h in Headers */,
 				2C0FBFB71FDB71F400A128B9 /* ftvalid.h in Headers */,
 				2C0FC05A1FDB71F400A128B9 /* regex.h in Headers */,
@@ -5761,13 +5766,11 @@
 				2C4F2AF0204199ED006CBCD1 /* b2Rope.h in Headers */,
 				2C76AF5A20785C45008345FF /* CAudio_AL.hpp in Headers */,
 				2C76B0A020785C45008345FF /* CScreenCapture.hpp in Headers */,
-				2C0FC0781FDB71F400A128B9 /* pool.h in Headers */,
 				2C76AFD120785C45008345FF /* CDragDrop_Windows.hpp in Headers */,
 				2C76AFAA20785C45008345FF /* CCodec_MF.hpp in Headers */,
 				2C76B02020785C45008345FF /* GLSamplerState.hpp in Headers */,
 				2C4F2A96204199ED006CBCD1 /* b2BroadPhase.h in Headers */,
 				2C0FC0431FDB71F400A128B9 /* advancing_front.h in Headers */,
-				2C0FC08D1FDB71F400A128B9 /* zstd_opt.h in Headers */,
 				2C76AF7B20785C45008345FF /* AudioFormat_MP3_Windows.hpp in Headers */,
 				2C76B02220785C45008345FF /* IGraphics.hpp in Headers */,
 				2C76B14B20785C50008345FF /* DetourNavMesh.h in Headers */,
@@ -5784,6 +5787,7 @@
 				2C0FBFA51FDB71F400A128B9 /* ftsystem.h in Headers */,
 				2C76B12E20785C45008345FF /* IXInput.hpp in Headers */,
 				2C76B00C20785C45008345FF /* D3D11DepthStencilState.hpp in Headers */,
+				2CD818072078DA2B009DA091 /* error_private.h in Headers */,
 				2C0FC0451FDB71F400A128B9 /* cdt.h in Headers */,
 				2C76AFC320785C45008345FF /* CCursor_macOS.hpp in Headers */,
 				2C76AFE320785C45008345FF /* EngineDirectory.hpp in Headers */,
@@ -5905,14 +5909,15 @@
 				2C76B07D20785C45008345FF /* CPolygon.cpp in Sources */,
 				2C4F2AEB204199ED006CBCD1 /* b2WeldJoint.cpp in Sources */,
 				2C76AFD420785C45008345FF /* SivDragDrop.cpp in Sources */,
+				2CD817EC2078DA2A009DA091 /* huf_compress.c in Sources */,
 				2C76B06B20785C45008345FF /* CMouse_Windows.cpp in Sources */,
-				2C0FC0901FDB71F400A128B9 /* huf_decompress.c in Sources */,
 				2C76B00020785C45008345FF /* CGamepad_Windows.cpp in Sources */,
 				2C76B07720785C45008345FF /* SivParseFloat.cpp in Sources */,
 				2C76B0B220785C45008345FF /* Script_Point.cpp in Sources */,
 				2C76AFB920785C45008345FF /* SivConstantBuffer.cpp in Sources */,
 				2C76AFFB20785C45008345FF /* SivFormatUtility.cpp in Sources */,
 				2C76B0A620785C45008345FF /* scriptbuilder.cpp in Sources */,
+				2CD817EF2078DA2A009DA091 /* zstd_double_fast.c in Sources */,
 				2C76AFA120785C45008345FF /* CClipboard_macOS.mm in Sources */,
 				2C76B07C20785C45008345FF /* SivPoint.cpp in Sources */,
 				2C76B08B20785C45008345FF /* ProfilerFactory.cpp in Sources */,
@@ -5921,6 +5926,7 @@
 				2C0FBF611FDB71F400A128B9 /* clipper.cpp in Sources */,
 				2C76AFC920785C45008345FF /* SivCursor.cpp in Sources */,
 				2C4F2A9A204199ED006CBCD1 /* b2Collision.cpp in Sources */,
+				2CD817F12078DA2A009DA091 /* zstd_fast.c in Sources */,
 				2C76B0E720785C45008345FF /* SivSystem.mm in Sources */,
 				2C0FBF631FDB71F400A128B9 /* bignum-dtoa.cc in Sources */,
 				2C76AF9020785C45008345FF /* CBinaryWriter_macOS.cpp in Sources */,
@@ -5928,7 +5934,6 @@
 				2C9DE99F20102ED6002D3BDC /* exif.cpp in Sources */,
 				2C76B0DB20785C45008345FF /* SivStringView.cpp in Sources */,
 				2C76B03A20785C45008345FF /* ImageFormat_TGA.cpp in Sources */,
-				2C0FC0821FDB71F400A128B9 /* zstd_compress.c in Sources */,
 				2C0FBFDA1FDB71F400A128B9 /* gif_font.c in Sources */,
 				2C0FBFD91FDB71F400A128B9 /* gif_err.c in Sources */,
 				2C0FBF691FDB71F400A128B9 /* diy-fp.cc in Sources */,
@@ -5943,8 +5948,8 @@
 				2C76B02920785C45008345FF /* SivIcon.cpp in Sources */,
 				2C76B06620785C45008345FF /* SivMonitor.cpp in Sources */,
 				2C0FC02B1FDB71F400A128B9 /* muParserBase.cpp in Sources */,
-				2C0FC08C1FDB71F400A128B9 /* zstd_opt.c in Sources */,
 				2C76B06F20785C45008345FF /* SivMouse.cpp in Sources */,
+				2CD818122078DA2B009DA091 /* zstd_common.c in Sources */,
 				2C76B0D320785C45008345FF /* Siv3DEngine.cpp in Sources */,
 				2C76B05720785C45008345FF /* SivMat3x2.cpp in Sources */,
 				2C0FC02F1FDB71F400A128B9 /* muParserCallback.cpp in Sources */,
@@ -5952,7 +5957,6 @@
 				2C76B03720785C45008345FF /* ImageFormat_PPM.cpp in Sources */,
 				2C76B10220785C45008345FF /* CTexture_GL.cpp in Sources */,
 				2C0FBF791FDB71F400A128B9 /* FID.cpp in Sources */,
-				2C0FC08A1FDB71F400A128B9 /* zstd_ldm.c in Sources */,
 				2C76AF7D20785C45008345FF /* AudioFormat_WAVE.cpp in Sources */,
 				2C76AF5920785C45008345FF /* CAudio_AL.cpp in Sources */,
 				2C76B06520785C45008345FF /* SivMessageBox_Windows.cpp in Sources */,
@@ -5980,9 +5984,10 @@
 				2C4F2ABC204199ED006CBCD1 /* b2Fixture.cpp in Sources */,
 				2C0FBFE11FDB71F400A128B9 /* openbsd-reallocarray.c in Sources */,
 				2C0FBF651FDB71F400A128B9 /* bignum.cc in Sources */,
+				2CD817F52078DA2A009DA091 /* zstd_ldm.c in Sources */,
 				2C76B0EC20785C45008345FF /* SivTextBox.cpp in Sources */,
+				2CD817F92078DA2A009DA091 /* zstdmt_compress.c in Sources */,
 				2C0FBF7B1FDB71F400A128B9 /* format.cc in Sources */,
-				2C0FC0881FDB71F400A128B9 /* zstd_lazy.c in Sources */,
 				2C0FC0341FDB71F400A128B9 /* muParserError.cpp in Sources */,
 				2C76B12520785C45008345FF /* WindowFactory.cpp in Sources */,
 				2C76B11B20785C45008345FF /* SivVertexShader.cpp in Sources */,
@@ -5995,13 +6000,13 @@
 				2C76AFD220785C45008345FF /* DragDropFactory.cpp in Sources */,
 				2C76B0EF20785C45008345FF /* CTextInput_macOS.cpp in Sources */,
 				2C76B16F20785C5B008345FF /* RecastRegion.cpp in Sources */,
+				2CD818052078DA2B009DA091 /* entropy_common.c in Sources */,
 				2C76B10020785C45008345FF /* Texture_D3D11.cpp in Sources */,
 				2C76B01320785C45008345FF /* D3D11SamplerState.cpp in Sources */,
 				2C76AFC420785C45008345FF /* CCursor_macOS.mm in Sources */,
 				2C76B01920785C45008345FF /* GLBlendState.cpp in Sources */,
 				2C76B01B20785C45008345FF /* CGraphics_GL.cpp in Sources */,
 				2C76AFE520785C45008345FF /* SivExif.cpp in Sources */,
-				2C0FC0921FDB71F400A128B9 /* cover.c in Sources */,
 				2C76B0F120785C45008345FF /* CTextInput_Windows.cpp in Sources */,
 				2C76B0EE20785C45008345FF /* SivTextEncoding.cpp in Sources */,
 				2C4F2AA0204199ED006CBCD1 /* b2TimeOfImpact.cpp in Sources */,
@@ -6012,12 +6017,12 @@
 				2C4F2AD1204199ED006CBCD1 /* b2EdgeAndPolygonContact.cpp in Sources */,
 				2C76AF6D20785C45008345FF /* SivAudioAsset.cpp in Sources */,
 				2C76B0AA20785C45008345FF /* Script_Circle.cpp in Sources */,
-				2C0FC0801FDB71F400A128B9 /* fse_compress.c in Sources */,
 				2C0FC0041FDB71F400A128B9 /* nsgl_context.m in Sources */,
 				2C0FC0091FDB71F400A128B9 /* vulkan.c in Sources */,
 				2C76B0A820785C45008345FF /* scriptstdstring.cpp in Sources */,
 				2C76B11520785C45008345FF /* SivTriangle.cpp in Sources */,
 				2C76AFA920785C45008345FF /* CCodec_MF.cpp in Sources */,
+				2CD817FE2078DA2A009DA091 /* zdict.c in Sources */,
 				2C76B12A20785C45008345FF /* CXInput.cpp in Sources */,
 				2C4F2AA4204199ED006CBCD1 /* b2CircleShape.cpp in Sources */,
 				2C0FBF671FDB71F400A128B9 /* cached-powers.cc in Sources */,
@@ -6027,7 +6032,6 @@
 				2C76B03F20785C45008345FF /* SivJSONReader.cpp in Sources */,
 				2C76B08220785C45008345FF /* SivPowerStatus_Linux.cpp in Sources */,
 				2C76B0E820785C45008345FF /* SystemFactory.cpp in Sources */,
-				2C0FC0771FDB71F400A128B9 /* pool.c in Sources */,
 				2C76B12720785C45008345FF /* CWritableMemoryMapping.cpp in Sources */,
 				2C76AFBF20785C45008345FF /* SivCSVData.cpp in Sources */,
 				2C76B08120785C45008345FF /* SivPowerStatus.mm in Sources */,
@@ -6037,13 +6041,13 @@
 				2C0FC0371FDB71F400A128B9 /* muParserInt.cpp in Sources */,
 				2C76B0DC20785C45008345FF /* CSVM.cpp in Sources */,
 				2C76AF8D20785C45008345FF /* SivBinaryReader.cpp in Sources */,
+				2CD817ED2078DA2A009DA091 /* zstd_compress.c in Sources */,
 				2C76AFC220785C45008345FF /* CCursor_macOS.cpp in Sources */,
 				2C76AF6020785C45008345FF /* SivAudio.cpp in Sources */,
 				2C4F2ACF204199ED006CBCD1 /* b2EdgeAndCircleContact.cpp in Sources */,
 				2C76B0C520785C45008345FF /* PixelShader_D3D11.cpp in Sources */,
 				2C0FBFF91FDB71F400A128B9 /* init.c in Sources */,
 				2C0FC0461FDB71F400A128B9 /* sweep.cc in Sources */,
-				2C0FC08E1FDB71F400A128B9 /* zstdmt_compress.c in Sources */,
 				2C76AFDE20785C45008345FF /* SivEmoji.cpp in Sources */,
 				2C76AFDA20785C45008345FF /* EffectFactory.cpp in Sources */,
 				2C76AF9220785C45008345FF /* CBinaryWriter_Windows.cpp in Sources */,
@@ -6069,8 +6073,10 @@
 				2C76B07F20785C45008345FF /* SivPolygon.cpp in Sources */,
 				2C76B08C20785C45008345FF /* SivProfiler.cpp in Sources */,
 				2C76B0F520785C45008345FF /* TextInputFactory.cpp in Sources */,
+				2CD818012078DA2A009DA091 /* zstd_decompress.c in Sources */,
 				2C4F2AB8204199ED006CBCD1 /* b2Body.cpp in Sources */,
 				2C76B08F20785C45008345FF /* SivRectangle.cpp in Sources */,
+				2CD8180C2078DA2B009DA091 /* pool.c in Sources */,
 				2C76B14720785C50008345FF /* DetourCommon.cpp in Sources */,
 				2C76B11620785C45008345FF /* SivTwitter.cpp in Sources */,
 				2C4F2A95204199ED006CBCD1 /* b2BroadPhase.cpp in Sources */,
@@ -6085,6 +6091,7 @@
 				2C4F2A97204199ED006CBCD1 /* b2CollideCircle.cpp in Sources */,
 				2C76B0F420785C45008345FF /* SivTextInput.cpp in Sources */,
 				2C76B02320785C45008345FF /* SivGraphics.cpp in Sources */,
+				2CD8180E2078DA2B009DA091 /* threading.c in Sources */,
 				2C76AFB220785C45008345FF /* ConsoleFactory.cpp in Sources */,
 				2C76AFE620785C45008345FF /* CFFT.cpp in Sources */,
 				2C76AF9F20785C45008345FF /* CClipboard_macOS.cpp in Sources */,
@@ -6093,8 +6100,10 @@
 				2C4F2AE7204199ED006CBCD1 /* b2RevoluteJoint.cpp in Sources */,
 				2C76B07520785C45008345FF /* SivPainting.cpp in Sources */,
 				2C4F2AC5204199ED006CBCD1 /* b2ChainAndCircleContact.cpp in Sources */,
+				2CD817F32078DA2A009DA091 /* zstd_lazy.c in Sources */,
 				2C76B05620785C45008345FF /* SivLogger.cpp in Sources */,
 				2C76B04120785C45008345FF /* SivKey.cpp in Sources */,
+				2CD818002078DA2A009DA091 /* huf_decompress.c in Sources */,
 				2C4F2AD9204199ED006CBCD1 /* b2FrictionJoint.cpp in Sources */,
 				2C76B05220785C45008345FF /* CLogger.cpp in Sources */,
 				2C0FBF751FDB71F400A128B9 /* cpu_x86.cpp in Sources */,
@@ -6108,9 +6117,7 @@
 				2C76B02120785C45008345FF /* GraphicsFactory.cpp in Sources */,
 				2C76AFCE20785C45008345FF /* CDragDrop_macOS.cpp in Sources */,
 				2C76AFEF20785C45008345FF /* SivFileSystem_Windows.cpp in Sources */,
-				2C0FC0711FDB71F400A128B9 /* error_private.c in Sources */,
 				2C76AF7C20785C45008345FF /* SivAudioFormat.cpp in Sources */,
-				2C0FC0811FDB71F400A128B9 /* huf_compress.c in Sources */,
 				2C76B09A20785C45008345FF /* Renderer2DFactory.cpp in Sources */,
 				2C76AF8120785C45008345FF /* SivBezier3.cpp in Sources */,
 				2C76B00920785C45008345FF /* CGraphics_D3D11.cpp in Sources */,
@@ -6152,7 +6159,6 @@
 				2C76B11720785C45008345FF /* SivUnicode.cpp in Sources */,
 				2C76B05E20785C45008345FF /* SivMemoryMapping.cpp in Sources */,
 				2C76AFAE20785C45008345FF /* SivColor.cpp in Sources */,
-				2C0FC0701FDB71F400A128B9 /* entropy_common.c in Sources */,
 				2C76AFB420785C45008345FF /* SivConsole.cpp in Sources */,
 				2C4F2A9E204199ED006CBCD1 /* b2DynamicTree.cpp in Sources */,
 				2C76AFF820785C45008345FF /* SivFontAsset.cpp in Sources */,
@@ -6173,6 +6179,7 @@
 				2C76AF7820785C45008345FF /* AudioFormat_MP3_mpg123.cpp in Sources */,
 				2C76AF7F20785C45008345FF /* SivBase64.cpp in Sources */,
 				2C76AFDC20785C45008345FF /* SivEffect.cpp in Sources */,
+				2CD818092078DA2B009DA091 /* fse_decompress.c in Sources */,
 				2C76AFCB20785C45008345FF /* SivDateTime.cpp in Sources */,
 				2C76B0B820785C45008345FF /* Script_Triangle.cpp in Sources */,
 				2C76AF5620785C45008345FF /* SivAsset.cpp in Sources */,
@@ -6187,7 +6194,6 @@
 				2C76B06120785C45008345FF /* SivMemoryWriter.cpp in Sources */,
 				2C76B04F20785C45008345FF /* SivLicenseManager.cpp in Sources */,
 				2C76AF8020785C45008345FF /* SivBezier2.cpp in Sources */,
-				2C0FC0931FDB71F400A128B9 /* divsufsort.c in Sources */,
 				2C0FBFEF1FDB71F400A128B9 /* cocoa_monitor.m in Sources */,
 				2C76AF8720785C45008345FF /* CBinaryReader_Linux.cpp in Sources */,
 				2C76B04220785C45008345FF /* CKeyboard_Linux.cpp in Sources */,
@@ -6215,7 +6221,7 @@
 				2C76B10820785C45008345FF /* TextureFactory.cpp in Sources */,
 				2C4F2ACB204199ED006CBCD1 /* b2Contact.cpp in Sources */,
 				2C76B11320785C45008345FF /* SivTimeProfiler.cpp in Sources */,
-				2C0FC07D1FDB71F400A128B9 /* zstd_common.c in Sources */,
+				2CD817F72078DA2A009DA091 /* zstd_opt.c in Sources */,
 				2C76B08E20785C45008345FF /* SivRasterizerState.cpp in Sources */,
 				2C76AFD520785C45008345FF /* SivDynamicTexture.cpp in Sources */,
 				2C76B0FA20785C45008345FF /* CTextReader_Linux.cpp in Sources */,
@@ -6230,9 +6236,7 @@
 				2C0FBF6F1FDB71F400A128B9 /* fixed-dtoa.cc in Sources */,
 				2C76AF9420785C45008345FF /* SivBinaryWriter.cpp in Sources */,
 				2C76B0B920785C45008345FF /* Script_Types.cpp in Sources */,
-				2C0FC0951FDB71F400A128B9 /* zdict.c in Sources */,
 				2C76AFCC20785C45008345FF /* CDragDrop_Linux.cpp in Sources */,
-				2C0FC07B1FDB71F400A128B9 /* xxhash.c in Sources */,
 				2C4F2AB2204199ED006CBCD1 /* b2Settings.cpp in Sources */,
 				2C76B09520785C45008345FF /* CRenderer2D_GL.cpp in Sources */,
 				2C76AFC520785C45008345FF /* CCursor_Windows.cpp in Sources */,
@@ -6240,7 +6244,6 @@
 				2C4F2ABA204199ED006CBCD1 /* b2ContactManager.cpp in Sources */,
 				2C0FBF5F1FDB71F400A128B9 /* clip2tri.cpp in Sources */,
 				2C4F2A9C204199ED006CBCD1 /* b2Distance.cpp in Sources */,
-				2C0FC0791FDB71F400A128B9 /* threading.c in Sources */,
 				2C4F2AD5204199ED006CBCD1 /* b2PolygonContact.cpp in Sources */,
 				2C76B0BC20785C45008345FF /* CScript.cpp in Sources */,
 				2C76AFBE20785C45008345FF /* SivCPU.cpp in Sources */,
@@ -6249,7 +6252,6 @@
 				2C76B05C20785C45008345FF /* CMemoryMapping.cpp in Sources */,
 				2C76AF7020785C45008345FF /* AudioFormat_AAC_macOS.cpp in Sources */,
 				2C76AF6420785C45008345FF /* CAudio_X27.cpp in Sources */,
-				2C0FC0861FDB71F400A128B9 /* zstd_fast.c in Sources */,
 				2C76AFF320785C45008345FF /* FontData.cpp in Sources */,
 				2C76AFE820785C45008345FF /* FFTFactory.cpp in Sources */,
 				2C76B01720785C45008345FF /* D3D11SwapChain.cpp in Sources */,
@@ -6291,7 +6293,6 @@
 				2C76B0AB20785C45008345FF /* Script_Color.cpp in Sources */,
 				2C76B16920785C5B008345FF /* RecastContour.cpp in Sources */,
 				2C76B14E20785C50008345FF /* DetourNavMeshQuery.cpp in Sources */,
-				2C0FC0741FDB71F400A128B9 /* fse_decompress.c in Sources */,
 				2C76B04E20785C45008345FF /* LicenseManagerFactory.cpp in Sources */,
 				2C76AF5C20785C45008345FF /* AudioFactory.cpp in Sources */,
 				2C76B08020785C45008345FF /* SivPowerStatus.cpp in Sources */,
@@ -6305,12 +6306,15 @@
 				2C76AF7A20785C45008345FF /* AudioFormat_MP3_Windows.cpp in Sources */,
 				2C76B12920785C45008345FF /* SivWritableMemoryMapping.cpp in Sources */,
 				2C76B0E620785C45008345FF /* SivSystem.cpp in Sources */,
+				2CD817EB2078DA2A009DA091 /* fse_compress.c in Sources */,
 				2C76B09F20785C45008345FF /* CScreenCapture.cpp in Sources */,
 				2C0FBFE61FDB71F400A128B9 /* glad.c in Sources */,
+				2CD817FB2078DA2A009DA091 /* cover.c in Sources */,
 				2C76B08320785C45008345FF /* CPrint.cpp in Sources */,
 				2C76B07A20785C45008345FF /* SivPhysics2D.cpp in Sources */,
 				2C76AF8320785C45008345FF /* SivBigFloat.cpp in Sources */,
 				2C76B0ED20785C45008345FF /* SivTextEditor.cpp in Sources */,
+				2CD818062078DA2B009DA091 /* error_private.c in Sources */,
 				2C76AFED20785C45008345FF /* SivFileSystem_macOS.cpp in Sources */,
 				2C76B0F820785C45008345FF /* CTextReader.cpp in Sources */,
 				2C76AFCA20785C45008345FF /* SivDate.cpp in Sources */,
@@ -6327,21 +6331,21 @@
 				2C76B16E20785C5B008345FF /* RecastRasterization.cpp in Sources */,
 				2C76B10B20785C45008345FF /* SivTexturedQuad.cpp in Sources */,
 				2C76B03520785C45008345FF /* ImageFormat_PNG.cpp in Sources */,
-				2C0FC0841FDB71F400A128B9 /* zstd_double_fast.c in Sources */,
 				2C76B16620785C5B008345FF /* RecastArea.cpp in Sources */,
 				2C76B0CF20785C45008345FF /* SivShader.cpp in Sources */,
 				2C76B0AF20785C45008345FF /* Script_Graphics.cpp in Sources */,
 				2C76AF9720785C45008345FF /* SivByte.cpp in Sources */,
 				2C76B0D920785C45008345FF /* SivStopwatch.cpp in Sources */,
+				2CD817FC2078DA2A009DA091 /* divsufsort.c in Sources */,
 				2C76AF9D20785C45008345FF /* CClipboard_Linux.cpp in Sources */,
 				2C0FBFF21FDB71F400A128B9 /* cocoa_window.m in Sources */,
 				2C76AF6E20785C45008345FF /* AudioFormat_AAC_Linux.cpp in Sources */,
+				2CD818102078DA2B009DA091 /* xxhash.c in Sources */,
 				2C76B08820785C45008345FF /* CProfiler.cpp in Sources */,
 				2C0FC03E1FDB71F400A128B9 /* shapes.cc in Sources */,
 				2C76B10C20785C45008345FF /* SivTexturedRoundRect.cpp in Sources */,
 				2C76AFA620785C45008345FF /* SivClipboard.cpp in Sources */,
 				2C0FBFF11FDB71F400A128B9 /* cocoa_time.c in Sources */,
-				2C0FC0911FDB71F400A128B9 /* zstd_decompress.c in Sources */,
 				2C76B01F20785C45008345FF /* GLSamplerState.cpp in Sources */,
 				2C76B03220785C45008345FF /* ImageFormatFactory.cpp in Sources */,
 				2C76B09B20785C45008345FF /* SivRenderTexture.cpp in Sources */,
