@@ -35,7 +35,8 @@ Resource(engine/font/mplus/mplus-1p-heavy.ttf.zst)
 Resource(engine/font/mplus/mplus-1p-black.ttf.zst)
 Resource(engine/font/noto/NotoColorEmoji.ttf.zst)
 Resource(engine/font/noto/NotoEmoji-Regular.ttf.zst)
-Resource(engine/font/fontawesome/FontAwesome.otf.zst)
+Resource(engine/font/fontawesome/brands.otf.zst)
+Resource(engine/font/fontawesome/solid.otf.zst)
 
 //////////////////////////////////////////////////////
 //
