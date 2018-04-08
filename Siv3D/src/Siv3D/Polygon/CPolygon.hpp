@@ -53,6 +53,8 @@ namespace s3d
 
 		CPolygon(const Float2* pOuterVertex, size_t vertexSize, const Array<uint32>& indices);
 
+		CPolygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<Float2>& vertices, const Array<uint32>& indices, const RectF& boundingRect);
+
 		void copyFrom(CPolygon& other);
 
 		void moveFrom(CPolygon& other);

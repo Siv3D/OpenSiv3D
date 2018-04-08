@@ -3,34 +3,29 @@
 
 void Main()
 {
+	Polygon polygon(Shape2D::NStar(10, 100, 80, Window::Center()));
+
+	Serializer<MemoryWriter> w;
+
+	w(polygon);
+
+	Deserializer<ByteArray> b(w.getWriter().data(), w.getWriter().size());
+
+	Polygon polygon2;
+
+	b(polygon2);
+
+	Print << (polygon.boundingRect() == polygon2.boundingRect());
+
 	while (System::Update())
 	{
-		ClearPrint();
-
-		for (size_t i = 0; i < Gamepad.MaxUserCount; ++i)
+		if (MouseL.pressed())
 		{
-			if (ProController::IsProController(Gamepad(i)))
-			{
-				const ProController pro(Gamepad(i));
-
-				for (size_t b = 0; b < Gamepad(i).buttons.size(); ++b)
-				{
-					if (Gamepad(i).buttons[b].pressed())
-					{
-						Print << b;
-					}
-				}
-
-				Print << Gamepad(i).axes.size();
-				Print << pro.povUp.pressed();
-				Print << pro.povDown.pressed();
-				Print << pro.povLeft.pressed();
-				Print << pro.povRight.pressed();
-
-				Print << pro.povD8();
-				Print << pro.LStick();
-				Print << pro.RStick();
-			}
+			polygon.draw();
+		}
+		else
+		{
+			polygon2.draw();
 		}
 	}
 }

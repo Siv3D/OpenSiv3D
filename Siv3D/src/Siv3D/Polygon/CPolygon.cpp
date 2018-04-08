@@ -148,6 +148,24 @@ namespace s3d
 		m_indices = indices;
 	}
 
+	Polygon::CPolygon::CPolygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<Float2>& vertices, const Array<uint32>& indices, const RectF& boundingRect)
+	{
+		m_polygon.outer().assign(outer.begin(), outer.end());
+
+		for (const auto& hole : holes)
+		{
+			m_polygon.inners().push_back(gRing(hole.begin(), hole.end()));
+		}
+
+		m_holes = holes;
+
+		m_vertices = vertices;
+
+		m_indices = indices;
+
+		m_boundingRect = boundingRect;
+	}
+
 	void Polygon::CPolygon::copyFrom(CPolygon& other)
 	{
 		m_polygon = other.m_polygon;
