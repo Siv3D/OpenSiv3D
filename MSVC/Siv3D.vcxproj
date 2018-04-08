@@ -320,6 +320,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\XInput\CXInput_NULL.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\XInput\SivXInput.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\XInput\XInputFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\XMLReader\SivXMLReader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\XXHash\SivXXHash.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Collision\b2BroadPhase.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Collision\b2CollideCircle.cpp" />
@@ -673,6 +674,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Windows.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\WritableMemoryMapping.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\XInput.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\XMLReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Xorshift.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\XXHash.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\angelscript\angelscript.h" />

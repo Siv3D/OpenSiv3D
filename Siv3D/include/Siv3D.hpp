@@ -318,8 +318,8 @@
 	// INI ファイルデータの読み書き
 	# include "Siv3D/INIData.hpp"
 
-	////// XML ファイルの読み込み
-	////# include "Siv3D/XMLReader.hpp"
+	// XML ファイルの読み込み
+	# include "Siv3D/XMLReader.hpp"
 
 	// JSON ファイルの読み込み
 	# include "Siv3D/JSONReader.hpp"
