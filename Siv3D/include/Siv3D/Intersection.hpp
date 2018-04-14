@@ -259,6 +259,36 @@ namespace s3d
 		//bool Intersect(const LineString& a, const MultiPolygon&	b);
 		//bool Intersect(const LineString& a, const LineString&	b);
 
-		bool Contains(const Rect& a, const Point& b);
+		bool Contains(const Rect& a, const Point&			b) noexcept;
+		bool Contains(const Rect& a, const Vec2&			b) noexcept;
+		bool Contains(const Rect& a, const Line&			b) noexcept;
+		////bool Contains(const Rect& a, const Bezier2&		 b);
+		////bool Contains(const Rect& a, const Bezier3&		 b);
+		//bool Contains(const Rect& a, const Rect&			b) noexcept;
+		//bool Contains(const Rect& a, const RectF&			b) noexcept;
+		//bool Contains(const Rect& a, const Circle&			b) noexcept;
+		////bool Contains(const Rect& a, const Ellipse&		b);
+		//bool Contains(const Rect& a, const Triangle&		b) noexcept;
+		//bool Contains(const Rect& a, const Quad&			b) noexcept;
+		//bool Contains(const Rect& a, const RoundRect&		b) noexcept;
+		//bool Contains(const Rect& a, const Polygon&		b) noexcept;
+		////bool Contains(const Rect& a, const MultiPolygon&	b);
+		////bool Contains(const Rect& a, const LineString&		b);
+
+		//bool Contains(const RectF& a, const Point&			b) noexcept;
+		//bool Contains(const RectF& a, const Vec2&			b) noexcept;
+		//bool Contains(const RectF& a, const Line&			b) noexcept;
+		////bool Contains(const RectF& a, const Bezier2&		 b);
+		////bool Contains(const RectF& a, const Bezier3&		 b);
+		//bool Contains(const RectF& a, const Rect&			b) noexcept;
+		//bool Contains(const RectF& a, const RectF&			b) noexcept;
+		//bool Contains(const RectF& a, const Circle&		b) noexcept;
+		////bool Contains(const RectF& a, const Ellipse&		b);
+		//bool Contains(const RectF& a, const Triangle&		b) noexcept;
+		//bool Contains(const RectF& a, const Quad&			b) noexcept;
+		//bool Contains(const RectF& a, const RoundRect&		b) noexcept;
+		//bool Contains(const RectF& a, const Polygon&		b) noexcept;
+		////bool Contains(const RectF& a, const MultiPolygon&	b);
+		////bool Contains(const RectF& a, const LineString&	b);
 	}
 }

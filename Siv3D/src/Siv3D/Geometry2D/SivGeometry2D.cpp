@@ -1720,5 +1720,24 @@ namespace s3d
 		{
 			return IntersectAt(b, a);
 		}
+
+
+
+
+
+		bool Contains(const Rect& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Contains(const Rect& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Contains(const Rect& a, const Line& b) noexcept
+		{
+			return Contains(a, b.begin) && Contains(a, b.end);
+		}
 	}
 }
