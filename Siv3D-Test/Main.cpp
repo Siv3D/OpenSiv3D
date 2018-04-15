@@ -3,19 +3,9 @@
 
 void Main()
 {
-	const XMLReader xml(U"example/test.xml");
-
-	for (auto book = xml.firstChild(); book; book = book.nextSibling())
-	{
-		const auto id = book.attribute(U"id");
-
-		Print << U"Book[{}]:"_fmt(id.value_or(U"?"));
-
-		for (auto element = book.firstChild(); element; element = element.nextSibling())
-		{
-			Print << element.name() << U" = " << element.text();
-		}
-	}
+	Print << AbsDiff(60, 100); // (uint32)40
+	Print << AbsDiff(-0.5, -5.5); // 5.0
+	Print << AbsDiff(INT_MIN, INT_MAX); // (uint32)4294967295
 
 	while (System::Update())
 	{

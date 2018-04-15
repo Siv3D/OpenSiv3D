@@ -112,9 +112,9 @@ namespace s3d
 				: y(_y) {}
 
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator()(TypeX&& x) const
+			[[nodiscard]] constexpr auto operator()(const TypeX& x) const
 			{
-				return Math::Fmod(std::forward<TypeX>(x), y);
+				return Math::Fmod(x, y);
 			}
 		};
 
@@ -127,18 +127,18 @@ namespace s3d
 				: x(_x) {}
 
 			template <class TypeY>
-			[[nodiscard]] constexpr auto operator()(TypeY&& y) const
+			[[nodiscard]] constexpr auto operator()(const TypeY& y) const
 			{
-				return Math::Fmod(x, std::forward<TypeY>(y));
+				return Math::Fmod(x, y);
 			}
 		};
 
 		struct Fmod_impl
 		{
 			template <class TypeX, class TypeY>
-			constexpr auto operator() (TypeX&& x, TypeY&& y) const
+			constexpr auto operator() (const TypeX& x, const TypeY& y) const
 			{
-				return Math::Fmod(std::forward<TypeX>(x), std::forward<TypeY>(y));
+				return Math::Fmod(x, y);
 			}
 		};
 	}
@@ -155,21 +155,21 @@ namespace s3d
 	}
 
 	template <class Type = void, class TypeX, class TypeY>
-	[[nodiscard]] inline constexpr auto Fmod(TypeX&& x, TypeY&& y) noexcept
+	[[nodiscard]] inline constexpr auto Fmod(const TypeX& x, const TypeY& y) noexcept
 	{
-		return detail::Fmod_impl()(std::forward<TypeX>(x), std::forward<TypeY>(y));
+		return detail::Fmod_impl()(x, y);
 	}
 
 	template <class TypeY>
-	[[nodiscard]] inline constexpr auto Fmod(PlaceHolder_t, TypeY&& y) noexcept
+	[[nodiscard]] inline constexpr auto Fmod(PlaceHolder_t, const TypeY& y) noexcept
 	{
-		return detail::FmodX_impl<TypeY>(std::forward<TypeY>(y));
+		return detail::FmodX_impl<TypeY>(y);
 	}
 
 	template <class TypeX>
-	[[nodiscard]] inline constexpr auto Fmod(TypeX&& x, PlaceHolder_t) noexcept
+	[[nodiscard]] inline constexpr auto Fmod(const TypeX& x, PlaceHolder_t) noexcept
 	{
-		return detail::FmodY_impl<TypeX>(std::forward<TypeX>(x));
+		return detail::FmodY_impl<TypeX>(x);
 	}
 
 	template <class Type = void>
@@ -273,9 +273,9 @@ namespace s3d
 		struct Fraction_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Fraction(std::forward<TypeX>(x));
+				return Math::Fraction(x);
 			}
 
 			template <class Type = void>
@@ -586,9 +586,9 @@ namespace s3d
 		struct Log_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Log(std::forward<TypeX>(x));
+				return Math::Log(x);
 			}
 
 			template <class Type = void>
@@ -696,9 +696,9 @@ namespace s3d
 		struct Log2_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Log2(std::forward<TypeX>(x));
+				return Math::Log2(x);
 			}
 
 			template <class Type = void>
@@ -806,9 +806,9 @@ namespace s3d
 		struct Log10_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Log10(std::forward<TypeX>(x));
+				return Math::Log10(x);
 			}
 
 			template <class Type = void>
@@ -959,9 +959,9 @@ namespace s3d
 				: y(_y) {}
 
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator()(TypeX&& x) const
+			[[nodiscard]] constexpr auto operator()(const TypeX& x) const
 			{
-				return Math::Pow(std::forward<TypeX>(x), y);
+				return Math::Pow(x, y);
 			}
 		};
 
@@ -974,18 +974,18 @@ namespace s3d
 				: x(_x) {}
 
 			template <class TypeY>
-			[[nodiscard]] constexpr auto operator()(TypeY&& y) const
+			[[nodiscard]] constexpr auto operator()(const TypeY& y) const
 			{
-				return Math::Pow(x, std::forward<TypeY>(y));
+				return Math::Pow(x, y);
 			}
 		};
 
 		struct Pow_impl
 		{
 			template <class TypeX, class TypeY>
-			constexpr auto operator() (TypeX&& x, TypeY&& y) const
+			constexpr auto operator() (const TypeX& x, const TypeY& y) const
 			{
-				return Math::Pow(std::forward<TypeX>(x), std::forward<TypeY>(y));
+				return Math::Pow(x, y);
 			}
 		};
 	}
@@ -1002,21 +1002,21 @@ namespace s3d
 	}
 
 	template <class Type = void, class TypeX, class TypeY>
-	[[nodiscard]] inline constexpr auto Pow(TypeX&& x, TypeY&& y) noexcept
+	[[nodiscard]] inline constexpr auto Pow(const TypeX& x, const TypeY& y) noexcept
 	{
-		return detail::Pow_impl()(std::forward<TypeX>(x), std::forward<TypeY>(y));
+		return detail::Pow_impl()(x, y);
 	}
 
 	template <class TypeY>
-	[[nodiscard]] inline constexpr auto Pow(PlaceHolder_t, TypeY&& y) noexcept
+	[[nodiscard]] inline constexpr auto Pow(PlaceHolder_t, const TypeY& y) noexcept
 	{
-		return detail::PowX_impl<TypeY>(std::forward<TypeY>(y));
+		return detail::PowX_impl<TypeY>(y);
 	}
 
 	template <class TypeX>
-	[[nodiscard]] inline constexpr auto Pow(TypeX&& x, PlaceHolder_t) noexcept
+	[[nodiscard]] inline constexpr auto Pow(const TypeX& x, PlaceHolder_t) noexcept
 	{
-		return detail::PowY_impl<TypeX>(std::forward<TypeX>(x));
+		return detail::PowY_impl<TypeX>(x);
 	}
 
 	template <class Type = void>
@@ -1120,9 +1120,9 @@ namespace s3d
 		struct Sign_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Sign(std::forward<TypeX>(x));
+				return Math::Sign(x);
 			}
 
 			template <class Type = void>
@@ -1230,9 +1230,9 @@ namespace s3d
 		struct Radians_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Radians(std::forward<TypeX>(x));
+				return Math::Radians(x);
 			}
 
 			template <class Type = void>
@@ -1340,9 +1340,9 @@ namespace s3d
 		struct Degrees_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Degrees(std::forward<TypeX>(x));
+				return Math::Degrees(x);
 			}
 
 			template <class Type = void>
@@ -1450,9 +1450,9 @@ namespace s3d
 		struct Abs_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Abs(std::forward<TypeX>(x));
+				return Math::Abs(x);
 			}
 
 			template <class Type = void>
@@ -1464,6 +1464,166 @@ namespace s3d
 	}
 
 	constexpr auto Abs = detail::Abs_impl();
+
+//////////////////////////////////////////////////
+//
+//	Fmod
+//
+//////////////////////////////////////////////////
+
+	namespace Math
+	{
+		/// <summary>
+		/// 差の絶対値を計算します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_integral_v<Type>>* = nullptr>
+		[[nodiscard]] inline constexpr auto AbsDiff(const Type& x, const Type& y) noexcept
+		{
+			using U = std::make_unsigned_t<Type>;
+			return (x > y) ? (static_cast<U>(x) - static_cast<U>(y))
+				: (static_cast<U>(y) - static_cast<U>(x));
+		}
+
+		/// <summary>
+		/// 差の絶対値を計算します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_floating_point_v<Type>>* = nullptr>
+		[[nodiscard]] inline constexpr auto AbsDiff(const Type& x, const Type& y) noexcept
+		{
+			return std::abs(x - y);
+		}
+
+		/// <summary>
+		/// 差の絶対値を計算します。
+		/// </summary>
+		[[nodiscard]] inline constexpr Float2 AbsDiff(const Float2& v1, const Float2& v2)
+		{
+			return{ AbsDiff(v1.x, v2.x), AbsDiff(v1.y, v2.y) };
+		}
+
+		/// <summary>
+		/// 差の絶対値を計算します。
+		/// </summary>
+		[[nodiscard]] inline constexpr Float3 AbsDiff(const Float3& v1, const Float3& v2)
+		{
+			return{ AbsDiff(v1.x, v2.x), AbsDiff(v1.y, v2.y), AbsDiff(v1.z, v2.z) };
+		}
+
+		/// <summary>
+		/// 差の絶対値を計算します。
+		/// </summary>
+		[[nodiscard]] inline constexpr Float4 AbsDiff(const Float4& v1, const Float4& v2)
+		{
+			return{ AbsDiff(v1.x, v2.x), AbsDiff(v1.y, v2.y), AbsDiff(v1.z, v2.z), AbsDiff(v1.w, v2.w) };
+		}
+
+		/// <summary>
+		/// 差の絶対値を計算します。
+		/// </summary>
+		[[nodiscard]] inline constexpr Vec2 AbsDiff(const Vec2& v1, const Vec2& v2)
+		{
+			return{ AbsDiff(v1.x, v2.x), AbsDiff(v1.y, v2.y) };
+		}
+
+		/// <summary>
+		/// 差の絶対値を計算します。
+		/// </summary>
+		[[nodiscard]] inline constexpr Vec3 AbsDiff(const Vec3& v1, const Vec3& v2)
+		{
+			return{ AbsDiff(v1.x, v2.x), AbsDiff(v1.y, v2.y), AbsDiff(v1.z, v2.z) };
+		}
+
+		/// <summary>
+		/// 差の絶対値を計算します。
+		/// </summary>
+		[[nodiscard]] inline constexpr Vec4 AbsDiff(const Vec4& v1, const Vec4& v2)
+		{
+			return{ AbsDiff(v1.x, v2.x), AbsDiff(v1.y, v2.y), AbsDiff(v1.z, v2.z), AbsDiff(v1.w, v2.w) };
+		}
+
+		/// <summary>
+		/// 差の絶対値を計算します。
+		/// </summary>
+		template <class T, class U, class R = CommonVector_t<T, U>>
+		[[nodiscard]] inline constexpr R AbsDiff(T x, U y)
+		{
+			return AbsDiff(static_cast<R>(x), static_cast<R>(y));
+		}
+	}
+
+	namespace detail
+	{
+		template <class Type>
+		struct AbsDiffX_impl
+		{
+			const Type& y;
+
+			constexpr AbsDiffX_impl(const Type& _y) noexcept
+				: y(_y) {}
+
+			[[nodiscard]] constexpr auto operator()(const Type& x) const
+			{
+				return Math::AbsDiff(x, y);
+			}
+		};
+
+		template <class Type>
+		struct AbsDiffY_impl
+		{
+			const Type& x;
+
+			constexpr AbsDiffY_impl(const Type& _x) noexcept
+				: x(_x) {}
+
+			[[nodiscard]] constexpr auto operator()(const Type& y) const
+			{
+				return Math::AbsDiff(x, y);
+			}
+		};
+
+		struct AbsDiff_impl
+		{
+			template <class Type>
+			constexpr auto operator() (const Type& x, const Type& y) const
+			{
+				return Math::AbsDiff(x, y);
+			}
+		};
+	}
+
+	[[nodiscard]] inline constexpr auto AbsDiff() noexcept
+	{
+		return detail::AbsDiff_impl();
+	}
+
+	template <class Type>
+	[[nodiscard]] inline constexpr auto AbsDiff(const Type& x) noexcept
+	{
+		return detail::AbsDiffY_impl<Type>(x);
+	}
+
+	template <class Type>
+	[[nodiscard]] inline constexpr auto AbsDiff(const Type& x, const Type& y) noexcept
+	{
+		return detail::AbsDiff_impl()(x, y);
+	}
+
+	template <class Type>
+	[[nodiscard]] inline constexpr auto AbsDiff(PlaceHolder_t, const Type& y) noexcept
+	{
+		return detail::AbsDiffX_impl<Type>(y);
+	}
+
+	template <class Type>
+	[[nodiscard]] inline constexpr auto AbsDiff(const Type& x, PlaceHolder_t) noexcept
+	{
+		return detail::AbsDiffY_impl<Type>(x);
+	}
+
+	[[nodiscard]] inline constexpr auto AbsDiff(PlaceHolder_t, PlaceHolder_t) noexcept
+	{
+		return detail::AbsDiff_impl();
+	}
 
 //////////////////////////////////////////////////
 //
@@ -1504,9 +1664,9 @@ namespace s3d
 		struct Square_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Square(std::forward<TypeX>(x));
+				return Math::Square(x);
 			}
 
 			template <class Type = void>
@@ -1614,9 +1774,9 @@ namespace s3d
 		struct Exp_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Exp(std::forward<TypeX>(x));
+				return Math::Exp(x);
 			}
 
 			template <class Type = void>
@@ -1724,9 +1884,9 @@ namespace s3d
 		struct Exp2_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Exp2(std::forward<TypeX>(x));
+				return Math::Exp2(x);
 			}
 
 			template <class Type = void>
@@ -1834,9 +1994,9 @@ namespace s3d
 		struct Rsqrt_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Rsqrt(std::forward<TypeX>(x));
+				return Math::Rsqrt(x);
 			}
 
 			template <class Type = void>
@@ -1944,9 +2104,9 @@ namespace s3d
 		struct Sqrt_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Sqrt(std::forward<TypeX>(x));
+				return Math::Sqrt(x);
 			}
 
 			template <class Type = void>
@@ -2054,9 +2214,9 @@ namespace s3d
 		struct Ceil_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Ceil(std::forward<TypeX>(x));
+				return Math::Ceil(x);
 			}
 
 			template <class Type = void>
@@ -2164,9 +2324,9 @@ namespace s3d
 		struct Floor_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Floor(std::forward<TypeX>(x));
+				return Math::Floor(x);
 			}
 
 			template <class Type = void>
@@ -2274,9 +2434,9 @@ namespace s3d
 		struct Round_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Round(std::forward<TypeX>(x));
+				return Math::Round(x);
 			}
 
 			template <class Type = void>
@@ -2449,9 +2609,9 @@ namespace s3d
 		struct Saturate_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Saturate(std::forward<TypeX>(x));
+				return Math::Saturate(x);
 			}
 
 			template <class Type = void>
@@ -2559,9 +2719,9 @@ namespace s3d
 		struct Acos_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Acos(std::forward<TypeX>(x));
+				return Math::Acos(x);
 			}
 
 			template <class Type = void>
@@ -2669,9 +2829,9 @@ namespace s3d
 		struct Asin_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Asin(std::forward<TypeX>(x));
+				return Math::Asin(x);
 			}
 
 			template <class Type = void>
@@ -2779,9 +2939,9 @@ namespace s3d
 		struct Atan_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Atan(std::forward<TypeX>(x));
+				return Math::Atan(x);
 			}
 
 			template <class Type = void>
@@ -2923,9 +3083,9 @@ namespace s3d
 		struct Cos_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Cos(std::forward<TypeX>(x));
+				return Math::Cos(x);
 			}
 
 			template <class Type = void>
@@ -3033,9 +3193,9 @@ namespace s3d
 		struct Cosh_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Cosh(std::forward<TypeX>(x));
+				return Math::Cosh(x);
 			}
 
 			template <class Type = void>
@@ -3143,9 +3303,9 @@ namespace s3d
 		struct Sin_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Sin(std::forward<TypeX>(x));
+				return Math::Sin(x);
 			}
 
 			template <class Type = void>
@@ -3253,9 +3413,9 @@ namespace s3d
 		struct Sinh_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Sinh(std::forward<TypeX>(x));
+				return Math::Sinh(x);
 			}
 
 			template <class Type = void>
@@ -3363,9 +3523,9 @@ namespace s3d
 		struct Tan_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Tan(std::forward<TypeX>(x));
+				return Math::Tan(x);
 			}
 
 			template <class Type = void>
@@ -3473,9 +3633,9 @@ namespace s3d
 		struct Tanh_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Tanh(std::forward<TypeX>(x));
+				return Math::Tanh(x);
 			}
 
 			template <class Type = void>
@@ -3583,9 +3743,9 @@ namespace s3d
 		struct Normalize_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Normalize(std::forward<TypeX>(x));
+				return Math::Normalize(x);
 			}
 
 			template <class Type = void>
@@ -3684,9 +3844,9 @@ namespace s3d
 		struct Smoothstep_impl
 		{
 			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (TypeX&& x) const noexcept
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Smoothstep(std::forward<TypeX>(x));
+				return Math::Smoothstep(x);
 			}
 
 			template <class Type = void>
