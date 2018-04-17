@@ -42,7 +42,7 @@ namespace s3d
 
 		Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<Float2>& vertices, const Array<uint32>& indices, const RectF& boundingRect);
 
-		explicit Polygon(const Shape2D& shape);
+		Polygon(const Shape2D& shape);
 
 		explicit Polygon(std::initializer_list<Vec2> outer)
 			: Polygon(outer.begin(), outer.size()) {}

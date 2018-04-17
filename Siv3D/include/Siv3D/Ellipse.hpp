@@ -117,6 +117,26 @@ namespace s3d
 			return !(*this == ellipse);
 		}
 
+		constexpr Vec2 top() const noexcept
+		{
+			return{ x, y - b };
+		}
+
+		constexpr Vec2 bottom() const noexcept
+		{ 
+			return{ x, y + b };
+		}
+
+		constexpr Vec2 left() const noexcept
+		{ 
+			return{ x - a, y };
+		}
+
+		constexpr Vec2 right() const noexcept
+		{
+			return{ x + a, y };
+		}
+
 		constexpr Ellipse& set(value_type _x, value_type _y, size_type _a, size_type _b) noexcept
 		{
 			center.set(_x, _y);

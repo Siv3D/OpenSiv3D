@@ -9,6 +9,11 @@
 //
 //-----------------------------------------------
 
+// boost 1.65.1 workaround
+# ifndef _HAS_AUTO_PTR_ETC
+#	define _HAS_AUTO_PTR_ETC 1
+# endif
+
 # include <Siv3D/Fwd.hpp>
 # include <Siv3D/Intersection.hpp>
 # include <Siv3D/Geometry2D.hpp>
@@ -24,6 +29,11 @@
 # include <Siv3D/RoundRect.hpp>
 # include <Siv3D/Polygon.hpp>
 # include "Polynomial.hpp"
+# include "../Polygon/CPolygon.hpp"
+
+S3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
+# include <boost/geometry/algorithms/within.hpp>
+S3D_DISABLE_MSVC_WARNINGS_POP()
 
 namespace s3d
 {
@@ -1711,6 +1721,59 @@ namespace s3d
 			return IntersectAt(b, Ellipse(a));
 		}
 
+		Optional<Array<Vec2>> IntersectAt(const Circle& a, const Polygon& b)
+		{
+			bool hasIntersection = false;
+			Array<Vec2> points;
+
+			const Ellipse e(a);
+
+			const auto& outer = b.outer();
+			const size_t num_outer = outer.size();
+
+			for (size_t i = 0; i < num_outer; ++i)
+			{
+				const Line line(outer[i], outer[(i + 1) % num_outer]);
+
+				if (const auto intersection = IntersectAt(line, e))
+				{
+					hasIntersection = true;
+
+					for (const auto& point : intersection.value())
+					{
+						points << point;
+					}
+				}
+			}
+
+			for (const auto& inner : b.inners())
+			{
+				const size_t num_inner = inner.size();
+
+				for (size_t i = 0; i < num_inner; ++i)
+				{
+					const Line line(inner[i], inner[(i + 1) % num_inner]);
+
+					if (const auto intersection = IntersectAt(line, e))
+					{
+						hasIntersection = true;
+
+						for (const auto& point : intersection.value())
+						{
+							points << point;
+						}
+					}
+				}
+			}
+
+			if (!hasIntersection)
+			{
+				return none;
+			}
+
+			return detail::RemoveDuplication(std::move(points));
+		}
+
 		Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Line& b)
 		{
 			return IntersectAt(b, a);
@@ -1732,6 +1795,11 @@ namespace s3d
 		}
 
 		Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const RectF& b)
+		{
+			return IntersectAt(b, a);
+		}
+
+		Optional<Array<Vec2>> IntersectAt(const Polygon& a, const Circle& b)
 		{
 			return IntersectAt(b, a);
 		}
@@ -1767,7 +1835,7 @@ namespace s3d
 
 		bool Contains(const Rect& a, const Circle& b) noexcept
 		{
-			return a.stretched(-b.r).intersects(b.center);
+			return RectF(a).stretched(-b.r).intersects(b.center);
 		}
 
 		bool Contains(const Rect& a, const Ellipse& b) noexcept
@@ -1910,6 +1978,219 @@ namespace s3d
 			}
 
 			return true;
+		}
+
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Circle contains
+		//
+		bool Contains(const Circle& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Contains(const Circle& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Contains(const Circle& a, const Line& b) noexcept
+		{
+			return Contains(a, b.begin) && Contains(a, b.end);
+		}
+
+		bool Contains(const Circle& a, const Rect& b) noexcept
+		{
+			const double squareR = a.r*a.r;
+			return b.tl().distanceFromSq(a.center) <= squareR
+				&& b.br().distanceFromSq(a.center) <= squareR
+				&& b.tr().distanceFromSq(a.center) <= squareR
+				&& b.bl().distanceFromSq(a.center) <= squareR;
+		}
+
+		bool Contains(const Circle& a, const RectF&	b) noexcept
+		{
+			const double squareR = a.r*a.r;
+			return b.tl().distanceFromSq(a.center) <= squareR
+				&& b.br().distanceFromSq(a.center) <= squareR
+				&& b.tr().distanceFromSq(a.center) <= squareR
+				&& b.bl().distanceFromSq(a.center) <= squareR;
+		}
+
+		bool Contains(const Circle& a, const Circle& b) noexcept
+		{
+			return b.r <= a.r && b.center.distanceFromSq(a.center) <= ((a.r - b.r) * (a.r - b.r));
+		}
+
+		bool Contains(const Circle& a, const Ellipse& b) noexcept
+		{
+			return Contains(a, b.top())
+				&& Contains(a, b.bottom())
+				&& Contains(a, b.left())
+				&& Contains(a, b.right());
+		}
+
+		bool Contains(const Circle& a, const Triangle& b) noexcept
+		{
+			return Contains(a, b.p0)
+				&& Contains(a, b.p1)
+				&& Contains(a, b.p2);
+		}
+
+		bool Contains(const Circle& a, const Quad& b) noexcept
+		{
+			return Contains(a, b.p0)
+				&& Contains(a, b.p1)
+				&& Contains(a, b.p2)
+				&& Contains(a, b.p3);
+		}
+
+		bool Contains(const Circle& a, const Polygon& b) noexcept
+		{
+			if (!b || !b.boundingRect().intersects(b))
+			{
+				return false;
+			}
+
+			if (Contains(a, b.boundingRect()))
+			{
+				return true;
+			}
+
+			for (const auto& point : b.outer())
+			{
+				if (!Contains(a, point))
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		bool Contains(const Circle& a, const LineString& b) noexcept
+		{
+			if (!b)
+			{
+				return false;
+			}
+
+			for (const auto& point : b)
+			{
+				if (!Contains(a, point))
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Polygon contains
+		//
+		bool Contains(const Polygon& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Contains(const Polygon& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Contains(const Polygon& a, const Rect& b)
+		{
+			return Contains(a, RectF(b));
+		}
+
+		bool Contains(const Polygon& a, const RectF& b)
+		{
+			const Vec2 vertices[4] = { b.pos, b.pos + Vec2(b.w, 0), b.pos + Vec2(b.w, b.h), b.pos + Vec2(0, b.h) };
+
+			gPolygon rect;
+
+			rect.outer().assign(std::begin(vertices), std::end(vertices));
+
+			return boost::geometry::within(rect, a._detail()->getPolygon());
+		}
+
+		bool Contains(const Polygon& a, const Circle& b)
+		{
+			if (!a || !a.boundingRect().intersects(b))
+			{
+				return false;
+			}
+
+			if (!Contains(a, b.center))
+			{
+				return false;
+			}
+
+			{
+				const auto& outer = a._detail()->getPolygon().outer();
+				const size_t num_outer = outer.size();
+
+				for (size_t i = 0; i < num_outer; ++i)
+				{
+					if (Line(outer[i], outer[(i + 1) % num_outer]).intersects(b))
+					{
+						return false;
+					}
+				}
+			}
+
+			{
+				for (const auto& inner : a._detail()->getPolygon().inners())
+				{
+					const size_t num_inner = inner.size();
+
+					for (size_t i = 0; i < num_inner; ++i)
+					{
+						if (Line(inner[i], inner[(i + 1) % num_inner]).intersects(b))
+						{
+							return false;
+						}
+					}
+				}
+			}
+
+			return true;
+		}
+
+		bool Contains(const Polygon& a, const Triangle& b)
+		{
+			if (!a || !a.boundingRect().intersects(b))
+			{
+				return false;
+			}
+
+			const Vec2* p = &b.p0;
+
+			return boost::geometry::within(gRing(p, p + 3), a._detail()->getPolygon());
+		}
+
+		bool Contains(const Polygon& a, const Quad& b)
+		{
+			if (!a || !a.boundingRect().intersects(b))
+			{
+				return false;
+			}
+
+			const Vec2* p = &b.p0;
+
+			return boost::geometry::within(gRing(p, p + 4), a._detail()->getPolygon());
+		}
+
+		bool Contains(const Polygon& a, const Polygon& b)
+		{
+			if (!a || !b || !a.boundingRect().intersects(b.boundingRect()))
+			{
+				return false;
+			}
+
+			return boost::geometry::within(b._detail()->getPolygon(), a._detail()->getPolygon());
 		}
 	}
 }

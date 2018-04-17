@@ -3,18 +3,67 @@
 
 void Main()
 {
+	Graphics::SetBackground(ColorF(0.8, 0.9, 1.0));
+
 	Window::Resize(1280, 720);
 
-	Image image(800, 600, Palette::White);
+	const Polygon poly = Shape2D::Star(300, Window::Center(), 40);
 
-	Emoji::LoadImage(U"🐈").paint(image, 30, 30);
+	const Font font(50, Typeface::Heavy);
 
-	Emoji::LoadImage(U"🐎").paint(image, 80, 80);
-
-	const Texture texture(image);
+	const Polygon icon = ImageProcessing::FindExternalContour(Icon::LoadImage(0xf072, 140), true).simplified().movedBy(-70, -70);
 
 	while (System::Update())
 	{
-		texture.draw();
+		String s;
+		
+		if (MouseL.pressed())
+		{
+			const Polygon circle = icon.movedBy(Cursor::Pos());
+
+			poly.draw();
+
+			const bool i = poly.intersects(circle);
+
+			MicrosecClock m;
+			const bool c = poly.contains(circle);
+			//m.print();
+			circle.draw(c ? Palette::Red : i ? Palette::Orange : Palette::Green);
+
+			if (i)
+				s += U"交差";
+
+			if (c)
+				s += U"\n包含";
+		}
+		else
+		{
+			const Circle circle(Cursor::Pos(), 60);
+
+			poly.draw();
+
+			const bool i = poly.intersects(circle);
+			//MicrosecClock m;
+			const bool c = poly.contains(circle);
+			//m.print();
+
+			circle.draw(c ? Palette::Red : i ? Palette::Orange : Palette::Green);
+
+			if (const auto points = circle.intersectsAt(poly))
+			{
+				for (const auto& p : points.value())
+				{
+					Circle(p, 8).draw(ColorF(0.25));
+				}
+			}
+
+			if (i)
+				s += U"交差";
+
+			if (c)
+				s += U"\n包含";
+		}
+
+		font(s).draw(240, 80, ColorF(0.25));
 	}
 }
