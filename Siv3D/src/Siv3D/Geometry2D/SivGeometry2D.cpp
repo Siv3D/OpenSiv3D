@@ -283,6 +283,21 @@ namespace s3d
 			const double maxY = std::max({ bezier.p0.y, bezier.p1.y, bezier.p2.y, bezier.p3.y });
 			return{ minX, minY, maxX - minX,maxY - minY };
 		}
+
+		static constexpr std::tuple<double, double, double, double> GetLRTB(const Rect& rect)
+		{
+			return{ rect.x, rect.x + rect.w, rect.y, rect.y + rect.h };
+		}
+
+		static constexpr std::tuple<double, double, double, double> GetLRTB(const RectF& rect)
+		{
+			return{ rect.x, rect.x + rect.w, rect.y, rect.y + rect.h };
+		}
+
+		static constexpr bool Contains(const Vec2& point, const double left, const double right, const double top, const double bottom) noexcept
+		{
+			return left <= point.x && point.x < right && top <= point.y && point.y < bottom;
+		}
 	}
 
 	namespace Geometry2D
@@ -1721,10 +1736,10 @@ namespace s3d
 			return IntersectAt(b, a);
 		}
 
-
-
-
-
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Rect contains
+		//
 		bool Contains(const Rect& a, const Point& b) noexcept
 		{
 			return Intersect(b, a);
@@ -1738,6 +1753,163 @@ namespace s3d
 		bool Contains(const Rect& a, const Line& b) noexcept
 		{
 			return Contains(a, b.begin) && Contains(a, b.end);
+		}
+
+		bool Contains(const Rect& a, const Rect& b) noexcept
+		{
+			return a.x <= b.x && a.y <= b.y && (b.x + b.w) <= (a.x + a.w) && (b.y + b.h) <= (a.y + a.h);
+		}
+
+		bool Contains(const Rect& a, const RectF& b) noexcept
+		{
+			return a.x <= b.x && a.y <= b.y && (b.x + b.w) <= (a.x + a.w) && (b.y + b.h) <= (a.y + a.h);
+		}
+
+		bool Contains(const Rect& a, const Circle& b) noexcept
+		{
+			return a.stretched(-b.r).intersects(b.center);
+		}
+
+		bool Contains(const Rect& a, const Ellipse& b) noexcept
+		{
+			return Contains(a, b.boundingRect());
+		}
+
+		bool Contains(const Rect& a, const Triangle& b) noexcept
+		{
+			const auto[left, right, top, bottom] = detail::GetLRTB(a);
+
+			return detail::Contains(b.p0, left, right, top, bottom)
+				&& detail::Contains(b.p1, left, right, top, bottom)
+				&& detail::Contains(b.p2, left, right, top, bottom);
+		}
+
+		bool Contains(const Rect& a, const Quad& b) noexcept
+		{
+			const auto[left, right, top, bottom] = detail::GetLRTB(a);
+
+			return detail::Contains(b.p0, left, right, top, bottom)
+				&& detail::Contains(b.p1, left, right, top, bottom)
+				&& detail::Contains(b.p2, left, right, top, bottom)
+				&& detail::Contains(b.p3, left, right, top, bottom);
+		}
+
+		bool Contains(const Rect& a, const RoundRect& b) noexcept
+		{
+			return Contains(a, b.rect);
+		}
+
+		bool Contains(const Rect& a, const Polygon& b) noexcept
+		{
+			return Contains(RectF(a), b);
+		}
+
+		bool Contains(const Rect& a, const LineString& b) noexcept
+		{
+			return Contains(RectF(a), b);
+		}
+
+		////////////////////////////////////////////////////////////////////
+		//
+		//	RectF contains
+		//
+		bool Contains(const RectF& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Contains(const RectF& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Contains(const RectF& a, const Line& b) noexcept
+		{
+			return Contains(a, b.begin) && Contains(a, b.end);
+		}
+
+		bool Contains(const RectF& a, const Rect& b) noexcept
+		{
+			return a.x <= b.x && a.y <= b.y && (b.x + b.w) <= (a.x + a.w) && (b.y + b.h) <= (a.y + a.h);
+		}
+
+		bool Contains(const RectF& a, const RectF& b) noexcept
+		{
+			return a.x <= b.x && a.y <= b.y && (b.x + b.w) <= (a.x + a.w) && (b.y + b.h) <= (a.y + a.h);
+		}
+
+		bool Contains(const RectF& a, const Circle& b) noexcept
+		{
+			return a.stretched(-b.r).intersects(b.center);
+		}
+
+		bool Contains(const RectF& a, const Ellipse& b) noexcept
+		{
+			return Contains(a, b.boundingRect());
+		}
+
+		bool Contains(const RectF& a, const Triangle& b) noexcept
+		{
+			const auto[left, right, top, bottom] = detail::GetLRTB(a);
+
+			return detail::Contains(b.p0, left, right, top, bottom)
+				&& detail::Contains(b.p1, left, right, top, bottom)
+				&& detail::Contains(b.p2, left, right, top, bottom);
+		}
+
+		bool Contains(const RectF& a, const Quad& b) noexcept
+		{
+			const auto[left, right, top, bottom] = detail::GetLRTB(a);
+
+			return detail::Contains(b.p0, left, right, top, bottom)
+				&& detail::Contains(b.p1, left, right, top, bottom)
+				&& detail::Contains(b.p2, left, right, top, bottom)
+				&& detail::Contains(b.p3, left, right, top, bottom);
+		}
+
+		bool Contains(const RectF& a, const RoundRect& b) noexcept
+		{
+			return Contains(a, b.rect);
+		}
+
+		bool Contains(const RectF& a, const Polygon& b) noexcept
+		{
+			if (!b || !b.boundingRect().intersects(a))
+			{
+				return false;
+			}
+
+			if (Contains(a, b.boundingRect()))
+			{
+				return true;
+			}
+
+			const auto[left, right, top, bottom] = detail::GetLRTB(a);
+
+			for (const auto& point : b.outer())
+			{
+				if (!detail::Contains(point, left, right, top, bottom))
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		bool Contains(const RectF& a, const LineString& b) noexcept
+		{
+			const auto[left, right, top, bottom] = detail::GetLRTB(a);
+
+			for (const auto& point : b)
+			{
+				if (!detail::Contains(point, left, right, top, bottom))
+				{
+					return false;
+				}
+			}
+
+			return true;
 		}
 	}
 }
