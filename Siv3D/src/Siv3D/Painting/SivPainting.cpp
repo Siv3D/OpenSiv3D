@@ -688,7 +688,7 @@ namespace s3d
 			const uint32 premulSrcR = srcBlend * color.r;
 			const uint32 premulSrcG = srcBlend * color.g;
 			const uint32 premulSrcB = srcBlend * color.b;
-			
+
 			for (size_t i = 0; i < offsetCount; ++i)
 			{
 				Color* pDst = dst + offsets[i];
@@ -697,6 +697,11 @@ namespace s3d
 				pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
 			}
 		}
+	}
+
+	void Image::paint(Image& dst, const int32 x, const int32 y, const Color& color) const
+	{
+		paint(dst, Point(x, y), color);
 	}
 
 	void Image::paint(Image& dst, const Point& pos, const Color& color) const
@@ -745,6 +750,11 @@ namespace s3d
 		}
 	}
 
+	void Image::overwrite(Image& dst, const int32 x, const int32 y, const Color& color) const
+	{
+		overwrite(dst, Point(x, y), color);
+	}
+
 	void Image::overwrite(Image& dst, const Point& pos, const Color& color) const
 	{
 		if (this == &dst)
@@ -789,6 +799,11 @@ namespace s3d
 		{
 			detail::OverwriteReference(pSrc, pDst, writeWidth, writeHeight, srcWidth, dstWidth, color);
 		}
+	}
+
+	void ImageRegion::paint(Image& dst, const int32 x, const int32 y, const Color& color) const
+	{
+		paint(dst, Point(x, y), color);
 	}
 
 	void ImageRegion::paint(Image& dst, const Point& pos, const Color& color) const
@@ -858,6 +873,11 @@ namespace s3d
 		{
 			detail::WriteReference(pSrc, pDst, writeWidth, writeHeight, srcWidth, dstWidth, color);
 		}
+	}
+
+	void ImageRegion::overwrite(Image& dst, const int32 x, const int32 y, const Color& color) const
+	{
+		overwrite(dst, Point(x, y), color);
 	}
 
 	void ImageRegion::overwrite(Image& dst, const Point& pos, const Color& color) const
@@ -1045,8 +1065,8 @@ namespace s3d
 							*pDst = color;
 							pDst->a = a;
 						}
-						else if(d > 0.0)
-						{			
+						else if (d > 0.0)
+						{
 							const uint32 srcBlend2 = static_cast<uint32>(255 * d);
 							const uint32 premulSrcR = srcBlend2 * color.r;
 							const uint32 premulSrcG = srcBlend2 * color.g;
@@ -1155,12 +1175,12 @@ namespace s3d
 
 	const Circle& Circle::overwrite(Image& dst, const Color& color, const bool antialiased) const
 	{
-		const int32 yBegin	= std::max(static_cast<int32>(y - r), 0);
-		const int32 yEnd	= std::min(static_cast<int32>(y + r + 1), dst.height());
-		const int32 xBegin	= std::max(static_cast<int32>(x - r), 0);
-		const int32 xEnd	= std::min(static_cast<int32>(x + r + 1), dst.width());
-		const int32 fillWidth	= xEnd - xBegin;
-		const int32 fillHeight	= yEnd - yBegin;
+		const int32 yBegin = std::max(static_cast<int32>(y - r), 0);
+		const int32 yEnd = std::min(static_cast<int32>(y + r + 1), dst.height());
+		const int32 xBegin = std::max(static_cast<int32>(x - r), 0);
+		const int32 xEnd = std::min(static_cast<int32>(x + r + 1), dst.width());
+		const int32 fillWidth = xEnd - xBegin;
+		const int32 fillHeight = yEnd - yBegin;
 
 		if (fillWidth <= 0 || fillHeight <= 0)
 		{
@@ -1231,13 +1251,13 @@ namespace s3d
 
 	const Circle& Circle::paintFrame(Image& dst, const int32 innerThickness, const int32 outerThickness, const Color& color, const bool antialiased) const
 	{
-		const int32 yBegin	= std::max(static_cast<int32>(y - r - outerThickness), 0);
-		const int32 yEnd	= std::min(static_cast<int32>(y + r + 1 + outerThickness), dst.height());
-		const int32 xBegin	= std::max(static_cast<int32>(x - r - outerThickness), 0);
-		const int32 xEnd	= std::min(static_cast<int32>(x + r + 1 + outerThickness), dst.width());
+		const int32 yBegin = std::max(static_cast<int32>(y - r - outerThickness), 0);
+		const int32 yEnd = std::min(static_cast<int32>(y + r + 1 + outerThickness), dst.height());
+		const int32 xBegin = std::max(static_cast<int32>(x - r - outerThickness), 0);
+		const int32 xEnd = std::min(static_cast<int32>(x + r + 1 + outerThickness), dst.width());
 
-		const int32 fillWidth	= xEnd - xBegin;
-		const int32 fillHeight	= yEnd - yBegin;
+		const int32 fillWidth = xEnd - xBegin;
+		const int32 fillHeight = yEnd - yBegin;
 
 		if (fillWidth <= 0 || fillHeight <= 0)
 		{
@@ -1420,13 +1440,13 @@ namespace s3d
 
 	const Circle& Circle::overwriteFrame(Image& dst, const int32 innerThickness, const int32 outerThickness, const Color& color, const bool antialiased) const
 	{
-		const int32 yBegin	= std::max(static_cast<int32>(y - r - outerThickness), 0);
-		const int32 yEnd	= std::min(static_cast<int32>(y + r + 1 + outerThickness), dst.height());
-		const int32 xBegin	= std::max(static_cast<int32>(x - r - outerThickness), 0);
-		const int32 xEnd	= std::min(static_cast<int32>(x + r + 1 + outerThickness), dst.width());
+		const int32 yBegin = std::max(static_cast<int32>(y - r - outerThickness), 0);
+		const int32 yEnd = std::min(static_cast<int32>(y + r + 1 + outerThickness), dst.height());
+		const int32 xBegin = std::max(static_cast<int32>(x - r - outerThickness), 0);
+		const int32 xEnd = std::min(static_cast<int32>(x + r + 1 + outerThickness), dst.width());
 
-		const int32 fillWidth	= xEnd - xBegin;
-		const int32 fillHeight	= yEnd - yBegin;
+		const int32 fillWidth = xEnd - xBegin;
+		const int32 fillHeight = yEnd - yBegin;
 
 		if (fillWidth <= 0 || fillHeight <= 0)
 		{
@@ -1596,12 +1616,12 @@ namespace s3d
 
 	const Ellipse& Ellipse::overwrite(Image& dst, const Color& color) const
 	{
-		const int32 yBegin	= std::max(static_cast<int32>(y - b), 0);
-		const int32 yEnd	= std::min(static_cast<int32>(y + b + 1), dst.height());
-		const int32 xBegin	= std::max(static_cast<int32>(x - a), 0);
-		const int32 xEnd	= std::min(static_cast<int32>(x + a + 1), dst.width());
-		const int32 fillWidth	= xEnd - xBegin;
-		const int32 fillHeight	= yEnd - yBegin;
+		const int32 yBegin = std::max(static_cast<int32>(y - b), 0);
+		const int32 yEnd = std::min(static_cast<int32>(y + b + 1), dst.height());
+		const int32 xBegin = std::max(static_cast<int32>(x - a), 0);
+		const int32 xEnd = std::min(static_cast<int32>(x + a + 1), dst.width());
+		const int32 fillWidth = xEnd - xBegin;
+		const int32 fillHeight = yEnd - yBegin;
 
 		if (fillWidth <= 0 || fillHeight <= 0)
 		{

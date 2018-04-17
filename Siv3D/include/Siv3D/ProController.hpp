@@ -41,10 +41,10 @@ namespace s3d
 		explicit ProController(const detail::Gamepad_impl& gamepad,
 			const DeadZone& left = { 0.016, 0.67, DeadZoneType::Circular },
 			const DeadZone& right = { 0.016, 0.67, DeadZoneType::Circular })
-			: m_gamepad(gamepad)
-			, m_isProController(IsProController(gamepad))
+			: m_gamepad(gamepad)		
 			, m_LStickDeadZone(left)
 			, m_RStickDeadZone(right)
+			, m_isProController(IsProController(gamepad))
 			, buttonA(InputDevice::Gamepad, 1, static_cast<uint8>(m_gamepad.userIndex))
 			, buttonB(InputDevice::Gamepad, 0, static_cast<uint8>(m_gamepad.userIndex))
 			, buttonX(InputDevice::Gamepad, 3, static_cast<uint8>(m_gamepad.userIndex))

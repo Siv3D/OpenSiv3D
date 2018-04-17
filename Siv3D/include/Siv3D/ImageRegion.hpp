@@ -35,8 +35,12 @@ namespace s3d
 
 	public:
 
-		void paint(Image& image, const Point& pos = Point(0, 0), const Color& color = Palette::White) const;
+		void paint(Image& image, int32 x, int32 y, const Color& color = Palette::White) const;
 
-		void overwrite(Image& image, const Point& pos = Point(0, 0), const Color& color = Palette::White) const;
+		void paint(Image& image, const Point& pos, const Color& color = Palette::White) const;
+
+		void overwrite(Image& image, int32 x, int32 y, const Color& color = Palette::White) const;
+
+		void overwrite(Image& image, const Point& pos, const Color& color = Palette::White) const;
 	};
 }
