@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -9,6 +9,7 @@
 //
 //-----------------------------------------------
 
+# include <smmintrin.h>
 # include <opencv2/imgproc.hpp>
 # include <Siv3D/Image.hpp>
 # include <Siv3D/ImageRegion.hpp>
