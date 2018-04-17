@@ -1,0 +1,42 @@
+﻿//-----------------------------------------------
+//
+//	This file is part of the Siv3D Engine.
+//
+//	Copyright (c) 2008-2018 Ryo Suzuki
+//	Copyright (c) 2016-2018 OpenSiv3D Project
+//
+//	Licensed under the MIT License.
+//
+//-----------------------------------------------
+
+# pragma once
+# include "Fwd.hpp"
+# include "Rectangle.hpp"
+
+namespace s3d
+{
+	class ImageRegion
+	{
+	private:
+
+		friend class Image;
+
+		const Image& m_imageRef;
+
+		const Rect m_rect;
+
+		ImageRegion(const ImageRegion&) = default;
+
+		ImageRegion& operator = (const ImageRegion&) = delete;
+
+		ImageRegion(const Image& image, const Rect& rect)
+			: m_imageRef(image)
+			, m_rect(rect) {}
+
+	public:
+
+		void paint(Image& image, const Point& pos = Point(0, 0), const Color& color = Palette::White) const;
+
+		void overwrite(Image& image, const Point& pos = Point(0, 0), const Color& color = Palette::White) const;
+	};
+}

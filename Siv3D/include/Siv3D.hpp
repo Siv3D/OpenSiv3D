@@ -519,6 +519,9 @@
 	// 画像
 	# include "Siv3D/Image.hpp"
 
+	// Region of Image
+	# include "Siv3D/ImageRegion.hpp"
+
 	// 画像デコーダ・エンコーダインタフェース
 	# include "Siv3D/ImageFormat.hpp"
 

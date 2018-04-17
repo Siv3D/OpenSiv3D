@@ -540,6 +540,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Image.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageProcessing.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageRegion.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Indexed.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\InfiniteList.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\INIData.hpp" />
