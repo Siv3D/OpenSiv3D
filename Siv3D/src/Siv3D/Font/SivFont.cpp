@@ -118,6 +118,11 @@ namespace s3d
 		return Siv3DEngine::GetFont()->getGlyphs(m_handle->id(), text);
 	}
 
+	Array<Glyph> Font::getVerticalGlyphs(const String& text) const
+	{
+		return Siv3DEngine::GetFont()->getVerticalGlyphs(m_handle->id(), text);
+	}
+
 	OutlineGlyph Font::getOutlineGlyph(const char32 codePoint) const
 	{
 		return Siv3DEngine::GetFont()->getOutlineGlyph(m_handle->id(), codePoint);
