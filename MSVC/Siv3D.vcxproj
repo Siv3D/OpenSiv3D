@@ -87,6 +87,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Cursor\SivCursor.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DateTime\SivDateTime.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Date\SivDate.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\DeadZone\SivDeadZone.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_Linux.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_macOS.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_Windows.cpp" />
@@ -319,6 +320,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\XInput\CXInput_NULL.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\XInput\SivXInput.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\XInput\XInputFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\XMLReader\SivXMLReader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\XXHash\SivXXHash.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Collision\b2BroadPhase.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\Box2D\Collision\b2CollideCircle.cpp" />
@@ -421,6 +423,7 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastMeshDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastRasterization.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastRegion.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\tinyxml\tinyxml2.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\entropy_common.c" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\error_private.c" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\fse_decompress.c" />
@@ -537,6 +540,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Image.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageFormat.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageProcessing.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageRegion.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Indexed.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\InfiniteList.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\INIData.hpp" />
@@ -592,6 +596,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Polygon.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\PowerStatus.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Print.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ProController.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Profiler.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Quad.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Random.hpp" />
@@ -670,6 +675,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Windows.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\WritableMemoryMapping.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\XInput.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\XMLReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Xorshift.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\XXHash.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\angelscript\angelscript.h" />
@@ -1131,6 +1137,7 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\Recast\RecastAlloc.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\Recast\RecastAssert.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\RFC1321\RFC1321.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\tinyxml\tinyxml2.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\XAudio2_7\audiodefs.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\XAudio2_7\comdecl.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\XAudio2_7\X3DAudio.h" />

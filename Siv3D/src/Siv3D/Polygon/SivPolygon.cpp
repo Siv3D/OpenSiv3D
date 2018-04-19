@@ -46,6 +46,12 @@ namespace s3d
 
 	}
 
+	Polygon::Polygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<Float2>& vertices, const Array<uint32>& indices, const RectF& boundingRect)
+		: pImpl(std::make_unique<CPolygon>(outer, holes, vertices, indices, boundingRect))
+	{
+
+	}
+
 	Polygon::Polygon(const Shape2D& shape)
 		: pImpl(std::make_unique<CPolygon>(shape.vertices().data(), shape.vertices().size(), shape.indices()))
 	{

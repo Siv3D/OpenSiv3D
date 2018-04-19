@@ -11,6 +11,7 @@
 
 # include <cfloat>
 # include "FontData.hpp"
+# include FT_OPENTYPE_VALIDATE_H
 # include <Siv3D/Unicode.hpp>
 # include <Siv3D/Font.hpp>
 # include <Siv3D/TextureRegion.hpp>
@@ -27,7 +28,7 @@ namespace s3d
 			Vec2 currentPos = Vec2(0, 0);
 		};
 
-		int32 MoveTo(const FT_Vector* to, void* user)
+		static int32 MoveTo(const FT_Vector* to, void* user)
 		{
 			OutLineData* data = (OutLineData*)user;
 
@@ -38,7 +39,7 @@ namespace s3d
 			return 0;
 		}
 
-		int32 LineTo(const FT_Vector* to, void* user)
+		static int32 LineTo(const FT_Vector* to, void* user)
 		{
 			OutLineData* data = (OutLineData*)user;
 
@@ -51,7 +52,7 @@ namespace s3d
 			return 0;
 		}
 
-		int32 ConicTo(const FT_Vector* c, const FT_Vector* to, void* user)
+		static int32 ConicTo(const FT_Vector* c, const FT_Vector* to, void* user)
 		{
 			OutLineData* data = (OutLineData*)user;
 
@@ -64,7 +65,7 @@ namespace s3d
 			return 0;
 		}
 
-		int32 CubicTo(const FT_Vector* c1, const FT_Vector* c2, const FT_Vector* to, void* user)
+		static int32 CubicTo(const FT_Vector* c1, const FT_Vector* c2, const FT_Vector* to, void* user)
 		{
 			OutLineData* data = (OutLineData*)user;
 
@@ -75,6 +76,11 @@ namespace s3d
 			data->currentPos.set(to->x, to->y);
 
 			return 0;
+		}
+
+		static uint16 ToUint16(FT_Bytes p)
+		{
+			return uint16(((uint16)p[0] << 8) + (uint16)p[1]);
 		}
 	}
 
@@ -138,6 +144,7 @@ namespace s3d
 		m_bold			= static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Bold);
 		m_italic		= static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Italic);
 		m_noBitmap		= !(static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Bitmap));
+		//m_width			= (m_faceText.face->bbox.xMax - m_faceText.face->bbox.xMin) / 64;
 
 		const FT_UInt spaceGlyphIndex = ::FT_Get_Char_Index(m_faceText.face, U' ');
 
@@ -188,11 +195,60 @@ namespace s3d
 			}
 			else
 			{
-				const auto& glyphInfo	= m_glyphs[m_glyphIndexTable[codePoint]];
+				const char32VH indexVH = codePoint | Horizontal;
+				const auto& glyphInfo	= m_glyphs[m_glyphVHIndexTable[indexVH]];
 				glyph.texture			= m_texture(glyphInfo.bitmapRect);
 				glyph.offset			= glyphInfo.offset;
 				glyph.bearingY			= glyphInfo.bearingY;
 				glyph.xAdvance			= glyphInfo.xAdvance;
+			}
+
+			glyphs.push_back(glyph);
+
+			++index;
+		}
+
+		return glyphs;
+	}
+
+	Array<Glyph> FontData::getVerticalGlyphs(const String& codePoints)
+	{
+		if (!renderVertical(codePoints))
+		{
+			return Array<Glyph>(codePoints.size());
+		}
+
+		Array<Glyph> glyphs;
+		int32 index = 0;
+
+		for (const auto codePoint : codePoints)
+		{
+			Glyph glyph;
+			glyph.codePoint = codePoint;
+			glyph.index = index;
+
+			if (codePoint == U'\n')
+			{
+
+			}
+			else if (codePoint == U'\t')
+			{
+				glyph.xAdvance = m_tabWidth;
+				glyph.yAdvance = m_tabWidth;
+			}
+			else if (IsControl(codePoint))
+			{
+
+			}
+			else
+			{
+				const char32VH indexVH = codePoint | Vertical;
+				const auto& glyphInfo = m_glyphs[m_glyphVHIndexTable[indexVH]];
+				glyph.texture = m_texture(glyphInfo.bitmapRect);
+				glyph.offset = glyphInfo.offset;
+				glyph.bearingY = glyphInfo.bearingY;
+				glyph.xAdvance = glyphInfo.xAdvance;
+				glyph.yAdvance = glyphInfo.yAdvance;
 			}
 
 			glyphs.push_back(glyph);
@@ -279,7 +335,8 @@ namespace s3d
 			}
 			else if (!IsControl(codePoint))
 			{
-				const auto& glyphInfo = m_glyphs[m_glyphIndexTable[codePoint]];
+				const char32VH indexVH = codePoint | Horizontal;
+				const auto& glyphInfo = m_glyphs[m_glyphVHIndexTable[indexVH]];
 				const RectF region(penPos + glyphInfo.offset, glyphInfo.bitmapRect.size);
 				const int32 characterWidth = glyphInfo.bitmapRect.size.isZero() ? glyphInfo.xAdvance : glyphInfo.bitmapRect.size.x;
 				minPos.x = std::min(minPos.x, region.x);
@@ -333,7 +390,8 @@ namespace s3d
 					++lineCount;
 				}
 
-				const auto& glyphInfo = m_glyphs[m_glyphIndexTable[codePoint]];
+				const char32VH indexVH = codePoint | Horizontal;
+				const auto& glyphInfo = m_glyphs[m_glyphVHIndexTable[indexVH]];
 				const RectF region(penPos + glyphInfo.offset, glyphInfo.bitmapRect.size);
 				const int32 characterWidth = glyphInfo.xAdvance;
 				minPos.x = std::min(minPos.x, region.x);
@@ -373,7 +431,8 @@ namespace s3d
 			}
 			else
 			{
-				const auto& glyphInfo = m_glyphs[m_glyphIndexTable[codePoint]];
+				const char32VH indexVH = codePoint | Horizontal;
+				const auto& glyphInfo = m_glyphs[m_glyphVHIndexTable[indexVH]];
 				xAdvabces.push_back(glyphInfo.xAdvance);
 			}
 		}
@@ -414,7 +473,8 @@ namespace s3d
 					++lineCount;
 				}
 
-				const auto& glyphInfo = m_glyphs[m_glyphIndexTable[codePoint]];
+				const char32VH indexVH = codePoint | Horizontal;
+				const auto& glyphInfo = m_glyphs[m_glyphVHIndexTable[indexVH]];
 				const RectF region = m_texture(glyphInfo.bitmapRect).draw(penPos + glyphInfo.offset, color);
 				const int32 characterWidth = glyphInfo.xAdvance;
 				maxPosX = std::max(maxPosX, region.x + characterWidth);
@@ -507,7 +567,8 @@ namespace s3d
 					continue;
 				}
 
-				const auto& glyphInfo = m_glyphs[m_glyphIndexTable[codePoint]];
+				const char32VH indexVH = codePoint | Horizontal;
+				const auto& glyphInfo = m_glyphs[m_glyphVHIndexTable[indexVH]];
 				const int32 characterWidth = glyphInfo.offset.x + glyphInfo.bitmapRect.w;
 
 				if (penPos.x + characterWidth <= width)
@@ -547,7 +608,7 @@ namespace s3d
 					return false;
 				}
 
-				const auto& dotGlyph = m_glyphs[m_glyphIndexTable[U'.']];
+				const auto& dotGlyph = m_glyphs[m_glyphVHIndexTable[U'.' | Horizontal]];
 				const int32 dotWidth = dotGlyph.offset.x + dotGlyph.bitmapRect.w;
 				const int32 dotsWidth = dotGlyph.xAdvance * 2 + dotWidth;
 
@@ -565,7 +626,8 @@ namespace s3d
 						break;
 					}
 
-					const auto& glyphInfo = m_glyphs[m_glyphIndexTable[codePoint]];
+					const char32VH indexVH = codePoint | Horizontal;
+					const auto& glyphInfo = m_glyphs[m_glyphVHIndexTable[indexVH]];
 					penPos.x -= glyphInfo.xAdvance;
 					adjustedText.pop_back();
 				}
@@ -606,13 +668,132 @@ namespace s3d
 					++lineCount;
 				}
 
-				const auto& glyphInfo = m_glyphs[m_glyphIndexTable[codePoint]];
+				const char32VH indexVH = codePoint | Horizontal;
+				const auto& glyphInfo = m_glyphs[m_glyphVHIndexTable[indexVH]];
 				m_texture(glyphInfo.bitmapRect).draw(penPos + glyphInfo.offset, color);
 				penPos.x += glyphInfo.xAdvance;
 			}
 		}
 
 		return !needDots;
+	}
+
+	void FontData::generateVerticalTable()
+	{
+		FT_Bytes baseTable = nullptr, gdefTable = nullptr, gposTable = nullptr, gsubTable = nullptr, jstfTable = nullptr;
+		int error = ::FT_OpenType_Validate(m_faceText.face, FT_VALIDATE_GSUB, &baseTable, &gdefTable, &gposTable, &gsubTable, &jstfTable);
+		
+		if (error != 0)
+		{
+			m_verticalTableInitialized = true;
+			return;
+		}
+	
+		uint16 featureOffset = detail::ToUint16(gsubTable + 6);
+		FT_Bytes featureList = gsubTable + featureOffset;
+		uint16 featureCount = detail::ToUint16(featureList + 0);
+		FT_Bytes featureRecords = featureList + 2;
+
+		uint16 lookupOffset = detail::ToUint16(gsubTable + 8);
+		FT_Bytes lookupList = gsubTable + lookupOffset;
+		//uint16 lookupCount = toUint16(lookupList + 0);
+		FT_Bytes lookups = lookupList + 2;
+
+		//Coverageテーブルが指定しているグリフインデックスを読み取る
+		auto coverageToIndices = [](FT_Bytes coverage)
+		{
+			Array<uint16> ret;
+			uint16 format = detail::ToUint16(coverage + 0);
+			if (format == 1) {
+				uint16 count = detail::ToUint16(coverage + 2);
+				FT_Bytes indices = coverage + 4;
+				for (int i = 0; i < count; i++) {
+					ret.push_back(detail::ToUint16(indices + 2 * i));
+				}
+			}
+			else if (format == 2) {
+				uint16 count = detail::ToUint16(coverage + 2);
+				FT_Bytes rangeRecords = coverage + 4;
+				for (int i = 0; i < count; i++) {
+					FT_Bytes rangeRecord = rangeRecords + 6 * i;
+					uint16 startIndex = detail::ToUint16(rangeRecord + 0);
+					uint16 endIndex = detail::ToUint16(rangeRecord + 2);
+					for (uint16 j = startIndex; j <= endIndex; j++) {
+						ret.push_back(j);
+					}
+				}
+			}
+			return ret;
+		};
+
+		//Lookupテーブルを読んで、_vertSubstitutionを構築
+		auto readLookup = [&](FT_Bytes lookup) {
+			uint16 lookupType = detail::ToUint16(lookup + 0);
+			if (lookupType != 1) return; //単独置換(type == 1)のみ処理
+			uint16 subTableCount = detail::ToUint16(lookup + 4);
+			FT_Bytes subTables = lookup + 6;
+			for (int i = 0; i < subTableCount; i++) {
+				FT_Bytes subTable = lookup + detail::ToUint16(subTables + 2 * i);
+				uint16 sbstFormat = detail::ToUint16(subTable + 0);
+				if (sbstFormat == 1) {
+					FT_Bytes coverage = subTable + detail::ToUint16(subTable + 2);
+					int16 deltaGlyphID = (int16)detail::ToUint16(subTable + 4);
+					Array<uint16> indices = coverageToIndices(coverage);
+					for (int k = 0; k < indices.size(); k++) {
+						int outputIndex = (int)indices[k] + deltaGlyphID;
+						if (outputIndex < 0) outputIndex += 65536;
+						else if (outputIndex >= 65536) outputIndex -= 65536;
+						m_verticalTable.emplace(indices[k], (uint16)outputIndex);
+					}
+				}
+				else if (sbstFormat == 2) {
+					FT_Bytes coverage = subTable + detail::ToUint16(subTable + 2);
+					//uint16 count = toUint16(subTable + 4); //indices.size()と同じはずなので使わない
+					FT_Bytes substitutes = subTable + 6;
+					Array<uint16> indices = coverageToIndices(coverage);
+					for (int k = 0; k < indices.size(); k++) {
+						uint16 outputIndex = detail::ToUint16(substitutes + 2 * k);
+						m_verticalTable.emplace(indices[k], outputIndex);
+					}
+				}
+			}
+		};
+
+		//vertフィーチャー(縦書き用グリフ置換の機能)を見つけて、内部の置換情報を読みに行く
+		//厳密には、使いたい文字体系(Script)と言語体系(Language)を選択した上で対応するfeatureだけを読むべき。それをすると呼び出し側がScriptとLanguageを選択する必要が出てきて複雑になるので、とりあえずvertとついたfeatureを全部読んでいる。縦書きへのグリフ置換しか利用しないなら大きな問題はないと思われる
+		for (uint16 i = 0; i < featureCount; ++i)
+		{
+			FT_Bytes featureRecord = featureRecords + 6 * i;
+
+			if (featureRecord[0] != 'v'
+				|| featureRecord[1] != 'e'
+				|| featureRecord[2] != 'r'
+				|| featureRecord[3] != 't')
+			{
+				continue;
+			}
+
+			FT_Bytes feature = featureList + detail::ToUint16(featureRecord + 4);
+			uint16 featureLookupCount = detail::ToUint16(feature + 2);
+			FT_Bytes lookupIndices = feature + 4;
+			for (int j = 0; j < featureLookupCount; j++) {
+				uint16 lookupIndex = ((uint16)lookupIndices[2 * j]) + lookupIndices[2 * j + 1];
+				uint16 lookupTableOffset = ((uint16)lookups[2 * lookupIndex] << 8) + (uint16)lookups[2 * lookupIndex + 1];
+				FT_Bytes lookup = lookupList + lookupTableOffset;
+				readLookup(lookup);
+			}
+		}
+
+		::FT_OpenType_Free(m_faceText.face, baseTable);
+		::FT_OpenType_Free(m_faceText.face, gdefTable);
+		::FT_OpenType_Free(m_faceText.face, gposTable);
+		::FT_OpenType_Free(m_faceText.face, gsubTable);
+		::FT_OpenType_Free(m_faceText.face, jstfTable);
+
+		m_verticalTableInitialized = true;
+
+		LOG_DEBUG(U"ℹ️ Vertical glyph table generated (table size: {0})"_fmt(m_verticalTable.size()));
+
 	}
 
 	bool FontData::render(const String& codePoints)
@@ -626,7 +807,9 @@ namespace s3d
 
 		for (const auto& codePoint : codePoints)
 		{
-			if (m_glyphIndexTable.find(codePoint) != m_glyphIndexTable.end())
+			const char32VH indexVH = codePoint | Horizontal;
+
+			if (m_glyphVHIndexTable.find(indexVH) != m_glyphVHIndexTable.end())
 			{
 				continue;
 			}
@@ -648,7 +831,7 @@ namespace s3d
 					m_tofuIndex = static_cast<CommonGlyphIndex>(m_glyphs.size() - 1);
 				}
 
-				m_glyphIndexTable.emplace(codePoint, m_tofuIndex.value());
+				m_glyphVHIndexTable.emplace(indexVH, m_tofuIndex.value());
 			}
 			else
 			{
@@ -659,7 +842,138 @@ namespace s3d
 
 				hasDirty = true;
 
-				m_glyphIndexTable.emplace(codePoint, static_cast<uint32>(m_glyphs.size() - 1));
+				m_glyphVHIndexTable.emplace(indexVH, static_cast<uint32>(m_glyphs.size() - 1));
+			}
+		}
+
+		if (hasDirty)
+		{
+			if (m_image.size() == m_texture.size())
+			{
+				m_texture.fill(m_image);
+			}
+			else
+			{
+				const bool hasTexture = !!m_texture;
+				[[maybe_unused]] const Size previousSize = m_texture.size();
+				[[maybe_unused]] const Size newSize = m_image.size();
+
+				m_texture = DynamicTexture(m_image);
+
+				if (hasTexture)
+				{
+					LOG_DEBUG(U"ℹ️ Font texture resized ({0}x{1} -> {2}x{3})"_fmt(previousSize.x, previousSize.y, newSize.x, newSize.y));
+				}
+				else
+				{
+					LOG_DEBUG(U"ℹ️ Created font texture (size: {0}x{1})"_fmt(newSize.x, newSize.y));
+				}
+			}
+		}
+
+		return true;
+	}
+
+	bool FontData::renderVertical(const String& codePoints)
+	{
+		if (!m_faceText)
+		{
+			return false;
+		}
+
+		if (!m_verticalTableInitialized)
+		{
+			generateVerticalTable();
+		}
+
+		bool hasDirty = false;
+
+		for (const auto& codePoint : codePoints)
+		{
+			const char32VH indexVH = codePoint | Vertical;
+
+			if (m_glyphVHIndexTable.find(indexVH) != m_glyphVHIndexTable.end())
+			{
+				continue;
+			}
+
+			const FT_UInt glyphIndexText = ::FT_Get_Char_Index(m_faceText.face, codePoint);
+			const FT_UInt glyphIndexEmoji = (glyphIndexText != 0) ? 0 : m_faceEmoji ? ::FT_Get_Char_Index(m_faceEmoji.face, codePoint) : 0;
+			const bool isEmoji = (glyphIndexText == 0) && (glyphIndexEmoji != 0);
+
+			if (glyphIndexText == 0 && glyphIndexEmoji == 0)
+			{
+				if (!m_tofuIndex)
+				{
+					if (!renderGlyph(m_faceText.face, 0))
+					{
+						continue;
+					}
+
+					hasDirty = true;
+
+					m_tofuIndex = static_cast<CommonGlyphIndex>(m_glyphs.size() - 1);
+				}
+
+				m_glyphVHIndexTable.emplace(indexVH, m_tofuIndex.value());
+			}
+			else if (isEmoji)
+			{
+				const auto it = m_glyphVHIndexTable.find(codePoint);
+
+				if (it == m_glyphVHIndexTable.end())
+				{
+					renderGlyph(m_faceEmoji.face, glyphIndexEmoji);
+
+					hasDirty = true;
+
+					const CommonGlyphIndex index = static_cast<uint32>(m_glyphs.size() - 1);
+
+					m_glyphVHIndexTable.emplace(codePoint | Horizontal, index);
+					m_glyphVHIndexTable.emplace(codePoint | Vertical, index);
+				}
+				else
+				{
+					const CommonGlyphIndex index = it->second;
+					m_glyphVHIndexTable.emplace(codePoint | Vertical, index);
+				}
+			}
+			else
+			{
+				const auto itV = m_verticalTable.find(static_cast<uint16>(glyphIndexText));
+				const bool hasVerticalGlyph = (itV != m_verticalTable.end());
+
+				if (hasVerticalGlyph)
+				{
+					renderGlyph(m_faceText.face, itV->second);
+
+					hasDirty = true;
+
+					const CommonGlyphIndex index = static_cast<uint32>(m_glyphs.size() - 1);
+
+					m_glyphVHIndexTable.emplace(codePoint | Vertical, index);
+				}
+				else
+				{
+					const auto it = m_glyphVHIndexTable.find(codePoint);
+
+					if (it == m_glyphVHIndexTable.end())
+					{
+						renderGlyph(m_faceText.face, glyphIndexText);
+
+						hasDirty = true;
+
+						const CommonGlyphIndex index = static_cast<uint32>(m_glyphs.size() - 1);
+
+						m_glyphVHIndexTable.emplace(codePoint | Horizontal, index);
+						m_glyphVHIndexTable.emplace(codePoint | Vertical, index);
+					}
+					else
+					{
+						const CommonGlyphIndex index = it->second;
+						m_glyphVHIndexTable.emplace(codePoint | Vertical, index);
+					}
+				}
 			}
 		}
 
@@ -766,6 +1080,7 @@ namespace s3d
 		info.offset.set(slot->bitmap_left, m_ascender - slot->bitmap_top);
 		info.bearingY = static_cast<int32>(slot->bitmap_top);
 		info.xAdvance = static_cast<int32>(slot->metrics.horiAdvance / 64);
+		info.yAdvance = static_cast<int32>(slot->metrics.vertAdvance / 64);
 
 		const uint8* bitmapBuffer = slot->bitmap.buffer;
 

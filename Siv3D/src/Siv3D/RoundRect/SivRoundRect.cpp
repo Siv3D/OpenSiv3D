@@ -34,7 +34,7 @@ namespace s3d
 		 
 		static Array<Vec2> GetOuterVertices(const RoundRect& rect, const double offset)
 		{
-			const double rr = std::min({ rect.w * 0.5, rect.h * 0.5, rect.r }) + offset;
+			const double rr = std::min({ rect.w * 0.5, rect.h * 0.5, std::max(0.0, rect.r) }) + offset;
 			const float scale = Siv3DEngine::GetRenderer2D()->getMaxScaling();
 			const int32 quality = detail::CaluculateFanQuality(rr * scale);
 			const double radDelta = Math::HalfPi / (quality - 1);
@@ -138,7 +138,7 @@ namespace s3d
 
 	const RoundRect& RoundRect::draw(const ColorF& color) const
 	{
-		const double rr = std::min({ rect.w * 0.5, rect.h * 0.5, r });
+		const double rr = std::min({ rect.w * 0.5, rect.h * 0.5, std::max(0.0, r) });
 		const float scale = Siv3DEngine::GetRenderer2D()->getMaxScaling();
 		const int32 quality = detail::CaluculateFanQuality(rr * scale);
 		const double radDelta = Math::HalfPi / (quality - 1);

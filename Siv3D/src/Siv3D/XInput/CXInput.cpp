@@ -21,57 +21,13 @@ namespace s3d
 {
 	namespace detail
 	{
-		static double CalculateAxeValue(int pos, int min, int max)
+		static double CalculateAxeValue(int32 pos, int32 min, int32 max)
 		{
 			const double center = (min + max) * 0.5;
 
 			const double range = max - min;
 
 			return range ? ((pos - center) * 2 / range) : 0.0;
-		}
-
-		static double ApplyDeadZone(double value, const DeadZone& deadZone)
-		{
-			if (deadZone.type == DeadZoneType::None)
-			{
-				return value;
-			}
-
-			if (value < -deadZone.size)
-			{
-				value += deadZone.size;
-			}
-			else if (value > deadZone.size)
-			{
-				value -= deadZone.size;
-			}
-			else
-			{
-				return 0.0;
-			}
-
-			return Clamp(value / (deadZone.maxValue - deadZone.size), -1.0, 1.0);
-		}
-
-		static void ApplyDeadZone(double& x, double& y, const DeadZone& deadZone)
-		{
-			if (deadZone.type == DeadZoneType::None)
-			{
-				return;
-			}
-			else if (deadZone.type == DeadZoneType::Independent)
-			{
-				x = ApplyDeadZone(x, deadZone);
-				y = ApplyDeadZone(y, deadZone);
-				return;
-			}
-
-			const double lenSq = Vec2(x, y).lengthSq();
-			const double t = ApplyDeadZone(lenSq, deadZone);
-			const double scale = (t > 0.0) ? (t / lenSq)*1.001 : 0.0;
-
-			x = Clamp(x * scale, -1.0, 1.0);
-			y = Clamp(y * scale, -1.0, 1.0);
 		}
 	}
 
@@ -166,16 +122,16 @@ namespace s3d
 				state.buttons[i].update(currentPressed);
 			}
 
-			state.leftTrigger = detail::ApplyDeadZone(xstate.Gamepad.bLeftTrigger / 255.0, state.deadZones[static_cast<int>(DeadZoneIndex::LefTrigger)]);
-			state.rightTrigger = detail::ApplyDeadZone(xstate.Gamepad.bRightTrigger / 255.0, state.deadZones[static_cast<int>(DeadZoneIndex::RightTrigger)]);
+			state.leftTrigger = state.deadZones[static_cast<int>(DeadZoneIndex::LefTrigger)].apply(xstate.Gamepad.bLeftTrigger / 255.0);
+			state.rightTrigger = state.deadZones[static_cast<int>(DeadZoneIndex::RightTrigger)].apply(xstate.Gamepad.bRightTrigger / 255.0);
 
 			state.lx = detail::CalculateAxeValue(xstate.Gamepad.sThumbLX, SHRT_MIN, SHRT_MAX);
 			state.ly = detail::CalculateAxeValue(xstate.Gamepad.sThumbLY, SHRT_MIN, SHRT_MAX);
-			detail::ApplyDeadZone(state.lx, state.ly, state.deadZones[static_cast<int>(DeadZoneIndex::LeftThumb)]);
+			state.deadZones[static_cast<int>(DeadZoneIndex::LeftThumb)].apply(state.lx, state.ly);
 
 			state.rx = detail::CalculateAxeValue(xstate.Gamepad.sThumbRX, SHRT_MIN, SHRT_MAX);
 			state.ry = detail::CalculateAxeValue(xstate.Gamepad.sThumbRY, SHRT_MIN, SHRT_MAX);
-			detail::ApplyDeadZone(state.rx, state.ry, state.deadZones[static_cast<int>(DeadZoneIndex::RightThumb)]);
+			state.deadZones[static_cast<int>(DeadZoneIndex::RightThumb)].apply(state.rx, state.ry);
 		}
 
 		for (uint32 userIndex = 0; userIndex < XInput.MaxUserCount; ++userIndex)

@@ -34,6 +34,8 @@ namespace s3d
 
 		int32 xAdvance = 0;
 
+		int32 yAdvance = 0;
+
 		int32 width = 0;
 	};
 
@@ -108,9 +110,19 @@ namespace s3d
 	{
 	private:
 
+		using char32VH = uint32;
+
+		static constexpr uint32 Horizontal = 0;
+
+		static constexpr uint32 Vertical = 1u << 31u;
+
 		using CommonGlyphIndex = uint32;
 
-		HashTable<char32, CommonGlyphIndex> m_glyphIndexTable;
+		HashTable<char32VH, CommonGlyphIndex> m_glyphVHIndexTable;
+
+		HashTable<uint16, uint16> m_verticalTable;
+
+		bool m_verticalTableInitialized = false;
 
 		FontFace m_faceText;
 
@@ -160,7 +172,11 @@ namespace s3d
 		//	return true;
 		//}
 
+		void generateVerticalTable();
+
 		bool render(const String& codePoints);
+
+		bool renderVertical(const String& codePoints);
 
 		bool renderGlyph(FT_Face face, FT_UInt glyphIndex);
 
@@ -207,6 +223,8 @@ namespace s3d
 		}
 
 		Array<Glyph> getGlyphs(const String& codePoints);
+
+		Array<Glyph> getVerticalGlyphs(const String& codePoints);
 
 		OutlineGlyph getOutlineGlyph(char32 codePoint);
 

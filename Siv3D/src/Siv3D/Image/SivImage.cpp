@@ -14,6 +14,7 @@
 
 # include <opencv2/imgproc.hpp>
 # include <Siv3D/Image.hpp>
+# include <Siv3D/ImageRegion.hpp>
 # include <Siv3D/ImageProcessing.hpp>
 # include <Siv3D/BinaryWriter.hpp>
 # include <Siv3D/MemoryWriter.hpp>
@@ -2232,6 +2233,31 @@ namespace s3d
 		}
 
 		return image;
+	}
+
+	ImageRegion Image::operator ()(int32 x, int32 y, int32 w, int32 h) const
+	{
+		return operator()(Rect(x, y, w, h));
+	}
+
+	ImageRegion Image::operator ()(const Point& pos, int32 w, int32 h) const
+	{
+		return operator()(Rect(pos, w, h));
+	}
+
+	ImageRegion Image::operator ()(int32 x, int32 y, const Size& size) const
+	{
+		return operator()(Rect(x, y, size));
+	}
+
+	ImageRegion Image::operator ()(const Point& pos, const Size& size) const
+	{
+		return operator()(Rect(pos, size));
+	}
+
+	ImageRegion Image::operator ()(const Rect& rect) const
+	{
+		return ImageRegion(*this, rect);
 	}
 
 

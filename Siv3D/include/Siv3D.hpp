@@ -318,8 +318,8 @@
 	// INI ファイルデータの読み書き
 	# include "Siv3D/INIData.hpp"
 
-	////// XML ファイルの読み込み
-	////# include "Siv3D/XMLReader.hpp"
+	// XML ファイルの読み込み
+	# include "Siv3D/XMLReader.hpp"
 
 	// JSON ファイルの読み込み
 	# include "Siv3D/JSONReader.hpp"
@@ -519,6 +519,9 @@
 	// 画像
 	# include "Siv3D/Image.hpp"
 
+	// Region of Image
+	# include "Siv3D/ImageRegion.hpp"
+
 	// 画像デコーダ・エンコーダインタフェース
 	# include "Siv3D/ImageFormat.hpp"
 
@@ -680,6 +683,9 @@
 
 	// Joy-Con
 	# include "Siv3D/JoyCon.hpp"
+
+	// Pro-Controller
+	# include "Siv3D/ProController.hpp"
 
 	//// マイク入力
 	//# include "Siv3D/Recorder.hpp"
