@@ -4272,6 +4272,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\TCPClient\CTCPClient.hpp">
       <Filter>src\Siv3D\TCPClient</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\HamFramework\SevenSegment.hpp">
+      <Filter>include\HamFramework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_macOS.mm">
