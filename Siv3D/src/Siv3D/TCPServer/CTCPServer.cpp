@@ -25,6 +25,6 @@ namespace s3d
 
 	void TCPServer::CTCPServer::start(const uint16 port)
 	{
-		m_server.start("127.0.0.1", port);
+	
 	}
 }

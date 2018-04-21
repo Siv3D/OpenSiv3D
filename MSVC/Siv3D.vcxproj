@@ -430,15 +430,6 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastMeshDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastRasterization.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastRegion.cpp" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\common\tcp_socket.cpp" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\io_service.cpp" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\tcp_client.cpp" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\tcp_server.cpp" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\utils\error.cpp" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\utils\logger.cpp" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\utils\thread_pool.cpp" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\windows\windows_self_pipe.cpp" />
-    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\windows\windows_tcp_socket.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\tinyxml\tinyxml2.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\entropy_common.c" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\error_private.c" />
@@ -1161,15 +1152,6 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\Recast\RecastAlloc.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\Recast\RecastAssert.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\RFC1321\RFC1321.hpp" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\network\io_service.hpp" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\network\self_pipe.hpp" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\network\tcp_client.hpp" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\network\tcp_server.hpp" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\network\tcp_socket.hpp" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\utils\error.hpp" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\utils\logger.hpp" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\utils\thread_pool.hpp" />
-    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\utils\typedefs.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\tinyxml\tinyxml2.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\XAudio2_7\audiodefs.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\XAudio2_7\comdecl.h" />
@@ -1211,7 +1193,6 @@
     <None Include="..\Siv3D\src\Siv3D\TextReader\CTextReader_macOS.mm" />
     <None Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86_Linux.ipp" />
     <None Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86_Windows.ipp" />
-    <None Include="..\Siv3D\src\ThirdParty\tacopie\tacopie" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5EC743E4-1657-41A6-BBE5-A0E2B135885C}</ProjectGuid>
@@ -1311,7 +1292,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_LIB;_USE_MATH_DEFINES;_SCL_SECURE_NO_WARNINGS;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_LIB;_USE_MATH_DEFINES;_SCL_SECURE_NO_WARNINGS;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING;_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <DebugInformationFormat>
       </DebugInformationFormat>
@@ -1332,7 +1313,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_USE_MATH_DEFINES;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_USE_MATH_DEFINES;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING;_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <DebugInformationFormat />
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -1359,7 +1340,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;_LIB;_USE_MATH_DEFINES;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;_USE_MATH_DEFINES;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING;_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <DebugInformationFormat />
       <MultiProcessorCompilation>true</MultiProcessorCompilation>

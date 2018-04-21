@@ -12,15 +12,13 @@
 # pragma once
 # include <Siv3D/TCPServer.hpp>
 # include <Siv3D/Array.hpp>
-# include "../../ThirdParty/tacopie/tacopie"
+# include "../../ThirdParty/asio/asio.hpp"
 
 namespace s3d
 {
 	class TCPServer::CTCPServer
 	{
 	private:
-
-		tacopie::tcp_server m_server;
 
 		Array<uint8> m_receivedBuffer;
 

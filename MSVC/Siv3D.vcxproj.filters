@@ -713,21 +713,6 @@
     <Filter Include="src\Siv3D\XMLReader">
       <UniqueIdentifier>{d10b1ec7-d3d0-4dab-a4ff-416a6c02619a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\ThirdParty\tacopie">
-      <UniqueIdentifier>{51f847bd-3355-4825-8032-b824d35d03dd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\ThirdParty\tacopie\common">
-      <UniqueIdentifier>{3bcf53e6-24b8-4643-8809-a0cd33b69bb2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\ThirdParty\tacopie\network">
-      <UniqueIdentifier>{45378152-f2aa-4cbf-88de-1b8236057e8c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\ThirdParty\tacopie\utils">
-      <UniqueIdentifier>{74417b4c-2026-47c0-8a0f-2e1ef3ed8359}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\ThirdParty\tacopie\windows">
-      <UniqueIdentifier>{6075c5a3-038b-4060-bc11-0f1bbfe450f7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Siv3D\Network">
       <UniqueIdentifier>{ad0de63a-2816-4d2e-a585-c442d354575e}</UniqueIdentifier>
     </Filter>
@@ -2017,24 +2002,6 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\XMLReader\SivXMLReader.cpp">
       <Filter>src\Siv3D\XMLReader</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\common\tcp_socket.cpp">
-      <Filter>src\ThirdParty\tacopie\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\windows\windows_self_pipe.cpp">
-      <Filter>src\ThirdParty\tacopie\windows</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\windows\windows_tcp_socket.cpp">
-      <Filter>src\ThirdParty\tacopie\windows</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\tcp_client.cpp">
-      <Filter>src\ThirdParty\tacopie</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\tcp_server.cpp">
-      <Filter>src\ThirdParty\tacopie</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\io_service.cpp">
-      <Filter>src\ThirdParty\tacopie</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Network\NetworkFactory.cpp">
       <Filter>src\Siv3D\Network</Filter>
     </ClCompile>
@@ -2055,15 +2022,6 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\TCPClient\CTCPClient.cpp">
       <Filter>src\Siv3D\TCPClient</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\utils\error.cpp">
-      <Filter>src\ThirdParty\tacopie\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\utils\logger.cpp">
-      <Filter>src\ThirdParty\tacopie\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\utils\thread_pool.cpp">
-      <Filter>src\ThirdParty\tacopie\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -4224,33 +4182,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageRegion.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\network\self_pipe.hpp">
-      <Filter>src\ThirdParty\tacopie\network</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\network\tcp_client.hpp">
-      <Filter>src\ThirdParty\tacopie\network</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\network\tcp_server.hpp">
-      <Filter>src\ThirdParty\tacopie\network</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\network\tcp_socket.hpp">
-      <Filter>src\ThirdParty\tacopie\network</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\network\io_service.hpp">
-      <Filter>src\ThirdParty\tacopie\network</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\utils\error.hpp">
-      <Filter>src\ThirdParty\tacopie\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\utils\logger.hpp">
-      <Filter>src\ThirdParty\tacopie\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\utils\thread_pool.hpp">
-      <Filter>src\ThirdParty\tacopie\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\utils\typedefs.hpp">
-      <Filter>src\ThirdParty\tacopie\utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Network\INetwork.hpp">
       <Filter>src\Siv3D\Network</Filter>
     </ClInclude>
@@ -4306,9 +4237,6 @@
     </None>
     <None Include="..\Siv3D\src\Siv3D\TextReader\CTextReader_macOS.mm">
       <Filter>src\Siv3D\TextReader</Filter>
-    </None>
-    <None Include="..\Siv3D\src\ThirdParty\tacopie\tacopie">
-      <Filter>src\ThirdParty\tacopie</Filter>
     </None>
   </ItemGroup>
 </Project>
