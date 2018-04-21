@@ -192,6 +192,9 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\SivMouse.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\NavMesh\CNavMesh.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\NavMesh\SivNavMesh.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Network\CNetwork.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Network\NetworkFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Network\SivNetwork.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Painting\PaintShape.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Painting\SivPainting.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseBool\SivParseBool.cpp" />
@@ -271,6 +274,10 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\System\CSystem_Windows.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\System\SivSystem.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\System\SystemFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\TCPClient\CTCPClient.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\TCPClient\SivTCPClient.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\TCPServer\CTCPServer.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\TCPServer\SivTCPServer.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TextBox\CTextBox.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TextBox\SivTextBox.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TextEditor\SivTextEditor.cpp" />
@@ -423,6 +430,15 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastMeshDetail.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastRasterization.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastRegion.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\common\tcp_socket.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\io_service.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\tcp_client.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\tcp_server.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\utils\error.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\utils\logger.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\utils\thread_pool.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\windows\windows_self_pipe.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\tacopie\windows\windows_tcp_socket.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\tinyxml\tinyxml2.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\entropy_common.c" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\error_private.c" />
@@ -577,6 +593,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Mouse.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\NamedParameter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\NavMesh.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Network.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Number.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OffsetCircular.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Optional.hpp" />
@@ -633,6 +650,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\StringView.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SVM.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\System.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\TCPClient.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\TCPServer.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextBox.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextEditor.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextEncoding.hpp" />
@@ -833,6 +852,8 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Mouse\CMouse_Windows.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Mouse\IMouse.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\NavMesh\CNavMesh.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Network\CNetwork.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Network\INetwork.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Painting\PaintShape.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Polygon\CPolygon.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Print\CPrint.hpp" />
@@ -871,6 +892,8 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\System\CSystem_Windows.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\System\ISystem.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\System\SystemUtility.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\TCPClient\CTCPClient.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\TCPServer\CTCPServer.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\TextBox\CTextBox.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\TextInput\CTextInput_macOS.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\TextInput\CTextInput_Windows.hpp" />
@@ -1137,6 +1160,15 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\Recast\RecastAlloc.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\Recast\RecastAssert.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\RFC1321\RFC1321.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\network\io_service.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\network\self_pipe.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\network\tcp_client.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\network\tcp_server.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\network\tcp_socket.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\utils\error.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\utils\logger.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\utils\thread_pool.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\tacopie\utils\typedefs.hpp" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\tinyxml\tinyxml2.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\XAudio2_7\audiodefs.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\XAudio2_7\comdecl.h" />
@@ -1178,6 +1210,7 @@
     <None Include="..\Siv3D\src\Siv3D\TextReader\CTextReader_macOS.mm" />
     <None Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86_Linux.ipp" />
     <None Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86_Windows.ipp" />
+    <None Include="..\Siv3D\src\ThirdParty\tacopie\tacopie" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5EC743E4-1657-41A6-BBE5-A0E2B135885C}</ProjectGuid>
