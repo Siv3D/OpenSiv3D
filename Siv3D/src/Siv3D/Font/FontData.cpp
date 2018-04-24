@@ -739,7 +739,7 @@ namespace s3d
 					FT_Bytes coverage = subTable + detail::ToUint16(subTable + 2);
 					int16 deltaGlyphID = (int16)detail::ToUint16(subTable + 4);
 					Array<uint16> indices = coverageToIndices(coverage);
-					for (int k = 0; k < indices.size(); k++) {
+					for (size_t k = 0; k < indices.size(); ++k) {
 						int outputIndex = (int)indices[k] + deltaGlyphID;
 						if (outputIndex < 0) outputIndex += 65536;
 						else if (outputIndex >= 65536) outputIndex -= 65536;
@@ -751,7 +751,7 @@ namespace s3d
 					//uint16 count = toUint16(subTable + 4); //indices.size()と同じはずなので使わない
 					FT_Bytes substitutes = subTable + 6;
 					Array<uint16> indices = coverageToIndices(coverage);
-					for (int k = 0; k < indices.size(); k++) {
+					for (uint16 k = 0; k < indices.size(); k++) {
 						uint16 outputIndex = detail::ToUint16(substitutes + 2 * k);
 						m_verticalTable.emplace(indices[k], outputIndex);
 					}
