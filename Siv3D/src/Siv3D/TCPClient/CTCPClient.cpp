@@ -65,6 +65,8 @@ namespace s3d
 			return;
 		}
 
+		m_session->socket().shutdown(asio::socket_base::shutdown_type::shutdown_both);
+
 		m_session->socket().close();
 
 		m_waitingConnection = false;

@@ -86,6 +86,8 @@ namespace s3d
 					return;
 				}
 
+				m_socket.shutdown(asio::socket_base::shutdown_type::shutdown_both);
+
 				m_socket.close();
 
 				if (!m_isSending)
