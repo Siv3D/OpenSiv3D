@@ -713,6 +713,18 @@
     <Filter Include="src\Siv3D\XMLReader">
       <UniqueIdentifier>{d10b1ec7-d3d0-4dab-a4ff-416a6c02619a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Network">
+      <UniqueIdentifier>{ad0de63a-2816-4d2e-a585-c442d354575e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\TCPServer">
+      <UniqueIdentifier>{dca7a7e1-8302-4ef6-84dd-dd0acf457e15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\TCPClient">
+      <UniqueIdentifier>{7f3e68ed-5615-4d08-8738-1b69955f9004}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\IPv4">
+      <UniqueIdentifier>{a25a9fd4-81c0-4132-8e60-a20296aef4da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -1992,6 +2004,30 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\XMLReader\SivXMLReader.cpp">
       <Filter>src\Siv3D\XMLReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Network\NetworkFactory.cpp">
+      <Filter>src\Siv3D\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Network\SivNetwork.cpp">
+      <Filter>src\Siv3D\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Network\CNetwork.cpp">
+      <Filter>src\Siv3D\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TCPServer\SivTCPServer.cpp">
+      <Filter>src\Siv3D\TCPServer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TCPServer\CTCPServer.cpp">
+      <Filter>src\Siv3D\TCPServer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TCPClient\SivTCPClient.cpp">
+      <Filter>src\Siv3D\TCPClient</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TCPClient\CTCPClient.cpp">
+      <Filter>src\Siv3D\TCPClient</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\IPv4\SivIPv4.cpp">
+      <Filter>src\Siv3D\IPv4</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -4150,6 +4186,33 @@
       <Filter>include\Siv3D</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\ImageRegion.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Network\INetwork.hpp">
+      <Filter>src\Siv3D\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Network\CNetwork.hpp">
+      <Filter>src\Siv3D\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Network.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TCPClient.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TCPServer.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\TCPServer\CTCPServer.hpp">
+      <Filter>src\Siv3D\TCPServer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\TCPClient\CTCPClient.hpp">
+      <Filter>src\Siv3D\TCPClient</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\HamFramework\SevenSegment.hpp">
+      <Filter>include\HamFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\IPv4.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>

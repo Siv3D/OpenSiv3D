@@ -159,6 +159,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Image\SivImage.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\INIData\SivINIData.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\IntFormat\SivIntFormat.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\IPv4\SivIPv4.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\JSONReader\SivJSONReader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Keyboard\CKeyboard_Linux.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Keyboard\CKeyboard_macOS.cpp" />
@@ -192,6 +193,9 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Mouse\SivMouse.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\NavMesh\CNavMesh.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\NavMesh\SivNavMesh.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Network\CNetwork.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Network\NetworkFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Network\SivNetwork.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Painting\PaintShape.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Painting\SivPainting.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseBool\SivParseBool.cpp" />
@@ -271,6 +275,10 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\System\CSystem_Windows.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\System\SivSystem.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\System\SystemFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\TCPClient\CTCPClient.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\TCPClient\SivTCPClient.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\TCPServer\CTCPServer.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\TCPServer\SivTCPServer.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TextBox\CTextBox.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TextBox\SivTextBox.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TextEditor\SivTextEditor.cpp" />
@@ -457,6 +465,7 @@
     <ClInclude Include="..\Siv3D\include\HamFramework\Rx.hpp" />
     <ClInclude Include="..\Siv3D\include\HamFramework\ScalableWindow.hpp" />
     <ClInclude Include="..\Siv3D\include\HamFramework\SceneManager.hpp" />
+    <ClInclude Include="..\Siv3D\include\HamFramework\SevenSegment.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AlignedAllocator.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AlignedMemory.hpp" />
@@ -546,6 +555,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\INIData.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Intersection.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IntFormat.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\IPv4.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IReader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\IWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\JoyCon.hpp" />
@@ -577,6 +587,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Mouse.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\NamedParameter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\NavMesh.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Network.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Number.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OffsetCircular.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Optional.hpp" />
@@ -633,6 +644,8 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\StringView.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SVM.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\System.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\TCPClient.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\TCPServer.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextBox.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextEditor.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextEncoding.hpp" />
@@ -833,6 +846,8 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Mouse\CMouse_Windows.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Mouse\IMouse.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\NavMesh\CNavMesh.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Network\CNetwork.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Network\INetwork.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Painting\PaintShape.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Polygon\CPolygon.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Print\CPrint.hpp" />
@@ -871,6 +886,8 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\System\CSystem_Windows.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\System\ISystem.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\System\SystemUtility.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\TCPClient\CTCPClient.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\TCPServer\CTCPServer.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\TextBox\CTextBox.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\TextInput\CTextInput_macOS.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\TextInput\CTextInput_Windows.hpp" />
@@ -1258,7 +1275,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_USE_MATH_DEFINES;_SCL_SECURE_NO_WARNINGS;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_USE_MATH_DEFINES;_SCL_SECURE_NO_WARNINGS;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING;_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <DebugInformationFormat />
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -1277,7 +1294,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_LIB;_USE_MATH_DEFINES;_SCL_SECURE_NO_WARNINGS;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_LIB;_USE_MATH_DEFINES;_SCL_SECURE_NO_WARNINGS;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING;_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <DebugInformationFormat>
       </DebugInformationFormat>
@@ -1298,7 +1315,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_USE_MATH_DEFINES;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_USE_MATH_DEFINES;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING;_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <DebugInformationFormat />
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -1325,7 +1342,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;_LIB;_USE_MATH_DEFINES;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;_USE_MATH_DEFINES;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING;_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <DebugInformationFormat />
       <MultiProcessorCompilation>true</MultiProcessorCompilation>

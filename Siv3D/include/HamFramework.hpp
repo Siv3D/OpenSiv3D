@@ -36,5 +36,6 @@
 	# include <HamFramework/Rx.hpp>
 	# include <HamFramework/ScalableWindow.hpp>
 	# include <HamFramework/SceneManager.hpp>
+	# include <HamFramework/SevenSegment.hpp>
 
 # endif

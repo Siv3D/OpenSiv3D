@@ -597,14 +597,21 @@
 	//# include "Siv3D/Internet.hpp"
 	//// HTTP
 	//# include "Siv3D/HTTPClient.hpp"
+	
 	// Twitter
 	# include "Siv3D/Twitter.hpp"
-	//// ネットワーク
-	//# include "Siv3D/Network.hpp"
-	//// TCP サーバー
-	//# include "Siv3D/TCPServer.hpp"
-	//// TCP クライアント
-	//# include "Siv3D/TCPClient.hpp"
+	
+	// IPv4
+	# include "Siv3D/IPv4.hpp"
+
+	// Network
+	# include "Siv3D/Network.hpp"
+	
+	// TCP Server
+	# include "Siv3D/TCPServer.hpp"
+	
+	// TCP Client
+	# include "Siv3D/TCPClient.hpp"
 
 //////////////////////////////////////////////////
 //
