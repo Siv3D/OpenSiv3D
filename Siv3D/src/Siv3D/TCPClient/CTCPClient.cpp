@@ -29,7 +29,7 @@ namespace s3d
 	{
 		if (!m_work)
 		{
-			m_io_service->restart();
+			//m_io_service = std::make_shared<asio::io_service>();
 
 			m_work = std::make_unique<asio::io_service::work>(*m_io_service);
 
@@ -96,7 +96,13 @@ namespace s3d
 		{
 			m_work.reset();
 
+			m_io_service->stop();
+
 			m_io_service_thread.wait();
+
+			m_io_service->restart();
+
+			//m_io_service.reset();
 		}
 	}
 

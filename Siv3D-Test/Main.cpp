@@ -4,7 +4,7 @@
 
 void Main()
 {
-	/*
+	///*
 	TCPClient client1, client2;
 	client1.connect(IPv4::localhost(), 50000);
 	int32 n1 = 0, n2 = 0;
@@ -50,11 +50,13 @@ void Main()
 
 		if (Key1.down())
 		{
+			Logger << U"try c1";
 			client1.connect(IPv4::localhost(), 50000);
 		}
 
 		if (Key2.down())
 		{
+			Logger << U"try c2";
 			client2.connect(IPv4::localhost(), 50000);
 		}
 
@@ -73,13 +75,14 @@ void Main()
 	}
 	//*/
 
-	///*
+	/*
 	TCPServer server;
 	server.startAcceptMulti(50000);
 
 	while (System::Update())
 	{
 		ClearPrint();
+		Print << Network::GetPrivateIPv4();
 		Print << U"Server {}fps"_fmt(Profiler::FPS());
 		Print << server.num_sessions();
 		Print << server.getSessionIDs();
