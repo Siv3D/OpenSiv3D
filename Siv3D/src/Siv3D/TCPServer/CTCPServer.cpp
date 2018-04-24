@@ -69,11 +69,7 @@ namespace s3d
 		{
 			m_work = std::make_unique<asio::io_service::work>(*m_io_service);
 
-			m_io_service->stop();
-
 			m_io_service_thread = std::async([=] { m_io_service->run(); });
-
-			m_io_service->restart();
 		}
 
 		m_acceptor = std::make_unique<asio::ip::tcp::acceptor>(*m_io_service, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port));
@@ -114,7 +110,11 @@ namespace s3d
 		{
 			m_work.reset();
 
+			m_io_service->stop();
+
 			m_io_service_thread.wait();
+
+			m_io_service->restart();
 		}
 	}
 

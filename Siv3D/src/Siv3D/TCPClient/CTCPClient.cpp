@@ -15,7 +15,7 @@
 namespace s3d
 {
 	TCPClient::CTCPClient::CTCPClient()
-		: m_io_service(std::make_shared<asio::io_service>())
+	//	: m_io_service(std::make_shared<asio::io_service>())
 	{
 
 	}
@@ -29,7 +29,7 @@ namespace s3d
 	{
 		if (!m_work)
 		{
-			//m_io_service = std::make_shared<asio::io_service>();
+			m_io_service = std::make_shared<asio::io_service>();
 
 			m_work = std::make_unique<asio::io_service::work>(*m_io_service);
 
@@ -50,6 +50,8 @@ namespace s3d
 
 		m_waitingConnection = true;
 
+		LOG_TEST(U"async_connect");
+
 		m_session->socket().async_connect(asio::ip::tcp::endpoint(asio::ip::address::from_string(ip.toStr().narrow()), port),
 			std::bind(&CTCPClient::onConnect, this, std::placeholders::_1));
 
@@ -63,7 +65,7 @@ namespace s3d
 			return;
 		}
 
-		m_session->socket().cancel();
+		m_session->socket().close();
 
 		m_waitingConnection = false;
 	}
@@ -102,7 +104,7 @@ namespace s3d
 
 			m_io_service->restart();
 
-			//m_io_service.reset();
+			m_io_service.reset();
 		}
 	}
 

@@ -198,6 +198,7 @@ namespace s3d
 				{
 					std::lock_guard<std::mutex> lock(m_mutexSendingBuffer);
 					m_sendingBuffer.clear();
+					return;
 				}
 
 				if (error)
