@@ -1745,13 +1745,13 @@ namespace s3d
 		[[nodiscard]] String lowercased() && ;
 
 		/// <summary>
-		/// 文字列を指定された文字で左詰めします。
+		/// 文字列の左を埋め文字で埋めます。
 		/// </summary>
 		/// <param name="length">
-		/// 左詰めした後の文字列の長さ
+		/// 文字列の左を埋め文字で埋めた後の文字列の長さ
 		/// </param>
 		/// <param name="fillChar">
-		/// 左詰め用の埋め文字
+		/// 埋め文字
 		/// </param>
 		/// <remarks>
 		/// 元の文字列の長さが <paramref name="length"/> より大きい場合、変更は行われません。 
@@ -1762,13 +1762,13 @@ namespace s3d
 		String& lpad(size_t length, value_type fillChar = U' ');
 
 		/// <summary>
-		/// 文字列を指定された文字で左詰めした新しい文字列を返します。
+		/// 文字列の左を埋め文字で埋めた新しい文字列を返します。
 		/// </summary>
 		/// <param name="length">
-		/// 左詰めした後の文字列の長さ
+		/// 文字列の左を埋め文字で埋めた後の文字列の長さ
 		/// </param>
 		/// <param name="fillChar">
-		/// 左詰め用の埋め文字
+		/// 埋め文字
 		/// </param>
 		/// <remarks>
 		/// 元の文字列の長さが <paramref name="length"/> より大きい場合、元の文字列のコピーが返ります。 
@@ -2255,16 +2255,16 @@ namespace s3d
 		[[nodiscard]] String rotated(std::ptrdiff_t count = 1) &&;
 
 		/// <summary>
-		/// 文字列を指定された文字で右詰めします。
+		/// 文字列の右を埋め文字で埋めます。
 		/// </summary>
 		/// <param name="length">
-		/// 右詰めした後の文字列の長さ
+		/// 文字列の右を埋め文字で埋めた後の文字列の長さ
 		/// </param>
 		/// <param name="fillChar">
-		/// 右詰め用の埋め文字
+		/// 埋め文字
 		/// </param>
 		/// <remarks>
-		/// 元の文字列の長さが <paramref name="length"/> より大きい場合、変更は行われません。
+		/// 元の文字列の長さが <paramref name="length"/> より大きい場合、変更は行われません。 
 		/// </remarks>
 		/// <returns>
 		/// *this
@@ -2289,13 +2289,13 @@ namespace s3d
 		[[nodiscard]] String rpadded(size_t length, value_type fillChar = U' ') const &;
 
 		/// <summary>
-		/// 文字列を指定された文字で右詰めした新しい文字列を返します。
+		/// 文字列の右を埋め文字で埋めた新しい文字列を返します。
 		/// </summary>
 		/// <param name="length">
-		/// 右詰めした後の文字列の長さ
+		/// 文字列の右を埋め文字で埋めた後の文字列の長さ
 		/// </param>
 		/// <param name="fillChar">
-		/// 右詰め用の埋め文字
+		/// 埋め文字
 		/// </param>
 		/// <remarks>
 		/// 元の文字列の長さが <paramref name="length"/> より大きい場合、元の文字列のコピーが返ります。 

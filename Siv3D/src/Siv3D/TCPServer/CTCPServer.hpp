@@ -153,7 +153,7 @@ namespace s3d
 					}
 					else
 					{
-						LOG_DEBUG(U"TCPServer: EOF");
+						LOG_INFO(U"TCPServer: EOF");
 					}
 
 					m_buffer.consume(m_buffer.size());

@@ -151,7 +151,7 @@ namespace s3d
 					}
 					else
 					{
-						LOG_DEBUG(U"TCPClient: EOF");
+						LOG_INFO(U"TCPClient: EOF");
 
 						m_error = NetworkError::EoF;
 					}
