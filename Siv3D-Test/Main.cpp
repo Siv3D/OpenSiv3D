@@ -5,6 +5,49 @@
 void Main()
 {
 	///*
+	TCPClient client;
+	const IPv4 ip(IPv4::localhost());
+	client.connect(ip, 50000);
+
+	int32 n = 0;
+
+	while (System::Update())
+	{
+		ClearPrint();
+		Print << U"Client {}fps"_fmt(Profiler::FPS());
+		Print << U"client.isConnected(): " << client.isConnected();
+		Print << U"client.hasError(): " << client.hasError();
+
+		if (client.isConnected())
+		{
+			client.send(Cursor::Pos());
+
+			while (client.read(n))
+			{
+
+			}
+		}
+
+		if (client.hasError())
+		{
+			client.disconnect();
+		}
+
+		if (KeyC.down())
+		{
+			client.connect(ip, 50000);
+		}
+
+		if (KeyD.down())
+		{
+			client.disconnect();
+		}
+
+		Print << n;
+	}
+	//*/
+
+	/*
 	TCPClient client1, client2;
 	client1.connect(IPv4::localhost(), 50000);
 	int32 n1 = 0, n2 = 0;

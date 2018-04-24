@@ -50,8 +50,6 @@ namespace s3d
 
 		m_waitingConnection = true;
 
-		LOG_TEST(U"async_connect");
-
 		m_session->socket().async_connect(asio::ip::tcp::endpoint(asio::ip::address::from_string(ip.toStr().narrow()), port),
 			std::bind(&CTCPClient::onConnect, this, std::placeholders::_1));
 
@@ -65,8 +63,6 @@ namespace s3d
 			return;
 		}
 
-		m_session->socket().shutdown(asio::socket_base::shutdown_type::shutdown_both);
-
 		m_session->socket().close();
 
 		m_waitingConnection = false;
@@ -79,12 +75,17 @@ namespace s3d
 
 	void TCPClient::CTCPClient::disconnect()
 	{
+		if (m_waitingConnection)
+		{
+			cancelConnect();
+
+			return;
+		}
+
 		if (!m_session)
 		{
 			return;
 		}
-
-		cancelConnect();
 
 		m_session->close();
 
