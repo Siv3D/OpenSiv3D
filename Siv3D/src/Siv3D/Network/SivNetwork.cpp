@@ -17,6 +17,9 @@ namespace s3d
 {
 	namespace Network
 	{
-
+		Optional<IPv4> GetPrivateIPv4()
+		{
+			return Siv3DEngine::GetNetwork()->getMachineIP();
+		}
 	}
 }

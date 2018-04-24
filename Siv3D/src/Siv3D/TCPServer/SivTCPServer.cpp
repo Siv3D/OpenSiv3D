@@ -25,8 +25,78 @@ namespace s3d
 
 	}
 
-	void TCPServer::start(const uint16 port)
+	void TCPServer::startAccept(const uint16 port)
 	{
-		pImpl->start(port);
+		pImpl->startAccept(port);
+	}
+
+	void TCPServer::startAcceptMulti(const uint16 port)
+	{
+		pImpl->startAcceptMulti(port);
+	}
+
+	void TCPServer::cancelAccept()
+	{
+		pImpl->cancelAccept();
+	}
+
+	bool TCPServer::isAccepting() const
+	{
+		return pImpl->isAccepting();
+	}
+
+	void TCPServer::disconnect()
+	{
+		return pImpl->disconnect();
+	}
+
+	bool TCPServer::hasSession() const
+	{
+		return pImpl->hasSession();
+	}
+
+	bool TCPServer::hasSession(const SessionID id) const
+	{
+		return pImpl->hasSession(id);
+	}
+
+	size_t TCPServer::num_sessions() const
+	{
+		return pImpl->num_sessions();
+	}
+
+	Array<SessionID> TCPServer::getSessionIDs() const
+	{
+		return pImpl->getSessionIDs();
+	}
+
+	uint16 TCPServer::port() const
+	{
+		return pImpl->port();
+	}
+
+	size_t TCPServer::available(const Optional<SessionID>& id)
+	{
+		return pImpl->available(id);
+	}
+
+	bool TCPServer::skip(const size_t size, const Optional<SessionID>& id)
+	{
+		return pImpl->skip(size, id);
+	}
+
+	bool TCPServer::lookahead(void* dst, const size_t size, const Optional<SessionID>& id) const
+	{
+		return pImpl->lookahead(dst, size, id);
+	}
+
+	bool TCPServer::read(void* dst, const size_t size, const Optional<SessionID>& id)
+	{
+		return pImpl->read(dst, size, id);
+	}
+
+	bool TCPServer::send(const void* data, const size_t size, const Optional<SessionID>& id)
+	{
+		return pImpl->send(data, size, id);
 	}
 }

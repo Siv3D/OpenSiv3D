@@ -4,15 +4,33 @@
 
 void Main()
 {
-	int32 n = 0;
-	
+	TCPServer server;
+	server.startAcceptMulti(50000);
+	Point n1(0,0);
+	int32 n2=0;
+
 	while (System::Update())
 	{
-		if (MouseL.down())
+		ClearPrint();
+		Print << Network::GetPrivateIPv4();
+		Print << server.port();
+		Print << U"isAccepting: " << server.isAccepting();
+		Print << server.num_sessions();
+		Print << server.getSessionIDs();
+		Print << server.available(1);
+		Print << server.available(2);
+
+		while (server.read(n1, 1))
 		{
-			n = Random(-99999, 99999);
+			server.send(n1.x + n1.y);
 		}
-		
-		SevenSegment::DrawText(Format(n).lpad(6), Vec2(20, 20), 70, 8, 4, 10, ColorF(0, 1, 0), ColorF(0.25));
+
+		while (server.read(n2, 2))
+		{
+
+		}
+
+		Print << n1;
+		Print << n2;
 	}
 }

@@ -11,7 +11,7 @@
 
 # pragma once
 # include "INetwork.hpp"
-# include <Siv3D/Stopwatch.hpp>
+# include <Siv3D/Network.hpp>
 
 namespace s3d
 {
@@ -19,6 +19,7 @@ namespace s3d
 	{
 	private:
 
+		Optional<IPv4> m_machineIP;
 	
 	public:
 
@@ -28,5 +29,6 @@ namespace s3d
 
 		bool init() override;
 
+		Optional<IPv4> getMachineIP() const override;
 	};
 }

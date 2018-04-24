@@ -23,5 +23,7 @@ namespace s3d
 		virtual ~ISiv3DNetwork() = default;
 
 		virtual bool init() = 0;
+
+		virtual Optional<IPv4> getMachineIP() const = 0;
 	};
 }

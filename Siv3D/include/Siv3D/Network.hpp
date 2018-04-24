@@ -10,8 +10,14 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Fwd.hpp"
+# include "Optional.hpp"
+# include "IPv4.hpp"
 
 namespace s3d
 {
-
+	namespace Network
+	{
+		Optional<IPv4> GetPrivateIPv4();
+	}
 }

@@ -601,6 +601,9 @@
 	// Twitter
 	# include "Siv3D/Twitter.hpp"
 	
+	// IPv4
+	# include "Siv3D/IPv4.hpp"
+
 	// Network
 	# include "Siv3D/Network.hpp"
 	
