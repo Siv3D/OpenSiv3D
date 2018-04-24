@@ -40,6 +40,8 @@ namespace s3d
 
 			bool m_isActive = false;
 
+			bool m_eof = false;
+
 			asio::streambuf m_buffer;
 
 			// 受信	
@@ -86,7 +88,10 @@ namespace s3d
 					return;
 				}
 
-				m_socket.shutdown(asio::socket_base::shutdown_type::shutdown_both);
+				if (m_eof)
+				{
+					m_socket.shutdown(asio::socket_base::shutdown_type::shutdown_both);
+				}
 
 				m_socket.close();
 
@@ -104,6 +109,7 @@ namespace s3d
 
 				m_isSending = false;
 				m_isActive = false;
+				m_eof = false;
 
 				if (m_id)
 				{
@@ -156,6 +162,8 @@ namespace s3d
 					else
 					{
 						LOG_INFO(U"TCPServer: EOF");
+
+						m_eof = true;
 					}
 
 					m_buffer.consume(m_buffer.size());

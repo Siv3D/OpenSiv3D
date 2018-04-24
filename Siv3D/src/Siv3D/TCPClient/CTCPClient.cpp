@@ -78,18 +78,14 @@ namespace s3d
 		if (m_waitingConnection)
 		{
 			cancelConnect();
-
-			return;
 		}
 
-		if (!m_session)
+		if (m_session)
 		{
-			return;
+			m_session->close();
+
+			m_session.reset();
 		}
-
-		m_session->close();
-
-		m_session.reset();
 
 		m_waitingConnection = false;
 		
