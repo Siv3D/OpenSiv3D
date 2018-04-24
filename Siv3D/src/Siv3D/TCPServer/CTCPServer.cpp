@@ -48,7 +48,7 @@ namespace s3d
 
 		m_acceptor = std::make_unique<asio::ip::tcp::acceptor>(*m_io_service, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port));
 
-		std::shared_ptr<detail::Session> newSession = std::make_shared<detail::Session>(*m_io_service);
+		std::shared_ptr<detail::ServerSession> newSession = std::make_shared<detail::ServerSession>(*m_io_service);
 
 		m_acceptor->async_accept(newSession->socket(),
 			std::bind(&CTCPServer::onAccept, this, std::placeholders::_1, newSession));
@@ -78,7 +78,7 @@ namespace s3d
 
 		m_acceptor = std::make_unique<asio::ip::tcp::acceptor>(*m_io_service, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port));
 
-		std::shared_ptr<detail::Session> newSession = std::make_shared<detail::Session>(*m_io_service);
+		std::shared_ptr<detail::ServerSession> newSession = std::make_shared<detail::ServerSession>(*m_io_service);
 
 		m_acceptor->async_accept(newSession->socket(),
 			std::bind(&CTCPServer::onAccept, this, std::placeholders::_1, newSession));
@@ -251,7 +251,7 @@ namespace s3d
 		return false;
 	}
 
-	void TCPServer::CTCPServer::onAccept(const asio::error_code& error, const std::shared_ptr<detail::Session>& session)
+	void TCPServer::CTCPServer::onAccept(const asio::error_code& error, const std::shared_ptr<detail::ServerSession>& session)
 	{
 		updateSession();
 
@@ -287,7 +287,7 @@ namespace s3d
 
 		if (m_allowMulti)
 		{
-			std::shared_ptr<detail::Session> newSession = std::make_shared<detail::Session>(*m_io_service);
+			std::shared_ptr<detail::ServerSession> newSession = std::make_shared<detail::ServerSession>(*m_io_service);
 
 			m_acceptor->async_accept(newSession->socket(),
 				std::bind(&CTCPServer::onAccept, this, std::placeholders::_1, newSession));

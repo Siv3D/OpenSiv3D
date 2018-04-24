@@ -13,7 +13,6 @@
 # include <Siv3D/TCPServer.hpp>
 # include <Siv3D/Array.hpp>
 # include <Siv3D/ConcurrentTask.hpp>
-# include <Siv3D/System.hpp>
 # include <Siv3D/Logger.hpp>
 
 # define _WINSOCK_DEPRECATED_NO_WARNINGS
@@ -31,7 +30,7 @@ namespace s3d
 {
 	namespace detail
 	{
-		class Session
+		class ServerSession : public std::enable_shared_from_this<ServerSession>
 		{
 		private:
 
@@ -58,23 +57,24 @@ namespace s3d
 
 			bool m_isSending = false;
 
+
 			void send_internal()
 			{
 				m_isSending = true;
 
 				asio::async_write(m_socket, asio::buffer(m_sendingBuffer.front().data(), m_sendingBuffer.front().size()),
-					std::bind(&Session::onSend, this, std::placeholders::_1, std::placeholders::_2));
+					std::bind(&ServerSession::onSend, this, std::placeholders::_1, std::placeholders::_2, shared_from_this()));
 			}
 
 		public:
 
-			Session(asio::io_service& io_service)
+			ServerSession(asio::io_service& io_service)
 				: m_socket(io_service)
 			{
 
 			}
 
-			~Session()
+			~ServerSession()
 			{
 				close();
 			}
@@ -140,10 +140,10 @@ namespace s3d
 			void startReceive()
 			{
 				asio::async_read(m_socket, m_buffer, asio::transfer_at_least(1),
-					std::bind(&Session::onReceive, this, std::placeholders::_1, std::placeholders::_2));
+					std::bind(&ServerSession::onReceive, this, std::placeholders::_1, std::placeholders::_2, shared_from_this()));
 			}
 
-			void onReceive(const asio::error_code& error, size_t)
+			void onReceive(const asio::error_code& error, size_t, const std::shared_ptr<ServerSession>&)
 			{
 				if (error)
 				{
@@ -188,7 +188,7 @@ namespace s3d
 				startReceive();
 			}
 
-			void onSend(const asio::error_code& error, size_t)
+			void onSend(const asio::error_code& error, size_t, const std::shared_ptr<ServerSession>&)
 			{
 				m_isSending = false;
 
@@ -201,6 +201,8 @@ namespace s3d
 				if (error)
 				{
 					LOG_FAIL(U"TCPServer: send failed: {}"_fmt(Unicode::Widen(error.message())));
+
+					close();
 
 					return;
 				}
@@ -312,7 +314,7 @@ namespace s3d
 
 		std::future<void> m_io_service_thread;
 
-		Array<std::pair<SessionID, std::shared_ptr<detail::Session>>> m_sessions;
+		Array<std::pair<SessionID, std::shared_ptr<detail::ServerSession>>> m_sessions;
 
 		std::atomic<SessionID> m_currentSessionID = 0;
 
@@ -322,7 +324,7 @@ namespace s3d
 
 		bool m_allowMulti = false;
 
-		void onAccept(const asio::error_code& error, const std::shared_ptr<detail::Session>& session);
+		void onAccept(const asio::error_code& error, const std::shared_ptr<detail::ServerSession>& session);
 
 		void updateSession();
 

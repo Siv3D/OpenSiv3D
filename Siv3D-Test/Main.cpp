@@ -4,33 +4,107 @@
 
 void Main()
 {
-	TCPServer server;
-	server.startAcceptMulti(50000);
-	Point n1(0,0);
-	int32 n2=0;
+	/*
+	TCPClient client1, client2;
+	client1.connect(IPv4::localhost(), 50000);
+	int32 n1 = 0, n2 = 0;
 
 	while (System::Update())
 	{
 		ClearPrint();
-		Print << Network::GetPrivateIPv4();
-		Print << server.port();
-		Print << U"isAccepting: " << server.isAccepting();
-		Print << server.num_sessions();
-		Print << server.getSessionIDs();
-		Print << server.available(1);
-		Print << server.available(2);
+		Print << U"Client {}fps"_fmt(Profiler::FPS());
+		Print << U"client1.isConnected(): " << client1.isConnected();
+		Print << U"client2.isConnected(): " << client2.isConnected();
+		Print << U"client1.hasError(): " << client1.hasError();
+		Print << U"client2.hasError(): " << client2.hasError();
 
-		while (server.read(n1, 1))
+		if (client1.isConnected())
 		{
-			server.send(n1.x + n1.y);
+			client1.send(Cursor::Pos());
+
+			while (client1.read(n1))
+			{
+
+			}
 		}
 
-		while (server.read(n2, 2))
+		if (client2.isConnected())
 		{
+			client2.send(Cursor::Pos());
 
+			while (client2.read(n2))
+			{
+
+			}
+		}
+
+		if (client1.hasError())
+		{
+			client1.disconnect();
+		}
+
+		if (client2.hasError())
+		{
+			client2.disconnect();
+		}
+
+		if (Key1.down())
+		{
+			client1.connect(IPv4::localhost(), 50000);
+		}
+
+		if (Key2.down())
+		{
+			client2.connect(IPv4::localhost(), 50000);
+		}
+
+		if (Key3.down())
+		{
+			client1.disconnect();
+		}
+
+		if (Key4.down())
+		{
+			client2.disconnect();
 		}
 
 		Print << n1;
 		Print << n2;
 	}
+	//*/
+
+	///*
+	TCPServer server;
+	server.startAcceptMulti(50000);
+
+	while (System::Update())
+	{
+		ClearPrint();
+		Print << U"Server {}fps"_fmt(Profiler::FPS());
+		Print << server.num_sessions();
+		Print << server.getSessionIDs();
+
+		for (;;)
+		{
+			bool update = false;
+
+			Point p(0, 0);
+
+			for (const auto& sessionID : server.getSessionIDs())
+			{
+				if (server.read(p, sessionID))
+				{
+					server.send(p.x + p.y, sessionID);
+
+					update = true;
+				}
+			}
+
+			if (!update)
+			{
+				break;
+			}
+		}
+	}
+	//*/
 }

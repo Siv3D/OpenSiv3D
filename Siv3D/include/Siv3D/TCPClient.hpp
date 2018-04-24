@@ -35,8 +35,6 @@ namespace s3d
 		/// </summary>
 		~TCPClient();
 
-		bool open();
-
 		bool connect(const IPv4& ip, uint16 port);
 
 		void cancelConnect();
@@ -49,7 +47,7 @@ namespace s3d
 
 		bool hasError() const;
 
-		//NetworkErrorCode getError() const;
+		NetworkError getError() const;
 
 		size_t available() const;
 
@@ -60,7 +58,7 @@ namespace s3d
 		template <class Type, std::enable_if_t<std::is_trivially_copyable_v<Type>>* = nullptr>
 		bool lookahead(Type& to)
 		{
-			return lookahead(std::addressof(to), sizeof(Type), id);
+			return lookahead(std::addressof(to), sizeof(Type));
 		}
 
 		bool read(void* dst, size_t size);
@@ -68,7 +66,7 @@ namespace s3d
 		template <class Type, std::enable_if_t<std::is_trivially_copyable_v<Type>>* = nullptr>
 		bool read(Type& to)
 		{
-			return read(std::addressof(to), sizeof(Type), id);
+			return read(std::addressof(to), sizeof(Type));
 		}
 
 		bool send(const void* data, size_t size);
@@ -76,7 +74,7 @@ namespace s3d
 		template <class Type, std::enable_if_t<std::is_trivially_copyable_v<Type>>* = nullptr>
 		bool send(const Type& to)
 		{
-			return send(std::addressof(to), sizeof(Type), id);
+			return send(std::addressof(to), sizeof(Type));
 		}
 	};
 }

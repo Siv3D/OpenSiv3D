@@ -16,6 +16,19 @@
 
 namespace s3d
 {
+	enum class NetworkError
+	{
+		OK,
+
+		EoF,
+
+		NoBufferSpaceAvailable,
+
+		ConnectionRefused,
+
+		Error,
+	};
+
 	namespace Network
 	{
 		Optional<IPv4> GetPrivateIPv4();
