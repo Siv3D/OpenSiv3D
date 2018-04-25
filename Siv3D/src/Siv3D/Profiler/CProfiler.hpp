@@ -11,6 +11,7 @@
 
 # pragma once
 # include "IProfiler.hpp"
+# include <Siv3D/Profiler.hpp>
 # include <Siv3D/Stopwatch.hpp>
 
 namespace s3d
@@ -27,6 +28,13 @@ namespace s3d
 		int32 m_currentFPS = 1;
 
 		Stopwatch m_fpsStopwatch;
+
+		//
+		//	Stats
+		//
+		Statistics m_currentStatistics;
+
+		Statistics m_previousStatistics;
 
 		//
 		// Asset creation
@@ -51,9 +59,21 @@ namespace s3d
 
 		void endFrame() override;
 
+		//
+		// FPS
+		//
 		int32 getFPS() const override;
 
+		//
+		// Stats
+		//
+		void reportDrawcalls(size_t drawcalls, size_t triangles) override;
 
+		Statistics getStatistics() const override;
+
+		//
+		// Asset creation
+		//
 		void setAssetCreationWarningEnabled(bool enabled) override;
 
 		void reportAssetCreation() override;
