@@ -6700,7 +6700,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					../dependencies/boost_1_65_1,
+					../dependencies/boost_1_67_0,
 					../Siv3D/include,
 					../Siv3D/src/ThirdParty,
 					../Siv3D/src/ThirdParty/freetype,
@@ -6754,7 +6754,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					../dependencies/boost_1_65_1,
+					../dependencies/boost_1_67_0,
 					../Siv3D/include,
 					../Siv3D/src/ThirdParty,
 					../Siv3D/src/ThirdParty/freetype,
