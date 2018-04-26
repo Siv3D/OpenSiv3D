@@ -1,9 +1,9 @@
 ﻿//-----------------------------------------------
 //
-//	This file is part of the HamFramework for Siv3D.
+//	This file is part of the Siv3D HamFramework.
 //
-//	Copyright (C) 2014-2018 HAMSTRO
-//	Copyright (c) 2017 OpenSiv3D Project
+//	Copyright (c) 2014-2018 HAMSTRO
+//	Copyright (c) 2016-2018 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
