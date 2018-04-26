@@ -534,8 +534,8 @@
 	// Exif
 	# include "Siv3D/Exif.hpp"
 
-	//// カスタムカラーフォーマット
-	//# include "Siv3D/CustomColor.hpp"
+	// Color components
+	# include "Siv3D/ColorComponents.hpp"
 
 	//// カスタムカラーフォーマットの画像
 	//# include "Siv3D/CustomImage.hpp"

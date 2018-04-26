@@ -494,6 +494,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Circular.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Clipboard.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Color.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ColorComponents.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ColorPalette.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Compression.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ConcurrentTask.hpp" />
