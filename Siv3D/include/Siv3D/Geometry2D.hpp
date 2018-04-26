@@ -128,5 +128,11 @@ namespace s3d
 		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const Quad& b);
 		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const Polygon& b);
 		//Optional<Array<Vec2>> IntersectAt(const LineString& a, const LineString& b);
+
+
+
+		double Distance(const Line& a, const Polygon& b);
+
+
 	}
 }

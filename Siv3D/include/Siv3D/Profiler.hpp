@@ -14,6 +14,13 @@
 
 namespace s3d
 {
+	struct Statistics
+	{
+		size_t drawcalls = 0;
+
+		size_t triangles = 0;
+	};
+
 	/// <summary>
 	/// プロファイリング
 	/// </summary>
@@ -31,5 +38,7 @@ namespace s3d
 		int32 FPS();
 
 		void EnableAssetCreationWarning(bool enabled);
+
+		Statistics GetStatistics();
 	}
 }
