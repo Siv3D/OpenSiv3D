@@ -14,6 +14,7 @@
 # include "Array.hpp"
 # include "Image.hpp"
 # include "Polygon.hpp"
+# include "MultiPolygon.hpp"
 
 namespace s3d
 {
@@ -71,7 +72,7 @@ namespace s3d
 		/// <returns>
 		/// 輪郭から構成された Polygon の Array
 		/// </returns>
-		Array<Polygon> FindExternalContours(const Image& image, bool useAlpha = false, uint32 threshold = 127);
+		MultiPolygon FindExternalContours(const Image& image, bool useAlpha = false, uint32 threshold = 127);
 
 		/// <summary>
 		/// 画像から穴を含む最大の輪郭を抽出します。
@@ -105,7 +106,7 @@ namespace s3d
 		/// <returns>
 		/// 輪郭から構成された Polygon の Array
 		/// </returns>
-		Array<Polygon> FindContours(const Image& image, bool useAlpha = false, uint32 threshold = 127);
+		MultiPolygon FindContours(const Image& image, bool useAlpha = false, uint32 threshold = 127);
 
 		void Sobel(const Image& src, Image& dst, int32 dx = 1, int32 dy = 1, int32 apertureSize = 3);
 
