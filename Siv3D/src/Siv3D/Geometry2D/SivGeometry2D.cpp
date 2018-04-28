@@ -23,6 +23,7 @@
 # include <Siv3D/Quad.hpp>
 # include <Siv3D/RoundRect.hpp>
 # include <Siv3D/Polygon.hpp>
+# include <Siv3D/MultiPolygon.hpp>
 # include "Polynomial.hpp"
 # include "../Polygon/CPolygon.hpp"
 
@@ -380,6 +381,11 @@ namespace s3d
 			return Intersect(Vec2(a), b);
 		}
 
+		bool Intersect(const Point& a, const MultiPolygon& b) noexcept
+		{
+			return Intersect(Vec2(a), b);
+		}
+
 		////////////////////////////////////////////////////////////////////
 		//
 		//	Vec2 vs
@@ -458,6 +464,19 @@ namespace s3d
 			for (size_t i = 0; i < num_triangles; ++i)
 			{
 				if (Intersect(a, b.triangle(i)))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		bool Intersect(const Vec2& a, const MultiPolygon& b) noexcept
+		{
+			for (const auto& polygon : b)
+			{
+				if (Intersect(a, polygon))
 				{
 					return true;
 				}
@@ -1333,7 +1352,21 @@ namespace s3d
 		{
 			return a.intersects(b);
 		}
+
+		////////////////////////////////////////////////////////////////////
+		//
+		//	MultiPolygon vs
+		//
+		bool Intersect(const MultiPolygon& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
 		
+		bool Intersect(const MultiPolygon& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
 		////////////////////////////////////////////////////////////////////
 		//
 		//	IntersectAt

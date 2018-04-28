@@ -21,6 +21,7 @@
 # include "Triangle.hpp"
 # include "Quad.hpp"
 # include "Polygon.hpp"
+# include "MultiPolygon.hpp"
 # include "System.hpp"
 
 // Box2D forward declaration
@@ -163,6 +164,8 @@ namespace s3d
 
 		[[nodiscard]] P2Body createPolygon(const Vec2& center, const Polygon& polygon, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
 
+		[[nodiscard]] P2Body createPolygons(const Vec2& center, const MultiPolygon& polygons, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter(), P2BodyType bodyType = P2BodyType::Dynamic);
+
 		[[nodiscard]] P2RevoluteJoint createRevoluteJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos);
 
 		[[nodiscard]] b2World* getWorldPtr() const;
@@ -205,6 +208,8 @@ namespace s3d
 		P2Body& addQuad(const Quad& quad, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter());
 
 		P2Body& addPolygon(const Polygon& polygon, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter());
+
+		P2Body& addPolygons(const MultiPolygon& polygons, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter());
 
 		void setSleepEnabled(bool enabled);
 

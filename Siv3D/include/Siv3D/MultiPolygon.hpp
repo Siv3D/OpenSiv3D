@@ -218,7 +218,21 @@ namespace s3d
 
 		MultiPolygon rotatedAt(const Vec2& pos, double angle) const;
 
+		MultiPolygon& rotate(double angle);
+
+		MultiPolygon& rotateAt(const Vec2& pos, double angle);
+
+		MultiPolygon transformed(double s, double c, const Vec2& pos) const;
+
+		MultiPolygon& transform(double s, double c, const Vec2& pos);
+
+		MultiPolygon scaled(double s) const;
+
+		MultiPolygon& scale(double s);
+
 		RectF calculateBoundingRect() const noexcept;
+
+		MultiPolygon simplified(double maxDistance = 2.0) const;
 
 		template <class Shape2DType>
 		bool intersects(const Shape2DType& shape) const

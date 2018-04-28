@@ -23,6 +23,56 @@ namespace s3d
 		return MultiPolygon(map([=](const Polygon& p) { return p.rotatedAt(pos, angle); }));
 	}
 
+	MultiPolygon& MultiPolygon::rotate(const double angle)
+	{
+		for (auto& polygon : *this)
+		{
+			polygon.rotate(angle);
+		}
+
+		return *this;
+	}
+
+	MultiPolygon& MultiPolygon::rotateAt(const Vec2& pos, const double angle)
+	{
+		for (auto& polygon : *this)
+		{
+			polygon.rotateAt(pos, angle);
+		}
+
+		return *this;
+	}
+
+	MultiPolygon MultiPolygon::transformed(const double s, double c, const Vec2& pos) const
+	{
+		return MultiPolygon(map([=](const Polygon& p) { return p.transformed(s, c, pos); }));
+	}
+
+	MultiPolygon& MultiPolygon::transform(const double s, const double c, const Vec2& pos)
+	{
+		for (auto& polygon : *this)
+		{
+			polygon.transform(s, c, pos);
+		}
+
+		return *this;
+	}
+
+	MultiPolygon MultiPolygon::scaled(const double s) const
+	{
+		return MultiPolygon(map([=](const Polygon& p) { return p.scaled(s); }));
+	}
+
+	MultiPolygon& MultiPolygon::scale(const double s)
+	{
+		for (auto& polygon : *this)
+		{
+			polygon.scale(s);
+		}
+
+		return *this;
+	}
+
 	RectF MultiPolygon::calculateBoundingRect() const noexcept
 	{
 		if (isEmpty())
@@ -67,6 +117,11 @@ namespace s3d
 		}
 
 		return RectF(left, top, right - left, bottom - top);
+	}
+
+	MultiPolygon MultiPolygon::simplified(const double maxDistance) const
+	{
+		return MultiPolygon(map([=](const Polygon& p) { return p.simplified(maxDistance); }));
 	}
 
 	bool MultiPolygon::leftClicked() const

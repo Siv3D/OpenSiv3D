@@ -193,110 +193,134 @@ namespace s3d
 		return pImpl->update(timeStep, velocityIterations, positionIterations);
 	}
 
-	P2Body P2World::createEmpty(const Vec2& center, P2BodyType bodyType)
+	P2Body P2World::createEmpty(const Vec2& center, const P2BodyType bodyType)
 	{
 		return pImpl->createEmpty(*this, center, bodyType);
 	}
 
-	P2Body P2World::createLine(const Vec2& center, const Vec2& begin, const Vec2& end, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	P2Body P2World::createLine(const Vec2& center, const Vec2& begin, const Vec2& end, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
 	{
 		return pImpl->createLine(*this, center, Line(begin, end), material, filter, bodyType);
 	}
 
-	P2Body P2World::createLine(const Vec2& center, const Line& line, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	P2Body P2World::createLine(const Vec2& center, const Line& line, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
 	{
 		return pImpl->createLine(*this, center, line, material, filter, bodyType);
 	}
 
-	P2Body P2World::createLineString(const Vec2& center, const LineString& lines, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	P2Body P2World::createLineString(const Vec2& center, const LineString& lines, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
 	{
 		return pImpl->createLineString(*this, center, lines, material, filter, bodyType);
 	}
 
-	P2Body P2World::createClosedLineString(const Vec2& center, const LineString& lines, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	P2Body P2World::createClosedLineString(const Vec2& center, const LineString& lines, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
 	{
 		return pImpl->createClosedLineString(*this, center, lines, material, filter, bodyType);
 	}
 
-	P2Body P2World::createCircle(const Vec2& center, double r, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	P2Body P2World::createCircle(const Vec2& center, double r, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
 	{
 		return pImpl->createCircle(*this, center, Circle(r), material, filter, bodyType);
 	}
 
-	P2Body P2World::createCircle(const Vec2& center, double r, const Vec2& offset, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	P2Body P2World::createCircle(const Vec2& center, double r, const Vec2& offset, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
 	{
 		return pImpl->createCircle(*this, center, Circle(offset, r), material, filter, bodyType);
 	}
 
-	P2Body P2World::createCircle(const Vec2& center, const Circle& circle, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	P2Body P2World::createCircle(const Vec2& center, const Circle& circle, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
 	{
 		return pImpl->createCircle(*this, center, circle, material, filter, bodyType);
 	}
 
-	P2Body P2World::createRect(const Vec2& center, double size, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	P2Body P2World::createRect(const Vec2& center, double size, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
 	{
 		return pImpl->createRect(*this, center, RectF(Arg::center(0, 0), size), material, filter, bodyType);
 	}
 
-	P2Body P2World::createRect(const Vec2& center, double w, double h, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	P2Body P2World::createRect(const Vec2& center, double w, double h, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
 	{
 		return pImpl->createRect(*this, center, RectF(Arg::center(0, 0), w, h), material, filter, bodyType);
 	}
 
-	P2Body P2World::createRect(const Vec2& center, const Vec2& size, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	P2Body P2World::createRect(const Vec2& center, const Vec2& size, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
 	{
 		return pImpl->createRect(*this, center, RectF(Arg::center(0, 0), size), material, filter, bodyType);
 	}
 
-	P2Body P2World::createRect(const Vec2& center, const Vec2& size, const Vec2& offset, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	P2Body P2World::createRect(const Vec2& center, const Vec2& size, const Vec2& offset, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
 	{
 		return pImpl->createRect(*this, center, RectF(Arg::center(offset), size), material, filter, bodyType);
 	}
 
-	P2Body P2World::createRect(const Vec2& center, const RectF& rect, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	P2Body P2World::createRect(const Vec2& center, const RectF& rect, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
 	{
 		return pImpl->createRect(*this, center, rect, material, filter, bodyType);
 	}
 
-	P2Body P2World::createTriangle(const Vec2& center, double sides, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	P2Body P2World::createTriangle(const Vec2& center, double sides, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
 	{
 		return pImpl->createTriangle(*this, center, Triangle(sides), material, filter, bodyType);
 	}
 
-	P2Body P2World::createTriangle(const Vec2& center, double sides, double angle, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	P2Body P2World::createTriangle(const Vec2& center, double sides, double angle, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
 	{
 		return pImpl->createTriangle(*this, center, Triangle(sides, angle), material, filter, bodyType);
 	}
 
-	P2Body P2World::createTriangle(const Vec2& center, double sides, double angle, const Vec2& offset, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	P2Body P2World::createTriangle(const Vec2& center, double sides, double angle, const Vec2& offset, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
 	{
 		return pImpl->createTriangle(*this, center, Triangle(offset, sides, angle), material, filter, bodyType);
 	}
 
-	P2Body P2World::createTriangle(const Vec2& center, const Vec2& p0, const Vec2& p1, const Vec2& p2, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	P2Body P2World::createTriangle(const Vec2& center, const Vec2& p0, const Vec2& p1, const Vec2& p2, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
 	{
 		return pImpl->createTriangle(*this, center, Triangle(p0, p1, p2), material, filter, bodyType);
 	}
 
-	P2Body P2World::createTriangle(const Vec2& center, const Triangle& triangle, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	P2Body P2World::createTriangle(const Vec2& center, const Triangle& triangle, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
 	{
 		return pImpl->createTriangle(*this, center, triangle, material, filter, bodyType);
 	}
 
-	P2Body P2World::createQuad(const Vec2& center, const Vec2& p0, const Vec2& p1, const Vec2& p2, const Vec2& p3, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	P2Body P2World::createQuad(const Vec2& center, const Vec2& p0, const Vec2& p1, const Vec2& p2, const Vec2& p3, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
 	{
 		return pImpl->createQuad(*this, center, Quad(p0, p1, p2, p3), material, filter, bodyType);
 	}
 
-	P2Body P2World::createQuad(const Vec2& center, const Quad& quad, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	P2Body P2World::createQuad(const Vec2& center, const Quad& quad, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
 	{
 		return pImpl->createQuad(*this, center, quad, material, filter, bodyType);
 	}
 
-
-	P2Body P2World::createPolygon(const Vec2& center, const Polygon& polygon, const P2Material& material, const P2Filter& filter, P2BodyType bodyType)
+	P2Body P2World::createPolygon(const Vec2& center, const Polygon& polygon, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
 	{
 		return pImpl->createPolygon(*this, center, polygon, material, filter, bodyType);
+	}
+
+	P2Body P2World::createPolygons(const Vec2& center, const MultiPolygon& polygons, const P2Material& material, const P2Filter& filter, const P2BodyType bodyType)
+	{
+		const size_t num_polygons = polygons.size();
+
+		if (num_polygons == 0)
+		{
+			return createEmpty(center, bodyType);
+		}
+		else if (num_polygons == 1)
+		{
+			return createPolygon(center, polygons.front(), material, filter, bodyType);
+		}
+		else
+		{
+			P2Body body = createPolygon(center, polygons.front(), material, filter, bodyType);
+
+			for (size_t i = 1; i < num_polygons; ++i)
+			{
+				body.addPolygon(polygons[i], material, filter);
+			}
+
+			return body;
+		}
 	}
 
 	P2RevoluteJoint P2World::createRevoluteJoint(const P2Body& bodyA, const P2Body& bodyB, const Vec2& anchorPos)
@@ -544,6 +568,21 @@ namespace s3d
 		}
 
 		pImpl->addPolygon(polygon, material, filter);
+
+		return *this;
+	}
+
+	P2Body& P2Body::addPolygons(const MultiPolygon& polygons, const P2Material& material, const P2Filter& filter)
+	{
+		if (isEmpty())
+		{
+			return *this;
+		}
+
+		for (const auto& polygon : polygons)
+		{
+			pImpl->addPolygon(polygon, material, filter);
+		}
 
 		return *this;
 	}
