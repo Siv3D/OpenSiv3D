@@ -9,7 +9,11 @@
 //
 //-----------------------------------------------
 
-# include "CVideoWriter.hpp"
+# include <Siv3D/Platform.hpp>
+# if defined(SIV3D_TARGET_MACOS)
+
+# include <Siv3D/String.hpp>
+# include "CVideoWriter_macOS.hpp"
 
 namespace s3d
 {
@@ -23,14 +27,21 @@ namespace s3d
 		close();
 	}
 
-	bool VideoWriter::CVideoWriter::open(const FilePath& path)
+	bool VideoWriter::CVideoWriter::open(const FilePath& path, const Size& size, const double fps)
 	{
 		if (isOpened())
 		{
 			close();
 		}
 
-		return true;
+		const bool result = m_writer.open(path.narrow(), cv::VideoWriter::fourcc('M', 'P', '4', 'V'), fps, cv::Size(size.x, size.y), true);
+
+		if (result)
+		{
+			m_size = size;
+		}
+
+		return result;
 	}
 
 	void VideoWriter::CVideoWriter::close()
@@ -39,10 +50,16 @@ namespace s3d
 		{
 			return;
 		}
+
+		m_writer.release();
+
+		m_size.set(0, 0);
 	}
 
 	bool VideoWriter::CVideoWriter::isOpened() const
 	{
-		return true;
+		return m_writer.isOpened();
 	}
 }
+
+# endif

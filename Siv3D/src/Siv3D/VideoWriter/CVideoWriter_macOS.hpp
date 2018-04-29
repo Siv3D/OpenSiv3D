@@ -10,7 +10,12 @@
 //-----------------------------------------------
 
 # pragma once
+# include <Siv3D/Platform.hpp>
+# if defined(SIV3D_TARGET_MACOS)
+
+# include <opencv2/videoio.hpp>
 # include <Siv3D/VideoWriter.hpp>
+# include <Siv3D/PointVector.hpp>
 
 namespace s3d
 {
@@ -18,16 +23,22 @@ namespace s3d
 	{
 	private:
 
+		cv::VideoWriter m_writer;
+
+		Size m_size = Size(0, 0);
+
 	public:
 
 		CVideoWriter();
 
 		~CVideoWriter();
 
-		bool open(const FilePath& path);
+		bool open(const FilePath& path, const Size& size, double fps);
 
 		void close();
 
 		bool isOpened() const;
 	};
 }
+
+# endif

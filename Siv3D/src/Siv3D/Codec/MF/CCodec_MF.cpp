@@ -312,6 +312,11 @@ namespace s3d
 		return detail::WriteWaveData(pSourceReader.Get(), pAudioType.Get());
 	}
 
+	void CCodec_MF::getFunctions(MF_Functions& functions) const
+	{
+		functions = m_functions;
+	}
+
 	HRESULT CCodec_MF::configureAudioStream(ComPtr<IMFSourceReader>& pReader, ComPtr<IMFMediaType>& ppPCMAudio)
 	{
 		ComPtr<IMFMediaType> pUncompressedAudioType;

@@ -10,7 +10,8 @@
 //-----------------------------------------------
 
 # include <Siv3D/VideoWriter.hpp>
-# include "CVideoWriter.hpp"
+# include "CVideoWriter_Windows.hpp"
+# include "CVideoWriter_macOS.hpp"
 
 namespace s3d
 {
@@ -25,15 +26,15 @@ namespace s3d
 
 	}
 
-	VideoWriter::VideoWriter(const FilePath& path)
+	VideoWriter::VideoWriter(const FilePath& path, const Size& size, const double fps)
 		: VideoWriter()
 	{
-		open(path);
+		open(path, size, fps);
 	}
 
-	bool VideoWriter::open(const FilePath& path)
+	bool VideoWriter::open(const FilePath& path, const Size& size, const double fps)
 	{
-		return pImpl->open(path);
+		return pImpl->open(path, size, fps);
 	}
 
 	void VideoWriter::close()
@@ -44,5 +45,20 @@ namespace s3d
 	bool VideoWriter::isOpened() const
 	{
 		return pImpl->isOpened();
+	}
+
+	VideoWriter::operator bool() const
+	{
+		return isOpened();
+	}
+
+	bool VideoWriter::writeFrame(const Image& image)
+	{
+		return pImpl->write(image);
+	}
+
+	Size VideoWriter::size() const
+	{
+		return pImpl->size();
 	}
 }

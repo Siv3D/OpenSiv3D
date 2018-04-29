@@ -35,12 +35,18 @@ namespace s3d
 		/// </summary>
 		~VideoWriter();
 
-		explicit VideoWriter(const FilePath& path);
+		explicit VideoWriter(const FilePath& path, const Size& size, double fps = 60.0);
 
-		bool open(const FilePath& path);
+		bool open(const FilePath& path, const Size& size, double fps = 60.0);
 
 		void close();
 
 		[[nodiscard]] bool isOpened() const;
+
+		[[nodiscard]] explicit operator bool() const;
+
+		bool writeFrame(const Image& image);
+
+		Size size() const;
 	};
 }
