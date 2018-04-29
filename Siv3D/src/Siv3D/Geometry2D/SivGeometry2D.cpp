@@ -27,10 +27,12 @@
 # include "Polynomial.hpp"
 # include "../Polygon/CPolygon.hpp"
 
+S3D_DISABLE_MSVC_WARNINGS_PUSH(4457)
 S3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry.hpp>
 # include <boost/geometry/algorithms/within.hpp>
 # include <boost/geometry/algorithms/distance.hpp>
+S3D_DISABLE_MSVC_WARNINGS_POP()
 S3D_DISABLE_MSVC_WARNINGS_POP()
 
 namespace s3d
@@ -38,6 +40,7 @@ namespace s3d
 	using gVec2 = boost::geometry::model::d2::point_xy<double>;
 	using gLine = boost::geometry::model::segment<Vec2>;
 	using gBox	= boost::geometry::model::box<Vec2>;
+	using gLineString = boost::geometry::model::linestring<Vec2, Array>;
 
 	namespace detail
 	{
@@ -332,10 +335,23 @@ namespace s3d
 
 			return poly;
 		}
+
+		static gLineString MakeLineString(const LineString& lines)
+		{
+			return gLineString(lines.begin(), lines.end());
+		}
 	}
 
 	namespace Geometry2D
 	{
+		////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////
+		////
+		////	Intersect
+		////
+		////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////
+
 		////////////////////////////////////////////////////////////////////
 		//
 		//	Point vs
@@ -1011,6 +1027,24 @@ namespace s3d
 			return false;
 		}
 
+		bool Intersect(const Circle& a, const LineString& b) noexcept
+		{
+			if (b.isEmpty())
+			{
+				return false;
+			}
+
+			for (size_t i = 0; i < b.size() - 1; ++i)
+			{
+				if (Intersect(Line(b[i], b[i + 1]), a))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		////////////////////////////////////////////////////////////////////
 		//
 		//	Ellipse vs
@@ -1395,7 +1429,25 @@ namespace s3d
 
 		////////////////////////////////////////////////////////////////////
 		//
-		//	IntersectAt
+		//	LineString vs
+		//
+		bool Intersect(const LineString& a, const Circle& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+
+		////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////
+		////
+		////	IntersectAt
+		////
+		////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////
+
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Line IntersectAt
 		//
 		Optional<Array<Vec2>> IntersectAt(const Line& a, const Rect& b)
 		{
@@ -1508,6 +1560,10 @@ namespace s3d
 			return results;
 		}
 
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Bezier2 IntersectAt
+		//
 		Optional<Array<Vec2>> IntersectAt(const Bezier2& a, const Circle& b)
 		{
 			return IntersectAt(a, Ellipse(b));
@@ -1566,6 +1622,10 @@ namespace s3d
 			}
 		}
 
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Bezier3 IntersectAt
+		//
 		Optional<Array<Vec2>> IntersectAt(const Bezier3& a, const Circle& b)
 		{
 			return IntersectAt(a, Ellipse(b));
@@ -1654,6 +1714,10 @@ namespace s3d
 			}
 		}
 
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Rect IntersectAt
+		//
 		Optional<Array<Vec2>> IntersectAt(const Rect& a, const Circle& b)
 		{
 			return IntersectAt(a, Ellipse(b));
@@ -1679,6 +1743,10 @@ namespace s3d
 			return IntersectAt(RectF(a), b);
 		}
 
+		////////////////////////////////////////////////////////////////////
+		//
+		//	RectF IntersectAt
+		//
 		Optional<Array<Vec2>> IntersectAt(const RectF& a, const Circle& b)
 		{
 			return IntersectAt(a, Ellipse(b));
@@ -1752,6 +1820,10 @@ namespace s3d
 			return detail::RemoveDuplication(std::move(points));
 		}
 
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Circle IntersectAt
+		//
 		Optional<Array<Vec2>> IntersectAt(const Circle& a, const Line& b)
 		{
 			return IntersectAt(b, Ellipse(a));
@@ -1830,6 +1902,10 @@ namespace s3d
 			return detail::RemoveDuplication(std::move(points));
 		}
 
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Ellipse IntersectAt
+		//
 		Optional<Array<Vec2>> IntersectAt(const Ellipse& a, const Line& b)
 		{
 			return IntersectAt(b, a);
@@ -1855,10 +1931,23 @@ namespace s3d
 			return IntersectAt(b, a);
 		}
 
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Polygon IntersectAt
+		//
 		Optional<Array<Vec2>> IntersectAt(const Polygon& a, const Circle& b)
 		{
 			return IntersectAt(b, a);
 		}
+
+
+		////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////
+		////
+		////	Contains
+		////
+		////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////
 
 		////////////////////////////////////////////////////////////////////
 		//
@@ -2144,6 +2233,135 @@ namespace s3d
 
 		////////////////////////////////////////////////////////////////////
 		//
+		//	Ellipse contains
+		//
+		bool Contains(const Ellipse& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Contains(const Ellipse& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Contains(const Ellipse& a, const Line& b) noexcept
+		{
+			return Intersect(b.begin, a) && Intersect(b.end, a);
+		}
+
+		bool Contains(const Ellipse& a, const Rect& b) noexcept
+		{
+			return Intersect(b.tl(), a) && Intersect(b.tr(), a)
+				&& Intersect(b.bl(), a) && Intersect(b.br(), a);
+		}
+
+		bool Contains(const Ellipse& a, const RectF& b) noexcept
+		{
+			return Intersect(b.tl(), a) && Intersect(b.tr(), a)
+				&& Intersect(b.bl(), a) && Intersect(b.br(), a);
+		}
+
+		bool Contains(const Ellipse& a, const Triangle& b) noexcept
+		{
+			return Intersect(b.p0, a) && Intersect(b.p1, a)
+				&& Intersect(b.p2, a);
+		}
+
+		bool Contains(const Ellipse& a, const Quad& b) noexcept
+		{
+			return Intersect(b.p0, a) && Intersect(b.p1, a)
+				&& Intersect(b.p2, a) && Intersect(b.p3, a);
+		}
+
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Triangle contains
+		//
+		bool Contains(const Triangle& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Contains(const Triangle& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Contains(const Triangle& a, const Line& b) noexcept
+		{
+			return Intersect(b.begin, a) && Intersect(b.begin, a);
+		}
+
+		bool Contains(const Triangle& a, const Rect& b) noexcept
+		{
+			return Intersect(b.tl(), a) && Intersect(b.tr(), a)
+				&& Intersect(b.bl(), a) && Intersect(b.br(), a);
+		}
+
+		bool Contains(const Triangle& a, const RectF& b) noexcept
+		{
+			return Intersect(b.tl(), a) && Intersect(b.tr(), a)
+				&& Intersect(b.bl(), a) && Intersect(b.br(), a);
+		}
+
+		bool Contains(const Triangle& a, const Triangle& b) noexcept
+		{
+			return Intersect(b.p0, a) && Intersect(b.p1, a)
+				&& Intersect(b.p2, a);
+		}
+
+		bool Contains(const Triangle& a, const Quad& b) noexcept
+		{
+			return Intersect(b.p0, a) && Intersect(b.p1, a)
+				&& Intersect(b.p2, a) && Intersect(b.p3, a);
+		}
+
+		////////////////////////////////////////////////////////////////////
+		//
+		//	Quad contains
+		//
+		bool Contains(const Quad& a, const Point& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Contains(const Quad& a, const Vec2& b) noexcept
+		{
+			return Intersect(b, a);
+		}
+
+		bool Contains(const Quad& a, const Line& b) noexcept
+		{
+			return Intersect(b.begin, a) && Intersect(b.begin, a);
+		}
+
+		bool Contains(const Quad& a, const Rect& b) noexcept
+		{
+			return Intersect(b.tl(), a) && Intersect(b.tr(), a)
+				&& Intersect(b.bl(), a) && Intersect(b.br(), a);
+		}
+
+		bool Contains(const Quad& a, const RectF& b) noexcept
+		{
+			return Intersect(b.tl(), a) && Intersect(b.tr(), a)
+				&& Intersect(b.bl(), a) && Intersect(b.br(), a);
+		}
+
+		bool Contains(const Quad& a, const Triangle& b) noexcept
+		{
+			return Intersect(b.p0, a) && Intersect(b.p1, a)
+				&& Intersect(b.p2, a);
+		}
+
+		bool Contains(const Quad& a, const Quad& b) noexcept
+		{
+			return Intersect(b.p0, a) && Intersect(b.p1, a)
+				&& Intersect(b.p2, a) && Intersect(b.p3, a);
+		}
+
+		////////////////////////////////////////////////////////////////////
+		//
 		//	Polygon contains
 		//
 		bool Contains(const Polygon& a, const Point& b) noexcept
@@ -2155,6 +2373,13 @@ namespace s3d
 		{
 			return Intersect(b, a);
 		}
+
+		//bool Contains(const Polygon& a, const Line& b) noexcept
+		//{
+		//	const boost::geometry::de9im::mask mask("T*F**F***"); // within
+		//	
+		//	boost::geometry::relation(gLine(b.begin, b.end), a._detail()->getPolygon(), mask);
+		//}
 
 		bool Contains(const Polygon& a, const Rect& b)
 		{
@@ -2299,6 +2524,11 @@ namespace s3d
 			return Distance(Vec2(a), b);
 		}
 
+		double Distance(const Point& a, const LineString& b)
+		{
+			return Distance(Vec2(a), b);
+		}
+
 		////////////////////////////////////////////////////////////////////
 		//
 		//	Vec2 vs
@@ -2346,6 +2576,11 @@ namespace s3d
 		double Distance(const Vec2& a, const Polygon& b)
 		{
 			return boost::geometry::distance(gVec2(a.x, a.y), b._detail()->getPolygon());
+		}
+
+		double Distance(const Vec2& a, const LineString& b)
+		{
+			return boost::geometry::distance(gVec2(a.x, a.y), detail::MakeLineString(b));
 		}
 
 		////////////////////////////////////////////////////////////////////
@@ -2397,6 +2632,11 @@ namespace s3d
 			return boost::geometry::distance(gLine(a.begin, a.end), b._detail()->getPolygon());
 		}
 
+		double Distance(const Line& a, const LineString& b)
+		{
+			return boost::geometry::distance(gLine(a.begin, a.end), detail::MakeLineString(b));
+		}
+
 		////////////////////////////////////////////////////////////////////
 		//
 		//	Rect vs
@@ -2442,6 +2682,11 @@ namespace s3d
 		}
 
 		double Distance(const Rect& a, const Polygon& b)
+		{
+			return Distance(RectF(a), b);
+		}
+
+		double Distance(const Rect& a, const LineString& b)
 		{
 			return Distance(RectF(a), b);
 		}
@@ -2495,6 +2740,11 @@ namespace s3d
 			return boost::geometry::distance(gBox(a.pos, a.br()), b._detail()->getPolygon());
 		}
 
+		double Distance(const RectF& a, const LineString& b)
+		{
+			return boost::geometry::distance(gBox(a.pos, a.br()), detail::MakeLineString(b));
+		}
+
 		////////////////////////////////////////////////////////////////////
 		//
 		//	Circle vs
@@ -2544,6 +2794,11 @@ namespace s3d
 			return std::max(0.0, Distance(a.center, b) - a.r);
 		}
 
+		double Distance(const Circle& a, const LineString& b)
+		{
+			return std::max(0.0, Distance(a.center, b) - a.r);
+		}
+
 		////////////////////////////////////////////////////////////////////
 		//
 		//	Triangle vs
@@ -2578,20 +2833,25 @@ namespace s3d
 			return Distance(b, a);
 		}
 
-		//double Distance(const Triangle& a, const Triangle& b)
-		//{
-		//	return boost::geometry::distance(detail::MakeTriangle(a), detail::MakeTriangle(b));
-		//}
+		double Distance(const Triangle& a, const Triangle& b)
+		{
+			return boost::geometry::distance(detail::MakeTriangle(a), detail::MakeTriangle(b));
+		}
 
-		//double Distance(const Triangle& a, const Quad& b)
-		//{
-		//	return boost::geometry::distance(detail::MakeTriangle(a), detail::MakeQuad(b));
-		//}
+		double Distance(const Triangle& a, const Quad& b)
+		{
+			return boost::geometry::distance(detail::MakeTriangle(a), detail::MakeQuad(b));
+		}
 
-		//double Distance(const Triangle& a, const Polygon& b)
-		//{
-		//	return boost::geometry::distance(detail::MakeTriangle(a), b._detail()->getPolygon());
-		//}
+		double Distance(const Triangle& a, const Polygon& b)
+		{
+			return boost::geometry::distance(detail::MakeTriangle(a), b._detail()->getPolygon());
+		}
+
+		double Distance(const Triangle& a, const LineString& b)
+		{
+			return boost::geometry::distance(detail::MakeTriangle(a), detail::MakeLineString(b));
+		}
 
 		////////////////////////////////////////////////////////////////////
 		//
@@ -2627,20 +2887,25 @@ namespace s3d
 			return Distance(b, a);
 		}
 
-		//double Distance(const Quad& a, const Triangle& b)
-		//{
-		//	return boost::geometry::distance(detail::MakeQuad(a), detail::MakeTriangle(b));
-		//}
+		double Distance(const Quad& a, const Triangle& b)
+		{
+			return boost::geometry::distance(detail::MakeQuad(a), detail::MakeTriangle(b));
+		}
 
-		//double Distance(const Quad& a, const Quad& b)
-		//{
-		//	return boost::geometry::distance(detail::MakeQuad(a), detail::MakeQuad(b));
-		//}
+		double Distance(const Quad& a, const Quad& b)
+		{
+			return boost::geometry::distance(detail::MakeQuad(a), detail::MakeQuad(b));
+		}
 
-		//double Distance(const Quad& a, const Polygon& b)
-		//{
-		//	return boost::geometry::distance(detail::MakeQuad(a), b._detail()->getPolygon());
-		//}
+		double Distance(const Quad& a, const Polygon& b)
+		{
+			return boost::geometry::distance(detail::MakeQuad(a), b._detail()->getPolygon());
+		}
+
+		double Distance(const Quad& a, const LineString& b)
+		{
+			return boost::geometry::distance(detail::MakeQuad(a), detail::MakeLineString(b));
+		}
 
 		////////////////////////////////////////////////////////////////////
 		//
@@ -2676,19 +2941,78 @@ namespace s3d
 			return Distance(b, a);
 		}
 
-		//double Distance(const Polygon& a, const Triangle& b)
-		//{
-		//	return Distance(b, a);
-		//}
+		double Distance(const Polygon& a, const Triangle& b)
+		{
+			return Distance(b, a);
+		}
 
-		//double Distance(const Polygon& a, const Quad& b)
-		//{
-		//	return Distance(b, a);
-		//}
+		double Distance(const Polygon& a, const Quad& b)
+		{
+			return Distance(b, a);
+		}
 
-		//double Distance(const Polygon& a, const Polygon& b)
-		//{
-		//	return boost::geometry::distance(a._detail()->getPolygon(), b._detail()->getPolygon());
-		//}
+		double Distance(const Polygon& a, const Polygon& b)
+		{
+			return boost::geometry::distance(a._detail()->getPolygon(), b._detail()->getPolygon());
+		}
+
+		double Distance(const Polygon& a, const LineString& b)
+		{
+			return boost::geometry::distance(a._detail()->getPolygon(), detail::MakeLineString(b));
+		}
+
+		////////////////////////////////////////////////////////////////////
+		//
+		//	LineString vs
+		//
+		double Distance(const LineString& a, const Point& b)
+		{
+			return Distance(b, a);
+		}
+
+		double Distance(const LineString& a, const Vec2& b)
+		{
+			return Distance(b, a);
+		}
+
+		double Distance(const LineString& a, const Line& b)
+		{
+			return Distance(b, a);
+		}
+
+		double Distance(const LineString& a, const Rect& b)
+		{
+			return Distance(b, a);
+		}
+
+		double Distance(const LineString& a, const RectF& b)
+		{
+			return Distance(b, a);
+		}
+
+		double Distance(const LineString& a, const Circle& b)
+		{
+			return Distance(b, a);
+		}
+
+		double Distance(const LineString& a, const Triangle& b)
+		{
+			return Distance(b, a);
+		}
+
+		double Distance(const LineString& a, const Quad& b)
+		{
+			return Distance(b, a);
+		}
+
+		double Distance(const LineString& a, const Polygon& b)
+		{
+			return Distance(b, a);
+		}
+
+		double Distance(const LineString& a, const LineString& b)
+		{
+			return boost::geometry::distance(detail::MakeLineString(a), detail::MakeLineString(b));
+		}
 	}
 }

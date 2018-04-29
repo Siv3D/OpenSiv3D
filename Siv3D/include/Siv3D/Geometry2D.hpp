@@ -144,7 +144,7 @@ namespace s3d
 		//double Distance(const Point& a, const RoundRect&		b);
 		double Distance(const Point& a, const Polygon&		b);
 		//double Distance(const Point& a, const MultiPolygon&	b);
-		//double Distance(const Point& a, const LineString&		b);
+		double Distance(const Point& a, const LineString&		b);
 
 		double Distance(const Vec2& a, const Point&			b) noexcept;
 		double Distance(const Vec2& a, const Vec2&			b) noexcept;
@@ -160,7 +160,7 @@ namespace s3d
 		//double Distance(const Vec2& a, const RoundRect&		b);
 		double Distance(const Vec2& a, const Polygon&			b);
 		//double Distance(const Vec2& a, const MultiPolygon&	b);
-		//double Distance(const Vec2& a, const LineString&		b);
+		double Distance(const Vec2& a, const LineString&		b);
 
 		double Distance(const Line& a, const Point&			b);
 		double Distance(const Line& a, const Vec2&			b);
@@ -176,7 +176,7 @@ namespace s3d
 		//double Distance(const Line& a, const RoundRect&		b);
 		double Distance(const Line& a, const Polygon&			b);
 		//double Distance(const Line& a, const MultiPolygon&	b);
-		//double Distance(const Line& a, const LineString&		b);
+		double Distance(const Line& a, const LineString&		b);
 
 		double Distance(const Rect& a, const Point&			b);
 		double Distance(const Rect& a, const Vec2&			b);
@@ -192,7 +192,7 @@ namespace s3d
 		//double Distance(const Rect& a, const RoundRect&		b);
 		double Distance(const Rect& a, const Polygon&			b);
 		//double Distance(const Rect& a, const MultiPolygon&	b);
-		//double Distance(const Rect& a, const LineString&		b);
+		double Distance(const Rect& a, const LineString&		b);
 		
 		double Distance(const RectF& a, const Point&			b);
 		double Distance(const RectF& a, const Vec2&			b);
@@ -208,7 +208,7 @@ namespace s3d
 		//double Distance(const RectF& a, const RoundRect&		b);
 		double Distance(const RectF& a, const Polygon&		b);
 		//double Distance(const RectF& a, const MultiPolygon&	b);
-		//double Distance(const RectF& a, const LineString&		b);
+		double Distance(const RectF& a, const LineString&		b);
 
 		double Distance(const Circle& a, const Point&			b);
 		double Distance(const Circle& a, const Vec2&			b);
@@ -224,7 +224,7 @@ namespace s3d
 		//double Distance(const Circle& a, const RoundRect&		b);
 		double Distance(const Circle& a, const Polygon&			b);
 		//double Distance(const Circle& a, const MultiPolygon&	b);
-		//double Distance(const Circle& a, const LineString&		b);
+		double Distance(const Circle& a, const LineString&		b);
 
 		//double Distance(const Ellipse& a, const Point&			b);
 		//double Distance(const Ellipse& a, const Vec2&			b);
@@ -251,12 +251,12 @@ namespace s3d
 		double Distance(const Triangle& a, const RectF&			b);
 		double Distance(const Triangle& a, const Circle&			b);
 		//double Distance(const Triangle& a, const Ellipse&		b);
-		//double Distance(const Triangle& a, const Triangle&		b);
-		//double Distance(const Triangle& a, const Quad&			b);
+		double Distance(const Triangle& a, const Triangle&		b);
+		double Distance(const Triangle& a, const Quad&			b);
 		//double Distance(const Triangle& a, const RoundRect&		b);
-		//double Distance(const Triangle& a, const Polygon&		b);
+		double Distance(const Triangle& a, const Polygon&		b);
 		//double Distance(const Triangle& a, const MultiPolygon&	b);
-		//double Distance(const Triangle& a, const LineString&		b);
+		double Distance(const Triangle& a, const LineString&		b);
 
 		double Distance(const Quad& a, const Point&			b);
 		double Distance(const Quad& a, const Vec2&			b);
@@ -267,12 +267,12 @@ namespace s3d
 		double Distance(const Quad& a, const RectF&			b);
 		double Distance(const Quad& a, const Circle&			b);
 		//double Distance(const Quad& a, const Ellipse&		b);
-		//double Distance(const Quad& a, const Triangle&		b);
-		//double Distance(const Quad& a, const Quad&			b);
+		double Distance(const Quad& a, const Triangle&		b);
+		double Distance(const Quad& a, const Quad&			b);
 		//double Distance(const Quad& a, const RoundRect&		b);
-		//double Distance(const Quad& a, const Polygon&		b);
+		double Distance(const Quad& a, const Polygon&		b);
 		//double Distance(const Quad& a, const MultiPolygon&	b);
-		//double Distance(const Quad& a, const LineString&		b);
+		double Distance(const Quad& a, const LineString&		b);
 
 		double Distance(const Polygon& a, const Point&			b);
 		double Distance(const Polygon& a, const Vec2&			b);
@@ -283,12 +283,12 @@ namespace s3d
 		double Distance(const Polygon& a, const RectF&			b);
 		double Distance(const Polygon& a, const Circle&			b);
 		//double Distance(const Polygon& a, const Ellipse&		b);
-		//double Distance(const Polygon& a, const Triangle&		b);
-		//double Distance(const Polygon& a, const Quad&			b);
+		double Distance(const Polygon& a, const Triangle&		b);
+		double Distance(const Polygon& a, const Quad&			b);
 		//double Distance(const Polygon& a, const RoundRect&		b);
-		//double Distance(const Polygon& a, const Polygon&		b);
+		double Distance(const Polygon& a, const Polygon&		b);
 		//double Distance(const Polygon& a, const MultiPolygon&	b);
-		//double Distance(const Polygon& a, const LineString&		b);
+		double Distance(const Polygon& a, const LineString&		b);
 
 		//double Distance(const MultiPolygon& a, const Point&			b);
 		//double Distance(const MultiPolygon& a, const Vec2&			b);
@@ -306,20 +306,20 @@ namespace s3d
 		//double Distance(const MultiPolygon& a, const MultiPolygon&	b);
 		//double Distance(const MultiPolygon& a, const LineString&		b);
 
-		//double Distance(const LineString& a, const Point&			b);
-		//double Distance(const LineString& a, const Vec2&			b);
-		//double Distance(const LineString& a, const Line&			b);
+		double Distance(const LineString& a, const Point&			b);
+		double Distance(const LineString& a, const Vec2&			b);
+		double Distance(const LineString& a, const Line&			b);
 		//double Distance(const LineString& a, const Bezier2&		b);
 		//double Distance(const LineString& a, const Bezier3&		b);
-		//double Distance(const LineString& a, const Rect&			b);
-		//double Distance(const LineString& a, const RectF&			b);
-		//double Distance(const LineString& a, const Circle&			b);
+		double Distance(const LineString& a, const Rect&			b);
+		double Distance(const LineString& a, const RectF&			b);
+		double Distance(const LineString& a, const Circle&			b);
 		//double Distance(const LineString& a, const Ellipse&		b);
-		//double Distance(const LineString& a, const Triangle&		b);
-		//double Distance(const LineString& a, const Quad&			b);
+		double Distance(const LineString& a, const Triangle&		b);
+		double Distance(const LineString& a, const Quad&			b);
 		//double Distance(const LineString& a, const RoundRect&		b);
-		//double Distance(const LineString& a, const Polygon&		b);
+		double Distance(const LineString& a, const Polygon&		b);
 		//double Distance(const LineString& a, const MultiPolygon&	b);
-		//double Distance(const LineString& a, const LineString&		b);
+		double Distance(const LineString& a, const LineString&		b);
 	}
 }
