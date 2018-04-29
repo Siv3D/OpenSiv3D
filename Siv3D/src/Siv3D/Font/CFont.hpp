@@ -78,6 +78,10 @@ namespace s3d
 
 		bool draw(FontID handleID, const String& codePoints, const RectF& area, const ColorF& color, double lineSpacingScale) override;
 
+		Rect paint(FontID handleID, Image& dst, const String& codePoints, const Point& pos, const Color& color, double lineSpacingScale) override;
+
+		Rect overwrite(FontID handleID, Image& dst, const String& codePoints, const Point& pos, const Color& color, double lineSpacingScale) override;
+
 		Image getColorEmoji(StringView emoji) override;
 
 		Image getColorEmojiSilhouette(StringView emoji) override;

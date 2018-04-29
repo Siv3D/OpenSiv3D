@@ -213,9 +213,19 @@ namespace s3d
 		return m_fonts[handleID]->draw(codePoints, pos, color, lineSpacingScale);
 	}
 
-	bool CFont::draw(FontID handleID, const String& codePoints, const RectF& area, const ColorF& color, const double lineSpacingScale)
+	bool CFont::draw(const FontID handleID, const String& codePoints, const RectF& area, const ColorF& color, const double lineSpacingScale)
 	{
 		return m_fonts[handleID]->draw(codePoints, area, color, lineSpacingScale);
+	}
+
+	Rect CFont::paint(const FontID handleID, Image& dst, const String& codePoints, const Point& pos, const Color& color, const double lineSpacingScale)
+	{
+		return m_fonts[handleID]->paint(dst, false, codePoints, pos, color, lineSpacingScale);
+	}
+
+	Rect CFont::overwrite(const FontID handleID, Image& dst, const String& codePoints, const Point& pos, const Color& color, const double lineSpacingScale)
+	{
+		return m_fonts[handleID]->paint(dst, true, codePoints, pos, color, lineSpacingScale);
 	}
 
 	Image CFont::getColorEmoji(const StringView emoji)

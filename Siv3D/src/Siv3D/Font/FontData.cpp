@@ -678,6 +678,54 @@ namespace s3d
 		return !needDots;
 	}
 
+	Rect FontData::paint(Image& dst, const bool overwrite, const String& codePoints, const Point& pos, const Color& color, const double lineSpacingScale) const
+	{
+		Vec2 penPos(pos);
+		double maxPosX = DBL_MIN;
+		int32 lineCount = 0;
+		Image tmpImage;
+
+		for (const auto& codePoint : codePoints)
+		{
+			if (codePoint == U'\n')
+			{
+				penPos.x = pos.x;
+				penPos.y += m_lineSpacing * lineSpacingScale;
+				++lineCount;
+			}
+			else if (codePoint == U'\t')
+			{
+				maxPosX = std::max(maxPosX, penPos.x + m_tabWidth);
+				penPos.x += m_tabWidth;
+			}
+			else if (IsControl(codePoint))
+			{
+
+			}
+			else
+			{
+				const char32VH indexVH = codePoint | Horizontal;
+				const FT_UInt glyphIndexText = ::FT_Get_Char_Index(m_faceText.face, codePoint);
+				const FT_UInt glyphIndexEmoji = (glyphIndexText != 0) ? 0 : m_faceEmoji ? ::FT_Get_Char_Index(m_faceEmoji.face, codePoint) : 0;
+				const FT_Face face = (glyphIndexText != 0 || (glyphIndexEmoji == 0)) ? m_faceText.face : m_faceEmoji.face;
+				const FT_UInt glyphIndex = (glyphIndexText != 0 || (glyphIndexEmoji == 0)) ? glyphIndexText : glyphIndexEmoji;
+
+				const double startX = penPos.x;
+				int32 width = 0, xAdvance = 0;
+				paintGlyph(face, glyphIndex, dst, tmpImage, overwrite, penPos.asPoint(), color, width, xAdvance);
+				penPos.x += xAdvance;
+				maxPosX = std::max(maxPosX, startX + width);
+			}
+		}
+
+		if (!lineCount)
+		{
+			return RectF(pos, 0);
+		}
+
+		return Rect(pos, static_cast<int32>(maxPosX - pos.x), static_cast<int32>(lineCount * m_lineSpacing * lineSpacingScale));
+	}
+
 	void FontData::generateVerticalTable()
 	{
 		FT_Bytes baseTable = nullptr, gdefTable = nullptr, gposTable = nullptr, gsubTable = nullptr, jstfTable = nullptr;
@@ -1117,5 +1165,93 @@ namespace s3d
 		m_glyphs.push_back(info);
 
 		return true;
+	}
+
+	void FontData::paintGlyph(FT_Face face, FT_UInt glyphIndex, Image& image, Image& tmpImage, const bool overwrite, const Point& penPos, const Color& color, int32& width, int32& xAdvance) const
+	{
+		if (const FT_Error error = ::FT_Load_Glyph(face, glyphIndex, FT_LOAD_DEFAULT | (m_noBitmap ? FT_LOAD_NO_BITMAP : 0)))
+		{
+			return;
+		}
+
+		if (m_bold)
+		{
+			::FT_GlyphSlot_Embolden(face->glyph);
+		}
+
+		if (m_italic)
+		{
+			::FT_GlyphSlot_Oblique(face->glyph);
+		}
+
+		const FT_GlyphSlot slot = face->glyph;
+		bool isBitmap = false;
+
+		if (face->glyph->format != FT_GLYPH_FORMAT_BITMAP)
+		{
+			if (const FT_Error error = ::FT_Render_Glyph(slot, FT_RENDER_MODE_NORMAL))
+			{
+				return;
+			}
+		}
+		else
+		{
+			isBitmap = true;
+		}
+
+		const int32 bitmapWidth = slot->bitmap.width;
+		const int32 bitmapHeight = slot->bitmap.rows;
+		const int32 bitmapStride = slot->bitmap.pitch;
+		const uint8* bitmapBuffer = slot->bitmap.buffer;
+		const Point offset(slot->bitmap_left, m_ascender - slot->bitmap_top);
+
+		width = bitmapWidth;
+		xAdvance = static_cast<int32>(slot->metrics.horiAdvance / 64);
+
+		tmpImage.resize(bitmapWidth, bitmapHeight);
+
+		if (!tmpImage)
+		{
+			return;
+		}
+
+		Color* pDst = tmpImage.data();
+
+		if (isBitmap)
+		{
+			const uint8* pSrcLine = bitmapBuffer;
+
+			for (int32 y = 0; y < bitmapHeight; ++y)
+			{
+				for (int32 x = 0; x < bitmapWidth; ++x)
+				{
+					const uint32 offsetI = x / 8;
+					const uint32 offsetB = 7 - x % 8;
+
+					(*pDst++) = Color(255, ((pSrcLine[offsetI] >> offsetB) & 0x1) ? 255 : 0);
+				}
+
+				pSrcLine += bitmapStride;
+			}
+		}
+		else
+		{
+			for (int32 y = 0; y < bitmapHeight; ++y)
+			{
+				for (int32 x = 0; x < bitmapWidth; ++x)
+				{
+					(*pDst++) = Color(255, (*bitmapBuffer++));
+				}
+			}
+		}
+
+		if (overwrite)
+		{
+			tmpImage.overwrite(image, penPos + offset, color);
+		}
+		else
+		{
+			tmpImage.paint(image, penPos + offset, color);
+		}
 	}
 }

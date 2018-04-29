@@ -57,6 +57,10 @@ namespace s3d
 
 		virtual bool draw(FontID handleID, const String& codePoints, const RectF& area, const ColorF& color, double lineSpacingScale) = 0;
 
+		virtual Rect paint(FontID handleID, Image& dst, const String& codePoints, const Point& pos, const Color& color, double lineSpacingScale) = 0;
+
+		virtual Rect overwrite(FontID handleID, Image& dst, const String& codePoints, const Point& pos, const Color& color, double lineSpacingScale) = 0;
+
 		virtual Image getColorEmoji(StringView emoji) = 0;
 
 		virtual Image getColorEmojiSilhouette(StringView emoji) = 0;
