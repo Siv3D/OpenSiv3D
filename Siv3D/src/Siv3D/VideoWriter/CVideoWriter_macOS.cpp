@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -13,6 +13,8 @@
 # if defined(SIV3D_TARGET_MACOS)
 
 # include <Siv3D/String.hpp>
+# include <Siv3D/Image.hpp>
+# include <Siv3D/FileSystem.hpp>
 # include "CVideoWriter_macOS.hpp"
 
 namespace s3d
@@ -33,12 +35,17 @@ namespace s3d
 		{
 			close();
 		}
+		
+		if (FileSystem::Exists(path))
+		{
+			FileSystem::Remove(path);
+		}
 
-		const bool result = m_writer.open(path.narrow(), cv::VideoWriter::fourcc('M', 'P', '4', 'V'), fps, cv::Size(size.x, size.y), true);
+		const bool result = m_writer.open(path.narrow(), cv::VideoWriter::fourcc('H', '2', '6', '4'), fps, cv::Size(size.x, size.y), true);
 
 		if (result)
 		{
-			m_size = size;
+			m_frameSize = size;
 		}
 
 		return result;
@@ -53,12 +60,53 @@ namespace s3d
 
 		m_writer.release();
 
-		m_size.set(0, 0);
+		m_frameSize.set(0, 0);
 	}
 
 	bool VideoWriter::CVideoWriter::isOpened() const
 	{
 		return m_writer.isOpened();
+	}
+	
+	bool VideoWriter::CVideoWriter::write(const Image& image)
+	{
+		if (!isOpened())
+		{
+			return false;
+		}
+		
+		if (image.size() != m_frameSize)
+		{
+			return false;
+		}
+		
+		cv::Mat_<cv::Vec3b> mat(m_frameSize.y, m_frameSize.x);
+		{
+			const Color* pSrc = image.data();
+			
+			for (int32 y = 0; y < m_frameSize.y; ++y)
+			{
+				auto* line = &mat(y, 0);
+				
+				for (int32 x = 0; x < m_frameSize.x; ++x)
+				{
+					line[x][0] = pSrc->r;
+					line[x][1] = pSrc->g;
+					line[x][2] = pSrc->b;
+					
+					++pSrc;
+				}
+			}
+		}
+		
+		m_writer.write(mat);
+		
+		return true;
+	}
+	
+	Size VideoWriter::CVideoWriter::size() const
+	{
+		return m_frameSize;
 	}
 }
 

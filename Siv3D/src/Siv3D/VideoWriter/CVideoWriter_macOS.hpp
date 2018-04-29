@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -25,7 +25,7 @@ namespace s3d
 
 		cv::VideoWriter m_writer;
 
-		Size m_size = Size(0, 0);
+		Size m_frameSize = Size(0, 0);
 
 	public:
 
@@ -38,6 +38,10 @@ namespace s3d
 		void close();
 
 		bool isOpened() const;
+		
+		bool write(const Image& image);
+		
+		Size size() const;
 	};
 }
 
