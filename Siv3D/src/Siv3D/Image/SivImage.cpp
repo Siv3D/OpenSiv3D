@@ -2296,7 +2296,7 @@ namespace s3d
 			return polygons[index];
 		}
 
-		Array<Polygon> FindExternalContours(const Image& image, bool useAlpha, uint32 threshold)
+		MultiPolygon FindExternalContours(const Image& image, bool useAlpha, uint32 threshold)
 		{
 			if (!image)
 			{
@@ -2327,7 +2327,7 @@ namespace s3d
 				return{};
 			}
 
-			Array<Polygon> result;
+			MultiPolygon result;
 
 			for (const auto& contour : contours)
 			{
@@ -2382,7 +2382,7 @@ namespace s3d
 			return polygons[index];
 		}
 
-		Array<Polygon> FindContours(const Image& image, bool useAlpha, uint32 threshold)
+		MultiPolygon FindContours(const Image& image, bool useAlpha, uint32 threshold)
 		{
 			if (!image)
 			{
@@ -2415,7 +2415,7 @@ namespace s3d
 				return{};
 			}
 
-			Array<Polygon> result;
+			MultiPolygon result;
 
 			for (size_t i = 0; i < contours.size(); i = hierarchy[i][0])
 			{

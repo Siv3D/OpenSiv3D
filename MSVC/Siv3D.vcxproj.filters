@@ -725,6 +725,12 @@
     <Filter Include="src\Siv3D\IPv4">
       <UniqueIdentifier>{a25a9fd4-81c0-4132-8e60-a20296aef4da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\MultiPolygon">
+      <UniqueIdentifier>{d105ab7c-d8be-437e-b6b4-774bcaecac8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\VideoWriter">
+      <UniqueIdentifier>{ed160e44-aea6-497d-a451-6274c52d05a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -2028,6 +2034,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\IPv4\SivIPv4.cpp">
       <Filter>src\Siv3D\IPv4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\MultiPolygon\SivMultiPolygon.cpp">
+      <Filter>src\Siv3D\MultiPolygon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\VideoWriter\SivVideoWriter.cpp">
+      <Filter>src\Siv3D\VideoWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\VideoWriter\CVideoWriter_macOS.cpp">
+      <Filter>src\Siv3D\VideoWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\VideoWriter\CVideoWriter_Windows.cpp">
+      <Filter>src\Siv3D\VideoWriter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -4217,6 +4235,18 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\ColorComponents.hpp">
       <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\MultiPolygon.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\VideoWriter.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\VideoWriter\CVideoWriter_macOS.hpp">
+      <Filter>src\Siv3D\VideoWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\VideoWriter\CVideoWriter_Windows.hpp">
+      <Filter>src\Siv3D\VideoWriter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

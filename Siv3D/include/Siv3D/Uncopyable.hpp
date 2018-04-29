@@ -17,7 +17,9 @@ namespace s3d
 	{
 	protected:
 
-		Uncopyable() = default;
+		constexpr Uncopyable() = default;
+
+		~Uncopyable() = default;
 
 		Uncopyable(const Uncopyable&) = delete;
 

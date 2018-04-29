@@ -91,6 +91,8 @@ namespace s3d
 		bool init() override;
 
 		Wave decode(IReader& reader) override;
+
+		void getFunctions(MF_Functions& functions) const;
 	};
 }
 
