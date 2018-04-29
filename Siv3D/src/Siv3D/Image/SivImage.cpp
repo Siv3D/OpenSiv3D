@@ -2452,7 +2452,18 @@ namespace s3d
 
 				if (external.size() >= 3)
 				{
-					result.emplace_back(external, holes);
+					Polygon polygon;
+
+					try
+					{
+						polygon = Polygon(external, holes);
+					}
+					catch (...)
+					{
+						polygon = Polygon(external);
+					}
+
+					result.push_back(std::move(polygon));
 				}
 			}
 
