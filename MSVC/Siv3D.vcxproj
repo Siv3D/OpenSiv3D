@@ -316,6 +316,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Vector3D\SivVector3D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Vector4D\SivVector4D.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\VertexShader\SivVertexShader.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\VideoWriter\CVideoWriter.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\VideoWriter\SivVideoWriter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Wave\SivWave.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\CWindow_Linux.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Window\CWindow_macOS.cpp" />
@@ -684,6 +686,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Version.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Vertex2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\VertexShader.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\VideoWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ViewportBlock2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Wave.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\WaveSample.hpp" />
@@ -904,6 +907,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Texture\GL\Texture_GL.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Texture\ITexture.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\TextWriter\CTextWriter.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\VideoWriter\CVideoWriter.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Window\CWindow_Linux.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Window\CWindow_macOS.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Window\CWindow_Windows.hpp" />

@@ -581,10 +581,12 @@
 
 	//// GIF アニメーションの書き出し
 	//# include "Siv3D/AnimatedGIFWriter.hpp"
+
 	//// 動画ファイルの読み込み
 	//# include "Siv3D/VideoReader.hpp"
-	//// 動画ファイルの書き出し
-	//# include "Siv3D/VideoWriter.hpp"
+
+	// 動画ファイルの書き出し
+	# include "Siv3D/VideoWriter.hpp"
 
 //////////////////////////////////////////////////
 //
