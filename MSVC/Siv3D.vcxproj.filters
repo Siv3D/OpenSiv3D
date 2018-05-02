@@ -731,6 +731,9 @@
     <Filter Include="src\Siv3D\VideoWriter">
       <UniqueIdentifier>{ed160e44-aea6-497d-a451-6274c52d05a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\ObjectDetection">
+      <UniqueIdentifier>{148d6106-b5d9-405e-8afe-4c1d93b7450f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -2046,6 +2049,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\VideoWriter\CVideoWriter_Windows.cpp">
       <Filter>src\Siv3D\VideoWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ObjectDetection\CObjectDetection.cpp">
+      <Filter>src\Siv3D\ObjectDetection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\ObjectDetection\ObjectDetectionFactory.cpp">
+      <Filter>src\Siv3D\ObjectDetection</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -4247,6 +4256,12 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\VideoWriter\CVideoWriter_Windows.hpp">
       <Filter>src\Siv3D\VideoWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\ObjectDetection\CObjectDetection.hpp">
+      <Filter>src\Siv3D\ObjectDetection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\ObjectDetection\IObjectDetection.hpp">
+      <Filter>src\Siv3D\ObjectDetection</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -197,6 +197,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Network\CNetwork.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Network\NetworkFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Network\SivNetwork.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ObjectDetection\CObjectDetection.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ObjectDetection\ObjectDetectionFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Painting\PaintShape.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Painting\SivPainting.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseBool\SivParseBool.cpp" />
@@ -855,6 +857,8 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\NavMesh\CNavMesh.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Network\CNetwork.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Network\INetwork.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\ObjectDetection\CObjectDetection.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\ObjectDetection\IObjectDetection.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Painting\PaintShape.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Polygon\CPolygon.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Print\CPrint.hpp" />

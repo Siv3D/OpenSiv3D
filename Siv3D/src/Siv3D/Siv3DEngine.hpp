@@ -20,6 +20,7 @@ namespace s3d
 	class ISiv3DCPU;
 	class ISiv3DConsole;
 	class ISiv3DImageFormat;
+	class ISiv3DObjectDetection;
 	class ISiv3DWindow;
 	class ISiv3DProfiler;
 	class ISiv3DClipboard;
@@ -93,6 +94,8 @@ namespace s3d
 		Siv3DComponent<ISiv3DConsole> m_console;
 
 		Siv3DComponent<ISiv3DImageFormat> m_imageFormat;
+
+		Siv3DComponent<ISiv3DObjectDetection> m_objectDetection;
 
 		Siv3DComponent<ISiv3DWindow> m_window;
 
@@ -183,6 +186,11 @@ namespace s3d
 		static ISiv3DImageFormat* GetImageFormat()
 		{
 			return pEngine->m_imageFormat.get();
+		}
+
+		static ISiv3DObjectDetection* GetObjectDetection()
+		{
+			return pEngine->m_objectDetection.get();
 		}
 
 		static ISiv3DWindow* GetWindow()

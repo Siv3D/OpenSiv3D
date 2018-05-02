@@ -574,6 +574,7 @@ namespace s3d
 	enum class BorderType;
 	enum class FloodFillConnectivity;
 	enum class Interpolation;
+	enum class HaarCascade;
 	class Image;
 
 	//////////////////////////////////////////////////////

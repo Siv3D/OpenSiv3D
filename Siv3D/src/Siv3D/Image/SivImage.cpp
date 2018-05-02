@@ -11,6 +11,7 @@
 
 # include "../Siv3DEngine.hpp"
 # include "../ImageFormat/IImageFormat.hpp"
+# include "../ObjectDetection/IObjectDetection.hpp"
 
 # include <opencv2/imgproc.hpp>
 # include <Siv3D/Image.hpp>
@@ -2437,12 +2438,12 @@ namespace s3d
 		return ImageRegion(*this, rect);
 	}
 
-	Polygon Image::alphaToPolygon(const uint32 threshold, const bool allowHoles)
+	Polygon Image::alphaToPolygon(const uint32 threshold, const bool allowHoles) const
 	{
 		return detail::SelectLargestPolygon(alphaToPolygons(threshold, allowHoles));
 	}
 
-	MultiPolygon Image::alphaToPolygons(const uint32 threshold, const bool allowHoles)
+	MultiPolygon Image::alphaToPolygons(const uint32 threshold, const bool allowHoles) const
 	{
 		if (isEmpty())
 		{
@@ -2456,12 +2457,12 @@ namespace s3d
 		return allowHoles ? detail::ToPolygons(gray) : detail::ToPolygonsWithoutHoles(gray);
 	}
 
-	Polygon Image::grayscaleToPolygon(const uint32 threshold, const bool allowHoles)
+	Polygon Image::grayscaleToPolygon(const uint32 threshold, const bool allowHoles) const
 	{
 		return detail::SelectLargestPolygon(grayscaleToPolygons(threshold, allowHoles));
 	}
 
-	MultiPolygon Image::grayscaleToPolygons(const uint32 threshold, const bool allowHoles)
+	MultiPolygon Image::grayscaleToPolygons(const uint32 threshold, const bool allowHoles) const
 	{
 		if (isEmpty())
 		{
@@ -2473,6 +2474,16 @@ namespace s3d
 		detail::ToBinaryFromR(*this, gray, threshold);
 
 		return allowHoles ? detail::ToPolygons(gray) : detail::ToPolygonsWithoutHoles(gray);
+	}
+
+	Array<Rect> Image::detectObjects(const HaarCascade cascade, const int32 minNeighbors, const Size& minSize, const Optional<Size>& maxSize) const
+	{
+		return Siv3DEngine::GetObjectDetection()->detect(*this, cascade, minNeighbors, minSize, maxSize.value_or(Size(0, 0)));
+	}
+
+	Array<Rect> Image::detectObjects(const HaarCascade cascade, const Array<Rect>& regions, const int32 minNeighbors, const Size& minSize, const Optional<Size>& maxSize) const
+	{
+		return Siv3DEngine::GetObjectDetection()->detect(*this, cascade, regions, minNeighbors, minSize, maxSize.value_or(Size(0, 0)));
 	}
 
 	namespace ImageProcessing

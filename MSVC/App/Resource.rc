@@ -37,6 +37,11 @@ Resource(engine/font/noto/NotoColorEmoji.ttf.zst)
 Resource(engine/font/noto/NotoEmoji-Regular.ttf.zst)
 Resource(engine/font/fontawesome/brands.otf.zst)
 Resource(engine/font/fontawesome/solid.otf.zst)
+Resource(engine/objdetect/haarcascade/eye.xml.zst)
+Resource(engine/objdetect/haarcascade/eye_eyeglasses.xml.zst)
+Resource(engine/objdetect/haarcascade/face_anime.xml.zst)
+Resource(engine/objdetect/haarcascade/frontal_catface.xml.zst)
+Resource(engine/objdetect/haarcascade/frontal_face_alt2.xml.zst)
 
 //////////////////////////////////////////////////////
 //

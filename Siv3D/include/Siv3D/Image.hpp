@@ -14,6 +14,7 @@
 # include "Fwd.hpp"
 # include "Array.hpp"
 # include "Color.hpp"
+# include "Unspecified.hpp"
 # include "NamedParameter.hpp"
 # include "PointVector.hpp"
 # include "Rectangle.hpp"
@@ -96,6 +97,19 @@ namespace s3d
 		/// 最適な手法を自動選択
 		/// </summary>
 		Unspecified,
+	};
+
+	enum class HaarCascade
+	{
+		Face,
+
+		Eye,
+
+		EyeWithEyeglasses,
+
+		AnimeFace,
+
+		FrontalCatFace,
 	};
 
 	/// <summary>
@@ -1198,13 +1212,17 @@ namespace s3d
 
 		ImageRegion operator ()(const Rect& rect) const;
 
-		Polygon alphaToPolygon(uint32 threshold = 160, bool allowHoles = true);
+		Polygon alphaToPolygon(uint32 threshold = 160, bool allowHoles = true) const;
 
-		MultiPolygon alphaToPolygons(uint32 threshold = 160, bool allowHoles = true);
+		MultiPolygon alphaToPolygons(uint32 threshold = 160, bool allowHoles = true) const;
 
-		Polygon grayscaleToPolygon(uint32 threshold = 160, bool allowHoles = true);
+		Polygon grayscaleToPolygon(uint32 threshold = 160, bool allowHoles = true) const;
 
-		MultiPolygon grayscaleToPolygons(uint32 threshold = 160, bool allowHoles = true);
+		MultiPolygon grayscaleToPolygons(uint32 threshold = 160, bool allowHoles = true) const;
+
+		Array<Rect> detectObjects(HaarCascade cascade, int32 minNeighbors = 3, const Size& minSize = Size(30, 30), const Optional<Size>& maxSize = unspecified) const;
+
+		Array<Rect> detectObjects(HaarCascade cascade, const Array<Rect>& regions, int32 minNeighbors = 3, const Size& minSize = Size(30, 30), const Optional<Size>& maxSize = unspecified) const;
 	};
 }
 
