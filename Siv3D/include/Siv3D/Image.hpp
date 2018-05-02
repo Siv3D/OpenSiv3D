@@ -1197,6 +1197,14 @@ namespace s3d
 		ImageRegion operator ()(const Point& pos, const Size& size) const;
 
 		ImageRegion operator ()(const Rect& rect) const;
+
+		Polygon alphaToPolygon(uint32 threshold = 160, bool allowHoles = true);
+
+		MultiPolygon alphaToPolygons(uint32 threshold = 160, bool allowHoles = true);
+
+		Polygon grayscaleToPolygon(uint32 threshold = 160, bool allowHoles = true);
+
+		MultiPolygon grayscaleToPolygons(uint32 threshold = 160, bool allowHoles = true);
 	};
 }
 

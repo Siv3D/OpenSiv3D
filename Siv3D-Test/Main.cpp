@@ -8,8 +8,7 @@ MultiPolygon MakePolygons(const Font& font, const String& text)
 
 	font(text).overwrite(image, 0, 0, Palette::White);
 
-	return ImageProcessing::FindContours(image, true)
-		.simplified(1).movedBy(-400, -500).scaled(0.025);
+	return image.alphaToPolygons().simplified(1).movedBy(-400, -500).scaled(0.025);
 }
 
 void Main()
@@ -17,26 +16,23 @@ void Main()
 	Window::Resize(1280, 720);
 	Graphics::SetBackground(ColorF(0.94, 0.91, 0.86));
 
-	const Font font(100, Typeface::Bold);
-
 	P2World world;
-	
 	const P2Body line = world.createLine(Vec2(0, 0), Line(-16, 0, 16, 0), P2Material(1, 0.1, 1.0), none, P2BodyType::Static);
-	
 	Array<P2Body> bodies;
 
 	Camera2D camera(Vec2(0, -5), 38);
 	camera.enableKeyControl(false);
+
+	const Font font(100, Typeface::Bold);
+	String text;
 	int32 generation = 0;
 	HashTable<P2BodyID, int32> table;
-
-	String text;
 
 	while (System::Update())
 	{
 		TextInput::UpdateText(text);
 
-		world.update(System::DeltaTime(), 12, 4);
+		world.update(System::DeltaTime(0.05), 12*8, 4*8);
 
 		camera.update();
 
@@ -45,6 +41,8 @@ void Main()
 		for (const auto& body : bodies)
 		{
 			body.draw(HSV(table[body.id()] * 45 + 30, 0.75, 0.85));
+
+			//body.drawWireframe(1, ColorF(0.25));
 		}
 
 		line.draw(Palette::Green);
@@ -71,7 +69,7 @@ void Main()
 			++generation;
 		}
 
-		if (MouseR.down())
+		if (KeyDelete.down())
 		{
 			bodies.clear();
 		}

@@ -38,8 +38,8 @@ namespace s3d
 			{
 			case BorderType::Replicate:
 				return cv::BORDER_REPLICATE;
-			//case BorderType::Wrap:
-			//	return cv::BORDER_WRAP;
+				//case BorderType::Wrap:
+				//	return cv::BORDER_WRAP;
 			case BorderType::Reflect:
 				return cv::BORDER_REFLECT;
 			case BorderType::Reflect_101:
@@ -201,6 +201,183 @@ namespace s3d
 
 				pLine += imgWidth;
 			}
+		}
+
+		MultiPolygon ToPolygonsWithoutHoles(const cv::Mat_<uint8>& gray)
+		{
+			MultiPolygon polygons;
+			std::vector<std::vector<cv::Point>> contours;
+
+			try
+			{
+				cv::findContours(gray, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE, { 0, 0 });
+			}
+			catch (cv::Exception&)
+			{
+				return polygons;
+			}
+
+			for (const auto& contour : contours)
+			{
+				const size_t externalSize = contour.size();
+
+				if (externalSize < 3)
+				{
+					continue;
+				}
+
+				Array<Vec2> external(externalSize);
+				{
+					Vec2* pDst = external.data();
+					const Vec2* const pDstEnd = pDst + externalSize;
+					const cv::Point* pSrc = contour.data() + (externalSize - 1);
+
+					while (pDst != pDstEnd)
+					{
+						pDst->set(pSrc->x, pSrc->y);
+						++pDst; --pSrc;
+					}
+				}
+
+				polygons.emplace_back(external);
+			}
+
+			return polygons;
+		}
+
+		MultiPolygon ToPolygons(const cv::Mat_<uint8>& gray)
+		{
+			MultiPolygon polygons;
+			std::vector<std::vector<cv::Point>> contours;
+			std::vector<cv::Vec4i> hierarchy;
+
+			try
+			{
+				cv::findContours(gray, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE, { 0, 0 });
+			}
+			catch (cv::Exception&)
+			{
+				return polygons;
+			}
+
+			for (size_t i = 0; i < contours.size(); i = hierarchy[i][0])
+			{
+				const auto& contour = contours[i];
+				const size_t externalSize = contour.size();
+
+				if (externalSize < 3)
+				{
+					continue;
+				}
+
+				Array<Vec2> external(externalSize);
+				{
+					{
+						Vec2* pDst = external.data();
+						const Vec2* const pDstEnd = pDst + externalSize;
+						const cv::Point* pSrc = contour.data() + (externalSize - 1);
+
+						while (pDst != pDstEnd)
+						{
+							pDst->set(pSrc->x, pSrc->y);
+							++pDst; --pSrc;
+						}
+					}
+
+					for (size_t k = 0; k < externalSize; ++k)
+					{
+						const Vec2& a = external[k];
+
+						for (size_t m = k + 1; m < externalSize; ++m)
+						{
+							if (Vec2& b = external[m]; a == b)
+							{
+								b += ((external[m - 1] - b).normalized() * 0.5).rotated(90_deg);
+							}
+						}
+					}
+
+					{
+						Vec2* pDst = external.data() + 1;
+						const Vec2* pDstEnd = external.data() + externalSize;
+
+						while (pDst != pDstEnd)
+						{
+							*pDst -= ((*(pDst - 1) - *pDst).normalized() * 0.01);
+							++pDst;
+						}
+					}
+				}
+
+				Array<Array<Vec2>> holes;
+				{
+					for (int32 k = hierarchy[i][2]; k != -1; k = hierarchy[k][0])
+					{
+						const auto& holeContour = contours[k];
+						const size_t holeSize = holeContour.size();
+
+						Array<Vec2> hole(holeSize);
+						{
+							Vec2* pDst = hole.data();
+							const Vec2* const pDstEnd = pDst + holeSize;
+							const cv::Point* pSrc = holeContour.data() + (holeSize - 1);
+
+							while (pDst != pDstEnd)
+							{
+								pDst->set(pSrc->x, pSrc->y);
+								++pDst; --pSrc;
+							}
+						}
+
+						holes.push_back(std::move(hole));
+					}
+				}
+
+				Polygon polygon;
+
+				try
+				{
+					polygon = Polygon(external, holes);
+				}
+				catch (std::runtime_error&)
+				{
+					polygon = Polygon(external);
+				}
+
+				polygons.push_back(std::move(polygon));
+			}
+
+			return polygons;
+		}
+
+		Polygon SelectLargestPolygon(const MultiPolygon& polygons)
+		{
+			if (!polygons)
+			{
+				return Polygon();
+			}
+			else if (polygons.size() == 1)
+			{
+				return polygons.front();
+			}
+
+			double maxArea = 0.0;
+
+			size_t index = 0;
+
+			for (size_t i = 0; i < polygons.size(); ++i)
+			{
+				const double area = polygons[i].area();
+
+				if (area > maxArea)
+				{
+					maxArea = area;
+
+					index = i;
+				}
+			}
+
+			return polygons[index];
 		}
 	}
 
@@ -2260,6 +2437,43 @@ namespace s3d
 		return ImageRegion(*this, rect);
 	}
 
+	Polygon Image::alphaToPolygon(const uint32 threshold, const bool allowHoles)
+	{
+		return detail::SelectLargestPolygon(alphaToPolygons(threshold, allowHoles));
+	}
+
+	MultiPolygon Image::alphaToPolygons(const uint32 threshold, const bool allowHoles)
+	{
+		if (isEmpty())
+		{
+			MultiPolygon();
+		}
+
+		cv::Mat_<uint8> gray(height(), width());
+
+		detail::ToBinaryFromA(*this, gray, threshold);
+
+		return allowHoles ? detail::ToPolygons(gray) : detail::ToPolygonsWithoutHoles(gray);
+	}
+
+	Polygon Image::grayscaleToPolygon(const uint32 threshold, const bool allowHoles)
+	{
+		return detail::SelectLargestPolygon(grayscaleToPolygons(threshold, allowHoles));
+	}
+
+	MultiPolygon Image::grayscaleToPolygons(const uint32 threshold, const bool allowHoles)
+	{
+		if (isEmpty())
+		{
+			MultiPolygon();
+		}
+
+		cv::Mat_<uint8> gray(height(), width());
+
+		detail::ToBinaryFromR(*this, gray, threshold);
+
+		return allowHoles ? detail::ToPolygons(gray) : detail::ToPolygonsWithoutHoles(gray);
+	}
 
 	namespace ImageProcessing
 	{
@@ -2428,6 +2642,24 @@ namespace s3d
 				for (int k = static_cast<int>(contour.size()) - 1; k >= 0; --k)
 				{
 					external.emplace_back(contour[k].x, contour[k].y);
+				}
+
+				for (size_t k = 0; k < external.size(); ++k)
+				{
+					const Vec2 base = external[k];
+
+					for (size_t m = k + 1; m < external.size(); ++m)
+					{
+						if (base == external[m])
+						{
+							external[m] += ((external[m - 1] - external[m]).normalized() * 0.5).rotated(90_deg);
+						}
+					}
+				}
+
+				for (size_t k = 1; k < external.size(); ++k)
+				{
+					external[k] -= ((external[k - 1] - external[k]).normalized() * 0.01);
 				}
 
 				Array<Array<Vec2>> holes;
