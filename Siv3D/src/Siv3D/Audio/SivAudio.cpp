@@ -90,6 +90,48 @@ namespace s3d
 		setLoop(loopBegin, loopEnd);
 	}
 
+	Audio::Audio(const Wave& wave)
+		: Audio(Wave(wave))
+	{
+
+	}
+
+	Audio::Audio(const Wave& wave, const Optional<AudioLoopTiming>& loop)
+		: Audio(Wave(wave), loop)
+	{
+
+	}
+
+	Audio::Audio(const Wave& wave, Arg::loop_<bool> loop)
+		: Audio(Wave(wave), loop)
+	{
+
+	}
+
+	Audio::Audio(const Wave& wave, Arg::loopBegin_<uint64> loopBegin)
+		: Audio(Wave(wave), loopBegin)
+	{
+
+	}
+
+	Audio::Audio(const Wave& wave, Arg::loopBegin_<uint64> loopBegin, Arg::loopEnd_<uint64> loopEnd)
+		: Audio(Wave(wave), loopBegin, loopEnd)
+	{
+
+	}
+
+	Audio::Audio(const Wave& wave, Arg::loopBegin_<SecondsF> loopBegin)
+		: Audio(Wave(wave), loopBegin)
+	{
+
+	}
+
+	Audio::Audio(const Wave& wave, Arg::loopBegin_<SecondsF> loopBegin, Arg::loopEnd_<SecondsF> loopEnd)
+		: Audio(Wave(wave), loopBegin, loopEnd)
+	{
+
+	}
+
 	Audio::Audio(const FilePath& path)
 		: Audio(Wave(path))
 	{
@@ -143,6 +185,12 @@ namespace s3d
 		: Audio(path)
 	{
 		setLoop(loopBegin, loopEnd);
+	}
+
+	Audio::Audio(IReader&& reader, const AudioFormat format)
+		: Audio(Wave(std::move(reader), format))
+	{
+
 	}
 
 	Audio::~Audio()

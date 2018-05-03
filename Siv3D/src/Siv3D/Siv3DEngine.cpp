@@ -29,6 +29,7 @@
 # include "TextInput/ITextInput.hpp"
 # include "Codec/ICodec.hpp"
 # include "AudioFormat/IAudioFormat.hpp"
+# include "SoundFont/ISoundFont.hpp"
 # include "Audio/IAudio.hpp"
 # include "FFT/IFFT.hpp"
 # include "Network/INetwork.hpp"
@@ -65,6 +66,7 @@ namespace s3d
 		m_network.release();
 		m_fft.release();
 		m_audio.release();
+		m_soundFont.release();
 		m_audioFormat.release();
 		m_codec.release();
 		m_textInput.release();

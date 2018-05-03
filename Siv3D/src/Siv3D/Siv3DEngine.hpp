@@ -33,6 +33,7 @@ namespace s3d
 	class ISiv3DTextInput;
 	class ISiv3DCodec;
 	class ISiv3DAudioFormat;
+	class ISiv3DSoundFont;
 	class ISiv3DAudio;
 	class ISiv3DFFT;
 	class ISiv3DNetwork;
@@ -120,6 +121,8 @@ namespace s3d
 		Siv3DComponent<ISiv3DCodec> m_codec;
 
 		Siv3DComponent<ISiv3DAudioFormat> m_audioFormat;
+
+		Siv3DComponent<ISiv3DSoundFont> m_soundFont;
 
 		Siv3DComponent<ISiv3DAudio> m_audio;
 
@@ -251,6 +254,11 @@ namespace s3d
 		static ISiv3DAudioFormat* GetAudioFormat()
 		{
 			return pEngine->m_audioFormat.get();
+		}
+
+		static ISiv3DSoundFont* GetSoundFont()
+		{
+			return pEngine->m_soundFont.get();
 		}
 
 		static ISiv3DAudio* GetAudio()

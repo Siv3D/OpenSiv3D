@@ -67,12 +67,12 @@ namespace s3d
 
 		for (const auto& cascadeName : detail::CascadeNames)
 		{
-			const FilePath fontResourcePath = Resource(U"engine/objdetect/haarcascade/" + cascadeName + U".zst");
+			const FilePath cascadeResourcePath = Resource(U"engine/objdetect/haarcascade/" + cascadeName + U".zst");
 
 			if (!FileSystem::Exists(cascadeDirectory + cascadeName)
-				&& FileSystem::Exists(fontResourcePath))
+				&& FileSystem::Exists(cascadeResourcePath))
 			{
-				Compression::DecompressFileToFile(fontResourcePath, cascadeDirectory + cascadeName);
+				Compression::DecompressFileToFile(cascadeResourcePath, cascadeDirectory + cascadeName);
 			}
 		}
 

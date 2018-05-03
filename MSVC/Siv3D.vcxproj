@@ -267,6 +267,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Siv3DMain_Linux.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Siv3DMain_macOS.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Siv3DMain_Windows.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\CSoundFont.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\SoundFontFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Sprite\SivSprite.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Stopwatch\SivStopwatch.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\StringView\SivStringView.cpp" />
@@ -641,6 +643,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Shader.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Shape2D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SIMDMath.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\SoundFont.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Spherical.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Spline.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Sprite.hpp" />
@@ -891,6 +894,8 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Siv3DEngine.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Siv3D_Linux.h" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Siv3D_macOS.h" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\SoundFont\CSoundFont.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\SoundFont\ISoundFont.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\SVM\CSVM.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\System\CSystem_Linux.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\System\CSystem_macOS.hpp" />
@@ -1167,6 +1172,7 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\Recast\RecastAlloc.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\Recast\RecastAssert.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\RFC1321\RFC1321.hpp" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\TinySoundFont\tsf.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\tinyxml\tinyxml2.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\XAudio2_7\audiodefs.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\XAudio2_7\comdecl.h" />

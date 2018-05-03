@@ -101,21 +101,21 @@ namespace s3d
 
 		Wave() = default;
 
-		explicit Wave(size_t num_samples, uint32 samplingRate)
+		explicit Wave(size_t num_samples, Arg::samplingRate_<uint32> samplingRate)
 			: base_type(num_samples)
-			, m_samplingRate(samplingRate) {}
+			, m_samplingRate(*samplingRate) {}
 
-		explicit Wave(const SecondsF& length, uint32 samplingRate = DefaultSamplingRate);
+		explicit Wave(const Duration& duration, Arg::samplingRate_<uint32> samplingRate = Arg::samplingRate_<uint32>(DefaultSamplingRate));
 
-		Wave(size_t num_samples, const WaveSample& sample, uint32 samplingRate)
+		Wave(size_t num_samples, const WaveSample& sample, Arg::samplingRate_<uint32> samplingRate)
 			: base_type(num_samples, sample)
-			, m_samplingRate(samplingRate) {}
+			, m_samplingRate(*samplingRate) {}
 
-		Wave(const SecondsF& length, const WaveSample& sample, uint32 samplingRate = DefaultSamplingRate);
+		Wave(const Duration& duration, const WaveSample& sample, Arg::samplingRate_<uint32> samplingRate = Arg::samplingRate_<uint32>(DefaultSamplingRate));
 
-		Wave(size_t num_samples, Arg::generator_<std::function<double(double)>> generator, uint32 samplingRate = Wave::DefaultSamplingRate);
+		Wave(size_t num_samples, Arg::generator_<std::function<double(double)>> generator, Arg::samplingRate_<uint32> samplingRate = Arg::samplingRate_<uint32>(DefaultSamplingRate));
 
-		Wave(const SecondsF& length, Arg::generator_<std::function<double(double)>> generator, uint32 samplingRate = Wave::DefaultSamplingRate);
+		Wave(const Duration& duration, Arg::generator_<std::function<double(double)>> generator, Arg::samplingRate_<uint32> samplingRate = Arg::samplingRate_<uint32>(DefaultSamplingRate));
 
 		explicit Wave(const FilePath& path);
 
@@ -124,17 +124,19 @@ namespace s3d
 		Wave(const Wave& wave) = default;
 
 		template <class InputIt>
-		Wave(InputIt first, InputIt last, uint32 samplingRate = Wave::DefaultSamplingRate)
+		Wave(InputIt first, InputIt last, Arg::samplingRate_<uint32> samplingRate = Arg::samplingRate_<uint32>(DefaultSamplingRate))
 			: base_type(first, last)
-			, m_samplingRate(samplingRate) {}
+			, m_samplingRate(*samplingRate) {}
 
-		explicit Wave(const Array<WaveSample>& samples, uint32 samplingRate = Wave::DefaultSamplingRate)
+		explicit Wave(const Array<WaveSample>& samples, Arg::samplingRate_<uint32> samplingRate = Arg::samplingRate_<uint32>(DefaultSamplingRate))
 			: base_type(samples)
-			, m_samplingRate(samplingRate) {}
+			, m_samplingRate(*samplingRate) {}
 
-		explicit Wave(Array<WaveSample>&& samples, uint32 samplingRate = Wave::DefaultSamplingRate)
+		explicit Wave(Array<WaveSample>&& samples, Arg::samplingRate_<uint32> samplingRate = Arg::samplingRate_<uint32>(DefaultSamplingRate))
 			: base_type(std::move(samples))
-			, m_samplingRate(samplingRate) {}
+			, m_samplingRate(*samplingRate) {}
+
+		Wave(uint8 instrumrnt, uint8 key, const Duration& duration, double velocity = 1.0, Arg::samplingRate_<uint32> samplingRate = Arg::samplingRate_<uint32>(DefaultSamplingRate));
 
 		uint32 samplingRate() const noexcept
 		{
@@ -210,12 +212,12 @@ namespace s3d
 
 		Wave slice(const size_t index) const
 		{
-			return Wave(base_type::slice(index), m_samplingRate);
+			return Wave(base_type::slice(index), Arg::samplingRate = m_samplingRate);
 		}
 
 		Wave slice(const size_t index, const size_t length) const
 		{
-			return Wave(base_type::slice(index, length), m_samplingRate);
+			return Wave(base_type::slice(index, length), Arg::samplingRate = m_samplingRate);
 		}
 
 		bool saveWAVE(const FilePath& path, WAVEFormat format = WAVEFormat::Default);

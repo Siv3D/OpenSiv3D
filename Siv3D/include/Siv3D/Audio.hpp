@@ -74,6 +74,20 @@ namespace s3d
 
 		Audio(Wave&& wave, Arg::loopBegin_<SecondsF> loopBegin, Arg::loopEnd_<SecondsF> loopEnd);
 
+		explicit Audio(const Wave& wave);
+
+		Audio(const Wave& wave, const Optional<AudioLoopTiming>& loop);
+
+		Audio(const Wave& wave, Arg::loop_<bool> loop);
+
+		Audio(const Wave& wave, Arg::loopBegin_<uint64> loopBegin);
+
+		Audio(const Wave& wave, Arg::loopBegin_<uint64> loopBegin, Arg::loopEnd_<uint64> loopEnd);
+
+		Audio(const Wave& wave, Arg::loopBegin_<SecondsF> loopBegin);
+
+		Audio(const Wave& wave, Arg::loopBegin_<SecondsF> loopBegin, Arg::loopEnd_<SecondsF> loopEnd);
+
 		explicit Audio(const FilePath& path);
 
 		Audio(const FilePath& path, const Optional<AudioLoopTiming>& loop);
@@ -88,7 +102,7 @@ namespace s3d
 
 		Audio(const FilePath& path, Arg::loopBegin_<SecondsF> loopBegin, Arg::loopEnd_<SecondsF> loopEnd);
 
-		//explicit Audio(IReader&& reader);
+		explicit Audio(IReader&& reader, AudioFormat format = AudioFormat::Unspecified);
 
 		virtual ~Audio();
 

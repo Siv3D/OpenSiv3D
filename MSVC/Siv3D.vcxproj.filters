@@ -734,6 +734,12 @@
     <Filter Include="src\Siv3D\ObjectDetection">
       <UniqueIdentifier>{148d6106-b5d9-405e-8afe-4c1d93b7450f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\SoundFont">
+      <UniqueIdentifier>{2116ffea-eebd-4c37-b7b3-532e5e6d3513}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\TinySoundFont">
+      <UniqueIdentifier>{78b072e8-7853-44fe-b3a5-aa7a5f1a7a51}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -2055,6 +2061,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\ObjectDetection\ObjectDetectionFactory.cpp">
       <Filter>src\Siv3D\ObjectDetection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\SoundFontFactory.cpp">
+      <Filter>src\Siv3D\SoundFont</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\CSoundFont.cpp">
+      <Filter>src\Siv3D\SoundFont</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -4262,6 +4274,18 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\ObjectDetection\IObjectDetection.hpp">
       <Filter>src\Siv3D\ObjectDetection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\SoundFont\CSoundFont.hpp">
+      <Filter>src\Siv3D\SoundFont</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\SoundFont\ISoundFont.hpp">
+      <Filter>src\Siv3D\SoundFont</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\TinySoundFont\tsf.h">
+      <Filter>src\ThirdParty\TinySoundFont</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\SoundFont.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -42,6 +42,7 @@ Resource(engine/objdetect/haarcascade/eye_eyeglasses.xml.zst)
 Resource(engine/objdetect/haarcascade/face_anime.xml.zst)
 Resource(engine/objdetect/haarcascade/frontal_catface.xml.zst)
 Resource(engine/objdetect/haarcascade/frontal_face_alt2.xml.zst)
+Resource(engine/soundfont/GMGSx.sf2.zst)
 
 //////////////////////////////////////////////////////
 //

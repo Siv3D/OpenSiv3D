@@ -151,5 +151,6 @@ namespace s3d
 		SIV3D_NAMED_PARAMETER(loopBegin);
 		SIV3D_NAMED_PARAMETER(loopEnd);
 		SIV3D_NAMED_PARAMETER(code);
+		SIV3D_NAMED_PARAMETER(samplingRate);		
 	}
 }

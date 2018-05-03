@@ -567,6 +567,9 @@
 	// 音声波形
 	# include "Siv3D/Wave.hpp"
 
+	// Sound Font
+	# include "Siv3D/SoundFont.hpp"
+
 	//// 音声波形のテンポ・ピッチ変更
 	//# include "Siv3D/WaveStretcher.hpp"
 
