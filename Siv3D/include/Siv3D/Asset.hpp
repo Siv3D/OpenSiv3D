@@ -34,12 +34,12 @@ namespace s3d
 
 		bool loadAsync = false;
 
-		static AssetParameter Default()
+		[[nodiscard]] static AssetParameter Default()
 		{
 			return AssetParameter{};
 		}
 
-		static AssetParameter LoadImmediately()
+		[[nodiscard]] static AssetParameter LoadImmediately()
 		{
 			AssetParameter parameter;
 
@@ -48,7 +48,7 @@ namespace s3d
 			return parameter;
 		}
 
-		static AssetParameter LoadAsync()
+		[[nodiscard]] static AssetParameter LoadAsync()
 		{
 			AssetParameter parameter;
 
@@ -59,7 +59,7 @@ namespace s3d
 			return parameter;
 		}
 
-		AssetParameter withTag(const AssetTag& tag) const
+		[[nodiscard]] AssetParameter withTag(const AssetTag& tag) const
 		{
 			AssetParameter parameter(*this);
 
@@ -68,7 +68,7 @@ namespace s3d
 			return parameter;
 		}
 
-		AssetParameter withTag(const Array<AssetTag>& _tags) const
+		[[nodiscard]] AssetParameter withTag(const Array<AssetTag>& _tags) const
 		{
 			AssetParameter parameter(*this);
 
@@ -95,7 +95,7 @@ namespace s3d
 
 			PreloadingAsync,
 
-			LoadScceeded,
+			LoadSucceeded,
 
 			LoadFailed,
 
@@ -162,7 +162,7 @@ namespace s3d
 				return;
 			}
 
-			m_state = m_loadingThread->get() ? State::LoadScceeded : State::LoadFailed;
+			m_state = m_loadingThread->get() ? State::LoadSucceeded : State::LoadFailed;
 
 			m_loadingThread.reset();
 		}
@@ -176,7 +176,7 @@ namespace s3d
 			
 			if (isReady())
 			{
-				m_state = m_loadingThread->get() ? State::LoadScceeded : State::LoadFailed;
+				m_state = m_loadingThread->get() ? State::LoadSucceeded : State::LoadFailed;
 				
 				m_loadingThread.reset();
 				
@@ -188,12 +188,12 @@ namespace s3d
 		
 		bool isPreloaded() const
 		{
-			return (m_state == State::LoadScceeded || m_state == State::LoadFailed);
+			return (m_state == State::LoadSucceeded || m_state == State::LoadFailed);
 		}
 
-		bool loadScceeded() const
+		bool loadSucceeded() const
 		{
-			return (m_state == State::LoadScceeded);
+			return (m_state == State::LoadSucceeded);
 		}
 	};
 }

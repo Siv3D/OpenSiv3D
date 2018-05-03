@@ -156,7 +156,7 @@ namespace s3d
 			LOG_DEBUG(U"{}Asset: \"{}\" preloaded"_fmt(detail::GetAssetTypeName(assetType), name));
 		}
 
-		return pAsset->loadScceeded();
+		return pAsset->loadSucceeded();
 	}
 
 	void CAsset::release(AssetType assetType, const String& name)
