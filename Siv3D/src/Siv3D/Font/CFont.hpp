@@ -26,7 +26,9 @@ namespace s3d
 
 		FontFace m_colorEmoji;
 
-		FontFace m_awesomeIcon;
+		FontFace m_awesomeIconSolid;
+
+		FontFace m_awesomeIconBrands;
 
 		//EmojiDatabase m_emojiDataBase;
 

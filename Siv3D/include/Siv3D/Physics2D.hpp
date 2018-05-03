@@ -190,21 +190,21 @@ namespace s3d
 
 		[[nodiscard]] explicit operator bool() const;
 
-		P2Body& addLine(const Line& line, const P2Material& material, const P2Filter& filter);
+		P2Body& addLine(const Line& line, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter());
 
-		P2Body& addLineString(const LineString& lines, const P2Material& material, const P2Filter& filter);
+		P2Body& addLineString(const LineString& lines, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter());
 
-		P2Body& addClosedLineString(const LineString& lines, const P2Material& material, const P2Filter& filter);
+		P2Body& addClosedLineString(const LineString& lines, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter());
 
-		P2Body& addCircle(const Circle& circle, const P2Material& material, const P2Filter& filter);
+		P2Body& addCircle(const Circle& circle, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter());
 
-		P2Body& addRect(const RectF& rect, const P2Material& material, const P2Filter& filter);
+		P2Body& addRect(const RectF& rect, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter());
 
-		P2Body& addTriangle(const Triangle& triangle, const P2Material& material, const P2Filter& filter);
+		P2Body& addTriangle(const Triangle& triangle, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter());
 
-		P2Body& addQuad(const Quad& quad, const P2Material& material, const P2Filter& filter);
+		P2Body& addQuad(const Quad& quad, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter());
 
-		P2Body& addPolygon(const Polygon& polygon, const P2Material& material, const P2Filter& filter);
+		P2Body& addPolygon(const Polygon& polygon, const P2Material& material = P2Material(), const P2Filter& filter = P2Filter());
 
 		void setSleepEnabled(bool enabled);
 
