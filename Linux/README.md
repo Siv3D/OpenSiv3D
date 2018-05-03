@@ -44,4 +44,5 @@ Linux版の開発ブランチが本家リポジトリに作成されました。
 - Monitor::workAreaはMonitor::displayRectと同じ値になっています。(X11環境で各モニタのワークエリアを取得するのが難しいため。)
 - リソースファイルは実行ファイルと同階層の「resource」ディレクトリ内に配置されます。
 - ライセンス等の問題によりAACエンコーダ/デコーダが実装されていません。音声ファイルに関する処理を行う場合は場合は別のフォーマットを使ってください。
+- フォントが配置されているディレクトリは、 `s3d::linux::FileSystem::GetFontDirectories()` で取得できます。 `FileSystem::SpecialFolder()` の引数として指定できるパラメータには `SpecialFolder::SystemFonts`, `SpecialFolder::LocalFonts`, `SpecialFolder::UserFonts` の3つが含まれていますが、これらが指定された場合は前述の `GetFontDirectories()` の先頭要素のパスを返します。
 - ジョイスティックのハットスイッチの情報は取得できませんが、追ってサポートする予定です。

@@ -28,6 +28,7 @@
 # include <Siv3D/Resource.hpp>
 # include <Siv3D/Logger.hpp>
 # include "../../ConstantBuffer/GL/GLConstantBuffer.hpp"
+# include "../../Profiler/IProfiler.hpp"
 
 namespace s3d
 {
@@ -156,6 +157,8 @@ namespace s3d
 		m_pipeline.use();
 		Mat3x2 currentMat = Mat3x2::Identity();
 		Mat3x2 currentScreen;
+
+		size_t pf_drawcalls = 0, pf_vertices = 0;
 		
 		for (size_t commandIndex = 0; commandIndex < m_commandManager.getCount(); ++commandIndex)
 		{
@@ -172,6 +175,9 @@ namespace s3d
 				{
 					const auto* command = static_cast<const GLRender2DCommand<GLRender2DInstruction::Draw>*>(static_cast<const void*>(commandPointer));
 					
+					++pf_drawcalls;
+					pf_vertices += command->indexSize;
+
 					//Log(L"Draw: ", command->indexSize);
 					::glDrawElementsBaseVertex(GL_TRIANGLES, command->indexSize, GL_UNSIGNED_INT, (uint32*)(nullptr) + batchDrawOffset.indexStartLocation, batchDrawOffset.vertexStartLocation);
 					
@@ -298,6 +304,8 @@ namespace s3d
 
 			m_commandManager.reset();
 		}
+
+		Siv3DEngine::GetProfiler()->reportDrawcalls(pf_drawcalls, pf_vertices / 3);
 
 		/*
 		GLenum err;

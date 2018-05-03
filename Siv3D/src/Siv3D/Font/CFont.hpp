@@ -26,7 +26,9 @@ namespace s3d
 
 		FontFace m_colorEmoji;
 
-		FontFace m_awesomeIcon;
+		FontFace m_awesomeIconSolid;
+
+		FontFace m_awesomeIconBrands;
 
 		//EmojiDatabase m_emojiDataBase;
 
@@ -61,6 +63,8 @@ namespace s3d
 		int32 getDescent(FontID handleID) override;
 
 		Array<Glyph> getGlyphs(FontID handleID, const String& codePoints) override;
+
+		Array<Glyph> getVerticalGlyphs(FontID handleID, const String& codePoints) override;
 
 		OutlineGlyph getOutlineGlyph(FontID handleID, char32 codePoint) override;
 

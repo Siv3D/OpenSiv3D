@@ -18,6 +18,7 @@
 # include <boost/filesystem.hpp>
 # include <glib-2.0/glib.h>
 # include <glib-2.0/gio/gio.h>
+# include <fontconfig/fontconfig.h>
 # include <Siv3D/FileSystem.hpp>
 
 using namespace s3d;
@@ -31,9 +32,6 @@ std::string Linux_SpecialFolder(const int folder)
 		G_USER_DIRECTORY_PICTURES,
 		G_USER_DIRECTORY_MUSIC,
 		G_USER_DIRECTORY_VIDEOS,
-		G_USER_DIRECTORY_DOCUMENTS, //dummy (System fonts)
-		G_USER_DIRECTORY_DOCUMENTS, //dummy (Local fonts)
-		G_USER_DIRECTORY_DOCUMENTS, //dummy (User fonts)
 	};
 
 	std::string sf_path = "";
@@ -47,6 +45,19 @@ std::string Linux_SpecialFolder(const int folder)
 		}
 		else
 			sf_path = xch;
+	}
+	else if(folder == static_cast<int>(SpecialFolder::SystemFonts)
+			|| folder == static_cast<int>(SpecialFolder::LocalFonts)
+			|| folder == static_cast<int>(SpecialFolder::UserFonts))
+	{
+		FcStrList* list = FcConfigGetFontDirs(nullptr);
+		FcChar8* path;
+
+		FcStrListFirst(list);
+		path = FcStrListNext(list);
+		FcStrListDone(list);
+
+		sf_path = (char*)path;
 	}
 	else
 		sf_path = g_get_user_special_dir(folders[folder]);
@@ -543,6 +554,25 @@ namespace s3d
 		bool IsSandBoxed()
 		{
 			return false;
+		}
+	}
+
+	namespace linux::FileSystem
+	{
+		Array<FilePath> GetFontDirectories()
+		{
+			FcStrList* list = FcConfigGetFontDirs(nullptr);
+			FcChar8* path;
+			Array<FilePath> fontDirectories;
+
+			FcStrListFirst(list);
+			while((path = FcStrListNext(list)))
+			{
+				fontDirectories.push_back(Unicode::Widen((char*)path));
+			}
+			FcStrListDone(list);
+
+			return fontDirectories;
 		}
 	}
 }

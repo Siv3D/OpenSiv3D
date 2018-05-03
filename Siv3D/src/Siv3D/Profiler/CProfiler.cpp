@@ -36,6 +36,9 @@ namespace s3d
 
 	bool CProfiler::beginFrame()
 	{
+		//
+		// FPS
+		//
 		if (m_fpsStopwatch.msF() < 1000.0)
 		{
 			++m_fpsCount;
@@ -49,6 +52,15 @@ namespace s3d
 			m_fpsStopwatch.restart();
 		}
 
+		//
+		// Stats
+		//
+		m_previousStatistics = m_currentStatistics;
+		m_currentStatistics = Statistics();
+
+		//
+		// Asset creation
+		//
 		if (m_assetCreationWarningEnabled
 			&& std::all_of(m_assetCreationCount.begin(), m_assetCreationCount.end(), [](int32 n) { return n > 0; })
 			&& std::all_of(m_assetReleaseCount.begin(), m_assetReleaseCount.end(), [](int32 n) { return n > 0; }))
@@ -77,6 +89,19 @@ namespace s3d
 	int32 CProfiler::getFPS() const
 	{
 		return m_currentFPS;
+	}
+
+
+	void CProfiler::reportDrawcalls(const size_t drawcalls, const size_t triangles)
+	{
+		m_currentStatistics.drawcalls += drawcalls;
+
+		m_currentStatistics.triangles += triangles;
+	}
+
+	Statistics CProfiler::getStatistics() const
+	{
+		return m_previousStatistics;
 	}
 
 

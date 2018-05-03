@@ -1179,6 +1179,24 @@ namespace s3d
 		Image& border(int32 top, int32 right, int32 bottom, int32 left, const Color& color = Palette::White);
 
 		Image bordered(int32 top, int32 right, int32 bottom, int32 left, const Color& color = Palette::White) const;
+
+		void paint(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const;
+
+		void paint(Image& dst, const Point& pos, const Color& color = Palette::White) const;
+
+		void overwrite(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const;
+
+		void overwrite(Image& dst, const Point& pos, const Color& color = Palette::White) const;
+
+		ImageRegion operator ()(int32 x, int32 y, int32 w, int32 h) const;
+
+		ImageRegion operator ()(const Point& pos, int32 w, int32 h) const;
+
+		ImageRegion operator ()(int32 x, int32 y, const Size& size) const;
+
+		ImageRegion operator ()(const Point& pos, const Size& size) const;
+
+		ImageRegion operator ()(const Rect& rect) const;
 	};
 }
 

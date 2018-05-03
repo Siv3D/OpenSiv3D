@@ -58,7 +58,9 @@ namespace s3d
 	{
 		m_fonts.destroy();
 
-		m_awesomeIcon.destroy();
+		m_awesomeIconBrands.destroy();
+
+		m_awesomeIconSolid.destroy();
 
 		m_colorEmoji.destroy();
 
@@ -84,7 +86,7 @@ namespace s3d
 
 		m_fonts.setNullData(nullFont);
 
-		const FilePath fontNames[10] =
+		const FilePath fontNames[11] =
 		{
 			U"mplus/mplus-1p-thin.ttf",
 			U"mplus/mplus-1p-light.ttf",
@@ -95,7 +97,8 @@ namespace s3d
 			U"mplus/mplus-1p-black.ttf",
 			U"noto/NotoEmoji-Regular.ttf",
 			U"noto/NotoColorEmoji.ttf",
-			U"fontawesome/FontAwesome.otf",
+			U"fontawesome/solid.otf",
+			U"fontawesome/brands.otf",
 		};
 
 		const FilePath fontDirectory = EngineDirectory::CurrectVersionCommon() + U"font/";
@@ -178,6 +181,11 @@ namespace s3d
 	Array<Glyph> CFont::getGlyphs(const FontID handleID, const String& codePoints)
 	{
 		return m_fonts[handleID]->getGlyphs(codePoints);
+	}
+
+	Array<Glyph> CFont::getVerticalGlyphs(FontID handleID, const String& codePoints)
+	{
+		return m_fonts[handleID]->getVerticalGlyphs(codePoints);
 	}
 
 	OutlineGlyph CFont::getOutlineGlyph(const FontID handleID, const char32 codePoint)
@@ -327,23 +335,30 @@ namespace s3d
 
 	Image CFont::getAwesomeIcon(const uint16 code, int32 size)
 	{
-		if (!m_awesomeIcon || size < 1)
+		if (!m_awesomeIconSolid || !m_awesomeIconBrands || size < 1)
 		{
 			return Image();
 		}
 
 		size = std::max(size - 2, 1);
 
-		const FT_Face face = m_awesomeIcon.face;
+		FT_Face face = m_awesomeIconSolid.face;
 
-		if (const FT_Error error = ::FT_Set_Pixel_Sizes(face, 0, size))
+		FT_UInt glyphIndex = ::FT_Get_Char_Index(face, code);
+
+		if (glyphIndex == 0)
 		{
-			return Image();
+			face = m_awesomeIconBrands.face;
+
+			glyphIndex = ::FT_Get_Char_Index(face, code);
+
+			if (glyphIndex == 0)
+			{
+				return Image();
+			}
 		}
 
-		const FT_UInt glyphIndex = ::FT_Get_Char_Index(face, code);
-
-		if(glyphIndex == 0)
+		if (const FT_Error error = ::FT_Set_Pixel_Sizes(face, 0, size))
 		{
 			return Image();
 		}
@@ -448,25 +463,52 @@ namespace s3d
 
 	bool CFont::loadAwesomeIconFace()
 	{
-		const FilePath path = detail::GetEngineFontDirectory() + U"fontawesome/FontAwesome.otf";
-
-		if (!FileSystem::Exists(path))
+		// solid
 		{
-			return false;
+			const FilePath path = detail::GetEngineFontDirectory() + U"fontawesome/solid.otf";
+
+			if (!FileSystem::Exists(path))
+			{
+				return false;
+			}
+
+			if (const FT_Error error = ::FT_New_Face(m_library, path.narrow().c_str(), 0, &m_awesomeIconSolid.face))
+			{
+				if (error == FT_Err_Unknown_File_Format)
+				{
+					// unsupported format
+				}
+				else if (error)
+				{
+					// failed to open or load
+				}
+
+				return false;
+			}
 		}
 
-		if (const FT_Error error = ::FT_New_Face(m_library, path.narrow().c_str(), 0, &m_awesomeIcon.face))
+		// brands
 		{
-			if (error == FT_Err_Unknown_File_Format)
+			const FilePath path = detail::GetEngineFontDirectory() + U"fontawesome/brands.otf";
+
+			if (!FileSystem::Exists(path))
 			{
-				// unsupported format
-			}
-			else if (error)
-			{
-				// failed to open or load
+				return false;
 			}
 
-			return false;
+			if (const FT_Error error = ::FT_New_Face(m_library, path.narrow().c_str(), 0, &m_awesomeIconBrands.face))
+			{
+				if (error == FT_Err_Unknown_File_Format)
+				{
+					// unsupported format
+				}
+				else if (error)
+				{
+					// failed to open or load
+				}
+
+				return false;
+			}
 		}
 
 		return true;

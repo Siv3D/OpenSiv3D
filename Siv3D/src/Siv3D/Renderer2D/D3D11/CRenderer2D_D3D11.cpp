@@ -16,6 +16,7 @@
 # include "../../Shader/IShader.hpp"
 # include "../../Graphics/D3D11/CGraphics_D3D11.hpp"
 # include "../../ConstantBuffer/D3D11/D3D11ConstantBuffer.hpp"
+# include "../../Profiler/IProfiler.hpp"
 # include "CRenderer2D_D3D11.hpp"
 # include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/Math.hpp>
@@ -171,6 +172,8 @@ namespace s3d
 		Mat3x2 currentMat = Mat3x2::Identity();
 		Mat3x2 currentScreen;
 
+		size_t pf_drawcalls = 0, pf_vertices = 0;
+
 		const Byte* commandPointer = m_commandManager.getCommandBuffer();
 
 		//Log(L"----");
@@ -190,6 +193,9 @@ namespace s3d
 				{
 					const auto* command = static_cast<const D3D11Render2DCommand<D3D11Render2DInstruction::Draw>*>(static_cast<const void*>(commandPointer));
 					
+					++pf_drawcalls;
+					pf_vertices += command->indexSize;
+
 					//Log(L"Draw: ", command->indexSize);
 					m_context->DrawIndexed(command->indexSize, batchDrawOffset.indexStartLocation, batchDrawOffset.vertexStartLocation);
 					batchDrawOffset.indexStartLocation += command->indexSize;
@@ -323,6 +329,8 @@ namespace s3d
 
 			m_commandManager.reset();
 		}
+
+		Siv3DEngine::GetProfiler()->reportDrawcalls(pf_drawcalls, pf_vertices / 3);
 	}
 
 	void CRenderer2D_D3D11::setBlendState(const BlendState& state)

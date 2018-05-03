@@ -90,10 +90,10 @@ namespace s3d
 		{
 			if (m_state == State::Uninitialized)
 			{
-				m_state = onPreload(*this) ? State::LoadScceeded : State::LoadFailed;
+				m_state = onPreload(*this) ? State::LoadSucceeded : State::LoadFailed;
 			}
 
-			return (m_state == State::LoadScceeded);
+			return (m_state == State::LoadSucceeded);
 		}
 
 		void preloadAsync() override

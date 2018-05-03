@@ -32,6 +32,8 @@ namespace s3d
 		using base_type::wait_until;
 		using base_type::share;
 
+		ConcurrentTask() = default;
+
 		template <class Fty, class... Args>
 		ConcurrentTask(Fty&& f, Args&&... args)
 			: std::future<Type>(std::async(std::launch::async, std::forward<Fty>(f), std::forward<Args>(args)...)) {}

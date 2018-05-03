@@ -77,6 +77,8 @@ namespace s3d
 
 		int32 xAdvance = 0;
 
+		int32 yAdvance = 0;
+
 		int32 index = 0;
 
 		Glyph()
@@ -141,6 +143,8 @@ namespace s3d
 		Glyph getGlyph(char32 codePoint) const;
 
 		Array<Glyph> getGlyphs(const String& text) const;
+
+		Array<Glyph> getVerticalGlyphs(const String& text) const;
 
 		OutlineGlyph getOutlineGlyph(char32 codePoint) const;
 

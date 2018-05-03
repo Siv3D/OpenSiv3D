@@ -904,14 +904,16 @@ namespace s3d
 
 			Array<PolyEdge> edges;
 
-			int i, total = 0;
+			size_t total = 0;
 
-			for (i = 0; i < ncontours; i++)
+			for (size_t i = 0; i < ncontours; ++i)
+			{
 				total += npts[i];
+			}
 
 			edges.reserve(total + 1);
 
-			for (i = 0; i < ncontours; i++)
+			for (size_t i = 0; i < ncontours; ++i)
 			{
 				CollectPolyEdges(pBuffer, ptsList[i], npts[i], edges, width, height);
 			}

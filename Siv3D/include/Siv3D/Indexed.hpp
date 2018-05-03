@@ -92,11 +92,40 @@ namespace s3d
 				return IndexedIterator<decltype(std::begin(m_range))>(std::size(m_range), std::end(m_range));
 			}
 		};
+
+		template <class Range>
+		class IndexedRef_impl
+		{
+		private:
+
+			Range & m_range;
+
+		public:
+
+			IndexedRef_impl(Range& range)
+				: m_range(range) {}
+
+			[[nodiscard]] auto begin() const
+			{
+				return IndexedIterator<decltype(std::begin(m_range))>(0, std::begin(m_range));
+			}
+
+			[[nodiscard]] auto end() const
+			{
+				return IndexedIterator<decltype(std::begin(m_range))>(std::size(m_range), std::end(m_range));
+			}
+		};
 	}
 
 	template <class Range>
 	[[nodiscard]] inline detail::Indexed_impl<Range> Indexed(const Range& range)
 	{
 		return detail::Indexed_impl<Range>(range);
+	}
+
+	template <class Range>
+	[[nodiscard]] inline detail::IndexedRef_impl<Range> IndexedRef(Range& range)
+	{
+		return detail::IndexedRef_impl<Range>(range);
 	}
 }

@@ -10,12 +10,6 @@
 //-----------------------------------------------
 
 # pragma once
-
-// boost 1.65.1 workaround
-# ifndef _HAS_AUTO_PTR_ETC
-#	define _HAS_AUTO_PTR_ETC 1
-# endif
-
 # include <boost/geometry/geometries/geometries.hpp>
 # include <boost/geometry/geometries/register/point.hpp>
 # include <Siv3D/Polygon.hpp>
@@ -52,6 +46,8 @@ namespace s3d
 		CPolygon(const Vec2* pOuterVertex, size_t vertexSize, const Array<uint32>& indices, const RectF& boundingRect);
 
 		CPolygon(const Float2* pOuterVertex, size_t vertexSize, const Array<uint32>& indices);
+
+		CPolygon(const Array<Vec2>& outer, const Array<Array<Vec2>>& holes, const Array<Float2>& vertices, const Array<uint32>& indices, const RectF& boundingRect);
 
 		void copyFrom(CPolygon& other);
 

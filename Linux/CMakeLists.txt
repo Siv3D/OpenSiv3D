@@ -7,7 +7,7 @@ enable_language(C)
 
 set(CMAKE_CXX_COMPILER "clang++")
 #set(CMAKE_CXX_COMPILER "g++")
-set(CMAKE_CXX_FLAGS "-std=c++17 -Wall -Wextra -Wno-unknown-pragmas -fPIC")
+set(CMAKE_CXX_FLAGS "-std=c++17 -Wall -Wextra -Wno-unknown-pragmas -fPIC -msse4.1")
 set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG -march=x86-64")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -Og -pg")
@@ -15,7 +15,7 @@ set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -DNDEBUG -march=x86-64")
 
 set(CMAKE_C_COMPILER "clang")
 #set(CMAKE_C_COMPILER "gcc")
-set(CMAKE_C_FLAGS "-Wall -Wextra -Wno-unknown-pragmas -fPIC")
+set(CMAKE_C_FLAGS "-Wall -Wextra -Wno-unknown-pragmas -fPIC -msse4.1")
 set(CMAKE_C_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
 set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG -march=x86-64")
 set(CMAKE_C_FLAGS_RELWITHDEBINFO "-g3 -Og -pg")
@@ -32,6 +32,7 @@ include_directories(
 	"../Siv3D/include/ThirdParty"
 	"../Siv3D/src/ThirdParty"
 
+	"../Siv3D/src/ThirdParty/asio"
 	"../Siv3D/src/ThirdParty/zstd"
 	"../Siv3D/src/ThirdParty/zstd/common"
 
@@ -93,6 +94,7 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/Cursor/SivCursor.cpp"
 	"../Siv3D/src/Siv3D/Date/SivDate.cpp"
 	"../Siv3D/src/Siv3D/DateTime/SivDateTime.cpp"
+	"../Siv3D/src/Siv3D/DeadZone/SivDeadZone.cpp"
 	"../Siv3D/src/Siv3D/DragDrop/CDragDrop_Linux.cpp"
 	"../Siv3D/src/Siv3D/DragDrop/DragDropFactory.cpp"
 	"../Siv3D/src/Siv3D/DragDrop/SivDragDrop.cpp"
@@ -149,6 +151,7 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/ImageFormat/TGA/ImageFormat_TGA.cpp"
 	"../Siv3D/src/Siv3D/ImageProcessing/SivImageProcessing.cpp"
 	"../Siv3D/src/Siv3D/IntFormat/SivIntFormat.cpp"
+	"../Siv3D/src/Siv3D/IPv4/SivIPv4.cpp"
 	"../Siv3D/src/Siv3D/JSONReader/SivJSONReader.cpp"
 	"../Siv3D/src/Siv3D/Key/SivKey.cpp"
 	"../Siv3D/src/Siv3D/Keyboard/CKeyboard_Linux.cpp"
@@ -174,6 +177,11 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/Mouse/CMouse_Linux.cpp"
 	"../Siv3D/src/Siv3D/Mouse/MouseFactory.cpp"
 	"../Siv3D/src/Siv3D/Mouse/SivMouse.cpp"
+	"../Siv3D/src/Siv3D/NavMesh/CNavMesh.cpp"
+	"../Siv3D/src/Siv3D/NavMesh/SivNavMesh.cpp"
+	"../Siv3D/src/Siv3D/Network/CNetwork.cpp"
+	"../Siv3D/src/Siv3D/Network/NetworkFactory.cpp"
+	"../Siv3D/src/Siv3D/Network/SivNetwork.cpp"
 	"../Siv3D/src/Siv3D/Painting/PaintShape.cpp"
 	"../Siv3D/src/Siv3D/Painting/SivPainting.cpp"
 	"../Siv3D/src/Siv3D/ParseBool/SivParseBool.cpp"
@@ -246,6 +254,10 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/System/CSystem_Linux.cpp"
 	"../Siv3D/src/Siv3D/System/SivSystem.cpp"
 	"../Siv3D/src/Siv3D/System/SystemFactory.cpp"
+	"../Siv3D/src/Siv3D/TCPClient/CTCPClient.cpp"
+	"../Siv3D/src/Siv3D/TCPClient/SivTCPClient.cpp"
+	"../Siv3D/src/Siv3D/TCPServer/CTCPServer.cpp"
+	"../Siv3D/src/Siv3D/TCPServer/SivTCPServer.cpp"
 	"../Siv3D/src/Siv3D/TOMLReader/SivTOMLReader.cpp"
 	"../Siv3D/src/Siv3D/TextBox/CTextBox.cpp"
 	"../Siv3D/src/Siv3D/TextBox/SivTextBox.cpp"
@@ -287,6 +299,7 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/XInput/CXInput_NULL.cpp"
 	"../Siv3D/src/Siv3D/XInput/SivXInput.cpp"
 	"../Siv3D/src/Siv3D/XInput/XInputFactory.cpp"
+	"../Siv3D/src/Siv3D/XMLReader/SivXMLReader.cpp"
 	"../Siv3D/src/Siv3D/XXHash/SivXXHash.cpp"
 
 	"../Siv3D/src/Siv3D/Siv3DEngine.cpp"
@@ -297,6 +310,13 @@ set(SOURCE_FILES
 	"../Siv3D/src/ThirdParty/FeatureDetector/cpu_x86_Linux.ipp"
 	"../Siv3D/src/ThirdParty/clip2tri/clip2tri.cpp"
 	"../Siv3D/src/ThirdParty/clipper/clipper.cpp"
+	"../Siv3D/src/ThirdParty/Detour/DetourAlloc.cpp"
+	"../Siv3D/src/ThirdParty/Detour/DetourAssert.cpp"
+	"../Siv3D/src/ThirdParty/Detour/DetourCommon.cpp"
+	"../Siv3D/src/ThirdParty/Detour/DetourNavMesh.cpp"
+	"../Siv3D/src/ThirdParty/Detour/DetourNavMeshBuilder.cpp"
+	"../Siv3D/src/ThirdParty/Detour/DetourNavMeshQuery.cpp"
+	"../Siv3D/src/ThirdParty/Detour/DetourNode.cpp"
 	"../Siv3D/src/ThirdParty/double-conversion/bignum-dtoa.cc"
 	"../Siv3D/src/ThirdParty/double-conversion/bignum.cc"
 	"../Siv3D/src/ThirdParty/double-conversion/cached-powers.cc"
@@ -322,6 +342,18 @@ set(SOURCE_FILES
 	"../Siv3D/src/ThirdParty/poly2tri/sweep/cdt.cc"
 	"../Siv3D/src/ThirdParty/poly2tri/sweep/sweep.cc"
 	"../Siv3D/src/ThirdParty/poly2tri/sweep/sweep_context.cc"
+	"../Siv3D/src/ThirdParty/Recast/Recast.cpp"
+	"../Siv3D/src/ThirdParty/Recast/RecastAlloc.cpp"
+	"../Siv3D/src/ThirdParty/Recast/RecastArea.cpp"
+	"../Siv3D/src/ThirdParty/Recast/RecastAssert.cpp"
+	"../Siv3D/src/ThirdParty/Recast/RecastContour.cpp"
+	"../Siv3D/src/ThirdParty/Recast/RecastFilter.cpp"
+	"../Siv3D/src/ThirdParty/Recast/RecastLayers.cpp"
+	"../Siv3D/src/ThirdParty/Recast/RecastMesh.cpp"
+	"../Siv3D/src/ThirdParty/Recast/RecastMeshDetail.cpp"
+	"../Siv3D/src/ThirdParty/Recast/RecastRasterization.cpp"
+	"../Siv3D/src/ThirdParty/Recast/RecastRegion.cpp"
+	"../Siv3D/src/ThirdParty/tinyxml/tinyxml2.cpp"
 	"../Siv3D/src/ThirdParty/zstd/common/entropy_common.c"
 	"../Siv3D/src/ThirdParty/zstd/common/error_private.c"
 	"../Siv3D/src/ThirdParty/zstd/common/fse_decompress.c"

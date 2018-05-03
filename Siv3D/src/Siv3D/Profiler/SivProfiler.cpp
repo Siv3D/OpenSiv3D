@@ -26,5 +26,10 @@ namespace s3d
 		{
 			Siv3DEngine::GetProfiler()->setAssetCreationWarningEnabled(enabled);
 		}
+
+		Statistics GetStatistics()
+		{
+			return Siv3DEngine::GetProfiler()->getStatistics();
+		}
 	}
 }

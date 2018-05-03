@@ -928,6 +928,32 @@ namespace s3d
 		}
 	}
 
+	void P2Body::drawFrame(const double thickness, const ColorF& color) const
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+
+		for (const auto& shape : pImpl->getShapes())
+		{
+			shape->drawFrame(thickness, color);
+		}
+	}
+
+	void P2Body::drawWireframe(const double thickness, const ColorF& color) const
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+
+		for (const auto& shape : pImpl->getShapes())
+		{
+			shape->drawWireframe(thickness, color);
+		}
+	}
+
 	size_t P2Body::num_shapes() const
 	{
 		if (isEmpty())
@@ -1053,6 +1079,16 @@ namespace s3d
 		getLine().draw(3.0 / Graphics2D::GetMaxScaling(), color);
 	}
 
+	void P2Line::drawFrame(const double thickness, const ColorF& color) const
+	{
+		getLine().draw(thickness / Graphics2D::GetMaxScaling(), color);
+	}
+
+	void P2Line::drawWireframe(const double thickness, const ColorF& color) const
+	{
+		getLine().draw(thickness / Graphics2D::GetMaxScaling(), color);
+	}
+
 	Line P2Line::getLine() const
 	{
 		const b2Transform& transform = m_fixtures.fixtures[0]->GetBody()->GetTransform();
@@ -1101,6 +1137,16 @@ namespace s3d
 		getLineString().draw(3.0 / Graphics2D::GetMaxScaling(), color, m_closed);
 	}
 
+	void P2LineString::drawFrame(const double thickness, const ColorF& color) const
+	{
+		getLineString().draw(thickness / Graphics2D::GetMaxScaling(), color, m_closed);
+	}
+
+	void P2LineString::drawWireframe(const double thickness, const ColorF& color) const
+	{
+		getLineString().draw(thickness / Graphics2D::GetMaxScaling(), color, m_closed);
+	}
+
 	const LineString& P2LineString::getLineString() const
 	{
 		const b2Transform& transform = m_fixtures.fixtures[0]->GetBody()->GetTransform();
@@ -1141,6 +1187,16 @@ namespace s3d
 		getCircle().draw(color);
 	}
 
+	void P2Circle::drawFrame(const double thickness, const ColorF& color) const
+	{
+		getCircle().drawFrame(thickness / Graphics2D::GetMaxScaling(), color);
+	}
+
+	void P2Circle::drawWireframe(const double thickness, const ColorF& color) const
+	{
+		getCircle().drawFrame(thickness / Graphics2D::GetMaxScaling(), color);
+	}
+
 	Circle P2Circle::getCircle() const
 	{
 		const b2Transform& transform = m_fixtures.fixtures[0]->GetBody()->GetTransform();
@@ -1167,6 +1223,16 @@ namespace s3d
 	void P2Rect::draw(const ColorF& color) const
 	{
 		getQuad().draw(color);
+	}
+
+	void P2Rect::drawFrame(const double thickness, const ColorF& color) const
+	{
+		getQuad().drawFrame(thickness / Graphics2D::GetMaxScaling(), color);
+	}
+
+	void P2Rect::drawWireframe(const double thickness, const ColorF& color) const
+	{
+		getQuad().drawFrame(thickness / Graphics2D::GetMaxScaling(), color);
 	}
 
 	Quad P2Rect::getQuad() const
@@ -1208,6 +1274,16 @@ namespace s3d
 		getTriangle().draw(color);
 	}
 
+	void P2Triangle::drawFrame(const double thickness, const ColorF& color) const
+	{
+		getTriangle().drawFrame(thickness / Graphics2D::GetMaxScaling(), color);
+	}
+
+	void P2Triangle::drawWireframe(const double thickness, const ColorF& color) const
+	{
+		getTriangle().drawFrame(thickness / Graphics2D::GetMaxScaling(), color);
+	}
+
 	Triangle P2Triangle::getTriangle() const
 	{
 		const b2Transform& transform = m_fixtures.fixtures[0]->GetBody()->GetTransform();
@@ -1243,6 +1319,16 @@ namespace s3d
 	void P2Quad::draw(const ColorF& color) const
 	{
 		getQuad().draw(color);
+	}
+
+	void P2Quad::drawFrame(const double thickness, const ColorF& color) const
+	{
+		getQuad().drawFrame(thickness / Graphics2D::GetMaxScaling(), color);
+	}
+
+	void P2Quad::drawWireframe(const double thickness, const ColorF& color) const
+	{
+		getQuad().drawFrame(thickness / Graphics2D::GetMaxScaling(), color);
 	}
 
 	Quad P2Quad::getQuad() const
@@ -1291,6 +1377,16 @@ namespace s3d
 		const b2Transform& transform = m_fixtures.fixtures[0]->GetBody()->GetTransform();
 
 		m_basePolygon.drawTransformed(transform.q.s, transform.q.c, Vec2(transform.p.x, transform.p.y), color);
+	}
+
+	void P2Polygon::drawFrame(const double thickness, const ColorF& color) const
+	{
+		getPolygon().drawFrame(thickness / Graphics2D::GetMaxScaling(), color);
+	}
+
+	void P2Polygon::drawWireframe(const double thickness, const ColorF& color) const
+	{
+		getPolygon().drawWireframe(thickness / Graphics2D::GetMaxScaling(), color);
 	}
 
 	Polygon P2Polygon::getPolygon() const

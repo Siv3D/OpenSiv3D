@@ -695,6 +695,36 @@
     <Filter Include="src\Siv3D\Physics2D">
       <UniqueIdentifier>{9e1d4459-8ce5-4187-844f-095699b5cb08}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\Detour">
+      <UniqueIdentifier>{a55bceeb-66b0-4243-a1d5-0aab500d3d6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\NavMesh">
+      <UniqueIdentifier>{38eba800-1a28-45fc-8f22-dad2055d2fa9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\Recast">
+      <UniqueIdentifier>{bc097409-dd9c-4662-b977-1b1baa53cfc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\DeadZone">
+      <UniqueIdentifier>{60531d9a-f8a5-4a24-9b5b-39c1f01d62c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ThirdParty\tinyxml">
+      <UniqueIdentifier>{3e11da09-b7dd-4941-a61f-fe817d586ef9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\XMLReader">
+      <UniqueIdentifier>{d10b1ec7-d3d0-4dab-a4ff-416a6c02619a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Network">
+      <UniqueIdentifier>{ad0de63a-2816-4d2e-a585-c442d354575e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\TCPServer">
+      <UniqueIdentifier>{dca7a7e1-8302-4ef6-84dd-dd0acf457e15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\TCPClient">
+      <UniqueIdentifier>{7f3e68ed-5615-4d08-8738-1b69955f9004}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\IPv4">
+      <UniqueIdentifier>{a25a9fd4-81c0-4132-8e60-a20296aef4da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -933,69 +963,6 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\EngineDirectory\EngineDirectory.cpp">
       <Filter>src\Siv3D\EngineDirectory</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\fse_decompress.c">
-      <Filter>src\ThirdParty\zstd\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\pool.c">
-      <Filter>src\ThirdParty\zstd\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\threading.c">
-      <Filter>src\ThirdParty\zstd\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\xxhash.c">
-      <Filter>src\ThirdParty\zstd\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\zstd_common.c">
-      <Filter>src\ThirdParty\zstd\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\entropy_common.c">
-      <Filter>src\ThirdParty\zstd\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\error_private.c">
-      <Filter>src\ThirdParty\zstd\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_double_fast.c">
-      <Filter>src\ThirdParty\zstd\compress</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_fast.c">
-      <Filter>src\ThirdParty\zstd\compress</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_lazy.c">
-      <Filter>src\ThirdParty\zstd\compress</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_ldm.c">
-      <Filter>src\ThirdParty\zstd\compress</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_opt.c">
-      <Filter>src\ThirdParty\zstd\compress</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\zstdmt_compress.c">
-      <Filter>src\ThirdParty\zstd\compress</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\fse_compress.c">
-      <Filter>src\ThirdParty\zstd\compress</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\huf_compress.c">
-      <Filter>src\ThirdParty\zstd\compress</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_compress.c">
-      <Filter>src\ThirdParty\zstd\compress</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\decompress\huf_decompress.c">
-      <Filter>src\ThirdParty\zstd\decompress</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\decompress\zstd_decompress.c">
-      <Filter>src\ThirdParty\zstd\decompress</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\zdict.c">
-      <Filter>src\ThirdParty\zstd\dictBuilder</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\cover.c">
-      <Filter>src\ThirdParty\zstd\dictBuilder</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\divsufsort.c">
-      <Filter>src\ThirdParty\zstd\dictBuilder</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Compression\SivCompression.cpp">
       <Filter>src\Siv3D\Compression</Filter>
@@ -1906,6 +1873,162 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Physics2D\SivPhysics2D.cpp">
       <Filter>src\Siv3D\Physics2D</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Detour\DetourCommon.cpp">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Detour\DetourNavMesh.cpp">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Detour\DetourNavMeshBuilder.cpp">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Detour\DetourNavMeshQuery.cpp">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Detour\DetourNode.cpp">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Detour\DetourAlloc.cpp">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Detour\DetourAssert.cpp">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\NavMesh\CNavMesh.cpp">
+      <Filter>src\Siv3D\NavMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\NavMesh\SivNavMesh.cpp">
+      <Filter>src\Siv3D\NavMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastArea.cpp">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastAssert.cpp">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastContour.cpp">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastFilter.cpp">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastLayers.cpp">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastMesh.cpp">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastMeshDetail.cpp">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastRasterization.cpp">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastRegion.cpp">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\Recast.cpp">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastAlloc.cpp">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\entropy_common.c">
+      <Filter>src\ThirdParty\zstd\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\error_private.c">
+      <Filter>src\ThirdParty\zstd\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\fse_decompress.c">
+      <Filter>src\ThirdParty\zstd\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\pool.c">
+      <Filter>src\ThirdParty\zstd\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\threading.c">
+      <Filter>src\ThirdParty\zstd\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\xxhash.c">
+      <Filter>src\ThirdParty\zstd\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\common\zstd_common.c">
+      <Filter>src\ThirdParty\zstd\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_double_fast.c">
+      <Filter>src\ThirdParty\zstd\compress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_fast.c">
+      <Filter>src\ThirdParty\zstd\compress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_lazy.c">
+      <Filter>src\ThirdParty\zstd\compress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_ldm.c">
+      <Filter>src\ThirdParty\zstd\compress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_opt.c">
+      <Filter>src\ThirdParty\zstd\compress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\zstdmt_compress.c">
+      <Filter>src\ThirdParty\zstd\compress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\fse_compress.c">
+      <Filter>src\ThirdParty\zstd\compress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\huf_compress.c">
+      <Filter>src\ThirdParty\zstd\compress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_compress.c">
+      <Filter>src\ThirdParty\zstd\compress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\decompress\huf_decompress.c">
+      <Filter>src\ThirdParty\zstd\decompress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\decompress\zstd_decompress.c">
+      <Filter>src\ThirdParty\zstd\decompress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\zdict.c">
+      <Filter>src\ThirdParty\zstd\dictBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\cover.c">
+      <Filter>src\ThirdParty\zstd\dictBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\divsufsort.c">
+      <Filter>src\ThirdParty\zstd\dictBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\DeadZone\SivDeadZone.cpp">
+      <Filter>src\Siv3D\DeadZone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\tinyxml\tinyxml2.cpp">
+      <Filter>src\ThirdParty\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\XMLReader\SivXMLReader.cpp">
+      <Filter>src\Siv3D\XMLReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Network\NetworkFactory.cpp">
+      <Filter>src\Siv3D\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Network\SivNetwork.cpp">
+      <Filter>src\Siv3D\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Network\CNetwork.cpp">
+      <Filter>src\Siv3D\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TCPServer\SivTCPServer.cpp">
+      <Filter>src\Siv3D\TCPServer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TCPServer\CTCPServer.cpp">
+      <Filter>src\Siv3D\TCPServer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TCPClient\SivTCPClient.cpp">
+      <Filter>src\Siv3D\TCPClient</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TCPClient\CTCPClient.cpp">
+      <Filter>src\Siv3D\TCPClient</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\IPv4\SivIPv4.cpp">
+      <Filter>src\Siv3D\IPv4</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -2045,69 +2168,6 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\EngineDirectory\EngineDirectory.hpp">
       <Filter>src\Siv3D\EngineDirectory</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\fse.h">
-      <Filter>src\ThirdParty\zstd\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\huf.h">
-      <Filter>src\ThirdParty\zstd\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\mem.h">
-      <Filter>src\ThirdParty\zstd\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\pool.h">
-      <Filter>src\ThirdParty\zstd\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\threading.h">
-      <Filter>src\ThirdParty\zstd\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\xxhash.h">
-      <Filter>src\ThirdParty\zstd\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\zstd_errors.h">
-      <Filter>src\ThirdParty\zstd\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\zstd_internal.h">
-      <Filter>src\ThirdParty\zstd\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\bitstream.h">
-      <Filter>src\ThirdParty\zstd\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\compiler.h">
-      <Filter>src\ThirdParty\zstd\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\error_private.h">
-      <Filter>src\ThirdParty\zstd\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_double_fast.h">
-      <Filter>src\ThirdParty\zstd\compress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_fast.h">
-      <Filter>src\ThirdParty\zstd\compress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_lazy.h">
-      <Filter>src\ThirdParty\zstd\compress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_ldm.h">
-      <Filter>src\ThirdParty\zstd\compress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_opt.h">
-      <Filter>src\ThirdParty\zstd\compress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstdmt_compress.h">
-      <Filter>src\ThirdParty\zstd\compress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_compress.h">
-      <Filter>src\ThirdParty\zstd\compress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\divsufsort.h">
-      <Filter>src\ThirdParty\zstd\dictBuilder</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\zdict.h">
-      <Filter>src\ThirdParty\zstd\dictBuilder</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\zstd.h">
-      <Filter>src\ThirdParty\zstd</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\error\en.h">
       <Filter>src\ThirdParty\rapidjson\error</Filter>
@@ -3789,9 +3849,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\FontAsset.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\OpenSiv3D\Siv3D\Include\Siv3D\Twitter.hpp">
-      <Filter>include\Siv3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Twitter.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
@@ -4010,6 +4067,156 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\ThirdParty\Box2D\Box2D.h">
       <Filter>src\ThirdParty\Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Detour\DetourCommon.h">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Detour\DetourMath.h">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Detour\DetourNavMesh.h">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Detour\DetourNavMeshBuilder.h">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Detour\DetourNavMeshQuery.h">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Detour\DetourNode.h">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Detour\DetourStatus.h">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Detour\DetourAlloc.h">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Detour\DetourAssert.h">
+      <Filter>src\ThirdParty\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\NavMesh.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\NavMesh\CNavMesh.hpp">
+      <Filter>src\Siv3D\NavMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Recast\RecastAssert.h">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Recast\Recast.h">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\Recast\RecastAlloc.h">
+      <Filter>src\ThirdParty\Recast</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\bitstream.h">
+      <Filter>src\ThirdParty\zstd\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\compiler.h">
+      <Filter>src\ThirdParty\zstd\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\cpu.h">
+      <Filter>src\ThirdParty\zstd\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\error_private.h">
+      <Filter>src\ThirdParty\zstd\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\fse.h">
+      <Filter>src\ThirdParty\zstd\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\huf.h">
+      <Filter>src\ThirdParty\zstd\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\mem.h">
+      <Filter>src\ThirdParty\zstd\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\pool.h">
+      <Filter>src\ThirdParty\zstd\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\threading.h">
+      <Filter>src\ThirdParty\zstd\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\xxhash.h">
+      <Filter>src\ThirdParty\zstd\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\zstd_errors.h">
+      <Filter>src\ThirdParty\zstd\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\common\zstd_internal.h">
+      <Filter>src\ThirdParty\zstd\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_compress_internal.h">
+      <Filter>src\ThirdParty\zstd\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_double_fast.h">
+      <Filter>src\ThirdParty\zstd\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_fast.h">
+      <Filter>src\ThirdParty\zstd\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_lazy.h">
+      <Filter>src\ThirdParty\zstd\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_ldm.h">
+      <Filter>src\ThirdParty\zstd\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstd_opt.h">
+      <Filter>src\ThirdParty\zstd\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\compress\zstdmt_compress.h">
+      <Filter>src\ThirdParty\zstd\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\divsufsort.h">
+      <Filter>src\ThirdParty\zstd\dictBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\dictBuilder\zdict.h">
+      <Filter>src\ThirdParty\zstd\dictBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\zstd\zstd.h">
+      <Filter>src\ThirdParty\zstd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ProController.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\tinyxml\tinyxml2.h">
+      <Filter>src\ThirdParty\tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\XMLReader.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ImageRegion.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Network\INetwork.hpp">
+      <Filter>src\Siv3D\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Network\CNetwork.hpp">
+      <Filter>src\Siv3D\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Network.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TCPClient.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TCPServer.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\TCPServer\CTCPServer.hpp">
+      <Filter>src\Siv3D\TCPServer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\TCPClient\CTCPClient.hpp">
+      <Filter>src\Siv3D\TCPClient</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\HamFramework\SevenSegment.hpp">
+      <Filter>include\HamFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\IPv4.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ColorComponents.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

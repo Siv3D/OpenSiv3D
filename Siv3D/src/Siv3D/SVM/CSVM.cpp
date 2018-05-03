@@ -48,13 +48,13 @@ namespace s3d
 
 			const size_t stride = (dimensions + 1);
 
-			for (int32 i = 0; i < num_dataset; ++i)
+			for (size_t i = 0; i < num_dataset; ++i)
 			{
 				m_problem.y[i] = pSupportVectors[0];
 
 				const size_t indexOffset = (dimensions + 1) * i;
 
-				for (int32 k = 0; k < dimensions; ++k)
+				for (int32 k = 0; k < static_cast<int32>(dimensions); ++k)
 				{
 					m_nodes[indexOffset + k].index = (k + 1);
 					m_nodes[indexOffset + k].value = pSupportVectors[k + 1];
@@ -92,13 +92,13 @@ namespace s3d
 
 			size_t indexOffset = 0;
 
-			for (int32 i = 0; i < num_dataset; ++i)
+			for (size_t i = 0; i < num_dataset; ++i)
 			{
 				m_problem.y[i] = supportVectors[i].label;
 
 				const size_t num_elements_vector = supportVectors[i].vector.size();
 
-				for (int32 k = 0; k < num_elements_vector; ++k)
+				for (size_t k = 0; k < num_elements_vector; ++k)
 				{
 					m_nodes[indexOffset + k].index = supportVectors[i].vector[k].first;
 					m_nodes[indexOffset + k].value = supportVectors[i].vector[k].second;
@@ -390,7 +390,7 @@ namespace s3d
 
 			Array<svm_node> node(vector.size() + 1);
 
-			for (int32 i = 0; i < vector.size(); ++i)
+			for (int32 i = 0; i < static_cast<int32>(vector.size()); ++i)
 			{
 				node[i].index = i + 1;
 
@@ -411,7 +411,7 @@ namespace s3d
 
 			Array<svm_node> node(vector.size() + 1);
 
-			for (int32 i = 0; i < vector.size(); ++i)
+			for (int32 i = 0; i < static_cast<int32>(vector.size()); ++i)
 			{
 				node[i].index = vector[i].first;
 
@@ -434,7 +434,7 @@ namespace s3d
 
 			Array<svm_node> node(vector.size() + 1);
 
-			for (int32 i = 0; i < vector.size(); ++i)
+			for (int32 i = 0; i < static_cast<int32>(vector.size()); ++i)
 			{
 				node[i].index = i + 1;
 
@@ -459,7 +459,7 @@ namespace s3d
 
 			Array<svm_node> node(vector.size() + 1);
 
-			for (int32 i = 0; i < vector.size(); ++i)
+			for (int32 i = 0; i < static_cast<int32>(vector.size()); ++i)
 			{
 				node[i].index = vector[i].first;
 

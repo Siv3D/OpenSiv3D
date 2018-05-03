@@ -318,8 +318,8 @@
 	// INI ファイルデータの読み書き
 	# include "Siv3D/INIData.hpp"
 
-	////// XML ファイルの読み込み
-	////# include "Siv3D/XMLReader.hpp"
+	// XML ファイルの読み込み
+	# include "Siv3D/XMLReader.hpp"
 
 	// JSON ファイルの読み込み
 	# include "Siv3D/JSONReader.hpp"
@@ -519,6 +519,9 @@
 	// 画像
 	# include "Siv3D/Image.hpp"
 
+	// Region of Image
+	# include "Siv3D/ImageRegion.hpp"
+
 	// 画像デコーダ・エンコーダインタフェース
 	# include "Siv3D/ImageFormat.hpp"
 
@@ -531,8 +534,8 @@
 	// Exif
 	# include "Siv3D/Exif.hpp"
 
-	//// カスタムカラーフォーマット
-	//# include "Siv3D/CustomColor.hpp"
+	// Color components
+	# include "Siv3D/ColorComponents.hpp"
 
 	//// カスタムカラーフォーマットの画像
 	//# include "Siv3D/CustomImage.hpp"
@@ -594,14 +597,21 @@
 	//# include "Siv3D/Internet.hpp"
 	//// HTTP
 	//# include "Siv3D/HTTPClient.hpp"
+	
 	// Twitter
 	# include "Siv3D/Twitter.hpp"
-	//// ネットワーク
-	//# include "Siv3D/Network.hpp"
-	//// TCP サーバー
-	//# include "Siv3D/TCPServer.hpp"
-	//// TCP クライアント
-	//# include "Siv3D/TCPClient.hpp"
+	
+	// IPv4
+	# include "Siv3D/IPv4.hpp"
+
+	// Network
+	# include "Siv3D/Network.hpp"
+	
+	// TCP Server
+	# include "Siv3D/TCPServer.hpp"
+	
+	// TCP Client
+	# include "Siv3D/TCPClient.hpp"
 
 //////////////////////////////////////////////////
 //
@@ -680,6 +690,9 @@
 
 	// Joy-Con
 	# include "Siv3D/JoyCon.hpp"
+
+	// Pro-Controller
+	# include "Siv3D/ProController.hpp"
 
 	//// マイク入力
 	//# include "Siv3D/Recorder.hpp"
@@ -946,6 +959,9 @@
 	//# include "Siv3D/Graphics3D.hpp"
 	//// ポストエフェクト
 	//# include "Siv3D/PostEffect.hpp"
+
+	// Navigation Mesh
+	# include "Siv3D/NavMesh.hpp"
 
 //////////////////////////////////////////////////
 //
