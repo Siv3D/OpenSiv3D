@@ -180,6 +180,8 @@ namespace s3d
 
 		bool renderGlyph(FT_Face face, FT_UInt glyphIndex);
 
+		void paintGlyph(FT_Face face, FT_UInt glyphIndex, Image& image, Image& tmpImage, bool overwrite, const Point& penPos, const Color& color, int32& width, int32& xAdvance) const;
+
 	public:
 
 		struct Null {};
@@ -237,5 +239,7 @@ namespace s3d
 		RectF draw(const String& codePoints, const Vec2& pos, const ColorF& color, double lineSpacingScale);
 
 		bool draw(const String& codePoints, const RectF& area, const ColorF& color, double lineSpacingScale);
+
+		Rect paint(Image& dst, bool overwrite, const String& codePoints, const Point& pos, const Color& color, double lineSpacingScale) const;
 	};
 }

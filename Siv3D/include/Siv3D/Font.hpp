@@ -491,6 +491,40 @@ namespace s3d
 		}
 
 		bool draw(const RectF& area, const ColorF& color = Palette::White) const;
+
+		Rect paint(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const
+		{
+			return paint(dst, Point(x, y), color);
+		}
+
+		Rect paint(Image& dst, const Point& pos = Point(0, 0), const Color& color = Palette::White) const;
+
+		RectF paintAt(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const
+		{
+			return paintAt(dst, Point(x, y), color);
+		}
+
+		RectF paintAt(Image& dst, const Point& pos = Point(0, 0), const Color& color = Palette::White) const
+		{
+			return paint(dst, (pos - region().center()).asPoint(), color);
+		}
+
+		Rect overwrite(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const
+		{
+			return overwrite(dst, Point(x, y), color);
+		}
+
+		Rect overwrite(Image& dst, const Point& pos = Point(0, 0), const Color& color = Palette::White) const;
+
+		RectF overwriteAt(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const
+		{
+			return overwriteAt(dst, Point(x, y), color);
+		}
+
+		RectF overwriteAt(Image& dst, const Point& pos = Point(0, 0), const Color& color = Palette::White) const
+		{
+			return overwrite(dst, (pos - region().center()).asPoint(), color);
+		}
 	};
 
 	inline DrawableText Font::operator()(const String& text) const

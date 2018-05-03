@@ -1565,9 +1565,9 @@ namespace s3d
 
 		const Rectangle& overwrite(Image& dst, const Color& color) const;
 
-		const Rectangle& paintFrame(Image& image, int32 innerThickness, int32 outerThickness, const Color& color) const;
+		const Rectangle& paintFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color) const;
 
-		const Rectangle& overwriteFrame(Image& image, int32 innerThickness, int32 outerThickness, const Color& color) const;
+		const Rectangle& overwriteFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color) const;
 
 
 		//// paintFrame

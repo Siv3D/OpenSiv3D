@@ -11,26 +11,35 @@
 
 # include "../Siv3DEngine.hpp"
 # include "../AudioFormat/IAudioFormat.hpp"
+# include "../SoundFont/ISoundFont.hpp"
 # include <Siv3D/Wave.hpp>
 # include <Siv3D/BinaryWriter.hpp>
 
 namespace s3d
 {
-	Wave::Wave(const SecondsF& length, const uint32 samplingRate)
-		: Wave(static_cast<size_t>(length.count() * samplingRate), samplingRate)
+	namespace detail
+	{
+		static size_t CalculateSamples(const Duration& duration, const Arg::samplingRate_<uint32> samplingRate)
+		{
+			return static_cast<size_t>(duration.count() * (*samplingRate));
+		}
+	}
+
+	Wave::Wave(const Duration& duration, const Arg::samplingRate_<uint32> samplingRate)
+		: Wave(detail::CalculateSamples(duration, samplingRate), samplingRate)
 	{
 
 	}
 
-	Wave::Wave(const SecondsF& length, const WaveSample& sample, const uint32 samplingRate)
-		: Wave(static_cast<size_t>(length.count() * samplingRate), sample, samplingRate)
+	Wave::Wave(const Duration& duration, const WaveSample& sample, const Arg::samplingRate_<uint32> samplingRate)
+		: Wave(detail::CalculateSamples(duration, samplingRate), sample, samplingRate)
 	{
 
 	}
 
-	Wave::Wave(const size_t num_samples, Arg::generator_<std::function<double(double)>> generator, const uint32 samplingRate)
+	Wave::Wave(const size_t num_samples, Arg::generator_<std::function<double(double)>> generator, const Arg::samplingRate_<uint32> samplingRate)
 		: base_type(num_samples)
-		, m_samplingRate(samplingRate)
+		, m_samplingRate(*samplingRate)
 	{
 		if (!num_samples)
 		{
@@ -47,8 +56,8 @@ namespace s3d
 		}
 	}
 
-	Wave::Wave(const SecondsF& length, Arg::generator_<std::function<double(double)>> generator, const uint32 samplingRate)
-		: Wave(static_cast<size_t>(length.count() * samplingRate), generator, samplingRate)
+	Wave::Wave(const Duration& duration, Arg::generator_<std::function<double(double)>> generator, const Arg::samplingRate_<uint32> samplingRate)
+		: Wave(detail::CalculateSamples(duration, samplingRate), generator, samplingRate)
 	{
 
 	}
@@ -63,6 +72,12 @@ namespace s3d
 		: Wave(Siv3DEngine::GetAudioFormat()->decode(std::move(reader), format))
 	{
 
+	}
+
+	Wave::Wave(const uint8 instrumrnt, const uint8 key, const Duration& duration, const double velocity, const Arg::samplingRate_<uint32> samplingRate)
+		: Wave(detail::CalculateSamples(duration + SecondsF(0.5), samplingRate), samplingRate)
+	{
+		Siv3DEngine::GetSoundFont()->render(*this, detail::CalculateSamples(duration, samplingRate), *samplingRate, instrumrnt, key, velocity);
 	}
 
 	bool Wave::saveWAVE(const FilePath& path, const WAVEFormat format)

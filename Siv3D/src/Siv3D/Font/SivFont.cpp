@@ -157,4 +157,14 @@ namespace s3d
 	{
 		return Siv3DEngine::GetFont()->draw(font.id(), codePoints, area, color, 1.0);
 	}
+
+	Rect DrawableText::paint(Image& dst, const Point& pos, const Color& color) const
+	{
+		return Siv3DEngine::GetFont()->paint(font.id(), dst, codePoints, pos, color, 1.0);
+	}
+
+	Rect DrawableText::overwrite(Image& dst, const Point& pos, const Color& color) const
+	{
+		return Siv3DEngine::GetFont()->overwrite(font.id(), dst, codePoints, pos, color, 1.0);
+	}
 }

@@ -574,6 +574,7 @@ namespace s3d
 	enum class BorderType;
 	enum class FloodFillConnectivity;
 	enum class Interpolation;
+	enum class HaarCascade;
 	class Image;
 
 	//////////////////////////////////////////////////////
@@ -622,6 +623,13 @@ namespace s3d
 	//	Wave.hpp
 	//
 	class Wave;
+
+	//////////////////////////////////////////////////////
+	//
+	//	SoundFont.hpp
+	//
+	enum PianoKey : uint8;
+	enum GMInstrument : uint8;
 
 	//////////////////////////////////////////////////////
 	//

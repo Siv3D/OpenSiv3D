@@ -20,6 +20,7 @@ namespace s3d
 	class ISiv3DCPU;
 	class ISiv3DConsole;
 	class ISiv3DImageFormat;
+	class ISiv3DObjectDetection;
 	class ISiv3DWindow;
 	class ISiv3DProfiler;
 	class ISiv3DClipboard;
@@ -32,6 +33,7 @@ namespace s3d
 	class ISiv3DTextInput;
 	class ISiv3DCodec;
 	class ISiv3DAudioFormat;
+	class ISiv3DSoundFont;
 	class ISiv3DAudio;
 	class ISiv3DFFT;
 	class ISiv3DNetwork;
@@ -94,6 +96,8 @@ namespace s3d
 
 		Siv3DComponent<ISiv3DImageFormat> m_imageFormat;
 
+		Siv3DComponent<ISiv3DObjectDetection> m_objectDetection;
+
 		Siv3DComponent<ISiv3DWindow> m_window;
 
 		Siv3DComponent<ISiv3DProfiler> m_profiler;
@@ -117,6 +121,8 @@ namespace s3d
 		Siv3DComponent<ISiv3DCodec> m_codec;
 
 		Siv3DComponent<ISiv3DAudioFormat> m_audioFormat;
+
+		Siv3DComponent<ISiv3DSoundFont> m_soundFont;
 
 		Siv3DComponent<ISiv3DAudio> m_audio;
 
@@ -185,6 +191,11 @@ namespace s3d
 			return pEngine->m_imageFormat.get();
 		}
 
+		static ISiv3DObjectDetection* GetObjectDetection()
+		{
+			return pEngine->m_objectDetection.get();
+		}
+
 		static ISiv3DWindow* GetWindow()
 		{
 			return pEngine->m_window.get();
@@ -243,6 +254,11 @@ namespace s3d
 		static ISiv3DAudioFormat* GetAudioFormat()
 		{
 			return pEngine->m_audioFormat.get();
+		}
+
+		static ISiv3DSoundFont* GetSoundFont()
+		{
+			return pEngine->m_soundFont.get();
 		}
 
 		static ISiv3DAudio* GetAudio()

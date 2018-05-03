@@ -16,6 +16,7 @@
 # include "CPU/ICPU.hpp"
 # include "Console/IConsole.hpp"
 # include "ImageFormat/IImageFormat.hpp"
+# include "ObjectDetection/IObjectDetection.hpp"
 # include "Window/IWindow.hpp"
 # include "Profiler/IProfiler.hpp"
 # include "Clipboard/IClipboard.hpp"
@@ -28,6 +29,7 @@
 # include "TextInput/ITextInput.hpp"
 # include "Codec/ICodec.hpp"
 # include "AudioFormat/IAudioFormat.hpp"
+# include "SoundFont/ISoundFont.hpp"
 # include "Audio/IAudio.hpp"
 # include "FFT/IFFT.hpp"
 # include "Network/INetwork.hpp"
@@ -64,6 +66,7 @@ namespace s3d
 		m_network.release();
 		m_fft.release();
 		m_audio.release();
+		m_soundFont.release();
 		m_audioFormat.release();
 		m_codec.release();
 		m_textInput.release();
@@ -76,6 +79,7 @@ namespace s3d
 		m_clipboard.release();
 		m_profiler.release();
 		m_window.release();
+		m_objectDetection.release();
 		m_imageFormat.release();
 		m_console.release();
 		m_cpu.release();
