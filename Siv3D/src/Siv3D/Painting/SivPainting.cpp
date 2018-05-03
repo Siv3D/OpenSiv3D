@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -9,8 +9,10 @@
 //
 //-----------------------------------------------
 
+# include <smmintrin.h>
 # include <opencv2/imgproc.hpp>
 # include <Siv3D/Image.hpp>
+# include <Siv3D/ImageRegion.hpp>
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/Rectangle.hpp>
 # include <Siv3D/Circle.hpp>
@@ -19,25 +21,674 @@
 # include <Siv3D/Quad.hpp>
 # include <Siv3D/LineString.hpp>
 # include <Siv3D/Polygon.hpp>
+# include <Siv3D/CPU.hpp>
 # include "PaintShape.hpp"
 
 namespace s3d
 {
 	namespace detail
 	{
-		void WritePaintBufferReference(
+		namespace simd
+		{
+			static const __m128 c255 = ::_mm_set_ps1(255.0f);
+
+			static const __m128i c255i = ::_mm_set1_epi32(255);
+
+			static const __m128 inv255 = ::_mm_set_ps1(1.0f / 255.0f);
+
+			static const __m128 inv255pow2 = ::_mm_set_ps1(1.0f / (255.0f*255.0f));
+
+			static const __m128 inv255pow3 = ::_mm_set_ps1(1.0f / (255.0f*255.0f*255.0f));
+
+			static const __m128i toColorShuffleMask = ::_mm_setr_epi8(0, 4, 8, 12, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+		}
+
+		inline uint32* AsUintPtr(Color* p)
+		{
+			return static_cast<uint32*>(static_cast<void*>(p));
+		}
+
+		static void WriteSSE4_1(
+			const Color* pSrc,
+			Color* pDst,
+			int32 width,
+			int32 height,
+			int32 srcWidth,
+			int32 dstWidth,
+			const Color& color)
+		{
+			const int32 srcStepOffset = srcWidth - width;
+			const int32 dstStepOffset = dstWidth - width;
+			const uint32 globalSrcAlpha = color.a;
+
+			if (color == Palette::White)
+			{
+				for (int32 y = 0; y < height; ++y)
+				{
+					for (int32 x = 0; x < width; ++x)
+					{
+						const uint8 t = pDst->a;
+						const uint32 srcAlpha = pSrc->a;
+						const uint32 dstAlpha = 255 - srcAlpha;
+
+						const __m128i dstA = ::_mm_set1_epi32(dstAlpha);
+						const __m128i srcA = ::_mm_set1_epi32(srcAlpha);
+
+						const __m128i dsti = ::_mm_cvtepu8_epi32((__m128i&)*pDst); //SSE4.1
+						const __m128i srci = ::_mm_cvtepu8_epi32((const __m128i&)*pSrc); //SSE4.1
+
+						const __m128i left = ::_mm_mullo_epi32(dsti, dstA); //SSE4.1
+						const __m128i right = ::_mm_mullo_epi32(srci, srcA); //SSE4.1
+						const __m128i sumi = ::_mm_add_epi32(left, right);
+						const __m128 sum = ::_mm_cvtepi32_ps(sumi);
+
+						const __m128 result = ::_mm_mul_ps(sum, simd::inv255);
+						const __m128i r = _mm_cvtps_epi32(result);
+
+						*AsUintPtr(pDst) = ::_mm_cvtsi128_si32(::_mm_shuffle_epi8(r, simd::toColorShuffleMask));
+						pDst->a = t;
+
+						++pSrc;
+						++pDst;
+					}
+
+					pSrc += srcStepOffset;
+					pDst += dstStepOffset;
+				}
+			}
+			else if (color.r == 255 && color.g == 255 && color.b == 255)
+			{
+				for (int32 y = 0; y < height; ++y)
+				{
+					for (int32 x = 0; x < width; ++x)
+					{
+						const uint8 t = pDst->a;
+						const uint32 srcAlpha = pSrc->a * globalSrcAlpha;
+						const uint32 dstAlpha = (255 * 255) - srcAlpha;
+
+						const __m128i dstA = ::_mm_set1_epi32(dstAlpha);
+						const __m128i srcA = ::_mm_set1_epi32(srcAlpha);
+
+						const __m128i dsti = ::_mm_cvtepu8_epi32((__m128i&)*pDst); //SSE4.1
+						const __m128i srci = ::_mm_cvtepu8_epi32((const __m128i&)*pSrc); //SSE4.1
+
+						const __m128i left = ::_mm_mullo_epi32(dsti, dstA); //SSE4.1
+						const __m128i right = ::_mm_mullo_epi32(srci, srcA); //SSE4.1
+						const __m128i sumi = ::_mm_add_epi32(left, right);
+						const __m128 sum = ::_mm_cvtepi32_ps(sumi);
+
+						const __m128 result = ::_mm_mul_ps(sum, simd::inv255pow2);
+						const __m128i r = _mm_cvtps_epi32(result);
+
+						*AsUintPtr(pDst) = ::_mm_cvtsi128_si32(::_mm_shuffle_epi8(r, simd::toColorShuffleMask));
+						pDst->a = t;
+
+						++pSrc;
+						++pDst;
+					}
+
+					pSrc += srcStepOffset;
+					pDst += dstStepOffset;
+				}
+			}
+			else if (color.a == 255)
+			{
+				const __m128i gi = ::_mm_cvtepu8_epi32((__m128i&)color); //SSE4.1
+
+				for (int32 y = 0; y < height; ++y)
+				{
+					for (int32 x = 0; x < width; ++x)
+					{
+						const uint8 t = pDst->a;
+						const uint32 srcAlpha = pSrc->a;
+						const uint32 dstAlpha = 255 - srcAlpha;
+
+						const __m128i dstA = ::_mm_set1_epi32(dstAlpha);
+						const __m128i srcA = ::_mm_set1_epi32(srcAlpha);
+
+						const __m128i dsti = ::_mm_cvtepu8_epi32((__m128i&)*pDst); //SSE4.1
+						const __m128i srci = ::_mm_cvtepu8_epi32((const __m128i&)*pSrc); //SSE4.1
+
+						const __m128i left = ::_mm_mullo_epi32(::_mm_mullo_epi32(simd::c255i, dsti), dstA); //SSE4.1
+						const __m128i right = ::_mm_mullo_epi32(::_mm_mullo_epi32(gi, srci), srcA); //SSE4.1
+						const __m128i sumi = ::_mm_add_epi32(left, right);
+						const __m128 sum = ::_mm_cvtepi32_ps(sumi);
+
+						const __m128 result = ::_mm_mul_ps(sum, simd::inv255pow2);
+						const __m128i r = _mm_cvtps_epi32(result);
+
+						*AsUintPtr(pDst) = ::_mm_cvtsi128_si32(::_mm_shuffle_epi8(r, simd::toColorShuffleMask));
+						pDst->a = t;
+
+						++pSrc;
+						++pDst;
+					}
+
+					pSrc += srcStepOffset;
+					pDst += dstStepOffset;
+				}
+			}
+			else
+			{
+				const __m128i gi = ::_mm_cvtepu8_epi32((__m128i&)color); //SSE4.1
+				const __m128 g = ::_mm_cvtepi32_ps(gi);
+
+				for (int32 y = 0; y < height; ++y)
+				{
+					for (int32 x = 0; x < width; ++x)
+					{
+						const uint8 t = pDst->a;
+						const uint32 srcAlpha = pSrc->a * globalSrcAlpha;
+						const uint32 dstAlpha = (255 * 255) - srcAlpha;
+						const __m128 dstA = ::_mm_set_ps1(float(dstAlpha));
+						const __m128 srcA = ::_mm_set_ps1(float(srcAlpha));
+
+						const __m128i dsti = ::_mm_cvtepu8_epi32((__m128i&)*pDst); //SSE4.1
+						const __m128 dst = ::_mm_cvtepi32_ps(dsti);
+
+						const __m128i srci = ::_mm_cvtepu8_epi32((const __m128i&)*pSrc); //SSE4.1
+						const __m128 src = ::_mm_cvtepi32_ps(srci);
+
+						const __m128 left = ::_mm_mul_ps(::_mm_mul_ps(simd::c255, dst), dstA);
+						const __m128 right = ::_mm_mul_ps(::_mm_mul_ps(g, src), srcA);
+						const __m128 sum = ::_mm_add_ps(left, right);
+
+						const __m128 result = ::_mm_mul_ps(sum, simd::inv255pow3);
+						const __m128i r = _mm_cvtps_epi32(result);
+
+						*AsUintPtr(pDst) = ::_mm_cvtsi128_si32(::_mm_shuffle_epi8(r, simd::toColorShuffleMask));
+						pDst->a = t;
+
+						++pSrc;
+						++pDst;
+					}
+
+					pSrc += srcStepOffset;
+					pDst += dstStepOffset;
+				}
+			}
+		}
+
+		static void WriteSSE3(
+			const Color* pSrc,
+			Color* pDst,
+			int32 width,
+			int32 height,
+			int32 srcWidth,
+			int32 dstWidth,
+			const Color& color)
+		{
+			const int32 srcStepOffset = srcWidth - width;
+			const int32 dstStepOffset = dstWidth - width;
+			const uint32 globalSrcRed = color.r;
+			const uint32 globalSrcGreen = color.g;
+			const uint32 globalSrcBlue = color.b;
+			const uint32 globalSrcAlpha = color.a;
+
+			if (color == Palette::White)
+			{
+				for (int32 y = 0; y < height; ++y)
+				{
+					for (int32 x = 0; x < width; ++x)
+					{
+						const uint32 srcAlpha = pSrc->a;
+
+						if (srcAlpha != 255)
+						{
+							const uint32 dstAlpha = 255 - srcAlpha;
+							pDst->r = (pDst->r * dstAlpha + pSrc->r * srcAlpha) / 255;
+							pDst->g = (pDst->g * dstAlpha + pSrc->g * srcAlpha) / 255;
+							pDst->b = (pDst->b * dstAlpha + pSrc->b * srcAlpha) / 255;
+						}
+						else
+						{
+							const uint8 a = pDst->a;
+
+							*pDst = *pSrc;
+
+							pDst->a = a;
+						}
+
+						++pSrc;
+						++pDst;
+					}
+
+					pSrc += srcStepOffset;
+					pDst += dstStepOffset;
+				}
+			}
+			else if (color.r == 255 && color.g == 255 && color.b == 255)
+			{
+				for (int32 y = 0; y < height; ++y)
+				{
+					for (int32 x = 0; x < width; ++x)
+					{
+						const uint8 t = pDst->a;
+						const uint32 srcAlpha = pSrc->a * globalSrcAlpha;
+						const uint32 dstAlpha = (255 * 255) - srcAlpha;
+						const __m128 dstA = ::_mm_set_ps1(float(dstAlpha));
+						const __m128 srcA = ::_mm_set_ps1(float(srcAlpha));
+
+						const __m128i dsti = ::_mm_set_epi32(pDst->a, pDst->b, pDst->g, pDst->r);
+						const __m128 dst = ::_mm_cvtepi32_ps(dsti);
+
+						const __m128i srci = ::_mm_set_epi32(pSrc->a, pSrc->b, pSrc->g, pSrc->r);
+						const __m128 src = ::_mm_cvtepi32_ps(srci);
+
+						const __m128 left = ::_mm_mul_ps(dst, dstA);
+						const __m128 right = ::_mm_mul_ps(src, srcA);
+						const __m128 sum = ::_mm_add_ps(left, right);
+
+						const __m128 result = ::_mm_mul_ps(sum, simd::inv255pow2);
+						const __m128i r = _mm_cvtps_epi32(result);
+
+						*AsUintPtr(pDst) = ::_mm_cvtsi128_si32(::_mm_shuffle_epi8(r, simd::toColorShuffleMask));
+						pDst->a = t;
+
+						++pSrc;
+						++pDst;
+					}
+
+					pSrc += srcStepOffset;
+					pDst += dstStepOffset;
+				}
+			}
+			else if (color.a == 255)
+			{
+				const __m128i gi = ::_mm_set_epi32(255, globalSrcBlue, globalSrcGreen, globalSrcRed);
+				const __m128 g = ::_mm_cvtepi32_ps(gi);
+
+				for (int32 y = 0; y < height; ++y)
+				{
+					for (int32 x = 0; x < width; ++x)
+					{
+						const uint8 t = pDst->a;
+						const uint32 srcAlpha = pSrc->a;
+						const uint32 dstAlpha = 255 - srcAlpha;
+						const __m128 dstA = ::_mm_set_ps1(float(dstAlpha));
+						const __m128 srcA = ::_mm_set_ps1(float(srcAlpha));
+
+						const __m128i dsti = ::_mm_set_epi32(pDst->a, pDst->b, pDst->g, pDst->r);
+						const __m128 dst = ::_mm_cvtepi32_ps(dsti);
+
+						const __m128i srci = ::_mm_set_epi32(pSrc->a, pSrc->b, pSrc->g, pSrc->r);
+						const __m128 src = ::_mm_cvtepi32_ps(srci);
+
+						const __m128 left = ::_mm_mul_ps(::_mm_mul_ps(simd::c255, dst), dstA);
+						const __m128 right = ::_mm_mul_ps(::_mm_mul_ps(g, src), srcA);
+						const __m128 sum = ::_mm_add_ps(left, right);
+
+						const __m128 result = ::_mm_mul_ps(sum, simd::inv255pow2);
+						const __m128i r = _mm_cvtps_epi32(result);
+
+						*AsUintPtr(pDst) = ::_mm_cvtsi128_si32(::_mm_shuffle_epi8(r, simd::toColorShuffleMask));
+						pDst->a = t;
+
+						++pSrc;
+						++pDst;
+					}
+
+					pSrc += srcStepOffset;
+					pDst += dstStepOffset;
+				}
+			}
+			else
+			{
+				const __m128i gi = ::_mm_set_epi32(globalSrcAlpha, globalSrcBlue, globalSrcGreen, globalSrcRed);
+				const __m128 g = ::_mm_cvtepi32_ps(gi);
+
+				for (int32 y = 0; y < height; ++y)
+				{
+					for (int32 x = 0; x < width; ++x)
+					{
+						const uint8 t = pDst->a;
+						const uint32 srcAlpha = pSrc->a * globalSrcAlpha;
+						const uint32 dstAlpha = (255 * 255) - srcAlpha;
+						const __m128 dstA = ::_mm_set_ps1(float(dstAlpha));
+						const __m128 srcA = ::_mm_set_ps1(float(srcAlpha));
+
+						const __m128i dsti = ::_mm_set_epi32(pDst->a, pDst->b, pDst->g, pDst->r);
+						const __m128 dst = ::_mm_cvtepi32_ps(dsti);
+
+						const __m128i srci = ::_mm_set_epi32(pSrc->a, pSrc->b, pSrc->g, pSrc->r);
+						const __m128 src = ::_mm_cvtepi32_ps(srci);
+
+						const __m128 left = ::_mm_mul_ps(::_mm_mul_ps(simd::c255, dst), dstA);
+						const __m128 right = ::_mm_mul_ps(::_mm_mul_ps(g, src), srcA);
+						const __m128 sum = ::_mm_add_ps(left, right);
+
+						const __m128 result = ::_mm_mul_ps(sum, simd::inv255pow3);
+						const __m128i r = _mm_cvtps_epi32(result);
+
+						*AsUintPtr(pDst) = ::_mm_cvtsi128_si32(::_mm_shuffle_epi8(r, simd::toColorShuffleMask));
+						pDst->a = t;
+
+						++pSrc;
+						++pDst;
+					}
+
+					pSrc += srcStepOffset;
+					pDst += dstStepOffset;
+				}
+			}
+		}
+
+		static void WriteReference(
+			const Color* pSrc,
+			Color* pDst,
+			int32 width,
+			int32 height,
+			int32 srcWidth,
+			int32 dstWidth,
+			const Color& color)
+		{
+			const int32 srcStepOffset = srcWidth - width;
+			const int32 dstStepOffset = dstWidth - width;
+			const uint32 globalSrcRed = color.r;
+			const uint32 globalSrcGreen = color.g;
+			const uint32 globalSrcBlue = color.b;
+			const uint32 globalSrcAlpha = color.a;
+
+			if (color == Palette::White)
+			{
+				for (int32 y = 0; y < height; ++y)
+				{
+					for (int32 x = 0; x < width; ++x)
+					{
+						const uint32 srcAlpha = pSrc->a;
+
+						if (srcAlpha != 255)
+						{
+							const uint32 dstAlpha = 255 - srcAlpha;
+							pDst->r = (pDst->r * dstAlpha + pSrc->r * srcAlpha) / 255;
+							pDst->g = (pDst->g * dstAlpha + pSrc->g * srcAlpha) / 255;
+							pDst->b = (pDst->b * dstAlpha + pSrc->b * srcAlpha) / 255;
+						}
+						else
+						{
+							const uint8 a = pDst->a;
+
+							*pDst = *pSrc;
+
+							pDst->a = a;
+						}
+
+						++pSrc;
+						++pDst;
+					}
+
+					pSrc += srcStepOffset;
+					pDst += dstStepOffset;
+				}
+			}
+			else if (color.r == 255 && color.g == 255 && color.b == 255)
+			{
+				for (int32 y = 0; y < height; ++y)
+				{
+					for (int32 x = 0; x < width; ++x)
+					{
+						const uint32 srcAlpha = pSrc->a * globalSrcAlpha;
+						const uint32 dstAlpha = (255 * 255) - srcAlpha;
+
+						pDst->r = (pDst->r * dstAlpha + pSrc->r * srcAlpha) / (255 * 255);
+						pDst->g = (pDst->g * dstAlpha + pSrc->g * srcAlpha) / (255 * 255);
+						pDst->b = (pDst->b * dstAlpha + pSrc->b * srcAlpha) / (255 * 255);
+
+						++pSrc;
+						++pDst;
+					}
+
+					pSrc += srcStepOffset;
+					pDst += dstStepOffset;
+				}
+			}
+			else if (color.a == 255)
+			{
+				for (int32 y = 0; y < height; ++y)
+				{
+					for (int32 x = 0; x < width; ++x)
+					{
+						const uint32 srcAlpha = pSrc->a;
+
+						if (srcAlpha != 255)
+						{
+							const uint32 dstAlpha = 255 - srcAlpha;
+							pDst->r = (255 * pDst->r * dstAlpha + globalSrcRed * pSrc->r * srcAlpha) / (255 * 255);
+							pDst->g = (255 * pDst->g * dstAlpha + globalSrcGreen * pSrc->g * srcAlpha) / (255 * 255);
+							pDst->b = (255 * pDst->b * dstAlpha + globalSrcBlue * pSrc->b * srcAlpha) / (255 * 255);
+						}
+						else
+						{
+							pDst->r = (globalSrcRed * pSrc->r) / 255;
+							pDst->g = (globalSrcGreen * pSrc->g) / 255;
+							pDst->b = (globalSrcBlue * pSrc->b) / 255;
+						}
+
+						++pSrc;
+						++pDst;
+					}
+
+					pSrc += srcStepOffset;
+					pDst += dstStepOffset;
+				}
+			}
+			else
+			{
+				for (int32 y = 0; y < height; ++y)
+				{
+					for (int32 x = 0; x < width; ++x)
+					{
+						const uint32 srcAlpha = pSrc->a * globalSrcAlpha;
+						const uint32 dstAlpha = (255 * 255) - srcAlpha;
+
+						pDst->r = (255 * pDst->r * dstAlpha + globalSrcRed * pSrc->r * srcAlpha) / (255 * 255 * 255);
+						pDst->g = (255 * pDst->g * dstAlpha + globalSrcGreen * pSrc->g * srcAlpha) / (255 * 255 * 255);
+						pDst->b = (255 * pDst->b * dstAlpha + globalSrcBlue * pSrc->b * srcAlpha) / (255 * 255 * 255);
+
+						++pSrc;
+						++pDst;
+					}
+
+					pSrc += srcStepOffset;
+					pDst += dstStepOffset;
+				}
+			}
+		}
+
+		static void OverwriteSSE4_1(
+			const Color* pSrc,
+			Color* pDst,
+			int32 width,
+			int32 height,
+			int32 srcWidth,
+			int32 dstWidth,
+			const Color& color)
+		{
+			const int32 srcStepOffset = srcWidth - width;
+			const int32 dstStepOffset = dstWidth - width;
+
+			if (color == Palette::White)
+			{
+				for (int32 y = 0; y < height; ++y)
+				{
+					::memcpy(pDst, pSrc, (width * sizeof(Color)));
+
+					pSrc += srcWidth;
+					pDst += dstWidth;
+				}
+			}
+			else
+			{
+				const __m128i gi = ::_mm_cvtepu8_epi32((__m128i&)color); //SSE4.1
+				const __m128 g = ::_mm_cvtepi32_ps(gi);
+				const __m128 gd = ::_mm_mul_ps(g, simd::inv255);
+
+				for (int32 y = 0; y < height; ++y)
+				{
+					for (int32 x = 0; x < width; ++x)
+					{
+						const __m128i ci = ::_mm_cvtepu8_epi32((const __m128i&)*pSrc); //SSE4.1
+						const __m128 c = ::_mm_cvtepi32_ps(ci);
+						const __m128 cgd = ::_mm_mul_ps(c, gd);
+						const __m128i r = _mm_cvtps_epi32(cgd);
+
+						*AsUintPtr(pDst) = ::_mm_cvtsi128_si32(::_mm_shuffle_epi8(r, simd::toColorShuffleMask));
+
+						++pSrc;
+						++pDst;
+					}
+
+					pSrc += srcStepOffset;
+					pDst += dstStepOffset;
+				}
+			}
+		}
+
+		static void OverwriteSSE3(
+			const Color* pSrc,
+			Color* pDst,
+			int32 width,
+			int32 height,
+			int32 srcWidth,
+			int32 dstWidth,
+			const s3d::Color& color)
+		{
+			const int32 srcStepOffset = srcWidth - width;
+			const int32 dstStepOffset = dstWidth - width;
+
+			if (color == Palette::White)
+			{
+				for (int32 y = 0; y < height; ++y)
+				{
+					::memcpy(pDst, pSrc, (width * sizeof(Color)));
+
+					pSrc += srcWidth;
+					pDst += dstWidth;
+				}
+			}
+			else
+			{
+				const __m128i gi = ::_mm_set_epi32(color.a, color.b, color.g, color.r);
+				const __m128 g = ::_mm_cvtepi32_ps(gi);
+				const __m128 gd = ::_mm_mul_ps(g, simd::inv255);
+
+				for (int32 y = 0; y < height; ++y)
+				{
+					for (int32 x = 0; x < width; ++x)
+					{
+						const __m128i ci = ::_mm_set_epi32(pSrc->a, pSrc->b, pSrc->g, pSrc->r);
+						const __m128 c = ::_mm_cvtepi32_ps(ci);
+						const __m128 cgd = ::_mm_mul_ps(c, gd);
+						const __m128i r = _mm_cvtps_epi32(cgd);
+
+						*AsUintPtr(pDst) = ::_mm_cvtsi128_si32(_mm_shuffle_epi8(r, simd::toColorShuffleMask));
+
+						++pSrc;
+						++pDst;
+					}
+
+					pSrc += srcStepOffset;
+					pDst += dstStepOffset;
+				}
+			}
+		}
+
+		static void OverwriteReference(
+			const Color* pSrc,
+			Color* pDst,
+			int32 width,
+			int32 height,
+			int32 srcWidth,
+			int32 dstWidth,
+			const Color& color)
+		{
+			const int32 srcStepOffset = srcWidth - width;
+			const int32 dstStepOffset = dstWidth - width;
+			const uint32 globalSrcRed = color.r;
+			const uint32 globalSrcGreen = color.g;
+			const uint32 globalSrcBlue = color.b;
+			const uint32 globalSrcAlpha = color.a;
+
+			if (color == Palette::White)
+			{
+				for (int32 y = 0; y < height; ++y)
+				{
+					::memcpy(pDst, pSrc, (width * sizeof(Color)));
+
+					pSrc += srcWidth;
+					pDst += dstWidth;
+				}
+			}
+			else if (color.r == 255 && color.g == 255 && color.b == 255)
+			{
+				for (int32 y = 0; y < height; ++y)
+				{
+					for (int32 x = 0; x < width; ++x)
+					{
+						*pDst = *pSrc;
+
+						pDst->a = (pSrc->a * globalSrcAlpha) / 255;
+
+						++pSrc;
+						++pDst;
+					}
+
+					pSrc += srcStepOffset;
+					pDst += dstStepOffset;
+				}
+			}
+			else if (color.a == 255)
+			{
+				for (int32 y = 0; y < height; ++y)
+				{
+					for (int32 x = 0; x < width; ++x)
+					{
+						pDst->r = (pSrc->r * globalSrcRed) / 255;
+						pDst->g = (pSrc->g * globalSrcGreen) / 255;
+						pDst->b = (pSrc->b * globalSrcBlue) / 255;
+						pDst->a = pSrc->a;
+
+						++pSrc;
+						++pDst;
+					}
+
+					pSrc += srcStepOffset;
+					pDst += dstStepOffset;
+				}
+			}
+			else
+			{
+				for (int32 y = 0; y < height; ++y)
+				{
+					for (int32 x = 0; x < width; ++x)
+					{
+						pDst->r = (pSrc->r * globalSrcRed) / 255;
+						pDst->g = (pSrc->g * globalSrcGreen) / 255;
+						pDst->b = (pSrc->b * globalSrcBlue) / 255;
+						pDst->a = (pSrc->a * globalSrcAlpha) / 255;
+
+						++pSrc;
+						++pDst;
+					}
+
+					pSrc += srcStepOffset;
+					pDst += dstStepOffset;
+				}
+			}
+		}
+
+		static void WritePaintBufferReference(
 			Color* dst,
-			const unsigned* offsets,
+			const uint32* offsets,
 			size_t offsetCount,
-			const Color& color
-		)
+			const Color& color)
 		{
 			const uint32 srcBlend = color.a;
 			const uint32 dstBlend = 255 - srcBlend;
 			const uint32 premulSrcR = srcBlend * color.r;
 			const uint32 premulSrcG = srcBlend * color.g;
 			const uint32 premulSrcB = srcBlend * color.b;
-			
+
 			for (size_t i = 0; i < offsetCount; ++i)
 			{
 				Color* pDst = dst + offsets[i];
@@ -45,6 +696,256 @@ namespace s3d
 				pDst->g = (pDst->g * dstBlend + premulSrcG) / 255;
 				pDst->b = (pDst->b * dstBlend + premulSrcB) / 255;
 			}
+		}
+	}
+
+	void Image::paint(Image& dst, const int32 x, const int32 y, const Color& color) const
+	{
+		paint(dst, Point(x, y), color);
+	}
+
+	void Image::paint(Image& dst, const Point& pos, const Color& color) const
+	{
+		if (this == &dst)
+		{
+			return;
+		}
+
+		const Image& src = *this;
+
+		const int32 dstXBegin = std::max(pos.x, 0);
+		const int32 dstYBegin = std::max(pos.y, 0);
+		const int32 dstXEnd = std::min(pos.x + src.width(), dst.width());
+		const int32 dstYEnd = std::min(pos.y + src.height(), dst.height());
+		const int32 writeWidth = dstXEnd - dstXBegin;
+		const int32 writeHeight = dstYEnd - dstYBegin;
+
+		if (writeWidth <= 0 || writeHeight <= 0)
+		{
+			return;
+		}
+
+		const int32 srcXBegin = std::max(0, -pos.x);
+		const int32 srcYBegin = std::max(0, -pos.y);
+
+		const Color* pSrc = &src[srcYBegin][srcXBegin];
+		Color* pDst = &dst[dstYBegin][dstXBegin];
+
+		const int32 srcWidth = src.width();
+		const int32 dstWidth = dst.width();
+
+		const CPUFeature cpu = CPU::GetFeature();
+
+		if (cpu.SSE41)
+		{
+			detail::WriteSSE4_1(pSrc, pDst, writeWidth, writeHeight, srcWidth, dstWidth, color);
+		}
+		else if (cpu.SSE3)
+		{
+			detail::WriteSSE3(pSrc, pDst, writeWidth, writeHeight, srcWidth, dstWidth, color);
+		}
+		else
+		{
+			detail::WriteReference(pSrc, pDst, writeWidth, writeHeight, srcWidth, dstWidth, color);
+		}
+	}
+
+	void Image::overwrite(Image& dst, const int32 x, const int32 y, const Color& color) const
+	{
+		overwrite(dst, Point(x, y), color);
+	}
+
+	void Image::overwrite(Image& dst, const Point& pos, const Color& color) const
+	{
+		if (this == &dst)
+		{
+			return;
+		}
+
+		const Image& src = *this;
+
+		const int32 dstXBegin = std::max(pos.x, 0);
+		const int32 dstYBegin = std::max(pos.y, 0);
+		const int32 dstXEnd = std::min(pos.x + src.width(), dst.width());
+		const int32 dstYEnd = std::min(pos.y + src.height(), dst.height());
+		const int32 writeWidth = (dstXEnd - dstXBegin) > 0 ? (dstXEnd - dstXBegin) : 0;
+		const int32 writeHeight = (dstYEnd - dstYBegin) > 0 ? (dstYEnd - dstYBegin) : 0;
+
+		if (writeWidth*writeHeight == 0)
+		{
+			return;
+		}
+
+		const int32 srcXBegin = std::max(0, -pos.x);
+		const int32 srcYBegin = std::max(0, -pos.y);
+
+		const Color* pSrc = &src[srcYBegin][srcXBegin];
+		Color* pDst = &dst[dstYBegin][dstXBegin];
+
+		const int32 srcWidth = src.width();
+		const int32 dstWidth = dst.width();
+
+		const CPUFeature cpu = CPU::GetFeature();
+
+		if (cpu.SSE41)
+		{
+			detail::OverwriteSSE4_1(pSrc, pDst, writeWidth, writeHeight, srcWidth, dstWidth, color);
+		}
+		else if (cpu.SSE3)
+		{
+			detail::OverwriteSSE3(pSrc, pDst, writeWidth, writeHeight, srcWidth, dstWidth, color);
+		}
+		else
+		{
+			detail::OverwriteReference(pSrc, pDst, writeWidth, writeHeight, srcWidth, dstWidth, color);
+		}
+	}
+
+	void ImageRegion::paint(Image& dst, const int32 x, const int32 y, const Color& color) const
+	{
+		paint(dst, Point(x, y), color);
+	}
+
+	void ImageRegion::paint(Image& dst, const Point& pos, const Color& color) const
+	{
+		if (&m_imageRef == &dst)
+		{
+			return;
+		}
+
+		const Image& src = m_imageRef;
+
+		if (!src)
+		{
+			return;
+		}
+
+		const Rect& rect = m_rect;
+
+		if (rect.w <= 0 || rect.h <= 0)
+		{
+			return;
+		}
+
+		const int32 srcMapOriginX = pos.x - rect.x;
+		const int32 srcMapOriginY = pos.y - rect.y;
+
+		const int32 srcMapXBegin = std::max(srcMapOriginX, pos.x);
+		const int32 srcMapYBegin = std::max(srcMapOriginY, pos.y);
+
+		const int32 srcMapXEnd = std::min(pos.x + rect.w, srcMapOriginX + src.width());
+		const int32 srcMapYEnd = std::min(pos.y + rect.h, srcMapOriginY + src.height());
+
+		const int32 fillMapXBegin = Clamp(srcMapXBegin, 0, dst.width());
+		const int32 fillMapXEnd = Clamp(srcMapXEnd, 0, dst.width());
+
+		const int32 fillMapYBegin = Clamp(srcMapYBegin, 0, dst.height());
+		const int32 fillMapYEnd = Clamp(srcMapYEnd, 0, dst.height());
+
+		const int32 writeWidth = fillMapXEnd - fillMapXBegin;
+		const int32 writeHeight = fillMapYEnd - fillMapYBegin;
+
+		if (writeWidth <= 0 || writeHeight <= 0)
+		{
+			return;
+		}
+
+		const int32 sY = fillMapYBegin - srcMapOriginY;
+		const int32 sX = fillMapXBegin - srcMapOriginX;
+
+		const Color* pSrc = &src[sY][sX];
+		Color* pDst = &dst[fillMapYBegin][fillMapXBegin];
+
+		const int32 srcWidth = src.width();
+		const int32 dstWidth = dst.width();
+
+		const CPUFeature cpu = CPU::GetFeature();
+
+		if (cpu.SSE41)
+		{
+			detail::WriteSSE4_1(pSrc, pDst, writeWidth, writeHeight, srcWidth, dstWidth, color);
+		}
+		else if (cpu.SSE3)
+		{
+			detail::WriteSSE3(pSrc, pDst, writeWidth, writeHeight, srcWidth, dstWidth, color);
+		}
+		else
+		{
+			detail::WriteReference(pSrc, pDst, writeWidth, writeHeight, srcWidth, dstWidth, color);
+		}
+	}
+
+	void ImageRegion::overwrite(Image& dst, const int32 x, const int32 y, const Color& color) const
+	{
+		overwrite(dst, Point(x, y), color);
+	}
+
+	void ImageRegion::overwrite(Image& dst, const Point& pos, const Color& color) const
+	{
+		if (&m_imageRef == &dst)
+		{
+			return;
+		}
+
+		const Image& src = m_imageRef;
+
+		if (!src)
+		{
+			return;
+		}
+
+		const Rect& rect = m_rect;
+
+		if (rect.w <= 0 || rect.h <= 0)
+		{
+			return;
+		}
+
+		const int32 srcMapOriginX = pos.x - rect.x;
+		const int32 srcMapOriginY = pos.y - rect.y;
+
+		const int32 srcMapXBegin = std::max(srcMapOriginX, pos.x);
+		const int32 srcMapYBegin = std::max(srcMapOriginY, pos.y);
+
+		const int32 srcMapXEnd = std::min(pos.x + rect.w, srcMapOriginX + src.width());
+		const int32 srcMapYEnd = std::min(pos.y + rect.h, srcMapOriginY + src.height());
+
+		const int32 fillMapXBegin = Clamp(srcMapXBegin, 0, dst.width());
+		const int32 fillMapXEnd = Clamp(srcMapXEnd, 0, dst.width());
+
+		const int32 fillMapYBegin = Clamp(srcMapYBegin, 0, dst.height());
+		const int32 fillMapYEnd = Clamp(srcMapYEnd, 0, dst.height());
+
+		const int32 writeWidth = fillMapXEnd - fillMapXBegin;
+		const int32 writeHeight = fillMapYEnd - fillMapYBegin;
+
+		if (writeWidth <= 0 || writeHeight <= 0)
+		{
+			return;
+		}
+
+		const int32 sY = fillMapYBegin - srcMapOriginY;
+		const int32 sX = fillMapXBegin - srcMapOriginX;
+
+		const Color* pSrc = &src[sY][sX];
+		Color* pDst = &dst[fillMapYBegin][fillMapXBegin];
+
+		const int32 srcWidth = src.width();
+		const int32 dstWidth = dst.width();
+
+		const CPUFeature cpu = CPU::GetFeature();
+
+		if (cpu.SSE41)
+		{
+			detail::OverwriteSSE4_1(pSrc, pDst, writeWidth, writeHeight, srcWidth, dstWidth, color);
+		}
+		else if (cpu.SSE3)
+		{
+			detail::OverwriteSSE3(pSrc, pDst, writeWidth, writeHeight, srcWidth, dstWidth, color);
+		}
+		else
+		{
+			detail::OverwriteReference(pSrc, pDst, writeWidth, writeHeight, srcWidth, dstWidth, color);
 		}
 	}
 
@@ -164,8 +1065,8 @@ namespace s3d
 							*pDst = color;
 							pDst->a = a;
 						}
-						else if(d > 0.0)
-						{			
+						else if (d > 0.0)
+						{
 							const uint32 srcBlend2 = static_cast<uint32>(255 * d);
 							const uint32 premulSrcR = srcBlend2 * color.r;
 							const uint32 premulSrcG = srcBlend2 * color.g;
@@ -274,12 +1175,12 @@ namespace s3d
 
 	const Circle& Circle::overwrite(Image& dst, const Color& color, const bool antialiased) const
 	{
-		const int32 yBegin	= std::max(static_cast<int32>(y - r), 0);
-		const int32 yEnd	= std::min(static_cast<int32>(y + r + 1), dst.height());
-		const int32 xBegin	= std::max(static_cast<int32>(x - r), 0);
-		const int32 xEnd	= std::min(static_cast<int32>(x + r + 1), dst.width());
-		const int32 fillWidth	= xEnd - xBegin;
-		const int32 fillHeight	= yEnd - yBegin;
+		const int32 yBegin = std::max(static_cast<int32>(y - r), 0);
+		const int32 yEnd = std::min(static_cast<int32>(y + r + 1), dst.height());
+		const int32 xBegin = std::max(static_cast<int32>(x - r), 0);
+		const int32 xEnd = std::min(static_cast<int32>(x + r + 1), dst.width());
+		const int32 fillWidth = xEnd - xBegin;
+		const int32 fillHeight = yEnd - yBegin;
 
 		if (fillWidth <= 0 || fillHeight <= 0)
 		{
@@ -350,13 +1251,13 @@ namespace s3d
 
 	const Circle& Circle::paintFrame(Image& dst, const int32 innerThickness, const int32 outerThickness, const Color& color, const bool antialiased) const
 	{
-		const int32 yBegin	= std::max(static_cast<int32>(y - r - outerThickness), 0);
-		const int32 yEnd	= std::min(static_cast<int32>(y + r + 1 + outerThickness), dst.height());
-		const int32 xBegin	= std::max(static_cast<int32>(x - r - outerThickness), 0);
-		const int32 xEnd	= std::min(static_cast<int32>(x + r + 1 + outerThickness), dst.width());
+		const int32 yBegin = std::max(static_cast<int32>(y - r - outerThickness), 0);
+		const int32 yEnd = std::min(static_cast<int32>(y + r + 1 + outerThickness), dst.height());
+		const int32 xBegin = std::max(static_cast<int32>(x - r - outerThickness), 0);
+		const int32 xEnd = std::min(static_cast<int32>(x + r + 1 + outerThickness), dst.width());
 
-		const int32 fillWidth	= xEnd - xBegin;
-		const int32 fillHeight	= yEnd - yBegin;
+		const int32 fillWidth = xEnd - xBegin;
+		const int32 fillHeight = yEnd - yBegin;
 
 		if (fillWidth <= 0 || fillHeight <= 0)
 		{
@@ -539,13 +1440,13 @@ namespace s3d
 
 	const Circle& Circle::overwriteFrame(Image& dst, const int32 innerThickness, const int32 outerThickness, const Color& color, const bool antialiased) const
 	{
-		const int32 yBegin	= std::max(static_cast<int32>(y - r - outerThickness), 0);
-		const int32 yEnd	= std::min(static_cast<int32>(y + r + 1 + outerThickness), dst.height());
-		const int32 xBegin	= std::max(static_cast<int32>(x - r - outerThickness), 0);
-		const int32 xEnd	= std::min(static_cast<int32>(x + r + 1 + outerThickness), dst.width());
+		const int32 yBegin = std::max(static_cast<int32>(y - r - outerThickness), 0);
+		const int32 yEnd = std::min(static_cast<int32>(y + r + 1 + outerThickness), dst.height());
+		const int32 xBegin = std::max(static_cast<int32>(x - r - outerThickness), 0);
+		const int32 xEnd = std::min(static_cast<int32>(x + r + 1 + outerThickness), dst.width());
 
-		const int32 fillWidth	= xEnd - xBegin;
-		const int32 fillHeight	= yEnd - yBegin;
+		const int32 fillWidth = xEnd - xBegin;
+		const int32 fillHeight = yEnd - yBegin;
 
 		if (fillWidth <= 0 || fillHeight <= 0)
 		{
@@ -715,12 +1616,12 @@ namespace s3d
 
 	const Ellipse& Ellipse::overwrite(Image& dst, const Color& color) const
 	{
-		const int32 yBegin	= std::max(static_cast<int32>(y - b), 0);
-		const int32 yEnd	= std::min(static_cast<int32>(y + b + 1), dst.height());
-		const int32 xBegin	= std::max(static_cast<int32>(x - a), 0);
-		const int32 xEnd	= std::min(static_cast<int32>(x + a + 1), dst.width());
-		const int32 fillWidth	= xEnd - xBegin;
-		const int32 fillHeight	= yEnd - yBegin;
+		const int32 yBegin = std::max(static_cast<int32>(y - b), 0);
+		const int32 yEnd = std::min(static_cast<int32>(y + b + 1), dst.height());
+		const int32 xBegin = std::max(static_cast<int32>(x - a), 0);
+		const int32 xEnd = std::min(static_cast<int32>(x + a + 1), dst.width());
+		const int32 fillWidth = xEnd - xBegin;
+		const int32 fillHeight = yEnd - yBegin;
 
 		if (fillWidth <= 0 || fillHeight <= 0)
 		{

@@ -43,6 +43,8 @@ namespace s3d
 
 		virtual Array<Glyph> getGlyphs(FontID handleID, const String& codePoints) = 0;
 
+		virtual Array<Glyph> getVerticalGlyphs(FontID handleID, const String& codePoints) = 0;
+
 		virtual OutlineGlyph getOutlineGlyph(FontID handleID, char32 codePoint) = 0;
 
 		virtual RectF getBoundingRect(FontID handleID, const String& codePoints, double lineSpacingScale) = 0;

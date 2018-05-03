@@ -314,8 +314,10 @@ namespace s3d
 		return !paths.isEmpty();
 	}
 
-	void CClipboard_Windows::setText(const String& text)
+	void CClipboard_Windows::setText(const String& _text)
 	{
+		const std::wstring text = _text.toWstr();
+
 		const size_t size = sizeof(char16_t) * (text.length() + 1);
 
 		HANDLE hData = ::GlobalAlloc(GMEM_MOVEABLE, size);
@@ -325,8 +327,8 @@ namespace s3d
 		::memcpy(pDst, text.data(), size);
 		
 		::GlobalUnlock(hData);
-		
-		if (!::OpenClipboard(nullptr))
+
+		if (::OpenClipboard(nullptr))
 		{
 			::EmptyClipboard();
 			::SetClipboardData(CF_UNICODETEXT, hData);

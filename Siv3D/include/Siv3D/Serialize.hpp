@@ -600,6 +600,56 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	LineString
+	//
+	template <class Archive>
+	inline void SIV3D_SERIALIZE_SAVE(Archive& archive, const LineString& value)
+	{
+		archive(cereal::make_size_tag(static_cast<cereal::size_type>(value.size())));
+		archive(cereal::binary_data(value.data(), value.size_bytes()));
+	}
+
+	template <class Archive>
+	inline void SIV3D_SERIALIZE_LOAD(Archive& archive, LineString& value)
+	{
+		cereal::size_type size;
+		archive(cereal::make_size_tag(size));
+		value.resize(static_cast<size_t>(size));
+		archive(cereal::binary_data(value.data(), value.size_bytes()));
+	}
+
+	//////////////////////////////////////////////////////
+	//
+	//	Polygon
+	//
+	template <class Archive>
+	inline void SIV3D_SERIALIZE_SAVE(Archive& archive, const Polygon& value)
+	{
+		archive(value.outer());
+		archive(value.inners());
+		archive(value.vertices());
+		archive(value.indices());
+		archive(value.boundingRect());
+	}
+
+	template <class Archive>
+	inline void SIV3D_SERIALIZE_LOAD(Archive& archive, Polygon& value)
+	{
+		Array<Vec2> outer;
+		Array<Array<Vec2>> holes;
+		Array<Float2> vertices;
+		Array<uint32> indices;
+		RectF boundingRect;
+		archive(outer);
+		archive(holes);
+		archive(vertices);
+		archive(indices);
+		archive(boundingRect);
+		value = Polygon(outer, holes, vertices, indices, boundingRect);
+	}
+
+	//////////////////////////////////////////////////////
+	//
 	//	Bezier2
 	//
 	template <class Archive>

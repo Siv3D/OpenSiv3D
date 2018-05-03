@@ -183,6 +183,11 @@ namespace s3d
 		return m_fonts[handleID]->getGlyphs(codePoints);
 	}
 
+	Array<Glyph> CFont::getVerticalGlyphs(FontID handleID, const String& codePoints)
+	{
+		return m_fonts[handleID]->getVerticalGlyphs(codePoints);
+	}
+
 	OutlineGlyph CFont::getOutlineGlyph(const FontID handleID, const char32 codePoint)
 	{
 		return m_fonts[handleID]->getOutlineGlyph(codePoint);
