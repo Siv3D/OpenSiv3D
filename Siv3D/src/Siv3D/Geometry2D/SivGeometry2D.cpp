@@ -9,11 +9,6 @@
 //
 //-----------------------------------------------
 
-// boost 1.65.1 workaround
-# ifndef _HAS_AUTO_PTR_ETC
-#	define _HAS_AUTO_PTR_ETC 1
-# endif
-
 # include <Siv3D/Fwd.hpp>
 # include <Siv3D/Intersection.hpp>
 # include <Siv3D/Geometry2D.hpp>
@@ -32,7 +27,9 @@
 # include "../Polygon/CPolygon.hpp"
 
 S3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
+# include <boost/geometry.hpp>
 # include <boost/geometry/algorithms/within.hpp>
+# include <boost/geometry/algorithms/distance.hpp>
 S3D_DISABLE_MSVC_WARNINGS_POP()
 
 namespace s3d
@@ -2191,6 +2188,13 @@ namespace s3d
 			}
 
 			return boost::geometry::within(b._detail()->getPolygon(), a._detail()->getPolygon());
+		}
+
+
+
+		double Distance(const Line& a, const Polygon& b)
+		{
+			return boost::geometry::distance(boost::geometry::model::segment<Vec2>(a.begin, a.end), b._detail()->getPolygon());
 		}
 	}
 }

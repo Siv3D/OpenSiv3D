@@ -31,6 +31,11 @@ namespace s3d
 		virtual int32 getFPS() const = 0;
 
 
+		virtual void reportDrawcalls(size_t drawcalls, size_t triangles) = 0;
+
+		virtual Statistics getStatistics() const = 0;
+
+
 		virtual void setAssetCreationWarningEnabled(bool enabled) = 0;
 
 		virtual void reportAssetCreation() = 0;

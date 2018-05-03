@@ -15,6 +15,10 @@
 # if defined(SIV3D_TARGET_WINDOWS)
 	# define _WINSOCK_DEPRECATED_NO_WARNINGS
 	# include <Winsock2.h>
+# elif defined(SIV3D_TARGET_MACOS)
+
+std::string macOS_GetPrivateIPv4();
+
 # endif
 
 namespace s3d
@@ -81,6 +85,15 @@ namespace s3d
 			}
 		}
 
+	# elif defined(SIV3D_TARGET_MACOS)
+		
+		const String ip = Unicode::WidenAscii(macOS_GetPrivateIPv4());
+		
+		if (!ip.isEmpty() && !ip.starts_with(U"127"))
+		{
+			return IPv4(ip);
+		}
+		
 	# endif
 
 		return none;

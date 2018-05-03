@@ -10,12 +10,6 @@
 //-----------------------------------------------
 
 # pragma once
-
-// boost 1.65.1 workaround
-# ifndef _HAS_AUTO_PTR_ETC
-#	define _HAS_AUTO_PTR_ETC 1
-# endif
-
 # include <memory>
 # include <iostream>
 # include "Fwd.hpp"
