@@ -7,7 +7,7 @@ enable_language(C)
 
 set(CMAKE_CXX_COMPILER "clang++")
 #set(CMAKE_CXX_COMPILER "g++")
-set(CMAKE_CXX_FLAGS "-std=c++17 -Wall -Wextra -Wno-unknown-pragmas -fPIC")
+set(CMAKE_CXX_FLAGS "-std=c++17 -Wall -Wextra -Wno-unknown-pragmas -fPIC -msse4.1")
 set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG -march=x86-64")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g3 -Og -pg")
@@ -15,7 +15,7 @@ set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -DNDEBUG -march=x86-64")
 
 set(CMAKE_C_COMPILER "clang")
 #set(CMAKE_C_COMPILER "gcc")
-set(CMAKE_C_FLAGS "-Wall -Wextra -Wno-unknown-pragmas -fPIC")
+set(CMAKE_C_FLAGS "-Wall -Wextra -Wno-unknown-pragmas -fPIC -msse4.1")
 set(CMAKE_C_FLAGS_DEBUG "-g3 -O0 -pg -DDEBUG")
 set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG -march=x86-64")
 set(CMAKE_C_FLAGS_RELWITHDEBINFO "-g3 -Og -pg")
@@ -93,6 +93,7 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/Cursor/SivCursor.cpp"
 	"../Siv3D/src/Siv3D/Date/SivDate.cpp"
 	"../Siv3D/src/Siv3D/DateTime/SivDateTime.cpp"
+	"../Siv3D/src/Siv3D/DeadZone/SivDeadZone.cpp"
 	"../Siv3D/src/Siv3D/DragDrop/CDragDrop_Linux.cpp"
 	"../Siv3D/src/Siv3D/DragDrop/DragDropFactory.cpp"
 	"../Siv3D/src/Siv3D/DragDrop/SivDragDrop.cpp"
@@ -289,6 +290,7 @@ set(SOURCE_FILES
 	"../Siv3D/src/Siv3D/XInput/CXInput_NULL.cpp"
 	"../Siv3D/src/Siv3D/XInput/SivXInput.cpp"
 	"../Siv3D/src/Siv3D/XInput/XInputFactory.cpp"
+	"../Siv3D/src/Siv3D/XMLReader/SivXMLReader.cpp"
 	"../Siv3D/src/Siv3D/XXHash/SivXXHash.cpp"
 
 	"../Siv3D/src/Siv3D/Siv3DEngine.cpp"
@@ -342,6 +344,7 @@ set(SOURCE_FILES
 	"../Siv3D/src/ThirdParty/Recast/RecastMeshDetail.cpp"
 	"../Siv3D/src/ThirdParty/Recast/RecastRasterization.cpp"
 	"../Siv3D/src/ThirdParty/Recast/RecastRegion.cpp"
+	"../Siv3D/src/ThirdParty/tinyxml/tinyxml2.cpp"
 	"../Siv3D/src/ThirdParty/zstd/common/entropy_common.c"
 	"../Siv3D/src/ThirdParty/zstd/common/error_private.c"
 	"../Siv3D/src/ThirdParty/zstd/common/fse_decompress.c"
