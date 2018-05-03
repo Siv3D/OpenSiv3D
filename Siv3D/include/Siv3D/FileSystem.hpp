@@ -500,4 +500,9 @@ namespace s3d
 
 		void SetCurrentDirectory(const FilePath& path);
 	}
+
+	namespace linux::FileSystem
+	{
+		[[nodiscard]] Array<FilePath> GetFontDirectories();
+	}
 }
