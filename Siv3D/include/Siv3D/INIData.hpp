@@ -156,18 +156,18 @@ namespace s3d
 			return get<Type>(section, name);
 		}
 
-		template <class Type>
-		[[nodiscard]] Type getOr(const Section& section, const Name& name, Type&& defaultValue) const
+		template <class Type, class U>
+		[[nodiscard]] Type getOr(const Section& section, const Name& name, U&& defaultValue) const
 		{
-			return getOpt<Type>(section, name).value_or(std::forward<Type>(defaultValue));
+			return getOpt<Type>(section, name).value_or(std::forward<U>(defaultValue));
 		}
 
-		template <class Type>
-		[[nodiscard]] Type getOr(const String& section_and_name, Type&& defaultValue) const
+		template <class Type, class U>
+		[[nodiscard]] Type getOr(const String& section_and_name, U&& defaultValue) const
 		{
 			const auto[section, name] = Split(section_and_name);
 
-			return getOr<Type>(section, name, std::forward<Type>(defaultValue));
+			return getOpt<Type>(section, name).value_or(std::forward<U>(defaultValue));
 		}
 
 		template <class Type>
