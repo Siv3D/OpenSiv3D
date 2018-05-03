@@ -167,7 +167,7 @@ namespace s3d
 					return Wave();
 				}
 				
-				Wave wave(m_frameLength, static_cast<uint32>(m_outputFormat.mSampleRate));
+				Wave wave(m_frameLength, Arg::samplingRate = static_cast<uint32>(m_outputFormat.mSampleRate));
 
 				read(m_frameLength * m_inputFormat.mChannelsPerFrame, wave.data());
 				
