@@ -30,6 +30,7 @@
 # include "AudioFormat/IAudioFormat.hpp"
 # include "Audio/IAudio.hpp"
 # include "FFT/IFFT.hpp"
+# include "Network/INetwork.hpp"
 # include "Graphics/IGraphics.hpp"
 # include "Texture/ITexture.hpp"
 # include "Shader/IShader.hpp"
@@ -60,6 +61,7 @@ namespace s3d
 		m_shader.release();
 		m_texture.release();
 		m_graphics.release();
+		m_network.release();
 		m_fft.release();
 		m_audio.release();
 		m_audioFormat.release();
