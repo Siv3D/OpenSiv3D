@@ -518,6 +518,7 @@
 		2C06445C209B1F3D004CBA1B /* SivXMLReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C06425E209B1F3D004CBA1B /* SivXMLReader.cpp */; };
 		2C06445D209B1F3D004CBA1B /* SivXXHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C064260209B1F3D004CBA1B /* SivXXHash.cpp */; };
 		2C064460209B1F5C004CBA1B /* tsf.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C06445F209B1F5B004CBA1B /* tsf.h */; };
+		2C064462209BE581004CBA1B /* lopencv_photo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C064461209BE581004CBA1B /* lopencv_photo.a */; };
 		2C09854D1FB3A149001AC929 /* engine in Resources */ = {isa = PBXBuildFile; fileRef = 2C09854C1FB3A149001AC929 /* engine */; };
 		2C0987541FB3B5E6001AC929 /* lboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF1C79F1FB394ED00FC903E /* lboost_filesystem.a */; };
 		2C0987551FB3B5E6001AC929 /* lboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF1C7A11FB3956900FC903E /* lboost_system.a */; };
@@ -1762,6 +1763,7 @@
 		2C06425E209B1F3D004CBA1B /* SivXMLReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivXMLReader.cpp; sourceTree = "<group>"; };
 		2C064260209B1F3D004CBA1B /* SivXXHash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivXXHash.cpp; sourceTree = "<group>"; };
 		2C06445F209B1F5B004CBA1B /* tsf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tsf.h; sourceTree = "<group>"; };
+		2C064461209BE581004CBA1B /* lopencv_photo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = lopencv_photo.a; path = ../Siv3D/lib/macOS/opencv/lopencv_photo.a; sourceTree = "<group>"; };
 		2C09854C1FB3A149001AC929 /* engine */ = {isa = PBXFileReference; lastKnownFileType = folder; name = engine; path = bin/engine; sourceTree = SOURCE_ROOT; };
 		2C0987521FB3B53B001AC929 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		2C0FBBC61FDB71F300A128B9 /* numbers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = numbers.hpp; sourceTree = "<group>"; };
@@ -2244,6 +2246,7 @@
 				2CE9AC0E2095BA2C00099472 /* lopencv_videoio.a in Frameworks */,
 				2CE9AC142095BAC500099472 /* lopencv_imgcodecs.a in Frameworks */,
 				2C063E822099B031004CBA1B /* lopencv_objdetect.a in Frameworks */,
+				2C064462209BE581004CBA1B /* lopencv_photo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5176,6 +5179,7 @@
 		2C15857F1F21FD87002687D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C064461209BE581004CBA1B /* lopencv_photo.a */,
 				2C063E812099B031004CBA1B /* lopencv_objdetect.a */,
 				2CE9AC132095BAC500099472 /* lopencv_imgcodecs.a */,
 				2CE9AC112095BAA600099472 /* CoreMedia.framework */,

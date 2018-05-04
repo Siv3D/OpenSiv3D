@@ -66,7 +66,7 @@ namespace s3d
 		/// <returns>
 		/// アプリケーションが続行できる場合 true, アプリケーションを終了する場合 false
 		/// </returns>
-		bool Update(bool clearGraphics = true);
+		[[nodiscard]] bool Update(bool clearGraphics = true);
 
 		/// <summary>
 		/// アプリケーションの終了をエンジンに伝えます。
@@ -94,9 +94,9 @@ namespace s3d
 		/// <returns>
 		/// 直前のフレームで発生したウィンドウイベントを表す WindowEvent::Flag の組み合わせ
 		/// </returns>
-		uint32 GetPreviousEvent();
+		[[nodiscard]] uint32 GetPreviousEvent();
 
-		double DeltaTime(double maxDuration = 0.1);
+		[[nodiscard]] double DeltaTime(double maxDuration = 0.1);
 
 		/// <summary>
 		/// 指定したミリ秒だけ処理を停止します。
@@ -129,7 +129,7 @@ namespace s3d
 		/// <returns>
 		/// System::Update() が呼ばれた回数
 		/// </returns>
-		int32 FrameCount();
+		[[nodiscard]] int32 FrameCount();
 
 		/// <summary>
 		/// フレームカウントを変更します。

@@ -78,13 +78,13 @@ namespace s3d
 		setLoop(loopBegin, loopEnd);
 	}
 
-	Audio::Audio(Wave&& wave, const Arg::loopBegin_<SecondsF> loopBegin)
+	Audio::Audio(Wave&& wave, const Arg::loopBegin_<Duration> loopBegin)
 		: Audio(std::move(wave))
 	{
 		setLoop(loopBegin);
 	}
 
-	Audio::Audio(Wave&& wave, const Arg::loopBegin_<SecondsF> loopBegin, const Arg::loopEnd_<SecondsF> loopEnd)
+	Audio::Audio(Wave&& wave, const Arg::loopBegin_<Duration> loopBegin, const Arg::loopEnd_<Duration> loopEnd)
 		: Audio(std::move(wave))
 	{
 		setLoop(loopBegin, loopEnd);
@@ -120,13 +120,13 @@ namespace s3d
 
 	}
 
-	Audio::Audio(const Wave& wave, Arg::loopBegin_<SecondsF> loopBegin)
+	Audio::Audio(const Wave& wave, Arg::loopBegin_<Duration> loopBegin)
 		: Audio(Wave(wave), loopBegin)
 	{
 
 	}
 
-	Audio::Audio(const Wave& wave, Arg::loopBegin_<SecondsF> loopBegin, Arg::loopEnd_<SecondsF> loopEnd)
+	Audio::Audio(const Wave& wave, Arg::loopBegin_<Duration> loopBegin, Arg::loopEnd_<Duration> loopEnd)
 		: Audio(Wave(wave), loopBegin, loopEnd)
 	{
 
@@ -175,13 +175,13 @@ namespace s3d
 		setLoop(loopBegin, loopEnd);
 	}
 
-	Audio::Audio(const FilePath& path, const Arg::loopBegin_<SecondsF> loopBegin)
+	Audio::Audio(const FilePath& path, const Arg::loopBegin_<Duration> loopBegin)
 		: Audio(path)
 	{
 		setLoop(loopBegin);
 	}
 
-	Audio::Audio(const FilePath& path, const Arg::loopBegin_<SecondsF> loopBegin, const Arg::loopEnd_<SecondsF> loopEnd)
+	Audio::Audio(const FilePath& path, const Arg::loopBegin_<Duration> loopBegin, const Arg::loopEnd_<Duration> loopEnd)
 		: Audio(path)
 	{
 		setLoop(loopBegin, loopEnd);
@@ -271,7 +271,7 @@ namespace s3d
 			loopEndSample);
 	}
 
-	void Audio::setLoop(const Arg::loopBegin_<SecondsF> loopBegin)
+	void Audio::setLoop(const Arg::loopBegin_<Duration> loopBegin)
 	{
 		const uint64 loopBeginSample = static_cast<uint64>(samplingRate() * std::max(loopBegin->count(), 0.0));
 		const uint64 loopEndSample = samples() - 1;
@@ -285,7 +285,7 @@ namespace s3d
 			loopEndSample);
 	}
 
-	void Audio::setLoop(const Arg::loopBegin_<SecondsF> loopBegin, const Arg::loopEnd_<SecondsF> loopEnd)
+	void Audio::setLoop(const Arg::loopBegin_<Duration> loopBegin, const Arg::loopEnd_<Duration> loopEnd)
 	{
 		const uint64 loopBeginSample = static_cast<uint64>(samplingRate() * std::max(loopBegin->count(), 0.0));
 		const uint64 loopEndSample = std::min<uint64>(static_cast<uint64>(samplingRate() * std::max(loopEnd->count(), 0.0)), samples() - 1);
@@ -299,17 +299,17 @@ namespace s3d
 			loopEndSample);
 	}
 
-	bool Audio::play(const SecondsF& fadeinDuration) const
+	bool Audio::play(const Duration& fadeinDuration) const
 	{
 		return Siv3DEngine::GetAudio()->play(m_handle->id(), fadeinDuration);
 	}
 
-	void Audio::pause(const SecondsF& fadeoutDuration) const
+	void Audio::pause(const Duration& fadeoutDuration) const
 	{
 		return Siv3DEngine::GetAudio()->pause(m_handle->id(), fadeoutDuration);
 	}
 
-	void Audio::stop(const SecondsF& fadeoutDuration) const
+	void Audio::stop(const Duration& fadeoutDuration) const
 	{
 		Siv3DEngine::GetAudio()->stop(m_handle->id(), fadeoutDuration);
 	}

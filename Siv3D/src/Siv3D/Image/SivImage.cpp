@@ -14,6 +14,7 @@
 # include "../ObjectDetection/IObjectDetection.hpp"
 
 # include <opencv2/imgproc.hpp>
+# include <opencv2/photo.hpp>
 # include <Siv3D/Image.hpp>
 # include <Siv3D/ImageRegion.hpp>
 # include <Siv3D/ImageProcessing.hpp>
@@ -134,6 +135,44 @@ namespace s3d
 
 					++pSrc;
 				}
+			}
+		}
+
+		static void ToMatVec3f(const Image& image, cv::Mat_<cv::Vec3f>& mat)
+		{
+			assert(image);
+			assert(image.width() == mat.cols && image.height() == mat.rows);
+
+			const Color* pSrc = image[0];
+
+			for (int32 y = 0; y < image.height(); ++y)
+			{
+				for (int32 x = 0; x < image.width(); ++x)
+				{
+					auto& dst = mat(y, x);
+					dst[0] = static_cast<float>(pSrc->r);
+					dst[1] = static_cast<float>(pSrc->g);
+					dst[2] = static_cast<float>(pSrc->b);
+					++pSrc;
+				}
+			}
+		}
+
+		static void ToImage(const cv::Mat_<cv::Vec3b>& from, Image& to)
+		{
+			to.resize(from.cols, from.rows);
+
+			Color* pDst = to[0];
+			const Color* pDstEnd = pDst + to.num_pixels();
+			const uint8* pSrc = from.data;
+
+			while (pDst != pDstEnd)
+			{
+				pDst->r = *pSrc++;
+				pDst->g = *pSrc++;
+				pDst->b = *pSrc++;
+				pDst->a = 255;
+				++pDst;
 			}
 		}
 
@@ -1865,6 +1904,11 @@ namespace s3d
 		return image;
 	}
 
+	Image& Image::gaussianBlur(const int32 size, const BorderType borderType)
+	{
+		return gaussianBlur(size, size, borderType);
+	}
+
 	Image& Image::gaussianBlur(const int32 horizontal, const int32 vertical, const BorderType borderType)
 	{
 		// 1. パラメータチェック
@@ -1894,6 +1938,11 @@ namespace s3d
 		}
 
 		return *this;
+	}
+
+	Image Image::gaussianBlurred(const int32 size, const BorderType borderType) const
+	{
+		return gaussianBlurred(size, size, borderType);
 	}
 
 	Image Image::gaussianBlurred(const int32 horizontal, const int32 vertical, const BorderType borderType) const
@@ -2886,5 +2935,359 @@ namespace s3d
 			}
 		}
 
+		void EdgePreservingFilter(const Image& src, Image& dst, EdgePreservingFilterType filterType, double sigma_s, double sigma_r)
+		{
+			// 1. パラメータチェック
+			{
+				if (!src)
+				{
+					return dst.clear();
+				}
+			}
+
+			// 2. 出力画像のサイズ変更
+			{
+				dst.resize(src.size());
+
+				::memcpy(dst.data(), src.data(), dst.size_bytes());
+			}
+
+			// 3. 処理
+			{
+				cv::Mat_<cv::Vec3b> matSrc(src.height(), src.width());
+
+				{
+					const Color* pSrc = src[0];
+
+					for (int32 y = 0; y < src.height(); ++y)
+					{
+						auto* line = &matSrc(y, 0);
+
+						for (int32 x = 0; x < src.width(); ++x)
+						{
+							line[x][0] = pSrc->r;
+							line[x][1] = pSrc->g;
+							line[x][2] = pSrc->b;
+
+							++pSrc;
+						}
+					}
+				}
+
+				cv::Mat_<cv::Vec3b> matDst(src.height(), src.width());
+
+				cv::edgePreservingFilter(matSrc, matDst,
+					filterType == EdgePreservingFilterType::Recursive
+					? cv::RECURS_FILTER : cv::NORMCONV_FILTER,
+					static_cast<float>(sigma_s), static_cast<float>(sigma_r));
+
+				{
+					Color* pDst = dst[0];
+
+					for (int32 y = 0; y < src.height(); ++y)
+					{
+						const auto* line = &matDst(y, 0);
+
+						for (int32 x = 0; x < src.width(); ++x)
+						{
+							pDst->r = line[x][0];
+							pDst->g = line[x][1];
+							pDst->b = line[x][2];
+
+							++pDst;
+						}
+					}
+				}
+			}
+		}
+
+		void DetailEnhance(const Image& src, Image& dst, double sigma_s, double sigma_r)
+		{
+			// 1. パラメータチェック
+			{
+				if (!src)
+				{
+					return dst.clear();
+				}
+			}
+
+			// 2. 出力画像のサイズ変更
+			{
+				dst.resize(src.size());
+
+				::memcpy(dst.data(), src.data(), dst.size_bytes());
+			}
+
+			// 3. 処理
+			{
+				cv::Mat_<cv::Vec3b> matSrc(src.height(), src.width());
+
+				{
+					const Color* pSrc = src[0];
+
+					for (int32 y = 0; y < src.height(); ++y)
+					{
+						auto* line = &matSrc(y, 0);
+
+						for (int32 x = 0; x < src.width(); ++x)
+						{
+							line[x][0] = pSrc->r;
+							line[x][1] = pSrc->g;
+							line[x][2] = pSrc->b;
+
+							++pSrc;
+						}
+					}
+				}
+
+				cv::Mat_<cv::Vec3b> matDst(src.height(), src.width());
+
+				cv::detailEnhance(matSrc, matDst, static_cast<float>(sigma_s), static_cast<float>(sigma_r));
+
+				{
+					Color* pDst = dst[0];
+
+					for (int32 y = 0; y < src.height(); ++y)
+					{
+						const auto* line = &matDst(y, 0);
+
+						for (int32 x = 0; x < src.width(); ++x)
+						{
+							pDst->r = line[x][0];
+							pDst->g = line[x][1];
+							pDst->b = line[x][2];
+
+							++pDst;
+						}
+					}
+				}
+			}
+		}
+
+		void Stylization(const Image& src, Image& dst, double sigma_s, double sigma_r)
+		{
+			// 1. パラメータチェック
+			{
+				if (!src)
+				{
+					return dst.clear();
+				}
+			}
+
+			// 2. 出力画像のサイズ変更
+			{
+				dst.resize(src.size());
+
+				::memcpy(dst.data(), src.data(), dst.size_bytes());
+			}
+
+			// 3. 処理
+			{
+				cv::Mat_<cv::Vec3b> matSrc(src.height(), src.width());
+
+				{
+					const Color* pSrc = src[0];
+
+					for (int32 y = 0; y < src.height(); ++y)
+					{
+						auto* line = &matSrc(y, 0);
+
+						for (int32 x = 0; x < src.width(); ++x)
+						{
+							line[x][0] = pSrc->r;
+							line[x][1] = pSrc->g;
+							line[x][2] = pSrc->b;
+
+							++pSrc;
+						}
+					}
+				}
+
+				cv::Mat_<cv::Vec3b> matDst(src.height(), src.width());
+
+				cv::stylization(matSrc, matDst, static_cast<float>(sigma_s), static_cast<float>(sigma_r));
+
+				{
+					Color* pDst = dst[0];
+
+					for (int32 y = 0; y < src.height(); ++y)
+					{
+						const auto* line = &matDst(y, 0);
+
+						for (int32 x = 0; x < src.width(); ++x)
+						{
+							pDst->r = line[x][0];
+							pDst->g = line[x][1];
+							pDst->b = line[x][2];
+
+							++pDst;
+						}
+					}
+				}
+			}
+		}
+
+		ColorF SSIM(const Image& image1, const Image& image2)
+		{
+			if (image1.size() != image2.size())
+			{
+				return ColorF(1.0);
+			}
+
+			const double C1 = 6.5025, C2 = 58.5225;
+			const int32 x = image1.width(), y = image1.height();
+
+			cv::Mat_<cv::Vec3f> I1(y, x), I2(y, x);
+			detail::ToMatVec3f(image1, I1);
+			detail::ToMatVec3f(image2, I2);
+
+			cv::Mat I2_2 = I2.mul(I2);        // I2^2
+			cv::Mat I1_2 = I1.mul(I1);        // I1^2
+			cv::Mat I1_I2 = I1.mul(I2);        // I1 * I2
+
+			/*************************** END INITS **********************************/
+
+			cv::Mat mu1, mu2;   // PRELIMINARY COMPUTING
+			cv::GaussianBlur(I1, mu1, cv::Size(11, 11), 1.5);
+			cv::GaussianBlur(I2, mu2, cv::Size(11, 11), 1.5);
+
+
+			cv::Mat mu1_2 = mu1.mul(mu1);
+			cv::Mat mu2_2 = mu2.mul(mu2);
+			cv::Mat mu1_mu2 = mu1.mul(mu2);
+
+			cv::Mat sigma1_2, sigma2_2, sigma12;
+
+			cv::GaussianBlur(I1_2, sigma1_2, cv::Size(11, 11), 1.5);
+			sigma1_2 -= mu1_2;
+
+			cv::GaussianBlur(I2_2, sigma2_2, cv::Size(11, 11), 1.5);
+			sigma2_2 -= mu2_2;
+
+			cv::GaussianBlur(I1_I2, sigma12, cv::Size(11, 11), 1.5);
+			sigma12 -= mu1_mu2;
+
+			///////////////////////////////// FORMULA ////////////////////////////////
+			cv::Mat t1, t2, t3;
+
+			t1 = 2 * mu1_mu2 + C1;
+			t2 = 2 * sigma12 + C2;
+			t3 = t1.mul(t2);              // t3 = ((2*mu1_mu2 + C1).*(2*sigma12 + C2))
+
+			t1 = mu1_2 + mu2_2 + C1;
+			t2 = sigma1_2 + sigma2_2 + C2;
+			t1 = t1.mul(t2);               // t1 =((mu1_2 + mu2_2 + C1).*(sigma1_2 + sigma2_2 + C2))
+
+			cv::Mat ssim_map;
+			cv::divide(t3, t1, ssim_map);      // ssim_map =  t3./t1;
+
+			cv::Scalar mssim = cv::mean(ssim_map); // mssim = average of ssim map
+			return ColorF(mssim[0], mssim[1], mssim[0], 1.0);
+		}
+
+		void Inpaint(const Image& image, const Image& maskImage, Image& result, int32 radius)
+		{
+			// 1. パラメータチェック
+			{
+				if (!image || !maskImage)
+				{
+					return;
+				}
+
+				if (image.size() != maskImage.size())
+				{
+					return;
+				}
+
+				radius = Max(radius, 0);
+			}
+
+			// 2. 処理
+			{
+				cv::Mat_<cv::Vec3b> matSrc(image.height(), image.width());
+				{
+					const Color* pSrc = image[0];
+
+					for (int32 y = 0; y < image.height(); ++y)
+					{
+						auto* line = &matSrc(y, 0);
+
+						for (int32 x = 0; x < image.width(); ++x)
+						{
+							line[x][0] = pSrc->r;
+							line[x][1] = pSrc->g;
+							line[x][2] = pSrc->b;
+							++pSrc;
+						}
+					}
+				}
+
+				cv::Mat_<uint8> matMask(image.height(), image.width());
+				{
+					const Color* pSrc = maskImage[0];
+					const Color* pDSrcEnd = pSrc + maskImage.num_pixels();
+					uint8* pDst = matMask.data;
+
+					while (pSrc != pDSrcEnd)
+					{
+						*pDst++ = (pSrc->r == 255);
+						++pSrc;
+					}
+				}
+
+				cv::Mat_<cv::Vec3b> matDst;
+
+				cv::inpaint(matSrc, matMask, matDst, radius, cv::INPAINT_TELEA);
+
+				detail::ToImage(matDst, result);
+			}
+		}
+
+		void Inpaint(const Image& image, const Grid<uint8>& maskImage, Image& result, int32 radius)
+		{
+			// 1. パラメータチェック
+			{
+				if (!image || maskImage.isEmpty())
+				{
+					return;
+				}
+
+				if (image.size() != maskImage.size())
+				{
+					return;
+				}
+
+				radius = Max(radius, 0);
+			}
+
+			// 2. 処理
+			{
+				cv::Mat_<cv::Vec3b> matSrc(image.height(), image.width());
+				{
+					const Color* pSrc = image[0];
+
+					for (int32 y = 0; y < image.height(); ++y)
+					{
+						auto* line = &matSrc(y, 0);
+
+						for (int32 x = 0; x < image.width(); ++x)
+						{
+							line[x][0] = pSrc->r;
+							line[x][1] = pSrc->g;
+							line[x][2] = pSrc->b;
+							++pSrc;
+						}
+					}
+				}
+
+				cv::Mat_<uint8> matMask(static_cast<int32>(maskImage.height()), static_cast<int32>(maskImage.width()), const_cast<uint8*>(maskImage.data()), static_cast<int32>(maskImage.width()));
+
+				cv::Mat_<cv::Vec3b> matDst;
+
+				cv::inpaint(matSrc, matMask, matDst, radius, cv::INPAINT_TELEA);
+
+				detail::ToImage(matDst, result);
+			}
+		}
 	}
 }

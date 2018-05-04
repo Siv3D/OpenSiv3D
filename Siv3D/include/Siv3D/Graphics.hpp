@@ -38,14 +38,14 @@ namespace s3d
 	{
 		void SetBackground(const ColorF& color);
 
-		Array<DisplayOutput> EnumOutputs();
+		[[nodiscard]] Array<DisplayOutput> EnumOutputs();
 
 		bool SetFullScreen(bool fullScreen, const Size& size, size_t displayIndex = 0, double refreshRateHz = 60.0);
 
 		void SetTargetFrameRateHz(const Optional<double>& targetFrameRateHz);
 
-		Optional<double> GetTargetFrameRateHz();
+		[[nodiscard]] Optional<double> GetTargetFrameRateHz();
 
-		double GetDisplayRefreshRateHz();
+		[[nodiscard]] double GetDisplayRefreshRateHz();
 	}
 }

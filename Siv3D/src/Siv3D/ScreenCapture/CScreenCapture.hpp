@@ -26,6 +26,8 @@ namespace s3d
 
 		bool m_hasRequest = false;
 
+		bool m_hasNewFrame = false;
+
 	public:
 
 		CScreenCapture();
@@ -39,5 +41,9 @@ namespace s3d
 		const FilePath& getDefaultScreenshotDirectory() const override;
 
 		void requestScreenCapture(const FilePath& path) override;
+
+		bool hasNewFrame() const override;
+
+		const Image& receiveScreenCapture() const override;
 	};
 }

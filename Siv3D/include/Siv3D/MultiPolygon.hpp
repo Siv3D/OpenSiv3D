@@ -204,61 +204,61 @@ namespace s3d
 			return moveBy(v.x, v.y);
 		}
 
-		MultiPolygon movedBy(double x, double y) const
+		[[nodiscard]] MultiPolygon movedBy(double x, double y) const
 		{
 			return MultiPolygon(*this).moveBy(x, y);
 		}
 
-		MultiPolygon movedBy(const Vec2& v) const
+		[[nodiscard]] MultiPolygon movedBy(const Vec2& v) const
 		{
 			return movedBy(v.x, v.y);
 		}
 
-		MultiPolygon rotated(double angle) const;
+		[[nodiscard]] MultiPolygon rotated(double angle) const;
 
-		MultiPolygon rotatedAt(const Vec2& pos, double angle) const;
+		[[nodiscard]] MultiPolygon rotatedAt(const Vec2& pos, double angle) const;
 
 		MultiPolygon& rotate(double angle);
 
 		MultiPolygon& rotateAt(const Vec2& pos, double angle);
 
-		MultiPolygon transformed(double s, double c, const Vec2& pos) const;
+		[[nodiscard]] MultiPolygon transformed(double s, double c, const Vec2& pos) const;
 
 		MultiPolygon& transform(double s, double c, const Vec2& pos);
 
-		MultiPolygon scaled(double s) const;
+		[[nodiscard]] MultiPolygon scaled(double s) const;
 
 		MultiPolygon& scale(double s);
 
-		RectF calculateBoundingRect() const noexcept;
+		[[nodiscard]] RectF calculateBoundingRect() const noexcept;
 
-		MultiPolygon simplified(double maxDistance = 2.0) const;
+		[[nodiscard]] MultiPolygon simplified(double maxDistance = 2.0) const;
 
 		template <class Shape2DType>
-		bool intersects(const Shape2DType& shape) const
+		[[nodiscard]] bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
 
 		template <class Shape2DType>
-		bool contains(const Shape2DType& shape) const
+		[[nodiscard]] bool contains(const Shape2DType& shape) const
 		{
 			return Geometry2D::Contains(*this, shape);
 		}
 
-		bool leftClicked() const;
+		[[nodiscard]] bool leftClicked() const;
 
-		bool leftPressed() const;
+		[[nodiscard]] bool leftPressed() const;
 
-		bool leftReleased() const;
+		[[nodiscard]] bool leftReleased() const;
 
-		bool rightClicked() const;
+		[[nodiscard]] bool rightClicked() const;
 
-		bool rightPressed() const;
+		[[nodiscard]] bool rightPressed() const;
 
-		bool rightReleased() const;
+		[[nodiscard]] bool rightReleased() const;
 
-		bool mouseOver() const;
+		[[nodiscard]] bool mouseOver() const;
 
 		const MultiPolygon& draw(const ColorF& color = Palette::White) const;
 
@@ -280,4 +280,63 @@ namespace s3d
 
 		void drawTransformed(double s, double c, const Vec2& pos, const ColorF& color = Palette::White) const;
 	};
+}
+
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
+
+namespace s3d
+{
+	inline void Formatter(FormatData& formatData, const MultiPolygon& value)
+	{
+		formatData.string.append(value.join(U",", U"(", U")"));
+	}
+
+	template <class CharType>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const MultiPolygon& value)
+	{
+		output << CharType('(');
+
+		bool b = false;
+
+		for (const auto& polygon : value)
+		{
+			if (std::exchange(b, true))
+			{
+				output << CharType(',');
+			}
+
+			output << polygon;
+		}
+
+		return output << CharType(')');
+	}
+}
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+
+}
+
+//////////////////////////////////////////////////
+//
+//	Swap
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	inline void swap(s3d::MultiPolygon& a, s3d::MultiPolygon& b) noexcept
+	{
+		a.swap(b);
+	}
 }

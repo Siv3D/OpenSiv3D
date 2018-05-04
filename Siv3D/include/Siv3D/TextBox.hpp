@@ -89,9 +89,9 @@ namespace s3d
 
 		void setActive(bool active);
 
-		bool isActive() const;
+		[[nodiscard]] bool isActive() const;
 
-		const RectF& getRect() const;
+		[[nodiscard]] const RectF& getRect() const;
 
 		void setPos(const Vec2& pos);
 
@@ -99,8 +99,8 @@ namespace s3d
 
 		void setText(const String& text);
 
-		const String& getText() const;
+		[[nodiscard]] const String& getText() const;
 
-		size_t getCursorIndex() const;
+		[[nodiscard]] size_t getCursorIndex() const;
 	};
 }

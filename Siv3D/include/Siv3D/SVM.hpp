@@ -111,17 +111,17 @@ namespace s3d
 
 			void release();
 
-			explicit operator bool() const;
+			[[nodiscard]] explicit operator bool() const;
 
-			bool hasData() const;
+			[[nodiscard]] bool hasData() const;
 
-			size_t num_SVs() const;
+			[[nodiscard]] size_t num_SVs() const;
 
-			int32 getMaxIndex() const;
+			[[nodiscard]] int32 getMaxIndex() const;
 
 			bool trainAndSaveModel(const FilePath& path, const Paramter& param) const;
 
-			PredictModel trainAndCreateModel(const Paramter& param) const;
+			[[nodiscard]] PredictModel trainAndCreateModel(const Paramter& param) const;
 		};
 
 		class PredictModel
@@ -141,34 +141,35 @@ namespace s3d
 			PredictModel(std::unique_ptr<svm_model*>&& ppModel);
 
 			~PredictModel();
-			explicit operator bool() const;
 
-			bool hasData() const;
+			[[nodiscard]] explicit operator bool() const;
+
+			[[nodiscard]] bool hasData() const;
 
 			bool load(const FilePath& path);
 
 			void release();
 
-			size_t num_classes() const;
+			[[nodiscard]] size_t num_classes() const;
 
-			Array<int32> getLabels() const;
+			[[nodiscard]] Array<int32> getLabels() const;
 
-			Label predict(const Array<double>& vector) const;
+			[[nodiscard]] Label predict(const Array<double>& vector) const;
 
-			Label predict(const Array<std::pair<int32, double>>& vector) const;
+			[[nodiscard]] Label predict(const Array<std::pair<int32, double>>& vector) const;
 
-			Label predictProbability(const Array<double>& vector, Array<double>& probabilities) const;
+			[[nodiscard]] Label predictProbability(const Array<double>& vector, Array<double>& probabilities) const;
 
-			Label predictProbability(const Array<std::pair<int32, double>>& vector, Array<double>& probabilities) const;
+			[[nodiscard]] Label predictProbability(const Array<std::pair<int32, double>>& vector, Array<double>& probabilities) const;
 		};
 
-		SparseSupportVector ParseSVMLight(StringView view);
+		[[nodiscard]] SparseSupportVector ParseSVMLight(StringView view);
 
-		Array<SparseSupportVector> LoadSVMLight(const FilePath& path);
+		[[nodiscard]] Array<SparseSupportVector> LoadSVMLight(const FilePath& path);
 
 		bool SaveSVMLight(const FilePath& path, const Array<SparseSupportVector>& vector);
 
-		double CalculateAccuracy(const PredictModel& model, const Array<SparseSupportVector>& testData);
+		[[nodiscard]] double CalculateAccuracy(const PredictModel& model, const Array<SparseSupportVector>& testData);
 	}
 
 	void Formatter(FormatData& formatData, const SVM::SparseSupportVector& value);

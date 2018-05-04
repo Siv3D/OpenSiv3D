@@ -518,9 +518,9 @@ namespace s3d
 	//
 	//	Xorshift.hpp
 	//
-	class Xorshift64Star;
 	class Xorshift128Plus;
-	class Xorshift1024Star;
+	class Xoroshiro128Plus;
+	class Xorshift1024StarPhi;
 
 	//////////////////////////////////////////////////////
 	//
@@ -590,6 +590,12 @@ namespace s3d
 	enum class ImageFormat;
 	enum class PPMType;
 	class IImageFormat;
+
+	//////////////////////////////////////////////////////
+	//
+	//	ImageProcessing.hpp
+	//
+	enum class EdgePreservingFilterType;
 
 	//////////////////////////////////////////////////////
 	//

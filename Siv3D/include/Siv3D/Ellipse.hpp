@@ -117,22 +117,22 @@ namespace s3d
 			return !(*this == ellipse);
 		}
 
-		constexpr Vec2 top() const noexcept
+		[[nodiscard]] constexpr Vec2 top() const noexcept
 		{
 			return{ x, y - b };
 		}
 
-		constexpr Vec2 bottom() const noexcept
+		[[nodiscard]] constexpr Vec2 bottom() const noexcept
 		{ 
 			return{ x, y + b };
 		}
 
-		constexpr Vec2 left() const noexcept
+		[[nodiscard]] constexpr Vec2 left() const noexcept
 		{ 
 			return{ x - a, y };
 		}
 
-		constexpr Vec2 right() const noexcept
+		[[nodiscard]] constexpr Vec2 right() const noexcept
 		{
 			return{ x + a, y };
 		}
@@ -206,12 +206,12 @@ namespace s3d
 			return setCenter(_center.x, _center.y);
 		}
 
-		constexpr Ellipse movedBy(value_type _x, value_type _y) const noexcept
+		[[nodiscard]] constexpr Ellipse movedBy(value_type _x, value_type _y) const noexcept
 		{
 			return{ center.movedBy(_x, _y), a, b };
 		}
 
-		constexpr Ellipse movedBy(const position_type& v) const noexcept
+		[[nodiscard]] constexpr Ellipse movedBy(const position_type& v) const noexcept
 		{
 			return movedBy(v.x, v.y);
 		}
@@ -227,67 +227,67 @@ namespace s3d
 			return moveBy(v.x, v.y);
 		}
 
-		constexpr Ellipse stretched(value_type size) const noexcept
+		[[nodiscard]] constexpr Ellipse stretched(value_type size) const noexcept
 		{
 			return Ellipse(center, a + size, b + size);
 		}
 
-		constexpr Ellipse stretched(double _x, double _y) const noexcept
+		[[nodiscard]] constexpr Ellipse stretched(double _x, double _y) const noexcept
 		{
 			return Ellipse(center, a + _x, b + _y);
 		}
 
-		constexpr Ellipse scaled(double s) const noexcept
+		[[nodiscard]] constexpr Ellipse scaled(double s) const noexcept
 		{
 			return Ellipse(center, a * s, b * s);
 		}
 
-		constexpr Ellipse scaled(double sx, double sy) const noexcept
+		[[nodiscard]] constexpr Ellipse scaled(double sx, double sy) const noexcept
 		{
 			return Ellipse(center, a * sx, b * sy);
 		}
 
-		constexpr value_type area() const noexcept
+		[[nodiscard]] constexpr value_type area() const noexcept
 		{
 			return a * b * Math::Pi;
 		}
 
-		constexpr RectF boundingRect() const noexcept
+		[[nodiscard]] constexpr RectF boundingRect() const noexcept
 		{
 			return RectF(center.movedBy(-a, -b), a * 2, b * 2);
 		}
 
 		template <class Shape2DType>
-		bool intersects(const Shape2DType& shape) const
+		[[nodiscard]] bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
 
 		template <class Shape2DType>
-		Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
+		[[nodiscard]] Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
 		{
 			return Geometry2D::IntersectAt(*this, shape);
 		}
 
 		template <class Shape2DType>
-		bool contains(const Shape2DType& shape) const
+		[[nodiscard]] bool contains(const Shape2DType& shape) const
 		{
 			return Geometry2D::Contains(*this, shape);
 		}
 
-		bool leftClicked() const;
+		[[nodiscard]] bool leftClicked() const;
 
-		bool leftPressed() const;
+		[[nodiscard]] bool leftPressed() const;
 
-		bool leftReleased() const;
+		[[nodiscard]] bool leftReleased() const;
 
-		bool rightClicked() const;
+		[[nodiscard]] bool rightClicked() const;
 
-		bool rightPressed() const;
+		[[nodiscard]] bool rightPressed() const;
 
-		bool rightReleased() const;
+		[[nodiscard]] bool rightReleased() const;
 
-		bool mouseOver() const;
+		[[nodiscard]] bool mouseOver() const;
 
 		const Ellipse& paint(Image& dst, const Color& color) const;
 

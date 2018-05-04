@@ -1,47 +1,22 @@
 ﻿
-# include <Siv3D.hpp>
+# include <Siv3D.hpp> // OpenSiv3D v0.2.5
 
 void Main()
 {
-	Window::Resize(1280, 720);
-	const Font font(40, Typeface::Medium);
-	String text;
-	Audio audio;
-	Wave wave;
+	Graphics::SetBackground(ColorF(0.8, 0.9, 1.0));
+
+	const Font font(50);
+
+	const Texture textureCat(Emoji(U"🐈"), TextureDesc::Mipped);
 
 	while (System::Update())
 	{
-		font(text).draw(20, 20, Palette::Orange);
+		font(U"Hello, Siv3D!🐣").drawAt(Window::Center(), Palette::Black);
 
-		if (KeySpace.down())
-		{
-			const uint8 inst = Random(0,127);
-			const uint8 key = Random(50, 80);
-			text = U"Instrument: {}\nKey: {}"_fmt(inst, key);
+		font(Cursor::Pos()).draw(20, 400, ColorF(0.6));
 
-			wave = Wave(inst, key, 1.0s, 1.0);
-			audio = Audio(wave);
-			audio.play();
-		}
+		textureCat.resized(80).draw(540, 380);
 
-		if (audio.isPlaying())
-		{
-			LineString lines;
-
-			const size_t pos = audio.posSample();
-
-			for (uint32 i = pos; i < std::min(wave.size() - 1, pos + 2560); ++i)
-			{
-				const double f = wave[i].left;
-
-				lines.emplace_back((i-pos)*0.5, 360 - f * 360);
-			}
-
-			lines.draw(3, ColorF(0.0, 1.0, 1.0));
-		}
-		else
-		{
-			Line(0, 360, 1280, 360).draw(3, ColorF(0.0, 1.0, 1.0));
-		}
+		Circle(Cursor::Pos(), 60).draw(ColorF(1, 0, 0, 0.5));
 	}
 }

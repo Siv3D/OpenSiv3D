@@ -24,12 +24,12 @@ namespace s3d
 		return rng;
 	}
 
-	inline void Reseed(const DefaultRNGType::result_type seed)
+	inline void Reseed(const uint64 seed)
 	{
 		GetDefaultRNG().seed(seed);
 	}
 
-	inline void Reseed(const std::array<DefaultRNGType::result_type, 8>& seeds)
+	inline void Reseed(const std::array<uint64, 16>& seeds)
 	{
 		GetDefaultRNG().seed(seeds);
 	}

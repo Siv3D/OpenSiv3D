@@ -28,12 +28,12 @@ namespace s3d
 
 		position_type p0, p1, p2;
 		
-		position_type& p(size_t index)
+		[[nodiscard]] position_type& p(size_t index)
 		{
 			return (&p0)[index];
 		}
 		
-		const position_type& p(size_t index) const
+		[[nodiscard]] const position_type& p(size_t index) const
 		{
 			return (&p0)[index];
 		}
@@ -90,12 +90,12 @@ namespace s3d
 			return *this = triangle;
 		}
 
-		constexpr Triangle movedBy(value_type x, value_type y) const noexcept
+		[[nodiscard]] constexpr Triangle movedBy(value_type x, value_type y) const noexcept
 		{
 			return{ p0.movedBy(x, y), p1.movedBy(x, y), p2.movedBy(x, y) };
 		}
 
-		constexpr Triangle movedBy(const position_type& v) const noexcept
+		[[nodiscard]] constexpr Triangle movedBy(const position_type& v) const noexcept
 		{
 			return movedBy(v.x, v.y);
 		}
@@ -123,54 +123,54 @@ namespace s3d
 			return setCentroid(pos.x, pos.y);
 		}
 
-		constexpr position_type centroid() const noexcept
+		[[nodiscard]] constexpr position_type centroid() const noexcept
 		{
 			return (p0 + p1 + p2) / 3.0;
 		}
 
-		Triangle stretched(value_type size) const noexcept;
+		[[nodiscard]] Triangle stretched(value_type size) const noexcept;
 
-		Triangle rotated(value_type angle) const noexcept
+		[[nodiscard]] Triangle rotated(value_type angle) const noexcept
 		{
 			return rotatedAt(centroid(), angle);
 		}
 
-		Triangle rotatedAt(value_type x, value_type y, value_type angle) const noexcept
+		[[nodiscard]] Triangle rotatedAt(value_type x, value_type y, value_type angle) const noexcept
 		{
 			return rotatedAt(position_type(x, y), angle);
 		}
 
-		Triangle rotatedAt(const position_type& pos, value_type angle) const noexcept;
+		[[nodiscard]] Triangle rotatedAt(const position_type& pos, value_type angle) const noexcept;
 
-		value_type area() const noexcept;
+		[[nodiscard]] value_type area() const noexcept;
 
-		value_type perimeter() const noexcept;
+		[[nodiscard]] value_type perimeter() const noexcept;
 
 		template <class Shape2DType>
-		bool intersects(const Shape2DType& shape) const
+		[[nodiscard]] bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
 
 		template <class Shape2DType>
-		bool contains(const Shape2DType& shape) const
+		[[nodiscard]] bool contains(const Shape2DType& shape) const
 		{
 			return Geometry2D::Contains(*this, shape);
 		}
 
-		bool leftClicked() const;
+		[[nodiscard]] bool leftClicked() const;
 
-		bool leftPressed() const;
+		[[nodiscard]] bool leftPressed() const;
 
-		bool leftReleased() const;
+		[[nodiscard]] bool leftReleased() const;
 
-		bool rightClicked() const;
+		[[nodiscard]] bool rightClicked() const;
 
-		bool rightPressed() const;
+		[[nodiscard]] bool rightPressed() const;
 
-		bool rightReleased() const;
+		[[nodiscard]] bool rightReleased() const;
 
-		bool mouseOver() const;
+		[[nodiscard]] bool mouseOver() const;
 
 		const Triangle& paint(Image& dst, const Color& color) const;
 
@@ -184,7 +184,7 @@ namespace s3d
 
 		const Triangle& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
 
-		Polygon asPolygon() const;
+		[[nodiscard]] Polygon asPolygon() const;
 	};
 }
 

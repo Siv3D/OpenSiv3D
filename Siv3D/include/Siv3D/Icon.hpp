@@ -26,7 +26,7 @@ namespace s3d
 			: size(_size)
 			, code(_code) {}
 
-		static Image LoadImage(uint32 _code, int32 _size);
+		[[nodiscard]] static Image LoadImage(uint32 _code, int32 _size);
 
 		//
 		//	http://fontawesome.io/cheatsheet/
