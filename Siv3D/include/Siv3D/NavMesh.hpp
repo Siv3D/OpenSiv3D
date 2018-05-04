@@ -33,7 +33,7 @@ namespace s3d
 
 		double agentRadius = 0.25;
 
-		static constexpr NavMeshConfig Default()
+		[[nodiscard]] static constexpr NavMeshConfig Default()
 		{
 			return NavMeshConfig();
 		}
@@ -57,6 +57,6 @@ namespace s3d
 
 		bool build(const Array<Float3>& vertices, const Array<uint16>& indices, const Array<uint8>& areaIDs, const NavMeshConfig& config = NavMeshConfig::Default());
 
-		Array<Vec3> query(const Vec3& start, const Vec3& end) const;
+		[[nodiscard]] Array<Vec3> query(const Vec3& start, const Vec3& end) const;
 	};
 }

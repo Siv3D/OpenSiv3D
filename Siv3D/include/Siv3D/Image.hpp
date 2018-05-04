@@ -130,10 +130,10 @@ namespace s3d
 
 		uint32 m_height = 0;
 
-		static Image Generate(const size_t width, const size_t height, std::function<Color(void)> generator);
+		[[nodiscard]] static Image Generate(const size_t width, const size_t height, std::function<Color(void)> generator);
 
 		template <class Fty>
-		static Image Generate(const size_t width, const size_t height, Fty generator)
+		[[nodiscard]] static Image Generate(const size_t width, const size_t height, Fty generator)
 		{
 			Image new_image(width, height);
 
@@ -153,21 +153,21 @@ namespace s3d
 			return new_image;
 		}
 
-		static Image Generate0_1(const size_t width, const size_t height, std::function<Color(Vec2)> generator);
+		[[nodiscard]] static Image Generate0_1(const size_t width, const size_t height, std::function<Color(Vec2)> generator);
 
-		static constexpr int32 Mod(int32 x, int32 y) noexcept
+		[[nodiscard]] static constexpr int32 Mod(int32 x, int32 y) noexcept
 		{
 			return (0 <= x) ? (x % y) : (y - ((-x - 1) % y) - 1);
 		}
 
-		static constexpr int32 Mir(int32 x, int32 y) noexcept
+		[[nodiscard]] static constexpr int32 Mir(int32 x, int32 y) noexcept
 		{
 			const int32 t = Mod(x, y * 2);
 
 			return (t < y) ? t : (y * 2 - 1) - t;
 		}
 
-		static constexpr double Biliner(double c1, double c2, double c3, double c4, double px, double py)
+		[[nodiscard]] static constexpr double Biliner(double c1, double c2, double c3, double c4, double px, double py)
 		{
 			return px * py * (c1 - c2 - c3 + c4) + px * (c2 - c1) + py * (c3 - c1) + c1;
 		}
@@ -384,7 +384,7 @@ namespace s3d
 		/// <summary>
 		/// 画像の幅（ピクセル）
 		/// </summary>
-		int32 width() const noexcept
+		[[nodiscard]] int32 width() const noexcept
 		{
 			return m_width;
 		}
@@ -392,7 +392,7 @@ namespace s3d
 		/// <summary>
 		/// 画像の高さ（ピクセル）
 		/// </summary>
-		int32 height() const noexcept
+		[[nodiscard]] int32 height() const noexcept
 		{
 			return m_height;
 		}
@@ -400,7 +400,7 @@ namespace s3d
 		/// <summary>
 		/// 画像の幅と高さ（ピクセル）
 		/// </summary>
-		Size size() const noexcept
+		[[nodiscard]] Size size() const noexcept
 		{
 			return{ m_width, m_height };
 		}
@@ -408,7 +408,7 @@ namespace s3d
 		/// <summary>
 		/// 画像の各行のデータサイズ
 		/// </summary>
-		uint32 stride() const noexcept
+		[[nodiscard]] uint32 stride() const noexcept
 		{
 			return m_width * sizeof(Color);
 		}
@@ -416,7 +416,7 @@ namespace s3d
 		/// <summary>
 		/// 画像のピクセル数
 		/// </summary>
-		uint32 num_pixels() const noexcept
+		[[nodiscard]] uint32 num_pixels() const noexcept
 		{
 			return m_width * m_height;
 		}
@@ -424,7 +424,7 @@ namespace s3d
 		/// <summary>
 		/// 画像のデータサイズ
 		/// </summary>
-		uint32 size_bytes() const
+		[[nodiscard]] uint32 size_bytes() const
 		{
 			return stride() * m_height;
 		}
@@ -432,7 +432,7 @@ namespace s3d
 		/// <summary>
 		/// 画像が空かどうかを示します。
 		/// </summary>
-		bool isEmpty() const
+		[[nodiscard]] bool isEmpty() const
 		{
 			return m_data.empty();
 		}
@@ -443,7 +443,7 @@ namespace s3d
 		/// <returns>
 		/// 画像が空ではない場合 true, それ以外の場合は false
 		/// </returns>
-		explicit operator bool() const
+		[[nodiscard]] explicit operator bool() const
 		{
 			return !isEmpty();
 		}
@@ -506,7 +506,7 @@ namespace s3d
 		/// <returns>
 		/// コピーした新しい画像
 		/// </returns>
-		Image cloned() const
+		[[nodiscard]] Image cloned() const
 		{
 			return *this;
 		}
@@ -523,12 +523,12 @@ namespace s3d
 		/// <returns>
 		/// 指定した行の先頭ポインタ
 		/// </returns>
-		Color* operator[](size_t y)
+		[[nodiscard]] Color* operator[](size_t y)
 		{
 			return &m_data[m_width * y];
 		}
 
-		Color& operator[](const Point& pos)
+		[[nodiscard]] Color& operator[](const Point& pos)
 		{
 			return m_data[m_width * pos.y + pos.x];
 		}
@@ -545,12 +545,12 @@ namespace s3d
 		/// <returns>
 		/// 指定した行の先頭ポインタ
 		/// </returns>
-		const Color* operator[](size_t y) const
+		[[nodiscard]] const Color* operator[](size_t y) const
 		{
 			return &m_data[m_width * y];
 		}
 
-		const Color& operator[](const Point& pos) const
+		[[nodiscard]] const Color& operator[](const Point& pos) const
 		{
 			return m_data[m_width * pos.y + pos.x];
 		}
@@ -561,7 +561,7 @@ namespace s3d
 		/// <returns>
 		/// 画像データの先頭へのポインタ
 		/// </returns>
-		Color* data()
+		[[nodiscard]] Color* data()
 		{
 			return &m_data[0];
 		}
@@ -572,7 +572,7 @@ namespace s3d
 		/// <returns>
 		/// 画像データの先頭へのポインタ
 		/// </returns>
-		const Color* data() const
+		[[nodiscard]] const Color* data() const
 		{
 			return &m_data[0];
 		}
@@ -583,7 +583,7 @@ namespace s3d
 		/// <returns>
 		/// 画像データの先頭へのポインタ
 		/// </returns>
-		uint8* dataAsUint8()
+		[[nodiscard]] uint8* dataAsUint8()
 		{
 			return static_cast<uint8*>(static_cast<void*>(&m_data[0]));
 		}
@@ -594,7 +594,7 @@ namespace s3d
 		/// <returns>
 		/// 画像データの先頭へのポインタ
 		/// </returns>
-		const uint8* dataAsUint8() const
+		[[nodiscard]] const uint8* dataAsUint8() const
 		{
 			return static_cast<const uint8*>(static_cast<const void*>(&m_data[0]));
 		}
@@ -605,7 +605,7 @@ namespace s3d
 		/// <returns>
 		/// 画像の先頭位置のイテレータ
 		/// </returns>
-		iterator begin() noexcept { return m_data.begin(); }
+		[[nodiscard]] iterator begin() noexcept { return m_data.begin(); }
 
 		/// <summary>
 		/// 画像の先頭位置のイテレータを取得します。
@@ -613,7 +613,7 @@ namespace s3d
 		/// <returns>
 		/// 画像の先頭位置のイテレータ
 		/// </returns>
-		const_iterator begin() const noexcept { return m_data.begin(); }
+		[[nodiscard]] const_iterator begin() const noexcept { return m_data.begin(); }
 
 		/// <summary>
 		/// 画像の先頭位置のイテレータを取得します。
@@ -621,7 +621,7 @@ namespace s3d
 		/// <returns>
 		/// 画像の先頭位置のイテレータ
 		/// </returns>
-		const_iterator cbegin() const noexcept { return m_data.cbegin(); }
+		[[nodiscard]] const_iterator cbegin() const noexcept { return m_data.cbegin(); }
 
 		/// <summary>
 		/// 画像の終了位置のイテレータを取得します。
@@ -629,7 +629,7 @@ namespace s3d
 		/// <returns>
 		/// 画像の終了位置のイテレータ
 		/// </returns>
-		iterator end() noexcept { return m_data.end(); }
+		[[nodiscard]] iterator end() noexcept { return m_data.end(); }
 
 		/// <summary>
 		/// 画像の終了位置のイテレータを取得します。
@@ -637,7 +637,7 @@ namespace s3d
 		/// <returns>
 		/// 画像の終了位置のイテレータ
 		/// </returns>
-		const_iterator end() const noexcept { return m_data.end(); }
+		[[nodiscard]] const_iterator end() const noexcept { return m_data.end(); }
 
 		/// <summary>
 		/// 画像の終了位置のイテレータを取得します。
@@ -645,7 +645,7 @@ namespace s3d
 		/// <returns>
 		/// 画像の終了位置のイテレータ
 		/// </returns>
-		const_iterator cend() const noexcept { return m_data.cend(); }
+		[[nodiscard]] const_iterator cend() const noexcept { return m_data.cend(); }
 
 		/// <summary>
 		/// 画像の末尾へのリバースイテレータを取得します。
@@ -653,7 +653,7 @@ namespace s3d
 		/// <returns>
 		/// 画像の末尾へのリバースイテレータ
 		/// </returns>
-		reverse_iterator rbegin() noexcept { return m_data.rbegin(); }
+		[[nodiscard]] reverse_iterator rbegin() noexcept { return m_data.rbegin(); }
 
 		/// <summary>
 		/// 画像の末尾へのリバースイテレータを取得します。
@@ -661,7 +661,7 @@ namespace s3d
 		/// <returns>
 		/// 画像の末尾へのリバースイテレータ
 		/// </returns>
-		const_reverse_iterator rbegin() const noexcept { return m_data.rbegin(); }
+		[[nodiscard]] const_reverse_iterator rbegin() const noexcept { return m_data.rbegin(); }
 
 		/// <summary>
 		/// 画像の末尾へのリバースイテレータを取得します。
@@ -669,7 +669,7 @@ namespace s3d
 		/// <returns>
 		/// 画像の末尾へのリバースイテレータ
 		/// </returns>
-		const_reverse_iterator crbegin() const noexcept { return m_data.crbegin(); }
+		[[nodiscard]] const_reverse_iterator crbegin() const noexcept { return m_data.crbegin(); }
 
 		/// <summary>
 		/// 画像の先頭の前へのリバースイテレータを取得します。
@@ -677,7 +677,7 @@ namespace s3d
 		/// <returns>
 		/// 画像の先頭の前へのリバースイテレータ
 		/// </returns>
-		reverse_iterator rend() noexcept { return m_data.rend(); }
+		[[nodiscard]] reverse_iterator rend() noexcept { return m_data.rend(); }
 
 		/// <summary>
 		/// 画像の先頭の前へのリバースイテレータを取得します。
@@ -685,7 +685,7 @@ namespace s3d
 		/// <returns>
 		/// 画像の先頭の前へのリバースイテレータ
 		/// </returns>
-		const_reverse_iterator rend() const noexcept { return m_data.rend(); }
+		[[nodiscard]] const_reverse_iterator rend() const noexcept { return m_data.rend(); }
 
 		/// <summary>
 		/// 画像の先頭の前へのリバースイテレータを取得します。
@@ -693,7 +693,7 @@ namespace s3d
 		/// <returns>
 		/// 画像の先頭の前へのリバースイテレータ
 		/// </returns>
-		const_reverse_iterator crend() const noexcept { return m_data.crend(); }
+		[[nodiscard]] const_reverse_iterator crend() const noexcept { return m_data.crend(); }
 
 
 		/// <summary>
@@ -798,17 +798,17 @@ namespace s3d
 		void resizeRows(size_t rows, const Color& fillColor);
 
 
-		const Color& getPixel_Repeat(int32 x, int32 y) const
+		[[nodiscard]] const Color& getPixel_Repeat(int32 x, int32 y) const
 		{
 			return m_data[m_width * Mod(y, m_height) + Mod(x, m_width)];
 		}
 
-		const Color& getPixel_Repeat(const Point& pos) const
+		[[nodiscard]] const Color& getPixel_Repeat(const Point& pos) const
 		{
 			return getPixel_Repeat(pos.x, pos.y);
 		}
 
-		const Color& getPixel_Clamp(int32 x, int32 y) const
+		[[nodiscard]] const Color& getPixel_Clamp(int32 x, int32 y) const
 		{
 			x = Clamp(x, 0, static_cast<int32>(m_width) - 1);
 
@@ -817,12 +817,12 @@ namespace s3d
 			return m_data[m_width * y + x];
 		}
 
-		const Color& getPixel_Clamp(const Point& pos) const
+		[[nodiscard]] const Color& getPixel_Clamp(const Point& pos) const
 		{
 			return getPixel_Clamp(pos.x, pos.y);
 		}
 
-		const Color& getPixel_Mirror(int32 x, int32 y) const
+		[[nodiscard]] const Color& getPixel_Mirror(int32 x, int32 y) const
 		{
 			x = Mir(x, m_width);
 
@@ -831,28 +831,28 @@ namespace s3d
 			return m_data[m_width * y + x];
 		}
 
-		const Color& getPixel_Mirror(const Point& pos) const
+		[[nodiscard]] const Color& getPixel_Mirror(const Point& pos) const
 		{
 			return getPixel_Mirror(pos.x, pos.y);
 		}
 
-		ColorF sample_Repeat(double x, double y) const;
+		[[nodiscard]] ColorF sample_Repeat(double x, double y) const;
 
-		ColorF sample_Repeat(const Vec2& pos) const
+		[[nodiscard]] ColorF sample_Repeat(const Vec2& pos) const
 		{
 			return sample_Repeat(pos.x, pos.y);
 		}
 
-		ColorF sample_Clamp(double x, double y) const;
+		[[nodiscard]] ColorF sample_Clamp(double x, double y) const;
 
-		ColorF sample_Clamp(const Vec2& pos) const
+		[[nodiscard]] ColorF sample_Clamp(const Vec2& pos) const
 		{
 			return sample_Clamp(pos.x, pos.y);
 		}
 
-		ColorF sample_Mirror(double x, double y) const;
+		[[nodiscard]] ColorF sample_Mirror(double x, double y) const;
 
-		ColorF sample_Mirror(const Vec2& pos) const
+		[[nodiscard]] ColorF sample_Mirror(const Vec2& pos) const
 		{
 			return sample_Mirror(pos.x, pos.y);
 		}
@@ -866,7 +866,7 @@ namespace s3d
 		/// <returns>
 		/// 一部分をコピーした新しい画像
 		/// </returns>
-		Image clipped(const Rect& rect) const;
+		[[nodiscard]] Image clipped(const Rect& rect) const;
 
 		/// <summary>
 		/// 画像の一部分をコピーした新しい画像を返します。
@@ -886,22 +886,22 @@ namespace s3d
 		/// <returns>
 		/// 一部分をコピーした新しい画像
 		/// </returns>
-		Image clipped(int32 x, int32 y, int32 w, int32 h) const
+		[[nodiscard]] Image clipped(int32 x, int32 y, int32 w, int32 h) const
 		{
 			return clipped(Rect(x, y, w, h));
 		}
 
-		Image clipped(const Point& pos, int32 w, int32 h) const
+		[[nodiscard]] Image clipped(const Point& pos, int32 w, int32 h) const
 		{
 			return clipped(Rect(pos, w, h));
 		}
 
-		Image clipped(int32 x, int32 y, const Size& size) const
+		[[nodiscard]] Image clipped(int32 x, int32 y, const Size& size) const
 		{
 			return clipped(Rect(x, y, size));
 		}
 
-		Image clipped(const Point& pos, const Size& size) const
+		[[nodiscard]] Image clipped(const Point& pos, const Size& size) const
 		{
 			return clipped(Rect(pos, size));
 		}
@@ -948,7 +948,7 @@ namespace s3d
 
 		bool savePPM(const FilePath& path, PPMType format = PPMType::AsciiRGB) const;
 
-		MemoryWriter encode(ImageFormat format = ImageFormat::PNG) const;
+		[[nodiscard]] MemoryWriter encode(ImageFormat format = ImageFormat::PNG) const;
 
 		/// <summary>
 		/// ネガポジ反転処理を行います。
@@ -964,7 +964,7 @@ namespace s3d
 		/// <returns>
 		/// ネガポジ反転処理した画像
 		/// </returns>
-		Image negated() const;
+		[[nodiscard]] Image negated() const;
 
 		/// <summary>
 		/// グレースケール変換を行います。
@@ -980,7 +980,7 @@ namespace s3d
 		/// <returns>
 		/// グレースケール変換した画像
 		/// </returns>
-		Image grayscaled() const;
+		[[nodiscard]] Image grayscaled() const;
 
 		/// <summary>
 		/// セピア調変換を行います。
@@ -1002,7 +1002,7 @@ namespace s3d
 		/// <returns>
 		/// セピア調変換した画像
 		/// </returns>
-		Image sepiaed(int32 level = 25) const;
+		[[nodiscard]] Image sepiaed(int32 level = 25) const;
 
 		/// <summary>
 		/// ポスタライズ処理を行います。
@@ -1024,7 +1024,7 @@ namespace s3d
 		/// <returns>
 		/// ポスタライズ処理を行った画像
 		/// </returns>
-		Image postarized(int32 level) const;
+		[[nodiscard]] Image postarized(int32 level) const;
 
 		/// <summary>
 		/// 明るさを変更します。
@@ -1046,35 +1046,35 @@ namespace s3d
 		/// <returns>
 		/// 
 		/// </returns>
-		Image brightened(int32 level) const;
+		[[nodiscard]] Image brightened(int32 level) const;
 
 		Image& mirror();
 
-		Image mirrored() const;
+		[[nodiscard]] Image mirrored() const;
 
 		Image& flip();
 
-		Image flipped() const;
+		[[nodiscard]] Image flipped() const;
 
 		Image& rotate90();
 
-		Image rotated90() const;
+		[[nodiscard]] Image rotated90() const;
 
 		Image& rotate180();
 
-		Image rotated180() const;
+		[[nodiscard]] Image rotated180() const;
 
 		Image& rotate270();
 
-		Image rotated270() const;
+		[[nodiscard]] Image rotated270() const;
 
 		Image& gammaCorrect(double gamma);
 
-		Image gammaCorrected(double gamma) const;
+		[[nodiscard]] Image gammaCorrected(double gamma) const;
 
 		Image& threshold(uint8 threshold, bool inverse = false);
 
-		Image thresholded(uint8 threshold, bool inverse = false) const;
+		[[nodiscard]] Image thresholded(uint8 threshold, bool inverse = false) const;
 
 		/// <summary>
 		/// 適応的な閾値処理を行います。
@@ -1120,79 +1120,83 @@ namespace s3d
 		/// <returns>
 		/// 
 		/// </returns>
-		Image adaptiveThresholded(AdaptiveMethod method, int32 blockSize, double c, bool inverse = false) const;
+		[[nodiscard]] Image adaptiveThresholded(AdaptiveMethod method, int32 blockSize, double c, bool inverse = false) const;
 
 		Image& mosaic(int32 size);
 
 		Image& mosaic(int32 horizontal, int32 vertical);
 
-		Image mosaiced(int32 size) const;
+		[[nodiscard]] Image mosaiced(int32 size) const;
 
-		Image mosaiced(int32 horizontal, int32 vertical) const;
+		[[nodiscard]] Image mosaiced(int32 horizontal, int32 vertical) const;
 
 		Image& spread(int32 size);
 
 		Image& spread(int32 horizontal, int32 vertical);
 
-		Image spreaded(int32 size) const;
+		[[nodiscard]] Image spreaded(int32 size) const;
 
-		Image spreaded(int32 horizontal, int32 vertical) const;
+		[[nodiscard]] Image spreaded(int32 horizontal, int32 vertical) const;
 
 		Image& blur(int32 size);
 
 		Image& blur(int32 horizontal, int32 vertical);
 
-		Image blurred(int32 size) const;
+		[[nodiscard]] Image blurred(int32 size) const;
 
-		Image blurred(int32 horizontal, int32 vertical) const;
+		[[nodiscard]] Image blurred(int32 horizontal, int32 vertical) const;
 
 		Image& medianBlur(int32 apertureSize);
 
-		Image medianBlurred(int32 apertureSize) const;
+		[[nodiscard]] Image medianBlurred(int32 apertureSize) const;
+
+		Image& gaussianBlur(int32 size, BorderType borderType = BorderType::Default);
 
 		Image& gaussianBlur(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Default);
 
-		Image gaussianBlurred(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Default) const;
+		[[nodiscard]] Image gaussianBlurred(int32 size, BorderType borderType = BorderType::Default) const;
+
+		[[nodiscard]] Image gaussianBlurred(int32 horizontal, int32 vertical, BorderType borderType = BorderType::Default) const;
 
 		Image& dilate(int32 iterations = 1);
 
-		Image dilated(int32 iterations = 1) const;
+		[[nodiscard]] Image dilated(int32 iterations = 1) const;
 
 		Image& erode(int32 iterations = 1);
 
-		Image eroded(int32 iterations = 1) const;
+		[[nodiscard]] Image eroded(int32 iterations = 1) const;
 
 		Image& floodFill(const Point& pos, const Color& color, FloodFillConnectivity connectivity = FloodFillConnectivity::Value4, int32 lowerDifference = 0, int32 upperDifference = 0);
 
-		Image floodFilled(const Point& pos, const Color& color, FloodFillConnectivity connectivity = FloodFillConnectivity::Value4, int32 lowerDifference = 0, int32 upperDifference = 0) const;
+		[[nodiscard]] Image floodFilled(const Point& pos, const Color& color, FloodFillConnectivity connectivity = FloodFillConnectivity::Value4, int32 lowerDifference = 0, int32 upperDifference = 0) const;
 
 		Image& scale(int32 width, int32 height, Interpolation interpolation = Interpolation::Unspecified);
 
-		Image scaled(int32 width, int32 height, Interpolation interpolation = Interpolation::Unspecified) const;
+		[[nodiscard]] Image scaled(int32 width, int32 height, Interpolation interpolation = Interpolation::Unspecified) const;
 
 		Image& scale(const Size& size, Interpolation interpolation = Interpolation::Unspecified);
 
-		Image scaled(const Size& size, Interpolation interpolation = Interpolation::Unspecified) const;
+		[[nodiscard]] Image scaled(const Size& size, Interpolation interpolation = Interpolation::Unspecified) const;
 
 		Image& scale(double scaling, Interpolation interpolation = Interpolation::Unspecified);
 
-		Image scaled(double scaling, Interpolation interpolation = Interpolation::Unspecified) const;
+		[[nodiscard]] Image scaled(double scaling, Interpolation interpolation = Interpolation::Unspecified) const;
 
 		Image& fit(int32 width, int32 height, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified);
 
-		Image fitted(int32 width, int32 height, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified) const;
+		[[nodiscard]] Image fitted(int32 width, int32 height, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified) const;
 
 		Image& fit(const Size& size, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified);
 
-		Image fitted(const Size& size, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified) const;
+		[[nodiscard]] Image fitted(const Size& size, bool scaleUp = true, Interpolation interpolation = Interpolation::Unspecified) const;
 
 		Image& border(int32 thickness, const Color& color = Palette::White);
 
-		Image bordered(int32 thickness, const Color& color = Palette::White) const;
+		[[nodiscard]] Image bordered(int32 thickness, const Color& color = Palette::White) const;
 
 		Image& border(int32 top, int32 right, int32 bottom, int32 left, const Color& color = Palette::White);
 
-		Image bordered(int32 top, int32 right, int32 bottom, int32 left, const Color& color = Palette::White) const;
+		[[nodiscard]] Image bordered(int32 top, int32 right, int32 bottom, int32 left, const Color& color = Palette::White) const;
 
 		void paint(Image& dst, int32 x, int32 y, const Color& color = Palette::White) const;
 
@@ -1202,27 +1206,27 @@ namespace s3d
 
 		void overwrite(Image& dst, const Point& pos, const Color& color = Palette::White) const;
 
-		ImageRegion operator ()(int32 x, int32 y, int32 w, int32 h) const;
+		[[nodiscard]] ImageRegion operator ()(int32 x, int32 y, int32 w, int32 h) const;
 
-		ImageRegion operator ()(const Point& pos, int32 w, int32 h) const;
+		[[nodiscard]] ImageRegion operator ()(const Point& pos, int32 w, int32 h) const;
 
-		ImageRegion operator ()(int32 x, int32 y, const Size& size) const;
+		[[nodiscard]] ImageRegion operator ()(int32 x, int32 y, const Size& size) const;
 
-		ImageRegion operator ()(const Point& pos, const Size& size) const;
+		[[nodiscard]] ImageRegion operator ()(const Point& pos, const Size& size) const;
 
-		ImageRegion operator ()(const Rect& rect) const;
+		[[nodiscard]] ImageRegion operator ()(const Rect& rect) const;
 
-		Polygon alphaToPolygon(uint32 threshold = 160, bool allowHoles = true) const;
+		[[nodiscard]] Polygon alphaToPolygon(uint32 threshold = 160, bool allowHoles = true) const;
 
-		MultiPolygon alphaToPolygons(uint32 threshold = 160, bool allowHoles = true) const;
+		[[nodiscard]] MultiPolygon alphaToPolygons(uint32 threshold = 160, bool allowHoles = true) const;
 
-		Polygon grayscaleToPolygon(uint32 threshold = 160, bool allowHoles = true) const;
+		[[nodiscard]] Polygon grayscaleToPolygon(uint32 threshold = 160, bool allowHoles = true) const;
 
-		MultiPolygon grayscaleToPolygons(uint32 threshold = 160, bool allowHoles = true) const;
+		[[nodiscard]] MultiPolygon grayscaleToPolygons(uint32 threshold = 160, bool allowHoles = true) const;
 
-		Array<Rect> detectObjects(HaarCascade cascade, int32 minNeighbors = 3, const Size& minSize = Size(30, 30), const Optional<Size>& maxSize = unspecified) const;
+		[[nodiscard]] Array<Rect> detectObjects(HaarCascade cascade, int32 minNeighbors = 3, const Size& minSize = Size(30, 30), const Optional<Size>& maxSize = unspecified) const;
 
-		Array<Rect> detectObjects(HaarCascade cascade, const Array<Rect>& regions, int32 minNeighbors = 3, const Size& minSize = Size(30, 30), const Optional<Size>& maxSize = unspecified) const;
+		[[nodiscard]] Array<Rect> detectObjects(HaarCascade cascade, const Array<Rect>& regions, int32 minNeighbors = 3, const Size& minSize = Size(30, 30), const Optional<Size>& maxSize = unspecified) const;
 	};
 }
 

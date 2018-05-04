@@ -61,7 +61,7 @@ namespace s3d
 		/// <returns>
 		/// 2 つの Effect が同じ場合 true, それ以外の場合は false
 		/// </returns>
-		bool operator ==(const Effect& effect) const;
+		[[nodiscard]] bool operator ==(const Effect& effect) const;
 
 		/// <summary>
 		/// 2 つの Effect が異なるかどうかを返します。
@@ -72,9 +72,9 @@ namespace s3d
 		/// <returns>
 		/// 2 つの Effect が異なる場合 true, それ以外の場合は false
 		/// </returns>
-		bool operator !=(const Effect& effect) const;
+		[[nodiscard]] bool operator !=(const Effect& effect) const;
 
-		explicit operator bool() const
+		[[nodiscard]] explicit operator bool() const
 		{
 			return hasEffects();
 		}
@@ -82,17 +82,17 @@ namespace s3d
 		/// <summary>
 		/// エフェクトが空かどうかを示します。
 		/// </summary>
-		bool isEmpty() const
+		[[nodiscard]] bool isEmpty() const
 		{
 			return !hasEffects();
 		}
 
-		bool hasEffects() const
+		[[nodiscard]] bool hasEffects() const
 		{
 			return num_effects() > 0;
 		}
 
-		size_t num_effects() const;
+		[[nodiscard]] size_t num_effects() const;
 
 		void add(std::unique_ptr<IEffect>&& effect) const;
 
@@ -122,13 +122,13 @@ namespace s3d
 
 		void pause() const;
 
-		bool isPaused() const;
+		[[nodiscard]] bool isPaused() const;
 
 		void resume() const;
 
 		void setSpeed(double speed) const;
 
-		double getSpeed() const;
+		[[nodiscard]] double getSpeed() const;
 
 		void update() const;
 

@@ -41,7 +41,7 @@ namespace s3d
 		/// <returns>
 		/// 新しいスクリーンショットがある場合 true, それ以外の場合は false
 		/// </returns>
-		bool HasNewFrame();
+		[[nodiscard]] bool HasNewFrame();
 
 		/// <summary>
 		/// メモリ上に保存されたスクリーンショットを取得します。
@@ -52,7 +52,7 @@ namespace s3d
 		/// <returns>
 		/// 保存されているスクリーンショット。スクリーンショットが保存されていない場合は空の画像
 		/// </returns>
-		const Image& GetFrame();
+		[[nodiscard]] const Image& GetFrame();
 
 		/// <summary>
 		/// スクリーンショットを取得します。

@@ -71,22 +71,22 @@ namespace s3d
 			, uvRect(_uvRect)
 			, size(_size) {}
 
-		RectF region(double x, double y) const
+		[[nodiscard]] RectF region(double x, double y) const
 		{
 			return{ x, y, size };
 		}
 
-		RectF region(const Vec2& pos = Vec2(0, 0)) const
+		[[nodiscard]] RectF region(const Vec2& pos = Vec2(0, 0)) const
 		{
 			return region(pos.x, pos.y);
 		}
 
-		RectF regionAt(double x, double y) const
+		[[nodiscard]] RectF regionAt(double x, double y) const
 		{
 			return{ x - size.x * 0.5, y - size.y * 0.5, size };
 		}
 
-		RectF regionAt(const Vec2& pos) const
+		[[nodiscard]] RectF regionAt(const Vec2& pos) const
 		{
 			return regionAt(pos.x, pos.y);
 		}
@@ -232,28 +232,28 @@ namespace s3d
 			return drawAtClipped(pos.x, pos.y, clipRect, diffuse);
 		}
 
-		TextureRegion mirrored() const;
+		[[nodiscard]] TextureRegion mirrored() const;
 
-		TextureRegion mirrored(bool doMirror) const;
+		[[nodiscard]] TextureRegion mirrored(bool doMirror) const;
 
-		TextureRegion flipped() const;
+		[[nodiscard]] TextureRegion flipped() const;
 
-		TextureRegion flipped(bool doFlip) const;
+		[[nodiscard]] TextureRegion flipped(bool doFlip) const;
 
-		TextureRegion scaled(double s) const;
+		[[nodiscard]] TextureRegion scaled(double s) const;
 
-		TextureRegion scaled(double sx, double sy) const;
+		[[nodiscard]] TextureRegion scaled(double sx, double sy) const;
 
-		TextureRegion scaled(const Vec2& s) const;
+		[[nodiscard]] TextureRegion scaled(const Vec2& s) const;
 
-		TextureRegion resized(double width, double height) const;
+		[[nodiscard]] TextureRegion resized(double width, double height) const;
 
-		TextureRegion resized(const Vec2& _size) const;
+		[[nodiscard]] TextureRegion resized(const Vec2& _size) const;
 
-		TexturedQuad rotated(double angle) const;
+		[[nodiscard]] TexturedQuad rotated(double angle) const;
 
-		TexturedQuad rotatedAt(double x, double y, double angle) const;
+		[[nodiscard]] TexturedQuad rotatedAt(double x, double y, double angle) const;
 
-		TexturedQuad rotatedAt(const Vec2& pos, double angle) const;
+		[[nodiscard]] TexturedQuad rotatedAt(const Vec2& pos, double angle) const;
 	};
 }

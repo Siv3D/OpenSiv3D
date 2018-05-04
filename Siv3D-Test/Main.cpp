@@ -1,73 +1,22 @@
 ﻿
-# include <Siv3D.hpp>
+# include <Siv3D.hpp> // OpenSiv3D v0.2.5
 
 void Main()
 {
-	constexpr size_t N = 100'000'000;
+	Graphics::SetBackground(ColorF(0.8, 0.9, 1.0));
 
-	DefaultRNGType sfmt;
-	Xorshift1024StarPhi phi;
-	Xorshift128Plus plus;
-	Xoroshiro128Plus oshiro;
-	uint64 a = 0;
+	const Font font(50);
 
-	for (auto n : step(4))
-	{
-		{
-			MicrosecClock m;
-
-			for (size_t i = 0; i < N; ++i)
-			{
-				a += sfmt();
-			}
-
-			m.print();
-		}
-
-		{
-			MicrosecClock m;
-
-			for (size_t i = 0; i < N; ++i)
-			{
-				a += phi();
-			}
-
-			m.print();
-		}
-
-		{
-			MicrosecClock m;
-
-			for (size_t i = 0; i < N; ++i)
-			{
-				a += plus();
-			}
-
-			m.print();
-		}
-
-		{
-			MicrosecClock m;
-
-			for (size_t i = 0; i < N; ++i)
-			{
-				a += oshiro();
-			}
-
-			m.print();
-		}
-
-		Print << U"----";
-	}
-
-	Print << sfmt();
-	Print << phi();
-	Print << plus();
-	Print << oshiro();
-	Print << a;
+	const Texture textureCat(Emoji(U"🐈"), TextureDesc::Mipped);
 
 	while (System::Update())
 	{
+		font(U"Hello, Siv3D!🐣").drawAt(Window::Center(), Palette::Black);
 
+		font(Cursor::Pos()).draw(20, 400, ColorF(0.6));
+
+		textureCat.resized(80).draw(540, 380);
+
+		Circle(Cursor::Pos(), 60).draw(ColorF(1, 0, 0, 0.5));
 	}
 }

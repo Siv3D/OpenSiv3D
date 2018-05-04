@@ -53,8 +53,8 @@ namespace s3d
 
 		void setActive(bool active) noexcept;
 
-		bool isActive() const noexcept;
+		[[nodiscard]] bool isActive() const noexcept;
 
-		bool isLocked() const noexcept;
+		[[nodiscard]] bool isLocked() const noexcept;
 	};
 }

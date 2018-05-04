@@ -31,9 +31,9 @@ namespace s3d
 		explicit Emoji(StringView emoji) noexcept
 			: codePoints(emoji) {}
 
-		static Image LoadImage(StringView emoji);
+		[[nodiscard]] static Image LoadImage(StringView emoji);
 
-		static Image LoadSilhouette(StringView emoji);
+		[[nodiscard]] static Image LoadSilhouette(StringView emoji);
 	};
 
 	struct Character

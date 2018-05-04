@@ -1904,6 +1904,11 @@ namespace s3d
 		return image;
 	}
 
+	Image& Image::gaussianBlur(const int32 size, const BorderType borderType)
+	{
+		return gaussianBlur(size, size, borderType);
+	}
+
 	Image& Image::gaussianBlur(const int32 horizontal, const int32 vertical, const BorderType borderType)
 	{
 		// 1. パラメータチェック
@@ -1933,6 +1938,11 @@ namespace s3d
 		}
 
 		return *this;
+	}
+
+	Image Image::gaussianBlurred(const int32 size, const BorderType borderType) const
+	{
+		return gaussianBlurred(size, size, borderType);
 	}
 
 	Image Image::gaussianBlurred(const int32 horizontal, const int32 vertical, const BorderType borderType) const

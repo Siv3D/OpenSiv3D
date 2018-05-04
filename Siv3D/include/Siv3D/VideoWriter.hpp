@@ -47,6 +47,6 @@ namespace s3d
 
 		bool writeFrame(const Image& image);
 
-		Size size() const;
+		[[nodiscard]] Size size() const;
 	};
 }

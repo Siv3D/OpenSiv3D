@@ -115,49 +115,38 @@ namespace s3d
 
 		void release();
 
-		bool isEmpty() const;
+		[[nodiscard]] bool isEmpty() const;
 
-		explicit operator bool() const
+		[[nodiscard]] explicit operator bool() const
 		{
 			return !isEmpty();
 		}
 
-		IDType id() const;
+		[[nodiscard]] IDType id() const;
 
-		bool operator ==(const Font& font) const;
+		[[nodiscard]] bool operator ==(const Font& font) const;
 
-		bool operator !=(const Font& font) const;
+		[[nodiscard]] bool operator !=(const Font& font) const;
 
-		const String& familyName() const;
+		[[nodiscard]] const String& familyName() const;
 
-		const String& styleName() const;
+		[[nodiscard]] const String& styleName() const;
 
-		int32 fontSize() const;
+		[[nodiscard]] int32 fontSize() const;
 
-		int32 ascent() const;
+		[[nodiscard]] int32 ascent() const;
 
-		int32 descent() const;
+		[[nodiscard]] int32 descent() const;
 
-		int32 height() const;
+		[[nodiscard]] int32 height() const;
 
-		Glyph getGlyph(char32 codePoint) const;
+		[[nodiscard]] Glyph getGlyph(char32 codePoint) const;
 
-		Array<Glyph> getGlyphs(const String& text) const;
+		[[nodiscard]] Array<Glyph> getGlyphs(const String& text) const;
 
-		Array<Glyph> getVerticalGlyphs(const String& text) const;
+		[[nodiscard]] Array<Glyph> getVerticalGlyphs(const String& text) const;
 
-		OutlineGlyph getOutlineGlyph(char32 codePoint) const;
-
-		/// <summary>
-		/// 描画するテキストを作成します。
-		/// </summary>
-		/// <param name="text">
-		/// 文字列
-		/// </param>
-		/// <returns>
-		/// DrawableString
-		/// </returns>
-		DrawableText operator()(const String& text) const;
+		[[nodiscard]] OutlineGlyph getOutlineGlyph(char32 codePoint) const;
 
 		/// <summary>
 		/// 描画するテキストを作成します。
@@ -168,7 +157,18 @@ namespace s3d
 		/// <returns>
 		/// DrawableString
 		/// </returns>
-		DrawableText operator()(String&& text) const;
+		[[nodiscard]] DrawableText operator()(const String& text) const;
+
+		/// <summary>
+		/// 描画するテキストを作成します。
+		/// </summary>
+		/// <param name="text">
+		/// 文字列
+		/// </param>
+		/// <returns>
+		/// DrawableString
+		/// </returns>
+		[[nodiscard]] DrawableText operator()(String&& text) const;
 
 		/// <summary>
 		/// 描画するテキストを作成します。
@@ -180,7 +180,7 @@ namespace s3d
 		/// DrawableString
 		/// </returns>
 		template <class ... Args>
-		inline DrawableText operator()(const Args& ... args) const;
+		[[nodiscard]] inline DrawableText operator()(const Args& ... args) const;
 	};
 
 	class GlyphIterator
@@ -215,7 +215,7 @@ namespace s3d
 			return *this;
 		}
 
-		Glyph operator *() const
+		[[nodiscard]] Glyph operator *() const
 		{
 			Glyph glyph = m_font.getGlyph(*m_iterator);
 
@@ -224,12 +224,12 @@ namespace s3d
 			return glyph;
 		}
 
-		bool operator ==(const GlyphIterator& other) const
+		[[nodiscard]] bool operator ==(const GlyphIterator& other) const
 		{
 			return m_iterator == other.m_iterator;
 		}
 		
-		bool operator !=(const GlyphIterator& other) const
+		[[nodiscard]] bool operator !=(const GlyphIterator& other) const
 		{
 			return m_iterator != other.m_iterator;
 		}
@@ -251,147 +251,147 @@ namespace s3d
 			: font(_font)
 			, codePoints(std::move(text)) {}
 
-		GlyphIterator begin() const
+		[[nodiscard]] GlyphIterator begin() const
 		{
 			return GlyphIterator(font, codePoints.begin(), 0);
 		}
 
-		GlyphIterator end() const
+		[[nodiscard]] GlyphIterator end() const
 		{
 			return GlyphIterator(font, codePoints.end(), static_cast<int32>(codePoints.size()));
 		}
 
-		RectF boundingRect(double x, double y) const
+		[[nodiscard]] RectF boundingRect(double x, double y) const
 		{
 			return boundingRect(Vec2(x, y));
 		}
 
-		RectF boundingRect(const Vec2& pos = Vec2(0, 0)) const;
+		[[nodiscard]] RectF boundingRect(const Vec2& pos = Vec2(0, 0)) const;
 
-		RectF boundingRect(Arg::topLeft_<Vec2> topLeft) const
+		[[nodiscard]] RectF boundingRect(Arg::topLeft_<Vec2> topLeft) const
 		{
 			return boundingRect(*topLeft);
 		}
 
-		RectF boundingRect(Arg::topRight_<Vec2> topRight) const
+		[[nodiscard]] RectF boundingRect(Arg::topRight_<Vec2> topRight) const
 		{
 			return boundingRect(topRight->movedBy(-region().w, 0));
 		}
 
-		RectF boundingRect(Arg::bottomLeft_<Vec2> bottomLeft) const
+		[[nodiscard]] RectF boundingRect(Arg::bottomLeft_<Vec2> bottomLeft) const
 		{
 			return boundingRect(bottomLeft->movedBy(0, -region().h));
 		}
 
-		RectF boundingRect(Arg::bottomRight_<Vec2> bottomRight) const
+		[[nodiscard]] RectF boundingRect(Arg::bottomRight_<Vec2> bottomRight) const
 		{
 			return boundingRect(bottomRight->movedBy(-region().size));
 		}
 
-		RectF boundingRect(Arg::topCenter_<Vec2> topCenter) const
+		[[nodiscard]] RectF boundingRect(Arg::topCenter_<Vec2> topCenter) const
 		{
 			return boundingRect(topCenter->movedBy(-region().w * 0.5, 0));
 		}
 
-		RectF boundingRect(Arg::bottomCenter_<Vec2> bottomCenter) const
+		[[nodiscard]] RectF boundingRect(Arg::bottomCenter_<Vec2> bottomCenter) const
 		{
 			return boundingRect(bottomCenter->movedBy(-region().w * 0.5, -region().h));
 		}
 
-		RectF boundingRect(Arg::leftCenter_<Vec2> leftCenter) const
+		[[nodiscard]] RectF boundingRect(Arg::leftCenter_<Vec2> leftCenter) const
 		{
 			return boundingRect(leftCenter->movedBy(0, -region().h * 0.5));
 		}
 
-		RectF boundingRect(Arg::rightCenter_<Vec2> rightCenter) const
+		[[nodiscard]] RectF boundingRect(Arg::rightCenter_<Vec2> rightCenter) const
 		{
 			return boundingRect(rightCenter->movedBy(-region().w, -region().h * 0.5));
 		}
 
-		RectF boundingRect(Arg::center_<Vec2> center) const
+		[[nodiscard]] RectF boundingRect(Arg::center_<Vec2> center) const
 		{
 			return boundingRectAt(*center);
 		}
 
-		RectF boundingRectAt(double x, double y) const
+		[[nodiscard]] RectF boundingRectAt(double x, double y) const
 		{
 			return boundingRectAt(Vec2(x, y));
 		}
 
-		RectF boundingRectAt(const Vec2& pos = Vec2(0, 0)) const
+		[[nodiscard]] RectF boundingRectAt(const Vec2& pos = Vec2(0, 0)) const
 		{
 			const RectF rect = boundingRect();
 
 			return rect.movedBy(pos - rect.center());
 		}
 
-		RectF region(double x, double y) const
+		[[nodiscard]] RectF region(double x, double y) const
 		{
 			return region(Vec2(x, y));
 		}
 
-		Rect region(const Point& pos = Point(0, 0)) const;
+		[[nodiscard]] Rect region(const Point& pos = Point(0, 0)) const;
 
-		RectF region(const Vec2& pos) const;
+		[[nodiscard]] RectF region(const Vec2& pos) const;
 
-		RectF region(Arg::topLeft_<Vec2> topLeft) const
+		[[nodiscard]] RectF region(Arg::topLeft_<Vec2> topLeft) const
 		{
 			return region(*topLeft);
 		}
 
-		RectF region(Arg::topRight_<Vec2> topRight) const
+		[[nodiscard]] RectF region(Arg::topRight_<Vec2> topRight) const
 		{
 			return region(topRight->movedBy(-region().w, 0));
 		}
 
-		RectF region(Arg::bottomLeft_<Vec2> bottomLeft) const
+		[[nodiscard]] RectF region(Arg::bottomLeft_<Vec2> bottomLeft) const
 		{
 			return region(bottomLeft->movedBy(0, -region().h));
 		}
 
-		RectF region(Arg::bottomRight_<Vec2> bottomRight) const
+		[[nodiscard]] RectF region(Arg::bottomRight_<Vec2> bottomRight) const
 		{
 			return region(bottomRight->movedBy(-region().size));
 		}
 
-		RectF region(Arg::topCenter_<Vec2> topCenter) const
+		[[nodiscard]] RectF region(Arg::topCenter_<Vec2> topCenter) const
 		{
 			return region(topCenter->movedBy(-region().w * 0.5, 0));
 		}
 
-		RectF region(Arg::bottomCenter_<Vec2> bottomCenter) const
+		[[nodiscard]] RectF region(Arg::bottomCenter_<Vec2> bottomCenter) const
 		{
 			return region(bottomCenter->movedBy(-region().w * 0.5, -region().h));
 		}
 
-		RectF region(Arg::leftCenter_<Vec2> leftCenter) const
+		[[nodiscard]] RectF region(Arg::leftCenter_<Vec2> leftCenter) const
 		{
 			return region(leftCenter->movedBy(0, -region().h * 0.5));
 		}
 
-		RectF region(Arg::rightCenter_<Vec2> rightCenter) const
+		[[nodiscard]] RectF region(Arg::rightCenter_<Vec2> rightCenter) const
 		{
 			return region(rightCenter->movedBy(-region().w, -region().h * 0.5));
 		}
 
-		RectF region(Arg::center_<Vec2> center) const
+		[[nodiscard]] RectF region(Arg::center_<Vec2> center) const
 		{
 			return regionAt(*center);
 		}
 
-		RectF regionAt(double x, double y) const
+		[[nodiscard]] RectF regionAt(double x, double y) const
 		{
 			return regionAt(Vec2(x, y));
 		}
 
-		RectF regionAt(const Vec2& pos = Vec2(0, 0)) const
+		[[nodiscard]] RectF regionAt(const Vec2& pos = Vec2(0, 0)) const
 		{
 			const RectF rect = region();
 
 			return rect.movedBy(pos - rect.center());
 		}
 
-		Array<int32> getXAdvances() const;
+		[[nodiscard]] Array<int32> getXAdvances() const;
 
 		RectF draw(double x, double y, const ColorF& color = Palette::White) const
 		{

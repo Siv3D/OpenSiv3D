@@ -147,7 +147,7 @@ namespace s3d
 		/// <summary>
 		/// テクスチャが空かどうかを示します。
 		/// </summary>
-		bool isEmpty() const;
+		[[nodiscard]] bool isEmpty() const;
 
 		/// <summary>
 		/// テクスチャが空ではないかを返します。
@@ -155,7 +155,7 @@ namespace s3d
 		/// <returns>
 		/// テクスチャが空ではない場合 true, それ以外の場合は false
 		/// </returns>
-		explicit operator bool() const
+		[[nodiscard]] explicit operator bool() const
 		{
 			return !isEmpty();
 		}
@@ -163,7 +163,7 @@ namespace s3d
 		/// <summary>
 		/// テクスチャハンドルの ID を示します。
 		/// </summary>
-		IDType id() const;
+		[[nodiscard]] IDType id() const;
 
 		/// <summary>
 		/// 2 つの Texture が同じかどうかを返します。
@@ -174,7 +174,7 @@ namespace s3d
 		/// <returns>
 		/// 2 つの Texture が同じ場合 true, それ以外の場合は false
 		/// </returns>
-		bool operator ==(const Texture& texture) const;
+		[[nodiscard]] bool operator ==(const Texture& texture) const;
 
 		/// <summary>
 		/// 2 つの Texture が異なるかどうかを返します。
@@ -185,47 +185,47 @@ namespace s3d
 		/// <returns>
 		/// 2 つの Texture が異なる場合 true, それ以外の場合は false
 		/// </returns>
-		bool operator !=(const Texture& texture) const;
+		[[nodiscard]] bool operator !=(const Texture& texture) const;
 
-		int32 width() const;
+		[[nodiscard]] int32 width() const;
 
-		int32 height() const;
+		[[nodiscard]] int32 height() const;
 
-		Size size() const;
+		[[nodiscard]] Size size() const;
 
-		TextureDesc getDesc() const;
+		[[nodiscard]] TextureDesc getDesc() const;
 
-		bool isMipped() const;
+		[[nodiscard]] bool isMipped() const;
 
-		bool isSDF() const;
+		[[nodiscard]] bool isSDF() const;
 
-		Rect region(int32 x, int32 y) const
+		[[nodiscard]] Rect region(int32 x, int32 y) const
 		{
 			return{ x, y, size() };
 		}
 
-		Rect region(const Point& pos = Point(0, 0)) const
+		[[nodiscard]] Rect region(const Point& pos = Point(0, 0)) const
 		{
 			return region(pos.x, pos.y);
 		}
 
-		RectF region(double x, double y) const
+		[[nodiscard]] RectF region(double x, double y) const
 		{
 			return{ x, y, size() };
 		}
 
-		RectF region(const Vec2& pos) const
+		[[nodiscard]] RectF region(const Vec2& pos) const
 		{
 			return region(pos.x, pos.y);
 		}
 
-		RectF regionAt(double x, double y) const
+		[[nodiscard]] RectF regionAt(double x, double y) const
 		{
 			const Size s = size();
 			return{ x - s.x * 0.5, y - s.y * 0.5, s };
 		}
 
-		RectF regionAt(const Vec2& pos) const
+		[[nodiscard]] RectF regionAt(const Vec2& pos) const
 		{
 			return regionAt(pos.x, pos.y);
 		}
@@ -371,15 +371,15 @@ namespace s3d
 			return drawAtClipped(pos.x, pos.y, clipRect, diffuse);
 		}
 
-		TextureRegion operator ()(double x, double y, double w, double h) const;
+		[[nodiscard]] TextureRegion operator ()(double x, double y, double w, double h) const;
 
-		TextureRegion operator ()(const Vec2& xy, double w, double h) const;
+		[[nodiscard]] TextureRegion operator ()(const Vec2& xy, double w, double h) const;
 
-		TextureRegion operator ()(double x, double y, double size) const;
+		[[nodiscard]] TextureRegion operator ()(double x, double y, double size) const;
 
-		TextureRegion operator ()(double x, double y, const Vec2& size) const;
+		[[nodiscard]] TextureRegion operator ()(double x, double y, const Vec2& size) const;
 
-		TextureRegion operator ()(const Vec2& xy, const Vec2& size) const;
+		[[nodiscard]] TextureRegion operator ()(const Vec2& xy, const Vec2& size) const;
 
 		/// <summary>
 		/// テクスチャ内の範囲を表す TextureRegion を返します。
@@ -390,45 +390,45 @@ namespace s3d
 		/// <returns>
 		/// テクスチャの範囲を表す TextureRegion
 		/// </returns>
-		TextureRegion operator ()(const RectF& rect) const;
+		[[nodiscard]] TextureRegion operator ()(const RectF& rect) const;
 
-		TextureRegion uv(double u, double v, double w, double h) const;
+		[[nodiscard]] TextureRegion uv(double u, double v, double w, double h) const;
 
-		TextureRegion uv(const RectF& rect) const;
+		[[nodiscard]] TextureRegion uv(const RectF& rect) const;
 
-		TextureRegion mirrored() const;
+		[[nodiscard]] TextureRegion mirrored() const;
 
-		TextureRegion mirrored(bool doMirror) const;
+		[[nodiscard]] TextureRegion mirrored(bool doMirror) const;
 
-		TextureRegion flipped() const;
+		[[nodiscard]] TextureRegion flipped() const;
 
-		TextureRegion flipped(bool doFlip) const;
+		[[nodiscard]] TextureRegion flipped(bool doFlip) const;
 
-		TextureRegion scaled(double s) const;
+		[[nodiscard]] TextureRegion scaled(double s) const;
 
-		TextureRegion scaled(double xs, double ys) const;
+		[[nodiscard]] TextureRegion scaled(double xs, double ys) const;
 
-		TextureRegion scaled(const Vec2& s) const;
+		[[nodiscard]] TextureRegion scaled(const Vec2& s) const;
 
-		TextureRegion resized(double size) const;
+		[[nodiscard]] TextureRegion resized(double size) const;
 
-		TextureRegion resized(double width, double height) const;
+		[[nodiscard]] TextureRegion resized(double width, double height) const;
 
-		TextureRegion resized(const Vec2& size) const;
+		[[nodiscard]] TextureRegion resized(const Vec2& size) const;
 
-		TextureRegion repeated(double xRepeat, double yRepeat) const;
+		[[nodiscard]] TextureRegion repeated(double xRepeat, double yRepeat) const;
 
-		TextureRegion repeated(const Vec2& _repeat) const;
+		[[nodiscard]] TextureRegion repeated(const Vec2& _repeat) const;
 
-		TextureRegion mapped(double width, double height) const;
+		[[nodiscard]] TextureRegion mapped(double width, double height) const;
 
-		TextureRegion mapped(const Vec2& size) const;
+		[[nodiscard]] TextureRegion mapped(const Vec2& size) const;
 
-		TexturedQuad rotated(double angle) const;
+		[[nodiscard]] TexturedQuad rotated(double angle) const;
 
-		TexturedQuad rotatedAt(double x, double y, double angle) const;
+		[[nodiscard]] TexturedQuad rotatedAt(double x, double y, double angle) const;
 
-		TexturedQuad rotatedAt(const Vec2& pos, double angle) const;
+		[[nodiscard]] TexturedQuad rotatedAt(const Vec2& pos, double angle) const;
 	};
 
 	using TextureID = Texture::IDType;
