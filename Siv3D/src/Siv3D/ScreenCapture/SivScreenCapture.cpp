@@ -13,6 +13,8 @@
 # include "IScreenCapture.hpp"
 # include <Siv3D/ScreenCapture.hpp>
 # include <Siv3D/DateTime.hpp>
+# include <Siv3D/Image.hpp>
+# include <Siv3D/DynamicTexture.hpp>
 
 namespace s3d
 {
@@ -33,6 +35,33 @@ namespace s3d
 			}
 
 			Siv3DEngine::GetScreenCapture()->requestScreenCapture(path);
+		}
+
+		void RequestCurrentFrame()
+		{
+			Siv3DEngine::GetScreenCapture()->requestScreenCapture(FilePath());
+		}
+
+		bool HasNewFrame()
+		{
+			return Siv3DEngine::GetScreenCapture()->hasNewFrame();
+		}
+
+		const Image& GetFrame()
+		{
+			return Siv3DEngine::GetScreenCapture()->receiveScreenCapture();
+		}
+
+		bool GetFrame(Image& image)
+		{
+			image = Siv3DEngine::GetScreenCapture()->receiveScreenCapture();
+
+			return !!image;
+		}
+
+		bool GetFrame(DynamicTexture& texture)
+		{
+			return texture.fill(Siv3DEngine::GetScreenCapture()->receiveScreenCapture());
 		}
 	}
 }

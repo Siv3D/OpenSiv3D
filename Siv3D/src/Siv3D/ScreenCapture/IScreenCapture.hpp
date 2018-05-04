@@ -29,5 +29,9 @@ namespace s3d
 		virtual const FilePath& getDefaultScreenshotDirectory() const = 0;
 
 		virtual void requestScreenCapture(const FilePath& path) = 0;
+
+		virtual bool hasNewFrame() const = 0;
+
+		virtual const Image& receiveScreenCapture() const = 0;
 	};
 }

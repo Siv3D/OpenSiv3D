@@ -57,6 +57,8 @@ namespace s3d
 
 	bool CScreenCapture::update()
 	{
+		m_hasNewFrame = false;
+
 		if (m_hasRequest)
 		{
 			const Image& image = Siv3DEngine::GetGraphics()->getScreenCapture();
@@ -71,6 +73,8 @@ namespace s3d
 			m_requestedPaths.clear();
 
 			m_hasRequest = false;
+
+			m_hasNewFrame = true;
 		}
 
 		if (KeyPrintScreen.down())
@@ -97,7 +101,10 @@ namespace s3d
 
 	void CScreenCapture::requestScreenCapture(const FilePath& path)
 	{
-		m_requestedPaths.push_back(path);
+		if (path)
+		{
+			m_requestedPaths.push_back(path);
+		}
 
 		if (!m_hasRequest)
 		{
@@ -105,5 +112,15 @@ namespace s3d
 
 			Siv3DEngine::GetGraphics()->requestScreenCapture();
 		}	
+	}
+
+	bool CScreenCapture::hasNewFrame() const
+	{
+		return m_hasNewFrame;
+	}
+
+	const Image& CScreenCapture::receiveScreenCapture() const
+	{
+		return Siv3DEngine::GetGraphics()->getScreenCapture();
 	}
 }
