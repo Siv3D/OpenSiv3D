@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -121,7 +121,8 @@ namespace s3d
 
 		void Canny(const Image& src, Image& dst, uint8 lowThreshold, uint8 highThreshold, int32 apertureSize = 3, bool useL2Gradient = false);
 
-		void EdgePreservingFilter(const Image& src, Image& dst, EdgePreservingFilterType filterType = EdgePreservingFilterType::Recursive, _Field_range_(0.0, 200.0) double sigma_s = 60, _Field_range_(0.0, 1.0) double sigma_r = 0.4);
+		// _Field_range_(0.0, 200.0) sigma_s, _Field_range_(0.0, 1.0) double sigma_r
+		void EdgePreservingFilter(const Image& src, Image& dst, EdgePreservingFilterType filterType = EdgePreservingFilterType::Recursive, double sigma_s = 60, double sigma_r = 0.4);
 
 		// _Field_range_(0.0, 200.0) sigma_s, _Field_range_(0.0, 1.0) double sigma_r
 		void DetailEnhance(const Image& src, Image& dst, double sigma_s = 10, double sigma_r = 0.15);

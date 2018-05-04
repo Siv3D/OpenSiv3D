@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -2925,7 +2925,7 @@ namespace s3d
 			}
 		}
 
-		void EdgePreservingFilter(const Image& src, Image& dst, EdgePreservingFilterType filterType, _Field_range_(0.0, 200.0) double sigma_s, _Field_range_(0.0, 1.0) double sigma_r)
+		void EdgePreservingFilter(const Image& src, Image& dst, EdgePreservingFilterType filterType, double sigma_s, double sigma_r)
 		{
 			// 1. パラメータチェック
 			{
