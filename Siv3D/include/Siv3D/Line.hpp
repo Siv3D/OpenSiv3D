@@ -53,27 +53,27 @@ namespace s3d
 			, isDotted(params.isDotted)
 			, hasAlignedDot(params.hasAlignedDot) {}
 
-		constexpr bool isSquareCap() const noexcept
+		[[nodiscard]] constexpr bool isSquareCap() const noexcept
 		{
 			return hasCap && !isRound && !isDotted;
 		}
 
-		constexpr bool isRoundCap() const noexcept
+		[[nodiscard]] constexpr bool isRoundCap() const noexcept
 		{
 			return hasCap && isRound && !isDotted;
 		}
 
-		constexpr bool isNoCap() const noexcept
+		[[nodiscard]] constexpr bool isNoCap() const noexcept
 		{
 			return !hasCap && !isRound && !isDotted;
 		}
 
-		constexpr bool isSquareDot() const noexcept
+		[[nodiscard]] constexpr bool isSquareDot() const noexcept
 		{
 			return hasCap && !isRound && isDotted;
 		}
 
-		constexpr bool isRoundDot() const noexcept
+		[[nodiscard]] constexpr bool isRoundDot() const noexcept
 		{
 			return hasCap && isRound && isDotted;
 		}
@@ -125,13 +125,13 @@ namespace s3d
 			: begin(p0)
 			, end(p1) {}
 		
-		constexpr bool operator ==(const Line& line) const noexcept
+		[[nodiscard]] constexpr bool operator ==(const Line& line) const noexcept
 		{
 			return begin == line.begin
 				&& end == line.end;
 		}
 		
-		constexpr bool operator !=(const Line& line) const noexcept
+		[[nodiscard]] constexpr bool operator !=(const Line& line) const noexcept
 		{
 			return !(*this == line);
 		}
@@ -163,12 +163,12 @@ namespace s3d
 			return *this = line;
 		}
 		
-		constexpr Line movedBy(value_type x, value_type y) const noexcept
+		[[nodiscard]] constexpr Line movedBy(value_type x, value_type y) const noexcept
 		{
 			return{ begin.movedBy(x, y), end.movedBy(x, y) };
 		}
 		
-		constexpr Line movedBy(const position_type& v) const noexcept
+		[[nodiscard]] constexpr Line movedBy(const position_type& v) const noexcept
 		{
 			return movedBy(v.x, v.y);
 		}
@@ -185,21 +185,21 @@ namespace s3d
 			return moveBy(v.x, v.y);
 		}
 
-		Line stretched(const value_type length) const noexcept
+		[[nodiscard]] Line stretched(const value_type length) const noexcept
 		{
 			const position_type v = vector().setLength(length);
 
 			return Line(begin - v, end + v);
 		}
 
-		Line stretched(const value_type lengthBegin, const value_type lengthEnd) const noexcept
+		[[nodiscard]] Line stretched(const value_type lengthBegin, const value_type lengthEnd) const noexcept
 		{
 			const position_type v = vector().normalized();
 
 			return Line(begin - v * lengthBegin, end + v * lengthEnd);
 		}
 		
-		constexpr position_type vector() const noexcept
+		[[nodiscard]] constexpr position_type vector() const noexcept
 		{
 			return end - begin;
 		}
@@ -212,45 +212,45 @@ namespace s3d
 			return *this;
 		}
 		
-		constexpr Line reversed() const noexcept
+		[[nodiscard]] constexpr Line reversed() const noexcept
 		{
 			return{ end, begin };
 		}
 		
-		value_type length() const noexcept
+		[[nodiscard]] value_type length() const noexcept
 		{
 			return begin.distanceFrom(end);
 		}
 		
-		constexpr value_type lengthSq() const noexcept
+		[[nodiscard]] constexpr value_type lengthSq() const noexcept
 		{
 			return begin.distanceFromSq(end);
 		}
 		
-		constexpr position_type center() const noexcept
+		[[nodiscard]] constexpr position_type center() const noexcept
 		{
 			return (begin + end) * 0.5;
 		}
 		
-		position_type closest(const position_type& pos) const noexcept;
+		[[nodiscard]] position_type closest(const position_type& pos) const noexcept;
 
-		RectF boundingRect() const noexcept;
+		[[nodiscard]] RectF boundingRect() const noexcept;
 
 		template <class Shape2DType>
-		bool intersects(const Shape2DType& shape) const
+		[[nodiscard]] bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
 		
 		template <class Shape2DType>
-		Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
+		[[nodiscard]] Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
 		{
 			return Geometry2D::IntersectAt(*this, shape);
 		}
 
-		Optional<position_type> intersectsAt(const Line& line) const;
+		[[nodiscard]] Optional<position_type> intersectsAt(const Line& line) const;
 
-		Optional<position_type> intersectsAtPrecise(const Line& line) const;
+		[[nodiscard]] Optional<position_type> intersectsAtPrecise(const Line& line) const;
 
 		// rotated
 		

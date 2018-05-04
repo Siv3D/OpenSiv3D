@@ -186,22 +186,22 @@ namespace s3d
 			return *this;
 		}
 
-		LineString slice(const size_t index) const
+		[[nodiscard]] LineString slice(const size_t index) const
 		{
 			return LineString(base_type::slice(index));
 		}
 
-		LineString slice(const size_t index, const size_t length) const
+		[[nodiscard]] LineString slice(const size_t index, const size_t length) const
 		{
 			return LineString(base_type::slice(index, length));
 		}
 
-		size_t num_lines() const noexcept
+		[[nodiscard]] size_t num_lines() const noexcept
 		{
 			return size() < 2 ? 0 : size() - 1;
 		}
 
-		Line line(size_t index) const
+		[[nodiscard]] Line line(size_t index) const
 		{
 			return{ base_type::operator[](index), base_type::operator[](index + 1) };
 		}
@@ -221,25 +221,25 @@ namespace s3d
 			return moveBy(v.x, v.y);
 		}
 
-		LineString movedBy(double x, double y) const
+		[[nodiscard]] LineString movedBy(double x, double y) const
 		{
 			return LineString(*this).moveBy(x, y);
 		}
 
-		LineString movedBy(const Vec2& v) const
+		[[nodiscard]] LineString movedBy(const Vec2& v) const
 		{
 			return movedBy(v.x, v.y);
 		}
 
-		RectF calculateBoundingRect() const noexcept;
+		[[nodiscard]] RectF calculateBoundingRect() const noexcept;
 
 		template <class Shape2DType>
-		bool intersects(const Shape2DType& shape) const
+		[[nodiscard]] bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
 
-		LineString catmullRom(bool isClosed = false, int32 interpolation = 24) const;
+		[[nodiscard]] LineString catmullRom(bool isClosed = false, int32 interpolation = 24) const;
 
 		const LineString& paint(Image& dst, const Color& color, bool isClosed = false) const;
 

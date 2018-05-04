@@ -23,12 +23,12 @@ namespace s3d
 
 		position_type p0, p1, p2, p3;
 		
-		position_type& p(size_t index) noexcept
+		[[nodiscard]] position_type& p(size_t index) noexcept
 		{
 			return (&p0)[index];
 		}
 		
-		const position_type& p(size_t index) const noexcept
+		[[nodiscard]] const position_type& p(size_t index) const noexcept
 		{
 			return (&p0)[index];
 		}
@@ -70,12 +70,12 @@ namespace s3d
 			return *this = quad;
 		}
 
-		constexpr Quad movedBy(value_type x, value_type y) const noexcept
+		[[nodiscard]] constexpr Quad movedBy(value_type x, value_type y) const noexcept
 		{
 			return{ p0.movedBy(x, y), p1.movedBy(x, y), p2.movedBy(x, y), p3.movedBy(x, y) };
 		}
 
-		constexpr Quad movedBy(const position_type& v) const noexcept
+		[[nodiscard]] constexpr Quad movedBy(const position_type& v) const noexcept
 		{
 			return movedBy(v.x, v.y);
 		}
@@ -94,44 +94,44 @@ namespace s3d
 			return moveBy(v.x, v.y);
 		}
 
-		Quad stretched(value_type size) const noexcept;
+		[[nodiscard]] Quad stretched(value_type size) const noexcept;
 
-		Quad rotatedAt(value_type x, value_type y, value_type angle) const noexcept
+		[[nodiscard]] Quad rotatedAt(value_type x, value_type y, value_type angle) const noexcept
 		{
 			return rotatedAt(position_type(x, y), angle);
 		}
 
-		Quad rotatedAt(const position_type& pos, value_type angle) const noexcept;
+		[[nodiscard]] Quad rotatedAt(const position_type& pos, value_type angle) const noexcept;
 
-		value_type area() const noexcept;
+		[[nodiscard]] value_type area() const noexcept;
 
-		value_type perimeter() const noexcept;
+		[[nodiscard]] value_type perimeter() const noexcept;
 
 		template <class Shape2DType>
-		bool intersects(const Shape2DType& shape) const
+		[[nodiscard]] bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
 
 		template <class Shape2DType>
-		bool contains(const Shape2DType& shape) const
+		[[nodiscard]] bool contains(const Shape2DType& shape) const
 		{
 			return Geometry2D::Contains(*this, shape);
 		}
 
-		bool leftClicked() const;
+		[[nodiscard]] bool leftClicked() const;
 
-		bool leftPressed() const;
+		[[nodiscard]] bool leftPressed() const;
 
-		bool leftReleased() const;
+		[[nodiscard]] bool leftReleased() const;
 
-		bool rightClicked() const;
+		[[nodiscard]] bool rightClicked() const;
 
-		bool rightPressed() const;
+		[[nodiscard]] bool rightPressed() const;
 
-		bool rightReleased() const;
+		[[nodiscard]] bool rightReleased() const;
 
-		bool mouseOver() const;
+		[[nodiscard]] bool mouseOver() const;
 
 		const Quad& paint(Image& dst, const Color& color) const;
 
@@ -145,11 +145,11 @@ namespace s3d
 
 		const Quad& drawFrame(double innerThickness, double outerThickness, const ColorF& color = Palette::White) const;
 
-		TexturedQuad operator ()(const Texture& texture) const;
+		[[nodiscard]] TexturedQuad operator ()(const Texture& texture) const;
 
-		TexturedQuad operator ()(const TextureRegion& textureRegion) const;
+		[[nodiscard]] TexturedQuad operator ()(const TextureRegion& textureRegion) const;
 
-		Polygon asPolygon() const;
+		[[nodiscard]] Polygon asPolygon() const;
 	};
 }
 

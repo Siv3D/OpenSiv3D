@@ -53,37 +53,37 @@ namespace s3d
 
 		Polygon& operator =(Polygon&& polygon);
 
-		explicit operator bool() const { return !isEmpty(); }
+		[[nodiscard]] explicit operator bool() const { return !isEmpty(); }
 
-		bool isEmpty() const;
+		[[nodiscard]] bool isEmpty() const;
 
-		bool hasHoles() const;
+		[[nodiscard]] bool hasHoles() const;
 
-		size_t num_holes() const;
+		[[nodiscard]] size_t num_holes() const;
 
 		void swap(Polygon& polygon) noexcept;
 
-		const Array<Vec2>& outer() const;
+		[[nodiscard]] const Array<Vec2>& outer() const;
 
-		const Array<Array<Vec2>>& inners() const;
+		[[nodiscard]] const Array<Array<Vec2>>& inners() const;
 
-		const Array<Float2>& vertices() const;
+		[[nodiscard]] const Array<Float2>& vertices() const;
 		
-		const Array<uint32>& indices() const;
+		[[nodiscard]] const Array<uint32>& indices() const;
 		
-		const RectF& boundingRect() const;
+		[[nodiscard]] const RectF& boundingRect() const;
 
-		size_t num_triangles() const;
+		[[nodiscard]] size_t num_triangles() const;
 
-		Triangle triangle(size_t index) const;
+		[[nodiscard]] Triangle triangle(size_t index) const;
 
 		Polygon& addHole(const Array<Vec2>& hole);
 
 		Polygon& addHoles(const Array<Array<Vec2>>& holes);
 
-		Polygon movedBy(double x, double y) const;
+		[[nodiscard]] Polygon movedBy(double x, double y) const;
 
-		Polygon movedBy(const Vec2& v) const
+		[[nodiscard]] Polygon movedBy(const Vec2& v) const
 		{
 			return movedBy(v.x, v.y);
 		}
@@ -95,65 +95,65 @@ namespace s3d
 			return moveBy(v.x, v.y);
 		}
 
-		Polygon rotated(double angle) const;
+		[[nodiscard]] Polygon rotated(double angle) const;
 
-		Polygon rotatedAt(const Vec2& pos, double angle) const;
+		[[nodiscard]] Polygon rotatedAt(const Vec2& pos, double angle) const;
 
 		Polygon& rotate(double angle);
 
 		Polygon& rotateAt(const Vec2& pos, double angle);
 
-		Polygon transformed(double s, double c, const Vec2& pos) const;
+		[[nodiscard]] Polygon transformed(double s, double c, const Vec2& pos) const;
 
 		Polygon& transform(double s, double c, const Vec2& pos);
 
-		Polygon scaled(double s) const;
+		[[nodiscard]] Polygon scaled(double s) const;
 
 		Polygon& scale(double s);
 
-		double area() const;
+		[[nodiscard]] double area() const;
 
-		double perimeter() const;
+		[[nodiscard]] double perimeter() const;
 
-		Vec2 centroid() const;
+		[[nodiscard]] Vec2 centroid() const;
 
-		Polygon calculateConvexHull() const;
+		[[nodiscard]] Polygon calculateConvexHull() const;
 
-		Polygon calculateBuffer(double distance) const;
+		[[nodiscard]] Polygon calculateBuffer(double distance) const;
 
-		Polygon calculateRoundBuffer(double distance) const;
+		[[nodiscard]] Polygon calculateRoundBuffer(double distance) const;
 
-		Polygon simplified(double maxDistance = 2.0) const;
+		[[nodiscard]] Polygon simplified(double maxDistance = 2.0) const;
 
 		bool append(const Polygon& polygon);
 
 		template <class Shape2DType>
-		bool intersects(const Shape2DType& shape) const
+		[[nodiscard]] bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
 
-		bool intersects(const Polygon& polygon) const;
+		[[nodiscard]] bool intersects(const Polygon& polygon) const;
 
 		template <class Shape2DType>
-		bool contains(const Shape2DType& shape) const
+		[[nodiscard]] bool contains(const Shape2DType& shape) const
 		{
 			return Geometry2D::Contains(*this, shape);
 		}
 
-		bool leftClicked() const;
+		[[nodiscard]] 	bool leftClicked() const;
 
-		bool leftPressed() const;
+		[[nodiscard]] bool leftPressed() const;
 
-		bool leftReleased() const;
+		[[nodiscard]] bool leftReleased() const;
 
-		bool rightClicked() const;
+		[[nodiscard]] bool rightClicked() const;
 
-		bool rightPressed() const;
+		[[nodiscard]] bool rightPressed() const;
 
-		bool rightReleased() const;
+		[[nodiscard]] bool rightReleased() const;
 
-		bool mouseOver() const;
+		[[nodiscard]] bool mouseOver() const;
 
 		const Polygon& paint(Image& dst, const Color& color) const;
 

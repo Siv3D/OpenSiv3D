@@ -140,12 +140,12 @@ namespace s3d
 			return setSize(_size.x, _size.y);
 		}
 
-		constexpr RoundRect movedBy(value_type _x, value_type _y) const noexcept
+		[[nodiscard]] constexpr RoundRect movedBy(value_type _x, value_type _y) const noexcept
 		{
 			return{ rect.movedBy(_x, _y), r };
 		}
 
-		constexpr RoundRect movedBy(const position_type& v) const noexcept
+		[[nodiscard]] constexpr RoundRect movedBy(const position_type& v) const noexcept
 		{
 			return movedBy(v.x, v.y);
 		}
@@ -161,66 +161,66 @@ namespace s3d
 			return moveBy(v.x, v.y);
 		}
 
-		constexpr RoundRect stretched(value_type size) const noexcept
+		[[nodiscard]] constexpr RoundRect stretched(value_type size) const noexcept
 		{
 			return RoundRect(rect.stretched(size), r);
 		}
 
-		constexpr RoundRect stretched(value_type _x, value_type _y) const noexcept
+		[[nodiscard]] constexpr RoundRect stretched(value_type _x, value_type _y) const noexcept
 		{
 			return RoundRect(rect.stretched(_x, _y), r);
 		}
 
-		constexpr RoundRect stretched(const size_type& xy) const noexcept
+		[[nodiscard]] constexpr RoundRect stretched(const size_type& xy) const noexcept
 		{
 			return RoundRect(rect.stretched(xy.x, xy.y), r);
 		}
 
-		constexpr RoundRect stretched(value_type top, value_type right, value_type bottom, value_type left) const noexcept
+		[[nodiscard]] constexpr RoundRect stretched(value_type top, value_type right, value_type bottom, value_type left) const noexcept
 		{
 			return RoundRect(rect.stretched(top, right, bottom, left), r);
 		}
 
-		constexpr position_type center() const noexcept
+		[[nodiscard]] constexpr position_type center() const noexcept
 		{
 			return rect.center();
 		}
 
-		constexpr double area() const noexcept
+		[[nodiscard]] constexpr double area() const noexcept
 		{
 			return rect.area() - (4 - Math::Pi) * r * r;
 		}
 
-		constexpr double perimeter() const noexcept
+		[[nodiscard]] constexpr double perimeter() const noexcept
 		{
 			return rect.perimeter() + r * (2 * Math::Pi - 8);
 		}
 
 		template <class Shape2DType>
-		bool intersects(const Shape2DType& shape) const
+		[[nodiscard]] bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
 
 		template <class Shape2DType>
-		bool contains(const Shape2DType& shape) const
+		[[nodiscard]] bool contains(const Shape2DType& shape) const
 		{
 			return Geometry2D::Contains(*this, shape);
 		}
 
-		bool leftClicked() const;
+		[[nodiscard]] bool leftClicked() const;
 
-		bool leftPressed() const;
+		[[nodiscard]] bool leftPressed() const;
 
-		bool leftReleased() const;
+		[[nodiscard]] bool leftReleased() const;
 
-		bool rightClicked() const;
+		[[nodiscard]] bool rightClicked() const;
 
-		bool rightPressed() const;
+		[[nodiscard]] bool rightPressed() const;
 
-		bool rightReleased() const;
+		[[nodiscard]] bool rightReleased() const;
 
-		bool mouseOver() const;
+		[[nodiscard]] bool mouseOver() const;
 
 		const RoundRect& paint(Image& dst, const Color& color) const;
 
@@ -255,11 +255,11 @@ namespace s3d
 		/// </returns>
 		const RoundRect& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF(0.0, 0.5)) const;
 
-		TexturedRoundRect operator ()(const Texture& texture) const;
+		[[nodiscard]] TexturedRoundRect operator ()(const Texture& texture) const;
 
-		TexturedRoundRect operator ()(const TextureRegion& textureRegion) const;
+		[[nodiscard]] TexturedRoundRect operator ()(const TextureRegion& textureRegion) const;
 
-		Polygon asPolygon() const;
+		[[nodiscard]] Polygon asPolygon() const;
 	};
 }
 

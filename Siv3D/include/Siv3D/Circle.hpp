@@ -193,13 +193,13 @@ namespace s3d
 			: center(_center.value())
 			, r(p.distanceFrom(_center.value())) {}
 
-		constexpr bool operator ==(const Circle& circle) const noexcept
+		[[nodiscard]] constexpr bool operator ==(const Circle& circle) const noexcept
 		{
 			return center == circle.center
 				&& r == circle.r;
 		}
 
-		constexpr bool operator !=(const Circle& circle) const noexcept
+		[[nodiscard]] constexpr bool operator !=(const Circle& circle) const noexcept
 		{
 			return !(*this == circle);
 		}
@@ -338,12 +338,12 @@ namespace s3d
 			return *this;
 		}
 
-		constexpr Circle movedBy(value_type _x, value_type _y) const noexcept
+		[[nodiscard]] constexpr Circle movedBy(value_type _x, value_type _y) const noexcept
 		{
 			return{ center.movedBy(_x, _y), r };
 		}
 
-		constexpr Circle movedBy(const position_type& v) const noexcept
+		[[nodiscard]] constexpr Circle movedBy(const position_type& v) const noexcept
 		{
 			return movedBy(v.x, v.y);
 		}
@@ -359,86 +359,86 @@ namespace s3d
 			return moveBy(v.x, v.y);
 		}
 
-		constexpr Circle stretched(value_type size) const noexcept
+		[[nodiscard]] constexpr Circle stretched(value_type size) const noexcept
 		{
 			return Circle(center, r + size);
 		}
 
-		Ellipse stretched(double _x, double _y) const noexcept;
+		[[nodiscard]] Ellipse stretched(double _x, double _y) const noexcept;
 
-		constexpr Circle scaled(double s) const noexcept
+		[[nodiscard]] constexpr Circle scaled(double s) const noexcept
 		{
 			return Circle(center, r * s);
 		}
 
-		Ellipse scaled(double sx, double sy) const noexcept;
+		[[nodiscard]] Ellipse scaled(double sx, double sy) const noexcept;
 
-		constexpr position_type top() const noexcept
+		[[nodiscard]] constexpr position_type top() const noexcept
 		{
 			return{ center.x, center.y - r };
 		}
 
-		constexpr position_type right() const noexcept
+		[[nodiscard]] constexpr position_type right() const noexcept
 		{
 			return{ center.x + r, center.y };
 		}
 
-		constexpr position_type bottom() const noexcept
+		[[nodiscard]] constexpr position_type bottom() const noexcept
 		{
 			return{ center.x, center.y + r };
 		}
 
-		constexpr position_type left() const noexcept
+		[[nodiscard]] constexpr position_type left() const noexcept
 		{
 			return{ center.x - r, center.y };
 		}
 
-		constexpr Line lineDiameter() const noexcept
+		[[nodiscard]] constexpr Line lineDiameter() const noexcept
 		{
 			return{ left(), right() };
 		}
 
-		constexpr value_type area() const noexcept
+		[[nodiscard]] constexpr value_type area() const noexcept
 		{
 			return r * r * Math::Pi;
 		}
 
-		constexpr value_type perimeter() const noexcept
+		[[nodiscard]] constexpr value_type perimeter() const noexcept
 		{
 			return 2 * r * Math::Pi;
 		}
 
 		template <class Shape2DType>
-		bool intersects(const Shape2DType& shape) const
+		[[nodiscard]] bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
 
 		template <class Shape2DType>
-		Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
+		[[nodiscard]] Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
 		{
 			return Geometry2D::IntersectAt(*this, shape);
 		}
 
 		template <class Shape2DType>
-		bool contains(const Shape2DType& shape) const
+		[[nodiscard]] bool contains(const Shape2DType& shape) const
 		{
 			return Geometry2D::Contains(*this, shape);
 		}
 
-		bool leftClicked() const;
+		[[nodiscard]] bool leftClicked() const;
 
-		bool leftPressed() const;
+		[[nodiscard]] bool leftPressed() const;
 
-		bool leftReleased() const;
+		[[nodiscard]] bool leftReleased() const;
 
-		bool rightClicked() const;
+		[[nodiscard]] bool rightClicked() const;
 
-		bool rightPressed() const;
+		[[nodiscard]] bool rightPressed() const;
 
-		bool rightReleased() const;
+		[[nodiscard]] bool rightReleased() const;
 
-		bool mouseOver() const;
+		[[nodiscard]] bool mouseOver() const;
 
 		const Circle& paint(Image& dst, const Color& color, bool antialiased = true) const;
 
@@ -573,11 +573,11 @@ namespace s3d
 		/// </returns>
 		const Circle& drawShadow(const Vec2& offset, double blurRadius, double spread = 0.0, const ColorF& color = ColorF(0.0, 0.5)) const;
 
-		TexturedCircle operator ()(const Texture& texture) const;
+		[[nodiscard]] TexturedCircle operator ()(const Texture& texture) const;
 
-		TexturedCircle operator ()(const TextureRegion& textureRegion) const;
+		[[nodiscard]] TexturedCircle operator ()(const TextureRegion& textureRegion) const;
 
-		Polygon asPolygon(uint32 quality = 24) const;
+		[[nodiscard]] Polygon asPolygon(uint32 quality = 24) const;
 	};
 }
 
