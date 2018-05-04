@@ -70,9 +70,9 @@ namespace s3d
 
 		Audio(Wave&& wave, Arg::loopBegin_<uint64> loopBegin, Arg::loopEnd_<uint64> loopEnd);
 
-		Audio(Wave&& wave, Arg::loopBegin_<SecondsF> loopBegin);
+		Audio(Wave&& wave, Arg::loopBegin_<Duration> loopBegin);
 
-		Audio(Wave&& wave, Arg::loopBegin_<SecondsF> loopBegin, Arg::loopEnd_<SecondsF> loopEnd);
+		Audio(Wave&& wave, Arg::loopBegin_<Duration> loopBegin, Arg::loopEnd_<Duration> loopEnd);
 
 		explicit Audio(const Wave& wave);
 
@@ -84,9 +84,9 @@ namespace s3d
 
 		Audio(const Wave& wave, Arg::loopBegin_<uint64> loopBegin, Arg::loopEnd_<uint64> loopEnd);
 
-		Audio(const Wave& wave, Arg::loopBegin_<SecondsF> loopBegin);
+		Audio(const Wave& wave, Arg::loopBegin_<Duration> loopBegin);
 
-		Audio(const Wave& wave, Arg::loopBegin_<SecondsF> loopBegin, Arg::loopEnd_<SecondsF> loopEnd);
+		Audio(const Wave& wave, Arg::loopBegin_<Duration> loopBegin, Arg::loopEnd_<Duration> loopEnd);
 
 		explicit Audio(const FilePath& path);
 
@@ -98,9 +98,9 @@ namespace s3d
 
 		Audio(const FilePath& path, Arg::loopBegin_<uint64> loopBegin, Arg::loopEnd_<uint64> loopEnd);
 
-		Audio(const FilePath& path, Arg::loopBegin_<SecondsF> loopBegin);
+		Audio(const FilePath& path, Arg::loopBegin_<Duration> loopBegin);
 
-		Audio(const FilePath& path, Arg::loopBegin_<SecondsF> loopBegin, Arg::loopEnd_<SecondsF> loopEnd);
+		Audio(const FilePath& path, Arg::loopBegin_<Duration> loopBegin, Arg::loopEnd_<Duration> loopEnd);
 
 		explicit Audio(IReader&& reader, AudioFormat format = AudioFormat::Unspecified);
 
@@ -140,15 +140,15 @@ namespace s3d
 
 		void setLoop(Arg::loopBegin_<uint64> loopBegin, Arg::loopEnd_<uint64> loopEnd);
 
-		void setLoop(Arg::loopBegin_<SecondsF> loopBegin);
+		void setLoop(Arg::loopBegin_<Duration> loopBegin);
 
-		void setLoop(Arg::loopBegin_<SecondsF> loopBegin, Arg::loopEnd_<SecondsF> loopEnd);
+		void setLoop(Arg::loopBegin_<Duration> loopBegin, Arg::loopEnd_<Duration> loopEnd);
 
-		bool play(const SecondsF& fadeinDuration = SecondsF(0.0)) const;
+		bool play(const Duration& fadeinDuration = SecondsF(0.0)) const;
 
-		void pause(const SecondsF& fadeoutDuration = SecondsF(0.0)) const;
+		void pause(const Duration& fadeoutDuration = SecondsF(0.0)) const;
 
-		void stop(const SecondsF& fadeoutDuration = SecondsF(0.0)) const;
+		void stop(const Duration& fadeoutDuration = SecondsF(0.0)) const;
 
 		void playOneShot(double volume = 1.0, double pitch = 1.0) const;
 

@@ -281,3 +281,62 @@ namespace s3d
 		void drawTransformed(double s, double c, const Vec2& pos, const ColorF& color = Palette::White) const;
 	};
 }
+
+//////////////////////////////////////////////////
+//
+//	Format
+//
+//////////////////////////////////////////////////
+
+namespace s3d
+{
+	inline void Formatter(FormatData& formatData, const MultiPolygon& value)
+	{
+		formatData.string.append(value.join(U",", U"(", U")"));
+	}
+
+	template <class CharType>
+	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const MultiPolygon& value)
+	{
+		output << CharType('(');
+
+		bool b = false;
+
+		for (const auto& polygon : value)
+		{
+			if (std::exchange(b, true))
+			{
+				output << CharType(',');
+			}
+
+			output << polygon;
+		}
+
+		return output << CharType(')');
+	}
+}
+
+//////////////////////////////////////////////////
+//
+//	Hash
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+
+}
+
+//////////////////////////////////////////////////
+//
+//	Swap
+//
+//////////////////////////////////////////////////
+
+namespace std
+{
+	inline void swap(s3d::MultiPolygon& a, s3d::MultiPolygon& b) noexcept
+	{
+		a.swap(b);
+	}
+}
