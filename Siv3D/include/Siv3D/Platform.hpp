@@ -293,6 +293,7 @@ namespace s3d
 		# pragma comment (lib, "opencv/opencv_core340d")
 		# pragma comment (lib, "opencv/opencv_imgproc340d")
 		# pragma comment (lib, "opencv/opencv_objdetect340d")
+		# pragma comment (lib, "opencv/opencv_photo340d")
 
 	# else
 
@@ -306,6 +307,7 @@ namespace s3d
 		# pragma comment (lib, "opencv/opencv_core340")
 		# pragma comment (lib, "opencv/opencv_imgproc340")
 		# pragma comment (lib, "opencv/opencv_objdetect340")
+		# pragma comment (lib, "opencv/opencv_photo340")
 
 	# endif
 
