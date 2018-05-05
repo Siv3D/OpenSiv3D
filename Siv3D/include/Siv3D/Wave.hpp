@@ -220,7 +220,11 @@ namespace s3d
 			return Wave(base_type::slice(index, length), Arg::samplingRate = m_samplingRate);
 		}
 
+		//bool save(const FilePath& path, AudioFormat format = AudioFormat::WAVE);
+
 		bool saveWAVE(const FilePath& path, WAVEFormat format = WAVEFormat::Default);
+
+		//[[nodiscard]] MemoryWriter encode(AudioFormat format = AudioFormat::WAVE) const;
 	};
 }
 
