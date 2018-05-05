@@ -29,7 +29,10 @@ namespace s3d
 
 		for (auto& setup : m_setups)
 		{
-			::pffft_destroy_setup(setup);
+			if (setup)
+			{
+				::pffft_destroy_setup(setup);
+			}
 
 			setup = nullptr;
 		}

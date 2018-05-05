@@ -49,6 +49,7 @@ namespace s3d
 
 		inline void DrawLAt(const JoyCon& joycon, const ButtonState& guide, const Vec2& center, double _size, double angle = 0.0, bool covered = true, const ColorF& color = ColorF(0.0, 0.75, 0.9), const ColorF& colorPushed = ColorF(1.0, 0.8, 0.5), const ColorF& guideColor = ColorF(1.0, 0.7, 0.6), bool shadow = true)
 		{
+			using namespace s3d::Literals;
 			const Vec2 size = (covered ? Vec2(6.9, 15.33) : Vec2(5.27, 15.33));
 			const RectF base(Arg::center = center, size);
 			const ColorF defaultButtonColor(0.3);
@@ -149,6 +150,7 @@ namespace s3d
 
 		inline void DrawRAt(const JoyCon& joycon, const ButtonState& guide, const Vec2& center, double _size, double angle = 0.0, bool covered = true, const ColorF& color = ColorF(1.0, 0.4, 0.3), const ColorF& colorPushed = ColorF(1.0, 0.8, 0.5), const ColorF& guideColor = ColorF(1.0, 0.7, 0.6), bool shadow = true)
 		{
+			using namespace s3d::Literals;
 			const Vec2 size = (covered ? Vec2(6.9, 15.33) : Vec2(5.27, 15.33));
 			const RectF base(Arg::center = center, size);
 			const ColorF defaultButtonColor(0.3);

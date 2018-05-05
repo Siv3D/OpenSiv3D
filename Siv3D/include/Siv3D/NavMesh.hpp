@@ -16,6 +16,7 @@
 # include "PointVector.hpp"
 # include "Triangle.hpp"
 # include "MathConstants.hpp"
+# include "Math.hpp"
 
 namespace s3d
 {
@@ -25,7 +26,7 @@ namespace s3d
 
 		double cellHeight = 0.2;
 
-		double agentMaxSlope = 45_deg;
+		double agentMaxSlope = Math::Radians(45);
 
 		double agentHeight = 2.0;
 
