@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -25,7 +25,18 @@ namespace s3d
 		}
 
 		m_resolution.set(m_capture.get(cv::CAP_PROP_FRAME_WIDTH), m_capture.get(cv::CAP_PROP_FRAME_HEIGHT));
-
+		
+		if (!m_capture.set(cv::CAP_PROP_FRAME_WIDTH, 640)
+			|| !m_capture.set(cv::CAP_PROP_FRAME_HEIGHT, 480))
+		{
+			m_capture.set(cv::CAP_PROP_FRAME_WIDTH, m_resolution.x);
+			m_capture.set(cv::CAP_PROP_FRAME_WIDTH, m_resolution.y);
+		}
+		else
+		{
+			m_resolution.set(640, 480);
+		}
+		
 		m_capture.release();
 	}
 
