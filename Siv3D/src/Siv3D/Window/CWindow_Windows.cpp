@@ -277,7 +277,7 @@ namespace s3d
 
 		m_state.pos.set(100, 100);
 
-		for (const auto& monitor : System::EnumActiveMonitors())
+		for (const auto& monitor : System::EnumerateActiveMonitors())
 		{
 			// プライマリモニターの中央に位置するようにウィンドウを配置
 			if (monitor.isPrimary)

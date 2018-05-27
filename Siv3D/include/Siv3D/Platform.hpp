@@ -280,6 +280,7 @@ namespace s3d
 	# pragma comment (lib, "mfuuid")
 	# pragma comment (lib, "version")
 	# pragma comment (lib, "ws2_32")
+	# pragma comment (lib, "strmiids")
 
 	# if (SIV3D_IS_DEBUG)
 

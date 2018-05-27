@@ -740,6 +740,9 @@
     <Filter Include="src\ThirdParty\TinySoundFont">
       <UniqueIdentifier>{78b072e8-7853-44fe-b3a5-aa7a5f1a7a51}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Webcam">
+      <UniqueIdentifier>{b3c520f7-a025-4f6e-a291-5250b82f71fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -2067,6 +2070,15 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\SoundFont\CSoundFont.cpp">
       <Filter>src\Siv3D\SoundFont</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Webcam\SivWebcam.cpp">
+      <Filter>src\Siv3D\Webcam</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Webcam\WebcamFactory.cpp">
+      <Filter>src\Siv3D\Webcam</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Webcam\CWebcam.cpp">
+      <Filter>src\Siv3D\Webcam</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -4286,6 +4298,15 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\SoundFont.hpp">
       <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Webcam.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Webcam\CWebcam.hpp">
+      <Filter>src\Siv3D\Webcam</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Webcam\IWebcam.hpp">
+      <Filter>src\Siv3D\Webcam</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

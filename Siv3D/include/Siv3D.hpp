@@ -906,8 +906,9 @@
 //
 //////////////////////////////////////////////////
 
-	//// Web カメラ
-	//# include "Siv3D/Webcam.hpp"
+	// Webcam
+	# include "Siv3D/Webcam.hpp"
+
 	//// AR マーカー
 	//# include "Siv3D/AR.hpp"
 

@@ -70,7 +70,7 @@ namespace s3d
 
 	namespace System
 	{
-		Array<Monitor> EnumActiveMonitors()
+		Array<Monitor> EnumerateActiveMonitors()
 		{
 			Array<Monitor> monitors;
 			DISPLAY_DEVICE displayDevice;
@@ -173,7 +173,7 @@ namespace s3d
 {
 	namespace System
 	{
-		Array<Monitor> EnumActiveMonitors()
+		Array<Monitor> EnumerateActiveMonitors()
 		{
 			Array<Monitor> results;
 			
@@ -217,7 +217,7 @@ namespace s3d
 			const Point pos = state.pos;
 			const Size size = state.windowSize;
 			
-			const auto monitors = EnumActiveMonitors();
+			const auto monitors = EnumerateActiveMonitors();
 			int32 bestoverlap = 0;
 			size_t bestIndex = 0;
 			
@@ -252,7 +252,7 @@ namespace s3d
 {
 	namespace System
 	{
-		Array<Monitor> EnumActiveMonitors()
+		Array<Monitor> EnumerateActiveMonitors()
 		{
 			Array<Monitor> results;
 			
@@ -299,7 +299,7 @@ namespace s3d
 			const Point pos = state.pos;
 			const Size size = state.windowSize;
 			
-			const auto monitors = EnumActiveMonitors();
+			const auto monitors = EnumerateActiveMonitors();
 			int32 bestoverlap = 0;
 			size_t bestIndex = 0;
 			
