@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -12,10 +12,10 @@
 # include "../Siv3DEngine.hpp"
 # include "IWebcam.hpp"
 # include <Siv3D/Webcam.hpp>
+# include <Siv3D/Unicode.hpp>
 
 # if defined(SIV3D_TARGET_WINDOWS)
 
-# include <Siv3D/Unicode.hpp>
 # include <Siv3D/Windows.hpp>
 # include <dshow.h>
 # include <wrl.h>
@@ -54,7 +54,7 @@ namespace s3d
 
 			ComPtr<IMoniker> moniker;
 
-			for (int32 index = 0; enumMoniker->Next(1, &moniker, nullptr) == S_OK; ++index)
+			for (uint32 index = 0; enumMoniker->Next(1, &moniker, nullptr) == S_OK; ++index)
 			{
 				ComPtr<IPropertyBag> propertyBag;
 
@@ -96,13 +96,35 @@ namespace s3d
 
 # if defined(SIV3D_TARGET_MACOS)
 
+struct macOS_WebcamInfo
+{
+	unsigned index;
+	
+	std::string name;
+	
+	std::string uniqueName;
+};
+
+std::vector<macOS_WebcamInfo> macOS_EnumerateWebcam();
+
 namespace s3d
 {
 	namespace System
 	{
 		Array<WebcamInfo> EnumerateWebcams()
 		{
-			return Array<WebcamInfo>();
+			Array<WebcamInfo> results;
+			
+			for (const auto& info : macOS_EnumerateWebcam())
+			{
+				WebcamInfo result;
+				result.index = info.index;
+				result.name  = Unicode::FromUTF8(info.name);
+				result.uniqueName = Unicode::FromUTF8(info.uniqueName);
+				results << result;
+			}
+			
+			return results;
 		}
 	}
 }
