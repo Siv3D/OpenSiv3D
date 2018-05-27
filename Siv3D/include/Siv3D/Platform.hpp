@@ -281,6 +281,7 @@ namespace s3d
 	# pragma comment (lib, "version")
 	# pragma comment (lib, "ws2_32")
 	# pragma comment (lib, "strmiids")
+	# pragma comment (lib, "vfw32")
 
 	# if (SIV3D_IS_DEBUG)
 
@@ -295,6 +296,8 @@ namespace s3d
 		# pragma comment (lib, "opencv/opencv_imgproc340d")
 		# pragma comment (lib, "opencv/opencv_objdetect340d")
 		# pragma comment (lib, "opencv/opencv_photo340d")
+		# pragma comment (lib, "opencv/opencv_imgcodecs340d")
+		# pragma comment (lib, "opencv/opencv_videoio340d")
 
 	# else
 
@@ -309,6 +312,8 @@ namespace s3d
 		# pragma comment (lib, "opencv/opencv_imgproc340")
 		# pragma comment (lib, "opencv/opencv_objdetect340")
 		# pragma comment (lib, "opencv/opencv_photo340")
+		# pragma comment (lib, "opencv/opencv_imgcodecs340")
+		# pragma comment (lib, "opencv/opencv_videoio340")
 
 	# endif
 

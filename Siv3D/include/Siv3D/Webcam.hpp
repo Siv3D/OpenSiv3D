@@ -13,6 +13,7 @@
 # include "Fwd.hpp"
 # include "Array.hpp"
 # include "String.hpp"
+# include "PointVector.hpp"
 
 namespace s3d
 {
@@ -41,8 +42,37 @@ namespace s3d
 	{
 	private:
 
+		class WebcamDetail;
+
+		std::shared_ptr<WebcamDetail> pImpl;
+
 	public:
 
+		/// <summary>
+		/// デフォルトコンストラクタ
+		/// </summary>
+		Webcam(size_t index = 0);
+
+		/// <summary>
+		/// デストラクタ
+		/// </summary>
+		~Webcam();
+
+		bool isAvailable() const;
+
+		explicit operator bool() const;
+
+		bool start();
+
+		void stop();
+
+		bool isActive() const;
+
+		size_t index() const;
+
+		Size getResolution() const;
+
+		void setResolution(const Size& size);
 	};
 
 	namespace System

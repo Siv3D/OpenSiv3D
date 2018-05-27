@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -11,8 +11,64 @@
 
 # include "../Siv3DEngine.hpp"
 # include "IWebcam.hpp"
+# include "WebcamDetail.hpp"
 # include <Siv3D/Webcam.hpp>
 # include <Siv3D/Unicode.hpp>
+
+namespace s3d
+{
+	Webcam::Webcam(const size_t index)
+		: pImpl(std::make_shared<WebcamDetail>(index))
+	{
+
+	}
+
+	Webcam::~Webcam()
+	{
+
+	}
+
+	bool Webcam::isAvailable() const
+	{
+		return pImpl->isAvailable();
+	}
+
+	Webcam::operator bool() const
+	{
+		return isAvailable();
+	}
+
+	bool Webcam::start()
+	{
+		return pImpl->start();
+	}
+
+	void Webcam::stop()
+	{
+		pImpl->stop();
+	}
+
+	bool Webcam::isActive() const
+	{
+		return pImpl->isActive();
+	}
+
+	size_t Webcam::index() const
+	{
+		return pImpl->index();
+	}
+
+	Size Webcam::getResolution() const
+	{
+		return pImpl->getResolution();
+	}
+
+	void Webcam::setResolution(const Size& size)
+	{
+		return pImpl->setResolution(size);
+	}
+}
+
 
 # if defined(SIV3D_TARGET_WINDOWS)
 

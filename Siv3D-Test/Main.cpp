@@ -11,6 +11,17 @@ void Main()
 		Print << info.uniqueName;
 	}
 
+	Webcam webcam(0);
+
+	if (!webcam)
+	{
+		return;
+	}
+
+	Print << webcam.getResolution();
+
+	//webcam.start();
+
 	while (System::Update())
 	{
 
