@@ -748,7 +748,7 @@ uint16_t qrcode_getBufferSize(uint8_t version) {
 }
 
 // @TODO: Return error if data is too big.
-int8_t qrcode_initBytes(QRCode *qrcode, uint8_t *modules, uint8_t version, uint8_t ecc, uint8_t *data, uint16_t length) {
+int8_t qrcode_initBytes(QRCode *qrcode, uint8_t *modules, uint8_t version, uint8_t ecc, const uint8_t *data, uint16_t length) {
     uint8_t size = version * 4 + 17;
     qrcode->version = version;
     qrcode->size = size;
@@ -768,7 +768,7 @@ int8_t qrcode_initBytes(QRCode *qrcode, uint8_t *modules, uint8_t version, uint8
     
     struct BitBucket codewords;
 	std::vector<uint8_t> codewordBytes(bb_getBufferSizeBytes(moduleCount));
-    bb_initBuffer(&codewords, codewordBytes.data(), (int32_t)sizeof(codewordBytes));
+    bb_initBuffer(&codewords, codewordBytes.data(), (int32_t)codewordBytes.size());
     
     // Place the data code words into the buffer
     int8_t mode = encodeDataCodewords(&codewords, data, length, version);

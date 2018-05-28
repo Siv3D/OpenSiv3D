@@ -543,8 +543,8 @@
 	//// カスタムカラーフォーマットの画像
 	//# include "Siv3D/CustomImage.hpp"
 
-	//// QR コードの作成と認識
-	//# include "Siv3D/QR.hpp"
+	// QR code
+	# include "Siv3D/QR.hpp"
 
 	//// 手書き文字認識
 	//# include "Siv3D/HandwritingRecognizer.hpp"
