@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -73,6 +73,8 @@ namespace s3d
 		Size getResolution() const;
 
 		bool setResolution(const Size& resolution);
+		
+		bool setResolution(int32 width, int32 height);
 
 		bool hasNewFrame() const;
 

@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -66,6 +66,11 @@ namespace s3d
 	bool Webcam::setResolution(const Size& resolution)
 	{
 		return pImpl->setResolution(resolution);
+	}
+	
+	bool Webcam::setResolution(const int32 width, const int32 height)
+	{
+		return setResolution(Size(width, height));
 	}
 
 	bool Webcam::hasNewFrame() const
