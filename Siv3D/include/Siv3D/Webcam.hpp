@@ -51,7 +51,7 @@ namespace s3d
 		/// <summary>
 		/// デフォルトコンストラクタ
 		/// </summary>
-		Webcam(size_t index = 0);
+		explicit Webcam(size_t index = 0);
 
 		/// <summary>
 		/// デストラクタ

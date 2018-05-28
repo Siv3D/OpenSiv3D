@@ -3,42 +3,47 @@
 
 void Main()
 {
-	for (const auto& info : System::EnumerateWebcams())
-	{
-		Print << U"--";
-		Print << info.index;
-		Print << info.name;
-		Print << info.uniqueName;
-	}
+	Window::Resize(1280, 720);
 
-	Webcam webcam(0);
+	const Font font(40, Typeface::Bold);
 
-	if (!webcam)
-	{
-		return;
-	}
+	QRDecoder decoder;
+
+	DynamicTexture texture;
+
+	Image image;
+
+	Webcam webcam;
+
+	webcam.setResolution(1280, 720);
 
 	Print << webcam.getResolution();
 
-	//if (webcam.setResolution(Size(1280, 720)))
-	//{
-	//	Print << webcam.getResolution();
-	//}
-
 	webcam.start();
 
-	DynamicTexture texture;
+	QRContent qrContent;
 
 	while (System::Update())
 	{
 		if (webcam.hasNewFrame())
 		{
-			webcam.getFrame(texture);
+			webcam.getFrame(image);
+
+			texture.tryFill(image);
+
+			decoder.decode(image, qrContent);
 		}
 
 		if (texture)
 		{
 			texture.draw();
+		}
+
+		if (qrContent)
+		{
+			qrContent.quad.drawFrame(2, Palette::Red);
+
+			font(qrContent.text).draw(qrContent.quad.p1, Palette::Red);
 		}
 	}
 }

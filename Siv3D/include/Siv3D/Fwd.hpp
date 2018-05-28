@@ -611,6 +611,16 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	QRCode.hpp
+	//
+	enum class QRErrorCorrection;
+	enum class QRMode;
+	struct QRCode;
+	struct QRContent;
+	class QRDecoder;
+
+	//////////////////////////////////////////////////////
+	//
 	//	WaveSample.hpp
 	//
 	struct WaveSampleS16;

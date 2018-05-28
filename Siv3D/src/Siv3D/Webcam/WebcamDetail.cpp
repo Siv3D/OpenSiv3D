@@ -156,13 +156,16 @@ namespace s3d
 			|| !m_capture.set(cv::CAP_PROP_FRAME_HEIGHT, resolution.y))
 		{
 			m_capture.set(cv::CAP_PROP_FRAME_WIDTH, m_resolution.x);
-			m_capture.set(cv::CAP_PROP_FRAME_WIDTH, m_resolution.y);
+			m_capture.set(cv::CAP_PROP_FRAME_HEIGHT, m_resolution.y);
 			return false;
 		}
 		else
 		{
-			m_resolution = resolution;
-			return true;
+			m_capture >> m_frame;
+
+			m_resolution.set(m_frame.cols, m_frame.rows);
+
+			return (m_resolution == resolution);
 		}
 	}
 
