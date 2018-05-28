@@ -15,7 +15,7 @@ void Main()
 
 	Webcam webcam;
 
-	Print << webcam.setResolution(1920, 1080);
+	webcam.setResolution(1280, 720);
 
 	Print << webcam.getResolution();
 
@@ -43,7 +43,7 @@ void Main()
 		{
 			qrContent.quad.drawFrame(2, Palette::Red);
 
-			font(qrContent.text).draw(Arg::topLeft = qrContent.quad.p1, Palette::Red);
+			font(qrContent.text).draw(qrContent.quad.p1, Palette::Red);
 		}
 	}
 }

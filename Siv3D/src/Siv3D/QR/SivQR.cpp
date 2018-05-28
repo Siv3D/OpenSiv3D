@@ -142,6 +142,18 @@ namespace s3d
 		}
 	}
 
+	bool QRCode::save(const FilePath& path, int32 size, const int32 borderCells)
+	{
+		if (!image)
+		{
+			return false;
+		}
+
+		size = std::max(size, image.width());
+
+		return image.bordered(std::max(borderCells, 0)).scaled(Size(size, size), Interpolation::Nearest).save(path);
+	}
+
 	QRDecoder::QRDecoder()
 		: pImpl(std::make_shared<QRDecoderDetail>())
 	{

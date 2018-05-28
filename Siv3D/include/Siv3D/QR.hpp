@@ -52,6 +52,8 @@ namespace s3d
 		QRMode mode = QRMode::Numeric;
 
 		QRErrorCorrection ec = QRErrorCorrection::Low;
+
+		bool save(const FilePath& path, int32 size = 512, int32 borderCells = 4);
 	};
 
 	struct QRContent
