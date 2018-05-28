@@ -11,6 +11,7 @@
 
 # include <Siv3D/QR.hpp>
 # include <Siv3D/Print.hpp>
+# include "QRDecoderDetail.hpp"
 # include "../../ThirdParty/QRCode/qrcode.h"
 
 namespace s3d
@@ -141,10 +142,37 @@ namespace s3d
 		}
 	}
 
+	QRDecoder::QRDecoder()
+		: pImpl(std::make_shared<QRDecoderDetail>())
+	{
+
+	}
+
+	QRDecoder::~QRDecoder()
+	{
+
+	}
+
+	bool QRDecoder::decode(const Image& image, QRContent& content)
+	{
+		return pImpl->decode(image, content);
+	}
+
+	bool QRDecoder::decode(const Image& image, Array<QRContent>& contents)
+	{
+		return pImpl->decode(image, contents);
+	}
+
 	namespace QR
 	{
 		size_t CalculateCapacity(const int32 version, const QRMode mode, const QRErrorCorrection ec)
 		{
+			// [Siv3D ToDo]
+			if (mode == QRMode::Kanji)
+			{
+				return 0;
+			}
+
 			if (!InRange(version, MinVersion, MaxVersion))
 			{
 				return 0;

@@ -11,6 +11,7 @@
 
 # pragma once
 # include "Fwd.hpp"
+# include "ByteArray.hpp"
 # include "Image.hpp"
 # include "Unspecified.hpp"
 
@@ -38,6 +39,8 @@ namespace s3d
 		Alnum,
 
 		Binary,
+
+		Kanji,
 	};
 
 	struct QRCode
@@ -49,6 +52,61 @@ namespace s3d
 		QRMode mode = QRMode::Numeric;
 
 		QRErrorCorrection ec = QRErrorCorrection::Low;
+	};
+
+	struct QRContent
+	{
+		Quad quad;
+
+		String text;
+
+		ByteArray data;
+
+		int32 version = 0;
+
+		QRMode mode = QRMode::Numeric;
+
+		QRErrorCorrection ec = QRErrorCorrection::Low;
+
+		explicit operator bool() const
+		{
+			return (version != 0);
+		}
+
+		void clear()
+		{
+			quad.set(0, 0, 0, 0, 0, 0, 0, 0);
+			text.clear();
+			data.release();
+			version = 0;
+			mode = QRMode::Numeric;
+			ec = QRErrorCorrection::Low;
+		}
+	};
+
+	class QRDecoder
+	{
+	private:
+
+		class QRDecoderDetail;
+
+		std::shared_ptr<QRDecoderDetail> pImpl;
+
+	public:
+
+		/// <summary>
+		/// デフォルトコンストラクタ
+		/// </summary>
+		QRDecoder();
+
+		/// <summary>
+		/// デストラクタ
+		/// </summary>
+		~QRDecoder();
+
+		bool decode(const Image& image, QRContent& content);
+
+		bool decode(const Image& image, Array<QRContent>& contents);
 	};
 
 	namespace QR

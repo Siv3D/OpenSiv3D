@@ -616,6 +616,8 @@ namespace s3d
 	enum class QRErrorCorrection;
 	enum class QRMode;
 	struct QRCode;
+	struct QRContent;
+	class QRDecoder;
 
 	//////////////////////////////////////////////////////
 	//

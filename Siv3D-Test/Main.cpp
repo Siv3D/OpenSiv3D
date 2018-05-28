@@ -4,32 +4,46 @@
 void Main()
 {
 	Window::Resize(1280, 720);
+
 	const Font font(40, Typeface::Bold);
+
+	QRDecoder decoder;
+
 	DynamicTexture texture;
-	QRCode qr;
-	String text, previous;
+
+	Image image;
+
+	Webcam webcam;
+
+	Print << webcam.setResolution(1920, 1080);
+
+	Print << webcam.getResolution();
+
+	webcam.start();
+
+	QRContent qrContent;
 
 	while (System::Update())
 	{
-		TextInput::UpdateText(text);
-
-		const String current = text + TextInput::GetEditingText();
-
-		if (current != previous)
+		if (webcam.hasNewFrame())
 		{
-			if (QR::EncodeText(qr, current))
-			{
-				texture.fill(qr.image.bordered(4).scaled(500, 500, Interpolation::Nearest));
-			}
+			webcam.getFrame(image);
+
+			texture.tryFill(image);
+
+			decoder.decode(image, qrContent);
 		}
-
-		previous = current;
-
-		font(current).draw(60, 50);
 
 		if (texture)
 		{
-			texture.drawAt(640, 400);
+			texture.draw();
+		}
+
+		if (qrContent)
+		{
+			qrContent.quad.drawFrame(2, Palette::Red);
+
+			font(qrContent.text).draw(Arg::topLeft = qrContent.quad.p1, Palette::Red);
 		}
 	}
 }
