@@ -743,6 +743,12 @@
     <Filter Include="src\Siv3D\Webcam">
       <UniqueIdentifier>{b3c520f7-a025-4f6e-a291-5250b82f71fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\QRCode">
+      <UniqueIdentifier>{fd671553-d1bf-4821-a4cc-3072569e8d20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\QR">
+      <UniqueIdentifier>{37769346-1702-41ff-a0ea-adb4f83ce078}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -2082,6 +2088,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Webcam\WebcamDetail.cpp">
       <Filter>src\Siv3D\Webcam</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\QRCode\qrcode.cpp">
+      <Filter>src\ThirdParty\QRCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\QR\SivQR.cpp">
+      <Filter>src\Siv3D\QR</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -4313,6 +4325,12 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Webcam\WebcamDetail.hpp">
       <Filter>src\Siv3D\Webcam</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\QRCode\qrcode.h">
+      <Filter>src\ThirdParty\QRCode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\QR.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

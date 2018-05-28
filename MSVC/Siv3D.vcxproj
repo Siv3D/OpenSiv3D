@@ -218,6 +218,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\CProfiler.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\ProfilerFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Profiler\SivProfiler.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\QR\SivQR.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Quad\SivQuad.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\RasterizerState\SivRasterizerState.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Rectangle\SivRectangle.cpp" />
@@ -432,6 +433,7 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\cdt.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\sweep.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\sweep_context.cc" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\QRCode\qrcode.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\Recast.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastAlloc.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\Recast\RecastArea.cpp" />
@@ -623,6 +625,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Print.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ProController.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Profiler.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\QR.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Quad.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Random.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RandomColor.hpp" />
@@ -1141,6 +1144,7 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\cdt.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\sweep.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\poly2tri\sweep\sweep_context.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\QRCode\qrcode.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\allocators.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\document.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\rapidjson\encodedstream.h" />
