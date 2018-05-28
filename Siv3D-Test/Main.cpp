@@ -20,10 +20,25 @@ void Main()
 
 	Print << webcam.getResolution();
 
-	//webcam.start();
+	//if (webcam.setResolution(Size(1280, 720)))
+	//{
+	//	Print << webcam.getResolution();
+	//}
+
+	webcam.start();
+
+	DynamicTexture dtex;
 
 	while (System::Update())
 	{
+		if (webcam.hasNewFrame())
+		{
+			webcam.getFrame(dtex);
+		}
 
+		if (dtex)
+		{
+			dtex.draw();
+		}
 	}
 }

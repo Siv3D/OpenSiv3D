@@ -72,7 +72,13 @@ namespace s3d
 
 		Size getResolution() const;
 
-		void setResolution(const Size& size);
+		bool setResolution(const Size& resolution);
+
+		bool hasNewFrame() const;
+
+		bool getFrame(Image& image);
+
+		bool getFrame(DynamicTexture& texture);
 	};
 
 	namespace System

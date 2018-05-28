@@ -78,7 +78,7 @@ namespace s3d
 
 		auto result = assetList.emplace(name, std::move(asset));
 
-		LOG_DEBUG(U"{}Asset: Asset \"{}\" registered"_fmt(detail::GetAssetTypeName(assetType), name));
+		LOG_DEBUG(U"ℹ️ {}Asset: Asset \"{}\" registered"_fmt(detail::GetAssetTypeName(assetType), name));
 
 		if (result.first.value()->getParameter().loadAsync)
 		{
@@ -153,7 +153,7 @@ namespace s3d
 
 			pAsset->preload();
 
-			LOG_DEBUG(U"{}Asset: \"{}\" preloaded"_fmt(detail::GetAssetTypeName(assetType), name));
+			LOG_DEBUG(U"ℹ️ {}Asset: \"{}\" preloaded"_fmt(detail::GetAssetTypeName(assetType), name));
 		}
 
 		return pAsset->loadSucceeded();
@@ -178,7 +178,7 @@ namespace s3d
 
 		pAsset->release();
 
-		LOG_DEBUG(U"{}Asset: \"{}\" released"_fmt(detail::GetAssetTypeName(assetType), name));
+		LOG_DEBUG(U"ℹ️ {}Asset: \"{}\" released"_fmt(detail::GetAssetTypeName(assetType), name));
 	}
 
 	void CAsset::releaseAll(const AssetType assetType)
@@ -214,7 +214,7 @@ namespace s3d
 
 		assetList.erase(it);
 
-		LOG_DEBUG(U"{}Asset: \"{}\" unregistered"_fmt(detail::GetAssetTypeName(assetType), name));
+		LOG_DEBUG(U"ℹ️ {}Asset: \"{}\" unregistered"_fmt(detail::GetAssetTypeName(assetType), name));
 	}
 
 	void CAsset::unregisterAll(const AssetType assetType)

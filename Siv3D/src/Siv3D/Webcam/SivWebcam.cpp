@@ -63,9 +63,24 @@ namespace s3d
 		return pImpl->getResolution();
 	}
 
-	void Webcam::setResolution(const Size& size)
+	bool Webcam::setResolution(const Size& resolution)
 	{
-		return pImpl->setResolution(size);
+		return pImpl->setResolution(resolution);
+	}
+
+	bool Webcam::hasNewFrame() const
+	{
+		return pImpl->hasNewFrame();
+	}
+
+	bool Webcam::getFrame(Image& image)
+	{
+		return pImpl->getFrame(image);
+	}
+
+	bool Webcam::getFrame(DynamicTexture& texture)
+	{
+		return pImpl->getFrame(texture);
 	}
 }
 

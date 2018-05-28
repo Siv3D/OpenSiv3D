@@ -12,10 +12,71 @@
 # pragma once
 # include "IWebcam.hpp"
 # include <Siv3D/Webcam.hpp>
+# include <Siv3D/Image.hpp>
 # include <opencv2/videoio.hpp>
 
 namespace s3d
 {
+	enum class WebcamState
+	{
+		None,
+
+		Ready,
+
+		Active,
+
+		Pause,
+
+		Stop,
+
+		HasError,
+	};
+
+	struct WebcamData
+	{
+		cv::VideoCapture m_capture;
+
+		Size m_resolution = Size(0, 0);
+
+		cv::Mat_<cv::Vec3b> m_frame;
+
+		Image m_image;
+
+		std::thread m_thread;
+
+		std::atomic<WebcamState> m_state = WebcamState::None;
+
+		std::mutex m_imageMutex;
+
+		std::atomic<int32> m_newFrameCount = 0;
+
+		static void OnRunning(WebcamData& webcam, const int32 index);
+
+		~WebcamData();
+
+		bool open(size_t index);
+
+		void initResolution();
+
+		bool setResolution(const Size& resolution);
+
+		bool retrieve();
+
+		void release();
+
+		const Size& getResolution() const;
+
+		bool start(int32 index);
+
+		void stop();
+
+		bool hasNewFrame() const;
+
+		bool getFrame(Image& image);
+
+		bool getFrame(DynamicTexture& texture);
+	};
+
 	class Webcam::WebcamDetail
 	{
 	private:
@@ -24,11 +85,9 @@ namespace s3d
 
 		bool m_available = false;
 
-		Size m_resolution = Size(0, 0);
+		bool m_isActive = false;
 
-		cv::VideoCapture m_capture;
-
-		//std::thread m_thread;
+		WebcamData m_webcam;
 
 	public:
 
@@ -48,6 +107,12 @@ namespace s3d
 
 		Size getResolution() const;
 
-		void setResolution(const Size& size);
+		bool setResolution(const Size& resolution);
+
+		bool hasNewFrame() const;
+
+		bool getFrame(Image& image);
+
+		bool getFrame(DynamicTexture& texture);
 	};
 }

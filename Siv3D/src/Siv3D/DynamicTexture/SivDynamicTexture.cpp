@@ -59,4 +59,21 @@ namespace s3d
 
 		return Siv3DEngine::GetTexture()->fill(m_handle->id(), image.data(), image.stride(), true);
 	}
+
+	bool DynamicTexture::tryFill(const Image& image)
+	{
+		if (isEmpty())
+		{
+			*this = DynamicTexture(image);
+
+			return true;
+		}
+
+		if (image.size() != size())
+		{
+			return false;
+		}
+
+		return Siv3DEngine::GetTexture()->fill(m_handle->id(), image.data(), image.stride(), false);
+	}
 }
