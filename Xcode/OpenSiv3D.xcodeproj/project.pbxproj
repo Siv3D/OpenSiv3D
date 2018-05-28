@@ -530,6 +530,14 @@
 		2C06506E20BBB417004CBA1B /* SivXXHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C064E6820BBB417004CBA1B /* SivXXHash.cpp */; };
 		2C06507220BBB427004CBA1B /* qrcode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C06507020BBB426004CBA1B /* qrcode.cpp */; };
 		2C06507320BBB427004CBA1B /* qrcode.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C06507120BBB426004CBA1B /* qrcode.h */; };
+		2C06507620BC3794004CBA1B /* QRDecoderDetail.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C06507420BC3793004CBA1B /* QRDecoderDetail.hpp */; };
+		2C06507720BC3794004CBA1B /* QRDecoderDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C06507520BC3794004CBA1B /* QRDecoderDetail.cpp */; };
+		2C06507F20BC37A2004CBA1B /* decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C06507920BC37A2004CBA1B /* decode.c */; };
+		2C06508020BC37A2004CBA1B /* identify.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C06507A20BC37A2004CBA1B /* identify.c */; };
+		2C06508120BC37A2004CBA1B /* quirc.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C06507B20BC37A2004CBA1B /* quirc.c */; };
+		2C06508220BC37A2004CBA1B /* quirc.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C06507C20BC37A2004CBA1B /* quirc.h */; };
+		2C06508320BC37A2004CBA1B /* quirc_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C06507D20BC37A2004CBA1B /* quirc_internal.h */; };
+		2C06508420BC37A2004CBA1B /* version_db.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C06507E20BC37A2004CBA1B /* version_db.c */; };
 		2C09854D1FB3A149001AC929 /* engine in Resources */ = {isa = PBXBuildFile; fileRef = 2C09854C1FB3A149001AC929 /* engine */; };
 		2C0987541FB3B5E6001AC929 /* lboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF1C79F1FB394ED00FC903E /* lboost_filesystem.a */; };
 		2C0987551FB3B5E6001AC929 /* lboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF1C7A11FB3956900FC903E /* lboost_system.a */; };
@@ -1788,6 +1796,14 @@
 		2C064E6820BBB417004CBA1B /* SivXXHash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivXXHash.cpp; sourceTree = "<group>"; };
 		2C06507020BBB426004CBA1B /* qrcode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = qrcode.cpp; sourceTree = "<group>"; };
 		2C06507120BBB426004CBA1B /* qrcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qrcode.h; sourceTree = "<group>"; };
+		2C06507420BC3793004CBA1B /* QRDecoderDetail.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = QRDecoderDetail.hpp; sourceTree = "<group>"; };
+		2C06507520BC3794004CBA1B /* QRDecoderDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QRDecoderDetail.cpp; sourceTree = "<group>"; };
+		2C06507920BC37A2004CBA1B /* decode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = decode.c; sourceTree = "<group>"; };
+		2C06507A20BC37A2004CBA1B /* identify.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = identify.c; sourceTree = "<group>"; };
+		2C06507B20BC37A2004CBA1B /* quirc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quirc.c; sourceTree = "<group>"; };
+		2C06507C20BC37A2004CBA1B /* quirc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quirc.h; sourceTree = "<group>"; };
+		2C06507D20BC37A2004CBA1B /* quirc_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quirc_internal.h; sourceTree = "<group>"; };
+		2C06507E20BC37A2004CBA1B /* version_db.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = version_db.c; sourceTree = "<group>"; };
 		2C09854C1FB3A149001AC929 /* engine */ = {isa = PBXFileReference; lastKnownFileType = folder; name = engine; path = bin/engine; sourceTree = SOURCE_ROOT; };
 		2C0987521FB3B53B001AC929 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		2C0FBBC61FDB71F300A128B9 /* numbers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = numbers.hpp; sourceTree = "<group>"; };
@@ -4059,6 +4075,8 @@
 		2C064D6E20BBB416004CBA1B /* QR */ = {
 			isa = PBXGroup;
 			children = (
+				2C06507520BC3794004CBA1B /* QRDecoderDetail.cpp */,
+				2C06507420BC3793004CBA1B /* QRDecoderDetail.hpp */,
 				2C064D6F20BBB416004CBA1B /* SivQR.cpp */,
 			);
 			path = QR;
@@ -4683,6 +4701,19 @@
 			path = QRCode;
 			sourceTree = "<group>";
 		};
+		2C06507820BC37A2004CBA1B /* quirc */ = {
+			isa = PBXGroup;
+			children = (
+				2C06507920BC37A2004CBA1B /* decode.c */,
+				2C06507A20BC37A2004CBA1B /* identify.c */,
+				2C06507B20BC37A2004CBA1B /* quirc.c */,
+				2C06507C20BC37A2004CBA1B /* quirc.h */,
+				2C06507D20BC37A2004CBA1B /* quirc_internal.h */,
+				2C06507E20BC37A2004CBA1B /* version_db.c */,
+			);
+			path = quirc;
+			sourceTree = "<group>";
+		};
 		2C0FB9CF1FDB71F300A128B9 /* src */ = {
 			isa = PBXGroup;
 			children = (
@@ -4695,6 +4726,7 @@
 		2C0FBBC41FDB71F300A128B9 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				2C06507820BC37A2004CBA1B /* quirc */,
 				2C06506F20BBB426004CBA1B /* QRCode */,
 				2C06445E209B1F5B004CBA1B /* TinySoundFont */,
 				2C76B15320785C5B008345FF /* Recast */,
@@ -5639,6 +5671,7 @@
 				2C064E9220BBB417004CBA1B /* AudioFormat_MP3_Windows.hpp in Headers */,
 				2C064F3020BBB417004CBA1B /* D3D11SwapChain.hpp in Headers */,
 				2C064FC620BBB417004CBA1B /* IScreenCapture.hpp in Headers */,
+				2C06508320BC37A2004CBA1B /* quirc_internal.h in Headers */,
 				2C064F7220BBB417004CBA1B /* CMathParser.hpp in Headers */,
 				2C064F5E20BBB417004CBA1B /* CKeyboard_macOS.hpp in Headers */,
 				2C4F2A9D204199ED006CBCD1 /* b2Distance.h in Headers */,
@@ -5737,6 +5770,7 @@
 				2C0FBFA91FDB71F400A128B9 /* ftwinfnt.h in Headers */,
 				2C0FBF741FDB71F400A128B9 /* utils.h in Headers */,
 				2C06506420BBB417004CBA1B /* CWritableMemoryMapping.hpp in Headers */,
+				2C06507620BC3794004CBA1B /* QRDecoderDetail.hpp in Headers */,
 				2C4F2AB5204199ED006CBCD1 /* b2StackAllocator.h in Headers */,
 				2C0FBFD01FDB71F400A128B9 /* tttypes.h in Headers */,
 				2C064F8B20BBB417004CBA1B /* CNavMesh.hpp in Headers */,
@@ -5752,6 +5786,7 @@
 				2C06505220BBB417004CBA1B /* CWebcam.hpp in Headers */,
 				2C0FC0391FDB71F400A128B9 /* muParserStack.h in Headers */,
 				2C064E8E20BBB417004CBA1B /* IAudioFormat.hpp in Headers */,
+				2C06508220BC37A2004CBA1B /* quirc.h in Headers */,
 				2C064EE720BBB417004CBA1B /* CDragDrop_macOS.hpp in Headers */,
 				2C0FBFEA1FDB71F400A128B9 /* glfw3.h in Headers */,
 				2C0FC02C1FDB71F400A128B9 /* muParserBase.h in Headers */,
@@ -6444,7 +6479,9 @@
 				2C0FBF721FDB71F400A128B9 /* strtod.cc in Sources */,
 				2C064E8420BBB417004CBA1B /* SivAudioAsset.cpp in Sources */,
 				2C0FC0441FDB71F400A128B9 /* cdt.cc in Sources */,
+				2C06508420BC37A2004CBA1B /* version_db.c in Sources */,
 				2C064E7720BBB417004CBA1B /* SivAudio.cpp in Sources */,
+				2C06507F20BC37A2004CBA1B /* decode.c in Sources */,
 				2C4F2ADD204199ED006CBCD1 /* b2Joint.cpp in Sources */,
 				2C4F2ADF204199ED006CBCD1 /* b2MotorJoint.cpp in Sources */,
 				2C06500520BBB417004CBA1B /* CSVM.cpp in Sources */,
@@ -6540,6 +6577,7 @@
 				2C064EB920BBB417004CBA1B /* CClipboard_Windows.cpp in Sources */,
 				2C4F2ACB204199ED006CBCD1 /* b2Contact.cpp in Sources */,
 				2C064F1020BBB417004CBA1B /* SivFontAsset.cpp in Sources */,
+				2C06508020BC37A2004CBA1B /* identify.c in Sources */,
 				2CD817F72078DA2A009DA091 /* zstd_opt.c in Sources */,
 				2C064F9E20BBB417004CBA1B /* SivPhysics2D.cpp in Sources */,
 				2C4F2AB4204199ED006CBCD1 /* b2StackAllocator.cpp in Sources */,
@@ -6568,6 +6606,7 @@
 				2C064EEC20BBB417004CBA1B /* SivDragDrop.cpp in Sources */,
 				2C064E6D20BBB417004CBA1B /* SivAsset.cpp in Sources */,
 				2C4F2AD5204199ED006CBCD1 /* b2PolygonContact.cpp in Sources */,
+				2C06507720BC3794004CBA1B /* QRDecoderDetail.cpp in Sources */,
 				2C064FAB20BBB417004CBA1B /* SivPrint.cpp in Sources */,
 				2C064EA720BBB417004CBA1B /* CBinaryWriter_macOS.cpp in Sources */,
 				2C064F6220BBB417004CBA1B /* KeyboardFactory.cpp in Sources */,
@@ -6640,6 +6679,7 @@
 				2C06504820BBB417004CBA1B /* SivVector3D.cpp in Sources */,
 				2C06504420BBB417004CBA1B /* SivTriangle.cpp in Sources */,
 				2C064FC220BBB417004CBA1B /* SivRoundRect.cpp in Sources */,
+				2C06508120BC37A2004CBA1B /* quirc.c in Sources */,
 				2C064FC320BBB417004CBA1B /* SivSamplerState.cpp in Sources */,
 				2C064FB420BBB417004CBA1B /* SivRectangle.cpp in Sources */,
 				2C06506820BBB417004CBA1B /* CXInput_NULL.cpp in Sources */,
