@@ -327,7 +327,7 @@ namespace s3d
 		return true;
 	}
 
-	bool Texture_D3D11::fill(ID3D11DeviceContext* context, const void* src, const uint32 stride, bool wait)
+	bool Texture_D3D11::fill(ID3D11DeviceContext* context, const void* src, const uint32 stride, const bool wait)
 	{
 		if (!m_textureStaging)
 		{
@@ -357,7 +357,7 @@ namespace s3d
 
 		context->CopyResource(m_texture.Get(), m_textureStaging.Get());
 
-		return false;
+		return true;
 	}
 
 	bool Texture_D3D11::createShaderResourceView(ID3D11Device* const device)

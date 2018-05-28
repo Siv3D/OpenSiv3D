@@ -1,22 +1,44 @@
 ﻿
-# include <Siv3D.hpp> // OpenSiv3D v0.2.5
+# include <Siv3D.hpp> // OpenSiv3D v0.2.6
 
 void Main()
 {
-	Graphics::SetBackground(ColorF(0.8, 0.9, 1.0));
+	for (const auto& info : System::EnumerateWebcams())
+	{
+		Print << U"--";
+		Print << info.index;
+		Print << info.name;
+		Print << info.uniqueName;
+	}
 
-	const Font font(50);
+	Webcam webcam(0);
 
-	const Texture textureCat(Emoji(U"🐈"), TextureDesc::Mipped);
+	if (!webcam)
+	{
+		return;
+	}
+
+	Print << webcam.getResolution();
+
+	//if (webcam.setResolution(Size(1280, 720)))
+	//{
+	//	Print << webcam.getResolution();
+	//}
+
+	webcam.start();
+
+	DynamicTexture texture;
 
 	while (System::Update())
 	{
-		font(U"Hello, Siv3D!🐣").drawAt(Window::Center(), Palette::Black);
+		if (webcam.hasNewFrame())
+		{
+			webcam.getFrame(texture);
+		}
 
-		font(Cursor::Pos()).draw(20, 400, ColorF(0.6));
-
-		textureCat.resized(80).draw(540, 380);
-
-		Circle(Cursor::Pos(), 60).draw(ColorF(1, 0, 0, 0.5));
+		if (texture)
+		{
+			texture.draw();
+		}
 	}
 }

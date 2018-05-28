@@ -36,7 +36,7 @@ namespace s3d
 
 		void Centering()
 		{
-			const auto monitors = System::EnumActiveMonitors();
+			const auto monitors = System::EnumerateActiveMonitors();
 
 			if (!monitors)
 			{

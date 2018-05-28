@@ -41,6 +41,7 @@
 # include "Font/IFont.hpp"
 # include "Print/IPrint.hpp"
 # include "Effect/IEffect.hpp"
+# include "Webcam/IWebcam.hpp"
 # include "Script/IScript.hpp"
 # include "Asset/IAsset.hpp"
 
@@ -55,6 +56,7 @@ namespace s3d
 	{
 		m_asset.release();
 		m_script.release();
+		m_webcam.release();
 		m_effect.release();
 		m_print.release();
 		m_font.release();

@@ -56,5 +56,7 @@ namespace s3d
 		/// 動的テクスチャの更新か作成に成功した場合 true, それ以外の場合は false
 		/// </returns>
 		bool fill(const Image& image);
+
+		bool tryFill(const Image& image);
 	};
 }

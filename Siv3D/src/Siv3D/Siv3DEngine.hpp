@@ -44,6 +44,7 @@ namespace s3d
 	class ISiv3DScreenCapture;
 	class ISiv3DFont;
 	class ISiv3DEffect;
+	class ISiv3DWebcam;
 	class ISiv3DPrint;
 	class ISiv3DScript;
 	class ISiv3DAsset;
@@ -146,6 +147,8 @@ namespace s3d
 
 		Siv3DComponent<ISiv3DEffect> m_effect;
 
+		Siv3DComponent<ISiv3DWebcam> m_webcam;
+
 		Siv3DComponent<ISiv3DScript> m_script;
 
 		Siv3DComponent<ISiv3DAsset> m_asset;
@@ -234,6 +237,11 @@ namespace s3d
 		static ISiv3DGamepad* GetGamepad()
 		{
 			return pEngine->m_gamepad.get();
+		}
+
+		static ISiv3DWebcam* GetWebcam()
+		{
+			return pEngine->m_webcam.get();
 		}
 
 		static ISiv3DXInput* GetXInput()

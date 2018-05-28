@@ -206,7 +206,7 @@ namespace s3d
 			}
 		}
 
-		const auto monitors = System::EnumActiveMonitors();
+		const auto monitors = System::EnumerateActiveMonitors();
 
 		for (auto& output : outputs)
 		{
