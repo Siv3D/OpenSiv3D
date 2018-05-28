@@ -1,5 +1,5 @@
 ﻿
-# include <Siv3D.hpp> // OpenSiv3D v0.2.5
+# include <Siv3D.hpp> // OpenSiv3D v0.2.6
 
 void Main()
 {
@@ -27,18 +27,18 @@ void Main()
 
 	webcam.start();
 
-	DynamicTexture dtex;
+	DynamicTexture texture;
 
 	while (System::Update())
 	{
 		if (webcam.hasNewFrame())
 		{
-			webcam.getFrame(dtex);
+			webcam.getFrame(texture);
 		}
 
-		if (dtex)
+		if (texture)
 		{
-			dtex.draw();
+			texture.draw();
 		}
 	}
 }
