@@ -246,6 +246,8 @@ namespace s3d
 
 		[[nodiscard]] TextureRegion scaled(const Vec2& s) const;
 
+		[[nodiscard]] TextureRegion resized(double _size) const;
+
 		[[nodiscard]] TextureRegion resized(double width, double height) const;
 
 		[[nodiscard]] TextureRegion resized(const Vec2& _size) const;

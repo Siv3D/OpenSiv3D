@@ -141,6 +141,11 @@ namespace s3d
 		return scaled(s.x, s.y);
 	}
 
+	TextureRegion TextureRegion::resized(const double _size) const
+	{
+		return resized(_size, _size);
+	}
+
 	TextureRegion TextureRegion::resized(const double width, const double height) const
 	{
 		return TextureRegion{ texture,
