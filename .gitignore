@@ -335,7 +335,7 @@ ASALocalRun/
 # dependencies files
 [Dd]ependencies/*/
 
-# Visual Studio build results
+# Visual Studio
 [Ii]ntermediate/
 [Dd]ebug-x64/
 [Dd]ebug-x86/
@@ -348,20 +348,11 @@ Siv3D.lib
 libSiv3D.a
 siv3d.a
 
-# Extensions
-*.jppmdl
-!jumanpp_v2.exe
-
-# Othres
-AS_DEBUG/
-*.html
-*.exe
-
 # Xcode
-Xcode/[Bb]in/*
 **/*.xcodeproj/*
 !**/*.xcodeproj/project.pbxproj
 !**/*.xcodeproj/project.xcworkspace/contents.xcoworkspacedata
+Xcode/bin/*
 !Xcode/bin/engine/
 !Xcode/bin/example/
 !Xcode/bin/test/
@@ -377,6 +368,15 @@ Linux/Test/engine
 Linux/Test/example
 Linux/Test/resources
 Linux/Test/Siv3D_Test
+
+# Othres
+AS_DEBUG/
+*.html
+*.exe
+
+# Extensions
+*.jppmdl
+!jumanpp_v2.exe
 
 # =========================
 # Operating System Files
