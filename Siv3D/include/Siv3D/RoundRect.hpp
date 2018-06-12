@@ -226,6 +226,10 @@ namespace s3d
 
 		const RoundRect& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
 
+		const RoundRect& paintFrame(Image& dst, double innerThickness, double outerThickness, const Color& color) const;
+
+		const RoundRect& overwriteFrame(Image& dst, double innerThickness, double outerThickness, const Color& color, bool antialiased = true) const;
+
 		const RoundRect& draw(const ColorF& color = Palette::White) const;
 
 		const RoundRect& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const

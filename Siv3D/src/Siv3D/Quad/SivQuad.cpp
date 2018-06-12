@@ -16,6 +16,7 @@
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/TextureRegion.hpp>
 # include <Siv3D/TexturedQuad.hpp>
+# include <Siv3D/LineString.hpp>
 # include <Siv3D/Polygon.hpp>
 # include "../Siv3DEngine.hpp"
 # include "../Renderer2D/IRenderer2D.hpp"
@@ -117,6 +118,20 @@ namespace s3d
 	bool Quad::mouseOver() const
 	{
 		return Geometry2D::Intersect(Cursor::PosF(), *this);
+	}
+
+	const Quad& Quad::paintFrame(Image& dst, const int32 thickness, const Color& color) const
+	{
+		LineString{ p0, p1, p2, p3 }.paint(dst, thickness, color, true);
+
+		return *this;
+	}
+
+	const Quad& Quad::overwriteFrame(Image& dst, const int32 thickness, const Color& color, const bool antialiased) const
+	{
+		LineString{ p0, p1, p2, p3 }.overwrite(dst, thickness, color, true, antialiased);
+
+		return *this;
 	}
 
 	const Quad& Quad::draw(const ColorF& color) const
