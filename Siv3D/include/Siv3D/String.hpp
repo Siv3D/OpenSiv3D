@@ -1472,7 +1472,7 @@ namespace s3d
 		/// <returns>
 		/// 新しい文字列
 		/// </returns>
-		[[nodiscard]] String drop(size_t n) const;
+		[[nodiscard]] String dropped(size_t n) const;
 
 		/// <summary>
 		/// 文字列の先頭から、指定された条件を満たす連続した文字を削除した新しい文字列を返します。
@@ -1484,7 +1484,7 @@ namespace s3d
 		/// 新しい文字列
 		/// </returns>
 		template <class Fty>
-		[[nodiscard]] String drop_while(Fty f) const
+		[[nodiscard]] String dropped_while(Fty f) const
 		{
 			return String(std::find_if_not(m_string.begin(), m_string.end(), f), m_string.end());
 		}

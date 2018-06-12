@@ -1014,6 +1014,9 @@
 	// SVM
 	# include "Siv3D/SVM.hpp"
 
+	// NLP (Japanese)
+	# include "Siv3D/NLP_Japanese.hpp"
+
 //////////////////////////////////////////////////
 //
 //	Scripting

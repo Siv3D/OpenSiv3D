@@ -1056,6 +1056,19 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	NLP_Japanese.hpp
+	//
+	namespace NLP
+	{
+		namespace Japanese
+		{
+			enum class WordClass;
+			struct Morpheme;
+		}
+	}
+
+	//////////////////////////////////////////////////////
+	//
 	//	Script.hpp
 	//
 	struct ScriptModuleData;

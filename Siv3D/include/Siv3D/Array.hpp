@@ -628,7 +628,7 @@ namespace s3d
 		/// <returns>
 		/// 指定した個数だけ先頭から要素を除いた新しい配列
 		/// </returns>
-		[[nodiscard]] Array drop(const size_t n) const
+		[[nodiscard]] Array dropped(const size_t n) const
 		{
 			if (n >= size())
 			{
@@ -648,7 +648,7 @@ namespace s3d
 		/// 指定した条件が真になる要素を先頭から除いた新しい配列
 		/// </returns>
 		template <class Fty>
-		[[nodiscard]] Array drop_while(Fty f) const
+		[[nodiscard]] Array dropped_while(Fty f) const
 		{
 			return Array(std::find_if_not(begin(), end(), f), end());
 		}
@@ -953,7 +953,7 @@ namespace s3d
 		/// </returns>
 		Array& keep_if(std::function<bool(const value_type&)> f)
 		{
-			erase(std::remove_if(begin(), end(), std::not1(f)), end());
+			erase(std::remove_if(begin(), end(), std::not_fn(f)), end());
 
 			return *this;
 		}

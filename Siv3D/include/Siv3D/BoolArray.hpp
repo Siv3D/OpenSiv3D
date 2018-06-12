@@ -407,7 +407,7 @@ namespace s3d
 			return result;
 		}
 
-		[[nodiscard]] Array drop(const size_t n) const
+		[[nodiscard]] Array dropped(const size_t n) const
 		{
 			if (n >= size())
 			{
@@ -418,7 +418,7 @@ namespace s3d
 		}
 
 		template <class Fty>
-		[[nodiscard]] Array drop_while(Fty f) const
+		[[nodiscard]] Array dropped_while(Fty f) const
 		{
 			return Array(std::find_if_not(begin(), end(), f), end());
 		}

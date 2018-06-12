@@ -23,6 +23,8 @@ namespace s3d
 	{
 	private:
 
+		HWND m_hWnd = nullptr;
+
 		uint32 m_sequenceNumber = 0;
 
 	public:

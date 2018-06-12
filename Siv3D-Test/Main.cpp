@@ -1,49 +1,54 @@
 ﻿
-# include <Siv3D.hpp> // OpenSiv3D v0.2.6
+# include <Siv3D.hpp>
 
 void Main()
 {
 	Window::Resize(1280, 720);
 
-	const Font font(40, Typeface::Bold);
+	const Font font(32, Typeface::Medium);
 
-	QRDecoder decoder;
+	String text = U"史上初の米朝首脳会談が12日にシンガポールで行われるのを前に、現地では、米朝双方の代表団が非核化などをめぐって詰めの協議を行いました。";
 
-	DynamicTexture texture;
-
-	Image image;
-
-	Webcam webcam;
-
-	webcam.setResolution(1280, 720);
-
-	Print << webcam.getResolution();
-
-	webcam.start();
-
-	QRContent qrContent;
+	String previous, result;
 
 	while (System::Update())
 	{
-		if (webcam.hasNewFrame())
+		TextInput::UpdateText(text);
+
+		const String current = text + TextInput::GetEditingText();
+
+		if (current != previous)
 		{
-			webcam.getFrame(image);
+			//MillisecClock m;
 
-			texture.tryFill(image);
+			const auto morphemes = NLP::Japanese::AnalyzeMorphology(current);
 
-			decoder.decode(image, qrContent);
+			//m.print();
+
+			Array<String> words;
+
+			for (const auto& morpheme : morphemes)
+			{
+				if (morpheme)
+				{
+					if (morpheme.wordSubClassID)
+					{
+						words << U"{}({})"_fmt(morpheme.surface, morpheme.wordSubClass);
+					}
+					else
+					{
+						words << U"{}({})"_fmt(morpheme.surface, morpheme.wordClass);
+					}
+				}
+			}
+
+			result = words.join(U" ", U"", U"");
 		}
 
-		if (texture)
-		{
-			texture.draw();
-		}
+		previous = current;
 
-		if (qrContent)
-		{
-			qrContent.quad.drawFrame(2, Palette::Red);
+		font(current).draw(Window::ClientRect().stretched(-20));
 
-			font(qrContent.text).draw(qrContent.quad.p1, Palette::Red);
-		}
+		font(result).draw(Window::ClientRect().stretched(-20).movedBy(0, 200), Palette::Yellow);
 	}
 }

@@ -197,6 +197,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Network\CNetwork.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Network\NetworkFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Network\SivNetwork.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\NLP\SivNLP_Japanese.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ObjectDetection\CObjectDetection.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ObjectDetection\ObjectDetectionFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Painting\PaintShape.cpp" />
@@ -609,6 +610,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\NamedParameter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\NavMesh.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Network.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\NLP_Japanese.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Number.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OffsetCircular.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Optional.hpp" />

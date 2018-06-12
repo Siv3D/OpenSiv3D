@@ -297,6 +297,8 @@ siv3d.a
 *.html
 AS_DEBUG/
 *.exe
+*.jppmdl
+!jumanpp_v2.exe
 
 # Xcode
 **/*.xcodeproj/*
