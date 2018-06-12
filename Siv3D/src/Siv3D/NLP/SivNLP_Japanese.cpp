@@ -17,7 +17,6 @@
 # include <Siv3D/Parse.hpp>
 # include <Siv3D/Windows.hpp>
 
-
 namespace s3d
 {
 	namespace detail
@@ -82,8 +81,8 @@ namespace s3d
 			const bool ret = (::CreateProcessW(nullptr, command.data(), nullptr, nullptr, false,
 				CREATE_DEFAULT_ERROR_MODE | NORMAL_PRIORITY_CLASS, nullptr, nullptr, &si, &pi) != 0);
 
-			::CloseHandle(pi.hThread);
 			::WaitForSingleObject(pi.hProcess, INFINITE);
+			::CloseHandle(pi.hThread);
 			::CloseHandle(pi.hProcess);
 
 			return ret;
