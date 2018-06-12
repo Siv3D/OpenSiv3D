@@ -165,7 +165,7 @@ namespace s3d
 			::GlobalUnlock(hDIB);
 		}
 
-		static void WriteBitmapToClipboard(HBITMAP hSourceBitmap, const Size& size)
+		static void WriteBitmapToClipboard(HBITMAP hSourceBitmap, const Size& size, HWND hWnd)
 		{
 			HDC hDC				= ::GetDC(nullptr);
 			HDC hCompatibleDC	= ::CreateCompatibleDC(nullptr);
@@ -195,7 +195,7 @@ namespace s3d
 			::DeleteDC(hSourceDC);
 			::ReleaseDC(nullptr, hDC);
 
-			if (::OpenClipboard(nullptr))
+			if (::OpenClipboard(hWnd))
 			{
 				::EmptyClipboard();
 				::SetClipboardData(CF_BITMAP, hBitmap);
@@ -218,6 +218,8 @@ namespace s3d
 
 	bool CClipboard_Windows::init()
 	{
+		m_hWnd = Siv3DEngine::GetWindow()->getHandle();
+
 		m_sequenceNumber = ::GetClipboardSequenceNumber();
 
 		LOG_INFO(U"ℹ️ Clipboard initialized");
@@ -242,7 +244,7 @@ namespace s3d
 
 		if (::IsClipboardFormatAvailable(CF_UNICODETEXT))
 		{
-			if (!::OpenClipboard(nullptr))
+			if (!::OpenClipboard(m_hWnd))
 			{
 				return false;
 			}
@@ -268,7 +270,7 @@ namespace s3d
 
 		if (::IsClipboardFormatAvailable(CF_DIB))
 		{
-			if (!::OpenClipboard(nullptr))
+			if (!::OpenClipboard(m_hWnd))
 			{
 				return false;
 			}
@@ -287,7 +289,7 @@ namespace s3d
 
 		if (::IsClipboardFormatAvailable(CF_HDROP))
 		{
-			if (!::OpenClipboard(nullptr))
+			if (!::OpenClipboard(m_hWnd))
 			{
 				return false;
 			}
@@ -316,6 +318,13 @@ namespace s3d
 
 	void CClipboard_Windows::setText(const String& _text)
 	{
+		if (!::OpenClipboard(m_hWnd))
+		{
+			return;
+		}
+
+		::EmptyClipboard();
+
 		const std::wstring text = _text.toWstr();
 
 		const size_t size = sizeof(char16_t) * (text.length() + 1);
@@ -325,19 +334,16 @@ namespace s3d
 		void* pDst = ::GlobalLock(hData);
 
 		::memcpy(pDst, text.data(), size);
-		
+
 		::GlobalUnlock(hData);
-
-		if (::OpenClipboard(nullptr))
-		{
-			::EmptyClipboard();
-			::SetClipboardData(CF_UNICODETEXT, hData);
-			::CloseClipboard();
-
-			m_sequenceNumber = ::GetClipboardSequenceNumber();
-		}
+			
+		::SetClipboardData(CF_UNICODETEXT, hData);
 
 		::GlobalFree(hData);
+						
+		::CloseClipboard();
+
+		m_sequenceNumber = ::GetClipboardSequenceNumber();
 	}
 
 	void CClipboard_Windows::setImage(const Image& image)
@@ -382,7 +388,7 @@ namespace s3d
 				++pSrc;
 			}
 
-			detail::WriteBitmapToClipboard(hBitmap, image.size());
+			detail::WriteBitmapToClipboard(hBitmap, image.size(), m_hWnd);
 
 			m_sequenceNumber = ::GetClipboardSequenceNumber();
 		}
@@ -393,7 +399,7 @@ namespace s3d
 
 	void CClipboard_Windows::clear()
 	{
-		if (::OpenClipboard(nullptr))
+		if (::OpenClipboard(m_hWnd))
 		{
 			::EmptyClipboard();
 			::CloseClipboard();

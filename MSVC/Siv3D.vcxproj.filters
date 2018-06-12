@@ -752,6 +752,9 @@
     <Filter Include="src\ThirdParty\quirc">
       <UniqueIdentifier>{4a84644b-3ec3-46fc-9898-9cd1aa6f6daa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\NLP">
+      <UniqueIdentifier>{7e8bb21e-fe7d-43b0-b7e2-5a58cc053b45}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -2112,6 +2115,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\QR\QRDecoderDetail.cpp">
       <Filter>src\Siv3D\QR</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\NLP\SivNLP_Japanese.cpp">
+      <Filter>src\Siv3D\NLP</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -4358,6 +4364,9 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\QR\QRDecoderDetail.hpp">
       <Filter>src\Siv3D\QR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\NLP_Japanese.hpp">
+      <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

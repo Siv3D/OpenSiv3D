@@ -9,7 +9,6 @@
 //
 //-----------------------------------------------
 
-# pragma once
 # include "WebcamDetail.hpp"
 # include <Siv3D/DynamicTexture.hpp>
 # include <Siv3D/Logger.hpp>
@@ -226,7 +225,6 @@ namespace s3d
 
 		m_thread.join();
 
-		m_resolution	= Size(0, 0);
 		m_state			= WebcamState::None;
 		m_newFrameCount	= 0;
 	}
@@ -322,7 +320,7 @@ namespace s3d
 
 		m_isActive = true;
 
-		return false;
+		return true;
 	}
 
 	void Webcam::WebcamDetail::stop()

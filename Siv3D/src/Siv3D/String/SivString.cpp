@@ -420,7 +420,7 @@ namespace s3d
 		}
 	}
 
-	String String::drop(const size_t n) const
+	String String::dropped(const size_t n) const
 	{
 		if (n >= m_string.size())
 		{

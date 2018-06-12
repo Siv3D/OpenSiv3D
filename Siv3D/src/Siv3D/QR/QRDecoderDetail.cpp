@@ -9,7 +9,6 @@
 //
 //-----------------------------------------------
 
-# pragma once
 # include "QRDecoderDetail.hpp"
 
 namespace s3d
