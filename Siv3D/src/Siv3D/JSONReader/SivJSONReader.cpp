@@ -384,7 +384,7 @@ namespace s3d
 	template <>
 	Optional<float> JSONValue::getOpt<float>() const
 	{
-		if (isEmpty() || !m_detail->value->IsFloat())
+		if (isEmpty() || !m_detail->value->IsNumber())
 		{
 			return none;
 		}
@@ -395,7 +395,7 @@ namespace s3d
 	template <>
 	Optional<double> JSONValue::getOpt<double>() const
 	{
-		if (isEmpty() || !m_detail->value->IsDouble())
+		if (isEmpty() || !m_detail->value->IsNumber())
 		{
 			return none;
 		}

@@ -413,6 +413,48 @@ namespace s3d
 		return mapped(size.x, size.y);
 	}
 
+	TextureRegion Texture::fitted(const double size, const bool scaleUp) const
+	{
+		return fitted(size, size, scaleUp);
+	}
+
+	TextureRegion Texture::fitted(double width, double height, const bool scaleUp) const
+	{
+		if (!scaleUp)
+		{
+			width = std::min<double>(width, this->width());
+			height = std::min<double>(height, this->height());
+		}
+
+		const double w = this->width();
+		const double h = this->height();
+		double ws = width / w;	// ‰½% scaling‚·‚é‚©
+		double hs = height / h;
+
+		double targetWidth, targetHeight;
+
+		if (ws < hs)
+		{
+			targetWidth = width;
+			targetHeight = h * ws;
+		}
+		else
+		{
+			targetWidth = w * hs;
+			targetHeight = height;
+		}
+
+		TextureRegion result = *this;
+		result.size = Float2(targetWidth, targetHeight);
+
+		return result;
+	}
+
+	TextureRegion Texture::fitted(const Vec2& size, const bool scaleUp) const
+	{
+		return fitted(size.x, size.y, scaleUp);
+	}
+
 	TexturedQuad Texture::rotated(const double angle) const
 	{
 		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());

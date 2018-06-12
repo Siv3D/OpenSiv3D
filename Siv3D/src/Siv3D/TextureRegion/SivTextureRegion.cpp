@@ -153,6 +153,48 @@ namespace s3d
 		return resized(_size.x, _size.y);
 	}
 
+	TextureRegion TextureRegion::fitted(const double _size, const bool scaleUp) const
+	{
+		return fitted(_size, _size, scaleUp);
+	}
+
+	TextureRegion TextureRegion::fitted(double width, double height, const bool scaleUp) const
+	{
+		if (!scaleUp)
+		{
+			width = std::min<double>(width, size.x);
+			height = std::min<double>(height, size.y);
+		}
+
+		const double w = size.x;
+		const double h = size.y;
+		double ws = width / w;	// 何% scalingするか
+		double hs = height / h;
+
+		double targetWidth, targetHeight;
+
+		if (ws < hs)
+		{
+			targetWidth = width;
+			targetHeight = h * ws;
+		}
+		else
+		{
+			targetWidth = w * hs;
+			targetHeight = height;
+		}
+
+		TextureRegion result = *this;
+		result.size = Float2(targetWidth, targetHeight);
+
+		return result;
+	}
+
+	TextureRegion TextureRegion::fitted(const Vec2& _size, const bool scaleUp) const
+	{
+		return fitted(_size.x, _size.y, scaleUp);
+	}
+
 	TexturedQuad TextureRegion::rotated(const double angle) const
 	{
 		return TexturedQuad(texture,
