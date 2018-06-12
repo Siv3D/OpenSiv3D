@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -9,7 +9,6 @@
 //
 //-----------------------------------------------
 
-# pragma once
 # include "WebcamDetail.hpp"
 # include <Siv3D/DynamicTexture.hpp>
 # include <Siv3D/Logger.hpp>

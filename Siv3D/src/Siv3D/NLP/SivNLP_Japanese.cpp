@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -17,12 +17,13 @@
 # include <Siv3D/Parse.hpp>
 # include <Siv3D/Windows.hpp>
 
+
 namespace s3d
 {
 	namespace detail
 	{
 		constexpr std::array<char32, 128> AsciiTable =
-		{
+		{{
 			0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
 			16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 39, 31,
 			U'　', U'！', U'＂', U'＃', U'＄', U'％', U'＆', U'＇', U'（', U'）', U'＊', U'＋', U'，', U'－', U'．', U'／',
@@ -31,7 +32,7 @@ namespace s3d
 			U'Ｐ', U'Ｑ', U'Ｒ', U'Ｓ', U'Ｔ', U'Ｕ', U'Ｖ', U'Ｗ', U'Ｘ', U'Ｙ', U'Ｚ', U'［', U'＼', U'］', U'＾', U'＿',
 			U'｀', U'ａ', U'ｂ', U'ｃ', U'ｄ', U'ｅ', U'ｆ', U'ｇ', U'ｈ', U'ｉ', U'ｊ', U'ｋ', U'ｌ', U'ｍ', U'ｎ', U'ｏ',
 			U'ｐ', U'ｑ', U'ｒ', U'ｓ', U'ｔ', U'ｕ', U'ｖ', U'ｗ', U'ｘ', U'ｙ', U'ｚ', U'｛', U'｜', U'｝', U'～', 127,
-		};
+		}};
 
 		String Convert(const String& text)
 		{
@@ -88,8 +89,10 @@ namespace s3d
 			return ret;
 
 		# else
+			
+			const std::string command = UR"-({} --model="{}" --output="{}" "{}")-"_fmt(exePath, modelPath, output, input).toUTF8();
 
-			return false;
+			return (std::system(command.c_str()) == 0);
 
 		# endif
 		}

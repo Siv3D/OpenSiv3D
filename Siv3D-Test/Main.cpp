@@ -1,4 +1,4 @@
-﻿
+
 # include <Siv3D.hpp>
 
 void Main()
@@ -19,11 +19,11 @@ void Main()
 
 		if (current != previous)
 		{
-			//MillisecClock m;
+			MillisecClock m;
 
 			const auto morphemes = NLP::Japanese::AnalyzeMorphology(current);
 
-			//m.print();
+			m.print();
 
 			Array<String> words;
 

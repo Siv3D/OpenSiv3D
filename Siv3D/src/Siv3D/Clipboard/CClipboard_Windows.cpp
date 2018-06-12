@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -344,8 +344,6 @@ namespace s3d
 		::CloseClipboard();
 
 		m_sequenceNumber = ::GetClipboardSequenceNumber();
-
-		LOG_TEST(U"Set {}"_fmt(m_sequenceNumber));
 	}
 
 	void CClipboard_Windows::setImage(const Image& image)
