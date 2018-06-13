@@ -755,6 +755,9 @@
     <Filter Include="src\Siv3D\NLP">
       <UniqueIdentifier>{7e8bb21e-fe7d-43b0-b7e2-5a58cc053b45}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\JoyCon">
+      <UniqueIdentifier>{ba9afafc-72de-4c1b-a26b-c0e0c4703777}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -2118,6 +2121,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\NLP\SivNLP_Japanese.cpp">
       <Filter>src\Siv3D\NLP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\JoyCon\SivJoyCon.cpp">
+      <Filter>src\Siv3D\JoyCon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

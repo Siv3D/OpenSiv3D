@@ -28,95 +28,43 @@ namespace s3d
 			JoyConR,
 		};
 
-		const detail::Gamepad_impl& m_gamepad;
+		Optional<uint32> m_gamepadUserIndex;
 
 		ControllerType m_type = ControllerType::Invalid;
 
-		static ControllerType GetControllerType(const GamepadInfo& info)
-		{
-			if (info.vendorID == 0x57e)
-			{
-				if (info.productID == 0x2006)
-				{
-					return ControllerType::JoyConL;
-				}
-				else if (info.productID == 0x2007)
-				{
-					return ControllerType::JoyConR;
-				}
-			}
-
-			return ControllerType::Invalid;
-		}
+		[[nodiscard]] static ControllerType GetControllerType(const GamepadInfo& info) noexcept;
 
 	public:
 
-		static bool IsJoyCon(const detail::Gamepad_impl& gamepad)
-		{
-			return (GetControllerType(gamepad.getInfo()) != ControllerType::Invalid);
-		}
+		[[nodiscard]] static bool IsJoyCon(const detail::Gamepad_impl& gamepad) noexcept;
 
-		static bool IsJoyConL(const detail::Gamepad_impl& gamepad)
-		{
-			return (GetControllerType(gamepad.getInfo()) == ControllerType::JoyConL);
-		}
+		[[nodiscard]] static bool IsJoyConL(const detail::Gamepad_impl& gamepad) noexcept;
 
-		static bool IsJoyConR(const detail::Gamepad_impl& gamepad)
-		{
-			return (GetControllerType(gamepad.getInfo()) == ControllerType::JoyConR);
-		}
+		[[nodiscard]] static bool IsJoyConR(const detail::Gamepad_impl& gamepad) noexcept;
 
 		JoyCon() = default;
 
-		explicit JoyCon(const detail::Gamepad_impl& gamepad)
-			: m_gamepad(gamepad)
-			, m_type(GetControllerType(m_gamepad.getInfo()))
-			, button0(InputDevice::Gamepad, 0, static_cast<uint8>(m_gamepad.userIndex))
-			, button1(InputDevice::Gamepad, 1, static_cast<uint8>(m_gamepad.userIndex))
-			, button2(InputDevice::Gamepad, 2, static_cast<uint8>(m_gamepad.userIndex))
-			, button3(InputDevice::Gamepad, 3, static_cast<uint8>(m_gamepad.userIndex))
-			, buttonSL(InputDevice::Gamepad, 4, static_cast<uint8>(m_gamepad.userIndex))
-			, buttonSR(InputDevice::Gamepad, 5, static_cast<uint8>(m_gamepad.userIndex))
-			, buttonMinus(InputDevice::Gamepad, 8, static_cast<uint8>(m_gamepad.userIndex))
-			, buttonPlus(InputDevice::Gamepad, 9, static_cast<uint8>(m_gamepad.userIndex))
-			, buttonHome(InputDevice::Gamepad, 12, static_cast<uint8>(m_gamepad.userIndex))
-			, buttonScreenshot(InputDevice::Gamepad, 13, static_cast<uint8>(m_gamepad.userIndex))
-			, buttonLR(InputDevice::Gamepad, 14, static_cast<uint8>(m_gamepad.userIndex))
-			, buttonZLZR(InputDevice::Gamepad, 15, static_cast<uint8>(m_gamepad.userIndex))
-		{
-			if (isJoyConL())
-			{
-				buttonStick = Key(InputDevice::Gamepad, 10, static_cast<uint8>(m_gamepad.userIndex));
-			}
-			else if (isJoyConR())
-			{
-				buttonStick = Key(InputDevice::Gamepad, 11, static_cast<uint8>(m_gamepad.userIndex));
-			}
-		}
+		explicit JoyCon(const detail::Gamepad_impl& gamepad);
 
-		bool isConnected() const
-		{
-			return (m_type != ControllerType::Invalid)
-				&& m_gamepad.isConnected();
-		}
+		[[nodiscard]] static JoyCon JoyConL(size_t index);
 
-		bool isJoyConL() const
-		{
-			return (m_type == ControllerType::JoyConL);
-		}
+		[[nodiscard]] static JoyCon JoyConR(size_t index);
 
-		bool isJoyConR() const
-		{
-			return (m_type == ControllerType::JoyConR);
-		}
+		[[nodiscard]] bool isConnected() const noexcept;
 
-		Key button0;
+		[[nodiscard]] explicit operator bool() const noexcept;
 
-		Key button1;
+		[[nodiscard]] bool isJoyConL() const noexcept;
 
-		Key button2;
+		[[nodiscard]] bool isJoyConR() const noexcept;
 
-		Key button3;
+		Key button0;	// L-Left / R-A
+
+		Key button1;	// L-Down / R-X
+
+		Key button2;	// L-Up / R-B
+
+		Key button3;	// L-Right / R-Y
 
 		Key buttonSL;
 
@@ -136,9 +84,6 @@ namespace s3d
 
 		Key buttonZLZR;
 
-		Optional<int32> povD8() const
-		{
-			return m_gamepad.povD8();
-		}
+		[[nodiscard]] Optional<int32> povD8() const noexcept;
 	};
 }
