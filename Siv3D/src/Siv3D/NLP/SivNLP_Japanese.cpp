@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -16,9 +16,7 @@
 # include <Siv3D/TextReader.hpp>
 # include <Siv3D/Parse.hpp>
 # include <Siv3D/Windows.hpp>
-
-# include <Siv3D/TextWriter.hpp>
-# include <Siv3D/Logger.hpp>
+# include <Siv3D/Resource.hpp>
 
 namespace s3d
 {
@@ -277,8 +275,10 @@ namespace s3d
 
 		# else
 
-			Array<Morpheme> AnalyzeMorphology(const String& text, const FilePath& exePath, const FilePath& modelPath)
+			Array<Morpheme> AnalyzeMorphology(const String& text, const FilePath& modelPath)
 			{
+				const FilePath exePath = Resource(U"engine/nlp/japanese/jumanpp/jumanpp_v2");
+				
 				const String normalized = detail::Convert(text);
 
 				const FilePath tmpPath = detail::ToTextFile(normalized);
@@ -552,7 +552,7 @@ namespace s3d
 				s = io.streamReader_->analyzeWith(exec.analyzerPtr());
 				if (!s) {
 					//std::cerr << s;
-					//*io.output_ << exec.emptyResult();
+					// *io.output_ << exec.emptyResult();
 					const auto line = exec.emptyResult();
 					ouput.append(line.char_begin(), line.char_end());
 					continue;
@@ -563,7 +563,7 @@ namespace s3d
 					//std::cerr << s;
 				}
 				else {
-					//*io.output_ << exec.format()->result();
+					// *io.output_ << exec.format()->result();
 					const auto line = exec.format()->result();
 					ouput.append(line.char_begin(), line.char_end());
 				}

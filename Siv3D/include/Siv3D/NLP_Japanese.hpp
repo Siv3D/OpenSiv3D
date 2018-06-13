@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -89,15 +89,7 @@ namespace s3d
 				}
 			};
 
-		# if defined(SIV3D_TARGET_WINDOWS)
-
 			Array<Morpheme> AnalyzeMorphology(const String& text, const FilePath& modelPath = U"nlp/japanese/jumanpp/jumandic.jppmdl");
-
-		# else
-
-			Array<Morpheme> AnalyzeMorphology(const String& text, const FilePath& exePath = U"nlp/japanese/jumanpp/jumanpp_v2", const FilePath& modelPath = U"nlp/japanese/jumanpp/jumandic.jppmdl");
-
-		# endif
 		}
 	}
 }
