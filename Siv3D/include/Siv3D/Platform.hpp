@@ -299,6 +299,16 @@ namespace s3d
 		# pragma comment (lib, "opencv/opencv_imgcodecs340d")
 		# pragma comment (lib, "opencv/opencv_videoio340d")
 
+		# if defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64)
+
+			# pragma comment (lib, "jumanpp/jpp_jumandic_d")
+			# pragma comment (lib, "jumanpp/jpp_util_d")
+			# pragma comment (lib, "jumanpp/jpp_rnn_d")
+			# pragma comment (lib, "jumanpp/jpp_core_d")
+			# pragma comment (lib, "jumanpp/jumanpp_v2_d")
+
+		# endif
+
 	# else
 
 		# pragma comment (lib, "Siv3D")
@@ -314,6 +324,16 @@ namespace s3d
 		# pragma comment (lib, "opencv/opencv_photo340")
 		# pragma comment (lib, "opencv/opencv_imgcodecs340")
 		# pragma comment (lib, "opencv/opencv_videoio340")
+
+		# if defined(SIV3D_TARGET_WINDOWS_DESKTOP_X64)
+
+			# pragma comment (lib, "jumanpp/jpp_jumandic")
+			# pragma comment (lib, "jumanpp/jpp_util")
+			# pragma comment (lib, "jumanpp/jpp_rnn")
+			# pragma comment (lib, "jumanpp/jpp_core")
+			# pragma comment (lib, "jumanpp/jumanpp_v2")
+
+		# endif
 
 	# endif
 
