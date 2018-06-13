@@ -13,6 +13,7 @@
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/Polygon.hpp>
+# include <Siv3D/LineString.hpp>
 # include <Siv3D/Sprite.hpp>
 # include <Siv3D/Circular.hpp>
 # include <Siv3D/TexturedRoundRect.hpp>
@@ -132,6 +133,20 @@ namespace s3d
 	const RoundRect& RoundRect::overwrite(Image& dst, const Color& color, const bool antialiased) const
 	{
 		asPolygon().overwrite(dst, color, antialiased);
+
+		return *this;
+	}
+
+	const RoundRect& RoundRect::paintFrame(Image& dst, const int32 innerThickness, const int32 outerThickness, const Color& color) const
+	{
+		LineString(detail::GetOuterVertices(*this, (outerThickness - innerThickness) * 0.5)).paint(dst, (outerThickness + innerThickness), color, true);
+
+		return *this;
+	}
+
+	const RoundRect& RoundRect::overwriteFrame(Image& dst, const int32 innerThickness, const int32 outerThickness, const Color& color, const bool antialiased) const
+	{
+		LineString(detail::GetOuterVertices(*this, (outerThickness - innerThickness) * 0.5)).overwrite(dst, (outerThickness + innerThickness), color, true, antialiased);
 
 		return *this;
 	}

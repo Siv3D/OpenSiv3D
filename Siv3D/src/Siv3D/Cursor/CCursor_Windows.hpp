@@ -50,11 +50,17 @@ namespace s3d
 
 		CursorStyle m_curerntCursorStyle = CursorStyle::Default;
 
+		CursorStyle m_defaultCursorStyle = CursorStyle::Default;
+
+		CursorStyle m_requestedCursorStyle = CursorStyle::Default;
+
 		std::array<HCURSOR, 8> m_cursorStyles;
 
 		bool m_clipClientRect = false;
 
 		void updateClip();
+
+		void updateCursorStyle();
 
 	public:
 
@@ -92,9 +98,13 @@ namespace s3d
 
 		void clip(const Optional<Rect>& rect) override;
 
-		void setStyle(CursorStyle style) override;
+		void requestStyle(CursorStyle style) override;
 
-		CursorStyle getStyle() override;
+		void setDefaultStyle(CursorStyle style) override;
+
+		CursorStyle getRequestedStyle() override;
+
+		CursorStyle getDefaultStyle() override;
 	};
 }
 

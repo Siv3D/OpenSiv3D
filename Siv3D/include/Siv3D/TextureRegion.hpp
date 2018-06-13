@@ -246,9 +246,17 @@ namespace s3d
 
 		[[nodiscard]] TextureRegion scaled(const Vec2& s) const;
 
+		[[nodiscard]] TextureRegion resized(double _size) const;
+
 		[[nodiscard]] TextureRegion resized(double width, double height) const;
 
 		[[nodiscard]] TextureRegion resized(const Vec2& _size) const;
+
+		[[nodiscard]] TextureRegion fitted(double _size, bool scaleUp = true) const;
+
+		[[nodiscard]] TextureRegion fitted(double width, double height, bool scaleUp = true) const;
+
+		[[nodiscard]] TextureRegion fitted(const Vec2& _size, bool scaleUp = true) const;
 
 		[[nodiscard]] TexturedQuad rotated(double angle) const;
 

@@ -91,7 +91,7 @@ namespace s3d
 		m_client_transformed.current = m_client_transformedF.current.asPoint();
 		m_client_transformed.delta = m_client_transformedF.delta.asPoint();
 
-		::SetCursor(m_cursorStyles[static_cast<size_t>(m_curerntCursorStyle)]);
+		updateCursorStyle();
 	}
 
 	const CursorState<Point>& CCursor_Windows::screen() const
@@ -226,21 +226,24 @@ namespace s3d
 		m_clipRect = rect;
 	}
 
-	void CCursor_Windows::setStyle(const CursorStyle style)
+	void CCursor_Windows::requestStyle(const CursorStyle style)
 	{
-		if (style == m_curerntCursorStyle)
-		{
-			return;
-		}
-
-		::SetCursor(m_cursorStyles[static_cast<size_t>(style)]);
-
-		m_curerntCursorStyle = style;
+		m_requestedCursorStyle = style;
 	}
 
-	CursorStyle CCursor_Windows::getStyle()
+	void CCursor_Windows::setDefaultStyle(const CursorStyle style)
 	{
-		return m_curerntCursorStyle;
+		m_defaultCursorStyle = style;
+	}
+
+	CursorStyle CCursor_Windows::getRequestedStyle()
+	{
+		return m_requestedCursorStyle;
+	}
+
+	CursorStyle CCursor_Windows::getDefaultStyle()
+	{
+		return m_defaultCursorStyle;
 	}
 
 	void CCursor_Windows::updateClip()
@@ -272,6 +275,18 @@ namespace s3d
 		{
 			::ClipCursor(nullptr);
 		}
+	}
+
+	void CCursor_Windows::updateCursorStyle()
+	{
+		if (m_curerntCursorStyle != m_requestedCursorStyle)
+		{
+			m_curerntCursorStyle = m_requestedCursorStyle;
+
+			::SetCursor(m_cursorStyles[static_cast<size_t>(m_curerntCursorStyle)]);
+		}
+
+		m_requestedCursorStyle = m_defaultCursorStyle;
 	}
 }
 

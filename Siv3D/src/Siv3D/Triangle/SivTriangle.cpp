@@ -14,6 +14,7 @@
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/Line.hpp>
+# include <Siv3D/LineString.hpp>
 # include <Siv3D/Polygon.hpp>
 # include "../Siv3DEngine.hpp"
 # include "../Renderer2D/IRenderer2D.hpp"
@@ -117,6 +118,20 @@ namespace s3d
 	bool Triangle::mouseOver() const
 	{
 		return Geometry2D::Intersect(Cursor::PosF(), *this);
+	}
+
+	const Triangle& Triangle::paintFrame(Image& dst, const int32 thickness, const Color& color) const
+	{
+		LineString{ p0, p1, p2 }.paint(dst, thickness, color, true);
+
+		return *this;
+	}
+
+	const Triangle& Triangle::overwriteFrame(Image& dst, const int32 thickness, const Color& color, const bool antialiased) const
+	{
+		LineString{ p0, p1, p2 }.overwrite(dst, thickness, color, true, antialiased);
+
+		return *this;
 	}
 
 	const Triangle& Triangle::draw(const ColorF& color) const

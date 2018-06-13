@@ -90,9 +90,13 @@ namespace s3d
 
 		void clip(const Optional<Rect>& rect) override;
 
-		void setStyle(CursorStyle style) override;
+		void requestStyle(CursorStyle style) override;
 
-		CursorStyle getStyle() override;
+		void setDefaultStyle(CursorStyle style) override;
+
+		CursorStyle getRequestedStyle() override;
+
+		CursorStyle getDefaultStyle() override;
 	};
 }
 

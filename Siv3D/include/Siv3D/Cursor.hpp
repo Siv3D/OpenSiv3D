@@ -172,9 +172,15 @@ namespace s3d
 		/// </returns>
 		void ClipClientRect(bool clip);
 
-		void SetStyle(CursorStyle style);
+		[[deprecated("deprecated in v0.2.7: use Curesor::RequestStyle() or Cursor::SetDefaultStyle() instead")]] void SetStyle(CursorStyle style);
 
-		CursorStyle GetStyle();
+		void RequestStyle(CursorStyle style);
+
+		void SetDefaultStyle(CursorStyle style);
+
+		CursorStyle GetRequestedStyle();
+
+		CursorStyle GetDefaultStyle();
 	}
 
 	namespace win::Cursor

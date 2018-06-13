@@ -176,6 +176,10 @@ namespace s3d
 
 		const Triangle& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
 
+		const Triangle& paintFrame(Image& dst, int32 thickness, const Color& color) const;
+
+		const Triangle& overwriteFrame(Image& dst, int32 thickness, const Color& color, bool antialiased = true) const;
+
 		const Triangle& draw(const ColorF& color = Palette::White) const;
 
 		const Triangle& draw(const ColorF(&colors)[3]) const;

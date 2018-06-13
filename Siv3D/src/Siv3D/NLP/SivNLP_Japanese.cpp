@@ -16,6 +16,7 @@
 # include <Siv3D/TextReader.hpp>
 # include <Siv3D/Parse.hpp>
 # include <Siv3D/Windows.hpp>
+# include <Siv3D/Resource.hpp>
 
 namespace s3d
 {
@@ -59,6 +60,30 @@ namespace s3d
 			return tmpPath;
 		}
 
+	# if defined(SIV3D_TARGET_WINDOWS)
+
+		// jumanpp/jumanpp_v2.lib
+		bool AnalyzeJapaneseMorphology_detail(const std::vector<std::string>& args, std::string& ouput);
+
+		bool AnalyzeJapaneseMorphology(const FilePath& input, const FilePath& modelPath, std::string& ouput)
+		{
+			if (!FileSystem::Exists(input)
+				|| !FileSystem::Exists(modelPath))
+			{
+				return false;
+			}
+
+			std::vector<std::string> args;
+			args.push_back("");
+			args.push_back(U"--model={}"_fmt(modelPath).narrow());
+			args.push_back(U"--output={}"_fmt(U"null").narrow());
+			args.push_back(input.narrow());
+
+			return AnalyzeJapaneseMorphology_detail(args, ouput);
+		}
+
+	# else
+
 		bool AnalyzeJapaneseMorphology(const FilePath& input, const FilePath& output, const FilePath& exePath, const FilePath& modelPath)
 		{
 			if (!FileSystem::Exists(input)
@@ -68,33 +93,12 @@ namespace s3d
 				return false;
 			}
 
-		# if defined(SIV3D_TARGET_WINDOWS)
-
-			std::wstring command = UR"-({} --model="{}" --output="{}" "{}")-"_fmt(exePath, modelPath, output, input).toWstr();
-
-			STARTUPINFO si	= {};
-			si.cb			= sizeof(si);
-			si.dwFlags		= STARTF_USESHOWWINDOW;
-			si.wShowWindow	= SW_HIDE;
-			PROCESS_INFORMATION pi = {};
-
-			const bool ret = (::CreateProcessW(nullptr, command.data(), nullptr, nullptr, false,
-				CREATE_DEFAULT_ERROR_MODE | NORMAL_PRIORITY_CLASS, nullptr, nullptr, &si, &pi) != 0);
-
-			::WaitForSingleObject(pi.hProcess, INFINITE);
-			::CloseHandle(pi.hThread);
-			::CloseHandle(pi.hProcess);
-
-			return ret;
-
-		# else
-			
 			const std::string command = UR"-({} --model="{}" --output="{}" "{}")-"_fmt(exePath, modelPath, output, input).toUTF8();
 
 			return (std::system(command.c_str()) == 0);
-
-		# endif
 		}
+
+	# endif
 
 		Array<String> SplitMorphemeElements(const String& text)
 		{
@@ -186,8 +190,95 @@ namespace s3d
 	{
 		namespace Japanese
 		{
-			Array<Morpheme> AnalyzeMorphology(const String& text, const FilePath& exePath, const FilePath& modelPath)
+		# if defined(SIV3D_TARGET_WINDOWS)
+
+			Array<Morpheme> AnalyzeMorphology(const String& text, const FilePath& modelPath)
 			{
+				const String normalized = detail::Convert(text);
+
+				const FilePath tmpPath = detail::ToTextFile(normalized);
+
+				std::string output;
+
+				const bool result = detail::AnalyzeJapaneseMorphology(tmpPath, modelPath, output);
+
+				FileSystem::Remove(tmpPath);
+
+				if (!result)
+				{
+					return Array<Morpheme>();
+				}
+
+				Array<Morpheme> morphemes;
+
+				for(const auto& line : Unicode::FromUTF8(output).split_lines())
+				{
+					//Logger << U"line:" << line << U"(" << line.size() << U")";
+
+					Array<String> elements = detail::SplitMorphemeElements(line);
+
+					if (elements.size() != 12
+						&& elements.size() != 13
+						&& elements.size() != 1)
+					{
+						//Logger << line;
+						//Logger << elements;
+						continue;
+					}
+
+					//Logger << elements;
+
+					if (elements.size() <= 1)
+					{
+						morphemes.emplace_back();
+					}
+					else if (elements.front() != U"@")
+					{
+						morphemes.emplace_back();
+						auto& morpheme = morphemes.back();
+						morpheme.surface = std::move(elements[0]);
+						morpheme.reading = std::move(elements[1]);
+						morpheme.surfaceBase = std::move(elements[2]);
+						morpheme.wordClass = std::move(elements[3]);
+						morpheme.wordClassID = static_cast<WordClass>(ParseOpt<int32>(elements[4]).value_or(0));
+						morpheme.wordSubClass = std::move(elements[5]);
+						morpheme.wordSubClassID = ParseOpt<int32>(elements[6]).value_or(0);
+						morpheme.conjugatedType = std::move(elements[7]);
+						morpheme.conjugatedTypeID = ParseOpt<int32>(elements[8]).value_or(0);
+						morpheme.conjugatedForm = std::move(elements[9]);
+						morpheme.conjugatedFormID = ParseOpt<int32>(elements[10]).value_or(0);
+						morpheme.features = std::move(elements[11]);
+					}
+					else
+					{
+						std::unique_ptr<Morpheme> pMorpheme = std::make_unique<Morpheme>();
+						auto& morpheme = *pMorpheme;
+						morpheme.surface = std::move(elements[1]);
+						morpheme.reading = std::move(elements[2]);
+						morpheme.surfaceBase = std::move(elements[3]);
+						morpheme.wordClass = std::move(elements[4]);
+						morpheme.wordClassID = static_cast<WordClass>(ParseOpt<int32>(elements[5]).value_or(0));
+						morpheme.wordSubClass = std::move(elements[6]);
+						morpheme.wordSubClassID = ParseOpt<int32>(elements[7]).value_or(0);
+						morpheme.conjugatedType = std::move(elements[8]);
+						morpheme.conjugatedTypeID = ParseOpt<int32>(elements[9]).value_or(0);
+						morpheme.conjugatedForm = std::move(elements[10]);
+						morpheme.conjugatedFormID = ParseOpt<int32>(elements[11]).value_or(0);
+						morpheme.features = std::move(elements[12]);
+
+						morphemes.back().options.push_back(std::move(pMorpheme));
+					}
+				}
+
+				return morphemes;
+			}
+
+		# else
+
+			Array<Morpheme> AnalyzeMorphology(const String& text, const FilePath& modelPath)
+			{
+				const FilePath exePath = Resource(U"engine/nlp/japanese/jumanpp/jumanpp_v2");
+				
 				const String normalized = detail::Convert(text);
 
 				const FilePath tmpPath = detail::ToTextFile(normalized);
@@ -232,36 +323,36 @@ namespace s3d
 					{
 						morphemes.emplace_back();
 						auto& morpheme = morphemes.back();
-						morpheme.surface			= std::move(elements[0]);
-						morpheme.reading			= std::move(elements[1]);
-						morpheme.surfaceBase		= std::move(elements[2]);
-						morpheme.wordClass			= std::move(elements[3]);
-						morpheme.wordClassID		= static_cast<WordClass>(ParseOpt<int32>(elements[4]).value_or(0));
-						morpheme.wordSubClass		= std::move(elements[5]);
-						morpheme.wordSubClassID		= ParseOpt<int32>(elements[6]).value_or(0);
-						morpheme.conjugatedType		= std::move(elements[7]);
-						morpheme.conjugatedTypeID	= ParseOpt<int32>(elements[8]).value_or(0);
-						morpheme.conjugatedForm		= std::move(elements[9]);
-						morpheme.conjugatedFormID	= ParseOpt<int32>(elements[10]).value_or(0);
-						morpheme.features			= std::move(elements[11]);
+						morpheme.surface = std::move(elements[0]);
+						morpheme.reading = std::move(elements[1]);
+						morpheme.surfaceBase = std::move(elements[2]);
+						morpheme.wordClass = std::move(elements[3]);
+						morpheme.wordClassID = static_cast<WordClass>(ParseOpt<int32>(elements[4]).value_or(0));
+						morpheme.wordSubClass = std::move(elements[5]);
+						morpheme.wordSubClassID = ParseOpt<int32>(elements[6]).value_or(0);
+						morpheme.conjugatedType = std::move(elements[7]);
+						morpheme.conjugatedTypeID = ParseOpt<int32>(elements[8]).value_or(0);
+						morpheme.conjugatedForm = std::move(elements[9]);
+						morpheme.conjugatedFormID = ParseOpt<int32>(elements[10]).value_or(0);
+						morpheme.features = std::move(elements[11]);
 					}
 					else
 					{
 						std::unique_ptr<Morpheme> pMorpheme = std::make_unique<Morpheme>();
 						auto& morpheme = *pMorpheme;
-						morpheme.surface			= std::move(elements[1]);
-						morpheme.reading			= std::move(elements[2]);
-						morpheme.surfaceBase		= std::move(elements[3]);
-						morpheme.wordClass			= std::move(elements[4]);
-						morpheme.wordClassID		= static_cast<WordClass>(ParseOpt<int32>(elements[5]).value_or(0));
-						morpheme.wordSubClass		= std::move(elements[6]);
-						morpheme.wordSubClassID		= ParseOpt<int32>(elements[7]).value_or(0);
-						morpheme.conjugatedType		= std::move(elements[8]);
-						morpheme.conjugatedTypeID	= ParseOpt<int32>(elements[9]).value_or(0);
-						morpheme.conjugatedForm		= std::move(elements[10]);
-						morpheme.conjugatedFormID	= ParseOpt<int32>(elements[11]).value_or(0);
-						morpheme.features			= std::move(elements[12]);
-						
+						morpheme.surface = std::move(elements[1]);
+						morpheme.reading = std::move(elements[2]);
+						morpheme.surfaceBase = std::move(elements[3]);
+						morpheme.wordClass = std::move(elements[4]);
+						morpheme.wordClassID = static_cast<WordClass>(ParseOpt<int32>(elements[5]).value_or(0));
+						morpheme.wordSubClass = std::move(elements[6]);
+						morpheme.wordSubClassID = ParseOpt<int32>(elements[7]).value_or(0);
+						morpheme.conjugatedType = std::move(elements[8]);
+						morpheme.conjugatedTypeID = ParseOpt<int32>(elements[9]).value_or(0);
+						morpheme.conjugatedForm = std::move(elements[10]);
+						morpheme.conjugatedFormID = ParseOpt<int32>(elements[11]).value_or(0);
+						morpheme.features = std::move(elements[12]);
+
 						morphemes.back().options.push_back(std::move(pMorpheme));
 					}
 				}
@@ -272,10 +363,217 @@ namespace s3d
 
 				return morphemes;
 			}
+
+		# endif
 		}
 	}
 }
 
+
+/*
+#include "jumanpp.h"
+#include <fstream>
+#include <iostream>
+#include "core/input/pex_stream_reader.h"
+#include "jumandic/shared/jumanpp_args.h"
+#include "util/logging.hpp"
+
+using namespace jumanpp;
+
+struct InputOutput {
+	std::unique_ptr<core::input::StreamReader> streamReader_;
+	std::unique_ptr<std::ifstream> fileInput_;
+	int currentInFile_ = 0;
+	const std::vector<std::string>* inFiles_;
+	StringPiece currentInputFilename_;
+	std::istream* input_;
+
+	//std::unique_ptr<std::ofstream> fileOutput_;
+	//std::ostream* output_;
+
+	Status moveToNextFile() {
+		auto& fn = (*inFiles_)[currentInFile_];
+		fileInput_.reset(new std::ifstream{ fn });
+		if (fileInput_->bad()) {
+			return JPPS_INVALID_PARAMETER << "failed to open output file: " << fn;
+		}
+		input_ = fileInput_.get();
+		currentInputFilename_ = fn;
+		currentInFile_ += 1;
+		return Status::Ok();
+	}
+
+	Status nextInput() {
+		if (*input_) {
+			JPP_RETURN_IF_ERROR(streamReader_->readExample(input_));
+			return Status::Ok();
+		}
+
+		if (input_->fail()) {
+			return JPPS_INVALID_STATE << "failed when reading from file: "
+				<< currentInputFilename_;
+		}
+
+		return JPPS_NOT_IMPLEMENTED << "should not reach here, it is a bug";
+	}
+
+	Status initialize(const jumandic::JumanppConf& conf,
+		const core::CoreHolder& cholder) {
+		inFiles_ = &conf.inputFiles.value();
+		if (!inFiles_->empty()) {
+			JPP_RETURN_IF_ERROR(moveToNextFile());
+		}
+		else {
+			input_ = &std::cin;
+			currentInputFilename_ = "<stdin>";
+		}
+
+		//if (conf.outputFile == "-") {
+		//	output_ = &std::cout;
+		//}
+		//else {
+		//	fileOutput_.reset(new std::ofstream{ conf.outputFile });
+		//	output_ = fileOutput_.get();
+		//}
+
+		auto inType = conf.inputType.value();
+		if (inType == jumandic::InputType::Raw) {
+			auto rdr = new core::input::PlainStreamReader{};
+			streamReader_.reset(rdr);
+			rdr->setMaxSizes(65535, 1024);
+		}
+		else {
+			auto rdr = new core::input::PexStreamReader{};
+			streamReader_.reset(rdr);
+			JPP_RETURN_IF_ERROR(rdr->initialize(cholder, '&'));
+		}
+
+		return Status::Ok();
+	}
+
+	bool hasNext() {
+		if (input_->good()) {
+			auto ch = input_->peek();
+			if (ch == std::char_traits<char>::eof()) {
+				return false;
+			}
+		}
+		while (input_->eof() && currentInFile_ < inFiles_->size()) {
+			auto s = moveToNextFile();
+			if (!s) {
+				LOG_ERROR() << s.message();
+			}
+		}
+		auto isOk = !input_->eof();
+		return isOk;
+	}
+};
+
+namespace s3d
+{
+	namespace detail
+	{
+		bool AnalyzeJapaneseMorphology_detail(const std::vector<std::string>& args, std::string& ouput)
+		{
+			ouput.clear();
+
+			const int argc = static_cast<int>(args.size());
+			std::vector<const char*> argvs;
+			for (const auto& arg : args)
+			{
+				argvs.push_back(arg.data());
+			}
+
+			//std::unique_ptr<std::ifstream> filePtr;
+
+			jumandic::JumanppConf conf;
+			Status s = jumandic::parseArgs(argc, argvs.data(), &conf);
+			if (!s) {
+				//std::cerr << s << "\n";
+				return false;
+			}
+
+			//LOG_DEBUG() << "trying to create jumanppexec with model: "
+			//	<< conf.modelFile.value()
+			//	<< " and rnnmodel=" << conf.rnnModelFile.value();
+
+			jumandic::JumanppExec exec{ conf };
+			s = exec.init();
+			if (!s.isOk()) {
+				if (conf.outputType == jumandic::OutputType::Version) {
+					exec.printFullVersion();
+					return false;
+				}
+
+				if (conf.modelFile.isDefault()) {
+					//std::cerr << "Model file was not specified\n";
+					return false;
+				}
+
+				if (conf.outputType == jumandic::OutputType::ModelInfo) {
+					exec.printModelInfo();
+					return false;
+				}
+
+				//std::cerr << "failed to load model from disk: " << s;
+				return false;
+			}
+
+			if (conf.outputType == jumandic::OutputType::Version) {
+				exec.printFullVersion();
+				return false;
+			}
+
+			if (conf.outputType == jumandic::OutputType::ModelInfo) {
+				exec.printModelInfo();
+				return true;
+			}
+
+			InputOutput io;
+
+			s = io.initialize(conf, exec.core());
+			if (!s) {
+				//std::cerr << "Failed to initialize I/O: " << s;
+				return false;
+			}
+
+			int result = 0;
+
+			while (io.hasNext()) {
+				s = io.nextInput();
+				if (!s) {
+					//std::cerr << "failed to read an example: " << s;
+					result = 1;
+					continue;
+				}
+
+				result = 0;
+
+				s = io.streamReader_->analyzeWith(exec.analyzerPtr());
+				if (!s) {
+					//std::cerr << s;
+					// *io.output_ << exec.emptyResult();
+					const auto line = exec.emptyResult();
+					ouput.append(line.char_begin(), line.char_end());
+					continue;
+				}
+
+				s = exec.format()->format(*exec.analyzerPtr(), io.streamReader_->comment());
+				if (!s) {
+					//std::cerr << s;
+				}
+				else {
+					// *io.output_ << exec.format()->result();
+					const auto line = exec.format()->result();
+					ouput.append(line.char_begin(), line.char_end());
+				}
+			}
+
+			return (result == 0);
+		}
+	}
+}
+*/
 
 /*
 U"",
