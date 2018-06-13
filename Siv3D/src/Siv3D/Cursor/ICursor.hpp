@@ -62,8 +62,12 @@ namespace s3d
 
 		virtual void clip(const Optional<Rect>& rect) = 0;
 
-		virtual void setStyle(CursorStyle style) = 0;
+		virtual void requestStyle(CursorStyle style) = 0;
 
-		virtual CursorStyle getStyle() = 0;
+		virtual void setDefaultStyle(CursorStyle style) = 0;
+
+		virtual CursorStyle getRequestedStyle() = 0;
+
+		virtual CursorStyle getDefaultStyle() = 0;
 	};
 }

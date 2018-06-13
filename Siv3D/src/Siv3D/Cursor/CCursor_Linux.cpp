@@ -201,12 +201,23 @@ namespace s3d
 		// OpenSiv3D for Linux doesn't support Cursor::Clip()
 	}
 
-	void CCursor_Linux::setStyle(CursorStyle style)
+	void CCursor_macOS::requestStyle(const CursorStyle style)
 	{
 		// [Siv3D ToDo]
 	}
 
-	CursorStyle CCursor_Linux::getStyle()
+	void CCursor_macOS::setDefaultStyle(const CursorStyle style)
+	{
+		// [Siv3D ToDo]
+	}
+
+	CursorStyle CCursor_macOS::getRequestedStyle()
+	{
+		// [Siv3D ToDo]
+		return CursorStyle::Default;
+	}
+
+	CursorStyle CCursor_macOS::getDefaultStyle()
 	{
 		// [Siv3D ToDo]
 		return CursorStyle::Default;

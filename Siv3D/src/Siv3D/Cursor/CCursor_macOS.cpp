@@ -83,11 +83,8 @@ namespace s3d
 		m_client_transformed.previous = m_client_transformedF.previous.asPoint();
 		m_client_transformed.current = m_client_transformedF.current.asPoint();
 		m_client_transformed.delta = m_client_transformedF.delta.asPoint();
-		
-		if (Window::ClientRect().intersects(m_client_raw.current) && m_curerntCursorStyle != CursorStyle::Default)
-		{
-			detail::CursorSetStyle_macOS(m_curerntCursorStyle);
-		}
+
+		updateCursorStyle();
 	}
 
 	const CursorState<Point>& CCursor_macOS::screen() const
@@ -212,21 +209,39 @@ namespace s3d
 		m_clipRect = rect;
 	}
 
-	void CCursor_macOS::setStyle(CursorStyle style)
+	void CCursor_macOS::requestStyle(const CursorStyle style)
 	{
-		if (style == m_curerntCursorStyle)
-		{
-			return;
-		}
-		
-		detail::CursorSetStyle_macOS(style);
-		
-		m_curerntCursorStyle = style;
+		m_requestedCursorStyle = style;
 	}
 
-	CursorStyle CCursor_macOS::getStyle()
+	void CCursor_macOS::setDefaultStyle(const CursorStyle style)
 	{
-		return m_curerntCursorStyle;
+		m_defaultCursorStyle = style;
+	}
+
+	CursorStyle CCursor_macOS::getRequestedStyle()
+	{
+		return m_requestedCursorStyle;
+	}
+
+	CursorStyle CCursor_macOS::getDefaultStyle()
+	{
+		return m_defaultCursorStyle;
+	}
+
+	void CCursor_macOS::updateCursorStyle()
+	{
+		if (Window::ClientRect().intersects(m_client_raw.current))
+		{
+			if (m_curerntCursorStyle != m_requestedCursorStyle)
+			{
+				m_curerntCursorStyle = m_requestedCursorStyle;
+
+				detail::CursorSetStyle_macOS(m_curerntCursorStyle);
+			}
+		}
+
+		m_requestedCursorStyle = m_defaultCursorStyle;
 	}
 }
 

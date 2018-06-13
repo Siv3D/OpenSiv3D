@@ -126,14 +126,24 @@ namespace s3d
 			Siv3DEngine::GetCursor()->clipClientRect(clip);
 		}
 
-		void SetStyle(const CursorStyle style)
+		void RequestStyle(const CursorStyle style)
 		{
-			Siv3DEngine::GetCursor()->setStyle(style);
+			Siv3DEngine::GetCursor()->requestStyle(style);
 		}
 
-		CursorStyle GetStyle()
+		void SetDefaultStyle(const CursorStyle style)
 		{
-			return Siv3DEngine::GetCursor()->getStyle();
+			Siv3DEngine::GetCursor()->setDefaultStyle(style);
+		}
+
+		CursorStyle GetRequestedStyle()
+		{
+			return Siv3DEngine::GetCursor()->getRequestedStyle();
+		}
+
+		CursorStyle GetDefaultStyle()
+		{
+			return Siv3DEngine::GetCursor()->getDefaultStyle();
 		}
 	}
 
