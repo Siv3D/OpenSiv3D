@@ -22,17 +22,17 @@ namespace s3d
 
 		constexpr int32 MaxCompressionLevel = 22;
 
-		ByteArray Compress(ByteArrayView view, int32 compressionLevel = DefaultCompressionLevel);
+		[[nodiscard]] ByteArray Compress(ByteArrayView view, int32 compressionLevel = DefaultCompressionLevel);
 
-		ByteArray CompressFile(const FilePath& path, int32 compressionLevel = DefaultCompressionLevel);
+		[[nodiscard]] ByteArray CompressFile(const FilePath& path, int32 compressionLevel = DefaultCompressionLevel);
 
 		bool CompressToFile(ByteArrayView view, const FilePath& outputPath, int32 compressionLevel = DefaultCompressionLevel);
 
 		bool CompressFileToFile(const FilePath& inputPath, const FilePath& outputPath, int32 compressionLevel = DefaultCompressionLevel);
 
-		ByteArray Decompress(ByteArrayView view);
+		[[nodiscard]] ByteArray Decompress(ByteArrayView view);
 
-		ByteArray DecompressFile(const FilePath& path);
+		[[nodiscard]] ByteArray DecompressFile(const FilePath& path);
 
 		bool DecompressToFile(ByteArrayView view, const FilePath& outputPath);
 

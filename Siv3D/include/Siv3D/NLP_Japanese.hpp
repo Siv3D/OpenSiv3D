@@ -83,13 +83,13 @@ namespace s3d
 
 				Array<std::unique_ptr<Morpheme>> options;
 
-				explicit operator bool() const noexcept
+				[[nodiscard]] explicit operator bool() const noexcept
 				{
 					return !surface.isEmpty();
 				}
 			};
 
-			Array<Morpheme> AnalyzeMorphology(const String& text, const FilePath& modelPath = U"nlp/japanese/jumanpp/jumandic.jppmdl");
+			[[nodiscard]] Array<Morpheme> AnalyzeMorphology(const String& text, const FilePath& modelPath = U"nlp/japanese/jumanpp/jumandic.jppmdl");
 		}
 	}
 }

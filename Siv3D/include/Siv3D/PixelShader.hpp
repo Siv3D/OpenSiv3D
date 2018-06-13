@@ -48,18 +48,18 @@ namespace s3d
 
 		bool isEmpty() const;
 
-		explicit operator bool() const
+		[[nodiscard]] explicit operator bool() const
 		{
 			return !isEmpty();
 		}
 
-		IDType id() const;
+		[[nodiscard]] IDType id() const;
 
-		bool operator ==(const PixelShader& shader) const;
+		[[nodiscard]] bool operator ==(const PixelShader& shader) const;
 
-		bool operator !=(const PixelShader& shader) const;
+		[[nodiscard]] bool operator !=(const PixelShader& shader) const;
 
-		ByteArrayView getBinaryView() const;
+		[[nodiscard]] ByteArrayView getBinaryView() const;
 	};
 
 	using PixelShaderID = PixelShader::IDType;

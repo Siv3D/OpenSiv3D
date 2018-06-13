@@ -62,13 +62,13 @@ namespace s3d
 
 		JSONArrayIterator operator++(int);
 
-		JSONArrayIterator operator +(size_t index) const;
+		[[nodiscard]] JSONArrayIterator operator +(size_t index) const;
 
-		JSONValue operator *() const;
+		[[nodiscard]] JSONValue operator *() const;
 
-		bool operator ==(const JSONArrayIterator& other) const noexcept;
+		[[nodiscard]] bool operator ==(const JSONArrayIterator& other) const noexcept;
 
-		bool operator !=(const JSONArrayIterator& other) const noexcept;
+		[[nodiscard]] bool operator !=(const JSONArrayIterator& other) const noexcept;
 	};
 
 	class JSONObjectIterator
@@ -87,11 +87,11 @@ namespace s3d
 
 		JSONObjectIterator operator ++(int);
 
-		JSONObjectMember operator *() const;
+		[[nodiscard]] JSONObjectMember operator *() const;
 
-		bool operator ==(const JSONObjectIterator& other) const noexcept;
+		[[nodiscard]] bool operator ==(const JSONObjectIterator& other) const noexcept;
 
-		bool operator !=(const JSONObjectIterator& other) const noexcept;
+		[[nodiscard]] bool operator !=(const JSONObjectIterator& other) const noexcept;
 	};
 
 	class JSONArrayView
@@ -110,17 +110,17 @@ namespace s3d
 			: m_begin(begin)
 			, m_end(end) {}
 
-		JSONArrayIterator begin() const
+		[[nodiscard]] JSONArrayIterator begin() const
 		{
 			return m_begin;
 		}
 
-		JSONArrayIterator end() const
+		[[nodiscard]] JSONArrayIterator end() const
 		{
 			return m_end;
 		}
 
-		JSONValue operator [](size_t index) const;
+		[[nodiscard]] JSONValue operator [](size_t index) const;
 	};
 
 	class JSONObjectView
@@ -139,12 +139,12 @@ namespace s3d
 			: m_begin(begin)
 			, m_end(end) {}
 
-		JSONObjectIterator begin() const
+		[[nodiscard]] JSONObjectIterator begin() const
 		{
 			return m_begin;
 		}
 
-		JSONObjectIterator end() const
+		[[nodiscard]] JSONObjectIterator end() const
 		{
 			return m_end;
 		}
@@ -171,29 +171,29 @@ namespace s3d
 
 		explicit JSONValue(const detail::JSONValueDetail& value);
 
-		JSONValue operator [](const String& path) const;
+		[[nodiscard]] JSONValue operator [](const String& path) const;
 
 		template <class Type>
-		Type get() const
+		[[nodiscard]] Type get() const
 		{
 			return getOpt<Type>().value_or(Type());
 		}
 
 		template <class Type, class U>
-		Type getOr(U&& defaultValue) const
+		[[nodiscard]] Type getOr(U&& defaultValue) const
 		{
 			return getOpt<Type>().value_or(std::forward<U>(defaultValue));
 		}
 
 		template <class Type>
-		Optional<Type> getOpt() const
+		[[nodiscard]] Optional<Type> getOpt() const
 		{
 			return getOpt_<Type>();
 		}
 		
-		bool isEmpty() const;
+		[[nodiscard]] bool isEmpty() const;
 
-		explicit operator bool() const
+		[[nodiscard]] explicit operator bool() const
 		{
 			return !isEmpty();
 		}
@@ -205,32 +205,32 @@ namespace s3d
 
 		JSONValueType getType() const;
 
-		bool isNull() const
+		[[nodiscard]] bool isNull() const
 		{
 			return getType() == JSONValueType::Null;
 		}
 
-		bool isBool() const
+		[[nodiscard]] bool isBool() const
 		{
 			return getType() == JSONValueType::Bool;
 		}
 
-		bool isObject() const
+		[[nodiscard]] bool isObject() const
 		{
 			return getType() == JSONValueType::Object;
 		}
 
-		bool isArray() const
+		[[nodiscard]] bool isArray() const
 		{
 			return getType() == JSONValueType::Array;
 		}
 
-		bool isString() const
+		[[nodiscard]] bool isString() const
 		{
 			return getType() == JSONValueType::String;
 		}
 
-		bool isNumber() const
+		[[nodiscard]] bool isNumber() const
 		{
 			return getType() == JSONValueType::Number;
 		}
@@ -240,23 +240,23 @@ namespace s3d
 		//	Object
 		//
 
-		size_t memberCount() const;
+		[[nodiscard]] size_t memberCount() const;
 
-		bool hasMember(const String& name) const;
+		[[nodiscard]] bool hasMember(const String& name) const;
 
-		JSONObjectView objectView() const;
+		[[nodiscard]] JSONObjectView objectView() const;
 
 		////////////////////////////////
 		//
 		//	Array
 		//
 
-		size_t arrayCount() const;
+		[[nodiscard]] size_t arrayCount() const;
 
-		JSONArrayView arrayView() const;
+		[[nodiscard]] JSONArrayView arrayView() const;
 
 		template <class Type>
-		Array<Type> getArray() const
+		[[nodiscard]] Array<Type> getArray() const
 		{
 			Array<Type> result;
 
@@ -273,7 +273,7 @@ namespace s3d
 		//	String
 		//
 
-		String getString() const;
+		[[nodiscard]] String getString() const;
 	};
 	
 	template <>
@@ -340,9 +340,9 @@ namespace s3d
 
 		void close();
 
-		bool isOpend() const;
+		[[nodiscard]] bool isOpend() const;
 
-		explicit operator bool() const
+		[[nodiscard]] explicit operator bool() const
 		{
 			return isOpend();
 		}

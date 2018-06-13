@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include "Array.hpp"
 # include "KeyConjunction.hpp"
 
 namespace s3d
@@ -62,25 +63,25 @@ namespace s3d
 			return *this;
 		}
 
-		bool down() const
+		[[nodiscard]] bool down() const
 		{
 			return m_keys.any([](const Key& k) { return k.down(); })
 				|| m_keyConjunctions.any([](const KeyConjunction& c) { return c.down(); });
 		}
 
-		bool pressed() const
+		[[nodiscard]] bool pressed() const
 		{
 			return m_keys.any([](const Key& k) { return k.pressed(); })
 				|| m_keyConjunctions.any([](const KeyConjunction& c) { return c.pressed(); });
 		}
 
-		bool up() const
+		[[nodiscard]] bool up() const
 		{
 			return m_keys.any([](const Key& k) { return k.up(); })
 				|| m_keyConjunctions.any([](const KeyConjunction& c) { return c.up(); });
 		}
 
-		int32 num_pressed() const
+		[[nodiscard]] int32 num_pressed() const
 		{
 			int32 num = 0;
 
@@ -97,7 +98,7 @@ namespace s3d
 			return num;
 		}
 
-		Duration pressedDuration() const
+		[[nodiscard]] Duration pressedDuration() const
 		{
 			Duration duration(0);
 
@@ -114,73 +115,73 @@ namespace s3d
 			return duration;
 		}
 
-		const Array<Key>& keys() const
+		[[nodiscard]] const Array<Key>& keys() const
 		{
 			return m_keys;
 		}
 
-		const Array<KeyConjunction>& keyConjunctions() const
+		[[nodiscard]] const Array<KeyConjunction>& keyConjunctions() const
 		{
 			return m_keyConjunctions;
 		}
 
-		String name() const
+		[[nodiscard]] String name() const
 		{
 			return m_keys.join(U"|") + m_keyConjunctions.join(U"|");
 		}
 	};
 
-	inline KeyGroup operator |(const Key& key1, const Key& key2)
+	[[nodiscard]] inline KeyGroup operator |(const Key& key1, const Key& key2)
 	{
 		return KeyGroup(key1, key2);
 	}
 
-	inline KeyGroup operator |(const Key& key1, const KeyConjunction& key2)
+	[[nodiscard]] inline KeyGroup operator |(const Key& key1, const KeyConjunction& key2)
 	{
 		return KeyGroup(key1, key2);
 	}
 
-	inline KeyGroup operator |(const Key& key1, const KeyGroup& key2)
+	[[nodiscard]] inline KeyGroup operator |(const Key& key1, const KeyGroup& key2)
 	{
 		return KeyGroup(key1, key2);
 	}
 
-	inline KeyGroup operator |(const KeyConjunction& key1, const Key& key2)
+	[[nodiscard]] inline KeyGroup operator |(const KeyConjunction& key1, const Key& key2)
 	{
 		return KeyGroup(key1, key2);
 	}
 
-	inline KeyGroup operator |(const KeyConjunction& key1, const KeyConjunction& key2)
+	[[nodiscard]] inline KeyGroup operator |(const KeyConjunction& key1, const KeyConjunction& key2)
 	{
 		return KeyGroup(key1, key2);
 	}
 
-	inline KeyGroup operator |(const KeyConjunction& key1, const KeyGroup& key2)
+	[[nodiscard]] inline KeyGroup operator |(const KeyConjunction& key1, const KeyGroup& key2)
 	{
 		return KeyGroup(key1, key2);
 	}
 
-	inline KeyGroup operator |(const KeyGroup& key1, const Key& key2)
+	[[nodiscard]] inline KeyGroup operator |(const KeyGroup& key1, const Key& key2)
 	{
 		return KeyGroup(key1, key2);
 	}
 
-	inline KeyGroup operator |(const KeyGroup& key1, const KeyConjunction& key2)
+	[[nodiscard]] inline KeyGroup operator |(const KeyGroup& key1, const KeyConjunction& key2)
 	{
 		return KeyGroup(key1, key2);
 	}
 
-	inline KeyGroup operator |(const KeyGroup& key1, const KeyGroup& key2)
+	[[nodiscard]] inline KeyGroup operator |(const KeyGroup& key1, const KeyGroup& key2)
 	{
 		return KeyGroup(key1, key2);
 	}
 
-	inline bool operator ==(const KeyGroup& group1, const KeyGroup& group2)
+	[[nodiscard]] inline bool operator ==(const KeyGroup& group1, const KeyGroup& group2)
 	{
 		return group1.keys() == group2.keys() && group1.keyConjunctions() == group2.keyConjunctions();
 	}
 
-	inline bool operator !=(const KeyGroup& group1, const KeyGroup& group2)
+	[[nodiscard]] inline bool operator !=(const KeyGroup& group1, const KeyGroup& group2)
 	{
 		return group1.keys() != group2.keys() || group1.keyConjunctions() != group2.keyConjunctions();
 	}

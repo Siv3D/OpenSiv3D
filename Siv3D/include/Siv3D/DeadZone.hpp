@@ -83,12 +83,12 @@ namespace s3d
 		/// <remarks>
 		/// { 0.0, 1.0, DeadZoneType::None }
 		/// </remarks>
-		static constexpr DeadZone Disabled()
+		[[nodiscard]] static constexpr DeadZone Disabled()
 		{
 			return DeadZone{ 0.0, 1.0, DeadZoneType::None };
 		}
 
-		double apply(double value) const;
+		[[nodiscard]] double apply(double value) const;
 
 		void apply(double& x, double& y) const;
 	};

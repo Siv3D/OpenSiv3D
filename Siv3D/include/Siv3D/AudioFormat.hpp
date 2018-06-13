@@ -97,10 +97,10 @@ namespace s3d
 
 	namespace AudioProcessing
 	{
-		AudioFormat GetFormat(const FilePath& path);
+		[[nodiscard]] AudioFormat GetFormat(const FilePath& path);
 
-		AudioFormat GetFormat(const IReader& reader);
+		[[nodiscard]] AudioFormat GetFormat(const IReader& reader);
 
-		AudioFormat GetFormatFromFilePath(const FilePath& path);
+		[[nodiscard]] AudioFormat GetFormatFromFilePath(const FilePath& path);
 	}
 }

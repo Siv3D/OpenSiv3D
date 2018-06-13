@@ -31,7 +31,7 @@ namespace s3d
 
 		void AddLicense(const LicenseInfo& license);
 
-		const Array<LicenseInfo>& EnumLicenses();
+		[[nodiscard]] const Array<LicenseInfo>& EnumLicenses();
 
 		void ShowInBrowser();
 	}

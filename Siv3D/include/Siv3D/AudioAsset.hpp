@@ -134,7 +134,7 @@ namespace s3d
 
 		static bool Register(const AssetName& name, const AudioAssetData& data);
 
-		static bool IsRegistered(const AssetName& name);
+		[[nodiscard]] static bool IsRegistered(const AssetName& name);
 
 		static bool Preload(const AssetName& name);
 
@@ -154,6 +154,6 @@ namespace s3d
 
 		static void UnregisterAll();
 
-		static bool IsReady(const AssetName& name);
+		[[nodiscard]] static bool IsReady(const AssetName& name);
 	};
 }

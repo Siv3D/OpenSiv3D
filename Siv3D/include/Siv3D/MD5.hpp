@@ -24,11 +24,11 @@ namespace s3d
 	{
 		std::array<uint8, 16> value;
 
-		String asString() const;
+		[[nodiscard]] String asString() const;
 
-		bool operator == (const MD5Value& other) const noexcept;
+		[[nodiscard]] bool operator == (const MD5Value& other) const noexcept;
 
-		bool operator != (const MD5Value& other) const noexcept;
+		[[nodiscard]] bool operator != (const MD5Value& other) const noexcept;
 	};
 
 	/// <summary>

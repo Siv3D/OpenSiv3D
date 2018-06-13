@@ -31,7 +31,7 @@ namespace s3d
 		/// 線形補間した結果を返します。
 		/// </summary>
 		template <class T, class U, class V>
-		constexpr auto Lerp(const T& v1, const U& v2, V f)
+		[[nodiscard]] constexpr auto Lerp(const T& v1, const U& v2, V f)
 		{
 			if constexpr(s3d::detail::HasLerp_v<T>)
 			{

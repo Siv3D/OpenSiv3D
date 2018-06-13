@@ -361,7 +361,7 @@ namespace s3d
 		/// <summary>
 		/// スクリプトが空かどうかを示します。
 		/// </summary>
-		bool isEmpty() const;
+		[[nodiscard]] bool isEmpty() const;
 
 		/// <summary>
 		/// スクリプトが空ではないかを返します。
@@ -369,7 +369,7 @@ namespace s3d
 		/// <returns>
 		/// スクリプトが空ではない場合 true, それ以外の場合は false
 		/// </returns>
-		explicit operator bool() const
+		[[nodiscard]] explicit operator bool() const
 		{
 			return !isEmpty();
 		}
@@ -377,7 +377,7 @@ namespace s3d
 		/// <summary>
 		/// スクリプトハンドルの ID を示します。
 		/// </summary>
-		IDType id() const;
+		[[nodiscard]] IDType id() const;
 
 		/// <summary>
 		/// 2 つの Script が同じかどうかを返します。
@@ -388,7 +388,7 @@ namespace s3d
 		/// <returns>
 		/// 2 つの Script が同じ場合 true, それ以外の場合は false
 		/// </returns>
-		bool operator ==(const Script& script) const;
+		[[nodiscard]] bool operator ==(const Script& script) const;
 
 		/// <summary>
 		/// 2 つの Script が異なるかどうかを返します。
@@ -399,10 +399,10 @@ namespace s3d
 		/// <returns>
 		/// 2 つの Script が異なる場合 true, それ以外の場合は false
 		/// </returns>
-		bool operator !=(const Script& script) const;
+		[[nodiscard]] bool operator !=(const Script& script) const;
 
 		template <class Fty>
-		auto getFunction(const String& decl) const
+		[[nodiscard]] auto getFunction(const String& decl) const
 		{
 			const auto func = isEmpty() ? nullptr : _getFunction(decl);
 
@@ -416,6 +416,6 @@ namespace s3d
 
 	namespace ScriptManager
 	{
-		AngelScript::asIScriptEngine* GetEngine();
+		[[nodiscard]] AngelScript::asIScriptEngine* GetEngine();
 	}
 }

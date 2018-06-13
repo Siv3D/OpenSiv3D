@@ -270,7 +270,7 @@ namespace s3d
 
 		// drawArray
 
-		Polygon calculateBuffer(double distance, uint32 quality = 24, bool isClosed = false) const;
+		[[nodiscard]] Polygon calculateBuffer(double distance, uint32 quality = 24, bool isClosed = false) const;
 	};
 }
 

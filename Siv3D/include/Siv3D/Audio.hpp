@@ -111,7 +111,7 @@ namespace s3d
 		/// <summary>
 		/// オーディオが空かどうかを示します。
 		/// </summary>
-		bool isEmpty() const;
+		[[nodiscard]] bool isEmpty() const;
 
 		/// <summary>
 		/// オーディオが空ではないかを返します。
@@ -119,20 +119,20 @@ namespace s3d
 		/// <returns>
 		/// オーディオが空ではない場合 true, それ以外の場合は false
 		/// </returns>
-		explicit operator bool() const
+		[[nodiscard]] explicit operator bool() const
 		{
 			return !isEmpty();
 		}
 
-		IDType id() const;
+		[[nodiscard]] IDType id() const;
 
-		bool operator ==(const Audio& audio) const;
+		[[nodiscard]] bool operator ==(const Audio& audio) const;
 
-		bool operator !=(const Audio& audio) const;
+		[[nodiscard]] bool operator !=(const Audio& audio) const;
 
-		uint32 samplingRate() const;
+		[[nodiscard]] uint32 samplingRate() const;
 
-		size_t samples() const;
+		[[nodiscard]] size_t samples() const;
 
 		void setLoop(bool loop);
 
@@ -157,32 +157,32 @@ namespace s3d
 		/// <summary>
 		/// サウンドが再生中であるかを返します。
 		/// </summary>
-		bool isPlaying() const;
+		[[nodiscard]] bool isPlaying() const;
 
 		/// <summary>
 		/// サウンドが一時停止中であるかを返します。
 		/// </summary>
-		bool isPaused() const;
+		[[nodiscard]] bool isPaused() const;
 
 		/// <summary>
 		/// 再生位置（サンプル）を返します。
 		/// </summary>
-		int64 posSample() const;
+		[[nodiscard]] int64 posSample() const;
 
 		/// <summary>
 		/// 再生バッファに送信済みのサウンドの位置（サンプル）を返します。
 		/// </summary>
-		int64 streamPosSample() const;
+		[[nodiscard]] int64 streamPosSample() const;
 
 		/// <summary>
 		/// ループを含めた再生済みのサンプル数を返します。
 		/// </summary>
-		int64 samplesPlayed() const;
+		[[nodiscard]] int64 samplesPlayed() const;
 
 		/// <summary>
 		/// サウンドの長さ（秒）を返します。
 		/// </summary>
-		double lengthSec() const;
+		[[nodiscard]] double lengthSec() const;
 
 		/// <summary>
 		/// 波形データにアクセスします。
@@ -190,7 +190,7 @@ namespace s3d
 		/// <returns>
 		/// サウンドの波形データへの参照
 		/// </returns>
-		const Wave& getWave() const;
+		[[nodiscard]] const Wave& getWave() const;
 
 		/// <summary>
 		/// 音量を変更します。
@@ -201,10 +201,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void setVolume(double volume) const
-		{
-			setVolumeLR(volume, volume);
-		}
+		void setVolume(double volume) const;
 
 		/// <summary>
 		/// 音量を変更します。
@@ -236,10 +233,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void setVolume_dB(double attenuation_dB) const
-		{
-			setVolumeLR_dB(attenuation_dB, attenuation_dB);
-		}
+		void setVolume_dB(double attenuation_dB) const;
 
 		/// <summary>
 		/// 音量を減衰レベル（dB）で設定します。
@@ -253,22 +247,17 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void setVolumeLR_dB(double attenuationLeft_dB, double attenuationRight_dB) const
-		{
-			const double left = std::pow(10.0, attenuationLeft_dB / 20.0);
-			const double right = std::pow(10.0, attenuationRight_dB / 20.0);
-			setVolumeLR(left, right);
-		}
+		void setVolumeLR_dB(double attenuationLeft_dB, double attenuationRight_dB) const;
 
 		void setSpeed(double speed) const;
 
 		void setSpeedBySemitone(int32 semitone) const;
 
-		double getSpeed() const;
+		[[nodiscard]] double getSpeed() const;
 
-		double getMinSpeed() const;
+		[[nodiscard]] double getMinSpeed() const;
 
-		double getMaxSpeed() const;
+		[[nodiscard]] double getMaxSpeed() const;
 	};
 
 	using AudioID = Audio::IDType;

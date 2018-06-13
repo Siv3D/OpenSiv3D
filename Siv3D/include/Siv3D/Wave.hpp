@@ -138,7 +138,7 @@ namespace s3d
 
 		Wave(uint8 instrumrnt, uint8 key, const Duration& duration, double velocity = 1.0, Arg::samplingRate_<uint32> samplingRate = Arg::samplingRate_<uint32>(DefaultSamplingRate));
 
-		uint32 samplingRate() const noexcept
+		[[nodiscard]] uint32 samplingRate() const noexcept
 		{
 			return m_samplingRate;
 		}
@@ -148,17 +148,17 @@ namespace s3d
 			m_samplingRate = samplingRate;
 		}
 		
-		size_t samples() const noexcept
+		[[nodiscard]] size_t samples() const noexcept
 		{
 			return size();
 		}
 
-		size_t lengthSample() const noexcept
+		[[nodiscard]] size_t lengthSample() const noexcept
 		{
 			return size();
 		}
 
-		double lengthSec() const noexcept
+		[[nodiscard]] double lengthSec() const noexcept
 		{
 			return static_cast<double>(size()) / m_samplingRate;
 		}

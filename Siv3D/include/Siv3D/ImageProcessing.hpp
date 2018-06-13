@@ -62,7 +62,7 @@ namespace s3d
 		/// <returns>
 		/// 輪郭から構成された Polygon
 		/// </returns>
-		Polygon FindExternalContour(const Image& image, bool useAlpha = false, uint32 threshold = 127);
+		[[nodiscard]] Polygon FindExternalContour(const Image& image, bool useAlpha = false, uint32 threshold = 127);
 
 		/// <summary>
 		/// 画像から輪郭を抽出します。
@@ -79,7 +79,7 @@ namespace s3d
 		/// <returns>
 		/// 輪郭から構成された Polygon の Array
 		/// </returns>
-		MultiPolygon FindExternalContours(const Image& image, bool useAlpha = false, uint32 threshold = 127);
+		[[nodiscard]] MultiPolygon FindExternalContours(const Image& image, bool useAlpha = false, uint32 threshold = 127);
 
 		/// <summary>
 		/// 画像から穴を含む最大の輪郭を抽出します。
@@ -96,7 +96,7 @@ namespace s3d
 		/// <returns>
 		/// 輪郭から構成された Polygon
 		/// </returns>
-		Polygon FindContour(const Image& image, bool useAlpha = false, uint32 threshold = 127);
+		[[nodiscard]] Polygon FindContour(const Image& image, bool useAlpha = false, uint32 threshold = 127);
 
 		/// <summary>
 		/// 画像から穴を含む輪郭を抽出します。
@@ -113,7 +113,7 @@ namespace s3d
 		/// <returns>
 		/// 輪郭から構成された Polygon の Array
 		/// </returns>
-		MultiPolygon FindContours(const Image& image, bool useAlpha = false, uint32 threshold = 127);
+		[[nodiscard]] MultiPolygon FindContours(const Image& image, bool useAlpha = false, uint32 threshold = 127);
 
 		void Sobel(const Image& src, Image& dst, int32 dx = 1, int32 dy = 1, int32 apertureSize = 3);
 
@@ -130,7 +130,7 @@ namespace s3d
 		// _Field_range_(0.0, 200.0) sigma_s, _Field_range_(0.0, 1.0) double sigma_r
 		void Stylization(const Image& src, Image& dst, double sigma_s = 60, double sigma_r = 0.07);
 
-		ColorF SSIM(const Image& image1, const Image& image2);
+		[[nodiscard]] ColorF SSIM(const Image& image1, const Image& image2);
 
 		void Inpaint(const Image& image, const Image& maskImage, Image& result, int32 radius = 2);
 

@@ -44,7 +44,7 @@ namespace s3d
 		/// <returns>
 		/// 現在の 2D 描画のブレンドステート
 		/// </returns>
-		BlendState GetBlendState();
+		[[nodiscard]] BlendState GetBlendState();
 
 		/// <summary>
 		/// 2D 描画のラスタライザーステートを設定します。
@@ -63,7 +63,7 @@ namespace s3d
 		/// <returns>
 		/// 現在の 2D 描画のラスタライザーステート
 		/// </returns>
-		RasterizerState GetRasterizerState();
+		[[nodiscard]] RasterizerState GetRasterizerState();
 
 
 
@@ -92,9 +92,9 @@ namespace s3d
 		/// <returns>
 		/// 現在の 2D 描画のサンプラーステート
 		/// </returns>
-		SamplerState GetSamplerState(uint32 slot);
+		[[nodiscard]] SamplerState GetSamplerState(uint32 slot);
 
-		inline SamplerState GetSamplerState()
+		[[nodiscard]] inline SamplerState GetSamplerState()
 		{
 			return GetSamplerState(0);
 		}
@@ -105,15 +105,15 @@ namespace s3d
 		/// <returns>
 		/// 現在の 2D 描画のサンプラーステート
 		/// </returns>
-		SamplerState GetSamplerState();
+		[[nodiscard]] SamplerState GetSamplerState();
 
 		void SetScissorRect(const Rect& rect);
 
-		Rect GetScissorRect();
+		[[nodiscard]] Rect GetScissorRect();
 
 		void SetViewport(const Optional<Rect>& viewport);
 
-		Optional<Rect> GetViewport();
+		[[nodiscard]] Optional<Rect> GetViewport();
 		
 		void SetTransformLocal(const Mat3x2& matrix);
 
@@ -121,11 +121,11 @@ namespace s3d
 
 		void SetTransformScreen(const Mat3x2& matrix);
 		
-		const Mat3x2& GetTransformLocal();
+		[[nodiscard]] const Mat3x2& GetTransformLocal();
 
-		const Mat3x2& GetTransformCamera();
+		[[nodiscard]] const Mat3x2& GetTransformCamera();
 
-		const Mat3x2& GetTransformScreen();
+		[[nodiscard]] const Mat3x2& GetTransformScreen();
 
 		[[nodiscard]] double GetMaxScaling();
 	}

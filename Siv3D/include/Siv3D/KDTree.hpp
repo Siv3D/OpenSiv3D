@@ -42,17 +42,17 @@ namespace s3d
 		explicit KDAdapter(const dataset_type& dataset)
 			: m_dataset(dataset) {}
 
-		size_t kdtree_get_point_count() const
+		[[nodiscard]] size_t kdtree_get_point_count() const
 		{
 			return std::size(m_dataset);
 		}
 
-		element_type kdtree_get_pt(const size_t index, const size_t dim) const
+		[[nodiscard]] element_type kdtree_get_pt(const size_t index, const size_t dim) const
 		{
 			return DatasetAdapter::GetElement(m_dataset, index, dim);
 		}
 
-		element_type kdtree_distance(const element_type* p0, const size_t index_p1, size_t) const
+		[[nodiscard]] element_type kdtree_distance(const element_type* p0, const size_t index_p1, size_t) const
 		{
 			return DatasetAdapter::DistanceSq(m_dataset, index_p1, p0);
 		}
@@ -63,7 +63,7 @@ namespace s3d
 			return false;
 		}
 
-		static const element_type* GetPointer(const point_type& point)
+		[[nodiscard]] static const element_type* GetPointer(const point_type& point)
 		{
 			return DatasetAdapter::GetPointer(point);
 		}
@@ -111,12 +111,12 @@ namespace s3d
 			m_index.freeIndex();
 		}
 
-		size_t usedMemory() const
+		[[nodiscard]] size_t usedMemory() const
 		{
 			return m_index.usedMemory();
 		}
 
-		Array<size_t> knnSearch(size_t k, const point_type& point) const
+		[[nodiscard]] Array<size_t> knnSearch(size_t k, const point_type& point) const
 		{
 			Array<size_t> results;
 
@@ -136,7 +136,7 @@ namespace s3d
 			results.resize(k);
 		}
 
-		Array<size_t> radiusSearch(const point_type& point, const element_type radius, const bool sortByDistance = false) const
+		[[nodiscard]] Array<size_t> radiusSearch(const point_type& point, const element_type radius, const bool sortByDistance = false) const
 		{
 			Array<size_t> results;
 

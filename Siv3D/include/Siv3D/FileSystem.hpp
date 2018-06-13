@@ -491,7 +491,7 @@ namespace s3d
 		/// </returns>
 		//bool MoveContents(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_Exists);
 		
-		bool IsSandBoxed();
+		[[nodiscard]] bool IsSandBoxed();
 	}
 
 	namespace win::FileSystem

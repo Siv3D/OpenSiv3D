@@ -70,7 +70,7 @@ namespace s3d
 
 		QRErrorCorrection ec = QRErrorCorrection::Low;
 
-		explicit operator bool() const
+		[[nodiscard]] explicit operator bool() const
 		{
 			return (version != 0);
 		}
@@ -117,7 +117,7 @@ namespace s3d
 
 		constexpr int32 MaxVersion = 40;
 
-		size_t CalculateCapacity(int32 version, QRMode mode, QRErrorCorrection ec);
+		[[nodiscard]] size_t CalculateCapacity(int32 version, QRMode mode, QRErrorCorrection ec);
 
 		bool EncodeNumber(QRCode& qr, StringView view, QRErrorCorrection ec = QRErrorCorrection::Low, const Optional<int32>& version = unspecified);
 

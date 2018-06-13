@@ -55,12 +55,12 @@ namespace s3d
 		/// <summary>
 		/// 使用可能なモニターの一覧を取得します。
 		/// </summary>
-		Array<Monitor> EnumerateActiveMonitors();
+		[[nodiscard]] Array<Monitor> EnumerateActiveMonitors();
 
 		/// <summary>
 		/// ウィンドウが配置されているモニターのインデックスを取得します。
 		/// </summary>
-		size_t GetCurrentMonitorIndex();
+		[[nodiscard]] size_t GetCurrentMonitorIndex();
 	}
 }
 

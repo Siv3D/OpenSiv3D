@@ -31,7 +31,7 @@ namespace s3d
 
 		explicit IPv4(const String& ipv4);
 
-		static constexpr IPv4 localhost() noexcept
+		[[nodiscard]] static constexpr IPv4 localhost() noexcept
 		{
 			return{ 127,0,0,1 };
 		}

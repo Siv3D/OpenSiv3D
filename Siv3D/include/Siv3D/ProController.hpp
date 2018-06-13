@@ -31,7 +31,7 @@ namespace s3d
 
 	public:
 
-		static bool IsProController(const detail::Gamepad_impl& gamepad)
+		[[nodiscard]] static bool IsProController(const detail::Gamepad_impl& gamepad)
 		{
 			return (gamepad.getInfo().vendorID == 0x57e) && (gamepad.getInfo().productID == 0x2009);
 		}
@@ -67,10 +67,15 @@ namespace s3d
 		
 		}
 
-		bool isConnected() const
+		[[nodiscard]] bool isConnected() const
 		{
 			return (m_isProController)
 				&& m_gamepad.isConnected();
+		}
+
+		explicit operator bool() const
+		{
+			return isConnected();
 		}
 
 		Key buttonA;
@@ -110,12 +115,12 @@ namespace s3d
 
 		Key povRight;
 
-		Optional<int32> povD8() const
+		[[nodiscard]] Optional<int32> povD8() const
 		{
 			return m_gamepad.povD8();
 		}
 		
-		Vec2 LStick() const
+		[[nodiscard]] Vec2 LStick() const
 		{
 			if (m_gamepad.axes.size() < 4)
 			{
@@ -134,7 +139,7 @@ namespace s3d
 			return v;
 		}
 
-		Vec2 RStick() const
+		[[nodiscard]] Vec2 RStick() const
 		{
 			if (m_gamepad.axes.size() < 4)
 			{

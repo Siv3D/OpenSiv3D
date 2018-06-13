@@ -53,12 +53,12 @@ namespace s3d
 
 	public:
 
-		static const char* Name()
+		[[nodiscard]] static const char* Name()
 		{
 			return Type::Name();
 		}
 
-		static constexpr uint32 BindingPoint()
+		[[nodiscard]] static constexpr uint32 BindingPoint()
 		{
 			return Type::BindingPoint();
 		}
@@ -80,22 +80,22 @@ namespace s3d
 			AlignedFree(m_data);
 		}
 
-		constexpr size_t getDataSize() const noexcept
+		[[nodiscard]] constexpr size_t getDataSize() const noexcept
 		{
 			return Size;
 		}
 
-		const float* getPtr() const
+		[[nodiscard]] const float* getPtr() const
 		{
 			return static_cast<const float*>(static_cast<const void*>(m_data));
 		}
 
-		Type& get()
+		[[nodiscard]] Type& get()
 		{
 			return *m_data;
 		}
 
-		const Type& get() const
+		[[nodiscard]] const Type& get() const
 		{
 			return *m_data;
 		}
@@ -105,27 +105,27 @@ namespace s3d
 			return m_base._internal_update(m_data, Size);
 		}
 
-		const detail::ConstantBufferBase& base() const
+		[[nodiscard]] const detail::ConstantBufferBase& base() const
 		{
 			return m_base;
 		}
 
-		Type& operator *()
+		[[nodiscard]] Type& operator *()
 		{
 			return *m_data;
 		}
 
-		const Type& operator *() const
+		[[nodiscard]] const Type& operator *() const
 		{
 			return *m_data;
 		}
 
-		Type* operator ->()
+		[[nodiscard]] Type* operator ->()
 		{
 			return m_data;
 		}
 
-		const Type* operator ->() const
+		[[nodiscard]] const Type* operator ->() const
 		{
 			return *m_data;
 		}

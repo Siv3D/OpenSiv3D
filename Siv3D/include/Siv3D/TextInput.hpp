@@ -68,9 +68,9 @@ namespace s3d
 	{
 		void DisableIME();
 
-		const Array<String>& GetCandidates();
+		[[nodiscard]] const Array<String>& GetCandidates();
 
-		std::pair<int32, int32> GetCursorIndex();
+		[[nodiscard]] std::pair<int32, int32> GetCursorIndex();
 
 		void DrawCandidateWindow(const Font& font,
 			const Vec2& basePos,

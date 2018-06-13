@@ -90,6 +90,11 @@ namespace s3d
 			return Siv3DEngine::GetXInput()->isConnected(userIndex);
 		}
 
+		XInput_impl::operator bool() const
+		{
+			return isConnected();
+		}
+
 		void XInput_impl::setLeftTriggerDeadZone(const DeadZone& deadZone)
 		{
 			return Siv3DEngine::GetXInput()->setDeadZone(userIndex, DeadZoneIndex::LefTrigger, deadZone);
