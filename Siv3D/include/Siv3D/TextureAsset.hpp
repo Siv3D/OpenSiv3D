@@ -132,6 +132,14 @@ namespace s3d
 
 		static bool Register(const AssetName& name, const FilePath& path, TextureDesc desc, const AssetParameter& parameter = AssetParameter{});
 
+		static bool Register(const AssetName& name, const Icon& icon, const AssetParameter& parameter = AssetParameter{});
+
+		static bool Register(const AssetName& name, const Icon& icon, TextureDesc desc, const AssetParameter& parameter = AssetParameter{});
+
+		static bool Register(const AssetName& name, const Emoji& emoji, const AssetParameter& parameter = AssetParameter{});
+
+		static bool Register(const AssetName& name, const Emoji& emoji, TextureDesc desc, const AssetParameter& parameter = AssetParameter{});
+
 		static bool Register(const AssetName& name, const TextureAssetData& data);
 
 		static bool IsRegistered(const AssetName& name);
