@@ -12,6 +12,7 @@
 # pragma once
 # include "Fwd.hpp"
 # include "Optional.hpp"
+# include "Array.hpp"
 # include "String.hpp"
 # include "Parse.hpp"
 
@@ -253,6 +254,19 @@ namespace s3d
 		size_t arrayCount() const;
 
 		JSONArrayView arrayView() const;
+
+		template <class Type>
+		Array<Type> getArray() const
+		{
+			Array<Type> result;
+
+			for (const auto& element : arrayView())
+			{
+				result << element.get<Type>();
+			}
+
+			return result;
+		}
 
 		////////////////////////////////
 		//
