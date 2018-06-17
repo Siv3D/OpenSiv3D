@@ -94,6 +94,8 @@ namespace s3d
 
 		void setDefaultStyle(CursorStyle style) override;
 
+		void applyStyleImmediately(CursorStyle style) override;
+
 		CursorStyle getRequestedStyle() override;
 
 		CursorStyle getDefaultStyle() override;

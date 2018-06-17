@@ -219,6 +219,13 @@ namespace s3d
 		m_defaultCursorStyle = style;
 	}
 
+	void CCursor_macOS::applyStyleImmediately(const CursorStyle style)
+	{
+		m_curerntCursorStyle = style;
+
+		detail::CursorSetStyle_macOS(style);
+	}
+
 	CursorStyle CCursor_macOS::getRequestedStyle()
 	{
 		return m_requestedCursorStyle;

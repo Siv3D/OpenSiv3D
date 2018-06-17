@@ -66,6 +66,8 @@ namespace s3d
 
 		virtual void setDefaultStyle(CursorStyle style) = 0;
 
+		virtual void applyStyleImmediately(CursorStyle style) = 0;
+
 		virtual CursorStyle getRequestedStyle() = 0;
 
 		virtual CursorStyle getDefaultStyle() = 0;

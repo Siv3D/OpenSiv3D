@@ -236,6 +236,13 @@ namespace s3d
 		m_defaultCursorStyle = style;
 	}
 
+	void CCursor_Windows::applyStyleImmediately(const CursorStyle style)
+	{
+		m_curerntCursorStyle = style;
+
+		::SetCursor(m_cursorStyles[static_cast<size_t>(style)]);
+	}
+
 	CursorStyle CCursor_Windows::getRequestedStyle()
 	{
 		return m_requestedCursorStyle;
