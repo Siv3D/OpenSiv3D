@@ -46,20 +46,20 @@ namespace s3d
 
 		void release();
 
-		bool isEmpty() const;
+		[[nodiscard]] bool isEmpty() const;
 
-		explicit operator bool() const
+		[[nodiscard]] explicit operator bool() const
 		{
 			return !isEmpty();
 		}
 
-		IDType id() const;
+		[[nodiscard]] IDType id() const;
 
-		bool operator ==(const VertexShader& shader) const;
+		[[nodiscard]] bool operator ==(const VertexShader& shader) const;
 
-		bool operator !=(const VertexShader& shader) const;
+		[[nodiscard]] bool operator !=(const VertexShader& shader) const;
 
-		ByteArrayView getBinaryView() const;
+		[[nodiscard]] ByteArrayView getBinaryView() const;
 	};
 
 	using VertexShaderID = VertexShader::IDType;

@@ -39,17 +39,17 @@ namespace s3d
 
 		void cancelConnect();
 
-		bool isConnected() const;
+		[[nodiscard]] bool isConnected() const;
 
 		void disconnect();
 
-		uint16 port() const;
+		[[nodiscard]] uint16 port() const;
 
-		bool hasError() const;
+		[[nodiscard]] bool hasError() const;
 
-		NetworkError getError() const;
+		[[nodiscard]] NetworkError getError() const;
 
-		size_t available() const;
+		[[nodiscard]] size_t available() const;
 
 		bool skip(size_t size);
 

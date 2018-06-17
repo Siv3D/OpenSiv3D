@@ -159,14 +159,14 @@ namespace s3d
 
 	namespace ImageProcessing
 	{
-		ImageFormat GetFormat(const FilePath& path);
+		[[nodiscard]] ImageFormat GetFormat(const FilePath& path);
 
-		ImageFormat GetFormat(const IReader& reader);
+		[[nodiscard]] ImageFormat GetFormat(const IReader& reader);
 
-		ImageFormat GetFormatFromFilePath(const FilePath& path);
+		[[nodiscard]] ImageFormat GetFormatFromFilePath(const FilePath& path);
 
-		Size GetSize(const FilePath& path);
+		[[nodiscard]] Size GetSize(const FilePath& path);
 
-		Size GetSize(const IReader& reader);
+		[[nodiscard]] Size GetSize(const IReader& reader);
 	}
 }

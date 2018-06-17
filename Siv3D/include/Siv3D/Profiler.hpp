@@ -35,10 +35,10 @@ namespace s3d
 		/// <returns>
 		/// フレームレート
 		/// </returns>
-		int32 FPS();
+		[[nodiscard]] int32 FPS();
 
 		void EnableAssetCreationWarning(bool enabled);
 
-		Statistics GetStatistics();
+		[[nodiscard]] Statistics GetStatistics();
 	}
 }

@@ -110,7 +110,7 @@ namespace s3d
 
 	namespace CPU
 	{
-		const CPUFeature& GetFeature();
+		[[nodiscard]] const CPUFeature& GetFeature();
 
 		void SetFeature(const CPUFeature& feature);
 	}

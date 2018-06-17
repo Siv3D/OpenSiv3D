@@ -12,6 +12,8 @@
 # include "../Siv3DEngine.hpp"
 # include "../Asset/IAsset.hpp"
 # include <Siv3D/TextureAsset.hpp>
+# include <Siv3D/Icon.hpp>
+# include <Siv3D/Emoji.hpp>
 
 namespace s3d
 {
@@ -59,6 +61,34 @@ namespace s3d
 	bool TextureAsset::Register(const AssetName& name, const FilePath& path, TextureDesc desc, const AssetParameter& parameter)
 	{
 		return Siv3DEngine::GetAsset()->registerAsset(AssetType::Texture, name, std::make_unique<TextureAssetData>(path, desc, parameter));
+	}
+
+	bool TextureAsset::Register(const AssetName& name, const Icon& icon, const AssetParameter& parameter)
+	{
+		return Register(name, icon, TextureDesc::Unmipped, parameter);
+	}
+
+	bool TextureAsset::Register(const AssetName& name, const Icon& icon, const TextureDesc desc, const AssetParameter& parameter)
+	{
+		return Register(name, TextureAssetData(FilePath(), desc, parameter,
+			[=](TextureAssetData& a) { a.texture = Texture(icon, a.desc); return !!a.texture; },
+			TextureAssetData::DefaultUpdate,
+			TextureAssetData::DefaultRelease
+		));
+	}
+
+	bool TextureAsset::Register(const AssetName& name, const Emoji& emoji, const AssetParameter& parameter)
+	{
+		return Register(name, emoji, TextureDesc::Unmipped, parameter);
+	}
+
+	bool TextureAsset::Register(const AssetName& name, const Emoji& emoji, const TextureDesc desc, const AssetParameter& parameter)
+	{
+		return Register(name, TextureAssetData(FilePath(), desc, parameter,
+			[=](TextureAssetData& a) { a.texture = Texture(emoji, a.desc); return !!a.texture; },
+			TextureAssetData::DefaultUpdate,
+			TextureAssetData::DefaultRelease
+		));
 	}
 
 	bool TextureAsset::Register(const AssetName& name, const TextureAssetData& data)

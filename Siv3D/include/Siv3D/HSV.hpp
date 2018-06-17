@@ -121,7 +121,7 @@ namespace s3d
 		/// <returns>
 		/// 加算した結果
 		/// </returns>
-		constexpr HSV operator +(const HSV& hsv) const noexcept
+		[[nodiscard]] constexpr HSV operator +(const HSV& hsv) const noexcept
 		{
 			return{ h + hsv.h, Clamp(s + hsv.s, 0.0, 1.0), Clamp(v + hsv.v, 0.0, 1.0), a };
 		}
@@ -135,12 +135,12 @@ namespace s3d
 		/// <returns>
 		/// 減算した結果
 		/// </returns>
-		constexpr HSV operator -(const HSV& hsv) const noexcept
+		[[nodiscard]] constexpr HSV operator -(const HSV& hsv) const noexcept
 		{
 			return{ h - hsv.h, Clamp(s - hsv.s, 0.0, 1.0), Clamp(v - hsv.v, 0.0, 1.0), a };
 		}
 
-		constexpr HSV lerp(const HSV& other, const double f) const noexcept
+		[[nodiscard]] constexpr HSV lerp(const HSV& other, const double f) const noexcept
 		{
 			return{ h + (other.h - h) * f,
 					s + (other.s - s) * f,
@@ -174,7 +174,7 @@ namespace s3d
 		/// <returns>
 		/// 変換した値
 		/// </returns>
-		Color toColor() const noexcept;
+		[[nodiscard]] Color toColor() const noexcept;
 
 		/// <summary>
 		/// Color 型に変換します。
@@ -185,7 +185,7 @@ namespace s3d
 		/// <returns>
 		/// 変換した値
 		/// </returns>
-		Color toColor(const uint32 alpha) const noexcept
+		[[nodiscard]] Color toColor(const uint32 alpha) const noexcept
 		{
 			return toColor().setA(alpha);
 		}
@@ -196,7 +196,7 @@ namespace s3d
 		/// <returns>
 		/// 変換した値
 		/// </returns>
-		ColorF toColorF() const noexcept;
+		[[nodiscard]] ColorF toColorF() const noexcept;
 
 		/// <summary>
 		/// ColorF 型に変換します。
@@ -207,7 +207,7 @@ namespace s3d
 		/// <returns>
 		/// 変換した値
 		/// </returns>
-		ColorF toColorF(const double alpha) const noexcept
+		[[nodiscard]] ColorF toColorF(const double alpha) const noexcept
 		{
 			return toColorF().setA(alpha);
 		}
@@ -215,14 +215,14 @@ namespace s3d
 		/// <summary>
 		/// Vector3D{ h, s, v }
 		/// </summary>
-		Vec3 hsv() const noexcept;
+		[[nodiscard]] Vec3 hsv() const noexcept;
 
 		/// <summary>
 		/// Vector4D{ h, s, v, a }
 		/// </summary>
-		Vec4 hsva() const noexcept;
+		[[nodiscard]] Vec4 hsva() const noexcept;
 
-		size_t hash() const;
+		[[nodiscard]] size_t hash() const;
 	};
 
 	/// <summary>
@@ -234,7 +234,7 @@ namespace s3d
 	/// <returns>
 	/// 作成したカラー
 	/// </returns>
-	Color HueToColor(double hue) noexcept;
+	[[nodiscard]] Color HueToColor(double hue) noexcept;
 
 	/// <summary>
 	/// 色相から ColorF を作成します。
@@ -245,7 +245,7 @@ namespace s3d
 	/// <returns>
 	/// 作成したカラー
 	/// </returns>
-	ColorF HueToColorF(double hue) noexcept;
+	[[nodiscard]] ColorF HueToColorF(double hue) noexcept;
 }
 
 //////////////////////////////////////////////////

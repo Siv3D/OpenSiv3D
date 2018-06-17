@@ -58,25 +58,25 @@ namespace s3d
 		/// </summary>
 		~Webcam();
 
-		bool isAvailable() const;
+		[[nodiscard]] bool isAvailable() const;
 
-		explicit operator bool() const;
+		[[nodiscard]] explicit operator bool() const;
 
 		bool start();
 
 		void stop();
 
-		bool isActive() const;
+		[[nodiscard]] bool isActive() const;
 
-		size_t index() const;
+		[[nodiscard]] size_t index() const;
 
-		Size getResolution() const;
+		[[nodiscard]] Size getResolution() const;
 
 		bool setResolution(const Size& resolution);
 		
 		bool setResolution(int32 width, int32 height);
 
-		bool hasNewFrame() const;
+		[[nodiscard]] bool hasNewFrame() const;
 
 		bool getFrame(Image& image);
 
@@ -85,6 +85,6 @@ namespace s3d
 
 	namespace System
 	{
-		Array<WebcamInfo> EnumerateWebcams();
+		[[nodiscard]] Array<WebcamInfo> EnumerateWebcams();
 	}
 }

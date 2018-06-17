@@ -59,6 +59,6 @@ namespace s3d
 	namespace System
 	{
 		// macOS: 0.1ms
-		PowerStatus GetPowerStatus();
+		[[nodiscard]] PowerStatus GetPowerStatus();
 	}
 }

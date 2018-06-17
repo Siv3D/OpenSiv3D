@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -9,10 +9,12 @@
 //
 //-----------------------------------------------
 
-# pragma once
-# include "Fwd.hpp"
+# include <Siv3D/Platform.hpp>
+# if defined(SIV3D_TARGET_LINUX)
 
 namespace s3d
 {
 
 }
+
+# endif

@@ -21,9 +21,9 @@ namespace s3d
 	//
 	struct ExifInfo
 	{
-		static Optional<ExifInfo> Read(const FilePath& path);
+		[[nodiscard]] static Optional<ExifInfo> Read(const FilePath& path);
 
-		static Optional<ExifInfo> Read(const IReader& reader);
+		[[nodiscard]] static Optional<ExifInfo> Read(const IReader& reader);
 
 		String imageDescription;	// Image description
 		String make;				// Camera manufacturer's name

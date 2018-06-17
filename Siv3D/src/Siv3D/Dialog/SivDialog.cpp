@@ -9,28 +9,9 @@
 //
 //-----------------------------------------------
 
-# pragma once
-# include "Fwd.hpp"
-# include "Optional.hpp"
-# include "IPv4.hpp"
+# include <Siv3D/Dialog.hpp>
 
 namespace s3d
 {
-	enum class NetworkError
-	{
-		OK,
 
-		EoF,
-
-		NoBufferSpaceAvailable,
-
-		ConnectionRefused,
-
-		Error,
-	};
-
-	namespace Network
-	{
-		[[nodiscard]] Optional<IPv4> GetPrivateIPv4();
-	}
 }

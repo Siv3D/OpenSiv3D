@@ -99,7 +99,7 @@ namespace s3d
 		/// <returns>
 		/// ウィンドウのクライアント領域のサイズ
 		/// </returns>
-		inline s3d::Size Size()
+		[[nodiscard]] inline s3d::Size Size()
 		{
 			return GetState().clientSize;
 		}
@@ -110,7 +110,7 @@ namespace s3d
 		/// <returns>
 		/// ウィンドウのクライアント領域の中央の座標
 		/// </returns>
-		inline Point Center()
+		[[nodiscard]] inline Point Center()
 		{
 			return GetState().clientSize / 2;
 		}
@@ -121,7 +121,7 @@ namespace s3d
 		/// <returns>
 		/// ウィンドウのクライアント領域の幅(ピクセル）
 		/// </returns>
-		inline int32 Width()
+		[[nodiscard]] inline int32 Width()
 		{
 			return GetState().clientSize.x;
 		}
@@ -132,7 +132,7 @@ namespace s3d
 		/// <returns>
 		/// ウィンドウのクライアント領域の高さ(ピクセル）
 		/// </returns>
-		inline int32 Height()
+		[[nodiscard]] inline int32 Height()
 		{
 			return GetState().clientSize.y;
 		}
@@ -143,7 +143,7 @@ namespace s3d
 		/// <returns>
 		/// ウィンドウのクライアント領域と同じサイズの Rect
 		/// </returns>
-		inline Rect ClientRect()
+		[[nodiscard]] inline Rect ClientRect()
 		{
 			return Rect(GetState().clientSize);
 		}
@@ -194,24 +194,24 @@ namespace s3d
 
 		void SetBaseSize(const s3d::Size& size);
 
-		s3d::Size BaseSize();
+		[[nodiscard]] s3d::Size BaseSize();
 
-		inline Point BaseCenter()
+		[[nodiscard]] inline Point BaseCenter()
 		{
 			return BaseSize() / 2;
 		}
 
-		inline int32 BaseWidth()
+		[[nodiscard]] inline int32 BaseWidth()
 		{
 			return BaseSize().x;
 		}
 
-		inline int32 BaseHeight()
+		[[nodiscard]] inline int32 BaseHeight()
 		{
 			return BaseSize().y;
 		}
 
-		inline Rect BaseClientRect()
+		[[nodiscard]] inline Rect BaseClientRect()
 		{
 			return Rect(BaseSize());
 		}

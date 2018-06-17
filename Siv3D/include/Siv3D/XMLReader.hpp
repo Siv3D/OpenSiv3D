@@ -48,26 +48,26 @@ namespace s3d
 
 		XMLElement(const std::shared_ptr<tinyxml2::XMLDocument>& doc, const tinyxml2::XMLElement* element);
 
-		bool isNull() const;
+		[[nodiscard]] bool isNull() const;
 
-		explicit operator bool() const
+		[[nodiscard]] explicit operator bool() const
 		{
 			return !isNull();
 		}
 
-		String name() const;
+		[[nodiscard]] String name() const;
 
-		String text() const;
+		[[nodiscard]] String text() const;
 
-		XMLElement firstChild() const;
+		[[nodiscard]] XMLElement firstChild() const;
 
-		XMLElement nextSibling() const;
+		[[nodiscard]] XMLElement nextSibling() const;
 
-		XMLElement parent() const;
+		[[nodiscard]] XMLElement parent() const;
 
-		Array<std::pair<String, String>> attributes() const;
+		[[nodiscard]] Array<std::pair<String, String>> attributes() const;
 
-		Optional<String> attribute(const String& name) const;
+		[[nodiscard]] Optional<String> attribute(const String& name) const;
 	};
 
 	class XMLReader : public XMLElement
@@ -103,9 +103,9 @@ namespace s3d
 
 		void close();
 
-		bool isOpend() const;
+		[[nodiscard]] bool isOpend() const;
 
-		explicit operator bool() const
+		[[nodiscard]] explicit operator bool() const
 		{
 			return isOpend();
 		}

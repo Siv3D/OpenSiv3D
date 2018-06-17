@@ -50,7 +50,7 @@ namespace s3d
 		/// <summary>
 		/// エフェクトハンドルの ID を示します。
 		/// </summary>
-		IDType id() const;
+		[[nodiscard]] IDType id() const;
 
 		/// <summary>
 		/// 2 つの Effect が同じかどうかを返します。

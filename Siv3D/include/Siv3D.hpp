@@ -651,13 +651,13 @@
 	// Drag and Drop
 	# include "Siv3D/DragDrop.hpp"
 	
-	//// ダイアログ
-	//# include "Siv3D/Dialog.hpp"
+	// File Dialog
+	# include "Siv3D/Dialog.hpp"
 
-	// システムの電源の情報
+	// Power status
 	# include "Siv3D/PowerStatus.hpp"
 
-	// プロファイリング
+	// Profiling
 	# include "Siv3D/Profiler.hpp"
 
 //////////////////////////////////////////////////
@@ -723,7 +723,7 @@
 //
 //////////////////////////////////////////////////
 
-	// オーディオ
+	// Audio
 	# include "Siv3D/Audio.hpp"
 
 	//// サウンドの拍カウント

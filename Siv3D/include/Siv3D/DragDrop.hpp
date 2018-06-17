@@ -91,16 +91,16 @@ namespace s3d
 
 		void AcceptText(bool accept);
 
-		Optional<DragStatus> DragOver();
+		[[nodiscard]] Optional<DragStatus> DragOver();
 
-		bool HasNewFilePaths();
+		[[nodiscard]] bool HasNewFilePaths();
 
-		bool HasNewText();
+		[[nodiscard]] bool HasNewText();
 
 		void Clear();
 
-		Array<DroppedFilePath> GetDroppedFilePaths();
+		[[nodiscard]] Array<DroppedFilePath> GetDroppedFilePaths();
 
-		Array<DroppedText> GetDroppedText();
+		[[nodiscard]] Array<DroppedText> GetDroppedText();
 	}
 }

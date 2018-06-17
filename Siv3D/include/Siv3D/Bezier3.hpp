@@ -32,33 +32,33 @@ namespace s3d
 			, p2(_p2)
 			, p3(_p3) {}
 
-		constexpr Vec2 getPos(const double t) const noexcept
+		[[nodiscard]] constexpr Vec2 getPos(const double t) const noexcept
 		{
 			return (1 - t)*(1 - t)*(1 - t)*p0 + 3 * (1 - t)*(1 - t)*t*p1 + 3 * (1 - t)*t*t*p2 + t*t*t*p3;
 		}
 
-		Vec2 getTangent(const double t) const noexcept
+		[[nodiscard]] Vec2 getTangent(const double t) const noexcept
 		{
 			return (-3 * p0*(1 - t) * (1 - t) +
 				p1*(3 * (1 - t)*(1 - t) - 6 * (1 - t) *t) +
 				p2*(6 * (1 - t)*t - 3 * t * t) + 3 * p3*t * t).normalized();
 		}
 
-		LineString getLineString(const uint32 quality = 24) const
+		[[nodiscard]] LineString getLineString(const uint32 quality = 24) const
 		{
 			return getLineString(0.0, 1.0, quality);
 		}
 
-		LineString getLineString(double start, double end, uint32 quality = 24) const;
+		[[nodiscard]] LineString getLineString(double start, double end, uint32 quality = 24) const;
 
 		template <class Shape2DType>
-		bool intersects(const Shape2DType& shape) const
+		[[nodiscard]] bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
 
 		template <class Shape2DType>
-		Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
+		[[nodiscard]] Optional<Array<Vec2>> intersectsAt(const Shape2DType& shape) const
 		{
 			return Geometry2D::IntersectAt(*this, shape);
 		}
@@ -95,7 +95,7 @@ namespace s3d
 			m_t = t;
 		}
 
-		constexpr double getT() const noexcept
+		[[nodiscard]] constexpr double getT() const noexcept
 		{
 			return m_t;
 		}

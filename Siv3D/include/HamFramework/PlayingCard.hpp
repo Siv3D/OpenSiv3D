@@ -76,7 +76,7 @@ namespace s3d
 			/// <returns>
 			/// スートの文字
 			/// </returns>
-			static constexpr char32 GetSuit(const Suit suit)
+			[[nodiscard]] static constexpr char32 GetSuit(const Suit suit)
 			{
 				return U"♠♥♣♦"[static_cast<size_t>(suit)];
 			}
@@ -90,7 +90,7 @@ namespace s3d
 			/// <returns>
 			/// 番号の文字列表現
 			/// </returns>
-			static String GetRank(const int32 rank)
+			[[nodiscard]] static String GetRank(const int32 rank)
 			{
 				assert(InRange(rank, 1, 13));
 
@@ -154,7 +154,7 @@ namespace s3d
 			/// <returns>
 			/// カードが赤色のスートの場合 true, それ以外の場合は false
 			/// </returns>
-			constexpr bool isRed() const noexcept
+			[[nodiscard]] constexpr bool isRed() const noexcept
 			{
 				return suit == Heart || suit == Diamond;
 			}
@@ -165,7 +165,7 @@ namespace s3d
 			/// <returns>
 			/// カードが黒色のスートの場合 true, それ以外の場合は false
 			/// </returns>
-			constexpr bool isBlack() const noexcept
+			[[nodiscard]] constexpr bool isBlack() const noexcept
 			{
 				return suit == Spade || suit == Club;
 			}
@@ -176,7 +176,7 @@ namespace s3d
 			/// <returns>
 			/// カードのスートがスペードの場合 true, それ以外の場合は false
 			/// </returns>
-			constexpr bool isSpade() const noexcept
+			[[nodiscard]] constexpr bool isSpade() const noexcept
 			{
 				return suit == Spade;
 			}
@@ -187,7 +187,7 @@ namespace s3d
 			/// <returns>
 			/// カードのスートがハートの場合 true, それ以外の場合は false
 			/// </returns>
-			constexpr bool isHeart() const noexcept
+			[[nodiscard]] constexpr bool isHeart() const noexcept
 			{
 				return suit == Heart;
 			}
@@ -198,7 +198,7 @@ namespace s3d
 			/// <returns>
 			/// カードのスートがクローバーの場合 true, それ以外の場合は false
 			/// </returns>
-			constexpr bool isClub() const noexcept
+			[[nodiscard]] constexpr bool isClub() const noexcept
 			{
 				return suit == Club;
 			}
@@ -209,7 +209,7 @@ namespace s3d
 			/// <returns>
 			/// カードのスートがダイヤモンドの場合 true, それ以外の場合は false
 			/// </returns>
-			constexpr bool isDiamond() const noexcept
+			[[nodiscard]] constexpr bool isDiamond() const noexcept
 			{
 				return suit == Diamond;
 			}
@@ -220,7 +220,7 @@ namespace s3d
 			/// <returns>
 			/// カードがジョーカーの場合 true, それ以外の場合は false
 			/// </returns>
-			constexpr bool isJoker() const noexcept
+			[[nodiscard]] constexpr bool isJoker() const noexcept
 			{
 				return suit == Joker;
 			}
@@ -231,7 +231,7 @@ namespace s3d
 			/// <returns>
 			/// カードがエース (A) の場合 true, それ以外の場合は false
 			/// </returns>
-			constexpr bool isAce() const noexcept
+			[[nodiscard]] constexpr bool isAce() const noexcept
 			{
 				return rank == 1;
 			}
@@ -242,7 +242,7 @@ namespace s3d
 			/// <returns>
 			/// カードがジャック (J) の場合 true, それ以外の場合は false
 			/// </returns>
-			constexpr bool isJack() const noexcept
+			[[nodiscard]] constexpr bool isJack() const noexcept
 			{
 				return rank == 11;
 			}
@@ -253,7 +253,7 @@ namespace s3d
 			/// <returns>
 			/// カードがクイーン (Q) の場合 true, それ以外の場合は false
 			/// </returns>
-			constexpr bool isQueen() const noexcept
+			[[nodiscard]] constexpr bool isQueen() const noexcept
 			{
 				return rank == 12;
 			}
@@ -264,7 +264,7 @@ namespace s3d
 			/// <returns>
 			/// カードがキング (K) の場合 true, それ以外の場合は false
 			/// </returns>
-			constexpr bool isKing() const noexcept
+			[[nodiscard]] constexpr bool isKing() const noexcept
 			{
 				return rank == 13;
 			}
@@ -275,18 +275,18 @@ namespace s3d
 			/// <returns>
 			/// カードの数字が有効な範囲の場合 true, それ以外の場合は false
 			/// </returns>
-			constexpr bool isValid() const noexcept
+			[[nodiscard]] constexpr bool isValid() const noexcept
 			{
 				return InRange(rank, 1, 13) || isJoker();
 			}
 		};
 
-		inline constexpr bool operator ==(const Card& a, const Card& b) noexcept
+		[[nodiscard]] inline constexpr bool operator ==(const Card& a, const Card& b) noexcept
 		{
 			return a.rank == b.rank && a.suit == b.suit;
 		}
 
-		inline constexpr bool operator !=(const Card& a, const Card& b) noexcept
+		[[nodiscard]] inline constexpr bool operator !=(const Card& a, const Card& b) noexcept
 		{
 			return a.rank != b.rank || a.suit != b.suit;
 		}
@@ -812,7 +812,7 @@ namespace s3d
 		/// <returns>
 		/// カードに用いるフォントの大きさ
 		/// </returns>
-		constexpr inline int32 CalculateFontSize(double cardWidth) noexcept
+		[[nodiscard]] constexpr inline int32 CalculateFontSize(double cardWidth) noexcept
 		{
 			return std::max(static_cast<int32>(cardWidth * (2.0 / 3.0)), 1);
 		}
@@ -903,7 +903,7 @@ namespace s3d
 			/// <returns>
 			/// カードの描画用の情報
 			/// </returns>
-			CardInfo operator ()(Suit suit, int32 rank = 1, bool isFaceSide = Card::Front) const
+			[[nodiscard]] CardInfo operator ()(Suit suit, int32 rank = 1, bool isFaceSide = Card::Front) const
 			{
 				return operator()(Card(suit, rank, isFaceSide));
 			}
@@ -917,7 +917,7 @@ namespace s3d
 			/// <returns>
 			/// カードの描画用の情報
 			/// </returns>
-			CardInfo operator ()(const Card& card) const
+			[[nodiscard]] CardInfo operator ()(const Card& card) const
 			{
 				return CardInfo(card, m_font, m_fontLarge, m_cardSize, m_framethickness, m_backSideColor);
 			}
@@ -928,7 +928,7 @@ namespace s3d
 			/// <returns>
 			/// カードの大きさ
 			/// </returns>
-			Vec2 size() const noexcept
+			[[nodiscard]] Vec2 size() const noexcept
 			{
 				return m_cardSize;
 			}
@@ -939,7 +939,7 @@ namespace s3d
 			/// <returns>
 			/// カードの幅
 			/// </returns>
-			double width() const noexcept
+			[[nodiscard]] double width() const noexcept
 			{
 				return m_cardSize.x;
 			}
@@ -950,7 +950,7 @@ namespace s3d
 			/// <returns>
 			/// カードの高さ
 			/// </returns>
-			double height() const noexcept
+			[[nodiscard]] double height() const noexcept
 			{
 				return m_cardSize.y;
 			}
@@ -964,7 +964,7 @@ namespace s3d
 			/// <returns>
 			/// カードの領域
 			/// </returns>
-			RectF region(const Vec2& pos) const
+			[[nodiscard]] RectF region(const Vec2& pos) const
 			{
 				return RectF(pos, m_cardSize);
 			}
@@ -981,7 +981,7 @@ namespace s3d
 			/// <returns>
 			/// カードの領域
 			/// </returns>
-			Quad region(const Vec2& pos, double angle) const
+			[[nodiscard]] Quad region(const Vec2& pos, double angle) const
 			{
 				return RectF(pos, m_cardSize).rotated(angle);
 			}
@@ -995,7 +995,7 @@ namespace s3d
 			/// <returns>
 			/// カードの領域
 			/// </returns>
-			RectF regionAt(const Vec2& center) const
+			[[nodiscard]] RectF regionAt(const Vec2& center) const
 			{
 				return RectF(Arg::center = center, m_cardSize);
 			}
@@ -1012,7 +1012,7 @@ namespace s3d
 			/// <returns>
 			/// カードの領域
 			/// </returns>
-			Quad regionAt(const Vec2& center, double angle) const
+			[[nodiscard]] Quad regionAt(const Vec2& center, double angle) const
 			{
 				return RectF(Arg::center = center, m_cardSize).rotated(angle);
 			}
@@ -1034,7 +1034,7 @@ namespace s3d
 		/// <returns>
 		/// カードの山札
 		/// </returns>
-		inline Array<Card> CreateDeck(size_t num_jokers = 0, bool isFaceSide = Card::Front)
+		[[nodiscard]] inline Array<Card> CreateDeck(size_t num_jokers = 0, bool isFaceSide = Card::Front)
 		{
 			Array<Card> cards;
 

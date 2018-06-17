@@ -88,6 +88,9 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\DateTime\SivDateTime.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Date\SivDate.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DeadZone\SivDeadZone.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Dialog\SivDialog.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Dialog\SivDialog_Linux.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Dialog\SivDialog_Windows.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_Linux.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_macOS.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_Windows.cpp" />
@@ -160,6 +163,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\INIData\SivINIData.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\IntFormat\SivIntFormat.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\IPv4\SivIPv4.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\JoyCon\SivJoyCon.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\JSONReader\SivJSONReader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Keyboard\CKeyboard_Linux.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Keyboard\CKeyboard_macOS.cpp" />
@@ -529,6 +533,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\DateTime.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\DeadZone.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\DefaultRNG.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Dialog.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Distribution.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\DragDrop.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Duration.hpp" />

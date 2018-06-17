@@ -132,9 +132,17 @@ namespace s3d
 
 		static bool Register(const AssetName& name, const FilePath& path, TextureDesc desc, const AssetParameter& parameter = AssetParameter{});
 
+		static bool Register(const AssetName& name, const Icon& icon, const AssetParameter& parameter = AssetParameter{});
+
+		static bool Register(const AssetName& name, const Icon& icon, TextureDesc desc, const AssetParameter& parameter = AssetParameter{});
+
+		static bool Register(const AssetName& name, const Emoji& emoji, const AssetParameter& parameter = AssetParameter{});
+
+		static bool Register(const AssetName& name, const Emoji& emoji, TextureDesc desc, const AssetParameter& parameter = AssetParameter{});
+
 		static bool Register(const AssetName& name, const TextureAssetData& data);
 
-		static bool IsRegistered(const AssetName& name);
+		[[nodiscard]] static bool IsRegistered(const AssetName& name);
 
 		static bool Preload(const AssetName& name);
 
@@ -154,6 +162,6 @@ namespace s3d
 
 		static void UnregisterAll();
 
-		static bool IsReady(const AssetName& name);
+		[[nodiscard]] static bool IsReady(const AssetName& name);
 	};
 }

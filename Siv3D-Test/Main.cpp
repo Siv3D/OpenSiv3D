@@ -3,15 +3,37 @@
 
 void Main()
 {
+	const Array<FileFilter> filters =
+	{
+		{ U"PNG", { U"png" } },
+		{ U"JPEG", { U"jpg", U"jpeg" } },
+		{ U"BMP", { U"bmp" } },
+		//{ U"All Files", {} },
+	};
+	
 	while (System::Update())
 	{
-		const Circle circle(320, 240, 80);
-
-		circle.draw();
-
-		if (circle.mouseOver())
+		if (KeyA.down())
 		{
-			Cursor::RequestStyle(CursorStyle::Hand);
+			Print << Dialog::OpenFile(filters);
+		}
+
+		if (KeyB.down())
+		{
+			Print << Dialog::OpenFiles(filters);
+		}
+
+		if (KeyC.down())
+		{
+			Print << Dialog::SaveFile(filters);
+		}
+
+		if (KeyD.down())
+		{
+			Print << Dialog::SelectFolder();
 		}
 	}
 }
+
+
+

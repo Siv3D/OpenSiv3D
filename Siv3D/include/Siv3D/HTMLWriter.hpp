@@ -68,9 +68,9 @@ th,td{
 
 		void close();
 
-		bool isOpened() const;
+		[[nodiscard]] bool isOpened() const;
 
-		explicit operator bool() const
+		[[nodiscard]] explicit operator bool() const
 		{
 			return isOpened();
 		}
@@ -93,6 +93,6 @@ th,td{
 
 		void writeImage(const FilePath& url, const Optional<Size>& size = unspecified);
 
-		const FilePath& path() const;
+		[[nodiscard]] const FilePath& path() const;
 	};
 }

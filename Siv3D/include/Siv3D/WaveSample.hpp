@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
+# include <utility>
 # include "Fwd.hpp"
 
 namespace s3d
@@ -63,12 +64,12 @@ namespace s3d
 			std::swap(left, right);
 		}
 
-		constexpr WaveSampleS16 asS16() const noexcept
+		[[nodiscard]] constexpr WaveSampleS16 asS16() const noexcept
 		{
 			return WaveSampleS16{ static_cast<int16>(left * 32767), static_cast<int16>(right * 32767) };
 		}
 
-		static constexpr WaveSample Zero()
+		[[nodiscard]] static constexpr WaveSample Zero()
 		{
 			return{ 0.0f, 0.0f };
 		}

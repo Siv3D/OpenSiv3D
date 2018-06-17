@@ -85,6 +85,11 @@ namespace s3d
 			Siv3DEngine::GetCursor()->setPos(x, y);
 		}
 
+		void SetPos(const Point& pos)
+		{
+			SetPos(pos.x, pos.y);
+		}
+
 		bool OnClientRect()
 		{
 			return Geometry2D::Intersect(Siv3DEngine::GetCursor()->clientRaw().current,

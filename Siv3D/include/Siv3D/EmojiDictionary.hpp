@@ -27,13 +27,13 @@ namespace s3d
 	public:
 
 		EmojiDictionary();
-
+	
+		~EmojiDictionary();
+		
 		bool load(const FilePath& path);
 
-		size_t check(String::const_iterator it, const String::const_iterator& itEnd);
+		[[nodiscard]] size_t check(String::const_iterator it, const String::const_iterator& itEnd);
 
 		void clear();
-
-		~EmojiDictionary();
 	};
 }

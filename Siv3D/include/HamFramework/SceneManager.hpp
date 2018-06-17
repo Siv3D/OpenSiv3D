@@ -359,7 +359,7 @@ namespace s3d
 			}
 		}
 
-		bool hasError() const noexcept
+		[[nodiscard]] bool hasError() const noexcept
 		{
 			return m_error;
 		}

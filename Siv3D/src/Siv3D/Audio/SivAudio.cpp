@@ -344,6 +344,11 @@ namespace s3d
 		return Siv3DEngine::GetAudio()->streamPosSample(m_handle->id());
 	}
 
+	int64 Audio::samplesPlayed() const
+	{
+		return Siv3DEngine::GetAudio()->samplesPlayed(m_handle->id());
+	}
+
 	double Audio::lengthSec() const
 	{
 		return static_cast<double>(samples()) / samplingRate();
@@ -354,9 +359,9 @@ namespace s3d
 		return Siv3DEngine::GetAudio()->getWave(m_handle->id());
 	}
 
-	int64 Audio::samplesPlayed() const
+	void Audio::setVolume(const double volume) const
 	{
-		return Siv3DEngine::GetAudio()->samplesPlayed(m_handle->id());
+		setVolumeLR(volume, volume);
 	}
 
 	void Audio::setVolumeLR(const double left, const double right) const
@@ -368,6 +373,18 @@ namespace s3d
 		};
 
 		Siv3DEngine::GetAudio()->setVolume(m_handle->id(), volume);
+	}
+
+	void Audio::setVolume_dB(const double attenuation_dB) const
+	{
+		setVolumeLR_dB(attenuation_dB, attenuation_dB);
+	}
+
+	void Audio::setVolumeLR_dB(const double attenuationLeft_dB, const double attenuationRight_dB) const
+	{
+		const double left = std::pow(10.0, attenuationLeft_dB / 20.0);
+		const double right = std::pow(10.0, attenuationRight_dB / 20.0);
+		setVolumeLR(left, right);
 	}
 
 	void Audio::setSpeed(const double speed) const

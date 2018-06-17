@@ -11,6 +11,8 @@
 
 # pragma once
 # include "Fwd.hpp"
+# include "String.hpp"
+# include "Array.hpp"
 
 namespace s3d
 {
@@ -22,7 +24,7 @@ namespace s3d
 	/// </remarks>
 	namespace Clipboard
 	{
-		bool HasChanged();
+		[[nodiscard]] bool HasChanged();
 
 		bool GetText(String& text);
 		

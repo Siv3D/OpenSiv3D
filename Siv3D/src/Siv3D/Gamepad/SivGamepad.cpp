@@ -74,6 +74,11 @@ namespace s3d
 			return Siv3DEngine::GetGamepad()->isConnected(userIndex);
 		}
 
+		Gamepad_impl::operator bool() const
+		{
+			return isConnected();
+		}
+
 		const GamepadInfo& Gamepad_impl::getInfo() const
 		{
 			return Siv3DEngine::GetGamepad()->getInfo(userIndex);
