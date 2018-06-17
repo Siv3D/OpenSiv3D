@@ -101,5 +101,10 @@ namespace s3d
 		Wave OpenWave(const FilePath& defaultPath = U"", const String& title = U"");
 
 		Audio OpenAudio(const FilePath& defaultPath = U"", const String& title = U"");
+
+
+		Optional<FilePath> SaveImage(const FilePath& defaultPath = U"", const String& title = U"");
+
+		//Optional<FilePath> SaveWave(const FilePath& defaultPath = U"", const String& title = U"");
 	}
 }

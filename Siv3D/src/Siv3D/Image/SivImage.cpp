@@ -24,6 +24,7 @@
 # include <Siv3D/Logger.hpp>
 # include <Siv3D/Emoji.hpp>
 # include <Siv3D/Icon.hpp>
+# include <Siv3D/Dialog.hpp>
 
 namespace s3d
 {
@@ -778,6 +779,23 @@ namespace s3d
 		}
 
 		return Siv3DEngine::GetImageFormat()->save(*this, format, path);
+	}
+
+	bool Image::saveWithDialog() const
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		if (const auto path = Dialog::SaveImage())
+		{
+			return save(path.value());
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	bool Image::savePNG(const FilePath& path, const PNGFilter::Flag filterFlag) const
