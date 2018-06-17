@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -20,7 +20,7 @@ namespace s3d
 	{
 		String name;
 
-		String pattern;
+		Array<String> patterns;
 	};
 
 	namespace Dialog

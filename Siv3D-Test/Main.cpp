@@ -1,13 +1,14 @@
-﻿
+
 # include <Siv3D.hpp>
 
 void Main()
 {
 	const Array<FileFilter> filters =
 	{
-		{ U"JPEG Image", U"*.jpg;*.jpeg" },
-		{ U"BMP Image", U"*.bmp" },
-		{ U"All Files", U"*.*" },
+		{ U"PNG Image", { U"png" } },
+		{ U"JPEG Image", { U"jpg", U"jpeg" } },
+		{ U"BMP Image", { U"bmp" } },
+		//{ U"All Files", {} },
 	};
 	
 	while (System::Update())
