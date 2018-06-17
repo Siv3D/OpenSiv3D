@@ -90,7 +90,6 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\DeadZone\SivDeadZone.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Dialog\SivDialog.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Dialog\SivDialog_Linux.cpp" />
-    <ClCompile Include="..\Siv3D\src\Siv3D\Dialog\SivDialog_macOS.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Dialog\SivDialog_Windows.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_Linux.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_macOS.cpp" />

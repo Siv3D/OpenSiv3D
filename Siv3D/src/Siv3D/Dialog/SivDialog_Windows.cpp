@@ -34,9 +34,29 @@ namespace s3d
 			}
 
 			const Array<std::pair<std::wstring, std::wstring>> specStr = 
-				filters.map([](const FileFilter& f)
+				filters.map([](FileFilter f)
 			{
-				return std::make_pair(f.name.toWstr(), f.pattern.toWstr());
+				std::pair<std::wstring, std::wstring> result;
+				result.first = f.name.toWstr();
+
+				if (f.patterns)
+				{
+					for (auto& pattern : f.patterns)
+					{
+						if (pattern)
+						{
+							pattern.insert(0, U"*.");
+						}
+					}
+				}
+				else
+				{
+					f.patterns << String(U"*.*");
+				}
+
+				result.second = f.patterns.join(U";", U"", U"").toWstr();
+
+				return result;
 			});
 
 			const Array<COMDLG_FILTERSPEC> specs =
@@ -258,6 +278,9 @@ namespace s3d
 			{
 				fileSaveDialog->SetTitle(title.toWstr().c_str());
 			}
+
+			// Append file extension
+			fileSaveDialog->SetDefaultExtension(L"");
 
 			if (HRESULT result = fileSaveDialog->Show(Siv3DEngine::GetWindow()->getHandle()); SUCCEEDED(result))
 			{

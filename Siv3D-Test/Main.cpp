@@ -1,13 +1,13 @@
-
+﻿
 # include <Siv3D.hpp>
 
 void Main()
 {
 	const Array<FileFilter> filters =
 	{
-		{ U"PNG Image", { U"png" } },
-		{ U"JPEG Image", { U"jpg", U"jpeg" } },
-		{ U"BMP Image", { U"bmp" } },
+		{ U"PNG", { U"png" } },
+		{ U"JPEG", { U"jpg", U"jpeg" } },
+		{ U"BMP", { U"bmp" } },
 		//{ U"All Files", {} },
 	};
 	
@@ -15,24 +15,25 @@ void Main()
 	{
 		if (KeyA.down())
 		{
-			Print << Dialog::OpenFile(filters, FileSystem::SpecialFolderPath(SpecialFolder::Desktop), U"");
+			Print << Dialog::OpenFile(filters);
 		}
 
 		if (KeyB.down())
 		{
-			Print << Dialog::OpenFiles(filters, FileSystem::SpecialFolderPath(SpecialFolder::Desktop), U"");
+			Print << Dialog::OpenFiles(filters);
 		}
 
 		if (KeyC.down())
 		{
-			Print << Dialog::SaveFile(filters, FileSystem::SpecialFolderPath(SpecialFolder::Desktop), U"保存する");
+			Print << Dialog::SaveFile(filters);
 		}
 
 		if (KeyD.down())
 		{
-			Print << Dialog::SelectFolder(FileSystem::SpecialFolderPath(SpecialFolder::Desktop), U"フォルダ");
+			Print << Dialog::SelectFolder();
 		}
-
-		Circle(Cursor::PosF(), 20).draw();
 	}
 }
+
+
+
