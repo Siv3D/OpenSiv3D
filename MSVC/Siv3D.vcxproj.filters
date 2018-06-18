@@ -761,6 +761,9 @@
     <Filter Include="src\Siv3D\Dialog">
       <UniqueIdentifier>{05b734e7-ad14-4218-87f9-87f9bd294f25}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\AnimatedGIFWriter">
+      <UniqueIdentifier>{89f8d0ec-8e4c-4f0a-926d-acdb560c69c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -2136,6 +2139,12 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Dialog\SivDialog_Windows.cpp">
       <Filter>src\Siv3D\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AnimatedGIFWriter\SivAnimatedGIFWriter.cpp">
+      <Filter>src\Siv3D\AnimatedGIFWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AnimatedGIFWriter\AnimatedGIFWriterDetail.cpp">
+      <Filter>src\Siv3D\AnimatedGIFWriter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -4388,6 +4397,15 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Dialog.hpp">
       <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\AnimatedGIFWriter.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\AnimatedGIFWriter\AnimatedGIFWriterDetail.hpp">
+      <Filter>src\Siv3D\AnimatedGIFWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\AnimatedGIFWriter\GIFWriter.hpp">
+      <Filter>src\Siv3D\AnimatedGIFWriter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Siv3D\src\Siv3D\AnimatedGIFWriter\AnimatedGIFWriterDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\AnimatedGIFWriter\SivAnimatedGIFWriter.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Asset\AssetFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Asset\CAsset.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Asset\SivAsset.cpp" />
@@ -493,6 +495,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AlignedAllocator.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AlignedMemory.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\AnimatedGIFWriter.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Array.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Asset.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\AssetHandle.hpp" />
@@ -767,6 +770,8 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\libsvm\svm.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\nanoflann\nanoflann.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\SFMT\SFMT.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\AnimatedGIFWriter\AnimatedGIFWriterDetail.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\AnimatedGIFWriter\GIFWriter.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\AssetHandleManager\AssetHandleManager.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Asset\CAsset.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Asset\IAsset.hpp" />

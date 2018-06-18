@@ -1,19 +1,19 @@
-﻿
-# include <Siv3D.hpp>
+﻿# include <Siv3D.hpp> // OpenSiv3D v0.2.6
 
 void Main()
 {
-	const Texture texture = Dialog::OpenTexture();
+	const Size size(128, 128);
 
-	const Audio audio = Dialog::OpenAudio();
+	AnimatedGIFWriter gif(U"emoji.gif", size);
 
-	audio.play();
+	const Font font(110, Typeface::Black);
 
-	while (System::Update())
+	for (auto i : Range(1, 4))
 	{
-		texture.draw();
+		Image image(size, Palette::White);
+
+		font(i).paintAt(image, size / 2, HSV(i * 90, 0.9, 0.7));
+
+		gif.writeFrame(image, 0.1s);
 	}
 }
-
-
-
