@@ -86,7 +86,7 @@ namespace s3d
 		/// <returns>
 		/// フレームの書き出しに成功したら true, 失敗したら false
 		/// </returns>
-		[[nodiscard]] bool writeFrame(const Image& image, const Duration& delay = SecondsF(0.1));
+		bool writeFrame(const Image& image, const Duration& delay = SecondsF(0.1));
 
 		[[nodiscard]] size_t frameCount() const noexcept;
 

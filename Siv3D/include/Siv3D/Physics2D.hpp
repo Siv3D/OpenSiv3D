@@ -41,7 +41,7 @@ namespace s3d
 	{
 		double density = 1.0;
 
-		double restitution = 0.0;
+		double restitution = 0.1;
 
 		double friction = 0.2;
 
