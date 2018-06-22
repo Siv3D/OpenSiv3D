@@ -1,31 +1,22 @@
-﻿# include <Siv3D.hpp>
+﻿
+# include <Siv3D.hpp> // OpenSiv3D v0.2.6
 
 void Main()
 {
-	double r = 0.7, g = 0.8, b = 0.9, a = 1.0;
+	Graphics::SetBackground(ColorF(0.8, 0.9, 1.0));
+
+	const Font font(50);
+
+	const Texture textureCat(Emoji(U"🐈"), TextureDesc::Mipped);
 
 	while (System::Update())
 	{
-		SimpleGUI::Slider(U"R: {:.2f}"_fmt(r), r, Vec2(100, 40), 85, 120);
-		SimpleGUI::Slider(U"G: {:.2f}"_fmt(g), g, Vec2(100, 80), 85, 120);
-		SimpleGUI::Slider(U"B: {:.2f}"_fmt(b), b, Vec2(100, 120), 85, 120);
-		SimpleGUI::Slider(U"A: {:.2f}"_fmt(a), a, Vec2(100, 160), 85, 200, false);
+		font(U"Hello, Siv3D!🐣").drawAt(Window::Center(), Palette::Black);
 
-		if (SimpleGUI::Button(U"OK", Vec2(100, 200), 150))
-		{
-			Print << U"OK";
-		}
+		font(Cursor::Pos()).draw(20, 400, ColorF(0.6));
 
-		if (SimpleGUI::Button(U"キャンセル", Vec2(255, 200), 150))
-		{
-			Print << U"キャンセル";
-		}
+		textureCat.resized(80).draw(540, 380);
 
-		if (SimpleGUI::Button(U"押せない", Vec2(100, 240), 120, false))
-		{
-			Print << U"押せない";
-		}
-
-		Graphics::SetBackground(ColorF(r, g, b));
+		Circle(Cursor::Pos(), 60).draw(ColorF(1, 0, 0, 0.5));
 	}
 }
