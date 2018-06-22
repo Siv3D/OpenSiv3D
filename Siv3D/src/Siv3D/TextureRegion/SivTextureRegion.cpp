@@ -158,11 +158,6 @@ namespace s3d
 		return resized(_size.x, _size.y);
 	}
 
-	TextureRegion TextureRegion::fitted(const double _size, const bool scaleUp) const
-	{
-		return fitted(_size, _size, scaleUp);
-	}
-
 	TextureRegion TextureRegion::fitted(double width, double height, const bool scaleUp) const
 	{
 		if (!scaleUp)

@@ -40,6 +40,7 @@
 # include "../Effect/IEffect.hpp"
 # include "../Asset/IAsset.hpp"
 
+# include <Siv3D/Cursor.hpp>
 # include <Siv3D/Logger.hpp>
 
 namespace s3d
@@ -201,6 +202,8 @@ namespace s3d
 			Siv3DEngine::GetWindow()->show(true);
 
 			m_setupState = SetupState::Displayed;
+
+			Siv3DEngine::GetCursor()->applyStyleImmediately(CursorStyle::Default);
 		}
 
 		if (!Siv3DEngine::GetWindow()->update())

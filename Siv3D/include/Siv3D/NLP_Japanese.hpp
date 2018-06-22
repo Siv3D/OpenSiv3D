@@ -89,7 +89,15 @@ namespace s3d
 				}
 			};
 
+		# if defined(SIV3D_TARGET_WINDOWS_DESKTOP_X86)
+
+			[[deprecated("AnalyzeMorphology is not available on Windows 32-bit")]] Array<Morpheme> AnalyzeMorphology(const String& text, const FilePath& modelPath = U"nlp/japanese/jumanpp/jumandic.jppmdl");
+
+		# else
+
 			[[nodiscard]] Array<Morpheme> AnalyzeMorphology(const String& text, const FilePath& modelPath = U"nlp/japanese/jumanpp/jumandic.jppmdl");
+
+		# endif
 		}
 	}
 }

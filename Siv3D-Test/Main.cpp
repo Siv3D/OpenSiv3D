@@ -1,39 +1,22 @@
 ﻿
-# include <Siv3D.hpp>
+# include <Siv3D.hpp> // OpenSiv3D v0.2.6
 
 void Main()
 {
-	const Array<FileFilter> filters =
-	{
-		{ U"PNG", { U"png" } },
-		{ U"JPEG", { U"jpg", U"jpeg" } },
-		{ U"BMP", { U"bmp" } },
-		//{ U"All Files", {} },
-	};
-	
+	Graphics::SetBackground(ColorF(0.8, 0.9, 1.0));
+
+	const Font font(50);
+
+	const Texture textureCat(Emoji(U"🐈"), TextureDesc::Mipped);
+
 	while (System::Update())
 	{
-		if (KeyA.down())
-		{
-			Print << Dialog::OpenFile(filters);
-		}
+		font(U"Hello, Siv3D!🐣").drawAt(Window::Center(), Palette::Black);
 
-		if (KeyB.down())
-		{
-			Print << Dialog::OpenFiles(filters);
-		}
+		font(Cursor::Pos()).draw(20, 400, ColorF(0.6));
 
-		if (KeyC.down())
-		{
-			Print << Dialog::SaveFile(filters);
-		}
+		textureCat.resized(80).draw(540, 380);
 
-		if (KeyD.down())
-		{
-			Print << Dialog::SelectFolder();
-		}
+		Circle(Cursor::Pos(), 60).draw(ColorF(1, 0, 0, 0.5));
 	}
 }
-
-
-

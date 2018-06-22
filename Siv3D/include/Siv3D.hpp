@@ -582,8 +582,8 @@
 //
 //////////////////////////////////////////////////
 
-	//// GIF アニメーションの書き出し
-	//# include "Siv3D/AnimatedGIFWriter.hpp"
+	// GIF アニメーションの書き出し
+	# include "Siv3D/AnimatedGIFWriter.hpp"
 
 	//// 動画ファイルの読み込み
 	//# include "Siv3D/VideoReader.hpp"
@@ -836,6 +836,9 @@
 //	Stand-alone GUI
 //
 //////////////////////////////////////////////////
+
+	// Text Editor
+	# include "Siv3D/SimpleGUI.hpp"
 
 	// Text Editor
 	# include "Siv3D/TextEditor.hpp"
