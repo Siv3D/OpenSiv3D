@@ -424,8 +424,6 @@ namespace s3d
 
 		[[nodiscard]] TextureRegion mapped(const Vec2& size) const;
 
-		[[nodiscard]] TextureRegion fitted(double size, bool scaleUp = true) const;
-
 		[[nodiscard]] TextureRegion fitted(double width, double height, bool scaleUp = true) const;
 
 		[[nodiscard]] TextureRegion fitted(const Vec2& size, bool scaleUp = true) const;

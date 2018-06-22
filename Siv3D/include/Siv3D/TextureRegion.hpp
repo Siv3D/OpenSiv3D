@@ -252,8 +252,6 @@ namespace s3d
 
 		[[nodiscard]] TextureRegion resized(const Vec2& _size) const;
 
-		[[nodiscard]] TextureRegion fitted(double _size, bool scaleUp = true) const;
-
 		[[nodiscard]] TextureRegion fitted(double width, double height, bool scaleUp = true) const;
 
 		[[nodiscard]] TextureRegion fitted(const Vec2& _size, bool scaleUp = true) const;
