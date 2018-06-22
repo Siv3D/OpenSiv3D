@@ -838,6 +838,9 @@
 //////////////////////////////////////////////////
 
 	// Text Editor
+	# include "Siv3D/SimpleGUI.hpp"
+
+	// Text Editor
 	# include "Siv3D/TextEditor.hpp"
 
 	// Text box
