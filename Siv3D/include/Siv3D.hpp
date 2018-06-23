@@ -546,6 +546,9 @@
 	// QR code
 	# include "Siv3D/QR.hpp"
 
+	// OpenCV bridge
+	# include "Siv3D/OpenCV_Bridge.hpp"
+
 	//// 手書き文字認識
 	//# include "Siv3D/HandwritingRecognizer.hpp"
 

@@ -16,6 +16,7 @@
 # include <opencv2/imgproc.hpp>
 # include <opencv2/photo.hpp>
 # include <Siv3D/Image.hpp>
+# include <Siv3D/OpenCV_Bridge.hpp>
 # include <Siv3D/ImageRegion.hpp>
 # include <Siv3D/ImageProcessing.hpp>
 # include <Siv3D/BinaryWriter.hpp>
@@ -70,110 +71,6 @@ namespace s3d
 			for (size_t i = 0; i < 256; ++i)
 			{
 				table[i] = static_cast<uint8>(std::floor(i / 255.0 * levN + 0.5) / levN * 255);
-			}
-		}
-
-		static void ToBinaryFromR(const Image& from, cv::Mat_<uint8>& to, const uint32 threshold)
-		{
-			assert(from.width() == to.cols);
-			assert(from.height() == to.rows);
-
-			const Color* pSrc = from.data();
-
-			const int32 height = from.height(), width = from.width();
-
-			for (int32 y = 0; y < height; ++y)
-			{
-				uint8* line = &to(y, 0);
-
-				for (int32 x = 0; x < width; ++x)
-				{
-					line[x] = (pSrc->r <= threshold ? 0 : 255);
-
-					++pSrc;
-				}
-			}
-		}
-
-		static void ToBinaryFromA(const Image& from, cv::Mat_<uint8>& to, const uint32 threshold)
-		{
-			assert(from.width() == to.cols);
-			assert(from.height() == to.rows);
-
-			const Color* pSrc = from.data();
-
-			const int32 height = from.height(), width = from.width();
-
-			for (int32 y = 0; y < height; ++y)
-			{
-				uint8* line = &to(y, 0);
-
-				for (int32 x = 0; x < width; ++x)
-				{
-					line[x] = (pSrc->a <= threshold ? 0 : 255);
-
-					++pSrc;
-				}
-			}
-		}
-
-		static void ToGrayScale(const Image& from, cv::Mat_<uint8>& to)
-		{
-			assert(from.width() == to.cols);
-			assert(from.height() == to.rows);
-
-			const Color* pSrc = from.data();
-
-			const int32 height = from.height(), width = from.width();
-
-			for (int32 y = 0; y < height; ++y)
-			{
-				uint8* line = &to(y, 0);
-
-				for (int32 x = 0; x < width; ++x)
-				{
-					line[x] = pSrc->grayscale0_255();
-
-					++pSrc;
-				}
-			}
-		}
-
-		static void ToMatVec3f(const Image& image, cv::Mat_<cv::Vec3f>& mat)
-		{
-			assert(image);
-			assert(image.width() == mat.cols && image.height() == mat.rows);
-
-			const Color* pSrc = image[0];
-
-			for (int32 y = 0; y < image.height(); ++y)
-			{
-				for (int32 x = 0; x < image.width(); ++x)
-				{
-					auto& dst = mat(y, x);
-					dst[0] = static_cast<float>(pSrc->r);
-					dst[1] = static_cast<float>(pSrc->g);
-					dst[2] = static_cast<float>(pSrc->b);
-					++pSrc;
-				}
-			}
-		}
-
-		static void ToImage(const cv::Mat_<cv::Vec3b>& from, Image& to)
-		{
-			to.resize(from.cols, from.rows);
-
-			Color* pDst = to[0];
-			const Color* pDstEnd = pDst + to.num_pixels();
-			const uint8* pSrc = from.data;
-
-			while (pDst != pDstEnd)
-			{
-				pDst->r = *pSrc++;
-				pDst->g = *pSrc++;
-				pDst->b = *pSrc++;
-				pDst->a = 255;
-				++pDst;
 			}
 		}
 
@@ -1515,25 +1412,11 @@ namespace s3d
 
 			cv::Mat_<uint8> gray(m_height, m_width);
 
-			detail::ToGrayScale(*this, gray);
+			OpenCV_Bridge::ToGrayScale(*this, gray);
 
 			cv::adaptiveThreshold(gray, gray, 255, static_cast<int32>(method), inverse ? CV_THRESH_BINARY_INV : CV_THRESH_BINARY, blockSize, c);
 
-			{
-				Color* pDst = m_data.data();
-
-				for (uint32 y = 0; y < m_height; ++y)
-				{
-					const uint8* line = &gray(y, 0);
-
-					for (uint32 x = 0; x < m_width; ++x)
-					{
-						pDst->r = pDst->g = pDst->b = line[x];
-
-						++pDst;
-					}
-				}
-			}
+			OpenCV_Bridge::FromGrayScale(gray, *this, true);
 		}
 
 		return *this;
@@ -1554,32 +1437,18 @@ namespace s3d
 			}
 		}
 
-		Image image(*this);
-
 		static_assert((int32)AdaptiveMethod::Mean == cv::ADAPTIVE_THRESH_MEAN_C);
 		static_assert((int32)AdaptiveMethod::Gaussian == cv::ADAPTIVE_THRESH_GAUSSIAN_C);
 
 		cv::Mat_<uint8> gray(m_height, m_width);
 
-		detail::ToGrayScale(*this, gray);
+		OpenCV_Bridge::ToGrayScale(*this, gray);
 
 		cv::adaptiveThreshold(gray, gray, 255, static_cast<int32>(method), inverse ? CV_THRESH_BINARY_INV : CV_THRESH_BINARY, blockSize, c);
 
-		{
-			Color* pDst = image.data();
+		Image image(*this);
 
-			for (uint32 y = 0; y < m_height; ++y)
-			{
-				const uint8* line = &gray(y, 0);
-
-				for (uint32 x = 0; x < m_width; ++x)
-				{
-					pDst->r = pDst->g = pDst->b = line[x];
-
-					++pDst;
-				}
-			}
-		}
+		OpenCV_Bridge::FromGrayScale(gray, image, true);
 
 		return image;
 	}
@@ -2102,7 +1971,7 @@ namespace s3d
 			cv::floodFill(
 				mat,
 				{ pos.x, pos.y },
-				cv::Scalar(color.r, color.g, color.b),
+				cv::Scalar(color.b, color.g, color.r),
 				nullptr,
 				cv::Scalar::all(lowerDifference),
 				cv::Scalar::all(upperDifference),
@@ -2150,51 +2019,20 @@ namespace s3d
 
 		{
 			cv::Mat_<cv::Vec3b> mat(m_height, m_width);
-			{
-				const Color* pSrc = &m_data[0];
 
-				for (uint32 y = 0; y < m_height; ++y)
-				{
-					auto* line = &mat(y, 0);
-
-					for (uint32 x = 0; x < m_width; ++x)
-					{
-						line[x][0] = pSrc->r;
-						line[x][1] = pSrc->g;
-						line[x][2] = pSrc->b;
-
-						++pSrc;
-					}
-				}
-			}
+			OpenCV_Bridge::ToMatVec3b(*this, mat);
 
 			cv::floodFill(
 				mat,
 				{ pos.x, pos.y },
-				cv::Scalar(color.r, color.g, color.b),
+				cv::Scalar(color.b, color.g, color.r),
 				nullptr,
 				cv::Scalar::all(lowerDifference),
 				cv::Scalar::all(upperDifference),
 				static_cast<int32>(connectivity) | cv::FLOODFILL_FIXED_RANGE
 			);
 
-			{
-				Color* pDst = image[0];
-
-				for (uint32 y = 0; y < m_height; ++y)
-				{
-					const auto* line = &mat(y, 0);
-
-					for (uint32 x = 0; x < m_width; ++x)
-					{
-						pDst->r = line[x][0];
-						pDst->g = line[x][1];
-						pDst->b = line[x][2];
-
-						++pDst;
-					}
-				}
-			}
+			OpenCV_Bridge::FromMat(mat, image, true);
 		}
 
 		return image;
@@ -2519,7 +2357,7 @@ namespace s3d
 
 		cv::Mat_<uint8> gray(height(), width());
 
-		detail::ToBinaryFromA(*this, gray, threshold);
+		OpenCV_Bridge::AlphaToBinary(*this, gray, threshold);
 
 		return allowHoles ? detail::ToPolygons(gray) : detail::ToPolygonsWithoutHoles(gray);
 	}
@@ -2538,7 +2376,7 @@ namespace s3d
 
 		cv::Mat_<uint8> gray(height(), width());
 
-		detail::ToBinaryFromR(*this, gray, threshold);
+		OpenCV_Bridge::RedToBinary(*this, gray, threshold);
 
 		return allowHoles ? detail::ToPolygons(gray) : detail::ToPolygonsWithoutHoles(gray);
 	}
@@ -2599,11 +2437,11 @@ namespace s3d
 
 			if (useAlpha)
 			{
-				detail::ToBinaryFromA(image, gray, threshold);
+				OpenCV_Bridge::AlphaToBinary(image, gray, threshold);
 			}
 			else
 			{
-				detail::ToBinaryFromR(image, gray, threshold);
+				OpenCV_Bridge::RedToBinary(image, gray, threshold);
 			}
 
 			std::vector<std::vector<cv::Point>> contours;
@@ -2685,11 +2523,11 @@ namespace s3d
 
 			if (useAlpha)
 			{
-				detail::ToBinaryFromA(image, gray, threshold);
+				OpenCV_Bridge::AlphaToBinary(image, gray, threshold);
 			}
 			else
 			{
-				detail::ToBinaryFromR(image, gray, threshold);
+				OpenCV_Bridge::RedToBinary(image, gray, threshold);
 			}
 
 			std::vector<std::vector<cv::Point>> contours;
@@ -2811,29 +2649,13 @@ namespace s3d
 			{
 				cv::Mat_<uint8> gray(src.height(), src.width());
 
-				detail::ToGrayScale(src, gray);
+				OpenCV_Bridge::ToGrayScale(src, gray);
 
 				cv::Mat_<uint8> detected_edges;
 
 				cv::Sobel(gray, detected_edges, CV_8U, dx, dy, apertureSize);
 
-				{
-					Color* pDst = dst.data();
-
-					const int32 height = src.height(), width = src.width();
-
-					for (int32 y = 0; y < height; ++y)
-					{
-						const uint8* line = &detected_edges(y, 0);
-
-						for (int32 x = 0; x < width; ++x)
-						{
-							pDst->r = pDst->g = pDst->b = line[x];
-
-							++pDst;
-						}
-					}
-				}
+				OpenCV_Bridge::FromGrayScale(detected_edges, dst, true);
 			}
 		}
 
@@ -2868,29 +2690,13 @@ namespace s3d
 			{
 				cv::Mat_<uint8> gray(src.height(), src.width());
 
-				detail::ToGrayScale(src, gray);
+				OpenCV_Bridge::ToGrayScale(src, gray);
 
 				cv::Mat_<uint8> detected_edges;
 
 				cv::Laplacian(gray, detected_edges, CV_8U, apertureSize);
 
-				{
-					Color* pDst = dst.data();
-
-					const int32 height = src.height(), width = src.width();
-
-					for (int32 y = 0; y < height; ++y)
-					{
-						const uint8* line = &detected_edges(y, 0);
-
-						for (int32 x = 0; x < width; ++x)
-						{
-							pDst->r = pDst->g = pDst->b = line[x];
-
-							++pDst;
-						}
-					}
-				}
+				OpenCV_Bridge::FromGrayScale(detected_edges, dst, true);
 			}
 		}
 
@@ -2925,7 +2731,7 @@ namespace s3d
 			{
 				cv::Mat_<uint8> gray(src.height(), src.width());
 
-				detail::ToGrayScale(src, gray);
+				OpenCV_Bridge::ToGrayScale(src, gray);
 
 				cv::Mat_<uint8> detected_edges;
 
@@ -2933,23 +2739,7 @@ namespace s3d
 
 				cv::Canny(detected_edges, detected_edges, lowThreshold, highThreshold, apertureSize, useL2Gradient);
 
-				{
-					Color* pDst = dst.data();
-
-					const int32 height = src.height(), width = src.width();
-
-					for (int32 y = 0; y < height; ++y)
-					{
-						const uint8* line = &detected_edges(y, 0);
-
-						for (int32 x = 0; x < width; ++x)
-						{
-							pDst->r = pDst->g = pDst->b = line[x];
-
-							++pDst;
-						}
-					}
-				}
+				OpenCV_Bridge::FromGrayScale(detected_edges, dst, true);
 			}
 		}
 
@@ -2974,23 +2764,7 @@ namespace s3d
 			{
 				cv::Mat_<cv::Vec3b> matSrc(src.height(), src.width());
 
-				{
-					const Color* pSrc = src[0];
-
-					for (int32 y = 0; y < src.height(); ++y)
-					{
-						auto* line = &matSrc(y, 0);
-
-						for (int32 x = 0; x < src.width(); ++x)
-						{
-							line[x][0] = pSrc->r;
-							line[x][1] = pSrc->g;
-							line[x][2] = pSrc->b;
-
-							++pSrc;
-						}
-					}
-				}
+				OpenCV_Bridge::ToMatVec3b(src, matSrc);
 
 				cv::Mat_<cv::Vec3b> matDst(src.height(), src.width());
 
@@ -2999,23 +2773,7 @@ namespace s3d
 					? cv::RECURS_FILTER : cv::NORMCONV_FILTER,
 					static_cast<float>(sigma_s), static_cast<float>(sigma_r));
 
-				{
-					Color* pDst = dst[0];
-
-					for (int32 y = 0; y < src.height(); ++y)
-					{
-						const auto* line = &matDst(y, 0);
-
-						for (int32 x = 0; x < src.width(); ++x)
-						{
-							pDst->r = line[x][0];
-							pDst->g = line[x][1];
-							pDst->b = line[x][2];
-
-							++pDst;
-						}
-					}
-				}
+				OpenCV_Bridge::FromMat(matDst, dst, true);
 			}
 		}
 
@@ -3040,45 +2798,13 @@ namespace s3d
 			{
 				cv::Mat_<cv::Vec3b> matSrc(src.height(), src.width());
 
-				{
-					const Color* pSrc = src[0];
-
-					for (int32 y = 0; y < src.height(); ++y)
-					{
-						auto* line = &matSrc(y, 0);
-
-						for (int32 x = 0; x < src.width(); ++x)
-						{
-							line[x][0] = pSrc->r;
-							line[x][1] = pSrc->g;
-							line[x][2] = pSrc->b;
-
-							++pSrc;
-						}
-					}
-				}
+				OpenCV_Bridge::ToMatVec3b(src, matSrc);
 
 				cv::Mat_<cv::Vec3b> matDst(src.height(), src.width());
 
 				cv::detailEnhance(matSrc, matDst, static_cast<float>(sigma_s), static_cast<float>(sigma_r));
 
-				{
-					Color* pDst = dst[0];
-
-					for (int32 y = 0; y < src.height(); ++y)
-					{
-						const auto* line = &matDst(y, 0);
-
-						for (int32 x = 0; x < src.width(); ++x)
-						{
-							pDst->r = line[x][0];
-							pDst->g = line[x][1];
-							pDst->b = line[x][2];
-
-							++pDst;
-						}
-					}
-				}
+				OpenCV_Bridge::FromMat(matDst, dst, true);
 			}
 		}
 
@@ -3103,45 +2829,13 @@ namespace s3d
 			{
 				cv::Mat_<cv::Vec3b> matSrc(src.height(), src.width());
 
-				{
-					const Color* pSrc = src[0];
-
-					for (int32 y = 0; y < src.height(); ++y)
-					{
-						auto* line = &matSrc(y, 0);
-
-						for (int32 x = 0; x < src.width(); ++x)
-						{
-							line[x][0] = pSrc->r;
-							line[x][1] = pSrc->g;
-							line[x][2] = pSrc->b;
-
-							++pSrc;
-						}
-					}
-				}
+				OpenCV_Bridge::ToMatVec3b(src, matSrc);
 
 				cv::Mat_<cv::Vec3b> matDst(src.height(), src.width());
 
 				cv::stylization(matSrc, matDst, static_cast<float>(sigma_s), static_cast<float>(sigma_r));
 
-				{
-					Color* pDst = dst[0];
-
-					for (int32 y = 0; y < src.height(); ++y)
-					{
-						const auto* line = &matDst(y, 0);
-
-						for (int32 x = 0; x < src.width(); ++x)
-						{
-							pDst->r = line[x][0];
-							pDst->g = line[x][1];
-							pDst->b = line[x][2];
-
-							++pDst;
-						}
-					}
-				}
+				OpenCV_Bridge::FromMat(matDst, dst, true);
 			}
 		}
 
@@ -3156,8 +2850,8 @@ namespace s3d
 			const int32 x = image1.width(), y = image1.height();
 
 			cv::Mat_<cv::Vec3f> I1(y, x), I2(y, x);
-			detail::ToMatVec3f(image1, I1);
-			detail::ToMatVec3f(image2, I2);
+			OpenCV_Bridge::ToMatVec3f255(image1, I1);
+			OpenCV_Bridge::ToMatVec3f255(image2, I2);
 
 			cv::Mat I2_2 = I2.mul(I2);        // I2^2
 			cv::Mat I1_2 = I1.mul(I1);        // I1^2
@@ -3217,47 +2911,24 @@ namespace s3d
 					return;
 				}
 
-				radius = Max(radius, 0);
+				radius = std::max(radius, 0);
 			}
 
 			// 2. 処理
 			{
 				cv::Mat_<cv::Vec3b> matSrc(image.height(), image.width());
-				{
-					const Color* pSrc = image[0];
 
-					for (int32 y = 0; y < image.height(); ++y)
-					{
-						auto* line = &matSrc(y, 0);
-
-						for (int32 x = 0; x < image.width(); ++x)
-						{
-							line[x][0] = pSrc->r;
-							line[x][1] = pSrc->g;
-							line[x][2] = pSrc->b;
-							++pSrc;
-						}
-					}
-				}
+				OpenCV_Bridge::ToMatVec3b(image, matSrc);
 
 				cv::Mat_<uint8> matMask(image.height(), image.width());
-				{
-					const Color* pSrc = maskImage[0];
-					const Color* pDSrcEnd = pSrc + maskImage.num_pixels();
-					uint8* pDst = matMask.data;
 
-					while (pSrc != pDSrcEnd)
-					{
-						*pDst++ = (pSrc->r == 255);
-						++pSrc;
-					}
-				}
+				OpenCV_Bridge::RedToBinary(maskImage, matMask, 254);
 
 				cv::Mat_<cv::Vec3b> matDst;
 
 				cv::inpaint(matSrc, matMask, matDst, radius, cv::INPAINT_TELEA);
 
-				detail::ToImage(matDst, result);
+				OpenCV_Bridge::FromMat(matDst, result, true);
 			}
 		}
 
@@ -3275,28 +2946,14 @@ namespace s3d
 					return;
 				}
 
-				radius = Max(radius, 0);
+				radius = std::max(radius, 0);
 			}
 
 			// 2. 処理
 			{
 				cv::Mat_<cv::Vec3b> matSrc(image.height(), image.width());
-				{
-					const Color* pSrc = image[0];
-
-					for (int32 y = 0; y < image.height(); ++y)
-					{
-						auto* line = &matSrc(y, 0);
-
-						for (int32 x = 0; x < image.width(); ++x)
-						{
-							line[x][0] = pSrc->r;
-							line[x][1] = pSrc->g;
-							line[x][2] = pSrc->b;
-							++pSrc;
-						}
-					}
-				}
+				
+				OpenCV_Bridge::ToMatVec3b(image, matSrc);
 
 				cv::Mat_<uint8> matMask(static_cast<int32>(maskImage.height()), static_cast<int32>(maskImage.width()), const_cast<uint8*>(maskImage.data()), static_cast<int32>(maskImage.width()));
 
@@ -3304,7 +2961,7 @@ namespace s3d
 
 				cv::inpaint(matSrc, matMask, matDst, radius, cv::INPAINT_TELEA);
 
-				detail::ToImage(matDst, result);
+				OpenCV_Bridge::FromMat(matDst, result, true);
 			}
 		}
 	}
