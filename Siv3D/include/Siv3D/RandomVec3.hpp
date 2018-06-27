@@ -17,12 +17,33 @@
 
 namespace s3d
 {
-	inline Vec3 RandomVec3()
+	inline Vec3 RandomVec3onUnitSphere()
 	{
 		const double theta = Random(Math::Pi);
 		const double phi = Random(Math::TwoPi);
 		const double s = std::sin(theta);
 		return{ s * std::cos(phi), s * std::sin(phi), std::cos(theta) };
+	}
+
+	inline Vec3 RandomVec3insideUnitSphere()
+	{
+		for (;;)
+		{
+			Vec3 v;
+			v.x = 2.0 * Random() - 1.0;
+			v.y = 2.0 * Random() - 1.0;
+			v.z = 2.0 * Random() - 1.0;
+
+			if (v.lengthSq() < 1.0)
+			{
+				return v;
+			}
+		}
+	}
+
+	inline Vec3 RandomVec3()
+	{
+		return RandomVec3onUnitSphere();
 	}
 
 	inline Vec3 RandomVec3(const double length)

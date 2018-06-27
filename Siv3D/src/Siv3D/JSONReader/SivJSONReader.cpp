@@ -327,7 +327,7 @@ namespace s3d
 			return none;
 		}
 
-		return Optional<String>(in_place, m_detail->value->GetString(), m_detail->value->GetStringLength());
+		return Optional<String>(InPlace, m_detail->value->GetString(), m_detail->value->GetStringLength());
 	}
 
 	template Optional<String> JSONValue::getOpt<String>() const;
