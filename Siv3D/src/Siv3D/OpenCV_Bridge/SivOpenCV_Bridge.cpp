@@ -404,8 +404,11 @@ namespace s3d
 
 		cv::Mat_<uint8> ImRead_GrayScale(const FilePath& path)
 		{
-			Image image(path);
+			return ImRead_GrayScale(Image(path));
+		}
 
+		cv::Mat_<uint8> ImRead_GrayScale(const Image& image)
+		{
 			cv::Mat_<uint8> mat(image.height(), image.width());
 
 			ToGrayScale(image, mat);
@@ -415,8 +418,11 @@ namespace s3d
 
 		cv::Mat_<cv::Vec3b> ImRead_BGR(const FilePath& path)
 		{
-			Image image(path);
+			return ImRead_BGR(Image(path));
+		}
 
+		cv::Mat_<cv::Vec3b> ImRead_BGR(const Image& image)
+		{
 			cv::Mat_<cv::Vec3b> mat(image.height(), image.width());
 
 			ToMatVec3b(image, mat);

@@ -28,13 +28,17 @@ namespace s3d
 
 		void ToMatVec3f255(const Image& from, cv::Mat_<cv::Vec3f>& to);
 
-		void FromMat(const cv::Mat_<cv::Vec3b>& from, Image& to, bool preserveAlpha);
+		void FromMat(const cv::Mat_<cv::Vec3b>& from, Image& to, bool preserveAlpha = false);
 
-		void FromGrayScale(const cv::Mat_<uint8>& from, Image& to, bool preserveAlpha);
+		void FromGrayScale(const cv::Mat_<uint8>& from, Image& to, bool preserveAlpha = false);
 
 		cv::Mat_<uint8> ImRead_GrayScale(const FilePath& path);
 
+		cv::Mat_<uint8> ImRead_GrayScale(const Image& image);
+
 		cv::Mat_<cv::Vec3b> ImRead_BGR(const FilePath& path);
+
+		cv::Mat_<cv::Vec3b> ImRead_BGR(const Image& image);
 	}
 }
 

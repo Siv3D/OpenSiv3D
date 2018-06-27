@@ -354,7 +354,7 @@ namespace s3d
 
 			result.reserve(std::min(n, size()));
 
-			Sample(begin(), end(), std::back_inserter(result), n, std::forward<URBG>(rbg));
+			std::sample(begin(), end(), std::back_inserter(result), n, std::forward<URBG>(rbg));
 
 			return result;
 		}
