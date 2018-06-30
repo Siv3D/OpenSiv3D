@@ -13,6 +13,7 @@
 # include "Fwd.hpp"
 # include "Array.hpp"
 # include "Optional.hpp"
+# include "Texture.hpp"
 
 namespace s3d
 {
@@ -98,9 +99,13 @@ namespace s3d
 
 		Texture OpenTexture(const FilePath& defaultPath = U"", const String& title = U"");
 
+		Texture OpenTexture(TextureDesc desc, const FilePath& defaultPath = U"", const String& title = U"");
+
 		Wave OpenWave(const FilePath& defaultPath = U"", const String& title = U"");
 
 		Audio OpenAudio(const FilePath& defaultPath = U"", const String& title = U"");
+
+		Audio OpenAudio(Arg::loop_<bool> loop, const FilePath& defaultPath = U"", const String& title = U"");
 
 
 		Optional<FilePath> SaveImage(const FilePath& defaultPath = U"", const String& title = U"");
