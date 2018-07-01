@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -183,7 +183,16 @@ namespace s3d
 
 	void CAudio_AL::setPosSample(const AudioID handleID, const int64 sample)
 	{
-		// [Siv3D ToDo]
+		const auto& audio = m_audios[handleID];
+		const bool isPlaying = audio->getStream().isPlaying();
+		audio->getStream().pause();
+		
+		audio->getStream().setPosSmaple(sample);
+		
+		if (isPlaying)
+		{
+			audio->getStream().play();
+		}
 	}
 
 	void CAudio_AL::setVolume(const AudioID handleID, const std::pair<double, double>& volume)

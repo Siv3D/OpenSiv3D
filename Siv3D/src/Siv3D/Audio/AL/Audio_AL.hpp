@@ -403,6 +403,8 @@ namespace s3d
 					feedDetailNonLoop();
 				}
 			}
+			
+			//LOG_TEST(U"#{}+{}"_fmt(m_posSmaplesAccumulated, m_posSampleCurrentStream));
 		}
 		
 		void onStreamEnd()
@@ -531,7 +533,9 @@ namespace s3d
 		
 		int64 getPosSample() const
 		{
-			return m_posSmaplesAccumulated + m_posSampleCurrentStream;
+			//LOG_TEST(U"{}+{}"_fmt(m_posSmaplesAccumulated, m_posSampleCurrentStream));
+			
+			return std::min<int64>(m_posSmaplesAccumulated + m_posSampleCurrentStream, m_pWave->size());
 		}
 		
 		int64 samplesPlayed() const
@@ -647,6 +651,20 @@ namespace s3d
 		bool reachedEnd() const
 		{
 			return m_isEnd;
+		}
+		
+		void setPosSmaple(int64 posSample)
+		{
+			if (m_loop && posSample >= m_loop->endPos)
+			{
+				posSample = m_loop->endPos - 1;
+			}
+			
+			posSample = std::min<int64>(posSample, m_pWave->size() - 1);
+			
+			m_readPos = posSample;
+			
+			m_posSmaplesAccumulated = posSample;
 		}
 	};
 	
