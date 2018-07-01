@@ -16,6 +16,10 @@
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Math.hpp>
 # include <Siv3D/RoundRect.hpp>
+# include <Siv3D/KeyConjunction.hpp>
+# include <Siv3D/Keyboard.hpp>
+# include <Siv3D/TextInput.hpp>
+# include <Siv3D/Clipboard.hpp>
 
 namespace s3d
 {
@@ -37,6 +41,7 @@ namespace s3d
 
 		constexpr int32 CheckBoxSize = 24;
 		constexpr int32 CheckBoxPadding = 8;
+		constexpr int32 TextBoxHeight = 36;
 	}
 
 	namespace SimpleGUI
@@ -70,28 +75,30 @@ namespace s3d
 		{
 			const Font font = detail::GetSimpleGUIFont();
 
-			const double width = _width.value_or(font(label).region().w + 40);
+			const int32 labelWidth = font(label).region().w;
+			const double width = _width.value_or(labelWidth + 40);
 
 			const RectF rect(Arg::center = center, width, 36);
+			const Vec2 labelPos(static_cast<int32>(rect.x + (width - labelWidth) / 2), center.y - font.height() / 2);
 
 			const bool mouseOver = enabled && rect.mouseOver();
 			const bool pushed = mouseOver && Cursor::OnClientRect() && MouseL.down();
 
 			if (enabled)
 			{
-				rect.rounded(4.4)
+				rect.rounded(4.8)
 					.draw(mouseOver ? ColorF(0.92, 0.96, 1.0) : ColorF(1.0))
 					.drawFrame(1, 0, ColorF(0.67, pushed ? 0.0 : 1.0));
 
-				font(label).drawAt(center.asPoint(), ColorF(0.2));
+				font(label).draw(labelPos, ColorF(0.2));
 			}
 			else
 			{
-				rect.rounded(4.4)
+				rect.rounded(4.8)
 					.draw(ColorF(0.92))
 					.drawFrame(1, 0, ColorF(0.67));
 
-				font(label).drawAt(center.asPoint(), ColorF(0.67));
+				font(label).draw(labelPos, ColorF(0.67));
 			}
 
 			if (mouseOver)
@@ -169,6 +176,7 @@ namespace s3d
 			const double sliderWidth = std::max(_sliderWidth, 40.0);
 			const double width = labelWidth + sliderWidth;
 			const RectF region(Arg::center = center, width, 36);
+			const Vec2 labelPos(region.x + 8, center.y - font.height() / 2);
 
 			const double sliderRegionX0 = region.x + labelWidth + 8;
 			const double sliderRegionX1 = region.x + region.w - 8;
@@ -196,7 +204,7 @@ namespace s3d
 
 			if (enabled)
 			{
-				font(label).draw(Arg::leftCenter = region.leftCenter().movedBy(8, 0), ColorF(0.2));
+				font(label).draw(labelPos, ColorF(0.2));
 
 				baseRoundRect.draw(ColorF(0.33));
 				fillRoundRect.draw(ColorF(0.35, 0.7, 1.0));
@@ -207,7 +215,7 @@ namespace s3d
 			}
 			else
 			{
-				font(label).draw(Arg::leftCenter = region.leftCenter().movedBy(8, 0), ColorF(0.67));
+				font(label).draw(labelPos, ColorF(0.67));
 
 				baseRoundRect.draw(ColorF(0.75));
 				fillRoundRect.draw(ColorF(0.75, 0.85, 1.0));
@@ -363,7 +371,7 @@ namespace s3d
 			const double width = _width.value_or(detail::CheckBoxPadding * 3 + detail::CheckBoxSize + font(label).region().w);
 			const RectF region(Arg::center = center, width, 36);
 			const RectF checkBox(Arg::leftCenter(region.x + 8, center.y), detail::CheckBoxSize);
-			const Vec2 labelPos(region.x + detail::CheckBoxPadding * 2 + detail::CheckBoxSize, center.y);
+			const Vec2 labelPos(region.x + detail::CheckBoxPadding * 2 + detail::CheckBoxSize, center.y - font.height() / 2);
 			const bool mouseOver = enabled && checkBox.mouseOver();
 
 			region.draw(ColorF(1.0));
@@ -383,7 +391,7 @@ namespace s3d
 					checkBox.stretched(-1.25).rounded(3.2).draw(mouseOver ? ColorF(0.92, 0.96, 1.0) : ColorF(0.95));
 				}
 
-				font(label).draw(Arg::leftCenter = labelPos, ColorF(0.2));
+				font(label).draw(labelPos, ColorF(0.2));
 			}
 			else
 			{
@@ -400,7 +408,7 @@ namespace s3d
 					checkBox.stretched(-1.25).rounded(3.2).draw(ColorF(0.8));
 				}
 
-				font(label).draw(Arg::leftCenter = labelPos, ColorF(0.67));
+				font(label).draw(labelPos, ColorF(0.67));
 			}
 
 			if (enabled && Cursor::OnClientRect() && checkBox.mouseOver())
@@ -416,6 +424,229 @@ namespace s3d
 			}
 
 			return (checked != previousValue);
+		}
+
+		RectF TextBoxRegion(const Vec2& pos, double width)
+		{
+			width = std::max(width, 40.0);
+
+			return RectF(pos, width, detail::TextBoxHeight);
+		}
+
+		RectF TextBoxRegionAt(const Vec2& center, double width)
+		{
+			width = std::max(width, 40.0);
+
+			return RectF(Arg::center = center, width, detail::TextBoxHeight);
+		}
+
+		bool TextBox(TextEditState& text, const Vec2& pos, double width, const Optional<size_t>& maxChars, const bool enabled)
+		{
+			width = std::max(width, 40.0);
+
+			return TextBoxAt(text, pos + Vec2(width * 0.5, 18.0), width, maxChars, enabled);
+		}
+
+		bool TextBoxAt(TextEditState& text, const Vec2& center, const double _width, const Optional<size_t>& maxChars, const bool enabled)
+		{
+			const Font font = detail::GetSimpleGUIFont();
+			const double width = std::max(_width, 40.0);
+			const RectF region(Arg::center = center, width, detail::TextBoxHeight);
+			const Vec2 textPos(region.x + 8, center.y - font.height() / 2);
+
+			text.cursorPos = std::min(text.cursorPos, text.text.size());
+
+			if (enabled)
+			{
+				if (text.active)
+				{
+					region
+						.draw()
+						.drawFrame(0.0, 1.5, ColorF(0.35, 0.7, 1.0, 0.75))
+						.drawFrame(2.5, 0.0, ColorF(0.35, 0.7, 1.0));
+				}
+				else
+				{
+					region
+						.draw()
+						.drawFrame(2.0, 0.0, ColorF(0.5));
+				}
+
+				if (text.active)
+				{
+					const String textHeader = text.text.substr(0, text.cursorPos);
+					const String textTail = text.text.substr(text.cursorPos, String::npos);
+					const String editingText = TextInput::GetEditingText();
+
+				# if defined(SIV3D_TARGET_WINDOWS)
+
+					const auto[editingCursorIndex, editingTargetlength] = win::TextInput::GetCursorIndex();
+					const bool hasEditingTarget = (editingTargetlength > 0);
+
+				# else
+
+					const int32 editingCursorIndex = -1, editingTargetlength = 0;
+					const bool hasEditingTarget = false;
+
+				# endif
+
+					const double fontHeight = font.height();
+					Vec2 pos = textPos;
+
+					for (auto glyph : font(textHeader))
+					{
+						glyph.texture.draw(pos + glyph.offset, ColorF(0.2));
+						pos.x += glyph.xAdvance;
+					}
+
+					double begX = pos.x, begY = 0, endX = pos.x;
+
+					for (auto glyph : font(editingText))
+					{
+						if (glyph.index == editingCursorIndex)
+						{
+							begX = pos.x;
+							begY = pos.y + fontHeight;
+						}
+						else if (hasEditingTarget && glyph.index == editingCursorIndex + editingTargetlength - 1)
+						{
+							endX = pos.x + glyph.xAdvance;
+						}
+
+						glyph.texture.draw(pos + glyph.offset, ColorF(0.2));
+						pos.x += glyph.xAdvance;
+					}
+
+					if (hasEditingTarget)
+					{
+						Line(begX, begY, endX, begY).movedBy(0, -2).draw(2, ColorF(0.2));
+					}
+
+					const double cursorPosX = pos.x;
+
+					for (auto glyph : font(textTail))
+					{
+						glyph.texture.draw(pos + glyph.offset, ColorF(0.2));
+						pos.x += glyph.xAdvance;
+					}
+
+					const bool showCursor = text.active && ((text.cursorStopwatch.ms() % 1200 < 600)
+						|| (text.leftPressStopwatch.isRunning() && text.leftPressStopwatch < SecondsF(0.5))
+						|| (text.rightPressStopwatch.isRunning() && text.rightPressStopwatch < SecondsF(0.5)));
+
+					if (showCursor)
+					{
+						const RectF cursor(Arg::leftCenter(Vec2(cursorPosX, center.y).asPoint()), 1, 26);
+						cursor.draw(ColorF(0.2));
+					}
+				}
+				else
+				{
+					font(text.text).draw(textPos, ColorF(0.2));
+				}
+			}
+			else
+			{
+				region
+					.draw(ColorF(0.9))
+					.drawFrame(2.0, 0.0, ColorF(0.67));
+
+				font(text.text).draw(textPos, ColorF(0.67));
+			}
+
+			if (enabled && Cursor::OnClientRect() && region.mouseOver())
+			{
+				Cursor::RequestStyle(CursorStyle::IBeam);
+			}
+
+			if (MouseL.down())
+			{
+				if (enabled && Cursor::OnClientRect() && region.mouseOver())
+				{
+					text.active = true;
+					const double posX = Cursor::PosF().x - (region.x + 8);
+
+					size_t index = 0;
+					double pos = 0.0;
+
+					for (const auto& advance : font(text.text).getXAdvances())
+					{
+						if (posX <= (pos + (advance / 2)))
+						{
+							break;
+						}
+
+						pos += advance;
+						++index;
+					}
+
+					text.cursorPos = index;
+					text.cursorStopwatch.restart();
+					text.leftPressStopwatch.reset();
+					text.rightPressStopwatch.reset();
+				}
+				else
+				{
+					text.active = false;
+				}
+			}
+
+			const String previousText = text.text;
+
+			if (text.active)
+			{
+				text.cursorPos = TextInput::UpdateText(text.text, text.cursorPos, TextInputMode::AllowBackSpaceDelete);
+
+				if (TextInput::GetEditingText().isEmpty()
+					&&
+				# if defined(SIV3D_TARGET_MACOS)
+
+					((KeyCommand + KeyV).down() || (KeyControl + KeyV).down())
+
+				# else
+
+					(KeyControl + KeyV).down()
+
+				# endif
+					)
+				{
+					if (String paste; Clipboard::GetText(paste))
+					{
+						text.text.insert(text.cursorPos, paste);
+						text.cursorPos += paste.size();
+					}
+				}
+
+				if (maxChars && text.text.size() > maxChars.value())
+				{
+					text.text.resize(maxChars.value());
+					text.cursorPos = std::min(text.cursorPos, maxChars.value());
+				}
+
+				if (text.text != previousText)
+				{
+					text.cursorStopwatch.restart();
+				}
+
+				if (const String raw = TextInput::GetRawInput(); raw.includes(U'\r') || raw.includes(U'\t'))
+				{
+					text.active = false;
+				}
+
+				if ((0 < text.cursorPos) && (KeyLeft.down() || (KeyLeft.pressedDuration() > SecondsF(0.33) && text.leftPressStopwatch > SecondsF(0.06))))
+				{
+					--text.cursorPos;
+					text.leftPressStopwatch.restart();
+				}
+
+				if ((text.cursorPos < text.text.size()) && (KeyRight.down() || (KeyRight.pressedDuration() > SecondsF(0.33) && text.rightPressStopwatch > SecondsF(0.06))))
+				{
+					++text.cursorPos;
+					text.rightPressStopwatch.restart();
+				}
+			}
+
+			return (text.text != previousText);
 		}
 	}
 }

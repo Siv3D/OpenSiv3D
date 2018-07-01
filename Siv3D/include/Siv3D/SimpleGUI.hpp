@@ -12,9 +12,28 @@
 # pragma once
 # include "Fwd.hpp"
 # include "Unspecified.hpp"
+# include "String.hpp"
+# include "Stopwatch.hpp"
 
 namespace s3d
 {
+	struct TextEditState
+	{
+		String text;
+
+		size_t cursorPos = 0;
+
+		bool active = false;
+
+		Stopwatch leftPressStopwatch, rightPressStopwatch, cursorStopwatch;
+
+		TextEditState() = default;
+
+		explicit TextEditState(const String& defaultText)
+			: text(defaultText)
+			, cursorPos(defaultText.size()) {}
+	};
+
 	namespace SimpleGUI
 	{
 		[[nodiscard]] RectF ButtonRegion(const String& label, const Vec2& pos, const Optional<int32>& width = unspecified);
@@ -64,5 +83,13 @@ namespace s3d
 		bool CheckBox(bool& checked, const String& label, const Vec2& pos, const Optional<int32>& width = unspecified, bool enabled = true);
 
 		bool CheckBoxAt(bool& checked, const String& label, const Vec2& center, const Optional<int32>& width = unspecified, bool enabled = true);
+
+		[[nodiscard]] RectF TextBoxRegion(const Vec2& pos, double width = 200.0);
+
+		[[nodiscard]] RectF TextBoxRegionAt(const Vec2& center, double width = 200.0);
+
+		bool TextBox(TextEditState& text, const Vec2& pos, double width = 200.0, const Optional<size_t>& maxChars = unspecified, bool enabled = true);
+
+		bool TextBoxAt(TextEditState& text, const Vec2& center, double width = 200.0, const Optional<size_t>& maxChars = unspecified, bool enabled = true);
 	}
 }
