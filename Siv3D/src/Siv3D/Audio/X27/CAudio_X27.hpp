@@ -86,6 +86,8 @@ namespace s3d
 
 		const Wave& getWave(AudioID handleID) override;
 
+		void setPosSample(AudioID handleID, int64 sample) override;
+
 		void setVolume(AudioID handleID, const std::pair<double, double>& volume) override;
 
 		std::pair<double, double> getVolume(AudioID handleID) override;

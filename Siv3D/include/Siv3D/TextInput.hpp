@@ -50,16 +50,16 @@ namespace s3d
 
 	namespace TextInput
 	{
-		String GetRawInput();
+		[[nodiscard]] String GetRawInput();
 
-		size_t UpdateText(String& text, size_t cursorPos, TextInputMode mode = TextInputMode::Default);
+		[[nodiscard]] size_t UpdateText(String& text, size_t cursorPos, TextInputMode mode = TextInputMode::Default);
 
 		inline void UpdateText(String& text, TextInputMode mode = TextInputMode::Default)
 		{
-			UpdateText(text, text.length(), mode);
+			(void)UpdateText(text, text.length(), mode);
 		}
 		
-		String GetEditingText();
+		[[nodiscard]] String GetEditingText();
 	}
 
 # if defined(SIV3D_TARGET_WINDOWS)

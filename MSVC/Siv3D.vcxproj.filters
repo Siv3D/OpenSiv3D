@@ -767,6 +767,9 @@
     <Filter Include="src\Siv3D\SimpleGUI">
       <UniqueIdentifier>{9e57f39c-a821-40ca-be7e-8038890c7dca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\OpenCV_Bridge">
+      <UniqueIdentifier>{5b8725f3-7e1b-4455-b2d0-2cb69b8fc969}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -2151,6 +2154,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\SimpleGUI\SimpleGUI.cpp">
       <Filter>src\Siv3D\SimpleGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\OpenCV_Bridge\SivOpenCV_Bridge.cpp">
+      <Filter>src\Siv3D\OpenCV_Bridge</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -4414,6 +4420,15 @@
       <Filter>src\Siv3D\AnimatedGIFWriter</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\SimpleGUI.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\OpenCV_Bridge.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Ray.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Sphere.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
   </ItemGroup>

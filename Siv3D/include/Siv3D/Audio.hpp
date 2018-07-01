@@ -170,6 +170,11 @@ namespace s3d
 		[[nodiscard]] int64 posSample() const;
 
 		/// <summary>
+		/// 再生位置（秒）を返します。
+		/// </summary>
+		[[nodiscard]] double posSec() const;
+
+		/// <summary>
 		/// 再生バッファに送信済みのサウンドの位置（サンプル）を返します。
 		/// </summary>
 		[[nodiscard]] int64 streamPosSample() const;
@@ -191,6 +196,28 @@ namespace s3d
 		/// サウンドの波形データへの参照
 		/// </returns>
 		[[nodiscard]] const Wave& getWave() const;
+
+		/// <summary>
+		/// 再生位置を変更します。
+		/// </summary>
+		/// <param name="sec">
+		/// 再生位置（秒）
+		/// </param>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void setPosSec(double posSec) const;
+
+		/// <summary>
+		/// 再生位置を変更します。
+		/// </summary>
+		/// <param name="posSample">
+		/// 再生位置（サンプル）
+		/// </param>
+		/// <returns>
+		/// なし
+		/// </returns>
+		void setPosSample(int64 posSample) const;
 
 		/// <summary>
 		/// 音量を変更します。

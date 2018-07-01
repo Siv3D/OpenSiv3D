@@ -1,5 +1,5 @@
 ﻿
-# include <Siv3D.hpp> // OpenSiv3D v0.2.6
+# include <Siv3D.hpp> // OpenSiv3D v0.2.7
 
 void Main()
 {

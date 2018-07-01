@@ -206,6 +206,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\NLP\SivNLP_Japanese.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ObjectDetection\CObjectDetection.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ObjectDetection\ObjectDetectionFactory.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\OpenCV_Bridge\SivOpenCV_Bridge.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Painting\PaintShape.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Painting\SivPainting.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ParseBool\SivParseBool.cpp" />
@@ -622,6 +623,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\NLP_Japanese.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Number.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OffsetCircular.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\OpenCV_Bridge.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Optional.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OutlineGlyph.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Parse.hpp" />
@@ -651,6 +653,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\RandomVec4.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RangeIterator.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RasterizerState.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Ray.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RDTSCClock.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ReaderView.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Rectangle.hpp" />
@@ -668,6 +671,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\SIMDMath.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SimpleGUI.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SoundFont.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Sphere.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Spherical.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Spline.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Sprite.hpp" />

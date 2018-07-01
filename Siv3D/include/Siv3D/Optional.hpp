@@ -18,7 +18,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 //
-//	Copyright (C) 2011 - 2012 Andrzej Krzemienski.
+//	Copyright (C) 2011 - 2017 Andrzej Krzemienski.
 //
 //	Use, modification, and distribution is subject to the Boost Software
 //	License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -84,11 +84,23 @@ namespace s3d
 		{
 			return v;
 		}
+
+		namespace swap_ns
+		{
+			using std::swap;
+
+			template <class T>
+			void adl_swap(T& t, T& u) noexcept(noexcept(swap(t, u)))
+			{
+				swap(t, u);
+			}
+
+		} // namespace swap_ns
 	}
 
-	inline constexpr struct trivial_init_t {} trivial_init{};
+	inline constexpr struct TrivialInit_t {} TrivialInit{};
 
-	inline constexpr struct in_place_t {} in_place{};
+	inline constexpr struct InPlace_t {} InPlace{};
 
 	struct None_t
 	{
@@ -119,7 +131,7 @@ namespace s3d
 		
 		Type value_;
 
-		constexpr storage_t(trivial_init_t) noexcept
+		constexpr storage_t(TrivialInit_t) noexcept
 			: dummy_() {};
 
 		template <class... Args>
@@ -136,7 +148,7 @@ namespace s3d
 		
 		Type value_;
 
-		constexpr constexpr_storage_t(trivial_init_t) noexcept
+		constexpr constexpr_storage_t(TrivialInit_t) noexcept
 			: dummy_() {};
 
 		template <class... Args>
@@ -155,7 +167,7 @@ namespace s3d
 
 		constexpr optional_base() noexcept
 			: init_(false)
-			, storage_(trivial_init) {};
+			, storage_(TrivialInit) {};
 
 		explicit constexpr optional_base(const Type& v)
 			: init_(true)
@@ -165,12 +177,12 @@ namespace s3d
 			: init_(true)
 			, storage_(constexpr_move(v)) {}
 
-		template <class... Args> explicit optional_base(in_place_t, Args&&... args)
+		template <class... Args> explicit optional_base(InPlace_t, Args&&... args)
 			: init_(true)
 			, storage_(constexpr_forward<Args>(args)...) {}
 
 		template <class U, class... Args, OPTIONAL_REQUIRES(std::is_constructible<Type, std::initializer_list<U>>)>
-		explicit optional_base(in_place_t, std::initializer_list<U> il, Args&&... args)
+		explicit optional_base(InPlace_t, std::initializer_list<U> il, Args&&... args)
 			: init_(true)
 			, storage_(il, std::forward<Args>(args)...) {}
 
@@ -192,7 +204,7 @@ namespace s3d
 
 		constexpr constexpr_optional_base() noexcept
 			: init_(false)
-			, storage_(trivial_init) {};
+			, storage_(TrivialInit) {};
 
 		explicit constexpr constexpr_optional_base(const Type& v)
 			: init_(true)
@@ -202,12 +214,12 @@ namespace s3d
 			: init_(true)
 			, storage_(constexpr_move(v)) {}
 
-		template <class... Args> explicit constexpr constexpr_optional_base(in_place_t, Args&&... args)
+		template <class... Args> explicit constexpr constexpr_optional_base(InPlace_t, Args&&... args)
 			: init_(true)
 			, storage_(constexpr_forward<Args>(args)...) {}
 
 		template <class U, class... Args, OPTIONAL_REQUIRES(std::is_constructible<Type, std::initializer_list<U>>)>
-		constexpr explicit constexpr_optional_base(in_place_t, std::initializer_list<U> il, Args&&... args)
+		constexpr explicit constexpr_optional_base(InPlace_t, std::initializer_list<U> il, Args&&... args)
 			: init_(true)
 			, storage_(il, std::forward<Args>(args)...) {}
 
@@ -238,7 +250,7 @@ namespace s3d
 	class Optional : private OptionalBase<Type>
 	{
 		static_assert(!std::is_same_v<std::decay_t<Type>, None_t>, "bad Type");
-		static_assert(!std::is_same_v<std::decay_t<Type>, in_place_t>, "bad Type");
+		static_assert(!std::is_same_v<std::decay_t<Type>, InPlace_t>, "bad Type");
 
 		Type* dataptr()
 		{
@@ -366,8 +378,8 @@ namespace s3d
 		/// 値のコンストラクタ引数
 		/// </param>
 		template <class... Args>
-		constexpr explicit Optional(in_place_t, Args&&... args)
-			: OptionalBase<Type>(in_place_t{}, constexpr_forward<Args>(args)...) {}
+		constexpr explicit Optional(InPlace_t, Args&&... args)
+			: OptionalBase<Type>(InPlace_t{}, constexpr_forward<Args>(args)...) {}
 
 		/// <summary>
 		/// コンストラクタ
@@ -376,8 +388,8 @@ namespace s3d
 		/// 値のコンストラクタ引数
 		/// </param>
 		template <class U, class... Args, OPTIONAL_REQUIRES(std::is_constructible<Type, std::initializer_list<U>>)>
-		constexpr explicit Optional(in_place_t, std::initializer_list<U> il, Args&&... args)
-			: OptionalBase<Type>(in_place_t{}, il, constexpr_forward<Args>(args)...) {}
+		constexpr explicit Optional(InPlace_t, std::initializer_list<U> il, Args&&... args)
+			: OptionalBase<Type>(InPlace_t{}, il, constexpr_forward<Args>(args)...) {}
 
 		/// <summary>
 		/// デストラクタ
@@ -493,7 +505,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void swap(Optional<Type>& rhs) noexcept(std::is_nothrow_move_constructible_v<Type> && noexcept(std::swap(std::declval<Type&>(), std::declval<Type&>())))
+		void swap(Optional<Type>& rhs) noexcept(std::is_nothrow_move_constructible_v<Type> && noexcept(detail::swap_ns::adl_swap(std::declval<Type&>(), std::declval<Type&>())))
 		{
 			if (has_value() == true && rhs.has_value() == false) { rhs.initialize(std::move(**this)); clear(); }
 			else if (has_value() == false && rhs.has_value() == true) { initialize(std::move(*rhs)); rhs.clear(); }
@@ -867,7 +879,7 @@ namespace s3d
 	class Optional<Type&>
 	{
 		static_assert(!std::is_same_v<Type, None_t>, "bad Type");
-		static_assert(!std::is_same_v<Type, in_place_t>, "bad Type");
+		static_assert(!std::is_same_v<Type, InPlace_t>, "bad Type");
 			
 		Type* ref;
 
@@ -914,10 +926,10 @@ namespace s3d
 		/// <param name="rhs">
 		/// 他の Optional オブジェクト
 		/// </param>
-		explicit constexpr Optional(in_place_t, Type& v) noexcept
+		explicit constexpr Optional(InPlace_t, Type& v) noexcept
 			: ref(detail::static_addressof(v)) {}
 
-		explicit Optional(in_place_t, Type&&) = delete;
+		explicit Optional(InPlace_t, Type&&) = delete;
 
 		/// <summary>
 		/// デストラクタ
@@ -1635,13 +1647,13 @@ namespace s3d
 	}
 
 	template <class Type>
-	constexpr Optional<std::decay_t<Type>> make_Optional(Type&& v)
+	constexpr Optional<std::decay_t<Type>> MakeOptional(Type&& v)
 	{
 		return Optional<std::decay_t<Type>>(constexpr_forward<Type>(v));
 	}
 
 	template <class U>
-	constexpr Optional<U&> make_Optional(std::reference_wrapper<U> v)
+	constexpr Optional<U&> MakeOptional(std::reference_wrapper<U> v)
 	{
 		return Optional<U&>(v.get());
 	}

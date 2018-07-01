@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -71,6 +71,8 @@ namespace s3d
 		uint64 samplesPlayed(AudioID handleID) override;
 
 		const Wave& getWave(AudioID handleID) override;
+
+		void setPosSample(AudioID handleID, int64 sample) override;
 
 		void setVolume(AudioID handleID, const std::pair<double, double>& volume) override;
 

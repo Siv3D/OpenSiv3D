@@ -14,6 +14,8 @@
 
 # include "Audio_X28.hpp"
 
+# include <Siv3D/Logger.hpp>
+
 namespace s3d
 {
 	Audio_X28::Audio_X28(Wave&& wave, AudioDevice_X28* const device, const Optional<AudioLoopTiming>& loop, const double maxSpeed)
@@ -72,7 +74,7 @@ namespace s3d
 			posSample = loop->endPos - 1;
 		}
 
-		posSample = std::min<int64>(posSample, m_wave.size());
+		posSample = std::min<int64>(posSample, m_wave.size() - 1);
 
 		m_stream.setReadPos(posSample);
 	}
@@ -105,6 +107,11 @@ namespace s3d
 		m_audioControl.m_stopwatch.reset();
 
 		return updateFade();
+	}
+
+	AudioControlState Audio_X28::getState() const
+	{
+		return m_audioControl.m_state;
 	}
 
 	void Audio_X28::playOneShot(const double volume, const double pitch)
@@ -178,7 +185,7 @@ namespace s3d
 					m_audioControl.m_stopwatch.restart();
 				}
 
-				const double tVolume = std::min(m_audioControl.m_stopwatch.sF() / m_audioControl.m_durationSec, 1.0);
+				const double tVolume = std::min(m_audioControl.m_stopwatch.sF() / std::max(m_audioControl.m_durationSec, 0.000001), 1.0);
 
 				if (tVolume != m_audioControl.m_currentVolume)
 				{
@@ -255,7 +262,7 @@ namespace s3d
 				}
 
 				const double elapsedSec = m_audioControl.m_stopwatch.sF();
-				const double tVolume = 1.0 - std::min(elapsedSec / m_audioControl.m_durationSec, 1.0);
+				const double tVolume = 1.0 - std::min(elapsedSec / std::max(m_audioControl.m_durationSec, 0.000001), 1.0);
 
 				if (std::min(tVolume, m_audioControl.m_currentVolume) != m_audioControl.m_currentVolume)
 				{
@@ -329,7 +336,7 @@ namespace s3d
 				}
 
 				const double elapsedSec = m_audioControl.m_stopwatch.sF();
-				const double tVolume = 1.0 - std::min(elapsedSec / m_audioControl.m_durationSec, 1.0);
+				const double tVolume = 1.0 - std::min(elapsedSec / std::max(m_audioControl.m_durationSec, 0.000001), 1.0);
 
 				if (std::min(tVolume, m_audioControl.m_currentVolume) != m_audioControl.m_currentVolume)
 				{

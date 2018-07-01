@@ -502,7 +502,7 @@ namespace s3d
 			return none;
 		}
 
-		return Optional<String>(in_place, getString());
+		return Optional<String>(InPlace, getString());
 	}
 
 	////////////////////////////////
@@ -535,7 +535,7 @@ namespace s3d
 			return none;
 		}
 
-		return Optional<Date>(in_place, getDate());
+		return Optional<Date>(InPlace, getDate());
 	}
 
 	////////////////////////////////
@@ -610,7 +610,7 @@ namespace s3d
 			return none;
 		}
 
-		return Optional<DateTime>(in_place, getDateTime());
+		return Optional<DateTime>(InPlace, getDateTime());
 	}
 
 	////////////////////////////////

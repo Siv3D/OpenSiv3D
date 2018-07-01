@@ -11,6 +11,7 @@
 
 # include "CObjectDetection.hpp"
 # include <Siv3D/Image.hpp>
+# include <Siv3D/OpenCV_Bridge.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Compression.hpp>
 # include <Siv3D/Resource.hpp>
@@ -21,26 +22,6 @@ namespace s3d
 {
 	namespace detail
 	{
-		static void ToGrayScale(const Image& from, cv::Mat_<uint8>& to)
-		{
-			assert(from.width() == to.cols);
-			assert(from.height() == to.rows);
-
-			const Color* pSrc = from.data();
-			const int32 height = from.height(), width = from.width();
-
-			for (int32 y = 0; y < height; ++y)
-			{
-				uint8* line = &to(y, 0);
-
-				for (int32 x = 0; x < width; ++x)
-				{
-					line[x] = pSrc->grayscale0_255();
-					++pSrc;
-				}
-			}
-		}
-
 		static const FilePath CascadeNames[5] =
 		{
 			U"frontal_face_alt2.xml",
@@ -113,7 +94,7 @@ namespace s3d
 			}
 		}
 
-		detail::ToGrayScale(image, m_mat);
+		OpenCV_Bridge::ToGrayScale(image, m_mat);
 
 		std::vector<cv::Rect> faces;
 
@@ -161,7 +142,7 @@ namespace s3d
 			}
 		}
 
-		detail::ToGrayScale(image, m_mat);
+		OpenCV_Bridge::ToGrayScale(image, m_mat);
 
 		Array<Rect> rects;
 

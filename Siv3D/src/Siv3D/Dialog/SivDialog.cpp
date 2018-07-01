@@ -75,6 +75,18 @@ namespace s3d
 			}
 		}
 
+		Texture OpenTexture(const TextureDesc desc, const FilePath& defaultPath, const String& title)
+		{
+			if (const auto path = OpenFile(detail::OpenImageFilters, defaultPath, title))
+			{
+				return Texture(path.value(), desc);
+			}
+			else
+			{
+				return Texture();
+			}
+		}
+
 		Wave OpenWave(const FilePath& defaultPath, const String& title)
 		{
 			if (const auto path = OpenFile(detail::OpenAudioFilters, defaultPath, title))
@@ -92,6 +104,18 @@ namespace s3d
 			if (const auto path = OpenFile(detail::OpenAudioFilters, defaultPath, title))
 			{
 				return Audio(path.value());
+			}
+			else
+			{
+				return Audio();
+			}
+		}
+
+		Audio OpenAudio(const Arg::loop_<bool> loop, const FilePath& defaultPath, const String& title)
+		{
+			if (const auto path = OpenFile(detail::OpenAudioFilters, defaultPath, title))
+			{
+				return Audio(path.value(), loop);
 			}
 			else
 			{

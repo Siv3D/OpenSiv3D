@@ -546,6 +546,9 @@
 	// QR code
 	# include "Siv3D/QR.hpp"
 
+	// OpenCV bridge
+	# include "Siv3D/OpenCV_Bridge.hpp"
+
 	//// 手書き文字認識
 	//# include "Siv3D/HandwritingRecognizer.hpp"
 
@@ -927,8 +930,10 @@
 	//# include "Siv3D/Quaternion.hpp"
 	//// 4x4 行列
 	//# include "Siv3D/Mat4x4.hpp"
-	//// レイ
-	//# include "Siv3D/Ray.hpp"
+
+	// Ray
+	# include "Siv3D/Ray.hpp"
+
 	//// 3D 線分
 	//# include "Siv3D/Line3D.hpp"
 	//// 3D 三角形
@@ -945,8 +950,10 @@
 	//# include "Siv3D/Particle.hpp"
 	//// 平面
 	//# include "Siv3D/Plane.hpp"
-	//// 球
-	//# include "Siv3D/Sphere.hpp"
+
+	// Sphere
+	# include "Siv3D/Sphere.hpp"
+	
 	//// ボックス
 	//# include "Siv3D/Box.hpp"
 	//// 円盤

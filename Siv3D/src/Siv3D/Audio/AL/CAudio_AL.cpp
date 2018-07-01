@@ -181,6 +181,20 @@ namespace s3d
 		return m_audios[handleID]->getWave();
 	}
 
+	void CAudio_AL::setPosSample(const AudioID handleID, const int64 sample)
+	{
+		const auto& audio = m_audios[handleID];
+		const bool isPlaying = audio->getStream().isPlaying();
+		audio->getStream().pause();
+		
+		audio->getStream().setPosSmaple(sample);
+		
+		if (isPlaying)
+		{
+			audio->getStream().play();
+		}
+	}
+
 	void CAudio_AL::setVolume(const AudioID handleID, const std::pair<double, double>& volume)
 	{
 		m_audios[handleID]->getStream().setVolume(volume);
