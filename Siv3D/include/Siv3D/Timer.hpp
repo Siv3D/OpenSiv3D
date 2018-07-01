@@ -42,8 +42,25 @@ namespace s3d
 		/// <param name="startImmediately">
 		/// 即座に計測を開始する場合は true
 		/// </param>
-		explicit Timer(const MicrosecondsF& time = MicrosecondsF(0.0), bool startImmediately = false)
-			: m_initialTimeMicrosec(static_cast<int64>(time.count()))
+		explicit Timer(double timeSec = 0.0, bool startImmediately = false)
+			: m_initialTimeMicrosec(static_cast<int64>(timeSec * 1'000'000))
+		{
+			set(SecondsF(timeSec));
+
+			if (startImmediately)
+			{
+				start();
+			}
+		}
+
+		/// <summary>
+		/// タイマーを作成します。
+		/// </summary>
+		/// <param name="startImmediately">
+		/// 即座に計測を開始する場合は true
+		/// </param>
+		explicit Timer(const Duration& time = SecondsF(0.0), bool startImmediately = false)
+			: m_initialTimeMicrosec(static_cast<int64>(time.count() * 1'000'000))
 		{
 			set(time);
 

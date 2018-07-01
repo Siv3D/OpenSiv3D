@@ -1,62 +1,22 @@
 ﻿
-# include <Siv3D.hpp>
+# include <Siv3D.hpp> // OpenSiv3D v0.2.7
 
 void Main()
 {
-	Audio audio;
-	FFTResult fft;
-	bool hasChanged = false;
+	Graphics::SetBackground(ColorF(0.8, 0.9, 1.0));
+
+	const Font font(50);
+
+	const Texture textureCat(Emoji(U"🐈"), TextureDesc::Mipped);
 
 	while (System::Update())
 	{
-		//ClearPrint();	
-		//Print << audio.posSample();
+		font(U"Hello, Siv3D!🐣").drawAt(Window::Center(), Palette::Black);
 
-		const int32 posSec = static_cast<int32>(audio.posSec());
-		const int32 lengthSec = static_cast<int32>(audio.lengthSec());
-		const String time = U"{}:{:0>2}/{}:{:0>2}"_fmt(
-			posSec / 60, posSec % 60, lengthSec / 60, lengthSec % 60);
-		double progress = static_cast<double>(audio.posSample()) / audio.samples();
+		font(Cursor::Pos()).draw(20, 400, ColorF(0.6));
 
-		if (SimpleGUI::Button(U"Play", Vec2(40, 380), 120, audio && !audio.isPlaying()))
-		{
-			audio.play(0.2s);
-		}
+		textureCat.resized(80).draw(540, 380);
 
-		if (SimpleGUI::Button(U"Pause", Vec2(170, 380), 120, audio.isPlaying()))
-		{
-			audio.pause(0.2s);
-		}
-
-		if (SimpleGUI::Button(U"Open", Vec2(300, 380), 120))
-		{
-			audio.stop(0.5s);
-			audio = Dialog::OpenAudio();
-			audio.play();
-		}
-
-		if (SimpleGUI::Slider(time, progress, Vec2(40, 420), 130, 430, !audio.isEmpty()))
-		{
-			audio.pause(0.1s);
-			audio.setPosSample(static_cast<int64>(audio.samples() * progress));
-			hasChanged = true;
-		}
-		else if (hasChanged && MouseL.up())
-		{
-			audio.play(0.1s);
-			hasChanged = false;
-		}
-
-		if (audio.isPlaying())
-		{
-			FFT::Analyze(fft, audio);
-
-			for (auto i : step(640))
-			{
-				const double size = Pow(fft.buffer[i], 0.6f) * 800;
-
-				RectF(Arg::bottomLeft(i, 360), 1, size).draw(HSV(240 - i));
-			}
-		}
+		Circle(Cursor::Pos(), 60).draw(ColorF(1, 0, 0, 0.5));
 	}
 }
