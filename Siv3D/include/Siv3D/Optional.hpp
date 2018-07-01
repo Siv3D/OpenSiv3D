@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -505,7 +505,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void swap(Optional<Type>& rhs) noexcept(std::is_nothrow_move_constructible_v<Type> && noexcept(detail_::swap_ns::adl_swap(std::declval<Type&>(), std::declval<Type&>())))
+		void swap(Optional<Type>& rhs) noexcept(std::is_nothrow_move_constructible_v<Type> && noexcept(detail::swap_ns::adl_swap(std::declval<Type&>(), std::declval<Type&>())))
 		{
 			if (has_value() == true && rhs.has_value() == false) { rhs.initialize(std::move(**this)); clear(); }
 			else if (has_value() == false && rhs.has_value() == true) { initialize(std::move(*rhs)); rhs.clear(); }
