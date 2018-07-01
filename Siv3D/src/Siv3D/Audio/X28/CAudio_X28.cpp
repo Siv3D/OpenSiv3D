@@ -246,6 +246,27 @@ namespace s3d
 		return m_audios[handleID]->getWave();
 	}
 
+	void CAudio_X28::setPosSample(const AudioID handleID, const int64 sample)
+	{
+		std::lock_guard<std::mutex> lock(m_mutex);
+
+		const auto& audio = m_audios[handleID];
+		const auto currentState = audio->getState();
+		const bool isPlaying = audio->getStream().isPlaying();
+
+		audio->changeState(AudioControlState::StopImmediately, 0.0);
+		audio->setPosSample(sample);
+
+		if (isPlaying)
+		{
+			audio->changeState(currentState, 0.0);
+		}
+		else
+		{
+			audio->changeState(AudioControlState::StopImmediately, 0.0);
+		}
+	}
+
 	void CAudio_X28::setVolume(const AudioID handleID, const std::pair<double, double>& volume)
 	{
 		std::lock_guard<std::mutex> lock(m_mutex);

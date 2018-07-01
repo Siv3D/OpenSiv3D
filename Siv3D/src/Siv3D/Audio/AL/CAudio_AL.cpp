@@ -181,6 +181,11 @@ namespace s3d
 		return m_audios[handleID]->getWave();
 	}
 
+	void CAudio_AL::setPosSample(const AudioID handleID, const int64 sample)
+	{
+		// [Siv3D ToDo]
+	}
+
 	void CAudio_AL::setVolume(const AudioID handleID, const std::pair<double, double>& volume)
 	{
 		m_audios[handleID]->getStream().setVolume(volume);

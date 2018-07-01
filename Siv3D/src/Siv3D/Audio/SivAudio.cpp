@@ -339,6 +339,11 @@ namespace s3d
 		return Siv3DEngine::GetAudio()->posSample(m_handle->id());
 	}
 
+	double Audio::posSec() const
+	{
+		return static_cast<double>(posSample()) / samplingRate();
+	}
+
 	int64 Audio::streamPosSample() const
 	{
 		return Siv3DEngine::GetAudio()->streamPosSample(m_handle->id());
@@ -357,6 +362,18 @@ namespace s3d
 	const Wave& Audio::getWave() const
 	{
 		return Siv3DEngine::GetAudio()->getWave(m_handle->id());
+	}
+
+	void Audio::setPosSec(const double posSec) const
+	{
+		const int64 sample = static_cast<int64>(posSec * samplingRate());
+
+		setPosSample(sample);
+	}
+
+	void Audio::setPosSample(const int64 posSample) const
+	{
+		Siv3DEngine::GetAudio()->setPosSample(m_handle->id(), posSample);
 	}
 
 	void Audio::setVolume(const double volume) const

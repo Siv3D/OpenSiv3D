@@ -124,6 +124,11 @@ namespace s3d
 		return wave;
 	}
 
+	void CAudio_Null::setPosSample(const AudioID handleID, const int64 sample)
+	{
+		// [Siv3D ToDo]
+	}
+
 	void CAudio_Null::setVolume(const AudioID, const std::pair<double, double>&)
 	{
 		// [Siv3D ToDo]

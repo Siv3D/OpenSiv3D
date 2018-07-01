@@ -71,6 +71,8 @@ namespace s3d
 
 		bool changeState(const AudioControlState state, const double durationSec);
 
+		AudioControlState getState() const;
+
 		void playOneShot(double volume, double pitch);
 
 		void stopAllShots();

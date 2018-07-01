@@ -72,7 +72,7 @@ namespace s3d
 			posSample = loop->endPos - 1;
 		}
 
-		posSample = std::min<int64>(posSample, m_wave.size());
+		posSample = std::min<int64>(posSample, m_wave.size() - 1);
 
 		m_stream.setReadPos(posSample);
 	}
@@ -105,6 +105,11 @@ namespace s3d
 		m_audioControl.m_stopwatch.reset();
 
 		return updateFade();
+	}
+
+	AudioControlState Audio_X28::getState() const
+	{
+		return m_audioControl.m_state;
 	}
 
 	void Audio_X28::playOneShot(const double volume, const double pitch)

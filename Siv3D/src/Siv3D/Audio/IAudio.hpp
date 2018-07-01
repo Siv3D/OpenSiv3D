@@ -59,6 +59,8 @@ namespace s3d
 
 		virtual const Wave& getWave(AudioID handleID) = 0;
 
+		virtual void setPosSample(AudioID handleID, int64 sample) = 0;
+
 		virtual void setVolume(AudioID handleID, const std::pair<double, double>& volume) = 0;
 
 		virtual std::pair<double, double> getVolume(AudioID handleID) = 0;
