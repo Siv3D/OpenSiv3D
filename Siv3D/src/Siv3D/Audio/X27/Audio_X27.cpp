@@ -181,7 +181,7 @@ namespace s3d
 					m_audioControl.m_stopwatch.restart();
 				}
 
-				const double tVolume = std::min(m_audioControl.m_stopwatch.sF() / m_audioControl.m_durationSec, 1.0);
+				const double tVolume = std::min(m_audioControl.m_stopwatch.sF() / std::max(m_audioControl.m_durationSec, 0.000001), 1.0);
 
 				if (tVolume != m_audioControl.m_currentVolume)
 				{
@@ -258,7 +258,7 @@ namespace s3d
 				}
 
 				const double elapsedSec = m_audioControl.m_stopwatch.sF();
-				const double tVolume = 1.0 - std::min(elapsedSec / m_audioControl.m_durationSec, 1.0);
+				const double tVolume = 1.0 - std::min(elapsedSec / std::max(m_audioControl.m_durationSec, 0.000001), 1.0);
 
 				if (std::min(tVolume, m_audioControl.m_currentVolume) != m_audioControl.m_currentVolume)
 				{
@@ -332,7 +332,7 @@ namespace s3d
 				}
 
 				const double elapsedSec = m_audioControl.m_stopwatch.sF();
-				const double tVolume = 1.0 - std::min(elapsedSec / m_audioControl.m_durationSec, 1.0);
+				const double tVolume = 1.0 - std::min(elapsedSec / std::max(m_audioControl.m_durationSec, 0.000001), 1.0);
 
 				if (std::min(tVolume, m_audioControl.m_currentVolume) != m_audioControl.m_currentVolume)
 				{
