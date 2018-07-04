@@ -124,7 +124,7 @@ namespace s3d
 		return wave;
 	}
 
-	void CAudio_Null::setPosSample(const AudioID handleID, const int64 sample)
+	void CAudio_Null::setPosSample(const AudioID, const int64)
 	{
 		// [Siv3D ToDo]
 	}

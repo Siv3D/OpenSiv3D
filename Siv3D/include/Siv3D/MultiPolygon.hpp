@@ -39,7 +39,6 @@ namespace s3d
 		using typename base_type::allocator_type;
 
 		using base_type::Array;
-		using base_type::operator=;
 		using base_type::assign;
 		using base_type::get_allocator;
 		using base_type::at;
@@ -107,6 +106,44 @@ namespace s3d
 			: base_type(std::move(polygons))
 		{
 
+		}
+
+		MultiPolygon& operator =(const Array<Polygon>& other)
+		{
+			base_type::operator=(other);
+
+			return *this;
+		}
+
+		MultiPolygon& operator =(Array<Polygon>&& other) noexcept
+		{
+			base_type::operator=(std::move(other));
+
+			return *this;
+		}
+
+		MultiPolygon& operator =(const MultiPolygon& other)
+		{
+			base_type::operator=(other);
+
+			return *this;
+		}
+
+		MultiPolygon& operator =(MultiPolygon&& other) noexcept
+		{
+			base_type::operator=(std::move(other));
+
+			return *this;
+		}
+
+		void assign(const MultiPolygon& other)
+		{
+			base_type::operator=(other);
+		}
+
+		void assign(MultiPolygon&& other) noexcept
+		{
+			base_type::operator=(std::move(other));
 		}
 
 		MultiPolygon& operator <<(const Polygon& polygon)

@@ -207,7 +207,7 @@ namespace s3d
 
 		bool EncodeAlnum(QRCode& qr, const StringView view, const QRErrorCorrection ec, const Optional<int32>& version)
 		{
-			const std::string utf8 = Unicode::ToUTF8(view);
+			const std::string utf8 = Unicode::ToUTF8(String(view).uppercase());
 
 			if (!std::all_of(utf8.begin(), utf8.end(), detail::IsAlnumQR))
 			{
