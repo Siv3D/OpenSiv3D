@@ -213,6 +213,27 @@ namespace s3d
 		/// <param name="size">
 		/// 画像のサイズ（ピクセル）
 		/// </param>
+		explicit Image(size_t size)
+			: Image(size, size) {}
+
+		/// <summary>
+		/// 指定した色、サイズで塗りつぶされた画像を作成します。
+		/// </summary>
+		/// <param name="size">
+		/// 画像のサイズ（ピクセル）
+		/// </param>
+		/// <param name="color">
+		/// 塗りつぶしの色
+		/// </param>
+		explicit Image(size_t size, const Color& color)
+			: Image(size, size, color) {}
+
+		/// <summary>
+		/// 指定したサイズの画像を作成します。
+		/// </summary>
+		/// <param name="size">
+		/// 画像のサイズ（ピクセル）
+		/// </param>
 		explicit Image(const Size& size)
 			: Image(size.x, size.y) {}
 

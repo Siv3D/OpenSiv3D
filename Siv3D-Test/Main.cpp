@@ -1,27 +1,15 @@
 ﻿
-# include <Siv3D.hpp> // OpenSiv3D v0.2.8
+# include <Siv3D.hpp>
 
 void Main()
 {
-	LineString a;
-	a = a;
-	a.assign(a);
-	a.assign(a.begin(), a.end());
-	a.append(a);
+	Image image(256, Palette::White);
 
-	Wave b;
-	b = b;
-	b.assign(b);
-	b.append(b);
+	Rect(Arg::center(128, 128), 80).overwriteFrame(image, 2, 0, Palette::Red);
 
-	MultiPolygon c;
-	c = c;
-	c.assign(c);
-	c.append(c);
+	image.floodFilled(Point(2, 2), Color(0, 127, 255), FloodFillConnectivity::Value4, 4, 4);
 
-	QRCode qr;
-	QR::EncodeAlnum(qr, U"Siv3D");
-	const Texture texture(qr.image.bordered(4).scaled(5, Interpolation::Nearest));
+	Texture texture(image, TextureDesc::Mipped);
 
 	while (System::Update())
 	{
