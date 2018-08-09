@@ -15,6 +15,7 @@
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Math.hpp>
+# include <Siv3D/Circle.hpp>
 # include <Siv3D/RoundRect.hpp>
 # include <Siv3D/KeyConjunction.hpp>
 # include <Siv3D/Keyboard.hpp>
@@ -41,12 +42,14 @@ namespace s3d
 
 		constexpr int32 CheckBoxSize = 24;
 		constexpr int32 CheckBoxPadding = 8;
+		constexpr int32 RadioButtonSize = 19;
+		constexpr int32 RadioButtonPadding = 8;
 		constexpr int32 TextBoxHeight = 36;
 	}
 
 	namespace SimpleGUI
 	{
-		RectF ButtonRegion(const String& label, const Vec2& pos, const Optional<int32>& _width)
+		RectF ButtonRegion(const String& label, const Vec2& pos, const Optional<double>& _width)
 		{
 			const Font font = detail::GetSimpleGUIFont();
 
@@ -55,7 +58,7 @@ namespace s3d
 			return RectF(pos, width, 36);
 		}
 
-		RectF ButtonRegionAt(const String& label, const Vec2& center, const Optional<int32>& _width)
+		RectF ButtonRegionAt(const String& label, const Vec2& center, const Optional<double>& _width)
 		{
 			const Font font = detail::GetSimpleGUIFont();
 
@@ -64,14 +67,14 @@ namespace s3d
 			return RectF(Arg::center = center, width, 36);
 		}
 
-		bool Button(const String& label, const Vec2& pos, const Optional<int32>& _width, const bool enabled)
+		bool Button(const String& label, const Vec2& pos, const Optional<double>& _width, const bool enabled)
 		{
 			const Vec2 center = ButtonRegion(label, pos, _width).center();
 
 			return ButtonAt(label, center, _width, enabled);
 		}
 
-		bool ButtonAt(const String& label, const Vec2& center, const Optional<int32>& _width, const bool enabled)
+		bool ButtonAt(const String& label, const Vec2& center, const Optional<double>& _width, const bool enabled)
 		{
 			const Font font = detail::GetSimpleGUIFont();
 
@@ -339,7 +342,7 @@ namespace s3d
 			return (value != previousValue);
 		}
 
-		RectF CheckBoxRegion(const String& label, const Vec2& pos, const Optional<int32>& _width)
+		RectF CheckBoxRegion(const String& label, const Vec2& pos, const Optional<double>& _width)
 		{
 			const Font font = detail::GetSimpleGUIFont();
 
@@ -348,7 +351,7 @@ namespace s3d
 			return RectF(pos, width, 36);
 		}
 
-		RectF CheckBoxRegionAt(const String& label, const Vec2& center, const Optional<int32>& _width)
+		RectF CheckBoxRegionAt(const String& label, const Vec2& center, const Optional<double>& _width)
 		{
 			const Font font = detail::GetSimpleGUIFont();
 
@@ -357,21 +360,21 @@ namespace s3d
 			return RectF(Arg::center = center, width, 36);
 		}
 
-		bool CheckBox(bool& checked, const String& label, const Vec2& pos, const Optional<int32>& _width, const bool enabled)
+		bool CheckBox(bool& checked, const String& label, const Vec2& pos, const Optional<double>& _width, const bool enabled)
 		{
 			const Vec2 center = CheckBoxRegion(label, pos, _width).center();
 
 			return CheckBoxAt(checked, label, center, _width, enabled);
 		}
 
-		bool CheckBoxAt(bool& checked, const String& label, const Vec2& center, const Optional<int32>& _width, const bool enabled)
+		bool CheckBoxAt(bool& checked, const String& label, const Vec2& center, const Optional<double>& _width, const bool enabled)
 		{
 			const Font font = detail::GetSimpleGUIFont();
 
 			const double width = _width.value_or(detail::CheckBoxPadding * 3 + detail::CheckBoxSize + font(label).region().w);
 			const RectF region(Arg::center = center, width, 36);
 			const RectF checkBox(Arg::leftCenter(region.x + 8, center.y), detail::CheckBoxSize);
-			const Vec2 labelPos(region.x + detail::CheckBoxPadding * 2 + detail::CheckBoxSize, center.y - font.height() / 2);
+			const Vec2 labelPos(static_cast<int32>(region.x + detail::CheckBoxPadding * 2 + detail::CheckBoxSize), center.y - font.height() / 2);
 			const bool mouseOver = enabled && checkBox.mouseOver();
 
 			region.draw(ColorF(1.0));
@@ -424,6 +427,128 @@ namespace s3d
 			}
 
 			return (checked != previousValue);
+		}
+
+		RectF RadioButtonsRegion(const Array<String>& options, const Vec2& pos, const Optional<double>& _width)
+		{
+			const Font font = detail::GetSimpleGUIFont();
+
+			double width = 0.0;
+
+			if (_width)
+			{
+				width = _width.value();
+			}
+			else
+			{
+				for (const auto& option : options)
+				{
+					width = std::max<double>(width, detail::RadioButtonPadding * 3 + detail::RadioButtonSize + font(option).region().w);
+				}
+			}
+
+			return RectF(pos, width, std::max(0.0, options.size() * 40 - 4.0));
+		}
+
+		RectF RadioButtonsRegionAt(const Array<String>& options, const Vec2& center, const Optional<double>& _width)
+		{
+			const Font font = detail::GetSimpleGUIFont();
+
+			double width = 0.0;
+
+			if (_width)
+			{
+				width = _width.value();
+			}
+			else
+			{
+				for (const auto& option : options)
+				{
+					width = std::max<double>(width, detail::RadioButtonPadding * 3 + detail::RadioButtonSize + font(option).region().w);
+				}
+			}
+
+			return RectF(Arg::center = center, width, std::max(0.0, options.size() * 40 - 4.0));
+		}
+
+		bool RadioButtons(size_t& index, const Array<String>& options, const Vec2& pos, const Optional<double>& _width, const bool enabled)
+		{
+			const Vec2 center = RadioButtonsRegion(options, pos, _width).center();
+
+			return RadioButtonsAt(index, options, center, _width, enabled);
+		}
+
+		bool RadioButtonsAt(size_t& index, const Array<String>& options, const Vec2& center, const Optional<double>& _width, bool enabled)
+		{
+			const Font font = detail::GetSimpleGUIFont();
+
+			const RectF region = RadioButtonsRegionAt(options, center, _width);
+
+			region.draw();
+
+			bool hasChanged = false;
+			size_t row = 0;
+			const int32 labelPosX = static_cast<int32>(region.x + detail::RadioButtonPadding * 2 + detail::RadioButtonSize);		
+			const double baseY = center.y - (options.size() * 40 - 4) / 2 + 18;
+
+			for (const auto& option : options)
+			{
+				const RectF radioButtonBox(Arg::leftCenter(region.x + detail::RadioButtonPadding, baseY + row * 40), detail::RadioButtonSize);
+				const Circle radioButton(radioButtonBox.center(), detail::RadioButtonSize / 2.0);
+				const Vec2 labelPos(labelPosX, radioButton.y - font.height() / 2 - 1);
+				const bool mouseOver = enabled && radioButtonBox.mouseOver();
+				const bool checked = (index == row);
+
+				if (enabled)
+				{
+					if (checked)
+					{
+						radioButton.drawFrame(2, 0.5, ColorF(0.35, 0.7, 1.0));
+
+						radioButton.stretched(-5).draw(ColorF(0.35, 0.7, 1.0));
+					}
+					else
+					{
+						radioButton.drawFrame(2, 0.5, ColorF(0.5));
+					}
+
+					font(option).draw(labelPos, ColorF(0.2));
+				}
+				else
+				{
+					if (checked)
+					{
+						radioButton.drawFrame(2, 0.5, ColorF(0.75));
+
+						radioButton.stretched(-5).draw(ColorF(0.75));
+					}
+					else
+					{
+						radioButton.drawFrame(2, 0.5, ColorF(0.75));
+					}
+
+					font(option).draw(labelPos, ColorF(0.67));
+				}
+
+				if (mouseOver && Cursor::OnClientRect())
+				{
+					Cursor::RequestStyle(CursorStyle::Hand);
+				}
+
+				if (enabled && Cursor::OnClientRect() && radioButtonBox.leftClicked())
+				{
+					if (index != row)
+					{
+						index = row;
+
+						hasChanged = true;
+					}
+				}
+
+				++row;
+			}
+
+			return hasChanged;
 		}
 
 		RectF TextBoxRegion(const Vec2& pos, double width)

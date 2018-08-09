@@ -2894,7 +2894,7 @@ namespace s3d
 			cv::divide(t3, t1, ssim_map);      // ssim_map =  t3./t1;
 
 			cv::Scalar mssim = cv::mean(ssim_map); // mssim = average of ssim map
-			return ColorF(mssim[0], mssim[1], mssim[0], 1.0);
+			return ColorF(mssim[0], mssim[1], mssim[2], 1.0);
 		}
 
 		void Inpaint(const Image& image, const Image& maskImage, Image& result, int32 radius)

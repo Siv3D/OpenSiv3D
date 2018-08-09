@@ -3,16 +3,13 @@
 
 void Main()
 {
-	Image image(256, Palette::White);
+	const Array<String> options = { U"オプション1", U"オプション2", U"オプション3", U"オプション4" };
 
-	Rect(Arg::center(128, 128), 80).overwriteFrame(image, 2, 0, Palette::Red);
-
-	image.floodFilled(Point(2, 2), Color(0, 127, 255), FloodFillConnectivity::Value4, 4, 4);
-
-	Texture texture(image, TextureDesc::Mipped);
+	size_t index = 0;
 
 	while (System::Update())
 	{
-		texture.draw();
+		SimpleGUI::RadioButtons(index, options, Vec2(40, 40));
 	}
 }
+
