@@ -770,6 +770,9 @@
     <Filter Include="src\Siv3D\OpenCV_Bridge">
       <UniqueIdentifier>{5b8725f3-7e1b-4455-b2d0-2cb69b8fc969}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Duration">
+      <UniqueIdentifier>{cdf3783d-0339-4437-ae51-724f96b769c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -2157,6 +2160,9 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\OpenCV_Bridge\SivOpenCV_Bridge.cpp">
       <Filter>src\Siv3D\OpenCV_Bridge</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Duration\SivDuration.cpp">
+      <Filter>src\Siv3D\Duration</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -122,6 +122,39 @@ namespace s3d
 			return DaysF(days);
 		}
 	}
+
+	/// <summary>
+	/// DD		日 (00-)
+	/// D		日 (0-)
+	/// dd		日 (00-)
+	/// d		日 (0-)
+	/// HH		時 (00-)
+	/// H		時 (0-)
+	/// hh		時 (00-24)
+	/// h		時 (0-24)
+	/// MM		分 (00-)
+	/// M		分 (0-)
+	/// mm		分 (00-59)
+	/// m		分 (0-59)
+	/// SS		秒 (00-)
+	/// S		秒 (0-)
+	/// ss		秒 (00-59)
+	/// s		秒 (0-59)
+	/// X		ミリ秒 (0-)
+	/// x		小数点以下 1 桁秒 (0-9)
+	/// xx		小数点以下 2 桁秒 (00-99)
+	/// xxx		小数点以下 3 桁秒 (000-999)
+	/// </summary>
+	/// <param name="duration">
+	/// 時間
+	/// </param>
+	/// <param name="format">
+	/// フォーマット指定
+	/// </param>
+	/// <returns>
+	/// フォーマットされた時間
+	/// </returns>
+	String FormatTime(const Duration& duration, const String& format);
 }
 
 //////////////////////////////////////////////////
@@ -132,101 +165,31 @@ namespace s3d
 
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const Days& days)
-	{
-		Formatter(formatData, days.count());
+	void Formatter(FormatData& formatData, const Days& days);
 
-		formatData.string.push_back(U'd');
-	}
+	void Formatter(FormatData& formatData, const DaysF& days);
 
-	inline void Formatter(FormatData& formatData, const DaysF& days)
-	{
-		Formatter(formatData, days.count());
+	void Formatter(FormatData& formatData, const Hours& hours);
 
-		formatData.string.push_back(U'd');
-	}
+	void Formatter(FormatData& formatData, const HoursF& hours);
 
-	inline void Formatter(FormatData& formatData, const Hours& hours)
-	{
-		Formatter(formatData, hours.count());
+	void Formatter(FormatData& formatData, const Minutes& minutes);
 
-		formatData.string.push_back(U'h');
-	}
+	void Formatter(FormatData& formatData, const MinutesF& minutes);
 
-	inline void Formatter(FormatData& formatData, const HoursF& hours)
-	{
-		Formatter(formatData, hours.count());
+	void Formatter(FormatData& formatData, const Seconds& seconds);
 
-		formatData.string.push_back(U'h');
-	}
+	void Formatter(FormatData& formatData, const SecondsF& seconds);
 
-	inline void Formatter(FormatData& formatData, const Minutes& minutes)
-	{
-		Formatter(formatData, minutes.count());
+	void Formatter(FormatData& formatData, const Milliseconds& milliseconds);
 
-		formatData.string.append(U"min", 3);
-	}
+	void Formatter(FormatData& formatData, const MillisecondsF& milliseconds);
 
-	inline void Formatter(FormatData& formatData, const MinutesF& minutes)
-	{
-		Formatter(formatData, minutes.count());
+	void Formatter(FormatData& formatData, const Microseconds& microseconds);
 
-		formatData.string.append(U"min", 3);
-	}
+	void Formatter(FormatData& formatData, const MicrosecondsF& microseconds);
 
-	inline void Formatter(FormatData& formatData, const Seconds& seconds)
-	{
-		Formatter(formatData, seconds.count());
+	void Formatter(FormatData& formatData, const Nanoseconds& nanoseconds);
 
-		formatData.string.push_back(U's');
-	}
-
-	inline void Formatter(FormatData& formatData, const SecondsF& seconds)
-	{
-		Formatter(formatData, seconds.count());
-
-		formatData.string.push_back(U's');
-	}
-
-	inline void Formatter(FormatData& formatData, const Milliseconds& milliseconds)
-	{
-		Formatter(formatData, milliseconds.count());
-
-		formatData.string.append(U"ms", 2);
-	}
-
-	inline void Formatter(FormatData& formatData, const MillisecondsF& milliseconds)
-	{
-		Formatter(formatData, milliseconds.count());
-
-		formatData.string.append(U"ms", 2);
-	}
-
-	inline void Formatter(FormatData& formatData, const Microseconds& microseconds)
-	{
-		Formatter(formatData, microseconds.count());
-
-		formatData.string.append(U"us", 2);
-	}
-
-	inline void Formatter(FormatData& formatData, const MicrosecondsF& microseconds)
-	{
-		Formatter(formatData, microseconds.count());
-
-		formatData.string.append(U"us", 2);
-	}
-
-	inline void Formatter(FormatData& formatData, const Nanoseconds& nanoseconds)
-	{
-		Formatter(formatData, nanoseconds.count());
-
-		formatData.string.append(U"ns", 2);
-	}
-
-	inline void Formatter(FormatData& formatData, const NanosecondsF& nanoseconds)
-	{
-		Formatter(formatData, nanoseconds.count());
-
-		formatData.string.append(U"ns", 2);
-	}
+	void Formatter(FormatData& formatData, const NanosecondsF& nanoseconds);
 }
