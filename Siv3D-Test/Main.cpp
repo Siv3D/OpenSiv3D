@@ -9,20 +9,29 @@ void Main()
 	const std::list<int32> l = { 10,20,30,40,50 };
 
 	Print << Sample(v);
+	Print << Sample(v.begin(), v.end());
 	Print << Sample(a);
 	Print << Sample(d);
 	Print << Sample(l);
 	Print << Sample({ 10,20,30,40,50 });
 
 	Print << Sample(3, v);
+	Print << Sample(3, v.begin(), v.end());
 	Print << Sample(3, a);
 	Print << Sample(3, d);
 	Print << Sample(3, l);
 	Print << Sample(3, { 10,20,30,40,50 });
 
-	DiscreteDistribution<size_t> dist({ 80, 40, 20, 1 });
+	const DiscreteDistribution<> dist({ 80, 40, 20, 10, 1 });
 
-	Array<size_t> results(4);
+	Print << DiscreteSample(v, dist);
+	Print << DiscreteSample(v.begin(), v.end(), dist);
+	Print << DiscreteSample(a, dist);
+	Print << DiscreteSample(d, dist);
+	Print << DiscreteSample(l, dist);
+	Print << DiscreteSample({ 10,20,30,40,50 }, dist);
+
+	Array<size_t> results(5);
 
 	Print << dist.probabilities();
 

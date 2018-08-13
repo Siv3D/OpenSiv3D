@@ -62,9 +62,9 @@ namespace s3d
 	{
 		Array<typename std::iterator_traits<Iterator>::value_type> result;
 
-		result.reserve(std::min(n, std::distance(begin, end)));
+		result.reserve(std::min<size_t>(n, std::distance(begin, end)));
 
-		std::sample(begin(), end(), std::back_inserter(result), n, GetDefaultRNG());
+		std::sample(begin, end, std::back_inserter(result), n, GetDefaultRNG());
 
 		return result;
 	}
@@ -135,5 +135,37 @@ namespace s3d
 		std::sample(ilist.begin(), ilist.end(), std::back_inserter(result), n, GetDefaultRNG());
 
 		return result;
+	}
+
+	template <class Iterator>
+	inline auto DiscreteSample(Iterator begin, [[maybe_unused]] Iterator end, const DiscreteDistribution<size_t>& weight)
+	{
+		assert(begin != end);
+		assert(std::distance(begin, end) == static_cast<int64>(weight.size()));
+
+		std::advance(begin, weight(GetDefaultRNG()));
+
+		return *begin;
+	}
+
+	template <class Container>
+	inline auto DiscreteSample(const Container& c, const DiscreteDistribution<size_t>& weight)
+	{
+		assert(std::size(c) != 0);
+		assert(std::size(c) == weight.size());
+
+		auto it = std::begin(c);
+
+		std::advance(it, weight(GetDefaultRNG()));
+
+		return *it;
+	}
+
+	template <class Type>
+	inline auto DiscreteSample(std::initializer_list<Type> ilist, const DiscreteDistribution<size_t>& weight)
+	{
+		assert(ilist.size() != 0);
+
+		return *(ilist.begin() + weight(GetDefaultRNG()));
 	}
 }
