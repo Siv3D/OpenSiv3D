@@ -117,7 +117,8 @@ namespace s3d
 		BigFloat& operator +=(const BigInt& number);
 		BigFloat& operator +=(const BigFloat& number);
 
-		[[nodiscard]] const BigFloat& operator -() const { return *this; }
+		[[nodiscard]] BigFloat operator -() const &;
+		[[nodiscard]] BigFloat operator -() &&;
 		BigFloat& operator --();
 		BigFloat operator --(int);
 		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && std::is_signed_v<Integer>)>* = nullptr>

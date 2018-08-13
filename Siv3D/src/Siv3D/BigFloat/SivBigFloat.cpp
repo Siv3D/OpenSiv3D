@@ -261,6 +261,19 @@ namespace s3d
 	//
 	////////////////////////////////////////////////////////////////
 
+	BigFloat BigFloat::operator -() const &
+	{
+		BigFloat tmp;
+		tmp.pImpl->data = -(this->pImpl->data);
+		return tmp;
+	}
+
+	BigFloat BigFloat::operator -() &&
+	{
+		this->pImpl->data = -(this->pImpl->data);
+		return std::move(*this);
+	}
+
 	BigFloat& BigFloat::operator --()
 	{
 		--this->pImpl->data;

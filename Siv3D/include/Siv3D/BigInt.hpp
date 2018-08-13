@@ -98,7 +98,7 @@ namespace s3d
 		BigInt& operator +=(const BigInt& i);
 
 		[[nodiscard]] BigInt operator -() const &;
-		[[nodiscard]] BigInt operator -() && ;
+		[[nodiscard]] BigInt operator -() &&;
 		BigInt& operator --();
 		BigInt operator --(int);
 		[[nodiscard]] BigInt operator -(int64 i) const;
