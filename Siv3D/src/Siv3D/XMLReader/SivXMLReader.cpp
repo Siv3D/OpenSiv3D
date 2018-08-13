@@ -227,7 +227,7 @@ namespace s3d
 		m_detail.reset();
 	}
 
-	bool XMLReader::isOpend() const
+	bool XMLReader::isOpened() const
 	{
 		return !!m_detail;
 	}

@@ -453,7 +453,7 @@ namespace s3d
 
 	bool JSONReader::open(const FilePath& path)
 	{
-		if (isOpend())
+		if (isOpened())
 		{
 			close();
 		}
@@ -480,7 +480,7 @@ namespace s3d
 
 	bool JSONReader::open(const std::shared_ptr<IReader>& reader)
 	{
-		if (isOpend())
+		if (isOpened())
 		{
 			close();
 		}
@@ -512,7 +512,7 @@ namespace s3d
 		m_document->document = rapidjson::GenericDocument<rapidjson::UTF32<char32>>{};
 	}
 
-	bool JSONReader::isOpend() const
+	bool JSONReader::isOpened() const
 	{
 		return m_detail->value.has_value();
 	}
