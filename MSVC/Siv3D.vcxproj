@@ -98,6 +98,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_Windows.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\DragDropFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\SivDragDrop.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Duration\SivDuration.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DynamicTexture\SivDynamicTexture.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Effect\CEffect.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Effect\EffectData.cpp" />
@@ -661,6 +662,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\RenderTexture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Resource.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RoundRect.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Sample.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SamplerState.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScreenCapture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Script.hpp" />

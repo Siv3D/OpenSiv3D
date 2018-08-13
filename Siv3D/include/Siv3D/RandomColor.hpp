@@ -36,12 +36,12 @@ namespace s3d
 		return c;
 	}
 
-	inline Color RandomColorF()
+	inline ColorF RandomColorF()
 	{
 		return HueToColor(Random(360.0));
 	}
 
-	inline Color RandomColorF(
+	inline ColorF RandomColorF(
 		const std::pair<double, double>& rMinMax,
 		const std::pair<double, double>& gMinMax,
 		const std::pair<double, double>& bMinMax

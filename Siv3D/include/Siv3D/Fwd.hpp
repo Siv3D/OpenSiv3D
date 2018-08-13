@@ -507,6 +507,7 @@ namespace s3d
 	//
 	template <class Type> class UniformDistribution;
 	template <class Type> class NormalDistribution;
+	template <class Type> class DiscreteDistribution;
 
 	//////////////////////////////////////////////////////
 	//

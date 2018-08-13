@@ -15,7 +15,6 @@
 # include "Fwd.hpp"
 # include "Number.hpp"
 # include "HardwareRNG.hpp"
-# include "Distribution.hpp"
 
 namespace s3d
 {
@@ -94,7 +93,7 @@ namespace s3d
 		Xorshift128Plus()
 		{
 			HardwareRNG rng;
-			UniformDistribution<uint64> dist(Smallest<uint64>(), Largest<uint64>());
+			std::uniform_int_distribution<uint64> dist(Smallest<uint64>(), Largest<uint64>());
 			for (auto& value : s)
 			{
 				value = dist(rng);
@@ -294,7 +293,7 @@ namespace s3d
 		Xoroshiro128Plus()
 		{
 			HardwareRNG rng;
-			UniformDistribution<uint64> dist(Smallest<uint64>(), Largest<uint64>());
+			std::uniform_int_distribution<uint64> dist(Smallest<uint64>(), Largest<uint64>());
 			for (auto& value : s)
 			{
 				value = dist(rng);
@@ -493,7 +492,7 @@ namespace s3d
 		Xorshift1024StarPhi()
 		{
 			HardwareRNG rng;
-			UniformDistribution<uint64> dist(Smallest<uint64>(), Largest<uint64>());
+			std::uniform_int_distribution<uint64> dist(Smallest<uint64>(), Largest<uint64>());
 			for (auto& value : s)
 			{
 				value = dist(rng);

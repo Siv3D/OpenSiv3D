@@ -41,7 +41,6 @@ namespace s3d
 		using typename base_type::allocator_type;
 
 		using base_type::Array;
-		using base_type::operator=;
 		using base_type::assign;
 		using base_type::get_allocator;
 		using base_type::at;
@@ -161,6 +160,44 @@ namespace s3d
 		[[nodiscard]] double lengthSec() const noexcept
 		{
 			return static_cast<double>(size()) / m_samplingRate;
+		}
+
+		Wave& operator =(const Array<WaveSample>& other)
+		{
+			base_type::operator=(other);
+
+			return *this;
+		}
+
+		Wave& operator =(Array<WaveSample>&& other) noexcept
+		{
+			base_type::operator=(std::move(other));
+
+			return *this;
+		}
+
+		Wave& operator =(const Wave& other)
+		{
+			base_type::operator=(other);
+
+			return *this;
+		}
+
+		Wave& operator =(Wave&& other) noexcept
+		{
+			base_type::operator=(std::move(other));
+
+			return *this;
+		}
+
+		void assign(const Wave& other)
+		{
+			base_type::operator=(other);
+		}
+
+		void assign(Wave&& other) noexcept
+		{
+			base_type::operator=(std::move(other));
 		}
 		
 		Wave& operator <<(const WaveSample& sample)

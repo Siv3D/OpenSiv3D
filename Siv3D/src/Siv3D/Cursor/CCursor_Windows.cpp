@@ -286,6 +286,13 @@ namespace s3d
 
 	void CCursor_Windows::updateCursorStyle()
 	{
+		if (!Cursor::OnClientRect())
+		{
+			m_curerntCursorStyle = CursorStyle::Default;
+
+			return;
+		}
+
 		if (m_curerntCursorStyle != m_requestedCursorStyle)
 		{
 			m_curerntCursorStyle = m_requestedCursorStyle;

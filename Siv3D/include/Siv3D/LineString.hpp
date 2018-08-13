@@ -39,7 +39,6 @@ namespace s3d
 		using typename base_type::allocator_type;
 
 		using base_type::Array;
-		using base_type::operator=;
 		using base_type::assign;
 		using base_type::get_allocator;
 		using base_type::at;
@@ -107,6 +106,44 @@ namespace s3d
 			: base_type(std::move(points))
 		{
 
+		}
+
+		LineString& operator =(const Array<Vec2>& other)
+		{
+			base_type::operator=(other);
+
+			return *this;
+		}
+
+		LineString& operator =(Array<Vec2>&& other) noexcept
+		{
+			base_type::operator=(std::move(other));
+
+			return *this;
+		}
+
+		LineString& operator =(const LineString& other)
+		{
+			base_type::operator=(other);
+
+			return *this;
+		}
+
+		LineString& operator =(LineString&& other) noexcept
+		{
+			base_type::operator=(std::move(other));
+
+			return *this;
+		}
+
+		void assign(const LineString& other)
+		{
+			base_type::operator=(other);
+		}
+
+		void assign(LineString&& other) noexcept
+		{
+			base_type::operator=(std::move(other));
 		}
 
 		LineString& operator <<(const Vec2& value)

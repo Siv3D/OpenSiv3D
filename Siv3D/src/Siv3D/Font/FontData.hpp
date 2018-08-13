@@ -17,13 +17,63 @@
 # include FT_TRUETYPE_TABLES_H
 # include "../../ThirdParty/harfbuzz/hb.h"
 # include "../../ThirdParty/harfbuzz/hb-ft.h"
+# include <Siv3D/Windows.hpp>
 # include <Siv3D/HashTable.hpp>
 # include <Siv3D/Image.hpp>
 # include <Siv3D/Font.hpp>
+# include <Siv3D/ByteArray.hpp>
 # include <Siv3D/DynamicTexture.hpp>
 
 namespace s3d
 {
+# if defined(SIV3D_TARGET_WINDOWS)
+
+	class FontResourceHolder
+	{
+	private:
+
+		int64 m_size = 0;
+
+		const void* m_pResource = nullptr;
+
+	public:
+
+		FontResourceHolder() = default;
+
+		FontResourceHolder(const FilePath& path)
+		{
+			HMODULE hModule = ::GetModuleHandleW(nullptr);
+
+			const std::wstring pathW = path.toWstr();
+
+			if (HRSRC hrs = ::FindResourceW(hModule, &pathW[1], L"FILE"))
+			{
+				m_pResource = ::LockResource(::LoadResource(hModule, hrs));
+
+				m_size = ::SizeofResource(hModule, hrs);
+			}
+		}
+
+		~FontResourceHolder()
+		{
+			m_pResource = nullptr;
+
+			m_size = 0;
+		}
+
+		const void* data() const
+		{
+			return m_pResource;
+		}
+
+		int64 size() const
+		{
+			return m_size;
+		}
+	};
+
+# endif
+
 	struct GlyphInfo
 	{
 		Rect bitmapRect = { 0,0,0,0 };
@@ -117,6 +167,12 @@ namespace s3d
 		static constexpr uint32 Vertical = 1u << 31u;
 
 		using CommonGlyphIndex = uint32;
+
+	# if defined(SIV3D_TARGET_WINDOWS)
+
+		FontResourceHolder m_resource;
+
+	# endif
 
 		HashTable<char32VH, CommonGlyphIndex> m_glyphVHIndexTable;
 

@@ -12,6 +12,7 @@
 # pragma once
 # include "Fwd.hpp"
 # include "Unspecified.hpp"
+# include "Array.hpp"
 # include "String.hpp"
 # include "Stopwatch.hpp"
 
@@ -36,13 +37,13 @@ namespace s3d
 
 	namespace SimpleGUI
 	{
-		[[nodiscard]] RectF ButtonRegion(const String& label, const Vec2& pos, const Optional<int32>& width = unspecified);
+		[[nodiscard]] RectF ButtonRegion(const String& label, const Vec2& pos, const Optional<double>& width = unspecified);
 
-		[[nodiscard]] RectF ButtonRegionAt(const String& label, const Vec2& center, const Optional<int32>& width = unspecified);
+		[[nodiscard]] RectF ButtonRegionAt(const String& label, const Vec2& center, const Optional<double>& width = unspecified);
 
-		[[nodiscard]] bool Button(const String& label, const Vec2& pos, const Optional<int32>& width = unspecified, bool enabled = true);
+		[[nodiscard]] bool Button(const String& label, const Vec2& pos, const Optional<double>& width = unspecified, bool enabled = true);
 
-		[[nodiscard]] bool ButtonAt(const String& label, const Vec2& center, const Optional<int32>& width = unspecified, bool enabled = true);
+		[[nodiscard]] bool ButtonAt(const String& label, const Vec2& center, const Optional<double>& width = unspecified, bool enabled = true);
 
 		[[nodiscard]] RectF SliderRegion(const Vec2& pos, double labelWidth = 80.0, double sliderWidth = 120.0);
 
@@ -76,13 +77,21 @@ namespace s3d
 
 		bool VerticalSliderAt(double& value, double min, double max, const Vec2& center, double sliderHeight = 120.0, bool enabled = true);
 
-		[[nodiscard]] RectF CheckBoxRegion(const String& label, const Vec2& pos, const Optional<int32>& width = unspecified);
+		[[nodiscard]] RectF CheckBoxRegion(const String& label, const Vec2& pos, const Optional<double>& width = unspecified);
 
-		[[nodiscard]] RectF CheckBoxRegionAt(const String& label, const Vec2& center, const Optional<int32>& width = unspecified);
+		[[nodiscard]] RectF CheckBoxRegionAt(const String& label, const Vec2& center, const Optional<double>& width = unspecified);
 
-		bool CheckBox(bool& checked, const String& label, const Vec2& pos, const Optional<int32>& width = unspecified, bool enabled = true);
+		bool CheckBox(bool& checked, const String& label, const Vec2& pos, const Optional<double>& width = unspecified, bool enabled = true);
 
-		bool CheckBoxAt(bool& checked, const String& label, const Vec2& center, const Optional<int32>& width = unspecified, bool enabled = true);
+		bool CheckBoxAt(bool& checked, const String& label, const Vec2& center, const Optional<double>& width = unspecified, bool enabled = true);
+
+		[[nodiscard]] RectF RadioButtonsRegion(const Array<String>& options, const Vec2& pos, const Optional<double>& width = unspecified);
+
+		[[nodiscard]] RectF RadioButtonsRegionAt(const Array<String>& options, const Vec2& center, const Optional<double>& width = unspecified);
+
+		bool RadioButtons(size_t& index, const Array<String>& options, const Vec2& pos, const Optional<double>& width = unspecified, bool enabled = true);
+
+		bool RadioButtonsAt(size_t& index, const Array<String>& options, const Vec2& center, const Optional<double>& width = unspecified, bool enabled = true);
 
 		[[nodiscard]] RectF TextBoxRegion(const Vec2& pos, double width = 200.0);
 

@@ -565,10 +565,10 @@ namespace s3d
 		const int32 ix = static_cast<int32>(x);
 		const int32 iy = static_cast<int32>(y);
 
-		const Color& c1 = getPixel_Repeat(iy, ix);
-		const Color& c2 = getPixel_Repeat(iy, ix + 1);
-		const Color& c3 = getPixel_Repeat(iy + 1, ix);
-		const Color& c4 = getPixel_Repeat(iy + 1, ix + 1);
+		const Color& c1 = getPixel_Repeat(ix, iy);
+		const Color& c2 = getPixel_Repeat(ix + 1, iy);
+		const Color& c3 = getPixel_Repeat(ix, iy + 1);
+		const Color& c4 = getPixel_Repeat(ix + 1, iy + 1);
 
 		const double xr1 = x - ix;
 		const double yr1 = y - iy;
@@ -586,10 +586,10 @@ namespace s3d
 		const int32 ix = static_cast<int32>(x);
 		const int32 iy = static_cast<int32>(y);
 
-		const Color& c1 = getPixel_Clamp(iy, ix);
-		const Color& c2 = getPixel_Clamp(iy, ix + 1);
-		const Color& c3 = getPixel_Clamp(iy + 1, ix);
-		const Color& c4 = getPixel_Clamp(iy + 1, ix + 1);
+		const Color& c1 = getPixel_Clamp(ix, iy);
+		const Color& c2 = getPixel_Clamp(ix + 1, iy);
+		const Color& c3 = getPixel_Clamp(ix, iy + 1);
+		const Color& c4 = getPixel_Clamp(ix + 1, iy + 1);
 
 		const double xr1 = x - ix;
 		const double yr1 = y - iy;
@@ -607,10 +607,10 @@ namespace s3d
 		const int32 ix = static_cast<int32>(x);
 		const int32 iy = static_cast<int32>(y);
 
-		const Color& c1 = getPixel_Mirror(iy, ix);
-		const Color& c2 = getPixel_Mirror(iy, ix + 1);
-		const Color& c3 = getPixel_Mirror(iy + 1, ix);
-		const Color& c4 = getPixel_Mirror(iy + 1, ix + 1);
+		const Color& c1 = getPixel_Mirror(ix, iy);
+		const Color& c2 = getPixel_Mirror(ix + 1, iy);
+		const Color& c3 = getPixel_Mirror(ix, iy + 1);
+		const Color& c4 = getPixel_Mirror(ix + 1, iy + 1);
 
 		const double xr1 = x - ix;
 		const double yr1 = y - iy;
@@ -1959,9 +1959,9 @@ namespace s3d
 
 					for (uint32 x = 0; x < m_width; ++x)
 					{
-						line[x][0] = pSrc->r;
+						line[x][0] = pSrc->b;
 						line[x][1] = pSrc->g;
-						line[x][2] = pSrc->b;
+						line[x][2] = pSrc->r;
 
 						++pSrc;
 					}
@@ -1987,9 +1987,9 @@ namespace s3d
 
 					for (uint32 x = 0; x < m_width; ++x)
 					{
-						pDst->r = line[x][0];
+						pDst->r = line[x][2];
 						pDst->g = line[x][1];
-						pDst->b = line[x][2];
+						pDst->b = line[x][0];
 
 						++pDst;
 					}
@@ -2894,7 +2894,7 @@ namespace s3d
 			cv::divide(t3, t1, ssim_map);      // ssim_map =  t3./t1;
 
 			cv::Scalar mssim = cv::mean(ssim_map); // mssim = average of ssim map
-			return ColorF(mssim[0], mssim[1], mssim[0], 1.0);
+			return ColorF(mssim[0], mssim[1], mssim[2], 1.0);
 		}
 
 		void Inpaint(const Image& image, const Image& maskImage, Image& result, int32 radius)
