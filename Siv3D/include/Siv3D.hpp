@@ -471,6 +471,9 @@
 	// ランダムな色の作成
 	# include "Siv3D/RandomColor.hpp"
 
+	// ランダムなサンプリング
+	# include "Siv3D/Sample.hpp"
+
 //////////////////////////////////////////////////
 //
 //	Math

@@ -661,6 +661,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\RenderTexture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Resource.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\RoundRect.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Sample.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SamplerState.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScreenCapture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Script.hpp" />

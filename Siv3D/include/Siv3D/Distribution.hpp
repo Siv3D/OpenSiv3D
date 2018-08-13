@@ -13,6 +13,8 @@
 # include <cassert>
 # include <random>
 # include <type_traits>
+# include <array>
+# include "Array.hpp"
 
 namespace s3d
 {
@@ -35,6 +37,8 @@ namespace s3d
 	public:
 
 		using result_type = Type;
+
+		UniformDistribution() = default;
 
 		/// <summary>
 		/// 一様分布を設定します。
@@ -122,6 +126,8 @@ namespace s3d
 
 		using result_type = Type;
 
+		NormalDistribution() = default;
+
 		/// <summary>
 		/// 正規分布を設定します。
 		/// </summary>
@@ -180,6 +186,64 @@ namespace s3d
 		[[nodiscard]] result_type sigma() const
 		{
 			return m_distribution.sigma();
+		}
+	};
+
+	template <class Type = size_t>
+	class DiscreteDistribution
+	{
+	private:
+
+		using distribution_type = std::discrete_distribution<Type>;
+
+		distribution_type m_distribution;
+
+	public:
+
+		using result_type = Type;
+
+		DiscreteDistribution() = default;
+
+		explicit DiscreteDistribution(std::initializer_list<double> ilist)
+			: m_distribution(ilist) {}
+
+		explicit DiscreteDistribution(const Array<double>& weights)
+			: m_distribution(weights.begin(), weights.end()) {}
+
+		template <size_t Size>
+		explicit DiscreteDistribution(const std::array<double, Size>& weights)
+			: m_distribution(weights.begin(), weights.end()) {}
+
+		template <class Iterator>
+		explicit DiscreteDistribution(Iterator begin, Iterator end)
+			: m_distribution(begin, end) {}
+
+		[[nodiscard]] Array<double> probabilities() const
+		{
+			const std::vector<double> results = m_distribution.probabilities();
+
+			return Array<double>(results.begin(), results.end());
+		}
+
+		template <class Engine>
+		result_type operator()(Engine& engine) const
+		{
+			return m_distribution(engine);
+		}
+
+		[[nodiscard]] size_t min() const
+		{
+			return m_distribution.min();
+		}
+
+		[[nodiscard]] size_t max() const
+		{
+			return m_distribution.max();
+		}
+
+		[[nodiscard]] size_t size() const
+		{
+			return m_distribution.probabilities().size();
 		}
 	};
 }
