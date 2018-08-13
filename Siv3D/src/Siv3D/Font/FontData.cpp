@@ -15,6 +15,8 @@
 # include <Siv3D/Unicode.hpp>
 # include <Siv3D/Font.hpp>
 # include <Siv3D/TextureRegion.hpp>
+# include <Siv3D/FileSystem.hpp>
+# include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/Logger.hpp>
 
 namespace s3d
@@ -96,6 +98,45 @@ namespace s3d
 			return;
 		}
 
+	# if defined(SIV3D_TARGET_WINDOWS)
+
+		if (FileSystem::IsResource(filePath))
+		{
+			m_resource = FontResourceHolder(filePath);
+
+			if (const FT_Error error = ::FT_New_Memory_Face(library, static_cast<const FT_Byte*>(m_resource.data()), static_cast<FT_Long>(m_resource.size()), 0, &m_faceText.face))
+			{
+				if (error == FT_Err_Unknown_File_Format)
+				{
+					// unsupported format
+				}
+				else if (error)
+				{
+					// failed to open or load
+				}
+
+				return;
+			}
+		}
+		else
+		{
+			if (const FT_Error error = ::FT_New_Face(library, filePath.narrow().c_str(), 0, &m_faceText.face))
+			{
+				if (error == FT_Err_Unknown_File_Format)
+				{
+					// unsupported format
+				}
+				else if (error)
+				{
+					// failed to open or load
+				}
+
+				return;
+			}
+		}
+
+	# else
+
 		if (const FT_Error error = ::FT_New_Face(library, filePath.narrow().c_str(), 0, &m_faceText.face))
 		{
 			if (error == FT_Err_Unknown_File_Format)
@@ -109,6 +150,8 @@ namespace s3d
 
 			return;
 		}
+
+	# endif
 
 		if (const FT_Error error = ::FT_Set_Pixel_Sizes(m_faceText.face, 0, fontSize))
 		{
