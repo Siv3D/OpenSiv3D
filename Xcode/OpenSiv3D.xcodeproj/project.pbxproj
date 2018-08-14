@@ -19,8 +19,6 @@
 		2C06508320BC37A2004CBA1B /* quirc_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C06507D20BC37A2004CBA1B /* quirc_internal.h */; };
 		2C06508420BC37A2004CBA1B /* version_db.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C06507E20BC37A2004CBA1B /* version_db.c */; };
 		2C09854D1FB3A149001AC929 /* engine in Resources */ = {isa = PBXBuildFile; fileRef = 2C09854C1FB3A149001AC929 /* engine */; };
-		2C0987541FB3B5E6001AC929 /* lboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF1C79F1FB394ED00FC903E /* lboost_filesystem.a */; };
-		2C0987551FB3B5E6001AC929 /* lboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF1C7A11FB3956900FC903E /* lboost_system.a */; };
 		2C0987581FB3B650001AC929 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF1C79B1FB3915100FC903E /* Foundation.framework */; };
 		2C0987591FB3B661001AC929 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0987521FB3B53B001AC929 /* AppKit.framework */; };
 		2C0FBF5E1FDB71F400A128B9 /* numbers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FBBC61FDB71F300A128B9 /* numbers.hpp */; };
@@ -276,6 +274,8 @@
 		2C0FD5DB1FE55B4F00A128B9 /* cpptoml.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C0FD5DA1FE55B4F00A128B9 /* cpptoml.h */; };
 		2C0FE8DF1FEB11AF00A128B9 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC7F9541F34A5840071A239 /* OpenAL.framework */; };
 		2C0FEEDC1FF7FA2000A128B9 /* langelscript.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0FEEDB1FF7FA2000A128B9 /* langelscript.a */; };
+		2C170ADA212332AF0041A54A /* lboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF1C79F1FB394ED00FC903E /* lboost_filesystem.a */; };
+		2C170ADB212332AF0041A54A /* lboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF1C7A11FB3956900FC903E /* lboost_system.a */; };
 		2C1778C31CE0D62A00BB8AD0 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA7F74E1CA7F43D00495647 /* Main.cpp */; };
 		2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA7F73D1CA7F3B100495647 /* libSiv3D.a */; };
 		2C22E75E1FD73C8D002735AB /* lGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C22E7561FD73C37002735AB /* lGLEW.a */; };
@@ -2307,6 +2307,8 @@
 				2C0987581FB3B650001AC929 /* Foundation.framework in Frameworks */,
 				2C1778D01CE0D65D00BB8AD0 /* libSiv3D.a in Frameworks */,
 				2C0FEEDC1FF7FA2000A128B9 /* langelscript.a in Frameworks */,
+				2C170ADA212332AF0041A54A /* lboost_filesystem.a in Frameworks */,
+				2C170ADB212332AF0041A54A /* lboost_system.a in Frameworks */,
 				2C22E75E1FD73C8D002735AB /* lGLEW.a in Frameworks */,
 				2C22E75F1FD73C93002735AB /* lturbojpeg.a in Frameworks */,
 				2C22E7601FD73C99002735AB /* lpng.a in Frameworks */,
@@ -2326,8 +2328,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C0987541FB3B5E6001AC929 /* lboost_filesystem.a in Frameworks */,
-				2C0987551FB3B5E6001AC929 /* lboost_system.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
