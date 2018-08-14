@@ -299,7 +299,7 @@ namespace s3d
 			return false;
 		}
 
-		String join(const String& sep = U",", const String& begin = U"{", const String& end = U"}") const
+		String join(const String& sep = U", ", const String& begin = U"{", const String& end = U"}") const
 		{
 			String s;
 
@@ -860,7 +860,7 @@ namespace s3d
 			return false;
 		}
 
-		String join(const String& sep = U",", const String& begin = U"{", const String& end = U"}") const
+		String join(const String& sep = U", ", const String& begin = U"{", const String& end = U"}") const
 		{
 			String s;
 
@@ -1414,7 +1414,7 @@ namespace s3d
 				return false;
 			}
 
-			String join(const String& sep = U",", const String& begin = U"{", const String& end = U"}") const
+			String join(const String& sep = U", ", const String& begin = U"{", const String& end = U"}") const
 			{
 				String s;
 				s.append(begin);

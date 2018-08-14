@@ -321,7 +321,7 @@ namespace s3d
 {
 	inline void Formatter(FormatData& formatData, const LineString& value)
 	{
-		formatData.string.append(value.join(U",", U"(", U")"));
+		formatData.string.append(value.join(U", ", U"(", U")"));
 	}
 
 	template <class CharType>

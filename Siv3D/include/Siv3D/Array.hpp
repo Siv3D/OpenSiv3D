@@ -915,7 +915,7 @@ namespace s3d
 		/// <returns>
 		/// 要素を指定した文字列で連結した結果の文字列
 		/// </returns>
-		[[nodiscard]] String join(const String& sep = U",", const String& begin = U"{", const String& end = U"}") const
+		[[nodiscard]] String join(const String& sep = U", ", const String& begin = U"{", const String& end = U"}") const
 		{
 			String s;
 
