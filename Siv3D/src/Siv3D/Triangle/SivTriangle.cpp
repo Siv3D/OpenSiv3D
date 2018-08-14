@@ -183,9 +183,9 @@ namespace s3d
 	{
 		formatData.string.push_back(U'(');
 		Formatter(formatData, value.p0);
-		formatData.string.push_back(U',');
+		formatData.string.append(U", ");
 		Formatter(formatData, value.p1);
-		formatData.string.push_back(U',');
+		formatData.string.append(U", ");
 		Formatter(formatData, value.p2);
 		formatData.string.push_back(U')');
 	}

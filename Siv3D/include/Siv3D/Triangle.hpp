@@ -206,8 +206,8 @@ namespace s3d
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Triangle& value)
 	{
 		return output << CharType('(')
-			<< value.p0 << CharType(',')
-			<< value.p1 << CharType(',')
+			<< value.p0 << CharType(',') << CharType(' ')
+			<< value.p1 << CharType(',') << CharType(' ')
 			<< value.p2 << CharType(')');
 	}
 
@@ -248,13 +248,25 @@ namespace std
 
 namespace fmt
 {
-	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Triangle& value)
+	template <>
+	struct formatter<s3d::Triangle, s3d::char32>
 	{
-		const auto tag = s3d::detail::GetTag(format_str);
+		s3d::String tag;
 
-		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"})";
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
 
-		f.writer().write(fmt, value.p0, value.p1, value.p2);
-	}
+		template <class Context>
+		auto format(const s3d::Triangle& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
+			);
+
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.p0, value.p1, value.p2);
+		}
+	};
 }

@@ -39,7 +39,7 @@ namespace s3d
 	{
 		formatData.string.push_back(U'(');
 		formatData.string.append(ToString(value.x, formatData.decimalPlace.value));
-		formatData.string.push_back(U',');
+		formatData.string.append(U", ");
 		formatData.string.append(ToString(value.y, formatData.decimalPlace.value));
 		formatData.string.push_back(U')');
 	}

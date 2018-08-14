@@ -315,9 +315,9 @@ namespace s3d
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Line& value)
 	{
 		return output << CharType('(')
-			<< value.begin.x << CharType(',')
-			<< value.begin.y << CharType(',')
-			<< value.end.x << CharType(',')
+			<< value.begin.x << CharType(',') << CharType(' ')
+			<< value.begin.y << CharType(',') << CharType(' ')
+			<< value.end.x << CharType(',') << CharType(' ')
 			<< value.end.y << CharType(')');
 	}
 
@@ -359,13 +359,25 @@ namespace std
 
 namespace fmt
 {
-	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Line& value)
+	template <>
+	struct formatter<s3d::Line, s3d::char32>
 	{
-		const auto tag = s3d::detail::GetTag(format_str);
+		s3d::String tag;
 
-		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"},{" + tag + U"})";
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
 
-		f.writer().write(fmt, value.begin.x, value.begin.y, value.end.x, value.end.y);
-	}
+		template <class Context>
+		auto format(const s3d::Line& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
+			);
+
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.begin.x, value.begin.y, value.end.x, value.end.y);
+		}
+	};
 }

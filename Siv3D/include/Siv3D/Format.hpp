@@ -448,66 +448,119 @@ namespace s3d
 {
 	namespace detail
 	{
-		template <class Char>
-		std::basic_string<Char> GetTag(const Char*& format_str)
+		template <class ParseContext>
+		auto GetFmtTag(String& tag, ParseContext& ctx)
 		{
-			const Char* beg = format_str;
+			auto it = fmt::internal::null_terminating_iterator<s3d::char32>(ctx);
 
-			if (*format_str == Char(':'))
+			if (*it == ':')
 			{
-				++format_str;
+				++it;
 			}
 
-			const Char *end = format_str;
+			auto end = it;
 
-			while (*end && *end != Char('}'))
+			while (*end && *end != '}')
 			{
 				++end;
 			}
 
-			if (*end != Char('}'))
-			{
-				FMT_THROW(fmt::FormatError("missing '}' in format string"));
-			}
+			tag.assign(fmt::internal::pointer_from(it), fmt::internal::pointer_from(end));
 
-			format_str = end + 1;
+			return fmt::internal::pointer_from(end);
+		}
 
-			return std::basic_string<Char>(beg, end);
+		inline constexpr size_t MakeFmtArgLength_impl(const StringView view)
+		{
+			return view.size();
+		}
+
+		template <class... Args>
+		inline constexpr size_t MakeFmtArgLength_impl(const StringView view, const Args&... args)
+		{
+			return view.size() + MakeFmtArgLength_impl(args...);
+		}
+
+		inline String MakeFmtArg_impl(String& result, const StringView view)
+		{
+			return result.append(view);
+		}
+
+		template <class... Args>
+		inline String MakeFmtArg_impl(String& result, const StringView view, const Args&... args)
+		{
+			result.append(view);
+			return MakeFmtArg_impl(result, args...);
+		}
+
+		template <class... Args>
+		inline String MakeFmtArg(const StringView view, const Args&... args)
+		{
+			String result;
+			result.reserve(MakeFmtArgLength_impl(view, args...));
+			result.append(view);
+			return MakeFmtArg_impl(result, args...);
 		}
 	}
 }
 
 namespace fmt
 {
-	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::StringView& value)
+	template <>
+	struct formatter<s3d::String, s3d::char32>
 	{
-		const auto tag = s3d::detail::GetTag(format_str);
+		s3d::String tag;
 
-		const auto fmt = U"{" + tag + U"}";
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
 
-		f.writer().write(fmt, value.to_string());
-	}
+		template <class Context>
+		auto format(const s3d::String& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+				U"{:", tag, U"}"
+			);
 
-	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::String& value)
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), wstring_view(value.data(), value.size()));
+		}
+	};
+
+	template <>
+	struct formatter<s3d::StringView, s3d::char32>
 	{
-		const auto tag = s3d::detail::GetTag(format_str);
+		s3d::String tag;
 
-		const auto fmt = U"{" + tag + U"}";
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
 
-		f.writer().write(fmt, value.str());
-	}
+		template <class Context>
+		auto format(const s3d::StringView value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+				U"{:", tag, U"}"
+			);
 
-	template <class Char, class ArgFormatter, class Type>
-	void format_arg(BasicFormatter<Char, ArgFormatter> &f, const Char*& format_str, const Type &value)
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), wstring_view(value.data(), value.size()));
+		}
+	};
+
+	template <class Type>
+	struct formatter<Type, s3d::char32> : formatter<basic_string_view<s3d::char32>, s3d::char32>
 	{
-		const s3d::String us = s3d::Format(value);
-		
-		BasicStringRef<Char> str(&us[0], us.size());
-		
-		using MakeArg = internal::MakeArg<BasicFormatter<Char>>;
-		
-		format_str = f.format(format_str, MakeArg(str));
-	}
+		template <class Context>
+		auto format(const Type& value, Context& ctx)
+		{
+			const s3d::String s = s3d::Format(value);
+
+			const basic_string_view<s3d::char32> str(s.data(), s.size());
+
+			return formatter<basic_string_view<s3d::char32>, s3d::char32>::format(str, ctx);
+		}
+	};
 }

@@ -1,22 +1,26 @@
 ﻿
-# include <Siv3D.hpp> // OpenSiv3D v0.2.8
+# include <Siv3D.hpp>
 
 void Main()
 {
-	Graphics::SetBackground(ColorF(0.8, 0.9, 1.0));
+	const String s = U"Siv3D";
 
-	const Font font(50);
+	Print << U"{:.1f}"_fmt(Circular(0.5, 0.123));
 
-	const Texture textureCat(Emoji(U"🐈"), TextureDesc::Mipped);
+	Print << U"{:.1f}"_fmt(RectF(100).shearedX(2.25));
+
+	Print << U"{2:.1f} {1} {0} {3} {4:*>8} {5:*>8}"_fmt(Palette::Red, Window::ClientRect(), Vec3(1.11,2.22,3.33), s, StringView(U"Siv"), U"Enrect");
+
+	const Font font(30);
+
+	const RectF rect(0.5, 0.5, 2.5);
 
 	while (System::Update())
 	{
-		font(U"Hello, Siv3D!🐣").drawAt(Window::Center(), Palette::Black);
+		font(Cursor::Pos()).draw(20, 170);
+		font(rect).draw(20, 230);
 
-		font(Cursor::Pos()).draw(20, 400, ColorF(0.6));
-
-		textureCat.resized(80).draw(540, 380);
-
-		Circle(Cursor::Pos(), 60).draw(ColorF(1, 0, 0, 0.5));
+		font(U"{}"_fmt(Cursor::Pos())).draw(20, 330);
+		font(U"{}"_fmt(rect)).draw(20, 390);
 	}
 }

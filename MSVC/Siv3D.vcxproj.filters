@@ -781,9 +781,6 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Unicode\SivUnicode.cpp">
       <Filter>src\Siv3D\Unicode</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\ThirdParty\fmt\format.cc">
-      <Filter>src\ThirdParty\fmt</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\FormatLiteral\SivFormatLiteral.cpp">
       <Filter>src\Siv3D\FormatLiteral</Filter>
     </ClCompile>
@@ -830,9 +827,6 @@
       <Filter>src\ThirdParty\double-conversion</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\BigInt\SivBigInt.cpp">
-      <Filter>src\Siv3D\BigInt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\BigInt\CBigInt.cpp">
       <Filter>src\Siv3D\BigInt</Filter>
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\BigFloat\SivBigFloat.cpp">
@@ -2164,13 +2158,13 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Duration\SivDuration.cpp">
       <Filter>src\Siv3D\Duration</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\fmt\format.cc">
+      <Filter>src\ThirdParty\fmt</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
       <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\format.h">
-      <Filter>include\ThirdParty\fmt</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\ThirdParty\hopscotch-map\hopscotch_hash.h">
       <Filter>include\ThirdParty\hopscotch-map</Filter>
@@ -4439,6 +4433,9 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Sample.hpp">
       <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\format.h">
+      <Filter>include\ThirdParty\fmt</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

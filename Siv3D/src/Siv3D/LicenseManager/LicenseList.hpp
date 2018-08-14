@@ -363,7 +363,7 @@ SOFTWARE.)-"
 {
 UR"-(fmt)-",
 
-UR"-(Copyright (c) 2012 - 2016, Victor Zverovich
+UR"-(Copyright (c) 2012 - present, Victor Zverovich
 All rights reserved.)-",
 
 UR"-(Redistribution and use in source and binary forms, with or without
