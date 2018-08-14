@@ -105,6 +105,21 @@ namespace s3d
 			return draw(0.0, 0.0, diffuse);
 		}
 
+		RectF draw(const ColorF(&colors)[4]) const
+		{
+			return draw(0.0, 0.0, colors);
+		}
+
+		RectF draw(Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const
+		{
+			return draw({ *topColor, *topColor, *bottomColor, *bottomColor });
+		}
+
+		RectF draw(Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const
+		{
+			return draw({ *leftColor, *rightColor, *rightColor, *leftColor });
+		}
+
 		/// <summary>
 		/// 指定した位置にテクスチャを描きます。
 		/// </summary>
@@ -122,6 +137,18 @@ namespace s3d
 		/// </returns>
 		RectF draw(double x, double y, const ColorF& diffuse = Palette::White) const;
 
+		RectF draw(double x, double y, const ColorF(&colors)[4]) const;
+
+		RectF draw(double x, double y, Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const
+		{
+			return draw(x, y, { *topColor, *topColor, *bottomColor, *bottomColor });
+		}
+
+		RectF draw(double x, double y, Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const
+		{
+			return draw(x, y, { *leftColor, *rightColor, *rightColor, *leftColor });
+		}
+
 		/// <summary>
 		/// 指定した位置にテクスチャを描きます。
 		/// </summary>
@@ -138,6 +165,22 @@ namespace s3d
 		{
 			return draw(pos.x, pos.y, diffuse);
 		}
+
+		RectF draw(const Vec2& pos, const ColorF(&colors)[4]) const
+		{
+			return draw(pos.x, pos.y, colors);
+		}
+
+		RectF draw(const Vec2& pos, Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const
+		{
+			return draw(pos.x, pos.y, { *topColor, *topColor, *bottomColor, *bottomColor });
+		}
+
+		RectF draw(const Vec2& pos, Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const
+		{
+			return draw(pos.x, pos.y, { *leftColor, *rightColor, *rightColor, *leftColor });
+		}
+
 
 		RectF draw(Arg::topLeft_<Vec2> topLeft, const ColorF& diffuse = Palette::White) const
 		{

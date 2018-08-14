@@ -1830,6 +1830,51 @@ namespace s3d
 		}
 	}
 
+	void CRenderer2D_GL::addTextureRegion(const Texture& texture, const FloatRect& rect, const FloatRect& uv, const Float4(&colors)[4])
+	{
+		constexpr IndexType vertexSize = 4, indexSize = 6;
+		Vertex2D* pVertex;
+		IndexType* pIndex;
+		IndexType indexOffset;
+
+		if (!m_spriteBatch.getBuffer(vertexSize, indexSize, &pVertex, &pIndex, &indexOffset, m_commandManager))
+		{
+			return;
+		}
+
+		pVertex[0].pos.set(rect.left, rect.top);
+		pVertex[0].tex.set(uv.left, uv.top);
+		pVertex[0].color = colors[0];
+
+		pVertex[1].pos.set(rect.right, rect.top);
+		pVertex[1].tex.set(uv.right, uv.top);
+		pVertex[1].color = colors[1];
+
+		pVertex[2].pos.set(rect.left, rect.bottom);
+		pVertex[2].tex.set(uv.left, uv.bottom);
+		pVertex[2].color = colors[2];
+
+		pVertex[3].pos.set(rect.right, rect.bottom);
+		pVertex[3].tex.set(uv.right, uv.bottom);
+		pVertex[3].color = colors[3];
+
+		for (IndexType i = 0; i < indexSize; ++i)
+		{
+			*pIndex++ = indexOffset + detail::rectIndexTable[i];
+		}
+
+		m_commandManager.pushPSTexture(0, texture);
+
+		if (texture.isSDF())
+		{
+			m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::SpriteSDF);
+		}
+		else
+		{
+			m_commandManager.pushDraw(indexSize, GLRender2DPixelShaderType::Sprite);
+		}
+	}
+
 	void CRenderer2D_GL::addTexturedCircle(const Texture& texture, const Circle& circle, const FloatRect& uv, const Float4& color)
 	{
 		const float rf = static_cast<float>(circle.r);

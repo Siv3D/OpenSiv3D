@@ -84,6 +84,20 @@ namespace s3d
 			return m;
 		}
 
+		[[nodiscard]] static constexpr Mat3x2 ShearX(double sx) noexcept
+		{
+			return Mat3x2(1.0f, 0.0f,
+				-static_cast<float>(sx), 1.0f,
+				0.0f, 0.0f);
+		}
+
+		[[nodiscard]] static constexpr Mat3x2 ShearY(double sy) noexcept
+		{
+			return Mat3x2(1.0f, static_cast<float>(sy),
+				0.0f, 1.0f,
+				0.0f, 0.0f);
+		}
+
 		[[nodiscard]] static constexpr Mat3x2 Screen(double width, double height) noexcept
 		{
 			return Screen({ width, height });
@@ -129,6 +143,20 @@ namespace s3d
 		{
 			Mat3x2 result;
 			result.setProduct(*this, Rotate(angle, center));
+			return result;
+		}
+
+		[[nodiscard]] Mat3x2 shearedX(double sx) const noexcept
+		{
+			Mat3x2 result;
+			result.setProduct(*this, ShearX(sx));
+			return result;
+		}
+
+		[[nodiscard]] Mat3x2 shearedY(double sy) const noexcept
+		{
+			Mat3x2 result;
+			result.setProduct(*this, ShearY(sy));
 			return result;
 		}
 

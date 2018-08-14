@@ -29,6 +29,18 @@ namespace s3d
 		return RectF{ x, y, size };
 	}
 
+	RectF TextureRegion::draw(const double x, const double y, const ColorF(&colors)[4]) const
+	{
+		Siv3DEngine::GetRenderer2D()->addTextureRegion(
+			texture,
+			{ x, y, x + size.x, y + size.y },
+			uvRect,
+			{ colors[0].toFloat4(), colors[1].toFloat4(), colors[2].toFloat4(), colors[3].toFloat4() }
+		);
+
+		return RectF{ x, y, size };
+	}
+
 	RectF TextureRegion::drawClipped(const double x, const double y, const RectF& clipRect, const ColorF& diffuse) const
 	{
 		const double clipRight = clipRect.x + clipRect.w;
