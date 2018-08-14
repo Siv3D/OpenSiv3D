@@ -2237,6 +2237,10 @@ namespace s3d
 	{
 		return !(a < b);
 	}
+
+	// deduction guide
+	template <class Type>
+	Array(std::initializer_list<Type>) -> Array<Type>;
 }
 
 # include "BoolArray.hpp"

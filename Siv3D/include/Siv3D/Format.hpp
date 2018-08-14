@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -359,7 +359,7 @@ namespace s3d
 			}
 			else
 			{
-				formatData.string.push_back(U',');
+				formatData.string.append(U", ");
 			}
 
 			Formatter(formatData, *begin);
@@ -401,7 +401,7 @@ namespace s3d
 
 		Formatter(formatData, pair.first);
 
-		formatData.string.push_back(U',');
+		formatData.string.append(U", ");
 	
 		Formatter(formatData, pair.second);
 
