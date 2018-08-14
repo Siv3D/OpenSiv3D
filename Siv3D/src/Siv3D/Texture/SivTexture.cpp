@@ -196,6 +196,20 @@ namespace s3d
 		return RectF(x, y, size);
 	}
 
+	RectF Texture::draw(const double x, const double y, const ColorF(&colors)[4]) const
+	{
+		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());
+
+		Siv3DEngine::GetRenderer2D()->addTextureRegion(
+			*this,
+			FloatRect(x, y, x + size.x, y + size.y),
+			FloatRect(0.0f, 0.0f, 1.0f, 1.0f),
+			{ colors[0].toFloat4(), colors[1].toFloat4(), colors[2].toFloat4(), colors[3].toFloat4() }
+		);
+
+		return RectF(x, y, size);
+	}
+
 	RectF Texture::drawClipped(double x, double y, const RectF& clipRect, const ColorF& diffuse) const
 	{
 		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());
