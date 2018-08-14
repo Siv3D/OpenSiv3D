@@ -336,7 +336,6 @@
 		2C29F2022121E2B40043190F /* SivBezier3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C29EF412121E2B40043190F /* SivBezier3.cpp */; };
 		2C29F2032121E2B40043190F /* CBigFloat.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C29EF432121E2B40043190F /* CBigFloat.hpp */; };
 		2C29F2042121E2B40043190F /* SivBigFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C29EF442121E2B40043190F /* SivBigFloat.cpp */; };
-		2C29F2052121E2B40043190F /* CBigInt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C29EF462121E2B40043190F /* CBigInt.cpp */; };
 		2C29F2062121E2B40043190F /* CBigInt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C29EF472121E2B40043190F /* CBigInt.hpp */; };
 		2C29F2072121E2B40043190F /* SivBigInt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C29EF482121E2B40043190F /* SivBigInt.cpp */; };
 		2C29F2082121E2B40043190F /* CBinaryReader_Linux.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C29EF4A2121E2B40043190F /* CBinaryReader_Linux.cpp */; };
@@ -1624,7 +1623,6 @@
 		2C29EF412121E2B40043190F /* SivBezier3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBezier3.cpp; sourceTree = "<group>"; };
 		2C29EF432121E2B40043190F /* CBigFloat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CBigFloat.hpp; sourceTree = "<group>"; };
 		2C29EF442121E2B40043190F /* SivBigFloat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBigFloat.cpp; sourceTree = "<group>"; };
-		2C29EF462121E2B40043190F /* CBigInt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CBigInt.cpp; sourceTree = "<group>"; };
 		2C29EF472121E2B40043190F /* CBigInt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CBigInt.hpp; sourceTree = "<group>"; };
 		2C29EF482121E2B40043190F /* SivBigInt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivBigInt.cpp; sourceTree = "<group>"; };
 		2C29EF4A2121E2B40043190F /* CBinaryReader_Linux.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CBinaryReader_Linux.cpp; sourceTree = "<group>"; };
@@ -3715,7 +3713,6 @@
 		2C29EF452121E2B40043190F /* BigInt */ = {
 			isa = PBXGroup;
 			children = (
-				2C29EF462121E2B40043190F /* CBigInt.cpp */,
 				2C29EF472121E2B40043190F /* CBigInt.hpp */,
 				2C29EF482121E2B40043190F /* SivBigInt.cpp */,
 			);
@@ -6449,7 +6446,6 @@
 				2C29F29E2121E2B50043190F /* D3D11SwapChain.cpp in Sources */,
 				2C29F3CB2121E2B50043190F /* WebcamDetail.cpp in Sources */,
 				2C29F3682121E2B50043190F /* SivShader.cpp in Sources */,
-				2C29F2052121E2B40043190F /* CBigInt.cpp in Sources */,
 				2C29F3B12121E2B50043190F /* SivTextureRegion.cpp in Sources */,
 				2C29F3552121E2B50043190F /* CScript.cpp in Sources */,
 				2C0FBFE11FDB71F400A128B9 /* openbsd-reallocarray.c in Sources */,

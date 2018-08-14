@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -549,18 +549,30 @@ namespace fmt
 			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), wstring_view(value.data(), value.size()));
 		}
 	};
-
+	
 	template <class Type>
-	struct formatter<Type, s3d::char32> : formatter<basic_string_view<s3d::char32>, s3d::char32>
+	struct formatter<Type, s3d::char32>
 	{
+		s3d::String tag;
+		
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
+		
 		template <class Context>
 		auto format(const Type& value, Context& ctx)
 		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+															U"{:", tag, U"}"
+															);
+			
 			const s3d::String s = s3d::Format(value);
-
+			
 			const basic_string_view<s3d::char32> str(s.data(), s.size());
-
-			return formatter<basic_string_view<s3d::char32>, s3d::char32>::format(str, ctx);
+			
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), str);
 		}
 	};
 }

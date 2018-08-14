@@ -1,9 +1,11 @@
-﻿
+
 # include <Siv3D.hpp>
 
 void Main()
 {
 	const String s = U"Siv3D";
+	
+	Print << U"{}"_fmt(Array<int32>{1,2,3,4,5});
 
 	Print << U"{:.1f}"_fmt(Circular(0.5, 0.123));
 
