@@ -4437,6 +4437,9 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\format.h">
       <Filter>include\ThirdParty\fmt</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\ThirdParty\hopscotch-map\hopscotch_growth_policy.h">
+      <Filter>include\ThirdParty\hopscotch-map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_macOS.mm">

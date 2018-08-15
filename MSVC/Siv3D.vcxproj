@@ -771,6 +771,7 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\valarray.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\vector.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\format.h" />
+    <ClInclude Include="..\Siv3D\include\ThirdParty\hopscotch-map\hopscotch_growth_policy.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\hopscotch-map\hopscotch_hash.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\hopscotch-map\hopscotch_map.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\hopscotch-map\hopscotch_set.h" />

@@ -154,7 +154,7 @@ namespace s3d
 	/// <returns>
 	/// フォーマットされた時間
 	/// </returns>
-	String FormatTime(const Duration& duration, const String& format);
+	[[nodiscard]] String FormatTime(const Duration& duration, const String& format);
 }
 
 //////////////////////////////////////////////////
