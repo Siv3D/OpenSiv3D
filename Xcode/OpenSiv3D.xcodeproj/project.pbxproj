@@ -1266,6 +1266,7 @@
 		2C0FC1611FDB72BF00A128B9 /* lharfbuzz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = lharfbuzz.a; path = ../Siv3D/lib/macOS/harfbuzz/lharfbuzz.a; sourceTree = "<group>"; };
 		2C0FD5DA1FE55B4F00A128B9 /* cpptoml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpptoml.h; sourceTree = "<group>"; };
 		2C0FEEDB1FF7FA2000A128B9 /* langelscript.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = langelscript.a; path = ../Siv3D/lib/macOS/angelscript/langelscript.a; sourceTree = "<group>"; };
+		2C170ADC2123CBCA0041A54A /* hopscotch_growth_policy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hopscotch_growth_policy.h; sourceTree = "<group>"; };
 		2C1778B21CE0D5DB00BB8AD0 /* Siv3D-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Siv3D-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C1778BF1CE0D5DB00BB8AD0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C22E2C11FD5BAF0002735AB /* Siv3D-Test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Siv3D-Test.entitlements"; sourceTree = SOURCE_ROOT; };
@@ -3334,6 +3335,7 @@
 		2C29EEF32121E2A80043190F /* hopscotch-map */ = {
 			isa = PBXGroup;
 			children = (
+				2C170ADC2123CBCA0041A54A /* hopscotch_growth_policy.h */,
 				2C29EEF42121E2A80043190F /* hopscotch_hash.h */,
 				2C29EEF52121E2A80043190F /* hopscotch_map.h */,
 				2C29EEF62121E2A80043190F /* hopscotch_set.h */,
