@@ -48,11 +48,11 @@ namespace s3d
 		std::atomic<bool> m_abort = false;
 
 
-		static void Update(DirectoryWatcherDetail* watcher, const FilePath& directory);
+		static void Update(DirectoryWatcherDetail* watcher);
 
 		static void CALLBACK OnChangeNotification(const DWORD dwErrorCode, const DWORD dwNumberOfBytesTransfered, const LPOVERLAPPED lpOverlapped);
 
-		bool init(const FilePath& directory);
+		bool init();
 
 		void update();
 
@@ -65,6 +65,8 @@ namespace s3d
 		~DirectoryWatcherDetail();
 
 		Array<std::pair<FilePath, FileAction>> retrieveChanges();
+
+		const FilePath& directory() const;
 	};
 }
 

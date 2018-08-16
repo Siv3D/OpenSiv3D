@@ -30,6 +30,11 @@ namespace s3d
 	{
 		return{};
 	}
+
+	const FilePath& DirectoryWatcher::DirectoryWatcherDetail::directory() const
+	{
+		return FilePath();
+	}
 }
 
 # endif

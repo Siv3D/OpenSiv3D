@@ -52,4 +52,14 @@ namespace s3d
 
 		return m_detail->retrieveChanges();
 	}
+
+	FilePath DirectoryWatcher::directory() const
+	{
+		if (!m_detail)
+		{
+			return{};
+		}
+
+		return m_detail->directory();
+	}
 }

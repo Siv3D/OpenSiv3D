@@ -44,5 +44,7 @@ namespace s3d
 		~DirectoryWatcher();
 
 		Array<std::pair<FilePath, FileAction>> retrieveChanges() const;
+
+		FilePath directory() const;
 	};
 }

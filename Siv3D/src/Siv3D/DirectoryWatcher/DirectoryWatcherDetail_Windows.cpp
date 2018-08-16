@@ -20,7 +20,16 @@ namespace s3d
 {
 	DirectoryWatcher::DirectoryWatcherDetail::DirectoryWatcherDetail(const FilePath& directory)
 	{
-		m_thread = std::thread(DirectoryWatcherDetail::Update, this, directory);
+		if (directory.isEmpty() || !FileSystem::IsDirectory(directory))
+		{
+			LOG_FAIL(U"❌ DirectoryWatcher: `{}` is not a directory"_fmt(directory));
+
+			return;
+		}
+
+		m_directory = FileSystem::FullPath(directory);
+
+		m_thread = std::thread(DirectoryWatcherDetail::Update, this);
 	}
 
 	DirectoryWatcher::DirectoryWatcherDetail::~DirectoryWatcherDetail()
@@ -31,7 +40,11 @@ namespace s3d
 		}
 
 		m_abort = true;
-		m_thread.join();
+		
+		if (m_thread.joinable())
+		{
+			m_thread.join();
+		}
 
 		::CancelIoEx(m_directoryHandle, &m_overlapped);
 
@@ -53,9 +66,14 @@ namespace s3d
 		return results;
 	}
 
-	void DirectoryWatcher::DirectoryWatcherDetail::Update(DirectoryWatcherDetail* watcher, const FilePath& directory)
+	const FilePath& DirectoryWatcher::DirectoryWatcherDetail::directory() const
 	{
-		if (!watcher->init(directory))
+		return m_directory;
+	}
+
+	void DirectoryWatcher::DirectoryWatcherDetail::Update(DirectoryWatcherDetail* watcher)
+	{
+		if (!watcher->init())
 		{
 			return;
 		}
@@ -75,16 +93,8 @@ namespace s3d
 		directoryWatcher->processChange(static_cast<uint32>(dwErrorCode), static_cast<size_t>(dwNumberOfBytesTransfered));
 	}
 
-	bool DirectoryWatcher::DirectoryWatcherDetail::init(const FilePath& directory)
+	bool DirectoryWatcher::DirectoryWatcherDetail::init()
 	{
-		if (directory.isEmpty() || !FileSystem::IsDirectory(directory))
-		{
-			LOG_FAIL(U"❌ DirectoryWatcher: `` is not a directory"_fmt(directory));
-
-			return false;
-		}
-
-		m_directory = FileSystem::FullPath(directory);
 		m_overlapped.hEvent = this;
 
 		m_buffer.resize(BufferSize);

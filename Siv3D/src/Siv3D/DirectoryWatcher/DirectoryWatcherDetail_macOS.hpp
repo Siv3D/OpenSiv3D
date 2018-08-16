@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -22,6 +22,8 @@ namespace s3d
 	private:
 		
 		static constexpr double LatencySec = 0.25;
+
+		FilePath m_directory;
 		
 		bool m_running = false;
 		
@@ -44,6 +46,8 @@ namespace s3d
 		~DirectoryWatcherDetail();
 
 		Array<std::pair<FilePath, FileAction>> retrieveChanges();
+
+		const FilePath& directory() const;
 	};
 }
 

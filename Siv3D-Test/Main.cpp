@@ -10,6 +10,8 @@ void Main()
 
 	const DirectoryWatcher watcher(U"../");
 
+	Print << watcher.directory();
+
 	while (System::Update())
 	{
 		for (const auto& change : watcher.retrieveChanges())

@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -31,7 +31,15 @@ namespace s3d
 	
 	DirectoryWatcher::DirectoryWatcherDetail::DirectoryWatcherDetail(const FilePath& directory)
 	{
-		CFStringRef FullPathMac = CFStringCreateWithBytes(kCFAllocatorDefault, (const uint8*)directory.c_str(), directory.size_bytes(), kCFStringEncodingUTF32LE, false);
+		if (directory.isEmpty() || !FileSystem::IsDirectory(directory))
+		{
+			LOG_FAIL(U"❌ DirectoryWatcher: `{}` is not a directory"_fmt(directory));
+
+			return;
+		}
+
+		m_directory = FileSystem::FullPath(directory);
+		CFStringRef FullPathMac = CFStringCreateWithBytes(kCFAllocatorDefault, (const uint8*)m_directory.c_str(), m_directory.size_bytes(), kCFStringEncodingUTF32LE, false);
 		CFArrayRef PathsToWatch = CFArrayCreate(NULL, (const void**)&FullPathMac, 1, NULL);
 		
 		FSEventStreamContext context;
@@ -88,6 +96,11 @@ namespace s3d
 		results.swap(m_changes);
 		
 		return results;
+	}
+
+	const FilePath& DirectoryWatcher::DirectoryWatcherDetail::directory() const
+	{
+		return m_directory;
 	}
 	
 	void DirectoryWatcher::DirectoryWatcherDetail::OnChange(ConstFSEventStreamRef, void* pWatch, size_t eventCount, void* paths, const FSEventStreamEventFlags flags[], const FSEventStreamEventId[])
