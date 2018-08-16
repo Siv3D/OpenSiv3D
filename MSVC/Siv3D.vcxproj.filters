@@ -779,6 +779,9 @@
     <Filter Include="src\Siv3D\Noise">
       <UniqueIdentifier>{66a564e5-2e7e-4393-a79b-4600479bd4ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\DirectoryWatcher">
+      <UniqueIdentifier>{d1701fef-fc5e-433f-8a81-f45494aa8d19}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -2193,6 +2196,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Noise\SivNoise.cpp">
       <Filter>src\Siv3D\Noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\DirectoryWatcher\SivDirectoryWatcher.cpp">
+      <Filter>src\Siv3D\DirectoryWatcher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\DirectoryWatcher\DirectoryWatcherDetail_Windows.cpp">
+      <Filter>src\Siv3D\DirectoryWatcher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\DirectoryWatcher\DirectoryWatcherDetail_macOS.cpp">
+      <Filter>src\Siv3D\DirectoryWatcher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\DirectoryWatcher\DirectoryWatcherDetail_Linux.cpp">
+      <Filter>src\Siv3D\DirectoryWatcher</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -4484,6 +4499,18 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Noise\NoiseDetail.hpp">
       <Filter>src\Siv3D\Noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\DirectoryWatcher.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\DirectoryWatcher\DirectoryWatcherDetail_Windows.hpp">
+      <Filter>src\Siv3D\DirectoryWatcher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\DirectoryWatcher\DirectoryWatcherDetail_macOS.hpp">
+      <Filter>src\Siv3D\DirectoryWatcher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\DirectoryWatcher\DirectoryWatcherDetail_Linux.hpp">
+      <Filter>src\Siv3D\DirectoryWatcher</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

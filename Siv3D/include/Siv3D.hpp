@@ -246,8 +246,8 @@
 	// Resource files
 	# include "Siv3D/Resource.hpp"
 
-	////// ファイルとディレクトリの変更の監視
-	////# include "Siv3D/FileMonitor.hpp"
+	// ファイルとディレクトリの変更の監視
+	# include "Siv3D/DirectoryWatcher.hpp"
 
 	// IReader interface
 	# include "Siv3D/IReader.hpp"
