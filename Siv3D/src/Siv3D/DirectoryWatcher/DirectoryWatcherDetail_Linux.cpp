@@ -33,7 +33,7 @@ namespace s3d
 
 	const FilePath& DirectoryWatcher::DirectoryWatcherDetail::directory() const
 	{
-		return FilePath();
+		return m_directory;
 	}
 }
 
