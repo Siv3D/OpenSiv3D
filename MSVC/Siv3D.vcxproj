@@ -46,7 +46,6 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Bezier2\SivBezier2.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Bezier3\SivBezier3.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\BigFloat\SivBigFloat.cpp" />
-    <ClCompile Include="..\Siv3D\src\Siv3D\BigInt\CBigInt.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\BigInt\SivBigInt.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\BinaryReader\CBinaryReader_Linux.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\BinaryReader\CBinaryReader_macOS.cpp" />
@@ -93,6 +92,10 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Dialog\SivDialog.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Dialog\SivDialog_Linux.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Dialog\SivDialog_Windows.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\DirectoryWatcher\DirectoryWatcherDetail_Linux.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\DirectoryWatcher\DirectoryWatcherDetail_macOS.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\DirectoryWatcher\DirectoryWatcherDetail_Windows.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\DirectoryWatcher\SivDirectoryWatcher.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_Linux.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_macOS.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_Windows.cpp" />
@@ -205,6 +208,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Network\NetworkFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Network\SivNetwork.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\NLP\SivNLP_Japanese.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Noise\NoiseDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Noise\SivNoise.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ObjectDetection\CObjectDetection.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ObjectDetection\ObjectDetectionFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\OpenCV_Bridge\SivOpenCV_Bridge.cpp" />
@@ -418,6 +423,13 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\fixed-dtoa.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\strtod.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\easyexif\exif.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD_avx2.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD_avx512.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD_internal.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD_neon.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD_sse2.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD_sse41.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\FID\FID.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\fmt\format.cc" />
@@ -540,6 +552,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\DeadZone.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\DefaultRNG.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Dialog.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\DirectoryWatcher.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Distribution.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\DragDrop.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Duration.hpp" />
@@ -622,6 +635,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\NavMesh.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Network.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\NLP_Japanese.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Noise.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Number.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OffsetCircular.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OpenCV_Bridge.hpp" />
@@ -772,6 +786,7 @@
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\valarray.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\cereal\types\vector.hpp" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\fmt\format.h" />
+    <ClInclude Include="..\Siv3D\include\ThirdParty\hopscotch-map\hopscotch_growth_policy.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\hopscotch-map\hopscotch_hash.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\hopscotch-map\hopscotch_map.h" />
     <ClInclude Include="..\Siv3D\include\ThirdParty\hopscotch-map\hopscotch_set.h" />
@@ -830,6 +845,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Cursor\CCursor_macOS.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Cursor\CCursor_Windows.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Cursor\ICursor.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\DirectoryWatcher\DirectoryWatcherDetail_Linux.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\DirectoryWatcher\DirectoryWatcherDetail_macOS.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\DirectoryWatcher\DirectoryWatcherDetail_Windows.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_Linux.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_macOS.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\DragDrop\CDragDrop_Windows.hpp" />
@@ -893,6 +911,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\NavMesh\CNavMesh.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Network\CNetwork.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Network\INetwork.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Noise\NoiseDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ObjectDetection\CObjectDetection.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ObjectDetection\IObjectDetection.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Painting\PaintShape.hpp" />
@@ -1035,6 +1054,8 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\strtod.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\utils.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\easyexif\exif.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD_internal.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\FID\FID.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\config\ftconfig.h" />
@@ -1310,23 +1331,23 @@
     <OutDir>..\Siv3D\lib\Windows(x64)\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Debug-x64\Intermediate\</IntDir>
-    <IncludePath>..\Siv3D\include;..\dependencies\boost_1_67_0;..\Siv3D\src\ThirdParty\zstd;..\Siv3D\src\ThirdParty\zstd\common;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;..\Siv3D\include\ThirdParty;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\include;..\dependencies\boost_1_68_0;..\Siv3D\src\ThirdParty\zstd;..\Siv3D\src\ThirdParty\zstd\common;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;..\Siv3D\include\ThirdParty;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Release-x64\Intermediate\</IntDir>
     <OutDir>..\Siv3D\lib\Windows(x64)\</OutDir>
-    <IncludePath>..\Siv3D\include;..\dependencies\boost_1_67_0;..\Siv3D\src\ThirdParty\zstd;..\Siv3D\src\ThirdParty\zstd\common;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;..\Siv3D\include\ThirdParty;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\include;..\dependencies\boost_1_68_0;..\Siv3D\src\ThirdParty\zstd;..\Siv3D\src\ThirdParty\zstd\common;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;..\Siv3D\include\ThirdParty;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>..\Siv3D\lib\Windows(x86)\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Release-x86\Intermediate\</IntDir>
-    <IncludePath>..\Siv3D\include;..\dependencies\boost_1_67_0;..\Siv3D\src\ThirdParty\zstd;..\Siv3D\src\ThirdParty\zstd\common;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;..\Siv3D\include\ThirdParty;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\include;..\dependencies\boost_1_68_0;..\Siv3D\src\ThirdParty\zstd;..\Siv3D\src\ThirdParty\zstd\common;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;..\Siv3D\include\ThirdParty;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\Siv3D\lib\Windows(x86)\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Debug-x86\Intermediate\</IntDir>
-    <IncludePath>..\Siv3D\include;..\dependencies\boost_1_67_0;..\Siv3D\src\ThirdParty\zstd;..\Siv3D\src\ThirdParty\zstd\common;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;..\Siv3D\include\ThirdParty;$(IncludePath)</IncludePath>
+    <IncludePath>..\Siv3D\include;..\dependencies\boost_1_68_0;..\Siv3D\src\ThirdParty\zstd;..\Siv3D\src\ThirdParty\zstd\common;..\Siv3D\src\ThirdParty;..\Siv3D\src\ThirdParty\freetype;..\Siv3D\include\ThirdParty;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

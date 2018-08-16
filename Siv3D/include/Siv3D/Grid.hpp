@@ -1498,6 +1498,10 @@ namespace s3d
 	{
 		return output << Format(value).toWstr();
 	}
+
+	// deduction guide
+	template <class Type>
+	Grid(const std::initializer_list<std::initializer_list<Type>>&) -> Grid<Type>;
 }
 
 //////////////////////////////////////////////////

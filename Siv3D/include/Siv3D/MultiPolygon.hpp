@@ -329,7 +329,7 @@ namespace s3d
 {
 	inline void Formatter(FormatData& formatData, const MultiPolygon& value)
 	{
-		formatData.string.append(value.join(U",", U"(", U")"));
+		formatData.string.append(value.join(U", ", U"(", U")"));
 	}
 
 	template <class CharType>

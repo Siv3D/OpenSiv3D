@@ -200,6 +200,13 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	DirectoryWatcher.hpp
+	//
+	enum class FileAction;
+	class DirectoryWatcher;
+
+	//////////////////////////////////////////////////////
+	//
 	//	IReader.hpp
 	//
 	class IReader;
@@ -560,6 +567,17 @@ namespace s3d
 	//	PerlinNoise.hpp
 	//
 	class PerlinNoise;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Noise.hpp
+	//
+	enum class NoiseType;
+	enum class FractalType;
+	enum class CellularDistanceFunction;
+	enum class CellularReturnType;
+	enum class PerturbType;
+	class NoiseGenerator;
 
 	//////////////////////////////////////////////////////
 	//

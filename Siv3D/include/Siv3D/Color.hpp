@@ -822,6 +822,16 @@ namespace s3d
 		return ColorF(1.0, 1.0 - transparency);
 	}
 
+	inline constexpr Color ToColor(const float rgb) noexcept
+	{
+		return Color((rgb >= 1.0f ? 255 : rgb <= 0.0f ? 0 : static_cast<uint8>(rgb * 255.0f + 0.5f)));
+	}
+
+	inline constexpr Color ToColor(const double rgb) noexcept
+	{
+		return Color(rgb >= 1.0 ? 255 : rgb <= 0.0 ? 0 : static_cast<uint8>(rgb * 255.0 + 0.5));
+	}
+
 	/// <summary>
 	/// 色をコピーします。
 	/// </summary>
@@ -867,9 +877,9 @@ namespace s3d
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Color& value)
 	{
 		return output << CharType('(')
-			<< value.r << CharType(',')
-			<< value.g << CharType(',')
-			<< value.b << CharType(',')
+			<< value.r << CharType(',') << CharType(' ')
+			<< value.g << CharType(',') << CharType(' ')
+			<< value.b << CharType(',') << CharType(' ')
 			<< value.a << CharType(')');
 	}
 
@@ -877,9 +887,9 @@ namespace s3d
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const ColorF& value)
 	{
 		return output << CharType('(')
-			<< value.r << CharType(',')
-			<< value.g << CharType(',')
-			<< value.b << CharType(',')
+			<< value.r << CharType(',') << CharType(' ')
+			<< value.g << CharType(',') << CharType(' ')
+			<< value.b << CharType(',') << CharType(' ')
 			<< value.a << CharType(')');
 	}
 
@@ -988,23 +998,47 @@ namespace std
 
 namespace fmt
 {
-	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::Color& value)
+	template <>
+	struct formatter<s3d::Color, s3d::char32>
 	{
-		const auto tag = s3d::detail::GetTag(format_str);
+		s3d::String tag;
 
-		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"},{" + tag + U"})";
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
 
-		f.writer().write(fmt, value.r, value.g, value.b, value.a);
-	}
+		template <class Context>
+		auto format(const s3d::Color& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
+			);
 
-	template <class ArgFormatter>
-	void format_arg(BasicFormatter<s3d::char32, ArgFormatter>& f, const s3d::char32*& format_str, const s3d::ColorF& value)
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.r, value.g, value.b, value.a);
+		}
+	};
+
+	template <>
+	struct formatter<s3d::ColorF, s3d::char32>
 	{
-		const auto tag = s3d::detail::GetTag(format_str);
+		s3d::String tag;
 
-		const auto fmt = U"({" + tag + U"},{" + tag + U"},{" + tag + U"},{" + tag + U"})";
+		template <class ParseContext>
+		auto parse(ParseContext& ctx)
+		{
+			return s3d::detail::GetFmtTag(tag, ctx);
+		}
 
-		f.writer().write(fmt, value.r, value.g, value.b, value.a);
-	}
+		template <class Context>
+		auto format(const s3d::ColorF& value, Context& ctx)
+		{
+			const s3d::String fmt = s3d::detail::MakeFmtArg(
+				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
+			);
+
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.r, value.g, value.b, value.a);
+		}
+	};
 }

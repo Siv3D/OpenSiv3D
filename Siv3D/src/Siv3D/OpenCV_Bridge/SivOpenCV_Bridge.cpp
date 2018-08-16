@@ -39,7 +39,7 @@ namespace s3d
 				{
 					*pDst = (pSrc->r <= threshold ? 0 : 255);
 
-					++pDst, ++pSrc;
+					++pDst; ++pSrc;
 				}
 			}
 			else
@@ -56,7 +56,7 @@ namespace s3d
 					{
 						*pDst = (pSrc->r <= threshold ? 0 : 255);
 
-						++pDst, ++pSrc;
+						++pDst; ++pSrc;
 					}
 
 					pDstLine += dstStepBytes;
@@ -87,7 +87,7 @@ namespace s3d
 				{
 					*pDst = (pSrc->a <= threshold ? 0 : 255);
 
-					++pDst, ++pSrc;
+					++pDst; ++pSrc;
 				}
 			}
 			else
@@ -104,7 +104,7 @@ namespace s3d
 					{
 						*pDst = (pSrc->a <= threshold ? 0 : 255);
 
-						++pDst, ++pSrc;
+						++pDst; ++pSrc;
 					}
 
 					pDstLine += dstStepBytes;
@@ -135,7 +135,7 @@ namespace s3d
 				{
 					*pDst = pSrc->grayscale0_255();
 
-					++pDst, ++pSrc;
+					++pDst; ++pSrc;
 				}
 			}
 			else
@@ -152,7 +152,7 @@ namespace s3d
 					{
 						*pDst = pSrc->grayscale0_255();
 
-						++pDst, ++pSrc;
+						++pDst; ++pSrc;
 					}
 
 					pDstLine += dstStepBytes;
@@ -221,7 +221,7 @@ namespace s3d
 					(*pDst)[1] = static_cast<float>(pSrc->g);
 					(*pDst)[2] = static_cast<float>(pSrc->r);
 
-					++pDst, ++pSrc;
+					++pDst; ++pSrc;
 				}
 
 				pDstLine += dstStepBytes;
@@ -341,7 +341,7 @@ namespace s3d
 					while (pDst != pDstEnd)
 					{
 						pDst->r = pDst->g = pDst->b = *pSrc;
-						++pDst, ++pSrc;
+						++pDst; ++pSrc;
 					}
 				}
 				else
@@ -357,7 +357,7 @@ namespace s3d
 						for (int32 x = 0; x < width; ++x)
 						{
 							pDst->r = pDst->g = pDst->b = *pSrc;
-							++pDst, ++pSrc;
+							++pDst; ++pSrc;
 						}
 
 						pSrcLine += srcStepBytes;
@@ -376,7 +376,7 @@ namespace s3d
 					{
 						pDst->r = pDst->g = pDst->b = *pSrc;
 						pDst->a = 255;
-						++pDst, ++pSrc;
+						++pDst; ++pSrc;
 					}
 				}
 				else
@@ -393,7 +393,7 @@ namespace s3d
 						{
 							pDst->r = pDst->g = pDst->b = *pSrc;
 							pDst->a = 255;
-							++pDst, ++pSrc;
+							++pDst; ++pSrc;
 						}
 
 						pSrcLine += srcStepBytes;

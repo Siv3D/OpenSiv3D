@@ -570,7 +570,7 @@ namespace s3d
 			return true;
 		}
 
-		[[nodiscard]] String join(const String& sep = U",", const String& begin = U"{", const String& end = U"}") const
+		[[nodiscard]] String join(const String& sep = U", ", const String& begin = U"{", const String& end = U"}") const
 		{
 			String s;
 

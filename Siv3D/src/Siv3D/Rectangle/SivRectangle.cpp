@@ -367,17 +367,20 @@ namespace s3d
 
 	void Formatter(FormatData& formatData, const Rect& value)
 	{
-		const size_t bufferSize = 12 * 4 + 6;
+		const size_t bufferSize = 12 * 4 + 9;
 		char32 buf[bufferSize];
 		char32* p = buf;
 
 		*(p++) = U'(';
 		detail::AppendInt(&p, value.x);
 		*(p++) = U',';
+		*(p++) = U' ';
 		detail::AppendInt(&p, value.y);
 		*(p++) = U',';
+		*(p++) = U' ';
 		detail::AppendInt(&p, value.w);
 		*(p++) = U',';
+		*(p++) = U' ';
 		detail::AppendInt(&p, value.h);
 		*(p++) = U')';
 

@@ -11,7 +11,10 @@
 
 # pragma once
 # include "String.hpp"
+
+S3D_DISABLE_MSVC_WARNINGS_PUSH(4127)
 # include "ThirdParty/fmt/format.h"
+S3D_DISABLE_MSVC_WARNINGS_POP()
 
 namespace s3d
 {
@@ -19,7 +22,12 @@ namespace s3d
 	{
 		struct FormatHelper
 		{
-			const char32* str;
+			const fmt::basic_string_view<char32> str;
+
+			FormatHelper() = default;
+
+			FormatHelper(const char32* s, size_t length)
+				: str(s, length) {}
 
 			template <class... Args>
 			[[nodiscard]] String operator()(Args&& ...args) const
@@ -50,7 +58,7 @@ namespace s3d
 
 	namespace Literals
 	{
-		[[nodiscard]] detail::FormatHelper operator ""_fmt(const char32* text, size_t);
+		[[nodiscard]] detail::FormatHelper operator ""_fmt(const char32* text, size_t length);
 	}
 }
 

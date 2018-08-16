@@ -74,7 +74,7 @@ template<class Key,
          class Allocator = std::allocator<Key>,
          unsigned int NeighborhoodSize = 62,
          bool StoreHash = false,
-         class GrowthPolicy = tsl::power_of_two_growth_policy>
+         class GrowthPolicy = tsl::hh::power_of_two_growth_policy<2>>
 class hopscotch_set {
 private:    
     template<typename U>
@@ -457,8 +457,8 @@ public:
     float max_load_factor() const { return m_ht.max_load_factor(); }
     void max_load_factor(float ml) { m_ht.max_load_factor(ml); }
     
-    void rehash(size_type count) { m_ht.rehash(count); }
-    void reserve(size_type count) { m_ht.reserve(count); }
+    void rehash(size_type count_) { m_ht.rehash(count_); }
+    void reserve(size_type count_) { m_ht.reserve(count_); }
     
     
     /*
@@ -507,6 +507,18 @@ public:
 private:
     ht m_ht;    
 };
+
+
+/**
+ * Same as `tsl::hopscotch_set<Key, Hash, KeyEqual, Allocator, NeighborhoodSize, StoreHash, tsl::hh::prime_growth_policy>`.
+ */
+template<class Key, 
+         class Hash = std::hash<Key>,
+         class KeyEqual = std::equal_to<Key>,
+         class Allocator = std::allocator<Key>,
+         unsigned int NeighborhoodSize = 62,
+         bool StoreHash = false>
+using hopscotch_pg_set = hopscotch_set<Key, Hash, KeyEqual, Allocator, NeighborhoodSize, StoreHash, tsl::hh::prime_growth_policy>;
 
 } // end namespace tsl
 

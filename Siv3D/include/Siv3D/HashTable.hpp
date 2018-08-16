@@ -22,6 +22,6 @@ namespace s3d
 		class Allocator = std::allocator<std::pair<Key, T>>,
 		unsigned int NeighborhoodSize = 62,
 		bool StoreHash = false,
-		class GrowthPolicy = tsl::power_of_two_growth_policy>
+		class GrowthPolicy = tsl::hh::power_of_two_growth_policy<2>>
 		using HashTable = tsl::hopscotch_map<Key, T, Hash, KeyEqual, Allocator, NeighborhoodSize, StoreHash, GrowthPolicy>;
 }

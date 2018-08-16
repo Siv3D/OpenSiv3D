@@ -52,13 +52,14 @@ namespace s3d
 
 	void Formatter(FormatData& formatData, const Point& value)
 	{
-		const size_t bufferSize = 12 * 2 + 4;
+		const size_t bufferSize = 12 * 2 + 5;
 		char32 buf[bufferSize];
 		char32* p = buf;
 
 		*(p++) = U'(';
 		detail::AppendInt(&p, value.x);
 		*(p++) = U',';
+		*(p++) = U' ';
 		detail::AppendInt(&p, value.y);
 		*(p++) = U')';
 

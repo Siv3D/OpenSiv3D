@@ -145,7 +145,7 @@ namespace s3d
 	/// イテレータの範囲からランダムに選択された値
 	/// </returns>
 	template <class Iterator>
-	inline auto RandomSelect(Iterator begin, Iterator end)
+	[[deprecated("deprecated in v0.3.0: use Sample() instead")]] inline auto RandomSelect(Iterator begin, Iterator end)
 	{
 		assert(begin != end);
 		std::advance(begin, Random(std::distance(begin, end) - 1));
@@ -165,7 +165,7 @@ namespace s3d
 	/// コンテナの中からランダムに選択された値
 	/// </returns>
 	template <class Container>
-	inline auto RandomSelect(const Container& c)
+	[[deprecated("deprecated in v0.3.0: use Sample() instead")]] inline auto RandomSelect(const Container& c)
 	{
 		return RandomSelect(std::begin(c), std::end(c));
 	}
@@ -183,7 +183,7 @@ namespace s3d
 	/// リストの中からランダムに選択された値
 	/// </returns>
 	template <class Type>
-	inline Type RandomSelect(std::initializer_list<Type> ilist)
+	[[deprecated("deprecated in v0.3.0: use Sample() instead")]] inline Type RandomSelect(std::initializer_list<Type> ilist)
 	{
 		return RandomSelect(std::begin(ilist), std::end(ilist));
 	}
