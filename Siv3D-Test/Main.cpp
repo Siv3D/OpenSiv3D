@@ -3,20 +3,23 @@
 
 void Main()
 {
-	const Array<String> actions = 
+	Graphics::SetBackground(ColorF(0.4, 0.6, 0.5));
+
+	const Array<Texture> textures =
 	{
-		U"Unknown", U"Added", U"Removed", U"Modified",
+		Texture(Icon(0xf5bf, 80)),
+		Texture(Icon(0xf5cb, 80)),
+		Texture(Icon(0xf5bd, 80)),
+		Texture(Icon(0xf576, 80)),
+		Texture(Icon(0xf61f, 80)),
+		Texture(Icon(0xf5ee, 80)),
 	};
-
-	const DirectoryWatcher watcher(U"../");
-
-	Print << watcher.directory();
 
 	while (System::Update())
 	{
-		for (const auto& change : watcher.retrieveChanges())
+		for (auto[i, texture] : Indexed(textures))
 		{
-			Print << U"[{}]\n{}"_fmt(actions[(size_t)change.second], change.first);
+			texture.drawAt(80 + i % 3 * 120, 80 + i / 3 * 120);
 		}
 	}
 }
