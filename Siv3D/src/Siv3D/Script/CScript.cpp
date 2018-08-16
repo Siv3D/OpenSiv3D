@@ -11,6 +11,7 @@
 
 # include "CScript.hpp"
 
+# include <Siv3D/FileSystem.hpp>
 # include "Bind/ScriptBind.hpp"
 # include "AngelScript/scriptarray.h"
 # include "AngelScript/scriptstdstring.h"
@@ -19,31 +20,28 @@ namespace s3d
 {
 	namespace detail
 	{
-		static void MessageCallback(const AngelScript::asSMessageInfo* msg, void*)
+		static String GetMessageType(const AngelScript::asEMsgType msgType)
 		{
-			const char *type = "ERR ";
-			if (msg->type == AngelScript::asMSGTYPE_WARNING)
-				type = "WARN";
-			else if (msg->type == AngelScript::asMSGTYPE_INFORMATION)
-				type = "INFO";
+			const Array<String> types =
+			{
+				U"error", U"warning", U"info"
+			};
 
-			//char buf[512];
+			return types[msgType];
+		}
 
-			//sprintf_s(buf, "%s (%d, %d) : %s : %s\n", msg->section, msg->row, msg->col, type, msg->message);
+		static void MessageCallback(const AngelScript::asSMessageInfo* msg, void* pMessageArray)
+		{
+			const String type = GetMessageType(msg->type);
+			const String section = Unicode::Widen(msg->section);
+			const String message = Unicode::Widen(msg->message);
 
-			String type_s = U"Error";
-			if (msg->type == AngelScript::asMSGTYPE_WARNING)
-				type_s = U"Warning";
-			else if (msg->type == AngelScript::asMSGTYPE_INFORMATION)
-				type_s = U"Info";
+			const String fullMessage = U"[{}] {}({}): {}"_fmt(type, FileSystem::FileName(section), msg->row, message);
+			const String logMessage = U"{}({}): {}: {}"_fmt(section, msg->row, type, message);
+			Logger(logMessage);
 
-			Logger(U"{} : (Line {}) : {}"_fmt(type_s, msg->row, Unicode::Widen(msg->message)));
-
-			//std::cout << buf;
-			
-			//::OutputDebugStringA(buf);
-
-			//Siv3DEngine::GetLogger()->writeRaw(L"<p class=\"fail\">" + CharacterSet::Widen(buf).xmlEscape() + L"</p>\n");
+			Array<String>* messageArray = static_cast<Array<String>*>(pMessageArray);
+			messageArray->push_back(fullMessage);
 		}
 	}
 
@@ -74,7 +72,7 @@ namespace s3d
 			return false;
 		}
 
-		if (m_engine->SetMessageCallback(asFUNCTION(detail::MessageCallback), 0, AngelScript::asCALL_CDECL) < 0)
+		if (m_engine->SetMessageCallback(asFUNCTION(detail::MessageCallback), &m_messageArray, AngelScript::asCALL_CDECL) < 0)
 		{
 			return false;
 		}
@@ -201,6 +199,28 @@ namespace s3d
 	bool CScript::compiled(const ScriptID handleID)
 	{
 		return m_scripts[handleID]->compileSucceeded();
+	}
+
+	bool CScript::reload(const ScriptID handleID, const int32 compileOption)
+	{
+		return m_scripts[handleID]->reload(compileOption);
+	}
+
+	const FilePath& CScript::path(const ScriptID handleID)
+	{
+		return m_scripts[handleID]->path();
+	}
+
+	Array<String> CScript::retrieveMessagesInternal()
+	{
+		Array<String> results;
+		results.swap(m_messageArray);
+		return results;
+	}
+
+	const Array<String>& CScript::retrieveMessages(ScriptID handleID)
+	{
+		return m_scripts[handleID]->getMessages();
 	}
 
 	AngelScript::asIScriptEngine* CScript::getEngine()

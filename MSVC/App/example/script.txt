@@ -8,7 +8,10 @@ int32 GetNumber()
 
 String GetMessage()
 {
-	return "Hello!";
+	return Format(true) + " "
+	+ Format(int8(-128)) + " "
+	+ Format(int16(32767));
+	//return "Hello!🐈あいう";
 }
 
 void DrawCircle(const Circle&in circle, const ColorF&in color)

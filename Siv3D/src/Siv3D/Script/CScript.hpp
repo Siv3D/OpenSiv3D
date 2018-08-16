@@ -27,6 +27,8 @@ namespace s3d
 
 		bool m_shutDown = true;
 		
+		Array<String> m_messageArray;
+
 	public:
 
 		CScript();
@@ -48,6 +50,14 @@ namespace s3d
 		std::shared_ptr<ScriptModuleData> getModuleData(ScriptID handleID) override;
 
 		bool compiled(ScriptID handleID) override;
+
+		bool reload(ScriptID handleID, int32 compileOption) override;
+
+		const FilePath& path(ScriptID handleID) override;
+
+		Array<String> retrieveMessagesInternal() override;
+
+		const Array<String>& retrieveMessages(ScriptID handleID) override;
 
 		AngelScript::asIScriptEngine* getEngine() override;
 	};

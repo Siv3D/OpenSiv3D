@@ -409,7 +409,13 @@ namespace s3d
 			return ScriptFunction<Fty>(func ? _getModuleData() : nullptr, func);
 		}
 
-		bool compiled() const;
+		[[nodiscard]] bool compiled() const;
+
+		bool reload(int32 compileOption = 0);
+
+		const Array<String>& getMessages() const;
+
+		[[nodiscard]] const FilePath& path() const;
 	};
 
 	using ScriptID = Script::IDType;

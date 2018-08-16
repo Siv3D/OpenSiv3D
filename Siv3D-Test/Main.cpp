@@ -1,25 +1,54 @@
 ﻿
 # include <Siv3D.hpp>
 
+bool HasChanged(const FilePath& target, const Array<std::pair<FilePath, FileAction>>& fileChanges)
+{
+	for (auto[path, action] : fileChanges)
+	{
+		if ((path == target)
+			&& (action == FileAction::Modified || action == FileAction::Added))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 void Main()
 {
-	Graphics::SetBackground(ColorF(0.4, 0.6, 0.5));
+	const FilePath scriptFilePath = FileSystem::FullPath(U"example/script.txt");
+	const DirectoryWatcher watcher(FileSystem::ParentPath(scriptFilePath));
 
-	const Array<Texture> textures =
+	Script script(scriptFilePath);
+	if (!script)
 	{
-		Texture(Icon(0xf5bf, 80)),
-		Texture(Icon(0xf5cb, 80)),
-		Texture(Icon(0xf5bd, 80)),
-		Texture(Icon(0xf576, 80)),
-		Texture(Icon(0xf61f, 80)),
-		Texture(Icon(0xf5ee, 80)),
-	};
+		return;
+	}
+
+	Print << U"----------------";
+	Print << U"Compile...[{}]"_fmt(script.compiled() ? U"OK" : U"Failed");
+	script.getMessages().each(Print);
+	auto GetNumber = script.getFunction<int32()>(U"GetNumber");
+	auto GetMessage = script.getFunction<String()>(U"GetMessage");
+	Print << GetNumber();
+	Print << GetMessage() << U"@" << GetMessage().size();
 
 	while (System::Update())
 	{
-		for (auto[i, texture] : Indexed(textures))
+		const auto fileChanges = watcher.retrieveChanges();
+
+		if (HasChanged(script.path(), fileChanges))
 		{
-			texture.drawAt(80 + i % 3 * 120, 80 + i / 3 * 120);
+			Print << U"----------------";
+			const bool compileSucceeded = script.reload();
+			Print << U"Recompile...[{}]"_fmt(compileSucceeded ? U"OK" : U"Failed");
+			script.getMessages().each(Print);
+
+			GetNumber = script.getFunction<int32()>(U"GetNumber");
+			GetMessage = script.getFunction<String()>(U"GetMessage");
+			Print << GetNumber();
+			Print << GetMessage() << U"@" << GetMessage().size();
 		}
 	}
 }

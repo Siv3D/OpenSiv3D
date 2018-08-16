@@ -13,6 +13,8 @@
 # include <Siv3D/Time.hpp>
 # include <Siv3D/Logger.hpp>
 # include "ScriptData.hpp"
+# include "../Siv3DEngine.hpp"
+# include "IScript.hpp"
 
 namespace s3d
 {
@@ -56,6 +58,7 @@ namespace s3d
 
 		if (r < 0)
 		{
+			m_messages = Siv3DEngine::GetScript()->retrieveMessagesInternal();
 			//LOG_FAIL(L"Please correct the errors in the script and try again.");
 			return;
 		}
@@ -64,6 +67,7 @@ namespace s3d
 
 		if (r < 0)
 		{
+			m_messages = Siv3DEngine::GetScript()->retrieveMessagesInternal();
 			//LOG_FAIL(L"Please correct the errors in the script and try again.");
 			return;
 		}
@@ -109,7 +113,9 @@ namespace s3d
 
 		m_fullpath = FileSystem::FullPath(path);
 
-		//m_monitor.monitor(m_fullpath);
+		m_initialized = true;
+
+
 
 		int r = builder.StartNewModule(m_engine, m_moduleName.c_str());
 
@@ -123,6 +129,7 @@ namespace s3d
 
 		if (r < 0)
 		{
+			m_messages = Siv3DEngine::GetScript()->retrieveMessagesInternal();
 			LOG_FAIL(U"Please correct the errors in the script and try again.");
 			return;
 		}
@@ -131,6 +138,7 @@ namespace s3d
 
 		if (r < 0)
 		{
+			m_messages = Siv3DEngine::GetScript()->retrieveMessagesInternal();
 			LOG_FAIL(U"Please correct the errors in the script and try again.");
 			return;
 		}
@@ -146,8 +154,6 @@ namespace s3d
 		m_moduleData->withoutLineCues = withoutLineCues();
 
 		m_complieSucceeded = true;
-
-		m_initialized = true;
 	}
 
 	AngelScript::asIScriptFunction* ScriptData::getFunction(const String& decl)
@@ -195,6 +201,73 @@ namespace s3d
 	bool ScriptData::compileSucceeded() const
 	{
 		return m_complieSucceeded;
+	}
+
+	const Array<String>& ScriptData::getMessages() const
+	{
+		return m_messages;
+	}
+
+	bool ScriptData::reload(int32 compileOption)
+	{
+		if (!m_fromFile)
+		{
+			return false;
+		}
+
+		m_moduleData = std::make_shared<ScriptModuleData>();
+		m_functions.clear();
+		m_moduleName.clear();
+		m_messages.clear();
+		m_complieSucceeded = false;
+		m_compileOption = compileOption;
+
+		m_engine->SetEngineProperty(AngelScript::asEP_BUILD_WITHOUT_LINE_CUES, !!(m_compileOption & ScriptCompileOption::BuildWithoutLineCues));
+
+		AngelScript::CScriptBuilder builder;
+
+		m_moduleName = detail::GenerateModuleName();
+
+		int r = builder.StartNewModule(m_engine, m_moduleName.c_str());
+
+		if (r < 0)
+		{
+			LOG_FAIL(U"Unrecoverable error while starting a new module.");
+			return false;
+		}
+
+		r = builder.AddSectionFromFile(m_fullpath);
+
+		if (r < 0)
+		{
+			m_messages = Siv3DEngine::GetScript()->retrieveMessagesInternal();
+			LOG_FAIL(U"Please correct the errors in the script and try again.");
+			return false;
+		}
+
+		r = builder.BuildModule();
+
+		if (r < 0)
+		{
+			m_messages = Siv3DEngine::GetScript()->retrieveMessagesInternal();
+			LOG_FAIL(U"Please correct the errors in the script and try again.");
+			return false;
+		}
+
+		m_moduleData->module = m_engine->GetModule(m_moduleName.c_str());
+
+		m_moduleData->context = m_engine->CreateContext();
+
+		m_moduleData->withoutLineCues = withoutLineCues();
+
+		m_complieSucceeded = true;
+
+		return true;
+	}
+
+	const FilePath& ScriptData::path() const
+	{
+		return m_fullpath;
 	}
 
 	bool ScriptData::withoutLineCues() const

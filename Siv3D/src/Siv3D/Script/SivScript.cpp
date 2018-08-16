@@ -86,6 +86,21 @@ namespace s3d
 		return Siv3DEngine::GetScript()->compiled(m_handle->id());
 	}
 
+	bool Script::reload(const int32 compileOption)
+	{
+		return Siv3DEngine::GetScript()->reload(m_handle->id(), compileOption);
+	}
+
+	const Array<String>& Script::getMessages() const
+	{
+		return Siv3DEngine::GetScript()->retrieveMessages(m_handle->id());
+	}
+
+	const FilePath& Script::path() const
+	{
+		return Siv3DEngine::GetScript()->path(m_handle->id());
+	}
+
 	AngelScript::asIScriptFunction* Script::_getFunction(const String& decl) const
 	{
 		return Siv3DEngine::GetScript()->getFunction(m_handle->id(), decl);

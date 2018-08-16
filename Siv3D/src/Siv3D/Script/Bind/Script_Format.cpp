@@ -45,28 +45,28 @@ namespace s3d
 				Formatter(formatData, *static_cast<const bool*>(ref));
 				break;
 			case ScriptTypeID::Int8:
-				Formatter(formatData, *static_cast<const signed char*>(ref));
+				Formatter(formatData, *static_cast<const int8*>(ref));
 				break;
 			case ScriptTypeID::Int16:
-				Formatter(formatData, *static_cast<const short*>(ref));
+				Formatter(formatData, *static_cast<const int16*>(ref));
 				break;
 			case ScriptTypeID::Int32:
-				Formatter(formatData, *static_cast<const int*>(ref));
+				Formatter(formatData, *static_cast<const int32*>(ref));
 				break;
 			case ScriptTypeID::Int64:
-				Formatter(formatData, *static_cast<const long long*>(ref));
+				Formatter(formatData, *static_cast<const int64*>(ref));
 				break;
 			case ScriptTypeID::Uint8:
-				Formatter(formatData, *static_cast<const unsigned char*>(ref));
+				Formatter(formatData, *static_cast<const uint8*>(ref));
 				break;
 			case ScriptTypeID::Uint16:
-				Formatter(formatData, *static_cast<const unsigned short*>(ref));
+				Formatter(formatData, *static_cast<const uint16*>(ref));
 				break;
 			case ScriptTypeID::Uint32:
-				Formatter(formatData, *static_cast<const unsigned*>(ref));
+				Formatter(formatData, *static_cast<const uint32*>(ref));
 				break;
 			case ScriptTypeID::Uint64:
-				Formatter(formatData, *static_cast<const unsigned long long*>(ref));
+				Formatter(formatData, *static_cast<const uint64*>(ref));
 				break;
 			case ScriptTypeID::Float:
 				Formatter(formatData, *static_cast<const float*>(ref));
