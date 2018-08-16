@@ -13,6 +13,7 @@
 # if defined(SIV3D_TARGET_MACOS)
 
 # include <Siv3D/FileSystem.hpp>
+# include <Siv3D/Logger.hpp>
 # include "DirectoryWatcherDetail_macOS.hpp"
 
 namespace s3d
