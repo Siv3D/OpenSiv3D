@@ -112,7 +112,7 @@ namespace s3d::detail
 		}
 		else if (b0 < 0xF8)
 		{
-			if (length < 3)
+			if (length < 4)
 			{
 				return invalid_pt;
 			}

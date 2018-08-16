@@ -20,6 +20,7 @@ void Main()
 	const FilePath scriptFilePath = FileSystem::FullPath(U"example/script.txt");
 	const DirectoryWatcher watcher(FileSystem::ParentPath(scriptFilePath));
 
+	//Script script(Arg::code = TextReader(scriptFilePath).readAll());
 	Script script(scriptFilePath);
 	if (!script)
 	{

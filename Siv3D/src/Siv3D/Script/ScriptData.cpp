@@ -38,7 +38,6 @@ namespace s3d
 		, m_moduleData(std::make_shared<ScriptModuleData>())
 		, m_compileOption(compileOption)
 	{
-		//StopwatchMicrosec stopwatch(true);
 
 		m_engine->SetEngineProperty(AngelScript::asEP_BUILD_WITHOUT_LINE_CUES, !!(m_compileOption & ScriptCompileOption::BuildWithoutLineCues));
 
@@ -50,16 +49,17 @@ namespace s3d
 
 		if (r < 0)
 		{
-			//LOG_FAIL(L"Unrecoverable error while starting a new module.");
+			LOG_FAIL(U"Unrecoverable error while starting a new module.");
 			return;
 		}
 
-		r = builder.AddSectionFromMemory("", code.toUTF8().c_str(), static_cast<uint32>(code.length()), 0);
+		const std::string codeUTF8 = code.toUTF8();
+
+		r = builder.AddSectionFromMemory("", codeUTF8.c_str(), static_cast<uint32>(codeUTF8.length()), 0);
 
 		if (r < 0)
 		{
 			m_messages = Siv3DEngine::GetScript()->retrieveMessagesInternal();
-			//LOG_FAIL(L"Please correct the errors in the script and try again.");
 			return;
 		}
 
@@ -68,18 +68,11 @@ namespace s3d
 		if (r < 0)
 		{
 			m_messages = Siv3DEngine::GetScript()->retrieveMessagesInternal();
-			//LOG_FAIL(L"Please correct the errors in the script and try again.");
 			return;
 		}
 
-		//const auto elapsed = stopwatch.elapsed();
-
-		//LOG_SCRIPT(L"スクリプトコードのビルド完了。 build time : {}"_fmt, elapsed);
-
 		m_moduleData->module = m_engine->GetModule(m_moduleName.c_str());
-
 		m_moduleData->context = m_engine->CreateContext();
-
 		m_moduleData->withoutLineCues = withoutLineCues();
 
 		m_complieSucceeded = true;
@@ -93,17 +86,10 @@ namespace s3d
 		, m_compileOption(compileOption)
 		, m_fromFile(true)
 	{
-		if (path.isEmpty())
+		if (path.isEmpty() || !FileSystem::IsFile(path))
 		{
 			return;
 		}
-
-		if (!FileSystem::IsFile(path))
-		{
-			return;
-		}
-
-		//StopwatchMicrosec stopwatch(true);
 
 		m_engine->SetEngineProperty(AngelScript::asEP_BUILD_WITHOUT_LINE_CUES, !!(m_compileOption & ScriptCompileOption::BuildWithoutLineCues));
 
@@ -116,8 +102,7 @@ namespace s3d
 		m_initialized = true;
 
 
-
-		int r = builder.StartNewModule(m_engine, m_moduleName.c_str());
+		int32 r = builder.StartNewModule(m_engine, m_moduleName.c_str());
 
 		if (r < 0)
 		{
@@ -130,7 +115,6 @@ namespace s3d
 		if (r < 0)
 		{
 			m_messages = Siv3DEngine::GetScript()->retrieveMessagesInternal();
-			LOG_FAIL(U"Please correct the errors in the script and try again.");
 			return;
 		}
 
@@ -139,18 +123,11 @@ namespace s3d
 		if (r < 0)
 		{
 			m_messages = Siv3DEngine::GetScript()->retrieveMessagesInternal();
-			LOG_FAIL(U"Please correct the errors in the script and try again.");
 			return;
 		}
 
-		//const auto elapsed = stopwatch.elapsed();
-
-		//LOG_SCRIPT(L"\"{}\" のビルド完了。 build time : {}"_fmt, m_fullpath, elapsed);
-
 		m_moduleData->module = m_engine->GetModule(m_moduleName.c_str());
-
 		m_moduleData->context = m_engine->CreateContext();
-
 		m_moduleData->withoutLineCues = withoutLineCues();
 
 		m_complieSucceeded = true;
@@ -241,7 +218,6 @@ namespace s3d
 		if (r < 0)
 		{
 			m_messages = Siv3DEngine::GetScript()->retrieveMessagesInternal();
-			LOG_FAIL(U"Please correct the errors in the script and try again.");
 			return false;
 		}
 
@@ -250,14 +226,11 @@ namespace s3d
 		if (r < 0)
 		{
 			m_messages = Siv3DEngine::GetScript()->retrieveMessagesInternal();
-			LOG_FAIL(U"Please correct the errors in the script and try again.");
 			return false;
 		}
 
 		m_moduleData->module = m_engine->GetModule(m_moduleName.c_str());
-
 		m_moduleData->context = m_engine->CreateContext();
-
 		m_moduleData->withoutLineCues = withoutLineCues();
 
 		m_complieSucceeded = true;

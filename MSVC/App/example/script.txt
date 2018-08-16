@@ -10,8 +10,31 @@ String GetMessage()
 {
 	return Format(true) + " "
 	+ Format(int8(-128)) + " "
-	+ Format(int16(32767));
-	//return "Hello!🐈あいう";
+	+ Format(int16(-32768)) + " "
+	+ Format(int32(-2147483648)) + " "
+	+ Format(int64(-9223372036854775808)) + " "
+	+ Format(uint8(255)) + " "
+	+ Format(uint16(65535)) + " "
+	+ Format(uint32(4294967295)) + " "
+	+ Format(uint64(18446744073709551615)) + " "
+	+ Format(3.141592653589793f) + " "
+	+ Format(3.141592653589793) + " "
+	+ Format("Hello!🐈あ🐣いう") + " "
+	+ Format(Color(11,22,33,44)) + " "
+	+ Format(ColorF(0.1, 0.2, 0.3, 0.4)) + " "
+	+ Format(HSV(120)) + " "
+	+ Format(Point(11,22)) + " "
+	+ Format(Vec2(2.2,3.3)) + " "
+//	+ Format(Circular(0.5, 3.1415)) + " "
+	+ Format(Rect(10, 20, 30, 40)) + " "
+	+ Format(RectF(0.5, 0.6, 0.7, 0.8)) + " "
+	+ Format(Circle(320, 240, 100)) + " "
+//	+ Format(Ellipse(320, 240, 0.5, 2.4)) + " "
+	+ Format(Line(1.1, 2.2, 3.3, 4.4)) + " "
+//	+ Format(Triange(320, 0, 400, 50.5, 0.1, 80.0)) + " "
+	+ Format(Quad(320, 0, 400, 50.5, 300, 80.0, 20, 50)) + " "
+	+ Format(RoundRect(320, 0, 400, 50.5, 4.0)) + " "	
+	;
 }
 
 void DrawCircle(const Circle&in circle, const ColorF&in color)
