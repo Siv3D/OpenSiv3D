@@ -563,6 +563,17 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	Noise.hpp
+	//
+	enum class NoiseType;
+	enum class FractalType;
+	enum class CellularDistanceFunction;
+	enum class CellularReturnType;
+	enum class PerturbType;
+	class NoiseGenerator;
+
+	//////////////////////////////////////////////////////
+	//
 	//	MathParser.hpp
 	//
 	class MathParser;

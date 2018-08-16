@@ -822,6 +822,16 @@ namespace s3d
 		return ColorF(1.0, 1.0 - transparency);
 	}
 
+	inline constexpr Color ToColor(const float rgb) noexcept
+	{
+		return Color((rgb >= 1.0f ? 255 : rgb <= 0.0f ? 0 : static_cast<uint8>(rgb * 255.0f + 0.5f)));
+	}
+
+	inline constexpr Color ToColor(const double rgb) noexcept
+	{
+		return Color(rgb >= 1.0 ? 255 : rgb <= 0.0 ? 0 : static_cast<uint8>(rgb * 255.0 + 0.5));
+	}
+
 	/// <summary>
 	/// 色をコピーします。
 	/// </summary>

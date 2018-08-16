@@ -504,6 +504,9 @@
 	// Perlin Noise
 	# include "Siv3D/PerlinNoise.hpp"
 
+	// Noise
+	# include "Siv3D/Noise.hpp"
+
 	// スプライン
 	# include "Siv3D/Spline.hpp"
 

@@ -773,6 +773,12 @@
     <Filter Include="src\Siv3D\Duration">
       <UniqueIdentifier>{cdf3783d-0339-4437-ae51-724f96b769c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ThirdParty\FastNoiseSIMD">
+      <UniqueIdentifier>{c6808c3c-7890-4232-9aaa-76af1bab4790}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Siv3D\Noise">
+      <UniqueIdentifier>{66a564e5-2e7e-4393-a79b-4600479bd4ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -2160,6 +2166,33 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\ThirdParty\fmt\format.cc">
       <Filter>src\ThirdParty\fmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD.cpp">
+      <Filter>src\ThirdParty\FastNoiseSIMD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD_avx2.cpp">
+      <Filter>src\ThirdParty\FastNoiseSIMD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD_avx512.cpp">
+      <Filter>src\ThirdParty\FastNoiseSIMD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD_internal.cpp">
+      <Filter>src\ThirdParty\FastNoiseSIMD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD_neon.cpp">
+      <Filter>src\ThirdParty\FastNoiseSIMD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD_sse2.cpp">
+      <Filter>src\ThirdParty\FastNoiseSIMD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD_sse41.cpp">
+      <Filter>src\ThirdParty\FastNoiseSIMD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Noise\NoiseDetail.cpp">
+      <Filter>src\Siv3D\Noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Noise\SivNoise.cpp">
+      <Filter>src\Siv3D\Noise</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -4439,6 +4472,18 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\ThirdParty\hopscotch-map\hopscotch_growth_policy.h">
       <Filter>include\ThirdParty\hopscotch-map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD.h">
+      <Filter>src\ThirdParty\FastNoiseSIMD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD_internal.h">
+      <Filter>src\ThirdParty\FastNoiseSIMD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Noise.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Noise\NoiseDetail.hpp">
+      <Filter>src\Siv3D\Noise</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

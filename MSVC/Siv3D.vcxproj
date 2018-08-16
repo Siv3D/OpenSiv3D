@@ -204,6 +204,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Network\NetworkFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Network\SivNetwork.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\NLP\SivNLP_Japanese.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Noise\NoiseDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Noise\SivNoise.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ObjectDetection\CObjectDetection.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\ObjectDetection\ObjectDetectionFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\OpenCV_Bridge\SivOpenCV_Bridge.cpp" />
@@ -417,6 +419,13 @@
     <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\fixed-dtoa.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\double-conversion\strtod.cc" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\easyexif\exif.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD_avx2.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD_avx512.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD_internal.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD_neon.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD_sse2.cpp" />
+    <ClCompile Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD_sse41.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\FID\FID.cpp" />
     <ClCompile Include="..\Siv3D\src\ThirdParty\fmt\format.cc" />
@@ -621,6 +630,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\NavMesh.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Network.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\NLP_Japanese.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Noise.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Number.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OffsetCircular.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\OpenCV_Bridge.hpp" />
@@ -893,6 +903,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\NavMesh\CNavMesh.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Network\CNetwork.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Network\INetwork.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Noise\NoiseDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ObjectDetection\CObjectDetection.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\ObjectDetection\IObjectDetection.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Painting\PaintShape.hpp" />
@@ -1035,6 +1046,8 @@
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\strtod.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\double-conversion\utils.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\easyexif\exif.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD.h" />
+    <ClInclude Include="..\Siv3D\src\ThirdParty\FastNoiseSIMD\FastNoiseSIMD_internal.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\FeatureDetector\cpu_x86.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\FID\FID.h" />
     <ClInclude Include="..\Siv3D\src\ThirdParty\freetype\freetype\config\ftconfig.h" />
