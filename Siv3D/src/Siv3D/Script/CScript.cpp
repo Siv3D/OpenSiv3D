@@ -93,8 +93,8 @@ namespace s3d
 		RegisterFormat(m_engine);
 		AngelScript::RegisterStdString(m_engine);
 
-		//RegisterDate(m_engine);
-		//RegisterDateTime(m_engine);
+		RegisterDate(m_engine);
+		RegisterDateTime(m_engine);
 		RegisterStopwatch(m_engine);
 		RegisterCustomStopwatch(m_engine);
 		RegisterTimer(m_engine);

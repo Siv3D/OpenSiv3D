@@ -21,14 +21,13 @@ namespace s3d
 		int r = 0;
 		//r = engine->RegisterObjectType("Optional<class T>", 0, asOBJ_REF | asOBJ_GC | asOBJ_TEMPLATE); assert(r >= 0);
 		r = engine->RegisterObjectType("String", sizeof(String), asOBJ_VALUE | asGetTypeTraits<String>()); assert(r >= 0);
-		//r = engine->RegisterObjectType("Date", sizeof(Date), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C); assert(r >= 0);
-		//r = engine->RegisterObjectType("DateTime", sizeof(DateTime), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C); assert(r >= 0);
-
+		
+		r = engine->RegisterObjectType("Date", sizeof(Date), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C | asOBJ_APP_CLASS_ALLINTS); assert(r >= 0);
+		r = engine->RegisterObjectType("DateTime", sizeof(DateTime), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C | asOBJ_APP_CLASS_ALLINTS); assert(r >= 0);
 		r = engine->RegisterObjectType("Stopwatch", sizeof(Stopwatch), asOBJ_VALUE | asGetTypeTraits<Stopwatch>()); assert(r >= 0);
 		r = engine->RegisterObjectType("CustomStopwatch", sizeof(CustomStopwatch), asOBJ_VALUE | asGetTypeTraits<CustomStopwatch>()); assert(r >= 0);
 		r = engine->RegisterObjectType("Timer", sizeof(Timer), asOBJ_VALUE | asGetTypeTraits<Timer>()); assert(r >= 0);
 		//r = engine->RegisterObjectType("TimeProfiler", sizeof(Timer), asOBJ_VALUE | asGetTypeTraits<TimeProfiler>()); assert(r >= 0);
-
 		r = engine->RegisterObjectType("MillisecClock", sizeof(MillisecClock), asOBJ_VALUE | asGetTypeTraits<MillisecClock>()); assert(r >= 0);
 		r = engine->RegisterObjectType("MicrosecClock", sizeof(MicrosecClock), asOBJ_VALUE | asGetTypeTraits<MicrosecClock>()); assert(r >= 0);
 		r = engine->RegisterObjectType("RDTSCClock", sizeof(RDTSCClock), asOBJ_VALUE | asGetTypeTraits<RDTSCClock>()); assert(r >= 0);
@@ -67,8 +66,8 @@ namespace s3d
 		//r = engine->RegisterObjectType("Webcam", sizeof(Webcam), asOBJ_VALUE | asOBJ_APP_CLASS_CD); assert(r >= 0);
 
 		assert(engine->GetTypeIdByDecl("String") == static_cast<int>(ScriptTypeID::String));
-		//assert(engine->GetTypeIdByDecl("Date") == static_cast<int>(ScriptTypeID::Date));
-		//assert(engine->GetTypeIdByDecl("DateTime") == static_cast<int>(ScriptTypeID::DateTime));
+		assert(engine->GetTypeIdByDecl("Date") == static_cast<int>(ScriptTypeID::Date));
+		assert(engine->GetTypeIdByDecl("DateTime") == static_cast<int>(ScriptTypeID::DateTime));
 		assert(engine->GetTypeIdByDecl("Stopwatch") == static_cast<int>(ScriptTypeID::Stopwatch));
 		assert(engine->GetTypeIdByDecl("CustomStopwatch") == static_cast<int>(ScriptTypeID::CustomStopwatch));
 		assert(engine->GetTypeIdByDecl("Timer") == static_cast<int>(ScriptTypeID::Timer));

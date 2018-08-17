@@ -35,8 +35,8 @@ namespace s3d
 
 		//Optional = ,
 		String = 67108877,
-		//Date,
-		//DateTime,
+		Date,
+		DateTime,
 		Stopwatch,
 		CustomStopwatch,
 		Timer,
@@ -78,8 +78,8 @@ namespace s3d
 	void RegisterTypes(AngelScript::asIScriptEngine *engine);
 	void RegisterFormat(AngelScript::asIScriptEngine *engine);
 
-	//void RegisterDate(AngelScript::asIScriptEngine *engine);
-	//void RegisterDateTime(AngelScript::asIScriptEngine *engine);
+	void RegisterDate(AngelScript::asIScriptEngine *engine);
+	void RegisterDateTime(AngelScript::asIScriptEngine *engine);
 	void RegisterStopwatch(AngelScript::asIScriptEngine *engine);
 	void RegisterCustomStopwatch(AngelScript::asIScriptEngine *engine);
 	void RegisterTimer(AngelScript::asIScriptEngine *engine);
