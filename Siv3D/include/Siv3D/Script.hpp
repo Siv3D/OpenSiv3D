@@ -247,6 +247,8 @@ namespace s3d
 				m_moduleData->context->SetLineCallback(asFUNCTION(detail::LineCallback), &steps, AngelScript::asCALL_CDECL);
 			}
 
+			detail::scriptStepCounter = 0;
+
 			const int32 r = m_moduleData->context->Execute();
 
 			if (r != AngelScript::asEXECUTION_FINISHED && r == AngelScript::asEXECUTION_EXCEPTION)

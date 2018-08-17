@@ -37,6 +37,13 @@ namespace s3d
 		String = 67108877,
 		//Date,
 		//DateTime,
+		Stopwatch,
+		CustomStopwatch,
+		Timer,
+		//TimeProfiler,
+		MillisecClock,
+		MicrosecClock,
+		RDTSCClock,
 		Color,
 		ColorF,
 		HSV,
@@ -73,6 +80,14 @@ namespace s3d
 
 	//void RegisterDate(AngelScript::asIScriptEngine *engine);
 	//void RegisterDateTime(AngelScript::asIScriptEngine *engine);
+	void RegisterStopwatch(AngelScript::asIScriptEngine *engine);
+	void RegisterCustomStopwatch(AngelScript::asIScriptEngine *engine);
+	void RegisterTimer(AngelScript::asIScriptEngine *engine);
+	//void RegisterTimeProfiler(AngelScript::asIScriptEngine *engine);
+	void RegisterMillisecClock(AngelScript::asIScriptEngine *engine);
+	void RegisterMicrosecClock(AngelScript::asIScriptEngine *engine);
+	void RegisterRDTSCClock(AngelScript::asIScriptEngine *engine);
+	//void RegisterDirectoryWatcher(AngelScript::asIScriptEngine *engine);
 	void RegisterColor(AngelScript::asIScriptEngine *engine);
 	void RegisterColorF(AngelScript::asIScriptEngine *engine);
 	void RegisterHSV(AngelScript::asIScriptEngine *engine);
@@ -81,6 +96,11 @@ namespace s3d
 	//void RegisterVec3(AngelScript::asIScriptEngine *engine);
 	//void RegisterVec4(AngelScript::asIScriptEngine *engine);
 	void RegisterCircular(AngelScript::asIScriptEngine *engine);
+	//void RegisterOffsetCircular(AngelScript::asIScriptEngine *engine);
+	//void RegisterCylindrical(AngelScript::asIScriptEngine *engine);
+	//void RegisterSpherical(AngelScript::asIScriptEngine *engine);
+	//void RegisterMat3x2(AngelScript::asIScriptEngine *engine);
+	//void RegisterLineStyle(AngelScript::asIScriptEngine *engine);
 	void RegisterLine(AngelScript::asIScriptEngine *engine);
 	void RegisterRect(AngelScript::asIScriptEngine *engine);
 	void RegisterRectF(AngelScript::asIScriptEngine *engine);
@@ -89,8 +109,11 @@ namespace s3d
 	void RegisterTriangle(AngelScript::asIScriptEngine *engine);
 	void RegisterQuad(AngelScript::asIScriptEngine *engine);
 	void RegisterRoundRect(AngelScript::asIScriptEngine *engine);
-	//void RegisterRoundPolygon(AngelScript::asIScriptEngine *engine);
-	//void RegisterRoundLineString(AngelScript::asIScriptEngine *engine);
+	//void RegisterPolygon(AngelScript::asIScriptEngine *engine);
+	//void RegisterMultiPolygon(AngelScript::asIScriptEngine *engine);
+	//void RegisterLineString(AngelScript::asIScriptEngine *engine);
+	//void RegisterBezier2(AngelScript::asIScriptEngine *engine);
+	//void RegisterBezier3(AngelScript::asIScriptEngine *engine);
 
 	//void RegisterTime(asIScriptEngine *engine);
 

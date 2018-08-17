@@ -33,8 +33,11 @@ void Main()
 	auto GetNumber = script.getFunction<int32()>(U"GetNumber");
 	auto GetMessage = script.getFunction<String()>(U"GetMessage");
 	auto Draw = script.getFunction<void()>(U"Draw");
+	auto Draw2 = script.getFunction<void(const Stopwatch&)>(U"Draw2");
 	Print << GetNumber();
 	Print << GetMessage() << U"@" << GetMessage().size();
+
+	Stopwatch s(true);
 
 	while (System::Update())
 	{
@@ -50,10 +53,12 @@ void Main()
 			GetNumber = script.getFunction<int32()>(U"GetNumber");
 			GetMessage = script.getFunction<String()>(U"GetMessage");
 			Draw = script.getFunction<void()>(U"Draw");
+			Draw2 = script.getFunction<void(const Stopwatch&)>(U"Draw2");
 			Print << GetNumber();
 			Print << GetMessage() << U"@" << GetMessage().size();
 		}
 
 		Draw();
+		Draw2(s);
 	}
 }

@@ -95,6 +95,14 @@ namespace s3d
 
 		//RegisterDate(m_engine);
 		//RegisterDateTime(m_engine);
+		RegisterStopwatch(m_engine);
+		RegisterCustomStopwatch(m_engine);
+		RegisterTimer(m_engine);
+		//RegisterTimeProfiler(m_engine);
+
+		RegisterMillisecClock(m_engine);
+		RegisterMicrosecClock(m_engine);
+		RegisterRDTSCClock(m_engine);
 		RegisterColor(m_engine);
 		RegisterColorF(m_engine);
 		RegisterHSV(m_engine);

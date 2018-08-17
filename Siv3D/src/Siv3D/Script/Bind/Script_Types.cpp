@@ -23,6 +23,17 @@ namespace s3d
 		r = engine->RegisterObjectType("String", sizeof(String), asOBJ_VALUE | asGetTypeTraits<String>()); assert(r >= 0);
 		//r = engine->RegisterObjectType("Date", sizeof(Date), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C); assert(r >= 0);
 		//r = engine->RegisterObjectType("DateTime", sizeof(DateTime), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C); assert(r >= 0);
+
+		r = engine->RegisterObjectType("Stopwatch", sizeof(Stopwatch), asOBJ_VALUE | asGetTypeTraits<Stopwatch>()); assert(r >= 0);
+		r = engine->RegisterObjectType("CustomStopwatch", sizeof(CustomStopwatch), asOBJ_VALUE | asGetTypeTraits<CustomStopwatch>()); assert(r >= 0);
+		r = engine->RegisterObjectType("Timer", sizeof(Timer), asOBJ_VALUE | asGetTypeTraits<Timer>()); assert(r >= 0);
+		//r = engine->RegisterObjectType("TimeProfiler", sizeof(Timer), asOBJ_VALUE | asGetTypeTraits<TimeProfiler>()); assert(r >= 0);
+
+		r = engine->RegisterObjectType("MillisecClock", sizeof(MillisecClock), asOBJ_VALUE | asGetTypeTraits<MillisecClock>()); assert(r >= 0);
+		r = engine->RegisterObjectType("MicrosecClock", sizeof(MicrosecClock), asOBJ_VALUE | asGetTypeTraits<MicrosecClock>()); assert(r >= 0);
+		r = engine->RegisterObjectType("RDTSCClock", sizeof(RDTSCClock), asOBJ_VALUE | asGetTypeTraits<RDTSCClock>()); assert(r >= 0);
+
+
 		r = engine->RegisterObjectType("Color", sizeof(Color), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C | asOBJ_APP_CLASS_ALLINTS); assert(r >= 0);
 		r = engine->RegisterObjectType("ColorF", sizeof(ColorF), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C | asOBJ_APP_CLASS_ALLFLOATS); assert(r >= 0);
 		r = engine->RegisterObjectType("HSV", sizeof(HSV), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C | asOBJ_APP_CLASS_ALLFLOATS); assert(r >= 0);
@@ -58,6 +69,13 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("String") == static_cast<int>(ScriptTypeID::String));
 		//assert(engine->GetTypeIdByDecl("Date") == static_cast<int>(ScriptTypeID::Date));
 		//assert(engine->GetTypeIdByDecl("DateTime") == static_cast<int>(ScriptTypeID::DateTime));
+		assert(engine->GetTypeIdByDecl("Stopwatch") == static_cast<int>(ScriptTypeID::Stopwatch));
+		assert(engine->GetTypeIdByDecl("CustomStopwatch") == static_cast<int>(ScriptTypeID::CustomStopwatch));
+		assert(engine->GetTypeIdByDecl("Timer") == static_cast<int>(ScriptTypeID::Timer));
+		//assert(engine->GetTypeIdByDecl("TimeProfiler") == static_cast<int>(ScriptTypeID::TimeProfiler));
+		assert(engine->GetTypeIdByDecl("MillisecClock") == static_cast<int>(ScriptTypeID::MillisecClock));
+		assert(engine->GetTypeIdByDecl("MicrosecClock") == static_cast<int>(ScriptTypeID::MicrosecClock));
+		assert(engine->GetTypeIdByDecl("RDTSCClock") == static_cast<int>(ScriptTypeID::RDTSCClock));
 		assert(engine->GetTypeIdByDecl("Color") == static_cast<int>(ScriptTypeID::Color));
 		assert(engine->GetTypeIdByDecl("ColorF") == static_cast<int>(ScriptTypeID::ColorF));
 		assert(engine->GetTypeIdByDecl("HSV") == static_cast<int>(ScriptTypeID::HSV));

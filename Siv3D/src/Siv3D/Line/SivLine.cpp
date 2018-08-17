@@ -203,4 +203,13 @@ namespace s3d
 
 		return *this;
 	}
+
+	void Formatter(FormatData& formatData, const Line& value)
+	{
+		formatData.string.push_back(U'(');
+		Formatter(formatData, value.begin);
+		formatData.string.append(U", ");
+		Formatter(formatData, value.end);
+		formatData.string.push_back(U')');
+	}
 }

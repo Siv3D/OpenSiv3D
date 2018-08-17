@@ -306,19 +306,14 @@ namespace s3d
 
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const Line& value)
-	{
-		Formatter(formatData, Vec4(value.begin.x, value.begin.y, value.end.x, value.end.y));
-	}
+	void Formatter(FormatData& formatData, const Line& value);
 
 	template <class CharType>
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const Line& value)
 	{
 		return output << CharType('(')
-			<< value.begin.x << CharType(',') << CharType(' ')
-			<< value.begin.y << CharType(',') << CharType(' ')
-			<< value.end.x << CharType(',') << CharType(' ')
-			<< value.end.y << CharType(')');
+			<< value.begin	<< CharType(',') << CharType(' ')
+			<< value.end	<< CharType(')');
 	}
 
 	template <class CharType>
@@ -326,10 +321,8 @@ namespace s3d
 	{
 		CharType unused;
 		return input >> unused
-			>> value.begin.x >> unused
-			>> value.begin.y >> unused
-			>> value.end.x >> unused
-			>> value.end.y >> unused;
+			>> value.begin >> unused
+			>> value.end >> unused;
 	}
 }
 
@@ -374,10 +367,10 @@ namespace fmt
 		auto format(const s3d::Line& value, Context& ctx)
 		{
 			const s3d::String fmt = s3d::detail::MakeFmtArg(
-				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
+				U"({:", tag, U"}, {:", tag, U"}, {:", tag, U"})"
 			);
 
-			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.begin.x, value.begin.y, value.end.x, value.end.y);
+			return format_to(ctx.begin(), wstring_view(fmt.data(), fmt.size()), value.begin, value.end);
 		}
 	};
 }

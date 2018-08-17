@@ -31,14 +31,17 @@ String GetMessage()
 	+ Format(Circle(320, 240, 100)) + " "
 	+ Format(Ellipse(320, 240, 0.5, 2.4)) + " "
 	+ Format(Line(1.1, 2.2, 3.3, 4.4)) + " "
-//	+ Format(Triange(320, 0, 400, 50.5, 0.1, 80.0)) + " "
+	+ Format(Triangle(320, 0, 400, 50.5, 0.1, 80.0)) + " "
 	+ Format(Quad(320, 0, 400, 50.5, 300, 80.0, 20, 50)) + " "
-	+ Format(RoundRect(320, 0, 400, 50.5, 4.0)) + " "	
+	+ Format(RoundRect(320, 0, 400, 50.5, 4.0)) + " "
 	;
 }
 
 void Draw()
 {
+	Timer timer(10.0, true);
+	MicrosecClock us;
+
 	Circle(320, 240, 10).draw();
 
 	Circle(Vec2(320, 240) + Circular(100, 0.0), 80).draw();
@@ -46,6 +49,21 @@ void Draw()
 	Circle(Circular(100, 0.0) + Vec2(322, 242), 80).draw(Palette::Red);
 
 	Circle(Vec2(Circular(100, 0.0)) + Vec2(324, 244), 80).draw(Palette::Blue);
+
+	for (int32 y = 0; y < 20; ++y)
+	{
+		for (int32 x = 0; x < 30; ++x)
+		{
+			Rect(x * 20, y*20, 18).draw(ColorF(0.4));
+		}	
+	}
+
+	us.print();
+}
+
+void Draw2(const Stopwatch&in stopwatch)
+{
+	Rect(0, 400, stopwatch.ms() / 100, 20).draw(Palette::Red);
 }
 
 void DrawCircle(const Circle&in circle, const ColorF&in color)
