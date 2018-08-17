@@ -102,11 +102,12 @@ namespace s3d
 		RegisterVec2(m_engine);
 		//RegisterVec3(m_engine);
 		//RegisterVec4(m_engine);
+		RegisterCircular(m_engine);
 		RegisterLine(m_engine);
 		RegisterRect(m_engine);
 		RegisterRectF(m_engine);
 		RegisterCircle(m_engine);
-		//RegisterEllipse(m_engine);
+		RegisterEllipse(m_engine);
 		RegisterTriangle(m_engine);
 		RegisterQuad(m_engine);
 		RegisterRoundRect(m_engine);

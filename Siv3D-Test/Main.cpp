@@ -32,6 +32,7 @@ void Main()
 	script.getMessages().each(Print);
 	auto GetNumber = script.getFunction<int32()>(U"GetNumber");
 	auto GetMessage = script.getFunction<String()>(U"GetMessage");
+	auto Draw = script.getFunction<void()>(U"Draw");
 	Print << GetNumber();
 	Print << GetMessage() << U"@" << GetMessage().size();
 
@@ -48,8 +49,11 @@ void Main()
 
 			GetNumber = script.getFunction<int32()>(U"GetNumber");
 			GetMessage = script.getFunction<String()>(U"GetMessage");
+			Draw = script.getFunction<void()>(U"Draw");
 			Print << GetNumber();
 			Print << GetMessage() << U"@" << GetMessage().size();
 		}
+
+		Draw();
 	}
 }

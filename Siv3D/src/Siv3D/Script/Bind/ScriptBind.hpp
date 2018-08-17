@@ -44,6 +44,7 @@ namespace s3d
 		Vec2,
 		Vec3,
 		Vec4,
+		Circular,
 		Line,
 		Rect,
 		RectF,
@@ -54,7 +55,7 @@ namespace s3d
 		RoundRect,
 		Polygon,
 		LineString,
-		Circular,
+
 
 		//
 		Image,
@@ -79,18 +80,18 @@ namespace s3d
 	void RegisterVec2(AngelScript::asIScriptEngine *engine);
 	//void RegisterVec3(AngelScript::asIScriptEngine *engine);
 	//void RegisterVec4(AngelScript::asIScriptEngine *engine);
+	void RegisterCircular(AngelScript::asIScriptEngine *engine);
 	void RegisterLine(AngelScript::asIScriptEngine *engine);
 	void RegisterRect(AngelScript::asIScriptEngine *engine);
 	void RegisterRectF(AngelScript::asIScriptEngine *engine);
 	void RegisterCircle(AngelScript::asIScriptEngine *engine);
-	//void RegisterEllipse(AngelScript::asIScriptEngine *engine);
+	void RegisterEllipse(AngelScript::asIScriptEngine *engine);
 	void RegisterTriangle(AngelScript::asIScriptEngine *engine);
 	void RegisterQuad(AngelScript::asIScriptEngine *engine);
 	void RegisterRoundRect(AngelScript::asIScriptEngine *engine);
 	//void RegisterRoundPolygon(AngelScript::asIScriptEngine *engine);
 	//void RegisterRoundLineString(AngelScript::asIScriptEngine *engine);
 
-	//void RegisterCircular(AngelScript::asIScriptEngine *engine);
 	//void RegisterTime(asIScriptEngine *engine);
 
 	//void RegisterMath(asIScriptEngine *engine);
