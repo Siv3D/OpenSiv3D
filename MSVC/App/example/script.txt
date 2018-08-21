@@ -8,47 +8,27 @@ int32 GetNumber()
 
 String GetMessage()
 {
-	return Format(true, " ", int8(-128), " ", int16(-32768), " ", int32(-2147483648), " ", int64(-9223372036854775808), " ")
-	+ Format(uint8(255), " ", uint16(65535), " ", uint32(4294967295), " ", uint64(18446744073709551615), " ", 3.141592653589793f, " ")
-	+ Format(3.141592653589793, " ", "Hello!🐈あ🐣い", " ", Color(11,22,33,44), " ", ColorF(0.1, 0.2, 0.3, 0.4), " ", HSV(120), " ")
-	+ Format(Point(11,22), " ", Vec2(2.2,3.3), " ", Circular(0.5, 3.1415), " ", Rect(10, 20, 30, 40), " ", RectF(0.5, 0.6, 0.7, 0.8), " ")
-	+ Format(Circle(320, 240, 100), " ", Ellipse(320, 240, 0.5, 2.4), " ", Line(1.1, 2.2, 3.3, 4.4), " ", Triangle(320, 0, 400, 50.5, 0.1, 80.0), " ")
-	+ Format(Quad(320, 0, 400, 50.5, 300, 80.0, 20, 50), " ", RoundRect(320, 0, 400, 50.5, 4.0), " ")
-	+ Format(Date(2011, 8, 15).format(), " ", DateTime(2011, 8, 15, 22, 00, 05, 59).format())
-	;
+	return "";
 }
 
 void Draw()
 {
-	Timer timer(10.0, true);
-	MicrosecClock us;
+	Stopwatch stopwatch(true);
 
-	GetMessage();
-
-	//us.print();
-
-	Circle(320, 240, 10).draw();
-
-	Circle(Vec2(320, 240) + Circular(100, 0.0), 80).draw();
-
-	Circle(Circular(100, 0.0) + Vec2(322, 242), 80).draw(Palette::Red);
-
-	Circle(Vec2(Circular(100, 0.0)) + Vec2(324, 244), 80).draw(Palette::Blue);
-
-	for (int32 y = 0; y < 20; ++y)
+	for(int y = 0; y < 10; ++y)
 	{
-		for (int32 x = 0; x < 30; ++x)
+		for(int x = 0; x < 16; ++x)
 		{
-			Rect(x * 20, y*20, 18).draw(ColorF(0.4));
-		}	
+			Circle(x * 50, y * 50, 20).draw(HSV((x+y)*5));
+		}		
 	}
 
-
+	Rect(0, 0, 400, 100).draw();
 }
 
 void Draw2(const Stopwatch&in stopwatch)
 {
-	Rect(0, 400, stopwatch.ms() / 100, 20).draw(Palette::Red);
+
 }
 
 void DrawCircle(const Circle&in circle, const ColorF&in color)

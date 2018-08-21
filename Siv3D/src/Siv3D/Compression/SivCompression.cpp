@@ -65,6 +65,7 @@ namespace s3d
 
 			if (ZSTD_isError(initResult))
 			{
+				ZSTD_freeCStream(cStream);
 				return ByteArray();
 			}
 
@@ -84,6 +85,7 @@ namespace s3d
 					
 					if (ZSTD_isError(toRead))
 					{
+						ZSTD_freeCStream(cStream);
 						return ByteArray();
 					}
 
@@ -99,6 +101,8 @@ namespace s3d
 			ZSTD_outBuffer output = { pOutputBuffer.get(), outputBufferSize, 0 };
 
 			const size_t remainingToFlush = ZSTD_endStream(cStream, &output);
+
+			ZSTD_freeCStream(cStream);
 
 			if (remainingToFlush)
 			{
@@ -129,6 +133,7 @@ namespace s3d
 
 			if (ZSTD_isError(initResult))
 			{
+				ZSTD_freeCStream(cStream);
 				return false;
 			}
 
@@ -138,6 +143,7 @@ namespace s3d
 
 			if (!writer)
 			{
+				ZSTD_freeCStream(cStream);
 				return false;
 			}
 
@@ -166,6 +172,8 @@ namespace s3d
 					{
 						writer.clear();
 
+						ZSTD_freeCStream(cStream);
+
 						return false;
 					}
 
@@ -181,6 +189,8 @@ namespace s3d
 			ZSTD_outBuffer output = { pOutputBuffer.get(), outputBufferSize, 0 };
 
 			const size_t remainingToFlush = ZSTD_endStream(cStream, &output);
+
+			ZSTD_freeCStream(cStream);
 
 			if (remainingToFlush)
 			{
@@ -220,6 +230,7 @@ namespace s3d
 
 			if (ZSTD_isError(initResult))
 			{
+				ZSTD_freeCStream(cStream);
 				return false;
 			}
 
@@ -229,6 +240,7 @@ namespace s3d
 
 			if (!writer)
 			{
+				ZSTD_freeCStream(cStream);
 				return false;
 			}
 
@@ -246,6 +258,8 @@ namespace s3d
 					{
 						writer.clear();
 
+						ZSTD_freeCStream(cStream);
+
 						return false;
 					}
 
@@ -261,6 +275,8 @@ namespace s3d
 			ZSTD_outBuffer output = { pOutputBuffer.get(), outputBufferSize, 0 };
 
 			const size_t remainingToFlush = ZSTD_endStream(cStream, &output);
+
+			ZSTD_freeCStream(cStream);
 
 			if (remainingToFlush)
 			{
@@ -321,6 +337,7 @@ namespace s3d
 
 			if (ZSTD_isError(initResult))
 			{
+				ZSTD_freeDStream(dStream);
 				return ByteArray();
 			}
 
@@ -340,6 +357,7 @@ namespace s3d
 
 					if (ZSTD_isError(toRead))
 					{
+						ZSTD_freeDStream(dStream);
 						return ByteArray();
 					}
 
@@ -371,6 +389,7 @@ namespace s3d
 
 			if (ZSTD_isError(initResult))
 			{
+				ZSTD_freeDStream(dStream);
 				return false;
 			}
 
@@ -380,6 +399,7 @@ namespace s3d
 
 			if (!writer)
 			{
+				ZSTD_freeDStream(dStream);
 				return false;
 			}
 
@@ -407,6 +427,8 @@ namespace s3d
 					if (ZSTD_isError(toRead))
 					{
 						writer.clear();
+
+						ZSTD_freeDStream(dStream);
 
 						return false;
 					}
@@ -446,6 +468,7 @@ namespace s3d
 
 			if (ZSTD_isError(initResult))
 			{
+				ZSTD_freeDStream(dStream);
 				return false;
 			}
 
@@ -455,6 +478,7 @@ namespace s3d
 
 			if (!writer)
 			{
+				ZSTD_freeDStream(dStream);
 				return false;
 			}
 
@@ -471,6 +495,8 @@ namespace s3d
 					if (ZSTD_isError(toRead))
 					{
 						writer.clear();
+
+						ZSTD_freeDStream(dStream);
 
 						return false;
 					}

@@ -65,6 +65,12 @@ namespace s3d
 		//r = engine->RegisterObjectType("DrawableString", sizeof(DrawableString), asOBJ_VALUE | asOBJ_APP_CLASS_D); assert(r >= 0);
 		//r = engine->RegisterObjectType("Webcam", sizeof(Webcam), asOBJ_VALUE | asOBJ_APP_CLASS_CD); assert(r >= 0);
 
+		r = engine->RegisterObjectType("Print_impl", 1, asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
+		r = engine->RegisterObjectType("PrintBuffer", 1, asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
+
+		r = engine->RegisterEnum("CursorStyle"); assert(r >= 0);
+
+
 		assert(engine->GetTypeIdByDecl("String") == static_cast<int>(ScriptTypeID::String));
 		assert(engine->GetTypeIdByDecl("Date") == static_cast<int>(ScriptTypeID::Date));
 		assert(engine->GetTypeIdByDecl("DateTime") == static_cast<int>(ScriptTypeID::DateTime));
@@ -95,7 +101,10 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("LineString") == static_cast<int>(ScriptTypeID::LineString));
 
 
+		assert(engine->GetTypeIdByDecl("Print_impl") == static_cast<int>(ScriptTypeID::Print_impl));
+		assert(engine->GetTypeIdByDecl("PrintBuffer") == static_cast<int>(ScriptTypeID::PrintBuffer));
 
+		//assert(engine->GetTypeIdByDecl("CursorStyle") == static_cast<int>(ScriptTypeID::CursorStyle));
 
 		//assert(engine->GetTypeIdByDecl("Image") == static_cast<int>(ScriptTypeID::Image));
 

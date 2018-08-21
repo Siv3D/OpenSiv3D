@@ -120,6 +120,9 @@ namespace s3d
 		RegisterQuad(m_engine);
 		RegisterRoundRect(m_engine);
 
+		RegisterPrint(m_engine);
+
+		RegisterSystem(m_engine);
 		RegisterCursor(m_engine);
 		RegisterGraphics(m_engine);
 		RegisterRandom(m_engine);
