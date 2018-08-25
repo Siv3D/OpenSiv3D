@@ -105,6 +105,7 @@ namespace s3d
 		RegisterRDTSCClock(m_engine);
 		RegisterColor(m_engine);
 		RegisterColorF(m_engine);
+		RegisterPalette(m_engine);
 		RegisterHSV(m_engine);
 		RegisterPoint(m_engine);
 		RegisterVec2(m_engine);

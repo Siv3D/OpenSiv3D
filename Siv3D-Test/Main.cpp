@@ -34,8 +34,8 @@ void Main()
 	auto GetMessage = script.getFunction<String()>(U"GetMessage");
 	auto Draw = script.getFunction<void()>(U"Draw");
 	auto Draw2 = script.getFunction<void(const Stopwatch&)>(U"Draw2");
-	Print << GetNumber();
-	Print << GetMessage() << U"@" << GetMessage().size();
+	//Print << GetNumber();
+	//Print << GetMessage() << U"@" << GetMessage().size();
 
 	Stopwatch s(true);
 
@@ -54,11 +54,15 @@ void Main()
 			GetMessage = script.getFunction<String()>(U"GetMessage");
 			Draw = script.getFunction<void()>(U"Draw");
 			Draw2 = script.getFunction<void(const Stopwatch&)>(U"Draw2");
-			Print << GetNumber();
-			Print << GetMessage() << U"@" << GetMessage().size();
+			//Print << GetNumber();
+			//Print << GetMessage() << U"@" << GetMessage().size();
 		}
 
-		Draw();
-		Draw2(s);
+		if (MouseR.down())
+		{
+			Draw();
+		}
+
+		//Draw2(s);
 	}
 }

@@ -8,11 +8,17 @@ int32 GetNumber()
 
 String GetMessage()
 {
-	return "";
+	return "aaa";
+}
+
+void PrintPoint(const Point&in point)
+{
+	Print << point;
 }
 
 void Draw()
 {
+	/*
 	Stopwatch stopwatch(true);
 
 	for(int y = 0; y < 10; ++y)
@@ -24,6 +30,54 @@ void Draw()
 	}
 
 	Rect(0, 0, 400, 100).draw();
+
+	Print << "Siv3D";
+	*/
+
+/*
+	for (int i = 0; i < 10; ++i)
+	{
+		Print << i << " " << i*i;
+	}
+
+	PrintPoint({20, 30});
+
+	Print << Circle({20, 40}, 4.0);
+
+	Print << Point(3, 10) + Vec2(0.5, 0.5);
+
+	Print << Point(10, 10).intersects(Point(10, 12));
+
+	Print << 4.123 * Vec2(Point(20,20));
+*/
+
+	Color color(20, 30, 40);
+
+	color = Color(255,238,221);
+
+	color = ColorF(0.1);
+
+	color = HSV(0);
+
+	Color v(color);
+
+	Point pos(Cursor::Pos());
+
+	pos = Point(12, 34);
+
+	Print << v;
+	Print << pos;
+
+	Vec2 v1(1.2, 3.4);
+
+	Vec2 v2(v1);
+
+	Print << v2;
+
+	//Print << pos;
+
+	//Print << "A";
+	//Print << "A" << "B" << "C";
 }
 
 void Draw2(const Stopwatch&in stopwatch)

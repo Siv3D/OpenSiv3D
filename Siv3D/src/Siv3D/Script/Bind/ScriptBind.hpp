@@ -52,6 +52,8 @@ namespace s3d
 		Vec3,
 		Vec4,
 		Circular,
+		//Bezier2,
+		//Bezier3,
 		Line,
 		Rect,
 		RectF,
@@ -61,10 +63,12 @@ namespace s3d
 		Quad,
 		RoundRect,
 		Polygon,
+		MultiPolygon,
 		LineString,
 
-		Print_impl,
 		PrintBuffer,
+		Print_impl,
+		
 
 		//CursorStyle,
 
@@ -96,6 +100,7 @@ namespace s3d
 	//void RegisterDirectoryWatcher(AngelScript::asIScriptEngine* engine);
 	void RegisterColor(AngelScript::asIScriptEngine* engine);
 	void RegisterColorF(AngelScript::asIScriptEngine* engine);
+	void RegisterPalette(AngelScript::asIScriptEngine* engine);
 	void RegisterHSV(AngelScript::asIScriptEngine* engine);
 	void RegisterPoint(AngelScript::asIScriptEngine* engine);
 	void RegisterVec2(AngelScript::asIScriptEngine* engine);

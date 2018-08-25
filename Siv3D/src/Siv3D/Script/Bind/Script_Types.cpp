@@ -22,8 +22,8 @@ namespace s3d
 		//r = engine->RegisterObjectType("Optional<class T>", 0, asOBJ_REF | asOBJ_GC | asOBJ_TEMPLATE); assert(r >= 0);
 		r = engine->RegisterObjectType("String", sizeof(String), asOBJ_VALUE | asGetTypeTraits<String>()); assert(r >= 0);
 		
-		r = engine->RegisterObjectType("Date", sizeof(Date), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C | asOBJ_APP_CLASS_ALLINTS); assert(r >= 0);
-		r = engine->RegisterObjectType("DateTime", sizeof(DateTime), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C | asOBJ_APP_CLASS_ALLINTS); assert(r >= 0);
+		r = engine->RegisterObjectType("Date", sizeof(Date), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
+		r = engine->RegisterObjectType("DateTime", sizeof(DateTime), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("Stopwatch", sizeof(Stopwatch), asOBJ_VALUE | asGetTypeTraits<Stopwatch>()); assert(r >= 0);
 		r = engine->RegisterObjectType("CustomStopwatch", sizeof(CustomStopwatch), asOBJ_VALUE | asGetTypeTraits<CustomStopwatch>()); assert(r >= 0);
 		r = engine->RegisterObjectType("Timer", sizeof(Timer), asOBJ_VALUE | asGetTypeTraits<Timer>()); assert(r >= 0);
@@ -33,13 +33,13 @@ namespace s3d
 		r = engine->RegisterObjectType("RDTSCClock", sizeof(RDTSCClock), asOBJ_VALUE | asGetTypeTraits<RDTSCClock>()); assert(r >= 0);
 
 
-		r = engine->RegisterObjectType("Color", sizeof(Color), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C | asOBJ_APP_CLASS_ALLINTS); assert(r >= 0);
-		r = engine->RegisterObjectType("ColorF", sizeof(ColorF), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C | asOBJ_APP_CLASS_ALLFLOATS); assert(r >= 0);
-		r = engine->RegisterObjectType("HSV", sizeof(HSV), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C | asOBJ_APP_CLASS_ALLFLOATS); assert(r >= 0);
-		r = engine->RegisterObjectType("Point", sizeof(Point), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C | asOBJ_APP_CLASS_ALLINTS); assert(r >= 0);
-		r = engine->RegisterObjectType("Vec2", sizeof(Vec2), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C | asOBJ_APP_CLASS_ALLFLOATS); assert(r >= 0);
-		r = engine->RegisterObjectType("Vec3", sizeof(Vec3), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C | asOBJ_APP_CLASS_ALLFLOATS); assert(r >= 0);
-		r = engine->RegisterObjectType("Vec4", sizeof(Vec4), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C | asOBJ_APP_CLASS_ALLFLOATS); assert(r >= 0);
+		r = engine->RegisterObjectType("Color", sizeof(Color), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
+		r = engine->RegisterObjectType("ColorF", sizeof(ColorF), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
+		r = engine->RegisterObjectType("HSV", sizeof(HSV), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
+		r = engine->RegisterObjectType("Point", sizeof(Point), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
+		r = engine->RegisterObjectType("Vec2", sizeof(Vec2), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
+		r = engine->RegisterObjectType("Vec3", sizeof(Vec3), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
+		r = engine->RegisterObjectType("Vec4", sizeof(Vec4), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("Circular", sizeof(Circular), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C | asOBJ_APP_CLASS_ALLFLOATS); assert(r >= 0);
 		r = engine->RegisterObjectType("Line", sizeof(Line), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C | asOBJ_APP_CLASS_ALLFLOATS); assert(r >= 0);
 		r = engine->RegisterObjectType("Rect", sizeof(Rect), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C | asOBJ_APP_CLASS_ALLINTS); assert(r >= 0);
@@ -53,6 +53,7 @@ namespace s3d
 		///
 		/// bad
 		r = engine->RegisterObjectType("Polygon", sizeof(Polygon), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C); assert(r >= 0);
+		r = engine->RegisterObjectType("MultiPolygon", sizeof(MultiPolygon), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("LineString", sizeof(LineString), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C); assert(r >= 0);
 
 		//r = engine->RegisterObjectType("Image", sizeof(ImageWrapper), asOBJ_REF); assert(r >= 0);
@@ -65,8 +66,8 @@ namespace s3d
 		//r = engine->RegisterObjectType("DrawableString", sizeof(DrawableString), asOBJ_VALUE | asOBJ_APP_CLASS_D); assert(r >= 0);
 		//r = engine->RegisterObjectType("Webcam", sizeof(Webcam), asOBJ_VALUE | asOBJ_APP_CLASS_CD); assert(r >= 0);
 
+		r = engine->RegisterObjectType("PrintBuffer", 0, asOBJ_REF); assert(r >= 0);
 		r = engine->RegisterObjectType("Print_impl", 1, asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
-		r = engine->RegisterObjectType("PrintBuffer", 1, asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
 
 		r = engine->RegisterEnum("CursorStyle"); assert(r >= 0);
 
@@ -89,6 +90,8 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("Vec3") == static_cast<int>(ScriptTypeID::Vec3));
 		assert(engine->GetTypeIdByDecl("Vec4") == static_cast<int>(ScriptTypeID::Vec4));
 		assert(engine->GetTypeIdByDecl("Circular") == static_cast<int>(ScriptTypeID::Circular));
+		//assert(engine->GetTypeIdByDecl("Bezier2") == static_cast<int>(ScriptTypeID::Bezier2);
+		//assert(engine->GetTypeIdByDecl("Bezier3") == static_cast<int>(ScriptTypeID::Bezier3));
 		assert(engine->GetTypeIdByDecl("Line") == static_cast<int>(ScriptTypeID::Line));
 		assert(engine->GetTypeIdByDecl("Rect") == static_cast<int>(ScriptTypeID::Rect));
 		assert(engine->GetTypeIdByDecl("RectF") == static_cast<int>(ScriptTypeID::RectF));
@@ -98,11 +101,12 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("Quad") == static_cast<int>(ScriptTypeID::Quad));
 		assert(engine->GetTypeIdByDecl("RoundRect") == static_cast<int>(ScriptTypeID::RoundRect));
 		assert(engine->GetTypeIdByDecl("Polygon") == static_cast<int>(ScriptTypeID::Polygon));
+		assert(engine->GetTypeIdByDecl("MultiPolygon") == static_cast<int>(ScriptTypeID::MultiPolygon));
 		assert(engine->GetTypeIdByDecl("LineString") == static_cast<int>(ScriptTypeID::LineString));
 
-
-		assert(engine->GetTypeIdByDecl("Print_impl") == static_cast<int>(ScriptTypeID::Print_impl));
 		assert(engine->GetTypeIdByDecl("PrintBuffer") == static_cast<int>(ScriptTypeID::PrintBuffer));
+		assert(engine->GetTypeIdByDecl("Print_impl") == static_cast<int>(ScriptTypeID::Print_impl));
+		//
 
 		//assert(engine->GetTypeIdByDecl("CursorStyle") == static_cast<int>(ScriptTypeID::CursorStyle));
 
