@@ -121,6 +121,11 @@ namespace s3d
 		RegisterQuad(m_engine);
 		RegisterRoundRect(m_engine);
 
+
+		RegisterLineStyle(m_engine);
+
+		RegisterPeriodic(m_engine);
+
 		RegisterPrint(m_engine);
 
 		RegisterSystem(m_engine);

@@ -1,17 +1,24 @@
 ﻿
 int32 GetNumber()
 {
-	const int32 n = 10 * 10;
+	const int32 n = 100;
 
 	return n + 23;
 }
 
 String GetMessage()
 {
-	return "Hello!";
+	return "Hello, Siv3D Script!";
 }
 
-void DrawCircle(const Circle&in circle, const ColorF&in color)
+void Test()
 {
-	circle.draw(color);
+
+}
+
+void Draw(double t)
+{
+	Line(40, 220, 500, 200).draw(LineStyle::RoundCap, 40, HSV(0), HSV(200));
+
+	Circle(100, 240, 100).movedBy(Periodic::Sine0_1(2.0) * 400, 0).draw(AlphaF(Periodic::Sine0_1(2.0)));
 }

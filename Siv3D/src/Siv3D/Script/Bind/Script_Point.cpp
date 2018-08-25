@@ -17,19 +17,19 @@ namespace s3d
 {
 	using namespace AngelScript;
 
-	using ValueType = Point;
+	using ShapeType = Point;
 
-	static void Construct(const Point& pos, ValueType* self)
+	static void Construct(const Point& pos, ShapeType* self)
 	{
 		new(self) Point(pos);
 	}
 
-	static void ConstructII(int32 x, int32 y, ValueType* self)
+	static void ConstructII(int32 x, int32 y, ShapeType* self)
 	{
 		new(self) Point(x, y);
 	}
 
-	static void ConstructListII(int32 *list, ValueType* self)
+	static void ConstructListII(int32 *list, ShapeType* self)
 	{
 		new(self) Point(list[0], list[1]);
 	}
@@ -39,7 +39,7 @@ namespace s3d
 		return point;
 	}
 
-	void RegisterPoint(asIScriptEngine *engine)
+	void RegisterPoint(asIScriptEngine* engine)
 	{
 		constexpr char TypeName[] = "Point";
 		
@@ -47,6 +47,9 @@ namespace s3d
 		r = engine->RegisterObjectProperty(TypeName, "int32 x", asOFFSET(Point, x)); assert(r >= 0);
 		r = engine->RegisterObjectProperty(TypeName, "int32 y", asOFFSET(Point, y)); assert(r >= 0);
 
+		//
+		//	Constructor
+		//
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Point& in)", asFUNCTION(Construct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(int32 x, int32 y)", asFUNCTION(ConstructII), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_LIST_CONSTRUCT, "void f(const int32& in) {int32, int32}", asFUNCTION(ConstructListII), asCALL_CDECL_OBJLAST); assert(r >= 0);
@@ -136,21 +139,21 @@ namespace s3d
 		//r = engine->RegisterObjectMethod(TypeName, "Float2 lerp(const Float2 &in, double) const", asMETHODPR(Point, lerp, (const Float2&, double) const, Float2), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 lerp(const Vec2& in, double) const", asMETHODPR(Point, lerp, (const Vec2&, double) const, Vec2), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Point& in) const", asMETHODPR(Point, intersects, (const Point&) const, bool), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Vec2& in) const", asMETHODPR(Point, intersects, (const Vec2&) const, bool), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Line& in) const", asMETHODPR(Point, intersects, (const Line&) const, bool), asCALL_THISCALL); assert(r >= 0);
-		//r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Bezier2& in) const", asMETHODPR(Point, intersects, (const Bezier2&) const, bool), asCALL_THISCALL); assert(r >= 0);
-		//r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Bezier3& in) const", asMETHODPR(Point, intersects, (const Bezier3&) const, bool), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Rect& in) const", asMETHODPR(Point, intersects, (const Rect&) const, bool), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const RectF& in) const", asMETHODPR(Point, intersects, (const RectF&) const, bool), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Circle& in) const", asMETHODPR(Point, intersects, (const Circle&) const, bool), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Ellipse& in) const", asMETHODPR(Point, intersects, (const Ellipse&) const, bool), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Triangle& in) const", asMETHODPR(Point, intersects, (const Triangle&) const, bool), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Quad& in) const", asMETHODPR(Point, intersects, (const Quad&) const, bool), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const RoundRect& in) const", asMETHODPR(Point, intersects, (const RoundRect&) const, bool), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Polygon& in) const", asMETHODPR(Point, intersects, (const Polygon&) const, bool), asCALL_THISCALL); assert(r >= 0);
-		//r = engine->RegisterObjectMethod(TypeName, "bool intersects(const MultiPolygon& in) const", asMETHODPR(Point, intersects, (const MultiPolygon&) const, bool), asCALL_THISCALL); assert(r >= 0);
-		//r = engine->RegisterObjectMethod(TypeName, "bool intersects(const LineString& in) const", asMETHODPR(Point, intersects, (const LineString&) const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Point& in) const", asMETHODPR(ShapeType, intersects, (const Point&) const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Vec2& in) const", asMETHODPR(ShapeType, intersects, (const Vec2&) const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Line& in) const", asMETHODPR(ShapeType, intersects, (const Line&) const, bool), asCALL_THISCALL); assert(r >= 0);
+		//r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Bezier2& in) const", asMETHODPR(ShapeType, intersects, (const Bezier2&) const, bool), asCALL_THISCALL); assert(r >= 0);
+		//r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Bezier3& in) const", asMETHODPR(ShapeType, intersects, (const Bezier3&) const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Rect& in) const", asMETHODPR(ShapeType, intersects, (const Rect&) const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const RectF& in) const", asMETHODPR(ShapeType, intersects, (const RectF&) const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Circle& in) const", asMETHODPR(ShapeType, intersects, (const Circle&) const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Ellipse& in) const", asMETHODPR(ShapeType, intersects, (const Ellipse&) const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Triangle& in) const", asMETHODPR(ShapeType, intersects, (const Triangle&) const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Quad& in) const", asMETHODPR(ShapeType, intersects, (const Quad&) const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const RoundRect& in) const", asMETHODPR(ShapeType, intersects, (const RoundRect&) const, bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Polygon& in) const", asMETHODPR(ShapeType, intersects, (const Polygon&) const, bool), asCALL_THISCALL); assert(r >= 0);
+		//r = engine->RegisterObjectMethod(TypeName, "bool intersects(const MultiPolygon& in) const", asMETHODPR(ShapeType, intersects, (const MultiPolygon&) const, bool), asCALL_THISCALL); assert(r >= 0);
+		//r = engine->RegisterObjectMethod(TypeName, "bool intersects(const LineString& in) const", asMETHODPR(ShapeType, intersects, (const LineString&) const, bool), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "bool leftClicked() const", asMETHOD(Point, leftClicked), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool leftPressed() const", asMETHOD(Point, leftPressed), asCALL_THISCALL); assert(r >= 0);

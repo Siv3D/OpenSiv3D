@@ -59,7 +59,7 @@ namespace s3d
 		return value;
 	}
 
-	void RegisterColor(asIScriptEngine *engine)
+	void RegisterColor(asIScriptEngine* engine)
 	{
 		constexpr char TypeName[] = "Color";
 
@@ -95,7 +95,8 @@ namespace s3d
 		//
 		//	set
 		//
-		r = engine->RegisterObjectMethod(TypeName, "Color& set(uint32 r, uint32 g, uint32 b, uint32 a = 255)", asMETHOD(Color, set), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Color& set(uint32 r, uint32 g, uint32 b, uint32 a = 255)", asMETHODPR(Color, set, (uint32, uint32, uint32, uint32), Color&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Color& set(const Color& in)", asMETHODPR(Color, set, (const Color&), Color&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Color& setRGB(uint32 rgb)", asMETHODPR(Color, setRGB, (uint32), Color&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Color& setRGB(uint32 r, uint32 g, uint32 b)", asMETHODPR(Color, setRGB, (uint32, uint32, uint32), Color&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Color& setA(uint32 a)", asMETHOD(Color, setA), asCALL_THISCALL); assert(r >= 0);

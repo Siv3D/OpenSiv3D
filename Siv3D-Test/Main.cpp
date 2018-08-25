@@ -32,10 +32,10 @@ void Main()
 	script.getMessages().each(Print);
 	auto GetNumber = script.getFunction<int32()>(U"GetNumber");
 	auto GetMessage = script.getFunction<String()>(U"GetMessage");
-	auto Draw = script.getFunction<void()>(U"Draw");
-	auto Draw2 = script.getFunction<void(const Stopwatch&)>(U"Draw2");
-	//Print << GetNumber();
-	//Print << GetMessage() << U"@" << GetMessage().size();
+	auto Test = script.getFunction<void()>(U"Test");
+	auto Draw = script.getFunction<void(double)>(U"Draw");
+	Print << GetNumber();
+	Print << GetMessage();
 
 	Stopwatch s(true);
 
@@ -45,6 +45,7 @@ void Main()
 
 		if (HasChanged(script.path(), fileChanges))
 		{
+			ClearPrint();
 			Print << U"----------------";
 			const bool compileSucceeded = script.reload();
 			Print << U"Recompile...[{}]"_fmt(compileSucceeded ? U"OK" : U"Failed");
@@ -52,17 +53,17 @@ void Main()
 
 			GetNumber = script.getFunction<int32()>(U"GetNumber");
 			GetMessage = script.getFunction<String()>(U"GetMessage");
-			Draw = script.getFunction<void()>(U"Draw");
-			Draw2 = script.getFunction<void(const Stopwatch&)>(U"Draw2");
-			//Print << GetNumber();
-			//Print << GetMessage() << U"@" << GetMessage().size();
+			Test = script.getFunction<void()>(U"Test");
+			Draw = script.getFunction<void(double)>(U"Draw");
+			Print << GetNumber();
+			Print << GetMessage();
 		}
 
 		if (MouseR.down())
 		{
-			Draw();
+			Test();
 		}
 
-		//Draw2(s);
+		Draw(s.sF());
 	}
 }

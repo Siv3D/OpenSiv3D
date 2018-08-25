@@ -19,36 +19,48 @@ namespace s3d
 {
 	namespace Periodic
 	{
-		[[nodiscard]] inline double Sine0_1(const MicrosecondsF& period, double t = Time::GetMicrosec() / 1'000'000.0)
+		[[nodiscard]] inline double Sine0_1(double periodSec, double t = Time::GetMicrosec() / 1'000'000.0)
 		{
-			const double p = static_cast<double>(period.count() / 1'000'000.0);
-
-			const double x = std::fmod(t, p) / (p * (1.0 / Math::TwoPi));
+			const double x = std::fmod(t, periodSec) / (periodSec * (1.0 / Math::TwoPi));
 
 			return std::sin(x) * 0.5 + 0.5;
 		}
 
-		[[nodiscard]] inline double Square0_1(const MicrosecondsF& period, double t = Time::GetMicrosec() / 1'000'000.0)
+		[[nodiscard]] inline double Sine0_1(const Duration& period, double t = Time::GetMicrosec() / 1'000'000.0)
 		{
-			const double p = static_cast<double>(period.count() / 1'000'000.0);
-
-			return std::fmod(t, p) < (p * 0.5);
+			return Sine0_1(period.count(), t);
 		}
 
-		[[nodiscard]] inline double Tringle0_1(const MicrosecondsF& period, double t = Time::GetMicrosec() / 1'000'000.0)
+		[[nodiscard]] inline double Square0_1(double periodSec, double t = Time::GetMicrosec() / 1'000'000.0)
 		{
-			const double p = static_cast<double>(period.count() / 1'000'000.0);
+			return std::fmod(t, periodSec) < (periodSec * 0.5);
+		}
 
-			const double x = std::fmod(t, p) / (p * 0.5);
+		[[nodiscard]] inline double Square0_1(const Duration& period, double t = Time::GetMicrosec() / 1'000'000.0)
+		{
+			return Square0_1(period.count(), t);
+		}
+
+		[[nodiscard]] inline double Tringle0_1(double periodSec, double t = Time::GetMicrosec() / 1'000'000.0)
+		{
+			const double x = std::fmod(t, periodSec) / (periodSec * 0.5);
 
 			return x <= 1.0 ? x : 2.0 - x;
 		}
 
-		[[nodiscard]] inline double Sawtooth0_1(const MicrosecondsF& period, double t = Time::GetMicrosec() / 1'000'000.0)
+		[[nodiscard]] inline double Tringle0_1(const Duration& period, double t = Time::GetMicrosec() / 1'000'000.0)
 		{
-			const double p = static_cast<double>(period.count() / 1'000'000.0);
+			return Tringle0_1(period.count(), t);
+		}
 
-			return std::fmod(t, p) / p;
+		[[nodiscard]] inline double Sawtooth0_1(double periodSec, double t = Time::GetMicrosec() / 1'000'000.0)
+		{
+			return std::fmod(t, periodSec) / periodSec;
+		}
+
+		[[nodiscard]] inline double Sawtooth0_1(const Duration& period, double t = Time::GetMicrosec() / 1'000'000.0)
+		{
+			return Sawtooth0_1(period.count(), t);
 		}
 	}
 }

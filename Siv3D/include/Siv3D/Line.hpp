@@ -30,7 +30,12 @@ namespace s3d
 
 			bool hasAlignedDot;
 
-			constexpr Parameters operator ()(double _dotOffset) const
+			constexpr Parameters operator ()(double _dotOffset) const noexcept
+			{
+				return Parameters{ _dotOffset, hasCap, isRound, isDotted, false };
+			}
+
+			constexpr Parameters offset(double _dotOffset) const noexcept
 			{
 				return Parameters{ _dotOffset, hasCap, isRound, isDotted, false };
 			}
@@ -45,6 +50,8 @@ namespace s3d
 		bool isDotted = false;
 
 		bool hasAlignedDot = true;
+
+		constexpr LineStyle() = default;
 
 		constexpr LineStyle(const Parameters& params)
 			: dotOffset(params.dotOffset)
@@ -203,6 +210,11 @@ namespace s3d
 		{
 			return end - begin;
 		}
+
+		[[nodiscard]] constexpr Line reversed() const noexcept
+		{
+			return{ end, begin };
+		}
 		
 		constexpr Line& reverse() noexcept
 		{
@@ -210,11 +222,6 @@ namespace s3d
 			begin = end;
 			end = t;
 			return *this;
-		}
-		
-		[[nodiscard]] constexpr Line reversed() const noexcept
-		{
-			return{ end, begin };
 		}
 		
 		[[nodiscard]] value_type length() const noexcept
@@ -273,9 +280,9 @@ namespace s3d
 			return draw(LineStyle::Default, 1.0, color);
 		}
 
-		const Line& draw(const ColorF(&colors)[2]) const
+		const Line& draw(const ColorF& colorBegin, const ColorF& colorEnd) const
 		{
-			return draw(LineStyle::Default, 1.0, colors);
+			return draw(LineStyle::Default, 1.0, colorBegin, colorEnd);
 		}
 
 		const Line& draw(double thickness, const ColorF& color = Palette::White) const
@@ -283,14 +290,14 @@ namespace s3d
 			return draw(LineStyle::Default, thickness, color);
 		}
 
-		const Line& draw(double thickness, const ColorF(&colors)[2]) const
+		const Line& draw(double thickness, const ColorF& colorBegin, const ColorF& colorEnd) const
 		{
-			return draw(LineStyle::Default, thickness, colors);
+			return draw(LineStyle::Default, thickness, colorBegin, colorEnd);
 		}
 
 		const Line& draw(const LineStyle& style, double thickness, const ColorF& color = Palette::White) const;
 
-		const Line& draw(const LineStyle& style, double thickness, const ColorF(&colors)[2]) const;
+		const Line& draw(const LineStyle& style, double thickness, const ColorF& colorBegin, const ColorF& colorEnd) const;
 
 		const Line& drawArrow(double width = 1.0, const Vec2& headSize = Vec2(5.0, 5.0), const ColorF& color = Palette::White) const;
 

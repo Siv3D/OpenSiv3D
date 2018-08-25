@@ -66,6 +66,9 @@ namespace s3d
 		MultiPolygon,
 		LineString,
 
+		LineStyle,
+		LineStyleParameters,
+
 		PrintBuffer,
 		Print_impl,
 		
@@ -125,6 +128,11 @@ namespace s3d
 	//void RegisterLineString(AngelScript::asIScriptEngine* engine);
 	//void RegisterBezier2(AngelScript::asIScriptEngine* engine);
 	//void RegisterBezier3(AngelScript::asIScriptEngine* engine);
+
+
+	void RegisterLineStyle(AngelScript::asIScriptEngine* engine);
+
+	void RegisterPeriodic(AngelScript::asIScriptEngine* engine);
 
 	void RegisterPrint(AngelScript::asIScriptEngine* engine);
 

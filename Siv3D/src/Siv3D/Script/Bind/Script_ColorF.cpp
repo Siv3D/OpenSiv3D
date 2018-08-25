@@ -59,14 +59,9 @@ namespace s3d
 		new(self) ValueType(code);
 	}
 
-	static Color ConvToColor(const ValueType& value)
+	void RegisterColorF(asIScriptEngine* engine)
 	{
-		return value;
-	}
-
-	void RegisterColorF(asIScriptEngine *engine)
-	{
-		const char TypeName[] = "ColorF";
+		constexpr char TypeName[] = "ColorF";
 
 		int32 r = 0;
 		r = engine->RegisterObjectProperty(TypeName, "double r", asOFFSET(ColorF, r)); assert(r >= 0);
@@ -105,7 +100,8 @@ namespace s3d
 		//
 		//	set
 		//
-		r = engine->RegisterObjectMethod(TypeName, "ColorF& set(double r, double g, double b, double a = 1.0)", asMETHOD(ColorF, set), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "ColorF& set(double r, double g, double b, double a = 1.0)", asMETHODPR(ColorF, set, (double, double, double, double), ColorF&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "ColorF& set(const ColorF& in)", asMETHODPR(ColorF, set, (const ColorF&), ColorF&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "ColorF& setRGB(double rgb)", asMETHODPR(ColorF, setRGB, (double), ColorF&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "ColorF& setRGB(double r, double g, double b)", asMETHODPR(ColorF, setRGB, (double, double, double), ColorF&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "ColorF& setA(double a)", asMETHOD(ColorF, setA), asCALL_THISCALL); assert(r >= 0);
@@ -134,7 +130,7 @@ namespace s3d
 
 		r = engine->RegisterObjectMethod(TypeName, "ColorF opMul_r(double) const", asFUNCTIONPR(operator*, (double, const ColorF&), ColorF), asCALL_CDECL_OBJLAST);
 
-		r = engine->RegisterObjectMethod(TypeName, "Color opImplConv() const", asFUNCTION(ConvToColor), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Color opImplConv() const", asMETHOD(ColorF, toColor), asCALL_THISCALL); assert(r >= 0);
 
 
 

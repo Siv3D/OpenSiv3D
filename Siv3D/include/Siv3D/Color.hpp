@@ -231,6 +231,11 @@ namespace s3d
 			return *this;
 		}
 
+		constexpr Color& set(const Color& color) noexcept
+		{
+			return *this = color;
+		}
+
 		/// <summary>
 		/// RGB の値を変更します。
 		/// </summary>
@@ -640,6 +645,11 @@ namespace s3d
 			b = _b;
 			a = _a;
 			return *this;
+		}
+
+		constexpr ColorF& set(const ColorF& color) noexcept
+		{
+			return *this = color;
 		}
 
 		/// <summary>

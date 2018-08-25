@@ -17,7 +17,7 @@ namespace s3d
 {
 	using namespace AngelScript;
 
-	void RegisterPalette(asIScriptEngine *engine)
+	void RegisterPalette(asIScriptEngine* engine)
 	{
 		int32 r = 0;
 
