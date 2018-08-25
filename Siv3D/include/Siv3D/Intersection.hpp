@@ -32,7 +32,7 @@ namespace s3d
 		bool Intersect(const Point& a, const Quad&			b) noexcept;
 		bool Intersect(const Point& a, const RoundRect&		b) noexcept;
 		bool Intersect(const Point& a, const Polygon&		b) noexcept;
-		//bool Intersect(const Point& a, const MultiPolygon&	b);
+		bool Intersect(const Point& a, const MultiPolygon&	b) noexcept;
 		//bool Intersect(const Point& a, const LineString&	b);
 
 		bool Intersect(const Vec2& a, const Point&			b) noexcept;

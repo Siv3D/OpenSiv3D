@@ -39,6 +39,14 @@ namespace s3d
 
 		virtual bool compiled(ScriptID handleID) = 0;
 
+		virtual bool reload(ScriptID handleID, int32 compileOption) = 0;
+
+		virtual const FilePath& path(ScriptID handleID) = 0;
+
+		virtual Array<String> retrieveMessagesInternal() = 0;
+
+		virtual const Array<String>& retrieveMessages(ScriptID handleID) = 0;
+
 		virtual AngelScript::asIScriptEngine* getEngine() = 0;
 	};
 }

@@ -45,28 +45,28 @@ namespace s3d
 				Formatter(formatData, *static_cast<const bool*>(ref));
 				break;
 			case ScriptTypeID::Int8:
-				Formatter(formatData, *static_cast<const signed char*>(ref));
+				Formatter(formatData, *static_cast<const int8*>(ref));
 				break;
 			case ScriptTypeID::Int16:
-				Formatter(formatData, *static_cast<const short*>(ref));
+				Formatter(formatData, *static_cast<const int16*>(ref));
 				break;
 			case ScriptTypeID::Int32:
-				Formatter(formatData, *static_cast<const int*>(ref));
+				Formatter(formatData, *static_cast<const int32*>(ref));
 				break;
 			case ScriptTypeID::Int64:
-				Formatter(formatData, *static_cast<const long long*>(ref));
+				Formatter(formatData, *static_cast<const int64*>(ref));
 				break;
 			case ScriptTypeID::Uint8:
-				Formatter(formatData, *static_cast<const unsigned char*>(ref));
+				Formatter(formatData, *static_cast<const uint8*>(ref));
 				break;
 			case ScriptTypeID::Uint16:
-				Formatter(formatData, *static_cast<const unsigned short*>(ref));
+				Formatter(formatData, *static_cast<const uint16*>(ref));
 				break;
 			case ScriptTypeID::Uint32:
-				Formatter(formatData, *static_cast<const unsigned*>(ref));
+				Formatter(formatData, *static_cast<const uint32*>(ref));
 				break;
 			case ScriptTypeID::Uint64:
-				Formatter(formatData, *static_cast<const unsigned long long*>(ref));
+				Formatter(formatData, *static_cast<const uint64*>(ref));
 				break;
 			case ScriptTypeID::Float:
 				Formatter(formatData, *static_cast<const float*>(ref));
@@ -75,7 +75,7 @@ namespace s3d
 				Formatter(formatData, *static_cast<const double*>(ref));
 				break;
 			case ScriptTypeID::String:
-				Formatter(formatData, *static_cast<const std::wstring*>(ref));
+				Formatter(formatData, *static_cast<const String*>(ref));
 				break;
 			case ScriptTypeID::Color:
 				Formatter(formatData, *static_cast<const Color*>(ref));
@@ -152,7 +152,7 @@ namespace s3d
 	{
 		const void* args[] = { ref1, ref2 };
 		const int types[] = { typeID1, typeID2 };
-		return FormatBase(args, types, 2);
+		return FormatBase(args, types, std::size(args));
 	}
 
 	String Format_T3(
@@ -163,7 +163,7 @@ namespace s3d
 	{
 		const void* args[] = { ref1, ref2, ref3 };
 		const int types[] = { typeID1, typeID2, typeID3 };
-		return FormatBase(args, types, 3);
+		return FormatBase(args, types, std::size(args));
 	}
 
 	String Format_T4(
@@ -175,7 +175,7 @@ namespace s3d
 	{
 		const void* args[] = { ref1, ref2, ref3, ref4 };
 		const int types[] = { typeID1, typeID2, typeID3, typeID4 };
-		return FormatBase(args, types, 4);
+		return FormatBase(args, types, std::size(args));
 	}
 
 	String Format_T5(
@@ -188,7 +188,7 @@ namespace s3d
 	{
 		const void* args[] = { ref1, ref2, ref3, ref4, ref5 };
 		const int types[] = { typeID1, typeID2, typeID3, typeID4, typeID5 };
-		return FormatBase(args, types, 5);
+		return FormatBase(args, types, std::size(args));
 	}
 
 	String Format_T6(
@@ -202,7 +202,7 @@ namespace s3d
 	{
 		const void* args[] = { ref1, ref2, ref3, ref4, ref5, ref6 };
 		const int types[] = { typeID1, typeID2, typeID3, typeID4, typeID5, typeID6 };
-		return FormatBase(args, types, 6);
+		return FormatBase(args, types, std::size(args));
 	}
 
 	String Format_T7(
@@ -217,7 +217,7 @@ namespace s3d
 	{
 		const void* args[] = { ref1, ref2, ref3, ref4, ref5, ref6, ref7 };
 		const int types[] = { typeID1, typeID2, typeID3, typeID4, typeID5, typeID6, typeID7 };
-		return FormatBase(args, types, 7);
+		return FormatBase(args, types, std::size(args));
 	}
 
 	String Format_T8(
@@ -233,7 +233,42 @@ namespace s3d
 	{
 		const void* args[] = { ref1, ref2, ref3, ref4, ref5, ref6, ref7, ref8 };
 		const int types[] = { typeID1, typeID2, typeID3, typeID4, typeID5, typeID6, typeID7, typeID8 };
-		return FormatBase(args, types, 8);
+		return FormatBase(args, types, std::size(args));
+	}
+
+	String Format_T9(
+		const void *ref1, int typeID1,
+		const void *ref2, int typeID2,
+		const void *ref3, int typeID3,
+		const void *ref4, int typeID4,
+		const void *ref5, int typeID5,
+		const void *ref6, int typeID6,
+		const void *ref7, int typeID7,
+		const void *ref8, int typeID8,
+		const void *ref9, int typeID9
+	)
+	{
+		const void* args[] = { ref1, ref2, ref3, ref4, ref5, ref6, ref7, ref8, ref9 };
+		const int types[] = { typeID1, typeID2, typeID3, typeID4, typeID5, typeID6, typeID7, typeID8, typeID9 };
+		return FormatBase(args, types, std::size(args));
+	}
+
+	String Format_T10(
+		const void *ref1, int typeID1,
+		const void *ref2, int typeID2,
+		const void *ref3, int typeID3,
+		const void *ref4, int typeID4,
+		const void *ref5, int typeID5,
+		const void *ref6, int typeID6,
+		const void *ref7, int typeID7,
+		const void *ref8, int typeID8,
+		const void *ref9, int typeID9,
+		const void *ref10, int typeID10
+	)
+	{
+		const void* args[] = { ref1, ref2, ref3, ref4, ref5, ref6, ref7, ref8, ref9, ref10 };
+		const int types[] = { typeID1, typeID2, typeID3, typeID4, typeID5, typeID6, typeID7, typeID8, typeID9, typeID10 };
+		return FormatBase(args, types, std::size(args));
 	}
 
 	void RegisterFormat(asIScriptEngine *engine)
@@ -249,5 +284,8 @@ namespace s3d
 		r = engine->RegisterGlobalFunction("String Format(const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in)", asFUNCTION(Format_T6), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterGlobalFunction("String Format(const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in)", asFUNCTION(Format_T7), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterGlobalFunction("String Format(const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in)", asFUNCTION(Format_T8), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("String Format(const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in)", asFUNCTION(Format_T9), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("String Format(const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in)", asFUNCTION(Format_T10), asCALL_CDECL); assert(r >= 0);
+
 	}
 }

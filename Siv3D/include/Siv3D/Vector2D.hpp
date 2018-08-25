@@ -151,43 +151,6 @@ namespace s3d
 			return v.x != x || v.y != y;
 		}
 
-		/// <summary>
-		/// Vector2D{ x, x }
-		/// </summary>
-		constexpr Vector2D xx() const noexcept
-		{
-			return{ x, x };
-		}
-
-		/// <summary>
-		/// Vector2D{ x, y }
-		/// </summary>
-		constexpr Vector2D xy() const noexcept
-		{
-			return{ x, y };
-		}
-
-		/// <summary>
-		/// Vector2D{ y, x }
-		/// </summary>
-		constexpr Vector2D yx() const noexcept
-		{
-			return{ y, x };
-		}
-
-		/// <summary>
-		/// Vector2D{ y, y }
-		/// </summary>
-		constexpr Vector2D yy() const noexcept
-		{
-			return{ y, y };
-		}
-
-		constexpr Point asPoint() const noexcept
-		{
-			return{ static_cast<Point::value_type>(x), static_cast<Point::value_type>(y) };
-		}
-
 		constexpr Vector2D& set(value_type _x, value_type _y) noexcept
 		{
 			x = _x; y = _y;
@@ -220,9 +183,9 @@ namespace s3d
 			return *this += v;
 		}
 
-		Vector2D& clamp(const RectF& rect) noexcept;
+		[[nodiscard]] Vector2D clamped(const RectF& rect) const noexcept;
 
-		[[nodiscard]] Vector2D clamped(const RectF& rect) noexcept;
+		Vector2D& clamp(const RectF& rect) noexcept;
 
 		constexpr bool isZero() const noexcept
 		{
@@ -335,10 +298,47 @@ namespace s3d
 			return Vector2D(x + (other.x - x) * f, y + (other.y - y) * f);
 		}
 
+		constexpr Point asPoint() const noexcept
+		{
+			return{ static_cast<Point::value_type>(x), static_cast<Point::value_type>(y) };
+		}
+
 		template <class Shape2DType>
 		bool intersects(const Shape2DType& shape) const
 		{
 			return Geometry2D::Intersect(*this, shape);
+		}
+
+		/// <summary>
+		/// Vector2D{ x, x }
+		/// </summary>
+		constexpr Vector2D xx() const noexcept
+		{
+			return{ x, x };
+		}
+
+		/// <summary>
+		/// Vector2D{ x, y }
+		/// </summary>
+		constexpr Vector2D xy() const noexcept
+		{
+			return{ x, y };
+		}
+
+		/// <summary>
+		/// Vector2D{ y, x }
+		/// </summary>
+		constexpr Vector2D yx() const noexcept
+		{
+			return{ y, x };
+		}
+
+		/// <summary>
+		/// Vector2D{ y, y }
+		/// </summary>
+		constexpr Vector2D yy() const noexcept
+		{
+			return{ y, y };
 		}
  
 		/// <summary>

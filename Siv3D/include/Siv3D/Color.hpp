@@ -231,6 +231,11 @@ namespace s3d
 			return *this;
 		}
 
+		constexpr Color& set(const Color& color) noexcept
+		{
+			return *this = color;
+		}
+
 		/// <summary>
 		/// RGB の値を変更します。
 		/// </summary>
@@ -243,6 +248,14 @@ namespace s3d
 		constexpr Color& setRGB(uint32 rgb) noexcept
 		{
 			r = g = b = rgb;
+			return *this;
+		}
+
+		constexpr Color& setRGB(uint32 _r, uint32 _g, uint32 _b) noexcept
+		{
+			r = _r;
+			g = _g;
+			b = _b;
 			return *this;
 		}
 
@@ -634,6 +647,11 @@ namespace s3d
 			return *this;
 		}
 
+		constexpr ColorF& set(const ColorF& color) noexcept
+		{
+			return *this = color;
+		}
+
 		/// <summary>
 		/// RGB の値を変更します。
 		/// </summary>
@@ -646,6 +664,14 @@ namespace s3d
 		constexpr ColorF& setRGB(const double rgb) noexcept
 		{
 			r = g = b = rgb;
+			return *this;
+		}
+
+		constexpr ColorF& setRGB(const double _r, const double _g, const double _b) noexcept
+		{
+			r = _r;
+			g = _g;
+			b = _b;
 			return *this;
 		}
 

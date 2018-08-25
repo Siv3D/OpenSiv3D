@@ -1,22 +1,69 @@
 ﻿
 # include <Siv3D.hpp>
 
+bool HasChanged(const FilePath& target, const Array<std::pair<FilePath, FileAction>>& fileChanges)
+{
+	for (auto[path, action] : fileChanges)
+	{
+		if ((path == target)
+			&& (action == FileAction::Modified || action == FileAction::Added))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 void Main()
 {
-	const Array<String> actions = 
+	const FilePath scriptFilePath = FileSystem::FullPath(U"example/script.txt");
+	const DirectoryWatcher watcher(FileSystem::ParentPath(scriptFilePath));
+
+	//Script script(Arg::code = TextReader(scriptFilePath).readAll());
+	Script script(scriptFilePath);
+	if (!script)
 	{
-		U"Unknown", U"Added", U"Removed", U"Modified",
-	};
+		return;
+	}
 
-	const DirectoryWatcher watcher(U"../");
+	Print << U"----------------";
+	Print << U"Compile...[{}]"_fmt(script.compiled() ? U"OK" : U"Failed");
+	script.getMessages().each(Print);
+	auto GetNumber = script.getFunction<int32()>(U"GetNumber");
+	auto GetMessage = script.getFunction<String()>(U"GetMessage");
+	auto Test = script.getFunction<void()>(U"Test");
+	auto Draw = script.getFunction<void(double)>(U"Draw");
+	Print << GetNumber();
+	Print << GetMessage();
 
-	Print << watcher.directory();
+	Stopwatch s(true);
 
 	while (System::Update())
 	{
-		for (const auto& change : watcher.retrieveChanges())
+		const auto fileChanges = watcher.retrieveChanges();
+
+		if (HasChanged(script.path(), fileChanges))
 		{
-			Print << U"[{}]\n{}"_fmt(actions[(size_t)change.second], change.first);
+			ClearPrint();
+			Print << U"----------------";
+			const bool compileSucceeded = script.reload();
+			Print << U"Recompile...[{}]"_fmt(compileSucceeded ? U"OK" : U"Failed");
+			script.getMessages().each(Print);
+
+			GetNumber = script.getFunction<int32()>(U"GetNumber");
+			GetMessage = script.getFunction<String()>(U"GetMessage");
+			Test = script.getFunction<void()>(U"Test");
+			Draw = script.getFunction<void(double)>(U"Draw");
+			Print << GetNumber();
+			Print << GetMessage();
 		}
+
+		if (MouseR.down())
+		{
+			Test();
+		}
+
+		Draw(s.sF());
 	}
 }

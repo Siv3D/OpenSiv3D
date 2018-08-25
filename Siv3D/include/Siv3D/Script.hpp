@@ -247,7 +247,9 @@ namespace s3d
 				m_moduleData->context->SetLineCallback(asFUNCTION(detail::LineCallback), &steps, AngelScript::asCALL_CDECL);
 			}
 
-			const int r = m_moduleData->context->Execute();
+			detail::scriptStepCounter = 0;
+
+			const int32 r = m_moduleData->context->Execute();
 
 			if (r != AngelScript::asEXECUTION_FINISHED && r == AngelScript::asEXECUTION_EXCEPTION)
 			{
@@ -409,7 +411,13 @@ namespace s3d
 			return ScriptFunction<Fty>(func ? _getModuleData() : nullptr, func);
 		}
 
-		bool compiled() const;
+		[[nodiscard]] bool compiled() const;
+
+		bool reload(int32 compileOption = 0);
+
+		const Array<String>& getMessages() const;
+
+		[[nodiscard]] const FilePath& path() const;
 	};
 
 	using ScriptID = Script::IDType;

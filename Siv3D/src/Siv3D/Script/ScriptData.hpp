@@ -32,7 +32,7 @@ namespace s3d
 
 		int32 m_compileOption = 0;
 
-		bool m_hasChanged = false;
+		Array<String> m_messages;
 
 		bool m_fromFile = false;
 
@@ -61,6 +61,12 @@ namespace s3d
 		std::shared_ptr<ScriptModuleData> getModuleData() const;
 
 		bool compileSucceeded() const;
+
+		const Array<String>& getMessages() const;
+
+		bool reload(int32 compileOption);
+
+		const FilePath& path() const;
 
 		bool withoutLineCues() const;
 

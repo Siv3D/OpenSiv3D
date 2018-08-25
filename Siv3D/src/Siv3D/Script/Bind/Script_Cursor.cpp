@@ -21,9 +21,20 @@ namespace s3d
 	{
 		int r = 0;
 
+		r = engine->RegisterEnumValue("CursorStyle", "Arrow", 0); assert(r >= 0);
+		r = engine->RegisterEnumValue("CursorStyle", "IBeam", 1); assert(r >= 0);
+		r = engine->RegisterEnumValue("CursorStyle", "Cross", 2); assert(r >= 0);
+		r = engine->RegisterEnumValue("CursorStyle", "Hand", 3); assert(r >= 0);
+		r = engine->RegisterEnumValue("CursorStyle", "NotAllowed", 4); assert(r >= 0);
+		r = engine->RegisterEnumValue("CursorStyle", "ResizeUpDown", 5); assert(r >= 0);
+		r = engine->RegisterEnumValue("CursorStyle", "ResizeLeftRight", 6); assert(r >= 0);
+		r = engine->RegisterEnumValue("CursorStyle", "Hidden", 7); assert(r >= 0);
+		r = engine->RegisterEnumValue("CursorStyle", "Default", 0); assert(r >= 0);
+
 		r = engine->SetDefaultNamespace("Cursor"); assert(r >= 0);
 		{
-			engine->RegisterGlobalFunction("Point Pos()", asFUNCTION(Cursor::Pos), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Point Pos()", asFUNCTION(Cursor::Pos), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("void RequestStyle(CursorStyle style)", asFUNCTION(Cursor::RequestStyle), asCALL_CDECL); assert(r >= 0);
 		}
 		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 	}

@@ -159,9 +159,9 @@
 //
 //////////////////////////////////////////////////
 
-# if defined(SIV3D_TARGET_WINDOWS) && (_MSC_FULL_VER < 191426428)
+# if defined(SIV3D_TARGET_WINDOWS) && (_MSC_FULL_VER < 191526726)
 
-	# error Visual Studio 2017 version 15.7 or later is required
+	# error Visual Studio 2017 version 15.8 or later is required
 
 # endif
 

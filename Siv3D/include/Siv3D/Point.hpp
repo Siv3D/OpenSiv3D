@@ -59,38 +59,6 @@ namespace s3d
 				: 0;
 		}
 
-		/// <summary>
-		/// Point{ x, x }
-		/// </summary>
-		[[nodiscard]] constexpr Point xx() const noexcept
-		{
-			return{ x, x };
-		}
-
-		/// <summary>
-		/// Point{ x, y }
-		/// </summary>
-		[[nodiscard]] constexpr Point xy() const noexcept
-		{
-			return *this;
-		}
-
-		/// <summary>
-		/// Point{ y, x }
-		/// </summary>
-		[[nodiscard]] constexpr Point yx() const noexcept
-		{
-			return{ y, x };
-		}
-
-		/// <summary>
-		/// Point{ y, y }
-		/// </summary>
-		[[nodiscard]] constexpr Point yy() const noexcept
-		{
-			return{ y, y };
-		}
-
 		[[nodiscard]] constexpr Point operator +() const noexcept
 		{
 			return *this;
@@ -139,6 +107,10 @@ namespace s3d
 			return{ x / s, y / s };
 		}
 
+		[[nodiscard]] constexpr Float2 operator /(float s) const noexcept;
+
+		[[nodiscard]] constexpr Vec2 operator /(double s) const noexcept;
+
 		[[nodiscard]] constexpr Point operator /(const Point& p) const noexcept
 		{
 			return{ x / p.x, y / p.y };
@@ -146,10 +118,6 @@ namespace s3d
 
 		template <class Type>
 		[[nodiscard]] constexpr Vector2D<Type> operator /(const Vector2D<Type>& v) const noexcept;
-
-		[[nodiscard]] constexpr Float2 operator /(float s) const noexcept;
-
-		[[nodiscard]] constexpr Vec2 operator /(double s) const noexcept;
 
 		constexpr Point& operator +=(const Point& p) noexcept
 		{
@@ -226,10 +194,14 @@ namespace s3d
 			return x == 0 && y == 0;
 		}
 
+		[[nodiscard]] double distanceFrom(double _x, double _y) const noexcept;
+
 		[[nodiscard]] double distanceFrom(const Point& p) const noexcept;
 
 		template <class Type>
 		[[nodiscard]] Type distanceFrom(const Vector2D<Type>& p) const noexcept;
+
+		[[nodiscard]] constexpr double distanceFromSq(double _x, double _y) const noexcept;
 
 		[[nodiscard]] constexpr double distanceFromSq(const Point& p) const noexcept;
 
@@ -268,6 +240,38 @@ namespace s3d
 		const Point& paint(Image& dst, const Color& color) const;
 
 		const Point& overwrite(Image& dst, const Color& color) const;
+
+		/// <summary>
+		/// Point{ x, x }
+		/// </summary>
+		[[nodiscard]] constexpr Point xx() const noexcept
+		{
+			return{ x, x };
+		}
+
+		/// <summary>
+		/// Point{ x, y }
+		/// </summary>
+		[[nodiscard]] constexpr Point xy() const noexcept
+		{
+			return *this;
+		}
+
+		/// <summary>
+		/// Point{ y, x }
+		/// </summary>
+		[[nodiscard]] constexpr Point yx() const noexcept
+		{
+			return{ y, x };
+		}
+
+		/// <summary>
+		/// Point{ y, y }
+		/// </summary>
+		[[nodiscard]] constexpr Point yy() const noexcept
+		{
+			return{ y, y };
+		}
 
 		/// <summary>
 		/// Point{ 0, 0 }
