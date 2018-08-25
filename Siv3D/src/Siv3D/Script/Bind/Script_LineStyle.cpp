@@ -45,6 +45,21 @@ namespace s3d
 		return LineStyle(params);
 	}
 
+	static void Offset_Generic(asIScriptGeneric* gen)
+	{
+		const LineStyle::Parameters* a = static_cast<const LineStyle::Parameters*>(gen->GetObject());
+		const double* b = static_cast<const double*>(gen->GetAddressOfArg(0));
+		auto ret_val = a->offset(*b);
+		gen->SetReturnObject(&ret_val);
+	}
+
+	static void ConvToLineStyle_Generic(asIScriptGeneric* gen)
+	{
+		const LineStyle::Parameters* a = static_cast<const LineStyle::Parameters*>(gen->GetObject());
+		auto ret_val = LineStyle(*a);
+		gen->SetReturnObject(&ret_val);
+	}
+
 	void RegisterLineStyle(asIScriptEngine* engine)
 	{
 		{
@@ -75,7 +90,8 @@ namespace s3d
 			r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const LineStyleParameters& in)", asFUNCTION(ConstructLS), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 			//r = engine->RegisterObjectMethod(TypeName, "LineStyleParameters opCall(double) const", asMETHOD(LineStyle::Parameters, offset), asCALL_THISCALL); assert(r >= 0); // AngelScript のバグ?
-			r = engine->RegisterObjectMethod(TypeName, "LineStyleParameters offset(double) const", asMETHOD(LineStyle::Parameters, offset), asCALL_THISCALL); assert(r >= 0);
+			//r = engine->RegisterObjectMethod(TypeName, "LineStyleParameters offset(double) const", asMETHOD(LineStyle::Parameters, offset), asCALL_THISCALL); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "LineStyleParameters offset(double) const", asFUNCTION(Offset_Generic), asCALL_GENERIC); assert(r >= 0);
 
 			r = engine->SetDefaultNamespace("LineStyle"); assert(r >= 0);
 			{
@@ -88,7 +104,8 @@ namespace s3d
 			}
 			r = engine->SetDefaultNamespace(""); assert(r >= 0);
 
-			r = engine->RegisterObjectMethod(TypeName, "LineStyle opImplConv() const", asFUNCTION(ConvToLineStyle), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			//r = engine->RegisterObjectMethod(TypeName, "LineStyle opImplConv() const", asFUNCTION(ConvToLineStyle), asCALL_CDECL_OBJLAST); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "LineStyle opImplConv() const", asFUNCTION(ConvToLineStyle_Generic), asCALL_GENERIC); assert(r >= 0);
 		}
 	}
 }

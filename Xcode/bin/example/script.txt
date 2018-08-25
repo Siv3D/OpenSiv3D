@@ -18,7 +18,7 @@ void Test()
 
 void Draw(double t)
 {
-	Line(40, 220, 500, 200).draw(LineStyle::RoundCap, 40, HSV(0), HSV(200));
+	Line(40, 220, 500, 200).draw(LineStyle::RoundDot.offset(t), 40, HSV(0), HSV(200));
 
 	Circle(100, 240, 100).movedBy(Periodic::Sine0_1(2.0) * 400, 0).draw(AlphaF(Periodic::Sine0_1(2.0)));
 }
