@@ -40,10 +40,14 @@ namespace s3d
 		new(self) LineStyle::Parameters(style);
 	}
 
+# if defined(SIV3D_TARGET_WINDOWS)
+
 	static LineStyle ConvToLineStyle(const LineStyle::Parameters& params)
 	{
 		return LineStyle(params);
 	}
+
+# else
 
 	static void Offset_Generic(asIScriptGeneric* gen)
 	{
@@ -59,6 +63,8 @@ namespace s3d
 		auto ret_val = LineStyle(*a);
 		gen->SetReturnObject(&ret_val);
 	}
+
+# endif
 
 	void RegisterLineStyle(asIScriptEngine* engine)
 	{
@@ -90,8 +96,16 @@ namespace s3d
 			r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const LineStyleParameters& in)", asFUNCTION(ConstructLS), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 			//r = engine->RegisterObjectMethod(TypeName, "LineStyleParameters opCall(double) const", asMETHOD(LineStyle::Parameters, offset), asCALL_THISCALL); assert(r >= 0); // AngelScript のバグ?
-			//r = engine->RegisterObjectMethod(TypeName, "LineStyleParameters offset(double) const", asMETHOD(LineStyle::Parameters, offset), asCALL_THISCALL); assert(r >= 0);
+			
+		# if defined(SIV3D_TARGET_WINDOWS)
+
+			r = engine->RegisterObjectMethod(TypeName, "LineStyleParameters offset(double) const", asMETHOD(LineStyle::Parameters, offset), asCALL_THISCALL); assert(r >= 0);
+
+		# else
+
 			r = engine->RegisterObjectMethod(TypeName, "LineStyleParameters offset(double) const", asFUNCTION(Offset_Generic), asCALL_GENERIC); assert(r >= 0);
+
+		# endif
 
 			r = engine->SetDefaultNamespace("LineStyle"); assert(r >= 0);
 			{
@@ -104,8 +118,15 @@ namespace s3d
 			}
 			r = engine->SetDefaultNamespace(""); assert(r >= 0);
 
-			//r = engine->RegisterObjectMethod(TypeName, "LineStyle opImplConv() const", asFUNCTION(ConvToLineStyle), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		# if defined(SIV3D_TARGET_WINDOWS)
+
+			r = engine->RegisterObjectMethod(TypeName, "LineStyle opImplConv() const", asFUNCTION(ConvToLineStyle), asCALL_CDECL_OBJLAST); assert(r >= 0);
+
+		# else
+
 			r = engine->RegisterObjectMethod(TypeName, "LineStyle opImplConv() const", asFUNCTION(ConvToLineStyle_Generic), asCALL_GENERIC); assert(r >= 0);
+
+		# endif
 		}
 	}
 }
