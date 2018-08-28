@@ -93,6 +93,7 @@ namespace s3d
 
 	void RegisterDate(AngelScript::asIScriptEngine* engine);
 	void RegisterDateTime(AngelScript::asIScriptEngine* engine);
+	void RegisterTime(AngelScript::asIScriptEngine* engine);
 	void RegisterStopwatch(AngelScript::asIScriptEngine* engine);
 	void RegisterCustomStopwatch(AngelScript::asIScriptEngine* engine);
 	void RegisterTimer(AngelScript::asIScriptEngine* engine);

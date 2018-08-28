@@ -95,6 +95,7 @@ namespace s3d
 
 		RegisterDate(m_engine);
 		RegisterDateTime(m_engine);
+		RegisterTime(m_engine);
 		RegisterStopwatch(m_engine);
 		RegisterCustomStopwatch(m_engine);
 		RegisterTimer(m_engine);

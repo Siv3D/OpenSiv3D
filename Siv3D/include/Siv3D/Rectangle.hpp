@@ -123,15 +123,12 @@ namespace s3d
 		/// <param name="_h">
 		/// 長方形の左上の点の Y 座標
 		/// </param>
-		/// <param name="_w">
-		/// 長方形の幅
+		/// <param name="_size">
+		/// 長方形の縦横の大きさ
 		/// </param>
-		/// <param name="_h">
-		/// 長方形の高さ
-		/// </param>
-		constexpr Rectangle(value_type _x, value_type _y, value_type _w, value_type _h) noexcept
+		constexpr Rectangle(value_type _x, value_type _y, value_type _size) noexcept
 			: pos(_x, _y)
-			, size(_w, _h) {}
+			, size(_size, _size) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -142,12 +139,15 @@ namespace s3d
 		/// <param name="_h">
 		/// 長方形の左上の点の Y 座標
 		/// </param>
-		/// <param name="_size">
-		/// 長方形の縦横の大きさ
+		/// <param name="_w">
+		/// 長方形の幅
 		/// </param>
-		constexpr Rectangle(value_type _x, value_type _y, value_type _size) noexcept
+		/// <param name="_h">
+		/// 長方形の高さ
+		/// </param>
+		constexpr Rectangle(value_type _x, value_type _y, value_type _w, value_type _h) noexcept
 			: pos(_x, _y)
-			, size(_size, _size) {}
+			, size(_w, _h) {}
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -772,7 +772,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		constexpr Rectangle& set(position_type _pos, value_type _size) noexcept
+		constexpr Rectangle& set(const position_type& _pos, value_type _size) noexcept
 		{
 			return set(_pos.x, _pos.y, _size, _size);
 		}
@@ -792,7 +792,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		constexpr Rectangle& set(position_type _pos, value_type _w, value_type _h) noexcept
+		constexpr Rectangle& set(const position_type& _pos, value_type _w, value_type _h) noexcept
 		{
 			return set(_pos.x, _pos.y, _w, _h);
 		}
@@ -809,7 +809,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		constexpr Rectangle& set(position_type _pos, size_type _size) noexcept
+		constexpr Rectangle& set(const position_type& _pos, const size_type& _size) noexcept
 		{
 			return set(_pos.x, _pos.y, _size.x, _size.y);
 		}
@@ -1393,12 +1393,12 @@ namespace s3d
 
 		[[nodiscard]] constexpr Line bottom() const noexcept
 		{
-			return{ bl(), br() };
+			return{ br(), bl() };
 		}
 
 		[[nodiscard]] constexpr Line left() const noexcept
 		{
-			return{ tl(), bl() };
+			return{ bl(), tl() };
 		}
 
 		/// <summary>
@@ -1568,11 +1568,6 @@ namespace s3d
 		const Rectangle& paintFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color) const;
 
 		const Rectangle& overwriteFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color) const;
-
-
-		//// paintFrame
-
-		//// overpaintFrame
 
 		/// <summary>
 		/// 長方形を描きます。

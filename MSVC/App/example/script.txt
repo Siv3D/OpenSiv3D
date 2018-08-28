@@ -46,4 +46,5 @@ void Draw(double t)
 	box.draw();
 
 	Line(Cursor::Pos(), 320, 240).draw(LineStyle::RoundDot.offset(t*10), 20, HSV(0), HSV(200));
+
 }

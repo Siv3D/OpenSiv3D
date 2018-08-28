@@ -279,6 +279,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_RoundRect.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Stopwatch.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_System.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Time.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Timer.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Triangle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Types.cpp" />
