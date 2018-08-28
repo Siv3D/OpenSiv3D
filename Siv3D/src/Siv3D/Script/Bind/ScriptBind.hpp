@@ -112,6 +112,8 @@ namespace s3d
 	void RegisterVec4(AngelScript::asIScriptEngine* engine);
 	void RegisterCircular(AngelScript::asIScriptEngine* engine);
 	//void RegisterOffsetCircular(AngelScript::asIScriptEngine* engine);
+	void RegisterBezier2(AngelScript::asIScriptEngine* engine);
+	void RegisterBezier3(AngelScript::asIScriptEngine* engine);
 	//void RegisterCylindrical(AngelScript::asIScriptEngine* engine);
 	//void RegisterSpherical(AngelScript::asIScriptEngine* engine);
 	//void RegisterMat3x2(AngelScript::asIScriptEngine* engine);
@@ -127,8 +129,7 @@ namespace s3d
 	//void RegisterPolygon(AngelScript::asIScriptEngine* engine);
 	//void RegisterMultiPolygon(AngelScript::asIScriptEngine* engine);
 	//void RegisterLineString(AngelScript::asIScriptEngine* engine);
-	//void RegisterBezier2(AngelScript::asIScriptEngine* engine);
-	//void RegisterBezier3(AngelScript::asIScriptEngine* engine);
+
 
 
 	void RegisterLineStyle(AngelScript::asIScriptEngine* engine);

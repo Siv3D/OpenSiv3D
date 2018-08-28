@@ -251,6 +251,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\AngelScript\scriptarray.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\AngelScript\scriptbuilder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\AngelScript\scriptstdstring.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Bezier2.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Bezier3.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Circle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Circular.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Color.cpp" />

@@ -113,6 +113,8 @@ namespace s3d
 		RegisterVec3(m_engine);
 		RegisterVec4(m_engine);
 		RegisterCircular(m_engine);
+		RegisterBezier2(m_engine);
+		RegisterBezier3(m_engine);
 		RegisterLine(m_engine);
 		RegisterRect(m_engine);
 		RegisterRectF(m_engine);

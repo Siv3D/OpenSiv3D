@@ -27,14 +27,14 @@ void Main()
 		return;
 	}
 
-	Print << U"Compile...[{}]"_fmt(script.compiled() ? U"OK" : U"Failed");
+	//Print << U"Compile...[{}]"_fmt(script.compiled() ? U"OK" : U"Failed");
 	script.getMessages().each(Print);
-	auto GetNumber = script.getFunction<int32()>(U"GetNumber");
-	auto GetMessage = script.getFunction<String()>(U"GetMessage");
-	auto Test = script.getFunction<void()>(U"Test");
+	//auto GetNumber = script.getFunction<int32()>(U"GetNumber");
+	//auto GetMessage = script.getFunction<String()>(U"GetMessage");
+	//auto Test = script.getFunction<void()>(U"Test");
 	auto Draw = script.getFunction<void(double)>(U"Draw");
-	Print << GetNumber();
-	Print << GetMessage();
+	//Print << GetNumber();
+	//Print << GetMessage();
 
 	Stopwatch s(true);
 
@@ -45,22 +45,23 @@ void Main()
 		if (HasChanged(script.path(), fileChanges))
 		{
 			ClearPrint();
+			s.restart();
 			const bool compileSucceeded = script.reload();
-			Print << U"Recompile...[{}]"_fmt(compileSucceeded ? U"OK" : U"Failed");
+			//Print << U"Recompile...[{}]"_fmt(compileSucceeded ? U"OK" : U"Failed");
 			script.getMessages().each(Print);
 
-			GetNumber = script.getFunction<int32()>(U"GetNumber");
-			GetMessage = script.getFunction<String()>(U"GetMessage");
-			Test = script.getFunction<void()>(U"Test");
+			//GetNumber = script.getFunction<int32()>(U"GetNumber");
+			//GetMessage = script.getFunction<String()>(U"GetMessage");
+			//Test = script.getFunction<void()>(U"Test");
 			Draw = script.getFunction<void(double)>(U"Draw");
-			Print << GetNumber();
-			Print << GetMessage();
+			//Print << GetNumber();
+			//Print << GetMessage();
 		}
 
-		if (MouseR.down())
-		{
-			Test();
-		}
+		//if (MouseR.down())
+		//{
+		//	Test();
+		//}
 
 		Draw(s.sF());
 	}
