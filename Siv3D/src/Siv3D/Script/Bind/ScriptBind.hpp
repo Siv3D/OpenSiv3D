@@ -146,9 +146,7 @@ namespace s3d
 	//void RegisterRandom(asIScriptEngine* engine);
 
 	void RegisterSystem(AngelScript::asIScriptEngine* engine);
-
-	//void RegisterWindow(asIScriptEngine* engine);
-
+	void RegisterWindow(AngelScript::asIScriptEngine* engine);
 	void RegisterCursor(AngelScript::asIScriptEngine* engine);
 	void RegisterGraphics(AngelScript::asIScriptEngine* engine);
 

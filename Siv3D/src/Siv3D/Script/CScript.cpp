@@ -130,8 +130,10 @@ namespace s3d
 		RegisterPrint(m_engine);
 
 		RegisterSystem(m_engine);
+		RegisterWindow(m_engine);
 		RegisterCursor(m_engine);
 		RegisterGraphics(m_engine);
+
 		RegisterRandom(m_engine);
 
 		const auto nullScript = std::make_shared<ScriptData>(ScriptData::Null{}, m_engine);
