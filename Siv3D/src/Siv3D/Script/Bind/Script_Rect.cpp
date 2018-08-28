@@ -74,7 +74,7 @@ namespace s3d
 		return rect;
 	}
 
-	void RegisterRect(asIScriptEngine *engine)
+	void RegisterRect(asIScriptEngine* engine)
 	{
 		constexpr char TypeName[] = "Rect";
 

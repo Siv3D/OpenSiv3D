@@ -41,6 +41,8 @@ namespace s3d
 		r = engine->RegisterObjectType("Vec3", sizeof(Vec3), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("Vec4", sizeof(Vec4), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("Circular", sizeof(Circular), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
+		r = engine->RegisterObjectType("Bezier2", sizeof(Bezier2), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
+		r = engine->RegisterObjectType("Bezier3", sizeof(Bezier3), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("Line", sizeof(Line), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("Rect", sizeof(Rect), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("RectF", sizeof(RectF), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
@@ -95,8 +97,8 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("Vec3") == static_cast<int>(ScriptTypeID::Vec3));
 		assert(engine->GetTypeIdByDecl("Vec4") == static_cast<int>(ScriptTypeID::Vec4));
 		assert(engine->GetTypeIdByDecl("Circular") == static_cast<int>(ScriptTypeID::Circular));
-		//assert(engine->GetTypeIdByDecl("Bezier2") == static_cast<int>(ScriptTypeID::Bezier2);
-		//assert(engine->GetTypeIdByDecl("Bezier3") == static_cast<int>(ScriptTypeID::Bezier3));
+		assert(engine->GetTypeIdByDecl("Bezier2") == static_cast<int>(ScriptTypeID::Bezier2));
+		assert(engine->GetTypeIdByDecl("Bezier3") == static_cast<int>(ScriptTypeID::Bezier3));
 		assert(engine->GetTypeIdByDecl("Line") == static_cast<int>(ScriptTypeID::Line));
 		assert(engine->GetTypeIdByDecl("Rect") == static_cast<int>(ScriptTypeID::Rect));
 		assert(engine->GetTypeIdByDecl("RectF") == static_cast<int>(ScriptTypeID::RectF));

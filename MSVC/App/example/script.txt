@@ -31,9 +31,10 @@ class Box
 
 		m_rect.draw(hsv);
 
-		Circle(20, 240, 100).movedBy(Periodic::Sine0_1(3) * 300, 0)
-			.drawShadow(Vec2(2,4), 15, 2);
-		Circle(20, 240, 100).movedBy(Periodic::Sine0_1(3) * 300, 0).draw();
+		Circle(20, 240, 100)
+			.movedBy(Periodic::Sine0_1(3) * 300, 0)
+			.drawShadow(Vec2(2,4), 15, 2)
+			.draw();
 	}
 }
 
