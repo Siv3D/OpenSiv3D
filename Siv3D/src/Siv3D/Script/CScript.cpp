@@ -109,8 +109,8 @@ namespace s3d
 		RegisterHSV(m_engine);
 		RegisterPoint(m_engine);
 		RegisterVec2(m_engine);
-		//RegisterVec3(m_engine);
-		//RegisterVec4(m_engine);
+		RegisterVec3(m_engine);
+		RegisterVec4(m_engine);
 		RegisterCircular(m_engine);
 		RegisterLine(m_engine);
 		RegisterRect(m_engine);

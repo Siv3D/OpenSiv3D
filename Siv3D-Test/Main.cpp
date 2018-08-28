@@ -27,7 +27,6 @@ void Main()
 		return;
 	}
 
-	Print << U"----------------";
 	Print << U"Compile...[{}]"_fmt(script.compiled() ? U"OK" : U"Failed");
 	script.getMessages().each(Print);
 	auto GetNumber = script.getFunction<int32()>(U"GetNumber");
@@ -46,7 +45,6 @@ void Main()
 		if (HasChanged(script.path(), fileChanges))
 		{
 			ClearPrint();
-			Print << U"----------------";
 			const bool compileSucceeded = script.reload();
 			Print << U"Recompile...[{}]"_fmt(compileSucceeded ? U"OK" : U"Failed");
 			script.getMessages().each(Print);

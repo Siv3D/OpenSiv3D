@@ -29,7 +29,7 @@ namespace s3d
 		new(self) Point(x, y);
 	}
 
-	static void ConstructListII(int32 *list, ShapeType* self)
+	static void ConstructListII(int32* list, ShapeType* self)
 	{
 		new(self) Point(list[0], list[1]);
 	}

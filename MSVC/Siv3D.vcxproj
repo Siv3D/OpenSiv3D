@@ -283,6 +283,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Triangle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Types.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Vec2.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Vec3.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Vec4.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\CScript.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\ScriptData.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\ScriptFactory.cpp" />

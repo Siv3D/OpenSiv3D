@@ -107,8 +107,8 @@ namespace s3d
 	void RegisterHSV(AngelScript::asIScriptEngine* engine);
 	void RegisterPoint(AngelScript::asIScriptEngine* engine);
 	void RegisterVec2(AngelScript::asIScriptEngine* engine);
-	//void RegisterVec3(AngelScript::asIScriptEngine* engine);
-	//void RegisterVec4(AngelScript::asIScriptEngine* engine);
+	void RegisterVec3(AngelScript::asIScriptEngine* engine);
+	void RegisterVec4(AngelScript::asIScriptEngine* engine);
 	void RegisterCircular(AngelScript::asIScriptEngine* engine);
 	//void RegisterOffsetCircular(AngelScript::asIScriptEngine* engine);
 	//void RegisterCylindrical(AngelScript::asIScriptEngine* engine);
