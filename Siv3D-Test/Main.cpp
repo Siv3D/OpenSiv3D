@@ -17,52 +17,34 @@ bool HasChanged(const FilePath& target, const Array<std::pair<FilePath, FileActi
 
 void Main()
 {
-	const FilePath scriptFilePath = FileSystem::FullPath(U"example/script.txt");
-	const DirectoryWatcher watcher(FileSystem::ParentPath(scriptFilePath));
-
-	//Script script(Arg::code = TextReader(scriptFilePath).readAll());
-	Script script(scriptFilePath);
+	Script script(U"example/script.txt");
+	script.getMessages().each(Print);
 	if (!script)
 	{
 		return;
 	}
 
-	//Print << U"Compile...[{}]"_fmt(script.compiled() ? U"OK" : U"Failed");
-	script.getMessages().each(Print);
-	//auto GetNumber = script.getFunction<int32()>(U"GetNumber");
-	//auto GetMessage = script.getFunction<String()>(U"GetMessage");
-	//auto Test = script.getFunction<void()>(U"Test");
-	auto Draw = script.getFunction<void(double)>(U"Draw");
-	//Print << GetNumber();
-	//Print << GetMessage();
-
-	Stopwatch s(true);
+	bool requestReload = false;
+	auto callback = [&requestReload, path = script.path(), watcher = DirectoryWatcher(FileSystem::ParentPath(script.path()))]()
+	{
+		requestReload = HasChanged(path, watcher.retrieveChanges());
+		return !requestReload;
+	};
+	script.setSystemUpdateCallback(callback);
+	
+	auto ScriptMain = script.getFunction<void()>(U"Main");
 
 	while (System::Update())
 	{
-		const auto fileChanges = watcher.retrieveChanges();
-
-		if (HasChanged(script.path(), fileChanges))
+		if (requestReload || !callback())
 		{
 			ClearPrint();
-			s.restart();
-			const bool compileSucceeded = script.reload();
-			//Print << U"Recompile...[{}]"_fmt(compileSucceeded ? U"OK" : U"Failed");
+			script.reload();
 			script.getMessages().each(Print);
-
-			//GetNumber = script.getFunction<int32()>(U"GetNumber");
-			//GetMessage = script.getFunction<String()>(U"GetMessage");
-			//Test = script.getFunction<void()>(U"Test");
-			Draw = script.getFunction<void(double)>(U"Draw");
-			//Print << GetNumber();
-			//Print << GetMessage();
+			ScriptMain = script.getFunction<void()>(U"Main");
+			requestReload = false;
 		}
 
-		//if (MouseR.down())
-		//{
-		//	Test();
-		//}
-
-		Draw(s.sF());
+		ScriptMain();
 	}
 }

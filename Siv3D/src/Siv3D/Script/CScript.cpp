@@ -10,7 +10,6 @@
 //-----------------------------------------------
 
 # include "CScript.hpp"
-
 # include <Siv3D/FileSystem.hpp>
 # include "Bind/ScriptBind.hpp"
 # include "AngelScript/scriptarray.h"
@@ -113,6 +112,7 @@ namespace s3d
 		RegisterVec3(m_engine);
 		RegisterVec4(m_engine);
 		RegisterCircular(m_engine);
+		RegisterOffsetCircular(m_engine);
 		RegisterBezier2(m_engine);
 		RegisterBezier3(m_engine);
 		RegisterLine(m_engine);
@@ -126,6 +126,8 @@ namespace s3d
 
 
 		RegisterLineStyle(m_engine);
+
+		RegisterMath(m_engine);
 
 		RegisterPeriodic(m_engine);
 
@@ -182,7 +184,11 @@ namespace s3d
 			return ScriptID::NullAsset();
 		}
 
-		return m_scripts.add(script);
+		const ScriptID id = m_scripts.add(script);
+
+		m_scripts[id]->setScriptID(id.value());
+
+		return id;
 	}
 
 	ScriptID CScript::createFromFile(const FilePath& path, const int32 compileOption)
@@ -201,7 +207,11 @@ namespace s3d
 			return ScriptID::NullAsset();
 		}
 
-		return m_scripts.add(script);
+		const ScriptID id = m_scripts.add(script);
+
+		m_scripts[id]->setScriptID(id.value());
+
+		return id;
 	}
 
 	void CScript::release(const ScriptID handleID)
@@ -224,9 +234,14 @@ namespace s3d
 		return m_scripts[handleID]->compileSucceeded();
 	}
 
+	void CScript::setSystemUpdateCallback(const ScriptID handleID, const std::function<bool(void)>& callback)
+	{
+		return m_scripts[handleID]->setSystemUpdateCallback(callback);
+	}
+
 	bool CScript::reload(const ScriptID handleID, const int32 compileOption)
 	{
-		return m_scripts[handleID]->reload(compileOption);
+		return m_scripts[handleID]->reload(compileOption, handleID.value());
 	}
 
 	const FilePath& CScript::path(const ScriptID handleID)
@@ -241,9 +256,14 @@ namespace s3d
 		return results;
 	}
 
-	const Array<String>& CScript::retrieveMessages(ScriptID handleID)
+	const Array<String>& CScript::retrieveMessages(const ScriptID handleID)
 	{
 		return m_scripts[handleID]->getMessages();
+	}
+
+	const std::function<bool(void)>& CScript::getSystemUpdateCallback(const uint64 scriptID)
+	{
+		return m_scripts[ScriptID(static_cast<ScriptID::ValueType>(scriptID))]->getSystemUpdateCallback();
 	}
 
 	AngelScript::asIScriptEngine* CScript::getEngine()

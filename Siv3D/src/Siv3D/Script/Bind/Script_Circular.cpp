@@ -51,6 +51,9 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 opAdd(const Vec2 &in) const", asMETHODPR(Circular, operator+, (const Vec2&) const, Vec2), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 opSub(const Vec2 &in) const", asMETHODPR(Circular, operator-, (const Vec2&) const, Vec2), asCALL_THISCALL); assert(r >= 0);
 
+		r = engine->RegisterObjectMethod(TypeName, "OffsetCircular rotated(double) const", asMETHOD(ShapeType, rotated), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "OffsetCircular& rotate(double)", asMETHOD(ShapeType, rotate), asCALL_THISCALL); assert(r >= 0);
+
 		//r = engine->RegisterObjectMethod(TypeName, "Float2 toFloat2() const", asMETHOD(Circular, toFloat2), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 toVec2() const", asMETHOD(Circular, toVec2), asCALL_THISCALL); assert(r >= 0);
 

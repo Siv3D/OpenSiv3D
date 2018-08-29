@@ -34,6 +34,8 @@ namespace s3d
 
 		Array<String> m_messages;
 
+		std::function<bool(void)> m_systemUpdateCallback;
+
 		bool m_fromFile = false;
 
 		bool m_complieSucceeded = false;
@@ -62,14 +64,20 @@ namespace s3d
 
 		bool compileSucceeded() const;
 
+		void setSystemUpdateCallback(const std::function<bool(void)>& callback);
+
+		const std::function<bool(void)>& getSystemUpdateCallback() const;
+
 		const Array<String>& getMessages() const;
 
-		bool reload(int32 compileOption);
+		bool reload(int32 compileOption, uint64 scriptID);
 
 		const FilePath& path() const;
 
 		bool withoutLineCues() const;
 
 		bool isInitialized() const;
+
+		void setScriptID(uint64 id);
 	};
 }

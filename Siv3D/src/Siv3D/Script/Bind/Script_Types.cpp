@@ -16,9 +16,9 @@ namespace s3d
 {
 	using namespace AngelScript;
 
-	void RegisterTypes(asIScriptEngine *engine)
+	void RegisterTypes(asIScriptEngine* engine)
 	{
-		int r = 0;
+		int32 r = 0;
 		//r = engine->RegisterObjectType("Optional<class T>", 0, asOBJ_REF | asOBJ_GC | asOBJ_TEMPLATE); assert(r >= 0);
 		r = engine->RegisterObjectType("String", sizeof(String), asOBJ_VALUE | asGetTypeTraits<String>()); assert(r >= 0);
 		
@@ -41,6 +41,7 @@ namespace s3d
 		r = engine->RegisterObjectType("Vec3", sizeof(Vec3), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("Vec4", sizeof(Vec4), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("Circular", sizeof(Circular), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
+		r = engine->RegisterObjectType("OffsetCircular", sizeof(OffsetCircular), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("Bezier2", sizeof(Bezier2), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("Bezier3", sizeof(Bezier3), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("Line", sizeof(Line), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
@@ -97,6 +98,7 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("Vec3") == static_cast<int>(ScriptTypeID::Vec3));
 		assert(engine->GetTypeIdByDecl("Vec4") == static_cast<int>(ScriptTypeID::Vec4));
 		assert(engine->GetTypeIdByDecl("Circular") == static_cast<int>(ScriptTypeID::Circular));
+		assert(engine->GetTypeIdByDecl("OffsetCircular") == static_cast<int>(ScriptTypeID::OffsetCircular));
 		assert(engine->GetTypeIdByDecl("Bezier2") == static_cast<int>(ScriptTypeID::Bezier2));
 		assert(engine->GetTypeIdByDecl("Bezier3") == static_cast<int>(ScriptTypeID::Bezier3));
 		assert(engine->GetTypeIdByDecl("Line") == static_cast<int>(ScriptTypeID::Line));
@@ -127,5 +129,7 @@ namespace s3d
 		//assert(engine->GetTypeIdByDecl("DynamicTexture") == static_cast<int>(ScriptTypeID::DynamicTexture));
 		//assert(engine->GetTypeIdByDecl("Font") == static_cast<int>(ScriptTypeID::Font));
 		//assert(engine->GetTypeIdByDecl("DrawableString") == static_cast<int>(ScriptTypeID::DrawableString));
+
+		r = engine->RegisterTypedef("size_t", "uint64"); assert(r >= 0);
 	}
 }

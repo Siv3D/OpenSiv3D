@@ -52,6 +52,7 @@ namespace s3d
 		Vec3,
 		Vec4,
 		Circular,
+		OffsetCircular,
 		Bezier2,
 		Bezier3,
 		Line,
@@ -111,7 +112,7 @@ namespace s3d
 	void RegisterVec3(AngelScript::asIScriptEngine* engine);
 	void RegisterVec4(AngelScript::asIScriptEngine* engine);
 	void RegisterCircular(AngelScript::asIScriptEngine* engine);
-	//void RegisterOffsetCircular(AngelScript::asIScriptEngine* engine);
+	void RegisterOffsetCircular(AngelScript::asIScriptEngine* engine);
 	void RegisterBezier2(AngelScript::asIScriptEngine* engine);
 	void RegisterBezier3(AngelScript::asIScriptEngine* engine);
 	//void RegisterCylindrical(AngelScript::asIScriptEngine* engine);
@@ -134,13 +135,15 @@ namespace s3d
 
 	void RegisterLineStyle(AngelScript::asIScriptEngine* engine);
 
+	void RegisterMath(AngelScript::asIScriptEngine* engine);
+
 	void RegisterPeriodic(AngelScript::asIScriptEngine* engine);
 
 	void RegisterPrint(AngelScript::asIScriptEngine* engine);
 
 	//void RegisterTime(asIScriptEngine* engine);
 
-	//void RegisterMath(asIScriptEngine* engine);
+	
 
 	//void RegisterMathConstants(asIScriptEngine* engine);
 

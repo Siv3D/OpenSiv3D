@@ -267,8 +267,10 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_HSV.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Line.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_LineStyle.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Math.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_MicrosecClock.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_MillisecClock.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_OffsetCircular.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Palette.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Periodic.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Point.cpp" />

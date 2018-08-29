@@ -93,6 +93,18 @@ namespace s3d
 			return toVec2() - v;
 		}
 
+		[[nodiscard]] constexpr CircularBase rotated(double angle) const noexcept
+		{
+			return CircularBase(*this).rotate(angle);
+		}
+
+		constexpr CircularBase& rotate(double angle) noexcept
+		{
+			theta += angle;
+
+			return *this;
+		}
+
 		[[nodiscard]] Float2 toFloat2() const noexcept
 		{
 			return{ std::sin(theta + Clock()) * r, -std::cos(theta + Clock()) * r };

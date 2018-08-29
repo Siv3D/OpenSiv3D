@@ -28,6 +28,8 @@ namespace s3d
 
 		AngelScript::asIScriptContext* context = nullptr;
 
+		uint64 scriptID = 0;
+
 		bool withoutLineCues = false;
 
 		ScriptModuleData() = default;
@@ -37,13 +39,20 @@ namespace s3d
 
 	namespace detail
 	{
-		extern uint64 scriptStepCounter;
+		enum class ScriptUserDataIndex
+		{
+			ScriptID = 3000,
+
+			StepCounter = 3001,
+		};
 
 		inline void LineCallback(AngelScript::asIScriptContext* ctx, unsigned long*)
 		{
-			++detail::scriptStepCounter;
+			uint64* stepCounter = static_cast<uint64*>(ctx->GetUserData(AngelScript::asPWORD(static_cast<uint32>(ScriptUserDataIndex::StepCounter))));
 
-			if (detail::scriptStepCounter > 1'000'000)
+			++(*stepCounter);
+
+			if ((*stepCounter) > 1'000'000)
 			{
 				ctx->Suspend();
 			}
@@ -247,7 +256,10 @@ namespace s3d
 				m_moduleData->context->SetLineCallback(asFUNCTION(detail::LineCallback), &steps, AngelScript::asCALL_CDECL);
 			}
 
-			detail::scriptStepCounter = 0;
+			uint64 scriptID = m_moduleData->scriptID;
+			uint64 scriptStepCounter = 0;
+			m_moduleData->context->SetUserData(&scriptID, static_cast<uint32>(detail::ScriptUserDataIndex::ScriptID));
+			m_moduleData->context->SetUserData(&scriptStepCounter, static_cast<uint32>(detail::ScriptUserDataIndex::StepCounter));
 
 			const int32 r = m_moduleData->context->Execute();
 
@@ -412,6 +424,10 @@ namespace s3d
 		}
 
 		[[nodiscard]] bool compiled() const;
+
+		void setSystemUpdateCallback(const std::function<bool(void)>& callback);
+
+		void clearSystemUpdateCallback();
 
 		bool reload(int32 compileOption = 0);
 
