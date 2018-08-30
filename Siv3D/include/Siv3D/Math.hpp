@@ -1137,6 +1137,226 @@ namespace s3d
 
 //////////////////////////////////////////////////
 //
+//	ToRadians
+//
+//////////////////////////////////////////////////
+
+	namespace Math
+	{
+		/// <summary>
+		/// 度数法からラジアンに変換します。
+		/// </summary>
+		[[nodiscard]] inline constexpr float ToRadians(float x) noexcept
+		{
+			return x * (PiF / 180.0f);
+		}
+
+		/// <summary>
+		/// 度数法からラジアンに変換します。
+		/// </summary>
+		[[nodiscard]] inline constexpr double ToRadians(double x) noexcept
+		{
+			return x * (Pi / 180.0);
+		}
+
+		/// <summary>
+		/// 度数法からラジアンに変換します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
+		[[nodiscard]] inline constexpr double ToRadians(Type x) noexcept
+		{
+			return ToRadians(static_cast<double>(x));
+		}
+
+		/// <summary>
+		/// 度数法からラジアンに変換します。
+		/// </summary>
+		[[nodiscard]] inline constexpr Vec2 ToRadians(const Point& v) noexcept
+		{
+			return{ ToRadians(v.x), ToRadians(v.y) };
+		}
+
+		/// <summary>
+		/// 度数法からラジアンに変換します。
+		/// </summary>
+		[[nodiscard]] inline constexpr Float2 ToRadians(const Float2& v) noexcept
+		{
+			return{ ToRadians(v.x), ToRadians(v.y) };
+		}
+
+		/// <summary>
+		/// 度数法からラジアンに変換します。
+		/// </summary>
+		[[nodiscard]] inline constexpr Float3 ToRadians(const Float3& v) noexcept
+		{
+			return{ ToRadians(v.x), ToRadians(v.y), ToRadians(v.z) };
+		}
+
+		/// <summary>
+		/// 度数法からラジアンに変換します。
+		/// </summary>
+		[[nodiscard]] inline constexpr Float4 ToRadians(const Float4& v) noexcept
+		{
+			return{ ToRadians(v.x), ToRadians(v.y), ToRadians(v.z), ToRadians(v.w) };
+		}
+
+		/// <summary>
+		/// 度数法からラジアンに変換します。
+		/// </summary>
+		[[nodiscard]] inline constexpr Vec2 ToRadians(const Vec2& v) noexcept
+		{
+			return{ ToRadians(v.x), ToRadians(v.y) };
+		}
+
+		/// <summary>
+		/// 度数法からラジアンに変換します。
+		/// </summary>
+		[[nodiscard]] inline constexpr Vec3 ToRadians(const Vec3& v) noexcept
+		{
+			return{ ToRadians(v.x), ToRadians(v.y), ToRadians(v.z) };
+		}
+
+		/// <summary>
+		/// 度数法からラジアンに変換します。
+		/// </summary>
+		[[nodiscard]] inline constexpr Vec4 ToRadians(const Vec4& v) noexcept
+		{
+			return{ ToRadians(v.x), ToRadians(v.y), ToRadians(v.z), ToRadians(v.w) };
+		}
+	}
+
+	namespace detail
+	{
+		struct ToRadians_impl
+		{
+			template <class TypeX>
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
+			{
+				return Math::ToRadians(x);
+			}
+
+			template <class Type = void>
+			[[nodiscard]] constexpr auto operator ()(PlaceHolder_t) const noexcept
+			{
+				return detail::ToRadians_impl();
+			}
+		};
+	}
+
+	constexpr auto ToRadians = detail::ToRadians_impl();
+
+//////////////////////////////////////////////////
+//
+//	ToDegrees
+//
+//////////////////////////////////////////////////
+
+	namespace Math
+	{
+		/// <summary>
+		/// ラジアンから度数法に変換します。
+		/// </summary>
+		[[nodiscard]] inline constexpr float ToDegrees(float x) noexcept
+		{
+			return x * (180.0f / PiF);
+		}
+
+		/// <summary>
+		/// ラジアンから度数法に変換します。
+		/// </summary>
+		[[nodiscard]] inline constexpr double ToDegrees(double x) noexcept
+		{
+			return x * (180.0 / Pi);
+		}
+
+		/// <summary>
+		/// ラジアンから度数法に変換します。
+		/// </summary>
+		template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
+		[[nodiscard]] inline constexpr double ToDegrees(Type x) noexcept
+		{
+			return ToDegrees(static_cast<double>(x));
+		}
+
+		/// <summary>
+		/// ラジアンから度数法に変換します。
+		/// </summary>
+		[[nodiscard]] inline constexpr Vec2 ToDegrees(const Point& v) noexcept
+		{
+			return{ ToDegrees(v.x), ToDegrees(v.y) };
+		}
+
+		/// <summary>
+		/// ラジアンから度数法に変換します。
+		/// </summary>
+		[[nodiscard]] inline constexpr Float2 ToDegrees(const Float2& v) noexcept
+		{
+			return{ ToDegrees(v.x), ToDegrees(v.y) };
+		}
+
+		/// <summary>
+		/// ラジアンから度数法に変換します。
+		/// </summary>
+		[[nodiscard]] inline constexpr Float3 ToDegrees(const Float3& v) noexcept
+		{
+			return{ ToDegrees(v.x), ToDegrees(v.y), ToDegrees(v.z) };
+		}
+
+		/// <summary>
+		/// ラジアンから度数法に変換します。
+		/// </summary>
+		[[nodiscard]] inline constexpr Float4 ToDegrees(const Float4& v) noexcept
+		{
+			return{ ToDegrees(v.x), ToDegrees(v.y), ToDegrees(v.z), ToDegrees(v.w) };
+		}
+
+		/// <summary>
+		/// ラジアンから度数法に変換します。
+		/// </summary>
+		[[nodiscard]] inline constexpr Vec2 ToDegrees(const Vec2& v) noexcept
+		{
+			return{ ToDegrees(v.x), ToDegrees(v.y) };
+		}
+
+		/// <summary>
+		/// ラジアンから度数法に変換します。
+		/// </summary>
+		[[nodiscard]] inline constexpr Vec3 ToDegrees(const Vec3& v) noexcept
+		{
+			return{ ToDegrees(v.x), ToDegrees(v.y), ToDegrees(v.z) };
+		}
+
+		/// <summary>
+		/// ラジアンから度数法に変換します。
+		/// </summary>
+		[[nodiscard]] inline constexpr Vec4 ToDegrees(const Vec4& v) noexcept
+		{
+			return{ ToDegrees(v.x), ToDegrees(v.y), ToDegrees(v.z), ToDegrees(v.w) };
+		}
+	}
+
+	namespace detail
+	{
+		struct ToDegrees_impl
+		{
+			template <class TypeX>
+			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
+			{
+				return Math::ToDegrees(x);
+			}
+
+			template <class Type = void>
+			[[nodiscard]] constexpr auto operator ()(PlaceHolder_t) const noexcept
+			{
+				return detail::ToDegrees_impl();
+			}
+		};
+	}
+
+	constexpr auto ToDegrees = detail::ToDegrees_impl();
+
+//////////////////////////////////////////////////
+//
 //	Radians
 //
 //////////////////////////////////////////////////
@@ -1146,7 +1366,7 @@ namespace s3d
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr float Radians(float x) noexcept
+		[[deprecated("deprecated in v0.3.0: use ToRadians() instead")]][[nodiscard]] inline constexpr float Radians(float x) noexcept
 		{
 			return x * (PiF / 180.0f);
 		}
@@ -1154,7 +1374,7 @@ namespace s3d
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr double Radians(double x) noexcept
+		[[deprecated("deprecated in v0.3.0: use ToRadians() instead")]][[nodiscard]] inline constexpr double Radians(double x) noexcept
 		{
 			return x * (Pi / 180.0);
 		}
@@ -1163,65 +1383,65 @@ namespace s3d
 		/// 度数法からラジアンに変換します。
 		/// </summary>
 		template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
-		[[nodiscard]] inline constexpr double Radians(Type x) noexcept
+		[[deprecated("deprecated in v0.3.0: use ToRadians() instead")]][[nodiscard]] inline constexpr double Radians(Type x) noexcept
 		{
-			return Radians(static_cast<double>(x));
+			return ToRadians(static_cast<double>(x));
 		}
 
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec2 Radians(const Point& v) noexcept
+		[[deprecated("deprecated in v0.3.0: use ToRadians() instead")]][[nodiscard]] inline constexpr Vec2 Radians(const Point& v) noexcept
 		{
-			return{ Radians(v.x), Radians(v.y) };
+			return{ ToRadians(v.x), ToRadians(v.y) };
 		}
 
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float2 Radians(const Float2& v) noexcept
+		[[deprecated("deprecated in v0.3.0: use ToRadians() instead")]][[nodiscard]] inline constexpr Float2 Radians(const Float2& v) noexcept
 		{
-			return{ Radians(v.x), Radians(v.y) };
+			return{ ToRadians(v.x), ToRadians(v.y) };
 		}
 
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float3 Radians(const Float3& v) noexcept
+		[[deprecated("deprecated in v0.3.0: use ToRadians() instead")]][[nodiscard]] inline constexpr Float3 Radians(const Float3& v) noexcept
 		{
-			return{ Radians(v.x), Radians(v.y), Radians(v.z) };
+			return{ ToRadians(v.x), ToRadians(v.y), ToRadians(v.z) };
 		}
 
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float4 Radians(const Float4& v) noexcept
+		[[deprecated("deprecated in v0.3.0: use ToRadians() instead")]][[nodiscard]] inline constexpr Float4 Radians(const Float4& v) noexcept
 		{
-			return{ Radians(v.x), Radians(v.y), Radians(v.z), Radians(v.w) };
+			return{ ToRadians(v.x), ToRadians(v.y), ToRadians(v.z), ToRadians(v.w) };
 		}
 
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec2 Radians(const Vec2& v) noexcept
+		[[deprecated("deprecated in v0.3.0: use ToRadians() instead")]][[nodiscard]] inline constexpr Vec2 Radians(const Vec2& v) noexcept
 		{
-			return{ Radians(v.x), Radians(v.y) };
+			return{ ToRadians(v.x), ToRadians(v.y) };
 		}
 
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec3 Radians(const Vec3& v) noexcept
+		[[deprecated("deprecated in v0.3.0: use ToRadians() instead")]][[nodiscard]] inline constexpr Vec3 Radians(const Vec3& v) noexcept
 		{
-			return{ Radians(v.x), Radians(v.y), Radians(v.z) };
+			return{ ToRadians(v.x), ToRadians(v.y), ToRadians(v.z) };
 		}
 
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec4 Radians(const Vec4& v) noexcept
+		[[deprecated("deprecated in v0.3.0: use ToRadians() instead")]][[nodiscard]] inline constexpr Vec4 Radians(const Vec4& v) noexcept
 		{
-			return{ Radians(v.x), Radians(v.y), Radians(v.z), Radians(v.w) };
+			return{ ToRadians(v.x), ToRadians(v.y), ToRadians(v.z), ToRadians(v.w) };
 		}
 	}
 
@@ -1232,7 +1452,7 @@ namespace s3d
 			template <class TypeX>
 			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Radians(x);
+				return Math::ToRadians(x);
 			}
 
 			template <class Type = void>
@@ -1243,7 +1463,7 @@ namespace s3d
 		};
 	}
 
-	constexpr auto Radians = detail::Radians_impl();
+	[[deprecated("deprecated in v0.3.0: use ToRadians() instead")]] constexpr auto Radians = detail::Radians_impl();
 
 //////////////////////////////////////////////////
 //
@@ -1256,7 +1476,7 @@ namespace s3d
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr float Degrees(float x) noexcept
+		[[deprecated("deprecated in v0.3.0: use ToDegrees() instead")]][[nodiscard]] inline constexpr float Degrees(float x) noexcept
 		{
 			return x * (180.0f / PiF);
 		}
@@ -1264,7 +1484,7 @@ namespace s3d
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr double Degrees(double x) noexcept
+		[[deprecated("deprecated in v0.3.0: use ToDegrees() instead")]][[nodiscard]] inline constexpr double Degrees(double x) noexcept
 		{
 			return x * (180.0 / Pi);
 		}
@@ -1273,65 +1493,65 @@ namespace s3d
 		/// ラジアンから度数法に変換します。
 		/// </summary>
 		template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
-		[[nodiscard]] inline constexpr double Degrees(Type x) noexcept
+		[[deprecated("deprecated in v0.3.0: use ToDegrees() instead")]][[nodiscard]] inline constexpr double Degrees(Type x) noexcept
 		{
-			return Degrees(static_cast<double>(x));
+			return ToDegrees(static_cast<double>(x));
 		}
 
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec2 Degrees(const Point& v) noexcept
+		[[deprecated("deprecated in v0.3.0: use ToDegrees() instead")]][[nodiscard]] inline constexpr Vec2 Degrees(const Point& v) noexcept
 		{
-			return{ Degrees(v.x), Degrees(v.y) };
+			return{ ToDegrees(v.x), ToDegrees(v.y) };
 		}
 
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float2 Degrees(const Float2& v) noexcept
+		[[deprecated("deprecated in v0.3.0: use ToDegrees() instead")]][[nodiscard]] inline constexpr Float2 Degrees(const Float2& v) noexcept
 		{
-			return{ Degrees(v.x), Degrees(v.y) };
+			return{ ToDegrees(v.x), ToDegrees(v.y) };
 		}
 
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float3 Degrees(const Float3& v) noexcept
+		[[deprecated("deprecated in v0.3.0: use ToDegrees() instead")]][[nodiscard]] inline constexpr Float3 Degrees(const Float3& v) noexcept
 		{
-			return{ Degrees(v.x), Degrees(v.y), Degrees(v.z) };
+			return{ ToDegrees(v.x), ToDegrees(v.y), ToDegrees(v.z) };
 		}
 
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float4 Degrees(const Float4& v) noexcept
+		[[deprecated("deprecated in v0.3.0: use ToDegrees() instead")]][[nodiscard]] inline constexpr Float4 Degrees(const Float4& v) noexcept
 		{
-			return{ Degrees(v.x), Degrees(v.y), Degrees(v.z), Degrees(v.w) };
+			return{ ToDegrees(v.x), ToDegrees(v.y), ToDegrees(v.z), ToDegrees(v.w) };
 		}
 
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec2 Degrees(const Vec2& v) noexcept
+		[[deprecated("deprecated in v0.3.0: use ToDegrees() instead")]][[nodiscard]] inline constexpr Vec2 Degrees(const Vec2& v) noexcept
 		{
-			return{ Degrees(v.x), Degrees(v.y) };
+			return{ ToDegrees(v.x), ToDegrees(v.y) };
 		}
 
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec3 Degrees(const Vec3& v) noexcept
+		[[deprecated("deprecated in v0.3.0: use ToDegrees() instead")]][[nodiscard]] inline constexpr Vec3 Degrees(const Vec3& v) noexcept
 		{
-			return{ Degrees(v.x), Degrees(v.y), Degrees(v.z) };
+			return{ ToDegrees(v.x), ToDegrees(v.y), ToDegrees(v.z) };
 		}
 
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec4 Degrees(const Vec4& v) noexcept
+		[[deprecated("deprecated in v0.3.0: use ToDegrees() instead")]][[nodiscard]] inline constexpr Vec4 Degrees(const Vec4& v) noexcept
 		{
-			return{ Degrees(v.x), Degrees(v.y), Degrees(v.z), Degrees(v.w) };
+			return{ ToDegrees(v.x), ToDegrees(v.y), ToDegrees(v.z), ToDegrees(v.w) };
 		}
 	}
 
@@ -1342,7 +1562,7 @@ namespace s3d
 			template <class TypeX>
 			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
 			{
-				return Math::Degrees(x);
+				return Math::ToDegrees(x);
 			}
 
 			template <class Type = void>
@@ -1353,7 +1573,7 @@ namespace s3d
 		};
 	}
 
-	constexpr auto Degrees = detail::Degrees_impl();
+	[[deprecated("deprecated in v0.3.0: use ToDegrees() instead")]] constexpr auto Degrees = detail::Degrees_impl();
 
 //////////////////////////////////////////////////
 //

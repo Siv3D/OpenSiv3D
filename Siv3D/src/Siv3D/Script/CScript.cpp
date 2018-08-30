@@ -89,6 +89,7 @@ namespace s3d
 
 		AngelScript::RegisterScriptArray(m_engine);
 		RegisterTypes(m_engine);
+		RegisterUtility(m_engine);
 		RegisterFormat(m_engine);
 		AngelScript::RegisterStdString(m_engine);
 
@@ -127,9 +128,12 @@ namespace s3d
 
 		RegisterLineStyle(m_engine);
 
+		RegisterRandom(m_engine);
+		RegisterMathConstants(m_engine);
 		RegisterMath(m_engine);
 
 		RegisterPeriodic(m_engine);
+		RegisterEasing(m_engine);
 
 		RegisterPrint(m_engine);
 
@@ -138,7 +142,7 @@ namespace s3d
 		RegisterCursor(m_engine);
 		RegisterGraphics(m_engine);
 
-		RegisterRandom(m_engine);
+		
 
 		const auto nullScript = std::make_shared<ScriptData>(ScriptData::Null{}, m_engine);
 

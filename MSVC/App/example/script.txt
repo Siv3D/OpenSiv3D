@@ -1,63 +1,14 @@
 ﻿
 void Main()
 {
- 	const Point blockSize(40, 20);
- 	Array<Rect> blocks;
+	Print << Abs(int8(-120));
+	Print << Abs(int16(-32760));
+	Print << Abs(-500000000012);
+	Print << Abs(-30.5f);
+	Print << Abs(-Math::Pi);
 
- 	for (int32 y = 0; y < 5; ++y)
- 	{
- 		for (int32 x = 0; x < (Window::Width() / blockSize.x); ++x)
- 		{
- 			blocks << Rect(x * blockSize.x, 60 + y * blockSize.y, blockSize);
- 		}
- 	}
-
- 	Circle ball(320, 400, 10);
- 	const double speed = 6.0;
- 	Vec2 ballSpeed(0, -speed);
-
- 	while (System::Update())
+	while (System::Update())
 	{
-		const Rect bar = Rect(60, 10).setCenter(Cursor::Pos().x, 420);
-		ball.moveBy(ballSpeed * (System::DeltaTime() / 0.01667));
 
-		for (size_t i = 0; i < blocks.size(); ++i)
-		{
-			const auto block = blocks[i];
-
-			if (block.intersects(ball))
-			{
-				((block.bottom().intersects(ball) || block.top().intersects(ball))
-					? ballSpeed.y : ballSpeed.x) *= -1;
-
-				blocks.remove_at(i);
-				break;
-			}
-		}
-
-		if (ball.y < 0 && ballSpeed.y < 0)
-		{
-			ballSpeed.y *= -1;
-		}
-
-		if ((ball.x < 0 && ballSpeed.x < 0)
-			|| (Window::Width() < ball.x && 0.0 < ballSpeed.x))
-		{
-			ballSpeed.x *= -1;
-		}
-
-		if (0.0 < ballSpeed.y && bar.intersects(ball))
-		{
-			ballSpeed = Vec2((ball.x - bar.center().x) / 8, -ballSpeed.y)
-				.setLength(speed);
-		}
-
-		for (size_t i = 0; i < blocks.size(); ++i)
-		{
-			blocks[i].stretched(-1).draw(HSV(blocks[i].y - 40));
-		}
-
-		ball.draw();
-		bar.draw();
- 	}
+	}
 }

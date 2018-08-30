@@ -21,7 +21,7 @@ namespace s3d
 	{
 		static constexpr int32 Get4Direction(const double angle)
 		{
-			const double deg = Math::Degrees(angle);
+			const double deg = Math::ToDegrees(angle);
 
 			if (deg <= -145.0)
 				return 2;
@@ -37,7 +37,7 @@ namespace s3d
 
 		static constexpr int32 Get8Direction(const double angle)
 		{
-			const double deg = Math::Degrees(angle);
+			const double deg = Math::ToDegrees(angle);
 
 			if (deg <= -157.5)
 				return 4;

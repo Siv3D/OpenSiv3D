@@ -261,6 +261,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_CustomStopwatch.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Date.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_DateTime.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Easing.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Ellipse.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Format.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Graphics.cpp" />
@@ -268,6 +269,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Line.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_LineStyle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Math.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_MathConstants.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_MicrosecClock.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_MillisecClock.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_OffsetCircular.cpp" />
@@ -287,6 +289,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Timer.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Triangle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Types.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Utility.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Vec2.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Vec3.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Vec4.cpp" />

@@ -90,6 +90,7 @@ namespace s3d
 	};
 
 	void RegisterTypes(AngelScript::asIScriptEngine* engine);
+	void RegisterUtility(AngelScript::asIScriptEngine* engine);
 	void RegisterFormat(AngelScript::asIScriptEngine* engine);
 
 	void RegisterDate(AngelScript::asIScriptEngine* engine);
@@ -118,7 +119,6 @@ namespace s3d
 	//void RegisterCylindrical(AngelScript::asIScriptEngine* engine);
 	//void RegisterSpherical(AngelScript::asIScriptEngine* engine);
 	//void RegisterMat3x2(AngelScript::asIScriptEngine* engine);
-	//void RegisterLineStyle(AngelScript::asIScriptEngine* engine);
 	void RegisterLine(AngelScript::asIScriptEngine* engine);
 	void RegisterRect(AngelScript::asIScriptEngine* engine);
 	void RegisterRectF(AngelScript::asIScriptEngine* engine);
@@ -134,10 +134,12 @@ namespace s3d
 
 
 	void RegisterLineStyle(AngelScript::asIScriptEngine* engine);
-
+	void RegisterRandom(AngelScript::asIScriptEngine* engine);
+	void RegisterMathConstants(AngelScript::asIScriptEngine* engine);
 	void RegisterMath(AngelScript::asIScriptEngine* engine);
 
 	void RegisterPeriodic(AngelScript::asIScriptEngine* engine);
+	void RegisterEasing(AngelScript::asIScriptEngine* engine);
 
 	void RegisterPrint(AngelScript::asIScriptEngine* engine);
 
@@ -154,7 +156,7 @@ namespace s3d
 	void RegisterCursor(AngelScript::asIScriptEngine* engine);
 	void RegisterGraphics(AngelScript::asIScriptEngine* engine);
 
-	void RegisterRandom(AngelScript::asIScriptEngine* engine);
+	
 
 	//void RegisterTexture(asIScriptEngine* engine);
 
