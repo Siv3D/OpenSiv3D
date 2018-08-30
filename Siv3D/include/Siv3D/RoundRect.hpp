@@ -107,17 +107,6 @@ namespace s3d
 			return *this = roundRect;
 		}
 
-		constexpr RoundRect& setCenter(value_type _x, value_type _y) noexcept
-		{
-			rect.setCenter(_x, _y);
-			return *this;
-		}
-
-		constexpr RoundRect& setCenter(const position_type& _center) noexcept
-		{
-			return setCenter(_center.x, _center.y);
-		}
-
 		constexpr RoundRect& setPos(value_type _x, value_type _y) noexcept
 		{
 			rect.setPos(_x, _y);
@@ -127,6 +116,17 @@ namespace s3d
 		constexpr RoundRect& setPos(const position_type& _center) noexcept
 		{
 			return setPos(_center.x, _center.y);
+		}
+
+		constexpr RoundRect& setCenter(value_type _x, value_type _y) noexcept
+		{
+			rect.setCenter(_x, _y);
+			return *this;
+		}
+
+		constexpr RoundRect& setCenter(const position_type& _center) noexcept
+		{
+			return setCenter(_center.x, _center.y);
 		}
 
 		constexpr RoundRect& setSize(value_type _w, value_type _h) noexcept

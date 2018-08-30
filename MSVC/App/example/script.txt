@@ -1,14 +1,11 @@
 ﻿
 void Main()
 {
-	Print << Abs(int8(-120));
-	Print << Abs(int16(-32760));
-	Print << Abs(-500000000012);
-	Print << Abs(-30.5f);
-	Print << Abs(-Math::Pi);
+	Triangle triangle(320, 240, 100);
 
 	while (System::Update())
 	{
-
+		triangle.stretched(20).draw(AlphaF(0.5));
+		triangle.draw();
 	}
 }

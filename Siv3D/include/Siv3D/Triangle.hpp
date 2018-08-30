@@ -182,7 +182,7 @@ namespace s3d
 
 		const Triangle& draw(const ColorF& color = Palette::White) const;
 
-		const Triangle& draw(const ColorF(&colors)[3]) const;
+		const Triangle& draw(const ColorF& color0, const ColorF& color1, const ColorF& color2) const;
 
 		const Triangle& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 

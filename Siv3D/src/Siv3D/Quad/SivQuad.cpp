@@ -141,10 +141,10 @@ namespace s3d
 		return *this;
 	}
 
-	const Quad& Quad::draw(const ColorF(&colors)[4]) const
+	const Quad& Quad::draw(const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const
 	{
 		Siv3DEngine::GetRenderer2D()->addQuad(FloatQuad(p0, p1, p2, p3),
-			{ colors[0].toFloat4(), colors[1].toFloat4(), colors[2].toFloat4(), colors[3].toFloat4() });
+			{ color0.toFloat4(), color1.toFloat4(), color2.toFloat4(), color3.toFloat4() });
 
 		return *this;
 	}
