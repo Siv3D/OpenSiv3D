@@ -1,11 +1,23 @@
 ﻿
 void Main()
 {
-	Triangle triangle(320, 240, 100);
+	const Polygon star(Shape2D::Star(200, Window::Center()));
+
+	if (!star)
+	{
+		Print << "OK";
+	}
 
 	while (System::Update())
 	{
-		triangle.stretched(20).draw(AlphaF(0.5));
-		triangle.draw();
+		star.draw(ColorF(1.0, 0.5));
+
+		//star.simplified(100).draw(ColorF(1.0, 0.0, 0.0, 0.3));
+
+		//star.drawWireframe(2.0, Palette::Orange);
+
+		//star.boundingRect().draw(ColorF(0.0, 1.0, 0.0, 0.2));
+
+		//star.calculateConvexHull().draw(ColorF(0.0, 0.0, 1.0, 0.3));
 	}
 }

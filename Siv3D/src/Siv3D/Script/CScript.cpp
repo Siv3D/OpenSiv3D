@@ -124,9 +124,10 @@ namespace s3d
 		RegisterTriangle(m_engine);
 		RegisterQuad(m_engine);
 		RegisterRoundRect(m_engine);
-
+		RegisterPolygon(m_engine);
 
 		RegisterLineStyle(m_engine);
+		RegisterShape2D(m_engine);
 
 		RegisterRandom(m_engine);
 		RegisterMathConstants(m_engine);

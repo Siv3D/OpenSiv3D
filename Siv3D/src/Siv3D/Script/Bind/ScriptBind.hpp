@@ -69,6 +69,7 @@ namespace s3d
 
 		LineStyle,
 		LineStyleParameters,
+		Shape2D,
 
 		PrintBuffer,
 		Print_impl,
@@ -127,13 +128,14 @@ namespace s3d
 	void RegisterTriangle(AngelScript::asIScriptEngine* engine);
 	void RegisterQuad(AngelScript::asIScriptEngine* engine);
 	void RegisterRoundRect(AngelScript::asIScriptEngine* engine);
-	//void RegisterPolygon(AngelScript::asIScriptEngine* engine);
+	void RegisterPolygon(AngelScript::asIScriptEngine* engine);
 	//void RegisterMultiPolygon(AngelScript::asIScriptEngine* engine);
 	//void RegisterLineString(AngelScript::asIScriptEngine* engine);
 
 
 
 	void RegisterLineStyle(AngelScript::asIScriptEngine* engine);
+	void RegisterShape2D(AngelScript::asIScriptEngine* engine);
 	void RegisterRandom(AngelScript::asIScriptEngine* engine);
 	void RegisterMathConstants(AngelScript::asIScriptEngine* engine);
 	void RegisterMath(AngelScript::asIScriptEngine* engine);

@@ -52,16 +52,18 @@ namespace s3d
 		r = engine->RegisterObjectType("Triangle", sizeof(Triangle), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("Quad", sizeof(Quad), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("RoundRect", sizeof(RoundRect), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
+		r = engine->RegisterObjectType("Polygon", sizeof(Polygon), asOBJ_VALUE | asGetTypeTraits<Polygon>()); assert(r >= 0);
 
 		///
 		/// bad
-		r = engine->RegisterObjectType("Polygon", sizeof(Polygon), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("MultiPolygon", sizeof(MultiPolygon), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("LineString", sizeof(LineString), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C); assert(r >= 0);
 
 
 		r = engine->RegisterObjectType("LineStyle", sizeof(LineStyle), asOBJ_VALUE | asOBJ_POD | asGetTypeTraits<LineStyle>()); assert(r >= 0);
 		r = engine->RegisterObjectType("LineStyleParameters", sizeof(LineStyle::Parameters), asOBJ_VALUE | asOBJ_POD | asGetTypeTraits<LineStyle::Parameters>()); assert(r >= 0);
+
+		r = engine->RegisterObjectType("Shape2D", sizeof(Shape2D), asOBJ_VALUE | asGetTypeTraits<Shape2D>()); assert(r >= 0);
 
 
 		//r = engine->RegisterObjectType("Image", sizeof(ImageWrapper), asOBJ_REF); assert(r >= 0);
@@ -115,6 +117,7 @@ namespace s3d
 
 		assert(engine->GetTypeIdByDecl("LineStyle") == static_cast<int>(ScriptTypeID::LineStyle));
 		assert(engine->GetTypeIdByDecl("LineStyleParameters") == static_cast<int>(ScriptTypeID::LineStyleParameters));
+		assert(engine->GetTypeIdByDecl("Shape2D") == static_cast<int>(ScriptTypeID::Shape2D));
 
 		assert(engine->GetTypeIdByDecl("PrintBuffer") == static_cast<int>(ScriptTypeID::PrintBuffer));
 		assert(engine->GetTypeIdByDecl("Print_impl") == static_cast<int>(ScriptTypeID::Print_impl));
