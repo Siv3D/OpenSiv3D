@@ -63,7 +63,7 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "bool isEmpty() const", asMETHOD(ShapeType, isEmpty), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "bool hasHoles() const", asMETHOD(ShapeType, hasHoles), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "size_t num_holes() const", asMETHOD(ShapeType, num_holes), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "uint32 num_holes() const", asMETHOD(ShapeType, num_holes), asCALL_THISCALL); assert(r >= 0);
 
 		// void swap(Polygon& polygon) noexcept;
 		//[[nodiscard]] const Array<Vec2>& outer() const;
@@ -72,8 +72,8 @@ namespace s3d
 		//[[nodiscard]] const Array<uint32>& indices() const;
 
 		r = engine->RegisterObjectMethod(TypeName, "const RectF& boundingRect() const", asMETHOD(ShapeType, boundingRect), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "size_t num_triangles() const", asMETHOD(ShapeType, num_triangles), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Triangle triangle(size_t) const", asMETHOD(ShapeType, triangle), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "uint32 num_triangles() const", asMETHOD(ShapeType, num_triangles), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Triangle triangle(uint32) const", asMETHOD(ShapeType, triangle), asCALL_THISCALL); assert(r >= 0);
 
 		//Polygon& addHole(const Array<Vec2>& hole);
 		//Polygon& addHoles(const Array<Array<Vec2>>& holes);

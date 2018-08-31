@@ -244,19 +244,19 @@ namespace s3d
 			return draw(0.0, 0.0, diffuse);
 		}
 
-		RectF draw(const ColorF(&colors)[4]) const
+		RectF draw(const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const
 		{
-			return draw(0.0, 0.0, colors);
+			return draw(0.0, 0.0, color0, color1, color2, color3);
 		}
 
 		RectF draw(Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const
 		{
-			return draw({ *topColor, *topColor, *bottomColor, *bottomColor });
+			return draw(*topColor, *topColor, *bottomColor, *bottomColor);
 		}
 
 		RectF draw(Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const
 		{
-			return draw({ *leftColor, *rightColor, *rightColor, *leftColor });
+			return draw(*leftColor, *rightColor, *rightColor, *leftColor);
 		}
 
 		/// <summary>
@@ -276,16 +276,16 @@ namespace s3d
 		/// </returns>
 		RectF draw(double x, double y, const ColorF& diffuse = Palette::White) const;
 
-		RectF draw(double x, double y, const ColorF(&colors)[4]) const;
+		RectF draw(double x, double y, const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;
 
 		RectF draw(double x, double y, Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const
 		{
-			return draw(x, y, { *topColor, *topColor, *bottomColor, *bottomColor });
+			return draw(x, y, *topColor, *topColor, *bottomColor, *bottomColor);
 		}
 
 		RectF draw(double x, double y, Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const
 		{
-			return draw(x, y, { *leftColor, *rightColor, *rightColor, *leftColor });
+			return draw(x, y, *leftColor, *rightColor, *rightColor, *leftColor);
 		}
 
 		/// <summary>
@@ -305,19 +305,19 @@ namespace s3d
 			return draw(pos.x, pos.y, diffuse);
 		}
 
-		RectF draw(const Vec2& pos, const ColorF(&colors)[4]) const
+		RectF draw(const Vec2& pos, const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const
 		{
-			return draw(pos.x, pos.y, colors);
+			return draw(pos.x, pos.y, color0, color1, color2, color3);
 		}
 
 		RectF draw(const Vec2& pos, Arg::top_<ColorF> topColor, Arg::bottom_<ColorF> bottomColor) const
 		{
-			return draw(pos.x, pos.y, { *topColor, *topColor, *bottomColor, *bottomColor });
+			return draw(pos.x, pos.y, *topColor, *topColor, *bottomColor, *bottomColor);
 		}
 
 		RectF draw(const Vec2& pos, Arg::left_<ColorF> leftColor, Arg::right_<ColorF> rightColor) const
 		{
-			return draw(pos.x, pos.y, { *leftColor, *rightColor, *rightColor, *leftColor });
+			return draw(pos.x, pos.y, *leftColor, *rightColor, *rightColor, *leftColor);
 		}
 
 
@@ -390,6 +390,8 @@ namespace s3d
 		/// </returns>
 		RectF drawAt(double x, double y, const ColorF& diffuse = Palette::White) const;
 
+		RectF drawAt(double x, double y, const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;
+
 		/// <summary>
 		/// 中心位置を指定してテクスチャを描きます。
 		/// </summary>
@@ -405,6 +407,11 @@ namespace s3d
 		RectF drawAt(const Vec2& pos, const ColorF& diffuse = Palette::White) const
 		{
 			return drawAt(pos.x, pos.y, diffuse);
+		}
+
+		RectF drawAt(const Vec2& pos, const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const
+		{
+			return drawAt(pos.x, pos.y, color0, color1, color2, color3);
 		}
 
 		RectF drawAtClipped(double x, double y, const RectF& clipRect, const ColorF& diffuse = Palette::White) const;

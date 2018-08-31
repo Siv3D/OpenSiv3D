@@ -69,8 +69,9 @@ namespace s3d
 
 		//r = engine->RegisterObjectType("Key", sizeof(Key), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C); assert(r >= 0);
 
-		//r = engine->RegisterObjectType("Texture", sizeof(Texture), asOBJ_VALUE | asOBJ_APP_CLASS_CD); assert(r >= 0);
-		//r = engine->RegisterObjectType("DynamicTexture", sizeof(DynamicTexture), asOBJ_VALUE | asOBJ_APP_CLASS_CD); assert(r >= 0);
+		r = engine->RegisterObjectType("Texture", sizeof(Texture), asOBJ_VALUE | asGetTypeTraits<Texture>()); assert(r >= 0);
+		//r = engine->RegisterObjectType("DynamicTexture", sizeof(DynamicTexture), asOBJ_VALUE | asGetTypeTraits<DynamicTexture>()); assert(r >= 0);
+
 		//r = engine->RegisterObjectType("Font", sizeof(Font), asOBJ_VALUE | asOBJ_APP_CLASS_CD); assert(r >= 0);
 		//r = engine->RegisterObjectType("DrawableString", sizeof(DrawableString), asOBJ_VALUE | asOBJ_APP_CLASS_D); assert(r >= 0);
 		//r = engine->RegisterObjectType("Webcam", sizeof(Webcam), asOBJ_VALUE | asOBJ_APP_CLASS_CD); assert(r >= 0);
@@ -79,7 +80,8 @@ namespace s3d
 		r = engine->RegisterObjectType("Print_impl", 1, asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
 
 		r = engine->RegisterEnum("CursorStyle"); assert(r >= 0);
-
+		r = engine->RegisterEnum("ImageFormat"); assert(r >= 0);
+		r = engine->RegisterEnum("TextureDesc"); assert(r >= 0);
 
 		assert(engine->GetTypeIdByDecl("String") == static_cast<int>(ScriptTypeID::String));
 		assert(engine->GetTypeIdByDecl("Date") == static_cast<int>(ScriptTypeID::Date));
@@ -119,6 +121,7 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("Shape2D") == static_cast<int>(ScriptTypeID::Shape2D));
 
 		assert(engine->GetTypeIdByDecl("Image") == static_cast<int>(ScriptTypeID::Image));
+		assert(engine->GetTypeIdByDecl("Texture") == static_cast<int>(ScriptTypeID::Texture));
 
 		assert(engine->GetTypeIdByDecl("PrintBuffer") == static_cast<int>(ScriptTypeID::PrintBuffer));
 		assert(engine->GetTypeIdByDecl("Print_impl") == static_cast<int>(ScriptTypeID::Print_impl));

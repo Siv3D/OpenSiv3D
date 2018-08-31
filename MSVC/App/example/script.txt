@@ -1,36 +1,13 @@
 ﻿
-
 void Main()
 {
-	const Polygon poly = Image("example/siv3d-kun2.png").alphaToPolygon(120);
-
-	const Polygon star(Shape2D::Star(200, Window::Center()));
-
-	Image image(800, 800);
-
-	if (!star)
-	{
-		Print << "OK";
-	}
-
-	Print << image.width();
-
-	Image image2(image);
-
-	Print << image2.width();
+	const Texture texture("example/windmill.png");
+	const Texture siv("example/siv3d-kun.png");
 
 	while (System::Update())
 	{
-		//star.draw(ColorF(1.0, 0.5));
+		texture.drawAt(Cursor::Pos());
 
-		poly.draw();
-
-		//star.simplified(100).draw(ColorF(1.0, 0.0, 0.0, 0.3));
-
-		//star.drawWireframe(2.0, Palette::Orange);
-
-		//star.boundingRect().draw(ColorF(0.0, 1.0, 0.0, 0.2));
-
-		//star.calculateConvexHull().draw(ColorF(0.0, 0.0, 1.0, 0.3));
+		siv.draw();
 	}
 }
