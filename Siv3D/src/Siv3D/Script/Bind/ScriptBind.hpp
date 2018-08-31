@@ -18,6 +18,31 @@ namespace AngelScript
 
 namespace s3d
 {
+	template <class Type>
+	struct RefWrapper : Type
+	{
+	private:
+
+		int32 m_refCount = 1;
+
+	public:
+
+		using Type::Type;
+
+		void AddRef()
+		{
+			++m_refCount;
+		}
+
+		void Release()
+		{
+			if (--m_refCount == 0)
+			{
+				delete this;
+			}
+		}
+	};
+
 	enum class ScriptTypeID
 	{
 		Void = 0,
@@ -71,15 +96,14 @@ namespace s3d
 		LineStyleParameters,
 		Shape2D,
 
-		PrintBuffer,
-		Print_impl,
-		
-
 		//CursorStyle,
 
 		//
 		Image,
 
+		PrintBuffer,
+		Print_impl,
+		
 
 		Key,
 		Texture,
@@ -142,6 +166,8 @@ namespace s3d
 
 	void RegisterPeriodic(AngelScript::asIScriptEngine* engine);
 	void RegisterEasing(AngelScript::asIScriptEngine* engine);
+
+	void RegisterImage(AngelScript::asIScriptEngine* engine);
 
 	void RegisterPrint(AngelScript::asIScriptEngine* engine);
 

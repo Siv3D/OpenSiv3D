@@ -266,6 +266,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Format.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Graphics.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_HSV.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Image.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Line.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_LineStyle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Math.cpp" />
@@ -962,6 +963,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\AngelScript\scriptbuilder.h" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\AngelScript\scriptstdstring.h" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\Bind\ScriptBind.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Script\Bind\Script_ImageWrapper.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\CScript.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\IScript.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\ScriptData.hpp" />

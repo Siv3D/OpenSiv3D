@@ -65,8 +65,7 @@ namespace s3d
 
 		r = engine->RegisterObjectType("Shape2D", sizeof(Shape2D), asOBJ_VALUE | asGetTypeTraits<Shape2D>()); assert(r >= 0);
 
-
-		//r = engine->RegisterObjectType("Image", sizeof(ImageWrapper), asOBJ_REF); assert(r >= 0);
+		r = engine->RegisterObjectType("Image", sizeof(RefWrapper<Image>), asOBJ_REF); assert(r >= 0);
 
 		//r = engine->RegisterObjectType("Key", sizeof(Key), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C); assert(r >= 0);
 
@@ -119,13 +118,15 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("LineStyleParameters") == static_cast<int>(ScriptTypeID::LineStyleParameters));
 		assert(engine->GetTypeIdByDecl("Shape2D") == static_cast<int>(ScriptTypeID::Shape2D));
 
+		assert(engine->GetTypeIdByDecl("Image") == static_cast<int>(ScriptTypeID::Image));
+
 		assert(engine->GetTypeIdByDecl("PrintBuffer") == static_cast<int>(ScriptTypeID::PrintBuffer));
 		assert(engine->GetTypeIdByDecl("Print_impl") == static_cast<int>(ScriptTypeID::Print_impl));
 		//
 
 		//assert(engine->GetTypeIdByDecl("CursorStyle") == static_cast<int>(ScriptTypeID::CursorStyle));
 
-		//assert(engine->GetTypeIdByDecl("Image") == static_cast<int>(ScriptTypeID::Image));
+		
 
 		//assert(engine->GetTypeIdByDecl("Key") == static_cast<int>(ScriptTypeID::Key));
 		//assert(engine->GetTypeIdByDecl("Texture") == static_cast<int>(ScriptTypeID::Texture));

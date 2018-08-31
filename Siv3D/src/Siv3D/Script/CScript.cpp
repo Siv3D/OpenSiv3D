@@ -136,6 +136,8 @@ namespace s3d
 		RegisterPeriodic(m_engine);
 		RegisterEasing(m_engine);
 
+		RegisterImage(m_engine);
+
 		RegisterPrint(m_engine);
 
 		RegisterSystem(m_engine);
