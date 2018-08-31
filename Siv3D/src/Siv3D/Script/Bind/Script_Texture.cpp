@@ -130,57 +130,33 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "RectF drawAtClipped(const Vec2& in, const RectF& in, const ColorF& in, const ColorF& in, const ColorF& in, const ColorF& in) const", asMETHODPR(BindType, drawAtClipped, (const Vec2&, const RectF&, const ColorF&) const, RectF), asCALL_THISCALL); assert(r >= 0);
 
 		//[[nodiscard]] TextureRegion operator ()(double x, double y, double w, double h) const;
-
 		//[[nodiscard]] TextureRegion operator ()(const Vec2& xy, double w, double h) const;
-
 		//[[nodiscard]] TextureRegion operator ()(double x, double y, double size) const;
-
 		//[[nodiscard]] TextureRegion operator ()(double x, double y, const Vec2& size) const;
-
 		//[[nodiscard]] TextureRegion operator ()(const Vec2& xy, const Vec2& size) const;
-
 		//[[nodiscard]] TextureRegion operator ()(const RectF& rect) const;
-
 		//[[nodiscard]] TextureRegion uv(double u, double v, double w, double h) const;
-
 		//[[nodiscard]] TextureRegion uv(const RectF& rect) const;
-
 		//[[nodiscard]] TextureRegion mirrored() const;
-
 		//[[nodiscard]] TextureRegion mirrored(bool doMirror) const;
-
 		//[[nodiscard]] TextureRegion flipped() const;
-
 		//[[nodiscard]] TextureRegion flipped(bool doFlip) const;
 
-		//[[nodiscard]] TextureRegion scaled(double s) const;
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion scaled(double) const", asMETHODPR(BindType, scaled, (double) const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
 
 		//[[nodiscard]] TextureRegion scaled(double xs, double ys) const;
-
 		//[[nodiscard]] TextureRegion scaled(const Vec2& s) const;
-
 		//[[nodiscard]] TextureRegion resized(double size) const;
-
 		//[[nodiscard]] TextureRegion resized(double width, double height) const;
-
 		//[[nodiscard]] TextureRegion resized(const Vec2& size) const;
-
 		//[[nodiscard]] TextureRegion repeated(double xRepeat, double yRepeat) const;
-
 		//[[nodiscard]] TextureRegion repeated(const Vec2& _repeat) const;
-
 		//[[nodiscard]] TextureRegion mapped(double width, double height) const;
-
 		//[[nodiscard]] TextureRegion mapped(const Vec2& size) const;
-
 		//[[nodiscard]] TextureRegion fitted(double width, double height, bool scaleUp = true) const;
-
 		//[[nodiscard]] TextureRegion fitted(const Vec2& size, bool scaleUp = true) const;
-
 		//[[nodiscard]] TexturedQuad rotated(double angle) const;
-
 		//[[nodiscard]] TexturedQuad rotatedAt(double x, double y, double angle) const;
-
 		//[[nodiscard]] TexturedQuad rotatedAt(const Vec2& pos, double angle) const;
 	}
 }

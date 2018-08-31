@@ -30,6 +30,7 @@
 # include <Siv3D/Triangle.hpp>
 # include <Siv3D/Quad.hpp>
 # include <Siv3D/RoundRect.hpp>
+# include <Siv3D/Polygon.hpp>
 # include "ScriptBind.hpp"
 
 namespace s3d
@@ -156,6 +157,9 @@ namespace s3d
 				break;
 			case ScriptTypeID::RoundRect:
 				Formatter(formatData, *static_cast<const RoundRect*>(ref));
+				break;
+			case ScriptTypeID::Polygon:
+				Formatter(formatData, *static_cast<const Polygon*>(ref));
 				break;
 			default:
 				Formatter(formatData, Format(U"[Undefined Format TypeID: ", static_cast<int>(typeID), U"]"));

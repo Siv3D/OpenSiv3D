@@ -138,6 +138,7 @@ namespace s3d
 
 		RegisterImage(m_engine);
 		RegisterTexture(m_engine);
+		RegisterTextureRegion(m_engine);
 
 		RegisterPrint(m_engine);
 

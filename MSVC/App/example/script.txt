@@ -6,8 +6,7 @@ void Main()
 
 	while (System::Update())
 	{
-		texture.drawAt(Cursor::Pos());
-
+		texture.draw(Cursor::Pos());
 		siv.draw();
 	}
 }
