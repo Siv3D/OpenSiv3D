@@ -100,6 +100,8 @@ namespace s3d
 
 		//
 		Image,
+		Key,
+
 		Texture,
 		TextureRegion,
 		TexturedQuad,
@@ -109,10 +111,7 @@ namespace s3d
 
 		PrintBuffer,
 		Print_impl,
-		
 
-		Key,
-		
 		DynamicTexture,
 		Font,
 		DrawableString,
@@ -174,6 +173,10 @@ namespace s3d
 	void RegisterEasing(AngelScript::asIScriptEngine* engine);
 
 	void RegisterImage(AngelScript::asIScriptEngine* engine);
+
+	void RegisterKey(AngelScript::asIScriptEngine* engine);
+	void RegisterMouse(AngelScript::asIScriptEngine* engine);
+
 	void RegisterTexture(AngelScript::asIScriptEngine* engine);
 	void RegisterTextureRegion(AngelScript::asIScriptEngine* engine);
 	void RegisterTexturedQuad(AngelScript::asIScriptEngine* engine);

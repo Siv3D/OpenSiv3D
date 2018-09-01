@@ -67,7 +67,7 @@ namespace s3d
 
 		r = engine->RegisterObjectType("Image", sizeof(RefWrapper<Image>), asOBJ_REF); assert(r >= 0);
 
-		//r = engine->RegisterObjectType("Key", sizeof(Key), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C); assert(r >= 0);
+		r = engine->RegisterObjectType("Key", sizeof(Key), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
 
 		r = engine->RegisterObjectType("Texture", sizeof(Texture), asOBJ_VALUE | asGetTypeTraits<Texture>()); assert(r >= 0);
 		r = engine->RegisterObjectType("TextureRegion", sizeof(TextureRegion), asOBJ_VALUE | asGetTypeTraits<TextureRegion>()); assert(r >= 0);
@@ -127,6 +127,9 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("Shape2D") == static_cast<int32>(ScriptTypeID::Shape2D));
 
 		assert(engine->GetTypeIdByDecl("Image") == static_cast<int32>(ScriptTypeID::Image));
+
+		assert(engine->GetTypeIdByDecl("Key") == static_cast<int32>(ScriptTypeID::Key));
+
 		assert(engine->GetTypeIdByDecl("Texture") == static_cast<int32>(ScriptTypeID::Texture));
 		assert(engine->GetTypeIdByDecl("TextureRegion") == static_cast<int32>(ScriptTypeID::TextureRegion));
 		assert(engine->GetTypeIdByDecl("TexturedQuad") == static_cast<int32>(ScriptTypeID::TexturedQuad));

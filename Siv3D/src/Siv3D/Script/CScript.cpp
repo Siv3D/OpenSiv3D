@@ -137,6 +137,10 @@ namespace s3d
 		RegisterEasing(m_engine);
 
 		RegisterImage(m_engine);
+		
+		RegisterKey(m_engine);
+		RegisterMouse(m_engine);
+
 		RegisterTexture(m_engine);
 		RegisterTextureRegion(m_engine);
 		RegisterTexturedQuad(m_engine);

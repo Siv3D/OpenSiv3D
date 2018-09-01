@@ -21,8 +21,8 @@ namespace s3d
 		int32 size;
 
 		constexpr Icon(uint32 _code, int32 _size) noexcept
-			: size(_size)
-			, code(_code) {}
+			: code(_code)
+			, size(_size) {}
 
 		[[nodiscard]] static Image LoadImage(uint32 _code, int32 _size);
 
