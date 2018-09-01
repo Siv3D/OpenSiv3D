@@ -194,6 +194,151 @@ namespace s3d
 			return v.x != x || v.y != y || v.z != z || v.w != w;
 		}
 
+		constexpr Vector4D& set(value_type _x, value_type _y, value_type _z, value_type _w) noexcept
+		{
+			x = _x; y = _y; z = _z; w = _w;
+			return *this;
+		}
+
+		constexpr Vector4D& set(const Vector2D<value_type>& xy, value_type _z, value_type _w) noexcept
+		{
+			x = xy.x; y = xy.y; z = _z; w = _w;
+			return *this;
+		}
+
+		constexpr Vector4D& set(value_type _x, const Vector2D<value_type>& yz, value_type _w) noexcept
+		{
+			x = _x; y = yz.x; z = yz.y; w = _w;
+			return *this;
+		}
+
+		constexpr Vector4D& set(value_type _x, value_type _y, const Vector2D<value_type>& zw) noexcept
+		{
+			x = _x; y = _y; z = zw.x; w = zw.y;
+			return *this;
+		}
+
+		constexpr Vector4D& set(const Vector3D<value_type>& xyz, value_type _w) noexcept
+		{
+			x = xyz.x; y = xyz.y; z = xyz.z; w = _w;
+			return *this;
+		}
+
+		constexpr Vector4D& set(value_type _x, const Vector3D<value_type>& yzw) noexcept
+		{
+			x = _x; y = yzw.x; z = yzw.y; w = yzw.z;
+			return *this;
+		}
+
+		constexpr Vector4D& set(const Vector4D& v) noexcept
+		{
+			return *this = v;
+		}
+
+		[[nodiscard]] constexpr Vector4D movedBy(value_type _x, value_type _y, value_type _z, value_type _w) const noexcept
+		{
+			return{ x + _x, y + _y, z + _z, w + _w };
+		}
+
+		[[nodiscard]] constexpr Vector4D movedBy(const Vector4D& v) const noexcept
+		{
+			return{ x + v.x, y + v.y, z + v.z, w + v.w };
+		}
+
+		constexpr Vector4D& moveBy(value_type _x, value_type _y, value_type _z, value_type _w) noexcept
+		{
+			x += _x; y += _y; z += _z; w += _w;
+			return *this;
+		}
+
+		constexpr Vector4D& moveBy(const Vector4D& v) noexcept
+		{
+			return *this += v;
+		}
+
+		constexpr bool isZero() const noexcept
+		{
+			return x == static_cast<value_type>(0.0)
+				&& y == static_cast<value_type>(0.0)
+				&& z == static_cast<value_type>(0.0)
+				&& w == static_cast<value_type>(0.0);
+		}
+
+		bool hasNaN() const noexcept
+		{
+			return std::isnan(x)
+				|| std::isnan(y)
+				|| std::isnan(z)
+				|| std::isnan(w);
+		}
+
+		constexpr Type dot(const Vector4D& v) const
+		{
+			return x * v.x + y * v.y + z * v.z + w * v.w;
+		}
+
+		value_type length() const noexcept
+		{
+			return std::sqrt(lengthSq());
+		}
+
+		constexpr value_type lengthSq() const noexcept
+		{
+			return dot(*this);
+		}
+
+		value_type lengthInv() const noexcept
+		{
+			return static_cast<value_type>(1.0) / length();
+		}
+
+		Vector4D& setLength(value_type _length) noexcept
+		{
+			const value_type len = length();
+
+			if (len == 0.0)
+			{
+				return *this;
+			}
+
+			return *this *= (_length / len);
+		}
+
+		value_type distanceFrom(double _x, double _y, double _z, double _w) const noexcept
+		{
+			return (*this - Vector4D(_x, _y, _z, _w)).length();
+		}
+
+		value_type distanceFrom(const Vector4D& v) const noexcept
+		{
+			return (*this - v).length();
+		}
+
+		constexpr value_type distanceFromSq(double _x, double _y, double _z, double _w) const noexcept
+		{
+			return (*this - Vector4D(_x, _y, _z, _w)).lengthSq();
+		}
+
+		constexpr value_type distanceFromSq(const Vector4D& v) const noexcept
+		{
+			return (*this - v).lengthSq();
+		}
+
+		[[nodiscard]] Vector4D normalized() const noexcept
+		{
+			return *this * lengthInv();
+		}
+
+		Vector4D& normalize() noexcept
+		{
+			return *this *= lengthInv();
+		}
+
+		[[nodiscard]] constexpr Vector4D lerp(const Vector4D& other, double f) const noexcept
+		{
+			return Vector4D(x + (other.x - x) * f, y + (other.y - y) * f, z + (other.z - z) * f, w + (other.w - w) * f);
+		}
+
 		/// <summary>
 		/// Vector2D{ x, x }
 		/// </summary>
@@ -353,7 +498,7 @@ namespace s3d
 		{
 			return{ w, w, w };
 		}
-		
+
 		/// <summary>
 		/// Vector3D{ x, y, z }
 		/// </summary>
@@ -458,141 +603,6 @@ namespace s3d
 			return{ w, z, y, x };
 		}
 
-		constexpr Vector4D& set(value_type _x, value_type _y, value_type _z, value_type _w) noexcept
-		{
-			x = _x; y = _y; z = _z; w = _w;
-			return *this;
-		}
-
-		constexpr Vector4D& set(const Vector4D& v) noexcept
-		{
-			return *this = v;
-		}
-
-		constexpr Vector4D& set(const Vector2D<value_type>& xy, value_type _z, value_type _w) noexcept
-		{
-			x = xy.x; y = xy.y; z = _z; w = _w;
-			return *this;
-		}
-
-		constexpr Vector4D& set(value_type _x, const Vector2D<value_type>& yz, value_type _w) noexcept
-		{
-			x = _x; y = yz.x; z = yz.y; w = _w;
-			return *this;
-		}
-
-		constexpr Vector4D& set(value_type _x, value_type _y, const Vector2D<value_type>& zw) noexcept
-		{
-			x = _x; y = _y; z = zw.x; w = zw.y;
-			return *this;
-		}
-
-		constexpr Vector4D& set(const Vector3D<value_type>& xyz, value_type _w) noexcept
-		{
-			x = xyz.x; y = xyz.y; z = xyz.z; w = _w;
-			return *this;
-		}
-
-		constexpr Vector4D& set(value_type _x, const Vector3D<value_type>& yzw) noexcept
-		{
-			x = _x; y = yzw.x; z = yzw.y; w = yzw.z;
-			return *this;
-		}
-
-		[[nodiscard]] constexpr Vector4D movedBy(value_type _x, value_type _y, value_type _z, value_type _w) const noexcept
-		{
-			return{ x + _x, y + _y, z + _z, w + _w };
-		}
-
-		[[nodiscard]] constexpr Vector4D movedBy(const Vector4D& v) const noexcept
-		{
-			return{ x + v.x, y + v.y, z + v.z, w + v.w };
-		}
-
-		constexpr Vector4D& moveBy(value_type _x, value_type _y, value_type _z, value_type _w) noexcept
-		{
-			x += _x; y += _y; z += _z; w += _w;
-			return *this;
-		}
-
-		constexpr Vector4D& moveBy(const Vector4D& v) noexcept
-		{
-			return *this += v;
-		}
-
-		constexpr bool isZero() const noexcept
-		{
-			return x == static_cast<value_type>(0.0)
-				&& y == static_cast<value_type>(0.0)
-				&& z == static_cast<value_type>(0.0)
-				&& w == static_cast<value_type>(0.0);
-		}
-
-		bool hasNaN() const noexcept
-		{
-			return std::isnan(x)
-				|| std::isnan(y)
-				|| std::isnan(z)
-				|| std::isnan(w);
-		}
-
-		constexpr Type dot(const Vector4D& v) const
-		{
-			return x * v.x + y * v.y + z * v.z + w * v.w;
-		}
-
-		value_type length() const noexcept
-		{
-			return std::sqrt(lengthSq());
-		}
-
-		constexpr value_type lengthSq() const noexcept
-		{
-			return dot(*this);
-		}
-
-		value_type lengthInv() const noexcept
-		{
-			return static_cast<value_type>(1.0) / length();
-		}
-
-		Vector4D& setLength(value_type _length) noexcept
-		{
-			const value_type len = length();
-
-			if (len == 0.0)
-			{
-				return *this;
-			}
-
-			return *this *= (_length / len);
-		}
-
-		value_type distanceFrom(const Vector4D& v) const noexcept
-		{
-			return (*this - v).length();
-		}
-
-		constexpr value_type distanceFromSq(const Vector4D& v) const noexcept
-		{
-			return (*this - v).lengthSq();
-		}
-
-		[[nodiscard]] Vector4D normalized() const noexcept
-		{
-			return *this * lengthInv();
-		}
-
-		Vector4D& normalize() noexcept
-		{
-			return *this *= lengthInv();
-		}
-
-		[[nodiscard]] constexpr Vector4D lerp(const Vector4D& other, double f) const noexcept
-		{
-			return Vector4D(x + (other.x - x) * f, y + (other.y - y) * f, z + (other.z - z) * f, w + (other.w - w) * f);
-		}
-
 		/// <summary>
 		/// Vector4D{ 0, 0, 0, 0 }
 		/// </summary>
@@ -651,7 +661,7 @@ namespace s3d
 	};
 
 	template <class Type, class U>
-	inline constexpr Vector3D<Type> operator *(U s, const Vector4D<Type>& v) noexcept
+	inline constexpr Vector4D<Type> operator *(U s, const Vector4D<Type>& v) noexcept
 	{
 		return v * static_cast<Type>(s);
 	}

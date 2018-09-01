@@ -123,11 +123,21 @@ namespace s3d
 			return movedBy(v.x, v.y);
 		}
 
+		constexpr OffsetCircularBase& setCenter(double x, double y) noexcept
+		{
+			return setCenter(Vec2(x, y));
+		}
+
 		constexpr OffsetCircularBase& setCenter(const Vec2& _center) noexcept
 		{
 			center = _center;
 
 			return *this;
+		}
+
+		OffsetCircularBase& setTarget(double x, double y) noexcept
+		{
+			return setTarget(Vec2(x, y));
 		}
 
 		OffsetCircularBase& setTarget(const Vec2& target) noexcept
@@ -141,16 +151,16 @@ namespace s3d
 			return *this;
 		}
 
+		[[nodiscard]] constexpr OffsetCircularBase rotated(double angle) const noexcept
+		{
+			return OffsetCircularBase(*this).rotate(angle);
+		}
+
 		constexpr OffsetCircularBase& rotate(double angle) noexcept
 		{
 			theta += angle;
 
 			return *this;
-		}
-
-		[[nodiscard]] constexpr OffsetCircularBase rotated(double angle) const noexcept
-		{
-			return Polar(*this).rotate(angle);
 		}
 
 		[[nodiscard]] Vec2 toVec2() const noexcept

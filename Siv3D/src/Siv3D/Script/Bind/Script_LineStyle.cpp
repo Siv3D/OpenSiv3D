@@ -81,6 +81,12 @@ namespace s3d
 			r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(ConstructDefault), asCALL_CDECL_OBJLAST); assert(r >= 0);
 			r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const LineStyle& in)", asFUNCTION(Construct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 			r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const LineStyleParameters& in)", asFUNCTION(ConstructL), asCALL_CDECL_OBJLAST); assert(r >= 0);
+
+			r = engine->RegisterObjectMethod(TypeName, "bool isSquareCap() const", asMETHOD(LineStyle, isSquareCap), asCALL_THISCALL); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "bool isRoundCap() const", asMETHOD(LineStyle, isRoundCap), asCALL_THISCALL); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "bool isNoCap() const", asMETHOD(LineStyle, isNoCap), asCALL_THISCALL); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "bool isSquareDot() const", asMETHOD(LineStyle, isSquareDot), asCALL_THISCALL); assert(r >= 0);
+			r = engine->RegisterObjectMethod(TypeName, "bool isRoundDot() const", asMETHOD(LineStyle, isRoundDot), asCALL_THISCALL); assert(r >= 0);
 		}
 
 		{

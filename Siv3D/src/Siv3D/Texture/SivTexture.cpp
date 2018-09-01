@@ -196,7 +196,7 @@ namespace s3d
 		return RectF(x, y, size);
 	}
 
-	RectF Texture::draw(const double x, const double y, const ColorF(&colors)[4]) const
+	RectF Texture::draw(const double x, const double y, const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const
 	{
 		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());
 
@@ -204,7 +204,7 @@ namespace s3d
 			*this,
 			FloatRect(x, y, x + size.x, y + size.y),
 			FloatRect(0.0f, 0.0f, 1.0f, 1.0f),
-			{ colors[0].toFloat4(), colors[1].toFloat4(), colors[2].toFloat4(), colors[3].toFloat4() }
+			{ color0.toFloat4(), color1.toFloat4(), color2.toFloat4(), color3.toFloat4() }
 		);
 
 		return RectF(x, y, size);
@@ -261,6 +261,22 @@ namespace s3d
 			{ x - wHalf, y - hHalf, x + wHalf, y + hHalf },
 			{ 0.0f, 0.0f, 1.0f, 1.0f },
 			diffuse.toFloat4()
+		);
+
+		return RectF(x - wHalf, y - hHalf, size);
+	}
+
+	RectF Texture::drawAt(double x, double y, const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const
+	{
+		const Size size = Siv3DEngine::GetTexture()->getSize(m_handle->id());
+		const double wHalf = size.x * 0.5;
+		const double hHalf = size.y * 0.5;
+
+		Siv3DEngine::GetRenderer2D()->addTextureRegion(
+			*this,
+			{ x - wHalf, y - hHalf, x + wHalf, y + hHalf },
+			{ 0.0f, 0.0f, 1.0f, 1.0f },
+			{ color0.toFloat4(), color1.toFloat4(), color2.toFloat4(), color3.toFloat4() }
 		);
 
 		return RectF(x - wHalf, y - hHalf, size);

@@ -143,7 +143,7 @@ namespace s3d
 
 		const Quad& draw(const ColorF& color = Palette::White) const;
 
-		const Quad& draw(const ColorF(&colors)[4]) const;
+		const Quad& draw(const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const;
 
 		const Quad& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 

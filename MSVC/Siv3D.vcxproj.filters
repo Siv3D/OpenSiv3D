@@ -2254,6 +2254,69 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Periodic.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Vec3.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Vec4.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Time.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Window.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Bezier2.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Bezier3.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_OffsetCircular.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Math.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Easing.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Utility.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_MathConstants.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Polygon.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Shape2D.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Image.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Texture.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_TextureRegion.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_TexturedQuad.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Emoji.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Icon.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Key.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Mouse.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4556,6 +4619,9 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\DirectoryWatcher\DirectoryWatcherDetail_Linux.hpp">
       <Filter>src\Siv3D\DirectoryWatcher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Image.hpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

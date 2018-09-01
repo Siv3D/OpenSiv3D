@@ -141,11 +141,11 @@ namespace s3d
 		return *this;
 	}
 
-	const Triangle& Triangle::draw(const ColorF(&colors)[3]) const
+	const Triangle& Triangle::draw(const ColorF& color0, const ColorF& color1, const ColorF& color2) const
 	{
 		Siv3DEngine::GetRenderer2D()->addTriangle(	
 			{ p0, p1, p2 },
-			{ colors[0].toFloat4(), colors[1].toFloat4(), colors[2].toFloat4() });
+			{ color0.toFloat4(), color1.toFloat4(), color2.toFloat4() });
 
 		return *this;
 	}

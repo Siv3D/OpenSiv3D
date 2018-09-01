@@ -16,15 +16,13 @@ namespace s3d
 {
 	struct Icon
 	{
-	public:
+		uint32 code;
 
 		int32 size;
 
-		uint32 code;
-
 		constexpr Icon(uint32 _code, int32 _size) noexcept
-			: size(_size)
-			, code(_code) {}
+			: code(_code)
+			, size(_size) {}
 
 		[[nodiscard]] static Image LoadImage(uint32 _code, int32 _size);
 

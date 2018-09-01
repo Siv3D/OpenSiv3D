@@ -11,10 +11,18 @@
 
 # include <Siv3D/Script.hpp>
 # include <Siv3D/Format.hpp>
+# include <Siv3D/Date.hpp>
+# include <Siv3D/DateTime.hpp>
+# include <Siv3D/Stopwatch.hpp>
+# include <Siv3D/CustomStopwatch.hpp>
+# include <Siv3D/Timer.hpp>
 # include <Siv3D/Color.hpp>
 # include <Siv3D/HSV.hpp>
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/Circular.hpp>
+# include <Siv3D/OffsetCircular.hpp>
+# include <Siv3D/Bezier2.hpp>
+# include <Siv3D/Bezier3.hpp>
 # include <Siv3D/Rectangle.hpp>
 # include <Siv3D/Circle.hpp>
 # include <Siv3D/Ellipse.hpp>
@@ -22,6 +30,7 @@
 # include <Siv3D/Triangle.hpp>
 # include <Siv3D/Quad.hpp>
 # include <Siv3D/RoundRect.hpp>
+# include <Siv3D/Polygon.hpp>
 # include "ScriptBind.hpp"
 
 namespace s3d
@@ -77,6 +86,21 @@ namespace s3d
 			case ScriptTypeID::String:
 				Formatter(formatData, *static_cast<const String*>(ref));
 				break;
+			case ScriptTypeID::Date:
+				Formatter(formatData, *static_cast<const Date*>(ref));
+				break;
+			case ScriptTypeID::DateTime:
+				Formatter(formatData, *static_cast<const DateTime*>(ref));
+				break;
+			case ScriptTypeID::Stopwatch:
+				Formatter(formatData, *static_cast<const Stopwatch*>(ref));
+				break;
+			case ScriptTypeID::CustomStopwatch:
+				Formatter(formatData, *static_cast<const CustomStopwatch*>(ref));
+				break;
+			case ScriptTypeID::Timer:
+				Formatter(formatData, *static_cast<const Timer*>(ref));
+				break;
 			case ScriptTypeID::Color:
 				Formatter(formatData, *static_cast<const Color*>(ref));
 				break;
@@ -92,8 +116,26 @@ namespace s3d
 			case ScriptTypeID::Vec2:
 				Formatter(formatData, *static_cast<const Vec2*>(ref));
 				break;
+			case ScriptTypeID::Vec3:
+				Formatter(formatData, *static_cast<const Vec3*>(ref));
+				break;
+			case ScriptTypeID::Vec4:
+				Formatter(formatData, *static_cast<const Vec4*>(ref));
+				break;
 			case ScriptTypeID::Circular:
 				Formatter(formatData, *static_cast<const Circular*>(ref));
+				break;
+			case ScriptTypeID::OffsetCircular:
+				Formatter(formatData, *static_cast<const OffsetCircular*>(ref));
+				break;
+			case ScriptTypeID::Bezier2:
+				Formatter(formatData, *static_cast<const Bezier2*>(ref));
+				break;
+			case ScriptTypeID::Bezier3:
+				Formatter(formatData, *static_cast<const Bezier3*>(ref));
+				break;
+			case ScriptTypeID::Line:
+				Formatter(formatData, *static_cast<const Line*>(ref));
 				break;
 			case ScriptTypeID::Rect:
 				Formatter(formatData, *static_cast<const Rect*>(ref));
@@ -107,9 +149,6 @@ namespace s3d
 			case ScriptTypeID::Ellipse:
 				Formatter(formatData, *static_cast<const Ellipse*>(ref));
 				break;
-			case ScriptTypeID::Line:
-				Formatter(formatData, *static_cast<const Line*>(ref));
-				break;
 			case ScriptTypeID::Triangle:
 				Formatter(formatData, *static_cast<const Triangle*>(ref));
 				break;
@@ -118,6 +157,9 @@ namespace s3d
 				break;
 			case ScriptTypeID::RoundRect:
 				Formatter(formatData, *static_cast<const RoundRect*>(ref));
+				break;
+			case ScriptTypeID::Polygon:
+				Formatter(formatData, *static_cast<const Polygon*>(ref));
 				break;
 			default:
 				Formatter(formatData, Format(U"[Undefined Format TypeID: ", static_cast<int>(typeID), U"]"));

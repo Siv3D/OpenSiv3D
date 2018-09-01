@@ -28,6 +28,8 @@ namespace s3d
 
 		String codePoints;
 
+		Emoji() = default;
+
 		explicit Emoji(StringView emoji) noexcept
 			: codePoints(emoji) {}
 

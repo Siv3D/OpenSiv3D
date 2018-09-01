@@ -40,21 +40,6 @@ namespace s3d
 		int32 milliseconds;
 
 		/// <summary>
-		/// 日付と時刻の妥当性を返します。
-		/// </summary>
-		/// <remarks>
-		/// 日付と時刻が正しい範囲の値であれば true, それ以外の場合は false
-		/// </remarks>
-		[[nodiscard]] constexpr bool isValid() const noexcept
-		{
-			return Date::isValid()
-				&& (0 <= hour && hour <= 23)
-				&& (0 <= minute && minute <= 59)
-				&& (0 <= second && second <= 59)
-				&& (0 <= milliseconds && milliseconds <= 999);
-		}
-
-		/// <summary>
 		/// デフォルトコンストラクタ
 		/// </summary>
 		DateTime() noexcept = default;
@@ -134,20 +119,19 @@ namespace s3d
 			, milliseconds(_milliseconds) {}
 
 		/// <summary>
-		/// 現在のローカルの日付と時刻を返します。
+		/// 日付と時刻の妥当性を返します。
 		/// </summary>
-		/// <returns>
-		/// 現在のローカルの日付と時刻
-		/// </returns>
-		[[nodiscard]] static DateTime Now();
-
-		/// <summary>
-		/// 現在の協定世界時刻 (UTC) の日付と時刻を返します。
-		/// </summary>
-		/// <returns>
-		/// 現在の協定世界時刻 (UTC) の日付と時刻
-		/// </returns>
-		[[nodiscard]] static DateTime NowUTC();
+		/// <remarks>
+		/// 日付と時刻が正しい範囲の値であれば true, それ以外の場合は false
+		/// </remarks>
+		[[nodiscard]] constexpr bool isValid() const noexcept
+		{
+			return Date::isValid()
+				&& (0 <= hour && hour <= 23)
+				&& (0 <= minute && minute <= 59)
+				&& (0 <= second && second <= 59)
+				&& (0 <= milliseconds && milliseconds <= 999);
+		}
 
 		/// <summary>
 		/// 日付と時刻を指定したフォーマットの文字列で返します。
@@ -241,6 +225,106 @@ namespace s3d
 		{
 			return *this += (-_milliseconds);
 		}
+
+		/// <summary>
+		/// 2 つの日付と時刻が等しいかを調べます。
+		/// </summary>
+		/// <param name="other">
+		/// 比較する日付と時刻
+		/// </param>
+		/// <returns>
+		/// 2 つの日付と時刻が等しい場合 true, それ以外の場合は false
+		/// </returns>
+		[[nodiscard]] bool operator ==(const DateTime& other) const noexcept
+		{
+			return ::memcmp(this, &other, sizeof(DateTime)) == 0;
+		}
+
+		/// <summary>
+		/// 2 つの日付と時刻が異なるかを調べます。
+		/// </summary>
+		/// <param name="other">
+		/// 比較する日付と時刻
+		/// </param>
+		/// <returns>
+		/// 2 つの日付と時刻が異なる場合 true, それ以外の場合は false
+		/// </returns>
+		[[nodiscard]] bool operator !=(const DateTime& other) const noexcept
+		{
+			return !(*this == other);
+		}
+
+		/// <summary>
+		/// 日付と時刻の &lt; 比較を行います。
+		/// </summary>
+		/// <param name="other">
+		/// 比較する日付と時刻
+		/// </param>
+		/// <returns>
+		/// 比較結果
+		/// </returns>
+		[[nodiscard]] bool operator <(const DateTime& other) const noexcept
+		{
+			return ::memcmp(this, &other, sizeof(DateTime)) < 0;
+		}
+
+		/// <summary>
+		/// 日付と時刻の &gt; 比較を行います。
+		/// </summary>
+		/// <param name="other">
+		/// 比較する日付と時刻
+		/// </param>
+		/// <returns>
+		/// 比較結果
+		/// </returns>
+		[[nodiscard]] bool operator >(const DateTime& other) const noexcept
+		{
+			return ::memcmp(this, &other, sizeof(DateTime)) > 0;
+		}
+
+		/// <summary>
+		/// 日付と時刻の &lt;= 比較を行います。
+		/// </summary>
+		/// <param name="other">
+		/// 比較する日付と時刻
+		/// </param>
+		/// <returns>
+		/// 比較結果
+		/// </returns>
+		[[nodiscard]] bool operator <=(const DateTime& other) const noexcept
+		{
+			return !(*this > other);
+		}
+
+		/// <summary>
+		/// 日付と時刻の &gt;= 比較を行います。
+		/// </summary>
+		/// <param name="other">
+		/// 比較する日付と時刻
+		/// </param>
+		/// <returns>
+		/// 比較結果
+		/// </returns>
+		[[nodiscard]] bool operator >=(const DateTime& other) const noexcept
+		{
+			return !(*this < other);
+		}
+
+		/// <summary>
+		/// 現在のローカルの日付と時刻を返します。
+		/// </summary>
+		/// <returns>
+		/// 現在のローカルの日付と時刻
+		/// </returns>
+		[[nodiscard]] static DateTime Now();
+
+		/// <summary>
+		/// 現在の協定世界時刻 (UTC) の日付と時刻を返します。
+		/// </summary>
+		/// <returns>
+		/// 現在の協定世界時刻 (UTC) の日付と時刻
+		/// </returns>
+		[[nodiscard]] static DateTime NowUTC();
 	};
 
 	/// <summary>
@@ -324,108 +408,6 @@ namespace s3d
 	/// 2 つの日付の間の時間（ミリ秒）
 	/// </returns>
 	[[nodiscard]] Milliseconds operator -(const DateTime& a, const DateTime& b);
-
-	/// <summary>
-	/// 2 つの日付と時刻が等しいかを調べます。
-	/// </summary>
-	/// <param name="a">
-	/// 比較する日付と時刻
-	/// </param>
-	/// <param name="b">
-	/// 比較する日付と時刻
-	/// </param>
-	/// <returns>
-	/// 2 つの日付と時刻が等しい場合 true, それ以外の場合は false
-	/// </returns>
-	[[nodiscard]] inline bool operator ==(const DateTime& a, const DateTime& b)
-	{
-		return ::memcmp(&a, &b, sizeof(DateTime)) == 0;
-	}
-
-	/// <summary>
-	/// 2 つの日付と時刻が異なるかを調べます。
-	/// </summary>
-	/// <param name="a">
-	/// 比較する日付と時刻
-	/// </param>
-	/// <param name="b">
-	/// 比較する日付と時刻
-	/// </param>
-	/// <returns>
-	/// 2 つの日付と時刻が異なる場合 true, それ以外の場合は false
-	/// </returns>
-	[[nodiscard]] inline bool operator !=(const DateTime& a, const DateTime& b)
-	{
-		return !(a == b);
-	}
-
-	/// <summary>
-	/// 日付と時刻の &lt; 比較を行います。
-	/// </summary>
-	/// <param name="a">
-	/// 比較する日付と時刻
-	/// </param>
-	/// <param name="b">
-	/// 比較する日付と時刻
-	/// </param>
-	/// <returns>
-	/// 比較結果
-	/// </returns>
-	[[nodiscard]] inline bool operator <(const DateTime& a, const DateTime& b)
-	{
-		return ::memcmp(&a, &b, sizeof(DateTime)) < 0;
-	}
-
-	/// <summary>
-	/// 日付と時刻の &gt; 比較を行います。
-	/// </summary>
-	/// <param name="a">
-	/// 比較する日付と時刻
-	/// </param>
-	/// <param name="b">
-	/// 比較する日付と時刻
-	/// </param>
-	/// <returns>
-	/// 比較結果
-	/// </returns>
-	[[nodiscard]] inline bool operator >(const DateTime& a, const DateTime& b)
-	{
-		return ::memcmp(&a, &b, sizeof(DateTime)) > 0;
-	}
-
-	/// <summary>
-	/// 日付と時刻の &lt;= 比較を行います。
-	/// </summary>
-	/// <param name="a">
-	/// 比較する日付と時刻
-	/// </param>
-	/// <param name="b">
-	/// 比較する日付と時刻
-	/// </param>
-	/// <returns>
-	/// 比較結果
-	/// </returns>
-	[[nodiscard]] inline bool operator <=(const DateTime& a, const DateTime& b)
-	{
-		return !(a > b);
-	}
-
-	/// <summary>
-	/// 日付と時刻の &gt;= 比較を行います。
-	/// </summary>
-	/// <param name="a">
-	/// 比較する日付と時刻
-	/// </param>
-	/// <param name="b">
-	/// 比較する日付と時刻
-	/// </param>
-	/// <returns>
-	/// 比較結果
-	/// </returns>
-	[[nodiscard]] inline bool operator >=(const DateTime& a, const DateTime& b)
-	{
-		return !(a < b);
-	}
 }
 
 //////////////////////////////////////////////////

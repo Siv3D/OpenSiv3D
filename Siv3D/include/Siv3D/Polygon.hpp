@@ -97,9 +97,19 @@ namespace s3d
 
 		[[nodiscard]] Polygon rotated(double angle) const;
 
+		[[nodiscard]] Polygon rotatedAt(double x, double y, double angle) const
+		{
+			return rotatedAt(Vec2(x, y), angle);
+		}
+
 		[[nodiscard]] Polygon rotatedAt(const Vec2& pos, double angle) const;
 
 		Polygon& rotate(double angle);
+
+		Polygon& rotateAt(double x, double y, double angle)
+		{
+			return rotateAt(Vec2(x, y), angle);
+		}
 
 		Polygon& rotateAt(const Vec2& pos, double angle);
 
@@ -141,7 +151,7 @@ namespace s3d
 			return Geometry2D::Contains(*this, shape);
 		}
 
-		[[nodiscard]] 	bool leftClicked() const;
+		[[nodiscard]] bool leftClicked() const;
 
 		[[nodiscard]] bool leftPressed() const;
 

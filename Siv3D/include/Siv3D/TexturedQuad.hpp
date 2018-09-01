@@ -26,6 +26,8 @@ namespace s3d
 
 		Float2 center;
 
+		TexturedQuad() = default;
+
 		TexturedQuad(
 			const Texture& _texture,
 			float l,

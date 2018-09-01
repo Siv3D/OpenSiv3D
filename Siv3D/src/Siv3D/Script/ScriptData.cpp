@@ -180,12 +180,22 @@ namespace s3d
 		return m_complieSucceeded;
 	}
 
+	void ScriptData::setSystemUpdateCallback(const std::function<bool(void)>& callback)
+	{
+		m_systemUpdateCallback = callback;
+	}
+
+	const std::function<bool(void)>& ScriptData::getSystemUpdateCallback() const
+	{
+		return m_systemUpdateCallback;
+	}
+
 	const Array<String>& ScriptData::getMessages() const
 	{
 		return m_messages;
 	}
 
-	bool ScriptData::reload(int32 compileOption)
+	bool ScriptData::reload(const int32 compileOption, const uint64 scriptID)
 	{
 		if (!m_fromFile)
 		{
@@ -231,6 +241,7 @@ namespace s3d
 
 		m_moduleData->module = m_engine->GetModule(m_moduleName.c_str());
 		m_moduleData->context = m_engine->CreateContext();
+		m_moduleData->scriptID = scriptID;
 		m_moduleData->withoutLineCues = withoutLineCues();
 
 		m_complieSucceeded = true;
@@ -251,5 +262,10 @@ namespace s3d
 	bool ScriptData::isInitialized() const
 	{
 		return m_initialized;
+	}
+
+	void ScriptData::setScriptID(const uint64 id)
+	{
+		m_moduleData->scriptID = id;
 	}
 }

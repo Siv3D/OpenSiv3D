@@ -150,6 +150,11 @@ namespace s3d
 
 		void SetPos(const Point& pos);
 
+		inline void SetPos(int32 x, int32 y)
+		{
+			SetPos(Point(x, y));
+		}
+
 		void Centering();
 
 		/// <summary>

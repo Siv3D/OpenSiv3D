@@ -26,7 +26,7 @@ namespace s3d
 
 		double cellHeight = 0.2;
 
-		double agentMaxSlope = Math::Radians(45);
+		double agentMaxSlope = Math::ToRadians(45);
 
 		double agentHeight = 2.0;
 

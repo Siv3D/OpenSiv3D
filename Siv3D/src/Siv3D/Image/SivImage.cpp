@@ -235,16 +235,16 @@ namespace s3d
 						}
 					}
 
-					{
-						Vec2* pDst = external.data() + 1;
-						const Vec2* pDstEnd = external.data() + externalSize;
+					//{
+					//	Vec2* pDst = external.data();
+					//	const Vec2* pDstEnd = external.data() + externalSize - 1;
 
-						while (pDst != pDstEnd)
-						{
-							*pDst -= ((*(pDst - 1) - *pDst).normalized() * 0.01);
-							++pDst;
-						}
-					}
+					//	while (pDst != pDstEnd)
+					//	{
+					//		*pDst += ((*(pDst + 1) - *pDst).normalized() * 0.01);
+					//		++pDst;
+					//	}
+					//}
 				}
 
 				Array<Array<Vec2>> holes;

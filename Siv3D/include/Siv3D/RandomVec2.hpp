@@ -13,6 +13,7 @@
 # include "Random.hpp"
 # include "PointVector.hpp"
 # include "Rectangle.hpp"
+# include "Circle.hpp"
 # include "Triangle.hpp"
 # include "MathConstants.hpp"
 

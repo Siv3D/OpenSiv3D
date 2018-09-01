@@ -38,7 +38,7 @@ namespace s3d
 
 	inline ColorF RandomColorF()
 	{
-		return HueToColor(Random(360.0));
+		return HueToColorF(Random(360.0));
 	}
 
 	inline ColorF RandomColorF(

@@ -10,7 +10,6 @@
 //-----------------------------------------------
 
 # include "CScript.hpp"
-
 # include <Siv3D/FileSystem.hpp>
 # include "Bind/ScriptBind.hpp"
 # include "AngelScript/scriptarray.h"
@@ -90,11 +89,13 @@ namespace s3d
 
 		AngelScript::RegisterScriptArray(m_engine);
 		RegisterTypes(m_engine);
+		RegisterUtility(m_engine);
 		RegisterFormat(m_engine);
 		AngelScript::RegisterStdString(m_engine);
 
 		RegisterDate(m_engine);
 		RegisterDateTime(m_engine);
+		RegisterTime(m_engine);
 		RegisterStopwatch(m_engine);
 		RegisterCustomStopwatch(m_engine);
 		RegisterTimer(m_engine);
@@ -109,9 +110,12 @@ namespace s3d
 		RegisterHSV(m_engine);
 		RegisterPoint(m_engine);
 		RegisterVec2(m_engine);
-		//RegisterVec3(m_engine);
-		//RegisterVec4(m_engine);
+		RegisterVec3(m_engine);
+		RegisterVec4(m_engine);
 		RegisterCircular(m_engine);
+		RegisterOffsetCircular(m_engine);
+		RegisterBezier2(m_engine);
+		RegisterBezier3(m_engine);
 		RegisterLine(m_engine);
 		RegisterRect(m_engine);
 		RegisterRectF(m_engine);
@@ -120,18 +124,38 @@ namespace s3d
 		RegisterTriangle(m_engine);
 		RegisterQuad(m_engine);
 		RegisterRoundRect(m_engine);
-
+		RegisterPolygon(m_engine);
 
 		RegisterLineStyle(m_engine);
+		RegisterShape2D(m_engine);
+
+		RegisterRandom(m_engine);
+		RegisterMathConstants(m_engine);
+		RegisterMath(m_engine);
 
 		RegisterPeriodic(m_engine);
+		RegisterEasing(m_engine);
+
+		RegisterImage(m_engine);
+		
+		RegisterKey(m_engine);
+		RegisterMouse(m_engine);
+
+		RegisterTexture(m_engine);
+		RegisterTextureRegion(m_engine);
+		RegisterTexturedQuad(m_engine);
+
+		RegisterEmoji(m_engine);
+		RegisterIcon(m_engine);
 
 		RegisterPrint(m_engine);
 
 		RegisterSystem(m_engine);
+		RegisterWindow(m_engine);
 		RegisterCursor(m_engine);
 		RegisterGraphics(m_engine);
-		RegisterRandom(m_engine);
+
+		
 
 		const auto nullScript = std::make_shared<ScriptData>(ScriptData::Null{}, m_engine);
 
@@ -177,7 +201,11 @@ namespace s3d
 			return ScriptID::NullAsset();
 		}
 
-		return m_scripts.add(script);
+		const ScriptID id = m_scripts.add(script);
+
+		m_scripts[id]->setScriptID(id.value());
+
+		return id;
 	}
 
 	ScriptID CScript::createFromFile(const FilePath& path, const int32 compileOption)
@@ -196,7 +224,11 @@ namespace s3d
 			return ScriptID::NullAsset();
 		}
 
-		return m_scripts.add(script);
+		const ScriptID id = m_scripts.add(script);
+
+		m_scripts[id]->setScriptID(id.value());
+
+		return id;
 	}
 
 	void CScript::release(const ScriptID handleID)
@@ -219,9 +251,14 @@ namespace s3d
 		return m_scripts[handleID]->compileSucceeded();
 	}
 
+	void CScript::setSystemUpdateCallback(const ScriptID handleID, const std::function<bool(void)>& callback)
+	{
+		return m_scripts[handleID]->setSystemUpdateCallback(callback);
+	}
+
 	bool CScript::reload(const ScriptID handleID, const int32 compileOption)
 	{
-		return m_scripts[handleID]->reload(compileOption);
+		return m_scripts[handleID]->reload(compileOption, handleID.value());
 	}
 
 	const FilePath& CScript::path(const ScriptID handleID)
@@ -236,9 +273,14 @@ namespace s3d
 		return results;
 	}
 
-	const Array<String>& CScript::retrieveMessages(ScriptID handleID)
+	const Array<String>& CScript::retrieveMessages(const ScriptID handleID)
 	{
 		return m_scripts[handleID]->getMessages();
+	}
+
+	const std::function<bool(void)>& CScript::getSystemUpdateCallback(const uint64 scriptID)
+	{
+		return m_scripts[ScriptID(static_cast<ScriptID::ValueType>(scriptID))]->getSystemUpdateCallback();
 	}
 
 	AngelScript::asIScriptEngine* CScript::getEngine()

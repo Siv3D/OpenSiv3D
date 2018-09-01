@@ -92,6 +92,28 @@ namespace s3d
 		};
 
 		/// <summary>
+		/// デフォルトコンストラクタ
+		/// </summary>
+		Date() noexcept = default;
+
+		/// <summary>
+		/// 日付を作成します。
+		/// </summary>
+		/// <param name="_year">
+		/// 西暦
+		/// </param>
+		/// <param name="_month">
+		/// 月
+		/// </param>
+		/// <param name="_day">
+		/// 日
+		/// </param>
+		explicit constexpr Date(int32 _year, int32 _month = 1, int32 _day = 1) noexcept
+			: year(_year)
+			, month(_month)
+			, day(_day) {}
+
+		/// <summary>
 		/// 曜日を返します。
 		/// </summary>
 		/// <returns>
@@ -174,28 +196,6 @@ namespace s3d
 		}
 
 		/// <summary>
-		/// デフォルトコンストラクタ
-		/// </summary>
-		Date() noexcept = default;
-
-		/// <summary>
-		/// 日付を作成します。
-		/// </summary>
-		/// <param name="_year">
-		/// 西暦
-		/// </param>
-		/// <param name="_month">
-		/// 月
-		/// </param>
-		/// <param name="_day">
-		/// 日
-		/// </param>
-		explicit constexpr Date(int32 _year, int32 _month = 1, int32 _day = 1) noexcept
-			: year(_year)
-			, month(_month)
-			, day(_day) {}
-
-		/// <summary>
 		/// 日付を指定したフォーマットの文字列で返します。
 		/// フォーマット指定のパターンは以下の通りです。
 		///
@@ -222,6 +222,115 @@ namespace s3d
 		/// フォーマットされた日付
 		/// </returns>
 		[[nodiscard]] String format(const String& format = U"yyyy/M/d") const;
+
+		/// <summary>
+		/// 日付を進めます。
+		/// </summary>
+		/// <param name="days">
+		/// 進める日数
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		Date& operator +=(const Days& days);
+
+		/// <summary>
+		/// 日付を戻します。
+		/// </summary>
+		/// <param name="days">
+		/// 戻す日数
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		Date& operator -=(const Days& days)
+		{
+			return *this += (-days);
+		}
+
+		/// <summary>
+		/// 2 つの日付が等しいかを調べます。
+		/// </summary>
+		/// <param name="other">
+		/// 比較する日付
+		/// </param>
+		/// <returns>
+		/// 2 つの日付が等しい場合 true, それ以外の場合は false
+		/// </returns>
+		[[nodiscard]] constexpr bool operator ==(const Date& other) const noexcept
+		{
+			return year == other.year && month == other.month && day == other.day;
+		}
+
+		/// <summary>
+		/// 2 つの日付が異なるかを調べます。
+		/// </summary>
+		/// <param name="other">
+		/// 比較する日付
+		/// </param>
+		/// <returns>
+		/// 2 つの日付が異なる場合 true, それ以外の場合は false
+		/// </returns>
+		[[nodiscard]] constexpr bool operator !=(const Date& other) const noexcept
+		{
+			return !(*this == other);
+		}
+
+		/// <summary>
+		/// 日付の &lt; 比較を行います。
+		/// </summary>
+		/// <param name="other">
+		/// 比較する日付
+		/// </param>
+		/// <returns>
+		/// 比較結果
+		/// </returns>
+		[[nodiscard]] bool operator <(const Date& other) const noexcept
+		{
+			return ::memcmp(this, &other, sizeof(Date)) < 0;
+		}
+
+		/// <summary>
+		/// 日付の &gt; 比較を行います。
+		/// </summary>
+		/// <param name="other">
+		/// 比較する日付
+		/// </param>
+		/// <returns>
+		/// 比較結果
+		/// </returns>
+		[[nodiscard]] bool operator >(const Date& other) const noexcept
+		{
+			return ::memcmp(this, &other, sizeof(Date)) > 0;
+		}
+
+		/// <summary>
+		/// 日付の &lt;= 比較を行います。
+		/// </summary>
+		/// <param name="other">
+		/// 比較する日付
+		/// </param>
+		/// <returns>
+		/// 比較結果
+		/// </returns>
+		[[nodiscard]] bool operator <=(const Date& other) const noexcept
+		{
+			return !(*this > other);
+		}
+
+		/// <summary>
+		/// 日付の &gt;= 比較を行います。
+		/// </summary>
+		/// <param name="other">
+		/// 比較する日付
+		/// </param>
+		/// <returns>
+		/// 比較結果
+		/// </returns>
+		[[nodiscard]] bool operator >=(const Date& other) const noexcept
+		{
+			return !(*this < other);
+		}
 
 		/// <summary>
 		/// 昨日のローカルの日付を返します。
@@ -251,31 +360,6 @@ namespace s3d
 		[[nodiscard]] static Date Tomorrow()
 		{
 			return Today() + Days(1);
-		}
-
-		/// <summary>
-		/// 日付を進めます。
-		/// </summary>
-		/// <param name="days">
-		/// 進める日数
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
-		Date& operator +=(const Days& days);
-
-		/// <summary>
-		/// 日付を戻します。
-		/// </summary>
-		/// <param name="days">
-		/// 戻す日数
-		/// </param>
-		/// <returns>
-		/// *this
-		/// </returns>
-		Date& operator -=(const Days& days)
-		{
-			return *this += (-days);
 		}
 	};
 
@@ -323,108 +407,6 @@ namespace s3d
 	/// 2 つの日付の間の日数
 	/// </returns>
 	[[nodiscard]] Days operator -(const Date& to, const Date& from);
-
-	/// <summary>
-	/// 2 つの日付が等しいかを調べます。
-	/// </summary>
-	/// <param name="a">
-	/// 比較する日付
-	/// </param>
-	/// <param name="b">
-	/// 比較する日付
-	/// </param>
-	/// <returns>
-	/// 2 つの日付が等しい場合 true, それ以外の場合は false
-	/// </returns>
-	[[nodiscard]] inline constexpr bool operator ==(const Date& a, const Date& b) noexcept
-	{
-		return a.year == b.year && a.month == b.month && a.day == b.day;
-	}
-
-	/// <summary>
-	/// 2 つの日付が異なるかを調べます。
-	/// </summary>
-	/// <param name="a">
-	/// 比較する日付
-	/// </param>
-	/// <param name="b">
-	/// 比較する日付
-	/// </param>
-	/// <returns>
-	/// 2 つの日付が異なる場合 true, それ以外の場合は false
-	/// </returns>
-	[[nodiscard]] inline constexpr bool operator !=(const Date& a, const Date& b) noexcept
-	{
-		return !(a == b);
-	}
-
-	/// <summary>
-	/// 日付の &lt; 比較を行います。
-	/// </summary>
-	/// <param name="a">
-	/// 比較する日付
-	/// </param>
-	/// <param name="b">
-	/// 比較する日付
-	/// </param>
-	/// <returns>
-	/// 比較結果
-	/// </returns>
-	[[nodiscard]] inline bool operator <(const Date& a, const Date& b)
-	{
-		return ::memcmp(&a, &b, sizeof(Date)) < 0;
-	}
-
-	/// <summary>
-	/// 日付の &gt; 比較を行います。
-	/// </summary>
-	/// <param name="a">
-	/// 比較する日付
-	/// </param>
-	/// <param name="b">
-	/// 比較する日付
-	/// </param>
-	/// <returns>
-	/// 比較結果
-	/// </returns>
-	[[nodiscard]] inline bool operator >(const Date& a, const Date& b)
-	{
-		return ::memcmp(&a, &b, sizeof(Date)) > 0;
-	}
-
-	/// <summary>
-	/// 日付の &lt;= 比較を行います。
-	/// </summary>
-	/// <param name="a">
-	/// 比較する日付
-	/// </param>
-	/// <param name="b">
-	/// 比較する日付
-	/// </param>
-	/// <returns>
-	/// 比較結果
-	/// </returns>
-	[[nodiscard]] inline bool operator <=(const Date& a, const Date& b)
-	{
-		return !(a > b);
-	}
-
-	/// <summary>
-	/// 日付の &gt;= 比較を行います。
-	/// </summary>
-	/// <param name="a">
-	/// 比較する日付
-	/// </param>
-	/// <param name="b">
-	/// 比較する日付
-	/// </param>
-	/// <returns>
-	/// 比較結果
-	/// </returns>
-	[[nodiscard]] inline bool operator >=(const Date& a, const Date& b)
-	{
-		return !(a < b);
-	}
 }
 
 //////////////////////////////////////////////////

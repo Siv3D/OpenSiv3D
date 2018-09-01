@@ -72,14 +72,14 @@ namespace s3d
 			if (state.clientSize != newSize)
 			{
 				result = Graphics::SetFullScreen(false, newSize, System::GetCurrentMonitorIndex());
+
+				if (centering)
+				{
+					Centering();
+				}
 			}
 
 			Siv3DEngine::GetWindow()->setBaseSize(newSize);
-
-			if (centering)
-			{
-				Centering();
-			}
 
 			return result;
 		}

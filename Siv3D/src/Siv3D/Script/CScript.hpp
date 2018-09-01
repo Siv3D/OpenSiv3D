@@ -51,6 +51,8 @@ namespace s3d
 
 		bool compiled(ScriptID handleID) override;
 
+		void setSystemUpdateCallback(ScriptID handleID, const std::function<bool(void)>& callback) override;
+
 		bool reload(ScriptID handleID, int32 compileOption) override;
 
 		const FilePath& path(ScriptID handleID) override;
@@ -58,6 +60,8 @@ namespace s3d
 		Array<String> retrieveMessagesInternal() override;
 
 		const Array<String>& retrieveMessages(ScriptID handleID) override;
+
+		const std::function<bool(void)>& getSystemUpdateCallback(uint64 scriptID) override;
 
 		AngelScript::asIScriptEngine* getEngine() override;
 	};

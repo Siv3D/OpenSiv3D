@@ -96,61 +96,55 @@ namespace s3d
 		}
 
 		[[nodiscard]] String name() const;
+
+		/// <summary>
+		/// 2 つのキーが同じキーを示しているかを返します。
+		/// </summary>
+		/// <param name="other">
+		/// 比較するキー
+		/// </param>
+		/// <returns>
+		/// 2 つのキーが同じキーを示している場合 true, それ以外の場合は false
+		/// </returns>
+		[[nodiscard]] constexpr bool operator ==(const Key& other) const noexcept
+		{
+			return asUint32() == other.asUint32();
+		}
+
+		/// <summary>
+		/// 2 つのキーが異なるキーを示しているかを返します。
+		/// </summary>
+		/// <param name="other">
+		/// 比較するキー
+		/// </param>
+		/// <returns>
+		/// 2 つのキーが異なるキーを示している場合 true, それ以外の場合は false
+		/// </returns>
+		[[nodiscard]] constexpr bool operator !=(const Key& other) const noexcept
+		{
+			return asUint32() != other.asUint32();
+		}
+
+		[[nodiscard]] constexpr bool operator <(const Key& other) const noexcept
+		{
+			return asUint32() < other.asUint32();
+		}
+
+		[[nodiscard]] constexpr bool operator <=(const Key& other) const noexcept
+		{
+			return asUint32() <= other.asUint32();
+		}
+
+		[[nodiscard]] constexpr bool operator >(const Key& other) const noexcept
+		{
+			return asUint32() > other.asUint32();
+		}
+
+		[[nodiscard]] constexpr bool operator >=(const Key& other) const noexcept
+		{
+			return asUint32() >= other.asUint32();
+		}
 	};
-
-	/// <summary>
-	/// 2 つのキーが同じキーを示しているかを返します。
-	/// </summary>
-	/// <param name="key1">
-	/// 比較するキー
-	/// </param>
-	/// <param name="key2">
-	/// 比較するキー
-	/// </param>
-	/// <returns>
-	/// 2 つのキーが同じキーを示している場合 true, それ以外の場合は false
-	/// </returns>
-	[[nodiscard]] constexpr inline bool operator ==(const Key& key1, const Key& key2) noexcept
-	{
-		return key1.asUint32() == key2.asUint32();
-	}
-
-	/// <summary>
-	/// 2 つのキーが異なるキーを示しているかを返します。
-	/// </summary>
-	/// <param name="key1">
-	/// 比較するキー
-	/// </param>
-	/// <param name="key2">
-	/// 比較するキー
-	/// </param>
-	/// <returns>
-	/// 2 つのキーが異なるキーを示している場合 true, それ以外の場合は false
-	/// </returns>
-	[[nodiscard]] constexpr inline bool operator !=(const Key& key1, const Key& key2) noexcept
-	{
-		return key1.asUint32() != key2.asUint32();
-	}
-
-	[[nodiscard]] constexpr inline bool operator <(const Key& key1, const Key& key2) noexcept
-	{
-		return key1.asUint32() < key2.asUint32();
-	}
-
-	[[nodiscard]] constexpr inline bool operator <=(const Key& key1, const Key& key2) noexcept
-	{
-		return key1.asUint32() <= key2.asUint32();
-	}
-
-	[[nodiscard]] constexpr inline bool operator >(const Key& key1, const Key& key2) noexcept
-	{
-		return key1.asUint32() > key2.asUint32();
-	}
-
-	[[nodiscard]] constexpr inline bool operator >=(const Key& key1, const Key& key2) noexcept
-	{
-		return key1.asUint32() >= key2.asUint32();
-	}
 }
 
 //////////////////////////////////////////////////////////////////////////////

@@ -29,8 +29,23 @@ namespace s3d
 		return pts;
 	}
 
-	void Bezier3::draw(const double thickness, const ColorF& color) const
+	const Bezier3& Bezier3::draw(const double thickness, const ColorF& color) const
 	{
 		getLineString().draw(thickness, color);
+
+		return *this;
+	}
+
+	void Formatter(FormatData& formatData, const Bezier3& value)
+	{
+		formatData.string.push_back(U'(');
+		Formatter(formatData, value.p0);
+		formatData.string.append(U", ");
+		Formatter(formatData, value.p1);
+		formatData.string.append(U", ");
+		Formatter(formatData, value.p2);
+		formatData.string.append(U", ");
+		Formatter(formatData, value.p3);
+		formatData.string.push_back(U')');
 	}
 }

@@ -39,6 +39,8 @@ namespace s3d
 
 		virtual bool compiled(ScriptID handleID) = 0;
 
+		virtual void setSystemUpdateCallback(ScriptID handleID, const std::function<bool(void)>& callback) = 0;
+
 		virtual bool reload(ScriptID handleID, int32 compileOption) = 0;
 
 		virtual const FilePath& path(ScriptID handleID) = 0;
@@ -46,6 +48,8 @@ namespace s3d
 		virtual Array<String> retrieveMessagesInternal() = 0;
 
 		virtual const Array<String>& retrieveMessages(ScriptID handleID) = 0;
+
+		virtual const std::function<bool(void)>& getSystemUpdateCallback(uint64 scriptID) = 0;
 
 		virtual AngelScript::asIScriptEngine* getEngine() = 0;
 	};

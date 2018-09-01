@@ -29,13 +29,13 @@ namespace s3d
 		return RectF{ x, y, size };
 	}
 
-	RectF TextureRegion::draw(const double x, const double y, const ColorF(&colors)[4]) const
+	RectF TextureRegion::draw(const double x, const double y, const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const
 	{
 		Siv3DEngine::GetRenderer2D()->addTextureRegion(
 			texture,
 			{ x, y, x + size.x, y + size.y },
 			uvRect,
-			{ colors[0].toFloat4(), colors[1].toFloat4(), colors[2].toFloat4(), colors[3].toFloat4() }
+			{ color0.toFloat4(), color1.toFloat4(), color2.toFloat4(), color3.toFloat4() }
 		);
 
 		return RectF{ x, y, size };
@@ -88,6 +88,20 @@ namespace s3d
 			{ x - sizeHalf.x, y - sizeHalf.y, x + sizeHalf.x, y + sizeHalf.y },
 			uvRect,
 			diffuse.toFloat4()
+		);
+
+		return RectF{ x - sizeHalf.x, y - sizeHalf.y, size };
+	}
+
+	RectF TextureRegion::drawAt(const double x, const double y, const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const
+	{
+		const Vec2 sizeHalf = size * 0.5;
+
+		Siv3DEngine::GetRenderer2D()->addTextureRegion(
+			texture,
+			{ x - sizeHalf.x, y - sizeHalf.y, x + sizeHalf.x, y + sizeHalf.y },
+			uvRect,
+			{ color0.toFloat4(), color1.toFloat4(), color2.toFloat4(), color3.toFloat4() }
 		);
 
 		return RectF{ x - sizeHalf.x, y - sizeHalf.y, size };

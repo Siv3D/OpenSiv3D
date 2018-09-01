@@ -21,12 +21,6 @@ namespace s3d
 	{
 		int32 r = 0;
 
-		r = engine->SetDefaultNamespace("Time"); assert(r >= 0);
-		{
-			r = engine->RegisterGlobalFunction("uint64 GetMicrosec()", asFUNCTION(Time::GetMicrosec), asCALL_CDECL); assert(r >= 0);
-		}
-		r = engine->SetDefaultNamespace(""); assert(r >= 0);
-
 		r = engine->SetDefaultNamespace("Periodic"); assert(r >= 0);
 		{
 			r = engine->RegisterGlobalFunction("double Sine0_1(double, double = Time::GetMicrosec() / 1000000.0)", asFUNCTIONPR(Periodic::Sine0_1, (double, double), double), asCALL_CDECL); assert(r >= 0);

@@ -10,8 +10,10 @@
 //-----------------------------------------------
 
 # include <Siv3D/Script.hpp>
-# include <Siv3D/Graphics.hpp>
+# include <Siv3D/System.hpp>
 # include "ScriptBind.hpp"
+# include "../../Siv3DEngine.hpp"
+# include "../IScript.hpp"
 
 namespace s3d
 {
@@ -19,14 +21,19 @@ namespace s3d
 
 	bool ScriptSystemUpdate()
 	{
-		//auto current = FileSystem::WriteTime(L"Main.siv3d");
+		const asIScriptContext* context = asGetActiveContext();
+		const uint64 scriptID = *static_cast<const uint64*>(context->GetUserData(static_cast<uint32>(detail::ScriptUserDataIndex::ScriptID)));
+		const auto callback = Siv3DEngine::GetScript()->getSystemUpdateCallback(scriptID);
 
-		//if (current && current != updateTime)
-		//{
-		//	return false;
-		//}
+		if (callback && !callback())
+		{
+			return false;
+		}
 
-		//return System::Update() && !Input::KeySpace.clicked;
+		if (uint64* stepCounter = static_cast<uint64*>(context->GetUserData(AngelScript::asPWORD(static_cast<uint32>(detail::ScriptUserDataIndex::StepCounter)))))
+		{
+			*stepCounter = 0;
+		}	
 
 		return System::Update();
 	}
@@ -38,6 +45,7 @@ namespace s3d
 		r = engine->SetDefaultNamespace("System"); assert(r >= 0);
 		{
 			engine->RegisterGlobalFunction("bool Update()", asFUNCTION(ScriptSystemUpdate), asCALL_CDECL); assert(r >= 0);
+			engine->RegisterGlobalFunction("double DeltaTime(double maxDuration = 0.1)", asFUNCTION(System::DeltaTime), asCALL_CDECL); assert(r >= 0);
 		}
 		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 	}

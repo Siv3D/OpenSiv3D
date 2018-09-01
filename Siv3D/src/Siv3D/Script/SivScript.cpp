@@ -11,6 +11,7 @@
 
 # include "../Siv3DEngine.hpp"
 # include "IScript.hpp"
+# include <Siv3D/Print.hpp>
 
 namespace s3d
 {
@@ -84,6 +85,16 @@ namespace s3d
 	bool Script::compiled() const
 	{
 		return Siv3DEngine::GetScript()->compiled(m_handle->id());
+	}
+
+	void Script::setSystemUpdateCallback(const std::function<bool(void)>& callback)
+	{
+		Siv3DEngine::GetScript()->setSystemUpdateCallback(m_handle->id(), callback);
+	}
+
+	void Script::clearSystemUpdateCallback()
+	{
+		Siv3DEngine::GetScript()->setSystemUpdateCallback(m_handle->id(), std::function<bool(void)>());
 	}
 
 	bool Script::reload(const int32 compileOption)
