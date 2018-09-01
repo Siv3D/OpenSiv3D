@@ -6,6 +6,11 @@ void Main()
 
 	while (System::Update())
 	{
+		if (KeyA.down())
+		{
+			Print << "A";
+		}
+
 		for (int32 y = 0; y < 3; ++y)
 		{
 			for (int32 x = 0; x < 4; ++x)
