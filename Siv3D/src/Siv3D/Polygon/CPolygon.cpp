@@ -824,7 +824,7 @@ namespace s3d
 		return m_polygon;
 	}
 
-	Polygon LineString::calculateBuffer(const double distance, const uint32 quality, const bool isClosed) const
+	Polygon LineString::calculateBuffer(const double distance, const bool isClosed, const int32 quality) const
 	{
 		if (size() < 2)
 		{

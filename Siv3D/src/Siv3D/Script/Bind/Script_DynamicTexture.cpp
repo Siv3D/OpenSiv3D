@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Script.hpp>
-# include <Siv3D/Texture.hpp>
+# include <Siv3D/DynamicTexture.hpp>
 # include <Siv3D/TextureRegion.hpp>
 # include "ScriptBind.hpp"
 
@@ -18,101 +18,64 @@ namespace s3d
 {
 	using namespace AngelScript;
 
-	using BindType = Texture;
+	using BindType = DynamicTexture;
 
 	static void DefaultConstruct(BindType* self)
 	{
 		new(self) BindType();
 	}
 
-	static void CopyConstruct(const Texture& other, BindType* self)
+	static void CopyConstruct(const DynamicTexture& other, BindType* self)
 	{
 		new(self) BindType(other);
 	}
 
 	static void Destruct(BindType* self)
 	{
-		self->~Texture();
+		self->~DynamicTexture();
 	}
 
-	static void ConstructIT(const Image& image, TextureDesc desc, BindType* self)
+	static void ConstructITfTd(const Image& image, TextureFormat format, TextureDesc desc, BindType* self)
 	{
-		new(self) BindType(image, desc);
+		new(self) BindType(image, format, desc);
 	}
 
-	static void ConstructFT(const FilePath& path, TextureDesc desc, BindType* self)
-	{
-		new(self) BindType(path, desc);
-	}
-
-	static void ConstructFFT(const FilePath& rgb, const FilePath& alpha, TextureDesc desc, BindType* self)
-	{
-		new(self) BindType(rgb, alpha, desc);
-	}
-
-	static void ConstructCFT(const Color& rgb, const FilePath& alpha, TextureDesc desc, BindType* self)
-	{
-		new(self) BindType(rgb, alpha, desc);
-	}
-
-	static void ConstructEmT(const Emoji& emoji, TextureDesc desc, BindType* self)
-	{
-		new(self) BindType(emoji, desc);
-	}
-
-	static void ConstructIcT(const Icon& icon, TextureDesc desc, BindType* self)
-	{
-		new(self) BindType(icon, desc);
-	}
-
-	static bool ConvToBool(const Texture& texture)
+	static bool ConvToBool(const DynamicTexture& texture)
 	{
 		return !texture.isEmpty();
 	}
 
-	static TextureRegion ConvToTextureRegion(const Texture& texture)
+	static Texture ConvToTexture(const DynamicTexture& texture)
 	{
 		return texture;
 	}
 
-	void RegisterTexture(asIScriptEngine* engine)
+	static TextureRegion ConvToTextureRegion(const DynamicTexture& texture)
 	{
-		constexpr char TypeName[] = "Texture";
+		return texture;
+	}
+
+	void RegisterDynamicTexture(asIScriptEngine* engine)
+	{
+		constexpr char TypeName[] = "DynamicTexture";
 
 		int32 r = 0;
 		
-		r = engine->RegisterEnumValue("TextureDesc", "Unmipped", 0); assert(r >= 0);
-		r = engine->RegisterEnumValue("TextureDesc", "UnmippedSRGB", 1); assert(r >= 0);
-		r = engine->RegisterEnumValue("TextureDesc", "Mipped", 2); assert(r >= 0);
-		r = engine->RegisterEnumValue("TextureDesc", "MippedSRGB", 3); assert(r >= 0);
-		r = engine->RegisterEnumValue("TextureDesc", "JPEG2000", 4); assert(r >= 0);
-		r = engine->RegisterEnumValue("TextureDesc", "SDF", 5); assert(r >= 0);
-		r = engine->RegisterEnumValue("TextureDesc", "For3D", 3); assert(r >= 0);
-
-		r = engine->RegisterEnumValue("TextureFormat", "Unknown", 0); assert(r >= 0);
-		r = engine->RegisterEnumValue("TextureFormat", "R8G8B8A8_Unorm", 1); assert(r >= 0);
-		r = engine->RegisterEnumValue("TextureFormat", "R8G8B8A8_Unorm_SRGB", 2); assert(r >= 0);
-		
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(DefaultConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Texture& in)", asFUNCTION(CopyConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const DynamicTexture& in)", asFUNCTION(CopyConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Destruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Image& in, TextureDesc = TextureDesc::Unmipped)", asFUNCTION(ConstructIT), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		//	Texture(const Image& image, const Array<Image>& mipmaps, TextureDesc desc = TextureDesc::Mipped);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const String& in, TextureDesc = TextureDesc::Unmipped)", asFUNCTION(ConstructFT), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		//explicit Texture(IReader&& reader, TextureDesc desc = TextureDesc::Unmipped);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const String& in, const String& in, TextureDesc = TextureDesc::Unmipped)", asFUNCTION(ConstructFFT), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Color& in, const String& in, TextureDesc = TextureDesc::Unmipped)", asFUNCTION(ConstructCFT), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Emoji& in, TextureDesc = TextureDesc::Unmipped)", asFUNCTION(ConstructEmT), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Icon& in, TextureDesc = TextureDesc::Unmipped)", asFUNCTION(ConstructIcT), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Image& in, TextureFormat format = TextureFormat::R8G8B8A8_Unorm, TextureDesc desc = TextureDesc::Unmipped)", asFUNCTION(ConstructITfTd), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
+		// Ctrs
+		// ...
 
-		r = engine->RegisterObjectMethod(TypeName, "Texture& opAssign(const Texture& in)", asMETHODPR(BindType, operator =, (const BindType&), BindType&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "DynamicTexture& opAssign(const DynamicTexture& in)", asMETHODPR(BindType, operator =, (const BindType&), BindType&), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "void release()", asMETHOD(BindType, release), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool opImplConv() const", asFUNCTION(ConvToBool), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool isEmpty() const", asMETHOD(BindType, isEmpty), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "uint32 id() const", asMETHOD(BindType, id), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool opEquals(const Texture& in)", asMETHOD(BindType, operator ==), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool opEquals(const DynamicTexture& in)", asMETHOD(BindType, operator ==), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "int32 width() const", asMETHOD(BindType, width), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "int32 height() const", asMETHOD(BindType, height), asCALL_THISCALL); assert(r >= 0);
@@ -185,6 +148,11 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "TexturedQuad rotatedAt(double, double, double) const", asMETHODPR(BindType, rotatedAt, (double, double, double) const, TexturedQuad), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "TexturedQuad rotatedAt(const Vec2& in, double) const", asMETHODPR(BindType, rotatedAt, (const Vec2&, double) const, TexturedQuad), asCALL_THISCALL); assert(r >= 0);
 
+		r = engine->RegisterObjectMethod(TypeName, "Texture opImplConv() const", asFUNCTION(ConvToTexture), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "TextureRegion opImplConv() const", asFUNCTION(ConvToTextureRegion), asCALL_CDECL_OBJLAST); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod(TypeName, "bool fill(const ColorF& in)", asMETHODPR(BindType, fill, (const ColorF&), bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool fill(const Image& in)", asMETHODPR(BindType, fill, (const Image&), bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool tryFill(const Image& in)", asMETHODPR(BindType, tryFill, (const Image&), bool), asCALL_THISCALL); assert(r >= 0);
 	}
 }

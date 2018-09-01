@@ -121,6 +121,9 @@ namespace s3d
 
 		// intersectsAtPrecise
 
+		//r = engine->RegisterObjectMethod(TypeName, "void paint(Image& inout, const Color& in) const", asMETHODPR(ShapeType, paint, (Image&, const Color&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
+		//r = engine->RegisterObjectMethod(TypeName, "void paint(Image& inout, int32, const Color& in) const", asMETHODPR(ShapeType, paint, (Image&, int32, const Color&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
+
 		// paint
 		
 		// overwrite

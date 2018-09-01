@@ -204,5 +204,14 @@ namespace s3d
 
 		r = engine->RegisterObjectMethod(TypeName, "Polygon alphaToPolygon(uint32 threshold = 160, bool allowHoles = true) const", asMETHOD(BindType, alphaToPolygon), asCALL_THISCALL); assert(r >= 0);
 
+
+		r = engine->RegisterObjectMethod("Line", "const Line& paint(Image& inout, const Color& in) const", asMETHODPR(Line, paint, (Image&, const Color&) const, const Line&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Line", "const Line& paint(Image& inout, int32, const Color& in) const", asMETHODPR(Line, paint, (Image&, int32, const Color&) const, const Line&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Line", "const Line& overwrite(Image& inout, const Color& in, bool antialiased = true) const", asMETHODPR(Line, overwrite, (Image&, const Color&, bool) const, const Line&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Line", "const Line& overwrite(Image& inout, int32, const Color& in, bool antialiased = true) const", asMETHODPR(Line, overwrite, (Image&, int32, const Color&, bool) const, const Line&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Line", "const Line& paintArrow(Image& inout, double, const Vec2& in, const Color& in) const", asMETHOD(Line, paintArrow), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Line", "const Line& overwriteArrow(Image& inout, double, const Vec2& in, const Color& in) const", asMETHOD(Line, overwriteArrow), asCALL_THISCALL); assert(r >= 0);
+
+
 	}
 }

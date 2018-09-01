@@ -1,22 +1,21 @@
 ﻿
 void Main()
 {
-	Graphics::SetBackground(ColorF(0.8, 0.9, 1.0));
-	const Texture texture(Emoji("🚙"), TextureDesc::Mipped);
+ 	Image image(480, 480, Palette::White);
+ 
+ 	image.save("s.png");
 
-	while (System::Update())
-	{
-		if (KeyA.down())
-		{
-			Print << "A";
-		}
-
-		for (int32 y = 0; y < 3; ++y)
-		{
-			for (int32 x = 0; x < 4; ++x)
-			{
-				texture.mirrored(y % 2 == 0).drawAt(80 + x * 160, 80 + y * 150);
-			}
-		}
-	}
+ 	DynamicTexture texture(image);
+ 
+ 	while (System::Update())
+ 	{
+ 		if (MouseL.pressed())
+ 		{
+ 			Line(Cursor::PreviousPos(), Cursor::Pos()).overwrite(image, 8, Palette::Orange);
+ 
+ 			texture.fill(image);
+ 		}
+ 
+ 		texture.draw();
+ 	}
 }

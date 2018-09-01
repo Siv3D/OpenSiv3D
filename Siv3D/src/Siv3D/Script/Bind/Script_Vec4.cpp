@@ -59,7 +59,7 @@ namespace s3d
 		new(self) ShapeType(x, yzw);
 	}
 
-	static void ConstructList(double* list, ShapeType* self)
+	static void ConstructList(const double* list, ShapeType* self)
 	{
 		new(self) ShapeType(list[0], list[1], list[2], list[3]);
 	}
