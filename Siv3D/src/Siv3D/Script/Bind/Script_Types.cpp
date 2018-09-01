@@ -86,6 +86,7 @@ namespace s3d
 
 		r = engine->RegisterEnum("CursorStyle"); assert(r >= 0);
 		r = engine->RegisterEnum("ImageFormat"); assert(r >= 0);
+		r = engine->RegisterEnum("FloodFillConnectivity"); assert(r >= 0);
 		r = engine->RegisterEnum("TextureDesc"); assert(r >= 0);
 		r = engine->RegisterEnum("TextureFormat"); assert(r >= 0);
 

@@ -108,6 +108,9 @@ namespace s3d
 		r = engine->RegisterEnumValue("ImageFormat", "PPM", 10); assert(r >= 0);
 		r = engine->RegisterEnumValue("ImageFormat", "Unspecified", 0); assert(r >= 0);
 
+		r = engine->RegisterEnumValue("FloodFillConnectivity", "Value4", 4); assert(r >= 0);
+		r = engine->RegisterEnumValue("FloodFillConnectivity", "Value8", 8); assert(r >= 0);
+		
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_FACTORY, "Image@ f()", asFUNCTION(DefaultConstruct), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_FACTORY, "Image@ f(const Image& in)", asFUNCTION(CopyConstruct), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_FACTORY, "Image@ f(uint32 size)", asFUNCTION(Image_FactoryI), asCALL_CDECL); assert(r >= 0);
@@ -199,6 +202,18 @@ namespace s3d
 		//bool savePPM(const FilePath& path, PPMType format = PPMType::AsciiRGB) const;
 		//[[nodiscard]] MemoryWriter encode(ImageFormat format = ImageFormat::PNG) const;
 
+
+
+		//
+		//...
+
+		r = engine->RegisterObjectMethod(TypeName, "Image& floodFill(const Point& in, const Color& in, FloodFillConnectivity connectivity = FloodFillConnectivity::Value4, int32 lowerDifference = 0, int32 upperDifference = 0) const", asMETHOD(BindType, floodFill), asCALL_THISCALL); assert(r >= 0);
+
+
+		Image& floodFill(const Point& pos, const Color& color, FloodFillConnectivity connectivity = FloodFillConnectivity::Value4, int32 lowerDifference = 0, int32 upperDifference = 0);
+
+
+		//...
 
 
 
