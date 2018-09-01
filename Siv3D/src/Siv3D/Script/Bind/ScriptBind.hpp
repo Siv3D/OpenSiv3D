@@ -102,7 +102,10 @@ namespace s3d
 		Image,
 		Texture,
 		TextureRegion,
-		//TexturedQuad,
+		TexturedQuad,
+
+		Emoji,
+		Icon,
 
 		PrintBuffer,
 		Print_impl,
@@ -173,6 +176,10 @@ namespace s3d
 	void RegisterImage(AngelScript::asIScriptEngine* engine);
 	void RegisterTexture(AngelScript::asIScriptEngine* engine);
 	void RegisterTextureRegion(AngelScript::asIScriptEngine* engine);
+	void RegisterTexturedQuad(AngelScript::asIScriptEngine* engine);
+
+	void RegisterEmoji(AngelScript::asIScriptEngine* engine);
+	void RegisterIcon(AngelScript::asIScriptEngine* engine);
 
 	void RegisterPrint(AngelScript::asIScriptEngine* engine);
 

@@ -16,11 +16,9 @@ namespace s3d
 {
 	struct Icon
 	{
-	public:
+		uint32 code;
 
 		int32 size;
-
-		uint32 code;
 
 		constexpr Icon(uint32 _code, int32 _size) noexcept
 			: size(_size)

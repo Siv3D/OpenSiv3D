@@ -1,12 +1,17 @@
 ﻿
 void Main()
 {
-	const Texture texture("example/windmill.png");
-	const Texture siv("example/siv3d-kun.png");
+	Graphics::SetBackground(ColorF(0.8, 0.9, 1.0));
+	const Texture texture(Emoji("🚙"), TextureDesc::Mipped);
 
 	while (System::Update())
 	{
-		texture.draw(Cursor::Pos());
-		siv.draw();
+		for (int32 y = 0; y < 3; ++y)
+		{
+			for (int32 x = 0; x < 4; ++x)
+			{
+				texture.mirrored(y % 2 == 0).drawAt(80 + x * 160, 80 + y * 150);
+			}
+		}
 	}
 }

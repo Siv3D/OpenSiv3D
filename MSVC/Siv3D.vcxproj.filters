@@ -2302,6 +2302,15 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_TextureRegion.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_TexturedQuad.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Emoji.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Icon.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4605,7 +4614,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\DirectoryWatcher\DirectoryWatcherDetail_Linux.hpp">
       <Filter>src\Siv3D\DirectoryWatcher</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\src\Siv3D\Script\Bind\Script_ImageWrapper.hpp">
+    <ClInclude Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Image.hpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClInclude>
   </ItemGroup>

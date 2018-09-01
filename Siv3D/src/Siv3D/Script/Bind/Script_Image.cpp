@@ -10,8 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Script.hpp>
-# include <Siv3D/Image.hpp>
-# include <Siv3D/Logger.hpp>
+# include "Script_Image.hpp"
 # include "ScriptBind.hpp"
 
 namespace s3d
@@ -19,58 +18,6 @@ namespace s3d
 	using namespace AngelScript;
 
 	using BindType = RefWrapper<Image>;
-
-	template <>
-	struct RefWrapper<Image> : Image
-	{
-	private:
-
-		int32 m_refCount = 1;
-
-	public:
-
-		using Image::Image;
-
-		void AddRef()
-		{
-			++m_refCount;
-		}
-
-		void Release()
-		{
-			if (--m_refCount == 0)
-			{
-				delete this;
-			}
-		}
-
-		RefWrapper<Image>& assign(const RefWrapper<Image>& image)
-		{
-			Image::assign(image);
-
-			return *this;
-		}
-
-		Color& opIndex(size_t x, size_t y)
-		{
-			return *(data() + (y * width() + x));
-		}
-
-		const Color& opIndex(size_t x, size_t y) const
-		{
-			return *(data() + (y * width() + x));
-		}
-
-		Color& opIndex(const Point& pos)
-		{
-			return *(data() + (pos.y * width() + pos.x));
-		}
-
-		const Color& opIndex(const Point& pos) const
-		{
-			return *(data() + (pos.y * width() + pos.x));
-		}
-	};
 
 	BindType* DefaultConstruct()
 	{
@@ -127,6 +74,16 @@ namespace s3d
 		return new BindType(rgb, alpha);
 	}
 
+	BindType* ConstructEm(const Emoji& emoji)
+	{
+		return new BindType(emoji);
+	}
+
+	BindType* ConstructIc(const Icon& icon)
+	{
+		return new BindType(icon);
+	}
+
 	static bool ConvToBool(const BindType& imageRef)
 	{
 		return !imageRef.isEmpty();
@@ -162,10 +119,8 @@ namespace s3d
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_FACTORY, "Image@ f(const String& in)", asFUNCTION(ConstructF), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_FACTORY, "Image@ f(const String& in, const String& in)", asFUNCTION(ConstructFF), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_FACTORY, "Image@ f(const Color& in, const String& in)", asFUNCTION(ConstructCF), asCALL_CDECL); assert(r >= 0);
-
-		//explicit Image(const Emoji& emoji);
-
-		//explicit Image(const Icon& icon);
+		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_FACTORY, "Image@ f(const Emoji& in)", asFUNCTION(ConstructEm), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_FACTORY, "Image@ f(const Icon& in)", asFUNCTION(ConstructIc), asCALL_CDECL); assert(r >= 0);
 
 		//explicit Image(const Grid<Color>& grid);
 

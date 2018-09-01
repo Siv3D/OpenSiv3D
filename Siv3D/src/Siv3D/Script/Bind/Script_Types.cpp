@@ -70,9 +70,13 @@ namespace s3d
 		//r = engine->RegisterObjectType("Key", sizeof(Key), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C); assert(r >= 0);
 
 		r = engine->RegisterObjectType("Texture", sizeof(Texture), asOBJ_VALUE | asGetTypeTraits<Texture>()); assert(r >= 0);
-		r = engine->RegisterObjectType("TextureRegion", sizeof(TextureRegion), asOBJ_VALUE | asGetTypeTraits<Texture>()); assert(r >= 0);
+		r = engine->RegisterObjectType("TextureRegion", sizeof(TextureRegion), asOBJ_VALUE | asGetTypeTraits<TextureRegion>()); assert(r >= 0);
+		r = engine->RegisterObjectType("TexturedQuad", sizeof(TexturedQuad), asOBJ_VALUE | asGetTypeTraits<TexturedQuad>()); assert(r >= 0);
 
 		//r = engine->RegisterObjectType("DynamicTexture", sizeof(DynamicTexture), asOBJ_VALUE | asGetTypeTraits<DynamicTexture>()); assert(r >= 0);
+
+		r = engine->RegisterObjectType("Emoji", sizeof(Emoji), asOBJ_VALUE | asGetTypeTraits<Emoji>()); assert(r >= 0);
+		r = engine->RegisterObjectType("Icon", sizeof(Icon), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
 
 		//r = engine->RegisterObjectType("Font", sizeof(Font), asOBJ_VALUE | asOBJ_APP_CLASS_CD); assert(r >= 0);
 		//r = engine->RegisterObjectType("DrawableString", sizeof(DrawableString), asOBJ_VALUE | asOBJ_APP_CLASS_D); assert(r >= 0);
@@ -85,49 +89,53 @@ namespace s3d
 		r = engine->RegisterEnum("ImageFormat"); assert(r >= 0);
 		r = engine->RegisterEnum("TextureDesc"); assert(r >= 0);
 
-		assert(engine->GetTypeIdByDecl("String") == static_cast<int>(ScriptTypeID::String));
-		assert(engine->GetTypeIdByDecl("Date") == static_cast<int>(ScriptTypeID::Date));
-		assert(engine->GetTypeIdByDecl("DateTime") == static_cast<int>(ScriptTypeID::DateTime));
-		assert(engine->GetTypeIdByDecl("Stopwatch") == static_cast<int>(ScriptTypeID::Stopwatch));
-		assert(engine->GetTypeIdByDecl("CustomStopwatch") == static_cast<int>(ScriptTypeID::CustomStopwatch));
-		assert(engine->GetTypeIdByDecl("Timer") == static_cast<int>(ScriptTypeID::Timer));
-		//assert(engine->GetTypeIdByDecl("TimeProfiler") == static_cast<int>(ScriptTypeID::TimeProfiler));
-		assert(engine->GetTypeIdByDecl("MillisecClock") == static_cast<int>(ScriptTypeID::MillisecClock));
-		assert(engine->GetTypeIdByDecl("MicrosecClock") == static_cast<int>(ScriptTypeID::MicrosecClock));
-		assert(engine->GetTypeIdByDecl("RDTSCClock") == static_cast<int>(ScriptTypeID::RDTSCClock));
-		assert(engine->GetTypeIdByDecl("Color") == static_cast<int>(ScriptTypeID::Color));
-		assert(engine->GetTypeIdByDecl("ColorF") == static_cast<int>(ScriptTypeID::ColorF));
-		assert(engine->GetTypeIdByDecl("HSV") == static_cast<int>(ScriptTypeID::HSV));
-		assert(engine->GetTypeIdByDecl("Point") == static_cast<int>(ScriptTypeID::Point));
-		assert(engine->GetTypeIdByDecl("Vec2") == static_cast<int>(ScriptTypeID::Vec2));
-		assert(engine->GetTypeIdByDecl("Vec3") == static_cast<int>(ScriptTypeID::Vec3));
-		assert(engine->GetTypeIdByDecl("Vec4") == static_cast<int>(ScriptTypeID::Vec4));
-		assert(engine->GetTypeIdByDecl("Circular") == static_cast<int>(ScriptTypeID::Circular));
-		assert(engine->GetTypeIdByDecl("OffsetCircular") == static_cast<int>(ScriptTypeID::OffsetCircular));
-		assert(engine->GetTypeIdByDecl("Bezier2") == static_cast<int>(ScriptTypeID::Bezier2));
-		assert(engine->GetTypeIdByDecl("Bezier3") == static_cast<int>(ScriptTypeID::Bezier3));
-		assert(engine->GetTypeIdByDecl("Line") == static_cast<int>(ScriptTypeID::Line));
-		assert(engine->GetTypeIdByDecl("Rect") == static_cast<int>(ScriptTypeID::Rect));
-		assert(engine->GetTypeIdByDecl("RectF") == static_cast<int>(ScriptTypeID::RectF));
-		assert(engine->GetTypeIdByDecl("Circle") == static_cast<int>(ScriptTypeID::Circle));
-		assert(engine->GetTypeIdByDecl("Ellipse") == static_cast<int>(ScriptTypeID::Ellipse));
-		assert(engine->GetTypeIdByDecl("Triangle") == static_cast<int>(ScriptTypeID::Triangle));
-		assert(engine->GetTypeIdByDecl("Quad") == static_cast<int>(ScriptTypeID::Quad));
-		assert(engine->GetTypeIdByDecl("RoundRect") == static_cast<int>(ScriptTypeID::RoundRect));
-		assert(engine->GetTypeIdByDecl("Polygon") == static_cast<int>(ScriptTypeID::Polygon));
-		assert(engine->GetTypeIdByDecl("MultiPolygon") == static_cast<int>(ScriptTypeID::MultiPolygon));
-		assert(engine->GetTypeIdByDecl("LineString") == static_cast<int>(ScriptTypeID::LineString));
+		assert(engine->GetTypeIdByDecl("String") == static_cast<int32>(ScriptTypeID::String));
+		assert(engine->GetTypeIdByDecl("Date") == static_cast<int32>(ScriptTypeID::Date));
+		assert(engine->GetTypeIdByDecl("DateTime") == static_cast<int32>(ScriptTypeID::DateTime));
+		assert(engine->GetTypeIdByDecl("Stopwatch") == static_cast<int32>(ScriptTypeID::Stopwatch));
+		assert(engine->GetTypeIdByDecl("CustomStopwatch") == static_cast<int32>(ScriptTypeID::CustomStopwatch));
+		assert(engine->GetTypeIdByDecl("Timer") == static_cast<int32>(ScriptTypeID::Timer));
+		//assert(engine->GetTypeIdByDecl("TimeProfiler") == static_cast<int32>(ScriptTypeID::TimeProfiler));
+		assert(engine->GetTypeIdByDecl("MillisecClock") == static_cast<int32>(ScriptTypeID::MillisecClock));
+		assert(engine->GetTypeIdByDecl("MicrosecClock") == static_cast<int32>(ScriptTypeID::MicrosecClock));
+		assert(engine->GetTypeIdByDecl("RDTSCClock") == static_cast<int32>(ScriptTypeID::RDTSCClock));
+		assert(engine->GetTypeIdByDecl("Color") == static_cast<int32>(ScriptTypeID::Color));
+		assert(engine->GetTypeIdByDecl("ColorF") == static_cast<int32>(ScriptTypeID::ColorF));
+		assert(engine->GetTypeIdByDecl("HSV") == static_cast<int32>(ScriptTypeID::HSV));
+		assert(engine->GetTypeIdByDecl("Point") == static_cast<int32>(ScriptTypeID::Point));
+		assert(engine->GetTypeIdByDecl("Vec2") == static_cast<int32>(ScriptTypeID::Vec2));
+		assert(engine->GetTypeIdByDecl("Vec3") == static_cast<int32>(ScriptTypeID::Vec3));
+		assert(engine->GetTypeIdByDecl("Vec4") == static_cast<int32>(ScriptTypeID::Vec4));
+		assert(engine->GetTypeIdByDecl("Circular") == static_cast<int32>(ScriptTypeID::Circular));
+		assert(engine->GetTypeIdByDecl("OffsetCircular") == static_cast<int32>(ScriptTypeID::OffsetCircular));
+		assert(engine->GetTypeIdByDecl("Bezier2") == static_cast<int32>(ScriptTypeID::Bezier2));
+		assert(engine->GetTypeIdByDecl("Bezier3") == static_cast<int32>(ScriptTypeID::Bezier3));
+		assert(engine->GetTypeIdByDecl("Line") == static_cast<int32>(ScriptTypeID::Line));
+		assert(engine->GetTypeIdByDecl("Rect") == static_cast<int32>(ScriptTypeID::Rect));
+		assert(engine->GetTypeIdByDecl("RectF") == static_cast<int32>(ScriptTypeID::RectF));
+		assert(engine->GetTypeIdByDecl("Circle") == static_cast<int32>(ScriptTypeID::Circle));
+		assert(engine->GetTypeIdByDecl("Ellipse") == static_cast<int32>(ScriptTypeID::Ellipse));
+		assert(engine->GetTypeIdByDecl("Triangle") == static_cast<int32>(ScriptTypeID::Triangle));
+		assert(engine->GetTypeIdByDecl("Quad") == static_cast<int32>(ScriptTypeID::Quad));
+		assert(engine->GetTypeIdByDecl("RoundRect") == static_cast<int32>(ScriptTypeID::RoundRect));
+		assert(engine->GetTypeIdByDecl("Polygon") == static_cast<int32>(ScriptTypeID::Polygon));
+		assert(engine->GetTypeIdByDecl("MultiPolygon") == static_cast<int32>(ScriptTypeID::MultiPolygon));
+		assert(engine->GetTypeIdByDecl("LineString") == static_cast<int32>(ScriptTypeID::LineString));
 
-		assert(engine->GetTypeIdByDecl("LineStyle") == static_cast<int>(ScriptTypeID::LineStyle));
-		assert(engine->GetTypeIdByDecl("LineStyleParameters") == static_cast<int>(ScriptTypeID::LineStyleParameters));
-		assert(engine->GetTypeIdByDecl("Shape2D") == static_cast<int>(ScriptTypeID::Shape2D));
+		assert(engine->GetTypeIdByDecl("LineStyle") == static_cast<int32>(ScriptTypeID::LineStyle));
+		assert(engine->GetTypeIdByDecl("LineStyleParameters") == static_cast<int32>(ScriptTypeID::LineStyleParameters));
+		assert(engine->GetTypeIdByDecl("Shape2D") == static_cast<int32>(ScriptTypeID::Shape2D));
 
-		assert(engine->GetTypeIdByDecl("Image") == static_cast<int>(ScriptTypeID::Image));
-		assert(engine->GetTypeIdByDecl("Texture") == static_cast<int>(ScriptTypeID::Texture));
-		assert(engine->GetTypeIdByDecl("TextureRegion") == static_cast<int>(ScriptTypeID::TextureRegion));
+		assert(engine->GetTypeIdByDecl("Image") == static_cast<int32>(ScriptTypeID::Image));
+		assert(engine->GetTypeIdByDecl("Texture") == static_cast<int32>(ScriptTypeID::Texture));
+		assert(engine->GetTypeIdByDecl("TextureRegion") == static_cast<int32>(ScriptTypeID::TextureRegion));
+		assert(engine->GetTypeIdByDecl("TexturedQuad") == static_cast<int32>(ScriptTypeID::TexturedQuad));
 
-		assert(engine->GetTypeIdByDecl("PrintBuffer") == static_cast<int>(ScriptTypeID::PrintBuffer));
-		assert(engine->GetTypeIdByDecl("Print_impl") == static_cast<int>(ScriptTypeID::Print_impl));
+		assert(engine->GetTypeIdByDecl("Emoji") == static_cast<int32>(ScriptTypeID::Emoji));
+		assert(engine->GetTypeIdByDecl("Icon") == static_cast<int32>(ScriptTypeID::Icon));
+
+		assert(engine->GetTypeIdByDecl("PrintBuffer") == static_cast<int32>(ScriptTypeID::PrintBuffer));
+		assert(engine->GetTypeIdByDecl("Print_impl") == static_cast<int32>(ScriptTypeID::Print_impl));
 		//
 
 		//assert(engine->GetTypeIdByDecl("CursorStyle") == static_cast<int>(ScriptTypeID::CursorStyle));

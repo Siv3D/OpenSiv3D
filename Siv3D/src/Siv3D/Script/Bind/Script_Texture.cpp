@@ -11,6 +11,7 @@
 
 # include <Siv3D/Script.hpp>
 # include <Siv3D/Texture.hpp>
+# include <Siv3D/TextureRegion.hpp>
 # include "ScriptBind.hpp"
 
 namespace s3d
@@ -54,9 +55,24 @@ namespace s3d
 		new(self) BindType(rgb, alpha, desc);
 	}
 
+	static void ConstructEmT(const Emoji& emoji, TextureDesc desc, BindType* self)
+	{
+		new(self) BindType(emoji, desc);
+	}
+
+	static void ConstructIcT(const Icon& icon, TextureDesc desc, BindType* self)
+	{
+		new(self) BindType(icon, desc);
+	}
+
 	static bool ConvToBool(const Texture& texture)
 	{
 		return !texture.isEmpty();
+	}
+
+	static TextureRegion ConvToTextureRegion(const Texture& texture)
+	{
+		return texture;
 	}
 
 	void RegisterTexture(asIScriptEngine* engine)
@@ -82,9 +98,8 @@ namespace s3d
 		//explicit Texture(IReader&& reader, TextureDesc desc = TextureDesc::Unmipped);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const String& in, const String& in, TextureDesc = TextureDesc::Unmipped)", asFUNCTION(ConstructFFT), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Color& in, const String& in, TextureDesc = TextureDesc::Unmipped)", asFUNCTION(ConstructCFT), asCALL_CDECL_OBJLAST); assert(r >= 0);
-
-		//explicit Texture(const Emoji& emoji, TextureDesc desc = TextureDesc::Unmipped);
-		//explicit Texture(const Icon& icon, TextureDesc desc = TextureDesc::Unmipped);
+		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Emoji& in, TextureDesc = TextureDesc::Unmipped)", asFUNCTION(ConstructEmT), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Icon& in, TextureDesc = TextureDesc::Unmipped)", asFUNCTION(ConstructIcT), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 
 		r = engine->RegisterObjectMethod(TypeName, "Texture& opAssign(const Texture& in)", asMETHODPR(BindType, operator =, (const BindType&), BindType&), asCALL_THISCALL); assert(r >= 0);
@@ -129,34 +144,43 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "RectF drawAtClipped(double x, double y, const RectF& in, const ColorF& in color = Palette::White) const", asMETHODPR(BindType, drawAtClipped, (double, double, const RectF&, const ColorF&) const, RectF), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "RectF drawAtClipped(const Vec2& in, const RectF& in, const ColorF& in, const ColorF& in, const ColorF& in, const ColorF& in) const", asMETHODPR(BindType, drawAtClipped, (const Vec2&, const RectF&, const ColorF&) const, RectF), asCALL_THISCALL); assert(r >= 0);
 
-		//[[nodiscard]] TextureRegion operator ()(double x, double y, double w, double h) const;
-		//[[nodiscard]] TextureRegion operator ()(const Vec2& xy, double w, double h) const;
-		//[[nodiscard]] TextureRegion operator ()(double x, double y, double size) const;
-		//[[nodiscard]] TextureRegion operator ()(double x, double y, const Vec2& size) const;
-		//[[nodiscard]] TextureRegion operator ()(const Vec2& xy, const Vec2& size) const;
-		//[[nodiscard]] TextureRegion operator ()(const RectF& rect) const;
-		//[[nodiscard]] TextureRegion uv(double u, double v, double w, double h) const;
-		//[[nodiscard]] TextureRegion uv(const RectF& rect) const;
-		//[[nodiscard]] TextureRegion mirrored() const;
-		//[[nodiscard]] TextureRegion mirrored(bool doMirror) const;
-		//[[nodiscard]] TextureRegion flipped() const;
-		//[[nodiscard]] TextureRegion flipped(bool doFlip) const;
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion opCall(double, double, double, double) const", asMETHODPR(BindType, operator(), (double, double, double, double) const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion opCall(const Vec2& in, double, double) const", asMETHODPR(BindType, operator(), (const Vec2&, double, double) const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion opCall(double, double, double) const", asMETHODPR(BindType, operator(), (double, double, double) const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion opCall(double, double, const Vec2& in) const", asMETHODPR(BindType, operator(), (double, double, const Vec2&) const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion opCall(const Vec2& in, const Vec2& in) const", asMETHODPR(BindType, operator(), (const Vec2&, const Vec2&) const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion opCall(const RectF& in) const", asMETHODPR(BindType, operator(), (const RectF&) const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion uv(double, double, double, double) const", asMETHODPR(BindType, uv, (double, double, double, double) const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion uv(const RectF& in) const", asMETHODPR(BindType, uv, (const RectF&) const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion mirrored() const", asMETHODPR(BindType, mirrored, () const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion mirrored(bool) const", asMETHODPR(BindType, mirrored, (bool) const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion flipped() const", asMETHODPR(BindType, flipped, () const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion flipped(bool) const", asMETHODPR(BindType, flipped, (bool) const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "TextureRegion scaled(double) const", asMETHODPR(BindType, scaled, (double) const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion scaled(double, double) const", asMETHODPR(BindType, scaled, (double, double) const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion scaled(const Vec2& in) const", asMETHODPR(BindType, scaled, (const Vec2&) const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
 
-		//[[nodiscard]] TextureRegion scaled(double xs, double ys) const;
-		//[[nodiscard]] TextureRegion scaled(const Vec2& s) const;
-		//[[nodiscard]] TextureRegion resized(double size) const;
-		//[[nodiscard]] TextureRegion resized(double width, double height) const;
-		//[[nodiscard]] TextureRegion resized(const Vec2& size) const;
-		//[[nodiscard]] TextureRegion repeated(double xRepeat, double yRepeat) const;
-		//[[nodiscard]] TextureRegion repeated(const Vec2& _repeat) const;
-		//[[nodiscard]] TextureRegion mapped(double width, double height) const;
-		//[[nodiscard]] TextureRegion mapped(const Vec2& size) const;
-		//[[nodiscard]] TextureRegion fitted(double width, double height, bool scaleUp = true) const;
-		//[[nodiscard]] TextureRegion fitted(const Vec2& size, bool scaleUp = true) const;
-		//[[nodiscard]] TexturedQuad rotated(double angle) const;
-		//[[nodiscard]] TexturedQuad rotatedAt(double x, double y, double angle) const;
-		//[[nodiscard]] TexturedQuad rotatedAt(const Vec2& pos, double angle) const;
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion resized(double) const", asMETHODPR(BindType, resized, (double) const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion resized(double, double) const", asMETHODPR(BindType, resized, (double, double) const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion resized(const Vec2& in) const", asMETHODPR(BindType, resized, (const Vec2&) const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion repeated(double, double) const", asMETHODPR(BindType, repeated, (double, double) const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion repeated(const Vec2& in) const", asMETHODPR(BindType, repeated, (const Vec2&) const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion mapped(double, double) const", asMETHODPR(BindType, mapped, (double, double) const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion mapped(const Vec2& in) const", asMETHODPR(BindType, mapped, (const Vec2&) const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion fitted(double, double, bool scaleUp = true) const", asMETHODPR(BindType, fitted, (double, double, bool) const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion fitted(const Vec2& in, bool scaleUp = true) const", asMETHODPR(BindType, fitted, (const Vec2&, bool) const, TextureRegion), asCALL_THISCALL); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod(TypeName, "TexturedQuad rotated(double) const", asMETHODPR(BindType, rotated, (double) const, TexturedQuad), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "TexturedQuad rotatedAt(double, double, double) const", asMETHODPR(BindType, rotatedAt, (double, double, double) const, TexturedQuad), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "TexturedQuad rotatedAt(const Vec2& in, double) const", asMETHODPR(BindType, rotatedAt, (const Vec2&, double) const, TexturedQuad), asCALL_THISCALL); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod(TypeName, "TextureRegion opImplConv() const", asFUNCTION(ConvToTextureRegion), asCALL_CDECL_OBJLAST); assert(r >= 0);
 	}
 }
