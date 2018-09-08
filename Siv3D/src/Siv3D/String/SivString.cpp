@@ -73,13 +73,6 @@ namespace s3d
 		return *this;
 	}
 
-	String& String::assign(const StringView view)
-	{
-		m_string.assign(view.begin(), view.end());
-
-		return *this;
-	}
-
 	String& String::append(const String& text)
 	{
 		m_string.append(text.m_string);
@@ -125,13 +118,6 @@ namespace s3d
 	String& String::append(const size_t count, const value_type ch)
 	{
 		m_string.append(count, ch);
-
-		return *this;
-	}
-
-	String& String::append(const StringView view)
-	{
-		m_string.append(view.begin(), view.end());
 
 		return *this;
 	}

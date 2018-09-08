@@ -43,6 +43,10 @@ namespace s3d
 
 		~DirectoryWatcher();
 
+		bool isOpened() const;
+
+		explicit operator bool() const;
+
 		Array<std::pair<FilePath, FileAction>> retrieveChanges() const;
 
 		FilePath directory() const;

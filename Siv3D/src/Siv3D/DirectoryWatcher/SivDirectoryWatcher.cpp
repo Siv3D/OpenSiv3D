@@ -43,6 +43,16 @@ namespace s3d
 
 	}
 
+	bool DirectoryWatcher::isOpened() const
+	{
+		return !!m_detail;
+	}
+
+	DirectoryWatcher::operator bool() const
+	{
+		return isOpened();
+	}
+
 	Array<std::pair<FilePath, FileAction>> DirectoryWatcher::retrieveChanges() const
 	{
 		if (!m_detail)

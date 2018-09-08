@@ -3,12 +3,6 @@
 	Graphics::SetBackground(ColorF(0.7, 0.9, 0.7));
 	Image image(480, 480, Palette::White);
 	DynamicTexture texture(image);
-	const Array<Texture> icons = 
-	{
-		Texture(Icon(0xf1fc, 30)),
-		Texture(Icon(0xf576, 30))
-	};
-	const Texture saveIcon(Icon(0xf0c7, 40));
 
 	Array<Color> colors;
 	for (int32 i = 0; i < 12; ++i)
@@ -16,13 +10,20 @@
 		colors << HSV(i * 30, 0.95, 0.95);
 	}
 	colors << Color(255) << Color(160) << Color(80) << Color(0);
-	
-	size_t penIndex = 1;
+
+	const Array<Texture> icons =
+	{
+		Texture(Icon(0xf1fc, 30)),
+		Texture(Icon(0xf576, 30))
+	};
+	const Texture saveIcon(Icon(0xf0c7, 40));
+
+	size_t colorIndex = 0;
 	size_t mode = 0;
 
 	while (System::Update())
 	{
-		const Color penColor = colors[penIndex];
+		const Color penColor = colors[colorIndex];
 
 		if (mode == 0)
 		{
@@ -31,7 +32,7 @@
 				Line(Cursor::PreviousPos(), Cursor::Pos())
 					.overwrite(image, 8, penColor, false);
 				texture.fill(image);
-			}		
+			}
 		}
 		else
 		{
@@ -46,16 +47,38 @@
 
 		for (size_t i = 0; i < colors.size(); ++i)
 		{
-			if (
-			Rect(i % 4 * 36, i / 4 * 36, 32)
+			if (Rect(i % 4 * 36, i / 4 * 36, 32)
 				.movedBy(490, 10)
 				.draw(colors[i])
-				.drawFrame(penIndex == i ? 6 : 0, 4, ColorF(0.7))
+				.drawFrame(colorIndex == i ? 6 : 0, 4, ColorF(0.7))
 				.leftClicked())
 			{
-				penIndex = i;
+				colorIndex = i;
 			}
 		}
+
+		for (size_t i = 0; i < icons.size(); ++i)
+		{
+			if (Rect(490 + i * 80, 170, 60)
+				.rounded(20)
+				.drawFrame(mode == i ? 8 : 1)
+				.leftClicked())
+			{
+				mode = i;
+			}
+
+			icons[i].drawAt(520 + i * 80, 200,
+				mode == i ? penColor : Color(0, 40));
+		}
+
+		const Rect saveButton(490, 250, 140, 60);
+
+		if (saveButton.rounded(20).draw().leftClicked())
+		{
+			image.saveWithDialog();
+		}
+
+		saveIcon.drawAt(saveButton.center(), ColorF(0.25));
 
 		if (Rect(480).mouseOver())
 		{
@@ -67,32 +90,8 @@
 			}
 			else
 			{
-				icons[1].draw(Cursor::Pos().movedBy(-30, -30), Color(0));
+				icons[1].draw(Cursor::Pos().movedBy(-30, -30), Palette::Black);
 			}
 		}
-
-		for (size_t i = 0; i < icons.size(); ++i)
-		{
-			if (
-			Rect(490 + i * 80, 170, 60)
-				.rounded(8)
-				.drawFrame(mode == i ? 8 : 1)
-				.leftClicked())
-			{
-				mode = i;
-			}
-
-			icons[i].drawAt(520 + i * 80, 200,
-					mode == i ? penColor : Color(0, 30));
-		}
-
-		const Rect saveButton(490, 250, 140, 60);
-
-		if (saveButton.rounded(8).draw().leftClicked())
-		{
-			image.saveWithDialog();
-		}
-
-		saveIcon.drawAt(saveButton.center(), ColorF(0.25));
 	}
 }

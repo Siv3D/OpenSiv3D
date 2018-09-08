@@ -1042,6 +1042,9 @@
 	// Script
 	# include "Siv3D/Script.hpp"
 
+	// ManagedScript
+	# include "Siv3D/ManagedScript.hpp"
+
 //////////////////////////////////////////////////
 //
 //	Others

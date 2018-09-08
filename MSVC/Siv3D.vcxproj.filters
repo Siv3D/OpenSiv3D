@@ -4629,6 +4629,9 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Image.hpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\ManagedScript.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Siv3D\src\Siv3D\FileSystem\SivFileSystem_macOS.mm">

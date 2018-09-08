@@ -460,6 +460,8 @@ namespace s3d
 	{
 		return x.compare(y) >= 0;
 	}
+
+	using FilePathView = StringView;
 }
 
 //////////////////////////////////////////////////
