@@ -1,7 +1,7 @@
 ﻿void Main()
 {
 	Graphics::SetBackground(ColorF(0.7, 0.9, 0.7));
-	Image image(480, 480, Palette::White);
+	Image image(600, 600, Palette::White);
 	DynamicTexture texture(image);
 
 	Array<Color> colors;
@@ -13,10 +13,10 @@
 
 	const Array<Texture> icons =
 	{
-		Texture(Icon(0xf1fc, 30)),
-		Texture(Icon(0xf576, 30))
+		Texture(Icon(0xf1fc, 36)),
+		Texture(Icon(0xf576, 36))
 	};
-	const Texture saveIcon(Icon(0xf0c7, 40));
+	const Texture saveIcon(Icon(0xf0c7, 48));
 
 	size_t colorIndex = 0;
 	size_t mode = 0;
@@ -47,10 +47,11 @@
 
 		for (size_t i = 0; i < colors.size(); ++i)
 		{
-			if (Rect(i % 4 * 36, i / 4 * 36, 32)
-				.movedBy(490, 10)
+			if (Rect(i % 4 * 40, i / 4 * 40, 40)
+				.stretched(-3)
+				.movedBy(620, 20)
 				.draw(colors[i])
-				.drawFrame(colorIndex == i ? 6 : 0, 4, ColorF(0.7))
+				.drawFrame(colorIndex == i ? 8 : 0, 3, ColorF(0.7))
 				.leftClicked())
 			{
 				colorIndex = i;
@@ -59,7 +60,7 @@
 
 		for (size_t i = 0; i < icons.size(); ++i)
 		{
-			if (Rect(490 + i * 80, 170, 60)
+			if (Rect(620 + i * 90, 200, 70)
 				.rounded(20)
 				.drawFrame(mode == i ? 8 : 1)
 				.leftClicked())
@@ -67,11 +68,11 @@
 				mode = i;
 			}
 
-			icons[i].drawAt(520 + i * 80, 200,
+			icons[i].drawAt(655 + i * 90, 235,
 				mode == i ? penColor : Color(0, 40));
 		}
 
-		const Rect saveButton(490, 250, 140, 60);
+		const Rect saveButton(620, 290, 160, 70);
 
 		if (saveButton.rounded(20).draw().leftClicked())
 		{
@@ -80,7 +81,7 @@
 
 		saveIcon.drawAt(saveButton.center(), ColorF(0.25));
 
-		if (Rect(480).mouseOver())
+		if (Rect(600).mouseOver())
 		{
 			Cursor::RequestStyle(CursorStyle::Hidden);
 

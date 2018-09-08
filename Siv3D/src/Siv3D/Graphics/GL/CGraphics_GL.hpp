@@ -24,6 +24,7 @@
 # include "SamplerState/GLSamplerState.hpp"
 # include "../../Renderer2D/GL/CRenderer2D_GL.hpp"
 # include <Siv3D/Color.hpp>
+# include <Siv3D/Window.hpp>
 
 namespace s3d
 {
@@ -114,7 +115,7 @@ namespace s3d
 		
 		WindowHandle m_glfwWindow = nullptr;
 		
-		ColorF m_clearColor = Color(11, 22, 33);
+		ColorF m_clearColor = Palette::DefaultBackground;
 		
 		CTexture_GL* m_texture = nullptr;
 		
@@ -128,7 +129,7 @@ namespace s3d
 		
 		CRenderer2D_GL* m_renderer2D = nullptr;
 		
-		Size m_currentRenderTargetSize = { 640, 480 };
+		Size m_currentRenderTargetSize = Window::DefaultClientSize;
 		
 		double m_lastFlipTimeMillisec = 0;
 		

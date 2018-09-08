@@ -159,5 +159,7 @@ namespace s3d
 		constexpr Color Mediumpurple{ 147,112,219 };
 		constexpr Color Slateblue{ 106,90,205 };
 		constexpr Color Mediumslateblue{ 123,104,238 };
+
+		constexpr Color DefaultBackground{ 11,22,33 };
 	};
 }

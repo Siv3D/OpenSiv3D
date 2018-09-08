@@ -14,6 +14,7 @@
 
 # include "D3D11RenderTarget.hpp"
 # include <Siv3D/PointVector.hpp>
+# include <Siv3D/Window.hpp>
 # include <Siv3D/Logger.hpp>
 
 namespace s3d
@@ -36,7 +37,7 @@ namespace s3d
 
 	bool D3D11RenderTarget::init()
 	{
-		m_rt2D = RenderTexture(Size(640, 480), m_sample2D.Count);
+		m_rt2D = RenderTexture(Window::DefaultClientSize, m_sample2D.Count);
 
 		if (!m_rt2D)
 		{
