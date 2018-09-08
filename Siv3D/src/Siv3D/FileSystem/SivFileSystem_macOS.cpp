@@ -518,10 +518,7 @@ namespace s3d
 
 			return macOS_TrashFile(utf8Path.c_str(), utf8Path.length(), IsDirectory(path));
 		}
-	}
-
-	namespace MacOS::FileSystem
-	{
+		
 		bool IsSandBoxed()
 		{
 			return detail::init::g_isSandBoxed;
