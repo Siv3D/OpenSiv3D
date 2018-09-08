@@ -37,32 +37,32 @@ namespace s3d
 		explicit constexpr AssetIDWrapper(ValueType id) noexcept
 			: m_value(id) {}
 
-		constexpr ValueType value() const noexcept
+		[[nodiscard]] constexpr ValueType value() const noexcept
 		{
 			return m_value;
 		}
 
-		constexpr bool isNullAsset() const noexcept
+		[[nodiscard]] constexpr bool isNullAsset() const noexcept
 		{
 			return m_value == NullAssetID;
 		}
 
-		constexpr bool operator ==(const AssetIDWrapper& other) const noexcept
+		[[nodiscard]] constexpr bool operator ==(const AssetIDWrapper& other) const noexcept
 		{
 			return m_value == other.m_value;
 		}
 
-		constexpr bool operator !=(const AssetIDWrapper& other) const noexcept
+		[[nodiscard]] constexpr bool operator !=(const AssetIDWrapper& other) const noexcept
 		{
 			return m_value != other.m_value;
 		}
 
-		static constexpr AssetIDWrapper NullAsset() noexcept
+		[[nodiscard]] static constexpr AssetIDWrapper NullAsset() noexcept
 		{
 			return AssetIDWrapper(NullAssetID);
 		}
 
-		static constexpr AssetIDWrapper InvalidValue() noexcept
+		[[nodiscard]] static constexpr AssetIDWrapper InvalidValue() noexcept
 		{
 			return AssetIDWrapper(InvalidID);
 		}
@@ -81,12 +81,12 @@ namespace s3d
 
 		constexpr AssetHandle() = default;
 
-		constexpr AssetHandle(IDWrapperType id) noexcept
+		explicit constexpr AssetHandle(IDWrapperType id) noexcept
 			: m_id(id) {}
 
 		~AssetHandle();
 
-		constexpr IDWrapperType id() const noexcept
+		[[nodiscard]] constexpr IDWrapperType id() const noexcept
 		{
 			return m_id;
 		}

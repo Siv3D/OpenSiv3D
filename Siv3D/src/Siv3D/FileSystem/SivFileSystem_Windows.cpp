@@ -627,14 +627,14 @@ namespace s3d
 
 			return detail::Remove(path, allowUndo);
 		}
-		
+
 		bool IsSandBoxed()
 		{
 			return false;
 		}
 	}
 
-	namespace win::FileSystem
+	namespace Windows::FileSystem
 	{
 		FilePath WorkingDirectory()
 		{

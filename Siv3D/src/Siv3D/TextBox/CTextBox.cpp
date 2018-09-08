@@ -234,7 +234,7 @@ namespace s3d
 
 	# if defined(SIV3D_TARGET_WINDOWS)
 	
-		const auto[editingCursorIndex, editingTargetlength] = win::TextInput::GetCursorIndex();
+		const auto[editingCursorIndex, editingTargetlength] = Windows::TextInput::GetCursorIndex();
 		const bool hasEditingTarget = (editingTargetlength > 0);
 
 	# else
@@ -287,7 +287,7 @@ namespace s3d
 
 	# if defined(SIV3D_TARGET_WINDOWS)
 
-		win::TextInput::DrawCandidateWindow(m_font, Vec2(begX + candidateWindowPosOffset.x * hasEditingTarget, pos.y + fontHeight + candidateWindowPosOffset.y));
+		Windows::TextInput::DrawCandidateWindow(m_font, Vec2(begX + candidateWindowPosOffset.x * hasEditingTarget, pos.y + fontHeight + candidateWindowPosOffset.y));
 
 	# endif
 	}

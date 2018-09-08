@@ -96,7 +96,7 @@ namespace s3d
 
 # if defined(SIV3D_TARGET_WINDOWS)
 
-	namespace win::TextInput
+	namespace Windows::TextInput
 	{
 		void DisableIME()
 		{
@@ -122,10 +122,10 @@ namespace s3d
 		{
 			const double candidatesMargin = 4.0;
 			const String editingText = s3d::TextInput::GetEditingText();
-			const auto[editingCursorIndex, editingTargetlength] = win::TextInput::GetCursorIndex();
+			const auto[editingCursorIndex, editingTargetlength] = GetCursorIndex();
 			const bool hasEditingTarget = (editingTargetlength > 0);
 			const String editingTargetText = editingText.substr(editingCursorIndex, editingTargetlength);
-			const auto cadidates = win::TextInput::GetCandidates();
+			const auto cadidates = GetCandidates();
 			const double candidateItemHeight = font.height() + candidatesMargin;
 
 			double boxWidth = 0.0;

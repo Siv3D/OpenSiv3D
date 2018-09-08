@@ -30,7 +30,7 @@ namespace s3d
 			: beginPos(0)
 			, endPos(0) {}
 
-		constexpr AudioLoopTiming(int64 _beginPos) noexcept
+		explicit constexpr AudioLoopTiming(int64 _beginPos) noexcept
 			: beginPos(_beginPos)
 			, endPos(0) {}
 

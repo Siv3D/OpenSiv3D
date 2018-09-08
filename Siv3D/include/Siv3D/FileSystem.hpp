@@ -490,14 +490,18 @@ namespace s3d
 		/// 成功した場合は true, それ以外の場合は false
 		/// </returns>
 		//bool MoveContents(const FilePath& from, const FilePath& to, CopyOption copyOption = CopyOption::Fail_if_Exists);
-		
+
 		[[nodiscard]] bool IsSandBoxed();
 	}
 
-	namespace win::FileSystem
+# if defined(SIV3D_TARGET_WINDOWS)
+
+	namespace Windows::FileSystem
 	{
 		[[nodiscard]] FilePath WorkingDirectory();
 
 		void SetCurrentDirectory(const FilePath& path);
 	}
+
+# endif
 }
