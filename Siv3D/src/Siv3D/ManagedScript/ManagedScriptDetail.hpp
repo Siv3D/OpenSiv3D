@@ -10,33 +10,35 @@
 //-----------------------------------------------
 
 # pragma once
-# include <memory>
-# include "Fwd.hpp"
+# include <Siv3D/Script.hpp>
+# include <Siv3D/ManagedScript.hpp>
 
 namespace s3d
 {
-	class ManagedScript
+	class ManagedScript::ManagedScriptDetail
 	{
 	private:
 
-		class ManagedScriptDetail;
+		Script m_script;
 
-		std::shared_ptr<ManagedScriptDetail> pImpl;
+		std::function<bool()> m_callback;
+
+		std::function<void()> m_main;
+
+		bool m_requestReload = false;
 
 	public:
 
-		ManagedScript();
+		ManagedScriptDetail();
 
-		explicit ManagedScript(const FilePath& path);
+		explicit ManagedScriptDetail(const FilePath& path);
 
-		~ManagedScript();
+		~ManagedScriptDetail();
 
 		[[nodiscard]] bool isEmpty() const;
 
-		[[nodiscard]] explicit operator bool() const;
-
 		[[nodiscard]] bool compiled() const;
 
-		void run() const;
+		void run();
 	};
 }
