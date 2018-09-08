@@ -64,7 +64,7 @@ namespace s3d
 
 # if defined(SIV3D_TARGET_WINDOWS)
 
-	namespace win::TextInput
+	namespace Windows::TextInput
 	{
 		void DisableIME();
 

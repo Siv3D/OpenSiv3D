@@ -95,6 +95,7 @@ namespace s3d
 	//	StringView.hpp
 	//
 	class StringView;
+	using FilePathView = StringView;
 
 	//////////////////////////////////////////////////////
 	//
@@ -1117,4 +1118,10 @@ namespace s3d
 	struct ScriptModuleData;
 	template <class Type> struct ScriptFunction;
 	class Script;
+
+	//////////////////////////////////////////////////////
+	//
+	//	ManagedScript.hpp
+	//
+	class ManagedScript;
 }

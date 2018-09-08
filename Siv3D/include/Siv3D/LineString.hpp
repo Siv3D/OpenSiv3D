@@ -243,6 +243,16 @@ namespace s3d
 			return{ base_type::operator[](index), base_type::operator[](index + 1) };
 		}
 
+		[[nodiscard]] LineString movedBy(double x, double y) const
+		{
+			return LineString(*this).moveBy(x, y);
+		}
+
+		[[nodiscard]] LineString movedBy(const Vec2& v) const
+		{
+			return movedBy(v.x, v.y);
+		}
+
 		LineString& moveBy(double x, double y) noexcept
 		{
 			for (auto& point : *this)
@@ -256,16 +266,6 @@ namespace s3d
 		LineString& moveBy(const Vec2& v) noexcept
 		{
 			return moveBy(v.x, v.y);
-		}
-
-		[[nodiscard]] LineString movedBy(double x, double y) const
-		{
-			return LineString(*this).moveBy(x, y);
-		}
-
-		[[nodiscard]] LineString movedBy(const Vec2& v) const
-		{
-			return movedBy(v.x, v.y);
 		}
 
 		[[nodiscard]] RectF calculateBoundingRect() const noexcept;
@@ -298,7 +298,12 @@ namespace s3d
 
 		const LineString& draw(const LineStyle& style, double thickness, const ColorF& color = Palette::White, bool isClosed = false) const;
 
-		void drawCatmullRom(double thickness = 1.0, const ColorF& color = Palette::White, bool isClosed = false, int32 interpolation = 24) const
+		void drawCatmullRom(const ColorF& color = Palette::White, bool isClosed = false, int32 interpolation = 24) const
+		{
+			drawCatmullRom(LineStyle::SquareCap, 1.0, color, isClosed, interpolation);
+		}
+
+		void drawCatmullRom(double thickness, const ColorF& color = Palette::White, bool isClosed = false, int32 interpolation = 24) const
 		{
 			drawCatmullRom(LineStyle::SquareCap, thickness, color, isClosed, interpolation);
 		}
@@ -307,7 +312,7 @@ namespace s3d
 
 		// drawArray
 
-		[[nodiscard]] Polygon calculateBuffer(double distance, uint32 quality = 24, bool isClosed = false) const;
+		[[nodiscard]] Polygon calculateBuffer(double distance, bool isClosed = false, int32 quality = 24) const;
 	};
 }
 

@@ -184,6 +184,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Logger\CLogger.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Logger\LoggerFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Logger\SivLogger.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ManagedScript\ManagedScriptDetail.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\ManagedScript\SivManagedScript.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Mat3x2\SivMat3x2.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MathParser\CMathParser.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\MathParser\SivMathParser.cpp" />
@@ -261,6 +263,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_CustomStopwatch.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Date.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_DateTime.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_DynamicTexture.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Easing.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Ellipse.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Emoji.cpp" />
@@ -271,6 +274,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Image.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Key.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Line.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_LineString.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_LineStyle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Math.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_MathConstants.cpp" />
@@ -652,6 +656,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Line.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\LineString.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Logger.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\ManagedScript.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Mat3x2.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Math.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\MathConstants.hpp" />
@@ -937,6 +942,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\LicenseManager\LicenseList.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Logger\CLogger.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Logger\ILogger.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\ManagedScript\ManagedScriptDetail.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\MathParser\CMathParser.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\MemoryMapping\CMemoryMapping.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\MemoryWriter\CMemoryWriter.hpp" />

@@ -605,7 +605,7 @@ namespace s3d
 
 				# if defined(SIV3D_TARGET_WINDOWS)
 
-					const auto[editingCursorIndex, editingTargetlength] = win::TextInput::GetCursorIndex();
+					const auto[editingCursorIndex, editingTargetlength] = Windows::TextInput::GetCursorIndex();
 					const bool hasEditingTarget = (editingTargetlength > 0);
 
 				# else

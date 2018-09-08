@@ -163,6 +163,8 @@ namespace s3d
 			r = engine->RegisterGlobalProperty("const Color Mediumpurple", (void*)&Palette::Mediumpurple); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const Color Slateblue", (void*)&Palette::Slateblue); assert(r >= 0);
 			r = engine->RegisterGlobalProperty("const Color Mediumslateblue", (void*)&Palette::Mediumslateblue); assert(r >= 0);
+
+			r = engine->RegisterGlobalProperty("const Color DefaultBackground", (void*)&Palette::DefaultBackground); assert(r >= 0);
 		}
 		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 	}

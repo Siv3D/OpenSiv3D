@@ -20,6 +20,23 @@ namespace s3d
 {
 	namespace detail
 	{
+		using namespace std::literals::string_view_literals;
+
+		constexpr std::array<FilePathView, 11> standardFontNames =
+		{
+			U"mplus/mplus-1p-thin.ttf"sv,
+			U"mplus/mplus-1p-light.ttf"sv,
+			U"mplus/mplus-1p-regular.ttf"sv,
+			U"mplus/mplus-1p-medium.ttf"sv,
+			U"mplus/mplus-1p-bold.ttf"sv,
+			U"mplus/mplus-1p-heavy.ttf"sv,
+			U"mplus/mplus-1p-black.ttf"sv,
+			U"noto/NotoEmoji-Regular.ttf"sv,
+			U"noto/NotoColorEmoji.ttf"sv,
+			U"fontawesome/solid.otf"sv,
+			U"fontawesome/brands.otf"sv,
+		};
+
 		FilePath GetEngineFontDirectory()
 		{
 			return EngineDirectory::CurrectVersionCommon() + U"font/";
@@ -27,25 +44,7 @@ namespace s3d
 
 		FilePath GetEngineFontPath(const Typeface typeface)
 		{
-			const FilePath fontDirectory = GetEngineFontDirectory();
-
-			switch (typeface)
-			{
-			case Typeface::Thin:
-				return fontDirectory + U"mplus/mplus-1p-thin.ttf";
-			case Typeface::Light:
-				return fontDirectory + U"mplus/mplus-1p-light.ttf";
-			case Typeface::Regular:
-				return fontDirectory + U"mplus/mplus-1p-regular.ttf";
-			case Typeface::Medium:
-				return fontDirectory + U"mplus/mplus-1p-medium.ttf";
-			case Typeface::Bold:
-				return fontDirectory + U"mplus/mplus-1p-bold.ttf";
-			case Typeface::Heavy:
-				return fontDirectory + U"mplus/mplus-1p-heavy.ttf";
-			default:
-				return fontDirectory + U"mplus/mplus-1p-black.ttf";
-			}
+			return GetEngineFontDirectory() + standardFontNames[static_cast<size_t>(typeface)];
 		}
 	}
 
@@ -86,24 +85,9 @@ namespace s3d
 
 		m_fonts.setNullData(nullFont);
 
-		const FilePath fontNames[11] =
-		{
-			U"mplus/mplus-1p-thin.ttf",
-			U"mplus/mplus-1p-light.ttf",
-			U"mplus/mplus-1p-regular.ttf",
-			U"mplus/mplus-1p-medium.ttf",
-			U"mplus/mplus-1p-bold.ttf",
-			U"mplus/mplus-1p-heavy.ttf",
-			U"mplus/mplus-1p-black.ttf",
-			U"noto/NotoEmoji-Regular.ttf",
-			U"noto/NotoColorEmoji.ttf",
-			U"fontawesome/solid.otf",
-			U"fontawesome/brands.otf",
-		};
-
 		const FilePath fontDirectory = EngineDirectory::CurrectVersionCommon() + U"font/";
 		
-		for (const auto& fontName : fontNames)
+		for (const auto& fontName : detail::standardFontNames)
 		{
 			const FilePath fontResourcePath = Resource(U"engine/font/" + fontName + U".zst");
 

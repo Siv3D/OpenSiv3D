@@ -105,6 +105,7 @@ namespace s3d
 		Texture,
 		TextureRegion,
 		TexturedQuad,
+		DynamicTexture,
 
 		Emoji,
 		Icon,
@@ -112,7 +113,7 @@ namespace s3d
 		PrintBuffer,
 		Print_impl,
 
-		DynamicTexture,
+		
 		Font,
 		DrawableString,
 
@@ -159,7 +160,7 @@ namespace s3d
 	void RegisterRoundRect(AngelScript::asIScriptEngine* engine);
 	void RegisterPolygon(AngelScript::asIScriptEngine* engine);
 	//void RegisterMultiPolygon(AngelScript::asIScriptEngine* engine);
-	//void RegisterLineString(AngelScript::asIScriptEngine* engine);
+	void RegisterLineString(AngelScript::asIScriptEngine* engine);
 
 
 
@@ -180,6 +181,7 @@ namespace s3d
 	void RegisterTexture(AngelScript::asIScriptEngine* engine);
 	void RegisterTextureRegion(AngelScript::asIScriptEngine* engine);
 	void RegisterTexturedQuad(AngelScript::asIScriptEngine* engine);
+	void RegisterDynamicTexture(AngelScript::asIScriptEngine* engine);
 
 	void RegisterEmoji(AngelScript::asIScriptEngine* engine);
 	void RegisterIcon(AngelScript::asIScriptEngine* engine);

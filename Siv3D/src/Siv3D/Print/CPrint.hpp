@@ -12,6 +12,7 @@
 # pragma once
 # include "IPrint.hpp"
 # include <Siv3D/Font.hpp>
+# include <Siv3D/Window.hpp>
 
 namespace s3d
 {
@@ -23,7 +24,7 @@ namespace s3d
 
 		size_t m_maxLines = 6;
 
-		int32 m_maxWidth = 640;
+		int32 m_maxWidth = Window::DefaultClientSize.x;
 
 		int32 m_currentPosX = 0;
 

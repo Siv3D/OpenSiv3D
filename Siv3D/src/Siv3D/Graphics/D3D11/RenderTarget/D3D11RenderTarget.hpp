@@ -15,6 +15,7 @@
 
 # include <Siv3D/Windows.hpp>
 # include <d3d11.h>
+# include <Siv3D/Window.hpp>
 # include <Siv3D/Color.hpp>
 # include <Siv3D/RenderTexture.hpp>
 # include "../../../Texture/D3D11/BackBufferTexture.hpp"
@@ -37,13 +38,13 @@ namespace s3d
 
 		DXGI_SAMPLE_DESC m_sample2D = { 1, 0 };
 
-		ColorF m_clearColor = Color(11, 22, 33);
+		ColorF m_clearColor = Palette::DefaultBackground;
 
 		BackBufferTexture m_backBuffer;
 
 		RenderTexture m_rt2D;
 
-		Size m_currentBackBufferResolution = { 640, 480 };
+		Size m_currentBackBufferResolution = Window::DefaultClientSize;
 		
 	public:
 

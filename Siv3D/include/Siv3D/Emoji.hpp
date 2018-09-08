@@ -37,19 +37,4 @@ namespace s3d
 
 		[[nodiscard]] static Image LoadSilhouette(StringView emoji);
 	};
-
-	struct Character
-	{
-		union
-		{
-			char32_t codePoint;
-
-			uint32 emojiIndex;
-		};
-
-		//bool isEmoji() const;
-	};
-
-	//size_t CheckEmoji(Array<char32_t>::const_iterator it);
 }
-

@@ -18,7 +18,7 @@ namespace s3d
 {
 	namespace detail
 	{
-		String PercentEncode(StringView str)
+		String PercentEncode(const StringView str)
 		{
 			String result;
 
@@ -42,7 +42,7 @@ namespace s3d
 
 	namespace Twitter
 	{
-		bool OpenTweetWindow(const String& text)
+		bool OpenTweetWindow(const StringView text)
 		{
 			return System::LaunchBrowser(U"https://twitter.com/intent/tweet?text=" + detail::PercentEncode(text));
 		}
@@ -57,12 +57,12 @@ namespace s3d
 			return System::LaunchBrowser(U"https://twitter.com/intent/retweet?tweet_id=" + ToString(id));
 		}
 
-		bool OpenMiniProfileWindow(const String& screenName)
+		bool OpenMiniProfileWindow(const StringView screenName)
 		{
 			return System::LaunchBrowser(U"https://twitter.com/intent/user?screen_name=" + screenName);
 		}
 
-		bool OpenFollowWindow(const String& screenName)
+		bool OpenFollowWindow(const StringView screenName)
 		{
 			return System::LaunchBrowser(U"https://twitter.com/intent/follow?screen_name=" + screenName);
 		}

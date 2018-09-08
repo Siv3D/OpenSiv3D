@@ -31,14 +31,14 @@ namespace s3d
 		/// <returns>
 		/// ブラウザを起動できたら true, それ以外の場合は false
 		/// </returns>
-		bool OpenTweetWindow(const String& text);
+		bool OpenTweetWindow(StringView text);
 
 		bool OpenLikeWindow(uint64 id);
 
 		bool OpenRetweetWindow(uint64 id);
 
-		bool OpenMiniProfileWindow(const String& screenName);
+		bool OpenMiniProfileWindow(StringView screenName);
 
-		bool OpenFollowWindow(const String& screenName);
+		bool OpenFollowWindow(StringView screenName);
 	}
 }

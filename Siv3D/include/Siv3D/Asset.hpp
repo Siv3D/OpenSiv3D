@@ -111,7 +111,7 @@ namespace s3d
 
 		IAsset() = default;
 
-		IAsset(const AssetParameter& _parameter)
+		explicit IAsset(const AssetParameter& _parameter)
 			: parameter(_parameter) {}
 
 		virtual ~IAsset()
@@ -167,7 +167,7 @@ namespace s3d
 			m_loadingThread.reset();
 		}
 
-		bool isLoadingAsync()
+		[[nodiscard]] bool isLoadingAsync()
 		{
 			if (m_state != State::PreloadingAsync)
 			{
@@ -186,12 +186,12 @@ namespace s3d
 			return false;
 		}
 		
-		bool isPreloaded() const
+		[[nodiscard]] bool isPreloaded() const
 		{
 			return (m_state == State::LoadSucceeded || m_state == State::LoadFailed);
 		}
 
-		bool loadSucceeded() const
+		[[nodiscard]] bool loadSucceeded() const
 		{
 			return (m_state == State::LoadSucceeded);
 		}

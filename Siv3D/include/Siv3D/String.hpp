@@ -44,6 +44,11 @@ namespace s3d
 
 	public:
 
+		template <class StringViewIsh>
+		using IsStringViewIsh = std::enable_if_t<
+			std::conjunction_v<std::is_convertible<const StringViewIsh&, StringView>,
+			std::negation<std::is_convertible<const StringViewIsh&, const char32*>>>>;
+
 		static constexpr size_type npos = size_type{ static_cast<size_type>(-1) };
 		
 		/// <summary>
@@ -97,8 +102,9 @@ namespace s3d
 		String(string_type&& text) noexcept
 			: m_string(std::move(text)) {}
 
-		explicit String(StringView view)
-			: m_string(view.begin(), view.end()) {}
+		template <class StringViewIsh, class = IsStringViewIsh<StringViewIsh>>
+		explicit String(const StringViewIsh& viewish)
+			: m_string(viewish.data(), viewish.size()) {}
 
 		operator StringView() const noexcept
 		{
@@ -135,9 +141,10 @@ namespace s3d
 			return assign(ilist);
 		}
 
-		String& operator =(StringView view)
+		template <class StringViewIsh, class = IsStringViewIsh<StringViewIsh>>
+		String& operator =(const StringViewIsh& viewish)
 		{
-			return assign(view);
+			return assign(viewish);
 		}
 
 		String& operator <<(value_type ch)
@@ -161,7 +168,13 @@ namespace s3d
 
 		String& assign(std::initializer_list<value_type> ilist);
 
-		String& assign(StringView view);
+		template <class StringViewIsh, class = IsStringViewIsh<StringViewIsh>>
+		String& assign(const StringViewIsh& viewish)
+		{
+			m_string.assign(viewish.data(), viewish.size());
+
+			return *this;
+		}
 
 		template <class Iterator>
 		String& assign(Iterator first, Iterator last)
@@ -196,9 +209,10 @@ namespace s3d
 			return append(ilist);
 		}
 
-		String& operator +=(StringView view)
+		template <class StringViewIsh, class = IsStringViewIsh<StringViewIsh>>
+		String& operator +=(const StringViewIsh&  viewish)
 		{
-			return append(view);
+			return append(viewish);
 		}
 
 		String& append(const String& text);
@@ -215,7 +229,13 @@ namespace s3d
 
 		String& append(size_t count, value_type ch);
 
-		String& append(StringView view);
+		template <class StringViewIsh, class = IsStringViewIsh<StringViewIsh>>
+		String& append(const StringViewIsh& viewish)
+		{
+			m_string.append(viewish.data(), viewish.size());
+
+			return *this;
+		}
 
 		template <class Iterator>
 		String& append(Iterator first, Iterator last)
@@ -269,6 +289,26 @@ namespace s3d
 		/// *this
 		/// </returns>
 		String& insert(size_t offset, const value_type* text);
+
+		/// <summary>
+		/// 指定した位置に文字列を挿入します。
+		/// </summary>
+		/// <param name="offset">
+		/// 挿入する位置
+		/// </param>
+		/// <param name="text">
+		/// 挿入する文字列
+		/// </param>
+		/// <returns>
+		/// *this
+		/// </returns>
+		template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
+		String& insert(size_t offset, const StringViewIsh& text)
+		{
+			m_string.insert(offset, text.data(), text.size());
+
+			return *this;
+		}
 
 		/// <summary>
 		/// 指定した位置に文字を指定した個数だけ挿入します。
@@ -2703,39 +2743,166 @@ namespace s3d
 		[[nodiscard]] String xml_escaped() const;
 	};
 
+	template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
+	[[nodiscard]] inline String operator +(const String::value_type lhs, const StringViewIsh& rhs)
+	{
+		String result;
+		result.reserve(1 + rhs.size());
+		result.append(lhs);
+		result.append(rhs);
+		return result;
+	}
+
+	[[nodiscard]] inline String operator +(const String::value_type lhs, const String& rhs)
+	{
+		String result;
+		result.reserve(1 + rhs.size());
+		result.append(lhs);
+		result.append(rhs);
+		return result;
+	}
+
+	[[nodiscard]] inline String operator +(const String::value_type lhs, String&& rhs)
+	{
+		rhs.push_front(lhs);
+		return std::move(rhs);
+	}
+
+	template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
+	[[nodiscard]] inline String operator +(const String::value_type* lhs, const StringViewIsh& rhs)
+	{
+		const size_t len = std::char_traits<String::value_type>::length(lhs);
+		String result;
+		result.reserve(len + rhs.size());
+		result.append(lhs, len);
+		result.append(rhs);
+		return result;
+	}
+
+	[[nodiscard]] inline String operator +(const String::value_type* lhs, const String& rhs)
+	{
+		const size_t len = std::char_traits<String::value_type>::length(lhs);
+		String result;
+		result.reserve(len + rhs.size());
+		result.append(lhs, len);
+		result.append(rhs);
+		return result;
+	}
+
+	[[nodiscard]] inline String operator +(const String::value_type* lhs, String&& rhs)
+	{
+		return std::move(rhs.insert(0, lhs));
+	}
+
+	template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
+	[[nodiscard]] inline String operator +(const StringViewIsh& lhs, const String::value_type rhs)
+	{
+		String result;
+		result.reserve(lhs.size() + 1);
+		result.append(lhs);
+		result.append(rhs);
+		return result;
+	}
+
+	template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
+	[[nodiscard]] inline String operator +(const StringViewIsh& lhs, const String::value_type* rhs)
+	{
+		const size_t len = std::char_traits<String::value_type>::length(rhs);
+		String result;
+		result.reserve(lhs.size() + len);
+		result.append(lhs);
+		result.append(rhs, len);
+		return result;
+	}
+
+	template <class StringViewIshT, class StringViewIshU, class = String::IsStringViewIsh<StringViewIshT>, class = String::IsStringViewIsh<StringViewIshU>>
+	[[nodiscard]] inline String operator +(const StringViewIshT& lhs, const StringViewIshU& rhs)
+	{
+		String result;
+		result.reserve(lhs.size() + rhs.size());
+		result.append(lhs);
+		result.append(rhs);
+		return result;
+	}
+
+	template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
+	[[nodiscard]] inline String operator +(const StringViewIsh& lhs, const String& rhs)
+	{
+		String result;
+		result.reserve(lhs.size() + rhs.size());
+		result.append(lhs);
+		result.append(rhs);
+		return result;
+	}
+
+	template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
+	[[nodiscard]] inline String operator +(const StringViewIsh& lhs, String&& rhs)
+	{
+		return std::move(rhs.insert(0, lhs));
+	}
+
+	[[nodiscard]] inline String operator +(const String& lhs, const String::value_type rhs)
+	{
+		String result;
+		result.reserve(lhs.size() + 1);
+		result.append(lhs);
+		result.append(rhs);
+		return result;
+	}
+
+	[[nodiscard]] inline String operator +(const String& lhs, const String::value_type* rhs)
+	{
+		const size_t len = std::char_traits<String::value_type>::length(rhs);
+		String result;
+		result.reserve(lhs.size() + len);
+		result.append(lhs);
+		result.append(rhs, len);
+		return result;
+	}
+
+	template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
+	[[nodiscard]] inline String operator +(const String& lhs, const StringViewIsh& rhs)
+	{
+		String result;
+		result.reserve(lhs.size() + rhs.size());
+		result.append(lhs);
+		result.append(rhs);
+		return result;
+	}
+
 	[[nodiscard]] inline String operator +(const String& lhs, const String& rhs)
 	{
-		return lhs.str() + rhs.str();
-	}
-
-	[[nodiscard]]inline String operator +(const String::value_type* lhs, const String& rhs)
-	{
-		return lhs + rhs.str();
-	}
-
-	[[nodiscard]]inline String operator +(const String::value_type lhs, const String& rhs)
-	{
-		return lhs + rhs.str();
-	}
-
-	[[nodiscard]]inline String operator +(const String& lhs, const String::value_type* rhs)
-	{
-		return lhs.str() + rhs;
-	}
-
-	[[nodiscard]]inline String operator +(const String& lhs, const String::value_type rhs)
-	{
-		return lhs.str() + rhs;
-	}
-
-	[[nodiscard]] inline String operator +(String&& lhs, const String& rhs)
-	{
-		return std::move(lhs.append(rhs));
+		String result;
+		result.reserve(lhs.size() + rhs.size());
+		result.append(lhs);
+		result.append(rhs);
+		return result;
 	}
 
 	[[nodiscard]] inline String operator +(const String& lhs, String&& rhs)
 	{
 		return std::move(rhs.insert(0, lhs));
+	}
+
+	[[nodiscard]] inline String operator +(String&& lhs, const String::value_type rhs)
+	{
+		return std::move(lhs << rhs);
+	}
+
+	[[nodiscard]] inline String operator +(String&& lhs, const String::value_type* rhs)
+	{
+		return std::move(lhs.append(rhs));
+	}
+
+	template <class StringViewIsh, class = String::IsStringViewIsh<StringViewIsh>>
+	[[nodiscard]] inline String operator +(String&& lhs, const StringViewIsh& rhs)
+	{
+		return std::move(lhs.append(rhs));
+	}
+
+	[[nodiscard]] inline String operator +(String&& lhs, const String& rhs)
+	{
+		return std::move(lhs.append(rhs));
 	}
 
 	[[nodiscard]] inline String operator +(String&& lhs, String&& rhs)
@@ -2750,27 +2917,6 @@ namespace s3d
 		}
 	}
 
-	[[nodiscard]]inline String operator +(const String::value_type* lhs, String&& rhs)
-	{
-		return std::move(rhs.insert(0, lhs));
-	}
-
-	[[nodiscard]]inline String operator +(const String::value_type lhs, String&& rhs)
-	{
-		rhs.push_front(lhs);
-
-		return std::move(rhs);
-	}
-
-	[[nodiscard]]inline String operator +(String&& lhs, const String::value_type* rhs)
-	{
-		return std::move(lhs.append(rhs));
-	}
-
-	[[nodiscard]]inline String operator +(String&& lhs, const String::value_type rhs)
-	{
-		return std::move(lhs << rhs);
-	}
 
 	[[nodiscard]]inline bool operator ==(const String::value_type* lhs, const String& rhs)
 	{

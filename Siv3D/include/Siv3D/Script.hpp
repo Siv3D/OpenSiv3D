@@ -30,7 +30,7 @@ namespace s3d
 
 		uint64 scriptID = 0;
 
-		bool withoutLineCues = false;
+		bool withLineCues = false;
 
 		ScriptModuleData() = default;
 
@@ -251,7 +251,7 @@ namespace s3d
 		{
 			int32 steps = 0;
 
-			if (!m_moduleData->withoutLineCues)
+			if (m_moduleData->withLineCues)
 			{
 				m_moduleData->context->SetLineCallback(asFUNCTION(detail::LineCallback), &steps, AngelScript::asCALL_CDECL);
 			}
@@ -323,7 +323,7 @@ namespace s3d
 	{
 		enum Option
 		{
-			BuildWithoutLineCues = 0b00001,
+			BuildWithLineCues = 0b00001,
 		};
 	};
 

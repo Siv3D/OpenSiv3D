@@ -81,7 +81,7 @@ namespace s3d
 		/// <summary>
 		/// デフォルトのクライアント解像度
 		/// </summary>
-		constexpr s3d::Size DefaultClientSize(640, 480);
+		constexpr s3d::Size DefaultClientSize(800, 600);
 
 		void SetTitle(const String& title);
 

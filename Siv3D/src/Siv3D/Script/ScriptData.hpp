@@ -74,7 +74,7 @@ namespace s3d
 
 		const FilePath& path() const;
 
-		bool withoutLineCues() const;
+		bool withLineCues() const;
 
 		bool isInitialized() const;
 

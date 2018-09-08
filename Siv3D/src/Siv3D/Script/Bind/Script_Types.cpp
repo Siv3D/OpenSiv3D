@@ -57,7 +57,7 @@ namespace s3d
 		///
 		/// bad
 		r = engine->RegisterObjectType("MultiPolygon", sizeof(MultiPolygon), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C); assert(r >= 0);
-		r = engine->RegisterObjectType("LineString", sizeof(LineString), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C); assert(r >= 0);
+		r = engine->RegisterObjectType("LineString", sizeof(LineString), asOBJ_VALUE | asGetTypeTraits<Polygon>()); assert(r >= 0);
 
 
 		r = engine->RegisterObjectType("LineStyle", sizeof(LineStyle), asOBJ_VALUE | asOBJ_POD | asGetTypeTraits<LineStyle>()); assert(r >= 0);
@@ -72,8 +72,7 @@ namespace s3d
 		r = engine->RegisterObjectType("Texture", sizeof(Texture), asOBJ_VALUE | asGetTypeTraits<Texture>()); assert(r >= 0);
 		r = engine->RegisterObjectType("TextureRegion", sizeof(TextureRegion), asOBJ_VALUE | asGetTypeTraits<TextureRegion>()); assert(r >= 0);
 		r = engine->RegisterObjectType("TexturedQuad", sizeof(TexturedQuad), asOBJ_VALUE | asGetTypeTraits<TexturedQuad>()); assert(r >= 0);
-
-		//r = engine->RegisterObjectType("DynamicTexture", sizeof(DynamicTexture), asOBJ_VALUE | asGetTypeTraits<DynamicTexture>()); assert(r >= 0);
+		r = engine->RegisterObjectType("DynamicTexture", sizeof(DynamicTexture), asOBJ_VALUE | asGetTypeTraits<DynamicTexture>()); assert(r >= 0);
 
 		r = engine->RegisterObjectType("Emoji", sizeof(Emoji), asOBJ_VALUE | asGetTypeTraits<Emoji>()); assert(r >= 0);
 		r = engine->RegisterObjectType("Icon", sizeof(Icon), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
@@ -87,7 +86,9 @@ namespace s3d
 
 		r = engine->RegisterEnum("CursorStyle"); assert(r >= 0);
 		r = engine->RegisterEnum("ImageFormat"); assert(r >= 0);
+		r = engine->RegisterEnum("FloodFillConnectivity"); assert(r >= 0);
 		r = engine->RegisterEnum("TextureDesc"); assert(r >= 0);
+		r = engine->RegisterEnum("TextureFormat"); assert(r >= 0);
 
 		assert(engine->GetTypeIdByDecl("String") == static_cast<int32>(ScriptTypeID::String));
 		assert(engine->GetTypeIdByDecl("Date") == static_cast<int32>(ScriptTypeID::Date));
@@ -133,6 +134,8 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("Texture") == static_cast<int32>(ScriptTypeID::Texture));
 		assert(engine->GetTypeIdByDecl("TextureRegion") == static_cast<int32>(ScriptTypeID::TextureRegion));
 		assert(engine->GetTypeIdByDecl("TexturedQuad") == static_cast<int32>(ScriptTypeID::TexturedQuad));
+		assert(engine->GetTypeIdByDecl("DynamicTexture") == static_cast<int32>(ScriptTypeID::DynamicTexture));
+
 
 		assert(engine->GetTypeIdByDecl("Emoji") == static_cast<int32>(ScriptTypeID::Emoji));
 		assert(engine->GetTypeIdByDecl("Icon") == static_cast<int32>(ScriptTypeID::Icon));

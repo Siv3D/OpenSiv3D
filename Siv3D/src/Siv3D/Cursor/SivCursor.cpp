@@ -152,11 +152,15 @@ namespace s3d
 		}
 	}
 
-	namespace win::Cursor
+# if defined(SIV3D_TARGET_WINDOWS)
+
+	namespace Windows::Cursor
 	{
 		void ClipRect(const Optional<Rect>& rect)
 		{
 			Siv3DEngine::GetCursor()->clip(rect);
 		}
 	}
+
+# endif
 }

@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include "CScript.hpp"
+# include <Siv3D/StringView.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include "Bind/ScriptBind.hpp"
 # include "AngelScript/scriptarray.h"
@@ -19,11 +20,11 @@ namespace s3d
 {
 	namespace detail
 	{
-		static String GetMessageType(const AngelScript::asEMsgType msgType)
+		static constexpr StringView GetMessageType(const AngelScript::asEMsgType msgType)
 		{
-			const Array<String> types =
+			constexpr std::array<StringView, 3> types =
 			{
-				U"error", U"warning", U"info"
+				U"error"_sv, U"warning"_sv, U"info"_sv
 			};
 
 			return types[msgType];
@@ -31,7 +32,7 @@ namespace s3d
 
 		static void MessageCallback(const AngelScript::asSMessageInfo* msg, void* pMessageArray)
 		{
-			const String type = GetMessageType(msg->type);
+			const StringView type = GetMessageType(msg->type);
 			const String section = Unicode::Widen(msg->section);
 			const String message = Unicode::Widen(msg->message);
 
@@ -125,6 +126,8 @@ namespace s3d
 		RegisterQuad(m_engine);
 		RegisterRoundRect(m_engine);
 		RegisterPolygon(m_engine);
+		//RegisterMultiPolygon(m_engine);
+		RegisterLineString(m_engine);
 
 		RegisterLineStyle(m_engine);
 		RegisterShape2D(m_engine);
@@ -144,6 +147,7 @@ namespace s3d
 		RegisterTexture(m_engine);
 		RegisterTextureRegion(m_engine);
 		RegisterTexturedQuad(m_engine);
+		RegisterDynamicTexture(m_engine);
 
 		RegisterEmoji(m_engine);
 		RegisterIcon(m_engine);

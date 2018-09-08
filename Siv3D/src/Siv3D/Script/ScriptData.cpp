@@ -38,8 +38,7 @@ namespace s3d
 		, m_moduleData(std::make_shared<ScriptModuleData>())
 		, m_compileOption(compileOption)
 	{
-
-		m_engine->SetEngineProperty(AngelScript::asEP_BUILD_WITHOUT_LINE_CUES, !!(m_compileOption & ScriptCompileOption::BuildWithoutLineCues));
+		m_engine->SetEngineProperty(AngelScript::asEP_BUILD_WITHOUT_LINE_CUES, !(m_compileOption & ScriptCompileOption::BuildWithLineCues));
 
 		AngelScript::CScriptBuilder builder;
 
@@ -73,7 +72,7 @@ namespace s3d
 
 		m_moduleData->module = m_engine->GetModule(m_moduleName.c_str());
 		m_moduleData->context = m_engine->CreateContext();
-		m_moduleData->withoutLineCues = withoutLineCues();
+		m_moduleData->withLineCues = withLineCues();
 
 		m_complieSucceeded = true;
 
@@ -91,7 +90,7 @@ namespace s3d
 			return;
 		}
 
-		m_engine->SetEngineProperty(AngelScript::asEP_BUILD_WITHOUT_LINE_CUES, !!(m_compileOption & ScriptCompileOption::BuildWithoutLineCues));
+		m_engine->SetEngineProperty(AngelScript::asEP_BUILD_WITHOUT_LINE_CUES, !(m_compileOption & ScriptCompileOption::BuildWithLineCues));
 
 		AngelScript::CScriptBuilder builder;
 
@@ -128,7 +127,7 @@ namespace s3d
 
 		m_moduleData->module = m_engine->GetModule(m_moduleName.c_str());
 		m_moduleData->context = m_engine->CreateContext();
-		m_moduleData->withoutLineCues = withoutLineCues();
+		m_moduleData->withLineCues = withLineCues();
 
 		m_complieSucceeded = true;
 	}
@@ -209,7 +208,7 @@ namespace s3d
 		m_complieSucceeded = false;
 		m_compileOption = compileOption;
 
-		m_engine->SetEngineProperty(AngelScript::asEP_BUILD_WITHOUT_LINE_CUES, !!(m_compileOption & ScriptCompileOption::BuildWithoutLineCues));
+		m_engine->SetEngineProperty(AngelScript::asEP_BUILD_WITHOUT_LINE_CUES, !(m_compileOption & ScriptCompileOption::BuildWithLineCues));
 
 		AngelScript::CScriptBuilder builder;
 
@@ -242,7 +241,7 @@ namespace s3d
 		m_moduleData->module = m_engine->GetModule(m_moduleName.c_str());
 		m_moduleData->context = m_engine->CreateContext();
 		m_moduleData->scriptID = scriptID;
-		m_moduleData->withoutLineCues = withoutLineCues();
+		m_moduleData->withLineCues = withLineCues();
 
 		m_complieSucceeded = true;
 
@@ -254,9 +253,9 @@ namespace s3d
 		return m_fullpath;
 	}
 
-	bool ScriptData::withoutLineCues() const
+	bool ScriptData::withLineCues() const
 	{
-		return !!(m_compileOption & ScriptCompileOption::BuildWithoutLineCues);
+		return !!(m_compileOption & ScriptCompileOption::BuildWithLineCues);
 	}
 
 	bool ScriptData::isInitialized() const

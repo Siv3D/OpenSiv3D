@@ -108,6 +108,9 @@ namespace s3d
 		r = engine->RegisterEnumValue("ImageFormat", "PPM", 10); assert(r >= 0);
 		r = engine->RegisterEnumValue("ImageFormat", "Unspecified", 0); assert(r >= 0);
 
+		r = engine->RegisterEnumValue("FloodFillConnectivity", "Value4", 4); assert(r >= 0);
+		r = engine->RegisterEnumValue("FloodFillConnectivity", "Value8", 8); assert(r >= 0);
+		
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_FACTORY, "Image@ f()", asFUNCTION(DefaultConstruct), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_FACTORY, "Image@ f(const Image& in)", asFUNCTION(CopyConstruct), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_FACTORY, "Image@ f(uint32 size)", asFUNCTION(Image_FactoryI), asCALL_CDECL); assert(r >= 0);
@@ -201,8 +204,29 @@ namespace s3d
 
 
 
+		//
+		//...
+
+		r = engine->RegisterObjectMethod(TypeName, "Image& floodFill(const Point& in, const Color& in, FloodFillConnectivity connectivity = FloodFillConnectivity::Value4, int32 lowerDifference = 0, int32 upperDifference = 0) const", asMETHOD(BindType, floodFill), asCALL_THISCALL); assert(r >= 0);
+
+
+		Image& floodFill(const Point& pos, const Color& color, FloodFillConnectivity connectivity = FloodFillConnectivity::Value4, int32 lowerDifference = 0, int32 upperDifference = 0);
+
+
+		//...
+
+
 
 		r = engine->RegisterObjectMethod(TypeName, "Polygon alphaToPolygon(uint32 threshold = 160, bool allowHoles = true) const", asMETHOD(BindType, alphaToPolygon), asCALL_THISCALL); assert(r >= 0);
+
+
+		r = engine->RegisterObjectMethod("Line", "const Line& paint(Image& inout, const Color& in) const", asMETHODPR(Line, paint, (Image&, const Color&) const, const Line&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Line", "const Line& paint(Image& inout, int32, const Color& in) const", asMETHODPR(Line, paint, (Image&, int32, const Color&) const, const Line&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Line", "const Line& overwrite(Image& inout, const Color& in, bool antialiased = true) const", asMETHODPR(Line, overwrite, (Image&, const Color&, bool) const, const Line&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Line", "const Line& overwrite(Image& inout, int32, const Color& in, bool antialiased = true) const", asMETHODPR(Line, overwrite, (Image&, int32, const Color&, bool) const, const Line&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Line", "const Line& paintArrow(Image& inout, double, const Vec2& in, const Color& in) const", asMETHOD(Line, paintArrow), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Line", "const Line& overwriteArrow(Image& inout, double, const Vec2& in, const Color& in) const", asMETHOD(Line, overwriteArrow), asCALL_THISCALL); assert(r >= 0);
+
 
 	}
 }

@@ -25,14 +25,14 @@ namespace s3d
 			Default = EnsureFit
 		};
 	
-		inline void Resize(const Size& size, const Size& baseSize = Size(640, 480))
+		inline void Resize(const Size& size, const Size& baseSize = Window::DefaultClientSize)
 		{
 			Window::Resize(size);
 	
 			Window::SetBaseSize(baseSize);
 		}
 	
-		inline void Resize(int32 width, int32 height, const Size& baseSize = Size(640, 480))
+		inline void Resize(int32 width, int32 height, const Size& baseSize = Window::DefaultClientSize)
 		{
 			return Resize(Size(width, height), baseSize);
 		}
@@ -165,9 +165,7 @@ namespace s3d
 
 void Main()
 {
-	ScalableWindow::SetBaseSize(640, 480);
-
-	Window::Resize(1280, 640);
+	ScalableWindow::Resize(1280, 640);
 
 	const int32 dotSize = 40;
 
