@@ -239,7 +239,7 @@ namespace s3d
 		return m_baseSize;
 	}
 
-	void CWindow_Windows::setResizable(const bool resizable)
+	void CWindow_Windows::setResizable(const bool)
 	{
 		// [Siv3D ToDo]
 	}
