@@ -183,6 +183,11 @@ namespace s3d
 	{
 		return m_baseSize;
 	}
+
+	void CWindow_macOS::setResizable(const bool)
+	{
+		// [Siv3D ToDo]
+	}
 }
 
 # endif
