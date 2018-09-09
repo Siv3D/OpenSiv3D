@@ -20,6 +20,7 @@
 # include <d3d11_1.h>
 # include <Siv3D/Array.hpp>
 # include <Siv3D/HashTable.hpp>
+# include <Siv3D/Graphics.hpp>
 
 using namespace Microsoft::WRL;
 
@@ -92,13 +93,15 @@ namespace s3d
 		using t_DXGIGetDebugInterface = HRESULT(WINAPI*)(REFIID, void **);
 		t_DXGIGetDebugInterface* m_pDXGIGetDebugInterface = nullptr;
 
-		ComPtr<IDXGIFactory1> m_pFactory;
+		ComPtr<IDXGIFactory1> m_DXGIFactory;
 
 		Array<D3D11_1AdapterInfo> m_adapterInfoList;
 
 		D3D_FEATURE_LEVEL m_WARPFeatureLevel = D3D_FEATURE_LEVEL_10_1;
 
 		D3D_FEATURE_LEVEL m_REFFeatureLevel = D3D_FEATURE_LEVEL_10_1;
+
+		Optional<size_t> m_selectedAdapterIndex;
 
 		D3D_DRIVER_TYPE m_deviceType = D3D_DRIVER_TYPE_UNKNOWN;
 
@@ -118,6 +121,8 @@ namespace s3d
 
 		HashTable<DXGI_FORMAT, DXGI_SAMPLE_DESC> m_bestMSAAs;
 
+		Array<DisplayOutput> m_displayOutputs;
+
 		bool loadLibraries();
 
 		Array<D3D11_1AdapterInfo> getAdapterInfoList() const;
@@ -136,11 +141,15 @@ namespace s3d
 
 		bool createDevice11_1();
 
+		void generateDisplayOutputs();
+
 	public:
 
 		~D3D11_1Device();
 
 		bool init();
+
+		IDXGIFactory1* getDXGIFactory() const;
 
 		ID3D11Device* getDevice() const;
 
@@ -155,6 +164,11 @@ namespace s3d
 		bool supportD3D11_1Runtime() const;
 
 		DXGI_SAMPLE_DESC getBestMSAA(DXGI_FORMAT format, uint32 maxSample);
+
+		const Array<DisplayOutput>& getDisplayOutputs() const;
+
+		// ディスプレイの設定の中でユーザー設定に最も近いものを取得
+		Optional<std::tuple<DXGI_MODE_DESC, ComPtr<IDXGIOutput>, size_t>> getBestFullScreenMode(const Size& size, size_t displayIndex, double refreshRateHz) const;
 	};
 }
 

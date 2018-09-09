@@ -16,7 +16,7 @@
 # include <memory>
 # include "../IGraphics.hpp"
 # include "Device/D3D11_1Device.hpp"
-# include "SwapChain/D3D11SwapChain.hpp"
+# include "SwapChain/D3D11_1SwapChain.hpp"
 # include "RenderTarget/D3D11RenderTarget.hpp"
 # include "../../Texture/D3D11/CTexture_D3D11.hpp"
 # include "../../Shader/D3D11/CShader_D3D11.hpp"
@@ -35,7 +35,7 @@ namespace s3d
 
 		std::unique_ptr<D3D11_1Device> m_device;
 
-		std::unique_ptr<D3D11SwapChain> m_swapChain;
+		std::unique_ptr<D3D11_1SwapChain> m_swapChain;
 
 		CTexture_D3D11* m_texture = nullptr;
 
@@ -67,7 +67,7 @@ namespace s3d
 
 		ID3D11DeviceContext* getContext() const { return m_device->getContext(); }
 
-		D3D11SwapChain* getSwapChain() const { return m_swapChain.get(); }
+		D3D11_1SwapChain* getSwapChain() const { return m_swapChain.get(); }
 
 		D3D11RenderTarget* getRenderTarget() const { return m_renderTarget.get(); }
 

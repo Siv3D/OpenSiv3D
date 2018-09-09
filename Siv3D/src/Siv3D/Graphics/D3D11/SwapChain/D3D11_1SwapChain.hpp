@@ -20,14 +20,17 @@
 # include <Siv3D/Window.hpp>
 # include <Siv3D/Graphics.hpp>
 # include <Siv3D/Image.hpp>
+# include "../Device/D3D11_1Device.hpp"
 
 using namespace Microsoft::WRL;
 
 namespace s3d
 {
-	class D3D11SwapChain
+	class D3D11_1SwapChain
 	{
 	private:
+
+		IDXGIFactory1* m_DXGIFactory = nullptr;
 
 		ID3D11Device* m_device = nullptr;
 
@@ -35,11 +38,17 @@ namespace s3d
 
 		IDXGIAdapter* m_adapter = nullptr;
 
-		HWND m_hWnd = nullptr;
-
-		DXGI_SWAP_CHAIN_DESC m_desc{};
+		DXGI_SWAP_CHAIN_DESC m_desc = {};
 
 		ComPtr<IDXGISwapChain> m_swapChain;
+
+		double m_currentDisplayRefreshRateHz = 60.0;
+
+		Optional<double> m_targetFrameRateHz;
+
+		uint64 m_lastPresentTime = 0;
+
+		bool m_fullScreen = false;
 
 		Size m_targetSize = Window::DefaultClientSize;
 
@@ -47,28 +56,15 @@ namespace s3d
 
 		size_t m_currentDisplayIndex = 0;
 
-		uint64 m_lastFlipTime = 0;
-
-		double m_currentDisplayRefreshRateHz = 60.0;
-
-		Optional<double> m_targetFrameRateHz;
-
-		bool m_fullScreen = false;
-
-		// ディスプレイの設定の中でユーザー設定に最も近いものを取得
-		Optional<std::pair<DXGI_MODE_DESC, ComPtr<IDXGIOutput>>> getBestFullScreenMode(const Size& size, size_t displayIndex, double refreshRateHz);
-
 	public:
 
-		D3D11SwapChain(ID3D11Device* device, ID3D11DeviceContext* context, IDXGIAdapter* adapter);
+		D3D11_1SwapChain(const D3D11_1Device& device);
 
-		~D3D11SwapChain();
+		~D3D11_1SwapChain();
 
 		bool init();
 
 		IDXGISwapChain* getSwapChain() const;
-
-		Array<DisplayOutput> enumOutputs();
 
 		double getDisplayRefreshRateHz() const;
 
@@ -78,7 +74,7 @@ namespace s3d
 
 		bool present();
 
-		bool setFullScreen(bool fullScreen, const Size& size, size_t displayIndex, double refreshRateHz);
+		bool setFullScreen(bool fullScreen, const Size& size, size_t displayIndex, double refreshRateHz, const D3D11_1Device& device);
 
 		bool resizeTargetWindowed(const Size& size);
 

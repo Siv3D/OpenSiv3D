@@ -20,8 +20,12 @@
 # include <Siv3D/Array.hpp>
 # include <Siv3D/Optional.hpp>
 # include <Siv3D/Unspecified.hpp>
+# include <Siv3D/Math.hpp>
+# include <Siv3D/Monitor.hpp>
 # include <Siv3D/Logger.hpp>
+# include "../../../Siv3DEngine.hpp"
 # include "../../../EngineUtility.hpp"
+# include "../../../Window/IWindow.hpp"
 
 namespace s3d
 {
@@ -137,6 +141,17 @@ namespace s3d
 			return false;
 		}
 
+		if (HWND hWnd = Siv3DEngine::GetWindow()->getHandle();
+			FAILED(m_DXGIFactory->MakeWindowAssociation(hWnd, DXGI_MWA_NO_WINDOW_CHANGES | DXGI_MWA_NO_ALT_ENTER)))
+		{
+			LOG_FAIL(U"❌ MakeWindowAssociation() failed");
+			return false;
+		}
+		else
+		{
+			LOG_INFO(U"🆗 MakeWindowAssociation() succeeded");
+		}
+
 		m_adapterInfoList = getAdapterInfoList();
 		LOG_INFO(U"ℹ️ {} adapters available"_fmt(m_adapterInfoList.size()));
 
@@ -157,6 +172,11 @@ namespace s3d
 		}
 
 		return true;
+	}
+
+	IDXGIFactory1* D3D11_1Device::getDXGIFactory() const
+	{
+		return m_DXGIFactory.Get();
 	}
 
 	ID3D11Device* D3D11_1Device::getDevice() const
@@ -223,6 +243,60 @@ namespace s3d
 		return desc;
 	}
 
+	const Array<DisplayOutput>& D3D11_1Device::getDisplayOutputs() const
+	{
+		return m_displayOutputs;
+	}
+
+	Optional<std::tuple<DXGI_MODE_DESC, ComPtr<IDXGIOutput>, size_t>> D3D11_1Device::getBestFullScreenMode(const Size& size, size_t displayIndex, double refreshRateHz) const
+	{
+		if (!m_selectedAdapterIndex)
+		{
+			return none;
+		}
+
+		const auto& adapterInfo = m_adapterInfoList[m_selectedAdapterIndex.value()];
+
+		if (displayIndex > adapterInfo.outputInfoList.size())
+		{
+			displayIndex = 0;
+		}
+
+		const auto& outputInfo = adapterInfo.outputInfoList[displayIndex];
+
+		// サイズが一致するもののうちリフレッシュレートが近いものを選択
+		// サイズが一致するものが存在しなければ return false
+		Optional<size_t> bestIndex;
+		double minDiff = 999999.9;
+
+		for (size_t i = 0; i < outputInfo.displayModeList.size(); ++i)
+		{
+			const auto& desc = outputInfo.displayModeList[i];
+
+			if (static_cast<int32>(desc.Width) == size.x
+				&& static_cast<int32>(desc.Height) == size.y)
+			{
+				const double rate = static_cast<double>(desc.RefreshRate.Numerator) / desc.RefreshRate.Denominator;
+				const double rateDiff = Math::AbsDiff(refreshRateHz, rate);
+				const double modeDiff = (desc.Scaling == DXGI_MODE_SCALING_STRETCHED ? 0.0 : desc.Scaling == DXGI_MODE_SCALING_UNSPECIFIED ? 0.0001 : 0.0002);
+				const double diff = rateDiff + modeDiff;
+
+				if (diff < minDiff)
+				{
+					minDiff = diff;
+					bestIndex = i;
+				}
+			}
+		}
+
+		if (!bestIndex)
+		{
+			return none;
+		}
+
+		return std::make_tuple(outputInfo.displayModeList[bestIndex.value()], outputInfo.pOutput, displayIndex);
+	}
+
 	bool D3D11_1Device::loadLibraries()
 	{
 		if (HMODULE moduleD3D11 = ::LoadLibraryExW(L"d3d11.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32))
@@ -286,7 +360,7 @@ namespace s3d
 			LOG_INFO(U"ℹ️ dxgidebug.dll not found");
 		}
 
-		if (FAILED(m_pCreateDXGIFactory1(__uuidof(IDXGIFactory1), &m_pFactory)))
+		if (FAILED(m_pCreateDXGIFactory1(__uuidof(IDXGIFactory1), &m_DXGIFactory)))
 		{
 			LOG_FAIL(U"❌ CreateDXGIFactory1() failed");
 			return false;
@@ -306,7 +380,7 @@ namespace s3d
 		for (uint32 adapterIndex = 0; ; ++adapterIndex)
 		{
 			ComPtr<IDXGIAdapter> pAdapter;
-			HRESULT hr = m_pFactory->EnumAdapters(adapterIndex, &pAdapter);
+			HRESULT hr = m_DXGIFactory->EnumAdapters(adapterIndex, &pAdapter);
 
 			// リストの最後で DXGIERR_NOT_FOUND が返る
 			if (FAILED(hr))
@@ -800,6 +874,8 @@ namespace s3d
 				m_deviceType = D3D_DRIVER_TYPE_HARDWARE;
 				m_d3d_11_1_runtimeSupprot = adapter.d3d_11_1_runtimeSupprot;
 				m_adapter = adapter.pAdapter;
+				m_selectedAdapterIndex = selectedAdapterIndex;
+				generateDisplayOutputs();
 
 				LOG_INFO(U"✅ D3D11 device created. Driver type: Hardware ({0})"_fmt(detail::ToString(m_selectedFeatureLevel)));
 				return true;
@@ -895,6 +971,64 @@ namespace s3d
 		}
 
 		return false;
+	}
+
+	void D3D11_1Device::generateDisplayOutputs()
+	{
+		m_displayOutputs.clear();
+
+		if (!m_selectedAdapterIndex)
+		{
+			return;
+		}
+
+		const auto& outputInfoList = m_adapterInfoList[m_selectedAdapterIndex.value()].outputInfoList;
+
+		for (size_t outputIndex = 0; outputIndex < outputInfoList.size(); ++outputIndex)
+		{
+			const auto& pOutput = outputInfoList[outputIndex].pOutput;
+
+			DisplayOutput output;
+			{
+				DXGI_OUTPUT_DESC desc;
+
+				if (FAILED(pOutput->GetDesc(&desc)))
+				{
+					continue;
+				}
+
+				output.name = Unicode::FromWString(desc.DeviceName);
+				output.displayRect.x = desc.DesktopCoordinates.left;
+				output.displayRect.y = desc.DesktopCoordinates.top;
+				output.displayRect.w = desc.DesktopCoordinates.right - desc.DesktopCoordinates.left;
+				output.displayRect.h = desc.DesktopCoordinates.bottom - desc.DesktopCoordinates.top;
+				output.rotation = desc.Rotation ? 0 : (static_cast<int32>(desc.Rotation) - 1) * 90;
+			}
+
+			for (auto const& desc : outputInfoList[outputIndex].displayModeList)
+			{
+				DisplayMode mode;
+				mode.size.set(desc.Width, desc.Height);
+				mode.refreshRateHz = static_cast<double>(desc.RefreshRate.Numerator) / desc.RefreshRate.Denominator;
+				output.displayModes.push_back(mode);
+			}
+
+			m_displayOutputs.push_back(output);
+		}
+
+		const auto monitors = System::EnumerateActiveMonitors();
+
+		for (auto& output : m_displayOutputs)
+		{
+			for (const auto& monitor : monitors)
+			{
+				if (output.name == monitor.displayDeviceName)
+				{
+					output.name = monitor.name;
+					break;
+				}
+			}
+		}
 	}
 }
 

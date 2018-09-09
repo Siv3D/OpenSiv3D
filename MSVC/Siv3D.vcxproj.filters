@@ -1429,9 +1429,6 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\ScreenCapture\D3D11ScreenCapture.cpp">
       <Filter>src\Siv3D\Graphics\D3D11\ScreenCapture</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\SwapChain\D3D11SwapChain.cpp">
-      <Filter>src\Siv3D\Graphics\D3D11\SwapChain</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\RenderTexture\SivRenderTexture.cpp">
       <Filter>src\Siv3D\RenderTexture</Filter>
     </ClCompile>
@@ -2332,6 +2329,9 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\Device\D3D11_1Device.cpp">
       <Filter>src\Siv3D\Graphics\D3D11\Device</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\SwapChain\D3D11_1SwapChain.cpp">
+      <Filter>src\Siv3D\Graphics\D3D11\SwapChain</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -2861,9 +2861,6 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\ScreenCapture\D3D11ScreenCapture.hpp">
       <Filter>src\Siv3D\Graphics\D3D11\ScreenCapture</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\SwapChain\D3D11SwapChain.hpp">
-      <Filter>src\Siv3D\Graphics\D3D11\SwapChain</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Shader\IShader.hpp">
       <Filter>src\Siv3D\Shader</Filter>
@@ -4643,6 +4640,9 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\Device\D3D11_1Device.hpp">
       <Filter>src\Siv3D\Graphics\D3D11\Device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\SwapChain\D3D11_1SwapChain.hpp">
+      <Filter>src\Siv3D\Graphics\D3D11\SwapChain</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

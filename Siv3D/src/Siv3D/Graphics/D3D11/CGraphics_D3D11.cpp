@@ -44,7 +44,7 @@ namespace s3d
 		//
 		//	 D3D11SwapChain
 		//
-		m_swapChain = std::make_unique<D3D11SwapChain>(m_device->getDevice(), m_device->getContext(), m_device->getAdapter());
+		m_swapChain = std::make_unique<D3D11_1SwapChain>(*m_device);
 
 		if (!m_swapChain->init())
 		{
@@ -156,7 +156,7 @@ namespace s3d
 
 	Array<DisplayOutput> CGraphics_D3D11::enumOutputs()
 	{
-		return m_swapChain->enumOutputs();
+		return m_device->getDisplayOutputs();
 	}
 
 	void CGraphics_D3D11::setClearColor(const ColorF& color)
@@ -166,7 +166,7 @@ namespace s3d
 
 	bool CGraphics_D3D11::setFullScreen(bool fullScreen, const Size& size, const size_t displayIndex, const double refreshRateHz)
 	{
-		return m_swapChain->setFullScreen(fullScreen, size, displayIndex, refreshRateHz);
+		return m_swapChain->setFullScreen(fullScreen, size, displayIndex, refreshRateHz, *m_device);
 	}
 
 	bool CGraphics_D3D11::present()
