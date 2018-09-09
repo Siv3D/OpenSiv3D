@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -85,6 +85,14 @@ namespace s3d
 			{
 				::glDisable(GL_BLEND);
 			}
+		}
+		
+		if (state.writeR != m_currentState.writeR
+			|| state.writeG != m_currentState.writeG
+			|| state.writeB != m_currentState.writeB
+			|| state.writeA != m_currentState.writeA)
+		{
+			::glColorMask(state.writeR, state.writeG, state.writeB, state.writeA);
 		}
 		
 		if (state.op != m_currentState.op || state.opAlpha != m_currentState.opAlpha)
