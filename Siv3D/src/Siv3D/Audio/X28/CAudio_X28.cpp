@@ -42,7 +42,7 @@ namespace s3d
 
 	CAudio_X28::CAudio_X28()
 	{
-		m_xaudio28 = ::LoadLibraryW(L"xaudio2_8.dll");
+		m_xaudio28 = ::LoadLibraryExW(L"xaudio2_8.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
 
 		if (!m_xaudio28)
 		{

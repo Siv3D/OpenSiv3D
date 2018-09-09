@@ -398,7 +398,7 @@ IME_Init(SDL_VideoData *videodata, HWND hwnd)
 		CoCreateInstance(CLSID_TF_ThreadMgr, NULL, CLSCTX_INPROC_SERVER, IID_ITfThreadMgr, (LPVOID *)&videodata->ime_threadmgr);
 	}
 	videodata->ime_initialized = SDL_TRUE;
-	videodata->ime_himm32 = ::LoadLibraryW(L"imm32.dll");
+	videodata->ime_himm32 = ::LoadLibraryExW(L"imm32.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
 	if (!videodata->ime_himm32) {
 		videodata->ime_available = SDL_FALSE;
 		return;

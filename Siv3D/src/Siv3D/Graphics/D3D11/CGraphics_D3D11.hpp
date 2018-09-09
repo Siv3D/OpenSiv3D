@@ -15,7 +15,7 @@
 
 # include <memory>
 # include "../IGraphics.hpp"
-# include "Device/D3D11Device.hpp"
+# include "Device/D3D11_1Device.hpp"
 # include "SwapChain/D3D11SwapChain.hpp"
 # include "RenderTarget/D3D11RenderTarget.hpp"
 # include "../../Texture/D3D11/CTexture_D3D11.hpp"
@@ -33,7 +33,7 @@ namespace s3d
 	{
 	private:
 
-		std::unique_ptr<D3D11Device> m_device;
+		std::unique_ptr<D3D11_1Device> m_device;
 
 		std::unique_ptr<D3D11SwapChain> m_swapChain;
 

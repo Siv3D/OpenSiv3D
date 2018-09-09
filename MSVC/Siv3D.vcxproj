@@ -139,7 +139,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\BlendState\D3D11BlendState.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\CGraphics_D3D11.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\DepthStencilState\D3D11DepthStencilState.cpp" />
-    <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\Device\D3D11Device.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\Device\D3D11_1Device.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\RasterizerState\D3D11RasterizerState.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\RenderTarget\D3D11RenderTarget.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\SamplerState\D3D11SamplerState.cpp" />
@@ -912,7 +912,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\BlendState\D3D11BlendState.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\CGraphics_D3D11.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\DepthStencilState\D3D11DepthStencilState.hpp" />
-    <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\Device\D3D11Device.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\Device\D3D11_1Device.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\RasterizerState\D3D11RasterizerState.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\RenderTarget\D3D11RenderTarget.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\SamplerState\D3D11SamplerState.hpp" />

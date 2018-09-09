@@ -60,7 +60,7 @@ namespace s3d
 
 		if (!m_d3dcompiler)
 		{
-			m_d3dcompiler = ::LoadLibraryW(L"d3dcompiler_47.dll");
+			m_d3dcompiler = ::LoadLibraryExW(L"d3dcompiler_47.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
 		}
 
 		if (m_d3dcompiler)

@@ -1417,9 +1417,6 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\DepthStencilState\D3D11DepthStencilState.cpp">
       <Filter>src\Siv3D\Graphics\D3D11\DepthStencilState</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\Device\D3D11Device.cpp">
-      <Filter>src\Siv3D\Graphics\D3D11\Device</Filter>
-    </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\RasterizerState\D3D11RasterizerState.cpp">
       <Filter>src\Siv3D\Graphics\D3D11\RasterizerState</Filter>
     </ClCompile>
@@ -2332,6 +2329,9 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\ManagedScript\SivManagedScript.cpp">
       <Filter>src\Siv3D\ManagedScript</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\Device\D3D11_1Device.cpp">
+      <Filter>src\Siv3D\Graphics\D3D11\Device</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -2849,9 +2849,6 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\DepthStencilState\D3D11DepthStencilState.hpp">
       <Filter>src\Siv3D\Graphics\D3D11\DepthStencilState</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\Device\D3D11Device.hpp">
-      <Filter>src\Siv3D\Graphics\D3D11\Device</Filter>
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\RasterizerState\D3D11RasterizerState.hpp">
       <Filter>src\Siv3D\Graphics\D3D11\RasterizerState</Filter>
@@ -4643,6 +4640,9 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\ManagedScript\ManagedScriptDetail.hpp">
       <Filter>src\Siv3D\ManagedScript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\Device\D3D11_1Device.hpp">
+      <Filter>src\Siv3D\Graphics\D3D11\Device</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

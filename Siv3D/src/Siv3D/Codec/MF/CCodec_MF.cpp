@@ -143,21 +143,21 @@ namespace s3d
 
 	bool CCodec_MF::init()
 	{
-		m_MFplat = ::LoadLibraryW(L"Mfplat.dll");
+		m_MFplat = ::LoadLibraryExW(L"Mfplat.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
 
 		if (!m_MFplat)
 		{
 			return false;
 		}
 
-		m_MF = ::LoadLibraryW(L"Mf.dll");
+		m_MF = ::LoadLibraryExW(L"Mf.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
 
 		if (!m_MF)
 		{
 			return false;
 		}
 
-		m_MFRW = ::LoadLibraryW(L"Mfreadwrite.dll");
+		m_MFRW = ::LoadLibraryExW(L"Mfreadwrite.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
 
 		if (!m_MFRW)
 		{

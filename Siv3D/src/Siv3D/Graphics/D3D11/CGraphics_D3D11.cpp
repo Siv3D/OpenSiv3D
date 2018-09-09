@@ -33,7 +33,7 @@ namespace s3d
 		//
 		//	 D3D11Device
 		//
-		m_device = std::make_unique<D3D11Device>();
+		m_device = std::make_unique<D3D11_1Device>();
 
 		if (!m_device->init())
 		{
