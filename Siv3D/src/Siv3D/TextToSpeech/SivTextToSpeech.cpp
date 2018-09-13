@@ -65,7 +65,7 @@ namespace s3d
 
 		void SetSpeed(const double speed)
 		{
-			Siv3DEngine::GetTextToSpeech()->setVolume(speed);
+			Siv3DEngine::GetTextToSpeech()->setSpeed(speed);
 		}
 
 		double GetSpeed()

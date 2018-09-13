@@ -84,15 +84,25 @@ namespace s3d
 			for (const auto& ch : text)
 			{
 				if (!InRange(ch, U'0', U'9')
-					|| (ch != U'-')
-					|| (ch != U'.')
-					|| (ch != U','))
+					&& (ch != U'-')
+					&& (ch != U'.')
+					&& (ch != U','))
 				{
 					return false;
 				}
 			}
 
 			return true;
+		}
+
+		inline constexpr uint16 ConvertVolume(const double volume)
+		{
+			return static_cast<uint16>(Clamp(volume * 100, 0.0, 100.0));
+		}
+
+		inline constexpr int32 ConvertSpeed(const double speed)
+		{
+			return static_cast<int32>(Clamp(10.0 * (speed - 1.0), -10.0, 10.0));
 		}
 	}
 
@@ -164,8 +174,6 @@ namespace s3d
 
 		if (!hasLanguage(languageCode) && (m_currentLanguageCode != SpeechLanguage::Unspecified))
 		{
-			LOG_TEST(U"C1");
-
 			if (FAILED(m_voice->SetVoice(nullptr)))
 			{
 				return false;
@@ -175,8 +183,6 @@ namespace s3d
 		}
 		else if (m_currentLanguageCode != languageCode)
 		{
-			LOG_TEST(U"C2: {}"_fmt(m_tokenTable[languageCode].Get()));
-
 			if (FAILED(m_voice->SetVoice(m_tokenTable[languageCode].Get())))
 			{
 				return false;
@@ -185,15 +191,12 @@ namespace s3d
 			m_currentLanguageCode = languageCode;
 		}
 
-		LOG_TEST(U"C3: {:x}"_fmt(m_currentLanguageCode));
-
-		if (FAILED(m_voice->SetVolume(static_cast<USHORT>(m_volume * 100))))
+		if (FAILED(m_voice->SetVolume(detail::ConvertVolume(m_volume))))
 		{
 			return false;
 		}
 
-		// [Siv3D ToDo] 計算式修正
-		if (FAILED(m_voice->SetRate(static_cast<USHORT>(10.0 * (m_speed - 1.0)))))
+		if (FAILED(m_voice->SetRate(detail::ConvertSpeed(m_speed))))
 		{
 			return false;
 		}
@@ -243,6 +246,11 @@ namespace s3d
 	void CTextToSpeech_Windows::setVolume(const double volume)
 	{
 		m_volume = Math::Saturate(volume);
+
+		if (m_voice)
+		{
+			m_voice->SetVolume(detail::ConvertVolume(volume));
+		}
 	}
 
 	double CTextToSpeech_Windows::getVolume() const
@@ -253,6 +261,11 @@ namespace s3d
 	void CTextToSpeech_Windows::setSpeed(const double speed)
 	{
 		m_speed = speed;
+
+		if (m_voice)
+		{
+			m_voice->SetRate(detail::ConvertSpeed(speed));
+		}
 	}
 
 	double CTextToSpeech_Windows::getSpeed() const
