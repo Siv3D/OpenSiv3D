@@ -785,6 +785,9 @@
     <Filter Include="src\Siv3D\ManagedScript">
       <UniqueIdentifier>{ee6a25a7-2b3b-4b5b-b8be-33fb992eec52}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\TextToSpeech">
+      <UniqueIdentifier>{fb60dba1-3511-45d0-9069-19da136d204b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -2331,6 +2334,21 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Graphics\D3D11\SwapChain\D3D11_1SwapChain.cpp">
       <Filter>src\Siv3D\Graphics\D3D11\SwapChain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextToSpeech\CTextToSpeech_Windows.cpp">
+      <Filter>src\Siv3D\TextToSpeech</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextToSpeech\SivTextToSpeech.cpp">
+      <Filter>src\Siv3D\TextToSpeech</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextToSpeech\TextToSpeechFactory.cpp">
+      <Filter>src\Siv3D\TextToSpeech</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextToSpeech\CTextToSpeech_Linux.cpp">
+      <Filter>src\Siv3D\TextToSpeech</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextToSpeech\CTextToSpeech_macOS.cpp">
+      <Filter>src\Siv3D\TextToSpeech</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -4643,6 +4661,21 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Graphics\D3D11\SwapChain\D3D11_1SwapChain.hpp">
       <Filter>src\Siv3D\Graphics\D3D11\SwapChain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\TextToSpeech.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\TextToSpeech\CTextToSpeech_macOS.hpp">
+      <Filter>src\Siv3D\TextToSpeech</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\TextToSpeech\CTextToSpeech_Windows.hpp">
+      <Filter>src\Siv3D\TextToSpeech</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\TextToSpeech\ITextToSpeech.hpp">
+      <Filter>src\Siv3D\TextToSpeech</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\TextToSpeech\CTextToSpeech_Linux.hpp">
+      <Filter>src\Siv3D\TextToSpeech</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

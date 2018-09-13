@@ -5,39 +5,46 @@ void Main()
 {
 	//const ManagedScript script(U"example/script.txt");
 
-	Graphics::SetBackground(Palette::White);
-	const Texture texure(U"example/siv3d-kun.png");
-	const Texture texure2(U"example/windmill.png");
+	TextToSpeech::SetDefaultLanguage(SpeechLanguage::Japanese);
 
 	while (System::Update())
 	{
-		BlendState blend;
+		ClearPrint();
 
-		blend.writeR = true;
-		blend.writeG = blend.writeB = false;
-		RenderStateBlock2D r(blend);
+		Print << TextToSpeech::IsSpeaking();
 
-		texure.draw();
+		if (Key1.down())
+		{
+			TextToSpeech::Speak(U"あいうえお");
+		}
 
-		blend.writeG = true;
-		blend.writeR = blend.writeB = false;
-		r = RenderStateBlock2D(blend);
+		if (Key2.down())
+		{
+			TextToSpeech::Speak(U"Apple Unveils Bigger iPhones at Higher Prices, and a Heart-Tracking Watch");
+		}
 
-		texure.draw(5, 0);
+		if (Key3.down())
+		{
+			TextToSpeech::Speak(U"成田空港は、滑走路の近くで不発弾のようなものが見つかったため、２本ある滑走路のうちの１本を閉鎖していましたが、現場での撤去が終わり、午前８時20分に運用を再開しました。見つかったのはいわゆる「成田闘争」で反対派が使っていた「飛翔弾」とみられ、警察が確認を進めています。");
+		}
 
-		blend.writeB = true;
-		blend.writeR = blend.writeG = false;
-		r = RenderStateBlock2D(blend);
+		if (Key4.down())
+		{
+			TextToSpeech::Speak(U"A year after presiding over a sluggish and chaotic response to a devastating storm in Puerto Rico, the Trump administration girded on Wednesday for a test of its ability to do better as Hurricane Florence continued to bear down on the Carolina coast.");
+		}
 
-		texure.draw(10, 0);
+		if (KeyA.down())
+		{
+			TextToSpeech::Pause();
+		}
 
-		blend.writeR = blend.writeG = blend.writeB = true;
-		r = RenderStateBlock2D(blend);
+		if (KeyB.down())
+		{
+			TextToSpeech::Resume();
+		}
 
-		texure2.draw(400, 0);
-
+		Rect(Arg::center = Window::Center(), 40).rotated(Time::GetMillisec() * 0.1_deg).draw();
 
 		//script.run();
-
 	}
 }

@@ -353,6 +353,11 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\TextReader\CTextReader.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TextReader\CTextReader_Linux.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TextReader\SivTextReader.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextToSpeech\CTextToSpeech_Linux.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextToSpeech\CTextToSpeech_macOS.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextToSpeech\CTextToSpeech_Windows.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextToSpeech\SivTextToSpeech.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\TextToSpeech\TextToSpeechFactory.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TextureAsset\SivTextureAsset.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TexturedCircle\SivTexturedCircle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\TexturedQuad\SivTexturedQuad.cpp" />
@@ -747,6 +752,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\TextEncoding.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextInput.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextReader.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\TextToSpeech.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Texture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TextureAsset.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\TexturedCircle.hpp" />
@@ -1006,6 +1012,10 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\TextInput\ITextInput.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\TextInput\WindowsIME.h" />
     <ClInclude Include="..\Siv3D\src\Siv3D\TextReader\CTextReader.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\TextToSpeech\CTextToSpeech_Linux.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\TextToSpeech\CTextToSpeech_macOS.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\TextToSpeech\CTextToSpeech_Windows.hpp" />
+    <ClInclude Include="..\Siv3D\src\Siv3D\TextToSpeech\ITextToSpeech.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Texture\D3D11\BackBufferTexture.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Texture\D3D11\CTexture_D3D11.hpp" />
     <ClInclude Include="..\Siv3D\src\Siv3D\Texture\D3D11\Texture_D3D11.hpp" />

@@ -669,6 +669,9 @@
 	// Profiling
 	# include "Siv3D/Profiler.hpp"
 
+	// Text to speech
+	# include "Siv3D/TextToSpeech.hpp"
+
 //////////////////////////////////////////////////
 //
 //	Input Device
