@@ -5,14 +5,14 @@ void Main()
 {
 	const Array<int32> languageCodes =
 	{
-		{ LanguageCode::EnglishUS },
-		{ LanguageCode::ChineseCN },
-		{ LanguageCode::FrenchFR },
-		{ LanguageCode::GermanDE },
-		{ LanguageCode::ItalianIT },
-		{ LanguageCode::Japanese },
-		{ LanguageCode::Korean },
-		{ LanguageCode::SpanishES }
+		LanguageCode::EnglishUS,
+		LanguageCode::ChineseCN,
+		LanguageCode::FrenchFR,
+		LanguageCode::GermanDE,
+		LanguageCode::ItalianIT,
+		LanguageCode::Japanese,
+		LanguageCode::Korean,
+		LanguageCode::SpanishES
 	};
 
 	Array<String> languageOptions = 
