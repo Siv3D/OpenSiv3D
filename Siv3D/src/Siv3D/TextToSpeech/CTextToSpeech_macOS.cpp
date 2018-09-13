@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -12,12 +12,13 @@
 # include <Siv3D/Platform.hpp>
 # if defined(SIV3D_TARGET_MACOS)
 
-# include "../Siv3D_macOS.h"
+# include "CTextToSpeech_macOS.hpp"
 # include <Siv3D/Logger.hpp>
 
 namespace s3d
-{
+{	
 	CTextToSpeech_macOS::CTextToSpeech_macOS()
+	: m_detail(std::make_unique<CTextToSpeechDetail>())
 	{
 		
 	}
@@ -29,6 +30,8 @@ namespace s3d
 
 	bool CTextToSpeech_macOS::init()
 	{
+		m_detail = std::make_unique<CTextToSpeechDetail>();
+		
 		LOG_INFO(U"ℹ️ TextToSpeech initialized");
 
 		return true;
@@ -36,63 +39,57 @@ namespace s3d
 
 	bool CTextToSpeech_macOS::hasLanguage(const int32 languageCode)
 	{
-		// [Siv3D ToDo]
-		return false;
+		return m_detail->hasLanguage(languageCode);
 	}
 
 	void CTextToSpeech_macOS::setDefaultLanguage(const int32 languageCode)
 	{
-		// [Siv3D ToDo]
+		m_detail->setDefaultLanguage(languageCode);
 	}
 
 	int32 CTextToSpeech_macOS::getDefaultLanguage() const
 	{
-		// [Siv3D ToDo]
-		return 0;
+		return m_detail->getDefaultLanguage();
 	}
 
 	bool CTextToSpeech_macOS::speak(const StringView text, const int32 languageCode)
 	{
-		// [Siv3D ToDo]
-		return false;
+		return m_detail->speak(Unicode::ToUTF8(text), languageCode);
 	}
 
 	bool CTextToSpeech_macOS::isSpeaking() const
 	{
-		// [Siv3D ToDo]
-		return false;
+		return m_detail->isSpeaking();
 	}
 
 	void CTextToSpeech_macOS::pause()
 	{
-		// [Siv3D ToDo]
+		m_detail->pause();
 	}
 
 	void CTextToSpeech_macOS::resume()
 	{
-		// [Siv3D ToDo]
+		m_detail->resume();
 	}
 
 	void CTextToSpeech_macOS::setVolume(const double volume)
 	{
-		// [Siv3D ToDo]
+		m_detail->setVolume(volume);
 	}
 
 	double CTextToSpeech_macOS::getVolume() const
 	{
-		// [Siv3D ToDo]
-		return 1.0;
+		return 	m_detail->getVolume();
 	}
 
 	void CTextToSpeech_macOS::setSpeed(const double speed)
 	{
-		// [Siv3D ToDo]
+		m_detail->setSpeed(speed);
 	}
 
 	double CTextToSpeech_macOS::getSpeed() const
 	{
-		// [Siv3D ToDo]
-		return 1.0;
+		return 	m_detail->getSpeed();
 	}
 }
 
