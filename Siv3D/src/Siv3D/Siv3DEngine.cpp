@@ -19,6 +19,7 @@
 # include "ObjectDetection/IObjectDetection.hpp"
 # include "Window/IWindow.hpp"
 # include "Profiler/IProfiler.hpp"
+# include "TextToSpeech/ITextToSpeech.hpp"
 # include "Clipboard/IClipboard.hpp"
 # include "DragDrop/IDragDrop.hpp"
 # include "Cursor/ICursor.hpp"
@@ -79,6 +80,7 @@ namespace s3d
 		m_cursor.release();
 		m_dragdrop.release();
 		m_clipboard.release();
+		m_textToSpeech.release();
 		m_profiler.release();
 		m_window.release();
 		m_objectDetection.release();

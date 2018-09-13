@@ -136,7 +136,7 @@ namespace s3d
 			}
 
 			const double leftOffset = hasEditingTarget ? font(U"1  ").region().w : 0.0;
-			const Vec2 boxPos(Clamp(basePos.x - leftOffset, 7.0, Window::Width() - boxWidth - leftOffset - 12.0), basePos.y);
+			const Vec2 boxPos(Clamp(basePos.x - leftOffset, 7.0, s3d::Window::Width() - boxWidth - leftOffset - 12.0), basePos.y);
 
 			boxWidth += leftOffset + 5;
 

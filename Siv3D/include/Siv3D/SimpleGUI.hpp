@@ -33,6 +33,15 @@ namespace s3d
 		explicit TextEditState(const String& defaultText)
 			: text(defaultText)
 			, cursorPos(defaultText.size()) {}
+
+		void clear()
+		{
+			text.clear();
+			cursorPos = 0;
+			leftPressStopwatch.reset();
+			rightPressStopwatch.reset();
+			cursorStopwatch.reset();
+		}
 	};
 
 	namespace SimpleGUI

@@ -22,7 +22,7 @@ namespace s3d
 	{
 		bool IsX28Available()
 		{
-			if (HINSTANCE xaudio28 = ::LoadLibraryW(L"xaudio2_8.dll"))
+			if (HINSTANCE xaudio28 = ::LoadLibraryExW(L"xaudio2_8.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32))
 			{
 				::FreeLibrary(xaudio28);
 

@@ -23,6 +23,7 @@ namespace s3d
 	class ISiv3DObjectDetection;
 	class ISiv3DWindow;
 	class ISiv3DProfiler;
+	class ISiv3DTextToSpeech;
 	class ISiv3DClipboard;
 	class ISiv3DDragDrop;
 	class ISiv3DCursor;
@@ -102,6 +103,8 @@ namespace s3d
 		Siv3DComponent<ISiv3DWindow> m_window;
 
 		Siv3DComponent<ISiv3DProfiler> m_profiler;
+
+		Siv3DComponent<ISiv3DTextToSpeech> m_textToSpeech;
 
 		Siv3DComponent<ISiv3DClipboard> m_clipboard;
 
@@ -207,6 +210,11 @@ namespace s3d
 		static ISiv3DProfiler* GetProfiler()
 		{
 			return pEngine->m_profiler.get();
+		}
+
+		static ISiv3DTextToSpeech* GetTextToSpeech()
+		{
+			return pEngine->m_textToSpeech.get();
 		}
 
 		static ISiv3DClipboard* GetClipboard()

@@ -35,5 +35,17 @@ namespace s3d
 		{
 			return origin + distance * direction;
 		}
+
+		constexpr Ray& setOrigin(const Vec3& _origin) noexcept
+		{
+			origin.set(_origin);
+			return *this;
+		}
+
+		constexpr Ray& setDirection(const Vec3& _direction) noexcept
+		{
+			direction.set(_direction);
+			return *this;
+		}
 	};
 }

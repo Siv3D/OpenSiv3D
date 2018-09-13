@@ -48,11 +48,11 @@ namespace s3d
 
 	bool CXInput::init()
 	{
-		m_xInput = ::LoadLibraryW(L"xinput1_4.dll");
+		m_xInput = ::LoadLibraryExW(L"xinput1_4.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
 
 		if (!m_xInput)
 		{
-			m_xInput = ::LoadLibraryW(L"xinput9_1_0.dll");
+			m_xInput = ::LoadLibraryExW(L"xinput9_1_0.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
 		}
 
 		if (!m_xInput)

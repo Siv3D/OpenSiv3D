@@ -20,6 +20,7 @@
 # include "../ImageFormat/IImageFormat.hpp"
 # include "../Window/IWindow.hpp"
 # include "../Profiler/IProfiler.hpp"
+# include "../TextToSpeech/ITextToSpeech.hpp"
 # include "../Clipboard/IClipboard.hpp"
 # include "../DragDrop/IDragDrop.hpp"
 # include "../Cursor/ICursor.hpp"
@@ -82,6 +83,11 @@ namespace s3d
 		}
 
 		if (!Siv3DEngine::GetProfiler()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetTextToSpeech()->init())
 		{
 			return false;
 		}

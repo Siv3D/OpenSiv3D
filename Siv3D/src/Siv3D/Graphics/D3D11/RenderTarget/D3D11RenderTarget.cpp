@@ -59,34 +59,25 @@ namespace s3d
 
 	void D3D11RenderTarget::resolve()
 	{
-		ID3D11RenderTargetView* pRTV[3]
-		{
-			nullptr,
-			nullptr,
-			nullptr,
-		};
-
-		m_context->OMSetRenderTargets(3, pRTV, nullptr);
+		m_context->OMSetRenderTargets(0, nullptr, nullptr);
 
 		m_context->ResolveSubresource(m_texture->getTexture(m_backBuffer.id()), 0,
 			m_texture->getTexture(m_rt2D.id()), 0,
 			DXGI_FORMAT_R8G8B8A8_UNORM);
 
-		pRTV[0] = m_texture->getRTV(m_rt2D.id());
+		ID3D11RenderTargetView* pRTV[3]
+		{
+			m_texture->getRTV(m_rt2D.id()),
+			nullptr,
+			nullptr,
+		};
 
 		m_context->OMSetRenderTargets(3, pRTV, nullptr);
 	}
 
 	void D3D11RenderTarget::beginResize()
 	{
-		ID3D11RenderTargetView* pRTV[3]
-		{
-			nullptr,
-			nullptr,
-			nullptr,
-		};
-
-		m_context->OMSetRenderTargets(3, pRTV, nullptr);
+		m_context->OMSetRenderTargets(0, nullptr, nullptr);
 
 		m_rt2D.beginResize();
 		m_backBuffer.beginResize();

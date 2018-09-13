@@ -56,6 +56,8 @@ namespace s3d
 		void setBaseSize(const Size& size) override;
 
 		Size getBaseSize() const override;
+
+		void setResizable(bool resizable) override;
 	};
 }
 

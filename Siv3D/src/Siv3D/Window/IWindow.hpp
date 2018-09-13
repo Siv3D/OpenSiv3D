@@ -62,5 +62,7 @@ namespace s3d
 		virtual void setBaseSize(const Size& size) = 0;
 
 		virtual Size getBaseSize() const = 0;
+
+		virtual void setResizable(bool resizable) = 0;
 	};
 }
