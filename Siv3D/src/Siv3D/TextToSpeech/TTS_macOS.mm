@@ -11,6 +11,7 @@
 
 # include "CTextToSpeech_macOS.hpp"
 # include "TTS_macOS.h"
+# include <Siv3D/LanguageCode.hpp>
 
 namespace s3d
 {
@@ -26,22 +27,40 @@ namespace s3d
 			// [Siv3D ToDo] more languages!
 			switch (languageCode)
 			{
-				case 0x409:
-					return @"com.apple.speech.synthesis.voice.Alex";
-				case 0x411:
-					return @"com.apple.speech.synthesis.voice.kyoko";
-				case 0x40a:
-					return @"com.apple.speech.synthesis.voice.Jorge";
-				case 0x40c:
-					return @"com.apple.speech.synthesis.voice.thomas";
-				case 0x407:
-					return @"com.apple.speech.synthesis.voice.anna";
-				case 0x804:
-					return @"com.apple.speech.synthesis.voice.ting-ting";
-				case 0x404:
-					return @"com.apple.speech.synthesis.voice.mei-jia";
-				default:
-					return nil;
+			case LanguageCode::ArabicSA:
+				return @"com.apple.speech.synthesis.voice.Tarik";
+			case LanguageCode::ChineseCN:
+				return @"com.apple.speech.synthesis.voice.Ting-Ting";
+			case LanguageCode::ChineseHK:
+				return @"com.apple.speech.synthesis.voice.Sin-ji";
+			case LanguageCode::ChineseTW:
+				return @"com.apple.speech.synthesis.voice.Mei-Jia";
+			case LanguageCode::EnglishAU:
+				return @"com.apple.speech.synthesis.voice.Karen";
+			case LanguageCode::EnglishGB:
+				return @"com.apple.speech.synthesis.voice.Daniel";
+			case LanguageCode::EnglishUS:
+				return @"com.apple.speech.synthesis.voice.Alex";
+			case LanguageCode::FrenchFR:
+				return @"com.apple.speech.synthesis.voice.Thomas";
+			case LanguageCode::GermanDE:
+				return @"com.apple.speech.synthesis.voice.Anna";
+			case LanguageCode::HindiIN:
+				return @"com.apple.speech.synthesis.voice.Lekha";
+			case LanguageCode::ItalianIT:
+				return @"com.apple.speech.synthesis.voice.Alice";
+			case LanguageCode::Japanese:
+				return @"com.apple.speech.synthesis.voice.Kyoko";
+			case LanguageCode::Korean:
+				return @"com.apple.speech.synthesis.voice.Yuna";
+			case LanguageCode::PortugueseBR:
+				return @"com.apple.speech.synthesis.voice.Luciana";
+			case LanguageCode::RussianRU:
+				return @"com.apple.speech.synthesis.voice.Milena";
+			case LanguageCode::SpanishES:
+				return @"com.apple.speech.synthesis.voice.Monica";
+			default:
+				return nil;
 			}
 		}
 	}

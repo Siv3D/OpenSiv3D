@@ -655,6 +655,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\Keyboard.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\KeyConjunction.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\KeyGroup.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\LanguageCode.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Lerp.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\LetterCase.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\LicenseManager.hpp" />

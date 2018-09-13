@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -102,7 +102,7 @@ namespace s3d
 
 		inline constexpr int32 ConvertSpeed(const double speed)
 		{
-			return static_cast<int32>(Clamp(10.0 * (speed - 1.0), -10.0, 10.0));
+			return static_cast<int32>(Clamp(8.0 * (speed - 1.0), -8.0, 8.0));
 		}
 	}
 
@@ -160,35 +160,24 @@ namespace s3d
 			return false;
 		}
 
-		if (languageCode == SpeechLanguage::Unspecified)
+		if (languageCode == LanguageCode::Unspecified)
 		{
-			if (!detail::IsAllAscii(text) || detail::IsNumber(text))
-			{
-				languageCode = m_defaultLanguageCode;
-			}
-			else
-			{
-				languageCode = SpeechLanguage::English;
-			}
+			languageCode = m_defaultLanguageCode;
 		}
 
-		if (!hasLanguage(languageCode) && (m_currentLanguageCode != SpeechLanguage::Unspecified))
+		if (!hasLanguage(languageCode))
 		{
 			if (FAILED(m_voice->SetVoice(nullptr)))
 			{
 				return false;
 			}
-
-			m_currentLanguageCode = SpeechLanguage::Unspecified;
 		}
-		else if (m_currentLanguageCode != languageCode)
+		else
 		{
 			if (FAILED(m_voice->SetVoice(m_tokenTable[languageCode].Get())))
 			{
 				return false;
 			}
-
-			m_currentLanguageCode = languageCode;
 		}
 
 		if (FAILED(m_voice->SetVolume(detail::ConvertVolume(m_volume))))
@@ -275,11 +264,11 @@ namespace s3d
 
 	bool CTextToSpeech_Windows::loadLanguage(const int32 languageCode)
 	{
-		if (languageCode == SpeechLanguage::Unspecified)
+		if (languageCode == LanguageCode::Unspecified)
 		{
 			if (m_tokenTable.find(languageCode) == m_tokenTable.end())
 			{
-				m_tokenTable.emplace(SpeechLanguage::Unspecified, nullptr);
+				m_tokenTable.emplace(LanguageCode::Unspecified, nullptr);
 			}
 
 			return true;

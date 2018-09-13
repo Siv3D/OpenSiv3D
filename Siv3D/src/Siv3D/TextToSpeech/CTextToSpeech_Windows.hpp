@@ -32,9 +32,7 @@ namespace s3d
 
 		HashTable<int32, ComPtr<ISpObjectToken>> m_tokenTable;
 
-		int32 m_defaultLanguageCode = SpeechLanguage::Unspecified;
-
-		int32 m_currentLanguageCode = SpeechLanguage::Unspecified;
+		int32 m_defaultLanguageCode = LanguageCode::Unspecified;
 
 		double m_volume = 1.0;
 

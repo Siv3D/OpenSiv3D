@@ -11,28 +11,10 @@
 
 # pragma once
 # include "Fwd.hpp"
+# include "LanguageCode.hpp"
 
 namespace s3d
 {
-	namespace SpeechLanguage
-	{
-		inline constexpr int32 English = 0x409;
-
-		inline constexpr int32 Japanese = 0x411;
-
-		inline constexpr int32 Spanish = 0x40a;
-
-		inline constexpr int32 French = 0x40c;
-
-		inline constexpr int32 German = 0x407;
-
-		inline constexpr int32 ChinesePRC = 0x804;
-
-		inline constexpr int32 ChineseTaiwan = 0x404;
-
-		inline constexpr int32 Unspecified = 0x000;
-	}
-
 	namespace TextToSpeech
 	{
 		[[nodiscard]] bool HasLanguage(int32 languageCode);
@@ -41,7 +23,7 @@ namespace s3d
 
 		[[nodiscard]] int32 GetDefaultLanguage();
 
-		bool Speak(StringView text, int32 languageCode = SpeechLanguage::Unspecified);
+		bool Speak(StringView text, int32 languageCode = LanguageCode::Unspecified);
 
 		[[nodiscard]] bool IsSpeaking();
 
