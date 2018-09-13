@@ -163,9 +163,6 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "bool rightReleased() const", asMETHOD(Point, rightReleased), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool mouseOver() const", asMETHOD(Point, mouseOver), asCALL_THISCALL); assert(r >= 0);
 
-		//r = engine->RegisterObjectMethod(TypeName, "const Point& paint(Image& inout, int, const Color& in) const", asMETHOD(Point, paint), asCALL_THISCALL); assert(r >= 0);
-		//r = engine->RegisterObjectMethod(TypeName, "const Point& overwrite(Image& inout, int, const Color& in) const", asMETHOD(Point, overwrite), asCALL_THISCALL); assert(r >= 0);
-
 		r = engine->RegisterObjectMethod(TypeName, "Point xx() const", asMETHOD(Point, xx), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Point xy() const", asMETHOD(Point, xy), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Point yx() const", asMETHOD(Point, yx), asCALL_THISCALL); assert(r >= 0);

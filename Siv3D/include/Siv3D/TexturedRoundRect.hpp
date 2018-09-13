@@ -25,6 +25,8 @@ namespace s3d
 
 		FloatRect uvRect;
 
+		TexturedRoundRect() = default;
+
 		TexturedRoundRect(
 			const Texture& _texture,
 			float l,

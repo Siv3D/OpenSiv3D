@@ -92,6 +92,8 @@ namespace s3d
 		MultiPolygon,
 		LineString,
 
+		FloatRect,
+
 		LineStyle,
 		LineStyleParameters,
 		Shape2D,
@@ -105,6 +107,8 @@ namespace s3d
 		Texture,
 		TextureRegion,
 		TexturedQuad,
+		TexturedCircle,
+		TexturedRoundRect,
 		DynamicTexture,
 
 		Emoji,
@@ -162,7 +166,7 @@ namespace s3d
 	//void RegisterMultiPolygon(AngelScript::asIScriptEngine* engine);
 	void RegisterLineString(AngelScript::asIScriptEngine* engine);
 
-
+	void RegisterFloatRect(AngelScript::asIScriptEngine* engine);
 
 	void RegisterLineStyle(AngelScript::asIScriptEngine* engine);
 	void RegisterShape2D(AngelScript::asIScriptEngine* engine);
@@ -181,6 +185,8 @@ namespace s3d
 	void RegisterTexture(AngelScript::asIScriptEngine* engine);
 	void RegisterTextureRegion(AngelScript::asIScriptEngine* engine);
 	void RegisterTexturedQuad(AngelScript::asIScriptEngine* engine);
+	void RegisterTexturedCircle(AngelScript::asIScriptEngine* engine);
+	void RegisterTexturedRoundRect(AngelScript::asIScriptEngine* engine);
 	void RegisterDynamicTexture(AngelScript::asIScriptEngine* engine);
 
 	void RegisterEmoji(AngelScript::asIScriptEngine* engine);

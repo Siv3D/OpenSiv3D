@@ -267,6 +267,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Easing.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Ellipse.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Emoji.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_FloatRect.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Format.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Graphics.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_HSV.cpp" />
@@ -297,7 +298,9 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Stopwatch.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_System.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Texture.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_TexturedCircle.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_TexturedQuad.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_TexturedRoundRect.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_TextureRegion.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Time.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Timer.cpp" />
@@ -725,6 +728,7 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\RoundRect.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Sample.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\SamplerState.hpp" />
+    <ClInclude Include="..\Siv3D\include\Siv3D\Say.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\ScreenCapture.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Script.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Serialize.hpp" />

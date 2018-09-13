@@ -59,6 +59,8 @@ namespace s3d
 		r = engine->RegisterObjectType("MultiPolygon", sizeof(MultiPolygon), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("LineString", sizeof(LineString), asOBJ_VALUE | asGetTypeTraits<Polygon>()); assert(r >= 0);
 
+		r = engine->RegisterObjectType("FloatRect", sizeof(FloatRect), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
+
 
 		r = engine->RegisterObjectType("LineStyle", sizeof(LineStyle), asOBJ_VALUE | asOBJ_POD | asGetTypeTraits<LineStyle>()); assert(r >= 0);
 		r = engine->RegisterObjectType("LineStyleParameters", sizeof(LineStyle::Parameters), asOBJ_VALUE | asOBJ_POD | asGetTypeTraits<LineStyle::Parameters>()); assert(r >= 0);
@@ -72,6 +74,9 @@ namespace s3d
 		r = engine->RegisterObjectType("Texture", sizeof(Texture), asOBJ_VALUE | asGetTypeTraits<Texture>()); assert(r >= 0);
 		r = engine->RegisterObjectType("TextureRegion", sizeof(TextureRegion), asOBJ_VALUE | asGetTypeTraits<TextureRegion>()); assert(r >= 0);
 		r = engine->RegisterObjectType("TexturedQuad", sizeof(TexturedQuad), asOBJ_VALUE | asGetTypeTraits<TexturedQuad>()); assert(r >= 0);
+		r = engine->RegisterObjectType("TexturedCircle", sizeof(TexturedCircle), asOBJ_VALUE | asGetTypeTraits<TexturedCircle>()); assert(r >= 0);
+		r = engine->RegisterObjectType("TexturedRoundRect", sizeof(TexturedRoundRect), asOBJ_VALUE | asGetTypeTraits<TexturedRoundRect>()); assert(r >= 0);
+
 		r = engine->RegisterObjectType("DynamicTexture", sizeof(DynamicTexture), asOBJ_VALUE | asGetTypeTraits<DynamicTexture>()); assert(r >= 0);
 
 		r = engine->RegisterObjectType("Emoji", sizeof(Emoji), asOBJ_VALUE | asGetTypeTraits<Emoji>()); assert(r >= 0);
@@ -123,6 +128,8 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("MultiPolygon") == static_cast<int32>(ScriptTypeID::MultiPolygon));
 		assert(engine->GetTypeIdByDecl("LineString") == static_cast<int32>(ScriptTypeID::LineString));
 
+		assert(engine->GetTypeIdByDecl("FloatRect") == static_cast<int32>(ScriptTypeID::FloatRect));
+
 		assert(engine->GetTypeIdByDecl("LineStyle") == static_cast<int32>(ScriptTypeID::LineStyle));
 		assert(engine->GetTypeIdByDecl("LineStyleParameters") == static_cast<int32>(ScriptTypeID::LineStyleParameters));
 		assert(engine->GetTypeIdByDecl("Shape2D") == static_cast<int32>(ScriptTypeID::Shape2D));
@@ -134,6 +141,8 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("Texture") == static_cast<int32>(ScriptTypeID::Texture));
 		assert(engine->GetTypeIdByDecl("TextureRegion") == static_cast<int32>(ScriptTypeID::TextureRegion));
 		assert(engine->GetTypeIdByDecl("TexturedQuad") == static_cast<int32>(ScriptTypeID::TexturedQuad));
+		assert(engine->GetTypeIdByDecl("TexturedCircle") == static_cast<int32>(ScriptTypeID::TexturedCircle));
+		assert(engine->GetTypeIdByDecl("TexturedRoundRect") == static_cast<int32>(ScriptTypeID::TexturedRoundRect));
 		assert(engine->GetTypeIdByDecl("DynamicTexture") == static_cast<int32>(ScriptTypeID::DynamicTexture));
 
 

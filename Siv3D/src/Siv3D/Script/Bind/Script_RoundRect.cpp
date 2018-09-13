@@ -132,23 +132,14 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "bool rightReleased() const", asMETHOD(ShapeType, rightReleased), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool mouseOver() const", asMETHOD(ShapeType, mouseOver), asCALL_THISCALL); assert(r >= 0);
 
-		//const RoundRect& paint(Image& dst, const Color& color) const;
-
-		//const RoundRect& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
-
-		//const RoundRect& paintFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color) const;
-
-		//const RoundRect& overwriteFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color, bool antialiased = true) const;
-
 		r = engine->RegisterObjectMethod(TypeName, "const RoundRect& draw(const ColorF& in = Palette::White) const", asMETHODPR(ShapeType, draw, (const ColorF&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const RoundRect& drawFrame(double thickness = 1.0, const ColorF& in = Palette::White) const", asMETHODPR(ShapeType, drawFrame, (double, const ColorF&) const, const RoundRect&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const RoundRect& drawFrame(double innerThickness, double outerThickness, const ColorF& in = Palette::White) const", asMETHODPR(ShapeType, drawFrame, (double, double, const ColorF&) const, const RoundRect&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const RoundRect& drawShadow(const Vec2& in offset, double blurRadius, double spread = 0.0, const ColorF& in color = ColorF(0.0, 0.5)) const", asMETHOD(ShapeType, drawShadow), asCALL_THISCALL); assert(r >= 0);
 
-		//[[nodiscard]] TexturedRoundRect operator ()(const Texture& texture) const;
+		r = engine->RegisterObjectMethod(TypeName, "TexturedRoundRect opCall(const Texture& in) const", asMETHODPR(ShapeType, operator(), (const Texture&) const, TexturedRoundRect), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "TexturedRoundRect opCall(const TextureRegion& in) const", asMETHODPR(ShapeType, operator(), (const TextureRegion&) const, TexturedRoundRect), asCALL_THISCALL); assert(r >= 0);
 
-		//[[nodiscard]] TexturedRoundRect operator ()(const TextureRegion& textureRegion) const;
-
-		//[[nodiscard]] Polygon asPolygon() const;
+		r = engine->RegisterObjectMethod(TypeName, "Polygon asPolygon() const", asMETHOD(ShapeType, asPolygon), asCALL_THISCALL); assert(r >= 0);
 	}
 }

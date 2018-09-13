@@ -10,6 +10,12 @@
 //-----------------------------------------------
 
 # include <Siv3D/Script.hpp>
+# include <Siv3D/Circle.hpp>
+# include <Siv3D/Ellipse.hpp>
+# include <Siv3D/Triangle.hpp>
+# include <Siv3D/Quad.hpp>
+# include <Siv3D/RoundRect.hpp>
+# include <Siv3D/Polygon.hpp>
 # include "Script_Image.hpp"
 # include "ScriptBind.hpp"
 
@@ -220,6 +226,10 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "Polygon alphaToPolygon(uint32 threshold = 160, bool allowHoles = true) const", asMETHOD(BindType, alphaToPolygon), asCALL_THISCALL); assert(r >= 0);
 
 
+
+		r = engine->RegisterObjectMethod(TypeName, "const Point& paint(Image& inout, int, const Color& in) const", asMETHOD(Point, paint), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "const Point& overwrite(Image& inout, int, const Color& in) const", asMETHOD(Point, overwrite), asCALL_THISCALL); assert(r >= 0);
+
 		r = engine->RegisterObjectMethod("Line", "const Line& paint(Image& inout, const Color& in) const", asMETHODPR(Line, paint, (Image&, const Color&) const, const Line&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Line", "const Line& paint(Image& inout, int32, const Color& in) const", asMETHODPR(Line, paint, (Image&, int32, const Color&) const, const Line&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Line", "const Line& overwrite(Image& inout, const Color& in, bool antialiased = true) const", asMETHODPR(Line, overwrite, (Image&, const Color&, bool) const, const Line&), asCALL_THISCALL); assert(r >= 0);
@@ -227,6 +237,45 @@ namespace s3d
 		r = engine->RegisterObjectMethod("Line", "const Line& paintArrow(Image& inout, double, const Vec2& in, const Color& in) const", asMETHOD(Line, paintArrow), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Line", "const Line& overwriteArrow(Image& inout, double, const Vec2& in, const Color& in) const", asMETHOD(Line, overwriteArrow), asCALL_THISCALL); assert(r >= 0);
 
+		r = engine->RegisterObjectMethod("Rect", "const Rect& paint(Image& inout, const Color& in) const", asMETHODPR(Rect, paint, (Image&, const Color&) const, const Rect&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Rect", "const Rect& overwrite(Image& inout, const Color& in) const", asMETHODPR(Rect, overwrite, (Image&, const Color&) const, const Rect&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Rect", "const Rect& paintFrame(Image& inout, const Color& in) const", asMETHODPR(Rect, paintFrame, (Image&, int32, int32, const Color&) const, const Rect&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Rect", "const Rect& overwriteFrame(Image& inout, const Color& in) const", asMETHODPR(Rect, overwriteFrame, (Image&, int32, int32, const Color&) const, const Rect&), asCALL_THISCALL); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod("RectF", "const RectF& paint(Image& inout, const Color& in) const", asMETHODPR(RectF, paint, (Image&, const Color&) const, const RectF&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("RectF", "const RectF& overwrite(Image& inout, const Color& in) const", asMETHODPR(RectF, overwrite, (Image&, const Color&) const, const RectF&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("RectF", "const RectF& paintFrame(Image& inout, const Color& in) const", asMETHODPR(RectF, paintFrame, (Image&, int32, int32, const Color&) const, const RectF&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("RectF", "const RectF& overwriteFrame(Image& inout, const Color& in) const", asMETHODPR(RectF, overwriteFrame, (Image&, int32, int32, const Color&) const, const RectF&), asCALL_THISCALL); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod("Circle", "const Circle& paint(Image& inout, const Color& in, bool antialiased = true) const", asMETHODPR(Circle, paint, (Image&, const Color&, bool) const, const Circle&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Circle", "const Circle& overwrite(Image& inout, const Color& in, bool antialiased = true) const", asMETHODPR(Circle, overwrite, (Image&, const Color&, bool) const, const Circle&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Circle", "const Circle& paintFrame(Image& inout, const Color& in, bool antialiased = true) const", asMETHODPR(Circle, paintFrame, (Image&, int32, int32, const Color&, bool) const, const Circle&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Circle", "const Circle& overwriteFrame(Image& inout, const Color& in, bool antialiased = true) const", asMETHODPR(Circle, overwriteFrame, (Image&, int32, int32, const Color&, bool) const, const Circle&), asCALL_THISCALL); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod("Ellipse", "const Ellipse& paint(Image& inout, const Color& in) const", asMETHODPR(Ellipse, paint, (Image&, const Color&) const, const Ellipse&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Ellipse", "const Ellipse& overwrite(Image& inout, const Color& in) const", asMETHODPR(Ellipse, overwrite, (Image&, const Color&) const, const Ellipse&), asCALL_THISCALL); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod("Triangle", "const Triangle& paint(Image& inout, const Color& in) const", asMETHODPR(Triangle, paint, (Image&, const Color&) const, const Triangle&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Triangle", "const Triangle& overwrite(Image& inout, const Color& in, bool antialiased = true) const", asMETHODPR(Triangle, overwrite, (Image&, const Color&, bool) const, const Triangle&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Triangle", "const Triangle& paintFrame(Image& inout, int32, const Color& in) const", asMETHODPR(Triangle, paintFrame, (Image&, int32, const Color&) const, const Triangle&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Triangle", "const Triangle& overwriteFrame(Image& inout, int32, const Color& in, bool antialiased = true) const", asMETHODPR(Triangle, overwriteFrame, (Image&, int32, const Color&, bool) const, const Triangle&), asCALL_THISCALL); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod("Quad", "const Quad& paint(Image& inout, const Color& in) const", asMETHODPR(Quad, paint, (Image&, const Color&) const, const Quad&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Quad", "const Quad& overwrite(Image& inout, const Color& in, bool antialiased = true) const", asMETHODPR(Quad, overwrite, (Image&, const Color&, bool) const, const Quad&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Quad", "const Quad& paintFrame(Image& inout, int32, const Color& in) const", asMETHODPR(Quad, paintFrame, (Image&, int32, const Color&) const, const Quad&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Quad", "const Quad& overwriteFrame(Image& inout, int32, const Color& in, bool antialiased = true) const", asMETHODPR(Quad, overwriteFrame, (Image&, int32, const Color&, bool) const, const Quad&), asCALL_THISCALL); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod("RoundRect", "const RoundRect& paint(Image& inout, const Color& in) const", asMETHODPR(RoundRect, paint, (Image&, const Color&) const, const RoundRect&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("RoundRect", "const RoundRect& overwrite(Image& inout, const Color& in, bool antialiased = true) const", asMETHODPR(RoundRect, overwrite, (Image&, const Color&, bool) const, const RoundRect&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("RoundRect", "const RoundRect& paintFrame(Image& inout, int32, int32, const Color& in) const", asMETHODPR(RoundRect, paintFrame, (Image&, int32, int32, const Color&) const, const RoundRect&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("RoundRect", "const RoundRect& overwriteFrame(Image& inout, int32, int32, const Color& in, bool antialiased = true) const", asMETHODPR(RoundRect, overwriteFrame, (Image&, int32, int32, const Color&, bool) const, const RoundRect&), asCALL_THISCALL); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod("Polygon", "const Polygon& paint(Image& inout, const Color& in) const", asMETHODPR(Polygon, paint, (Image&, const Color&) const, const Polygon&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Polygon", "const Polygon& paint(Image& inout, double, double, const Color& in) const", asMETHODPR(Polygon, paint, (Image&, double, double, const Color&) const, const Polygon&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Polygon", "const Polygon& paint(Image& inout, const Vec2& in, const Color& in) const", asMETHODPR(Polygon, paint, (Image&, const Vec2&, const Color&) const, const Polygon&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Polygon", "const Polygon& overwrite(Image& inout, const Color& in, bool antialiased = true) const", asMETHODPR(Polygon, overwrite, (Image&, const Color&, bool) const, const Polygon&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Polygon", "const Polygon& overwrite(Image& inout, double, double, const Color& in, bool antialiased = true) const", asMETHODPR(Polygon, overwrite, (Image&, double, double, const Color&, bool) const, const Polygon&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Polygon", "const Polygon& overwrite(Image& inout, const Vec2& in, const Color& in, bool antialiased = true) const", asMETHODPR(Polygon, overwrite, (Image&, const Vec2&, const Color&, bool) const, const Polygon&), asCALL_THISCALL); assert(r >= 0);
 
 	}
 }

@@ -129,6 +129,8 @@ namespace s3d
 		//RegisterMultiPolygon(m_engine);
 		RegisterLineString(m_engine);
 
+		RegisterFloatRect(m_engine);
+
 		RegisterLineStyle(m_engine);
 		RegisterShape2D(m_engine);
 
@@ -147,6 +149,8 @@ namespace s3d
 		RegisterTexture(m_engine);
 		RegisterTextureRegion(m_engine);
 		RegisterTexturedQuad(m_engine);
+		RegisterTexturedCircle(m_engine);
+		RegisterTexturedRoundRect(m_engine);
 		RegisterDynamicTexture(m_engine);
 
 		RegisterEmoji(m_engine);

@@ -672,6 +672,9 @@
 	// Text to speech
 	# include "Siv3D/TextToSpeech.hpp"
 
+	// Text to speech
+	# include "Siv3D/Say.hpp"
+
 //////////////////////////////////////////////////
 //
 //	Input Device

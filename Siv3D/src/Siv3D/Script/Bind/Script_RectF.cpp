@@ -192,11 +192,6 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "bool rightReleased() const", asMETHOD(ShapeType, rightReleased), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool mouseOver() const", asMETHOD(ShapeType, mouseOver), asCALL_THISCALL); assert(r >= 0);
 
-		//paint
-		//overwrite
-		//paintFrmae
-		//overwriteFrame
-
 		r = engine->RegisterObjectMethod(TypeName, "const RectF& draw(const ColorF& in = Palette::White) const", asMETHODPR(ShapeType, draw, (const ColorF&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
 
 		//draw (Colors)
@@ -209,7 +204,8 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "TexturedQuad opCall(const TextureRegion& in) const", asMETHODPR(ShapeType, operator(), (const TextureRegion&) const, TexturedQuad), asCALL_THISCALL); assert(r >= 0);
 
 
-		//asPolygon
+		r = engine->RegisterObjectMethod(TypeName, "Polygon asPolygon() const", asMETHOD(ShapeType, asPolygon), asCALL_THISCALL); assert(r >= 0);
+
 
 		r = engine->RegisterObjectMethod(TypeName, "Rect opImplConv() const", asFUNCTION(ConvToRect), asCALL_CDECL_OBJLAST); assert(r >= 0);
 	}
