@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -20,7 +20,7 @@ namespace s3d
 
 		inline constexpr int32 ChineseCN = 0x804;	// zh_CN
 
-		inline constexpr int32 ChineseHK = 0x804;	// zh_HK
+		inline constexpr int32 ChineseHK = 0xc04;	// zh_HK
 
 		inline constexpr int32 ChineseTW = 0x404;	// zh_TW
 
