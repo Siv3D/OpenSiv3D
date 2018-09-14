@@ -12,6 +12,7 @@
 # include <Siv3D/Script.hpp>
 # include <Siv3D/Polygon.hpp>
 # include "ScriptBind.hpp"
+# include "../AngelScript/scriptarray.h"
 
 namespace s3d
 {
@@ -37,6 +38,21 @@ namespace s3d
 	static void Destruct(ShapeType* self)
 	{
 		self->~Polygon();
+	}
+
+	static CScriptArray* Outer(const Polygon& self)
+	{
+		asITypeInfo* typeID = asGetActiveContext()->GetEngine()->GetTypeInfoByDecl("Array<Vec2>");
+
+		void* mem = ::malloc(self.outer().size_bytes() + sizeof(asUINT));
+
+		*(asUINT*)mem = static_cast<asUINT>(self.outer().size());
+		::memcpy(((asUINT*)mem) + 1, self.outer().data(), self.outer().size_bytes());
+
+		const auto p =  CScriptArray::Create(typeID, mem);
+		::free(mem);
+
+		return p;
 	}
 
 	static bool ConvToBool(const Polygon& polygon)
@@ -66,7 +82,7 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "uint32 num_holes() const", asMETHOD(ShapeType, num_holes), asCALL_THISCALL); assert(r >= 0);
 
 		// void swap(Polygon& polygon) noexcept;
-		//[[nodiscard]] const Array<Vec2>& outer() const;
+		r = engine->RegisterObjectMethod(TypeName, "Array<Vec2>@ outer() const", asFUNCTION(Outer), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		//[[nodiscard]] const Array<Array<Vec2>>& inners() const;
 		//[[nodiscard]] const Array<Float2>& vertices() const;
 		//[[nodiscard]] const Array<uint32>& indices() const;

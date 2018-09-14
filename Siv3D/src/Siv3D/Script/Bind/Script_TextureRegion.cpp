@@ -41,7 +41,7 @@ namespace s3d
 		int32 r = 0;
 		r = engine->RegisterObjectProperty(TypeName, "Texture texture", asOFFSET(BindType, texture)); assert(r >= 0);
 		r = engine->RegisterObjectProperty(TypeName, "FloatRect uvRect", asOFFSET(BindType, uvRect)); assert(r >= 0);
-		//r = engine->RegisterObjectProperty(TypeName, "Float2 size", asOFFSET(BindType, size)); assert(r >= 0);
+		r = engine->RegisterObjectProperty(TypeName, "Float2 size", asOFFSET(BindType, size)); assert(r >= 0);
 
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(DefaultConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const TextureRegion& in)", asFUNCTION(CopyConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);

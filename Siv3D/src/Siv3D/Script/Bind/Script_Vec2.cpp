@@ -34,9 +34,19 @@ namespace s3d
 		new(self) ShapeType(v);
 	}
 
+	static void ConstructF2(const Float2& v, ShapeType* self)
+	{
+		new(self) ShapeType(v);
+	}
+
 	static void ConstructList(const double* list, ShapeType* self)
 	{
 		new(self) ShapeType(list[0], list[1]);
+	}
+
+	static Float2 ConvToFloat2(const Vec2& v)
+	{
+		return v;
 	}
 
 	void RegisterVec2(asIScriptEngine* engine)
@@ -50,7 +60,7 @@ namespace s3d
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Vec2& in)", asFUNCTION(Construct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(double x, double y)", asFUNCTION(ConstructDD), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Point& in)", asFUNCTION(ConstructP), asCALL_CDECL_OBJLAST); assert(r >= 0);
-		//r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Float2& in)", asFUNCTION(ConstructF), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Float2& in)", asFUNCTION(ConstructF2), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_LIST_CONSTRUCT, "void f(const double& in) {double, double}", asFUNCTION(ConstructList), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "double elem(uint64) const", asMETHOD(Vec2, elem), asCALL_THISCALL); assert(r >= 0);
@@ -171,5 +181,7 @@ namespace s3d
 		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 opMul_r(double) const", asFUNCTIONPR(operator*, (double, const Vec2&), Vec2), asCALL_CDECL_OBJLAST);
+
+		r = engine->RegisterObjectMethod(TypeName, "Float2 opImplConv() const", asFUNCTION(ConvToFloat2), asCALL_CDECL_OBJLAST); assert(r >= 0);
 	}
 }

@@ -73,11 +73,13 @@ namespace s3d
 		ColorF,
 		HSV,
 		Point,
+		Float2,
 		Vec2,
 		Vec3,
 		Vec4,
 		Circular,
 		OffsetCircular,
+		Mat3x2,
 		Bezier2,
 		Bezier3,
 		Line,
@@ -127,7 +129,7 @@ namespace s3d
 	void RegisterTypes(AngelScript::asIScriptEngine* engine);
 	void RegisterUtility(AngelScript::asIScriptEngine* engine);
 	void RegisterFormat(AngelScript::asIScriptEngine* engine);
-
+	void RegisterOptional(AngelScript::asIScriptEngine* engine);
 	void RegisterDate(AngelScript::asIScriptEngine* engine);
 	void RegisterDateTime(AngelScript::asIScriptEngine* engine);
 	void RegisterTime(AngelScript::asIScriptEngine* engine);
@@ -144,16 +146,17 @@ namespace s3d
 	void RegisterPalette(AngelScript::asIScriptEngine* engine);
 	void RegisterHSV(AngelScript::asIScriptEngine* engine);
 	void RegisterPoint(AngelScript::asIScriptEngine* engine);
+	void RegisterFloat2(AngelScript::asIScriptEngine* engine);
 	void RegisterVec2(AngelScript::asIScriptEngine* engine);
 	void RegisterVec3(AngelScript::asIScriptEngine* engine);
 	void RegisterVec4(AngelScript::asIScriptEngine* engine);
 	void RegisterCircular(AngelScript::asIScriptEngine* engine);
 	void RegisterOffsetCircular(AngelScript::asIScriptEngine* engine);
-	void RegisterBezier2(AngelScript::asIScriptEngine* engine);
-	void RegisterBezier3(AngelScript::asIScriptEngine* engine);
 	//void RegisterCylindrical(AngelScript::asIScriptEngine* engine);
 	//void RegisterSpherical(AngelScript::asIScriptEngine* engine);
-	//void RegisterMat3x2(AngelScript::asIScriptEngine* engine);
+	void RegisterMat3x2(AngelScript::asIScriptEngine* engine);
+	void RegisterBezier2(AngelScript::asIScriptEngine* engine);
+	void RegisterBezier3(AngelScript::asIScriptEngine* engine);
 	void RegisterLine(AngelScript::asIScriptEngine* engine);
 	void RegisterRect(AngelScript::asIScriptEngine* engine);
 	void RegisterRectF(AngelScript::asIScriptEngine* engine);
@@ -194,28 +197,14 @@ namespace s3d
 
 	void RegisterPrint(AngelScript::asIScriptEngine* engine);
 
-	//void RegisterTime(asIScriptEngine* engine);
-
-	
-
-	//void RegisterMathConstants(asIScriptEngine* engine);
-
-	//void RegisterRandom(asIScriptEngine* engine);
-
 	void RegisterSystem(AngelScript::asIScriptEngine* engine);
 	void RegisterWindow(AngelScript::asIScriptEngine* engine);
 	void RegisterCursor(AngelScript::asIScriptEngine* engine);
 	void RegisterGraphics(AngelScript::asIScriptEngine* engine);
 
-	
-
-	//void RegisterTexture(asIScriptEngine* engine);
 
 	//void Register_DynamicTexture(asIScriptEngine* engine);
-
-
 	//void RegisterFont(asIScriptEngine* engine);
 	//void RegisterDrawableString(asIScriptEngine* engine);
-
 	//void Register_Webcam(asIScriptEngine* engine);
 }

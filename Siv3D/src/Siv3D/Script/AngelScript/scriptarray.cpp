@@ -6,6 +6,7 @@
 #include <string>
 
 #include "scriptarray.h"
+#include <Siv3D/Logger.hpp>
 
 using namespace std;
 
@@ -315,6 +316,10 @@ static void RegisterScriptArray_Native(asIScriptEngine *engine)
 
 
 	r = engine->RegisterObjectMethod("Array<T>", "uint count() const", asMETHOD(CScriptArray, GetSize), asCALL_THISCALL); assert(r >= 0);
+
+
+	r = engine->RegisterObjectMethod("Array<T>", "void sort()", asMETHODPR(CScriptArray, SortAsc, (), void), asCALL_THISCALL); assert(r >= 0);
+
 
 
 	r = engine->RegisterObjectMethod("Array<T>", "void sortAsc()", asMETHODPR(CScriptArray, SortAsc, (), void), asCALL_THISCALL); assert( r >= 0 );

@@ -94,6 +94,7 @@ namespace s3d
 		RegisterFormat(m_engine);
 		AngelScript::RegisterStdString(m_engine);
 
+		RegisterOptional(m_engine);
 		RegisterDate(m_engine);
 		RegisterDateTime(m_engine);
 		RegisterTime(m_engine);
@@ -110,6 +111,7 @@ namespace s3d
 		RegisterPalette(m_engine);
 		RegisterHSV(m_engine);
 		RegisterPoint(m_engine);
+		RegisterFloat2(m_engine);
 		RegisterVec2(m_engine);
 		RegisterVec3(m_engine);
 		RegisterVec4(m_engine);

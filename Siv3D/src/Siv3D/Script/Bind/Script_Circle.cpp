@@ -126,6 +126,6 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "TexturedCircle opCall(const Texture& in) const", asMETHODPR(ShapeType, operator(), (const Texture&) const, TexturedCircle), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "TexturedCircle opCall(const TextureRegion& in) const", asMETHODPR(ShapeType, operator(), (const TextureRegion&) const, TexturedCircle), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Polygon asPolygon() const", asMETHOD(ShapeType, asPolygon), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Polygon asPolygon(uint32 quality = 24) const", asMETHOD(ShapeType, asPolygon), asCALL_THISCALL); assert(r >= 0);
 	}
 }

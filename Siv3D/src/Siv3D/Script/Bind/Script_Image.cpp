@@ -16,6 +16,7 @@
 # include <Siv3D/Quad.hpp>
 # include <Siv3D/RoundRect.hpp>
 # include <Siv3D/Polygon.hpp>
+# include <Siv3D/LineString.hpp>
 # include "Script_Image.hpp"
 # include "ScriptBind.hpp"
 
@@ -276,6 +277,11 @@ namespace s3d
 		r = engine->RegisterObjectMethod("Polygon", "const Polygon& overwrite(Image& inout, const Color& in, bool antialiased = true) const", asMETHODPR(Polygon, overwrite, (Image&, const Color&, bool) const, const Polygon&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Polygon", "const Polygon& overwrite(Image& inout, double, double, const Color& in, bool antialiased = true) const", asMETHODPR(Polygon, overwrite, (Image&, double, double, const Color&, bool) const, const Polygon&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Polygon", "const Polygon& overwrite(Image& inout, const Vec2& in, const Color& in, bool antialiased = true) const", asMETHODPR(Polygon, overwrite, (Image&, const Vec2&, const Color&, bool) const, const Polygon&), asCALL_THISCALL); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod("LineString", "const LineString& paint(Image& inout, const Color& in, bool isClosed = false) const", asMETHODPR(LineString, paint, (Image&, const Color&, bool) const, const LineString&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("LineString", "const LineString& paint(Image& inout, int32, const Color& in, bool isClosed = false) const", asMETHODPR(LineString, paint, (Image&, int32, const Color&, bool) const, const LineString&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("LineString", "const LineString& overwrite(Image& inout, const Color& in, bool isClosed = false, bool antialiased = true) const", asMETHODPR(LineString, overwrite, (Image&, const Color&, bool, bool) const, const LineString&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("LineString", "const LineString& overwrite(Image& inout, int32, const Color& in, bool isClosed = false, bool antialiased = true) const", asMETHODPR(LineString, overwrite, (Image&, int32, const Color&, bool, bool) const, const LineString&), asCALL_THISCALL); assert(r >= 0);
 
 	}
 }

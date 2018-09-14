@@ -296,6 +296,8 @@ namespace s3d
 		const Ellipse& draw(const ColorF& color = Palette::White) const;
 
 		const Ellipse& drawFrame(double innerThickness = 1.0, double outerThickness = 0.0, const ColorF& color = Palette::White) const;
+	
+		[[nodiscard]] Polygon asPolygon(uint32 quality = 24) const;
 	};
 }
 

@@ -2359,6 +2359,15 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_TexturedRoundRect.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Mat3x2.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Float2.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Optional.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4691,6 +4700,9 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\Say.hpp">
       <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Optional.hpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

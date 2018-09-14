@@ -12,6 +12,7 @@
 # include <Siv3D/Ellipse.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
+# include <Siv3D/Polygon.hpp>
 # include "../Siv3DEngine.hpp"
 # include "../Renderer2D/IRenderer2D.hpp"
 
@@ -75,5 +76,52 @@ namespace s3d
 		);
 
 		return *this;
+	}
+
+	Polygon Ellipse::asPolygon(const uint32 quality) const
+	{
+		const uint32 n = std::max(quality, 3u);
+		
+		Array<Vec2> vertices(n, center);
+		Vec2* pPos = vertices.data();
+
+		double xMin = center.x, xMax = center.x;
+		const double yMin = center.y - b;
+		double yMax = center.y;
+		const double d = (Math::TwoPi / n);
+		
+		for (uint32 i = 0; i < n; ++i)
+		{
+			const double rad = i * d;
+			pPos->moveBy(a * std::cos(rad), b * std::sin(rad));
+
+			if (pPos->x < xMin)
+			{
+				xMin = pPos->x;
+			}
+			else if (xMax < pPos->x)
+			{
+				xMax = pPos->x;
+			}
+
+			if (yMax < pPos->y)
+			{
+				yMax = pPos->y;
+			}
+
+			++pPos;
+		}
+		
+		Array<uint32> indices(3 * (n - 2));
+		uint32* pIndex = indices.data();
+
+		for (uint32 i = 0; i < n - 2; ++i)
+		{
+			++pIndex;
+			(*pIndex++) = i + 1;
+			(*pIndex++) = i + 2;
+		}
+
+		return Polygon(vertices, indices, RectF(xMin, yMin, xMax - xMin, yMax - yMin));
 	}
 }

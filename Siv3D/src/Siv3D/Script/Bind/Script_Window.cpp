@@ -23,6 +23,10 @@ namespace s3d
 
 		r = engine->SetDefaultNamespace("Window"); assert(r >= 0);
 		{
+			r = engine->RegisterGlobalProperty("const Point DefaultClientSize", (void*)&Window::DefaultClientSize); assert(r >= 0);
+
+			r = engine->RegisterGlobalFunction("void SetTitle(const String& in)", asFUNCTIONPR(Window::SetTitle, (const String&), void), asCALL_CDECL); assert(r >= 0);
+
 			r = engine->RegisterGlobalFunction("Point Size()", asFUNCTION(Window::Size), asCALL_CDECL); assert(r >= 0);
 			r = engine->RegisterGlobalFunction("Point Center()", asFUNCTION(Window::Center), asCALL_CDECL); assert(r >= 0);
 			r = engine->RegisterGlobalFunction("int32 Width()", asFUNCTION(Window::Width), asCALL_CDECL); assert(r >= 0);

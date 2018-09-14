@@ -21,6 +21,7 @@
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/Circular.hpp>
 # include <Siv3D/OffsetCircular.hpp>
+# include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/Bezier2.hpp>
 # include <Siv3D/Bezier3.hpp>
 # include <Siv3D/Rectangle.hpp>
@@ -114,6 +115,9 @@ namespace s3d
 			case ScriptTypeID::Point:
 				Formatter(formatData, *static_cast<const Point*>(ref));
 				break;
+			case ScriptTypeID::Float2:
+				Formatter(formatData, *static_cast<const Float2*>(ref));
+				break;
 			case ScriptTypeID::Vec2:
 				Formatter(formatData, *static_cast<const Vec2*>(ref));
 				break;
@@ -128,6 +132,9 @@ namespace s3d
 				break;
 			case ScriptTypeID::OffsetCircular:
 				Formatter(formatData, *static_cast<const OffsetCircular*>(ref));
+				break;
+			case ScriptTypeID::Mat3x2:
+				Formatter(formatData, *static_cast<const Mat3x2*>(ref));
 				break;
 			case ScriptTypeID::Bezier2:
 				Formatter(formatData, *static_cast<const Bezier2*>(ref));

@@ -41,6 +41,11 @@ namespace s3d
 
 			//r = engine->RegisterGlobalFunction("float ToRadians(float)", asFUNCTIONPR(Math::ToRadians, (float), float), asCALL_CDECL); assert(r >= 0);
 			r = engine->RegisterGlobalFunction("double ToRadians(double)", asFUNCTIONPR(Math::ToRadians, (double), double), asCALL_CDECL); assert(r >= 0);
+
+
+			r = engine->RegisterGlobalFunction("double Atan2(double, double)", asFUNCTIONPR(Math::Atan2, (double, double), double), asCALL_CDECL); assert(r >= 0);
+
+
 		}
 		//r = engine->SetDefaultNamespace(""); assert(r >= 0);
 	}

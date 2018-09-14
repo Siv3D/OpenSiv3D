@@ -1,98 +1,206 @@
-﻿void Main()
+﻿class Vec2Pair
 {
-	Graphics::SetBackground(ColorF(0.7, 0.9, 0.7));
-	Image image(600, 600, Palette::White);
-	DynamicTexture texture(image);
+	Vec2 left, right;
+};
 
-	Array<Color> colors;
-	for (int32 i = 0; i < 12; ++i)
+class VisibilityMap
+{
+	private double m_epsilon = 1e-10;
+
+	private RectF m_region;
+
+	private double m_maxDistance = 0.0;
+
+	private Array<Line> m_lines;
+
+	Array<Vec2Pair> calculateCollidePoints(const Vec2& in eyePos) const
 	{
-		colors << HSV(i * 30, 0.95, 0.95);
+		Array<Vec2Pair> points;
+
+		if (!m_region.stretched(-1).contains(eyePos))
+		{
+			return points;
+		}
+
+		Array<double> angles;
+		angles.reserve(m_lines.size());
+		{
+			for (size_t i = 0; i < m_lines.size(); ++i)
+			{
+				const Vec2 v = m_lines[i].begin - eyePos;
+				angles.push_back(Math::Atan2(v.y, v.x));
+			}
+
+			angles.sort();
+		}
+
+		points.reserve(angles.size());
+
+		for (size_t i = 0; i < angles.size(); ++i)
+		{
+			const auto angle = angles[i];
+			const double left = angle - m_epsilon;
+			const double right = angle + m_epsilon;
+			const Line leftRay(eyePos, eyePos + Vec2::Right().rotated(left) * m_maxDistance);
+			const Line rightRay(eyePos, eyePos + Vec2::Right().rotated(right) * m_maxDistance);
+
+			Vec2 leftCollidePoint = leftRay.end;
+			Vec2 rightCollidePoint = rightRay.end;
+
+			for (size_t k = 0; k < m_lines.size(); ++k)
+			{
+				const auto line = m_lines[k];
+
+				const auto leftIn = leftRay.intersectsAt(line);
+				if (leftIn.has_value())
+				{
+					if (leftIn.value().distanceFromSq(eyePos) < leftCollidePoint.distanceFromSq(eyePos))
+					{
+						leftCollidePoint = leftIn.value();
+					}
+				}
+
+				const auto rightIn = rightRay.intersectsAt(line);
+				if (rightIn.has_value())
+				{
+					if (rightIn.value().distanceFromSq(eyePos) < rightCollidePoint.distanceFromSq(eyePos))
+					{
+						rightCollidePoint = rightIn.value();
+					}
+				}		
+			}
+
+			Vec2Pair pair;
+			pair.left = leftCollidePoint;
+			pair.right = rightCollidePoint;
+			points.push_back(pair);
+		}
+
+		return points;
 	}
-	colors << Color(255) << Color(160) << Color(80) << Color(0);
 
-	const Array<Texture> icons =
+	VisibilityMap(const RectF& in region = RectF(640, 480))
 	{
-		Texture(Icon(0xf1fc, 36)),
-		Texture(Icon(0xf576, 36))
-	};
-	const Texture saveIcon(Icon(0xf0c7, 48));
+		m_region = region;
+		m_maxDistance = m_region.w + m_region.h;
+		add(m_region);
+	}
 
-	size_t colorIndex = 0;
-	size_t mode = 0;
+	void add(const Triangle& in s)
+	{
+		m_lines.push_back(Line(s.p0, s.p1));
+		m_lines.push_back(Line(s.p1, s.p2));
+		m_lines.push_back(Line(s.p2, s.p0));
+	}
+
+	void add(const RectF& in s)
+	{
+		m_lines.push_back(s.top());
+		m_lines.push_back(s.right());
+		m_lines.push_back(s.bottom());
+		m_lines.push_back(s.left());
+	}
+
+	void add(const Quad& in s)
+	{
+		m_lines.push_back(Line(s.p0, s.p1));
+		m_lines.push_back(Line(s.p1, s.p2));
+		m_lines.push_back(Line(s.p2, s.p3));
+		m_lines.push_back(Line(s.p3, s.p0));
+	}
+
+	void add(const Circle& in s, int32 quality = 8)
+	{
+		quality = Max(quality, 6);	
+		const double da = Math::TwoPi / quality;
+
+		for (int32 i = 0; i < quality; ++i)
+		{
+			m_lines.push_back(Line(OffsetCircular(s.center, s.r, da * i), OffsetCircular(s.center, s.r, da * (i + 1))));
+		}
+	}
+
+	void add(const Polygon& in s)
+	{
+		const auto outer = s.outer();
+
+		for (size_t i = 0; i < outer.size(); ++i)
+		{
+			m_lines.push_back(Line(outer[i], outer[(i + 1) % outer.size()]));
+		}	
+	}
+
+	const RectF& getRegion() const
+	{
+		return m_region;
+	}
+
+	Array<Triangle> calculateVisibilityTriangles(const Vec2& in eyePos) const
+	{
+		const auto points = calculateCollidePoints(eyePos);
+
+		Array<Triangle> triangles(points.size());
+
+		for (size_t i = 0; i < triangles.size(); ++i)
+		{
+			triangles[i].set(eyePos, points[i].right, points[(i + 1) % points.size()].left);
+		}
+
+		return triangles;
+	}	
+};
+
+void Main()
+{
+	Window::Resize(1280, 720);
+
+	const ColorF objectColor = Palette::Deepskyblue;
+	Array<Triangle> triangles = { Triangle(120, 120, 200, 120, 120, 500) };
+	Array<RectF> rects = { Rect(600, 40, 40, 260), RectF(440, 300, 440, 40), RectF(1040, 300, 200, 40), Rect(480, 480, 240, 100) };
+	Array<Circle> circles = { Circle(1000, 500, 80),  Circle(460, 180, 30), Circle(240, 480, 30), Circle(300, 560, 30) };
+	Array<Polygon> polygons = { Shape2D::Star(60, Vec2(940, 180)) };
+
+	for (int32 i = 0; i < 5; ++i)
+		rects << Rect(250, 150 + i * 60, 60, 20);
+
+	VisibilityMap map(Rect(40, 40, 1200, 640));
+
+	for (size_t i = 0; i < triangles.size(); ++i)
+		map.add(triangles[i]);
+
+	for (size_t i = 0; i < rects.size(); ++i)
+		map.add(rects[i]);
+
+	for (size_t i = 0; i < circles.size(); ++i)
+		map.add(circles[i]);
+		
+	for (size_t i = 0; i < polygons.size(); ++i)
+		map.add(polygons[i]);			
 
 	while (System::Update())
 	{
-		const Color penColor = colors[colorIndex];
+		for (size_t i = 0; i < triangles.size(); ++i)
+			triangles[i].draw(objectColor);
 
-		if (mode == 0)
-		{
-			if (MouseL.pressed() && System::DeltaTime() < 0.1)
-			{
-				Line(Cursor::PreviousPos(), Cursor::Pos())
-					.overwrite(image, 8, penColor, false);
-				texture.fill(image);
-			}
-		}
-		else
-		{
-			if (MouseL.down())
-			{
-				image.floodFill(Cursor::Pos(), penColor);
-				texture.fill(image);
-			}
-		}
+		for (size_t i = 0; i < rects.size(); ++i)
+			rects[i].draw(objectColor);
 
-		texture.draw();
+		for (size_t i = 0; i < circles.size(); ++i)
+			circles[i].draw(objectColor);
+			
+		for (size_t i = 0; i < polygons.size(); ++i)
+			polygons[i].draw(objectColor);
 
-		for (size_t i = 0; i < colors.size(); ++i)
+		map.getRegion().drawFrame(0, 8, objectColor);
+
+		const Vec2 eyePos = Cursor::Pos();
+		const auto vTriangles = map.calculateVisibilityTriangles(eyePos);
+
+		for (size_t i = 0; i < vTriangles.size(); ++i)
 		{
-			if (Rect(i % 4 * 40, i / 4 * 40, 40)
-				.stretched(-3)
-				.movedBy(620, 20)
-				.draw(colors[i])
-				.drawFrame(colorIndex == i ? 8 : 0, 3, ColorF(0.7))
-				.leftClicked())
-			{
-				colorIndex = i;
-			}
+			vTriangles[i].draw(ColorF(1.0, 0.5));
 		}
 
-		for (size_t i = 0; i < icons.size(); ++i)
-		{
-			if (Rect(620 + i * 90, 200, 70)
-				.rounded(20)
-				.drawFrame(mode == i ? 8 : 1)
-				.leftClicked())
-			{
-				mode = i;
-			}
-
-			icons[i].drawAt(655 + i * 90, 235,
-				mode == i ? penColor : Color(0, 40));
-		}
-
-		const Rect saveButton(620, 290, 160, 70);
-
-		if (saveButton.rounded(20).draw().leftClicked())
-		{
-			image.saveWithDialog();
-		}
-
-		saveIcon.drawAt(saveButton.center(), ColorF(0.25));
-
-		if (Rect(600).mouseOver())
-		{
-			Cursor::RequestStyle(CursorStyle::Hidden);
-
-			if (mode == 0)
-			{
-				Circle(Cursor::Pos(), 4).draw(penColor);
-			}
-			else
-			{
-				icons[1].draw(Cursor::Pos().movedBy(-30, -30), Palette::Black);
-			}
-		}
+		Circle(eyePos, 20).draw(Palette::Orange).drawFrame(1, 2);
 	}
 }

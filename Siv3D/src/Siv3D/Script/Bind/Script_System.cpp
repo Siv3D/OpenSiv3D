@@ -11,6 +11,7 @@
 
 # include <Siv3D/Script.hpp>
 # include <Siv3D/System.hpp>
+# include <Siv3D/Profiler.hpp>
 # include "ScriptBind.hpp"
 # include "../../Siv3DEngine.hpp"
 # include "../IScript.hpp"
@@ -40,7 +41,14 @@ namespace s3d
 
 	void RegisterSystem(asIScriptEngine *engine)
 	{
-		int r = 0;
+		int32 r = 0;
+
+		r = engine->RegisterEnumValue("WindowEvent", "CloseButton", WindowEvent::CloseButton); assert(r >= 0);
+		r = engine->RegisterEnumValue("WindowEvent", "EscapeKey", WindowEvent::EscapeKey); assert(r >= 0);
+		r = engine->RegisterEnumValue("WindowEvent", "Unfocus", WindowEvent::Unfocus); assert(r >= 0);
+		r = engine->RegisterEnumValue("WindowEvent", "AnyKey", WindowEvent::AnyKey); assert(r >= 0);
+		r = engine->RegisterEnumValue("WindowEvent", "Default", WindowEvent::Default); assert(r >= 0);
+		r = engine->RegisterEnumValue("WindowEvent", "Manual", WindowEvent::Manual); assert(r >= 0);
 
 		r = engine->SetDefaultNamespace("System"); assert(r >= 0);
 		{
