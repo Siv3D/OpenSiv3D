@@ -352,7 +352,7 @@ namespace s3d
 		if (buffer)
 		{
 			// Copy the existing values to the new buffer
-			if (buffer->hasValue)
+			if (buffer->hasValue && hasValue)
 			{
 				SetValue(tmpBuffer, At(buffer));
 			}

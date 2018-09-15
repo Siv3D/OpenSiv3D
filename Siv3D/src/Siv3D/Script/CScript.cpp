@@ -14,6 +14,7 @@
 # include <Siv3D/FileSystem.hpp>
 # include "Bind/ScriptBind.hpp"
 # include "AngelScript/scriptarray.h"
+# include "AngelScript/scriptgrid.h"
 # include "AngelScript/scriptstdstring.h"
 
 namespace s3d
@@ -87,8 +88,19 @@ namespace s3d
 			return false;
 		}
 
+		if (m_engine->SetEngineProperty(AngelScript::asEP_DISALLOW_EMPTY_LIST_ELEMENTS, 1) < 0)
+		{
+			return false;
+		}
+
+		if (m_engine->SetEngineProperty(AngelScript::asEP_ALLOW_UNSAFE_REFERENCES, 1) < 0)
+		{
+			return false;
+		}
+
 
 		AngelScript::RegisterScriptArray(m_engine);
+		AngelScript::RegisterScriptGrid(m_engine);
 		RegisterTypes(m_engine);
 		RegisterUtility(m_engine);
 		RegisterFormat(m_engine);
@@ -164,8 +176,8 @@ namespace s3d
 		RegisterWindow(m_engine);
 		RegisterCursor(m_engine);
 		RegisterGraphics(m_engine);
-
-		
+		RegisterProfiler(m_engine);
+		RegisterDialog(m_engine);
 
 		const auto nullScript = std::make_shared<ScriptData>(ScriptData::Null{}, m_engine);
 

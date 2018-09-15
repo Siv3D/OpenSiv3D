@@ -14,7 +14,6 @@
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Keyboard.hpp>
 # include "ScriptBind.hpp"
-# include "Script_Image.hpp"
 
 namespace s3d
 {

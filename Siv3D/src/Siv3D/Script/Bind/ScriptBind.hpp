@@ -201,7 +201,8 @@ namespace s3d
 	void RegisterWindow(AngelScript::asIScriptEngine* engine);
 	void RegisterCursor(AngelScript::asIScriptEngine* engine);
 	void RegisterGraphics(AngelScript::asIScriptEngine* engine);
-
+	void RegisterProfiler(AngelScript::asIScriptEngine* engine);
+	void RegisterDialog(AngelScript::asIScriptEngine* engine);
 
 	//void Register_DynamicTexture(asIScriptEngine* engine);
 	//void RegisterFont(asIScriptEngine* engine);

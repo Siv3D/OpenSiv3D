@@ -69,7 +69,8 @@ namespace s3d
 
 		r = engine->RegisterObjectType("Shape2D", sizeof(Shape2D), asOBJ_VALUE | asGetTypeTraits<Shape2D>()); assert(r >= 0);
 
-		r = engine->RegisterObjectType("Image", sizeof(RefWrapper<Image>), asOBJ_REF); assert(r >= 0);
+		//r = engine->RegisterObjectType("Image", sizeof(RefWrapper<Image>), asOBJ_REF); assert(r >= 0);
+		r = engine->RegisterObjectType("Image", sizeof(Image), asOBJ_VALUE | asGetTypeTraits<Image>()); assert(r >= 0);
 
 		r = engine->RegisterObjectType("Key", sizeof(Key), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
 

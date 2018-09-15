@@ -11,8 +11,8 @@
 
 # include <Siv3D/Script.hpp>
 # include <Siv3D/Emoji.hpp>
+# include <Siv3D/Image.hpp>
 # include "ScriptBind.hpp"
-# include "Script_Image.hpp"
 
 namespace s3d
 {
@@ -40,14 +40,14 @@ namespace s3d
 		self->~Emoji();
 	}
 
-	static RefWrapper<Image>* EmojiLoadImage(const String& emoji)
+	static Image EmojiLoadImage(const String& emoji)
 	{
-		return new RefWrapper<Image>(Emoji::LoadImage(emoji));
+		return Emoji::LoadImage(emoji);
 	}
 
-	static RefWrapper<Image>* EmojiLoadSilhouette(const String& emoji)
+	static Image EmojiLoadSilhouette(const String& emoji)
 	{
-		return new RefWrapper<Image>(Emoji::LoadSilhouette(emoji));
+		return Emoji::LoadSilhouette(emoji);
 	}
 
 	void RegisterEmoji(asIScriptEngine* engine)
@@ -66,8 +66,8 @@ namespace s3d
 		{
 			r = engine->RegisterGlobalProperty("const Point ImageSize", (void*)&Emoji::ImageSize); assert(r >= 0);
 
-			r = engine->RegisterGlobalFunction("Image@ LoadImage(const String& in)", asFUNCTION(EmojiLoadImage), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("Image@ LoadSilhouette(const String& in)", asFUNCTION(EmojiLoadSilhouette), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Image LoadImage(const String& in)", asFUNCTION(EmojiLoadImage), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Image LoadSilhouette(const String& in)", asFUNCTION(EmojiLoadSilhouette), asCALL_CDECL); assert(r >= 0);
 		}
 		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 	}

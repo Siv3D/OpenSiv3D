@@ -2368,6 +2368,15 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Optional.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
     </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\AngelScript\scriptgrid.cpp">
+      <Filter>src\Siv3D\Script\AngelScript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Profiler.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Dialog.cpp">
+      <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Siv3D\include\Siv3D.hpp">
@@ -4665,9 +4674,6 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\DirectoryWatcher\DirectoryWatcherDetail_Linux.hpp">
       <Filter>src\Siv3D\DirectoryWatcher</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Image.hpp">
-      <Filter>src\Siv3D\Script\Bind</Filter>
-    </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\ManagedScript.hpp">
       <Filter>include\Siv3D</Filter>
     </ClInclude>
@@ -4703,6 +4709,9 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Optional.hpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Script\AngelScript\scriptgrid.h">
+      <Filter>src\Siv3D\Script\AngelScript</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
