@@ -3,6 +3,8 @@ void Main()
 {
 	while (System::Update())
 	{
+		ViewportBlock2D v(Rect(20, 20, 400, 400));
 
+		Rect(800, 600).draw();
 	}
 }

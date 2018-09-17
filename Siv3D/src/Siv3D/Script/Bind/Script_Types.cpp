@@ -71,7 +71,6 @@ namespace s3d
 
 		r = engine->RegisterObjectType("Shape2D", sizeof(Shape2D), asOBJ_VALUE | asGetTypeTraits<Shape2D>()); assert(r >= 0);
 
-		//r = engine->RegisterObjectType("Image", sizeof(RefWrapper<Image>), asOBJ_REF); assert(r >= 0);
 		r = engine->RegisterObjectType("Image", sizeof(Image), asOBJ_VALUE | asGetTypeTraits<Image>()); assert(r >= 0);
 
 		r = engine->RegisterObjectType("Key", sizeof(Key), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
@@ -84,12 +83,12 @@ namespace s3d
 		r = engine->RegisterObjectType("DynamicTexture", sizeof(DynamicTexture), asOBJ_VALUE | asGetTypeTraits<DynamicTexture>()); assert(r >= 0);
 		r = engine->RegisterObjectType("Font", sizeof(Font), asOBJ_VALUE | asGetTypeTraits<Font>()); assert(r >= 0);
 		r = engine->RegisterObjectType("DrawableText", sizeof(DrawableText), asOBJ_VALUE | asGetTypeTraits<DrawableText>()); assert(r >= 0);
+		r = engine->RegisterObjectType("Transformer2D", sizeof(Transformer2D), asOBJ_VALUE | asGetTypeTraits<Transformer2D>()); assert(r >= 0);
+		r = engine->RegisterObjectType("ViewportBlock2D", sizeof(ViewportBlock2D), asOBJ_VALUE | asGetTypeTraits<ViewportBlock2D>()); assert(r >= 0);
 
 		r = engine->RegisterObjectType("Emoji", sizeof(Emoji), asOBJ_VALUE | asGetTypeTraits<Emoji>()); assert(r >= 0);
 		r = engine->RegisterObjectType("Icon", sizeof(Icon), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
 
-		
-		//r = engine->RegisterObjectType("DrawableString", sizeof(DrawableText), asOBJ_VALUE | asGetTypeTraits<DrawableText>()); assert(r >= 0);
 		//r = engine->RegisterObjectType("Webcam", sizeof(Webcam), asOBJ_VALUE | asOBJ_APP_CLASS_CD); assert(r >= 0);
 
 		r = engine->RegisterObjectType("PrintBuffer", 0, asOBJ_REF); assert(r >= 0);
@@ -158,6 +157,8 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("DynamicTexture") == static_cast<int32>(ScriptTypeID::DynamicTexture));
 		assert(engine->GetTypeIdByDecl("Font") == static_cast<int32>(ScriptTypeID::Font));
 		assert(engine->GetTypeIdByDecl("DrawableText") == static_cast<int32>(ScriptTypeID::DrawableText));
+		assert(engine->GetTypeIdByDecl("Transformer2D") == static_cast<int32>(ScriptTypeID::Transformer2D));
+		assert(engine->GetTypeIdByDecl("ViewportBlock2D") == static_cast<int32>(ScriptTypeID::ViewportBlock2D));
 
 		assert(engine->GetTypeIdByDecl("Emoji") == static_cast<int32>(ScriptTypeID::Emoji));
 		assert(engine->GetTypeIdByDecl("Icon") == static_cast<int32>(ScriptTypeID::Icon));

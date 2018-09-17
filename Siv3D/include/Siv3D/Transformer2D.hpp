@@ -11,6 +11,7 @@
 
 # pragma once
 # include "Fwd.hpp"
+# include "Uncopyable.hpp"
 # include "Mat3x2.hpp"
 # include "Graphics2D.hpp"
 # include "Cursor.hpp"

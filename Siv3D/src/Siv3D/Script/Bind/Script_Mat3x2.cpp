@@ -65,7 +65,7 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "Mat3x2 translated(double, double) const", asMETHODPR(BindType, translated, (double, double) const, BindType), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Mat3x2 scaled(double, const Float2& in center = Float2(0, 0)) const", asMETHODPR(BindType, scaled, (double, const Float2&) const, BindType), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Mat3x2 scaled(const FLoat2& in, const Float2& in center = Float2(0, 0)) const", asMETHODPR(BindType, scaled, (const Float2&, const Float2&) const, BindType), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Mat3x2 scaled(const Float2& in, const Float2& in center = Float2(0, 0)) const", asMETHODPR(BindType, scaled, (const Float2&, const Float2&) const, BindType), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Mat3x2 scaled(double, double, const Float2& in center = Float2(0, 0)) const", asMETHODPR(BindType, scaled, (double, double, const Float2&) const, BindType), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Mat3x2 rotated(double, const Float2& in center = Float2(0, 0)) const", asMETHODPR(BindType, rotated, (double, const Float2&) const, BindType), asCALL_THISCALL); assert(r >= 0);
@@ -79,6 +79,6 @@ namespace s3d
 
 		r = engine->RegisterObjectMethod(TypeName, "Float2 transform(const Point& in) const", asMETHODPR(Mat3x2, transform, (const Point&) const, Float2), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Float2 transform(const Float2& in) const", asMETHODPR(Mat3x2, transform, (const Float2&) const, Float2), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "Vec2 transform(const Point& in) const", asMETHODPR(Mat3x2, transform, (const Vec2&) const, Vec2), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2 transform(const Vec2& in) const", asMETHODPR(Mat3x2, transform, (const Vec2&) const, Vec2), asCALL_THISCALL); assert(r >= 0);
 	}
 }

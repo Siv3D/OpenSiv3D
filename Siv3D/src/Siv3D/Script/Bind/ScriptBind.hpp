@@ -88,9 +88,11 @@ namespace s3d
 		TexturedCircle,
 		TexturedRoundRect,
 		DynamicTexture,
-		
 		Font,
 		DrawableText,
+
+		Transformer2D,
+		ViewportBlock2D,
 
 		Emoji,
 		Icon,
@@ -168,6 +170,8 @@ namespace s3d
 	void RegisterDynamicTexture(AngelScript::asIScriptEngine* engine);
 	void RegisterFont(AngelScript::asIScriptEngine* engine);
 	void RegisterDrawableText(AngelScript::asIScriptEngine* engine);
+	void RegisterTransformer2D(AngelScript::asIScriptEngine* engine);
+	void RegisterViewportBlock2D(AngelScript::asIScriptEngine* engine);
 
 	void RegisterEmoji(AngelScript::asIScriptEngine* engine);
 	void RegisterIcon(AngelScript::asIScriptEngine* engine);
@@ -181,7 +185,5 @@ namespace s3d
 	void RegisterProfiler(AngelScript::asIScriptEngine* engine);
 	void RegisterDialog(AngelScript::asIScriptEngine* engine);
 
-	//void RegisterFont(asIScriptEngine* engine);
-	//void RegisterDrawableString(asIScriptEngine* engine);
 	//void Register_Webcam(asIScriptEngine* engine);
 }

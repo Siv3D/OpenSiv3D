@@ -130,6 +130,7 @@ namespace s3d
 		RegisterVec4(m_engine);
 		RegisterCircular(m_engine);
 		RegisterOffsetCircular(m_engine);
+		RegisterMat3x2(m_engine);
 		RegisterBezier2(m_engine);
 		RegisterBezier3(m_engine);
 		RegisterLine(m_engine);
@@ -169,6 +170,8 @@ namespace s3d
 		RegisterDynamicTexture(m_engine);
 		RegisterFont(m_engine);
 		RegisterDrawableText(m_engine);
+		RegisterTransformer2D(m_engine);
+		RegisterViewportBlock2D(m_engine);
 
 		RegisterEmoji(m_engine);
 		RegisterIcon(m_engine);
