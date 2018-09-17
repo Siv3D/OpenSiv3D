@@ -18,31 +18,6 @@ namespace AngelScript
 
 namespace s3d
 {
-	template <class Type>
-	struct RefWrapper : Type
-	{
-	private:
-
-		int32 m_refCount = 1;
-
-	public:
-
-		using Type::Type;
-
-		void AddRef()
-		{
-			++m_refCount;
-		}
-
-		void Release()
-		{
-			if (--m_refCount == 0)
-			{
-				delete this;
-			}
-		}
-	};
-
 	enum class ScriptTypeID
 	{
 		Void = 0,
@@ -60,6 +35,7 @@ namespace s3d
 
 		//Optional = ,
 		String = 67108877,
+		None_t,
 		Date,
 		DateTime,
 		Stopwatch,
@@ -112,6 +88,9 @@ namespace s3d
 		TexturedCircle,
 		TexturedRoundRect,
 		DynamicTexture,
+		
+		Font,
+		DrawableText,
 
 		Emoji,
 		Icon,
@@ -119,16 +98,12 @@ namespace s3d
 		PrintBuffer,
 		Print_impl,
 
-		
-		Font,
-		DrawableString,
-
-
 	};
 
 	void RegisterTypes(AngelScript::asIScriptEngine* engine);
 	void RegisterUtility(AngelScript::asIScriptEngine* engine);
 	void RegisterFormat(AngelScript::asIScriptEngine* engine);
+	void RegisterNone_t(AngelScript::asIScriptEngine* engine);
 	void RegisterOptional(AngelScript::asIScriptEngine* engine);
 	void RegisterDate(AngelScript::asIScriptEngine* engine);
 	void RegisterDateTime(AngelScript::asIScriptEngine* engine);
@@ -191,6 +166,8 @@ namespace s3d
 	void RegisterTexturedCircle(AngelScript::asIScriptEngine* engine);
 	void RegisterTexturedRoundRect(AngelScript::asIScriptEngine* engine);
 	void RegisterDynamicTexture(AngelScript::asIScriptEngine* engine);
+	void RegisterFont(AngelScript::asIScriptEngine* engine);
+	void RegisterDrawableText(AngelScript::asIScriptEngine* engine);
 
 	void RegisterEmoji(AngelScript::asIScriptEngine* engine);
 	void RegisterIcon(AngelScript::asIScriptEngine* engine);
@@ -204,7 +181,6 @@ namespace s3d
 	void RegisterProfiler(AngelScript::asIScriptEngine* engine);
 	void RegisterDialog(AngelScript::asIScriptEngine* engine);
 
-	//void Register_DynamicTexture(asIScriptEngine* engine);
 	//void RegisterFont(asIScriptEngine* engine);
 	//void RegisterDrawableString(asIScriptEngine* engine);
 	//void Register_Webcam(asIScriptEngine* engine);

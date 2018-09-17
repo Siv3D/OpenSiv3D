@@ -106,6 +106,7 @@ namespace s3d
 		RegisterFormat(m_engine);
 		AngelScript::RegisterStdString(m_engine);
 
+		RegisterNone_t(m_engine);
 		RegisterOptional(m_engine);
 		RegisterDate(m_engine);
 		RegisterDateTime(m_engine);
@@ -166,6 +167,8 @@ namespace s3d
 		RegisterTexturedCircle(m_engine);
 		RegisterTexturedRoundRect(m_engine);
 		RegisterDynamicTexture(m_engine);
+		RegisterFont(m_engine);
+		RegisterDrawableText(m_engine);
 
 		RegisterEmoji(m_engine);
 		RegisterIcon(m_engine);

@@ -18,6 +18,7 @@
 # include <Siv3D/Polygon.hpp>
 # include <Siv3D/LineString.hpp>
 # include <Siv3D/Image.hpp>
+# include <Siv3D/Font.hpp>
 # include "ScriptBind.hpp"
 
 namespace s3d
@@ -344,5 +345,14 @@ namespace s3d
 		r = engine->RegisterObjectMethod("LineString", "const LineString& overwrite(Image& inout, const Color& in, bool isClosed = false, bool antialiased = true) const", asMETHODPR(LineString, overwrite, (Image&, const Color&, bool, bool) const, const LineString&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod("LineString", "const LineString& overwrite(Image& inout, int32, const Color& in, bool isClosed = false, bool antialiased = true) const", asMETHODPR(LineString, overwrite, (Image&, int32, const Color&, bool, bool) const, const LineString&), asCALL_THISCALL); assert(r >= 0);
 
+		r = engine->RegisterObjectMethod("DrawableText", "Rect paint(Image& inout, int32, int32, const Color& in = Palette::White) const", asMETHODPR(DrawableText, paint, (Image&, int32, int32, const Color&) const, Rect), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("DrawableText", "Rect paint(Image& inout, const Point& in pos = Point(0, 0), const Color& in = Palette::White) const", asMETHODPR(DrawableText, paint, (Image&, const Point&, const Color&) const, Rect), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("DrawableText", "RectF paintAt(Image& inout, int32, int32, const Color& in = Palette::White) const", asMETHODPR(DrawableText, paintAt, (Image&, int32, int32, const Color&) const, RectF), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("DrawableText", "RectF paintAt(Image& inout, const Point& in pos = Point(0, 0), const Color& in = Palette::White) const", asMETHODPR(DrawableText, paintAt, (Image&, const Point&, const Color&) const, RectF), asCALL_THISCALL); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod("DrawableText", "Rect overwrite(Image& inout, int32, int32, const Color& in = Palette::White) const", asMETHODPR(DrawableText, overwrite, (Image&, int32, int32, const Color&) const, Rect), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("DrawableText", "Rect overwrite(Image& inout, const Point& in pos = Point(0, 0), const Color& in = Palette::White) const", asMETHODPR(DrawableText, overwrite, (Image&, const Point&, const Color&) const, Rect), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("DrawableText", "RectF overwriteAt(Image& inout, int32, int32, const Color& in = Palette::White) const", asMETHODPR(DrawableText, overwriteAt, (Image&, int32, int32, const Color&) const, RectF), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("DrawableText", "RectF overwriteAt(Image& inout, const Point& in pos = Point(0, 0), const Color& in = Palette::White) const", asMETHODPR(DrawableText, overwriteAt, (Image&, const Point&, const Color&) const, RectF), asCALL_THISCALL); assert(r >= 0);
 	}
 }

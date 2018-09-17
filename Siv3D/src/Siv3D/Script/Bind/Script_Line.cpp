@@ -45,7 +45,7 @@ namespace s3d
 		new(self) ShapeType(p0, p1);
 	}
 
-	static CScriptOptional* IntersectsAt(const Line& other, const Line& self)
+	static CScriptOptional IntersectsAt(const Line& other, const Line& self)
 	{
 		asITypeInfo* typeID = asGetActiveContext()->GetEngine()->GetTypeInfoByDecl("Optional<Vec2>");
 
@@ -53,11 +53,11 @@ namespace s3d
 		{
 			Vec2 value = result.value();
 
-			return CScriptOptional::Create(typeID, &value);
+			return CScriptOptional(&value, typeID);
 		}
 		else
 		{
-			return CScriptOptional::Create(typeID);
+			return CScriptOptional(typeID);
 		}
 	}
 
@@ -135,7 +135,7 @@ namespace s3d
 		//r = engine->RegisterObjectMethod(TypeName, "bool intersects(const LineString& in) const", asMETHODPR(ShapeType, intersects, (const LineString&) const, bool), asCALL_THISCALL); assert(r >= 0);
 
 
-		r = engine->RegisterObjectMethod(TypeName, "Optional<Vec2>@ intersectsAt(const Line& in) const", asFUNCTION(IntersectsAt), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Optional<Vec2> intersectsAt(const Line& in) const", asFUNCTION(IntersectsAt), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		//r = engine->RegisterObjectMethod(TypeName, "Array<int32> hoge() const", asFUNCTION(IntersectsAt), asCALL_CDECL_OBJLAST); assert(r >= 0);
 

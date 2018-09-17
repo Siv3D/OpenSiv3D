@@ -141,8 +141,6 @@ namespace s3d
 
 	CScriptOptional::CScriptOptional(asITypeInfo* ti)
 	{
-		refCount = 1;
-		gcFlag = false;
 		objType = ti;
 		objType->AddRef();
 		buffer = 0;
@@ -163,8 +161,6 @@ namespace s3d
 
 	CScriptOptional::CScriptOptional(void* defVal, asITypeInfo *ti)
 	{
-		refCount = 1;
-		gcFlag = false;
 		objType = ti;
 		objType->AddRef();
 		buffer = 0;
@@ -194,6 +190,22 @@ namespace s3d
 			buffer = 0;
 		}
 		if (objType) objType->Release();
+	}
+
+	CScriptOptional& CScriptOptional::operator=(const CScriptOptional& other)
+	{
+		// Only perform the copy if the array types are the same
+		if (&other != this &&
+			other.GetArrayObjectType() == GetArrayObjectType())
+		{
+			// Make sure the arrays are of the same size
+			Resize(other.buffer->hasValue);
+
+			// Copy the value of each element
+			CopyBuffer(buffer, other.buffer);
+		}
+
+		return *this;
 	}
 
 	void CScriptOptional::CreateBuffer(SOptionalBuffer** buf, asUINT hasValue)
@@ -293,24 +305,6 @@ namespace s3d
 			*(double*)ptr = *(double*)value;
 	}
 
-	void* CScriptOptional::At(SOptionalBuffer* buf)
-	{
-		if (!buf || !buf->hasValue)
-		{
-			// If this is called from a script we raise a script exception
-			asIScriptContext *ctx = asGetActiveContext();
-			if (ctx)
-				ctx->SetException("bad Optional access");
-			return 0;
-		}
-
-		asUINT index = 0;
-		if ((subTypeId & asTYPEID_MASK_OBJECT) && !(subTypeId & asTYPEID_OBJHANDLE))
-			return *(void**)(buf->data + elementSize * index);
-		else
-			return buf->data + elementSize * index;
-	}
-
 	void CScriptOptional::DeleteBuffer(SOptionalBuffer* buf)
 	{
 		assert(buf);
@@ -321,7 +315,6 @@ namespace s3d
 		::free(buf);
 	}
 
-	// internal
 	void CScriptOptional::Destruct(SOptionalBuffer* buf)
 	{
 		assert(buf);
@@ -415,90 +408,27 @@ namespace s3d
 		}
 	}
 
+	void* CScriptOptional::At(SOptionalBuffer* buf)
+	{
+		if (!buf || !buf->hasValue)
+		{
+			// If this is called from a script we raise a script exception
+			asIScriptContext *ctx = asGetActiveContext();
+			if (ctx)
+				ctx->SetException("bad Optional access");
+			return 0;
+		}
+
+		asUINT index = 0;
+		if ((subTypeId & asTYPEID_MASK_OBJECT) && !(subTypeId & asTYPEID_OBJHANDLE))
+			return *(void**)(buf->data + elementSize * index);
+		else
+			return buf->data + elementSize * index;
+	}
+
 	asITypeInfo* CScriptOptional::GetArrayObjectType() const
 	{
 		return objType;
-	}
-
-	void CScriptOptional::AddRef() const
-	{
-		// Clear the GC flag then increase the counter
-		gcFlag = false;
-		asAtomicInc(refCount);
-	}
-
-	void CScriptOptional::Release() const
-	{
-		// Clearing the GC flag then descrease the counter
-		gcFlag = false;
-		if (asAtomicDec(refCount) == 0)
-		{
-			// When reaching 0 no more references to this instance
-			// exists and the object should be destroyed
-			this->~CScriptOptional();
-			::free(const_cast<CScriptOptional*>(this));
-		}
-	}
-
-	// GC behaviour
-	int CScriptOptional::GetRefCount()
-	{
-		return refCount;
-	}
-
-	// GC behaviour
-	void CScriptOptional::SetFlag()
-	{
-		gcFlag = true;
-	}
-
-	// GC behaviour
-	bool CScriptOptional::GetFlag()
-	{
-		return gcFlag;
-	}
-
-	// GC behaviour
-	void CScriptOptional::EnumReferences(asIScriptEngine* engine)
-	{
-		if (buffer == 0) return;
-
-		// If the array is holding handles, then we need to notify the GC of them
-		if (subTypeId & asTYPEID_MASK_OBJECT)
-		{
-			asUINT numElements = buffer->hasValue;
-			void **d = (void**)buffer->data;
-			for (asUINT n = 0; n < numElements; n++)
-			{
-				if (d[n])
-					engine->GCEnumCallback(d[n]);
-			}
-		}
-	}
-
-	// GC behaviour
-	void CScriptOptional::ReleaseAllHandles(asIScriptEngine*)
-	{
-		if (buffer == 0) return;
-
-		DeleteBuffer(buffer);
-		buffer = 0;
-	}
-
-	CScriptOptional& CScriptOptional::operator=(const CScriptOptional& other)
-	{
-		// Only perform the copy if the array types are the same
-		if (&other != this &&
-			other.GetArrayObjectType() == GetArrayObjectType())
-		{
-			// Make sure the arrays are of the same size
-			Resize(other.buffer->hasValue);
-
-			// Copy the value of each element
-			CopyBuffer(buffer, other.buffer);
-		}
-
-		return *this;
 	}
 
 	CScriptOptional& CScriptOptional::AssignValue(void* value)
@@ -508,6 +438,18 @@ namespace s3d
 		SetValue(value);
 
 		return *this;
+	}
+
+	CScriptOptional& CScriptOptional::AssignNone(uint8)
+	{
+		Resize(0);
+
+		return *this;
+	}
+
+	bool CScriptOptional::opEqualNone(uint8) const
+	{
+		return !HasValue();
 	}
 
 	void CScriptOptional::ResetValue(void* value)
@@ -552,42 +494,24 @@ namespace s3d
 		}
 	}
 
-	CScriptOptional* CScriptOptional::Create(asITypeInfo *ti)
+	static void DefaultConstruct(asITypeInfo* ti, CScriptOptional* self)
 	{
-		// Allocate the memory
-		void *mem = ::malloc(sizeof(CScriptOptional));
-		if (mem == 0)
-		{
-			asIScriptContext *ctx = asGetActiveContext();
-			if (ctx)
-				ctx->SetException("Out of memory");
-
-			return 0;
-		}
-
-		// Initialize the object
-		CScriptOptional* a = new(mem) CScriptOptional(ti);
-
-		return a;
+		new(self) CScriptOptional(ti);
 	}
 
-	CScriptOptional* CScriptOptional::Create(asITypeInfo* ti, void* defVal)
+	static void ConstructV(asITypeInfo* ti, void* value, CScriptOptional* self)
 	{
-		// Allocate the memory
-		void *mem = ::malloc(sizeof(CScriptOptional));
-		if (mem == 0)
-		{
-			asIScriptContext *ctx = asGetActiveContext();
-			if (ctx)
-				ctx->SetException("Out of memory");
+		new(self) CScriptOptional(value, ti);
+	}
 
-			return 0;
-		}
+	static void ConstructN(asITypeInfo* ti, uint8, CScriptOptional* self)
+	{
+		new(self) CScriptOptional(ti);
+	}
 
-		// Initialize the object
-		CScriptOptional* a = new(mem) CScriptOptional(defVal, ti);
-
-		return a;
+	static void Destruct(CScriptOptional* self)
+	{
+		self->~CScriptOptional();
 	}
 
 	void RegisterOptional(asIScriptEngine* engine)
@@ -595,27 +519,20 @@ namespace s3d
 		constexpr char TypeName[] = "Optional<T>";
 
 		int32 r = 0;
-
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_TEMPLATE_CALLBACK, "bool f(int32& in, bool& out)", asFUNCTION(ScriptOptionalTemplateCallback), asCALL_CDECL); assert(r >= 0);
 
-		// Templates receive the object type as the first parameter. To the script writer this is hidden
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_FACTORY, "Optional<T>@ f(int32& in)", asFUNCTIONPR(CScriptOptional::Create, (asITypeInfo*), CScriptOptional*), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_FACTORY, "Optional<T>@ f(int32& in, const T& in value)", asFUNCTIONPR(CScriptOptional::Create, (asITypeInfo*, void*), CScriptOptional*), asCALL_CDECL); assert(r >= 0);
-
-		// The memory management methods
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_ADDREF, "void f()", asMETHOD(CScriptOptional, AddRef), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_RELEASE, "void f()", asMETHOD(CScriptOptional, Release), asCALL_THISCALL); assert(r >= 0);
-
-		// Register GC behaviours in case the array needs to be garbage collected
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_GETREFCOUNT, "int f()", asMETHOD(CScriptOptional, GetRefCount), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_SETGCFLAG, "void f()", asMETHOD(CScriptOptional, SetFlag), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_GETGCFLAG, "bool f()", asMETHOD(CScriptOptional, GetFlag), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_ENUMREFS, "void f(int32& in)", asMETHOD(CScriptOptional, EnumReferences), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_RELEASEREFS, "void f(int32& in)", asMETHOD(CScriptOptional, ReleaseAllHandles), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(int32& in)", asFUNCTION(DefaultConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(int32& in, const T& in value)", asFUNCTION(ConstructV), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(int32& in, None_t)", asFUNCTION(ConstructN), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Destruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Optional<T>& opAssign(const Optional<T>& in)", asMETHOD(CScriptOptional, operator =), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Optional<T>& opAssign(const T& in)", asMETHOD(CScriptOptional, AssignValue), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Optional<T>& opAssign(None_t)", asMETHOD(CScriptOptional, AssignNone), asCALL_THISCALL); assert(r >= 0);
 
+		//r = engine->RegisterObjectMethod(TypeName, "Optional<T>& opEquals(const Optional<T>& in) const", asMETHOD(CScriptOptional, AssignValue), asCALL_THISCALL); assert(r >= 0);
+		//r = engine->RegisterObjectMethod(TypeName, "Optional<T>& opEquals(const T& in) const", asMETHOD(CScriptOptional, AssignValue), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Optional<T>& opEquals(None_t) const", asMETHOD(CScriptOptional, opEqualNone), asCALL_THISCALL); assert(r >= 0);
 
 		// The index operator returns the template subtype
 		r = engine->RegisterObjectMethod(TypeName, "T& value()", asMETHODPR(CScriptOptional, At, (), void*), asCALL_THISCALL); assert(r >= 0);
@@ -625,7 +542,6 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "bool opImplConv() const", asMETHOD(CScriptOptional, HasValue), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool has_value() const", asMETHOD(CScriptOptional, HasValue), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "void reset()", asMETHOD(CScriptOptional, Reset), asCALL_THISCALL); assert(r >= 0);
-
 		r = engine->RegisterObjectMethod(TypeName, "void reset(const T& in value)", asMETHOD(CScriptOptional, ResetValue), asCALL_THISCALL); assert(r >= 0);
 	}
 }

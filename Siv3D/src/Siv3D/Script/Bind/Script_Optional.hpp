@@ -28,18 +28,13 @@ namespace s3d
 	{
 	protected:
 
-		mutable int32 refCount;
-		mutable bool gcFlag;
 		asITypeInfo* objType;
+
 		SOptionalBuffer* buffer;
+
 		int32 elementSize;
+
 		int32 subTypeId;
-
-		CScriptOptional(asITypeInfo* ti);
-
-		CScriptOptional(void* defVal, asITypeInfo *ti);
-
-		virtual ~CScriptOptional();
 
 		void CreateBuffer(SOptionalBuffer** buf, asUINT hasValue);
 
@@ -53,7 +48,7 @@ namespace s3d
 
 		void DeleteBuffer(SOptionalBuffer* buf);
 
-		// internal
+		//// internal
 		void Destruct(SOptionalBuffer* buf);
 
 		void Resize(asUINT hasValue);
@@ -64,32 +59,23 @@ namespace s3d
 
 		asITypeInfo* GetArrayObjectType() const;
 
-		static CScriptOptional* Create(asITypeInfo* ti);
+		CScriptOptional(asITypeInfo* ti);
 
-		static CScriptOptional* Create(asITypeInfo* ti, void* defVal);
+		CScriptOptional(void* defVal, asITypeInfo *ti);
 
-		void AddRef() const;
-
-		void Release() const;
-
-		// GC behaviour
-		int GetRefCount();
-
-		// GC behaviour
-		void SetFlag();
-
-		// GC behaviour
-		bool GetFlag();
-
-		// GC behaviour
-		void EnumReferences(asIScriptEngine* engine);
-
-		// GC behaviour
-		void ReleaseAllHandles(asIScriptEngine*);
+		~CScriptOptional();
 
 		CScriptOptional& operator=(const CScriptOptional& other);
 
 		CScriptOptional& AssignValue(void* value);
+		
+		CScriptOptional& AssignNone(uint8);
+
+		//bool opEqual(const CScriptOptional& other) const;
+
+		//bool opEqualValue(void* value) const;
+
+		bool opEqualNone(uint8) const;
 
 		void ResetValue(void* value);
 

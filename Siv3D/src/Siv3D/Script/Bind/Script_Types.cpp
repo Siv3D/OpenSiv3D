@@ -11,6 +11,7 @@
 
 # include <Siv3D.hpp>
 # include "ScriptBind.hpp"
+# include "Script_Optional.hpp"
 
 namespace s3d
 {
@@ -19,9 +20,10 @@ namespace s3d
 	void RegisterTypes(asIScriptEngine* engine)
 	{
 		int32 r = 0;
-		r = engine->RegisterObjectType("Optional<class T>", 0, asOBJ_REF | asOBJ_GC | asOBJ_TEMPLATE); assert(r >= 0);
 		r = engine->RegisterObjectType("String", sizeof(String), asOBJ_VALUE | asGetTypeTraits<String>()); assert(r >= 0);
-		
+		r = engine->RegisterObjectType("None_t", 1, asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C); assert(r >= 0);
+		r = engine->RegisterObjectType("Optional<class T>", sizeof(CScriptOptional), asOBJ_VALUE | asOBJ_TEMPLATE | asOBJ_APP_CLASS_CDAK); assert(r >= 0);
+
 		r = engine->RegisterObjectType("Date", sizeof(Date), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("DateTime", sizeof(DateTime), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("Stopwatch", sizeof(Stopwatch), asOBJ_VALUE | asGetTypeTraits<Stopwatch>()); assert(r >= 0);
@@ -79,14 +81,15 @@ namespace s3d
 		r = engine->RegisterObjectType("TexturedQuad", sizeof(TexturedQuad), asOBJ_VALUE | asGetTypeTraits<TexturedQuad>()); assert(r >= 0);
 		r = engine->RegisterObjectType("TexturedCircle", sizeof(TexturedCircle), asOBJ_VALUE | asGetTypeTraits<TexturedCircle>()); assert(r >= 0);
 		r = engine->RegisterObjectType("TexturedRoundRect", sizeof(TexturedRoundRect), asOBJ_VALUE | asGetTypeTraits<TexturedRoundRect>()); assert(r >= 0);
-
 		r = engine->RegisterObjectType("DynamicTexture", sizeof(DynamicTexture), asOBJ_VALUE | asGetTypeTraits<DynamicTexture>()); assert(r >= 0);
+		r = engine->RegisterObjectType("Font", sizeof(Font), asOBJ_VALUE | asGetTypeTraits<Font>()); assert(r >= 0);
+		r = engine->RegisterObjectType("DrawableText", sizeof(DrawableText), asOBJ_VALUE | asGetTypeTraits<DrawableText>()); assert(r >= 0);
 
 		r = engine->RegisterObjectType("Emoji", sizeof(Emoji), asOBJ_VALUE | asGetTypeTraits<Emoji>()); assert(r >= 0);
 		r = engine->RegisterObjectType("Icon", sizeof(Icon), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
 
-		//r = engine->RegisterObjectType("Font", sizeof(Font), asOBJ_VALUE | asOBJ_APP_CLASS_CD); assert(r >= 0);
-		//r = engine->RegisterObjectType("DrawableString", sizeof(DrawableString), asOBJ_VALUE | asOBJ_APP_CLASS_D); assert(r >= 0);
+		
+		//r = engine->RegisterObjectType("DrawableString", sizeof(DrawableText), asOBJ_VALUE | asGetTypeTraits<DrawableText>()); assert(r >= 0);
 		//r = engine->RegisterObjectType("Webcam", sizeof(Webcam), asOBJ_VALUE | asOBJ_APP_CLASS_CD); assert(r >= 0);
 
 		r = engine->RegisterObjectType("PrintBuffer", 0, asOBJ_REF); assert(r >= 0);
@@ -98,8 +101,11 @@ namespace s3d
 		r = engine->RegisterEnum("FloodFillConnectivity"); assert(r >= 0);
 		r = engine->RegisterEnum("TextureDesc"); assert(r >= 0);
 		r = engine->RegisterEnum("TextureFormat"); assert(r >= 0);
+		r = engine->RegisterEnum("Typeface"); assert(r >= 0);
+		r = engine->RegisterEnum("FontStyle"); assert(r >= 0);
 
 		assert(engine->GetTypeIdByDecl("String") == static_cast<int32>(ScriptTypeID::String));
+		assert(engine->GetTypeIdByDecl("None_t") == static_cast<int32>(ScriptTypeID::None_t));
 		assert(engine->GetTypeIdByDecl("Date") == static_cast<int32>(ScriptTypeID::Date));
 		assert(engine->GetTypeIdByDecl("DateTime") == static_cast<int32>(ScriptTypeID::DateTime));
 		assert(engine->GetTypeIdByDecl("Stopwatch") == static_cast<int32>(ScriptTypeID::Stopwatch));
@@ -150,7 +156,8 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("TexturedCircle") == static_cast<int32>(ScriptTypeID::TexturedCircle));
 		assert(engine->GetTypeIdByDecl("TexturedRoundRect") == static_cast<int32>(ScriptTypeID::TexturedRoundRect));
 		assert(engine->GetTypeIdByDecl("DynamicTexture") == static_cast<int32>(ScriptTypeID::DynamicTexture));
-
+		assert(engine->GetTypeIdByDecl("Font") == static_cast<int32>(ScriptTypeID::Font));
+		assert(engine->GetTypeIdByDecl("DrawableText") == static_cast<int32>(ScriptTypeID::DrawableText));
 
 		assert(engine->GetTypeIdByDecl("Emoji") == static_cast<int32>(ScriptTypeID::Emoji));
 		assert(engine->GetTypeIdByDecl("Icon") == static_cast<int32>(ScriptTypeID::Icon));
@@ -162,10 +169,6 @@ namespace s3d
 		//assert(engine->GetTypeIdByDecl("CursorStyle") == static_cast<int>(ScriptTypeID::CursorStyle));
 
 		
-
-		//assert(engine->GetTypeIdByDecl("Font") == static_cast<int>(ScriptTypeID::Font));
-		//assert(engine->GetTypeIdByDecl("DrawableString") == static_cast<int>(ScriptTypeID::DrawableString));
-
 		r = engine->RegisterTypedef("size_t", "uint64"); assert(r >= 0);
 	}
 }

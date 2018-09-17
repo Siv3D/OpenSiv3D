@@ -927,6 +927,13 @@ namespace s3d
 			return clipped(Rect(pos, size));
 		}
 
+		[[nodiscard]] Image squareClipped() const
+		{
+			const int32 size = std::min(m_width, m_height);
+
+			return clipped((m_width - size) / 2, (m_height - size) / 2, size, size);
+		}
+
 		/// <summary>
 		/// すべてのピクセルに変換関数を適用します。
 		/// </summary>
