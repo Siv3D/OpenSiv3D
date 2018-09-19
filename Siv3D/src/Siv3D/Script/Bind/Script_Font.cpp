@@ -49,6 +49,151 @@ namespace s3d
 		return !font.isEmpty();
 	}
 
+	String FormatBase(const void** args, const int* types, size_t num_args);
+
+	DrawableText FontOpCall_T1(
+		const void *ref1, int typeID1,
+		const Font& font
+	)
+	{
+		return font(FormatBase(&ref1, &typeID1, 1));
+	}
+
+	DrawableText FontOpCall_T2(
+		const void *ref1, int typeID1,
+		const void *ref2, int typeID2,
+		const Font& font
+	)
+	{
+		const void* args[] = { ref1, ref2 };
+		const int types[] = { typeID1, typeID2 };
+		return font(FormatBase(args, types, std::size(args)));
+	}
+
+	DrawableText FontOpCall_T3(
+		const void *ref1, int typeID1,
+		const void *ref2, int typeID2,
+		const void *ref3, int typeID3,
+		const Font& font
+	)
+	{
+		const void* args[] = { ref1, ref2, ref3 };
+		const int types[] = { typeID1, typeID2, typeID3 };
+		return font(FormatBase(args, types, std::size(args)));
+	}
+
+	DrawableText FontOpCall_T4(
+		const void *ref1, int typeID1,
+		const void *ref2, int typeID2,
+		const void *ref3, int typeID3,
+		const void *ref4, int typeID4,
+		const Font& font
+	)
+	{
+		const void* args[] = { ref1, ref2, ref3, ref4 };
+		const int types[] = { typeID1, typeID2, typeID3, typeID4 };
+		return font(FormatBase(args, types, std::size(args)));
+	}
+
+	DrawableText FontOpCall_T5(
+		const void *ref1, int typeID1,
+		const void *ref2, int typeID2,
+		const void *ref3, int typeID3,
+		const void *ref4, int typeID4,
+		const void *ref5, int typeID5,
+		const Font& font
+	)
+	{
+		const void* args[] = { ref1, ref2, ref3, ref4, ref5 };
+		const int types[] = { typeID1, typeID2, typeID3, typeID4, typeID5 };
+		return font(FormatBase(args, types, std::size(args)));
+	}
+
+	DrawableText FontOpCall_T6(
+		const void *ref1, int typeID1,
+		const void *ref2, int typeID2,
+		const void *ref3, int typeID3,
+		const void *ref4, int typeID4,
+		const void *ref5, int typeID5,
+		const void *ref6, int typeID6,
+		const Font& font
+	)
+	{
+		const void* args[] = { ref1, ref2, ref3, ref4, ref5, ref6 };
+		const int types[] = { typeID1, typeID2, typeID3, typeID4, typeID5, typeID6 };
+		return font(FormatBase(args, types, std::size(args)));
+	}
+
+	DrawableText FontOpCall_T7(
+		const void *ref1, int typeID1,
+		const void *ref2, int typeID2,
+		const void *ref3, int typeID3,
+		const void *ref4, int typeID4,
+		const void *ref5, int typeID5,
+		const void *ref6, int typeID6,
+		const void *ref7, int typeID7,
+		const Font& font
+	)
+	{
+		const void* args[] = { ref1, ref2, ref3, ref4, ref5, ref6, ref7 };
+		const int types[] = { typeID1, typeID2, typeID3, typeID4, typeID5, typeID6, typeID7 };
+		return font(FormatBase(args, types, std::size(args)));
+	}
+
+	DrawableText FontOpCall_T8(
+		const void *ref1, int typeID1,
+		const void *ref2, int typeID2,
+		const void *ref3, int typeID3,
+		const void *ref4, int typeID4,
+		const void *ref5, int typeID5,
+		const void *ref6, int typeID6,
+		const void *ref7, int typeID7,
+		const void *ref8, int typeID8,
+		const Font& font
+	)
+	{
+		const void* args[] = { ref1, ref2, ref3, ref4, ref5, ref6, ref7, ref8 };
+		const int types[] = { typeID1, typeID2, typeID3, typeID4, typeID5, typeID6, typeID7, typeID8 };
+		return font(FormatBase(args, types, std::size(args)));
+	}
+
+	DrawableText FontOpCall_T9(
+		const void *ref1, int typeID1,
+		const void *ref2, int typeID2,
+		const void *ref3, int typeID3,
+		const void *ref4, int typeID4,
+		const void *ref5, int typeID5,
+		const void *ref6, int typeID6,
+		const void *ref7, int typeID7,
+		const void *ref8, int typeID8,
+		const void *ref9, int typeID9,
+		const Font& font
+	)
+	{
+		const void* args[] = { ref1, ref2, ref3, ref4, ref5, ref6, ref7, ref8, ref9 };
+		const int types[] = { typeID1, typeID2, typeID3, typeID4, typeID5, typeID6, typeID7, typeID8, typeID9 };
+		return font(FormatBase(args, types, std::size(args)));
+	}
+
+	DrawableText FontOpCall_T10(
+		const void *ref1, int typeID1,
+		const void *ref2, int typeID2,
+		const void *ref3, int typeID3,
+		const void *ref4, int typeID4,
+		const void *ref5, int typeID5,
+		const void *ref6, int typeID6,
+		const void *ref7, int typeID7,
+		const void *ref8, int typeID8,
+		const void *ref9, int typeID9,
+		const void *ref10, int typeID10,
+		const Font& font
+	)
+	{
+		const void* args[] = { ref1, ref2, ref3, ref4, ref5, ref6, ref7, ref8, ref9, ref10 };
+		const int types[] = { typeID1, typeID2, typeID3, typeID4, typeID5, typeID6, typeID7, typeID8, typeID9, typeID10 };
+		return font(FormatBase(args, types, std::size(args)));
+	}
+
 	void RegisterFont(asIScriptEngine* engine)
 	{
 		constexpr char TypeName[] = "Font";
@@ -101,7 +246,16 @@ namespace s3d
 
 		r = engine->RegisterObjectMethod(TypeName, "DrawableText opCall() const", asMETHODPR(BindType, operator(), () const, DrawableText), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "DrawableText opCall(const String& in) const", asMETHODPR(BindType, operator(), (const String&) const, DrawableText), asCALL_THISCALL); assert(r >= 0);
-
+		r = engine->RegisterObjectMethod(TypeName, "DrawableText opCall(const ?&in) const", asFUNCTION(FontOpCall_T1), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "DrawableText opCall(const ?&in, const ?&in) const", asFUNCTION(FontOpCall_T2), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "DrawableText opCall(const ?&in, const ?&in, const ?&in) const", asFUNCTION(FontOpCall_T3), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "DrawableText opCall(const ?&in, const ?&in, const ?&in, const ?&in) const", asFUNCTION(FontOpCall_T4), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "DrawableText opCall(const ?&in, const ?&in, const ?&in, const ?&in, const ?&in) const", asFUNCTION(FontOpCall_T5), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "DrawableText opCall(const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in) const", asFUNCTION(FontOpCall_T6), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "DrawableText opCall(const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in) const", asFUNCTION(FontOpCall_T7), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "DrawableText opCall(const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in) const", asFUNCTION(FontOpCall_T8), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "DrawableText opCall(const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in) const", asFUNCTION(FontOpCall_T9), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "DrawableText opCall(const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in, const ?&in) const", asFUNCTION(FontOpCall_T10), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 	}
 }

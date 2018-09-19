@@ -271,7 +271,6 @@ namespace s3d
 			}
 			else if (r != AngelScript::asEXECUTION_FINISHED && r == AngelScript::asEXECUTION_SUSPENDED)
 			{
-				//System::ShowMessageBox(L"現在の設定では 100 万回以上の処理はできません。");
 				System::Exit();
 			}
 

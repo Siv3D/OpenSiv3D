@@ -254,6 +254,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\AngelScript\scriptbuilder.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\AngelScript\scriptgrid.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\AngelScript\scriptstdstring.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Audio.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Bezier2.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Bezier3.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Circle.cpp" />
@@ -266,6 +267,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_DateTime.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Dialog.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_DrawableText.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Duration.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_DynamicTexture.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Easing.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Ellipse.cpp" />
@@ -288,6 +290,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_MicrosecClock.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_MillisecClock.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Mouse.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_NamedArg.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_None_t.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_OffsetCircular.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Optional.cpp" />
@@ -321,6 +324,8 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Vec3.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Vec4.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_ViewportBlock2D.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Wave.cpp" />
+    <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_WaveSample.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Window.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\CScript.cpp" />
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\ScriptData.cpp" />

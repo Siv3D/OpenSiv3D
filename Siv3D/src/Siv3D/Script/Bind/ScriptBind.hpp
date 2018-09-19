@@ -34,8 +34,11 @@ namespace s3d
 		Double = 11,
 
 		//Optional = ,
-		String = 67108877,
+		Arg_samplingRate = 67108877,
+		Arg_samplingRateValue,
+		String,
 		None_t,
+		Duration,
 		Date,
 		DateTime,
 		Stopwatch,
@@ -82,6 +85,10 @@ namespace s3d
 		Image,
 		Key,
 
+		WaveSample,
+		Wave,
+		Audio,
+
 		Texture,
 		TextureRegion,
 		TexturedQuad,
@@ -104,9 +111,11 @@ namespace s3d
 
 	void RegisterTypes(AngelScript::asIScriptEngine* engine);
 	void RegisterUtility(AngelScript::asIScriptEngine* engine);
+	void RegisterNamedArg(AngelScript::asIScriptEngine* engine);
 	void RegisterFormat(AngelScript::asIScriptEngine* engine);
 	void RegisterNone_t(AngelScript::asIScriptEngine* engine);
 	void RegisterOptional(AngelScript::asIScriptEngine* engine);
+	void RegisterDuration(AngelScript::asIScriptEngine* engine);
 	void RegisterDate(AngelScript::asIScriptEngine* engine);
 	void RegisterDateTime(AngelScript::asIScriptEngine* engine);
 	void RegisterTime(AngelScript::asIScriptEngine* engine);
@@ -161,6 +170,9 @@ namespace s3d
 
 	void RegisterKey(AngelScript::asIScriptEngine* engine);
 	void RegisterMouse(AngelScript::asIScriptEngine* engine);
+
+	void RegisterWave(AngelScript::asIScriptEngine* engine);
+	void RegisterAudio(AngelScript::asIScriptEngine* engine);
 
 	void RegisterTexture(AngelScript::asIScriptEngine* engine);
 	void RegisterTextureRegion(AngelScript::asIScriptEngine* engine);

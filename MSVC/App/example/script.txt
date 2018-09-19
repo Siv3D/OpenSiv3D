@@ -1,10 +1,10 @@
 
 void Main()
 {
+	const Font font(50);
+
 	while (System::Update())
 	{
-		ViewportBlock2D v(Rect(20, 20, 400, 400));
-
-		Rect(800, 600).draw();
+		font(10, "+", 10).draw();
 	}
 }

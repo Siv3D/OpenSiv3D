@@ -103,11 +103,13 @@ namespace s3d
 		AngelScript::RegisterScriptGrid(m_engine);
 		RegisterTypes(m_engine);
 		RegisterUtility(m_engine);
+		RegisterNamedArg(m_engine);
 		RegisterFormat(m_engine);
 		AngelScript::RegisterStdString(m_engine);
 
 		RegisterNone_t(m_engine);
 		RegisterOptional(m_engine);
+		RegisterDuration(m_engine);
 		RegisterDate(m_engine);
 		RegisterDateTime(m_engine);
 		RegisterTime(m_engine);
@@ -161,6 +163,9 @@ namespace s3d
 		
 		RegisterKey(m_engine);
 		RegisterMouse(m_engine);
+
+		RegisterWave(m_engine);
+		RegisterAudio(m_engine);
 
 		RegisterTexture(m_engine);
 		RegisterTextureRegion(m_engine);

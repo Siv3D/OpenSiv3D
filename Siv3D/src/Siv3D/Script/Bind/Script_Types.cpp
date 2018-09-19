@@ -20,10 +20,19 @@ namespace s3d
 	void RegisterTypes(asIScriptEngine* engine)
 	{
 		int32 r = 0;
+			
+		r = engine->SetDefaultNamespace("Arg"); assert(r >= 0);
+		{
+			r = engine->RegisterObjectType("samplingRate_", 1, asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
+			r = engine->RegisterObjectType("samplingRate_v", sizeof(uint32), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_CK); assert(r >= 0);
+		}
+		r = engine->SetDefaultNamespace(""); assert(r >= 0);
+		
 		r = engine->RegisterObjectType("String", sizeof(String), asOBJ_VALUE | asGetTypeTraits<String>()); assert(r >= 0);
 		r = engine->RegisterObjectType("None_t", 1, asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("Optional<class T>", sizeof(CScriptOptional), asOBJ_VALUE | asOBJ_TEMPLATE | asOBJ_APP_CLASS_CDAK); assert(r >= 0);
 
+		r = engine->RegisterObjectType("Duration", sizeof(Duration), asOBJ_VALUE | asOBJ_POD | asGetTypeTraits<Duration>()); assert(r >= 0);
 		r = engine->RegisterObjectType("Date", sizeof(Date), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("DateTime", sizeof(DateTime), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("Stopwatch", sizeof(Stopwatch), asOBJ_VALUE | asGetTypeTraits<Stopwatch>()); assert(r >= 0);
@@ -75,6 +84,11 @@ namespace s3d
 
 		r = engine->RegisterObjectType("Key", sizeof(Key), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
 
+		r = engine->RegisterObjectType("WaveSample", sizeof(WaveSample), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
+		r = engine->RegisterObjectType("Wave", sizeof(Wave), asOBJ_VALUE | asGetTypeTraits<Wave>()); assert(r >= 0);
+		r = engine->RegisterObjectType("Audio", sizeof(Audio), asOBJ_VALUE | asGetTypeTraits<Audio>()); assert(r >= 0);
+
+
 		r = engine->RegisterObjectType("Texture", sizeof(Texture), asOBJ_VALUE | asGetTypeTraits<Texture>()); assert(r >= 0);
 		r = engine->RegisterObjectType("TextureRegion", sizeof(TextureRegion), asOBJ_VALUE | asGetTypeTraits<TextureRegion>()); assert(r >= 0);
 		r = engine->RegisterObjectType("TexturedQuad", sizeof(TexturedQuad), asOBJ_VALUE | asGetTypeTraits<TexturedQuad>()); assert(r >= 0);
@@ -105,6 +119,7 @@ namespace s3d
 
 		assert(engine->GetTypeIdByDecl("String") == static_cast<int32>(ScriptTypeID::String));
 		assert(engine->GetTypeIdByDecl("None_t") == static_cast<int32>(ScriptTypeID::None_t));
+		assert(engine->GetTypeIdByDecl("Duration") == static_cast<int32>(ScriptTypeID::Duration));
 		assert(engine->GetTypeIdByDecl("Date") == static_cast<int32>(ScriptTypeID::Date));
 		assert(engine->GetTypeIdByDecl("DateTime") == static_cast<int32>(ScriptTypeID::DateTime));
 		assert(engine->GetTypeIdByDecl("Stopwatch") == static_cast<int32>(ScriptTypeID::Stopwatch));
@@ -148,6 +163,10 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("Image") == static_cast<int32>(ScriptTypeID::Image));
 
 		assert(engine->GetTypeIdByDecl("Key") == static_cast<int32>(ScriptTypeID::Key));
+
+		assert(engine->GetTypeIdByDecl("WaveSample") == static_cast<int32>(ScriptTypeID::WaveSample));
+		assert(engine->GetTypeIdByDecl("Wave") == static_cast<int32>(ScriptTypeID::Wave));
+		assert(engine->GetTypeIdByDecl("Audio") == static_cast<int32>(ScriptTypeID::Audio));
 
 		assert(engine->GetTypeIdByDecl("Texture") == static_cast<int32>(ScriptTypeID::Texture));
 		assert(engine->GetTypeIdByDecl("TextureRegion") == static_cast<int32>(ScriptTypeID::TextureRegion));

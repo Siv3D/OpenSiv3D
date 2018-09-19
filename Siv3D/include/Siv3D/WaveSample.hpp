@@ -38,7 +38,7 @@ namespace s3d
 			: left(_left)
 			, right(_right) {}
 
-		WaveSample& operator =(const WaveSample& sample) = default;
+		constexpr WaveSample& operator =(const WaveSample& sample) = default;
 
 		constexpr WaveSample& operator =(float mono) noexcept
 		{
@@ -57,6 +57,11 @@ namespace s3d
 			left = _left;
 			right = _right;
 			return *this;
+		}
+
+		constexpr WaveSample& set(const WaveSample& sample) noexcept
+		{
+			return operator =(sample);
 		}
 
 		void swapChannel() noexcept
