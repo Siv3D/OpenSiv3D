@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -29,7 +29,7 @@ namespace s3d
 		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 		
 		r = engine->RegisterObjectType("String", sizeof(String), asOBJ_VALUE | asGetTypeTraits<String>()); assert(r >= 0);
-		r = engine->RegisterObjectType("None_t", 1, asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_C); assert(r >= 0);
+		r = engine->RegisterObjectType("None_t", 1, asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
 		r = engine->RegisterObjectType("Optional<class T>", sizeof(CScriptOptional), asOBJ_VALUE | asOBJ_TEMPLATE | asOBJ_APP_CLASS_CDAK); assert(r >= 0);
 
 		r = engine->RegisterObjectType("Duration", sizeof(Duration), asOBJ_VALUE | asOBJ_POD | asGetTypeTraits<Duration>()); assert(r >= 0);
