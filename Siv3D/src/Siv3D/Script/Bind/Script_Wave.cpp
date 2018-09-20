@@ -56,9 +56,9 @@ namespace s3d
 		new(self) BindType(duration, sample, Arg::samplingRate = samplingRate.value);
 	}
 
-	static void ConstructUUDDS(uint8 instrumrnt, uint8 key, const Duration& duration, double velocity, SamplingRate_v samplingRate, BindType* self)
+	static void ConstructUUDDS(int32 instrumrnt, int32 key, const Duration& duration, double velocity, SamplingRate_v samplingRate, BindType* self)
 	{
-		new(self) BindType(instrumrnt, key, duration, velocity, Arg::samplingRate = samplingRate.value);
+		new(self) BindType(static_cast<uint8>(instrumrnt), static_cast<uint8>(key), duration, velocity, Arg::samplingRate = samplingRate.value);
 	}
 
 	static void ConstructF(const FilePath& path, BindType* self)
@@ -101,7 +101,7 @@ namespace s3d
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const String& in)", asFUNCTION(ConstructF), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		//explicit Wave(const Array<WaveSample>& samples, Arg::samplingRate_<uint32> samplingRate = Arg::samplingRate_<uint32>(DefaultSamplingRate))
 		//explicit Wave(Array<WaveSample>&& samples, Arg::samplingRate_<uint32> samplingRate = Arg::samplingRate_<uint32>(DefaultSamplingRate))
-		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(uint8 instrumrnt, uint8 key, const Duration& in, double velocity = 1.0, Arg::samplingRate_v = (Arg::samplingRate = 44100))", asFUNCTION(ConstructUUDDS), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(int32 instrumrnt, int32 key, const Duration& in, double velocity = 1.0, Arg::samplingRate_v = (Arg::samplingRate = 44100))", asFUNCTION(ConstructUUDDS), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Destruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Wave& opAssign(const Wave& in)", asMETHODPR(BindType, operator =, (const BindType&), BindType&), asCALL_THISCALL); assert(r >= 0);

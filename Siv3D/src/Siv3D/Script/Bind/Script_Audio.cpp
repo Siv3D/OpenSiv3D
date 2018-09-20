@@ -29,6 +29,16 @@ namespace s3d
 		new(self) BindType(other);
 	}
 
+	static void ConstructW(const Wave& wave, BindType* self)
+	{
+		new(self) BindType(wave);
+	}
+
+	static void ConstructS(const FilePath& path, BindType* self)
+	{
+		new(self) BindType(path);
+	}
+
 	static void Destruct(BindType* self)
 	{
 		self->~BindType();
@@ -47,7 +57,17 @@ namespace s3d
 
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f()", asFUNCTION(DefaultConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Audio& in)", asFUNCTION(CopyConstruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
+
+		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const Wave& in)", asFUNCTION(ConstructW), asCALL_CDECL_OBJLAST); assert(r >= 0);
+		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_CONSTRUCT, "void f(const String& in)", asFUNCTION(ConstructS), asCALL_CDECL_OBJLAST); assert(r >= 0);
+
+
+		// Ctrs
+		// ...
+
+
 		r = engine->RegisterObjectBehaviour(TypeName, asBEHAVE_DESTRUCT, "void f()", asFUNCTION(Destruct), asCALL_CDECL_OBJLAST); assert(r >= 0);
+
 
 		r = engine->RegisterObjectMethod(TypeName, "Audio& opAssign(const Audio& in)", asMETHODPR(BindType, operator =, (const BindType&), BindType&), asCALL_THISCALL); assert(r >= 0);
 

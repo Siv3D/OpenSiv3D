@@ -164,6 +164,7 @@ namespace s3d
 		RegisterKey(m_engine);
 		RegisterMouse(m_engine);
 
+		RegisterSoundFont(m_engine);
 		RegisterWave(m_engine);
 		RegisterAudio(m_engine);
 

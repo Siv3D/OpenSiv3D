@@ -116,6 +116,8 @@ namespace s3d
 		r = engine->RegisterEnum("TextureFormat"); assert(r >= 0);
 		r = engine->RegisterEnum("Typeface"); assert(r >= 0);
 		r = engine->RegisterEnum("FontStyle"); assert(r >= 0);
+		r = engine->RegisterEnum("PianoKey"); assert(r >= 0);
+		r = engine->RegisterEnum("GMInstrument"); assert(r >= 0);
 
 		assert(engine->GetTypeIdByDecl("String") == static_cast<int32>(ScriptTypeID::String));
 		assert(engine->GetTypeIdByDecl("None_t") == static_cast<int32>(ScriptTypeID::None_t));

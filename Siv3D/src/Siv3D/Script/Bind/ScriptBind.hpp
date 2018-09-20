@@ -171,6 +171,7 @@ namespace s3d
 	void RegisterKey(AngelScript::asIScriptEngine* engine);
 	void RegisterMouse(AngelScript::asIScriptEngine* engine);
 
+	void RegisterSoundFont(AngelScript::asIScriptEngine* engine);
 	void RegisterWave(AngelScript::asIScriptEngine* engine);
 	void RegisterAudio(AngelScript::asIScriptEngine* engine);
 
