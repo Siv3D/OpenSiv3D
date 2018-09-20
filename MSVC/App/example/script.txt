@@ -1,14 +1,14 @@
 
 void Main()
 {
-	const Font font(50);
+	Optional<int32> opt;
 
-	TextToSpeech::SetDefaultLanguage(LanguageCode::Japanese);
+	opt = 123;
 
-	Say << "こんにちは";
+	Print << opt.value();
 
 	while (System::Update())
 	{
-		font(10, "+", 10).draw();
+
 	}
 }

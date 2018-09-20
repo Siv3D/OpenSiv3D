@@ -277,6 +277,34 @@ namespace s3d
 			return true;
 		}
 
+		Optional<String> tryExecute() const
+		{
+			int32 steps = 0;
+
+			if (m_moduleData->withLineCues)
+			{
+				m_moduleData->context->SetLineCallback(asFUNCTION(detail::LineCallback), &steps, AngelScript::asCALL_CDECL);
+			}
+
+			uint64 scriptID = m_moduleData->scriptID;
+			uint64 scriptStepCounter = 0;
+			m_moduleData->context->SetUserData(&scriptID, static_cast<uint32>(detail::ScriptUserDataIndex::ScriptID));
+			m_moduleData->context->SetUserData(&scriptStepCounter, static_cast<uint32>(detail::ScriptUserDataIndex::StepCounter));
+
+			const int32 r = m_moduleData->context->Execute();
+
+			if (r != AngelScript::asEXECUTION_FINISHED && r == AngelScript::asEXECUTION_EXCEPTION)
+			{
+				return Unicode::Widen(m_moduleData->context->GetExceptionString());
+			}
+			else if (r != AngelScript::asEXECUTION_FINISHED && r == AngelScript::asEXECUTION_SUSPENDED)
+			{
+				System::Exit();
+			}
+
+			return none;
+		}
+
 		template <class Type>
 		Type getReturn() const
 		{
@@ -293,9 +321,16 @@ namespace s3d
 			using type = typename std::tuple_element_t<i, std::tuple<Args...>>;
 		};
 
+		ScriptFunction() = default;
+
 		ScriptFunction(const std::shared_ptr<ScriptModuleData>& moduleData, AngelScript::asIScriptFunction* function)
 			: m_moduleData(moduleData)
 			, m_function((moduleData && moduleData->module && moduleData->context) ? function : nullptr) {}
+
+		explicit operator bool() const
+		{
+			return static_cast<bool>(m_function);
+		}
 
 		Ret operator()(Args... args) const
 		{
@@ -311,6 +346,31 @@ namespace s3d
 			if (!execute())
 			{
 				return Ret();
+			}
+
+			return getReturn<Ret>();
+		}
+
+		Ret tryCall(Args... args, String& exception) const
+		{
+			if (!m_function)
+			{
+				return Ret();
+			}
+
+			m_moduleData->context->Prepare(m_function);
+
+			setArgs(0, args...);
+
+			if (const auto ex = tryExecute())
+			{
+				exception = ex.value();
+
+				return Ret();
+			}
+			else
+			{
+				exception.clear();
 			}
 
 			return getReturn<Ret>();

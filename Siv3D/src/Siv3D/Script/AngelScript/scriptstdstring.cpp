@@ -120,7 +120,7 @@ static CharType *StringCharAt(unsigned int i, String &str)
 	{
 		// Set a script exception
 		asIScriptContext *ctx = asGetActiveContext();
-		ctx->SetException("Out of range");
+		ctx->SetException("String: Out of range");
 
 		// Return a null pointer
 		return 0;

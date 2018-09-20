@@ -74,7 +74,7 @@ namespace s3d
 
 	bool ManagedScript::ManagedScriptDetail::compiled() const
 	{
-		return !!m_main;
+		return static_cast<bool>(m_main);
 	}
 
 	void ManagedScript::ManagedScriptDetail::run()
@@ -87,8 +87,32 @@ namespace s3d
 			m_script.getMessages().each(Print);
 			m_main = m_script.getFunction<void()>(U"Main");
 			m_requestReload = false;
+			m_hasException = false;
 		}
 
-		m_main();
+		if (m_hasException)
+		{
+			return;
+		}
+
+		String exception;
+
+		m_main.tryCall(exception);
+
+		if (exception)
+		{
+			Print << U"[script exception] An exception '{}' occurred."_fmt(exception);
+			m_hasException = true;
+		}
+	}
+
+	bool ManagedScript::ManagedScriptDetail::hasException() const
+	{
+		return m_hasException;
+	}
+
+	void ManagedScript::ManagedScriptDetail::clearException()
+	{
+		m_hasException = false;
 	}
 }
