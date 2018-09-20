@@ -3,6 +3,10 @@ void Main()
 {
 	const Font font(50);
 
+	TextToSpeech::SetDefaultLanguage(LanguageCode::Japanese);
+
+	Say << "こんにちは";
+
 	while (System::Update())
 	{
 		font(10, "+", 10).draw();

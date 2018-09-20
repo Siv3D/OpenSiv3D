@@ -1,4 +1,4 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -82,6 +82,9 @@ namespace s3d
 
 		r = engine->RegisterObjectType("Image", sizeof(Image), asOBJ_VALUE | asGetTypeTraits<Image>()); assert(r >= 0);
 
+		r = engine->RegisterObjectType("SayBuffer", 0, asOBJ_REF); assert(r >= 0);
+		r = engine->RegisterObjectType("Say_impl", 1, asOBJ_VALUE | asOBJ_POD); assert(r >= 0);
+
 		r = engine->RegisterObjectType("Key", sizeof(Key), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLINTS | asOBJ_APP_CLASS_C); assert(r >= 0);
 
 		r = engine->RegisterObjectType("WaveSample", sizeof(WaveSample), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_CLASS_ALLFLOATS | asOBJ_APP_CLASS_C); assert(r >= 0);
@@ -163,6 +166,9 @@ namespace s3d
 		assert(engine->GetTypeIdByDecl("Shape2D") == static_cast<int32>(ScriptTypeID::Shape2D));
 
 		assert(engine->GetTypeIdByDecl("Image") == static_cast<int32>(ScriptTypeID::Image));
+
+		assert(engine->GetTypeIdByDecl("SayBuffer") == static_cast<int32>(ScriptTypeID::SayBuffer));
+		assert(engine->GetTypeIdByDecl("Say_impl") == static_cast<int32>(ScriptTypeID::Say_impl));
 
 		assert(engine->GetTypeIdByDecl("Key") == static_cast<int32>(ScriptTypeID::Key));
 
