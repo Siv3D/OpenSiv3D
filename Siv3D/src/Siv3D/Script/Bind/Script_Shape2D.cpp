@@ -69,5 +69,7 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "const Shape2D& drawFrame(double thickness = 1.0, const ColorF& in color = Palette::White) const", asMETHOD(ShapeType, drawFrame), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "Polygon asPolygon() const", asMETHOD(ShapeType, asPolygon), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Polygon opImplConv() const", asMETHOD(ShapeType, asPolygon), asCALL_THISCALL); assert(r >= 0);
+
 	}
 }

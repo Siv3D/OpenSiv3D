@@ -17,6 +17,7 @@
 # include "MessageBox.hpp"
 # include "AssetHandle.hpp"
 # include "NamedParameter.hpp"
+# include "Logger.hpp"
 # define AS_USE_NAMESPACE
 # include "../../include/ThirdParty/angelscript/angelscript.h"
 
@@ -265,14 +266,11 @@ namespace s3d
 
 			if (r != AngelScript::asEXECUTION_FINISHED && r == AngelScript::asEXECUTION_EXCEPTION)
 			{
-				//Log(L"[script error]An exception '{}' occurred. Please correct the code and try again."_fmt(
-				//	CharacterSet::Widen(m_moduleData->context->GetExceptionString())));
-
+				LOG_ERROR(U"[script exception] An exception '{}' occurred."_fmt(Unicode::Widen(m_moduleData->context->GetExceptionString())));
 				return false;
 			}
 			else if (r != AngelScript::asEXECUTION_FINISHED && r == AngelScript::asEXECUTION_SUSPENDED)
 			{
-				//System::ShowMessageBox(L"現在の設定では 100 万回以上の処理はできません。");
 				System::Exit();
 			}
 

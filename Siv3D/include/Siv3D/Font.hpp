@@ -241,24 +241,26 @@ namespace s3d
 	{
 		Font font;
 
-		String codePoints;
+		String text;
 
-		DrawableText(const Font& _font, const String& text)
-			: font(_font)
-			, codePoints(text) {}
+		DrawableText() = default;
 
-		DrawableText(const Font& _font, String&& text)
+		DrawableText(const Font& _font, const String& _text)
 			: font(_font)
-			, codePoints(std::move(text)) {}
+			, text(_text) {}
+
+		DrawableText(const Font& _font, String&& _text)
+			: font(_font)
+			, text(std::move(_text)) {}
 
 		[[nodiscard]] GlyphIterator begin() const
 		{
-			return GlyphIterator(font, codePoints.begin(), 0);
+			return GlyphIterator(font, text.begin(), 0);
 		}
 
 		[[nodiscard]] GlyphIterator end() const
 		{
-			return GlyphIterator(font, codePoints.end(), static_cast<int32>(codePoints.size()));
+			return GlyphIterator(font, text.end(), static_cast<int32>(text.size()));
 		}
 
 		[[nodiscard]] RectF boundingRect(double x, double y) const

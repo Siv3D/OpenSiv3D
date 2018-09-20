@@ -262,10 +262,11 @@ namespace s3d
 		double xMin = center.x, xMax = center.x;
 		const double yMin = center.y - r;
 		double yMax = center.y;
+		const double d = (Math::TwoPi / n);
 
 		for (uint32 i = 0; i < n; ++i)
 		{
-			*pPos += Circular(r, i * (Math::TwoPi / n));
+			*pPos += Circular(r, i * d);
 
 			if (pPos->x < xMin)
 			{

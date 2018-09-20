@@ -18,31 +18,6 @@ namespace AngelScript
 
 namespace s3d
 {
-	template <class Type>
-	struct RefWrapper : Type
-	{
-	private:
-
-		int32 m_refCount = 1;
-
-	public:
-
-		using Type::Type;
-
-		void AddRef()
-		{
-			++m_refCount;
-		}
-
-		void Release()
-		{
-			if (--m_refCount == 0)
-			{
-				delete this;
-			}
-		}
-	};
-
 	enum class ScriptTypeID
 	{
 		Void = 0,
@@ -59,7 +34,11 @@ namespace s3d
 		Double = 11,
 
 		//Optional = ,
-		String = 67108877,
+		Arg_samplingRate = 67108877,
+		Arg_samplingRateValue,
+		String,
+		None_t,
+		Duration,
 		Date,
 		DateTime,
 		Stopwatch,
@@ -73,11 +52,13 @@ namespace s3d
 		ColorF,
 		HSV,
 		Point,
+		Float2,
 		Vec2,
 		Vec3,
 		Vec4,
 		Circular,
 		OffsetCircular,
+		Mat3x2,
 		Bezier2,
 		Bezier3,
 		Line,
@@ -92,6 +73,8 @@ namespace s3d
 		MultiPolygon,
 		LineString,
 
+		FloatRect,
+
 		LineStyle,
 		LineStyleParameters,
 		Shape2D,
@@ -102,10 +85,21 @@ namespace s3d
 		Image,
 		Key,
 
+		WaveSample,
+		Wave,
+		Audio,
+
 		Texture,
 		TextureRegion,
 		TexturedQuad,
+		TexturedCircle,
+		TexturedRoundRect,
 		DynamicTexture,
+		Font,
+		DrawableText,
+
+		Transformer2D,
+		ViewportBlock2D,
 
 		Emoji,
 		Icon,
@@ -113,17 +107,15 @@ namespace s3d
 		PrintBuffer,
 		Print_impl,
 
-		
-		Font,
-		DrawableString,
-
-
 	};
 
 	void RegisterTypes(AngelScript::asIScriptEngine* engine);
 	void RegisterUtility(AngelScript::asIScriptEngine* engine);
+	void RegisterNamedArg(AngelScript::asIScriptEngine* engine);
 	void RegisterFormat(AngelScript::asIScriptEngine* engine);
-
+	void RegisterNone_t(AngelScript::asIScriptEngine* engine);
+	void RegisterOptional(AngelScript::asIScriptEngine* engine);
+	void RegisterDuration(AngelScript::asIScriptEngine* engine);
 	void RegisterDate(AngelScript::asIScriptEngine* engine);
 	void RegisterDateTime(AngelScript::asIScriptEngine* engine);
 	void RegisterTime(AngelScript::asIScriptEngine* engine);
@@ -140,16 +132,17 @@ namespace s3d
 	void RegisterPalette(AngelScript::asIScriptEngine* engine);
 	void RegisterHSV(AngelScript::asIScriptEngine* engine);
 	void RegisterPoint(AngelScript::asIScriptEngine* engine);
+	void RegisterFloat2(AngelScript::asIScriptEngine* engine);
 	void RegisterVec2(AngelScript::asIScriptEngine* engine);
 	void RegisterVec3(AngelScript::asIScriptEngine* engine);
 	void RegisterVec4(AngelScript::asIScriptEngine* engine);
 	void RegisterCircular(AngelScript::asIScriptEngine* engine);
 	void RegisterOffsetCircular(AngelScript::asIScriptEngine* engine);
-	void RegisterBezier2(AngelScript::asIScriptEngine* engine);
-	void RegisterBezier3(AngelScript::asIScriptEngine* engine);
 	//void RegisterCylindrical(AngelScript::asIScriptEngine* engine);
 	//void RegisterSpherical(AngelScript::asIScriptEngine* engine);
-	//void RegisterMat3x2(AngelScript::asIScriptEngine* engine);
+	void RegisterMat3x2(AngelScript::asIScriptEngine* engine);
+	void RegisterBezier2(AngelScript::asIScriptEngine* engine);
+	void RegisterBezier3(AngelScript::asIScriptEngine* engine);
 	void RegisterLine(AngelScript::asIScriptEngine* engine);
 	void RegisterRect(AngelScript::asIScriptEngine* engine);
 	void RegisterRectF(AngelScript::asIScriptEngine* engine);
@@ -162,7 +155,7 @@ namespace s3d
 	//void RegisterMultiPolygon(AngelScript::asIScriptEngine* engine);
 	void RegisterLineString(AngelScript::asIScriptEngine* engine);
 
-
+	void RegisterFloatRect(AngelScript::asIScriptEngine* engine);
 
 	void RegisterLineStyle(AngelScript::asIScriptEngine* engine);
 	void RegisterShape2D(AngelScript::asIScriptEngine* engine);
@@ -178,38 +171,32 @@ namespace s3d
 	void RegisterKey(AngelScript::asIScriptEngine* engine);
 	void RegisterMouse(AngelScript::asIScriptEngine* engine);
 
+	void RegisterSoundFont(AngelScript::asIScriptEngine* engine);
+	void RegisterWave(AngelScript::asIScriptEngine* engine);
+	void RegisterAudio(AngelScript::asIScriptEngine* engine);
+
 	void RegisterTexture(AngelScript::asIScriptEngine* engine);
 	void RegisterTextureRegion(AngelScript::asIScriptEngine* engine);
 	void RegisterTexturedQuad(AngelScript::asIScriptEngine* engine);
+	void RegisterTexturedCircle(AngelScript::asIScriptEngine* engine);
+	void RegisterTexturedRoundRect(AngelScript::asIScriptEngine* engine);
 	void RegisterDynamicTexture(AngelScript::asIScriptEngine* engine);
+	void RegisterFont(AngelScript::asIScriptEngine* engine);
+	void RegisterDrawableText(AngelScript::asIScriptEngine* engine);
+	void RegisterTransformer2D(AngelScript::asIScriptEngine* engine);
+	void RegisterViewportBlock2D(AngelScript::asIScriptEngine* engine);
 
 	void RegisterEmoji(AngelScript::asIScriptEngine* engine);
 	void RegisterIcon(AngelScript::asIScriptEngine* engine);
 
 	void RegisterPrint(AngelScript::asIScriptEngine* engine);
 
-	//void RegisterTime(asIScriptEngine* engine);
-
-	
-
-	//void RegisterMathConstants(asIScriptEngine* engine);
-
-	//void RegisterRandom(asIScriptEngine* engine);
-
 	void RegisterSystem(AngelScript::asIScriptEngine* engine);
 	void RegisterWindow(AngelScript::asIScriptEngine* engine);
 	void RegisterCursor(AngelScript::asIScriptEngine* engine);
 	void RegisterGraphics(AngelScript::asIScriptEngine* engine);
-
-	
-
-	//void RegisterTexture(asIScriptEngine* engine);
-
-	//void Register_DynamicTexture(asIScriptEngine* engine);
-
-
-	//void RegisterFont(asIScriptEngine* engine);
-	//void RegisterDrawableString(asIScriptEngine* engine);
+	void RegisterProfiler(AngelScript::asIScriptEngine* engine);
+	void RegisterDialog(AngelScript::asIScriptEngine* engine);
 
 	//void Register_Webcam(asIScriptEngine* engine);
 }

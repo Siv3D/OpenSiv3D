@@ -72,23 +72,58 @@ namespace s3d
 		//...
 
 		r = engine->RegisterObjectMethod(TypeName, "LineString& opAssign(const LineString& in)", asMETHODPR(ShapeType, operator =, (const ShapeType&), ShapeType&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void assign(const LineString& in)", asMETHODPR(ShapeType, assign, (const ShapeType&), void), asCALL_THISCALL); assert(r >= 0);
 
+		r = engine->RegisterObjectMethod(TypeName, "Vec2& opIndex(uint32 index)", asMETHODPR(std::vector<Vec2>, operator[], (size_t), Vec2&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "const Vec2& opIndex(uint32 index) const", asMETHODPR(std::vector<Vec2>, operator[], (size_t) const, const Vec2&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2& front()", asMETHODPR(std::vector<Vec2>, front, (), Vec2&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "const Vec2& front() const", asMETHODPR(std::vector<Vec2>, front, () const, const Vec2&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Vec2& back()", asMETHODPR(std::vector<Vec2>, back, (), Vec2&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "const Vec2& back() const", asMETHODPR(std::vector<Vec2>, back, () const, const Vec2&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool empty() const", asMETHOD(ShapeType, empty), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "uint32 size() const", asMETHOD(ShapeType, size), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void reserve(uint32)", asMETHOD(ShapeType, reserve), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void shrink_to_fit()", asMETHOD(std::vector<Vec2>, shrink_to_fit), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void clear()", asMETHOD(std::vector<Vec2>, clear), asCALL_THISCALL); assert(r >= 0);
+
+		//using base_type::insert;
+		//using base_type::emplace;
+		//using base_type::erase;
+
+		r = engine->RegisterObjectMethod(TypeName, "LineString& opShl()", asMETHOD(ShapeType, operator <<), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void push_back(const Vec2& in)", asMETHODPR(std::vector<Vec2>, push_back, (const Vec2&), void), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void push_front(const Vec2& in)", asMETHODPR(Array<Vec2>, push_front, (const Vec2&), void), asCALL_THISCALL); assert(r >= 0);
+		//r = engine->RegisterObjectMethod(TypeName, "void emplace_back()", asMETHODPR(std::vector<Vec2>, emplace_back, (), Vec2&), asCALL_THISCALL); assert(r >= 0);
+		//r = engine->RegisterObjectMethod(TypeName, "void emplace_back(double, double)", asMETHODPR(std::vector<Vec2>, emplace_back, (double, double), Vec2&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void pop_back()", asMETHOD(std::vector<Vec2>, pop_back), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void pop_front()", asMETHOD(Array<Vec2>, pop_front), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void resize(uint32)", asMETHODPR(std::vector<Vec2>, resize, (std::vector<Vec2>::size_type), void), asCALL_THISCALL); assert(r >= 0);
+		//using base_type::count;
+		//using base_type::count_if;
 		r = engine->RegisterObjectMethod(TypeName, "bool opImplConv() const", asFUNCTION(ConvToBool), asCALL_CDECL_OBJLAST); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool isEmpty() const", asMETHOD(ShapeType, isEmpty), asCALL_THISCALL); assert(r >= 0);
+		//using base_type::release;
+		//using base_type::size_bytes;
+		//using base_type::choice;
+		r = engine->RegisterObjectMethod(TypeName, "void fill(const Vec2& in)", asMETHOD(ShapeType, fill), asCALL_THISCALL); assert(r >= 0);
+		//using base_type::join;
+		//using base_type::remove;
 
-		// void assign(const LineString& other)
-
-		r = engine->RegisterObjectMethod(TypeName, "LineString& opShl() const", asMETHOD(ShapeType, operator <<), asCALL_THISCALL); assert(r >= 0);
-
-		// Array member functions
-		// ...
-		//
-
+		//append
+		//remove
+		//remove_at
+		//remove_if
+		//reverse
+		//reversed
+		//rotate
+		//rotated
+		//shuffle
+		//shuffled
+		//slice
 		//void swap(LineString& other) noexcept
 		//LineString& append(const Array<Vec2>& other)
 		//LineString& append(const LineString& other)
 
-		r = engine->RegisterObjectMethod(TypeName, "uint32 size() const", asMETHOD(ShapeType, size), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "uint32 num_lines() const", asMETHOD(ShapeType, num_lines), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Line line(uint32 index) const", asMETHOD(ShapeType, line), asCALL_THISCALL); assert(r >= 0);
 
@@ -116,11 +151,6 @@ namespace s3d
 		//r = engine->RegisterObjectMethod(TypeName, "bool intersects(const LineString& in) const", asMETHODPR(ShapeType, intersects, (const LineString&) const, bool), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "LineString catmullRom(bool isClosed = false, int32 interpolation = 24) const", asMETHOD(ShapeType, catmullRom), asCALL_THISCALL); assert(r >= 0);
-
-		//const LineString& paint(Image& dst, const Color& color, bool isClosed = false) const;
-		//const LineString& paint(Image& dst, int32 thickness, const Color& color, bool isClosed = false) const;
-		//const LineString& overwrite(Image& dst, const Color& color, bool isClosed = false, bool antialiased = true) const;
-		//const LineString& overwrite(Image& dst, int32 thickness, const Color& color, bool isClosed = false, bool antialiased = true) const;
 
 		r = engine->RegisterObjectMethod(TypeName, "const LineString& draw(const ColorF& in = Palette::White, bool isClosed = false) const", asMETHODPR(ShapeType, draw, (const ColorF&, bool) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const LineString& draw(double, const ColorF& in = Palette::White, bool isClosed = false) const", asMETHODPR(ShapeType, draw, (double, const ColorF&, bool) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);

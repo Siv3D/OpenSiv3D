@@ -135,17 +135,13 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "bool rightReleased() const", asMETHOD(ShapeType, rightReleased), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "bool mouseOver() const", asMETHOD(ShapeType, mouseOver), asCALL_THISCALL); assert(r >= 0);
 
-		//const Triangle& paint(Image& dst, const Color& color) const;
-		//const Triangle& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
-		//const Triangle& paintFrame(Image& dst, int32 thickness, const Color& color) const;
-		//const Triangle& overwriteFrame(Image& dst, int32 thickness, const Color& color, bool antialiased = true) const;
-
 		r = engine->RegisterObjectMethod(TypeName, "const Triangle& draw(const ColorF& in = Palette::White) const", asMETHODPR(ShapeType, draw, (const ColorF&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const Triangle& draw(const ColorF& in, const ColorF& in, const ColorF& in) const", asMETHODPR(ShapeType, draw, (const ColorF&, const ColorF&, const ColorF&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
 		
 		r = engine->RegisterObjectMethod(TypeName, "const Triangle& drawFrame(double thickness = 1.0, const ColorF& in = Palette::White) const", asMETHODPR(ShapeType, drawFrame, (double, const ColorF&) const, const Triangle&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const Triangle& drawFrame(double innerThickness, double outerThickness, const ColorF& in = Palette::White) const", asMETHODPR(ShapeType, drawFrame, (double, double, const ColorF&) const, const Triangle&), asCALL_THISCALL); assert(r >= 0);
 
-		// Polygon asPolygon() const;
+		r = engine->RegisterObjectMethod(TypeName, "Polygon asPolygon() const", asMETHOD(ShapeType, asPolygon), asCALL_THISCALL); assert(r >= 0);
+
 	}
 }

@@ -36,7 +36,7 @@ namespace s3d
 	}
 
 	template <class Type>
-	static constexpr Type InRangePrimitive(Type value, Type min, Type max) noexcept
+	static constexpr bool InRangePrimitive(Type value, Type min, Type max) noexcept
 	{
 		return (min <= value) && (value <= max);
 	}
@@ -78,16 +78,30 @@ namespace s3d
 		r = engine->RegisterGlobalFunction("float Clamp(float, float, float)", asFUNCTION(ClampPrimitive<float>), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterGlobalFunction("double Clamp(double, double, double)", asFUNCTION(ClampPrimitive<double>), asCALL_CDECL); assert(r >= 0);
 
-		r = engine->RegisterGlobalFunction("uint8 InRange(uint8, uint8, uint8)", asFUNCTION(InRangePrimitive<uint8>), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterGlobalFunction("uint16 InRange(uint16, uint16, uint16)", asFUNCTION(InRangePrimitive<uint16>), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterGlobalFunction("uint32 InRange(uint32, uint32, uint32)", asFUNCTION(InRangePrimitive<uint32>), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterGlobalFunction("uint64 InRange(uint64, uint64, uint64)", asFUNCTION(InRangePrimitive<uint64>), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterGlobalFunction("int8 InRange(int8, int8, int8)", asFUNCTION(InRangePrimitive<int8>), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterGlobalFunction("int16 InRange(int16, int16, int16)", asFUNCTION(InRangePrimitive<int16>), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterGlobalFunction("int32 InRange(int32, int32, int32)", asFUNCTION(InRangePrimitive<int32>), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterGlobalFunction("int64 InRange(int64, int64, int64)", asFUNCTION(InRangePrimitive<int64>), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterGlobalFunction("float InRange(float, float, float)", asFUNCTION(InRangePrimitive<float>), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterGlobalFunction("double InRange(double, double, double)", asFUNCTION(InRangePrimitive<double>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool InRange(uint8, uint8, uint8)", asFUNCTION(InRangePrimitive<uint8>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool InRange(uint16, uint16, uint16)", asFUNCTION(InRangePrimitive<uint16>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool InRange(uint32, uint32, uint32)", asFUNCTION(InRangePrimitive<uint32>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool InRange(uint64, uint64, uint64)", asFUNCTION(InRangePrimitive<uint64>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool InRange(int8, int8, int8)", asFUNCTION(InRangePrimitive<int8>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool InRange(int16, int16, int16)", asFUNCTION(InRangePrimitive<int16>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool InRange(int32, int32, int32)", asFUNCTION(InRangePrimitive<int32>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool InRange(int64, int64, int64)", asFUNCTION(InRangePrimitive<int64>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool InRange(float, float, float)", asFUNCTION(InRangePrimitive<float>), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("bool InRange(double, double, double)", asFUNCTION(InRangePrimitive<double>), asCALL_CDECL); assert(r >= 0);
 
+		r = engine->SetDefaultNamespace("std"); assert(r >= 0);
+		{
+			r = engine->RegisterGlobalFunction("void swap(uint8&, uint8&)", asFUNCTIONPR(std::swap, (uint8&, uint8&), void), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("void swap(uint16&, uint16&)", asFUNCTIONPR(std::swap, (uint16&, uint16&), void), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("void swap(uint32&, uint32&)", asFUNCTIONPR(std::swap, (uint32&, uint32&), void), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("void swap(uint64&, uint64&)", asFUNCTIONPR(std::swap, (uint64&, uint64&), void), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("void swap(int8&, int8&)", asFUNCTIONPR(std::swap, (int8&, int8&), void), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("void swap(int16&, int16&)", asFUNCTIONPR(std::swap, (int16&, int16&), void), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("void swap(int32&, int32&)", asFUNCTIONPR(std::swap, (int32&, int32&), void), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("void swap(int64&, int64&)", asFUNCTIONPR(std::swap, (int64&, int64&), void), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("void swap(float&, float&)", asFUNCTIONPR(std::swap, (float&, float&), void), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("void swap(double&, double&)", asFUNCTIONPR(std::swap, (double&, double&), void), asCALL_CDECL); assert(r >= 0);
+		}
+		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 	}
 }

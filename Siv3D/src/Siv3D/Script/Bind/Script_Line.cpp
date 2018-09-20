@@ -12,6 +12,7 @@
 # include <Siv3D/Script.hpp>
 # include <Siv3D/Line.hpp>
 # include "ScriptBind.hpp"
+# include "Script_Optional.hpp"
 
 namespace s3d
 {
@@ -42,6 +43,22 @@ namespace s3d
 	static void ConstructVV(const Vec2& p0, const Vec2& p1, ShapeType* self)
 	{
 		new(self) ShapeType(p0, p1);
+	}
+
+	static CScriptOptional IntersectsAt(const Line& other, const Line& self)
+	{
+		asITypeInfo* typeID = asGetActiveContext()->GetEngine()->GetTypeInfoByDecl("Optional<Vec2>");
+
+		if (const auto result = self.intersectsAt(other))
+		{
+			Vec2 value = result.value();
+
+			return CScriptOptional(&value, typeID);
+		}
+		else
+		{
+			return CScriptOptional(typeID);
+		}
 	}
 
 	void RegisterLine(asIScriptEngine* engine)
@@ -117,20 +134,13 @@ namespace s3d
 		//r = engine->RegisterObjectMethod(TypeName, "bool intersects(const MultiPolygon& in) const", asMETHODPR(ShapeType, intersects, (const MultiPolygon&) const, bool), asCALL_THISCALL); assert(r >= 0);
 		//r = engine->RegisterObjectMethod(TypeName, "bool intersects(const LineString& in) const", asMETHODPR(ShapeType, intersects, (const LineString&) const, bool), asCALL_THISCALL); assert(r >= 0);
 
+
+		r = engine->RegisterObjectMethod(TypeName, "Optional<Vec2> intersectsAt(const Line& in) const", asFUNCTION(IntersectsAt), asCALL_CDECL_OBJLAST); assert(r >= 0);
+
+		//r = engine->RegisterObjectMethod(TypeName, "Array<int32> hoge() const", asFUNCTION(IntersectsAt), asCALL_CDECL_OBJLAST); assert(r >= 0);
+
 		// intersectsAt
-
 		// intersectsAtPrecise
-
-		//r = engine->RegisterObjectMethod(TypeName, "void paint(Image& inout, const Color& in) const", asMETHODPR(ShapeType, paint, (Image&, const Color&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
-		//r = engine->RegisterObjectMethod(TypeName, "void paint(Image& inout, int32, const Color& in) const", asMETHODPR(ShapeType, paint, (Image&, int32, const Color&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
-
-		// paint
-		
-		// overwrite
-
-		// paintArrow
-
-		// overwriteArrow
 
 		r = engine->RegisterObjectMethod(TypeName, "const Line& draw(const ColorF& in = Palette::White) const", asMETHODPR(ShapeType, draw, (const ColorF&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const Line& draw(const ColorF& in, const ColorF& in) const", asMETHODPR(ShapeType, draw, (const ColorF&, const ColorF&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);

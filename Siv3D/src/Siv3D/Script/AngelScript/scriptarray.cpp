@@ -6,6 +6,8 @@
 #include <string>
 
 #include "scriptarray.h"
+#include <Siv3D/Random.hpp>
+#include <Siv3D/Logger.hpp>
 
 using namespace std;
 
@@ -281,6 +283,10 @@ static void RegisterScriptArray_Native(asIScriptEngine *engine)
 	r = engine->RegisterObjectMethod("Array<T>", "T &opIndex(uint index)", asMETHODPR(CScriptArray, At, (asUINT), void*), asCALL_THISCALL); assert( r >= 0 );
 	r = engine->RegisterObjectMethod("Array<T>", "const T &opIndex(uint index) const", asMETHODPR(CScriptArray, At, (asUINT) const, const void*), asCALL_THISCALL); assert( r >= 0 );
 
+	r = engine->RegisterObjectMethod("Array<T>", "T& choice()", asMETHODPR(CScriptArray, Choice, (), void*), asCALL_THISCALL); assert(r >= 0);
+	r = engine->RegisterObjectMethod("Array<T>", "const T& choice() const", asMETHODPR(CScriptArray, Choice, () const, const void*), asCALL_THISCALL); assert(r >= 0);
+
+
 	// operator<<
 	r = engine->RegisterObjectMethod("Array<T>", "Array<T> &opShl(const T&in)", asMETHOD(CScriptArray, InsertLastRet), asCALL_THISCALL); assert(r >= 0);
 
@@ -315,6 +321,10 @@ static void RegisterScriptArray_Native(asIScriptEngine *engine)
 
 
 	r = engine->RegisterObjectMethod("Array<T>", "uint count() const", asMETHOD(CScriptArray, GetSize), asCALL_THISCALL); assert(r >= 0);
+
+
+	r = engine->RegisterObjectMethod("Array<T>", "void sort()", asMETHODPR(CScriptArray, SortAsc, (), void), asCALL_THISCALL); assert(r >= 0);
+
 
 
 	r = engine->RegisterObjectMethod("Array<T>", "void sortAsc()", asMETHODPR(CScriptArray, SortAsc, (), void), asCALL_THISCALL); assert( r >= 0 );
@@ -918,6 +928,28 @@ const void *CScriptArray::At(asUINT index) const
 void *CScriptArray::At(asUINT index)
 {
 	return const_cast<void*>(const_cast<const CScriptArray *>(this)->At(index));
+}
+
+void* CScriptArray::Choice()
+{
+	if (buffer == 0 || buffer->numElements == 0)
+	{
+		asIScriptContext *ctx = asGetActiveContext();
+		if (ctx)
+			ctx->SetException("Index out of bounds");
+		return nullptr;
+	}
+
+	const s3d::uint32 index = s3d::Random<s3d::uint32>(0, buffer->numElements - 1);
+	
+	if ((subTypeId & asTYPEID_MASK_OBJECT) && !(subTypeId & asTYPEID_OBJHANDLE))
+		return *(void**)(buffer->data + elementSize * index);
+	else
+		return buffer->data + elementSize * index;
+}
+const void* CScriptArray::Choice() const
+{
+	return const_cast<void*>(const_cast<const CScriptArray *>(this)->Choice());
 }
 
 void* CScriptArray::AtFront()

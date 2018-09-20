@@ -14,6 +14,7 @@
 # include <Siv3D/FileSystem.hpp>
 # include "Bind/ScriptBind.hpp"
 # include "AngelScript/scriptarray.h"
+# include "AngelScript/scriptgrid.h"
 # include "AngelScript/scriptstdstring.h"
 
 namespace s3d
@@ -87,13 +88,28 @@ namespace s3d
 			return false;
 		}
 
+		if (m_engine->SetEngineProperty(AngelScript::asEP_DISALLOW_EMPTY_LIST_ELEMENTS, 1) < 0)
+		{
+			return false;
+		}
+
+		if (m_engine->SetEngineProperty(AngelScript::asEP_ALLOW_UNSAFE_REFERENCES, 1) < 0)
+		{
+			return false;
+		}
+
 
 		AngelScript::RegisterScriptArray(m_engine);
+		AngelScript::RegisterScriptGrid(m_engine);
 		RegisterTypes(m_engine);
 		RegisterUtility(m_engine);
+		RegisterNamedArg(m_engine);
 		RegisterFormat(m_engine);
 		AngelScript::RegisterStdString(m_engine);
 
+		RegisterNone_t(m_engine);
+		RegisterOptional(m_engine);
+		RegisterDuration(m_engine);
 		RegisterDate(m_engine);
 		RegisterDateTime(m_engine);
 		RegisterTime(m_engine);
@@ -110,11 +126,13 @@ namespace s3d
 		RegisterPalette(m_engine);
 		RegisterHSV(m_engine);
 		RegisterPoint(m_engine);
+		RegisterFloat2(m_engine);
 		RegisterVec2(m_engine);
 		RegisterVec3(m_engine);
 		RegisterVec4(m_engine);
 		RegisterCircular(m_engine);
 		RegisterOffsetCircular(m_engine);
+		RegisterMat3x2(m_engine);
 		RegisterBezier2(m_engine);
 		RegisterBezier3(m_engine);
 		RegisterLine(m_engine);
@@ -128,6 +146,8 @@ namespace s3d
 		RegisterPolygon(m_engine);
 		//RegisterMultiPolygon(m_engine);
 		RegisterLineString(m_engine);
+
+		RegisterFloatRect(m_engine);
 
 		RegisterLineStyle(m_engine);
 		RegisterShape2D(m_engine);
@@ -144,10 +164,20 @@ namespace s3d
 		RegisterKey(m_engine);
 		RegisterMouse(m_engine);
 
+		RegisterSoundFont(m_engine);
+		RegisterWave(m_engine);
+		RegisterAudio(m_engine);
+
 		RegisterTexture(m_engine);
 		RegisterTextureRegion(m_engine);
 		RegisterTexturedQuad(m_engine);
+		RegisterTexturedCircle(m_engine);
+		RegisterTexturedRoundRect(m_engine);
 		RegisterDynamicTexture(m_engine);
+		RegisterFont(m_engine);
+		RegisterDrawableText(m_engine);
+		RegisterTransformer2D(m_engine);
+		RegisterViewportBlock2D(m_engine);
 
 		RegisterEmoji(m_engine);
 		RegisterIcon(m_engine);
@@ -158,8 +188,8 @@ namespace s3d
 		RegisterWindow(m_engine);
 		RegisterCursor(m_engine);
 		RegisterGraphics(m_engine);
-
-		
+		RegisterProfiler(m_engine);
+		RegisterDialog(m_engine);
 
 		const auto nullScript = std::make_shared<ScriptData>(ScriptData::Null{}, m_engine);
 

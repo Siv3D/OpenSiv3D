@@ -60,6 +60,9 @@ public:
 	void       *At(asUINT index);
 	const void *At(asUINT index) const;
 
+	void       *Choice();
+	const void *Choice() const;
+
 	void       *AtFront();
 	const void *AtFront() const;
 

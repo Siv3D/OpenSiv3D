@@ -21,6 +21,7 @@
 # include <Siv3D/PointVector.hpp>
 # include <Siv3D/Circular.hpp>
 # include <Siv3D/OffsetCircular.hpp>
+# include <Siv3D/Mat3x2.hpp>
 # include <Siv3D/Bezier2.hpp>
 # include <Siv3D/Bezier3.hpp>
 # include <Siv3D/Rectangle.hpp>
@@ -38,7 +39,44 @@ namespace s3d
 {
 	using namespace AngelScript;
 
-	String FormatBase(const void** args, const int* types, size_t num_args)
+	std::string GetTypeName(int32 typeID)
+	{
+		const asIScriptContext* context = asGetActiveContext();
+		const asIScriptEngine* engine = context->GetEngine();
+		const asITypeInfo* ti = engine->GetTypeInfoById(typeID);
+
+		if (const uint32 subTypeCount = ti->GetSubTypeCount())
+		{
+			std::string name(ti->GetName());
+			name.push_back('<');
+			//bool isFirst = true;
+
+			//for (size_t i = 0; i < subTypeCount; ++i)
+			//{
+			//	std::string subTypeName = GetTypeName(ti->GetSubTypeId(i));
+
+			//	if (isFirst)
+			//	{
+			//		name += subTypeName;
+			//		isFirst = false;
+			//	}
+			//	else
+			//	{
+			//		name += ", ";
+			//		name += subTypeName;
+			//	}
+			//}
+
+			name.push_back('>');
+			return name;
+		}
+		else
+		{
+			return ti->GetName();
+		}
+	}
+
+	String FormatBase(const void** args, const int32* types, size_t num_args)
 	{
 		FormatData formatData;
 
@@ -87,6 +125,9 @@ namespace s3d
 			case ScriptTypeID::String:
 				Formatter(formatData, *static_cast<const String*>(ref));
 				break;
+			case ScriptTypeID::None_t:
+				Formatter(formatData, U"none");
+				break;
 			case ScriptTypeID::Date:
 				Formatter(formatData, *static_cast<const Date*>(ref));
 				break;
@@ -114,6 +155,9 @@ namespace s3d
 			case ScriptTypeID::Point:
 				Formatter(formatData, *static_cast<const Point*>(ref));
 				break;
+			case ScriptTypeID::Float2:
+				Formatter(formatData, *static_cast<const Float2*>(ref));
+				break;
 			case ScriptTypeID::Vec2:
 				Formatter(formatData, *static_cast<const Vec2*>(ref));
 				break;
@@ -128,6 +172,9 @@ namespace s3d
 				break;
 			case ScriptTypeID::OffsetCircular:
 				Formatter(formatData, *static_cast<const OffsetCircular*>(ref));
+				break;
+			case ScriptTypeID::Mat3x2:
+				Formatter(formatData, *static_cast<const Mat3x2*>(ref));
 				break;
 			case ScriptTypeID::Bezier2:
 				Formatter(formatData, *static_cast<const Bezier2*>(ref));
@@ -166,7 +213,9 @@ namespace s3d
 				Formatter(formatData, *static_cast<const LineString*>(ref));
 				break;
 			default:
-				Formatter(formatData, Format(U"[Undefined Format TypeID: ", static_cast<int>(typeID), U"]"));
+				{
+					Formatter(formatData, Format(U"[", Unicode::WidenAscii(GetTypeName(static_cast<int32>(typeID))), U" value (Format not implemented)]"));
+				}
 				break;
 			}
 		}
@@ -321,7 +370,7 @@ namespace s3d
 	{
 		int r = 0;
 		r = engine->RegisterGlobalFunction("String Format()", asFUNCTION(Fotmat_V), asCALL_CDECL); assert(r >= 0);
-		r = engine->RegisterGlobalFunction("String Format(const String&in)", asFUNCTION(Format_S), asCALL_CDECL); assert(r >= 0);
+		r = engine->RegisterGlobalFunction("String Format(const String& in)", asFUNCTION(Format_S), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterGlobalFunction("String Format(const ?&in)", asFUNCTION(Format_T1), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterGlobalFunction("String Format(const ?&in, const ?&in)", asFUNCTION(Format_T2), asCALL_CDECL); assert(r >= 0);
 		r = engine->RegisterGlobalFunction("String Format(const ?&in, const ?&in, const ?&in)", asFUNCTION(Format_T3), asCALL_CDECL); assert(r >= 0);

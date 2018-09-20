@@ -12,8 +12,8 @@
 # include <Siv3D/Script.hpp>
 # include <Siv3D/Icon.hpp>
 # include <Siv3D/Logger.hpp>
+# include <Siv3D/Image.hpp>
 # include "ScriptBind.hpp"
-# include "Script_Image.hpp"
 
 namespace s3d
 {
@@ -31,9 +31,9 @@ namespace s3d
 		new(self) BindType(code, size);
 	}
 
-	static RefWrapper<Image>* IconLoadImage(uint32 code, int32 size)
+	static Image IconLoadImage(uint32 code, int32 size)
 	{
-		return new RefWrapper<Image>(Icon::LoadImage(code, size));
+		return Icon::LoadImage(code, size);
 	}
 
 	void RegisterIcon(asIScriptEngine* engine)
@@ -49,7 +49,7 @@ namespace s3d
 
 		r = engine->SetDefaultNamespace("Icon"); assert(r >= 0);
 		{
-			r = engine->RegisterGlobalFunction("Image@ LoadImage(uint32 code, int32 size)", asFUNCTION(IconLoadImage), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Image LoadImage(uint32 code, int32 size)", asFUNCTION(IconLoadImage), asCALL_CDECL); assert(r >= 0);
 		}
 		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 	}
