@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -36,8 +36,6 @@ namespace s3d
 
 	static void ConstructUS(uint32 num_samples, SamplingRate_v samplingRate, BindType* self)
 	{
-		LOG_TEST(U"={}"_fmt(samplingRate.value));
-
 		new(self) BindType(num_samples, Arg::samplingRate = samplingRate.value);
 	}
 
