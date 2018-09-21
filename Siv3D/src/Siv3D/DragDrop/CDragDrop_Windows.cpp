@@ -15,12 +15,15 @@
 # include <atomic>
 # include <Siv3D/Windows.hpp>
 # include <shlobj.h>
+# include <wrl.h>
 # include "../Siv3DEngine.hpp"
 # include "../Window/IWindow.hpp"
 # include "CDragDrop_Windows.hpp"
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Time.hpp>
 # include <Siv3D/Logger.hpp>
+
+using namespace Microsoft::WRL;
 
 namespace s3d
 {
@@ -250,6 +253,433 @@ namespace s3d
 				return status;
 			}
 		};
+
+		class DropSource : public IDropSource
+		{
+		private:
+
+			std::atomic<uint32> m_refCount;
+
+		public:
+
+			DropSource()
+				: m_refCount(1)
+			{
+
+			}
+
+			ULONG __stdcall AddRef() override
+			{
+				return ++m_refCount;
+			}
+
+			ULONG __stdcall Release() override
+			{
+				if (--m_refCount == 0)
+				{
+					delete this;
+				}
+
+				return m_refCount;
+			}
+
+			HRESULT __stdcall QueryInterface(REFIID iid, void** ppv) override
+			{
+				if (IsEqualIID(iid, IID_IUnknown) || IsEqualIID(iid, IID_IDropSource))
+				{
+					AddRef();
+
+					*ppv = this;
+
+					return S_OK;
+				}
+				else
+				{
+					*ppv = nullptr;
+
+					return E_NOINTERFACE;
+				}
+			}
+
+			HRESULT __stdcall QueryContinueDrag(BOOL escapePressed, DWORD keyState) override
+			{
+				if (escapePressed)
+				{
+					return DRAGDROP_S_CANCEL;
+				}
+
+				if ((keyState & (MK_LBUTTON | MK_RBUTTON)) == (MK_LBUTTON | MK_RBUTTON))
+				{
+					return DRAGDROP_S_CANCEL;
+				}
+
+				if ((keyState & (MK_LBUTTON | MK_RBUTTON)) == 0)
+				{
+					return DRAGDROP_S_DROP;
+				}
+
+				return S_OK;
+			}
+
+			HRESULT __stdcall GiveFeedback(DWORD) override
+			{
+				return DRAGDROP_S_USEDEFAULTCURSORS;
+			}
+		};
+
+		static void CopyFormatEtc(FORMATETC *dst, FORMATETC *src)
+		{
+			*dst = *src;
+
+			if (src->ptd)
+			{
+				dst->ptd = (DVTARGETDEVICE*)CoTaskMemAlloc(sizeof(DVTARGETDEVICE));
+
+				*(dst->ptd) = *(src->ptd);
+			}
+		}
+
+		HRESULT CreateEnumFormatEtc(size_t nNumFormats, FORMATETC *pFormatEtc, IEnumFORMATETC **ppEnumFormatEtc);
+
+		class CEnumFormatEtc : public IEnumFORMATETC
+		{
+		private:
+
+			std::atomic<uint32> m_refCount;
+
+			size_t m_index = 0;
+
+			Array<FORMATETC> m_formatEtcs;
+
+		public:
+
+			CEnumFormatEtc(FORMATETC* pFormatEtc, int32 nNumFormats)
+				: m_refCount(1)
+				, m_formatEtcs(nNumFormats)
+			{
+				for (int32 i = 0; i < nNumFormats; ++i)
+				{
+					CopyFormatEtc(&m_formatEtcs[i], &pFormatEtc[i]);
+				}
+			}
+
+			~CEnumFormatEtc()
+			{
+				for (auto& formatEtc : m_formatEtcs)
+				{
+					if (formatEtc.ptd)
+					{
+						::CoTaskMemFree(formatEtc.ptd);
+					}
+				}
+			}
+
+			ULONG __stdcall AddRef() override
+			{
+				return ++m_refCount;
+			}
+
+			ULONG __stdcall Release() override
+			{
+				if (--m_refCount == 0)
+				{
+					delete this;
+				}
+
+				return m_refCount;
+			}
+
+			HRESULT __stdcall QueryInterface(REFIID iid, void** ppv) override
+			{
+				if (IsEqualIID(iid, IID_IUnknown) || IsEqualIID(iid, IID_IEnumFORMATETC))
+				{
+					AddRef();
+
+					*ppv = this;
+
+					return S_OK;
+				}
+				else
+				{
+					*ppv = nullptr;
+
+					return E_NOINTERFACE;
+				}
+			}
+
+			HRESULT __stdcall Next(ULONG celt, FORMATETC* pFormatEtc, ULONG* pceltFetched) override
+			{
+				if (celt == 0 || pFormatEtc == 0)
+				{
+					return E_INVALIDARG;
+				}
+
+				ULONG copied = 0;
+
+				while (m_index < m_formatEtcs.size() && copied < celt)
+				{
+					CopyFormatEtc(&pFormatEtc[copied], &m_formatEtcs[m_index]);
+					++copied;
+					++m_index;
+				}
+
+				if (pceltFetched != nullptr)
+				{
+					*pceltFetched = copied;
+				}
+
+				return (copied == celt) ? S_OK : S_FALSE;
+			}
+
+			HRESULT __stdcall Skip(ULONG celt) override
+			{
+				m_index += celt;
+
+				return (m_index <= m_formatEtcs.size()) ? S_OK : S_FALSE;
+			}
+
+			HRESULT __stdcall Reset() override
+			{
+				m_index = 0;
+
+				return S_OK;
+			}
+
+			HRESULT __stdcall Clone(IEnumFORMATETC** ppEnumFormatEtc) override
+			{
+				HRESULT hr = CreateEnumFormatEtc(m_formatEtcs.size(), m_formatEtcs.data(), ppEnumFormatEtc);
+
+				if (SUCCEEDED(hr))
+				{
+					((CEnumFormatEtc*)*ppEnumFormatEtc)->m_index = m_index;
+				}
+
+				return hr;
+			}
+		};
+
+		HRESULT CreateEnumFormatEtc(size_t nNumFormats, FORMATETC* pFormatEtc, IEnumFORMATETC** ppEnumFormatEtc)
+		{
+			if (nNumFormats == 0 || pFormatEtc == 0 || ppEnumFormatEtc == 0)
+			{
+				return E_INVALIDARG;
+			}
+
+			*ppEnumFormatEtc = new CEnumFormatEtc(pFormatEtc, nNumFormats);
+
+			return (*ppEnumFormatEtc) ? S_OK : E_OUTOFMEMORY;
+		}
+
+		HGLOBAL Copy(HGLOBAL hMem)
+		{
+			const size_t size = ::GlobalSize(hMem);
+
+			PVOID pDst = ::GlobalAlloc(GMEM_FIXED, size);
+
+			const PVOID pSrc = ::GlobalLock(hMem);
+			{
+				::memcpy(pDst, pSrc, size);
+
+				::GlobalUnlock(hMem);
+			}
+
+			return pDst;
+		}
+
+		class DataObject : public IDataObject
+		{
+		private:
+
+			std::atomic<uint32> m_refCount;
+
+			Array<FORMATETC> m_formatEtcs;
+
+			Array<STGMEDIUM> m_stgMediums;
+
+			int32 indexOfFormatEtc(FORMATETC* pFormatEtc) const
+			{
+				int32 index = 0;
+
+				for (const auto& formatEtc : m_formatEtcs)
+				{
+					if ((pFormatEtc->tymed & formatEtc.tymed)
+						&& (pFormatEtc->cfFormat == formatEtc.cfFormat)
+						&& (pFormatEtc->dwAspect == formatEtc.dwAspect))
+					{
+						return index;
+					}
+
+					++index;
+				}
+
+				return -1;
+			}
+
+		public:
+
+			DataObject(FORMATETC* fmtetc, STGMEDIUM* stgmed, size_t count)
+				: m_refCount(1)
+				, m_formatEtcs(count)
+				, m_stgMediums(count)
+			{
+				for (size_t i = 0; i < count; ++i)
+				{
+					m_formatEtcs[i] = fmtetc[i];
+					m_stgMediums[i] = stgmed[i];
+				}
+			}
+
+			ULONG __stdcall AddRef() override
+			{
+				return ++m_refCount;
+			}
+
+			ULONG __stdcall Release() override
+			{
+				if (--m_refCount == 0)
+				{
+					delete this;
+				}
+
+				return m_refCount;
+			}
+
+			HRESULT __stdcall QueryInterface(REFIID iid, void ** ppvObject) override
+			{
+				if (IsEqualIID(iid, IID_IUnknown) || IsEqualIID(iid, IID_IDataObject))
+				{
+					AddRef();
+
+					*ppvObject = this;
+
+					return S_OK;
+				}
+				else
+				{
+					*ppvObject = nullptr;
+
+					return E_NOINTERFACE;
+				}
+			}
+
+			HRESULT __stdcall GetData(FORMATETC *pFormatEtc, STGMEDIUM *pMedium) override
+			{
+				if (!(pFormatEtc->tymed &TYMED_HGLOBAL)
+					|| (pFormatEtc->cfFormat != CF_HDROP)
+					|| (pFormatEtc->dwAspect != DVASPECT_CONTENT))
+				{
+					return DV_E_FORMATETC;
+				}
+
+				QueryGetData(pFormatEtc);
+
+				int32 index = indexOfFormatEtc(pFormatEtc);
+
+				if (index == -1)
+				{
+					return DV_E_FORMATETC;
+				}
+
+				pMedium->tymed = m_formatEtcs[index].tymed;
+				pMedium->pUnkForRelease = nullptr;
+
+				if (m_formatEtcs[index].tymed == TYMED_HGLOBAL)
+				{
+					pMedium->hGlobal = Copy(m_stgMediums[index].hGlobal);
+
+					return S_OK;
+				}
+				else
+				{
+					return DV_E_FORMATETC;
+				}
+			}
+
+			HRESULT __stdcall GetDataHere(FORMATETC*, STGMEDIUM*) override
+			{
+				return DATA_E_FORMATETC;
+			}
+
+			HRESULT __stdcall QueryGetData(FORMATETC* pFmtC) override
+			{
+				if ((pFmtC->tymed &TYMED_HGLOBAL)
+					&& (pFmtC->cfFormat == CF_HDROP)
+					&& (pFmtC->dwAspect == DVASPECT_CONTENT))
+				{
+					return (indexOfFormatEtc(pFmtC) == -1) ? DV_E_FORMATETC : S_OK;
+				}
+				else
+				{
+					return DV_E_FORMATETC;
+				}
+			}
+
+			HRESULT __stdcall GetCanonicalFormatEtc(FORMATETC*, FORMATETC* pFormatEtcOut) override
+			{
+				pFormatEtcOut->ptd = nullptr;
+
+				return E_NOTIMPL;
+			}
+
+			HRESULT __stdcall SetData(FORMATETC*, STGMEDIUM*, BOOL) override
+			{
+				return E_NOTIMPL;
+			}
+
+			HRESULT __stdcall EnumFormatEtc(DWORD dwDirection, IEnumFORMATETC** ppEnumFormatEtc) override
+			{
+				if (dwDirection == DATADIR_GET)
+				{
+					return CreateEnumFormatEtc(m_formatEtcs.size(), m_formatEtcs.data(), ppEnumFormatEtc);
+				}
+				else
+				{
+					return E_NOTIMPL;
+				}
+			}
+
+			HRESULT __stdcall DAdvise(FORMATETC*, DWORD, IAdviseSink*, DWORD*) override
+			{
+				return OLE_E_ADVISENOTSUPPORTED;
+			}
+
+			HRESULT __stdcall DUnadvise(DWORD) override
+			{
+				return OLE_E_ADVISENOTSUPPORTED;
+			}
+
+			HRESULT __stdcall EnumDAdvise(IEnumSTATDATA**) override
+			{
+				return OLE_E_ADVISENOTSUPPORTED;
+			}
+		};
+
+		void BeginDrop(IDataObject** lpDataObejct, IDropSource** lpDropSource, const FilePath& path)
+		{
+			const std::wstring pathW = (FileSystem::FullPath(path) + U'\0').toWstr();
+			const size_t path_size_bytes = sizeof(wchar_t) * pathW.size();
+
+			FORMATETC formatetc;
+			formatetc.cfFormat = CF_HDROP;
+			formatetc.ptd = nullptr;
+			formatetc.dwAspect = DVASPECT_CONTENT;
+			formatetc.lindex = -1;
+			formatetc.tymed = TYMED_HGLOBAL;
+
+			STGMEDIUM medium = {};
+			medium.tymed = TYMED_HGLOBAL;
+			medium.hGlobal = ::GlobalAlloc(GMEM_MOVEABLE, sizeof(DROPFILES) + path_size_bytes);
+			void* p = ::GlobalLock(medium.hGlobal);
+			{
+				((DROPFILES*)p)->pFiles = sizeof(DROPFILES);
+				((DROPFILES*)p)->fWide = true;
+				::memcpy((char*)p + sizeof(DROPFILES), pathW.data(), path_size_bytes);
+				::GlobalUnlock(medium.hGlobal);
+			}
+
+			*lpDataObejct = new DataObject(&formatetc, &medium, 1);
+			*lpDropSource = new DropSource();
+		}
 	}
 
 	CDragDrop_Windows::CDragDrop_Windows()
@@ -357,6 +787,51 @@ namespace s3d
 		Array<DroppedText> dropped(std::move(m_droppedTexts));
 
 		return dropped;
+	}
+
+	Optional<int32> CDragDrop_Windows::makeDragDrop(const FilePath& path)
+	{
+		::OleInitialize(nullptr);
+		{
+			ComPtr<IDataObject> dataObject;
+			ComPtr<IDropSource> dropSource;
+
+			detail::BeginDrop(&dataObject, &dropSource, U"example/windmill.png");
+
+			DWORD dropEffect;
+			HRESULT hr = ::DoDragDrop(dataObject.Get(), dropSource.Get(), DROPEFFECT_MOVE | DROPEFFECT_COPY, &dropEffect);
+
+			if (hr == DRAGDROP_S_DROP)
+			{
+				//if ((dropEffect & DROPEFFECT_COPY) == DROPEFFECT_COPY)
+				//{
+				//	Print << U"Copy";
+				//}
+
+				//if ((dropEffect & DROPEFFECT_MOVE) == DROPEFFECT_MOVE)
+				//{
+				//	Print << U"Move";
+				//}
+
+				//if ((dropEffect & DROPEFFECT_LINK) == DROPEFFECT_LINK)
+				//{
+				//	Print << U"Link";
+				//}
+
+				::OleUninitialize();
+				return dropEffect;
+			}
+			else if (hr == DRAGDROP_S_CANCEL)
+			{
+				::OleUninitialize();
+				return none;
+			}
+			else
+			{
+				::OleUninitialize();
+				return none;
+			}
+		}
 	}
 }
 

@@ -58,4 +58,16 @@ namespace s3d
 			return Siv3DEngine::GetDragDrop()->getDroppedText();
 		}
 	}
+
+# if defined(SIV3D_TARGET_WINDOWS)
+
+	namespace Windows::DragDrop
+	{
+		Optional<int32> MakeDragDrop(const FilePath& path)
+		{
+			return Siv3DEngine::GetDragDrop()->makeDragDrop(path);
+		}
+	}
+
+# endif
 }

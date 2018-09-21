@@ -232,6 +232,12 @@ namespace s3d
 			}
 		}
 	}
+
+	Optional<int32> CDragDrop_Linux::makeDragDrop(const FilePath& path)
+	{
+		// [Siv3D ToDo]
+		return none;
+	}
 }
 
 # endif

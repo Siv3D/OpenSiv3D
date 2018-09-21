@@ -86,6 +86,8 @@ namespace s3d
 		void internal_exited();
 		
 		void internal_dataDropped(const String& text, const Point& pos);
+
+		Optional<int32> makeDragDrop(const FilePath& path) override;
 	};
 }
 
