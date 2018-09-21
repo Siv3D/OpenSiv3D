@@ -930,7 +930,7 @@ void *CScriptArray::At(asUINT index)
 	return const_cast<void*>(const_cast<const CScriptArray *>(this)->At(index));
 }
 
-void* CScriptArray::Choice()
+const void* CScriptArray::Choice() const
 {
 	if (buffer == 0 || buffer->numElements == 0)
 	{
@@ -947,7 +947,7 @@ void* CScriptArray::Choice()
 	else
 		return buffer->data + elementSize * index;
 }
-const void* CScriptArray::Choice() const
+void* CScriptArray::Choice()
 {
 	return const_cast<void*>(const_cast<const CScriptArray *>(this)->Choice());
 }
