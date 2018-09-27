@@ -796,7 +796,7 @@ namespace s3d
 			ComPtr<IDataObject> dataObject;
 			ComPtr<IDropSource> dropSource;
 
-			detail::BeginDrop(&dataObject, &dropSource, U"example/windmill.png");
+			detail::BeginDrop(&dataObject, &dropSource, path);
 
 			DWORD dropEffect;
 			HRESULT hr = ::DoDragDrop(dataObject.Get(), dropSource.Get(), DROPEFFECT_MOVE | DROPEFFECT_COPY, &dropEffect);
