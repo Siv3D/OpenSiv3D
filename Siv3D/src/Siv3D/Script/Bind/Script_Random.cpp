@@ -36,12 +36,12 @@ namespace s3d
 
 	static uint8 RandomUint8Primitive(uint8 min, uint8 max) noexcept
 	{
-		return UniformDistribution<uint16>(min, max)(GetDefaultRNG()) && 0xFF;
+		return UniformDistribution<uint16>(min, max)(GetDefaultRNG()) & 0xFF;
 	}
 
 	static uint8 RandomUint8MaxPrimitive(uint8 max) noexcept
 	{
-		return UniformDistribution<uint16>(0, max)(GetDefaultRNG()) && 0xFF;
+		return UniformDistribution<uint16>(0, max)(GetDefaultRNG()) & 0xFF;
 	}
 
 	static int8 RandomInt8Primitive(int8 min, int8 max) noexcept

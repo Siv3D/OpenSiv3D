@@ -221,4 +221,13 @@ namespace s3d
 			return Rect(BaseSize());
 		}
 	}
+
+# if defined(SIV3D_TARGET_WINDOWS)
+
+	namespace Windows::Window
+	{
+		void* GetHWND();
+	}
+
+# endif
 }

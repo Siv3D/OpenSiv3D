@@ -44,7 +44,7 @@ CScriptGrid *CScriptGrid::Create(asITypeInfo *ti, asUINT w, asUINT h)
 	{
 		asIScriptContext *ctx = asGetActiveContext();
 		if( ctx )
-			ctx->SetException("Out of memory");
+			ctx->SetException("Grid: Out of memory");
 
 		return 0;
 	}
@@ -63,7 +63,7 @@ CScriptGrid *CScriptGrid::Create(asITypeInfo *ti, void *initList)
 	{
 		asIScriptContext *ctx = asGetActiveContext();
 		if( ctx )
-			ctx->SetException("Out of memory");
+			ctx->SetException("Grid: Out of memory");
 
 		return 0;
 	}
@@ -82,7 +82,7 @@ CScriptGrid *CScriptGrid::Create(asITypeInfo *ti, asUINT w, asUINT h, void *defV
 	{
 		asIScriptContext *ctx = asGetActiveContext();
 		if( ctx )
-			ctx->SetException("Out of memory");
+			ctx->SetException("Grid: Out of memory");
 
 		return 0;
 	}
@@ -596,7 +596,7 @@ bool CScriptGrid::CheckMaxSize(asUINT width, asUINT height)
 	{
 		asIScriptContext *ctx = asGetActiveContext();
 		if( ctx )
-			ctx->SetException("Too large grid size");
+			ctx->SetException("Grid: Too large grid size");
 
 		return false;
 	}
@@ -633,7 +633,7 @@ void *CScriptGrid::At(SGridBuffer *buf, asUINT x, asUINT y)
 		// If this is called from a script we raise a script exception
 		asIScriptContext *ctx = asGetActiveContext();
 		if( ctx )
-			ctx->SetException("Index out of bounds");
+			ctx->SetException("Grid: Index out of bounds");
 		return 0;
 	}
 
@@ -667,7 +667,7 @@ void CScriptGrid::CreateBuffer(SGridBuffer **buf, asUINT w, asUINT h)
 		// Oops, out of memory
 		asIScriptContext *ctx = asGetActiveContext();
 		if( ctx )
-			ctx->SetException("Out of memory");
+			ctx->SetException("Grid: Out of memory");
 	}
 }
 

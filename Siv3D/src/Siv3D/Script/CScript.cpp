@@ -161,6 +161,8 @@ namespace s3d
 
 		RegisterImage(m_engine);
 		
+		RegisterTextToSpeech(m_engine);
+		RegisterSay(m_engine);
 		RegisterKey(m_engine);
 		RegisterMouse(m_engine);
 

@@ -71,7 +71,7 @@ namespace s3d
 			::glTexImage2D(GL_TEXTURE_2D, (i + 1), GL_RGBA, mipmap.width(), mipmap.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, mipmap.data());
 		}
 		
-		::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, mipmaps.size());
+		::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, static_cast<GLint>(mipmaps.size()));
 		
 		m_size = image.size();
 		m_format = TextureFormat::R8G8B8A8_Unorm;
@@ -80,7 +80,7 @@ namespace s3d
 		m_initialized = true;
 	}
 	
-	Texture_GL::Texture_GL(const Size& size, const void* pData, const uint32 stride, const TextureFormat format, const TextureDesc desc)
+	Texture_GL::Texture_GL(const Size& size, const void* pData, const uint32, const TextureFormat format, const TextureDesc desc)
 	{
 		::glGenTextures(1, &m_texture);
 		

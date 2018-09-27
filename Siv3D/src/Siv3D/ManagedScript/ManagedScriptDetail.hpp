@@ -23,9 +23,11 @@ namespace s3d
 
 		std::function<bool()> m_callback;
 
-		std::function<void()> m_main;
+		ScriptFunction<void()> m_main;
 
 		bool m_requestReload = false;
+
+		bool m_hasException = false;
 
 	public:
 
@@ -40,5 +42,9 @@ namespace s3d
 		[[nodiscard]] bool compiled() const;
 
 		void run();
+
+		[[nodiscard]] bool hasException() const;
+
+		void clearException();
 	};
 }

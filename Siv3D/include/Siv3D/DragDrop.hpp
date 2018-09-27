@@ -14,6 +14,7 @@
 # include "Array.hpp"
 # include "String.hpp"
 # include "PointVector.hpp"
+# include "Optional.hpp"
 
 namespace s3d
 {
@@ -103,4 +104,13 @@ namespace s3d
 
 		[[nodiscard]] Array<DroppedText> GetDroppedText();
 	}
+
+# if defined(SIV3D_TARGET_WINDOWS)
+
+	namespace Windows::DragDrop
+	{
+		Optional<int32> MakeDragDrop(const FilePath& path);
+	}
+
+# endif
 }

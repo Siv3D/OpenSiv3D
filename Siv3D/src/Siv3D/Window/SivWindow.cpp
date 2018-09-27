@@ -94,4 +94,16 @@ namespace s3d
 			return Siv3DEngine::GetWindow()->getBaseSize();
 		}
 	}
+
+# if defined(SIV3D_TARGET_WINDOWS)
+
+	namespace Windows::Window
+	{
+		void* GetHWND()
+		{
+			return Siv3DEngine::GetWindow()->getHandle();
+		}
+	}
+
+# endif
 }

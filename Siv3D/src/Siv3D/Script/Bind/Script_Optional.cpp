@@ -224,7 +224,7 @@ namespace s3d
 			// Oops, out of memory
 			asIScriptContext *ctx = asGetActiveContext();
 			if (ctx)
-				ctx->SetException("Out of memory");
+				ctx->SetException("Optional: Out of memory");
 		}
 	}
 
@@ -415,7 +415,7 @@ namespace s3d
 			// If this is called from a script we raise a script exception
 			asIScriptContext *ctx = asGetActiveContext();
 			if (ctx)
-				ctx->SetException("bad Optional access");
+				ctx->SetException("Optional: Bad Optional access");
 			return 0;
 		}
 

@@ -83,6 +83,10 @@ namespace s3d
 
 		//
 		Image,
+		
+		SayBuffer,
+		Say_impl,
+		
 		Key,
 
 		WaveSample,
@@ -168,6 +172,8 @@ namespace s3d
 
 	void RegisterImage(AngelScript::asIScriptEngine* engine);
 
+	void RegisterTextToSpeech(AngelScript::asIScriptEngine* engine);
+	void RegisterSay(AngelScript::asIScriptEngine* engine);
 	void RegisterKey(AngelScript::asIScriptEngine* engine);
 	void RegisterMouse(AngelScript::asIScriptEngine* engine);
 

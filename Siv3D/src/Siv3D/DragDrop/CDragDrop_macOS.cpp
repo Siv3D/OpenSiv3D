@@ -228,6 +228,12 @@ namespace s3d
 			m_internal.droppedFilePaths.push_back({ path, pos, timeMillisec });
 		}
 	}
+
+	Optional<int32> CDragDrop_macOS::makeDragDrop(const FilePath& path)
+	{
+		// [Siv3D ToDo]
+		return none;
+	}
 }
 
 # endif

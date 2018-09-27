@@ -11,7 +11,6 @@
 
 # include <Siv3D/Script.hpp>
 # include <Siv3D/System.hpp>
-# include <Siv3D/Profiler.hpp>
 # include "ScriptBind.hpp"
 # include "../../Siv3DEngine.hpp"
 # include "../IScript.hpp"
