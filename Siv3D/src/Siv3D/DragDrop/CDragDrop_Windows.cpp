@@ -353,11 +353,11 @@ namespace s3d
 
 		public:
 
-			CEnumFormatEtc(FORMATETC* pFormatEtc, int32 nNumFormats)
+			CEnumFormatEtc(FORMATETC* pFormatEtc, size_t nNumFormats)
 				: m_refCount(1)
 				, m_formatEtcs(nNumFormats)
 			{
-				for (int32 i = 0; i < nNumFormats; ++i)
+				for (size_t i = 0; i < nNumFormats; ++i)
 				{
 					CopyFormatEtc(&m_formatEtcs[i], &pFormatEtc[i]);
 				}
