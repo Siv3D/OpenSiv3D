@@ -7,8 +7,8 @@ In development for release in 2018. Successor to the current <a href="https://gi
 
 | Platform        | Version        | Date       | Requirements                  |
 |:---------------:|:---------------:|:-------------:|:------------------------------|
-| Windows Desktop | <a href="https://github.com/Siv3D/OpenSiv3D/wiki/OpenSiv3D-SDK-for-Windows-Desktop">**0.2.8**</a>     | 14 August 2018 | Windows 7 SP1 / 8.1 / 10<br>Microsoft Visual C++ 2017 15.7<br>Windows 10 SDK (10.0.17134.0) |
-| macOS           | <a href="https://github.com/Siv3D/OpenSiv3D/wiki/OpenSiv3D-SDK-for-macOS">**0.2.8**</a>     | 14 August 2018 | macOS Sierra v10.12 or newer<br>Xcode 9.2 or newer |
+| Windows Desktop | <a href="https://github.com/Siv3D/OpenSiv3D/wiki/OpenSiv3D-SDK-for-Windows-Desktop">**0.3.0**</a>     | 28 September 2018 | Windows 7 SP1 / 8.1 / 10<br>Microsoft Visual C++ 2017 15.8<br>Windows 10 SDK (10.0.17134.0) |
+| macOS           | <a href="https://github.com/Siv3D/OpenSiv3D/wiki/OpenSiv3D-SDK-for-macOS">**0.3.0**</a>     | 28 September 2018 | macOS Sierra v10.12 or newer<br>Xcode 9.2 or newer |
 | Linux           | <a href="https://github.com/Siv3D/OpenSiv3D/tree/linux/Linux">**0.2.3α**</a> (experimental)  | 26 February 2018 | |
 | Universal Windows Platform | TBA  |               | Windows 10<br>Microsoft Visual C++ 2017 or newer |
 
