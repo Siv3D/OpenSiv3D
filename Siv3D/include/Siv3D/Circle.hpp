@@ -471,10 +471,7 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		const Circle& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const
-		{
-			return drawFrame(thickness * 0.5, thickness * 0.5, color);
-		}
+		const Circle& drawFrame(double thickness = 1.0, const ColorF& color = Palette::White) const;
 
 		/// <summary>
 		/// 円の枠を描きます。

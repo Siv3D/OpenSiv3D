@@ -65,6 +65,11 @@ namespace s3d
 		return *this;
 	}
 
+	const Ellipse& Ellipse::drawFrame(const double thickness, const ColorF& color) const
+	{
+		return drawFrame(thickness * 0.5, thickness * 0.5, color);
+	}
+
 	const Ellipse& Ellipse::drawFrame(double innerThickness, double outerThickness, const ColorF& color) const
 	{
 		Siv3DEngine::GetRenderer2D()->addEllipseFrame(
