@@ -23,7 +23,7 @@ namespace s3d
 		//
 		//	DirectXMath
 		//
-		//	Copyright(c) 2017 Microsoft Corp
+		//	Copyright(c) 2018 Microsoft Corp
 		//
 		//	Permission is hereby granted, free of charge, to any person obtaining a copy of this
 		//	software and associated documentation files(the "Software"), to deal in the Software
@@ -47,7 +47,7 @@ namespace s3d
 			uint32 Result;
 
 			uint32 IValue = reinterpret_cast<const uint32*>(&value)[0];
-			uint32 sign = (IValue & 0x80000000U) >> 16U;
+			uint32 Sign = (IValue & 0x80000000U) >> 16U;
 			IValue = IValue & 0x7FFFFFFFU;      // Hack off the sign
 
 			if (IValue > 0x477FE000U)
@@ -61,6 +61,10 @@ namespace s3d
 				{
 					Result = 0x7C00U; // INF
 				}
+			}
+			else if (!IValue)
+			{
+				Result = 0;
 			}
 			else
 			{
@@ -79,22 +83,21 @@ namespace s3d
 
 				Result = ((IValue + 0x0FFFU + ((IValue >> 13U) & 1U)) >> 13U) & 0x7FFFU;
 			}
-
-			return static_cast<uint16>(Result | sign);
+			return static_cast<uint16>(Result | Sign);
 		}
 
 		inline float HalfToFloat(const uint16 value) noexcept
 		{
-			uint32 Mantissa = (uint32)(value & 0x03FF);
+			uint32 Mantissa = static_cast<uint32>(value & 0x03FF);
 
 			uint32 Exponent = (value & 0x7C00);
 			if (Exponent == 0x7C00) // INF/NAN
 			{
-				Exponent = (uint32)0x8f;
+				Exponent = 0x8f;
 			}
 			else if (Exponent != 0)  // The value is normalized
 			{
-				Exponent = (uint32)((value >> 10) & 0x1F);
+				Exponent = static_cast<uint32>((static_cast<int32>(value) >> 10) & 0x1F);
 			}
 			else if (Mantissa != 0)     // The value is denormalized
 			{
@@ -111,12 +114,13 @@ namespace s3d
 			}
 			else                        // The value is zero
 			{
-				Exponent = (uint32)-112;
+				Exponent = static_cast<uint32>(-112);
 			}
 
-			uint32 Result = ((value & 0x8000) << 16) | // Sign
-				((Exponent + 112) << 23) | // Exponent
-				(Mantissa << 13);          // Mantissa
+			uint32 Result =
+				((static_cast<uint32>(value) & 0x8000) << 16) // Sign
+				| ((Exponent + 112) << 23)                      // Exponent
+				| (Mantissa << 13);                             // Mantissa
 
 			return reinterpret_cast<float*>(&Result)[0];
 		}
