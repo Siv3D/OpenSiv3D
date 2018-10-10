@@ -2428,7 +2428,7 @@
     <ClCompile Include="..\Siv3D\src\Siv3D\Microphone\MicrophoneDetail_macOS.cpp">
       <Filter>src\Siv3D\Microphone</Filter>
     </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\Microphone\MicrophoneDetail_macLinux.cpp">
+    <ClCompile Include="..\Siv3D\src\Siv3D\Microphone\MicrophoneDetail_Linux.cpp">
       <Filter>src\Siv3D\Microphone</Filter>
     </ClCompile>
   </ItemGroup>
@@ -4776,7 +4776,7 @@
     <ClInclude Include="..\Siv3D\src\Siv3D\Microphone\MicrophoneDetail_macOS.hpp">
       <Filter>src\Siv3D\Microphone</Filter>
     </ClInclude>
-    <ClInclude Include="..\Siv3D\src\Siv3D\Microphone\MicrophoneDetail_macLinux.hpp">
+    <ClInclude Include="..\Siv3D\src\Siv3D\Microphone\MicrophoneDetail_Linux.hpp">
       <Filter>src\Siv3D\Microphone</Filter>
     </ClInclude>
   </ItemGroup>
