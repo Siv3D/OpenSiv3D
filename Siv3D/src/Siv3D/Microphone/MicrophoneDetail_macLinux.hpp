@@ -11,7 +11,7 @@
 
 # pragma once
 # include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_MACOS)
+# if defined(SIV3D_TARGET_LINUX)
 
 # include <Siv3D/Microphone.hpp>
 

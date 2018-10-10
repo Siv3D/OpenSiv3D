@@ -166,7 +166,7 @@ namespace s3d
 
 	void Microphone::fft(FFTResult& result, const FFTSampleLength sampleLength) const
 	{
-		FFT::Analyze(result, getBuffer(), posSample(), samplingRate(), sampleLength);
+		FFT::Analyze(result, getBuffer(), static_cast<uint32>(posSample()), samplingRate(), sampleLength);
 	}
 
 	bool Microphone::saveBuffer(const FilePath& path) const

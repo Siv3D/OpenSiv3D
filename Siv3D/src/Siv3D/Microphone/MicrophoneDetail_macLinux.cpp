@@ -10,9 +10,9 @@
 //-----------------------------------------------
 
 # include <Siv3D/Platform.hpp>
-# if defined(SIV3D_TARGET_MACOS)
+# if defined(SIV3D_TARGET_LINUX)
 
-# include "MicrophoneDetail_macOS.hpp"
+# include "MicrophoneDetail_Linux.hpp"
 
 namespace s3d
 {
