@@ -665,7 +665,7 @@ namespace s3d
 	//	SoundFont.hpp
 	//
 	enum PianoKey : uint8;
-	enum GMInstrument : uint8;
+	enum class GMInstrument : uint8;
 
 	//////////////////////////////////////////////////////
 	//
@@ -816,6 +816,13 @@ namespace s3d
 	//	ProController.hpp
 	//
 	class ProController;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Microphone.hpp
+	//
+	enum class RecordingFormat;
+	class Microphone;
 
 	//////////////////////////////////////////////////////
 	//

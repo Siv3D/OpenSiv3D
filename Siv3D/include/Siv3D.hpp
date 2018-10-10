@@ -717,8 +717,9 @@
 	// Pro-Controller
 	# include "Siv3D/ProController.hpp"
 
-	//// マイク入力
-	//# include "Siv3D/Recorder.hpp"
+	// マイク入力
+	# include "Siv3D/Microphone.hpp"
+
 	//// タッチ
 	//# include "Siv3D/Touch.hpp"
 	//// ペンタブレット

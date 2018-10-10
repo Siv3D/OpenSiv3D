@@ -254,7 +254,7 @@ namespace s3d
 	/// <summary>
 	/// GM 音色
 	/// </summary>
-	enum GMInstrument : uint8
+	enum class GMInstrument : uint8
 	{
 		// Piano
 		Piano1,

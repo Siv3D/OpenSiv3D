@@ -128,7 +128,7 @@ namespace s3d
 		/// </returns>
 		void Analyze(FFTResult& result, const Wave& wave, uint32 pos, FFTSampleLength sampleLength = FFTSampleLength::Default);
 
-		//FFTResult Analyze(const Recorder& recorder, FFTSampleLength sampleLength = FFTSampleLength::Default);
+		void Analyze(FFTResult& result, const Array<WaveSampleS16>& wave, uint32 pos, uint32 samplingRate, FFTSampleLength sampleLength = FFTSampleLength::Default);
 
 		/// <summary>
 		/// FFT を実行します。

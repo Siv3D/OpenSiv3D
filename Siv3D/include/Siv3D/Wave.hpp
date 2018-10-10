@@ -135,7 +135,7 @@ namespace s3d
 			: base_type(std::move(samples))
 			, m_samplingRate(*samplingRate) {}
 
-		Wave(uint8 instrumrnt, uint8 key, const Duration& duration, double velocity = 1.0, Arg::samplingRate_<uint32> samplingRate = Arg::samplingRate_<uint32>(DefaultSamplingRate));
+		Wave(GMInstrument instrumrnt, uint8 key, const Duration& duration, double velocity = 1.0, Arg::samplingRate_<uint32> samplingRate = Arg::samplingRate_<uint32>(DefaultSamplingRate));
 
 		[[nodiscard]] uint32 samplingRate() const noexcept
 		{
@@ -160,6 +160,11 @@ namespace s3d
 		[[nodiscard]] double lengthSec() const noexcept
 		{
 			return static_cast<double>(size()) / m_samplingRate;
+		}
+
+		void fillZero()
+		{
+			fill(WaveSample::Zero());
 		}
 
 		Wave& operator =(const Array<WaveSample>& other)
@@ -257,7 +262,7 @@ namespace s3d
 			return Wave(base_type::slice(index, length), Arg::samplingRate = m_samplingRate);
 		}
 
-		//bool save(const FilePath& path, AudioFormat format = AudioFormat::WAVE);
+		bool save(const FilePath& path, AudioFormat format = AudioFormat::WAVE);
 
 		bool saveWAVE(const FilePath& path, WAVEFormat format = WAVEFormat::Default);
 

@@ -32,6 +32,11 @@ namespace s3d
 			Siv3DEngine::GetFFT()->fft(result, wave, pos, sampleLength);
 		}
 
+		void Analyze(FFTResult& result, const Array<WaveSampleS16>& wave, uint32 pos, uint32 samplingRate, const FFTSampleLength sampleLength)
+		{
+			Siv3DEngine::GetFFT()->fft(result, wave, pos, samplingRate, sampleLength);
+		}
+
 		void Analyze(FFTResult& result, const float* input, const uint32 length, const uint32 samplingRate, const FFTSampleLength sampleLength)
 		{
 			Siv3DEngine::GetFFT()->fft(result, input, length, samplingRate, sampleLength);
