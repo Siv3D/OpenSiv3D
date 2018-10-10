@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -13,6 +13,7 @@
 # include <Siv3D/Math.hpp>
 # include "MicrophoneDetail_Windows.hpp"
 # include "MicrophoneDetail_macOS.hpp"
+# include "MicrophoneDetail_Linux.hpp"
 
 namespace s3d
 {
