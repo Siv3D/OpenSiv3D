@@ -34,6 +34,8 @@ namespace s3d
 
 		bool m_isRecording = false;
 
+		bool m_reachedEnd = false;
+
 		bool m_loop = true;
 
 		static void WaveInCallback(HWAVEIN, UINT uMsg, DWORD_PTR dwInstance, DWORD_PTR dwParam1, DWORD_PTR);

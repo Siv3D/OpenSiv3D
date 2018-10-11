@@ -178,7 +178,7 @@ namespace s3d
 		}
 
 		const Array<WaveSampleS16>& buffer = getBuffer();
-		Wave wave(buffer.size());
+		Wave wave(buffer.size(), Arg::samplingRate = samplingRate());
 		WaveSample* pDst = wave.data();
 		const WaveSample* pDstEnd = pDst + wave.size();
 		const WaveSampleS16* pSrc = buffer.data();

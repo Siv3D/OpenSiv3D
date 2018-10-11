@@ -112,6 +112,7 @@ namespace s3d
 		}
 
 		m_initialized = true;
+		m_reachedEnd = false;
 
 		return true;
 	}
@@ -135,6 +136,7 @@ namespace s3d
 
 		m_hWaveIn = nullptr;
 		m_initialized = false;
+		m_reachedEnd = false;
 	}
 
 	bool Microphone::MicrophoneDetail::start()
@@ -170,11 +172,12 @@ namespace s3d
 		m_buffer.fill(WaveSampleS16::Zero());
 
 		m_isRecording = false;
+		m_reachedEnd = false;
 	}
 
 	bool Microphone::MicrophoneDetail::isRecording() const
 	{
-		return m_isRecording;
+		return m_isRecording && !m_reachedEnd;
 	}
 
 	uint32 Microphone::MicrophoneDetail::samplingRate() const
@@ -197,6 +200,11 @@ namespace s3d
 		if (m_loop && samples > 0)
 		{
 			::waveInAddBuffer(m_hWaveIn, &m_wh, sizeof(WAVEHDR));
+		}
+
+		if (!m_loop)
+		{
+			m_reachedEnd = true;
 		}
 	}
 }
