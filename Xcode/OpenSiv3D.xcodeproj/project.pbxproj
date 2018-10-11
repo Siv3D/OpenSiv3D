@@ -1043,6 +1043,9 @@
 		2C9D915B216E428C0093A065 /* SivSamplerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D8EEC216E428B0093A065 /* SivSamplerState.cpp */; };
 		2C9D9162216E488C0093A065 /* MicrophoneDetail_Linux.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D9160216E488C0093A065 /* MicrophoneDetail_Linux.cpp */; };
 		2C9D9163216E488C0093A065 /* MicrophoneDetail_Linux.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2C9D9161216E488C0093A065 /* MicrophoneDetail_Linux.hpp */; };
+		2C9D917A216F3E510093A065 /* RTAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D9178216F3E510093A065 /* RTAudio.cpp */; };
+		2C9D917B216F3E510093A065 /* RTAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C9D9179216F3E510093A065 /* RTAudio.h */; };
+		2C9D917D216F3F780093A065 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C9D917C216F3F770093A065 /* CoreAudio.framework */; };
 		2C9DDF4E2010164E002D3BDC /* pffft.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9DDF4C2010164E002D3BDC /* pffft.c */; };
 		2C9DDF4F2010164E002D3BDC /* pffft.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C9DDF4D2010164E002D3BDC /* pffft.h */; };
 		2C9DE99F20102ED6002D3BDC /* exif.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C9DE99D20102ED6002D3BDC /* exif.cpp */; };
@@ -2444,6 +2447,9 @@
 		2C9D8EEC216E428B0093A065 /* SivSamplerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SivSamplerState.cpp; sourceTree = "<group>"; };
 		2C9D9160216E488C0093A065 /* MicrophoneDetail_Linux.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MicrophoneDetail_Linux.cpp; sourceTree = "<group>"; };
 		2C9D9161216E488C0093A065 /* MicrophoneDetail_Linux.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MicrophoneDetail_Linux.hpp; sourceTree = "<group>"; };
+		2C9D9178216F3E510093A065 /* RTAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RTAudio.cpp; sourceTree = "<group>"; };
+		2C9D9179216F3E510093A065 /* RTAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTAudio.h; sourceTree = "<group>"; };
+		2C9D917C216F3F770093A065 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		2C9DDF4C2010164E002D3BDC /* pffft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pffft.c; sourceTree = "<group>"; };
 		2C9DDF4D2010164E002D3BDC /* pffft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pffft.h; sourceTree = "<group>"; };
 		2C9DE99D20102ED6002D3BDC /* exif.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exif.cpp; sourceTree = "<group>"; };
@@ -2513,6 +2519,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C9D917D216F3F780093A065 /* CoreAudio.framework in Frameworks */,
 				2CE9AC122095BAA700099472 /* CoreMedia.framework in Frameworks */,
 				2CE9AC102095BA7500099472 /* AVFoundation.framework in Frameworks */,
 				2CC7830F2017FE8200AB4824 /* AudioToolbox.framework in Frameworks */,
@@ -2620,6 +2627,7 @@
 				2C0FBCD11FDB71F400A128B9 /* rapidjson */,
 				2C76B15320785C5B008345FF /* Recast */,
 				2C0FBCF81FDB71F400A128B9 /* RFC1321 */,
+				2C9D9177216F3E510093A065 /* RTAudio */,
 				2C06445E209B1F5B004CBA1B /* TinySoundFont */,
 				2C0FBCFA1FDB71F400A128B9 /* zstd */,
 			);
@@ -3137,6 +3145,7 @@
 		2C15857F1F21FD87002687D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C9D917C216F3F770093A065 /* CoreAudio.framework */,
 				2C064461209BE581004CBA1B /* lopencv_photo.a */,
 				2C063E812099B031004CBA1B /* lopencv_objdetect.a */,
 				2CE9AC132095BAC500099472 /* lopencv_imgcodecs.a */,
@@ -5990,6 +5999,15 @@
 			path = SamplerState;
 			sourceTree = "<group>";
 		};
+		2C9D9177216F3E510093A065 /* RTAudio */ = {
+			isa = PBXGroup;
+			children = (
+				2C9D9178216F3E510093A065 /* RTAudio.cpp */,
+				2C9D9179216F3E510093A065 /* RTAudio.h */,
+			);
+			path = RTAudio;
+			sourceTree = "<group>";
+		};
 		2C9DDF4B2010164E002D3BDC /* pffft */ = {
 			isa = PBXGroup;
 			children = (
@@ -6210,6 +6228,7 @@
 				2C9D90CA216E428C0093A065 /* CTexture_GL.hpp in Headers */,
 				2CD818032078DA2B009DA091 /* compiler.h in Headers */,
 				2C9D9063216E428B0093A065 /* CSystem_macOS.hpp in Headers */,
+				2C9D917B216F3E510093A065 /* RTAudio.h in Headers */,
 				2C9D913A216E428C0093A065 /* CTextBox.hpp in Headers */,
 				2C9D903E216E428B0093A065 /* CMouse_Windows.hpp in Headers */,
 				2C0FC0641FDB71F400A128B9 /* ostreamwrapper.h in Headers */,
@@ -6948,6 +6967,7 @@
 				2C4F2AED204199ED006CBCD1 /* b2WheelJoint.cpp in Sources */,
 				2C9D8F48216E428B0093A065 /* AssetFactory.cpp in Sources */,
 				2C9D9035216E428B0093A065 /* SivBlendState.cpp in Sources */,
+				2C9D917A216F3E510093A065 /* RTAudio.cpp in Sources */,
 				2C9D8FB6216E428B0093A065 /* ObjectDetectionFactory.cpp in Sources */,
 				2C0FC0371FDB71F400A128B9 /* muParserInt.cpp in Sources */,
 				2C9D8F5E216E428B0093A065 /* SivCPU.cpp in Sources */,
@@ -7537,6 +7557,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					__MACOSX_CORE__,
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -7593,6 +7614,7 @@
 				EXECUTABLE_PREFIX = lib;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = __MACOSX_CORE__;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

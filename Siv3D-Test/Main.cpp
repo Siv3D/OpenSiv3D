@@ -1,4 +1,4 @@
-﻿
+
 # include <Siv3D.hpp>
 
 void Main()
@@ -39,7 +39,7 @@ void Main()
 
 		const Array<WaveSampleS16>& buffer = mic.getBuffer();
 		mic.fft(fft);
-		
+
 		for (size_t samplesLeft = readLength, pos = mic.posSample(); samplesLeft; --samplesLeft)
 		{
 			if (pos == 0)
@@ -86,13 +86,14 @@ void Main2()
 		if (pos == recordLength)
 		{
 			mic.saveBuffer(U"save.wav");
-			break;
+			//break;
 		}
 
 		mic.fft(fft);
 
 		ClearPrint();
 		Print << pos;
+		Print << mic.isRecording();
 
 		for (auto i : step(Min(static_cast<int32>(fft.buffer.size()), Window::Width())))
 		{

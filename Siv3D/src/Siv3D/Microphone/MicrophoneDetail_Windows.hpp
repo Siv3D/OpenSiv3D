@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -62,7 +62,7 @@ namespace s3d
 
 		size_t posSample() const;
 
-		void onRead(const WaveSampleS16*, const size_t samples);
+		void onRead(const WaveSampleS16*, size_t samples);
 	};
 }
 

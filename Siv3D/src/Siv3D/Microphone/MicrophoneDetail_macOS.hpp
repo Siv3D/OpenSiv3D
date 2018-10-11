@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -14,17 +14,30 @@
 # if defined(SIV3D_TARGET_MACOS)
 
 # include <Siv3D/Microphone.hpp>
+# include "../../ThirdParty/RTAudio/RTAudio.h"
 
 namespace s3d
 {
 	class Microphone::MicrophoneDetail
 	{
 	private:
+		
+		RtAudio m_device;
 
 		Array<WaveSampleS16> m_buffer;
+		
+		size_t m_writePos = 0;
 
 		uint32 m_samplingRate = Wave::DefaultSamplingRate;
 
+		bool m_initialized = false;
+		
+		bool m_isRecording = false;
+		
+		bool m_loop = true;
+		
+		static int InputCallback(void*, void *inputBuffer, unsigned int nBufferFrames, double, RtAudioStreamStatus, void* data);
+		
 	public:
 
 		MicrophoneDetail();
@@ -48,6 +61,8 @@ namespace s3d
 		const Array<WaveSampleS16>& getBuffer() const;
 
 		size_t posSample() const;
+		
+		bool onRead(const WaveSampleS16* pSrc, size_t samples);
 	};
 }
 
