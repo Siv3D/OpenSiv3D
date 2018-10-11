@@ -14,7 +14,7 @@
 # if defined(SIV3D_TARGET_MACOS)
 
 # include <Siv3D/Microphone.hpp>
-# include "../../ThirdParty/RTAudio/RTAudio.h"
+# include "../../ThirdParty/RtAudio/RtAudio.h"
 
 namespace s3d
 {
