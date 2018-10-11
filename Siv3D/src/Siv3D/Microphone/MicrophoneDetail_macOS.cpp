@@ -144,6 +144,8 @@ namespace s3d
 		}
 		
 		m_device.abortStream();
+
+		m_writePos = 0;
 		
 		m_buffer.fill(WaveSampleS16::Zero());
 		
