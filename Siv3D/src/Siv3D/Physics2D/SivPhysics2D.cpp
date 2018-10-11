@@ -1173,17 +1173,38 @@ namespace s3d
 
 	void P2LineString::draw(const ColorF& color) const
 	{
-		getLineString().draw(3.0 / Graphics2D::GetMaxScaling(), color, m_closed);
+		if (m_closed)
+		{
+			getLineString().drawClosed(3.0 / Graphics2D::GetMaxScaling(), color);
+		}
+		else
+		{
+			getLineString().draw(3.0 / Graphics2D::GetMaxScaling(), color);
+		}	
 	}
 
 	void P2LineString::drawFrame(const double thickness, const ColorF& color) const
 	{
-		getLineString().draw(thickness / Graphics2D::GetMaxScaling(), color, m_closed);
+		if (m_closed)
+		{
+			getLineString().drawClosed(thickness / Graphics2D::GetMaxScaling(), color);
+		}
+		else
+		{
+			getLineString().draw(thickness / Graphics2D::GetMaxScaling(), color);
+		}
 	}
 
 	void P2LineString::drawWireframe(const double thickness, const ColorF& color) const
 	{
-		getLineString().draw(thickness / Graphics2D::GetMaxScaling(), color, m_closed);
+		if (m_closed)
+		{
+			getLineString().drawClosed(thickness / Graphics2D::GetMaxScaling(), color);
+		}
+		else
+		{
+			getLineString().draw(thickness / Graphics2D::GetMaxScaling(), color);
+		}
 	}
 
 	const LineString& P2LineString::getLineString() const

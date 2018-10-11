@@ -1741,7 +1741,7 @@ namespace s3d
 		return *this;
 	}
 
-	const LineString& LineString::paint(Image& dst, const int32 thickness, const Color& color, const bool isClosed) const
+	const LineString& LineString::_paint(Image& dst, const int32 thickness, const Color& color, const bool isClosed) const
 	{
 		if (!dst)
 		{
@@ -1762,7 +1762,7 @@ namespace s3d
 		return *this;
 	}
 
-	const LineString& LineString::overwrite(Image& dst, const int32 thickness, const Color& color, const bool isClosed, const bool antialiased) const
+	const LineString& LineString::_overwrite(Image& dst, const int32 thickness, const Color& color, bool antialiased, const bool isClosed) const
 	{
 		if (!dst || isEmpty())
 		{
