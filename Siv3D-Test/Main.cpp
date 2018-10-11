@@ -1,14 +1,14 @@
-
+﻿
 # include <Siv3D.hpp>
 
-void Main()
+void Main2()
 {
 	constexpr size_t readLength = 800;
 	
 	LineString lines(readLength);
 	for (auto i : step(readLength))
 	{
-		lines[i].set(i, 150);
+		lines[i].set(static_cast<double>(i), 150);
 	}
 
 	Microphone mic(unspecified);
@@ -67,7 +67,7 @@ void Main()
 	}
 }
 
-void Main2()
+void Main()
 {
 	const size_t recordLength = Wave::DefaultSamplingRate * 5;
 	Microphone mic(unspecified, RecordingFormat::Default, recordLength, false);
@@ -85,7 +85,7 @@ void Main2()
 
 		if (pos == recordLength)
 		{
-			mic.saveBuffer(U"save.wav");
+			//mic.saveBuffer(U"save.wav");
 			//break;
 		}
 
