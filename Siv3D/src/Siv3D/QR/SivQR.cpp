@@ -82,7 +82,7 @@ namespace s3d
 
 		static constexpr bool IsAlnumQR(const char8 ch) noexcept
 		{
-			return (ch < 128) && alnumTable[ch];
+			return (static_cast<uint8>(ch) < 128) && alnumTable[static_cast<uint8>(ch)];
 		}
 
 		static constexpr Optional<int32> CalculateMinimumVersion(const QRMode mode, const QRErrorCorrection ec, const size_t size) noexcept

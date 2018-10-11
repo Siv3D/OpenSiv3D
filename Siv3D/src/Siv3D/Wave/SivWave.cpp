@@ -74,10 +74,31 @@ namespace s3d
 
 	}
 
-	Wave::Wave(const uint8 instrumrnt, const uint8 key, const Duration& duration, const double velocity, const Arg::samplingRate_<uint32> samplingRate)
+	Wave::Wave(const GMInstrument instrumrnt, const uint8 key, const Duration& duration, const double velocity, const Arg::samplingRate_<uint32> samplingRate)
 		: Wave(detail::CalculateSamples(duration + SecondsF(0.5), samplingRate), samplingRate)
 	{
-		Siv3DEngine::GetSoundFont()->render(*this, detail::CalculateSamples(duration, samplingRate), *samplingRate, instrumrnt, key, velocity);
+		Siv3DEngine::GetSoundFont()->render(*this, detail::CalculateSamples(duration, samplingRate), *samplingRate, static_cast<uint8>(instrumrnt), key, velocity);
+	}
+
+	bool Wave::save(const FilePath& path, AudioFormat format)
+	{
+		if (isEmpty())
+		{
+			return false;
+		}
+
+		if (format == AudioFormat::Unspecified)
+		{
+			format = Siv3DEngine::GetAudioFormat()->getFormatFromFilePath(path);
+		}
+
+		// [Siv3D ToDo]
+		if (format != AudioFormat::WAVE)
+		{
+			return false;
+		}
+
+		return saveWAVE(path);
 	}
 
 	bool Wave::saveWAVE(const FilePath& path, const WAVEFormat format)

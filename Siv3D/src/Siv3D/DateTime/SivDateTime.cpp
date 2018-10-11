@@ -315,13 +315,13 @@ namespace s3d
 		return *this;
 	}
 
-	Milliseconds operator -(const DateTime& a, const DateTime& b)
+	Duration operator -(const DateTime& a, const DateTime& b)
 	{
 		const auto diffDays = Date(a) - Date(b);
 		const auto aMillisec = detail::TimeToMillisecCount(a.hour, a.minute, a.second, a.milliseconds);
 		const auto bMillisec = detail::TimeToMillisecCount(b.hour, b.minute, b.second, b.milliseconds);
 
-		return Milliseconds(diffDays.count() * (86400 * 1000) + (aMillisec - bMillisec));
+		return Duration((static_cast<int64>(diffDays.count()) * (86400 * 1000) + (aMillisec - bMillisec)) / 1000.0);
 	}
 }
 

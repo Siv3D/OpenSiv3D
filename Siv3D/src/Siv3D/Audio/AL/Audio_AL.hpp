@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -85,7 +85,7 @@ namespace s3d
 			{
 				const WaveSample& src = (*m_pWave)[m_readPos + i];
 				
-				m_tmpBuffer[i] = src.asS16();
+				m_tmpBuffer[i] = src.asWaveSampleS16();
 			}
 			
 			m_readPos += samplesToFeed;
@@ -292,7 +292,7 @@ namespace s3d
 			{
 				const WaveSample& src = (*m_pWave)[m_readPos + i];
 				
-				m_tmpBuffer[i] = src.asS16();
+				m_tmpBuffer[i] = src.asWaveSampleS16();
 			}
 			
 			m_readPos += samplesToFeed;
@@ -340,7 +340,7 @@ namespace s3d
 				{
 					const WaveSample& src = (*m_pWave)[m_readPos + i];
 					
-					m_tmpBuffer[tmpBufferPos++] = src.asS16();
+					m_tmpBuffer[tmpBufferPos++] = src.asWaveSampleS16();
 				}
 				
 				samplesFed += samplesToFeed;

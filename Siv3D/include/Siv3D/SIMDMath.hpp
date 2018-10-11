@@ -23,7 +23,7 @@ namespace s3d
 		//
 		//	DirectXMath
 		//
-		//	Copyright(c) 2017 Microsoft Corp
+		//	Copyright(c) 2018 Microsoft Corp
 		//
 		//	Permission is hereby granted, free of charge, to any person obtaining a copy of this
 		//	software and associated documentation files(the "Software"), to deal in the Software
@@ -44,81 +44,85 @@ namespace s3d
 
 		inline uint16 FloatToHalf(const float value) noexcept
 		{
-			uint32 Result;
+			uint32 result;
 
-			uint32 IValue = reinterpret_cast<const uint32*>(&value)[0];
-			uint32 sign = (IValue & 0x80000000U) >> 16U;
-			IValue = IValue & 0x7FFFFFFFU;      // Hack off the sign
+			uint32 iValue = reinterpret_cast<const uint32*>(&value)[0];
+			uint32 sign = (iValue & 0x80000000U) >> 16U;
+			iValue = iValue & 0x7FFFFFFFU;      // Hack off the sign
 
-			if (IValue > 0x477FE000U)
+			if (iValue > 0x477FE000U)
 			{
 				// The number is too large to be represented as a half.  Saturate to infinity.
-				if (((IValue & 0x7F800000) == 0x7F800000) && ((IValue & 0x7FFFFF) != 0))
+				if (((iValue & 0x7F800000) == 0x7F800000) && ((iValue & 0x7FFFFF) != 0))
 				{
-					Result = 0x7FFF; // NAN
+					result = 0x7FFF; // NAN
 				}
 				else
 				{
-					Result = 0x7C00U; // INF
+					result = 0x7C00U; // INF
 				}
+			}
+			else if (!iValue)
+			{
+				result = 0;
 			}
 			else
 			{
-				if (IValue < 0x38800000U)
+				if (iValue < 0x38800000U)
 				{
 					// The number is too small to be represented as a normalized half.
 					// Convert it to a denormalized value.
-					uint32_t Shift = 113U - (IValue >> 23U);
-					IValue = (0x800000U | (IValue & 0x7FFFFFU)) >> Shift;
+					uint32_t Shift = 113U - (iValue >> 23U);
+					iValue = (0x800000U | (iValue & 0x7FFFFFU)) >> Shift;
 				}
 				else
 				{
 					// Rebias the exponent to represent the value as a normalized half.
-					IValue += 0xC8000000U;
+					iValue += 0xC8000000U;
 				}
 
-				Result = ((IValue + 0x0FFFU + ((IValue >> 13U) & 1U)) >> 13U) & 0x7FFFU;
+				result = ((iValue + 0x0FFFU + ((iValue >> 13U) & 1U)) >> 13U) & 0x7FFFU;
 			}
-
-			return static_cast<uint16>(Result | sign);
+			return static_cast<uint16>(result | sign);
 		}
 
 		inline float HalfToFloat(const uint16 value) noexcept
 		{
-			uint32 Mantissa = (uint32)(value & 0x03FF);
+			uint32 mantissa = static_cast<uint32>(value & 0x03FF);
 
-			uint32 Exponent = (value & 0x7C00);
-			if (Exponent == 0x7C00) // INF/NAN
+			uint32 exponent = (value & 0x7C00);
+			if (exponent == 0x7C00) // INF/NAN
 			{
-				Exponent = (uint32)0x8f;
+				exponent = 0x8f;
 			}
-			else if (Exponent != 0)  // The value is normalized
+			else if (exponent != 0)  // The value is normalized
 			{
-				Exponent = (uint32)((value >> 10) & 0x1F);
+				exponent = static_cast<uint32>((static_cast<int32>(value) >> 10) & 0x1F);
 			}
-			else if (Mantissa != 0)     // The value is denormalized
+			else if (mantissa != 0)     // The value is denormalized
 			{
 				// Normalize the value in the resulting float
-				Exponent = 1;
+				exponent = 1;
 
 				do
 				{
-					Exponent--;
-					Mantissa <<= 1;
-				} while ((Mantissa & 0x0400) == 0);
+					exponent--;
+					mantissa <<= 1;
+				} while ((mantissa & 0x0400) == 0);
 
-				Mantissa &= 0x03FF;
+				mantissa &= 0x03FF;
 			}
 			else                        // The value is zero
 			{
-				Exponent = (uint32)-112;
+				exponent = static_cast<uint32>(-112);
 			}
 
-			uint32 Result = ((value & 0x8000) << 16) | // Sign
-				((Exponent + 112) << 23) | // Exponent
-				(Mantissa << 13);          // Mantissa
+			uint32 result =
+				((static_cast<uint32>(value) & 0x8000) << 16) // Sign
+				| ((exponent + 112) << 23)                      // Exponent
+				| (mantissa << 13);                             // Mantissa
 
-			return reinterpret_cast<float*>(&Result)[0];
+			return reinterpret_cast<float*>(&result)[0];
 		}
 		//
 		//

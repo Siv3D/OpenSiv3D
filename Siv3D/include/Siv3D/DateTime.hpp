@@ -407,7 +407,7 @@ namespace s3d
 	/// <returns>
 	/// 2 つの日付の間の時間（ミリ秒）
 	/// </returns>
-	[[nodiscard]] Milliseconds operator -(const DateTime& a, const DateTime& b);
+	[[nodiscard]] Duration operator -(const DateTime& a, const DateTime& b);
 }
 
 //////////////////////////////////////////////////

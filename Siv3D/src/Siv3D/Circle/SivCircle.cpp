@@ -104,6 +104,11 @@ namespace s3d
 		return *this;
 	}
 
+	const Circle& Circle::drawFrame(const double thickness, const ColorF& color) const
+	{
+		return drawFrame(thickness * 0.5, thickness * 0.5, color);
+	}
+
 	const Circle& Circle::drawFrame(double innerThickness, double outerThickness, const ColorF& color) const
 	{
 		Siv3DEngine::GetRenderer2D()->addCircleFrame(

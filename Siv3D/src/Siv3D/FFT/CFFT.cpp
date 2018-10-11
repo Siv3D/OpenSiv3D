@@ -85,6 +85,27 @@ namespace s3d
 		doFFT(result, wave.samplingRate(), sampleLength);
 	}
 
+	void CFFT::fft(FFTResult& result, const Array<WaveSampleS16>& wave, uint32 pos, const uint32 samplingRate, const FFTSampleLength sampleLength)
+	{
+		const int32 samples = 256 << static_cast<int32>(sampleLength);
+
+		float* pDst = m_inoutBuffer;
+
+		for (size_t samplesLeft = samples; samplesLeft; --samplesLeft)
+		{
+			if (pos == 0)
+			{
+				pos = wave.size();
+			}
+
+			const auto& sample = wave[--pos];
+
+			*pDst++ = (static_cast<int32>(sample.left) + static_cast<int32>(sample.right)) / (32768.0f * 2);
+		}
+
+		doFFT(result, samplingRate, sampleLength);
+	}
+
 	void CFFT::fft(FFTResult& result, const float* input, size_t size, const uint32 samplingRate, const FFTSampleLength sampleLength)
 	{
 		::memcpy(m_inoutBuffer, input, sizeof(float) * size);

@@ -56,7 +56,7 @@ namespace s3d
 
 	static void ConstructUUDDS(int32 instrumrnt, int32 key, const Duration& duration, double velocity, SamplingRate_v samplingRate, BindType* self)
 	{
-		new(self) BindType(static_cast<uint8>(instrumrnt), static_cast<uint8>(key), duration, velocity, Arg::samplingRate = samplingRate.value);
+		new(self) BindType(static_cast<GMInstrument>(instrumrnt), static_cast<uint8>(key), duration, velocity, Arg::samplingRate = samplingRate.value);
 	}
 
 	static void ConstructF(const FilePath& path, BindType* self)

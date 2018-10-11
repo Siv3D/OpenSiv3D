@@ -788,6 +788,9 @@
     <Filter Include="src\Siv3D\TextToSpeech">
       <UniqueIdentifier>{fb60dba1-3511-45d0-9069-19da136d204b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Siv3D\Microphone">
+      <UniqueIdentifier>{0eef95c7-491a-4267-ba42-3a9b88e64dd9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -2415,6 +2418,18 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Script\Bind\Script_Say.cpp">
       <Filter>src\Siv3D\Script\Bind</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Microphone\SivMicrophone.cpp">
+      <Filter>src\Siv3D\Microphone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Microphone\MicrophoneDetail_Windows.cpp">
+      <Filter>src\Siv3D\Microphone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Microphone\MicrophoneDetail_macOS.cpp">
+      <Filter>src\Siv3D\Microphone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Siv3D\src\Siv3D\Microphone\MicrophoneDetail_Linux.cpp">
+      <Filter>src\Siv3D\Microphone</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -4751,6 +4766,18 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\src\Siv3D\Script\AngelScript\scriptgrid.h">
       <Filter>src\Siv3D\Script\AngelScript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\include\Siv3D\Microphone.hpp">
+      <Filter>include\Siv3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Microphone\MicrophoneDetail_Windows.hpp">
+      <Filter>src\Siv3D\Microphone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Microphone\MicrophoneDetail_macOS.hpp">
+      <Filter>src\Siv3D\Microphone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Siv3D\src\Siv3D\Microphone\MicrophoneDetail_Linux.hpp">
+      <Filter>src\Siv3D\Microphone</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

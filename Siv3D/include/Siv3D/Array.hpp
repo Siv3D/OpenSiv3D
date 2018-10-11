@@ -2238,9 +2238,13 @@ namespace s3d
 		return !(a < b);
 	}
 
+# if defined(__cpp_deduction_guides)
+
 	// deduction guide
 	template <class Type>
 	Array(std::initializer_list<Type>) -> Array<Type>;
+
+# endif
 }
 
 # include "BoolArray.hpp"

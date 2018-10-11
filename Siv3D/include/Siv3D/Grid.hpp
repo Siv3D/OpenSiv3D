@@ -1499,9 +1499,13 @@ namespace s3d
 		return output << Format(value).toWstr();
 	}
 
+# if defined(__cpp_deduction_guides)
+
 	// deduction guide
 	template <class Type>
 	Grid(const std::initializer_list<std::initializer_list<Type>>&) -> Grid<Type>;
+
+# endif
 }
 
 //////////////////////////////////////////////////

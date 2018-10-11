@@ -36,7 +36,9 @@ namespace s3d
 
 		bool init() override;
 
-		void fft(FFTResult& result, const Wave& wave, const uint32 pos, const FFTSampleLength sampleLength) override;
+		void fft(FFTResult& result, const Wave& wave, uint32 pos, FFTSampleLength sampleLength) override;
+
+		void fft(FFTResult& result, const Array<WaveSampleS16>& wave, uint32 pos, uint32 samplingRate, FFTSampleLength sampleLength) override;
 
 		void fft(FFTResult& result, const float* input, size_t size, uint32 samplingRate, FFTSampleLength sampleLength) override;
 	};
