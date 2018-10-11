@@ -1,7 +1,7 @@
 ﻿
 # include <Siv3D.hpp>
 
-void Main2()
+void Main()
 {
 	constexpr size_t readLength = 800;
 	
@@ -67,6 +67,7 @@ void Main2()
 	}
 }
 
+/*
 void Main()
 {
 	const size_t recordLength = Wave::DefaultSamplingRate * 5;
@@ -102,3 +103,4 @@ void Main()
 		}
 	}
 }
+*/
