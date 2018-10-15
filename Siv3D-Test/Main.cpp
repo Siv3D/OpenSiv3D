@@ -10,6 +10,7 @@ void Main()
 	const auto Increment = script.getFunction<void(int32&)>(U"Increment");
 	const auto Append = script.getFunction<void(String&, const String&)>(U"Append");
 	const auto Move = script.getFunction<void(Vec2&)>(U"Move");
+	const auto Fill = script.getFunction<void(Image&, const Color&)>(U"Fill");
 
 	SayHello();
 	Print << Add(20, 5);
@@ -25,9 +26,16 @@ void Main()
 
 	Vec2 pos(400, 300);
 
+	Image image(300, 200);
+	Fill(image, Palette::Skyblue);
+	const Texture texture(image);
+
 	while (System::Update())
 	{
 		Move(pos);
+	
+		texture.draw();
+		
 		Circle(pos, 40).draw();
 	}
 }

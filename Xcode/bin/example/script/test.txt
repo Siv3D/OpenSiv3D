@@ -45,3 +45,8 @@ void Move(Vec2& pos)
 		pos.moveBy(-speed, 0);
 	}		
 }
+
+void Fill(Image& image, const Color& color)
+{
+	image.fill(color);
+}
