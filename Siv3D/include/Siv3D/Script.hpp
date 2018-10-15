@@ -60,9 +60,27 @@ namespace s3d
 		}
 
 		template <class Type>
-		inline void SetArg(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const Type& value)
+		inline void SetArg_(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const Type& value)
 		{
 			moduleData->context->SetArgObject(argIndex, const_cast<Type*>(&value));
+		}
+
+		template <class Type>
+		inline void SetArg_(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, Type& value)
+		{
+			moduleData->context->SetArgObject(argIndex, &value);
+		}
+
+		template <class Type>
+		inline void SetArg(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const Type& value)
+		{
+			SetArg_<std::decay_t<Type>>(moduleData, argIndex, value);
+		}
+
+		template <class Type>
+		inline void SetArg(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, Type& value)
+		{
+			SetArg_<std::decay_t<Type>&>(moduleData, argIndex, value);
 		}
 
 		template <>
@@ -72,9 +90,21 @@ namespace s3d
 		}
 
 		template <>
+		inline void SetArg<bool&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, bool& value)
+		{
+			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
+		}
+
+		template <>
 		inline void SetArg<int8>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const int8& value)
 		{
 			moduleData->context->SetArgByte(argIndex, value);
+		}
+
+		template <>
+		inline void SetArg<int8&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, int8& value)
+		{
+			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
 		}
 
 		template <>
@@ -84,9 +114,21 @@ namespace s3d
 		}
 
 		template <>
+		inline void SetArg<uint8&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, uint8& value)
+		{
+			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
+		}
+
+		template <>
 		inline void SetArg<int16>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const int16& value)
 		{
 			moduleData->context->SetArgWord(argIndex, value);
+		}
+
+		template <>
+		inline void SetArg<int16&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, int16& value)
+		{
+			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
 		}
 
 		template <>
@@ -96,9 +138,21 @@ namespace s3d
 		}
 
 		template <>
+		inline void SetArg<uint16&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, uint16& value)
+		{
+			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
+		}
+
+		template <>
 		inline void SetArg<int32>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const int32& value)
 		{
 			moduleData->context->SetArgDWord(argIndex, value);
+		}
+
+		template <>
+		inline void SetArg<int32&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, int32& value)
+		{
+			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
 		}
 
 		template <>
@@ -108,15 +162,33 @@ namespace s3d
 		}
 
 		template <>
+		inline void SetArg<uint32&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, uint32& value)
+		{
+			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
+		}
+
+		template <>
 		inline void SetArg<int64>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const int64& value)
 		{
 			moduleData->context->SetArgQWord(argIndex, value);
 		}
 
 		template <>
+		inline void SetArg<int64&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, int64& value)
+		{
+			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
+		}
+
+		template <>
 		inline void SetArg<uint64>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const uint64& value)
 		{
 			moduleData->context->SetArgQWord(argIndex, value);
+		}
+
+		template <>
+		inline void SetArg<uint64&>(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, uint64& value)
+		{
+			moduleData->context->SetArgAddress(argIndex, reinterpret_cast<void*>(&value));
 		}
 
 		template <>
@@ -224,17 +296,17 @@ namespace s3d
 		AngelScript::asIScriptFunction* m_function = nullptr;
 
 		template <class Type, class ... Args2>
-		void setArgs(uint32 argIndex, const Type& value, const Args2& ... args) const
+		void setArgs(uint32 argIndex, Type&& value, Args2&&... args) const
 		{
-			setArg(argIndex++, value);
+			setArg(argIndex++, std::forward<Type>(value));
 
-			setArgs(argIndex, args...);
+			setArgs(argIndex, std::forward<Args2>(args)...);
 		}
 
 		template <class Type>
-		void setArgs(uint32 argIndex, const Type& value) const
+		void setArgs(uint32 argIndex, Type&& value) const
 		{
-			setArg(argIndex++, value);
+			setArg(argIndex++, std::forward<Type>(value));
 		}
 
 		void setArgs(uint32) const
@@ -243,9 +315,9 @@ namespace s3d
 		}
 
 		template <class Type>
-		void setArg(uint32 argIndex, const Type& value) const
+		void setArg(uint32 argIndex, Type&& value) const
 		{
-			detail::SetArg(m_moduleData, argIndex, value);
+			detail::SetArg<Type>(m_moduleData, argIndex, std::forward<Type>(value));
 		}
 
 		bool execute() const
@@ -341,7 +413,7 @@ namespace s3d
 
 			m_moduleData->context->Prepare(m_function);
 
-			setArgs(0, args...);
+			setArgs(0, std::forward<Args>(args)...);
 
 			if (!execute())
 			{
@@ -360,7 +432,7 @@ namespace s3d
 
 			m_moduleData->context->Prepare(m_function);
 
-			setArgs(0, args...);
+			setArgs(0, std::forward<Args>(args)...);
 
 			if (const auto ex = tryExecute())
 			{
