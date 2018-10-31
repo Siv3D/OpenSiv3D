@@ -1249,7 +1249,7 @@ namespace s3d
 		return *this;
 	}
 
-	const Circle& Circle::paintFrame(Image& dst, const int32 innerThickness, const int32 outerThickness, const Color& color, const bool antialiased) const
+	const Circle& Circle::paintFrame(Image& dst, const double innerThickness, const double outerThickness, const Color& color, const bool antialiased) const
 	{
 		const int32 yBegin = std::max(static_cast<int32>(y - r - outerThickness), 0);
 		const int32 yEnd = std::min(static_cast<int32>(y + r + 1 + outerThickness), dst.height());
@@ -1438,7 +1438,7 @@ namespace s3d
 		return *this;
 	}
 
-	const Circle& Circle::overwriteFrame(Image& dst, const int32 innerThickness, const int32 outerThickness, const Color& color, const bool antialiased) const
+	const Circle& Circle::overwriteFrame(Image& dst, const double innerThickness, const double outerThickness, const Color& color, const bool antialiased) const
 	{
 		const int32 yBegin = std::max(static_cast<int32>(y - r - outerThickness), 0);
 		const int32 yEnd = std::min(static_cast<int32>(y + r + 1 + outerThickness), dst.height());

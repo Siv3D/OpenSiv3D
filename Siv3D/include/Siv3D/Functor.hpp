@@ -13,6 +13,7 @@
 # include <functional>
 # include <cmath>
 # include "PlaceHolder.hpp"
+# include "Meta.hpp"
 
 namespace s3d
 {
@@ -1079,11 +1080,11 @@ namespace s3d
 			template <class TypeX>
 			[[nodiscard]] constexpr auto operator()(TypeX&& x) const
 			{
-				if constexpr (!std::is_floating_point_v<TypeX> && !std::is_floating_point_v<TypeY>)
+				if constexpr (Meta::HasModulus_v<TypeX, TypeY>)
 				{
 					return std::forward<TypeX>(x) % y;
 				}
-				else
+				else if constexpr (std::is_arithmetic_v<TypeX> && std::is_arithmetic_v<TypeY>)
 				{
 					return std::fmod(x, y);
 				}
@@ -1101,11 +1102,11 @@ namespace s3d
 			template <class TypeY>
 			[[nodiscard]] constexpr auto operator()(TypeY&& y) const
 			{
-				if constexpr (!std::is_floating_point_v<TypeX> && !std::is_floating_point_v<TypeY>)
+				if constexpr (Meta::HasModulus_v<TypeX, TypeY>)
 				{
 					return x % std::forward<TypeY>(y);
 				}
-				else
+				else if constexpr (std::is_arithmetic_v<TypeX> && std::is_arithmetic_v<TypeY>)
 				{
 					return std::fmod(x, y);
 				}
@@ -1117,11 +1118,11 @@ namespace s3d
 			template <class TypeX, class TypeY>
 			constexpr auto operator() (TypeX&& x, TypeY&& y) const
 			{
-				if constexpr (!std::is_floating_point_v<TypeX> && !std::is_floating_point_v<TypeY>)
+				if constexpr (Meta::HasModulus_v<TypeX, TypeY>)
 				{
 					return x % y;
 				}
-				else
+				else if constexpr (std::is_arithmetic_v<TypeX> && std::is_arithmetic_v<TypeY>)
 				{
 					return std::fmod(x, y);
 				}

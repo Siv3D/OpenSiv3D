@@ -31,10 +31,13 @@ namespace s3d
 
 		struct DecimalPlace
 		{
-			explicit constexpr DecimalPlace(int32 v = 5) noexcept : value(v) {}
+			explicit constexpr DecimalPlace(int32 v = 5) noexcept
+				: value(v) {}
 			
 			int32 value;
-		} decimalPlace;
+		} decimalPlace = DecimalPlace(5);
+
+		FormatData() = default;
 	};
 
 	/// <summary>
@@ -433,7 +436,7 @@ namespace s3d
 		formatData.string.append(value);
 	}
 
-	template <class Type>
+	template <class Type, class = decltype(std::declval<std::wostream>() << std::declval<Type>())>
 	inline void Formatter(FormatData& formatData, const Type& value)
 	{
 		std::wostringstream wos;

@@ -53,7 +53,7 @@ namespace s3d
 				TextToSpeech::Speak(Format(args...));
 			}
 
-			template <class Type>
+			template <class Type, class = decltype(Formatter(std::declval<FormatData&>(), std::declval<Type>()))>
 			SayBuffer operator <<(const Type& value) const
 			{
 				SayBuffer buf;

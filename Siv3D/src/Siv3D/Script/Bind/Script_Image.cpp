@@ -312,8 +312,8 @@ namespace s3d
 
 		r = engine->RegisterObjectMethod("Circle", "const Circle& paint(Image& inout, const Color& in, bool antialiased = true) const", asMETHODPR(Circle, paint, (Image&, const Color&, bool) const, const Circle&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Circle", "const Circle& overwrite(Image& inout, const Color& in, bool antialiased = true) const", asMETHODPR(Circle, overwrite, (Image&, const Color&, bool) const, const Circle&), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod("Circle", "const Circle& paintFrame(Image& inout, const Color& in, bool antialiased = true) const", asMETHODPR(Circle, paintFrame, (Image&, int32, int32, const Color&, bool) const, const Circle&), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod("Circle", "const Circle& overwriteFrame(Image& inout, const Color& in, bool antialiased = true) const", asMETHODPR(Circle, overwriteFrame, (Image&, int32, int32, const Color&, bool) const, const Circle&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Circle", "const Circle& paintFrame(Image& inout, double, double, const Color& in, bool antialiased = true) const", asMETHODPR(Circle, paintFrame, (Image&, double, double, const Color&, bool) const, const Circle&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod("Circle", "const Circle& overwriteFrame(Image& inout, double, double, const Color& in, bool antialiased = true) const", asMETHODPR(Circle, overwriteFrame, (Image&, double, double, const Color&, bool) const, const Circle&), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod("Ellipse", "const Ellipse& paint(Image& inout, const Color& in) const", asMETHODPR(Ellipse, paint, (Image&, const Color&) const, const Ellipse&), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod("Ellipse", "const Ellipse& overwrite(Image& inout, const Color& in) const", asMETHODPR(Ellipse, overwrite, (Image&, const Color&) const, const Ellipse&), asCALL_THISCALL); assert(r >= 0);

@@ -444,9 +444,18 @@ namespace s3d
 
 		const Circle& overwrite(Image& dst, const Color& color, bool antialiased = true) const;
 
-		const Circle& paintFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color, bool antialiased = true) const;
+		const Circle& paintFrame(Image& dst, double innerThickness, double outerThickness, const Color& color, bool antialiased = true) const;
 
-		const Circle& overwriteFrame(Image& dst, int32 innerThickness, int32 outerThickness, const Color& color, bool antialiased = true) const;
+		const Circle& overwriteFrame(Image& dst, double innerThickness, double outerThickness, const Color& color, bool antialiased = true) const;
+
+		//const Circle& paintPie(Image& dst, double startAngle, double angle, const Color& color) const;
+
+		//const Circle& overwritePie(Image& dst, double startAngle, double angle, const Color& color) const;
+
+		//const Circle& paintArc(Image& dst, double startAngle, double angle, double innerThickness, double outerThickness, const Color& color) const;
+
+		//const Circle& overwriteArc(Image& dst, double startAngle, double angle, double innerThickness, double outerThickness, const Color& color) const;
+
 
 		/// <summary>
 		/// 円を描きます。
