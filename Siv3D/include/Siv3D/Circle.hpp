@@ -135,7 +135,7 @@ namespace s3d
 		/// 円の半径
 		/// </param>
 		constexpr Circle(Arg::topRight_<position_type> topRight, size_type _r) noexcept
-			: center(topRight->x + _r, topRight->y + _r)
+			: center(topRight->x - _r, topRight->y + _r)
 			, r(_r) {}
 
 		/// <summary>
@@ -228,7 +228,7 @@ namespace s3d
 
 		constexpr Circle& set(Arg::topRight_<position_type> topRight, size_type _r) noexcept
 		{
-			return set(topRight->x + _r, topRight->y + _r, _r);
+			return set(topRight->x - _r, topRight->y + _r, _r);
 		}
 
 		constexpr Circle& set(Arg::bottomLeft_<position_type> bottomLeft, size_type _r) noexcept
@@ -299,7 +299,7 @@ namespace s3d
 
 		constexpr Circle& setPos(Arg::topRight_<position_type> topRight) noexcept
 		{
-			return setCenter(topRight->x + r, topRight->y + r);
+			return setCenter(topRight->x - r, topRight->y + r);
 		}
 
 		constexpr Circle& setPos(Arg::bottomLeft_<position_type> bottomLeft) noexcept
