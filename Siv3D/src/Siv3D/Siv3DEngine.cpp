@@ -28,6 +28,7 @@
 # include "Gamepad/IGamepad.hpp"
 # include "XInput/IXInput.hpp"
 # include "TextInput/ITextInput.hpp"
+# include "EyeTracking/IEyeTracking.hpp"
 # include "Codec/ICodec.hpp"
 # include "AudioFormat/IAudioFormat.hpp"
 # include "SoundFont/ISoundFont.hpp"
@@ -72,6 +73,7 @@ namespace s3d
 		m_soundFont.release();
 		m_audioFormat.release();
 		m_codec.release();
+		m_eyeTracking.release();
 		m_textInput.release();
 		m_xInput.release();
 		m_gamepad.release();

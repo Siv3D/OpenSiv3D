@@ -28,6 +28,7 @@
 # include "../Gamepad/IGamepad.hpp"
 # include "../XInput/IXInput.hpp"
 # include "../TextInput/ITextInput.hpp"
+# include "../EyeTracking/IEyeTracking.hpp"
 # include "../Codec/ICodec.hpp"
 # include "../AudioFormat/IAudioFormat.hpp"
 # include "../Audio/IAudio.hpp"
@@ -125,6 +126,11 @@ namespace s3d
 		}
 
 		if (!Siv3DEngine::GetTextInput()->init())
+		{
+			return false;
+		}
+
+		if (!Siv3DEngine::GetEyeTracking()->init())
 		{
 			return false;
 		}

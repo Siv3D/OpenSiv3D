@@ -329,20 +329,19 @@ namespace s3d
 
 		const size_t size = sizeof(char16_t) * (text.length() + 1);
 
-		HANDLE hData = ::GlobalAlloc(GMEM_MOVEABLE, size);
+		if (HANDLE hData = ::GlobalAlloc(GMEM_MOVEABLE, size))
+		{
+			void* pDst = ::GlobalLock(hData);
 
-		void* pDst = ::GlobalLock(hData);
+			::memcpy(pDst, text.data(), size);
 
-		::memcpy(pDst, text.data(), size);
+			::GlobalUnlock(hData);
 
-		::GlobalUnlock(hData);
-			
-		::SetClipboardData(CF_UNICODETEXT, hData);
+			::SetClipboardData(CF_UNICODETEXT, hData);
+		}
 
-		::GlobalFree(hData);
-						
 		::CloseClipboard();
-
+						
 		m_sequenceNumber = ::GetClipboardSequenceNumber();
 	}
 
