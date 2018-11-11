@@ -32,7 +32,6 @@ namespace s3d
 	class ISiv3DGamepad;
 	class ISiv3DXInput;
 	class ISiv3DTextInput;
-	class ISiv3DEyeTracking;
 	class ISiv3DCodec;
 	class ISiv3DAudioFormat;
 	class ISiv3DSoundFont;
@@ -122,8 +121,6 @@ namespace s3d
 		Siv3DComponent<ISiv3DXInput> m_xInput;
 
 		Siv3DComponent<ISiv3DTextInput> m_textInput;
-
-		Siv3DComponent<ISiv3DEyeTracking> m_eyeTracking;
 
 		Siv3DComponent<ISiv3DCodec> m_codec;
 
@@ -263,11 +260,6 @@ namespace s3d
 		static ISiv3DTextInput* GetTextInput()
 		{
 			return pEngine->m_textInput.get();
-		}
-
-		static ISiv3DEyeTracking* GetEyeTracking()
-		{
-			return pEngine->m_eyeTracking.get();
 		}
 
 		static ISiv3DCodec* GetCodec()

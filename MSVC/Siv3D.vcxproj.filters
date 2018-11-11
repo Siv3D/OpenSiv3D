@@ -791,9 +791,6 @@
     <Filter Include="src\Siv3D\Microphone">
       <UniqueIdentifier>{0eef95c7-491a-4267-ba42-3a9b88e64dd9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Siv3D\EyeTracking">
-      <UniqueIdentifier>{b9b015eb-5796-4c9b-b672-c2411a5fb13e}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Siv3D\src\Siv3D\Byte\SivByte.cpp">
@@ -2433,18 +2430,6 @@
     </ClCompile>
     <ClCompile Include="..\Siv3D\src\Siv3D\Microphone\MicrophoneDetail_Linux.cpp">
       <Filter>src\Siv3D\Microphone</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\EyeTracking\CEyeTracking_Windows.cpp">
-      <Filter>src\Siv3D\EyeTracking</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\EyeTracking\EyeTrackingFactory.cpp">
-      <Filter>src\Siv3D\EyeTracking</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\EyeTracking\SivEyeTracking.cpp">
-      <Filter>src\Siv3D\EyeTracking</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Siv3D\src\Siv3D\EyeTracking\CEyeTracking_macOS.cpp">
-      <Filter>src\Siv3D\EyeTracking</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -4796,15 +4781,6 @@
     </ClInclude>
     <ClInclude Include="..\Siv3D\include\Siv3D\EyeTracking.hpp">
       <Filter>include\Siv3D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\Siv3D\EyeTracking\CEyeTracking_macOS.hpp">
-      <Filter>src\Siv3D\EyeTracking</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\Siv3D\EyeTracking\CEyeTracking_Windows.hpp">
-      <Filter>src\Siv3D\EyeTracking</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Siv3D\src\Siv3D\EyeTracking\IEyeTracking.hpp">
-      <Filter>src\Siv3D\EyeTracking</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
