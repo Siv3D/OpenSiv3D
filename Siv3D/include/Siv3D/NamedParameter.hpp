@@ -118,7 +118,7 @@ namespace s3d
 
 	# define SIV3D_NAMED_PARAMETER(name) \
 	constexpr auto name = NamedParameterHelper<struct name##_tag>{};\
-	template <class Type> using name##_ = NamedParameterHelper<struct name##_tag>::named_argument_type<Type>
+	template <class Type> using name##_ = typename NamedParameterHelper<struct name##_tag>::template named_argument_type<Type>
 }
 
 namespace s3d
