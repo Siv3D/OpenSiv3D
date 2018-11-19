@@ -730,8 +730,6 @@
 	//# include "Siv3D/KinectV1.hpp"
 	//// Kinect V2
 	//# include "Siv3D/KinectV2.hpp"
-	// Eye-tracking
-	# include "Siv3D/EyeTracking.hpp"
 
 //////////////////////////////////////////////////
 //

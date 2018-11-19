@@ -636,7 +636,6 @@
     <ClInclude Include="..\Siv3D\include\Siv3D\EmojiDictionary.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Evaluater.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\Exif.hpp" />
-    <ClInclude Include="..\Siv3D\include\Siv3D\EyeTracking.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FFT.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FileSystem.hpp" />
     <ClInclude Include="..\Siv3D\include\Siv3D\FloatFormat.hpp" />
