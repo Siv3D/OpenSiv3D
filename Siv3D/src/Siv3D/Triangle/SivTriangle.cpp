@@ -122,14 +122,14 @@ namespace s3d
 
 	const Triangle& Triangle::paintFrame(Image& dst, const int32 thickness, const Color& color) const
 	{
-		LineString{ p0, p1, p2 }.paint(dst, thickness, color, true);
+		LineString{ p0, p1, p2 }.paintClosed(dst, thickness, color);
 
 		return *this;
 	}
 
 	const Triangle& Triangle::overwriteFrame(Image& dst, const int32 thickness, const Color& color, const bool antialiased) const
 	{
-		LineString{ p0, p1, p2 }.overwrite(dst, thickness, color, true, antialiased);
+		LineString{ p0, p1, p2 }.overwriteClosed(dst, thickness, color, antialiased);
 
 		return *this;
 	}

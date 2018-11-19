@@ -81,7 +81,7 @@ namespace s3d
 				return write(Format(args..., U'\n'));
 			}
 
-			template <class Type>
+			template <class Type, class = decltype(Formatter(std::declval<FormatData&>(), std::declval<Type>()))>
 			ConsoleBuffer operator <<(const Type& value) const
 			{
 				ConsoleBuffer buf;

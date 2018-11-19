@@ -139,14 +139,14 @@ namespace s3d
 
 	const RoundRect& RoundRect::paintFrame(Image& dst, const int32 innerThickness, const int32 outerThickness, const Color& color) const
 	{
-		LineString(detail::GetOuterVertices(*this, (outerThickness - innerThickness) * 0.5)).paint(dst, (outerThickness + innerThickness), color, true);
+		LineString(detail::GetOuterVertices(*this, (outerThickness - innerThickness) * 0.5)).paintClosed(dst, (outerThickness + innerThickness), color);
 
 		return *this;
 	}
 
 	const RoundRect& RoundRect::overwriteFrame(Image& dst, const int32 innerThickness, const int32 outerThickness, const Color& color, const bool antialiased) const
 	{
-		LineString(detail::GetOuterVertices(*this, (outerThickness - innerThickness) * 0.5)).overwrite(dst, (outerThickness + innerThickness), color, true, antialiased);
+		LineString(detail::GetOuterVertices(*this, (outerThickness - innerThickness) * 0.5)).overwriteClosed(dst, (outerThickness + innerThickness), color, antialiased);
 
 		return *this;
 	}

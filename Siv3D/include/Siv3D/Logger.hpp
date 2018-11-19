@@ -87,7 +87,7 @@ namespace s3d
 				writeln(Format(args...));
 			}
 
-			template <class Type>
+			template <class Type, class = decltype(Formatter(std::declval<FormatData&>(), std::declval<Type>()))>
 			LoggerBuffer operator <<(const Type& value) const
 			{
 				LoggerBuffer buf;

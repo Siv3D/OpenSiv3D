@@ -730,8 +730,6 @@
 	//# include "Siv3D/KinectV1.hpp"
 	//// Kinect V2
 	//# include "Siv3D/KinectV2.hpp"
-	// Tobii
-	//# include "Siv3D/Tobii.hpp"
 
 //////////////////////////////////////////////////
 //

@@ -824,7 +824,7 @@ namespace s3d
 		return m_polygon;
 	}
 
-	Polygon LineString::calculateBuffer(const double distance, const bool isClosed, const int32 quality) const
+	Polygon LineString::_calculateBuffer(const double distance, const int32 quality, const bool isClosed) const
 	{
 		if (size() < 2)
 		{
@@ -878,7 +878,7 @@ namespace s3d
 
 				holes[i].assign(resultHole.begin(), resultHole.end());
 			}
-		}	
+		}
 
 		Array<Vec2> outer2;
 

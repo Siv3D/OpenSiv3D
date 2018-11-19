@@ -46,8 +46,8 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 getPos(double) const", asMETHOD(ShapeType, getPos), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Vec2 getTangent(double) const", asMETHOD(ShapeType, getTangent), asCALL_THISCALL); assert(r >= 0);
 
-		//[[nodiscard]] LineString getLineString(const uint32 quality = 24) const
-		//[[nodiscard]] LineString getLineString(double start, double end, uint32 quality = 24) const;
+		r = engine->RegisterObjectMethod(TypeName, "LineString getLineString(uint32 quality = 24) const", asMETHODPR(ShapeType, getLineString, (uint32) const, LineString), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "LineString getLineString(double start, double end, uint32 quality = 24) const", asMETHODPR(ShapeType, getLineString, (double, double, uint32) const, LineString), asCALL_THISCALL); assert(r >= 0);
 
 		//r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Point& in) const", asMETHODPR(ShapeType, intersects, (const Point&) const, bool), asCALL_THISCALL); assert(r >= 0);
 		//r = engine->RegisterObjectMethod(TypeName, "bool intersects(const Vec2& in) const", asMETHODPR(ShapeType, intersects, (const Vec2&) const, bool), asCALL_THISCALL); assert(r >= 0);

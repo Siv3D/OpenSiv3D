@@ -150,16 +150,24 @@ namespace s3d
 		//r = engine->RegisterObjectMethod(TypeName, "bool intersects(const MultiPolygon& in) const", asMETHODPR(ShapeType, intersects, (const MultiPolygon&) const, bool), asCALL_THISCALL); assert(r >= 0);
 		//r = engine->RegisterObjectMethod(TypeName, "bool intersects(const LineString& in) const", asMETHODPR(ShapeType, intersects, (const LineString&) const, bool), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "LineString catmullRom(bool isClosed = false, int32 interpolation = 24) const", asMETHOD(ShapeType, catmullRom), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "LineString catmullRom(int32 interpolation = 24) const", asMETHOD(ShapeType, catmullRom), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "LineString catmullRomClosed(int32 interpolation = 24) const", asMETHOD(ShapeType, catmullRomClosed), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "const LineString& draw(const ColorF& in = Palette::White, bool isClosed = false) const", asMETHODPR(ShapeType, draw, (const ColorF&, bool) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "const LineString& draw(double, const ColorF& in = Palette::White, bool isClosed = false) const", asMETHODPR(ShapeType, draw, (double, const ColorF&, bool) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "const LineString& draw(const LineStyle& in, double, const ColorF& in = Palette::White, bool isClosed = false) const", asMETHODPR(ShapeType, draw, (const LineStyle&, double, const ColorF&, bool) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Polygon calculateBuffer(double distance, int32 quality = 24) const", asMETHOD(ShapeType, calculateBuffer), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Polygon calculateBufferClosed(double distance, int32 quality = 24) const", asMETHOD(ShapeType, calculateBufferClosed), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "void drawCatmullRom(const ColorF& in = Palette::White, bool isClosed = false, int32 interpolation = 24) const", asMETHODPR(ShapeType, drawCatmullRom, (const ColorF&, bool, int32) const, void), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void drawCatmullRom(double, const ColorF& in = Palette::White, bool isClosed = false, int32 interpolation = 24) const", asMETHODPR(ShapeType, drawCatmullRom, (double, const ColorF&, bool, int32) const, void), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "void drawCatmullRom(const LineStyle& in, double, const ColorF& in = Palette::White, bool isClosed = false, int32 interpolation = 24) const", asMETHODPR(ShapeType, drawCatmullRom, (const LineStyle&, double, const ColorF&, bool, int32) const, void), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "const LineString& draw(const ColorF& in = Palette::White) const", asMETHODPR(ShapeType, draw, (const ColorF&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "const LineString& draw(double, const ColorF& in = Palette::White) const", asMETHODPR(ShapeType, draw, (double, const ColorF&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "const LineString& draw(const LineStyle& in, double, const ColorF& in = Palette::White) const", asMETHODPR(ShapeType, draw, (const LineStyle&, double, const ColorF&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "const LineString& drawClosed(const ColorF& in = Palette::White) const", asMETHODPR(ShapeType, drawClosed, (const ColorF&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "const LineString& drawClosed(double, const ColorF& in = Palette::White) const", asMETHODPR(ShapeType, drawClosed, (double, const ColorF&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "const LineString& drawClosed(const LineStyle& in, double, const ColorF& in = Palette::White) const", asMETHODPR(ShapeType, drawClosed, (const LineStyle&, double, const ColorF&) const, const ShapeType&), asCALL_THISCALL); assert(r >= 0);
 
-		r = engine->RegisterObjectMethod(TypeName, "Polygon calculateBuffer(double distance, bool isClosed = false, int32 quality = 24) const", asMETHOD(ShapeType, catmullRom), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void drawCatmullRom(const ColorF& in = Palette::White, int32 interpolation = 24) const", asMETHODPR(ShapeType, drawCatmullRom, (const ColorF&, int32) const, void), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void drawCatmullRom(double, const ColorF& in = Palette::White, int32 interpolation = 24) const", asMETHODPR(ShapeType, drawCatmullRom, (double, const ColorF&, int32) const, void), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void drawCatmullRom(const LineStyle& in, double, const ColorF& in = Palette::White, int32 interpolation = 24) const", asMETHODPR(ShapeType, drawCatmullRom, (const LineStyle&, double, const ColorF&, int32) const, void), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void drawCatmullRomClosed(const ColorF& in = Palette::White, int32 interpolation = 24) const", asMETHODPR(ShapeType, drawCatmullRomClosed, (const ColorF&, int32) const, void), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void drawCatmullRomClosed(double, const ColorF& in = Palette::White, int32 interpolation = 24) const", asMETHODPR(ShapeType, drawCatmullRomClosed, (double, const ColorF&, int32) const, void), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "void drawCatmullRomClosed(const LineStyle& in, double, const ColorF& in = Palette::White, int32 interpolation = 24) const", asMETHODPR(ShapeType, drawCatmullRomClosed, (const LineStyle&, double, const ColorF&, int32) const, void), asCALL_THISCALL); assert(r >= 0);
 	}
 }
