@@ -11,10 +11,6 @@ void Main()
 
 	while (System::Update())
 	{
-		ClearPrint();
-		
-		Print << Profiler::FPS() << U"FPS";
-		
 		font(U"Hello, Siv3D!🐣").drawAt(Window::Center(), Palette::Black);
 
 		font(Cursor::Pos()).draw(20, 500, ColorF(0.6));

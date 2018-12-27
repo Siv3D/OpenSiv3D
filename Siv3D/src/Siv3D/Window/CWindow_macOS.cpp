@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -118,6 +118,17 @@ namespace s3d
 		int32 windowPosX, windowPosY;
 		::glfwGetWindowPos(m_glfwWindow, &windowPosX, &windowPosY);
 		m_state.pos.set(windowPosX, windowPosY);
+        
+        // Mojave workaround
+        if (Siv3DEngine::GetSystem()->getSystemFrameCount() == 1)
+        {
+            if (windowPosX != 0 && windowPosY != 0 && !m_state.fullScreen)
+            {
+                ::glfwSetWindowPos(m_glfwWindow, windowPosX + 1, windowPosY);
+                
+                ::glfwSetWindowPos(m_glfwWindow, windowPosX, windowPosY);
+            }
+        }
 		
 		int32 windowSizeX, windowSizeY;
 		::glfwGetWindowSize(m_glfwWindow, &windowSizeX, &windowSizeY);
