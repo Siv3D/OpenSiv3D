@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
@@ -202,6 +202,8 @@ namespace s3d
 		{
 			::glfwSwapBuffers(m_glfwWindow);
 			
+        # if defined(SIV3D_TARGET_LINUX) // [Siv3D ToDo] Linux でこの中のコードが不要かどうか調査
+            
 			if (::glfwGetWindowAttrib(m_glfwWindow, GLFW_ICONIFIED)
 				|| !::glfwGetWindowAttrib(m_glfwWindow, GLFW_VISIBLE)
 				|| !::glfwGetWindowAttrib(m_glfwWindow, GLFW_FOCUSED) // work around
@@ -209,6 +211,8 @@ namespace s3d
 			{
 				System::Sleep(16);
 			}
+        # endif
+            
 		}
 		else
 		{

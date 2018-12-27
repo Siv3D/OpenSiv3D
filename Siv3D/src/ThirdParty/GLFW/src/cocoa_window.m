@@ -458,6 +458,19 @@ static const NSRange kEmptyRange = { NSNotFound, 0 };
     return YES;
 }
 
+- (BOOL)wantsUpdateLayer
+{
+    return YES;
+}
+
+- (void)updateLayer
+{
+    if (window->context.client != GLFW_NO_API)
+        [window->context.nsgl.object update];
+    
+    _glfwInputWindowDamage(window);
+}
+
 - (void)cursorUpdate:(NSEvent *)event
 {
     updateCursorImage(window);
