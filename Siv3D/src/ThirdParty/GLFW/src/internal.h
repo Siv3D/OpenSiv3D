@@ -499,6 +499,16 @@ extern _GLFWlibrary _glfw;
 // Platform API functions
 //========================================================================
 
+//-----------------------------------------------
+//
+//    [Siv3D]
+//
+#ifdef __cplusplus
+extern "C" {
+#endif
+//
+//-----------------------------------------------
+
 /*! @brief Initializes the platform-specific part of the library.
  *  @return `GLFW_TRUE` if successful, or `GLFW_FALSE` if an error occurred.
  *  @ingroup platform
@@ -1048,5 +1058,15 @@ void _glfwTerminateVulkan(void);
 /*! @ingroup utility
  */
 const char* _glfwGetVulkanResultString(VkResult result);
+
+//-----------------------------------------------
+//
+//    [Siv3D]
+//
+#ifdef __cplusplus
+}
+#endif
+//
+//-----------------------------------------------
 
 #endif // _glfw3_internal_h_

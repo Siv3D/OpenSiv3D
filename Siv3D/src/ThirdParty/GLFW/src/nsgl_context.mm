@@ -26,6 +26,25 @@
 
 #include "internal.h"
 
+//-----------------------------------------------
+//
+//    [Siv3D]
+//
+#include <QuartzCore/CVDisplayLink.h>
+#include <atomic>
+#include <mutex>
+#include <condition_variable>
+
+CVDisplayLinkRef displayLink;
+std::mutex swapIntervalMutex;
+std::condition_variable swapIntervalCond;
+std::atomic_int swapIntervalSetting;
+std::atomic_int swapIntervalsPassed;
+
+extern "C"
+{
+//
+//-----------------------------------------------
 
 static void makeContextCurrentNSGL(_GLFWwindow* window)
 {
@@ -39,6 +58,14 @@ static void makeContextCurrentNSGL(_GLFWwindow* window)
 
 static void swapBuffersNSGL(_GLFWwindow* window)
 {
+    //-----------------------------------------------
+    //
+    //    [Siv3D]
+    //
+    Siv3D_WaitVSync();
+    //
+    //-----------------------------------------------
+    
     // ARP appears to be unnecessary, but this is future-proof
     [window->context.nsgl.object flushBuffer];
 }
@@ -64,8 +91,14 @@ static GLFWglproc getProcAddressNSGL(const char* procname)
                                                        procname,
                                                        kCFStringEncodingASCII);
 
-    GLFWglproc symbol = CFBundleGetFunctionPointerForName(_glfw.nsgl.framework,
-                                                          symbolName);
+    //-----------------------------------------------
+    //
+    //    [Siv3D]
+    //
+    GLFWglproc symbol = (GLFWglproc)CFBundleGetFunctionPointerForName(_glfw.nsgl.framework,
+                                                                      symbolName);
+    //
+    //-----------------------------------------------
 
     CFRelease(symbolName);
 
@@ -76,12 +109,43 @@ static GLFWglproc getProcAddressNSGL(const char* procname)
 //
 static void destroyContextNSGL(_GLFWwindow* window)
 {
+    //-----------------------------------------------
+    //
+    //    [Siv3D]
+    //
+    if (displayLink)
+    {
+        CVDisplayLinkRelease(displayLink);
+    }
+    //
+    //-----------------------------------------------
+    
     [window->context.nsgl.pixelFormat release];
     window->context.nsgl.pixelFormat = nil;
 
     [window->context.nsgl.object release];
     window->context.nsgl.object = nil;
 }
+    
+//-----------------------------------------------
+//
+//    [Siv3D]
+//
+static CVReturn DisplayLinkCallback(CVDisplayLinkRef, const CVTimeStamp*, const CVTimeStamp*, CVOptionFlags, CVOptionFlags*, void*)
+{
+    const int setting = swapIntervalSetting;
+    
+    if (setting != 0)
+    {
+        std::lock_guard<std::mutex> lock(swapIntervalMutex);
+        ++swapIntervalsPassed;
+        swapIntervalCond.notify_one();
+    }
+    
+    return kCVReturnSuccess;
+}
+//
+//-----------------------------------------------
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -284,8 +348,63 @@ GLFWbool _glfwCreateContextNSGL(_GLFWwindow* window,
     window->context.getProcAddress = getProcAddressNSGL;
     window->context.destroy = destroyContextNSGL;
 
+    //-----------------------------------------------
+    //
+    //    [Siv3D]
+    //
+    swapIntervalSetting = 1;
+    swapIntervalsPassed = 0;
+    
+    CVDisplayLinkCreateWithActiveCGDisplays(&displayLink);
+    CVDisplayLinkSetOutputCallback(displayLink, &DisplayLinkCallback, &window->context);
+    CVDisplayLinkStart(displayLink);
+    //
+    //-----------------------------------------------
+
     return GLFW_TRUE;
 }
+    
+//-----------------------------------------------
+//
+//    [Siv3D]
+//
+void Siv3D_WaitVSync(void)
+{
+    //
+    // https://hg.libsdl.org/SDL/rev/73f3ca85ac0e
+    //
+    
+    const int setting = swapIntervalSetting;
+    
+    if (setting == 0)
+    {
+        
+    }
+    else if (setting < 0)
+    {
+        std::unique_lock<std::mutex> lock(swapIntervalMutex);
+        
+        while (swapIntervalsPassed == 0)
+        {
+            swapIntervalCond.wait(lock);
+        }
+        
+        swapIntervalsPassed = 0;
+    }
+    else
+    {
+        std::unique_lock<std::mutex> lock(swapIntervalMutex);
+        
+        do
+        {
+            swapIntervalCond.wait(lock);
+        }while ((swapIntervalsPassed % setting) != 0);
+        
+        swapIntervalsPassed = 0;
+    }
+}
+//
+//-----------------------------------------------
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -306,3 +425,9 @@ GLFWAPI id glfwGetNSGLContext(GLFWwindow* handle)
     return window->context.nsgl.object;
 }
 
+//-----------------------------------------------
+//
+//    [Siv3D]
+//
+}
+//

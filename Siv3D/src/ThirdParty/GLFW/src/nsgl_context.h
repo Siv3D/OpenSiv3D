@@ -30,6 +30,15 @@
 #define _GLFW_PLATFORM_CONTEXT_STATE            _GLFWcontextNSGL nsgl
 #define _GLFW_PLATFORM_LIBRARY_CONTEXT_STATE    _GLFWlibraryNSGL nsgl
 
+//-----------------------------------------------
+//
+//    [Siv3D]
+//
+#ifdef __cplusplus
+extern "C" {
+#endif
+//
+//-----------------------------------------------
 
 // NSGL-specific per-context data
 //
@@ -56,5 +65,18 @@ GLFWbool _glfwCreateContextNSGL(_GLFWwindow* window,
                                 const _GLFWctxconfig* ctxconfig,
                                 const _GLFWfbconfig* fbconfig);
 void _glfwDestroyContextNSGL(_GLFWwindow* window);
-
+    
+//-----------------------------------------------
+//
+//    [Siv3D]
+//
+    
+void Siv3D_WaitVSync(void);
+    
+#ifdef __cplusplus
+}
+#endif
+//
+//-----------------------------------------------
+    
 #endif // _glfw3_nsgl_context_h_
