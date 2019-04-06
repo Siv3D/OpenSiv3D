@@ -27,7 +27,7 @@ namespace s3d
 		constexpr NamedParameter()
 			: m_value() {}
 
-		explicit constexpr NamedParameter(Type value)
+		constexpr NamedParameter(Type value)
 			: m_value(value) {}
 
 		template <class U, class V = Type, std::enable_if_t<std::is_convertible_v<U, V>>* = nullptr>
@@ -92,19 +92,19 @@ namespace s3d
 		using named_argument_type = NamedParameter<Tag, Type>;
 
 		template <class Type>
-		constexpr NamedParameter<Tag, std::decay_t<Type>> operator= (Type&& value) const
+		constexpr NamedParameter<Tag, std::decay_t<Type>> operator =(Type&& value) const
 		{
 			return NamedParameter<Tag, std::decay_t<Type>>(std::forward<Type>(value));
 		}
 
 		template <class... Args>
-		constexpr NamedParameter<Tag, std::tuple<Args...>> operator() (const Args&... args) const
+		constexpr NamedParameter<Tag, std::tuple<Args...>> operator()(const Args&... args) const
 		{
 			return NamedParameter<Tag, std::tuple<Args...>>(std::make_tuple(args...));
 		}
 
 		template <class Type>
-		constexpr NamedParameter<Tag, Type&> operator= (std::reference_wrapper<Type> value) const
+		constexpr NamedParameter<Tag, Type&> operator =(std::reference_wrapper<Type> value) const
 		{
 			return NamedParameter<Tag, Type&>(value.get());
 		}
@@ -115,11 +115,12 @@ namespace s3d
 			return NamedParameter<Tag, Type&>(value.get());
 		}
 	};
-
-	# define SIV3D_NAMED_PARAMETER(name) \
-	constexpr auto name = NamedParameterHelper<struct name##_tag>{};\
-	template <class Type> using name##_ = typename NamedParameterHelper<struct name##_tag>::template named_argument_type<Type>
 }
+
+# define SIV3D_NAMED_PARAMETER(name) \
+inline constexpr auto name = s3d::NamedParameterHelper<struct name##_tag>{};\
+template <class Type> using name##_ = s3d::NamedParameter<struct name##_tag, Type>
+
 
 namespace s3d
 {

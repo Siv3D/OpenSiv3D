@@ -773,8 +773,6 @@ struct Result : MyApp::Scene
 
 void Main()
 {
-	const auto p = MakeShared<GameData>();
-
 	MyApp manager;
 	manager
 		.add<Title>(U"Title")
