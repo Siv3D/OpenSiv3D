@@ -2,6 +2,11 @@
 
 **OpenSiv3D** is a C++17 framework for games and interactive media.  
 
+## Installation Guide & Documentation
+
+- English: https://siv3d.github.io/
+- 日本語: https://siv3d.github.io/ja-jp/
+
 ## SDK Downloads
 
 | Platform        | Version        | Date       | Requirements                  |
@@ -10,8 +15,3 @@
 | macOS           | [**0.4.0**](#)     | ?? ??? 2019 | macOS High Sierra v10.13 or newer<br>Xcode 10.2 or newer |
 | Linux           | **0.4.0α** (experimental)  | ?? ???? 2019 | |
 | iOS | TBA  |  |  |
-
-## Installation Guide & Documentation
-
-- English: https://siv3d.github.io/
-- 日本語: https://siv3d.github.io/ja-jp/
