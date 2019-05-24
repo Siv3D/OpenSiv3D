@@ -11,11 +11,29 @@
 
 # include <Siv3D/Script.hpp>
 # include <Siv3D/Window.hpp>
+# include "Script_Optional.hpp"
 # include "ScriptBind.hpp"
 
 namespace s3d
 {
 	using namespace AngelScript;
+
+	void SetFullscreen1(bool fullscreen, const CScriptOptional& fullscreenResolution)
+	{
+		if (fullscreenResolution.HasValue())
+		{
+			Window::SetFullscreen(fullscreen , *static_cast<const Size*>(fullscreenResolution.At()));
+		}
+		else
+		{
+			Window::SetFullscreen(fullscreen);
+		}
+	}
+
+	void SetFullscreen2(bool fullscreen, uint8)
+	{
+		Window::SetFullscreen(fullscreen);
+	}
 
 	void RegisterWindow(asIScriptEngine* engine)
 	{
@@ -56,8 +74,11 @@ namespace s3d
 			r = engine->RegisterGlobalFunction("bool Resize(int32, int32, WindowResizeOption option = WindowResizeOption::ResizeSceneSize, bool resize = true)", asFUNCTIONPR(Window::Resize, (int32, int32, WindowResizeOption, bool), bool), asCALL_CDECL); assert(r >= 0);
 
 			r = engine->RegisterGlobalFunction("void Maximize()", asFUNCTION(Window::Maximize), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("void Restore()", asFUNCTION(Window::Restore), asCALL_CDECL); assert(r >= 0);
 			r = engine->RegisterGlobalFunction("void Minimize()", asFUNCTION(Window::Minimize), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("void SetFullscreen(bool)", asFUNCTION(Window::SetFullscreen), asCALL_CDECL); assert(r >= 0);
+
+			r = engine->RegisterGlobalFunction("void SetFullscreen(bool, const Optional<Point>& in = unspecified)", asFUNCTION(SetFullscreen1), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("void SetFullscreen(bool, None_t)", asFUNCTION(SetFullscreen2), asCALL_CDECL); assert(r >= 0);
 		}
 		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 	}
