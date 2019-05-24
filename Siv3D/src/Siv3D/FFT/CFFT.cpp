@@ -2,17 +2,18 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include "CFFT.hpp"
 # include <Siv3D/FFT.hpp>
 # include <Siv3D/Wave.hpp>
-# include <Siv3D/Logger.hpp>
+# include <Siv3D/AlignedMemory.hpp>
+# include <Siv3D/EngineLog.hpp>
+# include "CFFT.hpp"
 
 namespace s3d
 {
@@ -23,6 +24,8 @@ namespace s3d
 
 	CFFT::~CFFT()
 	{
+		LOG_TRACE(U"CFFT::~CFFT()");
+
 		AlignedFree(m_workBuffer);
 
 		AlignedFree(m_inoutBuffer);
@@ -38,8 +41,10 @@ namespace s3d
 		}
 	}
 
-	bool CFFT::init()
+	void CFFT::init()
 	{
+		LOG_TRACE(U"CFFT::init()");
+
 		int32 i = 0;
 
 		for (auto& setup : m_setups)
@@ -51,9 +56,7 @@ namespace s3d
 
 		m_workBuffer = AlignedMalloc<float, 16>(16384);
 
-		LOG_INFO(U"ℹ️ FFT initialized");
-
-		return true;
+		LOG_INFO(U"ℹ️ CFFT initialized");
 	}
 
 	void CFFT::fft(FFTResult& result, const Wave& wave, uint32 pos, const FFTSampleLength sampleLength)
@@ -95,7 +98,7 @@ namespace s3d
 		{
 			if (pos == 0)
 			{
-				pos = wave.size();
+				pos = static_cast<uint32>(wave.size());
 			}
 
 			const auto& sample = wave[--pos];
@@ -108,7 +111,7 @@ namespace s3d
 
 	void CFFT::fft(FFTResult& result, const float* input, size_t size, const uint32 samplingRate, const FFTSampleLength sampleLength)
 	{
-		::memcpy(m_inoutBuffer, input, sizeof(float) * size);
+		std::memcpy(m_inoutBuffer, input, sizeof(float) * size);
 
 		doFFT(result, samplingRate, sampleLength);
 	}

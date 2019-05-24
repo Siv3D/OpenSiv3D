@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -561,9 +561,9 @@ namespace s3d
 	constexpr Key KeyPlayPauseMedia{ InputDevice::Keyboard, 0xB3 };
 
 	/// <summary>
-	/// JP : キー
+	/// JIS : キー
 	/// </summary>
-	constexpr Key KeyColon_JP{ InputDevice::Keyboard, 0xBA };
+	constexpr Key KeyColon_JIS{ InputDevice::Keyboard, 0xBA };
 
 	/// <summary>
 	/// US ; キー
@@ -571,9 +571,9 @@ namespace s3d
 	constexpr Key KeySemicolon_US{ InputDevice::Keyboard, 0xBA };
 
 	/// <summary>
-	/// JP ; キー
+	/// JIS ; キー
 	/// </summary>
-	constexpr Key KeySemicolon_JP{ InputDevice::Keyboard, 0xBB };
+	constexpr Key KeySemicolon_JIS{ InputDevice::Keyboard, 0xBB };
 
 	/// <summary>
 	/// US = キー
@@ -626,9 +626,9 @@ namespace s3d
 	constexpr Key KeyLBracket{ InputDevice::Keyboard, 0xDB };
 
 	/// <summary>
-	/// JP ￥ キー
+	/// JIS ￥ キー
 	/// </summary>
-	constexpr Key KeyYen_JP{ InputDevice::Keyboard, 0xDC };
+	constexpr Key KeyYen_JIS{ InputDevice::Keyboard, 0xDC };
 
 	/// <summary>
 	/// US \ キー
@@ -641,9 +641,9 @@ namespace s3d
 	constexpr Key KeyRBracket{ InputDevice::Keyboard, 0xDD };
 
 	/// <summary>
-	/// JP ^ キー
+	/// JIS ^ キー
 	/// </summary>
-	constexpr Key KeyCaret_JP{ InputDevice::Keyboard, 0xDE };
+	constexpr Key KeyCaret_JIS{ InputDevice::Keyboard, 0xDE };
 
 	/// <summary>
 	/// US ' キー
@@ -651,7 +651,7 @@ namespace s3d
 	constexpr Key KeyApostrophe_US{ InputDevice::Keyboard, 0xDE };
 
 	/// <summary>
-	/// JP \ キー
+	/// JIS \ キー
 	/// </summary>
-	constexpr Key KeyBackslash_JP{ InputDevice::Keyboard, 0xE2 };
+	constexpr Key KeyUnderscore_JIS{ InputDevice::Keyboard, 0xE2 };
 }

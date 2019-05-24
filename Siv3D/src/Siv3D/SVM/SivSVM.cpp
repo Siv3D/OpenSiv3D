@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -19,8 +19,30 @@ namespace s3d
 {
 	namespace SVM
 	{
+		Paramter DefaultParameter(const size_t maxIndex)
+		{
+			Paramter param;
+			param.svm_type		= C_SVC;
+			param.kernel_type	= RBF;
+			param.degree		= 3;
+			param.gamma			= 1.0 / maxIndex;
+			param.coef0			= 0;
+			param.nu			= 0.5;
+			param.cache_size	= 100;
+			param.C				= 1;
+			param.eps			= 1e-3;
+			param.p				= 0.1;
+			param.shrinking		= 1;
+			param.probability	= 0;
+			param.nr_weight		= 0;
+			param.weight_label	= nullptr;
+			param.weight		= nullptr;
+
+			return param;
+		}
+
 		Problem::Problem()
-			: pImpl(std::make_shared<CProblem>())
+			: pImpl(std::make_shared<ProblemDetail>())
 		{
 
 		}
@@ -116,7 +138,7 @@ namespace s3d
 
 
 		PredictModel::PredictModel()
-			: pImpl(std::make_shared<CPredictModel>())
+			: pImpl(std::make_shared<PredictModelDetail>())
 		{
 
 		}

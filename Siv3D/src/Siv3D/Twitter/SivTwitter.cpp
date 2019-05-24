@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,6 +13,7 @@
 # include <Siv3D/String.hpp>
 # include <Siv3D/FormatUtility.hpp>
 # include <Siv3D/System.hpp>
+# include <Siv3D/Char.hpp>
 
 namespace s3d
 {
@@ -47,24 +48,34 @@ namespace s3d
 			return System::LaunchBrowser(U"https://twitter.com/intent/tweet?text=" + detail::PercentEncode(text));
 		}
 
-		bool OpenLikeWindow(uint64 id)
+		bool OpenLikeWindow(const uint64 tweetID)
 		{
-			return System::LaunchBrowser(U"https://twitter.com/intent/like?tweet_id=" + ToString(id));
+			return System::LaunchBrowser(U"https://twitter.com/intent/like?tweet_id=" + ToString(tweetID));
 		}
 
-		bool OpenRetweetWindow(uint64 id)
+		bool OpenRetweetWindow(const uint64 tweetID)
 		{
-			return System::LaunchBrowser(U"https://twitter.com/intent/retweet?tweet_id=" + ToString(id));
+			return System::LaunchBrowser(U"https://twitter.com/intent/retweet?tweet_id=" + ToString(tweetID));
 		}
 
-		bool OpenMiniProfileWindow(const StringView screenName)
+		bool OpenMiniProfileWindow(const StringView screen_name)
 		{
-			return System::LaunchBrowser(U"https://twitter.com/intent/user?screen_name=" + screenName);
+			return System::LaunchBrowser(U"https://twitter.com/intent/user?screen_name=" + screen_name);
 		}
 
-		bool OpenFollowWindow(const StringView screenName)
+		bool OpenMiniProfileWindow(const uint64 user_id)
 		{
-			return System::LaunchBrowser(U"https://twitter.com/intent/follow?screen_name=" + screenName);
+			return System::LaunchBrowser(U"https://twitter.com/intent/user?user_id=" + ToString(user_id));
+		}
+
+		bool OpenFollowWindow(const StringView screen_name)
+		{
+			return System::LaunchBrowser(U"https://twitter.com/intent/follow?screen_name=" + screen_name);
+		}
+
+		bool OpenFollowWindow(const uint64 user_id)
+		{
+			return System::LaunchBrowser(U"https://twitter.com/intent/follow?user_id=" + ToString(user_id));
 		}
 	}
 }

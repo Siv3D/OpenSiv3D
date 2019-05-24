@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -25,8 +25,8 @@ namespace s3d
 	{
 	private:
 
-		struct CBigInt;
-		std::unique_ptr<CBigInt> pImpl;
+		struct BigIntDetail;
+		std::unique_ptr<BigIntDetail> pImpl;
 		friend class BigFloat;
 		friend BigInt operator /(int64 a, const BigInt& b);
 		friend BigInt operator /(uint64 a, const BigInt& b);
@@ -35,18 +35,15 @@ namespace s3d
 
 	public:
 
-		BigInt() : BigInt(0) {}
+		BigInt();
 		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && std::is_signed_v<Integer>)>* = nullptr>
 		BigInt(Integer i) : BigInt(static_cast<int64>(i)) {}
 		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && !std::is_signed_v<Integer>)>* = nullptr>
 		BigInt(Integer i) : BigInt(static_cast<uint64>(i)) {}
 		BigInt(int64 i);
 		BigInt(uint64 i);
-		explicit BigInt(const char* number);
-		explicit BigInt(const char32* number);
-		explicit BigInt(const std::string& number);
-		explicit BigInt(const std::wstring& number);
-		explicit BigInt(const String& number);
+		explicit BigInt(std::string_view number);
+		explicit BigInt(StringView number);
 		BigInt(const BigInt& other);
 		BigInt(BigInt&& other);
 		~BigInt();
@@ -57,29 +54,23 @@ namespace s3d
 		BigInt& assign(Integer i) { return assign(static_cast<int64>(i)); }
 		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && !std::is_signed_v<Integer>)>* = nullptr>
 		BigInt& assign(Integer i) { return assign(static_cast<uint64>(i)); }
-		BigInt& assign(const char* number);
-		BigInt& assign(const char32* number);
-		BigInt& assign(const std::string& number);
-		BigInt& assign(const std::wstring& number);
-		BigInt& assign(const String& number);
+		BigInt& assign(std::string_view number);
+		BigInt& assign(StringView number);
 		BigInt& assign(const BigInt& other);
 		BigInt& assign(BigInt&& other);
 
-		BigInt& operator =(int64 i) { return assign(i); }
-		BigInt& operator =(uint64 i) { return assign(i); }
+		BigInt& operator =(int64 i);
+		BigInt& operator =(uint64 i);
 		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && std::is_signed_v<Integer>)>* = nullptr>
 		BigInt& operator =(Integer i) { return assign(i); }
 		template <class Integer, std::enable_if_t<(std::is_integral_v<Integer> && !std::is_signed_v<Integer>)>* = nullptr>
 		BigInt& operator =(Integer i) { return assign(i); }
-		BigInt& operator =(const char* number) { return assign(number); }
-		BigInt& operator =(const char32* number) { return assign(number); }
-		BigInt& operator =(const std::string& number) { return assign(number); }
-		BigInt& operator =(const std::wstring& number) { return assign(number); }
-		BigInt& operator =(const String& number) { return assign(number); }
-		BigInt& operator =(const BigInt& other) { return assign(other); }
-		BigInt& operator =(BigInt&& other) { return assign(std::move(other)); }
+		BigInt& operator =(const std::string_view number);
+		BigInt& operator =(const StringView number);
+		BigInt& operator =(const BigInt& other);
+		BigInt& operator =(BigInt&& other);
 
-		[[nodiscard]] const BigInt& operator +() const { return *this; }
+		[[nodiscard]] const BigInt& operator +() const;
 		BigInt& operator ++();
 		BigInt operator ++(int);
 		[[nodiscard]] BigInt operator +(int64 i) const;
@@ -367,21 +358,15 @@ namespace s3d
 
 	[[nodiscard]] bool IsPrime(uint64 n);
 
-	namespace Literals
+	inline namespace Literals
 	{
-		[[nodiscard]] inline BigInt operator ""_big(unsigned long long int i)
+		inline namespace BigNumLiterals
 		{
-			return BigInt(i);
-		}
+			[[nodiscard]] BigInt operator ""_big(unsigned long long int i);
 
-		[[nodiscard]] inline BigInt operator ""_big(const char* number, size_t)
-		{
-			return BigInt(number);
-		}
+			[[nodiscard]] BigInt operator ""_big(const char* number, size_t);
 
-		[[nodiscard]] inline BigInt operator ""_big(const char32* number, size_t)
-		{
-			return BigInt(number);
+			[[nodiscard]] BigInt operator ""_big(const char32* number, size_t);
 		}
 	}
 
@@ -486,6 +471,9 @@ namespace s3d
 	{
 		return b.compare(a) >= 0;
 	}
+
+	template <>
+	struct IsBigInt<BigInt> : std::true_type {};
 }
 
 //////////////////////////////////////////////////

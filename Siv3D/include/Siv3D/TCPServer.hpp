@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -24,9 +24,9 @@ namespace s3d
 	{
 	private:
 
-		class CTCPServer;
+		class TCPServerDetail;
 
-		std::shared_ptr<CTCPServer> pImpl;
+		std::shared_ptr<TCPServerDetail> pImpl;
 
 	public:
 
@@ -54,7 +54,7 @@ namespace s3d
 
 		[[nodiscard]] bool hasSession(SessionID id) const;
 
-		[[nodiscard]] 	size_t num_sessions() const;
+		[[nodiscard]] size_t num_sessions() const;
 
 		[[nodiscard]] Array<SessionID> getSessionIDs() const;
 

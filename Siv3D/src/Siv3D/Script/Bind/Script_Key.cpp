@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -189,9 +189,9 @@ namespace s3d
 		r = engine->RegisterGlobalProperty("const Key KeyPreviousTrack", (void*)&KeyPreviousTrack); assert(r >= 0);
 		r = engine->RegisterGlobalProperty("const Key KeyStopMedia", (void*)&KeyStopMedia); assert(r >= 0);
 		r = engine->RegisterGlobalProperty("const Key KeyPlayPauseMedia", (void*)&KeyPlayPauseMedia); assert(r >= 0);
-		r = engine->RegisterGlobalProperty("const Key KeyColon_JP", (void*)&KeyColon_JP); assert(r >= 0);
+		r = engine->RegisterGlobalProperty("const Key KeyColon_JIS", (void*)&KeyColon_JIS); assert(r >= 0);
 		r = engine->RegisterGlobalProperty("const Key KeySemicolon_US", (void*)&KeySemicolon_US); assert(r >= 0);
-		r = engine->RegisterGlobalProperty("const Key KeySemicolon_JP", (void*)&KeySemicolon_JP); assert(r >= 0);
+		r = engine->RegisterGlobalProperty("const Key KeySemicolon_JIS", (void*)&KeySemicolon_JIS); assert(r >= 0);
 		r = engine->RegisterGlobalProperty("const Key KeyEqual_US", (void*)&KeyEqual_US); assert(r >= 0);
 		r = engine->RegisterGlobalProperty("const Key KeyComma", (void*)&KeyComma); assert(r >= 0);
 		r = engine->RegisterGlobalProperty("const Key KeyMinus", (void*)&KeyMinus); assert(r >= 0);
@@ -202,11 +202,11 @@ namespace s3d
 		r = engine->RegisterGlobalProperty("const Key KeyLeftCommand", (void*)&KeyLeftCommand); assert(r >= 0);
 		r = engine->RegisterGlobalProperty("const Key KeyRightCommand", (void*)&KeyRightCommand); assert(r >= 0);
 		r = engine->RegisterGlobalProperty("const Key KeyLBracket", (void*)&KeyLBracket); assert(r >= 0);
-		r = engine->RegisterGlobalProperty("const Key KeyYen_JP", (void*)&KeyYen_JP); assert(r >= 0);
+		r = engine->RegisterGlobalProperty("const Key KeyYen_JIS", (void*)&KeyYen_JIS); assert(r >= 0);
 		r = engine->RegisterGlobalProperty("const Key KeyBackslash_US", (void*)&KeyBackslash_US); assert(r >= 0);
 		r = engine->RegisterGlobalProperty("const Key KeyRBracket", (void*)&KeyRBracket); assert(r >= 0);
-		r = engine->RegisterGlobalProperty("const Key KeyCaret_JP", (void*)&KeyCaret_JP); assert(r >= 0);
+		r = engine->RegisterGlobalProperty("const Key KeyCaret_JIS", (void*)&KeyCaret_JIS); assert(r >= 0);
 		r = engine->RegisterGlobalProperty("const Key KeyApostrophe_US", (void*)&KeyApostrophe_US); assert(r >= 0);
-		r = engine->RegisterGlobalProperty("const Key KeyBackslash_JP", (void*)&KeyBackslash_JP); assert(r >= 0);
+		r = engine->RegisterGlobalProperty("const Key KeyUnderscore_JIS", (void*)&KeyUnderscore_JIS); assert(r >= 0);
 	}
 }

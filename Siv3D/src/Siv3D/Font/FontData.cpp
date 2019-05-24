@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,11 +13,12 @@
 # include "FontData.hpp"
 # include FT_OPENTYPE_VALIDATE_H
 # include <Siv3D/Unicode.hpp>
+# include <Siv3D/Char.hpp>
 # include <Siv3D/Font.hpp>
-# include <Siv3D/TextureRegion.hpp>
 # include <Siv3D/FileSystem.hpp>
+# include <Siv3D/TextureRegion.hpp>
 # include <Siv3D/BinaryReader.hpp>
-# include <Siv3D/Logger.hpp>
+# include <Siv3D/EngineLog.hpp>
 
 namespace s3d
 {
@@ -134,9 +135,9 @@ namespace s3d
 				return;
 			}
 		}
-
+		
 	# else
-
+		
 		if (const FT_Error error = ::FT_New_Face(library, filePath.narrow().c_str(), 0, &m_faceText.face))
 		{
 			if (error == FT_Err_Unknown_File_Format)
@@ -177,16 +178,16 @@ namespace s3d
 			}
 		}
 
-		m_familyName	= Unicode::Widen(m_faceText.face->family_name);
-		m_styleName		= Unicode::Widen(m_faceText.face->style_name);
+		m_familyName = Unicode::Widen(m_faceText.face->family_name);
+		m_styleName = Unicode::Widen(m_faceText.face->style_name);
 
-		m_fontSize		= fontSize;
-		m_ascender		= static_cast<int32>(m_faceText.face->size->metrics.ascender / 64);
-		m_descender		= -static_cast<int32>(m_faceText.face->size->metrics.descender / 64);
-		m_lineSpacing	= m_ascender + m_descender;
-		m_bold			= static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Bold);
-		m_italic		= static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Italic);
-		m_noBitmap		= !(static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Bitmap));
+		m_fontSize = fontSize;
+		m_ascender = static_cast<int32>(m_faceText.face->size->metrics.ascender / 64);
+		m_descender = -static_cast<int32>(m_faceText.face->size->metrics.descender / 64);
+		m_lineSpacing = m_ascender + m_descender;
+		m_bold = static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Bold);
+		m_italic = static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Italic);
+		m_noBitmap = !(static_cast<uint32>(style) & static_cast<uint32>(FontStyle::Bitmap));
 		//m_width			= (m_faceText.face->bbox.xMax - m_faceText.face->bbox.xMin) / 64;
 
 		const FT_UInt spaceGlyphIndex = ::FT_Get_Char_Index(m_faceText.face, U' ');
@@ -198,14 +199,44 @@ namespace s3d
 		else
 		{
 			m_tabWidth = static_cast<int32>(m_faceText.face->glyph->metrics.horiAdvance * 4 / 64);
-		}	
+		}
 
-		m_initialized	= true;
+		m_initialized = true;
 	}
 
 	FontData::~FontData()
 	{
 
+	}
+
+	bool FontData::isInitialized() const noexcept
+	{
+		return m_initialized;
+	}
+
+	const String& FontData::getFamilyName() const
+	{
+		return m_familyName;
+	}
+
+	const String& FontData::getStyleName() const
+	{
+		return m_styleName;
+	}
+
+	int32 FontData::getFontSize() const noexcept
+	{
+		return m_fontSize;
+	}
+
+	int32 FontData::getAscent() const noexcept
+	{
+		return m_ascender;
+	}
+
+	int32 FontData::getDescent() const noexcept
+	{
+		return m_descender;
 	}
 
 	Array<Glyph> FontData::getGlyphs(const String& codePoints)
@@ -348,6 +379,11 @@ namespace s3d
 		}
 
 		return outlineGlyph;
+	}
+
+	const Texture& FontData::getTexture() const
+	{
+		return m_texture;
 	}
 
 	RectF FontData::getBoundingRect(const String& codePoints, const double lineSpacingScale)

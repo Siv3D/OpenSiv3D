@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -17,7 +17,7 @@ namespace s3d
 {
 	namespace detail
 	{
-		constexpr double Sqrt3 = 1.73205080756887729353; // std::sqrt(3.0)
+		inline constexpr double Sqrt3 = 1.73205080756887729353; // std::sqrt(3.0)
 	}
 
 	struct Triangle
@@ -125,7 +125,7 @@ namespace s3d
 
 		[[nodiscard]] constexpr position_type centroid() const noexcept
 		{
-			return (p0 + p1 + p2) / 3.0;
+			return position_type((p0.x + p1.x + p2.x) / 3.0, (p0.y + p1.y + p2.y) / 3.0);
 		}
 
 		[[nodiscard]] Triangle stretched(value_type size) const noexcept;
@@ -246,7 +246,7 @@ namespace std
 //
 //////////////////////////////////////////////////
 
-namespace fmt
+namespace fmt_s3d
 {
 	template <>
 	struct formatter<s3d::Triangle, s3d::char32>

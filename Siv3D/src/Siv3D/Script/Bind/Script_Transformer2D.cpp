@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -56,10 +56,8 @@ namespace s3d
 
 			r = engine->RegisterEnumValue("Target", "PushLocal", static_cast<uint32>(Transformer2D::Target::PushLocal)); assert(r >= 0);
 			r = engine->RegisterEnumValue("Target", "PushCamera", static_cast<uint32>(Transformer2D::Target::PushCamera)); assert(r >= 0);
-			r = engine->RegisterEnumValue("Target", "PushScreen", static_cast<uint32>(Transformer2D::Target::PushScreen)); assert(r >= 0);
 			r = engine->RegisterEnumValue("Target", "SetLocal", static_cast<uint32>(Transformer2D::Target::SetLocal)); assert(r >= 0);
 			r = engine->RegisterEnumValue("Target", "SetCamera", static_cast<uint32>(Transformer2D::Target::SetCamera)); assert(r >= 0);
-			r = engine->RegisterEnumValue("Target", "SetScreen", static_cast<uint32>(Transformer2D::Target::SetScreen)); assert(r >= 0);
 		}
 		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 

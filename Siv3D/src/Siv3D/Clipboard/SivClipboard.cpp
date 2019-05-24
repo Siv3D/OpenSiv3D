@@ -2,16 +2,16 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include "../Siv3DEngine.hpp"
-# include "IClipboard.hpp"
+# include <Siv3DEngine.hpp>
 # include <Siv3D/Clipboard.hpp>
+# include "IClipboard.hpp"
 
 namespace s3d
 {
@@ -19,37 +19,37 @@ namespace s3d
 	{
 		bool HasChanged()
 		{
-			return Siv3DEngine::GetClipboard()->hasChanged();
+			return Siv3DEngine::Get<ISiv3DClipboard>()->hasChanged();
 		}
 
 		bool GetText(String& text)
 		{
-			return Siv3DEngine::GetClipboard()->getText(text);
+			return Siv3DEngine::Get<ISiv3DClipboard>()->getText(text);
 		}
 
 		bool GetImage(Image& image)
 		{
-			return Siv3DEngine::GetClipboard()->getImage(image);
+			return Siv3DEngine::Get<ISiv3DClipboard>()->getImage(image);
 		}
 
 		bool GetFilePaths(Array<FilePath>& paths)
 		{
-			return Siv3DEngine::GetClipboard()->getFilePaths(paths);
+			return Siv3DEngine::Get<ISiv3DClipboard>()->getFilePaths(paths);
 		}
 
 		void SetText(const String& text)
 		{
-			Siv3DEngine::GetClipboard()->setText(text);
+			Siv3DEngine::Get<ISiv3DClipboard>()->setText(text);
 		}
 
 		void SetImage(const Image& image)
 		{
-			Siv3DEngine::GetClipboard()->setImage(image);
+			Siv3DEngine::Get<ISiv3DClipboard>()->setImage(image);
 		}
 
 		void Clear()
 		{
-			Siv3DEngine::GetClipboard()->clear();
+			Siv3DEngine::Get<ISiv3DClipboard>()->clear();
 		}
 	}
 }

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -20,16 +20,17 @@ namespace s3d
 
 		int32 size;
 
+		//
+		//	https://fontawesome.com/icons?d=gallery&s=brands,solid&m=free
+		//
+		//	example:
+		//		Icon(0xf000) for fa-glass
 		constexpr Icon(uint32 _code, int32 _size) noexcept
 			: code(_code)
 			, size(_size) {}
 
-		[[nodiscard]] static Image LoadImage(uint32 _code, int32 _size);
+		[[nodiscard]] static Image CreateImage(uint32 _code, int32 _size);
 
-		//
-		//	http://fontawesome.io/cheatsheet/
-		//
-		//	example:
-		//		Icon(0xf000) for fa-glass
+		[[nodiscard]] static Image CreateMSDFImage(uint32 _code, double scale);
 	};
 }

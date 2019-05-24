@@ -100,7 +100,7 @@ inline void do_throw(const Exception &x) {
 }
 }
 FMT_END_NAMESPACE
-#   define FMT_THROW(x) fmt::internal::do_throw(x)
+#   define FMT_THROW(x) fmt_s3d::internal::do_throw(x)
 #  else
 #   define FMT_THROW(x) throw x
 #  endif
@@ -199,7 +199,7 @@ inline uint32_t clz(uint32_t x) {
 # pragma warning(suppress: 6102)
   return 31 - r;
 }
-# define FMT_BUILTIN_CLZ(n) fmt::internal::clz(n)
+# define FMT_BUILTIN_CLZ(n) fmt_s3d::internal::clz(n)
 
 # if defined(_WIN64) && !defined(__clang__)
 #  pragma intrinsic(_BitScanReverse64)
@@ -225,7 +225,7 @@ inline uint32_t clzll(uint64_t x) {
 # pragma warning(suppress: 6102)
   return 63 - r;
 }
-# define FMT_BUILTIN_CLZLL(n) fmt::internal::clzll(n)
+# define FMT_BUILTIN_CLZLL(n) fmt_s3d::internal::clzll(n)
 }
 FMT_END_NAMESPACE
 #endif
@@ -376,15 +376,15 @@ namespace std {
 // https://gcc.gnu.org/bugzilla/show_bug.cgi?id=48891
 // and the same for isnan and signbit.
 template <>
-class numeric_limits<fmt::internal::dummy_int> :
+class numeric_limits<fmt_s3d::internal::dummy_int> :
     public std::numeric_limits<int> {
  public:
   // Portable version of isinf.
   template <typename T>
   static bool isinfinity(T x) {
-    using namespace fmt::internal;
+    using namespace fmt_s3d::internal;
     // The resolution "priority" is:
-    // isinf macro > std::isinf > ::isinf > fmt::internal::isinf
+    // isinf macro > std::isinf > ::isinf > fmt_s3d::internal::isinf
     if (const_check(sizeof(isinf(x)) != sizeof(dummy_int)))
       return isinf(x) != 0;
     return !_finite(static_cast<double>(x));
@@ -393,16 +393,16 @@ class numeric_limits<fmt::internal::dummy_int> :
   // Portable version of isnan.
   template <typename T>
   static bool isnotanumber(T x) {
-    using namespace fmt::internal;
-    if (const_check(sizeof(isnan(x)) != sizeof(fmt::internal::dummy_int)))
+    using namespace fmt_s3d::internal;
+    if (const_check(sizeof(isnan(x)) != sizeof(fmt_s3d::internal::dummy_int)))
       return isnan(x) != 0;
     return _isnan(static_cast<double>(x)) != 0;
   }
 
   // Portable version of signbit.
   static bool isnegative(double x) {
-    using namespace fmt::internal;
-    if (const_check(sizeof(signbit(x)) != sizeof(fmt::internal::dummy_int)))
+    using namespace fmt_s3d::internal;
+    if (const_check(sizeof(signbit(x)) != sizeof(fmt_s3d::internal::dummy_int)))
       return signbit(x) != 0;
     if (x < 0) return true;
     if (!isnotanumber(x)) return false;
@@ -496,7 +496,7 @@ class locale;
 class locale_provider {
  public:
   virtual ~locale_provider() {}
-  virtual fmt::locale locale();
+  virtual fmt_s3d::locale locale();
 };
 
 // The number of characters to store in the basic_memory_buffer object itself
@@ -520,7 +520,7 @@ enum { inline_buffer_size = 500 };
 
   **Example**::
 
-     fmt::memory_buffer out;
+     fmt_s3d::memory_buffer out;
      format_to(out, "The answer is {}.", 42);
 
   This will write the following output to the ``out`` object:
@@ -577,7 +577,7 @@ class basic_memory_buffer: private Allocator, public internal::basic_buffer<T> {
  public:
   /**
     \rst
-    Constructs a :class:`fmt::basic_memory_buffer` object moving the content
+    Constructs a :class:`fmt_s3d::basic_memory_buffer` object moving the content
     of the other object to it.
     \endrst
    */
@@ -601,24 +601,7 @@ class basic_memory_buffer: private Allocator, public internal::basic_buffer<T> {
   Allocator get_allocator() const { return *this; }
 };
 
-template <typename T, std::size_t SIZE, typename Allocator>
-void basic_memory_buffer<T, SIZE, Allocator>::grow(std::size_t size) {
-  std::size_t old_capacity = this->capacity();
-  std::size_t new_capacity = old_capacity + old_capacity / 2;
-  if (size > new_capacity)
-      new_capacity = size;
-  T *old_data = this->data();
-  T *new_data = internal::allocate<Allocator>(*this, new_capacity);
-  // The following code doesn't throw, so the raw pointer above doesn't leak.
-  std::uninitialized_copy(old_data, old_data + this->size(),
-                          internal::make_checked(new_data, new_capacity));
-  this->set(new_data, new_capacity);
-  // deallocate must not throw according to the standard, but even if it does,
-  // the buffer already uses the new storage and will deallocate it in
-  // destructor.
-  if (old_data != store_)
-    Allocator::deallocate(old_data, old_capacity);
-}
+
 
 typedef basic_memory_buffer<char> memory_buffer;
 typedef basic_memory_buffer<char32_t> wmemory_buffer;
@@ -626,7 +609,7 @@ typedef basic_memory_buffer<char32_t> wmemory_buffer;
 /**
   \rst
   A fixed-size memory buffer. For a dynamically growing buffer use
-  :class:`fmt::basic_memory_buffer`.
+  :class:`fmt_s3d::basic_memory_buffer`.
 
   Trying to increase the buffer size past the initial capacity will throw
   ``std::runtime_error``.
@@ -637,7 +620,7 @@ class basic_fixed_buffer : public internal::basic_buffer<Char> {
  public:
   /**
    \rst
-   Constructs a :class:`fmt::basic_fixed_buffer` object for *array* of the
+   Constructs a :class:`fmt_s3d::basic_fixed_buffer` object for *array* of the
    given size.
    \endrst
    */
@@ -647,7 +630,7 @@ class basic_fixed_buffer : public internal::basic_buffer<Char> {
 
   /**
    \rst
-   Constructs a :class:`fmt::basic_fixed_buffer` object for *array* of the
+   Constructs a :class:`fmt_s3d::basic_fixed_buffer` object for *array* of the
    size known at compile time.
    \endrst
    */
@@ -923,32 +906,13 @@ extern template struct basic_data<void>;
 
 typedef basic_data<> data;
 
-#ifdef FMT_BUILTIN_CLZLL
-// Returns the number of decimal digits in n. Leading zeros are not counted
-// except for n == 0 in which case count_digits returns 1.
-inline unsigned count_digits(uint64_t n) {
-  // Based on http://graphics.stanford.edu/~seander/bithacks.html#IntegerLog10
-  // and the benchmark https://github.com/localvoid/cxx-benchmark-count-digits.
-  int t = (64 - FMT_BUILTIN_CLZLL(n | 1)) * 1233 >> 12;
-  return to_unsigned(t) - (n < data::POWERS_OF_10_64[t]) + 1;
-}
-#else
-// Fallback version of count_digits used when __builtin_clz is not available.
-inline unsigned count_digits(uint64_t n) {
-  unsigned count = 1;
-  for (;;) {
-    // Integer division is slow so do it for a group of four digits instead
-    // of for every digit. The idea comes from the talk by Alexandrescu
-    // "Three Optimization Tips for C++". See speed-test for a comparison.
-    if (n < 10) return count;
-    if (n < 100) return count + 1;
-    if (n < 1000) return count + 2;
-    if (n < 10000) return count + 3;
-    n /= 10000u;
-    count += 4;
-  }
-}
+unsigned count_digits(uint64_t n);
+
+#ifdef FMT_BUILTIN_CLZ
+// Optional version of count_digits for better performance on 32-bit platforms.
+unsigned count_digits(uint32_t n);
 #endif
+
 
 #if FMT_HAS_CPP_ATTRIBUTE(always_inline)
 # define FMT_ALWAYS_INLINE __attribute__((always_inline))
@@ -981,7 +945,7 @@ class decimal_formatter {
   char *buffer_;
 
   void write_pair(unsigned N, uint32_t index) {
-    std::memcpy(buffer_ + N, data::DIGITS + index * 2, 2);
+    std::memcpy(buffer_ + N, data::DIGITS + static_cast<size_t>(index) * 2, 2);
   }
 
  public:
@@ -1024,14 +988,6 @@ class decimal_formatter_null : public decimal_formatter {
     return buf;
   }
 };
-
-#ifdef FMT_BUILTIN_CLZ
-// Optional version of count_digits for better performance on 32-bit platforms.
-inline unsigned count_digits(uint32_t n) {
-  int t = (32 - FMT_BUILTIN_CLZ(n | 1)) * 1233 >> 12;
-  return to_unsigned(t) - (n < data::POWERS_OF_10_32[t]) + 1;
-}
-#endif
 
 // A functor that doesn't add a thousands separator.
 struct no_thousands_sep {
@@ -1179,8 +1135,8 @@ class utf16_to_utf8 {
   FMT_API int convert(wstring_view s);
 };
 
-FMT_API void format_windows_error(fmt::internal::buffer &out, int error_code,
-                                  fmt::string_view message) FMT_NOEXCEPT;
+FMT_API void format_windows_error(fmt_s3d::internal::buffer &out, int error_code,
+                                  fmt_s3d::string_view message) FMT_NOEXCEPT;
 #endif
 
 template <typename T = void>
@@ -2333,10 +2289,10 @@ class system_error : public std::runtime_error {
  public:
   /**
    \rst
-   Constructs a :class:`fmt::system_error` object with a description
-   formatted with `fmt::format_system_error`. *message* and additional
+   Constructs a :class:`fmt_s3d::system_error` object with a description
+   formatted with `fmt_s3d::format_system_error`. *message* and additional
    arguments passed into the constructor are formatted similarly to
-   `fmt::format`.
+   `fmt_s3d::format`.
 
    **Example**::
 
@@ -2346,7 +2302,7 @@ class system_error : public std::runtime_error {
      const char *filename = "madeup";
      std::FILE *file = std::fopen(filename, "r");
      if (!file)
-       throw fmt::system_error(errno, "cannot open file '{}'", filename);
+       throw fmt_s3d::system_error(errno, "cannot open file '{}'", filename);
    \endrst
   */
   template <typename... Args>
@@ -2375,7 +2331,7 @@ class system_error : public std::runtime_error {
   \endrst
  */
 FMT_API void format_system_error(internal::buffer &out, int error_code,
-                                 fmt::string_view message) FMT_NOEXCEPT;
+                                 fmt_s3d::string_view message) FMT_NOEXCEPT;
 
 /**
   This template provides operations for formatting and writing data into a
@@ -2980,7 +2936,7 @@ class windows_error : public system_error {
  public:
   /**
    \rst
-   Constructs a :class:`fmt::windows_error` object with the description
+   Constructs a :class:`fmt_s3d::windows_error` object with the description
    of the form
 
    .. parsed-literal::
@@ -3001,7 +2957,7 @@ class windows_error : public system_error {
      LPOFSTRUCT of = LPOFSTRUCT();
      HFILE file = OpenFile(filename, &of, OF_READ);
      if (file == HFILE_ERROR) {
-       throw fmt::windows_error(GetLastError(),
+       throw fmt_s3d::windows_error(GetLastError(),
                                 "cannot open file '{}'", filename);
      }
    \endrst
@@ -3018,83 +2974,6 @@ FMT_API void report_windows_error(int error_code,
                                   string_view message) FMT_NOEXCEPT;
 
 #endif
-
-/** Fast integer formatter. */
-class format_int {
- private:
-  // Buffer should be large enough to hold all digits (digits10 + 1),
-  // a sign and a null character.
-  enum {BUFFER_SIZE = std::numeric_limits<unsigned long long>::digits10 + 3};
-  mutable char buffer_[BUFFER_SIZE];
-  char *str_;
-
-  // Formats value in reverse and returns a pointer to the beginning.
-  char *format_decimal(unsigned long long value) {
-    char *ptr = buffer_ + BUFFER_SIZE - 1;
-    while (value >= 100) {
-      // Integer division is slow so do it for a group of two digits instead
-      // of for every digit. The idea comes from the talk by Alexandrescu
-      // "Three Optimization Tips for C++". See speed-test for a comparison.
-      unsigned index = static_cast<unsigned>((value % 100) * 2);
-      value /= 100;
-      *--ptr = internal::data::DIGITS[index + 1];
-      *--ptr = internal::data::DIGITS[index];
-    }
-    if (value < 10) {
-      *--ptr = static_cast<char>('0' + value);
-      return ptr;
-    }
-    unsigned index = static_cast<unsigned>(value * 2);
-    *--ptr = internal::data::DIGITS[index + 1];
-    *--ptr = internal::data::DIGITS[index];
-    return ptr;
-  }
-
-  void format_signed(long long value) {
-    unsigned long long abs_value = static_cast<unsigned long long>(value);
-    bool negative = value < 0;
-    if (negative)
-      abs_value = 0 - abs_value;
-    str_ = format_decimal(abs_value);
-    if (negative)
-      *--str_ = '-';
-  }
-
- public:
-  explicit format_int(int value) { format_signed(value); }
-  explicit format_int(long value) { format_signed(value); }
-  explicit format_int(long long value) { format_signed(value); }
-  explicit format_int(unsigned value) : str_(format_decimal(value)) {}
-  explicit format_int(unsigned long value) : str_(format_decimal(value)) {}
-  explicit format_int(unsigned long long value) : str_(format_decimal(value)) {}
-
-  /** Returns the number of characters written to the output buffer. */
-  std::size_t size() const {
-    return internal::to_unsigned(buffer_ - str_ + BUFFER_SIZE - 1);
-  }
-
-  /**
-    Returns a pointer to the output buffer content. No terminating null
-    character is appended.
-   */
-  const char *data() const { return str_; }
-
-  /**
-    Returns a pointer to the output buffer content with terminating null
-    character appended.
-   */
-  const char *c_str() const {
-    buffer_[BUFFER_SIZE - 1] = '\0';
-    return str_;
-  }
-
-  /**
-    \rst
-    Returns the content of the output buffer as an ``std::string``.
-    \endrst
-   */
-  std::string str() const { return std::string(str_, size()); }
-};
 
 // Formats a decimal integer value writing into buffer and returns
 // a pointer to the end of the formatted string. This function doesn't
@@ -3316,30 +3195,9 @@ struct format_handler : internal::error_handler {
     arg = context.get_arg(id);
   }
 
-  void on_replacement_field(iterator it) {
-    context.parse_context().advance_to(pointer_from(it));
-    if (visit(internal::custom_formatter<Char, Context>(context), arg))
-      return;
-    basic_format_specs<Char> specs;
-    context.advance_to(visit(ArgFormatter(context, specs), arg));
-  }
+  void on_replacement_field(iterator it);
 
-  iterator on_format_specs(iterator it) {
-    auto& parse_ctx = context.parse_context();
-    parse_ctx.advance_to(pointer_from(it));
-    if (visit(internal::custom_formatter<Char, Context>(context), arg))
-      return iterator(parse_ctx);
-    basic_format_specs<Char> specs;
-    using internal::specs_handler;
-    internal::specs_checker<specs_handler<Context>>
-        handler(specs_handler<Context>(specs, context), arg.type());
-    it = parse_format_specs(it, handler);
-    if (*it != '}')
-      on_error("missing '}' in format string");
-    parse_ctx.advance_to(pointer_from(it));
-    context.advance_to(visit(ArgFormatter(context, specs), arg));
-    return it;
-  }
+  iterator on_format_specs(iterator it);
 
   Context context;
   basic_format_arg<Context> arg;
@@ -3426,7 +3284,7 @@ auto join(const Range &range, wstring_view sep)
 
     #include <fmt/format.h>
 
-    std::string answer = fmt::to_string(42);
+    std::string answer = fmt_s3d::to_string(42);
   \endrst
  */
 template <typename T>
@@ -3453,17 +3311,11 @@ std::basic_string<Char> to_string(const basic_memory_buffer<Char, SIZE> &buf) {
   return std::basic_string<Char>(buf.data(), buf.size());
 }
 
-inline format_context::iterator vformat_to(
-    internal::buffer &buf, string_view format_str, format_args args) {
-  typedef back_insert_range<internal::buffer> range;
-  return vformat_to<arg_formatter<range>>(buf, format_str, args);
-}
+format_context::iterator vformat_to(
+	internal::buffer& buf, string_view format_str, format_args args);
 
-inline wformat_context::iterator vformat_to(
-    internal::wbuffer &buf, wstring_view format_str, wformat_args args) {
-  typedef back_insert_range<internal::wbuffer> range;
-  return vformat_to<arg_formatter<range>>(buf, format_str, args);
-}
+wformat_context::iterator vformat_to(
+	internal::wbuffer& buf, wstring_view format_str, wformat_args args);
 
 template <typename... Args, std::size_t SIZE = inline_buffer_size>
 inline format_context::iterator format_to(
@@ -3512,7 +3364,7 @@ inline OutputIt vformat_to(
  **Example**::
 
    std::vector<char> out;
-   fmt::format_to(std::back_inserter(out), "{}", 42);
+   fmt_s3d::format_to(std::back_inserter(out), "{}", 42);
  \endrst
  */
 template <typename OutputIt, typename... Args>
@@ -3547,11 +3399,11 @@ struct format_to_n_result {
 };
 
 template <typename OutputIt>
-using format_to_n_context = typename fmt::format_context_t<
-  fmt::internal::truncating_iterator<OutputIt>>::type;
+using format_to_n_context = typename fmt_s3d::format_context_t<
+  fmt_s3d::internal::truncating_iterator<OutputIt>>::type;
 
 template <typename OutputIt>
-using format_to_n_args = fmt::basic_format_args<format_to_n_context<OutputIt>>;
+using format_to_n_args = fmt_s3d::basic_format_args<format_to_n_context<OutputIt>>;
 
 template <typename OutputIt, typename ...Args>
 inline format_arg_store<format_to_n_context<OutputIt>, Args...>
@@ -3590,17 +3442,9 @@ inline format_to_n_result<OutputIt> format_to_n(
   return {it.base(), it.count()};
 }
 
-inline std::string vformat(string_view format_str, format_args args) {
-  memory_buffer buffer;
-  vformat_to(buffer, format_str, args);
-  return fmt::to_string(buffer);
-}
+std::string vformat(string_view format_str, format_args args);
 
-inline std::u32string vformat(wstring_view format_str, wformat_args args) {
-  wmemory_buffer buffer;
-  vformat_to(buffer, format_str, args);
-  return to_string(buffer);
-}
+std::u32string vformat(wstring_view format_str, wformat_args args);
 
 template <typename String, typename... Args>
 inline typename std::enable_if<
@@ -3798,7 +3642,7 @@ void vprint_rgb(rgb fd, rgb bg, string_view format, format_args args);
   Formats a string and prints it to stdout using ANSI escape sequences to
   specify foreground color 'fd'.
   Example:
-    fmt::print(fmt::color::red, "Elapsed time: {0:.2f} seconds", 1.23);
+    fmt_s3d::print(fmt_s3d::color::red, "Elapsed time: {0:.2f} seconds", 1.23);
  */
 template <typename... Args>
 inline void print(rgb fd, string_view format_str, const Args & ... args) {
@@ -3809,7 +3653,7 @@ inline void print(rgb fd, string_view format_str, const Args & ... args) {
   Formats a string and prints it to stdout using ANSI escape sequences to
   specify foreground color 'fd' and background color 'bg'.
   Example:
-    fmt::print(fmt::color::red, fmt::color::black, "Elapsed time: {0:.2f} seconds", 1.23);
+    fmt_s3d::print(fmt_s3d::color::red, fmt_s3d::color::black, "Elapsed time: {0:.2f} seconds", 1.23);
  */
 template <typename... Args>
 inline void print(rgb fd, rgb bg, string_view format_str, const Args & ... args) {
@@ -3869,11 +3713,11 @@ FMT_CONSTEXPR internal::udl_formatter<Char, CHARS...> operator""_format() {
 # else
 /**
   \rst
-  User-defined literal equivalent of :func:`fmt::format`.
+  User-defined literal equivalent of :func:`fmt_s3d::format`.
 
   **Example**::
 
-    using namespace fmt::literals;
+    using namespace fmt_s3d::literals;
     std::string message = "The answer is {}"_format(42);
   \endrst
  */
@@ -3885,12 +3729,12 @@ operator"" _format(const char32_t *s, std::size_t) { return {s}; }
 
 /**
   \rst
-  User-defined literal equivalent of :func:`fmt::arg`.
+  User-defined literal equivalent of :func:`fmt_s3d::arg`.
 
   **Example**::
 
-    using namespace fmt::literals;
-    fmt::print("Elapsed time: {s:.2f} seconds", "s"_a=1.23);
+    using namespace fmt_s3d::literals;
+    fmt_s3d::print("Elapsed time: {s:.2f} seconds", "s"_a=1.23);
   \endrst
  */
 inline internal::udl_arg<char>
@@ -3902,7 +3746,7 @@ operator"" _a(const char32_t *s, std::size_t) { return {s}; }
 FMT_END_NAMESPACE
 
 #define FMT_STRING(s) [] { \
-    struct S : fmt::format_string { \
+    struct S : fmt_s3d::format_string { \
       static FMT_CONSTEXPR decltype(s) data() { return s; } \
       static FMT_CONSTEXPR size_t size() { return sizeof(s); } \
     }; \

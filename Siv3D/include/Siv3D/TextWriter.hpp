@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -31,18 +31,9 @@ namespace s3d
 
 			std::unique_ptr<FormatData> formatData;
 
-			TextWriterBuffer(TextWriter& writer)
-				: m_writer(writer)
-				, m_isLast(true)
-				, formatData(std::make_unique<FormatData>()) {}
+			TextWriterBuffer(TextWriter& writer);
 
-			TextWriterBuffer(TextWriterBuffer&& other)
-				: m_writer(other.m_writer)
-				, m_isLast(true)
-				, formatData(std::move(other.formatData))
-			{
-				other.m_isLast = false;
-			}
+			TextWriterBuffer(TextWriterBuffer&& other);
 
 			~TextWriterBuffer();
 
@@ -63,9 +54,9 @@ namespace s3d
 	{
 	private:
 
-		class CTextWriter;
+		class TextWriterDetail;
 
-		std::shared_ptr<CTextWriter> pImpl;
+		std::shared_ptr<TextWriterDetail> pImpl;
 
 	public:
 
@@ -88,11 +79,7 @@ namespace s3d
 		/// <param name="encoding">
 		/// エンコーディング形式
 		/// </param>
-		TextWriter(const FilePath& path, TextEncoding encoding)
-			: TextWriter()
-		{
-			open(path, OpenMode::Trunc, encoding);
-		}
+		TextWriter(const FilePath& path, TextEncoding encoding);
 
 		/// <summary>
 		/// テキストファイルを開きます。
@@ -106,11 +93,7 @@ namespace s3d
 		/// <param name="encoding">
 		/// エンコーディング形式
 		/// </param>
-		explicit TextWriter(const FilePath& path, OpenMode openMode = OpenMode::Trunc, TextEncoding encoding = TextEncoding::Default)
-			: TextWriter()
-		{
-			open(path, openMode, encoding);
-		}
+		explicit TextWriter(const FilePath& path, OpenMode openMode = OpenMode::Trunc, TextEncoding encoding = TextEncoding::Default);
 
 		/// <summary>
 		/// テキストファイルを開きます。
@@ -124,10 +107,7 @@ namespace s3d
 		/// <returns>
 		/// ファイルのオープンに成功した場合 true, それ以外の場合は false
 		/// </returns>
-		bool open(const FilePath& path, TextEncoding encoding)
-		{
-			return open(path, OpenMode::Trunc, encoding);
-		}
+		bool open(const FilePath& path, TextEncoding encoding);
 
 		/// <summary>
 		/// テキストファイルを開きます。
@@ -346,15 +326,4 @@ namespace s3d
 		/// </remarks>
 		[[nodiscard]] const FilePath& path() const;
 	};
-
-	namespace detail
-	{
-		inline TextWriterBuffer::~TextWriterBuffer()
-		{
-			if (m_isLast)
-			{
-				m_writer.writeln(formatData->string);
-			}
-		}
-	}
 }

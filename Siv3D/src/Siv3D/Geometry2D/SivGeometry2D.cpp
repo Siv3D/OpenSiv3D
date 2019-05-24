@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -24,16 +24,16 @@
 # include <Siv3D/RoundRect.hpp>
 # include <Siv3D/Polygon.hpp>
 # include <Siv3D/MultiPolygon.hpp>
+# include <Polygon/PolygonDetail.hpp>
 # include "Polynomial.hpp"
-# include "../Polygon/CPolygon.hpp"
 
-S3D_DISABLE_MSVC_WARNINGS_PUSH(4457)
-S3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4457)
+SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4819)
 # include <boost/geometry.hpp>
 # include <boost/geometry/algorithms/within.hpp>
 # include <boost/geometry/algorithms/distance.hpp>
-S3D_DISABLE_MSVC_WARNINGS_POP()
-S3D_DISABLE_MSVC_WARNINGS_POP()
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
+SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
 namespace s3d
 {

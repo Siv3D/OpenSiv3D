@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -43,9 +43,13 @@ namespace s3d
 	{
 	protected:
 
-		class Handle {};
+		class Tag {};
 
-		using AudioHandle = AssetHandle<Handle>;
+		using AudioHandle = AssetHandle<Tag>;
+		
+		friend AudioHandle::AssetHandle();
+		
+		friend AudioHandle::AssetHandle(const IDWrapperType id) noexcept;
 
 		friend AudioHandle::~AssetHandle();
 
@@ -143,6 +147,10 @@ namespace s3d
 		void setLoop(Arg::loopBegin_<Duration> loopBegin);
 
 		void setLoop(Arg::loopBegin_<Duration> loopBegin, Arg::loopEnd_<Duration> loopEnd);
+
+		Optional<AudioLoopTiming> getLoop() const;
+
+		bool isLoop() const;
 
 		bool play(const Duration& fadeinDuration = SecondsF(0.0)) const;
 

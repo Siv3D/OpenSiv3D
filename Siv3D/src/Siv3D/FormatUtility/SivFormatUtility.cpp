@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -15,18 +15,58 @@ namespace s3d
 {
 	namespace detail
 	{
-		const static String bytesUnits[9] =
+		static constexpr StringView bytesUnits[9] =
 		{
-			U"B",
-			U"KiB",
-			U"MiB",
-			U"GiB",
-			U"TiB",
-			U"PiB",
-			U"EiB",
-			U"ZiB",
-			U"YiB"
+			U"B"_sv,
+			U"KiB"_sv,
+			U"MiB"_sv,
+			U"GiB"_sv,
+			U"TiB"_sv,
+			U"PiB"_sv,
+			U"EiB"_sv,
+			U"ZiB"_sv,
+			U"YiB"_sv
 		};
+
+		String ThousandsSeparateInt(String&& value, const String& separator)
+		{
+			String result = std::move(value);
+
+			size_t count = 0;
+
+			for (size_t i = result.size(); i != 0; --i)
+			{
+				if (++count == 4 && !(i == 1 && result[0] == U'-'))
+				{
+					result.insert(i, separator);
+
+					count = 1;
+				}
+			}
+
+			return result;
+		}
+
+		String ThousandsSeparateFloat(String&& value, const String& separator)
+		{
+			String result = std::move(value);
+
+			const size_t zeroPos = result.lastIndexOf(U'.');
+
+			size_t count = 0;
+
+			for (size_t i = (zeroPos == String::npos) ? result.size() : zeroPos; i != 0; --i)
+			{
+				if (++count == 4 && !(i == 1 && result[0] == U'-'))
+				{
+					result.insert(i, separator);
+
+					count = 1;
+				}
+			}
+
+			return result;
+		}
 	}
 
 	String FormatDataSize(const int64 bytes)

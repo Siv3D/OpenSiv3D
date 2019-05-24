@@ -1,9 +1,9 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -55,28 +55,56 @@ namespace s3d
 	}
 
 	template <class Type>
-	[[nodiscard]] constexpr detail::Max1_impl<Type> Max(const Type& x, PlaceHolder_t) noexcept
+	[[nodiscard]] constexpr auto Max(const Type& x, PlaceHolder_t) noexcept
 	{
 		return detail::Max1_impl<Type>(x);
 	}
 
 	template <class Type>
-	[[nodiscard]] constexpr detail::Max1_impl<Type> Max(PlaceHolder_t, const Type& y) noexcept
+	[[nodiscard]] constexpr auto Max(PlaceHolder_t, const Type& y) noexcept
 	{
 		return detail::Max1_impl<Type>(y);
 	}
 
-	[[nodiscard]] constexpr detail::Max2_impl Max(PlaceHolder_t, PlaceHolder_t) noexcept
+	[[nodiscard]] constexpr auto Max(PlaceHolder_t, PlaceHolder_t) noexcept
 	{
 		return detail::Max2_impl();
 	}
 
+	/// <summary>
+	/// 2 つの値のうち大きい方の値を返します。
+	/// Returns the greater of the two.
+	/// </summary>
+	/// <param name="x">
+	/// 比較する値
+	/// A value to compare
+	/// </param>
+	/// <param name="y">
+	/// 比較する値
+	/// Another value to compare
+	/// </param>
+	/// <returns>
+	/// 2 つの値のうち大きい方の値。等しい場合は x
+	/// The greater of x and y. If they are equivalent, returns x
+	/// </returns>
 	template <class Type>
 	[[nodiscard]] inline constexpr const Type& Max(const Type& x, const Type& y) noexcept(noexcept(x < y))
 	{
 		return (x < y) ? y : x;
 	}
 
+	/// <summary>
+	/// 渡された初期化リストの中で最大の値を返します。
+	/// Returns the greatest of the values in initializer list.
+	/// </summary>
+	/// <param name="ilist">
+	/// 比較する値の初期化リスト
+	/// Initializer list with the values to compare 
+	/// </param>
+	/// <returns>
+	/// 初期化リストの中で最大の値。複数が等しい場合はその中で最も左の値
+	/// The greatest value in ilist. If several values are equivalent to the greatest, returns the leftmost one
+	/// </returns>
 	template <class Type>
 	inline constexpr Type Max(std::initializer_list<Type> ilist)
 	{
@@ -123,13 +151,13 @@ namespace s3d
 	}
 
 	template <class Type>
-	[[nodiscard]] constexpr detail::Min1_impl<Type> Min(const Type& x, PlaceHolder_t) noexcept
+	[[nodiscard]] constexpr auto Min(const Type& x, PlaceHolder_t) noexcept
 	{
 		return detail::Min1_impl<Type>(x);
 	}
 
 	template <class Type>
-	[[nodiscard]] constexpr detail::Min1_impl<Type> Min(PlaceHolder_t, const Type& y) noexcept
+	[[nodiscard]] constexpr auto Min(PlaceHolder_t, const Type& y) noexcept
 	{
 		return detail::Min1_impl<Type>(y);
 	}
@@ -139,12 +167,40 @@ namespace s3d
 		return detail::Min2_impl();
 	}
 
+	/// <summary>
+	/// 2 つの値のうち小さい方の値を返します。
+	/// Returns the lesser of the two.
+	/// </summary>
+	/// <param name="x">
+	/// 比較する値
+	/// A value to compare
+	/// </param>
+	/// <param name="y">
+	/// 比較する値
+	/// Another value to compare
+	/// </param>
+	/// <returns>
+	/// 2 つの値のうち小さい方の値。等しい場合は x
+	/// The greater of x and y. If they are equivalent, returns x
+	/// </returns>
 	template <class Type>
 	[[nodiscard]] inline constexpr const Type& Min(const Type& x, const Type& y) noexcept(noexcept(y < x))
 	{
 		return (y < x) ? y : x;
 	}
 
+	/// <summary>
+	/// 渡された初期化リストの中で最小の値を返します。
+	/// Returns the least of the values in initializer list.
+	/// </summary>
+	/// <param name="ilist">
+	/// 比較する値の初期化リスト
+	/// Initializer list with the values to compare 
+	/// </param>
+	/// <returns>
+	/// 初期化リストの中で最小大の値。複数が等しい場合はその中で最も左の値
+	/// The least value in ilist. If several values are equivalent to the least, returns the leftmost one
+	/// </returns>
 	template <class Type>
 	inline constexpr Type Min(std::initializer_list<Type> ilist)
 	{
@@ -175,7 +231,7 @@ namespace s3d
 				: min(_min)
 				, max(_max) {}
 
-			[[nodiscard]] constexpr const Type& operator()(const Type& x) const noexcept(noexcept(x < min))
+			[[nodiscard]] constexpr const Type& operator()(const Type& x) const noexcept(noexcept(x < min) && noexcept(max < x))
 			{
 				return (x < min) ? min : ((max < x) ? max : x);
 			}
@@ -183,13 +239,33 @@ namespace s3d
 	}
 
 	template <class Type>
-	[[nodiscard]] constexpr detail::Clamp_impl<Type> Clamp(PlaceHolder_t, const Type& min, const Type& max) noexcept
+	[[nodiscard]] constexpr auto Clamp(PlaceHolder_t, const Type& min, const Type& max) noexcept
 	{
 		return detail::Clamp_impl<Type>(min, max);
 	}
 
+	/// <summary>
+	/// 最小値と最大値の範囲にクランプした値を返します。
+	/// Clamps the value to the specified minimum and maximum range
+	/// </summary>
+	/// <param name="x">
+	/// クランプする値
+	/// A value to clamp
+	/// </param>
+	/// <param name="min">
+	/// 範囲の最小値
+	/// The specified minimum range
+	/// </param>
+	/// <param name="max">
+	/// 範囲の最大値
+	/// The specified maximum range
+	/// </param>
+	/// <returns>
+	/// x をクランプした値
+	/// The clamped value for the x
+	/// </returns>
 	template <class Type>
-	[[nodiscard]] inline constexpr const Type& Clamp(const Type& x, const Type& min, const Type& max) noexcept(noexcept(x < min))
+	[[nodiscard]] inline constexpr const Type& Clamp(const Type& x, const Type& min, const Type& max) noexcept(noexcept(x < min) && noexcept(max < x))
 	{
 		return (x < min) ? min : ((max < x) ? max : x);
 	}
@@ -218,7 +294,7 @@ namespace s3d
 				: min(_min)
 				, max(_max) {}
 
-			[[nodiscard]] constexpr const Type& operator()(const Type& x) const noexcept(noexcept(x < min))
+			[[nodiscard]] constexpr bool operator()(const Type& x) const noexcept(noexcept(min <= x) && noexcept(x <= max))
 			{
 				return (min <= x) && (x <= max);
 			}
@@ -226,14 +302,70 @@ namespace s3d
 	}
 
 	template <class Type>
-	[[nodiscard]] inline constexpr bool InRange(PlaceHolder_t, const Type& min, const Type& max) noexcept
+	[[nodiscard]] inline constexpr auto InRange(PlaceHolder_t, const Type& min, const Type& max) noexcept
 	{
 		return detail::InRange_impl<Type>(min, max);
 	}
 
+	/// <summary>
+	/// 値が範囲内にあるかを返します。
+	/// Checks if the value is within the specified minimum and maximum range
+	/// </summary>
+	/// <param name="x">
+	/// 調べる値
+	/// A value
+	/// </param>
+	/// <param name="min">
+	/// 範囲の最小値
+	/// The specified minimum range
+	/// </param>
+	/// <param name="max">
+	/// 範囲の最大値
+	/// The specified maximum range
+	/// </param>
+	/// <returns>
+	/// 範囲内にある場合 true, それ以外の場合は false
+	/// True if the value is within the range, false otherwise
+	/// </returns>
 	template <class Type>
 	[[nodiscard]] inline constexpr bool InRange(const Type& x, const Type& min, const Type& max) noexcept(noexcept(x < min))
 	{
 		return (min <= x) && (x <= max);
+	}
+
+	/// <summary>
+	/// コンテナから条件を満たす要素を削除します。
+	/// </summary>
+	/// <param name="c">
+	/// コンテナ
+	/// </param>
+	/// <param name="pred">
+	/// 条件
+	/// </param>
+	/// <returns>
+	/// なし
+	/// </returns>
+	template <class Container, class Pred>
+	inline void Erase_if(Container& c, Pred pred)
+	{
+		c.erase(std::remove_if(std::begin(c), std::end(c), pred), std::end(c));
+	}
+
+	template <class Container, class Pred>
+	inline void EraseNodes_if(Container& c, Pred pred)
+	{
+		auto first = c.begin();
+		const auto last = c.end();
+		while (first != last)
+		{
+			if (pred(*first))
+			{
+				first = c.erase(first);
+			}
+			else
+			{
+				++first;
+			}
+		}
 	}
 }

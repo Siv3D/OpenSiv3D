@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -57,13 +57,13 @@ namespace s3d
 
 		r = engine->SetDefaultNamespace("Graphics"); assert(r >= 0);
 		{
-			engine->RegisterGlobalFunction("void SetBackground(const ColorF& in)", asFUNCTION(Graphics::SetBackground), asCALL_CDECL); assert(r >= 0);
+			engine->RegisterGlobalFunction("void SkipClearScreen()", asFUNCTION(Graphics::SkipClearScreen), asCALL_CDECL); assert(r >= 0);
 			//[[nodiscard]] Array<DisplayOutput> EnumOutputs();
-			engine->RegisterGlobalFunction("void SetBackground(bool fullScreen, const Point& size, uint32 displayIndex = 0, double refreshRateHz = 60.0)", asFUNCTION(Graphics::SetFullScreen), asCALL_CDECL); assert(r >= 0);
 			engine->RegisterGlobalFunction("void SetTargetFrameRateHz(const Optional<double>& in targetFrameRateHz)", asFUNCTION(SetTargetFrameRateHz), asCALL_CDECL); assert(r >= 0);
 			engine->RegisterGlobalFunction("void SetTargetFrameRateHz(None_t)", asFUNCTION(SetTargetFrameRateHzNone), asCALL_CDECL); assert(r >= 0);
 			engine->RegisterGlobalFunction("Optional<double> GetTargetFrameRateHz()", asFUNCTION(GetTargetFrameRateHz), asCALL_CDECL); assert(r >= 0);
 			engine->RegisterGlobalFunction("double GetDisplayRefreshRateHz()", asFUNCTION(Graphics::GetDisplayRefreshRateHz), asCALL_CDECL); assert(r >= 0);
+			engine->RegisterGlobalFunction("double GetDPIScaling()", asFUNCTION(Graphics::GetDPIScaling), asCALL_CDECL); assert(r >= 0);
 		}
 		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 	}

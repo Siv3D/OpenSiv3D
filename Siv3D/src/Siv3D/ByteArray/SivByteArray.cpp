@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,17 +11,17 @@
 
 # include <Siv3D/ByteArray.hpp>
 # include <Siv3D/BinaryWriter.hpp>
-# include "CByteArray.hpp"
+# include "ByteArrayDetail.hpp"
 
 namespace s3d
 {
 	ByteArray::ByteArray()
-		: pImpl(std::make_shared<CByteArray>())
+		: pImpl(std::make_shared<ByteArrayDetail>())
 	{
 
 	}
 
-	bool ByteArray::createFromFile(const FilePath& path)
+	bool ByteArray::createFromFile(const FilePathView path)
 	{
 		return pImpl->createFromFile(path);
 	}
@@ -108,5 +108,10 @@ namespace s3d
 		const int64 size = pImpl->size();
 
 		return (BinaryWriter(path).write(pImpl->data(), static_cast<size_t>(size)) == size);
+	}
+
+	void Formatter(FormatData& formatData, const ByteArray& value)
+	{
+		Formatter(formatData, value.view().toHex());
 	}
 }

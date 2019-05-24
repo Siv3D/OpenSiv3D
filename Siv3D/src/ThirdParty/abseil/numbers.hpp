@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,10 +11,10 @@
 
 # pragma once
 # include <Siv3D/StringView.hpp>
+# include <Siv3D/Char.hpp>
 
 namespace s3d::detail
 {
-	//
 	// Copyright 2017 The Abseil Authors.
 	//
 	// Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,7 +28,6 @@ namespace s3d::detail
 	// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	// See the License for the specific language governing permissions and
 	// limitations under the License.
-	//
 
 	// Lookup tables per IntType:
 	// vmax/base and vmin/base are precomputed because division costs at least 8ns.
@@ -37,21 +36,21 @@ namespace s3d::detail
 	// commonly used bases.
 	template <typename IntType>
 	struct LookupTables {
-		static const IntType kVmaxOverBase[];
-		static const IntType kVminOverBase[];
+	  static const IntType kVmaxOverBase[];
+	  static const IntType kVminOverBase[];
 	};
 
 	// An array initializer macro for X/base where base in [0, 36].
 	// However, note that lookups for base in [0, 1] should never happen because
 	// base has been validated to be in [2, 36] by safe_parse_sign_and_base().
-#define X_OVER_BASE_INITIALIZER(X)                                        \
-  {                                                                       \
-    0, 0, X / 2, X / 3, X / 4, X / 5, X / 6, X / 7, X / 8, X / 9, X / 10, \
-        X / 11, X / 12, X / 13, X / 14, X / 15, X / 16, X / 17, X / 18,   \
-        X / 19, X / 20, X / 21, X / 22, X / 23, X / 24, X / 25, X / 26,   \
-        X / 27, X / 28, X / 29, X / 30, X / 31, X / 32, X / 33, X / 34,   \
-        X / 35, X / 36,                                                   \
-  }
+	#define X_OVER_BASE_INITIALIZER(X)                                        \
+	  {                                                                       \
+		0, 0, X / 2, X / 3, X / 4, X / 5, X / 6, X / 7, X / 8, X / 9, X / 10, \
+			X / 11, X / 12, X / 13, X / 14, X / 15, X / 16, X / 17, X / 18,   \
+			X / 19, X / 20, X / 21, X / 22, X / 23, X / 24, X / 25, X / 26,   \
+			X / 27, X / 28, X / 29, X / 30, X / 31, X / 32, X / 33, X / 34,   \
+			X / 35, X / 36,                                                   \
+	  }
 
 	template <typename IntType>
 	const IntType LookupTables<IntType>::kVmaxOverBase[] =
@@ -61,9 +60,11 @@ namespace s3d::detail
 	const IntType LookupTables<IntType>::kVminOverBase[] =
 		X_OVER_BASE_INITIALIZER(std::numeric_limits<IntType>::min());
 
-#undef X_OVER_BASE_INITIALIZER
+	#undef X_OVER_BASE_INITIALIZER
 
-
+	// Represents integer values of digits.
+	// Uses 36 to indicate an invalid character since we support
+	// bases up to 36.
 	static const int8_t kAsciiToInt[256] = {
 		36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36,  // 16 36s.
 		36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36,
@@ -81,42 +82,33 @@ namespace s3d::detail
 		36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36 };
 
 	// Parse the sign and optional hex or oct prefix in text.
-	inline bool safe_parse_sign_and_base(StringView* text /*inout*/, int* base_ptr /*inout*/, bool* negative_ptr /*output*/)
-	{
-		if (text->data() == nullptr)
-		{
+	inline bool safe_parse_sign_and_base(StringView* text /*inout*/,
+		int* base_ptr /*inout*/,
+		bool* negative_ptr /*output*/) {
+		if (text->data() == nullptr) {
 			return false;
 		}
 
 		const char32* start = text->data();
 		const char32* end = start + text->size();
-		int32 base = *base_ptr;
+		int base = *base_ptr;
 
 		// Consume whitespace.
-		while (start < end && IsSpace(start[0]))
-		{
+		while (start < end && IsSpace(start[0])) {
 			++start;
 		}
-
-		while (start < end && IsSpace(end[-1]))
-		{
+		while (start < end && IsSpace(end[-1])) {
 			--end;
 		}
-
-		if (start >= end)
-		{
+		if (start >= end) {
 			return false;
 		}
 
 		// Consume sign.
 		*negative_ptr = (start[0] == '-');
-
-		if (*negative_ptr || start[0] == '+')
-		{
+		if (*negative_ptr || start[0] == '+') {
 			++start;
-
-			if (start >= end)
-			{
+			if (start >= end) {
 				return false;
 			}
 		}
@@ -125,8 +117,7 @@ namespace s3d::detail
 		//  base 0: "0x" -> base 16, "0" -> base 8, default -> base 10
 		//  base 16: "0x" -> base 16
 		// Also validate the base.
-		if (base == 0)
-		{
+		if (base == 0) {
 			if (end - start >= 2 && start[0] == '0' &&
 				(start[1] == 'x' || start[1] == 'X')) {
 				base = 16;
@@ -243,39 +234,29 @@ namespace s3d::detail
 	// Input format based on POSIX.1-2008 strtol
 	// http://pubs.opengroup.org/onlinepubs/9699919799/functions/strtol.html
 	template <typename IntType>
-	inline bool safe_int_internal(StringView text, IntType* value_p, int base)
-	{
+	inline bool safe_int_internal(StringView text, IntType* value_p,
+		int base) {
 		*value_p = 0;
-
 		bool negative;
-
-		if (!safe_parse_sign_and_base(&text, &base, &negative))
-		{
+		if (!safe_parse_sign_and_base(&text, &base, &negative)) {
 			return false;
 		}
-
-		if (!negative)
-		{
+		if (!negative) {
 			return safe_parse_positive_int(text, base, value_p);
 		}
-		else
-		{
+		else {
 			return safe_parse_negative_int(text, base, value_p);
 		}
 	}
 
 	template <typename IntType>
-	inline bool safe_uint_internal(StringView text, IntType* value_p, int32 base)
-	{
+	inline bool safe_uint_internal(StringView text, IntType* value_p,
+		int base) {
 		*value_p = 0;
-
 		bool negative;
-
-		if (!safe_parse_sign_and_base(&text, &base, &negative) || negative)
-		{
+		if (!safe_parse_sign_and_base(&text, &base, &negative) || negative) {
 			return false;
 		}
-
 		return safe_parse_positive_int(text, base, value_p);
 	}
 }

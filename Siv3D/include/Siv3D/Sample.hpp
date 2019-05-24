@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -138,7 +138,7 @@ namespace s3d
 	}
 
 	template <class Iterator>
-	inline auto DiscreteSample(Iterator begin, [[maybe_unused]] Iterator end, const DiscreteDistribution<size_t>& weight)
+	inline auto DiscreteSample(Iterator begin, [[maybe_unused]] Iterator end, DiscreteDistribution& weight)
 	{
 		assert(begin != end);
 		assert(std::distance(begin, end) == static_cast<int64>(weight.size()));
@@ -149,7 +149,7 @@ namespace s3d
 	}
 
 	template <class Container>
-	inline auto DiscreteSample(const Container& c, const DiscreteDistribution<size_t>& weight)
+	inline auto DiscreteSample(const Container& c, DiscreteDistribution& weight)
 	{
 		assert(std::size(c) != 0);
 		assert(std::size(c) == weight.size());
@@ -162,7 +162,7 @@ namespace s3d
 	}
 
 	template <class Type>
-	inline auto DiscreteSample(std::initializer_list<Type> ilist, const DiscreteDistribution<size_t>& weight)
+	inline auto DiscreteSample(std::initializer_list<Type> ilist, DiscreteDistribution& weight)
 	{
 		assert(ilist.size() != 0);
 

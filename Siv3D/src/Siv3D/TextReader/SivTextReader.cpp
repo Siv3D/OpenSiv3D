@@ -2,22 +2,34 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/TextReader.hpp>
-# include "CTextReader.hpp"
+# include "TextReaderDetail.hpp"
 
 namespace s3d
 {
 	TextReader::TextReader()
-		: pImpl(std::make_shared<CTextReader>())
+		: pImpl(std::make_shared<TextReaderDetail>())
 	{
 
+	}
+
+	TextReader::TextReader(const FilePath& path, const Optional<TextEncoding>& encoding)
+		: TextReader()
+	{
+		open(path, encoding);
+	}
+
+	TextReader::TextReader(const std::shared_ptr<IReader>& reader, const Optional<TextEncoding>& encoding)
+		: TextReader()
+	{
+		open(reader, encoding);
 	}
 
 	TextReader::~TextReader()

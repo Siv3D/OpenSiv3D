@@ -2,14 +2,14 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include "../../ThirdParty/zstd/zstd.h"
+# include <zstd/zstd.h>
 # include <Siv3D/Compression.hpp>
 # include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/BinaryWriter.hpp>
@@ -19,7 +19,7 @@ namespace s3d
 {
 	namespace Compression
 	{
-		ByteArray Compress(const ByteArrayView view, const int32 compressionLevel)
+		ByteArray Compress(const ByteArrayViewAdapter view, const int32 compressionLevel)
 		{
 			const size_t bufferSize = ZSTD_compressBound(view.size());
 
@@ -114,7 +114,7 @@ namespace s3d
 			return ByteArray(std::move(buffer));
 		}
 
-		bool CompressToFile(const ByteArrayView view, const FilePath& outputPath, const int32 compressionLevel)
+		bool CompressToFile(const ByteArrayViewAdapter view, const FilePath& outputPath, const int32 compressionLevel)
 		{
 			const size_t inputBufferSize = ZSTD_CStreamInSize();
 			const auto pInputBuffer = std::make_unique<Byte[]>(inputBufferSize);

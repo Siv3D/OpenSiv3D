@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,7 +11,6 @@
 
 # include <Siv3D/SimpleGUI.hpp>
 # include <Siv3D/Optional.hpp>
-# include <Siv3D/FontAsset.hpp>
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Math.hpp>
@@ -21,23 +20,17 @@
 # include <Siv3D/Keyboard.hpp>
 # include <Siv3D/TextInput.hpp>
 # include <Siv3D/Clipboard.hpp>
+# include <Siv3D/Font.hpp>
+# include <Siv3DEngine.hpp>
+# include <GUI/IGUI.hpp>
 
 namespace s3d
 {
 	namespace detail
 	{
-		[[nodiscard]] Font GetSimpleGUIFont()
+		[[nodiscard]] const Font& GetSimpleGUIFont()
 		{
-			static bool initialized = false;
-
-			if (!initialized)
-			{
-				FontAsset::Register(U"Siv3D.SimpleGUI", 20, Typeface::Medium);
-
-				initialized = true;
-			}
-
-			return FontAsset(U"Siv3D.SimpleGUI");
+			return Siv3DEngine::Get<ISiv3DGUI>()->getDefaultGUIFont();
 		}
 
 		constexpr int32 CheckBoxSize = 24;
@@ -47,11 +40,27 @@ namespace s3d
 		constexpr int32 TextBoxHeight = 36;
 	}
 
+	TextEditState::TextEditState(const String& defaultText)
+		: text(defaultText)
+		, cursorPos(defaultText.size())
+	{
+	
+	}
+
+	void TextEditState::clear()
+	{
+		text.clear();
+		cursorPos = 0;
+		leftPressStopwatch.reset();
+		rightPressStopwatch.reset();
+		cursorStopwatch.reset();
+	}
+
 	namespace SimpleGUI
 	{
 		RectF ButtonRegion(const String& label, const Vec2& pos, const Optional<double>& _width)
 		{
-			const Font font = detail::GetSimpleGUIFont();
+			const Font& font = detail::GetSimpleGUIFont();
 
 			const double width = _width.value_or(font(label).region().w + 40);
 
@@ -605,7 +614,7 @@ namespace s3d
 
 				# if defined(SIV3D_TARGET_WINDOWS)
 
-					const auto[editingCursorIndex, editingTargetlength] = Windows::TextInput::GetCursorIndex();
+					const auto[editingCursorIndex, editingTargetlength] = Platform::Windows::TextInput::GetCursorIndex();
 					const bool hasEditingTarget = (editingTargetlength > 0);
 
 				# else

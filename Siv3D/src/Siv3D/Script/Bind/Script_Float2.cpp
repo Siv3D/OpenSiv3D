@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -128,6 +128,7 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "float lengthSq() const", asMETHOD(Float2, lengthSq), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "float lengthInv() const", asMETHOD(Float2, lengthInv), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "Float2& setLength(float)", asMETHOD(Float2, setLength), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Float2 clampLength(float)", asMETHOD(Float2, clampLength), asCALL_THISCALL); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "float distanceFrom(float x, float y) const", asMETHODPR(Float2, distanceFrom, (float, float) const, float), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "float distanceFrom(const Float2& in) const", asMETHODPR(Float2, distanceFrom, (const Float2&) const, float), asCALL_THISCALL); assert(r >= 0);

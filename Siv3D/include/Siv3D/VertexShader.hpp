@@ -1,9 +1,9 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -16,7 +16,7 @@
 # include "String.hpp"
 # include "NamedParameter.hpp"
 # include "Array.hpp"
-# include "Shader.hpp"
+# include "ShaderCommon.hpp"
 
 namespace s3d
 {
@@ -24,10 +24,14 @@ namespace s3d
 	{
 	protected:
 
-		class Handle {};
+		class Tag {};
 
-		using VertexShaderHandle = AssetHandle<Handle>;
+		using VertexShaderHandle = AssetHandle<Tag>;
 
+		friend VertexShaderHandle::AssetHandle();
+	
+		friend VertexShaderHandle::AssetHandle(const IDWrapperType id) noexcept;
+		
 		friend VertexShaderHandle::~AssetHandle();
 
 		std::shared_ptr<VertexShaderHandle> m_handle;
@@ -40,7 +44,7 @@ namespace s3d
 
 		explicit VertexShader(const FilePath& path, const Array<BindingPoint>& bindingPoints = {});
 		
-		explicit VertexShader(Arg::source_<String> source, const Array<BindingPoint>& bindingPoints = {});
+		//explicit VertexShader(Arg::source_<String> source, const Array<BindingPoint>& bindingPoints = {});
 
 		virtual ~VertexShader();
 
@@ -48,10 +52,7 @@ namespace s3d
 
 		[[nodiscard]] bool isEmpty() const;
 
-		[[nodiscard]] explicit operator bool() const
-		{
-			return !isEmpty();
-		}
+		[[nodiscard]] explicit operator bool() const;
 
 		[[nodiscard]] IDType id() const;
 

@@ -2,15 +2,17 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
+# include <Siv3D/Keyboard.hpp>
+# include <Siv3D/Char.hpp>
+# include <LicenseManager/LicenseList.hpp>
 # include "CLicenseManager.hpp"
-# include "LicenseList.hpp"
 
 namespace s3d
 {
@@ -25,7 +27,20 @@ namespace s3d
 
 	}
 
-	void CLicenseManager::setApplicationLicense(const LicenseInfo& license)
+	void CLicenseManager::update()
+	{
+		if (!m_openIfF1KeyPressed)
+		{
+			return;
+		}
+
+		if (KeyF1.down())
+		{
+			LicenseManager::ShowInBrowser();
+		}
+	}
+
+	void CLicenseManager::setApplicationLicense(const String& uniqueID, const LicenseInfo& license)
 	{
 		if (!m_hasApplicationLicense)
 		{
@@ -39,6 +54,11 @@ namespace s3d
 		{
 			m_licenses[0] = license;
 		}
+
+		m_uniqueID = uniqueID.removed_if([](char32 c)
+			{
+				return !IsAlnum(c) && (c != '-') && (c != '_');
+			});
 	}
 
 	void CLicenseManager::addLicense(const LicenseInfo& license)
@@ -51,5 +71,15 @@ namespace s3d
 	const Array<LicenseInfo>& CLicenseManager::enumLicenses() const
 	{
 		return m_licenses;
+	}
+
+	const String& CLicenseManager::getUniqueID() const
+	{
+		return m_uniqueID;
+	}
+
+	void CLicenseManager::disableDefaultTrigger()
+	{
+		m_openIfF1KeyPressed = false;
 	}
 }

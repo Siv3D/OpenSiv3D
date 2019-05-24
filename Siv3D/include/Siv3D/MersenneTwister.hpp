@@ -2,19 +2,17 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <sstream>
 # include <random>
 # include <array>
 # include "Fwd.hpp"
-# include "HardwareRNG.hpp"
 # include "SFMT.hpp"
 
 namespace s3d
@@ -41,14 +39,7 @@ namespace s3d
 		/// <remarks>
 		/// シードはランダムに設定されます。
 		/// </remarks>
-		MT11213b()
-		{
-			HardwareRNG rng;
-
-			std::seed_seq seeds{ rng(), rng(), rng(), rng(), rng(), rng(), rng(), rng() };
-
-			m_engine.seed(seeds);
-		}
+		MT11213b();
 
 		/// <summary>
 		/// シードを指定して乱数生成器を作成します。
@@ -56,8 +47,7 @@ namespace s3d
 		/// <param name="seed">
 		/// シード
 		/// </param>
-		explicit MT11213b(uint32 seed)
-			: m_engine(seed) {}
+		explicit MT11213b(uint32 seed);
 
 		/// <summary>
 		/// シードを指定して乱数生成器を作成します。
@@ -65,10 +55,7 @@ namespace s3d
 		/// <param name="seeds">
 		/// シード
 		/// </param>
-		explicit MT11213b(const std::array<uint32, 8>& seeds)
-		{
-			seed(seeds);
-		}
+		explicit MT11213b(const std::array<uint32, 8>& seeds);
 
 		/// <summary>
 		/// シードを設定しなおします。
@@ -79,10 +66,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void seed(const uint32 seed)
-		{
-			m_engine.seed(seed);
-		}
+		void seed(const uint32 seed);
 
 		/// <summary>
 		/// シードを設定しなおします。
@@ -93,12 +77,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void seed(const std::array<uint32, 8>& seeds)
-		{
-			std::seed_seq seq(std::begin(seeds), std::end(seeds));
-
-			m_engine.seed(seq);
-		}
+		void seed(const std::array<uint32, 8>& seeds);
 
 		/// <summary>
 		/// 生成される乱数の最小値を返します。
@@ -143,20 +122,12 @@ namespace s3d
 		{
 			const uint32 a = m_engine();
 			const uint32 b = m_engine();
-			return detail::sfmt_to_res53_mix(a, b);
+			return sfmt::sfmt_to_res53_mix(a, b);
 		}
 
-		[[nodiscard]] std::string serialize() const
-		{
-			std::ostringstream os;
-			os << m_engine;
-			return os.str();
-		}
+		[[nodiscard]] std::string serialize() const;
 
-		void deserialize(const std::string& representation)
-		{
-			std::istringstream(representation) >> m_engine;
-		}
+		void deserialize(const std::string& representation);
 	};
 
 	/// <summary>
@@ -180,14 +151,7 @@ namespace s3d
 		/// <remarks>
 		/// シードはランダムに設定されます。
 		/// </remarks>
-		MT19937()
-		{
-			HardwareRNG rng;
-
-			std::seed_seq seeds{ rng(), rng(), rng(), rng(), rng(), rng(), rng(), rng() };
-
-			m_engine.seed(seeds);
-		}
+		MT19937();
 
 		/// <summary>
 		/// シードを指定して乱数生成器を作成します。
@@ -195,8 +159,7 @@ namespace s3d
 		/// <param name="seed">
 		/// シード
 		/// </param>
-		explicit MT19937(uint32 seed)
-			: m_engine(seed) {}
+		explicit MT19937(uint32 seed);
 
 		/// <summary>
 		/// シードを指定して乱数生成器を作成します。
@@ -204,10 +167,7 @@ namespace s3d
 		/// <param name="seeds">
 		/// シード
 		/// </param>
-		explicit MT19937(const std::array<uint32, 8>& seeds)
-		{
-			seed(seeds);
-		}
+		explicit MT19937(const std::array<uint32, 8>& seeds);
 
 		/// <summary>
 		/// シードを設定しなおします。
@@ -218,10 +178,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void seed(const uint32 seed)
-		{
-			m_engine.seed(seed);
-		}
+		void seed(const uint32 seed);
 
 		/// <summary>
 		/// シードを設定しなおします。
@@ -232,12 +189,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void seed(const std::array<uint32, 8>& seeds)
-		{
-			std::seed_seq seq(std::begin(seeds), std::end(seeds));
-
-			m_engine.seed(seq);
-		}
+		void seed(const std::array<uint32, 8>& seeds);
 
 		/// <summary>
 		/// 生成される乱数の最小値を返します。
@@ -282,20 +234,12 @@ namespace s3d
 		{
 			const uint32 a = m_engine();
 			const uint32 b = m_engine();
-			return detail::sfmt_to_res53_mix(a, b);
+			return sfmt::sfmt_to_res53_mix(a, b);
 		}
 
-		[[nodiscard]] std::string serialize() const
-		{
-			std::ostringstream os;
-			os << m_engine;
-			return os.str();
-		}
+		[[nodiscard]] std::string serialize() const;
 
-		void deserialize(const std::string& representation)
-		{
-			std::istringstream(representation) >> m_engine;
-		}
+		void deserialize(const std::string& representation);
 	};
 
 	/// <summary>
@@ -319,21 +263,7 @@ namespace s3d
 		/// <remarks>
 		/// シードはランダムに設定されます。
 		/// </remarks>
-		MT19937_64()
-		{
-			uint64 seeds[8];
-
-			HardwareRNG rng;
-
-			for (auto& seed : seeds)
-			{
-				seed = (static_cast<uint64>(rng()) << 32) | rng();
-			}
-
-			std::seed_seq seq(std::begin(seeds), std::end(seeds));
-
-			m_engine.seed(seq);
-		}
+		MT19937_64();
 
 		/// <summary>
 		/// シードを指定して乱数生成器を作成します。
@@ -341,8 +271,7 @@ namespace s3d
 		/// <param name="seed">
 		/// シード
 		/// </param>
-		explicit MT19937_64(const uint64 seed)
-			: m_engine(seed) {}
+		explicit MT19937_64(const uint64 seed);
 
 		/// <summary>
 		/// シードを指定して乱数生成器を作成します。
@@ -350,10 +279,7 @@ namespace s3d
 		/// <param name="seeds">
 		/// シード
 		/// </param>
-		explicit MT19937_64(const std::array<uint64, 8>& seeds)
-		{
-			seed(seeds);
-		}
+		explicit MT19937_64(const std::array<uint64, 8>& seeds);
 
 		/// <summary>
 		/// シードを設定しなおします。
@@ -364,10 +290,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void seed(uint64 seed)
-		{
-			m_engine.seed(seed);
-		}
+		void seed(uint64 seed);
 
 		/// <summary>
 		/// シードを設定しなおします。
@@ -378,12 +301,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void seed(const std::array<uint64, 8>& seeds)
-		{
-			std::seed_seq seq(std::begin(seeds), std::end(seeds));
-
-			m_engine.seed(seq);
-		}
+		void seed(const std::array<uint64, 8>& seeds);
 
 		/// <summary>
 		/// 生成される乱数の最小値を返します。
@@ -426,19 +344,11 @@ namespace s3d
 		/// </returns>
 		double generateReal()
 		{
-			return detail::sfmt_to_res53(m_engine());
+			return sfmt::sfmt_to_res53(m_engine());
 		}
 
-		[[nodiscard]] std::string serialize() const
-		{
-			std::ostringstream os;
-			os << m_engine;
-			return os.str();
-		}
+		[[nodiscard]] std::string serialize() const;
 
-		void deserialize(const std::string& representation)
-		{
-			std::istringstream(representation) >> m_engine;
-		}
+		void deserialize(const std::string& representation);
 	};
 }

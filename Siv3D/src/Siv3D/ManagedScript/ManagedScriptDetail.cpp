@@ -2,18 +2,18 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include "ManagedScriptDetail.hpp"
 # include <Siv3D/DirectoryWatcher.hpp>
 # include <Siv3D/FileSystem.hpp>
-# include <Siv3D/Graphics.hpp>
+# include <Siv3D/Scene.hpp>
 # include <Siv3D/Print.hpp>
+# include "ManagedScriptDetail.hpp"
 
 namespace s3d
 {
@@ -82,7 +82,7 @@ namespace s3d
 		if (m_requestReload || !m_callback())
 		{
 			ClearPrint();
-			Graphics::SetBackground(Palette::DefaultBackground);
+			Scene::SetBackground(Palette::DefaultBackground);
 			m_script.reload();
 			m_script.getMessages().each(Print);
 			m_main = m_script.getFunction<void()>(U"Main");

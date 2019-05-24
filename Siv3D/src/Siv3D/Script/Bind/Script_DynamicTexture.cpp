@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -152,7 +152,12 @@ namespace s3d
 		r = engine->RegisterObjectMethod(TypeName, "TextureRegion opImplConv() const", asFUNCTION(ConvToTextureRegion), asCALL_CDECL_OBJLAST); assert(r >= 0);
 
 		r = engine->RegisterObjectMethod(TypeName, "bool fill(const ColorF& in)", asMETHODPR(BindType, fill, (const ColorF&), bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool fillRegion(const ColorF& in, const Rect& in)", asMETHODPR(BindType, fillRegion, (const ColorF&, const Rect&), bool), asCALL_THISCALL); assert(r >= 0);
+
 		r = engine->RegisterObjectMethod(TypeName, "bool fill(const Image& in)", asMETHODPR(BindType, fill, (const Image&), bool), asCALL_THISCALL); assert(r >= 0);
-		r = engine->RegisterObjectMethod(TypeName, "bool tryFill(const Image& in)", asMETHODPR(BindType, tryFill, (const Image&), bool), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool fillRegion(const Image& in, const Rect& in)", asMETHODPR(BindType, fillRegion, (const Image&, const Rect&), bool), asCALL_THISCALL); assert(r >= 0);
+
+		r = engine->RegisterObjectMethod(TypeName, "bool fillIfNotBusy(const Image& in)", asMETHOD(BindType, fillIfNotBusy), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "bool fillRegionIfNotBusy(const Image& in, const Rect& in)", asMETHOD(BindType, fillRegionIfNotBusy), asCALL_THISCALL); assert(r >= 0);
 	}
 }

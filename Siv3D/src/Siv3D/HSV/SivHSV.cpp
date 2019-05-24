@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -31,6 +31,42 @@ namespace s3d
 			{ 2, 0, 3 },
 			{ 3, 0, 1 },
 		};
+
+		//
+		// http://lol.zoy.org/blog/2013/01/13/fast-rgb-to-hsv
+		//
+		static HSV RGBAToHSV(double r, double g, double b, double a) noexcept
+		{
+			double K = 0.0;
+
+			if (g < b)
+			{
+				std::swap(g, b);
+				K = -360.0;
+			}
+
+			if (r < g)
+			{
+				std::swap(r, g);
+				K = -720.0 / 6.0 - K;
+			}
+
+			const double delta = (g - b) * (360.0 / 6.0);
+			const double chroma = r - std::min(g, b);
+			return HSV(std::fabs(K + delta / (chroma + 1e-20)), chroma / (r + 1e-20), r, a);
+		}
+	}
+
+	HSV::HSV(const Color& color) noexcept
+		: HSV(detail::RGBAToHSV(color.r / 255.0, color.g / 255.0, color.b / 255.0, color.a / 255.0))
+	{
+
+	}
+
+	HSV::HSV(const ColorF& color) noexcept
+		: HSV(detail::RGBAToHSV(color.r, color.g, color.b, color.a))
+	{
+
 	}
 
 	Color HSV::toColor() const noexcept
@@ -71,34 +107,6 @@ namespace s3d
 					  vals[detail::conversionTable[hueI][1]],
 					  vals[detail::conversionTable[hueI][2]],
 					  a);
-	}
-
-	//
-	// http://lol.zoy.org/blog/2013/01/13/fast-rgb-to-hsv
-	//
-	void HSV::convertFrom(double r, double g, double b, const double _a) noexcept
-	{
-		double K = 0.0;
-
-		if (g < b)
-		{
-			std::swap(g, b);
-			K = -360.0;
-		}
-
-		if (r < g)
-		{
-			std::swap(r, g);
-			K = -720.0 / 6.0 - K;
-		}
-
-		const double delta = (g - b) * (360.0 / 6.0);
-		const double chroma = r - std::min(g, b);
-
-		h = std::fabs(K + delta / (chroma + 1e-20));
-		s = chroma / (r + 1e-20);
-		v = r;
-		a = _a;
 	}
 
 	void Formatter(FormatData& formatData, const HSV& value)

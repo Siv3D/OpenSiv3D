@@ -2,16 +2,16 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include "ICPU.hpp"
 # include <Siv3D/CPU.hpp>
+# include "ICPU.hpp"
 
 namespace s3d
 {
@@ -27,7 +27,7 @@ namespace s3d
 
 		~CCPU() override;
 
-		bool init() override;
+		void init() override;
 
 		void setFeature(const CPUFeature& feature) override;
 

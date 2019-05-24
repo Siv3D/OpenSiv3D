@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,7 +13,7 @@
 # include <Siv3D/ByteArray.hpp>
 # include <Siv3D/BinaryReader.hpp>
 # include <Siv3D/FormatUtility.hpp>
-# include "../../ThirdParty/RFC1321/RFC1321.hpp"
+# include <RFC1321/RFC1321.hpp>
 
 namespace s3d
 {
@@ -59,6 +59,11 @@ namespace s3d
 			return FromBinary(view.data(), view.size_bytes());
 		}
 
+		MD5Value FromBinary(const ByteArrayViewAdapter view)
+		{
+			return FromBinary(view.data(), view.size_bytes());
+		}
+
 		MD5Value FromText(const StringView view)
 		{
 			return FromBinary(view.data(), view.size_bytes());
@@ -89,5 +94,10 @@ namespace s3d
 
 			return result;
 		}
+	}
+
+	void Formatter(FormatData& formatData, const MD5Value& value)
+	{
+		formatData.string.append(value.asString());
 	}
 }

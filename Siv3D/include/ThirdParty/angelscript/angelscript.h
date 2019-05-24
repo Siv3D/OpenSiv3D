@@ -1224,7 +1224,7 @@ template <int N>
 struct asSMethodPtr
 {
 	template<class M>
-	static asSFuncPtr Convert(M Mthd)
+	static asSFuncPtr Convert(M)
 	{
 		// This version of the function should never be executed, nor compiled,
 		// as it would mean that the size of the method pointer cannot be determined.

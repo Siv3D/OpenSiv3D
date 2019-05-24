@@ -2,31 +2,53 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include "../Siv3DEngine.hpp"
-# include "../Shader/IShader.hpp"
+# include <Siv3DEngine.hpp>
+# include <Shader/IShader.hpp>
 # include <Siv3D/PixelShader.hpp>
 # include <Siv3D/ByteArrayView.hpp>
+# include <Siv3D/EngineMessageBox.hpp>
 
 namespace s3d
 {
 	template <>
-	AssetHandle<PixelShader::Handle>::~AssetHandle()
+	AssetHandle<PixelShader::Tag>::AssetHandle()
+	{
+		if (!Siv3DEngine::isActive())
+		{
+			EngineMessageBox::Show(U"`PixelShader` must be initialized after engine setup.");
+			std::exit(-1);
+		}
+	}
+
+	template <>
+	AssetHandle<PixelShader::Tag>::AssetHandle(const IDWrapperType id) noexcept
+		: m_id(id)
+	{
+		if (!Siv3DEngine::isActive())
+		{
+			EngineMessageBox::Show(U"`PixelShader` must be initialized after engine setup.");
+			std::exit(-1);
+		}
+	}
+
+	template <>
+	AssetHandle<PixelShader::Tag>::~AssetHandle()
 	{
 		if (!Siv3DEngine::isActive())
 		{
 			return;
 		}
 
-		if (auto p = Siv3DEngine::GetShader())
+		if (auto p = Siv3DEngine::Get<ISiv3DShader>())
 		{
-			p->releasePS(m_id);
+			p->release(m_id);
 		}
 	}
 
@@ -37,16 +59,16 @@ namespace s3d
 	}
 
 	PixelShader::PixelShader(const FilePath& path, const Array<BindingPoint>& bindingPoints)
-		: m_handle(std::make_shared<PixelShaderHandle>(Siv3DEngine::GetShader()->createPSFromFile(std::move(path), bindingPoints)))
+		: m_handle(std::make_shared<PixelShaderHandle>(Siv3DEngine::Get<ISiv3DShader>()->createPSFromFile(std::move(path), bindingPoints)))
 	{
 
 	}
 	
-	PixelShader::PixelShader(Arg::source_<String> source, const Array<BindingPoint>& bindingPoints)
-		: m_handle(std::make_shared<PixelShaderHandle>(Siv3DEngine::GetShader()->createPSFromSource(source.value(), bindingPoints)))
-	{
-		
-	}
+	//PixelShader::PixelShader(Arg::source_<String> source, const Array<BindingPoint>& bindingPoints)
+	//	: m_handle(std::make_shared<PixelShaderHandle>(Siv3DEngine::Get<ISiv3DShader>()->createPSFromSource(source.value(), bindingPoints)))
+	//{
+	//	
+	//}
 
 	PixelShader::~PixelShader()
 	{
@@ -61,6 +83,11 @@ namespace s3d
 	bool PixelShader::isEmpty() const
 	{
 		return m_handle->id().isNullAsset();
+	}
+
+	PixelShader::operator bool() const
+	{
+		return !isEmpty();
 	}
 
 	PixelShaderID PixelShader::id() const
@@ -80,6 +107,6 @@ namespace s3d
 
 	ByteArrayView PixelShader::getBinaryView() const
 	{
-		return Siv3DEngine::GetShader()->getBinaryViewPS(m_handle->id());
+		return Siv3DEngine::Get<ISiv3DShader>()->getBinaryView(m_handle->id());
 	}
 }

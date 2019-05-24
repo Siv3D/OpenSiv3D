@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -96,107 +96,37 @@ namespace s3d
 
 		LineString() = default;
 
-		LineString(const LineString& lines)
-			: base_type(lines.begin(), lines.end())
-		{
+		LineString(const LineString& lines);
 
-		}
-
-		LineString(LineString&& lines)
-			: base_type(std::move(lines))
-		{
-
-		}
+		LineString(LineString&& lines);
 		
-		explicit LineString(const Array<Vec2>& points)
-			: base_type(points.begin(), points.end())
-		{
+		explicit LineString(const Array<Vec2>& points);
 
-		}
+		explicit LineString(Array<Vec2>&& points);
 
-		explicit LineString(Array<Vec2>&& points)
-			: base_type(std::move(points))
-		{
+		LineString& operator =(const Array<Vec2>& other);
 
-		}
+		LineString& operator =(Array<Vec2>&& other) noexcept;
 
-		LineString& operator =(const Array<Vec2>& other)
-		{
-			base_type::operator=(other);
+		LineString& operator =(const LineString& other);
 
-			return *this;
-		}
+		LineString& operator =(LineString&& other) noexcept;
 
-		LineString& operator =(Array<Vec2>&& other) noexcept
-		{
-			base_type::operator=(std::move(other));
+		void assign(const LineString& other);
 
-			return *this;
-		}
+		void assign(LineString&& other) noexcept;
 
-		LineString& operator =(const LineString& other)
-		{
-			base_type::operator=(other);
+		LineString& operator <<(const Vec2& value);
 
-			return *this;
-		}
+		void swap(LineString& other) noexcept;
 
-		LineString& operator =(LineString&& other) noexcept
-		{
-			base_type::operator=(std::move(other));
+		LineString& append(const Array<Vec2>& other);
 
-			return *this;
-		}
+		LineString& append(const LineString& other);
 
-		void assign(const LineString& other)
-		{
-			base_type::operator=(other);
-		}
+		LineString& remove(const Vec2& value);
 
-		void assign(LineString&& other) noexcept
-		{
-			base_type::operator=(std::move(other));
-		}
-
-		LineString& operator <<(const Vec2& value)
-		{
-			base_type::push_back(value);
-
-			return *this;
-		}
-
-		void swap(LineString& other) noexcept
-		{
-			base_type::swap(other);
-		}
-
-		LineString& append(const Array<Vec2>& other)
-		{
-			base_type::insert(end(), other.begin(), other.end());
-
-			return *this;
-		}
-
-		LineString& append(const LineString& other)
-		{
-			base_type::insert(end(), other.begin(), other.end());
-
-			return *this;
-		}
-
-		LineString& remove(const Vec2& value)
-		{
-			base_type::remove(value);
-
-			return *this;
-		}
-
-		LineString& remove_at(const size_t index)
-		{
-			base_type::remove_at(index);
-
-			return *this;
-		}
+		LineString& remove_at(size_t index);
 
 		template <class Fty>
 		LineString& remove_if(Fty f)
@@ -206,26 +136,11 @@ namespace s3d
 			return *this;
 		}
 
-		LineString& reverse()
-		{
-			base_type::reverse();
+		LineString& reverse();
 
-			return *this;
-		}
+		LineString& rotate(std::ptrdiff_t count = 1);
 
-		LineString& rotate(std::ptrdiff_t count = 1)
-		{
-			base_type::rotate(count);
-
-			return *this;
-		}
-
-		LineString& shuffle()
-		{
-			base_type::shuffle();
-
-			return *this;
-		}
+		LineString& shuffle();
 
 		template <class URBG>
 		LineString& shuffle(URBG&& rbg)
@@ -235,50 +150,21 @@ namespace s3d
 			return *this;
 		}
 
-		[[nodiscard]] LineString slice(const size_t index) const
-		{
-			return LineString(base_type::slice(index));
-		}
+		[[nodiscard]] LineString slice(size_t index) const;
 
-		[[nodiscard]] LineString slice(const size_t index, const size_t length) const
-		{
-			return LineString(base_type::slice(index, length));
-		}
+		[[nodiscard]] LineString slice(size_t index, size_t length) const;
 
-		[[nodiscard]] size_t num_lines() const noexcept
-		{
-			return size() < 2 ? 0 : size() - 1;
-		}
+		[[nodiscard]] size_t num_lines() const noexcept;
 
-		[[nodiscard]] Line line(size_t index) const
-		{
-			return{ base_type::operator[](index), base_type::operator[](index + 1) };
-		}
+		[[nodiscard]] Line line(size_t index) const;
 
-		[[nodiscard]] LineString movedBy(double x, double y) const
-		{
-			return LineString(*this).moveBy(x, y);
-		}
+		[[nodiscard]] LineString movedBy(double x, double y) const;
 
-		[[nodiscard]] LineString movedBy(const Vec2& v) const
-		{
-			return movedBy(v.x, v.y);
-		}
+		[[nodiscard]] LineString movedBy(const Vec2& v) const;
 
-		LineString& moveBy(double x, double y) noexcept
-		{
-			for (auto& point : *this)
-			{
-				point.moveBy(x, y);
-			}
+		LineString& moveBy(double x, double y) noexcept;
 
-			return *this;
-		}
-
-		LineString& moveBy(const Vec2& v) noexcept
-		{
-			return moveBy(v.x, v.y);
-		}
+		LineString& moveBy(const Vec2& v) noexcept;
 
 		[[nodiscard]] RectF calculateBoundingRect() const noexcept;
 
@@ -287,6 +173,8 @@ namespace s3d
 		{
 			return Geometry2D::Intersect(*this, shape);
 		}
+
+		[[nodiscard]] LineString densified(double maxDistance) const;
 
 		[[nodiscard]] LineString catmullRom(int32 interpolation = 24) const;
 
@@ -348,10 +236,7 @@ namespace s3d
 
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const LineString& value)
-	{
-		formatData.string.append(value.join(U", ", U"(", U")"));
-	}
+	void Formatter(FormatData& formatData, const LineString& value);
 
 	template <class CharType>
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const LineString& value)
@@ -387,7 +272,7 @@ namespace std
 	{
 		[[nodiscard]] size_t operator ()(const s3d::LineString& value) const noexcept
 		{
-			return s3d::Hash::FNV1a(value);
+			return s3d::Hash::FNV1a(value.data(), value.size_bytes());
 		}
 	};
 }

@@ -2,28 +2,50 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include "../Siv3DEngine.hpp"
+# include <Siv3DEngine.hpp>
+# include <AssetHandleManager/AssetReport.hpp>
+# include <Siv3D/EngineMessageBox.hpp>
 # include "IAudio.hpp"
-# include "../Profiler/IProfiler.hpp"
 
 namespace s3d
 {
 	template <>
-	AssetHandle<Audio::Handle>::~AssetHandle()
+	AssetHandle<Audio::Tag>::AssetHandle()
+	{
+		if (!Siv3DEngine::isActive())
+		{
+			EngineMessageBox::Show(U"`Audio` must be initialized after engine setup.");
+			std::exit(-1);
+		}
+	}
+
+	template <>
+	AssetHandle<Audio::Tag>::AssetHandle(const IDWrapperType id) noexcept
+		: m_id(id)
+	{
+		if (!Siv3DEngine::isActive())
+		{
+			EngineMessageBox::Show(U"`Audio` must be initialized after engine setup.");
+			std::exit(-1);
+		}
+	}
+
+	template <>
+	AssetHandle<Audio::Tag>::~AssetHandle()
 	{
 		if (!Siv3DEngine::isActive())
 		{
 			return;
 		}
 
-		if (auto p = Siv3DEngine::GetAudio())
+		if (auto p = Siv3DEngine::Get<ISiv3DAudio>())
 		{
 			p->release(m_id);
 		}
@@ -36,9 +58,9 @@ namespace s3d
 	}
 
 	Audio::Audio(Wave&& wave)
-		: m_handle(std::make_shared<AudioHandle>(Siv3DEngine::GetAudio()->create(std::move(wave))))
+		: m_handle(std::make_shared<AudioHandle>(Siv3DEngine::Get<ISiv3DAudio>()->create(std::move(wave))))
 	{
-		ASSET_CREATION();
+		ReportAssetCreation();
 	}
 
 	Audio::Audio(Wave&& wave, const Optional<AudioLoopTiming>& loop)
@@ -225,17 +247,17 @@ namespace s3d
 
 	uint32 Audio::samplingRate() const
 	{
-		return Siv3DEngine::GetAudio()->samplingRate(m_handle->id());
+		return Siv3DEngine::Get<ISiv3DAudio>()->samplingRate(m_handle->id());
 	}
 
 	size_t Audio::samples() const
 	{
-		return Siv3DEngine::GetAudio()->samples(m_handle->id());
+		return Siv3DEngine::Get<ISiv3DAudio>()->samples(m_handle->id());
 	}
 
 	void Audio::setLoop(const bool loop)
 	{
-		Siv3DEngine::GetAudio()->setLoop(
+		Siv3DEngine::Get<ISiv3DAudio>()->setLoop(
 			m_handle->id(),
 			loop,
 			0,
@@ -249,7 +271,7 @@ namespace s3d
 		const uint64 loopBeginSample = *loopBegin;
 		const uint64 loopEndSample = samples() - 1;
 
-		Siv3DEngine::GetAudio()->setLoop(
+		Siv3DEngine::Get<ISiv3DAudio>()->setLoop(
 			m_handle->id(),
 			true,
 			loopBeginSample,
@@ -264,7 +286,7 @@ namespace s3d
 		const uint64 loopBeginSample = *loopBegin;
 		const uint64 loopEndSample = std::min<uint64>(*loopEnd, samples() - 1);
 
-		Siv3DEngine::GetAudio()->setLoop(
+		Siv3DEngine::Get<ISiv3DAudio>()->setLoop(
 			m_handle->id(),
 			true,
 			loopBeginSample,
@@ -278,7 +300,7 @@ namespace s3d
 
 		assert(loopBeginSample < loopEndSample);
 
-		Siv3DEngine::GetAudio()->setLoop(
+		Siv3DEngine::Get<ISiv3DAudio>()->setLoop(
 			m_handle->id(),
 			true,
 			loopBeginSample,
@@ -292,51 +314,61 @@ namespace s3d
 
 		assert(loopBeginSample < loopEndSample);
 
-		Siv3DEngine::GetAudio()->setLoop(
+		Siv3DEngine::Get<ISiv3DAudio>()->setLoop(
 			m_handle->id(),
 			true,
 			loopBeginSample,
 			loopEndSample);
 	}
 
+	Optional<AudioLoopTiming> Audio::getLoop() const
+	{
+		return Siv3DEngine::Get<ISiv3DAudio>()->getLoop(m_handle->id());
+	}
+
+	bool Audio::isLoop() const
+	{
+		return getLoop().has_value();
+	}
+
 	bool Audio::play(const Duration& fadeinDuration) const
 	{
-		return Siv3DEngine::GetAudio()->play(m_handle->id(), fadeinDuration);
+		return Siv3DEngine::Get<ISiv3DAudio>()->play(m_handle->id(), fadeinDuration);
 	}
 
 	void Audio::pause(const Duration& fadeoutDuration) const
 	{
-		return Siv3DEngine::GetAudio()->pause(m_handle->id(), fadeoutDuration);
+		return Siv3DEngine::Get<ISiv3DAudio>()->pause(m_handle->id(), fadeoutDuration);
 	}
 
 	void Audio::stop(const Duration& fadeoutDuration) const
 	{
-		Siv3DEngine::GetAudio()->stop(m_handle->id(), fadeoutDuration);
+		Siv3DEngine::Get<ISiv3DAudio>()->stop(m_handle->id(), fadeoutDuration);
 	}
 
 	void Audio::playOneShot(const double volume, const double pitch) const
 	{
-		Siv3DEngine::GetAudio()->playOneShot(m_handle->id(), volume, pitch);
+		Siv3DEngine::Get<ISiv3DAudio>()->playOneShot(m_handle->id(), volume, pitch);
 	}
 
 	void Audio::stopAllShots() const
 	{
-		Siv3DEngine::GetAudio()->stopAllShots(m_handle->id());
+		Siv3DEngine::Get<ISiv3DAudio>()->stopAllShots(m_handle->id());
 	}
 
 	bool Audio::isPlaying() const
 	{
-		return Siv3DEngine::GetAudio()->isPlaying(m_handle->id());
+		return Siv3DEngine::Get<ISiv3DAudio>()->isPlaying(m_handle->id());
 	}
 
 	bool Audio::isPaused() const
 	{
-		return Siv3DEngine::GetAudio()->isPaused(m_handle->id());
+		return Siv3DEngine::Get<ISiv3DAudio>()->isPaused(m_handle->id());
 	}
 
 	int64 Audio::posSample() const
 	{
-		return Siv3DEngine::GetAudio()->posSample(m_handle->id());
+		return Siv3DEngine::Get<ISiv3DAudio>()->posSample(m_handle->id());
 	}
 
 	double Audio::posSec() const
@@ -346,12 +378,12 @@ namespace s3d
 
 	int64 Audio::streamPosSample() const
 	{
-		return Siv3DEngine::GetAudio()->streamPosSample(m_handle->id());
+		return Siv3DEngine::Get<ISiv3DAudio>()->streamPosSample(m_handle->id());
 	}
 
 	int64 Audio::samplesPlayed() const
 	{
-		return Siv3DEngine::GetAudio()->samplesPlayed(m_handle->id());
+		return Siv3DEngine::Get<ISiv3DAudio>()->samplesPlayed(m_handle->id());
 	}
 
 	double Audio::lengthSec() const
@@ -361,7 +393,7 @@ namespace s3d
 
 	const Wave& Audio::getWave() const
 	{
-		return Siv3DEngine::GetAudio()->getWave(m_handle->id());
+		return Siv3DEngine::Get<ISiv3DAudio>()->getWave(m_handle->id());
 	}
 
 	void Audio::setPosSec(const double posSec) const
@@ -373,7 +405,7 @@ namespace s3d
 
 	void Audio::setPosSample(const int64 posSample) const
 	{
-		Siv3DEngine::GetAudio()->setPosSample(m_handle->id(), posSample);
+		Siv3DEngine::Get<ISiv3DAudio>()->setPosSample(m_handle->id(), posSample);
 	}
 
 	void Audio::setVolume(const double volume) const
@@ -389,7 +421,7 @@ namespace s3d
 			Clamp(right, 0.0, 1.0)
 		};
 
-		Siv3DEngine::GetAudio()->setVolume(m_handle->id(), volume);
+		Siv3DEngine::Get<ISiv3DAudio>()->setVolume(m_handle->id(), volume);
 	}
 
 	void Audio::setVolume_dB(const double attenuation_dB) const
@@ -406,7 +438,7 @@ namespace s3d
 
 	void Audio::setSpeed(const double speed) const
 	{
-		Siv3DEngine::GetAudio()->setSpeed(m_handle->id(), speed);
+		Siv3DEngine::Get<ISiv3DAudio>()->setSpeed(m_handle->id(), speed);
 	}
 
 	void Audio::setSpeedBySemitone(const int32 semitone) const
@@ -416,16 +448,16 @@ namespace s3d
 
 	double Audio::getSpeed() const
 	{
-		return Siv3DEngine::GetAudio()->getSpeed(m_handle->id());
+		return Siv3DEngine::Get<ISiv3DAudio>()->getSpeed(m_handle->id());
 	}
 
 	double Audio::getMinSpeed() const
 	{
-		return Siv3DEngine::GetAudio()->getMinMaxSpeed(m_handle->id()).first;
+		return Siv3DEngine::Get<ISiv3DAudio>()->getMinMaxSpeed(m_handle->id()).first;
 	}
 
 	double Audio::getMaxSpeed() const
 	{
-		return Siv3DEngine::GetAudio()->getMinMaxSpeed(m_handle->id()).second;
+		return Siv3DEngine::Get<ISiv3DAudio>()->getMinMaxSpeed(m_handle->id()).second;
 	}
 }

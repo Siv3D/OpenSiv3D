@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -89,8 +89,16 @@ namespace s3d
 		/// </returns>
 		[[nodiscard]] inline constexpr int32 GetBOMSize(TextEncoding encoding) noexcept
 		{
-			return encoding == TextEncoding::UTF8 ? 3
-				: (encoding == TextEncoding::UTF16LE || encoding == TextEncoding::UTF16BE) ? 2 : 0;
+			switch (encoding)
+			{
+			case TextEncoding::UTF8:
+				return 3;
+			case TextEncoding::UTF16LE:
+			case TextEncoding::UTF16BE:
+				return 2;
+			default:
+				return 0;
+			}
 		}
 	}
 }

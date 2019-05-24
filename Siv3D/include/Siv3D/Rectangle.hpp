@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,7 +11,7 @@
 
 # pragma once
 # include "Fwd.hpp"
-# include "NamedParameter.hpp"
+# include "PredefinedNamedParameter.hpp"
 # include "PointVector.hpp"
 # include "Line.hpp"
 # include "Intersection.hpp"
@@ -32,10 +32,10 @@ namespace s3d
 		using size_type = SizeType;
 
 		using value_type = typename size_type::value_type;
-		
-		S3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
-		
-        union
+
+		SIV3D_DISABLE_MSVC_WARNINGS_PUSH(4201)
+
+			union
 		{
 			struct
 			{
@@ -74,12 +74,12 @@ namespace s3d
 			};
 		};
 
-		S3D_DISABLE_MSVC_WARNINGS_POP()
+		SIV3D_DISABLE_MSVC_WARNINGS_POP()
 
-		/// <summary>
-		/// デフォルトコンストラクタ
-		/// </summary>
-		Rectangle() = default;
+			/// <summary>
+			/// デフォルトコンストラクタ
+			/// </summary>
+			Rectangle() = default;
 
 		/// <summary>
 		/// 長方形を作成します。
@@ -1443,14 +1443,14 @@ namespace s3d
 			const double y1 = size.y * 0.5;
 			const double s = std::sin(angle);
 			const double c = std::cos(angle);
-			const double x0c = x0*c;
-			const double x0s = x0*s;
-			const double x1c = x1*c;
-			const double x1s = x1*s;
-			const double y0c = y0*c;
-			const double y0s = y0*s;
-			const double y1c = y1*c;
-			const double y1s = y1*s;
+			const double x0c = x0 * c;
+			const double x0s = x0 * s;
+			const double x1c = x1 * c;
+			const double x1s = x1 * s;
+			const double y0c = y0 * c;
+			const double y0s = y0 * s;
+			const double y1c = y1 * c;
+			const double y1s = y1 * s;
 			return{ { x0c - y0s + cx, x0s + y0c + cy },{ x1c - y0s + cx, x1s + y0c + cy },{ x1c - y1s + cx, x1s + y1c + cy },{ x0c - y1s + cx, x0s + y1c + cy } };
 		}
 
@@ -1473,7 +1473,7 @@ namespace s3d
 		{
 			return rotatedAt({ _x, _y }, angle);
 		}
-		
+
 		/// <summary>
 		/// 長方形を回転させた図形を返します。
 		/// </summary>
@@ -1755,7 +1755,7 @@ namespace std
 //
 //////////////////////////////////////////////////
 
-namespace fmt
+namespace fmt_s3d
 {
 	template <class SizeType>
 	struct formatter<s3d::Rectangle<SizeType>, s3d::char32>

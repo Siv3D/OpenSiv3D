@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -19,8 +19,8 @@
 namespace s3d
 {
 	//
-	// https://github.com/Siv3D/OpenSiv3D/wiki/Emoji-list
-	// https://www.google.com/get/noto/help/emoji/
+	// https://note.mu/siv3d/n/n9498c21e25ba
+	// https://emojipedia.org/google/android-7.1/
 	//
 	struct Emoji
 	{
@@ -33,8 +33,8 @@ namespace s3d
 		explicit Emoji(StringView emoji) noexcept
 			: codePoints(emoji) {}
 
-		[[nodiscard]] static Image LoadImage(StringView emoji);
+		[[nodiscard]] static Image CreateImage(StringView emoji);
 
-		[[nodiscard]] static Image LoadSilhouette(StringView emoji);
+		[[nodiscard]] static Image CreateSilhouetteImage(StringView emoji);
 	};
 }

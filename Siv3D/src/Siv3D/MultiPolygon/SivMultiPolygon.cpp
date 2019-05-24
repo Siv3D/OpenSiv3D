@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,6 +13,157 @@
 
 namespace s3d
 {
+	MultiPolygon::MultiPolygon(const MultiPolygon& polygons)
+		: base_type(polygons.begin(), polygons.end())
+	{
+
+	}
+
+	MultiPolygon::MultiPolygon(MultiPolygon&& polygons)
+		: base_type(std::move(polygons))
+	{
+
+	}
+
+	MultiPolygon::MultiPolygon(const Array<Polygon>& polygons)
+		: base_type(polygons.begin(), polygons.end())
+	{
+
+	}
+
+	MultiPolygon::MultiPolygon(Array<Polygon>&& polygons)
+		: base_type(std::move(polygons))
+	{
+
+	}
+
+	MultiPolygon& MultiPolygon::operator =(const Array<Polygon>& other)
+	{
+		base_type::operator=(other);
+
+		return *this;
+	}
+
+	MultiPolygon& MultiPolygon::operator =(Array<Polygon>&& other) noexcept
+	{
+		base_type::operator=(std::move(other));
+
+		return *this;
+	}
+
+	MultiPolygon& MultiPolygon::operator =(const MultiPolygon& other)
+	{
+		base_type::operator=(other);
+
+		return *this;
+	}
+
+	MultiPolygon& MultiPolygon::operator =(MultiPolygon&& other) noexcept
+	{
+		base_type::operator=(std::move(other));
+
+		return *this;
+	}
+
+	void MultiPolygon::assign(const MultiPolygon& other)
+	{
+		base_type::operator=(other);
+	}
+
+	void MultiPolygon::assign(MultiPolygon&& other) noexcept
+	{
+		base_type::operator=(std::move(other));
+	}
+
+	MultiPolygon& MultiPolygon::operator <<(const Polygon& polygon)
+	{
+		base_type::push_back(polygon);
+
+		return *this;
+	}
+
+	void MultiPolygon::swap(MultiPolygon& other) noexcept
+	{
+		base_type::swap(other);
+	}
+
+	MultiPolygon& MultiPolygon::append(const Array<Polygon>& other)
+	{
+		base_type::insert(end(), other.begin(), other.end());
+
+		return *this;
+	}
+
+	MultiPolygon& MultiPolygon::append(const MultiPolygon& other)
+	{
+		base_type::insert(end(), other.begin(), other.end());
+
+		return *this;
+	}
+
+	MultiPolygon& MultiPolygon::remove_at(const size_t index)
+	{
+		base_type::remove_at(index);
+
+		return *this;
+	}
+
+	MultiPolygon& MultiPolygon::reverse()
+	{
+		base_type::reverse();
+
+		return *this;
+	}
+
+	MultiPolygon& MultiPolygon::rotate(const std::ptrdiff_t count)
+	{
+		base_type::rotate(count);
+
+		return *this;
+	}
+
+	MultiPolygon& MultiPolygon::shuffle()
+	{
+		base_type::shuffle();
+
+		return *this;
+	}
+
+	MultiPolygon MultiPolygon::slice(const size_t index) const
+	{
+		return MultiPolygon(base_type::slice(index));
+	}
+
+	MultiPolygon MultiPolygon::slice(const size_t index, const size_t length) const
+	{
+		return MultiPolygon(base_type::slice(index, length));
+	}
+
+	MultiPolygon& MultiPolygon::moveBy(const double x, const double y) noexcept
+	{
+		for (auto& polygon : *this)
+		{
+			polygon.moveBy(x, y);
+		}
+
+		return *this;
+	}
+
+	MultiPolygon& MultiPolygon::moveBy(const Vec2& v) noexcept
+	{
+		return moveBy(v.x, v.y);
+	}
+
+	MultiPolygon MultiPolygon::movedBy(const double x, const double y) const
+	{
+		return MultiPolygon(*this).moveBy(x, y);
+	}
+
+	MultiPolygon MultiPolygon::movedBy(const Vec2& v) const
+	{
+		return movedBy(v.x, v.y);
+	}
+
 	MultiPolygon MultiPolygon::rotated(const double angle) const
 	{
 		return MultiPolygon(map([=](const Polygon& p) { return p.rotated(angle); }));
@@ -243,5 +394,10 @@ namespace s3d
 		{
 			polygon.drawTransformed(s, c, pos, color);
 		}
+	}
+
+	void Formatter(FormatData& formatData, const MultiPolygon& value)
+	{
+		formatData.string.append(value.join(U", "_sv, U"("_sv, U")"_sv));
 	}
 }

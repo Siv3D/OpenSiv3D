@@ -1,9 +1,9 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,13 +11,13 @@
 
 # pragma once
 # include <cstdint>
-# include <iosfwd>
 
 namespace s3d
 {
 //////////////////////////////////////////////////
 //
-//	Integer Types
+// 整数型
+// Integer Types
 //
 //////////////////////////////////////////////////
 
@@ -61,25 +61,25 @@ namespace s3d
 	/// </summary>
 	using uint64 = std::uint64_t;
 
-
 //////////////////////////////////////////////////
 //
-//	Character Types
+// 文字型
+// Character Types
 //
 //////////////////////////////////////////////////
 
 	/// <summary>
-	/// UTF-8 character representation
+	/// UTF-8 character
 	/// </summary>
 	using char8 = char;
 
 	/// <summary>
-	/// UTF-16 character representation
+	/// UTF-16 character
 	/// </summary>
 	using char16 = char16_t;
 
 	/// <summary>
-	/// UTF-32 character representation
+	/// UTF-32 character
 	/// </summary>
 	using char32 = char32_t;
 }

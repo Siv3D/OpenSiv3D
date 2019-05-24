@@ -2,27 +2,25 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/BinaryReader.hpp>
-# include "CBinaryReader_Windows.hpp"
-# include "CBinaryReader_macOS.hpp"
-# include "CBinaryReader_Linux.hpp"
+# include <BinaryReader/BinaryReaderDetail.hpp>
 
 namespace s3d
 {
 	BinaryReader::BinaryReader()
-		: pImpl(std::make_shared<CBinaryReader>())
+		: pImpl(std::make_shared<BinaryReaderDetail>())
 	{
 
 	}
 
-	bool BinaryReader::open(const FilePath& path)
+	bool BinaryReader::open(const FilePathView path)
 	{
 		return pImpl->open(path);
 	}
@@ -81,40 +79,6 @@ namespace s3d
 	{
 		return pImpl->lookahead(buffer, pos, size);
 	}
-
-	//ByteArray BinaryReader::readWhole()
-	//{
-	//	return readSubset(0, size());
-	//}
-
-	//ByteArray BinaryReader::readSubset(const int64 size)
-	//{
-	//	const int64 pos = getPos();
-	//	const int64 readBytes = Clamp<int64>(size, 0, std::max(this->size() - pos, 0LL));
-
-	//	return readSubset(pos, readBytes);
-	//}
-
-	//ByteArray BinaryReader::readSubset(const int64 pos, const int64 size)
-	//{
-	//	if (pos != pImpl->setPos(pos))
-	//	{
-	//		return ByteArray{};
-	//	}
-
-	//	const int64 readBytes = Clamp<int64>(size, 0, std::max(this->size() - pos, 0LL));
-
-	//	if (readBytes < 0 || pos < 0)
-	//	{
-	//		return ByteArray{};
-	//	}
-
-	//	Array<uint8> buffer(static_cast<size_t>(readBytes));
-
-	//	pImpl->read(buffer.data(), readBytes);
-
-	//	return ByteArray{ std::move(buffer) };
-	//}
 
 	const FilePath& BinaryReader::path() const
 	{

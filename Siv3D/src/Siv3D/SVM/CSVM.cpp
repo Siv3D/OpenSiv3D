@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,7 +13,7 @@
 # include "CSVM.hpp"
 # include <Siv3D/MathConstants.hpp>
 # include <Siv3D/FileSystem.hpp>
-# include <Siv3D/Logger.hpp>
+# include <Siv3D/EngineLog.hpp>
 
 namespace s3d
 {
@@ -29,17 +29,17 @@ namespace s3d
 
 	namespace SVM
 	{
-		Problem::CProblem::CProblem()
+		Problem::ProblemDetail::ProblemDetail()
 		{
 
 		}
 
-		Problem::CProblem::~CProblem()
+		Problem::ProblemDetail::~ProblemDetail()
 		{
 			release();
 		}
 
-		bool Problem::CProblem::load(const double* pSupportVectors, const size_t num_dataset, const size_t dimensions)
+		bool Problem::ProblemDetail::load(const double* pSupportVectors, const size_t num_dataset, const size_t dimensions)
 		{
 			m_problem.l = static_cast<int32>(num_dataset);
 			m_problem.y = new double[num_dataset];
@@ -72,7 +72,7 @@ namespace s3d
 			return true;
 		}
 
-		bool Problem::CProblem::load(const Array<SparseSupportVector>& supportVectors)
+		bool Problem::ProblemDetail::load(const Array<SparseSupportVector>& supportVectors)
 		{
 			const size_t num_dataset = supportVectors.size();
 			size_t num_elements = 0;
@@ -116,7 +116,7 @@ namespace s3d
 			return true;
 		}
 
-		bool Problem::CProblem::load(const FilePath& path)
+		bool Problem::ProblemDetail::load(const FilePath& path)
 		{
 			int max_index, inst_max_index, i;
 			size_t elements, j;
@@ -217,7 +217,7 @@ namespace s3d
 			return true;
 		}
 
-		void Problem::CProblem::release()
+		void Problem::ProblemDetail::release()
 		{
 			if (!m_hasData)
 			{
@@ -240,22 +240,22 @@ namespace s3d
 			m_hasData = false;
 		}
 
-		bool Problem::CProblem::hasData() const
+		bool Problem::ProblemDetail::hasData() const
 		{
 			return m_hasData;
 		}
 
-		size_t Problem::CProblem::num_SVs() const
+		size_t Problem::ProblemDetail::num_SVs() const
 		{
 			return m_problem.l;
 		}
 
-		int32 Problem::CProblem::getMaxIndex() const
+		int32 Problem::ProblemDetail::getMaxIndex() const
 		{
 			return m_maxIndex;
 		}
 
-		bool Problem::CProblem::trainAndSaveModel(const FilePath& path, const Paramter& param) const
+		bool Problem::ProblemDetail::trainAndSaveModel(const FilePath& path, const Paramter& param) const
 		{
 			if (!m_hasData)
 			{
@@ -278,7 +278,7 @@ namespace s3d
 			return (result == 0);
 		}
 
-		PredictModel Problem::CProblem::trainAndCreateModel(const Paramter& param) const
+		PredictModel Problem::ProblemDetail::trainAndCreateModel(const Paramter& param) const
 		{
 			if (!m_hasData)
 			{
@@ -288,7 +288,7 @@ namespace s3d
 			return PredictModel(std::make_unique<svm_model*>(svm_train(&m_problem, &param)));
 		}
 
-		char* Problem::CProblem::readline(FILE *input)
+		char* Problem::ProblemDetail::readline(FILE *input)
 		{
 			int len;
 
@@ -310,22 +310,22 @@ namespace s3d
 
 
 
-		PredictModel::CPredictModel::CPredictModel()
+		PredictModel::PredictModelDetail::PredictModelDetail()
 		{
 
 		}
 
-		PredictModel::CPredictModel::~CPredictModel()
+		PredictModel::PredictModelDetail::~PredictModelDetail()
 		{
 			release();
 		}
 
-		bool PredictModel::CPredictModel::hasData() const
+		bool PredictModel::PredictModelDetail::hasData() const
 		{
 			return (m_model != nullptr);
 		}
 
-		bool PredictModel::CPredictModel::load(const FilePath& path)
+		bool PredictModel::PredictModelDetail::load(const FilePath& path)
 		{
 			if (m_model)
 			{
@@ -337,7 +337,7 @@ namespace s3d
 			return (m_model != nullptr);
 		}
 
-		bool PredictModel::CPredictModel::set(std::unique_ptr<svm_model*>&& ppModel)
+		bool PredictModel::PredictModelDetail::set(std::unique_ptr<svm_model*>&& ppModel)
 		{
 			if (m_model)
 			{
@@ -349,7 +349,7 @@ namespace s3d
 			return (m_model != nullptr);
 		}
 
-		void PredictModel::CPredictModel::release()
+		void PredictModel::PredictModelDetail::release()
 		{
 			if (!m_model)
 			{
@@ -361,7 +361,7 @@ namespace s3d
 			m_model = nullptr;
 		}
 
-		size_t PredictModel::CPredictModel::num_classes() const
+		size_t PredictModel::PredictModelDetail::num_classes() const
 		{
 			if (!m_model)
 			{
@@ -371,7 +371,7 @@ namespace s3d
 			return m_model->nr_class;
 		}
 
-		Array<int32> PredictModel::CPredictModel::getLabels() const
+		Array<int32> PredictModel::PredictModelDetail::getLabels() const
 		{
 			if (!m_model || !m_model->label)
 			{
@@ -381,7 +381,7 @@ namespace s3d
 			return Array<int32>(m_model->label, m_model->label + m_model->nr_class);
 		}
 
-		Label PredictModel::CPredictModel::predict(const Array<double>& vector) const
+		Label PredictModel::PredictModelDetail::predict(const Array<double>& vector) const
 		{
 			if (!m_model)
 			{
@@ -402,7 +402,7 @@ namespace s3d
 			return svm_predict(m_model, node.data());
 		}
 
-		Label PredictModel::CPredictModel::predict(const Array<std::pair<int32, double>>& vector) const
+		Label PredictModel::PredictModelDetail::predict(const Array<std::pair<int32, double>>& vector) const
 		{
 			if (!m_model)
 			{
@@ -423,7 +423,7 @@ namespace s3d
 			return svm_predict(m_model, node.data());
 		}
 
-		Label PredictModel::CPredictModel::predictProbability(const Array<double>& vector, Array<double>& probabilities) const
+		Label PredictModel::PredictModelDetail::predictProbability(const Array<double>& vector, Array<double>& probabilities) const
 		{
 			if (!m_model)
 			{
@@ -448,7 +448,7 @@ namespace s3d
 			return svm_predict_probability(m_model, node.data(), probabilities.data());
 		}
 
-		Label PredictModel::CPredictModel::predictProbability(const Array<std::pair<int32, double>>& vector, Array<double>& probabilities) const
+		Label PredictModel::PredictModelDetail::predictProbability(const Array<std::pair<int32, double>>& vector, Array<double>& probabilities) const
 		{
 			if (!m_model)
 			{

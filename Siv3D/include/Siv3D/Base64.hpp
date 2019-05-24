@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -46,6 +46,17 @@ namespace s3d
 		/// エンコードされたテキストデータ、エンコードに失敗した場合空の文字列
 		/// </returns>
 		[[nodiscard]] String Encode(ByteArrayView view);
+
+		/// <summary>
+		/// データを Base64 エンコードします。
+		/// </summary>
+		/// <param name="view">
+		/// エンコードするデータ
+		/// </param>
+		/// <returns>
+		/// エンコードされたテキストデータ、エンコードに失敗した場合空の文字列
+		/// </returns>
+		[[nodiscard]] String Encode(ByteArrayViewAdapter view);
 
 		/// <summary>
 		/// テキストを Base64 でデコードします。

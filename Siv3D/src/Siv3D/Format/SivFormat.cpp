@@ -2,16 +2,17 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
+# include <Siv3D/PlatformDetail.hpp>
 # include <Siv3D/Format.hpp>
-# include <Siv3D/IntFormat.hpp>
-# include <Siv3D/FloatFormat.hpp>
+# include <Siv3D/FormatInt.hpp>
+# include <Siv3D/FormatFloat.hpp>
 # include <Siv3D/PointVector.hpp>
 
 namespace s3d
@@ -53,10 +54,20 @@ namespace s3d
 
 			const size_t length = &buffer[11] - pos;
 
-			::memcpy(*p, pos, length * sizeof(char32));
+			std::memcpy(*p, pos, length * sizeof(char32));
 
 			*p += length;
 		}
+
+		void FormatterHelper(String& dst, const std::wostringstream& ws)
+		{
+			dst.append(Unicode::FromWString(ws.str()));
+		}
+	}
+
+	void Formatter(FormatData& formatData, const FormatData::DecimalPlace decimalPlace)
+	{
+		formatData.decimalPlace = decimalPlace;
 	}
 
 	void Formatter(FormatData& formatData, const int32 value)
@@ -92,15 +103,9 @@ namespace s3d
 
 	void Formatter(FormatData& formatData, const void* value)
 	{
-	# if (SIV3D_PLATFORM_PTR_SIZE == 4)
-
-		formatData.string.append(ToHex(reinterpret_cast<uint32>(value)).lpad(8, U'0'));
-
-	# elif (SIV3D_PLATFORM_PTR_SIZE == 8)
-
-		formatData.string.append(ToHex(reinterpret_cast<uint64>(value)).lpad(16, U'0'));
-
-	# endif
+		formatData.string.append(
+			ToHex(reinterpret_cast<std::uintptr_t>(value))
+			.lpad(Platform::PointerSize * 2, U'0'));
 	}
 
 	void Formatter(FormatData& formatData, const char16_t ch)
@@ -115,31 +120,110 @@ namespace s3d
 	
 	void Formatter(FormatData& formatData, std::nullptr_t)
 	{
-		formatData.string.append(U"null", 4);
+		formatData.string.append(U"null"_sv);
 	}
 
 	void Formatter(FormatData& formatData, const bool value)
 	{
 		if (value)
 		{
-			formatData.string.append(U"true", 4);
+			formatData.string.append(U"true"_sv);
 		}
 		else
 		{
-			formatData.string.append(U"false", 5);
+			formatData.string.append(U"false"_sv);
 		}
+	}
+
+	void Formatter(FormatData& formatData, const char value)
+	{
+		Formatter(formatData, static_cast<int32>(value));
+	}
+
+	void Formatter(FormatData& formatData, const int8 value)
+	{
+		Formatter(formatData, static_cast<int32>(value));
+	}
+
+	void Formatter(FormatData& formatData, const uint8 value)
+	{
+		Formatter(formatData, static_cast<uint32>(value));
+	}
+
+	void Formatter(FormatData& formatData, const int16 value)
+	{
+		Formatter(formatData, static_cast<int32>(value));
+	}
+
+	void Formatter(FormatData& formatData, const uint16 value)
+	{
+		Formatter(formatData, static_cast<uint32>(value));
+	}
+
+	void Formatter(FormatData& formatData, const long value)
+	{
+		if constexpr (sizeof(long) == 4)
+		{
+			Formatter(formatData, static_cast<int32>(value));
+		}
+		else
+		{
+			Formatter(formatData, static_cast<long long>(value));
+		}
+	}
+
+	void Formatter(FormatData& formatData, const unsigned long value)
+	{
+		if constexpr (sizeof(unsigned long) == 4)
+		{
+			Formatter(formatData, static_cast<uint32>(value));
+		}
+		else
+		{
+			Formatter(formatData, static_cast<unsigned long long>(value));
+		}
+	}
+
+	void Formatter(FormatData& formatData, const float value)
+	{
+		Formatter(formatData, static_cast<double>(value));
+	}
+
+	void Formatter(FormatData& formatData, const long double value)
+	{
+		Formatter(formatData, static_cast<double>(value));
 	}
 
 	void Formatter(FormatData& formatData, __m128 value)
 	{
-	# if defined(SIV3D_TARGET_WINDOWS)
+	# if defined(SIV3D_HAVE_M128_MEMBERS)
 
 		Formatter(formatData, Vec4(value.m128_f32[0], value.m128_f32[1], value.m128_f32[2], value.m128_f32[3]));
 
 	# else
 
 		Formatter(formatData, Vec4(value[0], value[1], value[2], value[3]));
-	
-	# endif	
+
+	# endif
+	}
+
+	void Formatter(FormatData& formatData, const char32* const str)
+	{
+		formatData.string.append(str);
+	}
+
+	void Formatter(FormatData& formatData, const std::u32string& str)
+	{
+		formatData.string.append(str.begin(), str.end());
+	}
+
+	void Formatter(FormatData& formatData, const String& value)
+	{
+		formatData.string.append(value);
+	}
+
+	void Formatter(FormatData& formatData, const None_t&)
+	{
+		formatData.string.append(U"none"_sv);
 	}
 }

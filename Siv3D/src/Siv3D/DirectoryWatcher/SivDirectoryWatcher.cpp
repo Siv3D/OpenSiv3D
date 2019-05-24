@@ -2,28 +2,15 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/DirectoryWatcher.hpp>
-
-# if defined(SIV3D_TARGET_WINDOWS)
-
-	# include "DirectoryWatcherDetail_Windows.hpp"
-
-# elif defined(SIV3D_TARGET_MACOS)
-
-	# include "DirectoryWatcherDetail_macOS.hpp"
-
-# else // defined(SIV3D_TARGET_LINUX)
-
-	# include "DirectoryWatcherDetail_Linux.hpp"
-
-# endif
+# include <DirectoryWatcher/DirectoryWatcherDetail.hpp>
 
 namespace s3d
 {
@@ -45,7 +32,7 @@ namespace s3d
 
 	bool DirectoryWatcher::isOpened() const
 	{
-		return !!m_detail;
+		return static_cast<bool>(m_detail);
 	}
 
 	DirectoryWatcher::operator bool() const

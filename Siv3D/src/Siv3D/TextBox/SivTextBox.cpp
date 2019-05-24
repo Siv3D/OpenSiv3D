@@ -2,20 +2,25 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # include <Siv3D/TextBox.hpp>
-# include "CTextBox.hpp"
+# include "TextBoxDetail.hpp"
 
 namespace s3d
 {
+	TextBox::Style TextBox::Style::Default()
+	{
+		return Style{};
+	}
+
 	TextBox::TextBox()
-		: pImpl(std::make_shared<CTextBox>())
+		: pImpl(std::make_shared<TextBoxDetail>())
 	{
 
 	}
@@ -25,7 +30,7 @@ namespace s3d
 		double boxWidth,
 		const Optional<size_t>& maxChars,
 		const String& defaultText)
-		: pImpl(std::make_shared<CTextBox>(font, RectF(pos, boxWidth, font.height() + 2), maxChars, defaultText))
+		: pImpl(std::make_shared<TextBoxDetail>(font, RectF(pos, boxWidth, font.height() + 2), maxChars, defaultText))
 	{
 
 	}
@@ -35,7 +40,7 @@ namespace s3d
 		double boxWidth,
 		const Optional<size_t>& maxChars,
 		const String& defaultText)
-		: pImpl(std::make_shared<CTextBox>(font, RectF(center, boxWidth, font.height() + 2), maxChars, defaultText))
+		: pImpl(std::make_shared<TextBoxDetail>(font, RectF(center, boxWidth, font.height() + 2), maxChars, defaultText))
 	{
 
 	}

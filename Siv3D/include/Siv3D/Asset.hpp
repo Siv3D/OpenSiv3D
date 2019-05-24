@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -34,48 +34,15 @@ namespace s3d
 
 		bool loadAsync = false;
 
-		[[nodiscard]] static AssetParameter Default()
-		{
-			return AssetParameter{};
-		}
+		[[nodiscard]] static AssetParameter Default();
 
-		[[nodiscard]] static AssetParameter LoadImmediately()
-		{
-			AssetParameter parameter;
+		[[nodiscard]] static AssetParameter LoadImmediately();
 
-			parameter.loadImmediately = true;
+		[[nodiscard]] static AssetParameter LoadAsync();
 
-			return parameter;
-		}
+		[[nodiscard]] AssetParameter withTag(const AssetTag& tag) const;
 
-		[[nodiscard]] static AssetParameter LoadAsync()
-		{
-			AssetParameter parameter;
-
-			parameter.loadImmediately = true;
-
-			parameter.loadAsync = true;
-
-			return parameter;
-		}
-
-		[[nodiscard]] AssetParameter withTag(const AssetTag& tag) const
-		{
-			AssetParameter parameter(*this);
-
-			parameter.tags << tag;
-
-			return parameter;
-		}
-
-		[[nodiscard]] AssetParameter withTag(const Array<AssetTag>& _tags) const
-		{
-			AssetParameter parameter(*this);
-
-			parameter.tags.append(_tags);
-
-			return parameter;
-		}
+		[[nodiscard]] AssetParameter withTag(const Array<AssetTag>& _tags) const;
 	};
 
 	/// <summary>
@@ -83,11 +50,13 @@ namespace s3d
 	/// </summary>
 	class IAsset
 	{
+	private:
+
+		class IAssetDetail;
+
+		std::shared_ptr<IAssetDetail> pImpl;
+
 	protected:
-
-		AssetParameter parameter;
-
-		std::shared_ptr<std::future<bool>> m_loadingThread;
 
 		enum class State
 		{
@@ -98,31 +67,21 @@ namespace s3d
 			LoadSucceeded,
 
 			LoadFailed,
+		};
 
-		} m_state = State::Uninitialized;
+		void setState(State state);
 
-		template <class Fty>
-		void launchLoading(Fty&& fty)
-		{
-			m_loadingThread = std::make_unique<std::future<bool>>(std::async(std::launch::async, std::forward<Fty>(fty)));
-		}
+		[[nodiscard]] bool uninitialized() const;
+
+		void launchLoading(std::function<bool()>&& loader);
 
 	public:
 
-		IAsset() = default;
+		IAsset();
 
-		explicit IAsset(const AssetParameter& _parameter)
-			: parameter(_parameter) {}
+		explicit IAsset(const AssetParameter& parameter);
 
-		virtual ~IAsset()
-		{
-			if (m_loadingThread)
-			{
-				m_loadingThread->wait();
-
-				m_loadingThread.reset();
-			}
-		}
+		virtual ~IAsset();
 
 		virtual bool preload() = 0;
 
@@ -132,68 +91,16 @@ namespace s3d
 
 		virtual bool release() = 0;
 
-		virtual const AssetParameter& getParameter() const
-		{
-			return parameter;
-		}
+		[[nodiscard]] virtual const AssetParameter& getParameter() const;
 
-		virtual bool isReady() const
-		{
-			if (!m_loadingThread)
-			{
-				return true;
-			}
+		[[nodiscard]] virtual bool isReady() const;
 
-		# if defined(SIV3D_TARGET_WINDOWS)
+		void wait();
 
-			return m_loadingThread->_Is_ready();
-
-		# else
-
-			return m_loadingThread->wait_for(std::chrono::seconds(0)) == std::future_status::ready;
-
-		# endif	
-		}
-
-		void wait()
-		{
-			if (m_state != State::PreloadingAsync)
-			{
-				return;
-			}
-
-			m_state = m_loadingThread->get() ? State::LoadSucceeded : State::LoadFailed;
-
-			m_loadingThread.reset();
-		}
-
-		[[nodiscard]] bool isLoadingAsync()
-		{
-			if (m_state != State::PreloadingAsync)
-			{
-				return false;
-			}
-			
-			if (isReady())
-			{
-				m_state = m_loadingThread->get() ? State::LoadSucceeded : State::LoadFailed;
-				
-				m_loadingThread.reset();
-				
-				return false;
-			}
-			
-			return false;
-		}
+		[[nodiscard]] bool isLoadingAsync();
 		
-		[[nodiscard]] bool isPreloaded() const
-		{
-			return (m_state == State::LoadSucceeded || m_state == State::LoadFailed);
-		}
+		[[nodiscard]] bool isPreloaded() const;
 
-		[[nodiscard]] bool loadSucceeded() const
-		{
-			return (m_state == State::LoadSucceeded);
-		}
+		[[nodiscard]] bool loadSucceeded() const;
 	};
 }

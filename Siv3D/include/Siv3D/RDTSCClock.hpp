@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,32 +11,12 @@
 
 # pragma once
 # include "Fwd.hpp"
+# include "PlatformDetail.hpp"
 # include "Logger.hpp"
 # include "Print.hpp"
 
 namespace s3d
 {
-	namespace detail
-	{
-	# if defined(SIV3D_TARGET_WINDOWS)
-
-		__forceinline uint64 rdtsc()
-		{
-			return ::__rdtsc();
-		}
-
-	# elif defined(SIV3D_TARGET_MACOS) || defined(SIV3D_TARGET_LINUX)
-
-		static __inline__ uint64 rdtsc()
-		{
-			uint32 hi, lo;
-			__asm__ __volatile__("rdtsc" : "=a"(lo), "=d"(hi));
-			return static_cast<uint64>(lo) | (static_cast<uint64>(hi) << 32);
-		}
-
-	# endif
-	}
-
 	/// <summary>
 	/// CPU サイクルカウンター
 	/// </summary>
@@ -47,7 +27,7 @@ namespace s3d
 	{
 	private:
 
-		const uint64 m_start = detail::rdtsc();
+		const uint64 m_start = Platform::Rdtsc();
 
 	public:
 
@@ -56,7 +36,7 @@ namespace s3d
 		/// </summary>
 		[[nodiscard]] uint64 cycles() const
 		{
-			return detail::rdtsc() - m_start;
+			return Platform::Rdtsc() - m_start;
 		}
 
 		/// <summary>
@@ -65,7 +45,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void log() const { Logger(cycles(), U"cycles"); }
+		void log() const { Logger(cycles(), U"cycles"_sv); }
 
 		/// <summary>
 		/// 経過時間をデバッグ表示します。
@@ -73,6 +53,6 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void print() const { Print(cycles(), U"cycles"); }
+		void print() const { Print(cycles(), U"cycles"_sv); }
 	};
 }

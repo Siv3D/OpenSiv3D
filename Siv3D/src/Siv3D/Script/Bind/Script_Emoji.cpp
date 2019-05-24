@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -42,12 +42,12 @@ namespace s3d
 
 	static Image EmojiLoadImage(const String& emoji)
 	{
-		return Emoji::LoadImage(emoji);
+		return Emoji::CreateImage(emoji);
 	}
 
 	static Image EmojiLoadSilhouette(const String& emoji)
 	{
-		return Emoji::LoadSilhouette(emoji);
+		return Emoji::CreateSilhouetteImage(emoji);
 	}
 
 	void RegisterEmoji(asIScriptEngine* engine)
@@ -66,8 +66,8 @@ namespace s3d
 		{
 			r = engine->RegisterGlobalProperty("const Point ImageSize", (void*)&Emoji::ImageSize); assert(r >= 0);
 
-			r = engine->RegisterGlobalFunction("Image LoadImage(const String& in)", asFUNCTION(EmojiLoadImage), asCALL_CDECL); assert(r >= 0);
-			r = engine->RegisterGlobalFunction("Image LoadSilhouette(const String& in)", asFUNCTION(EmojiLoadSilhouette), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Image CreateImage(const String& in)", asFUNCTION(EmojiLoadImage), asCALL_CDECL); assert(r >= 0);
+			r = engine->RegisterGlobalFunction("Image CreateSilhouetteImage(const String& in)", asFUNCTION(EmojiLoadSilhouette), asCALL_CDECL); assert(r >= 0);
 		}
 		r = engine->SetDefaultNamespace(""); assert(r >= 0);
 	}

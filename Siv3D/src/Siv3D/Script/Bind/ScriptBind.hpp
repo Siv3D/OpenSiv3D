@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -103,7 +103,7 @@ namespace s3d
 		DrawableText,
 
 		Transformer2D,
-		ViewportBlock2D,
+		ScopedViewport2D,
 
 		Emoji,
 		Icon,
@@ -190,7 +190,7 @@ namespace s3d
 	void RegisterFont(AngelScript::asIScriptEngine* engine);
 	void RegisterDrawableText(AngelScript::asIScriptEngine* engine);
 	void RegisterTransformer2D(AngelScript::asIScriptEngine* engine);
-	void RegisterViewportBlock2D(AngelScript::asIScriptEngine* engine);
+	void RegisterScopedViewport2D(AngelScript::asIScriptEngine* engine);
 
 	void RegisterEmoji(AngelScript::asIScriptEngine* engine);
 	void RegisterIcon(AngelScript::asIScriptEngine* engine);
@@ -201,6 +201,7 @@ namespace s3d
 	void RegisterWindow(AngelScript::asIScriptEngine* engine);
 	void RegisterCursor(AngelScript::asIScriptEngine* engine);
 	void RegisterGraphics(AngelScript::asIScriptEngine* engine);
+	void RegisterScene(AngelScript::asIScriptEngine* engine);
 	void RegisterProfiler(AngelScript::asIScriptEngine* engine);
 	void RegisterDialog(AngelScript::asIScriptEngine* engine);
 

@@ -1,15 +1,16 @@
-//-----------------------------------------------
+﻿//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
+# include <cstddef>
 # include "Platform.hpp"
 # include "Types.hpp"
 
@@ -29,9 +30,28 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	NamedParameter.hpp
+	//
+	template <class Tag, class Type> class NamedParameter;
+	template <class Tag> struct NamedParameterHelper;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Meta.hpp
+	//
+	struct Nonesuch;
+
+	//////////////////////////////////////////////////////
+	//
 	//	Byte.hpp
 	//
 	enum class Byte : unsigned char;
+
+	//////////////////////////////////////////////////////
+	//
+	//	ByteArrayViewAdapter.hpp
+	//
+	class ByteArrayViewAdapter;
 
 	//////////////////////////////////////////////////////
 	//
@@ -44,6 +64,12 @@ namespace s3d
 	//	ConcurrentTask.hpp
 	//
 	template <class Type> class ConcurrentTask;
+
+	//////////////////////////////////////////////////////
+	//
+	//	AlignedMemory.hpp
+	//
+	template <class Type> struct AlignedDeleter;
 
 	//////////////////////////////////////////////////////
 	//
@@ -60,22 +86,34 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	Grid.hpp
+	//
+	template <class Type, class Allocator> class Grid;
+
+	//////////////////////////////////////////////////////
+	//
 	//	KDTree.hpp
 	//
-	template <class DatasetAdapter> class KDAdapter;
 	template <class DatasetAdapter> class KDTree;
+	template <class Dataset, class Point, class Element, int32 Dim> struct KDTreeAdapter;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Step.hpp
+	//
+	template <class T, class N, class S> class Step;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Step2D.hpp
+	//
+	class Step2D;
 
 	//////////////////////////////////////////////////////
 	//
 	//	InfiniteList.hpp
 	//
-	template <class Type> class infinite_list;
-
-	//////////////////////////////////////////////////////
-	//
-	//	Grid.hpp
-	//
-	template <class Type, class Allocator> class Grid;
+	template <class Type> class InfiniteList;
 
 	//////////////////////////////////////////////////////
 	//
@@ -86,9 +124,29 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	Hash.hpp
+	//
+	template <class Type> struct FNV1aHash;
+	template <class Type> struct Murmur2Hash;
+
+	//////////////////////////////////////////////////////
+	//
 	//	RangeIterator.hpp
 	//
 	template <class Iterator> class RangeIterator;
+
+	//////////////////////////////////////////////////////
+	//
+	//	ScopeGuard.hpp
+	//
+	template<typename Callback> class ScopeGuard;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Error.hpp
+	//
+	class Error;
+	class ParseError;
 
 	//////////////////////////////////////////////////////
 	//
@@ -136,6 +194,18 @@ namespace s3d
 	//	Format.hpp
 	//
 	struct FormatData;
+
+	//////////////////////////////////////////////////////
+	//
+	//	EmojiDictionary.hpp
+	//
+	class EmojiDictionary;
+
+	//////////////////////////////////////////////////////
+	//
+	//	DayOfWeek.hpp
+	//
+	enum class DayOfWeek;
 
 	//////////////////////////////////////////////////////
 	//
@@ -234,9 +304,9 @@ namespace s3d
 	//
 	//	WritableMemoryMapping.hpp
 	//
-	class WritableMemoryMapping;
 	enum class MMFOpenMode_if_Exists;
 	enum class MMFOpenMode_if_NotFound;
+	class WritableMemoryMapping;
 
 	//////////////////////////////////////////////////////
 	//
@@ -313,6 +383,14 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	XMLReader.hpp
+	//
+	struct XMLElementDetail;
+	class XMLElement;
+	class XMLReader;
+
+	//////////////////////////////////////////////////////
+	//
 	//	JSONReader.hpp
 	//
 	enum class JSONValueType;
@@ -369,6 +447,7 @@ namespace s3d
 	template <class Type> struct Vector4D;
 	using Float2	= Vector2D<float>;
 	using Vec2		= Vector2D<double>;
+	using SizeF		= Vec2;
 	using Float3	= Vector3D<float>;
 	using Vec3		= Vector3D<double>;
 	using Float4	= Vector4D<float>;
@@ -515,21 +594,13 @@ namespace s3d
 	//
 	template <class Type> class UniformDistribution;
 	template <class Type> class NormalDistribution;
-	template <class Type> class DiscreteDistribution;
+	class DiscreteDistribution;
 
 	//////////////////////////////////////////////////////
 	//
 	//	HardwareRNG.hpp
 	//
 	class HardwareRNG;
-
-	//////////////////////////////////////////////////////
-	//
-	//	Xorshift.hpp
-	//
-	class Xorshift128Plus;
-	class Xoroshiro128Plus;
-	class Xorshift1024StarPhi;
 
 	//////////////////////////////////////////////////////
 	//
@@ -544,6 +615,14 @@ namespace s3d
 	class MT11213b;
 	class MT19937;
 	class MT19937_64;
+
+	//////////////////////////////////////////////////////
+	//
+	//	RNG.hpp
+	//
+	class SplitMix64;
+	class Xoroshiro128Plus;
+	class Xoshiro256StarStar;
 
 	//////////////////////////////////////////////////////
 	//
@@ -571,7 +650,7 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
-	//	Noise.hpp
+	//	NoiseGenerator.hpp
 	//
 	enum class NoiseType;
 	enum class FractalType;
@@ -579,6 +658,12 @@ namespace s3d
 	enum class CellularReturnType;
 	enum class PerturbType;
 	class NoiseGenerator;
+
+	//////////////////////////////////////////////////////
+	//
+	//	HalfFloat.hpp
+	//
+	struct HalfFloat;
 
 	//////////////////////////////////////////////////////
 	//
@@ -609,6 +694,7 @@ namespace s3d
 	//
 	enum class ImageFormat;
 	enum class PPMType;
+	enum class WebPMethod;
 	class IImageFormat;
 
 	//////////////////////////////////////////////////////
@@ -622,12 +708,13 @@ namespace s3d
 	//	TextureFormat.hpp
 	//
 	enum class TextureFormat;
+	struct TextureFormatProperty;
 
 	//////////////////////////////////////////////////////
 	//
 	//	Exif.hpp
 	//
-	struct ExifInfo;
+	struct Exif;
 
 	//////////////////////////////////////////////////////
 	//
@@ -727,7 +814,8 @@ namespace s3d
 	//
 	//	Window.hpp
 	//
-	enum class ShowState;
+	enum class WindowStyle;
+	enum class WindowResizeOption;
 	struct WindowState;
 
 	//////////////////////////////////////////////////////
@@ -746,6 +834,12 @@ namespace s3d
 	struct DragStatus;
 	struct DroppedFilePath;
 	struct DroppedText;
+
+	//////////////////////////////////////////////////////
+	//
+	//	FileFilter.hpp
+	//
+	struct FileFilter;
 
 	//////////////////////////////////////////////////////
 	//
@@ -833,6 +927,12 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
+	//	Scene.hpp
+	//
+	enum class ScaleMode;
+
+	//////////////////////////////////////////////////////
+	//
 	//	Vertex2D.hpp
 	//
 	struct Vertex2D;
@@ -869,25 +969,7 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
-	//	RenderStateBlock2D.hpp
-	//
-	class RenderStateBlock2D;
-
-	//////////////////////////////////////////////////////
-	//
-	//	ViewportBlock2D.hpp
-	//
-	class ViewportBlock2D;
-
-	//////////////////////////////////////////////////////
-	//
-	//	Transformer2D.hpp
-	//
-	class Transformer2D;
-
-	//////////////////////////////////////////////////////
-	//
-	//	Shader.hpp
+	//	ShaderCommon.hpp
 	//
 	enum class ShaderStage;
 	struct BindingPoint;
@@ -919,9 +1001,47 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
-	//	Texture.hpp
+	//	ScopedRenderState2D.hpp
+	//
+	class ScopedRenderStates2D;
+
+	//////////////////////////////////////////////////////
+	//
+	//	ScopedViewport2D.hpp
+	//
+	class ScopedViewport2D;
+
+	//////////////////////////////////////////////////////
+	//
+	//	ScopedColor2D.hpp
+	//
+	class ScopedColorMul2D;
+	class ScopedColorAdd2D;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Transformer2D.hpp
+	//
+	class Transformer2D;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Camera2D.hpp
+	//
+	class BasicCamera2D;
+	struct Camera2DParameters;
+	class Camera2D;
+
+	//////////////////////////////////////////////////////
+	//
+	//	TextureDesc.hpp
 	//
 	enum class TextureDesc;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Texture.hpp
+	//
 	class Texture;
 
 	//////////////////////////////////////////////////////
@@ -954,12 +1074,6 @@ namespace s3d
 	//
 	class DynamicTexture;
 
-	//////////////////////////////////////////////////////
-	//
-	//	RenderTexture.hpp
-	//
-	class RenderTexture;
-  
 	//////////////////////////////////////////////////////
 	//
 	//	OutlineGlyph.hpp
@@ -997,12 +1111,6 @@ namespace s3d
 
 	//////////////////////////////////////////////////////
 	//
-	//	TextEditor.hpp
-	//
-	class TextEditor;
-
-	//////////////////////////////////////////////////////
-	//
 	//	TextBox.hpp
 	//
 	class TextBox;
@@ -1013,6 +1121,30 @@ namespace s3d
 	//
 	struct IEffect;
 	class Effect;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Particle2D.hpp
+	//
+	struct Particle2D;
+
+	//////////////////////////////////////////////////////
+	//
+	//	Emitter2D.hpp
+	//
+	struct Emission2D;
+	struct IEmitter2D;
+	struct CircleEmitter2D;
+	struct ArcEmitter2D;
+	struct RectEmitter2D;
+	struct PolygonEmitter2D;
+
+	//////////////////////////////////////////////////////
+	//
+	//	ParticleSystem2D.hpp
+	//
+	struct ParticleSystem2DParameters;
+	class ParticleSystem2D;
 
 	//////////////////////////////////////////////////////
 	//
@@ -1037,12 +1169,14 @@ namespace s3d
 	//
 	//	NavMesh.hpp
 	//
+	struct NavMeshConfig;
 	class NavMesh;
 
 	//////////////////////////////////////////////////////
 	//
 	//	AssetHandle.hpp
 	//
+	template <class Type> class AssetIDWrapper;
 	template <class Type> class AssetHandle;
 
 	//////////////////////////////////////////////////////
@@ -1079,7 +1213,11 @@ namespace s3d
 	//
 	struct P2Material;
 	struct P2Filter;
+	enum class P2BodyType;
 	enum class P2ShapeType;
+	struct P2ContactPair;
+	struct P2Contact;
+	struct P2Collision;
 	class P2World;
 	class P2Body;
 	struct P2Fixture;
@@ -1091,7 +1229,11 @@ namespace s3d
 	class P2Triangle;
 	class P2Quad;
 	class P2Polygon;
-	class P2RevoluteJoint;
+	class P2PivotJoint;
+	class P2DistanceJoint;
+	class P2RopeJoint;
+	class P2SliderJoint;
+	class P2WheelJoint;
 
 	//////////////////////////////////////////////////////
 	//
@@ -1131,4 +1273,11 @@ namespace s3d
 	//	ManagedScript.hpp
 	//
 	class ManagedScript;
+
+	//////////////////////////////////////////////////////
+	//
+	//	SceneManager.hpp
+	//
+	template <class State, class Data> class IScene;
+	template <class State, class Data> class SceneManager;
 }

@@ -2,14 +2,15 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
+# include <cwctype>
 # include <wchar.h>
 # include "Types.hpp"
 
@@ -17,9 +18,34 @@ namespace s3d
 {
 	namespace detail
 	{
-		constexpr char32 halfWidthSpace = U' ';
-		
-		constexpr char32 fullWidthSpace = U'　';
+		/// <summary>
+		/// 半角スペース
+		///
+		/// </summary>
+		inline constexpr char32 halfWidthSpace = U' ';
+
+		/// <summary>
+		/// 全角スペース
+		///
+		/// </summary>
+		inline constexpr char32 fullWidthSpace = U'　';
+	}
+
+	/// <summary>
+	/// ASCII 文字であるかを返します。
+	/// Checks whether ch is an ASCII character.
+	/// </summary>
+	/// <param name="ch">
+	/// 文字
+	/// Character to be checked
+	/// </param>
+	/// <returns>
+	/// 10 進数の数字である場合 true, それ以外の場合は false
+	/// True if ch is an ASCII character, false otherwise
+	/// </returns>
+	[[nodiscard]] inline constexpr bool IsASCII(const char32 ch) noexcept
+	{
+		return (ch <= 0x7F);
 	}
 
 	/// <summary>
@@ -62,6 +88,16 @@ namespace s3d
 	[[nodiscard]] inline constexpr bool IsUpper(const char32 ch) noexcept
 	{
 		return (ch - U'A') <= (U'Z' - U'A');
+	}
+
+	[[nodiscard]] inline constexpr char32 ToLower(const char32 ch) noexcept
+	{
+		return IsUpper(ch) ? (ch + ('a' - 'A')) : ch;
+	}
+
+	[[nodiscard]] inline constexpr char32 ToUpper(const char32 ch) noexcept
+	{
+		return IsLower(ch) ? (ch - ('a' - 'A')) : ch;
 	}
 
 	/// <summary>
@@ -173,6 +209,11 @@ namespace s3d
 		{
 			return true;
 		}
+	}
+
+	[[nodiscard]] inline constexpr bool CaseInsensitiveEquals(const char32 a, const char32 b) noexcept
+	{
+		return ToUpper(a) == ToUpper(b);
 	}
 
 	[[nodiscard]] inline constexpr int32 CaseInsensitiveCompare(const char32 a, const char32 b) noexcept

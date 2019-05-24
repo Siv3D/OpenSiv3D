@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -12,18 +12,18 @@
 # pragma once
 # include <cfloat>
 # include <emmintrin.h>
+# include <numeric>
 # include "Utility.hpp"
-# include "BigFloat.hpp"
 # include "PointVector.hpp"
 # include "MathConstants.hpp"
 
 namespace s3d
 {
-//////////////////////////////////////////////////
-//
-//	Fmod
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Fmod
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -46,50 +46,32 @@ namespace s3d
 		/// <summary>
 		/// 剰余を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float2 Fmod(const Float2& v1, const Float2& v2)
-		{
-			return{ Fmod(v1.x, v2.x), Fmod(v1.y, v2.y) };
-		}
+		[[nodiscard]] Float2 Fmod(const Float2& v1, const Float2& v2);
 
 		/// <summary>
 		/// 剰余を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float3 Fmod(const Float3& v1, const Float3& v2)
-		{
-			return{ Fmod(v1.x, v2.x), Fmod(v1.y, v2.y), Fmod(v1.z, v2.z) };
-		}
+		[[nodiscard]] Float3 Fmod(const Float3& v1, const Float3& v2);
 
 		/// <summary>
 		/// 剰余を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float4 Fmod(const Float4& v1, const Float4& v2)
-		{
-			return{ Fmod(v1.x, v2.x), Fmod(v1.y, v2.y), Fmod(v1.z, v2.z), Fmod(v1.w, v2.w) };
-		}
+		[[nodiscard]] Float4 Fmod(const Float4& v1, const Float4& v2);
 
 		/// <summary>
 		/// 剰余を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Fmod(const Vec2& v1, const Vec2& v2)
-		{
-			return{ Fmod(v1.x, v2.x), Fmod(v1.y, v2.y) };
-		}
+		[[nodiscard]] Vec2 Fmod(const Vec2& v1, const Vec2& v2);
 
 		/// <summary>
 		/// 剰余を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec3 Fmod(const Vec3& v1, const Vec3& v2)
-		{
-			return{ Fmod(v1.x, v2.x), Fmod(v1.y, v2.y), Fmod(v1.z, v2.z) };
-		}
+		[[nodiscard]] Vec3 Fmod(const Vec3& v1, const Vec3& v2);
 
 		/// <summary>
 		/// 剰余を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec4 Fmod(const Vec4& v1, const Vec4& v2)
-		{
-			return{ Fmod(v1.x, v2.x), Fmod(v1.y, v2.y), Fmod(v1.z, v2.z), Fmod(v1.w, v2.w) };
-		}
+		[[nodiscard]] Vec4 Fmod(const Vec4& v1, const Vec4& v2);
 
 		/// <summary>
 		/// 剰余を計算します。
@@ -178,11 +160,11 @@ namespace s3d
 		return detail::Fmod_impl();
 	}
 
-//////////////////////////////////////////////////
-//
-//	Fraction
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Fraction
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -222,50 +204,32 @@ namespace s3d
 		/// <summary>
 		/// 小数部分 [0.0,1.0) を返します。
 		/// </summary>
-		[[nodiscard]] inline Float2 Fraction(const Float2& v)
-		{
-			return{ Fraction(v.x), Fraction(v.y) };
-		}
+		[[nodiscard]] Float2 Fraction(const Float2& v);
 
 		/// <summary>
 		/// 小数部分 [0.0,1.0) を返します。
 		/// </summary>
-		[[nodiscard]] inline Float3 Fraction(const Float3& v)
-		{
-			return{ Fraction(v.x), Fraction(v.y), Fraction(v.z) };
-		}
+		[[nodiscard]] Float3 Fraction(const Float3& v);
 
 		/// <summary>
 		/// 小数部分 [0.0,1.0) を返します。
 		/// </summary>
-		[[nodiscard]] inline Float4 Fraction(const Float4& v)
-		{
-			return{ Fraction(v.x), Fraction(v.y), Fraction(v.z), Fraction(v.w) };
-		}
+		[[nodiscard]] Float4 Fraction(const Float4& v);
 
 		/// <summary>
 		/// 小数部分 [0.0,1.0) を返します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Fraction(const Vec2& v)
-		{
-			return{ Fraction(v.x), Fraction(v.y) };
-		}
+		[[nodiscard]] Vec2 Fraction(const Vec2& v);
 
 		/// <summary>
 		/// 小数部分 [0.0,1.0) を返します。
 		/// </summary>
-		[[nodiscard]] inline Vec3 Fraction(const Vec3& v)
-		{
-			return{ Fraction(v.x), Fraction(v.y), Fraction(v.z) };
-		}
+		[[nodiscard]] Vec3 Fraction(const Vec3& v);
 
 		/// <summary>
 		/// 小数部分 [0.0,1.0) を返します。
 		/// </summary>
-		[[nodiscard]] inline Vec4 Fraction(const Vec4& v)
-		{
-			return{ Fraction(v.x), Fraction(v.y), Fraction(v.z), Fraction(v.w) };
-		}
+		[[nodiscard]] Vec4 Fraction(const Vec4& v);
 	}
 
 	namespace detail
@@ -288,11 +252,11 @@ namespace s3d
 
 	constexpr auto Fraction = detail::Fraction_impl();
 
-//////////////////////////////////////////////////
-//
-//	Frexp
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Frexp
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -333,87 +297,39 @@ namespace s3d
 		/// <summary>
 		/// 仮数部と指数部を取得します。
 		/// </summary>
-		inline Float2 Frexp(const Float2& x, Float2& exp)
-		{
-			int32 ex, ey;
-			const auto tx = std::frexp(x.x, &ex);
-			const auto ty = std::frexp(x.y, &ey);
-			exp.set(static_cast<float>(ex), static_cast<float>(ey));
-			return{ tx, ty };
-		}
+		Float2 Frexp(const Float2& x, Float2& exp);
 
 		/// <summary>
 		/// 仮数部と指数部を取得します。
 		/// </summary>
-		inline Float3 Frexp(const Float3& x, Float3& exp)
-		{
-			int32 ex, ey, ez;
-			const auto tx = std::frexp(x.x, &ex);
-			const auto ty = std::frexp(x.y, &ey);
-			const auto tz = std::frexp(x.z, &ez);
-			exp.set(static_cast<float>(ex), static_cast<float>(ey), static_cast<float>(ez));
-			return{ tx, ty, tz };
-		}
+		Float3 Frexp(const Float3& x, Float3& exp);
 
 		/// <summary>
 		/// 仮数部と指数部を取得します。
 		/// </summary>
-		inline Float4 Frexp(const Float4& x, Float4& exp)
-		{
-			int32 ex, ey, ez, ew;
-			const auto tx = std::frexp(x.x, &ex);
-			const auto ty = std::frexp(x.y, &ey);
-			const auto tz = std::frexp(x.z, &ez);
-			const auto tw = std::frexp(x.w, &ew);
-			exp.set(static_cast<float>(ex), static_cast<float>(ey), static_cast<float>(ez), static_cast<float>(ew));
-			return{ tx, ty, tz, tw };
-		}
+		Float4 Frexp(const Float4& x, Float4& exp);
 
 		/// <summary>
 		/// 仮数部と指数部を取得します。
 		/// </summary>
-		inline Vec2 Frexp(const Vec2& x, Vec2& exp)
-		{
-			int32 ex, ey;
-			const auto tx = std::frexp(x.x, &ex);
-			const auto ty = std::frexp(x.y, &ey);
-			exp.set(ex, ey);
-			return{ tx, ty };
-		}
+		Vec2 Frexp(const Vec2& x, Vec2& exp);
 
 		/// <summary>
 		/// 仮数部と指数部を取得します。
 		/// </summary>
-		inline Vec3 Frexp(const Vec3& x, Vec3& exp)
-		{
-			int32 ex, ey, ez;
-			const auto tx = std::frexp(x.x, &ex);
-			const auto ty = std::frexp(x.y, &ey);
-			const auto tz = std::frexp(x.z, &ez);
-			exp.set(ex, ey, ez);
-			return{ tx, ty, tz };
-		}
+		Vec3 Frexp(const Vec3& x, Vec3& exp);
 
 		/// <summary>
 		/// 仮数部と指数部を取得します。
 		/// </summary>
-		inline Vec4 Frexp(const Vec4& x, Vec4& exp)
-		{
-			int32 ex, ey, ez, ew;
-			const auto tx = std::frexp(x.x, &ex);
-			const auto ty = std::frexp(x.y, &ey);
-			const auto tz = std::frexp(x.z, &ez);
-			const auto tw = std::frexp(x.w, &ew);
-			exp.set(ex, ey, ez, ew);
-			return{ tx, ty, tz, tw };
-		}
+		Vec4 Frexp(const Vec4& x, Vec4& exp);
 	}
 
-//////////////////////////////////////////////////
-//
-//	Ldexp
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Ldexp
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -436,50 +352,32 @@ namespace s3d
 		/// <summary>
 		/// x * 2^exp を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float2 Ldexp(const Float2& x, const Float2& exp)
-		{
-			return{ Ldexp(x.x, exp.x), Ldexp(x.y, exp.y) };
-		}
+		[[nodiscard]] Float2 Ldexp(const Float2& x, const Float2& exp);
 
 		/// <summary>
 		/// x * 2^exp を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float3 Ldexp(const Float3& x, const Float3& exp)
-		{
-			return{ Ldexp(x.x, exp.x), Ldexp(x.y, exp.y), Ldexp(x.z, exp.z) };
-		}
+		[[nodiscard]] Float3 Ldexp(const Float3& x, const Float3& exp);
 
 		/// <summary>
 		/// x * 2^exp を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float4 Ldexp(const Float4& x, const Float4& exp)
-		{
-			return{ Ldexp(x.x, exp.x), Ldexp(x.y, exp.y), Ldexp(x.z, exp.z), Ldexp(x.w, exp.w) };
-		}
+		[[nodiscard]] Float4 Ldexp(const Float4& x, const Float4& exp);
 
 		/// <summary>
 		/// x * 2^exp を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Ldexp(const Vec2& x, const Vec2& exp)
-		{
-			return{ Ldexp(x.x, exp.x), Ldexp(x.y, exp.y) };
-		}
+		[[nodiscard]] Vec2 Ldexp(const Vec2& x, const Vec2& exp);
 
 		/// <summary>
 		/// x * 2^exp を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec3 Ldexp(const Vec3& x, const Vec3& exp)
-		{
-			return{ Ldexp(x.x, exp.x), Ldexp(x.y, exp.y), Ldexp(x.z, exp.z) };
-		}
+		[[nodiscard]] Vec3 Ldexp(const Vec3& x, const Vec3& exp);
 
 		/// <summary>
 		/// x * 2^exp を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec4 Ldexp(const Vec4& x, const Vec4& exp)
-		{
-			return{ Ldexp(x.x, exp.x), Ldexp(x.y, exp.y), Ldexp(x.z, exp.z), Ldexp(x.w, exp.w) };
-		}
+		[[nodiscard]] Vec4 Ldexp(const Vec4& x, const Vec4& exp);
 
 		/// <summary>
 		/// x * 2^exp を計算します。
@@ -491,11 +389,11 @@ namespace s3d
 		}
 	}
 
-//////////////////////////////////////////////////
-//
-//	Log
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Log
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -527,58 +425,37 @@ namespace s3d
 		/// <summary>
 		/// e を底とする対数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Log(const Point& v)
-		{
-			return{ Log(v.x), Log(v.y) };
-		}
+		[[nodiscard]] Vec2 Log(const Point& v);
 
 		/// <summary>
 		/// e を底とする対数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float2 Log(const Float2& v)
-		{
-			return{ Log(v.x), Log(v.y) };
-		}
+		[[nodiscard]] Float2 Log(const Float2& v);
 
 		/// <summary>
 		/// e を底とする対数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float3 Log(const Float3& v)
-		{
-			return{ Log(v.x), Log(v.y), Log(v.z) };
-		}
+		[[nodiscard]] Float3 Log(const Float3& v);
 
 		/// <summary>
 		/// e を底とする対数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float4 Log(const Float4& v)
-		{
-			return{ Log(v.x), Log(v.y), Log(v.z), Log(v.w) };
-		}
+		[[nodiscard]] Float4 Log(const Float4& v);
 
 		/// <summary>
 		/// e を底とする対数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Log(const Vec2& v)
-		{
-			return{ Log(v.x), Log(v.y) };
-		}
+		[[nodiscard]] Vec2 Log(const Vec2& v);
 
 		/// <summary>
 		/// e を底とする対数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec3 Log(const Vec3& v)
-		{
-			return{ Log(v.x), Log(v.y), Log(v.z) };
-		}
+		[[nodiscard]] Vec3 Log(const Vec3& v);
 
 		/// <summary>
 		/// e を底とする対数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec4 Log(const Vec4& v)
-		{
-			return{ Log(v.x), Log(v.y), Log(v.z), Log(v.w) };
-		}
+		[[nodiscard]] Vec4 Log(const Vec4& v);
 	}
 
 	namespace detail
@@ -601,11 +478,11 @@ namespace s3d
 
 	constexpr auto Log = detail::Log_impl();
 
-//////////////////////////////////////////////////
-//
-//	Log2
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Log2
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -637,58 +514,37 @@ namespace s3d
 		/// <summary>
 		/// 2 を底とする対数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Log2(const Point& v)
-		{
-			return{ Log2(v.x), Log2(v.y) };
-		}
+		[[nodiscard]] Vec2 Log2(const Point& v);
 
 		/// <summary>
 		/// 2 を底とする対数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float2 Log2(const Float2& v)
-		{
-			return{ Log2(v.x), Log2(v.y) };
-		}
+		[[nodiscard]] Float2 Log2(const Float2& v);
 
 		/// <summary>
 		/// 2 を底とする対数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float3 Log2(const Float3& v)
-		{
-			return{ Log2(v.x), Log2(v.y), Log2(v.z) };
-		}
+		[[nodiscard]] Float3 Log2(const Float3& v);
 
 		/// <summary>
 		/// 2 を底とする対数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float4 Log2(const Float4& v)
-		{
-			return{ Log2(v.x), Log2(v.y), Log2(v.z), Log2(v.w) };
-		}
+		[[nodiscard]] Float4 Log2(const Float4& v);
 
 		/// <summary>
 		/// 2 を底とする対数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Log2(const Vec2& v)
-		{
-			return{ Log2(v.x), Log2(v.y) };
-		}
+		[[nodiscard]] Vec2 Log2(const Vec2& v);
 
 		/// <summary>
 		/// 2 を底とする対数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec3 Log2(const Vec3& v)
-		{
-			return{ Log2(v.x), Log2(v.y), Log2(v.z) };
-		}
+		[[nodiscard]] Vec3 Log2(const Vec3& v);
 
 		/// <summary>
 		/// 2 を底とする対数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec4 Log2(const Vec4& v)
-		{
-			return{ Log2(v.x), Log2(v.y), Log2(v.z), Log2(v.w) };
-		}
+		[[nodiscard]] Vec4 Log2(const Vec4& v);
 	}
 
 	namespace detail
@@ -711,11 +567,11 @@ namespace s3d
 
 	constexpr auto Log2 = detail::Log2_impl();
 
-//////////////////////////////////////////////////
-//
-//	Log10
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Log10
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -747,58 +603,37 @@ namespace s3d
 		/// <summary>
 		/// 10 を底とする対数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Log10(const Point& v)
-		{
-			return{ Log10(v.x), Log10(v.y) };
-		}
+		[[nodiscard]] Vec2 Log10(const Point& v);
 
 		/// <summary>
 		/// 10 を底とする対数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float2 Log10(const Float2& v)
-		{
-			return{ Log10(v.x), Log10(v.y) };
-		}
+		[[nodiscard]] Float2 Log10(const Float2& v);
 
 		/// <summary>
 		/// 10 を底とする対数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float3 Log10(const Float3& v)
-		{
-			return{ Log10(v.x), Log10(v.y), Log10(v.z) };
-		}
+		[[nodiscard]] Float3 Log10(const Float3& v);
 
 		/// <summary>
 		/// 10 を底とする対数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float4 Log10(const Float4& v)
-		{
-			return{ Log10(v.x), Log10(v.y), Log10(v.z), Log10(v.w) };
-		}
+		[[nodiscard]] Float4 Log10(const Float4& v);
 
 		/// <summary>
 		/// 10 を底とする対数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Log10(const Vec2& v)
-		{
-			return{ Log10(v.x), Log10(v.y) };
-		}
+		[[nodiscard]] Vec2 Log10(const Vec2& v);
 
 		/// <summary>
 		/// 10 を底とする対数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec3 Log10(const Vec3& v)
-		{
-			return{ Log10(v.x), Log10(v.y), Log10(v.z) };
-		}
+		[[nodiscard]] Vec3 Log10(const Vec3& v);
 
 		/// <summary>
 		/// 10 を底とする対数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec4 Log10(const Vec4& v)
-		{
-			return{ Log10(v.x), Log10(v.y), Log10(v.z), Log10(v.w) };
-		}
+		[[nodiscard]] Vec4 Log10(const Vec4& v);
 	}
 
 	namespace detail
@@ -821,11 +656,11 @@ namespace s3d
 
 	constexpr auto Log10 = detail::Log10_impl();
 
-//////////////////////////////////////////////////
-//
-//	Modf
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Modf
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -857,57 +692,39 @@ namespace s3d
 		/// <summary>
 		/// 小数部と整数部に分割します。
 		/// </summary>
-		inline Float2 Modf(const Float2& x, Float2& i)
-		{
-			return{ Modf(x.x, i.x), Modf(x.y, i.y) };
-		}
+		Float2 Modf(const Float2& x, Float2& i);
 
 		/// <summary>
 		/// 小数部と整数部に分割します。
 		/// </summary>
-		inline Float3 Modf(const Float3& x, Float3& i)
-		{
-			return{ Modf(x.x, i.x), Modf(x.y, i.y), Modf(x.z, i.z) };
-		}
+		Float3 Modf(const Float3& x, Float3& i);
 
 		/// <summary>
 		/// 小数部と整数部に分割します。
 		/// </summary>
-		inline Float4 Modf(const Float4& x, Float4& i)
-		{
-			return{ Modf(x.x, i.x), Modf(x.y, i.y), Modf(x.z, i.z), Modf(x.w, i.w) };
-		}
+		Float4 Modf(const Float4& x, Float4& i);
 
 		/// <summary>
 		/// 小数部と整数部に分割します。
 		/// </summary>
-		inline Vec2 Modf(const Vec2& x, Vec2& i)
-		{
-			return{ Modf(x.x, i.x), Modf(x.y, i.y) };
-		}
+		Vec2 Modf(const Vec2& x, Vec2& i);
 
 		/// <summary>
 		/// 小数部と整数部に分割します。
 		/// </summary>
-		inline Vec3 Modf(const Vec3& x, Vec3& i)
-		{
-			return{ Modf(x.x, i.x), Modf(x.y, i.y), Modf(x.z, i.z) };
-		}
+		Vec3 Modf(const Vec3& x, Vec3& i);
 
 		/// <summary>
 		/// 小数部と整数部に分割します。
 		/// </summary>
-		inline Vec4 Modf(const Vec4& x, Vec4& i)
-		{
-			return{ Modf(x.x, i.x), Modf(x.y, i.y), Modf(x.z, i.z), Modf(x.w, i.w) };
-		}
+		Vec4 Modf(const Vec4& x, Vec4& i);
 	}
 
-//////////////////////////////////////////////////
-//
-//	Pow
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Pow
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -1025,11 +842,11 @@ namespace s3d
 		return detail::Pow_impl();
 	}
 
-//////////////////////////////////////////////////
-//
-//	Sign
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Sign
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -1061,58 +878,37 @@ namespace s3d
 		/// <summary>
 		/// 符号を示す値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec2 Sign(const Point& v) noexcept
-		{
-			return{ Sign(v.x), Sign(v.y) };
-		}
+		Vec2 Sign(const Point& v) noexcept;
 
 		/// <summary>
 		/// 符号を示す値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float2 Sign(const Float2& v) noexcept
-		{
-			return{ Sign(v.x), Sign(v.y) };
-		}
+		Float2 Sign(const Float2& v) noexcept;
 
 		/// <summary>
 		/// 符号を示す値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float3 Sign(const Float3& v) noexcept
-		{
-			return{ Sign(v.x), Sign(v.y), Sign(v.z) };
-		}
+		Float3 Sign(const Float3& v) noexcept;
 
 		/// <summary>
 		/// 符号を示す値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float4 Sign(const Float4& v) noexcept
-		{
-			return{ Sign(v.x), Sign(v.y), Sign(v.z), Sign(v.w) };
-		}
+		Float4 Sign(const Float4& v) noexcept;
 
 		/// <summary>
 		/// 符号を示す値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec2 Sign(const Vec2& v) noexcept
-		{
-			return{ Sign(v.x), Sign(v.y) };
-		}
+		Vec2 Sign(const Vec2& v) noexcept;
 
 		/// <summary>
 		/// 符号を示す値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec3 Sign(const Vec3& v) noexcept
-		{
-			return{ Sign(v.x), Sign(v.y), Sign(v.z) };
-		}
+		Vec3 Sign(const Vec3& v) noexcept;
 
 		/// <summary>
 		/// 符号を示す値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec4 Sign(const Vec4& v) noexcept
-		{
-			return{ Sign(v.x), Sign(v.y), Sign(v.z), Sign(v.w) };
-		}
+		Vec4 Sign(const Vec4& v) noexcept;
 	}
 
 	namespace detail
@@ -1135,11 +931,11 @@ namespace s3d
 
 	constexpr auto Sign = detail::Sign_impl();
 
-//////////////////////////////////////////////////
-//
-//	ToRadians
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	ToRadians
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -1171,58 +967,37 @@ namespace s3d
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec2 ToRadians(const Point& v) noexcept
-		{
-			return{ ToRadians(v.x), ToRadians(v.y) };
-		}
+		[[nodiscard]] Vec2 ToRadians(const Point& v) noexcept;
 
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float2 ToRadians(const Float2& v) noexcept
-		{
-			return{ ToRadians(v.x), ToRadians(v.y) };
-		}
+		[[nodiscard]] Float2 ToRadians(const Float2& v) noexcept;
 
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float3 ToRadians(const Float3& v) noexcept
-		{
-			return{ ToRadians(v.x), ToRadians(v.y), ToRadians(v.z) };
-		}
+		[[nodiscard]] Float3 ToRadians(const Float3& v) noexcept;
 
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float4 ToRadians(const Float4& v) noexcept
-		{
-			return{ ToRadians(v.x), ToRadians(v.y), ToRadians(v.z), ToRadians(v.w) };
-		}
+		[[nodiscard]] Float4 ToRadians(const Float4& v) noexcept;
 
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec2 ToRadians(const Vec2& v) noexcept
-		{
-			return{ ToRadians(v.x), ToRadians(v.y) };
-		}
+		[[nodiscard]] Vec2 ToRadians(const Vec2& v) noexcept;
 
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec3 ToRadians(const Vec3& v) noexcept
-		{
-			return{ ToRadians(v.x), ToRadians(v.y), ToRadians(v.z) };
-		}
+		[[nodiscard]] Vec3 ToRadians(const Vec3& v) noexcept;
 
 		/// <summary>
 		/// 度数法からラジアンに変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec4 ToRadians(const Vec4& v) noexcept
-		{
-			return{ ToRadians(v.x), ToRadians(v.y), ToRadians(v.z), ToRadians(v.w) };
-		}
+		[[nodiscard]] Vec4 ToRadians(const Vec4& v) noexcept;
 	}
 
 	namespace detail
@@ -1245,11 +1020,11 @@ namespace s3d
 
 	constexpr auto ToRadians = detail::ToRadians_impl();
 
-//////////////////////////////////////////////////
-//
-//	ToDegrees
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	ToDegrees
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -1281,58 +1056,37 @@ namespace s3d
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec2 ToDegrees(const Point& v) noexcept
-		{
-			return{ ToDegrees(v.x), ToDegrees(v.y) };
-		}
+		[[nodiscard]] Vec2 ToDegrees(const Point& v) noexcept;
 
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float2 ToDegrees(const Float2& v) noexcept
-		{
-			return{ ToDegrees(v.x), ToDegrees(v.y) };
-		}
+		[[nodiscard]] Float2 ToDegrees(const Float2& v) noexcept;
 
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float3 ToDegrees(const Float3& v) noexcept
-		{
-			return{ ToDegrees(v.x), ToDegrees(v.y), ToDegrees(v.z) };
-		}
+		[[nodiscard]] Float3 ToDegrees(const Float3& v) noexcept;
 
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float4 ToDegrees(const Float4& v) noexcept
-		{
-			return{ ToDegrees(v.x), ToDegrees(v.y), ToDegrees(v.z), ToDegrees(v.w) };
-		}
+		[[nodiscard]] Float4 ToDegrees(const Float4& v) noexcept;
 
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec2 ToDegrees(const Vec2& v) noexcept
-		{
-			return{ ToDegrees(v.x), ToDegrees(v.y) };
-		}
+		[[nodiscard]] Vec2 ToDegrees(const Vec2& v) noexcept;
 
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec3 ToDegrees(const Vec3& v) noexcept
-		{
-			return{ ToDegrees(v.x), ToDegrees(v.y), ToDegrees(v.z) };
-		}
+		[[nodiscard]] Vec3 ToDegrees(const Vec3& v) noexcept;
 
 		/// <summary>
 		/// ラジアンから度数法に変換します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec4 ToDegrees(const Vec4& v) noexcept
-		{
-			return{ ToDegrees(v.x), ToDegrees(v.y), ToDegrees(v.z), ToDegrees(v.w) };
-		}
+		[[nodiscard]] Vec4 ToDegrees(const Vec4& v) noexcept;
 	}
 
 	namespace detail
@@ -1355,231 +1109,11 @@ namespace s3d
 
 	constexpr auto ToDegrees = detail::ToDegrees_impl();
 
-//////////////////////////////////////////////////
-//
-//	Radians
-//
-//////////////////////////////////////////////////
-
-	namespace Math
-	{
-		/// <summary>
-		/// 度数法からラジアンに変換します。
-		/// </summary>
-		[[deprecated("deprecated in v0.3.0: use ToRadians() instead")]][[nodiscard]] inline constexpr float Radians(float x) noexcept
-		{
-			return x * (PiF / 180.0f);
-		}
-
-		/// <summary>
-		/// 度数法からラジアンに変換します。
-		/// </summary>
-		[[deprecated("deprecated in v0.3.0: use ToRadians() instead")]][[nodiscard]] inline constexpr double Radians(double x) noexcept
-		{
-			return x * (Pi / 180.0);
-		}
-
-		/// <summary>
-		/// 度数法からラジアンに変換します。
-		/// </summary>
-		template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
-		[[deprecated("deprecated in v0.3.0: use ToRadians() instead")]][[nodiscard]] inline constexpr double Radians(Type x) noexcept
-		{
-			return ToRadians(static_cast<double>(x));
-		}
-
-		/// <summary>
-		/// 度数法からラジアンに変換します。
-		/// </summary>
-		[[deprecated("deprecated in v0.3.0: use ToRadians() instead")]][[nodiscard]] inline constexpr Vec2 Radians(const Point& v) noexcept
-		{
-			return{ ToRadians(v.x), ToRadians(v.y) };
-		}
-
-		/// <summary>
-		/// 度数法からラジアンに変換します。
-		/// </summary>
-		[[deprecated("deprecated in v0.3.0: use ToRadians() instead")]][[nodiscard]] inline constexpr Float2 Radians(const Float2& v) noexcept
-		{
-			return{ ToRadians(v.x), ToRadians(v.y) };
-		}
-
-		/// <summary>
-		/// 度数法からラジアンに変換します。
-		/// </summary>
-		[[deprecated("deprecated in v0.3.0: use ToRadians() instead")]][[nodiscard]] inline constexpr Float3 Radians(const Float3& v) noexcept
-		{
-			return{ ToRadians(v.x), ToRadians(v.y), ToRadians(v.z) };
-		}
-
-		/// <summary>
-		/// 度数法からラジアンに変換します。
-		/// </summary>
-		[[deprecated("deprecated in v0.3.0: use ToRadians() instead")]][[nodiscard]] inline constexpr Float4 Radians(const Float4& v) noexcept
-		{
-			return{ ToRadians(v.x), ToRadians(v.y), ToRadians(v.z), ToRadians(v.w) };
-		}
-
-		/// <summary>
-		/// 度数法からラジアンに変換します。
-		/// </summary>
-		[[deprecated("deprecated in v0.3.0: use ToRadians() instead")]][[nodiscard]] inline constexpr Vec2 Radians(const Vec2& v) noexcept
-		{
-			return{ ToRadians(v.x), ToRadians(v.y) };
-		}
-
-		/// <summary>
-		/// 度数法からラジアンに変換します。
-		/// </summary>
-		[[deprecated("deprecated in v0.3.0: use ToRadians() instead")]][[nodiscard]] inline constexpr Vec3 Radians(const Vec3& v) noexcept
-		{
-			return{ ToRadians(v.x), ToRadians(v.y), ToRadians(v.z) };
-		}
-
-		/// <summary>
-		/// 度数法からラジアンに変換します。
-		/// </summary>
-		[[deprecated("deprecated in v0.3.0: use ToRadians() instead")]][[nodiscard]] inline constexpr Vec4 Radians(const Vec4& v) noexcept
-		{
-			return{ ToRadians(v.x), ToRadians(v.y), ToRadians(v.z), ToRadians(v.w) };
-		}
-	}
-
-	namespace detail
-	{
-		struct Radians_impl
-		{
-			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
-			{
-				return Math::ToRadians(x);
-			}
-
-			template <class Type = void>
-			[[nodiscard]] constexpr auto operator ()(PlaceHolder_t) const noexcept
-			{
-				return detail::Radians_impl();
-			}
-		};
-	}
-
-	[[deprecated("deprecated in v0.3.0: use ToRadians() instead")]] constexpr auto Radians = detail::Radians_impl();
-
-//////////////////////////////////////////////////
-//
-//	Degrees
-//
-//////////////////////////////////////////////////
-
-	namespace Math
-	{
-		/// <summary>
-		/// ラジアンから度数法に変換します。
-		/// </summary>
-		[[deprecated("deprecated in v0.3.0: use ToDegrees() instead")]][[nodiscard]] inline constexpr float Degrees(float x) noexcept
-		{
-			return x * (180.0f / PiF);
-		}
-
-		/// <summary>
-		/// ラジアンから度数法に変換します。
-		/// </summary>
-		[[deprecated("deprecated in v0.3.0: use ToDegrees() instead")]][[nodiscard]] inline constexpr double Degrees(double x) noexcept
-		{
-			return x * (180.0 / Pi);
-		}
-
-		/// <summary>
-		/// ラジアンから度数法に変換します。
-		/// </summary>
-		template <class Type, std::enable_if_t<std::is_arithmetic_v<Type>>* = nullptr>
-		[[deprecated("deprecated in v0.3.0: use ToDegrees() instead")]][[nodiscard]] inline constexpr double Degrees(Type x) noexcept
-		{
-			return ToDegrees(static_cast<double>(x));
-		}
-
-		/// <summary>
-		/// ラジアンから度数法に変換します。
-		/// </summary>
-		[[deprecated("deprecated in v0.3.0: use ToDegrees() instead")]][[nodiscard]] inline constexpr Vec2 Degrees(const Point& v) noexcept
-		{
-			return{ ToDegrees(v.x), ToDegrees(v.y) };
-		}
-
-		/// <summary>
-		/// ラジアンから度数法に変換します。
-		/// </summary>
-		[[deprecated("deprecated in v0.3.0: use ToDegrees() instead")]][[nodiscard]] inline constexpr Float2 Degrees(const Float2& v) noexcept
-		{
-			return{ ToDegrees(v.x), ToDegrees(v.y) };
-		}
-
-		/// <summary>
-		/// ラジアンから度数法に変換します。
-		/// </summary>
-		[[deprecated("deprecated in v0.3.0: use ToDegrees() instead")]][[nodiscard]] inline constexpr Float3 Degrees(const Float3& v) noexcept
-		{
-			return{ ToDegrees(v.x), ToDegrees(v.y), ToDegrees(v.z) };
-		}
-
-		/// <summary>
-		/// ラジアンから度数法に変換します。
-		/// </summary>
-		[[deprecated("deprecated in v0.3.0: use ToDegrees() instead")]][[nodiscard]] inline constexpr Float4 Degrees(const Float4& v) noexcept
-		{
-			return{ ToDegrees(v.x), ToDegrees(v.y), ToDegrees(v.z), ToDegrees(v.w) };
-		}
-
-		/// <summary>
-		/// ラジアンから度数法に変換します。
-		/// </summary>
-		[[deprecated("deprecated in v0.3.0: use ToDegrees() instead")]][[nodiscard]] inline constexpr Vec2 Degrees(const Vec2& v) noexcept
-		{
-			return{ ToDegrees(v.x), ToDegrees(v.y) };
-		}
-
-		/// <summary>
-		/// ラジアンから度数法に変換します。
-		/// </summary>
-		[[deprecated("deprecated in v0.3.0: use ToDegrees() instead")]][[nodiscard]] inline constexpr Vec3 Degrees(const Vec3& v) noexcept
-		{
-			return{ ToDegrees(v.x), ToDegrees(v.y), ToDegrees(v.z) };
-		}
-
-		/// <summary>
-		/// ラジアンから度数法に変換します。
-		/// </summary>
-		[[deprecated("deprecated in v0.3.0: use ToDegrees() instead")]][[nodiscard]] inline constexpr Vec4 Degrees(const Vec4& v) noexcept
-		{
-			return{ ToDegrees(v.x), ToDegrees(v.y), ToDegrees(v.z), ToDegrees(v.w) };
-		}
-	}
-
-	namespace detail
-	{
-		struct Degrees_impl
-		{
-			template <class TypeX>
-			[[nodiscard]] constexpr auto operator() (const TypeX& x) const noexcept
-			{
-				return Math::ToDegrees(x);
-			}
-
-			template <class Type = void>
-			[[nodiscard]] constexpr auto operator ()(PlaceHolder_t) const noexcept
-			{
-				return detail::Degrees_impl();
-			}
-		};
-	}
-
-	[[deprecated("deprecated in v0.3.0: use ToDegrees() instead")]] constexpr auto Degrees = detail::Degrees_impl();
-
-//////////////////////////////////////////////////
-//
-//	Abs
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Abs
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -1611,58 +1145,46 @@ namespace s3d
 		/// <summary>
 		/// 絶対値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Point Abs(const Point& v) noexcept
+		template <class Type, std::enable_if_t<std::is_unsigned_v<Type>>* = nullptr>
+		[[nodiscard]] inline constexpr Type Abs(Type x) noexcept
 		{
-			return{ Abs(v.x), Abs(v.y) };
+			return x;
 		}
 
 		/// <summary>
 		/// 絶対値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float2 Abs(const Float2& v) noexcept
-		{
-			return{ Abs(v.x), Abs(v.y) };
-		}
+		[[nodiscard]] Point Abs(const Point& v) noexcept;
 
 		/// <summary>
 		/// 絶対値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float3 Abs(const Float3& v) noexcept
-		{
-			return{ Abs(v.x), Abs(v.y), Abs(v.z) };
-		}
+		[[nodiscard]] Float2 Abs(const Float2& v) noexcept;
 
 		/// <summary>
 		/// 絶対値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float4 Abs(const Float4& v) noexcept
-		{
-			return{ Abs(v.x), Abs(v.y), Abs(v.z), Abs(v.w) };
-		}
+		[[nodiscard]] Float3 Abs(const Float3& v) noexcept;
 
 		/// <summary>
 		/// 絶対値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec2 Abs(const Vec2& v) noexcept
-		{
-			return{ Abs(v.x), Abs(v.y) };
-		}
+		[[nodiscard]] Float4 Abs(const Float4& v) noexcept;
 
 		/// <summary>
 		/// 絶対値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec3 Abs(const Vec3& v) noexcept
-		{
-			return{ Abs(v.x), Abs(v.y), Abs(v.z) };
-		}
+		[[nodiscard]] Vec2 Abs(const Vec2& v) noexcept;
 
 		/// <summary>
 		/// 絶対値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec4 Abs(const Vec4& v) noexcept
-		{
-			return{ Abs(v.x), Abs(v.y), Abs(v.z), Abs(v.w) };
-		}
+		[[nodiscard]] Vec3 Abs(const Vec3& v) noexcept;
+
+		/// <summary>
+		/// 絶対値を返します。
+		/// </summary>
+		[[nodiscard]] Vec4 Abs(const Vec4& v) noexcept;
 	}
 
 	namespace detail
@@ -1685,11 +1207,11 @@ namespace s3d
 
 	constexpr auto Abs = detail::Abs_impl();
 
-//////////////////////////////////////////////////
-//
-//	Fmod
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	AbsDiff
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -1716,50 +1238,32 @@ namespace s3d
 		/// <summary>
 		/// 差の絶対値を計算します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float2 AbsDiff(const Float2& v1, const Float2& v2)
-		{
-			return{ AbsDiff(v1.x, v2.x), AbsDiff(v1.y, v2.y) };
-		}
+		[[nodiscard]] Float2 AbsDiff(const Float2& v1, const Float2& v2);
 
 		/// <summary>
 		/// 差の絶対値を計算します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float3 AbsDiff(const Float3& v1, const Float3& v2)
-		{
-			return{ AbsDiff(v1.x, v2.x), AbsDiff(v1.y, v2.y), AbsDiff(v1.z, v2.z) };
-		}
+		[[nodiscard]] Float3 AbsDiff(const Float3& v1, const Float3& v2);
 
 		/// <summary>
 		/// 差の絶対値を計算します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float4 AbsDiff(const Float4& v1, const Float4& v2)
-		{
-			return{ AbsDiff(v1.x, v2.x), AbsDiff(v1.y, v2.y), AbsDiff(v1.z, v2.z), AbsDiff(v1.w, v2.w) };
-		}
+		[[nodiscard]] Float4 AbsDiff(const Float4& v1, const Float4& v2);
 
 		/// <summary>
 		/// 差の絶対値を計算します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec2 AbsDiff(const Vec2& v1, const Vec2& v2)
-		{
-			return{ AbsDiff(v1.x, v2.x), AbsDiff(v1.y, v2.y) };
-		}
+		[[nodiscard]] Vec2 AbsDiff(const Vec2& v1, const Vec2& v2);
 
 		/// <summary>
 		/// 差の絶対値を計算します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec3 AbsDiff(const Vec3& v1, const Vec3& v2)
-		{
-			return{ AbsDiff(v1.x, v2.x), AbsDiff(v1.y, v2.y), AbsDiff(v1.z, v2.z) };
-		}
+		[[nodiscard]] Vec3 AbsDiff(const Vec3& v1, const Vec3& v2);
 
 		/// <summary>
 		/// 差の絶対値を計算します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec4 AbsDiff(const Vec4& v1, const Vec4& v2)
-		{
-			return{ AbsDiff(v1.x, v2.x), AbsDiff(v1.y, v2.y), AbsDiff(v1.z, v2.z), AbsDiff(v1.w, v2.w) };
-		}
+		[[nodiscard]] Vec4 AbsDiff(const Vec4& v1, const Vec4& v2);
 
 		/// <summary>
 		/// 差の絶対値を計算します。
@@ -1845,11 +1349,11 @@ namespace s3d
 		return detail::AbsDiff_impl();
 	}
 
-//////////////////////////////////////////////////
-//
-//	Square
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Square
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -1899,11 +1403,11 @@ namespace s3d
 
 	constexpr auto Square = detail::Square_impl();
 
-//////////////////////////////////////////////////
-//
-//	Exp
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Exp
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -1935,58 +1439,37 @@ namespace s3d
 		/// <summary>
 		/// e^x を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Exp(const Point& v)
-		{
-			return{ Exp(v.x), Exp(v.y) };
-		}
+		[[nodiscard]] Vec2 Exp(const Point& v);
 
 		/// <summary>
 		/// e^x を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float2 Exp(const Float2& v)
-		{
-			return{ Exp(v.x), Exp(v.y) };
-		}
+		[[nodiscard]] Float2 Exp(const Float2& v);
 
 		/// <summary>
 		/// e^x を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float3 Exp(const Float3& v)
-		{
-			return{ Exp(v.x), Exp(v.y), Exp(v.z) };
-		}
+		[[nodiscard]] Float3 Exp(const Float3& v);
 
 		/// <summary>
 		/// e^x を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float4 Exp(const Float4& v)
-		{
-			return{ Exp(v.x), Exp(v.y), Exp(v.z), Exp(v.w) };
-		}
+		[[nodiscard]] Float4 Exp(const Float4& v);
 
 		/// <summary>
 		/// e^x を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Exp(const Vec2& v)
-		{
-			return{ Exp(v.x), Exp(v.y) };
-		}
+		[[nodiscard]] Vec2 Exp(const Vec2& v);
 
 		/// <summary>
 		/// e^x を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec3 Exp(const Vec3& v)
-		{
-			return{ Exp(v.x), Exp(v.y), Exp(v.z) };
-		}
+		[[nodiscard]] Vec3 Exp(const Vec3& v);
 
 		/// <summary>
 		/// e^x を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec4 Exp(const Vec4& v)
-		{
-			return{ Exp(v.x), Exp(v.y), Exp(v.z), Exp(v.w) };
-		}
+		[[nodiscard]] Vec4 Exp(const Vec4& v);
 	}
 
 	namespace detail
@@ -2009,11 +1492,11 @@ namespace s3d
 
 	constexpr auto Exp = detail::Exp_impl();
 
-//////////////////////////////////////////////////
-//
-//	Exp2
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Exp2
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -2045,58 +1528,37 @@ namespace s3d
 		/// <summary>
 		/// 2^x を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Exp2(const Point& v)
-		{
-			return{ Exp2(v.x), Exp2(v.y) };
-		}
+		[[nodiscard]] Vec2 Exp2(const Point& v);
 
 		/// <summary>
 		/// 2^x を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float2 Exp2(const Float2& v)
-		{
-			return{ Exp2(v.x), Exp2(v.y) };
-		}
+		[[nodiscard]] Float2 Exp2(const Float2& v);
 
 		/// <summary>
 		/// 2^x を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float3 Exp2(const Float3& v)
-		{
-			return{ Exp2(v.x), Exp2(v.y), Exp2(v.z) };
-		}
+		[[nodiscard]] Float3 Exp2(const Float3& v);
 
 		/// <summary>
 		/// 2^x を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float4 Exp2(const Float4& v)
-		{
-			return{ Exp2(v.x), Exp2(v.y), Exp2(v.z), Exp2(v.w) };
-		}
+		[[nodiscard]] Float4 Exp2(const Float4& v);
 
 		/// <summary>
 		/// 2^x を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Exp2(const Vec2& v)
-		{
-			return{ Exp2(v.x), Exp2(v.y) };
-		}
+		[[nodiscard]] Vec2 Exp2(const Vec2& v);
 
 		/// <summary>
 		/// 2^x を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec3 Exp2(const Vec3& v)
-		{
-			return{ Exp2(v.x), Exp2(v.y), Exp2(v.z) };
-		}
+		[[nodiscard]] Vec3 Exp2(const Vec3& v);
 
 		/// <summary>
 		/// 2^x を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec4 Exp2(const Vec4& v)
-		{
-			return{ Exp2(v.x), Exp2(v.y), Exp2(v.z), Exp2(v.w) };
-		}
+		[[nodiscard]] Vec4 Exp2(const Vec4& v);
 	}
 
 	namespace detail
@@ -2119,11 +1581,11 @@ namespace s3d
 
 	constexpr auto Exp2 = detail::Exp2_impl();
 
-//////////////////////////////////////////////////
-//
-//	Rsqrt
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Rsqrt
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -2155,58 +1617,37 @@ namespace s3d
 		/// <summary>
 		/// 平方根の逆数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Rsqrt(const Point& v)
-		{
-			return{ Rsqrt(v.x), Rsqrt(v.y) };
-		}
+		[[nodiscard]] Vec2 Rsqrt(const Point& v);
 
 		/// <summary>
 		/// 平方根の逆数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float2 Rsqrt(const Float2& v)
-		{
-			return{ Rsqrt(v.x), Rsqrt(v.y) };
-		}
+		[[nodiscard]] Float2 Rsqrt(const Float2& v);
 
 		/// <summary>
 		/// 平方根の逆数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float3 Rsqrt(const Float3& v)
-		{
-			return{ Rsqrt(v.x), Rsqrt(v.y), Rsqrt(v.z) };
-		}
+		[[nodiscard]] Float3 Rsqrt(const Float3& v);
 
 		/// <summary>
 		/// 平方根の逆数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float4 Rsqrt(const Float4& v)
-		{
-			return{ Rsqrt(v.x), Rsqrt(v.y), Rsqrt(v.z), Rsqrt(v.w) };
-		}
+		[[nodiscard]] Float4 Rsqrt(const Float4& v);
 
 		/// <summary>
 		/// 平方根の逆数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Rsqrt(const Vec2& v)
-		{
-			return{ Rsqrt(v.x), Rsqrt(v.y) };
-		}
+		[[nodiscard]] Vec2 Rsqrt(const Vec2& v);
 
 		/// <summary>
 		/// 平方根の逆数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec3 Rsqrt(const Vec3& v)
-		{
-			return{ Rsqrt(v.x), Rsqrt(v.y), Rsqrt(v.z) };
-		}
+		[[nodiscard]] Vec3 Rsqrt(const Vec3& v);
 
 		/// <summary>
 		/// 平方根の逆数を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec4 Rsqrt(const Vec4& v)
-		{
-			return{ Rsqrt(v.x), Rsqrt(v.y), Rsqrt(v.z), Rsqrt(v.w) };
-		}
+		[[nodiscard]] Vec4 Rsqrt(const Vec4& v);
 	}
 
 	namespace detail
@@ -2229,11 +1670,11 @@ namespace s3d
 
 	constexpr auto Rsqrt = detail::Rsqrt_impl();
 
-//////////////////////////////////////////////////
-//
-//	Sqrt
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Sqrt
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -2265,58 +1706,37 @@ namespace s3d
 		/// <summary>
 		/// 平方根を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Sqrt(const Point& v)
-		{
-			return{ Sqrt(v.x), Sqrt(v.y) };
-		}
+		[[nodiscard]] Vec2 Sqrt(const Point& v);
 
 		/// <summary>
 		/// 平方根を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float2 Sqrt(const Float2& v)
-		{
-			return{ Sqrt(v.x), Sqrt(v.y) };
-		}
+		[[nodiscard]] Float2 Sqrt(const Float2& v);
 
 		/// <summary>
 		/// 平方根を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float3 Sqrt(const Float3& v)
-		{
-			return{ Sqrt(v.x), Sqrt(v.y), Sqrt(v.z) };
-		}
+		[[nodiscard]] Float3 Sqrt(const Float3& v);
 
 		/// <summary>
 		/// 平方根を計算します。
 		/// </summary>
-		[[nodiscard]] inline Float4 Sqrt(const Float4& v)
-		{
-			return{ Sqrt(v.x), Sqrt(v.y), Sqrt(v.z), Sqrt(v.w) };
-		}
+		[[nodiscard]] Float4 Sqrt(const Float4& v);
 
 		/// <summary>
 		/// 平方根を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Sqrt(const Vec2& v)
-		{
-			return{ Sqrt(v.x), Sqrt(v.y) };
-		}
+		[[nodiscard]] Vec2 Sqrt(const Vec2& v);
 
 		/// <summary>
 		/// 平方根を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec3 Sqrt(const Vec3& v)
-		{
-			return{ Sqrt(v.x), Sqrt(v.y), Sqrt(v.z) };
-		}
+		[[nodiscard]] Vec3 Sqrt(const Vec3& v);
 
 		/// <summary>
 		/// 平方根を計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec4 Sqrt(const Vec4& v)
-		{
-			return{ Sqrt(v.x), Sqrt(v.y), Sqrt(v.z), Sqrt(v.w) };
-		}
+		[[nodiscard]] Vec4 Sqrt(const Vec4& v);
 	}
 
 	namespace detail
@@ -2339,11 +1759,11 @@ namespace s3d
 
 	constexpr auto Sqrt = detail::Sqrt_impl();
 
-//////////////////////////////////////////////////
-//
-//	Ceil
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Ceil
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -2375,58 +1795,40 @@ namespace s3d
 		/// <summary>
 		/// 現在の値以上の最小の整数を返します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Ceil(const Point& v)
+		[[nodiscard]] inline constexpr Vec2 Ceil(const Point& v)
 		{
-			return{ Ceil(v.x), Ceil(v.y) };
+			return{ v.x, v.y };
 		}
 
 		/// <summary>
 		/// 現在の値以上の最小の整数を返します。
 		/// </summary>
-		[[nodiscard]] inline Float2 Ceil(const Float2& v)
-		{
-			return{ Ceil(v.x), Ceil(v.y) };
-		}
+		[[nodiscard]] Float2 Ceil(const Float2& v);
 
 		/// <summary>
 		/// 現在の値以上の最小の整数を返します。
 		/// </summary>
-		[[nodiscard]] inline Float3 Ceil(const Float3& v)
-		{
-			return{ Ceil(v.x), Ceil(v.y), Ceil(v.z) };
-		}
+		[[nodiscard]] Float3 Ceil(const Float3& v);
 
 		/// <summary>
 		/// 現在の値以上の最小の整数を返します。
 		/// </summary>
-		[[nodiscard]] inline Float4 Ceil(const Float4& v)
-		{
-			return{ Ceil(v.x), Ceil(v.y), Ceil(v.z), Ceil(v.w) };
-		}
+		[[nodiscard]] Float4 Ceil(const Float4& v);
 
 		/// <summary>
 		/// 現在の値以上の最小の整数を返します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Ceil(const Vec2& v)
-		{
-			return{ Ceil(v.x), Ceil(v.y) };
-		}
+		[[nodiscard]] Vec2 Ceil(const Vec2& v);
 
 		/// <summary>
 		/// 現在の値以上の最小の整数を返します。
 		/// </summary>
-		[[nodiscard]] inline Vec3 Ceil(const Vec3& v)
-		{
-			return{ Ceil(v.x), Ceil(v.y), Ceil(v.z) };
-		}
+		[[nodiscard]] Vec3 Ceil(const Vec3& v);
 
 		/// <summary>
 		/// 現在の値以上の最小の整数を返します。
 		/// </summary>
-		[[nodiscard]] inline Vec4 Ceil(const Vec4& v)
-		{
-			return{ Ceil(v.x), Ceil(v.y), Ceil(v.z), Ceil(v.w) };
-		}
+		[[nodiscard]] Vec4 Ceil(const Vec4& v);
 	}
 
 	namespace detail
@@ -2449,11 +1851,11 @@ namespace s3d
 
 	constexpr auto Ceil = detail::Ceil_impl();
 
-//////////////////////////////////////////////////
-//
-//	Floor
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Floor
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -2485,58 +1887,40 @@ namespace s3d
 		/// <summary>
 		/// 現在の値以下の最大の整数を返します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Floor(const Point& v)
+		[[nodiscard]] inline constexpr Vec2 Floor(const Point& v)
 		{
-			return{ Floor(v.x), Floor(v.y) };
+			return{ v.x, v.y };
 		}
 
 		/// <summary>
 		/// 現在の値以下の最大の整数を返します。
 		/// </summary>
-		[[nodiscard]] inline Float2 Floor(const Float2& v)
-		{
-			return{ Floor(v.x), Floor(v.y) };
-		}
+		[[nodiscard]] Float2 Floor(const Float2& v);
 
 		/// <summary>
 		/// 現在の値以下の最大の整数を返します。
 		/// </summary>
-		[[nodiscard]] inline Float3 Floor(const Float3& v)
-		{
-			return{ Floor(v.x), Floor(v.y), Floor(v.z) };
-		}
+		[[nodiscard]] Float3 Floor(const Float3& v);
 
 		/// <summary>
 		/// 現在の値以下の最大の整数を返します。
 		/// </summary>
-		[[nodiscard]] inline Float4 Floor(const Float4& v)
-		{
-			return{ Floor(v.x), Floor(v.y), Floor(v.z), Floor(v.w) };
-		}
+		[[nodiscard]] Float4 Floor(const Float4& v);
 
 		/// <summary>
 		/// 現在の値以下の最大の整数を返します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Floor(const Vec2& v)
-		{
-			return{ Floor(v.x), Floor(v.y) };
-		}
+		[[nodiscard]] Vec2 Floor(const Vec2& v);
 
 		/// <summary>
 		/// 現在の値以下の最大の整数を返します。
 		/// </summary>
-		[[nodiscard]] inline Vec3 Floor(const Vec3& v)
-		{
-			return{ Floor(v.x), Floor(v.y), Floor(v.z) };
-		}
+		[[nodiscard]] Vec3 Floor(const Vec3& v);
 
 		/// <summary>
 		/// 現在の値以下の最大の整数を返します。
 		/// </summary>
-		[[nodiscard]] inline Vec4 Floor(const Vec4& v)
-		{
-			return{ Floor(v.x), Floor(v.y), Floor(v.z), Floor(v.w) };
-		}
+		[[nodiscard]] Vec4 Floor(const Vec4& v);
 	}
 
 	namespace detail
@@ -2559,11 +1943,11 @@ namespace s3d
 
 	constexpr auto Floor = detail::Floor_impl();
 
-//////////////////////////////////////////////////
-//
-//	Round
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Round
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -2595,58 +1979,40 @@ namespace s3d
 		/// <summary>
 		/// 四捨五入した値を返します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Round(const Point& v)
+		[[nodiscard]] inline constexpr Vec2 Round(const Point& v)
 		{
-			return{ Round(v.x), Round(v.y) };
+			return{ v.x, v.y };
 		}
 
 		/// <summary>
 		/// 四捨五入した値を返します。
 		/// </summary>
-		[[nodiscard]] inline Float2 Round(const Float2& v)
-		{
-			return{ Round(v.x), Round(v.y) };
-		}
+		[[nodiscard]] Float2 Round(const Float2& v);
 
 		/// <summary>
 		/// 四捨五入した値を返します。
 		/// </summary>
-		[[nodiscard]] inline Float3 Round(const Float3& v)
-		{
-			return{ Round(v.x), Round(v.y), Round(v.z) };
-		}
+		[[nodiscard]] Float3 Round(const Float3& v);
 
 		/// <summary>
 		/// 四捨五入した値を返します。
 		/// </summary>
-		[[nodiscard]] inline Float4 Round(const Float4& v)
-		{
-			return{ Round(v.x), Round(v.y), Round(v.z), Round(v.w) };
-		}
+		[[nodiscard]] Float4 Round(const Float4& v);
 
 		/// <summary>
 		/// 四捨五入した値を返します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Round(const Vec2& v)
-		{
-			return{ Round(v.x), Round(v.y) };
-		}
+		[[nodiscard]] Vec2 Round(const Vec2& v);
 
 		/// <summary>
 		/// 四捨五入した値を返します。
 		/// </summary>
-		[[nodiscard]] inline Vec3 Round(const Vec3& v)
-		{
-			return{ Round(v.x), Round(v.y), Round(v.z) };
-		}
+		[[nodiscard]] Vec3 Round(const Vec3& v);
 
 		/// <summary>
 		/// 四捨五入した値を返します。
 		/// </summary>
-		[[nodiscard]] inline Vec4 Round(const Vec4& v)
-		{
-			return{ Round(v.x), Round(v.y), Round(v.z), Round(v.w) };
-		}
+		[[nodiscard]] Vec4 Round(const Vec4& v);
 	}
 
 	namespace detail
@@ -2669,76 +2035,55 @@ namespace s3d
 
 	constexpr auto Round = detail::Round_impl();
 
-//////////////////////////////////////////////////
-//
-//	Clamp
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Clamp
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
 		/// <summary>
 		/// 最小値と最大値の範囲にクランプした値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Point Clamp(const Point& v, int32 min, int32 max)
-		{
-			return{ s3d::Clamp(v.x, min, max), s3d::Clamp(v.y, min, max) };
-		}
+		[[nodiscard]] Point Clamp(const Point& v, int32 min, int32 max);
 
 		/// <summary>
 		/// 最小値と最大値の範囲にクランプした値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float2 Clamp(const Float2& v, float min, float max)
-		{
-			return{ s3d::Clamp(v.x, min, max), s3d::Clamp(v.y, min, max) };
-		}
+		[[nodiscard]] Float2 Clamp(const Float2& v, float min, float max);
 
 		/// <summary>
 		/// 最小値と最大値の範囲にクランプした値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float3 Clamp(const Float3& v, float min, float max)
-		{
-			return{ s3d::Clamp(v.x, min, max), s3d::Clamp(v.y, min, max), s3d::Clamp(v.z, min, max) };
-		}
+		[[nodiscard]] Float3 Clamp(const Float3& v, float min, float max);
 
 		/// <summary>
 		/// 最小値と最大値の範囲にクランプした値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float4 Clamp(const Float4& v, float min, float max)
-		{
-			return{ s3d::Clamp(v.x, min, max), s3d::Clamp(v.y, min, max), s3d::Clamp(v.z, min, max), s3d::Clamp(v.w, min, max) };
-		}
+		[[nodiscard]] Float4 Clamp(const Float4& v, float min, float max);
 
 		/// <summary>
 		/// 最小値と最大値の範囲にクランプした値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec2 Clamp(const Vec2& v, double min, double max)
-		{
-			return{ s3d::Clamp(v.x, min, max), s3d::Clamp(v.y, min, max) };
-		}
+		[[nodiscard]] Vec2 Clamp(const Vec2& v, double min, double max);
 
 		/// <summary>
 		/// 最小値と最大値の範囲にクランプした値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec3 Clamp(const Vec3& v, double min, double max)
-		{
-			return{ s3d::Clamp(v.x, min, max), s3d::Clamp(v.y, min, max), s3d::Clamp(v.z, min, max) };
-		}
+		[[nodiscard]] Vec3 Clamp(const Vec3& v, double min, double max);
 
 		/// <summary>
 		/// 最小値と最大値の範囲にクランプした値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec4 Clamp(const Vec4& v, double min, double max)
-		{
-			return{ s3d::Clamp(v.x, min, max), s3d::Clamp(v.y, min, max), s3d::Clamp(v.z, min, max), s3d::Clamp(v.w, min, max) };
-		}
+		[[nodiscard]] Vec4 Clamp(const Vec4& v, double min, double max);
 	}
 
-//////////////////////////////////////////////////
-//
-//	Saturate
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Saturate
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -2770,58 +2115,37 @@ namespace s3d
 		/// <summary>
 		/// 成分を [0, 1] の範囲にクランプした値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec2 Saturate(const Point& v)
-		{
-			return{ Saturate(v.x), Saturate(v.y) };
-		}
+		[[nodiscard]] Vec2 Saturate(const Point& v);
 
 		/// <summary>
 		/// 成分を [0, 1] の範囲にクランプした値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float2 Saturate(const Float2& v)
-		{
-			return{ Saturate(v.x), Saturate(v.y) };
-		}
+		[[nodiscard]] Float2 Saturate(const Float2& v);
 
 		/// <summary>
 		/// 成分を [0, 1] の範囲にクランプした値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float3 Saturate(const Float3& v)
-		{
-			return{ Saturate(v.x), Saturate(v.y), Saturate(v.z) };
-		}
+		[[nodiscard]] Float3 Saturate(const Float3& v);
 
 		/// <summary>
 		/// 成分を [0, 1] の範囲にクランプした値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Float4 Saturate(const Float4& v)
-		{
-			return{ Saturate(v.x), Saturate(v.y), Saturate(v.z), Saturate(v.w) };
-		}
+		[[nodiscard]] Float4 Saturate(const Float4& v);
 
 		/// <summary>
 		/// 成分を [0, 1] の範囲にクランプした値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec2 Saturate(const Vec2& v)
-		{
-			return{ Saturate(v.x), Saturate(v.y) };
-		}
+		[[nodiscard]] Vec2 Saturate(const Vec2& v);
 
 		/// <summary>
 		/// 成分を [0, 1] の範囲にクランプした値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec3 Saturate(const Vec3& v)
-		{
-			return{ Saturate(v.x), Saturate(v.y), Saturate(v.z) };
-		}
+		[[nodiscard]] Vec3 Saturate(const Vec3& v);
 
 		/// <summary>
 		/// 成分を [0, 1] の範囲にクランプした値を返します。
 		/// </summary>
-		[[nodiscard]] inline constexpr Vec4 Saturate(const Vec4& v)
-		{
-			return{ Saturate(v.x), Saturate(v.y), Saturate(v.z), Saturate(v.w) };
-		}
+		[[nodiscard]] Vec4 Saturate(const Vec4& v);
 	}
 
 	namespace detail
@@ -2844,11 +2168,11 @@ namespace s3d
 
 	constexpr auto Saturate = detail::Saturate_impl();
 
-//////////////////////////////////////////////////
-//
-//	Acos
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Acos
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -2880,58 +2204,37 @@ namespace s3d
 		/// <summary>
 		/// アークコサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Acos(const Point& v)
-		{
-			return{ Acos(v.x), Acos(v.y) };
-		}
+		[[nodiscard]] Vec2 Acos(const Point& v);
 
 		/// <summary>
 		/// アークコサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float2 Acos(const Float2& v)
-		{
-			return{ Acos(v.x), Acos(v.y) };
-		}
+		[[nodiscard]] Float2 Acos(const Float2& v);
 
 		/// <summary>
 		/// アークコサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float3 Acos(const Float3& v)
-		{
-			return{ Acos(v.x), Acos(v.y), Acos(v.z) };
-		}
+		[[nodiscard]] Float3 Acos(const Float3& v);
 
 		/// <summary>
 		/// アークコサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float4 Acos(const Float4& v)
-		{
-			return{ Acos(v.x), Acos(v.y), Acos(v.z), Acos(v.w) };
-		}
+		[[nodiscard]] Float4 Acos(const Float4& v);
 
 		/// <summary>
 		/// アークコサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Acos(const Vec2& v)
-		{
-			return{ Acos(v.x), Acos(v.y) };
-		}
+		[[nodiscard]] Vec2 Acos(const Vec2& v);
 
 		/// <summary>
 		/// アークコサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec3 Acos(const Vec3& v)
-		{
-			return{ Acos(v.x), Acos(v.y), Acos(v.z) };
-		}
+		[[nodiscard]] Vec3 Acos(const Vec3& v);
 
 		/// <summary>
 		/// アークコサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec4 Acos(const Vec4& v)
-		{
-			return{ Acos(v.x), Acos(v.y), Acos(v.z), Acos(v.w) };
-		}
+		[[nodiscard]] Vec4 Acos(const Vec4& v);
 	}
 
 	namespace detail
@@ -2954,11 +2257,11 @@ namespace s3d
 
 	constexpr auto Acos = detail::Acos_impl();
 
-//////////////////////////////////////////////////
-//
-//	Asin
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Asin
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -2990,58 +2293,37 @@ namespace s3d
 		/// <summary>
 		/// アークサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Asin(const Point& v)
-		{
-			return{ Asin(v.x), Asin(v.y) };
-		}
+		[[nodiscard]] Vec2 Asin(const Point& v);
 
 		/// <summary>
 		/// アークサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float2 Asin(const Float2& v)
-		{
-			return{ Asin(v.x), Asin(v.y) };
-		}
+		[[nodiscard]] Float2 Asin(const Float2& v);
 
 		/// <summary>
 		/// アークサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float3 Asin(const Float3& v)
-		{
-			return{ Asin(v.x), Asin(v.y), Asin(v.z) };
-		}
+		[[nodiscard]] Float3 Asin(const Float3& v);
 
 		/// <summary>
 		/// アークサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float4 Asin(const Float4& v)
-		{
-			return{ Asin(v.x), Asin(v.y), Asin(v.z), Asin(v.w) };
-		}
+		[[nodiscard]] Float4 Asin(const Float4& v);
 
 		/// <summary>
 		/// アークサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Asin(const Vec2& v)
-		{
-			return{ Asin(v.x), Asin(v.y) };
-		}
+		[[nodiscard]] Vec2 Asin(const Vec2& v);
 
 		/// <summary>
 		/// アークサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec3 Asin(const Vec3& v)
-		{
-			return{ Asin(v.x), Asin(v.y), Asin(v.z) };
-		}
+		[[nodiscard]] Vec3 Asin(const Vec3& v);
 
 		/// <summary>
 		/// アークサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec4 Asin(const Vec4& v)
-		{
-			return{ Asin(v.x), Asin(v.y), Asin(v.z), Asin(v.w) };
-		}
+		[[nodiscard]] Vec4 Asin(const Vec4& v);
 	}
 
 	namespace detail
@@ -3064,11 +2346,11 @@ namespace s3d
 
 	constexpr auto Asin = detail::Asin_impl();
 
-//////////////////////////////////////////////////
-//
-//	Atan
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Atan
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -3100,58 +2382,37 @@ namespace s3d
 		/// <summary>
 		/// アークタンジェントを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Atan(const Point& v)
-		{
-			return{ Atan(v.x), Atan(v.y) };
-		}
+		[[nodiscard]] Vec2 Atan(const Point& v);
 
 		/// <summary>
 		/// アークタンジェントを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float2 Atan(const Float2& v)
-		{
-			return{ Atan(v.x), Atan(v.y) };
-		}
+		[[nodiscard]] Float2 Atan(const Float2& v);
 
 		/// <summary>
 		/// アークタンジェントを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float3 Atan(const Float3& v)
-		{
-			return{ Atan(v.x), Atan(v.y), Atan(v.z) };
-		}
+		[[nodiscard]] Float3 Atan(const Float3& v);
 
 		/// <summary>
 		/// アークタンジェントを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float4 Atan(const Float4& v)
-		{
-			return{ Atan(v.x), Atan(v.y), Atan(v.z), Atan(v.w) };
-		}
+		[[nodiscard]] Float4 Atan(const Float4& v);
 
 		/// <summary>
 		/// アークタンジェントを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Atan(const Vec2& v)
-		{
-			return{ Atan(v.x), Atan(v.y) };
-		}
+		[[nodiscard]] Vec2 Atan(const Vec2& v);
 
 		/// <summary>
 		/// アークタンジェントを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec3 Atan(const Vec3& v)
-		{
-			return{ Atan(v.x), Atan(v.y), Atan(v.z) };
-		}
+		[[nodiscard]] Vec3 Atan(const Vec3& v);
 
 		/// <summary>
 		/// アークタンジェントを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec4 Atan(const Vec4& v)
-		{
-			return{ Atan(v.x), Atan(v.y), Atan(v.z), Atan(v.w) };
-		}
+		[[nodiscard]] Vec4 Atan(const Vec4& v);
 	}
 
 	namespace detail
@@ -3174,11 +2435,11 @@ namespace s3d
 
 	constexpr auto Atan = detail::Atan_impl();
 
-//////////////////////////////////////////////////
-//
-//	Atan2
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Atan2
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -3208,11 +2469,11 @@ namespace s3d
 		}
 	}
 
-//////////////////////////////////////////////////
-//
-//	Cos
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Cos
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -3244,58 +2505,37 @@ namespace s3d
 		/// <summary>
 		/// コサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Cos(const Point& v)
-		{
-			return{ Cos(v.x), Cos(v.y) };
-		}
+		[[nodiscard]] Vec2 Cos(const Point& v);
 
 		/// <summary>
 		/// コサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float2 Cos(const Float2& v)
-		{
-			return{ Cos(v.x), Cos(v.y) };
-		}
+		[[nodiscard]] Float2 Cos(const Float2& v);
 
 		/// <summary>
 		/// コサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float3 Cos(const Float3& v)
-		{
-			return{ Cos(v.x), Cos(v.y), Cos(v.z) };
-		}
+		[[nodiscard]] Float3 Cos(const Float3& v);
 
 		/// <summary>
 		/// コサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float4 Cos(const Float4& v)
-		{
-			return{ Cos(v.x), Cos(v.y), Cos(v.z), Cos(v.w) };
-		}
+		[[nodiscard]] Float4 Cos(const Float4& v);
 
 		/// <summary>
 		/// コサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Cos(const Vec2& v)
-		{
-			return{ Cos(v.x), Cos(v.y) };
-		}
+		[[nodiscard]] Vec2 Cos(const Vec2& v);
 
 		/// <summary>
 		/// コサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec3 Cos(const Vec3& v)
-		{
-			return{ Cos(v.x), Cos(v.y), Cos(v.z) };
-		}
+		[[nodiscard]] Vec3 Cos(const Vec3& v);
 
 		/// <summary>
 		/// コサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec4 Cos(const Vec4& v)
-		{
-			return{ Cos(v.x), Cos(v.y), Cos(v.z), Cos(v.w) };
-		}
+		[[nodiscard]] Vec4 Cos(const Vec4& v);
 	}
 
 	namespace detail
@@ -3318,11 +2558,11 @@ namespace s3d
 
 	constexpr auto Cos = detail::Cos_impl();
 
-//////////////////////////////////////////////////
-//
-//	Cosh
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Cosh
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -3354,58 +2594,37 @@ namespace s3d
 		/// <summary>
 		/// ハイパボリックコサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Cosh(const Point& v)
-		{
-			return{ Cosh(v.x), Cosh(v.y) };
-		}
+		[[nodiscard]] Vec2 Cosh(const Point& v);
 
 		/// <summary>
 		/// ハイパボリックコサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float2 Cosh(const Float2& v)
-		{
-			return{ Cosh(v.x), Cosh(v.y) };
-		}
+		[[nodiscard]] Float2 Cosh(const Float2& v);
 
 		/// <summary>
 		/// ハイパボリックコサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float3 Cosh(const Float3& v)
-		{
-			return{ Cosh(v.x), Cosh(v.y), Cosh(v.z) };
-		}
+		[[nodiscard]] Float3 Cosh(const Float3& v);
 
 		/// <summary>
 		/// ハイパボリックコサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float4 Cosh(const Float4& v)
-		{
-			return{ Cosh(v.x), Cosh(v.y), Cosh(v.z), Cosh(v.w) };
-		}
+		[[nodiscard]] Float4 Cosh(const Float4& v);
 
 		/// <summary>
 		/// ハイパボリックコサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Cosh(const Vec2& v)
-		{
-			return{ Cosh(v.x), Cosh(v.y) };
-		}
+		[[nodiscard]] Vec2 Cosh(const Vec2& v);
 
 		/// <summary>
 		/// ハイパボリックコサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec3 Cosh(const Vec3& v)
-		{
-			return{ Cosh(v.x), Cosh(v.y), Cosh(v.z) };
-		}
+		[[nodiscard]] Vec3 Cosh(const Vec3& v);
 
 		/// <summary>
 		/// ハイパボリックコサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec4 Cosh(const Vec4& v)
-		{
-			return{ Cosh(v.x), Cosh(v.y), Cosh(v.z), Cosh(v.w) };
-		}
+		[[nodiscard]] Vec4 Cosh(const Vec4& v);
 	}
 
 	namespace detail
@@ -3428,11 +2647,11 @@ namespace s3d
 
 	constexpr auto Cosh = detail::Cosh_impl();
 
-//////////////////////////////////////////////////
-//
-//	Sin
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Sin
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -3464,58 +2683,37 @@ namespace s3d
 		/// <summary>
 		/// サインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Sin(const Point& v)
-		{
-			return{ Sin(v.x), Sin(v.y) };
-		}
+		[[nodiscard]] Vec2 Sin(const Point& v);
 
 		/// <summary>
 		/// サインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float2 Sin(const Float2& v)
-		{
-			return{ Sin(v.x), Sin(v.y) };
-		}
+		[[nodiscard]] Float2 Sin(const Float2& v);
 
 		/// <summary>
 		/// サインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float3 Sin(const Float3& v)
-		{
-			return{ Sin(v.x), Sin(v.y), Sin(v.z) };
-		}
+		[[nodiscard]] Float3 Sin(const Float3& v);
 
 		/// <summary>
 		/// サインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float4 Sin(const Float4& v)
-		{
-			return{ Sin(v.x), Sin(v.y), Sin(v.z), Sin(v.w) };
-		}
+		[[nodiscard]] Float4 Sin(const Float4& v);
 
 		/// <summary>
 		/// サインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Sin(const Vec2& v)
-		{
-			return{ Sin(v.x), Sin(v.y) };
-		}
+		[[nodiscard]] Vec2 Sin(const Vec2& v);
 
 		/// <summary>
 		/// サインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec3 Sin(const Vec3& v)
-		{
-			return{ Sin(v.x), Sin(v.y), Sin(v.z) };
-		}
+		[[nodiscard]] Vec3 Sin(const Vec3& v);
 
 		/// <summary>
 		/// サインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec4 Sin(const Vec4& v)
-		{
-			return{ Sin(v.x), Sin(v.y), Sin(v.z), Sin(v.w) };
-		}
+		[[nodiscard]] Vec4 Sin(const Vec4& v);
 	}
 
 	namespace detail
@@ -3538,11 +2736,11 @@ namespace s3d
 
 	constexpr auto Sin = detail::Sin_impl();
 
-//////////////////////////////////////////////////
-//
-//	Sinh
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Sinh
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -3574,58 +2772,37 @@ namespace s3d
 		/// <summary>
 		/// ハイパボリックサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Sinh(const Point& v)
-		{
-			return{ Sinh(v.x), Sinh(v.y) };
-		}
+		[[nodiscard]] Vec2 Sinh(const Point& v);
 
 		/// <summary>
 		/// ハイパボリックサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float2 Sinh(const Float2& v)
-		{
-			return{ Sinh(v.x), Sinh(v.y) };
-		}
+		[[nodiscard]] Float2 Sinh(const Float2& v);
 
 		/// <summary>
 		/// ハイパボリックサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float3 Sinh(const Float3& v)
-		{
-			return{ Sinh(v.x), Sinh(v.y), Sinh(v.z) };
-		}
+		[[nodiscard]] Float3 Sinh(const Float3& v);
 
 		/// <summary>
 		/// ハイパボリックサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float4 Sinh(const Float4& v)
-		{
-			return{ Sinh(v.x), Sinh(v.y), Sinh(v.z), Sinh(v.w) };
-		}
+		[[nodiscard]] Float4 Sinh(const Float4& v);
 
 		/// <summary>
 		/// ハイパボリックサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Sinh(const Vec2& v)
-		{
-			return{ Sinh(v.x), Sinh(v.y) };
-		}
+		[[nodiscard]] Vec2 Sinh(const Vec2& v);
 
 		/// <summary>
 		/// ハイパボリックサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec3 Sinh(const Vec3& v)
-		{
-			return{ Sinh(v.x), Sinh(v.y), Sinh(v.z) };
-		}
+		[[nodiscard]] Vec3 Sinh(const Vec3& v);
 
 		/// <summary>
 		/// ハイパボリックサインを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec4 Sinh(const Vec4& v)
-		{
-			return{ Sinh(v.x), Sinh(v.y), Sinh(v.z), Sinh(v.w) };
-		}
+		[[nodiscard]] Vec4 Sinh(const Vec4& v);
 	}
 
 	namespace detail
@@ -3648,11 +2825,11 @@ namespace s3d
 
 	constexpr auto Sinh = detail::Sinh_impl();
 
-//////////////////////////////////////////////////
-//
-//	Tan
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Tan
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -3684,58 +2861,37 @@ namespace s3d
 		/// <summary>
 		/// タンジェントを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Tan(const Point& v)
-		{
-			return{ Tan(v.x), Tan(v.y) };
-		}
+		[[nodiscard]] Vec2 Tan(const Point& v);
 
 		/// <summary>
 		/// タンジェントを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float2 Tan(const Float2& v)
-		{
-			return{ Tan(v.x), Tan(v.y) };
-		}
+		[[nodiscard]] Float2 Tan(const Float2& v);
 
 		/// <summary>
 		/// タンジェントを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float3 Tan(const Float3& v)
-		{
-			return{ Tan(v.x), Tan(v.y), Tan(v.z) };
-		}
+		[[nodiscard]] Float3 Tan(const Float3& v);
 
 		/// <summary>
 		/// タンジェントを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float4 Tan(const Float4& v)
-		{
-			return{ Tan(v.x), Tan(v.y), Tan(v.z), Tan(v.w) };
-		}
+		[[nodiscard]] Float4 Tan(const Float4& v);
 
 		/// <summary>
 		/// タンジェントを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Tan(const Vec2& v)
-		{
-			return{ Tan(v.x), Tan(v.y) };
-		}
+		[[nodiscard]] Vec2 Tan(const Vec2& v);
 
 		/// <summary>
 		/// タンジェントを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec3 Tan(const Vec3& v)
-		{
-			return{ Tan(v.x), Tan(v.y), Tan(v.z) };
-		}
+		[[nodiscard]] Vec3 Tan(const Vec3& v);
 
 		/// <summary>
 		/// タンジェントを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec4 Tan(const Vec4& v)
-		{
-			return{ Tan(v.x), Tan(v.y), Tan(v.z), Tan(v.w) };
-		}
+		[[nodiscard]] Vec4 Tan(const Vec4& v);
 	}
 
 	namespace detail
@@ -3758,11 +2914,11 @@ namespace s3d
 
 	constexpr auto Tan = detail::Tan_impl();
 
-//////////////////////////////////////////////////
-//
-//	Tanh
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Tanh
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -3794,58 +2950,37 @@ namespace s3d
 		/// <summary>
 		/// ハイパボリックタンジェントを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Tanh(const Point& v)
-		{
-			return{ Tanh(v.x), Tanh(v.y) };
-		}
+		[[nodiscard]] Vec2 Tanh(const Point& v);
 
 		/// <summary>
 		/// ハイパボリックタンジェントを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float2 Tanh(const Float2& v)
-		{
-			return{ Tanh(v.x), Tanh(v.y) };
-		}
+		[[nodiscard]] Float2 Tanh(const Float2& v);
 
 		/// <summary>
 		/// ハイパボリックタンジェントを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float3 Tanh(const Float3& v)
-		{
-			return{ Tanh(v.x), Tanh(v.y), Tanh(v.z) };
-		}
+		[[nodiscard]] Float3 Tanh(const Float3& v);
 
 		/// <summary>
 		/// ハイパボリックタンジェントを計算します。
 		/// </summary>
-		[[nodiscard]] inline Float4 Tanh(const Float4& v)
-		{
-			return{ Tanh(v.x), Tanh(v.y), Tanh(v.z), Tanh(v.w) };
-		}
+		[[nodiscard]] Float4 Tanh(const Float4& v);
 
 		/// <summary>
 		/// ハイパボリックタンジェントを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec2 Tanh(const Vec2& v)
-		{
-			return{ Tanh(v.x), Tanh(v.y) };
-		}
+		[[nodiscard]] Vec2 Tanh(const Vec2& v);
 
 		/// <summary>
 		/// ハイパボリックタンジェントを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec3 Tanh(const Vec3& v)
-		{
-			return{ Tanh(v.x), Tanh(v.y), Tanh(v.z) };
-		}
+		[[nodiscard]] Vec3 Tanh(const Vec3& v);
 
 		/// <summary>
 		/// ハイパボリックタンジェントを計算します。
 		/// </summary>
-		[[nodiscard]] inline Vec4 Tanh(const Vec4& v)
-		{
-			return{ Tanh(v.x), Tanh(v.y), Tanh(v.z), Tanh(v.w) };
-		}
+		[[nodiscard]] Vec4 Tanh(const Vec4& v);
 	}
 
 	namespace detail
@@ -3868,11 +3003,11 @@ namespace s3d
 
 	constexpr auto Tanh = detail::Tanh_impl();
 
-//////////////////////////////////////////////////
-//
-//	Normalize
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Normalize
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -3978,11 +3113,11 @@ namespace s3d
 
 	constexpr auto Normalize = detail::Normalize_impl();
 
-//////////////////////////////////////////////////
-//
-//	Smoothstep
-//
-//////////////////////////////////////////////////
+	//////////////////////////////////////////////////
+	//
+	//	Smoothstep
+	//
+	//////////////////////////////////////////////////
 
 	namespace Math
 	{
@@ -4078,4 +3213,19 @@ namespace s3d
 	}
 
 	constexpr auto Smoothstep = detail::Smoothstep_impl();
+
+	namespace Math
+	{
+		template <class T, class U, std::enable_if_t<std::is_integral_v<T> && std::is_integral_v<U>>* = nullptr>
+		[[nodiscard]] inline constexpr auto GCD(T x, U y) noexcept
+		{
+			return std::gcd(x, y);
+		}
+
+		template <class T, class U, std::enable_if_t<std::is_integral_v<T> && std::is_integral_v<U>>* = nullptr>
+		[[nodiscard]] inline constexpr auto LCM(T x, U y) noexcept
+		{
+			return std::lcm(x, y);
+		}
+	}
 }

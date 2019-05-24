@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -14,11 +14,23 @@
 # include <Siv3D/Circular.hpp>
 # include <Siv3D/MathConstants.hpp>
 # include <Siv3D/Polygon.hpp>
-# include "../Siv3DEngine.hpp"
-# include "../Renderer2D/IRenderer2D.hpp"
+# include <Siv3DEngine.hpp>
+# include <Renderer2D/IRenderer2D.hpp>
 
 namespace s3d
 {
+	Shape2D::Shape2D()
+	{
+
+	}
+
+	Shape2D::Shape2D(Array<Float2> vertices, Array<uint16> indices)
+		: m_vertices(std::move(vertices))
+		, m_indices(std::move(indices))
+	{
+	
+	}
+
 	Shape2D::Shape2D(const uint32 vSize, const uint32 iSize)
 		: m_vertices(vSize)
 		, m_indices(iSize)
@@ -26,9 +38,14 @@ namespace s3d
 	
 	}
 
-	Shape2D::Shape2D(const uint32 vSize, const uint32 iSize, const Float2& offset, const uint32 baseIndex)
+	Shape2D::Shape2D(const uint32 vSize, const uint32 iSize, const Float2& offset, const uint16 baseIndex)
 		: m_vertices(vSize, offset)
 		, m_indices(iSize, baseIndex)
+	{
+
+	}
+
+	Shape2D::~Shape2D()
 	{
 
 	}
@@ -82,9 +99,9 @@ namespace s3d
 			*pPos++ += Circular(r, angle + i * (Math::TwoPi / n)).toFloat2();
 		}
 
-		uint32* pIndex = shape.m_indices.data();
+		uint16* pIndex = shape.m_indices.data();
 
-		for (uint32 i = 0; i < n - 2; ++i)
+		for (uint16 i = 0; i < n - 2; ++i)
 		{
 			++pIndex;
 			(*pIndex++) = i + 1;
@@ -92,6 +109,16 @@ namespace s3d
 		}
 
 		return shape;
+	}
+
+	Shape2D Shape2D::Pentagon(const double r, const Vec2& center, const double angle)
+	{
+		return Ngon(5, r, center, angle);
+	}
+
+	Shape2D Shape2D::Hexagon(const double r, const Vec2& center, const double angle)
+	{
+		return Ngon(6, r, center, angle);
 	}
 
 	Shape2D Shape2D::Star(const double r, const Vec2& center, const double angle)
@@ -116,16 +143,16 @@ namespace s3d
 			(*pPos++) += Circular(i % 2 ? rInner : rOuter, angle + i * (Math::Pi / n)).toFloat2();
 		}
 
-		uint32* pIndex = shape.m_indices.data();
+		uint16* pIndex = shape.m_indices.data();
 
-		for (uint32 i = 0; i < n; ++i)
+		for (uint16 i = 0; i < n; ++i)
 		{
 			(*pIndex++) = i * 2 + 1;
 			(*pIndex++) = (i * 2 + 2) % (n * 2);
 			(*pIndex++) = (i * 2 + 3) % (n * 2);
 		}
 
-		for (uint32 i = 0; i < n - 2; ++i)
+		for (uint16 i = 0; i < n - 2; ++i)
 		{
 			++pIndex;
 			(*pIndex++) = i * 2 + 3;
@@ -164,6 +191,11 @@ namespace s3d
 		shape.m_indices = { 1, 5, 0, 0, 5, 6, 3, 4, 2 };
 
 		return shape;
+	}
+
+	Shape2D Shape2D::Arrow(const Line& line, const double width, const Vec2& headSize)
+	{
+		return Arrow(line.begin, line.end, width, headSize);
 	}
 
 	Shape2D Shape2D::Rhombus(const double w, const double h, const Vec2& center, const double angle)
@@ -205,14 +237,14 @@ namespace s3d
 		const int32 a = ((dividedAngleIndex % 2 == 0) ? (remainderAngle > firstAngle) : (remainderAngle > Math::HalfPiF - firstAngle)) + dividedAngleIndex * 2;
 		const Float2 pointingRootCenter(sign[((a + 2) / 4) % 2] * w * 0.25f * (1.0f + ((a + 3) / 2) % 2), sign[((a) / 4) % 2] * h * 0.25f * (1.0f + ((a + 1) / 2) % 2));
 		const Float2 offset = sign[(((a + 3) % 8) / 4) % 2] * ((((a + 1) / 2) % 2) ? Float2(w * 0.25f * prf, 0.0f) : Float2(0.0f, h * 0.25f * prf));
-		const uint32 indexOffset = ((a + 1) / 2) % 4;
+		const uint16 indexOffset = ((a + 1) / 2) % 4;
 
 		shape.m_vertices[0 + indexOffset] += pointingRootCenter - offset;
 		shape.m_vertices[1 + indexOffset] = target;
 		shape.m_vertices[2 + indexOffset] += pointingRootCenter + offset;
 
-		std::array<uint32, 4> rectIndices;
-		uint32 i = 0;
+		std::array<uint16, 4> rectIndices;
+		uint16 i = 0;
 
 		for (size_t rectIndex = 0; rectIndex < 4; ++rectIndex)
 		{
@@ -226,7 +258,7 @@ namespace s3d
 			shape.m_vertices[i++] += Float2(sign[((rectIndex + 1) / 2) % 2] * w * 0.5f, sign[((rectIndex) / 2) % 2] * h * 0.5f);
 		}
 
-		uint32* pIndex = shape.m_indices.data();
+		uint16* pIndex = shape.m_indices.data();
 		(*pIndex++) = 0 + indexOffset;
 		(*pIndex++) = 1 + indexOffset;
 		(*pIndex++) = 2 + indexOffset;
@@ -240,7 +272,7 @@ namespace s3d
 		return shape;
 	}
 
-	Shape2D Shape2D::Stairs(const Vec2& base, const double w, const double h, const int32 steps, const bool upStairs)
+	Shape2D Shape2D::Stairs(const Vec2& base, const double w, const double h, const uint32 steps, const bool upStairs)
 	{
 		if (steps <= 0)
 		{
@@ -255,7 +287,7 @@ namespace s3d
 		shape.m_vertices[0] = base;
 		shape.m_vertices[1] = base + Float2(upStairs ? -w : w, 0);
 
-		for (int32 i = 0; i < steps; ++i)
+		for (uint16 i = 0; i < steps; ++i)
 		{
 			const int32 offsetIndex = i + 1;
 
@@ -273,21 +305,26 @@ namespace s3d
 		return shape;
 	}
 
-	//Shape2D Shape2D::DoubleArrow(const Vec2& a, const Vec2& b, double width, const Vec2& headSize)
-	//{
-	//	return Shape2D();
-	//}
+	const Array<Float2>& Shape2D::vertices() const
+	{
+		return m_vertices;
+	}
+
+	const Array<uint16> Shape2D::indices() const
+	{
+		return m_indices;
+	}
 
 	const Shape2D& Shape2D::draw(const ColorF& color) const
 	{
-		Siv3DEngine::GetRenderer2D()->addShape2D(m_vertices, m_indices, none, color.toFloat4());
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addShape2D(m_vertices, m_indices, none, color.toFloat4());
 
 		return *this;
 	}
 
 	const Shape2D& Shape2D::drawFrame(const double thickness, const ColorF& color) const
 	{
-		Siv3DEngine::GetRenderer2D()->addShape2DFrame(m_vertices.data(), static_cast<uint32>(m_vertices.size()),
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addShape2DFrame(m_vertices.data(), static_cast<uint16>(m_vertices.size()),
 			static_cast<float>(thickness), color.toFloat4());
 
 		return *this;

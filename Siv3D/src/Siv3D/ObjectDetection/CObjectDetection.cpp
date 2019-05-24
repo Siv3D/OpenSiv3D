@@ -2,33 +2,33 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
-# include "CObjectDetection.hpp"
 # include <Siv3D/Image.hpp>
 # include <Siv3D/OpenCV_Bridge.hpp>
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/Compression.hpp>
 # include <Siv3D/Resource.hpp>
-# include <Siv3D/Logger.hpp>
-# include "../EngineDirectory/EngineDirectory.hpp"
+# include <Siv3D/EngineLog.hpp>
+# include <EngineDirectory/EngineDirectory.hpp>
+# include "CObjectDetection.hpp"
 
 namespace s3d
 {
 	namespace detail
 	{
-		static const FilePath CascadeNames[5] =
+		static constexpr FilePathView CascadeNames[5] =
 		{
-			U"frontal_face_alt2.xml",
-			U"eye.xml",
-			U"eye_eyeglasses.xml",
-			U"face_anime.xml",
-			U"frontal_catface.xml",
+			U"frontal_face_alt2.xml"_sv,
+			U"eye.xml"_sv,
+			U"eye_eyeglasses.xml"_sv,
+			U"face_anime.xml"_sv,
+			U"frontal_catface.xml"_sv,
 		};
 	}
 
@@ -39,16 +39,18 @@ namespace s3d
 
 	CObjectDetection::~CObjectDetection()
 	{
-
+		LOG_TRACE(U"CObjectDetection::~CObjectDetection()");
 	}
 
-	bool CObjectDetection::init()
+	void CObjectDetection::init()
 	{
+		LOG_TRACE(U"CObjectDetection::init()");
+
 		const FilePath cascadeDirectory = EngineDirectory::CurrectVersionCommon() + U"objdetect/haarcascade/";
 
 		for (const auto& cascadeName : detail::CascadeNames)
 		{
-			const FilePath cascadeResourcePath = Resource(U"engine/objdetect/haarcascade/" + cascadeName + U".zst");
+			const FilePath cascadeResourcePath = Resource(U"engine/objdetect/haarcascade/" + cascadeName + U".zstdcmp");
 
 			if (!FileSystem::Exists(cascadeDirectory + cascadeName)
 				&& FileSystem::Exists(cascadeResourcePath))
@@ -57,9 +59,7 @@ namespace s3d
 			}
 		}
 
-		LOG_INFO(U"ℹ️ ObjectDetection initialized");
-
-		return true;
+		LOG_INFO(U"ℹ️ CObjectDetection initialized");
 	}
 
 	Array<Rect> CObjectDetection::detect(const Image& image, const HaarCascade cascade, const int32 minNeighbors, const Size& minSize, const Size& maxSize)

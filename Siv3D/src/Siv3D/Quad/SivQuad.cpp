@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -12,14 +12,15 @@
 # include <Siv3D/Quad.hpp>
 # include <Siv3D/Line.hpp>
 # include <Siv3D/FloatQuad.hpp>
+# include <Siv3D/Rectangle.hpp>
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/TextureRegion.hpp>
 # include <Siv3D/TexturedQuad.hpp>
 # include <Siv3D/LineString.hpp>
 # include <Siv3D/Polygon.hpp>
-# include "../Siv3DEngine.hpp"
-# include "../Renderer2D/IRenderer2D.hpp"
+# include <Siv3DEngine.hpp>
+# include <Renderer2D/IRenderer2D.hpp>
 
 namespace s3d
 {
@@ -136,14 +137,14 @@ namespace s3d
 
 	const Quad& Quad::draw(const ColorF& color) const
 	{
-		Siv3DEngine::GetRenderer2D()->addQuad(FloatQuad(p0, p1, p2, p3), color.toFloat4());
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addQuad(FloatQuad(p0, p1, p2, p3), color.toFloat4());
 
 		return *this;
 	}
 
 	const Quad& Quad::draw(const ColorF& color0, const ColorF& color1, const ColorF& color2, const ColorF& color3) const
 	{
-		Siv3DEngine::GetRenderer2D()->addQuad(FloatQuad(p0, p1, p2, p3),
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addQuad(FloatQuad(p0, p1, p2, p3),
 			{ color0.toFloat4(), color1.toFloat4(), color2.toFloat4(), color3.toFloat4() });
 
 		return *this;
@@ -151,7 +152,7 @@ namespace s3d
 
 	const Quad& Quad::drawFrame(double thickness, const ColorF& color) const
 	{
-		Siv3DEngine::GetRenderer2D()->addLineString(LineStyle::SquareCap, &p0, 4, s3d::none,
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addLineString(LineStyle::SquareCap, &p0, 4, s3d::none,
 			static_cast<float>(thickness), false, color.toFloat4(), true);
 
 		return *this;
@@ -163,7 +164,7 @@ namespace s3d
 
 		const Quad t = stretched(offset);
 
-		Siv3DEngine::GetRenderer2D()->addLineString(LineStyle::SquareCap, &t.p0, 4, none,
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addLineString(LineStyle::SquareCap, &t.p0, 4, none,
 			static_cast<float>(innerThickness + outerThickness),
 			outerThickness == 0.0, color.toFloat4(), true);
 
@@ -202,11 +203,11 @@ namespace s3d
 	{
 		formatData.string.push_back(U'(');
 		Formatter(formatData, value.p0);
-		formatData.string.append(U", ");
+		formatData.string.append(U", "_sv);
 		Formatter(formatData, value.p1);
-		formatData.string.append(U", ");
+		formatData.string.append(U", "_sv);
 		Formatter(formatData, value.p2);
-		formatData.string.append(U", ");
+		formatData.string.append(U", "_sv);
 		Formatter(formatData, value.p3);
 		formatData.string.push_back(U')');
 	}

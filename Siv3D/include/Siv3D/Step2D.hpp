@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,15 +11,16 @@
 
 # pragma once
 # include "Fwd.hpp"
+# include "Array.hpp"
 # include "PointVector.hpp"
 
 namespace s3d
 {
-	class steps_class2D
+	class Step2D
 	{
 	public:
 
-		class steps_iterator : public std::iterator<std::forward_iterator_tag, Size>
+		class Iterator
 		{
 			int32 m_countX;
 			
@@ -33,21 +34,21 @@ namespace s3d
 
 		public:
 
-			constexpr steps_iterator() noexcept
+			constexpr Iterator() noexcept
 				: m_countX(0)
 				, m_startX(0)
 				, m_step_counter(0, 0)
 				, m_counter(0, 0)
 				, m_step(0, 0) {}
 
-			constexpr steps_iterator(Size steps_count, Size start, Size step) noexcept
+			constexpr Iterator(Size steps_count, Size start, Size step) noexcept
 				: m_countX(steps_count.x)
 				, m_startX(start.x)
 				, m_step_counter(steps_count)
 				, m_counter(start)
 				, m_step(step) {}
 
-			constexpr steps_iterator& operator ++() noexcept
+			constexpr Iterator& operator ++() noexcept
 			{
 				if (m_step_counter.x == 1)
 				{
@@ -69,9 +70,9 @@ namespace s3d
 				return *this;
 			}
 
-			constexpr steps_iterator operator ++(int) noexcept
+			constexpr Iterator operator ++(int) noexcept
 			{
-				steps_iterator it = *this;
+				Iterator it = *this;
 
 				++(*this);
 
@@ -88,18 +89,18 @@ namespace s3d
 				return &m_counter;
 			}
 
-			constexpr bool operator ==(const steps_iterator& r) const noexcept
+			constexpr bool operator ==(const Iterator& r) const noexcept
 			{
 				return m_step_counter == r.m_step_counter;
 			}
 
-			constexpr bool operator !=(const steps_iterator& r) const noexcept
+			constexpr bool operator !=(const Iterator& r) const noexcept
 			{
 				return !(m_step_counter == r.m_step_counter);
 			}
 		};
 
-		typedef steps_iterator iterator;
+		using iterator = Iterator;
 
 	private:
 		
@@ -115,7 +116,7 @@ namespace s3d
 
 	public:
 
-		constexpr steps_class2D(Point start, Size step_count, Size step)
+		constexpr Step2D(Point start, Size step_count, Size step) noexcept
 			: m_start(start)
 			, m_step_count(step_count)
 			, m_step_length(step)
@@ -137,46 +138,29 @@ namespace s3d
 
 		constexpr Size step() const noexcept { return m_step_length; }
 
-		constexpr bool isEmpty() const { return (m_step_count.x == 0 || m_step_count.y == 0); }
+		constexpr bool isEmpty() const noexcept { return (m_step_count.x == 0 || m_step_count.y == 0); }
 
-		Array<Point> asArray() const
-		{
-			Array<Point> new_array;
-
-			if (isEmpty())
-			{
-				return new_array;
-			}
-
-			new_array.reserve(num_elements());
-
-			for (auto it = m_start_iterator; it != m_end_iterator; ++it)
-			{
-				new_array.push_back(*it);
-			}
-
-			return new_array;
-		}
+		Array<Point> asArray() const;
 	};
 
 	inline constexpr auto step(Size n) noexcept
 	{
-		return steps_class2D(Point(0, 0), n, Point(1, 1));
+		return Step2D(Point(0, 0), n, Point(1, 1));
 	}
 
 	inline constexpr auto step(Point a, Size n) noexcept
 	{
-		return steps_class2D(a, n, Point(1, 1));
+		return Step2D(a, n, Point(1, 1));
 	}
 
 	inline constexpr auto step(Point a, Size n, Size s) noexcept
 	{
-		return steps_class2D(a, n, s);
+		return Step2D(a, n, s);
 	}
 
 	inline constexpr auto step_backward(Size n) noexcept
 	{
-		return steps_class2D(Point(n.x - 1, n.y - 1), n, Size(-1, -1));
+		return Step2D(Point(n.x - 1, n.y - 1), n, Size(-1, -1));
 	}
 
 	////////////////////////////////////////////////////////////////////////////////
@@ -184,12 +168,12 @@ namespace s3d
 	//               Iota [beg, end)
 	//
 
-	inline constexpr auto Iota2D(Size end)
+	inline constexpr auto Iota2D(Size end) noexcept
 	{
-		return steps_class2D(Point(0, 0), end, Point(1, 1));
+		return Step2D(Point(0, 0), end, Point(1, 1));
 	}
 
-	inline constexpr auto Iota2D(int32 xEnd, int32 yEnd)
+	inline constexpr auto Iota2D(int32 xEnd, int32 yEnd) noexcept
 	{
 		return Iota2D(Size(xEnd, yEnd));
 	}

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -31,28 +31,7 @@ namespace s3d
 
 		bool m_pausing = true;
 
-		[[nodiscard]] int64 ns() const
-		{
-			const int64 t = Time::GetNanosec();
-
-			if (!m_isStarted)
-			{
-				return 0;
-			}
-
-			if (m_pausing)
-			{
-				return m_accumulationNanosec;
-			}
-
-			const int64 delta = static_cast<int64>((t - m_lastTimeNanosec) * m_speed);
-
-			m_accumulationNanosec += delta;
-
-			m_lastTimeNanosec = t;
-
-			return m_accumulationNanosec;
-		}
+		[[nodiscard]] int64 ns() const;
 
 	public:
 
@@ -92,7 +71,7 @@ namespace s3d
 			}
 		}
 
-		explicit CustomStopwatch(const MicrosecondsF& time, double speed = 1.0, bool startImmediately = false)
+		explicit CustomStopwatch(const Duration& time, double speed = 1.0, bool startImmediately = false)
 			: m_speed(speed)
 		{
 			set(time);
@@ -201,15 +180,7 @@ namespace s3d
 		/// <returns>
 		/// ストップウォッチの経過時間
 		/// </returns>
-		[[nodiscard]] Milliseconds elapsed() const { return Milliseconds(ms()); }
-
-		/// <summary>
-		/// ストップウォッチの経過時間を返します。
-		/// </summary>
-		/// <returns>
-		/// ストップウォッチの経過時間
-		/// </returns>
-		[[nodiscard]] MillisecondsF elapsedF() const { return MillisecondsF(msF()); }
+		[[nodiscard]] Duration elapsed() const { return SecondsF(sF()); }
 
 		/// <summary>
 		/// ストップウォッチが動作中であるかを示します（一時停止していることもあります）。
@@ -301,11 +272,11 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void set(const MicrosecondsF& time)
+		void set(const Duration& time)
 		{
 			m_isStarted = true;
 
-			m_accumulationNanosec = static_cast<int64>(time.count() * 1000LL);
+			m_accumulationNanosec = static_cast<int64>(time.count() * (1000LL * 1000LL * 1000LL));
 
 			m_lastTimeNanosec = Time::GetNanosec();
 		}
@@ -370,52 +341,25 @@ namespace s3d
 		/// <returns>
 		/// フォーマットされた経過時間
 		/// </returns>
-		[[nodiscard]] String format(const String& pattern = U"H:mm:ss.xx") const
-		{
-			return Stopwatch(elapsedF(), false).format(pattern);
-		}
+		[[nodiscard]] String format(StringView format = U"H:mm:ss.xx"_sv) const;
 	};
 
-	[[nodiscard]] inline bool operator <(const CustomStopwatch& s, const MicrosecondsF& time)
-	{
-		return s.elapsedF() < time;
-	}
+	[[nodiscard]] bool operator <(const CustomStopwatch& s, const MicrosecondsF& time);
 
-	[[nodiscard]] inline bool operator <=(const CustomStopwatch& s, const MicrosecondsF& time)
-	{
-		return s.elapsedF() <= time;
-	}
+	[[nodiscard]] bool operator <=(const CustomStopwatch& s, const MicrosecondsF& time);
 
-	[[nodiscard]] inline bool operator >(const CustomStopwatch& s, const MicrosecondsF& time)
-	{
-		return s.elapsedF() > time;
-	}
+	[[nodiscard]] bool operator >(const CustomStopwatch& s, const MicrosecondsF& time);
 
-	[[nodiscard]] inline bool operator >=(const CustomStopwatch& s, const MicrosecondsF& time)
-	{
-		return s.elapsedF() >= time;
-	}
+	[[nodiscard]] bool operator >=(const CustomStopwatch& s, const MicrosecondsF& time);
 
 
-	[[nodiscard]] inline bool operator <(const MicrosecondsF& time, const CustomStopwatch& s)
-	{
-		return time < s.elapsedF();
-	}
+	[[nodiscard]] bool operator <(const MicrosecondsF& time, const CustomStopwatch& s);
 
-	[[nodiscard]] inline bool operator <=(const MicrosecondsF& time, const CustomStopwatch& s)
-	{
-		return time <= s.elapsedF();
-	}
+	[[nodiscard]] bool operator <=(const MicrosecondsF& time, const CustomStopwatch& s);
 
-	[[nodiscard]] inline bool operator >(const MicrosecondsF& time, const CustomStopwatch& s)
-	{
-		return time > s.elapsedF();
-	}
+	[[nodiscard]] bool operator >(const MicrosecondsF& time, const CustomStopwatch& s);
 
-	[[nodiscard]] inline bool operator >=(const MicrosecondsF& time, const CustomStopwatch& s)
-	{
-		return time >= s.elapsedF();
-	}
+	[[nodiscard]] bool operator >=(const MicrosecondsF& time, const CustomStopwatch& s);
 }
 
 //////////////////////////////////////////////////
@@ -426,10 +370,7 @@ namespace s3d
 
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const CustomStopwatch& value)
-	{
-		formatData.string.append(value.format());
-	}
+	void Formatter(FormatData& formatData, const CustomStopwatch& value);
 
 	template <class CharType>
 	inline std::basic_ostream<CharType> & operator <<(std::basic_ostream<CharType> output, const CustomStopwatch& value)

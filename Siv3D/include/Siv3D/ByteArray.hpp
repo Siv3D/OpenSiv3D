@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -22,9 +22,9 @@ namespace s3d
 	{
 	private:
 
-		class CByteArray;
+		class ByteArrayDetail;
 
-		std::shared_ptr<CByteArray> pImpl;
+		std::shared_ptr<ByteArrayDetail> pImpl;
 
 	public:
 
@@ -33,7 +33,7 @@ namespace s3d
 		/// </summary>
 		ByteArray();
 
-		explicit ByteArray(const FilePath& path)
+		explicit ByteArray(FilePathView path)
 			: ByteArray()
 		{
 			createFromFile(path);
@@ -86,7 +86,7 @@ namespace s3d
 		/// <summary>
 		/// データをコピーして読み込み用バッファを作成します。
 		/// </summary>
-		bool createFromFile(const FilePath& path);
+		bool createFromFile(FilePathView path);
 
 		/// <summary>
 		/// データをコピーして読み込み用バッファを作成します。
@@ -302,6 +302,11 @@ namespace s3d
 			return{ data(), static_cast<size_t>(size()) };
 		}
 
+		[[nodiscard]] const Byte& operator[](size_t index) const
+		{
+			return *(data() + index);
+		}
+
 		/// <summary>
 		/// バッファの内容をファイルに保存します。
 		/// </summary>
@@ -320,10 +325,7 @@ namespace s3d
 
 namespace s3d
 {
-	inline void Formatter(FormatData& formatData, const ByteArray& value)
-	{
-		Formatter(formatData, value.view().toHex());
-	}
+	void Formatter(FormatData& formatData, const ByteArray& value);
 
 	template <class CharType>
 	inline std::basic_ostream<CharType>& operator <<(std::basic_ostream<CharType>& output, const ByteArray& value)

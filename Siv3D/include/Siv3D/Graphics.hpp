@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -29,23 +29,21 @@ namespace s3d
 
 		Rect displayRect;
 
-		int32 rotation;
-
 		Array<DisplayMode> displayModes;
 	};
 
 	namespace Graphics
 	{
-		void SetBackground(const ColorF& color);
+		void SkipClearScreen();
 
 		[[nodiscard]] Array<DisplayOutput> EnumOutputs();
-
-		bool SetFullScreen(bool fullScreen, const Size& size, size_t displayIndex = 0, double refreshRateHz = 60.0);
 
 		void SetTargetFrameRateHz(const Optional<double>& targetFrameRateHz);
 
 		[[nodiscard]] Optional<double> GetTargetFrameRateHz();
 
 		[[nodiscard]] double GetDisplayRefreshRateHz();
+
+		[[nodiscard]] double GetDPIScaling();
 	}
 }

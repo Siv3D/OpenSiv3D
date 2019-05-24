@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -22,9 +22,9 @@ namespace s3d
 	{
 	private:
 
-		class CBinaryWriter;
+		class BinaryWriterDetail;
 
-		std::shared_ptr<CBinaryWriter> pImpl;
+		std::shared_ptr<BinaryWriterDetail> pImpl;
 
 	public:
 
@@ -42,7 +42,7 @@ namespace s3d
 		/// <param name="openMode">
 		/// オープンモード
 		/// </param>
-		explicit BinaryWriter(const FilePath& path, OpenMode openMode = OpenMode::Trunc)
+		explicit BinaryWriter(FilePathView path, OpenMode openMode = OpenMode::Trunc)
 			: BinaryWriter()
 		{
 			open(path, openMode);
@@ -65,7 +65,7 @@ namespace s3d
 		/// <returns>
 		/// ファイルのオープンに成功した場合 true, それ以外の場合は false
 		/// </returns>
-		bool open(const FilePath& path, OpenMode openMode = OpenMode::Trunc);
+		bool open(FilePathView path, OpenMode openMode = OpenMode::Trunc);
 
 		/// <summary>
 		/// バイナリファイルの書き込みバッファをフラッシュします。
@@ -165,7 +165,7 @@ namespace s3d
 		/// <returns>
 		/// 実際に書き込んだサイズ（バイト）
 		/// </returns>
-		int64 write(ByteArrayView view)
+		int64 write(ByteArrayViewAdapter view)
 		{
 			return write(view.data(), view.size());
 		}

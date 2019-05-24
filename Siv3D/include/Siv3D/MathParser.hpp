@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -11,10 +11,10 @@
 
 # pragma once
 # include <memory>
-# include <map>
 # include "Fwd.hpp"
 # include "Optional.hpp"
 # include "Array.hpp"
+# include "HashTable.hpp"
 # include "MathConstants.hpp"
 
 namespace s3d
@@ -23,9 +23,9 @@ namespace s3d
 	{
 	private:
 
-		class CMathParser;
+		class MathParserDetail;
 
-		std::shared_ptr<CMathParser> pImpl;
+		std::shared_ptr<MathParserDetail> pImpl;
 
 		using Fty0	= double(*)();
 		using Fty1	= double(*)(double);
@@ -88,11 +88,11 @@ namespace s3d
 
 		[[nodiscard]] String getExpression() const;
 
-		[[nodiscard]] Optional<const std::map<std::wstring, double*>&> getUsedVariables() const;
+		[[nodiscard]] HashTable<String, double*> getUsedVariables() const;
 
-		[[nodiscard]] Optional<const std::map<std::wstring, double*>&> getVariables() const;
+		[[nodiscard]] HashTable<String, double*> getVariables() const;
 
-		[[nodiscard]] Optional<const std::map<std::wstring, double>&> getConstants() const;
+		[[nodiscard]] HashTable<String, double> getConstants() const;
 
 		// function, variable, constant
 		// "0123456789_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -125,13 +125,7 @@ namespace s3d
 		HSV evalHSV() const;
 	};
 
-	[[nodiscard]] inline double Eval(const String& expression)
-	{
-		return MathParser(expression).eval();
-	}
+	[[nodiscard]] double Eval(const String& expression);
 
-	[[nodiscard]] inline Optional<double> EvalOpt(const String& expression)
-	{
-		return MathParser(expression).evalOpt();
-	}
+	[[nodiscard]] Optional<double> EvalOpt(const String& expression);
 }

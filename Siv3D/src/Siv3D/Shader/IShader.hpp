@@ -1,9 +1,9 @@
-﻿//-----------------------------------------------
+//-----------------------------------------------
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -24,32 +24,21 @@ namespace s3d
 
 		virtual ~ISiv3DShader() = default;
 
-		virtual VertexShaderID createVS(ByteArray&& binary) = 0;
-
+		virtual VertexShaderID createVS(ByteArray&& binary, const Array<BindingPoint>& bindingPoints) = 0;
 		virtual VertexShaderID createVSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints) = 0;
-		
-		virtual VertexShaderID createVSFromSource(const String& source, const Array<BindingPoint>& bindingPoints) = 0;
+		//virtual VertexShaderID createVSFromSource(const String& source, const Array<BindingPoint>& bindingPoints) = 0;
 
-		virtual PixelShaderID createPS(ByteArray&& binary) = 0;
-
+		virtual PixelShaderID createPS(ByteArray&& binary, const Array<BindingPoint>& bindingPoints) = 0;
 		virtual PixelShaderID createPSFromFile(const FilePath& path, const Array<BindingPoint>& bindingPoints) = 0;
-		
-		virtual PixelShaderID createPSFromSource(const String& source, const Array<BindingPoint>& bindingPoints) = 0;
+		//virtual PixelShaderID createPSFromSource(const String& source, const Array<BindingPoint>& bindingPoints) = 0;
 
-		virtual void releaseVS(VertexShaderID handleID) = 0;
+		virtual void release(VertexShaderID handleID) = 0;
+		virtual void release(PixelShaderID handleID) = 0;
 
-		virtual void releasePS(PixelShaderID handleID) = 0;
-
-		virtual ByteArrayView getBinaryViewVS(VertexShaderID handleID) = 0;
-
-		virtual ByteArrayView getBinaryViewPS(PixelShaderID handleID) = 0;
-
-		virtual const VertexShader& getStandardVS(size_t index) const = 0;
-
-		virtual const PixelShader& getStandardPS(size_t index) const = 0;
+		virtual ByteArrayView getBinaryView(VertexShaderID handleID) = 0;
+		virtual ByteArrayView getBinaryView(PixelShaderID handleID) = 0;
 
 		virtual void setVS(VertexShaderID handleID) = 0;
-
 		virtual void setPS(PixelShaderID handleID) = 0;
 	};
 }

@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -321,5 +321,16 @@ namespace s3d
 		double Distance(const LineString& a, const Polygon&		b);
 		//double Distance(const LineString& a, const MultiPolygon&	b);
 		double Distance(const LineString& a, const LineString&		b);
+
+		Polygon ConvexHull(const Array<Vec2>& points);
+
+		Array<Polygon> Subtract(const Polygon& a, const Polygon& b);
+		Array<Polygon> And(const Polygon& a, const Polygon& b);
+		Array<Polygon> Or(const Polygon& a, const Polygon& b);
+		Array<Polygon> Xor(const Polygon& a, const Polygon& b);
+
+		double FrechetDistance(const LineString& a, const LineString& b);
+
+		double HausdorffDistance(const LineString& a, const LineString& b);
 	}
 }

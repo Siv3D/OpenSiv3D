@@ -2,23 +2,21 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
 # pragma once
-# include <memory.h>
 # include "Fwd.hpp"
-# include "Array.hpp"
-# include "Color.hpp"
-# include "Unspecified.hpp"
 # include "NamedParameter.hpp"
+# include "PredefinedNamedParameter.hpp"
+# include "Unspecified.hpp"
+# include "Grid.hpp"
 # include "PointVector.hpp"
 # include "Rectangle.hpp"
-# include "Grid.hpp"
 # include "ImageFormat.hpp"
 
 namespace s3d
@@ -130,31 +128,6 @@ namespace s3d
 
 		uint32 m_height = 0;
 
-		[[nodiscard]] static Image Generate(const size_t width, const size_t height, std::function<Color(void)> generator);
-
-		template <class Fty>
-		[[nodiscard]] static Image Generate(const size_t width, const size_t height, Fty generator)
-		{
-			Image new_image(width, height);
-
-			if (!new_image.isEmpty())
-			{
-				Color* pDst = new_image[0];
-
-				for (uint32 y = 0; y < height; ++y)
-				{
-					for (uint32 x = 0; x < width; ++x)
-					{
-						(*pDst++) = generator({ x, y });
-					}
-				}
-			}
-
-			return new_image;
-		}
-
-		[[nodiscard]] static Image Generate0_1(const size_t width, const size_t height, std::function<Color(Vec2)> generator);
-
 		[[nodiscard]] static constexpr int32 Mod(int32 x, int32 y) noexcept
 		{
 			return (0 <= x) ? (x % y) : (y - ((-x - 1) % y) - 1);
@@ -186,6 +159,95 @@ namespace s3d
 		using reverse_iterator			= Array<Color>::reverse_iterator;
 		using const_reverse_iterator	= Array<Color>::const_reverse_iterator;
 
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Color, Fty>>* = nullptr>
+		static Image Generate(const Size& size, Fty generator)
+		{
+			return Generate(size.x, size.y, generator);
+		}
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Color, Fty>>* = nullptr>
+		static Image Generate(const size_t width, const size_t height, Fty generator)
+		{
+			Image new_image(width, height);
+
+			if (new_image.isEmpty())
+			{
+				return new_image;
+			}
+
+			Color* pDst = new_image[0];
+
+			for (uint32 y = 0; y < height; ++y)
+			{
+				for (uint32 x = 0; x < width; ++x)
+				{
+					(*pDst++) = generator();
+				}
+			}
+
+			return new_image;
+		}
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Color, Fty, Point>>* = nullptr>
+		static Image Generate(const Size& size, Fty generator)
+		{
+			return Generate(size.x, size.y, generator);
+		}
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Color, Fty, Point>>* = nullptr>
+		static Image Generate(const size_t width, const size_t height, Fty generator)
+		{
+			Image new_image(width, height);
+
+			if (new_image.isEmpty())
+			{
+				return new_image;
+			}
+
+			Color* pDst = new_image[0];
+
+			for (uint32 y = 0; y < height; ++y)
+			{
+				for (uint32 x = 0; x < width; ++x)
+				{
+					(*pDst++) = generator({ x, y });
+				}
+			}
+
+			return new_image;
+		}
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Color, Fty, Vec2>>* = nullptr>
+		static Image Generate0_1(const Size& size, Fty generator)
+		{
+			return Generate0_1(size.x, size.y, generator);
+		}
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Color, Fty, Vec2>>* = nullptr>
+		static Image Generate0_1(const size_t width, const size_t height, Fty generator)
+		{
+			Image new_image(width, height);
+
+			if (new_image.isEmpty())
+			{
+				return new_image;
+			}
+
+			const double sx = 1.0 / (width - 1);
+			const double sy = 1.0 / (height - 1);
+			Color* pDst = new_image[0];
+
+			for (uint32 y = 0; y < height; ++y)
+			{
+				for (uint32 x = 0; x < width; ++x)
+				{
+					(*pDst++) = generator({ sx * x, sy * y });
+				}
+			}
+
+			return new_image;
+		}
+
 		/// <summary>
 		/// デフォルトコンストラクタ
 		/// </summary>
@@ -213,8 +275,7 @@ namespace s3d
 		/// <param name="size">
 		/// 画像のサイズ（ピクセル）
 		/// </param>
-		explicit Image(size_t size)
-			: Image(size, size) {}
+		explicit Image(size_t size);
 
 		/// <summary>
 		/// 指定した色、サイズで塗りつぶされた画像を作成します。
@@ -225,8 +286,7 @@ namespace s3d
 		/// <param name="color">
 		/// 塗りつぶしの色
 		/// </param>
-		explicit Image(size_t size, const Color& color)
-			: Image(size, size, color) {}
+		explicit Image(size_t size, const Color& color);
 
 		/// <summary>
 		/// 指定したサイズの画像を作成します。
@@ -234,8 +294,7 @@ namespace s3d
 		/// <param name="size">
 		/// 画像のサイズ（ピクセル）
 		/// </param>
-		explicit Image(const Size& size)
-			: Image(size.x, size.y) {}
+		explicit Image(const Size& size);
 
 		/// <summary>
 		/// 指定した色、サイズで塗りつぶされた画像を作成します。
@@ -246,20 +305,15 @@ namespace s3d
 		/// <param name="color">
 		/// 塗りつぶしの色
 		/// </param>
-		Image(const Size& size, const Color& color)
-			: Image(size.x, size.y, color) {}
+		Image(const Size& size, const Color& color);
 
-		Image(const Size& size, Arg::generator_<std::function<Color(void)>> generator)
-			: Image(size.x, size.y, generator) {}
+		Image(const Size& size, Arg::generator_<std::function<Color(void)>> generator);
 
-		Image(const Size& size, Arg::generator_<std::function<Color(Point)>> generator)
-			: Image(size.x, size.y, generator) {}
+		Image(const Size& size, Arg::generator_<std::function<Color(Point)>> generator);
 
-		Image(const Size& size, Arg::generator_<std::function<Color(Vec2)>> generator)
-			: Image(size.x, size.y, generator) {}
+		Image(const Size& size, Arg::generator_<std::function<Color(Vec2)>> generator);
 
-		Image(const Size& size, Arg::generator0_1_<std::function<Color(Vec2)>> generator)
-			: Image(size.x, size.y, generator) {}
+		Image(const Size& size, Arg::generator0_1_<std::function<Color(Vec2)>> generator);
 
 		/// <summary>
 		/// 指定したサイズの画像を作成します。
@@ -272,17 +326,13 @@ namespace s3d
 		/// </param>
 		Image(size_t width, size_t height);
 
-		Image(size_t width, size_t height, Arg::generator_<std::function<Color(void)>> generator)
-			: Image(Generate(width, height, *generator)) {}
+		Image(size_t width, size_t height, Arg::generator_<std::function<Color(void)>> generator);
 
-		Image(size_t width, size_t height, Arg::generator_<std::function<Color(Point)>> generator)
-			: Image(Generate(width, height, *generator)) {}
+		Image(size_t width, size_t height, Arg::generator_<std::function<Color(Point)>> generator);
 
-		Image(size_t width, size_t height, Arg::generator_<std::function<Color(Vec2)>> generator)
-			: Image(Generate(width, height, *generator)) {}
+		Image(size_t width, size_t height, Arg::generator_<std::function<Color(Vec2)>> generator);
 
-		Image(size_t width, size_t height, Arg::generator0_1_<std::function<Color(Vec2)>> generator)
-			: Image(Generate0_1(width, height, *generator)) {}
+		Image(size_t width, size_t height, Arg::generator0_1_<std::function<Color(Vec2)>> generator);
 
 		/// <summary>
 		/// 指定した色、サイズで塗りつぶされた画像を作成します。
@@ -351,7 +401,7 @@ namespace s3d
 
 		explicit Image(const Grid<ColorF>& grid);
 
-		template <class Type, class Fty>
+		template <class Type, class Fty, std::enable_if_t<std::is_invocable_r_v<Color, Fty, Type>>* = nullptr>
 		explicit Image(const Grid<Type>& grid, Fty converter)
 			: Image(grid.width(), grid.height())
 		{
@@ -392,15 +442,9 @@ namespace s3d
 		/// </returns>
 		Image& operator =(Image&& image);
 
-		Image& assign(const Image& image)
-		{
-			return operator =(image);
-		}
+		Image& assign(const Image& image);
 
-		Image& assign(Image&& image)
-		{
-			return operator =(std::move(image));
-		}
+		Image& assign(Image&& image);
 
 		/// <summary>
 		/// 画像の幅（ピクセル）
@@ -496,12 +540,7 @@ namespace s3d
 			m_width = m_height = 0;
 		}
 
-		void release()
-		{
-			clear();
-
-			shrink_to_fit();
-		}
+		void release();
 
 		/// <summary>
 		/// 画像を別の画像と交換します。
@@ -512,14 +551,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void swap(Image& image) noexcept
-		{
-			m_data.swap(image.m_data);
-
-			std::swap(m_width, image.m_width);
-
-			std::swap(m_height, image.m_height);
-		}
+		void swap(Image& image) noexcept;
 
 		/// <summary>
 		/// 画像をコピーした新しい画像を返します。
@@ -527,10 +559,7 @@ namespace s3d
 		/// <returns>
 		/// コピーした新しい画像
 		/// </returns>
-		[[nodiscard]] Image cloned() const
-		{
-			return *this;
-		}
+		[[nodiscard]] Image cloned() const;
 
 		/// <summary>
 		/// 指定した行の先頭ポインタを返します。
@@ -546,12 +575,12 @@ namespace s3d
 		/// </returns>
 		[[nodiscard]] Color* operator[](size_t y)
 		{
-			return &m_data[m_width * y];
+			return m_data.data() + (m_width * y);
 		}
 
 		[[nodiscard]] Color& operator[](const Point& pos)
 		{
-			return m_data[m_width * pos.y + pos.x];
+			return *(m_data.data() + (static_cast<size_t>(m_width) * pos.y + pos.x));
 		}
 
 		/// <summary>
@@ -568,12 +597,12 @@ namespace s3d
 		/// </returns>
 		[[nodiscard]] const Color* operator[](size_t y) const
 		{
-			return &m_data[m_width * y];
+			return m_data.data() + (m_width * y);
 		}
 
 		[[nodiscard]] const Color& operator[](const Point& pos) const
 		{
-			return m_data[m_width * pos.y + pos.x];
+			return *(m_data.data() + (static_cast<size_t>(m_width) * pos.y + pos.x));
 		}
 
 		/// <summary>
@@ -584,7 +613,7 @@ namespace s3d
 		/// </returns>
 		[[nodiscard]] Color* data()
 		{
-			return &m_data[0];
+			return m_data.data();
 		}
 
 		/// <summary>
@@ -595,7 +624,7 @@ namespace s3d
 		/// </returns>
 		[[nodiscard]] const Color* data() const
 		{
-			return &m_data[0];
+			return m_data.data();
 		}
 
 		/// <summary>
@@ -606,7 +635,7 @@ namespace s3d
 		/// </returns>
 		[[nodiscard]] uint8* dataAsUint8()
 		{
-			return static_cast<uint8*>(static_cast<void*>(&m_data[0]));
+			return static_cast<uint8*>(static_cast<void*>(m_data.data()));
 		}
 
 		/// <summary>
@@ -726,13 +755,7 @@ namespace s3d
 		/// <returns>
 		/// なし
 		/// </returns>
-		void fill(const Color& color)
-		{
-			for (auto& pixel : m_data)
-			{
-				pixel = color;
-			}
-		}
+		void fill(const Color& color);
 
 		/// <summary>
 		/// 画像のサイズを変更します。
@@ -821,7 +844,7 @@ namespace s3d
 
 		[[nodiscard]] const Color& getPixel_Repeat(int32 x, int32 y) const
 		{
-			return m_data[m_width * Mod(y, m_height) + Mod(x, m_width)];
+			return m_data[static_cast<size_t>(m_width) * Mod(y, m_height) + Mod(x, m_width)];
 		}
 
 		[[nodiscard]] const Color& getPixel_Repeat(const Point& pos) const
@@ -835,7 +858,7 @@ namespace s3d
 
 			y = Clamp(y, 0, static_cast<int32>(m_height) - 1);
 
-			return m_data[m_width * y + x];
+			return m_data[static_cast<size_t>(m_width) * y + x];
 		}
 
 		[[nodiscard]] const Color& getPixel_Clamp(const Point& pos) const
@@ -849,7 +872,7 @@ namespace s3d
 
 			y = Mir(y, m_height);
 
-			return m_data[m_width * y + x];
+			return m_data[static_cast<size_t>(m_width) * y + x];
 		}
 
 		[[nodiscard]] const Color& getPixel_Mirror(const Point& pos) const
@@ -907,32 +930,15 @@ namespace s3d
 		/// <returns>
 		/// 一部分をコピーした新しい画像
 		/// </returns>
-		[[nodiscard]] Image clipped(int32 x, int32 y, int32 w, int32 h) const
-		{
-			return clipped(Rect(x, y, w, h));
-		}
+		[[nodiscard]] Image clipped(int32 x, int32 y, int32 w, int32 h) const;
 
-		[[nodiscard]] Image clipped(const Point& pos, int32 w, int32 h) const
-		{
-			return clipped(Rect(pos, w, h));
-		}
+		[[nodiscard]] Image clipped(const Point& pos, int32 w, int32 h) const;
 
-		[[nodiscard]] Image clipped(int32 x, int32 y, const Size& size) const
-		{
-			return clipped(Rect(x, y, size));
-		}
+		[[nodiscard]] Image clipped(int32 x, int32 y, const Size& size) const;
 
-		[[nodiscard]] Image clipped(const Point& pos, const Size& size) const
-		{
-			return clipped(Rect(pos, size));
-		}
+		[[nodiscard]] Image clipped(const Point& pos, const Size& size) const;
 
-		[[nodiscard]] Image squareClipped() const
-		{
-			const int32 size = std::min(m_width, m_height);
-
-			return clipped((m_width - size) / 2, (m_height - size) / 2, size, size);
-		}
+		[[nodiscard]] Image squareClipped() const;
 
 		/// <summary>
 		/// すべてのピクセルに変換関数を適用します。
@@ -943,31 +949,12 @@ namespace s3d
 		/// <returns>
 		/// *this
 		/// </returns>
-		Image& forEach(std::function<void(Color&)> function)
-		{
-			for (auto& pixel : m_data)
-			{
-				function(pixel);
-			}
+		Image& forEach(std::function<void(Color&)> function);
 
-			return *this;
-		}
-
-		Image& swapRB()
-		{
-			for (auto& pixel : m_data)
-			{
-				const uint32 t = pixel.r;
-				pixel.r = pixel.b;
-				pixel.b = t;
-			}
-
-			return *this;
-		}
+		Image& swapRB();
 
 		bool applyAlphaFromRChannel(const FilePath& alpha);
 
-				
 		bool save(const FilePath& path, ImageFormat format = ImageFormat::Unspecified) const;
 
 		bool saveWithDialog() const;
@@ -978,7 +965,17 @@ namespace s3d
 
 		bool savePPM(const FilePath& path, PPMType format = PPMType::AsciiRGB) const;
 
-		[[nodiscard]] MemoryWriter encode(ImageFormat format = ImageFormat::PNG) const;
+		bool saveWebP(const FilePath& path, bool lossless = false, double quality = 90.0, WebPMethod method = WebPMethod::Default) const;
+
+		[[nodiscard]] ByteArray encode(ImageFormat format = ImageFormat::PNG) const;
+
+		[[nodiscard]] ByteArray encodePNG(PNGFilter::Flag filterFlag = PNGFilter::Default) const;
+
+		[[nodiscard]] ByteArray encodeJPEG(int32 quality = 90) const;
+
+		[[nodiscard]] ByteArray encodePPM(PPMType format = PPMType::AsciiRGB) const;
+
+		[[nodiscard]] ByteArray encodeWebP(bool lossless = false, double quality = 90.0, WebPMethod method = WebPMethod::Default) const;
 
 		/// <summary>
 		/// ネガポジ反転処理を行います。
@@ -1248,28 +1245,22 @@ namespace s3d
 
 		[[nodiscard]] Polygon alphaToPolygon(uint32 threshold = 160, bool allowHoles = true) const;
 
+		[[nodiscard]] Polygon alphaToPolygonCentered(uint32 threshold = 160, bool allowHoles = true) const;
+
 		[[nodiscard]] MultiPolygon alphaToPolygons(uint32 threshold = 160, bool allowHoles = true) const;
+
+		[[nodiscard]] MultiPolygon alphaToPolygonsCentered(uint32 threshold = 160, bool allowHoles = true) const;
 
 		[[nodiscard]] Polygon grayscaleToPolygon(uint32 threshold = 160, bool allowHoles = true) const;
 
+		[[nodiscard]] Polygon grayscaleToPolygonCentered(uint32 threshold = 160, bool allowHoles = true) const;
+
 		[[nodiscard]] MultiPolygon grayscaleToPolygons(uint32 threshold = 160, bool allowHoles = true) const;
+
+		[[nodiscard]] MultiPolygon grayscaleToPolygonsCentered(uint32 threshold = 160, bool allowHoles = true) const;
 
 		[[nodiscard]] Array<Rect> detectObjects(HaarCascade cascade, int32 minNeighbors = 3, const Size& minSize = Size(30, 30), const Optional<Size>& maxSize = unspecified) const;
 
 		[[nodiscard]] Array<Rect> detectObjects(HaarCascade cascade, const Array<Rect>& regions, int32 minNeighbors = 3, const Size& minSize = Size(30, 30), const Optional<Size>& maxSize = unspecified) const;
 	};
-}
-
-//////////////////////////////////////////////////
-//
-//	Swap
-//
-//////////////////////////////////////////////////
-
-namespace std
-{
-	inline void swap(s3d::Image& a, s3d::Image& b) noexcept
-	{
-		a.swap(b);
-	}
 }

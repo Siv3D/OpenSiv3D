@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,6 +13,7 @@
 # include "Fwd.hpp"
 # include "PointVector.hpp"
 # include "Geometry2D.hpp"
+# include "ByteArrayViewAdapter.hpp"
 
 namespace s3d
 {
@@ -140,7 +141,8 @@ namespace s3d
 		
 		[[nodiscard]] constexpr bool operator !=(const Line& line) const noexcept
 		{
-			return !(*this == line);
+			return begin != line.begin
+				|| end != line.end;
 		}
 		
 		constexpr Line& set(value_type x0, value_type y0, value_type x1, value_type y1) noexcept
@@ -192,19 +194,9 @@ namespace s3d
 			return moveBy(v.x, v.y);
 		}
 
-		[[nodiscard]] Line stretched(const value_type length) const noexcept
-		{
-			const position_type v = vector().setLength(length);
+		[[nodiscard]] Line stretched(value_type length) const noexcept;
 
-			return Line(begin - v, end + v);
-		}
-
-		[[nodiscard]] Line stretched(const value_type lengthBegin, const value_type lengthEnd) const noexcept
-		{
-			const position_type v = vector().normalized();
-
-			return Line(begin - v * lengthBegin, end + v * lengthEnd);
-		}
+		[[nodiscard]] Line stretched(value_type lengthBegin, value_type lengthEnd) const noexcept;
 		
 		[[nodiscard]] constexpr position_type vector() const noexcept
 		{
@@ -224,10 +216,7 @@ namespace s3d
 			return *this;
 		}
 		
-		[[nodiscard]] value_type length() const noexcept
-		{
-			return begin.distanceFrom(end);
-		}
+		[[nodiscard]] value_type length() const noexcept;
 		
 		[[nodiscard]] constexpr value_type lengthSq() const noexcept
 		{
@@ -236,7 +225,7 @@ namespace s3d
 		
 		[[nodiscard]] constexpr position_type center() const noexcept
 		{
-			return (begin + end) * 0.5;
+			return position_type((begin.x + end.x) * 0.5, (begin.y + end.y) * 0.5);
 		}
 		
 		[[nodiscard]] position_type closest(const position_type& pos) const noexcept;
@@ -275,25 +264,13 @@ namespace s3d
 		
 		const Line& overwriteArrow(Image& dst, double width, const Vec2& headSize, const Color& color) const;
 		
-		const Line& draw(const ColorF& color = Palette::White) const
-		{
-			return draw(LineStyle::Default, 1.0, color);
-		}
+		const Line& draw(const ColorF& color = Palette::White) const;
 
-		const Line& draw(const ColorF& colorBegin, const ColorF& colorEnd) const
-		{
-			return draw(LineStyle::Default, 1.0, colorBegin, colorEnd);
-		}
+		const Line& draw(const ColorF& colorBegin, const ColorF& colorEnd) const;
 
-		const Line& draw(double thickness, const ColorF& color = Palette::White) const
-		{
-			return draw(LineStyle::Default, thickness, color);
-		}
+		const Line& draw(double thickness, const ColorF& color = Palette::White) const;
 
-		const Line& draw(double thickness, const ColorF& colorBegin, const ColorF& colorEnd) const
-		{
-			return draw(LineStyle::Default, thickness, colorBegin, colorEnd);
-		}
+		const Line& draw(double thickness, const ColorF& colorBegin, const ColorF& colorEnd) const;
 
 		const Line& draw(const LineStyle& style, double thickness, const ColorF& color = Palette::White) const;
 
@@ -357,7 +334,7 @@ namespace std
 //
 //////////////////////////////////////////////////
 
-namespace fmt
+namespace fmt_s3d
 {
 	template <>
 	struct formatter<s3d::Line, s3d::char32>

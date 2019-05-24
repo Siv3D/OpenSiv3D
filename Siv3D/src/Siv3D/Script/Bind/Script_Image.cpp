@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -287,8 +287,16 @@ namespace s3d
 
 
 		r = engine->RegisterObjectMethod(TypeName, "Polygon alphaToPolygon(uint32 threshold = 160, bool allowHoles = true) const", asMETHOD(BindType, alphaToPolygon), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Polygon alphaToPolygonCentered(uint32 threshold = 160, bool allowHoles = true) const", asMETHOD(BindType, alphaToPolygonCentered), asCALL_THISCALL); assert(r >= 0);
 
-
+		//MultiPolygon alphaToPolygons(uint32 threshold = 160, bool allowHoles = true) const;
+		//MultiPolygon alphaToPolygonsCentered(uint32 threshold = 160, bool allowHoles = true) const;
+		r = engine->RegisterObjectMethod(TypeName, "Polygon grayscaleToPolygon(uint32 threshold = 160, bool allowHoles = true) const", asMETHOD(BindType, grayscaleToPolygon), asCALL_THISCALL); assert(r >= 0);
+		r = engine->RegisterObjectMethod(TypeName, "Polygon grayscaleToPolygonCentered(uint32 threshold = 160, bool allowHoles = true) const", asMETHOD(BindType, grayscaleToPolygonCentered), asCALL_THISCALL); assert(r >= 0);
+		//MultiPolygon grayscaleToPolygons(uint32 threshold = 160, bool allowHoles = true) const;
+		//MultiPolygon grayscaleToPolygonsCentered(uint32 threshold = 160, bool allowHoles = true) const;
+		//Array<Rect> detectObjects(HaarCascade cascade, int32 minNeighbors = 3, const Size& minSize = Size(30, 30), const Optional<Size>& maxSize = unspecified) const;
+		//Array<Rect> detectObjects(HaarCascade cascade, const Array<Rect>& regions, int32 minNeighbors = 3, const Size& minSize = Size(30, 30), const Optional<Size>& maxSize = unspecified) const;
 
 		r = engine->RegisterObjectMethod(TypeName, "const Point& paint(Image& inout, int, const Color& in) const", asMETHOD(Point, paint), asCALL_THISCALL); assert(r >= 0);
 		r = engine->RegisterObjectMethod(TypeName, "const Point& overwrite(Image& inout, int, const Color& in) const", asMETHOD(Point, overwrite), asCALL_THISCALL); assert(r >= 0);

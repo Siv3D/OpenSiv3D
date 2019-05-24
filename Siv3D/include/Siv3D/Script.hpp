@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -17,9 +17,9 @@
 # include "MessageBox.hpp"
 # include "AssetHandle.hpp"
 # include "NamedParameter.hpp"
-# include "Logger.hpp"
+# include "EngineLog.hpp"
 # define AS_USE_NAMESPACE
-# include "../../include/ThirdParty/angelscript/angelscript.h"
+# include <ThirdParty/angelscript/angelscript.h>
 
 namespace s3d
 {
@@ -47,17 +47,7 @@ namespace s3d
 			StepCounter = 3001,
 		};
 
-		inline void LineCallback(AngelScript::asIScriptContext* ctx, unsigned long*)
-		{
-			uint64* stepCounter = static_cast<uint64*>(ctx->GetUserData(AngelScript::asPWORD(static_cast<uint32>(ScriptUserDataIndex::StepCounter))));
-
-			++(*stepCounter);
-
-			if ((*stepCounter) > 1'000'000)
-			{
-				ctx->Suspend();
-			}
-		}
+		void LineCallback(AngelScript::asIScriptContext* ctx, unsigned long*);
 
 		template <class Type>
 		inline void SetArg_(const std::shared_ptr<ScriptModuleData>& moduleData, uint32 argIndex, const Type& value)
@@ -461,9 +451,13 @@ namespace s3d
 	{
 	protected:
 
-		class Handle {};
+		class Tag {};
 
-		using ScriptHandle = AssetHandle<Handle>;
+		using ScriptHandle = AssetHandle<Tag>;
+		
+		friend ScriptHandle::AssetHandle();
+		
+		friend ScriptHandle::AssetHandle(const IDWrapperType id) noexcept;
 
 		friend ScriptHandle::~AssetHandle();
 

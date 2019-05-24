@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -13,8 +13,8 @@
 # include <Siv3D/Mouse.hpp>
 # include <Siv3D/Cursor.hpp>
 # include <Siv3D/Polygon.hpp>
-# include "../Siv3DEngine.hpp"
-# include "../Renderer2D/IRenderer2D.hpp"
+# include <Siv3DEngine.hpp>
+# include <Renderer2D/IRenderer2D.hpp>
 
 namespace s3d
 {
@@ -55,7 +55,7 @@ namespace s3d
 
 	const Ellipse& Ellipse::draw(const ColorF& color) const
 	{
-		Siv3DEngine::GetRenderer2D()->addEllipse(
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addEllipse(
 			center,
 			static_cast<float>(a),
 			static_cast<float>(b),
@@ -72,12 +72,15 @@ namespace s3d
 
 	const Ellipse& Ellipse::drawFrame(double innerThickness, double outerThickness, const ColorF& color) const
 	{
-		Siv3DEngine::GetRenderer2D()->addEllipseFrame(
+		const Float4 colorF = color.toFloat4();
+
+		Siv3DEngine::Get<ISiv3DRenderer2D>()->addEllipseFrame(
 			center,
 			static_cast<float>(a - innerThickness),
 			static_cast<float>(b - innerThickness),
 			static_cast<float>(innerThickness + outerThickness),
-			color.toFloat4()
+			colorF,
+			colorF
 		);
 
 		return *this;
@@ -117,10 +120,10 @@ namespace s3d
 			++pPos;
 		}
 		
-		Array<uint32> indices(3 * (n - 2));
-		uint32* pIndex = indices.data();
+		Array<uint16> indices(3 * (n - 2));
+		uint16* pIndex = indices.data();
 
-		for (uint32 i = 0; i < n - 2; ++i)
+		for (uint16 i = 0; i < n - 2; ++i)
 		{
 			++pIndex;
 			(*pIndex++) = i + 1;
@@ -128,5 +131,10 @@ namespace s3d
 		}
 
 		return Polygon(vertices, indices, RectF(xMin, yMin, xMax - xMin, yMax - yMin));
+	}
+
+	void Formatter(FormatData& formatData, const Ellipse& value)
+	{
+		Formatter(formatData, Vec4(value.x, value.y, value.a, value.b));
 	}
 }

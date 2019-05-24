@@ -155,7 +155,7 @@
 #  define FMT_INLINE_NAMESPACE namespace
 #  define FMT_END_NAMESPACE } using namespace v5; }
 # endif
-# define FMT_BEGIN_NAMESPACE namespace fmt { FMT_INLINE_NAMESPACE v5 {
+# define FMT_BEGIN_NAMESPACE namespace fmt_s3d { FMT_INLINE_NAMESPACE v5 {
 #endif
 
 #if !defined(FMT_HEADER_ONLY) && defined(_WIN32)
@@ -216,7 +216,7 @@ FMT_CONSTEXPR typename std::make_unsigned<Int>::type to_unsigned(Int value) {
 
 /**
   An implementation of ``std::basic_string_view`` for pre-C++17. It provides a
-  subset of the API. ``fmt::basic_string_view`` is used for format strings even
+  subset of the API. ``fmt_s3d::basic_string_view`` is used for format strings even
   if ``std::string_view`` is available to prevent issues when a library is
   compiled with a different ``-std`` option than the client code (which is not
   recommended).
@@ -426,9 +426,9 @@ struct error_handler {
 };
 
 // Formatting of wide characters and strings into a narrow output is disallowed:
-//   fmt::format("{}", L"test"); // error
+//   fmt_s3d::format("{}", L"test"); // error
 // To fix this, use a wide format string:
-//   fmt::format(L"{}", L"test");
+//   fmt_s3d::format(L"{}", L"test");
 template <typename Char>
 inline void require_wchar() {
   static_assert(
@@ -979,8 +979,8 @@ inline typename std::enable_if<!IS_PACKED, basic_format_arg<Context>>::type
 /**
   \rst
   An array of references to arguments. It can be implicitly converted into
-  `~fmt::basic_format_args` for passing into type-erased formatting functions
-  such as `~fmt::vformat`.
+  `~fmt_s3d::basic_format_args` for passing into type-erased formatting functions
+  such as `~fmt_s3d::vformat`.
   \endrst
  */
 template <typename Context, typename ...Args>
@@ -1035,9 +1035,9 @@ const long long format_arg_store<Context, Args...>::TYPES = get_types();
 
 /**
   \rst
-  Constructs an `~fmt::format_arg_store` object that contains references to
-  arguments and can be implicitly converted to `~fmt::format_args`. `Context` can
-  be omitted in which case it defaults to `~fmt::context`.
+  Constructs an `~fmt_s3d::format_arg_store` object that contains references to
+  arguments and can be implicitly converted to `~fmt_s3d::format_args`. `Context` can
+  be omitted in which case it defaults to `~fmt_s3d::context`.
   \endrst
  */
 template <typename Context, typename ...Args>
@@ -1107,7 +1107,7 @@ class basic_format_args {
 
   /**
    \rst
-   Constructs a `basic_format_args` object from `~fmt::format_arg_store`.
+   Constructs a `basic_format_args` object from `~fmt_s3d::format_arg_store`.
    \endrst
    */
   template <typename... Args>
@@ -1177,7 +1177,7 @@ struct named_arg : named_arg_base<Char> {
 
   **Example**::
 
-    fmt::print("Elapsed time: {s:.2f} seconds", fmt::arg("s", 1.23));
+    fmt_s3d::print("Elapsed time: {s:.2f} seconds", fmt_s3d::arg("s", 1.23));
   \endrst
  */
 template <typename T>
@@ -1259,7 +1259,7 @@ std::u32string vformat(wstring_view format_str, wformat_args args);
   **Example**::
 
     #include <fmt/core.h>
-    std::string message = fmt::format("The answer is {}", 42);
+    std::string message = fmt_s3d::format("The answer is {}", 42);
   \endrst
 */
 template <typename... Args>
@@ -1285,7 +1285,7 @@ FMT_API void vprint(std::FILE *f, wstring_view format_str, wformat_args args);
 
   **Example**::
 
-    fmt::print(stderr, "Don't {}!", "panic");
+    fmt_s3d::print(stderr, "Don't {}!", "panic");
   \endrst
  */
 template <typename... Args>
@@ -1312,7 +1312,7 @@ FMT_API void vprint(wstring_view format_str, wformat_args args);
 
   **Example**::
 
-    fmt::print("Elapsed time: {0:.2f} seconds", 1.23);
+    fmt_s3d::print("Elapsed time: {0:.2f} seconds", 1.23);
   \endrst
  */
 template <typename... Args>

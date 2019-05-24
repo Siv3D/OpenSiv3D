@@ -2,13 +2,14 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
 //-----------------------------------------------
 
+# include <Siv3D/EngineLog.hpp>
 # include "CAudio_Null.hpp"
 
 namespace s3d
@@ -20,7 +21,7 @@ namespace s3d
 
 	CAudio_Null::~CAudio_Null()
 	{
-
+		//LOG_TRACE(U"CAudio_Null::~CAudio_Null()");
 	}
 
 	bool CAudio_Null::hasAudioDevice() const
@@ -30,6 +31,7 @@ namespace s3d
 
 	bool CAudio_Null::init()
 	{
+		LOG_TRACE(U"CAudio_Null::init()");
 
 		return true;
 	}
@@ -59,6 +61,12 @@ namespace s3d
 	void CAudio_Null::setLoop(const AudioID, const bool, const int64, const int64)
 	{
 		// [Siv3D ToDo]
+	}
+
+	Optional<AudioLoopTiming> CAudio_Null::getLoop(AudioID)
+	{
+		// [Siv3D ToDo]
+		return none;
 	}
 
 	bool CAudio_Null::play(const AudioID, const SecondsF&)

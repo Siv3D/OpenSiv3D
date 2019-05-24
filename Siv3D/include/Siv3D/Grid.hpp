@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -19,7 +19,7 @@ namespace s3d
 	/// <summary>
 	/// 可変長二次元配列
 	/// </summary>
-	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
+	template <class Type, class Allocator = std::allocator<Type>>
 	class Grid
 	{
 	public:
@@ -47,6 +47,25 @@ namespace s3d
 		size_type m_height = 0;
 
 	public:
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>* = nullptr>
+		static Grid Generate(const Size& size, Fty generator)
+		{
+			return Generate(size.x, size.y, generator);
+		}
+
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>* = nullptr>
+		static Grid Generate(size_type w, size_type h, Fty generator)
+		{
+			Grid new_grid(w, h);
+
+			for (auto& value : new_grid)
+			{
+				value = generator();
+			}
+
+			return new_grid;
+		}
 
 		/// <summary>
 		/// デフォルトコンストラクタ
@@ -174,32 +193,13 @@ namespace s3d
 			}
 		}
 
-		template <class Fty, class R = Type, std::enable_if_t<std::is_convertible_v<std::result_of_t<Fty()>, R>>* = nullptr>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>* = nullptr>
 		Grid(const size_type w, const size_type h, Arg::generator_<Fty> generator)
 			: Grid(Generate<Fty>(w, h, *generator)) {}
 
-		template <class Fty, class R = Type, std::enable_if_t<std::is_convertible_v<std::result_of_t<Fty()>, R>>* = nullptr>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<Type, Fty>>* = nullptr>
 		Grid(const Size& size, Arg::generator_<Fty> generator)
 			: Grid(Generate<Fty>(size, *generator)) {}
-
-		template <class Fty, class R = Type, std::enable_if_t<std::is_convertible_v<std::result_of_t<Fty()>, R>>* = nullptr>
-		static Grid Generate(const Size& size, Fty generator)
-		{
-			return Generate(size.x, size.y, generator);
-		}
-
-		template <class Fty, class R = Type, std::enable_if_t<std::is_convertible_v<std::result_of_t<Fty()>, R>>* = nullptr>
-		static Grid Generate(size_type w, size_type h, Fty generator)
-		{
-			Grid new_grid(w, h);
-
-			for (auto& value : new_grid)
-			{
-				value = generator();
-			}
-
-			return new_grid;
-		}
 
 		/// <summary>
 		/// コピー代入演算子
@@ -820,7 +820,7 @@ namespace s3d
 		/// </returns>
 		void remove_rows(const size_type pos, const size_type count)
 		{
-			if (m_height <= pos || m_height <= (pos + count))
+			if (m_height <= pos || m_height < (pos + count))
 			{
 				throw std::out_of_range("Grid::remove_rows() index out of range");
 			}
@@ -861,7 +861,7 @@ namespace s3d
 
 		void remove_columns(const size_type pos, const size_type count)
 		{
-			if (m_width <= pos || m_width <= (pos + count))
+			if (m_width <= pos || m_width < (pos + count))
 			{
 				throw std::out_of_range("Grid::remove_rows() index out of range");
 			}
@@ -955,13 +955,13 @@ namespace s3d
 			resize(size.x, size.y, val);
 		}
 
-		template <class Fty = decltype(Id)>
+		template <class Fty = decltype(Id), std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]] bool all(Fty f = Id) const
 		{
 			return m_data.all(f);
 		}
 
-		template <class Fty = decltype(Id)>
+		template <class Fty = decltype(Id), std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]] bool any(Fty f = Id) const
 		{
 			return m_data.any(f);
@@ -972,19 +972,19 @@ namespace s3d
 			return m_data.choice();
 		}
 
-		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG>>* = nullptr>
+		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>
 		[[nodiscard]] const value_type& choice(URBG&& rbg) const
 		{
 			return m_data.choice(std::forward<URBG>(rbg));
 		}
 
-		template <class Size_t, std::enable_if_t<std::is_scalar_v<Size_t>>* = nullptr>
+		template <class Size_t, std::enable_if_t<std::is_integral_v<Size_t>>* = nullptr>
 		[[nodiscard]] Array<value_type> choice(const Size_t n) const
 		{
 			return m_data.choice(n);
 		}
 
-		template <class URBG>
+		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>
 		[[nodiscard]] Array<value_type> choice(const size_t n, URBG&& rbg) const
 		{
 			return m_data.choice(n, std::forward<URBG>(rbg));
@@ -995,13 +995,13 @@ namespace s3d
 			return m_data.count(value);
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]] size_t count_if(Fty f) const
 		{
 			return m_data.count_if(f);
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type&>>* = nullptr>
 		Grid& each(Fty f)
 		{
 			m_data.each(f);
@@ -1009,7 +1009,7 @@ namespace s3d
 			return *this;
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>* = nullptr>
 		const Grid& each(Fty f) const
 		{
 			m_data.each(f);
@@ -1017,7 +1017,7 @@ namespace s3d
 			return *this;
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type&>>* = nullptr>
 		Grid& each_index(Fty f)
 		{
 			if (!m_data.empty())
@@ -1036,7 +1036,7 @@ namespace s3d
 			return *this;
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>* = nullptr>
 		const Grid& each_index(Fty f) const
 		{
 			if (!m_data.empty())
@@ -1088,34 +1088,34 @@ namespace s3d
 			return m_data.include_if(f);
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>* = nullptr>
 		auto map(Fty f) const
 		{
-			Array<std::result_of_t<Fty(value_type)>> data;
+			Array<std::decay_t<std::invoke_result_t<Fty, Type>>> new_grid;
 
-			data.reserve(m_width * m_height);
+			new_grid.reserve(m_width * m_height);
 
 			for (const auto& v : m_data)
 			{
-				data.push_back(f(v));
+				new_grid.push_back(f(v));
 			}
 
-			return Grid<std::result_of_t<Fty(value_type)>>(m_width, m_height, std::move(data));
+			return Grid<std::decay_t<std::invoke_result_t<Fty, Type>>>(m_width, m_height, std::move(new_grid));
 		}
 
-		template <class Fty = decltype(Id)>
+		template <class Fty = decltype(Id), std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]] bool none(Fty f = Id) const
 		{
 			return m_data.none(f);
 		}
 
-		template <class Fty>
-		auto reduce(Fty f, std::result_of_t<Fty(value_type, value_type)> init) const
+		template <class Fty, class R = std::decay_t<std::invoke_result_t<Fty, Type, Type>>>
+		auto reduce(Fty f, R init) const
 		{
 			return m_data.reduce(f, init);
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type, Type>>* = nullptr>
 		auto reduce1(Fty f) const
 		{
 			if (m_data.empty())
@@ -1161,7 +1161,7 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		Grid& replace_if(Fty f, const value_type& newValue)
 		{
 			m_data.replace_if(f, newValue);
@@ -1169,7 +1169,7 @@ namespace s3d
 			return *this;
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]] Grid replaced_if(Fty f, const value_type& newValue) const &
 		{
 			Grid new_grid;
@@ -1194,7 +1194,7 @@ namespace s3d
 			return new_grid;
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type>>* = nullptr>
 		[[nodiscard]] Grid replaced_if(Fty f, const value_type& newValue) &&
 		{
 			replace_if(f, newValue);
@@ -1229,7 +1229,7 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type&>>* = nullptr>
 		Grid& reverse_each(Fty f)
 		{
 			for (auto it = m_data.rbegin(); it != m_data.rend(); ++it)
@@ -1240,7 +1240,7 @@ namespace s3d
 			return *this;
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_v<Fty, Type>>* = nullptr>
 		const Grid& reverse_each(Fty f) const
 		{
 			for (auto it = m_data.rbegin(); it != m_data.rend(); ++it)
@@ -1313,7 +1313,7 @@ namespace s3d
 			return shuffle(GetDefaultRNG());
 		}
 
-		template <class URBG>
+		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>
 		Grid& shuffle(URBG&& rbg)
 		{
 			std::shuffle(begin(), end(), std::forward<URBG>(rbg));
@@ -1331,13 +1331,13 @@ namespace s3d
 			return shuffled(GetDefaultRNG());
 		}
 
-		template <class URBG>
+		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>
 		[[nodiscard]] Grid shuffled(URBG&& rbg) const &
 		{
 			return Grid(*this).shuffle(std::forward<URBG>(rbg));
 		}
 
-		template <class URBG>
+		template <class URBG, std::enable_if_t<!std::is_scalar_v<URBG> && std::is_invocable_r_v<size_t, URBG>>* = nullptr>
 		[[nodiscard]] Grid shuffled(URBG&& rbg) &&
 		{
 			shuffle(std::forward<URBG>(rbg));
@@ -1384,7 +1384,7 @@ namespace s3d
 			return *this;
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>* = nullptr>
 		Grid& sort_by(Fty f)
 		{
 			std::sort(m_data.begin(), m_data.end(), f);
@@ -1404,13 +1404,13 @@ namespace s3d
 			return std::move(*this);
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>* = nullptr>
 		[[nodiscard]] Grid sorted_by(Fty f) const &
 		{
 			return Grid(*this).sort_by(f);
 		}
 
-		template <class Fty>
+		template <class Fty, std::enable_if_t<std::is_invocable_r_v<bool, Fty, Type, Type>>* = nullptr>
 		[[nodiscard]] Grid sorted_by(Fty f) &&
 		{
 			sort_by(f);
@@ -1461,7 +1461,7 @@ namespace s3d
 
 namespace s3d
 {
-	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
+	template <class Type, class Allocator>
 	inline void Formatter(FormatData& formatData, const Grid<Type, Allocator>& value)
 	{
 		formatData.string.push_back(U'{');
@@ -1487,13 +1487,13 @@ namespace s3d
 		formatData.string.push_back(U'}');
 	}
 
-	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
+	template <class Type, class Allocator>
 	inline std::ostream & operator <<(std::ostream& output, const Grid<Type, Allocator>& value)
 	{
 		return output << Format(value).narrow();
 	}
 
-	template <class Type, class Allocator = typename DefaultAllocator<Type>::type>
+	template <class Type, class Allocator>
 	inline std::wostream & operator <<(std::wostream& output, const Grid<Type, Allocator>& value)
 	{
 		return output << Format(value).toWstr();

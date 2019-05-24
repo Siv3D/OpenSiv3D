@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -12,10 +12,8 @@
 # pragma once
 # include <Siv3D/Fwd.hpp>
 # include <Siv3D/Array.hpp>
-# include <Siv3D/Optional.hpp>
-# include <Siv3D/Texture.hpp>
-# include <Siv3D/PointVector.hpp>
-# include <Siv3D/SamplerState.hpp>
+# include <Siv3D/FloatRect.hpp>
+# include <Siv3D/ParticleSystem2D.hpp>
 
 namespace s3d
 {
@@ -27,7 +25,19 @@ namespace s3d
 
 		virtual ~ISiv3DRenderer2D() = default;
 
-		virtual void flush(bool clearGraphics) = 0;
+		virtual void flush() = 0;
+
+		virtual std::pair<float, FloatRect> getLetterboxingTransform() const = 0;
+
+		virtual void drawFullscreen(bool multisample) = 0;
+
+		virtual void setColorMul(const Float4& color) = 0;
+
+		virtual ColorF getColorMul() const = 0;
+
+		virtual void setColorAdd(const Float4& color) = 0;
+
+		virtual ColorF getColorAdd() const = 0;
 
 		virtual void setBlendState(const BlendState& state) = 0;
 
@@ -37,9 +47,19 @@ namespace s3d
 
 		virtual RasterizerState getRasterizerState() const = 0;
 
-		virtual void setSamplerState(ShaderStage stage, uint32 slot, const SamplerState& state) = 0;
+		virtual void setPSSamplerState(uint32 slot, const SamplerState& state) = 0;
 
-		virtual const std::array<SamplerState, SamplerState::MaxSamplerCount>& getSamplerStates(ShaderStage stage) const = 0;
+		virtual SamplerState getPSSamplerState(uint32 slot) const = 0;
+
+		virtual void setLocalTransform(const Mat3x2& matrix) = 0;
+
+		virtual const Mat3x2& getLocalTransform() const = 0;
+
+		virtual void setCameraTransform(const Mat3x2& matrix) = 0;
+
+		virtual const Mat3x2& getCameraTransform() const = 0;
+
+		virtual float getMaxScaling() const = 0;
 
 		virtual void setScissorRect(const Rect& rect) = 0;
 
@@ -49,19 +69,9 @@ namespace s3d
 
 		virtual Optional<Rect> getViewport() const = 0;
 
-		virtual void setTransformLocal(const Mat3x2& matrix) = 0;
+		virtual void setSDFParameters(const Float4& parameters) = 0;
 
-		virtual void setTransformCamera(const Mat3x2& matrix) = 0;
-
-		virtual void setTransformScreen(const Mat3x2& matrix) = 0;
-
-		virtual const Mat3x2& getTransformLocal() const = 0;
-
-		virtual const Mat3x2& getTransformCamera() const = 0;
-
-		virtual const Mat3x2& getTransformScreen() const = 0;
-
-		virtual float getMaxScaling() const = 0;
+		virtual Float4 getSDFParameters() const = 0;
 
 		virtual void addLine(const LineStyle& style, const Float2& begin, const Float2& end, float thickness, const Float4(&colors)[2]) = 0;
 
@@ -77,31 +87,33 @@ namespace s3d
 
 		virtual void addCircle(const Float2& center, float r, const Float4& color) = 0;
 
-		virtual void addCircleFrame(const Float2& center, float r, float thickness, const Float4& color) = 0;
-
-		virtual void addCircleFrame(const Float2& center, float r, float thickness, const Float4& innerColor, const Float4& outerColor) = 0;
+		virtual void addCircleFrame(const Float2& center, float rInner, float thickness, const Float4& innerColor, const Float4& outerColor) = 0;
 
 		virtual void addCirclePie(const Float2& center, float r, float startAngle, float angle, const Float4& color) = 0;
 
-		virtual void addCircleArc(const Float2& center, float r, float startAngle, float angle, float thickness, const Float4& color) = 0;
+		virtual void addCircleArc(const Float2& center, float rInner, float startAngle, float angle, float thickness, const Float4& color) = 0;
 
 		virtual void addEllipse(const Float2& center, float a, float b, const Float4& color) = 0;
 
-		virtual void addEllipseFrame(const Float2& center, float a, float b, float thickness, const Float4& color) = 0;
+		virtual void addEllipseFrame(const Float2& center, float aInner, float bInner, float thickness, const Float4& innerColor, const Float4& outerColor) = 0;
 
 		virtual void addQuad(const FloatQuad& quad, const Float4& color) = 0;
 
 		virtual void addQuad(const FloatQuad& quad, const Float4(&colors)[4]) = 0;
 
-		virtual void addLineString(LineStyle style, const Vec2* pts, uint32 size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, bool isClosed) = 0;
+		virtual void addRoundRect(const FloatRect& rect, float w, float h, float r, const Float4& color) = 0;
 
-		virtual void addShape2D(const Array<Float2>& vertices, const Array<uint32>& indices, const Optional<Float2>& offset, const Float4& color) = 0;
+		virtual void addLineString(const LineStyle& style, const Vec2* pts, uint16 size, const Optional<Float2>& offset, float thickness, bool inner, const Float4& color, bool isClosed) = 0;
 
-		virtual void addShape2DFrame(const Float2* pts, uint32 size, float thickness, const Float4& color) = 0;
+		virtual void addShape2D(const Array<Float2>& vertices, const Array<uint16>& indices, const Optional<Float2>& offset, const Float4& color) = 0;
 
-		virtual void addShape2DTransformed(const Array<Float2>& vertices, const Array<uint32>& indices, float s, float c, const Float2& offset, const Float4& color) = 0;
+		virtual void addShape2DTransformed(const Array<Float2>& vertices, const Array<uint16>& indices, float s, float c, const Float2& offset, const Float4& color) = 0;
 
+		virtual void addShape2DFrame(const Float2* pts, uint16 size, float thickness, const Float4& color) = 0;
 
+		virtual void addSprite(const Sprite& sprite, uint16 startIndex, uint16 indexCount) = 0;
+
+		virtual void addSprite(const Texture& texture, const Sprite& sprite, uint16 startIndex, uint16 indexCount) = 0;
 
 		virtual void addTextureRegion(const Texture& texture, const FloatRect& rect, const FloatRect& uv, const Float4& color) = 0;
 
@@ -111,8 +123,9 @@ namespace s3d
 
 		virtual void addTexturedQuad(const Texture& texture, const FloatQuad& quad, const FloatRect& uv, const Float4& color) = 0;
 
-		virtual void addSprite(const Optional<Texture>& texture, const Sprite& sprite, uint32 startIndex, uint32 indexCount) = 0;
-
+		virtual void addTexturedParticles(const Texture& texture, const Array<Particle2D>& particles,
+			ParticleSystem2DParameters::SizeOverLifeTimeFunc sizeOverLifeTimeFunc,
+			ParticleSystem2DParameters::ColorOverLifeTimeFunc colorOverLifeTimeFunc) = 0;
 
 		virtual const Texture& getBoxShadowTexture() const = 0;
 	};

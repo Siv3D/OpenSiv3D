@@ -2,8 +2,8 @@
 //
 //	This file is part of the Siv3D Engine.
 //
-//	Copyright (c) 2008-2018 Ryo Suzuki
-//	Copyright (c) 2016-2018 OpenSiv3D Project
+//	Copyright (c) 2008-2019 Ryo Suzuki
+//	Copyright (c) 2016-2019 OpenSiv3D Project
 //
 //	Licensed under the MIT License.
 //
@@ -22,11 +22,9 @@ namespace s3d
 		{
 			std::unique_ptr<FormatData> formatData;
 
-			PrintBuffer()
-				: formatData(std::make_unique<FormatData>()) {}
+			PrintBuffer();
 
-			PrintBuffer(PrintBuffer&& other)
-				: formatData(std::move(other.formatData)) {}
+			PrintBuffer(PrintBuffer&& other);
 
 			~PrintBuffer();
 
@@ -43,10 +41,7 @@ namespace s3d
 		{
 			void writeln(const String& text) const;
 
-			void operator()(const String& text) const
-			{
-				writeln(text);
-			}
+			void operator()(const String& text) const;
 
 			template <class... Args>
 			void operator()(const Args&... args) const
@@ -66,18 +61,7 @@ namespace s3d
 		};
 	}
 
-	constexpr auto Print = detail::Print_impl();
-
-	namespace detail
-	{
-		inline PrintBuffer::~PrintBuffer()
-		{
-			if (formatData)
-			{
-				Print.writeln(formatData->string);
-			}
-		}
-	}
+	inline constexpr auto Print = detail::Print_impl();
 
 	void ClearPrint();
 }
