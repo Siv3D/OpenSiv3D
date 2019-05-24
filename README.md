@@ -11,7 +11,7 @@
 
 | Platform        | Version        | Date       | Requirements                  |
 |:---------------:|:---------------:|:-------------:|:------------------------------|
-| Windows Desktop | [**0.4.0**](#)     | ?? ??? 2019 | Windows 7 SP1 / 8.1 / 10 (64-bit)<br>Microsoft Visual C++ 2019 16.1<br>Windows 10 SDK |
-| macOS           | [**0.4.0**](#)     | ?? ??? 2019 | macOS High Sierra v10.13 or newer<br>Xcode 10.2 or newer |
+| Windows Desktop | [**0.4.0b**](https://siv3d.jp/downloads/Siv3D/OpenSiv3D(0.4.0b)Installer.exe)     | 24 May 2019 | Windows 7 SP1 / 8.1 / 10 (64-bit)<br>Microsoft Visual C++ 2019 16.1<br>Windows 10 SDK |
+| macOS           | [**0.4.0b**](https://siv3d.jp/downloads/Siv3D/siv3d_v0.4.0b_macOS.zip)     | 24 May 2019 | macOS High Sierra v10.13 or newer<br>Xcode 10.2 or newer |
 | Linux           | **0.4.0α** (experimental)  | ?? ???? 2019 | |
 | iOS | TBA  |  |  |
