@@ -91,8 +91,7 @@ namespace s3d
 			throw EngineError(U"IDXGIFactory2::MakeWindowAssociation() failed");
 		}
 
-		std::tie(m_dpiScaling, m_currentDisplayRefreshRateHz) = checkCurrentDisplay();
-		LOG_INFO(U"Display refresh rate: {:.0f} Hz"_fmt(m_currentDisplayRefreshRateHz));
+		updateDisplayInfo();
 		m_previousWindowBounds = Window::GetState().bounds;
 	}
 
@@ -106,14 +105,7 @@ namespace s3d
 		if (const Rect windowBounds = Window::GetState().bounds;
 			windowBounds != m_previousWindowBounds)
 		{
-			double displayRefreshRateHz;
-			std::tie(m_dpiScaling, displayRefreshRateHz) = checkCurrentDisplay();
-
-			if (displayRefreshRateHz != m_currentDisplayRefreshRateHz)
-			{
-				m_currentDisplayRefreshRateHz = displayRefreshRateHz;
-				LOG_INFO(U"Display refresh rate: {:.0f} Hz"_fmt(m_currentDisplayRefreshRateHz));
-			}
+			updateDisplayInfo();
 
 			m_previousWindowBounds = windowBounds;
 		}
@@ -122,6 +114,18 @@ namespace s3d
 			|| ((30.0 <= m_targetFrameRateHz) && (Math::AbsDiff(m_targetFrameRateHz.value(), m_currentDisplayRefreshRateHz) <= 3.0));
 
 		return vSync ? presentVSync() : presentNonVSync();
+	}
+
+	void D3D11SwapChain::updateDisplayInfo()
+	{
+		double displayRefreshRateHz;
+		std::tie(m_dpiScaling, displayRefreshRateHz) = checkCurrentDisplay();
+
+		if (displayRefreshRateHz != m_currentDisplayRefreshRateHz)
+		{
+			m_currentDisplayRefreshRateHz = displayRefreshRateHz;
+			LOG_INFO(U"Display refresh rate: {:.0f} Hz"_fmt(m_currentDisplayRefreshRateHz));
+		}
 	}
 
 	double D3D11SwapChain::getDPIScaling() const noexcept

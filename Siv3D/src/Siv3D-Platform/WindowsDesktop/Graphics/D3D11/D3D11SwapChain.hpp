@@ -54,6 +54,8 @@ namespace s3d
 
 		bool present();
 
+		void updateDisplayInfo();
+
 		double getDPIScaling() const noexcept;
 
 		double getDisplayRefreshRateHz() const noexcept;

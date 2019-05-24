@@ -35,6 +35,8 @@ namespace s3d
 		ScaleMode m_scaleMode = Scene::DefaultScaleMode;
 		RECT m_storedWindowRect	= { 0, 0, 0, 0 }; // フルスクリーンからウィンドウモードに復帰するときのウィンドウサイズ
 
+		int32 m_displayInfoCheckCount = 0;
+
 		Optional<Size> m_backBufferResizingRequest;
 		bool m_toggleFullscreenRequest = false;
 

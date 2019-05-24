@@ -189,4 +189,9 @@ namespace s3d
 	{
 		return m_pScreenCapture->getImage();
 	}
+
+	void CGraphics_D3D11::updateDisplayInfo()
+	{
+		m_swapChain->updateDisplayInfo();
+	}
 }

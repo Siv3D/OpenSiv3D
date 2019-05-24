@@ -100,5 +100,7 @@ namespace s3d
 		D3D11RasterizerState* getRasterizerState() const { return m_pRasterizerState.get(); }
 
 		D3D11SamplerState* getSamplerState() const { return m_pSamplerState.get(); }
+
+		void updateDisplayInfo();
 	};
 }

@@ -16,6 +16,7 @@
 # include <Siv3DEngine.hpp>
 # include <Profiler/IProfiler.hpp>
 # include <Graphics/IGraphics.hpp>
+# include <Graphics/D3D11/CGraphics_D3D11.hpp>
 # include "CWindow.hpp"
 # include "HighDPI.hpp"
 
@@ -28,6 +29,19 @@ namespace s3d
 {
 	namespace detail
 	{
+		void SetDisplayInfoCheckCount(int32& displayInfoCheckCount)
+		{
+			displayInfoCheckCount = 3;
+		}
+
+		void UpdateDisplayInfo()
+		{
+			if (CGraphics_D3D11* pGraphics = dynamic_cast<CGraphics_D3D11*>(Siv3DEngine::Get<ISiv3DGraphics>()))
+			{
+				pGraphics->updateDisplayInfo();
+			}
+		}
+
 		void SetFullscreen(HWND hWnd, RECT& storedWindowRect, const uint32 baseWindowStyle)
 		{
 			::GetWindowRect(hWnd, &storedWindowRect);
@@ -159,6 +173,12 @@ namespace s3d
 	{
 		doResizeBackBuffer();
 		doToggleFullscreen();
+
+		if (m_displayInfoCheckCount > 0)
+		{
+			detail::UpdateDisplayInfo();
+			--m_displayInfoCheckCount;
+		}
 
 		if constexpr (Platform::DebugBuild)
 		{
@@ -367,6 +387,7 @@ namespace s3d
 			if (!fullscreenResolution) // サイズ指定なし
 			{
 				detail::SetFullscreen(m_hWnd, m_storedWindowRect, getBaseWindowStyle()); // フルスクリーンモードに
+				detail::SetDisplayInfoCheckCount(m_displayInfoCheckCount);
 				m_state.fullscreen = true;
 				return true;
 			}
@@ -390,6 +411,7 @@ namespace s3d
 
 			// 解像度変更に成功
 			detail::SetFullscreen(m_hWnd, m_storedWindowRect, getBaseWindowStyle()); // フルスクリーンモードに
+			detail::SetDisplayInfoCheckCount(m_displayInfoCheckCount);
 			m_state.fullscreen = true;
 			return true;
 		}
@@ -417,6 +439,7 @@ namespace s3d
 					m_displayChanged = false;
 				}
 
+				detail::SetDisplayInfoCheckCount(m_displayInfoCheckCount);
 				m_state.fullscreen = false;
 				return true;
 			}
@@ -441,6 +464,7 @@ namespace s3d
 				return false;
 			}
 
+			detail::SetDisplayInfoCheckCount(m_displayInfoCheckCount);
 			return true;
 		}
 	}
